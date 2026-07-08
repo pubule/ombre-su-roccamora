@@ -1,154 +1,106 @@
 # PROMPT MIDJOURNEY — Ombre su Corvasca
 
-Ogni prompt è **completo e pronto**: copia l'intero blocco e incollalo così com'è.
-Funzionano anche su DALL-E, Leonardo.ai e Stable Diffusion (rimuovi i parametri
-`--ar` / `--style` / `--sref` se il tool non li supporta).
+Obiettivo: carte, dorsi e tessere **interamente dipinti da Midjourney** (cornici,
+gemme, targhe comprese), al posto della grafica vettoriale. Unico vincolo tecnico:
+i generatori d'immagini non scrivono testo italiano corretto, quindi ogni prompt
+chiede la carta completa **con le aree di testo vuote** (targa del titolo e
+pannello del testo lasciati liberi). La tipografia si aggiunge dopo, in due modi:
 
-**Per la coerenza:** genera per prima l'immagine dell'Adepto, scegli la migliore,
-copia il suo URL e aggiungi ` --sref <url>` in coda a tutti i prompt successivi:
-avranno tutti la stessa "mano".
+- carichi le immagini in chat e il compositing nei PDF viene rifatto sopra di esse
+  (titoli, testi e statistiche in italiano ai posti giusti); oppure
+- le scritte le aggiungi tu in Canva/Photopea con i font del gioco
+  (Old Standard TT per il testo, IM Fell English SC per i titoli).
+
+I **dorsi** non hanno testo critico: quelli escono finiti direttamente.
+
+**Coerenza:** genera per prima la carta dell'Adepto, scegli la migliore, copia il
+suo URL e aggiungi ` --sref <url>` in coda a tutti i prompt successivi.
+
+Suffisso anti-scritte già incluso in ogni prompt: `--no text, letters, words, watermark`.
 
 ---
 
-## Nemici e minacce
+## Carte Minaccia complete (fronte, con aree di testo vuote)
 
 **Adepto Incappucciato**
 ```
-dark fantasy trading card illustration, hooded cultist in grey undertaker robes with smooth featureless wax mask, holding a foundry sickle, black candle wax dripping from sleeves, 1889 gaslamp gothic, canal city at night, oil painting, dramatic candlelight, muted teal and crimson palette with gold accents, heavy fog, ominous mood, highly detailed --ar 3:4 --style raw
+complete ornate dark fantasy playing card design, carved gold filigree frame with ruby gems on black, empty scroll banner at the top, central painting of a hooded cultist in grey undertaker robes with smooth featureless wax mask holding a foundry sickle, empty dark parchment text panel at the bottom, 1889 gaslamp gothic, oil painting, dramatic candlelight, muted teal and crimson palette with gold accents --ar 3:4 --style raw --no text, letters, words, watermark
 ```
 
 **Il Custode della Cera (boss)**
 ```
-dark fantasy trading card illustration, towering giant encased in layers of melted black and ivory wax, faceless smooth head with faint traces of another face beneath, glowing seams of candlelight in the cracks, standing before a stone altar ringed with black candles, 1889 gaslamp gothic, oil painting, dramatic candlelight, muted teal and crimson palette with gold accents, heavy fog, ominous mood, highly detailed --ar 3:4 --style raw
+complete ornate dark fantasy playing card design, carved gold filigree frame with ruby gems on black, empty scroll banner at the top, central painting of a towering giant encased in layers of melted black and ivory wax with a faceless smooth head, glowing seams of candlelight in the cracks, empty dark parchment text panel at the bottom, 1889 gaslamp gothic, oil painting, muted teal and crimson palette with gold accents --ar 3:4 --style raw --no text, letters, words, watermark
 ```
 
-**Il canto cresce (carta timer)**
+**Il canto cresce (timer)**
 ```
-dark fantasy trading card illustration, dozens of hooded figures singing in a drowned crypt, visible sound ripples spreading through dark water, black candles reflected on the surface, 1889 gaslamp gothic, oil painting, dramatic candlelight, muted teal and crimson palette with gold accents, ominous mood, highly detailed --ar 3:4 --style raw
+complete ornate dark fantasy playing card design, carved gold filigree frame with ruby gems on black, empty scroll banner at the top, central painting of dozens of hooded figures singing in a drowned crypt with visible sound ripples on dark water, empty dark parchment text panel at the bottom, 1889 gaslamp gothic, oil painting, muted teal and crimson palette with gold accents --ar 3:4 --style raw --no text, letters, words, watermark
 ```
 
 **Trappola di cera**
 ```
-dark fantasy trading card illustration, warehouse corridor flooded with steaming molten black wax, hundreds of burning black candles along wooden shelves, glistening floor, 1889 gaslamp gothic, oil painting, dramatic candlelight, muted teal and crimson palette with gold accents, ominous mood, highly detailed --ar 3:4 --style raw
+complete ornate dark fantasy playing card design, carved gold filigree frame with ruby gems on black, empty scroll banner at the top, central painting of a corridor flooded with steaming molten black wax and hundreds of burning black candles, empty dark parchment text panel at the bottom, 1889 gaslamp gothic, oil painting, muted teal and crimson palette with gold accents --ar 3:4 --style raw --no text, letters, words, watermark
 ```
 
 **Presagio / Sussurri**
 ```
-dark fantasy trading card illustration, a single wide-open human eye reflected in black canal water, ripples forming a wave sigil, extinguished candle in the foreground, 1889 gaslamp gothic, oil painting, muted teal and crimson palette with gold accents, heavy fog, ominous mood, highly detailed --ar 3:4 --style raw
+complete ornate dark fantasy playing card design, carved gold filigree frame with ruby gems on black, empty scroll banner at the top, central painting of a single wide-open eye reflected in black canal water with ripples forming a wave sigil, empty dark parchment text panel at the bottom, 1889 gaslamp gothic, oil painting, muted teal and crimson palette with gold accents --ar 3:4 --style raw --no text, letters, words, watermark
 ```
 
-## Eroi della Società del Lume (ritratti per le schede)
-
-**Elena Fosco, l'Investigatrice**
-```
-dark fantasy character portrait, sharp-eyed woman in her 30s in a dark tailored victorian coat, magnifying lens on a chain, walking cane, three-quarter view, 1889 gaslamp gothic, canal city at night behind her, oil painting, dramatic candlelight, muted teal and crimson palette with gold accents, highly detailed --ar 3:4 --style raw
-```
-
-**Dott. Attilio Marn, il Medico**
-```
-dark fantasy character portrait, weary bearded victorian physician with leather medical bag, round spectacles, bloodstained cuffs, three-quarter view, 1889 gaslamp gothic, canal city at night behind him, oil painting, dramatic candlelight, muted teal and crimson palette with gold accents, highly detailed --ar 3:4 --style raw
-```
-
-**Sibilla Reve, l'Occultista**
-```
-dark fantasy character portrait, pale woman with silver-streaked hair holding an obsidian pendulum, chalk-dusted fingers, knowing gaze, victorian 1889 attire, three-quarter view, gaslamp gothic, canal city at night behind her, oil painting, dramatic candlelight, muted teal and crimson palette with gold accents, highly detailed --ar 3:4 --style raw
-```
-
-**Nino "Grimaldello" Cauto, il Ladro**
-```
-dark fantasy character portrait, wiry smirking man with lockpicks between his fingers, coiled rope and grappling hook on his shoulder, victorian 1889 attire, three-quarter view, gaslamp gothic, rooftops of a canal city at night behind him, oil painting, dramatic candlelight, muted teal and crimson palette with gold accents, highly detailed --ar 3:4 --style raw
-```
-
-**Carla Dosti, la Giornalista**
-```
-dark fantasy character portrait, determined young woman with a brass folding camera, press notes tucked in her coat, ink-stained hands, victorian 1889 attire, three-quarter view, gaslamp gothic, canal city at night behind her, oil painting, dramatic candlelight, muted teal and crimson palette with gold accents, highly detailed --ar 3:4 --style raw
-```
-
-## Luoghi (illustrazioni per le carte Indagine)
-
-**Luogo 1 — Campanile di San Teodoro**
-```
-dark fantasy illustration, interior of a bell tower at 3am, three great bronze bells hanging still, black wax dripping down a spiral staircase, overturned stool and hanging lantern, 1889 gaslamp gothic, oil painting, dramatic candlelight, muted teal and crimson palette with gold accents, ominous mood, highly detailed --ar 4:3 --style raw
-```
-
-**Luogo 2 — Casa di Ruggero**
-```
-dark fantasy illustration, humble candlelit canal-side room, a silver violin string glinting on a wooden table, worried woman wringing her hands by the fireplace, charcoal portrait on the mantel, 1889 gaslamp gothic, oil painting, muted teal and crimson palette with gold accents, melancholic mood, highly detailed --ar 4:3 --style raw
-```
-
-**Luogo 3 — Taverna del Ponte Rotto**
-```
-dark fantasy illustration, smoky canal tavern full of boatmen playing cards under an oil lamp, cheap wine, rain on the windows, one drunkard whispering in a corner, 1889 gaslamp gothic, oil painting, warm lamplight against teal shadows, crimson and gold accents, highly detailed --ar 4:3 --style raw
-```
-
-**Luogo 4 — Sagrestia della Cattedrale**
-```
-dark fantasy illustration, nervous priest in a candlelit sacristy hiding wax-stained hands behind his back, crypt door barred with new planks over ancient stone, hymn board showing number 315, 1889 gaslamp gothic, oil painting, muted teal and crimson palette with gold accents, ominous mood, highly detailed --ar 4:3 --style raw
-```
-
-**Luogo 5 — Bottega del liutaio Ferri**
-```
-dark fantasy illustration, abandoned luthier workshop, violins hanging from the ceiling like game, a silver tuning fork engraved with a wave symbol on a perfectly tidy workbench, dust on the windows, 1889 gaslamp gothic, oil painting, muted teal and crimson palette with gold accents, unsettling stillness, highly detailed --ar 4:3 --style raw
-```
-
-**Luogo 6 — Canale Basso**
-```
-dark fantasy illustration, derelict warehouses over black still water, wooden crates branded with a wave symbol on a dock, lone night watchman raising a lantern, 1889 gaslamp gothic, oil painting, heavy fog, muted teal and crimson palette with gold accents, ominous mood, highly detailed --ar 4:3 --style raw
-```
-
-**Luogo 7 — Archivio Civico**
-```
-dark fantasy illustration, dusty municipal archive with shelves to the ceiling, green-shaded lamps, forbidden 1741 folio open on a lectern with a wave-shaped wax seal, tiny archivist with thick spectacles, 1889 gaslamp gothic, oil painting, muted teal and crimson palette with gold accents, highly detailed --ar 4:3 --style raw
-```
-
-**Luogo 8 — Gendarmeria**
-```
-dark fantasy illustration, cluttered 19th century police office, smoking stove, piles of case files, a brigadier avoiding eye contact while drumming fingers on a folder, 1889 gaslamp gothic, oil painting, muted teal and crimson palette with gold accents, tense mood, highly detailed --ar 4:3 --style raw
-```
-
-**Il Magazzino delle Cere (copertina spedizione)**
-```
-dark fantasy illustration, abandoned wax warehouse on a canal at night, faint candlelight through broken shutters, black water reflecting the building, singing heard within suggested by ripples, 1889 gaslamp gothic, oil painting, heavy fog, muted teal and crimson palette with gold accents, ominous mood, highly detailed --ar 4:3 --style raw
-```
-
-## Elementi grafici
+## Dorsi (finiti, senza ritocchi)
 
 **Dorso carte Minaccia**
 ```
-ornate symmetrical dark fantasy card back template, engraved gold filigree frame with ruby gems, central round medallion containing three stacked waves, deep teal and black background, victorian gothic ornaments, no text, highly detailed --ar 3:4 --style raw
+ornate symmetrical dark fantasy card back, engraved gold filigree covering the whole surface, ruby gems, central round medallion with three stacked engraved waves, deep teal and black, victorian gothic, perfectly symmetrical, full bleed --ar 3:4 --style raw --no text, letters, words, watermark
 ```
 
 **Dorso carte Luogo**
 ```
-ornate symmetrical dark fantasy card back template, engraved gold filigree frame with ruby gems, central round medallion left empty, deep crimson and black background, victorian gothic ornaments, no text, highly detailed --ar 3:4 --style raw
+ornate symmetrical dark fantasy card back, engraved gold filigree covering the whole surface, ruby gems, central round empty medallion for a number, deep crimson and black, victorian gothic, perfectly symmetrical, full bleed --ar 3:4 --style raw --no text, letters, words, watermark
 ```
 
-**Texture tessera magazzino**
+## Carte Luogo (orizzontali, pannello testo vuoto)
+
+Sostituisci la parte in maiuscolo con la scena del luogo (sotto trovi le otto scene).
+
 ```
-top-down hand-drawn dungeon map tile, ink on aged parchment, crosshatched stone walls, warehouse interior with stacked wooden crates, Dyson Logos style, 4x4 square grid faintly visible, no text --ar 1:1 --style raw
+complete ornate dark fantasy card design in landscape format, carved gold filigree frame with ruby gems on deep crimson, empty scroll banner at the top, wide central painting of SCENA, large empty aged parchment panel in the lower half for text, 1889 gaslamp gothic, oil painting, muted teal and crimson palette with gold accents --ar 3:2 --style raw --no text, letters, words, watermark
 ```
 
-**Texture tessera corridoio di candele**
+Scene: **1** interior of a bell tower at 3am with three bronze bells and black wax on a spiral staircase · **2** humble candlelit canal-side room with a silver violin string on the table and a worried woman · **3** smoky canal tavern full of boatmen playing cards under an oil lamp · **4** nervous priest in a candlelit sacristy with a crypt door barred by new planks · **5** abandoned luthier workshop with violins hanging like game and a silver tuning fork on the workbench · **6** derelict warehouses over black still water with branded crates and a night watchman · **7** dusty municipal archive with a forbidden folio open on a lectern · **8** cluttered 19th century police office with a brigadier avoiding eye contact
+
+## Schede eroe (ritratto incorniciato, resto vuoto)
+
+Un prompt per eroe: sostituisci RITRATTO con la descrizione.
+
 ```
-top-down hand-drawn dungeon map tile, ink on aged parchment, crosshatched stone walls, narrow corridor lined with hundreds of black candles, wax pooling on the floor, Dyson Logos style, 4x4 square grid faintly visible, no text --ar 1:1 --style raw
+dark fantasy character portrait in an ornate carved gold frame with ruby gems, RITRATTO, victorian 1889 attire, three-quarter view, canal city at night behind, oil painting, dramatic candlelight, muted teal and crimson palette with gold accents --ar 3:4 --style raw --no text, letters, words, watermark
 ```
 
-**Texture tessera cripta**
+Ritratti: **Elena** sharp-eyed woman in her 30s in a dark tailored coat with a magnifying lens on a chain and a walking cane · **Attilio** weary bearded physician with leather medical bag, round spectacles and bloodstained cuffs · **Sibilla** pale woman with silver-streaked hair holding an obsidian pendulum, chalk-dusted fingers · **Nino** wiry smirking man with lockpicks between his fingers, coiled rope and grappling hook on his shoulder · **Carla** determined young woman with a brass folding camera and ink-stained hands
+
+## Tessere mappa (complete)
+
+Una per tessera: sostituisci AMBIENTE.
+
 ```
-top-down hand-drawn dungeon map tile, ink on aged parchment, crosshatched stone walls, underground crypt with central altar in a ring of candles and a barred prison cell in the corner, Dyson Logos style, 4x4 square grid faintly visible, no text --ar 1:1 --style raw
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, AMBIENTE, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark
 ```
 
-**Sigillo della Società del Lume**
+Ambienti: **T1** loading dock with black canal water along one edge and mooring posts · **T2** warehouse room packed with stacked wooden crates branded with a wave · **T3** narrow corridor lined with hundreds of black candles and pooled wax · **T4** cluttered office with a desk covered in sheet music and a straw bed · **T5** slick stone staircase descending into darkness · **T6** underground crypt with a central altar in a ring of candles and a barred prison cell in the corner
+
+## Extra
+
+**Sigillo della Società (per lettera e regolamento)**
 ```
-wax seal emblem design, letters S and L intertwined with a single wave, engraved gold on deep red wax, centered on black background, vector style, clean edges, no text --ar 1:1 --style raw
+wax seal emblem, letters S and L intertwined with a single engraved wave, deep red wax with gold engraving, centered on black, product photography style, high detail --ar 1:1 --style raw --no watermark
 ```
 
-## Dopo la generazione
+## Flusso di lavoro consigliato
 
-1. Genera in batch di 4, tieni la migliore, upscala.
-2. Uniforma la temperatura colore (teal/cremisi) con un unico filtro in
-   Canva/Photopea: immagini di sessioni diverse sembreranno della stessa mano.
-3. Destinazione: medaglione delle carte Minaccia, pannello superiore delle carte
-   Luogo, ritratto nelle schede eroe. Cornici, gemme e targhe restano quelle
-   vettoriali dei PDF. Caricando le immagini in chat, il compositing nei PDF può
-   essere rifatto automaticamente.
+1. Genera l'Adepto → scegli → upscala → copia URL → aggiungi `--sref <url>` a tutto.
+2. Genera dorsi e tessere (finiti) e i fronti (con aree vuote).
+3. Carica tutto in chat: il compositing rimette titoli, testi, statistiche e numeri
+   in italiano sopra le tue immagini, e i PDF vengono rigenerati con le stesse
+   regole di stampa fronte/retro. In alternativa: Canva/Photopea con Old Standard
+   TT e IM Fell English SC.
