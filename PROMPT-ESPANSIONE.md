@@ -66,30 +66,43 @@ che porta la Difesa a 5). I nuovi boss possono variare di ±1 le statistiche.
 Difesa 8–9, armi +1 all'attacco. Migliorie standard: +1 caratteristica, +1 Salute,
 Revolver, Lanterna schermata, Borsa di garze. Cicatrici: alla terza, −1 permanente.
 
-## 3. BIBBIA VISIVA (per PDF identici ai miei)
+## 3. BIBBIA VISIVA (per PDF identici ai miei — stile "gotico")
 
-- **Palette:** inchiostro #33291f · rosso #7a1f2b (scuro #571420) · verde-acqua #1f5f6b
-  (scuro #123c44) · pergamena #f0e6cc (scura #e2d3ac) · oro #a8833a · seppia #8a7150.
+Lo stile attuale è **dark fantasy gotico** (riferimento: card template di Vladimir
+Tyrlov) per le carte e **mappa a china su pergamena** per le tessere.
+
+- **Palette pergamena:** inchiostro #33291f · rosso #7a1f2b (scuro #571420) ·
+  verde-acqua #1f5f6b (scuro #123c44) · pergamena #f0e6cc (scura #e2d3ac) ·
+  oro #a8833a · seppia #8a7150.
+- **Palette carte gotiche:** notte #17141a (rosso-notte #1d1014, abisso #0e1519) ·
+  oro chiaro #d8b25e / oro #b68d3c / oro scuro #6e5522 · osso #e8dcc0 ·
+  sangue #6e1420 · china mappe #3a2f22.
 - **Font:** corpo **Old Standard TT** (Regular/Bold/Italic); titoli e maiuscoletti
-  **IM Fell English SC** (titoli scritti in minuscolo per ottenere lo small-caps).
-  Entrambi gratuiti su Google Fonts.
-- **Pagine:** A4 con sfondo pergamena generato in vettoriale (macchie ellittiche a bassa
-  opacità, bordi scuriti, puntini d'inchiostro), doppia cornice inchiostro+oro con fregi
-  a rombo negli angoli, piè di pagina "ombre su corvasca · società del lume" in oro.
-- **Simboli ricorrenti:** l'**onda** (sigillo del Coro) e il **sigillo di ceralacca "S·L"**
-  della Società (cerchio rosso irregolare, anello e onda in oro, leggermente ruotato).
-- **Formati:** carte Luogo = mezza A4 orizzontale, 2 per pagina, banda titolo ROSSA,
-  dorso rosso scuro con numero in cerchio oro; carte Minaccia = 60×84 mm in griglia 3×3,
-  banda titolo VERDE-ACQUA, dorso verde-acqua scuro con tripla onda oro e scritta
-  "minaccia"; le pagine dei dorsi seguono quelle dei fronti, specchiate in colonna, per
-  la stampa fronte/retro sul lato lungo. Tessere 130 mm con pavimento in pietra a corsi
-  sfalsati, arredi con ombra, targa titolo in alto; schede eroe una per pagina con
-  riquadri statistiche su fondo pergamena scura e righe per migliorie/cicatrici.
-- **File di output, sempre 5 PDF numerati:** 01 Regolamento (solo se cambia),
-  02 Schede (solo se cambiano), 03 Indagine (lettera d'incarico con sigillo + carte
-  Luogo + taccuino con orologio e 4 Domande), 04 Spedizione (minacce + nemici + tessere
-  + segnalini), 05 SOLUZIONE-non-aprire (pagina di avvertimento iniziale a tutta pagina).
-- Tecnica: Python + reportlab, tutta grafica vettoriale, niente immagini raster.
+  **IM Fell English SC** (i titoli si scrivono in minuscolo per ottenere lo small-caps).
+- **Carte (Minaccia 60×84 mm in griglia 3×3; Luogo mezza A4, 2 per pagina):**
+  fondo scuro con vignettatura, cornice a doppio filetto oro con **filigrane a
+  ricciolo negli angoli** e **gemme a losanga** (rubino sopra/sotto, acquamarina ai
+  lati), **targa a nastro** con code a rondine per il titolo, **medaglione a
+  raggiera** centrale con icona tematica in linea dorata (incappucciato, tagliola,
+  nota, occhio, campana, goccia, spirale, fumi, àncora). Le carte Luogo hanno un
+  pannello pergamena interno per il testo; i loro dorsi sono rosso-notte con numero
+  nel medaglione, i dorsi Minaccia verde-abisso con tripla onda. Le pagine dei dorsi
+  seguono i fronti, specchiate in colonna, per la stampa fronte/retro sul lato lungo.
+- **Tessere (126 mm, griglia 4×4):** stile mappa disegnata a china su pergamena:
+  muri spessi a **doppia linea tremolante con tratteggio a 45°**, varchi porta nei
+  muri, ombre a **puntinato**, acqua stipplata con onde, arredi a china con ombra,
+  **rosa dei venti**, targa a nastro col nome, riquadro testo con bordo a china.
+- **Documenti (regolamento, soluzione, lettera, taccuino, schede):** pergamena
+  vettoriale (macchie, bordi scuriti, puntini d'inchiostro), doppia cornice
+  inchiostro+oro con fregi a rombo, sigillo di ceralacca "S·L", piè di pagina
+  "ombre su corvasca · società del lume" in oro.
+- **File di output, sempre 5 PDF numerati** (01 Regolamento e 02 Schede solo se
+  cambiano; 03 Indagine; 04 Spedizione; 05 SOLUZIONE con avvertimento iniziale).
+- Tecnica: Python + reportlab, grafica vettoriale (sorgenti di riferimento nel repo:
+  `src/deluxe_style.py`, `src/ornaments.py`, `src/gen_gothic.py`). Eventuali
+  illustrazioni raster generate con AI (vedi `PROMPT-MIDJOURNEY.md`) vanno inserite
+  nel medaglione delle carte o come quadro nelle schede, mantenendo cornici e targhe
+  vettoriali sopra.
 
 ## 4. CHECKLIST DI COERENZA (verifica prima di consegnare)
 
