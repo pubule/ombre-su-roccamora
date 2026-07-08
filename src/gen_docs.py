@@ -157,6 +157,25 @@ def regolamento():
                "Se tutti gli eroi sono a terra, l\u2019episodio \u00e8 fallito: potete rigiocarlo, ma il "
                "nemico avr\u00e0 fatto progressi (l\u2019episodio dir\u00e0 come)."))
 
+    e.append(P('PRECISAZIONI (per i dubbi al tavolo)', 'h1'))
+    e.append(LI('<b>Ruggero</b> \u2014 non \u00e8 un eroe: i nemici lo <b>ignorano</b> (il culto lo vuole '
+                'vivo per il rituale). Si muove nel turno degli eroi, fino a 4 caselle, e non compie azioni.'))
+    e.append(LI('<b>Eroi a terra</b> \u2014 i nemici li ignorano: puntano sempre l\u2019eroe in piedi pi\u00f9 vicino.'))
+    e.append(LI('<b>Mazzo Minaccia esaurito</b> \u2014 rimescolate gli scarti e continuate. I segnalini '
+                'Canto gi\u00e0 in gioco restano.'))
+    e.append(LI('<b>Oggetti</b> \u2014 ci\u00f2 che trovate nell\u2019Indagine \u00e8 del gruppo: all\u2019inizio della '
+                'Spedizione decidete chi porta cosa (annotatelo). In Spedizione, passare un oggetto a '
+                'un eroe adiacente \u00e8 gratuito, una volta per turno; un eroe a terra pu\u00f2 essere '
+                'alleggerito da chi gli \u00e8 adiacente.'))
+    e.append(LI('<b>Cercare fallito</b> \u2014 si pu\u00f2 ritentare spendendo altre azioni, anche con eroi '
+                'diversi. Una volta trovato ci\u00f2 che la tessera nasconde, la tessera \u00e8 esaurita.'))
+    e.append(LI('<b>\u201cEroe pi\u00f9 avanzato\u201d</b> \u2014 quello pi\u00f9 lontano dall\u2019ingresso, contando le '
+                'caselle. A pari merito: regola d\u2019oro.'))
+    e.append(LI('<b>Movimento</b> \u2014 gli alleati (e Ruggero) si possono attraversare, ma non ci si '
+                'pu\u00f2 fermare sulla loro casella.'))
+    e.append(LI('<b>Tra un episodio e l\u2019altro</b> \u2014 tutti gli eroi tornano a Salute piena e '
+                'recuperano gli usi delle abilit\u00e0. Le cicatrici invece restano.'))
+
     e.append(P('LA CAMPAGNA', 'h1'))
     e.append(LI('<b>Frammenti</b> \u2014 al termine di ogni episodio riuscito ottenete un Frammento di '
                 'Campagna: conservateli, comporranno il mistero finale.'))
