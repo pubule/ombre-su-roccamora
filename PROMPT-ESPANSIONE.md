@@ -104,6 +104,42 @@ Tyrlov) per le carte e **mappa a china su pergamena** per le tessere.
   nel medaglione delle carte o come quadro nelle schede, mantenendo cornici e targhe
   vettoriali sopra.
 
+## 3-bis. BIBBIA DI SCRITTURA (stile immersivo — obbligatoria)
+
+Ogni testo deve far *vedere* la scena, non riassumerla. Regole:
+
+- **Carte Luogo:** il testo d'apertura è un quadro di 3–4 frasi con dettagli
+  sensoriali (odori, suoni, temperatura) e un dettaglio umano che stona o inquieta
+  (la cena intatta sotto il panno, le mani nascoste dietro la schiena, lo sguardo
+  che evita il vostro). I PNG parlano in discorso diretto tra virgolette basse «».
+  Gli indizi restano fattuali e asciutti: l'atmosfera sta nel testo, la deduzione
+  negli indizi.
+- **Carte Minaccia:** sempre una riga di *flavor in corsivo* prima dell'effetto,
+  massimo 12 parole, in seconda persona plurale, che colpisce un senso o insinua
+  un dubbio (es. «Qualcuno pronuncia il vostro nome. Con la vostra voce.»).
+  L'effetto meccanico segue, separato, senza aggettivi.
+- **Tessere:** 2–3 frasi sensoriali sul luogo, poi l'eventuale regola in chiaro
+  (prove, apparizioni) scritta in tono da regolamento. Non superare ~15 righe
+  misurate a 8.3pt su 116mm di larghezza.
+- **Schede eroe:** sezione «Chi sei» di 3 frasi: origine, ferita o svolta che li
+  ha portati alla Società, un tratto o una battuta che li definisce. Niente
+  elenchi: prosa in corsivo, seconda o terza persona coerente con le esistenti.
+- **Nemici:** 2–3 frasi che li rendono persone o cose sbagliate, non mostri
+  generici (gli Adepti sono «gente comune che alle 3 di notte smette di essere
+  gente comune»). La debolezza del boss va integrata nel testo, tra parentesi
+  le meccaniche.
+- **Lettera d'incarico:** voce di M., tono trattenuto, un dettaglio concreto e
+  vivido sulla vittima e una frase di non-detto (es. «C'è dell'altro, e non lo
+  scrivo»). Chiude sempre con il budget di ore e l'elenco dei luoghi iniziali.
+- **Epiloghi:** in discorso diretto del salvato/testimone, devono dare una
+  risposta e aprire due domande.
+- **Tono generale:** gotico ottocentesco, mai splatter; l'orrore è acustico e
+  suggerito (suoni, vibrazioni, voci). Lessico d'epoca (palandrana, chiatta,
+  sego, brigadiere). Vietati anglicismi e ironia fuori dai dialoghi.
+- **Vincolo tecnico:** ogni testo va verificato contro lo spazio del suo riquadro
+  (vedi il controllo con `Paragraph.wrap` usato in sviluppo); i testi estesi si
+  tengono separati dai dati di gioco in un modulo dedicato come `src/story.py`.
+
 ## 4. CHECKLIST DI COERENZA (verifica prima di consegnare)
 
 - [ ] Le 4 Domande sono tutte deducibili e ogni risposta incrocia più luoghi?
@@ -113,6 +149,8 @@ Tyrlov) per le carte e **mappa a china su pergamena** per le tessere.
 - [ ] Parole chiave in MAIUSCOLO e requisiti di sblocco stampati sulle carte?
 - [ ] Epilogo + Frammento di Campagna numerato + aggancio all'episodio successivo?
 - [ ] Palette, font, sigilli, formati e dorsi identici alla bibbia visiva?
+- [ ] Tutti i testi rispettano la bibbia di scrittura (flavor sulle Minacce,
+      quadri sensoriali sui Luoghi, «Chi sei» sugli eroi) e stanno nei riquadri?
 
 ---
 
