@@ -15,7 +15,10 @@ import ornaments as O
 from ornaments import (NIGHT, NIGHTR, GOLD, GOLD_L, GOLD_D, BONE, BLOOD,
                        INKMAP, ornate_frame, banner, medallion, ink_rect,
                        ink_line, hatch_band, stipple, compass)
-from gen_cards import LUOGHI, MINACCE, NEMICI, TILES, LETTERA
+from gen_cards import LUOGHI, MINACCE, NEMICI, TILES, HEROES
+import story
+MINACCE = story.apply(LUOGHI, TILES, NEMICI, HEROES, MINACCE)
+LETTERA = story.LETTERA2
 
 register_fonts()
 W, H = A4
@@ -29,7 +32,7 @@ BODY = st('body', alignment=4)
 CLUE = st('clue', leftIndent=10, spaceAfter=2.5)
 HIDN = st('hidn', leftIndent=10, textColor=TEAL, fontName=F['i'], spaceAfter=2)
 SMB  = st('smb', fontName=F['sc'], fontSize=8.5, textColor=TEAL, spaceBefore=4, spaceAfter=2)
-MTXT = st('mtxt', fontSize=9.2, leading=11.6, textColor=BONE, alignment=1)
+MTXT = st('mtxt', fontSize=8.4, leading=10.4, textColor=BONE, alignment=1)
 
 def frame_flow(c, x, y, w, h, flow):
     Frame(x, y, w, h, leftPadding=0, rightPadding=0, topPadding=0,
@@ -170,16 +173,16 @@ def minaccia_front(c, x, y, cw, chh, title, txt):
     banner(c, x + cw/2, y + chh - 10.5*mm, cw - 16*mm, 8*mm)
     c.setFillColor(BONE); c.setFont(F['sc'], 8.6)
     c.drawCentredString(x + cw/2, y + chh - 11.7*mm, title.lower())
-    cx, cy = x + cw/2, y + chh - 32*mm
-    medallion(c, cx, cy, 12.5*mm, GOLD)
+    cx, cy = x + cw/2, y + chh - 29*mm
+    medallion(c, cx, cy, 11*mm, GOLD)
     # alone dietro l'icona
     c.saveState()
     for k in range(4, 0, -1):
         c.setFillColor(GOLD_L); c.setFillAlpha(0.05)
         c.circle(cx, cy, 10*mm*k/4, fill=1, stroke=0)
     c.setFillAlpha(1); c.restoreState()
-    ICONS.get(title, O.icon_eye)(c, cx, cy, 7.5*mm)
-    frame_flow(c, x + 8*mm, y + 7*mm, cw - 16*mm, chh - 53*mm, [Paragraph(txt, MTXT)])
+    ICONS.get(title, O.icon_eye)(c, cx, cy, 6.8*mm)
+    frame_flow(c, x + 8*mm, y + 6*mm, cw - 16*mm, chh - 48*mm, [Paragraph(txt, MTXT)])
     O.gem(c, cx, y + 7.5*mm, 1.8*mm)
 
 def minaccia_back(c, x, y, cw, chh):
@@ -287,15 +290,15 @@ def tile_gothic(c, x, y, ts, T, idx):
     c.drawCentredString(x + ts/2, y + ts - 8.3*mm, '%s \u00b7 %s' % (T['id'], T['nome'].lower()))
     c.saveState()
     c.setFillColor(colors.HexColor('#f4ecd6')); c.setFillAlpha(0.94)
-    c.rect(x + 3*mm, y + ts - 36*mm, ts - 6*mm, 23*mm, fill=1, stroke=0)
+    c.rect(x + 3*mm, y + ts - 41*mm, ts - 6*mm, 28*mm, fill=1, stroke=0)
     c.setFillAlpha(1)
-    ink_rect(c, x + 3*mm, y + ts - 36*mm, ts - 6*mm, 23*mm, seed=idx + 99, lw=0.8)
+    ink_rect(c, x + 3*mm, y + ts - 41*mm, ts - 6*mm, 28*mm, seed=idx + 99, lw=0.8)
     flow = [Paragraph(T['testo'], st('tile', fontSize=8.3, leading=10, alignment=4))]
     if T.get('cerca'):
         flow.append(Spacer(1, 2))
         flow.append(Paragraph('<b>Cercare (ACUME Media):</b> ' + T['cerca'],
                               st('tc', fontSize=8.3, leading=10, textColor=TEAL)))
-    frame_flow(c, x + 5*mm, y + ts - 35.4*mm, ts - 10*mm, 22*mm, flow)
+    frame_flow(c, x + 5*mm, y + ts - 40.4*mm, ts - 10*mm, 27*mm, flow)
     c.restoreState()
     compass(c, x + ts - 9*mm, y + 10*mm, 4*mm)
 

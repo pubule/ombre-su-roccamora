@@ -12,6 +12,8 @@ from deluxe_style import (register_fonts, parchment, rule_border, seal, wave,
                           INK, RED, RED_DK, TEAL, TEAL_DK, PAPER, PAPER_DK,
                           GOLD, SEPIA)
 from gen_cards import HEROES, LUOGHI, MINACCE, NEMICI, TILES, LETTERA
+import story
+story.apply(LUOGHI, TILES, NEMICI, HEROES, MINACCE)
 
 register_fonts()
 W, H = A4
@@ -77,7 +79,11 @@ def schede():
         seal(c, W - mx - 8*mm, H - mt - 6*mm, r=9*mm, angle=-16)
         c.setStrokeColor(INK); c.setLineWidth(1)
         c.line(mx, H - mt - 16*mm, W - mx, H - mt - 16*mm)
-        y0 = H - mt - 40*mm
+        frame_flow(c, mx, H - mt - 48*mm, W - 2*mx, 29*mm, [
+            Paragraph('chi sei', SMB),
+            Paragraph(hro.get('bio', ''), st('bio', fontName=F['i'], fontSize=9.8,
+                                             leading=13, alignment=4))])
+        y0 = H - mt - 72*mm
         bw = (W - 2*mx - 4*10*mm) / 5.0
         for i, (lb, v) in enumerate([('ACUME', hro['acume']), ('VIGORE', hro['vigore']),
                                      ('NERVI', hro['nervi']), ('DIFESA', hro['difesa']),
@@ -106,9 +112,9 @@ def schede():
         c.setFillColor(TEAL); c.setFont(F['sc'], 10)
         c.drawString(mx, y3, 'migliorie e oggetti di campagna')
         c.setStrokeColor(SEPIA); c.setLineWidth(0.5)
-        for i in range(5):
+        for i in range(4):
             c.line(mx, y3 - 8*mm - i*8*mm, W - mx, y3 - 8*mm - i*8*mm)
-        y4 = y3 - 56*mm
+        y4 = y3 - 48*mm
         c.setFillColor(TEAL); c.setFont(F['sc'], 10)
         c.drawString(mx, y4, 'cicatrici (alla terza: \u22121 permanente a una caratteristica)')
         for i in range(3):
@@ -398,7 +404,6 @@ def spedizione():
     c.showPage()
     c.save()
 
-schede()
-indagine()
-spedizione()
-print('OK deluxe')
+if __name__ == '__main__':
+    schede()  # 03 e 04 sono ora generati da gen_gothic.py
+    print('OK deluxe schede')
