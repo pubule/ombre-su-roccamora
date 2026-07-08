@@ -140,9 +140,16 @@ def regolamento():
     e.append(P('2. Fase Minaccia', 'h2'))
     e.append(P('Pescate <b>1 carta Minaccia ogni 2 eroi</b> (arrotondando per eccesso: 1 carta in '
                '2 giocatori, 2 carte in 3\u20134, 3 carte in 5) e applicatene gli effetti.', 'box'))
+    e.append(P('Il mazzo Minaccia \u00e8 il vostro \u201cmaster\u201d automatico: nessun giocatore interpreta '
+               'il nemico. Un giocatore qualsiasi pesca (consiglio: nominate un <b>custode del '
+               'mazzo</b> a inizio serata, o pescate a turno), legge la carta ad alta voce ed '
+               'esegue ci\u00f2 che dice: \u00e8 sempre il testo a stabilire dove piazzare nemici ed '
+               'effetti. <b>Regola d\u2019oro per ogni ambiguit\u00e0</b> (uscite equidistanti, eroi a '
+               'pari distanza, pi\u00f9 bersagli validi): decide il gruppo scegliendo <b>l\u2019opzione '
+               'peggiore per s\u00e9</b>. Vale in tutta la spedizione, anche per i nemici.'))
     e.append(P('3. Turno dei nemici', 'h2'))
     e.append(LI('Ogni nemico si muove del suo Movimento verso l\u2019eroe pi\u00f9 vicino (a pari '
-                'distanza, decide il gruppo... contro di s\u00e9).'))
+                'distanza vale la regola d\u2019oro: contro di s\u00e9).'))
     e.append(LI('Se adiacente a un eroe, attacca: 2d6 + Attacco del nemico \u2265 Difesa dell\u2019eroe '
                 '\u2192 l\u2019eroe subisce il Danno indicato.'))
     e.append(P('Ferite e sconfitta', 'h2'))
