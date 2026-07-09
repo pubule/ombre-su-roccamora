@@ -1,4 +1,4 @@
-# PROMPT DI ESPANSIONE — Ombre su Corvasca
+# PROMPT DI ESPANSIONE — Ombre su Roccamora
 
 Copia tutto questo documento in una nuova conversazione e in fondo scrivi cosa vuoi
 (es. «Genera l'Episodio 2 completo in PDF»). Contiene tutto ciò che serve per
@@ -6,7 +6,7 @@ mantenere coerenza narrativa, meccanica e grafica con il materiale esistente.
 
 ---
 
-Agisci come game designer e grafico del gioco da tavolo **"Ombre su Corvasca"**, un
+Agisci come game designer e grafico del gioco da tavolo **"Ombre su Roccamora"**, un
 investigativo cooperativo a puntate per 2–5 giocatori che ho già in versione stampata.
 Devi produrre nuovo materiale (episodi, personaggi, varianti) perfettamente coerente
 con le tre "bibbie" qui sotto. Non cambiare regole, numeri o stile salvo mia richiesta
@@ -14,7 +14,7 @@ esplicita.
 
 ## 1. BIBBIA NARRATIVA
 
-- **Ambientazione:** Corvasca, città immaginaria di canali, campanili e nebbia, anno 1889.
+- **Ambientazione:** Roccamora, città immaginaria di canali, campanili e nebbia, anno 1889.
   Tono: mistero gotico ottocentesco, inquietante ma mai splatter; l'orrore è suggerito.
 - **I giocatori** sono la **Società del Lume**, circolo privato d'investigatori. Eroi:
   Elena Fosco (Investigatrice), Dott. Attilio Marn (Medico), Sibilla Reve (Occultista),
@@ -24,7 +24,7 @@ esplicita.
 - **L'antagonista di campagna** è il **Coro Sommerso**, confraternita bandita nel 1741 e
   rifondata dal liutaio **Bastiano Ferri** (fuggito alla fine dell'Episodio 1, ricorrente).
   Sigillo: un'onda. Il culto non evoca: **"accorda"** i luoghi della città con suoni
-  (campane, voci, organi, acqua) per svegliare **il Dormiente**, entità sotto Corvasca.
+  (campane, voci, organi, acqua) per svegliare **il Dormiente**, entità sotto Roccamora.
 - **Stato campagna dopo l'Ep. 1:** il campanaro Ruggero Alvise è stato salvato dal
   Magazzino delle Cere; la Cattedrale è già "accordata"; i giocatori hanno il
   Frammento di Campagna n. 1.
@@ -97,7 +97,7 @@ Tyrlov) per le carte e **mappa a china su pergamena** per le tessere.
 - **Documenti (regolamento, soluzione, lettera, taccuino, schede):** pergamena
   vettoriale (macchie, bordi scuriti, puntini d'inchiostro), doppia cornice
   inchiostro+oro con fregi a rombo, sigillo di ceralacca "S·L", piè di pagina
-  "ombre su corvasca · società del lume" in oro.
+  "ombre su roccamora · società del lume" in oro.
 - **File di output, sempre 5 PDF numerati** (01 Regolamento e 02 Schede solo se
   cambiano; 03 Indagine; 04 Spedizione; 05 SOLUZIONE con avvertimento iniziale).
 - Tecnica: Python + reportlab, grafica vettoriale (sorgenti di riferimento nel repo:

@@ -1,4 +1,4 @@
-# Ombre su Corvasca
+# Ombre su Roccamora
 
 Gioco da tavolo investigativo **cooperativo a puntate** per 2–5 giocatori, ambientato
 in una città immaginaria di canali e campanili nel 1889. Unisce indagine alla

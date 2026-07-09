@@ -1,4 +1,4 @@
-# PROMPT MIDJOURNEY — Ombre su Corvasca
+# PROMPT MIDJOURNEY — Ombre su Roccamora
 
 Obiettivo: carte, dorsi e tessere **interamente dipinti da Midjourney** (cornici,
 gemme, targhe comprese), al posto della grafica vettoriale. Unico vincolo tecnico:
