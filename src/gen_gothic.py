@@ -323,9 +323,10 @@ def spedizione():
             minaccia_back(c, gx + col*cwd + 1*mm, H - gy - (row + 1)*chh + 1*mm,
                           cwd - 2*mm, chh - 2*mm)
         c.showPage()
-    # nemici in stile gotico
+    # nemici in stile gotico (2 per pagina)
     for j, N in enumerate(NEMICI):
-        x, y, wdt, hgt = 20*mm, H - 25*mm - (j+1)*110*mm - j*10*mm, W - 40*mm, 110*mm
+        pos = j % 2
+        x, y, wdt, hgt = 20*mm, H - 25*mm - (pos+1)*110*mm - pos*10*mm, W - 40*mm, 110*mm
         ornate_frame(c, x, y, wdt, hgt, base=NIGHT)
         banner(c, x + wdt/2, y + hgt - 11*mm, wdt - 40*mm, 9.5*mm)
         c.setFillColor(BONE); c.setFont(F['sc'], 13.5)
@@ -352,7 +353,8 @@ def spedizione():
                               'Viene colpito se: 2d6 + VIGORE (+1 se armati) \u2265 la sua Difesa.',
                               st('ns', fontName=F['i'], fontSize=8.6, leading=11,
                                  textColor=GOLD_L))])
-    c.showPage()
+        if pos == 1 or j == len(NEMICI) - 1:
+            c.showPage()
     # tessere a china
     ts = 126*mm
     for i, T in enumerate(TILES):
@@ -382,11 +384,14 @@ def spedizione():
               colors.HexColor('#f7f0dd'), OGOLD, INK)
     token_row(H - 74*mm, 'ADEPTI (x10)', ['a'] * 10,
               colors.HexColor('#2b2b33'), OGOLD, colors.white)
-    token_row(H - 104*mm, 'CUSTODE \u00b7 RUGGERO \u00b7 CANTO (x3)',
+    token_row(H - 104*mm, 'CANI (x3) \u00b7 FONDITORI (x3)',
+              ['cn', 'cn', 'cn', 'fo', 'fo', 'fo'],
+              colors.HexColor('#3a3a30'), OGOLD, colors.white)
+    token_row(H - 134*mm, 'CUSTODE \u00b7 RUGGERO \u00b7 CANTO (x3)',
               ['cu', 'ru', '\u266a', '\u266a', '\u266a'],
               colors.HexColor('#4a0d16'), OGOLD, GOLD_L)
     c.setFillColor(INK); c.setFont(F['i'], 9)
-    c.drawString(16*mm, H - 128*mm, 'Consiglio: incollate il foglio su cartoncino prima di ritagliare. '
+    c.drawString(16*mm, H - 158*mm, 'Consiglio: incollate il foglio su cartoncino prima di ritagliare. '
                                     'Le ferite dei nemici si segnano con monetine o a matita.')
     c.showPage()
     c.save()

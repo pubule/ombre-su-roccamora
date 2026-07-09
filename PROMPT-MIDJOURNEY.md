@@ -24,6 +24,16 @@ full bleed dark fantasy painting, hooded cultist in grey undertaker robes with s
 full bleed dark fantasy painting, towering giant encased in layers of melted black and ivory wax, faceless smooth head with faint traces of another face beneath, glowing seams of candlelight in the cracks, stone altar ringed with black candles behind, 1889 gaslamp gothic, oil painting, muted teal and crimson palette with gold accents --ar 3:4 --style raw --no frame, border, card, text, letters, watermark
 ```
 
+**Cane dei Moli**
+```
+full bleed dark fantasy painting, feral guard dog leaping across a dark dock, muzzle crusted with black wax, matted fur, glowing pale eyes, mooring posts and still black water behind, 1889 gaslamp gothic, oil painting, muted teal and crimson palette with gold accents --ar 3:4 --style raw --no frame, border, card, text, letters, watermark
+```
+
+**Il Fonditore**
+```
+full bleed dark fantasy painting, heavy-set cultist artisan in a scorched leather apron and wax-smeared hood, carrying a huge iron ladle overflowing with molten black wax, slow menacing stride through candlelit warehouse, 1889 gaslamp gothic, oil painting, muted teal and crimson palette with gold accents --ar 3:4 --style raw --no frame, border, card, text, letters, watermark
+```
+
 **Il canto cresce (timer)**
 ```
 full bleed dark fantasy painting, dozens of hooded figures singing in a drowned crypt, visible sound ripples spreading on dark water, black candles reflected on the surface, 1889 gaslamp gothic, oil painting, muted teal and crimson palette with gold accents --ar 3:4 --style raw --no frame, border, card, text, letters, watermark

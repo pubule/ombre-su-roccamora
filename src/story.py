@@ -122,6 +122,8 @@ BIO = {
 
 _FLAVOR = {
     'ADEPTO IN AGGUATO': 'Una sagoma si stacca dal buio, il volto una lastra di cera liscia.',
+    'CANI DEI MOLI': 'Un ringhio basso, poi unghie sulla pietra. Troppo veloci.',
+    'IL FONDITORE': 'Passi lenti, e il gorgoglio di un mestolo colmo di cera fusa.',
     'RONDA': 'Passi cadenzati e un salmodiare sommesso: non siete pi\u00f9 soli.',
     'TRAPPOLA DI CERA': 'Il pavimento luccica. Capite troppo tardi perch\u00e9.',
     'FUMI SOPORIFERI': 'Un dolciastro di sego e papavero vi riempie i polmoni.',

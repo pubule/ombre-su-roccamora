@@ -332,12 +332,14 @@ def indagine():
 
 # ================================================================ SPEDIZIONE
 MINACCE = (
-    [('ADEPTO IN AGGUATO', 'Piazzate 1 Adepto sull\u2019uscita pi\u00f9 lontana dagli eroi della tessera in cui si trova l\u2019eroe attivo.')] * 6 +
-    [('RONDA', 'Piazzate 2 Adepti sull\u2019ingresso della Banchina (T1).')] * 2 +
+    [('ADEPTO IN AGGUATO', 'Piazzate 1 Adepto sull\u2019uscita pi\u00f9 lontana dagli eroi della tessera in cui si trova l\u2019eroe attivo.')] * 4 +
+    [('CANI DEI MOLI', 'Piazzate 1 Cane dei Moli sull\u2019uscita pi\u00f9 vicina agli eroi della tessera corrente: si attiva subito e corre verso il pi\u00f9 vicino.')] * 2 +
+    [('IL FONDITORE', 'Piazzate 1 Fonditore sull\u2019ingresso della Banchina (T1). Se \u00e8 gi\u00e0 in gioco un Fonditore, recupera 1 ferita.')] * 2 +
+    [('RONDA', 'Piazzate 2 Adepti sull\u2019ingresso della Banchina (T1).')] * 1 +
     [('TRAPPOLA DI CERA', 'L\u2019eroe pi\u00f9 avanzato prova NERVI (Media): se fallisce, cera bollente: 1 danno e perde 1 azione al prossimo turno.')] * 2 +
     [('FUMI SOPORIFERI', 'Ogni eroe prova NERVI (Facile): chi fallisce ha 1 sola azione al prossimo turno.')] +
     [('IL CANTO CRESCE', 'Aggiungete 1 segnalino Canto. Al terzo: il Custode della Cera si desta (vedi Soluzione). Se \u00e8 gi\u00e0 in gioco: recupera 1 ferita e si attiva subito.')] * 3 +
-    [('PRESAGIO', 'Un brivido corre lungo la schiena. Non accade nulla... per ora.')] * 2 +
+    [('PRESAGIO', 'Un brivido corre lungo la schiena. Non accade nulla... per ora.')] +
     [('ECO AMICA', 'Tre colpi sordi, in lontananza: Ruggero \u00e8 vivo. Rivelate una tessera coperta adiacente a una rivelata.')] +
     [('CERA CHE COLA', 'Fino a fine round, sulla tessera dell\u2019eroe attivo muoversi costa il doppio.')] +
     [('RINFORZI DAL CANALE', 'Piazzate 1 Adepto sull\u2019ingresso della Banchina (T1).')] +
@@ -347,6 +349,15 @@ MINACCE = (
 NEMICI = [
     dict(nome='ADEPTO INCAPPUCCIATO', att=1, dif=7, fer=1, mov=4, dan=1,
          note='Palandrana grigia, maschera di cera. Combatte con falcetti da fonditore.'),
+    dict(nome='CANE DEI MOLI', att=2, dif=6, fer=1, mov=6, dan=1,
+         note='Bestie da guardia dei magazzini, il muso incrostato di cera nera: il culto li '
+              'nutre e li accorda come strumenti. Arrivano prima del loro ringhio. Fragili, '
+              'ma il colpo va messo a segno mentre saltano.'),
+    dict(nome='IL FONDITORE', att=1, dif=8, fer=2, mov=2, dan=2,
+         note='Gli artigiani del culto: grembiule di cuoio, mestolo colmo di cera fusa, la '
+              'pazienza di chi ha versato mille candele. Non corrono mai: non ne hanno bisogno. '
+              'Chi viene ferito dal Fonditore si muove di 1 casella in meno nel suo prossimo '
+              'turno (la cera si addensa addosso).'),
     dict(nome='IL CUSTODE DELLA CERA', att=3, dif=9, fer=4, mov=3, dan=2,
          note='Un gigante ricoperto di cera colata, il volto un moncone liscio. Se il diapason '
               'd\u2019argento viene fatto vibrare a lui adiacente (azione): Difesa 5 per il resto '

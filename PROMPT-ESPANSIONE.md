@@ -89,8 +89,12 @@ primo tentativo, e la spedizione si vince con 1–2 eroi a terra nei momenti peg
 **Mazzo Minaccia: sempre 20 carte** con questo mix: ~8 spawn nemici, 2–3 trappole/prove,
 3 carte-timer a tema (nell'Ep. 1 "Il canto cresce": al 3° segnalino il boss si desta e le pescate aumentano di 1; il timer avanza anche da solo, +1 segnalino alla fine di ogni 4° round), 2 "presagi" innocui, 1–2 eventi favorevoli, 1–2 rinforzi all'ingresso.
 
-**Nemici di riferimento (bilanciamento):** truppa = Adepto (Att +1, Dif 7, Fer 1, Mov 4,
-Danno 1); boss = livello del Custode della Cera (Att +3, Dif 9, Fer 4, Mov 3, Danno 2),
+**Nemici di riferimento (bilanciamento):** tre archetipi di truppa da riusare e variare —
+tuttofare = Adepto (Att +1, Dif 7, Fer 1, Mov 4, Danno 1); veloce-fragile = Cane dei Moli
+(Att +2, Dif 6, Fer 1, Mov 6, Danno 1, appare VICINO agli eroi); lento-pesante = Fonditore
+(Att +1, Dif 8, Fer 2, Mov 2, Danno 2, appare all'ingresso, chi è ferito ha −1 movimento
+al turno dopo). Ogni episodio introduce UN nemico di truppa nuovo (un archetipo variato o
+un quarto archetipo, es. "a distanza" o "esplosivo") e ne ripropone almeno uno vecchio; boss = livello del Custode della Cera (Att +3, Dif 9, Fer 4, Mov 3, Danno 2),
 sempre con una **debolezza legata a un oggetto trovato nell'indagine** (come il diapason
 che porta la Difesa a 5). I nuovi boss possono variare di ±1 le statistiche.
 
