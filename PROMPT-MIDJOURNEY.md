@@ -14,39 +14,126 @@ Ogni prompt include già `--no frame, border, card, text, letters, watermark`.
 
 ## Soggetti — Minacce e nemici (--ar 3:4)
 
-**Adepto Incappucciato**
+Un prompt per ciascuna delle 20 carte, raggruppati per famiglia. Se vuoi meno
+generazioni, basta un dipinto per famiglia riusato sulle carte sorelle.
+
+### Famiglia Adepto
+
+**Adepto in agguato**
 ```
-full bleed dark fantasy painting, hooded cultist in grey undertaker robes with smooth featureless wax mask, holding a foundry sickle, black candle wax dripping from sleeves, 1889 gaslamp gothic canal city at night behind, oil painting, dramatic candlelight, muted teal and crimson palette with gold accents, heavy fog --ar 3:4 --style raw --no frame, border, card, text, letters, watermark
+full bleed dark fantasy painting, hooded cultist in grey undertaker robes with smooth featureless wax mask holding a foundry sickle, emerging from darkness between warehouse crates, 1889 gaslamp gothic, oil painting, dramatic candlelight, muted teal and crimson palette with gold accents --ar 3:4 --style raw --no frame, border, card, text, letters, watermark
 ```
 
-**Il Custode della Cera (boss)**
+**Volti tra le casse**
 ```
-full bleed dark fantasy painting, towering giant encased in layers of melted black and ivory wax, faceless smooth head with faint traces of another face beneath, glowing seams of candlelight in the cracks, stone altar ringed with black candles behind, 1889 gaslamp gothic, oil painting, muted teal and crimson palette with gold accents --ar 3:4 --style raw --no frame, border, card, text, letters, watermark
+full bleed dark fantasy painting, smooth featureless wax mask peering motionless between stacked wooden crates, hooded figure barely visible in the gloom, 1889 gaslamp gothic, oil painting, dramatic candlelight, muted teal and crimson palette with gold accents --ar 3:4 --style raw --no frame, border, card, text, letters, watermark
 ```
 
-**Cane dei Moli**
+**Il falcetto nel buio**
 ```
-full bleed dark fantasy painting, feral guard dog leaping across a dark dock, muzzle crusted with black wax, matted fur, glowing pale eyes, mooring posts and still black water behind, 1889 gaslamp gothic, oil painting, muted teal and crimson palette with gold accents --ar 3:4 --style raw --no frame, border, card, text, letters, watermark
+full bleed dark fantasy painting, gleaming foundry sickle raised in darkness behind a doorway, gloved hand and hooded silhouette barely lit by a single candle, 1889 gaslamp gothic, oil painting, dramatic candlelight, muted teal and crimson palette with gold accents --ar 3:4 --style raw --no frame, border, card, text, letters, watermark
 ```
+
+**La Vedetta**
+```
+full bleed dark fantasy painting, lone hooded cultist watching from a high wooden walkway of a warehouse, wax mask catching distant candlelight, 1889 gaslamp gothic, oil painting, dramatic candlelight, muted teal and crimson palette with gold accents --ar 3:4 --style raw --no frame, border, card, text, letters, watermark
+```
+
+**Ronda**
+```
+full bleed dark fantasy painting, two hooded cultists patrolling a dark dock side by side with a lantern and foundry sickles, marching in step, 1889 gaslamp gothic, oil painting, dramatic candlelight, muted teal and crimson palette with gold accents --ar 3:4 --style raw --no frame, border, card, text, letters, watermark
+```
+
+**Rinforzi dal canale**
+```
+full bleed dark fantasy painting, dark barge without lanterns mooring at a warehouse dock at night, hooded figures stepping silently onto the pier, 1889 gaslamp gothic, oil painting, dramatic candlelight, muted teal and crimson palette with gold accents --ar 3:4 --style raw --no frame, border, card, text, letters, watermark
+```
+
+### Famiglia Cani
+
+**Cani dei Moli**
+```
+full bleed dark fantasy painting, feral guard dog leaping across a dark dock, muzzle crusted with black wax, matted fur, glowing pale eyes, mooring posts and still black water behind, 1889 gaslamp gothic, oil painting, dramatic candlelight, muted teal and crimson palette with gold accents --ar 3:4 --style raw --no frame, border, card, text, letters, watermark
+```
+
+**Unghie sulla pietra**
+```
+full bleed dark fantasy painting, feral wax-crusted dog sprinting through a candlelit doorway, claws striking sparks on the stone floor, 1889 gaslamp gothic, oil painting, dramatic candlelight, muted teal and crimson palette with gold accents --ar 3:4 --style raw --no frame, border, card, text, letters, watermark
+```
+
+### Famiglia Fonditore
 
 **Il Fonditore**
 ```
-full bleed dark fantasy painting, heavy-set cultist artisan in a scorched leather apron and wax-smeared hood, carrying a huge iron ladle overflowing with molten black wax, slow menacing stride through candlelit warehouse, 1889 gaslamp gothic, oil painting, muted teal and crimson palette with gold accents --ar 3:4 --style raw --no frame, border, card, text, letters, watermark
+full bleed dark fantasy painting, heavy-set cultist artisan in a scorched leather apron and wax-smeared hood, carrying a huge iron ladle overflowing with molten black wax, 1889 gaslamp gothic, oil painting, dramatic candlelight, muted teal and crimson palette with gold accents --ar 3:4 --style raw --no frame, border, card, text, letters, watermark
 ```
 
-**Il canto cresce (timer)**
+**La marea di cera**
 ```
-full bleed dark fantasy painting, dozens of hooded figures singing in a drowned crypt, visible sound ripples spreading on dark water, black candles reflected on the surface, 1889 gaslamp gothic, oil painting, muted teal and crimson palette with gold accents --ar 3:4 --style raw --no frame, border, card, text, letters, watermark
+full bleed dark fantasy painting, several hooded artisans advancing shoulder to shoulder with steaming iron ladles, a slow wave of molten black wax spreading across the floor, 1889 gaslamp gothic, oil painting, dramatic candlelight, muted teal and crimson palette with gold accents --ar 3:4 --style raw --no frame, border, card, text, letters, watermark
 ```
+
+### Trappole e insidie
 
 **Trappola di cera**
 ```
-full bleed dark fantasy painting, warehouse corridor flooded with steaming molten black wax, hundreds of burning black candles along wooden shelves, glistening floor, 1889 gaslamp gothic, oil painting, muted teal and crimson palette with gold accents --ar 3:4 --style raw --no frame, border, card, text, letters, watermark
+full bleed dark fantasy painting, warehouse corridor flooded with steaming molten black wax, hundreds of burning black candles along wooden shelves, glistening floor, 1889 gaslamp gothic, oil painting, dramatic candlelight, muted teal and crimson palette with gold accents --ar 3:4 --style raw --no frame, border, card, text, letters, watermark
 ```
 
-**Presagio / Sussurri**
+**Cera sotto i piedi**
 ```
-full bleed dark fantasy painting, a single wide-open human eye reflected in black canal water, ripples forming a wave sigil, extinguished candle in the foreground, 1889 gaslamp gothic, oil painting, muted teal and crimson palette with gold accents, heavy fog --ar 3:4 --style raw --no frame, border, card, text, letters, watermark
+full bleed dark fantasy painting, close-up of a leather boot sinking into soft warm black wax on a stone floor, candle flames reflected in the dark surface, 1889 gaslamp gothic, oil painting, dramatic candlelight, muted teal and crimson palette with gold accents --ar 3:4 --style raw --no frame, border, card, text, letters, watermark
+```
+
+**Fumi soporiferi**
+```
+full bleed dark fantasy painting, thick sweet smoke coiling from brass censers in a warehouse corridor, drowsy golden haze, candle flames dimming, 1889 gaslamp gothic, oil painting, dramatic candlelight, muted teal and crimson palette with gold accents --ar 3:4 --style raw --no frame, border, card, text, letters, watermark
+```
+
+### Il crescendo del Canto
+
+**Il canto sale**
+```
+full bleed dark fantasy painting, a single hooded figure singing alone in a drowned crypt, one thin ripple crossing the black water, 1889 gaslamp gothic, oil painting, dramatic candlelight, muted teal and crimson palette with gold accents --ar 3:4 --style raw --no frame, border, card, text, letters, watermark
+```
+
+**Il coro risponde**
+```
+full bleed dark fantasy painting, many hooded figures singing in rows in a flooded crypt, overlapping ripples spreading on black water, 1889 gaslamp gothic, oil painting, dramatic candlelight, muted teal and crimson palette with gold accents --ar 3:4 --style raw --no frame, border, card, text, letters, watermark
+```
+
+**Il canto cresce**
+```
+full bleed dark fantasy painting, a vast drowned crypt vibrating with sound, stone dust falling from the vault, water surface trembling with standing waves, dozens of hooded singers, 1889 gaslamp gothic, oil painting, dramatic candlelight, muted teal and crimson palette with gold accents --ar 3:4 --style raw --no frame, border, card, text, letters, watermark
+```
+
+### Presagi ed eventi
+
+**Presagio**
+```
+full bleed dark fantasy painting, a single wide-open human eye reflected in black canal water, ripples forming a wave sigil, extinguished candle in the foreground, 1889 gaslamp gothic, oil painting, dramatic candlelight, muted teal and crimson palette with gold accents --ar 3:4 --style raw --no frame, border, card, text, letters, watermark
+```
+
+**Sussurri**
+```
+full bleed dark fantasy painting, hooded figure whispering into the darkness with a cupped hand, a candle flame bending sideways as if listening, 1889 gaslamp gothic, oil painting, dramatic candlelight, muted teal and crimson palette with gold accents --ar 3:4 --style raw --no frame, border, card, text, letters, watermark
+```
+
+**Eco amica**
+```
+full bleed dark fantasy painting, a fist knocking from behind a barred cell door, faint lantern light leaking through the cracks, 1889 gaslamp gothic, oil painting, dramatic candlelight, muted teal and crimson palette with gold accents --ar 3:4 --style raw --no frame, border, card, text, letters, watermark
+```
+
+**Cera che cola**
+```
+full bleed dark fantasy painting, black wax raining in slow threads from the wooden beams of a warehouse ceiling, candlelit gloom, 1889 gaslamp gothic, oil painting, dramatic candlelight, muted teal and crimson palette with gold accents --ar 3:4 --style raw --no frame, border, card, text, letters, watermark
+```
+
+### Boss
+
+**Il Custode della Cera**
+```
+full bleed dark fantasy painting, towering giant encased in layers of melted black and ivory wax, faceless smooth head with faint traces of another face beneath, glowing seams of candlelight in the cracks, stone altar ringed with black candles behind, 1889 gaslamp gothic, oil painting, dramatic candlelight, muted teal and crimson palette with gold accents --ar 3:4 --style raw --no frame, border, card, text, letters, watermark
 ```
 
 ## Soggetti — Eroi (ritratti, --ar 3:4)

@@ -90,8 +90,8 @@ primo tentativo, e la spedizione si vince con 1–2 eroi a terra nei momenti peg
 stesso effetto sono "carte sorelle": stessa matematica, titolo diverso, flavor diverso,
 al più varia il punto di apparizione del nemico (mai danno, difesa o ferite). Le carte
 timer formano un crescendo narrativo (nell'Ep. 1: Il canto sale → Il coro risponde →
-Il canto cresce). **Composizione: sempre 20 carte** con questo mix: ~8 spawn nemici, 2–3 trappole/prove,
-3 carte-timer a tema (nell'Ep. 1 "Il canto cresce": al 3° segnalino il boss si desta e le pescate aumentano di 1; il timer avanza anche da solo, +1 segnalino alla fine di ogni 4° round), 2 "presagi" innocui, 1–2 eventi favorevoli, 1–2 rinforzi all'ingresso.
+Il canto cresce). **Composizione: sempre 20 carte** con il mix dell'Ep. 1 come riferimento: 10 spawn (4 famiglia-Adepto con apparizioni
+diverse, 2 Cani, 2 Fonditori, 1 Ronda, 1 Rinforzi), 3 trappole/prove, 3 carte-timer a tema (crescendo in tre carte, nell'Ep. 1 "Il canto sale → Il coro risponde → Il canto cresce": al 3° segnalino il boss si desta e le pescate aumentano di 1; il timer avanza anche da solo, +1 segnalino alla fine di ogni 4° round), 2 "presagi" innocui, 1–2 eventi favorevoli, 1–2 rinforzi all'ingresso.
 
 **Nemici di riferimento (bilanciamento):** tre archetipi di truppa da riusare e variare —
 tuttofare = Adepto (Att +1, Dif 7, Fer 1, Mov 4, Danno 1); veloce-fragile = Cane dei Moli
@@ -123,8 +123,9 @@ Tyrlov) per le carte e **mappa a china su pergamena** per le tessere.
   fondo scuro con vignettatura, cornice a doppio filetto oro con **filigrane a
   ricciolo negli angoli** e **gemme a losanga** (rubino sopra/sotto, acquamarina ai
   lati), **targa a nastro** con code a rondine per il titolo, **medaglione a
-  raggiera** centrale con icona tematica in linea dorata (incappucciato, tagliola,
-  nota, occhio, campana, goccia, spirale, fumi, àncora). Le carte Luogo hanno un
+  raggiera** centrale con icona tematica in linea dorata: ogni FAMIGLIA di carte ha la
+  sua icona (cappuccio, zampa, mestolo, tagliola, fumi, nota, occhio, campana, goccia,
+  spirale, àncora). Le carte Luogo hanno un
   pannello pergamena interno per il testo; i loro dorsi sono rosso-notte con numero
   nel medaglione, i dorsi Minaccia verde-abisso con tripla onda. Le pagine dei dorsi
   seguono i fronti, specchiate in colonna, per la stampa fronte/retro sul lato lungo.
@@ -189,6 +190,8 @@ Ogni testo deve far *vedere* la scena, non riassumerla. Regole:
 - [ ] Il tempo d'indagine è scarso e c'è un vincolo d'orologio? C'è l'oggetto-esca?
 - [ ] La difficoltà segue la scala dell'episodio corrispondente (una-due manopole, non tutte)?
 - [ ] Parole chiave in MAIUSCOLO e requisiti di sblocco stampati sulle carte?
+- [ ] Le 20 carte Minaccia hanno tutte titolo unico, flavor proprio e icona di famiglia?
+- [ ] I prompt Midjourney dei nuovi soggetti sono stati aggiunti al file 07?
 - [ ] Epilogo + Frammento numerato + aggancio + Bivio sigillato con conseguenze definite?
 - [ ] Le conseguenze del Bivio dell'episodio precedente sono applicate all'inizio?
 - [ ] Ci sono 2–3 reperti stampabili coerenti con gli indizi?
