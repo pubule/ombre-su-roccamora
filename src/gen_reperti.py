@@ -55,14 +55,22 @@ def torn_edge(c, y, seed=1, top=True):
 
 
 def wax_drip(c, x, y, h, seed=1):
+    """Colatura di cera affusolata che scende dall'alto, con goccia in punta."""
     rnd = random.Random(seed)
     c.saveState()
-    c.setFillColor(colors.HexColor('#1c1a1e')); c.setFillAlpha(0.9)
-    c.rect(x - 1*mm, y, 2*mm, h, fill=1, stroke=0)
-    c.ellipse(x - 2*mm, y - 3*mm, x + 2*mm, y + 1*mm, fill=1, stroke=0)
-    for _ in range(3):
-        dx = rnd.uniform(-4*mm, 4*mm)
-        c.circle(x + dx, y + rnd.uniform(0, h), rnd.uniform(0.6, 1.4)*mm, fill=1, stroke=0)
+    c.setFillColor(colors.HexColor('#26201a')); c.setFillAlpha(0.85)
+    top_w = rnd.uniform(1.6, 2.2)*mm
+    p = c.beginPath()
+    p.moveTo(x - top_w, y + h)
+    p.curveTo(x - top_w*0.5, y + h*0.6, x - 0.5*mm, y + h*0.3, x - 0.35*mm, y)
+    p.lineTo(x + 0.35*mm, y)
+    p.curveTo(x + 0.5*mm, y + h*0.3, x + top_w*0.5, y + h*0.6, x + top_w, y + h)
+    p.close()
+    c.drawPath(p, fill=1, stroke=0)
+    c.circle(x, y - 0.6*mm, 1.0*mm, fill=1, stroke=0)
+    for _ in range(2):
+        c.circle(x + rnd.uniform(-2.2, 2.2)*mm, y + rnd.uniform(0.15, 0.7)*h,
+                 rnd.uniform(0.3, 0.6)*mm, fill=1, stroke=0)
     c.setFillAlpha(1)
     c.restoreState()
 
@@ -112,8 +120,9 @@ def reperto_a(c):
     """Diario di Ruggero: pagina superstite, strappo in alto."""
     parchment(c, W, H, seed=62)
     torn_edge(c, H - 24*mm, seed=7, top=True)
-    wax_drip(c, 32*mm, H - 90*mm, 45*mm, seed=3)
-    wax_drip(c, W - 40*mm, H - 150*mm, 30*mm, seed=8)
+    wax_drip(c, 17*mm, H - 92*mm, 62*mm, seed=3)
+    wax_drip(c, W - 15*mm, H - 140*mm, 40*mm, seed=8)
+    wax_drip(c, W - 19*mm, H - 60*mm, 22*mm, seed=11)
     c.setFillColor(SEPIA); c.setFont(F['i'], 9)
     c.drawRightString(W - 20*mm, H - 34*mm, 'Reperto A \u2014 dal diario di Ruggero Alvise, campanaro')
     voci = [
