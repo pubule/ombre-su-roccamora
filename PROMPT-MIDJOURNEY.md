@@ -1,53 +1,79 @@
 # PROMPT MIDJOURNEY — Ombre su Roccamora
 
-Obiettivo: carte, dorsi e tessere **interamente dipinti da Midjourney** (cornici,
-gemme, targhe comprese), al posto della grafica vettoriale. Unico vincolo tecnico:
-i generatori d'immagini non scrivono testo italiano corretto, quindi ogni prompt
-chiede la carta completa **con le aree di testo vuote** (targa del titolo e
-pannello del testo lasciati liberi). La tipografia si aggiunge dopo, in due modi:
+Flusso a due binari: i prompt qui sotto generano **solo i soggetti** (dipinti a
+pieno formato, senza cornice né scritte); le **cornici** le generi a parte una
+volta sola (sezione in fondo) e il montaggio finale — cornice + dipinto + testi
+italiani — avviene in compositing (carica tutto in chat) o in Canva/Photopea.
 
-- carichi le immagini in chat e il compositing nei PDF viene rifatto sopra di esse
-  (titoli, testi e statistiche in italiano ai posti giusti); oppure
-- le scritte le aggiungi tu in Canva/Photopea con i font del gioco
-  (Old Standard TT per il testo, IM Fell English SC per i titoli).
+**Coerenza:** genera per primo l'Adepto, scegli il migliore, copia il suo URL e
+aggiungi ` --sref <url> --sw 800` in coda a tutti i prompt successivi.
 
-I **dorsi** non hanno testo critico: quelli escono finiti direttamente.
-
-**Coerenza:** genera per prima la carta dell'Adepto, scegli la migliore, copia il
-suo URL e aggiungi ` --sref <url>` in coda a tutti i prompt successivi.
-
-Suffisso anti-scritte già incluso in ogni prompt: `--no text, letters, words, watermark`.
+Ogni prompt include già `--no frame, border, card, text, letters, watermark`.
 
 ---
 
-## Carte Minaccia complete (fronte, con aree di testo vuote)
+## Soggetti — Minacce e nemici (--ar 3:4)
 
 **Adepto Incappucciato**
 ```
-complete ornate dark fantasy playing card design, carved gold filigree frame with ruby gems on black, empty scroll banner at the top, central painting of a hooded cultist in grey undertaker robes with smooth featureless wax mask holding a foundry sickle, empty dark parchment text panel at the bottom, 1889 gaslamp gothic, oil painting, dramatic candlelight, muted teal and crimson palette with gold accents --ar 3:4 --style raw --no text, letters, words, watermark
+full bleed dark fantasy painting, hooded cultist in grey undertaker robes with smooth featureless wax mask, holding a foundry sickle, black candle wax dripping from sleeves, 1889 gaslamp gothic canal city at night behind, oil painting, dramatic candlelight, muted teal and crimson palette with gold accents, heavy fog --ar 3:4 --style raw --no frame, border, card, text, letters, watermark
 ```
 
 **Il Custode della Cera (boss)**
 ```
-complete ornate dark fantasy playing card design, carved gold filigree frame with ruby gems on black, empty scroll banner at the top, central painting of a towering giant encased in layers of melted black and ivory wax with a faceless smooth head, glowing seams of candlelight in the cracks, empty dark parchment text panel at the bottom, 1889 gaslamp gothic, oil painting, muted teal and crimson palette with gold accents --ar 3:4 --style raw --no text, letters, words, watermark
+full bleed dark fantasy painting, towering giant encased in layers of melted black and ivory wax, faceless smooth head with faint traces of another face beneath, glowing seams of candlelight in the cracks, stone altar ringed with black candles behind, 1889 gaslamp gothic, oil painting, muted teal and crimson palette with gold accents --ar 3:4 --style raw --no frame, border, card, text, letters, watermark
 ```
 
 **Il canto cresce (timer)**
 ```
-complete ornate dark fantasy playing card design, carved gold filigree frame with ruby gems on black, empty scroll banner at the top, central painting of dozens of hooded figures singing in a drowned crypt with visible sound ripples on dark water, empty dark parchment text panel at the bottom, 1889 gaslamp gothic, oil painting, muted teal and crimson palette with gold accents --ar 3:4 --style raw --no text, letters, words, watermark
+full bleed dark fantasy painting, dozens of hooded figures singing in a drowned crypt, visible sound ripples spreading on dark water, black candles reflected on the surface, 1889 gaslamp gothic, oil painting, muted teal and crimson palette with gold accents --ar 3:4 --style raw --no frame, border, card, text, letters, watermark
 ```
 
 **Trappola di cera**
 ```
-complete ornate dark fantasy playing card design, carved gold filigree frame with ruby gems on black, empty scroll banner at the top, central painting of a corridor flooded with steaming molten black wax and hundreds of burning black candles, empty dark parchment text panel at the bottom, 1889 gaslamp gothic, oil painting, muted teal and crimson palette with gold accents --ar 3:4 --style raw --no text, letters, words, watermark
+full bleed dark fantasy painting, warehouse corridor flooded with steaming molten black wax, hundreds of burning black candles along wooden shelves, glistening floor, 1889 gaslamp gothic, oil painting, muted teal and crimson palette with gold accents --ar 3:4 --style raw --no frame, border, card, text, letters, watermark
 ```
 
 **Presagio / Sussurri**
 ```
-complete ornate dark fantasy playing card design, carved gold filigree frame with ruby gems on black, empty scroll banner at the top, central painting of a single wide-open eye reflected in black canal water with ripples forming a wave sigil, empty dark parchment text panel at the bottom, 1889 gaslamp gothic, oil painting, muted teal and crimson palette with gold accents --ar 3:4 --style raw --no text, letters, words, watermark
+full bleed dark fantasy painting, a single wide-open human eye reflected in black canal water, ripples forming a wave sigil, extinguished candle in the foreground, 1889 gaslamp gothic, oil painting, muted teal and crimson palette with gold accents, heavy fog --ar 3:4 --style raw --no frame, border, card, text, letters, watermark
 ```
 
-## Dorsi (finiti, senza ritocchi)
+## Soggetti — Eroi (ritratti, --ar 3:4)
+
+Sostituisci RITRATTO e usa questo prompt unico:
+```
+full bleed dark fantasy character portrait, RITRATTO, victorian 1889 attire, three-quarter view, gaslamp gothic canal city at night behind, oil painting, dramatic candlelight, muted teal and crimson palette with gold accents --ar 3:4 --style raw --no frame, border, card, text, letters, watermark
+```
+
+Ritratti — **Elena** sharp-eyed woman in her 30s in a dark tailored coat with a magnifying lens on a chain and a walking cane · **Attilio** weary bearded physician with leather medical bag, round spectacles and bloodstained cuffs · **Sibilla** pale woman with silver-streaked hair holding an obsidian pendulum, chalk-dusted fingers · **Nino** wiry smirking man with lockpicks between his fingers, coiled rope and grappling hook on his shoulder · **Carla** determined young woman with a brass folding camera and ink-stained hands · **Ottone** burly jovial butcher with a heavy cleaver over his shoulder, leather apron, wine flask on his belt, hearty laugh, in front of a smoky tavern
+
+## Soggetti — Luoghi (orizzontali, --ar 3:2)
+
+Sostituisci SCENA e usa questo prompt unico:
+```
+full bleed dark fantasy painting in landscape format, SCENA, 1889 gaslamp gothic, oil painting, muted teal and crimson palette with gold accents --ar 3:2 --style raw --no frame, border, card, text, letters, watermark
+```
+
+Scene — **1** interior of a bell tower at 3am with three bronze bells and black wax on a spiral staircase · **2** humble candlelit canal-side room with a silver violin string on the table and a worried woman · **3** smoky canal tavern full of boatmen playing cards under an oil lamp · **4** nervous priest in a candlelit sacristy with a crypt door barred by new planks · **5** abandoned luthier workshop with violins hanging like game and a silver tuning fork on the workbench · **6** derelict warehouses over black still water with branded crates and a night watchman · **7** dusty municipal archive with a forbidden folio open on a lectern · **8** cluttered 19th century police office with a brigadier avoiding eye contact · **copertina spedizione** abandoned wax warehouse on a canal at night, faint candlelight through broken shutters
+
+## Cornici (una sola generazione, poi si riusa ovunque)
+
+**Cornice carte verticali (Minacce, eroi)** — centro vuoto e scuro:
+```
+ornate dark fantasy card frame template, carved gold filigree border with ruby and teal gems on black, empty scroll banner at the top, empty dark parchment text panel at the bottom, the large central area completely plain dark and empty, victorian gothic, perfectly symmetrical --ar 3:4 --style raw --no text, letters, words, watermark
+```
+
+**Cornice carte orizzontali (Luoghi)**:
+```
+ornate dark fantasy card frame template in landscape format, carved gold filigree border with ruby gems on deep crimson, empty scroll banner at the top, wide empty aged parchment panel in the lower half, the upper central area completely plain dark and empty, victorian gothic, perfectly symmetrical --ar 3:2 --style raw --no text, letters, words, watermark
+```
+
+Suggerimento: per il montaggio serve che il centro sia davvero vuoto; se Midjourney
+ci disegna dentro qualcosa, usa Vary Region e cancella il centro, oppure va bene
+comunque: nel compositing il dipinto viene sovrapposto al centro coprendolo.
+
+## Finiti così come escono
 
 **Dorso carte Minaccia**
 ```
@@ -59,75 +85,27 @@ ornate symmetrical dark fantasy card back, engraved gold filigree covering the w
 ornate symmetrical dark fantasy card back, engraved gold filigree covering the whole surface, ruby gems, central round empty medallion for a number, deep crimson and black, victorian gothic, perfectly symmetrical, full bleed --ar 3:4 --style raw --no text, letters, words, watermark
 ```
 
-## Carte Luogo (orizzontali, pannello testo vuoto)
-
-Sostituisci la parte in maiuscolo con la scena del luogo (sotto trovi le otto scene).
-
-```
-complete ornate dark fantasy card design in landscape format, carved gold filigree frame with ruby gems on deep crimson, empty scroll banner at the top, wide central painting of SCENA, large empty aged parchment panel in the lower half for text, 1889 gaslamp gothic, oil painting, muted teal and crimson palette with gold accents --ar 3:2 --style raw --no text, letters, words, watermark
-```
-
-Scene: **1** interior of a bell tower at 3am with three bronze bells and black wax on a spiral staircase · **2** humble candlelit canal-side room with a silver violin string on the table and a worried woman · **3** smoky canal tavern full of boatmen playing cards under an oil lamp · **4** nervous priest in a candlelit sacristy with a crypt door barred by new planks · **5** abandoned luthier workshop with violins hanging like game and a silver tuning fork on the workbench · **6** derelict warehouses over black still water with branded crates and a night watchman · **7** dusty municipal archive with a forbidden folio open on a lectern · **8** cluttered 19th century police office with a brigadier avoiding eye contact
-
-## Schede eroe (ritratto incorniciato, resto vuoto)
-
-Un prompt per eroe: sostituisci RITRATTO con la descrizione.
-
-```
-dark fantasy character portrait in an ornate carved gold frame with ruby gems, RITRATTO, victorian 1889 attire, three-quarter view, canal city at night behind, oil painting, dramatic candlelight, muted teal and crimson palette with gold accents --ar 3:4 --style raw --no text, letters, words, watermark
-```
-
-Ritratti: **Elena** sharp-eyed woman in her 30s in a dark tailored coat with a magnifying lens on a chain and a walking cane · **Attilio** weary bearded physician with leather medical bag, round spectacles and bloodstained cuffs · **Sibilla** pale woman with silver-streaked hair holding an obsidian pendulum, chalk-dusted fingers · **Nino** wiry smirking man with lockpicks between his fingers, coiled rope and grappling hook on his shoulder · **Carla** determined young woman with a brass folding camera and ink-stained hands · **Ottone** burly jovial butcher with a heavy cleaver over his shoulder, leather apron, wine flask on his belt, hearty laugh, in front of a smoky tavern
-
-## Tessere mappa (complete)
-
-Una per tessera: sostituisci AMBIENTE.
-
+**Tessere mappa** (sostituisci AMBIENTE):
 ```
 top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, AMBIENTE, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark
 ```
+Ambienti — **T1** loading dock with black canal water along one edge and mooring posts · **T2** warehouse room packed with stacked wooden crates branded with a wave · **T3** narrow corridor lined with hundreds of black candles and pooled wax · **T4** cluttered office with a desk covered in sheet music and a straw bed · **T5** slick stone staircase descending into darkness · **T6** underground crypt with a central altar in a ring of candles and a barred prison cell in the corner
 
-Ambienti: **T1** loading dock with black canal water along one edge and mooring posts · **T2** warehouse room packed with stacked wooden crates branded with a wave · **T3** narrow corridor lined with hundreds of black candles and pooled wax · **T4** cluttered office with a desk covered in sheet music and a straw bed · **T5** slick stone staircase descending into darkness · **T6** underground crypt with a central altar in a ring of candles and a barred prison cell in the corner
+**Mappa di campagna di Roccamora (poster)**
+```
+antique hand-drawn city map of a gothic canal city, bird's eye view, ink and watercolor on aged parchment, a great cathedral with bell tower at the center, winding canals dividing eight distinct districts, small warehouses along a dark lower canal, tiny rooftops, bridges and mooring posts, decorative compass rose and sea-serpent flourish in the corners, 1889 cartography style, muted teal water and sepia buildings with crimson accents --ar 3:4 --style raw --no text, letters, words, watermark
+```
 
-## Extra
-
-**Sigillo della Società (per lettera e regolamento)**
+**Sigillo della Società**
 ```
 wax seal emblem, letters S and L intertwined with a single engraved wave, deep red wax with gold engraving, centered on black, product photography style, high detail --ar 1:1 --style raw --no watermark
 ```
 
-**Mappa di campagna di Roccamora (poster da appendere)**
-```
-antique hand-drawn city map of a gothic canal city, bird's eye view, ink and watercolor on aged parchment, a great cathedral with bell tower at the center, winding canals dividing eight distinct districts, small warehouses along a dark lower canal, tiny rooftops, bridges and mooring posts, decorative compass rose and sea-serpent flourish in the corners, 1889 cartography style, muted teal water and sepia buildings with crimson accents --ar 3:4 --style raw --no text, letters, words, watermark
-```
-Uso: stampala in A4/A3 e appendila; dopo ogni episodio marcate i luoghi "accordati" dal
-culto con un segno a onda e incollate accanto i Frammenti. Caricandola in chat, le
-etichette dei luoghi (1–8), i riquadri per i Frammenti e la legenda vengono composte
-sopra in tipografia italiana.
+## Montaggio
 
-
-## Coerenza delle cornici (importante)
-
-`--sref` mantiene lo stile pittorico ma NON la composizione: la cornice viene
-reinventata a ogni generazione. Per avere la stessa cornice su tutta la serie:
-
-1. **Metodo consigliato — Vary Region:** apri la carta "madre" (l'Adepto)
-   nell'editor web di Midjourney, cancella SOLO la zona del dipinto centrale
-   lasciando intatti cornice, targa e pannello, scrivi nel prompt solo il nuovo
-   soggetto e genera. La cornice resta identica pixel per pixel.
-2. **Metodo alternativo — cornice unica + arte separata:** genera una sola volta
-   la cornice vuota, poi per ogni soggetto solo il dipinto (togli "complete
-   ornate playing card design" dal prompt e tieni `--sref`); il montaggio
-   dentro la cornice avviene in compositing insieme ai testi.
-3. **Ritocchi che aiutano:** `--sw 800` (fino a 1000) per irrigidire lo stile;
-   l'immagine dell'Adepto come image-prompt a inizio riga con `--iw 2` avvicina
-   anche la composizione (ma può far somigliare i soggetti tra loro).
-
-## Flusso di lavoro consigliato
-
-1. Genera l'Adepto → scegli → upscala → copia URL → aggiungi `--sref <url>` a tutto.
-2. Genera dorsi e tessere (finiti) e i fronti (con aree vuote).
-3. Carica tutto in chat: il compositing rimette titoli, testi, statistiche e numeri
-   in italiano sopra le tue immagini, e i PDF vengono rigenerati con le stesse
-   regole di stampa fronte/retro. In alternativa: Canva/Photopea con Old Standard
-   TT e IM Fell English SC.
+1. Genera l'Adepto → `--sref` + `--sw 800` su tutto il resto.
+2. Genera le due cornici (una volta), i dorsi, le tessere, la mappa.
+3. Carica in chat cornici + soggetti: il compositing monta ogni dipinto nella sua
+   cornice, aggiunge titoli, flavor, effetti e statistiche in italiano e rigenera i
+   PDF con l'impaginazione di stampa fronte/retro. In alternativa fai il montaggio
+   in Canva/Photopea (font: Old Standard TT e IM Fell English SC).
