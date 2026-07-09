@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Ombre su Corvasca - Schede, Indagine, Spedizione (PDF via canvas+frames)."""
+"""Ombre su Roccamora - Schede, Indagine, Spedizione (PDF via canvas+frames)."""
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.units import mm
 from reportlab.lib import colors
@@ -103,15 +103,15 @@ def stat_box(c, x, y, w, label, value):
     c.restoreState()
 
 def schede():
-    c = canvas.Canvas('/mnt/user-data/outputs/Ombre-su-Corvasca-02-Schede-Personaggio.pdf', pagesize=A4)
-    c.setTitle('Ombre su Corvasca - Schede Personaggio')
+    c = canvas.Canvas('/mnt/user-data/outputs/Ombre-su-Roccamora-02-Schede-Personaggio.pdf', pagesize=A4)
+    c.setTitle('Ombre su Roccamora - Schede Personaggio')
     for hro in HEROES:
         mx, mt = 20*mm, 20*mm
         # header
         c.setFillColor(RED); c.setFont('Times-Bold', 24)
         c.drawString(mx, H - mt - 6*mm, hro['nome'])
         c.setFillColor(TEAL); c.setFont('Times-Italic', 13)
-        c.drawString(mx, H - mt - 12.5*mm, hro['ruolo'] + '  \u2014  Societ\u00e0 del Lume, Corvasca')
+        c.drawString(mx, H - mt - 12.5*mm, hro['ruolo'] + '  \u2014  Societ\u00e0 del Lume, Roccamora')
         wave(c, W - mx - 30*mm, H - mt - 8*mm, 30*mm)
         c.setStrokeColor(INK); c.setLineWidth(1)
         c.line(mx, H - mt - 16*mm, W - mx, H - mt - 16*mm)
@@ -250,8 +250,8 @@ LUOGHI = [
 ]
 
 def indagine():
-    c = canvas.Canvas('/mnt/user-data/outputs/Ombre-su-Corvasca-03-Episodio1-Indagine.pdf', pagesize=A4)
-    c.setTitle('Ombre su Corvasca - Episodio 1 - Indagine')
+    c = canvas.Canvas('/mnt/user-data/outputs/Ombre-su-Roccamora-03-Episodio1-Indagine.pdf', pagesize=A4)
+    c.setTitle('Ombre su Roccamora - Episodio 1 - Indagine')
     # --- lettera d'incarico (page 1)
     mx = 25*mm
     c.setFillColor(RED); c.setFont('Times-Bold', 22)
@@ -382,8 +382,8 @@ TILES = [
 ]
 
 def spedizione():
-    c = canvas.Canvas('/mnt/user-data/outputs/Ombre-su-Corvasca-04-Episodio1-Spedizione.pdf', pagesize=A4)
-    c.setTitle('Ombre su Corvasca - Episodio 1 - Spedizione')
+    c = canvas.Canvas('/mnt/user-data/outputs/Ombre-su-Roccamora-04-Episodio1-Spedizione.pdf', pagesize=A4)
+    c.setTitle('Ombre su Roccamora - Episodio 1 - Spedizione')
     # ---- threat cards 3x3
     cw, chh = 60*mm, 84*mm
     gx, gy = (W - 3*cw) / 2.0, (H - 3*chh) / 2.0

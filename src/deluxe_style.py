@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Ombre su Corvasca - stile deluxe condiviso."""
+"""Ombre su Roccamora - stile deluxe condiviso."""
 import random
 from reportlab.lib.units import mm
 from reportlab.lib import colors

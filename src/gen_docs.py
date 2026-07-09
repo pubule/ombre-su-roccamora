@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Ombre su Corvasca - Regolamento + Soluzione (PDF)."""
+"""Ombre su Roccamora - Regolamento + Soluzione (PDF)."""
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.units import mm
 from reportlab.lib import colors
@@ -19,7 +19,7 @@ def bg(canv, doc):
     rule_border(canv, A4[0], A4[1])
     canv.setFillColor(GOLD)
     canv.setFont(F['sc'], 8)
-    canv.drawCentredString(A4[0]/2, 4.2*mm, 'ombre su corvasca \u00b7 societ\u00e0 del lume')
+    canv.drawCentredString(A4[0]/2, 4.2*mm, 'ombre su roccamora \u00b7 societ\u00e0 del lume')
     canv.restoreState()
 
 
@@ -62,16 +62,16 @@ def hr():
 
 # ----------------------------------------------------------------- REGOLAMENTO
 def regolamento():
-    doc = SimpleDocTemplate('/mnt/user-data/outputs/Ombre-su-Corvasca-01-Regolamento.pdf',
+    doc = SimpleDocTemplate('/mnt/user-data/outputs/Ombre-su-Roccamora-01-Regolamento.pdf',
                             pagesize=A4, leftMargin=22*mm, rightMargin=22*mm,
                             topMargin=20*mm, bottomMargin=20*mm,
-                            title='Ombre su Corvasca - Regolamento')
+                            title='Ombre su Roccamora - Regolamento')
     e = []
     e.append(Spacer(1, 30))
-    e.append(P('OMBRE SU CORVASCA', 'title'))
+    e.append(P('OMBRE SU ROCCAMORA', 'title'))
     e.append(P('Un gioco investigativo cooperativo a puntate \u2014 per 2\u20135 giocatori', 'subtitle'))
     e.append(hr())
-    e.append(P("Corvasca, 1889. Una citt\u00e0 di canali neri, campanili e vicoli che non figurano "
+    e.append(P("Roccamora, 1889. Una citt\u00e0 di canali neri, campanili e vicoli che non figurano "
                "sulle mappe. Voi siete i membri della <b>Societ\u00e0 del Lume</b>, un piccolo circolo "
                "privato che indaga su ci\u00f2 che la gendarmeria preferisce non vedere. Ogni episodio "
                "\u00e8 un caso. Ogni caso risolto \u00e8 un frammento di un mistero pi\u00f9 grande, che "
@@ -205,10 +205,10 @@ def regolamento():
 
 # ------------------------------------------------------------------ SOLUZIONE
 def soluzione():
-    doc = SimpleDocTemplate('/mnt/user-data/outputs/Ombre-su-Corvasca-05-SOLUZIONE-non-aprire.pdf',
+    doc = SimpleDocTemplate('/mnt/user-data/outputs/Ombre-su-Roccamora-05-SOLUZIONE-non-aprire.pdf',
                             pagesize=A4, leftMargin=22*mm, rightMargin=22*mm,
                             topMargin=20*mm, bottomMargin=20*mm,
-                            title='Ombre su Corvasca - Soluzione Episodio 1')
+                            title='Ombre su Roccamora - Soluzione Episodio 1')
     e = []
     e.append(Spacer(1, 200))
     e.append(P('\u26a0 ALT \u26a0', 'warn'))
@@ -223,7 +223,7 @@ def soluzione():
                "ottenuto la seconda chiave della cripta e ha scoperto i condotti che scendono verso "
                "il Canale Basso, \u201cdove l\u2019acqua canta\u201d. Ogni notte alle 3 il culto fa suonare le "
                "campane con un meccanismo a contrappesi: le vibrazioni del bronzo attraversano la "
-               "pietra e <b>svegliano qualcosa che dorme sotto Corvasca</b>. Il campanaro Ruggero "
+               "pietra e <b>svegliano qualcosa che dorme sotto Roccamora</b>. Il campanaro Ruggero "
                "Alvise se n\u2019\u00e8 accorto, ha visto Ferri in cripta, ed \u00e8 stato rapito. \u00c8 tenuto "
                "prigioniero nel vecchio <b>Magazzino delle Cere \u201cDellacqua\u201d</b> sul Canale Basso, "
                "dove il culto fonde le candele nere e prepara il rituale."))
@@ -291,12 +291,12 @@ def soluzione():
     e.append(P('EPILOGO \u2014 da leggere ad alta voce a vittoria ottenuta', 'h1'))
     e.append(P('\u00abRuggero trema mentre la chiatta vi riporta a casa. \u201cCantavano all\u2019acqua\u201d, '
                'dice. \u201cE l\u2019acqua rispondeva. Ferri diceva che le campane servono a svegliare '
-               'qualcosa che dorme sotto Corvasca dal 1741. Diceva che ormai... ha aperto gli '
+               'qualcosa che dorme sotto Roccamora dal 1741. Diceva che ormai... ha aperto gli '
                'occhi.\u201d Del liutaio, al magazzino, nessuna traccia: solo uno spartito incompiuto '
                'e una riga in margine: \u201cSecondo movimento: le voci del pozzo\u201d.\u00bb', 'box'))
     e.append(P('FRAMMENTO DI CAMPAGNA N. 1', 'h2'))
     e.append(P('<i>Il Coro Sommerso non evoca: <b>accorda</b>. Ogni episodio il culto \u201caccorda\u201d '
-               'un luogo della citt\u00e0. Segnate sulla mappa mentale di Corvasca: la Cattedrale \u00e8 '
+               'un luogo della citt\u00e0. Segnate sulla mappa mentale di Roccamora: la Cattedrale \u00e8 '
                'gi\u00e0 accordata.</i> Conservate questo frammento per il finale di campagna.'))
     e.append(P('MIGLIORIE (una a testa dopo la vittoria)', 'h2'))
     e.append(LI('<b>Tempra</b> \u2014 +1 permanente a una caratteristica a scelta (massimo 4).'))

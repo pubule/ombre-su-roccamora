@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Ombre su Corvasca - testi narrativi estesi (immersione)."""
+"""Ombre su Roccamora - testi narrativi estesi (immersione)."""
 
 LETTERA2 = (
     "Alla Societ\u00e0 del Lume, riservata.<br/><br/>"
@@ -73,7 +73,7 @@ TESTI_TILES = {
 NOTE_NEMICI = {
     'ADEPTO INCAPPUCCIATO':
         "Palandrana grigia da becchino, maschera di cera liscia e senza tratti. Sotto, gente "
-        "comune di Corvasca \u2014 fornai, barcaioli, sagrestani \u2014 che alle 3 di notte "
+        "comune di Roccamora \u2014 fornai, barcaioli, sagrestani \u2014 che alle 3 di notte "
         "smette di essere gente comune. Combattono con falcetti da fonditore, in perfetto "
         "silenzio: la voce la conservano per il canto.",
     'IL CUSTODE DELLA CERA':
@@ -102,19 +102,19 @@ BIO = {
         "il secondo l\u2019ha guardata in faccia una notte, da bambina, sul bordo di un pozzo. "
         "Il pendolo che porta era di sua nonna. Non \u00e8 mai stato fermo.",
     'NINO \u201cGRIMALDELLO\u201d CAUTO':
-        "Cresciuto sui tetti e nelle intercapedini di Corvasca, conosce la citt\u00e0 come un "
+        "Cresciuto sui tetti e nelle intercapedini di Roccamora, conosce la citt\u00e0 come un "
         "ladro conosce le tasche altrui: al buio. Un lavoro finito male gli ha lasciato un "
         "debito con la persona sbagliata e un motivo per stare dalla parte giusta, almeno per "
         "ora. Le serrature, dice, sono domande: basta fare quella giusta.",
     'OTTONE \u201cMEZZENA\u201d MASSARI':
         "Il banco dei Massari sta al Vecchio Mercato da tre generazioni, e Ottone conosce "
-        "Corvasca dalla pancia: sa chi mangia, chi digiuna e chi da qualche tempo non ha "
+        "Roccamora dalla pancia: sa chi mangia, chi digiuna e chi da qualche tempo non ha "
         "pi\u00f9 fame. Ci pensa da quando il suo garzone spar\u00ec durante la festa di San "
         "Teodoro e torn\u00f2 tre giorni dopo, senza appetito e senza voce. Dice che la "
         "citt\u00e0 si legge a tavola: dove si smette di mangiare e di ridere, l\u00ec "
         "c\u2019\u00e8 il male.",
     'CARLA DOSTI':
-        "Prima donna in redazione al Corriere di Corvasca, relegata ai necrologi finch\u00e9 non "
+        "Prima donna in redazione al Corriere di Roccamora, relegata ai necrologi finch\u00e9 non "
         "ha scoperto che i necrologi, letti in fila, raccontano storie che nessuno vuole "
         "stampare. Ha una macchina fotografica, una memoria feroce e la convinzione che la "
         "verit\u00e0 sia un diritto anche quando \u00e8 indicibile.",

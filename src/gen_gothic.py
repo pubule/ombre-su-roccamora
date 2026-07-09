@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Ombre su Corvasca - versione GOTICA di carte e tessere (03 e 04)."""
+"""Ombre su Roccamora - versione GOTICA di carte e tessere (03 e 04)."""
 import math
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.units import mm
@@ -84,7 +84,7 @@ def luogo_back(c, x, y, cw, ch, L):
     ornate_frame(c, x, y, cw, ch, base=NIGHTR, gems=True)
     cx, cy = x + cw/2, y + ch/2
     c.setFillColor(GOLD_L); c.setFont(F['sc'], 13)
-    c.drawCentredString(cx, y + ch - 15*mm, 'ombre su corvasca')
+    c.drawCentredString(cx, y + ch - 15*mm, 'ombre su roccamora')
     medallion(c, cx, cy + 2*mm, 17*mm, GOLD)
     c.setFillColor(GOLD_L); c.setFont(F['sc'], 36)
     c.drawCentredString(cx, cy - 4*mm, str(L['n']))
@@ -96,8 +96,8 @@ def luogo_back(c, x, y, cw, ch, L):
     triple_wave(c, cx, y + ch - 21*mm, 24*mm, GOLD, 1, 2.4*mm)
 
 def indagine():
-    c = canvas.Canvas('/mnt/user-data/outputs/Ombre-su-Corvasca-03-Episodio1-Indagine.pdf', pagesize=A4)
-    c.setTitle('Ombre su Corvasca - Episodio 1 - Indagine')
+    c = canvas.Canvas('/mnt/user-data/outputs/Ombre-su-Roccamora-03-Episodio1-Indagine.pdf', pagesize=A4)
+    c.setTitle('Ombre su Roccamora - Episodio 1 - Indagine')
     # lettera d'incarico (pergamena, invariata nello spirito)
     parchment(c, W, H, seed=5)
     rule_border(c, W, H)
@@ -189,7 +189,7 @@ def minaccia_back(c, x, y, cw, chh):
     ornate_frame(c, x, y, cw, chh, base=colors.HexColor('#101c1f'))
     cx, cy = x + cw/2, y + chh/2 + 4*mm
     c.setFillColor(GOLD_L); c.setFont(F['sc'], 9.5)
-    c.drawCentredString(cx, y + chh - 12*mm, 'ombre su corvasca')
+    c.drawCentredString(cx, y + chh - 12*mm, 'ombre su roccamora')
     medallion(c, cx, cy, 15*mm, GOLD)
     triple_wave(c, cx, cy + 4*mm, 20*mm, GOLD_L, 1.4, 4*mm)
     for sgn in (-1, 1):
@@ -303,8 +303,8 @@ def tile_gothic(c, x, y, ts, T, idx):
     compass(c, x + ts - 9*mm, y + 10*mm, 4*mm)
 
 def spedizione():
-    c = canvas.Canvas('/mnt/user-data/outputs/Ombre-su-Corvasca-04-Episodio1-Spedizione.pdf', pagesize=A4)
-    c.setTitle('Ombre su Corvasca - Episodio 1 - Spedizione')
+    c = canvas.Canvas('/mnt/user-data/outputs/Ombre-su-Roccamora-04-Episodio1-Spedizione.pdf', pagesize=A4)
+    c.setTitle('Ombre su Roccamora - Episodio 1 - Spedizione')
     cwd, chh = 60*mm, 84*mm
     gx, gy = (W - 3*cwd) / 2.0, (H - 3*chh) / 2.0
     pages = [MINACCE[i:i+9] for i in range(0, len(MINACCE), 9)]

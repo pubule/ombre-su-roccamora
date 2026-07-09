@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Ombre su Corvasca - ornamenti gotici e stile 'mappa a china'."""
+"""Ombre su Roccamora - ornamenti gotici e stile 'mappa a china'."""
 import math
 import random
 from reportlab.lib.units import mm

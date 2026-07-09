@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Ombre su Corvasca - componenti versione deluxe."""
+"""Ombre su Roccamora - componenti versione deluxe."""
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.units import mm
 from reportlab.lib import colors
@@ -66,8 +66,8 @@ def stat_box(c, x, y, w, label, value):
 
 # ================================================================= SCHEDE
 def schede():
-    c = canvas.Canvas('/mnt/user-data/outputs/Ombre-su-Corvasca-02-Schede-Personaggio.pdf', pagesize=A4)
-    c.setTitle('Ombre su Corvasca - Schede Personaggio')
+    c = canvas.Canvas('/mnt/user-data/outputs/Ombre-su-Roccamora-02-Schede-Personaggio.pdf', pagesize=A4)
+    c.setTitle('Ombre su Roccamora - Schede Personaggio')
     for pg, hro in enumerate(HEROES):
         parchment(c, W, H, seed=40 + pg)
         rule_border(c, W, H)
@@ -75,7 +75,7 @@ def schede():
         c.setFillColor(RED); c.setFont(F['sc'], 23)
         c.drawString(mx, H - mt - 6*mm, hro['nome'].lower())
         c.setFillColor(TEAL); c.setFont(F['i'], 13)
-        c.drawString(mx, H - mt - 12.5*mm, hro['ruolo'] + '  \u2014  Societ\u00e0 del Lume, Corvasca')
+        c.drawString(mx, H - mt - 12.5*mm, hro['ruolo'] + '  \u2014  Societ\u00e0 del Lume, Roccamora')
         seal(c, W - mx - 8*mm, H - mt - 6*mm, r=9*mm, angle=-16)
         c.setStrokeColor(INK); c.setLineWidth(1)
         c.line(mx, H - mt - 16*mm, W - mx, H - mt - 16*mm)
@@ -153,7 +153,7 @@ def luogo_back(c, x, y, cw, ch, L):
     c.rect(x + 4.2*mm, y + 4.2*mm, cw - 8.4*mm, ch - 8.4*mm)
     cx, cy = x + cw/2, y + ch/2
     c.setFillColor(GOLD); c.setFont(F['sc'], 13)
-    c.drawCentredString(cx, y + ch - 15*mm, 'ombre su corvasca')
+    c.drawCentredString(cx, y + ch - 15*mm, 'ombre su roccamora')
     c.setStrokeColor(GOLD); c.setLineWidth(1.4)
     c.circle(cx, cy + 2*mm, 15*mm)
     c.setFont(F['sc'], 34)
@@ -164,8 +164,8 @@ def luogo_back(c, x, y, cw, ch, L):
     c.restoreState()
 
 def indagine():
-    c = canvas.Canvas('/mnt/user-data/outputs/Ombre-su-Corvasca-03-Episodio1-Indagine.pdf', pagesize=A4)
-    c.setTitle('Ombre su Corvasca - Episodio 1 - Indagine')
+    c = canvas.Canvas('/mnt/user-data/outputs/Ombre-su-Roccamora-03-Episodio1-Indagine.pdf', pagesize=A4)
+    c.setTitle('Ombre su Roccamora - Episodio 1 - Indagine')
     # lettera d'incarico
     parchment(c, W, H, seed=5)
     rule_border(c, W, H)
@@ -246,15 +246,15 @@ def minaccia_back(c, x, y, cw, chh):
     c.rect(x + 3.5*mm, y + 3.5*mm, cw - 7*mm, chh - 7*mm)
     cx = x + cw/2
     c.setFillColor(GOLD); c.setFont(F['sc'], 10.5)
-    c.drawCentredString(cx, y + chh - 12*mm, 'ombre su corvasca')
+    c.drawCentredString(cx, y + chh - 12*mm, 'ombre su roccamora')
     triple_wave(c, cx, y + chh/2 + 6*mm, 34*mm, GOLD, 1.6, 5*mm)
     c.setFont(F['sc'], 13)
     c.drawCentredString(cx, y + 9*mm, 'minaccia')
     c.restoreState()
 
 def spedizione():
-    c = canvas.Canvas('/mnt/user-data/outputs/Ombre-su-Corvasca-04-Episodio1-Spedizione.pdf', pagesize=A4)
-    c.setTitle('Ombre su Corvasca - Episodio 1 - Spedizione')
+    c = canvas.Canvas('/mnt/user-data/outputs/Ombre-su-Roccamora-04-Episodio1-Spedizione.pdf', pagesize=A4)
+    c.setTitle('Ombre su Roccamora - Episodio 1 - Spedizione')
     cwd, chh = 60*mm, 84*mm
     gx, gy = (W - 3*cwd) / 2.0, (H - 3*chh) / 2.0
     pages = [MINACCE[i:i+9] for i in range(0, len(MINACCE), 9)]
