@@ -86,7 +86,11 @@ gradino sopra il precedente, mai un salto. Manopole da girare una o due alla vol
 Target di taratura invariato: un gruppo attento risponde bene a 3 domande su 4 al
 primo tentativo, e la spedizione si vince con 1–2 eroi a terra nei momenti peggiori.
 
-**Mazzo Minaccia: sempre 20 carte** con questo mix: ~8 spawn nemici, 2–3 trappole/prove,
+**Mazzo Minaccia: sempre 20 carte, tutte con titolo e flavor unici.** Le copie di uno
+stesso effetto sono "carte sorelle": stessa matematica, titolo diverso, flavor diverso,
+al più varia il punto di apparizione del nemico (mai danno, difesa o ferite). Le carte
+timer formano un crescendo narrativo (nell'Ep. 1: Il canto sale → Il coro risponde →
+Il canto cresce). **Composizione: sempre 20 carte** con questo mix: ~8 spawn nemici, 2–3 trappole/prove,
 3 carte-timer a tema (nell'Ep. 1 "Il canto cresce": al 3° segnalino il boss si desta e le pescate aumentano di 1; il timer avanza anche da solo, +1 segnalino alla fine di ogni 4° round), 2 "presagi" innocui, 1–2 eventi favorevoli, 1–2 rinforzi all'ingresso.
 
 **Nemici di riferimento (bilanciamento):** tre archetipi di truppa da riusare e variare —

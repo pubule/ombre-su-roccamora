@@ -122,6 +122,14 @@ BIO = {
 
 _FLAVOR = {
     'ADEPTO IN AGGUATO': 'Una sagoma si stacca dal buio, il volto una lastra di cera liscia.',
+    'VOLTI TRA LE CASSE': 'Tra le pile, un volto liscio che non respira. Vi guarda da un pezzo.',
+    'IL FALCETTO NEL BUIO': 'Il fischio sottile di una lama da fonditore, proprio dietro di voi.',
+    'LA VEDETTA': 'Chi resta solo, a Roccamora, non resta solo a lungo.',
+    'UNGHIE SULLA PIETRA': 'Dal buio dell\u2019ingresso, un galoppo basso che non rallenta.',
+    'LA MAREA DI CERA': 'Il gorgoglio si fa coro: i mestoli avanzano tutti insieme.',
+    'CERA SOTTO I PIEDI': 'Il pavimento cede morbido sotto lo stivale. Era ancora calda.',
+    'IL CANTO SALE': 'Una voce sola, sottile, cerca il tono giusto. Lo trova.',
+    'IL CORO RISPONDE': 'Dieci voci. Poi cento. La pietra le beve tutte.',
     'CANI DEI MOLI': 'Un ringhio basso, poi unghie sulla pietra. Troppo veloci.',
     'IL FONDITORE': 'Passi lenti, e il gorgoglio di un mestolo colmo di cera fusa.',
     'RONDA': 'Passi cadenzati e un salmodiare sommesso: non siete pi\u00f9 soli.',

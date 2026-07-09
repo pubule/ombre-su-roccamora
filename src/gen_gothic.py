@@ -39,9 +39,15 @@ def frame_flow(c, x, y, w, h, flow):
           bottomPadding=0, showBoundary=0).addFromList(flow, c)
 
 ICONS = {
-    'ADEPTO IN AGGUATO': O.icon_hood, 'RONDA': O.icon_hood,
-    'RINFORZI DAL CANALE': O.icon_anchor, 'TRAPPOLA DI CERA': O.icon_trap,
-    'FUMI SOPORIFERI': O.icon_smoke, 'IL CANTO CRESCE': O.icon_note,
+    'ADEPTO IN AGGUATO': O.icon_hood, 'VOLTI TRA LE CASSE': O.icon_hood,
+    'IL FALCETTO NEL BUIO': O.icon_hood, 'LA VEDETTA': O.icon_hood,
+    'RONDA': O.icon_hood, 'RINFORZI DAL CANALE': O.icon_anchor,
+    'CANI DEI MOLI': O.icon_paw, 'UNGHIE SULLA PIETRA': O.icon_paw,
+    'IL FONDITORE': O.icon_ladle, 'LA MAREA DI CERA': O.icon_ladle,
+    'TRAPPOLA DI CERA': O.icon_trap, 'CERA SOTTO I PIEDI': O.icon_trap,
+    'FUMI SOPORIFERI': O.icon_smoke,
+    'IL CANTO SALE': O.icon_note, 'IL CORO RISPONDE': O.icon_note,
+    'IL CANTO CRESCE': O.icon_note,
     'PRESAGIO': O.icon_eye, 'ECO AMICA': O.icon_bell,
     'CERA CHE COLA': O.icon_drip, 'SUSSURRI': O.icon_spiral,
 }

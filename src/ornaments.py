@@ -288,3 +288,25 @@ def icon_anchor(c, cx, cy, s, col=GOLD_L):
     c.line(cx - s*0.4, cy + s*0.25, cx + s*0.4, cy + s*0.25)
     c.arc(cx - s*0.6, cy - s*0.85, cx + s*0.6, cy + s*0.05, 200, 140)
     c.restoreState()
+
+
+def icon_paw(c, cx, cy, s, col=GOLD_L):
+    """Zampa: cuscinetto + tre dita."""
+    c.saveState(); c.setFillColor(col)
+    c.ellipse(cx - s*0.42, cy - s*0.65, cx + s*0.42, cy + s*0.1, fill=1, stroke=0)
+    for dx in (-s*0.42, 0, s*0.42):
+        c.circle(cx + dx, cy + s*0.42, s*0.2, fill=1, stroke=0)
+    c.restoreState()
+
+
+def icon_ladle(c, cx, cy, s, col=GOLD_L):
+    """Mestolo colmo che gocciola."""
+    c.saveState(); c.setStrokeColor(col); c.setFillColor(col); c.setLineWidth(1.5)
+    c.line(cx + s*0.15, cy + s*0.05, cx + s*0.75, cy + s*0.8)
+    p = c.beginPath()
+    p.moveTo(cx - s*0.65, cy + s*0.1); p.lineTo(cx + s*0.25, cy + s*0.1)
+    p.curveTo(cx + s*0.25, cy - s*0.45, cx - s*0.65, cy - s*0.45, cx - s*0.65, cy + s*0.1)
+    c.drawPath(p, fill=1, stroke=0)
+    c.circle(cx - s*0.2, cy - s*0.62, s*0.09, fill=1, stroke=0)
+    c.circle(cx - s*0.05, cy - s*0.8, s*0.06, fill=1, stroke=0)
+    c.restoreState()

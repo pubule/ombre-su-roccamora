@@ -332,13 +332,26 @@ def indagine():
 
 # ================================================================ SPEDIZIONE
 MINACCE = (
-    [('ADEPTO IN AGGUATO', 'Piazzate 1 Adepto sull\u2019uscita pi\u00f9 lontana dagli eroi della tessera in cui si trova l\u2019eroe attivo.')] * 4 +
-    [('CANI DEI MOLI', 'Piazzate 1 Cane dei Moli sull\u2019uscita pi\u00f9 vicina agli eroi della tessera corrente: si attiva subito e corre verso il pi\u00f9 vicino.')] * 2 +
-    [('IL FONDITORE', 'Piazzate 1 Fonditore sull\u2019ingresso della Banchina (T1). Se \u00e8 gi\u00e0 in gioco un Fonditore, recupera 1 ferita.')] * 2 +
-    [('RONDA', 'Piazzate 2 Adepti sull\u2019ingresso della Banchina (T1).')] * 1 +
-    [('TRAPPOLA DI CERA', 'L\u2019eroe pi\u00f9 avanzato prova NERVI (Media): se fallisce, cera bollente: 1 danno e perde 1 azione al prossimo turno.')] * 2 +
+    # famiglia ADEPTO (4): stessa sostanza, apparizioni diverse
+    [('ADEPTO IN AGGUATO', 'Piazzate 1 Adepto sull\u2019uscita pi\u00f9 lontana dagli eroi della tessera in cui si trova l\u2019eroe attivo.'),
+     ('VOLTI TRA LE CASSE', 'Piazzate 1 Adepto sulla tessera rivelata pi\u00f9 lontana dagli eroi.'),
+     ('IL FALCETTO NEL BUIO', 'Piazzate 1 Adepto sull\u2019ingresso della tessera corrente, alle spalle degli eroi.'),
+     ('LA VEDETTA', 'Piazzate 1 Adepto adiacente all\u2019eroe pi\u00f9 isolato (quello pi\u00f9 lontano dagli altri; a pari merito, l\u2019eroe attivo).')] +
+    # famiglia CANI (2)
+    [('CANI DEI MOLI', 'Piazzate 1 Cane dei Moli sull\u2019uscita pi\u00f9 vicina agli eroi della tessera corrente: si attiva subito.'),
+     ('UNGHIE SULLA PIETRA', 'Piazzate 1 Cane dei Moli sull\u2019ingresso della tessera corrente: si attiva subito.')] +
+    # famiglia FONDITORE (2)
+    [('IL FONDITORE', 'Piazzate 1 Fonditore sull\u2019ingresso della Banchina (T1). Se \u00e8 gi\u00e0 in gioco un Fonditore, recupera 1 ferita.'),
+     ('LA MAREA DI CERA', 'Piazzate 1 Fonditore sull\u2019ingresso della Banchina (T1): tutti i Fonditori in gioco si attivano subito.')] +
+    [('RONDA', 'Piazzate 2 Adepti sull\u2019ingresso della Banchina (T1).')] +
+    # famiglia TRAPPOLE (2)
+    [('TRAPPOLA DI CERA', 'L\u2019eroe pi\u00f9 avanzato prova NERVI (Media): se fallisce, cera bollente: 1 danno e perde 1 azione al prossimo turno.'),
+     ('CERA SOTTO I PIEDI', 'L\u2019eroe attivo prova NERVI (Media): se fallisce, 1 danno e perde 1 azione al prossimo turno.')] +
     [('FUMI SOPORIFERI', 'Ogni eroe prova NERVI (Facile): chi fallisce ha 1 sola azione al prossimo turno.')] +
-    [('IL CANTO CRESCE', 'Aggiungete 1 segnalino Canto. Al terzo: il Custode della Cera si desta (vedi Soluzione). Se \u00e8 gi\u00e0 in gioco: recupera 1 ferita e si attiva subito.')] * 3 +
+    # famiglia CANTO (3): crescendo, effetto identico
+    [('IL CANTO SALE', 'Aggiungete 1 segnalino Canto. Al terzo: il Custode della Cera si desta (vedi Soluzione). Se \u00e8 gi\u00e0 in gioco: recupera 1 ferita e si attiva subito.'),
+     ('IL CORO RISPONDE', 'Aggiungete 1 segnalino Canto. Al terzo: il Custode della Cera si desta (vedi Soluzione). Se \u00e8 gi\u00e0 in gioco: recupera 1 ferita e si attiva subito.'),
+     ('IL CANTO CRESCE', 'Aggiungete 1 segnalino Canto. Al terzo: il Custode della Cera si desta (vedi Soluzione). Se \u00e8 gi\u00e0 in gioco: recupera 1 ferita e si attiva subito.')] +
     [('PRESAGIO', 'Un brivido corre lungo la schiena. Non accade nulla... per ora.')] +
     [('ECO AMICA', 'Tre colpi sordi, in lontananza: Ruggero \u00e8 vivo. Rivelate una tessera coperta adiacente a una rivelata.')] +
     [('CERA CHE COLA', 'Fino a fine round, sulla tessera dell\u2019eroe attivo muoversi costa il doppio.')] +
