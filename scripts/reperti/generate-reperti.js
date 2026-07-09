@@ -3,6 +3,11 @@
 // una pagina HTML), invece del PDF vettoriale di src/gen_reperti.py.
 // Testi presi 1:1 da src/gen_reperti.py (fonte autoritativa).
 //
+// Layout a flusso normale (niente altezze/posizioni indovinate a mano): il
+// body cresce in base al contenuto (height:auto), poi si misura scrollHeight
+// e si scatta esattamente quella dimensione — cosi' niente testo tagliato o
+// spazi vuoti enormi quando cambiano font-size/testi.
+//
 // Uso: node scripts/reperti/generate-reperti.js
 
 const { chromium } = require('playwright');
@@ -16,24 +21,23 @@ const SEAL_PATH = path.join(ROOT, 'artworks', 'Sigillo.jpg');
 const OUT_DIR = path.join(ROOT, 'reperti');
 fs.mkdirSync(OUT_DIR, { recursive: true });
 
-const W = 1500, H = 2121; // ~A4 verticale
+const W = 1500;
+const PAD = 190; // margine laterale, tenuto ben dentro i bordi frastagliati della pergamena
 
 const BASE_CSS = `
   @import url('https://fonts.googleapis.com/css2?family=La+Belle+Aurore&family=IM+Fell+English+SC&family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&display=swap');
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { width: ${W}px; height: ${H}px; position: relative; overflow: hidden;
-         background: url('${BG}') center/cover no-repeat; }
+  html, body { width: ${W}px; }
+  body { position: relative; background: url('${BG}') center top / ${W}px auto repeat-y; }
   /* Niente pannelli/alone: il testo si "brucia" nella pergamena con lo stesso
      blend mode Multiply che si userebbe in Photoshop/Photopea per un layer
      inchiostro sopra una foto (il colore scurisce in proporzione a quello che
      c'e' gia' sotto, quindi segue ombre/pieghe della carta senza bordi finti). */
-  .hand, .serif, .caps { color: #3a2415; mix-blend-mode: multiply; }
+  .hand, .serif, .caps { color: #3a2415; mix-blend-mode: multiply; font-weight: bold; }
   .hand { font-family: 'La Belle Aurore', cursive; }
   .serif { font-family: 'Old Standard TT', serif; }
   .caps { font-family: 'IM Fell English SC', serif; letter-spacing: 2px; text-transform: uppercase; }
-  .label { position: absolute; top: 220px; right: 60px; font-family: 'Old Standard TT', serif;
-           font-style: italic; font-size: 20px; color: #3a2415; mix-blend-mode: multiply; }
-  .title { position: absolute; top: 205px; left: 0; right: 0; text-align: center; font-size: 34px; }
+  .wrap { padding: 140px ${PAD}px 140px ${PAD}px; }
 `;
 
 function page(bodyHtml) {
@@ -79,7 +83,7 @@ async function flattenSealToDataUrl(page_, bgColor) {
 
 (async () => {
   const browser = await chromium.launch({ headless: true });
-  const page_ = await browser.newPage({ viewport: { width: W, height: H } });
+  const page_ = await browser.newPage({ viewport: { width: W, height: 2000 } });
 
   const SEAL = await flattenSealToDataUrl(page_, '#5a1018');
 
@@ -91,14 +95,16 @@ async function flattenSealToDataUrl(page_, bgColor) {
     "21 del mese. Le mie campane suonano senza di me e io conto i rintocchi come un condannato conta i gradini. Domani scendo anch’io, e che Dio mi perdoni la curiosità.",
   ];
   const repertoA = page(`
-    <div class="label">Reperto A — dal diario di Ruggero Alvise, campanaro</div>
-    <div style="position:absolute; top:320px; left:170px; right:170px; font-size:32px; line-height:48px;">
-      ${vociA.map((v) => `<p class="hand" style="margin-bottom:34px;">${v}</p>`).join('')}
-    </div>
-    <div style="position:absolute; left:170px; right:170px; bottom:160px;">
-      <div class="serif" style="font-style:italic; font-size:20px; color:#4a4a4e; mix-blend-mode:multiply; margin-bottom:12px;">L’ultima pagina è strappata. Ricalcando a grafite i solchi della penna, affiora:</div>
-      <div class="hand" style="font-size:36px; line-height:48px; color:#4a4a4e; mix-blend-mode:multiply;">...alle 3 in punto, ogni notte. Tre rintocchi, poi uno, poi cinque. Non sono io a suonare.</div>
-    </div>
+    <div class="wrap"><div style="zoom:0.90;">
+      <div class="serif" style="font-style:italic; font-size:38px; color:#3a2415; mix-blend-mode:multiply; margin-bottom:30px;">Reperto A — dal diario di Ruggero Alvise, campanaro</div>
+      <div style="font-size:64px; line-height:88px;">
+        ${vociA.map((v) => `<p class="hand" style="margin-bottom:30px;">${v}</p>`).join('')}
+      </div>
+      <div style="margin-top:100px;">
+        <div class="serif" style="font-style:italic; font-size:34px; color:#4a4a4e; mix-blend-mode:multiply; margin-bottom:16px;">L’ultima pagina è strappata. Ricalcando a grafite i solchi della penna, affiora:</div>
+        <div class="hand" style="font-size:64px; line-height:88px; color:#4a4a4e; mix-blend-mode:multiply;">...alle 3 in punto, ogni notte. Tre rintocchi, poi uno, poi cinque. Non sono io a suonare.</div>
+      </div>
+    </div></div>
   `);
 
   // --- Reperto B: registro consegne bottega Ferri ---
@@ -111,26 +117,28 @@ async function flattenSealToDataUrl(page_, bgColor) {
     ['21 del mese', 'quaranta candele di cera nera', 'C.B., molo terzo, il vecchio deposito', 'pagato B.F.'],
   ];
   const repertoB = page(`
-    <div style="position:absolute; top:200px; left:170px; right:170px; text-align:center;">
-      <div class="caps" style="font-size:68px;">bottega b. ferri · liutaio · registro delle consegne</div>
-      <div class="serif" style="font-style:italic; font-size:20px; color:#3a2415; mix-blend-mode:multiply; margin-top:8px;">Reperto B — trovato aperto sul banco da lavoro</div>
-    </div>
-    <table style="position:absolute; top:480px; left:170px; right:170px; width:${W - 340}px; border-collapse:collapse; font-size:22px;">
-      <thead>
-        <tr class="serif" style="font-weight:bold;">
-          <th style="text-align:left; border-bottom:2px solid #3a2415; padding:8px 6px; mix-blend-mode:multiply;">data</th>
-          <th style="text-align:left; border-bottom:2px solid #3a2415; padding:8px 6px; mix-blend-mode:multiply;">fornitura</th>
-          <th style="text-align:left; border-bottom:2px solid #3a2415; padding:8px 6px; mix-blend-mode:multiply;">destinazione</th>
-          <th style="text-align:left; border-bottom:2px solid #3a2415; padding:8px 6px; mix-blend-mode:multiply;">nota</th>
-        </tr>
-      </thead>
-      <tbody class="hand">
-        ${righeB.map((r) => `<tr>${r.map((v) => `<td style="border-bottom:1px solid #3a2415; padding:16px 6px; font-size:26px; mix-blend-mode:multiply;">${v}</td>`).join('')}</tr>`).join('')}
-      </tbody>
-    </table>
-    <div class="hand" style="position:absolute; left:170px; right:170px; bottom:160px; font-size:28px; line-height:36px;">
-      il bronzo canta, la pietra risponde, l’acqua ricorda — II mov. quasi pronto
-    </div>
+    <div class="wrap"><div style="zoom:0.84;">
+      <div style="text-align:center; margin-bottom:60px;">
+        <div class="caps" style="font-size:68px;">bottega b. ferri · liutaio · registro delle consegne</div>
+        <div class="serif" style="font-style:italic; font-size:36px; color:#3a2415; mix-blend-mode:multiply; margin-top:14px;">Reperto B — trovato aperto sul banco da lavoro</div>
+      </div>
+      <table style="width:100%; border-collapse:collapse; font-size:44px;">
+        <thead>
+          <tr class="serif" style="font-weight:bold;">
+            <th style="text-align:left; border-bottom:2px solid #3a2415; padding:10px 8px; mix-blend-mode:multiply;">data</th>
+            <th style="text-align:left; border-bottom:2px solid #3a2415; padding:10px 8px; mix-blend-mode:multiply;">fornitura</th>
+            <th style="text-align:left; border-bottom:2px solid #3a2415; padding:10px 8px; mix-blend-mode:multiply;">destinazione</th>
+            <th style="text-align:left; border-bottom:2px solid #3a2415; padding:10px 8px; mix-blend-mode:multiply;">nota</th>
+          </tr>
+        </thead>
+        <tbody class="hand">
+          ${righeB.map((r) => `<tr>${r.map((v) => `<td style="border-bottom:1px solid #3a2415; padding:20px 8px; font-size:52px; mix-blend-mode:multiply;">${v}</td>`).join('')}</tr>`).join('')}
+        </tbody>
+      </table>
+      <div class="hand" style="margin-top:80px; font-size:56px; line-height:72px;">
+        il bronzo canta, la pietra risponde, l’acqua ricorda — II mov. quasi pronto
+      </div>
+    </div></div>
   `);
 
   // --- Reperto C: fascicolo 1741 dall'Archivio Civico ---
@@ -144,22 +152,26 @@ Chi canterà al di sotto, non si lamenti di ciò che al di sotto risponde.`;
     ['due mesi or sono', 'B. Ferri, liutaio'],
   ];
   const repertoC = page(`
-    <div style="position:absolute; top:200px; left:170px; right:170px; text-align:center;">
-      <div class="caps" style="font-size:64px;">atti del consiglio di roccamora · anno mdccxli</div>
-      <div class="serif" style="font-style:italic; font-size:21px; color:#3a2415; mix-blend-mode:multiply; margin-top:8px;">Reperto C — fascicolo n. 44, Archivio Civico</div>
-    </div>
-    <div class="serif" style="position:absolute; top:460px; left:180px; right:180px; font-size:27px; line-height:42px; text-align:justify;">
-      ${decretoC}
-    </div>
-    <img src="${SEAL}" style="position:absolute; top:1020px; right:190px; width:170px; height:170px; border-radius:50%; transform:rotate(-8deg); box-shadow:0 4px 14px rgba(0,0,0,0.5);" />
-    <div style="position:absolute; left:170px; right:170px; bottom:120px; top:1300px;">
-      <div class="serif" style="font-weight:bold; font-size:23px; margin-bottom:18px;">SCHEDA DELLE CONSULTAZIONI — fascicolo n. 44</div>
-      ${consultC.map(([dt, chi]) => `
-        <div style="display:flex; border-bottom:1px solid #3a2415; padding:14px 0;">
-          <div class="hand" style="width:300px; font-size:26px;">${dt}</div>
-          <div class="hand" style="font-size:26px;">${chi}</div>
-        </div>`).join('')}
-    </div>
+    <div class="wrap"><div style="zoom:0.73;">
+      <div style="text-align:center; margin-bottom:60px;">
+        <div class="caps" style="font-size:64px;">atti del consiglio di roccamora · anno mdccxli</div>
+        <div class="serif" style="font-style:italic; font-size:36px; color:#3a2415; mix-blend-mode:multiply; margin-top:14px;">Reperto C — fascicolo n. 44, Archivio Civico</div>
+      </div>
+      <div class="serif" style="font-size:54px; line-height:76px; text-align:justify;">
+        ${decretoC}
+      </div>
+      <div style="text-align:right; margin-top:60px;">
+        <img src="${SEAL}" style="width:220px; height:220px; border-radius:50%; transform:rotate(-8deg); box-shadow:0 4px 14px rgba(0,0,0,0.5);" />
+      </div>
+      <div style="margin-top:60px;">
+        <div class="serif" style="font-weight:bold; font-size:40px; margin-bottom:24px;">SCHEDA DELLE CONSULTAZIONI — fascicolo n. 44</div>
+        ${consultC.map(([dt, chi]) => `
+          <div style="display:flex; border-bottom:1px solid #3a2415; padding:18px 0;">
+            <div class="hand" style="width:420px; font-size:44px;">${dt}</div>
+            <div class="hand" style="font-size:44px;">${chi}</div>
+          </div>`).join('')}
+      </div>
+    </div></div>
   `);
 
   const items = [
@@ -178,10 +190,17 @@ Chi canterà al di sotto, non si lamenti di ciò che al di sotto risponde.`;
     await page_.goto(pathToFileURL(tmpHtml).href, { waitUntil: 'networkidle' });
     await page_.evaluate(() => document.fonts.ready);
     await page_.waitForTimeout(300);
+    // Layout a flusso: il body non ha altezza fissata, cresce col contenuto.
+    // Si misura scrollHeight DOPO il render e si adatta il viewport, cosi'
+    // lo screenshot prende esattamente tutto il contenuto (niente tagli,
+    // niente spazio vuoto indovinato a mano).
+    const contentHeight = await page_.evaluate(() => document.body.scrollHeight);
+    await page_.setViewportSize({ width: W, height: contentHeight });
+    await page_.waitForTimeout(100);
     const outPath = path.join(OUT_DIR, `${name}.png`);
     await page_.screenshot({ path: outPath });
     fs.unlinkSync(tmpHtml);
-    console.log('ok ->', outPath);
+    console.log('ok ->', outPath, `(${contentHeight}px)`);
   }
 
   await browser.close();
