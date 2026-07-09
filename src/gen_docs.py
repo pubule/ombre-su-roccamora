@@ -107,8 +107,10 @@ def regolamento():
     e.append(LI('Disponete le <b>carte Luogo</b> coperte al centro del tavolo. Alcune riportano '
                 '\u201cDisponibile dall\u2019inizio\u201d: quelle potete visitarle subito. Le altre indicano '
                 'la <b>parola chiave</b> o l\u2019<b>oggetto</b> che serve per sbloccarle.'))
-    e.append(LI('Avete <b>10 ore</b>, dalle 18:00 alle 4:00: segnatele sul Taccuino. '
-                '<b>Ogni visita a un luogo costa 1 ora</b> (anche rivisitarlo).'))
+    e.append(LI('Avete <b>8 ore</b>, dalle 18:00 alle 2:00: segnatele sul Taccuino. '
+                '<b>Ogni visita a un luogo costa 1 ora</b> (anche rivisitarlo). Il tempo non basta per tutto: '
+                'scegliete. L\u2019episodio pu\u00f2 legare eventi all\u2019orologio (luoghi che chiudono, '
+                'testimoni che spariscono): applicateli quando barrate l\u2019ora corrispondente.'))
     e.append(LI('Per visitare un luogo, girate la carta e leggete ad alta voce testo e indizi. '
                 'Prendete appunti sul Taccuino: nomi, orari, parole chiave in MAIUSCOLO.'))
     e.append(LI('Quando trovate una <b>parola chiave</b> o un <b>oggetto</b>, potete da quel momento '
@@ -263,7 +265,10 @@ def soluzione():
                'Ferri, la seconda chiave della cripta in mano sua, il diapason con l\u2019onda; '
                '3) il diario di Ruggero (\u201ctre rintocchi, poi uno, poi cinque\u201d) confermato '
                'dall\u2019inno n. 315; 4) lo spartito \u201cper campane\u201d e il sigillo a onda legano il '
-               'diapason al culto. Don Callisto e Tonio sono false piste.'))
+               'diapason al culto. Il \u201cC.B.\u201d del registro \u00e8 il Canale Basso: da solo non '
+               'basta, va incrociato col guardiano o con la mappa d\u2019archivio. Don Callisto e Tonio '
+               'sono false piste, e la sua acqua benedetta \u00e8 un\u2019esca: sul Custode non ha '
+               'alcun effetto.'))
 
     e.append(P('PREPARAZIONE DELLA SPEDIZIONE', 'h1'))
     e.append(P('Disponete le tessere cos\u00ec (coperte, tranne T1). Le uscite sono stampate sui bordi:', 'body'))
@@ -284,6 +289,8 @@ def soluzione():
                 'eroi. Se avete il <b>diapason</b>: con un\u2019azione adiacente al Custode lo fate '
                 'vibrare: la sua Difesa scende a 5 per il resto della partita e il Custode salta la '
                 'sua prossima attivazione.'))
+    e.append(LI('<b>Il Canto avanza da solo:</b> alla fine di ogni quarto round (4\u00b0, 8\u00b0...), '
+                'aggiungete 1 segnalino Canto anche senza pescare la carta.'))
     e.append(LI('<b>Terzo segnalino Canto:</b> il rituale \u00e8 quasi compiuto. Da ora ogni fase '
                 'Minaccia pescate 1 carta in pi\u00f9.'))
     e.append(LI('<b>Se fallite</b> e rigiocate l\u2019episodio: iniziate con 1 segnalino Canto gi\u00e0 in gioco.'))

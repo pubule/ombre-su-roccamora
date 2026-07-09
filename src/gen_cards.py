@@ -204,7 +204,9 @@ LUOGHI = [
          indizi=['La tabella degli inni segna il numero <b>315</b>, \u00abDal Profondo\u00bb. Tonio giura di non averlo '
                  'mai impostato: \u00abQuell\u2019inno non si canta da cent\u2019anni. \u00c8 roba dell\u2019antico coro.\u00bb',
                  'Don Callisto ammette: la <b>seconda chiave della cripta</b> ce l\u2019ha il liutaio <b>Ferri</b>, '
-                 'che sta restaurando l\u2019organo.'],
+                 'che sta restaurando l\u2019organo.',
+                 'Prima che usciate, vi mette in mano un\u2019<b>ampolla di acqua benedetta</b>: \u00abSe l\u00e0 '
+                 'sotto c\u2019\u00e8 il demonio, portate questa.\u00bb'],
          nascosto='Indizio nascosto: la cera sulle mani di don Callisto \u00e8 bianca, comune: '
                   'vende candele di nascosto per pagare i debiti della parrocchia. Con la cera nera non c\u2019entra.'),
     dict(n=5, nome='BOTTEGA DEL LIUTAIO FERRI', req='Serve: la CORDA DI VIOLINO (Luogo 2)',
@@ -212,8 +214,8 @@ LUOGHI = [
                'violini appesi come selvaggina.',
          indizi=['Bastiano Ferri \u00e8 sparito da tre giorni. Sul banco, un <b>diapason d\u2019argento</b> inciso '
                  'con un\u2019onda.',
-                 'Il registro consegne, ultima riga: \u00ab40 candele di cera nera \u2014 <b>Magazzino delle Cere '
-                 '\u201cDellacqua\u201d, Canale Basso</b> \u2014 pagato B.F.\u00bb',
+                 'Il registro consegne, ultima riga: \u00ab40 candele di cera nera \u2014 consegna al <b>C.B.</b>, '
+                 'molo terzo, il vecchio deposito \u2014 pagato B.F.\u00bb',
                  'Uno spartito: \u00abDal Profondo\u00bb, riscritto <b>per campane</b>. In margine: \u00abil bronzo canta, '
                  'la pietra risponde, l\u2019acqua ricorda\u00bb.'],
          nascosto=None),

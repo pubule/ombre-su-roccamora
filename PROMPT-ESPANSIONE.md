@@ -41,8 +41,8 @@ Facile 7 · Media 9 · Difficile 11. Ogni eroe ha 1 "Secondo fiato" (ritenta) a 
 
 **Struttura fissa di un episodio (una serata):**
 1. *Fase Indagine* — 8 carte Luogo (circa 5 aperte dall'inizio, 2–3 sbloccabili tramite
-   PAROLE CHIAVE in maiuscolo o oggetti trovati). Budget: 10 ore/visite. Almeno
-   2 false piste che scagionino innocenti. 1–2 "Indizi nascosti" leggibili solo con
+   PAROLE CHIAVE in maiuscolo o oggetti trovati). Budget: 8 ore/visite (il tempo non deve bastare per tutto: i luoghi utili superano le ore). Sempre almeno un vincolo d'orologio (un luogo che chiude o un testimone che sparisce a un'ora precisa). Almeno
+   2 false piste che scagionino innocenti e almeno 1 oggetto-esca plausibile ma inutile (come l'acqua benedetta dell'Ep. 1), così la domanda sull'oggetto è una scelta vera. Gli indizi risolutivi non devono mai nominare la risposta per esteso: usare sigle, soprannomi o riferimenti parziali da incrociare (il "C.B." del registro dell'Ep. 1). 1–2 "Indizi nascosti" leggibili solo con
    l'Occhio Clinico di Elena. Chiusura: **4 Domande** scritte (dove / chi / codice o
    passaggio segreto / oggetto indispensabile), ognuna deducibile incrociando 2–3 indizi
    distribuiti su luoghi diversi. Mai un indizio singolo che risolva tutto.
@@ -55,9 +55,26 @@ Facile 7 · Media 9 · Difficile 11. Ogni eroe ha 1 "Secondo fiato" (ritenta) a 
    pesca 1 carta ogni 2 eroi (ecc.) → nemici (muovono verso l'eroe più vicino, attaccano
    con 2d6+Attacco ≥ Difesa eroe). Obiettivo di salvataggio/recupero + ritorno all'ingresso.
 
+
+**Scala di difficoltà (progressione tra episodi):** ogni episodio deve essere un
+gradino sopra il precedente, mai un salto. Manopole da girare una o due alla volta:
+
+- **Ep. 2** — 9 luoghi con 8 ore (una rinuncia in più); un secondo vincolo d'orologio;
+  boss con debolezza che richiede DUE oggetti dell'indagine usati in combinazione.
+- **Ep. 3** — una delle 4 Domande richiede l'incrocio di 3 indizi; 2 oggetti-esca;
+  una trappola di tessera passa a prova Difficile.
+- **Ep. 4** — il timer parte con 1 segnalino già in gioco; il boss ha 5 ferite o una
+  seconda fase (a metà ferite cambia comportamento).
+- **Ep. 5** — una domanda "aperta" (la risposta va scritta, non scelta); un luogo
+  contiene un indizio falso piantato dal culto, smontabile solo incrociando due fonti.
+- **Ep. 6 (finale)** — la deduzione finale usa i Frammenti di Campagna raccolti;
+  spedizione su due livelli di tessere; niente nuove meccaniche, solo tutte insieme.
+
+Target di taratura invariato: un gruppo attento risponde bene a 3 domande su 4 al
+primo tentativo, e la spedizione si vince con 1–2 eroi a terra nei momenti peggiori.
+
 **Mazzo Minaccia: sempre 20 carte** con questo mix: ~8 spawn nemici, 2–3 trappole/prove,
-3 carte-timer a tema (nell'Ep. 1 "Il canto cresce": al 3° segnalino il boss si desta e le
-pescate aumentano di 1), 2 "presagi" innocui, 1–2 eventi favorevoli, 1–2 rinforzi all'ingresso.
+3 carte-timer a tema (nell'Ep. 1 "Il canto cresce": al 3° segnalino il boss si desta e le pescate aumentano di 1; il timer avanza anche da solo, +1 segnalino alla fine di ogni 4° round), 2 "presagi" innocui, 1–2 eventi favorevoli, 1–2 rinforzi all'ingresso.
 
 **Nemici di riferimento (bilanciamento):** truppa = Adepto (Att +1, Dif 7, Fer 1, Mov 4,
 Danno 1); boss = livello del Custode della Cera (Att +3, Dif 9, Fer 4, Mov 3, Danno 2),
@@ -147,7 +164,9 @@ Ogni testo deve far *vedere* la scena, non riassumerla. Regole:
 - [ ] Le 4 Domande sono tutte deducibili e ogni risposta incrocia più luoghi?
 - [ ] Ci sono false piste che reggono ma vengono smontate da un indizio trovabile?
 - [ ] Il boss ha una debolezza scoperta durante l'indagine?
-- [ ] Timer a tema presente e coerente col culto del suono?
+- [ ] Timer a tema presente, con avanzamento automatico ogni 4 round?
+- [ ] Il tempo d'indagine è scarso e c'è un vincolo d'orologio? C'è l'oggetto-esca?
+- [ ] La difficoltà segue la scala dell'episodio corrispondente (una-due manopole, non tutte)?
 - [ ] Parole chiave in MAIUSCOLO e requisiti di sblocco stampati sulle carte?
 - [ ] Epilogo + Frammento di Campagna numerato + aggancio all'episodio successivo?
 - [ ] Palette, font, sigilli, formati e dorsi identici alla bibbia visiva?
