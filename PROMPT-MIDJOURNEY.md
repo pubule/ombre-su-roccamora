@@ -96,6 +96,15 @@ Ambienti: **T1** loading dock with black canal water along one edge and mooring 
 wax seal emblem, letters S and L intertwined with a single engraved wave, deep red wax with gold engraving, centered on black, product photography style, high detail --ar 1:1 --style raw --no watermark
 ```
 
+**Mappa di campagna di Roccamora (poster da appendere)**
+```
+antique hand-drawn city map of a gothic canal city, bird's eye view, ink and watercolor on aged parchment, a great cathedral with bell tower at the center, winding canals dividing eight distinct districts, small warehouses along a dark lower canal, tiny rooftops, bridges and mooring posts, decorative compass rose and sea-serpent flourish in the corners, 1889 cartography style, muted teal water and sepia buildings with crimson accents --ar 3:4 --style raw --no text, letters, words, watermark
+```
+Uso: stampala in A4/A3 e appendila; dopo ogni episodio marcate i luoghi "accordati" dal
+culto con un segno a onda e incollate accanto i Frammenti. Caricandola in chat, le
+etichette dei luoghi (1–8), i riquadri per i Frammenti e la legenda vengono composte
+sopra in tipografia italiana.
+
 ## Flusso di lavoro consigliato
 
 1. Genera l'Adepto → scegli → upscala → copia URL → aggiungi `--sref <url>` a tutto.

@@ -12,6 +12,7 @@ in una città immaginaria di canali e campanili nel 1889. Unisce indagine alla
   - `03-Episodio1-Indagine` — lettera d'incarico, 8 carte Luogo con dorsi, taccuino
   - `04-Episodio1-Spedizione` — mazzo Minaccia con dorsi, nemici, 6 tessere mappa, segnalini
   - `05-SOLUZIONE-non-aprire` — da stampare senza leggere e sigillare in busta!
+  - `08-Reperti` — documenti-reperto da consegnare durante l'indagine
 - `PROMPT-ESPANSIONE.md` — "bibbia" narrativa/meccanica/visiva per generare nuovi
   episodi coerenti con un assistente AI
 - `src/` — sorgenti Python (reportlab) che generano tutti i PDF

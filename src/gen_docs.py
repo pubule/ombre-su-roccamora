@@ -301,6 +301,17 @@ def soluzione():
                'qualcosa che dorme sotto Roccamora dal 1741. Diceva che ormai... ha aperto gli '
                'occhi.\u201d Del liutaio, al magazzino, nessuna traccia: solo uno spartito incompiuto '
                'e una riga in margine: \u201cSecondo movimento: le voci del pozzo\u201d.\u00bb', 'box'))
+    e.append(P('IL BIVIO \u2014 decidete insieme, poi sigillate', 'h1'))
+    e.append(P('Sul leggio dell\u2019altare trovate lo <b>spartito completo del rituale</b>: '
+               '\u00abDal Profondo \u2014 primo movimento\u00bb, annotato dalla mano di Ferri. '
+               'Prima di lasciare il magazzino dovete scegliere, e la scelta non si torna indietro:', 'body'))
+    e.append(LI('<b>Bruciarlo.</b> Il fuoco vi scalda le mani come un\u2019assoluzione. Il culto '
+                'dovr\u00e0 ricominciare da capo \u2014 ma anche voi perdete l\u2019unica '
+                'trascrizione del suo canto.'))
+    e.append(LI('<b>Conservarlo.</b> Ripiegate quei fogli che sembrano pulsare. Sapere \u00e8 '
+                'potere \u2014 ma ora il Coro sa che il primo movimento ce l\u2019avete voi.'))
+    e.append(P('Scrivete la scelta sul retro del Frammento n. 1 e non parlatene pi\u00f9 fino '
+               'all\u2019Episodio 2: l\u00ec ne risponderete, nel bene e nel male.', 'box'))
     e.append(P('FRAMMENTO DI CAMPAGNA N. 1', 'h2'))
     e.append(P('<i>Il Coro Sommerso non evoca: <b>accorda</b>. Ogni episodio il culto \u201caccorda\u201d '
                'un luogo della citt\u00e0. Segnate sulla mappa mentale di Roccamora: la Cattedrale \u00e8 '

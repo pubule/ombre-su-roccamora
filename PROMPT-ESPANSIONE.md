@@ -32,7 +32,14 @@ esplicita.
   Ep. 3 *Il teatro dell'eco*, Ep. 4 *La fonderia dei rintocchi*, Ep. 5 *L'organo di ossa*,
   Ep. 6 finale *Il Terzo Movimento* (discesa sotto la città, resa dei conti con Ferri e
   il Dormiente; qui i Frammenti raccolti devono servire a una deduzione finale).
-- Ogni episodio si chiude con un **Frammento di Campagna** numerato e un aggancio al successivo.
+- Ogni episodio si chiude con un **Frammento di Campagna** numerato, un aggancio al successivo
+  e un **Bivio morale sigillato**: due scelte sensate, conseguenze concrete (una meccanica,
+  una narrativa) rivelate all'inizio dell'episodio dopo. Bivio dell'Ep. 1: lo spartito del
+  rituale. Se BRUCIATO → l'Ep. 2 inizia senza segnalini timer e con 1 carta Presagio in più
+  nel mazzo, ma una delle 4 Domande perde un incrocio (il culto ha cambiato i suoi codici).
+  Se CONSERVATO → i giocatori ottengono il Frammento 1-bis (mezzo pentagramma, utile al
+  finale), ma il mazzo Minaccia dell'Ep. 2 aggiunge 2 carte "Segugi del Coro" (2 Adepti che
+  entrano dall'ingresso e puntano chi porta lo spartito).
 
 ## 2. BIBBIA MECCANICA (non modificare i numeri)
 
@@ -49,6 +56,12 @@ Facile 7 · Media 9 · Difficile 11. Ogni eroe ha 1 "Secondo fiato" (ritenta) a 
 2. *Busta Soluzione* — risposte, per ogni domanda un Vantaggio se esatta e (per 2 domande
    su 4) una complicazione se errata; schema di montaggio della mappa; epilogo da leggere
    a voce; Frammento; elenco migliorie.
+2-bis. *Reperti* — ogni episodio include 2–3 **documenti-reperto** stampabili (pagine di
+   diario a grafia manoscritta, registri, atti d'archivio) consegnati quando si trova
+   l'indizio corrispondente. Contengono esattamente le informazioni delle carte Luogo più
+   dettagli d'atmosfera: mai indizi esclusivi. Stile: vedi `src/gen_reperti.py`
+   (font La Belle Aurore per le grafie, strappi, colature di cera, aloni di caffè).
+
 3. *Fase Spedizione* — 6 tessere (griglia 4×4, tessere 130 mm), percorso con 1–2 rami
    opzionali che premiano l'esplorazione. Round: ogni eroe 2 azioni (Muovi 4 · Attacca ·
    Cerca ACUME Media · Interagisci · Usa oggetto · Rianima a 2 Salute) → fase Minaccia:
@@ -168,7 +181,9 @@ Ogni testo deve far *vedere* la scena, non riassumerla. Regole:
 - [ ] Il tempo d'indagine è scarso e c'è un vincolo d'orologio? C'è l'oggetto-esca?
 - [ ] La difficoltà segue la scala dell'episodio corrispondente (una-due manopole, non tutte)?
 - [ ] Parole chiave in MAIUSCOLO e requisiti di sblocco stampati sulle carte?
-- [ ] Epilogo + Frammento di Campagna numerato + aggancio all'episodio successivo?
+- [ ] Epilogo + Frammento numerato + aggancio + Bivio sigillato con conseguenze definite?
+- [ ] Le conseguenze del Bivio dell'episodio precedente sono applicate all'inizio?
+- [ ] Ci sono 2–3 reperti stampabili coerenti con gli indizi?
 - [ ] Palette, font, sigilli, formati e dorsi identici alla bibbia visiva?
 - [ ] Tutti i testi rispettano la bibbia di scrittura (flavor sulle Minacce,
       quadri sensoriali sui Luoghi, «Chi sei» sugli eroi) e stanno nei riquadri?
