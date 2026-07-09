@@ -77,7 +77,7 @@ Un prompt per eroe: sostituisci RITRATTO con la descrizione.
 dark fantasy character portrait in an ornate carved gold frame with ruby gems, RITRATTO, victorian 1889 attire, three-quarter view, canal city at night behind, oil painting, dramatic candlelight, muted teal and crimson palette with gold accents --ar 3:4 --style raw --no text, letters, words, watermark
 ```
 
-Ritratti: **Elena** sharp-eyed woman in her 30s in a dark tailored coat with a magnifying lens on a chain and a walking cane · **Attilio** weary bearded physician with leather medical bag, round spectacles and bloodstained cuffs · **Sibilla** pale woman with silver-streaked hair holding an obsidian pendulum, chalk-dusted fingers · **Nino** wiry smirking man with lockpicks between his fingers, coiled rope and grappling hook on his shoulder · **Carla** determined young woman with a brass folding camera and ink-stained hands
+Ritratti: **Elena** sharp-eyed woman in her 30s in a dark tailored coat with a magnifying lens on a chain and a walking cane · **Attilio** weary bearded physician with leather medical bag, round spectacles and bloodstained cuffs · **Sibilla** pale woman with silver-streaked hair holding an obsidian pendulum, chalk-dusted fingers · **Nino** wiry smirking man with lockpicks between his fingers, coiled rope and grappling hook on his shoulder · **Carla** determined young woman with a brass folding camera and ink-stained hands · **Ottone** burly jovial butcher with a heavy cleaver over his shoulder, leather apron, wine flask on his belt, hearty laugh, in front of a smoky tavern
 
 ## Tessere mappa (complete)
 

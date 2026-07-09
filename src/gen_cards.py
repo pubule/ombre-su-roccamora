@@ -75,6 +75,15 @@ HEROES = [
                'scassinare cala di un grado (Difficile\u2192Media, Media\u2192Facile). '
                'Inoltre si muove di 5 caselle invece di 4.'),
          equip='Sfollagente (arma, +1), grimaldelli, corda con rampino.'),
+    dict(nome='OTTONE \u201cMEZZENA\u201d MASSARI', ruolo='Il Macellaio', acume=1, vigore=3, nervi=2,
+         salute=8, difesa=8,
+         abil=('<b>Un bicchiere con tutti</b> \u2014 In indagine: una volta per episodio, '
+               'offrendo da bere e da mangiare fa ripetere una testimonianza: leggete '
+               'l\u2019<b>Indizio nascosto</b> del luogo che state visitando. In spedizione, '
+               '<b>Colpo da macello</b>: una volta per turno, se abbatte un nemico in mischia '
+               'attacca immediatamente un altro nemico adiacente.'),
+         equip='Mannaia del banco (arma, +1), grembiule di cuoio, fiasco di vino robusto '
+               '(2 usi: un sorso, anche su un eroe adiacente, annulla un effetto di paura o dei fumi).'),
     dict(nome='CARLA DOSTI', ruolo='La Giornalista', acume=3, vigore=1, nervi=2,
          salute=6, difesa=8,
          abil=('<b>Fonti riservate</b> \u2014 In indagine: una volta per episodio, una visita non '
@@ -170,7 +179,7 @@ LUOGHI = [
                  'Il diario di Ruggero, con l\u2019ultima pagina strappata. Ricalcando i solchi della penna leggete: '
                  '\u00ab...alle 3 in punto, ogni notte. <b>Tre rintocchi, poi uno, poi cinque.</b> Non sono io a suonare.\u00bb',
                  'Graffiata sul legno della balaustra, una parola: <b>SOMMERSO</b>.'],
-         nascosto='Indizio nascosto (Occhio Clinico): tra le assi, un frammento di spartito scritto a mano. '
+         nascosto='Indizio nascosto: tra le assi, un frammento di spartito scritto a mano. '
                   'Le note non sono per organo: sono per <b>campane</b>.'),
     dict(n=2, nome='CASA DI RUGGERO \u2014 VICOLO DEI FONDITORI', req='Disponibile dall\u2019inizio',
          testo='Bice, la sorella, vi apre con gli occhi rossi: \u00abNegli ultimi tempi diceva di sentire '
@@ -196,7 +205,7 @@ LUOGHI = [
                  'mai impostato: \u00abQuell\u2019inno non si canta da cent\u2019anni. \u00c8 roba dell\u2019antico coro.\u00bb',
                  'Don Callisto ammette: la <b>seconda chiave della cripta</b> ce l\u2019ha il liutaio <b>Ferri</b>, '
                  'che sta restaurando l\u2019organo.'],
-         nascosto='Indizio nascosto (Occhio Clinico): la cera sulle mani di don Callisto \u00e8 bianca, comune: '
+         nascosto='Indizio nascosto: la cera sulle mani di don Callisto \u00e8 bianca, comune: '
                   'vende candele di nascosto per pagare i debiti della parrocchia. Con la cera nera non c\u2019entra.'),
     dict(n=5, nome='BOTTEGA DEL LIUTAIO FERRI', req='Serve: la CORDA DI VIOLINO (Luogo 2)',
          testo='Bottega chiusa da giorni; la porta sul retro cede a una spallata. Dentro, polvere e '

@@ -83,8 +83,10 @@ def regolamento():
     e.append(LI('Una busta in cui sigillare il PDF <b>Soluzione</b>: si apre solo a fine indagine.'))
 
     e.append(P('I PERSONAGGI', 'h1'))
-    e.append(P("Ogni giocatore sceglie un eroe della Societ\u00e0 (in 2 giocatori potete anche guidarne "
-               "due a testa, se volete un gruppo pi\u00f9 numeroso). Ogni eroe ha tre caratteristiche:"))
+    e.append(P("Il roster della Societ\u00e0 conta <b>sei eroi</b>: in tavola ne scendono al massimo "
+               "cinque, gli altri restano di riserva (potete cambiarli tra un episodio e l\u2019altro; "
+               "migliorie e cicatrici restano a chi le ha guadagnate). Ogni giocatore sceglie un eroe "
+               "(in 2 giocatori potete anche guidarne due a testa). Ogni eroe ha tre caratteristiche:"))
     e.append(LI('<b>ACUME</b> \u2014 osservare, dedurre, scassinare, cercare.'))
     e.append(LI('<b>VIGORE</b> \u2014 combattere, forzare, resistere.'))
     e.append(LI('<b>NERVI</b> \u2014 sangue freddo davanti a trappole, buio e orrori.'))

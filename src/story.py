@@ -106,6 +106,13 @@ BIO = {
         "ladro conosce le tasche altrui: al buio. Un lavoro finito male gli ha lasciato un "
         "debito con la persona sbagliata e un motivo per stare dalla parte giusta, almeno per "
         "ora. Le serrature, dice, sono domande: basta fare quella giusta.",
+    'OTTONE \u201cMEZZENA\u201d MASSARI':
+        "Il banco dei Massari sta al Vecchio Mercato da tre generazioni, e Ottone conosce "
+        "Corvasca dalla pancia: sa chi mangia, chi digiuna e chi da qualche tempo non ha "
+        "pi\u00f9 fame. Ci pensa da quando il suo garzone spar\u00ec durante la festa di San "
+        "Teodoro e torn\u00f2 tre giorni dopo, senza appetito e senza voce. Dice che la "
+        "citt\u00e0 si legge a tavola: dove si smette di mangiare e di ridere, l\u00ec "
+        "c\u2019\u00e8 il male.",
     'CARLA DOSTI':
         "Prima donna in redazione al Corriere di Corvasca, relegata ai necrologi finch\u00e9 non "
         "ha scoperto che i necrologi, letti in fila, raccontano storie che nessuno vuole "

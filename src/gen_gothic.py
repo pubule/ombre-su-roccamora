@@ -376,7 +376,7 @@ def spedizione():
             c.circle(cx, yy, 6.4*mm)
             c.setFillColor(tcol); c.setFont(F['sc'], 9.5)
             c.drawCentredString(cx, yy - 1.4*mm, it)
-    token_row(H - 44*mm, 'EROI', ['el', 'at', 'si', 'ni', 'ca'],
+    token_row(H - 44*mm, 'EROI', ['el', 'at', 'si', 'ni', 'ca', 'ot'],
               colors.HexColor('#f7f0dd'), OGOLD, INK)
     token_row(H - 74*mm, 'ADEPTI (x10)', ['a'] * 10,
               colors.HexColor('#2b2b33'), OGOLD, colors.white)

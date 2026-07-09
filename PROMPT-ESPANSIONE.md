@@ -18,7 +18,9 @@ esplicita.
   Tono: mistero gotico ottocentesco, inquietante ma mai splatter; l'orrore è suggerito.
 - **I giocatori** sono la **Società del Lume**, circolo privato d'investigatori. Eroi:
   Elena Fosco (Investigatrice), Dott. Attilio Marn (Medico), Sibilla Reve (Occultista),
-  Nino "Grimaldello" Cauto (Ladro), Carla Dosti (Giornalista). Presidente: il misterioso "M.".
+  Nino "Grimaldello" Cauto (Ladro), Carla Dosti (Giornalista), Ottone "Mezzena" Massari
+  (Macellaio, il combattente del gruppo: Vigore 3, Salute 8). Roster di sei, massimo
+  cinque in tavola. Presidente: il misterioso "M.".
 - **L'antagonista di campagna** è il **Coro Sommerso**, confraternita bandita nel 1741 e
   rifondata dal liutaio **Bastiano Ferri** (fuggito alla fine dell'Episodio 1, ricorrente).
   Sigillo: un'onda. Il culto non evoca: **"accorda"** i luoghi della città con suoni
@@ -62,7 +64,7 @@ Danno 1); boss = livello del Custode della Cera (Att +3, Dif 9, Fer 4, Mov 3, Da
 sempre con una **debolezza legata a un oggetto trovato nell'indagine** (come il diapason
 che porta la Difesa a 5). I nuovi boss possono variare di ±1 le statistiche.
 
-**Eroi (invariati salvo campagne):** statistiche 1–3 (max 4 con migliorie), Salute 6–7,
+**Eroi (invariati salvo campagne):** roster di sei, statistiche 1–3 (max 4 con migliorie), Salute 6–7,
 Difesa 8–9, armi +1 all'attacco. Migliorie standard: +1 caratteristica, +1 Salute,
 Revolver, Lanterna schermata, Borsa di garze. Cicatrici: alla terza, −1 permanente.
 
