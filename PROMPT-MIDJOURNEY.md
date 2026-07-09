@@ -143,7 +143,7 @@ Sostituisci RITRATTO e usa questo prompt unico:
 full bleed dark fantasy character portrait, RITRATTO, victorian 1889 attire, three-quarter view, gaslamp gothic canal city at night behind, oil painting, dramatic candlelight, muted teal and crimson palette with gold accents --ar 3:4 --style raw --no frame, border, card, text, letters, watermark
 ```
 
-Ritratti — **Elena** sharp-eyed woman in her 30s in a dark tailored coat with a magnifying lens on a chain and a walking cane · **Attilio** weary bearded physician with leather medical bag, round spectacles and bloodstained cuffs · **Sibilla** pale woman with silver-streaked hair holding an obsidian pendulum, chalk-dusted fingers · **Nino** wiry smirking man with lockpicks between his fingers, coiled rope and grappling hook on his shoulder · **Carla** determined young woman with a brass folding camera and ink-stained hands · **Ottone** burly jovial butcher with a heavy cleaver over his shoulder, leather apron, wine flask on his belt, hearty laugh, in front of a smoky tavern
+Ritratti — **Elena** sharp-eyed woman in her 30s in a dark tailored coat with a magnifying lens on a chain and a walking cane · **Attilio** weary bearded physician with leather medical bag, round spectacles and bloodstained cuffs · **Sibilla** young Romani fortune-teller in the style of Esmeralda from The Hunchback of Notre-Dame, olive skin, wild dark curly hair, gold hoop earrings and a coin-fringed headscarf, colorful layered skirts and an embroidered shawl over her victorian attire, holding an obsidian pendulum in one hand and a fanned tarot deck in the other, sharp knowing eyes · **Nino** wiry smirking man with lockpicks between his fingers, coiled rope and grappling hook on his shoulder · **Carla** determined young woman with a brass folding camera and ink-stained hands · **Ottone** burly jovial butcher with a heavy cleaver over his shoulder, leather apron, wine flask on his belt, hearty laugh, in front of a smoky tavern
 
 ## Soggetti — Luoghi (orizzontali, --ar 3:2)
 
@@ -196,6 +196,40 @@ antique hand-drawn city map of a gothic canal city, bird's eye view, ink and wat
 **Sigillo della Società**
 ```
 wax seal emblem, letters S and L intertwined with a single engraved wave, deep red wax with gold engraving, centered on black, product photography style, high detail --ar 1:1 --style raw --no watermark
+```
+
+**Sfondo pergamena per i Reperti**
+```
+flat lay top-down macro photo of a single sheet of aged 19th century parchment paper filling the entire frame edge to edge, warm sepia paper texture, ragged torn edges cropped by the frame on all four sides, faint coffee ring stain, scattered ink blots, subtle creases and foxing, completely blank empty flat surface ready for handwritten text, no background visible around the paper --ar 3:4 --style raw --no scroll, curling, rolled edges, flames, fire, vignette, dark background, text, letters, words, watermark
+```
+Se esce comunque come pergamena arrotolata/fiammeggiante invece che piatta a tutto
+campo, aggiungi `--no scroll, curling, flames` (già incluso sopra) e rigenera, oppure
+usa Vary Region per appiattire i bordi arricciati.
+Sfondo unico da riusare per tutti i documenti-reperto (diari, registri, atti d'archivio):
+il testo a mano e le colature aggiuntive si sovrappongono in compositing, vedi `src/gen_reperti.py` per lo stile di riferimento (già usato per la versione vettoriale).
+
+**Limite importante:** Midjourney rende in modo affidabile solo frasi brevi messe
+tra virgolette nel prompt (poche parole, tipo un titolo). Sui paragrafi lunghi
+(il diario, il decreto del 1741) sballa lettere e parole quasi sempre — non
+usarlo per quelli. I tre prompt sotto generano **solo titolo+etichetta** già
+"inchiostrati" nella pergamena (stessa base di "Sfondo pergamena per i
+Reperti"); il corpo del testo (paragrafi) va aggiunto dopo in compositing
+(Photopea/Canva, layer testo in blend mode Multiply sopra l'immagine, cosi'
+l'inchiostro segue le ombre della carta senza bisogno di pannelli).
+
+**Reperto A — titolo (diario di Ruggero)**
+```
+flat lay top-down macro photo of a single sheet of aged 19th century parchment paper filling the entire frame edge to edge, warm sepia paper texture, ragged torn edges cropped by the frame on all four sides, faint coffee ring stain, scattered ink blots, subtle creases and foxing, in the top right corner in small faded italic ink handwriting the words "Reperto A" and below it smaller "dal diario di Ruggero Alvise, campanaro", rest of the page completely blank empty flat surface ready for more handwritten text, no background visible around the paper --ar 3:4 --style raw --no scroll, curling, rolled edges, flames, fire, vignette, dark background, watermark
+```
+
+**Reperto B — titolo (registro delle consegne)**
+```
+flat lay top-down macro photo of a single sheet of aged 19th century parchment paper filling the entire frame edge to edge, warm sepia paper texture, ragged torn edges cropped by the frame on all four sides, faint coffee ring stain, scattered ink blots, subtle creases and foxing, centered near the top in small-caps engraved ink lettering the words "Bottega B. Ferri" and below it in smaller italic script "Registro delle Consegne", rest of the page completely blank empty flat surface ready for a ruled ledger table, no background visible around the paper --ar 3:4 --style raw --no scroll, curling, rolled edges, flames, fire, vignette, dark background, watermark
+```
+
+**Reperto C — titolo (fascicolo del 1741)**
+```
+flat lay top-down macro photo of a single sheet of aged 18th century parchment paper filling the entire frame edge to edge, warm sepia paper texture, ragged torn edges cropped by the frame on all four sides, faint stains, subtle creases and foxing, centered near the top in small-caps engraved print lettering the words "Atti del Consiglio" and below it smaller "Anno MDCCXLI", a small circular red wax seal with gold engraving in the lower right corner, rest of the page completely blank empty flat surface ready for a formal decree text, no background visible around the paper --ar 3:4 --style raw --no scroll, curling, rolled edges, flames, fire, vignette, dark background, watermark
 ```
 
 ## Montaggio
