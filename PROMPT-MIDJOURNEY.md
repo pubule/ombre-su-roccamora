@@ -105,6 +105,24 @@ culto con un segno a onda e incollate accanto i Frammenti. Caricandola in chat, 
 etichette dei luoghi (1–8), i riquadri per i Frammenti e la legenda vengono composte
 sopra in tipografia italiana.
 
+
+## Coerenza delle cornici (importante)
+
+`--sref` mantiene lo stile pittorico ma NON la composizione: la cornice viene
+reinventata a ogni generazione. Per avere la stessa cornice su tutta la serie:
+
+1. **Metodo consigliato — Vary Region:** apri la carta "madre" (l'Adepto)
+   nell'editor web di Midjourney, cancella SOLO la zona del dipinto centrale
+   lasciando intatti cornice, targa e pannello, scrivi nel prompt solo il nuovo
+   soggetto e genera. La cornice resta identica pixel per pixel.
+2. **Metodo alternativo — cornice unica + arte separata:** genera una sola volta
+   la cornice vuota, poi per ogni soggetto solo il dipinto (togli "complete
+   ornate playing card design" dal prompt e tieni `--sref`); il montaggio
+   dentro la cornice avviene in compositing insieme ai testi.
+3. **Ritocchi che aiutano:** `--sw 800` (fino a 1000) per irrigidire lo stile;
+   l'immagine dell'Adepto come image-prompt a inizio riga con `--iw 2` avvicina
+   anche la composizione (ma può far somigliare i soggetti tra loro).
+
 ## Flusso di lavoro consigliato
 
 1. Genera l'Adepto → scegli → upscala → copia URL → aggiungi `--sref <url>` a tutto.
