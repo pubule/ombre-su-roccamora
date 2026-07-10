@@ -178,7 +178,7 @@ const LUOGHI = [
   { n: 1, nome: 'Il Campanile di San Teodoro', req: 'Disponibile dall’inizio',
     testo: 'La scala a chiocciola sale nel buio, ottanta gradini che Ruggero conosceva a memoria. In cima, la cella campanaria è un disordine congelato: lo sgabello rovesciato, la lanterna ancora appesa al gancio, la cena intatta sotto un panno. Le tre grandi campane pendono immobili come bestie addormentate, e fa più freddo di quanto dovrebbe.',
     indizi: ['Colate di cera nera sui gradini — troppo in alto perché vengano dalle candele della chiesa.',
-             'Il diario di Ruggero, con l’ultima pagina strappata. Ricalcando i solchi della penna leggete: «...alle 3 in punto, ogni notte. Tre rintocchi, poi uno, poi cinque. Non sono io a suonare.»',
+             'Il diario di Ruggero, con l’ultima pagina strappata. Ricalcando i solchi della penna leggete: «...alle 3 in punto, ogni notte. Tre rintocchi, poi uno, poi cinque. Non sono io a suonare.» (Reperto A: consegnate il Diario di Ruggero.)',
              'Graffiata sul legno della balaustra, una parola: SOMMERSO.'],
     approfondimenti: [
       { tipo: 'Osservazione', testo: 'Tra le assi, un frammento di spartito scritto a mano. Le note non sono per organo: sono per campane.' },
@@ -213,7 +213,7 @@ const LUOGHI = [
   { n: 5, nome: 'Bottega del Liutaio Ferri', req: 'Serve: la CORDA DI VIOLINO (Luogo 2)',
     testo: 'La bottega è chiusa da giorni, la polvere ha già preso possesso delle vetrine; la porta sul retro cede a una spallata. Dentro, violini appesi come selvaggina e un silenzio sbagliato per un luogo nato per fare musica. Il banco da lavoro è in ordine perfetto: chi è partito, sapeva di partire.',
     indizi: ['Bastiano Ferri è sparito da tre giorni. Sul banco, un diapason d’argento inciso con un’onda.',
-             'Il registro consegne, ultima riga: «40 candele di cera nera — consegna al C.B., molo terzo, il vecchio deposito — pagato B.F.»',
+             'Il registro consegne, ultima riga: «40 candele di cera nera — consegna al C.B., molo terzo, il vecchio deposito — pagato B.F.» (Reperto B: consegnate il Registro delle Consegne.)',
              'Uno spartito: «Dal Profondo», riscritto per campane. In margine: «il bronzo canta, la pietra risponde, l’acqua ricorda».'],
     approfondimenti: [
       { tipo: 'Osservazione', testo: 'Nel camino, cenere di carta ancora tiepida. Un lembo si salva, grafia febbrile: «...non riesco più a fermarlo, il Coro canta anche senza di me. Che Dio perdoni ciò che ho svegliato. — B.»' },
@@ -230,7 +230,7 @@ const LUOGHI = [
     ] },
   { n: 7, nome: 'L’Archivio Civico', req: 'Serve: la parola chiave SOMMERSO (Luogo 1)',
     testo: 'Scaffali fino al soffitto, cartelle legate con lo spago, la luce verde delle lampade a schermo. L’archivista, minuscolo dietro occhiali spessi, si irrigidisce quando pronunciate la parola giusta: poi, senza fiatare, vi guida a uno scaffale che nessuno tocca da decenni — la polvere è spessa un dito, tranne che su un solo fascicolo.',
-    indizi: ['Fascicolo del 1741: la confraternita del Coro Sommerso, bandita per «pratiche contrarie a Dio e alla quiete delle acque». Si riuniva in cavità sotto la cattedrale, «dove l’acqua canta». Il suo sigillo: un’onda.',
+    indizi: ['Fascicolo del 1741: la confraternita del Coro Sommerso, bandita per «pratiche contrarie a Dio e alla quiete delle acque». Si riuniva in cavità sotto la cattedrale, «dove l’acqua canta». Il suo sigillo: un’onda. (Reperto C: consegnate il Fascicolo del 1741.)',
              'Una mappa antica: dalla cripta, condotti scendono verso il Canale Basso.',
              'Registro consultazioni, due mesi fa: «B. Ferri, liutaio» ha richiesto questo stesso fascicolo.'],
     approfondimenti: [

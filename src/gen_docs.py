@@ -176,12 +176,12 @@ def regolamento():
                '(Bice) con Ottone: offrendogli da bere, cercate la carta col dorso \u201c2 \u00b7 Testimone\u201d '
                'e leggetela. Se un luogo non ha la carta del tipo cercato, semplicemente non c\u2019\u00e8 '
                'nulla da trovare l\u00ec per quell\u2019eroe.', 'box'))
-    e.append(LI('<b>Reperti</b> \u2014 alcuni indizi core corrispondono a un documento vero e proprio: '
-                'quando lo leggete, non limitatevi alla carta, consegnate il foglio stampato al '
-                'gruppo e lasciate che lo leggano loro. Episodio 1: <b>Reperto A</b> \u2014 Diario di '
-                'Ruggero (Luogo 1) \u00b7 <b>Reperto B</b> \u2014 Registro delle Consegne (Luogo 5) \u00b7 '
-                '<b>Reperto C</b> \u2014 Fascicolo del 1741 (Luogo 7). Sono solo un modo pi\u00f9 tangibile '
-                'di leggere lo stesso indizio: non contengono nulla in pi\u00f9 rispetto alla carta.'))
+    e.append(LI('<b>Reperti</b> \u2014 nessuna azione o prova in pi\u00f9: si ottengono semplicemente '
+                'visitando il luogo, come qualsiasi indizio core. Quando un indizio, sulla carta '
+                'stessa, riporta tra parentesi <i>(Reperto X: consegnate...)</i>, non limitatevi a '
+                'leggerlo \u2014 consegnate al gruppo il foglio stampato indicato e lasciate che lo '
+                'leggano loro. Sono solo un modo pi\u00f9 tangibile di leggere lo stesso indizio: non '
+                'contengono nulla in pi\u00f9 rispetto alla carta.'))
     e.append(P('Chiudere l\u2019indagine', 'h2'))
     e.append(P("Quando esaurite le ore (o prima, se vi sentite pronti) rispondete <b>per iscritto</b> "
                "alle <b>4 Domande</b> sul Taccuino: discutetene insieme, \u00e8 il cuore del gioco. "

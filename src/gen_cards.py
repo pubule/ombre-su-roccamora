@@ -104,7 +104,8 @@ LUOGHI = [
                'lo sgabello di Ruggero è rovesciato, la sua lanterna ancora appesa.',
          indizi=['Colate di <b>cera nera</b> sui gradini — troppo in alto perché vengano dalle candele della chiesa.',
                  'Il diario di Ruggero, con l’ultima pagina strappata. Ricalcando i solchi della penna leggete: '
-                 '«...alle 3 in punto, ogni notte. <b>Tre rintocchi, poi uno, poi cinque.</b> Non sono io a suonare.»',
+                 '«...alle 3 in punto, ogni notte. <b>Tre rintocchi, poi uno, poi cinque.</b> Non sono io a suonare.» '
+                 '<i>(Reperto A: consegnate il Diario di Ruggero.)</i>',
                  'Graffiata sul legno della balaustra, una parola: <b>SOMMERSO</b>.'],
          approfondimenti=[
              dict(tipo='Osservazione',
@@ -164,7 +165,8 @@ LUOGHI = [
          indizi=['Bastiano Ferri è sparito da tre giorni. Sul banco, un <b>diapason d’argento</b> inciso '
                  'con un’onda.',
                  'Il registro consegne, ultima riga: «40 candele di cera nera — consegna al <b>C.B.</b>, '
-                 'molo terzo, il vecchio deposito — pagato B.F.»',
+                 'molo terzo, il vecchio deposito — pagato B.F.» '
+                 '<i>(Reperto B: consegnate il Registro delle Consegne.)</i>',
                  'Uno spartito: «Dal Profondo», riscritto <b>per campane</b>. In margine: «il bronzo canta, '
                  'la pietra risponde, l’acqua ricorda».'],
          approfondimenti=[
@@ -200,7 +202,8 @@ LUOGHI = [
                'da decenni.',
          indizi=['Fascicolo del 1741: la confraternita del <b>Coro Sommerso</b>, bandita per «pratiche '
                  'contrarie a Dio e alla quiete delle acque». Si riuniva in cavità sotto la cattedrale, '
-                 '«dove l’acqua canta». Il suo sigillo: un’onda.',
+                 '«dove l’acqua canta». Il suo sigillo: un’onda. '
+                 '<i>(Reperto C: consegnate il Fascicolo del 1741.)</i>',
                  'Una mappa antica: dalla cripta, condotti scendono verso il <b>Canale Basso</b>.',
                  'Registro consultazioni, due mesi fa: «<b>B. Ferri, liutaio</b>» ha richiesto questo '
                  'stesso fascicolo.'],
