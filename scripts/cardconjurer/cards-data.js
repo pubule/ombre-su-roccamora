@@ -264,13 +264,22 @@ const LUOGHI = [
 // con l'abilita' giusta: presenza e contenuto restano da scoprire.
 const TAG_INSIGHT = { Osservazione: 'Osservazione — Elena', Presagio: 'Presagio — Sibilla' };
 
-// Frammento identico appeso IN CODA a tutte e 14 le carte Approfondimento, qualunque
-// sia tipo/eroe: rende l'uso delle abilita' un requisito reale (non importa di chi).
-// Senza aver consultato NESSUN Approfondimento in tutta l'indagine, il nome esatto
-// del nascondiglio (Domanda 1) e la certezza che Ferri sia il capo, non solo
-// coinvolto (Domanda 2), restano solo probabili — vedi src/gen_cards.py ECO_DEL_CORO
+// Famiglia di 4 varianti (non più un frammento identico) appese IN CODA a tutte e 14
+// le carte Approfondimento, a rotazione per luogo (n % 4). Ogni variante porta comunque
+// lo stesso nucleo garantito - nome esatto del nascondiglio (Domanda 1) e Ferri capo,
+// non solo coinvolto (Domanda 2) - così una singola carta pescata, qualunque sia, basta
+// da sola: rende l'uso delle abilità un requisito reale, non importa di chi. In più ogni
+// variante aggiunge un accenno diverso (Domanda 3: ritmo 3-1-5, corroborazione, già
+// risolvibile dal solo core; Domanda 4: urgenza del diapason) così il meccanismo tocca
+// tutte e 4 le Domande e non suona sempre uguale — vedi src/gen_cards.py ECHI_DEL_CORO
 // e src/gen_docs.py soluzione() per la nota al Narratore.
-const ECO_DEL_CORO = 'Per un istante, chi scava davvero a fondo sente lo stesso sussurro, ovunque si trovi: «il Magazzino delle Cere che fu di Dellacqua — lì Bastiano Ferri guida ancora il canto.»';
+const ECHI_DEL_CORO = [
+  'Per un istante, chi scava davvero a fondo sente lo stesso sussurro, ovunque si trovi: «il Magazzino delle Cere che fu di Dellacqua — lì Bastiano Ferri guida ancora il canto, alle 3 di ogni notte, come le campane comandano.»',
+  'Per un istante, chi scava davvero a fondo sente lo stesso sussurro, ovunque si trovi: «è la voce di Bastiano Ferri a guidare il coro, nel Magazzino delle Cere che fu di Dellacqua — nessun altro osa cantare per primo.»',
+  'Per un istante, chi scava davvero a fondo sente lo stesso sussurro, ovunque si trovi: «tre, poi uno, poi cinque: è il verso che apre ogni porta del Coro, cantato nel Magazzino delle Cere che fu di Dellacqua, dove Ferri guida ancora il canto.»',
+  'Per un istante, chi scava davvero a fondo sente lo stesso sussurro, ovunque si trovi: «solo l’argento intonato può spezzare il canto — portatelo nel Magazzino delle Cere che fu di Dellacqua, dove Bastiano Ferri guida ancora il coro.»',
+];
+const ecoPer = (n) => ECHI_DEL_CORO[n % ECHI_DEL_CORO.length];
 
 const INDIZI = LUOGHI.flatMap((L) => {
   const righe = L.approfondimenti.filter((a) => a.tipo === 'Osservazione' || a.tipo === 'Presagio');
@@ -280,7 +289,7 @@ const INDIZI = LUOGHI.flatMap((L) => {
     title: `Indizio Nascosto — ${L.nome}`,
     file: `Indizi/${L.nome}`,
     type: `Luogo ${L.n} · Osservazione (Elena) / Presagio (Sibilla)`,
-    rules: `{i}${righe.map((a) => `◆ (${TAG_INSIGHT[a.tipo]}) ${a.testo}`).join('\n')}\n◆ (Eco del Coro) ${ECO_DEL_CORO}{/i}`,
+    rules: `{i}${righe.map((a) => `◆ (${TAG_INSIGHT[a.tipo]}) ${a.testo}`).join('\n')}\n◆ (Eco del Coro) ${ecoPer(L.n)}{/i}`,
   }];
 });
 
@@ -290,7 +299,7 @@ const TESTIMONI = LUOGHI.flatMap((L) =>
     title: `Testimone — ${a.soggetto}`,
     file: `Testimoni/${a.soggetto}`,
     type: `Luogo ${L.n} · Testimone — abilità sociale (Ottone/Carla)`,
-    rules: `{i}${a.testo}{/i}{divider}{i}✹ (Eco del Coro) ${ECO_DEL_CORO}{/i}`,
+    rules: `{i}${a.testo}{/i}{divider}{i}✹ (Eco del Coro) ${ecoPer(L.n)}{/i}`,
   })));
 
 const REFERTI = LUOGHI.flatMap((L) =>
@@ -299,7 +308,7 @@ const REFERTI = LUOGHI.flatMap((L) =>
     title: `Referto — ${a.soggetto}`,
     file: `Referti/${a.soggetto}`,
     type: `Luogo ${L.n} · Referto — il Medico (Attilio)`,
-    rules: `{i}${a.testo}{/i}{divider}{i}✹ (Eco del Coro) ${ECO_DEL_CORO}{/i}`,
+    rules: `{i}${a.testo}{/i}{divider}{i}✹ (Eco del Coro) ${ecoPer(L.n)}{/i}`,
   })));
 
 // Oggetti trovabili: mazzo a se', arte dedicata (non riusata da altre carte).

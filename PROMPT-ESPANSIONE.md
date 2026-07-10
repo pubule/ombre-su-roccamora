@@ -63,12 +63,18 @@ Facile 7 · Media 9 · Difficile 11. Ogni eroe ha 1 "Secondo fiato" (ritenta) a 
    carta, unico eroe così). Le carte (Indizio Nascosto / Testimone / Referto) stanno in un
    **unico mazzo coperto**: il dorso mostra solo **numero del luogo + tipo**, mai il
    contenuto, così i giocatori non sanno in anticipo dove si nasconde qualcosa. Tecnica
-   dell'**Eco condivisa**: un frammento di testo **identico**, appeso in coda a ogni carta
-   Approfondimento dell'episodio (qualunque tipo o eroe l'abbia sbloccata), fornisce il/i
-   dettaglio/i decisivo/i — così non conta QUALE carta si peschi, basta averne pescata
-   almeno una in tutto l'episodio. Verifica sempre che qualunque coppia di eroi (il minimo
-   per 2 giocatori) possa sbloccarla: nell'Ep. 1, 5 eroi su 6 producono carte (solo Nino
-   no), quindi ogni composizione plausibile ha un percorso.
+   dell'**Eco condivisa**: **non un frammento unico e identico** (nell'Ep. 1 lo era e
+   suonava ripetitivo, sistemato dopo) ma una **famiglia di 3-4 varianti** a rotazione
+   (es. per numero di luogo), appese in coda a ogni carta Approfondimento dell'episodio.
+   Ogni variante porta comunque lo **stesso nucleo garantito** (il/i dettaglio/i decisivo/i
+   per 1-2 Domande, sempre uguale su ogni variante) — così non conta QUALE carta si peschi,
+   basta averne pescata almeno una in tutto l'episodio — ma **ciascuna aggiunge anche un
+   accenno diverso** che tocca un'altra Domanda (corroborazione, non nuova informazione: le
+   altre Domande restano risolvibili dal solo core). Risultato: il meccanismo tocca **tutte
+   e 4** le Domande invece di 1-2, e non legge sempre uguale carta dopo carta. Verifica
+   sempre che qualunque coppia di eroi (il minimo per 2 giocatori) possa sbloccare almeno
+   una variante: nell'Ep. 1, 5 eroi su 6 producono carte (solo Nino no), quindi ogni
+   composizione plausibile ha un percorso.
 2. *Busta Soluzione* — risposte, per ogni domanda un Vantaggio se esatta e (per 2 domande
    su 4) una complicazione se errata; schema di montaggio della mappa; epilogo da leggere
    a voce; Frammento; elenco migliorie; **nota per chi arbitra** su cosa fa l'Eco condivisa

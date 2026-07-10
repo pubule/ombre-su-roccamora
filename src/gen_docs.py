@@ -151,18 +151,24 @@ def regolamento():
                 'emergono solo se un eroe presente sa come cavarli. <b>Almeno un dettaglio '
                 'decisivo per le 4 Domande emerge solo cos\u00ec</b> \u2014 qualsiasi Approfondimento va '
                 'bene, non importa quale o di chi: se l\u2019indagine finisce senza averne consultato '
-                'nemmeno uno, alcune risposte resteranno solo probabili, non certe. Ogni eroe ha '
-                'il suo modo:'))
-    e.append(P('<b>Elena</b> \u2014 <b>Osservazione</b>: a ogni luogo che visita (senza limite). &nbsp; '
-               '<b>Attilio</b> \u2014 <b>Referto</b>: esamina la scena (1 volta a episodio). &nbsp; '
-               '<b>Ottone / Carla</b> \u2014 <b>Testimone</b>: fanno parlare un reticente (1 a testa). &nbsp; '
-               '<b>Sibilla</b> \u2014 un Approfondimento <b>qualsiasi</b>, o intuisce dove cercarlo (1 volta). &nbsp; '
-               '<b>Nino</b> \u2014 <b>Accesso</b>: entra in un luogo bloccato senza parola chiave n\u00e9 oggetto (1 volta).', 'box'))
-    e.append(LI('Gli Approfondimenti sono carte a parte (<b>Indizi Nascosti</b>, <b>Testimoni</b>, '
-                '<b>Referti</b>), tenute in un <b>unico mazzo coperto</b>. Il dorso mostra solo il '
-                '<b>numero del luogo</b> e il tipo: quando visitate quel luogo e un eroe presente '
-                'sblocca quel tipo, cercate nel mazzo la carta corrispondente e leggetela. Se non '
-                'c\u2019\u00e8, quel luogo non ne ha. Cos\u00ec non sapete in anticipo dove si nasconde qualcosa.'))
+                'nemmeno uno, alcune risposte resteranno solo probabili, non certe.'))
+    e.append(P('Sono <b>3 mazzi di carte fisiche</b>, tenuti insieme in un <b>unico mazzo coperto</b> '
+               '(il dorso mostra solo <b>numero del luogo + tipo</b>, mai il contenuto): quando '
+               'visitate un luogo e un eroe presente sblocca quel tipo, cercate nel mazzo la carta '
+               'corrispondente e leggetela. Se non c\u2019\u00e8, quel luogo non ne ha \u2014 cos\u00ec non sapete in '
+               'anticipo dove si nasconde qualcosa.', 'body'))
+    e.append(LI('<b>Indizio Nascosto</b> \u2014 un dettaglio in pi\u00f9 sulla scena. Lo sblocca <b>Elena</b> '
+                '(Osservazione, a ogni luogo, senza limite) oppure <b>Sibilla</b> (Presagio, jolly: '
+                'un Approfondimento qualsiasi del luogo presente, o intuisce dove cercarne uno \u2014 '
+                '1 volta a episodio).'))
+    e.append(LI('<b>Testimone</b> \u2014 qualcuno che si lascia convincere a parlare. Lo sblocca '
+                '<b>Ottone</b> o <b>Carla</b> (offrendo da bere o con la tessera stampa \u2014 1 volta a '
+                'episodio ciascuno).'))
+    e.append(LI('<b>Referto</b> \u2014 un esame della scena o di un oggetto. Lo sblocca <b>Attilio</b> '
+                '(1 volta a episodio).'))
+    e.append(LI('<b>Nino</b> non sblocca carte: la sua abilit\u00e0 (<b>Accesso</b>) entra in un luogo '
+                'bloccato senza parola chiave n\u00e9 oggetto, 1 volta a episodio \u2014 \u00e8 un ingresso '
+                'anticipato, non un Approfondimento.'))
     e.append(P('<b>Esempio:</b> il gruppo visita il Luogo 1 (Campanile) con Elena presente. Girate '
                'la carta, leggete testo e i 3 indizi core \u2014 sempre, a chiunque. Poich\u00e9 Elena c\u2019\u00e8, '
                'cercate subito nel mazzo Approfondimenti la carta col dorso \u201c1 \u00b7 Indizio\u201d: se '
@@ -170,6 +176,12 @@ def regolamento():
                '(Bice) con Ottone: offrendogli da bere, cercate la carta col dorso \u201c2 \u00b7 Testimone\u201d '
                'e leggetela. Se un luogo non ha la carta del tipo cercato, semplicemente non c\u2019\u00e8 '
                'nulla da trovare l\u00ec per quell\u2019eroe.', 'box'))
+    e.append(LI('<b>Reperti</b> \u2014 alcuni indizi core corrispondono a un documento vero e proprio: '
+                'quando lo leggete, non limitatevi alla carta, consegnate il foglio stampato al '
+                'gruppo e lasciate che lo leggano loro. Episodio 1: <b>Reperto A</b> \u2014 Diario di '
+                'Ruggero (Luogo 1) \u00b7 <b>Reperto B</b> \u2014 Registro delle Consegne (Luogo 5) \u00b7 '
+                '<b>Reperto C</b> \u2014 Fascicolo del 1741 (Luogo 7). Sono solo un modo pi\u00f9 tangibile '
+                'di leggere lo stesso indizio: non contengono nulla in pi\u00f9 rispetto alla carta.'))
     e.append(P('Chiudere l\u2019indagine', 'h2'))
     e.append(P("Quando esaurite le ore (o prima, se vi sentite pronti) rispondete <b>per iscritto</b> "
                "alle <b>4 Domande</b> sul Taccuino: discutetene insieme, \u00e8 il cuore del gioco. "
@@ -300,6 +312,9 @@ def regolamento():
     e.append(LI('<b>Oggetti</b>: carte su cartoncino, tenute in un mazzetto a parte. Quando trovate '
                 'un oggetto (in Indagine o Cercando in Spedizione) prendete la carta corrispondente: '
                 'da quel momento è fisicamente nelle mani di chi lo porta.'))
+    e.append(LI('<b>Reperti</b> (cartella `reperti/`): 2–3 documenti su carta normale, a colori se '
+                'potete. Teneteli da parte, coperti, e consegnateli quando il gruppo trova l’indizio '
+                'corrispondente (vedi sopra).'))
     e.append(Spacer(1, 8))
     e.append(P('Episodio 1: <b>Il caso del campanaro scomparso</b>. Quando siete pronti, leggete la '
                'Lettera d\u2019incarico nel fascicolo Indagine. Buona fortuna \u2014 e non fidatevi della '
@@ -334,12 +349,16 @@ def soluzione():
 
     e.append(P('LE 4 DOMANDE \u2014 RISPOSTE E VANTAGGI', 'h1'))
     e.append(P('<b>Nota per chi arbitra:</b> ogni carta Approfondimento (Indizio Nascosto, Testimone '
-               'o Referto \u2014 qualunque, non importa quale) termina con lo stesso frammento, \u00abl\u2019Eco del '
-               'Coro\u00bb: rivela il nome esatto del nascondiglio (Domanda 1, oggi ammorbidito nell\u2019indizio '
-               'core del Luogo 6) e conferma che Ferri <i>guida</i> il culto, non solo vi \u00e8 coinvolto '
-               '(Domanda 2). Se il gruppo non ha consultato nessun Approfondimento in tutta l\u2019indagine, '
-               'giudicate con elasticit\u00e0 una risposta \u201cvicina\u201d (es. solo \u201cCanale Basso\u201d per la 1, o '
-               '\u201c\u00e8 coinvolto, forse capo\u201d per la 2) invece di considerarla sbagliata.', 'box'))
+               'o Referto \u2014 qualunque, non importa quale) termina con una delle 4 varianti '
+               'dell\u2019<b>Eco del Coro</b>, diversa a seconda del luogo. Ogni variante conferma comunque '
+               'lo stesso nucleo \u2014 il nome esatto del nascondiglio (Domanda 1, oggi ammorbidito '
+               'nell\u2019indizio core del Luogo 6) e che Ferri <i>guida</i> il culto, non solo vi \u00e8 '
+               'coinvolto (Domanda 2) \u2014 e in pi\u00f9 accenna, a rotazione, al ritmo delle campane '
+               '(corrobora la Domanda 3, gi\u00e0 risolvibile dal solo core) o all\u2019urgenza del diapason '
+               '(Domanda 4). Basta una qualsiasi delle 14 carte, non importa quale. Se il gruppo non '
+               'ha consultato nessun Approfondimento in tutta l\u2019indagine, giudicate con elasticit\u00e0 una '
+               'risposta \u201cvicina\u201d (es. solo \u201cCanale Basso\u201d per la 1, o \u201c\u00e8 coinvolto, forse capo\u201d per '
+               'la 2) invece di considerarla sbagliata.', 'box'))
     rows = [
         ['#', 'Risposta esatta', 'Se avete risposto bene', 'Se avete sbagliato'],
         ['1', 'Ruggero \u00e8 tenuto nel Magazzino delle\nCere \u201cDellacqua\u201d, al Canale Basso.',

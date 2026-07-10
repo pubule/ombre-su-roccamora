@@ -71,17 +71,33 @@ HEROES = [
 # sulla carta "Indizio Nascosto" del luogo; Referto/Testimonianza diventano carte
 # a sé (mazzi Referti/Testimoni), col titolo = soggetto.
 #
-# ECO_DEL_CORO: frammento identico che il generatore di carte (cards-data.js)
+# ECHI_DEL_CORO: famiglia di 4 varianti che il generatore di carte (cards-data.js)
 # appende IN CODA a tutte e 14 le carte Approfondimento (Indizi/Testimoni/Referti),
-# qualunque sia il tipo o l'eroe che l'ha sbloccata. Rende l'uso delle abilità un
-# requisito reale (non importa di chi): senza aver consultato NESSUN Approfondimento
-# in tutta l'indagine, il nome esatto del nascondiglio (Domanda 1) e la certezza che
-# Ferri sia il capo e non solo coinvolto (Domanda 2) restano solo probabili, mai
-# certi — l'indizio core del Luogo 6 è stato ammorbidito apposta (non nomina più
-# il magazzino). Vedi gen_docs.py soluzione() per la nota al Narratore.
-ECO_DEL_CORO = ('Per un istante, chi scava davvero a fondo sente lo stesso sussurro, ovunque si '
-                 'trovi: «il Magazzino delle Cere che fu di Dellacqua — lì Bastiano Ferri guida '
-                 'ancora il canto.»')
+# a rotazione per luogo (n % 4) - non piu' un frammento identico su ogni carta.
+# Ogni variante porta comunque lo STESSO nucleo garantito (nome esatto del
+# nascondiglio, Domanda 1; Ferri capo e non solo coinvolto, Domanda 2): rende
+# l'uso delle abilità un requisito reale non importa di chi, perché qualunque
+# singola carta pescata - anche una sola in tutta la partita - basta da sola.
+# In più ogni variante aggiunge un accenno diverso che tocca anche la Domanda 3
+# (il ritmo 3-1-5, corroborazione, non serve a risolverla: già risolvibile dal
+# solo core) o la Domanda 4 (l'urgenza del diapason), cosi' il meccanismo non
+# ignora metà delle 4 Domande e non suona sempre uguale carta dopo carta.
+# L'indizio core del Luogo 6 resta ammorbidito apposta (non nomina il magazzino).
+# Vedi gen_docs.py soluzione() per la nota al Narratore.
+ECHI_DEL_CORO = [
+    'Per un istante, chi scava davvero a fondo sente lo stesso sussurro, ovunque si trovi: '
+    '«il Magazzino delle Cere che fu di Dellacqua — lì Bastiano Ferri guida ancora il canto, '
+    'alle 3 di ogni notte, come le campane comandano.»',
+    'Per un istante, chi scava davvero a fondo sente lo stesso sussurro, ovunque si trovi: '
+    '«è la voce di Bastiano Ferri a guidare il coro, nel Magazzino delle Cere che fu di '
+    'Dellacqua — nessun altro osa cantare per primo.»',
+    'Per un istante, chi scava davvero a fondo sente lo stesso sussurro, ovunque si trovi: '
+    '«tre, poi uno, poi cinque: è il verso che apre ogni porta del Coro, cantato nel '
+    'Magazzino delle Cere che fu di Dellacqua, dove Ferri guida ancora il canto.»',
+    'Per un istante, chi scava davvero a fondo sente lo stesso sussurro, ovunque si trovi: '
+    '«solo l’argento intonato può spezzare il canto — portatelo nel Magazzino delle Cere '
+    'che fu di Dellacqua, dove Bastiano Ferri guida ancora il coro.»',
+]
 LUOGHI = [
     dict(n=1, nome='IL CAMPANILE DI SAN TEODORO', req='Disponibile dall’inizio',
          testo='La scala a chiocciola sale nel buio. In cima, la cella campanaria è in disordine: '
