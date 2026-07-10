@@ -208,9 +208,44 @@ full bleed dark fantasy painting, empty silent dusty municipal archive at night,
 Se esce ancora un mostro/folla, il colpevole quasi certo e' lo `--sref`
 condiviso: prova a rigenerare senza, oppure abbassa `--sw` (es. `--sw 300`).
 
+## Soggetti — Oggetti (--ar 3:4)
+
+6 nature morte, una per oggetto trovabile (3 nell'Indagine, 3 cercando nelle
+tessere della Spedizione). Salva i file coi nomi esatti sotto ciascun prompt.
+
+**Corda di Violino d'Argento** → `artworks/Corda di Violino.png`
+```
+full bleed dark fantasy still life, a single tarnished silver violin string coiled on a worn wooden tabletop, faint candlelight reflection along its length, dust motes in the air, 1889 gaslamp gothic, oil painting, muted teal and crimson palette with gold accents --ar 3:4 --style raw --no frame, border, card, text, letters, watermark
+```
+
+**Ampolla di Acqua Benedetta** → `artworks/Ampolla Benedetta.png`
+```
+full bleed dark fantasy still life, a small glass vial of holy water with a wax-sealed cork and a faint engraved cross, resting on dark velvet cloth, soft candlelight, 1889 gaslamp gothic, oil painting, muted teal and crimson palette with gold accents --ar 3:4 --style raw --no frame, border, card, text, letters, watermark
+```
+
+**Il Diapason d'Argento** → `artworks/Diapason.png`
+```
+full bleed dark fantasy still life, an ornate silver tuning fork engraved with a small wave symbol, resting on aged sheet music covered in handwritten musical notation, faint candlelight, 1889 gaslamp gothic, oil painting, muted teal and crimson palette with gold accents --ar 3:4 --style raw --no frame, border, card, text, letters, watermark
+```
+
+**Un Piede di Porco** → `artworks/Piede di Porco.png`
+```
+full bleed dark fantasy still life, a heavy worn iron crowbar resting against a stack of wooden crates, dim warehouse candlelight, faint dust, 1889 gaslamp gothic, oil painting, muted teal and crimson palette with gold accents --ar 3:4 --style raw --no frame, border, card, text, letters, watermark
+```
+
+**Un Talismano a Forma d'Onda** → `artworks/Talismano Onda.png`
+```
+full bleed dark fantasy still life, a small carved bone talisman shaped like a wave on a leather cord, resting on a stone ledge among burning black candles, warm flickering light, 1889 gaslamp gothic, oil painting, muted teal and crimson palette with gold accents --ar 3:4 --style raw --no frame, border, card, text, letters, watermark
+```
+
+**La Chiave della Cella** → `artworks/Chiave della Cella.png`
+```
+full bleed dark fantasy still life, a large old iron key with fresh rust on its teeth, resting on a cluttered desk covered in handwritten ledgers, dim lamp light, 1889 gaslamp gothic, oil painting, muted teal and crimson palette with gold accents --ar 3:4 --style raw --no frame, border, card, text, letters, watermark
+```
+
 ## Cornici (una sola generazione, poi si riusa ovunque)
 
-**Cornice carte verticali (Minacce, eroi, Luoghi, Indizi Nascosti)** — centro vuoto e scuro:
+**Cornice carte verticali (Minacce, eroi, Luoghi, Indizi Nascosti, Oggetti)** — centro vuoto e scuro:
 ```
 ornate dark fantasy card frame template, carved gold filigree border with ruby and teal gems on black, empty scroll banner at the top, empty dark parchment text panel at the bottom, the large central area completely plain dark and empty, victorian gothic, perfectly symmetrical --ar 3:4 --style raw --no text, letters, words, watermark
 ```

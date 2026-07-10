@@ -302,6 +302,37 @@ const REFERTI = LUOGHI.flatMap((L) =>
     rules: `{i}${a.testo}{/i}{divider}{i}✹ (Eco del Coro) ${ECO_DEL_CORO}{/i}`,
   })));
 
+// Oggetti trovabili: mazzo a se', arte dedicata (non riusata da altre carte).
+// `effetto` copiato 1:1 da src/gen_cards.py OGGETTI (indizio del Luogo o
+// `cerca` della tessera) - la carta e' solo un supporto fisico, nessuna regola
+// nuova.
+const OGGETTI = [
+  { art: 'artworks/Corda di Violino.png', nome: 'Corda di Violino d’Argento', fonte: 'Luogo 2 — Casa di Ruggero',
+    flavor: 'Ancora tesa, come se qualcuno l’avesse suonata ieri.',
+    effetto: 'Sblocca la visita al Luogo 5 (Bottega del Liutaio Ferri).' },
+  { art: 'artworks/Ampolla Benedetta.png', nome: 'Ampolla di Acqua Benedetta', fonte: 'Luogo 4 — La Sagrestia della Cattedrale',
+    flavor: '«Se là sotto c’è il demonio, portate questa», vi dice, e non vi guarda negli occhi.',
+    effetto: 'Effetto: nessuno finora scoperto.' },
+  { art: 'artworks/Diapason.png', nome: 'Il Diapason d’Argento', fonte: 'Luogo 5 — Bottega del Liutaio Ferri',
+    flavor: 'Inciso con un’onda. Vibra anche senza essere toccato.',
+    effetto: 'In spedizione: un’azione adiacente al Custode della Cera lo fa vibrare — Difesa 5 per il resto della partita, e il Custode salta la sua prossima attivazione.' },
+  { art: 'artworks/Piede di Porco.png', nome: 'Un Piede di Porco', fonte: 'Si trova cercando in T2 — Sala delle Casse',
+    flavor: 'Freddo, pesante, già piegato da altre porte.',
+    effetto: '+1 alle prove per forzare e scassinare.' },
+  { art: 'artworks/Talismano Onda.png', nome: 'Un Talismano a Forma d’Onda', fonte: 'Si trova cercando in T3 — Corridoio delle Candele',
+    flavor: 'Tiepido al tatto, come se qualcuno lo stringesse un istante prima di voi.',
+    effetto: '+1 NERVI finché lo portate.' },
+  { art: 'artworks/Chiave della Cella.png', nome: 'La Chiave della Cella', fonte: 'Si trova cercando in T4 — Ufficio del Custode',
+    flavor: 'Ruggine recente sul dente: uso frequente.',
+    effetto: 'Apre la cella in T6 con Interagire, senza prove.' },
+].map((o) => ({
+  art: o.art,
+  title: o.nome,
+  file: `Oggetti/${o.nome}`,
+  type: `Oggetto — ${o.fonte}`,
+  rules: `{i}${o.flavor}{/i}{divider}${o.effetto}`,
+}));
+
 // Sottocartella per tipo, cosi' e' chiaro a colpo d'occhio se una carta e' la
 // scheda nemico (combattimento) o la carta minaccia (evento dal mazzo), anche
 // quando condividono soggetto/art (es. "Il Fonditore" esiste in entrambe).
@@ -309,6 +340,6 @@ NEMICI.forEach((n) => { n.file = `Nemici/${n.title}`; });
 HEROES.forEach((h) => { h.file = `Eroi/${h.title}`; });
 
 module.exports = {
-  HEROES, NEMICI, MINACCE, LUOGHI, INDIZI, TESTIMONI, REFERTI,
-  ALL: [...HEROES, ...NEMICI, ...MINACCE, ...LUOGHI, ...INDIZI, ...TESTIMONI, ...REFERTI],
+  HEROES, NEMICI, MINACCE, LUOGHI, INDIZI, TESTIMONI, REFERTI, OGGETTI,
+  ALL: [...HEROES, ...NEMICI, ...MINACCE, ...LUOGHI, ...INDIZI, ...TESTIMONI, ...REFERTI, ...OGGETTI],
 };

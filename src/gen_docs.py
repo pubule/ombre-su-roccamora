@@ -187,13 +187,17 @@ def regolamento():
     e.append(LI('<b>Muovere</b> \u2014 fino a 4 caselle (niente diagonali, non si attraversano nemici o mobili).'))
     e.append(LI('<b>Attaccare</b> \u2014 un nemico adiacente: 2d6 + VIGORE (+1 se armato) \u2265 Difesa '
                 'del nemico \u2192 gli infliggete 1 ferita.'))
-    e.append(LI('<b>Cercare</b> \u2014 prova di ACUME Media: se riuscita, trovate ci\u00f2 che la tessera '
-                'nasconde (una sola volta per tessera).'))
+    e.append(LI('<b>Cercare</b> \u2014 su una tessera gi\u00e0 rivelata, prova di ACUME Media: se riuscita, '
+                'trovate l\u2019<b>oggetto</b> che nasconde (una sola volta per tessera; non tutte le '
+                'tessere ne nascondono uno). Non serve per liberare Ruggero: quello si fa con '
+                '<b>Interagire</b> sulla cella, in T6.'))
     e.append(LI('<b>Interagire</b> \u2014 aprire porte e grate, tirare leve, liberare prigionieri.'))
-    e.append(LI('<b>Usare un oggetto</b> \u2014 come indicato sull\u2019oggetto.'))
+    e.append(LI('<b>Usare un oggetto</b> \u2014 come indicato sulla sua carta.'))
     e.append(LI('<b>Rianimare</b> \u2014 un eroe a terra adiacente torna a 2 Salute.'))
     e.append(P('Quando un eroe esce da una tessera verso una tessera coperta, <b>rivelatela</b> e '
-               'leggetene subito il testo.'))
+               'leggetene subito il testo: è automatico, non un’azione, e non è la stessa cosa di '
+               'Cercare — rivelare mostra <i>che stanza è</i>, Cercare (sopra) trova <i>cosa ci ha '
+               'lasciato chi ci è passato prima di voi</i>.'))
     e.append(P('2. Fase Minaccia', 'h2'))
     e.append(P('Pescate <b>1 carta Minaccia ogni 2 eroi</b> (arrotondando per eccesso: 1 carta in '
                '2 giocatori, 2 carte in 3\u20134, 3 carte in 5) e applicatene gli effetti.', 'box'))
@@ -204,6 +208,20 @@ def regolamento():
                'effetti. <b>Regola d\u2019oro per ogni ambiguit\u00e0</b> (uscite equidistanti, eroi a '
                'pari distanza, pi\u00f9 bersagli validi): decide il gruppo scegliendo <b>l\u2019opzione '
                'peggiore per s\u00e9</b>. Vale in tutta la spedizione, anche per i nemici.'))
+    e.append(P('Il Canto', 'h2'))
+    e.append(P('Non \u00e8 un nemico n\u00e9 un oggetto: \u00e8 un <b>orologio della sventura</b>, tracciato con '
+               'segnalini <b>Canto</b> che si accumulano e non tornano mai indietro. Cresce da due '
+               'fonti insieme:'))
+    e.append(LI('Alcune carte Minaccia aggiungono <b>1 segnalino</b> quando le pescate (l\u2019episodio '
+                'dice quali).'))
+    e.append(LI('<b>In pi\u00f9</b>, a prescindere dalle carte pescate: <b>ogni 4\u00b0 round</b> (4\u00b0, 8\u00b0, '
+                '12\u00b0...) aggiungete comunque 1 segnalino. \u00c8 un secondo orologio parallelo: garantisce '
+                'che il pericolo massimo arrivi comunque, anche evitando ogni carta Canto.'))
+    e.append(P('Ogni episodio fissa una <b>soglia</b> (l\u2019episodio dice quale \u2014 per l\u2019Episodio 1: '
+               '<b>3 segnalini</b>): al suo raggiungimento, il nemico pi\u00f9 forte dell\u2019episodio si '
+               'desta immediatamente e da quel momento <b>ogni Fase Minaccia pesca 1 carta in pi\u00f9</b> '
+               'del normale, per il resto della spedizione. La Soluzione vi dir\u00e0 i dettagli specifici '
+               '(chi si desta, dove compare).', 'box'))
     e.append(P('3. Turno dei nemici', 'h2'))
     e.append(LI('Ogni nemico si muove del suo Movimento verso l\u2019eroe pi\u00f9 vicino (a pari '
                 'distanza vale la regola d\u2019oro: contro di s\u00e9).'))
@@ -216,9 +234,10 @@ def regolamento():
 
     e.append(P('ESEMPIO DI ROUND (3 giocatori, in T2 \u2014 Sala delle Casse)', 'h2'))
     e.append(P('<b>1. Turno degli eroi.</b> Elena spende un\u2019azione per <b>Cercare</b>: tira 2d6+ACUME '
-               '(3) = 9, supera la Media (9) e trova ci\u00f2 che T2 nasconde, <i>\u201cun piede di porco: '
-               '+1 alle prove per forzare e scassinare\u201d</i> \u2014 da questo momento ce l\u2019ha con s\u00e9 e '
-               'quel bonus si applica automaticamente, senza spendere azioni per \u201cusarlo\u201d. Con la '
+               '(3) = 9, supera la Media (9) e trova ci\u00f2 che T2 nasconde \u2014 prende la carta <b>Un '
+               'Piede di Porco</b>: <i>\u201c+1 alle prove per forzare e scassinare\u201d</i>. Da questo momento '
+               'ce l\u2019ha in mano e quel bonus si applica automaticamente, senza spendere azioni per '
+               '\u201cusarlo\u201d. Con la '
                'seconda azione si <b>Muove</b> verso l\u2019uscita nord. Nino <b>Muove</b> fino alla '
                'grata e la apre con <b>Interagire</b>. Ottone si <b>Muove</b> adiacente a un Adepto '
                'gi\u00e0 in gioco e <b>Attacca</b>: 2d6+VIGORE (3) = 9 \u2265 Difesa 7 dell\u2019Adepto \u2192 1 ferita, '
@@ -278,6 +297,9 @@ def regolamento():
     e.append(LI('<b>Approfondimenti</b> (Indizi Nascosti, Testimoni, Referti) su cartoncino; stampate il '
                 'foglio dei <b>dorsi numerati</b> sul retro (07) e tenete le carte in un unico mazzo coperto.'))
     e.append(LI('<b>04 Spedizione</b>: tessere, carte Minaccia e segnalini su cartoncino; ritagliate tutto.'))
+    e.append(LI('<b>Oggetti</b>: carte su cartoncino, tenute in un mazzetto a parte. Quando trovate '
+                'un oggetto (in Indagine o Cercando in Spedizione) prendete la carta corrispondente: '
+                'da quel momento è fisicamente nelle mani di chi lo porta.'))
     e.append(Spacer(1, 8))
     e.append(P('Episodio 1: <b>Il caso del campanaro scomparso</b>. Quando siete pronti, leggete la '
                'Lettera d\u2019incarico nel fascicolo Indagine. Buona fortuna \u2014 e non fidatevi della '

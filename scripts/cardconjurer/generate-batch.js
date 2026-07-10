@@ -10,14 +10,15 @@
 //   node scripts/cardconjurer/generate-batch.js indizi      (solo indizi nascosti)
 //   node scripts/cardconjurer/generate-batch.js testimoni   (solo carte Testimone)
 //   node scripts/cardconjurer/generate-batch.js referti     (solo carte Referto)
+//   node scripts/cardconjurer/generate-batch.js oggetti     (solo carte Oggetto)
 
 const { chromium } = require('playwright');
 const { generateOne } = require('./lib');
 const { startServer } = require('./serve');
-const { HEROES, NEMICI, MINACCE, LUOGHI, INDIZI, TESTIMONI, REFERTI, ALL } = require('./cards-data');
+const { HEROES, NEMICI, MINACCE, LUOGHI, INDIZI, TESTIMONI, REFERTI, OGGETTI, ALL } = require('./cards-data');
 
 const GROUPS = { heroes: HEROES, nemici: NEMICI, minacce: MINACCE, luoghi: LUOGHI,
-                 indizi: INDIZI, testimoni: TESTIMONI, referti: REFERTI, all: ALL };
+                 indizi: INDIZI, testimoni: TESTIMONI, referti: REFERTI, oggetti: OGGETTI, all: ALL };
 
 (async () => {
   const which = (process.argv[2] || 'all').toLowerCase();

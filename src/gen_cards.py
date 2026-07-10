@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 """Ombre su Roccamora - dati di gioco (fonte autoritativa).
 
-Solo dati: eroi, luoghi dell'Indagine, mazzo Minaccia, nemici, tessere. Il
+Solo dati: eroi, luoghi dell'Indagine, oggetti trovabili, mazzo Minaccia,
+nemici, tessere. Il
 rendering dei PDF vive in gen_gothic.py (03 Indagine, 04 Spedizione) e
 gen_deluxe.py (02 Schede); le carte immagine in scripts/cardconjurer/ (compreso
 il PDF 07 coi dorsi numerati degli Approfondimenti, generate-backs.js). I testi
@@ -210,6 +211,33 @@ LUOGHI = [
                         'il compratore incappucciato scaricava «al molo terzo del Canale Basso». La gendarmeria '
                         'lo sapeva e ha lasciato correre.'),
          ]),
+]
+
+# Oggetti: carta fisica per ogni oggetto trovabile, in Indagine (nei Luoghi) o
+# in Spedizione (Cercare in una tessera). `effetto` e' copiato 1:1 dal dato di
+# provenienza (indizio del Luogo o `cerca` della tessera in TILES sotto) - la
+# carta non aggiunge alcuna regola nuova, solo un supporto fisico da tenere in
+# mano invece che una riga di testo da ricordare.
+OGGETTI = [
+    dict(nome='CORDA DI VIOLINO D’ARGENTO', fonte='Luogo 2 — Casa di Ruggero',
+         flavor='Ancora tesa, come se qualcuno l’avesse suonata ieri.',
+         effetto='Sblocca la visita al Luogo 5 (Bottega del Liutaio Ferri).'),
+    dict(nome='AMPOLLA DI ACQUA BENEDETTA', fonte='Luogo 4 — La Sagrestia della Cattedrale',
+         flavor='«Se là sotto c’è il demonio, portate questa», vi dice, e non vi guarda negli occhi.',
+         effetto='Effetto: nessuno finora scoperto.'),
+    dict(nome='IL DIAPASON D’ARGENTO', fonte='Luogo 5 — Bottega del Liutaio Ferri',
+         flavor='Inciso con un’onda. Vibra anche senza essere toccato.',
+         effetto='In spedizione: un’azione adiacente al Custode della Cera lo fa vibrare — '
+                 'Difesa 5 per il resto della partita, e il Custode salta la sua prossima attivazione.'),
+    dict(nome='UN PIEDE DI PORCO', fonte='Si trova cercando in T2 — Sala delle Casse',
+         flavor='Freddo, pesante, già piegato da altre porte.',
+         effetto='+1 alle prove per forzare e scassinare.'),
+    dict(nome='UN TALISMANO A FORMA D’ONDA', fonte='Si trova cercando in T3 — Corridoio delle Candele',
+         flavor='Tiepido al tatto, come se qualcuno lo stringesse un istante prima di voi.',
+         effetto='+1 NERVI finché lo portate.'),
+    dict(nome='LA CHIAVE DELLA CELLA', fonte='Si trova cercando in T4 — Ufficio del Custode',
+         flavor='Ruggine recente sul dente: uso frequente.',
+         effetto='Apre la cella in T6 con Interagire, senza prove.'),
 ]
 
 # ================================================================ SPEDIZIONE
