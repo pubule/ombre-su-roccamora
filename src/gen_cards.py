@@ -3,53 +3,72 @@
 
 Solo dati: eroi, luoghi dell'Indagine, mazzo Minaccia, nemici, tessere. Il
 rendering dei PDF vive in gen_gothic.py (03 Indagine, 04 Spedizione) e
-gen_deluxe.py (02 Schede); le carte immagine in scripts/cardconjurer/. I testi
+gen_deluxe.py (02 Schede); le carte immagine in scripts/cardconjurer/ (compreso
+il PDF 07 coi dorsi numerati degli Approfondimenti, generate-backs.js). I testi
 estesi per l'immersione stanno in story.py e vengono applicati con story.apply().
+
+Approfondimenti: ogni luogo puo' avere indizi extra "gated", ognuno di un tipo
+(Osservazione/Referto/Testimonianza/Presagio) che si sblocca con l'abilita' di
+un eroe presente. Sono sempre BONUS: le 4 Domande restano risolvibili dai soli
+`indizi` core.
 """
 
 # ================================================================= EROI
 HEROES = [
     dict(nome='ELENA FOSCO', ruolo='L’Investigatrice', acume=3, vigore=1, nervi=2,
          salute=6, difesa=8,
-         abil=('<b>Occhio Clinico</b> — In indagine: quando Elena visita un luogo con una '
-               'carta <b>Indizio Nascosto</b> abbinata, consultatela subito. In spedizione: +2 alle '
+         abil=('<b>Occhio Clinico</b> — In indagine: a ogni luogo Elena legge le '
+               '<b>Osservazioni</b> nascoste (senza limite). In spedizione: +2 alle '
                'prove di Cercare.'),
          equip='Bastone animato (arma, +1), lente d’ingrandimento, taccuino rilegato.'),
     dict(nome='DOTT. ATTILIO MARN', ruolo='Il Medico', acume=2, vigore=2, nervi=2,
          salute=7, difesa=8,
-         abil=('<b>Pronto Soccorso</b> — Tre volte per spedizione, con un’azione cura '
+         abil=('<b>Pronto Soccorso</b> — In spedizione, tre volte, con un’azione cura '
                '2 Salute a un eroe adiacente o a sé stesso. Rianimare gli riesce sempre '
-               'riportando l’eroe a 3 Salute invece che a 2.'),
+               'riportando l’eroe a 3 Salute invece che a 2. In indagine: una volta per '
+               'episodio redige un <b>Referto</b> — esamina la scena e ne ricava un fatto '
+               'forense che agli altri sfugge.'),
          equip='Bisturi lungo (arma, +1), borsa medica, sali aromatici.'),
     dict(nome='SIBILLA REVE', ruolo='L’Occultista', acume=2, vigore=1, nervi=3,
          salute=6, difesa=8,
-         abil=('<b>Sesto Senso</b> — Una volta per round, prima della fase Minaccia, guarda '
-               'le prime 2 carte del mazzo e rimettile sopra nell’ordine che preferisce.'),
+         abil=('<b>Sesto Senso</b> — In indagine: una volta per episodio il pendolo si '
+               'ferma su un luogo presente: leggetene un <b>Approfondimento qualsiasi</b> '
+               '(Osservazione, Testimone, Referto o Presagio); se non ne ha, il pendolo '
+               'indica un luogo che ne nasconde uno. In spedizione: una volta per round, '
+               'prima della fase Minaccia, guarda le prime 2 carte del mazzo e mettine una '
+               'in <b>fondo</b> al mazzo; l’altra torna in cima.'),
          equip='Pugnale rituale (arma, +1), pendolo d’ossidiana, gessetti.'),
     dict(nome='NINO “GRIMALDELLO” CAUTO', ruolo='Il Ladro', acume=2, vigore=2, nervi=1,
          salute=7, difesa=9,
          abil=('<b>Grimaldello</b> — Serrature e lucchetti: per Nino ogni prova per '
                'scassinare cala di un grado (Difficile→Media, Media→Facile). '
-               'Inoltre si muove di 5 caselle invece di 4.'),
+               'Inoltre si muove di 5 caselle invece di 4. In indagine: una volta per '
+               'episodio scassina l’ingresso di <b>un luogo bloccato</b> ed entra senza '
+               'la parola chiave o l’oggetto richiesto.'),
          equip='Sfollagente (arma, +1), grimaldelli, corda con rampino.'),
     dict(nome='OTTONE “MEZZENA” MASSARI', ruolo='Il Macellaio', acume=1, vigore=3, nervi=2,
          salute=8, difesa=8,
          abil=('<b>Un bicchiere con tutti</b> — In indagine: una volta per episodio, '
-               'offrendo da bere e da mangiare fa ripetere una testimonianza: se il luogo ha '
-               'una carta <b>Indizio Nascosto</b> abbinata, consultatela. In spedizione, '
-               '<b>Colpo da macello</b>: una volta per turno, se abbatte un nemico in mischia '
-               'attacca immediatamente un altro nemico adiacente.'),
+               'offrendo da bere e da mangiare, convince un <b>Testimone</b> reticente: '
+               'prendetene la carta Testimone. In spedizione, <b>Colpo da macello</b>: '
+               'una volta per turno, se abbatte un nemico in mischia attacca '
+               'immediatamente un altro nemico adiacente.'),
          equip='Mannaia del banco (arma, +1), grembiule di cuoio, fiasco di vino robusto '
                '(2 usi: un sorso, anche su un eroe adiacente, annulla un effetto di paura o dei fumi).'),
     dict(nome='CARLA DOSTI', ruolo='La Giornalista', acume=3, vigore=1, nervi=2,
          salute=6, difesa=8,
-         abil=('<b>Fonti riservate</b> — In indagine: una volta per episodio, una visita non '
-               'costa nessuna ora. In spedizione: <b>Flash!</b> (2 usi) — azione: un nemico '
+         abil=('<b>Fonti riservate</b> — In indagine: una volta per episodio una visita non '
+               'costa nessuna ora; inoltre, con la tessera stampa, convince il <b>Testimone</b> '
+               'di un luogo (carta). In spedizione: <b>Flash!</b> (2 usi) — azione: un nemico '
                'entro 2 caselle salta la sua prossima attivazione.'),
          equip='Ombrello ferrato (arma, +1), macchina fotografica, blocco note.'),
 ]
 
 # ================================================================= INDAGINE
+# Ogni luogo: `indizi` = core (sempre letti, sulla carta Luogo). `approfondimenti`
+# = bonus gated, ognuno {tipo, testo, [soggetto]}. Osservazione/Presagio finiscono
+# sulla carta "Indizio Nascosto" del luogo; Referto/Testimonianza diventano carte
+# a sé (mazzi Referti/Testimoni), col titolo = soggetto.
 LUOGHI = [
     dict(n=1, nome='IL CAMPANILE DI SAN TEODORO', req='Disponibile dall’inizio',
          testo='La scala a chiocciola sale nel buio. In cima, la cella campanaria è in disordine: '
@@ -58,8 +77,13 @@ LUOGHI = [
                  'Il diario di Ruggero, con l’ultima pagina strappata. Ricalcando i solchi della penna leggete: '
                  '«...alle 3 in punto, ogni notte. <b>Tre rintocchi, poi uno, poi cinque.</b> Non sono io a suonare.»',
                  'Graffiata sul legno della balaustra, una parola: <b>SOMMERSO</b>.'],
-         nascosto='Indizio nascosto: tra le assi, un frammento di spartito scritto a mano. '
-                  'Le note non sono per organo: sono per <b>campane</b>.'),
+         approfondimenti=[
+             dict(tipo='Osservazione',
+                  testo='Tra le assi, un frammento di spartito scritto a mano. Le note non sono per organo: sono per <b>campane</b>.'),
+             dict(tipo='Referto', soggetto='La cena intatta',
+                  testo='La cena è ancora sotto il panno, fredda ma composta; nessun segno di lotta, nessuna caduta. '
+                        'Ruggero non è stato trascinato via: si è alzato e ha seguito qualcuno, verso le 3.'),
+         ]),
     dict(n=2, nome='CASA DI RUGGERO — VICOLO DEI FONDITORI', req='Disponibile dall’inizio',
          testo='Bice, la sorella, vi apre con gli occhi rossi: «Negli ultimi tempi diceva di sentire '
                'musica sotto il pavimento della cripta. E aveva paura del suo stesso campanile.»',
@@ -67,7 +91,11 @@ LUOGHI = [
                  '<i>(Oggetto: sblocca il Luogo 5.)</i>',
                  'Una ricevuta: Ruggero aveva chiesto all’Archivio Civico i documenti antichi della cattedrale.',
                  'Bice: «L’ultima sera ripeteva una parola, come una preghiera al contrario: sommerso, sommerso.»'],
-         nascosto=None),
+         approfondimenti=[
+             dict(tipo='Testimonianza', soggetto='Bice',
+                  testo='Consolata, Bice ricorda: nelle ultime settimane Ruggero riceveva di notte un visitatore '
+                        '«ben vestito, con mani da artigiano». Non ne ha mai saputo il nome.'),
+         ]),
     dict(n=3, nome='TAVERNA DEL PONTE ROTTO', req='Disponibile dall’inizio',
          testo='Fumo, vino cattivo e barcaioli. Qui le lingue si sciolgono con poco.',
          indizi=['Ugo il barcaiolo: «Tre notti fa una <b>CHIATTA</b> senza lanterne ha scaricato casse al '
@@ -76,7 +104,14 @@ LUOGHI = [
                  'Un avventore ubriaco: «Vicino ai vecchi magazzini c’è puzza di cera bruciata da settimane.»',
                  'L’oste conferma: <b>Tonio il sagrestano</b> era qui a giocare a carte fino all’alba, '
                  'la notte della scomparsa.'],
-         nascosto=None),
+         approfondimenti=[
+             dict(tipo='Testimonianza', soggetto='Ugo il barcaiolo',
+                  testo='Con un altro bicchiere, Ugo precisa: la chiatta senza lanterne ha attraccato al '
+                        '<b>molo terzo</b> del Canale Basso, poco dopo le 3, e ha scaricato in fretta.'),
+             dict(tipo='Presagio',
+                  testo='Mentre i barcaioli giocano, a Sibilla cade sotto gli occhi la stessa carta due volte: '
+                        'l’Annegato. Il canale, stanotte, ha fame.'),
+         ]),
     dict(n=4, nome='LA SAGRESTIA DELLA CATTEDRALE', req='Disponibile dall’inizio',
          testo='Don Callisto vi riceve nervoso, le mani sporche di cera. Dietro di lui, la porta della '
                'cripta è sbarrata: «Chiusa per lavori», taglia corto.',
@@ -86,8 +121,14 @@ LUOGHI = [
                  'che sta restaurando l’organo.',
                  'Prima che usciate, vi mette in mano un’<b>ampolla di acqua benedetta</b>: «Se là '
                  'sotto c’è il demonio, portate questa.»'],
-         nascosto='Indizio nascosto: la cera sulle mani di don Callisto è bianca, comune: '
-                  'vende candele di nascosto per pagare i debiti della parrocchia. Con la cera nera non c’entra.'),
+         approfondimenti=[
+             dict(tipo='Osservazione',
+                  testo='La cera sulle mani di don Callisto è bianca, comune: vende candele di nascosto per '
+                        'pagare i debiti della parrocchia. Con la cera nera non c’entra.'),
+             dict(tipo='Testimonianza', soggetto='Don Callisto',
+                  testo='Se rassicurato, il prete crolla: certe notti dalla cripta sale un canto sommesso, '
+                        '«di molte voci». Ha troppa paura per denunciarlo — e troppa vergogna per benedirlo.'),
+         ]),
     dict(n=5, nome='BOTTEGA DEL LIUTAIO FERRI', req='Serve: la CORDA DI VIOLINO (Luogo 2)',
          testo='Bottega chiusa da giorni; la porta sul retro cede a una spallata. Dentro, polvere e '
                'violini appesi come selvaggina.',
@@ -97,9 +138,15 @@ LUOGHI = [
                  'molo terzo, il vecchio deposito — pagato B.F.»',
                  'Uno spartito: «Dal Profondo», riscritto <b>per campane</b>. In margine: «il bronzo canta, '
                  'la pietra risponde, l’acqua ricorda».'],
-         nascosto='Indizio nascosto: nel camino, cenere di carta ancora tiepida. Un lembo si salva, '
-                  'grafia febbrile: «...non riesco più a fermarlo, il Coro canta anche senza di me. '
-                  'Che Dio perdoni ciò che ho svegliato. — B.»'),
+         approfondimenti=[
+             dict(tipo='Osservazione',
+                  testo='Nel camino, cenere di carta ancora tiepida. Un lembo si salva, grafia febbrile: '
+                        '«...non riesco più a fermarlo, il Coro canta anche senza di me. Che Dio perdoni ciò '
+                        'che ho svegliato. — B.»'),
+             dict(tipo='Referto', soggetto='Residui sulle lime',
+                  testo='Su lime e sgorbie, incrostazioni di <b>cera nera</b> — non la pece da liutaio. Qui, '
+                        'tra un violino e l’altro, Ferri lavorava le candele del culto.'),
+         ]),
     dict(n=6, nome='IL CANALE BASSO', req='Serve: la parola chiave CHIATTA (Luogo 3)',
          testo='Acqua nera e ferma, magazzini ciechi. Il guardiano notturno accetta di parlare per '
                'qualche moneta.',
@@ -109,9 +156,15 @@ LUOGHI = [
                  'ho sentito un urlo.»',
                  'Sul molo: gocce di cera nera e un lucchetto nuovo di zecca sulla porta della banchina, '
                  'di quelli <b>a tre cifre</b>.'],
-         nascosto='Indizio nascosto: il guardiano abbassa la voce. «Certe notti li ho visti entrare — '
-                  'un fornaio, un sagrestano, gente che saluto al mercato — e uscire all’alba con gli '
-                  'occhi vuoti, senza riconoscermi. Non erano più loro.»'),
+         approfondimenti=[
+             dict(tipo='Testimonianza', soggetto='Il guardiano notturno',
+                  testo='Il guardiano abbassa la voce. «Certe notti li ho visti entrare — un fornaio, un '
+                        'sagrestano, gente che saluto al mercato — e uscire all’alba con gli occhi vuoti, '
+                        'senza riconoscermi. Non erano più loro.»'),
+             dict(tipo='Presagio',
+                  testo='Sibilla sfiora l’acqua nera: non è fredda, è attenta. Qualcosa, sotto la città, '
+                        'ascolta i passi sul molo — e li conta.'),
+         ]),
     dict(n=7, nome='L’ARCHIVIO CIVICO', req='Serve: la parola chiave SOMMERSO (Luogo 1)',
          testo='L’archivista, sentendo la parola giusta, vi guida a uno scaffale che nessuno tocca '
                'da decenni.',
@@ -121,7 +174,11 @@ LUOGHI = [
                  'Una mappa antica: dalla cripta, condotti scendono verso il <b>Canale Basso</b>.',
                  'Registro consultazioni, due mesi fa: «<b>B. Ferri, liutaio</b>» ha richiesto questo '
                  'stesso fascicolo.'],
-         nascosto=None),
+         approfondimenti=[
+             dict(tipo='Osservazione',
+                  testo='Le mani dell’archivista tremano su un solo scaffale. Sul fascicolo, una nota a margine '
+                        'di altra mano: «il sigillo a onda è ancora inciso nella cripta — sotto l’altare».'),
+         ]),
     dict(n=8, nome='LA GENDARMERIA', req='Disponibile dall’inizio',
          testo='Il brigadiere vi riceve tra pile di pratiche: «Il campanaro? Sarà scappato con '
                'qualche vedova.»',
@@ -131,7 +188,15 @@ LUOGHI = [
                  'venduto un quintale di bronzo a un compratore incappucciato.',
                  '«Se trovate qualcosa di concreto, tornate. Non perquisiamo mezza città per un campanaro '
                  'con la testa fra le nuvole.»'],
-         nascosto=None),
+         approfondimenti=[
+             dict(tipo='Referto', soggetto='La denuncia dei furti',
+                  testo='Attilio confronta le denunce: la cera «rubata da tre chiese» è la stessa cera d’altare '
+                        'della cattedrale. Qualcuno raccoglie cera consacrata in quantità.'),
+             dict(tipo='Testimonianza', soggetto='Il fascicolo nascosto',
+                  testo='Il fascicolo che il brigadiere continua a spostare (fatelo parlare, o sfilateglielo): '
+                        'il compratore incappucciato scaricava «al molo terzo del Canale Basso». La gendarmeria '
+                        'lo sapeva e ha lasciato correre.'),
+         ]),
 ]
 
 # ================================================================ SPEDIZIONE
@@ -159,7 +224,7 @@ MINACCE = (
     [('PRESAGIO', 'Un brivido corre lungo la schiena. Non accade nulla... per ora.')] +
     [('ECO AMICA', 'Tre colpi sordi, in lontananza: Ruggero è vivo. Rivelate una tessera coperta adiacente a una rivelata.')] +
     [('CERA CHE COLA', 'Fino a fine round, sulla tessera dell’eroe attivo muoversi costa il doppio.')] +
-    [('RINFORZI DAL CANALE', 'Piazzate 1 Adepto sull’ingresso della Banchina (T1).')] +
+    [('CORRENTE GELIDA', 'Una corrente gelida risale dai condotti: fino all’inizio del vostro prossimo turno ogni eroe ha -1 al Movimento (minimo 1).')] +
     [('SUSSURRI', 'L’eroe con meno NERVI (a pari merito: sceglie il gruppo) prova NERVI (Media): se fallisce subisce 1 danno dal terrore.')]
 )
 
@@ -175,7 +240,7 @@ NEMICI = [
               'pazienza di chi ha versato mille candele. Non corrono mai: non ne hanno bisogno. '
               'Chi viene ferito dal Fonditore si muove di 1 casella in meno nel suo prossimo '
               'turno (la cera si addensa addosso).'),
-    dict(nome='IL CUSTODE DELLA CERA', att=3, dif=9, fer=4, mov=3, dan=2,
+    dict(nome='IL CUSTODE DELLA CERA', att=3, dif=9, fer=3, mov=3, dan=2,
          note='Un gigante ricoperto di cera colata, il volto un moncone liscio. Se il diapason '
               'd’argento viene fatto vibrare a lui adiacente (azione): Difesa 5 per il resto '
               'della partita e salta la sua prossima attivazione.'),

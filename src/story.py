@@ -139,7 +139,7 @@ _FLAVOR = {
     'PRESAGIO': 'Una candela si spegne da sola. Nessuno ha fiatato.',
     'ECO AMICA': 'Tre colpi sordi, ostinati: qualcuno, l\u00e0 sotto, \u00e8 ancora vivo.',
     'CERA CHE COLA': 'Dalle travi piove cera bollente, filo dopo filo.',
-    'RINFORZI DAL CANALE': 'Dal canale, il tonfo di una chiatta che attracca senza lanterne.',
+    'CORRENTE GELIDA': 'Un freddo d’acqua nera risale i condotti e vi entra nelle ossa.',
     'SUSSURRI': 'Qualcuno pronuncia il vostro nome. Con la vostra voce.',
 }
 

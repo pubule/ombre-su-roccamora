@@ -119,9 +119,20 @@ def regolamento():
                 'Prendete appunti sul Taccuino: nomi, orari, parole chiave in MAIUSCOLO.'))
     e.append(LI('Quando trovate una <b>parola chiave</b> o un <b>oggetto</b>, potete da quel momento '
                 'visitare i luoghi che li richiedono.'))
-    e.append(LI('Alcuni luoghi hanno una carta <b>Indizio Nascosto</b> abbinata (stesso numero): '
-                'si consulta solo se l\u2019abilit\u00e0 di un eroe presente lo consente '
-                '(Elena: sempre \u00b7 Ottone: una volta a episodio).'))
+    e.append(LI('Alcuni luoghi nascondono degli <b>Approfondimenti</b>: indizi extra che '
+                'emergono solo se un eroe presente sa come cavarli. Non servono mai a '
+                'rispondere alle 4 Domande \u2014 sono vantaggi, colore, conferme. Ogni eroe ha '
+                'il suo modo:'))
+    e.append(P('<b>Elena</b> \u2014 <b>Osservazione</b>: a ogni luogo che visita (senza limite). &nbsp; '
+               '<b>Attilio</b> \u2014 <b>Referto</b>: esamina la scena (1 volta a episodio). &nbsp; '
+               '<b>Ottone / Carla</b> \u2014 <b>Testimone</b>: fanno parlare un reticente (1 a testa). &nbsp; '
+               '<b>Sibilla</b> \u2014 un Approfondimento <b>qualsiasi</b>, o intuisce dove cercarlo (1 volta). &nbsp; '
+               '<b>Nino</b> \u2014 <b>Accesso</b>: entra in un luogo bloccato senza parola chiave n\u00e9 oggetto (1 volta).', 'box'))
+    e.append(LI('Gli Approfondimenti sono carte a parte (<b>Indizi Nascosti</b>, <b>Testimoni</b>, '
+                '<b>Referti</b>), tenute in un <b>unico mazzo coperto</b>. Il dorso mostra solo il '
+                '<b>numero del luogo</b> e il tipo: quando visitate quel luogo e un eroe presente '
+                'sblocca quel tipo, cercate nel mazzo la carta corrispondente e leggetela. Se non '
+                'c\u2019\u00e8, quel luogo non ne ha. Cos\u00ec non sapete in anticipo dove si nasconde qualcosa.'))
     e.append(P('Chiudere l\u2019indagine', 'h2'))
     e.append(P("Quando esaurite le ore (o prima, se vi sentite pronti) rispondete <b>per iscritto</b> "
                "alle <b>4 Domande</b> sul Taccuino: discutetene insieme, \u00e8 il cuore del gioco. "
@@ -202,6 +213,8 @@ def regolamento():
     e.append(LI('<b>01 Regolamento</b> e <b>05 Soluzione</b>: fronte/retro normale. Sigillate la Soluzione in una busta!'))
     e.append(LI('<b>02 Schede</b>: una per giocatore, meglio su cartoncino.'))
     e.append(LI('<b>03 Indagine</b>: carte Luogo su cartoncino, ritagliate lungo i bordi. Il Taccuino su carta normale.'))
+    e.append(LI('<b>Approfondimenti</b> (Indizi Nascosti, Testimoni, Referti) su cartoncino; stampate il '
+                'foglio dei <b>dorsi numerati</b> sul retro (07) e tenete le carte in un unico mazzo coperto.'))
     e.append(LI('<b>04 Spedizione</b>: tessere, carte Minaccia e segnalini su cartoncino; ritagliate tutto.'))
     e.append(Spacer(1, 8))
     e.append(P('Episodio 1: <b>Il caso del campanaro scomparso</b>. Quando siete pronti, leggete la '

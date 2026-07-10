@@ -15,7 +15,10 @@ in una città immaginaria di canali e campanili nel 1889. Unisce indagine alla
     le tessere T1-T6 sono file immagine a parte, vedi `cards/` e `board/`)
   - `05-SOLUZIONE-non-aprire` — da stampare senza leggere e sigillare in busta!
   - `06-Aiuto-Giocatore` — riepilogo regole da tavolo su una pagina
-- `cards/` — carte gioco pronte (Eroi, Nemici, Minacce, Luoghi, Indizi Nascosti)
+  - `07-Approfondimenti` — fronte/retro (duplex) di Indizi Nascosti, Testimoni e
+    Referti: i dorsi mostrano il numero del luogo e il tipo
+- `cards/` — carte gioco pronte (Eroi, Nemici, Minacce, Luoghi, Indizi Nascosti,
+  Testimoni, Referti)
 - `board/` — le 6 tessere T1-T6 della Spedizione, griglia+arredi+porte pronte
 - `reperti/` — documenti-reperto (diario, registro, atti d'archivio) da consegnare
   durante l'indagine, composti su un'unica foto di pergamena
@@ -45,9 +48,10 @@ python gen_gothic.py   # indagine + spedizione (versione grafica gotica finale)
 
 ```bash
 cd scripts/cardconjurer
-node generate-batch.js            # tutte (eroi, nemici, minacce, luoghi, indizi)
-node generate-batch.js luoghi     # solo un gruppo
+node generate-batch.js            # tutte (eroi, nemici, minacce, luoghi, indizi, testimoni, referti)
+node generate-batch.js luoghi     # solo un gruppo (heroes|nemici|minacce|luoghi|indizi|testimoni|referti)
 node generate-test.js "Elena Fosco" "Il Fonditore"   # solo carte specifiche, per titolo
+node generate-backs.js            # PDF 07 fronte/retro coi dorsi numerati degli Approfondimenti
 ```
 
 Gira contro `vendor/cardconjurer/`, una copia locale statica di
