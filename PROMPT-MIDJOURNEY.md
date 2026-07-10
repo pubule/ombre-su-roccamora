@@ -159,6 +159,19 @@ full bleed dark fantasy painting, SCENA, 1889 gaslamp gothic, oil painting, mute
 
 Scene — **1** interior of a bell tower at 3am with three bronze bells and black wax on a spiral staircase · **2** humble candlelit canal-side room with a silver violin string on the table and a worried woman · **3** smoky canal tavern full of boatmen playing cards under an oil lamp · **4** nervous priest in a candlelit sacristy with a crypt door barred by new planks · **5** abandoned luthier workshop with violins hanging like game and a silver tuning fork on the workbench · **6** derelict warehouses over black still water with branded crates and a night watchman · **7** dusty municipal archive with a forbidden folio open on a lectern · **8** cluttered 19th century police office with a brigadier avoiding eye contact · **copertina spedizione** abandoned wax warehouse on a canal at night, faint candlelight through broken shutters
 
+**Luogo 7 (Archivio Civico) tende a uscire sbagliato:** lo `--sref` dell'Adepto
+trascina dentro un mostro/demone urlante con gli artigli, una folla di
+astanti e il libro in fiamme — niente di tutto questo è nel brief. Scena
+corretta: un archivio vuoto e silenzioso, un solo archivista umano anziano e
+minuto, nessun fuoco, nessuna folla. Usa questo prompt dedicato invece della
+sostituzione SCENA generica (con o senza `--sref`, se hai gia' fissato lo
+stile con l'Adepto puoi comunque aggiungerlo in coda):
+```
+full bleed dark fantasy painting, empty silent dusty municipal archive at night, towering shelves of bound ledgers and string-tied paper folders reaching a high vaulted ceiling, faint green glow from a banker's lamp, a single small elderly ordinary human archivist in thick spectacles standing quietly at a wooden lectern, one aged leather-bound forbidden folio with strange handwritten symbols resting closed and undisturbed on the lectern, thick undisturbed dust, cobwebs, no one else present, 1889 gaslamp gothic, oil painting, muted teal and crimson palette with gold accents --ar 3:4 --style raw --no frame, border, card, text, letters, watermark, monster, demon, creature, claws, fangs, glowing eyes, crowd, multiple people, onlookers, flames, burning, fire, skull, skeleton, screaming, shouting, roaring
+```
+Se esce ancora un mostro/folla, il colpevole quasi certo e' lo `--sref`
+condiviso: prova a rigenerare senza, oppure abbassa `--sw` (es. `--sw 300`).
+
 ## Cornici (una sola generazione, poi si riusa ovunque)
 
 **Cornice carte verticali (Minacce, eroi, Luoghi, Indizi Segreti)** — centro vuoto e scuro:

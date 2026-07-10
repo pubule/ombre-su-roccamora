@@ -148,7 +148,7 @@ const LUOGHI_ART = {
   4: 'artworks/nervous priest in a candlelit sacristy.png',
   5: 'artworks/abandoned luthier workshop.png',
   6: 'artworks/derelict warehouses over black still water.png',
-  7: 'artworks/dusty municipal archive (libro+persona).png', // ritagliata + banda in fondo (coperta dal riquadro testo) per stare larga quanto libro e figura insieme
+  7: 'artworks/dusty municipal archive (libro+persona).png', // ritagliata (crop 300,550-1700,2510) per ingrandire l'archivista senza tagliare libro/base
   8: 'artworks/cluttered 19th century police office.png',
 };
 
