@@ -164,7 +164,7 @@ def spedizione():
               ['sg', 'sg', 'sg', 'sg', 'si', 'si'],
               colors.HexColor('#332a22'), OGOLD, colors.white)
     token_row(H - 146*mm, 'CUSTODE \u00b7 RUGGERO \u00b7 CANTO (x3)',
-              ['cu', 'ru', '\u266a', '\u266a', '\u266a'],
+              ['cu', 'ru', '\u2020', '\u2020', '\u2020'],
               colors.HexColor('#4a0d16'), OGOLD, GOLD_L)
     c.setFillColor(INK); c.setFont(F['i'], 9)
     c.drawString(16*mm, H - 166*mm, 'Consiglio: incollate il foglio su cartoncino prima di ritagliare. '
