@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 """Ombre su Roccamora - Regolamento + Soluzione (PDF)."""
+import os
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.units import mm
 from reportlab.lib import colors
@@ -9,6 +10,7 @@ from reportlab.platypus import (SimpleDocTemplate, Paragraph, Spacer,
 from deluxe_style import (register_fonts, parchment, rule_border, seal, F,
                           INK, RED, TEAL, GOLD, PAPER_DK)
 
+OUT_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'pdf')
 register_fonts()
 PAPER = PAPER_DK
 
@@ -62,7 +64,7 @@ def hr():
 
 # ----------------------------------------------------------------- REGOLAMENTO
 def regolamento():
-    doc = SimpleDocTemplate('/mnt/user-data/outputs/Ombre-su-Roccamora-01-Regolamento.pdf',
+    doc = SimpleDocTemplate(os.path.join(OUT_DIR, 'Ombre-su-Roccamora-01-Regolamento.pdf'),
                             pagesize=A4, leftMargin=22*mm, rightMargin=22*mm,
                             topMargin=20*mm, bottomMargin=20*mm,
                             title='Ombre su Roccamora - Regolamento')
@@ -207,7 +209,7 @@ def regolamento():
 
 # ------------------------------------------------------------------ SOLUZIONE
 def soluzione():
-    doc = SimpleDocTemplate('/mnt/user-data/outputs/Ombre-su-Roccamora-05-SOLUZIONE-non-aprire.pdf',
+    doc = SimpleDocTemplate(os.path.join(OUT_DIR, 'Ombre-su-Roccamora-05-SOLUZIONE-non-aprire.pdf'),
                             pagesize=A4, leftMargin=22*mm, rightMargin=22*mm,
                             topMargin=20*mm, bottomMargin=20*mm,
                             title='Ombre su Roccamora - Soluzione Episodio 1')

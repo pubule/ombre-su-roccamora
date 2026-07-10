@@ -1,11 +1,14 @@
 # -*- coding: utf-8 -*-
 """Ombre su Roccamora - stile deluxe condiviso."""
+import os
 import random
 from reportlab.lib.units import mm
 from reportlab.lib import colors
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.pdfbase.pdfmetrics import registerFontFamily
+
+FONTS_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'fonts')
 
 INK = colors.HexColor("#33291f")
 RED = colors.HexColor("#7a1f2b")
@@ -22,12 +25,12 @@ F = dict(r='OldStd', b='OldStd-Bold', i='OldStd-Italic', sc='IMFellSC')
 
 def register_fonts():
     try:
-        pdfmetrics.registerFont(TTFont('OldStd', '/home/claude/fonts/OldStandard-Regular.ttf'))
-        pdfmetrics.registerFont(TTFont('OldStd-Bold', '/home/claude/fonts/OldStandard-Bold.ttf'))
-        pdfmetrics.registerFont(TTFont('OldStd-Italic', '/home/claude/fonts/OldStandard-Italic.ttf'))
+        pdfmetrics.registerFont(TTFont('OldStd', os.path.join(FONTS_DIR, 'OldStandard-Regular.ttf')))
+        pdfmetrics.registerFont(TTFont('OldStd-Bold', os.path.join(FONTS_DIR, 'OldStandard-Bold.ttf')))
+        pdfmetrics.registerFont(TTFont('OldStd-Italic', os.path.join(FONTS_DIR, 'OldStandard-Italic.ttf')))
         registerFontFamily('OldStd', normal='OldStd', bold='OldStd-Bold',
                            italic='OldStd-Italic', boldItalic='OldStd-Bold')
-        pdfmetrics.registerFont(TTFont('IMFellSC', '/home/claude/fonts/IMFellEnglishSC.ttf'))
+        pdfmetrics.registerFont(TTFont('IMFellSC', os.path.join(FONTS_DIR, 'IMFellEnglishSC.ttf')))
     except Exception:
         F.update(r='Times-Roman', b='Times-Bold', i='Times-Italic', sc='Times-Bold')
 

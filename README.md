@@ -27,7 +27,8 @@ cd src
 # i sorgenti cercano i font in /home/claude/fonts: adegua i percorsi in
 # deluxe_style.py e poi:
 python gen_docs.py     # regolamento + soluzione
-python gen_deluxe.py   # schede, indagine, spedizione (versione grafica deluxe)
+python gen_deluxe.py   # schede personaggio
+python gen_gothic.py   # indagine + spedizione (versione grafica gotica finale)
 ```
 
 ## Come si gioca (in breve)

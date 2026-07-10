@@ -1,6 +1,14 @@
 # -*- coding: utf-8 -*-
-"""Ombre su Roccamora - versione GOTICA di carte e tessere (03 e 04)."""
-import math
+"""Ombre su Roccamora - versione GOTICA di carte e tessere (03 e 04).
+
+Le 20 carte Minacce, i 4 Nemici e le 6 tessere T1-T6 sono ora generati come
+immagini a se' stanti (cardconjurer + script di board: cards/Minacce/,
+cards/Nemici/, board/) invece che come pagine di questo PDF, quindi qui non
+vengono piu' disegnati. spedizione() stampa solo le note per tessera che non
+stanno sull'immagine della tessera (testo ambientazione, bonus Cercare) e i
+segnalini da ritagliare.
+"""
+import os
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.units import mm
 from reportlab.lib import colors
@@ -9,17 +17,17 @@ from reportlab.platypus import Paragraph, Frame, Spacer
 from reportlab.lib.styles import ParagraphStyle
 
 from deluxe_style import (register_fonts, parchment, rule_border, seal, wave,
-                          triple_wave, candle, F, INK, RED, TEAL, PAPER,
+                          triple_wave, F, INK, RED, TEAL, PAPER,
                           PAPER_DK, GOLD as OGOLD, SEPIA)
 import ornaments as O
-from ornaments import (NIGHT, NIGHTR, GOLD, GOLD_L, GOLD_D, BONE, BLOOD,
-                       INKMAP, ornate_frame, banner, medallion, ink_rect,
-                       ink_line, hatch_band, stipple, compass)
+from ornaments import (NIGHT, NIGHTR, GOLD, GOLD_L, GOLD_D, BONE,
+                       ornate_frame, banner, medallion)
 from gen_cards import LUOGHI, MINACCE, NEMICI, TILES, HEROES
 import story
 MINACCE = story.apply(LUOGHI, TILES, NEMICI, HEROES, MINACCE)
 LETTERA = story.LETTERA2
 
+OUT_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'pdf')
 register_fonts()
 W, H = A4
 
@@ -37,20 +45,6 @@ MTXT = st('mtxt', fontSize=8.4, leading=10.4, textColor=BONE, alignment=1)
 def frame_flow(c, x, y, w, h, flow):
     Frame(x, y, w, h, leftPadding=0, rightPadding=0, topPadding=0,
           bottomPadding=0, showBoundary=0).addFromList(flow, c)
-
-ICONS = {
-    'ADEPTO IN AGGUATO': O.icon_hood, 'VOLTI TRA LE CASSE': O.icon_hood,
-    'IL FALCETTO NEL BUIO': O.icon_hood, 'LA VEDETTA': O.icon_hood,
-    'RONDA': O.icon_hood, 'RINFORZI DAL CANALE': O.icon_anchor,
-    'CANI DEI MOLI': O.icon_paw, 'UNGHIE SULLA PIETRA': O.icon_paw,
-    'IL FONDITORE': O.icon_ladle, 'LA MAREA DI CERA': O.icon_ladle,
-    'TRAPPOLA DI CERA': O.icon_trap, 'CERA SOTTO I PIEDI': O.icon_trap,
-    'FUMI SOPORIFERI': O.icon_smoke,
-    'IL CANTO SALE': O.icon_note, 'IL CORO RISPONDE': O.icon_note,
-    'IL CANTO CRESCE': O.icon_note,
-    'PRESAGIO': O.icon_eye, 'ECO AMICA': O.icon_bell,
-    'CERA CHE COLA': O.icon_drip, 'SUSSURRI': O.icon_spiral,
-}
 
 # ------------------------------------------------------------------ INDAGINE
 def luogo_front(c, x, y, cw, ch, L):
@@ -102,7 +96,7 @@ def luogo_back(c, x, y, cw, ch, L):
     triple_wave(c, cx, y + ch - 21*mm, 24*mm, GOLD, 1, 2.4*mm)
 
 def indagine():
-    c = canvas.Canvas('/mnt/user-data/outputs/Ombre-su-Roccamora-03-Episodio1-Indagine.pdf', pagesize=A4)
+    c = canvas.Canvas(os.path.join(OUT_DIR, 'Ombre-su-Roccamora-03-Episodio1-Indagine.pdf'), pagesize=A4)
     c.setTitle('Ombre su Roccamora - Episodio 1 - Indagine')
     # lettera d'incarico (pergamena, invariata nello spirito)
     parchment(c, W, H, seed=5)
@@ -176,200 +170,38 @@ def indagine():
     c.save()
 
 # ---------------------------------------------------------------- SPEDIZIONE
-def minaccia_front(c, x, y, cw, chh, title, txt):
-    ornate_frame(c, x, y, cw, chh, base=NIGHT)
-    banner(c, x + cw/2, y + chh - 10.5*mm, cw - 16*mm, 8*mm)
-    c.setFillColor(BONE); c.setFont(F['sc'], 8.6)
-    c.drawCentredString(x + cw/2, y + chh - 11.7*mm, title.lower())
-    cx, cy = x + cw/2, y + chh - 29*mm
-    medallion(c, cx, cy, 11*mm, GOLD)
-    # alone dietro l'icona
-    c.saveState()
-    for k in range(4, 0, -1):
-        c.setFillColor(GOLD_L); c.setFillAlpha(0.05)
-        c.circle(cx, cy, 10*mm*k/4, fill=1, stroke=0)
-    c.setFillAlpha(1); c.restoreState()
-    ICONS.get(title, O.icon_eye)(c, cx, cy, 6.8*mm)
-    frame_flow(c, x + 8*mm, y + 6*mm, cw - 16*mm, chh - 48*mm, [Paragraph(txt, MTXT)])
-    O.gem(c, cx, y + 7.5*mm, 1.8*mm)
-
-def minaccia_back(c, x, y, cw, chh):
-    ornate_frame(c, x, y, cw, chh, base=colors.HexColor('#101c1f'))
-    cx, cy = x + cw/2, y + chh/2 + 4*mm
-    c.setFillColor(GOLD_L); c.setFont(F['sc'], 9.5)
-    c.drawCentredString(cx, y + chh - 12*mm, 'ombre su roccamora')
-    medallion(c, cx, cy, 15*mm, GOLD)
-    triple_wave(c, cx, cy + 4*mm, 20*mm, GOLD_L, 1.4, 4*mm)
-    for sgn in (-1, 1):
-        O.scroll(c, cx + sgn*4*mm, cy - 22*mm, 9*mm, -sgn, GOLD, 0.9)
-        O.scroll(c, cx + sgn*4*mm, y + chh - 22*mm, 9*mm, -sgn, GOLD, 0.9)
-    banner(c, cx, y + 12*mm, 32*mm, 7*mm)
-    c.setFillColor(BONE); c.setFont(F['sc'], 10)
-    c.drawCentredString(cx, y + 10.9*mm, 'minaccia')
-
-def tile_gothic(c, x, y, ts, T, idx):
-    cell = ts / 4.0
-    wall = 3.6*mm
-    # pergamena della tessera
-    c.saveState()
-    c.setFillColor(PAPER); c.rect(x - wall, y - wall, ts + 2*wall, ts + 2*wall, fill=1, stroke=0)
-    import random
-    rnd = random.Random(idx * 7)
-    p = c.beginPath(); p.rect(x - wall, y - wall, ts + 2*wall, ts + 2*wall); c.clipPath(p, stroke=0)
-    for _ in range(9):
-        r = rnd.uniform(8*mm, 26*mm)
-        c.setFillColor(PAPER_DK); c.setFillAlpha(rnd.uniform(0.07, 0.15))
-        c.circle(x + rnd.uniform(0, ts), y + rnd.uniform(0, ts), r, fill=1, stroke=0)
-    c.setFillAlpha(1)
-    c.restoreState()
-    # muri: doppia linea a china + tratteggio
-    exits = T.get('exits', {})
-    gap = 2 * cell / 3.0
-    def wall_seg(side):
-        segs = []
-        if side in exits:
-            if side in ('N', 'S'):
-                segs = [(x, x + ts/2 - gap/2), (x + ts/2 + gap/2, x + ts)]
-            else:
-                segs = [(y, y + ts/2 - gap/2), (y + ts/2 + gap/2, y + ts)]
-        else:
-            segs = [(x, x + ts)] if side in ('N', 'S') else [(y, y + ts)]
-        return segs
-    sd = idx * 13
-    for a, b in wall_seg('S'):
-        hatch_band(c, a, y - wall, b - a, wall, sd+1); ink_line(c, a, y, b, y, sd+1, 1.3); ink_line(c, a, y - wall, b, y - wall, sd+5, 1.0)
-    for a, b in wall_seg('N'):
-        hatch_band(c, a, y + ts, b - a, wall, sd+2); ink_line(c, a, y + ts, b, y + ts, sd+2, 1.3); ink_line(c, a, y + ts + wall, b, y + ts + wall, sd+6, 1.0)
-    for a, b in wall_seg('O'):
-        hatch_band(c, x - wall, a, wall, b - a, sd+3); ink_line(c, x, a, x, b, sd+3, 1.3); ink_line(c, x - wall, a, x - wall, b, sd+7, 1.0)
-    for a, b in wall_seg('E'):
-        hatch_band(c, x + ts, a, wall, b - a, sd+4); ink_line(c, x + ts, a, x + ts, b, sd+4, 1.3); ink_line(c, x + ts + wall, a, x + ts + wall, b, sd+8, 1.0)
-    # griglia di gioco leggera
-    c.saveState()
-    c.setStrokeColor(SEPIA); c.setLineWidth(0.4); c.setStrokeAlpha(0.5)
-    for k in range(1, 4):
-        c.line(x + k*cell, y, x + k*cell, y + ts)
-        c.line(x, y + k*cell, x + ts, y + k*cell)
-    c.setStrokeAlpha(1); c.restoreState()
-    # ombreggiature d'angolo a puntini
-    stipple(c, x + 1*mm, y + 1*mm, 16*mm, 10*mm, sd+9, n=60)
-    stipple(c, x + ts - 17*mm, y + ts - 11*mm, 16*mm, 10*mm, sd+10, n=60)
-    # elementi scenici
-    if T['id'] == 'T1':
-        stipple(c, x, y + 0.5*mm, ts, 8*mm, sd+11, n=220)
-        for i in range(5):
-            wave(c, x + 4*mm + i*(ts - 12*mm)/4, y + 3.5*mm, 10*mm, INKMAP, 0.8)
-    if T['id'] == 'T5':
-        for (gx2, gy2, lab) in T['arredi']:
-            fx, fy = x + gx2*cell, y + gy2*cell
-            for s in range(1, 4):
-                ink_line(c, fx + 2*mm, fy + s*cell/4, fx + cell - 2*mm, fy + s*cell/4, sd + s, 0.8)
-    if T['id'] == 'T6':
-        ccx, ccy = x + 2*cell, y + 2.5*cell
-        for k in range(12):
-            a = k * math.pi * 2 / 12
-            candle(c, ccx + math.cos(a)*cell*1.35, ccy + math.sin(a)*cell*0.95, 2*mm)
-    # arredi a china
-    for (gx2, gy2, lab) in T.get('arredi', []):
-        if T['id'] == 'T5':
-            continue
-        fx, fy = x + gx2*cell + 2*mm, y + gy2*cell + 2*mm
-        fw = cell - 4*mm
-        hatch_band(c, fx + 1.5*mm, fy - 1.2*mm, fw, 1.2*mm, sd + gx2*4 + gy2, step=1.2*mm)
-        ink_rect(c, fx, fy, fw, fw, seed=sd + gx2 + gy2*4, double=True)
-        if lab == 'CELLA':
-            for s in range(1, 5):
-                ink_line(c, fx + s*fw/5, fy + 1*mm, fx + s*fw/5, fy + fw - 1*mm, sd + s, 1.0)
-        c.setFillColor(INKMAP); c.setFont(F['sc'], 6.5)
-        c.drawCentredString(fx + fw/2, fy + 2.6*mm, lab.lower())
-    # etichette uscite
-    c.setFillColor(BLOOD); c.setFont(F['b'], 8)
-    if 'N' in exits: c.drawCentredString(x + ts/2, y + ts + wall + 1.6*mm, '\u25b2 verso ' + exits['N'])
-    if 'S' in exits: c.drawCentredString(x + ts/2, y - wall - 4.4*mm, '\u25bc verso ' + exits['S'])
-    if 'E' in exits:
-        c.saveState(); c.translate(x + ts + wall + 4*mm, y + ts/2); c.rotate(-90)
-        c.drawCentredString(0, 0, '\u25b6 verso ' + exits['E']); c.restoreState()
-    if 'O' in exits:
-        c.saveState(); c.translate(x - wall - 2*mm, y + ts/2); c.rotate(90)
-        c.drawCentredString(0, 0, '\u25c0 verso ' + exits['O']); c.restoreState()
-    # targa titolo + testo
-    banner(c, x + ts/2, y + ts - 7*mm, ts - 26*mm, 8*mm)
-    c.setFillColor(BONE); c.setFont(F['sc'], 10.5)
-    c.drawCentredString(x + ts/2, y + ts - 8.3*mm, '%s \u00b7 %s' % (T['id'], T['nome'].lower()))
-    c.saveState()
-    c.setFillColor(colors.HexColor('#f4ecd6')); c.setFillAlpha(0.94)
-    c.rect(x + 3*mm, y + ts - 41*mm, ts - 6*mm, 28*mm, fill=1, stroke=0)
-    c.setFillAlpha(1)
-    ink_rect(c, x + 3*mm, y + ts - 41*mm, ts - 6*mm, 28*mm, seed=idx + 99, lw=0.8)
-    flow = [Paragraph(T['testo'], st('tile', fontSize=8.3, leading=10, alignment=4))]
-    if T.get('cerca'):
-        flow.append(Spacer(1, 2))
-        flow.append(Paragraph('<b>Cercare (ACUME Media):</b> ' + T['cerca'],
-                              st('tc', fontSize=8.3, leading=10, textColor=TEAL)))
-    frame_flow(c, x + 5*mm, y + ts - 40.4*mm, ts - 10*mm, 27*mm, flow)
-    c.restoreState()
-    compass(c, x + ts - 9*mm, y + 10*mm, 4*mm)
-
 def spedizione():
-    c = canvas.Canvas('/mnt/user-data/outputs/Ombre-su-Roccamora-04-Episodio1-Spedizione.pdf', pagesize=A4)
+    c = canvas.Canvas(os.path.join(OUT_DIR, 'Ombre-su-Roccamora-04-Episodio1-Spedizione.pdf'), pagesize=A4)
     c.setTitle('Ombre su Roccamora - Episodio 1 - Spedizione')
-    cwd, chh = 60*mm, 84*mm
-    gx, gy = (W - 3*cwd) / 2.0, (H - 3*chh) / 2.0
-    pages = [MINACCE[i:i+9] for i in range(0, len(MINACCE), 9)]
-    for batch in pages:
-        for i, (t, txt) in enumerate(batch):
-            col, row = i % 3, i // 3
-            minaccia_front(c, gx + col*cwd + 1*mm, H - gy - (row + 1)*chh + 1*mm,
-                           cwd - 2*mm, chh - 2*mm, t, txt)
-        c.setFillColor(SEPIA); c.setFont(F['i'], 7.5)
-        c.drawCentredString(W/2, 5*mm, 'stampa fronte/retro sul lato lungo: la pagina seguente contiene i dorsi')
-        c.showPage()
-        for i in range(len(batch)):
-            col, row = 2 - (i % 3), i // 3
-            minaccia_back(c, gx + col*cwd + 1*mm, H - gy - (row + 1)*chh + 1*mm,
-                          cwd - 2*mm, chh - 2*mm)
-        c.showPage()
-    # nemici in stile gotico (2 per pagina)
-    for j, N in enumerate(NEMICI):
-        pos = j % 2
-        x, y, wdt, hgt = 20*mm, H - 25*mm - (pos+1)*110*mm - pos*10*mm, W - 40*mm, 110*mm
-        ornate_frame(c, x, y, wdt, hgt, base=NIGHT)
-        banner(c, x + wdt/2, y + hgt - 11*mm, wdt - 40*mm, 9.5*mm)
-        c.setFillColor(BONE); c.setFont(F['sc'], 13.5)
-        c.drawCentredString(x + wdt/2, y + hgt - 12.6*mm, N['nome'].lower())
-        stats = [('attacco', '+%d' % N['att']), ('difesa', N['dif']),
-                 ('ferite', N['fer']), ('movimento', N['mov']), ('danno', N['dan'])]
-        bw = (wdt - 24*mm - 4*6*mm) / 5.0
-        for i, (lb, v) in enumerate(stats):
-            bx = x + 12*mm + i*(bw + 6*mm)
-            by = y + hgt - 42*mm
-            c.setFillColor(colors.HexColor('#241f2a')); c.setStrokeColor(GOLD)
-            c.setLineWidth(0.9)
-            c.rect(bx, by, bw, 18*mm, fill=1)
-            c.setFillColor(GOLD_L); c.setFont(F['sc'], 7.5)
-            c.drawCentredString(bx + bw/2, by + 13*mm, lb)
-            c.setFillColor(BONE); c.setFont(F['b'], 18)
-            c.drawCentredString(bx + bw/2, by + 4*mm, str(v))
-            O.gem(c, bx + bw/2, by, 1.5*mm)
-        frame_flow(c, x + 12*mm, y + 9*mm, wdt - 24*mm, hgt - 56*mm,
-                   [Paragraph(N['note'], st('nn', fontSize=9.6, leading=12.5,
-                                            textColor=BONE, alignment=4)),
-                    Spacer(1, 5),
-                    Paragraph('Attacca: 2d6 + Attacco \u2265 Difesa dell\u2019eroe \u2192 infligge il Danno. '
-                              'Viene colpito se: 2d6 + VIGORE (+1 se armati) \u2265 la sua Difesa.',
-                              st('ns', fontName=F['i'], fontSize=8.6, leading=11,
-                                 textColor=GOLD_L))])
-        if pos == 1 or j == len(NEMICI) - 1:
-            c.showPage()
-    # tessere a china
-    ts = 126*mm
-    for i, T in enumerate(TILES):
-        pos = i % 2
-        x = (W - ts) / 2.0
-        y = H - 17*mm - ts - pos * (ts + 15*mm)
-        tile_gothic(c, x, y, ts, T, i)
-        if pos == 1 or i == len(TILES) - 1:
-            c.showPage()
+    # copertina/nota: Minacce, Nemici e tessere T1-T6 sono immagini a se' stanti
+    parchment(c, W, H, seed=88)
+    rule_border(c, W, H)
+    c.setFillColor(RED); c.setFont(F['sc'], 20)
+    c.drawCentredString(W/2, H - 32*mm, 'episodio 1 \u2014 spedizione')
+    wave(c, W/2 - 20*mm, H - 39*mm, 40*mm, OGOLD)
+    frame_flow(c, 28*mm, H - 95*mm, W - 56*mm, 42*mm, [
+        Paragraph('Le 20 carte Minacce e le 4 schede Nemici sono stampate come carte a parte '
+                  '(cartelle <b>cards/Minacce/</b> e <b>cards/Nemici/</b>). Le 6 tessere T1-T6 del '
+                  'magazzino sono in <b>board/</b>, gi\u00e0 con griglia, arredi e porte segnate. '
+                  'Qui sotto restano solo le note per tessera che non stanno sull\u2019immagine.',
+                  BODY)])
+    c.showPage()
+    # note per tessera (testo ambientazione + bonus Cercare): la tessera fisica e' in board/
+    y = H - 25*mm
+    for T in TILES:
+        c.setFillColor(RED); c.setFont(F['sc'], 13)
+        c.drawString(20*mm, y, '%s \u00b7 %s' % (T['id'], T['nome'].lower()))
+        flow = [Paragraph(T['testo'], st('tile', fontSize=9, leading=12, alignment=4))]
+        if T.get('cerca'):
+            flow.append(Spacer(1, 2))
+            flow.append(Paragraph('<b>Cercare (ACUME Media):</b> ' + T['cerca'],
+                                  st('tc', fontSize=9, leading=12, textColor=TEAL)))
+        fh = 30*mm if T.get('cerca') else 22*mm
+        frame_flow(c, 20*mm, y - 8*mm - fh, W - 40*mm, fh, flow)
+        y -= fh + 16*mm
+        if y < 40*mm and T is not TILES[-1]:
+            c.showPage(); y = H - 25*mm
+    c.showPage()
     # segnalini (invariati, con anelli oro)
     parchment(c, W, H, seed=88)
     rule_border(c, W, H)

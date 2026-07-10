@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 """Ombre su Roccamora - componenti versione deluxe."""
+import os
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.units import mm
 from reportlab.lib import colors
@@ -15,6 +16,7 @@ from gen_cards import HEROES, LUOGHI, MINACCE, NEMICI, TILES, LETTERA
 import story
 story.apply(LUOGHI, TILES, NEMICI, HEROES, MINACCE)
 
+OUT_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'pdf')
 register_fonts()
 W, H = A4
 
@@ -66,7 +68,7 @@ def stat_box(c, x, y, w, label, value):
 
 # ================================================================= SCHEDE
 def schede():
-    c = canvas.Canvas('/mnt/user-data/outputs/Ombre-su-Roccamora-02-Schede-Personaggio.pdf', pagesize=A4)
+    c = canvas.Canvas(os.path.join(OUT_DIR, 'Ombre-su-Roccamora-02-Schede-Personaggio.pdf'), pagesize=A4)
     c.setTitle('Ombre su Roccamora - Schede Personaggio')
     for pg, hro in enumerate(HEROES):
         parchment(c, W, H, seed=40 + pg)
@@ -164,7 +166,7 @@ def luogo_back(c, x, y, cw, ch, L):
     c.restoreState()
 
 def indagine():
-    c = canvas.Canvas('/mnt/user-data/outputs/Ombre-su-Roccamora-03-Episodio1-Indagine.pdf', pagesize=A4)
+    c = canvas.Canvas(os.path.join(OUT_DIR, 'Ombre-su-Roccamora-03-Episodio1-Indagine.pdf'), pagesize=A4)
     c.setTitle('Ombre su Roccamora - Episodio 1 - Indagine')
     # lettera d'incarico
     parchment(c, W, H, seed=5)
@@ -253,7 +255,7 @@ def minaccia_back(c, x, y, cw, chh):
     c.restoreState()
 
 def spedizione():
-    c = canvas.Canvas('/mnt/user-data/outputs/Ombre-su-Roccamora-04-Episodio1-Spedizione.pdf', pagesize=A4)
+    c = canvas.Canvas(os.path.join(OUT_DIR, 'Ombre-su-Roccamora-04-Episodio1-Spedizione.pdf'), pagesize=A4)
     c.setTitle('Ombre su Roccamora - Episodio 1 - Spedizione')
     cwd, chh = 60*mm, 84*mm
     gx, gy = (W - 3*cwd) / 2.0, (H - 3*chh) / 2.0
