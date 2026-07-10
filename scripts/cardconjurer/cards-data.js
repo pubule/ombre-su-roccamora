@@ -140,7 +140,7 @@ const MINACCE = [
 // Luoghi dell'Indagine: testo esteso da src/story.py TESTI_LUOGHI (quello
 // realmente stampato nel PDF via story.apply), indizi/nascosto/req da
 // src/gen_cards.py LUOGHI. Un'arte per luogo, riusata anche dalla carta
-// Indizio Segreto corrispondente.
+// Indizio Nascosto corrispondente.
 const LUOGHI_ART = {
   1: 'artworks/bell tower.png',
   2: 'artworks/humble candlelit canal-side room.png',
@@ -210,12 +210,12 @@ const LUOGHI = [
   nascosto: L.nascosto,
 }));
 
-// Indizi Segreti: solo i luoghi che hanno un vero Indizio nascosto nei dati
+// Indizi Nascosti: solo i luoghi che hanno un vero Indizio nascosto nei dati
 // (oggi 1 e 4 — vedi src/gen_cards.py). Si legge solo se l'abilita' di un
 // eroe lo permette (Elena: sempre; Ottone: una volta a episodio).
 const INDIZI = LUOGHI.filter((L) => L.nascosto).map((L) => ({
   art: L.art,
-  title: `Indizio Segreto — ${L.title}`,
+  title: `Indizio Nascosto — ${L.title}`,
   file: `Indizi/${L.title}`,
   type: `Si legge solo con un’abilità (Elena: sempre · Ottone: 1 volta a episodio)`,
   rules: `{i}${L.nascosto}{/i}`,

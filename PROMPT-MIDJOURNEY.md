@@ -149,7 +149,7 @@ Ritratti — **Elena** sharp-eyed woman in her 30s in a dark tailored coat with 
 
 Un'arte per ciascuno degli 8 Luoghi, stesso formato verticale delle altre
 carte (non più orizzontale): serve per la carta Luogo E per la carta
-Indizio Segreto dello stesso luogo, che riusa la stessa immagine — un solo
+Indizio Nascosto dello stesso luogo, che riusa la stessa immagine — un solo
 soggetto da generare per luogo, due carte in uscita.
 
 Sostituisci SCENA e usa questo prompt unico:
@@ -174,11 +174,11 @@ condiviso: prova a rigenerare senza, oppure abbassa `--sw` (es. `--sw 300`).
 
 ## Cornici (una sola generazione, poi si riusa ovunque)
 
-**Cornice carte verticali (Minacce, eroi, Luoghi, Indizi Segreti)** — centro vuoto e scuro:
+**Cornice carte verticali (Minacce, eroi, Luoghi, Indizi Nascosti)** — centro vuoto e scuro:
 ```
 ornate dark fantasy card frame template, carved gold filigree border with ruby and teal gems on black, empty scroll banner at the top, empty dark parchment text panel at the bottom, the large central area completely plain dark and empty, victorian gothic, perfectly symmetrical --ar 3:4 --style raw --no text, letters, words, watermark
 ```
-Stessa cornice per tutti i mazzi verticali, Luoghi e Indizi Segreti inclusi
+Stessa cornice per tutti i mazzi verticali, Luoghi e Indizi Nascosti inclusi
 (non serve più una cornice orizzontale separata).
 
 Suggerimento: per il montaggio serve che il centro sia davvero vuoto; se Midjourney
@@ -197,7 +197,7 @@ ornate symmetrical dark fantasy card back, engraved gold filigree covering the w
 ornate symmetrical dark fantasy card back, engraved gold filigree covering the whole surface, ruby gems, central round empty medallion for a number, deep crimson and black, victorian gothic, perfectly symmetrical, full bleed --ar 3:4 --style raw --no text, letters, words, watermark
 ```
 
-**Dorso carte Indizio Segreto** — mazzo separato, dorso diverso da quello dei
+**Dorso carte Indizio Nascosto** — mazzo separato, dorso diverso da quello dei
 Luoghi cosi' resta irriconoscibile finche' non si scopre:
 ```
 ornate symmetrical dark fantasy card back, engraved gold filigree covering the whole surface, teal gems, central round medallion with a single closed eye, deep midnight blue and black, victorian gothic, perfectly symmetrical, full bleed --ar 3:4 --style raw --no text, letters, words, watermark

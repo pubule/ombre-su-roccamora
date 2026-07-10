@@ -10,11 +10,11 @@ in una città immaginaria di canali e campanili nel 1889. Unisce indagine alla
   - `01-Regolamento` — regole complete
   - `02-Schede-Personaggio` — i 6 eroi della Società del Lume
   - `03-Episodio1-Indagine` — lettera d'incarico, taccuino (le 8 carte Luogo e le
-    carte Indizio Segreto sono immagini a parte, vedi `cards/`)
+    carte Indizio Nascosto sono immagini a parte, vedi `cards/`)
   - `04-Episodio1-Spedizione` — note per tessera, segnalini (le carte Minacce/Nemici e
     le tessere T1-T6 sono file immagine a parte, vedi `cards/` e `board/`)
   - `05-SOLUZIONE-non-aprire` — da stampare senza leggere e sigillare in busta!
-- `cards/` — carte gioco pronte (Eroi, Nemici, Minacce, Luoghi, Indizi Segreti)
+- `cards/` — carte gioco pronte (Eroi, Nemici, Minacce, Luoghi, Indizi Nascosti)
 - `board/` — le 6 tessere T1-T6 della Spedizione, griglia+arredi+porte pronte
 - `reperti/` — documenti-reperto (diario, registro, atti d'archivio) da consegnare
   durante l'indagine, composti su un'unica foto di pergamena

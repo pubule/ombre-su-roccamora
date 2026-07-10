@@ -117,7 +117,7 @@ def regolamento():
                 'Prendete appunti sul Taccuino: nomi, orari, parole chiave in MAIUSCOLO.'))
     e.append(LI('Quando trovate una <b>parola chiave</b> o un <b>oggetto</b>, potete da quel momento '
                 'visitare i luoghi che li richiedono.'))
-    e.append(LI('Alcuni luoghi hanno una carta <b>Indizio Segreto</b> abbinata (stesso numero): '
+    e.append(LI('Alcuni luoghi hanno una carta <b>Indizio Nascosto</b> abbinata (stesso numero): '
                 'si consulta solo se l\u2019abilit\u00e0 di un eroe presente lo consente '
                 '(Elena: sempre \u00b7 Ottone: una volta a episodio).'))
     e.append(P('Chiudere l\u2019indagine', 'h2'))
