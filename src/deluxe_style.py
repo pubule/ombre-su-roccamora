@@ -56,18 +56,18 @@ def parchment_art(c, w, h, name='background manuale.png'):
     c.setFillAlpha(1)
     c.restoreState()
 
-def _cover_image(c, img, x, y, w, h, focus_y=0.78, overscan=0.0):
+def _cover_image(c, img, x, y, w, h, top_margin=0, overscan=0.0):
     """Draws img to fill (x,y,w,h) with no gaps, cropping overflow (CSS
-    background-size:cover). focus_y=1 keeps the top of the image (faces are
-    usually near the top of a bust portrait), 0 keeps the bottom. `overscan`
-    zooms in further beyond the tight cover-fit, so focus_y has real slack to
-    work with (a tight fit leaves ~0 margin: the subject ends up exactly on the
-    box edge, e.g. a head touching a jagged torn-paper cutout)."""
+    background-size:cover), leaving `top_margin` of empty space above the
+    image top (so a head doesn't sit exactly on a jagged torn-paper edge).
+    `overscan` zooms in further beyond the tight cover-fit, giving slack to
+    crop from the bottom instead (legs/lower body) without eating into the
+    margin. All the spare height beyond top_margin is cropped off the bottom."""
     iw, ih = img.getSize()
     scale = max(w / iw, h / ih) * (1 + overscan)
     dw, dh = iw * scale, ih * scale
     dx = x + (w - dw) / 2.0
-    dy = y + (h - dh) * focus_y if dh > h else y + (h - dh) / 2.0
+    dy = y + h - top_margin - dh
     c.drawImage(img, dx, dy, width=dw, height=dh, mask=None)
 
 def torn_portrait(c, w, h, portrait_name, torn_name, window=(0.50, 0.0, 1.03, 0.51)):
@@ -83,7 +83,7 @@ def torn_portrait(c, w, h, portrait_name, torn_name, window=(0.50, 0.0, 1.03, 0.
     c.saveState()
     x0, y0, x1, y1 = window
     _cover_image(c, art(portrait_name), x0*w, y0*h, (x1-x0)*w, (y1-y0)*h,
-                focus_y=0.88, overscan=0.15)
+                top_margin=0*mm, overscan=0.75)
     c.drawImage(art(torn_name), 0, 0, width=w, height=h,
                preserveAspectRatio=False, mask='auto')
     for i, a in ((10*mm, 0.08), (5*mm, 0.10)):
@@ -153,26 +153,16 @@ def triple_wave(c, cx, cy, w, col=GOLD, lw=1.6, gap=5*mm):
         wave(c, cx - ww/2, cy - k*gap, ww, col, lw)
 
 def seal(c, x, y, r=13*mm, angle=-12):
-    """Irregular wax seal with the wave sigil of the Societa del Lume."""
-    rnd = random.Random(int(x + y))
-    c.saveState(); c.translate(x, y); c.rotate(angle)
-    c.setFillColor(RED_DK)
-    for _ in range(9):
-        a = rnd.uniform(0, 6.283)
-        d = r * rnd.uniform(0.18, 0.42)
-        rr = r * rnd.uniform(0.45, 0.7)
-        import math
-        c.circle(math.cos(a)*d, math.sin(a)*d, rr, fill=1, stroke=0)
-    c.setFillColor(RED)
-    c.circle(0, 0, r*0.86, fill=1, stroke=0)
-    c.setStrokeColor(GOLD); c.setLineWidth(1)
-    c.circle(0, 0, r*0.66)
-    wave(c, -r*0.45, r*0.1, r*0.9, GOLD, 1.3)
-    c.setFillColor(GOLD); c.setFont(F['sc'], r*0.30)
-    c.drawCentredString(0, -r*0.42, 'S \u00b7 L')
-    c.setFillColor(colors.white); c.setFillAlpha(0.18)
-    c.circle(-r*0.3, r*0.35, r*0.28, fill=1, stroke=0)
-    c.setFillAlpha(1)
+    """Wax seal of the Societa del Lume: real photoreal art (artworks/Sigillo.png,
+    background removed by saturation-key from the raw Sigillo.jpg) rotated and
+    centered at (x, y), diameter ~2r like the old procedural version."""
+    img = art('Sigillo.png')
+    iw, ih = img.getSize()
+    d = 2.05 * r
+    dw, dh = d, d * ih / iw
+    c.saveState()
+    c.translate(x, y); c.rotate(angle)
+    c.drawImage(img, -dw/2, -dh/2, width=dw, height=dh, mask='auto')
     c.restoreState()
 
 def stone_floor(c, x, y, size, seed=3):

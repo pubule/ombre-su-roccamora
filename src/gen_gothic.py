@@ -16,7 +16,7 @@ from reportlab.pdfgen import canvas
 from reportlab.platypus import Paragraph, Frame, Spacer
 from reportlab.lib.styles import ParagraphStyle
 
-from deluxe_style import (register_fonts, parchment, rule_border, seal, wave,
+from deluxe_style import (register_fonts, parchment_art, rule_border, seal, wave,
                           F, INK, RED, TEAL, GOLD as OGOLD, SEPIA)
 from ornaments import GOLD_L, BONE
 from gen_cards import LUOGHI, MINACCE, NEMICI, TILES, HEROES
@@ -46,7 +46,7 @@ def indagine():
     c = canvas.Canvas(os.path.join(OUT_DIR, 'Ombre-su-Roccamora-03-Episodio1-Indagine.pdf'), pagesize=A4)
     c.setTitle('Ombre su Roccamora - Episodio 1 - Indagine')
     # lettera d'incarico (pergamena, invariata nello spirito)
-    parchment(c, W, H, seed=5)
+    parchment_art(c, W, H)
     rule_border(c, W, H)
     mx = 28*mm
     c.setFillColor(RED); c.setFont(F['sc'], 24)
@@ -65,7 +65,7 @@ def indagine():
     c.drawCentredString(W/2, 18*mm, 'Prendete le 8 carte Luogo e disponetele coperte, numero in vista.')
     c.showPage()
     # taccuino (come deluxe)
-    parchment(c, W, H, seed=9)
+    parchment_art(c, W, H)
     rule_border(c, W, H)
     c.setFillColor(RED); c.setFont(F['sc'], 17)
     c.drawString(16*mm, H - 22*mm, 'taccuino della societ\u00e0 \u2014 episodio 1')
@@ -109,7 +109,7 @@ def spedizione():
     c = canvas.Canvas(os.path.join(OUT_DIR, 'Ombre-su-Roccamora-04-Episodio1-Spedizione.pdf'), pagesize=A4)
     c.setTitle('Ombre su Roccamora - Episodio 1 - Spedizione')
     # copertina/nota: Minacce, Nemici e tessere T1-T6 sono immagini a se' stanti
-    parchment(c, W, H, seed=88)
+    parchment_art(c, W, H)
     rule_border(c, W, H)
     c.setFillColor(RED); c.setFont(F['sc'], 20)
     c.drawCentredString(W/2, H - 32*mm, 'episodio 1 \u2014 spedizione')
@@ -138,7 +138,7 @@ def spedizione():
             c.showPage(); y = H - 25*mm
     c.showPage()
     # segnalini (invariati, con anelli oro)
-    parchment(c, W, H, seed=88)
+    parchment_art(c, W, H)
     rule_border(c, W, H)
     c.setFillColor(RED); c.setFont(F['sc'], 16)
     c.drawString(16*mm, H - 22*mm, 'segnalini \u2014 ritagliare')
