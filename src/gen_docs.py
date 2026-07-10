@@ -163,6 +163,13 @@ def regolamento():
                 '<b>numero del luogo</b> e il tipo: quando visitate quel luogo e un eroe presente '
                 'sblocca quel tipo, cercate nel mazzo la carta corrispondente e leggetela. Se non '
                 'c\u2019\u00e8, quel luogo non ne ha. Cos\u00ec non sapete in anticipo dove si nasconde qualcosa.'))
+    e.append(P('<b>Esempio:</b> il gruppo visita il Luogo 1 (Campanile) con Elena presente. Girate '
+               'la carta, leggete testo e i 3 indizi core \u2014 sempre, a chiunque. Poich\u00e9 Elena c\u2019\u00e8, '
+               'cercate subito nel mazzo Approfondimenti la carta col dorso \u201c1 \u00b7 Indizio\u201d: se '
+               'esiste (qui esiste), leggetela ad alta voce. Pi\u00f9 tardi il gruppo visita il Luogo 2 '
+               '(Bice) con Ottone: offrendogli da bere, cercate la carta col dorso \u201c2 \u00b7 Testimone\u201d '
+               'e leggetela. Se un luogo non ha la carta del tipo cercato, semplicemente non c\u2019\u00e8 '
+               'nulla da trovare l\u00ec per quell\u2019eroe.', 'box'))
     e.append(P('Chiudere l\u2019indagine', 'h2'))
     e.append(P("Quando esaurite le ore (o prima, se vi sentite pronti) rispondete <b>per iscritto</b> "
                "alle <b>4 Domande</b> sul Taccuino: discutetene insieme, \u00e8 il cuore del gioco. "
@@ -206,6 +213,31 @@ def regolamento():
     e.append(P("A 0 Salute un eroe cade <b>a terra</b>: non agisce finch\u00e9 non viene rianimato. "
                "Se tutti gli eroi sono a terra, l\u2019episodio \u00e8 fallito: potete rigiocarlo, ma il "
                "nemico avr\u00e0 fatto progressi (l\u2019episodio dir\u00e0 come)."))
+
+    e.append(P('ESEMPIO DI ROUND (3 giocatori, in T2 \u2014 Sala delle Casse)', 'h2'))
+    e.append(P('<b>1. Turno degli eroi.</b> Elena spende un\u2019azione per <b>Cercare</b>: tira 2d6+ACUME '
+               '(3) = 9, supera la Media (9) e trova ci\u00f2 che T2 nasconde, <i>\u201cun piede di porco: '
+               '+1 alle prove per forzare e scassinare\u201d</i> \u2014 da questo momento ce l\u2019ha con s\u00e9 e '
+               'quel bonus si applica automaticamente, senza spendere azioni per \u201cusarlo\u201d. Con la '
+               'seconda azione si <b>Muove</b> verso l\u2019uscita nord. Nino <b>Muove</b> fino alla '
+               'grata e la apre con <b>Interagire</b>. Ottone si <b>Muove</b> adiacente a un Adepto '
+               'gi\u00e0 in gioco e <b>Attacca</b>: 2d6+VIGORE (3) = 9 \u2265 Difesa 7 dell\u2019Adepto \u2192 1 ferita, '
+               'l\u2019Adepto (1 Ferita) cade.', 'body'))
+    e.append(P('<b>2. Fase Minaccia.</b> Siete in 3: pescate <b>2 carte</b> (vedi il riquadro sopra). '
+               'Prima carta, <b>\u201cAdepto in Agguato\u201d</b>: <i>\u201cPiazzate 1 Adepto sull\u2019uscita pi\u00f9 '
+               'lontana dagli eroi della tessera in cui si trova l\u2019eroe attivo\u201d</i> \u2014 l\u2019eroe attivo '
+               '\u00e8 l\u2019ultimo che ha agito (Ottone, in T2): il nuovo Adepto compare sull\u2019uscita pi\u00f9 '
+               'lontana da lui. Seconda carta, <b>\u201cPresagio\u201d</b>: nessun effetto immediato, solo '
+               'tensione.', 'body'))
+    e.append(P('<b>3. Turno dei nemici.</b> Il nuovo Adepto si muove (Movimento 4) verso l\u2019eroe pi\u00f9 '
+               'vicino. Se resta adiacente, attacca: 2d6+Attacco (1) contro la Difesa dell\u2019eroe '
+               '(es. Nino, Difesa 9) \u2014 tira 6, non basta: nessun danno. Il round finisce, si '
+               'ricomincia dal turno degli eroi.', 'body'))
+    e.append(P('<b>Oggetti, in pratica:</b> il piede di porco (sopra) \u00e8 un bonus passivo, sempre '
+               'attivo una volta trovato. Altri oggetti servono con un\u2019azione mirata: la <b>chiave '
+               'della cella</b> (T4) apre la cella in T6 con <b>Interagire</b>, senza prove; il '
+               '<b>diapason d\u2019argento</b> si usa con <b>Usare un oggetto</b> stando adiacenti al '
+               'Custode della Cera.', 'box'))
 
     e.append(P('PRECISAZIONI (per i dubbi al tavolo)', 'h1'))
     e.append(LI('<b>Ruggero</b> \u2014 non \u00e8 un eroe: i nemici lo <b>ignorano</b> (il culto lo vuole '
