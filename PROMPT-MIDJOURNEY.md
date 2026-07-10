@@ -14,7 +14,7 @@ Ogni prompt include già `--no frame, border, card, text, letters, watermark`.
 
 ## Soggetti — Minacce e nemici (--ar 3:4)
 
-Un prompt per ciascuna delle 20 carte, raggruppati per famiglia. Se vuoi meno
+Un prompt per ciascuna delle 23 carte, raggruppati per famiglia. Se vuoi meno
 generazioni, basta un dipinto per famiglia riusato sulle carte sorelle.
 
 ### Famiglia Adepto
@@ -71,6 +71,27 @@ full bleed dark fantasy painting, heavy-set cultist artisan in a scorched leathe
 **La marea di cera**
 ```
 full bleed dark fantasy painting, several hooded artisans advancing shoulder to shoulder with steaming iron ladles, a slow wave of molten black wax spreading across the floor, 1889 gaslamp gothic, oil painting, dramatic candlelight, muted teal and crimson palette with gold accents --ar 3:4 --style raw --no frame, border, card, text, letters, watermark
+```
+
+### Famiglia Malavita
+
+Le 3 carte Minaccia della malavita (secolare, non cultisti: niente cera/maschere/
+cappucci). Oggi riusano i ritratti Nemici (Lo Sgherro.png / Il Sicario.png); questi
+prompt danno loro una scena dedicata invece del semplice ritratto.
+
+**Bravi sul Molo**
+```
+full bleed dark fantasy painting, a heavyset dockside thug in a flat cap stepping onto a foggy wooden pier at night, cudgel in hand, warehouse silhouettes behind, ordinary criminal, no mask no robe, 1889 gaslamp gothic, oil painting, dramatic candlelight, muted teal and crimson palette with gold accents --ar 3:4 --style raw --no frame, border, card, text, letters, watermark, wax, mask, hood, robe, monster
+```
+
+**Il Branco**
+```
+full bleed dark fantasy painting, two dockside thugs standing back to back in a dark alley, cudgel and cleaver ready, watching opposite directions, ordinary criminals, no mask no robe, 1889 gaslamp gothic, oil painting, dramatic candlelight, muted teal and crimson palette with gold accents --ar 3:4 --style raw --no frame, border, card, text, letters, watermark, wax, mask, hood, robe, monster
+```
+
+**Lama nel Buio**
+```
+full bleed dark fantasy painting, a lean assassin lunging out of deep shadow with a thin stiletto blade catching lamplight, an isolated figure's back barely visible just ahead, ordinary killer, no mask no robe, 1889 gaslamp gothic, oil painting, dramatic candlelight, muted teal and crimson palette with gold accents --ar 3:4 --style raw --no frame, border, card, text, letters, watermark, wax, mask, hood, robe, monster
 ```
 
 ### Trappole e insidie
