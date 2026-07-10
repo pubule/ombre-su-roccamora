@@ -2,6 +2,7 @@
 // Uso: node scripts/cardconjurer/generate-test.js "Sibilla Reve" "Adepto Incappucciato"
 const { chromium } = require('playwright');
 const { generateOne } = require('./lib');
+const { startServer } = require('./serve');
 const { ALL } = require('./cards-data');
 
 (async () => {
@@ -12,6 +13,7 @@ const { ALL } = require('./cards-data');
     process.exit(1);
   }
 
+  const { url, close } = await startServer();
   const browser = await chromium.launch({ headless: false, slowMo: 10 });
   const page = await browser.newPage({ viewport: { width: 1400, height: 1400 } });
 
@@ -20,11 +22,12 @@ const { ALL } = require('./cards-data');
     console.log(`--- ${card.title} ---`);
     if (!first) await page.evaluate(() => localStorage.clear()).catch(() => {});
     first = false;
-    await page.goto('https://cardconjurer.app/', { waitUntil: 'networkidle' });
+    await page.goto(url + '/', { waitUntil: 'networkidle' });
     await page.waitForTimeout(800);
     const outPath = await generateOne(page, card);
     console.log('  ok ->', outPath);
   }
 
   await browser.close();
+  close();
 })();

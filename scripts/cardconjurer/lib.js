@@ -1,6 +1,9 @@
-// Logica condivisa per generare una carta su cardconjurer.app (frame Tokens/Marker
+// Logica condivisa per generare una carta con Card Conjurer (frame Tokens/Marker
 // Card di default, trasparente cosi' l'arte si vede) e scaricarla via la funzione
 // reale del sito (bordi arrotondati, non lo screenshot del canvas che li fa squadrati).
+// Gira contro la copia locale in vendor/cardconjurer/ (vedi serve.js), non piu'
+// contro cardconjurer.app: il sito originale (cardconjurer.com) e' gia' stato
+// chiuso una volta dopo una diffida, niente dipendenza dalla sua disponibilita'.
 const path = require('path');
 const fs = require('fs');
 

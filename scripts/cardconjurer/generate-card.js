@@ -1,4 +1,5 @@
-// Genera UNA carta su cardconjurer.app e la scarica in cards/<title>.jpg.
+// Genera UNA carta con Card Conjurer (copia locale in vendor/cardconjurer/) e la
+// scarica in cards/<title>.jpg.
 // Per generare piu' carte in blocco (stesso browser, molto piu' veloce) vedi
 // generate-batch.js + cards-data.js.
 //
@@ -20,6 +21,7 @@
 
 const { chromium } = require('playwright');
 const { generateOne } = require('./lib');
+const { startServer } = require('./serve');
 
 function parseArgs() {
   const args = {};
@@ -40,13 +42,15 @@ function parseArgs() {
     process.exit(1);
   }
 
+  const { url, close } = await startServer();
   const browser = await chromium.launch({ headless: false, slowMo: 20 });
   const page = await browser.newPage({ viewport: { width: 1400, height: 1400 } });
-  await page.goto('https://cardconjurer.app/', { waitUntil: 'networkidle' });
+  await page.goto(url + '/', { waitUntil: 'networkidle' });
   await page.waitForTimeout(1000);
 
   const outPath = await generateOne(page, args, { artist: args.artist });
   console.log('Scaricato in', outPath);
 
   await browser.close();
+  close();
 })();

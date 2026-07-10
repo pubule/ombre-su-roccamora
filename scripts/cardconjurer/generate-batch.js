@@ -11,6 +11,7 @@
 
 const { chromium } = require('playwright');
 const { generateOne } = require('./lib');
+const { startServer } = require('./serve');
 const { HEROES, NEMICI, MINACCE, LUOGHI, INDIZI, ALL } = require('./cards-data');
 
 const GROUPS = { heroes: HEROES, nemici: NEMICI, minacce: MINACCE, luoghi: LUOGHI, indizi: INDIZI, all: ALL };
@@ -23,6 +24,7 @@ const GROUPS = { heroes: HEROES, nemici: NEMICI, minacce: MINACCE, luoghi: LUOGH
     process.exit(1);
   }
 
+  const { url, close } = await startServer();
   const browser = await chromium.launch({ headless: false, slowMo: 10 });
   const page = await browser.newPage({ viewport: { width: 1400, height: 1400 } });
 
@@ -38,7 +40,7 @@ const GROUPS = { heroes: HEROES, nemici: NEMICI, minacce: MINACCE, luoghi: LUOGH
         await page.evaluate(() => localStorage.clear()).catch(() => {});
       }
       first = false;
-      await page.goto('https://cardconjurer.app/', { waitUntil: 'networkidle' });
+      await page.goto(url + '/', { waitUntil: 'networkidle' });
       await page.waitForTimeout(800);
       const outPath = await generateOne(page, card);
       console.log('  ok ->', outPath);
@@ -53,4 +55,5 @@ const GROUPS = { heroes: HEROES, nemici: NEMICI, minacce: MINACCE, luoghi: LUOGH
   if (failed.length) console.log('Fallite:', failed.join(', '));
 
   await browser.close();
+  close();
 })();

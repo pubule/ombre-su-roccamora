@@ -8,14 +8,22 @@ in una città immaginaria di canali e campanili nel 1889. Unisce indagine alla
 
 - `pdf/` — materiale pronto da stampare:
   - `01-Regolamento` — regole complete
-  - `02-Schede-Personaggio` — i 5 eroi della Società del Lume
+  - `02-Schede-Personaggio` — i 6 eroi della Società del Lume
   - `03-Episodio1-Indagine` — lettera d'incarico, 8 carte Luogo con dorsi, taccuino
-  - `04-Episodio1-Spedizione` — mazzo Minaccia con dorsi, nemici, 6 tessere mappa, segnalini
+  - `04-Episodio1-Spedizione` — note per tessera, segnalini (le carte Minacce/Nemici e
+    le tessere T1-T6 sono file immagine a parte, vedi `cards/` e `board/`)
   - `05-SOLUZIONE-non-aprire` — da stampare senza leggere e sigillare in busta!
-  - `08-Reperti` — documenti-reperto da consegnare durante l'indagine
+- `cards/` — carte gioco pronte (Eroi, Nemici, Minacce, Luoghi, Indizi Segreti)
+- `board/` — le 6 tessere T1-T6 della Spedizione, griglia+arredi+porte pronte
+- `reperti/` — documenti-reperto (diario, registro, atti d'archivio) da consegnare
+  durante l'indagine, composti su un'unica foto di pergamena
+- `artworks/` — arte sorgente (dipinti, ritratti, tessere, mappa)
+- `PROMPT-MIDJOURNEY.md` — prompt per generare nuova arte con lo stesso stile
 - `PROMPT-ESPANSIONE.md` — "bibbia" narrativa/meccanica/visiva per generare nuovi
   episodi coerenti con un assistente AI
 - `src/` — sorgenti Python (reportlab) che generano tutti i PDF
+- `scripts/` — script Node/Playwright che generano carte, tessere e reperti
+- `vendor/cardconjurer/` — copia locale statica di Card Conjurer (vedi sotto)
 - `fetch_fonts.sh` — scarica i font liberi (Old Standard TT, IM Fell English SC)
 
 ## Rigenerare i PDF
@@ -30,6 +38,21 @@ python gen_docs.py     # regolamento + soluzione
 python gen_deluxe.py   # schede personaggio
 python gen_gothic.py   # indagine + spedizione (versione grafica gotica finale)
 ```
+
+## Rigenerare le carte
+
+```bash
+cd scripts/cardconjurer
+node generate-batch.js            # tutte (eroi, nemici, minacce, luoghi, indizi)
+node generate-batch.js luoghi     # solo un gruppo
+node generate-test.js "Elena Fosco" "Il Fonditore"   # solo carte specifiche, per titolo
+```
+
+Gira contro `vendor/cardconjurer/`, una copia locale statica di
+[Card Conjurer](https://cardconjurer.app/) (open source, GPLv3): niente
+dipendenza da un sito di terzi per generare le carte — il sito originale
+(cardconjurer.com) è già stato chiuso una volta dopo una diffida, vedi
+`vendor/cardconjurer/README.txt` per i dettagli.
 
 ## Come si gioca (in breve)
 
