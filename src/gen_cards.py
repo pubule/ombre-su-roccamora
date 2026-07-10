@@ -238,23 +238,23 @@ LUOGHI = [
 # carta non aggiunge alcuna regola nuova, solo un supporto fisico da tenere in
 # mano invece che una riga di testo da ricordare.
 OGGETTI = [
-    dict(nome='CORDA DI VIOLINO D’ARGENTO', fonte='Luogo 2 — Casa di Ruggero',
+    dict(nome='CORDA DI VIOLINO D’ARGENTO', ref='L2', fonte='Luogo 2 — Casa di Ruggero',
          flavor='Ancora tesa, come se qualcuno l’avesse suonata ieri.',
          effetto='Sblocca la visita al Luogo 5 (Bottega del Liutaio Ferri).'),
-    dict(nome='AMPOLLA DI ACQUA BENEDETTA', fonte='Luogo 4 — La Sagrestia della Cattedrale',
+    dict(nome='AMPOLLA DI ACQUA BENEDETTA', ref='L4', fonte='Luogo 4 — La Sagrestia della Cattedrale',
          flavor='«Se là sotto c’è il demonio, portate questa», vi dice, e non vi guarda negli occhi.',
          effetto='Effetto: nessuno finora scoperto.'),
-    dict(nome='IL DIAPASON D’ARGENTO', fonte='Luogo 5 — Bottega del Liutaio Ferri',
+    dict(nome='IL DIAPASON D’ARGENTO', ref='L5', fonte='Luogo 5 — Bottega del Liutaio Ferri',
          flavor='Inciso con un’onda. Vibra anche senza essere toccato.',
          effetto='In spedizione: un’azione adiacente al Custode della Cera lo fa vibrare — '
                  'Difesa 5 per il resto della partita, e il Custode salta la sua prossima attivazione.'),
-    dict(nome='UN PIEDE DI PORCO', fonte='Si trova cercando in T2 — Sala delle Casse',
+    dict(nome='UN PIEDE DI PORCO', ref='T2', fonte='Si trova cercando in T2 — Sala delle Casse',
          flavor='Freddo, pesante, già piegato da altre porte.',
          effetto='+1 alle prove per forzare e scassinare.'),
-    dict(nome='UN TALISMANO A FORMA D’ONDA', fonte='Si trova cercando in T3 — Corridoio delle Candele',
+    dict(nome='UN TALISMANO A FORMA D’ONDA', ref='T3', fonte='Si trova cercando in T3 — Corridoio delle Candele',
          flavor='Tiepido al tatto, come se qualcuno lo stringesse un istante prima di voi.',
          effetto='+1 NERVI finché lo portate.'),
-    dict(nome='LA CHIAVE DELLA CELLA', fonte='Si trova cercando in T4 — Ufficio del Custode',
+    dict(nome='LA CHIAVE DELLA CELLA', ref='T4', fonte='Si trova cercando in T4 — Ufficio del Custode',
          flavor='Ruggine recente sul dente: uso frequente.',
          effetto='Apre la cella in T6 con Interagire, senza prove.'),
 ]

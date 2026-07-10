@@ -2,6 +2,8 @@
 """Ombre su Roccamora - stile deluxe condiviso."""
 import os
 import random
+from io import BytesIO
+from PIL import Image
 from reportlab.lib.units import mm
 from reportlab.lib import colors
 from reportlab.lib.utils import ImageReader
@@ -36,12 +38,34 @@ def register_fonts():
     except Exception:
         F.update(r='Times-Roman', b='Times-Bold', i='Times-Italic', sc='Times-Bold')
 
+ROOT_DIR = os.path.dirname(ARTWORKS_DIR)
 _art_cache = {}
 
+# ponytail: reportlab embeds PNG art as raw deflate, not the source PNG's own
+# compression - a full-res 2700px photo art costs 10+MB per embed even though
+# it's only ever shown through a torn-paper window a fraction of the page.
+# Downscale + re-encode once here (JPEG for opaque art, PNG for real alpha
+# cutouts) instead of at every call site: this alone took the narrator PDF
+# from 129MB (over GitHub's 100MB limit) to a few MB.
+ART_MAX_PX = 1800
+
 def art(name):
-    """Cached ImageReader for a file in artworks/ (by filename, no extension games)."""
+    """Cached ImageReader. A bare filename resolves under artworks/; a path
+    containing a '/' (e.g. 'board/T2 - Sala delle Casse.png') resolves relative
+    to the repo root instead."""
     if name not in _art_cache:
-        _art_cache[name] = ImageReader(os.path.join(ARTWORKS_DIR, name))
+        base = ROOT_DIR if '/' in name else ARTWORKS_DIR
+        img = Image.open(os.path.join(base, name))
+        if max(img.size) > ART_MAX_PX:
+            scale = ART_MAX_PX / max(img.size)
+            img = img.resize((round(img.width*scale), round(img.height*scale)), Image.LANCZOS)
+        buf = BytesIO()
+        if img.mode in ('RGBA', 'LA') or (img.mode == 'P' and 'transparency' in img.info):
+            img.convert('RGBA').save(buf, format='PNG', optimize=True)
+        else:
+            img.convert('RGB').save(buf, format='JPEG', quality=88)
+        buf.seek(0)
+        _art_cache[name] = ImageReader(buf)
     return _art_cache[name]
 
 def parchment_art(c, w, h, name='background manuale.png'):
@@ -70,20 +94,21 @@ def _cover_image(c, img, x, y, w, h, top_margin=0, overscan=0.0):
     dy = y + h - top_margin - dh
     c.drawImage(img, dx, dy, width=dw, height=dh, mask=None)
 
-def torn_portrait(c, w, h, portrait_name, torn_name, window=(0.50, 0.0, 1.03, 0.51)):
-    """Draws a hero portrait cover-fit to the torn window only (not the whole
-    page: covering the full page would zoom into a random crop, since the
-    window is much smaller than the page), then the torn-parchment sheet with
-    its transparent cutout on top: the portrait shows through the hole, almost
-    entirely visible, like a photo tucked under aged paper. `torn_name` must be
-    an RGBA png with a real alpha cutout (see
+def torn_portrait(c, w, h, portrait_name, torn_name, window=(0.50, 0.0, 1.03, 0.51),
+                  top_margin=0*mm, overscan=0.75):
+    """Draws an image (hero portrait, but works for any scenic art) cover-fit
+    to the torn window only (not the whole page: covering the full page would
+    zoom into a random crop, since the window is much smaller than the page),
+    then the torn-parchment sheet with its transparent cutout on top: the art
+    shows through the hole, almost entirely visible, like a photo tucked under
+    aged paper. `torn_name` must be an RGBA png with a real alpha cutout (see
     artworks/background scheda personaggio*.png). `window` is the cutout's
     bounding box as page fractions (x0, y0, x1, y1), y measured from the
     bottom; slightly oversized so the image bleeds past the torn edge."""
     c.saveState()
     x0, y0, x1, y1 = window
     _cover_image(c, art(portrait_name), x0*w, y0*h, (x1-x0)*w, (y1-y0)*h,
-                top_margin=0*mm, overscan=0.75)
+                top_margin=top_margin, overscan=overscan)
     c.drawImage(art(torn_name), 0, 0, width=w, height=h,
                preserveAspectRatio=False, mask='auto')
     for i, a in ((10*mm, 0.08), (5*mm, 0.10)):

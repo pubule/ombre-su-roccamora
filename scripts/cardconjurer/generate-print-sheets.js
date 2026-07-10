@@ -9,9 +9,9 @@
 // toccare il codice.
 //
 // Il trio Indizi Nascosti/Testimoni/Referti e' un mazzo coperto unico (vedi
-// regolamento): stesso dorso per tutti e tre, ma con numero-luogo + tipo
-// sovrapposti sopra l'arte (altrimenti il "cercate la carta col dorso giusto"
-// non funzionerebbe piu' - l'arte da sola e' identica su ogni carta).
+// regolamento): stesso dorso per tutti e tre, con SOLO il tipo sovrapposto
+// sopra l'arte (mai il luogo: niente sulla carta deve permettere di dedurre
+// dove cercare - vedi generate-narrator-reference.js per quella mappa).
 //
 // Dimensione carta: 68x95.2mm (rapporto 1.4, identico alle carte reali
 // 2010x2814px), il piu' grande possibile in griglia 3x3 su A4 lasciando un
@@ -101,17 +101,15 @@ function plainBackCell(c, bgClass) {
   return `<div class="card ${bgClass}"></div>`;
 }
 
-// Dorso Approfondimenti: stessa arte (classe CSS) + numero-luogo/tipo per
-// carta (mazzo coperto: serve poter distinguere le carte dal dorso).
+// Dorso Approfondimenti: stessa arte (classe CSS) + SOLO il tipo (Indizio
+// Nascosto/Testimone/Referto), mai il numero del luogo - niente sulla carta
+// deve legarla a un luogo/tessera specifico (riusabilita' tra episodi + i
+// giocatori non devono poter dedurre dove cercare sfogliando i dorsi). Quale
+// carta prendere per quale luogo/tessera sta nel pdf a parte
+// (generate-narrator-reference.js), non sulle carte.
 function taggedBackCell(c, bgClass) {
   if (!c) return `<div class="card empty"></div>`;
-  // "LUOGO" + cifra grande, non "Luogo N" su una riga sola (troppo largo a
-  // dimensione leggibile): si abbina al numero ora stampato nel titolo di
-  // ogni carta Luogo (es. "6 · Il Canale Basso"). Mai il nome del luogo qui:
-  // rivelerebbe il contenuto, il mazzo deve restare coperto.
   return `<div class="card tagged ${bgClass}">
-    <div class="loc">Luogo</div>
-    <div class="num">${c.n}</div>
     <div class="kind">${c.kind}</div>
   </div>`;
 }
@@ -187,11 +185,8 @@ function deckSheets(deck, backCellFn, bgClass) {
       display: flex; flex-direction: column; align-items: center; justify-content: center;
       text-align: center; color: #d8b45a;
       font-family: ${titleFontUri ? "'Beleren', " : ''}Georgia, serif; }
-    .tagged .loc { font-size: 6mm; letter-spacing: .6mm; text-transform: uppercase;
-      text-shadow: ${EMBOSS}; margin-bottom: 1mm; }
-    .tagged .num { font-size: 18mm; line-height: 1; text-shadow: ${EMBOSS}; }
-    .tagged .kind { font-size: 5.5mm; letter-spacing: .6mm; text-transform: uppercase;
-      text-shadow: ${EMBOSS}; margin-top: 1mm; }
+    .tagged .kind { font-size: 9mm; letter-spacing: .8mm; text-transform: uppercase;
+      text-shadow: ${EMBOSS}; padding: 0 4mm; }
     ${bgRules}
   </style></head><body>${sheets}</body></html>`;
 

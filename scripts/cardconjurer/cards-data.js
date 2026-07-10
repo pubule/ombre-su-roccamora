@@ -320,9 +320,10 @@ const REFERTI = LUOGHI.flatMap((L) =>
 // `effetto` copiato 1:1 da src/gen_cards.py OGGETTI (indizio del Luogo o
 // `cerca` della tessera) - la carta e' solo un supporto fisico, nessuna regola
 // nuova.
-// `ref` (es. "L2", "T3") va nel titolo: come per i Luoghi, il campo `type`
-// sotto NON viene disegnato dal frame cardconjurer usato, quindi senza il
-// prefisso nel titolo la carta non mostra mai da quale luogo/tessera viene.
+// `ref`/`fonte` NON vanno sulla carta (riusabilita' tra episodi + niente indizi
+// su dove si trova cosa): restano solo dati per generate-narrator-reference.js,
+// il pdf a parte che dice al narratore quale carta prendere per quale luogo/
+// tessera. La carta stessa mostra solo il nome dell'oggetto, punto.
 const OGGETTI = [
   { art: 'artworks/Corda di Violino.png', nome: 'Corda di Violino d’Argento', ref: 'L2', fonte: 'Luogo 2 — Casa di Ruggero',
     flavor: 'Ancora tesa, come se qualcuno l’avesse suonata ieri.',
@@ -344,9 +345,10 @@ const OGGETTI = [
     effetto: 'Apre la cella in T6 con Interagire, senza prove.' },
 ].map((o) => ({
   art: o.art,
-  title: `${o.ref} · ${o.nome}`,
+  title: o.nome,
   file: `Oggetti/${o.nome}`,
   type: `Oggetto — ${o.fonte}`,
+  ref: o.ref,
   rules: `{i}${o.flavor}{/i}{divider}${o.effetto}`,
 }));
 
