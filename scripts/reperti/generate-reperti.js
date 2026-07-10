@@ -1,7 +1,6 @@
 // Genera i 3 reperti stampabili dell'Episodio 1 (diario, registro, fascicolo)
 // componendo lo sfondo pergamena + testo + sigillo con Playwright (screenshot di
-// una pagina HTML), invece del PDF vettoriale di src/gen_reperti.py.
-// Testi presi 1:1 da src/gen_reperti.py (fonte autoritativa).
+// una pagina HTML). Testi presi 1:1 da src/gen_cards.py / src/story.py.
 //
 // Layout a flusso normale (niente altezze/posizioni indovinate a mano): il
 // body cresce in base al contenuto (height:auto), poi si misura scrollHeight

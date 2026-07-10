@@ -59,8 +59,9 @@ Facile 7 · Media 9 · Difficile 11. Ogni eroe ha 1 "Secondo fiato" (ritenta) a 
 2-bis. *Reperti* — ogni episodio include 2–3 **documenti-reperto** stampabili (pagine di
    diario a grafia manoscritta, registri, atti d'archivio) consegnati quando si trova
    l'indizio corrispondente. Contengono esattamente le informazioni delle carte Luogo più
-   dettagli d'atmosfera: mai indizi esclusivi. Stile: vedi `src/gen_reperti.py`
-   (font La Belle Aurore per le grafie, strappi, colature di cera, aloni di caffè).
+   dettagli d'atmosfera: mai indizi esclusivi. Stile: vedi
+   `scripts/reperti/generate-reperti.js` (testo composto su un'unica foto di
+   pergamena, font La Belle Aurore per le grafie, blend mode Multiply).
 
 3. *Fase Spedizione* — 6 tessere (griglia 4×4, tessere 130 mm), percorso con 1–2 rami
    opzionali che premiano l'esplorazione. Round: ogni eroe 2 azioni (Muovi 4 · Attacca ·
