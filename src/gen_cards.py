@@ -54,8 +54,8 @@ def card_frame(c, x, y, w, h, corner=True):
 HEROES = [
     dict(nome='ELENA FOSCO', ruolo='L\u2019Investigatrice', acume=3, vigore=1, nervi=2,
          salute=6, difesa=8,
-         abil=('<b>Occhio Clinico</b> \u2014 In indagine: quando Elena visita un luogo, leggete '
-               'anche l\u2019eventuale <b>Indizio nascosto</b> della carta. In spedizione: +2 alle '
+         abil=('<b>Occhio Clinico</b> \u2014 In indagine: quando Elena visita un luogo con una '
+               'carta <b>Indizio Segreto</b> abbinata, consultatela subito. In spedizione: +2 alle '
                'prove di Cercare.'),
          equip='Bastone animato (arma, +1), lente d\u2019ingrandimento, taccuino rilegato.'),
     dict(nome='DOTT. ATTILIO MARN', ruolo='Il Medico', acume=2, vigore=2, nervi=2,
@@ -78,8 +78,8 @@ HEROES = [
     dict(nome='OTTONE \u201cMEZZENA\u201d MASSARI', ruolo='Il Macellaio', acume=1, vigore=3, nervi=2,
          salute=8, difesa=8,
          abil=('<b>Un bicchiere con tutti</b> \u2014 In indagine: una volta per episodio, '
-               'offrendo da bere e da mangiare fa ripetere una testimonianza: leggete '
-               'l\u2019<b>Indizio nascosto</b> del luogo che state visitando. In spedizione, '
+               'offrendo da bere e da mangiare fa ripetere una testimonianza: se il luogo ha '
+               'una carta <b>Indizio Segreto</b> abbinata, consultatela. In spedizione, '
                '<b>Colpo da macello</b>: una volta per turno, se abbatte un nemico in mischia '
                'attacca immediatamente un altro nemico adiacente.'),
          equip='Mannaia del banco (arma, +1), grembiule di cuoio, fiasco di vino robusto '

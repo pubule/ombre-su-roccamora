@@ -17,11 +17,8 @@ from reportlab.platypus import Paragraph, Frame, Spacer
 from reportlab.lib.styles import ParagraphStyle
 
 from deluxe_style import (register_fonts, parchment, rule_border, seal, wave,
-                          triple_wave, F, INK, RED, TEAL, PAPER,
-                          PAPER_DK, GOLD as OGOLD, SEPIA)
-import ornaments as O
-from ornaments import (NIGHT, NIGHTR, GOLD, GOLD_L, GOLD_D, BONE,
-                       ornate_frame, banner, medallion)
+                          F, INK, RED, TEAL, GOLD as OGOLD, SEPIA)
+from ornaments import GOLD_L, BONE
 from gen_cards import LUOGHI, MINACCE, NEMICI, TILES, HEROES
 import story
 MINACCE = story.apply(LUOGHI, TILES, NEMICI, HEROES, MINACCE)
@@ -37,8 +34,6 @@ def st(name, **kw):
     return ParagraphStyle(name, **base)
 
 BODY = st('body', alignment=4)
-CLUE = st('clue', leftIndent=10, spaceAfter=2.5)
-HIDN = st('hidn', leftIndent=10, textColor=TEAL, fontName=F['i'], spaceAfter=2)
 SMB  = st('smb', fontName=F['sc'], fontSize=8.5, textColor=TEAL, spaceBefore=4, spaceAfter=2)
 MTXT = st('mtxt', fontSize=8.4, leading=10.4, textColor=BONE, alignment=1)
 
@@ -47,54 +42,6 @@ def frame_flow(c, x, y, w, h, flow):
           bottomPadding=0, showBoundary=0).addFromList(flow, c)
 
 # ------------------------------------------------------------------ INDAGINE
-def luogo_front(c, x, y, cw, ch, L):
-    ornate_frame(c, x, y, cw, ch, base=NIGHTR, gems=True)
-    # pannello pergamena interno
-    px, py = x + 7*mm, y + 6*mm
-    pw, ph = cw - 14*mm, ch - 19*mm
-    c.saveState()
-    c.setFillColor(PAPER); c.setStrokeColor(GOLD_D); c.setLineWidth(0.8)
-    c.rect(px, py, pw, ph, fill=1)
-    import random
-    rnd = random.Random(L['n'])
-    p = c.beginPath(); p.rect(px, py, pw, ph); c.clipPath(p, stroke=0)
-    for _ in range(7):
-        r = rnd.uniform(6*mm, 18*mm)
-        c.setFillColor(PAPER_DK); c.setFillAlpha(rnd.uniform(0.06, 0.13))
-        c.circle(px + rnd.uniform(0, pw), py + rnd.uniform(0, ph), r, fill=1, stroke=0)
-    c.setFillAlpha(1)
-    c.restoreState()
-    # targa titolo
-    banner(c, x + cw/2, y + ch - 9*mm, cw - 30*mm, 8.6*mm)
-    c.setFillColor(BONE); c.setFont(F['sc'], 11)
-    c.drawCentredString(x + cw/2, y + ch - 10.3*mm, 'luogo %d \u00b7 %s' % (L['n'], L['nome'].lower()))
-    # requisito
-    c.setFillColor(TEAL); c.setFont(F['b'], 8.5)
-    c.drawString(px + 3*mm, py + ph - 5*mm, L['req'])
-    wave(c, px + pw - 22*mm, py + ph - 4.2*mm, 18*mm, OGOLD, 1)
-    flow = [Paragraph(L['testo'], BODY), Spacer(1, 4), Paragraph('indizi', SMB)]
-    for cl in L['indizi']:
-        flow.append(Paragraph('\u25c6 ' + cl, CLUE))
-    if L['nascosto']:
-        flow.append(Spacer(1, 3))
-        flow.append(Paragraph('\u2739 ' + L['nascosto'], HIDN))
-    frame_flow(c, px + 3*mm, py + 2.5*mm, pw - 6*mm, ph - 9*mm, flow)
-
-def luogo_back(c, x, y, cw, ch, L):
-    ornate_frame(c, x, y, cw, ch, base=NIGHTR, gems=True)
-    cx, cy = x + cw/2, y + ch/2
-    c.setFillColor(GOLD_L); c.setFont(F['sc'], 13)
-    c.drawCentredString(cx, y + ch - 15*mm, 'ombre su roccamora')
-    medallion(c, cx, cy + 2*mm, 17*mm, GOLD)
-    c.setFillColor(GOLD_L); c.setFont(F['sc'], 36)
-    c.drawCentredString(cx, cy - 4*mm, str(L['n']))
-    for sgn in (-1, 1):
-        O.scroll(c, cx + sgn*24*mm, cy - 2*mm, 12*mm, -sgn, GOLD, 1)
-    banner(c, cx, y + 13*mm, 34*mm, 7.5*mm)
-    c.setFillColor(BONE); c.setFont(F['sc'], 11)
-    c.drawCentredString(cx, y + 11.8*mm, 'luogo')
-    triple_wave(c, cx, y + ch - 21*mm, 24*mm, GOLD, 1, 2.4*mm)
-
 def indagine():
     c = canvas.Canvas(os.path.join(OUT_DIR, 'Ombre-su-Roccamora-03-Episodio1-Indagine.pdf'), pagesize=A4)
     c.setTitle('Ombre su Roccamora - Episodio 1 - Indagine')
@@ -115,20 +62,8 @@ def indagine():
                 Paragraph(lett, st('let', fontName=F['i'], fontSize=11.5, leading=17, alignment=4))])
     seal(c, W - mx - 12*mm, H - 190*mm, r=13*mm, angle=-10)
     c.setFillColor(TEAL); c.setFont(F['i'], 9.5)
-    c.drawCentredString(W/2, 18*mm, 'Ritagliate le carte Luogo delle pagine seguenti e disponetele coperte, numero in vista.')
+    c.drawCentredString(W/2, 18*mm, 'Prendete le 8 carte Luogo e disponetele coperte, numero in vista.')
     c.showPage()
-    ch = (H - 30*mm) / 2.0
-    cw = W - 24*mm
-    for i in range(0, len(LUOGHI), 2):
-        pair = LUOGHI[i:i+2]
-        for pos, L in enumerate(pair):
-            luogo_front(c, 12*mm, H - 12*mm - ch - pos*(ch + 6*mm), cw, ch, L)
-        c.setFillColor(SEPIA); c.setFont(F['i'], 7.5)
-        c.drawCentredString(W/2, 5*mm, 'stampa fronte/retro sul lato lungo: la pagina seguente contiene i dorsi')
-        c.showPage()
-        for pos, L in enumerate(pair):
-            luogo_back(c, 12*mm, H - 12*mm - ch - pos*(ch + 6*mm), cw, ch, L)
-        c.showPage()
     # taccuino (come deluxe)
     parchment(c, W, H, seed=9)
     rule_border(c, W, H)
