@@ -67,6 +67,19 @@ const NEMICI = [
     type: 'Creatura — Custode (Boss)',
     rules: '{i}Att +3 · Dif 9 · Ferite 3 · Mov 3 · Danno 2{/i}{divider}Un gigante ricoperto di strati di cera colata, il volto un moncone liscio in cui affiorano, a tratti, i lineamenti di qualcun altro. Avanza lento e senza fretta: nulla, nel suo magazzino, gli è mai sfuggito. Se il diapason d’argento viene fatto vibrare a lui adiacente (azione): Difesa 5 per il resto della partita e salta la sua prossima attivazione.',
   },
+  // Malavita di Roccamora: nemici secolari riusabili in ogni episodio.
+  {
+    art: 'artworks/Lo Sgherro.png',
+    title: 'Lo Sgherro',
+    type: 'Creatura — Malavita',
+    rules: '{i}Att +2 · Dif 8 · Ferite 2 · Mov 4 · Danno 1{/i}{divider}Muscolo a pagamento dei bassifondi: bastone, coltellaccio e nessuna fede se non la moneta. Tattica del branco: se è adiacente a un altro Sgherro, ha +1 Attacco. Non vengono quasi mai da soli.',
+  },
+  {
+    art: 'artworks/Il Sicario.png',
+    title: 'Il Sicario',
+    type: 'Creatura — Malavita',
+    rules: '{i}Att +3 · Dif 7 · Ferite 1 · Mov 5 · Danno 2{/i}{divider}Una lama assoldata, silenziosa e rapida. Sceglie sempre il bersaglio più debole. Colpo a tradimento: +2 all’Attacco contro un eroe isolato (nessun altro eroe adiacente) o già ferito. Fragile: chi lo raggiunge, lo abbatte.',
+  },
 ];
 
 const MINACCE = [
@@ -97,6 +110,15 @@ const MINACCE = [
   { art: 'artworks/Ronda.png', title: 'Ronda',
     flavor: 'Passi cadenzati e un salmodiare sommesso: non siete più soli.',
     effect: 'Piazzate 2 Adepti sull’ingresso della Banchina (T1).' },
+  { art: 'artworks/Lo Sgherro.png', title: 'Bravi sul Molo',
+    flavor: 'Passi pesanti e un fischio: i bravacci del molo sono sul libro paga del culto.',
+    effect: 'Piazzate 1 Sgherro sull’ingresso della Banchina (T1).' },
+  { art: 'artworks/Lo Sgherro.png', title: 'Il Branco',
+    flavor: 'Non vengono mai da soli, e si coprono le spalle a vicenda.',
+    effect: 'Piazzate 2 Sgherri, adiacenti tra loro, sulla tessera rivelata più lontana dagli eroi.' },
+  { art: 'artworks/Il Sicario.png', title: 'Lama nel Buio',
+    flavor: 'Un luccichio, poi il freddo tra le scapole. Sceglie sempre il più solo.',
+    effect: 'Piazzate 1 Sicario adiacente all’eroe più isolato o più ferito (a pari merito: sceglie il gruppo): si attiva subito.' },
   { art: 'artworks/Trappola di cera.png', title: 'Trappola di Cera',
     flavor: 'Il pavimento luccica. Capite troppo tardi perché.',
     effect: 'L’eroe più avanzato prova NERVI (Media): se fallisce, cera bollente: 1 danno e perde 1 azione al prossimo turno.' },

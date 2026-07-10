@@ -136,6 +136,21 @@ full bleed dark fantasy painting, black wax raining in slow threads from the woo
 full bleed dark fantasy painting, towering giant encased in layers of melted black and ivory wax, faceless smooth head with faint traces of another face beneath, glowing seams of candlelight in the cracks, stone altar ringed with black candles behind, 1889 gaslamp gothic, oil painting, dramatic candlelight, muted teal and crimson palette with gold accents --ar 3:4 --style raw --no frame, border, card, text, letters, watermark
 ```
 
+### Malavita (nemici secolari, cross-episodio)
+
+Non hanno cera né maschera: sono la malavita dei bassifondi, riusabile in ogni
+episodio. Salva i file come `artworks/Lo Sgherro.png` e `artworks/Il Sicario.png`.
+
+**Lo Sgherro** (bravo/muscolo a pagamento)
+```
+full bleed dark fantasy painting, brutish dockside thug in a worn wool coat and flat cap, broken nose and cold eyes, gripping a heavy cudgel and a rusty cleaver, standing on a foggy canal wharf at night, no mask no robe, ordinary criminal, 1889 gaslamp gothic, oil painting, dramatic candlelight, muted teal and crimson palette with gold accents --ar 3:4 --style raw --no frame, border, card, text, letters, watermark, wax, mask, hood, robe, monster
+```
+
+**Il Sicario** (lama assoldata)
+```
+full bleed dark fantasy painting, lean silent assassin in dark tailored clothes, half his face in shadow under a low brim, a thin stiletto blade catching a glint of lamplight, poised to strike from an alley, no mask no robe, ordinary killer, 1889 gaslamp gothic, oil painting, dramatic candlelight, muted teal and crimson palette with gold accents --ar 3:4 --style raw --no frame, border, card, text, letters, watermark, wax, mask, hood, robe, monster
+```
+
 ## Soggetti — Eroi (ritratti, --ar 3:4)
 
 Sostituisci RITRATTO e usa questo prompt unico:

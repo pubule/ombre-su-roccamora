@@ -82,6 +82,14 @@ NOTE_NEMICI = {
         "nulla, nel suo magazzino, gli \u00e8 mai sfuggito. Se il diapason d\u2019argento viene "
         "fatto vibrare a lui adiacente (azione): Difesa 5 per il resto della partita e salta "
         "la sua prossima attivazione.",
+    'LO SGHERRO':
+        "Roccamora ha una malavita antica quanto i suoi canali: barcaioli che sfondano teste "
+        "per pochi soldi, disertori, ex galeotti. Il culto non li converte \u2014 li paga, e "
+        "loro non fanno domande. Si muovono in branco e si coprono le spalle a vicenda.",
+    'IL SICARIO':
+        "Non porta maschera n\u00e9 cera: solo una lama sottile e la pazienza di chi aspetta il "
+        "momento. Sceglie chi \u00e8 rimasto indietro, chi zoppica, chi \u00e8 solo. Quando lo "
+        "vedi, di solito \u00e8 gi\u00e0 tardi \u2014 ma basta un colpo ben messo per fermarlo.",
 }
 
 BIO = {
@@ -140,6 +148,9 @@ _FLAVOR = {
     'ECO AMICA': 'Tre colpi sordi, ostinati: qualcuno, l\u00e0 sotto, \u00e8 ancora vivo.',
     'CERA CHE COLA': 'Dalle travi piove cera bollente, filo dopo filo.',
     'CORRENTE GELIDA': 'Un freddo d’acqua nera risale i condotti e vi entra nelle ossa.',
+    'BRAVI SUL MOLO': 'Passi pesanti e un fischio: i bravacci del molo sono sul libro paga del culto.',
+    'IL BRANCO': 'Non vengono mai da soli, e si coprono le spalle a vicenda.',
+    'LAMA NEL BUIO': 'Un luccichio, poi il freddo tra le scapole. Sceglie sempre il più solo.',
     'SUSSURRI': 'Qualcuno pronuncia il vostro nome. Con la vostra voce.',
 }
 

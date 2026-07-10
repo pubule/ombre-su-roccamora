@@ -153,18 +153,21 @@ def spedizione():
             c.circle(cx, yy, 6.4*mm)
             c.setFillColor(tcol); c.setFont(F['sc'], 9.5)
             c.drawCentredString(cx, yy - 1.4*mm, it)
-    token_row(H - 44*mm, 'EROI', ['el', 'at', 'si', 'ni', 'ca', 'ot'],
+    token_row(H - 42*mm, 'EROI', ['el', 'at', 'si', 'ni', 'ca', 'ot'],
               colors.HexColor('#f7f0dd'), OGOLD, INK)
-    token_row(H - 74*mm, 'ADEPTI (x10)', ['a'] * 10,
+    token_row(H - 68*mm, 'ADEPTI (x10)', ['a'] * 10,
               colors.HexColor('#2b2b33'), OGOLD, colors.white)
-    token_row(H - 104*mm, 'CANI (x3) \u00b7 FONDITORI (x3)',
+    token_row(H - 94*mm, 'CANI (x3) \u00b7 FONDITORI (x3)',
               ['cn', 'cn', 'cn', 'fo', 'fo', 'fo'],
               colors.HexColor('#3a3a30'), OGOLD, colors.white)
-    token_row(H - 134*mm, 'CUSTODE \u00b7 RUGGERO \u00b7 CANTO (x3)',
+    token_row(H - 120*mm, 'SGHERRI (x4) \u00b7 SICARI (x2)',
+              ['sg', 'sg', 'sg', 'sg', 'si', 'si'],
+              colors.HexColor('#332a22'), OGOLD, colors.white)
+    token_row(H - 146*mm, 'CUSTODE \u00b7 RUGGERO \u00b7 CANTO (x3)',
               ['cu', 'ru', '\u266a', '\u266a', '\u266a'],
               colors.HexColor('#4a0d16'), OGOLD, GOLD_L)
     c.setFillColor(INK); c.setFont(F['i'], 9)
-    c.drawString(16*mm, H - 158*mm, 'Consiglio: incollate il foglio su cartoncino prima di ritagliare. '
+    c.drawString(16*mm, H - 166*mm, 'Consiglio: incollate il foglio su cartoncino prima di ritagliare. '
                                     'Le ferite dei nemici si segnano con monetine o a matita.')
     c.showPage()
     c.save()

@@ -226,6 +226,10 @@ MINACCE = (
     [('IL FONDITORE', 'Piazzate 1 Fonditore sull’ingresso della Banchina (T1). Se è già in gioco un Fonditore, recupera 1 ferita.'),
      ('LA MAREA DI CERA', 'Piazzate 1 Fonditore sull’ingresso della Banchina (T1): tutti i Fonditori in gioco si attivano subito.')] +
     [('RONDA', 'Piazzate 2 Adepti sull’ingresso della Banchina (T1).')] +
+    # famiglia MALAVITA (3): i bravacci secolari a libro paga del culto
+    [('BRAVI SUL MOLO', 'Piazzate 1 Sgherro sull’ingresso della Banchina (T1).'),
+     ('IL BRANCO', 'Piazzate 2 Sgherri, adiacenti tra loro, sulla tessera rivelata più lontana dagli eroi.'),
+     ('LAMA NEL BUIO', 'Piazzate 1 Sicario adiacente all’eroe più isolato o più ferito (a pari merito: sceglie il gruppo): si attiva subito.')] +
     # famiglia TRAPPOLE (2)
     [('TRAPPOLA DI CERA', 'L’eroe più avanzato prova NERVI (Media): se fallisce, cera bollente: 1 danno e perde 1 azione al prossimo turno.'),
      ('CERA SOTTO I PIEDI', 'L’eroe attivo prova NERVI (Media): se fallisce, 1 danno e perde 1 azione al prossimo turno.')] +
@@ -257,6 +261,16 @@ NEMICI = [
          note='Un gigante ricoperto di cera colata, il volto un moncone liscio. Se il diapason '
               'd’argento viene fatto vibrare a lui adiacente (azione): Difesa 5 per il resto '
               'della partita e salta la sua prossima attivazione.'),
+    # Malavita di Roccamora: nemici SECOLARI, riusabili in ogni episodio (non legati al
+    # culto della cera). Nell'Episodio 1 sono i bravacci pagati per guardare i moli.
+    dict(nome='LO SGHERRO', att=2, dif=8, fer=2, mov=4, dan=1,
+         note='Muscolo a pagamento dei bassifondi: bastone, coltellaccio e nessuna fede se non '
+              'la moneta. <b>Tattica del branco:</b> se è adiacente a un altro Sgherro, ha +1 '
+              'Attacco. Non vengono quasi mai da soli.'),
+    dict(nome='IL SICARIO', att=3, dif=7, fer=1, mov=5, dan=2,
+         note='Una lama assoldata, silenziosa e rapida. Sceglie sempre il bersaglio più debole. '
+              '<b>Colpo a tradimento:</b> +2 all’Attacco contro un eroe isolato (nessun altro eroe '
+              'adiacente) o già ferito. Fragile: chi lo raggiunge, lo abbatte.'),
 ]
 
 TILES = [
