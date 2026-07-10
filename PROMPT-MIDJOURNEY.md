@@ -145,26 +145,28 @@ full bleed dark fantasy character portrait, RITRATTO, victorian 1889 attire, thr
 
 Ritratti — **Elena** sharp-eyed woman in her 30s in a dark tailored coat with a magnifying lens on a chain and a walking cane · **Attilio** weary bearded physician with leather medical bag, round spectacles and bloodstained cuffs · **Sibilla** young Romani fortune-teller in the style of Esmeralda from The Hunchback of Notre-Dame, olive skin, wild dark curly hair, gold hoop earrings and a coin-fringed headscarf, colorful layered skirts and an embroidered shawl over her victorian attire, holding an obsidian pendulum in one hand and a fanned tarot deck in the other, sharp knowing eyes · **Nino** wiry smirking man with lockpicks between his fingers, coiled rope and grappling hook on his shoulder · **Carla** determined young woman with a brass folding camera and ink-stained hands · **Ottone** burly jovial butcher with a heavy cleaver over his shoulder, leather apron, wine flask on his belt, hearty laugh, in front of a smoky tavern
 
-## Soggetti — Luoghi (orizzontali, --ar 3:2)
+## Soggetti — Luoghi (--ar 3:4)
+
+Un'arte per ciascuno degli 8 Luoghi, stesso formato verticale delle altre
+carte (non più orizzontale): serve per la carta Luogo E per la carta
+Indizio Segreto dello stesso luogo, che riusa la stessa immagine — un solo
+soggetto da generare per luogo, due carte in uscita.
 
 Sostituisci SCENA e usa questo prompt unico:
 ```
-full bleed dark fantasy painting in landscape format, SCENA, 1889 gaslamp gothic, oil painting, muted teal and crimson palette with gold accents --ar 3:2 --style raw --no frame, border, card, text, letters, watermark
+full bleed dark fantasy painting, SCENA, 1889 gaslamp gothic, oil painting, muted teal and crimson palette with gold accents --ar 3:4 --style raw --no frame, border, card, text, letters, watermark
 ```
 
 Scene — **1** interior of a bell tower at 3am with three bronze bells and black wax on a spiral staircase · **2** humble candlelit canal-side room with a silver violin string on the table and a worried woman · **3** smoky canal tavern full of boatmen playing cards under an oil lamp · **4** nervous priest in a candlelit sacristy with a crypt door barred by new planks · **5** abandoned luthier workshop with violins hanging like game and a silver tuning fork on the workbench · **6** derelict warehouses over black still water with branded crates and a night watchman · **7** dusty municipal archive with a forbidden folio open on a lectern · **8** cluttered 19th century police office with a brigadier avoiding eye contact · **copertina spedizione** abandoned wax warehouse on a canal at night, faint candlelight through broken shutters
 
 ## Cornici (una sola generazione, poi si riusa ovunque)
 
-**Cornice carte verticali (Minacce, eroi)** — centro vuoto e scuro:
+**Cornice carte verticali (Minacce, eroi, Luoghi, Indizi Segreti)** — centro vuoto e scuro:
 ```
 ornate dark fantasy card frame template, carved gold filigree border with ruby and teal gems on black, empty scroll banner at the top, empty dark parchment text panel at the bottom, the large central area completely plain dark and empty, victorian gothic, perfectly symmetrical --ar 3:4 --style raw --no text, letters, words, watermark
 ```
-
-**Cornice carte orizzontali (Luoghi)**:
-```
-ornate dark fantasy card frame template in landscape format, carved gold filigree border with ruby gems on deep crimson, empty scroll banner at the top, wide empty aged parchment panel in the lower half, the upper central area completely plain dark and empty, victorian gothic, perfectly symmetrical --ar 3:2 --style raw --no text, letters, words, watermark
-```
+Stessa cornice per tutti i mazzi verticali, Luoghi e Indizi Segreti inclusi
+(non serve più una cornice orizzontale separata).
 
 Suggerimento: per il montaggio serve che il centro sia davvero vuoto; se Midjourney
 ci disegna dentro qualcosa, usa Vary Region e cancella il centro, oppure va bene
@@ -180,6 +182,12 @@ ornate symmetrical dark fantasy card back, engraved gold filigree covering the w
 **Dorso carte Luogo**
 ```
 ornate symmetrical dark fantasy card back, engraved gold filigree covering the whole surface, ruby gems, central round empty medallion for a number, deep crimson and black, victorian gothic, perfectly symmetrical, full bleed --ar 3:4 --style raw --no text, letters, words, watermark
+```
+
+**Dorso carte Indizio Segreto** — mazzo separato, dorso diverso da quello dei
+Luoghi cosi' resta irriconoscibile finche' non si scopre:
+```
+ornate symmetrical dark fantasy card back, engraved gold filigree covering the whole surface, teal gems, central round medallion with a single closed eye, deep midnight blue and black, victorian gothic, perfectly symmetrical, full bleed --ar 3:4 --style raw --no text, letters, words, watermark
 ```
 
 **Tessere mappa** (sostituisci AMBIENTE):
