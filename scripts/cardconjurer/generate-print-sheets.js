@@ -33,6 +33,9 @@ const CARD_W = 68;    // mm
 const CARD_H = 68 * 1.4; // 95.2mm, stesso rapporto delle carte reali (2010x2814px)
 const COLS = 3;
 const PER_PAGE = 9;
+// Stesso font dei titoli sulle carte (cardconjurer, pack Tokens/Marker Card usa
+// 'belerenbsc' per il campo Title - vedi vendor/cardconjurer/js/frames/packTokenMarker.js).
+const TITLE_FONT_PATH = path.join(ROOT, 'vendor/cardconjurer/fonts/beleren-bsc.ttf');
 const KIND_ORDER = { Indizio: 0, Testimone: 1, Referto: 2 };
 
 // Mazzi con dorso uniforme (stesso identico dorso su ogni carta della famiglia).
@@ -152,10 +155,22 @@ function deckSheets(deck, backCellFn, bgClass) {
     process.exit(1);
   }
 
+  const titleFontUri = fileDataUri(TITLE_FONT_PATH);
+  if (!titleFontUri) console.warn('Font titolo non trovato:', TITLE_FONT_PATH, '- uso il fallback serif.');
+
+  // Rilievo (emboss): ombra scura ravvicinata per lo spessore inciso, ombra
+  // scura sfumata per il distacco dal fondo, controluce chiaro in alto a
+  // sinistra per l'effetto "luce che coglie il bordo rialzato".
+  const EMBOSS = `
+    -0.25mm -0.25mm 0 rgba(255,238,190,.55),
+    0.35mm 0.35mm 0 rgba(0,0,0,.9),
+    0.7mm 0.7mm 1.2mm rgba(0,0,0,.65)`;
+
   const html = `<!doctype html><html><head><meta charset="utf-8"><style>
     @page { size: A4; margin: 0; }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: Georgia, 'Times New Roman', serif; }
+    ${titleFontUri ? `@font-face { font-family: 'Beleren'; src: url('${titleFontUri}') format('truetype'); }` : ''}
     .grid { width: 210mm; height: 297mm; display: grid;
             grid-template-columns: repeat(${COLS}, ${CARD_W}mm);
             grid-auto-rows: ${CARD_H}mm; justify-content: center; align-content: center;
@@ -165,11 +180,11 @@ function deckSheets(deck, backCellFn, bgClass) {
     .card.empty { visibility: hidden; }
     .card.tagged { position: relative;
       display: flex; flex-direction: column; align-items: center; justify-content: center;
-      text-align: center; color: #d8b45a; }
-    .tagged .num { font-size: 22mm; font-weight: bold; line-height: 1;
-      text-shadow: 0 0 3mm rgba(0,0,0,.8), 0 0 1mm rgba(0,0,0,.9); }
-    .tagged .kind { font-size: 5mm; letter-spacing: .6mm; text-transform: uppercase;
-      text-shadow: 0 0 2mm rgba(0,0,0,.8); }
+      text-align: center; color: #d8b45a;
+      font-family: ${titleFontUri ? "'Beleren', " : ''}Georgia, serif; }
+    .tagged .num { font-size: 22mm; line-height: 1; text-shadow: ${EMBOSS}; }
+    .tagged .kind { font-size: 5.5mm; letter-spacing: .6mm; text-transform: uppercase;
+      text-shadow: ${EMBOSS}; }
     ${bgRules}
   </style></head><body>${sheets}</body></html>`;
 
