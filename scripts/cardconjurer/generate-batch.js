@@ -6,12 +6,14 @@
 //   node scripts/cardconjurer/generate-batch.js heroes      (solo eroi)
 //   node scripts/cardconjurer/generate-batch.js nemici      (solo nemici)
 //   node scripts/cardconjurer/generate-batch.js minacce     (solo minacce)
+//   node scripts/cardconjurer/generate-batch.js luoghi      (solo luoghi)
+//   node scripts/cardconjurer/generate-batch.js indizi      (solo indizi segreti)
 
 const { chromium } = require('playwright');
 const { generateOne } = require('./lib');
-const { HEROES, NEMICI, MINACCE, ALL } = require('./cards-data');
+const { HEROES, NEMICI, MINACCE, LUOGHI, INDIZI, ALL } = require('./cards-data');
 
-const GROUPS = { heroes: HEROES, nemici: NEMICI, minacce: MINACCE, all: ALL };
+const GROUPS = { heroes: HEROES, nemici: NEMICI, minacce: MINACCE, luoghi: LUOGHI, indizi: INDIZI, all: ALL };
 
 (async () => {
   const which = (process.argv[2] || 'all').toLowerCase();

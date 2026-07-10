@@ -66,10 +66,20 @@ async function generateOne(page, card, { cwd = process.cwd(), artist = 'Fabietto
   // riga statistiche) e a fine testo (margine dai bordi del riquadro).
   const rulesSpaced = rulesText ? `\n${rulesText.replace(/\{divider\}/g, '{divider}\n')}\n` : rulesText;
   await fillTextArea('Rules Text', rulesSpaced);
+  // Sulla primissima carta generata in un browser/sessione nuova, il parser dei
+  // codici di formattazione {i}...{/i} di cardconjurer non e' ancora "caldo": il
+  // primo fill esce dritto invece che corsivo. Rifare il fill una seconda volta
+  // (stesso valore) forza un secondo passaggio del parser e lo sistema.
+  if (rulesText) await fillTextArea('Rules Text', rulesSpaced);
 
   // Il canvas di export si ridisegna in modo asincrono/debounced dopo l'ultimo fill:
   // senza questa attesa il download parte prima che il testo sia committato sul canvas.
   await page.waitForTimeout(1500);
+  // Sulla primissima carta generata in un browser "freddo" il font corsivo puo' non
+  // essere ancora pronto quando scatta lo screenshot (es. {i}...{/i} esce dritto
+  // invece che corsivo): aspettare i font e ridare un attimo di margine lo evita.
+  await page.evaluate(() => document.fonts.ready).catch(() => {});
+  await page.waitForTimeout(300);
 
   // --- DOWNLOAD ---
   const outPath = path.resolve(cwd, 'cards', `${outName}.jpg`);

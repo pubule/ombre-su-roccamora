@@ -137,10 +137,97 @@ const MINACCE = [
   rules: `{i}${m.flavor}{/i}{divider}${m.effect}`,
 }));
 
+// Luoghi dell'Indagine: testo esteso da src/story.py TESTI_LUOGHI (quello
+// realmente stampato nel PDF via story.apply), indizi/nascosto/req da
+// src/gen_cards.py LUOGHI. Un'arte per luogo, riusata anche dalla carta
+// Indizio Segreto corrispondente.
+const LUOGHI_ART = {
+  1: 'artworks/bell tower.png',
+  2: 'artworks/humble candlelit canal-side room.png',
+  3: 'artworks/smoky canal tavern.png',
+  4: 'artworks/nervous priest in a candlelit sacristy.png',
+  5: 'artworks/abandoned luthier workshop.png',
+  6: 'artworks/derelict warehouses over black still water.png',
+  7: 'artworks/dusty municipal archive (libro+persona).png', // ritagliata + banda in fondo (coperta dal riquadro testo) per stare larga quanto libro e figura insieme
+  8: 'artworks/cluttered 19th century police office.png',
+};
+
+const LUOGHI = [
+  { n: 1, nome: 'Il Campanile di San Teodoro', req: 'Disponibile dall’inizio',
+    testo: 'La scala a chiocciola sale nel buio, ottanta gradini che Ruggero conosceva a memoria. In cima, la cella campanaria è un disordine congelato: lo sgabello rovesciato, la lanterna ancora appesa al gancio, la cena intatta sotto un panno. Le tre grandi campane pendono immobili come bestie addormentate, e fa più freddo di quanto dovrebbe.',
+    indizi: ['Colate di cera nera sui gradini — troppo in alto perché vengano dalle candele della chiesa.',
+             'Il diario di Ruggero, con l’ultima pagina strappata. Ricalcando i solchi della penna leggete: «...alle 3 in punto, ogni notte. Tre rintocchi, poi uno, poi cinque. Non sono io a suonare.»',
+             'Graffiata sul legno della balaustra, una parola: SOMMERSO.'],
+    nascosto: 'Tra le assi, un frammento di spartito scritto a mano. Le note non sono per organo: sono per campane.' },
+  { n: 2, nome: 'Casa di Ruggero — Vicolo dei Fonditori', req: 'Disponibile dall’inizio',
+    testo: 'Il vicolo dei Fonditori sa di carbone e minestra. Bice vi apre con gli occhi rossi e le mani che non stanno ferme; la casa è linda, povera, piena dell’assenza di suo fratello. «Negli ultimi tempi diceva di sentire musica sotto il pavimento della cripta», mormora. «E aveva paura del suo stesso campanile.»',
+    indizi: ['Sul tavolo, una CORDA DI VIOLINO d’argento: «L’ha trovata in cripta», dice Bice. (Oggetto: sblocca il Luogo 5.)',
+             'Una ricevuta: Ruggero aveva chiesto all’Archivio Civico i documenti antichi della cattedrale.',
+             'Bice: «L’ultima sera ripeteva una parola, come una preghiera al contrario: sommerso, sommerso.»'],
+    nascosto: null },
+  { n: 3, nome: 'Taverna del Ponte Rotto', req: 'Disponibile dall’inizio',
+    testo: 'Fumo denso, vino cattivo, il tanfo dolciastro del canale che entra a ogni porta che sbatte. I barcaioli giocano a carte sotto una lampada a olio e vi squadrano appena: qui le lingue si sciolgono con poco, purché il poco finisca nel bicchiere giusto.',
+    indizi: ['Ugo il barcaiolo: «Tre notti fa una CHIATTA senza lanterne ha scaricato casse al Canale Basso. Alle 3, proprio mentre le campane suonavano da sole.» (Parola chiave: sblocca il Luogo 6.)',
+             'Un avventore ubriaco: «Vicino ai vecchi magazzini c’è puzza di cera bruciata da settimane.»',
+             'L’oste conferma: Tonio il sagrestano era qui a giocare a carte fino all’alba, la notte della scomparsa.'],
+    nascosto: null },
+  { n: 4, nome: 'La Sagrestia della Cattedrale', req: 'Disponibile dall’inizio',
+    testo: 'Odore d’incenso e di chiuso. Don Callisto vi riceve tra i paramenti, nervoso, nascondendo dietro la schiena le mani sporche di cera. Alle sue spalle la porta della cripta, sbarrata con assi nuove su pietra antica: «Chiusa per lavori», taglia corto, e la voce gli si incrina sull’ultima sillaba.',
+    indizi: ['La tabella degli inni segna il numero 315, «Dal Profondo». Tonio giura di non averlo mai impostato: «Quell’inno non si canta da cent’anni. È roba dell’antico coro.»',
+             'Don Callisto ammette: la seconda chiave della cripta ce l’ha il liutaio Ferri, che sta restaurando l’organo.',
+             'Prima che usciate, vi mette in mano un’ampolla di acqua benedetta: «Se là sotto c’è il demonio, portate questa.»'],
+    nascosto: 'La cera sulle mani di don Callisto è bianca, comune: vende candele di nascosto per pagare i debiti della parrocchia. Con la cera nera non c’entra.' },
+  { n: 5, nome: 'Bottega del Liutaio Ferri', req: 'Serve: la CORDA DI VIOLINO (Luogo 2)',
+    testo: 'La bottega è chiusa da giorni, la polvere ha già preso possesso delle vetrine; la porta sul retro cede a una spallata. Dentro, violini appesi come selvaggina e un silenzio sbagliato per un luogo nato per fare musica. Il banco da lavoro è in ordine perfetto: chi è partito, sapeva di partire.',
+    indizi: ['Bastiano Ferri è sparito da tre giorni. Sul banco, un diapason d’argento inciso con un’onda.',
+             'Il registro consegne, ultima riga: «40 candele di cera nera — consegna al C.B., molo terzo, il vecchio deposito — pagato B.F.»',
+             'Uno spartito: «Dal Profondo», riscritto per campane. In margine: «il bronzo canta, la pietra risponde, l’acqua ricorda».'],
+    nascosto: null },
+  { n: 6, nome: 'Il Canale Basso', req: 'Serve: la parola chiave CHIATTA (Luogo 3)',
+    testo: 'L’acqua qui non scorre: sta. Nera, ferma, densa come olio, lambisce magazzini ciechi dai portoni murati. Il guardiano notturno esce dal casotto con la lanterna alzata e, per qualche moneta, la diffidenza si scioglie in fretta: da settimane muore dalla voglia di raccontare a qualcuno quello che sente la notte.',
+    indizi: ['«Le casse erano marchiate a fuoco con un’onda. Le hanno portate al vecchio Magazzino delle Cere, quello chiuso da vent’anni.»',
+             '«Alle 3 di notte, da là dentro, viene un canto sommesso. Di molte voci. Una volta... ho sentito un urlo.»',
+             'Sul molo: gocce di cera nera e un lucchetto nuovo di zecca sulla porta della banchina, di quelli a tre cifre.'],
+    nascosto: null },
+  { n: 7, nome: 'L’Archivio Civico', req: 'Serve: la parola chiave SOMMERSO (Luogo 1)',
+    testo: 'Scaffali fino al soffitto, cartelle legate con lo spago, la luce verde delle lampade a schermo. L’archivista, minuscolo dietro occhiali spessi, si irrigidisce quando pronunciate la parola giusta: poi, senza fiatare, vi guida a uno scaffale che nessuno tocca da decenni — la polvere è spessa un dito, tranne che su un solo fascicolo.',
+    indizi: ['Fascicolo del 1741: la confraternita del Coro Sommerso, bandita per «pratiche contrarie a Dio e alla quiete delle acque». Si riuniva in cavità sotto la cattedrale, «dove l’acqua canta». Il suo sigillo: un’onda.',
+             'Una mappa antica: dalla cripta, condotti scendono verso il Canale Basso.',
+             'Registro consultazioni, due mesi fa: «B. Ferri, liutaio» ha richiesto questo stesso fascicolo.'],
+    nascosto: null },
+  { n: 8, nome: 'La Gendarmeria', req: 'Disponibile dall’inizio',
+    testo: 'Pile di pratiche, una stufa che fuma, il brigadiere che vi riceve senza alzarsi. «Il campanaro? Sarà scappato con qualche vedova.» Ma mentre lo dice non vi guarda negli occhi, e la sua mano tamburella su un fascicolo di denunce che continua a spostare da un lato all’altro della scrivania.',
+    indizi: ['Nessuna richiesta di riscatto. Il sospettato ufficiale è Tonio il sagrestano, l’ultimo ad aver visto Ruggero.',
+             'Denunce recenti: furti di cera e canapa da tre chiese. E un fonditore giura d’aver venduto un quintale di bronzo a un compratore incappucciato.',
+             '«Se trovate qualcosa di concreto, tornate. Non perquisiamo mezza città per un campanaro con la testa fra le nuvole.»'],
+    nascosto: null },
+].map((L) => ({
+  art: LUOGHI_ART[L.n],
+  title: L.nome,
+  file: `Luoghi/${L.n} - ${L.nome}`,
+  type: `Luogo ${L.n} — ${L.req}`,
+  rules: `{i}${L.testo}{/i}{divider}${L.indizi.map((c) => `◆ ${c}`).join('\n')}`,
+  nascosto: L.nascosto,
+}));
+
+// Indizi Segreti: solo i luoghi che hanno un vero Indizio nascosto nei dati
+// (oggi 1 e 4 — vedi src/gen_cards.py). Si legge solo se l'abilita' di un
+// eroe lo permette (Elena: sempre; Ottone: una volta a episodio).
+const INDIZI = LUOGHI.filter((L) => L.nascosto).map((L) => ({
+  art: L.art,
+  title: `Indizio Segreto — ${L.title}`,
+  file: `Indizi/${L.title}`,
+  type: `Si legge solo con un’abilità (Elena: sempre · Ottone: 1 volta a episodio)`,
+  rules: `{i}${L.nascosto}{/i}`,
+}));
+
 // Sottocartella per tipo, cosi' e' chiaro a colpo d'occhio se una carta e' la
 // scheda nemico (combattimento) o la carta minaccia (evento dal mazzo), anche
 // quando condividono soggetto/art (es. "Il Fonditore" esiste in entrambe).
 NEMICI.forEach((n) => { n.file = `Nemici/${n.title}`; });
 HEROES.forEach((h) => { h.file = `Eroi/${h.title}`; });
 
-module.exports = { HEROES, NEMICI, MINACCE, ALL: [...HEROES, ...NEMICI, ...MINACCE] };
+module.exports = {
+  HEROES, NEMICI, MINACCE, LUOGHI, INDIZI,
+  ALL: [...HEROES, ...NEMICI, ...MINACCE, ...LUOGHI, ...INDIZI],
+};
