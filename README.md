@@ -14,6 +14,7 @@ in una città immaginaria di canali e campanili nel 1889. Unisce indagine alla
   - `04-Episodio1-Spedizione` — note per tessera, segnalini (le carte Minacce/Nemici e
     le tessere T1-T6 sono file immagine a parte, vedi `cards/` e `board/`)
   - `05-SOLUZIONE-non-aprire` — da stampare senza leggere e sigillare in busta!
+  - `06-Aiuto-Giocatore` — riepilogo regole da tavolo su una pagina
 - `cards/` — carte gioco pronte (Eroi, Nemici, Minacce, Luoghi, Indizi Nascosti)
 - `board/` — le 6 tessere T1-T6 della Spedizione, griglia+arredi+porte pronte
 - `reperti/` — documenti-reperto (diario, registro, atti d'archivio) da consegnare

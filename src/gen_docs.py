@@ -110,9 +110,11 @@ def regolamento():
                 '\u201cDisponibile dall\u2019inizio\u201d: quelle potete visitarle subito. Le altre indicano '
                 'la <b>parola chiave</b> o l\u2019<b>oggetto</b> che serve per sbloccarle.'))
     e.append(LI('Avete <b>8 ore</b>, dalle 18:00 alle 2:00: segnatele sul Taccuino. '
-                '<b>Ogni visita a un luogo costa 1 ora</b> (anche rivisitarlo). Il tempo non basta per tutto: '
-                'scegliete. L\u2019episodio pu\u00f2 legare eventi all\u2019orologio (luoghi che chiudono, '
-                'testimoni che spariscono): applicateli quando barrate l\u2019ora corrispondente.'))
+                '<b>Ogni visita a un luogo costa 1 ora</b> (anche rivisitarlo). Ogni ora conta: '
+                'alcuni luoghi vanno prima sbloccati, altri chiudono a un\u2019ora precisa \u2014 '
+                'pianificate l\u2019ordine delle visite e non sprecate ore su vicoli ciechi. '
+                'L\u2019episodio pu\u00f2 legare eventi all\u2019orologio: applicateli quando barrate '
+                'l\u2019ora corrispondente.'))
     e.append(LI('Per visitare un luogo, girate la carta e leggete ad alta voce testo e indizi. '
                 'Prendete appunti sul Taccuino: nomi, orari, parole chiave in MAIUSCOLO.'))
     e.append(LI('Quando trovate una <b>parola chiave</b> o un <b>oggetto</b>, potete da quel momento '
@@ -330,6 +332,62 @@ def soluzione():
     doc.build(e, onFirstPage=bg_cover, onLaterPages=bg)
 
 
+# ------------------------------------------------------------ AIUTO GIOCATORE
+def aiuto():
+    doc = SimpleDocTemplate(os.path.join(OUT_DIR, 'Ombre-su-Roccamora-06-Aiuto-Giocatore.pdf'),
+                            pagesize=A4, leftMargin=18*mm, rightMargin=18*mm,
+                            topMargin=16*mm, bottomMargin=14*mm,
+                            title='Ombre su Roccamora - Aiuto di gioco')
+    ref = ParagraphStyle('ref', parent=S['body'], fontSize=9.5, leading=12.5, spaceAfter=2)
+    li = ParagraphStyle('refli', parent=ref, leftIndent=12, bulletIndent=3, spaceAfter=1.5)
+
+    def RP(t):
+        return Paragraph(t, ref)
+
+    def RL(t):
+        return Paragraph(t, li, bulletText='•')
+
+    e = []
+    e.append(P('AIUTO DI GIOCO', 'title'))
+    e.append(P('Riepilogo da tavolo — una pagina. Le regole complete sono nel fascicolo 01.', 'subtitle'))
+    e.append(hr())
+
+    e.append(P('PROVE', 'h2'))
+    e.append(RP('<b>2d6 + caratteristica</b> (ACUME / VIGORE / NERVI) ≥ difficoltà.'))
+    e.append(RP('<b>Facile 7 • Media 9 • Difficile 11.</b> Ogni eroe: 1 solo ritento a episodio (Secondo Fiato).'))
+
+    e.append(P('TURNO DEGLI EROI — 2 azioni ciascuno (anche ripetute)', 'h2'))
+    e.append(RL('<b>Muovere</b> — fino a 4 caselle (Nino 5). Niente diagonali; non si attraversano nemici o mobili.'))
+    e.append(RL('<b>Attaccare</b> — nemico adiacente: <b>2d6 + VIGORE (+1 se armati) ≥ Difesa nemico</b> → 1 ferita.'))
+    e.append(RL('<b>Cercare</b> — ACUME Media: trovi ciò che la tessera nasconde (1 volta a tessera; ritentabile).'))
+    e.append(RL('<b>Interagire</b> — porte, grate, leve, liberare Ruggero. <b>Usare un oggetto</b> — come indicato.'))
+    e.append(RL('<b>Rianimare</b> — un eroe a terra adiacente torna a 2 Salute.'))
+    e.append(RP('Uscendo verso una tessera coperta, <b>rivelatela</b> e leggetene subito il testo.'))
+
+    e.append(P('FASE MINACCIA — pescate 1 carta ogni 2 eroi (arrot. eccesso)', 'h2'))
+    e.append(RP('<b>2 giocatori: 1 carta • 3–4: 2 carte • 5: 3 carte.</b> Leggete ad alta voce ed eseguite. '
+                'Mazzo esaurito: rimescolate gli scarti.'))
+
+    e.append(P('TURNO DEI NEMICI', 'h2'))
+    e.append(RP('Ognuno si muove verso l’<b>eroe in piedi</b> più vicino (ignorano gli eroi a terra e Ruggero). '
+                'Se adiacente attacca: <b>2d6 + Attacco ≥ Difesa eroe</b> → subisci il Danno indicato.'))
+
+    e.append(P('REGOLA D’ORO', 'h2'))
+    e.append(RP('In ogni ambiguità (uscite/eroi equidistanti, più bersagli) sceglie il gruppo, '
+                'prendendo sempre <b>l’opzione peggiore per sé</b>. Vale per tutta la spedizione.'))
+
+    e.append(P('OBIETTIVO E CANTO', 'h2'))
+    e.append(RL('<b>Vittoria:</b> aprire la cella (T6), liberare Ruggero e riportarlo alla Banchina (T1). '
+                'Ruggero si muove con voi (Mov. 4, non agisce).'))
+    e.append(RL('<b>Canto:</b> al <b>3° segnalino</b> si desta il Custode della Cera e da lì ogni fase '
+                'Minaccia pescate 1 carta in più. Ogni 4° round (4°, 8°...): +1 Canto automatico.'))
+    e.append(RL('<b>A 0 Salute</b> un eroe cade a terra (non agisce finché non rianimato). '
+                'Tutti a terra = episodio fallito.'))
+
+    doc.build(e, onFirstPage=bg, onLaterPages=bg)
+
+
 regolamento()
 soluzione()
+aiuto()
 print('OK docs')

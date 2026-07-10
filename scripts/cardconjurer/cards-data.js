@@ -182,13 +182,13 @@ const LUOGHI = [
     indizi: ['Bastiano Ferri è sparito da tre giorni. Sul banco, un diapason d’argento inciso con un’onda.',
              'Il registro consegne, ultima riga: «40 candele di cera nera — consegna al C.B., molo terzo, il vecchio deposito — pagato B.F.»',
              'Uno spartito: «Dal Profondo», riscritto per campane. In margine: «il bronzo canta, la pietra risponde, l’acqua ricorda».'],
-    nascosto: null },
+    nascosto: 'Nel camino, cenere di carta ancora tiepida. Un lembo si salva, grafia febbrile: «...non riesco più a fermarlo, il Coro canta anche senza di me. Che Dio perdoni ciò che ho svegliato. — B.»' },
   { n: 6, nome: 'Il Canale Basso', req: 'Serve: la parola chiave CHIATTA (Luogo 3)',
     testo: 'L’acqua qui non scorre: sta. Nera, ferma, densa come olio, lambisce magazzini ciechi dai portoni murati. Il guardiano notturno esce dal casotto con la lanterna alzata e, per qualche moneta, la diffidenza si scioglie in fretta: da settimane muore dalla voglia di raccontare a qualcuno quello che sente la notte.',
     indizi: ['«Le casse erano marchiate a fuoco con un’onda. Le hanno portate al vecchio Magazzino delle Cere, quello chiuso da vent’anni.»',
              '«Alle 3 di notte, da là dentro, viene un canto sommesso. Di molte voci. Una volta... ho sentito un urlo.»',
              'Sul molo: gocce di cera nera e un lucchetto nuovo di zecca sulla porta della banchina, di quelli a tre cifre.'],
-    nascosto: null },
+    nascosto: 'Il guardiano abbassa la voce. «Certe notti li ho visti entrare — un fornaio, un sagrestano, gente che saluto al mercato — e uscire all’alba con gli occhi vuoti, senza riconoscermi. Non erano più loro.»' },
   { n: 7, nome: 'L’Archivio Civico', req: 'Serve: la parola chiave SOMMERSO (Luogo 1)',
     testo: 'Scaffali fino al soffitto, cartelle legate con lo spago, la luce verde delle lampade a schermo. L’archivista, minuscolo dietro occhiali spessi, si irrigidisce quando pronunciate la parola giusta: poi, senza fiatare, vi guida a uno scaffale che nessuno tocca da decenni — la polvere è spessa un dito, tranne che su un solo fascicolo.',
     indizi: ['Fascicolo del 1741: la confraternita del Coro Sommerso, bandita per «pratiche contrarie a Dio e alla quiete delle acque». Si riuniva in cavità sotto la cattedrale, «dove l’acqua canta». Il suo sigillo: un’onda.',
@@ -211,7 +211,7 @@ const LUOGHI = [
 }));
 
 // Indizi Nascosti: solo i luoghi che hanno un vero Indizio nascosto nei dati
-// (oggi 1 e 4 — vedi src/gen_cards.py). Si legge solo se l'abilita' di un
+// (oggi 1, 4, 5, 6 — vedi src/gen_cards.py). Si legge solo se l'abilita' di un
 // eroe lo permette (Elena: sempre; Ottone: una volta a episodio).
 const INDIZI = LUOGHI.filter((L) => L.nascosto).map((L) => ({
   art: L.art,
