@@ -120,8 +120,10 @@ def regolamento():
     e.append(LI('Quando trovate una <b>parola chiave</b> o un <b>oggetto</b>, potete da quel momento '
                 'visitare i luoghi che li richiedono.'))
     e.append(LI('Alcuni luoghi nascondono degli <b>Approfondimenti</b>: indizi extra che '
-                'emergono solo se un eroe presente sa come cavarli. Non servono mai a '
-                'rispondere alle 4 Domande \u2014 sono vantaggi, colore, conferme. Ogni eroe ha '
+                'emergono solo se un eroe presente sa come cavarli. <b>Almeno un dettaglio '
+                'decisivo per le 4 Domande emerge solo cos\u00ec</b> \u2014 qualsiasi Approfondimento va '
+                'bene, non importa quale o di chi: se l\u2019indagine finisce senza averne consultato '
+                'nemmeno uno, alcune risposte resteranno solo probabili, non certe. Ogni eroe ha '
                 'il suo modo:'))
     e.append(P('<b>Elena</b> \u2014 <b>Osservazione</b>: a ogni luogo che visita (senza limite). &nbsp; '
                '<b>Attilio</b> \u2014 <b>Referto</b>: esamina la scena (1 volta a episodio). &nbsp; '
@@ -249,6 +251,13 @@ def soluzione():
                "dove il culto fonde le candele nere e prepara il rituale."))
 
     e.append(P('LE 4 DOMANDE \u2014 RISPOSTE E VANTAGGI', 'h1'))
+    e.append(P('<b>Nota per chi arbitra:</b> ogni carta Approfondimento (Indizio Nascosto, Testimone '
+               'o Referto \u2014 qualunque, non importa quale) termina con lo stesso frammento, \u00abl\u2019Eco del '
+               'Coro\u00bb: rivela il nome esatto del nascondiglio (Domanda 1, oggi ammorbidito nell\u2019indizio '
+               'core del Luogo 6) e conferma che Ferri <i>guida</i> il culto, non solo vi \u00e8 coinvolto '
+               '(Domanda 2). Se il gruppo non ha consultato nessun Approfondimento in tutta l\u2019indagine, '
+               'giudicate con elasticit\u00e0 una risposta \u201cvicina\u201d (es. solo \u201cCanale Basso\u201d per la 1, o '
+               '\u201c\u00e8 coinvolto, forse capo\u201d per la 2) invece di considerarla sbagliata.', 'box'))
     rows = [
         ['#', 'Risposta esatta', 'Se avete risposto bene', 'Se avete sbagliato'],
         ['1', 'Ruggero \u00e8 tenuto nel Magazzino delle\nCere \u201cDellacqua\u201d, al Canale Basso.',
@@ -279,14 +288,16 @@ def soluzione():
     ]))
     e.append(t)
     e.append(P('Come sono deducibili: 1) registro consegne della Bottega + testimonianze di barcaiolo '
-               'e guardiano; 2) pagamento firmato \u201cB.F.\u201d, fascicolo d\u2019archivio consultato da '
-               'Ferri, la seconda chiave della cripta in mano sua, il diapason con l\u2019onda; '
-               '3) il diario di Ruggero (\u201ctre rintocchi, poi uno, poi cinque\u201d) confermato '
-               'dall\u2019inno n. 315; 4) lo spartito \u201cper campane\u201d e il sigillo a onda legano il '
-               'diapason al culto. Il \u201cC.B.\u201d del registro \u00e8 il Canale Basso: da solo non '
-               'basta, va incrociato col guardiano o con la mappa d\u2019archivio. Don Callisto e Tonio '
-               'sono false piste, e la sua acqua benedetta \u00e8 un\u2019esca: sul Custode non ha '
-               'alcun effetto.'))
+               'e guardiano indicano il Canale Basso, molo terzo \u2014 ma quale magazzino esattamente lo '
+               'dice solo l\u2019Eco del Coro (vedi nota sopra); 2) pagamento firmato \u201cB.F.\u201d, fascicolo '
+               'd\u2019archivio consultato da Ferri, la seconda chiave della cripta in mano sua, il diapason '
+               'con l\u2019onda lo implicano \u2014 che ne sia il capo e non solo un adepto (o un\u2019altra '
+               'vittima) lo conferma di nuovo solo l\u2019Eco del Coro; 3) il diario di Ruggero '
+               '(\u201ctre rintocchi, poi uno, poi cinque\u201d) confermato dall\u2019inno n. 315; 4) lo '
+               'spartito \u201cper campane\u201d e il sigillo a onda legano il diapason al culto. Il '
+               '\u201cC.B.\u201d del registro \u00e8 il Canale Basso: da solo non basta, va incrociato col '
+               'guardiano o con la mappa d\u2019archivio. Don Callisto e Tonio sono false piste, e la sua '
+               'acqua benedetta \u00e8 un\u2019esca: sul Custode non ha alcun effetto.'))
 
     e.append(P('PREPARAZIONE DELLA SPEDIZIONE', 'h1'))
     e.append(P('Disponete le tessere cos\u00ec (coperte, tranne T1). Le uscite sono stampate sui bordi:', 'body'))

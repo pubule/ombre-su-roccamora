@@ -199,7 +199,7 @@ const LUOGHI = [
     ] },
   { n: 6, nome: 'Il Canale Basso', req: 'Serve: la parola chiave CHIATTA (Luogo 3)',
     testo: 'L’acqua qui non scorre: sta. Nera, ferma, densa come olio, lambisce magazzini ciechi dai portoni murati. Il guardiano notturno esce dal casotto con la lanterna alzata e, per qualche moneta, la diffidenza si scioglie in fretta: da settimane muore dalla voglia di raccontare a qualcuno quello che sente la notte.',
-    indizi: ['«Le casse erano marchiate a fuoco con un’onda. Le hanno portate al vecchio Magazzino delle Cere, quello chiuso da vent’anni.»',
+    indizi: ['«Le casse erano marchiate a fuoco con un’onda. Le hanno portate in un vecchio magazzino sul canale, chiuso da vent’anni — ce ne sono tre o quattro uguali, al buio non saprei dirvi quale.»',
              '«Alle 3 di notte, da là dentro, viene un canto sommesso. Di molte voci. Una volta... ho sentito un urlo.»',
              'Sul molo: gocce di cera nera e un lucchetto nuovo di zecca sulla porta della banchina, di quelli a tre cifre.'],
     approfondimenti: [
@@ -237,10 +237,18 @@ const LUOGHI = [
 // Approfondimenti gated derivati dai luoghi. Osservazione+Presagio -> carta
 // "Indizio Nascosto" del luogo (una per luogo che ne ha, righe taggate per eroe).
 // Testimonianza -> mazzo Testimoni; Referto -> mazzo Referti. Tutte riusano l'arte
-// del luogo. I dorsi numerati (num luogo + tipo, in src/gen_gothic.py) permettono di
+// del luogo. I dorsi numerati (num luogo + tipo, generate-backs.js) permettono di
 // tenere un unico mazzo coperto e trovare la carta solo quando si visita quel luogo
 // con l'abilita' giusta: presenza e contenuto restano da scoprire.
 const TAG_INSIGHT = { Osservazione: 'Osservazione — Elena', Presagio: 'Presagio — Sibilla' };
+
+// Frammento identico appeso IN CODA a tutte e 14 le carte Approfondimento, qualunque
+// sia tipo/eroe: rende l'uso delle abilita' un requisito reale (non importa di chi).
+// Senza aver consultato NESSUN Approfondimento in tutta l'indagine, il nome esatto
+// del nascondiglio (Domanda 1) e la certezza che Ferri sia il capo, non solo
+// coinvolto (Domanda 2), restano solo probabili — vedi src/gen_cards.py ECO_DEL_CORO
+// e src/gen_docs.py soluzione() per la nota al Narratore.
+const ECO_DEL_CORO = 'Per un istante, chi scava davvero a fondo sente lo stesso sussurro, ovunque si trovi: «il Magazzino delle Cere che fu di Dellacqua — lì Bastiano Ferri guida ancora il canto.»';
 
 const INDIZI = LUOGHI.flatMap((L) => {
   const righe = L.approfondimenti.filter((a) => a.tipo === 'Osservazione' || a.tipo === 'Presagio');
@@ -250,7 +258,7 @@ const INDIZI = LUOGHI.flatMap((L) => {
     title: `Indizio Nascosto — ${L.nome}`,
     file: `Indizi/${L.nome}`,
     type: `Luogo ${L.n} · Osservazione (Elena) / Presagio (Sibilla)`,
-    rules: `{i}${righe.map((a) => `◆ (${TAG_INSIGHT[a.tipo]}) ${a.testo}`).join('\n')}{/i}`,
+    rules: `{i}${righe.map((a) => `◆ (${TAG_INSIGHT[a.tipo]}) ${a.testo}`).join('\n')}\n◆ (Eco del Coro) ${ECO_DEL_CORO}{/i}`,
   }];
 });
 
@@ -260,7 +268,7 @@ const TESTIMONI = LUOGHI.flatMap((L) =>
     title: `Testimone — ${a.soggetto}`,
     file: `Testimoni/${a.soggetto}`,
     type: `Luogo ${L.n} · Testimone — abilità sociale (Ottone/Carla)`,
-    rules: `{i}${a.testo}{/i}`,
+    rules: `{i}${a.testo}{/i}{divider}{i}✹ (Eco del Coro) ${ECO_DEL_CORO}{/i}`,
   })));
 
 const REFERTI = LUOGHI.flatMap((L) =>
@@ -269,7 +277,7 @@ const REFERTI = LUOGHI.flatMap((L) =>
     title: `Referto — ${a.soggetto}`,
     file: `Referti/${a.soggetto}`,
     type: `Luogo ${L.n} · Referto — il Medico (Attilio)`,
-    rules: `{i}${a.testo}{/i}`,
+    rules: `{i}${a.testo}{/i}{divider}{i}✹ (Eco del Coro) ${ECO_DEL_CORO}{/i}`,
   })));
 
 // Sottocartella per tipo, cosi' e' chiaro a colpo d'occhio se una carta e' la

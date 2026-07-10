@@ -66,9 +66,21 @@ HEROES = [
 
 # ================================================================= INDAGINE
 # Ogni luogo: `indizi` = core (sempre letti, sulla carta Luogo). `approfondimenti`
-# = bonus gated, ognuno {tipo, testo, [soggetto]}. Osservazione/Presagio finiscono
+# = gated, ognuno {tipo, testo, [soggetto]}. Osservazione/Presagio finiscono
 # sulla carta "Indizio Nascosto" del luogo; Referto/Testimonianza diventano carte
 # a sé (mazzi Referti/Testimoni), col titolo = soggetto.
+#
+# ECO_DEL_CORO: frammento identico che il generatore di carte (cards-data.js)
+# appende IN CODA a tutte e 14 le carte Approfondimento (Indizi/Testimoni/Referti),
+# qualunque sia il tipo o l'eroe che l'ha sbloccata. Rende l'uso delle abilità un
+# requisito reale (non importa di chi): senza aver consultato NESSUN Approfondimento
+# in tutta l'indagine, il nome esatto del nascondiglio (Domanda 1) e la certezza che
+# Ferri sia il capo e non solo coinvolto (Domanda 2) restano solo probabili, mai
+# certi — l'indizio core del Luogo 6 è stato ammorbidito apposta (non nomina più
+# il magazzino). Vedi gen_docs.py soluzione() per la nota al Narratore.
+ECO_DEL_CORO = ('Per un istante, chi scava davvero a fondo sente lo stesso sussurro, ovunque si '
+                 'trovi: «il Magazzino delle Cere che fu di Dellacqua — lì Bastiano Ferri guida '
+                 'ancora il canto.»')
 LUOGHI = [
     dict(n=1, nome='IL CAMPANILE DI SAN TEODORO', req='Disponibile dall’inizio',
          testo='La scala a chiocciola sale nel buio. In cima, la cella campanaria è in disordine: '
@@ -150,8 +162,9 @@ LUOGHI = [
     dict(n=6, nome='IL CANALE BASSO', req='Serve: la parola chiave CHIATTA (Luogo 3)',
          testo='Acqua nera e ferma, magazzini ciechi. Il guardiano notturno accetta di parlare per '
                'qualche moneta.',
-         indizi=['«Le casse erano marchiate a fuoco con un’<b>onda</b>. Le hanno portate al vecchio '
-                 '<b>Magazzino delle Cere</b>, quello chiuso da vent’anni.»',
+         indizi=['«Le casse erano marchiate a fuoco con un’<b>onda</b>. Le hanno portate in un vecchio '
+                 'magazzino sul canale, chiuso da vent’anni — ce ne sono tre o quattro uguali, al buio '
+                 'non saprei dirvi quale.»',
                  '«Alle 3 di notte, da là dentro, viene un canto sommesso. Di molte voci. Una volta... '
                  'ho sentito un urlo.»',
                  'Sul molo: gocce di cera nera e un lucchetto nuovo di zecca sulla porta della banchina, '
