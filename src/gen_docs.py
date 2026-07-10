@@ -7,20 +7,22 @@ from reportlab.lib import colors
 from reportlab.lib.styles import ParagraphStyle
 from reportlab.platypus import (SimpleDocTemplate, Paragraph, Spacer,
                                 PageBreak, Table, TableStyle, HRFlowable)
-from deluxe_style import (register_fonts, parchment, rule_border, seal, F,
-                          INK, RED, TEAL, GOLD, PAPER_DK)
+from deluxe_style import (register_fonts, parchment_art, seal, F,
+                          INK, RED, RED_DK, TEAL, GOLD, SEPIA, PAPER_DK)
 
 OUT_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'pdf')
 register_fonts()
 PAPER = PAPER_DK
+TEXT_W = A4[0] - 44*mm  # = leftMargin+rightMargin di regolamento()/soluzione() (22mm ciascuno)
 
 
 def bg(canv, doc):
     canv.saveState()
-    parchment(canv, A4[0], A4[1], seed=11 + doc.page)
-    rule_border(canv, A4[0], A4[1])
-    canv.setFillColor(GOLD)
-    canv.setFont(F['sc'], 8)
+    parchment_art(canv, A4[0], A4[1])
+    canv.setStrokeColor(SEPIA); canv.setLineWidth(0.6)
+    canv.rect(9*mm, 9*mm, A4[0] - 18*mm, A4[1] - 18*mm)
+    canv.setFillColor(SEPIA)
+    canv.setFont(F['sc'], 7.5)
     canv.drawCentredString(A4[0]/2, 4.2*mm, 'ombre su roccamora \u00b7 societ\u00e0 del lume')
     canv.restoreState()
 
@@ -28,7 +30,7 @@ def bg(canv, doc):
 def bg_cover(canv, doc):
     bg(canv, doc)
     canv.saveState()
-    seal(canv, A4[0] - 32*mm, A4[1] - 34*mm, r=13*mm, angle=-14)
+    seal(canv, A4[0] - 22*mm, A4[1] - 20*mm, r=11*mm, angle=-14)
     canv.restoreState()
 
 
@@ -37,20 +39,46 @@ S['title'] = ParagraphStyle('t', fontName=F['sc'], fontSize=31, leading=36,
                             textColor=RED, alignment=1, spaceAfter=4)
 S['subtitle'] = ParagraphStyle('st', fontName=F['i'], fontSize=13.5, leading=18,
                                textColor=INK, alignment=1, spaceAfter=14)
-S['h1'] = ParagraphStyle('h1', fontName=F['sc'], fontSize=15, leading=19,
-                         textColor=RED, spaceBefore=14, spaceAfter=6)
+S['h1txt'] = ParagraphStyle('h1t', fontName=F['sc'], fontSize=13.5, leading=16,
+                            textColor=colors.HexColor('#f1e2b8'))
 S['h2'] = ParagraphStyle('h2', fontName=F['b'], fontSize=11, leading=14,
                          textColor=TEAL, spaceBefore=10, spaceAfter=3)
 S['body'] = ParagraphStyle('b', fontName=F['r'], fontSize=10.5, leading=14,
                            textColor=INK, spaceAfter=5, alignment=4)
 S['li'] = ParagraphStyle('li', parent=S['body'], leftIndent=14, bulletIndent=4, spaceAfter=3)
-S['box'] = ParagraphStyle('bx', parent=S['body'], backColor=PAPER, borderColor=GOLD,
+S['box'] = ParagraphStyle('bx', parent=S['body'], backColor=PAPER, borderColor=SEPIA,
                           borderWidth=0.9, borderPadding=7, spaceBefore=6, spaceAfter=8)
 S['warn'] = ParagraphStyle('w', fontName=F['sc'], fontSize=20, leading=26,
                            textColor=RED, alignment=1, spaceBefore=20, spaceAfter=20)
 
 
+def h1_bar(txt, width=TEXT_W):
+    """Banner rosso stile 5e per i titoli di sezione, al posto del semplice
+    testo colorato: piu' vicino al look 'manuale' chiesto."""
+    t = Table([[Paragraph(txt.lower(), S['h1txt'])]], colWidths=[width])
+    t.setStyle(TableStyle([
+        ('BACKGROUND', (0, 0), (-1, -1), RED_DK),
+        ('LINEABOVE', (0, 0), (-1, 0), 1.1, GOLD),
+        ('LINEBELOW', (0, 0), (-1, -1), 1.1, GOLD),
+        ('LEFTPADDING', (0, 0), (-1, -1), 9),
+        ('RIGHTPADDING', (0, 0), (-1, -1), 9),
+        ('TOPPADDING', (0, 0), (-1, -1), 4.2),
+        ('BOTTOMPADDING', (0, 0), (-1, -1), 4.2),
+    ]))
+    t.spaceBefore = 14
+    t.spaceAfter = 7
+    return t
+
+
+def dropcap(txt, size=20):
+    """Prima lettera ingrandita in rosso, stesso trucco gia' usato per la
+    lettera d'incarico in gen_gothic.py."""
+    return '<font name="%s" size="%d" color="#7a1f2b">%s</font>%s' % (F['sc'], size, txt[0], txt[1:])
+
+
 def P(txt, st='body'):
+    if st == 'h1':
+        return h1_bar(txt)
     return Paragraph(txt, S[st])
 
 
@@ -73,11 +101,11 @@ def regolamento():
     e.append(P('OMBRE SU ROCCAMORA', 'title'))
     e.append(P('Un gioco investigativo cooperativo a puntate \u2014 per 2\u20135 giocatori', 'subtitle'))
     e.append(hr())
-    e.append(P("Roccamora, 1889. Una citt\u00e0 di canali neri, campanili e vicoli che non figurano "
+    e.append(P(dropcap("Roccamora, 1889. Una citt\u00e0 di canali neri, campanili e vicoli che non figurano "
                "sulle mappe. Voi siete i membri della <b>Societ\u00e0 del Lume</b>, un piccolo circolo "
                "privato che indaga su ci\u00f2 che la gendarmeria preferisce non vedere. Ogni episodio "
                "\u00e8 un caso. Ogni caso risolto \u00e8 un frammento di un mistero pi\u00f9 grande, che "
-               "dorme sotto la citt\u00e0 dal 1741."))
+               "dorme sotto la citt\u00e0 dal 1741.")))
     e.append(P('COSA VI SERVE', 'h1'))
     e.append(LI('Questo regolamento e i PDF dell\u2019episodio, stampati (vedi \u201cCome stampare\u201d in fondo).'))
     e.append(LI('Due dadi a sei facce (2d6), una matita ciascuno.'))
@@ -240,7 +268,7 @@ def soluzione():
     e.append(PageBreak())
 
     e.append(P('LA VERIT\u00c0', 'h1'))
-    e.append(P("Il liutaio <b>Bastiano Ferri</b> ha riportato in vita la confraternita del "
+    e.append(P(dropcap("Il liutaio <b>Bastiano Ferri</b> ha riportato in vita la confraternita del "
                "<b>Coro Sommerso</b>, bandita nel 1741. Riparando l\u2019organo della cattedrale ha "
                "ottenuto la seconda chiave della cripta e ha scoperto i condotti che scendono verso "
                "il Canale Basso, \u201cdove l\u2019acqua canta\u201d. Ogni notte alle 3 il culto fa suonare le "
@@ -248,7 +276,7 @@ def soluzione():
                "pietra e <b>svegliano qualcosa che dorme sotto Roccamora</b>. Il campanaro Ruggero "
                "Alvise se n\u2019\u00e8 accorto, ha visto Ferri in cripta, ed \u00e8 stato rapito. \u00c8 tenuto "
                "prigioniero nel vecchio <b>Magazzino delle Cere \u201cDellacqua\u201d</b> sul Canale Basso, "
-               "dove il culto fonde le candele nere e prepara il rituale."))
+               "dove il culto fonde le candele nere e prepara il rituale.")))
 
     e.append(P('LE 4 DOMANDE \u2014 RISPOSTE E VANTAGGI', 'h1'))
     e.append(P('<b>Nota per chi arbitra:</b> ogni carta Approfondimento (Indizio Nascosto, Testimone '

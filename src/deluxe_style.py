@@ -4,11 +4,13 @@ import os
 import random
 from reportlab.lib.units import mm
 from reportlab.lib import colors
+from reportlab.lib.utils import ImageReader
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.pdfbase.pdfmetrics import registerFontFamily
 
 FONTS_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'fonts')
+ARTWORKS_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'artworks')
 
 INK = colors.HexColor("#33291f")
 RED = colors.HexColor("#7a1f2b")
@@ -33,6 +35,63 @@ def register_fonts():
         pdfmetrics.registerFont(TTFont('IMFellSC', os.path.join(FONTS_DIR, 'IMFellEnglishSC.ttf')))
     except Exception:
         F.update(r='Times-Roman', b='Times-Bold', i='Times-Italic', sc='Times-Bold')
+
+_art_cache = {}
+
+def art(name):
+    """Cached ImageReader for a file in artworks/ (by filename, no extension games)."""
+    if name not in _art_cache:
+        _art_cache[name] = ImageReader(os.path.join(ARTWORKS_DIR, name))
+    return _art_cache[name]
+
+def parchment_art(c, w, h, name='background manuale.png'):
+    """Full-bleed background using a real parchment texture artwork (instead of
+    the procedural parchment() blobs), with the same edge-darkening vignette."""
+    c.saveState()
+    c.drawImage(art(name), 0, 0, width=w, height=h, preserveAspectRatio=False, mask='auto')
+    for i, a in ((10*mm, 0.08), (5*mm, 0.10)):
+        c.setFillColor(EDGE); c.setFillAlpha(a)
+        c.rect(0, 0, w, i, fill=1, stroke=0); c.rect(0, h - i, w, i, fill=1, stroke=0)
+        c.rect(0, 0, i, h, fill=1, stroke=0); c.rect(w - i, 0, i, h, fill=1, stroke=0)
+    c.setFillAlpha(1)
+    c.restoreState()
+
+def _cover_image(c, img, x, y, w, h, focus_y=0.78, overscan=0.0):
+    """Draws img to fill (x,y,w,h) with no gaps, cropping overflow (CSS
+    background-size:cover). focus_y=1 keeps the top of the image (faces are
+    usually near the top of a bust portrait), 0 keeps the bottom. `overscan`
+    zooms in further beyond the tight cover-fit, so focus_y has real slack to
+    work with (a tight fit leaves ~0 margin: the subject ends up exactly on the
+    box edge, e.g. a head touching a jagged torn-paper cutout)."""
+    iw, ih = img.getSize()
+    scale = max(w / iw, h / ih) * (1 + overscan)
+    dw, dh = iw * scale, ih * scale
+    dx = x + (w - dw) / 2.0
+    dy = y + (h - dh) * focus_y if dh > h else y + (h - dh) / 2.0
+    c.drawImage(img, dx, dy, width=dw, height=dh, mask=None)
+
+def torn_portrait(c, w, h, portrait_name, torn_name, window=(0.50, 0.0, 1.03, 0.51)):
+    """Draws a hero portrait cover-fit to the torn window only (not the whole
+    page: covering the full page would zoom into a random crop, since the
+    window is much smaller than the page), then the torn-parchment sheet with
+    its transparent cutout on top: the portrait shows through the hole, almost
+    entirely visible, like a photo tucked under aged paper. `torn_name` must be
+    an RGBA png with a real alpha cutout (see
+    artworks/background scheda personaggio*.png). `window` is the cutout's
+    bounding box as page fractions (x0, y0, x1, y1), y measured from the
+    bottom; slightly oversized so the image bleeds past the torn edge."""
+    c.saveState()
+    x0, y0, x1, y1 = window
+    _cover_image(c, art(portrait_name), x0*w, y0*h, (x1-x0)*w, (y1-y0)*h,
+                focus_y=0.88, overscan=0.15)
+    c.drawImage(art(torn_name), 0, 0, width=w, height=h,
+               preserveAspectRatio=False, mask='auto')
+    for i, a in ((10*mm, 0.08), (5*mm, 0.10)):
+        c.setFillColor(EDGE); c.setFillAlpha(a)
+        c.rect(0, 0, w, i, fill=1, stroke=0); c.rect(0, h - i, w, i, fill=1, stroke=0)
+        c.rect(0, 0, i, h, fill=1, stroke=0); c.rect(w - i, 0, i, h, fill=1, stroke=0)
+    c.setFillAlpha(1)
+    c.restoreState()
 
 def parchment(c, w, h, seed=7):
     """Full-bleed aged paper background."""

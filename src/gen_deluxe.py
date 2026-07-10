@@ -11,7 +11,7 @@ from reportlab.pdfgen import canvas
 from reportlab.platypus import Paragraph, Frame, Spacer
 from reportlab.lib.styles import ParagraphStyle
 
-from deluxe_style import (register_fonts, parchment, rule_border, seal, F,
+from deluxe_style import (register_fonts, torn_portrait, rule_border, seal, F,
                           INK, RED, TEAL, PAPER_DK, GOLD, SEPIA)
 from gen_cards import HEROES, LUOGHI, MINACCE, NEMICI, TILES
 import story
@@ -47,11 +47,18 @@ def stat_box(c, x, y, w, label, value):
     c.restoreState()
 
 # ================================================================= SCHEDE
+# Ritratto eroe fuso nello strappo della pergamena (trasparenza reale nel png):
+# stessa arte usata per le carte Eroi. Solo la variante "2" (strappo in basso a
+# destra): l'altra invaderebbe nome/statistiche/abilità in alto, troppo densi.
+PORTRAIT = ['Elena.png', 'Attilio.png', 'Sibilla.png', 'Nino.png', 'Ottone.png', 'Carla.png']
+TORN_BG = 'background scheda personaggio 2.png'
+CUT_X = 105*mm  # bordo sinistro dello strappo trasparente: le righe da scrivere si fermano prima
+
 def schede():
     c = canvas.Canvas(os.path.join(OUT_DIR, 'Ombre-su-Roccamora-02-Schede-Personaggio.pdf'), pagesize=A4)
     c.setTitle('Ombre su Roccamora - Schede Personaggio')
     for pg, hro in enumerate(HEROES):
-        parchment(c, W, H, seed=40 + pg)
+        torn_portrait(c, W, H, PORTRAIT[pg], TORN_BG)
         rule_border(c, W, H)
         mx, mt = 20*mm, 20*mm
         c.setFillColor(RED); c.setFont(F['sc'], 23)
@@ -95,12 +102,12 @@ def schede():
         c.drawString(mx, y3, 'migliorie e oggetti di campagna')
         c.setStrokeColor(SEPIA); c.setLineWidth(0.5)
         for i in range(4):
-            c.line(mx, y3 - 8*mm - i*8*mm, W - mx, y3 - 8*mm - i*8*mm)
+            c.line(mx, y3 - 8*mm - i*8*mm, CUT_X, y3 - 8*mm - i*8*mm)
         y4 = y3 - 48*mm
-        c.setFillColor(TEAL); c.setFont(F['sc'], 10)
-        c.drawString(mx, y4, 'cicatrici (alla terza: −1 permanente a una caratteristica)')
+        c.setFillColor(TEAL); c.setFont(F['sc'], 9)
+        c.drawString(mx, y4, 'cicatrici (alla terza: -1 a una caratteristica)')
         for i in range(3):
-            c.line(mx, y4 - 8*mm - i*8*mm, W - mx, y4 - 8*mm - i*8*mm)
+            c.line(mx, y4 - 8*mm - i*8*mm, CUT_X, y4 - 8*mm - i*8*mm)
         c.showPage()
     c.save()
 
