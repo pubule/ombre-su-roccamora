@@ -247,7 +247,12 @@ const LUOGHI = [
     ] },
 ].map((L) => ({
   art: LUOGHI_ART[L.n],
-  title: L.nome,
+  // Il numero nel titolo e' l'unico posto dove compare sulla carta stessa: il
+  // campo `type` sotto NON viene disegnato dal frame Tokens/Marker Card usato
+  // (vedi vendor/cardconjurer/js/frames/packTokenMarker.js) - senza il numero
+  // qui, la carta Luogo non mostra mai il suo numero da nessuna parte, e non
+  // si puo' abbinare al dorso Approfondimenti corrispondente ("Luogo N").
+  title: `${L.n} · ${L.nome}`,
   file: `Luoghi/${L.n} - ${L.nome}`,
   type: `Luogo ${L.n} — ${L.req}`,
   rules: `{i}${L.testo}{/i}{divider}${L.indizi.map((c) => `◆ ${c}`).join('\n')}`,

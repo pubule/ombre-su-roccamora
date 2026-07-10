@@ -105,7 +105,12 @@ function plainBackCell(c, bgClass) {
 // carta (mazzo coperto: serve poter distinguere le carte dal dorso).
 function taggedBackCell(c, bgClass) {
   if (!c) return `<div class="card empty"></div>`;
+  // "LUOGO" + cifra grande, non "Luogo N" su una riga sola (troppo largo a
+  // dimensione leggibile): si abbina al numero ora stampato nel titolo di
+  // ogni carta Luogo (es. "6 · Il Canale Basso"). Mai il nome del luogo qui:
+  // rivelerebbe il contenuto, il mazzo deve restare coperto.
   return `<div class="card tagged ${bgClass}">
+    <div class="loc">Luogo</div>
     <div class="num">${c.n}</div>
     <div class="kind">${c.kind}</div>
   </div>`;
@@ -182,9 +187,11 @@ function deckSheets(deck, backCellFn, bgClass) {
       display: flex; flex-direction: column; align-items: center; justify-content: center;
       text-align: center; color: #d8b45a;
       font-family: ${titleFontUri ? "'Beleren', " : ''}Georgia, serif; }
-    .tagged .num { font-size: 22mm; line-height: 1; text-shadow: ${EMBOSS}; }
+    .tagged .loc { font-size: 6mm; letter-spacing: .6mm; text-transform: uppercase;
+      text-shadow: ${EMBOSS}; margin-bottom: 1mm; }
+    .tagged .num { font-size: 18mm; line-height: 1; text-shadow: ${EMBOSS}; }
     .tagged .kind { font-size: 5.5mm; letter-spacing: .6mm; text-transform: uppercase;
-      text-shadow: ${EMBOSS}; }
+      text-shadow: ${EMBOSS}; margin-top: 1mm; }
     ${bgRules}
   </style></head><body>${sheets}</body></html>`;
 
