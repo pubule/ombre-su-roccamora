@@ -69,11 +69,14 @@ def gold_border(c):
     corner_flourish(c, m2 + 1.5*mm, H - m2 - 1.5*mm, s, 270)
     c.restoreState()
 
-def dashed_rect(c, x, y, w, h, label):
+def dashed_rect_plain(c, x, y, w, h):
     c.saveState()
     c.setStrokeColor(GOLD); c.setLineWidth(1); c.setDash(4, 3)
     c.rect(x, y, w, h)
     c.restoreState()
+
+def dashed_rect(c, x, y, w, h, label):
+    dashed_rect_plain(c, x, y, w, h)
     c.setFillColor(GOLD); c.setFont(F['sc'], 9)
     c.drawCentredString(x + w/2, y - 6*mm, label.lower())
 
@@ -89,23 +92,37 @@ def tabellone():
     bg(c)
     gold_border(c)
 
-    # --- traccia del Canto: 3 caselle ---
+    # --- traccia del Canto: 3 caselle (fascia compatta in alto, per lasciare
+    # spazio alla zona tessere sotto) ---
     c.setFillColor(GOLD); c.setFont(F['sc'], 12)
-    c.drawCentredString(W/2, H - 55*mm, 'il canto')
-    cy = H - 78*mm
+    c.drawCentredString(W/2, H - 22*mm, 'il canto')
+    cy = H - 40*mm
     for i in range(3):
-        cx = W/2 + (i - 1) * 34*mm
-        dashed_circle(c, cx, cy, 13*mm)
+        cx = W/2 + (i - 1) * 28*mm
+        dashed_circle(c, cx, cy, 10*mm)
 
     # --- mazzo Minaccia + scarti ---
     c.setFillColor(GOLD); c.setFont(F['sc'], 12)
-    c.drawCentredString(W/2, H - 105*mm, 'minaccia')
+    c.drawCentredString(W/2, H - 62*mm, 'minaccia')
     gap = 15*mm
     total = 2*CARD_W + gap
     x0 = (W - total) / 2
-    y0 = H - 118*mm - CARD_H
+    y0 = H - 70*mm - CARD_H
     dashed_rect(c, x0, y0, CARD_W, CARD_H, 'mazzo')
     dashed_rect(c, x0 + CARD_W + gap, y0, CARD_W, CARD_H, 'scarti')
+
+    # --- zona tessere: generica/libera, nessuna sagoma - solo un'area
+    # dedicata dove posare le tessere man mano che si rivelano. Le tessere
+    # (130mm) possono sbordare oltre il bordo tratteggiato: non e' un
+    # contenitore rigido, e' solo un punto di riferimento visivo. ---
+    m2 = 9.5*mm
+    tess_bottom = 22*mm
+    tess_top = y0 - 26*mm
+    tess_x = m2 + 5*mm
+    tess_w = W - 2*tess_x
+    c.setFillColor(GOLD); c.setFont(F['sc'], 12)
+    c.drawCentredString(W/2, tess_top + 6*mm, 'tessere')
+    dashed_rect_plain(c, tess_x, tess_bottom, tess_w, tess_top - tess_bottom)
 
     c.setFillColor(CREMA); c.setFillAlpha(0.7); c.setFont(F['i'], 8.5)
     c.drawCentredString(W/2, 12*mm, 'ombre su roccamora · società del lume — tabellone riusabile, tutte le tessere si posano libere')
