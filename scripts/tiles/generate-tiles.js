@@ -112,8 +112,8 @@ function html(tile) {
     const styles = {
       N: `left:${idx * cell}px; top:0px; width:${cell}px; height:26px;`,
       S: `left:${idx * cell}px; top:${S - 26}px; width:${cell}px; height:26px;`,
-      E: `left:${S - 26}px; top:${idx * cell}px; width:26px; height:${cell};`,
-      O: `left:0px; top:${idx * cell}px; width:26px; height:${cell};`,
+      E: `left:${S - 26}px; top:${idx * cell}px; width:26px; height:${cell}px;`,
+      O: `left:0px; top:${idx * cell}px; width:26px; height:${cell}px;`,
     };
     const labelPos = {
       N: `left:${idx * cell + cell / 2}px; top:${64}px;`,
