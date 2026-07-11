@@ -73,7 +73,7 @@ un solo testo) senza rilanciare tutto il resto.
 ## Rigenerare i PDF
 
 ```bash
-pip install reportlab
+pip install reportlab pypdf
 ./fetch_fonts.sh
 cd src
 # i sorgenti cercano i font in /home/claude/fonts: adegua i percorsi in
