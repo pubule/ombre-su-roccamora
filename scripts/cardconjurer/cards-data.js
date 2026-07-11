@@ -161,8 +161,12 @@ const MINACCE = [
     effect: 'L’eroe con meno NERVI (a pari merito: sceglie il gruppo) prova NERVI (Media): se fallisce subisce 1 danno dal terrore.' },
 ].map((m) => ({
   art: m.art,
-  title: m.title,
-  type: `Minaccia — ${m.tipo}`,
+  // Il campo "type" di Card Conjurer non e' mai apparso su nessuna carta di
+  // questo progetto (nemmeno sui Nemici, che pure lo valorizzano da tempo:
+  // fillTextArea('Type', ...) in lib.js non trova il relativo pulsante sul
+  // frame "Marker Card" e fallisce in silenzio) - il tipo va nel titolo
+  // stesso, che quello slot funziona di sicuro.
+  title: `${m.tipo} — ${m.title}`,
   file: `Episodio 1/Minacce/${m.title}`,
   rules: `{i}${m.flavor}{/i}{divider}${m.effect}`,
 }));
