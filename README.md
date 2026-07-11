@@ -15,9 +15,10 @@ in una città immaginaria di canali e campanili nel 1889. Unisce indagine alla
       Indizio Nascosto sono immagini a parte, vedi `cards/`)
     - `Spedizione` — note per tessera, segnalini (le carte Minacce/Nemici e le
       tessere T1-T6 sono file immagine a parte, vedi `cards/` e `board/`)
-    - `Luoghi` — riferimenti per chi arbitra: quale carta Approfondimento/Oggetto
-      prendere per ogni luogo/tessera (le carte stesse non lo dicono, per non
-      far barare i giocatori e restare riusabili tra episodi)
+    - `Luoghi` — per chi arbitra: una pagina per luogo/tessera con descrizione
+      estesa e sensoriale della scena (da leggere o improvvisare a voce) e quale
+      carta Approfondimento/Oggetto prendere (le carte stesse non lo dicono, per
+      non far barare i giocatori e restare riusabili tra episodi)
     - `Soluzione (non aprire)` — da stampare senza leggere e sigillare in busta!
 - `cards/` — carte gioco pronte (Eroi, Nemici, Minacce, Luoghi, Indizi Nascosti,
   Testimoni, Referti, Oggetti)

@@ -61,8 +61,13 @@ Facile 7 · Media 9 · Difficile 11. Ogni eroe ha 1 "Secondo fiato" (ritenta) a 
    qualsiasi del luogo presente, o intuisce dove cercarne uno (1/episodio) · **Nino** =
    Accesso, entra in un luogo bloccato senza requisiti (1/episodio — non produce una
    carta, unico eroe così). Le carte (Indizio Nascosto / Testimone / Referto) stanno in un
-   **unico mazzo coperto**: il dorso mostra solo **numero del luogo + tipo**, mai il
-   contenuto, così i giocatori non sanno in anticipo dove si nasconde qualcosa. Tecnica
+   **unico mazzo coperto**: il dorso mostra **solo il tipo** (mai il numero del luogo, né
+   qualunque altro riferimento a un luogo/tessera specifico — sulle carte stesse, fronte
+   o retro, non deve mai comparire), così i giocatori non sanno in anticipo dove si
+   nasconde qualcosa né possono dedurlo sfogliando il mazzo, e le carte restano riusabili
+   tra episodi. Il legame carta↔luogo/tessera (quale carta prendere quando un eroe sblocca
+   quel tipo in quel luogo) vive **solo** in `pdf/Episodio N/Luoghi.pdf` (vedi Bibbia
+   Visiva), mai su una carta. Tecnica
    dell'**Eco condivisa**: **non un frammento unico e identico** (nell'Ep. 1 lo era e
    suonava ripetitivo, sistemato dopo) ma una **famiglia di 3-4 varianti** a rotazione
    (es. per numero di luogo), appese in coda a ogni carta Approfondimento dell'episodio.
@@ -238,11 +243,28 @@ Tyrlov) per le carte e **mappa a china su pergamena** per le tessere.
   scannerizzabile a colpo d'occhio) sono comuni a tutta la campagna. Ogni episodio
   ha una sua sottocartella `pdf/Episodio N/`: `Indagine` (lettera d'incarico +
   taccuino), `Spedizione` (note tessera + segnalini), `Luoghi` (riferimenti per
-  chi arbitra: quale carta Approfondimento/Oggetto prendere per ogni luogo/
-  tessera — vedi `src/gen_narrator.py`, stile scheda personaggio con arte del
-  luogo nello strappo), `Soluzione (non aprire)` (sigillata, con avvertimento
-  iniziale). Le carte stesse (dorso Approfondimenti, titolo Oggetti) non
-  mostrano MAI il luogo/tessera d'origine, solo `Luoghi.pdf` lo dice.
+  chi arbitra), `Soluzione (non aprire)` (sigillata, con avvertimento iniziale).
+  Le carte stesse (dorso Approfondimenti, titolo Oggetti) non mostrano MAI il
+  luogo/tessera d'origine, solo `Luoghi.pdf` lo dice.
+- **`Luoghi.pdf` (`src/gen_narrator.py`):** una pagina per luogo più le tessere
+  che nascondono un oggetto da Cercare. Stile scheda personaggio: arte del
+  luogo/tessera fusa nello strappo trasparente reale di
+  `artworks/background scheda personaggio.png` (la variante con lo strappo **in
+  alto**, per opporsi visivamente alle schede eroe che usano quella in basso —
+  vedi `torn_portrait(..., window=WINDOW_TOP)`), con numero/nome in alto a
+  sinistra dell'arte e sotto, nella stessa colonna, una **descrizione densa e
+  coinvolgente** della scena — non il testo terso della carta Luogo/Tessera, ma
+  una versione più estesa e sensoriale (suoni, odori, temperatura, un dettaglio
+  che stona), pensata per essere letta o improvvisata a voce da chi arbitra:
+  stessi fatti e stesse battute di dialogo della carta, mai nuove informazioni
+  o contraddizioni. Per le tessere con una regola in chiaro (prove NERVI,
+  apparizioni) la frase meccanica va mantenuta **verbatim** dentro il testo
+  arricchito, non riscritta. La colonna si auto-adatta in altezza (riduce il
+  font finché non entra, vedi `fit_desc()`) così si può scrivere quanto serve
+  senza contare le righe a mano. Sotto la riga separatrice, a piena larghezza,
+  l'elenco essenziale — solo `Tipo — carta "Titolo"` per ogni Approfondimento/
+  Oggetto di quel luogo/tessera, mai il loro contenuto: quello lo dice la carta
+  stessa una volta trovata.
 - **Tipi di carta completi (mazzi separati, ognuno la sua sottocartella in `cards/`):**
   Eroi, Nemici, Minacce, Luoghi, Indizi Nascosti, Testimoni, Referti, **Oggetti**. Luoghi
   e Indizi Nascosti riusano la stessa arte (stesso soggetto, due carte); Testimoni/Referti
@@ -251,7 +273,8 @@ Tyrlov) per le carte e **mappa a china su pergamena** per le tessere.
   `node scripts/cardconjurer/generate-batch.js <gruppo>` (vedi `README.md` per la lista
   gruppi aggiornata).
 - Tecnica: Python + reportlab, grafica vettoriale (sorgenti di riferimento nel repo:
-  `src/deluxe_style.py`, `src/ornaments.py`, `src/gen_gothic.py`, `src/gen_docs.py`).
+  `src/deluxe_style.py`, `src/ornaments.py`, `src/gen_gothic.py`, `src/gen_docs.py`,
+  `src/gen_deluxe.py`, `src/gen_narrator.py`).
   Illustrazioni raster generate con AI (vedi `PROMPT-MIDJOURNEY.md`) vanno inserite come
   arte di sfondo delle carte (cardconjurer) o come quadro/ritratto nei documenti,
   mantenendo cornici e testo vettoriali sopra.
@@ -273,6 +296,16 @@ Ogni testo deve far *vedere* la scena, non riassumerla. Regole:
 - **Tessere:** 2–3 frasi sensoriali sul luogo, poi l'eventuale regola in chiaro
   (prove, apparizioni) scritta in tono da regolamento. Non superare ~15 righe
   misurate a 8.3pt su 116mm di larghezza.
+- **`Luoghi.pdf` (chi arbitra, non i giocatori):** stessi fatti e battute della
+  carta Luogo/Tessera, ma **molto più estesi e sensoriali** — qui lo spazio non
+  è tirato, la colonna si auto-adatta, quindi si scrive un quadro pieno: non solo
+  odore/suono/temperatura ma anche un piccolo dettaglio che si muove o cambia
+  durante la scena (un'ombra, un rumore che si ferma quando ci si ferma, una
+  mano che trema), utile a chi arbitra per improvvisare risposte alle domande
+  dei giocatori. Mai una nuova informazione o un indizio che non sia già sulla
+  carta: solo più aria attorno agli stessi fatti. Le eventuali regole in chiaro
+  (prove NERVI, danni, apparizioni) restano **testo verbatim**, mai
+  parafrasate: sono meccanica, non atmosfera.
 - **Schede eroe:** sezione «Chi sei» di 3 frasi: origine, ferita o svolta che li
   ha portati alla Società, un tratto o una battuta che li definisce. Niente
   elenchi: prosa in corsivo, seconda o terza persona coerente con le esistenti.
@@ -312,7 +345,8 @@ Ogni testo deve far *vedere* la scena, non riassumerla. Regole:
       Approfondimento, con la tecnica dell'Eco condivisa (stesso frammento su ogni carta)?
 - [ ] Ogni eroe ha il suo verbo in Indagine (Elena/Attilio/Ottone+Carla/Sibilla/Nino) e
       qualunque coppia plausibile di eroi può sbloccare almeno un Approfondimento?
-- [ ] Il mazzo Approfondimenti ha dorsi con solo numero-luogo + tipo (mai il contenuto)?
+- [ ] Il mazzo Approfondimenti ha dorsi con SOLO il tipo (mai il numero del luogo né il
+      contenuto)? Le carte Oggetto hanno solo il nome (mai il luogo/tessera d'origine)?
 - [ ] Ogni oggetto trovabile (Indagine o Cercare) ha una carta Oggetto con arte dedicata,
       flavor breve ed effetto copiato 1:1 dalla fonte? C'è almeno un oggetto-esca?
 - [ ] Ci sono false piste che reggono ma vengono smontate da un indizio trovabile?
@@ -334,6 +368,9 @@ Ogni testo deve far *vedere* la scena, non riassumerla. Regole:
 - [ ] Tutti i testi rispettano la bibbia di scrittura (flavor sulle Minacce,
       quadri sensoriali sui Luoghi, «Chi sei» sugli eroi) e stanno nei riquadri?
 - [ ] Il file PDF 06 (Aiuto-Giocatore) è aggiornato e sta ancora su una sola pagina?
+- [ ] `Luoghi.pdf` esiste per il nuovo episodio, con una pagina per luogo (più le
+      tessere che nascondono un oggetto) e descrizioni dense e coinvolgenti (non il
+      testo terso della carta) per ognuno, elenco Approfondimenti/Oggetto corretto?
 
 ---
 

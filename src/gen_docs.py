@@ -155,10 +155,12 @@ def regolamento():
                 'bene, non importa quale o di chi: se l\u2019indagine finisce senza averne consultato '
                 'nemmeno uno, alcune risposte resteranno solo probabili, non certe.'))
     e.append(P('Sono <b>3 mazzi di carte fisiche</b>, tenuti insieme in un <b>unico mazzo coperto</b> '
-               '(il dorso mostra solo <b>numero del luogo + tipo</b>, mai il contenuto): quando '
-               'visitate un luogo e un eroe presente sblocca quel tipo, cercate nel mazzo la carta '
-               'corrispondente e leggetela. Se non c\u2019\u00e8, quel luogo non ne ha \u2014 cos\u00ec non sapete in '
-               'anticipo dove si nasconde qualcosa.', 'body'))
+               '(il dorso mostra solo il <b>tipo</b>, mai il luogo, cos\u00ec le carte restano '
+               'irriconoscibili e riusabili tra episodi): quando visitate un luogo e un eroe presente '
+               'sblocca quel tipo, chi tiene il fascicolo <b>Luoghi</b> (non contiene risposte, solo '
+               'l\u2019elenco di quale carta corrisponde a quale luogo) controlla il titolo e vi passa la '
+               'carta corrispondente dal mazzo. Se il luogo non \u00e8 nell\u2019elenco, non ne ha \u2014 cos\u00ec '
+               'non sapete in anticipo dove si nasconde qualcosa.', 'body'))
     e.append(LI('<b>Indizio Nascosto</b> \u2014 un dettaglio in pi\u00f9 sulla scena. Lo sblocca <b>Elena</b> '
                 '(Osservazione, a ogni luogo, senza limite) oppure <b>Sibilla</b> (Presagio, jolly: '
                 'un Approfondimento qualsiasi del luogo presente, o intuisce dove cercarne uno \u2014 '
@@ -172,12 +174,12 @@ def regolamento():
                 'bloccato senza parola chiave n\u00e9 oggetto, 1 volta a episodio \u2014 \u00e8 un ingresso '
                 'anticipato, non un Approfondimento.'))
     e.append(P('<b>Esempio:</b> il gruppo visita il Luogo 1 (Campanile) con Elena presente. Girate '
-               'la carta, leggete testo e i 3 indizi core \u2014 sempre, a chiunque. Poich\u00e9 Elena c\u2019\u00e8, '
-               'cercate subito nel mazzo Approfondimenti la carta col dorso \u201c1 \u00b7 Indizio\u201d: se '
-               'esiste (qui esiste), leggetela ad alta voce. Pi\u00f9 tardi il gruppo visita il Luogo 2 '
-               '(Bice) con Ottone: offrendogli da bere, cercate la carta col dorso \u201c2 \u00b7 Testimone\u201d '
-               'e leggetela. Se un luogo non ha la carta del tipo cercato, semplicemente non c\u2019\u00e8 '
-               'nulla da trovare l\u00ec per quell\u2019eroe.', 'box'))
+               'la carta, leggete testo e i 3 indizi core \u2014 sempre, a chiunque. Poich\u00e9 Elena c\u2019\u00e8, chi '
+               'tiene il fascicolo Luoghi controlla la voce \u201cLuogo 1\u201d: c\u2019\u00e8 un Indizio Nascosto, prende '
+               'dal mazzo coperto la carta di quel tipo e la legge ad alta voce. Pi\u00f9 tardi il gruppo '
+               'visita il Luogo 2 (Bice) con Ottone: offrendogli da bere, si controlla di nuovo il '
+               'fascicolo, si trova un Testimone e si prende quella carta. Se un luogo non \u00e8 in elenco '
+               'per quel tipo, semplicemente non c\u2019\u00e8 nulla da trovare l\u00ec per quell\u2019eroe.', 'box'))
     e.append(LI('<b>Reperti</b> \u2014 nessuna azione o prova in pi\u00f9: si ottengono semplicemente '
                 'visitando il luogo, come qualsiasi indizio core. Quando un indizio, sulla carta '
                 'stessa, riporta tra parentesi <i>(Reperto X: consegnate...)</i>, non limitatevi a '
@@ -305,18 +307,24 @@ def regolamento():
                "in gruppo)."))
 
     e.append(P('COME STAMPARE', 'h1'))
-    e.append(LI('<b>01 Regolamento</b> e <b>05 Soluzione</b>: fronte/retro normale. Sigillate la Soluzione in una busta!'))
-    e.append(LI('<b>02 Schede</b>: una per giocatore, meglio su cartoncino.'))
-    e.append(LI('<b>03 Indagine</b>: carte Luogo su cartoncino, ritagliate lungo i bordi. Il Taccuino su carta normale.'))
-    e.append(LI('<b>Approfondimenti</b> (Indizi Nascosti, Testimoni, Referti) su cartoncino; stampate il '
-                'foglio dei <b>dorsi numerati</b> sul retro (07) e tenete le carte in un unico mazzo coperto.'))
-    e.append(LI('<b>04 Spedizione</b>: tessere, carte Minaccia e segnalini su cartoncino; ritagliate tutto.'))
+    e.append(LI('<b>Regolamento</b> (questo fascicolo) e <b>Soluzione</b> (in <i>Episodio 1/</i>): '
+                'fronte/retro normale. Sigillate la Soluzione in una busta!'))
+    e.append(LI('<b>Schede</b>: una per giocatore, meglio su cartoncino.'))
+    e.append(LI('<b>Indagine</b> (in <i>Episodio 1/</i>): carte Luogo su cartoncino, ritagliate lungo i '
+                'bordi. Il Taccuino su carta normale.'))
+    e.append(LI('<b>Approfondimenti</b> (Indizi Nascosti, Testimoni, Referti) su cartoncino, dorso '
+                'anonimo (solo il tipo) sul retro: tenete le carte in un unico mazzo coperto.'))
+    e.append(LI('<b>Spedizione</b> (in <i>Episodio 1/</i>): tessere, carte Minaccia e segnalini su '
+                'cartoncino; ritagliate tutto.'))
     e.append(LI('<b>Oggetti</b>: carte su cartoncino, tenute in un mazzetto a parte. Quando trovate '
                 'un oggetto (in Indagine o Cercando in Spedizione) prendete la carta corrispondente: '
                 'da quel momento è fisicamente nelle mani di chi lo porta.'))
     e.append(LI('<b>Reperti</b> (cartella `reperti/`): 2–3 documenti su carta normale, a colori se '
                 'potete. Teneteli da parte, coperti, e consegnateli quando il gruppo trova l’indizio '
                 'corrispondente (vedi sopra).'))
+    e.append(LI('<b>Luoghi</b> (in <i>Episodio 1/</i>): non si stampa per i giocatori — è per chi tiene '
+                'il mazzo coperto degli Approfondimenti, da consultare al bisogno durante l’Indagine. '
+                'Non contiene le risposte alle 4 Domande, solo quale carta prendere per quale luogo.'))
     e.append(Spacer(1, 8))
     e.append(P('Episodio 1: <b>Il caso del campanaro scomparso</b>. Quando siete pronti, leggete la '
                'Lettera d\u2019incarico nel fascicolo Indagine. Buona fortuna \u2014 e non fidatevi della '
