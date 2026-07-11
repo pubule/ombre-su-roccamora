@@ -140,7 +140,7 @@ function html(tile) {
     body { width:${S}px; height:${S}px; }
     .stage { position:relative; width:${S}px; height:${S}px; overflow:hidden; }
     .stage img.art { position:absolute; inset:0; width:${S}px; height:${S}px; object-fit:cover; }
-    .dim { position:absolute; inset:0; background:rgba(0,0,0,0.65); }
+    .dim { position:absolute; inset:0; background:rgba(0,0,0,0.75); }
     .cell { position:absolute; border:2px solid rgba(230,195,120,0.55); box-sizing:border-box; }
     .arredo { position:absolute; border-radius:6px; border:2px solid rgba(230,195,120,0.9);
               box-shadow:0 4px 10px rgba(0,0,0,0.6); background-size:cover; background-position:center; }
