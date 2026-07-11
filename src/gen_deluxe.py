@@ -11,7 +11,7 @@ from reportlab.pdfgen import canvas
 from reportlab.platypus import Paragraph, Frame, Spacer
 from reportlab.lib.styles import ParagraphStyle
 
-from deluxe_style import (register_fonts, torn_portrait, rule_border, seal, F,
+from deluxe_style import (register_fonts, torn_portrait, rule_border, pad_to_even_pages, seal, F,
                           INK, RED, TEAL, PAPER_DK, GOLD, SEPIA)
 from gen_cards import HEROES, LUOGHI, MINACCE, NEMICI, TILES
 import story
@@ -55,7 +55,8 @@ TORN_BG = 'background scheda personaggio 2.png'
 CUT_X = 105*mm  # bordo sinistro dello strappo trasparente: le righe da scrivere si fermano prima
 
 def schede():
-    c = canvas.Canvas(os.path.join(OUT_DIR, 'Ombre-su-Roccamora-02-Schede-Personaggio.pdf'), pagesize=A4)
+    out_path = os.path.join(OUT_DIR, 'Ombre-su-Roccamora-02-Schede-Personaggio.pdf')
+    c = canvas.Canvas(out_path, pagesize=A4)
     c.setTitle('Ombre su Roccamora - Schede Personaggio')
     for pg, hro in enumerate(HEROES):
         torn_portrait(c, W, H, PORTRAIT[pg], TORN_BG)
@@ -110,6 +111,7 @@ def schede():
             c.line(mx, y4 - 8*mm - i*8*mm, CUT_X, y4 - 8*mm - i*8*mm)
         c.showPage()
     c.save()
+    pad_to_even_pages(out_path)
 
 if __name__ == '__main__':
     schede()

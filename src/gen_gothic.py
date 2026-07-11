@@ -16,7 +16,7 @@ from reportlab.pdfgen import canvas
 from reportlab.platypus import Paragraph, Frame, Spacer
 from reportlab.lib.styles import ParagraphStyle
 
-from deluxe_style import (register_fonts, parchment_art, rule_border, seal, wave,
+from deluxe_style import (register_fonts, parchment_art, pad_to_even_pages, rule_border, seal, wave,
                           art, _cover_image, F, INK, RED, TEAL, GOLD as OGOLD, SEPIA)
 from ornaments import GOLD_L, BONE
 from gen_cards import LUOGHI, MINACCE, NEMICI, TILES, HEROES
@@ -44,7 +44,8 @@ def frame_flow(c, x, y, w, h, flow):
 
 # ------------------------------------------------------------------ INDAGINE
 def indagine():
-    c = canvas.Canvas(os.path.join(OUT_DIR, 'Indagine.pdf'), pagesize=A4)
+    out_path = os.path.join(OUT_DIR, 'Indagine.pdf')
+    c = canvas.Canvas(out_path, pagesize=A4)
     c.setTitle('Ombre su Roccamora - Episodio 1 - Indagine')
     # lettera d'incarico (pergamena, invariata nello spirito)
     parchment_art(c, W, H)
@@ -105,10 +106,12 @@ def indagine():
         c.line(16*mm, yd - 7*mm, W - 16*mm, yd - 7*mm)
     c.showPage()
     c.save()
+    pad_to_even_pages(out_path)
 
 # ---------------------------------------------------------------- SPEDIZIONE
 def spedizione():
-    c = canvas.Canvas(os.path.join(OUT_DIR, 'Spedizione.pdf'), pagesize=A4)
+    out_path = os.path.join(OUT_DIR, 'Spedizione.pdf')
+    c = canvas.Canvas(out_path, pagesize=A4)
     c.setTitle('Ombre su Roccamora - Episodio 1 - Spedizione')
     # copertina/nota: Minacce, Nemici e tessere T1-T6 sono immagini a se' stanti
     parchment_art(c, W, H)
@@ -143,6 +146,7 @@ def spedizione():
     token_sheet(c)
     registro_ferite(c)
     c.save()
+    pad_to_even_pages(out_path)
 
 MINI = 50*mm  # tessera 200mm / griglia 4x4: minimo richiesto per muovere comodo i token
 MINI_GAP = 3*mm

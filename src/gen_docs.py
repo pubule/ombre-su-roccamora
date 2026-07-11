@@ -7,7 +7,7 @@ from reportlab.lib import colors
 from reportlab.lib.styles import ParagraphStyle
 from reportlab.platypus import (SimpleDocTemplate, Paragraph, Spacer,
                                 PageBreak, Table, TableStyle, HRFlowable)
-from deluxe_style import (register_fonts, parchment_art, seal, F,
+from deluxe_style import (register_fonts, parchment_art, pad_to_even_pages, seal, F,
                           INK, RED, RED_DK, TEAL, GOLD, SEPIA, PAPER_DK)
 
 OUT_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'pdf')
@@ -340,6 +340,7 @@ def regolamento():
                'Lettera d\u2019incarico nel fascicolo Indagine. Buona fortuna \u2014 e non fidatevi della '
                'cera nera.', 'box'))
     doc.build(e, onFirstPage=bg_cover, onLaterPages=bg)
+    pad_to_even_pages(doc.filename)
 
 
 # ------------------------------------------------------------------ SOLUZIONE
@@ -476,6 +477,7 @@ def soluzione():
     e.append(P('Prossimo episodio: <b>Le voci del pozzo</b>. (Quando lo vorrete, tornate da chi vi '
                'ha costruito questo gioco e chiedete l\u2019Episodio 2.)'))
     doc.build(e, onFirstPage=bg_cover, onLaterPages=bg)
+    pad_to_even_pages(doc.filename)
 
 
 # ------------------------------------------------------------ AIUTO GIOCATORE

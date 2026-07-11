@@ -39,7 +39,7 @@ from reportlab.pdfgen import canvas
 from reportlab.platypus import Paragraph
 from reportlab.lib.styles import ParagraphStyle
 
-from deluxe_style import (register_fonts, parchment_art, rule_border, seal, wave,
+from deluxe_style import (register_fonts, parchment_art, pad_to_even_pages, rule_border, seal, wave,
                           art, _cover_image, torn_portrait, ARTWORKS_DIR,
                           F, INK, RED, TEAL, GOLD as OGOLD, SEPIA)
 from ornaments import GOLD_L
@@ -189,7 +189,8 @@ MAZZO_P = ['Bravi sul Molo', 'Il Branco', 'Lama nel Buio',
 
 # ============================================================== INDAGINE
 def indagine():
-    c = canvas.Canvas(os.path.join(OUT_DIR, 'Indagine.pdf'), pagesize=A4)
+    out_path = os.path.join(OUT_DIR, 'Indagine.pdf')
+    c = canvas.Canvas(out_path, pagesize=A4)
     c.setTitle('Ombre su Roccamora - Preludio - Indagine')
     # lettera
     parchment_art(c, W, H)
@@ -254,10 +255,12 @@ def indagine():
         c.line(16*mm, yd - 7*mm, W - 16*mm, yd - 7*mm)
     c.showPage()
     c.save()
+    pad_to_even_pages(out_path)
 
 # ============================================================ SPEDIZIONE
 def spedizione():
-    c = canvas.Canvas(os.path.join(OUT_DIR, 'Spedizione.pdf'), pagesize=A4)
+    out_path = os.path.join(OUT_DIR, 'Spedizione.pdf')
+    c = canvas.Canvas(out_path, pagesize=A4)
     c.setTitle('Ombre su Roccamora - Preludio - Spedizione')
     parchment_art(c, W, H)
     rule_border(c, W, H)
@@ -315,6 +318,7 @@ def spedizione():
     c.showPage()
     registro_ferite(c)
     c.save()
+    pad_to_even_pages(out_path)
 
 def registro_ferite(c):
     parchment_art(c, W, H)
@@ -346,7 +350,8 @@ def registro_ferite(c):
 
 # ============================================================= SOLUZIONE
 def soluzione():
-    c = canvas.Canvas(os.path.join(OUT_DIR, 'Soluzione (non aprire).pdf'), pagesize=A4)
+    out_path = os.path.join(OUT_DIR, 'Soluzione (non aprire).pdf')
+    c = canvas.Canvas(out_path, pagesize=A4)
     c.setTitle('Ombre su Roccamora - Preludio - Soluzione')
     parchment_art(c, W, H)
     rule_border(c, W, H)
@@ -406,6 +411,7 @@ def soluzione():
                   'l’Indagine con 1 ora in più sul Taccuino)?', BODY)])
     c.showPage()
     c.save()
+    pad_to_even_pages(out_path)
 
 # ========================================================= LUOGHI (narratore)
 TIPO_LABEL = {'Osservazione': 'Indizio Nascosto', 'Presagio': 'Indizio Nascosto',
@@ -435,7 +441,8 @@ def luoghi():
         print('SALTO Luoghi.pdf: manca arte in artworks/:', ', '.join(missing))
         print('  (genera con i prompt della sezione Preludio in PROMPT-MIDJOURNEY.md)')
         return
-    c = canvas.Canvas(os.path.join(OUT_DIR, 'Luoghi.pdf'), pagesize=A4)
+    out_path = os.path.join(OUT_DIR, 'Luoghi.pdf')
+    c = canvas.Canvas(out_path, pagesize=A4)
     c.setTitle('Ombre su Roccamora - Preludio - Luoghi (riferimenti narratore)')
     ROW = st('row', fontSize=10.5, leading=15)
     NONE_ROW = st('none_row', fontName=F['i'], fontSize=9.5, leading=14, textColor=SEPIA)
@@ -472,6 +479,7 @@ def luoghi():
             y -= ph + 4*mm
         c.showPage()
     c.save()
+    pad_to_even_pages(out_path)
 
 if __name__ == '__main__':
     indagine()

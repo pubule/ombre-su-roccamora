@@ -22,7 +22,7 @@ from reportlab.pdfgen import canvas
 from reportlab.platypus import Paragraph
 from reportlab.lib.styles import ParagraphStyle
 
-from deluxe_style import register_fonts, torn_portrait, rule_border, F, INK, RED, TEAL, SEPIA
+from deluxe_style import register_fonts, torn_portrait, rule_border, pad_to_even_pages, F, INK, RED, TEAL, SEPIA
 from gen_cards import LUOGHI, TILES, OGGETTI
 import story
 story.apply(LUOGHI, TILES, [], [], [])
@@ -277,7 +277,8 @@ def body(c, rows):
         y -= ph + 4*mm
 
 def narratore():
-    c = canvas.Canvas(os.path.join(OUT_DIR, 'Luoghi.pdf'), pagesize=A4)
+    out_path = os.path.join(OUT_DIR, 'Luoghi.pdf')
+    c = canvas.Canvas(out_path, pagesize=A4)
     c.setTitle('Ombre su Roccamora - Episodio 1 - Luoghi (riferimenti narratore)')
 
     for L in LUOGHI:
@@ -297,6 +298,7 @@ def narratore():
         c.showPage()
 
     c.save()
+    pad_to_even_pages(out_path)
 
 if __name__ == '__main__':
     narratore()

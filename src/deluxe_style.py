@@ -80,6 +80,33 @@ def parchment_art(c, w, h, name='background manuale.png'):
     c.setFillAlpha(1)
     c.restoreState()
 
+def pad_to_even_pages(pdf_path, art_name='background manuale.png'):
+    """I fascicoli si stampano fronte/retro: con un numero dispari di pagine
+    l'ultimo foglio fisico ha il verso non stampato (bianco) invece della
+    texture pergamena di tutte le altre pagine. Se il conteggio e' dispari,
+    accoda una pagina di chiusura con la sola texture (nessun testo) cosi'
+    anche quel retro resta coerente col resto del fascicolo."""
+    from pypdf import PdfReader, PdfWriter
+    from reportlab.lib.pagesizes import A4
+    from reportlab.pdfgen import canvas as _canvas
+
+    reader = PdfReader(pdf_path)
+    if len(reader.pages) % 2 == 0:
+        return
+    buf = BytesIO()
+    c = _canvas.Canvas(buf, pagesize=A4)
+    parchment_art(c, A4[0], A4[1], name=art_name)
+    c.showPage()
+    c.save()
+    buf.seek(0)
+
+    writer = PdfWriter()
+    for page in reader.pages:
+        writer.add_page(page)
+    writer.add_page(PdfReader(buf).pages[0])
+    with open(pdf_path, 'wb') as f:
+        writer.write(f)
+
 def _cover_image(c, img, x, y, w, h, top_margin=0, overscan=0.0):
     """Draws img to fill (x,y,w,h) with no gaps, cropping overflow (CSS
     background-size:cover), leaving `top_margin` of empty space above the
