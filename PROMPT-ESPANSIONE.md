@@ -212,10 +212,22 @@ Tyrlov) per le carte e **mappa a china su pergamena** per le tessere.
   pannello pergamena interno per il testo; i loro dorsi sono rosso-notte con numero
   nel medaglione, i dorsi Minaccia verde-abisso con tripla onda. Le pagine dei dorsi
   seguono i fronti, specchiate in colonna, per la stampa fronte/retro sul lato lungo.
-- **Tessere (126 mm, griglia 4×4):** stile mappa disegnata a china su pergamena:
-  muri spessi a **doppia linea tremolante con tratteggio a 45°**, varchi porta nei
-  muri, ombre a **puntinato**, acqua stipplata con onde, arredi a china con ombra,
-  **rosa dei venti**, targa a nastro col nome, riquadro testo con bordo a china.
+- **Tessere (130 mm, griglia 4×4, casella 32,5 mm):** stile mappa disegnata a china
+  su pergamena: muri spessi a **doppia linea tremolante con tratteggio a 45°**,
+  varchi porta nei muri, ombre a **puntinato**, acqua stipplata con onde, arredi a
+  china con ombra, **rosa dei venti**, targa a nastro col nome, riquadro testo con
+  bordo a china.
+- **Miniature quadrate (32,5 mm, la taglia di una casella tessera):** al posto di
+  gettoni tondi astratti, eroi e nemici di truppa/boss usano il proprio ritratto
+  (stessa arte delle carte) ritagliato a quadrato — `token_sheet()` in
+  `src/gen_gothic.py`, stessa tecnica cover-fit di `deluxe_style._cover_image`
+  usata per lo strappo delle schede eroe, ma clippata invece che velata da un
+  bordo di pergamena. Solo le unità senza ritratto dedicato (l'NPC da salvare,
+  i segnalini Canto) restano gettoni tondi piccoli. Se un episodio introduce un
+  nuovo nemico con arte dedicata, aggiungilo a `token_sheet()`; se il crop
+  taglia male testa/soggetto, taralo in `MINI_CROP` (stesso principio di
+  `top_margin`/`overscan` delle schede — verifica sempre a video prima di
+  fissare i parametri, non tutti i ritratti si comportano uguale).
 - **Documenti (regolamento, soluzione, lettera, taccuino, schede, aiuto):** sfondo
   pergamena **reale** (`artworks/background manuale.png`, non più procedurale — un
   overlay procedurale di vignettatura ai bordi resta sopra per uniformità), cornice

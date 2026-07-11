@@ -14,10 +14,12 @@ in una città immaginaria di canali e campanili nel 1889. Unisce indagine alla
     - `Copertina` — poster dell'episodio (mappa della città, titolo e nome del gioco)
     - `Indagine` — lettera d'incarico, taccuino (le 8 carte Luogo e le carte
       Indizio Nascosto sono immagini a parte, vedi `cards/`)
-    - `Spedizione` — note per tessera, segnalini, Registro delle Ferite (foglio
-      riusabile per tracciare i colpi incassati dai nemici attivi, tenuto da
-      chi pesca il mazzo Minaccia — le carte Minacce/Nemici e le tessere T1-T6
-      sono file immagine a parte, vedi `cards/` e `board/`)
+    - `Spedizione` — note per tessera, miniature quadrate ritagliabili (ritratto
+      di eroe/nemico, taglia di una casella tessera — al posto di gettoni tondi
+      astratti), Registro delle Ferite (foglio riusabile per tracciare i colpi
+      incassati dai nemici attivi, tenuto da chi pesca il mazzo Minaccia — le
+      carte Minacce/Nemici e le tessere T1-T6 sono file immagine a parte, vedi
+      `cards/` e `board/`)
     - `Luoghi` — per chi arbitra: una pagina per luogo/tessera con descrizione
       estesa e sensoriale della scena (da leggere o improvvisare a voce) e quale
       carta Approfondimento/Oggetto prendere (le carte stesse non lo dicono, per

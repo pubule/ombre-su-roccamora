@@ -17,7 +17,7 @@ from reportlab.platypus import Paragraph, Frame, Spacer
 from reportlab.lib.styles import ParagraphStyle
 
 from deluxe_style import (register_fonts, parchment_art, rule_border, seal, wave,
-                          F, INK, RED, TEAL, GOLD as OGOLD, SEPIA)
+                          art, _cover_image, F, INK, RED, TEAL, GOLD as OGOLD, SEPIA)
 from ornaments import GOLD_L, BONE
 from gen_cards import LUOGHI, MINACCE, NEMICI, TILES, HEROES
 import story
@@ -138,41 +138,102 @@ def spedizione():
         if y < 40*mm and T is not TILES[-1]:
             c.showPage(); y = H - 25*mm
     c.showPage()
-    # segnalini (invariati, con anelli oro)
-    parchment_art(c, W, H)
-    rule_border(c, W, H)
-    c.setFillColor(RED); c.setFont(F['sc'], 16)
-    c.drawString(16*mm, H - 22*mm, 'segnalini \u2014 ritagliare')
-    def token_row(yy, label, items, fill, ring, tcol):
-        c.setFillColor(TEAL); c.setFont(F['b'], 9)
-        c.drawString(16*mm, yy + 12*mm, label)
-        for i, it in enumerate(items):
-            cx = 24*mm + i * 19*mm
-            c.setStrokeColor(INK); c.setLineWidth(1.1); c.setFillColor(fill)
-            c.circle(cx, yy, 8*mm, fill=1)
-            c.setStrokeColor(ring); c.setLineWidth(0.8)
-            c.circle(cx, yy, 6.4*mm)
-            c.setFillColor(tcol); c.setFont(F['sc'], 9.5)
-            c.drawCentredString(cx, yy - 1.4*mm, it)
-    token_row(H - 42*mm, 'EROI', ['el', 'at', 'si', 'ni', 'ca', 'ot'],
-              colors.HexColor('#f7f0dd'), OGOLD, INK)
-    token_row(H - 68*mm, 'ADEPTI (x10)', ['a'] * 10,
-              colors.HexColor('#2b2b33'), OGOLD, colors.white)
-    token_row(H - 94*mm, 'CANI (x3) \u00b7 FONDITORI (x3)',
-              ['cn', 'cn', 'cn', 'fo', 'fo', 'fo'],
-              colors.HexColor('#3a3a30'), OGOLD, colors.white)
-    token_row(H - 120*mm, 'SGHERRI (x4) \u00b7 SICARI (x2)',
-              ['sg', 'sg', 'sg', 'sg', 'si', 'si'],
-              colors.HexColor('#332a22'), OGOLD, colors.white)
-    token_row(H - 146*mm, 'CUSTODE \u00b7 RUGGERO \u00b7 CANTO (x3)',
-              ['cu', 'ru', '\u2020', '\u2020', '\u2020'],
-              colors.HexColor('#4a0d16'), OGOLD, GOLD_L)
-    c.setFillColor(INK); c.setFont(F['i'], 9)
-    c.drawString(16*mm, H - 166*mm, 'Consiglio: incollate il foglio su cartoncino prima di ritagliare. '
-                                    'Per le Ferite dei nemici vedi il Registro nella pagina seguente.')
-    c.showPage()
+    token_sheet(c)
     registro_ferite(c)
     c.save()
+
+MINI = 32.5*mm  # tessera 130mm / griglia 4x4: la mini sta esattamente in una casella
+MINI_GAP = 3*mm
+MINI_COLS = 5
+
+def mini_token(c, x, y, art_name, top_margin=0*mm, overscan=0.18):
+    """Ritratto ritagliato a quadrato (stessa tecnica cover-fit di
+    deluxe_style._cover_image usata per lo strappo delle schede eroe, qui senza
+    strappo: il quadrato stesso e' il bordo, clippato perche' l'arte non sbordi)."""
+    c.saveState()
+    p = c.beginPath(); p.rect(x, y, MINI, MINI); c.clipPath(p, stroke=0, fill=0)
+    _cover_image(c, art(art_name), x, y, MINI, MINI, top_margin=top_margin, overscan=overscan)
+    c.restoreState()
+    c.setStrokeColor(OGOLD); c.setLineWidth(1.1)
+    c.rect(x, y, MINI, MINI)
+    c.setStrokeColor(INK); c.setLineWidth(0.5)
+    c.rect(x + 0.8*mm, y + 0.8*mm, MINI - 1.6*mm, MINI - 1.6*mm)
+
+# Inquadratura per ritratto: alcuni soggetti hanno bisogno di piu' zoom (busto
+# stretto) o meno (creatura gia' centrata) per riempire un quadrato senza
+# tagliare male testa/dettagli - stesso principio di top_margin/overscan gia'
+# tarato a mano per gli eroi nello strappo delle schede (gen_deluxe.py), qui
+# rifatto per un'inquadratura quadrata invece che verticale.
+MINI_CROP = {
+    'Elena.png': dict(overscan=0.35),
+    'Attilio.png': dict(overscan=0.35),
+    'Sibilla.png': dict(overscan=0.35),
+    'Nino.png': dict(overscan=0.35),
+    'Ottone.png': dict(overscan=0.35),
+    'Carla.png': dict(overscan=0.35),
+}
+
+def token_sheet(c):
+    """Miniature quadrate (taglia di una casella tessera) al posto dei gettoni
+    tondi: ritratto di eroe/nemico ritagliato a quadrato, stesso soggetto delle
+    carte. Ruggero e i segnalini Canto non sono unita' da combattimento (nessun
+    ritratto dedicato): restano gettoni tondi piu' piccoli, in fondo al foglio.
+    """
+    GROUPS = [
+        ('EROI', [('Elena.png', 1), ('Attilio.png', 1), ('Sibilla.png', 1),
+                  ('Nino.png', 1), ('Ottone.png', 1), ('Carla.png', 1)]),
+        ('ADEPTI (x10)', [('Adepto Incappucciato.png', 10)]),
+        ('CANI (x3) \u00b7 FONDITORI (x3)', [('Cani dei Moli.png', 3), ('Il Fonditore.png', 3)]),
+        ('SGHERRI (x4) \u00b7 SICARI (x2)', [('Lo Sgherro.png', 4), ('Il Sicario.png', 2)]),
+        ('CUSTODE', [('Il Custode della Cera (boss).png', 1)]),
+    ]
+    mx = (W - MINI_COLS*MINI - (MINI_COLS - 1)*MINI_GAP) / 2
+    y = [0]
+
+    def new_page():
+        parchment_art(c, W, H)
+        rule_border(c, W, H)
+        c.setFillColor(RED); c.setFont(F['sc'], 16)
+        c.drawString(16*mm, H - 22*mm, 'miniature \u2014 ritagliare')
+        y[0] = H - 34*mm
+
+    def ensure(h):
+        if y[0] - h < 22*mm:
+            c.showPage()
+            new_page()
+
+    new_page()
+    for label, items in GROUPS:
+        art_list = [a for a, n in items for _ in range(n)]
+        rows = -(-len(art_list) // MINI_COLS)
+        ensure(6*mm + rows*(MINI + MINI_GAP))
+        c.setFillColor(TEAL); c.setFont(F['b'], 9)
+        c.drawString(mx, y[0], label)
+        y[0] -= 6*mm
+        for i, a in enumerate(art_list):
+            col, row = i % MINI_COLS, i // MINI_COLS
+            x = mx + col*(MINI + MINI_GAP)
+            yy = y[0] - MINI - row*(MINI + MINI_GAP)
+            mini_token(c, x, yy, a, **MINI_CROP.get(a, {}))
+        y[0] -= rows*(MINI + MINI_GAP) + 4*mm
+
+    ensure(24*mm)
+    c.setFillColor(TEAL); c.setFont(F['b'], 9)
+    c.drawString(mx, y[0], 'RUGGERO \u00b7 CANTO (x3)')
+    ty = y[0] - 12*mm
+    for i, it in enumerate(['ru', '\u2020', '\u2020', '\u2020']):
+        cx = mx + 8*mm + i * 19*mm
+        c.setStrokeColor(INK); c.setLineWidth(1.1); c.setFillColor(colors.HexColor('#4a0d16'))
+        c.circle(cx, ty, 8*mm, fill=1)
+        c.setStrokeColor(OGOLD); c.setLineWidth(0.8)
+        c.circle(cx, ty, 6.4*mm)
+        c.setFillColor(GOLD_L); c.setFont(F['sc'], 9.5)
+        c.drawCentredString(cx, ty - 1.4*mm, it)
+
+    c.setFillColor(INK); c.setFont(F['i'], 9)
+    c.drawString(16*mm, 16*mm, 'Consiglio: incollate il foglio su cartoncino prima di ritagliare. '
+                                'Per le Ferite dei nemici vedi il Registro nella pagina seguente.')
+    c.showPage()
 
 # Foglio riusabile per tracciare le Ferite dei nemici attivi: righe generiche
 # (nessuna etichetta di tipo, un nemico qualsiasi ci sta) invece di un gettone
