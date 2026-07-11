@@ -155,9 +155,9 @@ function html(tile) {
     .door-arrow { position:absolute; transform:translate(-50%,-50%); font-size:34px; color:#2a1a05;
                   text-shadow:0 0 4px #fff8e0; }
     .door-label { position:absolute; transform:translate(-50%,-50%); white-space:nowrap; text-align:center;
-                  font-family:'IM Fell English SC', serif; font-size:26px; font-weight:bold; color:#f2c14e;
-                  text-shadow:0 0 8px #000, 0 0 4px #000; background:rgba(10,10,12,0.7); padding:2px 10px; border-radius:4px; }
-    .door-label small { display:block; font-family:'Old Standard TT', serif; font-size:14px; color:#e6c47e; font-weight:normal; }
+                  font-family:'IM Fell English SC', serif; font-size:40px; font-weight:bold; color:#f2c14e;
+                  text-shadow:0 0 8px #000, 0 0 4px #000; background:rgba(10,10,12,0.7); padding:4px 14px; border-radius:4px; }
+    .door-label small { display:block; font-family:'Old Standard TT', serif; font-size:20px; color:#e6c47e; font-weight:normal; }
   </style></head><body>
     <div class="stage">
       <img class="art" src="${pathToFileURL(path.join(ROOT, 'artworks', `${tile.id}.png`)).href}" />
