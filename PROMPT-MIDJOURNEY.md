@@ -381,36 +381,39 @@ ornate symmetrical dark fantasy map-tile back, engraved gold filigree covering t
 Ripeti lo stesso identico prompt per T2, T3, T4, T5, T6 cambiando solo il
 codice fra virgolette — icona, palette e stile restano fissi apposta.
 
-**Tessere mappa** (sostituisci AMBIENTE) — **v3**: v1 e v2 (sotto, tenute
-per memoria) chiedevano una mappa disegnata a inchiostro su pergamena, ed
-entrambe sono uscite in isometria/prospettiva invece che in pianta vera.
-L'utente ha condiviso un riferimento visivo concreto: **battlemap dipinta
-stile VTT** (Foundry/Roll20), non una mappa a china — vista dall'alto
-ortogonale vera, pietra e muri dipinti con texture (non linee di contorno),
-luce calda di torce contro ombre blu/teal fredde, muri come blocchi piatti
-spessi, niente griglia incisa nell'arte (la griglia 4x4 la disegna già
-`generate-tiles.js` sopra). Riferirsi a questo stile esplicitamente
-("painted top-down tabletop RPG battle map") invece che a "mappa disegnata
-a mano" sembra la chiave per uscire dall'isometria, sulla base del
-riferimento fornito:
-```
-painted top-down tabletop RPG battle map tile, straight overhead orthographic camera, flat 2D game map asset, weathered stone brick floor and thick stone walls with cracks and moss, AMBIENTE, warm flickering torchlight pools against cool blue-teal ambient shadow, moody dark fantasy digital painting, no ink linework, no parchment --ar 1:1 --style raw --no isometric, 3D render, perspective, angled view, side view, ink, pencil sketch, parchment, sepia, grid lines, text, letters, words, watermark
-```
-Se esce ancora in isometria, il colpevole probabile è di nuovo `--style raw`
-(spinge verso un render pittorico più "scenico"/prospettico): togli
-`--style raw` e riprova, oppure aggiungi `--no shadow depth, extruded walls`.
+**Texture delle tessere** — 3 tentativi di generare una stanza intera in un
+solo prompt ("top-down hand-drawn dungeon map tile...", poi "flat lay
+photo...", poi "painted top-down tabletop RPG battle map...") sono usciti
+tutti in isometria/prospettiva: un soggetto ricco (una stanza intera, con
+mobili e profondità implicita) spinge Midjourney verso una scena 3D
+comunque, "top-down"/"orthographic"/"flat lay" nel testo non bastano a
+comandare la telecamera.
 
-Ambienti — **T1** loading dock with black canal water along one edge and mooring posts · **T2** warehouse room packed with stacked wooden crates branded with a wave · **T3** narrow corridor lined with hundreds of black candles and pooled wax · **T4** cluttered office with a desk covered in sheet music and a straw bed · **T5** slick stone staircase descending into darkness · **T6** underground crypt with a central altar in a ring of candles and a barred prison cell in the corner
+Cambio di approccio: invece di generare LA STANZA, generare solo le
+**texture** (pavimento, muro visto dall'alto) — un pavimento è di fatto un
+pattern ripetibile, un soggetto molto più semplice su cui Midjourney non ha
+motivo di introdurre prospettiva. Uso anche `--tile` (non ancora provato in
+questo progetto): è il flag dedicato di Midjourney per generare texture
+seamless, pensato esattamente per questo caso. Il compositing (pavimento
+ripetuto su tutta la griglia 4x4, muri come fascia lungo i bordi con
+interruzioni dove ci sono le porte) lo fa poi `generate-tiles.js` via CSS
+`background-repeat`, stesso approccio già usato per gli arredi.
 
-**v2 (superata)**:
+**Pavimento** (un file riusato su tutte le 6 tessere, la varietà tra
+stanze la danno arredi/porte/velatura colore già in codice):
 ```
-flat lay photo of a hand-drawn dungeon map tile lying flat on a table, camera directly overhead, zero perspective, aged parchment, ink linework floor plan, crosshatched thick stone walls drawn in plan view, AMBIENTE drawn as flat top-down plan symbols, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark, isometric, 3D, perspective, depth, angled view, side view, painting, shading, photorealistic room, rendered scene
+seamless tileable top-down stone floor texture, weathered cracked stone flagstones, moss and grime in the cracks, painted digital game texture, subtle warm torchlight variation, dark fantasy palette --ar 1:1 --tile --style raw --no 3D, isometric, perspective, walls, furniture, people, text, letters, words, watermark
 ```
 
-**v1 (superata)**:
+**Muro** (striscia riusata per il bordo della tessera):
 ```
-top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, AMBIENTE, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark
+seamless tileable top-down stone wall texture, thick weathered dungeon wall capping seen directly from above, cracked stone, dark mortar lines, painted digital game texture, dark fantasy palette --ar 1:1 --tile --style raw --no 3D, isometric, perspective, floor, furniture, people, text, letters, words, watermark
 ```
+
+Salva come `artworks/pavimento tessere.png` e `artworks/muro tessere.png`.
+Una volta pronte, `generate-tiles.js` va aggiornato per comporle al posto
+di `artworks/T1.png`...`T6.png` (non ancora fatto — prima verifichiamo che
+le texture escano davvero piatte).
 
 **Arredi delle tessere** — le caselle bloccate dentro la griglia 4x4 (casse,
 candele, scala...) usavano un rettangolo a gradiente CSS con la sola
