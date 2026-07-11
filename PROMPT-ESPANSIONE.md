@@ -46,6 +46,19 @@ esplicita.
 **Sistema base:** prove = 2d6 + caratteristica (ACUME / VIGORE / NERVI) contro
 Facile 7 · Media 9 · Difficile 11. Ogni eroe ha 1 "Secondo fiato" (ritenta) a episodio.
 
+**Il Preludio (tutorial, esiste già — non rifarlo, usalo come riferimento):**
+"La Prova del Lume" (`src/gen_preludio.py`, `pdf/Preludio/`) è il mini-episodio
+introduttivo giocato prima dell'Ep. 1: racconta come i sei si incontrano ed
+entrano nella Società, e insegna le regole con i box "Scuola del Lume" dentro i
+fascicoli. Deroga deliberatamente dalla struttura fissa (2 Domande invece di 4,
+1 falsa pista, 1 reperto, niente Eco condivisa, niente boss, 3 tessere e mazzo
+Minaccia riusati dall'Ep. 1, orologio "Marea" solo automatico): quelle deroghe
+valgono SOLO per il tutorial, gli episodi veri seguono la struttura sotto. Se un
+nuovo episodio vuole richiamare il Preludio: Ansaldo (il custode-archivista) e
+il nipote sono PNG riusabili; il Frammento 0 è la mezza onda; il committente mai
+visto («un signore ben vestito, mani da artigiano») è Ferri, non nominarlo mai
+prima che l'Ep. 1 lo riveli.
+
 **Struttura fissa di un episodio (una serata):**
 1. *Fase Indagine* — 8 carte Luogo (circa 5 aperte dall'inizio, 2–3 sbloccabili tramite
    PAROLE CHIAVE in maiuscolo o oggetti trovati). Budget: 8 ore/visite (il tempo non deve bastare per tutto: i luoghi utili superano le ore). Sempre almeno un vincolo d'orologio (un luogo che chiude o un testimone che sparisce a un'ora precisa). Almeno

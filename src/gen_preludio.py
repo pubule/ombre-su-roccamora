@@ -1,0 +1,478 @@
+# -*- coding: utf-8 -*-
+"""Ombre su Roccamora - PRELUDIO: La Prova del Lume (pdf/Preludio/).
+
+Mini-episodio tutorial, giocato PRIMA dell'Episodio 1: sei sconosciuti,
+convocati ognuno da una lettera di M., superano la prova d'ammissione alla
+Societa' del Lume risolvendo il loro primo caso - la sparizione di Ansaldo,
+il vecchio custode-archivista del palazzo della Societa'. Giustifica come gli
+eroi si conoscono e perche' fanno parte della Societa', e insegna le regole
+in modo soft:
+
+- Indagine ridotta: 4 luoghi (P1-P4), 6 ore, 2 Domande invece di 4, una falsa
+  pista (il nipote), un vincolo d'orologio (il barcaiolo dalle 21), un
+  Approfondimento per verbo (Osservazione/Testimonianza/Referto) + Accesso.
+  Box "Scuola del Lume" che spiegano le regole man mano che servono.
+- Mini-spedizione: 3 tessere (riusa T1/T2/T4 di board/ - i depositi sul
+  canale di Roccamora si somigliano tutti), nemici solo Malavita (2 Sgherri
+  + 1 Sicario), mazzo Minaccia ridotto a 6 carte prese dal mazzo Episodio 1,
+  orologio "la Marea" (solo avanzamento automatico: insegna il timer senza
+  boss ne' carte dedicate).
+- Foreshadow dell'Episodio 1 senza spoiler: il fascicolo del 1741, "un
+  signore ben vestito, mani da artigiano", mezza onda su un lembo di carta.
+  Frammento di Campagna n. 0 e Bivio sigillato con conseguenze nell'Ep. 1.
+
+Deroghe deliberate dalla bibbia (PROMPT-ESPANSIONE.md), perche' e' un
+tutorial: 2 Domande invece di 4, gli Approfondimenti sono solo corroborazione
+(nessuna Eco condivisa: quella e' la meccanica del culto, che qui non c'e'),
+1 solo reperto, niente boss, tessere e mazzo Minaccia riusati dall'Ep. 1.
+
+Arte luoghi/oggetti: nuova, vedi PROMPT-MIDJOURNEY.md sezione Preludio.
+Le carte si generano con `node scripts/cardconjurer/generate-batch.js preludio`
+quando le arti esistono; Luoghi.pdf viene saltato con un avviso finche' manca
+l'arte dei luoghi.
+"""
+import os
+from reportlab.lib.pagesizes import A4
+from reportlab.lib.units import mm
+from reportlab.lib import colors
+from reportlab.pdfgen import canvas
+from reportlab.platypus import Paragraph
+from reportlab.lib.styles import ParagraphStyle
+
+from deluxe_style import (register_fonts, parchment_art, rule_border, seal, wave,
+                          art, _cover_image, torn_portrait, ARTWORKS_DIR,
+                          F, INK, RED, TEAL, GOLD as OGOLD, SEPIA)
+from ornaments import GOLD_L
+
+OUT_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'pdf', 'Preludio')
+os.makedirs(OUT_DIR, exist_ok=True)
+register_fonts()
+W, H = A4
+
+def st(name, **kw):
+    base = dict(fontName=F['r'], fontSize=9.5, leading=12.5, textColor=INK)
+    base.update(kw)
+    return ParagraphStyle(name, **base)
+
+BODY = st('body', alignment=4)
+SMB = st('smb', fontName=F['sc'], fontSize=8.5, textColor=TEAL, spaceBefore=4, spaceAfter=2)
+
+def frame_flow(c, x, y, w, h, flow):
+    from reportlab.platypus import Frame
+    Frame(x, y, w, h, leftPadding=0, rightPadding=0, topPadding=0,
+          bottomPadding=0, showBoundary=0).addFromList(flow, c)
+
+def scuola(c, x, y, w, testo):
+    """Box tutorial "Scuola del Lume": insegna una regola nel punto in cui
+    serve, senza rimandare al regolamento."""
+    p = Paragraph(f'<b>Scuola del Lume:</b> {testo}',
+                  st('sc', fontSize=8.8, leading=11.5, textColor=INK))
+    ph = p.wrapOn(c, w - 8*mm, 60*mm)[1]
+    c.saveState()
+    c.setFillColor(colors.HexColor('#efe3c2')); c.setStrokeColor(SEPIA); c.setLineWidth(0.7)
+    c.rect(x, y - ph - 6*mm, w, ph + 6*mm, fill=1)
+    c.restoreState()
+    p.drawOn(c, x + 4*mm, y - ph - 3*mm)
+    return y - ph - 12*mm
+
+# ================================================================= DATI
+
+LETTERA_P = (
+    "«Non vi conoscete, ma io conosco voi. L’investigatrice che non ha smesso di "
+    "archiviare. Il medico che annota ciò di cui i colleghi ridono. L’occultista che "
+    "sente quello che gli altri fingono di non sentire. Il ladro che apre ogni porta "
+    "tranne quella di casa sua. Il macellaio che i vicini chiamano quando la gendarmeria "
+    "non viene. La giornalista che pubblica quello che gli altri bruciano.<br/><br/>"
+    "La Società del Lume ha bisogno di occhi nuovi, e io sono troppo vecchio per fidarmi "
+    "delle referenze. Mi fido dei fatti. Eccovene uno: <b>Ansaldo</b>, custode del nostro "
+    "palazzo da vent’anni, è scomparso da tre giorni. Nessun riscatto, nessun addio. "
+    "Trovatelo, e le sei poltrone del salone avranno finalmente sei nomi.<br/><br/>"
+    "Avete <b>6 ore</b>, dalle 18:00 alle 24:00. Segnate ogni ora sul Taccuino e "
+    "annotate ogni parola scritta in MAIUSCOLO.<br/>— M.»<br/><br/>"
+    "<i>Luoghi disponibili dall’inizio: P1, P2, P3. Il quarto va sbloccato.</i>")
+
+LUOGHI_P = [
+    dict(n='P1', nome='IL PALAZZO DEL LUME', req='Disponibile dall’inizio',
+         art='Palazzo del Lume.png',
+         testo='Il palazzo della Società sa di cera d’api e di anni chiusi a chiave: sei poltrone '
+               'attorno a un tavolo, cinque ritratti alle pareti e un gancio vuoto dove il sesto è '
+               'stato tolto. La stanza di Ansaldo è in fondo al corridoio, ordinata come una cella '
+               'di monaco. M. vi osserva dalla soglia, e non tocca nulla.',
+         indizi=['Il letto è intatto da tre notti, ma pipa e scialle sono ancora al chiodo: chi esce '
+                 'per sempre non lascia la pipa. <i>(Oggetto: prendete la carta La Pipa di Ansaldo.)</i>',
+                 'Nel registro delle consultazioni dell’archivio manca una pagina, strappata di netto. '
+                 'L’ultima riga rimasta: «1741 — fascicolo della confraternita…» '
+                 '<i>(Reperto A: consegnate il Registro delle Consultazioni.)</i>',
+                 'Sul pavimento dell’archivio, graffi di stivali chiodati: uomini pesanti, almeno due, '
+                 'e nessuno dei due era il vecchio Ansaldo. Sul tavolo, il suo anello di chiavi. '
+                 '<i>(Oggetto: prendete la carta L’Anello di Chiavi.)</i>'],
+         approfondimenti=[
+             dict(tipo='Osservazione',
+                  testo='La polvere sullo scaffale del 1741 è smossa solo a metà: chi ha preso il '
+                        'fascicolo sapeva DOVE cercare, ma non era pratico dell’archivio. Non era '
+                        'Ansaldo — e nemmeno un ladro qualunque.'),
+         ]),
+    dict(n='P2', nome='LA TAVERNA DELLA CHIATTA', req='Disponibile dall’inizio',
+         art='Taverna della Chiatta.png',
+         testo='Dirimpetto al palazzo, oltre il ponte, la taverna è il posto da cui si vede chi entra '
+               'e chi esce dalla porta della Società. L’oste lucida bicchieri che restano opachi e '
+               'parla volentieri: da queste parti un cliente nuovo è un avvenimento, tre clienti nuovi '
+               'sono una storia.',
+         indizi=['L’oste: «Tre uomini da molo, tre sere di fila, sempre quel tavolo: guardavano il '
+                 'vostro portone. Uno ha detto una parola che qui non si usa: la DOGANA vecchia.» '
+                 '<i>(Parola chiave: sblocca il Luogo P4.)</i>',
+                 'Il nipote di Ansaldo ha litigato col vecchio la settimana scorsa, per soldi: metà '
+                 'taverna li ha sentiti. Da allora il ragazzo non si è più visto.',
+                 'Dopo le 21:00 arriva il barcaiolo della Chiatta: prima di quell’ora è in acqua. '
+                 '<i>(Vincolo d’orologio: l’indizio del barcaiolo si legge solo visitando P2 '
+                 'dalle 21 in poi.)</i>'],
+         approfondimenti=[
+             dict(tipo='Testimonianza', soggetto='Il barcaiolo della Chiatta',
+                  testo='Con un bicchiere davanti, il barcaiolo ricorda: due notti, un passeggero fino '
+                        'alla riva del palazzo. «Un signore ben vestito, mani da artigiano. Pagava '
+                        'doppio per non avere domande. Mai di giorno.»'),
+         ]),
+    dict(n='P3', nome='IL BANCO DEI PEGNI DI FOSSA', req='Disponibile dall’inizio',
+         art='Banco dei Pegni.png',
+         testo='Mezza Roccamora è passata da Fossa a impegnare l’altra metà. Dietro la grata, il '
+               'vecchio prestatore vi squadra come si squadra un anello: cercando il difetto. Il suo '
+               'registro è la vera cronaca del quartiere — basta saperlo leggere, o pagare la tariffa.',
+         indizi=['Nel registro: l’orologio da tasca di Ansaldo, impegnato IERI da «un signore coi '
+                 'stivali chiodati». Ansaldo era sparito da due giorni: qualcuno gli ha svuotato le '
+                 'tasche, e quel qualcuno gira ancora per la città.',
+                 'Sempre nel registro, la settimana scorsa: il NIPOTE di Ansaldo ha impegnato '
+                 'l’argenteria di famiglia e saldato un debito di gioco. La notte della sparizione '
+                 'era qui a ritirarla: il prestatore lo giura. <i>(Il nipote è innocente: il litigio '
+                 'era per questo.)</i>',
+                 'Il prestatore, sottovoce: «Gli stivali chiodati puzzavano di sego e di corda '
+                 'bagnata. Roba da molo, non da città.»'],
+         approfondimenti=[
+             dict(tipo='Referto', soggetto='L’orologio impegnato',
+                  testo='Il vetro è incrinato e sulla corona c’è sangue secco, ma poco: un colpo '
+                        'solo, di taglio, non una colluttazione lunga. Ansaldo è stato tramortito, '
+                        'non ucciso — un morto non serve a chi ha ancora domande da fargli.'),
+         ]),
+    dict(n='P4', nome='LA DOGANA VECCHIA', req='Serve: la parola chiave DOGANA (P2)',
+         art='Dogana Vecchia.png',
+         testo='In fondo al canale di ponente, la vecchia dogana marcisce da vent’anni: banchina '
+               'sfondata, portoni murati, una chiatta ormeggiata dove non dovrebbe esserci niente. '
+               'Un uomo finge di pescare senza esca, e vi guarda arrivare per tutto il molo.',
+         indizi=['Le casse sulla chiatta sono vuote e nuove: nessun carico, solo la scusa per stare '
+                 'ormeggiati. Il finto pescatore ha il calcio di un coltellaccio sotto la giacca.',
+                 'Da sotto la banchina, attraverso le assi, colpi ritmici: tre, pausa, tre. Qualcuno, '
+                 'là sotto, batte per farsi sentire. <b>Ansaldo è qui.</b>',
+                 'Nel fango del molo, un lembo di carta antica strappata: mezzo disegno a inchiostro, '
+                 'una linea che ondeggia. Come mezza onda.'],
+         approfondimenti=[]),
+]
+
+DOMANDE_P = ['1. DOVE è tenuto Ansaldo?',
+             '2. COSA cercavano nel palazzo della Società?']
+
+TESSERE_P = [
+    ('T1', 'LA BANCHINA DELLA DOGANA', 'board/T1 - Banchina d’Ingresso.png',
+     'La porta d’acqua della dogana: assi viscide, anelli d’ormeggio, l’acqua nera che '
+     'respira sotto il molo. Qui dovete riportare Ansaldo per vincere. La porta verso il '
+     'deposito (N) si apre con l’Anello di Chiavi, o forzandola (VIGORE Media).'),
+    ('T2', 'IL DEPOSITO', 'board/T2 - Sala delle Casse.png',
+     'Casse accatastate, quasi tutte vuote: la dogana è un guscio. QUANDO RIVELATE QUESTA '
+     'TESSERA: 2 Sgherri appaiono tra le casse. Le porte E e N sono murate da anni: '
+     'contano solo S (banchina) e O (stanzino).'),
+    ('T4', 'LO STANZINO DEL DAZIERE', 'board/T4 - Ufficio del Custode.png',
+     'Il vecchio ufficio del daziere: scrivania sfondata, un pagliericcio recente. QUANDO '
+     'RIVELATE QUESTA TESSERA: il Sicario appare accanto alla porta. Ansaldo è legato '
+     'alla branda: si libera con Interagire (nessuna prova).'),
+]
+
+MAZZO_P = ['Bravi sul Molo', 'Il Branco', 'Lama nel Buio',
+           'Corrente Gelida', 'Presagio', 'Eco Amica']
+
+# ============================================================== INDAGINE
+def indagine():
+    c = canvas.Canvas(os.path.join(OUT_DIR, 'Indagine.pdf'), pagesize=A4)
+    c.setTitle('Ombre su Roccamora - Preludio - Indagine')
+    # lettera
+    parchment_art(c, W, H)
+    rule_border(c, W, H)
+    mx = 28*mm
+    c.setFillColor(RED); c.setFont(F['sc'], 24)
+    c.drawCentredString(W/2, H - 38*mm, 'preludio')
+    c.setFont(F['sc'], 16)
+    c.drawCentredString(W/2, H - 47*mm, 'la prova del lume')
+    wave(c, W/2 - 20*mm, H - 53*mm, 40*mm, OGOLD)
+    lett = LETTERA_P.replace('«Non vi conoscete',
+                             '«<font name="%s" size="15" color="#7a1f2b">N</font>on vi conoscete' % F['sc'])
+    frame_flow(c, mx, H - 188*mm, W - 2*mx, 122*mm,
+               [Paragraph('sei lettere identiche, sei destinatari — leggere ad alta voce', SMB),
+                Paragraph(lett, st('let', fontName=F['i'], fontSize=11, leading=16, alignment=4))])
+    seal(c, W - mx - 12*mm, H - 198*mm, r=13*mm, angle=-10)
+    y = scuola(c, mx, H - 218*mm, W - 2*mx,
+               'Questo Preludio insegna il gioco giocando: quando compare un box come questo, '
+               'leggetelo ad alta voce. Prendete le 4 carte Luogo del Preludio (P1-P4) e '
+               'disponetele coperte, sigla in vista. Ogni giocatore sceglie il suo eroe '
+               '(stendete le 6 carte Eroe sul tavolo) e prende la sua Scheda.')
+    c.showPage()
+    # taccuino
+    parchment_art(c, W, H)
+    rule_border(c, W, H)
+    c.setFillColor(RED); c.setFont(F['sc'], 17)
+    c.drawString(16*mm, H - 22*mm, 'taccuino della società — preludio')
+    wave(c, W - 58*mm, H - 20*mm, 40*mm, OGOLD)
+    c.setFillColor(TEAL); c.setFont(F['b'], 9)
+    c.drawString(16*mm, H - 31*mm, 'OROLOGIO — barrate un’ora per ogni visita:')
+    for i, hh in enumerate(['18', '19', '20', '21', '22', '23']):
+        xx = 16*mm + i * 17*mm
+        c.setStrokeColor(INK); c.setFillColor(colors.HexColor('#f7f0dd')); c.setLineWidth(1)
+        c.circle(xx + 5*mm, H - 41*mm, 5*mm, fill=1)
+        c.setFillColor(SEPIA); c.setFont(F['r'], 8)
+        c.drawCentredString(xx + 5*mm, H - 42*mm, hh)
+    c.setFillColor(RED); c.setFont(F['i'], 8.5)
+    c.drawString(16*mm + 6*17*mm, H - 42*mm, '☁ il barcaiolo (P2) c’è solo dalle 21')
+    y = scuola(c, 16*mm, H - 52*mm, W - 32*mm,
+               'Visitare un luogo costa 1 ora, anche tornarci. Girate la carta, leggete testo e '
+               'indizi ad alta voce, annotate qui nomi e parole in MAIUSCOLO. Quando trovate '
+               'una parola chiave potete visitare il luogo che la richiede. Alcuni eroi cavano '
+               'indizi in più (Approfondimenti): quando visitate un luogo, chi tiene il '
+               'fascicolo Luoghi controlla se l’eroe giusto è presente.')
+    def sect(ytop, label, nlines):
+        c.setFillColor(TEAL); c.setFont(F['sc'], 10)
+        c.drawString(16*mm, ytop, label)
+        c.setStrokeColor(SEPIA); c.setLineWidth(0.5)
+        for i in range(nlines):
+            c.line(16*mm, ytop - 7*mm - i*7*mm, W - 16*mm, ytop - 7*mm - i*7*mm)
+        return ytop - 7*mm - (nlines-1)*7*mm - 12*mm
+    yy = sect(y - 4*mm, 'persone e sospetti', 4)
+    yy = sect(yy, 'indizi e parole chiave', 5)
+    c.setFillColor(RED); c.setFont(F['sc'], 11)
+    c.drawString(16*mm, yy, 'le 2 domande — rispondete per iscritto, poi aprite la busta della soluzione')
+    for i, d in enumerate(DOMANDE_P):
+        yd = yy - 10*mm - i*15*mm
+        c.setFillColor(INK); c.setFont(F['b'], 10.5)
+        c.drawString(16*mm, yd, d)
+        c.setStrokeColor(SEPIA)
+        c.line(16*mm, yd - 7*mm, W - 16*mm, yd - 7*mm)
+    c.showPage()
+    c.save()
+
+# ============================================================ SPEDIZIONE
+def spedizione():
+    c = canvas.Canvas(os.path.join(OUT_DIR, 'Spedizione.pdf'), pagesize=A4)
+    c.setTitle('Ombre su Roccamora - Preludio - Spedizione')
+    parchment_art(c, W, H)
+    rule_border(c, W, H)
+    c.setFillColor(RED); c.setFont(F['sc'], 20)
+    c.drawCentredString(W/2, H - 32*mm, 'preludio — la dogana vecchia')
+    wave(c, W/2 - 20*mm, H - 39*mm, 40*mm, OGOLD)
+    frame_flow(c, 24*mm, H - 108*mm, W - 48*mm, 58*mm, [
+        Paragraph('Una spedizione in piccolo, per imparare: 3 tessere, nessun mostro — solo '
+                  'uomini pagati per non farvi passare. Usate le tessere <b>T1, T2 e T4</b> '
+                  'dell’Episodio 1 (i depositi sul canale di Roccamora si somigliano tutti: '
+                  'stesse banchine, stesse casse, stessi stanzini) e le miniature di Sgherri, '
+                  'Sicario ed eroi. Montaggio: T1 in basso, T2 sopra (uscita N di T1), T4 a '
+                  'sinistra di T2 (uscita O). Le porte E e N di T2 sono murate: ignoratele.',
+                  BODY),
+    ])
+    y = scuola(c, 24*mm, H - 84*mm, W - 48*mm,
+               'Si gioca in round: prima OGNI EROE fa 2 azioni (Muovere 4 caselle · Attaccare '
+               'un nemico adiacente: 2d6+VIGORE, +1 se armati, contro la sua Difesa · Cercare '
+               '· Interagire · Usare un oggetto · Rianimare), poi si pesca 1 carta Minaccia '
+               'ogni 2 eroi, poi I NEMICI si muovono verso l’eroe più vicino e attaccano se '
+               'adiacenti. Le ferite dei nemici si segnano sul Registro delle Ferite '
+               '(ultima pagina).')
+    y = scuola(c, 24*mm, y, W - 48*mm,
+               'IL MAZZO MINACCIA del Preludio si costruisce con 6 carte dell’Episodio 1: ' +
+               ', '.join(MAZZO_P) + '. Mescolatele. Se il mazzo finisce, rimescolate gli scarti.')
+    y = scuola(c, 24*mm, y, W - 48*mm,
+               'LA MAREA — l’orologio della spedizione. Alla fine di ogni 2° round (2°, 4°, '
+               '6°...) mettete 1 segnalino Marea (usate i segnalini Canto). Al 3° segnalino '
+               'l’acqua invade la dogana: da quel momento ogni eroe ha Movimento -1 (minimo 1). '
+               'Negli episodi veri l’orologio fa cose peggiori: imparate a non perdere tempo.')
+    c.showPage()
+    # note per tessera
+    parchment_art(c, W, H)
+    rule_border(c, W, H)
+    yy = H - 25*mm
+    for tid, nome, _, testo in TESSERE_P:
+        c.setFillColor(RED); c.setFont(F['sc'], 13)
+        c.drawString(20*mm, yy, '%s · %s' % (tid, nome.lower()))
+        flow = [Paragraph(testo, st('tile', fontSize=9, leading=12, alignment=4))]
+        frame_flow(c, 20*mm, yy - 8*mm - 24*mm, W - 40*mm, 24*mm, flow)
+        yy -= 24*mm + 18*mm
+    c.setFillColor(TEAL); c.setFont(F['b'], 9.5)
+    c.drawString(20*mm, yy, 'NEMICI IN CAMPO (schede nell’Episodio 1, cartella cards/Nemici/):')
+    frame_flow(c, 20*mm, yy - 30*mm, W - 40*mm, 26*mm, [
+        Paragraph('2 <b>Sgherri</b> in T2 (branco: +1 Attacco se adiacenti tra loro) e 1 '
+                  '<b>Sicario</b> in T4 (+2 Attacco contro un eroe isolato o ferito — '
+                  'muovetevi in coppia e non gliene lasciate). Le carte Minaccia possono '
+                  'portarne altri. Vittoria: liberate Ansaldo (Interagire in T4) e riportatelo '
+                  'in T1, alla barca. Ansaldo si muove con voi: 4 caselle, nessuna azione.', BODY)])
+    y = scuola(c, 20*mm, yy - 36*mm, W - 40*mm,
+               'Se un eroe scende a 0 Salute cade a terra: niente panico, un compagno adiacente '
+               'lo Rianima a 2 Salute con un’azione. Se cadete tutti, la prova è fallita: '
+               'M. manda i gendarmi, Ansaldo torna a casa comunque — ma la Società riparte '
+               'da capo. Rigiocate quando volete.')
+    c.showPage()
+    registro_ferite(c)
+    c.save()
+
+def registro_ferite(c):
+    parchment_art(c, W, H)
+    rule_border(c, W, H)
+    c.setFillColor(RED); c.setFont(F['sc'], 16)
+    c.drawString(16*mm, H - 22*mm, 'registro delle ferite')
+    frame_flow(c, 20*mm, H - 50*mm, W - 40*mm, 20*mm, [
+        Paragraph('Chi pesca il mazzo Minaccia tiene anche questo foglio. Una riga per nemico '
+                  'attivo: una goccia per ogni colpo subito; a Ferite piene il nemico cade, '
+                  'cancellate la riga e riusatela.', BODY)])
+    N_PIP = 10
+    gx0, dot_gap = 82*mm, 10.6*mm
+    c.setFillColor(TEAL); c.setFont(F['b'], 8)
+    c.drawString(20*mm, H - 62*mm, 'nemico')
+    for k in range(N_PIP):
+        c.setFont(F['b'], 6.5)
+        c.drawCentredString(gx0 + k*dot_gap, H - 62*mm, str(k + 1))
+    y = H - 70*mm
+    while y > 25*mm:
+        c.setStrokeColor(SEPIA); c.setLineWidth(0.6)
+        c.line(20*mm, y, gx0 - 6*mm, y)
+        for k in range(N_PIP):
+            c.setStrokeColor(INK); c.setLineWidth(0.8)
+            c.circle(gx0 + k*dot_gap, y + 2*mm, 2.6*mm)
+        y -= 15*mm
+    c.showPage()
+
+# ============================================================= SOLUZIONE
+def soluzione():
+    c = canvas.Canvas(os.path.join(OUT_DIR, 'Soluzione (non aprire).pdf'), pagesize=A4)
+    c.setTitle('Ombre su Roccamora - Preludio - Soluzione')
+    parchment_art(c, W, H)
+    rule_border(c, W, H)
+    c.setFillColor(RED); c.setFont(F['sc'], 22)
+    c.drawCentredString(W/2, H/2 + 20*mm, 'soluzione del preludio')
+    c.setFillColor(INK); c.setFont(F['i'], 12)
+    c.drawCentredString(W/2, H/2 + 8*mm, 'Stampate senza leggere. Sigillate in busta.')
+    c.drawCentredString(W/2, H/2, 'Si apre solo dopo aver risposto alle 2 Domande.')
+    seal(c, W/2, H/2 - 24*mm, r=13*mm, angle=-8)
+    c.showPage()
+    parchment_art(c, W, H)
+    rule_border(c, W, H)
+    c.setFillColor(RED); c.setFont(F['sc'], 15)
+    c.drawString(16*mm, H - 22*mm, 'le risposte')
+    flow = [
+        Paragraph('<b>1. DOVE è tenuto Ansaldo?</b> Nella cantina della DOGANA VECCHIA, sotto la '
+                  'banchina (P2: gli uomini da molo e la parola «dogana»; P4: i colpi ritmici '
+                  'sotto le assi; P3 corrobora: stivali chiodati che puzzano di molo). '
+                  '<b>Vantaggio se esatta:</b> entrate dalla porta d’acqua senza farvi sentire — '
+                  'i 2 Sgherri di T2 non si attivano finché un eroe non entra in T2 o attacca.', BODY),
+        Paragraph('<b>2. COSA cercavano nel palazzo?</b> Il FASCICOLO DEL 1741, l’antico dossier '
+                  'della Società su una confraternita bandita (P1: la pagina strappata del registro, '
+                  'la polvere smossa a metà; P4: il lembo con la mezza onda). '
+                  '<b>Vantaggio se esatta:</b> M. vi dà la sua lanterna schermata: una volta nella '
+                  'spedizione, annullate una carta Minaccia appena pescata (scartatela senza effetto).', BODY),
+        Paragraph('<b>La falsa pista:</b> il nipote di Ansaldo litigò col vecchio per l’argenteria '
+                  'impegnata (P3): la notte della sparizione era da Fossa a ritirarla. Innocente. '
+                  'Se il gruppo lo ha accusato, nessuna penalità: solo un sopracciglio alzato di M.', BODY),
+        Paragraph('<b>Nota per chi arbitra:</b> gli Approfondimenti del Preludio (la polvere, il '
+                  'barcaiolo, l’orologio impegnato) corroborano ma non sono mai indispensabili: '
+                  'le 2 Domande si risolvono con i soli indizi delle carte. Se il gruppo risponde '
+                  '«vicino» (es. «al molo» per la 1), contate la risposta come esatta: è '
+                  'una prova d’ammissione, non un esame.', BODY),
+    ]
+    frame_flow(c, 18*mm, H - 150*mm, W - 36*mm, 122*mm, flow)
+    c.setFillColor(RED); c.setFont(F['sc'], 15)
+    c.drawString(16*mm, H - 160*mm, 'epilogo — leggere ad alta voce a spedizione conclusa')
+    frame_flow(c, 18*mm, H - 246*mm, W - 36*mm, 82*mm, [
+        Paragraph('<i>Ansaldo beve mezzo bicchiere prima di parlare. «Volevano il fascicolo del '
+                  '1741. Sapevano il numero, sapevano lo scaffale. Chi li pagava non l’ho visto '
+                  'mai: veniva di notte, in barca — un signore ben vestito, dicevano, con le mani '
+                  'da artigiano. Quando li ho sorpresi, mi hanno chiuso in cantina. Non volevano '
+                  'me: volevano quello che sappiamo.»<br/><br/>'
+                  'M. posa sul tavolo sei spille: una piccola onda d’argento. «Le sei poltrone '
+                  'hanno sei nomi. Benvenuti nella Società del Lume. Riposatevi: qualcosa mi dice '
+                  'che il prossimo caso busserà presto.»</i><br/><br/>'
+                  '<b>Frammento di Campagna n. 0:</b> il lembo di carta con la mezza onda. '
+                  'Conservatelo con gli altri Frammenti.', BODY)])
+    c.setFillColor(RED); c.setFont(F['sc'], 15)
+    c.drawString(16*mm, H - 256*mm, 'bivio — decidete insieme, annotatelo, contera’ nell’episodio 1')
+    frame_flow(c, 18*mm, 16*mm, W - 36*mm, H - 276*mm, [
+        Paragraph('La pagina strappata del registro (il reperto) è una prova di reato. '
+                  '<b>La consegnate alla gendarmeria</b> (il brigadiere vi registra come '
+                  '«investigatori privati»: nell’Episodio 1, alla Gendarmeria, vi riconosce '
+                  'e il fascicolo che nasconde si ottiene senza convincerlo) <b>oppure la tenete '
+                  'nell’archivio della Società</b> (M. la studia: nell’Episodio 1 iniziate '
+                  'l’Indagine con 1 ora in più sul Taccuino)?', BODY)])
+    c.showPage()
+    c.save()
+
+# ========================================================= LUOGHI (narratore)
+TIPO_LABEL = {'Osservazione': 'Indizio Nascosto', 'Presagio': 'Indizio Nascosto',
+              'Testimonianza': 'Testimone', 'Referto': 'Referto'}
+TORN_TOP = 'background scheda personaggio.png'
+WINDOW_TOP = (0.50, 0.49, 1.03, 1.03)
+MX = 20*mm
+ART_BOTTOM = WINDOW_TOP[1] * H
+COL_W = WINDOW_TOP[0]*W - MX - 4*mm
+DESC_TOP = H - 37*mm
+DESC_MAX_H = DESC_TOP - (ART_BOTTOM - 4*mm) - 3*mm
+
+def fit_desc(c, text, start=9.5, floor=7):
+    size = start
+    while True:
+        style = st('desc', fontName=F['i'], fontSize=size, leading=size*1.42, alignment=4)
+        p = Paragraph(text, style)
+        w, h = p.wrapOn(c, COL_W, 400*mm)
+        if h <= DESC_MAX_H or size <= floor:
+            return p, h
+        size -= 0.3
+
+def luoghi():
+    missing = [L['art'] for L in LUOGHI_P
+               if not os.path.exists(os.path.join(ARTWORKS_DIR, L['art']))]
+    if missing:
+        print('SALTO Luoghi.pdf: manca arte in artworks/:', ', '.join(missing))
+        print('  (genera con i prompt della sezione Preludio in PROMPT-MIDJOURNEY.md)')
+        return
+    c = canvas.Canvas(os.path.join(OUT_DIR, 'Luoghi.pdf'), pagesize=A4)
+    c.setTitle('Ombre su Roccamora - Preludio - Luoghi (riferimenti narratore)')
+    ROW = st('row', fontSize=10.5, leading=15)
+    NONE_ROW = st('none_row', fontName=F['i'], fontSize=9.5, leading=14, textColor=SEPIA)
+    for L in LUOGHI_P:
+        torn_portrait(c, W, H, L['art'], TORN_TOP, window=WINDOW_TOP)
+        rule_border(c, W, H)
+        c.setFillColor(TEAL); c.setFont(F['sc'], 10)
+        c.drawString(MX, H - 20*mm, ('luogo ' + L['n']).lower())
+        size = 18
+        while c.stringWidth(L['nome'].lower(), F['sc'], size) > COL_W and size > 10:
+            size -= 1
+        c.setFillColor(RED); c.setFont(F['sc'], size)
+        c.drawString(MX, H - 30*mm, L['nome'].lower())
+        d, dh = fit_desc(c, L['testo'])
+        d.drawOn(c, MX, DESC_TOP - dh)
+        c.setStrokeColor(SEPIA); c.setLineWidth(0.5)
+        c.line(MX, ART_BOTTOM - 4*mm, W - MX, ART_BOTTOM - 4*mm)
+        rows = []
+        for a in L['approfondimenti']:
+            tipo = TIPO_LABEL[a['tipo']]
+            if 'soggetto' in a:
+                rows.append(f"<b>{tipo}</b> — carta “{a['soggetto']}”")
+            else:
+                rows.append(f"<b>{tipo}</b> <i>({a['tipo']})</i>")
+        y = ART_BOTTOM - 12*mm
+        if not rows:
+            p = Paragraph('Nessun Approfondimento qui.', NONE_ROW)
+            p.wrapOn(c, W - 2*MX, 20*mm)
+            p.drawOn(c, MX, y - 5*mm)
+        for r in rows:
+            p = Paragraph(f'— {r}', ROW)
+            pw, ph = p.wrapOn(c, W - 2*MX, 20*mm)
+            p.drawOn(c, MX, y - ph)
+            y -= ph + 4*mm
+        c.showPage()
+    c.save()
+
+if __name__ == '__main__':
+    indagine()
+    spedizione()
+    soluzione()
+    luoghi()
+    print('OK preludio')

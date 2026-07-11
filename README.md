@@ -10,6 +10,12 @@ in una città immaginaria di canali e campanili nel 1889. Unisce indagine alla
   - `01-Regolamento` — regole complete
   - `02-Schede-Personaggio` — i 6 eroi della Società del Lume
   - `06-Aiuto-Giocatore` — riepilogo regole da tavolo su una pagina
+  - `Preludio/` — mini-episodio tutorial "La Prova del Lume" (~60-90 min): come i
+    sei eroi si incontrano ed entrano nella Società del Lume, imparando le regole
+    giocando (box "Scuola del Lume" nei fascicoli). 4 luoghi, 2 Domande, mini
+    spedizione su 3 tessere riusate dall'Episodio 1. Stessi fascicoli di un
+    episodio pieno: `Copertina`, `Indagine`, `Spedizione`, `Luoghi`, `Soluzione
+    (non aprire)`.
   - `Episodio 1/` — materiale specifico di questo episodio:
     - `Copertina` — poster dell'episodio (mappa della città, titolo e nome del gioco)
     - `Indagine` — lettera d'incarico, taccuino (le 8 carte Luogo e le carte
@@ -52,15 +58,16 @@ python gen_docs.py     # regolamento + aiuto-giocatore + soluzione (Episodio 1)
 python gen_deluxe.py   # schede personaggio
 python gen_gothic.py   # indagine + spedizione (Episodio 1)
 python gen_narrator.py # luoghi/tessere per chi arbitra (Episodio 1)
-python gen_cover.py    # copertina episodio (mappa + titolo)
+python gen_cover.py    # copertine (Preludio + episodi)
+python gen_preludio.py # Preludio completo (indagine, spedizione, soluzione, luoghi)
 ```
 
 ## Rigenerare le carte
 
 ```bash
 cd scripts/cardconjurer
-node generate-batch.js            # tutte (eroi, nemici, minacce, luoghi, indizi, testimoni, referti, oggetti)
-node generate-batch.js luoghi     # solo un gruppo (heroes|nemici|minacce|luoghi|indizi|testimoni|referti|oggetti)
+node generate-batch.js            # tutte (eroi, nemici, minacce, luoghi, indizi, testimoni, referti, oggetti, preludio)
+node generate-batch.js luoghi     # solo un gruppo (heroes|nemici|minacce|luoghi|indizi|testimoni|referti|oggetti|preludio)
 node generate-test.js "Elena Fosco" "Il Fonditore"   # solo carte specifiche, per titolo
 node generate-print-sheets.js     # fronte/retro pronto da stampare, tutti i mazzi (non committato)
 ```

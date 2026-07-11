@@ -355,13 +355,82 @@ const OGGETTI = [
   rules: `{i}${o.flavor}{/i}{divider}${o.effetto}`,
 }));
 
+// ================================================================ PRELUDIO
+// Mini-episodio tutorial (vedi src/gen_preludio.py, fonte autoritativa dei
+// testi). Stesse regole delle carte Ep. 1: numero del luogo nel titolo,
+// niente riferimenti a luoghi su Approfondimenti/Oggetti. Le arti sono nella
+// sezione Preludio di PROMPT-MIDJOURNEY.md.
+const PRELUDIO_LUOGHI = [
+  { n: 'P1', nome: 'Il Palazzo del Lume', req: 'Disponibile dall’inizio',
+    art: 'artworks/Palazzo del Lume.png',
+    testo: 'Il palazzo della Società sa di cera d’api e di anni chiusi a chiave: sei poltrone attorno a un tavolo, cinque ritratti alle pareti e un gancio vuoto dove il sesto è stato tolto. La stanza di Ansaldo è in fondo al corridoio, ordinata come una cella di monaco. M. vi osserva dalla soglia, e non tocca nulla.',
+    indizi: ['Il letto è intatto da tre notti, ma pipa e scialle sono ancora al chiodo: chi esce per sempre non lascia la pipa. (Oggetto: prendete la carta La Pipa di Ansaldo.)',
+             'Nel registro delle consultazioni dell’archivio manca una pagina, strappata di netto. L’ultima riga rimasta: «1741 — fascicolo della confraternita…» (Reperto A: consegnate il Registro delle Consultazioni.)',
+             'Sul pavimento dell’archivio, graffi di stivali chiodati: uomini pesanti, almeno due, e nessuno dei due era il vecchio Ansaldo. Sul tavolo, il suo anello di chiavi. (Oggetto: prendete la carta L’Anello di Chiavi.)'] },
+  { n: 'P2', nome: 'La Taverna della Chiatta', req: 'Disponibile dall’inizio',
+    art: 'artworks/Taverna della Chiatta.png',
+    testo: 'Dirimpetto al palazzo, oltre il ponte, la taverna è il posto da cui si vede chi entra e chi esce dalla porta della Società. L’oste lucida bicchieri che restano opachi e parla volentieri: da queste parti un cliente nuovo è un avvenimento, tre clienti nuovi sono una storia.',
+    indizi: ['L’oste: «Tre uomini da molo, tre sere di fila, sempre quel tavolo: guardavano il vostro portone. Uno ha detto una parola che qui non si usa: la DOGANA vecchia.» (Parola chiave: sblocca il Luogo P4.)',
+             'Il nipote di Ansaldo ha litigato col vecchio la settimana scorsa, per soldi: metà taverna li ha sentiti. Da allora il ragazzo non si è più visto.',
+             'Dopo le 21:00 arriva il barcaiolo della Chiatta: prima di quell’ora è in acqua. (Vincolo d’orologio: l’indizio del barcaiolo si legge solo visitando P2 dalle 21 in poi.)'] },
+  { n: 'P3', nome: 'Il Banco dei Pegni di Fossa', req: 'Disponibile dall’inizio',
+    art: 'artworks/Banco dei Pegni.png',
+    testo: 'Mezza Roccamora è passata da Fossa a impegnare l’altra metà. Dietro la grata, il vecchio prestatore vi squadra come si squadra un anello: cercando il difetto. Il suo registro è la vera cronaca del quartiere — basta saperlo leggere, o pagare la tariffa.',
+    indizi: ['Nel registro: l’orologio da tasca di Ansaldo, impegnato IERI da «un signore coi stivali chiodati». Ansaldo era sparito da due giorni: qualcuno gli ha svuotato le tasche, e quel qualcuno gira ancora per la città.',
+             'Sempre nel registro, la settimana scorsa: il NIPOTE di Ansaldo ha impegnato l’argenteria di famiglia e saldato un debito di gioco. La notte della sparizione era qui a ritirarla: il prestatore lo giura. (Il nipote è innocente: il litigio era per questo.)',
+             'Il prestatore, sottovoce: «Gli stivali chiodati puzzavano di sego e di corda bagnata. Roba da molo, non da città.»'] },
+  { n: 'P4', nome: 'La Dogana Vecchia', req: 'Serve: la parola chiave DOGANA (P2)',
+    art: 'artworks/Dogana Vecchia.png',
+    testo: 'In fondo al canale di ponente, la vecchia dogana marcisce da vent’anni: banchina sfondata, portoni murati, una chiatta ormeggiata dove non dovrebbe esserci niente. Un uomo finge di pescare senza esca, e vi guarda arrivare per tutto il molo.',
+    indizi: ['Le casse sulla chiatta sono vuote e nuove: nessun carico, solo la scusa per stare ormeggiati. Il finto pescatore ha il calcio di un coltellaccio sotto la giacca.',
+             'Da sotto la banchina, attraverso le assi, colpi ritmici: tre, pausa, tre. Qualcuno, là sotto, batte per farsi sentire. Ansaldo è qui.',
+             'Nel fango del molo, un lembo di carta antica strappata: mezzo disegno a inchiostro, una linea che ondeggia. Come mezza onda.'] },
+].map((L) => ({
+  art: L.art,
+  title: `${L.n} · ${L.nome}`,
+  file: `Preludio/${L.n} - ${L.nome}`,
+  type: `Luogo ${L.n} — ${L.req}`,
+  rules: `{i}${L.testo}{/i}{divider}${L.indizi.map((c) => `◆ ${c}`).join('\n')}`,
+}));
+
+const PRELUDIO_APPROFONDIMENTI = [
+  { art: 'artworks/Palazzo del Lume.png', kind: 'Indizio',
+    title: 'Indizio Nascosto — Il Palazzo del Lume',
+    file: 'Preludio/Indizio - Il Palazzo del Lume',
+    type: 'Preludio · Osservazione (Elena) / Presagio (Sibilla)',
+    rules: '{i}◆ (Osservazione — Elena) La polvere sullo scaffale del 1741 è smossa solo a metà: chi ha preso il fascicolo sapeva DOVE cercare, ma non era pratico dell’archivio. Non era Ansaldo — e nemmeno un ladro qualunque.{/i}' },
+  { art: 'artworks/Taverna della Chiatta.png', kind: 'Testimone',
+    title: 'Testimone — Il barcaiolo della Chiatta',
+    file: 'Preludio/Testimone - Il barcaiolo della Chiatta',
+    type: 'Preludio · Testimone — abilità sociale (Ottone/Carla)',
+    rules: '{i}Con un bicchiere davanti, il barcaiolo ricorda: due notti, un passeggero fino alla riva del palazzo. «Un signore ben vestito, mani da artigiano. Pagava doppio per non avere domande. Mai di giorno.»{/i}' },
+  { art: 'artworks/Banco dei Pegni.png', kind: 'Referto',
+    title: 'Referto — L’orologio impegnato',
+    file: 'Preludio/Referto - L’orologio impegnato',
+    type: 'Preludio · Referto — il Medico (Attilio)',
+    rules: '{i}Il vetro è incrinato e sulla corona c’è sangue secco, ma poco: un colpo solo, di taglio, non una colluttazione lunga. Ansaldo è stato tramortito, non ucciso — un morto non serve a chi ha ancora domande da fargli.{/i}' },
+];
+
+const PRELUDIO_OGGETTI = [
+  { art: 'artworks/Anello di Chiavi.png', title: 'L’Anello di Chiavi',
+    file: 'Preludio/L’Anello di Chiavi',
+    type: 'Oggetto — Preludio',
+    rules: '{i}Vent’anni di tasca l’hanno lucidato più di qualunque argentiere.{/i}{divider}Nella spedizione: apre la porta della banchina (T1 → T2) con Interagire, senza prove.' },
+  { art: 'artworks/Pipa di Ansaldo.png', title: 'La Pipa di Ansaldo',
+    file: 'Preludio/La Pipa di Ansaldo',
+    type: 'Oggetto — Preludio',
+    rules: '{i}Radica scura, morsa da una vita. Sa ancora di tabacco buono.{/i}{divider}Effetto: nessuno finora scoperto.' },
+];
+
 // Sottocartella per tipo, cosi' e' chiaro a colpo d'occhio se una carta e' la
 // scheda nemico (combattimento) o la carta minaccia (evento dal mazzo), anche
 // quando condividono soggetto/art (es. "Il Fonditore" esiste in entrambe).
 NEMICI.forEach((n) => { n.file = `Nemici/${n.title}`; });
 HEROES.forEach((h) => { h.file = `Eroi/${h.title}`; });
 
+const PRELUDIO = [...PRELUDIO_LUOGHI, ...PRELUDIO_APPROFONDIMENTI, ...PRELUDIO_OGGETTI];
+
 module.exports = {
-  HEROES, NEMICI, MINACCE, LUOGHI, INDIZI, TESTIMONI, REFERTI, OGGETTI,
-  ALL: [...HEROES, ...NEMICI, ...MINACCE, ...LUOGHI, ...INDIZI, ...TESTIMONI, ...REFERTI, ...OGGETTI],
+  HEROES, NEMICI, MINACCE, LUOGHI, INDIZI, TESTIMONI, REFERTI, OGGETTI, PRELUDIO,
+  ALL: [...HEROES, ...NEMICI, ...MINACCE, ...LUOGHI, ...INDIZI, ...TESTIMONI, ...REFERTI, ...OGGETTI, ...PRELUDIO],
 };

@@ -39,9 +39,16 @@ WHITE = colors.HexColor('#ffffff')
 WAVE = colors.HexColor('#e8e8e8')
 
 EPISODI = {
+    0: 'La Prova del Lume',  # il Preludio (tutorial), cartella pdf/Preludio/
     1: 'Il caso del campanaro scomparso',
 }
 ROMAN = {1: 'I', 2: 'II', 3: 'III', 4: 'IV', 5: 'V', 6: 'VI'}
+
+def etichetta(num):
+    return 'Preludio' if num == 0 else 'Episodio ' + ROMAN.get(num, str(num))
+
+def cartella(num):
+    return 'Preludio' if num == 0 else f'Episodio {num}'
 
 
 def cover_fit(c, name):
@@ -136,8 +143,7 @@ def copertina(c, num, titolo):
     c.setFillAlpha(1); c.restoreState()
 
     # --- basso: episodio ---
-    engraved(c, W/2, 74*mm, 'Episodio ' + ROMAN.get(num, str(num)),
-             TITLE, 15, WHITE, tracking=2.5)
+    engraved(c, W/2, 74*mm, etichetta(num), TITLE, 15, WHITE, tracking=2.5)
     # titolo, ridotto se troppo largo per stare su una riga con margini
     size = 29
     while c.stringWidth(titolo, TITLE, size) > W - 44*mm and size > 16:
@@ -156,10 +162,10 @@ def copertina(c, num, titolo):
 
 def build(num):
     titolo = EPISODI[num]
-    out_dir = os.path.join(OUT_ROOT, f'Episodio {num}')
+    out_dir = os.path.join(OUT_ROOT, cartella(num))
     os.makedirs(out_dir, exist_ok=True)
     c = canvas.Canvas(os.path.join(out_dir, 'Copertina.pdf'), pagesize=A4)
-    c.setTitle(f'Ombre su Roccamora - Episodio {num} - {titolo}')
+    c.setTitle(f'Ombre su Roccamora - {etichetta(num)} - {titolo}')
     copertina(c, num, titolo)
     c.save()
 

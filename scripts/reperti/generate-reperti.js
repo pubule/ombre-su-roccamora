@@ -173,10 +173,43 @@ Chi canterà al di sotto, non si lamenti di ciò che al di sotto risponde.`;
     </div></div>
   `);
 
+  // --- Reperto del Preludio: registro delle consultazioni della Societa' ---
+  const consultP = [
+    ['1868, giugno', 'A. Morvilli, socio fondatore', 'atti del processo Dellacqua'],
+    ['1871, marzo', 'M.', 'carte della Dogana Vecchia'],
+    ['1874, inverno', 'M.', 'mappe dei condotti sotto la Cattedrale'],
+    ['la settimana scorsa', '<i>(pagina strappata)</i>', '1741 — fascicolo della confraternita…'],
+  ];
+  const repertoP = page(`
+    <div class="wrap"><div style="zoom:0.84;">
+      <div style="text-align:center; margin-bottom:60px;">
+        <div class="caps" style="font-size:60px;">società del lume · registro delle consultazioni</div>
+        <div class="serif" style="font-style:italic; font-size:36px; color:#3a2415; mix-blend-mode:multiply; margin-top:14px;">Reperto A del Preludio — trovato aperto nell’archivio del palazzo</div>
+      </div>
+      <table style="width:100%; border-collapse:collapse; font-size:44px;">
+        <thead>
+          <tr class="serif" style="font-weight:bold;">
+            <th style="text-align:left; border-bottom:2px solid #3a2415; padding:10px 8px; mix-blend-mode:multiply;">data</th>
+            <th style="text-align:left; border-bottom:2px solid #3a2415; padding:10px 8px; mix-blend-mode:multiply;">richiedente</th>
+            <th style="text-align:left; border-bottom:2px solid #3a2415; padding:10px 8px; mix-blend-mode:multiply;">fascicolo</th>
+          </tr>
+        </thead>
+        <tbody class="hand">
+          ${consultP.map((r) => `<tr>${r.map((v) => `<td style="border-bottom:1px solid #3a2415; padding:20px 8px; font-size:50px; mix-blend-mode:multiply;">${v}</td>`).join('')}</tr>`).join('')}
+        </tbody>
+      </table>
+      <div class="serif" style="font-style:italic; margin-top:80px; font-size:36px; color:#4a4a4e; mix-blend-mode:multiply;">
+        L’ultima riga si interrompe dove la pagina è stata strappata di netto. Il lembo
+        rimasto trattiene mezza parola e l’inizio di un disegno a inchiostro: una linea che ondeggia.
+      </div>
+    </div></div>
+  `);
+
   const items = [
     ['Reperto A - Diario di Ruggero', repertoA],
     ['Reperto B - Registro delle Consegne', repertoB],
     ['Reperto C - Fascicolo del 1741', repertoC],
+    ['Preludio - Registro delle Consultazioni', repertoP],
   ];
 
   for (const [name, html] of items) {
