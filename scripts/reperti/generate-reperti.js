@@ -21,7 +21,10 @@ const OUT_DIR = path.join(ROOT, 'reperti');
 fs.mkdirSync(OUT_DIR, { recursive: true });
 
 const W = 1500;
-const PAD = 190; // margine laterale, tenuto ben dentro i bordi frastagliati della pergamena
+const PAD = 190; // margine destro/di base
+const PAD_LEFT = 280; // margine sinistro maggiorato: il nuovo sfondo ha una "costa"
+                       // rilegata decorativa sul bordo sinistro, il testo va spostato
+                       // a destra per non nascerle troppo vicino
 
 const BASE_CSS = `
   @import url('https://fonts.googleapis.com/css2?family=La+Belle+Aurore&family=IM+Fell+English+SC&family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&display=swap');
@@ -36,7 +39,7 @@ const BASE_CSS = `
   .hand { font-family: 'La Belle Aurore', cursive; }
   .serif { font-family: 'Old Standard TT', serif; }
   .caps { font-family: 'IM Fell English SC', serif; letter-spacing: 2px; text-transform: uppercase; }
-  .wrap { padding: 140px ${PAD}px 140px ${PAD}px; }
+  .wrap { padding: 140px ${PAD}px 140px ${PAD_LEFT}px; }
 `;
 
 function page(bodyHtml) {
