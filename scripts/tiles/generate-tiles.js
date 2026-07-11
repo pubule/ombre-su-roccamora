@@ -128,7 +128,8 @@ function html(tile) {
       O: `left:${32}px; top:${idx * cell + cell / 2}px;`,
     };
     const arrow = { N: '▲', S: '▼', E: '▶', O: '◀' }[dir];
-    return `<div class="door" style="${styles[dir]}"></div>
+    const doorClass = (dir === 'N' || dir === 'S') ? 'door door-h' : 'door door-v';
+    return `<div class="${doorClass}" style="${styles[dir]}"></div>
             <div class="door-arrow" style="${arrowPos[dir]}">${arrow}</div>
             <div class="door-label" style="${labelPos[dir]}">verso ${dest}${note ? `<br/><small>${note}</small>` : ''}</div>`;
   }).join('');
@@ -143,8 +144,14 @@ function html(tile) {
     .cell { position:absolute; border:2px solid rgba(230,195,120,0.55); box-sizing:border-box; }
     .arredo { position:absolute; border-radius:6px; border:2px solid rgba(230,195,120,0.9);
               box-shadow:0 4px 10px rgba(0,0,0,0.6); background-size:cover; background-position:center; }
-    .door { position:absolute; background:radial-gradient(circle, rgba(242,193,78,0.95) 0%, rgba(242,193,78,0.55) 60%, rgba(242,193,78,0.15) 100%);
-            border:4px solid #f2c14e; border-radius:6px; box-shadow:0 0 22px 6px rgba(242,193,78,0.85); }
+    /* Bagliore della porta: un radial-gradient "circle" unico non basta, si
+       schiaccia diversamente in un riquadro largo-basso (N/S) rispetto a uno
+       stretto-alto (E/O) - risultato incoerente (barra ben visibile a N/S,
+       quasi invisibile a E/O). Un linear-gradient orientato sull'asse corto
+       (26px) da' lo stesso "bagliore che sfuma ai bordi" su tutti e 4 i lati. */
+    .door { position:absolute; border:4px solid #f2c14e; border-radius:6px; box-shadow:0 0 22px 6px rgba(242,193,78,0.85); }
+    .door-h { background:linear-gradient(to bottom, transparent, rgba(242,193,78,0.95) 40%, rgba(242,193,78,0.95) 60%, transparent); }
+    .door-v { background:linear-gradient(to right, transparent, rgba(242,193,78,0.95) 40%, rgba(242,193,78,0.95) 60%, transparent); }
     .door-arrow { position:absolute; transform:translate(-50%,-50%); font-size:34px; color:#2a1a05;
                   text-shadow:0 0 4px #fff8e0; }
     .door-label { position:absolute; transform:translate(-50%,-50%); white-space:nowrap; text-align:center;
