@@ -295,6 +295,15 @@ comunque: nel compositing il dipinto viene sovrapposto al centro coprendolo.
 
 ## Finiti così come escono
 
+**Sfondo Tabellone** → `artworks/Tabellone.png` (opzionale: `src/gen_board.py`
+funziona già con uno sfondo scuro procedurale, questo lo sostituisce). Deve
+restare MOLTO scuro: sopra ci vanno testo/tratteggi color oro a basso
+contrasto (traccia Canto, slot mazzo Minaccia+scarti, angolo d'ingresso) —
+uno sfondo troppo chiaro o troppo "affollato" li rende illeggibili:
+```
+full bleed dark fantasy painting, worn black stone dock floor beside still black canal water at night, faint gold filigree markings barely visible worn into the stone, sparse dripped black wax, empty and uncluttered, 1889 gaslamp gothic, oil painting, muted teal and crimson palette with gold accents, very dark and atmospheric --ar 3:4 --style raw --no frame, border, card, text, letters, watermark, figures, people
+```
+
 I dorsi hanno il tipo di carta **inciso direttamente nell'arte** (parola in
 maiuscolo blackletter incisa nel medaglione centrale), non sovrapposto via
 codice: niente overlay in `generate-print-sheets.js`, il file generato è

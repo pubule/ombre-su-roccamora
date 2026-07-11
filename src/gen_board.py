@@ -7,20 +7,22 @@ vedi il pivot "generico/libero" scelto apposta per questo) ma da' una casa
 fissa a due elementi che altrimenti girano sciolti sul tavolo - la traccia
 del Canto (3 caselle) e il mazzo Minaccia con gli scarti.
 
-Sfondo scuro liscio (nessuna arte Midjourney per ora: l'utente ha detto
-esplicitamente che va bene "anche nero" pur di avere gli slot funzionali
-subito) con un sigillo enorme e sbiadito come unico elemento decorativo, cosi'
-il centro della pagina non resta un vuoto morto. Se in futuro si genera uno
-sfondo dedicato, vedi il prompt suggerito in fondo al file: basta sostituire
-`bg()` per usarlo, gli slot sopra restano identici.
+Sfondo: usa `artworks/Tabellone.png` se esiste (prompt in PROMPT-MIDJOURNEY.md,
+sezione "Sfondo Tabellone"), altrimenti un fondo scuro liscio con un sigillo
+enorme e sbiadito come unico elemento decorativo (cosi' il centro della
+pagina non resta un vuoto morto anche senza arte dedicata) - l'utente ha
+detto esplicitamente che va bene "anche nero" pur di avere gli slot
+funzionali subito. In entrambi i casi un velo scuro sopra tiene il contrasto
+basso: gli slot sono tratteggi oro sottili, devono restare leggibili.
 """
 import os
+import math
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.units import mm
 from reportlab.lib import colors
 from reportlab.pdfgen import canvas
 
-from deluxe_style import register_fonts, corner_flourish, art, F, GOLD
+from deluxe_style import register_fonts, corner_flourish, art, ARTWORKS_DIR, F, GOLD
 
 OUT_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'pdf')
 register_fonts()
@@ -29,29 +31,40 @@ NOTTE = colors.HexColor('#17141a')
 CREMA = colors.HexColor('#efe4c4')
 CARD_W, CARD_H = 68*mm, 68*1.4*mm  # stessa taglia carta usata ovunque nella stampa
 
-def bg(c):
-    """Sfondo scuro liscio + vignetta ai bordi + sigillo enorme e sbiadito al
-    centro (evita un vuoto morto senza distrarre dagli slot funzionali)."""
-    c.setFillColor(NOTTE)
-    c.rect(0, 0, W, H, fill=1, stroke=0)
-    seal_img = art('Sigillo.png')
-    sw, sh = seal_img.getSize()
-    d = 190*mm
-    dw, dh = d, d * sh / sw
-    c.saveState()
-    c.translate(W/2, H/2); c.rotate(-8)
-    c.setFillAlpha(1)
-    c.drawImage(seal_img, -dw/2, -dh/2, width=dw, height=dh, mask='auto')
-    c.restoreState()
-    # velo scuro sopra il sigillo per riportarlo a un filigrana appena percettibile
-    c.setFillColor(NOTTE); c.setFillAlpha(0.88)
+def _veil(c, alpha):
+    c.setFillColor(NOTTE); c.setFillAlpha(alpha)
     c.rect(0, 0, W, H, fill=1, stroke=0)
     c.setFillAlpha(1)
+
+def _vignette(c):
     for i, a in ((16*mm, 0.5), (7*mm, 0.35)):
         c.setFillColor(colors.black); c.setFillAlpha(a)
         c.rect(0, 0, W, i, fill=1, stroke=0); c.rect(0, H - i, W, i, fill=1, stroke=0)
         c.rect(0, 0, i, H, fill=1, stroke=0); c.rect(W - i, 0, i, H, fill=1, stroke=0)
     c.setFillAlpha(1)
+
+def bg(c):
+    if os.path.exists(os.path.join(ARTWORKS_DIR, 'Tabellone.png')):
+        img = art('Tabellone.png')
+        iw, ih = img.getSize()
+        scale = max(W / iw, H / ih)
+        dw, dh = iw * scale, ih * scale
+        c.drawImage(img, (W - dw) / 2, (H - dh) / 2, width=dw, height=dh, mask=None)
+        _veil(c, 0.5)
+    else:
+        c.setFillColor(NOTTE)
+        c.rect(0, 0, W, H, fill=1, stroke=0)
+        seal_img = art('Sigillo.png')
+        sw, sh = seal_img.getSize()
+        d = 190*mm
+        dw, dh = d, d * sh / sw
+        c.saveState()
+        c.translate(W/2, H/2); c.rotate(-8)
+        c.drawImage(seal_img, -dw/2, -dh/2, width=dw, height=dh, mask='auto')
+        c.restoreState()
+        # velo scuro sopra il sigillo per riportarlo a un filigrana appena percettibile
+        _veil(c, 0.88)
+    _vignette(c)
 
 def gold_border(c):
     """Doppio filetto oro + fiorellini d'angolo (stessa tecnica di rule_border,
@@ -86,6 +99,20 @@ def dashed_circle(c, cx, cy, r):
     c.circle(cx, cy, r)
     c.restoreState()
 
+def arrow(c, x0, y0, x1, y1, head=5*mm):
+    """Freccia tratteggiata (linea + punta a V): indica una direzione senza
+    pretendere di delimitare un'area, coerente con lo spazio tessere libero."""
+    c.saveState()
+    c.setStrokeColor(GOLD); c.setLineWidth(1.1); c.setDash(3, 2.4)
+    c.line(x0, y0, x1, y1)
+    c.restoreState()
+    ang = math.atan2(y1 - y0, x1 - x0)
+    c.saveState()
+    c.setStrokeColor(GOLD); c.setLineWidth(1.1)
+    for da in (0.5, -0.5):
+        c.line(x1, y1, x1 - head*math.cos(ang - da), y1 - head*math.sin(ang - da))
+    c.restoreState()
+
 def tabellone():
     c = canvas.Canvas(os.path.join(OUT_DIR, 'Ombre-su-Roccamora-07-Tabellone.pdf'), pagesize=A4)
     c.setTitle('Ombre su Roccamora - Tabellone')
@@ -111,18 +138,32 @@ def tabellone():
     dashed_rect(c, x0, y0, CARD_W, CARD_H, 'mazzo')
     dashed_rect(c, x0 + CARD_W + gap, y0, CARD_W, CARD_H, 'scarti')
 
-    # --- zona tessere: generica/libera, nessuna sagoma - solo un'area
-    # dedicata dove posare le tessere man mano che si rivelano. Le tessere
-    # (130mm) possono sbordare oltre il bordo tratteggiato: non e' un
-    # contenitore rigido, e' solo un punto di riferimento visivo. ---
+    # --- ingresso + direzione di espansione: niente riquadro-contenitore (una
+    # tessera vera e' 130mm, non ci sta in nessun formato A4 insieme alle
+    # altre) - solo dove posare la prima tessera (scoperta dall'inizio, le
+    # altre restano coperte finche' un eroe non ci entra: si rivelano da
+    # sole, non e' un'azione) e una freccia che indica che si puo' espandere
+    # liberamente in ogni direzione sul tavolo, non solo verso la freccia. ---
     m2 = 9.5*mm
-    tess_bottom = 22*mm
-    tess_top = y0 - 26*mm
-    tess_x = m2 + 5*mm
-    tess_w = W - 2*tess_x
-    c.setFillColor(GOLD); c.setFont(F['sc'], 12)
-    c.drawCentredString(W/2, tess_top + 6*mm, 'tessere')
-    dashed_rect_plain(c, tess_x, tess_bottom, tess_w, tess_top - tess_bottom)
+    ing_side = 50*mm
+    ing_x = m2 + 8*mm
+    ing_y = 24*mm
+    dashed_rect(c, ing_x, ing_y, ing_side, ing_side, 'ingresso — scoperta da subito')
+    c.setFillColor(GOLD); c.setFont(F['sc'], 9)
+    c.drawCentredString(ing_x + ing_side/2, ing_y + ing_side/2 + 3, '1ª tessera')
+
+    ax0, ay0 = ing_x + ing_side + 6*mm, ing_y + ing_side*0.35
+    ax1, ay1 = ax0 + 55*mm, ay0 + 40*mm
+    arrow(c, ax0, ay0, ax1, ay1)
+    c.setFillColor(CREMA); c.setFillAlpha(0.75); c.setFont(F['i'], 8.5)
+    c.drawCentredString(ax1 + 12*mm, ay1 + 9*mm, 'espandete liberamente')
+    c.drawCentredString(ax1 + 12*mm, ay1 + 2*mm, 'in ogni direzione')
+    c.setFillAlpha(1)
+
+    c.setFillColor(CREMA); c.setFillAlpha(0.75); c.setFont(F['i'], 8.5)
+    c.drawCentredString(W/2, 112*mm,
+                        'le altre tessere restano coperte: si rivelano da sole quando un eroe ci entra per la prima volta')
+    c.setFillAlpha(1)
 
     c.setFillColor(CREMA); c.setFillAlpha(0.7); c.setFont(F['i'], 8.5)
     c.drawCentredString(W/2, 12*mm, 'ombre su roccamora · società del lume — tabellone riusabile, tutte le tessere si posano libere')
@@ -133,12 +174,3 @@ def tabellone():
 if __name__ == '__main__':
     tabellone()
     print('OK board')
-
-# Prompt Midjourney suggerito per sostituire lo sfondo liscio con arte vera
-# (facoltativo, vedi PROMPT-MIDJOURNEY.md sezione "Tabellone" quando esiste):
-#
-# full bleed dark fantasy painting, worn black stone dock floor beside still
-# canal water at night, faint gold filigree markings barely visible in the
-# stone, sparse dripped black wax, 1889 gaslamp gothic, oil painting, muted
-# teal and crimson palette with gold accents, very dark and atmospheric
-# --ar 3:4 --style raw --no frame, border, card, text, letters, watermark
