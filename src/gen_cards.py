@@ -261,44 +261,61 @@ OGGETTI = [
 ]
 
 # ================================================================ SPEDIZIONE
-# Ogni Minaccia ha un tipo (terza voce della tupla), stessa idea del `tipo` degli
-# Approfondimenti: formalizza le "famiglie" gia' informalmente raggruppate qui
-# sotto a commento. Serve a regole che dipendono dal tipo invece che dal nome
-# esatto (es. Learco Sarti, eroe, disinnesca le Minacce di tipo 'trappola').
-# 'inquietudine' (non 'presagio') per la carta PRESAGIO apposta: 'Presagio' e'
-# gia' un tipo di Approfondimento (vedi LUOGHI sopra) - stesso nome per due
-# cose diverse confonderebbe al tavolo, tipi diversi restano chiaramente
-# distinti anche condividendo il nome della carta.
+# Ogni Minaccia ha un tipo (terza voce) e un flag 'subito' (quarta voce),
+# stessa idea del `tipo` degli Approfondimenti: formalizza pattern meccanici
+# reali nel testo effetto, non solo raggruppamenti di comodo (vedi analisi
+# nel piano di sessione, plans/wondrous-foraging-raven.md). Ogni tipo esiste
+# solo se abilita un'interazione presente o futura:
+#   posseduto  - creature esclusive di questo episodio (non piu' se stesse:
+#                gente comune posseduta), generico per episodi futuri con un
+#                villain diverso; MAI 'culto' (troppo legato a Episodio 1).
+#   malavita   - criminali secolari, gia' dichiaratamente riusabili
+#                cross-episodio (vedi README): corruttibili/spaventabili in
+#                un modo in cui un Posseduto non lo e'.
+#   insidia    - "prova NERVI o subisci" (fisica o psicologica): disinnescata
+#                da Learco Sarti (eroe proposto, non ancora implementato).
+#   crescendo  - avanza il countdown verso il boss di episodio; generico
+#                (un episodio futuro puo' non avere un coro).
+#   ostacolo   - penalizza il Movimento (ambito/durata diversi, stesso asse).
+#   quiete     - nessun effetto, filler di tensione (asse per episodi futuri
+#                con piu' filler, oggi solo 1 carta).
+#   favore     - effetto positivo per gli eroi (asse per episodi futuri con
+#                piu' "respiro" nel mazzo, oggi solo 1 carta).
+# 'subito' (True/False): la creatura piazzata si attiva immediatamente
+# invece che al prossimo giro di attivazioni nemiche - rischio immediato vs
+# differito, trasversale a posseduto/malavita. Non e' un tipo a se': non e'
+# un "sostantivo" e frammenterebbe la tassonomia sopra. Pronto per
+# un'abilita' futura tipo "il primo nemico piazzato non si attiva subito".
 MINACCE = (
     # famiglia ADEPTO (4): stessa sostanza, apparizioni diverse
-    [('ADEPTO IN AGGUATO', 'Piazzate 1 Adepto sull’uscita più lontana dagli eroi della tessera in cui si trova l’eroe attivo.', 'adepto'),
-     ('VOLTI TRA LE CASSE', 'Piazzate 1 Adepto sulla tessera rivelata più lontana dagli eroi.', 'adepto'),
-     ('IL FALCETTO NEL BUIO', 'Piazzate 1 Adepto sull’ingresso della tessera corrente, alle spalle degli eroi.', 'adepto'),
-     ('LA VEDETTA', 'Piazzate 1 Adepto adiacente all’eroe più isolato (quello più lontano dagli altri; a pari merito, l’eroe attivo).', 'adepto')] +
+    [('ADEPTO IN AGGUATO', 'Piazzate 1 Adepto sull’uscita più lontana dagli eroi della tessera in cui si trova l’eroe attivo.', 'posseduto', False),
+     ('VOLTI TRA LE CASSE', 'Piazzate 1 Adepto sulla tessera rivelata più lontana dagli eroi.', 'posseduto', False),
+     ('IL FALCETTO NEL BUIO', 'Piazzate 1 Adepto sull’ingresso della tessera corrente, alle spalle degli eroi.', 'posseduto', False),
+     ('LA VEDETTA', 'Piazzate 1 Adepto adiacente all’eroe più isolato (quello più lontano dagli altri; a pari merito, l’eroe attivo).', 'posseduto', False)] +
     # famiglia CANI (2)
-    [('CANI DEI MOLI', 'Piazzate 1 Cane dei Moli sull’uscita più vicina agli eroi della tessera corrente: si attiva subito.', 'cane'),
-     ('UNGHIE SULLA PIETRA', 'Piazzate 1 Cane dei Moli sull’ingresso della tessera corrente: si attiva subito.', 'cane')] +
+    [('CANI DEI MOLI', 'Piazzate 1 Cane dei Moli sull’uscita più vicina agli eroi della tessera corrente: si attiva subito.', 'posseduto', True),
+     ('UNGHIE SULLA PIETRA', 'Piazzate 1 Cane dei Moli sull’ingresso della tessera corrente: si attiva subito.', 'posseduto', True)] +
     # famiglia FONDITORE (2)
-    [('IL FONDITORE', 'Piazzate 1 Fonditore sull’ingresso della Banchina (T1). Se è già in gioco un Fonditore, recupera 1 ferita.', 'fonditore'),
-     ('LA MAREA DI CERA', 'Piazzate 1 Fonditore sull’ingresso della Banchina (T1): tutti i Fonditori in gioco si attivano subito.', 'fonditore')] +
-    [('RONDA', 'Piazzate 2 Adepti sull’ingresso della Banchina (T1).', 'adepto')] +
+    [('IL FONDITORE', 'Piazzate 1 Fonditore sull’ingresso della Banchina (T1). Se è già in gioco un Fonditore, recupera 1 ferita.', 'posseduto', False),
+     ('LA MAREA DI CERA', 'Piazzate 1 Fonditore sull’ingresso della Banchina (T1): tutti i Fonditori in gioco si attivano subito.', 'posseduto', True)] +
+    [('RONDA', 'Piazzate 2 Adepti sull’ingresso della Banchina (T1).', 'posseduto', False)] +
     # famiglia MALAVITA (3): i bravacci secolari a libro paga del culto
-    [('BRAVI SUL MOLO', 'Piazzate 1 Sgherro sull’ingresso della Banchina (T1).', 'malavita'),
-     ('IL BRANCO', 'Piazzate 2 Sgherri, adiacenti tra loro, sulla tessera rivelata più lontana dagli eroi.', 'malavita'),
-     ('LAMA NEL BUIO', 'Piazzate 1 Sicario adiacente all’eroe più isolato o più ferito (a pari merito: sceglie il gruppo): si attiva subito.', 'malavita')] +
-    # famiglia TRAPPOLE (3, Fumi compreso: stesso trattamento — Learco le disinnesca tutte e 3)
-    [('TRAPPOLA DI CERA', 'L’eroe più avanzato prova NERVI (Media): se fallisce, cera bollente: 1 danno e perde 1 azione al prossimo turno.', 'trappola'),
-     ('CERA SOTTO I PIEDI', 'L’eroe attivo prova NERVI (Media): se fallisce, 1 danno e perde 1 azione al prossimo turno.', 'trappola')] +
-    [('FUMI SOPORIFERI', 'Ogni eroe prova NERVI (Facile): chi fallisce ha 1 sola azione al prossimo turno.', 'trappola')] +
+    [('BRAVI SUL MOLO', 'Piazzate 1 Sgherro sull’ingresso della Banchina (T1).', 'malavita', False),
+     ('IL BRANCO', 'Piazzate 2 Sgherri, adiacenti tra loro, sulla tessera rivelata più lontana dagli eroi.', 'malavita', False),
+     ('LAMA NEL BUIO', 'Piazzate 1 Sicario adiacente all’eroe più isolato o più ferito (a pari merito: sceglie il gruppo): si attiva subito.', 'malavita', True)] +
+    # famiglia INSIDIE (4, Sussurri compresa: stesso pattern "prova NERVI o subisci")
+    [('TRAPPOLA DI CERA', 'L’eroe più avanzato prova NERVI (Media): se fallisce, cera bollente: 1 danno e perde 1 azione al prossimo turno.', 'insidia', False),
+     ('CERA SOTTO I PIEDI', 'L’eroe attivo prova NERVI (Media): se fallisce, 1 danno e perde 1 azione al prossimo turno.', 'insidia', False)] +
+    [('FUMI SOPORIFERI', 'Ogni eroe prova NERVI (Facile): chi fallisce ha 1 sola azione al prossimo turno.', 'insidia', False)] +
     # famiglia CANTO (3): crescendo, effetto identico
-    [('IL CANTO SALE', 'Aggiungete 1 segnalino Canto. Al terzo: il Custode della Cera si desta (vedi Soluzione). Se è già in gioco: recupera 1 ferita e si attiva subito.', 'canto'),
-     ('IL CORO RISPONDE', 'Aggiungete 1 segnalino Canto. Al terzo: il Custode della Cera si desta (vedi Soluzione). Se è già in gioco: recupera 1 ferita e si attiva subito.', 'canto'),
-     ('IL CANTO CRESCE', 'Aggiungete 1 segnalino Canto. Al terzo: il Custode della Cera si desta (vedi Soluzione). Se è già in gioco: recupera 1 ferita e si attiva subito.', 'canto')] +
-    [('PRESAGIO', 'Un brivido corre lungo la schiena. Non accade nulla... per ora.', 'inquietudine')] +
-    [('ECO AMICA', 'Tre colpi sordi, in lontananza: Ruggero è vivo. Rivelate una tessera coperta adiacente a una rivelata.', 'evento')] +
-    [('CERA CHE COLA', 'Fino a fine round, sulla tessera dell’eroe attivo muoversi costa il doppio.', 'ambientale')] +
-    [('CORRENTE GELIDA', 'Una corrente gelida risale dai condotti: fino all’inizio del vostro prossimo turno ogni eroe ha -1 al Movimento (minimo 1).', 'ambientale')] +
-    [('SUSSURRI', 'L’eroe con meno NERVI (a pari merito: sceglie il gruppo) prova NERVI (Media): se fallisce subisce 1 danno dal terrore.', 'ambientale')]
+    [('IL CANTO SALE', 'Aggiungete 1 segnalino Canto. Al terzo: il Custode della Cera si desta (vedi Soluzione). Se è già in gioco: recupera 1 ferita e si attiva subito.', 'crescendo', False),
+     ('IL CORO RISPONDE', 'Aggiungete 1 segnalino Canto. Al terzo: il Custode della Cera si desta (vedi Soluzione). Se è già in gioco: recupera 1 ferita e si attiva subito.', 'crescendo', False),
+     ('IL CANTO CRESCE', 'Aggiungete 1 segnalino Canto. Al terzo: il Custode della Cera si desta (vedi Soluzione). Se è già in gioco: recupera 1 ferita e si attiva subito.', 'crescendo', False)] +
+    [('PRESAGIO', 'Un brivido corre lungo la schiena. Non accade nulla... per ora.', 'quiete', False)] +
+    [('ECO AMICA', 'Tre colpi sordi, in lontananza: Ruggero è vivo. Rivelate una tessera coperta adiacente a una rivelata.', 'favore', False)] +
+    [('CERA CHE COLA', 'Fino a fine round, sulla tessera dell’eroe attivo muoversi costa il doppio.', 'ostacolo', False)] +
+    [('CORRENTE GELIDA', 'Una corrente gelida risale dai condotti: fino all’inizio del vostro prossimo turno ogni eroe ha -1 al Movimento (minimo 1).', 'ostacolo', False)] +
+    [('SUSSURRI', 'L’eroe con meno NERVI (a pari merito: sceglie il gruppo) prova NERVI (Media): se fallisce subisce 1 danno dal terrore.', 'insidia', False)]
 )
 
 NEMICI = [

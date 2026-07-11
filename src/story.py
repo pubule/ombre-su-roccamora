@@ -169,7 +169,7 @@ def apply(luoghi, tiles, nemici, heroes, minacce):
     for hro in heroes:
         hro['bio'] = BIO.get(hro['nome'], '')
     nuove = []
-    for titolo, txt, tipo in minacce:
+    for titolo, txt, tipo, subito in minacce:
         fl = _FLAVOR.get(titolo)
-        nuove.append((titolo, ('<i>%s</i><br/><br/>%s' % (fl, txt)) if fl else txt, tipo))
+        nuove.append((titolo, ('<i>%s</i><br/><br/>%s' % (fl, txt)) if fl else txt, tipo, subito))
     return nuove

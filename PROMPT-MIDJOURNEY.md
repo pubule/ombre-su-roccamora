@@ -150,6 +150,13 @@ full bleed dark fantasy painting, a fist knocking from behind a barred cell door
 full bleed dark fantasy painting, black wax raining in slow threads from the wooden beams of a warehouse ceiling, candlelit gloom, 1889 gaslamp gothic, oil painting, dramatic candlelight, muted teal and crimson palette with gold accents --ar 3:4 --style raw --no frame, border, card, text, letters, watermark
 ```
 
+**Corrente gelida** → `artworks/Corrente gelida.png` (prima riusava per errore
+"Rinforzi dal canale.png", arte di uno sbarco di incappucciati che non
+c'entra con l'effetto vero della carta, -1 Movimento):
+```
+full bleed dark fantasy painting, icy black water welling up through a cracked stone conduit in a warehouse floor, cold mist curling upward, no figures, 1889 gaslamp gothic, oil painting, dramatic candlelight, muted teal and crimson palette with gold accents --ar 3:4 --style raw --no frame, border, card, text, letters, watermark, figures, people
+```
+
 ### Boss
 
 **Il Custode della Cera**
