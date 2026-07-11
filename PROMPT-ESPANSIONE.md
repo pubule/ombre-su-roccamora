@@ -280,9 +280,12 @@ Tyrlov) per le carte e **mappa a china su pergamena** per le tessere.
   Eroi, Nemici, Minacce, Luoghi, Indizi Nascosti, Testimoni, Referti, **Oggetti**. Luoghi
   e Indizi Nascosti riusano la stessa arte (stesso soggetto, due carte); Testimoni/Referti
   riusano l'arte del loro Luogo; **Oggetti hanno arte dedicata**, mai riusata (sono nature
-  morte a sé, non scene). Genera i nuovi mazzi con
-  `node scripts/cardconjurer/generate-batch.js <gruppo>` (vedi `README.md` per la lista
-  gruppi aggiornata).
+  morte a sé, non scene). **Eroi** sono solo ritratto+ruolo+bio (zero meccanica, quella
+  sta sulla Scheda Personaggio): servono a stendersi sul tavolo per la scelta del
+  personaggio a inizio serata (vedi Regolamento, sezione "I PERSONAGGI") — non sono
+  decorative, hanno uno scopo d'uso definito, non vanno trattate come orfane. Genera i
+  nuovi mazzi con `node scripts/cardconjurer/generate-batch.js <gruppo>` (vedi
+  `README.md` per la lista gruppi aggiornata).
 - Tecnica: Python + reportlab, grafica vettoriale (sorgenti di riferimento nel repo:
   `src/deluxe_style.py`, `src/ornaments.py`, `src/gen_gothic.py`, `src/gen_docs.py`,
   `src/gen_deluxe.py`, `src/gen_narrator.py`).

@@ -117,8 +117,11 @@ def regolamento():
     e.append(P('I PERSONAGGI', 'h1'))
     e.append(P("Il roster della Societ\u00e0 conta <b>sei eroi</b>: in tavola ne scendono al massimo "
                "cinque, gli altri restano di riserva (potete cambiarli tra un episodio e l\u2019altro; "
-               "migliorie e cicatrici restano a chi le ha guadagnate). Ogni giocatore sceglie un eroe "
-               "(in 2 giocatori potete anche guidarne due a testa). Ogni eroe ha tre caratteristiche:"))
+               "migliorie e cicatrici restano a chi le ha guadagnate). Per scegliere, stendete sul "
+               "tavolo le <b>6 carte Eroe</b> (ritratto, ruolo, chi sono \u2014 cartelle "
+               "<b>cards/Eroi/</b>): ogni giocatore ne prende una (in 2 giocatori potete anche "
+               "guidarne due a testa), poi passa alla Scheda Personaggio corrispondente per "
+               "statistiche e abilit\u00e0. Ogni eroe ha tre caratteristiche:"))
     e.append(LI('<b>ACUME</b> \u2014 osservare, dedurre, scassinare, cercare.'))
     e.append(LI('<b>VIGORE</b> \u2014 combattere, forzare, resistere.'))
     e.append(LI('<b>NERVI</b> \u2014 sangue freddo davanti a trappole, buio e orrori.'))
@@ -312,6 +315,8 @@ def regolamento():
     e.append(P('COME STAMPARE', 'h1'))
     e.append(LI('<b>Regolamento</b> (questo fascicolo) e <b>Soluzione</b> (in <i>Episodio 1/</i>): '
                 'fronte/retro normale. Sigillate la Soluzione in una busta!'))
+    e.append(LI('<b>Eroi</b> (cartella <b>cards/Eroi/</b>): 6 carte su cartoncino, da stendere sul '
+                'tavolo per la scelta a inizio serata.'))
     e.append(LI('<b>Schede</b>: una per giocatore, meglio su cartoncino.'))
     e.append(LI('<b>Indagine</b> (in <i>Episodio 1/</i>): carte Luogo su cartoncino, ritagliate lungo i '
                 'bordi. Il Taccuino su carta normale.'))

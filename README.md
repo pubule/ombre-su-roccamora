@@ -23,7 +23,8 @@ in una città immaginaria di canali e campanili nel 1889. Unisce indagine alla
       carta Approfondimento/Oggetto prendere (le carte stesse non lo dicono, per
       non far barare i giocatori e restare riusabili tra episodi)
     - `Soluzione (non aprire)` — da stampare senza leggere e sigillare in busta!
-- `cards/` — carte gioco pronte (Eroi, Nemici, Minacce, Luoghi, Indizi Nascosti,
+- `cards/` — carte gioco pronte (Eroi — per la scelta del personaggio a inizio
+  serata, dettagli sulla Scheda —, Nemici, Minacce, Luoghi, Indizi Nascosti,
   Testimoni, Referti, Oggetti)
 - `board/` — le 6 tessere T1-T6 della Spedizione, griglia+arredi+porte pronte
 - `reperti/` — documenti-reperto (diario, registro, atti d'archivio) da consegnare
