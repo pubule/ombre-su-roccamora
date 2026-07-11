@@ -10,6 +10,10 @@ in una città immaginaria di canali e campanili nel 1889. Unisce indagine alla
   - `01-Regolamento` — regole complete
   - `02-Schede-Personaggio` — i 6 eroi della Società del Lume
   - `06-Aiuto-Giocatore` — riepilogo regole da tavolo su una pagina
+  - `07-Tabellone` — overlay scuro riusabile in ogni episodio per la Spedizione:
+    non contiene le tessere (si posano libere, la mappa cambia episodio per
+    episodio), solo gli slot per la traccia del Canto e il mazzo Minaccia +
+    scarti
   - `Preludio/` — mini-episodio tutorial "La Prova del Lume" (~60-90 min): come i
     sei eroi si incontrano ed entrano nella Società del Lume, imparando le regole
     giocando (box "Scuola del Lume" nei fascicoli). 4 luoghi, 2 Domande, mini
@@ -71,6 +75,7 @@ python gen_gothic.py   # indagine + spedizione (Episodio 1)
 python gen_narrator.py # luoghi/tessere per chi arbitra (Episodio 1)
 python gen_cover.py    # copertine (Preludio + episodi)
 python gen_preludio.py # Preludio completo (indagine, spedizione, soluzione, luoghi)
+python gen_board.py    # tabellone riusabile (traccia Canto, mazzo Minaccia + scarti)
 ```
 
 ## Rigenerare le carte
