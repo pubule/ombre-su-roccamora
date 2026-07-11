@@ -41,6 +41,9 @@ const TILES = [
 const ARREDO_KEYS = ['molo', 'casse', 'candele', 'scrivania', 'branda', 'scala', 'altare', 'cella'];
 const ARREDO_ART = Object.fromEntries(ARREDO_KEYS.map((k) =>
   [k, pathToFileURL(path.join(ROOT, 'artworks', `${k}.png`)).href]));
+// zoom oltre il "cover" di base per chi ha l'oggetto piccolo al centro di una
+// cornice propria (vedi commento sotto, dove si usa)
+const ARREDO_ZOOM = { altare: 1.8 };
 
 // sceglie la cella libera (non occupata da un arredo) piu' centrale lungo
 // il bordo della direzione data, cosi' la porta non si sovrappone mai a un arredo
@@ -98,7 +101,15 @@ function html(tile) {
   const occupied = new Set(tile.arredi.map(([gx, gy]) => `${gx},${3 - gy}`));
   const arredoHtml = groupArredi(tile.arredi).map((g) => {
     const art = ARREDO_ART[g.label.toLowerCase()];
-    return `<div class="arredo" style="left:${g.col * cell + 6}px; top:${g.row * cell + 6}px; width:${g.cols * cell - 12}px; height:${g.rows * cell - 12}px; background-image:url('${art}');"></div>`;
+    const boxW = g.cols * cell - 12, boxH = g.rows * cell - 12;
+    // le art arredo sono quadrate (2048x2048) con l'oggetto piccolo al centro
+    // di una cornice decorativa propria: un semplice "cover" lo lascia minuscolo
+    // in un riquadro non quadrato (es. l'altare 1x2 di T6). Zoom esplicito in
+    // px (equivalente a cover quando zoom=1, dato che l'immagine e' quadrata:
+    // scala = max(boxW,boxH)) cosi' l'oggetto riempie meglio il riquadro.
+    const zoom = ARREDO_ZOOM[g.label.toLowerCase()] || 1;
+    const size = Math.round(Math.max(boxW, boxH) * zoom);
+    return `<div class="arredo" style="left:${g.col * cell + 6}px; top:${g.row * cell + 6}px; width:${boxW}px; height:${boxH}px; background-image:url('${art}'); background-size:${size}px ${size}px;"></div>`;
   }).join('');
 
   // Le porte e la loro etichetta di destinazione stanno DENTRO il bordo della
@@ -143,7 +154,7 @@ function html(tile) {
     .dim { position:absolute; inset:0; background:rgba(0,0,0,0.75); }
     .cell { position:absolute; border:2px solid rgba(230,195,120,0.55); box-sizing:border-box; }
     .arredo { position:absolute; border-radius:6px; border:2px solid rgba(230,195,120,0.9);
-              box-shadow:0 4px 10px rgba(0,0,0,0.6); background-size:cover; background-position:center; }
+              box-shadow:0 4px 10px rgba(0,0,0,0.6); background-position:center; }
     /* Bagliore della porta: un radial-gradient "circle" unico non basta, si
        schiaccia diversamente in un riquadro largo-basso (N/S) rispetto a uno
        stretto-alto (E/O) - risultato incoerente (barra ben visibile a N/S,
