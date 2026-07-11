@@ -11,6 +11,7 @@ in una città immaginaria di canali e campanili nel 1889. Unisce indagine alla
   - `02-Schede-Personaggio` — i 6 eroi della Società del Lume
   - `06-Aiuto-Giocatore` — riepilogo regole da tavolo su una pagina
   - `Episodio 1/` — materiale specifico di questo episodio:
+    - `Copertina` — poster dell'episodio (mappa della città, titolo e nome del gioco)
     - `Indagine` — lettera d'incarico, taccuino (le 8 carte Luogo e le carte
       Indizio Nascosto sono immagini a parte, vedi `cards/`)
     - `Spedizione` — note per tessera, segnalini (le carte Minacce/Nemici e le
@@ -46,6 +47,7 @@ python gen_docs.py     # regolamento + aiuto-giocatore + soluzione (Episodio 1)
 python gen_deluxe.py   # schede personaggio
 python gen_gothic.py   # indagine + spedizione (Episodio 1)
 python gen_narrator.py # luoghi/tessere per chi arbitra (Episodio 1)
+python gen_cover.py    # copertina episodio (mappa + titolo)
 ```
 
 ## Rigenerare le carte

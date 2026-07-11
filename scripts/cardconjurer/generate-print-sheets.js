@@ -162,13 +162,16 @@ function deckSheets(deck, backCellFn, bgClass) {
   const titleFontUri = fileDataUri(TITLE_FONT_PATH);
   if (!titleFontUri) console.warn('Font titolo non trovato:', TITLE_FONT_PATH, '- uso il fallback serif.');
 
-  // Rilievo (emboss): ombra scura ravvicinata per lo spessore inciso, ombra
-  // scura sfumata per il distacco dal fondo, controluce chiaro in alto a
-  // sinistra per l'effetto "luce che coglie il bordo rialzato".
+  // Incisione (non "incollato sopra"): il testo emerge da una pozza d'ombra
+  // radiale che fa parte dell'arte (.tagged::before), non da un riquadro; le
+  // lettere sono incise - un filo di controluce caldo in alto a sinistra (bordo
+  // rialzato che prende luce), ombra interna scura in basso a destra (incavo), e
+  // un alone morbido che le "posa" nell'ombra invece di stamparle a contrasto
+  // netto. Oro leggermente smorzato, piu' vicino ai toni del dorso.
   const EMBOSS = `
-    -0.25mm -0.25mm 0 rgba(255,238,190,.55),
-    0.35mm 0.35mm 0 rgba(0,0,0,.9),
-    0.7mm 0.7mm 1.2mm rgba(0,0,0,.65)`;
+    -0.2mm -0.2mm 0 rgba(255,240,205,.35),
+    0.25mm 0.25mm 0.2mm rgba(0,0,0,.85),
+    0 0 2.2mm rgba(0,0,0,.55)`;
 
   const html = `<!doctype html><html><head><meta charset="utf-8"><style>
     @page { size: A4; margin: 0; }
@@ -184,9 +187,14 @@ function deckSheets(deck, backCellFn, bgClass) {
     .card.empty { visibility: hidden; }
     .card.tagged { position: relative;
       display: flex; flex-direction: column; align-items: center; justify-content: center;
-      text-align: center; color: #d8b45a;
+      text-align: center;
       font-family: ${titleFontUri ? "'Beleren', " : ''}Georgia, serif; }
-    .tagged .kind { font-size: 9mm; letter-spacing: .8mm; text-transform: uppercase;
+    /* pozza d'ombra morbida sotto il testo: parte dell'arte, non un box */
+    .card.tagged::before { content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse 62% 30% at 50% 50%,
+        rgba(0,0,0,.6) 0%, rgba(0,0,0,.32) 45%, rgba(0,0,0,0) 72%); }
+    .tagged .kind { position: relative; color: #ffffff;
+      font-size: 8.6mm; letter-spacing: .6mm; text-transform: uppercase;
       text-shadow: ${EMBOSS}; padding: 0 4mm; }
     ${bgRules}
   </style></head><body>${sheets}</body></html>`;
