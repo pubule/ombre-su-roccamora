@@ -13,7 +13,7 @@ const fs = require('fs');
 const { pathToFileURL } = require('url');
 
 const ROOT = path.resolve(__dirname, '..', '..');
-const OUT_DIR = path.join(ROOT, 'board');
+const OUT_DIR = path.join(ROOT, 'board', 'Episodio 1');
 fs.mkdirSync(OUT_DIR, { recursive: true });
 
 const S = 1600;

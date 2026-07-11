@@ -12,7 +12,7 @@ in modo soft:
   pista (il nipote), un vincolo d'orologio (il barcaiolo dalle 21), un
   Approfondimento per verbo (Osservazione/Testimonianza/Referto) + Accesso.
   Box "Scuola del Lume" che spiegano le regole man mano che servono.
-- Mini-spedizione: 3 tessere (riusa T1/T2/T4 di board/ - i depositi sul
+- Mini-spedizione: 3 tessere (riusa T1/T2/T4 di board/Episodio 1/ - i depositi sul
   canale di Roccamora si somigliano tutti), nemici solo Malavita (2 Sgherri
   + 1 Sicario), mazzo Minaccia ridotto a 6 carte prese dal mazzo Episodio 1,
   orologio "la Marea" (solo avanzamento automatico: insegna il timer senza
@@ -170,15 +170,15 @@ DOMANDE_P = ['1. DOVE è tenuto Ansaldo?',
              '2. COSA cercavano nel palazzo della Società?']
 
 TESSERE_P = [
-    ('T1', 'LA BANCHINA DELLA DOGANA', 'board/T1 - Banchina d’Ingresso.png',
+    ('T1', 'LA BANCHINA DELLA DOGANA', 'board/Episodio 1/T1 - Banchina d’Ingresso.png',
      'La porta d’acqua della dogana: assi viscide, anelli d’ormeggio, l’acqua nera che '
      'respira sotto il molo. Qui dovete riportare Ansaldo per vincere. La porta verso il '
      'deposito (N) si apre con l’Anello di Chiavi, o forzandola (VIGORE Media).'),
-    ('T2', 'IL DEPOSITO', 'board/T2 - Sala delle Casse.png',
+    ('T2', 'IL DEPOSITO', 'board/Episodio 1/T2 - Sala delle Casse.png',
      'Casse accatastate, quasi tutte vuote: la dogana è un guscio. QUANDO RIVELATE QUESTA '
      'TESSERA: 2 Sgherri appaiono tra le casse. Le porte E e N sono murate da anni: '
      'contano solo S (banchina) e O (stanzino).'),
-    ('T4', 'LO STANZINO DEL DAZIERE', 'board/T4 - Ufficio del Custode.png',
+    ('T4', 'LO STANZINO DEL DAZIERE', 'board/Episodio 1/T4 - Ufficio del Custode.png',
      'Il vecchio ufficio del daziere: scrivania sfondata, un pagliericcio recente. QUANDO '
      'RIVELATE QUESTA TESSERA: il Sicario appare accanto alla porta. Ansaldo è legato '
      'alla branda: si libera con Interagire (nessuna prova).'),

@@ -301,16 +301,27 @@ Tyrlov) per le carte e **mappa a china su pergamena** per le tessere.
   l'elenco essenziale — solo `Tipo — carta "Titolo"` per ogni Approfondimento/
   Oggetto di quel luogo/tessera, mai il loro contenuto: quello lo dice la carta
   stessa una volta trovata.
-- **Tipi di carta completi (mazzi separati, ognuno la sua sottocartella in `cards/`):**
-  Eroi, Nemici, Minacce, Luoghi, Indizi Nascosti, Testimoni, Referti, **Oggetti**. Luoghi
-  e Indizi Nascosti riusano la stessa arte (stesso soggetto, due carte); Testimoni/Referti
-  riusano l'arte del loro Luogo; **Oggetti hanno arte dedicata**, mai riusata (sono nature
-  morte a sé, non scene). **Eroi** sono solo ritratto+ruolo+bio (zero meccanica, quella
-  sta sulla Scheda Personaggio): servono a stendersi sul tavolo per la scelta del
-  personaggio a inizio serata (vedi Regolamento, sezione "I PERSONAGGI") — non sono
-  decorative, hanno uno scopo d'uso definito, non vanno trattate come orfane. Genera i
-  nuovi mazzi con `node scripts/cardconjurer/generate-batch.js <gruppo>` (vedi
-  `README.md` per la lista gruppi aggiornata).
+- **Tipi di carta completi:** Eroi, Nemici, Minacce, Luoghi, Indizi Nascosti,
+  Testimoni, Referti, **Oggetti**. Luoghi e Indizi Nascosti riusano la stessa
+  arte (stesso soggetto, due carte); Testimoni/Referti riusano l'arte del loro
+  Luogo; **Oggetti hanno arte dedicata**, mai riusata (sono nature morte a sé,
+  non scene). **Eroi** sono solo ritratto+ruolo+bio (zero meccanica, quella
+  sta sulla Scheda Personaggio): servono a stendersi sul tavolo per la scelta
+  del personaggio a inizio serata (vedi Regolamento, sezione "I PERSONAGGI")
+  — non sono decorative, hanno uno scopo d'uso definito, non vanno trattate
+  come orfane. Genera i nuovi mazzi con
+  `node scripts/cardconjurer/generate-batch.js <gruppo>` (vedi `README.md`
+  per la lista gruppi aggiornata).
+- **Dove finiscono i file (`cards/`, `board/`, `reperti/`): stesso schema di
+  `pdf/`.** Quello riusabile tra episodi (Eroi, Malavita) sta al livello
+  comune (`cards/Eroi/`, `cards/Nemici/` — solo Sgherro/Sicario); tutto il
+  resto del nuovo episodio va sotto una sua sottocartella, mai al livello
+  comune: `cards/Episodio N/<Tipo>/`, `board/Episodio N/`,
+  `reperti/Episodio N/`. In `cards-data.js` questo si imposta nel campo
+  `file` di ogni carta (es. `` `Episodio ${N}/Luoghi/${...}` ``) — vedi come
+  già fatto per l'Episodio 1 e per `NEMICI.forEach()`, che smista i nemici
+  del culto in `Episodio 1/Nemici/` e lascia la Malavita in `Nemici/` in base
+  al campo `type`.
 - Tecnica: Python + reportlab, grafica vettoriale (sorgenti di riferimento nel repo:
   `src/deluxe_style.py`, `src/ornaments.py`, `src/gen_gothic.py`, `src/gen_docs.py`,
   `src/gen_deluxe.py`, `src/gen_narrator.py`).

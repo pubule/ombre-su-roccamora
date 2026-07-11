@@ -155,7 +155,7 @@ const MINACCE = [
 ].map((m) => ({
   art: m.art,
   title: m.title,
-  file: `Minacce/${m.title}`,
+  file: `Episodio 1/Minacce/${m.title}`,
   rules: `{i}${m.flavor}{/i}{divider}${m.effect}`,
 }));
 
@@ -253,7 +253,7 @@ const LUOGHI = [
   // qui, la carta Luogo non mostra mai il suo numero da nessuna parte, e non
   // si puo' abbinare al dorso Approfondimenti corrispondente ("Luogo N").
   title: `${L.n} · ${L.nome}`,
-  file: `Luoghi/${L.n} - ${L.nome}`,
+  file: `Episodio 1/Luoghi/${L.n} - ${L.nome}`,
   type: `Luogo ${L.n} — ${L.req}`,
   rules: `{i}${L.testo}{/i}{divider}${L.indizi.map((c) => `◆ ${c}`).join('\n')}`,
   n: L.n,
@@ -295,7 +295,7 @@ const INDIZI = LUOGHI.flatMap((L) => {
   return [{
     art: L.art, n: L.n, kind: 'Indizio',
     title: `Indizio Nascosto — ${L.nome}`,
-    file: `Indizi/${L.nome}`,
+    file: `Episodio 1/Indizi/${L.nome}`,
     type: `Luogo ${L.n} · Osservazione (Elena) / Presagio (Sibilla)`,
     rules: `{i}${righe.map((a) => `◆ (${TAG_INSIGHT[a.tipo]}) ${a.testo}`).join('\n')}\n◆ (Eco del Coro) ${ecoPer(L.n)}{/i}`,
   }];
@@ -305,7 +305,7 @@ const TESTIMONI = LUOGHI.flatMap((L) =>
   L.approfondimenti.filter((a) => a.tipo === 'Testimonianza').map((a) => ({
     art: L.art, n: L.n, kind: 'Testimone',
     title: `Testimone — ${a.soggetto}`,
-    file: `Testimoni/${a.soggetto}`,
+    file: `Episodio 1/Testimoni/${a.soggetto}`,
     type: `Luogo ${L.n} · Testimone — abilità sociale (Ottone/Carla)`,
     rules: `{i}${a.testo}{/i}{divider}{i}✹ (Eco del Coro) ${ecoPer(L.n)}{/i}`,
   })));
@@ -314,7 +314,7 @@ const REFERTI = LUOGHI.flatMap((L) =>
   L.approfondimenti.filter((a) => a.tipo === 'Referto').map((a) => ({
     art: L.art, n: L.n, kind: 'Referto',
     title: `Referto — ${a.soggetto}`,
-    file: `Referti/${a.soggetto}`,
+    file: `Episodio 1/Referti/${a.soggetto}`,
     type: `Luogo ${L.n} · Referto — il Medico (Attilio)`,
     rules: `{i}${a.testo}{/i}{divider}{i}✹ (Eco del Coro) ${ecoPer(L.n)}{/i}`,
   })));
@@ -349,7 +349,7 @@ const OGGETTI = [
 ].map((o) => ({
   art: o.art,
   title: o.nome,
-  file: `Oggetti/${o.nome}`,
+  file: `Episodio 1/Oggetti/${o.nome}`,
   type: `Oggetto — ${o.fonte}`,
   ref: o.ref,
   rules: `{i}${o.flavor}{/i}{divider}${o.effetto}`,
@@ -425,7 +425,12 @@ const PRELUDIO_OGGETTI = [
 // Sottocartella per tipo, cosi' e' chiaro a colpo d'occhio se una carta e' la
 // scheda nemico (combattimento) o la carta minaccia (evento dal mazzo), anche
 // quando condividono soggetto/art (es. "Il Fonditore" esiste in entrambe).
-NEMICI.forEach((n) => { n.file = `Nemici/${n.title}`; });
+// I nemici del culto sono legati alla trama dell'Episodio 1; la Malavita
+// (Sgherro/Sicario) e' dichiaratamente riusabile in ogni episodio (vedi
+// PROMPT-ESPANSIONE.md) e resta percio' comune, fuori da "Episodio 1/".
+NEMICI.forEach((n) => {
+  n.file = (n.type.includes('Malavita') ? 'Nemici/' : 'Episodio 1/Nemici/') + n.title;
+});
 HEROES.forEach((h) => { h.file = `Eroi/${h.title}`; });
 
 const PRELUDIO = [...PRELUDIO_LUOGHI, ...PRELUDIO_APPROFONDIMENTI, ...PRELUDIO_OGGETTI];

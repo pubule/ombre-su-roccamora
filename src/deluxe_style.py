@@ -51,8 +51,8 @@ ART_MAX_PX = 1800
 
 def art(name):
     """Cached ImageReader. A bare filename resolves under artworks/; a path
-    containing a '/' (e.g. 'board/T2 - Sala delle Casse.png') resolves relative
-    to the repo root instead."""
+    containing a '/' (e.g. 'board/Episodio 1/T2 - Sala delle Casse.png') resolves
+    relative to the repo root instead."""
     if name not in _art_cache:
         base = ROOT_DIR if '/' in name else ARTWORKS_DIR
         img = Image.open(os.path.join(base, name))

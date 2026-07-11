@@ -31,12 +31,23 @@ in una città immaginaria di canali e campanili nel 1889. Unisce indagine alla
       carta Approfondimento/Oggetto prendere (le carte stesse non lo dicono, per
       non far barare i giocatori e restare riusabili tra episodi)
     - `Soluzione (non aprire)` — da stampare senza leggere e sigillare in busta!
-- `cards/` — carte gioco pronte (Eroi — per la scelta del personaggio a inizio
-  serata, dettagli sulla Scheda —, Nemici, Minacce, Luoghi, Indizi Nascosti,
-  Testimoni, Referti, Oggetti)
-- `board/` — le 6 tessere T1-T6 della Spedizione, griglia+arredi+porte pronte
-- `reperti/` — documenti-reperto (diario, registro, atti d'archivio) da consegnare
-  durante l'indagine, composti su un'unica foto di pergamena
+- `cards/`, `board/`, `reperti/` — stesso schema di `pdf/`: quello riusabile in
+  ogni episodio sta al livello comune, il resto in una sottocartella per
+  episodio (mai al livello comune, per evitare confusione su cosa vale per
+  quale storia):
+  - `cards/Eroi/` — per la scelta del personaggio a inizio serata (dettagli
+    sulla Scheda), comune
+  - `cards/Nemici/` — solo la Malavita (Sgherro, Sicario): nemici secolari
+    dichiaratamente riusabili in ogni episodio, comune
+  - `cards/Episodio 1/` — Nemici del culto, Minacce, Luoghi, Indizi Nascosti,
+    Testimoni, Referti, Oggetti di questo episodio
+  - `cards/Preludio/` — le 9 carte del tutorial (poche, restano piatte senza
+    sottocartelle per tipo)
+  - `board/Episodio 1/` — le 6 tessere T1-T6 della Spedizione,
+    griglia+arredi+porte pronte (il Preludio riusa T1/T2/T4 da qui)
+  - `reperti/Episodio 1/`, `reperti/Preludio/` — documenti-reperto (diario,
+    registro, atti d'archivio) da consegnare durante l'indagine, composti su
+    un'unica foto di pergamena
 - `artworks/` — arte sorgente (dipinti, ritratti, tessere, mappa)
 - `PROMPT-MIDJOURNEY.md` — prompt per generare nuova arte con lo stesso stile
 - `PROMPT-ESPANSIONE.md` — "bibbia" narrativa/meccanica/visiva per generare nuovi

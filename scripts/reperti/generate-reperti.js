@@ -176,18 +176,20 @@ Chi canterà al di sotto, non si lamenti di ciò che al di sotto risponde.`;
   `);
 
   const items = [
-    ['Reperto A - Diario di Ruggero', repertoA],
-    ['Reperto B - Registro delle Consegne', repertoB],
-    ['Reperto C - Fascicolo del 1741', repertoC],
-    ['Preludio - Registro delle Consultazioni', repertoP],
+    ['Episodio 1', 'Reperto A - Diario di Ruggero', repertoA],
+    ['Episodio 1', 'Reperto B - Registro delle Consegne', repertoB],
+    ['Episodio 1', 'Reperto C - Fascicolo del 1741', repertoC],
+    ['Preludio', 'Registro delle Consultazioni', repertoP],
   ];
 
-  for (const [name, html] of items) {
+  for (const [episodio, name, html] of items) {
+    const episodioDir = path.join(OUT_DIR, episodio);
+    fs.mkdirSync(episodioDir, { recursive: true });
     // page.setContent() gira su origin about:blank, che Chromium non lascia
     // caricare risorse file:// (sfondo/sigillo restavano bianchi). Scrivendo
     // l'HTML su disco e navigandoci, l'origin diventa file:// e le immagini
     // locali si caricano normalmente.
-    const tmpHtml = path.join(OUT_DIR, `.tmp-${name}.html`);
+    const tmpHtml = path.join(episodioDir, `.tmp-${name}.html`);
     fs.writeFileSync(tmpHtml, html, 'utf8');
     await page_.goto(pathToFileURL(tmpHtml).href, { waitUntil: 'networkidle' });
     await page_.evaluate(() => document.fonts.ready);
@@ -199,7 +201,7 @@ Chi canterà al di sotto, non si lamenti di ciò che al di sotto risponde.`;
     const contentHeight = await page_.evaluate(() => document.body.scrollHeight);
     await page_.setViewportSize({ width: W, height: contentHeight });
     await page_.waitForTimeout(100);
-    const outPath = path.join(OUT_DIR, `${name}.png`);
+    const outPath = path.join(episodioDir, `${name}.png`);
     await page_.screenshot({ path: outPath });
     fs.unlinkSync(tmpHtml);
     console.log('ok ->', outPath, `(${contentHeight}px)`);

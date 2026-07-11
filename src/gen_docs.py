@@ -327,7 +327,7 @@ def regolamento():
     e.append(LI('<b>Oggetti</b>: carte su cartoncino, tenute in un mazzetto a parte. Quando trovate '
                 'un oggetto (in Indagine o Cercando in Spedizione) prendete la carta corrispondente: '
                 'da quel momento è fisicamente nelle mani di chi lo porta.'))
-    e.append(LI('<b>Reperti</b> (cartella `reperti/`): 2–3 documenti su carta normale, a colori se '
+    e.append(LI('<b>Reperti</b> (cartella `reperti/Episodio 1/`): 2–3 documenti su carta normale, a colori se '
                 'potete. Teneteli da parte, coperti, e consegnateli quando il gruppo trova l’indizio '
                 'corrispondente (vedi sopra).'))
     e.append(LI('<b>Luoghi</b> (in <i>Episodio 1/</i>): non si stampa per i giocatori — è per chi tiene '

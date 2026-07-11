@@ -2,9 +2,9 @@
 """Ombre su Roccamora - versione GOTICA di carte e tessere (03 e 04).
 
 Le 20 carte Minacce, i 4 Nemici e le 6 tessere T1-T6 sono ora generati come
-immagini a se' stanti (cardconjurer + script di board: cards/Minacce/,
-cards/Nemici/, board/) invece che come pagine di questo PDF, quindi qui non
-vengono piu' disegnati. spedizione() stampa solo le note per tessera che non
+immagini a se' stanti (cardconjurer + script di board: cards/Episodio 1/Minacce/,
+cards/Episodio 1/Nemici/, board/Episodio 1/) invece che come pagine di questo
+PDF, quindi qui non vengono piu' disegnati. spedizione() stampa solo le note per tessera che non
 stanno sull'immagine della tessera (testo ambientazione, bonus Cercare) e i
 segnalini da ritagliare.
 """
@@ -118,12 +118,13 @@ def spedizione():
     wave(c, W/2 - 20*mm, H - 39*mm, 40*mm, OGOLD)
     frame_flow(c, 28*mm, H - 95*mm, W - 56*mm, 42*mm, [
         Paragraph('Le 20 carte Minacce e le 4 schede Nemici sono stampate come carte a parte '
-                  '(cartelle <b>cards/Minacce/</b> e <b>cards/Nemici/</b>). Le 6 tessere T1-T6 del '
-                  'magazzino sono in <b>board/</b>, gi\u00e0 con griglia, arredi e porte segnate. '
-                  'Qui sotto restano solo le note per tessera che non stanno sull\u2019immagine.',
+                  '(cartelle <b>cards/Episodio 1/Minacce/</b> e <b>cards/Episodio 1/Nemici/</b>). '
+                  'Le 6 tessere T1-T6 del magazzino sono in <b>board/Episodio 1/</b>, gi\u00e0 con '
+                  'griglia, arredi e porte segnate. Qui sotto restano solo le note per tessera che '
+                  'non stanno sull\u2019immagine.',
                   BODY)])
     c.showPage()
-    # note per tessera (testo ambientazione + bonus Cercare): la tessera fisica e' in board/
+    # note per tessera (testo ambientazione + bonus Cercare): la tessera fisica e' in board/Episodio 1/
     y = H - 25*mm
     for T in TILES:
         c.setFillColor(RED); c.setFont(F['sc'], 13)

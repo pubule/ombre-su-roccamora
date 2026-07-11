@@ -375,7 +375,7 @@ usa Vary Region per appiattire i bordi arricciati.
 Sfondo unico riusato per tutti e 3 i documenti-reperto (diario, registro, atti
 d'archivio): testo e sigillo si sovrappongono in compositing via
 `scripts/reperti/generate-reperti.js` (blend mode Multiply, niente pannelli).
-Output finale in `reperti/`.
+Output finale in `reperti/Episodio N/` (o `reperti/Preludio/`).
 
 ## Montaggio
 
