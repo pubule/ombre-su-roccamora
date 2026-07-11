@@ -399,14 +399,24 @@ nel nome file per matchare le chiavi di `ARREDO_STYLE`: `molo`, `casse`,
 pronti, `generate-tiles.js` va aggiornato per disegnare l'immagine al posto
 del rettangolo a gradiente (non ancora fatto).
 
-Sostituisci OGGETTO e usa questo prompt unico. "Icon" da solo non basta a
-tenere Midjourney inquadrato dall'alto (tende a uscire come illustrazione
-normale, vista di lato/tre-quarti): serve dirlo due volte in modo esplicito
-(bird's eye view + orthographic top-down) e vietarlo esplicitamente nel
-negative prompt:
+**Tentativo 1 fallito** ("bird's eye view" + "orthographic top-down"): Midjourney
+ha comunque disegnato un render 3D isometrico stile icona di videogioco (le
+casse viste "dall'alto ma in 3D", facce laterali visibili, nessuna texture a
+inchiostro/pergamena) — chiedere un ANGOLO DI RIPRESA su un oggetto 3D non
+basta, Midjourney continua a pensare "oggetto nello spazio", non "disegno
+piatto". **Tentativo 2** (sotto): invece di descrivere una vista, chiedo
+direttamente un **simbolo da legenda di mappa** — lo stesso trucco che ha
+funzionato per le tessere (lì "dungeon map tile" bastava perché "tile/map"
+implica già piatto; per un oggetto singolo va detto esplicitamente che
+DEVE essere un simbolo/glifo, non un render).
+
+Sostituisci OGGETTO e usa questo prompt unico:
 ```
-bird's eye view directly from above, orthographic top-down game map icon, hand-drawn on aged parchment, ink linework, OGGETTO seen from directly overhead, faint square-grid corner lines, torn parchment edge, antique cartography style, warm sepia with teal accents --ar 1:1 --style raw --no text, letters, words, watermark, perspective view, side view, three-quarter view, isometric, angled view, horizon, wall, standing figure
+flat map legend symbol for an antique hand-drawn dungeon map, OGGETTO drawn as a simple flat ink glyph exactly like a mapmaker's legend icon, plan view blueprint style, zero perspective and zero shading, aged parchment, sepia ink linework, antique cartography style --ar 1:1 --no text, letters, words, watermark, 3D, isometric, render, photorealistic, painting, shading, gradient, drop shadow, perspective, depth, side view, angled view
 ```
+Se esce ancora in 3D/isometrico, il colpevole probabile è `--style raw`
+(spinge verso un rendering pittorico invece che un disegno piatto): togli
+`--style raw` e riprova, o aggiungi `--no realistic lighting, volumetric`.
 
 Oggetti — **molo** a mooring post wrapped in wet rope on cracked dock stone ·
 **casse** a stack of wooden crates branded with a wave sigil · **candele** a
