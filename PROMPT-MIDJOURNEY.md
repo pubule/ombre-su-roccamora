@@ -387,17 +387,13 @@ top-down hand-drawn dungeon map tile on aged parchment, ink linework with crossh
 ```
 Ambienti — **T1** loading dock with black canal water along one edge and mooring posts · **T2** warehouse room packed with stacked wooden crates branded with a wave · **T3** narrow corridor lined with hundreds of black candles and pooled wax · **T4** cluttered office with a desk covered in sheet music and a straw bed · **T5** slick stone staircase descending into darkness · **T6** underground crypt with a central altar in a ring of candles and a barred prison cell in the corner
 
-**Arredi delle tessere** — oggi `scripts/tiles/generate-tiles.js` disegna gli
-arredi (le caselle bloccate dentro la griglia 4x4: casse, candele, scala...)
-come rettangoli a gradiente CSS con la sola etichetta testuale sopra
-(`ARREDO_STYLE` nello script) — un segnaposto strutturale, non arte finita.
-Questi 8 prompt generano l'arte vera, un'icona quadrata top-down per
-arredo, stesso stile ink/pergamena delle tessere così si sovrappone pulita
-a una cella della griglia. Salva come `artworks/Arredo <Nome>.png` (minuscolo
-nel nome file per matchare le chiavi di `ARREDO_STYLE`: `molo`, `casse`,
-`candele`, `scrivania`, `branda`, `scala`, `altare`, `cella`) — una volta
-pronti, `generate-tiles.js` va aggiornato per disegnare l'immagine al posto
-del rettangolo a gradiente (non ancora fatto).
+**Arredi delle tessere** — le caselle bloccate dentro la griglia 4x4 (casse,
+candele, scala...) usavano un rettangolo a gradiente CSS con la sola
+etichetta testuale come segnaposto; ora `scripts/tiles/generate-tiles.js`
+disegna l'arte vera generata da questi prompt (`ARREDO_ART` nello script).
+Salva come `artworks/<chiave>.png`, minuscolo, senza prefisso "Arredo"
+(chiavi: `molo`, `casse`, `candele`, `scrivania`, `branda`, `scala`,
+`altare`, `cella`) — deve combaciare col nome atteso dallo script.
 
 **Tentativo 1 fallito** ("bird's eye view" + "orthographic top-down"): Midjourney
 ha comunque disegnato un render 3D isometrico stile icona di videogioco (le

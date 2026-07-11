@@ -36,16 +36,11 @@ const TILES = [
     arredi: [[1, 2, 'altare'], [2, 2, 'altare'], [3, 3, 'cella']] },
 ];
 
-const ARREDO_STYLE = {
-  molo: 'repeating-linear-gradient(0deg, #6b4a2c, #6b4a2c 8px, #5a3d24 8px, #5a3d24 16px)',
-  casse: 'repeating-linear-gradient(45deg, #8a6a3d, #8a6a3d 10px, #6e5230 10px, #6e5230 20px)',
-  candele: 'radial-gradient(circle, #d98c2a 0%, #7a4a12 70%)',
-  scrivania: 'repeating-linear-gradient(90deg, #5a4530, #5a4530 10px, #493826 10px, #493826 20px)',
-  branda: 'repeating-linear-gradient(0deg, #7a6a52, #7a6a52 6px, #665740 6px, #665740 12px)',
-  scala: 'repeating-linear-gradient(0deg, #55606a, #55606a 8px, #444d55 8px, #444d55 16px)',
-  altare: 'radial-gradient(circle, #7a1f2b 0%, #4a1219 70%)',
-  cella: 'repeating-linear-gradient(90deg, #2a2a2e, #2a2a2e 4px, #111113 4px, #111113 14px)',
-};
+// Arte vera per arredo (prompt in PROMPT-MIDJOURNEY.md, sezione "Arredi delle
+// tessere"): un file artworks/<chiave>.png per chiave di ARREDO_STYLE.
+const ARREDO_KEYS = ['molo', 'casse', 'candele', 'scrivania', 'branda', 'scala', 'altare', 'cella'];
+const ARREDO_ART = Object.fromEntries(ARREDO_KEYS.map((k) =>
+  [k, pathToFileURL(path.join(ROOT, 'artworks', `${k}.png`)).href]));
 
 // sceglie la cella libera (non occupata da un arredo) piu' centrale lungo
 // il bordo della direzione data, cosi' la porta non si sovrappone mai a un arredo
@@ -71,9 +66,8 @@ function html(tile) {
   const arredoHtml = tile.arredi.map(([gx, gy, label]) => {
     const row = 3 - gy;
     occupied.add(`${gx},${row}`);
-    const bg = ARREDO_STYLE[label.toLowerCase()] || '#555';
-    return `<div class="arredo" style="left:${gx * cell + 6}px; top:${row * cell + 6}px; width:${cell - 12}px; height:${cell - 12}px; background:${bg};">
-      <span>${label}</span>
+    const art = ARREDO_ART[label.toLowerCase()];
+    return `<div class="arredo" style="left:${gx * cell + 6}px; top:${row * cell + 6}px; width:${cell - 12}px; height:${cell - 12}px; background-image:url('${art}');">
     </div>`;
   }).join('');
 
@@ -113,9 +107,7 @@ function html(tile) {
     .stage img.art { position:absolute; inset:0; width:${S}px; height:${S}px; object-fit:cover; }
     .cell { position:absolute; border:2px solid rgba(230,195,120,0.55); box-sizing:border-box; }
     .arredo { position:absolute; border-radius:6px; border:2px solid rgba(230,195,120,0.9);
-              box-shadow:0 4px 10px rgba(0,0,0,0.6); display:flex; align-items:center; justify-content:center; text-align:center; }
-    .arredo span { font-family:'IM Fell English SC', serif; font-size:22px; color:#fff3d6;
-                   text-shadow:0 0 6px #000, 0 0 3px #000; text-transform:uppercase; letter-spacing:1px; }
+              box-shadow:0 4px 10px rgba(0,0,0,0.6); background-size:cover; background-position:center; }
     .door { position:absolute; background:radial-gradient(circle, rgba(242,193,78,0.95) 0%, rgba(242,193,78,0.55) 60%, rgba(242,193,78,0.15) 100%);
             border:4px solid #f2c14e; border-radius:6px; box-shadow:0 0 22px 6px rgba(242,193,78,0.85); }
     .door-arrow { position:absolute; transform:translate(-50%,-50%); font-size:34px; color:#2a1a05;
