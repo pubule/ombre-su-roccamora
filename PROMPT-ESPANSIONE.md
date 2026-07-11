@@ -110,6 +110,17 @@ Facile 7 · Media 9 · Difficile 11. Ogni eroe ha 1 "Secondo fiato" (ritenta) a 
    una tessera (vedere che stanza è, quando un eroe ci entra) è automatico e diverso da
    Cercare (trovare cosa nasconde, un'azione a parte). Obiettivo di salvataggio/recupero +
    ritorno all'ingresso.
+3-bis. *Ferite nemici* — nessun gettone o dado per nemico sul tabellone: si traccia su un
+   **Registro delle Ferite** riusabile (una pagina in fondo al fascicolo Spedizione, vedi
+   `registro_ferite()` in `src/gen_gothic.py`), righe generiche "nemico attivo" (mai per
+   tipo: si cancellano e riusano a fine combattimento) con **10 caselle a goccia** a riga,
+   fisse indipendentemente dalle Ferite dell'episodio corrente (oggi il massimo è 3, ma il
+   Registro regge già eventuali boss futuri più duri senza bisogno di rifare il PDF — vedi
+   scala di difficoltà sotto). Tenuto da chi pesca il mazzo Minaccia quel round — stesso
+   principio di D&D/HeroQuest (il master tiene le ferite dei mostri su un proprio foglio,
+   non su un componente fisico per mostro), qui senza master: il foglio è pubblico, non un
+   segreto. Se mai un nemico superasse 10 Ferite, allora sì va alzato `N_PIP` in
+   `registro_ferite()` — non prima.
 
 **Il Canto (o equivalente orologio a tema per l'episodio):** non un nemico, un
 **contatore di segnalini che non torna mai indietro**, alimentato da **due fonti

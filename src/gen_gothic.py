@@ -169,9 +169,48 @@ def spedizione():
               colors.HexColor('#4a0d16'), OGOLD, GOLD_L)
     c.setFillColor(INK); c.setFont(F['i'], 9)
     c.drawString(16*mm, H - 166*mm, 'Consiglio: incollate il foglio su cartoncino prima di ritagliare. '
-                                    'Le ferite dei nemici si segnano con monetine o a matita.')
+                                    'Per le Ferite dei nemici vedi il Registro nella pagina seguente.')
     c.showPage()
+    registro_ferite(c)
     c.save()
+
+# Foglio riusabile per tracciare le Ferite dei nemici attivi: righe generiche
+# (nessuna etichetta di tipo, un nemico qualsiasi ci sta) invece di un gettone
+# per nemico sul tabellone - stesso principio del master in D&D/HeroQuest che
+# tiene le ferite dei mostri su un proprio foglio, non su un componente fisico
+# per mostro. Tenuto da chi pesca il mazzo Minaccia quel round (ruolo gia'
+# informale, non se ne inventa uno nuovo): e' pubblico, non un segreto come il
+# fascicolo Luoghi.
+def registro_ferite(c):
+    parchment_art(c, W, H)
+    rule_border(c, W, H)
+    c.setFillColor(RED); c.setFont(F['sc'], 16)
+    c.drawString(16*mm, H - 22*mm, 'registro delle ferite')
+    frame_flow(c, 20*mm, H - 56*mm, W - 40*mm, 26*mm, [
+        Paragraph('Chi pesca il mazzo Minaccia in un round tiene anche questo foglio. Ogni riga è un '
+                  'nemico attivo sulla tessera: segnate a matita quale, se serve distinguerlo, e riempite '
+                  'una goccia per ogni colpo subito (le Ferite di ogni nemico sono sulla sua carta). '
+                  'Quando le gocce coprono tutte le Ferite, il nemico cade: cancellate la riga e '
+                  'riusatela per il prossimo.', BODY)])
+    # 10 colonne: le Ferite max oggi sono 3 (vedi NEMICI in gen_cards.py), ma un
+    # boss futuro puo' arrivare piu' in alto (vedi PROMPT-ESPANSIONE.md, scala di
+    # difficolta') - meglio un registro che regge senza dover essere rifatto.
+    N_PIP = 10
+    gx0, dot_gap = 82*mm, 10.6*mm
+    c.setFillColor(TEAL); c.setFont(F['b'], 8)
+    c.drawString(20*mm, H - 70*mm, 'nemico')
+    for k in range(N_PIP):
+        c.setFont(F['b'], 6.5)
+        c.drawCentredString(gx0 + k*dot_gap, H - 70*mm, str(k + 1))
+    y = H - 78*mm
+    while y > 25*mm:
+        c.setStrokeColor(SEPIA); c.setLineWidth(0.6)
+        c.line(20*mm, y, gx0 - 6*mm, y)
+        for k in range(N_PIP):
+            c.setStrokeColor(INK); c.setLineWidth(0.8)
+            c.circle(gx0 + k*dot_gap, y + 2*mm, 2.6*mm)
+        y -= 15*mm
+    c.showPage()
 
 indagine()
 spedizione()

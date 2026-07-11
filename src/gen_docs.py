@@ -202,7 +202,10 @@ def regolamento():
     e.append(P('In qualsiasi ordine, ogni eroe compie <b>2 azioni</b> (anche la stessa due volte):'))
     e.append(LI('<b>Muovere</b> \u2014 fino a 4 caselle (niente diagonali, non si attraversano nemici o mobili).'))
     e.append(LI('<b>Attaccare</b> \u2014 un nemico adiacente: 2d6 + VIGORE (+1 se armato) \u2265 Difesa '
-                'del nemico \u2192 gli infliggete 1 ferita.'))
+                'del nemico \u2192 gli infliggete 1 ferita: segnatela sul <b>Registro delle Ferite</b> '
+                '(lo tiene chi pesca il mazzo Minaccia quel round). Quando le ferite segnate '
+                'raggiungono il valore <b>Ferite</b> sulla sua carta, il nemico cade: rimuovetelo dal '
+                'tabellone e cancellate la sua riga sul Registro.'))
     e.append(LI('<b>Cercare</b> \u2014 su una tessera gi\u00e0 rivelata, prova di ACUME Media: se riuscita, '
                 'trovate l\u2019<b>oggetto</b> che nasconde (una sola volta per tessera; non tutte le '
                 'tessere ne nascondono uno). Non serve per liberare Ruggero: quello si fa con '
@@ -494,7 +497,7 @@ def aiuto():
 
     e.append(P('TURNO DEGLI EROI — 2 azioni ciascuno (anche ripetute)', 'h2'))
     e.append(RL('<b>Muovere</b> — fino a 4 caselle (Nino 5). Niente diagonali; non si attraversano nemici o mobili.'))
-    e.append(RL('<b>Attaccare</b> — nemico adiacente: <b>2d6 + VIGORE (+1 se armati) ≥ Difesa nemico</b> → 1 ferita.'))
+    e.append(RL('<b>Attaccare</b> — nemico adiacente: <b>2d6 + VIGORE (+1 se armati) ≥ Difesa nemico</b> → 1 ferita (segnala sul Registro).'))
     e.append(RL('<b>Cercare</b> — ACUME Media: trovi ciò che la tessera nasconde (1 volta a tessera; ritentabile).'))
     e.append(RL('<b>Interagire</b> — porte, grate, leve, liberare Ruggero. <b>Usare un oggetto</b> — come indicato.'))
     e.append(RL('<b>Rianimare</b> — un eroe a terra adiacente torna a 2 Salute.'))
