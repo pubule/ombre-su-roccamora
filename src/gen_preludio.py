@@ -208,8 +208,9 @@ def indagine():
     seal(c, W - mx - 12*mm, H - 198*mm, r=13*mm, angle=-10)
     y = scuola(c, mx, H - 218*mm, W - 2*mx,
                'Questo Preludio insegna il gioco giocando: quando compare un box come questo, '
-               'leggetelo ad alta voce. Prendete le 4 carte Luogo del Preludio (P1-P4) e '
-               'disponetele coperte, sigla in vista. Ogni giocatore sceglie il suo eroe '
+               'leggetelo ad alta voce. Prendete le 4 carte Luogo del Preludio, ordinatele per '
+               'sigla (guardate il titolo: P1-P4) e disponetele coperte in fila, da sinistra a '
+               'destra: la posizione vi dice la sigla. Ogni giocatore sceglie il suo eroe '
                '(stendete le 6 carte Eroe sul tavolo) e prende la sua Scheda.')
     c.showPage()
     # taccuino
@@ -322,8 +323,10 @@ def registro_ferite(c):
     c.drawString(16*mm, H - 22*mm, 'registro delle ferite')
     frame_flow(c, 20*mm, H - 50*mm, W - 40*mm, 20*mm, [
         Paragraph('Chi pesca il mazzo Minaccia tiene anche questo foglio. Una riga per nemico '
-                  'attivo: una goccia per ogni colpo subito; a Ferite piene il nemico cade, '
-                  'cancellate la riga e riusatela.', BODY)])
+                  'attivo: scrivete il tipo e, se ce n’è più di una copia in campo, il numero '
+                  'sull’angolo della sua miniatura (es. «Sgherro 2») — riempite una goccia per '
+                  'ogni colpo subito; a Ferite piene il nemico cade, cancellate la riga e '
+                  'riusatela.', BODY)])
     N_PIP = 10
     gx0, dot_gap = 82*mm, 10.6*mm
     c.setFillColor(TEAL); c.setFont(F['b'], 8)

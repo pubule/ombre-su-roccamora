@@ -18,7 +18,7 @@ from reportlab.lib.styles import ParagraphStyle
 
 from deluxe_style import (register_fonts, parchment_art, rule_border, seal, wave,
                           art, _cover_image, F, INK, RED, TEAL, GOLD as OGOLD, SEPIA)
-from ornaments import BONE
+from ornaments import GOLD_L, BONE
 from gen_cards import LUOGHI, MINACCE, NEMICI, TILES, HEROES
 import story
 MINACCE = story.apply(LUOGHI, TILES, NEMICI, HEROES, MINACCE)
@@ -63,7 +63,8 @@ def indagine():
                 Paragraph(lett, st('let', fontName=F['i'], fontSize=11.5, leading=17, alignment=4))])
     seal(c, W - mx - 12*mm, H - 190*mm, r=13*mm, angle=-10)
     c.setFillColor(TEAL); c.setFont(F['i'], 9.5)
-    c.drawCentredString(W/2, 18*mm, 'Prendete le 8 carte Luogo e disponetele coperte, numero in vista.')
+    c.drawCentredString(W/2, 22*mm, 'Prendete le 8 carte Luogo, ordinatele per numero (guardate il titolo)')
+    c.drawCentredString(W/2, 15*mm, 'e disponetele coperte in fila, da sinistra a destra: la posizione vi dice il numero.')
     c.showPage()
     # taccuino (come deluxe)
     parchment_art(c, W, H)
@@ -146,10 +147,14 @@ MINI = 32.5*mm  # tessera 130mm / griglia 4x4: la mini sta esattamente in una ca
 MINI_GAP = 3*mm
 MINI_COLS = 5
 
-def mini_token(c, x, y, art_name, top_margin=0*mm, overscan=0.18):
+def mini_token(c, x, y, art_name, num=None, top_margin=0*mm, overscan=0.18):
     """Ritratto ritagliato a quadrato (stessa tecnica cover-fit di
     deluxe_style._cover_image usata per lo strappo delle schede eroe, qui senza
-    strappo: il quadrato stesso e' il bordo, clippato perche' l'arte non sbordi)."""
+    strappo: il quadrato stesso e' il bordo, clippato perche' l'arte non sbordi).
+    `num`, se dato, stampa un numero in un tondino nell'angolo: quando piu'
+    copie dello stesso nemico sono in campo assieme, e' l'unico modo di sapere
+    quale riga del Registro delle Ferite appartiene a quale miniatura (le copie
+    riusano la stessa identica arte, altrimenti indistinguibili)."""
     c.saveState()
     p = c.beginPath(); p.rect(x, y, MINI, MINI); c.clipPath(p, stroke=0, fill=0)
     _cover_image(c, art(art_name), x, y, MINI, MINI, top_margin=top_margin, overscan=overscan)
@@ -158,6 +163,12 @@ def mini_token(c, x, y, art_name, top_margin=0*mm, overscan=0.18):
     c.rect(x, y, MINI, MINI)
     c.setStrokeColor(INK); c.setLineWidth(0.5)
     c.rect(x + 0.8*mm, y + 0.8*mm, MINI - 1.6*mm, MINI - 1.6*mm)
+    if num is not None:
+        bx, by, br = x + MINI - 4.2*mm, y + 4.2*mm, 3.6*mm
+        c.setFillColor(colors.HexColor('#1c1610')); c.setStrokeColor(OGOLD); c.setLineWidth(0.9)
+        c.circle(bx, by, br, fill=1)
+        c.setFillColor(GOLD_L); c.setFont(F['b'], 8.5)
+        c.drawCentredString(bx, by - 3*mm/1.9, str(num))
 
 # Inquadratura per ritratto: alcuni soggetti hanno bisogno di piu' zoom (busto
 # stretto) o meno (creatura gia' centrata) per riempire un quadrato senza
@@ -176,8 +187,10 @@ MINI_CROP = {
 def token_sheet(c):
     """Miniature quadrate (taglia di una casella tessera) al posto dei gettoni
     tondi: ritratto di eroe/nemico ritagliato a quadrato, stesso soggetto delle
-    carte. Ruggero e i segnalini Canto non sono unita' da combattimento (nessun
-    ritratto dedicato): restano gettoni tondi piu' piccoli, in fondo al foglio.
+    carte. Le copie multiple di uno stesso nemico (Adepti, Cani, Fonditori,
+    Sgherri, Sicari) portano un numero nell'angolo, cosi' si possono abbinare
+    alle righe del Registro delle Ferite; gli eroi e le copie uniche (Custode,
+    Ruggero, Canto) non ne hanno bisogno.
     """
     GROUPS = [
         ('EROI', [('Elena.png', 1), ('Attilio.png', 1), ('Sibilla.png', 1),
@@ -208,17 +221,19 @@ def token_sheet(c):
 
     new_page()
     for label, items in GROUPS:
-        art_list = [a for a, n in items for _ in range(n)]
-        rows = -(-len(art_list) // MINI_COLS)
+        # numero solo se ci sono piu' copie dello stesso nemico (n>1): con una
+        # copia sola non c'e' ambiguita' da risolvere, il numero sarebbe rumore.
+        cells = [(a, (i + 1) if n > 1 else None) for a, n in items for i in range(n)]
+        rows = -(-len(cells) // MINI_COLS)
         ensure(6*mm + rows*(MINI + MINI_GAP))
         c.setFillColor(TEAL); c.setFont(F['b'], 9)
         c.drawString(mx, y[0], label)
         y[0] -= 6*mm
-        for i, a in enumerate(art_list):
+        for i, (a, num) in enumerate(cells):
             col, row = i % MINI_COLS, i // MINI_COLS
             x = mx + col*(MINI + MINI_GAP)
             yy = y[0] - MINI - row*(MINI + MINI_GAP)
-            mini_token(c, x, yy, a, **MINI_CROP.get(a, {}))
+            mini_token(c, x, yy, a, num=num, **MINI_CROP.get(a, {}))
         y[0] -= rows*(MINI + MINI_GAP) + 4*mm
 
     c.setFillColor(INK); c.setFont(F['i'], 9)
@@ -240,10 +255,11 @@ def registro_ferite(c):
     c.drawString(16*mm, H - 22*mm, 'registro delle ferite')
     frame_flow(c, 20*mm, H - 56*mm, W - 40*mm, 26*mm, [
         Paragraph('Chi pesca il mazzo Minaccia in un round tiene anche questo foglio. Ogni riga è un '
-                  'nemico attivo sulla tessera: segnate a matita quale, se serve distinguerlo, e riempite '
-                  'una goccia per ogni colpo subito (le Ferite di ogni nemico sono sulla sua carta). '
-                  'Quando le gocce coprono tutte le Ferite, il nemico cade: cancellate la riga e '
-                  'riusatela per il prossimo.', BODY)])
+                  'nemico attivo sulla tessera: scrivete il tipo e, se ce n’è più di una copia in '
+                  'campo, il numero stampato sull’angolo della sua miniatura (es. «Adepto 3»), poi '
+                  'riempite una goccia per ogni colpo subito (le Ferite di ogni nemico sono sulla sua '
+                  'carta). Quando le gocce coprono tutte le Ferite, il nemico cade: cancellate la riga '
+                  'e riusatela per il prossimo.', BODY)])
     # 10 colonne: le Ferite max oggi sono 3 (vedi NEMICI in gen_cards.py), ma un
     # boss futuro puo' arrivare piu' in alto (vedi PROMPT-ESPANSIONE.md, scala di
     # difficolta') - meglio un registro che regge senza dover essere rifatto.
