@@ -30,6 +30,7 @@ W, H = A4
 NOTTE = colors.HexColor('#17141a')
 CREMA = colors.HexColor('#efe4c4')
 CARD_W, CARD_H = 68*mm, 68*1.4*mm  # stessa taglia carta usata ovunque nella stampa
+TOKEN = 50*mm  # deve restare = MINI in gen_gothic.py (taglia vera di una miniatura/casella)
 
 def _veil(c, alpha):
     c.setFillColor(NOTTE); c.setFillAlpha(alpha)
@@ -119,50 +120,65 @@ def tabellone():
     bg(c)
     gold_border(c)
 
-    # --- traccia del Canto: 3 caselle (fascia compatta in alto, per lasciare
-    # spazio alla zona tessere sotto) ---
+    # --- traccia del Canto: 3 caselle, quadrate e a taglia vera (TOKEN) come
+    # le miniature Canto stampate (gen_gothic.py) - non cerchi: le miniature
+    # sono quadrate da quando hanno preso l'arte dedicata, gli slot devono
+    # combaciare con l'oggetto fisico che ci va sopra. ---
     c.setFillColor(GOLD); c.setFont(F['sc'], 12)
     c.drawCentredString(W/2, H - 22*mm, 'il canto')
-    cy = H - 40*mm
+    canto_gap = 8*mm
+    canto_total = 3*TOKEN + 2*canto_gap
+    canto_x0 = (W - canto_total) / 2
+    canto_y = H - 32*mm - TOKEN
     for i in range(3):
-        cx = W/2 + (i - 1) * 28*mm
-        dashed_circle(c, cx, cy, 10*mm)
+        dashed_rect_plain(c, canto_x0 + i*(TOKEN + canto_gap), canto_y, TOKEN, TOKEN)
 
-    # --- mazzo Minaccia + scarti ---
+    # --- mazzo Minaccia + scarti (taglia carta vera, CARD_W/CARD_H) ---
+    minaccia_label_y = canto_y - 8*mm
     c.setFillColor(GOLD); c.setFont(F['sc'], 12)
-    c.drawCentredString(W/2, H - 62*mm, 'minaccia')
+    c.drawCentredString(W/2, minaccia_label_y, 'minaccia')
     gap = 15*mm
     total = 2*CARD_W + gap
     x0 = (W - total) / 2
-    y0 = H - 70*mm - CARD_H
+    y0 = minaccia_label_y - 6*mm - CARD_H
     dashed_rect(c, x0, y0, CARD_W, CARD_H, 'mazzo')
     dashed_rect(c, x0 + CARD_W + gap, y0, CARD_W, CARD_H, 'scarti')
+    minaccia_bottom = y0 - 6*mm  # sotto le etichette "mazzo"/"scarti"
 
     # --- ingresso + direzione di espansione: niente riquadro-contenitore (una
-    # tessera vera e' 130mm, non ci sta in nessun formato A4 insieme alle
+    # tessera vera e' 200mm, non ci sta in nessun formato A4 insieme alle
     # altre) - solo dove posare la prima tessera (scoperta dall'inizio, le
     # altre restano coperte finche' un eroe non ci entra: si rivelano da
     # sole, non e' un'azione) e una freccia che indica che si puo' espandere
-    # liberamente in ogni direzione sul tavolo, non solo verso la freccia. ---
+    # liberamente in ogni direzione sul tavolo, non solo verso la freccia.
+    # Il riquadro e' a taglia vera (TOKEN = 1 casella/miniatura, non l'intera
+    # tessera 200mm): l'etichetta lo dice esplicitamente per non far credere
+    # che rappresenti la tessera intera. Tutto lo stack sotto "minaccia" e'
+    # posizionato per gap espliciti da minaccia_bottom in giu', non a numeri
+    # fissi indovinati: cosi' non si accavalla se le taglie sopra cambiano. ---
     m2 = 9.5*mm
-    ing_side = 50*mm
     ing_x = m2 + 8*mm
-    ing_y = 24*mm
-    dashed_rect(c, ing_x, ing_y, ing_side, ing_side, 'ingresso — scoperta da subito')
-    c.setFillColor(GOLD); c.setFont(F['sc'], 9)
-    c.drawCentredString(ing_x + ing_side/2, ing_y + ing_side/2 + 3, '1ª tessera')
+    ing_y = 22*mm
+    dashed_rect(c, ing_x, ing_y, TOKEN, TOKEN, 'ingresso — scoperta da subito')
+    c.setFillColor(GOLD); c.setFont(F['sc'], 8)
+    c.drawCentredString(ing_x + TOKEN/2, ing_y + TOKEN/2 + 2, '1 casella')
+    c.drawCentredString(ing_x + TOKEN/2, ing_y + TOKEN/2 - 5, '(rif.)')
 
-    ax0, ay0 = ing_x + ing_side + 6*mm, ing_y + ing_side*0.35
-    ax1, ay1 = ax0 + 55*mm, ay0 + 40*mm
+    ax0, ay0 = ing_x + TOKEN + 6*mm, ing_y + TOKEN*0.35
+    ax1, ay1 = ax0 + 55*mm, ay0 + 28*mm
     arrow(c, ax0, ay0, ax1, ay1)
-    c.setFillColor(CREMA); c.setFillAlpha(0.75); c.setFont(F['i'], 8.5)
-    c.drawCentredString(ax1 + 12*mm, ay1 + 9*mm, 'espandete liberamente')
-    c.drawCentredString(ax1 + 12*mm, ay1 + 2*mm, 'in ogni direzione')
+    c.setFillColor(CREMA); c.setFillAlpha(0.75); c.setFont(F['i'], 8)
+    c.drawCentredString(ax1 + 12*mm, ay1 + 7*mm, 'espandete liberamente')
+    c.drawCentredString(ax1 + 12*mm, ay1 + 1.5*mm, 'in ogni direzione')
     c.setFillAlpha(1)
 
-    c.setFillColor(CREMA); c.setFillAlpha(0.75); c.setFont(F['i'], 8.5)
-    c.drawCentredString(W/2, 112*mm,
-                        'le altre tessere restano coperte: si rivelano da sole quando un eroe ci entra per la prima volta')
+    # caption a due righe, ancorata sopra all'ingresso e sotto a minaccia_bottom
+    cap_y1 = minaccia_bottom - 5*mm
+    c.setFillColor(CREMA); c.setFillAlpha(0.75); c.setFont(F['i'], 8)
+    c.drawCentredString(W/2, cap_y1,
+                        'il riquadro e’ una casella di riferimento: la tessera (200mm) si estende verso la freccia')
+    c.drawCentredString(W/2, cap_y1 - 4.5*mm,
+                        'le altre restano coperte finche’ un eroe non vi entra per la prima volta')
     c.setFillAlpha(1)
 
     c.setFillColor(CREMA); c.setFillAlpha(0.7); c.setFont(F['i'], 8.5)
