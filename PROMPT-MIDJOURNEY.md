@@ -399,9 +399,13 @@ nel nome file per matchare le chiavi di `ARREDO_STYLE`: `molo`, `casse`,
 pronti, `generate-tiles.js` va aggiornato per disegnare l'immagine al posto
 del rettangolo a gradiente (non ancora fatto).
 
-Sostituisci OGGETTO e usa questo prompt unico:
+Sostituisci OGGETTO e usa questo prompt unico. "Icon" da solo non basta a
+tenere Midjourney inquadrato dall'alto (tende a uscire come illustrazione
+normale, vista di lato/tre-quarti): serve dirlo due volte in modo esplicito
+(bird's eye view + orthographic top-down) e vietarlo esplicitamente nel
+negative prompt:
 ```
-top-down hand-drawn dungeon map icon on aged parchment, ink linework, OGGETTO, faint square-grid corner lines, torn parchment edge, antique cartography style, warm sepia with teal accents --ar 1:1 --style raw --no text, letters, words, watermark
+bird's eye view directly from above, orthographic top-down game map icon, hand-drawn on aged parchment, ink linework, OGGETTO seen from directly overhead, faint square-grid corner lines, torn parchment edge, antique cartography style, warm sepia with teal accents --ar 1:1 --style raw --no text, letters, words, watermark, perspective view, side view, three-quarter view, isometric, angled view, horizon, wall, standing figure
 ```
 
 Oggetti — **molo** a mooring post wrapped in wet rope on cracked dock stone ·
