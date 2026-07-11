@@ -53,20 +53,27 @@ def cover_fit(c, name):
     c.drawImage(img, (W - dw) / 2, (H - dh) / 2, width=dw, height=dh, mask=None)
 
 
-def scrim(c, y_dark, y_clear, dark_alpha):
-    """Velatura scura sfumata: nera (alpha dark_alpha) al bordo y_dark, trasparente
-    a y_clear. Gradiente vero di reportlab dentro un clip (niente bande visibili).
-    Uno stop intermedio da' una curva a ginocchio: forte solo vicino al bordo, poi
-    cala in fretta - cosi' il testo sta nell'ombra ma l'arte resta visibile al
-    centro invece di sparire sotto una fascia nera piena."""
+def scrim(c, y_dark, y_clear, dark_alpha, bands=220):
+    """Velatura scura sfumata: alpha dark_alpha al bordo y_dark, trasparente a
+    y_clear. reportlab.linearGradient ignora l'alpha dei singoli stop (le
+    shading dictionary del PDF non portano un canale alpha): con quella si
+    otteneva un blocco nero pieno, non un velo. Qui invece ogni fascia usa
+    setFillAlpha (vera trasparenza, supportata) - fasce sottili e accostate
+    SENZA sovrapporsi, cosi' l'alpha non si somma ai bordi e non lascia
+    cuciture piu' scure. Curva a ginocchio (esponente 2.4): forte solo vicino
+    al bordo, poi cala in fretta, cosi' l'arte resta visibile al centro."""
     c.saveState()
-    lo, hi = sorted((y_dark, y_clear))
-    p = c.beginPath(); p.rect(0, lo, W, hi - lo); c.clipPath(p, stroke=0, fill=0)
-    def blk(a):
-        col = colors.black.clone(); col.alpha = a; return col
-    c.linearGradient(0, y_dark, 0, y_clear,
-                     [blk(dark_alpha), blk(dark_alpha * 0.18), blk(0)],
-                     positions=[0, 0.32, 1], extend=True)
+    c.setFillColor(colors.black)
+    step = (y_clear - y_dark) / bands
+    for i in range(bands):
+        t = i / bands              # 0 al bordo scuro, ~1 verso il chiaro
+        a = dark_alpha * (1 - t) ** 2.4
+        if a <= 0.003:
+            break
+        c.setFillAlpha(a)
+        y = y_dark + i * step
+        c.rect(0, min(y, y + step), W, abs(step), fill=1, stroke=0)
+    c.setFillAlpha(1)
     c.restoreState()
 
 
