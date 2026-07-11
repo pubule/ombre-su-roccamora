@@ -186,6 +186,10 @@ def token_sheet(c):
         ('CANI (x3) \u00b7 FONDITORI (x3)', [('Cani dei Moli.png', 3), ('Il Fonditore.png', 3)]),
         ('SGHERRI (x4) \u00b7 SICARI (x2)', [('Lo Sgherro.png', 4), ('Il Sicario.png', 2)]),
         ('CUSTODE', [('Il Custode della Cera (boss).png', 1)]),
+        # I 3 segnalini Canto seguono lo stesso crescendo narrativo delle carte
+        # Minaccia-timer (Il Canto Sale -> Il Coro Risponde -> Il Canto Cresce),
+        # arte gia' dedicata: niente piu' cerchio astratto col simbolo dagger.
+        ('CANTO', [('Il canto sale.png', 1), ('Il coro risponde.png', 1), ('Il canto cresce.png', 1)]),
     ]
     mx = (W - MINI_COLS*MINI - (MINI_COLS - 1)*MINI_GAP) / 2
     y = [0]
@@ -217,18 +221,19 @@ def token_sheet(c):
             mini_token(c, x, yy, a, **MINI_CROP.get(a, {}))
         y[0] -= rows*(MINI + MINI_GAP) + 4*mm
 
+    # Ruggero (l'NPC da salvare, non un'unita' da combattimento) non ha un
+    # ritratto dedicato: resta l'unico gettone tondo astratto del foglio.
     ensure(24*mm)
     c.setFillColor(TEAL); c.setFont(F['b'], 9)
-    c.drawString(mx, y[0], 'RUGGERO \u00b7 CANTO (x3)')
+    c.drawString(mx, y[0], 'RUGGERO')
     ty = y[0] - 12*mm
-    for i, it in enumerate(['ru', '\u2020', '\u2020', '\u2020']):
-        cx = mx + 8*mm + i * 19*mm
-        c.setStrokeColor(INK); c.setLineWidth(1.1); c.setFillColor(colors.HexColor('#4a0d16'))
-        c.circle(cx, ty, 8*mm, fill=1)
-        c.setStrokeColor(OGOLD); c.setLineWidth(0.8)
-        c.circle(cx, ty, 6.4*mm)
-        c.setFillColor(GOLD_L); c.setFont(F['sc'], 9.5)
-        c.drawCentredString(cx, ty - 1.4*mm, it)
+    cx = mx + 8*mm
+    c.setStrokeColor(INK); c.setLineWidth(1.1); c.setFillColor(colors.HexColor('#4a0d16'))
+    c.circle(cx, ty, 8*mm, fill=1)
+    c.setStrokeColor(OGOLD); c.setLineWidth(0.8)
+    c.circle(cx, ty, 6.4*mm)
+    c.setFillColor(GOLD_L); c.setFont(F['sc'], 9.5)
+    c.drawCentredString(cx, ty - 1.4*mm, 'ru')
 
     c.setFillColor(INK); c.setFont(F['i'], 9)
     c.drawString(16*mm, 16*mm, 'Consiglio: incollate il foglio su cartoncino prima di ritagliare. '
