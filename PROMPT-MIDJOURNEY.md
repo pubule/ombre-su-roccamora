@@ -358,6 +358,29 @@ ornate symmetrical dark fantasy card back, engraved gold filigree covering the w
 ornate symmetrical dark fantasy card back, engraved gold filigree covering the whole surface, bronze gems, central round medallion with a crossed key and quill above the engraved gothic blackletter word "OGGETTO", warm sepia and black, victorian gothic, perfectly symmetrical, full bleed --ar 3:4 --style raw --no watermark, signature, blurry text
 ```
 
+**Dorso tessere (T1-T6)** — retro delle tessere di Spedizione, da stampare
+sul verso quando si stampano fronte/retro (le tessere restano coperte finché
+un eroe non ci entra, vedi Regolamento). I codici T1-T6 sono **posizioni nel
+mazzo, non stanze fisse**: da episodio a episodio la tessera dietro "T3" può
+essere una stanza completamente diversa (qui in Episodio 1 è il Corridoio
+delle Candele, altrove no), quindi il dorso non deve alludere al contenuto
+della stanza — stessa icona neutra (il sigillo/onda della Società, già
+ricorrente nel resto dell'arte) su tutti e 6, cambia solo il codice, così
+resta riusabile ovunque e non spoilera cosa c'è dietro. Stessa idea dei
+dorsi carta (testo inciso nell'arte, non overlay via codice) ma quadrato
+`--ar 1:1` (la tessera è 200×200mm) e con un **codice di 2 caratteri
+invece di una parola intera** — è un esperimento: un codice corto è più
+difficile da rendere leggibile per Midjourney di una parola lunga, genera
+più varianti del solito e scarta quelle dove il codice esce storpiato o
+irriconoscibile. Salva come `artworks/Dorso Tessera T1.png` ...
+`Dorso Tessera T6.png`.
+
+```
+ornate symmetrical dark fantasy map-tile back, engraved gold filigree covering the whole surface on aged parchment, teal accents, central round medallion with a wave sigil above the engraved gothic blackletter code "T1", warm sepia and deep teal, victorian gothic cartography, perfectly symmetrical, full bleed --ar 1:1 --style raw --no watermark, signature, blurry text
+```
+Ripeti lo stesso identico prompt per T2, T3, T4, T5, T6 cambiando solo il
+codice fra virgolette — icona, palette e stile restano fissi apposta.
+
 **Tessere mappa** (sostituisci AMBIENTE):
 ```
 top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, AMBIENTE, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark
