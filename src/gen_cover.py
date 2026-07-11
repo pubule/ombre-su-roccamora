@@ -16,7 +16,7 @@ from reportlab.pdfgen import canvas
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 
-from deluxe_style import register_fonts, art, triple_wave, seal, F, GOLD
+from deluxe_style import register_fonts, art, seal, F
 
 OUT_ROOT = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'pdf')
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -93,6 +93,28 @@ def engraved(c, cx, y, text, font, size, fill, tracking=0):
     draw(0, 0, fill)                                 # colore pieno
 
 
+def divider(c, cx, y, w, col, lw=1.1):
+    """Filetto ornamentale: due tratti che rastremano verso il centro con un
+    rombo (losanga) centrale e due piccoli rombi terminali - stesso linguaggio
+    delle gemme a losanga sulle cornici delle carte, al posto delle onde."""
+    c.saveState()
+    c.setStrokeColor(col); c.setFillColor(col)
+    c.setLineWidth(lw); c.setLineCap(1)
+    half = w / 2.0
+    gap = 3.2*mm            # spazio attorno al rombo centrale
+    c.line(cx - half, y, cx - gap, y)
+    c.line(cx + gap, y, cx + half, y)
+
+    def lozenge(x, s):
+        c.saveState(); c.translate(x, y); c.rotate(45)
+        c.rect(-s, -s, 2*s, 2*s, fill=1, stroke=0)
+        c.restoreState()
+    lozenge(cx, 1.5*mm)     # rombo centrale
+    lozenge(cx - half, 0.7*mm)  # terminali
+    lozenge(cx + half, 0.7*mm)
+    c.restoreState()
+
+
 def copertina(c, num, titolo):
     cover_fit(c, MAP_ART)
     scrim(c, H, H - 70*mm, 0.4)            # velo leggero dal bordo alto: l'arte resta ben visibile
@@ -101,7 +123,7 @@ def copertina(c, num, titolo):
     # --- alto: nome del gioco (bianco, font titoli carte) ---
     ty = H - 34*mm
     engraved(c, W/2, ty, GAME_NAME, TITLE, 33, WHITE, tracking=1.5)
-    triple_wave(c, W/2, ty - 9*mm, 78*mm, WAVE, 1.5, gap=3.2*mm)
+    divider(c, W/2, ty - 8*mm, 74*mm, WAVE, 1.2)
     c.saveState(); c.setFillColor(WHITE); c.setFillAlpha(0.92)
     c.setFont(F['i'], 12.5); c.drawCentredString(W/2, ty - 20*mm, GAME_SUB)
     c.setFillAlpha(1); c.restoreState()
@@ -114,7 +136,7 @@ def copertina(c, num, titolo):
     while c.stringWidth(titolo, TITLE, size) > W - 44*mm and size > 16:
         size -= 0.5
     engraved(c, W/2, 56*mm, titolo, TITLE, size, WHITE, tracking=0.8)
-    triple_wave(c, W/2, 48*mm, 60*mm, WAVE, 1.2, gap=2.6*mm)
+    divider(c, W/2, 48*mm, 58*mm, WAVE, 1.0)
     seal(c, W/2, 30*mm, r=9*mm, angle=-10)
 
     # sottile filetto bianco a filo pagina, molto discreto
