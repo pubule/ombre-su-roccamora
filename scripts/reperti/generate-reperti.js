@@ -52,6 +52,18 @@ function page(bodyHtml) {
   return `<!doctype html><html><head><meta charset="utf-8"><style>${BASE_CSS}</style></head><body>${bodyHtml}</body></html>`;
 }
 
+// Retro del reperto: stampato su cartoncino, il verso si vede quando lo si
+// prende in mano — solo la pergamena, niente testo/sigillo, cosi' non sembra
+// un foglio bianco qualunque. Stessa larghezza e stessa altezza del fronte
+// (misurata dopo il render) per restare allineato in stampa fronte/retro.
+function backPage() {
+  return `<!doctype html><html><head><meta charset="utf-8"><style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { width: ${W}px; }
+    body { background: url('${BG}') center top / ${W}px auto repeat-y; }
+  </style></head><body></body></html>`;
+}
+
 (async () => {
   const browser = await chromium.launch({ headless: true });
   const page_ = await browser.newPage({ viewport: { width: W, height: 2000 } });
@@ -205,6 +217,16 @@ Chi canterà al di sotto, non si lamenti di ciò che al di sotto risponde.`;
     await page_.screenshot({ path: outPath });
     fs.unlinkSync(tmpHtml);
     console.log('ok ->', outPath, `(${contentHeight}px)`);
+
+    // retro, stessa taglia del fronte appena misurato
+    const tmpBackHtml = path.join(episodioDir, `.tmp-${name}-retro.html`);
+    fs.writeFileSync(tmpBackHtml, backPage(), 'utf8');
+    await page_.goto(pathToFileURL(tmpBackHtml).href, { waitUntil: 'networkidle' });
+    await page_.waitForTimeout(100);
+    const backOutPath = path.join(episodioDir, `${name} (retro).png`);
+    await page_.screenshot({ path: backOutPath });
+    fs.unlinkSync(tmpBackHtml);
+    console.log('ok ->', backOutPath, `(${contentHeight}px)`);
   }
 
   await browser.close();

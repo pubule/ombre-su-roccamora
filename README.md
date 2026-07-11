@@ -61,6 +61,15 @@ in una città immaginaria di canali e campanili nel 1889. Unisce indagine alla
 - `vendor/cardconjurer/` — copia locale statica di Card Conjurer (vedi sotto)
 - `fetch_fonts.sh` — scarica i font liberi (Old Standard TT, IM Fell English SC)
 
+## Rigenerare tutto in un colpo
+
+```bash
+./build-all.sh   # tessere, carte, fogli fronte/retro, reperti, tutti i PDF, nell'ordine giusto
+```
+
+Le sezioni sotto restano per rigenerare solo una parte (es. dopo aver aggiornato
+un solo testo) senza rilanciare tutto il resto.
+
 ## Rigenerare i PDF
 
 ```bash
@@ -80,12 +89,21 @@ python gen_board.py    # tabellone riusabile (traccia Canto, mazzo Minaccia + sc
 
 ## Rigenerare le carte
 
+Da lanciare dalla **radice del repo** (non da dentro `scripts/cardconjurer`:
+`card.art`, es. `'artworks/Elena.png'`, e' risolto relativo alla cwd):
+
 ```bash
-cd scripts/cardconjurer
-node generate-batch.js            # tutte (eroi, nemici, minacce, luoghi, indizi, testimoni, referti, oggetti, preludio)
-node generate-batch.js luoghi     # solo un gruppo (heroes|nemici|minacce|luoghi|indizi|testimoni|referti|oggetti|preludio)
-node generate-test.js "Elena Fosco" "Il Fonditore"   # solo carte specifiche, per titolo
-node generate-print-sheets.js     # fronte/retro pronto da stampare, tutti i mazzi (non committato)
+node scripts/cardconjurer/generate-batch.js            # tutte (eroi, nemici, minacce, luoghi, indizi, testimoni, referti, oggetti, preludio)
+node scripts/cardconjurer/generate-batch.js luoghi     # solo un gruppo (heroes|nemici|minacce|luoghi|indizi|testimoni|referti|oggetti|preludio)
+node scripts/cardconjurer/generate-test.js "Elena Fosco" "Il Fonditore"   # solo carte specifiche, per titolo
+node scripts/cardconjurer/generate-print-sheets.js     # fronte/retro pronto da stampare, tutti i mazzi (non committato)
+```
+
+## Rigenerare tessere e reperti
+
+```bash
+node scripts/tiles/generate-tiles.js     # le 6 tessere T1-T6 (board/Episodio 1/)
+node scripts/reperti/generate-reperti.js # diario, registro, fascicolo + retro pergamena (reperti/)
 ```
 
 Gira contro `vendor/cardconjurer/`, una copia locale statica di
