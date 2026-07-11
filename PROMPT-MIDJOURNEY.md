@@ -387,6 +387,32 @@ top-down hand-drawn dungeon map tile on aged parchment, ink linework with crossh
 ```
 Ambienti — **T1** loading dock with black canal water along one edge and mooring posts · **T2** warehouse room packed with stacked wooden crates branded with a wave · **T3** narrow corridor lined with hundreds of black candles and pooled wax · **T4** cluttered office with a desk covered in sheet music and a straw bed · **T5** slick stone staircase descending into darkness · **T6** underground crypt with a central altar in a ring of candles and a barred prison cell in the corner
 
+**Arredi delle tessere** — oggi `scripts/tiles/generate-tiles.js` disegna gli
+arredi (le caselle bloccate dentro la griglia 4x4: casse, candele, scala...)
+come rettangoli a gradiente CSS con la sola etichetta testuale sopra
+(`ARREDO_STYLE` nello script) — un segnaposto strutturale, non arte finita.
+Questi 8 prompt generano l'arte vera, un'icona quadrata top-down per
+arredo, stesso stile ink/pergamena delle tessere così si sovrappone pulita
+a una cella della griglia. Salva come `artworks/Arredo <Nome>.png` (minuscolo
+nel nome file per matchare le chiavi di `ARREDO_STYLE`: `molo`, `casse`,
+`candele`, `scrivania`, `branda`, `scala`, `altare`, `cella`) — una volta
+pronti, `generate-tiles.js` va aggiornato per disegnare l'immagine al posto
+del rettangolo a gradiente (non ancora fatto).
+
+Sostituisci OGGETTO e usa questo prompt unico:
+```
+top-down hand-drawn dungeon map icon on aged parchment, ink linework, OGGETTO, faint square-grid corner lines, torn parchment edge, antique cartography style, warm sepia with teal accents --ar 1:1 --style raw --no text, letters, words, watermark
+```
+
+Oggetti — **molo** a mooring post wrapped in wet rope on cracked dock stone ·
+**casse** a stack of wooden crates branded with a wave sigil · **candele** a
+cluster of tall black candles thick with dripped wax · **scrivania** a
+cluttered writing desk with sheet music and a quill · **branda** a narrow
+straw pallet bed with a folded blanket · **scala** a stone spiral staircase
+seen from above, descending into shadow · **altare** a stone altar ringed
+with candle stubs and old bloodstains · **cella** a barred prison cell door
+set in a stone archway
+
 **Mappa di campagna di Roccamora (poster)**
 ```
 antique hand-drawn city map of a gothic canal city, bird's eye view, ink and watercolor on aged parchment, a great cathedral with bell tower at the center, winding canals dividing eight distinct districts, small warehouses along a dark lower canal, tiny rooftops, bridges and mooring posts, decorative compass rose and sea-serpent flourish in the corners, 1889 cartography style, muted teal water and sepia buildings with crimson accents --ar 3:4 --style raw --no text, letters, words, watermark
