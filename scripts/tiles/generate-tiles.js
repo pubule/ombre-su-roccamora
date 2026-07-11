@@ -53,6 +53,39 @@ function pickDoorIndex(dir, occupied) {
   return 1;
 }
 
+// Raggruppa celle adiacenti con lo stesso arredo in un unico rettangolo (4x4
+// grid, connessione N/S/E/O): un arredo che occupa piu' celle (es. la scala
+// 2x2 di T5) va disegnato una sola volta, non ripetuto identico su ogni
+// cella - altrimenti sembrano oggetti diversi invece di uno solo piu' grande.
+function groupArredi(arredi) {
+  const cells = arredi.map(([gx, gy, label]) => ({ col: gx, row: 3 - gy, label }));
+  const byKey = new Map(cells.map((c) => [`${c.col},${c.row}`, c]));
+  const used = new Set();
+  const groups = [];
+  for (const start of cells) {
+    const startKey = `${start.col},${start.row}`;
+    if (used.has(startKey)) continue;
+    used.add(startKey);
+    const stack = [start];
+    let minC = start.col, maxC = start.col, minR = start.row, maxR = start.row;
+    while (stack.length) {
+      const c = stack.pop();
+      for (const [dc, dr] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
+        const key = `${c.col + dc},${c.row + dr}`;
+        const n = byKey.get(key);
+        if (n && n.label === start.label && !used.has(key)) {
+          used.add(key);
+          stack.push(n);
+          minC = Math.min(minC, n.col); maxC = Math.max(maxC, n.col);
+          minR = Math.min(minR, n.row); maxR = Math.max(maxR, n.row);
+        }
+      }
+    }
+    groups.push({ col: minC, row: minR, cols: maxC - minC + 1, rows: maxR - minR + 1, label: start.label });
+  }
+  return groups;
+}
+
 function html(tile) {
   const cell = S / 4;
   const cellsHtml = [];
@@ -62,36 +95,37 @@ function html(tile) {
     }
   }
   // arredi: (gx,gy) convenzione PDF (gy=0 in basso) -> riga schermo = 3-gy
-  const occupied = new Set();
-  const arredoHtml = tile.arredi.map(([gx, gy, label]) => {
-    const row = 3 - gy;
-    occupied.add(`${gx},${row}`);
-    const art = ARREDO_ART[label.toLowerCase()];
-    return `<div class="arredo" style="left:${gx * cell + 6}px; top:${row * cell + 6}px; width:${cell - 12}px; height:${cell - 12}px; background-image:url('${art}');">
-    </div>`;
+  const occupied = new Set(tile.arredi.map(([gx, gy]) => `${gx},${3 - gy}`));
+  const arredoHtml = groupArredi(tile.arredi).map((g) => {
+    const art = ARREDO_ART[g.label.toLowerCase()];
+    return `<div class="arredo" style="left:${g.col * cell + 6}px; top:${g.row * cell + 6}px; width:${g.cols * cell - 12}px; height:${g.rows * cell - 12}px; background-image:url('${art}');"></div>`;
   }).join('');
 
+  // Le porte e la loro etichetta di destinazione stanno DENTRO il bordo della
+  // tessera (non fuori, in un margine che poi va tagliato in stampa): senza,
+  // ritagliando la tessera pulita si perderebbe l'unico modo per sapere quale
+  // T* si aggancia a quale uscita mentre si monta il dungeon sul tavolo.
   const doorHtml = Object.entries(tile.exits).map(([dir, destRaw]) => {
     const dest = destRaw.match(/^\S+/)[0]; // "T5 (grata: ...)" -> "T5"
     const note = destRaw.slice(dest.length).trim();
     const idx = pickDoorIndex(dir, occupied);
     const styles = {
-      N: `left:${idx * cell}px; top:${-13}px; width:${cell}px; height:26px;`,
-      S: `left:${idx * cell}px; top:${S - 13}px; width:${cell}px; height:26px;`,
-      E: `left:${S - 13}px; top:${idx * cell}px; width:26px; height:${cell};`,
-      O: `left:${-13}px; top:${idx * cell}px; width:26px; height:${cell};`,
+      N: `left:${idx * cell}px; top:0px; width:${cell}px; height:26px;`,
+      S: `left:${idx * cell}px; top:${S - 26}px; width:${cell}px; height:26px;`,
+      E: `left:${S - 26}px; top:${idx * cell}px; width:26px; height:${cell};`,
+      O: `left:0px; top:${idx * cell}px; width:26px; height:${cell};`,
     };
     const labelPos = {
-      N: `left:${idx * cell + cell / 2}px; top:${-48}px;`,
-      S: `left:${idx * cell + cell / 2}px; top:${S + 48}px;`,
-      E: `left:${S + 95}px; top:${idx * cell + cell / 2}px;`,
-      O: `left:${-95}px; top:${idx * cell + cell / 2}px;`,
+      N: `left:${idx * cell + cell / 2}px; top:${64}px;`,
+      S: `left:${idx * cell + cell / 2}px; top:${S - 64}px;`,
+      E: `left:${S - 100}px; top:${idx * cell + cell / 2}px;`,
+      O: `left:${100}px; top:${idx * cell + cell / 2}px;`,
     };
     const arrowPos = {
-      N: `left:${idx * cell + cell / 2}px; top:${-13}px;`,
-      S: `left:${idx * cell + cell / 2}px; top:${S + 13}px;`,
-      E: `left:${S + 13}px; top:${idx * cell + cell / 2}px;`,
-      O: `left:${-13}px; top:${idx * cell + cell / 2}px;`,
+      N: `left:${idx * cell + cell / 2}px; top:${32}px;`,
+      S: `left:${idx * cell + cell / 2}px; top:${S - 32}px;`,
+      E: `left:${S - 32}px; top:${idx * cell + cell / 2}px;`,
+      O: `left:${32}px; top:${idx * cell + cell / 2}px;`,
     };
     const arrow = { N: '▲', S: '▼', E: '▶', O: '◀' }[dir];
     return `<div class="door" style="${styles[dir]}"></div>
@@ -102,9 +136,10 @@ function html(tile) {
   return `<!doctype html><html><head><meta charset="utf-8"><style>
     @import url('https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&display=swap');
     * { margin:0; padding:0; box-sizing:border-box; }
-    body { width:${S + 340}px; height:${S + 340}px; background:#0a0a0c; }
-    .stage { position:relative; width:${S}px; height:${S}px; margin:170px; }
+    body { width:${S}px; height:${S}px; }
+    .stage { position:relative; width:${S}px; height:${S}px; overflow:hidden; }
     .stage img.art { position:absolute; inset:0; width:${S}px; height:${S}px; object-fit:cover; }
+    .dim { position:absolute; inset:0; background:rgba(0,0,0,0.28); }
     .cell { position:absolute; border:2px solid rgba(230,195,120,0.55); box-sizing:border-box; }
     .arredo { position:absolute; border-radius:6px; border:2px solid rgba(230,195,120,0.9);
               box-shadow:0 4px 10px rgba(0,0,0,0.6); background-size:cover; background-position:center; }
@@ -116,12 +151,10 @@ function html(tile) {
                   font-family:'IM Fell English SC', serif; font-size:26px; font-weight:bold; color:#f2c14e;
                   text-shadow:0 0 8px #000, 0 0 4px #000; background:rgba(10,10,12,0.7); padding:2px 10px; border-radius:4px; }
     .door-label small { display:block; font-family:'Old Standard TT', serif; font-size:14px; color:#e6c47e; font-weight:normal; }
-    .title { position:absolute; top:-104px; left:0; font-family:'IM Fell English SC', serif;
-             font-size:26px; color:#f2c14e; letter-spacing:1px; white-space:nowrap; }
   </style></head><body>
     <div class="stage">
-      <div class="title">${tile.id} — ${tile.nome.toUpperCase()}</div>
       <img class="art" src="${pathToFileURL(path.join(ROOT, 'artworks', `${tile.id}.png`)).href}" />
+      <div class="dim"></div>
       ${cellsHtml.join('')}
       ${arredoHtml}
       ${doorHtml}
@@ -131,7 +164,7 @@ function html(tile) {
 
 (async () => {
   const browser = await chromium.launch({ headless: true });
-  const page = await browser.newPage({ viewport: { width: S + 340, height: S + 340 } });
+  const page = await browser.newPage({ viewport: { width: S, height: S } });
 
   for (const tile of TILES) {
     const tmpHtml = path.join(OUT_DIR, `.tmp-${tile.id}.html`);
