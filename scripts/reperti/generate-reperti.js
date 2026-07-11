@@ -16,7 +16,13 @@ const { pathToFileURL } = require('url');
 
 const ROOT = path.resolve(__dirname, '..', '..');
 const BG = pathToFileURL(path.join(ROOT, 'artworks', 'Sfondo pergamena per i Reperti.png')).href;
-const SEAL_PATH = path.join(ROOT, 'artworks', 'Sigillo.jpg');
+// Sigillo.png (non il .jpg): gia' mascherato con alpha reale attorno alla
+// forma organica della cera (stesso asset usato da deluxe_style.seal() per
+// copertine/regolamento) - niente color-key o clip a cerchio qui, altrimenti
+// si ritorna al vecchio artefatto: un anello piatto e uniforme attorno alla
+// cera vera, dove il .jpg forzato in un cerchio perfetto tagliava nel suo
+// sfondo a scacchi finto-trasparente invece che seguire il bordo del sigillo.
+const SEAL = `data:image/png;base64,${fs.readFileSync(path.join(ROOT, 'artworks', 'Sigillo.png')).toString('base64')}`;
 const OUT_DIR = path.join(ROOT, 'reperti');
 fs.mkdirSync(OUT_DIR, { recursive: true });
 
@@ -46,48 +52,9 @@ function page(bodyHtml) {
   return `<!doctype html><html><head><meta charset="utf-8"><style>${BASE_CSS}</style></head><body>${bodyHtml}</body></html>`;
 }
 
-// Sigillo.jpg NON ha un canale alpha vero (e' un .jpg, il formato non lo
-// supporta): il pattern a scacchi che sembra "trasparenza" e' in realta'
-// disegnato nei pixel RGB stessi da qualunque tool l'abbia esportato. Quindi
-// niente overlay/compositing puo' recuperarlo: bisogna fare color-key, cioe'
-// sostituire i pixel grigio/bianco neutri (poco saturi, chiari) con un colore
-// di sfondo pieno — la cera (rosso) e l'oro sono ben piu' saturi e non vengono toccati.
-async function flattenSealToDataUrl(page_, bgColor) {
-  const inputDataUrl = `data:image/png;base64,${fs.readFileSync(SEAL_PATH).toString('base64')}`;
-  return page_.evaluate(async ({ src, bgColor }) => {
-    const img = await new Promise((resolve, reject) => {
-      const im = new Image();
-      im.onload = () => resolve(im);
-      im.onerror = reject;
-      im.src = src;
-    });
-    const canvas = document.createElement('canvas');
-    canvas.width = img.naturalWidth;
-    canvas.height = img.naturalHeight;
-    const ctx = canvas.getContext('2d');
-    ctx.drawImage(img, 0, 0);
-    const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-    const d = imgData.data;
-    const br = parseInt(bgColor.slice(1, 3), 16);
-    const bg = parseInt(bgColor.slice(3, 5), 16);
-    const bb = parseInt(bgColor.slice(5, 7), 16);
-    for (let i = 0; i < d.length; i += 4) {
-      const r = d[i], g = d[i + 1], b = d[i + 2];
-      const max = Math.max(r, g, b), min = Math.min(r, g, b);
-      if (max - min < 22 && max > 150) {
-        d[i] = br; d[i + 1] = bg; d[i + 2] = bb; d[i + 3] = 255;
-      }
-    }
-    ctx.putImageData(imgData, 0, 0);
-    return canvas.toDataURL('image/png');
-  }, { src: inputDataUrl, bgColor });
-}
-
 (async () => {
   const browser = await chromium.launch({ headless: true });
   const page_ = await browser.newPage({ viewport: { width: W, height: 2000 } });
-
-  const SEAL = await flattenSealToDataUrl(page_, '#5a1018');
 
   // --- Reperto A: diario di Ruggero ---
   const vociA = [
@@ -163,7 +130,7 @@ Chi canterà al di sotto, non si lamenti di ciò che al di sotto risponde.`;
         ${decretoC}
       </div>
       <div style="text-align:right; margin-top:60px;">
-        <img src="${SEAL}" style="width:220px; height:220px; border-radius:50%; transform:rotate(-8deg); box-shadow:0 4px 14px rgba(0,0,0,0.5);" />
+        <img src="${SEAL}" style="width:220px; height:220px; transform:rotate(-8deg); filter:drop-shadow(0 4px 10px rgba(0,0,0,0.5));" />
       </div>
       <div style="margin-top:60px;">
         <div class="serif" style="font-weight:bold; font-size:40px; margin-bottom:24px;">SCHEDA DELLE CONSULTAZIONI — fascicolo n. 44</div>
