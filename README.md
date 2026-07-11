@@ -6,17 +6,19 @@ in una città immaginaria di canali e campanili nel 1889. Unisce indagine alla
 
 ## Contenuto
 
-- `pdf/` — materiale pronto da stampare:
+- `pdf/` — materiale pronto da stampare, comune a tutta la campagna:
   - `01-Regolamento` — regole complete
   - `02-Schede-Personaggio` — i 6 eroi della Società del Lume
-  - `03-Episodio1-Indagine` — lettera d'incarico, taccuino (le 8 carte Luogo e le
-    carte Indizio Nascosto sono immagini a parte, vedi `cards/`)
-  - `04-Episodio1-Spedizione` — note per tessera, segnalini (le carte Minacce/Nemici e
-    le tessere T1-T6 sono file immagine a parte, vedi `cards/` e `board/`)
-  - `05-SOLUZIONE-non-aprire` — da stampare senza leggere e sigillare in busta!
   - `06-Aiuto-Giocatore` — riepilogo regole da tavolo su una pagina
-  - `07-Approfondimenti` — fronte/retro (duplex) di Indizi Nascosti, Testimoni e
-    Referti: i dorsi mostrano il numero del luogo e il tipo
+  - `Episodio 1/` — materiale specifico di questo episodio:
+    - `Indagine` — lettera d'incarico, taccuino (le 8 carte Luogo e le carte
+      Indizio Nascosto sono immagini a parte, vedi `cards/`)
+    - `Spedizione` — note per tessera, segnalini (le carte Minacce/Nemici e le
+      tessere T1-T6 sono file immagine a parte, vedi `cards/` e `board/`)
+    - `Luoghi` — riferimenti per chi arbitra: quale carta Approfondimento/Oggetto
+      prendere per ogni luogo/tessera (le carte stesse non lo dicono, per non
+      far barare i giocatori e restare riusabili tra episodi)
+    - `Soluzione (non aprire)` — da stampare senza leggere e sigillare in busta!
 - `cards/` — carte gioco pronte (Eroi, Nemici, Minacce, Luoghi, Indizi Nascosti,
   Testimoni, Referti, Oggetti)
 - `board/` — le 6 tessere T1-T6 della Spedizione, griglia+arredi+porte pronte
@@ -39,9 +41,10 @@ pip install reportlab
 cd src
 # i sorgenti cercano i font in /home/claude/fonts: adegua i percorsi in
 # deluxe_style.py e poi:
-python gen_docs.py     # regolamento + soluzione
+python gen_docs.py     # regolamento + aiuto-giocatore + soluzione (Episodio 1)
 python gen_deluxe.py   # schede personaggio
-python gen_gothic.py   # indagine + spedizione (versione grafica gotica finale)
+python gen_gothic.py   # indagine + spedizione (Episodio 1)
+python gen_narrator.py # luoghi/tessere per chi arbitra (Episodio 1)
 ```
 
 ## Rigenerare le carte
@@ -51,7 +54,7 @@ cd scripts/cardconjurer
 node generate-batch.js            # tutte (eroi, nemici, minacce, luoghi, indizi, testimoni, referti, oggetti)
 node generate-batch.js luoghi     # solo un gruppo (heroes|nemici|minacce|luoghi|indizi|testimoni|referti|oggetti)
 node generate-test.js "Elena Fosco" "Il Fonditore"   # solo carte specifiche, per titolo
-node generate-backs.js            # PDF 07 fronte/retro coi dorsi numerati degli Approfondimenti
+node generate-print-sheets.js     # fronte/retro pronto da stampare, tutti i mazzi (non committato)
 ```
 
 Gira contro `vendor/cardconjurer/`, una copia locale statica di
@@ -68,3 +71,10 @@ tessere con mazzo Minaccia automatico. Le risposte esatte danno vantaggi concret
 nella spedizione. Campagna con migliorie, cicatrici e Frammenti di mistero.
 
 *Episodio 1: Il caso del campanaro scomparso.*
+
+## Licenza
+
+[PolyForm Noncommercial License 1.0.0](LICENSE.md): uso personale/non
+commerciale libero e gratuito. Uso commerciale (vendita, crowdfunding,
+prodotti derivati a pagamento...) richiede una licenza a pagamento
+dell'autore: vedi [NOTICE.md](NOTICE.md) per i contatti e altri chiarimenti.

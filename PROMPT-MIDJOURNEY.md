@@ -271,9 +271,9 @@ ornate symmetrical dark fantasy card back, engraved gold filigree covering the w
 **Dorso carte Indizio Nascosto** — mazzo separato, dorso diverso da quello dei
 Luoghi cosi' resta irriconoscibile finche' non si scopre. Copre anche Testimoni
 e Referti: sono lo stesso mazzo coperto unico (vedi regolamento), stesso dorso
-per tutti e tre — il numero del luogo e il tipo carta si sovrappongono sopra
-in fase di stampa (`scripts/cardconjurer/generate-backs.js`), non fanno parte
-di questa arte:
+per tutti e tre — SOLO il tipo carta (mai il numero del luogo) si sovrappone
+sopra in fase di stampa (`scripts/cardconjurer/generate-print-sheets.js`), non
+fa parte di questa arte:
 ```
 ornate symmetrical dark fantasy card back, engraved gold filigree covering the whole surface, teal gems, central round medallion with a single closed eye, deep midnight blue and black, victorian gothic, perfectly symmetrical, full bleed --ar 3:4 --style raw --no text, letters, words, watermark
 ```

@@ -264,9 +264,12 @@ const LUOGHI = [
 // Approfondimenti gated derivati dai luoghi. Osservazione+Presagio -> carta
 // "Indizio Nascosto" del luogo (una per luogo che ne ha, righe taggate per eroe).
 // Testimonianza -> mazzo Testimoni; Referto -> mazzo Referti. Tutte riusano l'arte
-// del luogo. I dorsi numerati (num luogo + tipo, generate-backs.js) permettono di
-// tenere un unico mazzo coperto e trovare la carta solo quando si visita quel luogo
-// con l'abilita' giusta: presenza e contenuto restano da scoprire.
+// del luogo. Il dorso mostra SOLO il tipo (mai il numero del luogo, vedi
+// taggedBackCell in generate-print-sheets.js): un unico mazzo coperto in cui
+// si trova la carta solo visitando quel luogo con l'abilita' giusta - quale
+// carta prendere per quale luogo sta nel PDF pdf/Episodio 1/Luoghi.pdf
+// (generate-narrator-reference.js e' stato sostituito da src/gen_narrator.py),
+// mai sulla carta stessa.
 const TAG_INSIGHT = { Osservazione: 'Osservazione — Elena', Presagio: 'Presagio — Sibilla' };
 
 // Famiglia di 4 varianti (non più un frammento identico) appese IN CODA a tutte e 14

@@ -11,12 +11,13 @@
 // Il trio Indizi Nascosti/Testimoni/Referti e' un mazzo coperto unico (vedi
 // regolamento): stesso dorso per tutti e tre, con SOLO il tipo sovrapposto
 // sopra l'arte (mai il luogo: niente sulla carta deve permettere di dedurre
-// dove cercare - vedi generate-narrator-reference.js per quella mappa).
+// dove cercare - vedi pdf/Episodio 1/Luoghi.pdf, generato da src/gen_narrator.py,
+// per quella mappa).
 //
 // Dimensione carta: 68x95.2mm (rapporto 1.4, identico alle carte reali
 // 2010x2814px), il piu' grande possibile in griglia 3x3 su A4 lasciando un
 // margine di sicurezza per stampanti non borderless (~1mm ai lati, ~5.5mm
-// sopra/sotto) invece del margine largo usato in generate-backs.js.
+// sopra/sotto).
 //
 // Uso: node scripts/cardconjurer/generate-print-sheets.js
 // Richiede le carte gia' generate (generate-batch.js, tutti i gruppi che vuoi

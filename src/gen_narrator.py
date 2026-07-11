@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Ombre su Roccamora - Riferimenti Narratore (PDF 09).
+"""Ombre su Roccamora - Episodio 1 - Luoghi (riferimenti narratore).
 
 L'UNICA cosa che lega una carta Approfondimento o Oggetto a un luogo/tessera
 specifico. Le carte stesse non portano piu' questa informazione (dorso
@@ -27,7 +27,8 @@ from gen_cards import LUOGHI, TILES, OGGETTI
 import story
 story.apply(LUOGHI, TILES, [], [], [])
 
-OUT_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'pdf')
+OUT_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'pdf', 'Episodio 1')
+os.makedirs(OUT_DIR, exist_ok=True)
 register_fonts()
 W, H = A4
 
@@ -50,77 +51,151 @@ TIPO_LABEL = {'Osservazione': 'Indizio Nascosto', 'Presagio': 'Indizio Nascosto'
               'Testimonianza': 'Testimone', 'Referto': 'Referto'}
 
 # Descrizione allargata SOLO per questo fascicolo (il narratore, non i giocatori):
-# più sensoriale e atmosferica del testo terso stampato sulla carta Luogo, utile
-# per improvvisare la scena a voce. Non tocca le carte/tessere stampate - stessi
-# fatti, stesse battute di dialogo, solo più respiro. Le tessere invece riusano
-# testo/gen_cards.py TILES['testo'] cosi' com'e' (contiene regole di gioco, es.
-# prove NERVI/danno, che non vanno riscritte).
+# più sensoriale e atmosferica del testo terso stampato sulla carta Luogo/Tessera,
+# utile per improvvisare la scena a voce. Non tocca le carte/tessere stampate -
+# stessi fatti, stesse battute di dialogo, stesse regole (dove presenti, es. prove
+# NERVI/danno delle Tessere, mai riscritte), solo più respiro attorno. La colonna
+# ha altezza fissa: header() riduce il font finche' non entra, quindi qui si puo'
+# scrivere in liberta' senza contare le righe a mano.
 LUOGHI_DESC = {
-    1: 'La scala a chiocciola sale nel buio, ottanta gradini che Ruggero conosceva a '
-       'memoria e che ora scricchiolano sotto piedi estranei. L’aria si fa più fredda a '
-       'ogni giro, come se qualcosa, più in alto, respirasse lentamente. In cima, la '
-       'cella campanaria è un disordine congelato: lo sgabello rovesciato, la lanterna '
-       'ancora appesa al gancio, la cena intatta sotto un panno ormai freddo. Le tre '
-       'grandi campane pendono immobili come bestie addormentate, e sulle travi, tra '
-       'ragnatele e polvere di piccione, si intravedono colate di cera che nessuno ha '
-       'mai acceso quassù. Fa più freddo di quanto dovrebbe, e il vento che entra dalle '
-       'feritoie porta, a tratti, qualcosa che assomiglia a un canto.',
+    1: 'La scala a chiocciola sale nel buio, ottanta gradini consumati al centro dai '
+       'passi di generazioni di campanari, che Ruggero conosceva a memoria e che ora '
+       'scricchiolano sotto piedi estranei. L’aria si fa più fredda a ogni giro, come se '
+       'qualcosa, più in alto, respirasse lentamente; la vostra lanterna proietta ombre '
+       'che sembrano muoversi un istante prima di voi, mai dopo. In cima, la cella '
+       'campanaria è un disordine congelato: lo sgabello rovesciato, la lanterna ancora '
+       'appesa al gancio, la cena intatta sotto un panno ormai freddo, le briciole di '
+       'pane secco che nessun topo ha toccato. Le tre grandi campane pendono immobili '
+       'come bestie addormentate, enormi da vicino quanto non sembrano dalla piazza, e '
+       'sulle travi, tra ragnatele e polvere di piccione, si intravedono colate di cera '
+       'che nessuno ha mai acceso quassù — impossibile dire da quanto tempo colano, o '
+       'come abbiano raggiunto un’altezza che nessuna candela da chiesa potrebbe '
+       'giustificare. Fa più freddo di quanto dovrebbe, un freddo che sale dalle pietre '
+       'più che scendere dall’aria, e il vento che entra dalle feritoie porta, a tratti, '
+       'qualcosa che assomiglia a un canto, troppo regolare per essere solo vento.',
     2: 'Il vicolo dei Fonditori sa di carbone e minestra bollita, di panni stesi tra '
-       'finestre che quasi si toccano. Bice vi apre con gli occhi rossi e le mani che '
-       'non stanno ferme, stringendo lo scialle come se potesse tenere insieme anche '
-       'lei. La casa è linda, povera, ordinata con la cura di chi non ha altro modo per '
-       'sentirsi ancora al sicuro — ed è piena, in ogni angolo, dell’assenza di suo '
-       'fratello. «Negli ultimi tempi diceva di sentire musica sotto il pavimento della '
-       'cripta», mormora, senza guardarvi negli occhi. «E aveva paura del suo stesso '
-       'campanile.» Sul tavolo, tra le tazze rigovernate, qualcosa che non dovrebbe '
-       'essere lì aspetta di essere notato.',
-    3: 'Fumo denso, vino cattivo, il tanfo dolciastro del canale che entra a ogni porta '
-       'che sbatte contro lo stipite. I barcaioli giocano a carte sotto una lampada a '
-       'olio che ondeggia col vento dalle finestre sconnesse, e vi squadrano appena, '
-       'valutandovi come si valuta un carico prima di scaricarlo. Qui le lingue si '
-       'sciolgono con poco, purché il poco finisca nel bicchiere giusto e nessuno faccia '
-       'troppe domande a voce alta. Sotto il tavolo più vicino alla porta, qualcuno ha '
-       'inciso una piccola onda nel legno, tanto tempo fa; nessuno dei presenti sembra '
-       'ricordare chi, o perché.',
-    4: 'Odore d’incenso e di chiuso, cera vecchia e legno umido. Don Callisto vi riceve '
-       'tra i paramenti appesi come sudari, nervoso, nascondendo dietro la schiena mani '
-       'sporche di cera che si affretta a strofinare sulla tonaca. Alle sue spalle, la '
-       'porta della cripta è sbarrata con assi nuove inchiodate su pietra antica: '
-       '«Chiusa per lavori», taglia corto, e la voce gli si incrina sull’ultima sillaba '
-       'come una corda troppo tesa. Da qualche parte, sotto i vostri piedi, il pavimento '
-       'sembra vibrare appena — o forse è solo l’organo, in restauro, che qualcuno '
-       'continua a provare anche senza un organista.',
+       'finestre che quasi si toccano e di fumo di comignoli troppo vicini al suolo. '
+       'Bice vi apre con gli occhi rossi e le mani che non stanno ferme, stringendo lo '
+       'scialle come se potesse tenere insieme anche lei; dietro di lei, l’ingresso è '
+       'buio nonostante sia pieno pomeriggio, le persiane accostate come per un lutto '
+       'mai dichiarato. La casa è linda, povera, ordinata con la cura ostinata di chi '
+       'non ha altro modo per sentirsi ancora al sicuro — ed è piena, in ogni angolo, '
+       'dell’assenza di suo fratello: il suo cappotto ancora al chiodo, il suo posto a '
+       'tavola apparecchiato per abitudine più che per speranza. «Negli ultimi tempi '
+       'diceva di sentire musica sotto il pavimento della cripta», mormora, senza '
+       'guardarvi negli occhi, torcendo l’orlo dello scialle tra le dita. «E aveva paura '
+       'del suo stesso campanile — lui, che ci ha passato la vita.» Sul tavolo, tra le '
+       'tazze rigovernate e le briciole di un pasto mai finito, qualcosa che non '
+       'dovrebbe essere lì aspetta di essere notato.',
+    3: 'Fumo denso che pizzica gli occhi, vino cattivo servito in bicchieri scheggiati, '
+       'il tanfo dolciastro del canale che entra a ogni porta che sbatte contro lo '
+       'stipite. I barcaioli giocano a carte sotto una lampada a olio che ondeggia col '
+       'vento dalle finestre sconnesse, proiettando ombre lunghe sulle facce segnate dal '
+       'sole e dall’acqua; vi squadrano appena, valutandovi come si valuta un carico '
+       'prima di scaricarlo, poi tornano alle carte con un’indifferenza troppo studiata '
+       'per essere vera. Qui le lingue si sciolgono con poco, purché il poco finisca nel '
+       'bicchiere giusto e nessuno faccia troppe domande a voce alta — meglio bisbigliare, '
+       'meglio pagare, meglio non guardare troppo a lungo verso il canale fuori dalla '
+       'finestra. Sotto il tavolo più vicino alla porta, qualcuno ha inciso una piccola '
+       'onda nel legno, tanto tempo fa, con un coltello o forse con un’unghia; nessuno '
+       'dei presenti sembra ricordare chi, o perché, eppure più di uno, senza accorgersene, '
+       'vi passa sopra il pollice mentre parla.',
+    4: 'Odore d’incenso stantio e di chiuso, cera vecchia colata su decenni di funzioni '
+       'e legno umido che nessuna stufa riesce davvero a scaldare. Don Callisto vi '
+       'riceve tra i paramenti appesi come sudari lungo le pareti della sagrestia, '
+       'nervoso, nascondendo dietro la schiena mani sporche di cera che si affretta a '
+       'strofinare sulla tonaca non appena se ne accorge. Alle sue spalle, la porta '
+       'della cripta è sbarrata con assi nuove inchiodate su pietra antica, il legno '
+       'ancora chiaro contro il grigio consumato degli stipiti: «Chiusa per lavori», '
+       'taglia corto, e la voce gli si incrina sull’ultima sillaba come una corda '
+       'troppo tesa, mentre le sue dita cercano involontariamente un crocifisso al '
+       'collo. Da qualche parte, sotto i vostri piedi, il pavimento sembra vibrare '
+       'appena — un tremito più sentito che udito — o forse è solo l’organo, in '
+       'restauro, che qualcuno continua a provare anche senza un organista, note isolate '
+       'che risalgono le canne come se cercassero una strada verso l’alto.',
     5: 'La bottega è chiusa da giorni, la polvere ha già preso possesso delle vetrine '
-       'come muschio su una lapide; la porta sul retro cede a una spallata con un '
-       'cigolio che sembra un lamento. Dentro, violini appesi come selvaggina in una '
-       'macelleria e un silenzio sbagliato, innaturale, per un luogo nato per fare '
-       'musica. Il banco da lavoro è in ordine perfetto — troppo perfetto: chi è '
-       'partito, sapeva di partire, e ha avuto tempo di sistemare ogni attrezzo al suo '
-       'posto prima di sparire. Sul pavimento, un filo sottile di cera nera conduce dal '
-       'camino spento fino alla soglia, e si perde nel buio della strada.',
+       'come muschio su una lapide, e le insegne dipinte a mano iniziano a scrostarsi '
+       'sotto la pioggia; la porta sul retro cede a una spallata con un cigolio che '
+       'sembra un lamento, come se l’edificio stesso protestasse per l’intrusione. '
+       'Dentro, violini appesi come selvaggina in una macelleria, decine di sagome scure '
+       'contro la luce polverosa delle finestre alte, e un silenzio sbagliato, '
+       'innaturale, per un luogo nato per fare musica — nemmeno l’eco dei vostri passi '
+       'sembra propagarsi come dovrebbe. Il banco da lavoro è in ordine perfetto — '
+       'troppo perfetto: gli attrezzi allineati per misura, la polvere di legno spazzata '
+       'in un angolo, come se chi è partito sapesse di partire e avesse avuto tutto il '
+       'tempo per sistemare ogni cosa al suo posto prima di sparire per sempre. Sul '
+       'pavimento, un filo sottile di cera nera conduce dal camino spento fino alla '
+       'soglia, e si perde nel buio della strada, come una traccia lasciata apposta — o '
+       'dimenticata da chi non pensava che qualcuno l’avrebbe seguita.',
     6: 'L’acqua qui non scorre: sta. Nera, ferma, densa come olio, lambisce magazzini '
        'ciechi dai portoni murati e riflette a stento la luna, come se non volesse '
-       'restituire nemmeno quella. Il guardiano notturno esce dal casotto con la '
-       'lanterna alzata e, per qualche moneta, la diffidenza si scioglie in fretta: da '
-       'settimane muore dalla voglia di raccontare a qualcuno quello che sente la notte, '
-       'ma abbassa comunque la voce, come se l’acqua stessa potesse origliare. Ogni '
-       'tanto, tra un magazzino e l’altro, una corrente più fredda delle altre risale '
-       'dai condotti e vi si infila sotto i vestiti.',
-    7: 'Scaffali fino al soffitto, cartelle legate con lo spago ingiallito, la luce '
-       'verde delle lampade a schermo che disegna ombre lunghe sul pavimento di pietra. '
-       'L’archivista, minuscolo dietro occhiali spessi, si irrigidisce quando '
-       'pronunciate la parola giusta, come se l’aveste evocato più che interpellato: '
-       'poi, senza fiatare, vi guida a uno scaffale che nessuno tocca da decenni. La '
-       'polvere è spessa un dito ovunque, tranne che su un solo fascicolo, pulito e '
+       'restituire nemmeno quella; ogni tanto qualcosa la increspa da sotto, senza mai '
+       'affiorare abbastanza da farsi vedere. Il guardiano notturno esce dal casotto con '
+       'la lanterna alzata, il fiato che si condensa nell’aria fredda, e per qualche '
+       'moneta la diffidenza si scioglie in fretta: da settimane muore dalla voglia di '
+       'raccontare a qualcuno quello che sente la notte, ma abbassa comunque la voce, '
+       'come se l’acqua stessa potesse origliare, e ogni tanto lancia un’occhiata ai '
+       'magazzini alle sue spalle come per assicurarsi che restino zitti. Ogni tanto, '
+       'tra un magazzino e l’altro, una corrente più fredda delle altre risale dai '
+       'condotti e vi si infila sotto i vestiti, portando con sé un odore di cera '
+       'bruciata e di qualcosa di più antico, di pietra bagnata da secoli.',
+    7: 'Scaffali fino al soffitto, cartelle legate con lo spago ingiallito che si sfalda '
+       'al tocco, la luce verde delle lampade a schermo che disegna ombre lunghe e '
+       'innaturali sul pavimento di pietra consumato al centro dai passi di secoli di '
+       'impiegati. L’archivista, minuscolo dietro occhiali spessi che gli ingrandiscono '
+       'gli occhi in modo quasi comico, si irrigidisce quando pronunciate la parola '
+       'giusta, come se l’aveste evocato più che interpellato, e per un istante smette '
+       'persino di respirare: poi, senza fiatare, senza fare altre domande, vi guida '
+       'lungo corridoi di scaffali che si perdono nel buio verso il fondo, fino a uno '
+       'scaffale che nessuno tocca da decenni. La polvere è spessa un dito ovunque — '
+       'grigia, uniforme, indisturbata — tranne che su un solo fascicolo, pulito e '
        'consultato di recente più volte di quante l’archivista sia disposto ad '
-       'ammettere.',
-    8: 'Pile di pratiche, una stufa che fuma più di quanto scaldi, il brigadiere che vi '
-       'riceve senza alzarsi dalla sedia scricchiolante. «Il campanaro? Sarà scappato '
-       'con qualche vedova», dice, con la noia di chi ha già archiviato il caso nella '
-       'propria testa. Ma mentre lo dice non vi guarda negli occhi, e la sua mano '
-       'tamburella senza sosta su un fascicolo di denunce che continua a spostare da un '
-       'lato all’altro della scrivania, come se sperasse che, ignorandolo abbastanza a '
-       'lungo, quel fascicolo finisse per sparire da solo.',
+       'ammettere, le sue impronte ancora visibili sul dorso della cartella.',
+    8: 'Pile di pratiche che minacciano di franare a ogni corrente d’aria, una stufa che '
+       'fuma più di quanto scaldi riempiendo la stanza di un odore acre di carbone '
+       'bagnato, il brigadiere che vi riceve senza alzarsi dalla sedia scricchiolante, '
+       'una penna che gira tra le dita senza mai toccare la carta. «Il campanaro? Sarà '
+       'scappato con qualche vedova», dice, con la noia di chi ha già archiviato il caso '
+       'nella propria testa molto prima di archiviarlo sulla carta. Ma mentre lo dice '
+       'non vi guarda negli occhi, fissa un punto sulla scrivania appena a sinistra del '
+       'vostro sguardo, e la sua mano tamburella senza sosta su un fascicolo di denunce '
+       'che continua a spostare da un lato all’altro della scrivania, come se sperasse '
+       'che, ignorandolo abbastanza a lungo e abbastanza visibilmente, quel fascicolo '
+       'finisse per sparire da solo — o per farsi notare da chi sa fare le domande '
+       'giuste.',
+}
+
+TESSERE_DESC = {
+    'T2': 'Casse marchiate a fuoco con l’onda, accatastate fino a toccare il soffitto in '
+          'corridoi che si restringono a ogni fila, tanto che in certi punti bisogna '
+          'passare di lato per proseguire. L’aria sa di catrame e legno bagnato, e la '
+          'luce della vostra lanterna fatica a raggiungere il fondo delle pile più alte, '
+          'lasciando l’ultimo metro di ogni corridoio in un buio pieno di spigoli. '
+          'Qualcosa, tra le pile, scricchiola nei momenti esatti in cui nessuno si '
+          'muove — mai prima, mai dopo — come se il legno stesso trattenesse il fiato '
+          'insieme a voi. Alcune casse sono aperte e vuote, coperchi gettati a terra con '
+          'poca cura; altre, chiuse e inchiodate di recente, sembrano aspettare qualcuno '
+          'che non è ancora arrivato.',
+    'T3': 'Migliaia di candele nere trasformano il corridoio in una gola di luce '
+          'tremolante che si arrampica lungo pareti troppo strette per essere naturali, '
+          'incise di simboli che la fuliggine ha reso quasi illeggibili. Il caldo è '
+          'innaturale, quasi umido, e la cera cola dalle mensole come pioggia lenta, '
+          'accumulandosi in piccole stalattiti nere sul pavimento consumato. Ogni fiamma '
+          'arde immobile, dritta, senza vacillare — nemmeno quando l’aria si muove al '
+          'vostro passaggio, un dettaglio che il corpo nota prima della mente. Chi entra '
+          'per la prima volta prova NERVI (Media): se fallisce, 1 danno (cera '
+          'bollente). Da qualche parte oltre le fiamme più lontane, appena percettibile, '
+          'qualcosa somiglia a un respiro collettivo, trattenuto e mai rilasciato del '
+          'tutto.',
+    'T4': 'Una scrivania sommersa di spartiti annotati con grafia febbrile, righe e '
+          'correzioni che si accavallano fino a diventare illeggibili verso i bordi del '
+          'foglio, come se la mano che scriveva avesse perso ogni pazienza con lo '
+          'spazio a disposizione. Un pagliericcio disfatto puzza di sego e sudore '
+          'antico, coperte ammucchiate più che piegate, e una tazza sul comodino è '
+          'ancora tiepida al tatto, come se chi l’ha lasciata fosse appena uscito da '
+          'quella porta — o l’avesse sentita aprirsi e si fosse nascosto in tempo. Il '
+          'custode non è lontano: un rumore di passi, oltre la parete, si ferma non '
+          'appena vi fermate anche voi, e riprende solo quando ricominciate a muovervi.',
 }
 
 TORN_TOP = 'background scheda personaggio.png'
@@ -137,7 +212,6 @@ def st(name, **kw):
 
 LABEL = st('label', fontName=F['sc'], fontSize=10, textColor=TEAL)
 NOME = st('nome', fontName=F['sc'], fontSize=17, textColor=RED, leading=19)
-DESC = st('desc', fontName=F['i'], fontSize=9.5, leading=13.5, alignment=4)
 ROW = st('row', fontName=F['r'], fontSize=10.5, leading=15)
 NONE_ROW = st('none_row', fontName=F['i'], fontSize=9.5, leading=14, textColor=SEPIA)
 
@@ -158,6 +232,21 @@ def righe(approfondimenti, ref):
     return out
 
 COL_W = WINDOW_TOP[0]*W - MX - 4*mm  # colonna libera a sinistra dell'arte (in alto)
+DESC_TOP = H - 37*mm
+DESC_MAX_H = DESC_TOP - (ART_BOTTOM - 4*mm) - 3*mm  # non scendere sotto la riga separatrice
+
+def fit_desc(c, text, start=9.5, floor=7):
+    """Testo lungo quanto serve: prova la dimensione naturale, poi la riduce
+    finche' non entra nella colonna senza toccare la riga sotto l'arte -
+    cosi' si puo' scrivere in liberta' senza contare le righe a mano."""
+    size = start
+    while True:
+        style = st('desc', fontName=F['i'], fontSize=size, leading=size*1.42, alignment=4)
+        p = Paragraph(text, style)
+        w, h = p.wrapOn(c, COL_W, 400*mm)
+        if h <= DESC_MAX_H or size <= floor:
+            return p, h
+        size -= 0.3
 
 def header(c, label_text, nome_text, desc_text):
     c.setFillColor(TEAL); c.setFont(F['sc'], 10)
@@ -169,9 +258,8 @@ def header(c, label_text, nome_text, desc_text):
         size -= 1
     c.setFont(F['sc'], size)
     c.drawString(MX, H - 30*mm, nome_text.lower())
-    d = Paragraph(desc_text, DESC)
-    dh = d.wrapOn(c, COL_W, H)[1]
-    d.drawOn(c, MX, H - 37*mm - dh)
+    d, dh = fit_desc(c, desc_text)
+    d.drawOn(c, MX, DESC_TOP - dh)
     c.setStrokeColor(SEPIA); c.setLineWidth(0.5)
     c.line(MX, ART_BOTTOM - 4*mm, W - MX, ART_BOTTOM - 4*mm)
 
@@ -189,8 +277,8 @@ def body(c, rows):
         y -= ph + 4*mm
 
 def narratore():
-    c = canvas.Canvas(os.path.join(OUT_DIR, 'Ombre-su-Roccamora-09-Riferimenti-Narratore.pdf'), pagesize=A4)
-    c.setTitle('Ombre su Roccamora - Riferimenti Narratore')
+    c = canvas.Canvas(os.path.join(OUT_DIR, 'Luoghi.pdf'), pagesize=A4)
+    c.setTitle('Ombre su Roccamora - Episodio 1 - Luoghi (riferimenti narratore)')
 
     for L in LUOGHI:
         torn_portrait(c, W, H, LUOGHI_ART[L['n']], TORN_TOP, window=WINDOW_TOP)
@@ -204,7 +292,7 @@ def narratore():
             continue
         torn_portrait(c, W, H, TILE_ART[t['id']], TORN_TOP, window=WINDOW_TOP)
         rule_border(c, W, H)
-        header(c, f"tessera {t['id']}", t['nome'], t['testo'])
+        header(c, f"tessera {t['id']}", t['nome'], TESSERE_DESC[t['id']])
         body(c, righe([], t['id']))
         c.showPage()
 

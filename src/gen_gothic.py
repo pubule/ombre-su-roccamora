@@ -24,7 +24,8 @@ import story
 MINACCE = story.apply(LUOGHI, TILES, NEMICI, HEROES, MINACCE)
 LETTERA = story.LETTERA2
 
-OUT_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'pdf')
+OUT_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'pdf', 'Episodio 1')
+os.makedirs(OUT_DIR, exist_ok=True)
 register_fonts()
 W, H = A4
 
@@ -43,7 +44,7 @@ def frame_flow(c, x, y, w, h, flow):
 
 # ------------------------------------------------------------------ INDAGINE
 def indagine():
-    c = canvas.Canvas(os.path.join(OUT_DIR, 'Ombre-su-Roccamora-03-Episodio1-Indagine.pdf'), pagesize=A4)
+    c = canvas.Canvas(os.path.join(OUT_DIR, 'Indagine.pdf'), pagesize=A4)
     c.setTitle('Ombre su Roccamora - Episodio 1 - Indagine')
     # lettera d'incarico (pergamena, invariata nello spirito)
     parchment_art(c, W, H)
@@ -106,7 +107,7 @@ def indagine():
 
 # ---------------------------------------------------------------- SPEDIZIONE
 def spedizione():
-    c = canvas.Canvas(os.path.join(OUT_DIR, 'Ombre-su-Roccamora-04-Episodio1-Spedizione.pdf'), pagesize=A4)
+    c = canvas.Canvas(os.path.join(OUT_DIR, 'Spedizione.pdf'), pagesize=A4)
     c.setTitle('Ombre su Roccamora - Episodio 1 - Spedizione')
     # copertina/nota: Minacce, Nemici e tessere T1-T6 sono immagini a se' stanti
     parchment_art(c, W, H)

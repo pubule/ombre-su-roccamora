@@ -232,14 +232,17 @@ Tyrlov) per le carte e **mappa a china su pergamena** per le tessere.
   vuoto. Usa il trattino ASCII **-** (U+002D) al posto di − ovunque in quel font; per
   simboli decorativi usa glifi verificati presenti (es. **†**, bullet, asterisco). Se in
   dubbio, verifica col cmap del font (`fontTools`) prima di generare, non dopo.
-- **File di output, 7 PDF numerati:** 01 Regolamento, 02 Schede Personaggio, 03
-  Episodio-Indagine (lettera d'incarico + taccuino), 04 Episodio-Spedizione (note tessera
-  + segnalini), 05 SOLUZIONE (sigillata, con avvertimento iniziale), 06 Aiuto-Giocatore
-  (riepilogo regole da tavolo, **una sola pagina**, stesso sfondo/stile ma senza banner H1
-  pesanti — è un cheat-sheet, deve restare scannerizzabile a colpo d'occhio), 07
-  Approfondimenti (fronte/retro duplex di Indizi Nascosti/Testimoni/Referti: i fronti sono
-  le carte vere, i retri mostrano solo numero-luogo + tipo — vedi
-  `scripts/cardconjurer/generate-backs.js`).
+- **File di output:** `pdf/01-Regolamento`, `pdf/02-Schede-Personaggio`,
+  `pdf/06-Aiuto-Giocatore` (riepilogo regole da tavolo, **una sola pagina**, stesso
+  sfondo/stile ma senza banner H1 pesanti — è un cheat-sheet, deve restare
+  scannerizzabile a colpo d'occhio) sono comuni a tutta la campagna. Ogni episodio
+  ha una sua sottocartella `pdf/Episodio N/`: `Indagine` (lettera d'incarico +
+  taccuino), `Spedizione` (note tessera + segnalini), `Luoghi` (riferimenti per
+  chi arbitra: quale carta Approfondimento/Oggetto prendere per ogni luogo/
+  tessera — vedi `src/gen_narrator.py`, stile scheda personaggio con arte del
+  luogo nello strappo), `Soluzione (non aprire)` (sigillata, con avvertimento
+  iniziale). Le carte stesse (dorso Approfondimenti, titolo Oggetti) non
+  mostrano MAI il luogo/tessera d'origine, solo `Luoghi.pdf` lo dice.
 - **Tipi di carta completi (mazzi separati, ognuno la sua sottocartella in `cards/`):**
   Eroi, Nemici, Minacce, Luoghi, Indizi Nascosti, Testimoni, Referti, **Oggetti**. Luoghi
   e Indizi Nascosti riusano la stessa arte (stesso soggetto, due carte); Testimoni/Referti

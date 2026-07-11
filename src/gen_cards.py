@@ -2,11 +2,12 @@
 """Ombre su Roccamora - dati di gioco (fonte autoritativa).
 
 Solo dati: eroi, luoghi dell'Indagine, oggetti trovabili, mazzo Minaccia,
-nemici, tessere. Il
-rendering dei PDF vive in gen_gothic.py (03 Indagine, 04 Spedizione) e
-gen_deluxe.py (02 Schede); le carte immagine in scripts/cardconjurer/ (compreso
-il PDF 07 coi dorsi numerati degli Approfondimenti, generate-backs.js). I testi
-estesi per l'immersione stanno in story.py e vengono applicati con story.apply().
+nemici, tessere. Il rendering dei PDF vive in gen_gothic.py (Indagine,
+Spedizione), gen_deluxe.py (Schede) e gen_narrator.py (Luoghi, riferimenti per
+chi arbitra); le carte immagine in scripts/cardconjurer/ (compreso il fronte/
+retro pronto da stampare, generate-print-sheets.js, dorso Approfondimenti con
+solo il tipo, mai il luogo). I testi estesi per l'immersione stanno in
+story.py e vengono applicati con story.apply().
 
 Approfondimenti: ogni luogo puo' avere indizi extra "gated", ognuno di un tipo
 (Osservazione/Referto/Testimonianza/Presagio) che si sblocca con l'abilita' di

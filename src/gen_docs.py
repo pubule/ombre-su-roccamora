@@ -11,6 +11,8 @@ from deluxe_style import (register_fonts, parchment_art, seal, F,
                           INK, RED, RED_DK, TEAL, GOLD, SEPIA, PAPER_DK)
 
 OUT_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'pdf')
+EP1_DIR = os.path.join(OUT_DIR, 'Episodio 1')
+os.makedirs(EP1_DIR, exist_ok=True)
 register_fonts()
 PAPER = PAPER_DK
 TEXT_W = A4[0] - 44*mm  # = leftMargin+rightMargin di regolamento()/soluzione() (22mm ciascuno)
@@ -324,7 +326,7 @@ def regolamento():
 
 # ------------------------------------------------------------------ SOLUZIONE
 def soluzione():
-    doc = SimpleDocTemplate(os.path.join(OUT_DIR, 'Ombre-su-Roccamora-05-SOLUZIONE-non-aprire.pdf'),
+    doc = SimpleDocTemplate(os.path.join(EP1_DIR, 'Soluzione (non aprire).pdf'),
                             pagesize=A4, leftMargin=22*mm, rightMargin=22*mm,
                             topMargin=20*mm, bottomMargin=20*mm,
                             title='Ombre su Roccamora - Soluzione Episodio 1')
