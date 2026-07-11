@@ -381,39 +381,11 @@ ornate symmetrical dark fantasy map-tile back, engraved gold filigree covering t
 Ripeti lo stesso identico prompt per T2, T3, T4, T5, T6 cambiando solo il
 codice fra virgolette — icona, palette e stile restano fissi apposta.
 
-**Texture delle tessere** — 3 tentativi di generare una stanza intera in un
-solo prompt ("top-down hand-drawn dungeon map tile...", poi "flat lay
-photo...", poi "painted top-down tabletop RPG battle map...") sono usciti
-tutti in isometria/prospettiva: un soggetto ricco (una stanza intera, con
-mobili e profondità implicita) spinge Midjourney verso una scena 3D
-comunque, "top-down"/"orthographic"/"flat lay" nel testo non bastano a
-comandare la telecamera.
-
-Cambio di approccio: invece di generare LA STANZA, generare solo le
-**texture** (pavimento, muro visto dall'alto) — un pavimento è di fatto un
-pattern ripetibile, un soggetto molto più semplice su cui Midjourney non ha
-motivo di introdurre prospettiva. Uso anche `--tile` (non ancora provato in
-questo progetto): è il flag dedicato di Midjourney per generare texture
-seamless, pensato esattamente per questo caso. Il compositing (pavimento
-ripetuto su tutta la griglia 4x4, muri come fascia lungo i bordi con
-interruzioni dove ci sono le porte) lo fa poi `generate-tiles.js` via CSS
-`background-repeat`, stesso approccio già usato per gli arredi.
-
-**Pavimento** (un file riusato su tutte le 6 tessere, la varietà tra
-stanze la danno arredi/porte/velatura colore già in codice):
+**Tessere mappa** (sostituisci AMBIENTE):
 ```
-seamless tileable top-down stone floor texture, weathered cracked stone flagstones, moss and grime in the cracks, painted digital game texture, subtle warm torchlight variation, dark fantasy palette --ar 1:1 --tile --style raw --no 3D, isometric, perspective, walls, furniture, people, text, letters, words, watermark
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, AMBIENTE, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark
 ```
-
-**Muro** (striscia riusata per il bordo della tessera):
-```
-seamless tileable top-down stone wall texture, thick weathered dungeon wall capping seen directly from above, cracked stone, dark mortar lines, painted digital game texture, dark fantasy palette --ar 1:1 --tile --style raw --no 3D, isometric, perspective, floor, furniture, people, text, letters, words, watermark
-```
-
-Salva come `artworks/pavimento tessere.png` e `artworks/muro tessere.png`.
-Una volta pronte, `generate-tiles.js` va aggiornato per comporle al posto
-di `artworks/T1.png`...`T6.png` (non ancora fatto — prima verifichiamo che
-le texture escano davvero piatte).
+Ambienti — **T1** loading dock with black canal water along one edge and mooring posts · **T2** warehouse room packed with stacked wooden crates branded with a wave · **T3** narrow corridor lined with hundreds of black candles and pooled wax · **T4** cluttered office with a desk covered in sheet music and a straw bed · **T5** slick stone staircase descending into darkness · **T6** underground crypt with a central altar in a ring of candles and a barred prison cell in the corner
 
 **Arredi delle tessere** — le caselle bloccate dentro la griglia 4x4 (casse,
 candele, scala...) usavano un rettangolo a gradiente CSS con la sola
