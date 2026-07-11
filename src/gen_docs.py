@@ -322,8 +322,10 @@ def regolamento():
                 'bordi. Il Taccuino su carta normale.'))
     e.append(LI('<b>Approfondimenti</b> (Indizi Nascosti, Testimoni, Referti) su cartoncino, dorso '
                 'anonimo (solo il tipo) sul retro: tenete le carte in un unico mazzo coperto.'))
-    e.append(LI('<b>Spedizione</b> (in <i>Episodio 1/</i>): tessere, carte Minaccia e segnalini su '
-                'cartoncino; ritagliate tutto.'))
+    e.append(LI('<b>Spedizione</b> (in <i>Episodio 1/</i>): carte Minaccia e miniature su cartoncino; '
+                'ritagliate tutto. Le tessere (cartella <b>board/Episodio 1/</b>) sono immagini singole, '
+                'nessun PDF le forza a una dimensione: stampatele a <b>200×200mm</b> (caselle da 5cm, '
+                'la taglia minima comoda per muovere le miniature).'))
     e.append(LI('<b>Oggetti</b>: carte su cartoncino, tenute in un mazzetto a parte. Quando trovate '
                 'un oggetto (in Indagine o Cercando in Spedizione) prendete la carta corrispondente: '
                 'da quel momento è fisicamente nelle mani di chi lo porta.'))

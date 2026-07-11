@@ -144,9 +144,9 @@ def spedizione():
     registro_ferite(c)
     c.save()
 
-MINI = 32.5*mm  # tessera 130mm / griglia 4x4: la mini sta esattamente in una casella
+MINI = 50*mm  # tessera 200mm / griglia 4x4: minimo richiesto per muovere comodo i token
 MINI_GAP = 3*mm
-MINI_COLS = 5
+MINI_COLS = 3  # 5 colonne da 50mm non ci starebbero piu' su A4 (250mm > ~190mm utili)
 
 def mini_token(c, x, y, art_name, num=None, top_margin=0*mm, overscan=0.18):
     """Ritratto ritagliato a quadrato (stessa tecnica cover-fit di

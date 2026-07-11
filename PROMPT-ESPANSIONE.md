@@ -112,7 +112,8 @@ prima che l'Ep. 1 lo riveli.
    con carta (coerenza con l'oggetto-esca del punto 1). Dati: `OGGETTI` in
    `src/gen_cards.py`, mazzo `oggetti` in `scripts/cardconjurer/cards-data.js`.
 
-3. *Fase Spedizione* — 6 tessere (griglia 4×4, tessere 130 mm), percorso con 1–2 rami
+3. *Fase Spedizione* — 6 tessere (griglia 4×4, tessere 200 mm, caselle 50 mm — il minimo
+   per muovere comodo le miniature), percorso con 1–2 rami
    opzionali che premiano l'esplorazione. Round, ciclo fisso e ripetuto: **Turno degli
    eroi** (ogni eroe 2 azioni: Muovi 4 · Attacca · Cerca ACUME Media su una tessera già
    rivelata, solo se nasconde un oggetto — non tutte le tessere ne hanno uno, e non serve
@@ -225,12 +226,13 @@ Tyrlov) per le carte e **mappa a china su pergamena** per le tessere.
   pannello pergamena interno per il testo; i loro dorsi sono rosso-notte con numero
   nel medaglione, i dorsi Minaccia verde-abisso con tripla onda. Le pagine dei dorsi
   seguono i fronti, specchiate in colonna, per la stampa fronte/retro sul lato lungo.
-- **Tessere (130 mm, griglia 4×4, casella 32,5 mm):** stile mappa disegnata a china
-  su pergamena: muri spessi a **doppia linea tremolante con tratteggio a 45°**,
-  varchi porta nei muri, ombre a **puntinato**, acqua stipplata con onde, arredi a
-  china con ombra, **rosa dei venti**, targa a nastro col nome, riquadro testo con
-  bordo a china.
-- **Miniature quadrate (32,5 mm, la taglia di una casella tessera):** al posto di
+- **Tessere (200 mm, griglia 4×4, casella 50 mm — minimo per muovere comodo le
+  miniature, nessuna PDF le forza a dimensione: vanno stampate a quella taglia):**
+  stile mappa disegnata a china su pergamena: muri spessi a **doppia linea
+  tremolante con tratteggio a 45°**, varchi porta nei muri, ombre a
+  **puntinato**, acqua stipplata con onde, arredi a china con ombra,
+  **rosa dei venti**, targa a nastro col nome, riquadro testo con bordo a china.
+- **Miniature quadrate (50 mm, la taglia di una casella tessera):** al posto di
   gettoni tondi astratti, eroi e nemici di truppa/boss usano il proprio ritratto
   (stessa arte delle carte) ritagliato a quadrato — `token_sheet()` in
   `src/gen_gothic.py`, stessa tecnica cover-fit di `deluxe_style._cover_image`

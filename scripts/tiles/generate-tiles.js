@@ -16,7 +16,9 @@ const ROOT = path.resolve(__dirname, '..', '..');
 const OUT_DIR = path.join(ROOT, 'board', 'Episodio 1');
 fs.mkdirSync(OUT_DIR, { recursive: true });
 
-const S = 1600;
+const S = 2464; // 1600 * 200/130, arrotondato a multiplo di 4: tessera 130mm->200mm
+                // (celle 50mm invece di 32.5mm, minimo richiesto per muovere comodo
+                // i token), stessa densita' di stampa di prima
 
 // TILES 1:1 da src/gen_cards.py (id, nome, exits, arredi)
 const TILES = [
