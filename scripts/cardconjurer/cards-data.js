@@ -264,12 +264,12 @@ const LUOGHI = [
 // Approfondimenti gated derivati dai luoghi. Osservazione+Presagio -> carta
 // "Indizio Nascosto" del luogo (una per luogo che ne ha, righe taggate per eroe).
 // Testimonianza -> mazzo Testimoni; Referto -> mazzo Referti. Tutte riusano l'arte
-// del luogo. Il dorso mostra SOLO il tipo (mai il numero del luogo, vedi
-// taggedBackCell in generate-print-sheets.js): un unico mazzo coperto in cui
-// si trova la carta solo visitando quel luogo con l'abilita' giusta - quale
+// del luogo. Il dorso mostra SOLO il tipo, inciso direttamente nell'arte generata
+// (dorso dedicato per tipo, vedi PROMPT-MIDJOURNEY.md: "Dorso carte Indizio
+// Nascosto/Testimone/Referto") - mai il numero del luogo: un unico mazzo coperto
+// in cui si trova la carta solo visitando quel luogo con l'abilita' giusta. Quale
 // carta prendere per quale luogo sta nel PDF pdf/Episodio 1/Luoghi.pdf
-// (generate-narrator-reference.js e' stato sostituito da src/gen_narrator.py),
-// mai sulla carta stessa.
+// (src/gen_narrator.py), mai sulla carta stessa.
 const TAG_INSIGHT = { Osservazione: 'Osservazione — Elena', Presagio: 'Presagio — Sibilla' };
 
 // Famiglia di 4 varianti (non più un frammento identico) appese IN CODA a tutte e 14

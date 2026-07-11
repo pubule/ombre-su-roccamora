@@ -258,39 +258,58 @@ comunque: nel compositing il dipinto viene sovrapposto al centro coprendolo.
 
 ## Finiti così come escono
 
+I dorsi hanno il tipo di carta **inciso direttamente nell'arte** (parola in
+maiuscolo blackletter incisa nel medaglione centrale), non sovrapposto via
+codice: niente overlay in `generate-print-sheets.js`, il file generato è
+finito così com'è. Nota su Midjourney e testo: anche una singola parola può
+uscire storpiata — genera più varianti e scegli la più leggibile, non
+aspettarti un risultato pulito al primo tentativo. Salva ogni dorso come
+`artworks/Dorso <Nome>.png` (es. `Dorso Eroe.png`, `Dorso Indizio Nascosto.png`
+— vedi `SIMPLE_DECKS` in `generate-print-sheets.js` per i nomi esatti attesi).
+
+**Dorso carte Eroe**
+```
+ornate symmetrical dark fantasy card back, engraved gold filigree covering the whole surface, amber gems, central round medallion with a wave sigil above the engraved gothic blackletter word "EROE", warm bone and black, victorian gothic, perfectly symmetrical, full bleed --ar 3:4 --style raw --no watermark, signature, blurry text
+```
+
+**Dorso carte Nemico**
+```
+ornate symmetrical dark fantasy card back, engraved gold filigree covering the whole surface, sickly green gems, central round medallion with a smooth featureless wax mask above the engraved gothic blackletter word "NEMICO", black and deep grey, victorian gothic, perfectly symmetrical, full bleed --ar 3:4 --style raw --no watermark, signature, blurry text
+```
+
 **Dorso carte Minaccia**
 ```
-ornate symmetrical dark fantasy card back, engraved gold filigree covering the whole surface, ruby gems, central round medallion with three stacked engraved waves, deep teal and black, victorian gothic, perfectly symmetrical, full bleed --ar 3:4 --style raw --no text, letters, words, watermark
+ornate symmetrical dark fantasy card back, engraved gold filigree covering the whole surface, ruby gems, central round medallion with three stacked engraved waves above the engraved gothic blackletter word "MINACCIA", deep teal and black, victorian gothic, perfectly symmetrical, full bleed --ar 3:4 --style raw --no watermark, signature, blurry text
 ```
 
 **Dorso carte Luogo**
 ```
-ornate symmetrical dark fantasy card back, engraved gold filigree covering the whole surface, ruby gems, central round empty medallion for a number, deep crimson and black, victorian gothic, perfectly symmetrical, full bleed --ar 3:4 --style raw --no text, letters, words, watermark
+ornate symmetrical dark fantasy card back, engraved gold filigree covering the whole surface, ruby gems, central round medallion with the engraved gothic blackletter word "LUOGO", deep crimson and black, victorian gothic, perfectly symmetrical, full bleed --ar 3:4 --style raw --no watermark, signature, blurry text
 ```
 
 **Dorso carte Indizio Nascosto** — mazzo separato, dorso diverso da quello dei
 Luoghi cosi' resta irriconoscibile finche' non si scopre. Copre anche Testimoni
-e Referti: sono lo stesso mazzo coperto unico (vedi regolamento), stesso dorso
-per tutti e tre — SOLO il tipo carta (mai il numero del luogo) si sovrappone
-sopra in fase di stampa (`scripts/cardconjurer/generate-print-sheets.js`), non
-fa parte di questa arte:
+e Referti: sono lo stesso mazzo coperto unico in gioco (vedi regolamento), ma
+ora con **dorsi distinti per tipo** — stessa famiglia visiva (teal, stesso
+stile), icona e parola diverse, cosi' si riconosce il tipo ma MAI il luogo
+(quello sta solo su `pdf/Episodio 1/Luoghi.pdf`, mai sulla carta):
 ```
-ornate symmetrical dark fantasy card back, engraved gold filigree covering the whole surface, teal gems, central round medallion with a single closed eye, deep midnight blue and black, victorian gothic, perfectly symmetrical, full bleed --ar 3:4 --style raw --no text, letters, words, watermark
-```
-
-**Dorso carte Eroi**
-```
-ornate symmetrical dark fantasy card back, engraved gold filigree covering the whole surface, amber gems, central round medallion with a wave sigil (the Società del Lume mark), warm bone and black, victorian gothic, perfectly symmetrical, full bleed --ar 3:4 --style raw --no text, letters, words, watermark
+ornate symmetrical dark fantasy card back, engraved gold filigree covering the whole surface, teal gems, central round medallion with a single closed eye above the engraved gothic blackletter word "INDIZIO", deep midnight blue and black, victorian gothic, perfectly symmetrical, full bleed --ar 3:4 --style raw --no watermark, signature, blurry text
 ```
 
-**Dorso carte Nemici**
+**Dorso carte Testimone** (famiglia Approfondimenti, stesso stile dell'Indizio)
 ```
-ornate symmetrical dark fantasy card back, engraved gold filigree covering the whole surface, sickly green gems, central round medallion with a smooth featureless wax mask, black and deep grey, victorian gothic, perfectly symmetrical, full bleed --ar 3:4 --style raw --no text, letters, words, watermark
+ornate symmetrical dark fantasy card back, engraved gold filigree covering the whole surface, teal gems, central round medallion with a listening ear above the engraved gothic blackletter word "TESTIMONE", deep midnight blue and black, victorian gothic, perfectly symmetrical, full bleed --ar 3:4 --style raw --no watermark, signature, blurry text
 ```
 
-**Dorso carte Oggetti**
+**Dorso carte Referto** (famiglia Approfondimenti, stesso stile dell'Indizio)
 ```
-ornate symmetrical dark fantasy card back, engraved gold filigree covering the whole surface, bronze gems, central round medallion with a crossed key and quill, warm sepia and black, victorian gothic, perfectly symmetrical, full bleed --ar 3:4 --style raw --no text, letters, words, watermark
+ornate symmetrical dark fantasy card back, engraved gold filigree covering the whole surface, teal gems, central round medallion with a surgeon's loupe above the engraved gothic blackletter word "REFERTO", deep midnight blue and black, victorian gothic, perfectly symmetrical, full bleed --ar 3:4 --style raw --no watermark, signature, blurry text
+```
+
+**Dorso carte Oggetto**
+```
+ornate symmetrical dark fantasy card back, engraved gold filigree covering the whole surface, bronze gems, central round medallion with a crossed key and quill above the engraved gothic blackletter word "OGGETTO", warm sepia and black, victorian gothic, perfectly symmetrical, full bleed --ar 3:4 --style raw --no watermark, signature, blurry text
 ```
 
 **Tessere mappa** (sostituisci AMBIENTE):
