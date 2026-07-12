@@ -170,7 +170,7 @@ def regolamento():
                'carta corrispondente dal mazzo. Se il luogo non \u00e8 nell\u2019elenco, non ne ha \u2014 cos\u00ec '
                'non sapete in anticipo dove si nasconde qualcosa.', 'body'))
     e.append(LI('<b>Indizio Nascosto</b> \u2014 un dettaglio in pi\u00f9 sulla scena. Lo sblocca <b>Elena</b> '
-                '(Osservazione \u2014 1 volta a episodio) oppure <b>Sibilla</b> (Presagio, jolly: '
+                '(Osservazione \u2014 2 volte a episodio) oppure <b>Sibilla</b> (Presagio, jolly: '
                 'un Approfondimento qualsiasi del luogo presente, o intuisce dove cercarne uno \u2014 '
                 '1 volta a episodio).'))
     e.append(LI('<b>Testimone</b> \u2014 qualcuno che si lascia convincere a parlare. Lo sblocca '
@@ -423,7 +423,8 @@ def soluzione():
     e.append(P('Contate le ore ancora libere sul Taccuino nel momento in cui rispondete alle 4 '
                'Domande (non quando aprite questa busta). Chi si ferma presto rischia di rispondere '
                'con meno indizi in mano — ricompensatelo per il rischio corso, non per il tempo '
-               'risparmiato in sé.', 'box'))
+               'risparmiato in sé: la visita gratuita di Carla (Fonti riservate) non conta come ora '
+               'avanzata, non è un rischio corso.', 'box'))
     rt = [
         ['Ore avanzate', 'Vantaggio'],
         ['3 o più', 'Slancio: nel 1° round della Spedizione, ogni eroe ha 3 azioni invece di 2.'],
@@ -479,7 +480,9 @@ def soluzione():
     e.append(LI('<b>Il Canto avanza da solo:</b> alla fine di ogni quarto round (4\u00b0, 8\u00b0...), '
                 'aggiungete 1 segnalino Canto anche senza pescare la carta.'))
     e.append(LI('<b>Terzo segnalino Canto:</b> il rituale \u00e8 quasi compiuto. Da ora ogni fase '
-                'Minaccia pescate 1 carta in pi\u00f9.'))
+                'Minaccia pescate 1 carta in pi\u00f9 \u2014 <b>anche se il Custode \u00e8 gi\u00e0 stato '
+                'abbattuto</b>: il Canto non riguarda solo lui, \u00e8 il culto intero che sente '
+                'il rituale avvicinarsi.'))
     e.append(LI('<b>Se fallite</b> e rigiocate l\u2019episodio: iniziate con 1 segnalino Canto gi\u00e0 in gioco.'))
 
     e.append(P('EPILOGO \u2014 da leggere ad alta voce a vittoria ottenuta', 'h1'))
