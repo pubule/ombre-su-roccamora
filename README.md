@@ -64,7 +64,7 @@ in una città immaginaria di canali e campanili nel 1889. Unisce indagine alla
 ## Rigenerare tutto in un colpo
 
 ```bash
-./build-all.sh   # tessere, carte, fogli fronte/retro, reperti, tutti i PDF, nell'ordine giusto
+./build-all.sh   # tessere, carte, fogli fronte/retro, reperti, tutti i PDF, poi la stampa completa unita
 ```
 
 Le sezioni sotto restano per rigenerare solo una parte (es. dopo aver aggiornato
@@ -96,8 +96,25 @@ Da lanciare dalla **radice del repo** (non da dentro `scripts/cardconjurer`:
 node scripts/cardconjurer/generate-batch.js            # tutte (eroi, nemici, minacce, luoghi, indizi, testimoni, referti, oggetti, preludio)
 node scripts/cardconjurer/generate-batch.js luoghi     # solo un gruppo (heroes|nemici|minacce|luoghi|indizi|testimoni|referti|oggetti|preludio)
 node scripts/cardconjurer/generate-test.js "Elena Fosco" "Il Fonditore"   # solo carte specifiche, per titolo
-node scripts/cardconjurer/generate-print-sheets.js     # fronte/retro pronto da stampare: tutti i mazzi + le 6 tessere (non committato)
+node scripts/cardconjurer/generate-print-sheets.js     # fronte/retro pronto da stampare: tutti i mazzi + le 6 tessere -> pdf/Ombre-su-Roccamora-08-Carte-e-Tessere.pdf (non committato)
 ```
+
+## Stampa completa (tutto in un unico PDF, sempre fronte/retro)
+
+```bash
+python scripts/merge-print-all.py
+```
+
+Unisce tutti i fascicoli gia' generati in `pdf/` (Regolamento, Schede,
+Aiuto-Giocatore, Tabellone, Preludio ed Episodio 1 completi) + il foglio
+carte/tessere di `generate-print-sheets.js` in un solo
+`pdf/Ombre-su-Roccamora-09-Stampa-Completa.pdf`, sempre a pagine pari
+(aggiunge da solo una pergamena di chiusura dove serve, anche ai
+poster/schede singole che da soli restano a una pagina) cosi' la stampa
+fronte/retro resta allineata dall'inizio alla fine. Non genera nulla da
+zero: rilancia prima i passi sopra per aggiornare il contenuto. File
+finale pesante (70+MB, immagini a piena risoluzione): normale per un PDF
+di stampa, non un errore. Non committato — va rigenerato in locale.
 
 ## Rigenerare tessere e reperti
 

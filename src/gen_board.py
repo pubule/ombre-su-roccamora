@@ -22,7 +22,7 @@ from reportlab.lib.units import mm
 from reportlab.lib import colors
 from reportlab.pdfgen import canvas
 
-from deluxe_style import register_fonts, corner_flourish, art, ARTWORKS_DIR, F, GOLD
+from deluxe_style import register_fonts, corner_flourish, art, pad_to_even_pages, ARTWORKS_DIR, F, GOLD
 
 OUT_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'pdf')
 register_fonts()
@@ -115,7 +115,8 @@ def arrow(c, x0, y0, x1, y1, head=5*mm):
     c.restoreState()
 
 def tabellone():
-    c = canvas.Canvas(os.path.join(OUT_DIR, 'Ombre-su-Roccamora-07-Tabellone.pdf'), pagesize=A4)
+    out_path = os.path.join(OUT_DIR, 'Ombre-su-Roccamora-07-Tabellone.pdf')
+    c = canvas.Canvas(out_path, pagesize=A4)
     c.setTitle('Ombre su Roccamora - Tabellone')
     bg(c)
     gold_border(c)
@@ -186,6 +187,7 @@ def tabellone():
     c.setFillAlpha(1)
     c.showPage()
     c.save()
+    pad_to_even_pages(out_path)
 
 if __name__ == '__main__':
     tabellone()

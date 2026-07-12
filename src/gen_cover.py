@@ -16,7 +16,7 @@ from reportlab.pdfgen import canvas
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 
-from deluxe_style import register_fonts, art, seal, F
+from deluxe_style import register_fonts, art, seal, pad_to_even_pages, F
 
 OUT_ROOT = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'pdf')
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -164,10 +164,12 @@ def build(num):
     titolo = EPISODI[num]
     out_dir = os.path.join(OUT_ROOT, cartella(num))
     os.makedirs(out_dir, exist_ok=True)
-    c = canvas.Canvas(os.path.join(out_dir, 'Copertina.pdf'), pagesize=A4)
+    out_path = os.path.join(out_dir, 'Copertina.pdf')
+    c = canvas.Canvas(out_path, pagesize=A4)
     c.setTitle(f'Ombre su Roccamora - {etichetta(num)} - {titolo}')
     copertina(c, num, titolo)
     c.save()
+    pad_to_even_pages(out_path)
 
 
 if __name__ == '__main__':

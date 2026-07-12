@@ -76,27 +76,21 @@ const TILES = [
 ];
 const TILE_MM = 200; // vedi COME STAMPARE nel Regolamento: 200x200mm, caselle da 50mm
 
-function fileDataUri(absPath) {
+// I dorsi con testo inciso sono 6-7MB l'uno (erano ~1MB da svuotati), e i
+// fronti carta a piena risoluzione (2010x2814, ~450KB/cad JPEG) per 60+
+// carte superano i 30MB di PDF finale - oltre al limite di alcuni canali di
+// condivisione, e' anche piu' immagine di quanta ne serva per stampare una
+// carta a 68x95mm (bastano ~400dpi). Imbustarli tutti a piena risoluzione
+// come base64 nello HTML crasha anche Chromium su page.setContent per i
+// dorsi piu' pesanti (provato: 8 dorsi x 7MB > quello che regge). Un
+// riferimento file:// invece funziona per la preview ma page.pdf() lo
+// ignora (pagine bianche in stampa - limite del renderer PDF di Chromium
+// sulle risorse locali). Soluzione: rimpicciolire ogni immagine (fronti
+// carta compresi) UNA volta con Playwright stesso (Image+canvas dentro una
+// pagina navigata sul file, cosi' resta same-origin e toDataURL non e'
+// bloccato) invece di aggiungere una dipendenza solo per questo.
+async function shrinkImage(browser, absPath, maxPx = 1600, quality = 0.88) {
   if (!fs.existsSync(absPath)) return null;
-  const ext = path.extname(absPath).slice(1);
-  return `data:image/${ext === 'jpg' ? 'jpeg' : ext};base64,` +
-    fs.readFileSync(absPath).toString('base64');
-}
-
-function cardFrontUri(c) {
-  return fileDataUri(path.join(ROOT, 'cards', c.file + '.jpg'));
-}
-
-// I nuovi dorsi con testo inciso sono 6-7MB l'uno (erano ~1MB da svuotati):
-// imbustarli tutti come base64 nello <style> crasha Chromium su
-// page.setContent (provato: 8 dorsi x 7MB > quello che regge). Un riferimento
-// file:// invece funziona per la preview ma page.pdf() lo ignora (pagine
-// bianche in stampa - limite del renderer PDF di Chromium sulle risorse
-// locali). Soluzione: rimpicciolire ogni dorso UNA volta con Playwright
-// stesso (Image+canvas dentro una pagina navigata sul file, cosi' resta
-// same-origin e toDataURL non e' bloccato) invece di aggiungere una
-// dipendenza solo per questo.
-async function shrinkDorso(browser, absPath, maxPx = 1400, quality = 0.85) {
   const page = await browser.newPage();
   await page.goto(pathToFileURL(absPath).href);
   const dataUri = await page.evaluate(({ maxPx, quality }) => {
@@ -112,9 +106,13 @@ async function shrinkDorso(browser, absPath, maxPx = 1400, quality = 0.85) {
   return dataUri;
 }
 
+function cardFrontUri(browser, c) {
+  return shrinkImage(browser, path.join(ROOT, 'cards', c.file + '.jpg'));
+}
+
 async function dorsoUri(browser, name) {
   const p = path.join(ROOT, 'artworks', name);
-  return fs.existsSync(p) ? shrinkDorso(browser, p) : null;
+  return fs.existsSync(p) ? shrinkImage(browser, p, 1400, 0.85) : null;
 }
 
 function chunk(arr, n) {
@@ -130,8 +128,8 @@ function mirrorRow(pageCards) {
     Array(COLS - r.length).fill(null)).slice(0, COLS));
 }
 
-function frontCell(c) {
-  const uri = c && cardFrontUri(c);
+async function frontCell(browser, c) {
+  const uri = c && await cardFrontUri(browser, c);
   if (!uri) {
     if (c) console.warn('  manca il fronte:', c.file, '(genera prima le carte)');
     return `<div class="card empty"></div>`;
@@ -149,12 +147,23 @@ function plainBackCell(c, bgClass) {
   return `<div class="card ${bgClass}"></div>`;
 }
 
-function deckSheets(deck, bgClass) {
+// Sequenziale apposta (non Promise.all): ora ogni fronte passa per
+// shrinkImage, che apre/chiude una sua pagina Chromium - farne decine in
+// parallelo (un mazzo intero insieme) e' inutile rischio di risorse in
+// piu' oltre a quello gia' diagnosticato sul documento finale (vedi
+// l'attesa esplicita su page.setContent piu' sotto). Piu' lento, ma
+// prevedibile.
+async function deckSheets(browser, deck, bgClass) {
   const pages = chunk(deck.cards, PER_PAGE);
-  return pages.map((p) =>
-    `<section class="grid">${p.map(frontCell).join('')}</section>
-     <section class="grid">${mirrorRow(p).map((c) => plainBackCell(c, bgClass)).join('')}</section>`
-  ).join('');
+  let sheets = '';
+  for (const p of pages) {
+    const fronts = [];
+    for (const c of p) fronts.push(await frontCell(browser, c));
+    const backs = mirrorRow(p).map((c) => plainBackCell(c, bgClass));
+    sheets += `<section class="grid">${fronts.join('')}</section>
+               <section class="grid">${backs.join('')}</section>`;
+  }
+  return sheets;
 }
 
 // Tessere: una per foglio A4 (200mm, troppo grandi per affiancarne due),
@@ -174,8 +183,8 @@ async function tileSheets(browser) {
       console.warn(`  salto tessera ${t.id}: manca "${backPath}" (dorso tessera mancante)`);
       continue;
     }
-    const frontUri = await shrinkDorso(browser, frontPath);
-    const backUri = await shrinkDorso(browser, backPath);
+    const frontUri = await shrinkImage(browser, frontPath, 1800, 0.85);
+    const backUri = await shrinkImage(browser, backPath, 1800, 0.85);
     html += `<section class="tilepage"><div class="tile"><img src="${frontUri}"></div></section>
              <section class="tilepage"><div class="tile"><img src="${backUri}"></div></section>`;
     console.log(`  tessera ${t.id}: ok`);
@@ -204,7 +213,7 @@ async function tileSheets(browser) {
   for (const deck of SIMPLE_DECKS) {
     const cls = await registerDorso(deck);
     if (!cls) continue;
-    sheets += deckSheets(deck, cls);
+    sheets += await deckSheets(browser, deck, cls);
     console.log(`${deck.name}: ${deck.cards.length} carte`);
   }
 
@@ -247,7 +256,11 @@ async function tileSheets(browser) {
   // indovinato: aspetta ogni <img> del documento, una per una.
   await page.evaluate(() => Promise.all(Array.from(document.images).map((img) =>
     img.complete ? Promise.resolve() : new Promise((res) => { img.onload = img.onerror = res; }))));
-  const out = path.join(ROOT, 'pdf', 'Ombre-su-Roccamora-08-Stampa-Completa.pdf');
+  // Nome distinto da "Stampa-Completa": quel nome e' del file finale con
+  // TUTTO dentro (fascicoli inclusi), prodotto da scripts/merge-print-all.py
+  // a partire da questo. Stesso nome per i due file = il merge, rilanciato,
+  // rilegge se stesso e duplica il contenuto ad ogni esecuzione.
+  const out = path.join(ROOT, 'pdf', 'Ombre-su-Roccamora-08-Carte-e-Tessere.pdf');
   await page.pdf({ path: out, format: 'A4', printBackground: true, timeout: 120000 });
   await browser.close();
   console.log('\nScaricato in', out);

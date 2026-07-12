@@ -571,6 +571,7 @@ def aiuto():
                 'Tutti a terra = episodio fallito.'))
 
     doc.build(e, onFirstPage=bg, onLaterPages=bg)
+    pad_to_even_pages(doc.filename)
 
 
 regolamento()

@@ -41,4 +41,11 @@ echo "== PDF (pdf/) =="
 (cd src && python gen_preludio.py)
 (cd src && python gen_board.py)
 
+echo "== Stampa completa unica, tutto fronte/retro (non committato) =="
+# Ultimo passo apposta: unisce i PDF appena rigenerati sopra + il foglio
+# carte/tessere di generate-print-sheets.js. File finale grande (70+MB,
+# soprattutto per lo sfondo pergamena dei fascicoli): normale per un PDF
+# di stampa a piena risoluzione, non un errore.
+python scripts/merge-print-all.py
+
 echo "== Fatto: pdf/, cards/, board/Episodio 1/, reperti/ aggiornati =="
