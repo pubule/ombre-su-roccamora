@@ -142,12 +142,17 @@ def regolamento():
     e.append(LI('Disponete le <b>carte Luogo</b> coperte al centro del tavolo. Alcune riportano '
                 '\u201cDisponibile dall\u2019inizio\u201d: quelle potete visitarle subito. Le altre indicano '
                 'la <b>parola chiave</b> o l\u2019<b>oggetto</b> che serve per sbloccarle.'))
-    e.append(LI('Avete <b>8 ore</b>, dalle 18:00 alle 2:00: segnatele sul Taccuino. '
-                '<b>Ogni visita a un luogo costa 1 ora</b> (anche rivisitarlo). Ogni ora conta: '
-                'alcuni luoghi vanno prima sbloccati, altri chiudono a un\u2019ora precisa \u2014 '
+    e.append(LI('Avete <b>6 ore</b>, dalle 18:00 alle 24:00: segnatele sul Taccuino. '
+                '<b>Ogni visita a un luogo costa 1 ora</b> (anche rivisitarlo) \u2014 gli 8 luoghi di un '
+                'episodio non entrano tutti in 6 ore: <b>dovrete scegliere cosa saltare</b>. Ogni ora '
+                'conta: alcuni luoghi vanno prima sbloccati, altri chiudono a un\u2019ora precisa \u2014 '
                 'pianificate l\u2019ordine delle visite e non sprecate ore su vicoli ciechi. '
                 'L\u2019episodio pu\u00f2 legare eventi all\u2019orologio: applicateli quando barrate '
                 'l\u2019ora corrispondente.'))
+    e.append(LI('Se rispondete alle 4 Domande con <b>ore ancora sul Taccuino</b>, la Soluzione vi dar\u00e0 '
+                'un vantaggio extra per la Spedizione, tanto pi\u00f9 grande quante pi\u00f9 ore avete lasciato '
+                'sul tavolo \u2014 ma smettere presto vuol dire rispondere con meno indizi in mano: la '
+                'fretta ha un prezzo, quanto rischiarla lo decidete voi.'))
     e.append(LI('Per visitare un luogo, girate la carta e leggete ad alta voce testo e indizi. '
                 'Prendete appunti sul Taccuino: nomi, orari, parole chiave in MAIUSCOLO.'))
     e.append(LI('Quando trovate una <b>parola chiave</b> o un <b>oggetto</b>, potete da quel momento '
@@ -165,7 +170,7 @@ def regolamento():
                'carta corrispondente dal mazzo. Se il luogo non \u00e8 nell\u2019elenco, non ne ha \u2014 cos\u00ec '
                'non sapete in anticipo dove si nasconde qualcosa.', 'body'))
     e.append(LI('<b>Indizio Nascosto</b> \u2014 un dettaglio in pi\u00f9 sulla scena. Lo sblocca <b>Elena</b> '
-                '(Osservazione, a ogni luogo, senza limite) oppure <b>Sibilla</b> (Presagio, jolly: '
+                '(Osservazione \u2014 1 volta a episodio) oppure <b>Sibilla</b> (Presagio, jolly: '
                 'un Approfondimento qualsiasi del luogo presente, o intuisce dove cercarne uno \u2014 '
                 '1 volta a episodio).'))
     e.append(LI('<b>Testimone</b> \u2014 qualcuno che si lascia convincere a parlare. Lo sblocca '
@@ -311,6 +316,11 @@ def regolamento():
                "leggete gli indizi <b>a turno e solo per s\u00e9</b>, poi raccontateli con parole vostre: "
                "la deduzione diventa un racconto corale (ed \u00e8 il modo pi\u00f9 divertente di giocare "
                "in gruppo)."))
+    e.append(P("In 4 o 5 giocatori potete anche <b>dividervi</b>: due sottogruppi visitano due luoghi "
+               "diversi nella stessa ora (costa comunque solo 1 ora sul Taccuino, non 2). Ogni "
+               "sottogruppo sblocca gli Approfondimenti solo per gli eroi davvero presenti al suo "
+               "luogo \u2014 se l\u2019eroe giusto \u00e8 nell\u2019altro sottogruppo, quell\u2019Approfondimento resta perso. "
+               "Dividersi copre pi\u00f9 terreno nelle poche ore che avete, ma a un prezzo reale."))
 
     e.append(P('COME STAMPARE', 'h1'))
     e.append(LI('<b>Regolamento</b> (questo fascicolo) e <b>Soluzione</b> (in <i>Episodio 1/</i>): '
@@ -409,6 +419,31 @@ def soluzione():
         ('BOTTOMPADDING', (0, 0), (-1, -1), 4),
     ]))
     e.append(t)
+    e.append(P('ORE AVANZATE', 'h2'))
+    e.append(P('Contate le ore ancora libere sul Taccuino nel momento in cui rispondete alle 4 '
+               'Domande (non quando aprite questa busta). Chi si ferma presto rischia di rispondere '
+               'con meno indizi in mano — ricompensatelo per il rischio corso, non per il tempo '
+               'risparmiato in sé.', 'box'))
+    rt = [
+        ['Ore avanzate', 'Vantaggio'],
+        ['3 o più', 'Slancio: nel 1° round della Spedizione, ogni eroe ha 3 azioni invece di 2.'],
+        ['1–2', 'Preparati: ogni eroe inizia la Spedizione con +1 Salute massima, solo per questa partita.'],
+        ['0', 'Nessun vantaggio extra (le 4 Domande restano comunque valide per la tabella sopra).'],
+    ]
+    rtb = Table(rt, colWidths=[28*mm, 132*mm])
+    rtb.setStyle(TableStyle([
+        ('FONTNAME', (0, 0), (-1, 0), F['b']),
+        ('FONTNAME', (0, 1), (-1, -1), F['r']),
+        ('FONTSIZE', (0, 0), (-1, -1), 8.5),
+        ('TEXTCOLOR', (0, 0), (-1, 0), colors.white),
+        ('BACKGROUND', (0, 0), (-1, 0), TEAL),
+        ('ROWBACKGROUNDS', (0, 1), (-1, -1), [colors.HexColor('#f6efdb'), PAPER_DK]),
+        ('GRID', (0, 0), (-1, -1), 0.6, TEAL),
+        ('VALIGN', (0, 0), (-1, -1), 'TOP'),
+        ('TOPPADDING', (0, 0), (-1, -1), 4),
+        ('BOTTOMPADDING', (0, 0), (-1, -1), 4),
+    ]))
+    e.append(rtb)
     e.append(P('Come sono deducibili: 1) registro consegne della Bottega + testimonianze di barcaiolo '
                'e guardiano indicano il Canale Basso, molo terzo \u2014 ma quale magazzino esattamente lo '
                'dice solo l\u2019Eco del Coro (vedi nota sopra); 2) pagamento firmato \u201cB.F.\u201d, fascicolo '

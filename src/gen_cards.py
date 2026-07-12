@@ -19,8 +19,8 @@ un eroe presente. Sono sempre BONUS: le 4 Domande restano risolvibili dai soli
 HEROES = [
     dict(nome='ELENA FOSCO', ruolo='L’Investigatrice', acume=3, vigore=1, nervi=2,
          salute=6, difesa=8,
-         abil=('<b>Occhio Clinico</b> — In indagine: a ogni luogo Elena legge le '
-               '<b>Osservazioni</b> nascoste (senza limite). In spedizione: +2 alle '
+         abil=('<b>Occhio Clinico</b> — In indagine: una volta per episodio legge le '
+               '<b>Osservazioni</b> nascoste di un luogo. In spedizione: +2 alle '
                'prove di Cercare.'),
          equip='Bastone animato (arma, +1), lente d’ingrandimento, taccuino rilegato.'),
     dict(nome='DOTT. ATTILIO MARN', ruolo='Il Medico', acume=2, vigore=2, nervi=2,

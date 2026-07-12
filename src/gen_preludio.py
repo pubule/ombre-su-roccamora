@@ -229,7 +229,7 @@ def indagine():
         c.setFillColor(SEPIA); c.setFont(F['r'], 8)
         c.drawCentredString(xx + 5*mm, H - 42*mm, hh)
     c.setFillColor(RED); c.setFont(F['i'], 8.5)
-    c.drawString(16*mm + 6*17*mm, H - 42*mm, '☁ il barcaiolo (P2) c’è solo dalle 21')
+    c.drawString(16*mm + 6*17*mm, H - 42*mm, '! il barcaiolo (P2) c’è solo dalle 21')
     y = scuola(c, 16*mm, H - 52*mm, W - 32*mm,
                'Visitare un luogo costa 1 ora, anche tornarci. Girate la carta, leggete testo e '
                'indizi ad alta voce, annotate qui nomi e parole in MAIUSCOLO. Quando trovate '

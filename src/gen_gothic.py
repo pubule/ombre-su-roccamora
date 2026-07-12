@@ -74,15 +74,16 @@ def indagine():
     c.drawString(16*mm, H - 22*mm, 'taccuino della societ\u00e0 \u2014 episodio 1')
     wave(c, W - 58*mm, H - 20*mm, 40*mm, OGOLD)
     c.setFillColor(TEAL); c.setFont(F['b'], 9)
-    c.drawString(16*mm, H - 31*mm, 'OROLOGIO \u2014 barrate un\u2019ora per ogni visita:')
-    for i, hh in enumerate(['18', '19', '20', '21', '22', '23', '24', '1']):
+    c.drawString(16*mm, H - 31*mm, 'OROLOGIO \u2014 barrate un\u2019ora per ogni visita (6 ore, 8 luoghi: dovrete sceglierne 2 da saltare):')
+    for i, hh in enumerate(['18', '19', '20', '21', '22', '23']):
         xx = 16*mm + i * 17*mm
         c.setStrokeColor(INK); c.setFillColor(colors.HexColor('#f7f0dd')); c.setLineWidth(1)
         c.circle(xx + 5*mm, H - 41*mm, 5*mm, fill=1)
         c.setFillColor(SEPIA); c.setFont(F['r'], 8)
         c.drawCentredString(xx + 5*mm, H - 42*mm, hh)
     c.setFillColor(RED); c.setFont(F['i'], 8.5)
-    c.drawString(16*mm + 8*17*mm, H - 42*mm, '\u2601 a mezzanotte l\u2019Archivio (7) chiude')
+    c.drawString(16*mm + 6*17*mm + 4*mm, H - 39.5*mm, '! la Gendarmeria (8) chiude alle 21:00')
+    c.drawString(16*mm + 6*17*mm + 4*mm, H - 44.5*mm, '! l\u2019Archivio (7) e il Canale Basso (6) chiudono alle 23:00')
     def sect(ytop, label, nlines):
         c.setFillColor(TEAL); c.setFont(F['sc'], 10)
         c.drawString(16*mm, ytop, label)
