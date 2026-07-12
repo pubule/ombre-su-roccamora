@@ -26,7 +26,7 @@ echo "== Carte (cards/) =="
 # (li' 'artworks/...' punterebbe a scripts/cardconjurer/artworks, che non esiste).
 node scripts/cardconjurer/generate-batch.js
 
-echo "== Fogli fronte/retro carte (non committato) =="
+echo "== Fogli fronte/retro carte + tessere (non committato) =="
 node scripts/cardconjurer/generate-print-sheets.js
 
 echo "== Reperti (reperti/Episodio 1/) =="

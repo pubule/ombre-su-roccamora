@@ -1,13 +1,22 @@
 // Genera UN pdf fronte/retro pronto da stampare con TUTTE le carte pronte
 // (Eroi, Nemici, Minacce, Luoghi, Oggetti, Indizi Nascosti, Testimoni,
-// Referti), ogni carta abbinata al dorso della sua famiglia.
+// Referti) + le 6 tessere T1-T6, ogni carta/tessera abbinata al proprio
+// dorso. I fascicoli (Regolamento, Indagine, Spedizione, Soluzione, Schede,
+// Preludio) NON sono in questo PDF: sono gia' fronte/retro nativamente
+// (PDF multipagina, pagine pari garantite da pad_to_even_pages in
+// deluxe_style.py) ma su carta normale A4, mentre carte e tessere vogliono
+// cartoncino e impaginazione a taglia fissa - unirli in un solo file
+// costringerebbe la stampa a un solo tipo di carta/impostazione per tutto,
+// peggio che stamparli separati. "Tutto fronte/retro" vale come garanzia
+// per OGNI artefatto, non come "tutto in un unico PDF".
 //
 // Ogni mazzo usa il proprio artwork di dorso (artworks/Dorso <Nome>.png,
 // vedi i prompt in PROMPT-MIDJOURNEY.md - il tipo e' inciso direttamente
 // nell'arte generata, niente testo sovrapposto via codice). Se il dorso di un
 // mazzo non esiste ancora, quel mazzo viene saltato con un avviso in console —
 // non blocca gli altri: rilancia lo script quando generi il dorso mancante,
-// non serve toccare il codice.
+// non serve toccare il codice. Stessa regola per le tessere (Dorso Tessera
+// T1.png...T6.png).
 //
 // Indizi Nascosti/Testimoni/Referti restano un mazzo coperto unico in gioco
 // (vedi regolamento): dorsi diversi per tipo ma stessa famiglia visiva (teal,
@@ -18,12 +27,15 @@
 // Dimensione carta: 68x95.2mm (rapporto 1.4, identico alle carte reali
 // 2010x2814px), il piu' grande possibile in griglia 3x3 su A4 lasciando un
 // margine di sicurezza per stampanti non borderless (~1mm ai lati, ~5.5mm
-// sopra/sotto).
+// sopra/sotto). Tessere: 200x200mm (griglia 4x4 da 50mm/casella, vedi
+// COME STAMPARE nel Regolamento), una per foglio A4 (troppo grandi per
+// affiancarne due), fronte e retro su pagine consecutive.
 //
 // Uso: node scripts/cardconjurer/generate-print-sheets.js
 // Richiede le carte gia' generate (generate-batch.js, tutti i gruppi che vuoi
-// includere) e i dorsi in artworks/. Non salva/committa nulla da solo oltre
-// al pdf di output: rilancialo quando servono carte aggiornate.
+// includere), le tessere (scripts/tiles/generate-tiles.js) e i dorsi in
+// artworks/. Non salva/committa nulla da solo oltre al pdf di output:
+// rilancialo quando servono carte/tessere aggiornate.
 
 const fs = require('fs');
 const path = require('path');
@@ -50,6 +62,19 @@ const SIMPLE_DECKS = [
   { name: 'Testimoni', cards: TESTIMONI, dorso: 'Dorso Testimone.png' },
   { name: 'Referti', cards: REFERTI, dorso: 'Dorso Referto.png' },
 ];
+
+// id+nome 1:1 da TILES in scripts/tiles/generate-tiles.js (duplicato apposta,
+// stesso pattern gia' in uso tra src/gen_cards.py e questo file: moduli
+// disaccoppiati, 6 righe, basso rischio di disallineamento).
+const TILES = [
+  { id: 'T1', nome: 'Banchina d’Ingresso' },
+  { id: 'T2', nome: 'Sala delle Casse' },
+  { id: 'T3', nome: 'Corridoio delle Candele' },
+  { id: 'T4', nome: 'Ufficio del Custode' },
+  { id: 'T5', nome: 'Scala al Piano Interrato' },
+  { id: 'T6', nome: 'Cripta della Cera' },
+];
+const TILE_MM = 200; // vedi COME STAMPARE nel Regolamento: 200x200mm, caselle da 50mm
 
 function fileDataUri(absPath) {
   if (!fs.existsSync(absPath)) return null;
@@ -132,6 +157,32 @@ function deckSheets(deck, bgClass) {
   ).join('');
 }
 
+// Tessere: una per foglio A4 (200mm, troppo grandi per affiancarne due),
+// fronte e retro su pagine consecutive cosi' la stampa fronte/retro le
+// accoppia automaticamente senza bisogno di specchiare nulla (un solo
+// pezzo per pagina, non una griglia da disporre a specchio come le carte).
+async function tileSheets(browser) {
+  let html = '';
+  for (const t of TILES) {
+    const frontPath = path.join(ROOT, 'board', 'Episodio 1', `${t.id} - ${t.nome}.png`);
+    const backPath = path.join(ROOT, 'artworks', `Dorso Tessera ${t.id}.png`);
+    if (!fs.existsSync(frontPath)) {
+      console.warn(`  salto tessera ${t.id}: manca "${frontPath}" (genera prima le tessere)`);
+      continue;
+    }
+    if (!fs.existsSync(backPath)) {
+      console.warn(`  salto tessera ${t.id}: manca "${backPath}" (dorso tessera mancante)`);
+      continue;
+    }
+    const frontUri = await shrinkDorso(browser, frontPath);
+    const backUri = await shrinkDorso(browser, backPath);
+    html += `<section class="tilepage"><div class="tile"><img src="${frontUri}"></div></section>
+             <section class="tilepage"><div class="tile"><img src="${backUri}"></div></section>`;
+    console.log(`  tessera ${t.id}: ok`);
+  }
+  return html;
+}
+
 (async () => {
   const browser = await chromium.launch({ headless: true });
   let sheets = '';
@@ -157,8 +208,11 @@ function deckSheets(deck, bgClass) {
     console.log(`${deck.name}: ${deck.cards.length} carte`);
   }
 
+  console.log('Tessere:');
+  sheets += await tileSheets(browser);
+
   if (!sheets) {
-    console.error('Nessun mazzo con dorso pronto trovato. Genera almeno un dorso in artworks/ e riprova.');
+    console.error('Nessun mazzo con dorso pronto trovato, e nessuna tessera pronta. Genera almeno un dorso in artworks/ e riprova.');
     await browser.close();
     process.exit(1);
   }
@@ -174,6 +228,10 @@ function deckSheets(deck, bgClass) {
     .card { width: ${CARD_W}mm; height: ${CARD_H}mm; overflow: hidden; }
     .card img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .card.empty { visibility: hidden; }
+    .tilepage { width: 210mm; height: 297mm; display: flex; align-items: center;
+                justify-content: center; page-break-after: always; }
+    .tile { width: ${TILE_MM}mm; height: ${TILE_MM}mm; overflow: hidden; }
+    .tile img { width: 100%; height: 100%; object-fit: cover; display: block; }
     ${bgRules}
   </style></head><body>${sheets}</body></html>`;
 

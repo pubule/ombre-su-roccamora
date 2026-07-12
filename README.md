@@ -96,7 +96,7 @@ Da lanciare dalla **radice del repo** (non da dentro `scripts/cardconjurer`:
 node scripts/cardconjurer/generate-batch.js            # tutte (eroi, nemici, minacce, luoghi, indizi, testimoni, referti, oggetti, preludio)
 node scripts/cardconjurer/generate-batch.js luoghi     # solo un gruppo (heroes|nemici|minacce|luoghi|indizi|testimoni|referti|oggetti|preludio)
 node scripts/cardconjurer/generate-test.js "Elena Fosco" "Il Fonditore"   # solo carte specifiche, per titolo
-node scripts/cardconjurer/generate-print-sheets.js     # fronte/retro pronto da stampare, tutti i mazzi (non committato)
+node scripts/cardconjurer/generate-print-sheets.js     # fronte/retro pronto da stampare: tutti i mazzi + le 6 tessere (non committato)
 ```
 
 ## Rigenerare tessere e reperti
