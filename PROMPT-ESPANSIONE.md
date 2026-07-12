@@ -265,6 +265,16 @@ Tyrlov) per le carte e **mappa a china su pergamena** per le tessere.
   vedere la figura quasi intera senza tagliare la testa sul bordo frastagliato — se
   aggiungi un settimo eroe, genera prima un ritratto di prova e verifica a video prima di
   fissare i parametri.
+- **Due biografie per eroe (breve + estesa):** ogni eroe ha *due* testi in
+  `src/story.py`. `BIO` è la versione **breve** (4–5 righe), stampata sulla **carta
+  Eroe** (`cards-data.js`), dove lo spazio è poco e il ritratto è il protagonista.
+  `BIO_SCHEDA` è la versione **estesa e immersiva** (~11–12 righe), usata **solo sulla
+  Scheda Personaggio**, dove c'è respiro: sensoriale, con una scena o un'abitudine
+  concreta, una paura, un dettaglio d'ambientazione 1889 gaslamp gothic. `apply()`
+  popola `hro['bio_scheda']` con fallback a `bio` se manca. Il riquadro "chi sei" della
+  scheda (`gen_deluxe.py`) è alto ~60mm = ~12 righe a corpo 9.8: **non sforare**, la bio
+  estesa che eccede finisce sotto le caselle statistiche (verifica a video le due più
+  lunghe dopo ogni modifica). Un eroe nuovo porta **entrambe** le versioni.
 - **Sigillo di cera:** l'arte sorgente (`artworks/Sigillo.jpg`) ha spesso una scacchiera
   grigia cablata nei pixel al posto della trasparenza vera (jpg, niente alpha): va isolata
   con una soglia di saturazione (la scacchiera è grigia desaturata, cera e oro no) + crop

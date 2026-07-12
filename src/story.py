@@ -92,6 +92,85 @@ NOTE_NEMICI = {
         "vedi, di solito \u00e8 gi\u00e0 tardi \u2014 ma basta un colpo ben messo per fermarlo.",
 }
 
+# BIO_SCHEDA: versione estesa e immersiva della biografia, usata SOLO sulla
+# Scheda Personaggio (gen_deluxe.py), dove c'e' spazio per respirare. La carta
+# Eroe (cards-data.js) tiene la versione breve di BIO: sulla carta lo spazio e'
+# poco e il ritratto e' il protagonista. Convenzione da mantenere per ogni
+# espansione (vedi PROMPT-ESPANSIONE.md): un eroe nuovo porta entrambe le
+# versioni. Se un eroe non ha BIO_SCHEDA, la scheda ripiega sulla BIO breve.
+BIO_SCHEDA = {
+    'ELENA FOSCO':
+        "Da bambina si addormentava al piano di sopra mentre suo padre, di sotto, "
+        "smontava le bugie degli imputati come si smonta un orologio, e sua madre, "
+        "in teatro, teneva in pugno mille persone con una nota tenuta un istante di "
+        "troppo. Ha imparato da entrambi la stessa cosa: che la verita\u2019 e\u2019 una "
+        "questione di tempo e di orecchio. Lascio\u2019 la polizia la notte in cui un "
+        "commissario le mise una mano sulla spalla e le disse, paterno, di lasciar "
+        "perdere il \u201ccaso del pozzo\u201d \u2014 e lei capi\u2019 dal peso di quella mano che "
+        "sapeva. Ora porta il bastone animato di suo padre e la lente con cui lui "
+        "leggeva i contratti; di sua madre le resta l\u2019abitudine di canticchiare "
+        "sottovoce quando pensa, e il fastidio fisico, quasi una nausea, davanti a "
+        "una storia che stona. Non crede ai fantasmi. Crede, con freddezza, ai "
+        "colpevoli che hanno bisogno che tu ci creda.",
+    'DOTT. ATTILIO MARN':
+        "Ha aperto l\u2019ambulatorio nei vicoli bassi da giovane, con l\u2019idea di fare del "
+        "bene; vent\u2019anni dopo sa che la citta\u2019 uccide piu\u2019 della malaria, e che nessun "
+        "titolo dell\u2019Accademia insegna a riconoscere l\u2019odore della paura in una stanza. "
+        "Cura chiunque bussi, all\u2019ora che sia, senza chiedere come si e\u2019 procurato la "
+        "ferita \u2014 e proprio per questo ha visto cose che i colleghi archivierebbero come "
+        "delirio: pupille che non reagiscono alla luce, morti troppo composti, cera nera "
+        "sotto le unghie di gente che giura di non aver mai toccato una candela. Ha "
+        "smesso di raccontarle, e ha cominciato ad annotarle, in una grafia minuta che "
+        "solo lui rilegge. Nella borsa, tra garze e sali, tiene un bisturi piu\u2019 lungo "
+        "del necessario. Non lo ha mai usato su un vivo. Se lo porta comunque.",
+    'SIBILLA REVE':
+        "Legge le carte alle vedove per denaro, ed e\u2019 vero \u2014 ma e\u2019 anche il modo "
+        "migliore per farsi raccontare una citta\u2019 intera senza mai fare una domanda: "
+        "chi ha paura parla, e a lei parlano tutti. Sa distinguere la superstizione "
+        "dal pericolo autentico perche\u2019 il secondo l\u2019ha guardata in faccia una notte, "
+        "da bambina, sul bordo di un pozzo dove qualcosa la chiamava per nome con la "
+        "voce di sua madre morta. Non si e\u2019 sporta. Da allora il confine tra i due "
+        "mondi, per lei, e\u2019 una linea sottile e reale come il filo di un rasoio. Il "
+        "pendolo d\u2019ossidiana che porta al collo era di sua nonna, che glielo mise in "
+        "mano dicendo \u201cnon e\u2019 mai stato fermo, e non fidarti di quando lo e\u2019\u201d. Non lo "
+        "e\u2019 mai stato. Sibilla ha imparato a non fidarsi.",
+    'NINO \u201cGRIMALDELLO\u201d CAUTO':
+        "Cresciuto sui tetti, nelle intercapedini e nei sottotetti di Roccamora, "
+        "conosce la citta\u2019 come un ladro conosce le tasche altrui: al buio, per tatto, "
+        "senza bisogno di guardare. Da ragazzino entrava nelle case dei ricchi per "
+        "rubare il pane; da uomo e\u2019 entrato una volta di troppo nel posto sbagliato, e "
+        "quel lavoro finito male gli ha lasciato addosso un debito con gente che non "
+        "dimentica e una ragione, per ora, di stare dalla parte giusta. Ride facile, "
+        "parla troppo, e tiene sempre un occhio sull\u2019uscita piu\u2019 vicina \u2014 un\u2019abitudine "
+        "che gli ha salvato la pelle piu\u2019 volte delle sue mani veloci. Le serrature, "
+        "dice, sono domande poste male: basta capire cosa vogliono sentirsi chiedere. "
+        "Delle porte che ha aperto negli ultimi tempi, alcune avrebbe preferito "
+        "lasciarle chiuse.",
+    'OTTONE \u201cMEZZENA\u201d MASSARI':
+        "Il banco dei Massari sta al Vecchio Mercato da tre generazioni, e Ottone "
+        "conosce Roccamora dalla pancia: sa chi mangia e chi digiuna, chi festeggia e "
+        "chi, da qualche tempo, ha smesso di aver fame. Grande, rumoroso, generoso di "
+        "vino e di risate, e\u2019 l\u2019uomo con cui tutti si confidano perche\u2019 nessuno lo "
+        "teme \u2014 a torto: dietro il grembiule insanguinato del macellaio c\u2019e\u2019 una mente "
+        "che non dimentica un volto. Ha cominciato a farsi domande quando il suo "
+        "garzone spari\u2019 durante la festa di San Teodoro e torno\u2019 tre giorni dopo senza "
+        "appetito e senza voce, con lo sguardo di chi ha lasciato qualcosa di se\u2019 da "
+        "qualche parte, al buio. Dice che una citta\u2019 si legge a tavola: dove la gente "
+        "smette di mangiare e di ridere, li\u2019 sotto c\u2019e\u2019 il male. Alla festa, quest\u2019anno, "
+        "non e\u2019 andato nessuno.",
+    'CARLA DOSTI':
+        "Prima donna in redazione al Corriere di Roccamora, la misero ai necrologi per "
+        "toglierla di mezzo \u2014 e fu il loro errore: Carla scopri\u2019 che i necrologi, letti "
+        "in fila e nell\u2019ordine giusto, raccontano storie che nessun direttore vuole "
+        "stampare. Tre annegati in un mese nello stesso tratto di canale. Un fonditore "
+        "morto \u201cper cause naturali\u201d con le mani ustionate. Nomi che ricorrono, orari "
+        "che coincidono. Ha una macchina fotografica a soffietto che porta sempre con "
+        "se\u2019, una memoria feroce che non perdona ne\u2019 le bugie ne\u2019 chi le dice, e la "
+        "convinzione ostinata \u2014 pericolosa, in questa citta\u2019 \u2014 che la verita\u2019 sia un "
+        "diritto di tutti, anche quando e\u2019 indicibile, anche quando conviene a molti "
+        "che resti sepolta. Ha gia\u2019 ricevuto il primo avvertimento. Lo ha fotografato.",
+}
+
 BIO = {
     'ELENA FOSCO':
         "Figlia di un giudice e di una cantante d\u2019opera, ha ereditato dal primo il metodo "
@@ -168,6 +247,8 @@ def apply(luoghi, tiles, nemici, heroes, minacce):
             N['note'] = NOTE_NEMICI[N['nome']]
     for hro in heroes:
         hro['bio'] = BIO.get(hro['nome'], '')
+        # bio estesa per la sola Scheda Personaggio; se manca, la scheda usa la breve
+        hro['bio_scheda'] = BIO_SCHEDA.get(hro['nome'], hro['bio'])
     nuove = []
     for titolo, txt, tipo, subito in minacce:
         fl = _FLAVOR.get(titolo)

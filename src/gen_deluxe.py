@@ -69,11 +69,16 @@ def schede():
         seal(c, W - mx - 8*mm, H - mt - 6*mm, r=9*mm, angle=-16)
         c.setStrokeColor(INK); c.setLineWidth(1)
         c.line(mx, H - mt - 16*mm, W - mx, H - mt - 16*mm)
-        frame_flow(c, mx, H - mt - 48*mm, W - 2*mx, 29*mm, [
+        # riquadro "chi sei" alto abbastanza da ospitare la bio estesa immersiva
+        # della scheda (bio_scheda ~12 righe), non quella breve della carta.
+        # Top invariato sotto il filetto (H-mt-19), bottom giu' a H-mt-79 = 60mm;
+        # le statistiche e tutto il blocco sotto scendono di 14mm di conseguenza
+        # (c'e' spazio morto in fondo alla scheda, ~35mm di margine restano).
+        frame_flow(c, mx, H - mt - 79*mm, W - 2*mx, 60*mm, [
             Paragraph('chi sei', SMB),
-            Paragraph(hro.get('bio', ''), st('bio', fontName=F['i'], fontSize=9.8,
-                                             leading=13, alignment=4))])
-        y0 = H - mt - 72*mm
+            Paragraph(hro.get('bio_scheda', hro.get('bio', '')),
+                      st('bio', fontName=F['i'], fontSize=9.8, leading=13, alignment=4))])
+        y0 = H - mt - 86*mm
         bw = (W - 2*mx - 4*10*mm) / 5.0
         for i, (lb, v) in enumerate([('ACUME', hro['acume']), ('VIGORE', hro['vigore']),
                                      ('NERVI', hro['nervi']), ('DIFESA', hro['difesa']),
