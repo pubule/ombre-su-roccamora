@@ -442,10 +442,15 @@ const PRELUDIO_OGGETTI = [
 // I nemici del culto sono legati alla trama dell'Episodio 1; la Malavita
 // (Sgherro/Sicario) e' dichiaratamente riusabile in ogni episodio (vedi
 // PROMPT-ESPANSIONE.md) e resta percio' comune, fuori da "Episodio 1/".
+// Windows non accetta " < > : | ? * nei nomi file (es. Nino "Grimaldello"
+// Cauto): lib.js li toglie dal nome salvato su disco (outName), quindi
+// vanno tolti anche qui - altrimenti generate-print-sheets.js cerca un file
+// con le virgolette che non esiste, e salta il fronte della carta.
+const sanitizeFile = (s) => s.replace(/["<>:|?*]/g, '');
 NEMICI.forEach((n) => {
-  n.file = (n.type.includes('Malavita') ? 'Nemici/' : 'Episodio 1/Nemici/') + n.title;
+  n.file = sanitizeFile((n.type.includes('Malavita') ? 'Nemici/' : 'Episodio 1/Nemici/') + n.title);
 });
-HEROES.forEach((h) => { h.file = `Eroi/${h.title}`; });
+HEROES.forEach((h) => { h.file = sanitizeFile(`Eroi/${h.title}`); });
 
 const PRELUDIO = [...PRELUDIO_LUOGHI, ...PRELUDIO_APPROFONDIMENTI, ...PRELUDIO_OGGETTI];
 
