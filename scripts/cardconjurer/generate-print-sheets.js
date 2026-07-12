@@ -237,6 +237,16 @@ async function tileSheets(browser) {
 
   const page = await browser.newPage();
   await page.setContent(html, { waitUntil: 'networkidle', timeout: 120000 });
+  // 'networkidle' non basta: le immagini sono data-URI inline (nessuna
+  // richiesta di rete da aspettare), ma con ~60+ carte a piena risoluzione
+  // nello stesso documento la decodifica non e' istantanea - alcune celle
+  // (es. le carte Eroi di Nino e Ottone, viste vuote pur con file corretto
+  // e nessun avviso in console) risultavano bianche nel PDF perche' lo
+  // screenshot partiva prima che quella specifica <img> avesse finito di
+  // decodificare. Attesa esplicita e deterministica invece di un timeout
+  // indovinato: aspetta ogni <img> del documento, una per una.
+  await page.evaluate(() => Promise.all(Array.from(document.images).map((img) =>
+    img.complete ? Promise.resolve() : new Promise((res) => { img.onload = img.onerror = res; }))));
   const out = path.join(ROOT, 'pdf', 'Ombre-su-Roccamora-08-Stampa-Completa.pdf');
   await page.pdf({ path: out, format: 'A4', printBackground: true, timeout: 120000 });
   await browser.close();
