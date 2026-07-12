@@ -97,13 +97,18 @@ def schede():
         c.setFillColor(TEAL); c.setFont(F['b'], 8)
         c.drawRightString(W - mx - 12*mm, y1 + 1*mm, 'SECONDO FIATO (1 ritento a episodio)')
         y2 = y1 - 14*mm
-        frame_flow(c, mx, y2 - 44*mm, W - 2*mx, 44*mm, [
+        # abilità/equipaggiamento larghi solo fino a CUT_X, come le righe scrivibili
+        # sotto: oltre CUT_X c'è lo strappo col ritratto, e il testo a piena larghezza
+        # ci finiva sopra (illeggibile, es. l'equip di Ottone sotto la mannaia). Frame
+        # più alto (64mm) perché a colonna stretta il testo va a capo più volte; il
+        # blocco sotto scende di conseguenza (margine in fondo ancora ~25mm).
+        frame_flow(c, mx, y2 - 64*mm, CUT_X - mx, 64*mm, [
             Paragraph('abilità unica', SMB), Paragraph(hro['abil'], BODY),
             Spacer(1, 6),
             Paragraph('equipaggiamento iniziale', SMB), Paragraph(hro['equip'], BODY),
             Spacer(1, 4),
             Paragraph('Le armi (+1) aggiungono +1 ai tiri di Attacco.', SUB)])
-        y3 = y2 - 54*mm
+        y3 = y2 - 72*mm
         c.setFillColor(TEAL); c.setFont(F['sc'], 10)
         c.drawString(mx, y3, 'migliorie e oggetti di campagna')
         c.setStrokeColor(SEPIA); c.setLineWidth(0.5)
