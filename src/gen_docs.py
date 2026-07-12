@@ -291,6 +291,9 @@ def regolamento():
     e.append(LI('<b>Eroi a terra</b> \u2014 i nemici li ignorano: puntano sempre l\u2019eroe in piedi pi\u00f9 vicino.'))
     e.append(LI('<b>Mazzo Minaccia esaurito</b> \u2014 rimescolate gli scarti e continuate. I segnalini '
                 'Canto gi\u00e0 in gioco restano.'))
+    e.append(LI('<b>Segnalini nemico esauriti</b> \u2014 se una carta vi dice di piazzare un nemico ma '
+                'non restano pi\u00f9 segnalini di quel tipo, l\u2019effetto di piazzamento non ha luogo (i '
+                'rinforzi del culto sono finiti): applicate comunque il resto della carta, se ne ha.'))
     e.append(LI('<b>Oggetti</b> \u2014 ci\u00f2 che trovate nell\u2019Indagine \u00e8 del gruppo: all\u2019inizio della '
                 'Spedizione decidete chi porta cosa (annotatelo). In Spedizione, passare un oggetto a '
                 'un eroe adiacente \u00e8 gratuito, una volta per turno; un eroe a terra pu\u00f2 essere '
@@ -315,12 +318,15 @@ def regolamento():
     e.append(P("Il gioco scala da solo con la fase Minaccia. In 4\u20135 giocatori, durante l\u2019Indagine "
                "leggete gli indizi <b>a turno e solo per s\u00e9</b>, poi raccontateli con parole vostre: "
                "la deduzione diventa un racconto corale (ed \u00e8 il modo pi\u00f9 divertente di giocare "
-               "in gruppo)."))
-    e.append(P("In 4 o 5 giocatori potete anche <b>dividervi</b>: due sottogruppi visitano due luoghi "
-               "diversi nella stessa ora (costa comunque solo 1 ora sul Taccuino, non 2). Ogni "
-               "sottogruppo sblocca gli Approfondimenti solo per gli eroi davvero presenti al suo "
-               "luogo \u2014 se l\u2019eroe giusto \u00e8 nell\u2019altro sottogruppo, quell\u2019Approfondimento resta perso. "
-               "Dividersi copre pi\u00f9 terreno nelle poche ore che avete, ma a un prezzo reale."))
+               "in gruppo). Pi\u00f9 giocatori vuol dire pi\u00f9 carte Minaccia a round: in 5, contate "
+               "<b>2 ore e mezza abbondanti</b> a episodio, non i 90\u2013150 minuti base."))
+    e.append(P("In 4 o 5 giocatori potete anche <b>dividervi</b>, una sola volta a episodio: due "
+               "sottogruppi visitano due luoghi diversi nella stessa ora (costa comunque solo 1 ora "
+               "sul Taccuino, non 2), poi restate uniti per il resto dell\u2019indagine. Ogni sottogruppo "
+               "sblocca gli Approfondimenti solo per gli eroi davvero presenti al suo luogo \u2014 se "
+               "l\u2019eroe giusto \u00e8 nell\u2019altro sottogruppo, quell\u2019Approfondimento resta perso. Dividersi "
+               "copre pi\u00f9 terreno nelle poche ore che avete, ma a un prezzo reale \u2014 usatelo dove conta "
+               "di pi\u00f9, non \u00e8 ripetibile."))
 
     e.append(P('COME STAMPARE', 'h1'))
     e.append(LI('<b>Regolamento</b> (questo fascicolo) e <b>Soluzione</b> (in <i>Episodio 1/</i>): '

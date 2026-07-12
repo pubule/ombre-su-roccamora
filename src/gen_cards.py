@@ -36,9 +36,9 @@ HEROES = [
          abil=('<b>Sesto Senso</b> — In indagine: una volta per episodio il pendolo si '
                'ferma su un luogo presente: leggetene un <b>Approfondimento qualsiasi</b> '
                '(Osservazione, Testimone, Referto o Presagio); se non ne ha, il pendolo '
-               'indica un luogo che ne nasconde uno. In spedizione: una volta per round, '
-               'prima della fase Minaccia, guarda le prime 2 carte del mazzo e mettine una '
-               'in <b>fondo</b> al mazzo; l’altra torna in cima.'),
+               'indica un luogo che ne nasconde uno. In spedizione: tre volte per '
+               'spedizione, prima della fase Minaccia, guarda le prime 2 carte del mazzo e '
+               'mettine una in <b>fondo</b> al mazzo; l’altra torna in cima.'),
          equip='Pugnale rituale (arma, +1), pendolo d’ossidiana, gessetti.'),
     dict(nome='NINO “GRIMALDELLO” CAUTO', ruolo='Il Ladro', acume=2, vigore=2, nervi=1,
          salute=7, difesa=9,
