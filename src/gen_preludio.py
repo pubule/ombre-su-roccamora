@@ -447,6 +447,12 @@ ART_BOTTOM = WINDOW_TOP[1] * H
 COL_W = WINDOW_TOP[0]*W - MX - 4*mm
 DESC_TOP = H - 37*mm
 DESC_MAX_H = DESC_TOP - (ART_BOTTOM - 4*mm) - 3*mm
+# Override overscan/top_margin/center_x per-luogo quando il ritaglio standard
+# non valorizza il soggetto (stesso motivo/pattern di LUOGHI_CROP in
+# gen_narrator.py per l'Episodio 1).
+LUOGHI_P_CROP = {
+    'P2': dict(overscan=0.1, center_x=0.85),  # l'oste e mani/bicchiere sono a destra
+}
 
 def fit_desc(c, text, start=9.5, floor=7):
     size = start
@@ -470,8 +476,10 @@ def luoghi():
     c.setTitle('Ombre su Roccamora - Preludio - Luoghi (riferimenti narratore)')
     ROW = st('row', fontSize=10.5, leading=15)
     NONE_ROW = st('none_row', fontName=F['i'], fontSize=9.5, leading=14, textColor=SEPIA)
+    INDIZIO_ROW = st('indizio_row', fontName=F['i'], fontSize=10, leading=14)
     for L in LUOGHI_P:
-        torn_portrait(c, W, H, L['art'], TORN_TOP, window=WINDOW_TOP)
+        torn_portrait(c, W, H, L['art'], TORN_TOP, window=WINDOW_TOP,
+                      **LUOGHI_P_CROP.get(L['n'], {}))
         rule_border(c, W, H)
         c.setFillColor(TEAL); c.setFont(F['sc'], 10)
         c.drawString(MX, H - 20*mm, ('luogo ' + L['n']).lower())
@@ -484,6 +492,22 @@ def luoghi():
         d.drawOn(c, MX, DESC_TOP - dh)
         c.setStrokeColor(SEPIA); c.setLineWidth(0.5)
         c.line(MX, ART_BOTTOM - 4*mm, W - MX, ART_BOTTOM - 4*mm)
+        # Indizi core: da leggere ad alta voce a tutti, in cima al blocco sotto
+        # l'arte, prima e ben separati dalle righe "carte da prendere" (quelle
+        # restano solo per chi arbitra) - stesso pattern di gen_narrator.py.
+        c.setFillColor(TEAL); c.setFont(F['sc'], 9)
+        c.drawString(MX, ART_BOTTOM - 10*mm, 'indizi — leggeteli ad alta voce')
+        y = ART_BOTTOM - 15*mm
+        for ind in L.get('indizi', []):
+            p = Paragraph(f'• {ind}', INDIZIO_ROW)
+            pw, ph = p.wrapOn(c, W - 2*MX, 60*mm)
+            p.drawOn(c, MX, y - ph)
+            y -= ph + 3*mm
+        c.setStrokeColor(SEPIA); c.setLineWidth(0.4)
+        c.line(MX, y - 2*mm, W - MX, y - 2*mm)
+        c.setFillColor(TEAL); c.setFont(F['sc'], 9)
+        c.drawString(MX, y - 8*mm, 'carte da prendere — solo per chi arbitra')
+        y -= 13*mm
         rows = []
         for a in L['approfondimenti']:
             tipo = TIPO_LABEL[a['tipo']]
@@ -491,7 +515,6 @@ def luoghi():
                 rows.append(f"<b>{tipo}</b> — carta “{a['soggetto']}”")
             else:
                 rows.append(f"<b>{tipo}</b> <i>({a['tipo']})</i>")
-        y = ART_BOTTOM - 12*mm
         if not rows:
             p = Paragraph('Nessun Approfondimento qui.', NONE_ROW)
             p.wrapOn(c, W - 2*MX, 20*mm)

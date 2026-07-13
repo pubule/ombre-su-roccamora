@@ -42,6 +42,18 @@ LUOGHI_ART = {
     7: 'dusty municipal archive (libro+persona).png',
     8: 'cluttered 19th century police office.png',
 }
+# Override per-luogo di overscan/top_margin (default in torn_portrait: overscan
+# 0.75, top_margin 0) quando il ritaglio standard non valorizza il soggetto -
+# la finestra e' un rettangolo verticale, le arte sono quasi tutte panoramiche
+# 2688x1792: con l'overscan di default il ritaglio mostra solo il 57% in alto
+# dell'immagine, quindi un soggetto centrato in verticale (es. la campana
+# grande del Luogo 1) resta fuori. Solo le voci sotto si scostano dal default.
+LUOGHI_CROP = {
+    1: dict(overscan=0.05),                     # la campana e' centrata in verticale, non in alto
+    2: dict(overscan=0.15, center_x=0.85),       # Bice e' spostata a destra nell'arte
+    3: dict(overscan=0.15, top_margin=12*mm),   # le facce dei barcaioli sono piu' in basso
+    7: dict(overscan=0.1),   # l'archivista e' quasi fuori dal ritaglio di default
+}
 TILE_ART = {
     'T2': 'T2.png',
     'T3': 'T3.png',
@@ -264,18 +276,35 @@ def header(c, label_text, nome_text, desc_text):
     c.setStrokeColor(SEPIA); c.setLineWidth(0.5)
     c.line(MX, ART_BOTTOM - 4*mm, W - MX, ART_BOTTOM - 4*mm)
 
-def body(c, rows):
-    y = ART_BOTTOM - 12*mm
+def body(c, rows, y_start=None):
+    y = ART_BOTTOM - 12*mm if y_start is None else y_start
     if not rows:
         p = Paragraph('Nessun Approfondimento o Oggetto qui.', NONE_ROW)
         p.wrapOn(c, W - 2*MX, 20*mm)
         p.drawOn(c, MX, y - 5*mm)
-        return
+        return y - 5*mm
     for r in rows:
         p = Paragraph(f'— {r}', ROW)
         pw, ph = p.wrapOn(c, W - 2*MX, 20*mm)
         p.drawOn(c, MX, y - ph)
         y -= ph + 4*mm
+    return y
+
+INDIZIO_ROW = st('indizio_row', fontName=F['i'], fontSize=10, leading=14)
+
+def indizi_block(c, indizi, y_top):
+    """Indizi core del luogo: da leggere ad alta voce a tutti, per questo
+    stanno in cima al blocco sotto l'arte, prima e ben separati dalle righe
+    'carte da prendere' (quelle restano solo per chi arbitra)."""
+    c.setFillColor(TEAL); c.setFont(F['sc'], 9)
+    c.drawString(MX, y_top, 'indizi — leggeteli ad alta voce')
+    y = y_top - 5*mm
+    for ind in indizi:
+        p = Paragraph(f'• {ind}', INDIZIO_ROW)
+        pw, ph = p.wrapOn(c, W - 2*MX, 60*mm)
+        p.drawOn(c, MX, y - ph)
+        y -= ph + 3*mm
+    return y
 
 def narratore():
     out_path = os.path.join(OUT_DIR, 'Luoghi.pdf')
@@ -283,10 +312,16 @@ def narratore():
     c.setTitle('Ombre su Roccamora - Episodio 1 - Luoghi (riferimenti narratore)')
 
     for L in LUOGHI:
-        torn_portrait(c, W, H, LUOGHI_ART[L['n']], TORN_TOP, window=WINDOW_TOP)
+        torn_portrait(c, W, H, LUOGHI_ART[L['n']], TORN_TOP, window=WINDOW_TOP,
+                      **LUOGHI_CROP.get(L['n'], {}))
         rule_border(c, W, H)
         header(c, f"luogo {L['n']}", L['nome'], LUOGHI_DESC[L['n']])
-        body(c, righe(L['approfondimenti'], f"L{L['n']}"))
+        y = indizi_block(c, L.get('indizi', []), ART_BOTTOM - 10*mm)
+        c.setStrokeColor(SEPIA); c.setLineWidth(0.4)
+        c.line(MX, y - 2*mm, W - MX, y - 2*mm)
+        c.setFillColor(TEAL); c.setFont(F['sc'], 9)
+        c.drawString(MX, y - 8*mm, 'carte da prendere — solo per chi arbitra')
+        body(c, righe(L['approfondimenti'], f"L{L['n']}"), y - 13*mm)
         c.showPage()
 
     for t in TILES:

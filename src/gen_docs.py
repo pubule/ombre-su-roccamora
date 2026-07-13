@@ -162,8 +162,9 @@ def regolamento():
                 '<b>Approfondimento</b> di quel luogo resta nascosto per questa visita: tornateci '
                 'un\u2019altra volta (di nuovo 1 ora, come ogni visita, ma senza ripetere la prova) per '
                 'coglierlo.'))
-    e.append(LI('Per visitare un luogo, girate la carta e leggete ad alta voce testo e indizi. '
-                'Prendete appunti sul Taccuino: nomi, orari, parole chiave in MAIUSCOLO.'))
+    e.append(LI('Per visitare un luogo, girate la carta (mostra solo l’ambientazione): chi tiene il '
+                'fascicolo <b>Luoghi</b> legge ad alta voce testo e indizi da lì. Prendete appunti sul '
+                'Taccuino: nomi, orari, parole chiave in MAIUSCOLO.'))
     e.append(LI('Quando trovate una <b>parola chiave</b> o un <b>oggetto</b>, potete da quel momento '
                 'visitare i luoghi che li richiedono.'))
     e.append(LI('Alcuni luoghi nascondono degli <b>Approfondimenti</b>: indizi extra che '
@@ -175,10 +176,12 @@ def regolamento():
     e.append(P('Sono <b>3 mazzi di carte fisiche</b>, tenuti insieme in un <b>unico mazzo coperto</b> '
                '(il dorso mostra solo il <b>tipo</b>, mai il luogo, cos\u00ec le carte restano '
                'irriconoscibili e riusabili tra episodi): quando visitate un luogo e un eroe presente '
-               'sblocca quel tipo, chi tiene il fascicolo <b>Luoghi</b> (non contiene risposte, solo '
-               'l\u2019elenco di quale carta corrisponde a quale luogo) controlla il titolo e vi passa la '
-               'carta corrispondente dal mazzo. Se il luogo non \u00e8 nell\u2019elenco, non ne ha \u2014 cos\u00ec '
-               'non sapete in anticipo dove si nasconde qualcosa.', 'body'))
+               'sblocca quel tipo, chi tiene il fascicolo <b>Luoghi</b> (contiene testo e indizi di ogni '
+               'luogo, letti ad alta voce a tutti, <b>e</b> l\u2019elenco \u2014 solo per chi arbitra, mai letto '
+               'ad alta voce \u2014 di quale carta corrisponde a quale luogo; non contiene le risposte alle 4 '
+               'Domande) controlla il titolo e vi passa la carta corrispondente dal mazzo. Se il luogo '
+               'non \u00e8 nell\u2019elenco, non ne ha \u2014 cos\u00ec non sapete in anticipo dove si nasconde '
+               'qualcosa.', 'body'))
     e.append(LI('<b>Indizio Nascosto (Osservazioni)</b> \u2014 un dettaglio in pi\u00f9 sulla scena. Lo '
                 'sblocca <b>Elena</b> (2 volte a episodio), oltre al jolly di Sibilla (<b>Sesto '
                 'Senso</b>: un Approfondimento qualsiasi del luogo presente, o intuisce dove '

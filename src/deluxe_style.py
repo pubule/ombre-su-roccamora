@@ -107,22 +107,27 @@ def pad_to_even_pages(pdf_path, art_name='background manuale.png'):
     with open(pdf_path, 'wb') as f:
         writer.write(f)
 
-def _cover_image(c, img, x, y, w, h, top_margin=0, overscan=0.0):
+def _cover_image(c, img, x, y, w, h, top_margin=0, overscan=0.0, center_x=0.5):
     """Draws img to fill (x,y,w,h) with no gaps, cropping overflow (CSS
     background-size:cover), leaving `top_margin` of empty space above the
     image top (so a head doesn't sit exactly on a jagged torn-paper edge).
     `overscan` zooms in further beyond the tight cover-fit, giving slack to
     crop from the bottom instead (legs/lower body) without eating into the
-    margin. All the spare height beyond top_margin is cropped off the bottom."""
+    margin. All the spare height beyond top_margin is cropped off the bottom.
+    `center_x` picks which horizontal slice survives the crop when the image
+    is wider than the window (the common case: most source art is landscape,
+    the window portrait): 0.5 centers it (default), 1.0 keeps the image's
+    right edge flush with the window's right edge (reveals the rightmost
+    part of the image), 0.0 the left edge."""
     iw, ih = img.getSize()
     scale = max(w / iw, h / ih) * (1 + overscan)
     dw, dh = iw * scale, ih * scale
-    dx = x + (w - dw) / 2.0
+    dx = x + (w - dw) * center_x
     dy = y + h - top_margin - dh
     c.drawImage(img, dx, dy, width=dw, height=dh, mask=None)
 
 def torn_portrait(c, w, h, portrait_name, torn_name, window=(0.50, 0.0, 1.03, 0.51),
-                  top_margin=0*mm, overscan=0.75):
+                  top_margin=0*mm, overscan=0.75, center_x=0.5):
     """Draws an image (hero portrait, but works for any scenic art) cover-fit
     to the torn window only (not the whole page: covering the full page would
     zoom into a random crop, since the window is much smaller than the page),
@@ -135,6 +140,7 @@ def torn_portrait(c, w, h, portrait_name, torn_name, window=(0.50, 0.0, 1.03, 0.
     c.saveState()
     x0, y0, x1, y1 = window
     _cover_image(c, art(portrait_name), x0*w, y0*h, (x1-x0)*w, (y1-y0)*h,
+                center_x=center_x,
                 top_margin=top_margin, overscan=overscan)
     c.drawImage(art(torn_name), 0, 0, width=w, height=h,
                preserveAspectRatio=False, mask='auto')

@@ -263,10 +263,18 @@ def simula_indagine(party, log):
         # altro nel punteggio, l'euristica puo' anche saltarlo. Se il party
         # arriva al Custode senza diapason e perde, e' un esito legittimo
         # della simulazione, non un difetto da correggere a tavolino.
+        #
+        # Eccezione (rischio): un luogo non strutturale che chiuderebbe per
+        # sempre se non visitato QUESTA ora salta in testa alla coda. Senza
+        # questo, un luogo come il Luogo 8 (chiude presto, non sblocca nulla)
+        # perde sempre contro 1/2/3 finche' non e' gia' troppo tardi per
+        # visitarlo - irraggiungibile in ogni singola simulazione, non solo
+        # qualche volta.
+        rischio = 0 if (l['chiude'] is not None and ora_corrente + 1 >= l['chiude']) else 1
         strutturale = 0 if l['n'] in (1, 2, 3) else 1
         urgenza = l['chiude'] or 99  # chi chiude prima, tra i pari, va prima
         copertura = -sum(1 for t in l['approf'] if t in tipi_coperti)  # più negativo = più utile a QUESTO party
-        return (strutturale, urgenza, copertura, l['n'])
+        return (rischio, strutturale, urgenza, copertura, l['n'])
 
     da_rivisitare = []  # luoghi dove "leggere la scena" e' fallita, Approfondimento ancora da cogliere
 
@@ -303,9 +311,13 @@ def simula_indagine(party, log):
         # SLANCIO/PREPARATI non scattano mai: 6 ore bastano appena per gli 8 luoghi,
         # il gruppo le spenderebbe sempre tutte sui nuovi luoghi.
         if approf_letti >= 1 and ore <= 2 and l['n'] not in (1, 2, 3):
-            log(f'[h{ora_corrente:02d}:00] Il gruppo ha già il nucleo garantito in mano: chiude '
-                f'l’indagine con {ore} ora/e ancora sul Taccuino invece di visitare anche il '
-                f'Luogo {l["n"]} — {l["nome"]}.')
+            # NON e' ancora la chiusura vera: rinuncia solo a NUOVI luoghi, potrebbe
+            # ancora tornare a cogliere un Approfondimento mancato (vedi loop sotto).
+            # La chiusura effettiva, con le ore davvero rimaste, e' nei due messaggi
+            # dopo il loop di rivisita.
+            log(f'[h{ora_corrente:02d}:00] Il gruppo ha già il nucleo garantito in mano: rinuncia '
+                f'a nuovi luoghi (il prossimo sarebbe stato il Luogo {l["n"]} — {l["nome"]}), ma '
+                f'valuta ancora se tornare a cogliere un Approfondimento mancato prima di chiudere.')
             break
         visitati.append(l['n'])
         log(f'[h{ora_corrente:02d}:00] Visita Luogo {l["n"]} — {l["nome"]}  (1 ora)')

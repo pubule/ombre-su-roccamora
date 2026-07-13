@@ -135,8 +135,9 @@ prima che l'Ep. 1 lo riveli.
    non ha consultato nessun Approfondimento.
 2-bis. *Reperti* — ogni episodio include 2–3 **documenti-reperto** stampabili (pagine di
    diario a grafia manoscritta, registri, atti d'archivio) consegnati quando si trova
-   l'indizio corrispondente. Contengono esattamente le informazioni delle carte Luogo più
-   dettagli d'atmosfera: mai indizi esclusivi. Stile: vedi
+   l'indizio corrispondente. Contengono esattamente le informazioni degli indizi nel
+   fascicolo Luoghi (le carte Luogo portano solo l'ambientazione, non gli indizi — vedi
+   1-bis) più dettagli d'atmosfera: mai indizi esclusivi. Stile: vedi
    `scripts/reperti/generate-reperti.js` (testo composto su un'unica foto di
    pergamena, font La Belle Aurore per le grafie, blend mode Multiply).
 2-ter. *Oggetti trovabili* — una **carta fisica per ogni oggetto** (dagli indizi dei
@@ -228,6 +229,20 @@ evento favorevole tipo "Eco Amica", 1–2 effetti di movimento, 1 danno diretto 
 "Sussurri") fino al totale. Non è vietato scendere a 20 se l'episodio è più snello — ma
 mai sotto, si perde varietà.
 
+**Dove piazzare i nemici (testo delle carte spawn, corretto nell'Ep. 1 dopo un
+playtest simulato):** un nemico si muove del suo Movimento verso l'eroe più
+vicino e attacca solo se adiacente (vedi "Turno dei nemici" sotto) — un nemico
+piazzato "sulla tessera/uscita **più lontana**" quindi spesso non raggiunge mai
+un gruppo che continua ad avanzare, restando un evento di minaccia solo sulla
+carta, mai in pratica. Le carte spawn di famiglia vanno scritte piazzando il
+nemico **"sull'uscita più vicina agli eroi"** della tessera corrente (stesso
+schema di "Cani dei Moli", già così nell'Ep. 1), non sulla tessera/uscita più
+lontana — fanno eccezione, deliberatamente, le carte che piazzano **all'ingresso
+della Banchina/punto di partenza** (inseguitori da dietro, es. "Il Fonditore",
+"Ronda"): quelle restano lontane per tema (un nemico lento che non vi raggiunge
+mai è comunque narrativamente giusto, vedi il Fonditore "non corre mai") e le
+carte "si attiva subito" (già adiacenti per testo, es. "Cani dei Moli").
+
 **Nemici di riferimento (bilanciamento):** tre archetipi di truppa legati al culto, da
 riusare e variare — tuttofare = Adepto (Att +1, Dif 7, Fer 1, Mov 4, Danno 1);
 veloce-fragile = Cane dei Moli (Att +2, Dif 6, Fer 1, Mov 6, Danno 1, appare VICINO agli
@@ -276,9 +291,26 @@ Tyrlov) per le carte e **mappa a china su pergamena** per le tessere.
   raggiera** centrale con icona tematica in linea dorata: ogni FAMIGLIA di carte ha la
   sua icona (cappuccio, zampa, mestolo, tagliola, fumi, nota, occhio, campana, goccia,
   spirale, àncora). Le carte Luogo hanno un
-  pannello pergamena interno per il testo; i loro dorsi sono rosso-notte con numero
+  pannello pergamena interno per il **solo testo d'apertura** (l'ambientazione, 3–4
+  frasi): gli indizi **non stanno più sulla carta**, vivono in `Luoghi.pdf` (vedi sotto
+  e 3-bis) — la carta serve solo a mostrare ai giocatori dove sono, chi arbitra legge
+  gli indizi dal fascicolo. I loro dorsi sono rosso-notte con numero
   nel medaglione, i dorsi Minaccia verde-abisso con tripla onda. Le pagine dei dorsi
   seguono i fronti, specchiate in colonna, per la stampa fronte/retro sul lato lungo.
+- **Limite di lunghezza del testo in carta (verificato empiricamente, Ep. 1):** il
+  box di testo delle carte piccole (Minaccia, Approfondimento — Indizio Nascosto/
+  Testimone/Referto, Oggetto) regge comodamente **fino a ~65-70 parole**; oltre le
+  **~85-90** il testo riempie il box fino al bordo, zero margine, a rischio di
+  sforare se anche solo una parola cambia. Le carte Eroi (bio breve) e la Scheda
+  Personaggio (bio estesa) hanno un box diverso, molto più ampio: non c'è lo stesso
+  vincolo lì. Per ogni nuova carta Approfondimento: contare le parole prima di
+  finalizzare, restare sotto ~65-70, e se serve tagliare farlo togliendo ridondanze
+  (ripetizioni del nome del nascondiglio già chiaro dal contesto, "che fu di"/"che
+  è" superflui, subordinate che raddoppiano un'informazione già detta) **mai** il
+  nucleo garantito o la voce propria del tipo — l'immersività non si sacrifica,
+  si toglie il grasso, non l'osso. Verificare sempre a video dopo la generazione
+  (`node scripts/cardconjurer/generate-test.js "Titolo carta"`), non fidarsi del
+  solo conteggio.
 - **Tessere (200 mm, griglia 4×4, casella 50 mm — minimo per muovere comodo le
   miniature, nessuna PDF le forza a dimensione: vanno stampate a quella taglia):**
   stile mappa disegnata a china su pergamena: muri spessi a **doppia linea
@@ -347,9 +379,10 @@ Tyrlov) per le carte e **mappa a china su pergamena** per le tessere.
   chi arbitra), `Soluzione (non aprire)` (sigillata, con avvertimento iniziale).
   Le carte stesse (dorso Approfondimenti, titolo Oggetti) non mostrano MAI il
   luogo/tessera d'origine, solo `Luoghi.pdf` lo dice.
-- **`Luoghi.pdf` (`src/gen_narrator.py`):** una pagina per luogo più le tessere
-  che nascondono un oggetto da Cercare. Stile scheda personaggio: arte del
-  luogo/tessera fusa nello strappo trasparente reale di
+- **`Luoghi.pdf` (`src/gen_narrator.py`; il Preludio ha l'equivalente in
+  `gen_preludio.py::luoghi()`, stesso pattern):** una pagina per luogo più le
+  tessere che nascondono un oggetto da Cercare. Stile scheda personaggio: arte
+  del luogo/tessera fusa nello strappo trasparente reale di
   `artworks/background scheda personaggio.png` (la variante con lo strappo **in
   alto**, per opporsi visivamente alle schede eroe che usano quella in basso —
   vedi `torn_portrait(..., window=WINDOW_TOP)`), con numero/nome in alto a
@@ -362,10 +395,38 @@ Tyrlov) per le carte e **mappa a china su pergamena** per le tessere.
   apparizioni) la frase meccanica va mantenuta **verbatim** dentro il testo
   arricchito, non riscritta. La colonna si auto-adatta in altezza (riduce il
   font finché non entra, vedi `fit_desc()`) così si può scrivere quanto serve
-  senza contare le righe a mano. Sotto la riga separatrice, a piena larghezza,
-  l'elenco essenziale — solo `Tipo — carta "Titolo"` per ogni Approfondimento/
-  Oggetto di quel luogo/tessera, mai il loro contenuto: quello lo dice la carta
-  stessa una volta trovata.
+  senza contare le righe a mano. Sotto la riga separatrice, in ordine:
+  (1) **"indizi — leggeteli ad alta voce"**, i 3 indizi core del luogo
+  (`LUOGHI[n]['indizi']` in `gen_cards.py`, verbatim — la carta fisica non li
+  porta più, questa è la loro unica sede), poi una seconda riga separatrice e
+  (2) **"carte da prendere — solo per chi arbitra"**, l'elenco essenziale
+  `Tipo — carta "Titolo"` per ogni Approfondimento/Oggetto di quel luogo/
+  tessera, mai il loro contenuto (quello lo dice la carta stessa una volta
+  trovata) — questa seconda parte non va mai letta ad alta voce, è l'unica
+  informazione del fascicolo riservata a chi arbitra.
+- **Taratura dell'arte in `Luoghi.pdf` (verifica sempre a video, non dare per
+  buono il ritaglio di default):** la finestra è stretta e verticale, ma quasi
+  tutta l'arte sorgente è panoramica (2688×1792 tipico da Midjourney) — col
+  ritaglio "cover" di default (`overscan=0.75, top_margin=0, center_x=0.5`) si
+  vede solo il 57% superiore dell'immagine, centrato orizzontalmente: se il
+  soggetto (un volto, un oggetto chiave) non è già in quella fascia, sparisce
+  dal ritaglio anche se è ben visibile nell'arte originale — successo
+  nell'Ep. 1 a metà delle 8 pagine. Dopo aver generato ogni pagina, guarda
+  l'arte originale in `artworks/` e confrontala col render: se il soggetto non
+  si vede bene, aggiungi una voce in `LUOGHI_CROP` (`gen_narrator.py`) o
+  `LUOGHI_P_CROP` (`gen_preludio.py`), stesso principio di `MINI_CROP` per le
+  miniature — `overscan` più basso mostra più immagine (meno zoom, utile se il
+  soggetto è centrato verticalmente invece che in alto, es. una campana a
+  mezza altezza); `top_margin` sposta il ritaglio più in basso nell'immagine
+  (utile se il soggetto è più in basso del previsto, es. dei volti); `center_x`
+  (0=sinistra, 0.5=centro, 1=destra) sposta il ritaglio in orizzontale (utile
+  se il soggetto non è centrato, es. un personaggio spostato a destra
+  nell'inquadratura) — non esisteva prima di questa correzione, è stato
+  aggiunto a `_cover_image()`/`torn_portrait()` in `src/deluxe_style.py`
+  apposta per questo. Regola pratica: parti da un piccolo aggiustamento
+  (overscan 0.1-0.15, top_margin 10-15mm, center_x 0.15-0.85), rigenera,
+  guarda di nuovo — non serve calcolare i valori esatti, bastano 1-2 iterazioni
+  a occhio.
 - **Tipi di carta completi:** Eroi, Nemici, Minacce, Luoghi, Indizi Nascosti,
   Testimoni, Referti, **Oggetti**. Luoghi e Indizi Nascosti riusano la stessa
   arte (stesso soggetto, due carte); Testimoni/Referti riusano l'arte del loro
@@ -398,12 +459,14 @@ Tyrlov) per le carte e **mappa a china su pergamena** per le tessere.
 
 Ogni testo deve far *vedere* la scena, non riassumerla. Regole:
 
-- **Carte Luogo:** il testo d'apertura è un quadro di 3–4 frasi con dettagli
-  sensoriali (odori, suoni, temperatura) e un dettaglio umano che stona o inquieta
-  (la cena intatta sotto il panno, le mani nascoste dietro la schiena, lo sguardo
-  che evita il vostro). I PNG parlano in discorso diretto tra virgolette basse «».
-  Gli indizi restano fattuali e asciutti: l'atmosfera sta nel testo, la deduzione
-  negli indizi.
+- **Carte Luogo:** il testo d'apertura (l'unico testo stampato sulla carta fisica,
+  vedi Bibbia Visiva — gli indizi non ci stanno più) è un quadro di 3–4 frasi con
+  dettagli sensoriali (odori, suoni, temperatura) e un dettaglio umano che stona o
+  inquieta (la cena intatta sotto il panno, le mani nascoste dietro la schiena, lo
+  sguardo che evita il vostro). I PNG parlano in discorso diretto tra virgolette
+  basse «». Gli **indizi** (3 per luogo, in `LUOGHI[n]['indizi']`, stampati solo in
+  `Luoghi.pdf`, mai sulla carta) restano fattuali e asciutti: l'atmosfera sta nel
+  testo d'apertura, la deduzione negli indizi.
 - **Carte Minaccia:** sempre una riga di *flavor in corsivo* prima dell'effetto,
   massimo 12 parole, in seconda persona plurale, che colpisce un senso o insinua
   un dubbio (es. «Qualcuno pronuncia il vostro nome. Con la vostra voce.»).
@@ -411,16 +474,23 @@ Ogni testo deve far *vedere* la scena, non riassumerla. Regole:
 - **Tessere:** 2–3 frasi sensoriali sul luogo, poi l'eventuale regola in chiaro
   (prove, apparizioni) scritta in tono da regolamento. Non superare ~15 righe
   misurate a 8.3pt su 116mm di larghezza.
-- **`Luoghi.pdf` (chi arbitra, non i giocatori):** stessi fatti e battute della
-  carta Luogo/Tessera, ma **molto più estesi e sensoriali** — qui lo spazio non
-  è tirato, la colonna si auto-adatta, quindi si scrive un quadro pieno: non solo
-  odore/suono/temperatura ma anche un piccolo dettaglio che si muove o cambia
-  durante la scena (un'ombra, un rumore che si ferma quando ci si ferma, una
-  mano che trema), utile a chi arbitra per improvvisare risposte alle domande
-  dei giocatori. Mai una nuova informazione o un indizio che non sia già sulla
-  carta: solo più aria attorno agli stessi fatti. Le eventuali regole in chiaro
-  (prove NERVI, danni, apparizioni) restano **testo verbatim**, mai
+- **`Luoghi.pdf` — descrizione atmosferica (per chi arbitra, letta o
+  improvvisata a voce a tutti):** stessi fatti e battute del testo d'apertura
+  della carta Luogo/Tessera, ma **molto più estesi e sensoriali** — qui lo
+  spazio non è tirato, la colonna si auto-adatta, quindi si scrive un quadro
+  pieno: non solo odore/suono/temperatura ma anche un piccolo dettaglio che si
+  muove o cambia durante la scena (un'ombra, un rumore che si ferma quando ci
+  si ferma, una mano che trema), utile a chi arbitra per improvvisare risposte
+  alle domande dei giocatori. Mai una nuova informazione o un indizio che non
+  sia già altrove: solo più aria attorno agli stessi fatti. Le eventuali regole
+  in chiaro (prove NERVI, danni, apparizioni) restano **testo verbatim**, mai
   parafrasate: sono meccanica, non atmosfera.
+- **`Luoghi.pdf` — sezione indizi (leggeteli ad alta voce, sotto la descrizione
+  atmosferica):** qui gli indizi sono riportati **verbatim**, esattamente come
+  scritti per `LUOGHI[n]['indizi']` — stesso registro fattuale/asciutto della
+  voce "Carte Luogo" sopra, non vanno riscritti in tono più letterario solo
+  perché ora c'è più spazio: restano indizi da dedurre, non prosa da assaporare
+  (quella è già la descrizione atmosferica appena sopra).
 - **Schede eroe:** sezione «Chi sei» di 3 frasi: origine, ferita o svolta che li
   ha portati alla Società, un tratto o una battuta che li definisce. Niente
   elenchi: prosa in corsivo, seconda o terza persona coerente con le esistenti.
@@ -437,7 +507,9 @@ Ogni testo deve far *vedere* la scena, non riassumerla. Regole:
   onirico/soprannaturale è coerente, non un'eccezione bolt-on). Il nucleo garantito
   (vedi 1-bis) va infilato dentro il testo, restando nel registro proprio del tipo:
   mai un frammento a parte che rompe il tono, nessuna carta deve suonare "diversa"
-  dalle altre del suo stesso tipo.
+  dalle altre del suo stesso tipo. Restare sotto **~65-70 parole** (vedi il limite
+  di lunghezza in Bibbia Visiva): sono queste le carte più a rischio di riempire
+  il box fino al bordo, perché portano sia atmosfera sia il nucleo garantito.
 - **Carte Oggetto:** una riga di flavor (mai un dato di gioco, solo atmosfera —
   "freddo, pesante, già piegato da altre porte"), poi l'effetto meccanico copiato 1:1
   dalla fonte, senza aggettivi, come le Minacce.
@@ -487,8 +559,17 @@ Ogni testo deve far *vedere* la scena, non riassumerla. Regole:
       quadri sensoriali sui Luoghi, «Chi sei» sugli eroi) e stanno nei riquadri?
 - [ ] Il file PDF 06 (Aiuto-Giocatore) è aggiornato e sta ancora su una sola pagina?
 - [ ] `Luoghi.pdf` esiste per il nuovo episodio, con una pagina per luogo (più le
-      tessere che nascondono un oggetto) e descrizioni dense e coinvolgenti (non il
-      testo terso della carta) per ognuno, elenco Approfondimenti/Oggetto corretto?
+      tessere che nascondono un oggetto), descrizione atmosferica densa (non il testo
+      terso della carta), sezione **indizi verbatim leggibile ad alta voce** ed elenco
+      Approfondimenti/Oggetto (solo per chi arbitra) corretto?
+- [ ] Le carte Luogo mostrano **solo** il testo d'apertura (mai gli indizi)? Ogni carta
+      Approfondimento resta sotto ~65-70 parole (verificato a video, non solo contate)?
+- [ ] Hai guardato ogni pagina di `Luoghi.pdf` a confronto con l'arte originale in
+      `artworks/`? Se il soggetto non si vede bene nel ritaglio, hai tarato
+      `LUOGHI_CROP`/`LUOGHI_P_CROP` (overscan/top_margin/center_x)?
+- [ ] Le carte spawn di nemici piazzano "sull'uscita più vicina agli eroi" (non
+      "più lontana"), salvo le eccezioni tematiche dichiarate (inseguitori dalla
+      Banchina, carte "si attiva subito")?
 
 ---
 
