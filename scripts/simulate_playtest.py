@@ -79,6 +79,12 @@ CARD_SPAWN = {
 # (T1, il punto di ingresso) proporzionale a quante tessere il gruppo ha gia'
 # percorso (round_n). Le carte con subito=True sopra restano invariate: si
 # attivano comunque nel round di piazzamento, la loro distanza e' 0.
+# NOTA: accorciare/eliminare il livello "tessera diversa" (provato e scartato,
+# vedi log di sessione) NON cambia se un nemico raggiunge un gruppo che
+# avanza: quello che decide e' solo il confronto Movimento-nemico vs
+# CASELLE_TESSERA guadagnate dal gruppo ogni round. Con Movimento 4 (Adepto,
+# Sgherro) contro CASELLE_TESSERA=6, quei nemici restano indietro comunque,
+# qualunque sia la distanza di partenza.
 SPAWN_DISTANZA = {
     'ADEPTO IN AGGUATO': CASELLE_TESSERA,        # uscita piu' lontana, stessa tessera
     'VOLTI TRA LE CASSE': CASELLE_TESSERA * 2,   # tessera diversa, la piu' lontana
@@ -407,6 +413,7 @@ def simula_spedizione(party, indagine, log, run_seed):
     adescati = []  # nemici che l'Esca preziosa (Carbone) distoglie per il round corrente
     chiave = False
     ruggero_libero = False
+    tessere_cercate = set()  # luogo_label gia' perquisiti (Cercare, una volta a tessera)
     n_players_actions = len(party) * 2
 
     ability_uses = {n: dict() for n in party}
@@ -648,6 +655,28 @@ def simula_spedizione(party, indagine, log, run_seed):
                                 if attack_roll(log, n, h['vigore'], armed[n], extra['nome'], extra['dif']):
                                     extra['fer'] -= 1
                                     log(f'    {extra["nome"]}: {max(extra["fer"], 0)}/{extra["fer_max"]} ferite residue.')
+                continue
+            # Senza bersaglio in mischia, un eroe non sta comunque fermo (regola vera:
+            # Rianimare e Cercare sono azioni disponibili a chiunque, non solo ad
+            # Attilio o a chi ha un'abilita' dedicata). Priorita': un alleato a terra
+            # prima di tutto, poi perquisire la tessera se non gia' fatto in questa
+            # visita. L'oggetto eventualmente trovato non e' modellato (il simulatore
+            # non conosce quale tessera nasconda cosa): logghiamo solo l'esito della
+            # prova, non un oggetto specifico.
+            if down:
+                bersaglio_down = next(iter(down))
+                down.discard(bersaglio_down)
+                salute[bersaglio_down] = min(salute_max[bersaglio_down], 2)
+                log(f'    [AZIONE] {n} rianima {bersaglio_down}: torna in piedi con 2 Salute.')
+                continue
+            if luogo_label not in tessere_cercate:
+                tessere_cercate.add(luogo_label)
+                ok_cerca, _ = check(log, n, 'ACUME', h['acume'], 'Media')
+                if ok_cerca:
+                    log(f'    {n} cerca sulla tessera e trova qualcosa (oggetto non modellato '
+                        f'in questa simulazione).')
+                else:
+                    log(f'    {n} cerca sulla tessera: niente da trovare qui, o prova fallita.')
                 continue
             log(f'    {n}: nessun bersaglio, avanza / assiste il gruppo.')
 
