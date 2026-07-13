@@ -98,6 +98,15 @@ HEROES = [
                'convenienza, il fanatico indietreggia davanti alla sua autorità: '
                'rimuovetelo dal tabellone.'),
          equip='Bastone da magistrato (arma, +1), toga ripiegata, fascicoli rilegati.'),
+    dict(nome='MORA “SPILLA” FANTI', ruolo='La Contrabbandiera dei Canali', acume=3, vigore=2, nervi=1,
+         salute=7, difesa=8,
+         abil=('<b>Ombra fiuta</b> — In indagine: una volta per episodio, prima di scegliere il '
+               'prossimo luogo, il furetto Ombra va in avanscoperta — sapete quanti '
+               '<b>Approfondimenti</b> nasconde (il numero, mai il tipo). In spedizione, '
+               '<b>Scambio di mano</b> (2 usi, azione): Ombra porta un oggetto d’equipaggiamento '
+               'o un Oggetto/Reperto trovato da un eroe a un altro non adiacente sulla stessa '
+               'tessera.'),
+         equip='Gancio da barcaiola (arma, +1), lanterna cieca, involto di contrabbando, Ombra (furetto).'),
 ]
 
 # ================================================================= INDAGINE

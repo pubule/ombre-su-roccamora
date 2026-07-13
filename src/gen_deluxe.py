@@ -51,7 +51,7 @@ def stat_box(c, x, y, w, label, value):
 # stessa arte usata per le carte Eroi. Solo la variante "2" (strappo in basso a
 # destra): l'altra invaderebbe nome/statistiche/abilità in alto, troppo densi.
 PORTRAIT = ['Elena.png', 'Attilio.png', 'Sibilla.png', 'Nino.png', 'Ottone.png', 'Carla.png',
-            'Lazzaro.png', 'Celso.png', 'Fulgenzio.png', 'Ottavio.png']
+            'Lazzaro.png', 'Celso.png', 'Fulgenzio.png', 'Ottavio.png', 'Mora.png']
 TORN_BG = 'background scheda personaggio 2.png'
 CUT_X = 105*mm  # bordo sinistro dello strappo trasparente: le righe da scrivere si fermano prima
 

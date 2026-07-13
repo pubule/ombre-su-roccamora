@@ -220,6 +220,21 @@ BIO_SCHEDA = {
         "ancora togliendosi il cappello \u2014 meta\u2019 per rispetto, meta\u2019 per paura. Sa che il "
         "culto compra i bravacci a giornata. E sa che nessuno di loro morira\u2019 per una "
         "causa che non paga il sabato.",
+    'MORA \u201cSPILLA\u201d FANTI':
+        "A Roccamora la chiamano \u201cSpilla\u201d perche\u2019 dicono che con un sandolo infila "
+        "qualunque canale, anche quelli che sulle mappe non ci sono piu\u2019. Di giorno "
+        "trasporta legname e sale; di notte, quello che paga meglio \u2014 tabacco di "
+        "contrabbando, lettere che non devono passare per la posta, una volta un uomo "
+        "che doveva sparire da una citta\u2019 e comparire in un\u2019altra. Ha imparato a leggere "
+        "l\u2019acqua prima di leggere le lettere, e i capelli cortissimi se li e\u2019 tagliata "
+        "lei stessa, a coltello, il primo inverno che ha dovuto passare per un ragazzo "
+        "per non farsi fermare alla dogana. Ombra, il furetto che le dorme in tasca, "
+        "viene da un carico mai consegnato: doveva finire in un laboratorio universitario "
+        "per essere sezionato, e Mora ha deciso che quella notte il fiume avrebbe reso "
+        "un favore a qualcuno per una volta. Conosce ogni sporgenza, ogni cancello "
+        "rotto, ogni guardia corruttibile tra la Banchina e l\u2019Archivio. Non le importa "
+        "cosa il culto nasconda sotto Roccamora: le importa che le sue rotte, di colpo, "
+        "non sono piu\u2019 sicure.",
 }
 
 BIO = {
@@ -275,6 +290,11 @@ BIO = {
         "Trent\u2019anni di sentenze: conosce per nome ogni criminale della citt\u00e0 e il rimorso "
         "di ogni fascicolo archiviato troppo in fretta. Il caso del pozzo lo firm\u00f2 lui, "
         "nel 1876. In pensione ha smesso di dormire bene e ha cominciato a rimediare.",
+    'MORA \u201cSPILLA\u201d FANTI':
+        "Guida un sandolo tra i moli di notte per conto di chi paga meglio della legge. "
+        "Conosce ogni canale di Roccamora, anche quelli che sulle mappe non ci sono pi\u00f9. "
+        "Il furetto Ombra le dorme in tasca da quando l\u2019ha salvato da un carico mai "
+        "consegnato.",
 }
 
 _FLAVOR = {

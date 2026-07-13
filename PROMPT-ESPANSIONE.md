@@ -23,8 +23,10 @@ esplicita.
   (Alienista: sblocca i Presagi, aura +2 NERVI), Padre Celso Marani (Esorcista Sospeso:
   Discernimento in indagine, Litania anti-Canto in spedizione), Fulgenzio Carbone
   (Antiquario dell'Occulto: esamina Oggetti/Reperti, Esca preziosa), Ottavio Brera
-  (Magistrato in Pensione: sblocca i Referti, rimuove un nemico Malavita). Roster di
-  dieci, massimo cinque in tavola: la composizione del party e' essa stessa una scelta
+  (Magistrato in Pensione: sblocca i Referti, rimuove un nemico di truppa), Mora "Spilla"
+  Fanti (Contrabbandiera dei Canali, col furetto Ombra: conta gli Approfondimenti di un
+  luogo prima di sceglierlo, sposta oggetti tra eroi in spedizione). Roster di undici,
+  massimo cinque in tavola: la composizione del party e' essa stessa una scelta
   di gioco (chi resta a casa lascia chiuse le sue porte in indagine).
   Presidente: il misterioso "M.".
 - **L'antagonista di campagna** è il **Coro Sommerso**, confraternita bandita nel 1741 e
@@ -205,7 +207,7 @@ cultista — specialmente in episodi dove il culto non è (ancora) l'antagonista
 per rompere la monotonia visiva/tattica se un episodio ha già molti nemici a tema.
 Data: `NEMICI` in `src/gen_cards.py` (già presenti, non ridefinirli).
 
-**Eroi (invariati salvo campagne):** roster di dieci, statistiche 1–3 con somma sempre 6
+**Eroi (invariati salvo campagne):** roster di undici, statistiche 1–3 con somma sempre 6
 (max 4 con migliorie), Salute = 5+VIGORE, Difesa 8 (9 solo Nino), armi +1 all'attacco.
 Abilità: una nicchia indagine + una spedizione a testa, mai sovrapposte tra eroi, sempre
 a usi contati (mai "per round": scala male col numero di giocatori). Migliorie standard:

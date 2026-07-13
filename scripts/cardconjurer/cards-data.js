@@ -64,6 +64,12 @@ const HEROES = [
     type: 'Eroe — Il Magistrato in Pensione',
     rules: '{i}Il Magistrato in Pensione{/i}{divider}Trent’anni di sentenze: conosce per nome ogni criminale della città e il rimorso di ogni fascicolo archiviato troppo in fretta. Il caso del pozzo lo firmò lui, nel 1876. In pensione ha smesso di dormire bene e ha cominciato a rimediare.',
   },
+  {
+    art: 'artworks/Mora.png',
+    title: 'Mora “Spilla” Fanti',
+    type: 'Eroe — La Contrabbandiera dei Canali',
+    rules: '{i}La Contrabbandiera dei Canali{/i}{divider}Guida un sandolo tra i moli di notte per conto di chi paga meglio della legge. Conosce ogni canale di Roccamora, anche quelli che sulle mappe non ci sono più. Il furetto Ombra le dorme in tasca da quando l’ha salvato da un carico mai consegnato.',
+  },
 ];
 
 const NEMICI = [

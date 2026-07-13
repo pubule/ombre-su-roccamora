@@ -115,10 +115,10 @@ def regolamento():
     e.append(LI('Una busta in cui sigillare il PDF <b>Soluzione</b>: si apre solo a fine indagine.'))
 
     e.append(P('I PERSONAGGI', 'h1'))
-    e.append(P("Il roster della Societ\u00e0 conta <b>dieci eroi</b>: in tavola ne scendono al massimo "
+    e.append(P("Il roster della Societ\u00e0 conta <b>undici eroi</b>: in tavola ne scendono al massimo "
                "cinque, gli altri restano di riserva (potete cambiarli tra un episodio e l\u2019altro; "
                "migliorie e cicatrici restano a chi le ha guadagnate). Per scegliere, stendete sul "
-               "tavolo le <b>10 carte Eroe</b> (ritratto, ruolo, chi sono \u2014 cartelle "
+               "tavolo le <b>11 carte Eroe</b> (ritratto, ruolo, chi sono \u2014 cartelle "
                "<b>cards/Eroi/</b>): ogni giocatore ne prende una (in 2 giocatori potete anche "
                "guidarne due a testa), poi passa alla Scheda Personaggio corrispondente per "
                "statistiche e abilit\u00e0. Scegliere chi portare \u00e8 gi\u00e0 una mossa: ogni eroe apre "
