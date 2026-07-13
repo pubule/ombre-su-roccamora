@@ -51,6 +51,12 @@ LOG_DIR = os.path.join(ROOT, 'logs', 'playtest', SESSION)
 TOKEN_POOL_BASE = {'ADEPTO INCAPPUCCIATO': 10, 'CANE DEI MOLI': 3, 'IL FONDITORE': 3,
                     'LO SGHERRO': 4, 'IL SICARIO': 2}
 
+# Le tessere sono griglie 4x4 caselle (vedi scripts/tiles/generate-tiles.js,
+# cell = S/4): 6 e' la diagonale Manhattan massima da un angolo all'altro
+# (niente diagonali di movimento, regola vera). Usata per stimare quante
+# caselle separano un nemico appena piazzato dal gruppo.
+CASELLE_TESSERA = 6
+
 # titolo carta Minaccia -> (nemico da piazzare, quanti, si attiva subito)
 CARD_SPAWN = {
     'ADEPTO IN AGGUATO': ('ADEPTO INCAPPUCCIATO', 1, False),
@@ -64,6 +70,24 @@ CARD_SPAWN = {
     'BRAVI SUL MOLO': ('LO SGHERRO', 1, False),
     'IL BRANCO': ('LO SGHERRO', 2, False),
     'LAMA NEL BUIO': ('IL SICARIO', 1, True),
+}
+# Distanza di piazzamento (caselle) desunta dal testo della carta ("uscita/
+# tessera piu' lontana" vs "ingresso/adiacente"): un nemico non adiacente non
+# puo' attaccare finche' non colma la distanza col proprio Movimento (regola
+# vera, gen_docs.py "Ogni nemico si muove del suo Movimento verso l'eroe piu'
+# vicino... se adiacente, attacca"). None = dinamica: distanza dalla Banchina
+# (T1, il punto di ingresso) proporzionale a quante tessere il gruppo ha gia'
+# percorso (round_n). Le carte con subito=True sopra restano invariate: si
+# attivano comunque nel round di piazzamento, la loro distanza e' 0.
+SPAWN_DISTANZA = {
+    'ADEPTO IN AGGUATO': CASELLE_TESSERA,        # uscita piu' lontana, stessa tessera
+    'VOLTI TRA LE CASSE': CASELLE_TESSERA * 2,   # tessera diversa, la piu' lontana
+    'IL FALCETTO NEL BUIO': CASELLE_TESSERA,     # ingresso stessa tessera, alle spalle
+    'LA VEDETTA': 0,                             # adiacente all'eroe piu' isolato
+    'RONDA': None,                               # ingresso Banchina T1: dinamica
+    'IL FONDITORE': None,                        # ingresso Banchina T1: dinamica
+    'BRAVI SUL MOLO': None,                       # ingresso Banchina T1: dinamica
+    'IL BRANCO': CASELLE_TESSERA * 2,            # tessera diversa, la piu' lontana
 }
 INSIDIA = {  # titolo -> (difficolta', danno, chi prova)
     'TRAPPOLA DI CERA': ('Media', 1, 'l’eroe più avanzato'),
@@ -250,6 +274,17 @@ def simula_indagine(party, log):
             break
         candidati.sort(key=punteggio)
         l = candidati[0]
+        # Chiudere in anticipo: col nucleo garantito gia' in mano (>=1 Approfondimento
+        # letto) e poche ore residue, un gruppo plausibile preferisce banchare il
+        # Vantaggio (FASE 1 del Regolamento) piuttosto che rincorrere un ultimo luogo
+        # non strutturale (non serve a sbloccarne altri). Senza questa soglia
+        # SLANCIO/PREPARATI non scattano mai: 6 ore bastano appena per gli 8 luoghi,
+        # il gruppo le spenderebbe sempre tutte sui nuovi luoghi.
+        if approf_letti >= 1 and ore <= 2 and l['n'] not in (1, 2, 3):
+            log(f'[h{ora_corrente:02d}:00] Il gruppo ha già il nucleo garantito in mano: chiude '
+                f'l’indagine con {ore} ora/e ancora sul Taccuino invece di visitare anche il '
+                f'Luogo {l["n"]} — {l["nome"]}.')
+            break
         visitati.append(l['n'])
         log(f'[h{ora_corrente:02d}:00] Visita Luogo {l["n"]} — {l["nome"]}  (1 ora)')
         vero_luogo = LUOGHI_BY_N.get(l['n'])
@@ -284,13 +319,26 @@ def simula_indagine(party, log):
         ore -= 1
         ora_corrente += 1
 
-    while ore > 0 and da_rivisitare:
+    # Un gruppo plausibile non insegue OGNI Approfondimento mancato a costo di
+    # spendersi tutte le ore residue: torna a cogliere il rimpianto piu' sentito
+    # (il primo mancato) poi preferisce chiudere con ore in banca (Vantaggio,
+    # vedi FASE 1 nel Regolamento) piuttosto che il resto. Senza questo limite
+    # SLANCIO/PREPARATI non scatta mai in simulazione: l'euristica precedente
+    # spendeva sempre fino all'ultima ora disponibile sulle rivisite.
+    RIVISITE_MASSIME = 1
+    rivisite = 0
+    while ore > 0 and da_rivisitare and rivisite < RIVISITE_MASSIME:
         l = da_rivisitare.pop(0)
         log(f'[h{ora_corrente:02d}:00] Ritorno al Luogo {l["n"]} — {l["nome"]} per cogliere '
             f'l’Approfondimento mancato (1 ora, nessun nuovo tiro).')
         tenta_approfondimenti(l)
         ore -= 1
         ora_corrente += 1
+        rivisite += 1
+    if ore > 0 and da_rivisitare:
+        log(f'[h{ora_corrente:02d}:00] Restano {len(da_rivisitare)} Approfondimento/i mancato/i '
+            f'ancora recuperabile/i, ma il gruppo preferisce chiudere l’indagine con {ore} '
+            f'ora/e ancora sul Taccuino (Vantaggio per la Spedizione) piuttosto che inseguirli tutti.')
 
     ore_avanzate = ore
     if ore_avanzate >= 3:
@@ -311,8 +359,10 @@ def simula_indagine(party, log):
     return dict(ore_avanzate=ore_avanzate, tier=tier, diapason=diapason, visitati=visitati)
 
 
-def spawn_from_card(log, title, pool, enemies):
+def spawn_from_card(log, title, pool, enemies, round_n):
     nome, n, subito = CARD_SPAWN[title]
+    dist_base = SPAWN_DISTANZA.get(title, 0)
+    distanza = dist_base if dist_base is not None else CASELLE_TESSERA * max(1, round_n)
     piazzati = 0
     for _ in range(n):
         if pool[nome] <= 0:
@@ -322,9 +372,10 @@ def spawn_from_card(log, title, pool, enemies):
         piazzati += 1
         base = NEMICO[nome]
         enemies.append(dict(nome=nome, fer=base['fer'], fer_max=base['fer'], dif=base['dif'],
-                             att=base['att'], dan=base['dan'], mov=base['mov']))
+                             att=base['att'], dan=base['dan'], mov=base['mov'], distanza=distanza))
     if piazzati:
-        log(f'    Piazzati {piazzati}x {nome} (pool residua: {pool[nome]}).')
+        extra = f', a {distanza} caselle dal gruppo' if distanza > 0 else ', già adiacenti'
+        log(f'    Piazzati {piazzati}x {nome} (pool residua: {pool[nome]}){extra}.')
     return subito and piazzati
 
 
@@ -439,7 +490,7 @@ def simula_spedizione(party, indagine, log, run_seed):
             titolo, testo, tipo, subito = c
             log(f'  [MINACCIA] {titolo} ({tipo}) — {testo[:90]}{"…" if len(testo) > 90 else ""}')
             if titolo in CARD_SPAWN:
-                subito_attiva = spawn_from_card(log, titolo, pool, enemies)
+                subito_attiva = spawn_from_card(log, titolo, pool, enemies, round_n)
                 if subito_attiva and vivi():
                     e = enemies[-1]
                     bersaglio = random.choice(vivi())
@@ -461,10 +512,13 @@ def simula_spedizione(party, indagine, log, run_seed):
                     log(f'    Segnalino Canto: {canto}/3.')
                     if canto >= 3:
                         log('    Il Canto raggiunge 3: il Custode della Cera si desta in anticipo!')
-                else:
+                elif custode['fer'] > 0:
                     custode['fer'] = min(custode['fer_max'], custode['fer'] + 1)
                     custode_stunned = False
                     log(f'    Il Custode recupera 1 ferita ({custode["fer"]}/{custode["fer_max"]}) e si attiva subito.')
+                else:
+                    log('    Il Custode è già stato sconfitto: nessun effetto su di lui (il culto '
+                        'sente comunque il rituale avvicinarsi, vedi Regolamento).')
             elif titolo == 'PRESAGIO':
                 log('    Nessun effetto meccanico (tensione).')
             elif titolo == 'ECO AMICA':
@@ -474,14 +528,27 @@ def simula_spedizione(party, indagine, log, run_seed):
             else:
                 log('    (carta senza effetto modellato in questa simulazione)')
 
-    def fase_nemici(luogo_label):
+    def fase_nemici(luogo_label, party_in_transito):
         nonlocal custode_stunned
+        # Il gruppo che avanza di tessera "guadagna" CASELLE_TESSERA caselle di
+        # vantaggio sui nemici non ancora aggrappati: chi ha Movimento piu' basso
+        # (es. il Fonditore, mov 2) resta semplicemente indietro, come da testo
+        # ("non corre mai"). Da fermi (combattimento al Custode) il vantaggio e' 0.
+        guadagno = CASELLE_TESSERA if party_in_transito else 0
         for e in list(enemies):
             if e['fer'] <= 0 or not vivi():
                 continue
             if e in adescati:
                 log(f'  {e["nome"]} si dirige verso l’esca (Carbone): non attacca questo round.')
                 continue
+            distanza = e.get('distanza', 0)
+            if distanza > 0:
+                e['distanza'] = max(0, distanza + guadagno - e['mov'])
+                if e['distanza'] > 0:
+                    log(f'  {e["nome"]} si avvicina (Movimento {e["mov"]}): ancora '
+                        f'{e["distanza"]} caselle prima di raggiungere il gruppo.')
+                    continue
+                log(f'  {e["nome"]} raggiunge il gruppo.')
             bersaglio = random.choice(vivi())
             difesa = 8
             log(f'  {e["nome"]} attacca {bersaglio}:')
@@ -502,7 +569,11 @@ def simula_spedizione(party, indagine, log, run_seed):
         nonlocal chiave, ruggero_libero, custode, custode_stunned, diapason_usato, canto, voce_ferma_scade_round
         for n in vivi():
             h = HERO[n]
-            bersagli_vivi = [e for e in enemies if e['fer'] > 0]
+            # Attaccare in mischia richiede un nemico adiacente (regola vera): chi non
+            # ha ancora colmato la propria distanza (vedi fase_nemici) non e' un
+            # bersaglio valido per l'azione Attaccare, solo per abilita' "in vista"
+            # (Esca preziosa, Malacarne, sotto) che restano sugli `enemies` grezzi.
+            bersagli_vivi = [e for e in enemies if e['fer'] > 0 and e.get('distanza', 0) <= 0]
             if custode and custode['fer'] > 0:
                 bersagli_vivi.append(custode)
             # Carbone: Esca preziosa, devia fino a 2 nemici (non il Custode) dal
@@ -569,7 +640,8 @@ def simula_spedizione(party, indagine, log, run_seed):
                         if bersaglio_e is custode:
                             log('    *** IL CUSTODE DELLA CERA È SCONFITTO. ***')
                         elif ability_uses[n].get('cleave_per_turno'):
-                            altri = [e for e in enemies if e is not bersaglio_e and e['fer'] > 0]
+                            altri = [e for e in enemies
+                                     if e is not bersaglio_e and e['fer'] > 0 and e.get('distanza', 0) <= 0]
                             if altri:
                                 extra = altri[0]
                                 log(f'    [ABILITÀ] {n} usa Colpo da macello: attacco extra su {extra["nome"]}.')
@@ -607,11 +679,12 @@ def simula_spedizione(party, indagine, log, run_seed):
             for _ in range(2):
                 base = NEMICO['ADEPTO INCAPPUCCIATO']
                 enemies.append(dict(nome='ADEPTO INCAPPUCCIATO', fer=base['fer'], fer_max=base['fer'],
-                                     dif=base['dif'], att=base['att'], dan=base['dan'], mov=base['mov']))
+                                     dif=base['dif'], att=base['att'], dan=base['dan'], mov=base['mov'],
+                                     distanza=0))  # rivelati nella stessa stanza del gruppo
         diapason = {'has': indagine['diapason']}
         fase_eroi(tappa)
         fase_minaccia()
-        fase_nemici(tappa)
+        fase_nemici(tappa, True)
         if not vivi():
             esito = 'SCONFITTA (party wipe)'
             break
@@ -626,7 +699,7 @@ def simula_spedizione(party, indagine, log, run_seed):
             log(f'--- Round {round_n}: scontro nella Cripta della Cera ---')
             fase_eroi('T6')
             fase_minaccia()
-            fase_nemici('T6')
+            fase_nemici('T6', False)
             if not vivi():
                 esito = 'SCONFITTA (party wipe)'
                 break
@@ -653,7 +726,7 @@ def simula_spedizione(party, indagine, log, run_seed):
             log(f'--- Round {round_n}: rientro verso T1 ---')
             fase_eroi('rientro')
             fase_minaccia()
-            fase_nemici('rientro')
+            fase_nemici('rientro', True)
             if not vivi():
                 esito = 'SCONFITTA (party wipe durante il rientro)'
                 break
@@ -695,11 +768,17 @@ def main():
     # bersaglio nell'ordine del gruppo, ecc. Il nome del run finisce nel path
     # del log: usane uno che dica QUALE dinamica stai stressando.
     runs = [
-        ('run-01_2eroi_low', ['ELENA FOSCO', 'OTTONE “MEZZENA” MASSARI'], 1001),
-        ('run-02_4eroi_nuovi', ['SIBILLA REVE', 'CARLA DOSTI', 'DOTT. LAZZARO SERRA',
-                                 'PADRE CELSO MARANI'], 2002),
-        ('run-03_5eroi_misto', ['ELENA FOSCO', 'OTTONE “MEZZENA” MASSARI', 'FULGENZIO CARBONE',
-                                 'OTTAVIO BRERA', 'MORA “SPILLA” FANTI'], 3003),
+        ('run-04_senza_healer_5forte', ['OTTONE “MEZZENA” MASSARI', 'ELENA FOSCO',
+                                         'NINO “GRIMALDELLO” CAUTO', 'SIBILLA REVE',
+                                         'MORA “SPILLA” FANTI'], 4004),
+        ('run-05_minimo_con_healer', ['DOTT. ATTILIO MARN', 'OTTONE “MEZZENA” MASSARI'], 5005),
+        ('run-06_cervelli_senza_tank', ['ELENA FOSCO', 'DOTT. LAZZARO SERRA', 'FULGENZIO CARBONE',
+                                         'OTTAVIO BRERA', 'MORA “SPILLA” FANTI'], 6006),
+        ('run-07_cinque_nuovi_combo', ['DOTT. LAZZARO SERRA', 'PADRE CELSO MARANI',
+                                        'FULGENZIO CARBONE', 'OTTAVIO BRERA',
+                                        'MORA “SPILLA” FANTI'], 7007),
+        ('run-08_turnorder_ottone_prima_brera', ['OTTONE “MEZZENA” MASSARI', 'ELENA FOSCO',
+                                                   'OTTAVIO BRERA', 'FULGENZIO CARBONE'], 8008),
     ]
     riepilogo = []
     for nome, party, seed in runs:
