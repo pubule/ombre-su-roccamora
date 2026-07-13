@@ -162,10 +162,13 @@ prima che l'Ep. 1 lo riveli.
 3. *Fase Spedizione* — 6 tessere (griglia 4×4, tessere 200 mm, caselle 50 mm — il minimo
    per muovere comodo le miniature), percorso con 1–2 rami
    opzionali che premiano l'esplorazione. Round, ciclo fisso e ripetuto: **Turno degli
-   eroi** (ogni eroe 2 azioni: Muovi 4 · Attacca · Cerca ACUME Media su una tessera già
-   rivelata, solo se nasconde un oggetto — non tutte le tessere ne hanno uno, e non serve
-   per liberare prigionieri, quello è Interagire · Interagisci · Usa oggetto, come indicato
-   sulla sua carta · Rianima a 2 Salute) → **Fase Minaccia** (pesca 1 carta ogni 2 eroi,
+   eroi** (ogni eroe 2 azioni, sempre di tipo diverso — mai la stessa due volte, es. niente
+   doppio Movimento; un'abilità che concede un'azione extra, come Colpo da macello di
+   Ottone, non conta come ripetizione: Muovi 3 (Nino 4) · Attacca · Cerca ACUME Media su
+   una tessera già rivelata, solo se nasconde un oggetto — non tutte le tessere ne hanno
+   uno, e non serve per liberare prigionieri, quello è Interagire · Interagisci · Usa
+   oggetto, come indicato sulla sua carta · Rianima a 2 Salute) → **Fase Minaccia** (pesca
+   1 carta ogni 2 eroi,
    arrotondando per eccesso, applicane il testo) → **Turno dei nemici** (ognuno si muove
    verso l'eroe più vicino, attacca se adiacente: 2d6+Attacco ≥ Difesa eroe). Nota: rivelare
    una tessera (vedere che stanza è, quando un eroe ci entra) è automatico e diverso da

@@ -80,6 +80,7 @@ CARD_SPAWN = {
     'BRAVI SUL MOLO': ('LO SGHERRO', 1, False),
     'IL BRANCO': ('LO SGHERRO', 2, False),
     'LAMA NEL BUIO': ('IL SICARIO', 1, True),
+    'LA MAREA DI CERA': ('IL FONDITORE', 1, False),
 }
 # Distanza di piazzamento (caselle) desunta dal testo della carta: un nemico
 # non adiacente non puo' attaccare finche' non colma la distanza col proprio
@@ -108,6 +109,7 @@ SPAWN_DISTANZA = {
     'IL FONDITORE': None,                        # ingresso Banchina T1: dinamica
     'BRAVI SUL MOLO': None,                       # ingresso Banchina T1: dinamica
     'IL BRANCO': DISTANZA_PORTA,
+    'LA MAREA DI CERA': None,                     # ingresso Banchina T1: dinamica (il nuovo)
 }
 INSIDIA = {  # titolo -> (difficolta', danno, chi prova)
     'TRAPPOLA DI CERA': ('Media', 1, 'l’eroe più avanzato'),
@@ -511,6 +513,15 @@ def simula_spedizione(party, indagine, log, run_seed):
             titolo, testo, tipo, subito = c
             log(f'  [MINACCIA] {titolo} ({tipo}) — {testo[:90]}{"…" if len(testo) > 90 else ""}')
             if titolo in CARD_SPAWN:
+                if titolo == 'LA MAREA DI CERA':
+                    # "Tutti i Fonditori in gioco si attivano subito": quelli gia'
+                    # piazzati (non il nuovo, che segue la distanza dinamica normale
+                    # di IL FONDITORE) diventano adiacenti per questo round.
+                    fonditori_esistenti = [e for e in enemies if e['nome'] == 'IL FONDITORE' and e['fer'] > 0]
+                    for e in fonditori_esistenti:
+                        e['distanza'] = 0
+                    if fonditori_esistenti:
+                        log(f'    {len(fonditori_esistenti)}x IL FONDITORE già in gioco si attiva subito.')
                 subito_attiva = spawn_from_card(log, titolo, pool, enemies, round_n)
                 if subito_attiva and vivi():
                     e = enemies[-1]
