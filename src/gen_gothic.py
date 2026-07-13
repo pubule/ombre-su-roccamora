@@ -188,6 +188,11 @@ MINI_CROP = {
     'Nino.png': dict(overscan=0.35),
     'Ottone.png': dict(overscan=0.35),
     'Carla.png': dict(overscan=0.35),
+    'Lazzaro.png': dict(overscan=0.35),
+    'Celso.png': dict(overscan=0.35),
+    'Fulgenzio.png': dict(overscan=0.35),
+    'Ottavio.png': dict(overscan=0.35),
+    'Mora.png': dict(overscan=0.35),
 }
 
 def token_sheet(c):
@@ -200,7 +205,9 @@ def token_sheet(c):
     """
     GROUPS = [
         ('EROI', [('Elena.png', 1), ('Attilio.png', 1), ('Sibilla.png', 1),
-                  ('Nino.png', 1), ('Ottone.png', 1), ('Carla.png', 1)]),
+                  ('Nino.png', 1), ('Ottone.png', 1), ('Carla.png', 1),
+                  ('Lazzaro.png', 1), ('Celso.png', 1), ('Fulgenzio.png', 1),
+                  ('Ottavio.png', 1), ('Mora.png', 1)]),
         ('ADEPTI (x10)', [('Adepto Incappucciato.png', 10)]),
         ('CANI (x3) \u00b7 FONDITORI (x3)', [('Cani dei Moli.png', 3), ('Il Fonditore.png', 3)]),
         ('SGHERRI (x4) \u00b7 SICARI (x2)', [('Lo Sgherro.png', 4), ('Il Sicario.png', 2)]),

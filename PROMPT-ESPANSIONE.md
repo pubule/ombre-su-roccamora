@@ -56,8 +56,8 @@ Facile 7 · Media 9 · Difficile 11. Ogni eroe ha 1 "Secondo fiato" (ritenta) a 
 
 **Il Preludio (tutorial, esiste già — non rifarlo, usalo come riferimento):**
 "La Prova del Lume" (`src/gen_preludio.py`, `pdf/Preludio/`) è il mini-episodio
-introduttivo giocato prima dell'Ep. 1: racconta come i sei si incontrano ed
-entrano nella Società, e insegna le regole con i box "Scuola del Lume" dentro i
+introduttivo giocato prima dell'Ep. 1: racconta come gli undici si incontrano
+ed entrano nella Società, e insegna le regole con i box "Scuola del Lume" dentro i
 fascicoli. Deroga deliberatamente dalla struttura fissa (2 Domande invece di 4,
 1 falsa pista, 1 reperto, Approfondimenti solo di corroborazione senza nucleo
 garantito, niente boss, 3 tessere e mazzo
@@ -77,12 +77,21 @@ prima che l'Ep. 1 lo riveli.
 1-bis. *Approfondimenti* — sistema di indizi gated per abilità eroe, **non bonus
    decorativo**: almeno un dettaglio decisivo per **una o due** delle 4 Domande (mai tutte
    e 4, o il gruppo può restare bloccato) deve emergere **solo** tramite un Approfondimento
-   qualsiasi. Ogni eroe ha un verbo fisso (non cambiarli tra episodi): **Elena** =
-   Osservazione (sempre, senza limite) · **Attilio** = Referto (1/episodio) · **Ottone e
+   qualsiasi. Ogni eroe ha un verbo fisso (non cambiarli tra episodi). Sette eroi
+   producono carte: **Elena** = Osservazione (2/episodio) · **Serra** = Presagio
+   (1/episodio) · **Attilio e Brera** = Referto (1/episodio a testa) · **Ottone e
    Carla** = Testimonianza (1/episodio a testa) · **Sibilla** = jolly, un Approfondimento
-   qualsiasi del luogo presente, o intuisce dove cercarne uno (1/episodio) · **Nino** =
-   Accesso, entra in un luogo bloccato senza requisiti (1/episodio — non produce una
-   carta, unico eroe così). Le carte (Indizio Nascosto / Testimone / Referto) stanno in un
+   qualsiasi del luogo presente, o intuisce dove cercarne uno (1/episodio). Quattro
+   eroi NON producono carte, hanno una nicchia diversa che aggira il sistema invece
+   di alimentarlo: **Nino** = Accesso, entra in un luogo bloccato senza requisiti
+   (1/episodio) · **Marani** = Discernimento, sì/no su un luogo (1/episodio) ·
+   **Carbone** = esamina un Oggetto/Reperto già trovato (1/episodio) · **Fanti** =
+   conta gli Approfondimenti di un luogo prima di sceglierlo (1/episodio). Attenzione
+   in fase di scelta party per un tavolo a 2: con 4 eroi su 11 senza carta (contro
+   1 su 6 dell'episodio originale), una coppia sfortunata (es. Nino+Marani) può
+   restare senza alcun Approfondimento per l'intero episodio — non capita spesso ma
+   non è più trascurabile come quando c'era solo Nino. Le carte (Indizio Nascosto /
+   Testimone / Referto) stanno in un
    **unico mazzo coperto**: il dorso mostra **solo il tipo** (mai il numero del luogo, né
    qualunque altro riferimento a un luogo/tessera specifico — sulle carte stesse, fronte
    o retro, non deve mai comparire), così i giocatori non sanno in anticipo dove si
@@ -102,9 +111,10 @@ prima che l'Ep. 1 lo riveli.
    a sé — non la stessa frase che ricorre. Corroborazione di Domande già risolvibili
    dal solo indizio core (es. un ritmo, un'urgenza) è facoltativa e va infilata caso
    per caso in 2-3 carte se serve varietà, mai come sistema a rotazione a parte.
-   Verifica sempre che qualunque coppia di eroi (il minimo per 2 giocatori) possa
-   sbloccare almeno una carta: nell'Ep. 1, 10 eroi su 11 producono carte (solo Nino
-   no), quindi ogni composizione plausibile ha un percorso.
+   Verifica quando possibile che una coppia di eroi (il minimo per 2 giocatori)
+   possa sbloccare almeno una carta: nell'Ep. 1 solo 7 eroi su 11 producono carte
+   (vedi sopra) — non è più garantito per ogni coppia come quando i "senza carta"
+   erano solo Nino (vedi nota sopra sul rischio con 4 eroi senza carta).
 1-ter. *Leggere la scena* — regola CORE (non opzionale per episodio), introdotta per non
    avere l'Indagine come unica fase senza mai un tiro di dado: alla prima visita di ogni
    luogo, un eroe a scelta prova ACUME (Media) prima di leggere gli indizi. Riuscita: si
@@ -447,8 +457,9 @@ Ogni testo deve far *vedere* la scena, non riassumerla. Regole:
 - [ ] Almeno un dettaglio decisivo per 1-2 Domande (mai tutte e 4) emerge **solo** tramite
       Approfondimento, scritto dentro il testo di OGNI carta di quell'episodio (mai un
       frammento condiviso appeso in coda)?
-- [ ] Ogni eroe ha il suo verbo in Indagine (Elena/Attilio/Ottone+Carla/Sibilla/Nino) e
-      qualunque coppia plausibile di eroi può sbloccare almeno un Approfondimento?
+- [ ] Ogni eroe ha il suo verbo in Indagine (vedi 1-bis per l'elenco completo dei sette
+      che producono carte e dei quattro che non lo fanno) e le coppie di eroi più
+      probabili a un tavolo da 2 possono sbloccare almeno un Approfondimento?
 - [ ] Il mazzo Approfondimenti ha dorsi con SOLO il tipo (mai il numero del luogo né il
       contenuto)? Le carte Oggetto hanno solo il nome (mai il luogo/tessera d'origine)?
 - [ ] Ogni oggetto trovabile (Indagine o Cercare) ha una carta Oggetto con arte dedicata,

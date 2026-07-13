@@ -8,14 +8,14 @@ in una città immaginaria di canali e campanili nel 1889. Unisce indagine alla
 
 - `pdf/` — materiale pronto da stampare, comune a tutta la campagna:
   - `01-Regolamento` — regole complete
-  - `02-Schede-Personaggio` — i 6 eroi della Società del Lume
+  - `02-Schede-Personaggio` — gli 11 eroi della Società del Lume
   - `06-Aiuto-Giocatore` — riepilogo regole da tavolo su una pagina
   - `07-Tabellone` — overlay scuro riusabile in ogni episodio per la Spedizione:
     non contiene le tessere (si posano libere, la mappa cambia episodio per
     episodio), solo gli slot per la traccia del Canto e il mazzo Minaccia +
     scarti
-  - `Preludio/` — mini-episodio tutorial "La Prova del Lume" (~60-90 min): come i
-    sei eroi si incontrano ed entrano nella Società del Lume, imparando le regole
+  - `Preludio/` — mini-episodio tutorial "La Prova del Lume" (~60-90 min): come gli
+    undici eroi si incontrano ed entrano nella Società del Lume, imparando le regole
     giocando (box "Scuola del Lume" nei fascicoli). 4 luoghi, 2 Domande, mini
     spedizione su 3 tessere riusate dall'Episodio 1. Stessi fascicoli di un
     episodio pieno: `Copertina`, `Indagine`, `Spedizione`, `Luoghi`, `Soluzione

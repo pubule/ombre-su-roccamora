@@ -180,16 +180,16 @@ def regolamento():
                'carta corrispondente dal mazzo. Se il luogo non \u00e8 nell\u2019elenco, non ne ha \u2014 cos\u00ec '
                'non sapete in anticipo dove si nasconde qualcosa.', 'body'))
     e.append(LI('<b>Indizio Nascosto (Osservazioni)</b> \u2014 un dettaglio in pi\u00f9 sulla scena. Lo '
-                'sblocca <b>Elena</b> (2 volte a episodio) oppure <b>Sibilla</b> (Presagio, jolly: '
-                'un Approfondimento qualsiasi del luogo presente, o intuisce dove cercarne uno \u2014 '
-                '1 volta a episodio).'))
+                'sblocca <b>Elena</b> (2 volte a episodio), oltre al jolly di Sibilla (<b>Sesto '
+                'Senso</b>: un Approfondimento qualsiasi del luogo presente, o intuisce dove '
+                'cercarne uno \u2014 1 volta a episodio).'))
     e.append(LI('<b>Indizio Nascosto (Presagi)</b> \u2014 quello che i sani non sentono. Lo sblocca il '
                 '<b>Dott. Serra</b> (1 volta a episodio), oltre al jolly di Sibilla.'))
     e.append(LI('<b>Testimone</b> \u2014 qualcuno che si lascia convincere a parlare. Lo sblocca '
                 '<b>Ottone</b> o <b>Carla</b> (offrendo da bere o con la tessera stampa \u2014 1 volta a '
-                'episodio ciascuno).'))
+                'episodio ciascuno), oltre al jolly di Sibilla.'))
     e.append(LI('<b>Referto</b> \u2014 un esame della scena o di un oggetto. Lo sblocca <b>Attilio</b> '
-                'o <b>Brera</b> (1 volta a episodio ciascuno).'))
+                'o <b>Brera</b> (1 volta a episodio ciascuno), oltre al jolly di Sibilla.'))
     e.append(LI('<b>Carbone</b> non sblocca carte del mazzo: la sua abilit\u00e0 esamina un <b>Oggetto '
                 'o Reperto</b> gi\u00e0 trovato e ne cava un dettaglio in pi\u00f9 (1 volta a episodio \u2014 '
                 'chi tiene il fascicolo Luoghi legge la voce corrispondente, se c\u2019\u00e8).'))
@@ -376,7 +376,7 @@ def regolamento():
     e.append(P('COME STAMPARE', 'h1'))
     e.append(LI('<b>Regolamento</b> (questo fascicolo) e <b>Soluzione</b> (in <i>Episodio 1/</i>): '
                 'fronte/retro normale. Sigillate la Soluzione in una busta!'))
-    e.append(LI('<b>Eroi</b> (cartella <b>cards/Eroi/</b>): 6 carte su cartoncino, da stendere sul '
+    e.append(LI('<b>Eroi</b> (cartella <b>cards/Eroi/</b>): 11 carte su cartoncino, da stendere sul '
                 'tavolo per la scelta a inizio serata.'))
     e.append(LI('<b>Schede</b>: una per giocatore, meglio su cartoncino.'))
     e.append(LI('<b>Indagine</b> (in <i>Episodio 1/</i>): carte Luogo su cartoncino, ritagliate lungo i '
