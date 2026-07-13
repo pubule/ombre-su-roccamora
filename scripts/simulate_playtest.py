@@ -54,8 +54,18 @@ TOKEN_POOL_BASE = {'ADEPTO INCAPPUCCIATO': 10, 'CANE DEI MOLI': 3, 'IL FONDITORE
 # Le tessere sono griglie 4x4 caselle (vedi scripts/tiles/generate-tiles.js,
 # cell = S/4): 6 e' la diagonale Manhattan massima da un angolo all'altro
 # (niente diagonali di movimento, regola vera). Usata per stimare quante
-# caselle separano un nemico appena piazzato dal gruppo.
+# caselle separano un nemico appena piazzato dal gruppo - fatto strutturale
+# sulla tessera, non sul ritmo del gruppo (vedi GUADAGNO_GRUPPO sotto).
 CASELLE_TESSERA = 6
+
+# Regola vera (aggiornata): 2 azioni a round, sempre di tipo diverso (niente
+# doppio Movimento) - "Muovere" e' una sola azione da 3 caselle (Nino 4).
+# Un'abilita' che concede un'azione extra (es. Colpo da macello) non conta
+# come ripetizione, resta fuori da questo conteggio. Il gruppo "guadagna"
+# quindi GUADAGNO_GRUPPO=3 caselle per round quando avanza di tessera - l'altra
+# azione di ciascun eroe resta quella gia' gestita in fase_eroi (Attaccare/
+# Cercare/Interagire/Rianimare/Abilita').
+GUADAGNO_GRUPPO = 3
 
 # titolo carta Minaccia -> (nemico da piazzare, quanti, si attiva subito)
 CARD_SPAWN = {
@@ -537,11 +547,12 @@ def simula_spedizione(party, indagine, log, run_seed):
 
     def fase_nemici(luogo_label, party_in_transito):
         nonlocal custode_stunned
-        # Il gruppo che avanza di tessera "guadagna" CASELLE_TESSERA caselle di
+        # Il gruppo che avanza di tessera "guadagna" GUADAGNO_GRUPPO caselle di
         # vantaggio sui nemici non ancora aggrappati: chi ha Movimento piu' basso
-        # (es. il Fonditore, mov 2) resta semplicemente indietro, come da testo
+        # o uguale (es. il Fonditore, mov 2, o Adepto/Sgherro, mov 4) resta
+        # indietro o al massimo tiene il passo, come da testo del Fonditore
         # ("non corre mai"). Da fermi (combattimento al Custode) il vantaggio e' 0.
-        guadagno = CASELLE_TESSERA if party_in_transito else 0
+        guadagno = GUADAGNO_GRUPPO if party_in_transito else 0
         for e in list(enemies):
             if e['fer'] <= 0 or not vivi():
                 continue

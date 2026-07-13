@@ -49,7 +49,7 @@ HEROES = [
          salute=7, difesa=9,
          abil=('<b>Grimaldello</b> — Serrature e lucchetti: per Nino ogni prova per '
                'scassinare cala di un grado (Difficile→Media, Media→Facile). '
-               'Inoltre si muove di 5 caselle invece di 4. In indagine: una volta per '
+               'Inoltre si muove di 4 caselle invece di 3. In indagine: una volta per '
                'episodio scassina l’ingresso di <b>un luogo bloccato</b> ed entra senza '
                'la parola chiave o l’oggetto richiesto.'),
          equip='Sfollagente (arma, +1), grimaldelli, corda con rampino (1 uso a spedizione: '

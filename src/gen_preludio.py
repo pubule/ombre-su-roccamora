@@ -295,7 +295,7 @@ def spedizione():
                   BODY),
     ])
     y = scuola(c, 24*mm, H - 84*mm, W - 48*mm,
-               'Si gioca in round: prima OGNI EROE fa 2 azioni (Muovere 4 caselle · Attaccare '
+               'Si gioca in round: prima OGNI EROE fa 2 azioni di tipo diverso (Muovere 3 caselle · Attaccare '
                'un nemico adiacente: 2d6+VIGORE, +1 se armati, contro la sua Difesa · Cercare '
                '· Interagire · Usare un oggetto · Rianimare), poi si pesca 1 carta Minaccia '
                'ogni 2 eroi, poi I NEMICI si muovono verso l’eroe più vicino e attaccano se '
@@ -332,7 +332,7 @@ def spedizione():
                   '<b>Sicario</b> in T4 (+2 Attacco contro un eroe isolato o ferito — '
                   'muovetevi in coppia e non gliene lasciate). Le carte Minaccia possono '
                   'portarne altri. Vittoria: liberate Ansaldo (Interagire in T4) e riportatelo '
-                  'in T1, alla barca. Ansaldo si muove con voi: 4 caselle, nessuna azione.', BODY)])
+                  'in T1, alla barca. Ansaldo si muove con voi: 3 caselle, nessuna azione.', BODY)])
     y = scuola(c, 20*mm, yy - 36*mm, W - 40*mm,
                'Se un eroe scende a 0 Salute cade a terra: niente panico, un compagno adiacente '
                'lo Rianima a 2 Salute con un’azione. Se cadete tutti, la prova è fallita: '

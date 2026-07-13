@@ -231,8 +231,11 @@ def regolamento():
                "d\u2019ingresso, seguendo lo schema della Soluzione. Mischiate il <b>mazzo Minaccia</b>. "
                "Piazzate i segnalini eroe sull\u2019ingresso. Si gioca in <b>round</b>:"))
     e.append(P('1. Turno degli eroi', 'h2'))
-    e.append(P('In qualsiasi ordine, ogni eroe compie <b>2 azioni</b> (anche la stessa due volte):'))
-    e.append(LI('<b>Muovere</b> \u2014 fino a 4 caselle (niente diagonali, non si attraversano nemici o mobili).'))
+    e.append(P('In qualsiasi ordine, ogni eroe compie <b>2 azioni, sempre di tipo diverso</b> '
+               '(mai la stessa due volte \u2014 niente due Attacchi o due Movimenti nello stesso turno; '
+               'un\u2019abilit\u00e0 che concede un\u2019azione extra, come Colpo da macello di Ottone, non conta: '
+               '\u00e8 un\u2019azione in pi\u00f9, non una delle due scelte dall\u2019eroe):'))
+    e.append(LI('<b>Muovere</b> \u2014 fino a 3 caselle (niente diagonali, non si attraversano nemici o mobili).'))
     e.append(LI('<b>Attaccare</b> \u2014 un nemico adiacente: 2d6 + VIGORE (+1 se armato) \u2265 Difesa '
                 'del nemico \u2192 gli infliggete 1 ferita: segnatela sul <b>Registro delle Ferite</b> '
                 '(lo tiene chi pesca il mazzo Minaccia quel round). Quando le ferite segnate '
@@ -311,7 +314,7 @@ def regolamento():
 
     e.append(P('PRECISAZIONI (per i dubbi al tavolo)', 'h1'))
     e.append(LI('<b>Ruggero</b> \u2014 non \u00e8 un eroe: i nemici lo <b>ignorano</b> (il culto lo vuole '
-                'vivo per il rituale). Si muove nel turno degli eroi, fino a 4 caselle, e non compie azioni.'))
+                'vivo per il rituale). Si muove nel turno degli eroi, fino a 3 caselle, e non compie azioni.'))
     e.append(LI('<b>Eroi a terra</b> \u2014 i nemici li ignorano: puntano sempre l\u2019eroe in piedi pi\u00f9 vicino.'))
     e.append(LI('<b>Mazzo Minaccia esaurito</b> \u2014 rimescolate gli scarti e continuate. I segnalini '
                 'Canto gi\u00e0 in gioco restano.'))
@@ -519,7 +522,7 @@ def soluzione():
                 'Adepto, Cane, Fonditore, Sgherro e Sicario (la malavita a libro paga del culto), '
                 'il Custode, Ruggero e i 3 segnalini Canto.'))
     e.append(LI('<b>Obiettivo:</b> aprire la cella in T6, liberare Ruggero e riportarlo sulla '
-                'Banchina (T1). Ruggero si muove con voi (Movimento 4, non agisce).'))
+                'Banchina (T1). Ruggero si muove con voi (Movimento 3, non agisce).'))
     e.append(LI('<b>Il Custode della Cera</b> appare (con 2 Adepti) quando rivelate T6, oppure al '
                 'terzo segnalino Canto: in quel caso piazzatelo sulla tessera pi\u00f9 lontana dagli '
                 'eroi. Se avete il <b>diapason</b>: con un\u2019azione adiacente al Custode lo fate '
@@ -590,8 +593,8 @@ def aiuto():
     e.append(RP('<b>2d6 + caratteristica</b> (ACUME / VIGORE / NERVI) ≥ difficoltà.'))
     e.append(RP('<b>Facile 7 • Media 9 • Difficile 11.</b> Ogni eroe: 1 solo ritento a episodio (Secondo Fiato).'))
 
-    e.append(P('TURNO DEGLI EROI — 2 azioni ciascuno (anche ripetute)', 'h2'))
-    e.append(RL('<b>Muovere</b> — fino a 4 caselle (Nino 5). Niente diagonali; non si attraversano nemici o mobili.'))
+    e.append(P('TURNO DEGLI EROI — 2 azioni ciascuno, sempre di tipo diverso', 'h2'))
+    e.append(RL('<b>Muovere</b> — fino a 3 caselle (Nino 4). Niente diagonali; non si attraversano nemici o mobili.'))
     e.append(RL('<b>Attaccare</b> — nemico adiacente: <b>2d6 + VIGORE (+1 se armati) ≥ Difesa nemico</b> → 1 ferita (segnala sul Registro).'))
     e.append(RL('<b>Cercare</b> — ACUME Media: trovi ciò che la tessera nasconde (1 volta a tessera; ritentabile).'))
     e.append(RL('<b>Interagire</b> — porte, grate, leve, liberare Ruggero. <b>Usare un oggetto</b> — come indicato.'))
@@ -612,7 +615,7 @@ def aiuto():
 
     e.append(P('OBIETTIVO E CANTO', 'h2'))
     e.append(RL('<b>Vittoria:</b> aprire la cella (T6), liberare Ruggero e riportarlo alla Banchina (T1). '
-                'Ruggero si muove con voi (Mov. 4, non agisce).'))
+                'Ruggero si muove con voi (Mov. 3, non agisce).'))
     e.append(RL('<b>Canto:</b> al <b>3° segnalino</b> si desta il Custode della Cera e da lì ogni fase '
                 'Minaccia pescate 1 carta in più. Ogni 4° round (4°, 8°...): +1 Canto automatico.'))
     e.append(RL('<b>A 0 Salute</b> un eroe cade a terra (non agisce finché non rianimato). '
