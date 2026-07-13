@@ -298,9 +298,10 @@ def regolamento():
                'l\u2019Adepto (1 Ferita) cade.', 'body'))
     e.append(P('<b>2. Fase Minaccia.</b> Siete in 3: pescate <b>2 carte</b> (vedi il riquadro sopra). '
                'Prima carta, <b>\u201cAdepto in Agguato\u201d</b>: <i>\u201cPiazzate 1 Adepto sull\u2019uscita pi\u00f9 '
-               'lontana dagli eroi della tessera in cui si trova l\u2019eroe attivo\u201d</i> \u2014 l\u2019eroe attivo '
+               'vicina agli eroi della tessera in cui si trova l\u2019eroe attivo\u201d</i> \u2014 l\u2019eroe attivo '
                '\u00e8 l\u2019ultimo che ha agito (Ottone, in T2): il nuovo Adepto compare sull\u2019uscita pi\u00f9 '
-               'lontana da lui. Seconda carta, <b>\u201cPresagio\u201d</b>: nessun effetto immediato, solo '
+               'vicina a lui, quella da cui la squadra \u00e8 appena entrata o verso cui sta uscendo. '
+               'Seconda carta, <b>\u201cPresagio\u201d</b>: nessun effetto immediato, solo '
                'tensione.', 'body'))
     e.append(P('<b>3. Turno dei nemici.</b> Il nuovo Adepto si muove (Movimento 4) verso l\u2019eroe pi\u00f9 '
                'vicino. Se resta adiacente, attacca: 2d6+Attacco (1) contro la Difesa dell\u2019eroe '

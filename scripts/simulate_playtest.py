@@ -81,29 +81,33 @@ CARD_SPAWN = {
     'IL BRANCO': ('LO SGHERRO', 2, False),
     'LAMA NEL BUIO': ('IL SICARIO', 1, True),
 }
-# Distanza di piazzamento (caselle) desunta dal testo della carta ("uscita/
-# tessera piu' lontana" vs "ingresso/adiacente"): un nemico non adiacente non
-# puo' attaccare finche' non colma la distanza col proprio Movimento (regola
-# vera, gen_docs.py "Ogni nemico si muove del suo Movimento verso l'eroe piu'
-# vicino... se adiacente, attacca"). None = dinamica: distanza dalla Banchina
-# (T1, il punto di ingresso) proporzionale a quante tessere il gruppo ha gia'
-# percorso (round_n). Le carte con subito=True sopra restano invariate: si
-# attivano comunque nel round di piazzamento, la loro distanza e' 0.
-# NOTA: accorciare/eliminare il livello "tessera diversa" (provato e scartato,
-# vedi log di sessione) NON cambia se un nemico raggiunge un gruppo che
-# avanza: quello che decide e' solo il confronto Movimento-nemico vs
-# CASELLE_TESSERA guadagnate dal gruppo ogni round. Con Movimento 4 (Adepto,
-# Sgherro) contro CASELLE_TESSERA=6, quei nemici restano indietro comunque,
-# qualunque sia la distanza di partenza.
+# Distanza di piazzamento (caselle) desunta dal testo della carta: un nemico
+# non adiacente non puo' attaccare finche' non colma la distanza col proprio
+# Movimento (regola vera, gen_docs.py "Ogni nemico si muove del suo Movimento
+# verso l'eroe piu' vicino... se adiacente, attacca"). Le carte con subito=True
+# sopra restano invariate: si attivano comunque nel round di piazzamento, la
+# loro distanza e' 0.
+#
+# Regola vera per le carte "sull'uscita piu' vicina agli eroi" (vedi MINACCE
+# in gen_cards.py): a un tavolo vero e' semplice lettura spaziale (le
+# miniature sono li'); nel simulatore, senza coordinate, si approssima con
+# "la porta che il gruppo sta usando in quel momento" (ingresso nel round in
+# cui arrivano, uscita nei round successivi passati sulla stessa tessera - a
+# T6, unica porta, ingresso e uscita coincidono). Distanza 1 casella (dentro
+# la soglia). None = dinamica: distanza dalla Banchina (T1, il punto di
+# ingresso) proporzionale a quante tessere il gruppo ha gia' percorso
+# (round_n) - eccezione tematica "arriva da dove siete entrati", non tocca
+# La Vedetta (gia' adiacente per testo) ne' le carte "si attiva subito".
+DISTANZA_PORTA = 1
 SPAWN_DISTANZA = {
-    'ADEPTO IN AGGUATO': CASELLE_TESSERA,        # uscita piu' lontana, stessa tessera
-    'VOLTI TRA LE CASSE': CASELLE_TESSERA * 2,   # tessera diversa, la piu' lontana
-    'IL FALCETTO NEL BUIO': CASELLE_TESSERA,     # ingresso stessa tessera, alle spalle
+    'ADEPTO IN AGGUATO': DISTANZA_PORTA,
+    'VOLTI TRA LE CASSE': DISTANZA_PORTA,
+    'IL FALCETTO NEL BUIO': DISTANZA_PORTA,
     'LA VEDETTA': 0,                             # adiacente all'eroe piu' isolato
     'RONDA': None,                               # ingresso Banchina T1: dinamica
     'IL FONDITORE': None,                        # ingresso Banchina T1: dinamica
     'BRAVI SUL MOLO': None,                       # ingresso Banchina T1: dinamica
-    'IL BRANCO': CASELLE_TESSERA * 2,            # tessera diversa, la piu' lontana
+    'IL BRANCO': DISTANZA_PORTA,
 }
 INSIDIA = {  # titolo -> (difficolta', danno, chi prova)
     'TRAPPOLA DI CERA': ('Media', 1, 'l’eroe più avanzato'),

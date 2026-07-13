@@ -384,8 +384,8 @@ OGGETTI = [
 # un'abilita' futura tipo "il primo nemico piazzato non si attiva subito".
 MINACCE = (
     # famiglia ADEPTO (4): stessa sostanza, apparizioni diverse
-    [('ADEPTO IN AGGUATO', 'Piazzate 1 Adepto sull’uscita più lontana dagli eroi della tessera in cui si trova l’eroe attivo.', 'posseduto', False),
-     ('VOLTI TRA LE CASSE', 'Piazzate 1 Adepto sulla tessera rivelata più lontana dagli eroi.', 'posseduto', False),
+    [('ADEPTO IN AGGUATO', 'Piazzate 1 Adepto sull’uscita più vicina agli eroi della tessera in cui si trova l’eroe attivo.', 'posseduto', False),
+     ('VOLTI TRA LE CASSE', 'Piazzate 1 Adepto sull’uscita più vicina agli eroi della tessera corrente: si è intrufolato dietro le casse.', 'posseduto', False),
      ('IL FALCETTO NEL BUIO', 'Piazzate 1 Adepto sull’ingresso della tessera corrente, alle spalle degli eroi.', 'posseduto', False),
      ('LA VEDETTA', 'Piazzate 1 Adepto adiacente all’eroe più isolato (quello più lontano dagli altri; a pari merito, l’eroe attivo).', 'posseduto', False)] +
     # famiglia CANI (2)
@@ -397,7 +397,7 @@ MINACCE = (
     [('RONDA', 'Piazzate 2 Adepti sull’ingresso della Banchina (T1).', 'posseduto', False)] +
     # famiglia MALAVITA (3): i bravacci secolari a libro paga del culto
     [('BRAVI SUL MOLO', 'Piazzate 1 Sgherro sull’ingresso della Banchina (T1).', 'malavita', False),
-     ('IL BRANCO', 'Piazzate 2 Sgherri, adiacenti tra loro, sulla tessera rivelata più lontana dagli eroi.', 'malavita', False),
+     ('IL BRANCO', 'Piazzate 2 Sgherri, adiacenti tra loro, sull’uscita più vicina agli eroi della tessera corrente.', 'malavita', False),
      ('LAMA NEL BUIO', 'Piazzate 1 Sicario adiacente all’eroe più isolato o più ferito (a pari merito: sceglie il gruppo): si attiva subito.', 'malavita', True)] +
     # famiglia INSIDIE (4, Sussurri compresa: stesso pattern "prova NERVI o subisci")
     [('TRAPPOLA DI CERA', 'L’eroe più avanzato prova NERVI (Media): se fallisce, cera bollente: 1 danno e perde 1 azione al prossimo turno.', 'insidia', False),
