@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """Ombre su Roccamora - PRELUDIO: La Prova del Lume (pdf/Preludio/).
 
-Mini-episodio tutorial, giocato PRIMA dell'Episodio 1: sei sconosciuti,
+Mini-episodio tutorial, giocato PRIMA dell'Episodio 1: undici sconosciuti,
 convocati ognuno da una lettera di M., superano la prova d'ammissione alla
 Societa' del Lume risolvendo il loro primo caso - la sparizione di Ansaldo,
 il vecchio custode-archivista del palazzo della Societa'. Giustifica come gli
@@ -10,8 +10,10 @@ in modo soft:
 
 - Indagine ridotta: 4 luoghi (P1-P4), 6 ore, 2 Domande invece di 4, una falsa
   pista (il nipote), un vincolo d'orologio (il barcaiolo dalle 21), un
-  Approfondimento per verbo (Osservazione/Testimonianza/Referto) + Accesso.
-  Box "Scuola del Lume" che spiegano le regole man mano che servono.
+  Approfondimento per verbo (Osservazione/Testimonianza/Referto/Presagio) +
+  Accesso. Box "Scuola del Lume" che spiegano le regole man mano che
+  servono, comprese le due varianti (Discernimento di Marani, esame
+  Oggetti/Reperti di Carbone).
 - Mini-spedizione: 3 tessere (riusa T1/T2/T4 di board/Episodio 1/ - i depositi sul
   canale di Roccamora si somigliano tutti), nemici solo Malavita (2 Sgherri
   + 1 Sicario), mazzo Minaccia ridotto a 6 carte prese dal mazzo Episodio 1,
@@ -24,7 +26,9 @@ in modo soft:
 Deroghe deliberate dalla bibbia (PROMPT-ESPANSIONE.md), perche' e' un
 tutorial: 2 Domande invece di 4, gli Approfondimenti sono solo corroborazione
 (nessuna Eco condivisa: quella e' la meccanica del culto, che qui non c'e'),
-1 solo reperto, niente boss, tessere e mazzo Minaccia riusati dall'Ep. 1.
+1 solo reperto, niente boss, tessere e mazzo Minaccia riusati dall'Ep. 1,
+niente tabella Ore Avanzate (il vantaggio e' gia' dato per Domanda esatta,
+vedi soluzione()).
 
 Arte luoghi/oggetti: nuova, vedi PROMPT-MIDJOURNEY.md sezione Preludio.
 Le carte si generano con `node scripts/cardconjurer/generate-batch.js preludio`
@@ -78,23 +82,29 @@ def scuola(c, x, y, w, testo):
 # ================================================================= DATI
 
 LETTERA_P = (
-    "«Non vi conoscete, ma io conosco voi. L’investigatrice che non ha smesso di "
-    "archiviare. Il medico che annota ciò di cui i colleghi ridono. L’occultista che "
-    "sente quello che gli altri fingono di non sentire. Il ladro che apre ogni porta "
-    "tranne quella di casa sua. Il macellaio che i vicini chiamano quando la gendarmeria "
-    "non viene. La giornalista che pubblica quello che gli altri bruciano.<br/><br/>"
-    "La Società del Lume ha bisogno di occhi nuovi, e io sono troppo vecchio per fidarmi "
-    "delle referenze. Mi fido dei fatti. Eccovene uno: <b>Ansaldo</b>, custode del nostro "
-    "palazzo da vent’anni, è scomparso da tre giorni. Nessun riscatto, nessun addio. "
-    "Trovatelo, e le sei poltrone del salone avranno finalmente sei nomi.<br/><br/>"
-    "Avete <b>6 ore</b>, dalle 18:00 alle 24:00. Segnate ogni ora sul Taccuino e "
-    "annotate ogni parola scritta in MAIUSCOLO.<br/>— M.»<br/><br/>"
+    "«Non vi conoscete tra voi, ma io vi conosco a uno a uno — meglio, forse, di quanto "
+    "vi conosciate voi stessi. So la notte in cui avete smesso di credere alle "
+    "spiegazioni comode. So il nome di chi, per primo, non vi ha creduto. Ho seguito "
+    "abbastanza le vostre vite da sapere che avete visto, almeno una volta, qualcosa "
+    "che il buon senso vi ordinava di ignorare — e non l’avete ignorato. Un dettaglio "
+    "fuori posto. Un silenzio durato troppo. Una domanda che tutti, attorno a voi, "
+    "preferivano lasciare cadere. Vi hanno chiamati eccentrici. Qualche volta, peggio. "
+    "Io vi ho scelti per questo — e stanotte ho bisogno di voi.<br/><br/>"
+    "La Società del Lume non recluta per referenze: mi fido solo dei fatti, e questa "
+    "lettera ne porta uno, fresco quanto l’inchiostro con cui è scritta. <b>Ansaldo</b>, "
+    "custode del nostro palazzo da vent’anni, è scomparso da tre notti. Nessuna "
+    "richiesta di riscatto. Nessun biglietto. Solo la sua sedia vuota, e undici "
+    "poltrone nel salone che aspettano ancora undici nomi.<br/><br/>"
+    "Bruciate questa lettera appena l’avrete letta: le altre dieci dicono la stessa "
+    "cosa, ma nessuna è stata scritta perché qualcuno la conservi. Avete <b>6 ore</b>, "
+    "dalle 18:00 alle 24:00. Segnate ogni ora sul Taccuino, ogni parola scritta in "
+    "MAIUSCOLO.<br/>— M.»<br/><br/>"
     "<i>Luoghi disponibili dall’inizio: P1, P2, P3. Il quarto va sbloccato.</i>")
 
 LUOGHI_P = [
     dict(n='P1', nome='IL PALAZZO DEL LUME', req='Disponibile dall’inizio',
          art='Palazzo del Lume.png',
-         testo='Il palazzo della Società sa di cera d’api e di anni chiusi a chiave: sei poltrone '
+         testo='Il palazzo della Società sa di cera d’api e di anni chiusi a chiave: undici poltrone '
                'attorno a un tavolo, cinque ritratti alle pareti e un gancio vuoto dove il sesto è '
                'stato tolto. La stanza di Ansaldo è in fondo al corridoio, ordinata come una cella '
                'di monaco. M. vi osserva dalla soglia, e non tocca nulla.',
@@ -163,7 +173,12 @@ LUOGHI_P = [
                  'là sotto, batte per farsi sentire. <b>Ansaldo è qui.</b>',
                  'Nel fango del molo, un lembo di carta antica strappata: mezzo disegno a inchiostro, '
                  'una linea che ondeggia. Come mezza onda.'],
-         approfondimenti=[]),
+         approfondimenti=[
+             dict(tipo='Presagio',
+                  testo='Chi si sofferma ad ascoltare i colpi sotto la banchina giurerebbe che, per '
+                        'un istante, rispondono in due voci — non una. Come se qualcosa, là sotto, '
+                        'stesse imparando la cadenza.'),
+         ]),
 ]
 
 DOMANDE_P = ['1. DOVE è tenuto Ansaldo?',
@@ -204,7 +219,7 @@ def indagine():
     lett = LETTERA_P.replace('«Non vi conoscete',
                              '«<font name="%s" size="15" color="#7a1f2b">N</font>on vi conoscete' % F['sc'])
     frame_flow(c, mx, H - 188*mm, W - 2*mx, 122*mm,
-               [Paragraph('sei lettere identiche, sei destinatari — leggere ad alta voce', SMB),
+               [Paragraph('undici lettere identiche, undici destinatari — leggere ad alta voce', SMB),
                 Paragraph(lett, st('let', fontName=F['i'], fontSize=11, leading=16, alignment=4))])
     seal(c, W - mx - 12*mm, H - 198*mm, r=13*mm, angle=-10)
     y = scuola(c, mx, H - 218*mm, W - 2*mx,
@@ -212,7 +227,7 @@ def indagine():
                'leggetelo ad alta voce. Prendete le 4 carte Luogo del Preludio, ordinatele per '
                'sigla (guardate il titolo: P1-P4) e disponetele coperte in fila, da sinistra a '
                'destra: la posizione vi dice la sigla. Ogni giocatore sceglie il suo eroe '
-               '(stendete le 6 carte Eroe sul tavolo) e prende la sua Scheda.')
+               '(stendete le 11 carte Eroe sul tavolo) e prende la sua Scheda.')
     c.showPage()
     # taccuino
     parchment_art(c, W, H)
@@ -235,7 +250,10 @@ def indagine():
                'indizi ad alta voce, annotate qui nomi e parole in MAIUSCOLO. Quando trovate '
                'una parola chiave potete visitare il luogo che la richiede. Alcuni eroi cavano '
                'indizi in più (Approfondimenti): quando visitate un luogo, chi tiene il '
-               'fascicolo Luoghi controlla se l’eroe giusto è presente.')
+               'fascicolo Luoghi controlla se l’eroe giusto è presente. Due eroi funzionano '
+               'diverso: Padre Marani (Discernimento) chiede solo sì o no su un luogo non '
+               'ancora visitato, senza leggere nulla; Carbone esamina un Oggetto o un Reperto '
+               'già trovato e ne cava un dettaglio in più, se chi tiene il fascicolo ne ha uno.')
     def sect(ytop, label, nlines):
         c.setFillColor(TEAL); c.setFont(F['sc'], 10)
         c.drawString(16*mm, ytop, label)
@@ -285,12 +303,17 @@ def spedizione():
                '(ultima pagina).')
     y = scuola(c, 24*mm, y, W - 48*mm,
                'IL MAZZO MINACCIA del Preludio si costruisce con 6 carte dell’Episodio 1: ' +
-               ', '.join(MAZZO_P) + '. Mescolatele. Se il mazzo finisce, rimescolate gli scarti.')
+               ', '.join(MAZZO_P) + '. Mescolatele. Se il mazzo finisce, rimescolate gli scarti. Se '
+               'una carta vi dice di piazzare uno Sgherro o un Sicario ma non ne restano più '
+               'segnalini, l’effetto di piazzamento non ha luogo: applicate comunque il resto '
+               'della carta, se ne ha.')
     y = scuola(c, 24*mm, y, W - 48*mm,
                'LA MAREA — l’orologio della spedizione. Alla fine di ogni 2° round (2°, 4°, '
                '6°...) mettete 1 segnalino Marea (usate i segnalini Canto). Al 3° segnalino '
                'l’acqua invade la dogana: da quel momento ogni eroe ha Movimento -1 (minimo 1). '
-               'Negli episodi veri l’orologio fa cose peggiori: imparate a non perdere tempo.')
+               'Negli episodi veri l’orologio fa cose peggiori: imparate a non perdere tempo. '
+               'La Marea è acqua, non è il Coro del culto: la Litania di Padre Marani non la '
+               'rallenta.')
     c.showPage()
     # note per tessera
     parchment_art(c, W, H)
@@ -395,8 +418,9 @@ def soluzione():
                   'mai: veniva di notte, in barca — un signore ben vestito, dicevano, con le mani '
                   'da artigiano. Quando li ho sorpresi, mi hanno chiuso in cantina. Non volevano '
                   'me: volevano quello che sappiamo.»<br/><br/>'
-                  'M. posa sul tavolo sei spille: una piccola onda d’argento. «Le sei poltrone '
-                  'hanno sei nomi. Benvenuti nella Società del Lume. Riposatevi: qualcosa mi dice '
+                  'M. posa sul tavolo undici spille: una piccola onda d’argento. «Le undici '
+                  'poltrone hanno undici nomi. Benvenuti nella Società del Lume. Riposatevi: '
+                  'qualcosa mi dice '
                   'che il prossimo caso busserà presto.»</i><br/><br/>'
                   '<b>Frammento di Campagna n. 0:</b> il lembo di carta con la mezza onda. '
                   'Conservatelo con gli altri Frammenti.', BODY)])
