@@ -228,7 +228,8 @@ def righe(approfondimenti, ref):
             out.append(f"<b>{tipo}</b> <i>({a['tipo']})</i>")
     ogg = oggetto_di(ref)
     if ogg:
-        out.append(f"<b>Oggetto</b> — carta “{ogg['nome'].title()}”")
+        tag = ' ⚠ rischioso' if ogg.get('rischio') else ''
+        out.append(f"<b>Oggetto</b> — carta “{ogg['nome'].title()}”{tag}")
     return out
 
 COL_W = WINDOW_TOP[0]*W - MX - 4*mm  # colonna libera a sinistra dell'arte (in alto)

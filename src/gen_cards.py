@@ -22,7 +22,9 @@ HEROES = [
          abil=('<b>Occhio Clinico</b> — In indagine: due volte per episodio legge le '
                '<b>Osservazioni</b> nascoste di un luogo. In spedizione: +2 alle '
                'prove di Cercare.'),
-         equip='Bastone animato (arma, +1), lente d’ingrandimento, taccuino rilegato.'),
+         equip='Bastone animato (arma, +1), lente d’ingrandimento (2 usi: prima di dichiarare '
+               'Cercare su una tessera già rivelata, guardate se nasconde ancora un oggetto — '
+               'decidete voi se vale l’azione), taccuino rilegato.'),
     dict(nome='DOTT. ATTILIO MARN', ruolo='Il Medico', acume=2, vigore=2, nervi=2,
          salute=7, difesa=8,
          abil=('<b>Pronto Soccorso</b> — In spedizione, tre volte, con un’azione cura '
@@ -30,7 +32,8 @@ HEROES = [
                'riportando l’eroe a 3 Salute invece che a 2. In indagine: una volta per '
                'episodio redige un <b>Referto</b> — esamina la scena e ne ricava un fatto '
                'forense che agli altri sfugge.'),
-         equip='Bisturi lungo (arma, +1), borsa medica, sali aromatici.'),
+         equip='Bisturi lungo (arma, +1), borsa medica, sali aromatici (2 usi: usare Rianimare '
+               'su un eroe adiacente non costa l’azione).'),
     dict(nome='SIBILLA REVE', ruolo='L’Occultista', acume=2, vigore=1, nervi=3,
          salute=6, difesa=8,
          abil=('<b>Sesto Senso</b> — In indagine: una volta per episodio il pendolo si '
@@ -39,7 +42,9 @@ HEROES = [
                'indica un luogo che ne nasconde uno. In spedizione: tre volte per '
                'spedizione, prima della fase Minaccia, guarda le prime 2 carte del mazzo e '
                'mettine una in <b>fondo</b> al mazzo; l’altra torna in cima.'),
-         equip='Pugnale rituale (arma, +1), pendolo d’ossidiana, gessetti.'),
+         equip='Pugnale rituale (arma, +1), pendolo d’ossidiana, gessetti (1 uso: annulla per il '
+               'gruppo, fino a fine round, una penalità al Movimento imposta da una carta '
+               'Minaccia).'),
     dict(nome='NINO “GRIMALDELLO” CAUTO', ruolo='Il Ladro', acume=2, vigore=2, nervi=1,
          salute=7, difesa=9,
          abil=('<b>Grimaldello</b> — Serrature e lucchetti: per Nino ogni prova per '
@@ -47,7 +52,9 @@ HEROES = [
                'Inoltre si muove di 5 caselle invece di 4. In indagine: una volta per '
                'episodio scassina l’ingresso di <b>un luogo bloccato</b> ed entra senza '
                'la parola chiave o l’oggetto richiesto.'),
-         equip='Sfollagente (arma, +1), grimaldelli, corda con rampino.'),
+         equip='Sfollagente (arma, +1), grimaldelli, corda con rampino (1 uso a spedizione: '
+               'azione, superate un mobile che blocca la linea retta entro 3 caselle, issandovi '
+               'fino a lì).'),
     dict(nome='OTTONE “MEZZENA” MASSARI', ruolo='Il Macellaio', acume=1, vigore=3, nervi=2,
          salute=8, difesa=8,
          abil=('<b>Un bicchiere con tutti</b> — In indagine: una volta per episodio, '
@@ -64,14 +71,18 @@ HEROES = [
                'la tessera stampa, convince il <b>Testimone</b> di un luogo (carta). In '
                'spedizione: <b>Flash!</b> (2 usi) — azione: un nemico entro 2 caselle salta '
                'la sua prossima attivazione.'),
-         equip='Ombrello ferrato (arma, +1), macchina fotografica, blocco note.'),
+         equip='Ombrello ferrato (arma, +1), macchina fotografica (1 uso a episodio: se in un '
+               'luogo già visitato non avete colto l’Approfondimento — eroe idoneo assente, o '
+               '“leggere la scena” fallita — guardate ora la foto: leggetelo comunque, senza '
+               'tornarci), blocco note.'),
     dict(nome='DOTT. LAZZARO SERRA', ruolo='L’Alienista', acume=3, vigore=1, nervi=2,
          salute=6, difesa=8,
          abil=('<b>I deliri sanno</b> — In indagine: una volta per episodio legge i '
                '<b>Presagi</b> nascosti di un luogo. In spedizione, <b>Voce ferma</b> '
                '(3 volte per spedizione, azione): fino al suo prossimo turno, gli eroi a lui '
                'adiacenti tirano le prove di NERVI con +2.'),
-         equip='Bastone da passeggio (arma, +1), taccuino dei colloqui, boccetta di laudano.'),
+         equip='Bastone da passeggio (arma, +1), taccuino dei colloqui, boccetta di laudano '
+               '(1 uso: un eroe adiacente che subirebbe danno ne subisce 1 in meno, minimo 0).'),
     dict(nome='PADRE CELSO MARANI', ruolo='L’Esorcista Sospeso', acume=2, vigore=1, nervi=3,
          salute=6, difesa=8,
          abil=('<b>Discernimento</b> — In indagine: una volta per episodio indica un luogo; '
@@ -79,7 +90,9 @@ HEROES = [
                'sì o no, mai cosa). Se sì, la visita a quel luogo non costa l’ora. In '
                'spedizione, <b>Litania</b> (1 volta): con un’azione la sua voce copre il '
                'coro — rimuovete 1 segnalino Canto.'),
-         equip='Crocifisso di ferro (arma, +1), breviario annotato, stola consunta.'),
+         equip='Crocifisso di ferro (arma, +1), breviario annotato, stola consunta (1 uso a '
+               'spedizione: un eroe adiacente che fallisce una prova NERVI contro un’insidia '
+               'non ne subisce l’effetto).'),
     dict(nome='FULGENZIO CARBONE', ruolo='L’Antiquario dell’Occulto', acume=3, vigore=1, nervi=2,
          salute=6, difesa=8,
          abil=('<b>È passato dalla mia bottega</b> — In indagine: una volta per episodio, '
@@ -97,7 +110,9 @@ HEROES = [
                'Cane</b>) in vista e lo chiama per nome — il mercenario molla per '
                'convenienza, il fanatico indietreggia davanti alla sua autorità: '
                'rimuovetelo dal tabellone.'),
-         equip='Bastone da magistrato (arma, +1), toga ripiegata, fascicoli rilegati.'),
+         equip='Bastone da magistrato (arma, +1), toga ripiegata (1 uso: durante il Turno dei '
+               'nemici, un nemico Malavita che dovrebbe attaccare Brera colpisce invece un '
+               'altro bersaglio valido, se ce n’è uno), fascicoli rilegati.'),
     dict(nome='MORA “SPILLA” FANTI', ruolo='La Contrabbandiera dei Canali', acume=3, vigore=2, nervi=1,
          salute=7, difesa=8,
          abil=('<b>Ombra fiuta</b> — In indagine: una volta per episodio, prima di scegliere il '
@@ -150,7 +165,8 @@ LUOGHI = [
                  'Il diario di Ruggero, con l’ultima pagina strappata. Ricalcando i solchi della penna leggete: '
                  '«...alle 3 in punto, ogni notte. <b>Tre rintocchi, poi uno, poi cinque.</b> Non sono io a suonare.» '
                  '<i>(Reperto A: consegnate il Diario di Ruggero.)</i>',
-                 'Graffiata sul legno della balaustra, una parola: <b>SOMMERSO</b>.'],
+                 'Sul legno della balaustra, unghiate profonde intorno a una scritta quasi '
+                 'cancellata. Ci vuole un attimo per ricomporla: <b>SOMMERSO</b>.'],
          approfondimenti=[
              dict(tipo='Osservazione',
                   testo='Tra le assi, un frammento di spartito scritto a mano. Le note non sono per organo: sono per <b>campane</b>.'),
@@ -297,10 +313,20 @@ OGGETTI = [
          effetto='+1 alle prove per forzare e scassinare.'),
     dict(nome='UN TALISMANO A FORMA D’ONDA', ref='T3', fonte='Si trova cercando in T3 — Corridoio delle Candele',
          flavor='Tiepido al tatto, come se qualcuno lo stringesse un istante prima di voi.',
-         effetto='+1 NERVI finché lo portate.'),
+         rischio=True,
+         effetto='+1 NERVI finché lo portate. È caldo, come stretto un istante prima da '
+                 'un’altra mano: prenderlo è una scelta. Se lo lasciate lì, nessuna '
+                 'conseguenza. Se lo prendete, prova NERVI (Media): se fallita, cera bollente '
+                 '— 1 danno e perdete 1 azione al prossimo turno (il talismano resta comunque '
+                 'vostro).'),
     dict(nome='LA CHIAVE DELLA CELLA', ref='T4', fonte='Si trova cercando in T4 — Ufficio del Custode',
          flavor='Ruggine recente sul dente: uso frequente.',
-         effetto='Apre la cella in T6 con Interagire, senza prove.'),
+         rischio=True,
+         effetto='Apre la cella in T6 con Interagire, senza prove. La chiave pende da un filo '
+                 'teso a un vasetto rovesciato: prenderla è una scelta. Se la lasciate lì, il '
+                 'registro resta comunque leggibile. Se la prendete, prova NERVI (Media): se '
+                 'fallita, i fumi vi stordiscono — 1 sola azione al prossimo turno (la chiave '
+                 'resta comunque vostra).'),
 ]
 
 # ================================================================ SPEDIZIONE
@@ -401,12 +427,20 @@ TILES = [
     dict(id='T3', nome='CORRIDOIO DELLE CANDELE', exits={'O': 'T2'},
          testo='Migliaia di candele nere accese. Chi entra in questa tessera per la prima volta prova '
                'NERVI (Media): se fallisce, 1 danno (cera bollente).',
-         cerca='Un talismano a forma d’onda: chi lo porta ha +1 NERVI.',
+         cerca='Un talismano a forma d’onda: chi lo porta ha +1 NERVI. È caldo, come stretto un '
+               'istante prima da un’altra mano: prenderlo è una scelta. Se lo lasciate lì, '
+               'nessuna conseguenza. Se lo prendete, prova NERVI (Media): se fallita, cera '
+               'bollente — 1 danno e perdete 1 azione al prossimo turno (il talismano resta '
+               'comunque vostro).',
          arredi=[(0, 0, 'candele'), (3, 0, 'candele'), (0, 3, 'candele'), (3, 3, 'candele')]),
     dict(id='T4', nome='UFFICIO DEL CUSTODE', exits={'E': 'T2'},
          testo='Una scrivania sommersa di spartiti, un pagliericcio che puzza di sego.',
-         cerca='La CHIAVE DELLA CELLA e un registro: «Il dormiente gradisce il canto. '
-               'Manca solo la voce del bronzo.»',
+         cerca='La CHIAVE DELLA CELLA e un registro: «Il dormiente gradisce il canto. Manca '
+               'solo la voce del bronzo.» La chiave pende da un filo teso a un vasetto '
+               'rovesciato: prenderla è una scelta. Se la lasciate lì, il registro resta '
+               'comunque leggibile. Se la prendete, prova NERVI (Media): se fallita, i fumi vi '
+               'stordiscono — 1 sola azione al prossimo turno (la chiave resta comunque '
+               'vostra).',
          arredi=[(1, 3, 'scrivania'), (3, 0, 'branda')]),
     dict(id='T5', nome='SCALA AL PIANO INTERRATO', exits={'S': 'T2', 'N': 'T6'},
          testo='Gradini viscidi che scendono nel canto. Chi scende prova NERVI (Facile): se fallisce, '

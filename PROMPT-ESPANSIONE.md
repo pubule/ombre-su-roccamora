@@ -101,6 +101,19 @@ prima che l'Ep. 1 lo riveli.
    sempre che qualunque coppia di eroi (il minimo per 2 giocatori) possa sbloccare almeno
    una variante: nell'Ep. 1, 5 eroi su 6 producono carte (solo Nino no), quindi ogni
    composizione plausibile ha un percorso.
+1-ter. *Leggere la scena* — regola CORE (non opzionale per episodio), introdotta per non
+   avere l'Indagine come unica fase senza mai un tiro di dado: alla prima visita di ogni
+   luogo, un eroe a scelta prova ACUME (Media) prima di leggere gli indizi. Riuscita: si
+   legge tutto come di consueto. Fallita: gli indizi meccanici core (parola chiave,
+   oggetto, reperto) restano **sempre garantiti** — mai dietro un tiro, principio Gumshoe/
+   Trail of Cthulhu: un tiro storto non deve mai creare un vicolo cieco — ma l'eventuale
+   Approfondimento di quel luogo resta nascosto per quella visita: si recupera tornandoci
+   (1 ora, come ogni visita), senza ripetere la prova la seconda volta. In scrittura,
+   questo permette agli indizi meccanici di essere leggermente meno espliciti nella prosa
+   (l'informazione resta garantita, cambia solo il registro con cui arriva — non nominare
+   MAI la parola chiave/oggetto in chiaro se già "risolta" a metà frase, lasciare un
+   piccolo margine di ricomposizione al tavolo), perché ora è il tiro a fare da filtro,
+   non la sola visita.
 2. *Busta Soluzione* — risposte, per ogni domanda un Vantaggio se esatta e (per 2 domande
    su 4) una complicazione se errata; schema di montaggio della mappa; epilogo da leggere
    a voce; Frammento; elenco migliorie; **nota per chi arbitra** su cosa fa l'Eco condivisa
@@ -119,6 +132,17 @@ prima che l'Ep. 1 lo riveli.
    Includi sempre almeno un oggetto-esca con effetto "nessuno finora scoperto" tra quelli
    con carta (coerenza con l'oggetto-esca del punto 1). Dati: `OGGETTI` in
    `src/gen_cards.py`, mazzo `oggetti` in `scripts/cardconjurer/cards-data.js`.
+   Facoltativo, 0–2 per episodio: un **oggetto rischioso**, segnalato con `rischio=True`
+   in `OGGETTI` (solo per oggetti trovati via `cerca` in Spedizione, mai in Indagine —
+   l'Indagine non ha prove di dadi). Il testo di `cerca`/`effetto` include per intero la
+   scelta e la prova, stesso linguaggio delle carte insidia (`prova X (difficoltà): se
+   fallisce, Y`), riusando la matematica di un'insidia esistente quando possibile
+   ("carte sorelle"). Non forzato mai: il gruppo può sempre lasciare l'oggetto sul posto
+   senza conseguenze e tornare a prenderlo più tardi. Il fallimento costa sempre e solo
+   la penalità scritta, mai l'oggetto. Riservalo a un oggetto trovato in un contesto già
+   inquietante (mai il decoy, mai un oggetto consegnato a mano da un PNG); se tocca
+   l'oggetto critico dell'ultimo miglio, tienine la penalità minima (mai perdita di
+   oggetto, mai danno grave).
 
 3. *Fase Spedizione* — 6 tessere (griglia 4×4, tessere 200 mm, caselle 50 mm — il minimo
    per muovere comodo le miniature), percorso con 1–2 rami

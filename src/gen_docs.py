@@ -155,12 +155,20 @@ def regolamento():
                 'un vantaggio extra per la Spedizione, tanto pi\u00f9 grande quante pi\u00f9 ore avete lasciato '
                 'sul tavolo \u2014 ma smettere presto vuol dire rispondere con meno indizi in mano: la '
                 'fretta ha un prezzo, quanto rischiarla lo decidete voi.'))
+    e.append(LI('Alla <b>prima visita</b> di un luogo, prima di leggerne testo e indizi, il gruppo '
+                'indica un eroe che <b>legge la scena</b>: prova di ACUME Media. Gli indizi core '
+                '(sotto) si leggono comunque, che la prova riesca o no \u2014 non si perde mai '
+                'un\u2019informazione necessaria a un tiro sbagliato. Se fallita, per\u00f2, l\u2019eventuale '
+                '<b>Approfondimento</b> di quel luogo resta nascosto per questa visita: tornateci '
+                'un\u2019altra volta (di nuovo 1 ora, come ogni visita, ma senza ripetere la prova) per '
+                'coglierlo.'))
     e.append(LI('Per visitare un luogo, girate la carta e leggete ad alta voce testo e indizi. '
                 'Prendete appunti sul Taccuino: nomi, orari, parole chiave in MAIUSCOLO.'))
     e.append(LI('Quando trovate una <b>parola chiave</b> o un <b>oggetto</b>, potete da quel momento '
                 'visitare i luoghi che li richiedono.'))
     e.append(LI('Alcuni luoghi nascondono degli <b>Approfondimenti</b>: indizi extra che '
-                'emergono solo se un eroe presente sa come cavarli. <b>Almeno un dettaglio '
+                'emergono solo se un eroe presente sa come cavarli <b>e</b> se avete superato la '
+                'prova di \u201cleggere la scena\u201d a quella visita (sopra). <b>Almeno un dettaglio '
                 'decisivo per le 4 Domande emerge solo cos\u00ec</b> \u2014 qualsiasi Approfondimento va '
                 'bene, non importa quale o di chi: se l\u2019indagine finisce senza averne consultato '
                 'nemmeno uno, alcune risposte resteranno solo probabili, non certe.'))
@@ -188,17 +196,22 @@ def regolamento():
     e.append(LI('<b>Padre Marani</b> non sblocca carte: con <b>Discernimento</b> (1 volta a '
                 'episodio) indica un luogo e chi tiene il fascicolo Luoghi risponde solo '
                 '<b>s\u00ec o no</b>: \u201cl\u00ec si nasconde ancora qualcosa?\u201d \u2014 mai cosa, mai di che tipo. '
-                'Se la risposta \u00e8 s\u00ec, quella visita non costa l\u2019ora (non conta come ora avanzata).'))
+                'Se la risposta \u00e8 s\u00ec, quella visita non costa l\u2019ora (non conta come ora avanzata) '
+                '\u2014 ma tira comunque \u201cleggere la scena\u201d come ogni prima visita.'))
     e.append(LI('<b>Nino</b> non sblocca carte: la sua abilit\u00e0 (<b>Accesso</b>) entra in un luogo '
-                'bloccato senza parola chiave n\u00e9 oggetto, 1 volta a episodio \u2014 \u00e8 un ingresso '
-                'anticipato, non un Approfondimento.'))
-    e.append(P('<b>Esempio:</b> il gruppo visita il Luogo 1 (Campanile) con Elena presente. Girate '
-               'la carta, leggete testo e i 3 indizi core \u2014 sempre, a chiunque. Poich\u00e9 Elena c\u2019\u00e8, chi '
-               'tiene il fascicolo Luoghi controlla la voce \u201cLuogo 1\u201d: c\u2019\u00e8 un Indizio Nascosto, prende '
-               'dal mazzo coperto la carta di quel tipo e la legge ad alta voce. Pi\u00f9 tardi il gruppo '
-               'visita il Luogo 2 (Bice) con Ottone: offrendogli da bere, si controlla di nuovo il '
-               'fascicolo, si trova un Testimone e si prende quella carta. Se un luogo non \u00e8 in elenco '
-               'per quel tipo, semplicemente non c\u2019\u00e8 nulla da trovare l\u00ec per quell\u2019eroe.', 'box'))
+                'bloccato senza parola chiave n\u00e9 oggetto, 1 volta a episodio \u2014 bypassa solo il '
+                'requisito d\u2019ingresso: una volta dentro si tira \u201cleggere la scena\u201d come sempre.'))
+    e.append(P('<b>Esempio:</b> il gruppo visita il Luogo 1 (Campanile) con Elena presente. Prima di '
+               'tutto, un eroe a scelta legge la scena: 2d6+ACUME (3) = 10, supera la Media (9) \u2014 '
+               'via libera. Girate la carta, leggete testo e i 3 indizi core \u2014 sempre, a chiunque, '
+               'tiro riuscito o no. Poich\u00e9 la prova \u00e8 riuscita ed Elena c\u2019\u00e8, chi tiene il fascicolo '
+               'Luoghi controlla la voce \u201cLuogo 1\u201d: c\u2019\u00e8 un Indizio Nascosto, prende dal mazzo coperto '
+               'la carta di quel tipo e la legge ad alta voce. Pi\u00f9 tardi il gruppo visita il Luogo 2 '
+               '(Bice) con Ottone: la prova di leggere la scena questa volta fallisce (7 contro Media '
+               '9) \u2014 gli indizi core si leggono comunque, ma il Testimone di Bice resta per ora '
+               'nascosto: dovranno tornarci un\u2019altra ora, senza ripetere la prova, per convincerla. '
+               'Se un luogo non \u00e8 in elenco per quel tipo, semplicemente non c\u2019\u00e8 nulla da trovare l\u00ec '
+               'per quell\u2019eroe, tiro o non tiro.', 'box'))
     e.append(LI('<b>Reperti</b> \u2014 nessuna azione o prova in pi\u00f9: si ottengono semplicemente '
                 'visitando il luogo, come qualsiasi indizio core. Quando un indizio, sulla carta '
                 'stessa, riporta tra parentesi <i>(Reperto X: consegnate...)</i>, non limitatevi a '
@@ -310,12 +323,28 @@ def regolamento():
                 'svanisce dopo l\u2019attivazione dei nemici che ha attirato.'))
     e.append(LI('<b>Vi conosco, Malacarne (Brera)</b> \u2014 bersaglia un <b>nemico di truppa</b>: '
                 'Malavita, Adepto o Cane. Non funziona su boss n\u00e9 su Ruggero.'))
+    e.append(LI('<b>Stola consunta (Marani)</b> \u2014 copre qualunque prova NERVI imposta da una '
+                'trappola: carte Minaccia di tipo insidia, l\u2019ingresso in una tessera pericolosa, o '
+                'la scelta di prendere un oggetto rischioso. Non copre le prove NERVI di gruppo n\u00e9 '
+                'le sconfitte in combattimento.'))
     e.append(LI('<b>Oggetti</b> \u2014 ci\u00f2 che trovate nell\u2019Indagine \u00e8 del gruppo: all\u2019inizio della '
                 'Spedizione decidete chi porta cosa (annotatelo). In Spedizione, passare un oggetto a '
                 'un eroe adiacente \u00e8 gratuito, una volta per turno; un eroe a terra pu\u00f2 essere '
                 'alleggerito da chi gli \u00e8 adiacente.'))
+    e.append(LI('<b>Oggetto rischioso</b> \u2014 se la carta Oggetto lo segnala, prenderlo \u00e8 sempre una '
+                'scelta del gruppo, mai un obbligo: potete lasciarlo dov\u2019\u00e8 senza conseguenze, e '
+                'tornare a prenderlo pi\u00f9 tardi con una semplice azione (nessuna nuova prova di '
+                'Cercare: la tessera \u00e8 gi\u00e0 esaurita). La scelta si risolve subito, non costa '
+                'un\u2019azione aggiuntiva. Quando decidete di prenderlo, l\u2019eroe che lo raccoglie tira la '
+                'prova indicata sulla carta: fallirla costa quanto scritto, mai la perdita '
+                'dell\u2019oggetto, che resta comunque in mano a chi l\u2019ha preso.'))
     e.append(LI('<b>Cercare fallito</b> \u2014 si pu\u00f2 ritentare spendendo altre azioni, anche con eroi '
                 'diversi. Una volta trovato ci\u00f2 che la tessera nasconde, la tessera \u00e8 esaurita.'))
+    e.append(LI('<b>Leggere la scena</b> \u2014 alla prima visita di un luogo, un eroe a scelta prova '
+                'ACUME (Media) prima di leggere gli indizi. Fallita: leggete comunque gli indizi '
+                '(parola chiave/oggetto/reperto, se presenti) ma non l\u2019Approfondimento eventuale \u2014 '
+                'tornateci un\u2019altra volta (1 ora, come sempre) per coglierlo, senza ripetere la '
+                'prova.'))
     e.append(LI('<b>\u201cEroe pi\u00f9 avanzato\u201d</b> \u2014 quello pi\u00f9 lontano dall\u2019ingresso, contando le '
                 'caselle. A pari merito: regola d\u2019oro.'))
     e.append(LI('<b>Movimento</b> \u2014 gli alleati (e Ruggero) si possono attraversare, ma non ci si '

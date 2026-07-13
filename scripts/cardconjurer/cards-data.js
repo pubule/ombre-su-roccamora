@@ -223,7 +223,7 @@ const LUOGHI = [
     testo: 'La scala a chiocciola sale nel buio, ottanta gradini che Ruggero conosceva a memoria. In cima, la cella campanaria è un disordine congelato: lo sgabello rovesciato, la lanterna ancora appesa al gancio, la cena intatta sotto un panno. Le tre grandi campane pendono immobili come bestie addormentate, e fa più freddo di quanto dovrebbe.',
     indizi: ['Colate di cera nera sui gradini — troppo in alto perché vengano dalle candele della chiesa.',
              'Il diario di Ruggero, con l’ultima pagina strappata. Ricalcando i solchi della penna leggete: «...alle 3 in punto, ogni notte. Tre rintocchi, poi uno, poi cinque. Non sono io a suonare.» (Reperto A: consegnate il Diario di Ruggero.)',
-             'Graffiata sul legno della balaustra, una parola: SOMMERSO.'],
+             'Sul legno della balaustra, unghiate profonde intorno a una scritta quasi cancellata. Ci vuole un attimo per ricomporla: SOMMERSO.'],
     approfondimenti: [
       { tipo: 'Osservazione', testo: 'Tra le assi, un frammento di spartito scritto a mano. Le note non sono per organo: sono per campane.' },
       { tipo: 'Referto', soggetto: 'La cena intatta', testo: 'La cena è ancora sotto il panno, fredda ma composta; nessun segno di lotta, nessuna caduta. Ruggero non è stato trascinato via: si è alzato e ha seguito qualcuno, verso le 3.' },
@@ -386,10 +386,10 @@ const OGGETTI = [
     effetto: '+1 alle prove per forzare e scassinare.' },
   { art: 'artworks/Talismano Onda.png', nome: 'Un Talismano a Forma d’Onda', ref: 'T3', fonte: 'Si trova cercando in T3 — Corridoio delle Candele',
     flavor: 'Tiepido al tatto, come se qualcuno lo stringesse un istante prima di voi.',
-    effetto: '+1 NERVI finché lo portate.' },
+    effetto: '+1 NERVI finché lo portate. È caldo, come stretto un istante prima da un’altra mano: prenderlo è una scelta. Se lo lasciate lì, nessuna conseguenza. Se lo prendete, prova NERVI (Media): se fallita, cera bollente — 1 danno e perdete 1 azione al prossimo turno (il talismano resta comunque vostro).' },
   { art: 'artworks/Chiave della Cella.png', nome: 'La Chiave della Cella', ref: 'T4', fonte: 'Si trova cercando in T4 — Ufficio del Custode',
     flavor: 'Ruggine recente sul dente: uso frequente.',
-    effetto: 'Apre la cella in T6 con Interagire, senza prove.' },
+    effetto: 'Apre la cella in T6 con Interagire, senza prove. La chiave pende da un filo teso a un vasetto rovesciato: prenderla è una scelta. Se la lasciate lì, il registro resta comunque leggibile. Se la prendete, prova NERVI (Media): se fallita, i fumi vi stordiscono — 1 sola azione al prossimo turno (la chiave resta comunque vostra).' },
 ].map((o) => ({
   art: o.art,
   title: o.nome,
