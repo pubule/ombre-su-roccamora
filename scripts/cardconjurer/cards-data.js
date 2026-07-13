@@ -225,8 +225,8 @@ const LUOGHI = [
              'Il diario di Ruggero, con l’ultima pagina strappata. Ricalcando i solchi della penna leggete: «...alle 3 in punto, ogni notte. Tre rintocchi, poi uno, poi cinque. Non sono io a suonare.» (Reperto A: consegnate il Diario di Ruggero.)',
              'Sul legno della balaustra, unghiate profonde intorno a una scritta quasi cancellata. Ci vuole un attimo per ricomporla: SOMMERSO.'],
     approfondimenti: [
-      { tipo: 'Osservazione', testo: 'Tra le assi, un frammento di spartito scritto a mano. Le note non sono per organo: sono per campane.' },
-      { tipo: 'Referto', soggetto: 'La cena intatta', testo: 'La cena è ancora sotto il panno, fredda ma composta; nessun segno di lotta, nessuna caduta. Ruggero non è stato trascinato via: si è alzato e ha seguito qualcuno, verso le 3.' },
+      { tipo: 'Osservazione', testo: 'Tra le assi, un frammento di spartito scritto a mano. Le note non sono per organo: sono per campane — e in calce, a matita, un nome e un indirizzo: «B. Ferri, capo coro — vecchio magazzino delle cere, Dellacqua, Canale Basso.» Non un semplice cantore: chi dirige, firma.' },
+      { tipo: 'Referto', soggetto: 'La cena intatta', testo: 'La cena è ancora sotto il panno, fredda ma composta; nessun segno di lotta, nessuna caduta. Ruggero non è stato trascinato via: si è alzato e ha seguito qualcuno, verso le 3. Sul pavimento, tracce di fango nero e legno marcio — lo stesso fango dei moli intorno al vecchio magazzino delle cere che fu di Dellacqua, sul Canale Basso — e vicino alla porta, un frammento di corda per violino, di quelle che vende solo un liutaio: chi lascia il proprio mestiere impresso ovunque passa non si intrufola dietro gli altri. Comanda.' },
     ] },
   { n: 2, nome: 'Casa di Ruggero — Vicolo dei Fonditori', req: 'Disponibile dall’inizio',
     testo: 'Il vicolo dei Fonditori sa di carbone e minestra. Bice vi apre con gli occhi rossi e le mani che non stanno ferme; la casa è linda, povera, piena dell’assenza di suo fratello. «Negli ultimi tempi diceva di sentire musica sotto il pavimento della cripta», mormora. «E aveva paura del suo stesso campanile.»',
@@ -234,7 +234,7 @@ const LUOGHI = [
              'Una ricevuta: Ruggero aveva chiesto all’Archivio Civico i documenti antichi della cattedrale.',
              'Bice: «L’ultima sera ripeteva una parola, come una preghiera al contrario: sommerso, sommerso.»'],
     approfondimenti: [
-      { tipo: 'Testimonianza', soggetto: 'Bice', testo: 'Consolata, Bice ricorda: nelle ultime settimane Ruggero riceveva di notte un visitatore «ben vestito, con mani da artigiano». Non ne ha mai saputo il nome.' },
+      { tipo: 'Testimonianza', soggetto: 'Bice', testo: 'Consolata, Bice ricorda: nelle ultime settimane Ruggero riceveva di notte un visitatore «ben vestito, con mani da artigiano». Una volta lo seguì di nascosto fino al vecchio magazzino delle cere che fu di Dellacqua, sul Canale Basso — e lo sentì rispondere quando qualcuno, dentro, lo chiamò: «il liutaio Ferri». Lo vide inchinarsi tutti a lui, come si fa a un superiore, mai a un pari.' },
     ] },
   { n: 3, nome: 'Taverna del Ponte Rotto', req: 'Disponibile dall’inizio',
     testo: 'Fumo denso, vino cattivo, il tanfo dolciastro del canale che entra a ogni porta che sbatte. I barcaioli giocano a carte sotto una lampada a olio e vi squadrano appena: qui le lingue si sciolgono con poco, purché il poco finisca nel bicchiere giusto.',
@@ -242,8 +242,8 @@ const LUOGHI = [
              'Un avventore ubriaco: «Vicino ai vecchi magazzini c’è puzza di cera bruciata da settimane.»',
              'L’oste conferma: Tonio il sagrestano era qui a giocare a carte fino all’alba, la notte della scomparsa.'],
     approfondimenti: [
-      { tipo: 'Testimonianza', soggetto: 'Ugo il barcaiolo', testo: 'Con un altro bicchiere, Ugo precisa: la chiatta senza lanterne ha attraccato al molo terzo del Canale Basso, poco dopo le 3, e ha scaricato in fretta.' },
-      { tipo: 'Presagio', testo: 'Mentre i barcaioli giocano, a Sibilla cade sotto gli occhi la stessa carta due volte: l’Annegato. Il canale, stanotte, ha fame.' },
+      { tipo: 'Testimonianza', soggetto: 'Ugo il barcaiolo', testo: 'Con un altro bicchiere, Ugo precisa: la chiatta senza lanterne ha attraccato al molo terzo del Canale Basso, poco dopo le 3, scaricando dritta al vecchio magazzino delle cere che fu di Dellacqua — quello con la porta sempre sbarrata. E a dare ordini, quella notte, non era uno degli uomini di scarico: era il liutaio Ferri in persona, con la voce di chi comanda, non di chi obbedisce.' },
+      { tipo: 'Presagio', testo: 'Mentre i barcaioli giocano, la stessa carta cade sotto gli occhi due volte: l’Annegato. Per un istante si vede, netto come un ricordo non proprio, un vecchio magazzino sul Canale Basso — quello che fu di Dellacqua — e una figura al centro del cerchio di candele, non inginocchiata come le altre: in piedi, con le mani di un liutaio. Il canale, stanotte, ha fame.' },
     ] },
   { n: 4, nome: 'La Sagrestia della Cattedrale', req: 'Disponibile dall’inizio',
     testo: 'Odore d’incenso e di chiuso. Don Callisto vi riceve tra i paramenti, nervoso, nascondendo dietro la schiena le mani sporche di cera. Alle sue spalle la porta della cripta, sbarrata con assi nuove su pietra antica: «Chiusa per lavori», taglia corto, e la voce gli si incrina sull’ultima sillaba.',
@@ -251,8 +251,8 @@ const LUOGHI = [
              'Don Callisto ammette: la seconda chiave della cripta ce l’ha il liutaio Ferri, che sta restaurando l’organo.',
              'Prima che usciate, vi mette in mano un’ampolla di acqua benedetta: «Se là sotto c’è il demonio, portate questa.»'],
     approfondimenti: [
-      { tipo: 'Osservazione', testo: 'La cera sulle mani di don Callisto è bianca, comune: vende candele di nascosto per pagare i debiti della parrocchia. Con la cera nera non c’entra.' },
-      { tipo: 'Testimonianza', soggetto: 'Don Callisto', testo: 'Se rassicurato, il prete crolla: certe notti dalla cripta sale un canto sommesso, «di molte voci». Ha troppa paura per denunciarlo — e troppa vergogna per benedirlo.' },
+      { tipo: 'Osservazione', testo: 'La cera sulle mani di don Callisto è bianca, comune: vende candele di nascosto per pagare i debiti della parrocchia. Con la cera nera non c’entra — ma sul suo registro delle elemosine, una voce ricorrente salta all’occhio: consegne mensili di cera, sempre allo stesso destinatario, «B. Ferri, per conto del magazzino Dellacqua, Canale Basso». Non un cliente qualunque: gli ordini, mese dopo mese, li dà sempre lui.' },
+      { tipo: 'Testimonianza', soggetto: 'Don Callisto', testo: 'Se rassicurato, il prete crolla: certe notti dalla cripta sale un canto sommesso, «di molte voci» — ma una sola le guida, sempre la stessa, e lui l’ha riconosciuta: è la voce di Bastiano Ferri, il liutaio. «Mi ha detto lui stesso dove si radunano davvero, ora: un vecchio magazzino di cera sul Canale Basso, quello che fu di Dellacqua.» Ha troppa paura per denunciarlo — e troppa vergogna per benedirlo.' },
     ] },
   { n: 5, nome: 'Bottega del Liutaio Ferri', req: 'Serve: la CORDA DI VIOLINO (Luogo 2)',
     testo: 'La bottega è chiusa da giorni, la polvere ha già preso possesso delle vetrine; la porta sul retro cede a una spallata. Dentro, violini appesi come selvaggina e un silenzio sbagliato per un luogo nato per fare musica. Il banco da lavoro è in ordine perfetto: chi è partito, sapeva di partire.',
@@ -260,8 +260,8 @@ const LUOGHI = [
              'Il registro consegne, ultima riga: «40 candele di cera nera — consegna al C.B., molo terzo, il vecchio deposito — pagato B.F.» (Reperto B: consegnate il Registro delle Consegne.)',
              'Uno spartito: «Dal Profondo», riscritto per campane. In margine: «il bronzo canta, la pietra risponde, l’acqua ricorda».'],
     approfondimenti: [
-      { tipo: 'Osservazione', testo: 'Nel camino, cenere di carta ancora tiepida. Un lembo si salva, grafia febbrile: «...non riesco più a fermarlo, il Coro canta anche senza di me. Che Dio perdoni ciò che ho svegliato. — B.»' },
-      { tipo: 'Referto', soggetto: 'Residui sulle lime', testo: 'Su lime e sgorbie, incrostazioni di cera nera — non la pece da liutaio. Qui, tra un violino e l’altro, Ferri lavorava le candele del culto.' },
+      { tipo: 'Osservazione', testo: 'Nel camino, cenere di carta ancora tiepida. Un lembo si salva, grafia febbrile: «...non riesco più a fermarlo, il Coro canta anche senza di me, anche laggiù al magazzino delle cere di Dellacqua, sul Canale Basso. Che Dio perdoni ciò che ho svegliato. — B.» La grafia è la stessa del registro consegne sul banco: quella del liutaio Ferri.' },
+      { tipo: 'Referto', soggetto: 'Residui sulle lime', testo: 'Su lime e sgorbie, incrostazioni di cera nera — non la pece da liutaio. Qui, tra un violino e l’altro, Ferri lavorava le candele del culto: non un aiutante occasionale, la sua bottega è l’unica officina della città attrezzata per fonderle in quantità. Sul registro, l’ultima consegna è diretta al vecchio magazzino delle cere che fu di Dellacqua, sul Canale Basso — indirizzo suo, non di un terzo a cui rendeva conto.' },
     ] },
   { n: 6, nome: 'Il Canale Basso', req: 'Serve: la parola chiave CHIATTA (Luogo 3)',
     testo: 'L’acqua qui non scorre: sta. Nera, ferma, densa come olio, lambisce magazzini ciechi dai portoni murati. Il guardiano notturno esce dal casotto con la lanterna alzata e, per qualche moneta, la diffidenza si scioglie in fretta: da settimane muore dalla voglia di raccontare a qualcuno quello che sente la notte.',
@@ -269,8 +269,8 @@ const LUOGHI = [
              '«Alle 3 di notte, da là dentro, viene un canto sommesso. Di molte voci. Una volta... ho sentito un urlo.»',
              'Sul molo: gocce di cera nera e un lucchetto nuovo di zecca sulla porta della banchina, di quelli a tre cifre.'],
     approfondimenti: [
-      { tipo: 'Testimonianza', soggetto: 'Il guardiano notturno', testo: 'Il guardiano abbassa la voce. «Certe notti li ho visti entrare — un fornaio, un sagrestano, gente che saluto al mercato — e uscire all’alba con gli occhi vuoti, senza riconoscermi. Non erano più loro.»' },
-      { tipo: 'Presagio', testo: 'Sibilla sfiora l’acqua nera: non è fredda, è attenta. Qualcosa, sotto la città, ascolta i passi sul molo — e li conta.' },
+      { tipo: 'Testimonianza', soggetto: 'Il guardiano notturno', testo: 'Il guardiano abbassa la voce. «Certe notti li ho visti entrare — un fornaio, un sagrestano, gente che saluto al mercato — sempre dallo stesso magazzino, quello che fu di Dellacqua. E davanti alla porta, sempre lui a farli passare, uno per uno, come un sagrestano conta i fedeli: il liutaio Ferri.» Uscivano all’alba con gli occhi vuoti, senza riconoscermi. Non erano più loro.' },
+      { tipo: 'Presagio', testo: 'Sfiorare l’acqua nera basta: non è fredda, è attenta. Per un istante si vede, netto come attraverso occhi non propri, l’interno del vecchio magazzino delle cere di Dellacqua, qui sul Canale Basso — e al centro, non un fedele tra i fedeli ma chi li dispone in cerchio: le mani di un liutaio, non di un prete. Qualcosa, sotto la città, ascolta i passi sul molo — e li conta.' },
     ] },
   { n: 7, nome: 'L’Archivio Civico', req: 'Serve: la parola chiave SOMMERSO (Luogo 1)',
     testo: 'Scaffali fino al soffitto, cartelle legate con lo spago, la luce verde delle lampade a schermo. L’archivista, minuscolo dietro occhiali spessi, si irrigidisce quando pronunciate la parola giusta: poi, senza fiatare, vi guida a uno scaffale che nessuno tocca da decenni — la polvere è spessa un dito, tranne che su un solo fascicolo.',
@@ -278,7 +278,7 @@ const LUOGHI = [
              'Una mappa antica: dalla cripta, condotti scendono verso il Canale Basso.',
              'Registro consultazioni, due mesi fa: «B. Ferri, liutaio» ha richiesto questo stesso fascicolo.'],
     approfondimenti: [
-      { tipo: 'Osservazione', testo: 'Le mani dell’archivista tremano su un solo scaffale. Sul fascicolo, una nota a margine di altra mano: «il sigillo a onda è ancora inciso nella cripta — sotto l’altare».' },
+      { tipo: 'Osservazione', testo: 'Le mani dell’archivista tremano su un solo scaffale. Sul fascicolo, due note a margine, la stessa calligrafia frettolosa: «il sigillo a onda è ancora inciso nella cripta — sotto l’altare» e, più sotto, quasi illeggibile, «B. Ferri ha ripreso il posto che fu del fondatore — vecchio magazzino Dellacqua, Canale Basso — nessuno osa contraddirlo». Chi ha scritto questo, aveva paura di essere letto.' },
     ] },
   { n: 8, nome: 'La Gendarmeria', req: 'Disponibile dall’inizio',
     testo: 'Pile di pratiche, una stufa che fuma, il brigadiere che vi riceve senza alzarsi. «Il campanaro? Sarà scappato con qualche vedova.» Ma mentre lo dice non vi guarda negli occhi, e la sua mano tamburella su un fascicolo di denunce che continua a spostare da un lato all’altro della scrivania.',
@@ -286,8 +286,8 @@ const LUOGHI = [
              'Denunce recenti: furti di cera e canapa da tre chiese. E un fonditore giura d’aver venduto un quintale di bronzo a un compratore incappucciato.',
              '«Se trovate qualcosa di concreto, tornate. Non perquisiamo mezza città per un campanaro con la testa fra le nuvole.»'],
     approfondimenti: [
-      { tipo: 'Referto', soggetto: 'La denuncia dei furti', testo: 'Attilio confronta le denunce: la cera «rubata da tre chiese» è la stessa cera d’altare della cattedrale. Qualcuno raccoglie cera consacrata in quantità.' },
-      { tipo: 'Testimonianza', soggetto: 'Il fascicolo nascosto', testo: 'Il fascicolo che il brigadiere continua a spostare (fatelo parlare, o sfilateglielo): il compratore incappucciato scaricava «al molo terzo del Canale Basso». La gendarmeria lo sapeva e ha lasciato correre.' },
+      { tipo: 'Referto', soggetto: 'La denuncia dei furti', testo: 'Le denunce, messe a confronto, dicono di più separate: la cera «rubata da tre chiese» è la stessa cera d’altare della cattedrale — e le quantità, sommate, bastano a rifornire un solo luogo per mesi: il vecchio magazzino delle cere che fu di Dellacqua, sul Canale Basso. Chi organizza un furto così sistematico, su tre parrocchie diverse, senza mai lasciarsi scoprire, non è un gregario che ruba per conto d’altri: pianifica, e quindi comanda. Il nome che ricorre nei registri dei fonditori come miglior cliente per «materiale da fusione» è sempre lo stesso: Bastiano Ferri.' },
+      { tipo: 'Testimonianza', soggetto: 'Il fascicolo nascosto', testo: 'Il fascicolo che il brigadiere continua a spostare (fatelo parlare, o sfilateglielo): il compratore incappucciato scaricava «al molo terzo del Canale Basso, nel vecchio magazzino di Dellacqua» — e pagava bene perché nessuno controllasse chi comandava lo scarico: un uomo che gli agenti, nel fascicolo, chiamano solo «il liutaio», mai per nome, come se nominarlo fosse un rischio. La gendarmeria lo sapeva e ha lasciato correre.' },
     ] },
 ].map((L) => ({
   art: LUOGHI_ART[L.n],
@@ -314,24 +314,9 @@ const LUOGHI = [
 // in cui si trova la carta solo visitando quel luogo con l'abilita' giusta. Quale
 // carta prendere per quale luogo sta nel PDF pdf/Episodio 1/Luoghi.pdf
 // (src/gen_narrator.py), mai sulla carta stessa.
-const TAG_INSIGHT = { Osservazione: 'Osservazione — Elena', Presagio: 'Presagio — Sibilla' };
-
-// Famiglia di 4 varianti (non più un frammento identico) appese IN CODA a tutte e 14
-// le carte Approfondimento, a rotazione per luogo (n % 4). Ogni variante porta comunque
-// lo stesso nucleo garantito - nome esatto del nascondiglio (Domanda 1) e Ferri capo,
-// non solo coinvolto (Domanda 2) - così una singola carta pescata, qualunque sia, basta
-// da sola: rende l'uso delle abilità un requisito reale, non importa di chi. In più ogni
-// variante aggiunge un accenno diverso (Domanda 3: ritmo 3-1-5, corroborazione, già
-// risolvibile dal solo core; Domanda 4: urgenza del diapason) così il meccanismo tocca
-// tutte e 4 le Domande e non suona sempre uguale — vedi src/gen_cards.py ECHI_DEL_CORO
-// e src/gen_docs.py soluzione() per la nota al Narratore.
-const ECHI_DEL_CORO = [
-  'Per un istante, chi scava davvero a fondo sente lo stesso sussurro, ovunque si trovi: «il Magazzino delle Cere che fu di Dellacqua — lì Bastiano Ferri guida ancora il canto, alle 3 di ogni notte, come le campane comandano.»',
-  'Per un istante, chi scava davvero a fondo sente lo stesso sussurro, ovunque si trovi: «è la voce di Bastiano Ferri a guidare il coro, nel Magazzino delle Cere che fu di Dellacqua — nessun altro osa cantare per primo.»',
-  'Per un istante, chi scava davvero a fondo sente lo stesso sussurro, ovunque si trovi: «tre, poi uno, poi cinque: è il verso che apre ogni porta del Coro, cantato nel Magazzino delle Cere che fu di Dellacqua, dove Ferri guida ancora il canto.»',
-  'Per un istante, chi scava davvero a fondo sente lo stesso sussurro, ovunque si trovi: «solo l’argento intonato può spezzare il canto — portatelo nel Magazzino delle Cere che fu di Dellacqua, dove Bastiano Ferri guida ancora il coro.»',
-];
-const ecoPer = (n) => ECHI_DEL_CORO[n % ECHI_DEL_CORO.length];
+// Niente nomi eroe qui: chi sblocca cosa dipende dal roster (cambia nel tempo,
+// e il jolly di Sibilla copre comunque qualunque tipo) - vive SOLO nel
+// Regolamento e in pdf/Episodio N/Luoghi.pdf, mai su una carta.
 
 const INDIZI = LUOGHI.flatMap((L) => {
   const righe = L.approfondimenti.filter((a) => a.tipo === 'Osservazione' || a.tipo === 'Presagio');
@@ -340,8 +325,8 @@ const INDIZI = LUOGHI.flatMap((L) => {
     art: L.art, n: L.n, kind: 'Indizio',
     title: `Indizio Nascosto — ${L.nome}`,
     file: `Episodio 1/Indizi/${L.nome}`,
-    type: `Luogo ${L.n} · Osservazione (Elena) / Presagio (Sibilla)`,
-    rules: `{i}${righe.map((a) => `◆ (${TAG_INSIGHT[a.tipo]}) ${a.testo}`).join('\n')}\n◆ (Eco del Coro) ${ecoPer(L.n)}{/i}`,
+    type: `Luogo ${L.n} · Osservazione / Presagio`,
+    rules: `{i}${righe.map((a) => `◆ (${a.tipo}) ${a.testo}`).join('\n')}{/i}`,
   }];
 });
 
@@ -350,8 +335,8 @@ const TESTIMONI = LUOGHI.flatMap((L) =>
     art: L.art, n: L.n, kind: 'Testimone',
     title: `Testimone — ${a.soggetto}`,
     file: `Episodio 1/Testimoni/${a.soggetto}`,
-    type: `Luogo ${L.n} · Testimone — abilità sociale (Ottone/Carla)`,
-    rules: `{i}${a.testo}{/i}{divider}{i}✹ (Eco del Coro) ${ecoPer(L.n)}{/i}`,
+    type: `Luogo ${L.n} · Testimone`,
+    rules: `{i}${a.testo}{/i}`,
   })));
 
 const REFERTI = LUOGHI.flatMap((L) =>
@@ -359,8 +344,8 @@ const REFERTI = LUOGHI.flatMap((L) =>
     art: L.art, n: L.n, kind: 'Referto',
     title: `Referto — ${a.soggetto}`,
     file: `Episodio 1/Referti/${a.soggetto}`,
-    type: `Luogo ${L.n} · Referto — il Medico (Attilio)`,
-    rules: `{i}${a.testo}{/i}{divider}{i}✹ (Eco del Coro) ${ecoPer(L.n)}{/i}`,
+    type: `Luogo ${L.n} · Referto`,
+    rules: `{i}${a.testo}{/i}`,
   })));
 
 // Oggetti trovabili: mazzo a se', arte dedicata (non riusata da altre carte).
@@ -441,17 +426,17 @@ const PRELUDIO_APPROFONDIMENTI = [
   { art: 'artworks/Palazzo del Lume.png', kind: 'Indizio',
     title: 'Indizio Nascosto — Il Palazzo del Lume',
     file: 'Preludio/Indizio - Il Palazzo del Lume',
-    type: 'Preludio · Osservazione (Elena) / Presagio (Sibilla)',
-    rules: '{i}◆ (Osservazione — Elena) La polvere sullo scaffale del 1741 è smossa solo a metà: chi ha preso il fascicolo sapeva DOVE cercare, ma non era pratico dell’archivio. Non era Ansaldo — e nemmeno un ladro qualunque.{/i}' },
+    type: 'Preludio · Osservazione',
+    rules: '{i}◆ (Osservazione) La polvere sullo scaffale del 1741 è smossa solo a metà: chi ha preso il fascicolo sapeva DOVE cercare, ma non era pratico dell’archivio. Non era Ansaldo — e nemmeno un ladro qualunque.{/i}' },
   { art: 'artworks/Taverna della Chiatta.png', kind: 'Testimone',
     title: 'Testimone — Il barcaiolo della Chiatta',
     file: 'Preludio/Testimone - Il barcaiolo della Chiatta',
-    type: 'Preludio · Testimone — abilità sociale (Ottone/Carla)',
+    type: 'Preludio · Testimone',
     rules: '{i}Con un bicchiere davanti, il barcaiolo ricorda: due notti, un passeggero fino alla riva del palazzo. «Un signore ben vestito, mani da artigiano. Pagava doppio per non avere domande. Mai di giorno.»{/i}' },
   { art: 'artworks/Banco dei Pegni.png', kind: 'Referto',
     title: 'Referto — L’orologio impegnato',
     file: 'Preludio/Referto - L’orologio impegnato',
-    type: 'Preludio · Referto — il Medico (Attilio)',
+    type: 'Preludio · Referto',
     rules: '{i}Il vetro è incrinato e sulla corona c’è sangue secco, ma poco: un colpo solo, di taglio, non una colluttazione lunga. Ansaldo è stato tramortito, non ucciso — un morto non serve a chi ha ancora domande da fargli.{/i}' },
 ];
 

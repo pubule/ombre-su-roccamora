@@ -130,33 +130,18 @@ HEROES = [
 # sulla carta "Indizio Nascosto" del luogo; Referto/Testimonianza diventano carte
 # a sé (mazzi Referti/Testimoni), col titolo = soggetto.
 #
-# ECHI_DEL_CORO: famiglia di 4 varianti che il generatore di carte (cards-data.js)
-# appende IN CODA a tutte e 14 le carte Approfondimento (Indizi/Testimoni/Referti),
-# a rotazione per luogo (n % 4) - non piu' un frammento identico su ogni carta.
-# Ogni variante porta comunque lo STESSO nucleo garantito (nome esatto del
-# nascondiglio, Domanda 1; Ferri capo e non solo coinvolto, Domanda 2): rende
-# l'uso delle abilità un requisito reale non importa di chi, perché qualunque
-# singola carta pescata - anche una sola in tutta la partita - basta da sola.
-# In più ogni variante aggiunge un accenno diverso che tocca anche la Domanda 3
-# (il ritmo 3-1-5, corroborazione, non serve a risolverla: già risolvibile dal
-# solo core) o la Domanda 4 (l'urgenza del diapason), cosi' il meccanismo non
-# ignora metà delle 4 Domande e non suona sempre uguale carta dopo carta.
-# L'indizio core del Luogo 6 resta ammorbidito apposta (non nomina il magazzino).
-# Vedi gen_docs.py soluzione() per la nota al Narratore.
-ECHI_DEL_CORO = [
-    'Per un istante, chi scava davvero a fondo sente lo stesso sussurro, ovunque si trovi: '
-    '«il Magazzino delle Cere che fu di Dellacqua — lì Bastiano Ferri guida ancora il canto, '
-    'alle 3 di ogni notte, come le campane comandano.»',
-    'Per un istante, chi scava davvero a fondo sente lo stesso sussurro, ovunque si trovi: '
-    '«è la voce di Bastiano Ferri a guidare il coro, nel Magazzino delle Cere che fu di '
-    'Dellacqua — nessun altro osa cantare per primo.»',
-    'Per un istante, chi scava davvero a fondo sente lo stesso sussurro, ovunque si trovi: '
-    '«tre, poi uno, poi cinque: è il verso che apre ogni porta del Coro, cantato nel '
-    'Magazzino delle Cere che fu di Dellacqua, dove Ferri guida ancora il canto.»',
-    'Per un istante, chi scava davvero a fondo sente lo stesso sussurro, ovunque si trovi: '
-    '«solo l’argento intonato può spezzare il canto — portatelo nel Magazzino delle Cere '
-    'che fu di Dellacqua, dove Bastiano Ferri guida ancora il coro.»',
-]
+# Nucleo garantito: ognuna delle 14 carte Approfondimento (qualunque tipo, in
+# QUALUNQUE dei sole luoghi) porta gia' scritto DENTRO il proprio testo, nella
+# voce del suo tipo (Osservazione = dettaglio fisico, Referto = forense,
+# Testimonianza = discorso diretto, Presagio = sensoriale/occulto), il nome
+# esatto del nascondiglio (Domanda 1: il vecchio magazzino delle cere che fu di
+# Dellacqua, sul Canale Basso) e che Ferri ne e' il capo, non solo coinvolto
+# (Domanda 2). Cosi' qualunque singola carta pescata - anche una sola in tutta
+# la partita - basta da sola: nessun frammento condiviso appeso in coda (niente
+# "Eco del Coro"), ogni carta e' la sua propria rivelazione. L'indizio core del
+# Luogo 6 resta ammorbidito apposta (non nomina il magazzino: quello arriva solo
+# dagli Approfondimenti o dall'incrocio dei core). Vedi gen_docs.py soluzione()
+# per la nota al Narratore.
 LUOGHI = [
     dict(n=1, nome='IL CAMPANILE DI SAN TEODORO', req='Disponibile dall’inizio',
          testo='La scala a chiocciola sale nel buio. In cima, la cella campanaria è in disordine: '
@@ -169,10 +154,16 @@ LUOGHI = [
                  'cancellata. Ci vuole un attimo per ricomporla: <b>SOMMERSO</b>.'],
          approfondimenti=[
              dict(tipo='Osservazione',
-                  testo='Tra le assi, un frammento di spartito scritto a mano. Le note non sono per organo: sono per <b>campane</b>.'),
+                  testo='Tra le assi, un frammento di spartito scritto a mano. Le note non sono per organo: sono per '
+                        '<b>campane</b> — e in calce, a matita, un nome e un indirizzo: «B. Ferri, capo coro — vecchio '
+                        'magazzino delle cere, Dellacqua, Canale Basso.» Non un semplice cantore: chi dirige, firma.'),
              dict(tipo='Referto', soggetto='La cena intatta',
                   testo='La cena è ancora sotto il panno, fredda ma composta; nessun segno di lotta, nessuna caduta. '
-                        'Ruggero non è stato trascinato via: si è alzato e ha seguito qualcuno, verso le 3.'),
+                        'Ruggero non è stato trascinato via: si è alzato e ha seguito qualcuno, verso le 3. Sul '
+                        'pavimento, tracce di fango nero e legno marcio — lo stesso fango dei moli intorno al vecchio '
+                        'magazzino delle cere che fu di Dellacqua, sul Canale Basso — e vicino alla porta, un '
+                        'frammento di corda per violino, di quelle che vende solo un liutaio: chi lascia il proprio '
+                        'mestiere impresso ovunque passa non si intrufola dietro gli altri. Comanda.'),
          ]),
     dict(n=2, nome='CASA DI RUGGERO — VICOLO DEI FONDITORI', req='Disponibile dall’inizio',
          testo='Bice, la sorella, vi apre con gli occhi rossi: «Negli ultimi tempi diceva di sentire '
@@ -184,7 +175,10 @@ LUOGHI = [
          approfondimenti=[
              dict(tipo='Testimonianza', soggetto='Bice',
                   testo='Consolata, Bice ricorda: nelle ultime settimane Ruggero riceveva di notte un visitatore '
-                        '«ben vestito, con mani da artigiano». Non ne ha mai saputo il nome.'),
+                        '«ben vestito, con mani da artigiano». Una volta lo seguì di nascosto fino al vecchio '
+                        'magazzino delle cere che fu di Dellacqua, sul Canale Basso — e lo sentì rispondere quando '
+                        'qualcuno, dentro, lo chiamò: «il liutaio Ferri». Lo vide inchinarsi tutti a lui, come si '
+                        'fa a un superiore, mai a un pari.'),
          ]),
     dict(n=3, nome='TAVERNA DEL PONTE ROTTO', req='Disponibile dall’inizio',
          testo='Fumo, vino cattivo e barcaioli. Qui le lingue si sciolgono con poco.',
@@ -197,10 +191,16 @@ LUOGHI = [
          approfondimenti=[
              dict(tipo='Testimonianza', soggetto='Ugo il barcaiolo',
                   testo='Con un altro bicchiere, Ugo precisa: la chiatta senza lanterne ha attraccato al '
-                        '<b>molo terzo</b> del Canale Basso, poco dopo le 3, e ha scaricato in fretta.'),
+                        '<b>molo terzo</b> del Canale Basso, poco dopo le 3, scaricando dritta al vecchio '
+                        'magazzino delle cere che fu di Dellacqua — quello con la porta sempre sbarrata. E a dare '
+                        'ordini, quella notte, non era uno degli uomini di scarico: era il liutaio Ferri in '
+                        'persona, con la voce di chi comanda, non di chi obbedisce.'),
              dict(tipo='Presagio',
-                  testo='Mentre i barcaioli giocano, a Sibilla cade sotto gli occhi la stessa carta due volte: '
-                        'l’Annegato. Il canale, stanotte, ha fame.'),
+                  testo='Mentre i barcaioli giocano, la stessa carta cade sotto gli occhi due volte: l’Annegato. '
+                        'Per un istante si vede, netto come un ricordo non proprio, un vecchio magazzino sul '
+                        'Canale Basso — quello che fu di Dellacqua — e una figura al centro del cerchio di '
+                        'candele, non inginocchiata come le altre: in piedi, con le mani di un liutaio. Il '
+                        'canale, stanotte, ha fame.'),
          ]),
     dict(n=4, nome='LA SAGRESTIA DELLA CATTEDRALE', req='Disponibile dall’inizio',
          testo='Don Callisto vi riceve nervoso, le mani sporche di cera. Dietro di lui, la porta della '
@@ -214,10 +214,16 @@ LUOGHI = [
          approfondimenti=[
              dict(tipo='Osservazione',
                   testo='La cera sulle mani di don Callisto è bianca, comune: vende candele di nascosto per '
-                        'pagare i debiti della parrocchia. Con la cera nera non c’entra.'),
+                        'pagare i debiti della parrocchia. Con la cera nera non c’entra — ma sul suo registro '
+                        'delle elemosine, una voce ricorrente salta all’occhio: consegne mensili di cera, sempre '
+                        'allo stesso destinatario, «B. Ferri, per conto del magazzino Dellacqua, Canale Basso». '
+                        'Non un cliente qualunque: gli ordini, mese dopo mese, li dà sempre lui.'),
              dict(tipo='Testimonianza', soggetto='Don Callisto',
-                  testo='Se rassicurato, il prete crolla: certe notti dalla cripta sale un canto sommesso, '
-                        '«di molte voci». Ha troppa paura per denunciarlo — e troppa vergogna per benedirlo.'),
+                  testo='Se rassicurato, il prete crolla: certe notti dalla cripta sale un canto sommesso, «di '
+                        'molte voci» — ma una sola le guida, sempre la stessa, e lui l’ha riconosciuta: è la voce '
+                        'di Bastiano Ferri, il liutaio. «Mi ha detto lui stesso dove si radunano davvero, ora: un '
+                        'vecchio magazzino di cera sul Canale Basso, quello che fu di Dellacqua.» Ha troppa paura '
+                        'per denunciarlo — e troppa vergogna per benedirlo.'),
          ]),
     dict(n=5, nome='BOTTEGA DEL LIUTAIO FERRI', req='Serve: la CORDA DI VIOLINO (Luogo 2)',
          testo='Bottega chiusa da giorni; la porta sul retro cede a una spallata. Dentro, polvere e '
@@ -232,11 +238,16 @@ LUOGHI = [
          approfondimenti=[
              dict(tipo='Osservazione',
                   testo='Nel camino, cenere di carta ancora tiepida. Un lembo si salva, grafia febbrile: '
-                        '«...non riesco più a fermarlo, il Coro canta anche senza di me. Che Dio perdoni ciò '
-                        'che ho svegliato. — B.»'),
+                        '«...non riesco più a fermarlo, il Coro canta anche senza di me, anche laggiù al '
+                        'magazzino delle cere di Dellacqua, sul Canale Basso. Che Dio perdoni ciò che ho '
+                        'svegliato. — B.» La grafia è la stessa del registro consegne sul banco: quella del '
+                        'liutaio Ferri.'),
              dict(tipo='Referto', soggetto='Residui sulle lime',
                   testo='Su lime e sgorbie, incrostazioni di <b>cera nera</b> — non la pece da liutaio. Qui, '
-                        'tra un violino e l’altro, Ferri lavorava le candele del culto.'),
+                        'tra un violino e l’altro, Ferri lavorava le candele del culto: non un aiutante '
+                        'occasionale, la sua bottega è l’unica officina della città attrezzata per fonderle in '
+                        'quantità. Sul registro, l’ultima consegna è diretta al vecchio magazzino delle cere che '
+                        'fu di Dellacqua, sul Canale Basso — indirizzo suo, non di un terzo a cui rendeva conto.'),
          ]),
     dict(n=6, nome='IL CANALE BASSO', req='Serve: la parola chiave CHIATTA (Luogo 3)',
          testo='Acqua nera e ferma, magazzini ciechi. Il guardiano notturno accetta di parlare per '
@@ -251,10 +262,15 @@ LUOGHI = [
          approfondimenti=[
              dict(tipo='Testimonianza', soggetto='Il guardiano notturno',
                   testo='Il guardiano abbassa la voce. «Certe notti li ho visti entrare — un fornaio, un '
-                        'sagrestano, gente che saluto al mercato — e uscire all’alba con gli occhi vuoti, '
-                        'senza riconoscermi. Non erano più loro.»'),
+                        'sagrestano, gente che saluto al mercato — sempre dallo stesso magazzino, quello che fu '
+                        'di Dellacqua. E davanti alla porta, sempre lui a farli passare, uno per uno, come un '
+                        'sagrestano conta i fedeli: il liutaio Ferri.» Uscivano all’alba con gli occhi vuoti, '
+                        'senza riconoscermi. Non erano più loro.'),
              dict(tipo='Presagio',
-                  testo='Sibilla sfiora l’acqua nera: non è fredda, è attenta. Qualcosa, sotto la città, '
+                  testo='Sfiorare l’acqua nera basta: non è fredda, è attenta. Per un istante si vede, netto '
+                        'come attraverso occhi non propri, l’interno del vecchio magazzino delle cere di '
+                        'Dellacqua, qui sul Canale Basso — e al centro, non un fedele tra i fedeli ma chi li '
+                        'dispone in cerchio: le mani di un liutaio, non di un prete. Qualcosa, sotto la città, '
                         'ascolta i passi sul molo — e li conta.'),
          ]),
     dict(n=7, nome='L’ARCHIVIO CIVICO', req='Serve: la parola chiave SOMMERSO (Luogo 1)',
@@ -269,8 +285,11 @@ LUOGHI = [
                  'stesso fascicolo.'],
          approfondimenti=[
              dict(tipo='Osservazione',
-                  testo='Le mani dell’archivista tremano su un solo scaffale. Sul fascicolo, una nota a margine '
-                        'di altra mano: «il sigillo a onda è ancora inciso nella cripta — sotto l’altare».'),
+                  testo='Le mani dell’archivista tremano su un solo scaffale. Sul fascicolo, due note a margine, '
+                        'la stessa calligrafia frettolosa: «il sigillo a onda è ancora inciso nella cripta — '
+                        'sotto l’altare» e, più sotto, quasi illeggibile, «B. Ferri ha ripreso il posto che fu '
+                        'del fondatore — vecchio magazzino Dellacqua, Canale Basso — nessuno osa contraddirlo». '
+                        'Chi ha scritto questo, aveva paura di essere letto.'),
          ]),
     dict(n=8, nome='LA GENDARMERIA', req='Disponibile dall’inizio',
          testo='Il brigadiere vi riceve tra pile di pratiche: «Il campanaro? Sarà scappato con '
@@ -283,12 +302,20 @@ LUOGHI = [
                  'con la testa fra le nuvole.»'],
          approfondimenti=[
              dict(tipo='Referto', soggetto='La denuncia dei furti',
-                  testo='Attilio confronta le denunce: la cera «rubata da tre chiese» è la stessa cera d’altare '
-                        'della cattedrale. Qualcuno raccoglie cera consacrata in quantità.'),
+                  testo='Le denunce, messe a confronto, dicono di più separate: la cera «rubata da tre chiese» '
+                        'è la stessa cera d’altare della cattedrale — e le quantità, sommate, bastano a '
+                        'rifornire un solo luogo per mesi: '
+                        'il vecchio magazzino delle cere che fu di Dellacqua, sul Canale Basso. Chi organizza un '
+                        'furto così sistematico, su tre parrocchie diverse, senza mai lasciarsi scoprire, non è '
+                        'un gregario che ruba per conto d’altri: pianifica, e quindi comanda. Il nome che ricorre '
+                        'nei registri dei fonditori come miglior cliente per «materiale da fusione» è sempre lo '
+                        'stesso: Bastiano Ferri.'),
              dict(tipo='Testimonianza', soggetto='Il fascicolo nascosto',
                   testo='Il fascicolo che il brigadiere continua a spostare (fatelo parlare, o sfilateglielo): '
-                        'il compratore incappucciato scaricava «al molo terzo del Canale Basso». La gendarmeria '
-                        'lo sapeva e ha lasciato correre.'),
+                        'il compratore incappucciato scaricava «al molo terzo del Canale Basso, nel vecchio '
+                        'magazzino di Dellacqua» — e pagava bene perché nessuno controllasse chi comandava lo '
+                        'scarico: un uomo che gli agenti, nel fascicolo, chiamano solo «il liutaio», mai per '
+                        'nome, come se nominarlo fosse un rischio. La gendarmeria lo sapeva e ha lasciato correre.'),
          ]),
 ]
 

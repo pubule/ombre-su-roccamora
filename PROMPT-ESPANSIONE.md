@@ -59,7 +59,8 @@ Facile 7 · Media 9 · Difficile 11. Ogni eroe ha 1 "Secondo fiato" (ritenta) a 
 introduttivo giocato prima dell'Ep. 1: racconta come i sei si incontrano ed
 entrano nella Società, e insegna le regole con i box "Scuola del Lume" dentro i
 fascicoli. Deroga deliberatamente dalla struttura fissa (2 Domande invece di 4,
-1 falsa pista, 1 reperto, niente Eco condivisa, niente boss, 3 tessere e mazzo
+1 falsa pista, 1 reperto, Approfondimenti solo di corroborazione senza nucleo
+garantito, niente boss, 3 tessere e mazzo
 Minaccia riusati dall'Ep. 1, orologio "Marea" solo automatico): quelle deroghe
 valgono SOLO per il tutorial, gli episodi veri seguono la struttura sotto. Se un
 nuovo episodio vuole richiamare il Preludio: Ansaldo (il custode-archivista) e
@@ -88,19 +89,22 @@ prima che l'Ep. 1 lo riveli.
    nasconde qualcosa né possono dedurlo sfogliando il mazzo, e le carte restano riusabili
    tra episodi. Il legame carta↔luogo/tessera (quale carta prendere quando un eroe sblocca
    quel tipo in quel luogo) vive **solo** in `pdf/Episodio N/Luoghi.pdf` (vedi Bibbia
-   Visiva), mai su una carta. Tecnica
-   dell'**Eco condivisa**: **non un frammento unico e identico** (nell'Ep. 1 lo era e
-   suonava ripetitivo, sistemato dopo) ma una **famiglia di 3-4 varianti** a rotazione
-   (es. per numero di luogo), appese in coda a ogni carta Approfondimento dell'episodio.
-   Ogni variante porta comunque lo **stesso nucleo garantito** (il/i dettaglio/i decisivo/i
-   per 1-2 Domande, sempre uguale su ogni variante) — così non conta QUALE carta si peschi,
-   basta averne pescata almeno una in tutto l'episodio — ma **ciascuna aggiunge anche un
-   accenno diverso** che tocca un'altra Domanda (corroborazione, non nuova informazione: le
-   altre Domande restano risolvibili dal solo core). Risultato: il meccanismo tocca **tutte
-   e 4** le Domande invece di 1-2, e non legge sempre uguale carta dopo carta. Verifica
-   sempre che qualunque coppia di eroi (il minimo per 2 giocatori) possa sbloccare almeno
-   una variante: nell'Ep. 1, 5 eroi su 6 producono carte (solo Nino no), quindi ogni
-   composizione plausibile ha un percorso.
+   Visiva), mai su una carta. **Nucleo garantito scritto dentro ogni carta** (non un
+   frammento condiviso appeso in coda — nell'Ep. 1 lo era, un "Eco del Coro"
+   soprannaturale identico su ogni carta comprese quelle forensi/testimoniali,
+   suonava incoerente e ripetitivo, sistemato dopo): il/i dettaglio/i decisivo/i per
+   1-2 Domande va scritto **dentro** il testo di CIASCUNA carta Approfondimento
+   dell'episodio, nella voce del suo tipo (Osservazione = dettaglio fisico,
+   Referto = forense, Testimonianza = discorso diretto, Presagio = sensoriale/
+   occulto — quest'ultimo può restare onirico, è coerente col suo tipo, non
+   un'eccezione bolt-on per tutti gli altri). Così non conta QUALE carta si peschi,
+   basta pescarne una qualsiasi in tutto l'episodio, ma ogni carta è una rivelazione
+   a sé — non la stessa frase che ricorre. Corroborazione di Domande già risolvibili
+   dal solo indizio core (es. un ritmo, un'urgenza) è facoltativa e va infilata caso
+   per caso in 2-3 carte se serve varietà, mai come sistema a rotazione a parte.
+   Verifica sempre che qualunque coppia di eroi (il minimo per 2 giocatori) possa
+   sbloccare almeno una carta: nell'Ep. 1, 10 eroi su 11 producono carte (solo Nino
+   no), quindi ogni composizione plausibile ha un percorso.
 1-ter. *Leggere la scena* — regola CORE (non opzionale per episodio), introdotta per non
    avere l'Indagine come unica fase senza mai un tiro di dado: alla prima visita di ogni
    luogo, un eroe a scelta prova ACUME (Media) prima di leggere gli indizi. Riuscita: si
@@ -116,8 +120,9 @@ prima che l'Ep. 1 lo riveli.
    non la sola visita.
 2. *Busta Soluzione* — risposte, per ogni domanda un Vantaggio se esatta e (per 2 domande
    su 4) una complicazione se errata; schema di montaggio della mappa; epilogo da leggere
-   a voce; Frammento; elenco migliorie; **nota per chi arbitra** su cosa fa l'Eco condivisa
-   e come giudicare risposte "vicine" se il gruppo non ha consultato nessun Approfondimento.
+   a voce; Frammento; elenco migliorie; **nota per chi arbitra** su quale nucleo garantito
+   portano gli Approfondimenti (vedi 1-bis) e come giudicare risposte "vicine" se il gruppo
+   non ha consultato nessun Approfondimento.
 2-bis. *Reperti* — ogni episodio include 2–3 **documenti-reperto** stampabili (pagine di
    diario a grafia manoscritta, registri, atti d'archivio) consegnati quando si trova
    l'indizio corrispondente. Contengono esattamente le informazioni delle carte Luogo più
@@ -415,10 +420,11 @@ Ogni testo deve far *vedere* la scena, non riassumerla. Regole:
   poche, tono coerente col verbo — Osservazione è un dettaglio fisico notato da Elena
   ("le mani tremano su un solo scaffale"), Referto è clinico/forense (voce di Attilio),
   Testimonianza è discorso diretto o riportato di chi parla, Presagio è sensoriale/
-  occulto (voce di Sibilla, mai spiegato razionalmente). L'**Eco condivisa** è l'unica
-  eccezione allo stile "fattuale": può essere più onirica/soprannaturale (un sussurro
-  condiviso, una visione), perché è deliberatamente la stessa su ogni carta e serve a
-  segnalarsi come "diversa" dal resto del testo della carta.
+  occulto (voce di Sibilla, mai spiegato razionalmente — l'unico tipo dove un accenno
+  onirico/soprannaturale è coerente, non un'eccezione bolt-on). Il nucleo garantito
+  (vedi 1-bis) va infilato dentro il testo, restando nel registro proprio del tipo:
+  mai un frammento a parte che rompe il tono, nessuna carta deve suonare "diversa"
+  dalle altre del suo stesso tipo.
 - **Carte Oggetto:** una riga di flavor (mai un dato di gioco, solo atmosfera —
   "freddo, pesante, già piegato da altre porte"), poi l'effetto meccanico copiato 1:1
   dalla fonte, senza aggettivi, come le Minacce.
@@ -439,7 +445,8 @@ Ogni testo deve far *vedere* la scena, non riassumerla. Regole:
 - [ ] Le 4 Domande sono tutte deducibili dai soli indizi **core** (senza Approfondimenti) e
       ogni risposta incrocia più luoghi?
 - [ ] Almeno un dettaglio decisivo per 1-2 Domande (mai tutte e 4) emerge **solo** tramite
-      Approfondimento, con la tecnica dell'Eco condivisa (stesso frammento su ogni carta)?
+      Approfondimento, scritto dentro il testo di OGNI carta di quell'episodio (mai un
+      frammento condiviso appeso in coda)?
 - [ ] Ogni eroe ha il suo verbo in Indagine (Elena/Attilio/Ottone+Carla/Sibilla/Nino) e
       qualunque coppia plausibile di eroi può sbloccare almeno un Approfondimento?
 - [ ] Il mazzo Approfondimenti ha dorsi con SOLO il tipo (mai il numero del luogo né il
