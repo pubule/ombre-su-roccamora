@@ -187,7 +187,8 @@ def regolamento():
                 'chi tiene il fascicolo Luoghi legge la voce corrispondente, se c\u2019\u00e8).'))
     e.append(LI('<b>Padre Marani</b> non sblocca carte: con <b>Discernimento</b> (1 volta a '
                 'episodio) indica un luogo e chi tiene il fascicolo Luoghi risponde solo '
-                '<b>s\u00ec o no</b>: \u201cl\u00ec si nasconde ancora qualcosa?\u201d \u2014 mai cosa, mai di che tipo.'))
+                '<b>s\u00ec o no</b>: \u201cl\u00ec si nasconde ancora qualcosa?\u201d \u2014 mai cosa, mai di che tipo. '
+                'Se la risposta \u00e8 s\u00ec, quella visita non costa l\u2019ora (non conta come ora avanzata).'))
     e.append(LI('<b>Nino</b> non sblocca carte: la sua abilit\u00e0 (<b>Accesso</b>) entra in un luogo '
                 'bloccato senza parola chiave n\u00e9 oggetto, 1 volta a episodio \u2014 \u00e8 un ingresso '
                 'anticipato, non un Approfondimento.'))
@@ -307,6 +308,8 @@ def regolamento():
     e.append(LI('<b>Esca preziosa (Carbone)</b> \u2014 vince solo sul <b>movimento</b>: un nemico gi\u00e0 '
                 'adiacente a un eroe attacca comunque, non si allontana per raccoglierla. L\u2019esca '
                 'svanisce dopo l\u2019attivazione dei nemici che ha attirato.'))
+    e.append(LI('<b>Vi conosco, Malacarne (Brera)</b> \u2014 bersaglia un <b>nemico di truppa</b>: '
+                'Malavita, Adepto o Cane. Non funziona su boss n\u00e9 su Ruggero.'))
     e.append(LI('<b>Oggetti</b> \u2014 ci\u00f2 che trovate nell\u2019Indagine \u00e8 del gruppo: all\u2019inizio della '
                 'Spedizione decidete chi porta cosa (annotatelo). In Spedizione, passare un oggetto a '
                 'un eroe adiacente \u00e8 gratuito, una volta per turno; un eroe a terra pu\u00f2 essere '
