@@ -65,6 +65,36 @@ HEROES = [
                'spedizione: <b>Flash!</b> (2 usi) — azione: un nemico entro 2 caselle salta '
                'la sua prossima attivazione.'),
          equip='Ombrello ferrato (arma, +1), macchina fotografica, blocco note.'),
+    dict(nome='DOTT. LAZZARO SERRA', ruolo='L’Alienista', acume=3, vigore=1, nervi=2,
+         salute=6, difesa=8,
+         abil=('<b>I deliri sanno</b> — In indagine: una volta per episodio legge i '
+               '<b>Presagi</b> nascosti di un luogo. In spedizione, <b>Voce ferma</b>: gli '
+               'eroi a lui adiacenti tirano le prove di NERVI con +2.'),
+         equip='Bastone da passeggio (arma, +1), taccuino dei colloqui, boccetta di laudano.'),
+    dict(nome='PADRE CELSO MARANI', ruolo='L’Esorcista Sospeso', acume=2, vigore=1, nervi=3,
+         salute=6, difesa=8,
+         abil=('<b>Discernimento</b> — In indagine: una volta per episodio indica un luogo; '
+               'chi tiene il fascicolo Luoghi dice se vi si nasconde ancora qualcosa (solo '
+               'sì o no, mai cosa). In spedizione, <b>Litania</b> (1 volta): con un’azione '
+               'la sua voce copre il coro — rimuovete 1 segnalino Canto.'),
+         equip='Crocifisso di ferro (arma, +1), breviario annotato, stola consunta.'),
+    dict(nome='FULGENZIO CARBONE', ruolo='L’Antiquario dell’Occulto', acume=3, vigore=1, nervi=2,
+         salute=6, difesa=8,
+         abil=('<b>È passato dalla mia bottega</b> — In indagine: una volta per episodio, '
+               'esaminando un <b>Oggetto o un Reperto</b> trovato, ne ricava un dettaglio '
+               'in più. In spedizione, <b>Esca preziosa</b> (2 usi): azione — lancia un '
+               'monile su una casella entro 3: i nemici entro 2 caselle dall’esca si '
+               'muovono verso di essa nella loro prossima attivazione, invece che verso '
+               'di voi.'),
+         equip='Bastone col pomo d’argento (arma, +1), lente da gioielliere, monili d’esca.'),
+    dict(nome='OTTAVIO BRERA', ruolo='Il Magistrato in Pensione', acume=3, vigore=1, nervi=2,
+         salute=6, difesa=8,
+         abil=('<b>Riaprire i fascicoli</b> — In indagine: una volta per episodio legge i '
+               '<b>Referti</b> nascosti di un luogo. In spedizione, <b>Vi conosco, '
+               'Malacarne</b> (1 volta): fissa un nemico di tipo <b>Malavita</b> in vista '
+               'e lo chiama per nome — quello abbassa il ferro e sparisce nel buio: '
+               'rimuovetelo dal tabellone.'),
+         equip='Bastone da magistrato (arma, +1), toga ripiegata, fascicoli rilegati.'),
 ]
 
 # ================================================================= INDAGINE

@@ -169,6 +169,57 @@ BIO_SCHEDA = {
         "convinzione ostinata \u2014 pericolosa, in questa citta\u2019 \u2014 che la verita\u2019 sia un "
         "diritto di tutti, anche quando e\u2019 indicibile, anche quando conviene a molti "
         "che resti sepolta. Ha gia\u2019 ricevuto il primo avvertimento. Lo ha fotografato.",
+    'DOTT. LAZZARO SERRA':
+        "Il manicomio di Roccamora sta su un\u2019isola che le mappe della citta\u2019 preferiscono "
+        "lasciare bianca, e Lazzaro Serra lo dirige da undici anni con la pazienza di chi "
+        "ha smesso di aspettarsi gratitudine. I colleghi del continente lo compatiscono; "
+        "lui li lascia fare, perche\u2019 sa una cosa che loro non sanno: i suoi pazienti non "
+        "delirano a caso. Da anni trascrive tutto \u2014 le parole ripetute alle tre di notte, "
+        "i disegni d\u2019acqua e di campane, i nomi che nessun ricoverato potrebbe conoscere \u2014 "
+        "e i quaderni, ormai, sono piu\u2019 di trenta. Quando tre internati che non si erano "
+        "mai incontrati cominciarono a cantare la stessa melodia nella stessa settimana, "
+        "smise di chiamarla coincidenza. Ha una voce che calma i furiosi e inchioda i "
+        "bugiardi, mani ferme, e un\u2019unica paura: che i matti abbiano ragione, e di essere "
+        "rimasto l\u2019unico sano ad ascoltarli.",
+    'PADRE CELSO MARANI':
+        "Il verbale dell\u2019esorcismo di Ca\u2019 Landi, ottobre 1884, e\u2019 chiuso in un cassetto "
+        "della Curia con la sua firma in calce: e\u2019 per quello che l\u2019hanno sospeso, non "
+        "per il rito. Perche\u2019 Padre Celso non scrisse \u201cisteria\u201d come volevano, ne\u2019 "
+        "\u201cdemonio\u201d come speravano \u2014 scrisse quello che la ragazza aveva detto con la voce "
+        "sbagliata: nomi, date e un canto, e che qualcosa, sotto Roccamora, rispondeva. "
+        "Da allora dice messa in una cappella sconsacrata per un pugno di vecchie che non "
+        "fanno domande, e continua il mestiere senza piu\u2019 chiedere permesso a nessuno: "
+        "benedice le soglie ai portuali, ascolta confessioni che nessun tribunale "
+        "vorrebbe sentire, e ha imparato a riconoscere le case dove qualcosa non vuole "
+        "farsi trovare \u2014 dal silenzio, dice, che non e\u2019 mai dello stesso tipo. Ha paura "
+        "di una cosa sola: che la Curia avesse ragione a fermarlo, e che certe porte, una "
+        "volta aperte, non lo lascino piu\u2019 tornare indietro.",
+    'FULGENZIO CARBONE':
+        "La bottega di Carbone non ha insegna e non ne ha bisogno: chi deve trovarla la "
+        "trova, di solito di sera, di solito con un pacco sottobraccio e la voglia di "
+        "disfarsene in fretta. Fulgenzio compra cio\u2019 che le famiglie di Roccamora vogliono "
+        "far sparire \u2014 reliquie di santi mai canonizzati, diari con le pagine cucite, "
+        "specchi che le domestiche si rifiutano di pulire \u2014 e paga bene, purche\u2019 gli si "
+        "dica la verita\u2019 sulla provenienza. Non rivende quasi mai: il retrobottega e\u2019 un "
+        "archivio di cose che non stanno ferme di notte, catalogate con calligrafia "
+        "minuta e maniacale. Sostiene che ogni oggetto ricordi le mani che l\u2019hanno "
+        "toccato, e che basti saperlo interrogare; i pochi che l\u2019hanno visto farlo \u2014 la "
+        "lente all\u2019occhio, il monile che oscilla \u2014 giurano che a un certo punto la bottega "
+        "trattiene il fiato. Sa di collezionare esche. Spera solo di non essere lui, alla "
+        "fine, il pesce.",
+    'OTTAVIO BRERA':
+        "Trent\u2019anni di sentenze nel tribunale di Roccamora lasciano due cose: la memoria "
+        "dei volti \u2014 tutti, imputati, testimoni, bugiardi \u2014 e un elenco di rimorsi "
+        "rilegato meglio di qualunque codice. In cima all\u2019elenco di Ottavio Brera c\u2019e\u2019 il "
+        "caso del pozzo, archiviato nel 1876 con una firma che era la sua: la bambina "
+        "diceva che qualcosa l\u2019aveva chiamata per nome dall\u2019acqua, e lui scrisse "
+        "\u201csuggestione\u201d perche\u2019 era l\u2019anno della promozione. In pensione da tre anni, ha "
+        "smesso di dormire bene e ha cominciato a rimediare: riapre fascicoli che nessuno "
+        "reclama, paga di tasca sua le perizie che il tribunale nego\u2019, e cammina per la "
+        "citta\u2019 senza scorta perche\u2019 la malavita, quella vera, il giudice Brera lo saluta "
+        "ancora togliendosi il cappello \u2014 meta\u2019 per rispetto, meta\u2019 per paura. Sa che il "
+        "culto compra i bravacci a giornata. E sa che nessuno di loro morira\u2019 per una "
+        "causa che non paga il sabato.",
 }
 
 BIO = {
@@ -205,6 +256,25 @@ BIO = {
         "ha scoperto che i necrologi, letti in fila, raccontano storie che nessuno vuole "
         "stampare. Ha una macchina fotografica, una memoria feroce e la convinzione che la "
         "verit\u00e0 sia un diritto anche quando \u00e8 indicibile.",
+    'DOTT. LAZZARO SERRA':
+        "Dirige il manicomio di Roccamora da undici anni. I suoi pazienti \u201csentono\u201d cose "
+        "che i sani non sentono, e lui ha smesso da tempo di liquidarle come deliri: le "
+        "trascrive tutte, quaderno dopo quaderno. Quando tre internati mai incontratisi "
+        "cominciarono a cantare la stessa melodia, smise di chiamarla coincidenza.",
+    'PADRE CELSO MARANI':
+        "Sospeso a divinis dopo un esorcismo finito male \u2014 non perch\u00e9 fall\u00ec, ma per quello "
+        "che mise a verbale. La Curia lo vuole dimenticare; lui continua il mestiere senza "
+        "pi\u00f9 chiedere permesso, e ha imparato a riconoscere le case dove qualcosa non "
+        "vuole farsi trovare.",
+    'FULGENZIO CARBONE':
+        "La sua bottega senza insegna compra ci\u00f2 che le famiglie di Roccamora vogliono far "
+        "sparire: reliquie, diari cuciti, specchi che nessuno vuole pulire. Non rivende "
+        "quasi mai \u2014 non per scrupolo, per collezione. Dice che ogni oggetto ricorda le "
+        "mani che l\u2019hanno toccato, e che basta saperlo interrogare.",
+    'OTTAVIO BRERA':
+        "Trent\u2019anni di sentenze: conosce per nome ogni criminale della citt\u00e0 e il rimorso "
+        "di ogni fascicolo archiviato troppo in fretta. Il caso del pozzo lo firm\u00f2 lui, "
+        "nel 1876. In pensione ha smesso di dormire bene e ha cominciato a rimediare.",
 }
 
 _FLAVOR = {

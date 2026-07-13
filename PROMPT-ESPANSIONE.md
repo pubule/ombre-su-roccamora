@@ -19,8 +19,14 @@ esplicita.
 - **I giocatori** sono la **Società del Lume**, circolo privato d'investigatori. Eroi:
   Elena Fosco (Investigatrice), Dott. Attilio Marn (Medico), Sibilla Reve (Occultista),
   Nino "Grimaldello" Cauto (Ladro), Carla Dosti (Giornalista), Ottone "Mezzena" Massari
-  (Macellaio, il combattente del gruppo: Vigore 3, Salute 8). Roster di sei, massimo
-  cinque in tavola. Presidente: il misterioso "M.".
+  (Macellaio, il combattente del gruppo: Vigore 3, Salute 8), Dott. Lazzaro Serra
+  (Alienista: sblocca i Presagi, aura +2 NERVI), Padre Celso Marani (Esorcista Sospeso:
+  Discernimento in indagine, Litania anti-Canto in spedizione), Fulgenzio Carbone
+  (Antiquario dell'Occulto: esamina Oggetti/Reperti, Esca preziosa), Ottavio Brera
+  (Magistrato in Pensione: sblocca i Referti, rimuove un nemico Malavita). Roster di
+  dieci, massimo cinque in tavola: la composizione del party e' essa stessa una scelta
+  di gioco (chi resta a casa lascia chiuse le sue porte in indagine).
+  Presidente: il misterioso "M.".
 - **L'antagonista di campagna** è il **Coro Sommerso**, confraternita bandita nel 1741 e
   rifondata dal liutaio **Bastiano Ferri** (fuggito alla fine dell'Episodio 1, ricorrente).
   Sigillo: un'onda. Il culto non evoca: **"accorda"** i luoghi della città con suoni
@@ -199,9 +205,12 @@ cultista — specialmente in episodi dove il culto non è (ancora) l'antagonista
 per rompere la monotonia visiva/tattica se un episodio ha già molti nemici a tema.
 Data: `NEMICI` in `src/gen_cards.py` (già presenti, non ridefinirli).
 
-**Eroi (invariati salvo campagne):** roster di sei, statistiche 1–3 (max 4 con migliorie), Salute 6–7,
-Difesa 8–9, armi +1 all'attacco. Migliorie standard: +1 caratteristica, +1 Salute,
-Revolver, Lanterna schermata, Borsa di garze. Cicatrici: alla terza, −1 permanente.
+**Eroi (invariati salvo campagne):** roster di dieci, statistiche 1–3 con somma sempre 6
+(max 4 con migliorie), Salute = 5+VIGORE, Difesa 8 (9 solo Nino), armi +1 all'attacco.
+Abilità: una nicchia indagine + una spedizione a testa, mai sovrapposte tra eroi, sempre
+a usi contati (mai "per round": scala male col numero di giocatori). Migliorie standard:
++1 caratteristica, +1 Salute, Revolver, Lanterna schermata, Borsa di garze. Cicatrici:
+alla terza, −1 permanente.
 
 ## 3. BIBBIA VISIVA (per PDF identici ai miei — stile "gotico")
 

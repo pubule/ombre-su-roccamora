@@ -40,6 +40,30 @@ const HEROES = [
     type: 'Eroe — La Giornalista',
     rules: '{i}La Giornalista{/i}{divider}Prima donna in redazione al Corriere di Roccamora, relegata ai necrologi finché non ha scoperto che i necrologi, letti in fila, raccontano storie che nessuno vuole stampare. Ha una macchina fotografica, una memoria feroce e la convinzione che la verità sia un diritto anche quando è indicibile.',
   },
+  {
+    art: 'artworks/Lazzaro.png',
+    title: 'Dott. Lazzaro Serra',
+    type: 'Eroe — L’Alienista',
+    rules: '{i}L’Alienista{/i}{divider}Dirige il manicomio di Roccamora da undici anni. I suoi pazienti «sentono» cose che i sani non sentono, e lui ha smesso da tempo di liquidarle come deliri: le trascrive tutte, quaderno dopo quaderno. Quando tre internati mai incontratisi cominciarono a cantare la stessa melodia, smise di chiamarla coincidenza.',
+  },
+  {
+    art: 'artworks/Celso.png',
+    title: 'Padre Celso Marani',
+    type: 'Eroe — L’Esorcista Sospeso',
+    rules: '{i}L’Esorcista Sospeso{/i}{divider}Sospeso a divinis dopo un esorcismo finito male — non perché fallì, ma per quello che mise a verbale. La Curia lo vuole dimenticare; lui continua il mestiere senza più chiedere permesso, e ha imparato a riconoscere le case dove qualcosa non vuole farsi trovare.',
+  },
+  {
+    art: 'artworks/Fulgenzio.png',
+    title: 'Fulgenzio Carbone',
+    type: 'Eroe — L’Antiquario dell’Occulto',
+    rules: '{i}L’Antiquario dell’Occulto{/i}{divider}La sua bottega senza insegna compra ciò che le famiglie di Roccamora vogliono far sparire: reliquie, diari cuciti, specchi che nessuno vuole pulire. Non rivende quasi mai — non per scrupolo, per collezione. Dice che ogni oggetto ricorda le mani che l’hanno toccato, e che basta saperlo interrogare.',
+  },
+  {
+    art: 'artworks/Ottavio.png',
+    title: 'Ottavio Brera',
+    type: 'Eroe — Il Magistrato in Pensione',
+    rules: '{i}Il Magistrato in Pensione{/i}{divider}Trent’anni di sentenze: conosce per nome ogni criminale della città e il rimorso di ogni fascicolo archiviato troppo in fretta. Il caso del pozzo lo firmò lui, nel 1876. In pensione ha smesso di dormire bene e ha cominciato a rimediare.',
+  },
 ];
 
 const NEMICI = [

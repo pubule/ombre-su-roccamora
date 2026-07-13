@@ -12,7 +12,7 @@ from reportlab.platypus import Paragraph, Frame, Spacer
 from reportlab.lib.styles import ParagraphStyle
 
 from deluxe_style import (register_fonts, torn_portrait, rule_border, pad_to_even_pages, seal, F,
-                          INK, RED, TEAL, PAPER_DK, GOLD, SEPIA)
+                          ARTWORKS_DIR, INK, RED, TEAL, PAPER_DK, GOLD, SEPIA)
 from gen_cards import HEROES, LUOGHI, MINACCE, NEMICI, TILES
 import story
 story.apply(LUOGHI, TILES, NEMICI, HEROES, MINACCE)
@@ -50,7 +50,8 @@ def stat_box(c, x, y, w, label, value):
 # Ritratto eroe fuso nello strappo della pergamena (trasparenza reale nel png):
 # stessa arte usata per le carte Eroi. Solo la variante "2" (strappo in basso a
 # destra): l'altra invaderebbe nome/statistiche/abilità in alto, troppo densi.
-PORTRAIT = ['Elena.png', 'Attilio.png', 'Sibilla.png', 'Nino.png', 'Ottone.png', 'Carla.png']
+PORTRAIT = ['Elena.png', 'Attilio.png', 'Sibilla.png', 'Nino.png', 'Ottone.png', 'Carla.png',
+            'Lazzaro.png', 'Celso.png', 'Fulgenzio.png', 'Ottavio.png']
 TORN_BG = 'background scheda personaggio 2.png'
 CUT_X = 105*mm  # bordo sinistro dello strappo trasparente: le righe da scrivere si fermano prima
 
@@ -59,6 +60,13 @@ def schede():
     c = canvas.Canvas(out_path, pagesize=A4)
     c.setTitle('Ombre su Roccamora - Schede Personaggio')
     for pg, hro in enumerate(HEROES):
+        # ritratto non ancora generato (eroi nuovi in attesa dell'arte MJ):
+        # salta la scheda con avviso invece di crashare, stesso pattern di
+        # gen_preludio.luoghi() - rilanciare quando l'arte esiste.
+        if not os.path.exists(os.path.join(ARTWORKS_DIR, PORTRAIT[pg])):
+            print(f"SALTO scheda {hro['nome']}: manca artworks/{PORTRAIT[pg]}"
+                  ' (genera il ritratto con PROMPT-MIDJOURNEY.md e rilancia)')
+            continue
         torn_portrait(c, W, H, PORTRAIT[pg], TORN_BG)
         rule_border(c, W, H)
         mx, mt = 20*mm, 20*mm

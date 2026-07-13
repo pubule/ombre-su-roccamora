@@ -115,13 +115,15 @@ def regolamento():
     e.append(LI('Una busta in cui sigillare il PDF <b>Soluzione</b>: si apre solo a fine indagine.'))
 
     e.append(P('I PERSONAGGI', 'h1'))
-    e.append(P("Il roster della Societ\u00e0 conta <b>sei eroi</b>: in tavola ne scendono al massimo "
+    e.append(P("Il roster della Societ\u00e0 conta <b>dieci eroi</b>: in tavola ne scendono al massimo "
                "cinque, gli altri restano di riserva (potete cambiarli tra un episodio e l\u2019altro; "
                "migliorie e cicatrici restano a chi le ha guadagnate). Per scegliere, stendete sul "
-               "tavolo le <b>6 carte Eroe</b> (ritratto, ruolo, chi sono \u2014 cartelle "
+               "tavolo le <b>10 carte Eroe</b> (ritratto, ruolo, chi sono \u2014 cartelle "
                "<b>cards/Eroi/</b>): ogni giocatore ne prende una (in 2 giocatori potete anche "
                "guidarne due a testa), poi passa alla Scheda Personaggio corrispondente per "
-               "statistiche e abilit\u00e0. Ogni eroe ha tre caratteristiche:"))
+               "statistiche e abilit\u00e0. Scegliere chi portare \u00e8 gi\u00e0 una mossa: ogni eroe apre "
+               "porte diverse nell\u2019Indagine, e chi lasciate a casa le lascia chiuse. Ogni eroe "
+               "ha tre caratteristiche:"))
     e.append(LI('<b>ACUME</b> \u2014 osservare, dedurre, scassinare, cercare.'))
     e.append(LI('<b>VIGORE</b> \u2014 combattere, forzare, resistere.'))
     e.append(LI('<b>NERVI</b> \u2014 sangue freddo davanti a trappole, buio e orrori.'))
@@ -169,15 +171,23 @@ def regolamento():
                'l\u2019elenco di quale carta corrisponde a quale luogo) controlla il titolo e vi passa la '
                'carta corrispondente dal mazzo. Se il luogo non \u00e8 nell\u2019elenco, non ne ha \u2014 cos\u00ec '
                'non sapete in anticipo dove si nasconde qualcosa.', 'body'))
-    e.append(LI('<b>Indizio Nascosto</b> \u2014 un dettaglio in pi\u00f9 sulla scena. Lo sblocca <b>Elena</b> '
-                '(Osservazione \u2014 2 volte a episodio) oppure <b>Sibilla</b> (Presagio, jolly: '
+    e.append(LI('<b>Indizio Nascosto (Osservazioni)</b> \u2014 un dettaglio in pi\u00f9 sulla scena. Lo '
+                'sblocca <b>Elena</b> (2 volte a episodio) oppure <b>Sibilla</b> (Presagio, jolly: '
                 'un Approfondimento qualsiasi del luogo presente, o intuisce dove cercarne uno \u2014 '
                 '1 volta a episodio).'))
+    e.append(LI('<b>Indizio Nascosto (Presagi)</b> \u2014 quello che i sani non sentono. Lo sblocca il '
+                '<b>Dott. Serra</b> (1 volta a episodio), oltre al jolly di Sibilla.'))
     e.append(LI('<b>Testimone</b> \u2014 qualcuno che si lascia convincere a parlare. Lo sblocca '
                 '<b>Ottone</b> o <b>Carla</b> (offrendo da bere o con la tessera stampa \u2014 1 volta a '
                 'episodio ciascuno).'))
     e.append(LI('<b>Referto</b> \u2014 un esame della scena o di un oggetto. Lo sblocca <b>Attilio</b> '
-                '(1 volta a episodio).'))
+                'o <b>Brera</b> (1 volta a episodio ciascuno).'))
+    e.append(LI('<b>Carbone</b> non sblocca carte del mazzo: la sua abilit\u00e0 esamina un <b>Oggetto '
+                'o Reperto</b> gi\u00e0 trovato e ne cava un dettaglio in pi\u00f9 (1 volta a episodio \u2014 '
+                'chi tiene il fascicolo Luoghi legge la voce corrispondente, se c\u2019\u00e8).'))
+    e.append(LI('<b>Padre Marani</b> non sblocca carte: con <b>Discernimento</b> (1 volta a '
+                'episodio) indica un luogo e chi tiene il fascicolo Luoghi risponde solo '
+                '<b>s\u00ec o no</b>: \u201cl\u00ec si nasconde ancora qualcosa?\u201d \u2014 mai cosa, mai di che tipo.'))
     e.append(LI('<b>Nino</b> non sblocca carte: la sua abilit\u00e0 (<b>Accesso</b>) entra in un luogo '
                 'bloccato senza parola chiave n\u00e9 oggetto, 1 volta a episodio \u2014 \u00e8 un ingresso '
                 'anticipato, non un Approfondimento.'))
@@ -294,6 +304,9 @@ def regolamento():
     e.append(LI('<b>Segnalini nemico esauriti</b> \u2014 se una carta vi dice di piazzare un nemico ma '
                 'non restano pi\u00f9 segnalini di quel tipo, l\u2019effetto di piazzamento non ha luogo (i '
                 'rinforzi del culto sono finiti): applicate comunque il resto della carta, se ne ha.'))
+    e.append(LI('<b>Esca preziosa (Carbone)</b> \u2014 vince solo sul <b>movimento</b>: un nemico gi\u00e0 '
+                'adiacente a un eroe attacca comunque, non si allontana per raccoglierla. L\u2019esca '
+                'svanisce dopo l\u2019attivazione dei nemici che ha attirato.'))
     e.append(LI('<b>Oggetti</b> \u2014 ci\u00f2 che trovate nell\u2019Indagine \u00e8 del gruppo: all\u2019inizio della '
                 'Spedizione decidete chi porta cosa (annotatelo). In Spedizione, passare un oggetto a '
                 'un eroe adiacente \u00e8 gratuito, una volta per turno; un eroe a terra pu\u00f2 essere '
