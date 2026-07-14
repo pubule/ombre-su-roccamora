@@ -257,11 +257,27 @@ def regolamento():
                'Cercare — rivelare mostra <i>che stanza è</i>, Cercare (sopra) trova <i>cosa ci ha '
                'lasciato chi ci è passato prima di voi</i>.'))
     e.append(P('2. Fase Minaccia', 'h2'))
-    e.append(P('Pescate <b>1 carta Minaccia ogni 2 eroi</b> (arrotondando per eccesso: 1 carta in '
-               '2 giocatori, 2 carte in 3\u20134, 3 carte in 5) e applicatene gli effetti. '
-               '<b>Tavoli grandi (6\u201310 eroi):</b> 2 carte a 6, 3 carte da 7 a 10 \u2014 vedi \u201cGiocare in un '
-               'tavolo grande\u201d pi\u00f9 avanti per il dettaglio completo e il bonus ai nemici che va con questa '
-               'tabella.', 'box'))
+    e.append(P('Pescate carte Minaccia in base a quanti eroi sono in tavola (arrotondando per eccesso '
+               'fino a 5, poi vedi \u201cGiocare in un tavolo grande\u201d pi\u00f9 avanti per il bonus ai nemici che '
+               'va con questa tabella) e applicatene gli effetti:', 'body'))
+    minaccia_reg_t = Table([
+        ['Eroi in tavola', '2', '3\u20134', '5', '6', '7\u201310'],
+        ['Carte da pescare', '1', '2', '3', '2', '3'],
+    ], colWidths=[30*mm] + [27.2*mm]*5)
+    minaccia_reg_t.setStyle(TableStyle([
+        ('FONTNAME', (0, 0), (0, -1), F['b']),
+        ('FONTNAME', (1, 0), (-1, -1), F['r']),
+        ('FONTSIZE', (0, 0), (-1, -1), 9),
+        ('TEXTCOLOR', (0, 0), (-1, 0), colors.white),
+        ('BACKGROUND', (0, 0), (-1, 0), TEAL),
+        ('ROWBACKGROUNDS', (0, 1), (-1, -1), [colors.HexColor('#f6efdb')]),
+        ('GRID', (0, 0), (-1, -1), 0.6, TEAL),
+        ('ALIGN', (1, 0), (-1, -1), 'CENTER'),
+        ('TOPPADDING', (0, 0), (-1, -1), 4),
+        ('BOTTOMPADDING', (0, 0), (-1, -1), 4),
+    ]))
+    e.append(minaccia_reg_t)
+    e.append(Spacer(1, 4))
     e.append(P('Il mazzo Minaccia \u00e8 il vostro \u201cmaster\u201d automatico: nessun giocatore interpreta '
                'il nemico. Un giocatore qualsiasi pesca (consiglio: nominate un <b>custode del '
                'mazzo</b> a inizio serata, o pescate a turno), legge la carta ad alta voce ed '
@@ -303,7 +319,7 @@ def regolamento():
                'grata e la apre con <b>Interagire</b>. Ottone si <b>Muove</b> adiacente a un Adepto '
                'gi\u00e0 in gioco e <b>Attacca</b>: 2d6+VIGORE (3) = 9 \u2265 Difesa 7 dell\u2019Adepto \u2192 1 ferita, '
                'l\u2019Adepto (1 Ferita) cade.', 'body'))
-    e.append(P('<b>2. Fase Minaccia.</b> Siete in 3: pescate <b>2 carte</b> (vedi il riquadro sopra). '
+    e.append(P('<b>2. Fase Minaccia.</b> Siete in 3: pescate <b>2 carte</b> (vedi la tabella sopra). '
                'Prima carta, <b>\u201cAdepto in Agguato\u201d</b>: <i>\u201cPiazzate 1 Adepto sull\u2019uscita pi\u00f9 '
                'vicina agli eroi della tessera in cui si trova l\u2019eroe attivo\u201d</i> \u2014 l\u2019eroe attivo '
                '\u00e8 l\u2019ultimo che ha agito (Ottone, in T2): il nuovo Adepto compare sull\u2019uscita pi\u00f9 '
