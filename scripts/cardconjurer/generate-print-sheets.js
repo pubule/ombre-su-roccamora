@@ -1,14 +1,29 @@
-// Genera UN pdf fronte/retro pronto da stampare con TUTTE le carte pronte
-// (Eroi, Nemici, Minacce, Luoghi, Oggetti, Indizi Nascosti, Testimoni,
-// Referti) + le 6 tessere T1-T6, ogni carta/tessera abbinata al proprio
-// dorso. I fascicoli (Regolamento, Indagine, Spedizione, Soluzione, Schede,
-// Preludio) NON sono in questo PDF: sono gia' fronte/retro nativamente
+// Genera TRE pdf fronte/retro pronti da stampare (non uno solo): Comune
+// (Eroi + Nemici/Minacce Malavita, riusabili in ogni episodio), Preludio e
+// Episodio 1 (ognuno solo le proprie carte specifiche: Nemici del culto,
+// Luoghi, Oggetti, Indizi Nascosti, Testimoni, Referti, Minacce non-
+// Malavita). Le tessere T1-T6 stanno nel bucket Episodio 1, NON in Comune:
+// sono sue (board/Episodio 1/), il Preludio ne riusa 3 (T1/T2/T4, vedi
+// TESSERE_P in src/gen_preludio.py) solo per come e' stato scritto oggi,
+// non perche' siano concettualmente un prop condiviso tra episodi - un
+// episodio futuro con una propria ambientazione avra' le sue tessere.
+// Effetto pratico: per giocare il Preludio serve anche
+// `pdf/Episodio 1/Carte.pdf` (le tessere), non solo Comune + Preludio.
+// Chi ha gia' stampato il Comune non ristampa Eroi/Malavita quando arriva
+// l'Episodio 1 o un episodio futuro - vedi PROMPT-ESPANSIONE.md. Il bucket
+// di ogni carta si legge dal suo campo `file` (gia' la fonte di verita' per
+// comune vs episodio-specifico, vedi NEMICI/MINACCE piu' sotto in
+// cards-data.js): `Episodio 1/...` -> Episodio 1, `Preludio/...` -> Preludio,
+// tutto il resto (Eroi/, Nemici/, Minacce/) -> Comune.
+// I fascicoli (Regolamento, Indagine, Spedizione, Soluzione, Schede,
+// Preludio) NON sono in questi PDF: sono gia' fronte/retro nativamente
 // (PDF multipagina, pagine pari garantite da pad_to_even_pages in
 // deluxe_style.py) ma su carta normale A4, mentre carte e tessere vogliono
 // cartoncino e impaginazione a taglia fissa - unirli in un solo file
 // costringerebbe la stampa a un solo tipo di carta/impostazione per tutto,
 // peggio che stamparli separati. "Tutto fronte/retro" vale come garanzia
-// per OGNI artefatto, non come "tutto in un unico PDF".
+// per OGNI artefatto, non come "tutto in un unico PDF" (vedi
+// scripts/merge-print-all.py, che li riunisce comunque per bucket).
 //
 // Ogni mazzo usa il proprio artwork di dorso (artworks/Dorso <Nome>.png,
 // vedi i prompt in PROMPT-MIDJOURNEY.md - il tipo e' inciso direttamente
@@ -41,7 +56,8 @@ const fs = require('fs');
 const path = require('path');
 const { pathToFileURL } = require('url');
 const { chromium } = require('playwright');
-const { HEROES, NEMICI, MINACCE, LUOGHI, OGGETTI, INDIZI, TESTIMONI, REFERTI } = require('./cards-data');
+const { HEROES, NEMICI, MINACCE, LUOGHI, OGGETTI, INDIZI, TESTIMONI, REFERTI,
+        PRELUDIO_LUOGHI, PRELUDIO_APPROFONDIMENTI, PRELUDIO_OGGETTI } = require('./cards-data');
 
 const ROOT = path.resolve(__dirname, '../..');
 const CARD_W = 68;    // mm
@@ -52,15 +68,38 @@ const PER_PAGE = 9;
 // Mazzi con dorso uniforme (stesso identico dorso su ogni carta della famiglia).
 // Indizi/Testimoni/Referti hanno dorsi diversi (il tipo e' inciso nell'arte),
 // ma restano concettualmente un unico mazzo coperto in gioco - vedi regolamento.
+// Preludio ed Episodio 1 condividono qui lo stesso dorso per tipo (stessa
+// famiglia visiva, vedi commento in testa al file): non serve un mazzo a
+// parte, il bucket per episodio si separa da solo al momento di stampare
+// (vedi bucketOf() piu' sotto), leggendo il campo `file` di ogni carta.
 const SIMPLE_DECKS = [
   { name: 'Eroi', cards: HEROES, dorso: 'Dorso Eroe.png' },
   { name: 'Nemici', cards: NEMICI, dorso: 'Dorso Nemico.png' },
   { name: 'Minacce', cards: MINACCE, dorso: 'Dorso Minaccia.png' },
-  { name: 'Luoghi', cards: LUOGHI, dorso: 'Dorso Luogo.png' },
-  { name: 'Oggetti', cards: OGGETTI, dorso: 'Dorso Oggetto.png' },
-  { name: 'Indizi Nascosti', cards: INDIZI, dorso: 'Dorso Indizio Nascosto.png' },
-  { name: 'Testimoni', cards: TESTIMONI, dorso: 'Dorso Testimone.png' },
-  { name: 'Referti', cards: REFERTI, dorso: 'Dorso Referto.png' },
+  { name: 'Luoghi', cards: [...LUOGHI, ...PRELUDIO_LUOGHI], dorso: 'Dorso Luogo.png' },
+  { name: 'Oggetti', cards: [...OGGETTI, ...PRELUDIO_OGGETTI], dorso: 'Dorso Oggetto.png' },
+  { name: 'Indizi Nascosti', cards: [...INDIZI, ...PRELUDIO_APPROFONDIMENTI.filter((c) => c.kind === 'Indizio')],
+    dorso: 'Dorso Indizio Nascosto.png' },
+  { name: 'Testimoni', cards: [...TESTIMONI, ...PRELUDIO_APPROFONDIMENTI.filter((c) => c.kind === 'Testimone')],
+    dorso: 'Dorso Testimone.png' },
+  { name: 'Referti', cards: [...REFERTI, ...PRELUDIO_APPROFONDIMENTI.filter((c) => c.kind === 'Referto')],
+    dorso: 'Dorso Referto.png' },
+];
+
+// Comune vs Preludio vs Episodio 1: legge il bucket dal campo `file` di ogni
+// carta, gia' la fonte di verita' per comune/episodio-specifico (vedi
+// n.file/m.file in cards-data.js). Nessun flag duplicato da tenere
+// allineato a mano.
+function bucketOf(file) {
+  if (file.startsWith('Episodio 1/')) return 'episodio1';
+  if (file.startsWith('Preludio/')) return 'preludio';
+  return 'comune';
+}
+
+const OUTPUTS = [
+  { key: 'comune', label: 'Comune', out: path.join('pdf', 'Comune', 'Carte.pdf'), tessere: false },
+  { key: 'preludio', label: 'Preludio', out: path.join('pdf', 'Preludio', 'Carte.pdf'), tessere: false },
+  { key: 'episodio1', label: 'Episodio 1', out: path.join('pdf', 'Episodio 1', 'Carte-e-Tessere.pdf'), tessere: true },
 ];
 
 // id+nome 1:1 da TILES in scripts/tiles/generate-tiles.js (duplicato apposta,
@@ -137,29 +176,35 @@ async function frontCell(browser, c) {
   return `<div class="card"><img src="${uri}"></div>`;
 }
 
-// Dorso semplice: stessa arte per ogni carta del mazzo. `bgClass` e' una
-// classe CSS (background-image definito UNA volta sola nell'head, vedi
-// bgClasses sotto) - mai un data-uri ripetuto in ogni cella, altrimenti la
-// stessa immagine da alcuni MB finisce incollata decine di volte nell'HTML
-// (per 23 carte Minacce: 200+MB, Chromium crasha su page.setContent).
-function plainBackCell(c, bgClass) {
-  if (!c) return `<div class="card empty"></div>`;
-  return `<div class="card ${bgClass}"></div>`;
+// Dorso semplice: stessa arte per ogni carta del mazzo di provenienza.
+// `bgClass` e' una classe CSS (background-image definito UNA volta sola
+// nell'head, vedi bgClasses sotto) - mai un data-uri ripetuto in ogni
+// cella, altrimenti la stessa immagine da alcuni MB finisce incollata
+// decine di volte nell'HTML (per 23 carte Minacce: 200+MB, Chromium
+// crasha su page.setContent).
+function plainBackCell(item) {
+  if (!item) return `<div class="card empty"></div>`;
+  return `<div class="card ${item.bgClass}"></div>`;
 }
 
+// Impagina in blocco TUTTE le carte del bucket, non mazzo per mazzo: un
+// mazzo da 2-3 carte non si merita un foglio tutto suo con 6-7 celle vuote,
+// il prossimo mazzo riempie lo spazio che avanza sulla stessa pagina.
+// `items` e' [{card, bgClass}] gia' nell'ordine di stampa (l'ordine di
+// SIMPLE_DECKS/OUTPUTS a monte); il dorso resta corretto per ogni carta
+// perche' viaggia insieme ad essa, non piu' legato alla pagina intera.
 // Sequenziale apposta (non Promise.all): ora ogni fronte passa per
 // shrinkImage, che apre/chiude una sua pagina Chromium - farne decine in
-// parallelo (un mazzo intero insieme) e' inutile rischio di risorse in
-// piu' oltre a quello gia' diagnosticato sul documento finale (vedi
-// l'attesa esplicita su page.setContent piu' sotto). Piu' lento, ma
-// prevedibile.
-async function deckSheets(browser, deck, bgClass) {
-  const pages = chunk(deck.cards, PER_PAGE);
+// parallelo e' inutile rischio di risorse in piu' oltre a quello gia'
+// diagnosticato sul documento finale (vedi l'attesa esplicita su
+// page.setContent piu' sotto). Piu' lento, ma prevedibile.
+async function packedSheets(browser, items) {
+  const pages = chunk(items, PER_PAGE);
   let sheets = '';
   for (const p of pages) {
     const fronts = [];
-    for (const c of p) fronts.push(await frontCell(browser, c));
-    const backs = mirrorRow(p).map((c) => plainBackCell(c, bgClass));
+    for (const it of p) fronts.push(await frontCell(browser, it.card));
+    const backs = mirrorRow(p).map(plainBackCell);
     sheets += `<section class="grid">${fronts.join('')}</section>
                <section class="grid">${backs.join('')}</section>`;
   }
@@ -194,74 +239,85 @@ async function tileSheets(browser) {
 
 (async () => {
   const browser = await chromium.launch({ headless: true });
-  let sheets = '';
-  let bgRules = '';
-  let bgIndex = 0;
 
-  async function registerDorso(deck) {
-    if (!deck.cards.length) return null;
-    const uri = await dorsoUri(browser, deck.dorso);
-    if (!uri) {
-      console.warn(`Salto "${deck.name}": manca artworks/${deck.dorso}`);
-      return null;
+  for (const output of OUTPUTS) {
+    console.log(`\n== ${output.label} ==`);
+    let sheets = '';
+    let bgRules = '';
+    let bgIndex = 0;
+    const items = []; // {card, bgClass}, in ordine di stampa, impaginati insieme
+
+    async function registerDorso(deck) {
+      const uri = await dorsoUri(browser, deck.dorso);
+      if (!uri) {
+        console.warn(`  salto "${deck.name}": manca artworks/${deck.dorso}`);
+        return null;
+      }
+      const cls = `bg${bgIndex++}`;
+      bgRules += `.${cls}{background-image:url('${uri}');background-size:cover;background-position:center;}\n`;
+      return cls;
     }
-    const cls = `bg${bgIndex++}`;
-    bgRules += `.${cls}{background-image:url('${uri}');background-size:cover;background-position:center;}\n`;
-    return cls;
+
+    for (const deck of SIMPLE_DECKS) {
+      const cards = deck.cards.filter((c) => bucketOf(c.file) === output.key);
+      if (!cards.length) continue;
+      const cls = await registerDorso(deck);
+      if (!cls) continue;
+      for (const card of cards) items.push({ card, bgClass: cls });
+      console.log(`  ${deck.name}: ${cards.length} carte`);
+    }
+
+    // Un solo impaginamento per TUTTE le carte del bucket (vedi packedSheets):
+    // niente pagine mezze vuote per un mazzo piccolo, il successivo riempie
+    // lo spazio rimasto sulla stessa griglia 3x3.
+    sheets += await packedSheets(browser, items);
+
+    if (output.tessere) {
+      console.log('  Tessere:');
+      sheets += await tileSheets(browser);
+    }
+
+    if (!sheets) {
+      console.log(`  (nessuna carta/tessera pronta per questo bucket, salto il PDF)`);
+      continue;
+    }
+
+    const html = `<!doctype html><html><head><meta charset="utf-8"><style>
+      @page { size: A4; margin: 0; }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { font-family: Georgia, 'Times New Roman', serif; }
+      .grid { width: 210mm; height: 297mm; display: grid;
+              grid-template-columns: repeat(${COLS}, ${CARD_W}mm);
+              grid-auto-rows: ${CARD_H}mm; justify-content: center; align-content: center;
+              gap: 0; page-break-after: always; }
+      .card { width: ${CARD_W}mm; height: ${CARD_H}mm; overflow: hidden; }
+      .card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+      .card.empty { visibility: hidden; }
+      .tilepage { width: 210mm; height: 297mm; display: flex; align-items: center;
+                  justify-content: center; page-break-after: always; }
+      .tile { width: ${TILE_MM}mm; height: ${TILE_MM}mm; overflow: hidden; }
+      .tile img { width: 100%; height: 100%; object-fit: cover; display: block; }
+      ${bgRules}
+    </style></head><body>${sheets}</body></html>`;
+
+    const page = await browser.newPage();
+    await page.setContent(html, { waitUntil: 'networkidle', timeout: 120000 });
+    // 'networkidle' non basta: le immagini sono data-URI inline (nessuna
+    // richiesta di rete da aspettare), ma con ~60+ carte a piena risoluzione
+    // nello stesso documento la decodifica non e' istantanea - alcune celle
+    // (es. le carte Eroi di Nino e Ottone, viste vuote pur con file corretto
+    // e nessun avviso in console) risultavano bianche nel PDF perche' lo
+    // screenshot partiva prima che quella specifica <img> avesse finito di
+    // decodificare. Attesa esplicita e deterministica invece di un timeout
+    // indovinato: aspetta ogni <img> del documento, una per una.
+    await page.evaluate(() => Promise.all(Array.from(document.images).map((img) =>
+      img.complete ? Promise.resolve() : new Promise((res) => { img.onload = img.onerror = res; }))));
+    const out = path.join(ROOT, output.out);
+    fs.mkdirSync(path.dirname(out), { recursive: true });
+    await page.pdf({ path: out, format: 'A4', printBackground: true, timeout: 120000 });
+    await page.close();
+    console.log(`  -> ${out}`);
   }
 
-  for (const deck of SIMPLE_DECKS) {
-    const cls = await registerDorso(deck);
-    if (!cls) continue;
-    sheets += await deckSheets(browser, deck, cls);
-    console.log(`${deck.name}: ${deck.cards.length} carte`);
-  }
-
-  console.log('Tessere:');
-  sheets += await tileSheets(browser);
-
-  if (!sheets) {
-    console.error('Nessun mazzo con dorso pronto trovato, e nessuna tessera pronta. Genera almeno un dorso in artworks/ e riprova.');
-    await browser.close();
-    process.exit(1);
-  }
-
-  const html = `<!doctype html><html><head><meta charset="utf-8"><style>
-    @page { size: A4; margin: 0; }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: Georgia, 'Times New Roman', serif; }
-    .grid { width: 210mm; height: 297mm; display: grid;
-            grid-template-columns: repeat(${COLS}, ${CARD_W}mm);
-            grid-auto-rows: ${CARD_H}mm; justify-content: center; align-content: center;
-            gap: 0; page-break-after: always; }
-    .card { width: ${CARD_W}mm; height: ${CARD_H}mm; overflow: hidden; }
-    .card img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .card.empty { visibility: hidden; }
-    .tilepage { width: 210mm; height: 297mm; display: flex; align-items: center;
-                justify-content: center; page-break-after: always; }
-    .tile { width: ${TILE_MM}mm; height: ${TILE_MM}mm; overflow: hidden; }
-    .tile img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    ${bgRules}
-  </style></head><body>${sheets}</body></html>`;
-
-  const page = await browser.newPage();
-  await page.setContent(html, { waitUntil: 'networkidle', timeout: 120000 });
-  // 'networkidle' non basta: le immagini sono data-URI inline (nessuna
-  // richiesta di rete da aspettare), ma con ~60+ carte a piena risoluzione
-  // nello stesso documento la decodifica non e' istantanea - alcune celle
-  // (es. le carte Eroi di Nino e Ottone, viste vuote pur con file corretto
-  // e nessun avviso in console) risultavano bianche nel PDF perche' lo
-  // screenshot partiva prima che quella specifica <img> avesse finito di
-  // decodificare. Attesa esplicita e deterministica invece di un timeout
-  // indovinato: aspetta ogni <img> del documento, una per una.
-  await page.evaluate(() => Promise.all(Array.from(document.images).map((img) =>
-    img.complete ? Promise.resolve() : new Promise((res) => { img.onload = img.onerror = res; }))));
-  // Nome distinto da "Stampa-Completa": quel nome e' del file finale con
-  // TUTTO dentro (fascicoli inclusi), prodotto da scripts/merge-print-all.py
-  // a partire da questo. Stesso nome per i due file = il merge, rilanciato,
-  // rilegge se stesso e duplica il contenuto ad ogni esecuzione.
-  const out = path.join(ROOT, 'pdf', 'Ombre-su-Roccamora-08-Carte-e-Tessere.pdf');
-  await page.pdf({ path: out, format: 'A4', printBackground: true, timeout: 120000 });
   await browser.close();
-  console.log('\nScaricato in', out);
 })();

@@ -617,6 +617,15 @@ Ogni testo deve far *vedere* la scena, non riassumerla. Regole:
 - [ ] Le carte spawn di nemici piazzano "sull'uscita più vicina agli eroi" (non
       "più lontana"), salvo le eccezioni tematiche dichiarate (inseguitori dalla
       Banchina, carte "si attiva subito")?
+- [ ] Stampa a bucket (Comune vs Preludio vs episodio): ogni nuova carta
+      Nemico/Minaccia in `cards-data.js` ha un `file` che comincia per
+      `Episodio N/...` se specifica di questo episodio, o senza quel prefisso
+      (`Nemici/`, `Minacce/`) solo se davvero riusabile ovunque come la
+      Malavita (vedi `bucketOf()` in `generate-print-sheets.js` — sbagliare il
+      prefisso non rompe nulla a schermo, ma stampa la carta nel PDF sbagliato).
+      Aggiunta una voce in `BUCKETS` dentro `scripts/merge-print-all.py` per il
+      nuovo episodio? Chi ha già il Comune non deve MAI dover ristampare
+      Eroi/Malavita/tessere per giocare un episodio nuovo.
 
 ---
 

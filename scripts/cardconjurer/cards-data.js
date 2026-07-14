@@ -199,7 +199,9 @@ const MINACCE = [
   // frame "Marker Card" e fallisce in silenzio) - il tipo va nel titolo
   // stesso, che quello slot funziona di sicuro.
   title: `${m.tipo} — ${m.title}`,
-  file: `Episodio 1/Minacce/${m.title}`,
+  // Malavita (Sgherro/Sicario): riusabile in ogni episodio come i Nemici Malavita
+  // sotto (vedi n.file piu' in basso) - fuori da "Episodio 1/", stesso criterio.
+  file: (m.tipo === 'Malavita' ? 'Minacce/' : 'Episodio 1/Minacce/') + m.title,
   rules: `{i}${m.flavor}{/i}{divider}${m.effect}`,
 }));
 
@@ -440,5 +442,6 @@ const PRELUDIO = [...PRELUDIO_LUOGHI, ...PRELUDIO_APPROFONDIMENTI, ...PRELUDIO_O
 
 module.exports = {
   HEROES, NEMICI, MINACCE, LUOGHI, INDIZI, TESTIMONI, REFERTI, OGGETTI, PRELUDIO,
+  PRELUDIO_LUOGHI, PRELUDIO_APPROFONDIMENTI, PRELUDIO_OGGETTI,
   ALL: [...HEROES, ...NEMICI, ...MINACCE, ...LUOGHI, ...INDIZI, ...TESTIMONI, ...REFERTI, ...OGGETTI, ...PRELUDIO],
 };

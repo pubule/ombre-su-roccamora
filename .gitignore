@@ -2,3 +2,10 @@ fonts/*.ttf
 __pycache__/
 node_modules/
 .idea/
+
+# PDF di stampa derivati (rigenerabili con generate-print-sheets.js +
+# merge-print-all.py, vedi README.md): pesanti, mai la fonte di verita'.
+pdf/*-Completo.pdf
+pdf/Comune/Carte.pdf
+pdf/Preludio/Carte.pdf
+pdf/Episodio 1/Carte-e-Tessere.pdf

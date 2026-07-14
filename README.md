@@ -96,25 +96,45 @@ Da lanciare dalla **radice del repo** (non da dentro `scripts/cardconjurer`:
 node scripts/cardconjurer/generate-batch.js            # tutte (eroi, nemici, minacce, luoghi, indizi, testimoni, referti, oggetti, preludio)
 node scripts/cardconjurer/generate-batch.js luoghi     # solo un gruppo (heroes|nemici|minacce|luoghi|indizi|testimoni|referti|oggetti|preludio)
 node scripts/cardconjurer/generate-test.js "Elena Fosco" "Il Fonditore"   # solo carte specifiche, per titolo
-node scripts/cardconjurer/generate-print-sheets.js     # fronte/retro pronto da stampare: tutti i mazzi + le 6 tessere -> pdf/Ombre-su-Roccamora-08-Carte-e-Tessere.pdf (non committato)
+node scripts/cardconjurer/generate-print-sheets.js     # fronte/retro pronto da stampare, DIVISO PER BUCKET (non committati):
+                                                        #   pdf/Comune/Carte.pdf (Eroi + Nemici/Minacce Malavita)
+                                                        #   pdf/Preludio/Carte.pdf (solo le carte del Preludio)
+                                                        #   pdf/Episodio 1/Carte-e-Tessere.pdf (carte dell'episodio + le 6 tessere)
 ```
 
-## Stampa completa (tutto in un unico PDF, sempre fronte/retro)
+Le tessere stanno nel bucket Episodio 1, non in Comune: sono sue
+(`board/Episodio 1/`); il Preludio ne riusa 3 (T1/T2/T4) solo perche' cosi'
+e' stato scritto, non perche' siano un prop condiviso tra episodi — per
+giocare il Preludio serve quindi anche `pdf/Episodio 1/Carte-e-Tessere.pdf`,
+non solo Comune + Preludio. Il bucket di ogni carta si legge dal suo campo
+`file` in `cards-data.js` (`Episodio 1/...`, `Preludio/...`, o nessuno dei
+due = Comune) — vedi il commento in testa a `generate-print-sheets.js`. Un
+episodio futuro eredita Eroi/Malavita gratis: basta dare alle sue carte
+nuove un `file` che inizia per `Episodio N/`, nessun'altra modifica allo
+script.
+
+## Stampa completa (un PDF per Comune + uno per Preludio + uno per episodio, sempre fronte/retro)
 
 ```bash
 python scripts/merge-print-all.py
 ```
 
-Unisce tutti i fascicoli gia' generati in `pdf/` (Regolamento, Schede,
-Aiuto-Giocatore, Tabellone, Preludio ed Episodio 1 completi) + il foglio
-carte/tessere di `generate-print-sheets.js` in un solo
-`pdf/Ombre-su-Roccamora-09-Stampa-Completa.pdf`, sempre a pagine pari
-(aggiunge da solo una pergamena di chiusura dove serve, anche ai
-poster/schede singole che da soli restano a una pagina) cosi' la stampa
-fronte/retro resta allineata dall'inizio alla fine. Non genera nulla da
-zero: rilancia prima i passi sopra per aggiornare il contenuto. File
-finale pesante (70+MB, immagini a piena risoluzione): normale per un PDF
-di stampa, non un errore. Non committato — va rigenerato in locale.
+Unisce i fascicoli gia' generati in `pdf/` con i fogli carte/tessere di
+`generate-print-sheets.js`, **per bucket**: chi ha gia' stampato il Comune
+(Regolamento, Schede, Aiuto-Giocatore, Tabellone, Eroi, Malavita) non lo
+ristampa quando arriva un nuovo episodio. Tre file, sempre a pagine
+pari ciascuno (aggiunge da solo una pergamena di chiusura dove serve, anche
+ai poster/schede singole che da soli restano a una pagina) cosi' la stampa
+fronte/retro resta allineata dall'inizio alla fine di ognuno:
+- `pdf/Ombre-su-Roccamora-Comune-Completo.pdf`
+- `pdf/Ombre-su-Roccamora-Preludio-Completo.pdf`
+- `pdf/Ombre-su-Roccamora-Episodio-1-Completo.pdf` (un episodio futuro aggiunge
+  solo una nuova voce a `BUCKETS` in `scripts/merge-print-all.py`)
+
+Non genera nulla da zero: rilancia prima i passi sopra per aggiornare il
+contenuto. File pesanti (fino a 40+MB l'uno, immagini a piena risoluzione):
+normale per PDF di stampa, non un errore. Non committati — vanno
+rigenerati in locale.
 
 ## Rigenerare tessere e reperti
 
