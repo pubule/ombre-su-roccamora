@@ -258,7 +258,7 @@ def regolamento():
                'lasciato chi ci è passato prima di voi</i>.'))
     e.append(P('2. Fase Minaccia', 'h2'))
     e.append(P('Pescate carte Minaccia in base a quanti eroi sono in tavola (arrotondando per eccesso '
-               'fino a 5, poi vedi \u201cGiocare in un tavolo grande\u201d pi\u00f9 avanti per il bonus ai nemici che '
+               'fino a 5, poi vedi \u201cGiocare in 2, in 4\u20135, o in un tavolo grande\u201d pi\u00f9 avanti per il bonus ai nemici che '
                'va con questa tabella) e applicatene gli effetti:', 'body'))
     minaccia_reg_t = Table([
         ['Eroi in tavola', '2', '3\u20134', '5', '6', '7\u201310'],
