@@ -392,7 +392,7 @@ def spedizione():
         frame_flow(c, 20*mm, yy - 8*mm - 24*mm, W - 40*mm, 24*mm, flow)
         yy -= 24*mm + 18*mm
     c.setFillColor(TEAL); c.setFont(F['b'], 9.5)
-    c.drawString(20*mm, yy, 'NEMICI IN CAMPO (schede nell’Episodio 1, cartella cards/Nemici/):')
+    c.drawString(20*mm, yy, 'NEMICI IN CAMPO (statistiche nel Bestiario del Preludio, PDF a parte in Preludio/):')
     frame_flow(c, 20*mm, yy - 30*mm, W - 40*mm, 26*mm, [
         Paragraph('2 <b>Sgherri</b> in T2 (branco: +1 Attacco se adiacenti tra loro) e 1 '
                   '<b>Sicario</b> in T4 (+2 Attacco contro un eroe isolato o ferito — '

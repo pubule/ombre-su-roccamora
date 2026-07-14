@@ -413,29 +413,39 @@ MINACCE = (
     [('SUSSURRI', 'L’eroe con meno NERVI (a pari merito: sceglie il gruppo) prova NERVI (Media): se fallisce subisce 1 danno dal terrore.', 'insidia', False)]
 )
 
+# `tipo`/`art`/`boss` servono al Bestiario (gen_bestiario.py, un fascicolo per
+# episodio con bio e statistiche per numero di eroi): le carte Creatura NON
+# riportano piu' le statistiche (solo ritratto e flavor), il Bestiario e'
+# l'unica fonte al tavolo - vedi cards-data.js e PROMPT-ESPANSIONE.md.
 NEMICI = [
     dict(nome='ADEPTO INCAPPUCCIATO', att=1, dif=7, fer=1, mov=4, dan=1,
+         tipo='Cultista Incappucciato', art='Adepto Incappucciato.png',
          note='Palandrana grigia, maschera di cera. Combatte con falcetti da fonditore.'),
     dict(nome='CANE DEI MOLI', att=2, dif=6, fer=1, mov=6, dan=1,
+         tipo='Cane dei Moli', art='Cani dei Moli.png',
          note='Bestie da guardia dei magazzini, il muso incrostato di cera nera: il culto li '
               'nutre e li accorda come strumenti. Arrivano prima del loro ringhio. Fragili, '
               'ma il colpo va messo a segno mentre saltano.'),
     dict(nome='IL FONDITORE', att=1, dif=8, fer=2, mov=2, dan=2,
+         tipo='Fonditore', art='Il Fonditore.png',
          note='Gli artigiani del culto: grembiule di cuoio, mestolo colmo di cera fusa, la '
               'pazienza di chi ha versato mille candele. Non corrono mai: non ne hanno bisogno. '
               'Chi viene ferito dal Fonditore si muove di 1 casella in meno nel suo prossimo '
               'turno (la cera si addensa addosso).'),
     dict(nome='IL CUSTODE DELLA CERA', att=3, dif=9, fer=3, mov=3, dan=2,
+         tipo='Custode (Boss)', art='Il Custode della Cera (boss).png', boss=True,
          note='Un gigante ricoperto di cera colata, il volto un moncone liscio. Se il diapason '
               'd’argento viene fatto vibrare a lui adiacente (azione): Difesa 5 per il resto '
               'della partita e salta la sua prossima attivazione.'),
     # Malavita di Roccamora: nemici SECOLARI, riusabili in ogni episodio (non legati al
     # culto della cera). Nell'Episodio 1 sono i bravacci pagati per guardare i moli.
     dict(nome='LO SGHERRO', att=2, dif=8, fer=2, mov=4, dan=1,
+         tipo='Malavita', art='Lo Sgherro.png',
          note='Muscolo a pagamento dei bassifondi: bastone, coltellaccio e nessuna fede se non '
               'la moneta. <b>Tattica del branco:</b> se è adiacente a un altro Sgherro, ha +1 '
               'Attacco. Non vengono quasi mai da soli.'),
     dict(nome='IL SICARIO', att=3, dif=7, fer=1, mov=5, dan=2,
+         tipo='Malavita', art='Il Sicario.png',
          note='Una lama assoldata, silenziosa e rapida. Sceglie sempre il bersaglio più debole. '
               '<b>Colpo a tradimento:</b> +2 all’Attacco contro un eroe isolato (nessun altro eroe '
               'adiacente) o già ferito. Fragile: chi lo raggiunge, lo abbatte.'),

@@ -416,7 +416,9 @@ def regolamento():
                 'Ferita: un +1 li raddoppia) rende la spedizione ingiocabile. Da 8 a 10 eroi, aggiungete '
                 'invece <b>+1 Ferita SOLO al Custode della Cera</b> (mai ai nemici di truppa). Il bonus '
                 'si fissa all\u2019inizio della spedizione, in base a quanti eroi schierate \u2014 non cambia pi\u00f9 '
-                'durante la spedizione anche se qualcuno cade a terra.'))
+                'durante la spedizione anche se qualcuno cade a terra. <b>Niente calcoli al tavolo:</b> '
+                'il <b>Bestiario</b> dell\u2019episodio riporta per ogni nemico le Ferite gi\u00e0 tabellate per '
+                'numero di eroi \u2014 leggete la colonna del vostro tavolo e basta.'))
     e.append(P("Con un tavolo da 6\u201310, contate anche pi\u00f9 tempo di quanto indicato sopra per 5: nei test "
                "le spedizioni tendono a durare 12\u201318 round invece di 8\u20139 (pi\u00f9 eroi in una stanza piccola "
                "vuol dire pi\u00f9 traffico, non solo pi\u00f9 minacce). Consigliato: nominate un "
@@ -437,6 +439,10 @@ def regolamento():
                 'ritagliate tutto. Le tessere (cartella <b>board/Episodio 1/</b>) sono immagini singole, '
                 'nessun PDF le forza a una dimensione: stampatele a <b>200×200mm</b> (caselle da 5cm, '
                 'la taglia minima comoda per muovere le miniature).'))
+    e.append(LI('<b>Bestiario</b> (in <i>Episodio 1/</i>): una pagina per nemico — bio, statistiche e '
+                'Ferite già tabellate per numero di eroi in tavola. Fronte/retro normale, tenetelo '
+                'aperto accanto al Registro delle Ferite: le carte Creatura mostrano solo ritratto e '
+                'indole, le statistiche vivono qui.'))
     e.append(LI('<b>Oggetti</b>: carte su cartoncino, tenute in un mazzetto a parte. Quando trovate '
                 'un oggetto (in Indagine o Cercando in Spedizione) prendete la carta corrispondente: '
                 'da quel momento è fisicamente nelle mani di chi lo porta.'))
@@ -689,7 +695,8 @@ def aiuto():
                 'Se adiacente attacca: <b>2d6 + Attacco ≥ Difesa eroe</b> → subisci il Danno indicato.'))
     e.append(RP('<b>Tavolo 6–10 eroi:</b> a 6 eroi, +2 Ferite a ogni nemico (Custode incluso). Da 7 in '
                 'su nessun bonus generale; da 8 a 10, +1 Ferita SOLO al Custode. Fissato a inizio '
-                'spedizione, non ricalcolato dopo.'))
+                'spedizione, non ricalcolato dopo. Ferite già tabellate per taglia nel <b>Bestiario</b> '
+                'dell’episodio.'))
 
     e.append(P('REGOLA D’ORO', 'h2'))
     e.append(RP('In ogni ambiguità (uscite/eroi equidistanti, più bersagli) sceglie il gruppo, '

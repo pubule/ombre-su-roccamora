@@ -80,6 +80,7 @@ cd src
 # deluxe_style.py e poi:
 python gen_docs.py     # regolamento + aiuto-giocatore + soluzione (Episodio 1)
 python gen_deluxe.py   # schede personaggio
+python gen_bestiario.py # bestiario nemici per episodio (bio + Ferite tabellate per numero di eroi)
 python gen_gothic.py   # indagine + spedizione (Episodio 1)
 python gen_narrator.py # luoghi/tessere per chi arbitra (Episodio 1)
 python gen_cover.py    # copertine (Preludio + episodi)

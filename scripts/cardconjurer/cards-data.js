@@ -72,43 +72,47 @@ const HEROES = [
   },
 ];
 
+// Le carte Creatura NON riportano le statistiche: vivono nel Bestiario
+// dell'episodio (gen_bestiario.py, con Ferite tabellate per numero di
+// eroi in tavola). La carta resta il segnalino da tavolo: ritratto,
+// flavor e il rimando al fascicolo.
 const NEMICI = [
   {
     art: 'artworks/Adepto Incappucciato.png',
     title: 'Adepto Incappucciato',
     type: 'Creatura — Cultista Incappucciato',
-    rules: '{i}Att +1 · Dif 7 · Ferite 1 · Mov 4 · Danno 1{/i}{divider}Palandrana grigia da becchino, maschera di cera liscia e senza tratti. Sotto, gente comune di Roccamora — fornai, barcaioli, sagrestani — che alle 3 di notte smette di essere gente comune. Combattono con falcetti da fonditore, in perfetto silenzio: la voce la conservano per il canto.',
+    rules: 'Palandrana grigia da becchino, maschera di cera liscia e senza tratti. Sotto, gente comune di Roccamora — fornai, barcaioli, sagrestani — che alle 3 di notte smette di essere gente comune. Combattono con falcetti da fonditore, in perfetto silenzio: la voce la conservano per il canto.{divider}{i}Statistiche nel Bestiario dell’episodio.{/i}',
   },
   {
     art: 'artworks/Cani dei Moli.png',
     title: 'Cane dei Moli',
     type: 'Creatura — Cane dei Moli',
-    rules: '{i}Att +2 · Dif 6 · Ferite 1 · Mov 6 · Danno 1{/i}{divider}Bestie da guardia dei magazzini, il muso incrostato di cera nera: il culto li nutre e li accorda come strumenti. Arrivano prima del loro ringhio. Fragili, ma il colpo va messo a segno mentre saltano.',
+    rules: 'Bestie da guardia dei magazzini, il muso incrostato di cera nera: il culto li nutre e li accorda come strumenti. Arrivano prima del loro ringhio. Fragili, ma il colpo va messo a segno mentre saltano.{divider}{i}Statistiche nel Bestiario dell’episodio.{/i}',
   },
   {
     art: 'artworks/Il Fonditore.png',
     title: 'Il Fonditore',
     type: 'Creatura — Fonditore',
-    rules: '{i}Att +1 · Dif 8 · Ferite 2 · Mov 2 · Danno 2{/i}{divider}Gli artigiani del culto: grembiule di cuoio, mestolo colmo di cera fusa, la pazienza di chi ha versato mille candele. Non corrono mai: non ne hanno bisogno. Chi viene ferito dal Fonditore si muove di 1 casella in meno nel suo prossimo turno (la cera si addensa addosso).',
+    rules: 'Gli artigiani del culto: grembiule di cuoio, mestolo colmo di cera fusa, la pazienza di chi ha versato mille candele. Non corrono mai: non ne hanno bisogno. Chi viene ferito dal Fonditore si muove di 1 casella in meno nel suo prossimo turno (la cera si addensa addosso).{divider}{i}Statistiche nel Bestiario dell’episodio.{/i}',
   },
   {
     art: 'artworks/Il Custode della Cera (boss).png',
     title: 'Il Custode della Cera',
     type: 'Creatura — Custode (Boss)',
-    rules: '{i}Att +3 · Dif 9 · Ferite 3 · Mov 3 · Danno 2{/i}{divider}Un gigante ricoperto di strati di cera colata, il volto un moncone liscio in cui affiorano, a tratti, i lineamenti di qualcun altro. Avanza lento e senza fretta: nulla, nel suo magazzino, gli è mai sfuggito. Se il diapason d’argento viene fatto vibrare a lui adiacente (azione): Difesa 5 per il resto della partita e salta la sua prossima attivazione.',
+    rules: 'Un gigante ricoperto di strati di cera colata, il volto un moncone liscio in cui affiorano, a tratti, i lineamenti di qualcun altro. Avanza lento e senza fretta: nulla, nel suo magazzino, gli è mai sfuggito. Se il diapason d’argento viene fatto vibrare a lui adiacente (azione): Difesa 5 per il resto della partita e salta la sua prossima attivazione.{divider}{i}Statistiche nel Bestiario dell’episodio.{/i}',
   },
   // Malavita di Roccamora: nemici secolari riusabili in ogni episodio.
   {
     art: 'artworks/Lo Sgherro.png',
     title: 'Lo Sgherro',
     type: 'Creatura — Malavita',
-    rules: '{i}Att +2 · Dif 8 · Ferite 2 · Mov 4 · Danno 1{/i}{divider}Muscolo a pagamento dei bassifondi: bastone, coltellaccio e nessuna fede se non la moneta. Tattica del branco: se è adiacente a un altro Sgherro, ha +1 Attacco. Non vengono quasi mai da soli.',
+    rules: 'Muscolo a pagamento dei bassifondi: bastone, coltellaccio e nessuna fede se non la moneta. Tattica del branco: se è adiacente a un altro Sgherro, ha +1 Attacco. Non vengono quasi mai da soli.{divider}{i}Statistiche nel Bestiario dell’episodio.{/i}',
   },
   {
     art: 'artworks/Il Sicario.png',
     title: 'Il Sicario',
     type: 'Creatura — Malavita',
-    rules: '{i}Att +3 · Dif 7 · Ferite 1 · Mov 5 · Danno 2{/i}{divider}Una lama assoldata, silenziosa e rapida. Sceglie sempre il bersaglio più debole. Colpo a tradimento: +2 all’Attacco contro un eroe isolato (nessun altro eroe adiacente) o già ferito. Fragile: chi lo raggiunge, lo abbatte.',
+    rules: 'Una lama assoldata, silenziosa e rapida. Sceglie sempre il bersaglio più debole. Colpo a tradimento: +2 all’Attacco contro un eroe isolato (nessun altro eroe adiacente) o già ferito. Fragile: chi lo raggiunge, lo abbatte.{divider}{i}Statistiche nel Bestiario dell’episodio.{/i}',
   },
 ];
 

@@ -487,9 +487,25 @@ Tyrlov) per le carte e **mappa a china su pergamena** per le tessere.
   scannerizzabile a colpo d'occhio) sono comuni a tutta la campagna. Ogni episodio
   ha una sua sottocartella `pdf/Episodio N/`: `Indagine` (lettera d'incarico +
   taccuino), `Spedizione` (note tessera + segnalini), `Luoghi` (riferimenti per
-  chi arbitra), `Soluzione (non aprire)` (sigillata, con avvertimento iniziale).
-  Le carte stesse (dorso Approfondimenti, titolo Oggetti) non mostrano MAI il
-  luogo/tessera d'origine, solo `Luoghi.pdf` lo dice.
+  chi arbitra), `Bestiario` (vedi sotto), `Soluzione (non aprire)` (sigillata,
+  con avvertimento iniziale). Le carte stesse (dorso Approfondimenti, titolo
+  Oggetti) non mostrano MAI il luogo/tessera d'origine, solo `Luoghi.pdf` lo dice.
+- **`Bestiario.pdf` (`src/gen_bestiario.py`), uno per episodio:** una pagina per
+  nemico, template affine alla Scheda Personaggio (nome, tipo, ritratto in
+  cornice — stessa arte della carta Creatura — bio dal campo `note` arricchito
+  da `story.NOTE_NEMICI`, riquadri statistiche Attacco/Difesa/Movimento/Danno)
+  più la **tabella Ferite per numero di eroi in tavola** (fasce 2-5 / 6 / 7 /
+  8-10, vedi 3-quater: i valori scalati sono in rosso). Regole ferree:
+  (a) le **carte Creatura NON riportano statistiche** — solo ritratto, flavor
+  e il rimando "Statistiche nel Bestiario dell'episodio": la carta e' il
+  segnalino, il Bestiario e' la fonte unica al tavolo (precedente di genere:
+  D&D Monster Manual, carte-mostro di Gloomhaven);
+  (b) ogni episodio **ripete nel proprio Bestiario anche i nemici comuni**
+  (Malavita e futuri ricorrenti): fascicolo autocontenuto, come tutto il
+  materiale per episodio (anche il Preludio ha il suo, con la sola Malavita);
+  (c) un nemico nuovo porta in `NEMICI` (gen_cards.py) anche `tipo`, `art` e
+  l'eventuale `boss=True` (guida la riga Ferite 8-10), e la scalatura in
+  tabella deve restare identica a quella del Regolamento/simulatore.
 - **`Luoghi.pdf` (`src/gen_narrator.py`; il Preludio ha l'equivalente in
   `gen_preludio.py::luoghi()`, stesso pattern):** una pagina per luogo più le
   tessere che nascondono un oggetto da Cercare. Stile scheda personaggio: arte
@@ -681,6 +697,10 @@ Ogni testo deve far *vedere* la scena, non riassumerla. Regole:
 - [ ] Tutti i testi rispettano la bibbia di scrittura (flavor sulle Minacce,
       quadri sensoriali sui Luoghi, «Chi sei» sugli eroi) e stanno nei riquadri?
 - [ ] Il file PDF 06 (Aiuto-Giocatore) è aggiornato e sta ancora su una sola pagina?
+- [ ] `Bestiario.pdf` esiste per il nuovo episodio (nemici comuni ripetuti, tabella
+      Ferite per numero di eroi identica alle regole/simulatore, `tipo`/`art`/`boss`
+      compilati in `NEMICI`)? Le carte Creatura NON mostrano statistiche, solo il
+      rimando al Bestiario?
 - [ ] `Luoghi.pdf` esiste per il nuovo episodio (Preludio incluso, se previsto), con una
       pagina per luogo (più le tessere che nascondono un oggetto), descrizione
       atmosferica densa da un dizionario `*_DESC` **dedicato** (mai il campo `testo`
