@@ -36,6 +36,12 @@ from gen_cards import HEROES, LUOGHI, MINACCE, NEMICI  # noqa: E402
 
 HERO = {h['nome']: h for h in HEROES}
 LUOGHI_BY_N = {l['n']: l for l in LUOGHI}
+# Le uniche 3 carte Approfondimento che confermano ESPLICITAMENTE che Ferri
+# comanda il culto (Domanda 2), non solo vi e' coinvolto - le altre 11 sono
+# state ammorbidite apposta (vedi gen_cards.py, LUOGHI). Serve a verificare
+# empiricamente che un gruppo plausibile ne trovi quasi sempre una, dato che
+# il vantaggio "Smascherato" ora richiede la carta giusta, non una qualsiasi.
+CHI_ESPLICITO = {(3, 'Testimonianza'), (7, 'Osservazione'), (8, 'Referto')}
 
 
 def strip_tags(s):
@@ -229,6 +235,7 @@ def simula_indagine(party, log):
     diapason = False
     approf_letti = 0
     approf_falliti = 0
+    chi_confermato = False
     charges = {n: dict(INDAGINE_UNLOCK.get(n, {})) for n in party}
     fanti_scout = any(INDAGINE_UNLOCK.get(n, {}) == {} and 'Ombra fiuta' in HERO[n]['abil'] for n in party)
 
@@ -279,7 +286,7 @@ def simula_indagine(party, log):
     da_rivisitare = []  # luoghi dove "leggere la scena" e' fallita, Approfondimento ancora da cogliere
 
     def tenta_approfondimenti(l):
-        nonlocal approf_letti, approf_falliti
+        nonlocal approf_letti, approf_falliti, chi_confermato
         for tipo in l['approf']:
             idoneo = next((n for n in party if
                            charges[n].get(tipo, 0) > 0 or charges[n].get('jolly', 0) > 0), None)
@@ -292,6 +299,9 @@ def simula_indagine(party, log):
                     charges[idoneo][tipo] -= 1
                     log(f'    [APPROFONDIMENTO {tipo}] sbloccato da {idoneo}.')
                 approf_letti += 1
+                if (l['n'], tipo) in CHI_ESPLICITO:
+                    chi_confermato = True
+                    log('    -> Questa carta conferma esplicitamente che Ferri comanda (Domanda 2).')
             else:
                 log(f'    [APPROFONDIMENTO {tipo}] nessun eroe idoneo presente/con usi residui — non letto.')
                 approf_falliti += 1
@@ -386,11 +396,14 @@ def simula_indagine(party, log):
         f'{approf_falliti} mancati.')
     log(f'Ore avanzate: {ore_avanzate} -> {tier}')
     log(f'Diapason d’argento in mano: {"sì" if diapason else "no"}')
+    log(f'Chi comanda confermato esplicitamente (Domanda 2, Vantaggio Smascherato): '
+        f'{"sì" if chi_confermato else "no — risposta “vicina” da giudicare con elasticità"}')
     if fanti_scout:
         log('Nota: Ombra fiuta (Fanti) avrebbe dato il conteggio Approfondimenti per luogo prima di '
             'ogni scelta — l’euristica sopra già sceglie con priorità di sblocco, effetto equivalente.')
     log('')
-    return dict(ore_avanzate=ore_avanzate, tier=tier, diapason=diapason, visitati=visitati)
+    return dict(ore_avanzate=ore_avanzate, tier=tier, diapason=diapason, visitati=visitati,
+                chi_confermato=chi_confermato)
 
 
 def spawn_from_card(log, title, pool, enemies, round_n):
@@ -857,13 +870,15 @@ def main():
     with open(idx_path, 'w', encoding='utf-8') as f:
         f.write('# Riepilogo playtest simulati\n\n')
         f.write(f'Generato: {datetime.now().isoformat(timespec="seconds")}\n\n')
-        f.write('| Run | Eroi | Ore avanzate | Diapason | Esito spedizione | Round | Eroi a terra a fine partita |\n')
-        f.write('|---|---|---|---|---|---|---|\n')
+        f.write('| Run | Eroi | Ore avanzate | Diapason | Chi confermato | Esito spedizione | Round | '
+                'Eroi a terra a fine partita |\n')
+        f.write('|---|---|---|---|---|---|---|---|\n')
         for r in riepilogo:
             ind = r['indagine']
             sp = r['spedizione']
             f.write(f'| {r["nome"]} | {", ".join(r["party"])} | {ind["ore_avanzate"]} '
                     f'({ind["tier"].split(" (")[0]}) | {"sì" if ind["diapason"] else "no"} | '
+                    f'{"sì" if ind["chi_confermato"] else "no"} | '
                     f'{sp["esito"]} | {sp["round_n"]} | {", ".join(sp["down"]) or "nessuno"} |\n')
         f.write('\nLog completi (tiri di dado, prove, decisioni) in `<run>/indagine.log` e '
                 '`<run>/spedizione.log`.\n')

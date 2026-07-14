@@ -98,23 +98,56 @@ prima che l'Ep. 1 lo riveli.
    nasconde qualcosa né possono dedurlo sfogliando il mazzo, e le carte restano riusabili
    tra episodi. Il legame carta↔luogo/tessera (quale carta prendere quando un eroe sblocca
    quel tipo in quel luogo) vive **solo** in `pdf/Episodio N/Luoghi.pdf` (vedi Bibbia
-   Visiva), mai su una carta. **Nucleo garantito scritto dentro ogni carta** (non un
-   frammento condiviso appeso in coda — nell'Ep. 1 lo era, un "Eco del Coro"
-   soprannaturale identico su ogni carta comprese quelle forensi/testimoniali,
-   suonava incoerente e ripetitivo, sistemato dopo): il/i dettaglio/i decisivo/i per
-   1-2 Domande va scritto **dentro** il testo di CIASCUNA carta Approfondimento
-   dell'episodio, nella voce del suo tipo (Osservazione = dettaglio fisico,
-   Referto = forense, Testimonianza = discorso diretto, Presagio = sensoriale/
-   occulto — quest'ultimo può restare onirico, è coerente col suo tipo, non
-   un'eccezione bolt-on per tutti gli altri). Così non conta QUALE carta si peschi,
-   basta pescarne una qualsiasi in tutto l'episodio, ma ogni carta è una rivelazione
-   a sé — non la stessa frase che ricorre. Corroborazione di Domande già risolvibili
-   dal solo indizio core (es. un ritmo, un'urgenza) è facoltativa e va infilata caso
-   per caso in 2-3 carte se serve varietà, mai come sistema a rotazione a parte.
+   Visiva), mai su una carta. **Nucleo garantito scritto dentro ogni carta, ma a due
+   livelli** (non un frammento condiviso appeso in coda — nell'Ep. 1 lo era, un "Eco
+   del Coro" soprannaturale identico su ogni carta comprese quelle forensi/
+   testimoniali, suonava incoerente e ripetitivo, sistemato dopo; poi si è visto che
+   garantire OGNI fatto decisivo su OGNI carta rende una singola carta pescata a caso
+   sufficiente a risolvere anche la Domanda più "climax", con poca tensione sulla
+   rivelazione del colpevole — corretto in una sessione successiva). Distingui:
+   - il dato **meccanico** (dove si trova qualcosa, quale numero, quale oggetto — a
+     basso impatto emotivo, penalità lieve se sbagliato) resta scritto **dentro
+     ciascuna carta Approfondimento** dell'episodio, nella voce del suo tipo
+     (Osservazione = dettaglio fisico, Referto = forense, Testimonianza = discorso
+     diretto, Presagio = sensoriale/occulto — quest'ultimo può restare onirico, è
+     coerente col suo tipo). Così non conta QUALE carta si peschi per questo dato,
+     basta pescarne una qualsiasi;
+   - il dato **rivelatorio** (chi è il colpevole/chi comanda — il vero climax della
+     detection) va invece **concentrato in 2-3 carte designate**, tutte in luoghi
+     raggiungibili senza chiavi/parole chiave (mai dietro un solo gate, altrimenti un
+     party che non lo sblocca non ha mai la possibilità di ottenerlo). Le altre carte
+     lasciano il colpevole presente, temuto, coinvolto, ma senza confermarne
+     apertamente il ruolo di comando — stesso tono, un grado di certezza in meno.
+   Ogni carta resta comunque una rivelazione a sé, non la stessa frase che ricorre.
+   La Domanda legata al dato rivelatorio **non deve avere una complicazione in caso
+   di risposta sbagliata/vicina** (solo il vantaggio extra va perso): altrimenti la
+   scelta di concentrarlo diventa un vero soft-lock, non più tensione. Verifica con
+   `scripts/simulate_playtest.py` (colonna "Chi confermato" nel riepilogo,
+   `CHI_ESPLICITO` nel codice) che un party plausibile trovi la conferma nella
+   maggioranza dei casi; un party "stress-test" apposta senza la giusta copertura di
+   tipo può mancarla, è un esito accettabile, non un difetto da correggere.
    Verifica quando possibile che una coppia di eroi (il minimo per 2 giocatori)
    possa sbloccare almeno una carta: nell'Ep. 1 solo 7 eroi su 11 producono carte
    (vedi sopra) — non è più garantito per ogni coppia come quando i "senza carta"
    erano solo Nino (vedi nota sopra sul rischio con 4 eroi senza carta).
+1-quater. *Piste false e vicoli ciechi* — un paio di sospettati sbagliati non bastano
+   se non costano mai nulla: nell'Ep. 1 originale ogni luogo "sbagliato" pagava
+   comunque un indizio verso la verità, zero rischio a seguirli. Due tecniche
+   aggiunte in una sessione successiva, entrambe senza nuove regole:
+   - *pista falsa a costo zero* (come le esistenti Tonio/Don Callisto, più le nuove
+     Bice e "Learco il ramaio"): un sospettato plausibile con movente, seminato in un
+     indizio core, smontato da un'altra carta/indizio già presente (non serve
+     inventarne una apposta) — pura profondità narrativa, nessun rischio meccanico;
+   - *vicolo cieco a costo* (nuovo): un indizio core **contraddittorio**, in un luogo-
+     hub di pettegolezzi (una taverna, un mercato), che NON si autosmentisce nella
+     stessa riga (a differenza delle piste a costo zero) — resta lì, in competizione
+     con la testimonianza corretta nello stesso luogo e con le carte Approfondimento.
+     Un gruppo che non incrocia le fonti rischia di rispondere male alla Domanda
+     legata al dato meccanico — usa la penalità di risposta sbagliata che la Domanda
+     ha già in tabella, non inventarne una nuova. Occhio ai nomi: mai riusare il nome
+     di un nemico/creatura già nel bestiario per un sospettato umano innocente (rischio
+     di confusione reale — successo con "il Fonditore", nome già della creatura
+     soprannaturale: il sospettato del bronzo si chiama "Learco il ramaio").
 1-ter. *Leggere la scena* — regola CORE (non opzionale per episodio), introdotta per non
    avere l'Indagine come unica fase senza mai un tiro di dado: alla prima visita di ogni
    luogo, un eroe a scelta prova ACUME (Media) prima di leggere gli indizi. Riuscita: si
@@ -547,7 +580,11 @@ Ogni testo deve far *vedere* la scena, non riassumerla. Regole:
       contenuto)? Le carte Oggetto hanno solo il nome (mai il luogo/tessera d'origine)?
 - [ ] Ogni oggetto trovabile (Indagine o Cercare) ha una carta Oggetto con arte dedicata,
       flavor breve ed effetto copiato 1:1 dalla fonte? C'è almeno un oggetto-esca?
-- [ ] Ci sono false piste che reggono ma vengono smontate da un indizio trovabile?
+- [ ] Ci sono false piste che reggono ma vengono smontate da un indizio trovabile, e almeno
+      un vicolo cieco a costo vero (vedi 1-quater, non solo piste a costo zero)? Il dato
+      rivelatorio (chi è il colpevole) è concentrato in 2-3 carte designate e sempre
+      raggiungibili senza chiavi, non su tutte le carte Approfondimento (vedi 1-bis)?
+      `scripts/simulate_playtest.py` conferma che un party plausibile la trovi quasi sempre?
 - [ ] Il boss ha una debolezza scoperta durante l'indagine?
 - [ ] Il Canto (o equivalente) ha due fonti di avanzamento (carte + automatico ogni 4°
       round) ed è spiegato per intero nel **Regolamento**, non solo nella Soluzione sigillata?
