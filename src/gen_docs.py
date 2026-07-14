@@ -394,10 +394,7 @@ def regolamento():
                "leggete gli indizi <b>a turno e solo per s\u00e9</b>, poi raccontateli con parole vostre: "
                "la deduzione diventa un racconto corale (ed \u00e8 il modo pi\u00f9 divertente di giocare "
                "in gruppo). Pi\u00f9 giocatori vuol dire pi\u00f9 carte Minaccia a round: in 5, contate "
-               "<b>2 ore e mezza abbondanti</b> a episodio, non i 90\u2013150 minuti base. <b>Il Custode "
-               "della Cera ha +1 Ferita</b> a 4 o 5 eroi (solo lui, non gli altri nemici): a questa "
-               "taglia il resto della spedizione fila via troppo liscio, ed \u00e8 lo scontro finale a "
-               "dover restare in bilico."))
+               "<b>2 ore e mezza abbondanti</b> a episodio, non i 90\u2013150 minuti base."))
     e.append(P("In 4 o 5 giocatori potete anche <b>dividervi</b>, una sola volta a episodio: due "
                "sottogruppi visitano due luoghi diversi nella stessa ora (costa comunque solo 1 ora "
                "sul Taccuino, non 2), poi restate uniti per il resto dell\u2019indagine. Ogni sottogruppo "
@@ -412,12 +409,17 @@ def regolamento():
                 'semplice \u201c1 ogni 2\u201d oltre i 5 \u2014 a 6 eroi pescarne 3, come suggerirebbe la proporzione, '
                 'crea una spedizione ingiocabile: coi test la tabella qui sopra \u00e8 quella che tiene il '
                 'tavolo in sfida senza schiacciarlo).'))
-    e.append(LI('<b>Nemici pi\u00f9 duri:</b> da 6 a 8 eroi, <b>+2 Ferite</b> a ogni nemico che compare in '
-                'gioco (Custode della Cera incluso); da 9 a 10 eroi, <b>+3 Ferite</b>. Sotto i 6 eroi, '
-                'nessun bonus. Il bonus si fissa all\u2019inizio della spedizione, in base a quanti eroi '
-                'schierate \u2014 non cambia pi\u00f9 durante la spedizione anche se qualcuno cade a terra.'))
+    e.append(LI('<b>Nemici pi\u00f9 duri, ma non ovunque:</b> a 6 eroi, <b>+2 Ferite</b> a ogni nemico che '
+                'compare in gioco (Custode della Cera incluso). Da 7 eroi in su NON aggiungete altro '
+                'bonus generale \u2014 con un tavolo affollato i nemici faticano gi\u00e0 di pi\u00f9 a farsi largo '
+                'fino a un eroe libero, un bonus Ferite sopra i nemici di truppa (che hanno 1 sola '
+                'Ferita: un +1 li raddoppia) rende la spedizione ingiocabile. Da 8 a 10 eroi, aggiungete '
+                'invece <b>+1 Ferita SOLO al Custode della Cera</b> (mai ai nemici di truppa). Il bonus '
+                'si fissa all\u2019inizio della spedizione, in base a quanti eroi schierate \u2014 non cambia pi\u00f9 '
+                'durante la spedizione anche se qualcuno cade a terra.'))
     e.append(P("Con un tavolo da 6\u201310, contate anche pi\u00f9 tempo di quanto indicato sopra per 5: nei test "
-               "le spedizioni tendono a durare 12\u201314 round invece di 8\u20139. Consigliato: nominate un "
+               "le spedizioni tendono a durare 12\u201318 round invece di 8\u20139 (pi\u00f9 eroi in una stanza piccola "
+               "vuol dire pi\u00f9 traffico, non solo pi\u00f9 minacce). Consigliato: nominate un "
                "<b>custode del mazzo Minaccia</b> fisso per tutta la serata, cos\u00ec a un tavolo affollato "
                "nessuno pesca due volte per errore.", 'body'))
 
@@ -685,8 +687,9 @@ def aiuto():
     e.append(P('TURNO DEI NEMICI', 'h2'))
     e.append(RP('Ognuno si muove verso l’<b>eroe in piedi</b> più vicino (ignorano gli eroi a terra e Ruggero). '
                 'Se adiacente attacca: <b>2d6 + Attacco ≥ Difesa eroe</b> → subisci il Danno indicato.'))
-    e.append(RP('<b>Tavolo 6–10 eroi:</b> +2 Ferite a ogni nemico (Custode incluso) da 6 a 8 eroi, '
-                '+3 da 9 a 10. Fissato a inizio spedizione, non ricalcolato dopo.'))
+    e.append(RP('<b>Tavolo 6–10 eroi:</b> a 6 eroi, +2 Ferite a ogni nemico (Custode incluso). Da 7 in '
+                'su nessun bonus generale; da 8 a 10, +1 Ferita SOLO al Custode. Fissato a inizio '
+                'spedizione, non ricalcolato dopo.'))
 
     e.append(P('REGOLA D’ORO', 'h2'))
     e.append(RP('In ogni ambiguità (uscite/eroi equidistanti, più bersagli) sceglie il gruppo, '

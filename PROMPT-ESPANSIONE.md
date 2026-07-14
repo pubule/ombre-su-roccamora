@@ -221,34 +221,50 @@ prima che l'Ep. 1 lo riveli.
    segreto. Se mai un nemico superasse 10 Ferite, allora sì va alzato `N_PIP` in
    `registro_ferite()` — non prima.
 
-3-ter. *Tavoli grandi (6–10 eroi)* — la proporzione "1 carta Minaccia ogni 2 eroi"
-   NON si estende linearmente oltre i 5: a 6+ eroi vale una tabella dedicata,
-   validata con `scripts/simulate_playtest.py` (batch multi-seed su composizioni
-   casuali di eroi, non party fissi — vedi i log in `logs/playtest/`): **Fase
-   Minaccia 2 carte a 6 eroi, 3 carte da 7 a 10** (non 3/4/5 come darebbe la
-   proporzione semplice — troppe carte a quel punto rendono la spedizione
-   ingiocabile). In parallelo, **bonus Ferite ai nemici** per compensare il maggior
-   numero di attacchi/round: +0 sotto i 6 eroi, +2 Ferite da 6 a 8, +3 da 9 a 10,
-   applicato a tutti i nemici piazzati **incluso il boss dell'episodio**, fissato
-   a inizio spedizione in base agli eroi schierati (non ricalcolato se qualcuno
-   cade a terra durante la spedizione). Qualunque nuovo episodio con Ferite boss
-   più alte di 3 deve verificare che boss-Ferite-base + 3 resti sotto la soglia
-   `N_PIP=10` del Registro (vedi 3-bis) — con Ferite-base 3 c'è ancora margine
-   fino a 7. Regola spiegata per i giocatori nel **Regolamento** (fascicolo 01,
-   sezione "Giocare in 2, in 4-5, o in un tavolo grande") — qui basta sapere che
-   esiste quando si tara un nuovo episodio per la stessa fascia di giocatori.
+3-ter. *Griglia tattica nel simulatore* — `scripts/simulate_playtest.py` da questo
+   punto in poi assegna a ogni eroe e nemico una posizione VERA sulla griglia
+   4x4 di ogni tessera (coordinate scacchistiche A1-D4, riga 1 = lato Sud,
+   stessa geometria/porte di `TILES` in `src/gen_cards.py` e
+   `scripts/tiles/generate-tiles.js`), con pathfinding reale (bloccato da
+   arredi) per capire chi riesce davvero ad essere adiacente a chi in un
+   dato round — non piu' un blocco unico "party contro nemici" astratto.
+   **Scoperta importante**: questo NON e' solo piu' preciso, e' piu' REALE -
+   i giocatori veri muovono davvero le miniature su una tessera stampata
+   200x200mm, quindi il vecchio modello astratto sottostimava sistematicamente
+   la difficolta' reale (a volte muoversi non basta per essere adiacenti,
+   azione persa - cosa che l'astrazione garantiva sempre "gratis"). Le
+   formule sotto (3-quater) sono state ritarate su questo modello piu'
+   fedele: se in futuro si ritara di nuovo, usare SEMPRE la griglia tattica,
+   mai tornare al modello a blocco unico.
 
-3-quater. *Tensione a tavolo piccolo (4–5 eroi)* — l'opposto del problema sopra:
-   a 4-5 eroi il resto della spedizione e' gia' abbastanza facile (KPI "ansia"
-   piatto: nei test, 91-97% vittoria con solo il 27-42% delle vittorie "sofferte",
-   cioe' con almeno un eroe a terra nel momento peggiore) da rendere lo scontro
-   finale l'unico posto sensato dove alzare la posta. **+1 Ferita SOLO al boss
-   dell'episodio** (non ai nemici di truppa) a 4-5 eroi, +0 sotto e sopra quella
-   fascia. Perche' solo al boss e non a tutti come sopra: i nemici di truppa di
-   solito hanno 1-2 Ferite base, un +1 generale li RADDOPPIA e sbilancia (verificato
-   -> crollo al 42-53% vittoria, scartato); il boss ha piu' margine (3 Ferite base
-   in Ep.1, +1 e' solo +33%) ed e' gia' il momento narrativo giusto per la tensione.
-   Vale la stessa nota su `N_PIP=10` del Registro Ferite (3-bis/3-ter).
+3-quater. *Tavoli grandi e piccoli, ritarati sulla griglia tattica* — con
+   posizioni reali, l'affollamento fisico di una tessera 4x4 penalizza i
+   party grandi molto piu' di quanto un semplice scaling lineare
+   prevedesse (piu' eroi in una stanza piccola = piu' traffico, non solo
+   piu' attacchi). Formule finali (Ep. 1, validate con
+   `esegui_batch_multi_party` su composizioni casuali, non party fissi):
+   - **Fase Minaccia**: 2 carte a 6 eroi, 3 carte da 7 a 10 (invariato,
+     vedi anche il Regolamento).
+   - **Ferite nemici**: +2 a TUTTI i nemici (boss incluso) **solo a 6
+     eroi**. Da 7 in su, **nessun bonus generale** — un bonus Ferite
+     sopra i nemici di truppa (1 Ferita base: un +1 li raddoppia) crolla
+     sotto l'affollamento reale (misurato: 43%/40% vittoria a 8/10 eroi,
+     contro 85-87% con bonus generale a zero). Da 8 a 10 eroi, **+1
+     Ferita SOLO al boss** (mai ai nemici di truppa) per recuperare un
+     minimo di tensione senza sbilanciare — a 7 eroi anche il bonus
+     solo-boss e' di troppo (66% contro 88% senza), lasciato a zero.
+   - **Tavoli piccoli (4-5 eroi)**: NESSUN bonus, ne' generale ne'
+     solo-boss. Un bonus qui (introdotto per correggere un'ansia piatta
+     misurata SUL VECCHIO MODELLO astratto, 97% vittoria/27% sofferte)
+     e' diventato ridondante: la sola fisica reale (movimento che non
+     sempre basta) gia' riporta l'ansia a un livello sano (32% sofferte,
+     1.0 eroi a terra di picco) — sommarci un bonus la fa crollare sotto
+     target (72.7% contro 84% senza, a 4 eroi).
+   Qualunque nuovo episodio con Ferite boss piu' alte di 3 deve verificare
+   che boss-Ferite-base + 1 resti sotto la soglia `N_PIP=10` del Registro
+   (vedi 3-bis) — ampio margine con Ferite-base fino a 9. Regola spiegata
+   per i giocatori nel **Regolamento** (fascicolo 01, sezione "Giocare in
+   2, in 4-5, o in un tavolo grande").
 
 3-cinque. *Vantaggio Fase 1 a due vie (velocita' O approfondimento)* — la tabella
    "Ore avanzate -> Vantaggio" in Soluzione premiava SOLO la velocita' (ore
@@ -307,8 +323,10 @@ coinvolgimento in Indagine, `pct_vittoria`/`media_pool_esauriti` per la giocabil
 `pct_chi_confermato`/`pct_diapason` per l'immersione/payoff narrativo). Una % di
 vittoria perfetta con vittorie mai "sofferte" (nessun eroe mai a terra) o con meta'
 dei luoghi mai visitati e' una regressione anche se i numeri di bilanciamento tornano
-- vedi 3-quater e 3-cinque per due bug reali trovati proprio cosi', non da un
-crollo di %vittoria ma da un KPI piatto.
+- vedi 3-cinque per un bug reale trovato proprio cosi' (KPI piatto, non un crollo di
+%vittoria) e 3-quater per l'esempio opposto: un fix nato da un KPI piatto sul vecchio
+modello che la griglia tattica (3-ter) ha reso ridondante, scoperto stavolta da un
+vero crollo di %vittoria.
 
 **Mazzo Minaccia: 20–23 carte, tutte con titolo e flavor unici.** Le copie di uno
 stesso effetto sono "carte sorelle": stessa matematica, titolo diverso, flavor diverso,

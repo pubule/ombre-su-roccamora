@@ -1,0 +1,165 @@
+Run: mp-02_tetto3_nessuna_p2_seed0  |  seed=43200  |  formula Minaccia=tetto3  |  generato: 2026-07-14T21:35:14
+==============================================================================
+SPEDIZIONE - Il Campanile di San Teodoro (sotterranei)
+==============================================================================
+Party: ELENA FOSCO, OTTONE “MEZZENA” MASSARI
+Bonus da Indagine: PREPARATI (+1 Salute massima a testa); diapason: no
+NOTA: gruppo trattato come blocco unico tessera per tessera (vedi intestazione script).
+
+--- Round 1: il gruppo raggiunge T2 (Sala delle Casse) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    Il gruppo entra in T2 da B1.
+    [PROVA ACUME] ELENA FOSCO: 2d6(6,1)=7 +ACUME(3) = 10 vs Media(9) -> SUCCESSO
+    ELENA FOSCO cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] IL FONDITORE (posseduto) — Piazzate 1 Fonditore sull’ingresso della Banchina (T1). Se è già in gioco un Fonditore, re…
+    Piazzati 1x IL FONDITORE (pool residua: 2), a 6 caselle dalla tessera del gruppo.
+  IL FONDITORE si avvicina (Movimento 2): ancora 7 caselle prima di raggiungere la tessera del gruppo.
+--- Round 2: il gruppo raggiunge T4 (Ufficio del Custode) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    Il gruppo entra in T4 da D3.
+    Cercando: trovata LA CHIAVE DELLA CELLA. Prenderla è una scelta — il gruppo decide di prenderla (oggetto rischioso).
+    [PROVA NERVI] ELENA FOSCO: 2d6(5,5)=10 +NERVI(2) = 12 vs Media(9) -> SUCCESSO
+    [PROVA ACUME] ELENA FOSCO: 2d6(1,5)=6 +ACUME(3) = 9 vs Media(9) -> SUCCESSO
+    ELENA FOSCO cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] UNGHIE SULLA PIETRA (posseduto) — Piazzate 1 Cane dei Moli sull’ingresso della tessera corrente: si attiva subito.
+    Piazzati 1x CANE DEI MOLI (pool residua: 2) in C3.
+    CANE DEI MOLI si attiva subito:
+  CANE DEI MOLI si muove verso ELENA FOSCO: C3 -> D4.
+  CANE DEI MOLI attacca ELENA FOSCO:
+    [ATTACCO NEMICO] CANE DEI MOLI -> ELENA FOSCO: 2d6(2,3)=5 +Attacco(2) = 7 vs Difesa(8) -> MANCATO
+  IL FONDITORE si avvicina (Movimento 2): ancora 8 caselle prima di raggiungere la tessera del gruppo.
+--- Round 3: il gruppo raggiunge T2 (Sala delle Casse) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    Il gruppo entra in T2 da A3.
+    ELENA FOSCO si muove verso CANE DEI MOLI: A3 -> C4.
+    [ATTACCO] ELENA FOSCO -> CANE DEI MOLI: 2d6(4,2)=6 +VIGORE(1)+arma(1) = 8 vs Difesa(6) -> COLPITO
+    CANE DEI MOLI: 0/1 ferite residue.
+    CANE DEI MOLI è ABBATTUTO.
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] SUSSURRI (insidia) — L’eroe con meno NERVI (a pari merito: sceglie il gruppo) prova NERVI (Media): se fallisce …
+    [PROVA NERVI] ELENA FOSCO: 2d6(3,2)=5 +NERVI(2) = 7 vs Media(9) -> FALLITA
+    ELENA FOSCO subisce 1 danno da SUSSURRI (Salute: 6/7).
+  IL FONDITORE si avvicina (Movimento 2): ancora 9 caselle prima di raggiungere la tessera del gruppo.
+--- Round 4: il gruppo raggiunge T5 (Scala interrata) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    Il gruppo entra in T5 da B1.
+    [PROVA NERVI] ELENA FOSCO: 2d6(3,2)=5 +NERVI(2) = 7 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6(5,2)=7 +NERVI(2) = 9 vs Facile(7) -> SUCCESSO
+    [PROVA ACUME] ELENA FOSCO: 2d6(6,5)=11 +ACUME(3) = 14 vs Media(9) -> SUCCESSO
+    ELENA FOSCO cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] IL BRANCO (malavita) — Piazzate 2 Sgherri, adiacenti tra loro, sull’uscita più vicina agli eroi della tessera cor…
+    Piazzati 2x LO SGHERRO (pool residua: 2) in B1.
+  IL FONDITORE si avvicina (Movimento 2): ancora 10 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si muove verso ELENA FOSCO: B1 -> C1.
+  LO SGHERRO attacca ELENA FOSCO:
+    [ATTACCO NEMICO] LO SGHERRO -> ELENA FOSCO: 2d6(1,6)=7 +Attacco(2) = 9 vs Difesa(8) -> COLPITO
+    ELENA FOSCO subisce 1 danno da LO SGHERRO (Salute: 5/7).
+  LO SGHERRO si muove verso OTTONE “MEZZENA” MASSARI: B1 -> A1.
+  LO SGHERRO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] LO SGHERRO -> OTTONE “MEZZENA” MASSARI: 2d6(2,4)=6 +Attacco(2) = 8 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 1 danno da LO SGHERRO (Salute: 8/9).
+--- Round 5: il gruppo raggiunge T6 (Cripta della Cera) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    Il gruppo entra in T6 da B1.
+    Rivelata la Cripta della Cera: il Custode della Cera si desta con 2 Adepti, in C2.
+    [ATTACCO] ELENA FOSCO -> ADEPTO INCAPPUCCIATO: 2d6(2,2)=4 +VIGORE(1)+arma(1) = 6 vs Difesa(7) -> MANCATO
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> ADEPTO INCAPPUCCIATO: 2d6(2,4)=6 +VIGORE(3)+arma(1) = 10 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    [ABILITÀ] OTTONE “MEZZENA” MASSARI usa Colpo da macello: attacco extra su LO SGHERRO.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> LO SGHERRO: 2d6(6,2)=8 +VIGORE(3)+arma(1) = 12 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+  [MINACCIA] IL CANTO CRESCE (crescendo) — Aggiungete 1 segnalino Canto. Al terzo: il Custode della Cera si desta (vedi Soluzione). S…
+    Segnalino Canto: 1.
+    Il Custode recupera 1 ferita (3/3) e si attiva subito.
+  IL FONDITORE si avvicina (Movimento 2): ancora 11 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] LO SGHERRO -> OTTONE “MEZZENA” MASSARI: 2d6(3,6)=9 +Attacco(2) = 11 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 1 danno da LO SGHERRO (Salute: 7/9).
+  LO SGHERRO si muove verso ELENA FOSCO: A1 -> B2.
+  LO SGHERRO attacca ELENA FOSCO:
+    [ATTACCO NEMICO] LO SGHERRO -> ELENA FOSCO: 2d6(4,1)=5 +Attacco(2) = 7 vs Difesa(8) -> MANCATO
+  ADEPTO INCAPPUCCIATO si muove verso OTTONE “MEZZENA” MASSARI: B1 -> A1.
+  ADEPTO INCAPPUCCIATO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> OTTONE “MEZZENA” MASSARI: 2d6(1,2)=3 +Attacco(1) = 4 vs Difesa(8) -> MANCATO
+  IL CUSTODE DELLA CERA si avvicina, non ancora a contatto.
+--- Combattimento contro il Custode della Cera ---
+--- Round 6: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    [ATTACCO] ELENA FOSCO -> LO SGHERRO: 2d6(6,4)=10 +VIGORE(1)+arma(1) = 12 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> ADEPTO INCAPPUCCIATO: 2d6(5,3)=8 +VIGORE(3)+arma(1) = 12 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    [ABILITÀ] OTTONE “MEZZENA” MASSARI usa Colpo da macello: attacco extra su LO SGHERRO.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> LO SGHERRO: 2d6(3,3)=6 +VIGORE(3)+arma(1) = 10 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+  [MINACCIA] TRAPPOLA DI CERA (insidia) — L’eroe più avanzato prova NERVI (Media): se fallisce, cera bollente: 1 danno e perde 1 azi…
+    [PROVA NERVI] ELENA FOSCO: 2d6(5,1)=6 +NERVI(2) = 8 vs Media(9) -> FALLITA
+    ELENA FOSCO subisce 1 danno da TRAPPOLA DI CERA (Salute: 4/7).
+  IL FONDITORE si avvicina (Movimento 2): ancora 9 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si muove verso OTTONE “MEZZENA” MASSARI: B2 -> A1.
+  LO SGHERRO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] LO SGHERRO -> OTTONE “MEZZENA” MASSARI: 2d6(3,1)=4 +Attacco(2) = 6 vs Difesa(8) -> MANCATO
+  IL CUSTODE DELLA CERA si muove verso ELENA FOSCO: C2 -> C1.
+  IL CUSTODE DELLA CERA attacca ELENA FOSCO:
+    [ATTACCO NEMICO] IL CUSTODE DELLA CERA -> ELENA FOSCO: 2d6(3,6)=9 +Attacco(3) = 12 vs Difesa(8) -> COLPITO
+    ELENA FOSCO subisce 2 danno da IL CUSTODE DELLA CERA (Salute: 2/7).
+--- Round 7: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    ELENA FOSCO si muove verso LO SGHERRO: B1 -> A2.
+    [ATTACCO] ELENA FOSCO -> LO SGHERRO: 2d6(5,2)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+    OTTONE “MEZZENA” MASSARI si muove verso IL CUSTODE DELLA CERA: B1 -> C2.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> IL CUSTODE DELLA CERA: 2d6(6,1)=7 +VIGORE(3)+arma(1) = 11 vs Difesa(9) -> COLPITO
+    IL CUSTODE DELLA CERA: 2/3 ferite residue.
+  [MINACCIA] LA MAREA DI CERA (posseduto) — Piazzate 1 Fonditore sull’ingresso della Banchina (T1): tutti i Fonditori in gioco si atti…
+    1x IL FONDITORE già in gioco si attiva subito.
+    Piazzati 1x IL FONDITORE (pool residua: 1), a 42 caselle dalla tessera del gruppo.
+  IL FONDITORE si muove verso ELENA FOSCO: B1 -> B2.
+  IL FONDITORE attacca ELENA FOSCO:
+    [ATTACCO NEMICO] IL FONDITORE -> ELENA FOSCO: 2d6(2,6)=8 +Attacco(1) = 9 vs Difesa(8) -> COLPITO
+    ELENA FOSCO subisce 2 danno da IL FONDITORE (Salute: 0/7).
+    *** ELENA FOSCO è A TERRA. ***
+  IL FONDITORE si avvicina (Movimento 2): ancora 40 caselle prima di raggiungere la tessera del gruppo.
+  IL CUSTODE DELLA CERA si muove verso OTTONE “MEZZENA” MASSARI: C1 -> D2.
+  IL CUSTODE DELLA CERA attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] IL CUSTODE DELLA CERA -> OTTONE “MEZZENA” MASSARI: 2d6(1,6)=7 +Attacco(3) = 10 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 2 danno da IL CUSTODE DELLA CERA (Salute: 5/9).
+--- Round 8: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 2 — 1 eroi vivi)
+    OTTONE “MEZZENA” MASSARI si muove verso IL FONDITORE: C2 -> B1.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> IL FONDITORE: 2d6(1,3)=4 +VIGORE(3)+arma(1) = 8 vs Difesa(8) -> COLPITO
+    IL FONDITORE: 1/2 ferite residue.
+  [MINACCIA] VOLTI TRA LE CASSE (posseduto) — Piazzate 1 Adepto sull’uscita più vicina agli eroi della tessera corrente: si è intrufolat…
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 9) in B1.
+  IL FONDITORE si muove verso OTTONE “MEZZENA” MASSARI: B2 -> C1.
+  IL FONDITORE attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] IL FONDITORE -> OTTONE “MEZZENA” MASSARI: 2d6(4,3)=7 +Attacco(1) = 8 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 2 danno da IL FONDITORE (Salute: 3/9).
+  IL FONDITORE si avvicina (Movimento 2): ancora 38 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si muove verso OTTONE “MEZZENA” MASSARI: B1 -> A1.
+  ADEPTO INCAPPUCCIATO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> OTTONE “MEZZENA” MASSARI: 2d6(2,5)=7 +Attacco(1) = 8 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 2/9).
+  IL CUSTODE DELLA CERA si muove verso OTTONE “MEZZENA” MASSARI: D2 -> B2.
+  IL CUSTODE DELLA CERA attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] IL CUSTODE DELLA CERA -> OTTONE “MEZZENA” MASSARI: 2d6(4,6)=10 +Attacco(3) = 13 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 2 danno da IL CUSTODE DELLA CERA (Salute: 0/9).
+    *** OTTONE “MEZZENA” MASSARI è A TERRA. ***
+
+==============================================================================
+ESITO SPEDIZIONE: SCONFITTA (party wipe)
+Round totali: 8
+Formula Minaccia: tetto3 | Azioni nominali/round: media 3.8, picco 4
+Mazzo Minaccia rimescolato: 0 volta/e
+Segnalini nemici esauriti nel pool (piazzamenti saltati): 0
+Custode della Cera svegliato: solo a T6 (mai in anticipo via Canto)
+  ELENA FOSCO: a terra
+  OTTONE “MEZZENA” MASSARI: a terra
+==============================================================================

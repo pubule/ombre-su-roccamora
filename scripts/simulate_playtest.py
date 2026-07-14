@@ -9,10 +9,16 @@ Fedelta' e limiti (dichiarati esplicitamente, vedi anche l'intestazione
 di ogni log):
 - Le prove (2d6+caratteristica vs 7/9/11) e i combattimenti (2d6+VIGORE(+1
   arma) vs Difesa) usano le regole vere del Regolamento.
-- Il movimento sulla tessera (coordinate, adiacenza cella per cella) e'
-  ASTRATTO: il gruppo viaggia come un blocco unico lungo il percorso
-  obbligato T1->T2->T4->T2->T5->T6->(ritorno), un vano per round. Le prove
-  d'ingresso (T3 opzionale saltata, T5 NERVI Facile) restano vere.
+- Il movimento sulla tessera e' REALE (griglia tattica): ogni eroe e nemico
+  ha una posizione vera (gx,gy) sulla griglia 4x4 di ogni tessera, loggata
+  in coordinate scacchistiche (A1-D4, riga 1 = lato Sud), con pathfinding
+  BFS bloccato dagli arredi - vedi PORTE/cammino/muovi_verso. La SEQUENZA
+  di tessere visitate resta invece un percorso scriptato (T1->T2->T4->T2
+  ->T5->T6->rientro, dettato dall'Indagine/dagli eventi della storia, non
+  da un giocatore che sceglie liberamente dove andare): solo il movimento
+  DENTRO ogni tessera e' simulato cella per cella, non il percorso tra le
+  tessere. Le prove d'ingresso (T3 opzionale saltata, T5 NERVI Facile)
+  restano vere.
 - Le abilita' eroe piu' rilevanti sono modellate (Serra/Marani/Brera - le 3
   appena bilanciate - piu' Sibilla/Ottone/Attilio/Carla/Fanti). Elena,
   Nino e Carbone hanno un impatto minore in questa astrazione e sono
@@ -47,7 +53,7 @@ from datetime import datetime
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, 'src'))
-from gen_cards import HEROES, LUOGHI, MINACCE, NEMICI  # noqa: E402
+from gen_cards import HEROES, LUOGHI, MINACCE, NEMICI, TILES  # noqa: E402
 
 HERO = {h['nome']: h for h in HEROES}
 LUOGHI_BY_N = {l['n']: l for l in LUOGHI}
@@ -87,6 +93,130 @@ CASELLE_TESSERA = 6
 # azione di ciascun eroe resta quella gia' gestita in fase_eroi (Attaccare/
 # Cercare/Interagire/Rianimare/Abilita').
 GUADAGNO_GRUPPO = 3
+
+# --- Griglia tattica (posizioni reali cella per cella) -----------------
+# Ogni tessera e' una griglia 4x4 (vedi TILES in gen_cards.py e
+# scripts/tiles/generate-tiles.js). Convenzione: gx 0-3 sinistra->destra,
+# gy 0-3 dal basso verso l'alto ("gy=0 in basso", stessa convenzione gia'
+# usata per gli arredi in TILES). Notazione scacchistica nei log: colonna
+# A-D (=gx), riga 1-4 (=gy+1, riga 1 = lato Sud, dove sta l'ingresso T1) -
+# la vista di un giocatore seduto a Sud del tavolo.
+TILE = {t['id']: t for t in TILES}
+COLONNE = 'ABCD'
+
+
+def chess(cella):
+    gx, gy = cella
+    return f'{COLONNE[gx]}{gy + 1}'
+
+
+def _porta_screen(direzione, occupate_screen):
+    """Replica pickDoorIndex di scripts/tiles/generate-tiles.js: stessa
+    preferenza [1,2,0,3], stessa convenzione "riga schermo" (0=Nord/in
+    alto, 3=Sud/in basso) - lavorare in questo spazio (invece di
+    ri-derivare l'ordine di preferenza in gy) evita di sbagliare la
+    conversione e garantisce che la cella scelta combaci esattamente con
+    quella disegnata sulla tessera stampata."""
+    for idx in (1, 2, 0, 3):
+        cella = (idx, 0) if direzione == 'N' else (idx, 3) if direzione == 'S' \
+            else (3, idx) if direzione == 'E' else (0, idx)
+        if cella not in occupate_screen:
+            return cella
+    return (1, 0) if direzione == 'N' else (1, 3) if direzione == 'S' \
+        else (3, 1) if direzione == 'E' else (0, 1)
+
+
+def _porte_tessera(tile_id):
+    """dict direzione -> cella (gx, gy) di ogni uscita della tessera."""
+    occupate_screen = {(gx, 3 - gy) for gx, gy, *_ in TILE[tile_id]['arredi']}
+    porte = {}
+    for direzione in TILE[tile_id]['exits']:
+        col, riga_schermo = _porta_screen(direzione, occupate_screen)
+        porte[direzione] = (col, 3 - riga_schermo)
+    return porte
+
+
+PORTE = {tile_id: _porte_tessera(tile_id) for tile_id in TILE}
+
+
+def porta_ingresso(tile_id, tile_precedente):
+    """Cella (gx, gy) da cui il gruppo entra in `tile_id`, provenendo da
+    `tile_precedente` - la porta di `tile_id` il cui testo la collega a
+    quella tessera (gli exits sono sempre reciproci in TILES)."""
+    for direzione, dest in TILE[tile_id]['exits'].items():
+        if dest.split()[0] == tile_precedente:
+            return PORTE[tile_id][direzione]
+    return (1, 0)  # non dovrebbe succedere con un `path` valido; centro-basso come fallback
+
+
+def _vicini(cella):
+    x, y = cella
+    for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+        nx, ny = x + dx, y + dy
+        if 0 <= nx < 4 and 0 <= ny < 4:
+            yield (nx, ny)
+
+
+def _arredi(tile_id):
+    return {(gx, gy) for gx, gy, *_ in TILE[tile_id]['arredi']}
+
+
+def cammino(tile_id, partenza, arrivo, bloccate):
+    """BFS del cammino piu' breve da `partenza` ad `arrivo` sulla griglia
+    4x4 della tessera (niente diagonali, regola vera). Bloccato dagli
+    arredi (mai attraversabili) e dalle celle in `bloccate` (nemici per un
+    eroe che si muove, eroi per un nemico) - tranne la cella di arrivo
+    stessa, che puo' essere "bloccata" (ci si ferma adiacenti a chi la
+    occupa, non sopra: vedi muovi_verso). Ritorna la lista di celle
+    attraversate (partenza esclusa), [] se gia' li' o irraggiungibile."""
+    if partenza == arrivo:
+        return []
+    muro = _arredi(tile_id) | (bloccate - {arrivo})
+    coda = [partenza]
+    prima = {partenza: None}
+    while coda:
+        corrente = coda.pop(0)
+        if corrente == arrivo:
+            break
+        for vic in _vicini(corrente):
+            if vic in prima or vic in muro:
+                continue
+            prima[vic] = corrente
+            coda.append(vic)
+    if arrivo not in prima:
+        return []
+    cammino_inv = []
+    nodo = arrivo
+    while nodo != partenza:
+        cammino_inv.append(nodo)
+        nodo = prima[nodo]
+    cammino_inv.reverse()
+    return cammino_inv
+
+
+def muovi_verso(tile_id, partenza, obiettivo, passi_massimi, bloccate):
+    """Sposta di al massimo `passi_massimi` celle lungo il cammino piu'
+    breve verso `obiettivo`. Se l'obiettivo e' occupato (un nemico o un
+    eroe: ci si vuole avvicinare A lui, non muoversi SOPRA), la vera meta'
+    diventa la cella libera adiacente a lui piu' vicina alla partenza -
+    "gli alleati si attraversano ma non ci si ferma sopra" vale anche qui,
+    lo stesso muro di `bloccate` blocca il passaggio, mai solo l'arrivo."""
+    if obiettivo in bloccate:
+        candidate = [c for c in _vicini(obiettivo) if c not in bloccate and c not in _arredi(tile_id)]
+        if not candidate:
+            return partenza
+        obiettivo = min(candidate, key=lambda c: len(cammino(tile_id, partenza, c, bloccate)) or 99)
+        if obiettivo == partenza:
+            return partenza
+    tratta = cammino(tile_id, partenza, obiettivo, bloccate)
+    if not tratta:
+        return partenza
+    return tratta[min(passi_massimi, len(tratta)) - 1]
+
+
+def adiacenti(cella_a, cella_b):
+    (x1, y1), (x2, y2) = cella_a, cella_b
+    return abs(x1 - x2) + abs(y1 - y2) == 1
 
 # Formula di pesca Minaccia a round, per party size (chiave -> funzione
 # eroi_vivi -> n_carte). 'standard' e' la regola vera del Regolamento
@@ -152,18 +282,52 @@ NEMICO_SCALE_FORMULE = {
     # rispetto al bonus invariato. Qui ogni eroe in piu' alza subito il
     # bonus, cosi' non c'e' mai un salto di taglia "a sconto".
     'curva-E_lineare': lambda n: (max(0, n - 5), 0),  # 2:0 4:0 6:1 7:2 8:3 9:4 10:5
+    # Round griglia tattica: con posizioni/movimento reali l'affollamento
+    # fisico di una tessera 4x4 penalizza i party grandi molto piu' di
+    # quanto la vecchia formula (pensata per uno scaling lineare "piu'
+    # eroi = piu' danno") prevedesse - misurato: curva-C_tardiva crolla
+    # n=8/10 al 43%/40% (era 70-80%). Con ZERO bonus, n=8/10 tornano
+    # 85-87% da soli (la fisica reale aggiunge gia' tensione). Qui il
+    # bonus sale fino a n=6 (INVARIATO, gia' validato a 78%) poi SCENDE
+    # invece di continuare a salire, perche' l'affollamento peggiora piu'
+    # in fretta di quanto un Custode/nemici piu' duri possano compensare.
+    # +1 Ferite a TUTTI i nemici (compresi quelli di truppa da 1 Ferita
+    # base, che un +1 RADDOPPIA) crolla comunque a 42-49% anche solo da
+    # n=7 - stesso problema gia' visto ungated a n=4 nel round precedente,
+    # qui riemerso a causa dell'affollamento che allunga i combattimenti
+    # (piu' round esposti = l'asimmetria del bonus pesa di piu'). Lezione:
+    # con la griglia tattica, qualunque bonus Ferite generale sopra n=6 e'
+    # da evitare - vedi CUSTODE_TENSIONE_EXTRA per la via corretta (solo
+    # boss, mai i nemici di truppa).
+    'curva-F_affollamento': lambda n: (2 if n == 6 else 1 if n >= 7 else 0, 0),  # SCARTATA, vedi sopra
+    # Round griglia tattica, candidato buono: bonus generale INVARIATO a
+    # n=6 (+2, gia' validato a 78%), ZERO da n=7 in su - tutta la tensione
+    # oltre n=6 viene da CUSTODE_TENSIONE_EXTRA (solo boss) + dalla fisica
+    # reale stessa, mai da un bonus generale che colpirebbe anche i
+    # nemici di truppa da 1 Ferita.
+    'curva-G_tattica': lambda n: (2 if n == 6 else 0, 0),  # 2:0 4:0 6:2 7:0 8:0 9:0 10:0
 }
 
-# KPI round: a n=4-5 il KPI "ansia" era piatto (97% vittoria, solo 27%
-# sofferte, 0.4 eroi a terra di picco in media - il combattimento normale
-# non mette mai in difficolta' il gruppo). Un bonus Ferite generale a
-# quella taglia aveva gia' fatto crollare tutto (+1 Ferite a un Adepto da 1
-# Ferita lo RADDOPPIA - vedi curva-C non gate a n=4, 42-53% vittoria).
-# Qui invece il bonus va SOLO al Custode (base 3 Ferite, +1 = +33%, molto
-# piu' proporzionato) - concentra la tensione nello scontro finale, che e'
-# gia' il momento in cui il gruppo se lo aspetta, senza rendere fragile
-# ogni singolo Adepto per tutta la spedizione.
-CUSTODE_TENSIONE_EXTRA = {4: 1, 5: 1}
+# KPI round (con simulazione astratta, niente griglia tattica): a n=4-5 il
+# KPI "ansia" era piatto (97% vittoria, solo 27% sofferte, 0.4 eroi a terra
+# di picco in media). Introdotto +1 Ferite SOLO al Custode (base 3 Ferite,
+# +1 = +33%, non raddoppia un Adepto da 1 Ferita come un bonus generale -
+# gia' scartato altrove) per concentrare la tensione nello scontro finale.
+#
+# Round griglia tattica: a n=4-5 il bonus e' diventato ridondante e
+# dannoso - la fisica reale (a volte il movimento non basta per
+# l'adiacenza, azione persa) da SOLA riporta l'ansia a un livello sano
+# (32% sofferte, 1.0 eroi a terra di picco), mentre sommare ANCHE il
+# bonus Ferite fa crollare la giocabilita' sotto target (72.7% contro
+# l'84% senza, misurato a n=4) - RIMOSSO li'. A n=8-10 invece l'effetto
+# opposto: l'affollamento fa crollare la giocabilita' cosi' tanto
+# (curva-C_tardiva: 43%/40%) che serve TOGLIERE il bonus generale
+# (vedi curva-G_tattica) e aggiungerne uno piccolo SOLO al Custode per
+# recuperare un minimo di tensione (misurato: 79-84% con questo, 85-87%
+# senza). A n=7 anche il bonus solo-Custode e' troppo (66% contro 88%
+# senza) - lasciato a 0, l'88% e' piu' vicino al target di un 66%
+# sottotarget.
+CUSTODE_TENSIONE_EXTRA = {8: 1, 9: 1, 10: 1}
 
 
 def custode_fer_bonus(n_eroi):
@@ -659,12 +823,20 @@ def simula_indagine_2gruppi(party, log, orologio_condiviso=True):
                 chi_confermato=chi_confermato, luoghi_coperti=len(visitati))
 
 
-def spawn_from_card(log, title, pool, enemies, round_n, fer_bonus=0, dan_bonus=0):
+def spawn_from_card(log, title, pool, enemies, round_n, fer_bonus=0, dan_bonus=0,
+                     tile_id=None, porta_pos=None, pos_eroi=None, occupate=frozenset()):
+    """`tile_id`/`porta_pos`/`pos_eroi`/`occupate`: geometria della tessera
+    corrente, per dare una `pos` reale ai piazzamenti che avvengono nella
+    STESSA tessera del gruppo (tutti tranne le carte "dinamiche" con
+    SPAWN_DISTANZA=None, che arrivano da fuori tessera e restano astratte -
+    vedi fase_nemici). Regola vera per "sull'uscita più vicina/lontana
+    agli eroi": qui si approssima sempre con l'unica porta della tessera
+    corrente (vedi commento su SPAWN_DISTANZA/DISTANZA_PORTA)."""
     nome, n, subito = CARD_SPAWN[title]
     dist_base = SPAWN_DISTANZA.get(title, 0)
-    distanza = dist_base if dist_base is not None else CASELLE_TESSERA * max(1, round_n)
     piazzati = 0
     esauriti = 0
+    occupate = set(occupate)
     for _ in range(n):
         if pool[nome] <= 0:
             log(f'    Segnalini {nome} esauriti: il piazzamento non ha luogo (resto della carta si applica comunque).')
@@ -674,10 +846,27 @@ def spawn_from_card(log, title, pool, enemies, round_n, fer_bonus=0, dan_bonus=0
         piazzati += 1
         base = NEMICO[nome]
         fer_tot = base['fer'] + fer_bonus
+        nemico_pos = None
+        distanza = 0
+        if dist_base is None:
+            # "dalla Banchina T1": ancora fuori dalla tessera corrente, resta
+            # astratto finche' non colma la distanza (vedi fase_nemici).
+            distanza = CASELLE_TESSERA * max(1, round_n)
+        elif dist_base == 0 and pos_eroi:
+            bersaglio_pos = pos_eroi[random.choice(list(pos_eroi))]
+            libere = [c for c in _vicini(bersaglio_pos) if c not in occupate and c not in _arredi(tile_id)]
+            nemico_pos = libere[0] if libere else porta_pos
+        elif porta_pos:
+            nemico_pos = porta_pos
+        if nemico_pos:
+            occupate.add(nemico_pos)
         enemies.append(dict(nome=nome, fer=fer_tot, fer_max=fer_tot, dif=base['dif'],
-                             att=base['att'], dan=base['dan'] + dan_bonus, mov=base['mov'], distanza=distanza))
+                             att=base['att'], dan=base['dan'] + dan_bonus, mov=base['mov'],
+                             distanza=distanza, pos=nemico_pos))
     if piazzati:
-        extra = f', a {distanza} caselle dal gruppo' if distanza > 0 else ', già adiacenti'
+        ultimo = enemies[-1]
+        extra = f' in {chess(ultimo["pos"])}' if ultimo['pos'] else (
+            f', a {ultimo["distanza"]} caselle dalla tessera del gruppo' if ultimo['distanza'] > 0 else ', già adiacenti')
         log(f'    Piazzati {piazzati}x {nome} (pool residua: {pool[nome]}){extra}.')
     return (subito and piazzati), esauriti
 
@@ -715,12 +904,17 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
             for k in pool:
                 pool[k] += extra
     enemies = []
+    pos = {}  # nome eroe -> (gx, gy) nella tessera corrente (griglia tattica)
+    tile_attuale = None  # id della tessera dove valgono le `pos` correnti
     canto = 0
     custode = None
     custode_stunned = False
     diapason_usato = False
     voce_ferma_scade_round = 0
     adescati = []  # nemici che l'Esca preziosa (Carbone) distoglie per il round corrente
+    attivati_extra = set()  # id() dei nemici gia' attivati "subito" questo round (vedi fase_minaccia) -
+    # senza, fase_nemici li processava DI NUOVO nello stesso round: 2 mosse/attacchi invece di 1
+    # (bug preesistente, mai visibile prima perche' l'attacco "subito" non controllava la distanza).
     chiave = False
     ruggero_libero = False
     tessere_cercate = set()  # luogo_label gia' perquisiti (Cercare, una volta a tessera)
@@ -739,6 +933,35 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
         n_azioni = len(vivi()) * (3 if (round_n == 1 and indagine['tier'].startswith('SLANCIO')) else 2)
         azioni_per_round.append(n_azioni)
         log(f'    (azioni nominali questo round: {n_azioni} — {len(vivi())} eroi vivi)')
+
+    def movimento_eroe(n):
+        return 4 if n == 'NINO “GRIMALDELLO” CAUTO' else 3
+
+    def celle_occupate(esclusa=None):
+        """Celle occupate da chiunque sia vivo e posizionato (eroi + nemici
+        + Custode), tranne `esclusa` (chi si sta muovendo: non blocca se
+        stesso). Ponytail: alleati e nemici bloccano il passaggio allo
+        stesso modo (niente distinzione "attraversabile ma non ci si
+        ferma"), semplificazione ragionevole su una griglia 4x4 piccola -
+        aggiungere la distinzione se i log mostrano eroi bloccati spesso
+        vicino a una porta affollata."""
+        celle = {p for m, p in pos.items() if m != esclusa}  # vivi e a terra: un corpo occupa comunque la cella
+        celle |= {e['pos'] for e in enemies if e['fer'] > 0 and e.get('pos') and e is not esclusa}
+        if custode and custode['fer'] > 0 and custode.get('pos') and custode is not esclusa:
+            celle.add(custode['pos'])
+        return celle
+
+    def sposta_verso(n, tile_id, obiettivo_pos, obiettivo_nome):
+        """Muove l'eroe `n` fino a `movimento_eroe(n)` celle verso
+        `obiettivo_pos` (BFS, bloccato da arredi e da chiunque sia sul
+        cammino), logga lo spostamento se la posizione cambia. Ritorna True
+        se dopo il movimento e' adiacente all'obiettivo."""
+        partenza = pos[n]
+        nuova = muovi_verso(tile_id, partenza, obiettivo_pos, movimento_eroe(n), celle_occupate(esclusa=n))
+        if nuova != partenza:
+            log(f'    {n} si muove verso {obiettivo_nome}: {chess(partenza)} -> {chess(nuova)}.')
+            pos[n] = nuova
+        return adiacenti(pos[n], obiettivo_pos)
 
     ability_uses = {n: dict() for n in party}
     for n in party:
@@ -829,17 +1052,20 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
                     fonditori_esistenti = [e for e in enemies if e['nome'] == 'IL FONDITORE' and e['fer'] > 0]
                     for e in fonditori_esistenti:
                         e['distanza'] = 0
+                        if e.get('pos') is None:
+                            e['pos'] = porta_attuale_pos  # "si attiva subito": ora e' nella tessera del gruppo
                     if fonditori_esistenti:
                         log(f'    {len(fonditori_esistenti)}x IL FONDITORE già in gioco si attiva subito.')
-                subito_attiva, esauriti = spawn_from_card(log, titolo, pool, enemies, round_n,
-                                                           fer_bonus, dan_bonus)
+                subito_attiva, esauriti = spawn_from_card(
+                    log, titolo, pool, enemies, round_n, fer_bonus, dan_bonus,
+                    tile_id=tile_attuale, porta_pos=porta_attuale_pos,
+                    pos_eroi={n: pos[n] for n in vivi()}, occupate=celle_occupate())
                 pool_esauriti_totale += esauriti
                 if subito_attiva and vivi():
                     e = enemies[-1]
-                    bersaglio = random.choice(vivi())
                     log(f'    {e["nome"]} si attiva subito:')
-                    if enemy_attack_roll(log, e['nome'], e['att'], bersaglio, 8):
-                        applica_danno(bersaglio, e['dan'], e['nome'])
+                    _avvicina_e_attacca(e, 8)
+                    attivati_extra.add(id(e))
             elif titolo in INSIDIA:
                 diff_name, dan, chi = INSIDIA[titolo]
                 bersagli = vivi() if 'ogni' in chi else [min(vivi(), key=lambda n: HERO[n]['nervi'])] if vivi() else []
@@ -861,9 +1087,13 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
                         round_custode_svegliato = round_n
                         log('    Il Custode della Cera si desta in anticipo (3° segnalino Canto), '
                             'sulla tessera più lontana dagli eroi!')
+                        # Su una tessera diversa da dove si trova il gruppo ora: niente
+                        # `pos` reale finche' non colma la distanza (vedi fase_nemici) -
+                        # a differenza degli altri piazzamenti, che accadono tutti nella
+                        # stessa tessera del gruppo e hanno subito una cella vera.
                         c_fer = CUSTODE['fer'] + fer_bonus + custode_extra_fer
                         custode = dict(CUSTODE, fer=c_fer, fer_max=c_fer, dan=CUSTODE['dan'] + dan_bonus,
-                                       distanza=CASELLE_TESSERA)
+                                       distanza=CASELLE_TESSERA, pos=None)
                         for _ in range(2):
                             if pool['ADEPTO INCAPPUCCIATO'] <= 0:
                                 pool_esauriti_totale += 1
@@ -874,7 +1104,7 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
                             a_fer = base['fer'] + fer_bonus
                             enemies.append(dict(nome='ADEPTO INCAPPUCCIATO', fer=a_fer, fer_max=a_fer,
                                                  dif=base['dif'], att=base['att'], dan=base['dan'] + dan_bonus,
-                                                 mov=base['mov'], distanza=CASELLE_TESSERA))
+                                                 mov=base['mov'], distanza=CASELLE_TESSERA, pos=None))
                 elif custode['fer'] > 0:
                     custode['fer'] = min(custode['fer_max'], custode['fer'] + 1)
                     custode_stunned = False
@@ -891,67 +1121,99 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
             else:
                 log('    (carta senza effetto modellato in questa simulazione)')
 
+    def _avvicina_e_attacca(e, difesa):
+        """Un nemico con `pos` reale si muove (BFS) fino al suo Movimento
+        verso un eroe vivo scelto A CASO (non il piu' vicino: puntare
+        sempre al piu' vicino concentra il fuoco su un solo eroe senza che
+        gli eroi abbiano contromisure tattiche - IA di posizionamento
+        difensivo/protezione non modellata - misurato: crolla la
+        %vittoria dal 91% al 50% a 4 eroi. Random.choice tiene la stessa
+        distribuzione del danno del vecchio modello astratto, mantenendo
+        movimento e posizione reali), poi attacca chi risulta adiacente
+        dopo il movimento (non necessariamente il bersaglio scelto, se
+        arredi/affollamento deviano il cammino - o un altro eroe gli
+        capita comunque adiacente). Se nessuno e' raggiungibile, si
+        avvicina soltanto: stesso esito di "colma parte della distanza"
+        di prima, ora con una posizione vera invece di uno scalare."""
+        vivi_ora = vivi()
+        bersaglio = random.choice(vivi_ora)
+        nuova = muovi_verso(tile_attuale, e['pos'], pos[bersaglio], e['mov'], celle_occupate(esclusa=e))
+        if nuova != e['pos']:
+            log(f'  {e["nome"]} si muove verso {bersaglio}: {chess(e["pos"])} -> {chess(nuova)}.')
+            e['pos'] = nuova
+        adiacenti_ora = [m for m in vivi_ora if adiacenti(e['pos'], pos[m])]
+        if not adiacenti_ora:
+            log(f'  {e["nome"]} si avvicina, non ancora a contatto.')
+            return
+        bersaglio_reale = bersaglio if bersaglio in adiacenti_ora else random.choice(adiacenti_ora)
+        log(f'  {e["nome"]} attacca {bersaglio_reale}:')
+        if enemy_attack_roll(log, e['nome'], e['att'], bersaglio_reale, difesa):
+            applica_danno(bersaglio_reale, e['dan'], e['nome'])
+
     def fase_nemici(luogo_label, party_in_transito):
         nonlocal custode_stunned
-        # Il gruppo che avanza di tessera "guadagna" GUADAGNO_GRUPPO caselle di
-        # vantaggio sui nemici non ancora aggrappati: chi ha Movimento piu' basso
-        # o uguale (es. il Fonditore, mov 2, o Adepto/Sgherro, mov 4) resta
-        # indietro o al massimo tiene il passo, come da testo del Fonditore
-        # ("non corre mai"). Da fermi (combattimento al Custode) il vantaggio e' 0.
+        # Un nemico ancora astratto (niente `pos`: sta arrivando da fuori
+        # tessera, vedi spawn_from_card/CARD_SPAWN dinamici) colma distanza
+        # come prima - il gruppo che avanza "guadagna" GUADAGNO_GRUPPO
+        # caselle sui nemici piu' lenti (Fonditore, mov 2, resta indietro,
+        # come da testo "non corre mai"). Una volta arrivato (`pos` reale)
+        # si muove e attacca con la griglia vera: l'astrazione di guadagno
+        # non serve piu', il movimento del gruppo e' gia' quello reale di
+        # fase_eroi.
         guadagno = GUADAGNO_GRUPPO if party_in_transito else 0
         for e in list(enemies):
             if e['fer'] <= 0 or not vivi():
                 continue
+            if id(e) in attivati_extra:
+                continue  # gia' mosso/attaccato "subito" in fase_minaccia questo round
             if e in adescati:
                 log(f'  {e["nome"]} si dirige verso l’esca (Carbone): non attacca questo round.')
                 continue
-            distanza = e.get('distanza', 0)
-            if distanza > 0:
-                e['distanza'] = max(0, distanza + guadagno - e['mov'])
-                if e['distanza'] > 0:
-                    log(f'  {e["nome"]} si avvicina (Movimento {e["mov"]}): ancora '
-                        f'{e["distanza"]} caselle prima di raggiungere il gruppo.')
-                    continue
-                log(f'  {e["nome"]} raggiunge il gruppo.')
-            bersaglio = random.choice(vivi())
-            difesa = 8
-            log(f'  {e["nome"]} attacca {bersaglio}:')
-            if enemy_attack_roll(log, e['nome'], e['att'], bersaglio, difesa):
-                applica_danno(bersaglio, e['dan'], e['nome'])
+            if e.get('pos') is None:
+                distanza = e.get('distanza', 0)
+                if distanza > 0:
+                    e['distanza'] = max(0, distanza + guadagno - e['mov'])
+                    if e['distanza'] > 0:
+                        log(f'  {e["nome"]} si avvicina (Movimento {e["mov"]}): ancora '
+                            f'{e["distanza"]} caselle prima di raggiungere la tessera del gruppo.')
+                        continue
+                log(f'  {e["nome"]} raggiunge la tessera del gruppo, da {chess(porta_attuale_pos)}.')
+                e['pos'] = porta_attuale_pos
+            _avvicina_e_attacca(e, 8)
         adescati.clear()
         if custode and custode['fer'] > 0 and vivi():
             if custode_stunned:
                 log(f'  {custode["nome"]} salta l’attivazione (diapason).')
                 custode_stunned = False
-            else:
+                return
+            if custode.get('pos') is None:
                 # Svegliato in anticipo dal Canto (vedi fase_minaccia): parte "sulla
                 # tessera piu' lontana dagli eroi" (regola vera), quindi deve
-                # colmare distanza come un nemico qualunque prima di attaccare.
-                # Svegliato a T6 invece e' gia' nella stessa stanza (distanza=0,
-                # comportamento invariato).
+                # colmare distanza come un nemico qualunque prima di avere una
+                # posizione vera. Svegliato a T6 invece ha gia' `pos` dal
+                # piazzamento (comportamento invariato).
                 c_distanza = custode.get('distanza', 0)
                 if c_distanza > 0:
                     custode['distanza'] = max(0, c_distanza + guadagno - custode['mov'])
                     if custode['distanza'] > 0:
                         log(f'  {custode["nome"]} si avvicina (Movimento {custode["mov"]}): ancora '
-                            f'{custode["distanza"]} caselle prima di raggiungere il gruppo.')
+                            f'{custode["distanza"]} caselle prima di raggiungere la tessera del gruppo.')
                         return
-                    log(f'  {custode["nome"]} raggiunge il gruppo.')
-                bersaglio = random.choice(vivi())
-                log(f'  {custode["nome"]} attacca {bersaglio}:')
-                if enemy_attack_roll(log, custode['nome'], custode['att'], bersaglio, 8):
-                    applica_danno(bersaglio, custode['dan'], custode['nome'])
+                log(f'  {custode["nome"]} raggiunge la tessera del gruppo, da {chess(porta_attuale_pos)}.')
+                custode['pos'] = porta_attuale_pos
+            _avvicina_e_attacca(custode, 8)
 
     def fase_eroi(luogo_label):
         nonlocal chiave, ruggero_libero, custode, custode_stunned, diapason_usato, canto, voce_ferma_scade_round
         for n in vivi():
             h = HERO[n]
-            # Attaccare in mischia richiede un nemico adiacente (regola vera): chi non
-            # ha ancora colmato la propria distanza (vedi fase_nemici) non e' un
-            # bersaglio valido per l'azione Attaccare, solo per abilita' "in vista"
-            # (Esca preziosa, Malacarne, sotto) che restano sugli `enemies` grezzi.
-            bersagli_vivi = [e for e in enemies if e['fer'] > 0 and e.get('distanza', 0) <= 0]
-            if custode and custode['fer'] > 0:
+            # Attaccare in mischia richiede un nemico adiacente (regola vera): un
+            # nemico ancora astratto (niente `pos`, sta colmando la distanza da
+            # fuori tessera - vedi fase_nemici) non e' un bersaglio valido, solo
+            # per abilita' "in vista" (Esca preziosa, Malacarne, sotto) che
+            # restano sugli `enemies` grezzi.
+            bersagli_vivi = [e for e in enemies if e['fer'] > 0 and e.get('pos') is not None]
+            if custode and custode['fer'] > 0 and custode.get('pos') is not None:
                 bersagli_vivi.append(custode)
             # Carbone: Esca preziosa, devia fino a 2 nemici (non il Custode) dal
             # loro prossimo attacco - un round di sollievo per il gruppo.
@@ -1008,7 +1270,19 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
                 custode_stunned = True
                 continue
             if bersagli_vivi:
-                bersaglio_e = min(bersagli_vivi, key=lambda e: e['fer'])
+                # Movimento reale: si avvicina al nemico piu' vicino (a parita'
+                # di cammino, il piu' debole - finire chi e' quasi abbattuto
+                # prima di aprirne un altro), poi attacca solo se ADESSO e'
+                # adiacente. Su una tessera piccola questo quasi sempre riesce
+                # in un'unica azione; se arredi/affollamento lo impediscono,
+                # il round si spende tutto nell'avvicinamento (nessun attacco).
+                obiettivo = min(bersagli_vivi, key=lambda e: (
+                    len(cammino(tile_attuale, pos[n], e['pos'], celle_occupate(esclusa=n))) or 99, e['fer']))
+                if not sposta_verso(n, tile_attuale, obiettivo['pos'], obiettivo['nome']):
+                    log(f'    {n} si avvicina a {obiettivo["nome"]}, non ancora a contatto.')
+                    continue
+                adiacenti_ora = [e for e in bersagli_vivi if adiacenti(pos[n], e['pos'])]
+                bersaglio_e = min(adiacenti_ora, key=lambda e: e['fer'])
                 if attack_roll(log, n, h['vigore'], armed[n], bersaglio_e['nome'], bersaglio_e['dif']):
                     bersaglio_e['fer'] -= 1
                     log(f'    {bersaglio_e["nome"]}: {max(bersaglio_e["fer"], 0)}/{bersaglio_e["fer_max"]} ferite residue.')
@@ -1024,7 +1298,8 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
                             pool[bersaglio_e['nome']] += 1
                         if bersaglio_e is not custode and ability_uses[n].get('cleave_per_turno'):
                             altri = [e for e in enemies
-                                     if e is not bersaglio_e and e['fer'] > 0 and e.get('distanza', 0) <= 0]
+                                     if e is not bersaglio_e and e['fer'] > 0 and e.get('pos') is not None
+                                     and adiacenti(pos[n], e['pos'])]
                             if altri:
                                 extra = altri[0]
                                 log(f'    [ABILITÀ] {n} usa Colpo da macello: attacco extra su {extra["nome"]}.')
@@ -1043,7 +1318,11 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
             # non conosce quale tessera nasconda cosa): logghiamo solo l'esito della
             # prova, non un oggetto specifico.
             if down:
-                bersaglio_down = next(iter(down))
+                bersaglio_down = min(down, key=lambda m: len(
+                    cammino(tile_attuale, pos[n], pos[m], celle_occupate(esclusa=n))) or 99)
+                if not sposta_verso(n, tile_attuale, pos[bersaglio_down], bersaglio_down):
+                    log(f'    {n} si avvicina a {bersaglio_down} per rianimarlo, non ancora a contatto.')
+                    continue
                 down.discard(bersaglio_down)
                 salute[bersaglio_down] = min(salute_max[bersaglio_down], 2)
                 log(f'    [AZIONE] {n} rianima {bersaglio_down}: torna in piedi con 2 Salute.')
@@ -1059,10 +1338,19 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
                 continue
             log(f'    {n}: nessun bersaglio, avanza / assiste il gruppo.')
 
+    porta_attuale_pos = None  # cella (gx,gy) della porta d'ingresso della tessera corrente
     for tappa in path:
         round_n += 1
+        attivati_extra.clear()
         log(f'--- Round {round_n}: il gruppo raggiunge {tappa} ---')
         log_azioni_round()
+        tile_id = tappa.split()[0]
+        if tile_id != tile_attuale:
+            porta_attuale_pos = porta_ingresso(tile_id, tile_attuale or 'T1')
+            for n in vivi():
+                pos[n] = porta_attuale_pos
+            tile_attuale = tile_id
+            log(f'    Il gruppo entra in {tile_id} da {chess(porta_attuale_pos)}.')
         if tappa.startswith('T5') and round_n:
             for n in vivi():
                 bonus, chi_bonus = voce_ferma_bonus()
@@ -1082,16 +1370,29 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
                 log(f'    I fumi stordiscono {presatore}: 1 sola azione al prossimo turno (non '
                     f'modellato oltre il log). La chiave resta comunque sua.')
         if tappa.startswith('T6') and custode is None:
-            log('    Rivelata la Cripta della Cera: il Custode della Cera si desta con 2 Adepti.')
+            # Vicino all'altare, non sulla soglia: "un altare circondato da
+            # candele nere" (testo del luogo) e' piu' fedele di piazzarlo
+            # esattamente sulla porta - e lascia la cella d'ingresso libera
+            # per gli eroi che arrivano, invece di essere gia' occupata da
+            # lui nello stesso istante in cui il gruppo mette piede in T6.
+            custode_spawn_pos = (2, 1) if (2, 1) not in _arredi('T6') else porta_attuale_pos
+            log(f'    Rivelata la Cripta della Cera: il Custode della Cera si desta con 2 Adepti, '
+                f'in {chess(custode_spawn_pos)}.')
             c_fer = CUSTODE['fer'] + fer_bonus + custode_extra_fer
-            custode = dict(CUSTODE, fer=c_fer, fer_max=c_fer, dan=CUSTODE['dan'] + dan_bonus)
+            custode = dict(CUSTODE, fer=c_fer, fer_max=c_fer, dan=CUSTODE['dan'] + dan_bonus,
+                            pos=custode_spawn_pos)
             pool['ADEPTO INCAPPUCCIATO'] -= 2
+            occupate_reveal = celle_occupate() | {custode_spawn_pos}
             for _ in range(2):
                 base = NEMICO['ADEPTO INCAPPUCCIATO']
                 a_fer = base['fer'] + fer_bonus
+                libere = [c for c in _vicini(porta_attuale_pos)
+                          if c not in occupate_reveal and c not in _arredi('T6')]
+                a_pos = libere[0] if libere else porta_attuale_pos
+                occupate_reveal.add(a_pos)
                 enemies.append(dict(nome='ADEPTO INCAPPUCCIATO', fer=a_fer, fer_max=a_fer,
                                      dif=base['dif'], att=base['att'], dan=base['dan'] + dan_bonus,
-                                     mov=base['mov'], distanza=0))  # rivelati nella stessa stanza del gruppo
+                                     mov=base['mov'], distanza=0, pos=a_pos))  # rivelati nella stessa stanza del gruppo
         diapason = {'has': indagine['diapason']}
         fase_eroi(tappa)
         fase_minaccia()
@@ -1108,6 +1409,7 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
         log('--- Combattimento contro il Custode della Cera ---')
         while custode['fer'] > 0 and vivi():
             round_n += 1
+            attivati_extra.clear()
             log(f'--- Round {round_n}: scontro nella Cripta della Cera ---')
             log_azioni_round()
             fase_eroi('T6')
@@ -1137,6 +1439,7 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
         log('--- Ritorno a T1 con Ruggero (3 round di movimento, minacce ancora attive) ---')
         for _ in range(3):
             round_n += 1
+            attivati_extra.clear()
             log(f'--- Round {round_n}: rientro verso T1 ---')
             log_azioni_round()
             fase_eroi('rientro')
@@ -1715,6 +2018,37 @@ def main():
                     f'{m["media_max_down"]:.1f} | {m["media_luoghi_visitati"]:.1f} | '
                     f'{m["media_ore_avanzate"]:.1f} | {tier} (indicativo, calcolato su medie) |\n')
     print(f'\nRound KPI-fix fatto. Riepilogo in {fix_path}')
+
+    # --- Round griglia tattica: validazione finale 2-10 con movimento e
+    # posizioni reali (vedi intestazione file - non piu' un blocco unico
+    # per tessera). Config di produzione aggiornata: tetto3_ritardato +
+    # curva-G_tattica (bonus generale solo a n=6, mai sopra: un bonus
+    # generale a n=7-10 raddoppia i nemici di truppa da 1 Ferita e crolla
+    # sotto l'affollamento reale) + CUSTODE_TENSIONE_EXTRA (solo Custode,
+    # {8:1,9:1,10:1}, tarato per compensare l'affollamento senza toccare
+    # i nemici di truppa).
+    print("\n--- Round griglia tattica: validazione finale 2-10 (movimento reale) ---")
+    tattica_risultati = []
+    for size in (2, 4, 6, 7, 8, 9, 10):
+        nome = f'tattica-{size:02d}'
+        print(f'Eseguo {nome} (5 party casuali x 30 seed, {size} eroi, tetto3_ritardato, curva-G_tattica)...')
+        tattica_risultati.append(esegui_batch_multi_party(nome, size, 'tetto3_ritardato', 'curva-G_tattica',
+                                                           n_party=5, n_seed=30, seed_base=170000 + size * 1000))
+
+    tattica_path = os.path.join(LOG_DIR, 'riepilogo_griglia_tattica.md')
+    with open(tattica_path, 'w', encoding='utf-8') as f:
+        f.write('# Riepilogo griglia tattica — config finale (tetto3_ritardato + curva-G_tattica + '
+                'CUSTODE_TENSIONE_EXTRA)\n\n')
+        f.write(f'Generato: {datetime.now().isoformat(timespec="seconds")}\n\n')
+        f.write('Prima volta con posizioni/movimento reali (griglia 4x4 per tessera, coordinate '
+                'scacchistiche) invece del modello astratto usato in tutti i round precedenti.\n\n')
+        f.write('| Taglia | % Vittoria | % Vittorie sofferte | Picco eroi a terra | Round medi | '
+                '% Custode anticipo |\n')
+        f.write('|---|---|---|---|---|---|\n')
+        for m in tattica_risultati:
+            f.write(f'| {m["size"]} | {m["pct_vittoria"]:.0f}% | {m["pct_vittoria_sofferta"]:.0f}% | '
+                    f'{m["media_max_down"]:.1f} | {m["media_round"]:.1f} | {m["pct_custode_anticipo"]:.0f}% |\n')
+    print(f'\nRound griglia tattica fatto. Riepilogo in {tattica_path}')
 
     print(f'\nFatto. Log in {LOG_DIR}')
 

@@ -1,0 +1,529 @@
+Run: batch-04_tetto4_curva-B_seed0  |  seed=29560  |  formula Minaccia=tetto4  |  generato: 2026-07-14T21:35:03
+==============================================================================
+SPEDIZIONE - Il Campanile di San Teodoro (sotterranei)
+==============================================================================
+Party: OTTONE “MEZZENA” MASSARI, ELENA FOSCO, OTTAVIO BRERA, FULGENZIO CARBONE
+Bonus da Indagine: PREPARATI (+1 Salute massima a testa); diapason: no
+NOTA: gruppo trattato come blocco unico tessera per tessera (vedi intestazione script).
+Scalatura nemici (curva-B): +1 Ferite, +0 Danno su ogni nemico incluso il Custode.
+
+--- Round 1: il gruppo raggiunge T2 (Sala delle Casse) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    Il gruppo entra in T2 da B1.
+    [PROVA ACUME] OTTONE “MEZZENA” MASSARI: 2d6(4,2)=6 +ACUME(1) = 7 vs Media(9) -> FALLITA
+    OTTONE “MEZZENA” MASSARI cerca sulla tessera: niente da trovare qui, o prova fallita.
+    ELENA FOSCO: nessun bersaglio, avanza / assiste il gruppo.
+    OTTAVIO BRERA: nessun bersaglio, avanza / assiste il gruppo.
+    FULGENZIO CARBONE: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] LAMA NEL BUIO (malavita) — Piazzate 1 Sicario adiacente all’eroe più isolato o più ferito (a pari merito: sceglie il …
+    Piazzati 1x IL SICARIO (pool residua: 1) in C1.
+    IL SICARIO si attiva subito:
+  IL SICARIO si muove verso OTTONE “MEZZENA” MASSARI: C1 -> C4.
+  IL SICARIO si avvicina, non ancora a contatto.
+  [MINACCIA] PRESAGIO (quiete) — Un brivido corre lungo la schiena. Non accade nulla... per ora.
+    Nessun effetto meccanico (tensione).
+--- Round 2: il gruppo raggiunge T4 (Ufficio del Custode) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    Il gruppo entra in T4 da D3.
+    Cercando: trovata LA CHIAVE DELLA CELLA. Prenderla è una scelta — il gruppo decide di prenderla (oggetto rischioso).
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6(5,2)=7 +NERVI(2) = 9 vs Media(9) -> SUCCESSO
+    OTTONE “MEZZENA” MASSARI si muove verso IL SICARIO: D3 -> D4.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> IL SICARIO: 2d6(5,1)=6 +VIGORE(3)+arma(1) = 10 vs Difesa(7) -> COLPITO
+    IL SICARIO: 1/2 ferite residue.
+    ELENA FOSCO si muove verso IL SICARIO: D3 -> C3.
+    [ATTACCO] ELENA FOSCO -> IL SICARIO: 2d6(6,4)=10 +VIGORE(1)+arma(1) = 12 vs Difesa(7) -> COLPITO
+    IL SICARIO: 0/2 ferite residue.
+    IL SICARIO è ABBATTUTO.
+    [PROVA ACUME] OTTAVIO BRERA: 2d6(3,2)=5 +ACUME(3) = 8 vs Media(9) -> FALLITA
+    OTTAVIO BRERA cerca sulla tessera: niente da trovare qui, o prova fallita.
+    FULGENZIO CARBONE: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] IL CANTO CRESCE (crescendo) — Aggiungete 1 segnalino Canto. Al terzo: il Custode della Cera si desta (vedi Soluzione). S…
+    Segnalino Canto: 1.
+  [MINACCIA] IL CORO RISPONDE (crescendo) — Aggiungete 1 segnalino Canto. Al terzo: il Custode della Cera si desta (vedi Soluzione). S…
+    Segnalino Canto: 2.
+--- Round 3: il gruppo raggiunge T2 (Sala delle Casse) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    Il gruppo entra in T2 da A3.
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+    ELENA FOSCO: nessun bersaglio, avanza / assiste il gruppo.
+    OTTAVIO BRERA: nessun bersaglio, avanza / assiste il gruppo.
+    FULGENZIO CARBONE: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] LA VEDETTA (posseduto) — Piazzate 1 Adepto adiacente all’eroe più isolato (quello più lontano dagli altri; a pari m…
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 9) in B3.
+  [MINACCIA] CORRENTE GELIDA (ostacolo) — Una corrente gelida risale dai condotti: fino all’inizio del vostro prossimo turno ogni er…
+    Penalità di Movimento fino al prossimo turno (non modellata nel loop di combattimento).
+  ADEPTO INCAPPUCCIATO si muove verso OTTONE “MEZZENA” MASSARI: B3 -> A4.
+  ADEPTO INCAPPUCCIATO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> OTTONE “MEZZENA” MASSARI: 2d6(3,5)=8 +Attacco(1) = 9 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 8/9).
+--- Round 4: il gruppo raggiunge T5 (Scala interrata) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    Il gruppo entra in T5 da B1.
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6(6,4)=10 +NERVI(2) = 12 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] ELENA FOSCO: 2d6(4,6)=10 +NERVI(2) = 12 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] OTTAVIO BRERA: 2d6(2,2)=4 +NERVI(2) = 6 vs Facile(7) -> FALLITA
+    OTTAVIO BRERA avrà solo 1 azione al prossimo turno (non modellato oltre il log).
+    [PROVA NERVI] FULGENZIO CARBONE: 2d6(3,4)=7 +NERVI(2) = 9 vs Facile(7) -> SUCCESSO
+    OTTONE “MEZZENA” MASSARI si muove verso ADEPTO INCAPPUCCIATO: B1 -> A3.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> ADEPTO INCAPPUCCIATO: 2d6(4,3)=7 +VIGORE(3)+arma(1) = 11 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 1/2 ferite residue.
+    ELENA FOSCO si muove verso ADEPTO INCAPPUCCIATO: B1 -> D2.
+    ELENA FOSCO si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    [ABILITÀ] OTTAVIO BRERA usa Vi conosco, Malacarne su ADEPTO INCAPPUCCIATO: rimosso dal tabellone.
+    [PROVA ACUME] FULGENZIO CARBONE: 2d6(1,5)=6 +ACUME(3) = 9 vs Media(9) -> SUCCESSO
+    FULGENZIO CARBONE cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+  [MINACCIA] IL CANTO SALE (crescendo) — Aggiungete 1 segnalino Canto. Al terzo: il Custode della Cera si desta (vedi Soluzione). S…
+    Segnalino Canto: 3.
+    Il Canto raggiunge 3: da ora ogni Fase Minaccia pesca 1 carta in più (fino a fine spedizione, anche se il Custode è già stato abbattuto).
+    Il Custode della Cera si desta in anticipo (3° segnalino Canto), sulla tessera più lontana dagli eroi!
+  [MINACCIA] RONDA (posseduto) — Piazzate 2 Adepti sull’ingresso della Banchina (T1).
+    Piazzati 2x ADEPTO INCAPPUCCIATO (pool residua: 5), a 24 caselle dalla tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 23 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 23 caselle prima di raggiungere la tessera del gruppo.
+  IL CUSTODE DELLA CERA si avvicina (Movimento 3): ancora 6 caselle prima di raggiungere la tessera del gruppo.
+--- Round 5: il gruppo raggiunge T6 (Cripta della Cera) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    Il gruppo entra in T6 da B1.
+    [PROVA ACUME] OTTONE “MEZZENA” MASSARI: 2d6(3,5)=8 +ACUME(1) = 9 vs Media(9) -> SUCCESSO
+    OTTONE “MEZZENA” MASSARI cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    ELENA FOSCO: nessun bersaglio, avanza / assiste il gruppo.
+    OTTAVIO BRERA: nessun bersaglio, avanza / assiste il gruppo.
+    [ABILITÀ] FULGENZIO CARBONE usa Esca preziosa: ADEPTO INCAPPUCCIATO, ADEPTO INCAPPUCCIATO si dirige verso l’esca invece che verso il gruppo alla prossima attivazione.
+  [MINACCIA] ADEPTO IN AGGUATO (posseduto) — Piazzate 1 Adepto sull’uscita più vicina agli eroi della tessera in cui si trova l’eroe at…
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 4) in B1.
+  [MINACCIA] LA MAREA DI CERA (posseduto) — Piazzate 1 Fonditore sull’ingresso della Banchina (T1): tutti i Fonditori in gioco si atti…
+    Piazzati 1x IL FONDITORE (pool residua: 2), a 30 caselle dalla tessera del gruppo.
+  [MINACCIA] VOLTI TRA LE CASSE (posseduto) — Piazzate 1 Adepto sull’uscita più vicina agli eroi della tessera corrente: si è intrufolat…
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 3) in B1.
+  ADEPTO INCAPPUCCIATO si dirige verso l’esca (Carbone): non attacca questo round.
+  ADEPTO INCAPPUCCIATO si dirige verso l’esca (Carbone): non attacca questo round.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 22 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 22 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si muove verso OTTAVIO BRERA: B1 -> C1.
+  ADEPTO INCAPPUCCIATO attacca OTTAVIO BRERA:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> OTTAVIO BRERA: 2d6(4,6)=10 +Attacco(1) = 11 vs Difesa(8) -> COLPITO
+    OTTAVIO BRERA subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 6/7).
+  IL FONDITORE si avvicina (Movimento 2): ancora 31 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si muove verso ELENA FOSCO: B1 -> A1.
+  ADEPTO INCAPPUCCIATO attacca ELENA FOSCO:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> ELENA FOSCO: 2d6(3,5)=8 +Attacco(1) = 9 vs Difesa(8) -> COLPITO
+    ELENA FOSCO subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 6/7).
+  IL CUSTODE DELLA CERA si avvicina (Movimento 3): ancora 6 caselle prima di raggiungere la tessera del gruppo.
+--- Combattimento contro il Custode della Cera ---
+--- Round 6: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    OTTONE “MEZZENA” MASSARI si muove verso ADEPTO INCAPPUCCIATO: B1 -> C2.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> ADEPTO INCAPPUCCIATO: 2d6(2,1)=3 +VIGORE(3)+arma(1) = 7 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 1/2 ferite residue.
+    [ATTACCO] ELENA FOSCO -> ADEPTO INCAPPUCCIATO: 2d6(6,4)=10 +VIGORE(1)+arma(1) = 12 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/2 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    OTTAVIO BRERA si muove verso ADEPTO INCAPPUCCIATO: B1 -> A2.
+    [ATTACCO] OTTAVIO BRERA -> ADEPTO INCAPPUCCIATO: 2d6(6,2)=8 +VIGORE(1)+arma(1) = 10 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 1/2 ferite residue.
+    [ABILITÀ] FULGENZIO CARBONE usa Esca preziosa: ADEPTO INCAPPUCCIATO, ADEPTO INCAPPUCCIATO si dirige verso l’esca invece che verso il gruppo alla prossima attivazione.
+  [MINACCIA] IL FONDITORE (posseduto) — Piazzate 1 Fonditore sull’ingresso della Banchina (T1). Se è già in gioco un Fonditore, re…
+    Piazzati 1x IL FONDITORE (pool residua: 1), a 36 caselle dalla tessera del gruppo.
+  [MINACCIA] IL FALCETTO NEL BUIO (posseduto) — Piazzate 1 Adepto sull’ingresso della tessera corrente, alle spalle degli eroi.
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 3) in B1.
+  [MINACCIA] ECO AMICA (favore) — Tre colpi sordi, in lontananza: Ruggero è vivo. Rivelate una tessera coperta adiacente a u…
+    Rivelata una tessera coperta adiacente (nessun effetto in questa astrazione).
+  ADEPTO INCAPPUCCIATO si dirige verso l’esca (Carbone): non attacca questo round.
+  ADEPTO INCAPPUCCIATO si dirige verso l’esca (Carbone): non attacca questo round.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 18 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 18 caselle prima di raggiungere la tessera del gruppo.
+  IL FONDITORE si avvicina (Movimento 2): ancora 29 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO attacca OTTAVIO BRERA:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> OTTAVIO BRERA: 2d6(6,4)=10 +Attacco(1) = 11 vs Difesa(8) -> COLPITO
+    OTTAVIO BRERA subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 5/7).
+  IL FONDITORE si avvicina (Movimento 2): ancora 34 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si muove verso FULGENZIO CARBONE: B1 -> C1.
+  ADEPTO INCAPPUCCIATO attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> FULGENZIO CARBONE: 2d6(3,3)=6 +Attacco(1) = 7 vs Difesa(8) -> MANCATO
+  IL CUSTODE DELLA CERA si avvicina (Movimento 3): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+--- Round 7: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    OTTONE “MEZZENA” MASSARI si muove verso ADEPTO INCAPPUCCIATO: C2 -> D1.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> ADEPTO INCAPPUCCIATO: 2d6(5,5)=10 +VIGORE(3)+arma(1) = 14 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 1/2 ferite residue.
+    [ATTACCO] ELENA FOSCO -> ADEPTO INCAPPUCCIATO: 2d6(4,1)=5 +VIGORE(1)+arma(1) = 7 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/2 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    OTTAVIO BRERA si muove verso ADEPTO INCAPPUCCIATO: A2 -> C2.
+    [ATTACCO] OTTAVIO BRERA -> ADEPTO INCAPPUCCIATO: 2d6(1,4)=5 +VIGORE(1)+arma(1) = 7 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/2 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    [PROVA ACUME] FULGENZIO CARBONE: 2d6(5,5)=10 +ACUME(3) = 13 vs Media(9) -> SUCCESSO
+    FULGENZIO CARBONE cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+  [MINACCIA] TRAPPOLA DI CERA (insidia) — L’eroe più avanzato prova NERVI (Media): se fallisce, cera bollente: 1 danno e perde 1 azi…
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6(3,3)=6 +NERVI(2) = 8 vs Media(9) -> FALLITA
+    OTTONE “MEZZENA” MASSARI subisce 1 danno da TRAPPOLA DI CERA (Salute: 7/9).
+  [MINACCIA] IL BRANCO (malavita) — Piazzate 2 Sgherri, adiacenti tra loro, sull’uscita più vicina agli eroi della tessera cor…
+    Piazzati 2x LO SGHERRO (pool residua: 2) in B1.
+  [MINACCIA] CANI DEI MOLI (posseduto) — Piazzate 1 Cane dei Moli sull’uscita più vicina agli eroi della tessera corrente: si attiv…
+    Piazzati 1x CANE DEI MOLI (pool residua: 2) in C1.
+    CANE DEI MOLI si attiva subito:
+  CANE DEI MOLI attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] CANE DEI MOLI -> OTTONE “MEZZENA” MASSARI: 2d6(4,1)=5 +Attacco(2) = 7 vs Difesa(8) -> MANCATO
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 1 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 1 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 14 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 14 caselle prima di raggiungere la tessera del gruppo.
+  IL FONDITORE si avvicina (Movimento 2): ancora 27 caselle prima di raggiungere la tessera del gruppo.
+  IL FONDITORE si avvicina (Movimento 2): ancora 32 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si muove verso FULGENZIO CARBONE: B1 -> A1.
+  LO SGHERRO attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] LO SGHERRO -> FULGENZIO CARBONE: 2d6(3,5)=8 +Attacco(2) = 10 vs Difesa(8) -> COLPITO
+    FULGENZIO CARBONE subisce 1 danno da LO SGHERRO (Salute: 6/7).
+  LO SGHERRO si muove verso ELENA FOSCO: B1 -> B2.
+  LO SGHERRO attacca ELENA FOSCO:
+    [ATTACCO NEMICO] LO SGHERRO -> ELENA FOSCO: 2d6(6,2)=8 +Attacco(2) = 10 vs Difesa(8) -> COLPITO
+    ELENA FOSCO subisce 1 danno da LO SGHERRO (Salute: 5/7).
+  IL CUSTODE DELLA CERA raggiunge la tessera del gruppo, da B1.
+  IL CUSTODE DELLA CERA si avvicina, non ancora a contatto.
+--- Round 8: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> CANE DEI MOLI: 2d6(4,4)=8 +VIGORE(3)+arma(1) = 12 vs Difesa(6) -> COLPITO
+    CANE DEI MOLI: 1/2 ferite residue.
+    [ATTACCO] ELENA FOSCO -> CANE DEI MOLI: 2d6(2,5)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(6) -> COLPITO
+    CANE DEI MOLI: 0/2 ferite residue.
+    CANE DEI MOLI è ABBATTUTO.
+    [ATTACCO] OTTAVIO BRERA -> LO SGHERRO: 2d6(4,3)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 2/3 ferite residue.
+    [ATTACCO] FULGENZIO CARBONE -> LO SGHERRO: 2d6(6,1)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/3 ferite residue.
+  [MINACCIA] UNGHIE SULLA PIETRA (posseduto) — Piazzate 1 Cane dei Moli sull’ingresso della tessera corrente: si attiva subito.
+    Piazzati 1x CANE DEI MOLI (pool residua: 2) in C1.
+    CANE DEI MOLI si attiva subito:
+  CANE DEI MOLI attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] CANE DEI MOLI -> FULGENZIO CARBONE: 2d6(1,5)=6 +Attacco(2) = 8 vs Difesa(8) -> COLPITO
+    FULGENZIO CARBONE subisce 1 danno da CANE DEI MOLI (Salute: 5/7).
+  [MINACCIA] FUMI SOPORIFERI (insidia) — Ogni eroe prova NERVI (Facile): chi fallisce ha 1 sola azione al prossimo turno.
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6(1,3)=4 +NERVI(2) = 6 vs Facile(7) -> FALLITA
+    [PROVA NERVI] ELENA FOSCO: 2d6(3,5)=8 +NERVI(2) = 10 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] OTTAVIO BRERA: 2d6(1,6)=7 +NERVI(2) = 9 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] FULGENZIO CARBONE: 2d6(6,3)=9 +NERVI(2) = 11 vs Facile(7) -> SUCCESSO
+  [MINACCIA] CERA CHE COLA (ostacolo) — Fino a fine round, sulla tessera dell’eroe attivo muoversi costa il doppio.
+    Penalità di Movimento fino al prossimo turno (non modellata nel loop di combattimento).
+  ADEPTO INCAPPUCCIATO raggiunge la tessera del gruppo, da B1.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO raggiunge la tessera del gruppo, da B1.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 10 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 10 caselle prima di raggiungere la tessera del gruppo.
+  IL FONDITORE si avvicina (Movimento 2): ancora 25 caselle prima di raggiungere la tessera del gruppo.
+  IL FONDITORE si avvicina (Movimento 2): ancora 30 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] LO SGHERRO -> FULGENZIO CARBONE: 2d6(4,5)=9 +Attacco(2) = 11 vs Difesa(8) -> COLPITO
+    FULGENZIO CARBONE subisce 1 danno da LO SGHERRO (Salute: 4/7).
+  LO SGHERRO attacca OTTAVIO BRERA:
+    [ATTACCO NEMICO] LO SGHERRO -> OTTAVIO BRERA: 2d6(6,1)=7 +Attacco(2) = 9 vs Difesa(8) -> COLPITO
+    OTTAVIO BRERA subisce 1 danno da LO SGHERRO (Salute: 4/7).
+  IL CUSTODE DELLA CERA si avvicina, non ancora a contatto.
+--- Round 9: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> CANE DEI MOLI: 2d6(4,1)=5 +VIGORE(3)+arma(1) = 9 vs Difesa(6) -> COLPITO
+    CANE DEI MOLI: 1/2 ferite residue.
+    [ATTACCO] ELENA FOSCO -> LO SGHERRO: 2d6(3,2)=5 +VIGORE(1)+arma(1) = 7 vs Difesa(8) -> MANCATO
+    [ATTACCO] OTTAVIO BRERA -> LO SGHERRO: 2d6(4,4)=8 +VIGORE(1)+arma(1) = 10 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/3 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+    [ATTACCO] FULGENZIO CARBONE -> CANE DEI MOLI: 2d6(2,2)=4 +VIGORE(1)+arma(1) = 6 vs Difesa(6) -> COLPITO
+    CANE DEI MOLI: 0/2 ferite residue.
+    CANE DEI MOLI è ABBATTUTO.
+  [MINACCIA] CERA SOTTO I PIEDI (insidia) — L’eroe attivo prova NERVI (Media): se fallisce, 1 danno e perde 1 azione al prossimo turno…
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6(2,5)=7 +NERVI(2) = 9 vs Media(9) -> SUCCESSO
+  [MINACCIA] SUSSURRI (insidia) — L’eroe con meno NERVI (a pari merito: sceglie il gruppo) prova NERVI (Media): se fallisce …
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6(6,5)=11 +NERVI(2) = 13 vs Media(9) -> SUCCESSO
+  [MINACCIA] BRAVI SUL MOLO (malavita) — Piazzate 1 Sgherro sull’ingresso della Banchina (T1).
+    Piazzati 1x LO SGHERRO (pool residua: 2), a 54 caselle dalla tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si muove verso OTTONE “MEZZENA” MASSARI: B1 -> C1.
+  ADEPTO INCAPPUCCIATO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> OTTONE “MEZZENA” MASSARI: 2d6(6,5)=11 +Attacco(1) = 12 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 6/9).
+  ADEPTO INCAPPUCCIATO si muove verso OTTAVIO BRERA: B1 -> B2.
+  ADEPTO INCAPPUCCIATO attacca OTTAVIO BRERA:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> OTTAVIO BRERA: 2d6(4,1)=5 +Attacco(1) = 6 vs Difesa(8) -> MANCATO
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 6 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 6 caselle prima di raggiungere la tessera del gruppo.
+  IL FONDITORE si avvicina (Movimento 2): ancora 23 caselle prima di raggiungere la tessera del gruppo.
+  IL FONDITORE si avvicina (Movimento 2): ancora 28 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO attacca ELENA FOSCO:
+    [ATTACCO NEMICO] LO SGHERRO -> ELENA FOSCO: 2d6(1,4)=5 +Attacco(2) = 7 vs Difesa(8) -> MANCATO
+  LO SGHERRO si avvicina (Movimento 4): ancora 50 caselle prima di raggiungere la tessera del gruppo.
+  IL CUSTODE DELLA CERA si avvicina, non ancora a contatto.
+--- Round 10: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> ADEPTO INCAPPUCCIATO: 2d6(3,6)=9 +VIGORE(3)+arma(1) = 13 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 1/2 ferite residue.
+    [ATTACCO] ELENA FOSCO -> ADEPTO INCAPPUCCIATO: 2d6(1,5)=6 +VIGORE(1)+arma(1) = 8 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/2 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    [ATTACCO] OTTAVIO BRERA -> ADEPTO INCAPPUCCIATO: 2d6(5,2)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 1/2 ferite residue.
+    [ATTACCO] FULGENZIO CARBONE -> ADEPTO INCAPPUCCIATO: 2d6(3,4)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/2 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    Mazzo Minaccia esaurito: si rimescolano gli scarti.
+  [MINACCIA] TRAPPOLA DI CERA (insidia) — L’eroe più avanzato prova NERVI (Media): se fallisce, cera bollente: 1 danno e perde 1 azi…
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6(6,5)=11 +NERVI(2) = 13 vs Media(9) -> SUCCESSO
+  [MINACCIA] LAMA NEL BUIO (malavita) — Piazzate 1 Sicario adiacente all’eroe più isolato o più ferito (a pari merito: sceglie il …
+    Piazzati 1x IL SICARIO (pool residua: 1) in C1.
+    IL SICARIO si attiva subito:
+  IL SICARIO attacca OTTAVIO BRERA:
+    [ATTACCO NEMICO] IL SICARIO -> OTTAVIO BRERA: 2d6(3,6)=9 +Attacco(3) = 12 vs Difesa(8) -> COLPITO
+    OTTAVIO BRERA subisce 2 danno da IL SICARIO (Salute: 2/7).
+  [MINACCIA] BRAVI SUL MOLO (malavita) — Piazzate 1 Sgherro sull’ingresso della Banchina (T1).
+    Piazzati 1x LO SGHERRO (pool residua: 1), a 60 caselle dalla tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  IL FONDITORE si avvicina (Movimento 2): ancora 21 caselle prima di raggiungere la tessera del gruppo.
+  IL FONDITORE si avvicina (Movimento 2): ancora 26 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si muove verso OTTAVIO BRERA: A1 -> B2.
+  LO SGHERRO attacca OTTAVIO BRERA:
+    [ATTACCO NEMICO] LO SGHERRO -> OTTAVIO BRERA: 2d6(5,2)=7 +Attacco(2) = 9 vs Difesa(8) -> COLPITO
+    OTTAVIO BRERA subisce 1 danno da LO SGHERRO (Salute: 1/7).
+  LO SGHERRO si avvicina (Movimento 4): ancora 46 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si avvicina (Movimento 4): ancora 56 caselle prima di raggiungere la tessera del gruppo.
+  IL CUSTODE DELLA CERA si muove verso FULGENZIO CARBONE: B1 -> A1.
+  IL CUSTODE DELLA CERA attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] IL CUSTODE DELLA CERA -> FULGENZIO CARBONE: 2d6(6,4)=10 +Attacco(3) = 13 vs Difesa(8) -> COLPITO
+    FULGENZIO CARBONE subisce 2 danno da IL CUSTODE DELLA CERA (Salute: 2/7).
+--- Round 11: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> IL SICARIO: 2d6(4,1)=5 +VIGORE(3)+arma(1) = 9 vs Difesa(7) -> COLPITO
+    IL SICARIO: 1/2 ferite residue.
+    [ATTACCO] ELENA FOSCO -> IL SICARIO: 2d6(6,4)=10 +VIGORE(1)+arma(1) = 12 vs Difesa(7) -> COLPITO
+    IL SICARIO: 0/2 ferite residue.
+    IL SICARIO è ABBATTUTO.
+    [ATTACCO] OTTAVIO BRERA -> LO SGHERRO: 2d6(4,3)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 2/3 ferite residue.
+    [ATTACCO] FULGENZIO CARBONE -> LO SGHERRO: 2d6(4,4)=8 +VIGORE(1)+arma(1) = 10 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/3 ferite residue.
+  [MINACCIA] UNGHIE SULLA PIETRA (posseduto) — Piazzate 1 Cane dei Moli sull’ingresso della tessera corrente: si attiva subito.
+    Piazzati 1x CANE DEI MOLI (pool residua: 2) in C1.
+    CANE DEI MOLI si attiva subito:
+  CANE DEI MOLI attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] CANE DEI MOLI -> OTTONE “MEZZENA” MASSARI: 2d6(5,5)=10 +Attacco(2) = 12 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 1 danno da CANE DEI MOLI (Salute: 5/9).
+  [MINACCIA] IL FONDITORE (posseduto) — Piazzate 1 Fonditore sull’ingresso della Banchina (T1). Se è già in gioco un Fonditore, re…
+    Piazzati 1x IL FONDITORE (pool residua: 0), a 66 caselle dalla tessera del gruppo.
+  [MINACCIA] ADEPTO IN AGGUATO (posseduto) — Piazzate 1 Adepto sull’uscita più vicina agli eroi della tessera in cui si trova l’eroe at…
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 6) in B1.
+  ADEPTO INCAPPUCCIATO raggiunge la tessera del gruppo, da B1.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO raggiunge la tessera del gruppo, da B1.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  IL FONDITORE si avvicina (Movimento 2): ancora 19 caselle prima di raggiungere la tessera del gruppo.
+  IL FONDITORE si avvicina (Movimento 2): ancora 24 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO attacca OTTAVIO BRERA:
+    [ATTACCO NEMICO] LO SGHERRO -> OTTAVIO BRERA: 2d6(1,1)=2 +Attacco(2) = 4 vs Difesa(8) -> MANCATO
+  LO SGHERRO si avvicina (Movimento 4): ancora 42 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si avvicina (Movimento 4): ancora 52 caselle prima di raggiungere la tessera del gruppo.
+  IL FONDITORE si avvicina (Movimento 2): ancora 64 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  IL CUSTODE DELLA CERA attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] IL CUSTODE DELLA CERA -> FULGENZIO CARBONE: 2d6(2,2)=4 +Attacco(3) = 7 vs Difesa(8) -> MANCATO
+--- Round 12: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> CANE DEI MOLI: 2d6(5,6)=11 +VIGORE(3)+arma(1) = 15 vs Difesa(6) -> COLPITO
+    CANE DEI MOLI: 1/2 ferite residue.
+    [ATTACCO] ELENA FOSCO -> LO SGHERRO: 2d6(4,6)=10 +VIGORE(1)+arma(1) = 12 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/3 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+    [ATTACCO] OTTAVIO BRERA -> CANE DEI MOLI: 2d6(3,4)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(6) -> COLPITO
+    CANE DEI MOLI: 0/2 ferite residue.
+    CANE DEI MOLI è ABBATTUTO.
+    FULGENZIO CARBONE si muove verso IL CUSTODE DELLA CERA: B1 -> A2.
+    [ATTACCO] FULGENZIO CARBONE -> IL CUSTODE DELLA CERA: 2d6(4,2)=6 +VIGORE(1)+arma(1) = 8 vs Difesa(9) -> MANCATO
+  [MINACCIA] IL CORO RISPONDE (crescendo) — Aggiungete 1 segnalino Canto. Al terzo: il Custode della Cera si desta (vedi Soluzione). S…
+    Segnalino Canto: 4.
+    Il Custode recupera 1 ferita (4/4) e si attiva subito.
+  [MINACCIA] ECO AMICA (favore) — Tre colpi sordi, in lontananza: Ruggero è vivo. Rivelate una tessera coperta adiacente a u…
+    Rivelata una tessera coperta adiacente (nessun effetto in questa astrazione).
+  [MINACCIA] IL BRANCO (malavita) — Piazzate 2 Sgherri, adiacenti tra loro, sull’uscita più vicina agli eroi della tessera cor…
+    Piazzati 2x LO SGHERRO (pool residua: 0) in B1.
+  ADEPTO INCAPPUCCIATO si muove verso OTTONE “MEZZENA” MASSARI: B1 -> C1.
+  ADEPTO INCAPPUCCIATO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> OTTONE “MEZZENA” MASSARI: 2d6(1,3)=4 +Attacco(1) = 5 vs Difesa(8) -> MANCATO
+  ADEPTO INCAPPUCCIATO si muove verso FULGENZIO CARBONE: B1 -> B2.
+  ADEPTO INCAPPUCCIATO attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> FULGENZIO CARBONE: 2d6(3,6)=9 +Attacco(1) = 10 vs Difesa(8) -> COLPITO
+    FULGENZIO CARBONE subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 1/7).
+  IL FONDITORE si avvicina (Movimento 2): ancora 17 caselle prima di raggiungere la tessera del gruppo.
+  IL FONDITORE si avvicina (Movimento 2): ancora 22 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si avvicina (Movimento 4): ancora 38 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si avvicina (Movimento 4): ancora 48 caselle prima di raggiungere la tessera del gruppo.
+  IL FONDITORE si avvicina (Movimento 2): ancora 62 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  IL CUSTODE DELLA CERA attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] IL CUSTODE DELLA CERA -> FULGENZIO CARBONE: 2d6(1,3)=4 +Attacco(3) = 7 vs Difesa(8) -> MANCATO
+--- Round 13: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> ADEPTO INCAPPUCCIATO: 2d6(2,3)=5 +VIGORE(3)+arma(1) = 9 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 1/2 ferite residue.
+    [ATTACCO] ELENA FOSCO -> ADEPTO INCAPPUCCIATO: 2d6(6,4)=10 +VIGORE(1)+arma(1) = 12 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/2 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    [ATTACCO] OTTAVIO BRERA -> ADEPTO INCAPPUCCIATO: 2d6(5,4)=9 +VIGORE(1)+arma(1) = 11 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 1/2 ferite residue.
+    [ATTACCO] FULGENZIO CARBONE -> ADEPTO INCAPPUCCIATO: 2d6(3,4)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/2 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+  [MINACCIA] CERA CHE COLA (ostacolo) — Fino a fine round, sulla tessera dell’eroe attivo muoversi costa il doppio.
+    Penalità di Movimento fino al prossimo turno (non modellata nel loop di combattimento).
+  [MINACCIA] IL CANTO SALE (crescendo) — Aggiungete 1 segnalino Canto. Al terzo: il Custode della Cera si desta (vedi Soluzione). S…
+    Segnalino Canto: 5.
+    Il Custode recupera 1 ferita (4/4) e si attiva subito.
+  [MINACCIA] RONDA (posseduto) — Piazzate 2 Adepti sull’ingresso della Banchina (T1).
+    Piazzati 2x ADEPTO INCAPPUCCIATO (pool residua: 6), a 78 caselle dalla tessera del gruppo.
+  IL FONDITORE si avvicina (Movimento 2): ancora 15 caselle prima di raggiungere la tessera del gruppo.
+  IL FONDITORE si avvicina (Movimento 2): ancora 20 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si avvicina (Movimento 4): ancora 34 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si avvicina (Movimento 4): ancora 44 caselle prima di raggiungere la tessera del gruppo.
+  IL FONDITORE si avvicina (Movimento 2): ancora 60 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si muove verso FULGENZIO CARBONE: B1 -> B2.
+  ADEPTO INCAPPUCCIATO attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> FULGENZIO CARBONE: 2d6(5,2)=7 +Attacco(1) = 8 vs Difesa(8) -> COLPITO
+    FULGENZIO CARBONE subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 0/7).
+    *** FULGENZIO CARBONE è A TERRA. ***
+  LO SGHERRO si muove verso OTTONE “MEZZENA” MASSARI: B1 -> C1.
+  LO SGHERRO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] LO SGHERRO -> OTTONE “MEZZENA” MASSARI: 2d6(4,3)=7 +Attacco(2) = 9 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 1 danno da LO SGHERRO (Salute: 4/9).
+  LO SGHERRO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 74 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 74 caselle prima di raggiungere la tessera del gruppo.
+  IL CUSTODE DELLA CERA attacca ELENA FOSCO:
+    [ATTACCO NEMICO] IL CUSTODE DELLA CERA -> ELENA FOSCO: 2d6(6,2)=8 +Attacco(3) = 11 vs Difesa(8) -> COLPITO
+    ELENA FOSCO subisce 2 danno da IL CUSTODE DELLA CERA (Salute: 3/7).
+--- Round 14: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 6 — 3 eroi vivi)
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> LO SGHERRO: 2d6(2,2)=4 +VIGORE(3)+arma(1) = 8 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 2/3 ferite residue.
+    [ATTACCO] ELENA FOSCO -> ADEPTO INCAPPUCCIATO: 2d6(5,3)=8 +VIGORE(1)+arma(1) = 10 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 1/2 ferite residue.
+    [ATTACCO] OTTAVIO BRERA -> ADEPTO INCAPPUCCIATO: 2d6(6,3)=9 +VIGORE(1)+arma(1) = 11 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/2 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+  [MINACCIA] LA VEDETTA (posseduto) — Piazzate 1 Adepto adiacente all’eroe più isolato (quello più lontano dagli altri; a pari m…
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 6) in D2.
+  [MINACCIA] CORRENTE GELIDA (ostacolo) — Una corrente gelida risale dai condotti: fino all’inizio del vostro prossimo turno ogni er…
+    Penalità di Movimento fino al prossimo turno (non modellata nel loop di combattimento).
+  IL FONDITORE si avvicina (Movimento 2): ancora 13 caselle prima di raggiungere la tessera del gruppo.
+  IL FONDITORE si avvicina (Movimento 2): ancora 18 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si avvicina (Movimento 4): ancora 30 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si avvicina (Movimento 4): ancora 40 caselle prima di raggiungere la tessera del gruppo.
+  IL FONDITORE si avvicina (Movimento 2): ancora 58 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO attacca ELENA FOSCO:
+    [ATTACCO NEMICO] LO SGHERRO -> ELENA FOSCO: 2d6(2,1)=3 +Attacco(2) = 5 vs Difesa(8) -> MANCATO
+  LO SGHERRO si muove verso OTTAVIO BRERA: B1 -> B2.
+  LO SGHERRO attacca OTTAVIO BRERA:
+    [ATTACCO NEMICO] LO SGHERRO -> OTTAVIO BRERA: 2d6(2,2)=4 +Attacco(2) = 6 vs Difesa(8) -> MANCATO
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 70 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 70 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> OTTONE “MEZZENA” MASSARI: 2d6(1,2)=3 +Attacco(1) = 4 vs Difesa(8) -> MANCATO
+  IL CUSTODE DELLA CERA attacca ELENA FOSCO:
+    [ATTACCO NEMICO] IL CUSTODE DELLA CERA -> ELENA FOSCO: 2d6(4,4)=8 +Attacco(3) = 11 vs Difesa(8) -> COLPITO
+    ELENA FOSCO subisce 2 danno da IL CUSTODE DELLA CERA (Salute: 1/7).
+--- Round 15: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 6 — 3 eroi vivi)
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> LO SGHERRO: 2d6(5,5)=10 +VIGORE(3)+arma(1) = 14 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/3 ferite residue.
+    [ATTACCO] ELENA FOSCO -> LO SGHERRO: 2d6(1,2)=3 +VIGORE(1)+arma(1) = 5 vs Difesa(8) -> MANCATO
+    [ATTACCO] OTTAVIO BRERA -> LO SGHERRO: 2d6(5,3)=8 +VIGORE(1)+arma(1) = 10 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/3 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+  [MINACCIA] FUMI SOPORIFERI (insidia) — Ogni eroe prova NERVI (Facile): chi fallisce ha 1 sola azione al prossimo turno.
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6(1,3)=4 +NERVI(2) = 6 vs Facile(7) -> FALLITA
+    [PROVA NERVI] ELENA FOSCO: 2d6(4,2)=6 +NERVI(2) = 8 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] OTTAVIO BRERA: 2d6(2,3)=5 +NERVI(2) = 7 vs Facile(7) -> SUCCESSO
+  [MINACCIA] CERA SOTTO I PIEDI (insidia) — L’eroe attivo prova NERVI (Media): se fallisce, 1 danno e perde 1 azione al prossimo turno…
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6(3,1)=4 +NERVI(2) = 6 vs Media(9) -> FALLITA
+    OTTONE “MEZZENA” MASSARI subisce 1 danno da CERA SOTTO I PIEDI (Salute: 3/9).
+  IL FONDITORE si avvicina (Movimento 2): ancora 11 caselle prima di raggiungere la tessera del gruppo.
+  IL FONDITORE si avvicina (Movimento 2): ancora 16 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si avvicina (Movimento 4): ancora 26 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si avvicina (Movimento 4): ancora 36 caselle prima di raggiungere la tessera del gruppo.
+  IL FONDITORE si avvicina (Movimento 2): ancora 56 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO attacca ELENA FOSCO:
+    [ATTACCO NEMICO] LO SGHERRO -> ELENA FOSCO: 2d6(2,6)=8 +Attacco(2) = 10 vs Difesa(8) -> COLPITO
+    ELENA FOSCO subisce 1 danno da LO SGHERRO (Salute: 0/7).
+    *** ELENA FOSCO è A TERRA. ***
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 66 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 66 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> OTTONE “MEZZENA” MASSARI: 2d6(2,4)=6 +Attacco(1) = 7 vs Difesa(8) -> MANCATO
+  IL CUSTODE DELLA CERA si avvicina, non ancora a contatto.
+--- Round 16: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> ADEPTO INCAPPUCCIATO: 2d6(1,4)=5 +VIGORE(3)+arma(1) = 9 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 1/2 ferite residue.
+    [ATTACCO] OTTAVIO BRERA -> ADEPTO INCAPPUCCIATO: 2d6(3,4)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/2 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+  [MINACCIA] VOLTI TRA LE CASSE (posseduto) — Piazzate 1 Adepto sull’uscita più vicina agli eroi della tessera corrente: si è intrufolat…
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 6) in B1.
+  [MINACCIA] CANI DEI MOLI (posseduto) — Piazzate 1 Cane dei Moli sull’uscita più vicina agli eroi della tessera corrente: si attiv…
+    Piazzati 1x CANE DEI MOLI (pool residua: 2) in D2.
+    CANE DEI MOLI si attiva subito:
+  CANE DEI MOLI attacca OTTAVIO BRERA:
+    [ATTACCO NEMICO] CANE DEI MOLI -> OTTAVIO BRERA: 2d6(6,4)=10 +Attacco(2) = 12 vs Difesa(8) -> COLPITO
+    OTTAVIO BRERA subisce 1 danno da CANE DEI MOLI (Salute: 0/7).
+    *** OTTAVIO BRERA è A TERRA. ***
+  IL FONDITORE si avvicina (Movimento 2): ancora 9 caselle prima di raggiungere la tessera del gruppo.
+  IL FONDITORE si avvicina (Movimento 2): ancora 14 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si avvicina (Movimento 4): ancora 22 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si avvicina (Movimento 4): ancora 32 caselle prima di raggiungere la tessera del gruppo.
+  IL FONDITORE si avvicina (Movimento 2): ancora 54 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 62 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 62 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si muove verso OTTONE “MEZZENA” MASSARI: B1 -> C1.
+  ADEPTO INCAPPUCCIATO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> OTTONE “MEZZENA” MASSARI: 2d6(5,4)=9 +Attacco(1) = 10 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 2/9).
+  IL CUSTODE DELLA CERA si avvicina, non ancora a contatto.
+--- Round 17: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 2 — 1 eroi vivi)
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> ADEPTO INCAPPUCCIATO: 2d6(6,4)=10 +VIGORE(3)+arma(1) = 14 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 1/2 ferite residue.
+  [MINACCIA] LA MAREA DI CERA (posseduto) — Piazzate 1 Fonditore sull’ingresso della Banchina (T1): tutti i Fonditori in gioco si atti…
+    3x IL FONDITORE già in gioco si attiva subito.
+    Segnalini IL FONDITORE esauriti: il piazzamento non ha luogo (resto della carta si applica comunque).
+  [MINACCIA] IL CANTO CRESCE (crescendo) — Aggiungete 1 segnalino Canto. Al terzo: il Custode della Cera si desta (vedi Soluzione). S…
+    Segnalino Canto: 6.
+    Il Custode recupera 1 ferita (4/4) e si attiva subito.
+  IL FONDITORE si avvicina, non ancora a contatto.
+  IL FONDITORE si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina (Movimento 4): ancora 18 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si avvicina (Movimento 4): ancora 28 caselle prima di raggiungere la tessera del gruppo.
+  IL FONDITORE si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 58 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 58 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> OTTONE “MEZZENA” MASSARI: 2d6(6,5)=11 +Attacco(1) = 12 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 1/9).
+  CANE DEI MOLI attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] CANE DEI MOLI -> OTTONE “MEZZENA” MASSARI: 2d6(1,6)=7 +Attacco(2) = 9 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 1 danno da CANE DEI MOLI (Salute: 0/9).
+    *** OTTONE “MEZZENA” MASSARI è A TERRA. ***
+
+==============================================================================
+ESITO SPEDIZIONE: SCONFITTA (party wipe)
+Round totali: 17
+Formula Minaccia: tetto4 | Azioni nominali/round: media 7.2, picco 8
+Mazzo Minaccia rimescolato: 1 volta/e
+Segnalini nemici esauriti nel pool (piazzamenti saltati): 1
+Custode della Cera svegliato: in anticipo al round 4
+  OTTONE “MEZZENA” MASSARI: a terra
+  ELENA FOSCO: a terra
+  OTTAVIO BRERA: a terra
+  FULGENZIO CARBONE: a terra
+==============================================================================
