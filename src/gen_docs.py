@@ -631,9 +631,10 @@ def aiuto():
     e.append(RL('<b>Rianimare</b> — un eroe a terra adiacente torna a 2 Salute.'))
     e.append(RP('Uscendo verso una tessera coperta, <b>rivelatela</b> e leggetene subito il testo.'))
 
-    e.append(P('FASE MINACCIA — pescate 1 carta ogni 2 eroi (arrot. eccesso)', 'h2'))
-    e.append(RP('<b>2: 1 carta • 3–4: 2 • 5: 3 • 6: 2 • 7–10: 3.</b> Leggete ad alta voce ed eseguite. '
-                'Mazzo esaurito: rimescolate gli scarti.'))
+    e.append(P('FASE MINACCIA — carte da pescare, in base a quanti eroi in tavola', 'h2'))
+    e.append(RP('<b>2 eroi: 1 carta • 3–4: 2 • 5: 3 • 6: 2 • 7–10: 3.</b> (a 6 scende apposta: da lì '
+                'parte anche il bonus Ferite qui sotto, vedi Regolamento). Leggete ad alta voce ed '
+                'eseguite. Mazzo esaurito: rimescolate gli scarti.'))
     e.append(RP('<b>Tavolo 6–10 eroi:</b> +2 Ferite a ogni nemico (Custode incluso) da 6 a 8 eroi, '
                 '+3 da 9 a 10. Fissato a inizio spedizione, non ricalcolato dopo.'))
 

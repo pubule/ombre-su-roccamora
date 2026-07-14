@@ -1,7 +1,7 @@
 {
   "name": "ombre-su-roccamora",
   "version": "1.0.0",
-  "description": "Gioco da tavolo investigativo **cooperativo a puntate** per 2–5 giocatori, ambientato\r in una città immaginaria di canali e campanili nel 1889. Unisce indagine alla\r *Sherlock/Cluedo* e spedizioni alla *HeroQuest*, senza master e senza uno-contro-tutti.",
+  "description": "Gioco da tavolo investigativo **cooperativo a puntate** per 2–10 giocatori, ambientato\r in una città immaginaria di canali e campanili nel 1889. Unisce indagine alla\r *Sherlock/Cluedo* e spedizioni alla *HeroQuest*, senza master e senza uno-contro-tutti.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
