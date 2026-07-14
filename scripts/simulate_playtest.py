@@ -110,6 +110,13 @@ MINACCIA_FORMULE = {
     # diversi) - a n=6 e n=8 tetto3 dava la STESSA pressione nemica (3
     # carte) ma n=6 ha 2 eroi in meno per assorbirla. Sequenza: 1,2,2,3,3.
     'tetto3_ritardato': lambda n: max(1, min(1 + (n + 1) // 4, 3)),
+    # Round 8: alternativa a tetto3_ritardato che NON fa mai scendere le
+    # carte all'aumentare degli eroi (l'utente ha giustamente notato che un
+    # calo 5->6 e' contro-intuitivo). Stesso ceil(n/2) gia' pubblicato per
+    # n=2..5, poi resta piatta a 3 invece di scendere a 2 a n=6 - la
+    # compensazione per n=6 si sposta tutta sul bonus Ferite (vedi
+    # curva-D_dolce) invece che sul numero di carte.
+    'plateau3': lambda n: max(1, min((n + 1) // 2, 3)),  # 2:1 3:2 4:2 5:3 6:3 7:3 8:3 9:3 10:3
 }
 
 # Scalatura statistiche nemiche per party grandi (diagnostica, non regola
@@ -132,6 +139,19 @@ NEMICO_SCALE_FORMULE = {
     # (stesso tipo di bug del tetto Minaccia troppo precoce, vedi
     # tetto3_ritardato). Da n=6 in su identica a curva-C.
     'curva-C_tardiva': lambda n: (max(0, round((n - 2) / 2.5)) if n >= 6 else 0, 0),  # 2:0 4:0 6:2 8:2 10:3
+    # Round 8: rampa piu' dolce (+1 Ferite ogni 2 eroi da n=6, invece di
+    # saltare subito a +2), pensata per accompagnare 'plateau3' - qui il
+    # numero di carte NON scende a 6, quindi la compensazione deve venire
+    # tutta da qui: si parte piu' bassi (+1 invece di +2) per non ripetere
+    # il crollo visto con curva-C a tetto3 (3 carte + subito +2 Ferite).
+    'curva-D_dolce': lambda n: (0 if n < 6 else (n - 4) // 2, 0),  # 2:0 4:0 6:1 7:1 8:2 9:2 10:3
+    # Round 8b: scatto di +1 Ferite per OGNI eroe in piu' da n=6 (non ogni
+    # 2 come curva-D_dolce) - il round 8 ha mostrato che tenere la stessa
+    # Ferite per 2 taglie consecutive (con plateau3, carte sempre ferme a
+    # 3) crea uno zigzag: la taglia dispari ha "un attaccante gratis"
+    # rispetto al bonus invariato. Qui ogni eroe in piu' alza subito il
+    # bonus, cosi' non c'e' mai un salto di taglia "a sconto".
+    'curva-E_lineare': lambda n: (max(0, n - 5), 0),  # 2:0 4:0 6:1 7:2 8:3 9:4 10:5
 }
 
 # Copie extra di miniature stampabili per party grandi (diagnostica): "non
@@ -1479,6 +1499,77 @@ def main():
                 f.write(f'| {m["size"]} | {", ".join(b["party"])} | {b["pct_custode_anticipo"]:.0f}% | '
                         f'{b["media_eroi_terra"]:.1f} | {b["pct_vittoria"]:.0f}% |\n')
     print(f'\nRound 7 fatto. Riepilogo in {mp7_path}')
+
+    # --- Round 8: alternativa 'plateau3' + 'curva-D_dolce' - le carte
+    # Minaccia non scendono mai (restano piatte a 3 da n=5 in su, come il
+    # rule originale esteso), tutta la compensazione per n=6 si sposta sul
+    # bonus Ferite (rampa piu' dolce: +1 a 6-7, +2 a 8-9, +3 a 10 invece di
+    # saltare subito a +2). Verifica se evita il calo controintuitivo
+    # 5->6 nel numero di carte senza reintrodurre il crollo del round 5.
+    print("\n--- Round 8: alternativa senza calo di carte (plateau3 + curva-D_dolce) ---")
+    mp8_risultati = []
+    for size in (6, 7, 8, 9, 10):
+        nome = f'mp-{size:02d}_plateau'
+        print(f'Eseguo {nome} (5 party casuali x 30 seed, {size} eroi, plateau3, curva-D_dolce)...')
+        mp8_risultati.append(esegui_batch_multi_party(nome, size, 'plateau3', 'curva-D_dolce',
+                                                       n_party=5, n_seed=30, seed_base=80000 + size * 1000))
+
+    mp8_path = os.path.join(LOG_DIR, 'riepilogo_multiparty_plateau.md')
+    with open(mp8_path, 'w', encoding='utf-8') as f:
+        f.write('# Riepilogo composizioni casuali (round 8) — alternativa: plateau3 + curva-D_dolce\n\n')
+        f.write(f'Generato: {datetime.now().isoformat(timespec="seconds")}\n\n')
+        f.write('Carte Minaccia mai in calo (piatte a 3 da n=5), compensazione tutta sul bonus Ferite '
+                '(rampa piu\' dolce di curva-C_tardiva). Confronto diretto con round 7 '
+                '(`riepilogo_multiparty_finale.md`).\n\n')
+        f.write('| Taglia | % Custode anticipo | Pool esauriti (media/picco) | Round medi | '
+                'Eroi a terra medi | % Vittoria |\n')
+        f.write('|---|---|---|---|---|---|\n')
+        for m in mp8_risultati:
+            f.write(f'| {m["size"]} | {m["pct_custode_anticipo"]:.0f}% | '
+                    f'{m["media_pool_esauriti"]:.1f} / {m["max_pool_esauriti"]} | {m["media_round"]:.1f} | '
+                    f'{m["media_eroi_terra"]:.1f} | {m["pct_vittoria"]:.0f}% |\n')
+        f.write('\n## Dettaglio per composizione\n\n')
+        f.write('| Taglia | Party | % Custode anticipo | Eroi a terra medi | % Vittoria |\n')
+        f.write('|---|---|---|---|---|\n')
+        for m in mp8_risultati:
+            for b in m['per_party']:
+                f.write(f'| {m["size"]} | {", ".join(b["party"])} | {b["pct_custode_anticipo"]:.0f}% | '
+                        f'{b["media_eroi_terra"]:.1f} | {b["pct_vittoria"]:.0f}% |\n')
+    print(f'\nRound 8 fatto. Riepilogo in {mp8_path}')
+
+    # --- Round 9: plateau3 + curva-E_lineare - scatto di Ferite a ogni
+    # eroe (non ogni 2) da n=6, per eliminare lo zigzag pari/dispari visto
+    # nel round 8 tenendo comunque le carte Minaccia sempre piatte a 3.
+    print("\n--- Round 9: scatto Ferite ogni eroe (plateau3 + curva-E_lineare) ---")
+    mp9_risultati = []
+    for size in (6, 7, 8, 9, 10):
+        nome = f'mp-{size:02d}_lineare'
+        print(f'Eseguo {nome} (5 party casuali x 30 seed, {size} eroi, plateau3, curva-E_lineare)...')
+        mp9_risultati.append(esegui_batch_multi_party(nome, size, 'plateau3', 'curva-E_lineare',
+                                                       n_party=5, n_seed=30, seed_base=90000 + size * 1000))
+
+    mp9_path = os.path.join(LOG_DIR, 'riepilogo_multiparty_lineare.md')
+    with open(mp9_path, 'w', encoding='utf-8') as f:
+        f.write('# Riepilogo composizioni casuali (round 9) — plateau3 + curva-E_lineare (scatto ogni eroe)\n\n')
+        f.write(f'Generato: {datetime.now().isoformat(timespec="seconds")}\n\n')
+        f.write('Carte Minaccia piatte a 3 (come round 8), ma bonus Ferite +1 per ogni eroe in piu\' da n=6 '
+                '(non ogni 2). Confronto con round 8 (`riepilogo_multiparty_plateau.md`) e round 7, gia\' '
+                'in produzione (`riepilogo_multiparty_finale.md`).\n\n')
+        f.write('| Taglia | % Custode anticipo | Pool esauriti (media/picco) | Round medi | '
+                'Eroi a terra medi | % Vittoria |\n')
+        f.write('|---|---|---|---|---|---|\n')
+        for m in mp9_risultati:
+            f.write(f'| {m["size"]} | {m["pct_custode_anticipo"]:.0f}% | '
+                    f'{m["media_pool_esauriti"]:.1f} / {m["max_pool_esauriti"]} | {m["media_round"]:.1f} | '
+                    f'{m["media_eroi_terra"]:.1f} | {m["pct_vittoria"]:.0f}% |\n')
+        f.write('\n## Dettaglio per composizione\n\n')
+        f.write('| Taglia | Party | % Custode anticipo | Eroi a terra medi | % Vittoria |\n')
+        f.write('|---|---|---|---|---|\n')
+        for m in mp9_risultati:
+            for b in m['per_party']:
+                f.write(f'| {m["size"]} | {", ".join(b["party"])} | {b["pct_custode_anticipo"]:.0f}% | '
+                        f'{b["media_eroi_terra"]:.1f} | {b["pct_vittoria"]:.0f}% |\n')
+    print(f'\nRound 9 fatto. Riepilogo in {mp9_path}')
 
     print(f'\nFatto. Log in {LOG_DIR}')
 

@@ -651,13 +651,14 @@ def aiuto():
     e.append(minaccia_t)
     e.append(RP('Leggete la carta ad alta voce ed eseguite. Mazzo esaurito: rimescolate gli scarti. '
                 '<b>Nota:</b> a 6 eroi le carte scendono a 2 (non salgono a 3) perché da lì parte anche '
-                'il bonus Ferite qui sotto — non è un errore di stampa, vedi Regolamento.'))
-    e.append(RP('<b>Tavolo 6–10 eroi:</b> +2 Ferite a ogni nemico (Custode incluso) da 6 a 8 eroi, '
-                '+3 da 9 a 10. Fissato a inizio spedizione, non ricalcolato dopo.'))
+                'il bonus Ferite ai nemici (vedi Turno dei nemici) — non è un errore di stampa, vedi '
+                'Regolamento.'))
 
     e.append(P('TURNO DEI NEMICI', 'h2'))
     e.append(RP('Ognuno si muove verso l’<b>eroe in piedi</b> più vicino (ignorano gli eroi a terra e Ruggero). '
                 'Se adiacente attacca: <b>2d6 + Attacco ≥ Difesa eroe</b> → subisci il Danno indicato.'))
+    e.append(RP('<b>Tavolo 6–10 eroi:</b> +2 Ferite a ogni nemico (Custode incluso) da 6 a 8 eroi, '
+                '+3 da 9 a 10. Fissato a inizio spedizione, non ricalcolato dopo.'))
 
     e.append(P('REGOLA D’ORO', 'h2'))
     e.append(RP('In ogni ambiguità (uscite/eroi equidistanti, più bersagli) sceglie il gruppo, '

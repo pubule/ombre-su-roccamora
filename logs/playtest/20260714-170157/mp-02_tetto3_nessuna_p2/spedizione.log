@@ -1,0 +1,154 @@
+Run: mp-02_tetto3_nessuna_p2_seed0  |  seed=43200  |  formula Minaccia=tetto3  |  generato: 2026-07-14T17:01:59
+==============================================================================
+SPEDIZIONE - Il Campanile di San Teodoro (sotterranei)
+==============================================================================
+Party: DOTT. ATTILIO MARN, NINO “GRIMALDELLO” CAUTO
+Bonus da Indagine: PREPARATI (+1 Salute massima a testa); diapason: no
+NOTA: gruppo trattato come blocco unico tessera per tessera (vedi intestazione script).
+
+--- Round 1: il gruppo raggiunge T2 (Sala delle Casse) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    [PROVA ACUME] DOTT. ATTILIO MARN: 2d6(6,1)=7 +ACUME(2) = 9 vs Media(9) -> SUCCESSO
+    DOTT. ATTILIO MARN cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    NINO “GRIMALDELLO” CAUTO: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] IL FONDITORE (posseduto) — Piazzate 1 Fonditore sull’ingresso della Banchina (T1). Se è già in gioco un Fonditore, re…
+    Piazzati 1x IL FONDITORE (pool residua: 2), a 6 caselle dal gruppo.
+  IL FONDITORE si avvicina (Movimento 2): ancora 7 caselle prima di raggiungere il gruppo.
+--- Round 2: il gruppo raggiunge T4 (Ufficio del Custode) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    Cercando: trovata LA CHIAVE DELLA CELLA. Prenderla è una scelta — il gruppo decide di prenderla (oggetto rischioso).
+    [PROVA NERVI] DOTT. ATTILIO MARN: 2d6(5,5)=10 +NERVI(2) = 12 vs Media(9) -> SUCCESSO
+    [PROVA ACUME] DOTT. ATTILIO MARN: 2d6(1,5)=6 +ACUME(2) = 8 vs Media(9) -> FALLITA
+    DOTT. ATTILIO MARN cerca sulla tessera: niente da trovare qui, o prova fallita.
+    NINO “GRIMALDELLO” CAUTO: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] UNGHIE SULLA PIETRA (posseduto) — Piazzate 1 Cane dei Moli sull’ingresso della tessera corrente: si attiva subito.
+    Piazzati 1x CANE DEI MOLI (pool residua: 2), già adiacenti.
+    CANE DEI MOLI si attiva subito:
+    [ATTACCO NEMICO] CANE DEI MOLI -> DOTT. ATTILIO MARN: 2d6(6,1)=7 +Attacco(2) = 9 vs Difesa(8) -> COLPITO
+    DOTT. ATTILIO MARN subisce 1 danno da CANE DEI MOLI (Salute: 7/8).
+  IL FONDITORE si avvicina (Movimento 2): ancora 8 caselle prima di raggiungere il gruppo.
+  CANE DEI MOLI attacca DOTT. ATTILIO MARN:
+    [ATTACCO NEMICO] CANE DEI MOLI -> DOTT. ATTILIO MARN: 2d6(3,4)=7 +Attacco(2) = 9 vs Difesa(8) -> COLPITO
+    DOTT. ATTILIO MARN subisce 1 danno da CANE DEI MOLI (Salute: 6/8).
+--- Round 3: il gruppo raggiunge T2 (Sala delle Casse) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    [ABILITÀ] DOTT. ATTILIO MARN usa Pronto Soccorso su DOTT. ATTILIO MARN -> Salute 8.
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> CANE DEI MOLI: 2d6(2,3)=5 +VIGORE(2)+arma(1) = 8 vs Difesa(6) -> COLPITO
+    CANE DEI MOLI: 0/1 ferite residue.
+    CANE DEI MOLI è ABBATTUTO.
+  [MINACCIA] SUSSURRI (insidia) — L’eroe con meno NERVI (a pari merito: sceglie il gruppo) prova NERVI (Media): se fallisce …
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6(2,3)=5 +NERVI(1) = 6 vs Media(9) -> FALLITA
+    NINO “GRIMALDELLO” CAUTO subisce 1 danno da SUSSURRI (Salute: 7/8).
+  IL FONDITORE si avvicina (Movimento 2): ancora 9 caselle prima di raggiungere il gruppo.
+--- Round 4: il gruppo raggiunge T5 (Scala interrata) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    [PROVA NERVI] DOTT. ATTILIO MARN: 2d6(2,5)=7 +NERVI(2) = 9 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6(2,6)=8 +NERVI(1) = 9 vs Facile(7) -> SUCCESSO
+    [ABILITÀ] DOTT. ATTILIO MARN usa Pronto Soccorso su NINO “GRIMALDELLO” CAUTO -> Salute 8.
+    [PROVA ACUME] NINO “GRIMALDELLO” CAUTO: 2d6(5,5)=10 +ACUME(2) = 12 vs Media(9) -> SUCCESSO
+    NINO “GRIMALDELLO” CAUTO cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+  [MINACCIA] IL BRANCO (malavita) — Piazzate 2 Sgherri, adiacenti tra loro, sull’uscita più vicina agli eroi della tessera cor…
+    Piazzati 2x LO SGHERRO (pool residua: 2), a 1 caselle dal gruppo.
+  IL FONDITORE si avvicina (Movimento 2): ancora 10 caselle prima di raggiungere il gruppo.
+  LO SGHERRO raggiunge il gruppo.
+  LO SGHERRO attacca DOTT. ATTILIO MARN:
+    [ATTACCO NEMICO] LO SGHERRO -> DOTT. ATTILIO MARN: 2d6(1,6)=7 +Attacco(2) = 9 vs Difesa(8) -> COLPITO
+    DOTT. ATTILIO MARN subisce 1 danno da LO SGHERRO (Salute: 7/8).
+  LO SGHERRO raggiunge il gruppo.
+  LO SGHERRO attacca NINO “GRIMALDELLO” CAUTO:
+    [ATTACCO NEMICO] LO SGHERRO -> NINO “GRIMALDELLO” CAUTO: 2d6(2,4)=6 +Attacco(2) = 8 vs Difesa(8) -> COLPITO
+    NINO “GRIMALDELLO” CAUTO subisce 1 danno da LO SGHERRO (Salute: 7/8).
+--- Round 5: il gruppo raggiunge T6 (Cripta della Cera) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    Rivelata la Cripta della Cera: il Custode della Cera si desta con 2 Adepti.
+    [ABILITÀ] DOTT. ATTILIO MARN usa Pronto Soccorso su DOTT. ATTILIO MARN -> Salute 8.
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> ADEPTO INCAPPUCCIATO: 2d6(2,2)=4 +VIGORE(2)+arma(1) = 7 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+  [MINACCIA] IL CANTO CRESCE (crescendo) — Aggiungete 1 segnalino Canto. Al terzo: il Custode della Cera si desta (vedi Soluzione). S…
+    Segnalino Canto: 1.
+    Il Custode recupera 1 ferita (3/3) e si attiva subito.
+  IL FONDITORE si avvicina (Movimento 2): ancora 11 caselle prima di raggiungere il gruppo.
+  LO SGHERRO attacca DOTT. ATTILIO MARN:
+    [ATTACCO NEMICO] LO SGHERRO -> DOTT. ATTILIO MARN: 2d6(4,6)=10 +Attacco(2) = 12 vs Difesa(8) -> COLPITO
+    DOTT. ATTILIO MARN subisce 1 danno da LO SGHERRO (Salute: 7/8).
+  LO SGHERRO attacca DOTT. ATTILIO MARN:
+    [ATTACCO NEMICO] LO SGHERRO -> DOTT. ATTILIO MARN: 2d6(5,3)=8 +Attacco(2) = 10 vs Difesa(8) -> COLPITO
+    DOTT. ATTILIO MARN subisce 1 danno da LO SGHERRO (Salute: 6/8).
+  ADEPTO INCAPPUCCIATO attacca NINO “GRIMALDELLO” CAUTO:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> NINO “GRIMALDELLO” CAUTO: 2d6(6,2)=8 +Attacco(1) = 9 vs Difesa(8) -> COLPITO
+    NINO “GRIMALDELLO” CAUTO subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 6/8).
+  IL CUSTODE DELLA CERA attacca NINO “GRIMALDELLO” CAUTO:
+    [ATTACCO NEMICO] IL CUSTODE DELLA CERA -> NINO “GRIMALDELLO” CAUTO: 2d6(1,4)=5 +Attacco(3) = 8 vs Difesa(8) -> COLPITO
+    NINO “GRIMALDELLO” CAUTO subisce 2 danno da IL CUSTODE DELLA CERA (Salute: 4/8).
+--- Combattimento contro il Custode della Cera ---
+--- Round 6: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    [ATTACCO] DOTT. ATTILIO MARN -> ADEPTO INCAPPUCCIATO: 2d6(1,2)=3 +VIGORE(2)+arma(1) = 6 vs Difesa(7) -> MANCATO
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> ADEPTO INCAPPUCCIATO: 2d6(4,6)=10 +VIGORE(2)+arma(1) = 13 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+  [MINACCIA] TRAPPOLA DI CERA (insidia) — L’eroe più avanzato prova NERVI (Media): se fallisce, cera bollente: 1 danno e perde 1 azi…
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6(4,5)=9 +NERVI(1) = 10 vs Media(9) -> SUCCESSO
+  IL FONDITORE si avvicina (Movimento 2): ancora 9 caselle prima di raggiungere il gruppo.
+  LO SGHERRO attacca NINO “GRIMALDELLO” CAUTO:
+    [ATTACCO NEMICO] LO SGHERRO -> NINO “GRIMALDELLO” CAUTO: 2d6(3,3)=6 +Attacco(2) = 8 vs Difesa(8) -> COLPITO
+    NINO “GRIMALDELLO” CAUTO subisce 1 danno da LO SGHERRO (Salute: 3/8).
+  LO SGHERRO attacca DOTT. ATTILIO MARN:
+    [ATTACCO NEMICO] LO SGHERRO -> DOTT. ATTILIO MARN: 2d6(4,3)=7 +Attacco(2) = 9 vs Difesa(8) -> COLPITO
+    DOTT. ATTILIO MARN subisce 1 danno da LO SGHERRO (Salute: 5/8).
+  IL CUSTODE DELLA CERA attacca DOTT. ATTILIO MARN:
+    [ATTACCO NEMICO] IL CUSTODE DELLA CERA -> DOTT. ATTILIO MARN: 2d6(5,1)=6 +Attacco(3) = 9 vs Difesa(8) -> COLPITO
+    DOTT. ATTILIO MARN subisce 2 danno da IL CUSTODE DELLA CERA (Salute: 3/8).
+--- Round 7: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    [ATTACCO] DOTT. ATTILIO MARN -> LO SGHERRO: 2d6(3,6)=9 +VIGORE(2)+arma(1) = 12 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> LO SGHERRO: 2d6(5,2)=7 +VIGORE(2)+arma(1) = 10 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+  [MINACCIA] LA MAREA DI CERA (posseduto) — Piazzate 1 Fonditore sull’ingresso della Banchina (T1): tutti i Fonditori in gioco si atti…
+    1x IL FONDITORE già in gioco si attiva subito.
+    Piazzati 1x IL FONDITORE (pool residua: 1), a 42 caselle dal gruppo.
+  IL FONDITORE attacca DOTT. ATTILIO MARN:
+    [ATTACCO NEMICO] IL FONDITORE -> DOTT. ATTILIO MARN: 2d6(1,2)=3 +Attacco(1) = 4 vs Difesa(8) -> MANCATO
+  LO SGHERRO attacca NINO “GRIMALDELLO” CAUTO:
+    [ATTACCO NEMICO] LO SGHERRO -> NINO “GRIMALDELLO” CAUTO: 2d6(1,6)=7 +Attacco(2) = 9 vs Difesa(8) -> COLPITO
+    NINO “GRIMALDELLO” CAUTO subisce 1 danno da LO SGHERRO (Salute: 2/8).
+  IL FONDITORE si avvicina (Movimento 2): ancora 40 caselle prima di raggiungere il gruppo.
+  IL CUSTODE DELLA CERA attacca DOTT. ATTILIO MARN:
+    [ATTACCO NEMICO] IL CUSTODE DELLA CERA -> DOTT. ATTILIO MARN: 2d6(3,5)=8 +Attacco(3) = 11 vs Difesa(8) -> COLPITO
+    DOTT. ATTILIO MARN subisce 2 danno da IL CUSTODE DELLA CERA (Salute: 1/8).
+--- Round 8: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    [ATTACCO] DOTT. ATTILIO MARN -> IL FONDITORE: 2d6(1,4)=5 +VIGORE(2)+arma(1) = 8 vs Difesa(8) -> COLPITO
+    IL FONDITORE: 1/2 ferite residue.
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> IL FONDITORE: 2d6(3,5)=8 +VIGORE(2)+arma(1) = 11 vs Difesa(8) -> COLPITO
+    IL FONDITORE: 0/2 ferite residue.
+    IL FONDITORE è ABBATTUTO.
+  [MINACCIA] VOLTI TRA LE CASSE (posseduto) — Piazzate 1 Adepto sull’uscita più vicina agli eroi della tessera corrente: si è intrufolat…
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 9), a 1 caselle dal gruppo.
+  LO SGHERRO attacca NINO “GRIMALDELLO” CAUTO:
+    [ATTACCO NEMICO] LO SGHERRO -> NINO “GRIMALDELLO” CAUTO: 2d6(2,5)=7 +Attacco(2) = 9 vs Difesa(8) -> COLPITO
+    NINO “GRIMALDELLO” CAUTO subisce 1 danno da LO SGHERRO (Salute: 1/8).
+  IL FONDITORE si avvicina (Movimento 2): ancora 38 caselle prima di raggiungere il gruppo.
+  ADEPTO INCAPPUCCIATO raggiunge il gruppo.
+  ADEPTO INCAPPUCCIATO attacca NINO “GRIMALDELLO” CAUTO:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> NINO “GRIMALDELLO” CAUTO: 2d6(4,6)=10 +Attacco(1) = 11 vs Difesa(8) -> COLPITO
+    NINO “GRIMALDELLO” CAUTO subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 0/8).
+    *** NINO “GRIMALDELLO” CAUTO è A TERRA. ***
+  IL CUSTODE DELLA CERA attacca DOTT. ATTILIO MARN:
+    [ATTACCO NEMICO] IL CUSTODE DELLA CERA -> DOTT. ATTILIO MARN: 2d6(2,4)=6 +Attacco(3) = 9 vs Difesa(8) -> COLPITO
+    DOTT. ATTILIO MARN subisce 2 danno da IL CUSTODE DELLA CERA (Salute: 0/8).
+    *** DOTT. ATTILIO MARN è A TERRA. ***
+
+==============================================================================
+ESITO SPEDIZIONE: SCONFITTA (party wipe)
+Round totali: 8
+Formula Minaccia: tetto3 | Azioni nominali/round: media 4.0, picco 4
+Mazzo Minaccia rimescolato: 0 volta/e
+Segnalini nemici esauriti nel pool (piazzamenti saltati): 0
+Custode della Cera svegliato: solo a T6 (mai in anticipo via Canto)
+  DOTT. ATTILIO MARN: a terra
+  NINO “GRIMALDELLO” CAUTO: a terra
+==============================================================================
