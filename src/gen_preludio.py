@@ -105,7 +105,7 @@ LUOGHI_P = [
     dict(n='P1', nome='IL PALAZZO DEL LUME', req='Disponibile dall’inizio',
          art='Palazzo del Lume.png',
          testo='Il palazzo della Società sa di cera d’api e di anni chiusi a chiave: undici poltrone '
-               'attorno a un tavolo, cinque ritratti alle pareti e un gancio vuoto dove il sesto è '
+               'attorno a un tavolo, dieci ritratti alle pareti e un gancio vuoto dove l’undicesimo è '
                'stato tolto. La stanza di Ansaldo è in fondo al corridoio, ordinata come una cella '
                'di monaco. M. vi osserva dalla soglia, e non tocca nulla.',
          indizi=['Il letto è intatto da tre notti, ma pipa e scialle sono ancora al chiodo: chi esce '
@@ -180,6 +180,72 @@ LUOGHI_P = [
                         'stesse imparando la cadenza.'),
          ]),
 ]
+
+# Descrizione allargata SOLO per Luoghi.pdf (il narratore, non i giocatori):
+# più sensoriale e atmosferica del testo terso stampato sulla carta Luogo,
+# utile per improvvisare la scena a voce. Non tocca le carte stampate - stessi
+# fatti, stesse battute di dialogo, mai nuove regole, solo più respiro attorno
+# (stesso pattern di LUOGHI_DESC in gen_narrator.py per l'Episodio 1).
+LUOGHI_P_DESC = {
+    'P1': 'Il palazzo della Società sa di cera d’api e di anni chiusi a chiave, un profumo dolce '
+          'e stantio che si deposita in gola prima ancora di superare la soglia. Nella sala del '
+          'consiglio, undici poltrone di pelle scura aspettano attorno al tavolo tondo, i '
+          'braccioli lucidi solo dove undici mani, per anni, li hanno stretti; alle pareti, dieci '
+          'ritratti in cornice ovale seguono ogni movimento con gli occhi dipinti di chi non deve '
+          'più rispondere a nessuno, e accanto all’ultimo un gancio vuoto — polvere più chiara '
+          'tutt’intorno, come un’ombra che si rifiuta di sbiadire — dove un undicesimo volto è '
+          'stato tolto, e nessuno, negli ultimi anni, ha mai spiegato perché. M. si ferma sulla '
+          'soglia e non entra: «Non ho toccato nulla», dice, e nella voce c’è più disagio che '
+          'rispetto per la scena. In fondo al corridoio, la stanza di Ansaldo è ordinata come una '
+          'cella di monaco: il letto rifatto, tre notti di polvere sul comodino, la pipa ancora al '
+          'chiodo accanto allo scialle — nessuno dei due oggetti che un uomo porta con sé se pensa '
+          'di non tornare. Più giù, nell’archivio, i graffi di due paia di stivali chiodati '
+          'incrociano il pavimento fin sotto lo scaffale del 1741, dove una pagina è stata '
+          'strappata di netto, e l’anello di chiavi di Ansaldo giace dimenticato sul tavolo, come '
+          'se chi l’ha lasciato non ne avesse più avuto bisogno.',
+    'P2': 'Dirimpetto al palazzo, oltre il ponte, la Taverna della Chiatta è il punto da cui tutta '
+          'la strada si vede senza essere visti: un tavolo vicino alla finestra appannata basta '
+          'per contare chi entra e chi esce dalla porta della Società. L’oste lucida bicchieri che '
+          'restano opachi qualunque cosa faccia, e parla con la facilità di chi ha raccontato la '
+          'stessa storia a troppi avventori per fermarsi ora — da queste parti un cliente nuovo è '
+          'un avvenimento, tre clienti nuovi sono già una leggenda, e voi, tutti insieme, siete già '
+          'la cena di qualcun altro stasera. Tre sere di fila, giura abbassando la voce, tre uomini '
+          'col passo dei moli si sono seduti proprio a quel tavolo, senza mai ordinare granché, gli '
+          'occhi sempre sul portone di fronte; uno di loro, l’ultima sera, ha lasciato cadere una '
+          'parola che qui non si usa, come una moneta falsa sul bancone. Più tardi, tra un '
+          'bicchiere e l’altro, qualcuno ricorda anche il nipote di Ansaldo, la voce alzata per un '
+          'debito, e nessuno che lo veda da allora. Ma è solo dopo le ventuno, quando l’acqua fuori '
+          'si fa nera e silenziosa, che l’ultimo avventore della sera prende posto senza dire una '
+          'parola: il barcaiolo della Chiatta, che di giorno vive sul canale e la sera, a volte, ha '
+          'voglia di parlare.',
+    'P3': 'Mezza Roccamora è passata da Fossa a impegnare l’altra metà, e lui lo sa: dietro la '
+          'grata di ferro battuto, il vecchio prestatore vi squadra come si squadra un anello '
+          'portato a vendere, cercando il difetto prima ancora del prezzo. Il suo registro, '
+          'rilegato in pelle consunta agli angoli, è la vera cronaca del quartiere — ogni pegno una '
+          'data, ogni data una disgrazia, basta saperlo leggere, o pagare la tariffa per farselo '
+          'leggere da lui. Le pagine più recenti raccontano più di quanto dovrebbero: ieri, un '
+          'orologio da tasca portato da «un signore con gli stivali chiodati» che puzzavano, dice '
+          'sottovoce, di sego e corda bagnata — roba da molo, non da città. La settimana prima, un '
+          'nome che conoscete: il nipote di Ansaldo, venuto a impegnare l’argenteria di famiglia '
+          'per saldare un debito di gioco, la notte stessa in cui suo zio è sparito — il prestatore '
+          'lo giurerebbe su quel registro, e non ha motivo di mentire per un ragazzo che gli deve '
+          'ancora dei soldi. Il vetro dell’orologio è incrinato, la corona macchiata di un sangue '
+          'ormai scuro: poco, un colpo solo, non una lotta.',
+    'P4': 'In fondo al canale di ponente, dove le lanterne pubbliche non arrivano più, la vecchia '
+          'dogana marcisce da vent’anni: banchina sfondata in tre punti, portoni murati con mattoni '
+          'più nuovi del resto, e una chiatta ormeggiata dove non dovrebbe esserci niente da '
+          'scaricare né da caricare. Un uomo, seduto su un bidone rovesciato, finge di pescare '
+          'senza esca in un’acqua che sa bene non dare nulla, e vi guarda arrivare per tutto il '
+          'molo senza mai voltare davvero la testa. Le casse ammucchiate sulla chiatta sono vuote e '
+          'nuove, il legno ancora chiaro: nessun carico, solo una scusa per restare ormeggiati a '
+          'guardare chi passa — e sotto la giacca del pescatore, quando si allunga per finta a '
+          'controllare la lenza, si intravede il calcio scuro di un coltellaccio. È chinandosi tra '
+          'le assi della banchina, però, che si sente: colpi ritmici, tre, una pausa, tre ancora, '
+          'troppo regolari per essere l’acqua o il legno che lavora. Qualcuno, là sotto, batte per '
+          'farsi sentire da chi ha ancora orecchie per ascoltare. Nel fango del molo, mezzo '
+          'affondato, un lembo di carta antica strappata mostra una linea che ondeggia — come '
+          'mezza onda, in cerca dell’altra metà.',
+}
 
 DOMANDE_P = ['1. DOVE è tenuto Ansaldo?',
              '2. COSA cercavano nel palazzo della Società?']
@@ -488,7 +554,7 @@ def luoghi():
             size -= 1
         c.setFillColor(RED); c.setFont(F['sc'], size)
         c.drawString(MX, H - 30*mm, L['nome'].lower())
-        d, dh = fit_desc(c, L['testo'])
+        d, dh = fit_desc(c, LUOGHI_P_DESC[L['n']])
         d.drawOn(c, MX, DESC_TOP - dh)
         c.setStrokeColor(SEPIA); c.setLineWidth(0.5)
         c.line(MX, ART_BOTTOM - 4*mm, W - MX, ART_BOTTOM - 4*mm)

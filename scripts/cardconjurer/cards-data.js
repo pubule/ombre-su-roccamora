@@ -368,7 +368,7 @@ const OGGETTI = [
 const PRELUDIO_LUOGHI = [
   { n: 'P1', nome: 'Il Palazzo del Lume', req: 'Disponibile dall’inizio',
     art: 'artworks/Palazzo del Lume.png',
-    testo: 'Il palazzo della Società sa di cera d’api e di anni chiusi a chiave: undici poltrone attorno a un tavolo, cinque ritratti alle pareti e un gancio vuoto dove il sesto è stato tolto. La stanza di Ansaldo è in fondo al corridoio, ordinata come una cella di monaco. M. vi osserva dalla soglia, e non tocca nulla.' },
+    testo: 'Il palazzo della Società sa di cera d’api e di anni chiusi a chiave: undici poltrone attorno a un tavolo, dieci ritratti alle pareti e un gancio vuoto dove l’undicesimo è stato tolto. La stanza di Ansaldo è in fondo al corridoio, ordinata come una cella di monaco. M. vi osserva dalla soglia, e non tocca nulla.' },
   { n: 'P2', nome: 'La Taverna della Chiatta', req: 'Disponibile dall’inizio',
     art: 'artworks/Taverna della Chiatta.png',
     testo: 'Dirimpetto al palazzo, oltre il ponte, la taverna è il posto da cui si vede chi entra e chi esce dalla porta della Società. L’oste lucida bicchieri che restano opachi e parla volentieri: da queste parti un cliente nuovo è un avvenimento, tre clienti nuovi sono una storia.' },

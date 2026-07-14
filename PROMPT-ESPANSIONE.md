@@ -484,7 +484,15 @@ Ogni testo deve far *vedere* la scena, non riassumerla. Regole:
   alle domande dei giocatori. Mai una nuova informazione o un indizio che non
   sia già altrove: solo più aria attorno agli stessi fatti. Le eventuali regole
   in chiaro (prove NERVI, danni, apparizioni) restano **testo verbatim**, mai
-  parafrasate: sono meccanica, non atmosfera.
+  parafrasate: sono meccanica, non atmosfera. **Vale per ogni fascicolo
+  `Luoghi.pdf` del progetto, incluso quello di un Preludio/mini-episodio**:
+  ogni generatore ha un proprio dizionario dedicato (`LUOGHI_DESC` in
+  `gen_narrator.py`, `LUOGHI_P_DESC` in `gen_preludio.py`, stesso nome
+  `*_DESC` per un episodio futuro) — **mai** passare a `fit_desc()` il campo
+  `testo` della carta fisica: sono due testi diversi con due scopi diversi,
+  anche se raccontano la stessa scena (bug reale successo nel Preludio:
+  `luoghi()` stampava `L['testo']`, lo stesso testo terso della carta, finché
+  non è stato introdotto `LUOGHI_P_DESC`).
 - **`Luoghi.pdf` — sezione indizi (leggeteli ad alta voce, sotto la descrizione
   atmosferica):** qui gli indizi sono riportati **verbatim**, esattamente come
   scritti per `LUOGHI[n]['indizi']` — stesso registro fattuale/asciutto della
@@ -558,10 +566,12 @@ Ogni testo deve far *vedere* la scena, non riassumerla. Regole:
 - [ ] Tutti i testi rispettano la bibbia di scrittura (flavor sulle Minacce,
       quadri sensoriali sui Luoghi, «Chi sei» sugli eroi) e stanno nei riquadri?
 - [ ] Il file PDF 06 (Aiuto-Giocatore) è aggiornato e sta ancora su una sola pagina?
-- [ ] `Luoghi.pdf` esiste per il nuovo episodio, con una pagina per luogo (più le
-      tessere che nascondono un oggetto), descrizione atmosferica densa (non il testo
-      terso della carta), sezione **indizi verbatim leggibile ad alta voce** ed elenco
-      Approfondimenti/Oggetto (solo per chi arbitra) corretto?
+- [ ] `Luoghi.pdf` esiste per il nuovo episodio (Preludio incluso, se previsto), con una
+      pagina per luogo (più le tessere che nascondono un oggetto), descrizione
+      atmosferica densa da un dizionario `*_DESC` **dedicato** (mai il campo `testo`
+      della carta fisica passato direttamente a `fit_desc()`), sezione **indizi verbatim
+      leggibile ad alta voce** ed elenco Approfondimenti/Oggetto (solo per chi arbitra)
+      corretto?
 - [ ] Le carte Luogo mostrano **solo** il testo d'apertura (mai gli indizi)? Ogni carta
       Approfondimento resta sotto ~65-70 parole (verificato a video, non solo contate)?
 - [ ] Hai guardato ogni pagina di `Luoghi.pdf` a confronto con l'arte originale in
