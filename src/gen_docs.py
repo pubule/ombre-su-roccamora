@@ -119,8 +119,9 @@ def regolamento():
                "cinque, gli altri restano di riserva (potete cambiarli tra un episodio e l\u2019altro; "
                "migliorie e cicatrici restano a chi le ha guadagnate). Per scegliere, stendete sul "
                "tavolo le <b>11 carte Eroe</b> (ritratto, ruolo, chi sono \u2014 cartelle "
-               "<b>cards/Eroi/</b>): ogni giocatore ne prende una (in 2 giocatori potete anche "
-               "guidarne due a testa), poi passa alla Scheda Personaggio corrispondente per "
+               "<b>cards/Eroi/</b>): ogni giocatore ne prende una (in 2 giocatori vi consigliamo "
+               "di guidarne due a testa: con solo due eroi in campo l\u2019indagine regge peggio), "
+               "poi passa alla Scheda Personaggio corrispondente per "
                "statistiche e abilit\u00e0. Scegliere chi portare \u00e8 gi\u00e0 una mossa: ogni eroe apre "
                "porte diverse nell\u2019Indagine, e chi lasciate a casa le lascia chiuse. Ogni eroe "
                "ha tre caratteristiche:"))

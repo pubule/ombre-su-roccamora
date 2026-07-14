@@ -1,0 +1,35 @@
+Run: run-14_dieci_2gruppi_orologio-condiviso  |  seed=9301  |  generato: 2026-07-14T15:23:03
+==============================================================================
+INDAGINE (2 SOTTOGRUPPI, diagnostica) - Episodio 1: "Il Coro Sommerso"
+==============================================================================
+Sottogruppo A: ELENA FOSCO, SIBILLA REVE, OTTONE “MEZZENA” MASSARI, PADRE CELSO MARANI, OTTAVIO BRERA
+Sottogruppo B: DOTT. ATTILIO MARN, NINO “GRIMALDELLO” CAUTO, DOTT. LAZZARO SERRA, FULGENZIO CARBONE, MORA “SPILLA” FANTI
+Orologio: condiviso (1 ora per visita, di qualunque sottogruppo)
+
+  [A] Visita Luogo 1 — Il Campanile di San Teodoro
+    [PROVA ACUME] ELENA FOSCO: 2d6(3,3)=6 +ACUME(3) = 9 vs Media(9) -> SUCCESSO
+    [A] [APPROFONDIMENTO Osservazione] sbloccato da ELENA FOSCO.
+    [A] [APPROFONDIMENTO Referto] sbloccato da SIBILLA REVE (jolly).
+  [B] Visita Luogo 3 — Taverna del Ponte Rotto
+    [PROVA ACUME] DOTT. LAZZARO SERRA: 2d6(4,5)=9 +ACUME(3) = 12 vs Media(9) -> SUCCESSO
+    [B] [APPROFONDIMENTO Testimonianza] nessun eroe idoneo — non letto.
+    [B] [APPROFONDIMENTO Presagio] sbloccato da DOTT. LAZZARO SERRA.
+  [A] Visita Luogo 2 — Casa di Ruggero
+    [PROVA ACUME] ELENA FOSCO: 2d6(5,6)=11 +ACUME(3) = 14 vs Media(9) -> SUCCESSO
+    [A] [APPROFONDIMENTO Testimonianza] sbloccato da OTTONE “MEZZENA” MASSARI.
+  [B] Visita Luogo 5 — Bottega del Liutaio Ferri
+    [PROVA ACUME] DOTT. LAZZARO SERRA: 2d6(5,5)=10 +ACUME(3) = 13 vs Media(9) -> SUCCESSO
+    [B] [APPROFONDIMENTO Osservazione] nessun eroe idoneo — non letto.
+    [B] [APPROFONDIMENTO Referto] sbloccato da DOTT. ATTILIO MARN.
+  [A] Visita Luogo 4 — La Sagrestia della Cattedrale
+    [PROVA ACUME] ELENA FOSCO: 2d6(2,4)=6 +ACUME(3) = 9 vs Media(9) -> SUCCESSO
+    [A] [APPROFONDIMENTO Osservazione] sbloccato da ELENA FOSCO.
+    [A] [APPROFONDIMENTO Testimonianza] nessun eroe idoneo — non letto.
+  [B] Visita Luogo 6 — Il Canale Basso
+    [PROVA ACUME] DOTT. LAZZARO SERRA: 2d6(6,1)=7 +ACUME(3) = 10 vs Media(9) -> SUCCESSO
+    [B] [APPROFONDIMENTO Testimonianza] nessun eroe idoneo — non letto.
+    [B] [APPROFONDIMENTO Presagio] nessun eroe idoneo — non letto.
+
+Fine Indagine (2 sottogruppi): 6/8 luoghi visitati (TUTTI, se 8), 6 Approfondimenti letti, 5 mancati.
+Ore avanzate (min tra i sottogruppi se orologio separato): 0 -> nessun vantaggio
+

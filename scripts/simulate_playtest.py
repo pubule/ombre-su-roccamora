@@ -21,6 +21,21 @@ di ogni log):
 - L'Indagine sceglie i luoghi con un'euristica fissa (priorita' a chi
   sblocca altri luoghi), non un vero giocatore: serve a generare una
   partita plausibile e loggabile, non a "risolvere" il caso in modo ottimo.
+- Il Custode della Cera si desta al 3° segnalino Canto ANCHE prima di
+  raggiungere T6 (regola vera, Soluzione: "oppure al terzo segnalino
+  Canto... piazzatelo sulla tessera piu' lontana dagli eroi") - prima di
+  questa istrumentazione (sessione dedicata a party da 8-10 eroi) il
+  codice si limitava a loggare un avviso senza spawnarlo davvero: gap
+  corretto qui perche' l'ipotesi "il Custode si sveglia troppo presto con
+  piu' Minacce pescate a round" non era altrimenti misurabile. Stessa
+  correzione per "da quel momento ogni Fase Minaccia pesca 1 carta in
+  piu'" (`canto_bonus_carte`), applicata una volta sola al raggiungimento
+  di 3 segnalini indipendentemente da quando/come il Custode e' spawnato.
+- Formula di pesca Minaccia parametrizzata (`MINACCIA_FORMULE`): la regola
+  vera (`eroi // 2`, arrotondato per eccesso nel Regolamento ma per difetto
+  con minimo 1 in questo codice, invariato) resta il default 'standard';
+  altre chiavi sono varianti diagnostiche per party grandi, non regole
+  ufficiali.
 
 Uso: python scripts/simulate_playtest.py
 """
@@ -72,6 +87,57 @@ CASELLE_TESSERA = 6
 # azione di ciascun eroe resta quella gia' gestita in fase_eroi (Attaccare/
 # Cercare/Interagire/Rianimare/Abilita').
 GUADAGNO_GRUPPO = 3
+
+# Formula di pesca Minaccia a round, per party size (chiave -> funzione
+# eroi_vivi -> n_carte). 'standard' e' la regola vera del Regolamento
+# (eroi//2, minimo 1). Le altre sono ipotesi diagnostiche da confrontare
+# per party da 8-10, non proposte di regola gia' decise (vedi piano
+# "portare il gioco a 10 giocatori"): 'tetto3'/'tetto4' bloccano la
+# crescita oltre il ritmo gia' rodato a 5-6/8 eroi, per capire se il
+# Canto/pool nemici reggono meglio con meno carte extra a round.
+MINACCIA_FORMULE = {
+    'standard': lambda n: max(1, n // 2),
+    'tetto3': lambda n: max(1, min(n // 2, 3)),
+    'tetto4': lambda n: max(1, min(n // 2, 4)),
+    # Round 4: come tetto4 fino a 8 eroi, poi si ferma a 3 oltre (invece di
+    # restare fissa a 4) - ipotesi per abbassare il tetto massimo di carte/
+    # round proprio dove il risveglio anticipato del Custode sembrava piu'
+    # rischioso nel round 3, senza toccare il ritmo gia' visto fino a 8.
+    'tetto2_oltre8': lambda n: max(1, min(n // 2, 4) if n <= 8 else 3),
+    # Round 6: come tetto3 ma il tetto di 3 carte si raggiunge a n=8 invece
+    # che a n=6 (a 6 eroi restano 2 carte/round). Motivo: round 5 ha isolato
+    # un crollo reale a n=6 con curva-C (0-13% vittoria su 5 party casuali
+    # diversi) - a n=6 e n=8 tetto3 dava la STESSA pressione nemica (3
+    # carte) ma n=6 ha 2 eroi in meno per assorbirla. Sequenza: 1,2,2,3,3.
+    'tetto3_ritardato': lambda n: max(1, min(1 + (n + 1) // 4, 3)),
+}
+
+# Scalatura statistiche nemiche per party grandi (diagnostica, non regola
+# vera): n -> (bonus Ferite, bonus Danno), applicato a tutti i nemici
+# incluso il Custode. Round 4: SOLO Ferite (niente piu' bonus Danno - il
+# round 3 ha mostrato che il Danno e' la leva piu' instabile: si moltiplica
+# per ogni nemico che colpisce nello stesso round, mentre un bonus Ferite
+# e' in parte auto-compensato da "piu' eroi = anche piu' attacchi dei
+# giocatori"), curve che partono prima di n=5 (oggi 4 e 6 restavano a
+# vittoria 100%, bonus 0) e crescono a passi piu' piccoli per evitare il
+# salto netto 6->8 visto con le vecchie formule 'lieve'/'marcata'.
+NEMICO_SCALE_FORMULE = {
+    'nessuna': lambda n: (0, 0),
+    'curva-A': lambda n: (max(0, (n - 3) // 3), 0),               # 2:0 4:0 6:1 8:1 10:2
+    'curva-B': lambda n: (max(0, (n - 1) // 3), 0),               # 2:0 4:1 6:1 8:2 10:3
+    'curva-C': lambda n: (max(0, round((n - 2) / 2.5)), 0),       # 2:0 4:1 6:2 8:2 10:3
+    # Round 6: curva-C ma con bonus 0 sotto i 6 eroi (invece di partire gia'
+    # a n=4). A n=4 'nessuna' scalatura da' gia' 95-100% vittoria - il
+    # bonus prematuro di curva-C la faceva crollare al 42-53% senza motivo
+    # (stesso tipo di bug del tetto Minaccia troppo precoce, vedi
+    # tetto3_ritardato). Da n=6 in su identica a curva-C.
+    'curva-C_tardiva': lambda n: (max(0, round((n - 2) / 2.5)) if n >= 6 else 0, 0),  # 2:0 4:0 6:2 8:2 10:3
+}
+
+# Copie extra di miniature stampabili per party grandi (diagnostica): "non
+# il doppio" (richiesta esplicita) - +1 copia per tipo ogni 4 eroi oltre 5.
+def token_pool_extra(n_eroi):
+    return max(0, (n_eroi - 5) // 4)
 
 # titolo carta Minaccia -> (nemico da piazzare, quanti, si attiva subito)
 CARD_SPAWN = {
@@ -217,6 +283,18 @@ class Logger:
 
     def close(self):
         self.f.close()
+
+
+class NullLogger:
+    """Per i batch multi-seed (Fase C, round 2): solo il primo seed di ogni
+    batch scrive log dettagliati su disco (utile per un controllo a
+    campione), gli altri 4 usano questo per non moltiplicare i file - le
+    statistiche aggregate restano comunque calcolate su tutti e 5."""
+    def __call__(self, line=''):
+        pass
+
+    def close(self):
+        pass
 
 
 def simula_indagine(party, log):
@@ -406,33 +484,174 @@ def simula_indagine(party, log):
                 chi_confermato=chi_confermato)
 
 
-def spawn_from_card(log, title, pool, enemies, round_n):
+def simula_indagine_2gruppi(party, log, orologio_condiviso=True):
+    """Diagnostica per 8-10 giocatori (NON una regola vera): il party si
+    divide in 2 sottogruppi per l'intera Indagine (oggi la regola vera lo
+    permette una sola volta a episodio, vedi Regolamento) - serve a
+    misurare se la scarsita' "non potete visitare tutti gli 8 luoghi",
+    elemento centrale della tensione della Fase 1, regge ancora quando il
+    throughput raddoppia. `orologio_condiviso=True`: una visita di UN
+    sottogruppo costa comunque solo 1 ora dal Taccuino comune (come la
+    regola vera per la divisione singola, estesa qui a ogni visita).
+    `orologio_condiviso=False`: ogni sottogruppo ha le proprie 6 ore
+    indipendenti. Parole chiave/oggetti/Approfondimenti trovati da un
+    sottogruppo restano disponibili per l'altro (stessa indagine, stesso
+    Taccuino fisico) - solo `visitati` e' condiviso per evitare doppie
+    visite allo stesso luogo."""
+    log('=' * 78)
+    log('INDAGINE (2 SOTTOGRUPPI, diagnostica) - Episodio 1: "Il Coro Sommerso"')
+    log('=' * 78)
+    meta = len(party) // 2
+    gruppi = {'A': party[0::2], 'B': party[1::2]}  # alternati: copertura tipi piu' bilanciata dei due
+    log(f'Sottogruppo A: {", ".join(gruppi["A"])}')
+    log(f'Sottogruppo B: {", ".join(gruppi["B"])}')
+    log(f'Orologio: {"condiviso (1 ora per visita, di qualunque sottogruppo)" if orologio_condiviso else "separato (6 ore a testa)"}')
+    log('')
+
+    visitati = set()
+    parole, oggetti = set(), set()
+    diapason = False
+    approf_letti, approf_falliti = 0, 0
+    chi_confermato = False
+    charges = {g: {n: dict(INDAGINE_UNLOCK.get(n, {})) for n in gruppi[g]} for g in gruppi}
+    ore = {'A': 6, 'B': 6} if not orologio_condiviso else {'condivisa': 6}
+
+    def tipi_coperti(g):
+        tc, jolly = set(), False
+        for n in gruppi[g]:
+            for tipo in INDAGINE_UNLOCK.get(n, {}):
+                if tipo == 'jolly':
+                    jolly = True
+                else:
+                    tc.add(tipo)
+        if jolly:
+            tc |= {'Osservazione', 'Testimonianza', 'Referto', 'Presagio'}
+        return tc
+
+    tc_gruppo = {g: tipi_coperti(g) for g in gruppi}
+
+    def luogo_raggiungibile(l):
+        if l['n'] in visitati:
+            return False
+        req = l.get('req')
+        if req is None:
+            return True
+        kind, key = req
+        return key in (parole if kind == 'parola' else oggetti)
+
+    def punteggio(l, g):
+        strutturale = 0 if l['n'] in (1, 2, 3) else 1
+        copertura = -sum(1 for t in l['approf'] if t in tc_gruppo[g])
+        return (strutturale, copertura, l['n'])
+
+    def tenta_approfondimenti(l, g):
+        nonlocal approf_letti, approf_falliti, chi_confermato
+        for tipo in l['approf']:
+            idoneo = next((n for n in gruppi[g] if
+                           charges[g][n].get(tipo, 0) > 0 or charges[g][n].get('jolly', 0) > 0), None)
+            if idoneo:
+                usa_jolly = charges[g][idoneo].get(tipo, 0) <= 0
+                charges[g][idoneo]['jolly' if usa_jolly else tipo] -= 1
+                approf_letti += 1
+                log(f'    [{g}] [APPROFONDIMENTO {tipo}] sbloccato da {idoneo}'
+                    f'{" (jolly)" if usa_jolly else ""}.')
+                if (l['n'], tipo) in CHI_ESPLICITO:
+                    chi_confermato = True
+            else:
+                approf_falliti += 1
+                log(f'    [{g}] [APPROFONDIMENTO {tipo}] nessun eroe idoneo — non letto.')
+
+    def visita(g, l):
+        nonlocal diapason, approf_falliti
+        visitati.add(l['n'])
+        log(f'  [{g}] Visita Luogo {l["n"]} — {l["nome"]}')
+        lettore = max(gruppi[g], key=lambda n: HERO[n]['acume'])
+        ok, _ = check(log, lettore, 'ACUME', HERO[lettore]['acume'], 'Media')
+        if l.get('sblocca_parola'):
+            parole.add(l['sblocca_parola'])
+        if l.get('sblocca_oggetto'):
+            oggetti.add(l['sblocca_oggetto'])
+        if l.get('diapason'):
+            diapason = True
+        if ok:
+            tenta_approfondimenti(l, g)
+        else:
+            approf_falliti += len(l['approf'])
+
+    if orologio_condiviso:
+        turno = 0
+        while ore['condivisa'] > 0:
+            g = 'A' if turno % 2 == 0 else 'B'
+            candidati = sorted((l for l in LUOGHI_SIM if luogo_raggiungibile(l)), key=lambda l: punteggio(l, g))
+            if not candidati:
+                # prova l'altro sottogruppo prima di arrendersi: puo' vedere luoghi
+                # diversi solo per copertura tipi, non per raggiungibilita' (quella
+                # e' oggettiva), quindi in pratica qui i candidati coincidono - ma
+                # teniamo la struttura simmetrica per chiarezza del log.
+                break
+            visita(g, candidati[0])
+            ore['condivisa'] -= 1
+            turno += 1
+        ore_avanzate = ore['condivisa']
+    else:
+        for g in gruppi:
+            while ore[g] > 0:
+                candidati = sorted((l for l in LUOGHI_SIM if luogo_raggiungibile(l)), key=lambda l: punteggio(l, g))
+                if not candidati:
+                    break
+                visita(g, candidati[0])
+                ore[g] -= 1
+        ore_avanzate = min(ore.values())  # il Vantaggio della Spedizione vale per tutto il party
+
+    if ore_avanzate >= 3:
+        tier = 'SLANCIO (3 azioni al 1° round di spedizione)'
+    elif ore_avanzate >= 1:
+        tier = 'PREPARATI (+1 Salute massima a testa)'
+    else:
+        tier = 'nessun vantaggio'
+    log('')
+    log(f'Fine Indagine (2 sottogruppi): {len(visitati)}/8 luoghi visitati (TUTTI, se 8), '
+        f'{approf_letti} Approfondimenti letti, {approf_falliti} mancati.')
+    log(f'Ore avanzate (min tra i sottogruppi se orologio separato): {ore_avanzate} -> {tier}')
+    log('')
+    return dict(ore_avanzate=ore_avanzate, tier=tier, diapason=diapason, visitati=list(visitati),
+                chi_confermato=chi_confermato, luoghi_coperti=len(visitati))
+
+
+def spawn_from_card(log, title, pool, enemies, round_n, fer_bonus=0, dan_bonus=0):
     nome, n, subito = CARD_SPAWN[title]
     dist_base = SPAWN_DISTANZA.get(title, 0)
     distanza = dist_base if dist_base is not None else CASELLE_TESSERA * max(1, round_n)
     piazzati = 0
+    esauriti = 0
     for _ in range(n):
         if pool[nome] <= 0:
             log(f'    Segnalini {nome} esauriti: il piazzamento non ha luogo (resto della carta si applica comunque).')
+            esauriti += 1
             continue
         pool[nome] -= 1
         piazzati += 1
         base = NEMICO[nome]
-        enemies.append(dict(nome=nome, fer=base['fer'], fer_max=base['fer'], dif=base['dif'],
-                             att=base['att'], dan=base['dan'], mov=base['mov'], distanza=distanza))
+        fer_tot = base['fer'] + fer_bonus
+        enemies.append(dict(nome=nome, fer=fer_tot, fer_max=fer_tot, dif=base['dif'],
+                             att=base['att'], dan=base['dan'] + dan_bonus, mov=base['mov'], distanza=distanza))
     if piazzati:
         extra = f', a {distanza} caselle dal gruppo' if distanza > 0 else ', già adiacenti'
         log(f'    Piazzati {piazzati}x {nome} (pool residua: {pool[nome]}){extra}.')
-    return subito and piazzati
+    return (subito and piazzati), esauriti
 
 
-def simula_spedizione(party, indagine, log, run_seed):
+def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard',
+                       nemico_scale='nessuna', pool_extra=False):
     log('=' * 78)
     log('SPEDIZIONE - Il Campanile di San Teodoro (sotterranei)')
     log('=' * 78)
     log(f'Party: {", ".join(party)}')
     log(f'Bonus da Indagine: {indagine["tier"]}; diapason: {"sì" if indagine["diapason"] else "no"}')
     log('NOTA: gruppo trattato come blocco unico tessera per tessera (vedi intestazione script).')
+    fer_bonus, dan_bonus = NEMICO_SCALE_FORMULE[nemico_scale](len(party))
+    if fer_bonus or dan_bonus:
+        log(f'Scalatura nemici ({nemico_scale}): +{fer_bonus} Ferite, +{dan_bonus} Danno su ogni nemico incluso il Custode.')
     log('')
 
     salute = {}
@@ -445,6 +664,12 @@ def simula_spedizione(party, indagine, log, run_seed):
         salute_max[n] = smax
     down = set()
     pool = dict(TOKEN_POOL_BASE)
+    if pool_extra:
+        extra = token_pool_extra(len(party))
+        if extra:
+            log(f'Pool nemici aumentato (+{extra} copie per tipo, diagnostica "non il doppio").')
+            for k in pool:
+                pool[k] += extra
     enemies = []
     canto = 0
     custode = None
@@ -456,6 +681,19 @@ def simula_spedizione(party, indagine, log, run_seed):
     ruggero_libero = False
     tessere_cercate = set()  # luogo_label gia' perquisiti (Cercare, una volta a tessera)
     n_players_actions = len(party) * 2
+
+    # Diagnostica per party grandi (8-10 eroi): non regole di gioco, solo
+    # metriche per confrontare formule/party size nel riepilogo finale.
+    rimescolamenti_mazzo = 0
+    pool_esauriti_totale = 0
+    azioni_per_round = []  # azioni nominali (2/eroe vivo, 3 al 1° round con SLANCIO)
+    round_custode_svegliato = None
+    canto_bonus_carte = False  # "da quel momento ogni Fase Minaccia pesca 1 carta in piu'"
+
+    def log_azioni_round():
+        n_azioni = len(vivi()) * (3 if (round_n == 1 and indagine['tier'].startswith('SLANCIO')) else 2)
+        azioni_per_round.append(n_azioni)
+        log(f'    (azioni nominali questo round: {n_azioni} — {len(vivi())} eroi vivi)')
 
     ability_uses = {n: dict() for n in party}
     for n in party:
@@ -489,8 +727,9 @@ def simula_spedizione(party, indagine, log, run_seed):
     scarti = []
 
     def pesca():
-        nonlocal deck, scarti
+        nonlocal deck, scarti, rimescolamenti_mazzo
         if not deck:
+            rimescolamenti_mazzo += 1
             log('    Mazzo Minaccia esaurito: si rimescolano gli scarti.')
             deck = scarti
             scarti = []
@@ -529,8 +768,8 @@ def simula_spedizione(party, indagine, log, run_seed):
     esito = None
 
     def fase_minaccia():
-        nonlocal canto, custode, custode_stunned
-        n_carte = max(1, len(vivi()) // 2)
+        nonlocal canto, custode, custode_stunned, pool_esauriti_totale, canto_bonus_carte, round_custode_svegliato
+        n_carte = MINACCIA_FORMULE[formula_minaccia](len(vivi())) + (1 if canto_bonus_carte else 0)
         for _ in range(n_carte):
             if ability_uses.get('_scruta_hero'):
                 pass
@@ -547,7 +786,9 @@ def simula_spedizione(party, indagine, log, run_seed):
                         e['distanza'] = 0
                     if fonditori_esistenti:
                         log(f'    {len(fonditori_esistenti)}x IL FONDITORE già in gioco si attiva subito.')
-                subito_attiva = spawn_from_card(log, titolo, pool, enemies, round_n)
+                subito_attiva, esauriti = spawn_from_card(log, titolo, pool, enemies, round_n,
+                                                           fer_bonus, dan_bonus)
+                pool_esauriti_totale += esauriti
                 if subito_attiva and vivi():
                     e = enemies[-1]
                     bersaglio = random.choice(vivi())
@@ -564,11 +805,31 @@ def simula_spedizione(party, indagine, log, run_seed):
                     if not ok and dan:
                         applica_danno(b, dan, titolo)
             elif titolo in CRESCENDO:
+                canto += 1
+                log(f'    Segnalino Canto: {canto}.')
+                if canto >= 3 and not canto_bonus_carte:
+                    canto_bonus_carte = True
+                    log('    Il Canto raggiunge 3: da ora ogni Fase Minaccia pesca 1 carta in più '
+                        '(fino a fine spedizione, anche se il Custode è già stato abbattuto).')
                 if custode is None:
-                    canto += 1
-                    log(f'    Segnalino Canto: {canto}/3.')
                     if canto >= 3:
-                        log('    Il Canto raggiunge 3: il Custode della Cera si desta in anticipo!')
+                        round_custode_svegliato = round_n
+                        log('    Il Custode della Cera si desta in anticipo (3° segnalino Canto), '
+                            'sulla tessera più lontana dagli eroi!')
+                        c_fer = CUSTODE['fer'] + fer_bonus
+                        custode = dict(CUSTODE, fer=c_fer, fer_max=c_fer, dan=CUSTODE['dan'] + dan_bonus,
+                                       distanza=CASELLE_TESSERA)
+                        for _ in range(2):
+                            if pool['ADEPTO INCAPPUCCIATO'] <= 0:
+                                pool_esauriti_totale += 1
+                                log('    Segnalini ADEPTO INCAPPUCCIATO esauriti: il Custode si desta senza scorta.')
+                                continue
+                            pool['ADEPTO INCAPPUCCIATO'] -= 1
+                            base = NEMICO['ADEPTO INCAPPUCCIATO']
+                            a_fer = base['fer'] + fer_bonus
+                            enemies.append(dict(nome='ADEPTO INCAPPUCCIATO', fer=a_fer, fer_max=a_fer,
+                                                 dif=base['dif'], att=base['att'], dan=base['dan'] + dan_bonus,
+                                                 mov=base['mov'], distanza=CASELLE_TESSERA))
                 elif custode['fer'] > 0:
                     custode['fer'] = min(custode['fer_max'], custode['fer'] + 1)
                     custode_stunned = False
@@ -618,6 +879,19 @@ def simula_spedizione(party, indagine, log, run_seed):
                 log(f'  {custode["nome"]} salta l’attivazione (diapason).')
                 custode_stunned = False
             else:
+                # Svegliato in anticipo dal Canto (vedi fase_minaccia): parte "sulla
+                # tessera piu' lontana dagli eroi" (regola vera), quindi deve
+                # colmare distanza come un nemico qualunque prima di attaccare.
+                # Svegliato a T6 invece e' gia' nella stessa stanza (distanza=0,
+                # comportamento invariato).
+                c_distanza = custode.get('distanza', 0)
+                if c_distanza > 0:
+                    custode['distanza'] = max(0, c_distanza + guadagno - custode['mov'])
+                    if custode['distanza'] > 0:
+                        log(f'  {custode["nome"]} si avvicina (Movimento {custode["mov"]}): ancora '
+                            f'{custode["distanza"]} caselle prima di raggiungere il gruppo.')
+                        return
+                    log(f'  {custode["nome"]} raggiunge il gruppo.')
                 bersaglio = random.choice(vivi())
                 log(f'  {custode["nome"]} attacca {bersaglio}:')
                 if enemy_attack_roll(log, custode['nome'], custode['att'], bersaglio, 8):
@@ -697,7 +971,13 @@ def simula_spedizione(party, indagine, log, run_seed):
                         log(f'    {bersaglio_e["nome"]} è ABBATTUTO.')
                         if bersaglio_e is custode:
                             log('    *** IL CUSTODE DELLA CERA È SCONFITTO. ***')
-                        elif ability_uses[n].get('cleave_per_turno'):
+                        else:
+                            # La miniatura torna disponibile (si toglie dal tavolo, non
+                            # si consuma): senza questo il pool sembrava esaurirsi molto
+                            # piu' spesso di quanto accada davvero al tavolo fisico -
+                            # bug trovato confrontando i numeri round 1 vs round 2.
+                            pool[bersaglio_e['nome']] += 1
+                        if bersaglio_e is not custode and ability_uses[n].get('cleave_per_turno'):
                             altri = [e for e in enemies
                                      if e is not bersaglio_e and e['fer'] > 0 and e.get('distanza', 0) <= 0]
                             if altri:
@@ -706,6 +986,9 @@ def simula_spedizione(party, indagine, log, run_seed):
                                 if attack_roll(log, n, h['vigore'], armed[n], extra['nome'], extra['dif']):
                                     extra['fer'] -= 1
                                     log(f'    {extra["nome"]}: {max(extra["fer"], 0)}/{extra["fer_max"]} ferite residue.')
+                                    if extra['fer'] <= 0:
+                                        log(f'    {extra["nome"]} è ABBATTUTO.')
+                                        pool[extra['nome']] += 1
                 continue
             # Senza bersaglio in mischia, un eroe non sta comunque fermo (regola vera:
             # Rianimare e Cercare sono azioni disponibili a chiunque, non solo ad
@@ -734,6 +1017,7 @@ def simula_spedizione(party, indagine, log, run_seed):
     for tappa in path:
         round_n += 1
         log(f'--- Round {round_n}: il gruppo raggiunge {tappa} ---')
+        log_azioni_round()
         if tappa.startswith('T5') and round_n:
             for n in vivi():
                 bonus, chi_bonus = voce_ferma_bonus()
@@ -754,13 +1038,15 @@ def simula_spedizione(party, indagine, log, run_seed):
                     f'modellato oltre il log). La chiave resta comunque sua.')
         if tappa.startswith('T6') and custode is None:
             log('    Rivelata la Cripta della Cera: il Custode della Cera si desta con 2 Adepti.')
-            custode = dict(CUSTODE, fer_max=CUSTODE['fer'])
+            c_fer = CUSTODE['fer'] + fer_bonus
+            custode = dict(CUSTODE, fer=c_fer, fer_max=c_fer, dan=CUSTODE['dan'] + dan_bonus)
             pool['ADEPTO INCAPPUCCIATO'] -= 2
             for _ in range(2):
                 base = NEMICO['ADEPTO INCAPPUCCIATO']
-                enemies.append(dict(nome='ADEPTO INCAPPUCCIATO', fer=base['fer'], fer_max=base['fer'],
-                                     dif=base['dif'], att=base['att'], dan=base['dan'], mov=base['mov'],
-                                     distanza=0))  # rivelati nella stessa stanza del gruppo
+                a_fer = base['fer'] + fer_bonus
+                enemies.append(dict(nome='ADEPTO INCAPPUCCIATO', fer=a_fer, fer_max=a_fer,
+                                     dif=base['dif'], att=base['att'], dan=base['dan'] + dan_bonus,
+                                     mov=base['mov'], distanza=0))  # rivelati nella stessa stanza del gruppo
         diapason = {'has': indagine['diapason']}
         fase_eroi(tappa)
         fase_minaccia()
@@ -777,6 +1063,7 @@ def simula_spedizione(party, indagine, log, run_seed):
         while custode['fer'] > 0 and vivi():
             round_n += 1
             log(f'--- Round {round_n}: scontro nella Cripta della Cera ---')
+            log_azioni_round()
             fase_eroi('T6')
             fase_minaccia()
             fase_nemici('T6', False)
@@ -804,6 +1091,7 @@ def simula_spedizione(party, indagine, log, run_seed):
         for _ in range(3):
             round_n += 1
             log(f'--- Round {round_n}: rientro verso T1 ---')
+            log_azioni_round()
             fase_eroi('rientro')
             fase_minaccia()
             fase_nemici('rientro', True)
@@ -813,30 +1101,163 @@ def simula_spedizione(party, indagine, log, run_seed):
         if esito is None:
             esito = 'VITTORIA'
 
+    azioni_media = sum(azioni_per_round) / len(azioni_per_round) if azioni_per_round else 0
+    azioni_max = max(azioni_per_round) if azioni_per_round else 0
     log('')
     log('=' * 78)
     log(f'ESITO SPEDIZIONE: {esito}')
     log(f'Round totali: {round_n}')
+    log(f'Formula Minaccia: {formula_minaccia} | Azioni nominali/round: media {azioni_media:.1f}, '
+        f'picco {azioni_max}')
+    log(f'Mazzo Minaccia rimescolato: {rimescolamenti_mazzo} volta/e')
+    log(f'Segnalini nemici esauriti nel pool (piazzamenti saltati): {pool_esauriti_totale}')
+    log(f'Custode della Cera svegliato: {"in anticipo al round " + str(round_custode_svegliato) if round_custode_svegliato else "solo a T6 (mai in anticipo via Canto)"}')
     for n in party:
         stato = 'a terra' if n in down else f'{max(salute[n], 0)}/{salute_max[n]} Salute'
         log(f'  {n}: {stato}')
     log('=' * 78)
-    return dict(esito=esito, round_n=round_n, salute_finale=dict(salute), down=list(down))
+    return dict(esito=esito, round_n=round_n, salute_finale=dict(salute), down=list(down),
+                formula_minaccia=formula_minaccia, nemico_scale=nemico_scale, pool_extra=pool_extra,
+                azioni_media=azioni_media, azioni_max=azioni_max,
+                rimescolamenti_mazzo=rimescolamenti_mazzo, pool_esauriti_totale=pool_esauriti_totale,
+                round_custode_svegliato=round_custode_svegliato)
 
 
-def esegui_run(nome_run, party, seed):
+def esegui_run(nome_run, party, seed, formula_minaccia='standard', indagine_2gruppi=None,
+               nemico_scale='nessuna', pool_extra=False, ind_log=None, sped_log=None):
+    """`indagine_2gruppi`: None = Indagine normale (1 gruppo, regola vera).
+    True/False = diagnostica 2 sottogruppi, valore = orologio_condiviso.
+    `ind_log`/`sped_log`: passa un Logger/NullLogger gia' pronto (usato da
+    `esegui_batch` per i seed 2-5, che non scrivono su disco); se omessi
+    ne crea di normali su `logs/playtest/<sessione>/<nome_run>/`."""
     random.seed(seed)
-    run_dir = os.path.join(LOG_DIR, nome_run)
-    os.makedirs(run_dir, exist_ok=True)
-    ind_log = Logger(os.path.join(run_dir, 'indagine.log'))
-    sped_log = Logger(os.path.join(run_dir, 'spedizione.log'))
+    chiudi_log = ind_log is None
+    if chiudi_log:
+        run_dir = os.path.join(LOG_DIR, nome_run)
+        os.makedirs(run_dir, exist_ok=True)
+        ind_log = Logger(os.path.join(run_dir, 'indagine.log'))
+        sped_log = Logger(os.path.join(run_dir, 'spedizione.log'))
     ind_log(f'Run: {nome_run}  |  seed={seed}  |  generato: {datetime.now().isoformat(timespec="seconds")}')
-    sped_log(f'Run: {nome_run}  |  seed={seed}  |  generato: {datetime.now().isoformat(timespec="seconds")}')
-    indagine = simula_indagine(party, ind_log)
-    ind_log.close()
-    spedizione = simula_spedizione(party, indagine, sped_log, seed)
-    sped_log.close()
+    sped_log(f'Run: {nome_run}  |  seed={seed}  |  formula Minaccia={formula_minaccia}  |  '
+             f'generato: {datetime.now().isoformat(timespec="seconds")}')
+    if indagine_2gruppi is None:
+        indagine = simula_indagine(party, ind_log)
+    else:
+        indagine = simula_indagine_2gruppi(party, ind_log, orologio_condiviso=indagine_2gruppi)
+    if chiudi_log:
+        ind_log.close()
+    spedizione = simula_spedizione(party, indagine, sped_log, seed, formula_minaccia,
+                                    nemico_scale=nemico_scale, pool_extra=pool_extra)
+    if chiudi_log:
+        sped_log.close()
     return dict(nome=nome_run, party=party, indagine=indagine, spedizione=spedizione)
+
+
+def esegui_batch(nome_base, party, seeds, formula_minaccia='standard', nemico_scale='nessuna',
+                  pool_extra=False):
+    """Round 2 (conferma numeri): stesso party/formula/scalatura ripetuto su
+    piu' seed, aggregato invece di un singolo punto dati. Solo il primo
+    seed scrive i log dettagliati su disco (`<nome_base>/`), gli altri
+    usano NullLogger - le statistiche aggregate coprono comunque tutti i
+    seed passati."""
+    risultati = []
+    for i, seed in enumerate(seeds):
+        if i == 0:
+            run_dir = os.path.join(LOG_DIR, nome_base)
+            os.makedirs(run_dir, exist_ok=True)
+            ind_log = Logger(os.path.join(run_dir, 'indagine.log'))
+            sped_log = Logger(os.path.join(run_dir, 'spedizione.log'))
+        else:
+            ind_log = NullLogger()
+            sped_log = NullLogger()
+        r = esegui_run(f'{nome_base}_seed{i}', party, seed, formula_minaccia, None,
+                        nemico_scale, pool_extra, ind_log, sped_log)
+        risultati.append(r)
+
+    n = len(risultati)
+    sp_list = [r['spedizione'] for r in risultati]
+    pct_custode_anticipo = sum(1 for sp in sp_list if sp['round_custode_svegliato']) / n * 100
+    media_pool_esauriti = sum(sp['pool_esauriti_totale'] for sp in sp_list) / n
+    max_pool_esauriti = max(sp['pool_esauriti_totale'] for sp in sp_list)
+    media_round = sum(sp['round_n'] for sp in sp_list) / n
+    media_eroi_terra = sum(len(sp['down']) for sp in sp_list) / n
+    pct_vittoria = sum(1 for sp in sp_list if sp['esito'] == 'VITTORIA') / n * 100
+    return dict(nome=nome_base, party=party, n_seed=n, formula_minaccia=formula_minaccia,
+                nemico_scale=nemico_scale, pool_extra=pool_extra,
+                pct_custode_anticipo=pct_custode_anticipo, media_pool_esauriti=media_pool_esauriti,
+                max_pool_esauriti=max_pool_esauriti, media_round=media_round,
+                media_eroi_terra=media_eroi_terra, pct_vittoria=pct_vittoria)
+
+
+# Roster completo (11) e sottoinsiemi per i playtest diagnostici a 8/10
+# eroi (vedi piano "portare il gioco a 10 giocatori" - riusa l'11 esistente,
+# nessun eroe nuovo). PARTY_10 tiene CARLA DOSTI di riserva (1 eroe su 11,
+# come da regola "massimo 5 in tavola" estesa a "quasi tutti e 11" per un
+# tavolo da 10). PARTY_8 toglie anche Nino (nessun Approfondimento in
+# Indagine) e Padre Marani (idem) per un secondo punto dati a copertura
+# piu' bassa.
+ROSTER_11 = ['ELENA FOSCO', 'DOTT. ATTILIO MARN', 'SIBILLA REVE', 'NINO “GRIMALDELLO” CAUTO',
+             'OTTONE “MEZZENA” MASSARI', 'CARLA DOSTI', 'DOTT. LAZZARO SERRA', 'PADRE CELSO MARANI',
+             'FULGENZIO CARBONE', 'OTTAVIO BRERA', 'MORA “SPILLA” FANTI']
+PARTY_10 = [n for n in ROSTER_11 if n != 'CARLA DOSTI']
+PARTY_8 = [n for n in PARTY_10 if n not in ('NINO “GRIMALDELLO” CAUTO', 'PADRE CELSO MARANI')]
+# Curva 2-4-6-8-10 (richiesta esplicita: testare la scalatura nemici su
+# tutta la gamma, non solo 8/10, cosi' si vede anche dove NON scatta
+# ancora bonus - le formule in NEMICO_SCALE_FORMULE valgono 0 fino a
+# n=5 per costruzione, quindi 2/4 sono il controllo "nessun cambiamento
+# atteso"). Composizioni bilanciate (tank/healer/utility), non le piu'
+# ottimali possibili - lo scopo e' la curva di difficolta', non trovare
+# la combo perfetta.
+PARTY_2 = ['DOTT. ATTILIO MARN', 'OTTONE “MEZZENA” MASSARI']
+PARTY_4 = ['OTTONE “MEZZENA” MASSARI', 'ELENA FOSCO', 'OTTAVIO BRERA', 'FULGENZIO CARBONE']
+PARTY_6 = ['OTTONE “MEZZENA” MASSARI', 'ELENA FOSCO', 'DOTT. ATTILIO MARN', 'SIBILLA REVE',
+           'OTTAVIO BRERA', 'FULGENZIO CARBONE']
+PARTY_PER_SIZE = {2: PARTY_2, 4: PARTY_4, 6: PARTY_6, 8: PARTY_8, 10: PARTY_10}
+
+
+def party_random(size, escludi, tentativi=200):
+    """Pesca una combinazione casuale di `size` eroi da ROSTER_11, scartando
+    quelle gia' in `escludi` (set di frozenset, mutato in place). Serve a
+    non fidarsi di UNA composizione a mano per taglia (round 4: PARTY_6
+    poteva essere semplicemente una scelta sfortunata, non una vera
+    proprieta' di "6 eroi" - vedi piano round 5)."""
+    for _ in range(tentativi):
+        combo = frozenset(random.sample(ROSTER_11, size))
+        if combo not in escludi:
+            escludi.add(combo)
+            return sorted(combo)  # ordine stabile solo per leggibilita' nei log, non ha effetto di gioco
+    raise ValueError(f'Non trovo una nuova combinazione da {size} eroi dopo {tentativi} tentativi '
+                      f'({len(escludi)} gia\' escluse).')
+
+
+def esegui_batch_multi_party(nome_base, size, formula, scale, n_party=5, n_seed=30,
+                              pool_extra=False, seed_base=90000):
+    """Round 5: invece di UNA composizione fissa per taglia, ne pesca
+    `n_party` diverse (nessuna ripetuta) e fa girare `esegui_batch` su
+    ciascuna - isola l'effetto "taglia del party" da quello "questa
+    specifica combinazione di eroi". Le composizioni si pescano PRIMA di
+    entrare nei seed di gioco (che reimpostano `random.seed` per la
+    riproducibilita' dei tiri), cosi' la scelta del party non dipende dal
+    seed della singola simulazione."""
+    random.seed(seed_base)  # solo per la scelta delle composizioni, non per i dadi
+    escludi = set()
+    per_party = []
+    for p in range(n_party):
+        party = party_random(size, escludi)
+        b = esegui_batch(f'{nome_base}_p{p}', party, [seed_base + 1000 + p * 100 + i for i in range(n_seed)],
+                          formula, scale, pool_extra)
+        per_party.append(b)
+
+    def media(chiave):
+        return sum(b[chiave] for b in per_party) / n_party
+
+    return dict(nome=nome_base, size=size, formula_minaccia=formula, nemico_scale=scale,
+                n_party=n_party, n_seed=n_seed,
+                pct_custode_anticipo=media('pct_custode_anticipo'),
+                media_pool_esauriti=media('media_pool_esauriti'),
+                max_pool_esauriti=max(b['max_pool_esauriti'] for b in per_party),
+                media_round=media('media_round'), media_eroi_terra=media('media_eroi_terra'),
+                pct_vittoria=media('pct_vittoria'), per_party=per_party)
 
 
 def main():
@@ -847,6 +1268,8 @@ def main():
     # party al minimo/massimo, un'abilita' messa apposta dopo chi le ruba il
     # bersaglio nell'ordine del gruppo, ecc. Il nome del run finisce nel path
     # del log: usane uno che dica QUALE dinamica stai stressando.
+    # Quarto elemento (formula Minaccia) opzionale, default 'standard' se
+    # omesso - vedi MINACCIA_FORMULE.
     runs = [
         ('run-04_senza_healer_5forte', ['OTTONE “MEZZENA” MASSARI', 'ELENA FOSCO',
                                          'NINO “GRIMALDELLO” CAUTO', 'SIBILLA REVE',
@@ -859,29 +1282,204 @@ def main():
                                         'MORA “SPILLA” FANTI'], 7007),
         ('run-08_turnorder_ottone_prima_brera', ['OTTONE “MEZZENA” MASSARI', 'ELENA FOSCO',
                                                    'OTTAVIO BRERA', 'FULGENZIO CARBONE'], 8008),
+        # --- Diagnostica 8-10 giocatori (piano "portare il gioco a 10", round 1) ---
+        ('run-09_dieci_formula-standard', PARTY_10, 9101, 'standard'),
+        ('run-10_dieci_formula-tetto4', PARTY_10, 9102, 'tetto4'),
+        ('run-11_dieci_formula-tetto3', PARTY_10, 9103, 'tetto3'),
+        ('run-12_otto_formula-standard', PARTY_8, 9201, 'standard'),
+        ('run-13_otto_formula-tetto4', PARTY_8, 9202, 'tetto4'),
+        # Nota: la modalita' "2 sottogruppi" per l'Indagine (vedi
+        # simula_indagine_2gruppi) resta disponibile ma NON e' piu' nelle run
+        # raccomandate - l'utente ha scartato la direzione (rompe la scarsita'
+        # "non potete vedere tutto"), vedi piano round 2.
     ]
     riepilogo = []
-    for nome, party, seed in runs:
-        print(f'Eseguo {nome} ({len(party)} eroi)...')
-        r = esegui_run(nome, party, seed)
+    for run in runs:
+        nome, party, seed = run[0], run[1], run[2]
+        formula = run[3] if len(run) > 3 else 'standard'
+        indagine_2gruppi = run[4] if len(run) > 4 else None
+        print(f'Eseguo {nome} ({len(party)} eroi, formula {formula}'
+              f'{f", 2 sottogruppi (orologio {"condiviso" if indagine_2gruppi else "separato"})" if indagine_2gruppi is not None else ""})...')
+        r = esegui_run(nome, party, seed, formula, indagine_2gruppi)
         riepilogo.append(r)
 
     idx_path = os.path.join(LOG_DIR, 'riepilogo.md')
     with open(idx_path, 'w', encoding='utf-8') as f:
         f.write('# Riepilogo playtest simulati\n\n')
         f.write(f'Generato: {datetime.now().isoformat(timespec="seconds")}\n\n')
-        f.write('| Run | Eroi | Ore avanzate | Diapason | Chi confermato | Esito spedizione | Round | '
-                'Eroi a terra a fine partita |\n')
-        f.write('|---|---|---|---|---|---|---|---|\n')
+        f.write('| Run | Eroi | Formula | Luoghi coperti | Ore avanzate | Diapason | Chi confermato | '
+                'Azioni/round (media/picco) | Rimescolamenti | Pool esauriti | Custode svegliato | Esito | '
+                'Round | Eroi a terra |\n')
+        f.write('|---|---|---|---|---|---|---|---|---|---|---|---|---|---|\n')
         for r in riepilogo:
             ind = r['indagine']
             sp = r['spedizione']
-            f.write(f'| {r["nome"]} | {", ".join(r["party"])} | {ind["ore_avanzate"]} '
+            custode_txt = f'round {sp["round_custode_svegliato"]}' if sp['round_custode_svegliato'] else 'solo a T6'
+            f.write(f'| {r["nome"]} | {len(r["party"])} | {sp["formula_minaccia"]} | '
+                    f'{len(ind["visitati"])}/8 | {ind["ore_avanzate"]} '
                     f'({ind["tier"].split(" (")[0]}) | {"sì" if ind["diapason"] else "no"} | '
                     f'{"sì" if ind["chi_confermato"] else "no"} | '
+                    f'{sp["azioni_media"]:.1f} / {sp["azioni_max"]} | {sp["rimescolamenti_mazzo"]} | '
+                    f'{sp["pool_esauriti_totale"]} | {custode_txt} | '
                     f'{sp["esito"]} | {sp["round_n"]} | {", ".join(sp["down"]) or "nessuno"} |\n')
+        f.write('\nEroi per run (nomi completi, il conteggio in tabella e\' solo il numero): ' +
+                '; '.join(f'{r["nome"]}=[{", ".join(r["party"])}]' for r in riepilogo) + '\n')
         f.write('\nLog completi (tiri di dado, prove, decisioni) in `<run>/indagine.log` e '
                 '`<run>/spedizione.log`.\n')
+
+    # --- Round 4: 30 seed (non 10), curva 2-4-6-8-10 x 3 curve Ferite-only x
+    # 3 formule Minaccia (misura molto piu' rumore-resistente di round 3:
+    # esecuzione verificata ~ms per batch, il collo di bottiglia non e' il
+    # tempo di calcolo). Bersaglio: ~80% vittoria, 0-10% risveglio anticipato
+    # su tutta la gamma, non solo a 10 eroi (vedi piano).
+    N_SEED = 30
+    SEEDS_N = lambda base: [base + i for i in range(N_SEED)]  # noqa: E731
+    batch_configs = [
+        # (nome, party, formula, nemico_scale, pool_extra, seed_base)
+    ]
+    for size in (2, 4, 6, 8, 10):
+        for formula in ('tetto4', 'tetto3', 'tetto2_oltre8'):
+            for scale in ('nessuna', 'curva-A', 'curva-B', 'curva-C'):
+                batch_configs.append((f'batch-{size:02d}_{formula}_{scale}', PARTY_PER_SIZE[size],
+                                       formula, scale, False, 25000 + size * 1000))
+
+    batch_risultati = []
+    for i, (nome, party, formula, scale, pe, seed_base) in enumerate(batch_configs):
+        print(f'Eseguo {nome} ({N_SEED} seed, {len(party)} eroi, formula {formula}, scala {scale})...')
+        batch_risultati.append(esegui_batch(nome, party, SEEDS_N(seed_base + i * 40), formula, scale, pe))
+
+    batch_path = os.path.join(LOG_DIR, 'riepilogo_batch.md')
+    with open(batch_path, 'w', encoding='utf-8') as f:
+        f.write(f'# Riepilogo batch multi-seed ({N_SEED} seed a combinazione) — round 4\n\n')
+        f.write(f'Generato: {datetime.now().isoformat(timespec="seconds")}\n\n')
+        f.write('| Batch | Eroi | Formula | Scala nemici | Pool extra | % Custode anticipo | '
+                'Pool esauriti (media/picco) | Round medi | Eroi a terra medi | % Vittoria |\n')
+        f.write('|---|---|---|---|---|---|---|---|---|---|\n')
+        for b in batch_risultati:
+            f.write(f'| {b["nome"]} | {len(b["party"])} | {b["formula_minaccia"]} | {b["nemico_scale"]} | '
+                    f'{"sì" if b["pool_extra"] else "no"} | {b["pct_custode_anticipo"]:.0f}% | '
+                    f'{b["media_pool_esauriti"]:.1f} / {b["max_pool_esauriti"]} | {b["media_round"]:.1f} | '
+                    f'{b["media_eroi_terra"]:.1f} | {b["pct_vittoria"]:.0f}% |\n')
+        f.write(f'\nOgni riga = {N_SEED} simulazioni con lo stesso party/formula/scalatura, seed diversi, '
+                f'aggregate (media, percentuale, picco). Solo il primo seed di ogni batch scrive log '
+                f'dettagliati su disco (`<batch>_seed0/`), gli altri {N_SEED - 1} solo contribuiscono ai '
+                f'numeri qui.\n')
+        f.write('Le formule di scalatura (`NEMICO_SCALE_FORMULE`) danno bonus 0 fino a 5 eroi per '
+                'costruzione: le righe a 2/4 eroi sono il controllo "nessun cambiamento atteso" (nessuna/'
+                'lieve/marcata devono coincidere), 6 e\' il limite della soglia (ancora 0 in entrambe le '
+                'formule attuali), 8/10 sono dove le formule iniziano davvero a differire.\n')
+    print(f'\nBatch fatti. Riepilogo aggregato in {batch_path}')
+
+    # --- Round 5: verifica il vincitore (tetto3 + curva-C) su composizioni
+    # random, non solo le PARTY_N scelte a mano - isola se l'anomalia a 6
+    # eroi vista nel round 4 e' una proprieta' della taglia o di quella
+    # specifica composizione. 5 party per taglia, nessuno ripetuto, 30 seed
+    # a party (150 simulazioni per taglia). 'nessuna' scalatura come
+    # controllo di riferimento, accanto al candidato vincitore.
+    print('\n--- Round 5: verifica su composizioni casuali (5 party x taglia, 30 seed ciascuno) ---')
+    mp_risultati = []
+    for size in (2, 4, 6, 8, 10):
+        for scale in ('nessuna', 'curva-C'):
+            nome = f'mp-{size:02d}_tetto3_{scale}'
+            print(f'Eseguo {nome} (5 party casuali x 30 seed, {size} eroi, tetto3, scala {scale})...')
+            mp_risultati.append(esegui_batch_multi_party(nome, size, 'tetto3', scale,
+                                                          n_party=5, n_seed=30,
+                                                          seed_base=40000 + size * 1000 +
+                                                          (500 if scale == 'curva-C' else 0)))
+
+    mp_path = os.path.join(LOG_DIR, 'riepilogo_multiparty.md')
+    with open(mp_path, 'w', encoding='utf-8') as f:
+        f.write('# Riepilogo composizioni casuali (round 5) — tetto3, 5 party x taglia, 30 seed ciascuno\n\n')
+        f.write(f'Generato: {datetime.now().isoformat(timespec="seconds")}\n\n')
+        f.write('## Aggregato (media delle 5 composizioni per taglia)\n\n')
+        f.write('| Taglia | Scala | % Custode anticipo | Pool esauriti (media/picco) | Round medi | '
+                'Eroi a terra medi | % Vittoria |\n')
+        f.write('|---|---|---|---|---|---|---|\n')
+        for m in mp_risultati:
+            f.write(f'| {m["size"]} | {m["nemico_scale"]} | {m["pct_custode_anticipo"]:.0f}% | '
+                    f'{m["media_pool_esauriti"]:.1f} / {m["max_pool_esauriti"]} | {m["media_round"]:.1f} | '
+                    f'{m["media_eroi_terra"]:.1f} | {m["pct_vittoria"]:.0f}% |\n')
+        f.write('\n## Dettaglio per composizione (per capire quanto varia DENTRO una stessa taglia)\n\n')
+        f.write('| Taglia | Scala | Party | % Custode anticipo | Eroi a terra medi | % Vittoria |\n')
+        f.write('|---|---|---|---|---|---|\n')
+        for m in mp_risultati:
+            for b in m['per_party']:
+                f.write(f'| {m["size"]} | {m["nemico_scale"]} | {", ".join(b["party"])} | '
+                        f'{b["pct_custode_anticipo"]:.0f}% | {b["media_eroi_terra"]:.1f} | '
+                        f'{b["pct_vittoria"]:.0f}% |\n')
+    print(f'\nRound 5 fatto. Riepilogo in {mp_path}')
+
+    # --- Round 6: 'tetto3_ritardato' (il tetto di 3 carte si raggiunge a
+    # n=8 invece che a n=6) contro il crollo isolato dal round 5 a n=6 con
+    # curva-C. Stessa procedura multi-party del round 5, cosi' i due
+    # riepiloghi si confrontano riga per riga.
+    print("\n--- Round 6: verifica 'tetto3_ritardato' (tetto a 3 carte spostato a n=8) ---")
+    mp6_risultati = []
+    for size in (2, 4, 6, 8, 10):
+        for scale in ('nessuna', 'curva-C'):
+            nome = f'mp-{size:02d}_tetto3rit_{scale}'
+            print(f'Eseguo {nome} (5 party casuali x 30 seed, {size} eroi, tetto3_ritardato, scala {scale})...')
+            mp6_risultati.append(esegui_batch_multi_party(nome, size, 'tetto3_ritardato', scale,
+                                                           n_party=5, n_seed=30,
+                                                           seed_base=60000 + size * 1000 +
+                                                           (500 if scale == 'curva-C' else 0)))
+
+    mp6_path = os.path.join(LOG_DIR, 'riepilogo_multiparty_tetto3ritardato.md')
+    with open(mp6_path, 'w', encoding='utf-8') as f:
+        f.write('# Riepilogo composizioni casuali (round 6) — tetto3_ritardato, 5 party x taglia, 30 seed ciascuno\n\n')
+        f.write(f'Generato: {datetime.now().isoformat(timespec="seconds")}\n\n')
+        f.write('Confronto diretto con round 5 (`riepilogo_multiparty.md`, formula tetto3): stessa scala nemici, '
+                'stesse taglie, stesso numero di party/seed, unica differenza e\' la formula Minaccia.\n\n')
+        f.write('| Taglia | Scala | % Custode anticipo | Pool esauriti (media/picco) | Round medi | '
+                'Eroi a terra medi | % Vittoria |\n')
+        f.write('|---|---|---|---|---|---|---|\n')
+        for m in mp6_risultati:
+            f.write(f'| {m["size"]} | {m["nemico_scale"]} | {m["pct_custode_anticipo"]:.0f}% | '
+                    f'{m["media_pool_esauriti"]:.1f} / {m["max_pool_esauriti"]} | {m["media_round"]:.1f} | '
+                    f'{m["media_eroi_terra"]:.1f} | {m["pct_vittoria"]:.0f}% |\n')
+        f.write('\n## Dettaglio per composizione\n\n')
+        f.write('| Taglia | Scala | Party | % Custode anticipo | Eroi a terra medi | % Vittoria |\n')
+        f.write('|---|---|---|---|---|---|\n')
+        for m in mp6_risultati:
+            for b in m['per_party']:
+                f.write(f'| {m["size"]} | {m["nemico_scale"]} | {", ".join(b["party"])} | '
+                        f'{b["pct_custode_anticipo"]:.0f}% | {b["media_eroi_terra"]:.1f} | '
+                        f'{b["pct_vittoria"]:.0f}% |\n')
+    print(f'\nRound 6 fatto. Riepilogo in {mp6_path}')
+
+    # --- Round 7: combinazione finale tetto3_ritardato + curva-C_tardiva
+    # su tutta la curva 2-10, per confermare in un'unica tabella che il
+    # gate a n=6 sistema sia il buco a n=6 (round 5) sia il crollo
+    # prematuro a n=4 (curva-C partiva un passo troppo presto).
+    print("\n--- Round 7: combinazione finale tetto3_ritardato + curva-C_tardiva (tutta la curva 2-10) ---")
+    mp7_risultati = []
+    for size in (2, 4, 6, 8, 10):
+        nome = f'mp-{size:02d}_finale'
+        print(f'Eseguo {nome} (5 party casuali x 30 seed, {size} eroi, tetto3_ritardato, curva-C_tardiva)...')
+        mp7_risultati.append(esegui_batch_multi_party(nome, size, 'tetto3_ritardato', 'curva-C_tardiva',
+                                                       n_party=5, n_seed=30, seed_base=70000 + size * 1000))
+
+    mp7_path = os.path.join(LOG_DIR, 'riepilogo_multiparty_finale.md')
+    with open(mp7_path, 'w', encoding='utf-8') as f:
+        f.write('# Riepilogo composizioni casuali (round 7) — candidato finale: tetto3_ritardato + '
+                'curva-C_tardiva\n\n')
+        f.write(f'Generato: {datetime.now().isoformat(timespec="seconds")}\n\n')
+        f.write('| Taglia | % Custode anticipo | Pool esauriti (media/picco) | Round medi | '
+                'Eroi a terra medi | % Vittoria |\n')
+        f.write('|---|---|---|---|---|---|\n')
+        for m in mp7_risultati:
+            f.write(f'| {m["size"]} | {m["pct_custode_anticipo"]:.0f}% | '
+                    f'{m["media_pool_esauriti"]:.1f} / {m["max_pool_esauriti"]} | {m["media_round"]:.1f} | '
+                    f'{m["media_eroi_terra"]:.1f} | {m["pct_vittoria"]:.0f}% |\n')
+        f.write('\n## Dettaglio per composizione\n\n')
+        f.write('| Taglia | Party | % Custode anticipo | Eroi a terra medi | % Vittoria |\n')
+        f.write('|---|---|---|---|---|\n')
+        for m in mp7_risultati:
+            for b in m['per_party']:
+                f.write(f'| {m["size"]} | {", ".join(b["party"])} | {b["pct_custode_anticipo"]:.0f}% | '
+                        f'{b["media_eroi_terra"]:.1f} | {b["pct_vittoria"]:.0f}% |\n')
+    print(f'\nRound 7 fatto. Riepilogo in {mp7_path}')
+
     print(f'\nFatto. Log in {LOG_DIR}')
 
 
