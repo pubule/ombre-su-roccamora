@@ -632,9 +632,26 @@ def aiuto():
     e.append(RP('Uscendo verso una tessera coperta, <b>rivelatela</b> e leggetene subito il testo.'))
 
     e.append(P('FASE MINACCIA — carte da pescare, in base a quanti eroi in tavola', 'h2'))
-    e.append(RP('<b>2 eroi: 1 carta • 3–4: 2 • 5: 3 • 6: 2 • 7–10: 3.</b> (a 6 scende apposta: da lì '
-                'parte anche il bonus Ferite qui sotto, vedi Regolamento). Leggete ad alta voce ed '
-                'eseguite. Mazzo esaurito: rimescolate gli scarti.'))
+    minaccia_t = Table([
+        ['Eroi in tavola', '2', '3–4', '5', '6', '7–10'],
+        ['Carte da pescare', '1', '2', '3', '2', '3'],
+    ], colWidths=[32*mm] + [28.4*mm]*5)
+    minaccia_t.setStyle(TableStyle([
+        ('FONTNAME', (0, 0), (0, -1), F['b']),
+        ('FONTNAME', (1, 0), (-1, -1), F['r']),
+        ('FONTSIZE', (0, 0), (-1, -1), 8.5),
+        ('TEXTCOLOR', (0, 0), (-1, 0), colors.white),
+        ('BACKGROUND', (0, 0), (-1, 0), TEAL),
+        ('ROWBACKGROUNDS', (0, 1), (-1, -1), [colors.HexColor('#f6efdb')]),
+        ('GRID', (0, 0), (-1, -1), 0.6, TEAL),
+        ('ALIGN', (1, 0), (-1, -1), 'CENTER'),
+        ('TOPPADDING', (0, 0), (-1, -1), 3),
+        ('BOTTOMPADDING', (0, 0), (-1, -1), 3),
+    ]))
+    e.append(minaccia_t)
+    e.append(RP('Leggete la carta ad alta voce ed eseguite. Mazzo esaurito: rimescolate gli scarti. '
+                '<b>Nota:</b> a 6 eroi le carte scendono a 2 (non salgono a 3) perché da lì parte anche '
+                'il bonus Ferite qui sotto — non è un errore di stampa, vedi Regolamento.'))
     e.append(RP('<b>Tavolo 6–10 eroi:</b> +2 Ferite a ogni nemico (Custode incluso) da 6 a 8 eroi, '
                 '+3 da 9 a 10. Fissato a inizio spedizione, non ricalcolato dopo.'))
 
