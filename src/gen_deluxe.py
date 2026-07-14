@@ -11,7 +11,7 @@ from reportlab.pdfgen import canvas
 from reportlab.platypus import Paragraph, Frame, Spacer
 from reportlab.lib.styles import ParagraphStyle
 
-from deluxe_style import (register_fonts, torn_portrait, rule_border, pad_to_even_pages, seal, F,
+from deluxe_style import (register_fonts, torn_portrait, rule_border, pad_to_even_pages, parchment_art, seal, F,
                           ARTWORKS_DIR, INK, RED, TEAL, PAPER_DK, GOLD, SEPIA)
 from gen_cards import HEROES, LUOGHI, MINACCE, NEMICI, TILES
 import story
@@ -127,6 +127,15 @@ def schede():
         c.drawString(mx, y4, 'cicatrici (alla terza: -1 a una caratteristica)')
         for i in range(3):
             c.line(mx, y4 - 8*mm - i*8*mm, CUT_X, y4 - 8*mm - i*8*mm)
+        c.showPage()
+        # Ogni eroe e' un foglio fisico a se': senza questo retro, in stampa
+        # fronte/retro il verso della scheda di un eroe e' il fronte di quello
+        # successivo (con 11 eroi, dispari, il problema tocca ogni foglio tranne
+        # l'ultimo) - inservibile per distribuire una scheda a testa. Pergamena
+        # bianca, stesso trattamento di pad_to_even_pages ma per OGNI eroe, non
+        # solo alla fine del fascicolo.
+        parchment_art(c, W, H)
+        rule_border(c, W, H)
         c.showPage()
     c.save()
     pad_to_even_pages(out_path)
