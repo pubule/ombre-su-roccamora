@@ -152,10 +152,13 @@ def regolamento():
                 'pianificate l\u2019ordine delle visite e non sprecate ore su vicoli ciechi. '
                 'L\u2019episodio pu\u00f2 legare eventi all\u2019orologio: applicateli quando barrate '
                 'l\u2019ora corrispondente.'))
-    e.append(LI('Se rispondete alle 4 Domande con <b>ore ancora sul Taccuino</b>, la Soluzione vi dar\u00e0 '
-                'un vantaggio extra per la Spedizione, tanto pi\u00f9 grande quante pi\u00f9 ore avete lasciato '
-                'sul tavolo \u2014 ma smettere presto vuol dire rispondere con meno indizi in mano: la '
-                'fretta ha un prezzo, quanto rischiarla lo decidete voi.'))
+    e.append(LI('Se rispondete alle 4 Domande con <b>ore ancora sul Taccuino</b>, oppure avete visitato '
+                'molti luoghi (anche spendendole tutte per farlo), la Soluzione vi dar\u00e0 un vantaggio '
+                'extra per la Spedizione \u2014 sono <b>due strade alternative alla stessa ricompensa</b>: '
+                'la velocit\u00e0 (ore risparmiate) e l\u2019approfondimento (luoghi visitati) contano allo stesso '
+                'modo, prendete quella che vi somiglia di pi\u00f9. Fermarsi presto senza aver visitato molto '
+                'vuol dire comunque rispondere con meno indizi in mano: la fretta ha un prezzo, quanto '
+                'rischiarla lo decidete voi.'))
     e.append(LI('Alla <b>prima visita</b> di un luogo, prima di leggerne testo e indizi, il gruppo '
                 'indica un eroe che <b>legge la scena</b>: prova di ACUME Media. Gli indizi core '
                 '(sotto) si leggono comunque, che la prova riesca o no \u2014 non si perde mai '
@@ -391,7 +394,10 @@ def regolamento():
                "leggete gli indizi <b>a turno e solo per s\u00e9</b>, poi raccontateli con parole vostre: "
                "la deduzione diventa un racconto corale (ed \u00e8 il modo pi\u00f9 divertente di giocare "
                "in gruppo). Pi\u00f9 giocatori vuol dire pi\u00f9 carte Minaccia a round: in 5, contate "
-               "<b>2 ore e mezza abbondanti</b> a episodio, non i 90\u2013150 minuti base."))
+               "<b>2 ore e mezza abbondanti</b> a episodio, non i 90\u2013150 minuti base. <b>Il Custode "
+               "della Cera ha +1 Ferita</b> a 4 o 5 eroi (solo lui, non gli altri nemici): a questa "
+               "taglia il resto della spedizione fila via troppo liscio, ed \u00e8 lo scontro finale a "
+               "dover restare in bilico."))
     e.append(P("In 4 o 5 giocatori potete anche <b>dividervi</b>, una sola volta a episodio: due "
                "sottogruppi visitano due luoghi diversi nella stessa ora (costa comunque solo 1 ora "
                "sul Taccuino, non 2), poi restate uniti per il resto dell\u2019indagine. Ogni sottogruppo "
@@ -512,19 +518,25 @@ def soluzione():
         ('BOTTOMPADDING', (0, 0), (-1, -1), 4),
     ]))
     e.append(t)
-    e.append(P('ORE AVANZATE', 'h2'))
-    e.append(P('Contate le ore ancora libere sul Taccuino nel momento in cui rispondete alle 4 '
-               'Domande (non quando aprite questa busta). Chi si ferma presto rischia di rispondere '
-               'con meno indizi in mano — ricompensatelo per il rischio corso, non per il tempo '
-               'risparmiato in sé: la visita gratuita di Carla (Fonti riservate) non conta come ora '
-               'avanzata, non è un rischio corso.', 'box'))
+    e.append(P('ORE AVANZATE — O LUOGHI VISITATI', 'h2'))
+    e.append(P('Contate le ore ancora libere sul Taccuino <b>oppure</b> quanti luoghi avete visitato '
+               '(anche tutti e 8, spendendo ogni ora per farlo) nel momento in cui rispondete alle 4 '
+               'Domande (non quando aprite questa busta). Sono <b>due strade alternative</b>, non '
+               'cumulative: prendete il vantaggio migliore fra i due. Chi si ferma presto senza aver '
+               'visitato molto rischia comunque di rispondere con meno indizi in mano — ricompensate '
+               'sia il rischio corso (fermarsi presto) sia la fatica (visitare tutto): la visita '
+               'gratuita di Carla (Fonti riservate) non conta come ora avanzata né come luogo in più, '
+               'non è un rischio né una fatica corsi da lei.', 'box'))
     rt = [
-        ['Ore avanzate', 'Vantaggio'],
-        ['3 o più', 'Slancio: nel 1° round della Spedizione, ogni eroe ha 3 azioni invece di 2.'],
-        ['1–2', 'Preparati: ogni eroe inizia la Spedizione con +1 Salute massima, solo per questa partita.'],
-        ['0', 'Nessun vantaggio extra (le 4 Domande restano comunque valide per la tabella sopra).'],
+        ['Ore avanzate', 'O luoghi visitati', 'Vantaggio'],
+        ['3 o più', '6 o più', 'Slancio: nel 1° round della Spedizione, ogni eroe ha 3 azioni invece '
+                               'di 2, e inizia con +1 Salute massima.'],
+        ['1–2', '5', 'Preparati: ogni eroe inizia la Spedizione con +1 Salute massima, solo per questa '
+                     'partita.'],
+        ['0', '4 o meno', 'Nessun vantaggio extra (le 4 Domande restano comunque valide per la tabella '
+                          'sopra).'],
     ]
-    rtb = Table(rt, colWidths=[28*mm, 132*mm])
+    rtb = Table(rt, colWidths=[22*mm, 24*mm, 114*mm])
     rtb.setStyle(TableStyle([
         ('FONTNAME', (0, 0), (-1, 0), F['b']),
         ('FONTNAME', (0, 1), (-1, -1), F['r']),

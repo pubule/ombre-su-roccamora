@@ -154,6 +154,21 @@ NEMICO_SCALE_FORMULE = {
     'curva-E_lineare': lambda n: (max(0, n - 5), 0),  # 2:0 4:0 6:1 7:2 8:3 9:4 10:5
 }
 
+# KPI round: a n=4-5 il KPI "ansia" era piatto (97% vittoria, solo 27%
+# sofferte, 0.4 eroi a terra di picco in media - il combattimento normale
+# non mette mai in difficolta' il gruppo). Un bonus Ferite generale a
+# quella taglia aveva gia' fatto crollare tutto (+1 Ferite a un Adepto da 1
+# Ferita lo RADDOPPIA - vedi curva-C non gate a n=4, 42-53% vittoria).
+# Qui invece il bonus va SOLO al Custode (base 3 Ferite, +1 = +33%, molto
+# piu' proporzionato) - concentra la tensione nello scontro finale, che e'
+# gia' il momento in cui il gruppo se lo aspetta, senza rendere fragile
+# ogni singolo Adepto per tutta la spedizione.
+CUSTODE_TENSIONE_EXTRA = {4: 1, 5: 1}
+
+
+def custode_fer_bonus(n_eroi):
+    return CUSTODE_TENSIONE_EXTRA.get(n_eroi, 0)
+
 # Copie extra di miniature stampabili per party grandi (diagnostica): "non
 # il doppio" (richiesta esplicita) - +1 copia per tipo ogni 4 eroi oltre 5.
 def token_pool_extra(n_eroi):
@@ -317,7 +332,7 @@ class NullLogger:
         pass
 
 
-def simula_indagine(party, log):
+def simula_indagine(party, log, esplora_a_fondo=False):
     log('=' * 78)
     log('INDAGINE - Episodio 1: "Il Coro Sommerso"')
     log('=' * 78)
@@ -418,7 +433,7 @@ def simula_indagine(party, log):
         # non strutturale (non serve a sbloccarne altri). Senza questa soglia
         # SLANCIO/PREPARATI non scattano mai: 6 ore bastano appena per gli 8 luoghi,
         # il gruppo le spenderebbe sempre tutte sui nuovi luoghi.
-        if approf_letti >= 1 and ore <= 2 and l['n'] not in (1, 2, 3):
+        if approf_letti >= 1 and ore <= 2 and l['n'] not in (1, 2, 3) and not esplora_a_fondo:
             # NON e' ancora la chiusura vera: rinuncia solo a NUOVI luoghi, potrebbe
             # ancora tornare a cogliere un Approfondimento mancato (vedi loop sotto).
             # La chiusura effettiva, con le ore davvero rimaste, e' nei due messaggi
@@ -483,9 +498,15 @@ def simula_indagine(party, log):
             f'ora/e ancora sul Taccuino (Vantaggio per la Spedizione) piuttosto che inseguirli tutti.')
 
     ore_avanzate = ore
-    if ore_avanzate >= 3:
-        tier = 'SLANCIO (3 azioni al 1° round di spedizione)'
-    elif ore_avanzate >= 1:
+    # KPI round: prima la Fase 1 premiava SOLO la velocita' (ore avanzate) -
+    # esplorare di piu' costava ore, quindi costava tier, quindi era sempre
+    # la scelta peggiore. Ora vale anche la via "approfondita": 6+ luoghi
+    # visitati vale come 3+ ore avanzate anche se le ore sono finite tutte
+    # a esplorare; 5 luoghi vale come 1-2 ore avanzate. Le due vie sono
+    # alternative (il migliore dei due risultati vince), non cumulative.
+    if ore_avanzate >= 3 or len(visitati) >= 6:
+        tier = 'SLANCIO (3 azioni al 1° round di spedizione, +1 Salute massima a testa)'
+    elif ore_avanzate >= 1 or len(visitati) >= 5:
         tier = 'PREPARATI (+1 Salute massima a testa)'
     else:
         tier = 'nessun vantaggio'
@@ -624,7 +645,7 @@ def simula_indagine_2gruppi(party, log, orologio_condiviso=True):
         ore_avanzate = min(ore.values())  # il Vantaggio della Spedizione vale per tutto il party
 
     if ore_avanzate >= 3:
-        tier = 'SLANCIO (3 azioni al 1° round di spedizione)'
+        tier = 'SLANCIO (3 azioni al 1° round di spedizione, +1 Salute massima a testa)'
     elif ore_avanzate >= 1:
         tier = 'PREPARATI (+1 Salute massima a testa)'
     else:
@@ -672,6 +693,9 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
     fer_bonus, dan_bonus = NEMICO_SCALE_FORMULE[nemico_scale](len(party))
     if fer_bonus or dan_bonus:
         log(f'Scalatura nemici ({nemico_scale}): +{fer_bonus} Ferite, +{dan_bonus} Danno su ogni nemico incluso il Custode.')
+    custode_extra_fer = custode_fer_bonus(len(party))
+    if custode_extra_fer:
+        log(f'Tensione tavolo piccolo: +{custode_extra_fer} Ferite SOLO al Custode della Cera (non ai nemici di truppa).')
     log('')
 
     salute = {}
@@ -679,7 +703,7 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
     armed = {n: True for n in party}  # tutti gli eroi hanno un'arma iniziale (+1)
     for n in party:
         h = HERO[n]
-        smax = h['salute'] + (1 if indagine['tier'].startswith('PREPARATI') else 0)
+        smax = h['salute'] + (1 if indagine['tier'].startswith(('PREPARATI', 'SLANCIO')) else 0)
         salute[n] = smax
         salute_max[n] = smax
     down = set()
@@ -837,7 +861,7 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
                         round_custode_svegliato = round_n
                         log('    Il Custode della Cera si desta in anticipo (3° segnalino Canto), '
                             'sulla tessera più lontana dagli eroi!')
-                        c_fer = CUSTODE['fer'] + fer_bonus
+                        c_fer = CUSTODE['fer'] + fer_bonus + custode_extra_fer
                         custode = dict(CUSTODE, fer=c_fer, fer_max=c_fer, dan=CUSTODE['dan'] + dan_bonus,
                                        distanza=CASELLE_TESSERA)
                         for _ in range(2):
@@ -1059,7 +1083,7 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
                     f'modellato oltre il log). La chiave resta comunque sua.')
         if tappa.startswith('T6') and custode is None:
             log('    Rivelata la Cripta della Cera: il Custode della Cera si desta con 2 Adepti.')
-            c_fer = CUSTODE['fer'] + fer_bonus
+            c_fer = CUSTODE['fer'] + fer_bonus + custode_extra_fer
             custode = dict(CUSTODE, fer=c_fer, fer_max=c_fer, dan=CUSTODE['dan'] + dan_bonus)
             pool['ADEPTO INCAPPUCCIATO'] -= 2
             for _ in range(2):
@@ -1150,9 +1174,15 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
 
 
 def esegui_run(nome_run, party, seed, formula_minaccia='standard', indagine_2gruppi=None,
-               nemico_scale='nessuna', pool_extra=False, ind_log=None, sped_log=None):
+               nemico_scale='nessuna', pool_extra=False, ind_log=None, sped_log=None,
+               esplora_a_fondo=False):
     """`indagine_2gruppi`: None = Indagine normale (1 gruppo, regola vera).
     True/False = diagnostica 2 sottogruppi, valore = orologio_condiviso.
+    `esplora_a_fondo`: euristica "thorough" (KPI round) - non chiude
+    l'Indagine appena il nucleo garantito e' in mano, continua a visitare
+    nuovi luoghi finche' ci sono ore/candidati. Serve a testare la via
+    "approfondita" del nuovo Vantaggio (6+ luoghi = SLANCIO anche a 0 ore
+    avanzate), altrimenti l'euristica di default non la sceglierebbe mai.
     `ind_log`/`sped_log`: passa un Logger/NullLogger gia' pronto (usato da
     `esegui_batch` per i seed 2-5, che non scrivono su disco); se omessi
     ne crea di normali su `logs/playtest/<sessione>/<nome_run>/`."""
@@ -1167,7 +1197,7 @@ def esegui_run(nome_run, party, seed, formula_minaccia='standard', indagine_2gru
     sped_log(f'Run: {nome_run}  |  seed={seed}  |  formula Minaccia={formula_minaccia}  |  '
              f'generato: {datetime.now().isoformat(timespec="seconds")}')
     if indagine_2gruppi is None:
-        indagine = simula_indagine(party, ind_log)
+        indagine = simula_indagine(party, ind_log, esplora_a_fondo=esplora_a_fondo)
     else:
         indagine = simula_indagine_2gruppi(party, ind_log, orologio_condiviso=indagine_2gruppi)
     if chiudi_log:
@@ -1180,7 +1210,7 @@ def esegui_run(nome_run, party, seed, formula_minaccia='standard', indagine_2gru
 
 
 def esegui_batch(nome_base, party, seeds, formula_minaccia='standard', nemico_scale='nessuna',
-                  pool_extra=False):
+                  pool_extra=False, esplora_a_fondo=False):
     """Round 2 (conferma numeri): stesso party/formula/scalatura ripetuto su
     piu' seed, aggregato invece di un singolo punto dati. Solo il primo
     seed scrive i log dettagliati su disco (`<nome_base>/`), gli altri
@@ -1197,7 +1227,7 @@ def esegui_batch(nome_base, party, seeds, formula_minaccia='standard', nemico_sc
             ind_log = NullLogger()
             sped_log = NullLogger()
         r = esegui_run(f'{nome_base}_seed{i}', party, seed, formula_minaccia, None,
-                        nemico_scale, pool_extra, ind_log, sped_log)
+                        nemico_scale, pool_extra, ind_log, sped_log, esplora_a_fondo)
         risultati.append(r)
 
     n = len(risultati)
@@ -1236,10 +1266,10 @@ def esegui_batch(nome_base, party, seeds, formula_minaccia='standard', nemico_sc
 # Roster completo (11) e sottoinsiemi per i playtest diagnostici a 8/10
 # eroi (vedi piano "portare il gioco a 10 giocatori" - riusa l'11 esistente,
 # nessun eroe nuovo). PARTY_10 tiene CARLA DOSTI di riserva (1 eroe su 11,
-# come da regola "massimo 5 in tavola" estesa a "quasi tutti e 11" per un
-# tavolo da 10). PARTY_8 toglie anche Nino (nessun Approfondimento in
-# Indagine) e Padre Marani (idem) per un secondo punto dati a copertura
-# piu' bassa.
+# ora che il tetto "massimo cinque in tavola" e' stato tolto - vedi
+# Regolamento, "ne scendono in tavola tanti quanti siete, fino a dieci").
+# PARTY_8 toglie anche Nino (nessun Approfondimento in Indagine) e Padre
+# Marani (idem) per un secondo punto dati a copertura piu' bassa.
 ROSTER_11 = ['ELENA FOSCO', 'DOTT. ATTILIO MARN', 'SIBILLA REVE', 'NINO “GRIMALDELLO” CAUTO',
              'OTTONE “MEZZENA” MASSARI', 'CARLA DOSTI', 'DOTT. LAZZARO SERRA', 'PADRE CELSO MARANI',
              'FULGENZIO CARBONE', 'OTTAVIO BRERA', 'MORA “SPILLA” FANTI']
@@ -1275,7 +1305,7 @@ def party_random(size, escludi, tentativi=200):
 
 
 def esegui_batch_multi_party(nome_base, size, formula, scale, n_party=5, n_seed=30,
-                              pool_extra=False, seed_base=90000):
+                              pool_extra=False, seed_base=90000, esplora_a_fondo=False):
     """Round 5: invece di UNA composizione fissa per taglia, ne pesca
     `n_party` diverse (nessuna ripetuta) e fa girare `esegui_batch` su
     ciascuna - isola l'effetto "taglia del party" da quello "questa
@@ -1289,7 +1319,7 @@ def esegui_batch_multi_party(nome_base, size, formula, scale, n_party=5, n_seed=
     for p in range(n_party):
         party = party_random(size, escludi)
         b = esegui_batch(f'{nome_base}_p{p}', party, [seed_base + 1000 + p * 100 + i for i in range(n_seed)],
-                          formula, scale, pool_extra)
+                          formula, scale, pool_extra, esplora_a_fondo)
         per_party.append(b)
 
     def media(chiave):
@@ -1644,6 +1674,47 @@ def main():
             f.write(f'| {m["size"]} | {m["media_luoghi_visitati"]:.1f} | {m["media_ore_avanzate"]:.1f} | '
                     f'{m["pct_chi_confermato"]:.0f}% | {m["pct_diapason"]:.0f}% |\n')
     print(f'\nRound KPI fatto. Riepilogo in {kpi_path}')
+
+    # --- Round KPI-fix: verifica i due interventi decisi sui punti deboli
+    # del round KPI.
+    #   (1) Tensione tavolo piccolo: +1 Ferite SOLO al Custode a 4-5 eroi
+    #       (custode_fer_bonus, sempre attivo ora, non serve toggle).
+    #   (2) Vantaggio Fase 1 a due vie: 6+ luoghi visitati vale come 3+ ore
+    #       avanzate anche a "ore finite" (esplora_a_fondo=True simula
+    #       l'euristica che sceglie la via approfondita invece di quella
+    #       veloce, per vedere se la via nuova regge quanto la vecchia).
+    print("\n--- Round KPI-fix: interventi ansia (n=4-5) + coinvolgimento (via approfondita) ---")
+    fix_risultati = []
+    for size in (2, 4, 6, 8, 10):
+        base = esegui_batch_multi_party(f'fix-{size:02d}_efficiente', size, 'tetto3_ritardato',
+                                        'curva-C_tardiva', n_party=5, n_seed=30,
+                                        seed_base=110000 + size * 1000, esplora_a_fondo=False)
+        fondo = esegui_batch_multi_party(f'fix-{size:02d}_approfondita', size, 'tetto3_ritardato',
+                                         'curva-C_tardiva', n_party=5, n_seed=30,
+                                         seed_base=115000 + size * 1000, esplora_a_fondo=True)
+        print(f'Eseguito confronto a {size} eroi (via efficiente vs via approfondita).')
+        fix_risultati.append(('efficiente', base))
+        fix_risultati.append(('approfondita', fondo))
+
+    fix_path = os.path.join(LOG_DIR, 'riepilogo_kpi_fix.md')
+    with open(fix_path, 'w', encoding='utf-8') as f:
+        f.write('# Riepilogo KPI-fix — Custode piu\' teso a 4-5, Vantaggio a due vie\n\n')
+        f.write(f'Generato: {datetime.now().isoformat(timespec="seconds")}\n\n')
+        f.write('"efficiente" = euristica che chiude appena ha il nucleo garantito (comportamento gia\' '
+                'testato nei round precedenti). "approfondita" = euristica che continua a visitare '
+                'nuovi luoghi finche\' puo\', per verificare se la via "6+ luoghi = SLANCIO" tiene il '
+                'bilanciamento della Spedizione successiva quanto la via veloce.\n\n')
+        f.write('| Taglia | Via | % Vittoria | % Vittorie sofferte | Picco eroi a terra | '
+                'Luoghi visitati | Ore avanzate | Tier |\n')
+        f.write('|---|---|---|---|---|---|---|---|\n')
+        for via, m in fix_risultati:
+            tier = ('SLANCIO' if (m['media_ore_avanzate'] >= 3 or m['media_luoghi_visitati'] >= 6)
+                    else 'PREPARATI' if (m['media_ore_avanzate'] >= 1 or m['media_luoghi_visitati'] >= 5)
+                    else 'nessuno')
+            f.write(f'| {m["size"]} | {via} | {m["pct_vittoria"]:.0f}% | {m["pct_vittoria_sofferta"]:.0f}% | '
+                    f'{m["media_max_down"]:.1f} | {m["media_luoghi_visitati"]:.1f} | '
+                    f'{m["media_ore_avanzate"]:.1f} | {tier} (indicativo, calcolato su medie) |\n')
+    print(f'\nRound KPI-fix fatto. Riepilogo in {fix_path}')
 
     print(f'\nFatto. Log in {LOG_DIR}')
 

@@ -235,8 +235,38 @@ prima che l'Ep. 1 lo riveli.
    più alte di 3 deve verificare che boss-Ferite-base + 3 resti sotto la soglia
    `N_PIP=10` del Registro (vedi 3-bis) — con Ferite-base 3 c'è ancora margine
    fino a 7. Regola spiegata per i giocatori nel **Regolamento** (fascicolo 01,
-   sezione "Giocare in un tavolo grande") — qui basta sapere che esiste quando si
-   tara un nuovo episodio per la stessa fascia di giocatori.
+   sezione "Giocare in 2, in 4-5, o in un tavolo grande") — qui basta sapere che
+   esiste quando si tara un nuovo episodio per la stessa fascia di giocatori.
+
+3-quater. *Tensione a tavolo piccolo (4–5 eroi)* — l'opposto del problema sopra:
+   a 4-5 eroi il resto della spedizione e' gia' abbastanza facile (KPI "ansia"
+   piatto: nei test, 91-97% vittoria con solo il 27-42% delle vittorie "sofferte",
+   cioe' con almeno un eroe a terra nel momento peggiore) da rendere lo scontro
+   finale l'unico posto sensato dove alzare la posta. **+1 Ferita SOLO al boss
+   dell'episodio** (non ai nemici di truppa) a 4-5 eroi, +0 sotto e sopra quella
+   fascia. Perche' solo al boss e non a tutti come sopra: i nemici di truppa di
+   solito hanno 1-2 Ferite base, un +1 generale li RADDOPPIA e sbilancia (verificato
+   -> crollo al 42-53% vittoria, scartato); il boss ha piu' margine (3 Ferite base
+   in Ep.1, +1 e' solo +33%) ed e' gia' il momento narrativo giusto per la tensione.
+   Vale la stessa nota su `N_PIP=10` del Registro Ferite (3-bis/3-ter).
+
+3-cinque. *Vantaggio Fase 1 a due vie (velocita' O approfondimento)* — la tabella
+   "Ore avanzate -> Vantaggio" in Soluzione premiava SOLO la velocita' (ore
+   risparmiate): esplorare di piu' costava sempre ore, quindi costava sempre tier,
+   quindi era sempre la scelta peggiore (KPI "coinvolgimento" basso: media 4-4.9
+   luoghi visitati su 8 in ogni test). Ogni episodio futuro deve offrire **due
+   soglie alternative equivalenti** per lo stesso Vantaggio: una in ore avanzate
+   (velocita'), una in luoghi visitati (approfondimento) - la migliore delle due
+   vince, non si sommano. Nell'Ep. 1: Slancio a 3+ ore avanzate O 6+ luoghi
+   visitati (su 8); Preparati a 1-2 ore O 5 luoghi. **Lezione di design da
+   rispettare sempre**: quando due vie alternative portano allo stesso tier
+   nominale, il contenuto del tier va reso un vero superset di quello sotto (qui:
+   Slancio = 3 azioni al 1° round + il +1 Salute di Preparati), MAI due bonus
+   diversi di valore solo presunto uguale — i test hanno mostrato che "3 azioni
+   per 1 round" vale meno di "+1 Salute per tutta la spedizione" (10-14 round),
+   quindi la via approfondita (che raggiungeva nominalmente il tier piu' alto)
+   perdeva sistematicamente di piu' della via veloce finche' non si e' corretto
+   Slancio per includere anche il bonus di Preparati.
 
 **Il Canto (o equivalente orologio a tema per l'episodio):** non un nemico, un
 **contatore di segnalini che non torna mai indietro**, alimentato da **due fonti
@@ -267,6 +297,18 @@ gradino sopra il precedente, mai un salto. Manopole da girare una o due alla vol
 
 Target di taratura invariato: un gruppo attento risponde bene a 3 domande su 4 al
 primo tentativo, e la spedizione si vince con 1–2 eroi a terra nei momenti peggiori.
+
+**I 4 KPI di design (sempre, per ogni episodio nuovo o modifica a uno esistente):**
+giocabilita', ansia, coinvolgimento, immersione — vanno mantenuti al massimo, non solo
+la % di vittoria. `scripts/simulate_playtest.py` li misura con proxy (vedi
+`esegui_batch`/`esegui_batch_multi_party`, campo `pct_vittoria_sofferta` e
+`media_max_down` per l'ansia, `media_luoghi_visitati` e `media_ore_avanzate` per il
+coinvolgimento in Indagine, `pct_vittoria`/`media_pool_esauriti` per la giocabilita',
+`pct_chi_confermato`/`pct_diapason` per l'immersione/payoff narrativo). Una % di
+vittoria perfetta con vittorie mai "sofferte" (nessun eroe mai a terra) o con meta'
+dei luoghi mai visitati e' una regressione anche se i numeri di bilanciamento tornano
+- vedi 3-quater e 3-cinque per due bug reali trovati proprio cosi', non da un
+crollo di %vittoria ma da un KPI piatto.
 
 **Mazzo Minaccia: 20–23 carte, tutte con titolo e flavor unici.** Le copie di uno
 stesso effetto sono "carte sorelle": stessa matematica, titolo diverso, flavor diverso,
