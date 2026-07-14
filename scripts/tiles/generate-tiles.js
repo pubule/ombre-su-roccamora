@@ -22,7 +22,7 @@ const S = 2464; // 1600 * 200/130, arrotondato a multiplo di 4: tessera 130mm->2
 
 // TILES 1:1 da src/gen_cards.py (id, nome, exits, arredi)
 const TILES = [
-  { id: 'T1', nome: 'Banchina d’Ingresso', exits: { N: 'T2' },
+  { id: 'T1', nome: 'Banchina d’Ingresso', exits: { N: 'T2' }, start: 'S',
     arredi: [[0, 3, 'molo'], [3, 3, 'casse']] },
   { id: 'T2', nome: 'Sala delle Casse', exits: { S: 'T1', E: 'T3', O: 'T4', N: 'T5' },
     arredi: [[1, 1, 'casse'], [2, 2, 'casse']] },
@@ -145,6 +145,40 @@ function html(tile) {
             <div class="door-label" style="${labelPos[dir]}">verso ${dest}${note ? `<br/><small>${note}</small>` : ''}</div>`;
   }).join('');
 
+  // Nessuna tessera "prima" di T1: gli eroi vi compaiono all'inizio della
+  // Spedizione (arrivano dal canale, vedi Regolamento "Eroi sulla porta di
+  // T1"), non entrano da un'altra tessera come per ogni altro collegamento.
+  // Un bordo dorato "verso Tn" qui farebbe pensare a una settima tessera
+  // mancante - stile diverso (teal, non oro) apposta per non confondere le
+  // due cose, e freccia rivolta verso il centro (si entra, non si esce).
+  const startHtml = tile.start ? (() => {
+    const dir = tile.start;
+    const idx = 1;
+    const styles = {
+      N: `left:${idx * cell}px; top:0px; width:${cell}px; height:26px;`,
+      S: `left:${idx * cell}px; top:${S - 26}px; width:${cell}px; height:26px;`,
+      E: `left:${S - 26}px; top:${idx * cell}px; width:26px; height:${cell}px;`,
+      O: `left:0px; top:${idx * cell}px; width:26px; height:${cell}px;`,
+    };
+    const labelPos = {
+      N: `left:${idx * cell + cell / 2}px; top:${64}px;`,
+      S: `left:${idx * cell + cell / 2}px; top:${S - 64}px;`,
+      E: `left:${S - 100}px; top:${idx * cell + cell / 2}px;`,
+      O: `left:${100}px; top:${idx * cell + cell / 2}px;`,
+    };
+    const arrowPos = {
+      N: `left:${idx * cell + cell / 2}px; top:${32}px;`,
+      S: `left:${idx * cell + cell / 2}px; top:${S - 32}px;`,
+      E: `left:${S - 32}px; top:${idx * cell + cell / 2}px;`,
+      O: `left:${32}px; top:${idx * cell + cell / 2}px;`,
+    };
+    const arrow = { N: '▼', S: '▲', E: '◀', O: '▶' }[dir]; // verso il centro
+    const doorClass = (dir === 'N' || dir === 'S') ? 'door door-h start' : 'door door-v start';
+    return `<div class="${doorClass}" style="${styles[dir]}"></div>
+            <div class="door-arrow start" style="${arrowPos[dir]}">${arrow}</div>
+            <div class="door-label start" style="${labelPos[dir]}">ingresso<br/><small>gli eroi iniziano qui</small></div>`;
+  })() : '';
+
   return `<!doctype html><html><head><meta charset="utf-8"><style>
     @import url('https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&display=swap');
     * { margin:0; padding:0; box-sizing:border-box; }
@@ -169,6 +203,15 @@ function html(tile) {
                   font-family:'IM Fell English SC', serif; font-size:40px; font-weight:bold; color:#f2c14e;
                   text-shadow:0 0 8px #000, 0 0 4px #000; background:rgba(10,10,12,0.7); padding:4px 14px; border-radius:4px; }
     .door-label small { display:block; font-family:'Old Standard TT', serif; font-size:20px; color:#e6c47e; font-weight:normal; }
+    /* Ingresso (T1): teal invece di oro, cosi' non si legge come una settima
+       tessera mancante ma come un marcatore di natura diversa (inizio, non
+       collegamento). */
+    .door.start { border-color:#5fb8b0; box-shadow:0 0 22px 6px rgba(95,184,176,0.85); }
+    .door-h.start { background:linear-gradient(to bottom, transparent, rgba(95,184,176,0.95) 40%, rgba(95,184,176,0.95) 60%, transparent); }
+    .door-v.start { background:linear-gradient(to right, transparent, rgba(95,184,176,0.95) 40%, rgba(95,184,176,0.95) 60%, transparent); }
+    .door-arrow.start { color:#0d2b28; text-shadow:0 0 4px #d8f5f0; }
+    .door-label.start { color:#8fe0d6; }
+    .door-label.start small { color:#bfece6; }
   </style></head><body>
     <div class="stage">
       <img class="art" src="${pathToFileURL(path.join(ROOT, 'artworks', `${tile.id}.png`)).href}" />
@@ -176,6 +219,7 @@ function html(tile) {
       ${cellsHtml.join('')}
       ${arredoHtml}
       ${doorHtml}
+      ${startHtml}
     </div>
   </body></html>`;
 }
