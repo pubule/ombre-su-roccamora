@@ -170,6 +170,9 @@ LUOGHI = [
                'musica sotto il pavimento della cripta. E aveva paura del suo stesso campanile.»',
          indizi=['Sul tavolo, una <b>CORDA DI VIOLINO d’argento</b>: «L’ha trovata in cripta», dice Bice. '
                  '<i>(Oggetto: sblocca il Luogo 5.)</i>',
+                 'Bice, esitante: «Diceva anche una cosa strana — che solo un diapason d’argento, fatto '
+                 'vibrare vicino a <i>quello che canta</i>, può farlo tacere per un momento. Diceva che '
+                 'Ferri ne teneva uno, in bottega.»',
                  'Una ricevuta: Ruggero aveva chiesto all’Archivio Civico i documenti antichi della cattedrale.',
                  'Bice: «L’ultima sera ripeteva una parola, come una preghiera al contrario: sommerso, sommerso.»',
                  'Un vicino, a bassa voce: «Ruggero non aveva famiglia oltre Bice — la sua piccola pensione da '
