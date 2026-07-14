@@ -709,6 +709,7 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
     azioni_per_round = []  # azioni nominali (2/eroe vivo, 3 al 1° round con SLANCIO)
     round_custode_svegliato = None
     canto_bonus_carte = False  # "da quel momento ogni Fase Minaccia pesca 1 carta in piu'"
+    max_down_simultanei = 0  # proxy "ansia": picco di eroi a terra nello stesso momento
 
     def log_azioni_round():
         n_azioni = len(vivi()) * (3 if (round_n == 1 and indagine['tier'].startswith('SLANCIO')) else 2)
@@ -1071,6 +1072,7 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
         fase_eroi(tappa)
         fase_minaccia()
         fase_nemici(tappa, True)
+        max_down_simultanei = max(max_down_simultanei, len(down))
         if not vivi():
             esito = 'SCONFITTA (party wipe)'
             break
@@ -1087,6 +1089,7 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
             fase_eroi('T6')
             fase_minaccia()
             fase_nemici('T6', False)
+            max_down_simultanei = max(max_down_simultanei, len(down))
             if not vivi():
                 esito = 'SCONFITTA (party wipe)'
                 break
@@ -1115,6 +1118,7 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
             fase_eroi('rientro')
             fase_minaccia()
             fase_nemici('rientro', True)
+            max_down_simultanei = max(max_down_simultanei, len(down))
             if not vivi():
                 esito = 'SCONFITTA (party wipe durante il rientro)'
                 break
@@ -1140,7 +1144,9 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
                 formula_minaccia=formula_minaccia, nemico_scale=nemico_scale, pool_extra=pool_extra,
                 azioni_media=azioni_media, azioni_max=azioni_max,
                 rimescolamenti_mazzo=rimescolamenti_mazzo, pool_esauriti_totale=pool_esauriti_totale,
-                round_custode_svegliato=round_custode_svegliato)
+                round_custode_svegliato=round_custode_svegliato,
+                canto_finale=canto, max_down=max_down_simultanei,
+                custode_ingaggiato=custode is not None)
 
 
 def esegui_run(nome_run, party, seed, formula_minaccia='standard', indagine_2gruppi=None,
@@ -1196,17 +1202,35 @@ def esegui_batch(nome_base, party, seeds, formula_minaccia='standard', nemico_sc
 
     n = len(risultati)
     sp_list = [r['spedizione'] for r in risultati]
+    ind_list = [r['indagine'] for r in risultati]
     pct_custode_anticipo = sum(1 for sp in sp_list if sp['round_custode_svegliato']) / n * 100
     media_pool_esauriti = sum(sp['pool_esauriti_totale'] for sp in sp_list) / n
     max_pool_esauriti = max(sp['pool_esauriti_totale'] for sp in sp_list)
     media_round = sum(sp['round_n'] for sp in sp_list) / n
     media_eroi_terra = sum(len(sp['down']) for sp in sp_list) / n
     pct_vittoria = sum(1 for sp in sp_list if sp['esito'] == 'VITTORIA') / n * 100
+    # Proxy KPI (giocabilita'/ansia/coinvolgimento/immersione, vedi round KPI):
+    # una vittoria e' "sofferta" se nel suo picco peggiore almeno un eroe era
+    # a terra - misura "partite in bilico" (ansia buona), da distinguere
+    # dalle vittorie mai in discussione (ansia zero) e dalle sconfitte.
+    vittorie = [sp for sp in sp_list if sp['esito'] == 'VITTORIA']
+    pct_vittoria_sofferta = (sum(1 for sp in vittorie if sp['max_down'] >= 1) / len(vittorie) * 100
+                             if vittorie else 0)
+    media_max_down = sum(sp['max_down'] for sp in sp_list) / n
+    media_canto_finale = sum(sp['canto_finale'] for sp in sp_list) / n
+    media_ore_avanzate = sum(i['ore_avanzate'] for i in ind_list) / n
+    media_luoghi_visitati = sum(len(i['visitati']) for i in ind_list) / n
+    pct_chi_confermato = sum(1 for i in ind_list if i['chi_confermato']) / n * 100
+    pct_diapason = sum(1 for i in ind_list if i['diapason']) / n * 100
     return dict(nome=nome_base, party=party, n_seed=n, formula_minaccia=formula_minaccia,
                 nemico_scale=nemico_scale, pool_extra=pool_extra,
                 pct_custode_anticipo=pct_custode_anticipo, media_pool_esauriti=media_pool_esauriti,
                 max_pool_esauriti=max_pool_esauriti, media_round=media_round,
-                media_eroi_terra=media_eroi_terra, pct_vittoria=pct_vittoria)
+                media_eroi_terra=media_eroi_terra, pct_vittoria=pct_vittoria,
+                pct_vittoria_sofferta=pct_vittoria_sofferta, media_max_down=media_max_down,
+                media_canto_finale=media_canto_finale, media_ore_avanzate=media_ore_avanzate,
+                media_luoghi_visitati=media_luoghi_visitati, pct_chi_confermato=pct_chi_confermato,
+                pct_diapason=pct_diapason)
 
 
 # Roster completo (11) e sottoinsiemi per i playtest diagnostici a 8/10
@@ -1277,7 +1301,15 @@ def esegui_batch_multi_party(nome_base, size, formula, scale, n_party=5, n_seed=
                 media_pool_esauriti=media('media_pool_esauriti'),
                 max_pool_esauriti=max(b['max_pool_esauriti'] for b in per_party),
                 media_round=media('media_round'), media_eroi_terra=media('media_eroi_terra'),
-                pct_vittoria=media('pct_vittoria'), per_party=per_party)
+                pct_vittoria=media('pct_vittoria'),
+                pct_vittoria_sofferta=media('pct_vittoria_sofferta'),
+                media_max_down=media('media_max_down'),
+                media_canto_finale=media('media_canto_finale'),
+                media_ore_avanzate=media('media_ore_avanzate'),
+                media_luoghi_visitati=media('media_luoghi_visitati'),
+                pct_chi_confermato=media('pct_chi_confermato'),
+                pct_diapason=media('pct_diapason'),
+                per_party=per_party)
 
 
 def main():
@@ -1570,6 +1602,48 @@ def main():
                 f.write(f'| {m["size"]} | {", ".join(b["party"])} | {b["pct_custode_anticipo"]:.0f}% | '
                         f'{b["media_eroi_terra"]:.1f} | {b["pct_vittoria"]:.0f}% |\n')
     print(f'\nRound 9 fatto. Riepilogo in {mp9_path}')
+
+    # --- Round KPI: fotografia dei 4 KPI di design (giocabilita', ansia,
+    # coinvolgimento, immersione) sulla configurazione DI PRODUZIONE
+    # (tetto3_ritardato + curva-C_tardiva, quella scritta nel Regolamento),
+    # su tutta la curva 2-10. Proxy misurabili:
+    #   ansia          -> % vittorie sofferte (almeno 1 eroe a terra nel momento
+    #                     peggiore), picco eroi a terra, canto finale medio
+    #                     (quanto ci si avvicina alla soglia del Custode)
+    #   coinvolgimento -> luoghi visitati in indagine, round totali (downtime)
+    #   giocabilita'   -> % vittoria, pool esauriti (componenti che finiscono)
+    #   immersione     -> ore usate dell'indagine (quanto si esplora la storia),
+    #                     % che conferma CHI COMANDA (paga il nucleo narrativo)
+    print("\n--- Round KPI: giocabilita'/ansia/coinvolgimento/immersione (config di produzione) ---")
+    kpi_risultati = []
+    for size in (2, 4, 6, 8, 10):
+        nome = f'kpi-{size:02d}'
+        print(f'Eseguo {nome} (5 party casuali x 30 seed, {size} eroi, produzione)...')
+        kpi_risultati.append(esegui_batch_multi_party(nome, size, 'tetto3_ritardato', 'curva-C_tardiva',
+                                                       n_party=5, n_seed=30, seed_base=100000 + size * 1000))
+
+    kpi_path = os.path.join(LOG_DIR, 'riepilogo_kpi.md')
+    with open(kpi_path, 'w', encoding='utf-8') as f:
+        f.write('# Riepilogo KPI — config di produzione (tetto3_ritardato + curva-C_tardiva)\n\n')
+        f.write(f'Generato: {datetime.now().isoformat(timespec="seconds")}\n\n')
+        f.write('5 party casuali x 30 seed per taglia. KPI di design: giocabilita\', ansia, '
+                'coinvolgimento, immersione.\n\n')
+        f.write('## Spedizione\n\n')
+        f.write('| Taglia | % Vittoria | % Vittorie sofferte | Picco eroi a terra (media) | '
+                'Canto finale medio (soglia 3) | Round medi | Pool esauriti (media) |\n')
+        f.write('|---|---|---|---|---|---|---|\n')
+        for m in kpi_risultati:
+            f.write(f'| {m["size"]} | {m["pct_vittoria"]:.0f}% | {m["pct_vittoria_sofferta"]:.0f}% | '
+                    f'{m["media_max_down"]:.1f} | {m["media_canto_finale"]:.1f} | '
+                    f'{m["media_round"]:.1f} | {m["media_pool_esauriti"]:.1f} |\n')
+        f.write('\n## Indagine\n\n')
+        f.write('| Taglia | Luoghi visitati (media, su 8) | Ore avanzate (media, su 6) | '
+                '% CHI COMANDA confermato | % Diapason trovato |\n')
+        f.write('|---|---|---|---|---|\n')
+        for m in kpi_risultati:
+            f.write(f'| {m["size"]} | {m["media_luoghi_visitati"]:.1f} | {m["media_ore_avanzate"]:.1f} | '
+                    f'{m["pct_chi_confermato"]:.0f}% | {m["pct_diapason"]:.0f}% |\n')
+    print(f'\nRound KPI fatto. Riepilogo in {kpi_path}')
 
     print(f'\nFatto. Log in {LOG_DIR}')
 
