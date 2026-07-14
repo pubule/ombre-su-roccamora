@@ -1,0 +1,1091 @@
+Run: mp-08_tetto3_nessuna_p4_seed0  |  seed=49400  |  formula Minaccia=tetto3  |  generato: 2026-07-15T00:21:11
+==============================================================================
+SPEDIZIONE - Il Campanile di San Teodoro (sotterranei)
+==============================================================================
+Party: CARLA DOSTI, DOTT. LAZZARO SERRA, FULGENZIO CARBONE, MORA “SPILLA” FANTI, NINO “GRIMALDELLO” CAUTO, OTTAVIO BRERA, PADRE CELSO MARANI, SIBILLA REVE
+Bonus da Indagine: PREPARATI (+1 Salute massima a testa); diapason: no
+NOTA: gruppo trattato come blocco unico tessera per tessera (vedi intestazione script).
+Tensione tavolo piccolo: +1 Ferite SOLO al Custode della Cera (non ai nemici di truppa).
+
+--- Round 1: il gruppo raggiunge T2 (Sala delle Casse) ---
+    (azioni nominali questo round: 16 — 8 eroi vivi)
+    Il gruppo entra in T2 da B1.
+    [PROVA ACUME] CARLA DOSTI: 2d6(4,1)=5 +ACUME(3) = 8 vs Media(9) -> FALLITA
+    CARLA DOSTI cerca sulla tessera: niente da trovare qui, o prova fallita.
+    DOTT. LAZZARO SERRA: nessun bersaglio, avanza / assiste il gruppo.
+    FULGENZIO CARBONE: nessun bersaglio, avanza / assiste il gruppo.
+    MORA “SPILLA” FANTI: nessun bersaglio, avanza / assiste il gruppo.
+    NINO “GRIMALDELLO” CAUTO: nessun bersaglio, avanza / assiste il gruppo.
+    OTTAVIO BRERA: nessun bersaglio, avanza / assiste il gruppo.
+    PADRE CELSO MARANI: nessun bersaglio, avanza / assiste il gruppo.
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] IL CANTO CRESCE (crescendo) — Aggiungete 1 segnalino Canto. Al terzo: il Custode della Cera si desta (vedi Soluzione). S…
+    Segnalino Canto: 1.
+  [MINACCIA] IL FONDITORE (posseduto) — Piazzate 1 Fonditore sull’ingresso della Banchina (T1). Se è già in gioco un Fonditore, re…
+    Piazzati 1x IL FONDITORE (pool residua: 2), a 6 caselle dalla tessera del gruppo.
+  [MINACCIA] RONDA (posseduto) — Piazzate 2 Adepti sull’ingresso della Banchina (T1).
+    Piazzati 2x ADEPTO INCAPPUCCIATO (pool residua: 8), a 6 caselle dalla tessera del gruppo.
+  IL FONDITORE si avvicina (Movimento 2): ancora 7 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+--- Round 2: il gruppo raggiunge T4 (Ufficio del Custode) ---
+    (azioni nominali questo round: 16 — 8 eroi vivi)
+    Il gruppo entra in T4 da D3.
+    Cercando: trovata LA CHIAVE DELLA CELLA. Prenderla è una scelta — il gruppo decide di prenderla (oggetto rischioso).
+    [PROVA NERVI] PADRE CELSO MARANI: 2d6(1,3)=4 +NERVI(3) = 7 vs Media(9) -> FALLITA
+    I fumi stordiscono PADRE CELSO MARANI: 1 sola azione al prossimo turno (non modellato oltre il log). La chiave resta comunque sua.
+    [PROVA ACUME] CARLA DOSTI: 2d6(4,4)=8 +ACUME(3) = 11 vs Media(9) -> SUCCESSO
+    CARLA DOSTI cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    [ABILITÀ] DOTT. LAZZARO SERRA attiva Voce ferma (2 usi residui): +2 NERVI agli alleati fino al suo prossimo turno.
+    [ABILITÀ] FULGENZIO CARBONE usa Esca preziosa: IL FONDITORE, ADEPTO INCAPPUCCIATO si dirige verso l’esca invece che verso il gruppo alla prossima attivazione.
+    MORA “SPILLA” FANTI: nessun bersaglio, avanza / assiste il gruppo.
+    NINO “GRIMALDELLO” CAUTO: nessun bersaglio, avanza / assiste il gruppo.
+    [ABILITÀ] OTTAVIO BRERA usa Vi conosco, Malacarne su ADEPTO INCAPPUCCIATO: rimosso dal tabellone.
+    [ABILITÀ] PADRE CELSO MARANI usa Litania: -1 segnalino Canto (1->0).
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] LAMA NEL BUIO (malavita) — Piazzate 1 Sicario adiacente all’eroe più isolato o più ferito (a pari merito: sceglie il …
+    Piazzati 1x IL SICARIO (pool residua: 1) in C3.
+    IL SICARIO si attiva subito:
+  IL SICARIO si muove verso CARLA DOSTI: C3 -> D4.
+  IL SICARIO attacca CARLA DOSTI:
+    [ATTACCO NEMICO] IL SICARIO -> CARLA DOSTI: 2d6(5,6)=11 +Attacco(3) = 14 vs Difesa(8) -> COLPITO
+    CARLA DOSTI subisce 2 danno da IL SICARIO (Salute: 5/7).
+  [MINACCIA] ADEPTO IN AGGUATO (posseduto) — Piazzate 1 Adepto sull’uscita più vicina agli eroi della tessera in cui si trova l’eroe at…
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 7) in D3.
+  [MINACCIA] SUSSURRI (insidia) — L’eroe con meno NERVI (a pari merito: sceglie il gruppo) prova NERVI (Media): se fallisce …
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(2,2)=4 +NERVI(1) +Voce ferma di DOTT. LAZZARO SERRA(+2) = 7 vs Media(9) -> FALLITA
+    MORA “SPILLA” FANTI subisce 1 danno da SUSSURRI (Salute: 7/8).
+  IL FONDITORE si dirige verso l’esca (Carbone): non attacca questo round.
+  ADEPTO INCAPPUCCIATO si dirige verso l’esca (Carbone): non attacca questo round.
+  ADEPTO INCAPPUCCIATO si muove verso SIBILLA REVE: D3 -> C3.
+  ADEPTO INCAPPUCCIATO attacca SIBILLA REVE:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> SIBILLA REVE: 2d6(2,4)=6 +Attacco(1) = 7 vs Difesa(8) -> MANCATO
+--- Round 3: il gruppo raggiunge T2 (Sala delle Casse) ---
+    (azioni nominali questo round: 16 — 8 eroi vivi)
+    Il gruppo entra in T2 da A3.
+    CARLA DOSTI si muove verso IL SICARIO: A3 -> C4.
+    [ATTACCO] CARLA DOSTI -> IL SICARIO: 2d6(2,1)=3 +VIGORE(1)+arma(1) = 5 vs Difesa(7) -> MANCATO
+    DOTT. LAZZARO SERRA si muove verso IL SICARIO: A3 -> B1.
+    DOTT. LAZZARO SERRA si avvicina a IL SICARIO, non ancora a contatto.
+    [ABILITÀ] FULGENZIO CARBONE usa Esca preziosa: IL FONDITORE, ADEPTO INCAPPUCCIATO si dirige verso l’esca invece che verso il gruppo alla prossima attivazione.
+    MORA “SPILLA” FANTI si avvicina a IL SICARIO, non ancora a contatto.
+    NINO “GRIMALDELLO” CAUTO si avvicina a IL SICARIO, non ancora a contatto.
+    OTTAVIO BRERA si avvicina a IL SICARIO, non ancora a contatto.
+    PADRE CELSO MARANI si avvicina a IL SICARIO, non ancora a contatto.
+    SIBILLA REVE si avvicina a IL SICARIO, non ancora a contatto.
+  [MINACCIA] CERA CHE COLA (ostacolo) — Fino a fine round, sulla tessera dell’eroe attivo muoversi costa il doppio.
+    Penalità di Movimento fino al prossimo turno (non modellata nel loop di combattimento).
+  [MINACCIA] VOLTI TRA LE CASSE (posseduto) — Piazzate 1 Adepto sull’uscita più vicina agli eroi della tessera corrente: si è intrufolat…
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 6) in A3.
+  [MINACCIA] UNGHIE SULLA PIETRA (posseduto) — Piazzate 1 Cane dei Moli sull’ingresso della tessera corrente: si attiva subito.
+    Piazzati 1x CANE DEI MOLI (pool residua: 2) in B3.
+    CANE DEI MOLI si attiva subito:
+  CANE DEI MOLI si muove verso NINO “GRIMALDELLO” CAUTO: B3 -> A4.
+  CANE DEI MOLI attacca NINO “GRIMALDELLO” CAUTO:
+    [ATTACCO NEMICO] CANE DEI MOLI -> NINO “GRIMALDELLO” CAUTO: 2d6(3,1)=4 +Attacco(2) = 6 vs Difesa(8) -> MANCATO
+  IL FONDITORE si dirige verso l’esca (Carbone): non attacca questo round.
+  ADEPTO INCAPPUCCIATO si dirige verso l’esca (Carbone): non attacca questo round.
+  IL SICARIO attacca CARLA DOSTI:
+    [ATTACCO NEMICO] IL SICARIO -> CARLA DOSTI: 2d6(3,1)=4 +Attacco(3) = 7 vs Difesa(8) -> MANCATO
+  ADEPTO INCAPPUCCIATO si muove verso MORA “SPILLA” FANTI: C3 -> B3.
+  ADEPTO INCAPPUCCIATO attacca MORA “SPILLA” FANTI:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> MORA “SPILLA” FANTI: 2d6(2,3)=5 +Attacco(1) = 6 vs Difesa(8) -> MANCATO
+  ADEPTO INCAPPUCCIATO si muove verso PADRE CELSO MARANI: A3 -> A2.
+  ADEPTO INCAPPUCCIATO attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> PADRE CELSO MARANI: 2d6(1,4)=5 +Attacco(1) = 6 vs Difesa(8) -> MANCATO
+--- Round 4: il gruppo raggiunge T5 (Scala interrata) ---
+    (azioni nominali questo round: 16 — 8 eroi vivi)
+    Il gruppo entra in T5 da B1.
+    [PROVA NERVI] CARLA DOSTI: 2d6(3,5)=8 +NERVI(2) = 10 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] DOTT. LAZZARO SERRA: 2d6(5,2)=7 +NERVI(2) = 9 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] FULGENZIO CARBONE: 2d6(3,3)=6 +NERVI(2) = 8 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(4,1)=5 +NERVI(1) = 6 vs Facile(7) -> FALLITA
+    MORA “SPILLA” FANTI avrà solo 1 azione al prossimo turno (non modellato oltre il log).
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6(5,5)=10 +NERVI(1) = 11 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] OTTAVIO BRERA: 2d6(3,3)=6 +NERVI(2) = 8 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] PADRE CELSO MARANI: 2d6(1,2)=3 +NERVI(3) = 6 vs Facile(7) -> FALLITA
+    PADRE CELSO MARANI avrà solo 1 azione al prossimo turno (non modellato oltre il log).
+    [PROVA NERVI] SIBILLA REVE: 2d6(3,5)=8 +NERVI(3) = 11 vs Facile(7) -> SUCCESSO
+    CARLA DOSTI si muove verso ADEPTO INCAPPUCCIATO: B1 -> A1.
+    [ATTACCO] CARLA DOSTI -> ADEPTO INCAPPUCCIATO: 2d6(1,4)=5 +VIGORE(1)+arma(1) = 7 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    [ABILITÀ] DOTT. LAZZARO SERRA attiva Voce ferma (1 usi residui): +2 NERVI agli alleati fino al suo prossimo turno.
+    FULGENZIO CARBONE si muove verso IL SICARIO: B1 -> D2.
+    FULGENZIO CARBONE si avvicina a IL SICARIO, non ancora a contatto.
+    MORA “SPILLA” FANTI si avvicina a IL SICARIO, non ancora a contatto.
+    NINO “GRIMALDELLO” CAUTO si avvicina a IL SICARIO, non ancora a contatto.
+    OTTAVIO BRERA si avvicina a IL SICARIO, non ancora a contatto.
+    PADRE CELSO MARANI si avvicina a IL SICARIO, non ancora a contatto.
+    SIBILLA REVE si avvicina a IL SICARIO, non ancora a contatto.
+  [MINACCIA] PRESAGIO (quiete) — Un brivido corre lungo la schiena. Non accade nulla... per ora.
+    Nessun effetto meccanico (tensione).
+  [MINACCIA] CORRENTE GELIDA (ostacolo) — Una corrente gelida risale dai condotti: fino all’inizio del vostro prossimo turno ogni er…
+    Penalità di Movimento fino al prossimo turno (non modellata nel loop di combattimento).
+  [MINACCIA] LA VEDETTA (posseduto) — Piazzate 1 Adepto adiacente all’eroe più isolato (quello più lontano dagli altri; a pari m…
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 6) in A2.
+  IL FONDITORE si avvicina (Movimento 2): ancora 8 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  IL SICARIO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  CANE DEI MOLI si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO attacca CARLA DOSTI:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> CARLA DOSTI: 2d6(1,2)=3 +Attacco(1) = 4 vs Difesa(8) -> MANCATO
+--- Round 5: il gruppo raggiunge T6 (Cripta della Cera) ---
+    (azioni nominali questo round: 16 — 8 eroi vivi)
+    Il gruppo entra in T6 da B1.
+    Rivelata la Cripta della Cera: il Custode della Cera si desta con 2 Adepti, in C2.
+    [ATTACCO] CARLA DOSTI -> ADEPTO INCAPPUCCIATO: 2d6(4,2)=6 +VIGORE(1)+arma(1) = 8 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    [ATTACCO] DOTT. LAZZARO SERRA -> ADEPTO INCAPPUCCIATO: 2d6(6,6)=12 +VIGORE(1)+arma(1) = 14 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    FULGENZIO CARBONE si muove verso ADEPTO INCAPPUCCIATO: B1 -> B2.
+    [ATTACCO] FULGENZIO CARBONE -> ADEPTO INCAPPUCCIATO: 2d6(2,4)=6 +VIGORE(1)+arma(1) = 8 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    MORA “SPILLA” FANTI si muove verso ADEPTO INCAPPUCCIATO: B1 -> A1.
+    [ATTACCO] MORA “SPILLA” FANTI -> ADEPTO INCAPPUCCIATO: 2d6(6,2)=8 +VIGORE(2)+arma(1) = 11 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    NINO “GRIMALDELLO” CAUTO si muove verso IL CUSTODE DELLA CERA: B1 -> C1.
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> IL CUSTODE DELLA CERA: 2d6(1,4)=5 +VIGORE(2)+arma(1) = 8 vs Difesa(9) -> MANCATO
+    OTTAVIO BRERA si avvicina a IL SICARIO, non ancora a contatto.
+    PADRE CELSO MARANI si avvicina a IL SICARIO, non ancora a contatto.
+    SIBILLA REVE si avvicina a IL SICARIO, non ancora a contatto.
+  [MINACCIA] TRAPPOLA DI CERA (insidia) — L’eroe più avanzato prova NERVI (Media): se fallisce, cera bollente: 1 danno e perde 1 azi…
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(1,2)=3 +NERVI(1) +Voce ferma di DOTT. LAZZARO SERRA(+2) = 6 vs Media(9) -> FALLITA
+    MORA “SPILLA” FANTI subisce 1 danno da TRAPPOLA DI CERA (Salute: 6/8).
+  [MINACCIA] LA MAREA DI CERA (posseduto) — Piazzate 1 Fonditore sull’ingresso della Banchina (T1): tutti i Fonditori in gioco si atti…
+    1x IL FONDITORE già in gioco si attiva subito.
+    Piazzati 1x IL FONDITORE (pool residua: 1), a 30 caselle dalla tessera del gruppo.
+  [MINACCIA] ECO AMICA (favore) — Tre colpi sordi, in lontananza: Ruggero è vivo. Rivelate una tessera coperta adiacente a u…
+    Rivelata una tessera coperta adiacente (nessun effetto in questa astrazione).
+  IL FONDITORE attacca NINO “GRIMALDELLO” CAUTO:
+    [ATTACCO NEMICO] IL FONDITORE -> NINO “GRIMALDELLO” CAUTO: 2d6(6,1)=7 +Attacco(1) = 8 vs Difesa(8) -> COLPITO
+    NINO “GRIMALDELLO” CAUTO subisce 2 danno da IL FONDITORE (Salute: 6/8).
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+  IL SICARIO si avvicina, non ancora a contatto.
+  CANE DEI MOLI si muove verso FULGENZIO CARBONE: A4 -> A2.
+  CANE DEI MOLI attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] CANE DEI MOLI -> FULGENZIO CARBONE: 2d6(5,5)=10 +Attacco(2) = 12 vs Difesa(8) -> COLPITO
+    FULGENZIO CARBONE subisce 1 danno da CANE DEI MOLI (Salute: 6/7).
+  IL FONDITORE si avvicina (Movimento 2): ancora 31 caselle prima di raggiungere la tessera del gruppo.
+  IL CUSTODE DELLA CERA attacca NINO “GRIMALDELLO” CAUTO:
+    [ATTACCO NEMICO] IL CUSTODE DELLA CERA -> NINO “GRIMALDELLO” CAUTO: 2d6(3,4)=7 +Attacco(3) = 10 vs Difesa(8) -> COLPITO
+    NINO “GRIMALDELLO” CAUTO subisce 2 danno da IL CUSTODE DELLA CERA (Salute: 4/8).
+--- Combattimento contro il Custode della Cera ---
+--- Round 6: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 16 — 8 eroi vivi)
+    CARLA DOSTI si avvicina a IL SICARIO, non ancora a contatto.
+    [ABILITÀ] DOTT. LAZZARO SERRA attiva Voce ferma (0 usi residui): +2 NERVI agli alleati fino al suo prossimo turno.
+    [ATTACCO] FULGENZIO CARBONE -> CANE DEI MOLI: 2d6(5,3)=8 +VIGORE(1)+arma(1) = 10 vs Difesa(6) -> COLPITO
+    CANE DEI MOLI: 0/1 ferite residue.
+    CANE DEI MOLI è ABBATTUTO.
+    [ATTACCO] MORA “SPILLA” FANTI -> IL FONDITORE: 2d6(6,6)=12 +VIGORE(2)+arma(1) = 15 vs Difesa(8) -> COLPITO
+    IL FONDITORE: 1/2 ferite residue.
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> IL FONDITORE: 2d6(5,5)=10 +VIGORE(2)+arma(1) = 13 vs Difesa(8) -> COLPITO
+    IL FONDITORE: 0/2 ferite residue.
+    IL FONDITORE è ABBATTUTO.
+    OTTAVIO BRERA si avvicina a IL SICARIO, non ancora a contatto.
+    PADRE CELSO MARANI si avvicina a IL SICARIO, non ancora a contatto.
+    SIBILLA REVE si avvicina a IL SICARIO, non ancora a contatto.
+  [MINACCIA] IL BRANCO (malavita) — Piazzate 2 Sgherri, adiacenti tra loro, sull’uscita più vicina agli eroi della tessera cor…
+    Piazzati 2x LO SGHERRO (pool residua: 2) in B1.
+  [MINACCIA] CANI DEI MOLI (posseduto) — Piazzate 1 Cane dei Moli sull’uscita più vicina agli eroi della tessera corrente: si attiv…
+    Piazzati 1x CANE DEI MOLI (pool residua: 2) in B1.
+    CANE DEI MOLI si attiva subito:
+  CANE DEI MOLI attacca NINO “GRIMALDELLO” CAUTO:
+    [ATTACCO NEMICO] CANE DEI MOLI -> NINO “GRIMALDELLO” CAUTO: 2d6(4,1)=5 +Attacco(2) = 7 vs Difesa(8) -> MANCATO
+  [MINACCIA] BRAVI SUL MOLO (malavita) — Piazzate 1 Sgherro sull’ingresso della Banchina (T1).
+    Piazzati 1x LO SGHERRO (pool residua: 1), a 36 caselle dalla tessera del gruppo.
+  ADEPTO INCAPPUCCIATO raggiunge la tessera del gruppo, da B1.
+  ADEPTO INCAPPUCCIATO attacca MORA “SPILLA” FANTI:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> MORA “SPILLA” FANTI: 2d6(1,4)=5 +Attacco(1) = 6 vs Difesa(8) -> MANCATO
+  IL SICARIO si avvicina, non ancora a contatto.
+  IL FONDITORE si avvicina (Movimento 2): ancora 29 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] LO SGHERRO -> FULGENZIO CARBONE: 2d6(2,4)=6 +Attacco(2) = 8 vs Difesa(8) -> COLPITO
+    FULGENZIO CARBONE subisce 1 danno da LO SGHERRO (Salute: 5/7).
+  LO SGHERRO attacca MORA “SPILLA” FANTI:
+    [ATTACCO NEMICO] LO SGHERRO -> MORA “SPILLA” FANTI: 2d6(4,4)=8 +Attacco(2) = 10 vs Difesa(8) -> COLPITO
+    MORA “SPILLA” FANTI subisce 1 danno da LO SGHERRO (Salute: 5/8).
+  LO SGHERRO si avvicina (Movimento 4): ancora 32 caselle prima di raggiungere la tessera del gruppo.
+  IL CUSTODE DELLA CERA attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] IL CUSTODE DELLA CERA -> FULGENZIO CARBONE: 2d6(4,5)=9 +Attacco(3) = 12 vs Difesa(8) -> COLPITO
+    FULGENZIO CARBONE subisce 2 danno da IL CUSTODE DELLA CERA (Salute: 3/7).
+--- Round 7: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 16 — 8 eroi vivi)
+    CARLA DOSTI si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    DOTT. LAZZARO SERRA si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    [ATTACCO] FULGENZIO CARBONE -> ADEPTO INCAPPUCCIATO: 2d6(3,4)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    [ATTACCO] MORA “SPILLA” FANTI -> CANE DEI MOLI: 2d6(4,3)=7 +VIGORE(2)+arma(1) = 10 vs Difesa(6) -> COLPITO
+    CANE DEI MOLI: 0/1 ferite residue.
+    CANE DEI MOLI è ABBATTUTO.
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> LO SGHERRO: 2d6(6,4)=10 +VIGORE(2)+arma(1) = 13 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    OTTAVIO BRERA si avvicina a IL SICARIO, non ancora a contatto.
+    PADRE CELSO MARANI si avvicina a IL SICARIO, non ancora a contatto.
+    SIBILLA REVE si avvicina a IL SICARIO, non ancora a contatto.
+  [MINACCIA] FUMI SOPORIFERI (insidia) — Ogni eroe prova NERVI (Facile): chi fallisce ha 1 sola azione al prossimo turno.
+    [PROVA NERVI] CARLA DOSTI: 2d6(3,2)=5 +NERVI(2) +Voce ferma di DOTT. LAZZARO SERRA(+2) = 9 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] DOTT. LAZZARO SERRA: 2d6(2,1)=3 +NERVI(2) +Voce ferma di DOTT. LAZZARO SERRA(+2) = 7 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] FULGENZIO CARBONE: 2d6(5,1)=6 +NERVI(2) +Voce ferma di DOTT. LAZZARO SERRA(+2) = 10 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(2,2)=4 +NERVI(1) +Voce ferma di DOTT. LAZZARO SERRA(+2) = 7 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6(1,5)=6 +NERVI(1) +Voce ferma di DOTT. LAZZARO SERRA(+2) = 9 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] OTTAVIO BRERA: 2d6(2,1)=3 +NERVI(2) +Voce ferma di DOTT. LAZZARO SERRA(+2) = 7 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] PADRE CELSO MARANI: 2d6(5,2)=7 +NERVI(3) +Voce ferma di DOTT. LAZZARO SERRA(+2) = 12 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] SIBILLA REVE: 2d6(2,2)=4 +NERVI(3) +Voce ferma di DOTT. LAZZARO SERRA(+2) = 9 vs Facile(7) -> SUCCESSO
+  [MINACCIA] IL CANTO SALE (crescendo) — Aggiungete 1 segnalino Canto. Al terzo: il Custode della Cera si desta (vedi Soluzione). S…
+    Segnalino Canto: 1.
+    Il Custode recupera 1 ferita (4/4) e si attiva subito.
+  [MINACCIA] CERA SOTTO I PIEDI (insidia) — L’eroe attivo prova NERVI (Media): se fallisce, 1 danno e perde 1 azione al prossimo turno…
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(5,5)=10 +NERVI(1) +Voce ferma di DOTT. LAZZARO SERRA(+2) = 13 vs Media(9) -> SUCCESSO
+  IL SICARIO si avvicina, non ancora a contatto.
+  IL FONDITORE si avvicina (Movimento 2): ancora 27 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO attacca NINO “GRIMALDELLO” CAUTO:
+    [ATTACCO NEMICO] LO SGHERRO -> NINO “GRIMALDELLO” CAUTO: 2d6(5,6)=11 +Attacco(2) = 13 vs Difesa(8) -> COLPITO
+    NINO “GRIMALDELLO” CAUTO subisce 1 danno da LO SGHERRO (Salute: 3/8).
+  LO SGHERRO attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] LO SGHERRO -> FULGENZIO CARBONE: 2d6(4,3)=7 +Attacco(2) = 9 vs Difesa(8) -> COLPITO
+    FULGENZIO CARBONE subisce 1 danno da LO SGHERRO (Salute: 2/7).
+  LO SGHERRO si avvicina (Movimento 4): ancora 28 caselle prima di raggiungere la tessera del gruppo.
+  IL CUSTODE DELLA CERA attacca NINO “GRIMALDELLO” CAUTO:
+    [ATTACCO NEMICO] IL CUSTODE DELLA CERA -> NINO “GRIMALDELLO” CAUTO: 2d6(6,6)=12 +Attacco(3) = 15 vs Difesa(8) -> COLPITO
+    NINO “GRIMALDELLO” CAUTO subisce 2 danno da IL CUSTODE DELLA CERA (Salute: 1/8).
+--- Round 8: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 16 — 8 eroi vivi)
+    CARLA DOSTI si avvicina a IL SICARIO, non ancora a contatto.
+    DOTT. LAZZARO SERRA si avvicina a IL SICARIO, non ancora a contatto.
+    [ATTACCO] FULGENZIO CARBONE -> LO SGHERRO: 2d6(4,1)=5 +VIGORE(1)+arma(1) = 7 vs Difesa(8) -> MANCATO
+    [ATTACCO] MORA “SPILLA” FANTI -> LO SGHERRO: 2d6(5,5)=10 +VIGORE(2)+arma(1) = 13 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> LO SGHERRO: 2d6(3,1)=4 +VIGORE(2)+arma(1) = 7 vs Difesa(8) -> MANCATO
+    OTTAVIO BRERA si avvicina a IL SICARIO, non ancora a contatto.
+    PADRE CELSO MARANI si avvicina a IL SICARIO, non ancora a contatto.
+    SIBILLA REVE si avvicina a IL SICARIO, non ancora a contatto.
+  [MINACCIA] IL CORO RISPONDE (crescendo) — Aggiungete 1 segnalino Canto. Al terzo: il Custode della Cera si desta (vedi Soluzione). S…
+    Segnalino Canto: 2.
+    Il Custode recupera 1 ferita (4/4) e si attiva subito.
+  [MINACCIA] IL FALCETTO NEL BUIO (posseduto) — Piazzate 1 Adepto sull’ingresso della tessera corrente, alle spalle degli eroi.
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 8) in B1.
+    Mazzo Minaccia esaurito: si rimescolano gli scarti.
+  [MINACCIA] BRAVI SUL MOLO (malavita) — Piazzate 1 Sgherro sull’ingresso della Banchina (T1).
+    Piazzati 1x LO SGHERRO (pool residua: 1), a 48 caselle dalla tessera del gruppo.
+  IL SICARIO si muove verso FULGENZIO CARBONE: D4 -> A2.
+  IL SICARIO attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] IL SICARIO -> FULGENZIO CARBONE: 2d6(2,3)=5 +Attacco(3) = 8 vs Difesa(8) -> COLPITO
+    FULGENZIO CARBONE subisce 2 danno da IL SICARIO (Salute: 0/7).
+    *** FULGENZIO CARBONE è A TERRA. ***
+  IL FONDITORE si avvicina (Movimento 2): ancora 25 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO attacca MORA “SPILLA” FANTI:
+    [ATTACCO NEMICO] LO SGHERRO -> MORA “SPILLA” FANTI: 2d6(4,5)=9 +Attacco(2) = 11 vs Difesa(8) -> COLPITO
+    MORA “SPILLA” FANTI subisce 1 danno da LO SGHERRO (Salute: 4/8).
+  LO SGHERRO si avvicina (Movimento 4): ancora 24 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO attacca NINO “GRIMALDELLO” CAUTO:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> NINO “GRIMALDELLO” CAUTO: 2d6(5,6)=11 +Attacco(1) = 12 vs Difesa(8) -> COLPITO
+    NINO “GRIMALDELLO” CAUTO subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 0/8).
+    *** NINO “GRIMALDELLO” CAUTO è A TERRA. ***
+  LO SGHERRO si avvicina (Movimento 4): ancora 44 caselle prima di raggiungere la tessera del gruppo.
+  IL CUSTODE DELLA CERA si avvicina, non ancora a contatto.
+--- Round 9: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 12 — 6 eroi vivi)
+    CARLA DOSTI si avvicina a IL SICARIO, non ancora a contatto.
+    DOTT. LAZZARO SERRA si avvicina a IL SICARIO, non ancora a contatto.
+    [ATTACCO] MORA “SPILLA” FANTI -> IL SICARIO: 2d6(4,1)=5 +VIGORE(2)+arma(1) = 8 vs Difesa(7) -> COLPITO
+    IL SICARIO: 0/1 ferite residue.
+    IL SICARIO è ABBATTUTO.
+    OTTAVIO BRERA si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    PADRE CELSO MARANI si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    SIBILLA REVE si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+  [MINACCIA] IL CANTO CRESCE (crescendo) — Aggiungete 1 segnalino Canto. Al terzo: il Custode della Cera si desta (vedi Soluzione). S…
+    Segnalino Canto: 3.
+    Il Canto raggiunge 3: da ora ogni Fase Minaccia pesca 1 carta in più (fino a fine spedizione, anche se il Custode è già stato abbattuto).
+    Il Custode recupera 1 ferita (4/4) e si attiva subito.
+  [MINACCIA] PRESAGIO (quiete) — Un brivido corre lungo la schiena. Non accade nulla... per ora.
+    Nessun effetto meccanico (tensione).
+  [MINACCIA] CORRENTE GELIDA (ostacolo) — Una corrente gelida risale dai condotti: fino all’inizio del vostro prossimo turno ogni er…
+    Penalità di Movimento fino al prossimo turno (non modellata nel loop di combattimento).
+  IL FONDITORE si avvicina (Movimento 2): ancora 23 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO attacca MORA “SPILLA” FANTI:
+    [ATTACCO NEMICO] LO SGHERRO -> MORA “SPILLA” FANTI: 2d6(1,3)=4 +Attacco(2) = 6 vs Difesa(8) -> MANCATO
+  LO SGHERRO si avvicina (Movimento 4): ancora 20 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO attacca MORA “SPILLA” FANTI:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> MORA “SPILLA” FANTI: 2d6(4,3)=7 +Attacco(1) = 8 vs Difesa(8) -> COLPITO
+    MORA “SPILLA” FANTI subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 3/8).
+  LO SGHERRO si avvicina (Movimento 4): ancora 40 caselle prima di raggiungere la tessera del gruppo.
+  IL CUSTODE DELLA CERA si avvicina, non ancora a contatto.
+--- Round 10: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 12 — 6 eroi vivi)
+    CARLA DOSTI si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    DOTT. LAZZARO SERRA si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    [ATTACCO] MORA “SPILLA” FANTI -> ADEPTO INCAPPUCCIATO: 2d6(1,6)=7 +VIGORE(2)+arma(1) = 10 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    OTTAVIO BRERA si avvicina a LO SGHERRO, non ancora a contatto.
+    PADRE CELSO MARANI si avvicina a LO SGHERRO, non ancora a contatto.
+    SIBILLA REVE si avvicina a LO SGHERRO, non ancora a contatto.
+  [MINACCIA] CERA SOTTO I PIEDI (insidia) — L’eroe attivo prova NERVI (Media): se fallisce, 1 danno e perde 1 azione al prossimo turno…
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(4,6)=10 +NERVI(1) = 11 vs Media(9) -> SUCCESSO
+  [MINACCIA] IL CANTO SALE (crescendo) — Aggiungete 1 segnalino Canto. Al terzo: il Custode della Cera si desta (vedi Soluzione). S…
+    Segnalino Canto: 4.
+    Il Custode recupera 1 ferita (4/4) e si attiva subito.
+  [MINACCIA] SUSSURRI (insidia) — L’eroe con meno NERVI (a pari merito: sceglie il gruppo) prova NERVI (Media): se fallisce …
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(1,2)=3 +NERVI(1) = 4 vs Media(9) -> FALLITA
+    MORA “SPILLA” FANTI subisce 1 danno da SUSSURRI (Salute: 2/8).
+  [MINACCIA] ADEPTO IN AGGUATO (posseduto) — Piazzate 1 Adepto sull’uscita più vicina agli eroi della tessera in cui si trova l’eroe at…
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 8) in B1.
+  IL FONDITORE si avvicina (Movimento 2): ancora 21 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO attacca MORA “SPILLA” FANTI:
+    [ATTACCO NEMICO] LO SGHERRO -> MORA “SPILLA” FANTI: 2d6(6,3)=9 +Attacco(2) = 11 vs Difesa(8) -> COLPITO
+    MORA “SPILLA” FANTI subisce 1 danno da LO SGHERRO (Salute: 1/8).
+  LO SGHERRO si avvicina (Movimento 4): ancora 16 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si avvicina (Movimento 4): ancora 36 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO attacca MORA “SPILLA” FANTI:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> MORA “SPILLA” FANTI: 2d6(6,6)=12 +Attacco(1) = 13 vs Difesa(8) -> COLPITO
+    MORA “SPILLA” FANTI subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 0/8).
+    *** MORA “SPILLA” FANTI è A TERRA. ***
+  IL CUSTODE DELLA CERA si avvicina, non ancora a contatto.
+--- Round 11: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 10 — 5 eroi vivi)
+    CARLA DOSTI si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    DOTT. LAZZARO SERRA si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    OTTAVIO BRERA si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    PADRE CELSO MARANI si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    SIBILLA REVE si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+  [MINACCIA] LA VEDETTA (posseduto) — Piazzate 1 Adepto adiacente all’eroe più isolato (quello più lontano dagli altri; a pari m…
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 7) in B1.
+  [MINACCIA] VOLTI TRA LE CASSE (posseduto) — Piazzate 1 Adepto sull’uscita più vicina agli eroi della tessera corrente: si è intrufolat…
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 6) in B1.
+  [MINACCIA] TRAPPOLA DI CERA (insidia) — L’eroe più avanzato prova NERVI (Media): se fallisce, cera bollente: 1 danno e perde 1 azi…
+    [PROVA NERVI] CARLA DOSTI: 2d6(6,4)=10 +NERVI(2) = 12 vs Media(9) -> SUCCESSO
+  IL FONDITORE si avvicina (Movimento 2): ancora 19 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina (Movimento 4): ancora 12 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si avvicina (Movimento 4): ancora 32 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  IL CUSTODE DELLA CERA si avvicina, non ancora a contatto.
+--- Round 12: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 10 — 5 eroi vivi)
+    CARLA DOSTI si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    DOTT. LAZZARO SERRA si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    OTTAVIO BRERA si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    PADRE CELSO MARANI si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    SIBILLA REVE si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+  [MINACCIA] RONDA (posseduto) — Piazzate 2 Adepti sull’ingresso della Banchina (T1).
+    Piazzati 2x ADEPTO INCAPPUCCIATO (pool residua: 4), a 72 caselle dalla tessera del gruppo.
+  [MINACCIA] IL CORO RISPONDE (crescendo) — Aggiungete 1 segnalino Canto. Al terzo: il Custode della Cera si desta (vedi Soluzione). S…
+    Segnalino Canto: 5.
+    Il Custode recupera 1 ferita (4/4) e si attiva subito.
+  [MINACCIA] IL BRANCO (malavita) — Piazzate 2 Sgherri, adiacenti tra loro, sull’uscita più vicina agli eroi della tessera cor…
+    Segnalini LO SGHERRO esauriti: il piazzamento non ha luogo (resto della carta si applica comunque).
+    Piazzati 1x LO SGHERRO (pool residua: 0) in B1.
+  IL FONDITORE si avvicina (Movimento 2): ancora 17 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina (Movimento 4): ancora 8 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si avvicina (Movimento 4): ancora 28 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 68 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 68 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  IL CUSTODE DELLA CERA si avvicina, non ancora a contatto.
+--- Round 13: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 10 — 5 eroi vivi)
+    CARLA DOSTI si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    DOTT. LAZZARO SERRA si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    OTTAVIO BRERA si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    PADRE CELSO MARANI si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    SIBILLA REVE si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+  [MINACCIA] CERA CHE COLA (ostacolo) — Fino a fine round, sulla tessera dell’eroe attivo muoversi costa il doppio.
+    Penalità di Movimento fino al prossimo turno (non modellata nel loop di combattimento).
+  [MINACCIA] CANI DEI MOLI (posseduto) — Piazzate 1 Cane dei Moli sull’uscita più vicina agli eroi della tessera corrente: si attiv…
+    Piazzati 1x CANE DEI MOLI (pool residua: 2) in B1.
+    CANE DEI MOLI si attiva subito:
+  CANE DEI MOLI si avvicina, non ancora a contatto.
+  [MINACCIA] UNGHIE SULLA PIETRA (posseduto) — Piazzate 1 Cane dei Moli sull’ingresso della tessera corrente: si attiva subito.
+    Piazzati 1x CANE DEI MOLI (pool residua: 1) in B1.
+    CANE DEI MOLI si attiva subito:
+  CANE DEI MOLI si avvicina, non ancora a contatto.
+  IL FONDITORE si avvicina (Movimento 2): ancora 15 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si avvicina (Movimento 4): ancora 24 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 64 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 64 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  IL CUSTODE DELLA CERA si avvicina, non ancora a contatto.
+--- Round 14: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 10 — 5 eroi vivi)
+    CARLA DOSTI si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    DOTT. LAZZARO SERRA si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    OTTAVIO BRERA si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    PADRE CELSO MARANI si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    SIBILLA REVE si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+  [MINACCIA] IL FALCETTO NEL BUIO (posseduto) — Piazzate 1 Adepto sull’ingresso della tessera corrente, alle spalle degli eroi.
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 3) in B1.
+  [MINACCIA] LAMA NEL BUIO (malavita) — Piazzate 1 Sicario adiacente all’eroe più isolato o più ferito (a pari merito: sceglie il …
+    Piazzati 1x IL SICARIO (pool residua: 1) in B1.
+    IL SICARIO si attiva subito:
+  IL SICARIO si avvicina, non ancora a contatto.
+  [MINACCIA] IL FONDITORE (posseduto) — Piazzate 1 Fonditore sull’ingresso della Banchina (T1). Se è già in gioco un Fonditore, re…
+    Piazzati 1x IL FONDITORE (pool residua: 1), a 84 caselle dalla tessera del gruppo.
+  IL FONDITORE si avvicina (Movimento 2): ancora 13 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO raggiunge la tessera del gruppo, da B1.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina (Movimento 4): ancora 20 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 60 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 60 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  CANE DEI MOLI si avvicina, non ancora a contatto.
+  CANE DEI MOLI si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  IL FONDITORE si avvicina (Movimento 2): ancora 82 caselle prima di raggiungere la tessera del gruppo.
+  IL CUSTODE DELLA CERA si avvicina, non ancora a contatto.
+--- Round 15: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 10 — 5 eroi vivi)
+    CARLA DOSTI si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    DOTT. LAZZARO SERRA si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    OTTAVIO BRERA si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    PADRE CELSO MARANI si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    SIBILLA REVE si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+  [MINACCIA] LA MAREA DI CERA (posseduto) — Piazzate 1 Fonditore sull’ingresso della Banchina (T1): tutti i Fonditori in gioco si atti…
+    2x IL FONDITORE già in gioco si attiva subito.
+    Piazzati 1x IL FONDITORE (pool residua: 0), a 90 caselle dalla tessera del gruppo.
+  [MINACCIA] ECO AMICA (favore) — Tre colpi sordi, in lontananza: Ruggero è vivo. Rivelate una tessera coperta adiacente a u…
+    Rivelata una tessera coperta adiacente (nessun effetto in questa astrazione).
+  [MINACCIA] FUMI SOPORIFERI (insidia) — Ogni eroe prova NERVI (Facile): chi fallisce ha 1 sola azione al prossimo turno.
+    [PROVA NERVI] CARLA DOSTI: 2d6(1,5)=6 +NERVI(2) = 8 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] DOTT. LAZZARO SERRA: 2d6(4,5)=9 +NERVI(2) = 11 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] OTTAVIO BRERA: 2d6(2,4)=6 +NERVI(2) = 8 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] PADRE CELSO MARANI: 2d6(2,6)=8 +NERVI(3) = 11 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] SIBILLA REVE: 2d6(6,6)=12 +NERVI(3) = 15 vs Facile(7) -> SUCCESSO
+  IL FONDITORE si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina (Movimento 4): ancora 16 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 56 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 56 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  CANE DEI MOLI si avvicina, non ancora a contatto.
+  CANE DEI MOLI si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  IL SICARIO si avvicina, non ancora a contatto.
+  IL FONDITORE si avvicina, non ancora a contatto.
+  IL FONDITORE si avvicina (Movimento 2): ancora 88 caselle prima di raggiungere la tessera del gruppo.
+  IL CUSTODE DELLA CERA si avvicina, non ancora a contatto.
+--- Round 16: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 10 — 5 eroi vivi)
+    CARLA DOSTI si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    DOTT. LAZZARO SERRA si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    OTTAVIO BRERA si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    PADRE CELSO MARANI si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    SIBILLA REVE si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    Mazzo Minaccia esaurito: si rimescolano gli scarti.
+  [MINACCIA] CORRENTE GELIDA (ostacolo) — Una corrente gelida risale dai condotti: fino all’inizio del vostro prossimo turno ogni er…
+    Penalità di Movimento fino al prossimo turno (non modellata nel loop di combattimento).
+  [MINACCIA] IL CANTO CRESCE (crescendo) — Aggiungete 1 segnalino Canto. Al terzo: il Custode della Cera si desta (vedi Soluzione). S…
+    Segnalino Canto: 6.
+    Il Custode recupera 1 ferita (4/4) e si attiva subito.
+  [MINACCIA] CANI DEI MOLI (posseduto) — Piazzate 1 Cane dei Moli sull’uscita più vicina agli eroi della tessera corrente: si attiv…
+    Piazzati 1x CANE DEI MOLI (pool residua: 0) in B1.
+    CANE DEI MOLI si attiva subito:
+  CANE DEI MOLI si avvicina, non ancora a contatto.
+  IL FONDITORE si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina (Movimento 4): ancora 12 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 52 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 52 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  CANE DEI MOLI si avvicina, non ancora a contatto.
+  CANE DEI MOLI si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  IL SICARIO si avvicina, non ancora a contatto.
+  IL FONDITORE si avvicina, non ancora a contatto.
+  IL FONDITORE si avvicina (Movimento 2): ancora 86 caselle prima di raggiungere la tessera del gruppo.
+  IL CUSTODE DELLA CERA si avvicina, non ancora a contatto.
+--- Round 17: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 10 — 5 eroi vivi)
+    CARLA DOSTI si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    DOTT. LAZZARO SERRA si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    OTTAVIO BRERA si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    PADRE CELSO MARANI si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    SIBILLA REVE si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+  [MINACCIA] RONDA (posseduto) — Piazzate 2 Adepti sull’ingresso della Banchina (T1).
+    Piazzati 2x ADEPTO INCAPPUCCIATO (pool residua: 1), a 102 caselle dalla tessera del gruppo.
+  [MINACCIA] CERA SOTTO I PIEDI (insidia) — L’eroe attivo prova NERVI (Media): se fallisce, 1 danno e perde 1 azione al prossimo turno…
+    [PROVA NERVI] CARLA DOSTI: 2d6(3,4)=7 +NERVI(2) = 9 vs Media(9) -> SUCCESSO
+  [MINACCIA] IL BRANCO (malavita) — Piazzate 2 Sgherri, adiacenti tra loro, sull’uscita più vicina agli eroi della tessera cor…
+    Segnalini LO SGHERRO esauriti: il piazzamento non ha luogo (resto della carta si applica comunque).
+    Segnalini LO SGHERRO esauriti: il piazzamento non ha luogo (resto della carta si applica comunque).
+  IL FONDITORE si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina (Movimento 4): ancora 8 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 48 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 48 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  CANE DEI MOLI si avvicina, non ancora a contatto.
+  CANE DEI MOLI si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  IL SICARIO si avvicina, non ancora a contatto.
+  IL FONDITORE si avvicina, non ancora a contatto.
+  IL FONDITORE si avvicina (Movimento 2): ancora 84 caselle prima di raggiungere la tessera del gruppo.
+  CANE DEI MOLI si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 98 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 98 caselle prima di raggiungere la tessera del gruppo.
+  IL CUSTODE DELLA CERA si avvicina, non ancora a contatto.
+--- Round 18: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 10 — 5 eroi vivi)
+    CARLA DOSTI si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    DOTT. LAZZARO SERRA si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    OTTAVIO BRERA si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    PADRE CELSO MARANI si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    SIBILLA REVE si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+  [MINACCIA] IL CORO RISPONDE (crescendo) — Aggiungete 1 segnalino Canto. Al terzo: il Custode della Cera si desta (vedi Soluzione). S…
+    Segnalino Canto: 7.
+    Il Custode recupera 1 ferita (4/4) e si attiva subito.
+  [MINACCIA] IL FONDITORE (posseduto) — Piazzate 1 Fonditore sull’ingresso della Banchina (T1). Se è già in gioco un Fonditore, re…
+    Segnalini IL FONDITORE esauriti: il piazzamento non ha luogo (resto della carta si applica comunque).
+  [MINACCIA] UNGHIE SULLA PIETRA (posseduto) — Piazzate 1 Cane dei Moli sull’ingresso della tessera corrente: si attiva subito.
+    Segnalini CANE DEI MOLI esauriti: il piazzamento non ha luogo (resto della carta si applica comunque).
+  IL FONDITORE si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 44 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 44 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  CANE DEI MOLI si avvicina, non ancora a contatto.
+  CANE DEI MOLI si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  IL SICARIO si avvicina, non ancora a contatto.
+  IL FONDITORE si avvicina, non ancora a contatto.
+  IL FONDITORE si avvicina (Movimento 2): ancora 82 caselle prima di raggiungere la tessera del gruppo.
+  CANE DEI MOLI si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 94 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 94 caselle prima di raggiungere la tessera del gruppo.
+  IL CUSTODE DELLA CERA si avvicina, non ancora a contatto.
+--- Round 19: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 10 — 5 eroi vivi)
+    CARLA DOSTI si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    DOTT. LAZZARO SERRA si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    OTTAVIO BRERA si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    PADRE CELSO MARANI si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    SIBILLA REVE si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+  [MINACCIA] LA MAREA DI CERA (posseduto) — Piazzate 1 Fonditore sull’ingresso della Banchina (T1): tutti i Fonditori in gioco si atti…
+    3x IL FONDITORE già in gioco si attiva subito.
+    Segnalini IL FONDITORE esauriti: il piazzamento non ha luogo (resto della carta si applica comunque).
+  [MINACCIA] ADEPTO IN AGGUATO (posseduto) — Piazzate 1 Adepto sull’uscita più vicina agli eroi della tessera in cui si trova l’eroe at…
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 0) in B1.
+  [MINACCIA] TRAPPOLA DI CERA (insidia) — L’eroe più avanzato prova NERVI (Media): se fallisce, cera bollente: 1 danno e perde 1 azi…
+    [PROVA NERVI] CARLA DOSTI: 2d6(3,1)=4 +NERVI(2) = 6 vs Media(9) -> FALLITA
+    CARLA DOSTI subisce 1 danno da TRAPPOLA DI CERA (Salute: 4/7).
+  IL FONDITORE si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO raggiunge la tessera del gruppo, da B1.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 40 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 40 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  CANE DEI MOLI si avvicina, non ancora a contatto.
+  CANE DEI MOLI si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  IL SICARIO si avvicina, non ancora a contatto.
+  IL FONDITORE si avvicina, non ancora a contatto.
+  IL FONDITORE si avvicina, non ancora a contatto.
+  CANE DEI MOLI si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 90 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 90 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  IL CUSTODE DELLA CERA si avvicina, non ancora a contatto.
+--- Round 20: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 10 — 5 eroi vivi)
+    CARLA DOSTI si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    DOTT. LAZZARO SERRA si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    OTTAVIO BRERA si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    PADRE CELSO MARANI si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    SIBILLA REVE si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+  [MINACCIA] IL CANTO SALE (crescendo) — Aggiungete 1 segnalino Canto. Al terzo: il Custode della Cera si desta (vedi Soluzione). S…
+    Segnalino Canto: 8.
+    Il Custode recupera 1 ferita (4/4) e si attiva subito.
+  [MINACCIA] VOLTI TRA LE CASSE (posseduto) — Piazzate 1 Adepto sull’uscita più vicina agli eroi della tessera corrente: si è intrufolat…
+    Segnalini ADEPTO INCAPPUCCIATO esauriti: il piazzamento non ha luogo (resto della carta si applica comunque).
+  [MINACCIA] PRESAGIO (quiete) — Un brivido corre lungo la schiena. Non accade nulla... per ora.
+    Nessun effetto meccanico (tensione).
+  IL FONDITORE si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 36 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 36 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  CANE DEI MOLI si avvicina, non ancora a contatto.
+  CANE DEI MOLI si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  IL SICARIO si avvicina, non ancora a contatto.
+  IL FONDITORE si avvicina, non ancora a contatto.
+  IL FONDITORE si avvicina, non ancora a contatto.
+  CANE DEI MOLI si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 86 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 86 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  IL CUSTODE DELLA CERA si avvicina, non ancora a contatto.
+--- Round 21: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 10 — 5 eroi vivi)
+    CARLA DOSTI si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    DOTT. LAZZARO SERRA si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    OTTAVIO BRERA si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    PADRE CELSO MARANI si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    SIBILLA REVE si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+  [MINACCIA] FUMI SOPORIFERI (insidia) — Ogni eroe prova NERVI (Facile): chi fallisce ha 1 sola azione al prossimo turno.
+    [PROVA NERVI] CARLA DOSTI: 2d6(4,3)=7 +NERVI(2) = 9 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] DOTT. LAZZARO SERRA: 2d6(3,6)=9 +NERVI(2) = 11 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] OTTAVIO BRERA: 2d6(4,4)=8 +NERVI(2) = 10 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] PADRE CELSO MARANI: 2d6(3,2)=5 +NERVI(3) = 8 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] SIBILLA REVE: 2d6(1,4)=5 +NERVI(3) = 8 vs Facile(7) -> SUCCESSO
+  [MINACCIA] LAMA NEL BUIO (malavita) — Piazzate 1 Sicario adiacente all’eroe più isolato o più ferito (a pari merito: sceglie il …
+    Piazzati 1x IL SICARIO (pool residua: 0) in B1.
+    IL SICARIO si attiva subito:
+  IL SICARIO si avvicina, non ancora a contatto.
+  [MINACCIA] CERA CHE COLA (ostacolo) — Fino a fine round, sulla tessera dell’eroe attivo muoversi costa il doppio.
+    Penalità di Movimento fino al prossimo turno (non modellata nel loop di combattimento).
+  IL FONDITORE si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 32 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 32 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  CANE DEI MOLI si avvicina, non ancora a contatto.
+  CANE DEI MOLI si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  IL SICARIO si avvicina, non ancora a contatto.
+  IL FONDITORE si avvicina, non ancora a contatto.
+  IL FONDITORE si avvicina, non ancora a contatto.
+  CANE DEI MOLI si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 82 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 82 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  IL CUSTODE DELLA CERA si avvicina, non ancora a contatto.
+--- Round 22: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 10 — 5 eroi vivi)
+    CARLA DOSTI si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    DOTT. LAZZARO SERRA si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    OTTAVIO BRERA si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    PADRE CELSO MARANI si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    SIBILLA REVE si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+  [MINACCIA] BRAVI SUL MOLO (malavita) — Piazzate 1 Sgherro sull’ingresso della Banchina (T1).
+    Segnalini LO SGHERRO esauriti: il piazzamento non ha luogo (resto della carta si applica comunque).
+  [MINACCIA] IL FALCETTO NEL BUIO (posseduto) — Piazzate 1 Adepto sull’ingresso della tessera corrente, alle spalle degli eroi.
+    Segnalini ADEPTO INCAPPUCCIATO esauriti: il piazzamento non ha luogo (resto della carta si applica comunque).
+  [MINACCIA] LA VEDETTA (posseduto) — Piazzate 1 Adepto adiacente all’eroe più isolato (quello più lontano dagli altri; a pari m…
+    Segnalini ADEPTO INCAPPUCCIATO esauriti: il piazzamento non ha luogo (resto della carta si applica comunque).
+  IL FONDITORE si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 28 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 28 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  CANE DEI MOLI si avvicina, non ancora a contatto.
+  CANE DEI MOLI si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  IL SICARIO si avvicina, non ancora a contatto.
+  IL FONDITORE si avvicina, non ancora a contatto.
+  IL FONDITORE si avvicina, non ancora a contatto.
+  CANE DEI MOLI si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 78 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 78 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  IL SICARIO si avvicina, non ancora a contatto.
+  IL CUSTODE DELLA CERA si avvicina, non ancora a contatto.
+--- Round 23: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 10 — 5 eroi vivi)
+    CARLA DOSTI si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    DOTT. LAZZARO SERRA si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    OTTAVIO BRERA si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    PADRE CELSO MARANI si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    SIBILLA REVE si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+  [MINACCIA] ECO AMICA (favore) — Tre colpi sordi, in lontananza: Ruggero è vivo. Rivelate una tessera coperta adiacente a u…
+    Rivelata una tessera coperta adiacente (nessun effetto in questa astrazione).
+  [MINACCIA] SUSSURRI (insidia) — L’eroe con meno NERVI (a pari merito: sceglie il gruppo) prova NERVI (Media): se fallisce …
+    [PROVA NERVI] CARLA DOSTI: 2d6(4,4)=8 +NERVI(2) = 10 vs Media(9) -> SUCCESSO
+    Mazzo Minaccia esaurito: si rimescolano gli scarti.
+  [MINACCIA] VOLTI TRA LE CASSE (posseduto) — Piazzate 1 Adepto sull’uscita più vicina agli eroi della tessera corrente: si è intrufolat…
+    Segnalini ADEPTO INCAPPUCCIATO esauriti: il piazzamento non ha luogo (resto della carta si applica comunque).
+  IL FONDITORE si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 24 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 24 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  CANE DEI MOLI si avvicina, non ancora a contatto.
+  CANE DEI MOLI si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  IL SICARIO si avvicina, non ancora a contatto.
+  IL FONDITORE si avvicina, non ancora a contatto.
+  IL FONDITORE si avvicina, non ancora a contatto.
+  CANE DEI MOLI si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 74 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 74 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  IL SICARIO si avvicina, non ancora a contatto.
+  IL CUSTODE DELLA CERA si avvicina, non ancora a contatto.
+--- Round 24: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 10 — 5 eroi vivi)
+    CARLA DOSTI si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    DOTT. LAZZARO SERRA si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    OTTAVIO BRERA si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    PADRE CELSO MARANI si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    SIBILLA REVE si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+  [MINACCIA] CORRENTE GELIDA (ostacolo) — Una corrente gelida risale dai condotti: fino all’inizio del vostro prossimo turno ogni er…
+    Penalità di Movimento fino al prossimo turno (non modellata nel loop di combattimento).
+  [MINACCIA] IL CANTO SALE (crescendo) — Aggiungete 1 segnalino Canto. Al terzo: il Custode della Cera si desta (vedi Soluzione). S…
+    Segnalino Canto: 9.
+    Il Custode recupera 1 ferita (4/4) e si attiva subito.
+  [MINACCIA] LA VEDETTA (posseduto) — Piazzate 1 Adepto adiacente all’eroe più isolato (quello più lontano dagli altri; a pari m…
+    Segnalini ADEPTO INCAPPUCCIATO esauriti: il piazzamento non ha luogo (resto della carta si applica comunque).
+  IL FONDITORE si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 20 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 20 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  CANE DEI MOLI si avvicina, non ancora a contatto.
+  CANE DEI MOLI si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  IL SICARIO si avvicina, non ancora a contatto.
+  IL FONDITORE si avvicina, non ancora a contatto.
+  IL FONDITORE si avvicina, non ancora a contatto.
+  CANE DEI MOLI si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 70 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 70 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  IL SICARIO si avvicina, non ancora a contatto.
+  IL CUSTODE DELLA CERA si avvicina, non ancora a contatto.
+--- Round 25: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 10 — 5 eroi vivi)
+    CARLA DOSTI si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    DOTT. LAZZARO SERRA si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    OTTAVIO BRERA si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    PADRE CELSO MARANI si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    SIBILLA REVE si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+  [MINACCIA] TRAPPOLA DI CERA (insidia) — L’eroe più avanzato prova NERVI (Media): se fallisce, cera bollente: 1 danno e perde 1 azi…
+    [PROVA NERVI] CARLA DOSTI: 2d6(1,2)=3 +NERVI(2) = 5 vs Media(9) -> FALLITA
+    CARLA DOSTI subisce 1 danno da TRAPPOLA DI CERA (Salute: 3/7).
+  [MINACCIA] SUSSURRI (insidia) — L’eroe con meno NERVI (a pari merito: sceglie il gruppo) prova NERVI (Media): se fallisce …
+    [PROVA NERVI] CARLA DOSTI: 2d6(4,3)=7 +NERVI(2) = 9 vs Media(9) -> SUCCESSO
+  [MINACCIA] CERA SOTTO I PIEDI (insidia) — L’eroe attivo prova NERVI (Media): se fallisce, 1 danno e perde 1 azione al prossimo turno…
+    [PROVA NERVI] CARLA DOSTI: 2d6(5,1)=6 +NERVI(2) = 8 vs Media(9) -> FALLITA
+    CARLA DOSTI subisce 1 danno da CERA SOTTO I PIEDI (Salute: 2/7).
+  IL FONDITORE si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 16 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 16 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  CANE DEI MOLI si avvicina, non ancora a contatto.
+  CANE DEI MOLI si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  IL SICARIO si avvicina, non ancora a contatto.
+  IL FONDITORE si avvicina, non ancora a contatto.
+  IL FONDITORE si avvicina, non ancora a contatto.
+  CANE DEI MOLI si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 66 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 66 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  IL SICARIO si avvicina, non ancora a contatto.
+  IL CUSTODE DELLA CERA si avvicina, non ancora a contatto.
+--- Round 26: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 10 — 5 eroi vivi)
+    CARLA DOSTI si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    DOTT. LAZZARO SERRA si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    OTTAVIO BRERA si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    PADRE CELSO MARANI si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    SIBILLA REVE si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+  [MINACCIA] RONDA (posseduto) — Piazzate 2 Adepti sull’ingresso della Banchina (T1).
+    Segnalini ADEPTO INCAPPUCCIATO esauriti: il piazzamento non ha luogo (resto della carta si applica comunque).
+    Segnalini ADEPTO INCAPPUCCIATO esauriti: il piazzamento non ha luogo (resto della carta si applica comunque).
+  [MINACCIA] FUMI SOPORIFERI (insidia) — Ogni eroe prova NERVI (Facile): chi fallisce ha 1 sola azione al prossimo turno.
+    [PROVA NERVI] CARLA DOSTI: 2d6(5,5)=10 +NERVI(2) = 12 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] DOTT. LAZZARO SERRA: 2d6(3,3)=6 +NERVI(2) = 8 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] OTTAVIO BRERA: 2d6(4,2)=6 +NERVI(2) = 8 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] PADRE CELSO MARANI: 2d6(5,2)=7 +NERVI(3) = 10 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] SIBILLA REVE: 2d6(3,1)=4 +NERVI(3) = 7 vs Facile(7) -> SUCCESSO
+  [MINACCIA] IL CORO RISPONDE (crescendo) — Aggiungete 1 segnalino Canto. Al terzo: il Custode della Cera si desta (vedi Soluzione). S…
+    Segnalino Canto: 10.
+    Il Custode recupera 1 ferita (4/4) e si attiva subito.
+  IL FONDITORE si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 12 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 12 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  CANE DEI MOLI si avvicina, non ancora a contatto.
+  CANE DEI MOLI si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  IL SICARIO si avvicina, non ancora a contatto.
+  IL FONDITORE si avvicina, non ancora a contatto.
+  IL FONDITORE si avvicina, non ancora a contatto.
+  CANE DEI MOLI si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 62 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 62 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  IL SICARIO si avvicina, non ancora a contatto.
+  IL CUSTODE DELLA CERA si avvicina, non ancora a contatto.
+--- Round 27: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 10 — 5 eroi vivi)
+    CARLA DOSTI si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    DOTT. LAZZARO SERRA si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    OTTAVIO BRERA si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    PADRE CELSO MARANI si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    SIBILLA REVE si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+  [MINACCIA] ECO AMICA (favore) — Tre colpi sordi, in lontananza: Ruggero è vivo. Rivelate una tessera coperta adiacente a u…
+    Rivelata una tessera coperta adiacente (nessun effetto in questa astrazione).
+  [MINACCIA] IL BRANCO (malavita) — Piazzate 2 Sgherri, adiacenti tra loro, sull’uscita più vicina agli eroi della tessera cor…
+    Segnalini LO SGHERRO esauriti: il piazzamento non ha luogo (resto della carta si applica comunque).
+    Segnalini LO SGHERRO esauriti: il piazzamento non ha luogo (resto della carta si applica comunque).
+  [MINACCIA] CANI DEI MOLI (posseduto) — Piazzate 1 Cane dei Moli sull’uscita più vicina agli eroi della tessera corrente: si attiv…
+    Segnalini CANE DEI MOLI esauriti: il piazzamento non ha luogo (resto della carta si applica comunque).
+  IL FONDITORE si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 8 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 8 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  CANE DEI MOLI si avvicina, non ancora a contatto.
+  CANE DEI MOLI si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  IL SICARIO si avvicina, non ancora a contatto.
+  IL FONDITORE si avvicina, non ancora a contatto.
+  IL FONDITORE si avvicina, non ancora a contatto.
+  CANE DEI MOLI si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 58 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 58 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  IL SICARIO si avvicina, non ancora a contatto.
+  IL CUSTODE DELLA CERA si avvicina, non ancora a contatto.
+--- Round 28: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 10 — 5 eroi vivi)
+    CARLA DOSTI si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    DOTT. LAZZARO SERRA si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    OTTAVIO BRERA si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    PADRE CELSO MARANI si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    SIBILLA REVE si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+  [MINACCIA] PRESAGIO (quiete) — Un brivido corre lungo la schiena. Non accade nulla... per ora.
+    Nessun effetto meccanico (tensione).
+  [MINACCIA] ADEPTO IN AGGUATO (posseduto) — Piazzate 1 Adepto sull’uscita più vicina agli eroi della tessera in cui si trova l’eroe at…
+    Segnalini ADEPTO INCAPPUCCIATO esauriti: il piazzamento non ha luogo (resto della carta si applica comunque).
+  [MINACCIA] IL CANTO CRESCE (crescendo) — Aggiungete 1 segnalino Canto. Al terzo: il Custode della Cera si desta (vedi Soluzione). S…
+    Segnalino Canto: 11.
+    Il Custode recupera 1 ferita (4/4) e si attiva subito.
+  IL FONDITORE si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  CANE DEI MOLI si avvicina, non ancora a contatto.
+  CANE DEI MOLI si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  IL SICARIO si avvicina, non ancora a contatto.
+  IL FONDITORE si avvicina, non ancora a contatto.
+  IL FONDITORE si avvicina, non ancora a contatto.
+  CANE DEI MOLI si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 54 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 54 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  IL SICARIO si avvicina, non ancora a contatto.
+  IL CUSTODE DELLA CERA si avvicina, non ancora a contatto.
+--- Round 29: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 10 — 5 eroi vivi)
+    CARLA DOSTI si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    DOTT. LAZZARO SERRA si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    OTTAVIO BRERA si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    PADRE CELSO MARANI si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    SIBILLA REVE si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+  [MINACCIA] BRAVI SUL MOLO (malavita) — Piazzate 1 Sgherro sull’ingresso della Banchina (T1).
+    Segnalini LO SGHERRO esauriti: il piazzamento non ha luogo (resto della carta si applica comunque).
+  [MINACCIA] LA MAREA DI CERA (posseduto) — Piazzate 1 Fonditore sull’ingresso della Banchina (T1): tutti i Fonditori in gioco si atti…
+    3x IL FONDITORE già in gioco si attiva subito.
+    Segnalini IL FONDITORE esauriti: il piazzamento non ha luogo (resto della carta si applica comunque).
+  [MINACCIA] IL FALCETTO NEL BUIO (posseduto) — Piazzate 1 Adepto sull’ingresso della tessera corrente, alle spalle degli eroi.
+    Segnalini ADEPTO INCAPPUCCIATO esauriti: il piazzamento non ha luogo (resto della carta si applica comunque).
+  IL FONDITORE si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO raggiunge la tessera del gruppo, da B1.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO raggiunge la tessera del gruppo, da B1.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  CANE DEI MOLI si avvicina, non ancora a contatto.
+  CANE DEI MOLI si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  IL SICARIO si avvicina, non ancora a contatto.
+  IL FONDITORE si avvicina, non ancora a contatto.
+  IL FONDITORE si avvicina, non ancora a contatto.
+  CANE DEI MOLI si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 50 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 50 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  IL SICARIO si avvicina, non ancora a contatto.
+  IL CUSTODE DELLA CERA si avvicina, non ancora a contatto.
+--- Round 30: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 10 — 5 eroi vivi)
+    CARLA DOSTI si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    DOTT. LAZZARO SERRA si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    OTTAVIO BRERA si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    PADRE CELSO MARANI si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    SIBILLA REVE si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+  [MINACCIA] IL FONDITORE (posseduto) — Piazzate 1 Fonditore sull’ingresso della Banchina (T1). Se è già in gioco un Fonditore, re…
+    Segnalini IL FONDITORE esauriti: il piazzamento non ha luogo (resto della carta si applica comunque).
+  [MINACCIA] UNGHIE SULLA PIETRA (posseduto) — Piazzate 1 Cane dei Moli sull’ingresso della tessera corrente: si attiva subito.
+    Segnalini CANE DEI MOLI esauriti: il piazzamento non ha luogo (resto della carta si applica comunque).
+  [MINACCIA] LAMA NEL BUIO (malavita) — Piazzate 1 Sicario adiacente all’eroe più isolato o più ferito (a pari merito: sceglie il …
+    Segnalini IL SICARIO esauriti: il piazzamento non ha luogo (resto della carta si applica comunque).
+  IL FONDITORE si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  CANE DEI MOLI si avvicina, non ancora a contatto.
+  CANE DEI MOLI si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  IL SICARIO si avvicina, non ancora a contatto.
+  IL FONDITORE si avvicina, non ancora a contatto.
+  IL FONDITORE si avvicina, non ancora a contatto.
+  CANE DEI MOLI si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 46 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 46 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  IL SICARIO si avvicina, non ancora a contatto.
+  IL CUSTODE DELLA CERA si avvicina, non ancora a contatto.
+--- Round 31: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 10 — 5 eroi vivi)
+    CARLA DOSTI si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    DOTT. LAZZARO SERRA si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    OTTAVIO BRERA si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    PADRE CELSO MARANI si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    SIBILLA REVE si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+  [MINACCIA] CERA CHE COLA (ostacolo) — Fino a fine round, sulla tessera dell’eroe attivo muoversi costa il doppio.
+    Penalità di Movimento fino al prossimo turno (non modellata nel loop di combattimento).
+    Mazzo Minaccia esaurito: si rimescolano gli scarti.
+  [MINACCIA] IL BRANCO (malavita) — Piazzate 2 Sgherri, adiacenti tra loro, sull’uscita più vicina agli eroi della tessera cor…
+    Segnalini LO SGHERRO esauriti: il piazzamento non ha luogo (resto della carta si applica comunque).
+    Segnalini LO SGHERRO esauriti: il piazzamento non ha luogo (resto della carta si applica comunque).
+  [MINACCIA] IL FALCETTO NEL BUIO (posseduto) — Piazzate 1 Adepto sull’ingresso della tessera corrente, alle spalle degli eroi.
+    Segnalini ADEPTO INCAPPUCCIATO esauriti: il piazzamento non ha luogo (resto della carta si applica comunque).
+  IL FONDITORE si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  CANE DEI MOLI si avvicina, non ancora a contatto.
+  CANE DEI MOLI si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  IL SICARIO si avvicina, non ancora a contatto.
+  IL FONDITORE si avvicina, non ancora a contatto.
+  IL FONDITORE si avvicina, non ancora a contatto.
+  CANE DEI MOLI si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 42 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 42 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  IL SICARIO si avvicina, non ancora a contatto.
+  IL CUSTODE DELLA CERA si avvicina, non ancora a contatto.
+
+==============================================================================
+ESITO SPEDIZIONE: TIMEOUT (30 round)
+Round totali: 31
+Formula Minaccia: tetto3 | Azioni nominali/round: media 11.7, picco 16
+Mazzo Minaccia rimescolato: 4 volta/e
+Segnalini nemici esauriti nel pool (piazzamenti saltati): 27
+Custode della Cera svegliato: solo a T6 (mai in anticipo via Canto)
+  CARLA DOSTI: 2/7 Salute
+  DOTT. LAZZARO SERRA: 7/7 Salute
+  FULGENZIO CARBONE: a terra
+  MORA “SPILLA” FANTI: a terra
+  NINO “GRIMALDELLO” CAUTO: a terra
+  OTTAVIO BRERA: 7/7 Salute
+  PADRE CELSO MARANI: 7/7 Salute
+  SIBILLA REVE: 7/7 Salute
+==============================================================================

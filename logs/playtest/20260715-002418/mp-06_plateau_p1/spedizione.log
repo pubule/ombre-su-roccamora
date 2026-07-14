@@ -1,0 +1,478 @@
+Run: mp-06_plateau_p1_seed0  |  seed=87100  |  formula Minaccia=plateau3  |  generato: 2026-07-15T00:24:45
+==============================================================================
+SPEDIZIONE - Il Campanile di San Teodoro (sotterranei)
+==============================================================================
+Party: CARLA DOSTI, DOTT. ATTILIO MARN, DOTT. LAZZARO SERRA, ELENA FOSCO, FULGENZIO CARBONE, PADRE CELSO MARANI
+Bonus da Indagine: PREPARATI (+1 Salute massima a testa); diapason: no
+NOTA: gruppo trattato come blocco unico tessera per tessera (vedi intestazione script).
+Scalatura nemici (curva-D_dolce): +1 Ferite, +0 Danno su ogni nemico incluso il Custode.
+
+--- Round 1: il gruppo raggiunge T2 (Sala delle Casse) ---
+    (azioni nominali questo round: 12 — 6 eroi vivi)
+    Il gruppo entra in T2 da B1.
+    [PROVA ACUME] CARLA DOSTI: 2d6(5,5)=10 +ACUME(3) = 13 vs Media(9) -> SUCCESSO
+    CARLA DOSTI cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    DOTT. ATTILIO MARN: nessun bersaglio, avanza / assiste il gruppo.
+    DOTT. LAZZARO SERRA: nessun bersaglio, avanza / assiste il gruppo.
+    ELENA FOSCO: nessun bersaglio, avanza / assiste il gruppo.
+    FULGENZIO CARBONE: nessun bersaglio, avanza / assiste il gruppo.
+    PADRE CELSO MARANI: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] ECO AMICA (favore) — Tre colpi sordi, in lontananza: Ruggero è vivo. Rivelate una tessera coperta adiacente a u…
+    Rivelata una tessera coperta adiacente (nessun effetto in questa astrazione).
+  [MINACCIA] VOLTI TRA LE CASSE (posseduto) — Piazzate 1 Adepto sull’uscita più vicina agli eroi della tessera corrente: si è intrufolat…
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 9) in B1.
+  [MINACCIA] LAMA NEL BUIO (malavita) — Piazzate 1 Sicario adiacente all’eroe più isolato o più ferito (a pari merito: sceglie il …
+    Piazzati 1x IL SICARIO (pool residua: 1) in C1.
+    IL SICARIO si attiva subito:
+  IL SICARIO si muove verso CARLA DOSTI: C1 -> C4.
+  IL SICARIO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si muove verso CARLA DOSTI: B1 -> C1.
+  ADEPTO INCAPPUCCIATO attacca CARLA DOSTI:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> CARLA DOSTI: 2d6(5,6)=11 +Attacco(1) = 12 vs Difesa(8) -> COLPITO
+    CARLA DOSTI subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 6/7).
+--- Round 2: il gruppo raggiunge T4 (Ufficio del Custode) ---
+    (azioni nominali questo round: 12 — 6 eroi vivi)
+    Il gruppo entra in T4 da D3.
+    Cercando: trovata LA CHIAVE DELLA CELLA. Prenderla è una scelta — il gruppo decide di prenderla (oggetto rischioso).
+    [PROVA NERVI] PADRE CELSO MARANI: 2d6(6,5)=11 +NERVI(3) = 14 vs Media(9) -> SUCCESSO
+    CARLA DOSTI si muove verso IL SICARIO: D3 -> D4.
+    [ATTACCO] CARLA DOSTI -> IL SICARIO: 2d6(3,6)=9 +VIGORE(1)+arma(1) = 11 vs Difesa(7) -> COLPITO
+    IL SICARIO: 1/2 ferite residue.
+    [ABILITÀ] DOTT. ATTILIO MARN usa Pronto Soccorso su CARLA DOSTI -> Salute 7.
+    [ABILITÀ] DOTT. LAZZARO SERRA attiva Voce ferma (2 usi residui): +2 NERVI agli alleati fino al suo prossimo turno.
+    ELENA FOSCO si muove verso IL SICARIO: D3 -> C3.
+    [ATTACCO] ELENA FOSCO -> IL SICARIO: 2d6(2,3)=5 +VIGORE(1)+arma(1) = 7 vs Difesa(7) -> COLPITO
+    IL SICARIO: 0/2 ferite residue.
+    IL SICARIO è ABBATTUTO.
+    [ABILITÀ] FULGENZIO CARBONE usa Esca preziosa: ADEPTO INCAPPUCCIATO si dirige verso l’esca invece che verso il gruppo alla prossima attivazione.
+    PADRE CELSO MARANI si muove verso ADEPTO INCAPPUCCIATO: D3 -> C2.
+    [ATTACCO] PADRE CELSO MARANI -> ADEPTO INCAPPUCCIATO: 2d6(5,6)=11 +VIGORE(1)+arma(1) = 13 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 1/2 ferite residue.
+  [MINACCIA] IL CORO RISPONDE (crescendo) — Aggiungete 1 segnalino Canto. Al terzo: il Custode della Cera si desta (vedi Soluzione). S…
+    Segnalino Canto: 1.
+  [MINACCIA] SUSSURRI (insidia) — L’eroe con meno NERVI (a pari merito: sceglie il gruppo) prova NERVI (Media): se fallisce …
+    [PROVA NERVI] CARLA DOSTI: 2d6(5,6)=11 +NERVI(2) +Voce ferma di DOTT. LAZZARO SERRA(+2) = 15 vs Media(9) -> SUCCESSO
+  [MINACCIA] TRAPPOLA DI CERA (insidia) — L’eroe più avanzato prova NERVI (Media): se fallisce, cera bollente: 1 danno e perde 1 azi…
+    [PROVA NERVI] CARLA DOSTI: 2d6(2,3)=5 +NERVI(2) +Voce ferma di DOTT. LAZZARO SERRA(+2) = 9 vs Media(9) -> SUCCESSO
+  ADEPTO INCAPPUCCIATO si dirige verso l’esca (Carbone): non attacca questo round.
+--- Round 3: il gruppo raggiunge T2 (Sala delle Casse) ---
+    (azioni nominali questo round: 12 — 6 eroi vivi)
+    Il gruppo entra in T2 da A3.
+    CARLA DOSTI si muove verso ADEPTO INCAPPUCCIATO: A3 -> B1.
+    [ATTACCO] CARLA DOSTI -> ADEPTO INCAPPUCCIATO: 2d6(3,4)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/2 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    DOTT. ATTILIO MARN: nessun bersaglio, avanza / assiste il gruppo.
+    DOTT. LAZZARO SERRA: nessun bersaglio, avanza / assiste il gruppo.
+    ELENA FOSCO: nessun bersaglio, avanza / assiste il gruppo.
+    FULGENZIO CARBONE: nessun bersaglio, avanza / assiste il gruppo.
+    [ABILITÀ] PADRE CELSO MARANI usa Litania: -1 segnalino Canto (1->0).
+  [MINACCIA] UNGHIE SULLA PIETRA (posseduto) — Piazzate 1 Cane dei Moli sull’ingresso della tessera corrente: si attiva subito.
+    Piazzati 1x CANE DEI MOLI (pool residua: 2) in B3.
+    CANE DEI MOLI si attiva subito:
+  CANE DEI MOLI si muove verso DOTT. LAZZARO SERRA: B3 -> A4.
+  CANE DEI MOLI attacca DOTT. LAZZARO SERRA:
+    [ATTACCO NEMICO] CANE DEI MOLI -> DOTT. LAZZARO SERRA: 2d6(3,5)=8 +Attacco(2) = 10 vs Difesa(8) -> COLPITO
+    DOTT. LAZZARO SERRA subisce 1 danno da CANE DEI MOLI (Salute: 6/7).
+  [MINACCIA] IL CANTO SALE (crescendo) — Aggiungete 1 segnalino Canto. Al terzo: il Custode della Cera si desta (vedi Soluzione). S…
+    Segnalino Canto: 1.
+  [MINACCIA] CORRENTE GELIDA (ostacolo) — Una corrente gelida risale dai condotti: fino all’inizio del vostro prossimo turno ogni er…
+    Penalità di Movimento fino al prossimo turno (non modellata nel loop di combattimento).
+--- Round 4: il gruppo raggiunge T5 (Scala interrata) ---
+    (azioni nominali questo round: 12 — 6 eroi vivi)
+    Il gruppo entra in T5 da B1.
+    [PROVA NERVI] CARLA DOSTI: 2d6(3,5)=8 +NERVI(2) = 10 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] DOTT. ATTILIO MARN: 2d6(2,2)=4 +NERVI(2) = 6 vs Facile(7) -> FALLITA
+    DOTT. ATTILIO MARN avrà solo 1 azione al prossimo turno (non modellato oltre il log).
+    [PROVA NERVI] DOTT. LAZZARO SERRA: 2d6(4,6)=10 +NERVI(2) = 12 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] ELENA FOSCO: 2d6(6,6)=12 +NERVI(2) = 14 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] FULGENZIO CARBONE: 2d6(2,1)=3 +NERVI(2) = 5 vs Facile(7) -> FALLITA
+    FULGENZIO CARBONE avrà solo 1 azione al prossimo turno (non modellato oltre il log).
+    [PROVA NERVI] PADRE CELSO MARANI: 2d6(1,4)=5 +NERVI(3) = 8 vs Facile(7) -> SUCCESSO
+    CARLA DOSTI si muove verso CANE DEI MOLI: B1 -> A3.
+    [ATTACCO] CARLA DOSTI -> CANE DEI MOLI: 2d6(6,5)=11 +VIGORE(1)+arma(1) = 13 vs Difesa(6) -> COLPITO
+    CANE DEI MOLI: 1/2 ferite residue.
+    [ABILITÀ] DOTT. ATTILIO MARN usa Pronto Soccorso su DOTT. LAZZARO SERRA -> Salute 7.
+    [ABILITÀ] DOTT. LAZZARO SERRA attiva Voce ferma (1 usi residui): +2 NERVI agli alleati fino al suo prossimo turno.
+    ELENA FOSCO si muove verso CANE DEI MOLI: B1 -> D2.
+    ELENA FOSCO si avvicina a CANE DEI MOLI, non ancora a contatto.
+    [ABILITÀ] FULGENZIO CARBONE usa Esca preziosa: CANE DEI MOLI si dirige verso l’esca invece che verso il gruppo alla prossima attivazione.
+    PADRE CELSO MARANI si avvicina a CANE DEI MOLI, non ancora a contatto.
+  [MINACCIA] PRESAGIO (quiete) — Un brivido corre lungo la schiena. Non accade nulla... per ora.
+    Nessun effetto meccanico (tensione).
+  [MINACCIA] LA VEDETTA (posseduto) — Piazzate 1 Adepto adiacente all’eroe più isolato (quello più lontano dagli altri; a pari m…
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 9) in C1.
+  [MINACCIA] RONDA (posseduto) — Piazzate 2 Adepti sull’ingresso della Banchina (T1).
+    Piazzati 2x ADEPTO INCAPPUCCIATO (pool residua: 7), a 24 caselle dalla tessera del gruppo.
+  CANE DEI MOLI si dirige verso l’esca (Carbone): non attacca questo round.
+  ADEPTO INCAPPUCCIATO attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> PADRE CELSO MARANI: 2d6(5,4)=9 +Attacco(1) = 10 vs Difesa(8) -> COLPITO
+    PADRE CELSO MARANI subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 6/7).
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 23 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 23 caselle prima di raggiungere la tessera del gruppo.
+--- Round 5: il gruppo raggiunge T6 (Cripta della Cera) ---
+    (azioni nominali questo round: 12 — 6 eroi vivi)
+    Il gruppo entra in T6 da B1.
+    Rivelata la Cripta della Cera: il Custode della Cera si desta con 2 Adepti, in C2.
+    [ATTACCO] CARLA DOSTI -> ADEPTO INCAPPUCCIATO: 2d6(5,4)=9 +VIGORE(1)+arma(1) = 11 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 1/2 ferite residue.
+    [ABILITÀ] DOTT. ATTILIO MARN usa Pronto Soccorso su PADRE CELSO MARANI -> Salute 7.
+    [ATTACCO] DOTT. LAZZARO SERRA -> ADEPTO INCAPPUCCIATO: 2d6(4,4)=8 +VIGORE(1)+arma(1) = 10 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/2 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    [ATTACCO] ELENA FOSCO -> ADEPTO INCAPPUCCIATO: 2d6(1,3)=4 +VIGORE(1)+arma(1) = 6 vs Difesa(7) -> MANCATO
+    [ATTACCO] FULGENZIO CARBONE -> ADEPTO INCAPPUCCIATO: 2d6(3,1)=4 +VIGORE(1)+arma(1) = 6 vs Difesa(7) -> MANCATO
+    [ATTACCO] PADRE CELSO MARANI -> ADEPTO INCAPPUCCIATO: 2d6(1,6)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 1/2 ferite residue.
+  [MINACCIA] LA MAREA DI CERA (posseduto) — Piazzate 1 Fonditore sull’ingresso della Banchina (T1): tutti i Fonditori in gioco si atti…
+    Piazzati 1x IL FONDITORE (pool residua: 2), a 30 caselle dalla tessera del gruppo.
+  [MINACCIA] IL BRANCO (malavita) — Piazzate 2 Sgherri, adiacenti tra loro, sull’uscita più vicina agli eroi della tessera cor…
+    Piazzati 2x LO SGHERRO (pool residua: 2) in B1.
+  [MINACCIA] FUMI SOPORIFERI (insidia) — Ogni eroe prova NERVI (Facile): chi fallisce ha 1 sola azione al prossimo turno.
+    [PROVA NERVI] CARLA DOSTI: 2d6(3,1)=4 +NERVI(2) +Voce ferma di DOTT. LAZZARO SERRA(+2) = 8 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] DOTT. ATTILIO MARN: 2d6(1,3)=4 +NERVI(2) +Voce ferma di DOTT. LAZZARO SERRA(+2) = 8 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] DOTT. LAZZARO SERRA: 2d6(1,2)=3 +NERVI(2) +Voce ferma di DOTT. LAZZARO SERRA(+2) = 7 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] ELENA FOSCO: 2d6(6,3)=9 +NERVI(2) +Voce ferma di DOTT. LAZZARO SERRA(+2) = 13 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] FULGENZIO CARBONE: 2d6(6,5)=11 +NERVI(2) +Voce ferma di DOTT. LAZZARO SERRA(+2) = 15 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] PADRE CELSO MARANI: 2d6(5,6)=11 +NERVI(3) +Voce ferma di DOTT. LAZZARO SERRA(+2) = 16 vs Facile(7) -> SUCCESSO
+  CANE DEI MOLI si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 22 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 22 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO attacca DOTT. ATTILIO MARN:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> DOTT. ATTILIO MARN: 2d6(6,6)=12 +Attacco(1) = 13 vs Difesa(8) -> COLPITO
+    DOTT. ATTILIO MARN subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 7/8).
+  ADEPTO INCAPPUCCIATO attacca ELENA FOSCO:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> ELENA FOSCO: 2d6(4,1)=5 +Attacco(1) = 6 vs Difesa(8) -> MANCATO
+  IL FONDITORE si avvicina (Movimento 2): ancora 31 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si muove verso CARLA DOSTI: B1 -> C1.
+  LO SGHERRO attacca CARLA DOSTI:
+    [ATTACCO NEMICO] LO SGHERRO -> CARLA DOSTI: 2d6(3,6)=9 +Attacco(2) = 11 vs Difesa(8) -> COLPITO
+    CARLA DOSTI subisce 1 danno da LO SGHERRO (Salute: 6/7).
+  LO SGHERRO si avvicina, non ancora a contatto.
+  IL CUSTODE DELLA CERA si avvicina, non ancora a contatto.
+--- Combattimento contro il Custode della Cera ---
+--- Round 6: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 12 — 6 eroi vivi)
+    [ATTACCO] CARLA DOSTI -> ADEPTO INCAPPUCCIATO: 2d6(1,6)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/2 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    DOTT. ATTILIO MARN si muove verso ADEPTO INCAPPUCCIATO: B1 -> A2.
+    [ATTACCO] DOTT. ATTILIO MARN -> ADEPTO INCAPPUCCIATO: 2d6(4,3)=7 +VIGORE(2)+arma(1) = 10 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 1/2 ferite residue.
+    [ABILITÀ] DOTT. LAZZARO SERRA attiva Voce ferma (0 usi residui): +2 NERVI agli alleati fino al suo prossimo turno.
+    [ATTACCO] ELENA FOSCO -> ADEPTO INCAPPUCCIATO: 2d6(3,5)=8 +VIGORE(1)+arma(1) = 10 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/2 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    [ATTACCO] FULGENZIO CARBONE -> LO SGHERRO: 2d6(4,3)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 2/3 ferite residue.
+    [ATTACCO] PADRE CELSO MARANI -> LO SGHERRO: 2d6(2,1)=3 +VIGORE(1)+arma(1) = 5 vs Difesa(8) -> MANCATO
+  [MINACCIA] IL FONDITORE (posseduto) — Piazzate 1 Fonditore sull’ingresso della Banchina (T1). Se è già in gioco un Fonditore, re…
+    Piazzati 1x IL FONDITORE (pool residua: 1), a 36 caselle dalla tessera del gruppo.
+  [MINACCIA] CERA CHE COLA (ostacolo) — Fino a fine round, sulla tessera dell’eroe attivo muoversi costa il doppio.
+    Penalità di Movimento fino al prossimo turno (non modellata nel loop di combattimento).
+  [MINACCIA] CERA SOTTO I PIEDI (insidia) — L’eroe attivo prova NERVI (Media): se fallisce, 1 danno e perde 1 azione al prossimo turno…
+    [PROVA NERVI] CARLA DOSTI: 2d6(5,5)=10 +NERVI(2) +Voce ferma di DOTT. LAZZARO SERRA(+2) = 14 vs Media(9) -> SUCCESSO
+  CANE DEI MOLI si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 18 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 18 caselle prima di raggiungere la tessera del gruppo.
+  IL FONDITORE si avvicina (Movimento 2): ancora 29 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO attacca DOTT. LAZZARO SERRA:
+    [ATTACCO NEMICO] LO SGHERRO -> DOTT. LAZZARO SERRA: 2d6(1,4)=5 +Attacco(2) = 7 vs Difesa(8) -> MANCATO
+  LO SGHERRO si muove verso CARLA DOSTI: B1 -> A1.
+  LO SGHERRO attacca CARLA DOSTI:
+    [ATTACCO NEMICO] LO SGHERRO -> CARLA DOSTI: 2d6(6,2)=8 +Attacco(2) = 10 vs Difesa(8) -> COLPITO
+    CARLA DOSTI subisce 1 danno da LO SGHERRO (Salute: 5/7).
+  IL FONDITORE si avvicina (Movimento 2): ancora 34 caselle prima di raggiungere la tessera del gruppo.
+  IL CUSTODE DELLA CERA si muove verso DOTT. LAZZARO SERRA: C2 -> B2.
+  IL CUSTODE DELLA CERA attacca DOTT. LAZZARO SERRA:
+    [ATTACCO NEMICO] IL CUSTODE DELLA CERA -> DOTT. LAZZARO SERRA: 2d6(4,1)=5 +Attacco(3) = 8 vs Difesa(8) -> COLPITO
+    DOTT. LAZZARO SERRA subisce 2 danno da IL CUSTODE DELLA CERA (Salute: 5/7).
+--- Round 7: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 12 — 6 eroi vivi)
+    [ATTACCO] CARLA DOSTI -> LO SGHERRO: 2d6(6,5)=11 +VIGORE(1)+arma(1) = 13 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/3 ferite residue.
+    [ATTACCO] DOTT. ATTILIO MARN -> LO SGHERRO: 2d6(3,4)=7 +VIGORE(2)+arma(1) = 10 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 2/3 ferite residue.
+    [ATTACCO] DOTT. LAZZARO SERRA -> LO SGHERRO: 2d6(6,3)=9 +VIGORE(1)+arma(1) = 11 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/3 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+    [ATTACCO] ELENA FOSCO -> LO SGHERRO: 2d6(4,3)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/3 ferite residue.
+    [ATTACCO] FULGENZIO CARBONE -> LO SGHERRO: 2d6(3,3)=6 +VIGORE(1)+arma(1) = 8 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/3 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+    PADRE CELSO MARANI si muove verso IL CUSTODE DELLA CERA: B1 -> C2.
+    [ATTACCO] PADRE CELSO MARANI -> IL CUSTODE DELLA CERA: 2d6(6,1)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(9) -> COLPITO
+    IL CUSTODE DELLA CERA: 3/4 ferite residue.
+  [MINACCIA] CANI DEI MOLI (posseduto) — Piazzate 1 Cane dei Moli sull’uscita più vicina agli eroi della tessera corrente: si attiv…
+    Piazzati 1x CANE DEI MOLI (pool residua: 1) in A3.
+    CANE DEI MOLI si attiva subito:
+  CANE DEI MOLI attacca DOTT. ATTILIO MARN:
+    [ATTACCO NEMICO] CANE DEI MOLI -> DOTT. ATTILIO MARN: 2d6(2,2)=4 +Attacco(2) = 6 vs Difesa(8) -> MANCATO
+  [MINACCIA] IL CANTO CRESCE (crescendo) — Aggiungete 1 segnalino Canto. Al terzo: il Custode della Cera si desta (vedi Soluzione). S…
+    Segnalino Canto: 2.
+    Il Custode recupera 1 ferita (4/4) e si attiva subito.
+  [MINACCIA] BRAVI SUL MOLO (malavita) — Piazzate 1 Sgherro sull’ingresso della Banchina (T1).
+    Piazzati 1x LO SGHERRO (pool residua: 3), a 42 caselle dalla tessera del gruppo.
+  CANE DEI MOLI si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 14 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 14 caselle prima di raggiungere la tessera del gruppo.
+  IL FONDITORE si avvicina (Movimento 2): ancora 27 caselle prima di raggiungere la tessera del gruppo.
+  IL FONDITORE si avvicina (Movimento 2): ancora 32 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si avvicina (Movimento 4): ancora 38 caselle prima di raggiungere la tessera del gruppo.
+  IL CUSTODE DELLA CERA attacca ELENA FOSCO:
+    [ATTACCO NEMICO] IL CUSTODE DELLA CERA -> ELENA FOSCO: 2d6(6,5)=11 +Attacco(3) = 14 vs Difesa(8) -> COLPITO
+    ELENA FOSCO subisce 2 danno da IL CUSTODE DELLA CERA (Salute: 5/7).
+--- Round 8: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 12 — 6 eroi vivi)
+    [ATTACCO] CARLA DOSTI -> IL CUSTODE DELLA CERA: 2d6(1,1)=2 +VIGORE(1)+arma(1) = 4 vs Difesa(9) -> MANCATO
+    [ATTACCO] DOTT. ATTILIO MARN -> CANE DEI MOLI: 2d6(3,5)=8 +VIGORE(2)+arma(1) = 11 vs Difesa(6) -> COLPITO
+    CANE DEI MOLI: 1/2 ferite residue.
+    [ATTACCO] DOTT. LAZZARO SERRA -> IL CUSTODE DELLA CERA: 2d6(1,6)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(9) -> COLPITO
+    IL CUSTODE DELLA CERA: 3/4 ferite residue.
+    [ATTACCO] ELENA FOSCO -> IL CUSTODE DELLA CERA: 2d6(4,1)=5 +VIGORE(1)+arma(1) = 7 vs Difesa(9) -> MANCATO
+    [ATTACCO] FULGENZIO CARBONE -> IL CUSTODE DELLA CERA: 2d6(2,3)=5 +VIGORE(1)+arma(1) = 7 vs Difesa(9) -> MANCATO
+    [ATTACCO] PADRE CELSO MARANI -> IL CUSTODE DELLA CERA: 2d6(6,5)=11 +VIGORE(1)+arma(1) = 13 vs Difesa(9) -> COLPITO
+    IL CUSTODE DELLA CERA: 2/4 ferite residue.
+  [MINACCIA] ADEPTO IN AGGUATO (posseduto) — Piazzate 1 Adepto sull’uscita più vicina agli eroi della tessera in cui si trova l’eroe at…
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 7) in B1.
+  [MINACCIA] IL FALCETTO NEL BUIO (posseduto) — Piazzate 1 Adepto sull’ingresso della tessera corrente, alle spalle degli eroi.
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 6) in B1.
+    Mazzo Minaccia esaurito: si rimescolano gli scarti.
+  [MINACCIA] BRAVI SUL MOLO (malavita) — Piazzate 1 Sgherro sull’ingresso della Banchina (T1).
+    Piazzati 1x LO SGHERRO (pool residua: 2), a 48 caselle dalla tessera del gruppo.
+  CANE DEI MOLI si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 10 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 10 caselle prima di raggiungere la tessera del gruppo.
+  IL FONDITORE si avvicina (Movimento 2): ancora 25 caselle prima di raggiungere la tessera del gruppo.
+  IL FONDITORE si avvicina (Movimento 2): ancora 30 caselle prima di raggiungere la tessera del gruppo.
+  CANE DEI MOLI attacca DOTT. ATTILIO MARN:
+    [ATTACCO NEMICO] CANE DEI MOLI -> DOTT. ATTILIO MARN: 2d6(6,3)=9 +Attacco(2) = 11 vs Difesa(8) -> COLPITO
+    DOTT. ATTILIO MARN subisce 1 danno da CANE DEI MOLI (Salute: 6/8).
+  LO SGHERRO si avvicina (Movimento 4): ancora 34 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si muove verso DOTT. LAZZARO SERRA: B1 -> C1.
+  ADEPTO INCAPPUCCIATO attacca DOTT. LAZZARO SERRA:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> DOTT. LAZZARO SERRA: 2d6(5,2)=7 +Attacco(1) = 8 vs Difesa(8) -> COLPITO
+    DOTT. LAZZARO SERRA subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 4/7).
+  ADEPTO INCAPPUCCIATO si muove verso ELENA FOSCO: B1 -> A1.
+  ADEPTO INCAPPUCCIATO attacca ELENA FOSCO:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> ELENA FOSCO: 2d6(4,6)=10 +Attacco(1) = 11 vs Difesa(8) -> COLPITO
+    ELENA FOSCO subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 4/7).
+  LO SGHERRO si avvicina (Movimento 4): ancora 44 caselle prima di raggiungere la tessera del gruppo.
+  IL CUSTODE DELLA CERA attacca ELENA FOSCO:
+    [ATTACCO NEMICO] IL CUSTODE DELLA CERA -> ELENA FOSCO: 2d6(3,4)=7 +Attacco(3) = 10 vs Difesa(8) -> COLPITO
+    ELENA FOSCO subisce 2 danno da IL CUSTODE DELLA CERA (Salute: 2/7).
+--- Round 9: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 12 — 6 eroi vivi)
+    [ATTACCO] CARLA DOSTI -> ADEPTO INCAPPUCCIATO: 2d6(2,3)=5 +VIGORE(1)+arma(1) = 7 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 1/2 ferite residue.
+    [ATTACCO] DOTT. ATTILIO MARN -> CANE DEI MOLI: 2d6(6,3)=9 +VIGORE(2)+arma(1) = 12 vs Difesa(6) -> COLPITO
+    CANE DEI MOLI: 0/2 ferite residue.
+    CANE DEI MOLI è ABBATTUTO.
+    [ATTACCO] DOTT. LAZZARO SERRA -> ADEPTO INCAPPUCCIATO: 2d6(4,1)=5 +VIGORE(1)+arma(1) = 7 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/2 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    [ATTACCO] ELENA FOSCO -> ADEPTO INCAPPUCCIATO: 2d6(5,6)=11 +VIGORE(1)+arma(1) = 13 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 1/2 ferite residue.
+    [ATTACCO] FULGENZIO CARBONE -> ADEPTO INCAPPUCCIATO: 2d6(6,3)=9 +VIGORE(1)+arma(1) = 11 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/2 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    [ATTACCO] PADRE CELSO MARANI -> IL CUSTODE DELLA CERA: 2d6(2,5)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(9) -> COLPITO
+    IL CUSTODE DELLA CERA: 1/4 ferite residue.
+  [MINACCIA] VOLTI TRA LE CASSE (posseduto) — Piazzate 1 Adepto sull’uscita più vicina agli eroi della tessera corrente: si è intrufolat…
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 7) in B1.
+  [MINACCIA] LA VEDETTA (posseduto) — Piazzate 1 Adepto adiacente all’eroe più isolato (quello più lontano dagli altri; a pari m…
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 6) in C1.
+  [MINACCIA] ADEPTO IN AGGUATO (posseduto) — Piazzate 1 Adepto sull’uscita più vicina agli eroi della tessera in cui si trova l’eroe at…
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 5) in B1.
+  CANE DEI MOLI si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 6 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 6 caselle prima di raggiungere la tessera del gruppo.
+  IL FONDITORE si avvicina (Movimento 2): ancora 23 caselle prima di raggiungere la tessera del gruppo.
+  IL FONDITORE si avvicina (Movimento 2): ancora 28 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si avvicina (Movimento 4): ancora 30 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si avvicina (Movimento 4): ancora 40 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si muove verso DOTT. ATTILIO MARN: B1 -> A1.
+  ADEPTO INCAPPUCCIATO attacca DOTT. ATTILIO MARN:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> DOTT. ATTILIO MARN: 2d6(2,5)=7 +Attacco(1) = 8 vs Difesa(8) -> COLPITO
+    DOTT. ATTILIO MARN subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 5/8).
+  ADEPTO INCAPPUCCIATO attacca ELENA FOSCO:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> ELENA FOSCO: 2d6(6,3)=9 +Attacco(1) = 10 vs Difesa(8) -> COLPITO
+    ELENA FOSCO subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 1/7).
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  IL CUSTODE DELLA CERA attacca DOTT. LAZZARO SERRA:
+    [ATTACCO NEMICO] IL CUSTODE DELLA CERA -> DOTT. LAZZARO SERRA: 2d6(4,5)=9 +Attacco(3) = 12 vs Difesa(8) -> COLPITO
+    DOTT. LAZZARO SERRA subisce 2 danno da IL CUSTODE DELLA CERA (Salute: 2/7).
+--- Round 10: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 12 — 6 eroi vivi)
+    [ATTACCO] CARLA DOSTI -> IL CUSTODE DELLA CERA: 2d6(5,6)=11 +VIGORE(1)+arma(1) = 13 vs Difesa(9) -> COLPITO
+    IL CUSTODE DELLA CERA: 0/4 ferite residue.
+    IL CUSTODE DELLA CERA è ABBATTUTO.
+    *** IL CUSTODE DELLA CERA È SCONFITTO. ***
+    [ATTACCO] DOTT. ATTILIO MARN -> ADEPTO INCAPPUCCIATO: 2d6(3,2)=5 +VIGORE(2)+arma(1) = 8 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 1/2 ferite residue.
+    [ATTACCO] DOTT. LAZZARO SERRA -> ADEPTO INCAPPUCCIATO: 2d6(6,5)=11 +VIGORE(1)+arma(1) = 13 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/2 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    [ATTACCO] ELENA FOSCO -> ADEPTO INCAPPUCCIATO: 2d6(5,5)=10 +VIGORE(1)+arma(1) = 12 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 1/2 ferite residue.
+    [ATTACCO] FULGENZIO CARBONE -> ADEPTO INCAPPUCCIATO: 2d6(1,4)=5 +VIGORE(1)+arma(1) = 7 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/2 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    PADRE CELSO MARANI si muove verso ADEPTO INCAPPUCCIATO: C2 -> C1.
+    [ATTACCO] PADRE CELSO MARANI -> ADEPTO INCAPPUCCIATO: 2d6(4,3)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 1/2 ferite residue.
+  [MINACCIA] CORRENTE GELIDA (ostacolo) — Una corrente gelida risale dai condotti: fino all’inizio del vostro prossimo turno ogni er…
+    Penalità di Movimento fino al prossimo turno (non modellata nel loop di combattimento).
+  [MINACCIA] CERA CHE COLA (ostacolo) — Fino a fine round, sulla tessera dell’eroe attivo muoversi costa il doppio.
+    Penalità di Movimento fino al prossimo turno (non modellata nel loop di combattimento).
+  [MINACCIA] UNGHIE SULLA PIETRA (posseduto) — Piazzate 1 Cane dei Moli sull’ingresso della tessera corrente: si attiva subito.
+    Piazzati 1x CANE DEI MOLI (pool residua: 1) in B2.
+    CANE DEI MOLI si attiva subito:
+  CANE DEI MOLI si muove verso PADRE CELSO MARANI: B2 -> C2.
+  CANE DEI MOLI attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] CANE DEI MOLI -> PADRE CELSO MARANI: 2d6(2,2)=4 +Attacco(2) = 6 vs Difesa(8) -> MANCATO
+  CANE DEI MOLI si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  IL FONDITORE si avvicina (Movimento 2): ancora 21 caselle prima di raggiungere la tessera del gruppo.
+  IL FONDITORE si avvicina (Movimento 2): ancora 26 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si avvicina (Movimento 4): ancora 26 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si avvicina (Movimento 4): ancora 36 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> PADRE CELSO MARANI: 2d6(5,2)=7 +Attacco(1) = 8 vs Difesa(8) -> COLPITO
+    PADRE CELSO MARANI subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 6/7).
+    La cella si apre con la chiave: RUGGERO È LIBERO.
+--- Ritorno a T1 con Ruggero (3 round di movimento, minacce ancora attive) ---
+--- Round 11: rientro verso T1 ---
+    (azioni nominali questo round: 12 — 6 eroi vivi)
+    CARLA DOSTI si muove verso CANE DEI MOLI: B1 -> B2.
+    [ATTACCO] CARLA DOSTI -> ADEPTO INCAPPUCCIATO: 2d6(3,3)=6 +VIGORE(1)+arma(1) = 8 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/2 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    DOTT. ATTILIO MARN si muove verso CANE DEI MOLI: A2 -> A3.
+    [ATTACCO] DOTT. ATTILIO MARN -> CANE DEI MOLI: 2d6(3,3)=6 +VIGORE(2)+arma(1) = 9 vs Difesa(6) -> COLPITO
+    CANE DEI MOLI: 0/2 ferite residue.
+    CANE DEI MOLI è ABBATTUTO.
+    DOTT. LAZZARO SERRA si avvicina a CANE DEI MOLI, non ancora a contatto.
+    ELENA FOSCO si avvicina a CANE DEI MOLI, non ancora a contatto.
+    FULGENZIO CARBONE si avvicina a CANE DEI MOLI, non ancora a contatto.
+    PADRE CELSO MARANI si muove verso CANE DEI MOLI: C1 -> D2.
+    [ATTACCO] PADRE CELSO MARANI -> CANE DEI MOLI: 2d6(6,2)=8 +VIGORE(1)+arma(1) = 10 vs Difesa(6) -> COLPITO
+    CANE DEI MOLI: 1/2 ferite residue.
+  [MINACCIA] LAMA NEL BUIO (malavita) — Piazzate 1 Sicario adiacente all’eroe più isolato o più ferito (a pari merito: sceglie il …
+    Piazzati 1x IL SICARIO (pool residua: 1) in C1.
+    IL SICARIO si attiva subito:
+  IL SICARIO attacca ELENA FOSCO:
+    [ATTACCO NEMICO] IL SICARIO -> ELENA FOSCO: 2d6(5,6)=11 +Attacco(3) = 14 vs Difesa(8) -> COLPITO
+    ELENA FOSCO subisce 2 danno da IL SICARIO (Salute: 0/7).
+    *** ELENA FOSCO è A TERRA. ***
+  [MINACCIA] LA MAREA DI CERA (posseduto) — Piazzate 1 Fonditore sull’ingresso della Banchina (T1): tutti i Fonditori in gioco si atti…
+    2x IL FONDITORE già in gioco si attiva subito.
+    Piazzati 1x IL FONDITORE (pool residua: 0), a 66 caselle dalla tessera del gruppo.
+  [MINACCIA] IL BRANCO (malavita) — Piazzate 2 Sgherri, adiacenti tra loro, sull’uscita più vicina agli eroi della tessera cor…
+    Piazzati 2x LO SGHERRO (pool residua: 0) in B1.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 1 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 1 caselle prima di raggiungere la tessera del gruppo.
+  IL FONDITORE si muove verso DOTT. LAZZARO SERRA: B1 -> A1.
+  IL FONDITORE attacca DOTT. LAZZARO SERRA:
+    [ATTACCO NEMICO] IL FONDITORE -> DOTT. LAZZARO SERRA: 2d6(3,6)=9 +Attacco(1) = 10 vs Difesa(8) -> COLPITO
+    DOTT. LAZZARO SERRA subisce 2 danno da IL FONDITORE (Salute: 0/7).
+    *** DOTT. LAZZARO SERRA è A TERRA. ***
+  IL FONDITORE attacca CARLA DOSTI:
+    [ATTACCO NEMICO] IL FONDITORE -> CARLA DOSTI: 2d6(5,5)=10 +Attacco(1) = 11 vs Difesa(8) -> COLPITO
+    CARLA DOSTI subisce 2 danno da IL FONDITORE (Salute: 3/7).
+  LO SGHERRO si avvicina (Movimento 4): ancora 25 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si avvicina (Movimento 4): ancora 35 caselle prima di raggiungere la tessera del gruppo.
+  CANE DEI MOLI attacca CARLA DOSTI:
+    [ATTACCO NEMICO] CANE DEI MOLI -> CARLA DOSTI: 2d6(4,2)=6 +Attacco(2) = 8 vs Difesa(8) -> COLPITO
+    CARLA DOSTI subisce 1 danno da CANE DEI MOLI (Salute: 2/7).
+  IL FONDITORE si avvicina (Movimento 2): ancora 67 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO attacca CARLA DOSTI:
+    [ATTACCO NEMICO] LO SGHERRO -> CARLA DOSTI: 2d6(4,2)=6 +Attacco(2) = 8 vs Difesa(8) -> COLPITO
+    CARLA DOSTI subisce 1 danno da LO SGHERRO (Salute: 1/7).
+  LO SGHERRO attacca CARLA DOSTI:
+    [ATTACCO NEMICO] LO SGHERRO -> CARLA DOSTI: 2d6(3,4)=7 +Attacco(2) = 9 vs Difesa(8) -> COLPITO
+    CARLA DOSTI subisce 1 danno da LO SGHERRO (Salute: 0/7).
+    *** CARLA DOSTI è A TERRA. ***
+--- Round 12: rientro verso T1 ---
+    (azioni nominali questo round: 6 — 3 eroi vivi)
+    DOTT. ATTILIO MARN si muove verso IL FONDITORE: A3 -> A2.
+    [ATTACCO] DOTT. ATTILIO MARN -> IL FONDITORE: 2d6(2,1)=3 +VIGORE(2)+arma(1) = 6 vs Difesa(8) -> MANCATO
+    [ATTACCO] FULGENZIO CARBONE -> IL SICARIO: 2d6(4,2)=6 +VIGORE(1)+arma(1) = 8 vs Difesa(7) -> COLPITO
+    IL SICARIO: 1/2 ferite residue.
+    [ATTACCO] PADRE CELSO MARANI -> CANE DEI MOLI: 2d6(5,4)=9 +VIGORE(1)+arma(1) = 11 vs Difesa(6) -> COLPITO
+    CANE DEI MOLI: 0/2 ferite residue.
+    CANE DEI MOLI è ABBATTUTO.
+  [MINACCIA] IL FONDITORE (posseduto) — Piazzate 1 Fonditore sull’ingresso della Banchina (T1). Se è già in gioco un Fonditore, re…
+    Segnalini IL FONDITORE esauriti: il piazzamento non ha luogo (resto della carta si applica comunque).
+  [MINACCIA] IL CANTO SALE (crescendo) — Aggiungete 1 segnalino Canto. Al terzo: il Custode della Cera si desta (vedi Soluzione). S…
+    Segnalino Canto: 3.
+    Il Canto raggiunge 3: da ora ogni Fase Minaccia pesca 1 carta in più (fino a fine spedizione, anche se il Custode è già stato abbattuto).
+    Il Custode è già stato sconfitto: nessun effetto su di lui (il culto sente comunque il rituale avvicinarsi, vedi Regolamento).
+  ADEPTO INCAPPUCCIATO raggiunge la tessera del gruppo, da B1.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO raggiunge la tessera del gruppo, da B1.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  IL FONDITORE attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] IL FONDITORE -> FULGENZIO CARBONE: 2d6(1,3)=4 +Attacco(1) = 5 vs Difesa(8) -> MANCATO
+  IL FONDITORE si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina (Movimento 4): ancora 24 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si avvicina (Movimento 4): ancora 34 caselle prima di raggiungere la tessera del gruppo.
+  IL SICARIO attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] IL SICARIO -> FULGENZIO CARBONE: 2d6(3,3)=6 +Attacco(3) = 9 vs Difesa(8) -> COLPITO
+    FULGENZIO CARBONE subisce 2 danno da IL SICARIO (Salute: 5/7).
+  IL FONDITORE si avvicina (Movimento 2): ancora 68 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+--- Round 13: rientro verso T1 ---
+    (azioni nominali questo round: 6 — 3 eroi vivi)
+    [ATTACCO] DOTT. ATTILIO MARN -> IL FONDITORE: 2d6(5,1)=6 +VIGORE(2)+arma(1) = 9 vs Difesa(8) -> COLPITO
+    IL FONDITORE: 2/3 ferite residue.
+    [ATTACCO] FULGENZIO CARBONE -> IL SICARIO: 2d6(4,4)=8 +VIGORE(1)+arma(1) = 10 vs Difesa(7) -> COLPITO
+    IL SICARIO: 0/2 ferite residue.
+    IL SICARIO è ABBATTUTO.
+    PADRE CELSO MARANI si muove verso ADEPTO INCAPPUCCIATO: D2 -> C1.
+    [ATTACCO] PADRE CELSO MARANI -> ADEPTO INCAPPUCCIATO: 2d6(5,5)=10 +VIGORE(1)+arma(1) = 12 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 1/2 ferite residue.
+  [MINACCIA] CERA SOTTO I PIEDI (insidia) — L’eroe attivo prova NERVI (Media): se fallisce, 1 danno e perde 1 azione al prossimo turno…
+    [PROVA NERVI] DOTT. ATTILIO MARN: 2d6(5,1)=6 +NERVI(2) = 8 vs Media(9) -> FALLITA
+    DOTT. ATTILIO MARN subisce 1 danno da CERA SOTTO I PIEDI (Salute: 4/8).
+  [MINACCIA] ECO AMICA (favore) — Tre colpi sordi, in lontananza: Ruggero è vivo. Rivelate una tessera coperta adiacente a u…
+    Rivelata una tessera coperta adiacente (nessun effetto in questa astrazione).
+  [MINACCIA] IL CANTO CRESCE (crescendo) — Aggiungete 1 segnalino Canto. Al terzo: il Custode della Cera si desta (vedi Soluzione). S…
+    Segnalino Canto: 4.
+    Il Custode è già stato sconfitto: nessun effetto su di lui (il culto sente comunque il rituale avvicinarsi, vedi Regolamento).
+  ADEPTO INCAPPUCCIATO attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> PADRE CELSO MARANI: 2d6(2,2)=4 +Attacco(1) = 5 vs Difesa(8) -> MANCATO
+  ADEPTO INCAPPUCCIATO attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> PADRE CELSO MARANI: 2d6(1,1)=2 +Attacco(1) = 3 vs Difesa(8) -> MANCATO
+  IL FONDITORE attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] IL FONDITORE -> FULGENZIO CARBONE: 2d6(6,5)=11 +Attacco(1) = 12 vs Difesa(8) -> COLPITO
+    FULGENZIO CARBONE subisce 2 danno da IL FONDITORE (Salute: 3/7).
+  IL FONDITORE attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] IL FONDITORE -> PADRE CELSO MARANI: 2d6(2,3)=5 +Attacco(1) = 6 vs Difesa(8) -> MANCATO
+  LO SGHERRO si avvicina (Movimento 4): ancora 23 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si avvicina (Movimento 4): ancora 33 caselle prima di raggiungere la tessera del gruppo.
+  IL FONDITORE si avvicina (Movimento 2): ancora 69 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] LO SGHERRO -> PADRE CELSO MARANI: 2d6(5,2)=7 +Attacco(2) = 9 vs Difesa(8) -> COLPITO
+    PADRE CELSO MARANI subisce 1 danno da LO SGHERRO (Salute: 5/7).
+  LO SGHERRO attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] LO SGHERRO -> PADRE CELSO MARANI: 2d6(6,1)=7 +Attacco(2) = 9 vs Difesa(8) -> COLPITO
+    PADRE CELSO MARANI subisce 1 danno da LO SGHERRO (Salute: 4/7).
+
+==============================================================================
+ESITO SPEDIZIONE: VITTORIA
+Round totali: 13
+Formula Minaccia: plateau3 | Azioni nominali/round: media 11.1, picco 12
+Mazzo Minaccia rimescolato: 1 volta/e
+Segnalini nemici esauriti nel pool (piazzamenti saltati): 1
+Custode della Cera svegliato: solo a T6 (mai in anticipo via Canto)
+  CARLA DOSTI: a terra
+  DOTT. ATTILIO MARN: 4/8 Salute
+  DOTT. LAZZARO SERRA: a terra
+  ELENA FOSCO: a terra
+  FULGENZIO CARBONE: 3/7 Salute
+  PADRE CELSO MARANI: 4/7 Salute
+==============================================================================

@@ -1938,8 +1938,9 @@ def main():
 
     # --- Round KPI: fotografia dei 4 KPI di design (giocabilita', ansia,
     # coinvolgimento, immersione) sulla configurazione DI PRODUZIONE
-    # (tetto3_ritardato + curva-C_tardiva, quella scritta nel Regolamento),
-    # su tutta la curva 2-10. Proxy misurabili:
+    # (tetto3_ritardato + curva-G_tattica + CUSTODE_TENSIONE_EXTRA, quella
+    # scritta nel Regolamento dal round griglia tattica in poi), su tutta
+    # la curva 2-10. Proxy misurabili:
     #   ansia          -> % vittorie sofferte (almeno 1 eroe a terra nel momento
     #                     peggiore), picco eroi a terra, canto finale medio
     #                     (quanto ci si avvicina alla soglia del Custode)
@@ -1952,12 +1953,13 @@ def main():
     for size in (2, 4, 6, 8, 10):
         nome = f'kpi-{size:02d}'
         print(f'Eseguo {nome} (5 party casuali x 30 seed, {size} eroi, produzione)...')
-        kpi_risultati.append(esegui_batch_multi_party(nome, size, 'tetto3_ritardato', 'curva-C_tardiva',
+        kpi_risultati.append(esegui_batch_multi_party(nome, size, 'tetto3_ritardato', 'curva-G_tattica',
                                                        n_party=5, n_seed=30, seed_base=100000 + size * 1000))
 
     kpi_path = os.path.join(LOG_DIR, 'riepilogo_kpi.md')
     with open(kpi_path, 'w', encoding='utf-8') as f:
-        f.write('# Riepilogo KPI — config di produzione (tetto3_ritardato + curva-C_tardiva)\n\n')
+        f.write('# Riepilogo KPI — config di produzione (tetto3_ritardato + curva-G_tattica + '
+                'CUSTODE_TENSIONE_EXTRA)\n\n')
         f.write(f'Generato: {datetime.now().isoformat(timespec="seconds")}\n\n')
         f.write('5 party casuali x 30 seed per taglia. KPI di design: giocabilita\', ansia, '
                 'coinvolgimento, immersione.\n\n')

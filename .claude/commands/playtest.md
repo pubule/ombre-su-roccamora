@@ -14,7 +14,8 @@ Fuoco richiesto per questa sessione (se vuoto, scegli tu): $ARGUMENTS
 ## 1. Orientati
 
 - Leggi l'intestazione di `scripts/simulate_playtest.py` per i limiti
-  dichiarati (movimento astratto, euristica Indagine, abilità modellate).
+  dichiarati (griglia tattica reale dentro le tessere ma percorso tra
+  tessere scriptato, euristica Indagine, abilità modellate).
 - Guarda `logs/playtest/` per le sessioni precedenti: NON ripetere le
   stesse composizioni di party già testate — varia ogni volta.
 
@@ -79,9 +80,26 @@ trovi un problema di design, prima cerca un precedente di genere (come
 risolvono HeroQuest/Gloomhaven/Arkham Horror/D&D lo stesso problema) prima
 di proporre una soluzione nuova.
 
-## 6. Riporta
+## 6. Riporta — SEMPRE con la tabella KPI
 
 Rispondi all'utente con un riepilogo conciso (non il log intero): cosa hai
 stressato, cosa ha retto, cosa no, e — solo se hai trovato un problema
 concreto — una proposta di fix. Non applicare modifiche al gioco senza
 che l'utente le approvi esplicitamente.
+
+**Obbligatorio in ogni report**: una tabella con i 4 KPI di design
+(giocabilità, ansia, coinvolgimento, immersione), misurati dai proxy
+del simulatore — il `main()` scrive già `riepilogo_kpi.md` e
+`riepilogo_griglia_tattica.md` con questi numeri per taglia di party:
+
+| KPI | Proxy | Dove |
+|---|---|---|
+| Giocabilità | `pct_vittoria` (target ~80%), `media_pool_esauriti`, round medi | riepilogo per taglia |
+| Ansia | `pct_vittoria_sofferta` (partite in bilico), `media_max_down` (picco eroi a terra), `media_canto_finale` | riepilogo per taglia |
+| Coinvolgimento | `media_luoghi_visitati` (su 8), `media_ore_avanzate`, azioni/round | sezione Indagine |
+| Immersione | `pct_chi_confermato` (payoff narrativo Domanda 2), `pct_diapason` | sezione Indagine |
+
+Confronta sempre coi valori dell'ultima sessione committata in
+`logs/playtest/` (la più recente con `riepilogo_griglia_tattica.md`):
+un KPI che peggiora rispetto alla baseline va segnalato esplicitamente
+anche se resta "accettabile" in assoluto.
