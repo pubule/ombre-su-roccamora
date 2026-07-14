@@ -101,7 +101,7 @@ def regolamento():
     e = []
     e.append(Spacer(1, 30))
     e.append(P('OMBRE SU ROCCAMORA', 'title'))
-    e.append(P('Un gioco investigativo cooperativo a puntate \u2014 per 2\u20135 giocatori', 'subtitle'))
+    e.append(P('Un gioco investigativo cooperativo a puntate \u2014 per 2\u201310 giocatori', 'subtitle'))
     e.append(hr())
     e.append(P(dropcap("Roccamora, 1889. Una citt\u00e0 di canali neri, campanili e vicoli che non figurano "
                "sulle mappe. Voi siete i membri della <b>Societ\u00e0 del Lume</b>, un piccolo circolo "
@@ -115,8 +115,8 @@ def regolamento():
     e.append(LI('Una busta in cui sigillare il PDF <b>Soluzione</b>: si apre solo a fine indagine.'))
 
     e.append(P('I PERSONAGGI', 'h1'))
-    e.append(P("Il roster della Societ\u00e0 conta <b>undici eroi</b>: in tavola ne scendono al massimo "
-               "cinque, gli altri restano di riserva (potete cambiarli tra un episodio e l\u2019altro; "
+    e.append(P("Il roster della Societ\u00e0 conta <b>undici eroi</b>: ne scendono in tavola tanti quanti "
+               "siete, fino a dieci \u2014 gli altri restano di riserva (potete cambiarli tra un episodio e l\u2019altro; "
                "migliorie e cicatrici restano a chi le ha guadagnate). Per scegliere, stendete sul "
                "tavolo le <b>11 carte Eroe</b> (ritratto, ruolo, chi sono \u2014 cartelle "
                "<b>cards/Eroi/</b>): ogni giocatore ne prende una (in 2 giocatori vi consigliamo "
@@ -258,7 +258,10 @@ def regolamento():
                'lasciato chi ci è passato prima di voi</i>.'))
     e.append(P('2. Fase Minaccia', 'h2'))
     e.append(P('Pescate <b>1 carta Minaccia ogni 2 eroi</b> (arrotondando per eccesso: 1 carta in '
-               '2 giocatori, 2 carte in 3\u20134, 3 carte in 5) e applicatene gli effetti.', 'box'))
+               '2 giocatori, 2 carte in 3\u20134, 3 carte in 5) e applicatene gli effetti. '
+               '<b>Tavoli grandi (6\u201310 eroi):</b> 2 carte a 6, 3 carte da 7 a 10 \u2014 vedi \u201cGiocare in un '
+               'tavolo grande\u201d pi\u00f9 avanti per il dettaglio completo e il bonus ai nemici che va con questa '
+               'tabella.', 'box'))
     e.append(P('Il mazzo Minaccia \u00e8 il vostro \u201cmaster\u201d automatico: nessun giocatore interpreta '
                'il nemico. Un giocatore qualsiasi pesca (consiglio: nominate un <b>custode del '
                'mazzo</b> a inizio serata, o pescate a turno), legge la carta ad alta voce ed '
@@ -367,7 +370,7 @@ def regolamento():
                 'miglioria dall\u2019elenco nella Soluzione e la annota sulla scheda.'))
     e.append(LI('<b>Cicatrici</b> \u2014 un eroe finito a terra durante l\u2019episodio annota una '
                 'cicatrice (descrivetela!): alla terza, \u22121 permanente a una caratteristica a scelta.'))
-    e.append(P('Giocare in 2, in 4 o in 5', 'h2'))
+    e.append(P('Giocare in 2, in 4\u20135, o in un tavolo grande (6\u201310)', 'h2'))
     e.append(P("Il gioco scala da solo con la fase Minaccia. In 4\u20135 giocatori, durante l\u2019Indagine "
                "leggete gli indizi <b>a turno e solo per s\u00e9</b>, poi raccontateli con parole vostre: "
                "la deduzione diventa un racconto corale (ed \u00e8 il modo pi\u00f9 divertente di giocare "
@@ -379,7 +382,22 @@ def regolamento():
                "sblocca gli Approfondimenti solo per gli eroi davvero presenti al suo luogo \u2014 se "
                "l\u2019eroe giusto \u00e8 nell\u2019altro sottogruppo, quell\u2019Approfondimento resta perso. Dividersi "
                "copre pi\u00f9 terreno nelle poche ore che avete, ma a un prezzo reale \u2014 usatelo dove conta "
-               "di pi\u00f9, non \u00e8 ripetibile."))
+               "di pi\u00f9, non \u00e8 ripetibile. <b>Non</b> estendetelo oltre i 5 eroi: da 6 in su l\u2019Indagine "
+               "resta un unico momento corale \u2014 dividere un tavolo gi\u00e0 grande in sottogruppi lo rende solo "
+               "pi\u00f9 lento da gestire, non pi\u00f9 interessante."))
+    e.append(P("<b>Tavolo grande (6\u201310 eroi).</b> Due sole modifiche, il resto delle regole non cambia:", 'body'))
+    e.append(LI('<b>Fase Minaccia:</b> 2 carte a 6 eroi, 3 carte da 7 a 10 (non seguite la proporzione '
+                'semplice \u201c1 ogni 2\u201d oltre i 5 \u2014 a 6 eroi pescarne 3, come suggerirebbe la proporzione, '
+                'crea una spedizione ingiocabile: coi test la tabella qui sopra \u00e8 quella che tiene il '
+                'tavolo in sfida senza schiacciarlo).'))
+    e.append(LI('<b>Nemici pi\u00f9 duri:</b> da 6 a 8 eroi, <b>+2 Ferite</b> a ogni nemico che compare in '
+                'gioco (Custode della Cera incluso); da 9 a 10 eroi, <b>+3 Ferite</b>. Sotto i 6 eroi, '
+                'nessun bonus. Il bonus si fissa all\u2019inizio della spedizione, in base a quanti eroi '
+                'schierate \u2014 non cambia pi\u00f9 durante la spedizione anche se qualcuno cade a terra.'))
+    e.append(P("Con un tavolo da 6\u201310, contate anche pi\u00f9 tempo di quanto indicato sopra per 5: nei test "
+               "le spedizioni tendono a durare 12\u201314 round invece di 8\u20139. Consigliato: nominate un "
+               "<b>custode del mazzo Minaccia</b> fisso per tutta la serata, cos\u00ec a un tavolo affollato "
+               "nessuno pesca due volte per errore.", 'body'))
 
     e.append(P('COME STAMPARE', 'h1'))
     e.append(LI('<b>Regolamento</b> (questo fascicolo) e <b>Soluzione</b> (in <i>Episodio 1/</i>): '
@@ -614,8 +632,10 @@ def aiuto():
     e.append(RP('Uscendo verso una tessera coperta, <b>rivelatela</b> e leggetene subito il testo.'))
 
     e.append(P('FASE MINACCIA — pescate 1 carta ogni 2 eroi (arrot. eccesso)', 'h2'))
-    e.append(RP('<b>2 giocatori: 1 carta • 3–4: 2 carte • 5: 3 carte.</b> Leggete ad alta voce ed eseguite. '
+    e.append(RP('<b>2: 1 carta • 3–4: 2 • 5: 3 • 6: 2 • 7–10: 3.</b> Leggete ad alta voce ed eseguite. '
                 'Mazzo esaurito: rimescolate gli scarti.'))
+    e.append(RP('<b>Tavolo 6–10 eroi:</b> +2 Ferite a ogni nemico (Custode incluso) da 6 a 8 eroi, '
+                '+3 da 9 a 10. Fissato a inizio spedizione, non ricalcolato dopo.'))
 
     e.append(P('TURNO DEI NEMICI', 'h2'))
     e.append(RP('Ognuno si muove verso l’<b>eroe in piedi</b> più vicino (ignorano gli eroi a terra e Ruggero). '

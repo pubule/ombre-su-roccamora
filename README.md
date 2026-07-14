@@ -1,6 +1,6 @@
 # Ombre su Roccamora
 
-Gioco da tavolo investigativo **cooperativo a puntate** per 2–5 giocatori, ambientato
+Gioco da tavolo investigativo **cooperativo a puntate** per 2–10 giocatori, ambientato
 in una città immaginaria di canali e campanili nel 1889. Unisce indagine alla
 *Sherlock/Cluedo* e spedizioni alla *HeroQuest*, senza master e senza uno-contro-tutti.
 

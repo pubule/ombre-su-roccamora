@@ -7,7 +7,7 @@ mantenere coerenza narrativa, meccanica e grafica con il materiale esistente.
 ---
 
 Agisci come game designer e grafico del gioco da tavolo **"Ombre su Roccamora"**, un
-investigativo cooperativo a puntate per 2–5 giocatori che ho già in versione stampata.
+investigativo cooperativo a puntate per 2–10 giocatori che ho già in versione stampata.
 Devi produrre nuovo materiale (episodi, personaggi, varianti) perfettamente coerente
 con le tre "bibbie" qui sotto. Non cambiare regole, numeri o stile salvo mia richiesta
 esplicita.
@@ -26,8 +26,9 @@ esplicita.
   (Magistrato in Pensione: sblocca i Referti, rimuove un nemico di truppa), Mora "Spilla"
   Fanti (Contrabbandiera dei Canali, col furetto Ombra: conta gli Approfondimenti di un
   luogo prima di sceglierlo, sposta oggetti tra eroi in spedizione). Roster di undici,
-  massimo cinque in tavola: la composizione del party e' essa stessa una scelta
-  di gioco (chi resta a casa lascia chiuse le sue porte in indagine).
+  ne scendono in tavola tanti quanti i giocatori (fino a dieci): la composizione del
+  party e' essa stessa una scelta di gioco (chi resta a casa lascia chiuse le sue
+  porte in indagine).
   Presidente: il misterioso "M.".
 - **L'antagonista di campagna** è il **Coro Sommerso**, confraternita bandita nel 1741 e
   rifondata dal liutaio **Bastiano Ferri** (fuggito alla fine dell'Episodio 1, ricorrente).
@@ -219,6 +220,23 @@ prima che l'Ep. 1 lo riveli.
    non su un componente fisico per mostro), qui senza master: il foglio è pubblico, non un
    segreto. Se mai un nemico superasse 10 Ferite, allora sì va alzato `N_PIP` in
    `registro_ferite()` — non prima.
+
+3-ter. *Tavoli grandi (6–10 eroi)* — la proporzione "1 carta Minaccia ogni 2 eroi"
+   NON si estende linearmente oltre i 5: a 6+ eroi vale una tabella dedicata,
+   validata con `scripts/simulate_playtest.py` (batch multi-seed su composizioni
+   casuali di eroi, non party fissi — vedi i log in `logs/playtest/`): **Fase
+   Minaccia 2 carte a 6 eroi, 3 carte da 7 a 10** (non 3/4/5 come darebbe la
+   proporzione semplice — troppe carte a quel punto rendono la spedizione
+   ingiocabile). In parallelo, **bonus Ferite ai nemici** per compensare il maggior
+   numero di attacchi/round: +0 sotto i 6 eroi, +2 Ferite da 6 a 8, +3 da 9 a 10,
+   applicato a tutti i nemici piazzati **incluso il boss dell'episodio**, fissato
+   a inizio spedizione in base agli eroi schierati (non ricalcolato se qualcuno
+   cade a terra durante la spedizione). Qualunque nuovo episodio con Ferite boss
+   più alte di 3 deve verificare che boss-Ferite-base + 3 resti sotto la soglia
+   `N_PIP=10` del Registro (vedi 3-bis) — con Ferite-base 3 c'è ancora margine
+   fino a 7. Regola spiegata per i giocatori nel **Regolamento** (fascicolo 01,
+   sezione "Giocare in un tavolo grande") — qui basta sapere che esiste quando si
+   tara un nuovo episodio per la stessa fascia di giocatori.
 
 **Il Canto (o equivalente orologio a tema per l'episodio):** non un nemico, un
 **contatore di segnalini che non torna mai indietro**, alimentato da **due fonti
