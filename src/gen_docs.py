@@ -201,11 +201,11 @@ def regolamento():
                 '<b>s\u00ec o no</b>: \u201cl\u00ec si nasconde ancora qualcosa?\u201d \u2014 mai cosa, mai di che tipo. '
                 'Se la risposta \u00e8 s\u00ec, quella visita non costa l\u2019ora (non conta come ora avanzata) '
                 '\u2014 ma tira comunque \u201cleggere la scena\u201d come ogni prima visita.'))
-    e.append(LI('<b>Nino</b> non sblocca carte: la sua abilit\u00e0 (<b>Accesso</b>) entra in un luogo '
+    e.append(LI('<b>Nino</b> non sblocca carte: la sua abilit\u00e0 (<b>Grimaldello</b>) entra in un luogo '
                 'bloccato senza parola chiave n\u00e9 oggetto, 1 volta a episodio \u2014 bypassa solo il '
                 'requisito d\u2019ingresso: una volta dentro si tira \u201cleggere la scena\u201d come sempre.'))
     e.append(P('<b>Esempio:</b> il gruppo visita il Luogo 1 (Campanile) con Elena presente. Prima di '
-               'tutto, un eroe a scelta legge la scena: 2d6+ACUME (3) = 10, supera la Media (9) \u2014 '
+               'tutto, un eroe a scelta legge la scena: 2d6+ACUME (3) = 10, raggiunge la Media (9) \u2014 '
                'via libera. Girate la carta, leggete testo e i 3 indizi core \u2014 sempre, a chiunque, '
                'tiro riuscito o no. Poich\u00e9 la prova \u00e8 riuscita ed Elena c\u2019\u00e8, chi tiene il fascicolo '
                'Luoghi controlla la voce \u201cLuogo 1\u201d: c\u2019\u00e8 un Indizio Nascosto, prende dal mazzo coperto '
@@ -291,7 +291,7 @@ def regolamento():
 
     e.append(P('ESEMPIO DI ROUND (3 giocatori, in T2 \u2014 Sala delle Casse)', 'h2'))
     e.append(P('<b>1. Turno degli eroi.</b> Elena spende un\u2019azione per <b>Cercare</b>: tira 2d6+ACUME '
-               '(3) = 9, supera la Media (9) e trova ci\u00f2 che T2 nasconde \u2014 prende la carta <b>Un '
+               '(3) = 9, raggiunge la Media (9) e trova ci\u00f2 che T2 nasconde \u2014 prende la carta <b>Un '
                'Piede di Porco</b>: <i>\u201c+1 alle prove per forzare e scassinare\u201d</i>. Da questo momento '
                'ce l\u2019ha in mano e quel bonus si applica automaticamente, senza spendere azioni per '
                '\u201cusarlo\u201d. Con la '

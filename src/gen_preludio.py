@@ -425,7 +425,7 @@ def soluzione():
                   '<b>Frammento di Campagna n. 0:</b> il lembo di carta con la mezza onda. '
                   'Conservatelo con gli altri Frammenti.', BODY)])
     c.setFillColor(RED); c.setFont(F['sc'], 15)
-    c.drawString(16*mm, H - 256*mm, 'bivio — decidete insieme, annotatelo, contera’ nell’episodio 1')
+    c.drawString(16*mm, H - 256*mm, 'bivio — decidete insieme, annotatelo, conterà nell’episodio 1')
     frame_flow(c, 18*mm, 16*mm, W - 36*mm, H - 276*mm, [
         Paragraph('La pagina strappata del registro (il reperto) è una prova di reato. '
                   '<b>La consegnate alla gendarmeria</b> (il brigadiere vi registra come '

@@ -32,7 +32,7 @@ const HEROES = [
     art: 'artworks/Ottone.png',
     title: 'Ottone "Mezzena" Massari',
     type: 'Eroe — Il Macellaio',
-    rules: '{i}Il Macellaio{/i}{divider}Il banco dei Massari sta al Vecchio Mercato da tre generazioni, e Ottone conosce Roccamora dalla pancia: sa chi mangia, chi digiuna e chi da qualche tempo non ha più fame. Ci pensa da quando il suo garzone sparì durante la festa di San Teodoro e tornò tre giorni dopo, senza appetito e senza voce.',
+    rules: '{i}Il Macellaio{/i}{divider}Il banco dei Massari sta al Vecchio Mercato da tre generazioni, e Ottone conosce Roccamora dalla pancia: sa chi mangia, chi digiuna e chi da qualche tempo non ha più fame. Ci pensa da quando il suo garzone sparì durante la festa di San Teodoro e tornò tre giorni dopo, senza appetito e senza voce. Dice che la città si legge a tavola: dove si smette di mangiare e di ridere, lì c’è il male.',
   },
   {
     art: 'artworks/Carla.png',
@@ -89,7 +89,7 @@ const NEMICI = [
     art: 'artworks/Il Fonditore.png',
     title: 'Il Fonditore',
     type: 'Creatura — Fonditore',
-    rules: '{i}Att +1 · Dif 8 · Ferite 2 · Mov 2 · Danno 2{/i}{divider}Gli artigiani del culto: grembiule di cuoio, mestolo colmo di cera fusa, la pazienza di chi ha versato mille candele. Non corrono mai: non ne hanno bisogno. Chi viene ferito dal Fonditore si muove di 1 casella in meno nel suo prossimo turno.',
+    rules: '{i}Att +1 · Dif 8 · Ferite 2 · Mov 2 · Danno 2{/i}{divider}Gli artigiani del culto: grembiule di cuoio, mestolo colmo di cera fusa, la pazienza di chi ha versato mille candele. Non corrono mai: non ne hanno bisogno. Chi viene ferito dal Fonditore si muove di 1 casella in meno nel suo prossimo turno (la cera si addensa addosso).',
   },
   {
     art: 'artworks/Il Custode della Cera (boss).png',
@@ -228,7 +228,7 @@ const LUOGHI = [
   { n: 2, nome: 'Casa di Ruggero — Vicolo dei Fonditori', req: 'Disponibile dall’inizio',
     testo: 'Il vicolo dei Fonditori sa di carbone e minestra. Bice vi apre con gli occhi rossi e le mani che non stanno ferme; la casa è linda, povera, piena dell’assenza di suo fratello. «Negli ultimi tempi diceva di sentire musica sotto il pavimento della cripta», mormora. «E aveva paura del suo stesso campanile.»',
     approfondimenti: [
-      { tipo: 'Testimonianza', soggetto: 'Bice', testo: 'Consolata, Bice ricorda: di notte Ruggero riceveva un visitatore «ben vestito, con mani da artigiano». Lo seguì una volta fino al vecchio magazzino delle cere di Dellacqua, sul Canale Basso — e lo sentì chiamare «il liutaio Ferri». Lo vide inchinarsi tutti a lui, come a un superiore, mai a un pari.' },
+      { tipo: 'Testimonianza', soggetto: 'Bice', testo: 'Consolata, Bice ricorda: di notte Ruggero riceveva un visitatore «ben vestito, con mani da artigiano». Lo seguì una volta fino al vecchio magazzino delle cere di Dellacqua, sul Canale Basso — e lo sentì chiamare «il liutaio Ferri». Li vide inchinarsi tutti a lui, come a un superiore, mai a un pari.' },
     ] },
   { n: 3, nome: 'Taverna del Ponte Rotto', req: 'Disponibile dall’inizio',
     testo: 'Fumo denso, vino cattivo, il tanfo dolciastro del canale che entra a ogni porta che sbatte. I barcaioli giocano a carte sotto una lampada a olio e vi squadrano appena: qui le lingue si sciolgono con poco, purché il poco finisca nel bicchiere giusto.',
@@ -252,7 +252,7 @@ const LUOGHI = [
     testo: 'L’acqua qui non scorre: sta. Nera, ferma, densa come olio, lambisce magazzini ciechi dai portoni murati. Il guardiano notturno esce dal casotto con la lanterna alzata e, per qualche moneta, la diffidenza si scioglie in fretta: da settimane muore dalla voglia di raccontare a qualcuno quello che sente la notte.',
     approfondimenti: [
       { tipo: 'Testimonianza', soggetto: 'Il guardiano notturno', testo: 'Il guardiano abbassa la voce. «Certe notti li ho visti entrare — un fornaio, un sagrestano, gente che saluto al mercato — sempre dallo stesso magazzino, quello che fu di Dellacqua. E davanti alla porta, sempre lui a farli passare, uno per uno: il liutaio Ferri.» Uscivano all’alba con gli occhi vuoti. Non erano più loro.' },
-      { tipo: 'Presagio', testo: 'Sfiorare l’acqua nera basta: non è fredda, è attenta. Per un istante si vede, netto come attraverso occhi non propri, l’interno del vecchio magazzino delle cere di Dellacqua, sul Canale Basso — e al centro, non un fedele tra i fedeli, ma chi li dispone in cerchio: le mani di un liutaio. Qualcosa, sotto la città, conta i passi sul molo.' },
+      { tipo: 'Presagio', testo: 'Sfiorare l’acqua nera basta: non è fredda, sembra vigile. Per un istante si vede, netto come attraverso occhi non propri, l’interno del vecchio magazzino delle cere di Dellacqua, sul Canale Basso — e al centro, non un fedele tra i fedeli, ma chi li dispone in cerchio: le mani di un liutaio. Qualcosa, sotto la città, conta i passi sul molo.' },
     ] },
   { n: 7, nome: 'L’Archivio Civico', req: 'Serve: la parola chiave SOMMERSO (Luogo 1)',
     testo: 'Scaffali fino al soffitto, cartelle legate con lo spago, la luce verde delle lampade a schermo. L’archivista, minuscolo dietro occhiali spessi, si irrigidisce quando pronunciate la parola giusta: poi, senza fiatare, vi guida a uno scaffale che nessuno tocca da decenni — la polvere è spessa un dito, tranne che su un solo fascicolo.',
@@ -262,7 +262,7 @@ const LUOGHI = [
   { n: 8, nome: 'La Gendarmeria', req: 'Disponibile dall’inizio',
     testo: 'Pile di pratiche, una stufa che fuma, il brigadiere che vi riceve senza alzarsi. «Il campanaro? Sarà scappato con qualche vedova.» Ma mentre lo dice non vi guarda negli occhi, e la sua mano tamburella su un fascicolo di denunce che continua a spostare da un lato all’altro della scrivania.',
     approfondimenti: [
-      { tipo: 'Referto', soggetto: 'La denuncia dei furti', testo: 'Le denunce, confrontate, dicono di più separate: la cera «rubata da tre chiese» è la stessa d’altare della cattedrale, e le quantità bastano a rifornire un solo luogo per mesi — il vecchio magazzino di Dellacqua, sul Canale Basso. Un furto così non lo organizza un gregario: pianifica, quindi comanda. Miglior cliente dei fonditori per «materiale da fusione»: sempre lo stesso nome, Bastiano Ferri.' },
+      { tipo: 'Referto', soggetto: 'La denuncia dei furti', testo: 'Confrontate, le denunce dicono più che lette una per una: la cera «rubata da tre chiese» è la stessa d’altare della cattedrale, e le quantità bastano a rifornire un solo luogo per mesi — il vecchio magazzino di Dellacqua, sul Canale Basso. Un furto così non lo organizza un gregario: pianifica, quindi comanda. Miglior cliente dei fonditori per «materiale da fusione»: sempre lo stesso nome, Bastiano Ferri.' },
       { tipo: 'Testimonianza', soggetto: 'Il fascicolo nascosto', testo: 'Il fascicolo che il brigadiere continua a spostare (fatelo parlare, o sfilateglielo): il compratore incappucciato scaricava «al molo terzo del Canale Basso, nel vecchio magazzino di Dellacqua» — pagando bene perché nessuno controllasse chi comandava lo scarico: gli agenti, nel fascicolo, lo chiamano solo «il liutaio», mai per nome. La gendarmeria lo sapeva, e ha lasciato correre.' },
     ] },
 ].map((L) => ({
@@ -368,7 +368,7 @@ const OGGETTI = [
 const PRELUDIO_LUOGHI = [
   { n: 'P1', nome: 'Il Palazzo del Lume', req: 'Disponibile dall’inizio',
     art: 'artworks/Palazzo del Lume.png',
-    testo: 'Il palazzo della Società sa di cera d’api e di anni chiusi a chiave: sei poltrone attorno a un tavolo, cinque ritratti alle pareti e un gancio vuoto dove il sesto è stato tolto. La stanza di Ansaldo è in fondo al corridoio, ordinata come una cella di monaco. M. vi osserva dalla soglia, e non tocca nulla.' },
+    testo: 'Il palazzo della Società sa di cera d’api e di anni chiusi a chiave: undici poltrone attorno a un tavolo, cinque ritratti alle pareti e un gancio vuoto dove il sesto è stato tolto. La stanza di Ansaldo è in fondo al corridoio, ordinata come una cella di monaco. M. vi osserva dalla soglia, e non tocca nulla.' },
   { n: 'P2', nome: 'La Taverna della Chiatta', req: 'Disponibile dall’inizio',
     art: 'artworks/Taverna della Chiatta.png',
     testo: 'Dirimpetto al palazzo, oltre il ponte, la taverna è il posto da cui si vede chi entra e chi esce dalla porta della Società. L’oste lucida bicchieri che restano opachi e parla volentieri: da queste parti un cliente nuovo è un avvenimento, tre clienti nuovi sono una storia.' },
@@ -402,6 +402,11 @@ const PRELUDIO_APPROFONDIMENTI = [
     file: 'Preludio/Referto - L’orologio impegnato',
     type: 'Preludio · Referto',
     rules: '{i}Il vetro è incrinato e sulla corona c’è sangue secco, ma poco: un colpo solo, di taglio, non una colluttazione lunga. Ansaldo è stato tramortito, non ucciso — un morto non serve a chi ha ancora domande da fargli.{/i}' },
+  { art: 'artworks/Dogana Vecchia.png', kind: 'Indizio',
+    title: 'Indizio Nascosto — La Dogana Vecchia',
+    file: 'Preludio/Indizio - La Dogana Vecchia',
+    type: 'Preludio · Presagio',
+    rules: '{i}◆ (Presagio) Chi si sofferma ad ascoltare i colpi sotto la banchina giurerebbe che, per un istante, rispondono in due voci — non una. Come se qualcosa, là sotto, stesse imparando la cadenza.{/i}' },
 ];
 
 const PRELUDIO_OGGETTI = [

@@ -175,7 +175,7 @@ LUOGHI = [
              dict(tipo='Testimonianza', soggetto='Bice',
                   testo='Consolata, Bice ricorda: di notte Ruggero riceveva un visitatore «ben vestito, con mani '
                         'da artigiano». Lo seguì una volta fino al vecchio magazzino delle cere di Dellacqua, sul '
-                        'Canale Basso — e lo sentì chiamare «il liutaio Ferri». Lo vide inchinarsi tutti a lui, '
+                        'Canale Basso — e lo sentì chiamare «il liutaio Ferri». Li vide inchinarsi tutti a lui, '
                         'come a un superiore, mai a un pari.'),
          ]),
     dict(n=3, nome='TAVERNA DEL PONTE ROTTO', req='Disponibile dall’inizio',
@@ -262,7 +262,7 @@ LUOGHI = [
                         'di Dellacqua. E davanti alla porta, sempre lui a farli passare, uno per uno: il liutaio '
                         'Ferri.» Uscivano all’alba con gli occhi vuoti. Non erano più loro.'),
              dict(tipo='Presagio',
-                  testo='Sfiorare l’acqua nera basta: non è fredda, è attenta. Per un istante si vede, netto '
+                  testo='Sfiorare l’acqua nera basta: non è fredda, sembra vigile. Per un istante si vede, netto '
                         'come attraverso occhi non propri, l’interno del vecchio magazzino delle cere di '
                         'Dellacqua, sul Canale Basso — e al centro, non un fedele tra i fedeli, ma chi li '
                         'dispone in cerchio: le mani di un liutaio. Qualcosa, sotto la città, conta i passi sul '
@@ -297,7 +297,7 @@ LUOGHI = [
                  'con la testa fra le nuvole.»'],
          approfondimenti=[
              dict(tipo='Referto', soggetto='La denuncia dei furti',
-                  testo='Le denunce, confrontate, dicono di più separate: la cera «rubata da tre chiese» è la '
+                  testo='Confrontate, le denunce dicono più che lette una per una: la cera «rubata da tre chiese» è la '
                         'stessa d’altare della cattedrale, e le quantità bastano a rifornire un solo luogo per '
                         'mesi — il vecchio magazzino di Dellacqua, sul Canale Basso. Un furto così non lo '
                         'organizza un gregario: pianifica, quindi comanda. Miglior cliente dei fonditori per '
