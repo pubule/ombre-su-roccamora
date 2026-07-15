@@ -296,7 +296,7 @@ prima che l'Ep. 1 lo riveli.
    perdeva sistematicamente di piu' della via veloce finche' non si e' corretto
    Slancio per includere anche il bonus di Preparati.
 
-**Il Canto (o equivalente orologio a tema per l'episodio):** non un nemico, un
+**Il Canto:** non un nemico, un
 **contatore di segnalini che non torna mai indietro**, alimentato da **due fonti
 indipendenti**: (a) alcune carte Minaccia-timer aggiungono 1 segnalino quando pescate;
 (b) **in più**, a prescindere dalle carte, +1 segnalino automatico alla fine di ogni
@@ -307,6 +307,17 @@ permanentemente, per il resto della spedizione. Spiega questo meccanismo per int
 **Regolamento** (fascicolo 01, letto prima di giocare): nell'Ep. 1 mancava e ha confuso i
 giocatori — la Soluzione (sigillata) aggiunge solo i dettagli specifici dell'episodio
 (quale nemico, dove compare), non il meccanismo generale.
+
+**Nome canonico, non solo meccanismo:** "il Canto" non è un placeholder da rinominare
+episodio per episodio — è lore di campagna fissa: la voce del Dormiente che cresce lungo
+tutto l'arco a tema sonoro (Le voci del pozzo, Il teatro dell'eco, La fonderia dei
+rintocchi, L'organo di ossa...). Ogni episodio alimenta la **stessa** traccia Canto;
+cambia il tema narrativo di ogni singola carta-timer, non il nome del contatore. Questo
+tiene coerenti i tre componenti comuni che lo citano per nome — la sezione "Il Canto" nel
+Regolamento, la traccia fisica sul Tabellone, la "Litania anti-Canto" di Marani — senza
+dover rigenerare nulla a ogni episodio. Unica eccezione: la **Marea** del Preludio, un
+contatore tutorial a sé, deliberatamente slegato dal Canto perché il Preludio precede la
+sveglia del Dormiente.
 
 
 **Scala di difficoltà (progressione tra episodi):** ogni episodio deve essere un
