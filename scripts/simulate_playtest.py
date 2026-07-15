@@ -2055,5 +2055,96 @@ def main():
     print(f'\nFatto. Log in {LOG_DIR}')
 
 
+def sessione_approfondita():
+    """Sessione /playtest post-griglia-tattica: le run di stress qualitative
+    (run-04..08) risalgono al modello a distanza astratta - qui si
+    ri-esplorano gli stessi angoli sotto movimento/adiacenza REALI, piu' un
+    round KPI fresco sulla config di produzione per la tabella obbligatoria.
+    Non rilancia main() (round storici 1-9: gia' validati, costosi)."""
+    os.makedirs(LOG_DIR, exist_ok=True)
+    PROD = dict(formula_minaccia='tetto3_ritardato', nemico_scale='curva-G_tattica')
+
+    # Party mirati (vedi piano): ognuno stressa UNA dinamica precisa.
+    otto_no_healer = [n for n in PARTY_10 if n not in ('DOTT. ATTILIO MARN', 'MORA “SPILLA” FANTI')]
+    cervelli = ['ELENA FOSCO', 'SIBILLA REVE', 'DOTT. LAZZARO SERRA', 'FULGENZIO CARBONE']
+    tre = ['DOTT. ATTILIO MARN', 'OTTONE “MEZZENA” MASSARI', 'MORA “SPILLA” FANTI']
+    turnorder = ['OTTONE “MEZZENA” MASSARI', 'ELENA FOSCO', 'FULGENZIO CARBONE', 'OTTAVIO BRERA']
+    diapason_party = ['ELENA FOSCO', 'DOTT. ATTILIO MARN', 'OTTONE “MEZZENA” MASSARI',
+                      'SIBILLA REVE', 'OTTAVIO BRERA']
+
+    stress = []
+    def batch(nome, party, seed_base, **kw):
+        print(f'Eseguo {nome} ({len(party)} eroi, 10 seed)...')
+        b = esegui_batch(nome, party, [seed_base + i for i in range(10)], **{**PROD, **kw})
+        stress.append(b)
+        return b
+
+    # 1. n=8 senza healer: taglia gia' piu' debole (64% baseline) + niente Attilio.
+    batch('stress-08-senza-healer', otto_no_healer, 210000)
+    # 2. Taglia 3, mai misurata: 2 carte Minaccia come a 4, ma un eroe in meno.
+    batch('stress-03-taglia-orfana', tre, 211000)
+    # 3. Cervelli senza tank: VIG 1 / SAL 6 per tutti, swarm fisico reale.
+    batch('stress-cervelli-griglia', cervelli, 212000)
+    # 4. Turn-order avverso: Brera ultimo, dopo i danni pesanti - Vi conosco,
+    #    Malacarne trova ancora un bersaglio di truppa vivo?
+    batch('stress-turnorder-brera-tattico', turnorder, 213000)
+    # 5. Diapason: stesso party, euristica efficiente vs approfondita - il
+    #    diapason (L5, dietro la CORDA DI VIOLINO di L2) e' contenuto morto?
+    batch('stress-diapason-efficiente', diapason_party, 214000)
+    batch('stress-diapason-a-fondo', diapason_party, 214000, esplora_a_fondo=True)
+
+    stress_path = os.path.join(LOG_DIR, 'riepilogo_stress.md')
+    with open(stress_path, 'w', encoding='utf-8') as f:
+        f.write('# Riepilogo stress tattico — config di produzione, 10 seed per run\n\n')
+        f.write(f'Generato: {datetime.now().isoformat(timespec="seconds")}\n\n')
+        f.write('| Run | Eroi | % Vittoria | % Vitt. sofferte | Picco a terra | Round medi | '
+                'Canto finale | % Custode anticipo | Luoghi | % Diapason |\n')
+        f.write('|---|---|---|---|---|---|---|---|---|---|\n')
+        for b in stress:
+            f.write(f'| {b["nome"]} | {len(b["party"])} | {b["pct_vittoria"]:.0f}% | '
+                    f'{b["pct_vittoria_sofferta"]:.0f}% | {b["media_max_down"]:.1f} | '
+                    f'{b["media_round"]:.1f} | {b["media_canto_finale"]:.1f} | '
+                    f'{b["pct_custode_anticipo"]:.0f}% | {b["media_luoghi_visitati"]:.1f} | '
+                    f'{b["pct_diapason"]:.0f}% |\n')
+    print(f'\nStress fatto. Riepilogo in {stress_path}')
+
+    # Round KPI fresco (stessa struttura del round KPI di main(), seed nuovi).
+    print("\n--- Round KPI: giocabilita'/ansia/coinvolgimento/immersione (config di produzione) ---")
+    kpi_risultati = []
+    for size in (2, 4, 6, 8, 10):
+        nome = f'kpi-{size:02d}'
+        print(f'Eseguo {nome} (5 party casuali x 30 seed, {size} eroi, produzione)...')
+        kpi_risultati.append(esegui_batch_multi_party(nome, size, 'tetto3_ritardato', 'curva-G_tattica',
+                                                       n_party=5, n_seed=30, seed_base=220000 + size * 1000))
+
+    kpi_path = os.path.join(LOG_DIR, 'riepilogo_kpi.md')
+    with open(kpi_path, 'w', encoding='utf-8') as f:
+        f.write('# Riepilogo KPI — config di produzione (tetto3_ritardato + curva-G_tattica + '
+                'CUSTODE_TENSIONE_EXTRA)\n\n')
+        f.write(f'Generato: {datetime.now().isoformat(timespec="seconds")}\n\n')
+        f.write('5 party casuali x 30 seed per taglia (seed diversi dalla baseline 20260715-002418). '
+                'KPI di design: giocabilita\', ansia, coinvolgimento, immersione.\n\n')
+        f.write('## Spedizione\n\n')
+        f.write('| Taglia | % Vittoria | % Vittorie sofferte | Picco eroi a terra (media) | '
+                'Canto finale medio (soglia 3) | Round medi | Pool esauriti (media) |\n')
+        f.write('|---|---|---|---|---|---|---|\n')
+        for m in kpi_risultati:
+            f.write(f'| {m["size"]} | {m["pct_vittoria"]:.0f}% | {m["pct_vittoria_sofferta"]:.0f}% | '
+                    f'{m["media_max_down"]:.1f} | {m["media_canto_finale"]:.1f} | '
+                    f'{m["media_round"]:.1f} | {m["media_pool_esauriti"]:.1f} |\n')
+        f.write('\n## Indagine\n\n')
+        f.write('| Taglia | Luoghi visitati (media, su 8) | Ore avanzate (media, su 6) | '
+                '% CHI COMANDA confermato | % Diapason trovato |\n')
+        f.write('|---|---|---|---|---|\n')
+        for m in kpi_risultati:
+            f.write(f'| {m["size"]} | {m["media_luoghi_visitati"]:.1f} | {m["media_ore_avanzate"]:.1f} | '
+                    f'{m["pct_chi_confermato"]:.0f}% | {m["pct_diapason"]:.0f}% |\n')
+    print(f'\nRound KPI fatto. Riepilogo in {kpi_path}')
+    print(f'\nFatto. Log in {LOG_DIR}')
+
+
 if __name__ == '__main__':
-    main()
+    if len(sys.argv) > 2 and sys.argv[2] == 'approfondita':
+        sessione_approfondita()
+    else:
+        main()
