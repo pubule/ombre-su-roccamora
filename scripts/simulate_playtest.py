@@ -218,6 +218,31 @@ def adiacenti(cella_a, cella_b):
     (x1, y1), (x2, y2) = cella_a, cella_b
     return abs(x1 - x2) + abs(y1 - y2) == 1
 
+
+def cella_libera_vicino(tile_id, preferita, bloccate):
+    """BFS della cella libera piu' vicina a `preferita` (se libera, e' lei
+    stessa). None se la tessera e' piena (nessuna cella raggiungibile senza
+    arredi/occupanti) - un nemico che arriva a tessera piena resta in coda
+    fuori tessera invece di impilarsi sulla porta (bug: senza questo, con
+    tavoli affollati la cella d'ingresso accumula piu' occupanti della
+    griglia 4x4, e il BFS di movimento resta bloccato per tutti - vedi
+    stallo osservato a 8-10 eroi, sessione 20260715-stress-tattico-kpi)."""
+    muro = _arredi(tile_id) | bloccate
+    if preferita not in muro:
+        return preferita
+    visti = {preferita}
+    coda = [preferita]
+    while coda:
+        corrente = coda.pop(0)
+        for vic in _vicini(corrente):
+            if vic in visti:
+                continue
+            visti.add(vic)
+            if vic not in muro:
+                return vic
+            coda.append(vic)
+    return None
+
 # Formula di pesca Minaccia a round, per party size (chiave -> funzione
 # eroi_vivi -> n_carte). 'standard' e' la regola vera del Regolamento
 # (eroi//2, minimo 1). Le altre sono ipotesi diagnostiche da confrontare
@@ -543,10 +568,16 @@ def simula_indagine(party, log, esplora_a_fondo=False):
 
     def punteggio(l):
         # 1,2,3 sempre per primi: sbloccano gli altri luoghi (parola/oggetto).
-        # Il diapason (L5) NON ha priorita' speciale: e' un oggetto come un
-        # altro nel punteggio, l'euristica puo' anche saltarlo. Se il party
-        # arriva al Custode senza diapason e perde, e' un esito legittimo
-        # della simulazione, non un difetto da correggere a tavolino.
+        # Il diapason (L5) sale alla stessa priorita' di 1/2/3 SOLO dopo che
+        # il gruppo ha sentito da Bice (Casa di Ruggero, L2) che Ferri ne
+        # tiene uno in bottega - prima di allora resta un oggetto come un
+        # altro (l'euristica non "sa" del diapason finche' nessuno gliene ha
+        # parlato). Senza questo, L5 perdeva sempre contro luoghi con
+        # scadenza (regola "rischio" sotto) e non veniva mai visitato: un
+        # tavolo vero che ha SENTITO Bice ci andrebbe, e' il cuore del
+        # deduttivo (vedi Sherlock Holmes Consulting Detective - si seguono
+        # le piste nominate). Se il gruppo non arriva mai a sentire Bice,
+        # il diapason mancante resta un esito legittimo, non un bug.
         #
         # Eccezione (rischio): un luogo non strutturale che chiuderebbe per
         # sempre se non visitato QUESTA ora salta in testa alla coda. Senza
@@ -555,7 +586,8 @@ def simula_indagine(party, log, esplora_a_fondo=False):
         # visitarlo - irraggiungibile in ogni singola simulazione, non solo
         # qualche volta.
         rischio = 0 if (l['chiude'] is not None and ora_corrente + 1 >= l['chiude']) else 1
-        strutturale = 0 if l['n'] in (1, 2, 3) else 1
+        pista_diapason = l.get('diapason') and 'CORDA DI VIOLINO' in oggetti
+        strutturale = 0 if (l['n'] in (1, 2, 3) or pista_diapason) else 1
         urgenza = l['chiude'] or 99  # chi chiude prima, tra i pari, va prima
         copertura = -sum(1 for t in l['approf'] if t in tipi_coperti)  # più negativo = più utile a QUESTO party
         return (rischio, strutturale, urgenza, copertura, l['n'])
@@ -850,8 +882,13 @@ def spawn_from_card(log, title, pool, enemies, round_n, fer_bonus=0, dan_bonus=0
         distanza = 0
         if dist_base is None:
             # "dalla Banchina T1": ancora fuori dalla tessera corrente, resta
-            # astratto finche' non colma la distanza (vedi fase_nemici).
-            distanza = CASELLE_TESSERA * max(1, round_n)
+            # astratto finche' non colma la distanza (vedi fase_nemici). Fisso
+            # a CASELLE_TESSERA (fatto strutturale sulla tessera, vedi sopra) -
+            # NON scalare con round_n: un rinforzo che nasce a round 30
+            # nascerebbe a 180 caselle, irraggiungibile per costruzione (bug
+            # trovato nello stallo del combattimento T6, sessione
+            # 20260715-stress-tattico-kpi).
+            distanza = CASELLE_TESSERA
         elif dist_base == 0 and pos_eroi:
             bersaglio_pos = pos_eroi[random.choice(list(pos_eroi))]
             libere = [c for c in _vicini(bersaglio_pos) if c not in occupate and c not in _arredi(tile_id)]
@@ -1177,8 +1214,12 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
                         log(f'  {e["nome"]} si avvicina (Movimento {e["mov"]}): ancora '
                             f'{e["distanza"]} caselle prima di raggiungere la tessera del gruppo.')
                         continue
-                log(f'  {e["nome"]} raggiunge la tessera del gruppo, da {chess(porta_attuale_pos)}.')
-                e['pos'] = porta_attuale_pos
+                cella = cella_libera_vicino(tile_attuale, porta_attuale_pos, celle_occupate())
+                if cella is None:
+                    log(f'  {e["nome"]} arriva alla porta ma la tessera è piena: resta in coda fuori tessera.')
+                    continue
+                log(f'  {e["nome"]} raggiunge la tessera del gruppo, da {chess(cella)}.')
+                e['pos'] = cella
             _avvicina_e_attacca(e, 8)
         adescati.clear()
         if custode and custode['fer'] > 0 and vivi():
@@ -1199,8 +1240,12 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
                         log(f'  {custode["nome"]} si avvicina (Movimento {custode["mov"]}): ancora '
                             f'{custode["distanza"]} caselle prima di raggiungere la tessera del gruppo.')
                         return
-                log(f'  {custode["nome"]} raggiunge la tessera del gruppo, da {chess(porta_attuale_pos)}.')
-                custode['pos'] = porta_attuale_pos
+                cella = cella_libera_vicino(tile_attuale, porta_attuale_pos, celle_occupate())
+                if cella is None:
+                    log(f'  {custode["nome"]} arriva alla porta ma la tessera è piena: resta in coda fuori tessera.')
+                    return
+                log(f'  {custode["nome"]} raggiunge la tessera del gruppo, da {chess(cella)}.')
+                custode['pos'] = cella
             _avvicina_e_attacca(custode, 8)
 
     def fase_eroi(luogo_label):
@@ -1269,15 +1314,22 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
                 custode['dif'] = 5
                 custode_stunned = True
                 continue
-            if bersagli_vivi:
+            # Solo i nemici con un cammino vero fino a loro sono bersagli validi
+            # (bug: con una tessera affollata a 8-10 eroi, TUTTI i bersagli
+            # potevano risultare irraggiungibili e l'eroe li "inseguiva"
+            # comunque all'infinito invece di ripiegare su Rianimare/Cercare -
+            # vedi stallo osservato in sessione 20260715-stress-tattico-kpi).
+            raggiungibili = [e for e in bersagli_vivi
+                              if cammino(tile_attuale, pos[n], e['pos'], celle_occupate(esclusa=n))]
+            if raggiungibili:
                 # Movimento reale: si avvicina al nemico piu' vicino (a parita'
                 # di cammino, il piu' debole - finire chi e' quasi abbattuto
                 # prima di aprirne un altro), poi attacca solo se ADESSO e'
                 # adiacente. Su una tessera piccola questo quasi sempre riesce
                 # in un'unica azione; se arredi/affollamento lo impediscono,
                 # il round si spende tutto nell'avvicinamento (nessun attacco).
-                obiettivo = min(bersagli_vivi, key=lambda e: (
-                    len(cammino(tile_attuale, pos[n], e['pos'], celle_occupate(esclusa=n))) or 99, e['fer']))
+                obiettivo = min(raggiungibili, key=lambda e: (
+                    len(cammino(tile_attuale, pos[n], e['pos'], celle_occupate(esclusa=n))), e['fer']))
                 if not sposta_verso(n, tile_attuale, obiettivo['pos'], obiettivo['nome']):
                     log(f'    {n} si avvicina a {obiettivo["nome"]}, non ancora a contatto.')
                     continue
