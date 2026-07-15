@@ -22,7 +22,8 @@ from reportlab.pdfgen import canvas
 from reportlab.platypus import Paragraph
 from reportlab.lib.styles import ParagraphStyle
 
-from deluxe_style import register_fonts, torn_portrait, rule_border, pad_to_even_pages, F, INK, RED, TEAL, SEPIA
+from deluxe_style import (register_fonts, torn_portrait, rule_border, pad_to_even_pages, parchment_art,
+                          F, INK, RED, TEAL, SEPIA)
 from gen_cards import LUOGHI, TILES, OGGETTI
 import story
 story.apply(LUOGHI, TILES, [], [], [])
@@ -230,7 +231,22 @@ NONE_ROW = st('none_row', fontName=F['i'], fontSize=9.5, leading=14, textColor=S
 def oggetto_di(ref):
     return next((o for o in OGGETTI if o['ref'] == ref), None)
 
-def righe(approfondimenti, ref):
+def oggetto_riga(ref):
+    """Carta Oggetto da consegnare per questo luogo/tessera, se c'e' -
+    sotto-sezione 'carte da prendere' della sezione Indizi (vedi
+    indizi_block): l'Oggetto e' gia' nominato nell'indizio letto ad alta
+    voce, questa riga serve solo a chi arbitra per sapere quale carta
+    fisica prendere dal mazzo."""
+    ogg = oggetto_di(ref)
+    if not ogg:
+        return []
+    tag = ' ⚠ rischioso' if ogg.get('rischio') else ''
+    return [f"<b>Oggetto</b> — carta “{ogg['nome'].title()}”{tag}"]
+
+def approfondimenti_righe(approfondimenti):
+    """Carte Approfondimento del luogo - SOLO queste, mai l'Oggetto (vedi
+    oggetto_riga): vanno nella sezione Approfondimenti, sempre sul retro
+    della pagina del luogo (vedi pagina_retro_luogo)."""
     out = []
     for a in approfondimenti:
         tipo = TIPO_LABEL[a['tipo']]
@@ -238,10 +254,6 @@ def righe(approfondimenti, ref):
             out.append(f"<b>{tipo}</b> — carta “{a['soggetto']}”")
         else:
             out.append(f"<b>{tipo}</b> <i>({a['tipo']})</i>")
-    ogg = oggetto_di(ref)
-    if ogg:
-        tag = ' ⚠ rischioso' if ogg.get('rischio') else ''
-        out.append(f"<b>Oggetto</b> — carta “{ogg['nome'].title()}”{tag}")
     return out
 
 COL_W = WINDOW_TOP[0]*W - MX - 4*mm  # colonna libera a sinistra dell'arte (in alto)
@@ -276,10 +288,10 @@ def header(c, label_text, nome_text, desc_text):
     c.setStrokeColor(SEPIA); c.setLineWidth(0.5)
     c.line(MX, ART_BOTTOM - 4*mm, W - MX, ART_BOTTOM - 4*mm)
 
-def body(c, rows, y_start=None):
+def body(c, rows, y_start=None, none_text='Nessun Approfondimento qui.'):
     y = ART_BOTTOM - 12*mm if y_start is None else y_start
     if not rows:
-        p = Paragraph('Nessun Approfondimento o Oggetto qui.', NONE_ROW)
+        p = Paragraph(none_text, NONE_ROW)
         p.wrapOn(c, W - 2*MX, 20*mm)
         p.drawOn(c, MX, y - 5*mm)
         return y - 5*mm
@@ -292,10 +304,14 @@ def body(c, rows, y_start=None):
 
 INDIZIO_ROW = st('indizio_row', fontName=F['i'], fontSize=10, leading=14)
 
-def indizi_block(c, indizi, y_top):
-    """Indizi core del luogo: da leggere ad alta voce a tutti, per questo
-    stanno in cima al blocco sotto l'arte, prima e ben separati dalle righe
-    'carte da prendere' (quelle restano solo per chi arbitra)."""
+def indizi_block(c, indizi, oggetto_rows, y_top):
+    """Indizi core del luogo: da leggere ad alta voce a tutti, in cima al
+    blocco sotto l'arte. Se il luogo sblocca un Oggetto, sotto agli indizi
+    (ben separata da una riga) una sotto-sezione 'carte da prendere' -
+    solo per chi arbitra, dice quale carta fisica consegnare (l'Oggetto e'
+    gia' nominato nell'indizio stesso). Se non c'e' un Oggetto, la
+    sotto-sezione non compare affatto: qui l'opacita' non serve, e' la
+    parte letta a voce alta, gia' sotto gli occhi di tutti."""
     c.setFillColor(TEAL); c.setFont(F['sc'], 9)
     c.drawString(MX, y_top, 'indizi — leggeteli ad alta voce')
     y = y_top - 5*mm
@@ -304,7 +320,50 @@ def indizi_block(c, indizi, y_top):
         pw, ph = p.wrapOn(c, W - 2*MX, 60*mm)
         p.drawOn(c, MX, y - ph)
         y -= ph + 3*mm
+    if oggetto_rows:
+        y -= 2*mm
+        c.setStrokeColor(SEPIA); c.setLineWidth(0.3)
+        c.line(MX, y, W - MX, y)
+        y -= 6*mm
+        c.setFillColor(TEAL); c.setFont(F['sc'], 8)
+        c.drawString(MX, y, 'carte da prendere — solo per chi arbitra')
+        y -= 5*mm
+        for r in oggetto_rows:
+            p = Paragraph(f'— {r}', ROW)
+            pw, ph = p.wrapOn(c, W - 2*MX, 20*mm)
+            p.drawOn(c, MX, y - ph)
+            y -= ph + 4*mm
     return y
+
+def nome_fit(c, text, max_w, start=17):
+    size = start
+    while c.stringWidth(text.lower(), F['sc'], size) > max_w and size > 10:
+        size -= 1
+    return size
+
+def pagina_retro_luogo(c, L):
+    """Retro fisico della pagina del luogo (stampa fronte/retro): SEMPRE
+    presente, anche quando il luogo non ha nessun Approfondimento - stessa
+    struttura visiva in entrambi i casi (vedi body(), fallback
+    'Nessun Approfondimento qui.'), cosi' chi arbitra non puo' capire a
+    colpo d'occhio, sfogliando, se un luogo ne nasconde uno oppure no.
+    Sfondo pergamena semplice (niente arte strappata: e' solo la scheda
+    di consultazione, non serve)."""
+    parchment_art(c, W, H)
+    rule_border(c, W, H)
+    max_w = W - 2*MX
+    c.setFillColor(TEAL); c.setFont(F['sc'], 10)
+    c.drawString(MX, H - 20*mm, f"luogo {L['n']}".lower())
+    size = nome_fit(c, L['nome'], max_w)
+    c.setFillColor(RED); c.setFont(F['sc'], size)
+    c.drawString(MX, H - 30*mm, L['nome'].lower())
+    c.setStrokeColor(SEPIA); c.setLineWidth(0.5)
+    c.line(MX, H - 36*mm, W - MX, H - 36*mm)
+    c.setFillColor(TEAL); c.setFont(F['sc'], 10)
+    c.drawString(MX, H - 44*mm, 'approfondimenti')
+    c.setFillColor(TEAL); c.setFont(F['sc'], 8.5)
+    c.drawString(MX, H - 50*mm, 'carte da prendere — solo per chi arbitra')
+    body(c, approfondimenti_righe(L['approfondimenti']), H - 55*mm)
 
 def narratore():
     out_path = os.path.join(OUT_DIR, 'Luoghi.pdf')
@@ -312,16 +371,17 @@ def narratore():
     c.setTitle('Ombre su Roccamora - Episodio 1 - Luoghi (riferimenti narratore)')
 
     for L in LUOGHI:
+        # Fronte: arte + indizi (letti ad alta voce) + eventuale Oggetto da
+        # consegnare. Retro: SEMPRE gli Approfondimenti (vedi pagina_retro_luogo)
+        # - le due pagine restano consecutive nel PDF cosi' una stampa
+        # fronte/retro normale le allinea sullo stesso foglio.
         torn_portrait(c, W, H, LUOGHI_ART[L['n']], TORN_TOP, window=WINDOW_TOP,
                       **LUOGHI_CROP.get(L['n'], {}))
         rule_border(c, W, H)
         header(c, f"luogo {L['n']}", L['nome'], LUOGHI_DESC[L['n']])
-        y = indizi_block(c, L.get('indizi', []), ART_BOTTOM - 10*mm)
-        c.setStrokeColor(SEPIA); c.setLineWidth(0.4)
-        c.line(MX, y - 2*mm, W - MX, y - 2*mm)
-        c.setFillColor(TEAL); c.setFont(F['sc'], 9)
-        c.drawString(MX, y - 8*mm, 'carte da prendere — solo per chi arbitra')
-        body(c, righe(L['approfondimenti'], f"L{L['n']}"), y - 13*mm)
+        indizi_block(c, L.get('indizi', []), oggetto_riga(f"L{L['n']}"), ART_BOTTOM - 10*mm)
+        c.showPage()
+        pagina_retro_luogo(c, L)
         c.showPage()
 
     for t in TILES:
@@ -330,7 +390,7 @@ def narratore():
         torn_portrait(c, W, H, TILE_ART[t['id']], TORN_TOP, window=WINDOW_TOP)
         rule_border(c, W, H)
         header(c, f"tessera {t['id']}", t['nome'], TESSERE_DESC[t['id']])
-        body(c, righe([], t['id']))
+        body(c, oggetto_riga(t['id']), none_text='Nessun oggetto da Cercare qui.')
         c.showPage()
 
     c.save()

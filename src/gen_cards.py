@@ -151,7 +151,7 @@ LUOGHI = [
                  '«...alle 3 in punto, ogni notte. <b>Tre rintocchi, poi uno, poi cinque.</b> Non sono io a suonare.» '
                  '<i>(Reperto A: consegnate il Diario di Ruggero.)</i>',
                  'Sul legno della balaustra, unghiate profonde intorno a una scritta quasi '
-                 'cancellata. Ci vuole un attimo per ricomporla: <b>SOMMERSO</b>.'],
+                 'cancellata. Ci vuole un attimo per ricomporla: <b>sommerso</b>.'],
          approfondimenti=[
              dict(tipo='Osservazione',
                   testo='Tra le assi, un frammento di spartito scritto a mano. Le note non sono per organo: sono per '
@@ -168,7 +168,7 @@ LUOGHI = [
     dict(n=2, nome='CASA DI RUGGERO — VICOLO DEI FONDITORI', req='Disponibile dall’inizio',
          testo='Bice, la sorella, vi apre con gli occhi rossi: «Negli ultimi tempi diceva di sentire '
                'musica sotto il pavimento della cripta. E aveva paura del suo stesso campanile.»',
-         indizi=['Sul tavolo, una <b>CORDA DI VIOLINO d’argento</b>: «L’ha trovata in cripta», dice Bice. '
+         indizi=['Sul tavolo, una <b>corda di violino d’argento</b>: «L’ha trovata in cripta», dice Bice. '
                  '<i>(Oggetto: sblocca il Luogo 5.)</i>',
                  'Bice, esitante: «Diceva anche una cosa strana — che solo un diapason d’argento, fatto '
                  'vibrare vicino a <i>quello che canta</i>, può farlo tacere per un momento. Diceva che '
@@ -186,7 +186,7 @@ LUOGHI = [
          ]),
     dict(n=3, nome='TAVERNA DEL PONTE ROTTO', req='Disponibile dall’inizio',
          testo='Fumo, vino cattivo e barcaioli. Qui le lingue si sciolgono con poco.',
-         indizi=['Ugo il barcaiolo: «Tre notti fa una <b>CHIATTA</b> senza lanterne ha scaricato casse al '
+         indizi=['Ugo il barcaiolo: «Tre notti fa una <b>chiatta</b> senza lanterne ha scaricato casse al '
                  'Canale Basso. Alle 3, proprio mentre le campane suonavano da sole.» '
                  '<i>(Parola chiave: sblocca il Luogo 6.)</i>',
                  'Un avventore ubriaco: «Vicino ai vecchi magazzini c’è puzza di cera bruciata da settimane.»',

@@ -152,35 +152,36 @@ def regolamento():
                 'pianificate l\u2019ordine delle visite e non sprecate ore su vicoli ciechi. '
                 'L\u2019episodio pu\u00f2 legare eventi all\u2019orologio: applicateli quando barrate '
                 'l\u2019ora corrispondente.'))
-    e.append(LI('Se rispondete alle 4 Domande con <b>ore ancora sul Taccuino</b>, oppure avete visitato '
-                'molti luoghi (anche spendendole tutte per farlo), la Soluzione vi dar\u00e0 un vantaggio '
-                'extra per la Spedizione \u2014 sono <b>due strade alternative alla stessa ricompensa</b>: '
-                'la velocit\u00e0 (ore risparmiate) e l\u2019approfondimento (luoghi visitati) contano allo stesso '
-                'modo, prendete quella che vi somiglia di pi\u00f9. Fermarsi presto senza aver visitato molto '
-                'vuol dire comunque rispondere con meno indizi in mano: la fretta ha un prezzo, quanto '
-                'rischiarla lo decidete voi. In pi\u00f9, se <b>non vi avanza nessuna ora</b> (avete speso '
-                'tutte le 6 esplorando), oltre al vantaggio prendete un <b>gettone Intuizione</b>: '
-                'una volta in Spedizione potete <b>ripetere un vostro tiro di dado appena fallito</b> \u2014 '
-                'un piccolo premio a chi va fino in fondo, che la via veloce (per definizione con ore in '
-                'banca) non ottiene.'))
     e.append(LI('Alla <b>prima visita</b> di un luogo, prima di leggerne testo e indizi, il gruppo '
-                'indica un eroe che <b>legge la scena</b>: prova di ACUME Media. Gli indizi core '
-                '(sotto) si leggono comunque, che la prova riesca o no \u2014 non si perde mai '
-                'un\u2019informazione necessaria a un tiro sbagliato. Se fallita, per\u00f2, l\u2019eventuale '
-                '<b>Approfondimento</b> di quel luogo resta nascosto per questa visita: tornateci '
-                'un\u2019altra volta (di nuovo 1 ora, come ogni visita, ma senza ripetere la prova) per '
-                'coglierlo.'))
+                'indica un eroe che <b>legge la scena</b>: prova di ACUME Media. <b>Testo, indizi, '
+                'l’eventuale parola chiave e l’eventuale oggetto si leggono comunque</b>, che la prova '
+                'riesca o no — non serve alcun Approfondimento per ottenerli, e non si perde mai '
+                'un’informazione necessaria a un tiro sbagliato. Se la prova è fallita, però, l’eventuale '
+                '<b>Approfondimento</b> di quel luogo (sotto) resta nascosto per questa visita: '
+                'tornateci un’altra volta (di nuovo 1 ora, come ogni visita, ma senza ripetere la '
+                'prova) per coglierlo.'))
     e.append(LI('Per visitare un luogo, girate la carta (mostra solo l’ambientazione): chi tiene il '
                 'fascicolo <b>Luoghi</b> legge ad alta voce testo e indizi da lì. Prendete appunti sul '
-                'Taccuino: nomi, orari, parole chiave in MAIUSCOLO.'))
+                'Taccuino: nomi, orari, parole chiave.'))
     e.append(LI('Quando trovate una <b>parola chiave</b> o un <b>oggetto</b>, potete da quel momento '
                 'visitare i luoghi che li richiedono.'))
-    e.append(LI('Alcuni luoghi nascondono degli <b>Approfondimenti</b>: indizi extra che '
-                'emergono solo se un eroe presente sa come cavarli <b>e</b> se avete superato la '
-                'prova di \u201cleggere la scena\u201d a quella visita (sopra). <b>Almeno un dettaglio '
-                'decisivo per le 4 Domande emerge solo cos\u00ec</b> \u2014 qualsiasi Approfondimento va '
-                'bene, non importa quale o di chi: se l\u2019indagine finisce senza averne consultato '
-                'nemmeno uno, alcune risposte resteranno solo probabili, non certe.'))
+    e.append(LI('Alcuni luoghi nascondono anche degli <b>Approfondimenti</b>: indizi <i>extra</i> '
+                '(oltre a quelli sopra, mai al posto loro) che emergono solo se un eroe presente sa '
+                'come cavarli <b>e</b> se avete superato la prova di “leggere la scena” a quella visita. '
+                '<b>Almeno un dettaglio decisivo per le 4 Domande emerge solo così</b> — qualsiasi '
+                'Approfondimento va bene, non importa quale o di chi: se l’indagine finisce senza '
+                'averne consultato nemmeno uno, alcune risposte resteranno solo probabili, non certe.'))
+    e.append(LI('Se rispondete alle 4 Domande con <b>ore ancora sul Taccuino</b>, oppure avete visitato '
+                'molti luoghi (anche spendendo tutte le ore per farlo), la Soluzione vi darà un vantaggio '
+                'extra per la Spedizione — sono <b>due strade alternative allo stesso Vantaggio</b>: '
+                'la velocità (ore risparmiate) e l’approfondimento (luoghi visitati) valgono allo stesso '
+                'modo, prendete quella che vi somiglia di più. Fermarsi presto senza aver visitato molto '
+                'vuol dire comunque rispondere con meno indizi in mano: la fretta ha un prezzo, quanto '
+                'rischiarla lo decidete voi. C’è poi un premio a parte, riservato a chi non lascia '
+                '<b>nessuna ora</b> sul Taccuino (le avete spese tutte esplorando): oltre al Vantaggio, '
+                'un <b>gettone Intuizione</b> — una volta in Spedizione potete <b>ripetere un vostro '
+                'tiro di dado appena fallito</b>. La via veloce, che per definizione tiene ore in banca, '
+                'non lo ottiene mai.'))
     e.append(P('Sono <b>3 mazzi di carte fisiche</b>, tenuti insieme in un <b>unico mazzo coperto</b> '
                '(il dorso mostra solo il <b>tipo</b>, mai il luogo, cos\u00ec le carte restano '
                'irriconoscibili e riusabili tra episodi): quando visitate un luogo e un eroe presente '
@@ -462,7 +463,10 @@ def regolamento():
                 'corrispondente (vedi sopra).'))
     e.append(LI('<b>Luoghi</b> (in <i>Episodio 1/</i>): non si stampa per i giocatori — è per chi tiene '
                 'il mazzo coperto degli Approfondimenti, da consultare al bisogno durante l’Indagine. '
-                'Non contiene le risposte alle 4 Domande, solo quale carta prendere per quale luogo.'))
+                'Non contiene le risposte alle 4 Domande, solo quale carta prendere per quale luogo. '
+                '<b>Stampate fronte/retro:</b> il retro di ogni luogo mostra sempre gli Approfondimenti, '
+                'anche quando non ce ne sono — così, sfogliando, non si capisce mai a colpo d’occhio se '
+                'un luogo ne nasconde uno oppure no.'))
     e.append(Spacer(1, 8))
     e.append(P('Episodio 1: <b>Il caso del campanaro scomparso</b>. Quando siete pronti, leggete la '
                'Lettera d\u2019incarico nel fascicolo Indagine. Buona fortuna \u2014 e non fidatevi della '

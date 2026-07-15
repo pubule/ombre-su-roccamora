@@ -97,8 +97,8 @@ LETTERA_P = (
     "poltrone nel salone che aspettano ancora undici nomi.<br/><br/>"
     "Bruciate questa lettera appena l’avrete letta: le altre dieci dicono la stessa "
     "cosa, ma nessuna è stata scritta perché qualcuno la conservi. Avete <b>6 ore</b>, "
-    "dalle 18:00 alle 24:00. Segnate ogni ora sul Taccuino, ogni parola scritta in "
-    "MAIUSCOLO.<br/>— M.»<br/><br/>"
+    "dalle 18:00 alle 24:00. Segnate ogni ora sul Taccuino, ogni parola che conta."
+    "<br/>— M.»<br/><br/>"
     "<i>Luoghi disponibili dall’inizio: P1, P2, P3. Il quarto va sbloccato.</i>")
 
 LUOGHI_P = [
@@ -129,7 +129,7 @@ LUOGHI_P = [
                'parla volentieri: da queste parti un cliente nuovo è un avvenimento, tre clienti nuovi '
                'sono una storia.',
          indizi=['L’oste: «Tre uomini da molo, tre sere di fila, sempre quel tavolo: guardavano il '
-                 'vostro portone. Uno ha detto una parola che qui non si usa: la DOGANA vecchia.» '
+                 'vostro portone. Uno ha detto una parola che qui non si usa: la dogana vecchia.» '
                  '<i>(Parola chiave: sblocca il Luogo P4.)</i>',
                  'Il nipote di Ansaldo ha litigato col vecchio la settimana scorsa, per soldi: metà '
                  'taverna li ha sentiti. Da allora il ragazzo non si è più visto.',
@@ -313,7 +313,7 @@ def indagine():
     c.drawString(16*mm + 6*17*mm, H - 42*mm, '! il barcaiolo (P2) c’è solo dalle 21')
     y = scuola(c, 16*mm, H - 52*mm, W - 32*mm,
                'Visitare un luogo costa 1 ora, anche tornarci. Girate la carta, leggete testo e '
-               'indizi ad alta voce, annotate qui nomi e parole in MAIUSCOLO. Quando trovate '
+               'indizi ad alta voce, annotate qui nomi e parole chiave. Quando trovate '
                'una parola chiave potete visitare il luogo che la richiede. Alcuni eroi cavano '
                'indizi in più (Approfondimenti): quando visitate un luogo, chi tiene il '
                'fascicolo Luoghi controlla se l’eroe giusto è presente. Due eroi funzionano '
@@ -530,6 +530,16 @@ def fit_desc(c, text, start=9.5, floor=7):
             return p, h
         size -= 0.3
 
+# Carte Oggetto per luogo del Preludio (sotto-sezione "carte da prendere"
+# della sezione Indizi - vedi gen_narrator.py, stesso pattern): l'Oggetto e'
+# gia' nominato nell'indizio letto ad alta voce, questa mappa serve solo a
+# chi arbitra per sapere quale carta fisica prendere. A differenza di
+# Episodio 1 (OGGETTI in gen_cards.py, con 'ref'), il Preludio non ha una
+# lista strutturata: solo 2 oggetti, entrambi a P1, mappati qui a mano.
+OGGETTI_LUOGO_P = {
+    'P1': ['L’Anello di Chiavi', 'La Pipa di Ansaldo'],
+}
+
 def luoghi():
     missing = [L['art'] for L in LUOGHI_P
                if not os.path.exists(os.path.join(ARTWORKS_DIR, L['art']))]
@@ -543,24 +553,45 @@ def luoghi():
     ROW = st('row', fontSize=10.5, leading=15)
     NONE_ROW = st('none_row', fontName=F['i'], fontSize=9.5, leading=14, textColor=SEPIA)
     INDIZIO_ROW = st('indizio_row', fontName=F['i'], fontSize=10, leading=14)
+
+    def body(rows, y_start, none_text='Nessun Approfondimento qui.'):
+        y = y_start
+        if not rows:
+            p = Paragraph(none_text, NONE_ROW)
+            p.wrapOn(c, W - 2*MX, 20*mm)
+            p.drawOn(c, MX, y - 5*mm)
+            return
+        for r in rows:
+            p = Paragraph(f'— {r}', ROW)
+            pw, ph = p.wrapOn(c, W - 2*MX, 20*mm)
+            p.drawOn(c, MX, y - ph)
+            y -= ph + 4*mm
+
+    def nome_fit(text, max_w, start=17):
+        size = start
+        while c.stringWidth(text.lower(), F['sc'], size) > max_w and size > 10:
+            size -= 1
+        return size
+
     for L in LUOGHI_P:
+        # Fronte: arte + indizi (letti ad alta voce) + eventuale Oggetto da
+        # consegnare. Retro: SEMPRE gli Approfondimenti, anche quando il
+        # luogo non ne ha nessuno - stessa struttura visiva in entrambi i
+        # casi, cosi' chi arbitra non puo' distinguerli sfogliando (stesso
+        # pattern di gen_narrator.py). Le due pagine restano consecutive nel
+        # PDF cosi' una stampa fronte/retro le allinea sullo stesso foglio.
         torn_portrait(c, W, H, L['art'], TORN_TOP, window=WINDOW_TOP,
                       **LUOGHI_P_CROP.get(L['n'], {}))
         rule_border(c, W, H)
         c.setFillColor(TEAL); c.setFont(F['sc'], 10)
         c.drawString(MX, H - 20*mm, ('luogo ' + L['n']).lower())
-        size = 18
-        while c.stringWidth(L['nome'].lower(), F['sc'], size) > COL_W and size > 10:
-            size -= 1
+        size = nome_fit(L['nome'], COL_W, start=18)
         c.setFillColor(RED); c.setFont(F['sc'], size)
         c.drawString(MX, H - 30*mm, L['nome'].lower())
         d, dh = fit_desc(c, LUOGHI_P_DESC[L['n']])
         d.drawOn(c, MX, DESC_TOP - dh)
         c.setStrokeColor(SEPIA); c.setLineWidth(0.5)
         c.line(MX, ART_BOTTOM - 4*mm, W - MX, ART_BOTTOM - 4*mm)
-        # Indizi core: da leggere ad alta voce a tutti, in cima al blocco sotto
-        # l'arte, prima e ben separati dalle righe "carte da prendere" (quelle
-        # restano solo per chi arbitra) - stesso pattern di gen_narrator.py.
         c.setFillColor(TEAL); c.setFont(F['sc'], 9)
         c.drawString(MX, ART_BOTTOM - 10*mm, 'indizi — leggeteli ad alta voce')
         y = ART_BOTTOM - 15*mm
@@ -569,11 +600,32 @@ def luoghi():
             pw, ph = p.wrapOn(c, W - 2*MX, 60*mm)
             p.drawOn(c, MX, y - ph)
             y -= ph + 3*mm
-        c.setStrokeColor(SEPIA); c.setLineWidth(0.4)
-        c.line(MX, y - 2*mm, W - MX, y - 2*mm)
-        c.setFillColor(TEAL); c.setFont(F['sc'], 9)
-        c.drawString(MX, y - 8*mm, 'carte da prendere — solo per chi arbitra')
-        y -= 13*mm
+        oggetti = OGGETTI_LUOGO_P.get(L['n'], [])
+        if oggetti:
+            y -= 2*mm
+            c.setStrokeColor(SEPIA); c.setLineWidth(0.3)
+            c.line(MX, y, W - MX, y)
+            y -= 6*mm
+            c.setFillColor(TEAL); c.setFont(F['sc'], 8)
+            c.drawString(MX, y, 'carte da prendere — solo per chi arbitra')
+            y -= 5*mm
+            body([f'<b>Oggetto</b> — carta “{nome}”' for nome in oggetti], y)
+        c.showPage()
+
+        parchment_art(c, W, H)
+        rule_border(c, W, H)
+        max_w = W - 2*MX
+        c.setFillColor(TEAL); c.setFont(F['sc'], 10)
+        c.drawString(MX, H - 20*mm, ('luogo ' + L['n']).lower())
+        size = nome_fit(L['nome'], max_w)
+        c.setFillColor(RED); c.setFont(F['sc'], size)
+        c.drawString(MX, H - 30*mm, L['nome'].lower())
+        c.setStrokeColor(SEPIA); c.setLineWidth(0.5)
+        c.line(MX, H - 36*mm, W - MX, H - 36*mm)
+        c.setFillColor(TEAL); c.setFont(F['sc'], 10)
+        c.drawString(MX, H - 44*mm, 'approfondimenti')
+        c.setFillColor(TEAL); c.setFont(F['sc'], 8.5)
+        c.drawString(MX, H - 50*mm, 'carte da prendere — solo per chi arbitra')
         rows = []
         for a in L['approfondimenti']:
             tipo = TIPO_LABEL[a['tipo']]
@@ -581,15 +633,7 @@ def luoghi():
                 rows.append(f"<b>{tipo}</b> — carta “{a['soggetto']}”")
             else:
                 rows.append(f"<b>{tipo}</b> <i>({a['tipo']})</i>")
-        if not rows:
-            p = Paragraph('Nessun Approfondimento qui.', NONE_ROW)
-            p.wrapOn(c, W - 2*MX, 20*mm)
-            p.drawOn(c, MX, y - 5*mm)
-        for r in rows:
-            p = Paragraph(f'— {r}', ROW)
-            pw, ph = p.wrapOn(c, W - 2*MX, 20*mm)
-            p.drawOn(c, MX, y - ph)
-            y -= ph + 4*mm
+        body(rows, H - 55*mm)
         c.showPage()
     c.save()
     pad_to_even_pages(out_path)
