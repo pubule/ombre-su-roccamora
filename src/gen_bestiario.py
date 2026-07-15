@@ -29,15 +29,12 @@ OUT_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__)
 register_fonts()
 W, H = A4
 
-# Stesso strappo (in basso a destra) e stessa finestra d'arte delle Schede
-# Personaggio (gen_deluxe.py): CUT_X e' il bordo sinistro dello strappo,
-# tutto cio' che sta sotto la riga del titolo e a destra di CUT_X mostra
-# l'arte del nemico attraverso la pergamena - il testo sotto quella riga
-# resta a sinistra di CUT_X per non finirci sopra.
+# Stesso strappo (in basso a destra) delle Schede Personaggio (gen_deluxe.py):
+# finestra d'arte meta' destra, meta' inferiore. Testo (bio, statistiche,
+# Ferite) sta tutto sopra ART_TOP, a piena larghezza: l'arte del nemico
+# resta interamente libera, senza nulla sopra.
 TORN_BG = 'background scheda personaggio 2.png'
-CUT_X = 105*mm
-# finestra d'arte (window di torn_portrait): meta' destra, meta' inferiore.
-ART_TOP = 0.51 * H  # sopra questa riga, nessuna arte: testo a piena larghezza
+ART_TOP = 0.51 * H
 
 
 def st(name, **kw):
@@ -55,24 +52,24 @@ def frame_flow(c, x, y, w, h, flow):
           bottomPadding=0, showBoundary=0).addFromList(flow, c)
 
 
-def stat_box(c, x, y, w, label, value, value_color=None):
+def stat_box(c, x, y, w, h, label, value, value_color=None):
     """Stesso riquadro delle statistiche nella Scheda Personaggio
     (gen_deluxe.py): bordo oro, fondo pergamena scura, etichetta piccola in
     alto, valore grande al centro. C'e' spazio per riusarlo anche qui,
     invece della semplice riga label:valore delle prime bozze."""
     c.saveState()
     c.setStrokeColor(GOLD); c.setLineWidth(1); c.setFillColor(PAPER_DK)
-    c.rect(x, y, w, 18*mm, fill=1)
+    c.rect(x, y, w, h, fill=1)
     c.setStrokeColor(INK); c.setLineWidth(0.6)
-    c.rect(x + 1.2*mm, y + 1.2*mm, w - 2.4*mm, 18*mm - 2.4*mm)
+    c.rect(x + 1.2*mm, y + 1.2*mm, w - 2.4*mm, h - 2.4*mm)
     c.setFillColor(TEAL); c.setFont(F['sc'], 8)
-    c.drawCentredString(x + w/2, y + 13.2*mm, label.lower())
-    c.setFillColor(value_color or INK); c.setFont(F['b'], 19)
-    c.drawCentredString(x + w/2, y + 4*mm, str(value))
+    c.drawCentredString(x + w/2, y + h - 4.8*mm, label.lower())
+    c.setFillColor(value_color or INK); c.setFont(F['b'], 17)
+    c.drawCentredString(x + w/2, y + 3.2*mm, str(value))
     c.restoreState()
 
 
-def griglia_stat_box(c, x, y, w, voci, colonne=2, gap=3*mm):
+def griglia_stat_box(c, x, y, w, voci, colonne=2, gap=3*mm, box_h=14*mm):
     """Dispone `voci` (label, value[, value_color]) su una griglia a
     `colonne` colonne di stat_box, larghi quanto ci sta in `w`. Ritorna la
     coordinata y sotto l'ultima riga disegnata."""
@@ -82,10 +79,10 @@ def griglia_stat_box(c, x, y, w, voci, colonne=2, gap=3*mm):
         value_color = voce[2] if len(voce) > 2 else None
         col, riga = i % colonne, i // colonne
         bx = x + col * (box_w + gap)
-        by = y - riga * (18*mm + gap) - 18*mm
-        stat_box(c, bx, by, box_w, label, value, value_color)
+        by = y - riga * (box_h + gap) - box_h
+        stat_box(c, bx, by, box_w, box_h, label, value, value_color)
     righe = -(-len(voci) // colonne)  # ceil
-    return y - righe * (18*mm + gap)
+    return y - righe * (box_h + gap)
 
 
 # Inquadratura per nemico: default overscan=0.75/center_x=0.5 (stessa
@@ -136,42 +133,43 @@ def pagina_nemico(c, nemico):
     c.setStrokeColor(INK); c.setLineWidth(1)
     c.line(mx, H - mt - 16*mm, W - mx, H - mt - 16*mm)
 
-    # Bio a piena larghezza: tutta l'area sopra ART_TOP e' libera dallo
-    # strappo (la finestra d'arte comincia solo sotto meta' pagina), stesso
-    # spazio "chi sei" delle Schede Personaggio ma qui puo' arrivare fin
-    # quasi al bordo dello strappo per una bio davvero estesa.
+    # Bio a piena larghezza, altezza fissa (non tutta l'area libera fino ad
+    # ART_TOP: statistiche e Ferite adesso stanno anche loro sopra lo
+    # strappo, in riga unica a piena larghezza invece che nella colonna
+    # stretta accanto all'arte - ci sta tutto, l'arte sotto resta libera.
     bio_top = H - mt - 19*mm
-    bio_bottom = ART_TOP + 6*mm
-    frame_flow(c, mx, bio_bottom, W - 2*mx, bio_top - bio_bottom, [
+    bio_h = 55*mm  # capiente per la bio piu' lunga delle 6 (Custode, ~10 righe) con margine
+    frame_flow(c, mx, bio_top - bio_h, W - 2*mx, bio_h, [
         Paragraph('chi è', SMB),
         Paragraph(nemico.get('bio_bestiario', nemico['note']),
                   st('bio', fontName=F['i'], fontSize=9.8, leading=13, alignment=4))])
 
-    # Sotto la riga di meta' pagina, l'arte occupa la meta' destra: le
-    # statistiche restano nella colonna sinistra (mx..CUT_X), come
-    # l'abilita'/equipaggiamento delle Schede Personaggio. Stessi riquadri
-    # (stat_box) delle statistiche eroe: c'e' spazio per farlo, ed e' lo
-    # stesso linguaggio visivo su entrambi i fascicoli.
-    col_w = CUT_X - mx
-    y = ART_TOP - 4*mm
+    # Stesso riquadro (stat_box) delle statistiche eroe, ora in riga unica
+    # a piena larghezza sopra la finestra d'arte (ART_TOP), non piu' nella
+    # colonna stretta sotto: l'arte del nemico resta cosi' interamente
+    # libera, senza testo sopra. Riquadri piu' bassi (14mm, non i 18mm della
+    # Scheda Personaggio) per lasciare tutto - bio compresa - sopra ART_TOP.
+    full_w = W - 2*mx
+    box_h = 14*mm
+    y = bio_top - bio_h - 5*mm
     c.setFillColor(TEAL); c.setFont(F['sc'], 10)
     c.drawString(mx, y, 'statistiche')
-    y -= 6*mm
-    y = griglia_stat_box(c, mx, y, col_w, [
+    y -= 5*mm
+    y = griglia_stat_box(c, mx, y, full_w, [
         ('Attacco', '+%d' % nemico['att']), ('Difesa', nemico['dif']),
-        ('Movimento', nemico['mov']), ('Danno', nemico['dan'])])
+        ('Movimento', nemico['mov']), ('Danno', nemico['dan'])], colonne=4, box_h=box_h)
 
-    y -= 10*mm
+    y -= 4*mm
     c.setFillColor(TEAL); c.setFont(F['sc'], 10)
     c.drawString(mx, y, 'ferite, per eroi in tavola')
-    y -= 4.5*mm
+    y -= 4*mm
     c.setFillColor(SEPIA); c.setFont(F['i'], 7.3)
     c.drawString(mx, y, 'Fissate a inizio Spedizione, non ricalcolate dopo.')
-    y -= 6*mm
+    y -= 2.5*mm
     ferite = ferite_per_fascia(nemico)
     voci_ferite = [(fascia, fer, RED if fer != nemico['fer'] else INK)
                    for fascia, fer in zip(FASCE, ferite)]
-    y = griglia_stat_box(c, mx, y, col_w, voci_ferite)
+    y = griglia_stat_box(c, mx, y, full_w, voci_ferite, colonne=4, box_h=box_h)
 
     c.setFillColor(SEPIA); c.setFont(F['i'], 7.5)
     c.drawString(mx, 14*mm, 'Le ferite subite si segnano sul Registro delle Ferite')
