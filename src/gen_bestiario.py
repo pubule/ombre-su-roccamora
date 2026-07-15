@@ -55,19 +55,59 @@ def frame_flow(c, x, y, w, h, flow):
           bottomPadding=0, showBoundary=0).addFromList(flow, c)
 
 
-def stat_row(c, x, y, w, label, value):
-    """Riga compatta label:valore (non un riquadro pieno come le Schede
-    Personaggio): sotto ART_TOP lo spazio utile e' solo CUT_X-mx di
-    larghezza, un riquadro da 18mm come le Schede non ci basterebbe per
-    piu' di due elementi affiancati."""
+def stat_box(c, x, y, w, label, value, value_color=None):
+    """Stesso riquadro delle statistiche nella Scheda Personaggio
+    (gen_deluxe.py): bordo oro, fondo pergamena scura, etichetta piccola in
+    alto, valore grande al centro. C'e' spazio per riusarlo anche qui,
+    invece della semplice riga label:valore delle prime bozze."""
     c.saveState()
-    c.setStrokeColor(GOLD); c.setLineWidth(0.7)
-    c.line(x, y, x + w, y)
-    c.setFillColor(TEAL); c.setFont(F['sc'], 8.5)
-    c.drawString(x, y + 2*mm, label.lower())
-    c.setFillColor(INK); c.setFont(F['b'], 11)
-    c.drawRightString(x + w, y + 2*mm, str(value))
+    c.setStrokeColor(GOLD); c.setLineWidth(1); c.setFillColor(PAPER_DK)
+    c.rect(x, y, w, 18*mm, fill=1)
+    c.setStrokeColor(INK); c.setLineWidth(0.6)
+    c.rect(x + 1.2*mm, y + 1.2*mm, w - 2.4*mm, 18*mm - 2.4*mm)
+    c.setFillColor(TEAL); c.setFont(F['sc'], 8)
+    c.drawCentredString(x + w/2, y + 13.2*mm, label.lower())
+    c.setFillColor(value_color or INK); c.setFont(F['b'], 19)
+    c.drawCentredString(x + w/2, y + 4*mm, str(value))
     c.restoreState()
+
+
+def griglia_stat_box(c, x, y, w, voci, colonne=2, gap=3*mm):
+    """Dispone `voci` (label, value[, value_color]) su una griglia a
+    `colonne` colonne di stat_box, larghi quanto ci sta in `w`. Ritorna la
+    coordinata y sotto l'ultima riga disegnata."""
+    box_w = (w - (colonne - 1) * gap) / colonne
+    for i, voce in enumerate(voci):
+        label, value = voce[0], voce[1]
+        value_color = voce[2] if len(voce) > 2 else None
+        col, riga = i % colonne, i // colonne
+        bx = x + col * (box_w + gap)
+        by = y - riga * (18*mm + gap) - 18*mm
+        stat_box(c, bx, by, box_w, label, value, value_color)
+    righe = -(-len(voci) // colonne)  # ceil
+    return y - righe * (18*mm + gap)
+
+
+# Inquadratura per nemico: default overscan=0.75/center_x=0.5 (stessa
+# tarata dei ritratti eroe), override dove il soggetto non cade a centro
+# finestra di default - stesso principio di LUOGHI_CROP in gen_narrator.py.
+INQUADRATURA = {
+    # Il Custode e' un ritratto verticale gia' centrato: overscan piu' ampio
+    # per farlo risaltare di piu' invece di lasciarlo piccolo a meta' pagina.
+    'IL CUSTODE DELLA CERA': dict(overscan=1.1),
+    # Testa e ceffo ringhiante stanno sopra al centro dell'arte (soggetto
+    # verticale con molto molo/edificio intorno): overscan piu' alto stringe
+    # sul muso invece di lasciare il palazzo alle spalle a rubare la scena,
+    # center_x spostato verso destra segue il ceffo (piu' a destra del
+    # centro immagine) invece delle zampe anteriori a sinistra.
+    'CANE DEI MOLI': dict(overscan=0.95, center_x=0.58),
+}
+
+
+def inquadratura(nemico):
+    base = dict(overscan=0.75, center_x=0.5, top_margin=0)
+    base.update(INQUADRATURA.get(nemico['nome'], {}))
+    return base
 
 
 # Scalatura Ferite per numero di eroi in tavola - STESSI numeri del
@@ -84,15 +124,8 @@ def ferite_per_fascia(nemico):
 
 
 def pagina_nemico(c, nemico):
-    # Posizionamento arte: di default l'inquadratura e' quella "cover" gia'
-    # tarata per i ritratti eroe (top_margin=0, overscan=0.75, center_x=0.5)
-    # - la stessa finestra usata dalle Schede Personaggio. Il Custode e' un
-    # ritratto verticale con la figura gia' centrata: overscan piu' ampio
-    # (1.1) per farlo risaltare di piu' nello strappo invece di lasciarlo
-    # piccolo al centro di una finestra che e' comunque meta' pagina.
-    overscan = 1.1 if nemico.get('boss') else 0.75
     torn_portrait(c, W, H, nemico['art'], TORN_BG,
-                  window=(0.50, 0.0, 1.03, 0.51), overscan=overscan)
+                  window=(0.50, 0.0, 1.03, 0.51), **inquadratura(nemico))
     rule_border(c, W, H)
     mx, mt = 20*mm, 20*mm
     c.setFillColor(RED); c.setFont(F['sc'], 23)
@@ -116,33 +149,29 @@ def pagina_nemico(c, nemico):
 
     # Sotto la riga di meta' pagina, l'arte occupa la meta' destra: le
     # statistiche restano nella colonna sinistra (mx..CUT_X), come
-    # l'abilita'/equipaggiamento delle Schede Personaggio.
+    # l'abilita'/equipaggiamento delle Schede Personaggio. Stessi riquadri
+    # (stat_box) delle statistiche eroe: c'e' spazio per farlo, ed e' lo
+    # stesso linguaggio visivo su entrambi i fascicoli.
     col_w = CUT_X - mx
     y = ART_TOP - 4*mm
     c.setFillColor(TEAL); c.setFont(F['sc'], 10)
     c.drawString(mx, y, 'statistiche')
-    y -= 7*mm
-    for lb, v in [('Attacco', '+%d' % nemico['att']), ('Difesa', nemico['dif']),
-                  ('Movimento', nemico['mov']), ('Danno', nemico['dan'])]:
-        stat_row(c, mx, y, col_w, lb, v)
-        y -= 8*mm
-
     y -= 6*mm
+    y = griglia_stat_box(c, mx, y, col_w, [
+        ('Attacco', '+%d' % nemico['att']), ('Difesa', nemico['dif']),
+        ('Movimento', nemico['mov']), ('Danno', nemico['dan'])])
+
+    y -= 10*mm
     c.setFillColor(TEAL); c.setFont(F['sc'], 10)
     c.drawString(mx, y, 'ferite, per eroi in tavola')
-    y -= 5.5*mm
+    y -= 4.5*mm
     c.setFillColor(SEPIA); c.setFont(F['i'], 7.3)
-    for riga in ('Fissate a inizio Spedizione,', 'non ricalcolate dopo.'):
-        c.drawString(mx, y, riga)
-        y -= 3.3*mm
-    y -= 2*mm
+    c.drawString(mx, y, 'Fissate a inizio Spedizione, non ricalcolate dopo.')
+    y -= 6*mm
     ferite = ferite_per_fascia(nemico)
-    for fascia, fer in zip(FASCE, ferite):
-        c.setFillColor(RED if fer != nemico['fer'] else INK); c.setFont(F['b'], 11)
-        c.drawString(mx, y, str(fer))
-        c.setFillColor(TEAL); c.setFont(F['r'], 9)
-        c.drawString(mx + 8*mm, y, fascia)
-        y -= 6.5*mm
+    voci_ferite = [(fascia, fer, RED if fer != nemico['fer'] else INK)
+                   for fascia, fer in zip(FASCE, ferite)]
+    y = griglia_stat_box(c, mx, y, col_w, voci_ferite)
 
     c.setFillColor(SEPIA); c.setFont(F['i'], 7.5)
     c.drawString(mx, 14*mm, 'Le ferite subite si segnano sul Registro delle Ferite')
