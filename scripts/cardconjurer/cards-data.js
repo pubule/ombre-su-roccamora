@@ -248,19 +248,19 @@ const LUOGHI = [
       { tipo: 'Osservazione', testo: 'La cera sulle mani di don Callisto è bianca, comune: vende candele di nascosto per pagare i debiti della parrocchia. Con la cera nera non c’entra — ma sul registro delle elemosine, una voce ricorrente: consegne mensili, sempre allo stesso destinatario, «B. Ferri, per conto del magazzino Dellacqua, Canale Basso». Non un cliente qualunque.' },
       { tipo: 'Testimonianza', soggetto: 'Don Callisto', testo: 'Se rassicurato, il prete crolla: certe notti dalla cripta sale un canto di molte voci — e tra tutte, una gli è fin troppo familiare: quella di Bastiano Ferri, il liutaio. «Mi ha detto lui dove si radunano davvero: un vecchio magazzino di cera sul Canale Basso, quello che fu di Dellacqua.» Troppa paura per denunciarlo, troppa vergogna per benedirlo.' },
     ] },
-  { n: 5, nome: 'Bottega del Liutaio Ferri', req: 'Serve: una corda di violino d’argento per entrare.',
+  { n: 5, nome: 'Bottega del Liutaio Ferri', req: 'Un vicino sorveglia la bottega da quando Ferri è sparito: si allontana solo se vi vede portare con voi qualcosa che sembra suo, come per restituirlo.',
     testo: 'La bottega è chiusa da giorni, la polvere ha già preso possesso delle vetrine; la porta sul retro cede a una spallata. Dentro, violini appesi come selvaggina e un silenzio sbagliato per un luogo nato per fare musica. Il banco da lavoro è in ordine perfetto: chi è partito, sapeva di partire.',
     approfondimenti: [
       { tipo: 'Osservazione', testo: 'Nel camino, cenere di carta ancora tiepida. Un lembo si salva, grafia febbrile: «...il Coro canta anche senza di me, ormai, anche laggiù al magazzino delle cere di Dellacqua, sul Canale Basso. Che Dio perdoni ciò che ho svegliato. — B.» La grafia è la stessa del registro consegne sul banco: quella del liutaio Ferri.' },
       { tipo: 'Referto', soggetto: 'Residui sulle lime', testo: 'Su lime e sgorbie, incrostazioni di cera nera — non la pece da liutaio. Qui Ferri lavorava le candele del culto: la sua bottega è l’unica officina della città attrezzata per fonderle in quantità. Sul registro, l’ultima consegna è diretta al vecchio magazzino delle cere di Dellacqua, sul Canale Basso — non un grammo di bronzo in vista: qualunque cosa venda Learco il ramaio, non passa da qui.' },
     ] },
-  { n: 6, nome: 'Il Canale Basso', req: 'Serve: la parola «chiatta» per entrare.',
+  { n: 6, nome: 'Il Canale Basso', req: 'Il guardiano del molo non vi lascia avvicinare: aspetta che gli diciate la parola giusta, quella sentita altrove, tra un bicchiere e l’altro.',
     testo: 'L’acqua qui non scorre: sta. Nera, ferma, densa come olio, lambisce magazzini ciechi dai portoni murati. Il guardiano notturno esce dal casotto con la lanterna alzata e, per qualche moneta, la diffidenza si scioglie in fretta: da settimane muore dalla voglia di raccontare a qualcuno quello che sente la notte.',
     approfondimenti: [
       { tipo: 'Testimonianza', soggetto: 'Il guardiano notturno', testo: 'Il guardiano abbassa la voce. «Certe notti li ho visti entrare — un fornaio, un sagrestano, gente che saluto al mercato — sempre dallo stesso magazzino, quello che fu di Dellacqua. E tra loro, sempre lui: il liutaio Ferri.» Uscivano all’alba con gli occhi vuoti. Non erano più loro.' },
       { tipo: 'Presagio', testo: 'Sfiorare l’acqua nera basta: non è fredda, sembra vigile. Per un istante si vede, netto come attraverso occhi non propri, l’interno del vecchio magazzino delle cere di Dellacqua, sul Canale Basso — e tra le candele, le mani di un liutaio. Qualcosa, sotto la città, conta i passi sul molo.' },
     ] },
-  { n: 7, nome: 'L’Archivio Civico', req: 'Serve: la parola «sommerso» per entrare.',
+  { n: 7, nome: 'L’Archivio Civico', req: 'L’archivista non alza lo sguardo finché non pronunciate la parola che avete già sentito da qualche parte in città.',
     testo: 'Scaffali fino al soffitto, cartelle legate con lo spago, la luce verde delle lampade a schermo. L’archivista, minuscolo dietro occhiali spessi, si irrigidisce quando pronunciate la parola giusta: poi, senza fiatare, vi guida a uno scaffale che nessuno tocca da decenni — la polvere è spessa un dito, tranne che su un solo fascicolo.',
     approfondimenti: [
       { tipo: 'Osservazione', testo: 'Le mani dell’archivista tremano su un solo scaffale. Sul fascicolo, due note a margine, la stessa calligrafia frettolosa: «il sigillo a onda è ancora inciso nella cripta, sotto l’altare» e, più sotto, quasi illeggibile, «B. Ferri ha ripreso il posto del fondatore — vecchio magazzino Dellacqua, Canale Basso — nessuno osa contraddirlo». Chi ha scritto, temeva di essere letto.' },
@@ -283,10 +283,12 @@ const LUOGHI = [
   type: `Luogo ${L.n} — ${L.req}`,
   // Requisito d'accesso, sezione a parte sotto la descrizione (separata da
   // {divider}, una barra visiva vera - vedi creator-23.js) invece che dentro
-  // il campo `type` (non renderizzato dal frame): niente puntatore "(Luogo N)",
-  // solo il nome dell'oggetto/la parola - il collegamento lo fa chi gioca
-  // riconoscendo il nome, non un rimando esplicito (vedi PROMPT-ESPANSIONE.md).
-  rules: `{i}${L.testo}{/i}${L.req.startsWith('Serve:') ? `{divider}${L.req}` : ''}`,
+  // il campo `type` (non renderizzato dal frame): un tocco narrativo (un
+  // guardiano, un vicino diffidente...) che giustifica perche' serva
+  // qualcosa per entrare, MAI il nome dell'oggetto/la parola e MAI un
+  // puntatore "(Luogo N)" - il collegamento lo fa chi gioca da solo,
+  // riconoscendo cosa ha gia' trovato/sentito (vedi PROMPT-ESPANSIONE.md).
+  rules: `{i}${L.testo}{/i}${L.req !== 'Disponibile dall’inizio' ? `{divider}${L.req}` : ''}`,
   n: L.n,
   nome: L.nome,
   approfondimenti: L.approfondimenti || [],
@@ -386,7 +388,7 @@ const PRELUDIO_LUOGHI = [
   { n: 'P3', nome: 'Il Banco dei Pegni di Fossa', req: 'Disponibile dall’inizio',
     art: 'artworks/Banco dei Pegni.png',
     testo: 'Mezza Roccamora è passata da Fossa a impegnare l’altra metà. Dietro la grata, il vecchio prestatore vi squadra come si squadra un anello: cercando il difetto. Il suo registro è la vera cronaca del quartiere — basta saperlo leggere, o pagare la tariffa.' },
-  { n: 'P4', nome: 'La Dogana Vecchia', req: 'Serve: la parola «dogana» per entrare.',
+  { n: 'P4', nome: 'La Dogana Vecchia', req: 'L’uomo con la canna da pesca non stacca gli occhi da voi: sembra aspettare una parola d’ordine, la stessa bisbigliata in qualche taverna.',
     art: 'artworks/Dogana Vecchia.png',
     testo: 'In fondo al canale di ponente, la vecchia dogana marcisce da vent’anni: banchina sfondata, portoni murati, una chiatta ormeggiata dove non dovrebbe esserci niente. Un uomo finge di pescare senza esca, e vi guarda arrivare per tutto il molo.' },
 ].map((L) => ({
@@ -394,7 +396,7 @@ const PRELUDIO_LUOGHI = [
   title: `${L.n} · ${L.nome}`,
   file: `Preludio/${L.n} - ${L.nome}`,
   type: `Luogo ${L.n} — ${L.req}`,
-  rules: `{i}${L.testo}{/i}${L.req.startsWith('Serve:') ? `{divider}${L.req}` : ''}`,
+  rules: `{i}${L.testo}{/i}${L.req !== 'Disponibile dall’inizio' ? `{divider}${L.req}` : ''}`,
 }));
 
 const PRELUDIO_APPROFONDIMENTI = [

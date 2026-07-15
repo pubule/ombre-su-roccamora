@@ -162,7 +162,7 @@ LUOGHI_P = [
                         'solo, di taglio, non una colluttazione lunga. Ansaldo è stato tramortito, '
                         'non ucciso — un morto non serve a chi ha ancora domande da fargli.'),
          ]),
-    dict(n='P4', nome='LA DOGANA VECCHIA', req='Serve: la parola «dogana» per entrare.',
+    dict(n='P4', nome='LA DOGANA VECCHIA', req='L’uomo con la canna da pesca non stacca gli occhi da voi: sembra aspettare una parola d’ordine, la stessa bisbigliata in qualche taverna.',
          art='Dogana Vecchia.png',
          testo='In fondo al canale di ponente, la vecchia dogana marcisce da vent’anni: banchina '
                'sfondata, portoni murati, una chiatta ormeggiata dove non dovrebbe esserci niente. '
