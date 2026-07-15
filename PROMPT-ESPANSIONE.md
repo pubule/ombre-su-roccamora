@@ -71,7 +71,9 @@ prima che l'Ep. 1 lo riveli.
 
 **Struttura fissa di un episodio (una serata):**
 1. *Fase Indagine* — 8 carte Luogo (circa 5 aperte dall'inizio, 2–3 sbloccabili tramite
-   PAROLE CHIAVE in maiuscolo o oggetti trovati). Budget: 8 ore/visite (il tempo non deve bastare per tutto: i luoghi utili superano le ore). Sempre almeno un vincolo d'orologio (un luogo che chiude o un testimone che sparisce a un'ora precisa). Almeno
+   PAROLE CHIAVE in maiuscolo o oggetti trovati). Budget: **6 ore/visite** (18:00-24:00,
+   vedi Regolamento e Lettera d'incarico — il tempo non deve bastare per tutto: i luoghi
+   utili superano le ore, per 8 luoghi già scarseggiano). Sempre almeno un vincolo d'orologio (un luogo che chiude o un testimone che sparisce a un'ora precisa). Almeno
    2 false piste che scagionino innocenti e almeno 1 oggetto-esca plausibile ma inutile (come l'acqua benedetta dell'Ep. 1), così la domanda sull'oggetto è una scelta vera. Gli indizi risolutivi non devono mai nominare la risposta per esteso: usare sigle, soprannomi o riferimenti parziali da incrociare (il "C.B." del registro dell'Ep. 1). Chiusura: **4 Domande** scritte (dove / chi / codice o
    passaggio segreto / oggetto indispensabile), ognuna deducibile incrociando 2–3 indizi
    distribuiti su luoghi diversi. Mai un indizio singolo che risolva tutto.
@@ -273,9 +275,19 @@ prima che l'Ep. 1 lo riveli.
    luoghi visitati su 8 in ogni test). Ogni episodio futuro deve offrire **due
    soglie alternative equivalenti** per lo stesso Vantaggio: una in ore avanzate
    (velocita'), una in luoghi visitati (approfondimento) - la migliore delle due
-   vince, non si sommano. Nell'Ep. 1: Slancio a 3+ ore avanzate O 6+ luoghi
-   visitati (su 8); Preparati a 1-2 ore O 5 luoghi. **Lezione di design da
-   rispettare sempre**: quando due vie alternative portano allo stesso tier
+   vince, non si sommano. Nell'Ep. 1 (8 luoghi totali): Slancio a 3+ ore avanzate
+   O 6+ luoghi visitati; Preparati a 1-2 ore O 5 luoghi. **Le soglie luoghi sono
+   proporzioni del totale luoghi dell'episodio, NON il numero fisso "6"/"5"**:
+   Slancio ≈ 75% dei luoghi totali (6/8), Preparati ≈ 62-63% (5/8), sempre
+   arrotondato all'intero più vicino. Esempio di verifica per un episodio a 9
+   luoghi (vedi scala di difficoltà, Ep. 2): Slancio a 75%*9=6.75 → **7+ luoghi**,
+   Preparati a 62.5%*9=5.625 → **6 luoghi** — copiare "6+/5" alla lettera da un
+   episodio a 8 luoghi su uno a 9 sposta le soglie e altera il KPI
+   "coinvolgimento" senza che i test lo segnalino subito (la via approfondita
+   diventerebbe proporzionalmente più facile da raggiungere). Le ore avanzate
+   (3+/1-2) restano invece fisse: il budget ore (vedi Struttura fissa, punto 1)
+   non scala con l'episodio, solo il numero di luoghi lo fa. **Lezione di design
+   da rispettare sempre**: quando due vie alternative portano allo stesso tier
    nominale, il contenuto del tier va reso un vero superset di quello sotto (qui:
    Slancio = 3 azioni al 1° round + il +1 Salute di Preparati), MAI due bonus
    diversi di valore solo presunto uguale — i test hanno mostrato che "3 azioni
@@ -327,6 +339,21 @@ dei luoghi mai visitati e' una regressione anche se i numeri di bilanciamento to
 %vittoria) e 3-quater per l'esempio opposto: un fix nato da un KPI piatto sul vecchio
 modello che la griglia tattica (3-ter) ha reso ridondante, scoperto stavolta da un
 vero crollo di %vittoria.
+
+**`simulate_playtest.py` e' cucito sull'Episodio 1 apposta, non un tool generico
+multi-episodio**: percorso tessere (`path = [...]`), geometria (`TILES` da
+`gen_cards.py`), e il boss (`CUSTODE = dict(...)`, costante separata, NON letta da
+`NEMICI`/`boss=True`) sono tutti hardcoded per la mappa e i nemici di QUESTO episodio.
+Per un episodio nuovo: **copia il file** (non modificarlo sul posto, l'Ep. 1 resta il
+riferimento storico), aggiorna `path`/`TILES`/`CUSTODE`/le carte Minaccia con la mappa
+e i nemici del nuovo episodio, ma **riusa senza modificarle** le costanti/formule di
+scaling (`MINACCIA_FORMULE['tetto3_ritardato']`, `NEMICO_SCALE_FORMULE['curva-G_tattica']`,
+`CUSTODE_TENSIONE_EXTRA`) e la geometria/pathfinding (`chess()`, `cammino()`,
+`muovi_verso()`, `PORTE`) — quelle sono per numero di eroi e per griglia 4x4 generiche,
+non per episodio, e sono gia' validate. Rilancia gli stessi round diagnostici
+(`esegui_batch_multi_party` su 2-10 eroi) sul nuovo episodio prima di considerarlo
+bilanciato: una mappa diversa (arredi/porte diverse) puo' avere un affollamento diverso
+da quello di Ep. 1, anche con le stesse formule.
 
 **Mazzo Minaccia: 20–23 carte, tutte con titolo e flavor unici.** Le copie di uno
 stesso effetto sono "carte sorelle": stessa matematica, titolo diverso, flavor diverso,

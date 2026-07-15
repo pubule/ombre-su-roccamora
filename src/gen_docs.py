@@ -250,8 +250,8 @@ def regolamento():
                 'tabellone e cancellate la sua riga sul Registro.'))
     e.append(LI('<b>Cercare</b> \u2014 su una tessera gi\u00e0 rivelata, prova di ACUME Media: se riuscita, '
                 'trovate l\u2019<b>oggetto</b> che nasconde (una sola volta per tessera; non tutte le '
-                'tessere ne nascondono uno). Non serve per liberare Ruggero: quello si fa con '
-                '<b>Interagire</b> sulla cella, in T6.'))
+                'tessere ne nascondono uno). Non serve per liberare chi è in ostaggio: quello si fa con '
+                '<b>Interagire</b> sulla cella, in T6 (vedi Soluzione per i dettagli dell’episodio).'))
     e.append(LI('<b>Interagire</b> \u2014 aprire porte e grate, tirare leve, liberare prigionieri.'))
     e.append(LI('<b>Usare un oggetto</b> \u2014 come indicato sulla sua carta.'))
     e.append(LI('<b>Rianimare</b> \u2014 un eroe a terra adiacente torna a 2 Salute.'))
@@ -340,8 +340,9 @@ def regolamento():
                'Custode della Cera.', 'box'))
 
     e.append(P('PRECISAZIONI (per i dubbi al tavolo)', 'h1'))
-    e.append(LI('<b>Ruggero</b> \u2014 non \u00e8 un eroe: i nemici lo <b>ignorano</b> (il culto lo vuole '
-                'vivo per il rituale). Si muove nel turno degli eroi, fino a 3 caselle, e non compie azioni.'))
+    e.append(LI('<b>Il PNG che scortate</b> \u2014 non \u00e8 un eroe: i nemici lo <b>ignorano</b> (i motivi sono '
+                'nella Soluzione dell\u2019episodio). Si muove nel turno degli eroi, fino a 3 caselle, e non '
+                'compie azioni.'))
     e.append(LI('<b>Eroi a terra</b> \u2014 i nemici li ignorano: puntano sempre l\u2019eroe in piedi pi\u00f9 vicino.'))
     e.append(LI('<b>Mazzo Minaccia esaurito</b> \u2014 rimescolate gli scarti e continuate. I segnalini '
                 'Canto gi\u00e0 in gioco restano.'))
@@ -352,7 +353,7 @@ def regolamento():
                 'adiacente a un eroe attacca comunque, non si allontana per raccoglierla. L\u2019esca '
                 'svanisce dopo l\u2019attivazione dei nemici che ha attirato.'))
     e.append(LI('<b>Vi conosco, Malacarne (Brera)</b> \u2014 bersaglia un <b>nemico di truppa</b>: '
-                'Malavita, Adepto o Cane. Non funziona su boss n\u00e9 su Ruggero.'))
+                'Malavita, Adepto o Cane. Non funziona su boss n\u00e9 sul PNG scortato.'))
     e.append(LI('<b>Stola consunta (Marani)</b> \u2014 copre qualunque prova NERVI imposta da una '
                 'trappola: carte Minaccia di tipo insidia, l\u2019ingresso in una tessera pericolosa, o '
                 'la scelta di prendere un oggetto rischioso. Non copre le prove NERVI di gruppo n\u00e9 '
@@ -377,8 +378,8 @@ def regolamento():
                 'prova.'))
     e.append(LI('<b>\u201cEroe pi\u00f9 avanzato\u201d</b> \u2014 quello pi\u00f9 lontano dall\u2019ingresso, contando le '
                 'caselle. A pari merito: regola d\u2019oro.'))
-    e.append(LI('<b>Movimento</b> \u2014 gli alleati (e Ruggero) si possono attraversare, ma non ci si '
-                'pu\u00f2 fermare sulla loro casella.'))
+    e.append(LI('<b>Movimento</b> \u2014 gli alleati (e il PNG scortato) si possono attraversare, ma non ci '
+                'si pu\u00f2 fermare sulla loro casella.'))
     e.append(LI('<b>Tra un episodio e l\u2019altro</b> \u2014 tutti gli eroi tornano a Salute piena e '
                 'recuperano gli usi delle abilit\u00e0. Le cicatrici invece restano.'))
 
@@ -410,11 +411,11 @@ def regolamento():
                 'crea una spedizione ingiocabile: coi test la tabella qui sopra \u00e8 quella che tiene il '
                 'tavolo in sfida senza schiacciarlo).'))
     e.append(LI('<b>Nemici pi\u00f9 duri, ma non ovunque:</b> a 6 eroi, <b>+2 Ferite</b> a ogni nemico che '
-                'compare in gioco (Custode della Cera incluso). Da 7 eroi in su NON aggiungete altro '
+                'compare in gioco (boss dell\u2019episodio incluso). Da 7 eroi in su NON aggiungete altro '
                 'bonus generale \u2014 con un tavolo affollato i nemici faticano gi\u00e0 di pi\u00f9 a farsi largo '
                 'fino a un eroe libero, un bonus Ferite sopra i nemici di truppa (che hanno 1 sola '
                 'Ferita: un +1 li raddoppia) rende la spedizione ingiocabile. Da 8 a 10 eroi, aggiungete '
-                'invece <b>+1 Ferita SOLO al Custode della Cera</b> (mai ai nemici di truppa). Il bonus '
+                'invece <b>+1 Ferita SOLO al boss dell\u2019episodio</b> (mai ai nemici di truppa). Il bonus '
                 'si fissa all\u2019inizio della spedizione, in base a quanti eroi schierate \u2014 non cambia pi\u00f9 '
                 'durante la spedizione anche se qualcuno cade a terra. <b>Niente calcoli al tavolo:</b> '
                 'il <b>Bestiario</b> dell\u2019episodio riporta per ogni nemico le Ferite gi\u00e0 tabellate per '
@@ -663,7 +664,7 @@ def aiuto():
     e.append(RL('<b>Muovere</b> — fino a 3 caselle (Nino 4). Niente diagonali; non si attraversano nemici o mobili.'))
     e.append(RL('<b>Attaccare</b> — nemico adiacente: <b>2d6 + VIGORE (+1 se armati) ≥ Difesa nemico</b> → 1 ferita (segnala sul Registro).'))
     e.append(RL('<b>Cercare</b> — ACUME Media: trovi ciò che la tessera nasconde (1 volta a tessera; ritentabile).'))
-    e.append(RL('<b>Interagire</b> — porte, grate, leve, liberare Ruggero. <b>Usare un oggetto</b> — come indicato.'))
+    e.append(RL('<b>Interagire</b> — porte, grate, leve, liberare il PNG scortato. <b>Usare un oggetto</b> — come indicato.'))
     e.append(RL('<b>Rianimare</b> — un eroe a terra adiacente torna a 2 Salute.'))
     e.append(RP('Uscendo verso una tessera coperta, <b>rivelatela</b> e leggetene subito il testo.'))
 
@@ -691,10 +692,11 @@ def aiuto():
                 'Regolamento.'))
 
     e.append(P('TURNO DEI NEMICI', 'h2'))
-    e.append(RP('Ognuno si muove verso l’<b>eroe in piedi</b> più vicino (ignorano gli eroi a terra e Ruggero). '
-                'Se adiacente attacca: <b>2d6 + Attacco ≥ Difesa eroe</b> → subisci il Danno indicato.'))
-    e.append(RP('<b>Tavolo 6–10 eroi:</b> a 6 eroi, +2 Ferite a ogni nemico (Custode incluso). Da 7 in '
-                'su nessun bonus generale; da 8 a 10, +1 Ferita SOLO al Custode. Fissato a inizio '
+    e.append(RP('Ognuno si muove verso l’<b>eroe in piedi</b> più vicino (ignorano gli eroi a terra e il '
+                'PNG scortato). Se adiacente attacca: <b>2d6 + Attacco ≥ Difesa eroe</b> → subisci il '
+                'Danno indicato.'))
+    e.append(RP('<b>Tavolo 6–10 eroi:</b> a 6 eroi, +2 Ferite a ogni nemico (boss incluso). Da 7 in '
+                'su nessun bonus generale; da 8 a 10, +1 Ferita SOLO al boss. Fissato a inizio '
                 'spedizione, non ricalcolato dopo. Ferite già tabellate per taglia nel <b>Bestiario</b> '
                 'dell’episodio.'))
 
@@ -703,9 +705,10 @@ def aiuto():
                 'prendendo sempre <b>l’opzione peggiore per sé</b>. Vale per tutta la spedizione.'))
 
     e.append(P('OBIETTIVO E CANTO', 'h2'))
-    e.append(RL('<b>Vittoria:</b> aprire la cella (T6), liberare Ruggero e riportarlo alla Banchina (T1). '
-                'Ruggero si muove con voi (Mov. 3, non agisce).'))
-    e.append(RL('<b>Canto:</b> al <b>3° segnalino</b> si desta il Custode della Cera e da lì ogni fase '
+    e.append(RL('<b>Vittoria:</b> completare l’obiettivo dell’episodio nella tessera finale (T6, '
+                'vedi Soluzione) e tornare all’ingresso (T1) con chi/cosa dovete portare in salvo. '
+                'Chi scortate si muove con voi (Mov. 3, non agisce).'))
+    e.append(RL('<b>Canto:</b> al <b>3° segnalino</b> si desta il boss dell’episodio e da lì ogni fase '
                 'Minaccia pescate 1 carta in più. Ogni 4° round (4°, 8°...): +1 Canto automatico.'))
     e.append(RL('<b>A 0 Salute</b> un eroe cade a terra (non agisce finché non rianimato). '
                 'Tutti a terra = episodio fallito.'))
