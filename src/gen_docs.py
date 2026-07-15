@@ -260,13 +260,13 @@ def regolamento():
                'Cercare — rivelare mostra <i>che stanza è</i>, Cercare (sopra) trova <i>cosa ci ha '
                'lasciato chi ci è passato prima di voi</i>.'))
     e.append(P('2. Fase Minaccia', 'h2'))
-    e.append(P('Pescate carte Minaccia in base a quanti eroi sono in tavola (arrotondando per eccesso '
-               'fino a 5, poi vedi \u201cGiocare in 2, in 4\u20135, o in un tavolo grande\u201d pi\u00f9 avanti per il bonus ai nemici che '
-               'va con questa tabella) e applicatene gli effetti:', 'body'))
+    e.append(P('Pescate carte Minaccia in base a quanti eroi sono in tavola (vedi tabella sotto \u2014 poi '
+               'vedi \u201cGiocare in 2, in 3, o in un tavolo grande\u201d pi\u00f9 avanti per il bonus Ferite che '
+               'va con questi numeri) e applicatene gli effetti:', 'body'))
     minaccia_reg_t = Table([
-        ['Eroi in tavola', '2', '3\u20134', '5', '6', '7\u201310'],
-        ['Carte da pescare', '1', '2', '3', '2', '3'],
-    ], colWidths=[30*mm] + [27.2*mm]*5)
+        ['Eroi in tavola', '2\u20133', '4\u20136', '7\u201310'],
+        ['Carte da pescare', '1', '2', '2 (+1 nei round pari)'],
+    ], colWidths=[34*mm, 40*mm, 40*mm, 52*mm])
     minaccia_reg_t.setStyle(TableStyle([
         ('FONTNAME', (0, 0), (0, -1), F['b']),
         ('FONTNAME', (1, 0), (-1, -1), F['r']),
@@ -322,13 +322,11 @@ def regolamento():
                'grata e la apre con <b>Interagire</b>. Ottone si <b>Muove</b> adiacente a un Adepto '
                'gi\u00e0 in gioco e <b>Attacca</b>: 2d6+VIGORE (3) = 9 \u2265 Difesa 7 dell\u2019Adepto \u2192 1 ferita, '
                'l\u2019Adepto (1 Ferita) cade.', 'body'))
-    e.append(P('<b>2. Fase Minaccia.</b> Siete in 3: pescate <b>2 carte</b> (vedi la tabella sopra). '
-               'Prima carta, <b>\u201cAdepto in Agguato\u201d</b>: <i>\u201cPiazzate 1 Adepto sull\u2019uscita pi\u00f9 '
+    e.append(P('<b>2. Fase Minaccia.</b> Siete in 3: pescate <b>1 carta</b> (vedi la tabella sopra) \u2014 '
+               '<b>\u201cAdepto in Agguato\u201d</b>: <i>\u201cPiazzate 1 Adepto sull\u2019uscita pi\u00f9 '
                'vicina agli eroi della tessera in cui si trova l\u2019eroe attivo\u201d</i> \u2014 l\u2019eroe attivo '
                '\u00e8 l\u2019ultimo che ha agito (Ottone, in T2): il nuovo Adepto compare sull\u2019uscita pi\u00f9 '
-               'vicina a lui, quella da cui la squadra \u00e8 appena entrata o verso cui sta uscendo. '
-               'Seconda carta, <b>\u201cPresagio\u201d</b>: nessun effetto immediato, solo '
-               'tensione.', 'body'))
+               'vicina a lui, quella da cui la squadra \u00e8 appena entrata o verso cui sta uscendo.', 'body'))
     e.append(P('<b>3. Turno dei nemici.</b> Il nuovo Adepto si muove (Movimento 4) verso l\u2019eroe pi\u00f9 '
                'vicino. Se resta adiacente, attacca: 2d6+Attacco (1) contro la Difesa dell\u2019eroe '
                '(es. Nino, Difesa 9) \u2014 tira 6, non basta: nessun danno. Il round finisce, si '
@@ -390,12 +388,19 @@ def regolamento():
                 'miglioria dall\u2019elenco nella Soluzione e la annota sulla scheda.'))
     e.append(LI('<b>Cicatrici</b> \u2014 un eroe finito a terra durante l\u2019episodio annota una '
                 'cicatrice (descrivetela!): alla terza, \u22121 permanente a una caratteristica a scelta.'))
-    e.append(P('Giocare in 2, in 4\u20135, o in un tavolo grande (6\u201310)', 'h2'))
-    e.append(P("Il gioco scala da solo con la fase Minaccia. In 4\u20135 giocatori, durante l\u2019Indagine "
-               "leggete gli indizi <b>a turno e solo per s\u00e9</b>, poi raccontateli con parole vostre: "
-               "la deduzione diventa un racconto corale (ed \u00e8 il modo pi\u00f9 divertente di giocare "
-               "in gruppo). Pi\u00f9 giocatori vuol dire pi\u00f9 carte Minaccia a round: in 5, contate "
-               "<b>2 ore e mezza abbondanti</b> a episodio, non i 90\u2013150 minuti base."))
+    e.append(P('Giocare in 2, in 3, in 4\u20136, o in un tavolo grande (7\u201310)', 'h2'))
+    e.append(P("Il gioco scala da solo con la fase Minaccia (tabella sopra). <b>In 2 giocatori</b> "
+               "\u00e8 la configurazione pi\u00f9 dura del gioco (un solo eroe a testa, nessuno scala i "
+               "nemici in vostro favore): se preferite una sfida pi\u00f9 morbida, giocate <b>4 eroi in "
+               "due, due a testa</b> \u2014 stessa tabella del tavolo da 4, pi\u00f9 scelte tattiche a testa "
+               "senza aggiungere giocatori veri (come le partite \u201cmulti-handed\u201d di Gloomhaven o "
+               "Arkham Horror)."))
+    e.append(P("In 4\u20135 giocatori, durante l\u2019Indagine leggete gli indizi <b>a turno e solo per "
+               "s\u00e9</b>, poi raccontateli con parole vostre: la deduzione diventa un racconto corale "
+               "(ed \u00e8 il modo pi\u00f9 divertente di giocare in gruppo). Il numero di carte Minaccia "
+               "resta lo stesso da 4 a 6 eroi (vedi tabella): con pi\u00f9 persone al tavolo contate comunque "
+               "un po\u2019 pi\u00f9 di tempo a episodio, per la discussione e le azioni da coordinare, non "
+               "perch\u00e9 il mazzo peschi di pi\u00f9."))
     e.append(P("In 4 o 5 giocatori potete anche <b>dividervi</b>, una sola volta a episodio: due "
                "sottogruppi visitano due luoghi diversi nella stessa ora (costa comunque solo 1 ora "
                "sul Taccuino, non 2), poi restate uniti per il resto dell\u2019indagine. Ogni sottogruppo "
@@ -405,24 +410,25 @@ def regolamento():
                "di pi\u00f9, non \u00e8 ripetibile. <b>Non</b> estendetelo oltre i 5 eroi: da 6 in su l\u2019Indagine "
                "resta un unico momento corale \u2014 dividere un tavolo gi\u00e0 grande in sottogruppi lo rende solo "
                "pi\u00f9 lento da gestire, non pi\u00f9 interessante."))
-    e.append(P("<b>Tavolo grande (6\u201310 eroi).</b> Due sole modifiche, il resto delle regole non cambia:", 'body'))
-    e.append(LI('<b>Fase Minaccia:</b> 2 carte a 6 eroi, 3 carte da 7 a 10 (non seguite la proporzione '
-                'semplice \u201c1 ogni 2\u201d oltre i 5 \u2014 a 6 eroi pescarne 3, come suggerirebbe la proporzione, '
-                'crea una spedizione ingiocabile: coi test la tabella qui sopra \u00e8 quella che tiene il '
-                'tavolo in sfida senza schiacciarlo).'))
-    e.append(LI('<b>Nemici pi\u00f9 duri, ma non ovunque:</b> a 6 eroi, <b>+2 Ferite</b> a ogni nemico che '
-                'compare in gioco (boss dell\u2019episodio incluso). Da 7 eroi in su NON aggiungete altro '
-                'bonus generale \u2014 con un tavolo affollato i nemici faticano gi\u00e0 di pi\u00f9 a farsi largo '
-                'fino a un eroe libero, un bonus Ferite sopra i nemici di truppa (che hanno 1 sola '
-                'Ferita: un +1 li raddoppia) rende la spedizione ingiocabile. Da 8 a 10 eroi, aggiungete '
-                'invece <b>+1 Ferita SOLO al boss dell\u2019episodio</b> (mai ai nemici di truppa). Il bonus '
-                'si fissa all\u2019inizio della spedizione, in base a quanti eroi schierate \u2014 non cambia pi\u00f9 '
-                'durante la spedizione anche se qualcuno cade a terra. <b>Niente calcoli al tavolo:</b> '
-                'il <b>Bestiario</b> dell\u2019episodio riporta per ogni nemico le Ferite gi\u00e0 tabellate per '
-                'numero di eroi \u2014 leggete la colonna del vostro tavolo e basta.'))
-    e.append(P("Con un tavolo da 6\u201310, contate anche pi\u00f9 tempo di quanto indicato sopra per 5: nei test "
-               "le spedizioni tendono a durare 12\u201318 round invece di 8\u20139 (pi\u00f9 eroi in una stanza piccola "
-               "vuol dire pi\u00f9 traffico, non solo pi\u00f9 minacce). Consigliato: nominate un "
+    e.append(LI('<b>Tavolo da 4:</b> +1 Salute massima a testa (oltre a quella eventuale da Slancio/'
+                'Preparati). \u00c8 il tavolo dove l\u2019ansia risultava pi\u00f9 piatta nei test \u2014 un margine in '
+                'pi\u00f9 fa arrivare qualche colpo in pi\u00f9 senza far crollare le vittorie.'))
+    e.append(P("<b>Tavolo grande (7\u201310 eroi).</b> Due sole modifiche, il resto delle regole non cambia:", 'body'))
+    e.append(LI('<b>Fase Minaccia:</b> 2 carte, pi\u00f9 una terza SOLO nei round pari (2\u00b0, 4\u00b0, 6\u00b0...) \u2014 '
+                'vedi la tabella sopra. Il passaggio diretto a 3 carte fisse ogni round si \u00e8 rivelato nei '
+                'test un salto troppo brusco: la terza carta a met\u00e0 ritmo tiene il tavolo affollato in '
+                'sfida senza schiacciarlo.'))
+    e.append(LI('<b>Nemici pi\u00f9 duri, ma non ovunque:</b> a <b>6 eroi</b> e da <b>8 a 10</b>, +1 Ferita '
+                'SOLO al <b>boss dell\u2019episodio</b> (mai ai nemici di truppa \u2014 un bonus generale li '
+                'raddoppia, dato che molti hanno 1 sola Ferita). A <b>7 eroi</b> nessun bonus: la mezza '
+                'carta in pi\u00f9 e l\u2019affollamento reale bastano gi\u00e0. Il bonus si fissa all\u2019inizio della '
+                'spedizione, in base a quanti eroi schierate \u2014 non cambia pi\u00f9 durante la spedizione '
+                'anche se qualcuno cade a terra. <b>Niente calcoli al tavolo:</b> il <b>Bestiario</b> '
+                'dell\u2019episodio riporta per ogni nemico le Ferite gi\u00e0 tabellate per numero di eroi \u2014 '
+                'leggete la colonna del vostro tavolo e basta.'))
+    e.append(P("Con un tavolo da 7\u201310, contate anche pi\u00f9 tempo di quanto indicato sopra per 5: nei test "
+               "le spedizioni tendono a durare 13\u201315 round invece di 11\u201312 (pi\u00f9 eroi in una stanza "
+               "piccola vuol dire pi\u00f9 traffico, non solo pi\u00f9 minacce). Consigliato: nominate un "
                "<b>custode del mazzo Minaccia</b> fisso per tutta la serata, cos\u00ec a un tavolo affollato "
                "nessuno pesca due volte per errore.", 'body'))
 
@@ -670,9 +676,9 @@ def aiuto():
 
     e.append(P('FASE MINACCIA — carte da pescare, in base a quanti eroi in tavola', 'h2'))
     minaccia_t = Table([
-        ['Eroi in tavola', '2', '3–4', '5', '6', '7–10'],
-        ['Carte da pescare', '1', '2', '3', '2', '3'],
-    ], colWidths=[32*mm] + [28.4*mm]*5)
+        ['Eroi in tavola', '2–3', '4–6', '7–10'],
+        ['Carte da pescare', '1', '2', '2 (+1 nei round pari)'],
+    ], colWidths=[36*mm, 44*mm, 44*mm, 50*mm])
     minaccia_t.setStyle(TableStyle([
         ('FONTNAME', (0, 0), (0, -1), F['b']),
         ('FONTNAME', (1, 0), (-1, -1), F['r']),
@@ -687,18 +693,17 @@ def aiuto():
     ]))
     e.append(minaccia_t)
     e.append(RP('Leggete la carta ad alta voce ed eseguite. Mazzo esaurito: rimescolate gli scarti. '
-                '<b>Nota:</b> a 6 eroi le carte scendono a 2 (non salgono a 3) perché da lì parte anche '
-                'il bonus Ferite ai nemici (vedi Turno dei nemici) — non è un errore di stampa, vedi '
-                'Regolamento.'))
+                'A 7–10 eroi la terza carta si pesca solo nei round pari (2°, 4°, 6°...) — non è un '
+                'errore di stampa, vedi Regolamento.'))
+    e.append(RP('<b>Tavolo da 4:</b> +1 Salute massima a testa (oltre a Slancio/Preparati).'))
 
     e.append(P('TURNO DEI NEMICI', 'h2'))
     e.append(RP('Ognuno si muove verso l’<b>eroe in piedi</b> più vicino (ignorano gli eroi a terra e il '
                 'PNG scortato). Se adiacente attacca: <b>2d6 + Attacco ≥ Difesa eroe</b> → subisci il '
                 'Danno indicato.'))
-    e.append(RP('<b>Tavolo 6–10 eroi:</b> a 6 eroi, +2 Ferite a ogni nemico (boss incluso). Da 7 in '
-                'su nessun bonus generale; da 8 a 10, +1 Ferita SOLO al boss. Fissato a inizio '
-                'spedizione, non ricalcolato dopo. Ferite già tabellate per taglia nel <b>Bestiario</b> '
-                'dell’episodio.'))
+    e.append(RP('<b>Tavolo 7–10 eroi:</b> a 6 eroi e da 8 a 10, +1 Ferita SOLO al boss dell’episodio '
+                '(mai ai nemici di truppa). A 7 eroi nessun bonus. Fissato a inizio spedizione, non '
+                'ricalcolato dopo. Ferite già tabellate per taglia nel <b>Bestiario</b> dell’episodio.'))
 
     e.append(P('REGOLA D’ORO', 'h2'))
     e.append(RP('In ogni ambiguità (uscite/eroi equidistanti, più bersagli) sceglie il gruppo, '

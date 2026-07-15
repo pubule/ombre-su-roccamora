@@ -239,34 +239,54 @@ prima che l'Ep. 1 lo riveli.
    fedele: se in futuro si ritara di nuovo, usare SEMPRE la griglia tattica,
    mai tornare al modello a blocco unico.
 
-3-quater. *Tavoli grandi e piccoli, ritarati sulla griglia tattica* — con
-   posizioni reali, l'affollamento fisico di una tessera 4x4 penalizza i
+3-quater. *Tavoli grandi e piccoli, ritarati due volte sulla griglia tattica* —
+   con posizioni reali, l'affollamento fisico di una tessera 4x4 penalizza i
    party grandi molto piu' di quanto un semplice scaling lineare
    prevedesse (piu' eroi in una stanza piccola = piu' traffico, non solo
-   piu' attacchi). Formule finali (Ep. 1, validate con
-   `esegui_batch_multi_party` su composizioni casuali, non party fissi):
-   - **Fase Minaccia**: 2 carte a 6 eroi, 3 carte da 7 a 10 (invariato,
-     vedi anche il Regolamento).
-   - **Ferite nemici**: +2 a TUTTI i nemici (boss incluso) **solo a 6
-     eroi**. Da 7 in su, **nessun bonus generale** — un bonus Ferite
-     sopra i nemici di truppa (1 Ferita base: un +1 li raddoppia) crolla
-     sotto l'affollamento reale (misurato: 43%/40% vittoria a 8/10 eroi,
-     contro 85-87% con bonus generale a zero). Da 8 a 10 eroi, **+1
-     Ferita SOLO al boss** (mai ai nemici di truppa) per recuperare un
-     minimo di tensione senza sbilanciare — a 7 eroi anche il bonus
-     solo-boss e' di troppo (66% contro 88% senza), lasciato a zero.
-   - **Tavoli piccoli (4-5 eroi)**: NESSUN bonus, ne' generale ne'
-     solo-boss. Un bonus qui (introdotto per correggere un'ansia piatta
-     misurata SUL VECCHIO MODELLO astratto, 97% vittoria/27% sofferte)
-     e' diventato ridondante: la sola fisica reale (movimento che non
-     sempre basta) gia' riporta l'ansia a un livello sano (32% sofferte,
-     1.0 eroi a terra di picco) — sommarci un bonus la fa crollare sotto
-     target (72.7% contro 84% senza, a 4 eroi).
+   piu' attacchi). **Una prima taratura** (2026-07-15 mattina) aveva dato
+   "2 carte a 6, 3 carte da 7 a 10; +2 Ferite generale a 6; +1 solo-boss a
+   8-10" — ma quei numeri erano stati misurati su un motore che aveva 3 bug
+   di movimento/pathing (nemici che si impilavano sulla porta invece di
+   cercare una cella libera, eroi che inseguivano un bersaglio
+   irraggiungibile invece di ripiegare su Rianimare, rinforzi la cui
+   distanza di arrivo cresceva col numero di round invece di restare
+   fissa). **Una volta corretti quei bug** (i nemici ora raggiungono e
+   colpiscono davvero) la stessa configurazione crollava OVUNQUE (2:29%
+   4:73% 6:30% 8:48% 10:56% — il +2 generale a 6 era diventato il vero
+   killer della taglia). Sei giri di ricalibrazione sul motore corretto
+   (`sessione_ricalibrazione*` in `scripts/simulate_playtest.py`, ~7000
+   simulazioni, log in `logs/playtest/20260715-ricalibrazione/`) hanno
+   trovato la config attuale:
+   - **Fase Minaccia**: 1 carta a 2-3 eroi, 2 carte a 4-6, **2 carte +1
+     SOLO nei round pari** (2°, 4°, 6°...) a 7-10 — il salto diretto a 3
+     carte fisse e' un dirupo da ~30 punti di %vittoria ovunque cada (2
+     carte troppo facile, 3 troppo dura): la mezza carta lo colma.
+   - **Ferite nemici**: **nessun bonus generale**, a nessuna taglia (il
+     +2 a 6 eroi e' quello che ha fatto crollare la taglia col motore
+     corretto: 30% vittoria, verificato riga per riga, non rumore). +1
+     Ferita **SOLO al boss** a **6 eroi e a 8-10** — a **7 eroi nessun
+     bonus** (testato: 69% contro 86% senza, la mezza carta in piu' e
+     l'affollamento reale bastano gia').
+   - **Salute**: +1 Salute massima a testa **solo al tavolo da 4** (67%→
+     79%; a 8-10 la stessa leva non sposta nulla, misurato — li' il
+     collo di bottiglia sono le ondate di rinforzo, non i punti Salute).
+   - **Tavolo da 2 eroi**: nessuna leva semplice lo porta al target (39-
+     59% con qualunque combinazione, rumore enorme su un campione cosi'
+     piccolo) — dichiarato **modalita' dura** apposta. Suggerimento nel
+     Regolamento: in 2 giocatori conviene giocare **4 eroi, 2 a testa**
+     (multi-handed, precedente Gloomhaven/Arkham Horror) invece del
+     tavolo nudo da 2.
+   Curva risultante (3-10): 77-89% vittoria, 24-39% vittorie sofferte,
+   risveglio anticipato del boss mai sopra il 3%.
    Qualunque nuovo episodio con Ferite boss piu' alte di 3 deve verificare
    che boss-Ferite-base + 1 resti sotto la soglia `N_PIP=10` del Registro
    (vedi 3-bis) — ampio margine con Ferite-base fino a 9. Regola spiegata
    per i giocatori nel **Regolamento** (fascicolo 01, sezione "Giocare in
-   2, in 4-5, o in un tavolo grande").
+   2, in 3, in 4-6, o in un tavolo grande"). **Lezione per il futuro**: se
+   si tocca di nuovo il motore di movimento/pathing di
+   `simulate_playtest.py`, ritarare SEMPRE queste formule subito dopo —
+   un bug nel motore puo' nascondere (o esagerare) la difficolta' reale
+   per intere sessioni prima di essere scoperto, come successo qui.
 
 3-cinque. *Vantaggio Fase 1 a due vie (velocita' O approfondimento)* — la tabella
    "Ore avanzate -> Vantaggio" in Soluzione premiava SOLO la velocita' (ore
@@ -358,8 +378,9 @@ multi-episodio**: percorso tessere (`path = [...]`), geometria (`TILES` da
 Per un episodio nuovo: **copia il file** (non modificarlo sul posto, l'Ep. 1 resta il
 riferimento storico), aggiorna `path`/`TILES`/`CUSTODE`/le carte Minaccia con la mappa
 e i nemici del nuovo episodio, ma **riusa senza modificarle** le costanti/formule di
-scaling (`MINACCIA_FORMULE['tetto3_ritardato']`, `NEMICO_SCALE_FORMULE['curva-G_tattica']`,
-`CUSTODE_TENSIONE_EXTRA`) e la geometria/pathfinding (`chess()`, `cammino()`,
+scaling (`MINACCIA_FORMULE['finale_v3']`, `CUSTODE_TENSIONE_EXTRA`,
+`SALUTE_BONUS_PER_N` — config di produzione dal 20260715, vedi 3-quater) e la
+geometria/pathfinding (`chess()`, `cammino()`,
 `muovi_verso()`, `PORTE`) — quelle sono per numero di eroi e per griglia 4x4 generiche,
 non per episodio, e sono gia' validate. Rilancia gli stessi round diagnostici
 (`esegui_batch_multi_party` su 2-10 eroi) sul nuovo episodio prima di considerarlo

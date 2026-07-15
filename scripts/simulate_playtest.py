@@ -272,7 +272,13 @@ MINACCIA_FORMULE = {
     'finale_v2': lambda n: 1 if n <= 3 else 2 if n <= 6 else 3,          # 2-3:1, 4-6:2, 7-10:3
     'finale_v2_grad8': lambda n: 1 if n <= 3 else 2 if n <= 7 else 3,    # come v2 ma 7 resta a 2 carte
     # Giro 5: mezzo passo sul dirupo 2->3 carte. x.5 = la carta extra si
-    # pesca solo nei round pari (vedi fase_minaccia).
+    # pesca solo nei round pari (vedi fase_minaccia). DI PRODUZIONE dal
+    # 20260715 (vedi logs/playtest/20260715-ricalibrazione/analisi.md):
+    # curva 3-10 misurata a 77-87% vittoria, 24-39% sofferte, Custode
+    # anticipo <=3%, con CUSTODE_TENSIONE_EXTRA={6,8,9,10:1} e
+    # SALUTE_BONUS_PER_N={4:1}. n=2 resta sotto target con qualunque leva
+    # (39%, rumore enorme sui 5 party): dichiarata modalita' dura, in 2
+    # giocatori si consiglia 4 eroi multi-handed (2 a testa).
     'finale_v3': lambda n: 1 if n <= 3 else 2 if n <= 6 else 2.5,        # 2-3:1, 4-6:2, 7-10:2+1 nei round pari
     # Round 6: come tetto3 ma il tetto di 3 carte si raggiunge a n=8 invece
     # che a n=6 (a 6 eroi restano 2 carte/round). Motivo: round 5 ha isolato
@@ -367,17 +373,30 @@ NEMICO_SCALE_FORMULE = {
 # senza). A n=7 anche il bonus solo-Custode e' troppo (66% contro 88%
 # senza) - lasciato a 0, l'88% e' piu' vicino al target di un 66%
 # sottotarget.
-CUSTODE_TENSIONE_EXTRA = {8: 1, 9: 1, 10: 1}
+#
+# SUPERSEDUTO dai fix di movimento (commit e82a407, vedi sessione_
+# ricalibrazione*): coi nemici che ora raggiungono e colpiscono davvero,
+# {8,9,10}=1 lasciava 8-10 sotto target (48-56%) e il +2 generale a n=6
+# (curva-G_tattica sopra) era diventato il killer della taglia (30%).
+# Valore DI PRODUZIONE aggiornato dopo 6 giri di ricalibrazione
+# (logs/playtest/20260715-ricalibrazione): boss+1 a 6 e 8-10 (NON a 7,
+# testato e bocciato: 69% contro 86% senza), nessun bonus generale in
+# nessuna taglia. Va di pari passo con MINACCIA_FORMULE['finale_v3']
+# (vedi sotto) e ferite_per_fascia() in src/gen_bestiario.py.
+CUSTODE_TENSIONE_EXTRA = {6: 1, 8: 1, 9: 1, 10: 1}
 
 
 # Toggle di ricalibrazione (sessione_ricalibrazione, post-fix motore):
 # i batch girano in sequenza, un globale basta - niente parametro da
 # infilare in tutta la catena esegui_batch -> simula_spedizione.
 CUSTODE_EXTRA_ATTIVO = True
-# +Salute massima a testa per taglia di party (candidate R4+: Gloomhaven
-# abbassa il livello mostri ai tavoli piccoli; qui la lingua e' quella
-# del bonus PREPARATI, zero componenti nuovi). {} = spento.
-SALUTE_BONUS_PER_N = {}
+# +Salute massima a testa per taglia di party. DI PRODUZIONE: solo n=4
+# (67%->79% nella ricalibrazione; nullo a 8-10, dove il collo di bottiglia
+# sono le ondate non i punti Salute - vedi logs/playtest/20260715-
+# ricalibrazione/analisi.md). Precedente: Gloomhaven abbassa il livello
+# mostri ai tavoli piccoli; qui la lingua e' quella del bonus PREPARATI,
+# zero componenti nuovi. {} = spento.
+SALUTE_BONUS_PER_N = {4: 1}
 
 
 def custode_fer_bonus(n_eroi):
@@ -2148,7 +2167,7 @@ def sessione_approfondita():
     round KPI fresco sulla config di produzione per la tabella obbligatoria.
     Non rilancia main() (round storici 1-9: gia' validati, costosi)."""
     os.makedirs(LOG_DIR, exist_ok=True)
-    PROD = dict(formula_minaccia='tetto3_ritardato', nemico_scale='curva-G_tattica')
+    PROD = dict(formula_minaccia='finale_v3', nemico_scale='nessuna')
 
     # Party mirati (vedi piano): ognuno stressa UNA dinamica precisa.
     otto_no_healer = [n for n in PARTY_10 if n not in ('DOTT. ATTILIO MARN', 'MORA “SPILLA” FANTI')]
@@ -2200,16 +2219,17 @@ def sessione_approfondita():
     for size in (2, 4, 6, 8, 10):
         nome = f'kpi-{size:02d}'
         print(f'Eseguo {nome} (5 party casuali x 30 seed, {size} eroi, produzione)...')
-        kpi_risultati.append(esegui_batch_multi_party(nome, size, 'tetto3_ritardato', 'curva-G_tattica',
+        kpi_risultati.append(esegui_batch_multi_party(nome, size, 'finale_v3', 'nessuna',
                                                        n_party=5, n_seed=30, seed_base=220000 + size * 1000))
 
     kpi_path = os.path.join(LOG_DIR, 'riepilogo_kpi.md')
     with open(kpi_path, 'w', encoding='utf-8') as f:
-        f.write('# Riepilogo KPI — config di produzione (tetto3_ritardato + curva-G_tattica + '
-                'CUSTODE_TENSIONE_EXTRA)\n\n')
+        f.write('# Riepilogo KPI — config di produzione (finale_v3 + CUSTODE_TENSIONE_EXTRA + '
+                'SALUTE_BONUS_PER_N)\n\n')
         f.write(f'Generato: {datetime.now().isoformat(timespec="seconds")}\n\n')
-        f.write('5 party casuali x 30 seed per taglia (seed diversi dalla baseline 20260715-002418). '
-                'KPI di design: giocabilita\', ansia, coinvolgimento, immersione.\n\n')
+        f.write('5 party casuali x 30 seed per taglia. Config post-ricalibrazione 20260715 '
+                '(vedi logs/playtest/20260715-ricalibrazione/analisi.md). KPI di design: '
+                'giocabilita\', ansia, coinvolgimento, immersione.\n\n')
         f.write('## Spedizione\n\n')
         f.write('| Taglia | % Vittoria | % Vittorie sofferte | Picco eroi a terra (media) | '
                 'Canto finale medio (soglia 3) | Round medi | Pool esauriti (media) |\n')

@@ -109,15 +109,20 @@ def inquadratura(nemico):
 
 # Scalatura Ferite per numero di eroi in tavola - STESSI numeri del
 # Regolamento ("Giocare in 2, in 4-5, o in un tavolo grande") e di
-# curva-G_tattica + CUSTODE_TENSIONE_EXTRA in scripts/simulate_playtest.py,
-# validati sul motore a griglia tattica. Se quelle regole cambiano, questa
-# tabella va aggiornata insieme (e viceversa).
+# CUSTODE_TENSIONE_EXTRA in scripts/simulate_playtest.py, validati sul
+# motore a griglia tattica dopo la ricalibrazione del 20260715 (vedi
+# logs/playtest/20260715-ricalibrazione/analisi.md). Se quelle regole
+# cambiano, questa tabella va aggiornata insieme (e viceversa). Nessun
+# bonus generale ai nemici di truppa in nessuna fascia: solo il boss
+# dell'episodio prende +1 Ferita a 6 e a 8-10 (a 7 no: testato e bocciato,
+# la pressione di quella taglia basta gia' senza).
 FASCE = ['2–5 eroi', '6 eroi', '7 eroi', '8–10 eroi']
 
 
 def ferite_per_fascia(nemico):
     base = nemico['fer']
-    return [base, base + 2, base, base + (1 if nemico.get('boss') else 0)]
+    boss_extra = 1 if nemico.get('boss') else 0
+    return [base, base + boss_extra, base, base + boss_extra]
 
 
 def pagina_nemico(c, nemico):
