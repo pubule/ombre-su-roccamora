@@ -158,7 +158,11 @@ def regolamento():
                 'la velocit\u00e0 (ore risparmiate) e l\u2019approfondimento (luoghi visitati) contano allo stesso '
                 'modo, prendete quella che vi somiglia di pi\u00f9. Fermarsi presto senza aver visitato molto '
                 'vuol dire comunque rispondere con meno indizi in mano: la fretta ha un prezzo, quanto '
-                'rischiarla lo decidete voi.'))
+                'rischiarla lo decidete voi. In pi\u00f9, se <b>non vi avanza nessuna ora</b> (avete speso '
+                'tutte le 6 esplorando), oltre al vantaggio prendete un <b>gettone Intuizione</b>: '
+                'una volta in Spedizione potete <b>ripetere un vostro tiro di dado appena fallito</b> \u2014 '
+                'un piccolo premio a chi va fino in fondo, che la via veloce (per definizione con ore in '
+                'banca) non ottiene.'))
     e.append(LI('Alla <b>prima visita</b> di un luogo, prima di leggerne testo e indizi, il gruppo '
                 'indica un eroe che <b>legge la scena</b>: prova di ACUME Media. Gli indizi core '
                 '(sotto) si leggono comunque, che la prova riesca o no \u2014 non si perde mai '
@@ -565,6 +569,13 @@ def soluzione():
         ('BOTTOMPADDING', (0, 0), (-1, -1), 4),
     ]))
     e.append(rtb)
+    e.append(P('<b>Dossier completo</b> — se al momento delle risposte <b>non vi avanza nessuna ora</b> '
+               '(le avete spese tutte esplorando), oltre al vantaggio qui sopra prendete <b>1 gettone '
+               'Intuizione</b>: una volta in Spedizione potete <b>ripetere un vostro tiro di dado appena '
+               'fallito</b> (una prova o un attacco), tenendo il secondo risultato. È un premio piccolo a '
+               'chi va fino in fondo — la via veloce, che tiene ore in banca, non lo ottiene. La visita '
+               'gratuita di Carla (Fonti riservate) non conta: il gettone è per le ore <i>vostre</i> '
+               'spese sul campo.', 'box'))
     e.append(P('Come sono deducibili: 1) registro consegne della Bottega + testimonianze di barcaiolo '
                'e guardiano indicano il Canale Basso, molo terzo \u2014 ma quale magazzino esattamente lo '
                'dice solo un Approfondimento (vedi nota sopra: qualunque, tutti e 14 lo confermano); '

@@ -315,6 +315,25 @@ prima che l'Ep. 1 lo riveli.
    quindi la via approfondita (che raggiungeva nominalmente il tier piu' alto)
    perdeva sistematicamente di piu' della via veloce finche' non si e' corretto
    Slancio per includere anche il bonus di Preparati.
+   **Ciliegina "Dossier completo"** (aggiunta 20260715, per inclinare
+   *leggermente* l'incentivo verso l'esplorazione senza renderla dominante):
+   chi arriva alle risposte con **nessuna ora avanzata** (tutte spese in
+   Indagine) prende, SOPRA al Vantaggio gia' ottenuto, **1 gettone Intuizione**
+   — un solo ri-tiro di un dado fallito, una volta in Spedizione. Condizione
+   `ore_avanzate == 0`: la via veloce, che per definizione banca ore, non lo
+   ottiene mai; e' generica (dipende dal budget ore, non da un numero fisso di
+   luoghi, quindi non va riproporzionata per episodio come le soglie luoghi
+   sopra). **Perche' cosi' piccolo**: il test A/B nel simulatore
+   (`sessione_dossier`, `logs/playtest/20260715-dossier/`) mostra che il
+   gettone sposta la %vittoria di appena +1/+2 punti — volutamente
+   trascurabile sul bilanciamento. Il suo valore e' come *incentivo alla
+   scelta* (una ricompensa concreta che la via veloce non ha, sfruttando
+   l'avversione alla perdita: un "ri-tiro salvavita" e' percepito prezioso a
+   tavolo), non come leva di potenza. Precedente di genere: Inspiration di
+   D&D 5e, obiettivo bonus di Gloomhaven — premio piccolo e puntuale, mai un
+   tier di potere in piu'. **Non** irrobustirlo (2 ri-tiri, +1 permanente...):
+   il test ha confermato che la via approfondita e' gia' favorita negli esiti
+   a tavoli medio-grandi, il gettone deve restare solo l'ultimo, lieve, tocco.
 
 **Il Canto:** non un nemico, un
 **contatore di segnalini che non torna mai indietro**, alimentato da **due fonti

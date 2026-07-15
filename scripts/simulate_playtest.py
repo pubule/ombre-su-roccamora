@@ -390,6 +390,9 @@ CUSTODE_TENSIONE_EXTRA = {6: 1, 8: 1, 9: 1, 10: 1}
 # i batch girano in sequenza, un globale basta - niente parametro da
 # infilare in tutta la catena esegui_batch -> simula_spedizione.
 CUSTODE_EXTRA_ATTIVO = True
+# Gettone Intuizione "Dossier completo" (vedi simula_indagine): ON di
+# produzione. Toggle solo per il test A/B (sessione_dossier).
+DOSSIER_ATTIVO = True
 # +Salute massima a testa per taglia di party. DI PRODUZIONE: solo n=4
 # (67%->79% nella ricalibrazione; nullo a 8-10, dove il collo di bottiglia
 # sono le ondate non i punti Salute - vedi logs/playtest/20260715-
@@ -760,9 +763,20 @@ def simula_indagine(party, log, esplora_a_fondo=False):
     if fanti_scout:
         log('Nota: Ombra fiuta (Fanti) avrebbe dato il conteggio Approfondimenti per luogo prima di '
             'ogni scelta — l’euristica sopra già sceglie con priorità di sblocco, effetto equivalente.')
+    # "Dossier completo": ciliegina che inclina LEGGERMENTE l'incentivo verso
+    # l'esplorazione totale senza rendere inutile la via veloce. Condizione:
+    # NESSUNA ora avanzata (avete speso tutte le ore in Indagine) - la via
+    # veloce, che per definizione banca ore, NON puo' averla. Da' 1 gettone
+    # Intuizione per la Spedizione (vedi simula_spedizione). Precedente: D&D
+    # Inspiration, obiettivo bonus di Gloomhaven - premio piccolo e puntuale,
+    # non un tier di potere. Generico per la campagna: dipende dal budget
+    # ore, non da un numero fisso di luoghi.
+    dossier_completo = ore_avanzate == 0
+    if dossier_completo:
+        log('Dossier completo (tutte le ore spese in Indagine): 1 gettone Intuizione per la Spedizione.')
     log('')
     return dict(ore_avanzate=ore_avanzate, tier=tier, diapason=diapason, visitati=visitati,
-                chi_confermato=chi_confermato)
+                chi_confermato=chi_confermato, dossier_completo=dossier_completo)
 
 
 def simula_indagine_2gruppi(party, log, orologio_condiviso=True):
@@ -896,7 +910,8 @@ def simula_indagine_2gruppi(party, log, orologio_condiviso=True):
     log(f'Ore avanzate (min tra i sottogruppi se orologio separato): {ore_avanzate} -> {tier}')
     log('')
     return dict(ore_avanzate=ore_avanzate, tier=tier, diapason=diapason, visitati=list(visitati),
-                chi_confermato=chi_confermato, luoghi_coperti=len(visitati))
+                chi_confermato=chi_confermato, luoghi_coperti=len(visitati),
+                dossier_completo=ore_avanzate == 0)
 
 
 def spawn_from_card(log, title, pool, enemies, round_n, fer_bonus=0, dan_bonus=0,
@@ -980,6 +995,9 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
         salute[n] = smax
         salute_max[n] = smax
     down = set()
+    intuizione = {'disponibile': DOSSIER_ATTIVO and bool(indagine.get('dossier_completo'))}
+    if intuizione['disponibile']:
+        log('Gettone Intuizione in mano (Dossier completo): un ri-tiro, una volta in Spedizione.')
     pool = dict(TOKEN_POOL_BASE)
     if pool_extra:
         extra = token_pool_extra(len(party))
@@ -1104,6 +1122,18 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
         salute[bersaglio] -= dan
         log(f'    {bersaglio} subisce {dan} danno da {fonte} (Salute: {max(salute[bersaglio], 0)}/{salute_max[bersaglio]}).')
         if salute[bersaglio] <= 0 and bersaglio not in down:
+            # Gettone Intuizione (Dossier completo, vedi indagine): il gruppo
+            # spende l'unico ri-tiro sul momento peggiore - qui modellato come
+            # il primo eroe che sarebbe caduto e invece regge a 1 Salute (a
+            # tavolo: si ripete il tiro d'attacco nemico letale, e manca).
+            # Uso conservativo (primo KO utile): un gruppo vero lo spende
+            # almeno cosi' bene, mai peggio.
+            if intuizione['disponibile']:
+                intuizione['disponibile'] = False
+                salute[bersaglio] = 1
+                log(f'    [INTUIZIONE] Il gruppo spende il gettone Dossier: {bersaglio} resta '
+                    f'in piedi a 1 Salute invece di cadere.')
+                return
             down.add(bersaglio)
             log(f'    *** {bersaglio} è A TERRA. ***')
 
@@ -2514,8 +2544,56 @@ def sessione_ricalibrazione5():
     print(f'\nGiro 5 fatto. Riepilogo in {path}')
 
 
+def sessione_dossier():
+    """Test A/B del gettone Intuizione (Dossier completo). Per ogni taglia:
+    - via VELOCE (esplora_a_fondo=False, banca ore) - non prende mai il
+      gettone, riferimento;
+    - via APPROFONDITA senza gettone (DOSSIER_ATTIVO=False);
+    - via APPROFONDITA col gettone (DOSSIER_ATTIVO=True).
+    Il margine (approfondita+gettone) - (approfondita senza) misura quanto
+    pesa il gettone; il confronto con la via veloce dice se l'incentivo
+    pende leggermente verso l'esplorazione senza ribaltarla."""
+    global DOSSIER_ATTIVO
+    os.makedirs(LOG_DIR, exist_ok=True)
+    righe = []
+    for size in (4, 6, 8, 10):
+        DOSSIER_ATTIVO = True
+        veloce = esegui_batch_multi_party(f'dos-{size:02d}-veloce', size, 'finale_v3', 'nessuna',
+                                          n_party=5, n_seed=30, seed_base=320000 + size * 1000,
+                                          esplora_a_fondo=False)
+        DOSSIER_ATTIVO = False
+        prof_no = esegui_batch_multi_party(f'dos-{size:02d}-prof-senza', size, 'finale_v3', 'nessuna',
+                                           n_party=5, n_seed=30, seed_base=325000 + size * 1000,
+                                           esplora_a_fondo=True)
+        DOSSIER_ATTIVO = True
+        prof_si = esegui_batch_multi_party(f'dos-{size:02d}-prof-gettone', size, 'finale_v3', 'nessuna',
+                                           n_party=5, n_seed=30, seed_base=325000 + size * 1000,
+                                           esplora_a_fondo=True)
+        righe.append((size, veloce, prof_no, prof_si))
+    DOSSIER_ATTIVO = True
+
+    path = os.path.join(LOG_DIR, 'riepilogo_dossier.md')
+    with open(path, 'w', encoding='utf-8') as f:
+        f.write('# Test gettone Intuizione (Dossier completo)\n\n')
+        f.write(f'Generato: {datetime.now().isoformat(timespec="seconds")}\n\n')
+        f.write('Via veloce (banca ore, mai gettone) vs approfondita senza gettone vs approfondita '
+                'col gettone. Approfondita senza/col gettone = STESSI seed (325000+size*1000): la '
+                'differenza e\' solo il gettone.\n\n')
+        f.write('| Taglia | Veloce %vitt | Prof. senza %vitt | Prof. col gettone %vitt | '
+                'Margine gettone | Prof. sofferte | Luoghi (prof.) |\n')
+        f.write('|---|---|---|---|---|---|---|\n')
+        for size, veloce, prof_no, prof_si in righe:
+            margine = prof_si['pct_vittoria'] - prof_no['pct_vittoria']
+            f.write(f'| {size} | {veloce["pct_vittoria"]:.0f}% | {prof_no["pct_vittoria"]:.0f}% | '
+                    f'{prof_si["pct_vittoria"]:.0f}% | {margine:+.0f} | '
+                    f'{prof_si["pct_vittoria_sofferta"]:.0f}% | {prof_si["media_luoghi_visitati"]:.1f} |\n')
+    print(f'\nTest Dossier fatto. Riepilogo in {path}')
+
+
 if __name__ == '__main__':
-    if len(sys.argv) > 2 and sys.argv[2] == 'approfondita':
+    if len(sys.argv) > 2 and sys.argv[2] == 'dossier':
+        sessione_dossier()
+    elif len(sys.argv) > 2 and sys.argv[2] == 'approfondita':
         sessione_approfondita()
     elif len(sys.argv) > 2 and sys.argv[2] == 'ricalibrazione5':
         sessione_ricalibrazione5()
