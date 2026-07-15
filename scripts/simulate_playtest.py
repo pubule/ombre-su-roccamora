@@ -259,6 +259,21 @@ MINACCIA_FORMULE = {
     # round proprio dove il risveglio anticipato del Custode sembrava piu'
     # rischioso nel round 3, senza toccare il ritmo gia' visto fino a 8.
     'tetto2_oltre8': lambda n: max(1, min(n // 2, 4) if n <= 8 else 3),
+    # Ricalibrazione post-fix motore (vedi sessione_ricalibrazione): coi
+    # nemici che ora raggiungono e colpiscono davvero, la pressione carte
+    # va abbassata, non alzata. Due candidate piu' conservative di
+    # tetto3_ritardato (2:1, 3-6:2, 7-10:3):
+    'tetto2_ritardato': lambda n: max(1, min(1 + (n + 1) // 4, 2)),   # 2:1, 3-10:2 - mai 3 carte
+    'tetto3_tardissimo': lambda n: 1 if n <= 2 else 2 if n <= 8 else 3,  # il tetto di 3 arriva solo a 9-10
+    # Giro 4: la validazione finale ha mostrato n=3 a 39% (2 carte con 3
+    # eroi = pressione da tavolo medio con meta' braccia) - 1 carta fino a
+    # 3 eroi. E n=7 a 61% (il gradino 2->3 carte e' un dirupo ovunque
+    # cada) - variante con il gradino spostato a 8.
+    'finale_v2': lambda n: 1 if n <= 3 else 2 if n <= 6 else 3,          # 2-3:1, 4-6:2, 7-10:3
+    'finale_v2_grad8': lambda n: 1 if n <= 3 else 2 if n <= 7 else 3,    # come v2 ma 7 resta a 2 carte
+    # Giro 5: mezzo passo sul dirupo 2->3 carte. x.5 = la carta extra si
+    # pesca solo nei round pari (vedi fase_minaccia).
+    'finale_v3': lambda n: 1 if n <= 3 else 2 if n <= 6 else 2.5,        # 2-3:1, 4-6:2, 7-10:2+1 nei round pari
     # Round 6: come tetto3 ma il tetto di 3 carte si raggiunge a n=8 invece
     # che a n=6 (a 6 eroi restano 2 carte/round). Motivo: round 5 ha isolato
     # un crollo reale a n=6 con curva-C (0-13% vittoria su 5 party casuali
@@ -355,8 +370,18 @@ NEMICO_SCALE_FORMULE = {
 CUSTODE_TENSIONE_EXTRA = {8: 1, 9: 1, 10: 1}
 
 
+# Toggle di ricalibrazione (sessione_ricalibrazione, post-fix motore):
+# i batch girano in sequenza, un globale basta - niente parametro da
+# infilare in tutta la catena esegui_batch -> simula_spedizione.
+CUSTODE_EXTRA_ATTIVO = True
+# +Salute massima a testa per taglia di party (candidate R4+: Gloomhaven
+# abbassa il livello mostri ai tavoli piccoli; qui la lingua e' quella
+# del bonus PREPARATI, zero componenti nuovi). {} = spento.
+SALUTE_BONUS_PER_N = {}
+
+
 def custode_fer_bonus(n_eroi):
-    return CUSTODE_TENSIONE_EXTRA.get(n_eroi, 0)
+    return CUSTODE_TENSIONE_EXTRA.get(n_eroi, 0) if CUSTODE_EXTRA_ATTIVO else 0
 
 # Copie extra di miniature stampabili per party grandi (diagnostica): "non
 # il doppio" (richiesta esplicita) - +1 copia per tipo ogni 4 eroi oltre 5.
@@ -927,9 +952,12 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
     salute = {}
     salute_max = {}
     armed = {n: True for n in party}  # tutti gli eroi hanno un'arma iniziale (+1)
+    bonus_n2 = SALUTE_BONUS_PER_N.get(len(party), 0)
+    if bonus_n2:
+        log(f'Tavolo da {len(party)}: +{bonus_n2} Salute massima a testa (ricalibrazione).')
     for n in party:
         h = HERO[n]
-        smax = h['salute'] + (1 if indagine['tier'].startswith(('PREPARATI', 'SLANCIO')) else 0)
+        smax = h['salute'] + (1 if indagine['tier'].startswith(('PREPARATI', 'SLANCIO')) else 0) + bonus_n2
         salute[n] = smax
         salute_max[n] = smax
     down = set()
@@ -1074,7 +1102,13 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
 
     def fase_minaccia():
         nonlocal canto, custode, custode_stunned, pool_esauriti_totale, canto_bonus_carte, round_custode_svegliato
-        n_carte = MINACCIA_FORMULE[formula_minaccia](len(vivi())) + (1 if canto_bonus_carte else 0)
+        base_carte = MINACCIA_FORMULE[formula_minaccia](len(vivi()))
+        # Valore x.5 = mezza carta: la carta extra si pesca solo nei round
+        # pari (giro 5 di ricalibrazione: il gradino 2->3 carte e' un dirupo
+        # da ~30 punti di %vittoria ovunque cada - serve il mezzo passo;
+        # precedente di genere: escalation a scatti alla Pandemic).
+        n_carte = int(base_carte) + (1 if base_carte % 1 and round_n % 2 == 0 else 0) \
+            + (1 if canto_bonus_carte else 0)
         for _ in range(n_carte):
             if ability_uses.get('_scruta_hero'):
                 pass
@@ -2195,8 +2229,285 @@ def sessione_approfondita():
     print(f'\nFatto. Log in {LOG_DIR}')
 
 
+def sessione_ricalibrazione():
+    """Ricalibrazione post-fix motore (vedi piano): coi 3 bug di movimento
+    corretti la % vittoria crolla ovunque (2:29 4:73 6:30 8:48 10:56 vs
+    target ~80). Matrice di strategie SOLO sui knob del simulatore -
+    nessuna regola di gioco viene toccata finche' l'utente non sceglie.
+    R1: rollback totale bonus Ferite (nessuna + custode-extra OFF).
+    R2: rollback del solo bonus generale n=6 (custode-extra resta).
+    R3: R1 + tetto2_ritardato (mai 3 carte: anti-saturazione 8-10).
+    R3b: R1 + tetto3_tardissimo (3 carte solo a 9-10).
+    R4 (secondo giro): vincente + SALUTE_BONUS_N2=2 per il tavolo da 2."""
+    global CUSTODE_EXTRA_ATTIVO, SALUTE_BONUS_N2
+    os.makedirs(LOG_DIR, exist_ok=True)
+    configs = [
+        ('R1_rollback_totale',   'tetto3_ritardato',  'nessuna', False),
+        ('R2_solo_no_curvaG',    'tetto3_ritardato',  'nessuna', True),
+        ('R3_tetto2_ritardato',  'tetto2_ritardato',  'nessuna', False),
+        ('R3b_tetto3_tardissimo', 'tetto3_tardissimo', 'nessuna', False),
+    ]
+    risultati = []  # (config_nome, size, metriche)
+    for nome_cfg, formula, scale, extra_on in configs:
+        CUSTODE_EXTRA_ATTIVO = extra_on
+        for size in (2, 4, 6, 8, 10):
+            nome = f'ric-{nome_cfg}-{size:02d}'
+            print(f'Eseguo {nome} (5 party x 30 seed)...')
+            m = esegui_batch_multi_party(nome, size, formula, scale,
+                                          n_party=5, n_seed=30, seed_base=300000 + size * 1000)
+            risultati.append((nome_cfg, m))
+    CUSTODE_EXTRA_ATTIVO = True  # ripristina il default di produzione
+
+    path = os.path.join(LOG_DIR, 'riepilogo_ricalibrazione.md')
+    with open(path, 'w', encoding='utf-8') as f:
+        f.write('# Riepilogo ricalibrazione post-fix motore\n\n')
+        f.write(f'Generato: {datetime.now().isoformat(timespec="seconds")}\n\n')
+        f.write('Baseline R0 (produzione attuale, motore corretto): 2:29% 4:73% 6:30% 8:48% 10:56% '
+                '(vedi 20260715-stress-tattico-kpi-fixed2). Target ~80% a ogni taglia, '
+                'Custode anticipo <=10%.\n\n')
+        f.write('| Config | Taglia | % Vittoria | % Vitt. sofferte | Picco a terra | '
+                'Canto finale | Round medi | % Custode anticipo | Pool esauriti |\n')
+        f.write('|---|---|---|---|---|---|---|---|---|\n')
+        for nome_cfg, m in risultati:
+            f.write(f'| {nome_cfg} | {m["size"]} | {m["pct_vittoria"]:.0f}% | '
+                    f'{m["pct_vittoria_sofferta"]:.0f}% | {m["media_max_down"]:.1f} | '
+                    f'{m["media_canto_finale"]:.1f} | {m["media_round"]:.1f} | '
+                    f'{m["pct_custode_anticipo"]:.0f}% | {m["media_pool_esauriti"]:.1f} |\n')
+    print(f'\nRicalibrazione fatta. Riepilogo in {path}')
+
+
+def sessione_ricalibrazione2():
+    """Giro 2 (esiti giro 1 in 20260715-ricalibrazione): il rollback dei
+    bonus sistema n=6 (30->96%); a 8-10 due carte sono troppo poche
+    (96-97%, ansia piatta) e tre troppe (73-74%) - si prova la via di
+    mezzo: tetto2_ritardato + 1 Ferita extra SOLO al boss. R2 del giro 1
+    l'aveva bocciata SOLO in combinazione con 3 carte/round. Varianti:
+    R4 = boss-extra anche a n=6 (96%/13% sofferte: fin troppo tranquillo);
+    R5 = boss-extra solo a 8-10. Entrambe con SALUTE_BONUS_N2=2 (n=2 fermo
+    a 45% con qualunque leva Minaccia: la leva giusta e' lato eroi)."""
+    global CUSTODE_EXTRA_ATTIVO, SALUTE_BONUS_PER_N, CUSTODE_TENSIONE_EXTRA
+    os.makedirs(LOG_DIR, exist_ok=True)
+    extra_orig = dict(CUSTODE_TENSIONE_EXTRA)
+    configs = [
+        ('R4_boss_anche_a6', {6: 1, 8: 1, 9: 1, 10: 1}),
+        ('R5_boss_solo_8_10', {8: 1, 9: 1, 10: 1}),
+    ]
+    risultati = []
+    CUSTODE_EXTRA_ATTIVO = True
+    SALUTE_BONUS_PER_N = {2: 2}
+    for nome_cfg, extra_dict in configs:
+        CUSTODE_TENSIONE_EXTRA = extra_dict
+        for size in (2, 6, 8, 10):  # n=4: nessuna leva scatta, identico al giro 1 (67%)
+            nome = f'ric2-{nome_cfg}-{size:02d}'
+            print(f'Eseguo {nome} (5 party x 30 seed)...')
+            m = esegui_batch_multi_party(nome, size, 'tetto2_ritardato', 'nessuna',
+                                          n_party=5, n_seed=30, seed_base=300000 + size * 1000)
+            risultati.append((nome_cfg, m))
+    CUSTODE_TENSIONE_EXTRA = extra_orig
+    SALUTE_BONUS_PER_N = {}
+
+    path = os.path.join(LOG_DIR, 'riepilogo_ricalibrazione2.md')
+    with open(path, 'w', encoding='utf-8') as f:
+        f.write('# Riepilogo ricalibrazione giro 2 — tetto2_ritardato + boss-extra + Salute n=2\n\n')
+        f.write(f'Generato: {datetime.now().isoformat(timespec="seconds")}\n\n')
+        f.write('Stessi seed del giro 1 (300000+size*1000): differenze = solo effetto delle leve, '
+                'non del campione.\n\n')
+        f.write('| Config | Taglia | % Vittoria | % Vitt. sofferte | Picco a terra | '
+                'Canto finale | Round medi | % Custode anticipo | Pool esauriti |\n')
+        f.write('|---|---|---|---|---|---|---|---|---|\n')
+        for nome_cfg, m in risultati:
+            f.write(f'| {nome_cfg} | {m["size"]} | {m["pct_vittoria"]:.0f}% | '
+                    f'{m["pct_vittoria_sofferta"]:.0f}% | {m["media_max_down"]:.1f} | '
+                    f'{m["media_canto_finale"]:.1f} | {m["media_round"]:.1f} | '
+                    f'{m["pct_custode_anticipo"]:.0f}% | {m["media_pool_esauriti"]:.1f} |\n')
+    print(f'\nGiro 2 fatto. Riepilogo in {path}')
+
+
+def sessione_ricalibrazione3():
+    """Giro 3 (esiti giro 2 in riepilogo_ricalibrazione2.md): a 8-10 due
+    carte sono troppo facili anche col boss+1 (93-95%, ansia 11-14%), tre
+    carte nude troppo dure (73-74%). Strategia inversa: TENERE la tabella
+    carte attuale del Regolamento (tetto3_ritardato, zero modifiche a un
+    componente gia' stampabile) e compensare LATO EROI con +1 Salute
+    massima ai tavoli 8-10 (precedente: molti co-op scalano le risorse
+    degli eroi, non solo i nemici - Gloomhaven muove il livello mostri,
+    HeroQuest USA dava corpi extra). Insieme: n=2 a +3 Salute (59% con +2,
+    serve di piu') e n=4 a +1 (fermo a 67%, nessuna leva Minaccia lo
+    tocca). n=6 resta nudo: gia' a 96% col solo rollback."""
+    global CUSTODE_EXTRA_ATTIVO, SALUTE_BONUS_PER_N
+    os.makedirs(LOG_DIR, exist_ok=True)
+    CUSTODE_EXTRA_ATTIVO = False
+    SALUTE_BONUS_PER_N = {2: 3, 4: 1, 8: 1, 9: 1, 10: 1}
+    risultati = []
+    for size in (2, 4, 8, 10):  # n=6: nessuna leva, identico al giro 1 (96%)
+        nome = f'ric3-salute-{size:02d}'
+        print(f'Eseguo {nome} (5 party x 30 seed)...')
+        m = esegui_batch_multi_party(nome, size, 'tetto3_ritardato', 'nessuna',
+                                      n_party=5, n_seed=30, seed_base=300000 + size * 1000)
+        risultati.append(m)
+    CUSTODE_EXTRA_ATTIVO = True
+    SALUTE_BONUS_PER_N = {}
+
+    path = os.path.join(LOG_DIR, 'riepilogo_ricalibrazione3.md')
+    with open(path, 'w', encoding='utf-8') as f:
+        f.write('# Riepilogo ricalibrazione giro 3 — carte invariate, +Salute per taglia\n\n')
+        f.write(f'Generato: {datetime.now().isoformat(timespec="seconds")}\n\n')
+        f.write('tetto3_ritardato (tabella carte ATTUALE del Regolamento) + nessun bonus Ferite + '
+                'Salute per taglia {2:+3, 4:+1, 8-10:+1}. Stessi seed dei giri 1-2.\n\n')
+        f.write('| Taglia | % Vittoria | % Vitt. sofferte | Picco a terra | '
+                'Canto finale | Round medi | % Custode anticipo | Pool esauriti |\n')
+        f.write('|---|---|---|---|---|---|---|---|\n')
+        for m in risultati:
+            f.write(f'| {m["size"]} | {m["pct_vittoria"]:.0f}% | '
+                    f'{m["pct_vittoria_sofferta"]:.0f}% | {m["media_max_down"]:.1f} | '
+                    f'{m["media_canto_finale"]:.1f} | {m["media_round"]:.1f} | '
+                    f'{m["pct_custode_anticipo"]:.0f}% | {m["media_pool_esauriti"]:.1f} |\n')
+    print(f'\nGiro 3 fatto. Riepilogo in {path}')
+
+
+def sessione_ricalibrazione_finale():
+    """Validazione della config candidata (sintesi dei giri 1-3) su TUTTA
+    la curva 2-10, comprese le taglie mai misurate post-fix (3, 5, 7, 9):
+    - carte: tetto3_ritardato (tabella ATTUALE del Regolamento, invariata);
+    - bonus Ferite generali: aboliti (il +2 a n=6 era il killer, giro 1);
+    - boss +1 Ferita SOLO a n=6 (89%/28% sofferte al giro 2: ansia giusta
+      dove il rollback nudo era piatto 96%/13%);
+    - +1 Salute massima a testa ai tavoli 3-5 (n=4: 67->79% al giro 3;
+      3 e 5 da verificare qui);
+    - n=2: nessuna leva regge (43-59% con +2/+3 Salute, rumore enorme) -
+      raccomandazione da report: in 2 giocatori si gioca con 4 eroi, 2 a
+      testa (multi-handed, precedente Gloomhaven/Arkham); qui si misura
+      il tavolo a 2 eroi nudo come "modalita' dura" documentata."""
+    global CUSTODE_EXTRA_ATTIVO, SALUTE_BONUS_PER_N, CUSTODE_TENSIONE_EXTRA
+    os.makedirs(LOG_DIR, exist_ok=True)
+    extra_orig = dict(CUSTODE_TENSIONE_EXTRA)
+    CUSTODE_EXTRA_ATTIVO = True
+    CUSTODE_TENSIONE_EXTRA = {6: 1}
+    SALUTE_BONUS_PER_N = {3: 1, 4: 1, 5: 1}
+    risultati = []
+    for size in (2, 3, 4, 5, 6, 7, 8, 9, 10):
+        nome = f'ricfin-{size:02d}'
+        print(f'Eseguo {nome} (5 party x 30 seed)...')
+        m = esegui_batch_multi_party(nome, size, 'tetto3_ritardato', 'nessuna',
+                                      n_party=5, n_seed=30, seed_base=310000 + size * 1000)
+        risultati.append(m)
+    CUSTODE_TENSIONE_EXTRA = extra_orig
+    SALUTE_BONUS_PER_N = {}
+
+    path = os.path.join(LOG_DIR, 'riepilogo_ricalibrazione_finale.md')
+    with open(path, 'w', encoding='utf-8') as f:
+        f.write('# Riepilogo ricalibrazione — config candidata, curva completa 2-10\n\n')
+        f.write(f'Generato: {datetime.now().isoformat(timespec="seconds")}\n\n')
+        f.write('tetto3_ritardato + nessun bonus generale + boss +1 Ferita SOLO a n=6 + '
+                '+1 Salute a testa ai tavoli 3-5. Seed nuovi (310000+size*1000).\n\n')
+        f.write('| Taglia | % Vittoria | % Vitt. sofferte | Picco a terra | '
+                'Canto finale | Round medi | % Custode anticipo | Pool esauriti |\n')
+        f.write('|---|---|---|---|---|---|---|---|\n')
+        for m in risultati:
+            f.write(f'| {m["size"]} | {m["pct_vittoria"]:.0f}% | '
+                    f'{m["pct_vittoria_sofferta"]:.0f}% | {m["media_max_down"]:.1f} | '
+                    f'{m["media_canto_finale"]:.1f} | {m["media_round"]:.1f} | '
+                    f'{m["pct_custode_anticipo"]:.0f}% | {m["media_pool_esauriti"]:.1f} |\n')
+    print(f'\nValidazione finale fatta. Riepilogo in {path}')
+
+
+def sessione_ricalibrazione4():
+    """Giro 4, micro-correzioni sui tre punti deboli della validazione
+    finale (riepilogo_ricalibrazione_finale.md): n=3 39%, n=5 90% (forse
+    fin troppo comodo col +1 Salute), n=7 61%."""
+    global CUSTODE_EXTRA_ATTIVO, SALUTE_BONUS_PER_N, CUSTODE_TENSIONE_EXTRA
+    os.makedirs(LOG_DIR, exist_ok=True)
+    extra_orig = dict(CUSTODE_TENSIONE_EXTRA)
+    # (etichetta, size, formula, extra_dict, salute_dict)
+    prove = [
+        ('n3_1carta_salute', 3, 'finale_v2', {6: 1}, {3: 1}),
+        ('n3_1carta_nudo',   3, 'finale_v2', {6: 1}, {}),
+        ('n5_senza_salute',  5, 'tetto3_ritardato', {6: 1}, {}),
+        ('n7_2carte_boss',   7, 'finale_v2_grad8', {6: 1, 7: 1}, {}),
+        ('n7_3carte_salute', 7, 'tetto3_ritardato', {6: 1}, {7: 1}),
+    ]
+    risultati = []
+    CUSTODE_EXTRA_ATTIVO = True
+    for etichetta, size, formula, extra_dict, salute_dict in prove:
+        CUSTODE_TENSIONE_EXTRA = extra_dict
+        SALUTE_BONUS_PER_N = salute_dict
+        nome = f'ric4-{etichetta}'
+        print(f'Eseguo {nome} (5 party x 30 seed)...')
+        m = esegui_batch_multi_party(nome, size, formula, 'nessuna',
+                                      n_party=5, n_seed=30, seed_base=310000 + size * 1000)
+        risultati.append((etichetta, m))
+    CUSTODE_TENSIONE_EXTRA = extra_orig
+    SALUTE_BONUS_PER_N = {}
+
+    path = os.path.join(LOG_DIR, 'riepilogo_ricalibrazione4.md')
+    with open(path, 'w', encoding='utf-8') as f:
+        f.write('# Riepilogo ricalibrazione giro 4 — micro-correzioni n=3/5/7\n\n')
+        f.write(f'Generato: {datetime.now().isoformat(timespec="seconds")}\n\n')
+        f.write('Stessi seed della validazione finale (310000+size*1000): confronto pulito '
+                'per taglia.\n\n')
+        f.write('| Prova | Taglia | % Vittoria | % Vitt. sofferte | Picco a terra | '
+                'Canto finale | Round medi | % Custode anticipo | Pool esauriti |\n')
+        f.write('|---|---|---|---|---|---|---|---|---|\n')
+        for etichetta, m in risultati:
+            f.write(f'| {etichetta} | {m["size"]} | {m["pct_vittoria"]:.0f}% | '
+                    f'{m["pct_vittoria_sofferta"]:.0f}% | {m["media_max_down"]:.1f} | '
+                    f'{m["media_canto_finale"]:.1f} | {m["media_round"]:.1f} | '
+                    f'{m["pct_custode_anticipo"]:.0f}% | {m["media_pool_esauriti"]:.1f} |\n')
+    print(f'\nGiro 4 fatto. Riepilogo in {path}')
+
+
+def sessione_ricalibrazione5():
+    """Giro 5: mezza carta sul dirupo 7-10 (formula finale_v3: la terza
+    carta si pesca solo nei round pari). Il resto della config candidata
+    e' gia' validato: 1 carta a 2-3, boss+1 solo a n=6, +1 Salute solo a
+    n=4 (giri 1-4)."""
+    global CUSTODE_EXTRA_ATTIVO, SALUTE_BONUS_PER_N, CUSTODE_TENSIONE_EXTRA
+    os.makedirs(LOG_DIR, exist_ok=True)
+    extra_orig = dict(CUSTODE_TENSIONE_EXTRA)
+    CUSTODE_EXTRA_ATTIVO = True
+    CUSTODE_TENSIONE_EXTRA = {6: 1}
+    SALUTE_BONUS_PER_N = {4: 1}
+    risultati = []
+    for size in (7, 8, 9, 10):
+        nome = f'ric5-mezzacarta-{size:02d}'
+        print(f'Eseguo {nome} (5 party x 30 seed)...')
+        m = esegui_batch_multi_party(nome, size, 'finale_v3', 'nessuna',
+                                      n_party=5, n_seed=30, seed_base=310000 + size * 1000)
+        risultati.append(m)
+    CUSTODE_TENSIONE_EXTRA = extra_orig
+    SALUTE_BONUS_PER_N = {}
+
+    path = os.path.join(LOG_DIR, 'riepilogo_ricalibrazione5.md')
+    with open(path, 'w', encoding='utf-8') as f:
+        f.write('# Riepilogo ricalibrazione giro 5 — mezza carta a 7-10\n\n')
+        f.write(f'Generato: {datetime.now().isoformat(timespec="seconds")}\n\n')
+        f.write('finale_v3: a 7-10 eroi 2 carte, piu\' una terza SOLO nei round pari. '
+                'Stessi seed della validazione finale.\n\n')
+        f.write('| Taglia | % Vittoria | % Vitt. sofferte | Picco a terra | '
+                'Canto finale | Round medi | % Custode anticipo | Pool esauriti |\n')
+        f.write('|---|---|---|---|---|---|---|---|\n')
+        for m in risultati:
+            f.write(f'| {m["size"]} | {m["pct_vittoria"]:.0f}% | '
+                    f'{m["pct_vittoria_sofferta"]:.0f}% | {m["media_max_down"]:.1f} | '
+                    f'{m["media_canto_finale"]:.1f} | {m["media_round"]:.1f} | '
+                    f'{m["pct_custode_anticipo"]:.0f}% | {m["media_pool_esauriti"]:.1f} |\n')
+    print(f'\nGiro 5 fatto. Riepilogo in {path}')
+
+
 if __name__ == '__main__':
     if len(sys.argv) > 2 and sys.argv[2] == 'approfondita':
         sessione_approfondita()
+    elif len(sys.argv) > 2 and sys.argv[2] == 'ricalibrazione5':
+        sessione_ricalibrazione5()
+    elif len(sys.argv) > 2 and sys.argv[2] == 'ricalibrazione4':
+        sessione_ricalibrazione4()
+    elif len(sys.argv) > 2 and sys.argv[2] == 'ricalibrazione':
+        sessione_ricalibrazione()
+    elif len(sys.argv) > 2 and sys.argv[2] == 'ricalibrazione2':
+        sessione_ricalibrazione2()
+    elif len(sys.argv) > 2 and sys.argv[2] == 'ricalibrazione3':
+        sessione_ricalibrazione3()
+    elif len(sys.argv) > 2 and sys.argv[2] == 'ricalibrazione-finale':
+        sessione_ricalibrazione_finale()
     else:
         main()

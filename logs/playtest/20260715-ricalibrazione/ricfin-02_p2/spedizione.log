@@ -1,0 +1,209 @@
+Run: ricfin-02_p2_seed0  |  seed=313200  |  formula Minaccia=tetto3_ritardato  |  generato: 2026-07-15T13:05:58
+==============================================================================
+SPEDIZIONE - Il Campanile di San Teodoro (sotterranei)
+==============================================================================
+Party: DOTT. ATTILIO MARN, SIBILLA REVE
+Bonus da Indagine: PREPARATI (+1 Salute massima a testa); diapason: no
+NOTA: gruppo trattato come blocco unico tessera per tessera (vedi intestazione script).
+
+--- Round 1: il gruppo raggiunge T2 (Sala delle Casse) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    Il gruppo entra in T2 da B1.
+    [PROVA ACUME] DOTT. ATTILIO MARN: 2d6(2,2)=4 +ACUME(2) = 6 vs Media(9) -> FALLITA
+    DOTT. ATTILIO MARN cerca sulla tessera: niente da trovare qui, o prova fallita.
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] ADEPTO IN AGGUATO (posseduto) — Piazzate 1 Adepto sull’uscita più vicina agli eroi della tessera in cui si trova l’eroe at…
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 9) in B1.
+  ADEPTO INCAPPUCCIATO si muove verso DOTT. ATTILIO MARN: B1 -> C1.
+  ADEPTO INCAPPUCCIATO attacca DOTT. ATTILIO MARN:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> DOTT. ATTILIO MARN: 2d6(1,4)=5 +Attacco(1) = 6 vs Difesa(8) -> MANCATO
+--- Round 2: il gruppo raggiunge T4 (Ufficio del Custode) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    Il gruppo entra in T4 da D3.
+    Cercando: trovata LA CHIAVE DELLA CELLA. Prenderla è una scelta — il gruppo decide di prenderla (oggetto rischioso).
+    [PROVA NERVI] SIBILLA REVE: 2d6(2,1)=3 +NERVI(3) = 6 vs Media(9) -> FALLITA
+    I fumi stordiscono SIBILLA REVE: 1 sola azione al prossimo turno (non modellato oltre il log). La chiave resta comunque sua.
+    DOTT. ATTILIO MARN si muove verso ADEPTO INCAPPUCCIATO: D3 -> C2.
+    [ATTACCO] DOTT. ATTILIO MARN -> ADEPTO INCAPPUCCIATO: 2d6(4,3)=7 +VIGORE(2)+arma(1) = 10 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    [PROVA ACUME] SIBILLA REVE: 2d6(3,2)=5 +ACUME(2) = 7 vs Media(9) -> FALLITA
+    SIBILLA REVE cerca sulla tessera: niente da trovare qui, o prova fallita.
+  [MINACCIA] PRESAGIO (quiete) — Un brivido corre lungo la schiena. Non accade nulla... per ora.
+    Nessun effetto meccanico (tensione).
+--- Round 3: il gruppo raggiunge T2 (Sala delle Casse) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    Il gruppo entra in T2 da A3.
+    DOTT. ATTILIO MARN: nessun bersaglio, avanza / assiste il gruppo.
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] CERA SOTTO I PIEDI (insidia) — L’eroe attivo prova NERVI (Media): se fallisce, 1 danno e perde 1 azione al prossimo turno…
+    [PROVA NERVI] DOTT. ATTILIO MARN: 2d6(6,2)=8 +NERVI(2) = 10 vs Media(9) -> SUCCESSO
+--- Round 4: il gruppo raggiunge T5 (Scala interrata) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    Il gruppo entra in T5 da B1.
+    [PROVA NERVI] DOTT. ATTILIO MARN: 2d6(6,2)=8 +NERVI(2) = 10 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] SIBILLA REVE: 2d6(1,1)=2 +NERVI(3) = 5 vs Facile(7) -> FALLITA
+    SIBILLA REVE avrà solo 1 azione al prossimo turno (non modellato oltre il log).
+    [PROVA ACUME] DOTT. ATTILIO MARN: 2d6(1,1)=2 +ACUME(2) = 4 vs Media(9) -> FALLITA
+    DOTT. ATTILIO MARN cerca sulla tessera: niente da trovare qui, o prova fallita.
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] TRAPPOLA DI CERA (insidia) — L’eroe più avanzato prova NERVI (Media): se fallisce, cera bollente: 1 danno e perde 1 azi…
+    [PROVA NERVI] DOTT. ATTILIO MARN: 2d6(1,5)=6 +NERVI(2) = 8 vs Media(9) -> FALLITA
+    DOTT. ATTILIO MARN subisce 1 danno da TRAPPOLA DI CERA (Salute: 7/8).
+--- Round 5: il gruppo raggiunge T6 (Cripta della Cera) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    Il gruppo entra in T6 da B1.
+    Rivelata la Cripta della Cera: il Custode della Cera si desta con 2 Adepti, in C2.
+    [ABILITÀ] DOTT. ATTILIO MARN usa Pronto Soccorso su DOTT. ATTILIO MARN -> Salute 8.
+    [ATTACCO] SIBILLA REVE -> ADEPTO INCAPPUCCIATO: 2d6(6,1)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+  [MINACCIA] CERA CHE COLA (ostacolo) — Fino a fine round, sulla tessera dell’eroe attivo muoversi costa il doppio.
+    Penalità di Movimento fino al prossimo turno (non modellata nel loop di combattimento).
+  ADEPTO INCAPPUCCIATO si muove verso SIBILLA REVE: A1 -> B2.
+  ADEPTO INCAPPUCCIATO attacca SIBILLA REVE:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> SIBILLA REVE: 2d6(6,5)=11 +Attacco(1) = 12 vs Difesa(8) -> COLPITO
+    SIBILLA REVE subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 6/7).
+  IL CUSTODE DELLA CERA si muove verso DOTT. ATTILIO MARN: C2 -> C1.
+  IL CUSTODE DELLA CERA attacca DOTT. ATTILIO MARN:
+    [ATTACCO NEMICO] IL CUSTODE DELLA CERA -> DOTT. ATTILIO MARN: 2d6(2,6)=8 +Attacco(3) = 11 vs Difesa(8) -> COLPITO
+    DOTT. ATTILIO MARN subisce 2 danno da IL CUSTODE DELLA CERA (Salute: 6/8).
+--- Combattimento contro il Custode della Cera ---
+--- Round 6: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    [ABILITÀ] DOTT. ATTILIO MARN usa Pronto Soccorso su DOTT. ATTILIO MARN -> Salute 8.
+    SIBILLA REVE si muove verso ADEPTO INCAPPUCCIATO: B1 -> A2.
+    [ATTACCO] SIBILLA REVE -> ADEPTO INCAPPUCCIATO: 2d6(5,3)=8 +VIGORE(1)+arma(1) = 10 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+  [MINACCIA] IL CANTO SALE (crescendo) — Aggiungete 1 segnalino Canto. Al terzo: il Custode della Cera si desta (vedi Soluzione). S…
+    Segnalino Canto: 1.
+    Il Custode recupera 1 ferita (3/3) e si attiva subito.
+  IL CUSTODE DELLA CERA si muove verso DOTT. ATTILIO MARN: C1 -> B2.
+  IL CUSTODE DELLA CERA attacca DOTT. ATTILIO MARN:
+    [ATTACCO NEMICO] IL CUSTODE DELLA CERA -> DOTT. ATTILIO MARN: 2d6(2,6)=8 +Attacco(3) = 11 vs Difesa(8) -> COLPITO
+    DOTT. ATTILIO MARN subisce 2 danno da IL CUSTODE DELLA CERA (Salute: 6/8).
+--- Round 7: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    [ABILITÀ] DOTT. ATTILIO MARN usa Pronto Soccorso su DOTT. ATTILIO MARN -> Salute 8.
+    [ATTACCO] SIBILLA REVE -> IL CUSTODE DELLA CERA: 2d6(5,5)=10 +VIGORE(1)+arma(1) = 12 vs Difesa(9) -> COLPITO
+    IL CUSTODE DELLA CERA: 2/3 ferite residue.
+  [MINACCIA] VOLTI TRA LE CASSE (posseduto) — Piazzate 1 Adepto sull’uscita più vicina agli eroi della tessera corrente: si è intrufolat…
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 9) in B1.
+  ADEPTO INCAPPUCCIATO si muove verso SIBILLA REVE: B1 -> A1.
+  ADEPTO INCAPPUCCIATO attacca SIBILLA REVE:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> SIBILLA REVE: 2d6(1,6)=7 +Attacco(1) = 8 vs Difesa(8) -> COLPITO
+    SIBILLA REVE subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 5/7).
+  IL CUSTODE DELLA CERA attacca SIBILLA REVE:
+    [ATTACCO NEMICO] IL CUSTODE DELLA CERA -> SIBILLA REVE: 2d6(2,1)=3 +Attacco(3) = 6 vs Difesa(8) -> MANCATO
+--- Round 8: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    [ATTACCO] DOTT. ATTILIO MARN -> ADEPTO INCAPPUCCIATO: 2d6(2,3)=5 +VIGORE(2)+arma(1) = 8 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    [ATTACCO] SIBILLA REVE -> IL CUSTODE DELLA CERA: 2d6(1,2)=3 +VIGORE(1)+arma(1) = 5 vs Difesa(9) -> MANCATO
+  [MINACCIA] IL BRANCO (malavita) — Piazzate 2 Sgherri, adiacenti tra loro, sull’uscita più vicina agli eroi della tessera cor…
+    Piazzati 2x LO SGHERRO (pool residua: 2) in B1.
+  LO SGHERRO si muove verso SIBILLA REVE: B1 -> A1.
+  LO SGHERRO attacca SIBILLA REVE:
+    [ATTACCO NEMICO] LO SGHERRO -> SIBILLA REVE: 2d6(1,2)=3 +Attacco(2) = 5 vs Difesa(8) -> MANCATO
+  LO SGHERRO si avvicina, non ancora a contatto.
+  IL CUSTODE DELLA CERA si muove verso DOTT. ATTILIO MARN: B2 -> C1.
+  IL CUSTODE DELLA CERA attacca DOTT. ATTILIO MARN:
+    [ATTACCO NEMICO] IL CUSTODE DELLA CERA -> DOTT. ATTILIO MARN: 2d6(6,3)=9 +Attacco(3) = 12 vs Difesa(8) -> COLPITO
+    DOTT. ATTILIO MARN subisce 2 danno da IL CUSTODE DELLA CERA (Salute: 6/8).
+--- Round 9: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    [ATTACCO] DOTT. ATTILIO MARN -> LO SGHERRO: 2d6(6,1)=7 +VIGORE(2)+arma(1) = 10 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    [ATTACCO] SIBILLA REVE -> LO SGHERRO: 2d6(5,5)=10 +VIGORE(1)+arma(1) = 12 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+  [MINACCIA] SUSSURRI (insidia) — L’eroe con meno NERVI (a pari merito: sceglie il gruppo) prova NERVI (Media): se fallisce …
+    [PROVA NERVI] DOTT. ATTILIO MARN: 2d6(2,5)=7 +NERVI(2) = 9 vs Media(9) -> SUCCESSO
+  LO SGHERRO si muove verso SIBILLA REVE: B1 -> B2.
+  LO SGHERRO attacca SIBILLA REVE:
+    [ATTACCO NEMICO] LO SGHERRO -> SIBILLA REVE: 2d6(2,1)=3 +Attacco(2) = 5 vs Difesa(8) -> MANCATO
+  IL CUSTODE DELLA CERA attacca DOTT. ATTILIO MARN:
+    [ATTACCO NEMICO] IL CUSTODE DELLA CERA -> DOTT. ATTILIO MARN: 2d6(2,5)=7 +Attacco(3) = 10 vs Difesa(8) -> COLPITO
+    DOTT. ATTILIO MARN subisce 2 danno da IL CUSTODE DELLA CERA (Salute: 4/8).
+--- Round 10: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    [ATTACCO] DOTT. ATTILIO MARN -> LO SGHERRO: 2d6(2,1)=3 +VIGORE(2)+arma(1) = 6 vs Difesa(8) -> MANCATO
+    [ATTACCO] SIBILLA REVE -> LO SGHERRO: 2d6(6,5)=11 +VIGORE(1)+arma(1) = 13 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+  [MINACCIA] RONDA (posseduto) — Piazzate 2 Adepti sull’ingresso della Banchina (T1).
+    Piazzati 2x ADEPTO INCAPPUCCIATO (pool residua: 8), a 6 caselle dalla tessera del gruppo.
+  LO SGHERRO attacca SIBILLA REVE:
+    [ATTACCO NEMICO] LO SGHERRO -> SIBILLA REVE: 2d6(4,6)=10 +Attacco(2) = 12 vs Difesa(8) -> COLPITO
+    SIBILLA REVE subisce 1 danno da LO SGHERRO (Salute: 4/7).
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  IL CUSTODE DELLA CERA attacca DOTT. ATTILIO MARN:
+    [ATTACCO NEMICO] IL CUSTODE DELLA CERA -> DOTT. ATTILIO MARN: 2d6(3,4)=7 +Attacco(3) = 10 vs Difesa(8) -> COLPITO
+    DOTT. ATTILIO MARN subisce 2 danno da IL CUSTODE DELLA CERA (Salute: 2/8).
+--- Round 11: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    [ATTACCO] DOTT. ATTILIO MARN -> LO SGHERRO: 2d6(6,4)=10 +VIGORE(2)+arma(1) = 13 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+    SIBILLA REVE si muove verso IL CUSTODE DELLA CERA: A2 -> C2.
+    [ATTACCO] SIBILLA REVE -> IL CUSTODE DELLA CERA: 2d6(1,1)=2 +VIGORE(1)+arma(1) = 4 vs Difesa(9) -> MANCATO
+  [MINACCIA] IL FALCETTO NEL BUIO (posseduto) — Piazzate 1 Adepto sull’ingresso della tessera corrente, alle spalle degli eroi.
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 7) in B1.
+  ADEPTO INCAPPUCCIATO raggiunge la tessera del gruppo, da A1.
+  ADEPTO INCAPPUCCIATO si muove verso SIBILLA REVE: A1 -> B2.
+  ADEPTO INCAPPUCCIATO attacca SIBILLA REVE:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> SIBILLA REVE: 2d6(5,6)=11 +Attacco(1) = 12 vs Difesa(8) -> COLPITO
+    SIBILLA REVE subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 3/7).
+  ADEPTO INCAPPUCCIATO raggiunge la tessera del gruppo, da A1.
+  ADEPTO INCAPPUCCIATO attacca DOTT. ATTILIO MARN:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> DOTT. ATTILIO MARN: 2d6(1,1)=2 +Attacco(1) = 3 vs Difesa(8) -> MANCATO
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  IL CUSTODE DELLA CERA si muove verso SIBILLA REVE: C1 -> D2.
+  IL CUSTODE DELLA CERA attacca SIBILLA REVE:
+    [ATTACCO NEMICO] IL CUSTODE DELLA CERA -> SIBILLA REVE: 2d6(1,4)=5 +Attacco(3) = 8 vs Difesa(8) -> COLPITO
+    SIBILLA REVE subisce 2 danno da IL CUSTODE DELLA CERA (Salute: 1/7).
+--- Round 12: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    [ATTACCO] DOTT. ATTILIO MARN -> ADEPTO INCAPPUCCIATO: 2d6(2,1)=3 +VIGORE(2)+arma(1) = 6 vs Difesa(7) -> MANCATO
+    [ATTACCO] SIBILLA REVE -> ADEPTO INCAPPUCCIATO: 2d6(2,4)=6 +VIGORE(1)+arma(1) = 8 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+  [MINACCIA] LA MAREA DI CERA (posseduto) — Piazzate 1 Fonditore sull’ingresso della Banchina (T1): tutti i Fonditori in gioco si atti…
+    Piazzati 1x IL FONDITORE (pool residua: 2), a 6 caselle dalla tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si muove verso SIBILLA REVE: A1 -> B2.
+  ADEPTO INCAPPUCCIATO attacca SIBILLA REVE:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> SIBILLA REVE: 2d6(2,6)=8 +Attacco(1) = 9 vs Difesa(8) -> COLPITO
+    SIBILLA REVE subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 0/7).
+    *** SIBILLA REVE è A TERRA. ***
+  ADEPTO INCAPPUCCIATO si muove verso DOTT. ATTILIO MARN: B1 -> C1.
+  ADEPTO INCAPPUCCIATO attacca DOTT. ATTILIO MARN:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> DOTT. ATTILIO MARN: 2d6(5,2)=7 +Attacco(1) = 8 vs Difesa(8) -> COLPITO
+    DOTT. ATTILIO MARN subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 1/8).
+  IL FONDITORE si avvicina (Movimento 2): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  IL CUSTODE DELLA CERA si avvicina, non ancora a contatto.
+--- Round 13: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 2 — 1 eroi vivi)
+    DOTT. ATTILIO MARN si muove verso ADEPTO INCAPPUCCIATO: B1 -> A2.
+    [ATTACCO] DOTT. ATTILIO MARN -> ADEPTO INCAPPUCCIATO: 2d6(3,6)=9 +VIGORE(2)+arma(1) = 12 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+  [MINACCIA] ECO AMICA (favore) — Tre colpi sordi, in lontananza: Ruggero è vivo. Rivelate una tessera coperta adiacente a u…
+    Rivelata una tessera coperta adiacente (nessun effetto in questa astrazione).
+  ADEPTO INCAPPUCCIATO si muove verso DOTT. ATTILIO MARN: C1 -> B2.
+  ADEPTO INCAPPUCCIATO attacca DOTT. ATTILIO MARN:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> DOTT. ATTILIO MARN: 2d6(5,4)=9 +Attacco(1) = 10 vs Difesa(8) -> COLPITO
+    DOTT. ATTILIO MARN subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 0/8).
+    *** DOTT. ATTILIO MARN è A TERRA. ***
+
+==============================================================================
+ESITO SPEDIZIONE: SCONFITTA (party wipe)
+Round totali: 13
+Formula Minaccia: tetto3_ritardato | Azioni nominali/round: media 3.8, picco 4
+Mazzo Minaccia rimescolato: 0 volta/e
+Segnalini nemici esauriti nel pool (piazzamenti saltati): 0
+Custode della Cera svegliato: solo a T6 (mai in anticipo via Canto)
+  DOTT. ATTILIO MARN: a terra
+  SIBILLA REVE: a terra
+==============================================================================

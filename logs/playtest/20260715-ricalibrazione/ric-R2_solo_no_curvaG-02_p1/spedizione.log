@@ -1,0 +1,165 @@
+Run: ric-R2_solo_no_curvaG-02_p1_seed0  |  seed=303100  |  formula Minaccia=tetto3_ritardato  |  generato: 2026-07-15T13:00:24
+==============================================================================
+SPEDIZIONE - Il Campanile di San Teodoro (sotterranei)
+==============================================================================
+Party: MORA “SPILLA” FANTI, OTTAVIO BRERA
+Bonus da Indagine: PREPARATI (+1 Salute massima a testa); diapason: sì
+NOTA: gruppo trattato come blocco unico tessera per tessera (vedi intestazione script).
+
+--- Round 1: il gruppo raggiunge T2 (Sala delle Casse) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    Il gruppo entra in T2 da B1.
+    [PROVA ACUME] MORA “SPILLA” FANTI: 2d6(2,1)=3 +ACUME(3) = 6 vs Media(9) -> FALLITA
+    MORA “SPILLA” FANTI cerca sulla tessera: niente da trovare qui, o prova fallita.
+    OTTAVIO BRERA: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] CERA SOTTO I PIEDI (insidia) — L’eroe attivo prova NERVI (Media): se fallisce, 1 danno e perde 1 azione al prossimo turno…
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(2,2)=4 +NERVI(1) = 5 vs Media(9) -> FALLITA
+    MORA “SPILLA” FANTI subisce 1 danno da CERA SOTTO I PIEDI (Salute: 7/8).
+--- Round 2: il gruppo raggiunge T4 (Ufficio del Custode) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    Il gruppo entra in T4 da D3.
+    Cercando: trovata LA CHIAVE DELLA CELLA. Prenderla è una scelta — il gruppo decide di prenderla (oggetto rischioso).
+    [PROVA NERVI] OTTAVIO BRERA: 2d6(4,6)=10 +NERVI(2) = 12 vs Media(9) -> SUCCESSO
+    [PROVA ACUME] MORA “SPILLA” FANTI: 2d6(6,1)=7 +ACUME(3) = 10 vs Media(9) -> SUCCESSO
+    MORA “SPILLA” FANTI cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    OTTAVIO BRERA: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] IL CANTO CRESCE (crescendo) — Aggiungete 1 segnalino Canto. Al terzo: il Custode della Cera si desta (vedi Soluzione). S…
+    Segnalino Canto: 1.
+--- Round 3: il gruppo raggiunge T2 (Sala delle Casse) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    Il gruppo entra in T2 da A3.
+    MORA “SPILLA” FANTI: nessun bersaglio, avanza / assiste il gruppo.
+    OTTAVIO BRERA: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] CERA CHE COLA (ostacolo) — Fino a fine round, sulla tessera dell’eroe attivo muoversi costa il doppio.
+    Penalità di Movimento fino al prossimo turno (non modellata nel loop di combattimento).
+--- Round 4: il gruppo raggiunge T5 (Scala interrata) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    Il gruppo entra in T5 da B1.
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(4,2)=6 +NERVI(1) = 7 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] OTTAVIO BRERA: 2d6(6,5)=11 +NERVI(2) = 13 vs Facile(7) -> SUCCESSO
+    [PROVA ACUME] MORA “SPILLA” FANTI: 2d6(1,4)=5 +ACUME(3) = 8 vs Media(9) -> FALLITA
+    MORA “SPILLA” FANTI cerca sulla tessera: niente da trovare qui, o prova fallita.
+    OTTAVIO BRERA: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] SUSSURRI (insidia) — L’eroe con meno NERVI (a pari merito: sceglie il gruppo) prova NERVI (Media): se fallisce …
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(5,6)=11 +NERVI(1) = 12 vs Media(9) -> SUCCESSO
+--- Round 5: il gruppo raggiunge T6 (Cripta della Cera) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    Il gruppo entra in T6 da B1.
+    Rivelata la Cripta della Cera: il Custode della Cera si desta con 2 Adepti, in C2.
+    [OGGETTO] MORA “SPILLA” FANTI fa vibrare il diapason d’argento sul Custode: Difesa 9->5, salta la prossima attivazione.
+    [ABILITÀ] OTTAVIO BRERA usa Vi conosco, Malacarne su ADEPTO INCAPPUCCIATO: rimosso dal tabellone.
+  [MINACCIA] IL FALCETTO NEL BUIO (posseduto) — Piazzate 1 Adepto sull’ingresso della tessera corrente, alle spalle degli eroi.
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 7) in B1.
+  ADEPTO INCAPPUCCIATO si muove verso MORA “SPILLA” FANTI: A1 -> B2.
+  ADEPTO INCAPPUCCIATO attacca MORA “SPILLA” FANTI:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> MORA “SPILLA” FANTI: 2d6(1,2)=3 +Attacco(1) = 4 vs Difesa(8) -> MANCATO
+  ADEPTO INCAPPUCCIATO si muove verso OTTAVIO BRERA: B1 -> C1.
+  ADEPTO INCAPPUCCIATO attacca OTTAVIO BRERA:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> OTTAVIO BRERA: 2d6(3,2)=5 +Attacco(1) = 6 vs Difesa(8) -> MANCATO
+  IL CUSTODE DELLA CERA salta l’attivazione (diapason).
+--- Combattimento contro il Custode della Cera ---
+--- Round 6: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    MORA “SPILLA” FANTI si muove verso ADEPTO INCAPPUCCIATO: B1 -> A2.
+    [ATTACCO] MORA “SPILLA” FANTI -> ADEPTO INCAPPUCCIATO: 2d6(1,1)=2 +VIGORE(2)+arma(1) = 5 vs Difesa(7) -> MANCATO
+    [ATTACCO] OTTAVIO BRERA -> ADEPTO INCAPPUCCIATO: 2d6(6,4)=10 +VIGORE(1)+arma(1) = 12 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+  [MINACCIA] FUMI SOPORIFERI (insidia) — Ogni eroe prova NERVI (Facile): chi fallisce ha 1 sola azione al prossimo turno.
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(2,2)=4 +NERVI(1) = 5 vs Facile(7) -> FALLITA
+    [PROVA NERVI] OTTAVIO BRERA: 2d6(6,2)=8 +NERVI(2) = 10 vs Facile(7) -> SUCCESSO
+  ADEPTO INCAPPUCCIATO attacca OTTAVIO BRERA:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> OTTAVIO BRERA: 2d6(1,3)=4 +Attacco(1) = 5 vs Difesa(8) -> MANCATO
+  IL CUSTODE DELLA CERA si muove verso OTTAVIO BRERA: C2 -> B2.
+  IL CUSTODE DELLA CERA attacca OTTAVIO BRERA:
+    [ATTACCO NEMICO] IL CUSTODE DELLA CERA -> OTTAVIO BRERA: 2d6(5,5)=10 +Attacco(3) = 13 vs Difesa(8) -> COLPITO
+    OTTAVIO BRERA subisce 2 danno da IL CUSTODE DELLA CERA (Salute: 5/7).
+--- Round 7: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    [ATTACCO] MORA “SPILLA” FANTI -> IL CUSTODE DELLA CERA: 2d6(2,6)=8 +VIGORE(2)+arma(1) = 11 vs Difesa(5) -> COLPITO
+    IL CUSTODE DELLA CERA: 2/3 ferite residue.
+    [ATTACCO] OTTAVIO BRERA -> ADEPTO INCAPPUCCIATO: 2d6(3,1)=4 +VIGORE(1)+arma(1) = 6 vs Difesa(7) -> MANCATO
+  [MINACCIA] UNGHIE SULLA PIETRA (posseduto) — Piazzate 1 Cane dei Moli sull’ingresso della tessera corrente: si attiva subito.
+    Piazzati 1x CANE DEI MOLI (pool residua: 2) in A3.
+    CANE DEI MOLI si attiva subito:
+  CANE DEI MOLI attacca MORA “SPILLA” FANTI:
+    [ATTACCO NEMICO] CANE DEI MOLI -> MORA “SPILLA” FANTI: 2d6(6,6)=12 +Attacco(2) = 14 vs Difesa(8) -> COLPITO
+    MORA “SPILLA” FANTI subisce 1 danno da CANE DEI MOLI (Salute: 6/8).
+  ADEPTO INCAPPUCCIATO attacca OTTAVIO BRERA:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> OTTAVIO BRERA: 2d6(3,3)=6 +Attacco(1) = 7 vs Difesa(8) -> MANCATO
+  IL CUSTODE DELLA CERA attacca OTTAVIO BRERA:
+    [ATTACCO NEMICO] IL CUSTODE DELLA CERA -> OTTAVIO BRERA: 2d6(2,3)=5 +Attacco(3) = 8 vs Difesa(8) -> COLPITO
+    OTTAVIO BRERA subisce 2 danno da IL CUSTODE DELLA CERA (Salute: 3/7).
+--- Round 8: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    [ATTACCO] MORA “SPILLA” FANTI -> CANE DEI MOLI: 2d6(3,4)=7 +VIGORE(2)+arma(1) = 10 vs Difesa(6) -> COLPITO
+    CANE DEI MOLI: 0/1 ferite residue.
+    CANE DEI MOLI è ABBATTUTO.
+    [ATTACCO] OTTAVIO BRERA -> ADEPTO INCAPPUCCIATO: 2d6(5,3)=8 +VIGORE(1)+arma(1) = 10 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+  [MINACCIA] CANI DEI MOLI (posseduto) — Piazzate 1 Cane dei Moli sull’uscita più vicina agli eroi della tessera corrente: si attiv…
+    Piazzati 1x CANE DEI MOLI (pool residua: 2) in A3.
+    CANE DEI MOLI si attiva subito:
+  CANE DEI MOLI attacca MORA “SPILLA” FANTI:
+    [ATTACCO NEMICO] CANE DEI MOLI -> MORA “SPILLA” FANTI: 2d6(1,6)=7 +Attacco(2) = 9 vs Difesa(8) -> COLPITO
+    MORA “SPILLA” FANTI subisce 1 danno da CANE DEI MOLI (Salute: 5/8).
+  IL CUSTODE DELLA CERA si muove verso OTTAVIO BRERA: B2 -> C1.
+  IL CUSTODE DELLA CERA attacca OTTAVIO BRERA:
+    [ATTACCO NEMICO] IL CUSTODE DELLA CERA -> OTTAVIO BRERA: 2d6(4,6)=10 +Attacco(3) = 13 vs Difesa(8) -> COLPITO
+    OTTAVIO BRERA subisce 2 danno da IL CUSTODE DELLA CERA (Salute: 1/7).
+--- Round 9: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    [ATTACCO] MORA “SPILLA” FANTI -> CANE DEI MOLI: 2d6(3,6)=9 +VIGORE(2)+arma(1) = 12 vs Difesa(6) -> COLPITO
+    CANE DEI MOLI: 0/1 ferite residue.
+    CANE DEI MOLI è ABBATTUTO.
+    OTTAVIO BRERA si muove verso IL CUSTODE DELLA CERA: B1 -> C2.
+    [ATTACCO] OTTAVIO BRERA -> IL CUSTODE DELLA CERA: 2d6(2,4)=6 +VIGORE(1)+arma(1) = 8 vs Difesa(5) -> COLPITO
+    IL CUSTODE DELLA CERA: 1/3 ferite residue.
+  [MINACCIA] IL CANTO SALE (crescendo) — Aggiungete 1 segnalino Canto. Al terzo: il Custode della Cera si desta (vedi Soluzione). S…
+    Segnalino Canto: 2.
+    Il Custode recupera 1 ferita (2/3) e si attiva subito.
+  IL CUSTODE DELLA CERA si muove verso OTTAVIO BRERA: C1 -> D2.
+  IL CUSTODE DELLA CERA attacca OTTAVIO BRERA:
+    [ATTACCO NEMICO] IL CUSTODE DELLA CERA -> OTTAVIO BRERA: 2d6(2,6)=8 +Attacco(3) = 11 vs Difesa(8) -> COLPITO
+    OTTAVIO BRERA subisce 2 danno da IL CUSTODE DELLA CERA (Salute: 0/7).
+    *** OTTAVIO BRERA è A TERRA. ***
+--- Round 10: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 2 — 1 eroi vivi)
+    MORA “SPILLA” FANTI si muove verso IL CUSTODE DELLA CERA: A2 -> C1.
+    MORA “SPILLA” FANTI si avvicina a IL CUSTODE DELLA CERA, non ancora a contatto.
+  [MINACCIA] IL FONDITORE (posseduto) — Piazzate 1 Fonditore sull’ingresso della Banchina (T1). Se è già in gioco un Fonditore, re…
+    Piazzati 1x IL FONDITORE (pool residua: 2), a 6 caselle dalla tessera del gruppo.
+  IL FONDITORE si avvicina (Movimento 2): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  IL CUSTODE DELLA CERA si muove verso MORA “SPILLA” FANTI: D2 -> D1.
+  IL CUSTODE DELLA CERA attacca MORA “SPILLA” FANTI:
+    [ATTACCO NEMICO] IL CUSTODE DELLA CERA -> MORA “SPILLA” FANTI: 2d6(3,6)=9 +Attacco(3) = 12 vs Difesa(8) -> COLPITO
+    MORA “SPILLA” FANTI subisce 2 danno da IL CUSTODE DELLA CERA (Salute: 3/8).
+--- Round 11: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 2 — 1 eroi vivi)
+    [ATTACCO] MORA “SPILLA” FANTI -> IL CUSTODE DELLA CERA: 2d6(6,2)=8 +VIGORE(2)+arma(1) = 11 vs Difesa(5) -> COLPITO
+    IL CUSTODE DELLA CERA: 1/3 ferite residue.
+  [MINACCIA] IL BRANCO (malavita) — Piazzate 2 Sgherri, adiacenti tra loro, sull’uscita più vicina agli eroi della tessera cor…
+    Piazzati 2x LO SGHERRO (pool residua: 2) in B1.
+  IL FONDITORE si avvicina (Movimento 2): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO attacca MORA “SPILLA” FANTI:
+    [ATTACCO NEMICO] LO SGHERRO -> MORA “SPILLA” FANTI: 2d6(3,5)=8 +Attacco(2) = 10 vs Difesa(8) -> COLPITO
+    MORA “SPILLA” FANTI subisce 1 danno da LO SGHERRO (Salute: 2/8).
+  LO SGHERRO attacca MORA “SPILLA” FANTI:
+    [ATTACCO NEMICO] LO SGHERRO -> MORA “SPILLA” FANTI: 2d6(5,2)=7 +Attacco(2) = 9 vs Difesa(8) -> COLPITO
+    MORA “SPILLA” FANTI subisce 1 danno da LO SGHERRO (Salute: 1/8).
+  IL CUSTODE DELLA CERA attacca MORA “SPILLA” FANTI:
+    [ATTACCO NEMICO] IL CUSTODE DELLA CERA -> MORA “SPILLA” FANTI: 2d6(5,5)=10 +Attacco(3) = 13 vs Difesa(8) -> COLPITO
+    MORA “SPILLA” FANTI subisce 2 danno da IL CUSTODE DELLA CERA (Salute: 0/8).
+    *** MORA “SPILLA” FANTI è A TERRA. ***
+
+==============================================================================
+ESITO SPEDIZIONE: SCONFITTA (party wipe)
+Round totali: 11
+Formula Minaccia: tetto3_ritardato | Azioni nominali/round: media 3.6, picco 4
+Mazzo Minaccia rimescolato: 0 volta/e
+Segnalini nemici esauriti nel pool (piazzamenti saltati): 0
+Custode della Cera svegliato: solo a T6 (mai in anticipo via Canto)
+  MORA “SPILLA” FANTI: a terra
+  OTTAVIO BRERA: a terra
+==============================================================================

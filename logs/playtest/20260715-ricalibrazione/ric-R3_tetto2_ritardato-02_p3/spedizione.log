@@ -1,0 +1,148 @@
+Run: ric-R3_tetto2_ritardato-02_p3_seed0  |  seed=303300  |  formula Minaccia=tetto2_ritardato  |  generato: 2026-07-15T13:00:28
+==============================================================================
+SPEDIZIONE - Il Campanile di San Teodoro (sotterranei)
+==============================================================================
+Party: FULGENZIO CARBONE, PADRE CELSO MARANI
+Bonus da Indagine: SLANCIO (3 azioni al 1° round di spedizione, +1 Salute massima a testa); diapason: sì
+NOTA: gruppo trattato come blocco unico tessera per tessera (vedi intestazione script).
+
+--- Round 1: il gruppo raggiunge T2 (Sala delle Casse) ---
+    (azioni nominali questo round: 6 — 2 eroi vivi)
+    Il gruppo entra in T2 da B1.
+    [PROVA ACUME] FULGENZIO CARBONE: 2d6(6,3)=9 +ACUME(3) = 12 vs Media(9) -> SUCCESSO
+    FULGENZIO CARBONE cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    PADRE CELSO MARANI: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] LA MAREA DI CERA (posseduto) — Piazzate 1 Fonditore sull’ingresso della Banchina (T1): tutti i Fonditori in gioco si atti…
+    Piazzati 1x IL FONDITORE (pool residua: 2), a 6 caselle dalla tessera del gruppo.
+  IL FONDITORE si avvicina (Movimento 2): ancora 7 caselle prima di raggiungere la tessera del gruppo.
+--- Round 2: il gruppo raggiunge T4 (Ufficio del Custode) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    Il gruppo entra in T4 da D3.
+    Cercando: trovata LA CHIAVE DELLA CELLA. Prenderla è una scelta — il gruppo decide di prenderla (oggetto rischioso).
+    [PROVA NERVI] PADRE CELSO MARANI: 2d6(1,1)=2 +NERVI(3) = 5 vs Media(9) -> FALLITA
+    I fumi stordiscono PADRE CELSO MARANI: 1 sola azione al prossimo turno (non modellato oltre il log). La chiave resta comunque sua.
+    [ABILITÀ] FULGENZIO CARBONE usa Esca preziosa: IL FONDITORE si dirige verso l’esca invece che verso il gruppo alla prossima attivazione.
+    [PROVA ACUME] PADRE CELSO MARANI: 2d6(1,6)=7 +ACUME(2) = 9 vs Media(9) -> SUCCESSO
+    PADRE CELSO MARANI cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+  [MINACCIA] PRESAGIO (quiete) — Un brivido corre lungo la schiena. Non accade nulla... per ora.
+    Nessun effetto meccanico (tensione).
+  IL FONDITORE si dirige verso l’esca (Carbone): non attacca questo round.
+--- Round 3: il gruppo raggiunge T2 (Sala delle Casse) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    Il gruppo entra in T2 da A3.
+    [ABILITÀ] FULGENZIO CARBONE usa Esca preziosa: IL FONDITORE si dirige verso l’esca invece che verso il gruppo alla prossima attivazione.
+    PADRE CELSO MARANI: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] CORRENTE GELIDA (ostacolo) — Una corrente gelida risale dai condotti: fino all’inizio del vostro prossimo turno ogni er…
+    Penalità di Movimento fino al prossimo turno (non modellata nel loop di combattimento).
+  IL FONDITORE si dirige verso l’esca (Carbone): non attacca questo round.
+--- Round 4: il gruppo raggiunge T5 (Scala interrata) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    Il gruppo entra in T5 da B1.
+    [PROVA NERVI] FULGENZIO CARBONE: 2d6(4,4)=8 +NERVI(2) = 10 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] PADRE CELSO MARANI: 2d6(3,6)=9 +NERVI(3) = 12 vs Facile(7) -> SUCCESSO
+    [PROVA ACUME] FULGENZIO CARBONE: 2d6(5,5)=10 +ACUME(3) = 13 vs Media(9) -> SUCCESSO
+    FULGENZIO CARBONE cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    PADRE CELSO MARANI: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] CANI DEI MOLI (posseduto) — Piazzate 1 Cane dei Moli sull’uscita più vicina agli eroi della tessera corrente: si attiv…
+    Piazzati 1x CANE DEI MOLI (pool residua: 2) in C1.
+    CANE DEI MOLI si attiva subito:
+  CANE DEI MOLI si muove verso PADRE CELSO MARANI: C1 -> B4.
+  CANE DEI MOLI si avvicina, non ancora a contatto.
+  IL FONDITORE si avvicina (Movimento 2): ancora 8 caselle prima di raggiungere la tessera del gruppo.
+--- Round 5: il gruppo raggiunge T6 (Cripta della Cera) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    Il gruppo entra in T6 da B1.
+    Rivelata la Cripta della Cera: il Custode della Cera si desta con 2 Adepti, in C2.
+    [OGGETTO] FULGENZIO CARBONE fa vibrare il diapason d’argento sul Custode: Difesa 9->5, salta la prossima attivazione.
+    [ATTACCO] PADRE CELSO MARANI -> ADEPTO INCAPPUCCIATO: 2d6(4,5)=9 +VIGORE(1)+arma(1) = 11 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+  [MINACCIA] TRAPPOLA DI CERA (insidia) — L’eroe più avanzato prova NERVI (Media): se fallisce, cera bollente: 1 danno e perde 1 azi…
+    [PROVA NERVI] FULGENZIO CARBONE: 2d6(2,4)=6 +NERVI(2) = 8 vs Media(9) -> FALLITA
+    FULGENZIO CARBONE subisce 1 danno da TRAPPOLA DI CERA (Salute: 6/7).
+  IL FONDITORE si avvicina (Movimento 2): ancora 9 caselle prima di raggiungere la tessera del gruppo.
+  CANE DEI MOLI si muove verso PADRE CELSO MARANI: B4 -> B2.
+  CANE DEI MOLI attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] CANE DEI MOLI -> PADRE CELSO MARANI: 2d6(4,1)=5 +Attacco(2) = 7 vs Difesa(8) -> MANCATO
+  ADEPTO INCAPPUCCIATO attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> PADRE CELSO MARANI: 2d6(4,5)=9 +Attacco(1) = 10 vs Difesa(8) -> COLPITO
+    PADRE CELSO MARANI subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 6/7).
+  IL CUSTODE DELLA CERA salta l’attivazione (diapason).
+--- Combattimento contro il Custode della Cera ---
+--- Round 6: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    [ATTACCO] FULGENZIO CARBONE -> CANE DEI MOLI: 2d6(4,4)=8 +VIGORE(1)+arma(1) = 10 vs Difesa(6) -> COLPITO
+    CANE DEI MOLI: 0/1 ferite residue.
+    CANE DEI MOLI è ABBATTUTO.
+    PADRE CELSO MARANI si muove verso ADEPTO INCAPPUCCIATO: B1 -> A2.
+    [ATTACCO] PADRE CELSO MARANI -> ADEPTO INCAPPUCCIATO: 2d6(1,1)=2 +VIGORE(1)+arma(1) = 4 vs Difesa(7) -> MANCATO
+  [MINACCIA] IL FONDITORE (posseduto) — Piazzate 1 Fonditore sull’ingresso della Banchina (T1). Se è già in gioco un Fonditore, re…
+    Piazzati 1x IL FONDITORE (pool residua: 1), a 6 caselle dalla tessera del gruppo.
+  IL FONDITORE si avvicina (Movimento 2): ancora 7 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> PADRE CELSO MARANI: 2d6(6,5)=11 +Attacco(1) = 12 vs Difesa(8) -> COLPITO
+    PADRE CELSO MARANI subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 5/7).
+  IL FONDITORE si avvicina (Movimento 2): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  IL CUSTODE DELLA CERA si muove verso FULGENZIO CARBONE: C2 -> C1.
+  IL CUSTODE DELLA CERA attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] IL CUSTODE DELLA CERA -> FULGENZIO CARBONE: 2d6(4,2)=6 +Attacco(3) = 9 vs Difesa(8) -> COLPITO
+    FULGENZIO CARBONE subisce 2 danno da IL CUSTODE DELLA CERA (Salute: 4/7).
+--- Round 7: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    [ATTACCO] FULGENZIO CARBONE -> ADEPTO INCAPPUCCIATO: 2d6(2,2)=4 +VIGORE(1)+arma(1) = 6 vs Difesa(7) -> MANCATO
+    [ATTACCO] PADRE CELSO MARANI -> ADEPTO INCAPPUCCIATO: 2d6(6,4)=10 +VIGORE(1)+arma(1) = 12 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+  [MINACCIA] UNGHIE SULLA PIETRA (posseduto) — Piazzate 1 Cane dei Moli sull’ingresso della tessera corrente: si attiva subito.
+    Piazzati 1x CANE DEI MOLI (pool residua: 2) in A1.
+    CANE DEI MOLI si attiva subito:
+  CANE DEI MOLI attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] CANE DEI MOLI -> PADRE CELSO MARANI: 2d6(5,4)=9 +Attacco(2) = 11 vs Difesa(8) -> COLPITO
+    PADRE CELSO MARANI subisce 1 danno da CANE DEI MOLI (Salute: 4/7).
+  IL FONDITORE si avvicina (Movimento 2): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+  IL FONDITORE si avvicina (Movimento 2): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  IL CUSTODE DELLA CERA si muove verso PADRE CELSO MARANI: C1 -> B2.
+  IL CUSTODE DELLA CERA attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] IL CUSTODE DELLA CERA -> PADRE CELSO MARANI: 2d6(2,3)=5 +Attacco(3) = 8 vs Difesa(8) -> COLPITO
+    PADRE CELSO MARANI subisce 2 danno da IL CUSTODE DELLA CERA (Salute: 2/7).
+--- Round 8: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    [ATTACCO] FULGENZIO CARBONE -> CANE DEI MOLI: 2d6(4,1)=5 +VIGORE(1)+arma(1) = 7 vs Difesa(6) -> COLPITO
+    CANE DEI MOLI: 0/1 ferite residue.
+    CANE DEI MOLI è ABBATTUTO.
+    [ATTACCO] PADRE CELSO MARANI -> IL CUSTODE DELLA CERA: 2d6(6,1)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(5) -> COLPITO
+    IL CUSTODE DELLA CERA: 2/3 ferite residue.
+  [MINACCIA] BRAVI SUL MOLO (malavita) — Piazzate 1 Sgherro sull’ingresso della Banchina (T1).
+    Piazzati 1x LO SGHERRO (pool residua: 3), a 6 caselle dalla tessera del gruppo.
+  IL FONDITORE si avvicina (Movimento 2): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+  IL FONDITORE raggiunge la tessera del gruppo, da C1.
+  IL FONDITORE attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] IL FONDITORE -> FULGENZIO CARBONE: 2d6(5,2)=7 +Attacco(1) = 8 vs Difesa(8) -> COLPITO
+    FULGENZIO CARBONE subisce 2 danno da IL FONDITORE (Salute: 2/7).
+  LO SGHERRO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  IL CUSTODE DELLA CERA attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] IL CUSTODE DELLA CERA -> PADRE CELSO MARANI: 2d6(4,4)=8 +Attacco(3) = 11 vs Difesa(8) -> COLPITO
+    PADRE CELSO MARANI subisce 2 danno da IL CUSTODE DELLA CERA (Salute: 0/7).
+    *** PADRE CELSO MARANI è A TERRA. ***
+--- Round 9: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 2 — 1 eroi vivi)
+    [ATTACCO] FULGENZIO CARBONE -> IL FONDITORE: 2d6(1,4)=5 +VIGORE(1)+arma(1) = 7 vs Difesa(8) -> MANCATO
+  [MINACCIA] IL CANTO SALE (crescendo) — Aggiungete 1 segnalino Canto. Al terzo: il Custode della Cera si desta (vedi Soluzione). S…
+    Segnalino Canto: 1.
+    Il Custode recupera 1 ferita (3/3) e si attiva subito.
+  IL FONDITORE si avvicina (Movimento 2): ancora 1 caselle prima di raggiungere la tessera del gruppo.
+  IL FONDITORE attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] IL FONDITORE -> FULGENZIO CARBONE: 2d6(6,2)=8 +Attacco(1) = 9 vs Difesa(8) -> COLPITO
+    FULGENZIO CARBONE subisce 2 danno da IL FONDITORE (Salute: 0/7).
+    *** FULGENZIO CARBONE è A TERRA. ***
+
+==============================================================================
+ESITO SPEDIZIONE: SCONFITTA (party wipe)
+Round totali: 9
+Formula Minaccia: tetto2_ritardato | Azioni nominali/round: media 4.0, picco 6
+Mazzo Minaccia rimescolato: 0 volta/e
+Segnalini nemici esauriti nel pool (piazzamenti saltati): 0
+Custode della Cera svegliato: solo a T6 (mai in anticipo via Canto)
+  FULGENZIO CARBONE: a terra
+  PADRE CELSO MARANI: a terra
+==============================================================================
