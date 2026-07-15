@@ -92,6 +92,89 @@ NOTE_NEMICI = {
         "vedi, di solito \u00e8 gi\u00e0 tardi \u2014 ma basta un colpo ben messo per fermarlo.",
 }
 
+# BIO_BESTIARIO: versione estesa e immersiva, usata SOLO nel Bestiario
+# (gen_bestiario.py), dove c'e' spazio per respirare - stesso principio di
+# BIO/BIO_SCHEDA per gli eroi (breve sulla carta, estesa sulla scheda). Se un
+# nemico non ha BIO_BESTIARIO, il fascicolo ripiega su NOTE_NEMICI/`note`. Un
+# nemico nuovo porta entrambe le versioni (vedi PROMPT-ESPANSIONE.md).
+BIO_BESTIARIO = {
+    'ADEPTO INCAPPUCCIATO':
+        "Di giorno sono nessuno: il fornaio che impasta all\u2019alba, il barcaiolo che tira "
+        "la cima, il sagrestano che spegne le candele. Alle 3 di notte qualcosa li chiama e "
+        "loro rispondono, uno a uno, senza svegliare chi dorme accanto. Indossano la "
+        "palandrana grigia sopra i vestiti da lavoro \u2014 a volte si intravede ancora il "
+        "grembiule del fornaio sotto \u2014 e la maschera di cera liscia, colata sul volto "
+        "ancora tiepida, che si indurisce mentre camminano verso il luogo dell\u2019accordo. "
+        "Non parlano. Non gridano, nemmeno colpiti. Combattono con gli stessi falcetti che "
+        "di giorno tagliano gli stoppini nelle fonderie, con un\u2019efficienza distratta, "
+        "quasi annoiata \u2014 come se una parte di loro fosse gi\u00e0 altrove, gi\u00e0 nel "
+        "canto. Al mattino, chi sopravvive alla notte torna al banco o alla barca senza "
+        "ricordare nulla: solo la cera secca dietro le orecchie, che si toglie con "
+        "l\u2019unghia senza chiedersi perch\u00e9 c\u2019\u00e8.",
+    'CANE DEI MOLI':
+        "Erano cani da guardia normali, prima \u2014 bastardi grossi tenuti a stecchetto nei "
+        "magazzini, per tenere lontani i ladri di corda e di piombo. Il culto li ha presi "
+        "come prende tutto ci\u00f2 che serve: senza chiedere, pagando in cera e in carne. Ora "
+        "hanno il muso incrostato di gocce nere, come se avessero bevuto a una candela "
+        "invece che a una ciotola, e un ringhio che arriva un istante dopo il morso, non "
+        "prima. Corrono lungo le passerelle di legno marcio senza far scricchiolare una "
+        "tavola, saltano da un molo all\u2019altro con una leggerezza che il loro peso non "
+        "dovrebbe permettere. Sono le prime sentinelle di ogni deposito del Coro: se "
+        "abbaiano \u2014 non lo fanno quasi mai \u2014 \u00e8 gi\u00e0 troppo tardi per chi li "
+        "sente arrivare.",
+    'IL FONDITORE':
+        "Nella vita del culto sono gli artigiani, non i soldati: uomini di mezza et\u00e0 col "
+        "grembiule di cuoio bruciacchiato e le mani coperte di calli vecchi di decenni, "
+        "quelle che hanno versato mille candele prima di questa e ne verseranno altre mille "
+        "se qualcuno glielo lascer\u00e0 fare. Portano il mestolo colmo di cera fusa come "
+        "un\u2019arma qualunque, senza fretta e senza rabbia \u2014 la stessa pazienza "
+        "silenziosa con cui hanno sempre lavorato, applicata ora a tutt\u2019altro. Non "
+        "corrono: chi ha versato cera bollente per una vita sa che la fretta \u00e8 quello "
+        "che ti fa scottare. Restano fermi, aspettano che il bersaglio venga a loro, e "
+        "quando colpiscono la cera che schizza si attacca alla pelle e ai vestiti, "
+        "rallentando ogni passo successivo \u2014 un ricordo bruciante di quanto, in "
+        "fonderia, un errore costi caro.",
+    'IL CUSTODE DELLA CERA':
+        "Nessuno, nemmeno tra gli Adepti, sa dire da quanti anni sorvegli la cripta sotto "
+        "la Cattedrale, n\u00e9 chi fosse prima che gli strati di cera cominciassero a "
+        "coprirlo \u2014 uno dopo l\u2019altro, colata dopo colata, finch\u00e9 il volto sotto "
+        "non \u00e8 rimasto che un moncone liscio in cui, a tratti, sotto una certa luce, "
+        "affiorano lineamenti che non sono i suoi. Non si affretta mai: chi vive "
+        "nell\u2019unico luogo di Roccamora dove il tempo non passa non ha motivo di farlo. "
+        "Le sue mani, quando si muovono, colano ancora cera calda a ogni passo, lasciando "
+        "una scia che si indurisce sul pavimento della cripta \u2014 un sentiero di tutte le "
+        "volte in cui si \u00e8 mosso, che nessuno ha mai contato. Il diapason d\u2019argento "
+        "\u00e8 l\u2019unica cosa che sembra davvero disturbarlo: la vibrazione, fatta a lui "
+        "adiacente, incrina per un momento la superficie di cera come una crepa nel "
+        "ghiaccio \u2014 abbastanza da fargli abbassare la guardia (Difesa 5 per il resto "
+        "della partita) e perdere un'intera attivazione a ricomporsi.",
+    'LO SGHERRO':
+        "Roccamora ha una malavita antica quanto i suoi canali, e il Coro Sommerso non ha "
+        "avuto bisogno di inventarne una nuova: gli \u00e8 bastato affittarla. Gli Sgherri "
+        "sono barcaioli che hanno smesso di remare, disertori di guarnigioni lontane, "
+        "ex galeotti che il fiume ha ributtato a riva \u2014 gente che sfonda teste per pochi "
+        "soldi da prima che qualcuno cantasse alle campane, e continuer\u00e0 a farlo il "
+        "giorno dopo che avr\u00e0 smesso, per chiunque paghi meglio. Il culto non li converte, "
+        "non li accorda, non gli mette la maschera: li paga in anticipo, e loro non fanno "
+        "domande su cosa proteggono o perch\u00e9. Girano quasi sempre in coppia o in gruppo, "
+        "bastone in una mano e coltellaccio nell\u2019altra, e sanno coprirsi le spalle a "
+        "vicenda con la disinvoltura di chi lo fa da anni per mestiere: adiacenti tra loro, "
+        "si passano parole basse e si scambiano la posizione senza bisogno di guardarsi.",
+    'IL SICARIO':
+        "Non porta maschera n\u00e9 cera, e questo lo rende pi\u00f9 inquietante di chi la "
+        "porta: significa che sceglie di essere l\u00ec, ogni volta, con la testa lucida e "
+        "niente da recitare. Una lama sottile, tenuta come si tiene qualcosa di prezioso, e "
+        "la pazienza fredda di chi ha imparato a contare i respiri di un bersaglio prima di "
+        "avvicinarsi. Non attacca mai chi \u00e8 nel pieno delle forze, circondato da amici, "
+        "attento: aspetta, si sposta ai margini, osserva chi zoppica, chi resta indietro, "
+        "chi si \u00e8 allontanato un passo di troppo dal gruppo \u2014 e quando lo trova, il "
+        "colpo arriva da un angolo che nessuno stava guardando. \u00c8 un mestiere che si "
+        "impara ai moli, tra i contrabbandieri, non nei conventicoli del culto: viene pagato "
+        "meglio degli Sgherri, e lo sa. Fragile sotto la lama, per\u00f2 \u2014 chi riesce a "
+        "chiudere la distanza prima che lui scelga il momento, di solito lo abbatte in "
+        "fretta.",
+}
+
 # BIO_SCHEDA: versione estesa e immersiva della biografia, usata SOLO sulla
 # Scheda Personaggio (gen_deluxe.py), dove c'e' spazio per respirare. La carta
 # Eroe (cards-data.js) tiene la versione breve di BIO: sulla carta lo spazio e'
@@ -335,6 +418,8 @@ def apply(luoghi, tiles, nemici, heroes, minacce):
     for N in nemici:
         if N['nome'] in NOTE_NEMICI:
             N['note'] = NOTE_NEMICI[N['nome']]
+        # bio estesa per il solo Bestiario; se manca, il fascicolo usa `note`
+        N['bio_bestiario'] = BIO_BESTIARIO.get(N['nome'], N['note'])
     for hro in heroes:
         hro['bio'] = BIO.get(hro['nome'], '')
         # bio estesa per la sola Scheda Personaggio; se manca, la scheda usa la breve

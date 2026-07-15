@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 """Ombre su Roccamora - Bestiario (un fascicolo per episodio).
 
-Una pagina per nemico, template affine alla Scheda Personaggio: ritratto,
-bio, statistiche fisse (Attacco/Difesa/Movimento/Danno) e FERITE tabellate
-per numero di eroi in tavola - la scalatura del Regolamento ("Giocare in un
-tavolo grande") letta a colpo d'occhio, senza calcoli a mente. Le carte
-Creatura (cards-data.js) non riportano piu' le statistiche: questo
-fascicolo e' l'unica fonte al tavolo.
+Una pagina per nemico, stesso template delle Schede Personaggio: arte fusa
+nello strappo trasparente della pergamena (in basso a destra, la stessa
+`background scheda personaggio 2.png`), bio estesa a piena larghezza sopra,
+statistiche fisse e FERITE tabellate per numero di eroi in tavola sotto -
+la scalatura del Regolamento ("Giocare in un tavolo grande") letta a colpo
+d'occhio, senza calcoli a mente. Le carte Creatura non riportano piu' le
+statistiche: questo fascicolo e' l'unica fonte al tavolo.
 
 Ogni episodio ripete nel proprio Bestiario anche i nemici comuni (Malavita):
 il fascicolo e' autocontenuto, come tutto il materiale per episodio.
@@ -14,13 +15,11 @@ il fascicolo e' autocontenuto, come tutto il materiale per episodio.
 import os
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.units import mm
-from reportlab.lib import colors
 from reportlab.pdfgen import canvas
-from reportlab.lib.utils import ImageReader
 from reportlab.platypus import Paragraph, Frame
 from reportlab.lib.styles import ParagraphStyle
 
-from deluxe_style import (register_fonts, rule_border, pad_to_even_pages, parchment_art, seal, F,
+from deluxe_style import (register_fonts, torn_portrait, rule_border, pad_to_even_pages, seal, F,
                           ARTWORKS_DIR, INK, RED, TEAL, PAPER_DK, GOLD, SEPIA)
 from gen_cards import HEROES, LUOGHI, MINACCE, NEMICI, TILES
 import story
@@ -29,6 +28,16 @@ story.apply(LUOGHI, TILES, NEMICI, HEROES, MINACCE)
 OUT_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'pdf')
 register_fonts()
 W, H = A4
+
+# Stesso strappo (in basso a destra) e stessa finestra d'arte delle Schede
+# Personaggio (gen_deluxe.py): CUT_X e' il bordo sinistro dello strappo,
+# tutto cio' che sta sotto la riga del titolo e a destra di CUT_X mostra
+# l'arte del nemico attraverso la pergamena - il testo sotto quella riga
+# resta a sinistra di CUT_X per non finirci sopra.
+TORN_BG = 'background scheda personaggio 2.png'
+CUT_X = 105*mm
+# finestra d'arte (window di torn_portrait): meta' destra, meta' inferiore.
+ART_TOP = 0.51 * H  # sopra questa riga, nessuna arte: testo a piena larghezza
 
 
 def st(name, **kw):
@@ -46,16 +55,18 @@ def frame_flow(c, x, y, w, h, flow):
           bottomPadding=0, showBoundary=0).addFromList(flow, c)
 
 
-def stat_box(c, x, y, w, label, value):
+def stat_row(c, x, y, w, label, value):
+    """Riga compatta label:valore (non un riquadro pieno come le Schede
+    Personaggio): sotto ART_TOP lo spazio utile e' solo CUT_X-mx di
+    larghezza, un riquadro da 18mm come le Schede non ci basterebbe per
+    piu' di due elementi affiancati."""
     c.saveState()
-    c.setStrokeColor(GOLD); c.setLineWidth(1); c.setFillColor(PAPER_DK)
-    c.rect(x, y, w, 18*mm, fill=1)
-    c.setStrokeColor(INK); c.setLineWidth(0.6)
-    c.rect(x + 1.2*mm, y + 1.2*mm, w - 2.4*mm, 18*mm - 2.4*mm)
-    c.setFillColor(TEAL); c.setFont(F['sc'], 8)
-    c.drawCentredString(x + w/2, y + 13.2*mm, label.lower())
-    c.setFillColor(INK); c.setFont(F['b'], 19)
-    c.drawCentredString(x + w/2, y + 4*mm, str(value))
+    c.setStrokeColor(GOLD); c.setLineWidth(0.7)
+    c.line(x, y, x + w, y)
+    c.setFillColor(TEAL); c.setFont(F['sc'], 8.5)
+    c.drawString(x, y + 2*mm, label.lower())
+    c.setFillColor(INK); c.setFont(F['b'], 11)
+    c.drawRightString(x + w, y + 2*mm, str(value))
     c.restoreState()
 
 
@@ -73,7 +84,15 @@ def ferite_per_fascia(nemico):
 
 
 def pagina_nemico(c, nemico):
-    parchment_art(c, W, H)
+    # Posizionamento arte: di default l'inquadratura e' quella "cover" gia'
+    # tarata per i ritratti eroe (top_margin=0, overscan=0.75, center_x=0.5)
+    # - la stessa finestra usata dalle Schede Personaggio. Il Custode e' un
+    # ritratto verticale con la figura gia' centrata: overscan piu' ampio
+    # (1.1) per farlo risaltare di piu' nello strappo invece di lasciarlo
+    # piccolo al centro di una finestra che e' comunque meta' pagina.
+    overscan = 1.1 if nemico.get('boss') else 0.75
+    torn_portrait(c, W, H, nemico['art'], TORN_BG,
+                  window=(0.50, 0.0, 1.03, 0.51), overscan=overscan)
     rule_border(c, W, H)
     mx, mt = 20*mm, 20*mm
     c.setFillColor(RED); c.setFont(F['sc'], 23)
@@ -84,71 +103,50 @@ def pagina_nemico(c, nemico):
     c.setStrokeColor(INK); c.setLineWidth(1)
     c.line(mx, H - mt - 16*mm, W - mx, H - mt - 16*mm)
 
-    # Ritratto: riquadro bordato a destra (le art nemico sono le stesse
-    # delle carte Creatura, quadrate, nessuna trasparenza a strappo come i
-    # ritratti eroe - un box in cornice e' il rendering onesto).
-    art_path = os.path.join(ARTWORKS_DIR, nemico['art'])
-    box_w, box_h = 72*mm, 72*mm
-    bx, by = W - mx - box_w, H - mt - 20*mm - box_h
-    if os.path.exists(art_path):
-        img = ImageReader(art_path)
-        iw, ih = img.getSize()
-        scala = max(box_w / iw, box_h / ih)
-        c.saveState()
-        p = c.beginPath()
-        p.rect(bx, by, box_w, box_h)
-        c.clipPath(p, stroke=0, fill=0)
-        c.drawImage(img, bx + (box_w - iw*scala)/2, by + (box_h - ih*scala)/2,
-                    iw*scala, ih*scala)
-        c.restoreState()
-        c.setStrokeColor(GOLD); c.setLineWidth(1.4)
-        c.rect(bx, by, box_w, box_h)
-        c.setStrokeColor(INK); c.setLineWidth(0.6)
-        c.rect(bx + 1.2*mm, by + 1.2*mm, box_w - 2.4*mm, box_h - 2.4*mm)
-    else:
-        print(f"AVVISO: manca artworks/{nemico['art']} - pagina senza ritratto.")
-
-    # Bio a sinistra del ritratto (il campo `note` arricchito da story.py
-    # contiene flavor E tratti meccanici del nemico: qui c'e' spazio per
-    # leggerli per intero, sulle carte non piu').
-    testo_w = bx - mx - 8*mm
-    frame_flow(c, mx, by, testo_w, box_h, [
+    # Bio a piena larghezza: tutta l'area sopra ART_TOP e' libera dallo
+    # strappo (la finestra d'arte comincia solo sotto meta' pagina), stesso
+    # spazio "chi sei" delle Schede Personaggio ma qui puo' arrivare fin
+    # quasi al bordo dello strappo per una bio davvero estesa.
+    bio_top = H - mt - 19*mm
+    bio_bottom = ART_TOP + 6*mm
+    frame_flow(c, mx, bio_bottom, W - 2*mx, bio_top - bio_bottom, [
         Paragraph('chi è', SMB),
-        Paragraph(nemico['note'], st('bio', fontName=F['i'], fontSize=9.8, leading=13, alignment=4))])
+        Paragraph(nemico.get('bio_bestiario', nemico['note']),
+                  st('bio', fontName=F['i'], fontSize=9.8, leading=13, alignment=4))])
 
-    # Statistiche fisse (non cambiano col numero di eroi).
-    y0 = by - 26*mm
-    bw = (W - 2*mx - 3*10*mm) / 4.0
-    for i, (lb, v) in enumerate([('ATTACCO', '+%d' % nemico['att']), ('DIFESA', nemico['dif']),
-                                 ('MOVIMENTO', nemico['mov']), ('DANNO', nemico['dan'])]):
-        stat_box(c, mx + i*(bw + 10*mm), y0, bw, lb, v)
-
-    # Ferite per numero di eroi in tavola: la riga da leggere e' UNA, quella
-    # del proprio tavolo, fissata a inizio spedizione (vedi Regolamento).
-    y1 = y0 - 14*mm
+    # Sotto la riga di meta' pagina, l'arte occupa la meta' destra: le
+    # statistiche restano nella colonna sinistra (mx..CUT_X), come
+    # l'abilita'/equipaggiamento delle Schede Personaggio.
+    col_w = CUT_X - mx
+    y = ART_TOP - 4*mm
     c.setFillColor(TEAL); c.setFont(F['sc'], 10)
-    c.drawString(mx, y1, 'ferite — in base a quanti eroi sono in tavola')
-    c.setFillColor(SEPIA); c.setFont(F['i'], 8.5)
-    c.drawString(mx, y1 - 4.5*mm, 'Si fissa all’inizio della Spedizione e non cambia più, '
-                                  'anche se un eroe cade a terra.')
-    y2 = y1 - 26*mm
-    col_w = (W - 2*mx) / len(FASCE)
-    ferite = ferite_per_fascia(nemico)
-    for i, (fascia, fer) in enumerate(zip(FASCE, ferite)):
-        x = mx + i*col_w
-        c.setStrokeColor(GOLD); c.setLineWidth(1); c.setFillColor(PAPER_DK)
-        c.rect(x, y2, col_w, 18*mm, fill=1)
-        c.setStrokeColor(INK); c.setLineWidth(0.6)
-        c.rect(x + 1.2*mm, y2 + 1.2*mm, col_w - 2.4*mm, 18*mm - 2.4*mm)
-        c.setFillColor(TEAL); c.setFont(F['sc'], 8.5)
-        c.drawCentredString(x + col_w/2, y2 + 13*mm, fascia)
-        c.setFillColor(RED if fer != nemico['fer'] else INK); c.setFont(F['b'], 19)
-        c.drawCentredString(x + col_w/2, y2 + 4*mm, str(fer))
+    c.drawString(mx, y, 'statistiche')
+    y -= 7*mm
+    for lb, v in [('Attacco', '+%d' % nemico['att']), ('Difesa', nemico['dif']),
+                  ('Movimento', nemico['mov']), ('Danno', nemico['dan'])]:
+        stat_row(c, mx, y, col_w, lb, v)
+        y -= 8*mm
 
-    # Richiamo al Registro delle Ferite (dove si segnano davvero).
-    c.setFillColor(SEPIA); c.setFont(F['i'], 8.5)
-    c.drawString(mx, y2 - 7*mm, 'Le ferite subite si segnano sul Registro delle Ferite '
-                                '(in fondo al fascicolo Spedizione), una riga per nemico attivo.')
+    y -= 6*mm
+    c.setFillColor(TEAL); c.setFont(F['sc'], 10)
+    c.drawString(mx, y, 'ferite, per eroi in tavola')
+    y -= 5.5*mm
+    c.setFillColor(SEPIA); c.setFont(F['i'], 7.3)
+    for riga in ('Fissate a inizio Spedizione,', 'non ricalcolate dopo.'):
+        c.drawString(mx, y, riga)
+        y -= 3.3*mm
+    y -= 2*mm
+    ferite = ferite_per_fascia(nemico)
+    for fascia, fer in zip(FASCE, ferite):
+        c.setFillColor(RED if fer != nemico['fer'] else INK); c.setFont(F['b'], 11)
+        c.drawString(mx, y, str(fer))
+        c.setFillColor(TEAL); c.setFont(F['r'], 9)
+        c.drawString(mx + 8*mm, y, fascia)
+        y -= 6.5*mm
+
+    c.setFillColor(SEPIA); c.setFont(F['i'], 7.5)
+    c.drawString(mx, 14*mm, 'Le ferite subite si segnano sul Registro delle Ferite')
+    c.drawString(mx, 10.5*mm, '(fascicolo Spedizione), una riga per nemico attivo.')
     c.showPage()
 
 
@@ -157,7 +155,14 @@ def bestiario(nomi_nemici, out_path, titolo):
     c = canvas.Canvas(out_path, pagesize=A4)
     c.setTitle(titolo)
     for nome in nomi_nemici:
-        pagina_nemico(c, per_nome[nome])
+        if nome not in per_nome:
+            print(f'AVVISO: {nome} non trovato in NEMICI, saltato.')
+            continue
+        n = per_nome[nome]
+        if not os.path.exists(os.path.join(ARTWORKS_DIR, n['art'])):
+            print(f"SALTO {nome}: manca artworks/{n['art']}.")
+            continue
+        pagina_nemico(c, n)
     c.save()
     pad_to_even_pages(out_path)
     print('ok ->', out_path)
