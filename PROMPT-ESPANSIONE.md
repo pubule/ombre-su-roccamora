@@ -70,8 +70,10 @@ visto («un signore ben vestito, mani da artigiano») è Ferri, non nominarlo ma
 prima che l'Ep. 1 lo riveli.
 
 **Struttura fissa di un episodio (una serata):**
-1. *Fase Indagine* — 8 carte Luogo (circa 5 aperte dall'inizio, 2–3 sbloccabili tramite
-   parole chiave o oggetti trovati — **non scriverle in maiuscolo** dentro l'indizio: da
+1. *Fase Indagine* — 8 carte Luogo (circa 5 aperte dall'inizio, **minimo 3 bloccati**
+   tramite parole chiave o oggetti trovati — sotto i 3, l'abbinamento chiave→porta
+   coperta è quasi obbligato invece che dedotto, vedi 1-sexies; il Preludio-tutorial fa
+   eccezione con 1. **Non scrivere le parole chiave in maiuscolo** dentro l'indizio: da
    una sessione successiva, il maiuscolo era un aiuto involontario che permetteva di
    scandire il testo cercando l'unica parola urlata invece di leggerlo davvero, vedi
    1-quinquies). Budget: **6 ore/visite** (18:00-24:00,
@@ -191,6 +193,43 @@ prima che l'Ep. 1 lo riveli.
    - la descrizione d'apertura (`testo`) resta comunque nei dati e nel fascicolo
      `Luoghi.pdf` per chi arbitra (vedi Bibbia Visiva) — sparisce solo dalla carta
      fisica del luogo bloccato, sostituita dalla frase-requisito.
+1-sexies. *Regola "Bussare" (setup coperte + verifica chiavi)* — chiude i due buchi
+   procedurali lasciati aperti da 1-quinquies: come si visita un luogo di cui non si
+   conosce il volto, e chi verifica che la chiave dichiarata sia giusta.
+   - **Setup**: le carte "Disponibile dall'inizio" partono **scoperte** (le piste che
+     qualunque investigatore batterebbe); i luoghi **bloccati** partono **coperti**
+     (dorso: solo il numero — serve a chi arbitra per abbinare carta e pagina del
+     fascicolo, non ai giocatori per scegliere). **Minimo 3 luoghi bloccati/coperti
+     per episodio** (Ep. 1: L5/L6/L7): con meno, l'abbinamento chiave→porta è quasi
+     obbligato invece che dedotto. Il Preludio-tutorial fa eccezione con 1.
+   - **Vincolo anti-fortuna**: le chiavi (parole/oggetti che aprono luoghi) nascono
+     SOLO in luoghi aperti dall'inizio — MAI dentro un luogo coperto. Vietate le
+     catene cieche coperto→coperto: se un luogo bloccato desse la chiave di un altro
+     luogo bloccato, arrivarci sarebbe fortuna, non deduzione. Ep. 1 conforme:
+     sommerso (L1), corda (L2), chiatta (L3) vengono tutti da luoghi aperti; il
+     diapason di L5 è un oggetto da Spedizione, non una chiave d'accesso.
+   - **Visitare una carta coperta**: costa 1 ora come ogni visita. Il gruppo dichiara
+     una destinazione con le parole dei propri appunti ("i magazzini sul canale") —
+     chi tiene il fascicolo trova la pagina e gira la carta giusta (precedente:
+     l'elenco di Sherlock Holmes Consulting Detective — la città risolve i nomi, mai
+     un puntatore stampato) — oppure bussa alla cieca su una carta coperta a scelta.
+     Girata la carta bloccata si legge la frase-requisito (1-quinquies): è il valore
+     dell'ora spesa anche se non si entra, e la carta resta scoperta da lì in poi.
+   - **Verifica**: il gruppo dichiara **UNA parola o UN oggetto per visita** a chi
+     tiene il fascicolo, che controlla la riga **"si entra con — solo per chi
+     arbitra"** stampata in rosso sul fronte della pagina del luogo bloccato (campo
+     `chiave=('parola'|'oggetto', valore)` nei dati LUOGHI — l'UNICO posto dove la
+     chiave è scritta; precedente: il decoder di Exit/Unlock, un oracolo che verifica
+     senza alterare il gioco). Giusta: si entra subito, nella stessa ora. Sbagliata
+     (o nessuna dichiarazione): l'ora è comunque spesa, si resta fuori. **Nessun'altra
+     penalità** — con 6 ore per 8 luoghi il tempo è già la valuta più scarsa
+     (precedente: Detective/SHCD puniscono col tempo, mai con danni). Il limite "UNA
+     per visita" è l'anti-brute-force: provare tutte le chiavi su tutte le porte
+     costa ore che non ci sono.
+   - **Simulatore**: la regola non è modellata (`simulate_playtest.py` abbina
+     chiave→porta senza mai sbagliare né bussare a vuoto): i KPI d'Indagine sono un
+     tetto superiore rispetto a un tavolo che spreca ore in tentativi — divario
+     accettabile, è varianza di abilità del tavolo, non di design.
 2. *Busta Soluzione* — risposte, per ogni domanda un Vantaggio se esatta e (per 2 domande
    su 4) una complicazione se errata; schema di montaggio della mappa; epilogo da leggere
    a voce; Frammento; elenco migliorie; **nota per chi arbitra** su quale nucleo garantito
@@ -779,6 +818,11 @@ Ogni testo deve far *vedere* la scena, non riassumerla. Regole:
       probabili a un tavolo da 2 possono sbloccare almeno un Approfondimento?
 - [ ] Il mazzo Approfondimenti ha dorsi con SOLO il tipo (mai il numero del luogo né il
       contenuto)? Le carte Oggetto hanno solo il nome (mai il luogo/tessera d'origine)?
+- [ ] Almeno 3 luoghi bloccati/coperti (1-sexies)? Ogni luogo bloccato ha la riga
+      "si entra con — solo per chi arbitra" nel fascicolo Luoghi (campo `chiave` nei
+      dati) e la frase-requisito narrativa sulla carta (1-quinquies)?
+- [ ] Nessuna chiave (parola/oggetto che apre un luogo) nasce dentro un luogo coperto
+      (vincolo anti-fortuna, 1-sexies)?
 - [ ] Ogni oggetto trovabile (Indagine o Cercare) ha una carta Oggetto con arte dedicata,
       flavor breve ed effetto copiato 1:1 dalla fonte? C'è almeno un oggetto-esca?
 - [ ] Ci sono false piste che reggono ma vengono smontate da un indizio trovabile, e almeno

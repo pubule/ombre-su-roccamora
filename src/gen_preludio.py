@@ -163,6 +163,7 @@ LUOGHI_P = [
                         'non ucciso — un morto non serve a chi ha ancora domande da fargli.'),
          ]),
     dict(n='P4', nome='LA DOGANA VECCHIA', req='L’uomo con la canna da pesca non stacca gli occhi da voi: sembra aspettare una parola d’ordine, la stessa bisbigliata in qualche taverna.',
+         chiave=('parola', 'dogana'),
          art='Dogana Vecchia.png',
          testo='In fondo al canale di ponente, la vecchia dogana marcisce da vent’anni: banchina '
                'sfondata, portoni murati, una chiatta ormeggiata dove non dovrebbe esserci niente. '
@@ -313,10 +314,12 @@ def indagine():
     c.drawString(16*mm + 6*17*mm, H - 42*mm, '! il barcaiolo (P2) c’è solo dalle 21')
     y = scuola(c, 16*mm, H - 52*mm, W - 32*mm,
                'Visitare un luogo costa 1 ora, anche tornarci. Girate la carta, leggete testo e '
-               'indizi ad alta voce, annotate qui nomi e parole chiave. Quando trovate '
-               'una parola chiave potete visitare il luogo che la richiede. Alcuni eroi cavano '
-               'indizi in più (Approfondimenti): quando visitate un luogo, chi tiene il '
-               'fascicolo Luoghi controlla se l’eroe giusto è presente. Due eroi funzionano '
+               'indizi ad alta voce, annotate qui nomi e parole chiave. Il luogo coperto si può '
+               'visitare lo stesso (1 ora): girata la carta, leggete cosa serve per entrare — se '
+               'credete di avere la chiave, dichiarate UNA parola o UN oggetto a chi tiene il '
+               'fascicolo Luoghi: giusta si entra subito, sbagliata l’ora è comunque spesa. '
+               'Alcuni eroi cavano indizi in più (Approfondimenti): quando visitate un luogo, '
+               'chi tiene il fascicolo controlla se l’eroe giusto è presente. Due eroi funzionano '
                'diverso: Padre Marani (Discernimento) chiede solo sì o no su un luogo non '
                'ancora visitato, senza leggere nulla; Carbone esamina un Oggetto o un Reperto '
                'già trovato e ne cava un dettaglio in più, se chi tiene il fascicolo ne ha uno.')
@@ -592,9 +595,19 @@ def luoghi():
         d.drawOn(c, MX, DESC_TOP - dh)
         c.setStrokeColor(SEPIA); c.setLineWidth(0.5)
         c.line(MX, ART_BOTTOM - 4*mm, W - MX, ART_BOTTOM - 4*mm)
+        y_indizi = ART_BOTTOM - 10*mm
+        if L.get('chiave'):
+            # Oracolo della regola Bussare (stesso pattern di gen_narrator.py):
+            # l'unico posto dove la chiave del luogo bloccato e' scritta.
+            tipo_chiave, valore = L['chiave']
+            chiave_txt = (f'la parola «{valore}»' if tipo_chiave == 'parola'
+                          else f'l’oggetto “{valore}”')
+            c.setFillColor(RED); c.setFont(F['sc'], 9)
+            c.drawString(MX, y_indizi, f'si entra con {chiave_txt} — solo per chi arbitra')
+            y_indizi -= 7*mm
         c.setFillColor(TEAL); c.setFont(F['sc'], 9)
-        c.drawString(MX, ART_BOTTOM - 10*mm, 'indizi — leggeteli ad alta voce')
-        y = ART_BOTTOM - 15*mm
+        c.drawString(MX, y_indizi, 'indizi — leggeteli ad alta voce')
+        y = y_indizi - 5*mm
         for ind in L.get('indizi', []):
             p = Paragraph(f'• {ind}', INDIZIO_ROW)
             pw, ph = p.wrapOn(c, W - 2*MX, 60*mm)

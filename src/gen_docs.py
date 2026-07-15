@@ -142,9 +142,10 @@ def regolamento():
                "Quanto bene indagate determina quanto sar\u00e0 dura la spedizione."))
 
     e.append(P('FASE 1 \u2014 L\u2019INDAGINE', 'h1'))
-    e.append(LI('Disponete le <b>carte Luogo</b> coperte al centro del tavolo. Alcune riportano '
-                '\u201cDisponibile dall\u2019inizio\u201d: quelle potete visitarle subito. Le altre indicano '
-                'la <b>parola chiave</b> o l\u2019<b>oggetto</b> che serve per sbloccarle.'))
+    e.append(LI('Disponete le <b>carte Luogo</b> al centro del tavolo: quelle che riportano '
+                '\u201cDisponibile dall\u2019inizio\u201d <b>scoperte</b> (sono le piste che qualunque investigatore '
+                'batterebbe: la casa dello scomparso, la taverna, la gendarmeria...), le altre '
+                '<b>coperte</b> \u2014 luoghi di cui per ora conoscete solo l\u2019esistenza, non il volto.'))
     e.append(LI('Avete <b>6 ore</b>, dalle 18:00 alle 24:00: segnatele sul Taccuino. '
                 '<b>Ogni visita a un luogo costa 1 ora</b> (anche rivisitarlo) \u2014 gli 8 luoghi di un '
                 'episodio non entrano tutti in 6 ore: <b>dovrete scegliere cosa saltare</b>. Ogni ora '
@@ -163,8 +164,15 @@ def regolamento():
     e.append(LI('Per visitare un luogo, girate la carta (mostra solo l’ambientazione): chi tiene il '
                 'fascicolo <b>Luoghi</b> legge ad alta voce testo e indizi da lì. Prendete appunti sul '
                 'Taccuino: nomi, orari, parole chiave.'))
-    e.append(LI('Quando trovate una <b>parola chiave</b> o un <b>oggetto</b>, potete da quel momento '
-                'visitare i luoghi che li richiedono.'))
+    e.append(LI('<b>Visitare una carta coperta (“bussare”)</b> — si può, e costa 1 ora come ogni '
+                'visita: dichiarate una destinazione con le parole dei vostri appunti (“i magazzini '
+                'sul canale”, “la bottega del liutaio” — chi tiene il fascicolo <b>Luoghi</b> trova la '
+                'pagina e gira la carta giusta) oppure scegliete una carta coperta a caso ed esplorate '
+                'il quartiere. Girata la carta, leggete che cosa vi sbarra la strada. Se credete di '
+                'avere la chiave, dichiaratela — <b>UNA parola o UN oggetto per visita</b> — a chi '
+                'tiene il fascicolo, che verifica (senza dire altro): giusta, si entra subito, nella '
+                'stessa ora; sbagliata, <b>l’ora è comunque spesa</b> e restate fuori. Nessun’altra '
+                'penalità: con 6 ore e 8 luoghi, un’ora persa è già un prezzo salato.'))
     e.append(LI('Alcuni luoghi nascondono anche degli <b>Approfondimenti</b>: indizi <i>extra</i> '
                 '(oltre a quelli sopra, mai al posto loro) che emergono solo se un eroe presente sa '
                 'come cavarli <b>e</b> se avete superato la prova di “leggere la scena” a quella visita. '

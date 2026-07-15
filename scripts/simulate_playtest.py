@@ -27,6 +27,13 @@ di ogni log):
 - L'Indagine sceglie i luoghi con un'euristica fissa (priorita' a chi
   sblocca altri luoghi), non un vero giocatore: serve a generare una
   partita plausibile e loggabile, non a "risolvere" il caso in modo ottimo.
+- La regola "Bussare" (Regolamento, Fase 1: visitare una carta coperta
+  costa 1 ora; chiave dichiarata sbagliata = ora persa) NON e' modellata:
+  l'euristica abbina chiave->porta senza mai sbagliare ne' bussare a
+  vuoto. I KPI d'Indagine (luoghi visitati, ore avanzate, tier) sono
+  quindi un tetto superiore rispetto a un tavolo vero che spreca ore in
+  tentativi - varianza di abilita' del tavolo, non di design (vedi
+  PROMPT-ESPANSIONE.md, 1-sexies).
 - Il Custode della Cera si desta al 3° segnalino Canto ANCHE prima di
   raggiungere T6 (regola vera, Soluzione: "oppure al terzo segnalino
   Canto... piazzatelo sulla tessera piu' lontana dagli eroi") - prima di

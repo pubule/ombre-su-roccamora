@@ -371,15 +371,27 @@ def narratore():
     c.setTitle('Ombre su Roccamora - Episodio 1 - Luoghi (riferimenti narratore)')
 
     for L in LUOGHI:
-        # Fronte: arte + indizi (letti ad alta voce) + eventuale Oggetto da
-        # consegnare. Retro: SEMPRE gli Approfondimenti (vedi pagina_retro_luogo)
-        # - le due pagine restano consecutive nel PDF cosi' una stampa
-        # fronte/retro normale le allinea sullo stesso foglio.
+        # Fronte: arte + (se bloccato) la riga "si entra con" + indizi (letti
+        # ad alta voce) + eventuale Oggetto da consegnare. Retro: SEMPRE gli
+        # Approfondimenti (vedi pagina_retro_luogo) - le due pagine restano
+        # consecutive nel PDF cosi' una stampa fronte/retro normale le allinea
+        # sullo stesso foglio.
         torn_portrait(c, W, H, LUOGHI_ART[L['n']], TORN_TOP, window=WINDOW_TOP,
                       **LUOGHI_CROP.get(L['n'], {}))
         rule_border(c, W, H)
         header(c, f"luogo {L['n']}", L['nome'], LUOGHI_DESC[L['n']])
-        indizi_block(c, L.get('indizi', []), oggetto_riga(f"L{L['n']}"), ART_BOTTOM - 10*mm)
+        y_indizi = ART_BOTTOM - 10*mm
+        if L.get('chiave'):
+            # L'oracolo della regola Bussare (vedi Regolamento): quando il
+            # gruppo dichiara UNA parola/UN oggetto per entrare, chi arbitra
+            # verifica QUI - e' l'unico posto dove la chiave e' scritta.
+            tipo_chiave, valore = L['chiave']
+            chiave_txt = (f'la parola «{valore}»' if tipo_chiave == 'parola'
+                          else f'l’oggetto “{valore}”')
+            c.setFillColor(RED); c.setFont(F['sc'], 9)
+            c.drawString(MX, y_indizi, f'si entra con {chiave_txt} — solo per chi arbitra')
+            y_indizi -= 7*mm
+        indizi_block(c, L.get('indizi', []), oggetto_riga(f"L{L['n']}"), y_indizi)
         c.showPage()
         pagina_retro_luogo(c, L)
         c.showPage()

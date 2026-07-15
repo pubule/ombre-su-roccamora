@@ -229,7 +229,11 @@ LUOGHI = [
                         'ha detto lui dove si radunano davvero: un vecchio magazzino di cera sul Canale Basso, '
                         'quello che fu di Dellacqua.» Troppa paura per denunciarlo, troppa vergogna per benedirlo.'),
          ]),
+    # `chiave`: la parola/oggetto che apre il luogo bloccato - stampata SOLO
+    # nel fascicolo Luoghi (riga "si entra con", per chi arbitra: e' l'oracolo
+    # con cui verifica le dichiarazioni della regola Bussare), mai su una carta.
     dict(n=5, nome='BOTTEGA DEL LIUTAIO FERRI', req='Un vicino sorveglia la bottega da quando Ferri è sparito: si allontana solo se vi vede portare con voi qualcosa che sembra suo, come per restituirlo.',
+         chiave=('oggetto', 'Corda di Violino d’Argento'),
          testo='Bottega chiusa da giorni; la porta sul retro cede a una spallata. Dentro, polvere e '
                'violini appesi come selvaggina.',
          indizi=['Bastiano Ferri è sparito da tre giorni. Sul banco, un <b>diapason d’argento</b> inciso '
@@ -253,6 +257,7 @@ LUOGHI = [
                         'in vista: qualunque cosa venda Learco il ramaio, non passa da qui.'),
          ]),
     dict(n=6, nome='IL CANALE BASSO', req='Il guardiano del molo non vi lascia avvicinare: aspetta che gli diciate la parola giusta, quella sentita altrove, tra un bicchiere e l’altro.',
+         chiave=('parola', 'chiatta'),
          testo='Acqua nera e ferma, magazzini ciechi. Il guardiano notturno accetta di parlare per '
                'qualche moneta.',
          indizi=['«Le casse erano marchiate a fuoco con un’<b>onda</b>. Le hanno portate in un vecchio '
@@ -275,6 +280,7 @@ LUOGHI = [
                         'la città, conta i passi sul molo.'),
          ]),
     dict(n=7, nome='L’ARCHIVIO CIVICO', req='L’archivista non alza lo sguardo finché non pronunciate la parola che avete già sentito da qualche parte in città.',
+         chiave=('parola', 'sommerso'),
          testo='L’archivista, sentendo la parola giusta, vi guida a uno scaffale che nessuno tocca '
                'da decenni.',
          indizi=['Fascicolo del 1741: la confraternita del <b>Coro Sommerso</b>, bandita per «pratiche '
