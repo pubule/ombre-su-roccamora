@@ -71,7 +71,10 @@ prima che l'Ep. 1 lo riveli.
 
 **Struttura fissa di un episodio (una serata):**
 1. *Fase Indagine* — 8 carte Luogo (circa 5 aperte dall'inizio, 2–3 sbloccabili tramite
-   PAROLE CHIAVE in maiuscolo o oggetti trovati). Budget: **6 ore/visite** (18:00-24:00,
+   parole chiave o oggetti trovati — **non scriverle in maiuscolo** dentro l'indizio: da
+   una sessione successiva, il maiuscolo era un aiuto involontario che permetteva di
+   scandire il testo cercando l'unica parola urlata invece di leggerlo davvero, vedi
+   1-quinquies). Budget: **6 ore/visite** (18:00-24:00,
    vedi Regolamento e Lettera d'incarico — il tempo non deve bastare per tutto: i luoghi
    utili superano le ore, per 8 luoghi già scarseggiano). Sempre almeno un vincolo d'orologio (un luogo che chiude o un testimone che sparisce a un'ora precisa). Almeno
    2 false piste che scagionino innocenti e almeno 1 oggetto-esca plausibile ma inutile (come l'acqua benedetta dell'Ep. 1), così la domanda sull'oggetto è una scelta vera. Gli indizi risolutivi non devono mai nominare la risposta per esteso: usare sigle, soprannomi o riferimenti parziali da incrociare (il "C.B." del registro dell'Ep. 1). Chiusura: **4 Domande** scritte (dove / chi / codice o
@@ -164,6 +167,30 @@ prima che l'Ep. 1 lo riveli.
    MAI la parola chiave/oggetto in chiaro se già "risolta" a metà frase, lasciare un
    piccolo margine di ricomposizione al tavolo), perché ora è il tiro a fare da filtro,
    non la sola visita.
+1-quinquies. *Requisito d'accesso: tocco narrativo, mai il nome* — sulla carta Luogo di
+   un luogo bloccato (2-3 per episodio, vedi punto 1), la descrizione d'apertura
+   **lascia interamente il posto** a una frase narrativa in corsivo che giustifica
+   perché serva qualcosa per entrare (`scripts/cardconjurer/cards-data.js`, campo
+   `rules` dei `.map()` su LUOGHI/PRELUDIO_LUOGHI: `L.req` invece di `L.testo` quando
+   il luogo non è "Disponibile dall'inizio" — niente più blocco doppio con
+   `{divider}`, un blocco unico basta). MAI "Serve: X", MAI il nome dell'oggetto o
+   la parola stessa in chiaro, MAI un puntatore "(Luogo N)". Precedente di genere:
+   Sherlock Holmes Consulting Detective non dichiara mai "questo indizio porta a
+   quel luogo" — chi gioca incrocia i nomi da solo. Regole pratiche, imparate
+   correggendo due tentativi sbagliati in sessione:
+   - la frase deve **giustificare davvero** il blocco (un guardiano che aspetta una
+     parola, un vicino diffidente che si calma solo davanti a chi sembra restituire
+     qualcosa) — MAI far leva su un dettaglio che renda l'oggetto/la parola superflui
+     (es. "la porta cede a una spallata" vicino a un requisito-oggetto: se si entra
+     comunque con la forza, il requisito sembra decorativo, non necessario);
+   - non nominare mai l'oggetto/la parola, nemmeno per descrizione generica
+     ("qualcosa che sembra suo", non "una corda di violino") — l'oggetto ha comunque
+     una carta fisica propria col suo nome, la parola va solo ricordata da quanto già
+     sentito/annotato altrove: chi gioca riconosce il collegamento da solo, la carta
+     Luogo non lo conferma mai in anticipo;
+   - la descrizione d'apertura (`testo`) resta comunque nei dati e nel fascicolo
+     `Luoghi.pdf` per chi arbitra (vedi Bibbia Visiva) — sparisce solo dalla carta
+     fisica del luogo bloccato, sostituita dalla frase-requisito.
 2. *Busta Soluzione* — risposte, per ogni domanda un Vantaggio se esatta e (per 2 domande
    su 4) una complicazione se errata; schema di montaggio della mappa; epilogo da leggere
    a voce; Frammento; elenco migliorie; **nota per chi arbitra** su quale nucleo garantito
@@ -481,9 +508,11 @@ Tyrlov) per le carte e **mappa a china su pergamena** per le tessere.
   sua icona (cappuccio, zampa, mestolo, tagliola, fumi, nota, occhio, campana, goccia,
   spirale, àncora). Le carte Luogo hanno un
   pannello pergamena interno per il **solo testo d'apertura** (l'ambientazione, 3–4
-  frasi): gli indizi **non stanno più sulla carta**, vivono in `Luoghi.pdf` (vedi sotto
-  e 3-bis) — la carta serve solo a mostrare ai giocatori dove sono, chi arbitra legge
-  gli indizi dal fascicolo. I loro dorsi sono rosso-notte con numero
+  frasi) — **tranne i luoghi bloccati**, dove il pannello mostra invece la frase-
+  requisito narrativa (vedi 1-quinquies), mai la descrizione: gli indizi **non stanno
+  più sulla carta**, vivono in `Luoghi.pdf` (vedi sotto e 3-bis) — la carta serve solo
+  a mostrare ai giocatori dove sono (e, se bloccata, perché non ancora), chi arbitra
+  legge gli indizi dal fascicolo. I loro dorsi sono rosso-notte con numero
   nel medaglione, i dorsi Minaccia verde-abisso con tripla onda. Le pagine dei dorsi
   seguono i fronti, specchiate in colonna, per la stampa fronte/retro sul lato lungo.
 - **Limite di lunghezza del testo in carta (verificato empiricamente, Ep. 1):** il

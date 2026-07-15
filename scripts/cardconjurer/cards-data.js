@@ -281,14 +281,13 @@ const LUOGHI = [
   title: `${L.n} · ${L.nome}`,
   file: `Episodio 1/Luoghi/${L.n} - ${L.nome}`,
   type: `Luogo ${L.n} — ${L.req}`,
-  // Requisito d'accesso, sezione a parte sotto la descrizione (separata da
-  // {divider}, una barra visiva vera - vedi creator-23.js) invece che dentro
-  // il campo `type` (non renderizzato dal frame): un tocco narrativo (un
-  // guardiano, un vicino diffidente...) che giustifica perche' serva
-  // qualcosa per entrare, MAI il nome dell'oggetto/la parola e MAI un
+  // Luoghi bloccati: la descrizione d'apertura lascia il posto a un tocco
+  // narrativo (un guardiano, un vicino diffidente...) che giustifica perche'
+  // serva qualcosa per entrare - MAI il nome dell'oggetto/la parola e MAI un
   // puntatore "(Luogo N)" - il collegamento lo fa chi gioca da solo,
   // riconoscendo cosa ha gia' trovato/sentito (vedi PROMPT-ESPANSIONE.md).
-  rules: `{i}${L.testo}{/i}${L.req !== 'Disponibile dall’inizio' ? `{divider}${L.req}` : ''}`,
+  // Luoghi aperti dall'inizio: descrizione normale, invariata.
+  rules: `{i}${L.req === 'Disponibile dall’inizio' ? L.testo : L.req}{/i}`,
   n: L.n,
   nome: L.nome,
   approfondimenti: L.approfondimenti || [],
@@ -396,7 +395,7 @@ const PRELUDIO_LUOGHI = [
   title: `${L.n} · ${L.nome}`,
   file: `Preludio/${L.n} - ${L.nome}`,
   type: `Luogo ${L.n} — ${L.req}`,
-  rules: `{i}${L.testo}{/i}${L.req !== 'Disponibile dall’inizio' ? `{divider}${L.req}` : ''}`,
+  rules: `{i}${L.req === 'Disponibile dall’inizio' ? L.testo : L.req}{/i}`,
 }));
 
 const PRELUDIO_APPROFONDIMENTI = [
