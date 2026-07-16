@@ -117,3 +117,56 @@ em, i { font-style: italic; }
 .mt { margin-top: 18px; }
 .copyright { text-align: center; color: var(--seppia); font-size: 11px;
   font-style: italic; margin-top: 34px; opacity: .8; }
+
+/* --- tiro dadi da palcoscenico (stile BG3) --- */
+.dadi-overlay { position: fixed; inset: 0; z-index: 100; display: flex;
+  flex-direction: column; align-items: center; justify-content: center; gap: 22px;
+  background: radial-gradient(ellipse at 50% 40%, rgba(35, 26, 32, .97), rgba(10, 8, 12, .99));
+  opacity: 0; transition: opacity .3s; padding: 24px; }
+.dadi-overlay.aperto { opacity: 1; }
+.dadi-overlay.esito-ok { animation: flash-oro .6s; }
+.dadi-overlay.esito-ko { animation: scossa .45s; }
+@keyframes flash-oro { 20% { box-shadow: inset 0 0 160px rgba(216, 178, 94, .45); } }
+@keyframes scossa { 20% { transform: translateX(-8px); } 40% { transform: translateX(7px); }
+  60% { transform: translateX(-5px); } 80% { transform: translateX(3px); } }
+
+.dadi-testata { text-align: center; }
+.dadi-titolo { font-size: clamp(22px, 5vw, 34px); color: var(--oro-chiaro); }
+.dadi-soglia { color: var(--teal); font-size: 18px; margin-top: 4px; }
+.dadi-soglia::before { content: '— '; } .dadi-soglia::after { content: ' —'; }
+
+.dadi-coppia { display: flex; gap: 46px; padding: 26px 0; }
+.dado-scena { width: 92px; height: 92px; perspective: 560px; }
+.dado { position: relative; width: 100%; height: 100%; transform-style: preserve-3d;
+  transform: rotateX(-24deg) rotateY(32deg); }
+.dado-faccia { position: absolute; inset: 0; border-radius: 14px;
+  background: linear-gradient(145deg, #f6eeda, var(--perg-scura));
+  border: 1px solid var(--oro); box-shadow: inset 0 0 12px rgba(138, 113, 80, .45); }
+.pip { position: absolute; width: 15%; height: 15%; border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #5a2028, var(--rosso-scuro));
+  transform: translate(-50%, -50%); }
+.f1 { transform: translateZ(46px); }
+.f6 { transform: rotateY(180deg) translateZ(46px); }
+.f2 { transform: rotateY(90deg) translateZ(46px); }
+.f5 { transform: rotateY(-90deg) translateZ(46px); }
+.f3 { transform: rotateX(90deg) translateZ(46px); }
+.f4 { transform: rotateX(-90deg) translateZ(46px); }
+
+.dadi-conto { min-height: 34px; display: flex; flex-wrap: wrap; gap: 10px;
+  align-items: center; justify-content: center; font-size: 19px; color: var(--perg); }
+.dadi-conto .pezzo { animation: sale .35s; }
+.dadi-conto .pezzo.tot { color: var(--oro-chiaro); font-size: 24px; margin-left: 6px; }
+.dadi-conto i { color: var(--seppia); font-size: 15px; }
+@keyframes sale { from { opacity: 0; transform: translateY(10px); } }
+
+.dadi-verdetto { font-size: clamp(34px, 9vw, 60px); min-height: 1.2em;
+  letter-spacing: .08em; }
+.dadi-verdetto.ok { color: var(--oro-chiaro); text-shadow: 0 0 26px rgba(216, 178, 94, .6);
+  animation: sale .4s; }
+.dadi-verdetto.ko { color: var(--rosso); text-shadow: 0 0 22px rgba(122, 31, 43, .8);
+  animation: sale .4s; }
+
+.dadi-lancia { font-size: 22px; padding: 16px 34px; }
+.dadi-chiudi { min-width: 180px; }
+.dadi-annulla { position: absolute; top: 18px; right: 20px; background: none;
+  border: none; color: var(--seppia); font-size: 30px; cursor: pointer; }
