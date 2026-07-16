@@ -24,9 +24,9 @@ SORGENTI = [
     ('Episodio 1/reperti', MAX_PX_TESSERE),
 ]
 
-# arte singola utile alla shell (ritratti gia' coperti dalle carte Eroi)
-ARTE_EXTRA = ['copertina spedizione.png', 'Mappa della città di Roccamora.png',
-              'Sigillo.png', 'background manuale.png']
+# tutta artworks/ (arti luogo per i banner, ritratti, sfondi): ~60 file,
+# ridotti una volta e riusati ovunque dalla webapp
+ARTE_TUTTA = True
 
 
 def converti(src, dst, max_px):
@@ -37,10 +37,13 @@ def converti(src, dst, max_px):
     if max(img.size) > max_px:
         k = max_px / max(img.size)
         img = img.resize((round(img.width * k), round(img.height * k)), Image.LANCZOS)
-    if img.mode in ('RGBA', 'LA', 'P') and dst.lower().endswith('.png'):
-        img.save(dst, optimize=True)
+    # estensione SEMPRE preservata: il client costruisce gli URL dai dati
+    # (art: 'xxx.png') e deve trovarli identici - un rename silenzioso a
+    # .jpg li romperebbe in modo imprevedibile.
+    if dst.lower().endswith('.png'):
+        (img if img.mode in ('RGBA', 'LA', 'P') else img.convert('RGB')).save(dst, optimize=True)
     else:
-        img.convert('RGB').save(os.path.splitext(dst)[0] + '.jpg', quality=82)
+        img.convert('RGB').save(dst, quality=82)
     return True
 
 
@@ -58,11 +61,12 @@ def main():
                 dst = os.path.join(OUT, os.path.relpath(src, ROOT))
                 if converti(src, dst, mx):
                     fatti += 1
-    for f in ARTE_EXTRA:
-        src = os.path.join(ROOT, 'artworks', f)
-        if os.path.exists(src):
-            if converti(src, os.path.join(OUT, 'artworks', f), MAX_PX_TESSERE):
-                fatti += 1
+    art_dir = os.path.join(ROOT, 'artworks')
+    for f in os.listdir(art_dir):
+        if not f.lower().endswith(('.jpg', '.png')):
+            continue
+        if converti(os.path.join(art_dir, f), os.path.join(OUT, 'artworks', f), 900):
+            fatti += 1
     print(f'OK assets webapp ({fatti} convertiti/aggiornati)')
 
 

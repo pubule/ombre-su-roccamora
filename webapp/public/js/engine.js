@@ -196,3 +196,42 @@ export function verificaRisposte(ep, risposte) {
     return { ...d, data: risposte[i], ok };
   });
 }
+
+// --- URL degli asset ----------------------------------------------------
+// mirror di cardDiskPath (scripts/cardconjurer/lib.js): il campo `file`
+// delle carte -> percorso jpg sotto /assets.
+export function urlCarta(file) {
+  const i = file.indexOf('/');
+  const bucket = file.slice(0, i);
+  const rest = file.slice(i + 1);
+  let p;
+  if (bucket.startsWith('Episodio')) p = `${bucket}/cards/${rest}`;
+  else if (bucket === 'Preludio') p = `Preludio/cards/${rest}`;
+  else p = `Comune/cards/${file}`;
+  return encodeURI(`/assets/${p}.jpg`).replace(/["<>]/g, '');
+}
+
+// arte grezza (campo art: 'artworks/x.png' oppure solo 'x.png')
+export function urlArt(art) {
+  if (!art) return null;
+  const nome = art.startsWith('artworks/') ? art.slice(9) : art;
+  return encodeURI(`/assets/artworks/${nome}`);
+}
+
+// carta Luogo (jpg renderizzato) e arte del luogo per numero
+export function cartaLuogo(carte, epId, n) {
+  const lista = carte.luoghi_carte[epId] || [];
+  return lista.find((c) => c.title.startsWith(`${n} ·`) || c.title.startsWith(`P${String(n).replace('P', '')} ·`)) || null;
+}
+
+export function cartaApprofondimento(carte, epId, soggetto) {
+  const lista = carte.approfondimenti_carte[epId] || [];
+  const s = norm(soggetto);
+  return lista.find((c) => norm(c.title).includes(s)) || null;
+}
+
+export function cartaOggetto(carte, epId, nome) {
+  const tutte = [...(carte.oggetti_carte[epId] || []), ...(carte.oggetti_carte.preludio || [])];
+  const s = norm(nome);
+  return tutte.find((c) => norm(c.title) === s || norm(c.title).includes(s)) || null;
+}

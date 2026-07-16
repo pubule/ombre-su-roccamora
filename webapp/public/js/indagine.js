@@ -5,7 +5,9 @@
 import { salva, dati } from './store.js';
 import { tiraProva } from './dadi.js';
 import { rendi, norm, bussa, dichiaraVoce, vociMappa, luogoVisitabile,
-         idoneiPerTipo, usaCarica, tierIndagine, verificaRisposte } from './engine.js';
+         idoneiPerTipo, usaCarica, tierIndagine, verificaRisposte,
+         urlArt, cartaLuogo, cartaApprofondimento, cartaOggetto,
+         urlCarta as urlCartaSafe } from './engine.js';
 
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) =>
   ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -35,6 +37,15 @@ function barra(titolo) {
 
 function dopoBarra() {
   ctx.app.querySelector('#nav-esci').onclick = () => ctx.vaiA('menu');
+}
+
+// banner con l'arte del luogo (dalle carte renderizzate o dal campo art)
+function bannerLuogo(l) {
+  const c = cartaLuogo(ctx.carte, P().episodio, l.n);
+  const art = urlArt(l.art) || (c ? urlArt(c.art) : null);
+  if (!art) return '';
+  return `<div class="banner-luogo" style="background-image:url('${art}')">
+    <div class="banner-velo"></div></div>`;
 }
 
 // ------------------------------------------------------------------ home
@@ -97,6 +108,7 @@ function bussare(l) {
   const { app } = ctx;
   app.innerHTML = `
     ${barra('la porta è chiusa')}
+    ${bannerLuogo(l)}
     <div class="pannello">
       <h2>${esc(l.nome.toLowerCase())}</h2>
       <p class="mt"><i>${rendi(l.requisito)}</i></p>
@@ -166,6 +178,7 @@ function schedaLuogo(l) {
   const letti = ind.approfondimentiLetti.filter((x) => x.n === l.n);
   app.innerHTML = `
     ${barra(l.nome.toLowerCase())}
+    ${bannerLuogo(l)}
     ${l.testo ? `<div class="pannello"><p><i>${rendi(l.testo)}</i></p></div><div class="mt"></div>` : ''}
     <div class="pannello">
       <h2>indizi — leggeteli ad alta voce</h2>
@@ -223,8 +236,10 @@ async function approfondisci(l, tipo, tipiQui) {
   usaCarica(P(), chi, tipo, conJolly);
   ind.approfondimentiLetti.push({ n: l.n, tipo, soggetto: a.soggetto });
   salvaP();
+  const cardA = cartaApprofondimento(ctx.carte, P().episodio, a.soggetto);
   pannelloMsg(`${tipo.toLowerCase()} — ${a.soggetto.toLowerCase()}`,
-    `<p><i>${rendi(a.testo)}</i></p>
+    `${cardA ? `<div class="carta-grande"><img src="${urlCartaSafe(cardA.file)}" alt=""></div>` : ''}
+     <p class="mt"><i>${rendi(a.testo)}</i></p>
      <p class="nota mt">Prendete la carta “${esc(a.soggetto)}” dal mazzo Approfondimenti.</p>`,
     () => schedaLuogo(l));
 }
@@ -302,13 +317,20 @@ function busta() {
 // --------------------------------------------------------------- utility UI
 function inventario() {
   const ind = IND();
+  const epId = P().episodio;
+  const galleria = (files) => files.length
+    ? `<div class="galleria-carte">${files.map((f) =>
+        `<img loading="lazy" src="${urlCartaSafe(f)}" alt="">`).join('')}</div>` : '';
+  const ogg = ind.oggetti.map((n) => cartaOggetto(ctx.carte, epId, n)).filter(Boolean).map((c) => c.file);
+  const app_ = ind.approfondimentiLetti.map((x) =>
+    cartaApprofondimento(ctx.carte, epId, x.soggetto)).filter(Boolean).map((c) => c.file);
   pannelloMsg('quel che avete in mano',
-    `${ind.oggetti.length ? `<p><b>Oggetti:</b> ${ind.oggetti.map(esc).join(' · ')}</p>` : ''}
-     ${ind.approfondimentiLetti.length ? `<p class="mt"><b>Approfondimenti:</b> ${
-       ind.approfondimentiLetti.map((x) => esc(x.soggetto)).join(' · ')}</p>` : ''}
-     ${!ind.oggetti.length && !ind.approfondimentiLetti.length ? '<p class="nota">Ancora niente. La notte è giovane.</p>' : ''}`,
+    `${ogg.length ? `<p><b>Oggetti</b></p>${galleria(ogg)}` : ''}
+     ${app_.length ? `<p class="mt"><b>Approfondimenti</b></p>${galleria(app_)}` : ''}
+     ${!ogg.length && !app_.length ? '<p class="nota">Ancora niente. La notte è giovane.</p>' : ''}`,
     home);
 }
+
 
 function pannelloMsg(titolo, corpoHtml, dopo) {
   const { app } = ctx;

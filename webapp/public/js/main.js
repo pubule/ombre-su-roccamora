@@ -18,9 +18,9 @@ document.addEventListener('visibilitychange', () => {
 });
 
 const COPERTINE = {
-  preludio: '/assets/artworks/copertina spedizione.jpg',
-  ep1: '/assets/artworks/copertina spedizione.jpg',
-  ep2: '/assets/artworks/copertina spedizione.jpg',
+  preludio: '/assets/artworks/humble candlelit canal-side room.png',
+  ep1: '/assets/artworks/copertina spedizione.png',
+  ep2: '/assets/artworks/Il Fonditore.png',
 };
 
 const RIGA_C = `<p class="copyright">© 2026 Fabio Stocco — «Ombre su Roccamora» ·
