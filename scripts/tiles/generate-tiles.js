@@ -13,15 +13,36 @@ const fs = require('fs');
 const { pathToFileURL } = require('url');
 
 const ROOT = path.resolve(__dirname, '..', '..');
-const OUT_DIR = path.join(ROOT, 'Episodio 1', 'board');
+// set per episodio: node scripts/tiles/generate-tiles.js [ep1|ep2]
+const SET = (process.argv[2] || 'ep1').toLowerCase();
+const EP_DIR = { ep1: 'Episodio 1', ep2: 'Episodio 2' }[SET];
+if (!EP_DIR) { console.error('set sconosciuto (ep1|ep2)'); process.exit(1); }
+const OUT_DIR = path.join(ROOT, EP_DIR, 'board');
 fs.mkdirSync(OUT_DIR, { recursive: true });
 
 const S = 2464; // 1600 * 200/130, arrotondato a multiplo di 4: tessera 130mm->200mm
                 // (celle 50mm invece di 32.5mm, minimo richiesto per muovere comodo
                 // i token), stessa densita' di stampa di prima
 
+// Episodio 2 - 1:1 da src/gen_ep2.py TILES_2 (id, nome, exits, arredi);
+// arte di sfondo: artworks/<id>-ep2.png (campo art).
+const TILES_EP2 = [
+  { id: 'T1', nome: 'Banchina delle Scorie', art: 'T1-ep2.png', exits: { N: 'T2' }, start: 'S',
+    arredi: [[0, 3, 'molo'], [3, 0, 'scorie']] },
+  { id: 'T2', nome: 'Il Piazzale delle Forme', art: 'T2-ep2.png', exits: { S: 'T1', E: 'T3', N: 'T4' },
+    arredi: [[1, 1, 'forma'], [2, 2, 'forma']] },
+  { id: 'T3', nome: 'Il Magazzino delle Staffe', art: 'T3-ep2.png', exits: { O: 'T2' },
+    arredi: [[1, 0, 'casse'], [3, 1, 'casse'], [0, 3, 'crogiolo']] },
+  { id: 'T4', nome: 'La Passerella sul Canale di Scolo', art: 'T4-ep2.png', exits: { S: 'T2', N: 'T5' },
+    arredi: [[0, 1, 'molo'], [3, 1, 'molo'], [0, 2, 'molo'], [3, 2, 'molo']] },
+  { id: 'T5', nome: "L'Ufficio del Pesatore", art: 'T5-ep2.png', exits: { S: 'T4', E: 'T6' },
+    arredi: [[1, 3, 'scrivania'], [3, 0, 'stufa']] },
+  { id: 'T6', nome: 'La Sala dei Forni', art: 'T6-ep2.png', exits: { O: 'T5' },
+    arredi: [[1, 2, 'crogiolo'], [2, 2, 'forma'], [3, 3, 'forma']] },
+];
+
 // TILES 1:1 da src/gen_cards.py (id, nome, exits, arredi)
-const TILES = [
+const TILES_EP1 = [
   { id: 'T1', nome: 'Banchina d’Ingresso', exits: { N: 'T2' }, start: 'S',
     arredi: [[0, 3, 'molo'], [3, 3, 'casse']] },
   { id: 'T2', nome: 'Sala delle Casse', exits: { S: 'T1', E: 'T3', O: 'T4', N: 'T5' },
@@ -35,10 +56,12 @@ const TILES = [
   { id: 'T6', nome: 'Cripta della Cera', exits: { S: 'T5' },
     arredi: [[1, 2, 'altare'], [2, 2, 'altare'], [3, 3, 'cella']] },
 ];
+const TILES = SET === 'ep2' ? TILES_EP2 : TILES_EP1;
 
 // Arte vera per arredo (prompt in PROMPT-MIDJOURNEY.md, sezione "Arredi delle
 // tessere"): un file artworks/<chiave>.png per chiave di ARREDO_STYLE.
-const ARREDO_KEYS = ['molo', 'casse', 'candele', 'scrivania', 'branda', 'scala', 'altare', 'cella'];
+const ARREDO_KEYS = ['molo', 'casse', 'candele', 'scrivania', 'branda', 'scala', 'altare', 'cella',
+                     'forma', 'scorie', 'crogiolo', 'stufa'];
 const ARREDO_ART = Object.fromEntries(ARREDO_KEYS.map((k) =>
   [k, pathToFileURL(path.join(ROOT, 'artworks', `${k}.png`)).href]));
 // zoom oltre il "cover" di base per chi ha l'oggetto piccolo al centro di una
@@ -214,7 +237,7 @@ function html(tile) {
     .door-label.start small { color:#bfece6; }
   </style></head><body>
     <div class="stage">
-      <img class="art" src="${pathToFileURL(path.join(ROOT, 'artworks', `${tile.id}.png`)).href}" />
+      <img class="art" src="${pathToFileURL(path.join(ROOT, 'artworks', tile.art || `${tile.id}.png`)).href}" />
       <div class="dim"></div>
       ${cellsHtml.join('')}
       ${arredoHtml}

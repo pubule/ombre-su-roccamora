@@ -41,7 +41,10 @@ WAVE = colors.HexColor('#e8e8e8')
 EPISODI = {
     0: 'La Prova del Lume',  # il Preludio (tutorial), cartella Preludio/pdf/
     1: 'Il caso del campanaro scomparso',
+    2: 'La voce del bronzo',
 }
+# arte dedicata per episodio (default: la mappa di campagna, MAP_ART)
+COVER_ART = {2: 'copertina episodio 2.png'}
 ROMAN = {1: 'I', 2: 'II', 3: 'III', 4: 'IV', 5: 'V', 6: 'VI'}
 
 def etichetta(num):
@@ -119,7 +122,7 @@ def divider(c, cx, y, w, col, lw=1.1):
 
 
 def copertina(c, num, titolo):
-    cover_fit(c, MAP_ART)
+    cover_fit(c, COVER_ART.get(num, MAP_ART))
     scrim(c, H, H - 70*mm, 0.4)            # velo leggero dal bordo alto: l'arte resta ben visibile
     scrim(c, 0, 96*mm, 0.36)              # velo leggero dal bordo basso
 

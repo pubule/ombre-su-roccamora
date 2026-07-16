@@ -650,20 +650,128 @@ def soluzione():
 
 # ================================================================== LUOGHI
 
+# Descrizioni estese per chi arbitra (bibbia di scrittura: stessi fatti
+# della carta, molto piu' aria - un dettaglio che si muove, mai indizi
+# nuovi). Dizionario dedicato, MAI il campo testo della carta.
+LUOGHI2_DESC = {
+    1: "La fonderia \u00e8 ferma come si ferma un cuore: la forma della campana nuova "
+       "aspetta al centro del pavimento, una fossa vestita di mattoni refrattari, e "
+       "il paranco sopra di essa oscilla di un dito, avanti e indietro, senza vento. "
+       "Gli operai lavorano a met\u00e0 voce e a met\u00e0 gesto. Sul banco di Ilario gli "
+       "attrezzi sono appesi in fila per taglia \u2014 e il gancio vuoto del martello, in "
+       "quella fila perfetta, urla.",
+    2: "Ottanta gradini, e a ogni giro di scala il freddo cambia odore: cera vecchia, "
+       "poi corda, poi bronzo. La campana grande porta la crepa come una ferita mal "
+       "cucita, e quando il vento gira, la crepa respira \u2014 un sibilo sottile che "
+       "Ruggero finge di non sentire. \u00c8 tornato a fare il suo mestiere, ma dorme "
+       "ancora con la lanterna accesa.",
+    3: "Fumo, sego e birra: l'osteria dei facchini non chiude mai davvero, cambia "
+       "solo turno. Sotto la stadera d'ottone appesa alle travi si giocano paghe "
+       "intere, e le voci salgono e scendono come la marea. Quando entrate voi, "
+       "per un momento, tutte insieme si abbassano \u2014 poi qualcuno ride troppo "
+       "forte, e il fiume riprende.",
+    4: "Il corpo dei magazzini daziari \u00e8 una cattedrale di iuta e piombo: colonne "
+       "di casse fino al soffitto, corridoi numerati col gesso. In fondo, dietro "
+       "tre sbarre, le rastrelliere del bronzo di stato \u2014 i sigilli pendono "
+       "intatti, troppo intatti, e il piantone evita di guardarli, come si evita "
+       "di guardare una bara aperta.",
+    5: "La corte della Faenza \u00e8 tre piani di ringhiere e panni stesi che gocciolano "
+       "nel buio. La stanza del capomastro sa di lana nuova: vestiti coi cartellini, "
+       "una valigia pronta dietro la porta, ricevute in pila sotto la candela. \u00c8 la "
+       "stanza di uno che sta per scappare \u2014 e che da giorni non ci dorme.",
+    6: "Il banco di Fossa non \u00e8 cambiato di un chiodo dal Preludio: la grata, la "
+       "lampada verde, il registro rilegato in tela cerata. Fossa vi riconosce \u2014 o "
+       "riconosce il modo in cui si entra da lui sapendo gi\u00e0 cosa chiedere \u2014 e per "
+       "una volta, dice lui, la tariffa non serve. Il favore se lo segna comunque, "
+       "da qualche parte dietro gli occhi.",
+    7: "Le chiatte dormono in due file, chiglia contro chiglia, e le cime cigolano "
+       "piano come una conversazione che non vuole farsi sentire. Una sola barca "
+       "galleggia alta, leggera, sbagliata. Il capobarca fuma guardando l'acqua: "
+       "smonta alle nove, e da come tiene le spalle si capisce che il momento non "
+       "arriva mai abbastanza presto.",
+    8: "La Camera dei Pesi \u00e8 il silenzio fatto ufficio: teche di campioni d'ottone, "
+       "registri fino al soffitto, l'odore di ceralacca e polvere di decenni. "
+       "L'usciere vi accompagna senza rumore e resta sulla porta, in ascolto \u2014 "
+       "alle dieci in punto, da trent'anni, spegne le lampade una a una, e la "
+       "burocrazia di Roccamora chiude gli occhi.",
+    9: "Nell'ansa morta del canale le barche vengono a morire: chiglie spaccate, "
+       "costole all'aria, e il vento che tra gli scafi vuoti trova sempre una nota "
+       "lunga, bassa, da chiesa sconsacrata. Il demolitore lavora anche di notte, "
+       "a lume di forgia \u2014 il ferro non aspetta, dice, e nemmeno lui: \u00e8 uno che "
+       "alle domande preferisce i prezzi.",
+}
+
+# Carte Oggetto per luogo (sotto-sezione "carte da prendere" degli indizi -
+# stesso pattern di OGGETTI_LUOGO_P nel Preludio).
+OGGETTI_LUOGO_2 = {
+    1: ['Il Martello di Collaudo'],
+    2: ['Lo Smorzo di Feltro'],
+    6: ['La Polizza del Monte'],
+    7: ['Il Contrassegno di Piombo'],
+    9: ['La Medaglia del Fonditore'],
+}
+
+# arte tessere del fascicolo (le stesse dei board)
+TILE_ART_2 = {t['id']: t['id'] + '-ep2.png' for t in TILES_2}
+
+
 def luoghi():
-    """Luoghi.pdf (fronte/retro + indice citta'): arriva con l'arte dei
-    luoghi (Fase D) - come gen_preludio, si salta con un avviso finche'
-    mancano i file. Il pattern da riusare e' quello di gen_narrator
-    (header/indizi_block/pagina_retro_luogo/pagina_indice_citta, funzioni
-    parametriche) sui dati LUOGHI_2 qui sopra."""
-    from deluxe_style import ARTWORKS_DIR
-    missing = [L['art'] for L in LUOGHI_2
-               if not os.path.exists(os.path.join(ARTWORKS_DIR, L['art']))]
-    if missing:
-        print('SALTO Luoghi.pdf (Episodio 2): manca arte in artworks/:', ', '.join(sorted(set(missing))))
-        print('  (genera con i prompt in PROMPT-MIDJOURNEY-Episodio-2.md)')
-        return
-    raise NotImplementedError('Fase D: costruire su gen_narrator (vedi docstring)')
+    """Luoghi.pdf Episodio 2 (fronte/retro + indice citta'): costruito con
+    le funzioni parametriche di gen_narrator, sui dati LUOGHI_2. I luoghi
+    senza arte usano un placeholder con avviso (si rigenera quando l'arte
+    arriva)."""
+    from deluxe_style import ARTWORKS_DIR, torn_portrait
+    import gen_narrator as N
+    PLACEHOLDER = 'derelict warehouses over black still water.png'
+    out_path = os.path.join(OUT_DIR, 'Luoghi.pdf')
+    c = canvas.Canvas(out_path, pagesize=A4)
+    c.setTitle('Ombre su Roccamora - Episodio 2 - Luoghi (riferimenti narratore)')
+    N.pagina_indice_citta(c, LUOGHI_2, 'Episodio 2')
+
+    def oggetto_righe(n):
+        return ['<b>Oggetto</b> \u2014 carta \u201c' + t + '\u201d' for t in OGGETTI_LUOGO_2.get(n, [])]
+
+    for L in LUOGHI_2:
+        art_file = L['art']
+        if not os.path.exists(os.path.join(ARTWORKS_DIR, art_file)):
+            print('  AVVISO: manca artworks/' + art_file + ' - placeholder sul Luogo '
+                  + str(L['n']) + ' (rigenerare quando arriva)')
+            art_file = PLACEHOLDER
+        torn_portrait(c, W, H, art_file, N.TORN_TOP, window=N.WINDOW_TOP)
+        rule_border(c, W, H)
+        entrata = None
+        if L.get('chiave'):
+            tipo_chiave, valore = L['chiave']
+            chiave_txt = ('la parola \u00ab' + valore.lower() + '\u00bb' if tipo_chiave == 'parola'
+                          else 'l\u2019oggetto \u201c' + valore.lower() + '\u201d')
+            entrata = 'si entra con ' + chiave_txt + ' \u2014 solo per chi arbitra'
+        N.header(c, 'luogo ' + str(L['n']), L['nome'], LUOGHI2_DESC[L['n']], entrata=entrata)
+        N.indizi_block(c, L.get('indizi', []), oggetto_righe(L['n']), N.ART_BOTTOM - 10*mm)
+        c.showPage()
+        N.pagina_retro_luogo(c, L)
+        c.showPage()
+
+    # tessere che nascondono un oggetto da Cercare (badile T2, latta T3)
+    TESSERE_DESC_2 = {
+        'T2': 'Il piazzale delle forme: fosse di colata in file ordinate, come tombe '
+              'che aspettano le loro campane. Una, in fondo, \u00e8 stata usata da poco.',
+        'T3': 'Il magazzino delle staffe: vent\u2019anni di polvere su casseri e morsetti '
+              '\u2014 e un luccichio d\u2019olio fresco, in basso, dove la polvere non c\u2019\u00e8 pi\u00f9.',
+    }
+    OGGETTI_TESSERA_2 = {'T2': ['Un Badile del Formatore'],
+                         'T3': ['Una Latta d\u2019Olio di Colata \u26a0 rischioso']}
+    for tid in ('T2', 'T3'):
+        t = next(x for x in TILES_2 if x['id'] == tid)
+        torn_portrait(c, W, H, TILE_ART_2[tid], N.TORN_TOP, window=N.WINDOW_TOP)
+        rule_border(c, W, H)
+        N.header(c, 'tessera ' + tid, t['nome'], TESSERE_DESC_2[tid])
+        N.body(c, ['<b>Oggetto</b> \u2014 carta \u201c' + o + '\u201d' for o in OGGETTI_TESSERA_2[tid]],
+               none_text='Nessun oggetto da Cercare qui.')
+        c.showPage()
+
+    c.save()
+    pad_to_even_pages(out_path)
+    print('ok ->', out_path)
 
 
 if __name__ == '__main__':
