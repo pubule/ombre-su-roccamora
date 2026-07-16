@@ -57,7 +57,8 @@ const path = require('path');
 const { pathToFileURL } = require('url');
 const { chromium } = require('playwright');
 const { HEROES, NEMICI, MINACCE, LUOGHI, OGGETTI, INDIZI, TESTIMONI, REFERTI,
-        PRELUDIO_LUOGHI, PRELUDIO_APPROFONDIMENTI, PRELUDIO_OGGETTI } = require('./cards-data');
+        PRELUDIO_LUOGHI, PRELUDIO_APPROFONDIMENTI, PRELUDIO_OGGETTI,
+        LUOGHI2, EP2_INDIZI, EP2_TESTIMONI, EP2_REFERTI, EP2_MINACCE, EP2_OGGETTI, EP2_NEMICI } = require('./cards-data');
 
 const ROOT = path.resolve(__dirname, '../..');
 const CARD_W = 68;    // mm
@@ -74,15 +75,15 @@ const PER_PAGE = 9;
 // (vedi bucketOf() piu' sotto), leggendo il campo `file` di ogni carta.
 const SIMPLE_DECKS = [
   { name: 'Eroi', cards: HEROES, dorso: 'Dorso Eroe.png' },
-  { name: 'Nemici', cards: NEMICI, dorso: 'Dorso Nemico.png' },
-  { name: 'Minacce', cards: MINACCE, dorso: 'Dorso Minaccia.png' },
-  { name: 'Luoghi', cards: [...LUOGHI, ...PRELUDIO_LUOGHI], dorso: 'Dorso Luogo.png' },
-  { name: 'Oggetti', cards: [...OGGETTI, ...PRELUDIO_OGGETTI], dorso: 'Dorso Oggetto.png' },
-  { name: 'Indizi Nascosti', cards: [...INDIZI, ...PRELUDIO_APPROFONDIMENTI.filter((c) => c.kind === 'Indizio')],
+  { name: 'Nemici', cards: [...NEMICI, ...EP2_NEMICI], dorso: 'Dorso Nemico.png' },
+  { name: 'Minacce', cards: [...MINACCE, ...EP2_MINACCE], dorso: 'Dorso Minaccia.png' },
+  { name: 'Luoghi', cards: [...LUOGHI, ...PRELUDIO_LUOGHI, ...LUOGHI2], dorso: 'Dorso Luogo.png' },
+  { name: 'Oggetti', cards: [...OGGETTI, ...PRELUDIO_OGGETTI, ...EP2_OGGETTI], dorso: 'Dorso Oggetto.png' },
+  { name: 'Indizi Nascosti', cards: [...INDIZI, ...PRELUDIO_APPROFONDIMENTI.filter((c) => c.kind === 'Indizio'), ...EP2_INDIZI],
     dorso: 'Dorso Indizio Nascosto.png' },
-  { name: 'Testimoni', cards: [...TESTIMONI, ...PRELUDIO_APPROFONDIMENTI.filter((c) => c.kind === 'Testimone')],
+  { name: 'Testimoni', cards: [...TESTIMONI, ...PRELUDIO_APPROFONDIMENTI.filter((c) => c.kind === 'Testimone'), ...EP2_TESTIMONI],
     dorso: 'Dorso Testimone.png' },
-  { name: 'Referti', cards: [...REFERTI, ...PRELUDIO_APPROFONDIMENTI.filter((c) => c.kind === 'Referto')],
+  { name: 'Referti', cards: [...REFERTI, ...PRELUDIO_APPROFONDIMENTI.filter((c) => c.kind === 'Referto'), ...EP2_REFERTI],
     dorso: 'Dorso Referto.png' },
 ];
 

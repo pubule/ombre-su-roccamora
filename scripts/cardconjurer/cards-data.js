@@ -459,8 +459,249 @@ HEROES.forEach((h) => { h.file = sanitizeFile(`Eroi/${h.title}`); });
 
 const PRELUDIO = [...PRELUDIO_LUOGHI, ...PRELUDIO_APPROFONDIMENTI, ...PRELUDIO_OGGETTI];
 
+// ============================================================ EPISODIO 2
+// «La voce del bronzo» — vedi DESIGN-EPISODIO-2.md. Stesso schema dell'Ep. 1:
+// LUOGHI2 porta testo carta + approfondimenti (le carte derivate si generano
+// con gli stessi flatMap), MINACCE2 flavor+effetto, oggetti con arte dedicata.
+
+const LUOGHI2 = [
+  { n: 1, nome: 'La Fonderia Dossena', req: 'Disponibile dall’inizio',
+    art: 'artworks/Fonderia Dossena.png',
+    testo: 'La colata è sospesa e la fonderia trattiene il fiato: la forma della campana nuova è una fossa aperta al centro del pavimento. Gli attrezzi di Ilario sono appesi in ordine, tranne uno. Gli operai parlano piano, come si fa nelle case dove qualcuno è morto — o non è tornato.',
+    approfondimenti: [
+      { tipo: 'Osservazione', soggetto: 'Le mani del capomastro',
+        testo: 'Sartorio parla col cappello in mano, addoloratissimo. Ma sotto le unghie, mentre lo torce, brillano trucioli sottili di piombo — piombo da sigillo, quello che si taglia e si rifonde. Un fonditore di campane il piombo non lo tocca mai: non entra nella lega.' },
+      { tipo: 'Referto', soggetto: 'La zavorra',
+        testo: 'I pani lasciati nei casseri non sono bronzo: ghisa da scafo, fusa male, piena di sabbia di mare. A Roccamora la ghisa da scafo si compra in un posto solo — dove le barche vanno a morire.' },
+    ] },
+  { n: 2, nome: 'La Cella Campanaria di San Teodoro', req: 'Disponibile dall’inizio',
+    art: 'artworks/Cella campanaria.png',
+    testo: 'La campana grande porta la sua crepa come una cicatrice che non si chiude: quando il vento gira, la ferita respira. Ruggero Alvise sale i gradini davanti a voi senza contarli. «Ilario ha suonato il provino qui», dice, e abbassa la voce come in chiesa.',
+    approfondimenti: [
+      { tipo: 'Presagio', soggetto: 'La crepa che canta',
+        testo: 'Appoggiare l’orecchio alla crepa basta: si vede una fossa di colata piena di braci, e una passerella di assi sopra l’acqua nera — assi che NON reggeranno chi ci correrà sopra. La visione dura un rintocco. Poi la campana tace, in colpa.' },
+      { tipo: 'Testimonianza', soggetto: 'Ruggero',
+        testo: '«Le chiatte senza lanterne mostrano un contrassegno di piombo al pesatore, grande come una moneta, con un segno tipo un’onda. L’ho visto per anni dal campanile: di notte, da quassù, si vede tutto — ma nessuno pensa mai a chi sta in alto.»' },
+    ] },
+  { n: 3, nome: 'L’Osteria della Bilancia', req: 'Disponibile dall’inizio',
+    art: 'artworks/Osteria della Bilancia.png',
+    testo: 'L’osteria dei facchini del dazio non chiude mai davvero: cambia solo turno. Sotto la stadera d’ottone appesa alle travi si beve, si gioca e si pesa ogni parola come fosse merce. Uno sconosciuto che paga da bere, qui, compra più di un giro.',
+    approfondimenti: [
+      { tipo: 'Testimonianza', soggetto: 'Il facchino insonne',
+        testo: '«Il capomastro dei Dossena beveva qui ogni notte, e ai tavoli di dietro perdeva più di quanto pesasse. Da un mese paga da bere a tutti e non tocca una carta. Chi smette di giocare così, di colpo, i debiti non li ha vinti: glieli ha pagati qualcuno.»' },
+    ] },
+  { n: 4, nome: 'Il Deposito Daziario',
+    req: 'Il piantone alla sbarra non guarda nemmeno chi passa: ascolta. Aspetta le due parole che i facchini si scambiano al cambio, e voi non le sapete ancora.',
+    art: 'artworks/Deposito Daziario.png',
+    testo: 'Il corpo dei magazzini sa di iuta, sego e piombo. Le rastrelliere del bronzo di stato sono in fondo, dietro tre sbarre e un registro: i sigilli pendono intatti — troppo intatti, come una firma ricalcata.',
+    approfondimenti: [
+      { tipo: 'Referto', soggetto: 'Il piombo dei sigilli',
+        testo: 'I sigilli non sono stati strappati: tagliati e rifusi, a caldo, con mano paziente. La rifusione lascia trucioli sottili come capelli — gli stessi che qualcuno, in fonderia, porta ancora sotto le unghie senza saperlo.' },
+      { tipo: 'Osservazione', soggetto: 'La firma del pesatore',
+        testo: 'La pesa notturna del giorno del furto torna alla perfezione, riga per riga. Ma la firma del pesatore trema dove le altre notti correva: una mano costretta, o comprata, o tutt’e due. Da tre giorni, quella mano non firma più.' },
+    ] },
+  { n: 5, nome: 'Corte della Faenza',
+    req: 'La vedova che abita la corte vi squadra dalla ringhiera: «Il capomastro non c’è per nessuno». Ma il suo sguardo corre a ciò che avete in mano — o a ciò che non avete.',
+    art: 'artworks/Corte della Faenza.png',
+    testo: 'La stanza del capomastro tradisce una fortuna recente: vestiti buoni coi cartellini ancora attaccati, una valigia pronta dietro la porta, e sul tavolo, sotto la candela, un mazzetto di ricevute tenute insieme da un nastro nuovo.',
+    approfondimenti: [
+      { tipo: 'Testimonianza', soggetto: 'La vedova della corte',
+        testo: '«Ogni martedì un ragazzo gli porta una busta. Mai visto in faccia: sta col berretto basso e se ne va di corsa. Ma lo sento arrivare prima di vederlo — puzza di scoria bruciata, come i cenciaioli che frugano nell’isola dei forni spenti.»' },
+    ] },
+  { n: 6, nome: 'Il Banco dei Pegni di Fossa', req: 'Disponibile dall’inizio',
+    art: 'artworks/Banco dei Pegni.png',
+    testo: 'Fossa è ancora lì, dietro la sua grata, come se il Preludio non fosse mai finito: mezza Roccamora impegna, l’altra metà riscatta. Vi riconosce — o riconosce il modo in cui si entra da lui sapendo già cosa chiedere — e per una volta non chiede tariffa.',
+    approfondimenti: [
+      { tipo: 'Testimonianza', soggetto: 'Fossa',
+        testo: '«Il piombo daziario lo riconosco a occhi chiusi: me ne hanno offerto un sacchetto di trucioli, settimana scorsa. Ho detto no. Chi era? Il capomastro dei Dossena in persona, con le mani sporche. Non l’ho scritto sul registro: certe firme portano male.»' },
+    ] },
+  { n: 7, nome: 'Il Molo delle Chiatte',
+    req: 'Il capobarca spegne la pipa quando vi vede arrivare e riprende a spalare come se non esisteste: di certe corse notturne parla solo con chi mostra di saperle già chiamare per nome.',
+    art: 'artworks/Molo delle Chiatte.png',
+    testo: 'Le chiatte dormono legate in due file, chiglia contro chiglia. Una sola galleggia alta, leggera, come chi ha appena posato un peso che non voleva portare. Il capobarca smonta alle nove: dopo, qui restano solo l’acqua e le cime che cigolano.',
+    approfondimenti: [
+      { tipo: 'Presagio', soggetto: 'L’acqua che pesa',
+        testo: 'Sotto la chiglia alta l’acqua ha memoria: si sente ancora il peso che non è mai stato scritto su nessuna pesa, pani su pani, e il fondo che li ha contati uno a uno. L’acqua non fa la spia. Ricorda soltanto — e chi ascolta, sa.' },
+    ] },
+  { n: 8, nome: 'La Camera dei Pesi e delle Misure',
+    req: 'L’usciere socchiude la porta sul buio delle teche: «Solo personale daziario». Poi resta lì, in ascolto, come chi aspetta di sentirvi dire le due parole del mestiere.',
+    art: 'artworks/Camera dei Pesi.png',
+    testo: 'I campioni d’ottone dormono nelle teche come reliquie, e i registri delle pese salgono fino al soffitto. L’usciere spegne le lampade alle dieci in punto, da trent’anni: la burocrazia di Roccamora è l’unico orologio che non sbaglia mai.',
+    approfondimenti: [
+      { tipo: 'Referto', soggetto: 'La doppia pesa',
+        testo: 'Registro alla mano: la differenza fra la pesa dichiarata e il pescaggio annotato dai fanalisti fa esattamente il tonnellaggio dei pani del Quarantuno. Non un furto: una sostituzione, firmata da chi le bilance le conosce troppo bene per sbagliarle così bene.' },
+    ] },
+  { n: 9, nome: 'Il Cimitero delle Barche',
+    req: 'Il demolitore non alza la testa dal suo scafo: per lui esistono solo quelli del mestiere, quelli che sanno chiamare la sua merce col suo nome — gli altri sono gendarmi, o peggio.',
+    art: 'artworks/Cimitero delle Barche.png',
+    testo: 'Nell’ansa morta del canale le barche vanno a morire in silenzio: chiglie spaccate, costole all’aria, e il vento che tra gli scafi vuoti trova sempre una nota. Il demolitore lavora anche di notte — il ferro non aspetta.',
+    approfondimenti: [
+      { tipo: 'Osservazione', soggetto: 'La bolla di Learco',
+        testo: 'Il ramaio del Vecchio Mercato compra qui, con regolare bolla: date e quantità del suo bronzo coincidono con i relitti demoliti, non coi pani spariti. Chi ha comprato la ghisa da scafo, invece, ha pagato in contanti — e si è fatto consegnare al molo daziario.' },
+    ] },
+].map((L) => ({
+  art: L.art,
+  title: `${L.n} · ${L.nome}`,
+  file: `Episodio 2/Luoghi/${L.n} - ${L.nome}`,
+  type: `Luogo ${L.n}`,
+  rules: `{i}${L.req === 'Disponibile dall’inizio' ? L.testo : L.req}{/i}`,
+  approfondimenti: L.approfondimenti, n: L.n,
+}));
+
+const EP2_INDIZI = LUOGHI2.flatMap((L) => {
+  const righe = L.approfondimenti.filter((a) => a.tipo === 'Osservazione' || a.tipo === 'Presagio');
+  if (!righe.length) return [];
+  const sogg = righe[0].soggetto;
+  return [{
+    art: L.art, n: L.n, kind: 'Indizio',
+    title: `Indizio Nascosto — ${sogg}`,
+    file: `Episodio 2/Indizi/${sogg.replace(/’/g, "'")}`,
+    type: 'Osservazione / Presagio',
+    rules: `{i}${righe.map((a) => `◆ (${a.tipo}) ${a.testo}`).join('\n')}{/i}`,
+  }];
+});
+
+const EP2_TESTIMONI = LUOGHI2.flatMap((L) =>
+  L.approfondimenti.filter((a) => a.tipo === 'Testimonianza').map((a) => ({
+    art: L.art, n: L.n, kind: 'Testimone',
+    title: `Testimone — ${a.soggetto}`,
+    file: `Episodio 2/Testimoni/${a.soggetto}`,
+    type: `Luogo ${L.n} · Testimone`,
+    rules: `{i}${a.testo}{/i}`,
+  })));
+
+const EP2_REFERTI = LUOGHI2.flatMap((L) =>
+  L.approfondimenti.filter((a) => a.tipo === 'Referto').map((a) => ({
+    art: L.art, n: L.n, kind: 'Referto',
+    title: `Referto — ${a.soggetto}`,
+    file: `Episodio 2/Referti/${a.soggetto}`,
+    type: `Luogo ${L.n} · Referto`,
+    rules: `{i}${a.testo}{/i}`,
+  })));
+
+const EP2_MINACCE = [
+  { art: 'artworks/Turno di guardia.png', title: 'Turno di Guardia', tipo: 'Malavita',
+    flavor: 'Passi regolari sulla scoria: qualcuno è pagato per non dormire.',
+    effect: 'Piazzate 1 Sgherro sull’uscita più vicina agli eroi della tessera in cui si trova l’eroe attivo.' },
+  { art: 'artworks/Turno di guardia.png', title: 'I Bravi del Capomastro', tipo: 'Malavita',
+    flavor: 'Facce da molo, paga da fonderia. Non fanno domande.',
+    effect: 'Piazzate 1 Sgherro sull’uscita più vicina agli eroi della tessera corrente.' },
+  { art: 'artworks/Turno di guardia.png', title: 'Fischio dal Piazzale', tipo: 'Malavita',
+    flavor: 'Due dita in bocca, una nota sola. La risposta arriva.',
+    effect: 'Piazzate 1 Sgherro sull’uscita più vicina agli eroi della tessera corrente.' },
+  { art: 'artworks/Turno di guardia.png', title: 'Il Giro del Piazzale', tipo: 'Malavita',
+    flavor: 'La ronda passa tra le forme come tra lapidi.',
+    effect: 'Piazzate 2 Sgherri sull’ingresso della Banchina delle Scorie (T1).' },
+  { art: 'artworks/Il carceriere.png', title: 'Il Carceriere', tipo: 'Malavita',
+    flavor: 'Qualcuno, di sopra, affila qualcosa con molta calma.',
+    effect: 'Piazzate 1 Sicario sull’uscita più vicina agli eroi della tessera corrente.' },
+  { art: 'artworks/Il carceriere.png', title: 'Lama tra le Forme', tipo: 'Malavita',
+    flavor: 'Un riflesso tra le fosse di colata. Poi più niente.',
+    effect: 'Piazzate 1 Sicario sull’uscita più vicina agli eroi della tessera corrente: si attiva subito.' },
+  { art: 'artworks/Il Crogiolante.png', title: 'Mestolata', tipo: 'Posseduto',
+    flavor: 'Il mestolo pesca nel crogiolo senza guardare. Non sbaglia mai.',
+    effect: 'Piazzate 1 Crogiolante sull’uscita più vicina agli eroi della tessera corrente.' },
+  { art: 'artworks/Il Crogiolante.png', title: 'Il Secchio Bolle', tipo: 'Posseduto',
+    flavor: 'Sentite il calore in faccia prima ancora dei passi.',
+    effect: 'Piazzate 1 Crogiolante sull’uscita più vicina agli eroi della tessera corrente.' },
+  { art: 'artworks/Il Crogiolante.png', title: 'Squadra di Colata', tipo: 'Posseduto',
+    flavor: 'Lavorano al buio. Il metallo fa luce da sé.',
+    effect: 'Piazzate 1 Crogiolante sull’uscita più vicina agli eroi della tessera corrente. Se è già in gioco un Crogiolante, si attiva subito.' },
+  { art: 'artworks/Il ritiro.png', title: 'Il Ritiro', tipo: 'Posseduto',
+    flavor: 'Una chiatta senza lanterne accosta. Nessuno rema.',
+    effect: 'Piazzate 1 Adepto sull’ingresso della Banchina delle Scorie (T1).' },
+  { art: 'artworks/Il ritiro.png', title: 'Volti alla Banchina', tipo: 'Posseduto',
+    flavor: 'Maschere lisce contano le campanelle. Una manca.',
+    effect: 'Piazzate 1 Adepto sull’ingresso della Banchina delle Scorie (T1).' },
+  { art: 'artworks/Cenere negli occhi.png', title: 'Cenere negli Occhi', tipo: 'Insidia',
+    flavor: 'Il vento del forno vi trova gli occhi, uno a uno.',
+    effect: 'L’eroe più avanzato prova NERVI (Media): se fallisce, cenere rovente — 1 danno.' },
+  { art: 'artworks/Pavimento di scoria.png', title: 'Pavimento di Scoria', tipo: 'Insidia',
+    flavor: 'La crosta nera regge, regge, regge. Poi no.',
+    effect: 'L’eroe attivo prova NERVI (Media): se fallisce, 1 danno e perde 1 azione al prossimo turno.' },
+  { art: 'artworks/Il fischio del forno.png', title: 'Il Fischio del Forno', tipo: 'Insidia',
+    flavor: 'Un fischio sottile, appena oltre l’udito. I denti dolgono.',
+    effect: 'Ogni eroe prova NERVI (Facile): chi fallisce ha 1 sola azione al prossimo turno.' },
+  { art: 'artworks/Il primo rintocco.png', title: 'Il Primo Rintocco', tipo: 'Crescendo',
+    flavor: 'Una campanella grezza rintocca da sola. Una volta.',
+    effect: 'Aggiungete 1 segnalino Canto. Al terzo: lo Scoriatore si desta e da quel momento ogni Fase Minaccia pesca 1 carta in più (vedi Soluzione). Se è già in gioco: cancellate 1 sua ferita dal Registro e si attiva subito.' },
+  { art: 'artworks/Il bronzo risponde.png', title: 'Il Bronzo Risponde', tipo: 'Crescendo',
+    flavor: 'Le campanelle in fila si inclinano insieme, in ascolto.',
+    effect: 'Aggiungete 1 segnalino Canto. Al terzo: lo Scoriatore si desta e da quel momento ogni Fase Minaccia pesca 1 carta in più (vedi Soluzione). Se è già in gioco: cancellate 1 sua ferita dal Registro e si attiva subito.' },
+  { art: 'artworks/La lega canta.png', title: 'La Lega Canta', tipo: 'Crescendo',
+    flavor: 'Il metallo fuso vibra a onde ferme, come una gola.',
+    effect: 'Aggiungete 1 segnalino Canto. Al terzo: lo Scoriatore si desta e da quel momento ogni Fase Minaccia pesca 1 carta in più (vedi Soluzione). Se è già in gioco: cancellate 1 sua ferita dal Registro e si attiva subito.' },
+  { art: 'artworks/Polvere di bronzo.png', title: 'Polvere di Bronzo', tipo: 'Quiete',
+    flavor: 'Oro finto sospeso nell’aria ferma. Nessun rumore, da nessuna parte.',
+    effect: 'Nessun effetto. Tirate il fiato — qualcosa, là fuori, lo sta trattenendo.' },
+  { art: 'artworks/Uno spiffero dal canale.png', title: 'Uno Spiffero dal Canale', tipo: 'Favore',
+    flavor: 'Aria fredda e pulita, da una parte che non conoscevate.',
+    effect: 'Rivelate una tessera coperta adiacente a quella di un eroe (la scelgono i giocatori).' },
+  { art: 'artworks/Scorie che franano.png', title: 'Scorie che Franano', tipo: 'Ostacolo',
+    flavor: 'La collina nera si muove. Meglio non esserci sotto.',
+    effect: 'Fino a fine round, sulla tessera dell’eroe attivo muoversi costa il doppio.' },
+  { art: 'artworks/Il ronzio nei denti.png', title: 'Il Ronzio nei Denti', tipo: 'Insidia',
+    flavor: 'Non lo sentite con le orecchie. Lo sentite con le otturazioni.',
+    effect: 'L’eroe con meno NERVI (a pari merito: sceglie il gruppo) prova NERVI (Media): se fallisce subisce 1 danno dal dolore.' },
+  { art: 'artworks/Il ritiro.png', title: 'Segugi del Coro', tipo: 'Bivio',
+    flavor: 'Sanno cosa portate. Lo sentono cantare da qui.',
+    effect: 'Piazzate 1 Adepto sull’ingresso della Banchina delle Scorie (T1): punta sempre l’eroe che porta lo spartito (se nessuno lo porta: il più vicino).' },
+  { art: 'artworks/Il ritiro.png', title: 'Segugi del Coro (II)', tipo: 'Bivio',
+    flavor: 'Il secondo non ha fretta. Il primo vi ha già trovati.',
+    effect: 'Piazzate 1 Adepto sull’ingresso della Banchina delle Scorie (T1): punta sempre l’eroe che porta lo spartito (se nessuno lo porta: il più vicino).' },
+].map((m) => ({
+  art: m.art,
+  title: `${m.tipo} — ${m.title}`,
+  file: `Episodio 2/Minacce/${m.title}`,
+  rules: `{i}${m.flavor}{/i}{divider}${m.effect}`,
+}));
+
+const EP2_OGGETTI = [
+  { art: 'artworks/Martello di Collaudo.png', nome: 'Il Martello di Collaudo', ref: 'E2-L1',
+    fonte: 'Luogo 1 — La Fonderia Dossena',
+    flavor: 'Il manico è consumato dove Ilario lo stringeva. Solo lì.',
+    effetto: 'Da solo: nessun effetto. Insieme allo SMORZO DI FELTRO, un’azione adiacente allo Scoriatore: il colpo smorzato lo stona — Difesa 8→5 per il resto della partita, e salta la sua prossima attivazione.' },
+  { art: 'artworks/Smorzo di Feltro.png', nome: 'Lo Smorzo di Feltro', ref: 'E2-L2',
+    fonte: 'Luogo 2 — La Cella Campanaria',
+    flavor: 'Feltro grigio, spesso quanto un messale. Sa di torre e di corda.',
+    effetto: 'Da solo: nessun effetto. Insieme al MARTELLO DI COLLAUDO, un’azione adiacente allo Scoriatore: il colpo smorzato lo stona — Difesa 8→5 per il resto della partita, e salta la sua prossima attivazione.' },
+  { art: 'artworks/Contrassegno di Piombo.png', nome: 'Il Contrassegno di Piombo', ref: 'E2-L7',
+    fonte: 'Luogo 7 — Il Molo delle Chiatte',
+    flavor: 'Una moneta senza re, con mezza onda al posto della faccia.',
+    effetto: 'In spedizione: mostrandolo, lo sbarco alla Banchina è silenzioso — l’apparizione segnata su T1 «QUANDO RIVELATE» non ha luogo.' },
+  { art: 'artworks/Polizza del Monte.png', nome: 'La Polizza del Monte', ref: 'E2-L6',
+    fonte: 'Luogo 6 — Il Banco dei Pegni di Fossa',
+    flavor: 'Riscattata, timbrata, dimenticata. La fretta lascia ricevute.',
+    effetto: 'A Roccamora una polizza riscattata si riporta al proprietario — e certe porte, davanti a chi restituisce, si aprono da sole.' },
+  { art: 'artworks/Medaglia del Fonditore.png', nome: 'La Medaglia del Fonditore', ref: 'E2-L9',
+    fonte: 'Luogo 9 — Il Cimitero delle Barche',
+    flavor: 'Un santo con la campana in mano, consumato dai pollici di tre generazioni.',
+    effetto: 'Effetto: nessuno finora scoperto.' },
+].map((o) => ({
+  art: o.art,
+  title: o.nome,
+  file: `Episodio 2/Oggetti/${o.nome.replace(/’/g, "'")}`,
+  type: 'Oggetto',
+  rules: `{i}${o.flavor}{/i}{divider}${o.effetto}`,
+  ref: o.ref, fonte: o.fonte,
+}));
+
+const EP2_NEMICI = [
+  { art: 'artworks/Lo Scoriatore.png', title: 'Lo Scoriatore',
+    type: 'Guardiano (Boss) — Episodio 2',
+    rules: '{i}Vent’anni da solo tra le scorie, finché una colata di prova non gli ha insegnato a risuonare: il grembiule di cuoio gli si è fuso addosso, e il petto rimbomba come bronzo cavo a ogni passo.{/i}{divider}Statistiche nel Bestiario dell’episodio.' },
+  { art: 'artworks/Il Crogiolante.png', title: 'Il Crogiolante',
+    type: 'Operaio del Coro — Episodio 2',
+    rules: '{i}Pagato in contanti per non fare domande, poi pagato in altro per non poterne più fare. Il mestolo trabocca e lui non sente il caldo.{/i}{divider}Statistiche nel Bestiario dell’episodio.' },
+].map((n) => ({ ...n, file: `Episodio 2/Nemici/${n.title}` }));
+
+const EP2 = [...LUOGHI2, ...EP2_INDIZI, ...EP2_TESTIMONI, ...EP2_REFERTI,
+             ...EP2_MINACCE, ...EP2_OGGETTI, ...EP2_NEMICI];
+
+
 module.exports = {
   HEROES, NEMICI, MINACCE, LUOGHI, INDIZI, TESTIMONI, REFERTI, OGGETTI, PRELUDIO,
   PRELUDIO_LUOGHI, PRELUDIO_APPROFONDIMENTI, PRELUDIO_OGGETTI,
-  ALL: [...HEROES, ...NEMICI, ...MINACCE, ...LUOGHI, ...INDIZI, ...TESTIMONI, ...REFERTI, ...OGGETTI, ...PRELUDIO],
+  EP2, LUOGHI2, EP2_INDIZI, EP2_TESTIMONI, EP2_REFERTI, EP2_MINACCE, EP2_OGGETTI, EP2_NEMICI,
+  ALL: [...HEROES, ...NEMICI, ...MINACCE, ...LUOGHI, ...INDIZI, ...TESTIMONI, ...REFERTI, ...OGGETTI, ...PRELUDIO, ...EP2],
 };

@@ -15,11 +15,11 @@
 const { chromium } = require('playwright');
 const { generateOne } = require('./lib');
 const { startServer } = require('./serve');
-const { HEROES, NEMICI, MINACCE, LUOGHI, INDIZI, TESTIMONI, REFERTI, OGGETTI, PRELUDIO, ALL } = require('./cards-data');
+const { HEROES, NEMICI, MINACCE, LUOGHI, INDIZI, TESTIMONI, REFERTI, OGGETTI, PRELUDIO, EP2, ALL } = require('./cards-data');
 
 const GROUPS = { heroes: HEROES, nemici: NEMICI, minacce: MINACCE, luoghi: LUOGHI,
                  indizi: INDIZI, testimoni: TESTIMONI, referti: REFERTI, oggetti: OGGETTI,
-                 preludio: PRELUDIO, all: ALL };
+                 preludio: PRELUDIO, ep2: EP2, all: ALL };
 
 (async () => {
   const which = (process.argv[2] || 'all').toLowerCase();

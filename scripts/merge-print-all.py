@@ -70,6 +70,21 @@ BUCKETS = [
         ],
         cards_sheet=os.path.join('Episodio 1', 'Carte-e-Tessere.pdf'),
     ),
+    # Episodio 2 «La voce del bronzo»: i fascicoli arrivano con le fasi B-3/D
+    # (add() salta i mancanti con un avviso, il bucket cresce da solo).
+    dict(
+        out='Ombre-su-Roccamora-Episodio-2-Completo.pdf',
+        booklets=[
+            os.path.join('Episodio 2', 'Copertina.pdf'),
+            os.path.join('Episodio 2', 'Indagine.pdf'),
+            os.path.join('Episodio 2', 'Mappa.pdf'),
+            os.path.join('Episodio 2', 'Luoghi.pdf'),
+            os.path.join('Episodio 2', 'Spedizione.pdf'),
+            os.path.join('Episodio 2', 'Bestiario.pdf'),
+            os.path.join('Episodio 2', 'Soluzione (non aprire).pdf'),
+        ],
+        cards_sheet=os.path.join('Episodio 2', 'Carte-e-Tessere.pdf'),
+    ),
 ]
 
 
