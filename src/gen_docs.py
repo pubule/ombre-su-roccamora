@@ -8,7 +8,7 @@ from reportlab.lib.styles import ParagraphStyle
 from reportlab.platypus import (SimpleDocTemplate, Paragraph, Spacer,
                                 PageBreak, Table, TableStyle, HRFlowable)
 from deluxe_style import (register_fonts, parchment_art, pad_to_even_pages, seal, F,
-                          INK, RED, RED_DK, TEAL, GOLD, SEPIA, PAPER_DK)
+                          rule_border, INK, RED, RED_DK, TEAL, GOLD, SEPIA, PAPER_DK)
 
 OUT_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'Comune', 'pdf')
 EP1_DIR = os.path.join(OUT_DIR, '..', '..', 'Episodio 1', 'pdf')
@@ -26,6 +26,12 @@ def bg(canv, doc):
     canv.setFillColor(SEPIA)
     canv.setFont(F['sc'], 7.5)
     canv.drawCentredString(A4[0]/2, 4.2*mm, 'ombre su roccamora \u00b7 societ\u00e0 del lume')
+    # Riga di tutela (stessa di rule_border in deluxe_style: i fascicoli a
+    # flowables non passano da rule_border, quindi va ripetuta qui).
+    canv.setFont(F['i'], 5.6)
+    canv.drawCentredString(A4[0]/2, 1.8*mm,
+                           '\u00a9 Fabio Stocco \u2014 \u00abOmbre su Roccamora\u00bb \u00b7 uso non commerciale '
+                           '(PolyForm NC 1.0.0) \u00b7 github.com/pubule/ombre-su-roccamora')
     canv.restoreState()
 
 
@@ -783,7 +789,51 @@ def aiuto():
     pad_to_even_pages(doc.filename)
 
 
+def colophon():
+    """Una pagina di licenza/paternita' in coda a OGNI «Completo» (vedi
+    merge-print-all): chi stampa il gioco la vede per forza, anche se il
+    PDF gli e' arrivato staccato dal repo. Sintesi leggibile, non il testo
+    legale (quello resta LICENSE.md: qui il rimando)."""
+    from reportlab.pdfgen import canvas as _canvas
+    from reportlab.platypus import Paragraph, Frame
+    out_path = os.path.join(OUT_DIR, 'Colophon.pdf')
+    c = _canvas.Canvas(out_path, pagesize=A4)
+    c.setTitle('Ombre su Roccamora - Colophon e licenza')
+    W2, H2 = A4
+    parchment_art(c, W2, H2)
+    rule_border(c, W2, H2)
+    c.setFillColor(RED); c.setFont(F['sc'], 20)
+    c.drawCentredString(W2/2, H2 - 36*mm, 'ombre su roccamora')
+    c.setFillColor(TEAL); c.setFont(F['i'], 12)
+    c.drawCentredString(W2/2, H2 - 44*mm, 'colophon — chi lo ha fatto, e cosa potete farne')
+    testo = (
+        '<b>© Fabio Stocco.</b> Testi, mondo, personaggi e componenti di «Ombre su '
+        'Roccamora» sono opera dell’autore. Fonte e versione aggiornata: '
+        '<b>github.com/pubule/ombre-su-roccamora</b>.<br/><br/>'
+        '<b>Cosa potete fare:</b> scaricare, stampare, giocare, regalare una copia '
+        'stampata, modificare per il vostro tavolo — tutto ciò che NON è commerciale '
+        'è benvenuto.<br/><br/>'
+        '<b>Cosa NON potete fare senza una licenza scritta:</b> vendere copie fisiche o '
+        'digitali, lanciare crowdfunding, includerlo in prodotti o servizi a pagamento, '
+        'pubblicare derivati commerciali. Licenza: <b>PolyForm Noncommercial 1.0.0</b> '
+        '(testo completo in LICENSE.md nel repository).<br/><br/>'
+        '<b>Uso commerciale:</b> si concorda per iscritto, caso per caso — scrivete a '
+        '<b>pubule@gmail.com</b> PRIMA di iniziare qualunque sfruttamento.<br/><br/>'
+        'Se questo gioco vi arriva da una fonte che lo vende, lo sta facendo alle '
+        'spalle dell’autore: fatevi furbi come i suoi investigatori.')
+    fr = Frame(30*mm, 60*mm, W2 - 60*mm, H2 - 120*mm, leftPadding=0, rightPadding=0,
+               topPadding=0, bottomPadding=0, showBoundary=0)
+    fr.addFromList([Paragraph(testo, ParagraphStyle('col', fontName=F['r'], fontSize=11,
+                                                     leading=16, textColor=INK, alignment=4))], c)
+    seal(c, W2/2, 42*mm, r=12*mm, angle=-8)
+    c.showPage()
+    c.save()
+    pad_to_even_pages(out_path)
+    print('ok ->', out_path)
+
+
 regolamento()
 soluzione()
 aiuto()
+colophon()
 print('OK docs')

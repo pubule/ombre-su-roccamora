@@ -293,6 +293,14 @@ async function tileSheets(browser) {
       @page { size: A4; margin: 0; }
       * { margin: 0; padding: 0; box-sizing: border-box; }
       body { font-family: Georgia, 'Times New Roman', serif; }
+      /* riga di tutela su ogni foglio di stampa (le carte circolano
+         staccate dal repo): microtesto nel margine basso della pagina,
+         fuori dalle carte - non finisce sui componenti ritagliati. */
+      .grid::after, .tilepage::after {
+        content: '© Fabio Stocco — “Ombre su Roccamora” · uso non commerciale (PolyForm NC 1.0.0) · github.com/pubule/ombre-su-roccamora';
+        position: absolute; left: 0; right: 0; bottom: 2.2mm; text-align: center;
+        font-size: 5.5pt; font-style: italic; color: #8a7150; }
+      .grid, .tilepage { position: relative; }
       .grid { width: 210mm; height: 297mm; display: grid;
               grid-template-columns: repeat(${COLS}, ${CARD_W}mm);
               grid-auto-rows: ${CARD_H}mm; justify-content: center; align-content: center;

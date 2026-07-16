@@ -120,6 +120,11 @@ def build(bucket):
     else:
         print('    (nessuna per questo bucket)')
 
+    # Colophon (licenza + paternita') in coda a OGNI Completo: chi stampa
+    # lo vede per forza, anche col PDF staccato dal repo.
+    print('  Colophon:')
+    add(writer, os.path.join('Comune', 'pdf', 'Colophon.pdf'))
+
     if not len(writer.pages):
         print('  (vuoto, nessun file scritto)')
         return

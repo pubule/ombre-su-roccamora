@@ -230,6 +230,15 @@ def rule_border(c, w, h, m1=7*mm, m2=9.5*mm):
     corner_flourish(c, w - m2 - 1.5*mm, m2 + 1.5*mm, s, 90)
     corner_flourish(c, w - m2 - 1.5*mm, h - m2 - 1.5*mm, s, 180)
     corner_flourish(c, m2 + 1.5*mm, h - m2 - 1.5*mm, s, 270)
+    # Riga di tutela su OGNI pagina di OGNI fascicolo (i PDF circolano
+    # staccati dal repo e dalla licenza): microtesto tra le due cornici,
+    # discreto ma presente su ogni copia stampata. Vive qui perche'
+    # rule_border e' l'unica funzione chiamata da tutte le pagine.
+    c.setFillColor(SEPIA)
+    c.setFont(F['i'], 5.6)
+    c.drawCentredString(w/2, m1 + 0.9*mm,
+                        '© Fabio Stocco — «Ombre su Roccamora» · uso non commerciale '
+                        '(PolyForm NC 1.0.0) · github.com/pubule/ombre-su-roccamora')
     c.restoreState()
 
 def wave(c, x, y, w, col=TEAL, lw=1.4):
