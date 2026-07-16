@@ -753,9 +753,11 @@ def aiuto():
                 'Danno indicato.'))
 
     e.append(P('TAGLIE DEL TAVOLO (contano gli EROI in tavola, non i giocatori)', 'h2'))
-    e.append(RL('<b>4 eroi</b> — +1 Salute massima a testa (oltre a Slancio/Preparati).'))
-    e.append(RL('<b>Boss</b> — −1 Ferita a 2 e 4 eroi; +1 a 6 e 9–10 (a 3, 5, 7, 8 nessuna modifica). '
-                'Fissato a inizio spedizione; Ferite già tabellate per taglia nel <b>Bestiario</b>.'))
+    e.append(RL('<b>4 eroi</b> — bonus agli eroi: <b>+1 Salute massima a testa</b> (oltre a '
+                'Slancio/Preparati).'))
+    e.append(RL('<b>Boss dell’episodio</b> (nemico) — le sue Ferite cambiano con la taglia: −1 a 2 e '
+                '4 eroi, +1 a 6 e 9–10 (a 3, 5, 7, 8 invariate; truppa mai toccata). Fissate a inizio '
+                'spedizione; già tabellate per taglia nel <b>Bestiario</b>.'))
     e.append(RL('<b>7–10 eroi</b> — la terza carta Minaccia si pesca solo nei round pari (tabella sopra).'))
 
     e.append(P('REGOLA D’ORO', 'h2'))
