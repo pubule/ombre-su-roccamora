@@ -208,7 +208,8 @@ LUOGHI = [
                         'quello che fu di Dellacqua — e tra le candele, una figura con le mani da liutaio. '
                         'Il canale, stanotte, ha fame.'),
          ]),
-    dict(n=4, nome='LA SAGRESTIA DELLA CATTEDRALE', req='Disponibile dall’inizio',
+    dict(n=4, nome='LA SAGRESTIA DELLA CATTEDRALE', req='Don Callisto socchiude appena la porta e non fa entrare nessuno: si fida solo di chi gli porta notizie del suo sagrestano — quello di cui, in città, tutti fanno il nome.',
+         chiave=('parola', 'Tonio'),
          testo='Don Callisto vi riceve nervoso, le mani sporche di cera. Dietro di lui, la porta della '
                'cripta è sbarrata: «Chiusa per lavori», taglia corto.',
          indizi=['La tabella degli inni segna il numero <b>315</b>, «Dal Profondo». Tonio giura di non averlo '

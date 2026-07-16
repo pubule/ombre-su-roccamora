@@ -479,9 +479,12 @@ LUOGHI_SIM = [
          approf=['Osservazione', 'Referto']),
     dict(n=2, nome='Casa di Ruggero', req=None, sblocca_oggetto='CORDA DI VIOLINO', chiude=None,
          approf=['Testimonianza']),
-    dict(n=3, nome='Taverna del Ponte Rotto', req=None, sblocca_parola='CHIATTA', chiude=None,
+    # sblocca_parola: stringa singola o tupla di parole (TONIO nasce sia in
+    # L3 sia in L8: doppia via d'accesso a L4, mai un gate singolo - vedi
+    # bibbia 1-sexies, vincolo anti-fortuna).
+    dict(n=3, nome='Taverna del Ponte Rotto', req=None, sblocca_parola=('CHIATTA', 'TONIO'), chiude=None,
          approf=['Testimonianza', 'Presagio']),
-    dict(n=4, nome='La Sagrestia della Cattedrale', req=None, chiude=None,
+    dict(n=4, nome='La Sagrestia della Cattedrale', req=('parola', 'TONIO'), chiude=None,
          approf=['Osservazione', 'Testimonianza']),
     dict(n=5, nome='Bottega del Liutaio Ferri', req=('oggetto', 'CORDA DI VIOLINO'), chiude=None,
          approf=['Osservazione', 'Referto'], diapason=True),
@@ -489,7 +492,7 @@ LUOGHI_SIM = [
          approf=['Testimonianza', 'Presagio']),
     dict(n=7, nome='L’Archivio Civico', req=('parola', 'SOMMERSO'), chiude=23,
          approf=['Osservazione']),
-    dict(n=8, nome='La Gendarmeria', req=None, chiude=21,
+    dict(n=8, nome='La Gendarmeria', req=None, sblocca_parola='TONIO', chiude=21,
          approf=['Referto', 'Testimonianza']),
 ]
 
@@ -707,8 +710,10 @@ def simula_indagine(party, log, esplora_a_fondo=False):
             for indizio in vero_luogo.get('indizi', []):
                 log(f'    - Indizio: {strip_tags(indizio)}')
         if l.get('sblocca_parola'):
-            parole.add(l['sblocca_parola'])
-            log(f'    -> Parola chiave trovata (vedi indizio sopra): {l["sblocca_parola"]}')
+            sp = l['sblocca_parola']
+            for p in ([sp] if isinstance(sp, str) else sp):
+                parole.add(p)
+                log(f'    -> Parola chiave trovata (vedi indizio sopra): {p}')
         if l.get('sblocca_oggetto'):
             oggetti.add(l['sblocca_oggetto'])
             log(f'    -> Oggetto trovato (vedi indizio sopra): {l["sblocca_oggetto"]}')
@@ -870,7 +875,8 @@ def simula_indagine_2gruppi(party, log, orologio_condiviso=True):
         lettore = max(gruppi[g], key=lambda n: HERO[n]['acume'])
         ok, _ = check(log, lettore, 'ACUME', HERO[lettore]['acume'], 'Media')
         if l.get('sblocca_parola'):
-            parole.add(l['sblocca_parola'])
+            sp = l['sblocca_parola']
+            parole.update([sp] if isinstance(sp, str) else sp)
         if l.get('sblocca_oggetto'):
             oggetti.add(l['sblocca_oggetto'])
         if l.get('diapason'):

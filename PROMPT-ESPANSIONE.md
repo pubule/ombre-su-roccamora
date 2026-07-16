@@ -70,13 +70,20 @@ visto («un signore ben vestito, mani da artigiano») è Ferri, non nominarlo ma
 prima che l'Ep. 1 lo riveli.
 
 **Struttura fissa di un episodio (una serata):**
-1. *Fase Indagine* — 8 carte Luogo (circa 5 aperte dall'inizio, **minimo 3 bloccati**
-   tramite parole chiave o oggetti trovati — sotto i 3, l'abbinamento chiave→porta
-   coperta è quasi obbligato invece che dedotto, vedi 1-sexies; il Preludio-tutorial fa
-   eccezione con 1. **Non scrivere le parole chiave in maiuscolo** dentro l'indizio: da
+1. *Fase Indagine* — 8 carte Luogo. **Aperti dall'inizio SOLO i luoghi che devono
+   esserlo per vincolo** (regola: le aperte al minimo indispensabile, tutto il resto
+   coperto/bloccato): (a) le fonti di chiavi (vedi vincolo anti-fortuna, 1-sexies),
+   (b) i luoghi con carte del dato rivelatorio raggiungibili senza chiavi (vedi
+   1-bis), (c) le àncore narrative del caso (dove punta la Lettera d'incarico: la
+   casa dello scomparso, il suo posto di lavoro...). Nell'Ep. 1 il minimo così
+   vincolato è **4 aperti** (L1/L2/L3 fonti di chiavi + àncore, L8 rivelatorio) e
+   **4 bloccati** (L4/L5/L6/L7) — comunque **mai meno di 3 bloccati** (sotto i 3,
+   l'abbinamento chiave→porta coperta è quasi obbligato invece che dedotto; il
+   Preludio-tutorial fa eccezione con 1). Sblocci tramite parole chiave o oggetti
+   trovati — **non scrivere le parole chiave in maiuscolo** dentro l'indizio: da
    una sessione successiva, il maiuscolo era un aiuto involontario che permetteva di
    scandire il testo cercando l'unica parola urlata invece di leggerlo davvero, vedi
-   1-quinquies). Budget: **6 ore/visite** (18:00-24:00,
+   1-quinquies. Budget: **6 ore/visite** (18:00-24:00,
    vedi Regolamento e Lettera d'incarico — il tempo non deve bastare per tutto: i luoghi
    utili superano le ore, per 8 luoghi già scarseggiano). Sempre almeno un vincolo d'orologio (un luogo che chiude o un testimone che sparisce a un'ora precisa). Almeno
    2 false piste che scagionino innocenti e almeno 1 oggetto-esca plausibile ma inutile (come l'acqua benedetta dell'Ep. 1), così la domanda sull'oggetto è una scelta vera. Gli indizi risolutivi non devono mai nominare la risposta per esteso: usare sigle, soprannomi o riferimenti parziali da incrociare (il "C.B." del registro dell'Ep. 1). Chiusura: **4 Domande** scritte (dove / chi / codice o
@@ -199,15 +206,20 @@ prima che l'Ep. 1 lo riveli.
    - **Setup**: le carte "Disponibile dall'inizio" partono **scoperte** (le piste che
      qualunque investigatore batterebbe); i luoghi **bloccati** partono **coperti**
      (dorso: solo il numero — serve a chi arbitra per abbinare carta e pagina del
-     fascicolo, non ai giocatori per scegliere). **Minimo 3 luoghi bloccati/coperti
-     per episodio** (Ep. 1: L5/L6/L7): con meno, l'abbinamento chiave→porta è quasi
-     obbligato invece che dedotto. Il Preludio-tutorial fa eccezione con 1.
+     fascicolo, non ai giocatori per scegliere). **Aperti al minimo indispensabile**
+     (vedi punto 1: solo fonti di chiavi, rivelatorio senza chiavi, àncore
+     narrative), e comunque **minimo 3 bloccati/coperti per episodio** (Ep. 1:
+     L4/L5/L6/L7, 4 aperti / 4 bloccati): con meno bloccati, l'abbinamento
+     chiave→porta è quasi obbligato invece che dedotto. Il Preludio-tutorial fa
+     eccezione con 1.
    - **Vincolo anti-fortuna**: le chiavi (parole/oggetti che aprono luoghi) nascono
      SOLO in luoghi aperti dall'inizio — MAI dentro un luogo coperto. Vietate le
      catene cieche coperto→coperto: se un luogo bloccato desse la chiave di un altro
      luogo bloccato, arrivarci sarebbe fortuna, non deduzione. Ep. 1 conforme:
-     sommerso (L1), corda (L2), chiatta (L3) vengono tutti da luoghi aperti; il
-     diapason di L5 è un oggetto da Spedizione, non una chiave d'accesso.
+     sommerso (L1), corda (L2), chiatta (L3), Tonio (L3 **e** L8 — una chiave può
+     nascere in più luoghi aperti: doppia via, mai un gate singolo) vengono tutti da
+     luoghi aperti; il diapason di L5 è un oggetto da Spedizione, non una chiave
+     d'accesso.
    - **Visitare una carta coperta**: costa 1 ora come ogni visita. Il gruppo dichiara
      una destinazione con le parole dei propri appunti ("i magazzini sul canale") —
      chi tiene il fascicolo trova la pagina e gira la carta giusta (precedente:
@@ -818,9 +830,11 @@ Ogni testo deve far *vedere* la scena, non riassumerla. Regole:
       probabili a un tavolo da 2 possono sbloccare almeno un Approfondimento?
 - [ ] Il mazzo Approfondimenti ha dorsi con SOLO il tipo (mai il numero del luogo né il
       contenuto)? Le carte Oggetto hanno solo il nome (mai il luogo/tessera d'origine)?
-- [ ] Almeno 3 luoghi bloccati/coperti (1-sexies)? Ogni luogo bloccato ha la riga
-      "si entra con — solo per chi arbitra" nel fascicolo Luoghi (campo `chiave` nei
-      dati) e la frase-requisito narrativa sulla carta (1-quinquies)?
+- [ ] Almeno 3 luoghi bloccati/coperti, e aperti SOLO quelli vincolati (fonti di
+      chiavi / rivelatorio senza chiavi / àncore narrative — punto 1 e 1-sexies)?
+      Ogni luogo bloccato ha la riga "si entra con — solo per chi arbitra" nel
+      fascicolo Luoghi (campo `chiave` nei dati) e la frase-requisito narrativa
+      sulla carta (1-quinquies)?
 - [ ] Nessuna chiave (parola/oggetto che apre un luogo) nasce dentro un luogo coperto
       (vincolo anti-fortuna, 1-sexies)?
 - [ ] Ogni oggetto trovabile (Indagine o Cercare) ha una carta Oggetto con arte dedicata,
