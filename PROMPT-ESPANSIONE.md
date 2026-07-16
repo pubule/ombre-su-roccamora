@@ -332,7 +332,7 @@ prima che l'Ep. 1 lo riveli.
    fedele: se in futuro si ritara di nuovo, usare SEMPRE la griglia tattica,
    mai tornare al modello a blocco unico.
 
-3-quater. *Tavoli grandi e piccoli, ritarati due volte sulla griglia tattica* —
+3-quater. *Tavoli grandi e piccoli, ritarati TRE volte sulla griglia tattica* —
    con posizioni reali, l'affollamento fisico di una tessera 4x4 penalizza i
    party grandi molto piu' di quanto un semplice scaling lineare
    prevedesse (piu' eroi in una stanza piccola = piu' traffico, non solo
@@ -371,6 +371,26 @@ prima che l'Ep. 1 lo riveli.
      tavolo nudo da 2.
    Curva risultante (3-10): 77-89% vittoria, 24-39% vittorie sofferte,
    risveglio anticipato del boss mai sopra il 3%.
+   **Terza ritaratura (2026-07-16, audit di fedelta')**: quella curva era
+   stata misurata su un motore che NON simulava il tick del Canto (+1
+   segnalino automatico ogni 4° round — il "secondo orologio" era
+   semplicemente assente) ne' varie abilita' eroe (scruta di Sibilla,
+   Flash! di Carla, Secondo Fiato, perdita azioni da insidie; e Voce ferma
+   dava +2 a TUTTO il gruppo invece che ai soli adiacenti). Col motore
+   onesto (log in `logs/playtest/20260716-fedelta/`) le taglie che pescano
+   "piu' carte Minaccia che corpi" affondavano (n=4 69%, n=8 59%) mentre
+   altre tenevano. Correzione trovata e validata su seed mai usati in
+   taratura: **il boss scala anche VERSO IL BASSO** — `CUSTODE_TENSIONE_
+   EXTRA = {2:-1, 4:-1, 6:+1, 9:+1, 10:+1}` (boss+1 a n=8 bocciato: 59%
+   contro 81% senza; -1 esteso a 3 e 5 bocciato: le manda a 92-95%).
+   Curva validata (3-10): 69-89% vittoria, sofferte 14-34%; il tavolo da
+   2 (sempre modalita' dura dichiarata) risale da 21% a ~49%. Due lezioni
+   nuove: (a) il simulatore deve modellare TUTTE le fonti di pressione
+   stampate (un orologio dimenticato invalida ogni taratura precedente);
+   (b) i run non erano riproducibili tra processi per via dell'ordine di
+   iterazione dei `set` Python (PYTHONHASHSEED) — pareggi di `min()` su
+   `down` decisi dal caso: ora i tie-break sono ordinati (`sorted`), e
+   ogni confronto A/B futuro deve girare su motore deterministico.
    Qualunque nuovo episodio con Ferite boss piu' alte di 3 deve verificare
    che boss-Ferite-base + 1 resti sotto la soglia `N_PIP=10` del Registro
    (vedi 3-bis) — ampio margine con Ferite-base fino a 9. Regola spiegata
@@ -492,7 +512,8 @@ Per un episodio nuovo: **copia il file** (non modificarlo sul posto, l'Ep. 1 res
 riferimento storico), aggiorna `path`/`TILES`/`CUSTODE`/le carte Minaccia con la mappa
 e i nemici del nuovo episodio, ma **riusa senza modificarle** le costanti/formule di
 scaling (`MINACCIA_FORMULE['finale_v3']`, `CUSTODE_TENSIONE_EXTRA`,
-`SALUTE_BONUS_PER_N` — config di produzione dal 20260715, vedi 3-quater) e la
+`SALUTE_BONUS_PER_N`, `TICK_CANTO_OGNI`/`SOGLIA_CANTO` — config di produzione
+dal 20260716, vedi 3-quater) e la
 geometria/pathfinding (`chess()`, `cammino()`,
 `muovi_verso()`, `PORTE`) — quelle sono per numero di eroi e per griglia 4x4 generiche,
 non per episodio, e sono gia' validate. Rilancia gli stessi round diagnostici
@@ -668,8 +689,9 @@ Tyrlov) per le carte e **mappa a china su pergamena** per le tessere.
   nemico, template affine alla Scheda Personaggio (nome, tipo, ritratto in
   cornice — stessa arte della carta Creatura — bio dal campo `note` arricchito
   da `story.NOTE_NEMICI`, riquadri statistiche Attacco/Difesa/Movimento/Danno)
-  più la **tabella Ferite per numero di eroi in tavola** (fasce 2-5 / 6 / 7 /
-  8-10, vedi 3-quater: i valori scalati sono in rosso). Regole ferree:
+  più la **tabella Ferite per numero di eroi in tavola** (fasce 2-e-4 / 3-e-5 /
+  6 / 7-8 / 9-10, vedi 3-quater: i valori scalati — in su E in giù — sono in
+  rosso). Regole ferree:
   (a) le **carte Creatura NON riportano statistiche** — solo ritratto, flavor
   e il rimando "Statistiche nel Bestiario dell'episodio": la carta e' il
   segnalino, il Bestiario e' la fonte unica al tavolo (precedente di genere:
@@ -678,7 +700,7 @@ Tyrlov) per le carte e **mappa a china su pergamena** per le tessere.
   (Malavita e futuri ricorrenti): fascicolo autocontenuto, come tutto il
   materiale per episodio (anche il Preludio ha il suo, con la sola Malavita);
   (c) un nemico nuovo porta in `NEMICI` (gen_cards.py) anche `tipo`, `art` e
-  l'eventuale `boss=True` (guida la riga Ferite 8-10), e la scalatura in
+  l'eventuale `boss=True` (guida la riga Ferite scalate per taglia), e la scalatura in
   tabella deve restare identica a quella del Regolamento/simulatore.
 - **`Luoghi.pdf` (`src/gen_narrator.py`; il Preludio ha l'equivalente in
   `gen_preludio.py::luoghi()`, stesso pattern):** apre con la pagina indice

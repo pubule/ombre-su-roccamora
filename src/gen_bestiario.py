@@ -109,20 +109,23 @@ def inquadratura(nemico):
 
 # Scalatura Ferite per numero di eroi in tavola - STESSI numeri del
 # Regolamento (sezione "Giocare in pochi o in tanti") e di
-# CUSTODE_TENSIONE_EXTRA in scripts/simulate_playtest.py, validati sul
-# motore a griglia tattica dopo la ricalibrazione del 20260715 (vedi
-# logs/playtest/20260715-ricalibrazione/analisi.md). Se quelle regole
+# CUSTODE_TENSIONE_EXTRA in scripts/simulate_playtest.py, ritarati il
+# 20260716 sul motore con tick del Canto e abilita' complete (vedi
+# logs/playtest/20260716-fedelta/riepilogo_fedelta.md). Se quelle regole
 # cambiano, questa tabella va aggiornata insieme (e viceversa). Nessun
-# bonus generale ai nemici di truppa in nessuna fascia: solo il boss
-# dell'episodio prende +1 Ferita a 6 e a 8-10 (a 7 no: testato e bocciato,
-# la pressione di quella taglia basta gia' senza).
-FASCE = ['2–5 eroi', '6 eroi', '7 eroi', '8–10 eroi']
+# bonus ai nemici di truppa in nessuna fascia: solo il boss dell'episodio
+# scala - -1 Ferita ai tavoli da 2 e 4 (le taglie che pescano "piu' carte
+# Minaccia che corpi", affondavano col secondo orologio attivo), +1 a 6 e
+# a 9-10 (a 7 e 8 no: testato e bocciato in entrambe le ritarature).
+FASCE = ['2 e 4 eroi', '3 e 5 eroi', '6 eroi', '7–8 eroi', '9–10 eroi']
+BOSS_DELTA = [-1, 0, 1, 0, 1]
 
 
 def ferite_per_fascia(nemico):
     base = nemico['fer']
-    boss_extra = 1 if nemico.get('boss') else 0
-    return [base, base + boss_extra, base, base + boss_extra]
+    if not nemico.get('boss'):
+        return [base] * len(FASCE)
+    return [base + d for d in BOSS_DELTA]
 
 
 def pagina_nemico(c, nemico):
@@ -174,7 +177,7 @@ def pagina_nemico(c, nemico):
     ferite = ferite_per_fascia(nemico)
     voci_ferite = [(fascia, fer, RED if fer != nemico['fer'] else INK)
                    for fascia, fer in zip(FASCE, ferite)]
-    y = griglia_stat_box(c, mx, y, full_w, voci_ferite, colonne=4, box_h=box_h)
+    y = griglia_stat_box(c, mx, y, full_w, voci_ferite, colonne=len(FASCE), box_h=box_h)
 
     c.setFillColor(SEPIA); c.setFont(F['i'], 7.5)
     c.drawString(mx, 14*mm, 'Le ferite subite si segnano sul Registro delle Ferite')

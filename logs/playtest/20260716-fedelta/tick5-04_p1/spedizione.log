@@ -1,0 +1,254 @@
+Run: tick5-04_p1_seed0  |  seed=415100  |  formula Minaccia=finale_v3  |  generato: 2026-07-16T10:45:47
+==============================================================================
+SPEDIZIONE - Il Campanile di San Teodoro (sotterranei)
+==============================================================================
+Party: DOTT. ATTILIO MARN, FULGENZIO CARBONE, MORA “SPILLA” FANTI, SIBILLA REVE
+Bonus da Indagine: PREPARATI (+1 Salute massima a testa); diapason: no
+NOTA: gruppo trattato come blocco unico tessera per tessera (vedi intestazione script).
+
+Tavolo da 4: +1 Salute massima a testa (ricalibrazione).
+--- Round 1: il gruppo raggiunge T2 (Sala delle Casse) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    Il gruppo entra in T2 da B1.
+    [PROVA ACUME] DOTT. ATTILIO MARN: 2d6(4,6)=10 +ACUME(2) = 12 vs Media(9) -> SUCCESSO
+    DOTT. ATTILIO MARN cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    FULGENZIO CARBONE: nessun bersaglio, avanza / assiste il gruppo.
+    MORA “SPILLA” FANTI: nessun bersaglio, avanza / assiste il gruppo.
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] TRAPPOLA DI CERA (insidia) — L’eroe più avanzato prova NERVI (Media): se fallisce, cera bollente: 1 danno e perde 1 azi…
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(5,5)=10 +NERVI(1) = 11 vs Media(9) -> SUCCESSO
+  [MINACCIA] IL CORO RISPONDE (crescendo) — Aggiungete 1 segnalino Canto. Al terzo: il Custode della Cera si desta e da quel momento o…
+    Segnalino Canto: 1.
+--- Round 2: il gruppo raggiunge T4 (Ufficio del Custode) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    Il gruppo entra in T4 da D3.
+    Cercando: trovata LA CHIAVE DELLA CELLA. Prenderla è una scelta — il gruppo decide di prenderla (oggetto rischioso).
+    [PROVA NERVI] SIBILLA REVE: 2d6(2,6)=8 +NERVI(3) = 11 vs Media(9) -> SUCCESSO
+    [PROVA ACUME] DOTT. ATTILIO MARN: 2d6(6,4)=10 +ACUME(2) = 12 vs Media(9) -> SUCCESSO
+    DOTT. ATTILIO MARN cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    FULGENZIO CARBONE: nessun bersaglio, avanza / assiste il gruppo.
+    MORA “SPILLA” FANTI: nessun bersaglio, avanza / assiste il gruppo.
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+    [ABILITÀ] SIBILLA REVE scruta il mazzo: «IL CANTO SALE» finisce in fondo, «IL FONDITORE» torna in cima (2 usi residui).
+  [MINACCIA] IL FONDITORE (posseduto) — Piazzate 1 Fonditore sull’ingresso della Banchina (T1). Se è già in gioco un Fonditore, ca…
+    Piazzati 1x IL FONDITORE (pool residua: 2), a 6 caselle dalla tessera del gruppo.
+  [MINACCIA] IL FALCETTO NEL BUIO (posseduto) — Piazzate 1 Adepto sull’ingresso della tessera corrente, alle spalle degli eroi.
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 9) in D3.
+  IL FONDITORE si avvicina (Movimento 2): ancora 7 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si muove verso MORA “SPILLA” FANTI: D3 -> C3.
+  ADEPTO INCAPPUCCIATO attacca MORA “SPILLA” FANTI:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> MORA “SPILLA” FANTI: 2d6(6,6)=12 +Attacco(1) = 13 vs Difesa(8) -> COLPITO
+    MORA “SPILLA” FANTI subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 8/9).
+--- Round 3: il gruppo raggiunge T2 (Sala delle Casse) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    Il gruppo entra in T2 da A3.
+    [ABILITÀ] DOTT. ATTILIO MARN usa Pronto Soccorso su MORA “SPILLA” FANTI -> Salute 9.
+    [ABILITÀ] FULGENZIO CARBONE usa Esca preziosa: IL FONDITORE, ADEPTO INCAPPUCCIATO si dirige verso l’esca invece che verso il gruppo alla prossima attivazione.
+    MORA “SPILLA” FANTI: nessun bersaglio, avanza / assiste il gruppo.
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+    [ABILITÀ] SIBILLA REVE scruta il mazzo: «IL CANTO CRESCE» finisce in fondo, «RONDA» torna in cima (1 usi residui).
+  [MINACCIA] RONDA (posseduto) — Piazzate 2 Adepti sull’ingresso della Banchina (T1).
+    Piazzati 2x ADEPTO INCAPPUCCIATO (pool residua: 7), a 6 caselle dalla tessera del gruppo.
+  [MINACCIA] LA MAREA DI CERA (posseduto) — Piazzate 1 Fonditore sull’ingresso della Banchina (T1): tutti i Fonditori in gioco si atti…
+    1x IL FONDITORE già in gioco si attiva subito.
+    Piazzati 1x IL FONDITORE (pool residua: 1), a 6 caselle dalla tessera del gruppo.
+  IL FONDITORE si dirige verso l’esca (Carbone): non attacca questo round.
+  ADEPTO INCAPPUCCIATO si dirige verso l’esca (Carbone): non attacca questo round.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+  IL FONDITORE si avvicina (Movimento 2): ancora 7 caselle prima di raggiungere la tessera del gruppo.
+--- Round 4: il gruppo raggiunge T5 (Scala interrata) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    Il gruppo entra in T5 da B1.
+    [PROVA NERVI] DOTT. ATTILIO MARN: 2d6(1,3)=4 +NERVI(2) = 6 vs Facile(7) -> FALLITA
+    DOTT. ATTILIO MARN avrà solo 1 azione al prossimo turno.
+    [PROVA NERVI] FULGENZIO CARBONE: 2d6(2,3)=5 +NERVI(2) = 7 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(3,1)=4 +NERVI(1) = 5 vs Facile(7) -> FALLITA
+    MORA “SPILLA” FANTI avrà solo 1 azione al prossimo turno.
+    [PROVA NERVI] SIBILLA REVE: 2d6(1,6)=7 +NERVI(3) = 10 vs Facile(7) -> SUCCESSO
+    DOTT. ATTILIO MARN ha 1 sola azione questo turno (insidia del round scorso).
+    DOTT. ATTILIO MARN si muove verso IL FONDITORE: B1 -> A2.
+    DOTT. ATTILIO MARN (1 sola azione) si limita ad avvicinarsi a IL FONDITORE.
+    [ABILITÀ] FULGENZIO CARBONE usa Esca preziosa: IL FONDITORE, ADEPTO INCAPPUCCIATO si dirige verso l’esca invece che verso il gruppo alla prossima attivazione.
+    MORA “SPILLA” FANTI ha 1 sola azione questo turno (insidia del round scorso).
+    MORA “SPILLA” FANTI si muove verso IL FONDITORE: B1 -> D2.
+    MORA “SPILLA” FANTI (1 sola azione) si limita ad avvicinarsi a IL FONDITORE.
+    [PROVA ACUME] SIBILLA REVE: 2d6(1,2)=3 +ACUME(2) = 5 vs Media(9) -> FALLITA
+    SIBILLA REVE cerca sulla tessera: niente da trovare qui, o prova fallita.
+  [MINACCIA] CERA CHE COLA (ostacolo) — Fino a fine round, sulla tessera dell’eroe attivo muoversi costa il doppio.
+    Penalità di Movimento fino al prossimo turno (non modellata nel loop di combattimento).
+  [MINACCIA] CERA SOTTO I PIEDI (insidia) — L’eroe attivo prova NERVI (Media): se fallisce, 1 danno e perde 1 azione al prossimo turno…
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(2,1)=3 +NERVI(1) = 4 vs Media(9) -> FALLITA
+    [SECONDO FIATO] MORA “SPILLA” FANTI ritenta la prova (unico ritento dell’episodio):
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(6,2)=8 +NERVI(1) = 9 vs Media(9) -> SUCCESSO
+  IL FONDITORE si dirige verso l’esca (Carbone): non attacca questo round.
+  ADEPTO INCAPPUCCIATO si dirige verso l’esca (Carbone): non attacca questo round.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  IL FONDITORE si avvicina (Movimento 2): ancora 8 caselle prima di raggiungere la tessera del gruppo.
+--- Round 5: il gruppo raggiunge T6 (Cripta della Cera) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    Il gruppo entra in T6 da B1.
+    Rivelata la Cripta della Cera: il Custode della Cera si desta con 2 Adepti, in C2.
+    [ATTACCO] DOTT. ATTILIO MARN -> ADEPTO INCAPPUCCIATO: 2d6(1,4)=5 +VIGORE(2)+arma(1) = 8 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    FULGENZIO CARBONE si muove verso ADEPTO INCAPPUCCIATO: B1 -> A2.
+    [ATTACCO] FULGENZIO CARBONE -> ADEPTO INCAPPUCCIATO: 2d6(3,3)=6 +VIGORE(1)+arma(1) = 8 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    MORA “SPILLA” FANTI si muove verso IL CUSTODE DELLA CERA: B1 -> B2.
+    [ATTACCO] MORA “SPILLA” FANTI -> IL CUSTODE DELLA CERA: 2d6(6,6)=12 +VIGORE(2)+arma(1) = 15 vs Difesa(9) -> COLPITO
+    IL CUSTODE DELLA CERA: 2/3 ferite residue.
+    SIBILLA REVE si muove verso IL CUSTODE DELLA CERA: B1 -> C1.
+    [ATTACCO] SIBILLA REVE -> IL CUSTODE DELLA CERA: 2d6(1,5)=6 +VIGORE(1)+arma(1) = 8 vs Difesa(9) -> MANCATO
+  [MINACCIA] BRAVI SUL MOLO (malavita) — Piazzate 1 Sgherro sull’ingresso della Banchina (T1).
+    Piazzati 1x LO SGHERRO (pool residua: 3), a 6 caselle dalla tessera del gruppo.
+  [MINACCIA] PRESAGIO (quiete) — Un brivido corre lungo la schiena. Non accade nulla... per ora.
+    Nessun effetto meccanico (tensione).
+  IL FONDITORE attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] IL FONDITORE -> FULGENZIO CARBONE: 2d6(3,3)=6 +Attacco(1) = 7 vs Difesa(8) -> MANCATO
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+  IL FONDITORE si avvicina (Movimento 2): ancora 9 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+  IL CUSTODE DELLA CERA attacca MORA “SPILLA” FANTI:
+    [ATTACCO NEMICO] IL CUSTODE DELLA CERA -> MORA “SPILLA” FANTI: 2d6(4,4)=8 +Attacco(3) = 11 vs Difesa(8) -> COLPITO
+    MORA “SPILLA” FANTI subisce 2 danno da IL CUSTODE DELLA CERA (Salute: 7/9).
+  [OROLOGIO] Fine del 5° round: +1 segnalino Canto automatico.
+    Segnalino Canto: 2.
+--- Combattimento contro il Custode della Cera ---
+--- Round 6: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    [ABILITÀ] DOTT. ATTILIO MARN usa Pronto Soccorso su MORA “SPILLA” FANTI -> Salute 9.
+    [ATTACCO] FULGENZIO CARBONE -> IL FONDITORE: 2d6(3,2)=5 +VIGORE(1)+arma(1) = 7 vs Difesa(8) -> MANCATO
+    [ATTACCO] MORA “SPILLA” FANTI -> IL CUSTODE DELLA CERA: 2d6(4,2)=6 +VIGORE(2)+arma(1) = 9 vs Difesa(9) -> COLPITO
+    IL CUSTODE DELLA CERA: 1/3 ferite residue.
+    SIBILLA REVE si muove verso IL CUSTODE DELLA CERA: C1 -> D2.
+    [ATTACCO] SIBILLA REVE -> IL CUSTODE DELLA CERA: 2d6(3,4)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(9) -> COLPITO
+    IL CUSTODE DELLA CERA: 0/3 ferite residue.
+    IL CUSTODE DELLA CERA è ABBATTUTO.
+    *** IL CUSTODE DELLA CERA È SCONFITTO. ***
+    [ABILITÀ] SIBILLA REVE scruta il mazzo: «LAMA NEL BUIO» finisce in fondo, «ECO AMICA» torna in cima (0 usi residui).
+  [MINACCIA] ECO AMICA (favore) — Ruggero è vivo. Rivelate una tessera coperta adiacente a una già rivelata.
+    Rivelata una tessera coperta adiacente (nessun effetto in questa astrazione).
+  [MINACCIA] UNGHIE SULLA PIETRA (posseduto) — Piazzate 1 Cane dei Moli sull’ingresso della tessera corrente: si attiva subito.
+    Piazzati 1x CANE DEI MOLI (pool residua: 2) in C2.
+    CANE DEI MOLI si attiva subito:
+  CANE DEI MOLI si muove verso SIBILLA REVE: C2 -> D1.
+  CANE DEI MOLI attacca SIBILLA REVE:
+    [ATTACCO NEMICO] CANE DEI MOLI -> SIBILLA REVE: 2d6(6,4)=10 +Attacco(2) = 12 vs Difesa(8) -> COLPITO
+    SIBILLA REVE subisce 1 danno da CANE DEI MOLI (Salute: 7/8).
+  IL FONDITORE attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] IL FONDITORE -> FULGENZIO CARBONE: 2d6(3,4)=7 +Attacco(1) = 8 vs Difesa(8) -> COLPITO
+    FULGENZIO CARBONE subisce 2 danno da IL FONDITORE (Salute: 6/8).
+  ADEPTO INCAPPUCCIATO si muove verso DOTT. ATTILIO MARN: C3 -> C1.
+  ADEPTO INCAPPUCCIATO attacca DOTT. ATTILIO MARN:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> DOTT. ATTILIO MARN: 2d6(3,5)=8 +Attacco(1) = 9 vs Difesa(8) -> COLPITO
+    DOTT. ATTILIO MARN subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 8/9).
+  ADEPTO INCAPPUCCIATO raggiunge la tessera del gruppo, da A1.
+  ADEPTO INCAPPUCCIATO attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> FULGENZIO CARBONE: 2d6(2,4)=6 +Attacco(1) = 7 vs Difesa(8) -> MANCATO
+  ADEPTO INCAPPUCCIATO raggiunge la tessera del gruppo, da C2.
+  ADEPTO INCAPPUCCIATO attacca MORA “SPILLA” FANTI:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> MORA “SPILLA” FANTI: 2d6(1,2)=3 +Attacco(1) = 4 vs Difesa(8) -> MANCATO
+  IL FONDITORE si avvicina (Movimento 2): ancora 7 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si avvicina (Movimento 4): ancora 1 caselle prima di raggiungere la tessera del gruppo.
+    La cella si apre con la chiave: RUGGERO È LIBERO.
+--- Ritorno a T1 con Ruggero (3 round di movimento, minacce ancora attive) ---
+--- Round 7: rientro verso T1 ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    [ABILITÀ] DOTT. ATTILIO MARN usa Pronto Soccorso su FULGENZIO CARBONE -> Salute 8.
+    [ATTACCO] FULGENZIO CARBONE -> ADEPTO INCAPPUCCIATO: 2d6(6,1)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    [ATTACCO] MORA “SPILLA” FANTI -> ADEPTO INCAPPUCCIATO: 2d6(3,4)=7 +VIGORE(2)+arma(1) = 10 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    [ATTACCO] SIBILLA REVE -> CANE DEI MOLI: 2d6(6,4)=10 +VIGORE(1)+arma(1) = 12 vs Difesa(6) -> COLPITO
+    CANE DEI MOLI: 0/1 ferite residue.
+    CANE DEI MOLI è ABBATTUTO.
+  [MINACCIA] LA VEDETTA (posseduto) — Piazzate 1 Adepto adiacente all’eroe più isolato (quello più lontano dagli altri; a pari m…
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 8) in A1.
+  [MINACCIA] ADEPTO IN AGGUATO (posseduto) — Piazzate 1 Adepto sull’uscita più vicina agli eroi della tessera in cui si trova l’eroe at…
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 7) in B1.
+  IL FONDITORE attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] IL FONDITORE -> FULGENZIO CARBONE: 2d6(6,6)=12 +Attacco(1) = 13 vs Difesa(8) -> COLPITO
+    FULGENZIO CARBONE subisce 2 danno da IL FONDITORE (Salute: 6/8).
+  ADEPTO INCAPPUCCIATO attacca DOTT. ATTILIO MARN:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> DOTT. ATTILIO MARN: 2d6(1,6)=7 +Attacco(1) = 8 vs Difesa(8) -> COLPITO
+    DOTT. ATTILIO MARN subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 7/9).
+  IL FONDITORE si avvicina (Movimento 2): ancora 8 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO raggiunge la tessera del gruppo, da D1.
+  LO SGHERRO attacca SIBILLA REVE:
+    [ATTACCO NEMICO] LO SGHERRO -> SIBILLA REVE: 2d6(5,6)=11 +Attacco(2) = 13 vs Difesa(8) -> COLPITO
+    SIBILLA REVE subisce 1 danno da LO SGHERRO (Salute: 6/8).
+  ADEPTO INCAPPUCCIATO attacca DOTT. ATTILIO MARN:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> DOTT. ATTILIO MARN: 2d6(6,3)=9 +Attacco(1) = 10 vs Difesa(8) -> COLPITO
+    DOTT. ATTILIO MARN subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 6/9).
+  ADEPTO INCAPPUCCIATO attacca MORA “SPILLA” FANTI:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> MORA “SPILLA” FANTI: 2d6(2,5)=7 +Attacco(1) = 8 vs Difesa(8) -> COLPITO
+    MORA “SPILLA” FANTI subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 8/9).
+--- Round 8: rientro verso T1 ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    [ATTACCO] DOTT. ATTILIO MARN -> ADEPTO INCAPPUCCIATO: 2d6(5,4)=9 +VIGORE(2)+arma(1) = 12 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    [ATTACCO] FULGENZIO CARBONE -> ADEPTO INCAPPUCCIATO: 2d6(4,3)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    MORA “SPILLA” FANTI si muove verso ADEPTO INCAPPUCCIATO: B2 -> C1.
+    [ATTACCO] MORA “SPILLA” FANTI -> ADEPTO INCAPPUCCIATO: 2d6(5,1)=6 +VIGORE(2)+arma(1) = 9 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    [ATTACCO] SIBILLA REVE -> LO SGHERRO: 2d6(2,2)=4 +VIGORE(1)+arma(1) = 6 vs Difesa(8) -> MANCATO
+  [MINACCIA] CORRENTE GELIDA (ostacolo) — Fino all’inizio del vostro prossimo turno ogni eroe ha -1 al Movimento (minimo 1).
+    Penalità di Movimento fino al prossimo turno (non modellata nel loop di combattimento).
+  [MINACCIA] SUSSURRI (insidia) — L’eroe con meno NERVI (a pari merito: sceglie il gruppo) prova NERVI (Media): se fallisce …
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(1,3)=4 +NERVI(1) = 5 vs Media(9) -> FALLITA
+    MORA “SPILLA” FANTI subisce 1 danno da SUSSURRI (Salute: 7/9).
+  IL FONDITORE attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] IL FONDITORE -> FULGENZIO CARBONE: 2d6(5,5)=10 +Attacco(1) = 11 vs Difesa(8) -> COLPITO
+    FULGENZIO CARBONE subisce 2 danno da IL FONDITORE (Salute: 4/8).
+  IL FONDITORE si avvicina (Movimento 2): ancora 9 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO attacca MORA “SPILLA” FANTI:
+    [ATTACCO NEMICO] LO SGHERRO -> MORA “SPILLA” FANTI: 2d6(3,2)=5 +Attacco(2) = 7 vs Difesa(8) -> MANCATO
+--- Round 9: rientro verso T1 ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    [PROVA ACUME] DOTT. ATTILIO MARN: 2d6(3,1)=4 +ACUME(2) = 6 vs Media(9) -> FALLITA
+    DOTT. ATTILIO MARN cerca sulla tessera: niente da trovare qui, o prova fallita.
+    [ATTACCO] FULGENZIO CARBONE -> IL FONDITORE: 2d6(2,2)=4 +VIGORE(1)+arma(1) = 6 vs Difesa(8) -> MANCATO
+    [ATTACCO] MORA “SPILLA” FANTI -> LO SGHERRO: 2d6(1,4)=5 +VIGORE(2)+arma(1) = 8 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    [ATTACCO] SIBILLA REVE -> LO SGHERRO: 2d6(6,5)=11 +VIGORE(1)+arma(1) = 13 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+  [MINACCIA] FUMI SOPORIFERI (insidia) — Ogni eroe prova NERVI (Facile): chi fallisce ha 1 sola azione al prossimo turno.
+    [PROVA NERVI] DOTT. ATTILIO MARN: 2d6(5,3)=8 +NERVI(2) = 10 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] FULGENZIO CARBONE: 2d6(6,4)=10 +NERVI(2) = 12 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(5,2)=7 +NERVI(1) = 8 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] SIBILLA REVE: 2d6(4,3)=7 +NERVI(3) = 10 vs Facile(7) -> SUCCESSO
+  [MINACCIA] VOLTI TRA LE CASSE (posseduto) — Piazzate 1 Adepto sull’uscita più vicina agli eroi della tessera corrente: si è intrufolat…
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 9) in B1.
+  IL FONDITORE attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] IL FONDITORE -> FULGENZIO CARBONE: 2d6(6,6)=12 +Attacco(1) = 13 vs Difesa(8) -> COLPITO
+    FULGENZIO CARBONE subisce 2 danno da IL FONDITORE (Salute: 2/8).
+  IL FONDITORE si avvicina (Movimento 2): ancora 10 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si muove verso DOTT. ATTILIO MARN: B1 -> A1.
+  ADEPTO INCAPPUCCIATO attacca DOTT. ATTILIO MARN:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> DOTT. ATTILIO MARN: 2d6(4,6)=10 +Attacco(1) = 11 vs Difesa(8) -> COLPITO
+    DOTT. ATTILIO MARN subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 5/9).
+
+==============================================================================
+ESITO SPEDIZIONE: VITTORIA
+Round totali: 9
+Formula Minaccia: finale_v3 | Azioni nominali/round: media 8.0, picco 8
+Mazzo Minaccia rimescolato: 0 volta/e
+Segnalini nemici esauriti nel pool (piazzamenti saltati): 0
+Custode della Cera svegliato: solo a T6 (mai in anticipo via Canto)
+  DOTT. ATTILIO MARN: 5/9 Salute
+  FULGENZIO CARBONE: 2/8 Salute
+  MORA “SPILLA” FANTI: 7/9 Salute
+  SIBILLA REVE: 6/8 Salute
+==============================================================================

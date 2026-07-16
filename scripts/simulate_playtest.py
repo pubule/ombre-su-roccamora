@@ -20,10 +20,33 @@ di ogni log):
   tessere. Le prove d'ingresso (T3 opzionale saltata, T5 NERVI Facile)
   restano vere.
 - Le abilita' eroe piu' rilevanti sono modellate (Serra/Marani/Brera - le 3
-  appena bilanciate - piu' Sibilla/Ottone/Attilio/Carla/Fanti). Elena,
+  appena bilanciate - piu' Sibilla/Ottone/Attilio/Carla/Fanti), incluse
+  dal 20260716: lo scruta di Sibilla (guarda le prime 2 del mazzo
+  Minaccia, seppellisce la peggiore - l'euristica sbircia PRIMA di
+  decidere se spendere l'uso: leggera chiaroveggenza a favore degli
+  eroi), il Flash! di Carla (un nemico con Danno>=2 entro 2 caselle salta
+  l'attivazione), Voce ferma limitata ai SOLI eroi adiacenti a Serra
+  (regola vera; prima era un +2 globale, troppo generoso), il Secondo
+  Fiato (1 ritento a episodio per eroe, condiviso Indagine+Spedizione) e
+  la perdita di 1 azione da insidie fallite (Trappola/Cera sotto i piedi/
+  Fumi: il turno seguente l'eroe muove O agisce, non entrambe). Restano
+  NON modellati: Fonti riservate di Carla (visita gratis in Indagine), la
+  macchina fotografica, gli oggetti d'equipaggiamento monouso (fiasco di
+  Ottone, laudano di Serra, stola di Marani, sali di Attilio, gessetti di
+  Sibilla) - tutti a favore degli eroi: i numeri misurati sono quindi
+  leggermente PESSIMISTICI rispetto a un tavolo che li usa bene. Elena,
   Nino e Carbone hanno un impatto minore in questa astrazione e sono
   annotati ma non pienamente simulati (nessuna prova di Cercare/scassinare
   dedicata nel loop di combattimento).
+- I nemici scelgono il bersaglio A CASO tra i vivi, non "il piu' vicino in
+  piedi" (regola vera): divergenza deliberata - il fuoco concentrato sul
+  piu' vicino, senza IA di protezione/posizionamento difensivo per gli
+  eroi, crollava la %vittoria misurata ben sotto qualunque tavolo vero
+  (vedi commento in _avvicina_e_attacca).
+- Il tick del Canto (regola vera: +1 segnalino automatico alla fine di
+  ogni 4° round) e' simulato da `tick_canto()` dopo OGNI fase nemici -
+  prima del 20260716 NON esisteva nel motore e tutta la taratura
+  precedente lo ignorava (gap critico trovato nell'audit di fedelta').
 - L'Indagine sceglie i luoghi con un'euristica fissa (priorita' a chi
   sblocca altri luoghi), non un vero giocatore: serve a generare una
   partita plausibile e loggabile, non a "risolvere" il caso in modo ottimo.
@@ -387,12 +410,21 @@ NEMICO_SCALE_FORMULE = {
 # ricalibrazione*): coi nemici che ora raggiungono e colpiscono davvero,
 # {8,9,10}=1 lasciava 8-10 sotto target (48-56%) e il +2 generale a n=6
 # (curva-G_tattica sopra) era diventato il killer della taglia (30%).
-# Valore DI PRODUZIONE aggiornato dopo 6 giri di ricalibrazione
-# (logs/playtest/20260715-ricalibrazione): boss+1 a 6 e 8-10 (NON a 7,
-# testato e bocciato: 69% contro 86% senza), nessun bonus generale in
-# nessuna taglia. Va di pari passo con MINACCIA_FORMULE['finale_v3']
-# (vedi sotto) e ferite_per_fascia() in src/gen_bestiario.py.
-CUSTODE_TENSIONE_EXTRA = {6: 1, 8: 1, 9: 1, 10: 1}
+# Dopo 6 giri di ricalibrazione (logs/playtest/20260715-ricalibrazione):
+# boss+1 a 6 e 8-10 (NON a 7), nessun bonus generale in nessuna taglia.
+#
+# RITARATO di nuovo il 20260716 dopo i fix di fedelta' (tick del Canto +
+# abilita' vere, vedi logs/playtest/20260716-fedelta): col secondo
+# orologio attivo le taglie che pescano "piu' carte che corpi" affondavano
+# (n=4 69%, n=8 59%) mentre 9-10 tenevano il target anche col boss+1.
+# Misure (matrice d0/d1/d2, seed deterministici): -1 Ferita al Custode a
+# n=2 (21->43%, resta la modalita' dura dichiarata) e n=4 (69->75%, con
+# sofferte al 32%: meglio del +2 Salute, 74% ma piatto al 22%); estenderlo
+# a 3 e 5 sballa (95%/92%); boss+1 a n=8 bocciato (59% contro 81% senza);
+# a 9-10 invece serve, senza si vola a 85-91% con sofferte 14-16%.
+# Va di pari passo con MINACCIA_FORMULE['finale_v3'] (vedi sotto) e la
+# tabella Ferite del Custode in src/gen_bestiario.py.
+CUSTODE_TENSIONE_EXTRA = {2: -1, 4: -1, 6: 1, 9: 1, 10: 1}
 
 
 # Toggle di ricalibrazione (sessione_ricalibrazione, post-fix motore):
@@ -402,6 +434,17 @@ CUSTODE_EXTRA_ATTIVO = True
 # Gettone Intuizione "Dossier completo" (vedi simula_indagine): ON di
 # produzione. Toggle solo per il test A/B (sessione_dossier).
 DOSSIER_ATTIVO = True
+
+# Il Canto (regola vera del Regolamento): oltre alle carte crescendo, +1
+# segnalino automatico alla fine di ogni TICK_CANTO_OGNI-esimo round (4°,
+# 8°, 12°...) - il "secondo orologio parallelo" che garantisce la pressione
+# anche evitando ogni carta-timer. MAI simulato prima del 20260716: tutta
+# la ricalibrazione precedente era tarata senza questa fonte (audit di
+# fedelta'). SOGLIA_CANTO = 3 e' la soglia di risveglio dell'Ep. 1
+# (stampata su carte crescendo/Regolamento/Aiuto: se la ricalibrazione la
+# cambia, vanno aggiornati anche i componenti).
+TICK_CANTO_OGNI = 4
+SOGLIA_CANTO = 3
 # +Salute massima a testa per taglia di party. DI PRODUZIONE: solo n=4
 # (67%->79% nella ricalibrazione; nullo a 8-10, dove il collo di bottiglia
 # sono le ondate non i punti Salute - vedi logs/playtest/20260715-
@@ -469,6 +512,9 @@ INSIDIA = {  # titolo -> (difficolta', danno, chi prova)
     'FUMI SOPORIFERI': ('Facile', 0, 'ogni eroe (chi fallisce: 1 sola azione prossimo turno)'),
     'SUSSURRI': ('Media', 1, 'l’eroe con meno NERVI'),
 }
+# Insidie il cui fallimento costa anche 1 azione al prossimo turno (testo
+# carta: "perde 1 azione" / "1 sola azione prossimo turno"). SUSSURRI no.
+PERDE_AZIONE = {'TRAPPOLA DI CERA', 'CERA SOTTO I PIEDI', 'FUMI SOPORIFERI'}
 CRESCENDO = {'IL CANTO SALE', 'IL CORO RISPONDE', 'IL CANTO CRESCE'}
 MALAVITA_TRUPPA = {'LO SGHERRO', 'IL SICARIO', 'ADEPTO INCAPPUCCIATO', 'CANE DEI MOLI'}
 
@@ -598,6 +644,10 @@ def simula_indagine(party, log, esplora_a_fondo=False):
     approf_falliti = 0
     chi_confermato = False
     charges = {n: dict(INDAGINE_UNLOCK.get(n, {})) for n in party}
+    # Secondo Fiato (Regolamento: ogni eroe ha 1 solo ritento a episodio):
+    # condiviso tra Indagine e Spedizione - il residuo viaggia nel dict di
+    # ritorno e simula_spedizione lo eredita.
+    secondo_fiato = {n: True for n in party}
     fanti_scout = any(INDAGINE_UNLOCK.get(n, {}) == {} and 'Ombra fiuta' in HERO[n]['abil'] for n in party)
 
     # Tipi che QUESTO party puo' effettivamente sbloccare (il jolly di Sibilla
@@ -708,6 +758,13 @@ def simula_indagine(party, log, esplora_a_fondo=False):
         # l'eventuale Approfondimento resta condizionato all'esito.
         lettore = max(party, key=lambda n: HERO[n]['acume'])
         ok, _ = check(log, lettore, 'ACUME', HERO[lettore]['acume'], 'Media')
+        # Secondo Fiato: il ritento si spende qui solo se il luogo ha
+        # Approfondimenti da perdere (un tavolo vero non lo brucia su un
+        # luogo senza posta) e l'eroe non l'ha gia' usato.
+        if not ok and l['approf'] and secondo_fiato.get(lettore):
+            secondo_fiato[lettore] = False
+            log(f'    [SECONDO FIATO] {lettore} ritenta “leggere la scena” (unico ritento dell’episodio):')
+            ok, _ = check(log, lettore, 'ACUME', HERO[lettore]['acume'], 'Media')
         if vero_luogo:
             for indizio in vero_luogo.get('indizi', []):
                 log(f'    - Indizio: {strip_tags(indizio)}')
@@ -790,7 +847,8 @@ def simula_indagine(party, log, esplora_a_fondo=False):
         log('Dossier completo (tutte le ore spese in Indagine): 1 gettone Intuizione per la Spedizione.')
     log('')
     return dict(ore_avanzate=ore_avanzate, tier=tier, diapason=diapason, visitati=visitati,
-                chi_confermato=chi_confermato, dossier_completo=dossier_completo)
+                chi_confermato=chi_confermato, dossier_completo=dossier_completo,
+                secondo_fiato=secondo_fiato)
 
 
 def simula_indagine_2gruppi(party, log, orologio_condiviso=True):
@@ -1110,6 +1168,13 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
 
     deck = carica_minaccia_deck()
     scarti = []
+    # Eroi che hanno perso 1 azione (insidie: TRAPPOLA/CERA SOTTO I PIEDI/
+    # FUMI, piu' gli eventi scriptati T5/T4): al loro prossimo turno hanno
+    # una sola azione (muoversi O agire, non entrambe).
+    azioni_perse = set()
+    # Secondo Fiato (1 ritento a episodio per eroe): il residuo arriva
+    # dall'Indagine (chi l'ha gia' speso su "leggere la scena" non lo ha piu').
+    secondo_fiato = dict(indagine.get('secondo_fiato') or {n: True for n in party})
 
     def pesca():
         nonlocal deck, scarti, rimescolamenti_mazzo
@@ -1152,10 +1217,15 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
             down.add(bersaglio)
             log(f'    *** {bersaglio} è A TERRA. ***')
 
-    def voce_ferma_bonus():
-        if round_n <= voce_ferma_scade_round:
+    def voce_ferma_bonus(bersaglio=None):
+        # Regola vera: +2 NERVI SOLO agli eroi ADIACENTI a Serra, non a tutto
+        # il gruppo (prima il bonus era globale: fedeltà 20260716). Serra
+        # stesso non ne beneficia ("gli eroi a lui adiacenti").
+        if round_n <= voce_ferma_scade_round and bersaglio is not None:
             n = next((x for x in party if 'Voce ferma' in HERO[x]['abil']), None)
-            if n:
+            if (n and n not in down and n != bersaglio
+                    and pos.get(n) and pos.get(bersaglio)
+                    and adiacenti(pos[n], pos[bersaglio])):
                 return 2, n
         return 0, None
 
@@ -1163,6 +1233,55 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
             'T5 (Scala interrata)', 'T6 (Cripta della Cera)']
     round_n = 0
     esito = None
+
+    def aggiungi_canto(cura_custode=False):
+        """Aggiunge 1 segnalino Canto e applica la soglia (regola vera):
+        al raggiungimento, risveglio anticipato del Custode + ogni Fase
+        Minaccia pesca 1 carta in piu' per sempre. `cura_custode`: solo le
+        carte crescendo (non il tick automatico) curano/attivano il Custode
+        gia' in gioco."""
+        nonlocal canto, custode, custode_stunned, pool_esauriti_totale, canto_bonus_carte, round_custode_svegliato
+        canto += 1
+        log(f'    Segnalino Canto: {canto}.')
+        if canto >= SOGLIA_CANTO and not canto_bonus_carte:
+            canto_bonus_carte = True
+            log(f'    Il Canto raggiunge {SOGLIA_CANTO}: da ora ogni Fase Minaccia pesca 1 carta in più '
+                '(fino a fine spedizione, anche se il Custode è già stato abbattuto).')
+        if custode is None:
+            if canto >= SOGLIA_CANTO:
+                round_custode_svegliato = round_n
+                log(f'    Il Custode della Cera si desta in anticipo ({SOGLIA_CANTO}° segnalino Canto), '
+                    'sulla tessera più lontana dagli eroi!')
+                # Su una tessera diversa da dove si trova il gruppo ora: niente
+                # `pos` reale finche' non colma la distanza (vedi fase_nemici).
+                c_fer = CUSTODE['fer'] + fer_bonus + custode_extra_fer
+                custode = dict(CUSTODE, fer=c_fer, fer_max=c_fer, dan=CUSTODE['dan'] + dan_bonus,
+                               distanza=CASELLE_TESSERA, pos=None)
+                for _ in range(2):
+                    if pool['ADEPTO INCAPPUCCIATO'] <= 0:
+                        pool_esauriti_totale += 1
+                        log('    Segnalini ADEPTO INCAPPUCCIATO esauriti: il Custode si desta senza scorta.')
+                        continue
+                    pool['ADEPTO INCAPPUCCIATO'] -= 1
+                    base = NEMICO['ADEPTO INCAPPUCCIATO']
+                    a_fer = base['fer'] + fer_bonus
+                    enemies.append(dict(nome='ADEPTO INCAPPUCCIATO', fer=a_fer, fer_max=a_fer,
+                                         dif=base['dif'], att=base['att'], dan=base['dan'] + dan_bonus,
+                                         mov=base['mov'], distanza=CASELLE_TESSERA, pos=None))
+        elif cura_custode and custode['fer'] > 0:
+            custode['fer'] = min(custode['fer_max'], custode['fer'] + 1)
+            custode_stunned = False
+            log(f'    Il Custode recupera 1 ferita ({custode["fer"]}/{custode["fer_max"]}) e si attiva subito.')
+        elif cura_custode:
+            log('    Il Custode è già stato sconfitto: nessun effetto su di lui.')
+
+    def tick_canto():
+        """Il secondo orologio (regola vera, MAI simulato prima del
+        20260716): alla fine di ogni TICK_CANTO_OGNI-esimo round, +1
+        segnalino a prescindere dalle carte pescate."""
+        if round_n % TICK_CANTO_OGNI == 0 and vivi():
+            log(f'  [OROLOGIO] Fine del {round_n}° round: +1 segnalino Canto automatico.')
+            aggiungi_canto(cura_custode=False)
 
     def fase_minaccia():
         nonlocal canto, custode, custode_stunned, pool_esauriti_totale, canto_bonus_carte, round_custode_svegliato
@@ -1173,9 +1292,30 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
         # precedente di genere: escalation a scatti alla Pandemic).
         n_carte = int(base_carte) + (1 if base_carte % 1 and round_n % 2 == 0 else 0) \
             + (1 if canto_bonus_carte else 0)
+        # Sibilla: "prima della fase Minaccia, guarda le prime 2 carte del
+        # mazzo e mettine una in fondo; l'altra torna in cima" (3 usi).
+        # Euristica: scruta solo sotto pressione (Canto avviato o dal 3°
+        # round) e seppellisce la carta peggiore (crescendo > attivazione
+        # immediata > spawn); se nessuna delle due morde, le rimette
+        # com'erano senza spendere l'uso — leggera chiaroveggenza a favore
+        # degli eroi, dichiarata nel docstring "Fedeltà e limiti".
+        sibilla = next((x for x in vivi() if ability_uses[x].get('scruta', 0) > 0), None)
+        if sibilla and (canto >= 1 or round_n >= 3) and len(deck) >= 2:
+            def gravita(carta):
+                return 3 if carta[0] in CRESCENDO else 2 if carta[3] else \
+                       1 if carta[0] in CARD_SPAWN else 0
+            top1, top2 = deck.pop(), deck.pop()
+            peggiore, altra = (top1, top2) if gravita(top1) >= gravita(top2) else (top2, top1)
+            if gravita(peggiore) >= 2:
+                ability_uses[sibilla]['scruta'] -= 1
+                deck.insert(0, peggiore)
+                deck.append(altra)
+                log(f'    [ABILITÀ] {sibilla} scruta il mazzo: «{peggiore[0]}» finisce in fondo, '
+                    f'«{altra[0]}» torna in cima ({ability_uses[sibilla]["scruta"]} usi residui).')
+            else:
+                deck.append(top2)
+                deck.append(top1)
         for _ in range(n_carte):
-            if ability_uses.get('_scruta_hero'):
-                pass
             c = pesca()
             titolo, testo, tipo, subito = c
             log(f'  [MINACCIA] {titolo} ({tipo}) — {testo[:90]}{"…" if len(testo) > 90 else ""}')
@@ -1205,48 +1345,24 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
                 diff_name, dan, chi = INSIDIA[titolo]
                 bersagli = vivi() if 'ogni' in chi else [min(vivi(), key=lambda n: HERO[n]['nervi'])] if vivi() else []
                 for b in bersagli:
-                    bonus, chi_bonus = voce_ferma_bonus()
+                    bonus, chi_bonus = voce_ferma_bonus(b)
                     ok, _ = check(log, b, 'NERVI', HERO[b]['nervi'], diff_name, bonus,
                                   f'Voce ferma di {chi_bonus}' if bonus else '')
-                    if not ok and dan:
-                        applica_danno(b, dan, titolo)
+                    # Secondo Fiato (Regolamento: 1 solo ritento a episodio per
+                    # eroe): speso sulla prima insidia fallita che morde.
+                    if not ok and secondo_fiato.get(b):
+                        secondo_fiato[b] = False
+                        log(f'    [SECONDO FIATO] {b} ritenta la prova (unico ritento dell’episodio):')
+                        ok, _ = check(log, b, 'NERVI', HERO[b]['nervi'], diff_name, bonus,
+                                      f'Voce ferma di {chi_bonus}' if bonus else '')
+                    if not ok:
+                        if dan:
+                            applica_danno(b, dan, titolo)
+                        if titolo in PERDE_AZIONE and b not in down:
+                            azioni_perse.add(b)
+                            log(f'    {b} avrà 1 sola azione al suo prossimo turno.')
             elif titolo in CRESCENDO:
-                canto += 1
-                log(f'    Segnalino Canto: {canto}.')
-                if canto >= 3 and not canto_bonus_carte:
-                    canto_bonus_carte = True
-                    log('    Il Canto raggiunge 3: da ora ogni Fase Minaccia pesca 1 carta in più '
-                        '(fino a fine spedizione, anche se il Custode è già stato abbattuto).')
-                if custode is None:
-                    if canto >= 3:
-                        round_custode_svegliato = round_n
-                        log('    Il Custode della Cera si desta in anticipo (3° segnalino Canto), '
-                            'sulla tessera più lontana dagli eroi!')
-                        # Su una tessera diversa da dove si trova il gruppo ora: niente
-                        # `pos` reale finche' non colma la distanza (vedi fase_nemici) -
-                        # a differenza degli altri piazzamenti, che accadono tutti nella
-                        # stessa tessera del gruppo e hanno subito una cella vera.
-                        c_fer = CUSTODE['fer'] + fer_bonus + custode_extra_fer
-                        custode = dict(CUSTODE, fer=c_fer, fer_max=c_fer, dan=CUSTODE['dan'] + dan_bonus,
-                                       distanza=CASELLE_TESSERA, pos=None)
-                        for _ in range(2):
-                            if pool['ADEPTO INCAPPUCCIATO'] <= 0:
-                                pool_esauriti_totale += 1
-                                log('    Segnalini ADEPTO INCAPPUCCIATO esauriti: il Custode si desta senza scorta.')
-                                continue
-                            pool['ADEPTO INCAPPUCCIATO'] -= 1
-                            base = NEMICO['ADEPTO INCAPPUCCIATO']
-                            a_fer = base['fer'] + fer_bonus
-                            enemies.append(dict(nome='ADEPTO INCAPPUCCIATO', fer=a_fer, fer_max=a_fer,
-                                                 dif=base['dif'], att=base['att'], dan=base['dan'] + dan_bonus,
-                                                 mov=base['mov'], distanza=CASELLE_TESSERA, pos=None))
-                elif custode['fer'] > 0:
-                    custode['fer'] = min(custode['fer_max'], custode['fer'] + 1)
-                    custode_stunned = False
-                    log(f'    Il Custode recupera 1 ferita ({custode["fer"]}/{custode["fer_max"]}) e si attiva subito.')
-                else:
-                    log('    Il Custode è già stato sconfitto: nessun effetto su di lui (il culto '
-                        'sente comunque il rituale avvicinarsi, vedi Regolamento).')
+                aggiungi_canto(cura_custode=True)
             elif titolo == 'PRESAGIO':
                 log('    Nessun effetto meccanico (tensione).')
             elif titolo == 'ECO AMICA':
@@ -1304,6 +1420,9 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
             if e in adescati:
                 log(f'  {e["nome"]} si dirige verso l’esca (Carbone): non attacca questo round.')
                 continue
+            if e.pop('salta_flash', False):
+                log(f'  {e["nome"]} salta l’attivazione (Flash! di Carla).')
+                continue
             if e.get('pos') is None:
                 distanza = e.get('distanza', 0)
                 if distanza > 0:
@@ -1324,6 +1443,9 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
             if custode_stunned:
                 log(f'  {custode["nome"]} salta l’attivazione (diapason).')
                 custode_stunned = False
+                return
+            if custode.pop('salta_flash', False):
+                log(f'  {custode["nome"]} salta l’attivazione (Flash! di Carla).')
                 return
             if custode.get('pos') is None:
                 # Svegliato in anticipo dal Canto (vedi fase_minaccia): parte "sulla
@@ -1350,6 +1472,15 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
         nonlocal chiave, ruggero_libero, custode, custode_stunned, diapason_usato, canto, voce_ferma_scade_round
         for n in vivi():
             h = HERO[n]
+            # Effetto insidia del round scorso: 1 sola azione (muoversi O
+            # agire). Modellato sui due rami con movimento+azione (attacco,
+            # rianimare): se non gia' adiacente al bersaglio, il turno si
+            # spende solo ad avvicinarsi. I rami abilita' sono gia' una sola
+            # azione e restano leciti.
+            sola_azione = n in azioni_perse
+            azioni_perse.discard(n)
+            if sola_azione:
+                log(f'    {n} ha 1 sola azione questo turno (insidia del round scorso).')
             # Attaccare in mischia richiede un nemico adiacente (regola vera): un
             # nemico ancora astratto (niente `pos`, sta colmando la distanza da
             # fuori tessera - vedi fase_nemici) non e' un bersaglio valido, solo
@@ -1386,7 +1517,10 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
                 continue
             # Attilio: cura un alleato ferito
             if ability_uses[n].get('cura', 0) > 0:
-                feriti = [m for m in vivi() if salute[m] < salute_max[m]] + list(down)
+                # sorted(): 'down' e' un set - senza ordine stabile il pareggio
+                # su min() dipende da PYTHONHASHSEED e il run non e' riproducibile
+                # tra processi diversi a parita' di seed (scoperto il 20260716).
+                feriti = [m for m in vivi() if salute[m] < salute_max[m]] + sorted(down)
                 if feriti:
                     bersaglio_h = min(feriti, key=lambda m: salute.get(m, 0))
                     ability_uses[n]['cura'] -= 1
@@ -1412,6 +1546,21 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
                 custode['dif'] = 5
                 custode_stunned = True
                 continue
+            # Carla: Flash! (2 usi, azione) - un nemico entro 2 caselle salta
+            # la sua prossima attivazione. Euristica: solo su bersagli che
+            # picchiano forte (Danno >= 2: Fonditore, Custode) - su uno
+            # Sgherro da 1 danno l'azione vale meno di un attacco.
+            if ability_uses[n].get('flash', 0) > 0:
+                candidati_flash = [e for e in bersagli_vivi if not e.get('salta_flash')
+                                   and e['dan'] >= 2
+                                   and abs(e['pos'][0] - pos[n][0]) + abs(e['pos'][1] - pos[n][1]) <= 2]
+                if candidati_flash:
+                    bersaglio_f = max(candidati_flash, key=lambda e: (e['dan'], e['fer']))
+                    ability_uses[n]['flash'] -= 1
+                    bersaglio_f['salta_flash'] = True
+                    log(f'    [ABILITÀ] {n} usa Flash! su {bersaglio_f["nome"]}: accecato, salta '
+                        f'la sua prossima attivazione ({ability_uses[n]["flash"]} usi residui).')
+                    continue
             # Solo i nemici con un cammino vero fino a loro sono bersagli validi
             # (bug: con una tessera affollata a 8-10 eroi, TUTTI i bersagli
             # potevano risultare irraggiungibili e l'eroe li "inseguiva"
@@ -1428,6 +1577,10 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
                 # il round si spende tutto nell'avvicinamento (nessun attacco).
                 obiettivo = min(raggiungibili, key=lambda e: (
                     len(cammino(tile_attuale, pos[n], e['pos'], celle_occupate(esclusa=n))), e['fer']))
+                if sola_azione and not any(adiacenti(pos[n], e['pos']) for e in bersagli_vivi):
+                    sposta_verso(n, tile_attuale, obiettivo['pos'], obiettivo['nome'])
+                    log(f'    {n} (1 sola azione) si limita ad avvicinarsi a {obiettivo["nome"]}.')
+                    continue
                 if not sposta_verso(n, tile_attuale, obiettivo['pos'], obiettivo['nome']):
                     log(f'    {n} si avvicina a {obiettivo["nome"]}, non ancora a contatto.')
                     continue
@@ -1468,8 +1621,12 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
             # non conosce quale tessera nasconda cosa): logghiamo solo l'esito della
             # prova, non un oggetto specifico.
             if down:
-                bersaglio_down = min(down, key=lambda m: len(
+                bersaglio_down = min(sorted(down), key=lambda m: len(
                     cammino(tile_attuale, pos[n], pos[m], celle_occupate(esclusa=n))) or 99)
+                if sola_azione and not adiacenti(pos[n], pos[bersaglio_down]):
+                    sposta_verso(n, tile_attuale, pos[bersaglio_down], bersaglio_down)
+                    log(f'    {n} (1 sola azione) si avvicina a {bersaglio_down}: rianimerà al prossimo turno.')
+                    continue
                 if not sposta_verso(n, tile_attuale, pos[bersaglio_down], bersaglio_down):
                     log(f'    {n} si avvicina a {bersaglio_down} per rianimarlo, non ancora a contatto.')
                     continue
@@ -1503,22 +1660,24 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
             log(f'    Il gruppo entra in {tile_id} da {chess(porta_attuale_pos)}.')
         if tappa.startswith('T5') and round_n:
             for n in vivi():
-                bonus, chi_bonus = voce_ferma_bonus()
+                bonus, chi_bonus = voce_ferma_bonus(n)
                 ok, _ = check(log, n, 'NERVI', HERO[n]['nervi'], 'Facile', bonus,
                               f'Voce ferma di {chi_bonus}' if bonus else '')
                 if not ok:
-                    log(f'    {n} avrà solo 1 azione al prossimo turno (non modellato oltre il log).')
+                    azioni_perse.add(n)
+                    log(f'    {n} avrà solo 1 azione al prossimo turno.')
         if tappa.startswith('T4') and not chiave:
             log('    Cercando: trovata LA CHIAVE DELLA CELLA. Prenderla è una scelta — il gruppo '
                 'decide di prenderla (oggetto rischioso).')
             chiave = True
             presatore = max(party, key=lambda n: HERO[n]['nervi'])
-            bonus, chi_bonus = voce_ferma_bonus()
+            bonus, chi_bonus = voce_ferma_bonus(presatore)
             ok, _ = check(log, presatore, 'NERVI', HERO[presatore]['nervi'], 'Media', bonus,
                           f'Voce ferma di {chi_bonus}' if bonus else '')
             if not ok:
-                log(f'    I fumi stordiscono {presatore}: 1 sola azione al prossimo turno (non '
-                    f'modellato oltre il log). La chiave resta comunque sua.')
+                azioni_perse.add(presatore)
+                log(f'    I fumi stordiscono {presatore}: 1 sola azione al prossimo turno. '
+                    f'La chiave resta comunque sua.')
         if tappa.startswith('T6') and custode is None:
             # Vicino all'altare, non sulla soglia: "un altare circondato da
             # candele nere" (testo del luogo) e' piu' fedele di piazzarlo
@@ -1547,6 +1706,7 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
         fase_eroi(tappa)
         fase_minaccia()
         fase_nemici(tappa, True)
+        tick_canto()
         max_down_simultanei = max(max_down_simultanei, len(down))
         if not vivi():
             esito = 'SCONFITTA (party wipe)'
@@ -1565,6 +1725,7 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
             fase_eroi('T6')
             fase_minaccia()
             fase_nemici('T6', False)
+            tick_canto()
             max_down_simultanei = max(max_down_simultanei, len(down))
             if not vivi():
                 esito = 'SCONFITTA (party wipe)'
@@ -1595,6 +1756,7 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
             fase_eroi('rientro')
             fase_minaccia()
             fase_nemici('rientro', True)
+            tick_canto()
             max_down_simultanei = max(max_down_simultanei, len(down))
             if not vivi():
                 esito = 'SCONFITTA (party wipe durante il rientro)'
@@ -2605,6 +2767,47 @@ def sessione_dossier():
     print(f'\nTest Dossier fatto. Riepilogo in {path}')
 
 
+def sessione_fedelta():
+    """Ri-misura della curva completa 2-10 sulla CONFIG DI PRODUZIONE dopo
+    le correzioni di fedelta' del 20260716 (tick del Canto ogni 4 round -
+    MAI simulato prima -, scruta di Sibilla, Flash! di Carla, Voce ferma
+    solo adiacenti, Secondo Fiato, perdita azioni da insidie). La taratura
+    precedente (riepilogo_ricalibrazione_finale.md + giri 4-5) e' invalida
+    sul lato pressione: il tick aggiunge ~2 segnalini a partita e puo' far
+    esplodere i risvegli anticipati con SOGLIA_CANTO=3. Qui si misura il
+    danno; le eventuali contromosse (SOGLIA_CANTO 4, TICK_CANTO_OGNI 5)
+    si provano a parte sulle taglie che escono dal target 75-90%.
+
+    Seed 510000+: la taratura (matrice d0/d1/d2) e' stata fatta sui seed
+    410000+ - la validazione della config scelta usa seed MAI visti in
+    taratura, per non auto-promuovere una config sovradattata."""
+    os.makedirs(LOG_DIR, exist_ok=True)
+    risultati = []
+    for size in (2, 3, 4, 5, 6, 7, 8, 9, 10):
+        nome = f'fedelta-{size:02d}'
+        print(f'Eseguo {nome} (5 party x 30 seed)...')
+        m = esegui_batch_multi_party(nome, size, 'finale_v3', 'nessuna',
+                                      n_party=5, n_seed=30, seed_base=510000 + size * 1000)
+        risultati.append(m)
+
+    path = os.path.join(LOG_DIR, 'riepilogo_fedelta.md')
+    with open(path, 'w', encoding='utf-8') as f:
+        f.write('# Riepilogo fedeltà — config di produzione, motore con tick Canto + abilità\n\n')
+        f.write(f'Generato: {datetime.now().isoformat(timespec="seconds")}\n\n')
+        f.write(f'finale_v3 + CUSTODE_TENSIONE_EXTRA {CUSTODE_TENSIONE_EXTRA} + SALUTE_BONUS_PER_N '
+                f'{SALUTE_BONUS_PER_N}; TICK_CANTO_OGNI={TICK_CANTO_OGNI}, SOGLIA_CANTO={SOGLIA_CANTO}. '
+                'Seed di validazione mai usati in taratura (510000+size*1000).\n\n')
+        f.write('| Taglia | % Vittoria | % Vitt. sofferte | Picco a terra | '
+                'Canto finale | Round medi | % Custode anticipo | Pool esauriti |\n')
+        f.write('|---|---|---|---|---|---|---|---|\n')
+        for m in risultati:
+            f.write(f'| {m["size"]} | {m["pct_vittoria"]:.0f}% | '
+                    f'{m["pct_vittoria_sofferta"]:.0f}% | {m["media_max_down"]:.1f} | '
+                    f'{m["media_canto_finale"]:.1f} | {m["media_round"]:.1f} | '
+                    f'{m["pct_custode_anticipo"]:.0f}% | {m["media_pool_esauriti"]:.1f} |\n')
+    print(f'\nMisura fedeltà fatta. Riepilogo in {path}')
+
+
 if __name__ == '__main__':
     if len(sys.argv) > 2 and sys.argv[2] == 'dossier':
         sessione_dossier()
@@ -2622,5 +2825,7 @@ if __name__ == '__main__':
         sessione_ricalibrazione3()
     elif len(sys.argv) > 2 and sys.argv[2] == 'ricalibrazione-finale':
         sessione_ricalibrazione_finale()
+    elif len(sys.argv) > 2 and sys.argv[2] == 'fedelta':
+        sessione_fedelta()
     else:
         main()

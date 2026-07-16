@@ -1,0 +1,174 @@
+Run: tick5-02_p3_seed0  |  seed=413300  |  formula Minaccia=finale_v3  |  generato: 2026-07-16T10:45:47
+==============================================================================
+SPEDIZIONE - Il Campanile di San Teodoro (sotterranei)
+==============================================================================
+Party: DOTT. LAZZARO SERRA, ELENA FOSCO
+Bonus da Indagine: PREPARATI (+1 Salute massima a testa); diapason: no
+NOTA: gruppo trattato come blocco unico tessera per tessera (vedi intestazione script).
+
+--- Round 1: il gruppo raggiunge T2 (Sala delle Casse) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    Il gruppo entra in T2 da B1.
+    [PROVA ACUME] DOTT. LAZZARO SERRA: 2d6(5,3)=8 +ACUME(3) = 11 vs Media(9) -> SUCCESSO
+    DOTT. LAZZARO SERRA cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    ELENA FOSCO: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] FUMI SOPORIFERI (insidia) — Ogni eroe prova NERVI (Facile): chi fallisce ha 1 sola azione al prossimo turno.
+    [PROVA NERVI] DOTT. LAZZARO SERRA: 2d6(5,2)=7 +NERVI(2) = 9 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] ELENA FOSCO: 2d6(5,6)=11 +NERVI(2) = 13 vs Facile(7) -> SUCCESSO
+--- Round 2: il gruppo raggiunge T4 (Ufficio del Custode) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    Il gruppo entra in T4 da D3.
+    Cercando: trovata LA CHIAVE DELLA CELLA. Prenderla è una scelta — il gruppo decide di prenderla (oggetto rischioso).
+    [PROVA NERVI] DOTT. LAZZARO SERRA: 2d6(1,2)=3 +NERVI(2) = 5 vs Media(9) -> FALLITA
+    I fumi stordiscono DOTT. LAZZARO SERRA: 1 sola azione al prossimo turno. La chiave resta comunque sua.
+    DOTT. LAZZARO SERRA ha 1 sola azione questo turno (insidia del round scorso).
+    [PROVA ACUME] DOTT. LAZZARO SERRA: 2d6(4,6)=10 +ACUME(3) = 13 vs Media(9) -> SUCCESSO
+    DOTT. LAZZARO SERRA cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    ELENA FOSCO: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] CANI DEI MOLI (posseduto) — Piazzate 1 Cane dei Moli sull’uscita più vicina agli eroi della tessera corrente: si attiv…
+    Piazzati 1x CANE DEI MOLI (pool residua: 2) in C3.
+    CANE DEI MOLI si attiva subito:
+  CANE DEI MOLI si muove verso ELENA FOSCO: C3 -> D4.
+  CANE DEI MOLI attacca ELENA FOSCO:
+    [ATTACCO NEMICO] CANE DEI MOLI -> ELENA FOSCO: 2d6(5,5)=10 +Attacco(2) = 12 vs Difesa(8) -> COLPITO
+    ELENA FOSCO subisce 1 danno da CANE DEI MOLI (Salute: 6/7).
+--- Round 3: il gruppo raggiunge T2 (Sala delle Casse) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    Il gruppo entra in T2 da A3.
+    [ABILITÀ] DOTT. LAZZARO SERRA attiva Voce ferma (2 usi residui): +2 NERVI agli alleati fino al suo prossimo turno.
+    ELENA FOSCO si muove verso CANE DEI MOLI: A3 -> C4.
+    [ATTACCO] ELENA FOSCO -> CANE DEI MOLI: 2d6(1,6)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(6) -> COLPITO
+    CANE DEI MOLI: 0/1 ferite residue.
+    CANE DEI MOLI è ABBATTUTO.
+  [MINACCIA] BRAVI SUL MOLO (malavita) — Piazzate 1 Sgherro sull’ingresso della Banchina (T1).
+    Piazzati 1x LO SGHERRO (pool residua: 3), a 6 caselle dalla tessera del gruppo.
+  LO SGHERRO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+--- Round 4: il gruppo raggiunge T5 (Scala interrata) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    Il gruppo entra in T5 da B1.
+    [PROVA NERVI] DOTT. LAZZARO SERRA: 2d6(2,4)=6 +NERVI(2) = 8 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] ELENA FOSCO: 2d6(6,3)=9 +NERVI(2) = 11 vs Facile(7) -> SUCCESSO
+    [PROVA ACUME] DOTT. LAZZARO SERRA: 2d6(1,1)=2 +ACUME(3) = 5 vs Media(9) -> FALLITA
+    DOTT. LAZZARO SERRA cerca sulla tessera: niente da trovare qui, o prova fallita.
+    ELENA FOSCO: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] IL CANTO SALE (crescendo) — Aggiungete 1 segnalino Canto. Al terzo: il Custode della Cera si desta e da quel momento o…
+    Segnalino Canto: 1.
+  LO SGHERRO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+--- Round 5: il gruppo raggiunge T6 (Cripta della Cera) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    Il gruppo entra in T6 da B1.
+    Rivelata la Cripta della Cera: il Custode della Cera si desta con 2 Adepti, in C2.
+    [ABILITÀ] DOTT. LAZZARO SERRA attiva Voce ferma (1 usi residui): +2 NERVI agli alleati fino al suo prossimo turno.
+    [ATTACCO] ELENA FOSCO -> ADEPTO INCAPPUCCIATO: 2d6(4,1)=5 +VIGORE(1)+arma(1) = 7 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+  [MINACCIA] IL BRANCO (malavita) — Piazzate 2 Sgherri, adiacenti tra loro, sull’uscita più vicina agli eroi della tessera cor…
+    Piazzati 2x LO SGHERRO (pool residua: 1) in B1.
+  LO SGHERRO si avvicina (Movimento 4): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si muove verso ELENA FOSCO: A1 -> B2.
+  ADEPTO INCAPPUCCIATO attacca ELENA FOSCO:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> ELENA FOSCO: 2d6(6,5)=11 +Attacco(1) = 12 vs Difesa(8) -> COLPITO
+    ELENA FOSCO subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 5/7).
+  LO SGHERRO si muove verso ELENA FOSCO: B1 -> C1.
+  LO SGHERRO attacca ELENA FOSCO:
+    [ATTACCO NEMICO] LO SGHERRO -> ELENA FOSCO: 2d6(4,6)=10 +Attacco(2) = 12 vs Difesa(8) -> COLPITO
+    ELENA FOSCO subisce 1 danno da LO SGHERRO (Salute: 4/7).
+  LO SGHERRO si muove verso ELENA FOSCO: B1 -> A1.
+  LO SGHERRO attacca ELENA FOSCO:
+    [ATTACCO NEMICO] LO SGHERRO -> ELENA FOSCO: 2d6(1,5)=6 +Attacco(2) = 8 vs Difesa(8) -> COLPITO
+    ELENA FOSCO subisce 1 danno da LO SGHERRO (Salute: 3/7).
+  IL CUSTODE DELLA CERA si avvicina, non ancora a contatto.
+  [OROLOGIO] Fine del 5° round: +1 segnalino Canto automatico.
+    Segnalino Canto: 2.
+--- Combattimento contro il Custode della Cera ---
+--- Round 6: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    [ATTACCO] DOTT. LAZZARO SERRA -> ADEPTO INCAPPUCCIATO: 2d6(2,3)=5 +VIGORE(1)+arma(1) = 7 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    [ATTACCO] ELENA FOSCO -> LO SGHERRO: 2d6(1,5)=6 +VIGORE(1)+arma(1) = 8 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+  [MINACCIA] IL CANTO CRESCE (crescendo) — Aggiungete 1 segnalino Canto. Al terzo: il Custode della Cera si desta e da quel momento o…
+    Segnalino Canto: 3.
+    Il Canto raggiunge 3: da ora ogni Fase Minaccia pesca 1 carta in più (fino a fine spedizione, anche se il Custode è già stato abbattuto).
+    Il Custode recupera 1 ferita (3/3) e si attiva subito.
+  LO SGHERRO raggiunge la tessera del gruppo, da B2.
+  LO SGHERRO attacca ELENA FOSCO:
+    [ATTACCO NEMICO] LO SGHERRO -> ELENA FOSCO: 2d6(1,1)=2 +Attacco(2) = 4 vs Difesa(8) -> MANCATO
+  LO SGHERRO attacca DOTT. LAZZARO SERRA:
+    [ATTACCO NEMICO] LO SGHERRO -> DOTT. LAZZARO SERRA: 2d6(5,4)=9 +Attacco(2) = 11 vs Difesa(8) -> COLPITO
+    DOTT. LAZZARO SERRA subisce 1 danno da LO SGHERRO (Salute: 6/7).
+  LO SGHERRO attacca ELENA FOSCO:
+    [ATTACCO NEMICO] LO SGHERRO -> ELENA FOSCO: 2d6(6,5)=11 +Attacco(2) = 13 vs Difesa(8) -> COLPITO
+    ELENA FOSCO subisce 1 danno da LO SGHERRO (Salute: 2/7).
+  IL CUSTODE DELLA CERA si avvicina, non ancora a contatto.
+--- Round 7: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    [ABILITÀ] DOTT. LAZZARO SERRA attiva Voce ferma (0 usi residui): +2 NERVI agli alleati fino al suo prossimo turno.
+    [ATTACCO] ELENA FOSCO -> LO SGHERRO: 2d6(5,4)=9 +VIGORE(1)+arma(1) = 11 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+  [MINACCIA] ADEPTO IN AGGUATO (posseduto) — Piazzate 1 Adepto sull’uscita più vicina agli eroi della tessera in cui si trova l’eroe at…
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 9) in B1.
+  [MINACCIA] PRESAGIO (quiete) — Un brivido corre lungo la schiena. Non accade nulla... per ora.
+    Nessun effetto meccanico (tensione).
+  LO SGHERRO attacca ELENA FOSCO:
+    [ATTACCO NEMICO] LO SGHERRO -> ELENA FOSCO: 2d6(6,1)=7 +Attacco(2) = 9 vs Difesa(8) -> COLPITO
+    ELENA FOSCO subisce 1 danno da LO SGHERRO (Salute: 1/7).
+  LO SGHERRO attacca DOTT. LAZZARO SERRA:
+    [ATTACCO NEMICO] LO SGHERRO -> DOTT. LAZZARO SERRA: 2d6(3,4)=7 +Attacco(2) = 9 vs Difesa(8) -> COLPITO
+    DOTT. LAZZARO SERRA subisce 1 danno da LO SGHERRO (Salute: 5/7).
+  ADEPTO INCAPPUCCIATO si muove verso ELENA FOSCO: B1 -> C1.
+  ADEPTO INCAPPUCCIATO attacca ELENA FOSCO:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> ELENA FOSCO: 2d6(3,2)=5 +Attacco(1) = 6 vs Difesa(8) -> MANCATO
+  IL CUSTODE DELLA CERA si avvicina, non ancora a contatto.
+--- Round 8: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    [ATTACCO] DOTT. LAZZARO SERRA -> ADEPTO INCAPPUCCIATO: 2d6(4,1)=5 +VIGORE(1)+arma(1) = 7 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    [ATTACCO] ELENA FOSCO -> LO SGHERRO: 2d6(1,6)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+  [MINACCIA] CORRENTE GELIDA (ostacolo) — Fino all’inizio del vostro prossimo turno ogni eroe ha -1 al Movimento (minimo 1).
+    Penalità di Movimento fino al prossimo turno (non modellata nel loop di combattimento).
+  [MINACCIA] LAMA NEL BUIO (malavita) — Piazzate 1 Sicario adiacente all’eroe più isolato o più ferito (a pari merito: sceglie il …
+    Piazzati 1x IL SICARIO (pool residua: 1) in C1.
+    IL SICARIO si attiva subito:
+  IL SICARIO attacca ELENA FOSCO:
+    [ATTACCO NEMICO] IL SICARIO -> ELENA FOSCO: 2d6(5,6)=11 +Attacco(3) = 14 vs Difesa(8) -> COLPITO
+    ELENA FOSCO subisce 2 danno da IL SICARIO (Salute: 0/7).
+    *** ELENA FOSCO è A TERRA. ***
+  LO SGHERRO attacca DOTT. LAZZARO SERRA:
+    [ATTACCO NEMICO] LO SGHERRO -> DOTT. LAZZARO SERRA: 2d6(3,6)=9 +Attacco(2) = 11 vs Difesa(8) -> COLPITO
+    DOTT. LAZZARO SERRA subisce 1 danno da LO SGHERRO (Salute: 4/7).
+  LO SGHERRO attacca DOTT. LAZZARO SERRA:
+    [ATTACCO NEMICO] LO SGHERRO -> DOTT. LAZZARO SERRA: 2d6(6,3)=9 +Attacco(2) = 11 vs Difesa(8) -> COLPITO
+    DOTT. LAZZARO SERRA subisce 1 danno da LO SGHERRO (Salute: 3/7).
+  IL CUSTODE DELLA CERA si avvicina, non ancora a contatto.
+--- Round 9: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 2 — 1 eroi vivi)
+    [ATTACCO] DOTT. LAZZARO SERRA -> LO SGHERRO: 2d6(1,4)=5 +VIGORE(1)+arma(1) = 7 vs Difesa(8) -> MANCATO
+  [MINACCIA] VOLTI TRA LE CASSE (posseduto) — Piazzate 1 Adepto sull’uscita più vicina agli eroi della tessera corrente: si è intrufolat…
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 9) in B1.
+  [MINACCIA] TRAPPOLA DI CERA (insidia) — L’eroe più avanzato prova NERVI (Media): se fallisce, cera bollente: 1 danno e perde 1 azi…
+    [PROVA NERVI] DOTT. LAZZARO SERRA: 2d6(5,2)=7 +NERVI(2) = 9 vs Media(9) -> SUCCESSO
+  LO SGHERRO attacca DOTT. LAZZARO SERRA:
+    [ATTACCO NEMICO] LO SGHERRO -> DOTT. LAZZARO SERRA: 2d6(2,1)=3 +Attacco(2) = 5 vs Difesa(8) -> MANCATO
+  LO SGHERRO attacca DOTT. LAZZARO SERRA:
+    [ATTACCO NEMICO] LO SGHERRO -> DOTT. LAZZARO SERRA: 2d6(3,5)=8 +Attacco(2) = 10 vs Difesa(8) -> COLPITO
+    DOTT. LAZZARO SERRA subisce 1 danno da LO SGHERRO (Salute: 2/7).
+  IL SICARIO attacca DOTT. LAZZARO SERRA:
+    [ATTACCO NEMICO] IL SICARIO -> DOTT. LAZZARO SERRA: 2d6(1,6)=7 +Attacco(3) = 10 vs Difesa(8) -> COLPITO
+    DOTT. LAZZARO SERRA subisce 2 danno da IL SICARIO (Salute: 0/7).
+    *** DOTT. LAZZARO SERRA è A TERRA. ***
+
+==============================================================================
+ESITO SPEDIZIONE: SCONFITTA (party wipe)
+Round totali: 9
+Formula Minaccia: finale_v3 | Azioni nominali/round: media 3.8, picco 4
+Mazzo Minaccia rimescolato: 0 volta/e
+Segnalini nemici esauriti nel pool (piazzamenti saltati): 0
+Custode della Cera svegliato: solo a T6 (mai in anticipo via Canto)
+  DOTT. LAZZARO SERRA: a terra
+  ELENA FOSCO: a terra
+==============================================================================

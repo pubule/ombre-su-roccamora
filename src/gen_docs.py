@@ -410,21 +410,22 @@ def regolamento():
     e.append(P("Ovunque il gioco parli di taglie — tabella Minaccia, bonus, Bestiario — conta il "
                "numero di <b>eroi in tavola</b>, non di giocatori: un tavolo da 2 giocatori con 4 "
                "eroi è, per le regole, un tavolo da 4. Regole per taglia:", 'body'))
-    e.append(LI('<b>2 eroi</b> — la configurazione più dura del gioco (nessuna regola scala i '
-                'nemici in vostro favore). Se siete in 2 giocatori e preferite una sfida più '
-                'morbida, guidate <b>2 eroi a testa</b>: valgono le regole del tavolo da 4, con più '
-                'scelte tattiche per ciascuno (come le partite “multi-handed” di Gloomhaven o '
-                'Arkham Horror).'))
+    e.append(LI('<b>2 eroi</b> — la configurazione più dura del gioco, dichiaratamente: anche col '
+                'boss alleggerito (sotto) vince circa una spedizione su due. Se siete in 2 '
+                'giocatori e preferite una sfida più morbida, guidate <b>2 eroi a testa</b>: '
+                'valgono le regole del tavolo da 4, con più scelte tattiche per ciascuno (come le '
+                'partite “multi-handed” di Gloomhaven o Arkham Horror).'))
     e.append(LI('<b>4 eroi</b> — <b>+1 Salute massima a testa</b> (oltre a quella eventuale da '
                 'Slancio/Preparati). È la taglia dove la tensione risultava più piatta nei test: '
                 'un margine in più fa arrivare qualche colpo senza far crollare le vittorie.'))
-    e.append(LI('<b>6 eroi e 8–10 eroi</b> — <b>+1 Ferita SOLO al boss dell’episodio</b> (mai ai '
-                'nemici di truppa: un bonus generale li raddoppierebbe, molti hanno 1 sola Ferita). '
-                'A <b>7 eroi</b> nessun bonus: la terza carta a round alterni e l’affollamento reale '
-                'bastano già. Il bonus si fissa all’inizio della spedizione e non cambia più, '
-                'anche se qualcuno cade a terra. <b>Niente calcoli al tavolo:</b> il <b>Bestiario</b> '
-                'riporta le Ferite già tabellate per numero di eroi — leggete la colonna del '
-                'vostro tavolo e basta.'))
+    e.append(LI('<b>Il boss dell’episodio scala con la taglia</b> — <b>−1 Ferita ai tavoli da 2 e '
+                'da 4</b> (le taglie che pescano più carte Minaccia di quanti corpi abbiano per '
+                'assorbirle), <b>+1 Ferita a 6 e a 9–10</b>. A 3, 5, 7 e 8 nessuna modifica: '
+                'testato, la pressione di quelle taglie basta già. Mai bonus ai nemici di truppa '
+                '(un bonus generale li raddoppierebbe, molti hanno 1 sola Ferita). Si fissa '
+                'all’inizio della spedizione e non cambia più, anche se qualcuno cade a terra. '
+                '<b>Niente calcoli al tavolo:</b> il <b>Bestiario</b> riporta le Ferite già '
+                'tabellate per numero di eroi — leggete la colonna del vostro tavolo e basta.'))
     e.append(LI('<b>7–10 eroi</b> — Fase Minaccia: 2 carte, più una terza SOLO nei round pari '
                 '(2°, 4°, 6°...) — vedi la tabella in Fase 2. Nei test, 3 carte fisse ogni round '
                 'schiacciavano il tavolo: la terza a metà ritmo lo tiene in sfida.'))
@@ -753,8 +754,8 @@ def aiuto():
 
     e.append(P('TAGLIE DEL TAVOLO (contano gli EROI in tavola, non i giocatori)', 'h2'))
     e.append(RL('<b>4 eroi</b> — +1 Salute massima a testa (oltre a Slancio/Preparati).'))
-    e.append(RL('<b>6 eroi e 8–10</b> — +1 Ferita SOLO al boss (a 7 nessun bonus). Fissato a inizio '
-                'spedizione; Ferite già tabellate per taglia nel <b>Bestiario</b>.'))
+    e.append(RL('<b>Boss</b> — −1 Ferita a 2 e 4 eroi; +1 a 6 e 9–10 (a 3, 5, 7, 8 nessuna modifica). '
+                'Fissato a inizio spedizione; Ferite già tabellate per taglia nel <b>Bestiario</b>.'))
     e.append(RL('<b>7–10 eroi</b> — la terza carta Minaccia si pesca solo nei round pari (tabella sopra).'))
 
     e.append(P('REGOLA D’ORO', 'h2'))
