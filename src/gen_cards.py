@@ -488,8 +488,13 @@ TILES = [
                'ha 1 sola azione al prossimo turno.',
          arredi=[(1, 1, 'scala'), (2, 1, 'scala'), (1, 2, 'scala'), (2, 2, 'scala')]),
     dict(id='T6', nome='CRIPTA DELLA CERA', exits={'S': 'T5'},
-         testo='Un altare circondato da candele nere; dietro, una cella con Ruggero. QUANDO RIVELATE '
-               'QUESTA TESSERA: appare il Custode della Cera con 2 Adepti. La cella si apre con la '
-               'chiave (T4) o scassinando: ACUME Difficile.',
+         testo='Un altare circondato da candele nere; dietro, una cella sbarrata con Ruggero. '
+               'QUANDO RIVELATE QUESTA TESSERA: appare il Custode della Cera con 2 Adepti.',
+         # Come si apre la cella e' una SCOPERTA (chi interagisce/scassina lo
+         # chiede a chi tiene il fascicolo), non un'informazione da tavolo:
+         # vive sul retro delle note tessera (campo `arbitro`, vedi
+         # gen_gothic.spedizione), mai nel testo letto alla rivelazione.
+         arbitro='La cella: si apre con LA CHIAVE DELLA CELLA (T4) con Interagire, senza prove — '
+                 'oppure scassinando, ACUME Difficile (il piede di porco di T2 dà +1).',
          arredi=[(1, 2, 'altare'), (2, 2, 'altare'), (3, 3, 'CELLA')]),
 ]

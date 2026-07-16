@@ -64,10 +64,12 @@ TESTI_TILES = {
     'T5': "Gradini viscidi scendono in un buio che canta: a ogni passo le voci si fanno pi\u00f9 "
           "nitide, e pi\u00f9 sbagliate. Chi scende prova NERVI (Facile): se fallisce, ha 1 sola "
           "azione al prossimo turno.",
+    # Come si apre la cella NON sta qui: e' una scoperta, vive nel campo
+    # `arbitro` della tessera (gen_cards.TILES) e finisce sul retro delle
+    # note tessera, solo per chi arbitra.
     'T6': "Un altare di pietra nera in un cerchio di candele: la cera ha colato per anni, fino a "
-          "formare stalattiti. Dietro, una cella con Ruggero. QUANDO RIVELATE QUESTA TESSERA: "
-          "appare il Custode della Cera con 2 Adepti. La cella si apre con la chiave (T4) o "
-          "scassinando (ACUME Difficile).",
+          "formare stalattiti. Dietro, una cella sbarrata con Ruggero. QUANDO RIVELATE QUESTA "
+          "TESSERA: appare il Custode della Cera con 2 Adepti.",
 }
 
 NOTE_NEMICI = {

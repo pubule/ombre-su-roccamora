@@ -304,6 +304,20 @@ prima che l'Ep. 1 lo riveli.
    una tessera (vedere che stanza è, quando un eroe ci entra) è automatico e diverso da
    Cercare (trovare cosa nasconde, un'azione a parte). Obiettivo di salvataggio/recupero +
    ritorno all'ingresso.
+   **Le note tessera sono fronte/retro** (dal 2026-07-16, stesso principio degli
+   Approfondimenti sempre-sul-retro nel fascicolo Luoghi): il **fronte** (un foglio,
+   tutte le tessere) contiene SOLO ciò che si legge ad alta voce alla rivelazione —
+   ambientazione, prove d'ingresso, eventi "QUANDO RIVELATE"; il **retro fisico dello
+   stesso foglio** è "cosa nasconde ogni tessera — solo per chi arbitra": esiti di
+   Cercare (campo `cerca` in `TILES`) e meccaniche da scoprire (campo `arbitro`, es.
+   come si apre la cella di T6), con una voce per OGNI tessera anche se vuota
+   ("niente da trovare qui"), così il fronte non rivela nemmeno quali tessere
+   nascondono qualcosa. Prima era tutto su una pagina in chiaro: chi la leggeva
+   sapeva in anticipo dove stava la chiave, il talismano e che in T6 aspettava il
+   boss. Precedente di genere: il quest book di HeroQuest/Descent in mano al solo
+   overlord. Serve la pagina di servizio dopo la copertina per tenere la coppia
+   fronte/segreti sullo stesso foglio in stampa fronte/retro (parità pagine, come
+   `pagina_indice_citta`). Il Preludio resta volutamente in chiaro: è la scuola.
 3-bis. *Ferite nemici* — nessun gettone o dado per nemico sul tabellone: si traccia su un
    **Registro delle Ferite** riusabile (una pagina in fondo al fascicolo Spedizione, vedi
    `registro_ferite()` in `src/gen_gothic.py`), righe generiche "nemico attivo" (mai per
@@ -681,7 +695,8 @@ Tyrlov) per le carte e **mappa a china su pergamena** per le tessere.
   sfondo/stile ma senza banner H1 pesanti — è un cheat-sheet, deve restare
   scannerizzabile a colpo d'occhio) sono comuni a tutta la campagna. Ogni episodio
   ha una sua sottocartella `pdf/Episodio N/`: `Indagine` (lettera d'incarico +
-  taccuino), `Spedizione` (note tessera + segnalini), `Luoghi` (riferimenti per
+  taccuino), `Spedizione` (note tessera fronte/retro — i segreti di Cercare e le
+  meccaniche da scoprire SOLO sul retro fisico, vedi punto 3 — + segnalini), `Luoghi` (riferimenti per
   chi arbitra), `Bestiario` (vedi sotto), `Soluzione (non aprire)` (sigillata,
   con avvertimento iniziale). Le carte stesse (dorso Approfondimenti, titolo
   Oggetti) non mostrano MAI il luogo/tessera d'origine, solo `Luoghi.pdf` lo dice.

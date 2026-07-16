@@ -269,9 +269,11 @@ def regolamento():
                 'cancellate la sua riga sul Registro.'))
     e.append(LI('<b>Cercare</b> — su una tessera già rivelata, prova di ACUME Media: se riuscita, '
                 'trovate l’<b>oggetto</b> che nasconde (una sola volta per tessera; non tutte le '
-                'tessere ne nascondono uno). Non serve per l’obiettivo dell’episodio (liberare un '
-                'prigioniero, prendere ciò che va portato via): quello si fa con <b>Interagire</b>, '
-                'dove la Soluzione lo indica.'))
+                'tessere ne nascondono uno). Cosa c’è da trovare lo sa solo chi tiene il fascicolo '
+                '<b>Spedizione</b>: legge l’esito dal retro delle note tessera — con lo stesso '
+                'tono anche quando non c’è niente. Non serve per l’obiettivo dell’episodio '
+                '(liberare un prigioniero, prendere ciò che va portato via): quello si fa con '
+                '<b>Interagire</b>, dove la Soluzione lo indica.'))
     e.append(LI('<b>Interagire</b> — aprire porte e grate, tirare leve, liberare prigionieri.'))
     e.append(LI('<b>Usare un oggetto</b> \u2014 come indicato sulla sua carta.'))
     e.append(LI('<b>Rianimare</b> \u2014 un eroe a terra adiacente torna a 2 Salute.'))
