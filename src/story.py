@@ -56,11 +56,16 @@ TESTI_TILES = {
           "(vedi Soluzione). Qui dovete riportare Ruggero per vincere.",
     'T2': "Casse marchiate a fuoco con l\u2019onda, accatastate fino al soffitto in corridoi "
           "ciechi. Qualcosa, tra le pile, scricchiola nei momenti in cui nessuno si muove.",
+    # Tell nel testo letto ad alta voce (bibbia punto 3): T3 il riflesso
+    # (ramo opzionale, tell deliberatamente piu' leggibile), T4 il filo
+    # (la trappola della chiave, telegrafata a chi presta attenzione).
     'T3': "Migliaia di candele nere trasformano il corridoio in una gola di luce tremolante; "
-          "il caldo \u00e8 innaturale, la cera cola dalle mensole come pioggia lenta. Chi entra "
+          "il caldo \u00e8 innaturale, la cera cola dalle mensole come pioggia lenta. Tra le "
+          "colate, in fondo, un riflesso che non \u00e8 cera. Chi entra "
           "per la prima volta prova NERVI (Media): se fallisce, 1 danno (cera bollente).",
     'T4': "Una scrivania sommersa di spartiti annotati con grafia febbrile, un pagliericcio "
-          "che puzza di sego, una tazza ancora tiepida. Il custode non \u00e8 lontano.",
+          "che puzza di sego, una tazza ancora tiepida. Sulla mensola, tra i vasetti, un filo "
+          "di spago che non regge nulla \u2014 o cos\u00ec pare. Il custode non \u00e8 lontano.",
     'T5': "Gradini viscidi scendono in un buio che canta: a ogni passo le voci si fanno pi\u00f9 "
           "nitide, e pi\u00f9 sbagliate. Chi scende prova NERVI (Facile): se fallisce, ha 1 sola "
           "azione al prossimo turno.",

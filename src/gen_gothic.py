@@ -191,14 +191,24 @@ def spedizione():
             flow.append(Paragraph('<b>Cercare:</b> ' + T['cerca'],
                                   st('tc', fontSize=9, leading=12, textColor=TEAL)))
         else:
-            flow.append(Paragraph('<b>Cercare:</b> niente da trovare qui.',
-                                  st('tn', fontSize=9, leading=12, textColor=TEAL)))
+            # Anche il "niente" ha la sua frase di colore (campo cerca_vuoto):
+            # si legge con lo stesso tono di un tesoro, mai un secco "nulla".
+            flow.append(Paragraph('<b>Cercare:</b> ' + T.get(
+                'cerca_vuoto', 'niente da trovare qui.'),
+                st('tn', fontSize=9, leading=12, textColor=TEAL)))
+        if T.get('hook'):
+            # Hook Indagine->Spedizione: possesso della carta giusta =
+            # niente prova sulla trappola di questa tessera.
+            flow.append(Spacer(1, 2))
+            flow.append(Paragraph('<b>' + T['hook'] + '</b>',
+                                  st('th', fontSize=9, leading=12, textColor=RED)))
         if T.get('arbitro'):
             flow.append(Spacer(1, 2))
             flow.append(Paragraph(T['arbitro'], st('ta', fontSize=9, leading=12, textColor=TEAL)))
-        fh = 26*mm if (T.get('cerca') and len(T['cerca']) > 120) or T.get('arbitro') else 10*mm
+        fh = 32*mm if T.get('hook') else \
+             26*mm if (T.get('cerca') and len(T['cerca']) > 120) or T.get('arbitro') else 12*mm
         frame_flow(c, 20*mm, y - 6*mm - fh, W - 40*mm, fh, flow)
-        y -= fh + 12*mm
+        y -= fh + 10*mm
     c.showPage()
     token_sheet(c)
     registro_ferite(c)

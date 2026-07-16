@@ -274,10 +274,15 @@ LUOGHI = [
                         'sagrestano, gente che saluto al mercato — sempre dallo stesso magazzino, quello che fu '
                         'di Dellacqua. E tra loro, sempre lui: il liutaio Ferri.» Uscivano all’alba con gli occhi '
                         'vuoti. Non erano più loro.'),
+             # Hook Indagine->Spedizione (vedi bibbia punto 3): la visione
+             # mostra la trappola della chiave in T4 - chi ha letto questo
+             # Presagio prende la chiave senza prova (verita' sul retro
+             # delle note tessera, gen_gothic).
              dict(tipo='Presagio', soggetto='L’acqua che ascolta',
                   testo='Sfiorare l’acqua nera basta: non è fredda, sembra vigile. Per un istante si vede, netto '
                         'come attraverso occhi non propri, l’interno del vecchio magazzino delle cere di '
-                        'Dellacqua, sul Canale Basso — e tra le candele, le mani di un liutaio. Qualcosa, sotto '
+                        'Dellacqua, sul Canale Basso — le mani di un liutaio tra le candele; una stanza sepolta '
+                        'dagli spartiti, dove una chiave pende da un filo teso. Teso apposta. Qualcosa, sotto '
                         'la città, conta i passi sul molo.'),
          ]),
     dict(n=7, nome='L’ARCHIVIO CIVICO', voce_mappa='L’Archivio Civico', req='L’archivista non alza lo sguardo finché non pronunciate la parola che avete già sentito da qualche parte in città.',
@@ -292,12 +297,17 @@ LUOGHI = [
                  'Registro consultazioni, due mesi fa: «<b>B. Ferri, liutaio</b>» ha richiesto questo '
                  'stesso fascicolo.'],
          approfondimenti=[
+             # Hook Indagine->Spedizione (vedi bibbia punto 3): l'avvertimento
+             # sul sigillo a onda copre il talismano di T3 - chi ha letto
+             # questa Osservazione lo prende senza prova (verita' sul retro
+             # delle note tessera, gen_gothic).
              dict(tipo='Osservazione', soggetto='Le note a margine',
                   testo='Le mani dell’archivista tremano su un solo scaffale. Sul fascicolo, due note a margine, '
                         'la stessa calligrafia frettolosa: «il sigillo a onda è ancora inciso nella cripta, '
-                        'sotto l’altare» e, più sotto, quasi illeggibile, «B. Ferri ha ripreso il posto del '
-                        'fondatore — vecchio magazzino Dellacqua, Canale Basso — nessuno osa contraddirlo». '
-                        'Chi ha scritto, temeva di essere letto.'),
+                        'sotto l’altare — non toccare a mani nude ciò che lo porta» e, più sotto, quasi '
+                        'illeggibile, «B. Ferri ha ripreso il posto del fondatore — vecchio magazzino '
+                        'Dellacqua, Canale Basso — nessuno osa contraddirlo». Chi ha scritto, temeva di '
+                        'essere letto.'),
          ]),
     dict(n=8, nome='LA GENDARMERIA', voce_mappa='La Gendarmeria', req='Disponibile dall’inizio',
          testo='Il brigadiere vi riceve tra pile di pratiche: «Il campanaro? Sarà scappato con '
@@ -457,35 +467,59 @@ NEMICI = [
 ]
 
 TILES = [
+    # cerca_vuoto: frase di colore per il Cercare a vuoto (retro note tessera,
+    # gen_gothic) - il "niente" si legge con lo stesso tono di un tesoro,
+    # mai un secco "non c'e' nulla" (bibbia punto 3).
     dict(id='T1', nome='BANCHINA D’INGRESSO', exits={'N': 'T2'},
          testo='Acqua nera che lambisce le pietre, odore di sego. La porta sul retro ha un lucchetto '
                'a tre cifre (vedi Soluzione). Qui dovete riportare Ruggero per vincere.',
+         cerca_vuoto='Frugate tra le cime e gli anelli d’ormeggio: solo salsedine, e l’acqua nera '
+                     'che vi osserva frugare.',
          arredi=[(0, 3, 'molo'), (3, 3, 'casse')]),
     dict(id='T2', nome='SALA DELLE CASSE', exits={'S': 'T1', 'E': 'T3', 'O': 'T4', 'N': 'T5 (grata: azione Interagire per aprirla)'},
          testo='Casse marchiate con l’onda, accatastate fino al soffitto.',
          cerca='Un piede di porco: +1 alle prove per forzare e scassinare.',
          arredi=[(1, 1, 'casse'), (2, 2, 'casse')]),
+    # Tell nel testo fronte (bibbia punto 3): T3 e' il ramo opzionale, il
+    # riflesso "che non e' cera" e' l'unico invito a deviare - deliberato
+    # un filo piu' leggibile dei tell di T2/T4.
     dict(id='T3', nome='CORRIDOIO DELLE CANDELE', exits={'O': 'T2'},
-         testo='Migliaia di candele nere accese. Chi entra in questa tessera per la prima volta prova '
-               'NERVI (Media): se fallisce, 1 danno (cera bollente).',
+         testo='Migliaia di candele nere accese. Tra le colate, in fondo, un riflesso che non è cera. '
+               'Chi entra in questa tessera per la prima volta prova NERVI (Media): se fallisce, '
+               '1 danno (cera bollente).',
          cerca='Un talismano a forma d’onda: chi lo porta ha +1 NERVI. È caldo, come stretto un '
                'istante prima da un’altra mano: prenderlo è una scelta. Se lo lasciate lì, '
                'nessuna conseguenza. Se lo prendete, prova NERVI (Media): se fallita, cera '
                'bollente — 1 danno e perdete 1 azione al prossimo turno (il talismano resta '
                'comunque vostro).',
+         # Hook Indagine->Spedizione (bibbia punto 3): possesso carta =
+         # niente prova su questa trappola.
+         hook='Se il gruppo ha letto l’Osservazione «Le note a margine» (Luogo 7): ricordano '
+              'l’avvertimento — lo avvolgono senza toccarlo a mani nude, niente prova.',
          arredi=[(0, 0, 'candele'), (3, 0, 'candele'), (0, 3, 'candele'), (3, 3, 'candele')]),
+    # Tell del filo (bibbia punto 3): la trappola della chiave e'
+    # telegrafata a chi presta attenzione - fair play, precedente D&D
+    # (percezione passiva). Chi ricorda il dettaglio quando trova la
+    # chiave puo' insospettirsi da solo.
     dict(id='T4', nome='UFFICIO DEL CUSTODE', exits={'E': 'T2'},
-         testo='Una scrivania sommersa di spartiti, un pagliericcio che puzza di sego.',
+         testo='Una scrivania sommersa di spartiti, un pagliericcio che puzza di sego. Sulla mensola, '
+               'tra i vasetti, un filo di spago che non regge nulla — o così pare.',
          cerca='La CHIAVE DELLA CELLA e un registro: «Il dormiente gradisce il canto. Manca '
                'solo la voce del bronzo.» La chiave pende da un filo teso a un vasetto '
                'rovesciato: prenderla è una scelta. Se la lasciate lì, il registro resta '
                'comunque leggibile. Se la prendete, prova NERVI (Media): se fallita, i fumi vi '
                'stordiscono — 1 sola azione al prossimo turno (la chiave resta comunque '
                'vostra).',
+         # Hook Indagine->Spedizione (bibbia punto 3): possesso carta =
+         # niente prova su questa trappola.
+         hook='Se il gruppo ha letto il Presagio «L’acqua che ascolta» (Luogo 6): hanno già '
+              'visto il filo — staccano la chiave senza prova.',
          arredi=[(1, 3, 'scrivania'), (3, 0, 'branda')]),
     dict(id='T5', nome='SCALA AL PIANO INTERRATO', exits={'S': 'T2', 'N': 'T6'},
          testo='Gradini viscidi che scendono nel canto. Chi scende prova NERVI (Facile): se fallisce, '
                'ha 1 sola azione al prossimo turno.',
+         cerca_vuoto='Sui gradini viscidi non c’è nulla da raccogliere — solo il canto, un poco più '
+                     'forte a ogni passo che restate fermi ad ascoltarlo.',
          arredi=[(1, 1, 'scala'), (2, 1, 'scala'), (1, 2, 'scala'), (2, 2, 'scala')]),
     dict(id='T6', nome='CRIPTA DELLA CERA', exits={'S': 'T5'},
          testo='Un altare circondato da candele nere; dietro, una cella sbarrata con Ruggero. '
@@ -496,5 +530,7 @@ TILES = [
          # gen_gothic.spedizione), mai nel testo letto alla rivelazione.
          arbitro='La cella: si apre con LA CHIAVE DELLA CELLA (T4) con Interagire, senza prove — '
                  'oppure scassinando, ACUME Difficile (il piede di porco di T2 dà +1).',
+         cerca_vuoto='Tra le stalattiti di cera e le candele nere, nulla che si possa portare via — '
+                     'tutto, qui, è già di qualcuno.',
          arredi=[(1, 2, 'altare'), (2, 2, 'altare'), (3, 3, 'CELLA')]),
 ]

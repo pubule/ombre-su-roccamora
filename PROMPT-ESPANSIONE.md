@@ -318,6 +318,31 @@ prima che l'Ep. 1 lo riveli.
    overlord. Serve la pagina di servizio dopo la copertina per tenere la coppia
    fronte/segreti sullo stesso foglio in stampa fronte/retro (parità pagine, come
    `pagina_indice_citta`). Il Preludio resta volutamente in chiaro: è la scuola.
+   Tre regole che completano il sistema (dal 2026-07-16, seconda passata):
+   - **Tell obbligatorio sul fronte**: ogni tessera con qualcosa da trovare
+     (`cerca`/`arbitro`) ha un dettaglio sensoriale nel testo letto ad alta voce
+     — premia chi ascolta, mai un invito esplicito ("qualcosa scricchiola tra le
+     pile", "un filo di spago che non regge nulla — o così pare"). Cercare deve
+     essere deduzione, non lotteria; su un ramo opzionale il tell può essere un
+     filo più leggibile (è l'unico incentivo a deviare, e deviare costa round
+     con l'orologio che avanza). Precedente: la percezione passiva di D&D — la
+     trappola telegrafata a chi presta attenzione è fair play.
+   - **Hook Indagine→Spedizione, 0–2 per episodio** (campo `hook` in `TILES`):
+     possedere l'Approfondimento giusto = niente prova su quella trappola
+     ("l'indagine vi ha avvertiti"). La verità vive SOLO sul retro delle note
+     tessera (in evidenza, rosso), mai come regola nel Regolamento; il testo
+     dell'Approfondimento contiene l'avvertimento in forma narrativa
+     riconoscibile (es. il Presagio che "vede" il filo teso, la nota d'archivio
+     «non toccare a mani nude ciò che lo porta»). Così l'indagine ben fatta paga
+     DENTRO la spedizione, non solo col tier d'ingresso. Ep. 1: L6-Presagio →
+     trappola chiave T4; L7-Osservazione → trappola talismano T3. Metti gli
+     hook su Approfondimenti PERIFERICI, non su quelli che ogni gruppo coglie
+     comunque: sono il premio per chi devia e per chi sceglie con cura dove
+     spendere le cariche (misurato: con l'euristica greedy del simulatore
+     scattano di rado — al tavolo la scelta è del giocatore, ed è il punto).
+   - **Esiti vuoti con colore** (campo `cerca_vuoto` in `TILES`): il retro dà la
+     frase pronta anche per il "niente", così il tono di chi legge è davvero
+     identico tra tesoro e nulla — e anche il buco è immersivo.
 3-bis. *Ferite nemici* — nessun gettone o dado per nemico sul tabellone: si traccia su un
    **Registro delle Ferite** riusabile (una pagina in fondo al fascicolo Spedizione, vedi
    `registro_ferite()` in `src/gen_gothic.py`), righe generiche "nemico attivo" (mai per

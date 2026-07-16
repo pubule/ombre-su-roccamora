@@ -38,6 +38,10 @@ di ogni log):
   Nino e Carbone hanno un impatto minore in questa astrazione e sono
   annotati ma non pienamente simulati (nessuna prova di Cercare/scassinare
   dedicata nel loop di combattimento).
+- Hook Indagine->Spedizione (bibbia punto 3): quello della chiave (Presagio
+  L6 -> trappola T4 senza prova) e' modellato; quello del talismano
+  (Osservazione L7 -> T3) NO, perche' T3 e' fuori dal percorso scriptato e
+  il talismano non e' comunque simulato.
 - I nemici scelgono il bersaglio A CASO tra i vivi, non "il piu' vicino in
   piedi" (regola vera): divergenza deliberata - il fuoco concentrato sul
   piu' vicino, senza IA di protezione/posizionamento difensivo per gli
@@ -648,6 +652,10 @@ def simula_indagine(party, log, esplora_a_fondo=False):
     # condiviso tra Indagine e Spedizione - il residuo viaggia nel dict di
     # ritorno e simula_spedizione lo eredita.
     secondo_fiato = {n: True for n in party}
+    # Quali Approfondimenti sono stati letti, per luogo e tipo: serve agli
+    # hook Indagine->Spedizione (es. il Presagio di L6 che avverte della
+    # trappola della chiave in T4 - vedi bibbia punto 3).
+    approf_dettaglio = set()
     fanti_scout = any(INDAGINE_UNLOCK.get(n, {}) == {} and 'Ombra fiuta' in HERO[n]['abil'] for n in party)
 
     # Tipi che QUESTO party puo' effettivamente sbloccare (il jolly di Sibilla
@@ -717,6 +725,7 @@ def simula_indagine(party, log, esplora_a_fondo=False):
                     charges[idoneo][tipo] -= 1
                     log(f'    [APPROFONDIMENTO {tipo}] sbloccato da {idoneo}.')
                 approf_letti += 1
+                approf_dettaglio.add((l['n'], tipo))
                 if (l['n'], tipo) in CHI_ESPLICITO:
                     chi_confermato = True
                     log('    -> Questa carta conferma esplicitamente che Ferri comanda (Domanda 2).')
@@ -848,7 +857,7 @@ def simula_indagine(party, log, esplora_a_fondo=False):
     log('')
     return dict(ore_avanzate=ore_avanzate, tier=tier, diapason=diapason, visitati=visitati,
                 chi_confermato=chi_confermato, dossier_completo=dossier_completo,
-                secondo_fiato=secondo_fiato)
+                secondo_fiato=secondo_fiato, approf_dettaglio=approf_dettaglio)
 
 
 def simula_indagine_2gruppi(party, log, orologio_condiviso=True):
@@ -1671,13 +1680,20 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
                 'decide di prenderla (oggetto rischioso).')
             chiave = True
             presatore = max(party, key=lambda n: HERO[n]['nervi'])
-            bonus, chi_bonus = voce_ferma_bonus(presatore)
-            ok, _ = check(log, presatore, 'NERVI', HERO[presatore]['nervi'], 'Media', bonus,
-                          f'Voce ferma di {chi_bonus}' if bonus else '')
-            if not ok:
-                azioni_perse.add(presatore)
-                log(f'    I fumi stordiscono {presatore}: 1 sola azione al prossimo turno. '
-                    f'La chiave resta comunque sua.')
+            # Hook Indagine->Spedizione (bibbia punto 3): chi ha letto il
+            # Presagio di L6 ha gia' "visto" il filo teso - stacca la
+            # chiave senza prova (verita' sul retro delle note tessera).
+            if (6, 'Presagio') in indagine.get('approf_dettaglio', set()):
+                log(f'    [HOOK INDAGINE] {presatore} ricorda il Presagio «L’acqua che ascolta»: '
+                    f'ha già visto il filo teso — stacca la chiave senza prova.')
+            else:
+                bonus, chi_bonus = voce_ferma_bonus(presatore)
+                ok, _ = check(log, presatore, 'NERVI', HERO[presatore]['nervi'], 'Media', bonus,
+                              f'Voce ferma di {chi_bonus}' if bonus else '')
+                if not ok:
+                    azioni_perse.add(presatore)
+                    log(f'    I fumi stordiscono {presatore}: 1 sola azione al prossimo turno. '
+                        f'La chiave resta comunque sua.')
         if tappa.startswith('T6') and custode is None:
             # Vicino all'altare, non sulla soglia: "un altare circondato da
             # candele nere" (testo del luogo) e' piu' fedele di piazzarlo
