@@ -343,10 +343,10 @@ def regolamento():
 
     e.append(P('ESEMPIO DI ROUND (3 giocatori, in T2 \u2014 Sala delle Casse)', 'h2'))
     e.append(P('<b>1. Turno degli eroi.</b> Elena spende un\u2019azione per <b>Cercare</b>: tira 2d6+ACUME '
-               '(3) = 9, raggiunge la Media (9) e trova ci\u00f2 che T2 nasconde \u2014 prende la carta <b>Un '
-               'Piede di Porco</b>: <i>\u201c+1 alle prove per forzare e scassinare\u201d</i>. Da questo momento '
-               'ce l\u2019ha in mano e quel bonus si applica automaticamente, senza spendere azioni per '
-               '\u201cusarlo\u201d. Con la '
+               '(3) = 9, raggiunge la Media (9) \u2014 chi tiene il fascicolo Spedizione legge l\u2019esito '
+               'dal retro delle note tessera: se T2 nasconde qualcosa, Elena prende la carta '
+               'Oggetto corrispondente (un bonus passivo vale da subito, senza spendere azioni '
+               'per \u201cusarlo\u201d); se non nasconde nulla, l\u2019azione \u00e8 spesa comunque. Con la '
                'seconda azione si <b>Muove</b> verso l\u2019uscita nord. Nino <b>Muove</b> fino alla '
                'grata e la apre con <b>Interagire</b>. Ottone si <b>Muove</b> adiacente a un Adepto '
                'gi\u00e0 in gioco e <b>Attacca</b>: 2d6+VIGORE (3) = 9 \u2265 Difesa 7 dell\u2019Adepto \u2192 1 ferita, '
@@ -360,11 +360,12 @@ def regolamento():
                'vicino. Se resta adiacente, attacca: 2d6+Attacco (1) contro la Difesa dell\u2019eroe '
                '(es. Nino, Difesa 9) \u2014 tira 6, non basta: nessun danno. Il round finisce, si '
                'ricomincia dal turno degli eroi.', 'body'))
-    e.append(P('<b>Oggetti, in pratica:</b> il piede di porco (sopra) \u00e8 un bonus passivo, sempre '
-               'attivo una volta trovato. Altri oggetti servono con un\u2019azione mirata: la <b>chiave '
-               'della cella</b> (T4) apre la cella in T6 con <b>Interagire</b>, senza prove; il '
-               '<b>diapason d\u2019argento</b> si usa con <b>Usare un oggetto</b> stando adiacenti al '
-               'Custode della Cera.', 'box'))
+    e.append(P('<b>Oggetti, in pratica:</b> alcuni sono bonus passivi, sempre attivi una volta '
+               'trovati (un attrezzo che d\u00e0 +1 a certe prove). Altri servono con un\u2019azione mirata: '
+               'una chiave apre con <b>Interagire</b>, senza prove; altri ancora si attivano con '
+               '<b>Usare un oggetto</b> stando adiacenti al bersaglio \u2014 come l\u2019oggetto-debolezza '
+               'del boss, quello scoperto indagando. Cosa nasconde ogni tessera lo dice solo il '
+               'retro delle note tessera, a chi tiene il fascicolo.', 'box'))
 
     e.append(P('PRECISAZIONI (per i dubbi al tavolo)', 'h1'))
     e.append(LI('<b>Il PNG che scortate</b> \u2014 non \u00e8 un eroe: i nemici lo <b>ignorano</b> (i motivi sono '
@@ -722,7 +723,8 @@ def aiuto():
     e.append(P('TURNO DEGLI EROI — 2 azioni ciascuno, sempre di tipo diverso', 'h2'))
     e.append(RL('<b>Muovere</b> — fino a 3 caselle (Nino 4). Niente diagonali; non si attraversano nemici o mobili.'))
     e.append(RL('<b>Attaccare</b> — nemico adiacente: <b>2d6 + VIGORE (+1 se armati) ≥ Difesa nemico</b> → 1 ferita (segnala sul Registro).'))
-    e.append(RL('<b>Cercare</b> — ACUME Media: trovi ciò che la tessera nasconde (1 volta a tessera; ritentabile).'))
+    e.append(RL('<b>Cercare</b> — ACUME Media, 1 volta a tessera, ritentabile: esito dal retro delle '
+                'note tessera (chi tiene il fascicolo).'))
     e.append(RL('<b>Interagire</b> — porte, grate, leve, liberare il PNG scortato. <b>Usare un oggetto</b> — come indicato.'))
     e.append(RL('<b>Rianimare</b> — un eroe a terra adiacente torna a 2 Salute.'))
     e.append(RP('Uscendo verso una tessera coperta, <b>rivelatela</b> e leggetene subito il testo.'))

@@ -604,7 +604,10 @@ carte "si attiva subito" (già adiacenti per testo, es. "Cani dei Moli").
 riusare e variare — tuttofare = Adepto (Att +1, Dif 7, Fer 1, Mov 4, Danno 1);
 veloce-fragile = Cane dei Moli (Att +2, Dif 6, Fer 1, Mov 6, Danno 1, appare VICINO agli
 eroi); lento-pesante = Fonditore (Att +1, Dif 8, Fer 2, Mov 2, Danno 2, appare
-all'ingresso, chi è ferito ha −1 movimento al turno dopo). Ogni episodio introduce UN
+all'ingresso — NESSUNA regola aggiuntiva: il vecchio "chi è ferito ha −1 movimento"
+era una regola orfana mai stampata sul Bestiario né simulata, rimossa apposta; se un
+nemico futuro porta una regola extra, deve vivere sul suo foglio Bestiario ed essere
+simulata, non solo su una carta). Ogni episodio introduce UN
 nemico di truppa nuovo legato al culto (un archetipo variato o un quarto archetipo, es.
 "a distanza" o "esplosivo") e ne ripropone almeno uno vecchio; boss = livello del Custode
 della Cera (Att +3, Dif 9, Fer 3, Mov 3, Danno 2), sempre con una **debolezza legata a un
@@ -676,7 +679,11 @@ Tyrlov) per le carte e **mappa a china su pergamena** per le tessere.
   stile mappa disegnata a china su pergamena: muri spessi a **doppia linea
   tremolante con tratteggio a 45°**, varchi porta nei muri, ombre a
   **puntinato**, acqua stipplata con onde, arredi a china con ombra,
-  **rosa dei venti**, targa a nastro col nome, riquadro testo con bordo a china.
+  **rosa dei venti**, etichette porta per solo ID («verso T2»). La tessera è
+  **anonima**: NIENTE nome né testo stampati sopra — nome e ambientazione vivono
+  nelle note tessera del fascicolo Spedizione. È ciò che permette di riusarla tra
+  episodi con un'altra finzione (il Preludio usa T1/T2/T4 ribattezzate) senza
+  anticipare nulla.
 - **Miniature quadrate (50 mm, la taglia di una casella tessera):** al posto di
   gettoni tondi astratti, eroi e nemici di truppa/boss usano il proprio ritratto
   (stessa arte delle carte) ritagliato a quadrato — `token_sheet()` in
