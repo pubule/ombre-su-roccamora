@@ -475,3 +475,10 @@ cieco a costo ✓ · 2 false piste a costo zero ✓ · tell su ogni tessera
 con segreti ✓ · hook 0-2 su approfondimenti periferici, doppia via ✓ ·
 soglie 7+/6 ✓ · bivio con controfattuali ✓ · nessun nome che collide
 (Sartorio, Dossena, Scoriatore, Crogiolante — verificati assenti) ✓.
+
+> **Nota Fase C (taratura)**: con le formule di produzione riusate 1:1, il percorso a 4
+> tappe rendeva l'Ep. 2 troppo comodo alle taglie 6-10 (91-97% di vittorie, 11 round medi
+> contro i 15 dell'Ep. 1 — meno tick del Canto, meno carte). Fix fisico, zero regole nuove:
+> la passerella T4' è un corridoio stretto sull'acqua e si attraversa in DUE round (fila
+> indiana — al tavolo emerge dalla geometria della tessera, nel simulatore è una tappa
+> doppia). Curva finale: vedi logs/playtest/20260716-ep2/riepilogo_ep2.md.

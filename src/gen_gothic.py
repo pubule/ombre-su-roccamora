@@ -362,6 +362,10 @@ def registro_ferite(c):
         y -= 15*mm
     c.showPage()
 
-indagine()
-spedizione()
-print('OK gothic')
+# Guardia __main__: gen_ep2 (e chi altro) importa da qui registro_ferite/st -
+# senza la guardia, ogni import rigenerava i PDF dell'Ep. 1 come effetto
+# collaterale (scoperto importandolo dal simulatore dell'Ep. 2).
+if __name__ == '__main__':
+    indagine()
+    spedizione()
+    print('OK gothic')
