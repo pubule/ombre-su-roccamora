@@ -12,9 +12,12 @@ LETTERA2 = (
     "strette in pugno come una reliquia.<br/><br/>"
     "C\u2019\u00e8 dell\u2019altro, e non lo scrivo. Lo capirete da soli, se siete quelli che credo.<br/><br/>"
     "Trovatelo. Avete <b>6 ore</b>, dalle 18:00 alle 24:00: dopo, temo, sar\u00e0 tardi. "
-    "Segnate ogni ora sul Taccuino e annotate tutto: nomi, orari, e ogni parola scritta "
-    "in MAIUSCOLO.<br/>\u2014 M., presidente della Societ\u00e0\u00bb<br/><br/>"
-    "<i>Luoghi disponibili dall\u2019inizio: 1, 2, 3, 4, 8. Gli altri vanno sbloccati. L\u2019Archivio Civico (7) e il Canale Basso (6) chiudono alle 23:00, la Gendarmeria (8) alle 21:00.</i>")
+    "Segnate ogni ora sul Taccuino e annotate tutto: nomi, orari, e le parole che "
+    "tornano.<br/>\u2014 M., presidente della Societ\u00e0\u00bb<br/><br/>"
+    "<i>Luoghi disponibili dall\u2019inizio: il Campanile di San Teodoro, la Casa di "
+    "Ruggero al Vicolo dei Fonditori, la Taverna del Ponte Rotto e la Gendarmeria. "
+    "Gli altri andranno sbloccati. L\u2019Archivio Civico e il Canale Basso chiudono "
+    "alle 23:00, la Gendarmeria alle 21:00.</i>")
 
 TESTI_LUOGHI = {
     1: "La scala a chiocciola sale nel buio, ottanta gradini che Ruggero conosceva a memoria. "

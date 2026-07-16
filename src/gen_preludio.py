@@ -99,7 +99,8 @@ LETTERA_P = (
     "cosa, ma nessuna è stata scritta perché qualcuno la conservi. Avete <b>6 ore</b>, "
     "dalle 18:00 alle 24:00. Segnate ogni ora sul Taccuino, ogni parola che conta."
     "<br/>— M.»<br/><br/>"
-    "<i>Luoghi disponibili dall’inizio: P1, P2, P3. Il quarto va sbloccato.</i>")
+    "<i>Luoghi disponibili dall’inizio: il Palazzo del Lume, la Taverna della "
+    "Chiatta e il Banco dei Pegni di Fossa. Il quarto va sbloccato.</i>")
 
 LUOGHI_P = [
     dict(n='P1', nome='IL PALAZZO DEL LUME', voce_mappa='Il Palazzo del Lume', req='Disponibile dall’inizio',
