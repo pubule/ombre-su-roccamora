@@ -171,7 +171,21 @@ async function vistaParty(epId, modo) {
 }
 
 // ---------------------------------------------------------------- PARTITA
+import { vistaIndagine } from './indagine.js';
+
 async function vistaPartita(partita) {
+  const vaiA = (dove) => {
+    if (dove === 'menu') return vistaHome();
+    if (dove === 'spedizione') return vistaSpedizioneStub(partita);
+    vistaPartita(partita);
+  };
+  if (partita.fase === 'indagine' && !partita.indagine.chiusa) {
+    return vistaIndagine(app, partita, vaiA);
+  }
+  return vistaSpedizioneStub(partita);
+}
+
+async function vistaSpedizioneStub(partita) {
   const ep = await dati(partita.episodio);
   h(`
     <div class="barra">
@@ -180,11 +194,11 @@ async function vistaPartita(partita) {
       <span class="sc" style="color:var(--oro-chiaro)">h ${partita.indagine.ora}:00</span>
     </div>
     <div class="pannello centrato">
-      <h2>l’indagine sta per cominciare</h2>
+      <h2>la spedizione</h2>
       <p class="mt">Party: <b>${partita.party.map((n) => esc(n)).join(' · ')}</b></p>
-      <p class="nota mt">Il motore dell’arbitro (stradario, oracolo, orologi, Canto,
-      registro) arriva con la prossima fase di sviluppo — questa è la conferma che
-      la spina dorsale funziona dal vostro dispositivo.</p>
+      <p class="nota mt">La Spedizione assistita (pesca Minaccia, Canto, registro Ferite,
+      esiti di Cercare) arriva col prossimo blocco di sviluppo. L’Indagine è già
+      giocabile dall’inizio alla busta.</p>
     </div>
     ${RIGA_C}
   `);

@@ -170,3 +170,30 @@ em, i { font-style: italic; }
 .dadi-chiudi { min-width: 180px; }
 .dadi-annulla { position: absolute; top: 18px; right: 20px; background: none;
   border: none; color: var(--seppia); font-size: 30px; cursor: pointer; }
+
+/* --- indagine: stradario, campi, scelte --- */
+.stradario { display: grid; gap: 8px; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); }
+.voce { text-align: left; font-family: 'OldStd', serif; font-size: 15px; padding: 10px 12px;
+  border: 1px solid var(--seppia); border-radius: 8px; background: rgba(255, 252, 240, .5);
+  color: var(--ink); cursor: pointer; }
+.voce:active { background: rgba(168, 131, 58, .25); }
+.voce b { display: block; } .voce i { color: var(--seppia); font-size: 13px; }
+.voce .visitato { float: right; color: var(--teal); font-weight: bold; }
+
+.campo { width: 100%; padding: 12px 14px; font-family: 'OldStd', serif; font-size: 17px;
+  border: 1px solid var(--seppia); border-radius: 8px; background: #fffcf0;
+  color: var(--ink); margin-top: 6px; }
+.campo:focus { outline: 2px solid var(--oro); }
+
+.divisore { border: none; height: 1px; margin: 14px 0;
+  background: linear-gradient(90deg, transparent, var(--seppia), transparent); }
+.ok-txt { color: #2e6b45; font-weight: bold; } .ko-txt { color: var(--rosso); font-weight: bold; }
+
+.scelta-overlay { position: fixed; inset: 0; z-index: 90; display: flex; align-items: center;
+  justify-content: center; background: rgba(10, 8, 12, .8); padding: 20px; }
+.scelta-box { background: linear-gradient(160deg, var(--notte2), #241c22);
+  border: 1px solid var(--oro); border-radius: 12px; padding: 22px; max-width: 480px;
+  width: 100%; display: flex; flex-direction: column; gap: 10px; max-height: 80dvh; overflow: auto; }
+.scelta-box h3 { color: var(--oro-chiaro); text-align: center; margin-bottom: 6px; }
+.scelta-btn { width: 100%; text-align: center; }
+.scelta-btn.annulla { opacity: .6; font-size: 14px; }
