@@ -20,7 +20,8 @@ esplicita.
   Elena Fosco (Investigatrice), Dott. Attilio Marn (Medico), Sibilla Reve (Occultista),
   Nino "Grimaldello" Cauto (Ladro), Carla Dosti (Giornalista), Ottone "Mezzena" Massari
   (Macellaio, il combattente del gruppo: Vigore 3, Salute 8), Dott. Lazzaro Serra
-  (Alienista: sblocca i Presagi, aura +2 NERVI), Padre Celso Marani (Esorcista Sospeso:
+  (Alienista: sblocca i Presagi, Voce ferma +2 NERVI ai soli eroi a lui adiacenti),
+  Padre Celso Marani (Esorcista Sospeso:
   Discernimento in indagine, Litania anti-Canto in spedizione), Fulgenzio Carbone
   (Antiquario dell'Occulto: esamina Oggetti/Reperti, Esca preziosa), Ottavio Brera
   (Magistrato in Pensione: sblocca i Referti, rimuove un nemico di truppa), Mora "Spilla"
@@ -44,11 +45,14 @@ esplicita.
 - Ogni episodio si chiude con un **Frammento di Campagna** numerato, un aggancio al successivo
   e un **Bivio morale sigillato**: due scelte sensate, conseguenze concrete (una meccanica,
   una narrativa) rivelate all'inizio dell'episodio dopo. Bivio dell'Ep. 1: lo spartito del
-  rituale. Se BRUCIATO → l'Ep. 2 inizia senza segnalini timer e con 1 carta Presagio in più
+  rituale. Se BRUCIATO → l'Ep. 2 parte col Canto a 0 e con 1 carta Presagio in più
   nel mazzo, ma una delle 4 Domande perde un incrocio (il culto ha cambiato i suoi codici).
   Se CONSERVATO → i giocatori ottengono il Frammento 1-bis (mezzo pentagramma, utile al
-  finale), ma il mazzo Minaccia dell'Ep. 2 aggiunge 2 carte "Segugi del Coro" (2 Adepti che
-  entrano dall'ingresso e puntano chi porta lo spartito).
+  finale), ma la spedizione dell'Ep. 2 parte col Canto già a 1 segnalino (lo spartito
+  "chiama", il coro lo sente muoversi) e il mazzo Minaccia aggiunge 2 carte "Segugi del
+  Coro" (2 Adepti che entrano dall'ingresso e puntano chi porta lo spartito). Ogni ramo
+  del Bivio deve avere un controfattuale concreto: mai un "beneficio" che coincide con
+  lo stato di default dell'altro ramo.
 
 ## 2. BIBBIA MECCANICA (non modificare i numeri)
 
@@ -177,7 +181,7 @@ prima che l'Ep. 1 lo riveli.
    piccolo margine di ricomposizione al tavolo), perché ora è il tiro a fare da filtro,
    non la sola visita.
 1-quinquies. *Requisito d'accesso: tocco narrativo, mai il nome* — sulla carta Luogo di
-   un luogo bloccato (2-3 per episodio, vedi punto 1), la descrizione d'apertura
+   un luogo bloccato (3+ per episodio, mai meno di 3 — vedi punto 1), la descrizione d'apertura
    **lascia interamente il posto** a una frase narrativa in corsivo che giustifica
    perché serva qualcosa per entrare (`scripts/cardconjurer/cards-data.js`, campo
    `rules` dei `.map()` su LUOGHI/PRELUDIO_LUOGHI: `L.req` invece di `L.testo` quando
@@ -295,8 +299,9 @@ prima che l'Ep. 1 lo riveli.
    eroi** (ogni eroe 2 azioni, sempre di tipo diverso — mai la stessa due volte, es. niente
    doppio Movimento; un'abilità che concede un'azione extra, come Colpo da macello di
    Ottone, non conta come ripetizione: Muovi 3 (Nino 4) · Attacca · Cerca ACUME Media su
-   una tessera già rivelata, solo se nasconde un oggetto — non tutte le tessere ne hanno
-   uno, e non serve per liberare prigionieri, quello è Interagire · Interagisci · Usa
+   una tessera già rivelata — non tutte nascondono qualcosa e i giocatori NON sanno
+   quali (l'esito, anche vuoto, lo legge chi tiene il fascicolo dal retro delle note
+   tessera, vedi sotto); non serve per liberare prigionieri, quello è Interagire · Interagisci · Usa
    oggetto, come indicato sulla sua carta · Rianima a 2 Salute) → **Fase Minaccia** (pesca
    1 carta ogni 2 eroi,
    arrotondando per eccesso, applicane il testo) → **Turno dei nemici** (ognuno si muove
@@ -387,8 +392,11 @@ prima che l'Ep. 1 lo riveli.
    4:73% 6:30% 8:48% 10:56% — il +2 generale a 6 era diventato il vero
    killer della taglia). Sei giri di ricalibrazione sul motore corretto
    (`sessione_ricalibrazione*` in `scripts/simulate_playtest.py`, ~7000
-   simulazioni, log in `logs/playtest/20260715-ricalibrazione/`) hanno
-   trovato la config attuale:
+   simulazioni, log in `logs/playtest/20260715-ricalibrazione/`) avevano
+   trovato la config del secondo giro — ATTENZIONE: i punti "Ferite
+   nemici/boss" qui sotto sono stati POI SUPERATI dalla terza ritaratura
+   (piu' in basso), che resta l'unica valida; Fase Minaccia, Salute e
+   tavolo da 2 restano invece confermati:
    - **Fase Minaccia**: 1 carta a 2-3 eroi, 2 carte a 4-6, **2 carte +1
      SOLO nei round pari** (2°, 4°, 6°...) a 7-10 — il salto diretto a 3
      carte fisse e' un dirupo da ~30 punti di %vittoria ovunque cada (2
@@ -515,8 +523,10 @@ sveglia del Dormiente.
 **Scala di difficoltà (progressione tra episodi):** ogni episodio deve essere un
 gradino sopra il precedente, mai un salto. Manopole da girare una o due alla volta:
 
-- **Ep. 2** — 9 luoghi con 8 ore (una rinuncia in più); un secondo vincolo d'orologio;
-  boss con debolezza che richiede DUE oggetti dell'indagine usati in combinazione.
+- **Ep. 2** — 9 luoghi con le STESSE 6 ore (il budget ore non scala mai, vedi punto 1 e
+  3-cinque: la pressione in più viene dal luogo in più, non da un orologio diverso —
+  una rinuncia in più rispetto all'Ep. 1); un secondo vincolo d'orologio; boss con
+  debolezza che richiede DUE oggetti dell'indagine usati in combinazione.
 - **Ep. 3** — una delle 4 Domande richiede l'incrocio di 3 indizi; 2 oggetti-esca;
   una trappola di tessera passa a prova Difficile.
 - **Ep. 4** — il timer parte con 1 segnalino già in gioco; il boss ha 5 ferite o una
@@ -627,7 +637,8 @@ Tyrlov) per le carte e **mappa a china su pergamena** per le tessere.
   sangue #6e1420 · china mappe #3a2f22.
 - **Font:** corpo **Old Standard TT** (Regular/Bold/Italic); titoli e maiuscoletti
   **IM Fell English SC** (i titoli si scrivono in minuscolo per ottenere lo small-caps).
-- **Carte (Minaccia 60×84 mm in griglia 3×3; Luogo mezza A4, 2 per pagina):**
+- **Carte (tutte 60×84 mm, stampate in griglia 3×3 dai print sheets — Luoghi compresi,
+  come ogni altro mazzo):**
   fondo scuro con vignettatura, cornice a doppio filetto oro con **filigrane a
   ricciolo negli angoli** e **gemme a losanga** (rubino sopra/sotto, acquamarina ai
   lati), **targa a nastro** con code a rondine per il titolo, **medaglione a
@@ -842,9 +853,10 @@ Ogni testo deve far *vedere* la scena, non riassumerla. Regole:
   massimo 12 parole, in seconda persona plurale, che colpisce un senso o insinua
   un dubbio (es. «Qualcuno pronuncia il vostro nome. Con la vostra voce.»).
   L'effetto meccanico segue, separato, senza aggettivi.
-- **Tessere:** 2–3 frasi sensoriali sul luogo, poi l'eventuale regola in chiaro
-  (prove, apparizioni) scritta in tono da regolamento. Non superare ~15 righe
-  misurate a 8.3pt su 116mm di larghezza.
+- **Tessere:** 2–3 frasi sensoriali sul luogo (incluso il tell se nasconde qualcosa,
+  vedi punto 3), poi l'eventuale regola in chiaro (prove, apparizioni) scritta in tono
+  da regolamento. Il box del fronte delle note tessera è basso (22 mm): non superare
+  ~4-5 righe a corpo 9 su 170 mm — verificare a video dopo la generazione.
 - **`Luoghi.pdf` — descrizione atmosferica (per chi arbitra, letta o
   improvvisata a voce a tutti):** stessi fatti e battute del testo d'apertura
   della carta Luogo/Tessera, ma **molto più estesi e sensoriali** — qui lo
@@ -937,9 +949,22 @@ Ogni testo deve far *vedere* la scena, non riassumerla. Regole:
 - [ ] Il boss ha una debolezza scoperta durante l'indagine?
 - [ ] Il Canto (o equivalente) ha due fonti di avanzamento (carte + automatico ogni 4°
       round) ed è spiegato per intero nel **Regolamento**, non solo nella Soluzione sigillata?
-- [ ] Il tempo d'indagine è scarso e c'è un vincolo d'orologio? C'è l'oggetto-esca?
+- [ ] Il tempo d'indagine è scarso (6 ore, budget fisso per tutta la campagna) e c'è
+      un vincolo d'orologio?
 - [ ] La difficoltà segue la scala dell'episodio corrispondente (una-due manopole, non tutte)?
-- [ ] Parole chiave in MAIUSCOLO e requisiti di sblocco stampati sulle carte?
+- [ ] Nessuna parola chiave in maiuscolo negli indizi (punto 1)? Sulle carte dei luoghi
+      bloccati c'è la frase-requisito narrativa (mai "Serve: X", mai il nome
+      dell'oggetto/parola, mai un puntatore — 1-quinquies)?
+- [ ] Le note tessera della Spedizione sono fronte/retro (punto 3)? Fronte: solo ciò che
+      si legge alla rivelazione, con un **tell** per ogni tessera che nasconde qualcosa;
+      retro: esiti di Cercare, meccaniche da scoprire (`arbitro`), hook e frasi di colore
+      per gli esiti vuoti (`cerca_vuoto`), una voce per OGNI tessera anche se vuota?
+- [ ] Ci sono 0-2 hook Indagine→Spedizione (campo `hook`), su Approfondimenti
+      PERIFERICI, con l'avvertimento narrativo dentro il testo della carta?
+- [ ] Hai rilanciato la curva 2-10 (`esegui_batch_multi_party`, motore deterministico —
+      tie-break ordinati, vedi 3-quater) sul nuovo episodio prima di dichiararlo
+      bilanciato, e le soglie luoghi del Vantaggio sono riproporzionate al numero di
+      luoghi dell'episodio (3-cinque)?
 - [ ] Le 20-23 carte Minaccia hanno tutte titolo unico, flavor proprio e icona di famiglia?
       Hai riusato Sgherro/Sicario (Malavita) invece di inventare nemici umani nuovi?
 - [ ] I prompt Midjourney dei nuovi soggetti (inclusi eventuali nuovi Oggetti) sono stati

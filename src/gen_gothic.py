@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """Ombre su Roccamora - versione GOTICA di carte e tessere (03 e 04).
 
-Le 20 carte Minacce, i 4 Nemici e le 6 tessere T1-T6 sono ora generati come
+Le carte Minaccia, i Nemici e le 6 tessere T1-T6 sono ora generati come
 immagini a se' stanti (cardconjurer + script di board: cards/Episodio 1/Minacce/,
 cards/Episodio 1/Nemici/, board/Episodio 1/) invece che come pagine di questo
 PDF, quindi qui non vengono piu' disegnati. spedizione() stampa le note per
@@ -123,7 +123,7 @@ def spedizione():
     c.drawCentredString(W/2, H - 32*mm, 'episodio 1 \u2014 spedizione')
     wave(c, W/2 - 20*mm, H - 39*mm, 40*mm, OGOLD)
     frame_flow(c, 28*mm, H - 103*mm, W - 56*mm, 50*mm, [
-        Paragraph('Le 20 carte Minacce e le 4 schede Nemici sono stampate come carte a parte '
+        Paragraph(f'Le {len(MINACCE)} carte Minaccia e le {len(NEMICI)} schede Nemici sono stampate come carte a parte '
                   '(cartelle <b>cards/Episodio 1/Minacce/</b> e <b>cards/Episodio 1/Nemici/</b>). '
                   'Le 6 tessere T1-T6 del magazzino sono in <b>board/Episodio 1/</b>, gi\u00e0 con '
                   'griglia, arredi e porte segnate. Le pagine seguenti sono le note per tessera: '
