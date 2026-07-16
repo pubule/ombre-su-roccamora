@@ -235,7 +235,7 @@ LUOGHI = [
     # con cui verifica le dichiarazioni della regola Bussare), mai su una carta.
     dict(n=5, nome='BOTTEGA DEL LIUTAIO FERRI', voce_mappa='Bottega del Liutaio Ferri', req='Un vicino sorveglia la bottega da quando Ferri è sparito: si allontana solo se vi vede portare con voi qualcosa che sembra suo, come per restituirlo.',
          chiave=('oggetto', 'Corda di Violino d’Argento'),
-         testo='Bottega chiusa da giorni; la porta sul retro cede a una spallata. Dentro, polvere e '
+         testo='Bottega chiusa da giorni; il vicino di guardia si scosta solo davanti a ciò che riportate. Dentro, polvere e '
                'violini appesi come selvaggina.',
          indizi=['Bastiano Ferri è sparito da tre giorni. Sul banco, un <b>diapason d’argento</b> inciso '
                  'con un’onda.',

@@ -210,7 +210,7 @@ LUOGHI_P_DESC = {
           'restano opachi qualunque cosa faccia, e parla con la facilità di chi ha raccontato la '
           'stessa storia a troppi avventori per fermarsi ora — da queste parti un cliente nuovo è '
           'un avvenimento, tre clienti nuovi sono già una leggenda, e voi, tutti insieme, siete già '
-          'la cena di qualcun altro stasera. Tre sere di fila, giura abbassando la voce, tre uomini '
+          'il racconto della cena di qualcun altro, stasera. Tre sere di fila, giura abbassando la voce, tre uomini '
           'col passo dei moli si sono seduti proprio a quel tavolo, senza mai ordinare granché, gli '
           'occhi sempre sul portone di fronte; uno di loro, l’ultima sera, ha lasciato cadere una '
           'parola che qui non si usa, come una moneta falsa sul bancone. Più tardi, tra un '

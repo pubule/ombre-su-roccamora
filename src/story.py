@@ -33,9 +33,9 @@ TESTI_LUOGHI = {
        "cripta, sbarrata con assi nuove su pietra antica: \u00abChiusa per lavori\u00bb, taglia "
        "corto, e la voce gli si incrina sull\u2019ultima sillaba.",
     5: "La bottega \u00e8 chiusa da giorni, la polvere ha gi\u00e0 preso possesso delle vetrine; "
-       "la porta sul retro cede a una spallata. Dentro, violini appesi come selvaggina e un "
-       "silenzio sbagliato per un luogo nato per fare musica. Il banco da lavoro \u00e8 in "
-       "ordine perfetto: chi \u00e8 partito, sapeva di partire.",
+       "il vicino di guardia si scosta solo davanti a ci\u00f2 che riportate. Dentro, violini "
+       "appesi come selvaggina e un silenzio sbagliato per un luogo nato per fare musica. Il "
+       "banco da lavoro \u00e8 in ordine perfetto: chi \u00e8 partito, sapeva di partire.",
     6: "L\u2019acqua qui non scorre: sta. Nera, ferma, densa come olio, lambisce magazzini "
        "ciechi dai portoni murati. Il guardiano notturno esce dal casotto con la lanterna "
        "alzata e, per qualche moneta, la diffidenza si scioglie in fretta: da settimane "
@@ -104,7 +104,7 @@ BIO_BESTIARIO = {
         "loro rispondono, uno a uno, senza svegliare chi dorme accanto. Indossano la "
         "palandrana grigia sopra i vestiti da lavoro \u2014 a volte si intravede ancora il "
         "grembiule del fornaio sotto \u2014 e la maschera di cera liscia, colata sul volto "
-        "ancora tiepida, che si indurisce mentre camminano verso il luogo dell\u2019accordo. "
+        "ancora tiepida, che si indurisce mentre camminano verso il luogo del raduno. "
         "Non parlano. Non gridano, nemmeno colpiti. Combattono con gli stessi falcetti che "
         "di giorno tagliano gli stoppini nelle fonderie, con un\u2019efficienza distratta, "
         "quasi annoiata \u2014 come se una parte di loro fosse gi\u00e0 altrove, gi\u00e0 nel "
@@ -131,9 +131,9 @@ BIO_BESTIARIO = {
         "silenziosa con cui hanno sempre lavorato, applicata ora a tutt\u2019altro. Non "
         "corrono: chi ha versato cera bollente per una vita sa che la fretta \u00e8 quello "
         "che ti fa scottare. Restano fermi, aspettano che il bersaglio venga a loro, e "
-        "quando colpiscono la cera che schizza si attacca alla pelle e ai vestiti, "
-        "rallentando ogni passo successivo \u2014 un ricordo bruciante di quanto, in "
-        "fonderia, un errore costi caro.",
+        "quando colpiscono, la cera bollente che schizza si attacca alla pelle e ai "
+        "vestiti \u2014 un ricordo bruciante, che resta addosso per giorni, di quanto in "
+        "fonderia un errore costi caro.",
     'IL CUSTODE DELLA CERA':
         "Nessuno, nemmeno tra gli Adepti, sa dire da quanti anni sorvegli la cripta sotto "
         "la Cattedrale, n\u00e9 chi fosse prima che gli strati di cera cominciassero a "
@@ -144,17 +144,18 @@ BIO_BESTIARIO = {
         "Le sue mani, quando si muovono, colano ancora cera calda a ogni passo, lasciando "
         "una scia che si indurisce sul pavimento della cripta \u2014 un sentiero di tutte le "
         "volte in cui si \u00e8 mosso, che nessuno ha mai contato. Il diapason d\u2019argento "
-        "\u00e8 l\u2019unica cosa che sembra davvero disturbarlo: la vibrazione, fatta a lui "
-        "adiacente, incrina per un momento la superficie di cera come una crepa nel "
-        "ghiaccio \u2014 abbastanza da fargli abbassare la guardia (Difesa 5 per il resto "
-        "della partita) e perdere un'intera attivazione a ricomporsi.",
+        "\u00e8 l\u2019unica cosa che sembra davvero disturbarlo: la vibrazione, da vicino, "
+        "incrina la superficie di cera come una crepa nel ghiaccio \u2014 la guardia gli "
+        "resta incrinata per il resto della notte, e per un lungo momento deve "
+        "fermarsi a ricomporsi.",
     'LO SGHERRO':
         "Roccamora ha una malavita antica quanto i suoi canali, e il Coro Sommerso non ha "
         "avuto bisogno di inventarne una nuova: gli \u00e8 bastato affittarla. Gli Sgherri "
         "sono barcaioli che hanno smesso di remare, disertori di guarnigioni lontane, "
-        "ex galeotti che il fiume ha ributtato a riva \u2014 gente che sfonda teste per pochi "
-        "soldi da prima che qualcuno cantasse alle campane, e continuer\u00e0 a farlo il "
-        "giorno dopo che avr\u00e0 smesso, per chiunque paghi meglio. Il culto non li converte, "
+        "ex galeotti che il fiume ha ributtato a riva \u2014 gente che sfondava teste per pochi "
+        "soldi molto prima che sotto la citt\u00e0 qualcosa si mettesse a cantare, e continuer\u00e0 "
+        "a farlo il giorno dopo che il canto sar\u00e0 cessato, per chiunque paghi meglio. Il "
+        "culto non li converte, "
         "non li accorda, non gli mette la maschera: li paga in anticipo, e loro non fanno "
         "domande su cosa proteggono o perch\u00e9. Girano quasi sempre in coppia o in gruppo, "
         "bastone in una mano e coltellaccio nell\u2019altra, e sanno coprirsi le spalle a "

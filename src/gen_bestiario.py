@@ -108,7 +108,7 @@ def inquadratura(nemico):
 
 
 # Scalatura Ferite per numero di eroi in tavola - STESSI numeri del
-# Regolamento ("Giocare in 2, in 4-5, o in un tavolo grande") e di
+# Regolamento (sezione "Giocare in pochi o in tanti") e di
 # CUSTODE_TENSIONE_EXTRA in scripts/simulate_playtest.py, validati sul
 # motore a griglia tattica dopo la ricalibrazione del 20260715 (vedi
 # logs/playtest/20260715-ricalibrazione/analisi.md). Se quelle regole
