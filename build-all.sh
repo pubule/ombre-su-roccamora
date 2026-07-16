@@ -41,6 +41,7 @@ echo "== PDF (pdf/) =="
 (cd src && python gen_narrator.py)
 (cd src && python gen_cover.py)
 (cd src && python gen_preludio.py)
+(cd src && python gen_ep2.py)
 (cd src && python gen_board.py)
 
 echo "== Stampa completa unica, tutto fronte/retro (non committato) =="

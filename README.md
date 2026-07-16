@@ -86,6 +86,7 @@ python gen_gothic.py   # indagine + spedizione (Episodio 1)
 python gen_narrator.py # luoghi/tessere per chi arbitra (Episodio 1)
 python gen_cover.py    # copertine (Preludio + episodi)
 python gen_preludio.py # Preludio completo (indagine, spedizione, soluzione, luoghi)
+python gen_ep2.py      # Episodio 2 «La voce del bronzo» (indagine, spedizione, soluzione, bestiario)
 python gen_board.py    # tabellone riusabile (traccia Canto, mazzo Minaccia + scarti)
 ```
 

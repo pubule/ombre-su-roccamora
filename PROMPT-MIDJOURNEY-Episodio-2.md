@@ -139,6 +139,16 @@ full bleed dark fantasy still life, a crude lead tally token stamped with a wave
 full bleed dark fantasy still life, a creased pawnshop ticket with an embossed stamp lying among redeemed family valuables, a silver watch and a wedding ring, counter of a pawnbroker's shop, candlelight, 1889 gaslamp gothic, oil painting, muted teal and crimson palette with gold accents --ar 3:4 --style raw --no frame, border, card, text, letters, watermark
 ```
 
+**Un Badile del Formatore** → `artworks/Badile del Formatore.png`
+```
+full bleed dark fantasy still life, a short heavy moulder's shovel with a crescent-worn blade leaning against a sunken bell mold, packed casting sand, lantern light, 1889 gaslamp gothic, oil painting, muted teal and crimson palette with gold accents --ar 3:4 --style raw --no frame, border, card, text, letters, watermark
+```
+
+**Una Latta d'Olio di Colata** → `artworks/Latta d'Olio di Colata.png`
+```
+full bleed dark fantasy still life, a dented unlabeled tin of thick amber casting oil wedged between iron flasks on a rack, a fresh glistening drip down its side, 1889 gaslamp gothic, oil painting, muted teal and crimson palette with gold accents --ar 3:4 --style raw --no frame, border, card, text, letters, watermark
+```
+
 **La Medaglia del Fonditore** (esca) → `artworks/Medaglia del Fonditore.png`
 ```
 full bleed dark fantasy still life, a tarnished votive medal of a saint holding a bell, found among rusted ship fittings on a breaker's yard bench, faint moonlight, quiet melancholy, 1889 gaslamp gothic, oil painting, muted teal and crimson palette with gold accents --ar 3:4 --style raw --no frame, border, card, text, letters, watermark

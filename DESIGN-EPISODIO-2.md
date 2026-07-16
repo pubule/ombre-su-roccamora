@@ -132,8 +132,10 @@ Scena: la colata sospesa, la forma della campana vuota come una fossa.
 Indizi core: (a) il taccuino di collaudo di Ilario si interrompe al
 provino delle 20:00 con una nota sul "suono sbagliato"; (b) nella sala
 delle staffe, segni di colluttazione e il **martello di collaudo**
-[oggetto, Domanda 4] sotto un banco; (c) il libro paga: Sartorio ha
-anticipato a TUTTI la paga — con che denaro? (semina il movente).
+[oggetto, Domanda 4] sotto un banco; (c) la zavorra nei casseri è **ghisa da
+scafo** [indizio CORE, garantito: è la parola che apre L9 — la chiave non
+può vivere solo nel Referto gated, regola 1-ter] — e il libro paga dice che
+Sartorio ha anticipato le paghe a tutti: con che denaro?
 Approfondimenti: **Osservazione** «Le mani del capomastro» [rivelatorio:
 Sartorio raccoglie i trucioli di piombo dei sigilli daziari — solo chi ha
 maneggiato i sigilli li ha addosso]; **Referto** «La zavorra» [meccanico:
