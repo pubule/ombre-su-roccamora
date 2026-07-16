@@ -30,7 +30,7 @@ def bg(canv, doc):
     # flowables non passano da rule_border, quindi va ripetuta qui).
     canv.setFont(F['i'], 5.6)
     canv.drawCentredString(A4[0]/2, 1.8*mm,
-                           '\u00a9 Fabio Stocco \u2014 \u00abOmbre su Roccamora\u00bb \u00b7 uso non commerciale '
+                           '\u00a9 2026 Fabio Stocco \u2014 \u00abOmbre su Roccamora\u00bb \u00b7 uso non commerciale '
                            '(PolyForm NC 1.0.0) \u00b7 github.com/pubule/ombre-su-roccamora')
     canv.restoreState()
 
@@ -807,7 +807,7 @@ def colophon():
     c.setFillColor(TEAL); c.setFont(F['i'], 12)
     c.drawCentredString(W2/2, H2 - 44*mm, 'colophon — chi lo ha fatto, e cosa potete farne')
     testo = (
-        '<b>© Fabio Stocco.</b> Testi, mondo, personaggi e componenti di «Ombre su '
+        '<b>© 2026 Fabio Stocco.</b> Testi, mondo, personaggi e componenti di «Ombre su '
         'Roccamora» sono opera dell’autore. Fonte e versione aggiornata: '
         '<b>github.com/pubule/ombre-su-roccamora</b>.<br/><br/>'
         '<b>Cosa potete fare:</b> scaricare, stampare, giocare, regalare una copia '

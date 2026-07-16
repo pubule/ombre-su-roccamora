@@ -297,7 +297,7 @@ async function tileSheets(browser) {
          staccate dal repo): microtesto nel margine basso della pagina,
          fuori dalle carte - non finisce sui componenti ritagliati. */
       .grid::after, .tilepage::after {
-        content: '© Fabio Stocco — “Ombre su Roccamora” · uso non commerciale (PolyForm NC 1.0.0) · github.com/pubule/ombre-su-roccamora';
+        content: '© 2026 Fabio Stocco — “Ombre su Roccamora” · uso non commerciale (PolyForm NC 1.0.0) · github.com/pubule/ombre-su-roccamora';
         position: absolute; left: 0; right: 0; bottom: 2.2mm; text-align: center;
         font-size: 5.5pt; font-style: italic; color: #8a7150; }
       .grid, .tilepage { position: relative; }

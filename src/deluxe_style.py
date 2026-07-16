@@ -237,7 +237,7 @@ def rule_border(c, w, h, m1=7*mm, m2=9.5*mm):
     c.setFillColor(SEPIA)
     c.setFont(F['i'], 5.6)
     c.drawCentredString(w/2, m1 + 0.9*mm,
-                        '© Fabio Stocco — «Ombre su Roccamora» · uso non commerciale '
+                        '© 2026 Fabio Stocco — «Ombre su Roccamora» · uso non commerciale '
                         '(PolyForm NC 1.0.0) · github.com/pubule/ombre-su-roccamora')
     c.restoreState()
 

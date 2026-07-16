@@ -1,4 +1,4 @@
-Required Notice: Copyright Fabio Stocco (https://github.com/pubule/ombre-su-roccamora)
+Required Notice: Copyright 2026 Fabio Stocco (https://github.com/pubule/ombre-su-roccamora)
 
 See also [NOTICE.md](NOTICE.md) for additional terms and clarifications that
 apply alongside this license.
