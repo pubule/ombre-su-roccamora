@@ -220,19 +220,23 @@ MINI_CROP = {
     'Mora.png': dict(overscan=0.35),
 }
 
-def token_sheet(c):
+TOKEN_EROI = ('EROI', [('Elena.png', 1), ('Attilio.png', 1), ('Sibilla.png', 1),
+                       ('Nino.png', 1), ('Ottone.png', 1), ('Carla.png', 1),
+                       ('Lazzaro.png', 1), ('Celso.png', 1), ('Fulgenzio.png', 1),
+                       ('Ottavio.png', 1), ('Mora.png', 1)])
+
+def token_sheet(c, groups=None):
     """Miniature quadrate (taglia di una casella tessera) al posto dei gettoni
     tondi: ritratto di eroe/nemico ritagliato a quadrato, stesso soggetto delle
     carte. Le copie multiple di uno stesso nemico (Adepti, Cani, Fonditori,
     Sgherri, Sicari) portano un numero nell'angolo, cosi' si possono abbinare
     alle righe del Registro delle Ferite; gli eroi e le copie uniche (Custode,
-    Ruggero, Canto) non ne hanno bisogno.
+    Ruggero, Canto) non ne hanno bisogno. Parametrica sui gruppi: senza
+    argomento stampa il foglio dell'Episodio 1, gli altri episodi passano i
+    loro (vedi gen_ep2.token_groups_2).
     """
-    GROUPS = [
-        ('EROI', [('Elena.png', 1), ('Attilio.png', 1), ('Sibilla.png', 1),
-                  ('Nino.png', 1), ('Ottone.png', 1), ('Carla.png', 1),
-                  ('Lazzaro.png', 1), ('Celso.png', 1), ('Fulgenzio.png', 1),
-                  ('Ottavio.png', 1), ('Mora.png', 1)]),
+    GROUPS = groups or [
+        TOKEN_EROI,
         ('ADEPTI (x10)', [('Adepto Incappucciato.png', 10)]),
         ('CANI (x3) \u00b7 FONDITORI (x3)', [('Cani dei Moli.png', 3), ('Il Fonditore.png', 3)]),
         ('SGHERRI (x4) \u00b7 SICARI (x2)', [('Lo Sgherro.png', 4), ('Il Sicario.png', 2)]),

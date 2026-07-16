@@ -14,6 +14,13 @@ full bleed dark fantasy painting, hulking foundry guardian with a leather apron 
 full bleed dark fantasy painting, gaunt foundry worker in scorched leathers and a soot-black face wrap, carrying a smoking crucible bucket and a long-handled ladle dripping molten bronze, sparks trailing, dark foundry hall behind, 1889 gaslamp gothic, oil painting, dramatic ember light, muted teal and crimson palette with gold accents --ar 3:4 --style raw --no frame, border, card, text, letters, watermark
 ```
 
+## Soggetti — Personaggi (--ar 3:4)
+
+**Ilario Dossena** (il prigioniero: miniatura nel foglio token della Spedizione, come Ruggero in Ep. 1) → `artworks/Ilario.png`
+```
+full bleed dark fantasy painting, portrait of an aging master bell founder with burn-scarred forearms and a proud exhausted face, rope marks on his wrists, leather work vest over rolled sleeves, faint glow of a foundry stove behind him, 1889 gaslamp gothic, oil painting, dramatic ember light, muted teal and crimson palette with gold accents --ar 3:4 --style raw --no frame, border, card, text, letters, watermark
+```
+
 ## Soggetti — Minacce (--ar 3:4, un dipinto per famiglia)
 
 Le carte sorelle riusano il dipinto di famiglia (regola bibbia). Famiglie
@@ -180,6 +187,7 @@ full bleed dark fantasy painting, derelict island foundry looming over still bla
 Riusano lo sfondo pergamena comune (`PROMPT-MIDJOURNEY.md`): nessuna
 generazione nuova — testo composto da `scripts/reperti/generate-reperti.js`.
 
-**Totale generazioni nuove: 24** (2 nemici, 10 minacce con riuso famiglia,
-8 luoghi — L6 riusa il Preludio —, 5 oggetti... vedi conteggi sopra; +6
-tessere dal template comune, +4 arredi, +1 copertina = **35 col contorno**).
+**Totale generazioni nuove: 25** (2 nemici, 1 personaggio — Ilario —, 10
+minacce con riuso famiglia, 8 luoghi — L6 riusa il Preludio —, 5 oggetti...
+vedi conteggi sopra; +6 tessere dal template comune, +4 arredi, +1 copertina
+= **36 col contorno**).

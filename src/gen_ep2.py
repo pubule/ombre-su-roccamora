@@ -26,7 +26,7 @@ from reportlab.platypus import Paragraph, Frame, Spacer
 
 from deluxe_style import (register_fonts, parchment_art, pad_to_even_pages, rule_border,
                           seal, wave, F, INK, RED, TEAL, GOLD as OGOLD, SEPIA)
-from gen_gothic import registro_ferite, st as st_gothic
+from gen_gothic import registro_ferite, token_sheet, TOKEN_EROI, st as st_gothic
 
 OUT_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'Episodio 2', 'pdf')
 os.makedirs(OUT_DIR, exist_ok=True)
@@ -480,7 +480,7 @@ def spedizione():
         ogg = ['<b>Oggetto</b> — carta “' + o + '”' for o in OGGETTI_TESSERA_2.get(T['id'], [])]
         N.pagina_retro_tessera(c, T['id'], T['nome'], T, ogg)
         c.showPage()
-    # nemici in campo + registro (token sheet arriva con l'arte, Fase D)
+    # nemici in campo + miniature + registro
     parchment_art(c, W, H)
     rule_border(c, W, H)
     c.setFillColor(RED); c.setFont(F['sc'], 16)
@@ -494,10 +494,39 @@ def spedizione():
                   'in T1, alla chiatta. Le campanelle grezze in T6 sono l’obiettivo secondario: '
                   'ognuna recuperata pesa nell’epilogo.', BODY)])
     c.showPage()
+    token_sheet(c, token_groups_2())
     registro_ferite(c)
     c.save()
     pad_to_even_pages(out_path)
     print('ok ->', out_path)
+
+
+def token_groups_2():
+    """Miniature dell'Episodio 2: copie massime = spawn iniziali delle tessere
+    + carte Minaccia che piazzano (se i segnalini finiscono, il piazzamento
+    non ha luogo - regola del Regolamento). Ilario e' il prigioniero-scorta
+    (come Ruggero in Ep.1); i 3 segnalini Canto usano le arti delle carte
+    Crescendo dell'episodio."""
+    from deluxe_style import ARTWORKS_DIR
+    groups = [
+        TOKEN_EROI,
+        ('SGHERRI (x4) · SICARI (x2)', [('Lo Sgherro.png', 4), ('Il Sicario.png', 2)]),
+        ('CROGIOLANTI (x3) · ADEPTI (x4)', [('Il Crogiolante.png', 3),
+                                            ('Adepto Incappucciato.png', 4)]),
+        ('SCORIATORE · ILARIO', [('Lo Scoriatore.png', 1), ('Ilario.png', 1)]),
+        ('CANTO', [('Il primo rintocco.png', 1), ('Il bronzo risponde.png', 1),
+                   ('La lega canta.png', 1)]),
+    ]
+    out = []
+    for label, items in groups:
+        ok = [(a, n) for a, n in items if os.path.exists(os.path.join(ARTWORKS_DIR, a))]
+        for a, _ in items:
+            if not os.path.exists(os.path.join(ARTWORKS_DIR, a)):
+                print('  AVVISO: manca artworks/' + a + ' - miniatura saltata '
+                      '(rigenerare quando arriva)')
+        if ok:
+            out.append((label, ok))
+    return out
 
 
 # ================================================================ SOLUZIONE
