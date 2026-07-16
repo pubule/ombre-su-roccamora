@@ -702,9 +702,13 @@ Tyrlov) per le carte e **mappa a china su pergamena** per le tessere.
   (stessa arte delle carte) ritagliato a quadrato — `token_sheet()` in
   `src/gen_gothic.py`, stessa tecnica cover-fit di `deluxe_style._cover_image`
   usata per lo strappo delle schede eroe, ma clippata invece che velata da un
-  bordo di pergamena. Solo le unità senza ritratto dedicato (l'NPC da salvare,
-  i segnalini Canto) restano gettoni tondi piccoli. Se un episodio introduce un
-  nuovo nemico con arte dedicata, aggiungilo a `token_sheet()`; se il crop
+  bordo di pergamena. ANCHE l'NPC da salvare (Ruggero, Ilario…) e i 3 segnalini
+  Canto sono miniature del foglio: l'NPC col suo ritratto (se manca, prompt MJ
+  da aggiungere subito al file dell'episodio), il Canto con le arti delle 3
+  carte Crescendo dell'episodio. `token_sheet(c, groups)` è parametrica: ogni
+  episodio definisce i suoi gruppi (vedi `gen_ep2.token_groups_2` — copie
+  massime per nemico = spawn delle tessere + carte Minaccia che piazzano) e li
+  passa dalla propria `spedizione()`; senza argomento stampa l'Episodio 1. Se il crop
   taglia male testa/soggetto, taralo in `MINI_CROP` (stesso principio di
   `top_margin`/`overscan` delle schede — verifica sempre a video prima di
   fissare i parametri, non tutti i ritratti si comportano uguale).
@@ -1020,7 +1024,8 @@ Ogni testo deve far *vedere* la scena, non riassumerla. Regole:
       compilati in `NEMICI`)? Le carte Creatura NON mostrano statistiche, solo il
       rimando al Bestiario?
 - [ ] `Luoghi.pdf` esiste per il nuovo episodio (Preludio incluso, se previsto), con una
-      pagina per luogo (più le tessere che nascondono un oggetto), descrizione
+      pagina per luogo (le tessere NON stanno qui: fronte/retro in `Spedizione.pdf`,
+      una coppia per OGNI tessera anche vuota, con descrizione estesa), descrizione
       atmosferica densa da un dizionario `*_DESC` **dedicato** (mai il campo `testo`
       della carta fisica passato direttamente a `fit_desc()`), sezione **indizi verbatim
       leggibile ad alta voce** ed elenco Approfondimenti/Oggetto (solo per chi arbitra)
@@ -1030,6 +1035,11 @@ Ogni testo deve far *vedere* la scena, non riassumerla. Regole:
 - [ ] Hai guardato ogni pagina di `Luoghi.pdf` a confronto con l'arte originale in
       `artworks/`? Se il soggetto non si vede bene nel ritaglio, hai tarato
       `LUOGHI_CROP`/`LUOGHI_P_CROP` (overscan/top_margin/center_x)?
+- [ ] `Spedizione.pdf` ha il **foglio miniature** (`token_sheet` coi gruppi
+      dell'episodio: eroi, ogni nemico con le copie massime, NPC da salvare col
+      suo ritratto, 3 segnalini Canto dalle carte Crescendo) e le **pagine
+      tessera fronte/retro** per tutte le tessere? Nessun AVVISO di arte
+      mancante nell'output dei generatori?
 - [ ] Le carte spawn di nemici piazzano "sull'uscita più vicina agli eroi" (non
       "più lontana"), salvo le eccezioni tematiche dichiarate (inseguitori dalla
       Banchina, carte "si attiva subito")?
