@@ -153,24 +153,23 @@ def regolamento():
                 'pianificate l\u2019ordine delle visite e non sprecate ore su vicoli ciechi. '
                 'L\u2019episodio pu\u00f2 legare eventi all\u2019orologio: applicateli quando barrate '
                 'l\u2019ora corrispondente.'))
-    e.append(LI('Alla <b>prima visita</b> di un luogo, prima di leggerne testo e indizi, il gruppo '
-                'indica un eroe che <b>legge la scena</b>: prova di ACUME Media. <b>Testo, indizi, '
-                'l’eventuale parola chiave e l’eventuale oggetto si leggono comunque</b>, che la prova '
-                'riesca o no — non serve alcun Approfondimento per ottenerli, e non si perde mai '
-                'un’informazione necessaria a un tiro sbagliato. Se la prova è fallita, però, l’eventuale '
-                '<b>Approfondimento</b> di quel luogo (sotto) resta nascosto per questa visita: '
-                'tornateci un’altra volta (di nuovo 1 ora, come ogni visita, ma senza ripetere la '
-                'prova) per coglierlo.'))
-    e.append(LI('Per visitare un luogo, girate la carta (mostra solo l’ambientazione): chi tiene il '
-                'fascicolo <b>Luoghi</b> legge ad alta voce testo e indizi da lì. Prendete appunti sul '
-                'Taccuino: nomi, orari, parole chiave.'))
-    e.append(LI('<b>Dichiarare una destinazione (la Mappa)</b> — la <b>Mappa di Roccamora</b> '
-                '(stampata con l’episodio) elenca nello stradario molti più luoghi di quelli in '
-                'gioco. Per andare in un posto che non è tra le carte scoperte, dichiarate una voce '
-                'dello stradario: chi tiene il fascicolo <b>Luoghi</b> la cerca nel suo indice. Se '
-                'la città non ha nulla per voi lì, ve lo dice subito — <b>pista fredda, nessuna ora '
-                'spesa</b>. Se invece il luogo è nell’episodio, la visita parte e <b>l’ora si '
-                'spende</b>: dichiarare è impegnarsi.'))
+    e.append(LI('<b>Scegliere dove andare</b> — la <b>Mappa di Roccamora</b> (stampata con '
+                'l’episodio, sempre sul tavolo) elenca nello stradario molti più luoghi di quelli in '
+                'gioco. Potete visitare una carta scoperta indicandola, oppure <b>dichiarare una '
+                'voce dello stradario</b>: chi tiene il fascicolo <b>Luoghi</b> la cerca nel suo '
+                'indice. Se la città non ha nulla per voi lì, ve lo dice subito — <b>pista fredda, '
+                'nessuna ora spesa</b>. Se invece il luogo è nell’episodio, la visita parte e '
+                '<b>l’ora si spende</b>: dichiarare è impegnarsi.'))
+    e.append(LI('<b>Visitare un luogo</b> — girate la carta (mostra solo l’ambientazione): chi tiene '
+                'il fascicolo <b>Luoghi</b> legge ad alta voce testo e indizi da lì. Prendete appunti '
+                'sul Taccuino: nomi, orari, parole chiave.'))
+    e.append(LI('<b>Alla prima visita, “leggere la scena”</b> — prima di leggere testo e indizi, il '
+                'gruppo indica un eroe che prova ACUME Media. <b>Testo, indizi, l’eventuale parola '
+                'chiave e l’eventuale oggetto si leggono comunque</b>, che la prova riesca o no: non '
+                'si perde mai un’informazione necessaria a un tiro sbagliato. Se la prova fallisce, '
+                'però, l’eventuale <b>Approfondimento</b> di quel luogo (sotto) resta nascosto per '
+                'questa visita: tornateci un’altra volta (di nuovo 1 ora, come ogni visita, ma senza '
+                'ripetere la prova) per coglierlo.'))
     e.append(LI('<b>Bussare a una porta chiusa</b> — se la destinazione è un luogo bloccato (carta '
                 'coperta), chi tiene il fascicolo gira la carta e leggete che cosa vi sbarra la '
                 'strada. Se credete di avere la chiave, dichiaratela — <b>UNA parola o UN oggetto '
@@ -178,32 +177,20 @@ def regolamento():
                 'si entra subito, nella stessa ora; sbagliata, <b>l’ora è comunque spesa</b> e '
                 'restate fuori. Nessun’altra penalità: con 6 ore e 8 luoghi, un’ora persa è già un '
                 'prezzo salato.'))
-    e.append(LI('Alcuni luoghi nascondono anche degli <b>Approfondimenti</b>: indizi <i>extra</i> '
+    e.append(LI('<b>Approfondimenti</b> — alcuni luoghi nascondono indizi <i>extra</i> '
                 '(oltre a quelli sopra, mai al posto loro) che emergono solo se un eroe presente sa '
                 'come cavarli <b>e</b> se avete superato la prova di “leggere la scena” a quella visita. '
                 '<b>Almeno un dettaglio decisivo per le 4 Domande emerge solo così</b> — qualsiasi '
                 'Approfondimento va bene, non importa quale o di chi: se l’indagine finisce senza '
                 'averne consultato nemmeno uno, alcune risposte resteranno solo probabili, non certe.'))
-    e.append(LI('Se rispondete alle 4 Domande con <b>ore ancora sul Taccuino</b>, oppure avete visitato '
-                'molti luoghi (anche spendendo tutte le ore per farlo), la Soluzione vi darà un vantaggio '
-                'extra per la Spedizione — sono <b>due strade alternative allo stesso Vantaggio</b>: '
-                'la velocità (ore risparmiate) e l’approfondimento (luoghi visitati) valgono allo stesso '
-                'modo, prendete quella che vi somiglia di più. Fermarsi presto senza aver visitato molto '
-                'vuol dire comunque rispondere con meno indizi in mano: la fretta ha un prezzo, quanto '
-                'rischiarla lo decidete voi. C’è poi un premio a parte, riservato a chi non lascia '
-                '<b>nessuna ora</b> sul Taccuino (le avete spese tutte esplorando): oltre al Vantaggio, '
-                'un <b>gettone Intuizione</b> — una volta in Spedizione potete <b>ripetere un vostro '
-                'tiro di dado appena fallito</b>. La via veloce, che per definizione tiene ore in banca, '
-                'non lo ottiene mai.'))
-    e.append(P('Sono <b>3 mazzi di carte fisiche</b>, tenuti insieme in un <b>unico mazzo coperto</b> '
-               '(il dorso mostra solo il <b>tipo</b>, mai il luogo, cos\u00ec le carte restano '
-               'irriconoscibili e riusabili tra episodi): quando visitate un luogo e un eroe presente '
-               'sblocca quel tipo, chi tiene il fascicolo <b>Luoghi</b> (contiene testo e indizi di ogni '
-               'luogo, letti ad alta voce a tutti, <b>e</b> l\u2019elenco \u2014 solo per chi arbitra, mai letto '
-               'ad alta voce \u2014 di quale carta corrisponde a quale luogo; non contiene le risposte alle 4 '
-               'Domande) controlla il titolo e vi passa la carta corrispondente dal mazzo. Se il luogo '
-               'non \u00e8 nell\u2019elenco, non ne ha \u2014 cos\u00ec non sapete in anticipo dove si nasconde '
-               'qualcosa.', 'body'))
+    e.append(P('Le carte Approfondimento sono <b>3 mazzi fisici</b> (Indizi Nascosti, Testimoni, '
+               'Referti), tenuti insieme in un <b>unico mazzo coperto</b>: il dorso mostra solo il '
+               '<b>tipo</b>, mai il luogo, così le carte restano irriconoscibili e riusabili tra '
+               'episodi. Quando visitate un luogo e un eroe presente sblocca quel tipo, chi tiene il '
+               'fascicolo <b>Luoghi</b> controlla il suo elenco (solo per chi arbitra, mai letto ad '
+               'alta voce) e vi passa la carta corrispondente dal mazzo. Se il luogo non è '
+               'nell’elenco, non ne ha — così non sapete mai in anticipo dove si nasconde qualcosa. '
+               'Il fascicolo non contiene le risposte alle 4 Domande.', 'body'))
     e.append(LI('<b>Indizio Nascosto (Osservazioni)</b> \u2014 un dettaglio in pi\u00f9 sulla scena. Lo '
                 'sblocca <b>Elena</b> (2 volte a episodio), oltre al jolly di Sibilla (<b>Sesto '
                 'Senso</b>: un Approfondimento qualsiasi del luogo presente, o intuisce dove '
@@ -249,6 +236,18 @@ def regolamento():
                "Poi aprite la busta della <b>Soluzione</b>: per ogni risposta esatta otterrete un "
                "<b>Vantaggio</b> per la Spedizione; per certe risposte sbagliate, una complicazione. "
                "La Soluzione vi dir\u00e0 anche come preparare la mappa."))
+    e.append(LI('<b>Il Vantaggio extra (velocit\u00e0 O approfondimento)</b> \u2014 se al momento delle '
+                'risposte avete <b>ore ancora sul Taccuino</b>, oppure avete visitato <b>molti '
+                'luoghi</b> (anche spendendo tutte le ore per farlo), la Soluzione vi dar\u00e0 un '
+                'vantaggio in pi\u00f9: sono <b>due strade alternative allo stesso premio</b>, la fretta '
+                'e la completezza valgono uguale \u2014 prendete quella che vi somiglia di pi\u00f9. Fermarsi '
+                'presto senza aver visitato molto vuol dire comunque rispondere con meno indizi in '
+                'mano: quanto rischiare lo decidete voi.'))
+    e.append(LI('<b>Il gettone Intuizione</b> \u2014 premio a parte, riservato a chi non lascia '
+                '<b>nessuna ora</b> sul Taccuino (le avete spese tutte esplorando): <b>una volta in '
+                'Spedizione</b>, subito dopo un tiro fallito di un vostro eroe, potete ripeterlo e '
+                'tenere il nuovo risultato. La via veloce, che per definizione tiene ore in banca, '
+                'non lo ottiene mai.'))
 
     e.append(PageBreak())
     e.append(P('FASE 2 \u2014 LA SPEDIZIONE', 'h1'))
@@ -263,14 +262,17 @@ def regolamento():
     e.append(LI('<b>Muovere</b> \u2014 fino a 3 caselle (niente diagonali, non si attraversano nemici o mobili).'))
     e.append(LI('<b>Attaccare</b> \u2014 un nemico adiacente: 2d6 + VIGORE (+1 se armato) \u2265 Difesa '
                 'del nemico \u2192 gli infliggete 1 ferita: segnatela sul <b>Registro delle Ferite</b> '
-                '(lo tiene chi pesca il mazzo Minaccia quel round). Quando le ferite segnate '
-                'raggiungono il valore <b>Ferite</b> sulla sua carta, il nemico cade: rimuovetelo dal '
-                'tabellone e cancellate la sua riga sul Registro.'))
-    e.append(LI('<b>Cercare</b> \u2014 su una tessera gi\u00e0 rivelata, prova di ACUME Media: se riuscita, '
-                'trovate l\u2019<b>oggetto</b> che nasconde (una sola volta per tessera; non tutte le '
-                'tessere ne nascondono uno). Non serve per liberare chi è in ostaggio: quello si fa con '
-                '<b>Interagire</b> sulla cella, in T6 (vedi Soluzione per i dettagli dell’episodio).'))
-    e.append(LI('<b>Interagire</b> \u2014 aprire porte e grate, tirare leve, liberare prigionieri.'))
+                '(lo tiene chi pesca il mazzo Minaccia quel round). Difesa e Ferite di ogni nemico '
+                'stanno nel <b>Bestiario</b> dell\u2019episodio, tenuto aperto accanto al Registro (la '
+                'carta Creatura mostra solo ritratto e indole). Quando le ferite segnate raggiungono '
+                'il valore <b>Ferite</b> del Bestiario, il nemico cade: rimuovetelo dal tabellone e '
+                'cancellate la sua riga sul Registro.'))
+    e.append(LI('<b>Cercare</b> — su una tessera già rivelata, prova di ACUME Media: se riuscita, '
+                'trovate l’<b>oggetto</b> che nasconde (una sola volta per tessera; non tutte le '
+                'tessere ne nascondono uno). Non serve per l’obiettivo dell’episodio (liberare un '
+                'prigioniero, prendere ciò che va portato via): quello si fa con <b>Interagire</b>, '
+                'dove la Soluzione lo indica.'))
+    e.append(LI('<b>Interagire</b> — aprire porte e grate, tirare leve, liberare prigionieri.'))
     e.append(LI('<b>Usare un oggetto</b> \u2014 come indicato sulla sua carta.'))
     e.append(LI('<b>Rianimare</b> \u2014 un eroe a terra adiacente torna a 2 Salute.'))
     e.append(P('Quando un eroe esce da una tessera verso una tessera coperta, <b>rivelatela</b> e '
@@ -279,7 +281,7 @@ def regolamento():
                'lasciato chi ci è passato prima di voi</i>.'))
     e.append(P('2. Fase Minaccia', 'h2'))
     e.append(P('Pescate carte Minaccia in base a quanti eroi sono in tavola (vedi tabella sotto \u2014 poi '
-               'vedi \u201cGiocare in 2, in 3, o in un tavolo grande\u201d pi\u00f9 avanti per il bonus Ferite che '
+               'vedi “Giocare in pochi o in tanti” più avanti per il bonus Ferite che '
                'va con questi numeri) e applicatene gli effetti:', 'body'))
     minaccia_reg_t = Table([
         ['Eroi in tavola', '2\u20133', '4\u20136', '7\u201310'],
@@ -325,6 +327,13 @@ def regolamento():
                 'distanza vale la regola d\u2019oro: contro di s\u00e9).'))
     e.append(LI('Se adiacente a un eroe, attacca: 2d6 + Attacco del nemico \u2265 Difesa dell\u2019eroe '
                 '\u2192 l\u2019eroe subisce il Danno indicato.'))
+    e.append(P('Obiettivo e vittoria', 'h2'))
+    e.append(P('La Soluzione fissa l’obiettivo dell’episodio, sempre in due tempi: <b>compiere '
+               'qualcosa nella tessera finale</b> (liberare un prigioniero, prendere ciò che va '
+               'portato via — si fa con <b>Interagire</b>, dove la Soluzione lo indica) e poi '
+               '<b>tornare all’ingresso</b> con chi o cosa dovete portare in salvo. Solo allora '
+               'l’episodio è vinto. Chi scortate si muove nel turno degli eroi (fino a 3 caselle) '
+               'e non compie azioni.'))
     e.append(P('Ferite e sconfitta', 'h2'))
     e.append(P("A 0 Salute un eroe cade <b>a terra</b>: non agisce finch\u00e9 non viene rianimato. "
                "Se tutti gli eroi sono a terra, l\u2019episodio \u00e8 fallito: potete rigiocarlo, ma il "
@@ -387,11 +396,9 @@ def regolamento():
                 'dell\u2019oggetto, che resta comunque in mano a chi l\u2019ha preso.'))
     e.append(LI('<b>Cercare fallito</b> \u2014 si pu\u00f2 ritentare spendendo altre azioni, anche con eroi '
                 'diversi. Una volta trovato ci\u00f2 che la tessera nasconde, la tessera \u00e8 esaurita.'))
-    e.append(LI('<b>Leggere la scena</b> \u2014 alla prima visita di un luogo, un eroe a scelta prova '
-                'ACUME (Media) prima di leggere gli indizi. Fallita: leggete comunque gli indizi '
-                '(parola chiave/oggetto/reperto, se presenti) ma non l\u2019Approfondimento eventuale \u2014 '
-                'tornateci un\u2019altra volta (1 ora, come sempre) per coglierlo, senza ripetere la '
-                'prova.'))
+    e.append(LI('<b>Leggere la scena</b> — regola completa in Fase 1. In breve: gli indizi core '
+                '(parola chiave/oggetto/reperto) non stanno MAI dietro il tiro, solo l’eventuale '
+                'Approfondimento; tornando al luogo la prova non si ripete.'))
     e.append(LI('<b>\u201cEroe pi\u00f9 avanzato\u201d</b> \u2014 quello pi\u00f9 lontano dall\u2019ingresso, contando le '
                 'caselle. A pari merito: regola d\u2019oro.'))
     e.append(LI('<b>Movimento</b> \u2014 gli alleati (e il PNG scortato) si possono attraversare, ma non ci '
@@ -399,56 +406,54 @@ def regolamento():
     e.append(LI('<b>Tra un episodio e l\u2019altro</b> \u2014 tutti gli eroi tornano a Salute piena e '
                 'recuperano gli usi delle abilit\u00e0. Le cicatrici invece restano.'))
 
-    e.append(P('LA CAMPAGNA', 'h1'))
-    e.append(LI('<b>Frammenti</b> \u2014 al termine di ogni episodio riuscito ottenete un Frammento di '
-                'Campagna: conservateli, comporranno il mistero finale.'))
-    e.append(LI('<b>Crescita</b> \u2014 dopo ogni episodio riuscito, ogni eroe sceglie <b>una</b> '
-                'miglioria dall\u2019elenco nella Soluzione e la annota sulla scheda.'))
-    e.append(LI('<b>Cicatrici</b> \u2014 un eroe finito a terra durante l\u2019episodio annota una '
-                'cicatrice (descrivetela!): alla terza, \u22121 permanente a una caratteristica a scelta.'))
-    e.append(P('Giocare in 2, in 3, in 4\u20136, o in un tavolo grande (7\u201310)', 'h2'))
-    e.append(P("Il gioco scala da solo con la fase Minaccia (tabella sopra). <b>In 2 giocatori</b> "
-               "\u00e8 la configurazione pi\u00f9 dura del gioco (un solo eroe a testa, nessuno scala i "
-               "nemici in vostro favore): se preferite una sfida pi\u00f9 morbida, giocate <b>4 eroi in "
-               "due, due a testa</b> \u2014 stessa tabella del tavolo da 4, pi\u00f9 scelte tattiche a testa "
-               "senza aggiungere giocatori veri (come le partite \u201cmulti-handed\u201d di Gloomhaven o "
-               "Arkham Horror)."))
-    e.append(P("In 4\u20135 giocatori, durante l\u2019Indagine leggete gli indizi <b>a turno e solo per "
-               "s\u00e9</b>, poi raccontateli con parole vostre: la deduzione diventa un racconto corale "
-               "(ed \u00e8 il modo pi\u00f9 divertente di giocare in gruppo). Il numero di carte Minaccia "
-               "resta lo stesso da 4 a 6 eroi (vedi tabella): con pi\u00f9 persone al tavolo contate comunque "
-               "un po\u2019 pi\u00f9 di tempo a episodio, per la discussione e le azioni da coordinare, non "
-               "perch\u00e9 il mazzo peschi di pi\u00f9."))
+    e.append(P('GIOCARE IN POCHI O IN TANTI', 'h1'))
+    e.append(P("Ovunque il gioco parli di taglie — tabella Minaccia, bonus, Bestiario — conta il "
+               "numero di <b>eroi in tavola</b>, non di giocatori: un tavolo da 2 giocatori con 4 "
+               "eroi è, per le regole, un tavolo da 4. Regole per taglia:", 'body'))
+    e.append(LI('<b>2 eroi</b> — la configurazione più dura del gioco (nessuna regola scala i '
+                'nemici in vostro favore). Se siete in 2 giocatori e preferite una sfida più '
+                'morbida, guidate <b>2 eroi a testa</b>: valgono le regole del tavolo da 4, con più '
+                'scelte tattiche per ciascuno (come le partite “multi-handed” di Gloomhaven o '
+                'Arkham Horror).'))
+    e.append(LI('<b>4 eroi</b> — <b>+1 Salute massima a testa</b> (oltre a quella eventuale da '
+                'Slancio/Preparati). È la taglia dove la tensione risultava più piatta nei test: '
+                'un margine in più fa arrivare qualche colpo senza far crollare le vittorie.'))
+    e.append(LI('<b>6 eroi e 8–10 eroi</b> — <b>+1 Ferita SOLO al boss dell’episodio</b> (mai ai '
+                'nemici di truppa: un bonus generale li raddoppierebbe, molti hanno 1 sola Ferita). '
+                'A <b>7 eroi</b> nessun bonus: la terza carta a round alterni e l’affollamento reale '
+                'bastano già. Il bonus si fissa all’inizio della spedizione e non cambia più, '
+                'anche se qualcuno cade a terra. <b>Niente calcoli al tavolo:</b> il <b>Bestiario</b> '
+                'riporta le Ferite già tabellate per numero di eroi — leggete la colonna del '
+                'vostro tavolo e basta.'))
+    e.append(LI('<b>7–10 eroi</b> — Fase Minaccia: 2 carte, più una terza SOLO nei round pari '
+                '(2°, 4°, 6°...) — vedi la tabella in Fase 2. Nei test, 3 carte fisse ogni round '
+                'schiacciavano il tavolo: la terza a metà ritmo lo tiene in sfida.'))
+    e.append(P('Consigli per i gruppi numerosi (giocatori)', 'h2'))
+    e.append(P("Nell’Indagine, fate girare il fascicolo <b>Luoghi</b>: a ogni visita lo legge ad "
+               "alta voce un giocatore diverso, e ognuno prende appunti per sé — la deduzione "
+               "diventa un racconto corale, il modo più divertente di giocare in gruppo. Con più "
+               "persone al tavolo contate un po’ più di tempo a episodio, per la discussione e le "
+               "azioni da coordinare, non perché il mazzo peschi di più."))
     e.append(P("In 4 o 5 giocatori potete anche <b>dividervi</b>, una sola volta a episodio: due "
                "sottogruppi visitano due luoghi diversi nella stessa ora (costa comunque solo 1 ora "
-               "sul Taccuino, non 2), poi restate uniti per il resto dell\u2019indagine. Ogni sottogruppo "
-               "sblocca gli Approfondimenti solo per gli eroi davvero presenti al suo luogo \u2014 se "
-               "l\u2019eroe giusto \u00e8 nell\u2019altro sottogruppo, quell\u2019Approfondimento resta perso. Dividersi "
-               "copre pi\u00f9 terreno nelle poche ore che avete, ma a un prezzo reale \u2014 usatelo dove conta "
-               "di pi\u00f9, non \u00e8 ripetibile. <b>Non</b> estendetelo oltre i 5 eroi: da 6 in su l\u2019Indagine "
-               "resta un unico momento corale \u2014 dividere un tavolo gi\u00e0 grande in sottogruppi lo rende solo "
-               "pi\u00f9 lento da gestire, non pi\u00f9 interessante."))
-    e.append(LI('<b>Tavolo da 4:</b> +1 Salute massima a testa (oltre a quella eventuale da Slancio/'
-                'Preparati). \u00c8 il tavolo dove l\u2019ansia risultava pi\u00f9 piatta nei test \u2014 un margine in '
-                'pi\u00f9 fa arrivare qualche colpo in pi\u00f9 senza far crollare le vittorie.'))
-    e.append(P("<b>Tavolo grande (7\u201310 eroi).</b> Due sole modifiche, il resto delle regole non cambia:", 'body'))
-    e.append(LI('<b>Fase Minaccia:</b> 2 carte, pi\u00f9 una terza SOLO nei round pari (2\u00b0, 4\u00b0, 6\u00b0...) \u2014 '
-                'vedi la tabella sopra. Il passaggio diretto a 3 carte fisse ogni round si \u00e8 rivelato nei '
-                'test un salto troppo brusco: la terza carta a met\u00e0 ritmo tiene il tavolo affollato in '
-                'sfida senza schiacciarlo.'))
-    e.append(LI('<b>Nemici pi\u00f9 duri, ma non ovunque:</b> a <b>6 eroi</b> e da <b>8 a 10</b>, +1 Ferita '
-                'SOLO al <b>boss dell\u2019episodio</b> (mai ai nemici di truppa \u2014 un bonus generale li '
-                'raddoppia, dato che molti hanno 1 sola Ferita). A <b>7 eroi</b> nessun bonus: la mezza '
-                'carta in pi\u00f9 e l\u2019affollamento reale bastano gi\u00e0. Il bonus si fissa all\u2019inizio della '
-                'spedizione, in base a quanti eroi schierate \u2014 non cambia pi\u00f9 durante la spedizione '
-                'anche se qualcuno cade a terra. <b>Niente calcoli al tavolo:</b> il <b>Bestiario</b> '
-                'dell\u2019episodio riporta per ogni nemico le Ferite gi\u00e0 tabellate per numero di eroi \u2014 '
-                'leggete la colonna del vostro tavolo e basta.'))
-    e.append(P("Con un tavolo da 7\u201310, contate anche pi\u00f9 tempo di quanto indicato sopra per 5: nei test "
-               "le spedizioni tendono a durare 13\u201315 round invece di 11\u201312 (pi\u00f9 eroi in una stanza "
-               "piccola vuol dire pi\u00f9 traffico, non solo pi\u00f9 minacce). Consigliato: nominate un "
-               "<b>custode del mazzo Minaccia</b> fisso per tutta la serata, cos\u00ec a un tavolo affollato "
-               "nessuno pesca due volte per errore.", 'body'))
+               "sul Taccuino, non 2), poi restate uniti per il resto dell’indagine. Ogni sottogruppo "
+               "sblocca gli Approfondimenti solo per gli eroi davvero presenti al suo luogo — se "
+               "l’eroe giusto è nell’altro sottogruppo, quell’Approfondimento resta perso. Dividersi "
+               "copre più terreno nelle poche ore che avete, ma a un prezzo reale — usatelo dove conta "
+               "di più, non è ripetibile. <b>Non</b> estendetelo oltre i 5 eroi: da 6 in su l’Indagine "
+               "resta un unico momento corale."))
+    e.append(P("Con un tavolo da 7–10 eroi, contate spedizioni più lunghe (13–15 round invece di "
+               "11–12: più eroi in una stanza piccola vuol dire più traffico, non solo più "
+               "minacce). Consigliato: nominate un <b>custode del mazzo Minaccia</b> fisso per tutta "
+               "la serata, così a un tavolo affollato nessuno pesca due volte per errore.", 'body'))
+
+    e.append(P('LA CAMPAGNA', 'h1'))
+    e.append(LI('<b>Frammenti</b> — al termine di ogni episodio riuscito ottenete un Frammento di '
+                'Campagna: conservateli, comporranno il mistero finale.'))
+    e.append(LI('<b>Crescita</b> — dopo ogni episodio riuscito, ogni eroe sceglie <b>una</b> '
+                'miglioria dall’elenco nella Soluzione e la annota sulla scheda.'))
+    e.append(LI('<b>Cicatrici</b> — un eroe finito a terra durante l’episodio annota una '
+                'cicatrice (descrivetela!): alla terza, −1 permanente a una caratteristica a scelta.'))
 
     e.append(P('COME STAMPARE', 'h1'))
     e.append(LI('<b>Regolamento</b> (questo fascicolo) e <b>Soluzione</b> (in <i>Episodio 1/</i>): '
@@ -456,10 +461,20 @@ def regolamento():
     e.append(LI('<b>Eroi</b> (cartella <b>cards/Eroi/</b>): 11 carte su cartoncino, da stendere sul '
                 'tavolo per la scelta a inizio serata.'))
     e.append(LI('<b>Schede</b>: una per giocatore, meglio su cartoncino.'))
+    e.append(LI('<b>Mappa</b> (in <i>Episodio 1/</i>): un foglio fronte/retro sul tavolo, visibile a '
+                'tutti — la mappa della città e lo stradario delle destinazioni dichiarabili. Cresce '
+                'a ogni episodio (contiene anche i luoghi degli episodi precedenti): stampate quella '
+                'dell’episodio che giocate.'))
     e.append(LI('<b>Indagine</b> (in <i>Episodio 1/</i>): carte Luogo su cartoncino, ritagliate lungo i '
                 'bordi. Il Taccuino su carta normale.'))
     e.append(LI('<b>Approfondimenti</b> (Indizi Nascosti, Testimoni, Referti) su cartoncino, dorso '
                 'anonimo (solo il tipo) sul retro: tenete le carte in un unico mazzo coperto.'))
+    e.append(LI('<b>Oggetti</b>: carte su cartoncino, tenute in un mazzetto a parte. Quando trovate '
+                'un oggetto (in Indagine o Cercando in Spedizione) prendete la carta corrispondente: '
+                'da quel momento è fisicamente nelle mani di chi lo porta.'))
+    e.append(LI('<b>Reperti</b> (cartella `reperti/Episodio 1/`): 2–3 documenti su carta normale, a colori se '
+                'potete. Teneteli da parte, coperti, e consegnateli quando il gruppo trova l’indizio '
+                'corrispondente (vedi sopra).'))
     e.append(LI('<b>Spedizione</b> (in <i>Episodio 1/</i>): carte Minaccia e miniature su cartoncino; '
                 'ritagliate tutto. Le tessere (cartella <b>board/Episodio 1/</b>) sono immagini singole, '
                 'nessun PDF le forza a una dimensione: stampatele a <b>200×200mm</b> (caselle da 5cm, '
@@ -468,16 +483,6 @@ def regolamento():
                 'Ferite già tabellate per numero di eroi in tavola. Fronte/retro normale, tenetelo '
                 'aperto accanto al Registro delle Ferite: le carte Creatura mostrano solo ritratto e '
                 'indole, le statistiche vivono qui.'))
-    e.append(LI('<b>Oggetti</b>: carte su cartoncino, tenute in un mazzetto a parte. Quando trovate '
-                'un oggetto (in Indagine o Cercando in Spedizione) prendete la carta corrispondente: '
-                'da quel momento è fisicamente nelle mani di chi lo porta.'))
-    e.append(LI('<b>Reperti</b> (cartella `reperti/Episodio 1/`): 2–3 documenti su carta normale, a colori se '
-                'potete. Teneteli da parte, coperti, e consegnateli quando il gruppo trova l’indizio '
-                'corrispondente (vedi sopra).'))
-    e.append(LI('<b>Mappa</b> (in <i>Episodio 1/</i>): un foglio fronte/retro sul tavolo, visibile a '
-                'tutti — la mappa della città e lo stradario delle destinazioni dichiarabili. Cresce '
-                'a ogni episodio (contiene anche i luoghi degli episodi precedenti): stampate quella '
-                'dell’episodio che giocate.'))
     e.append(LI('<b>Luoghi</b> (in <i>Episodio 1/</i>): non si stampa per i giocatori — è per chi tiene '
                 'il mazzo coperto degli Approfondimenti, da consultare al bisogno durante l’Indagine. '
                 'Non contiene le risposte alle 4 Domande, solo quale carta prendere per quale luogo. '
@@ -698,6 +703,19 @@ def aiuto():
     e.append(RP('<b>2d6 + caratteristica</b> (ACUME / VIGORE / NERVI) ≥ difficoltà.'))
     e.append(RP('<b>Facile 7 • Media 9 • Difficile 11.</b> Ogni eroe: 1 solo ritento a episodio (Secondo Fiato).'))
 
+    e.append(P('INDAGINE — 6 ore, ogni visita costa 1 ora (anche tornare)', 'h2'))
+    e.append(RL('<b>Destinazione</b> — indicate una carta scoperta o dichiarate una voce dello '
+                'stradario (Mappa): se non è nell’episodio, pista fredda — <b>nessuna ora spesa</b>; '
+                'se c’è, la visita parte e l’ora si spende.'))
+    e.append(RL('<b>Porta chiusa</b> — dichiarate <b>UNA parola o UN oggetto per visita</b> a chi '
+                'tiene il fascicolo Luoghi: giusta si entra subito, sbagliata l’ora è persa comunque.'))
+    e.append(RL('<b>Prima visita</b> — un eroe prova ACUME Media (“leggere la scena”): indizi, parola '
+                'chiave e oggetto si leggono comunque; se fallisce, l’Approfondimento aspetta una '
+                'seconda visita (senza ripetere la prova).'))
+    e.append(RL('<b>Chiusura</b> — 4 Domande per iscritto, poi la busta Soluzione. Vantaggio extra: '
+                'ore avanzate <b>O</b> molti luoghi visitati. Con <b>0 ore avanzate</b>: gettone '
+                '<b>Intuizione</b> — una volta in Spedizione ripetete un tiro appena fallito.'))
+
     e.append(P('TURNO DEGLI EROI — 2 azioni ciascuno, sempre di tipo diverso', 'h2'))
     e.append(RL('<b>Muovere</b> — fino a 3 caselle (Nino 4). Niente diagonali; non si attraversano nemici o mobili.'))
     e.append(RL('<b>Attaccare</b> — nemico adiacente: <b>2d6 + VIGORE (+1 se armati) ≥ Difesa nemico</b> → 1 ferita (segnala sul Registro).'))
@@ -727,15 +745,17 @@ def aiuto():
     e.append(RP('Leggete la carta ad alta voce ed eseguite. Mazzo esaurito: rimescolate gli scarti. '
                 'A 7–10 eroi la terza carta si pesca solo nei round pari (2°, 4°, 6°...) — non è un '
                 'errore di stampa, vedi Regolamento.'))
-    e.append(RP('<b>Tavolo da 4:</b> +1 Salute massima a testa (oltre a Slancio/Preparati).'))
 
     e.append(P('TURNO DEI NEMICI', 'h2'))
     e.append(RP('Ognuno si muove verso l’<b>eroe in piedi</b> più vicino (ignorano gli eroi a terra e il '
                 'PNG scortato). Se adiacente attacca: <b>2d6 + Attacco ≥ Difesa eroe</b> → subisci il '
                 'Danno indicato.'))
-    e.append(RP('<b>Tavolo 7–10 eroi:</b> a 6 eroi e da 8 a 10, +1 Ferita SOLO al boss dell’episodio '
-                '(mai ai nemici di truppa). A 7 eroi nessun bonus. Fissato a inizio spedizione, non '
-                'ricalcolato dopo. Ferite già tabellate per taglia nel <b>Bestiario</b> dell’episodio.'))
+
+    e.append(P('TAGLIE DEL TAVOLO (contano gli EROI in tavola, non i giocatori)', 'h2'))
+    e.append(RL('<b>4 eroi</b> — +1 Salute massima a testa (oltre a Slancio/Preparati).'))
+    e.append(RL('<b>6 eroi e 8–10</b> — +1 Ferita SOLO al boss (a 7 nessun bonus). Fissato a inizio '
+                'spedizione; Ferite già tabellate per taglia nel <b>Bestiario</b>.'))
+    e.append(RL('<b>7–10 eroi</b> — la terza carta Minaccia si pesca solo nei round pari (tabella sopra).'))
 
     e.append(P('REGOLA D’ORO', 'h2'))
     e.append(RP('In ogni ambiguità (uscite/eroi equidistanti, più bersagli) sceglie il gruppo, '

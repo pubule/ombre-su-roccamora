@@ -375,7 +375,8 @@ prima che l'Ep. 1 lo riveli.
    che boss-Ferite-base + 1 resti sotto la soglia `N_PIP=10` del Registro
    (vedi 3-bis) — ampio margine con Ferite-base fino a 9. Regola spiegata
    per i giocatori nel **Regolamento** (fascicolo 01, sezione "Giocare in
-   2, in 3, in 4-6, o in un tavolo grande"). **Lezione per il futuro**: se
+   pochi o in tanti" — le taglie contano sempre gli EROI in tavola, non i
+   giocatori). **Lezione per il futuro**: se
    si tocca di nuovo il motore di movimento/pathing di
    `simulate_playtest.py`, ritarare SEMPRE queste formule subito dopo —
    un bug nel motore puo' nascondere (o esagerare) la difficolta' reale
