@@ -9,3 +9,7 @@ node_modules/
 Comune/pdf/Carte.pdf
 Preludio/pdf/Carte.pdf
 Episodio 1/pdf/Carte-e-Tessere.pdf
+
+# webapp: derivati rigenerabili (export-data.py/js, export-assets.py)
+webapp/assets/
+webapp/data/

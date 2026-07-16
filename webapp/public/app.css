@@ -1,0 +1,119 @@
+/* Ombre su Roccamora - webapp. Palette e font del repo (bibbia visiva):
+   notte #17141a, pergamena #f0e6cc, inchiostro #33291f, rosso #7a1f2b,
+   teal #1f5f6b, oro #a8833a / #d8b25e, seppia #8a7150. */
+
+@font-face { font-family: 'OldStd'; src: url('/fonts/OldStandard-Regular.ttf'); }
+@font-face { font-family: 'OldStd'; src: url('/fonts/OldStandard-Bold.ttf'); font-weight: bold; }
+@font-face { font-family: 'OldStd'; src: url('/fonts/OldStandard-Italic.ttf'); font-style: italic; }
+@font-face { font-family: 'FellSC'; src: url('/fonts/IMFellEnglishSC.ttf'); }
+
+:root {
+  --notte: #17141a; --notte2: #1d1014; --abisso: #0e1519;
+  --perg: #f0e6cc; --perg-scura: #e2d3ac; --ink: #33291f;
+  --rosso: #7a1f2b; --rosso-scuro: #571420; --teal: #1f5f6b;
+  --oro: #a8833a; --oro-chiaro: #d8b25e; --seppia: #8a7150;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html, body { height: 100%; }
+body {
+  background: radial-gradient(ellipse at 50% 0%, #221a20 0%, var(--notte) 55%, var(--abisso) 100%);
+  color: var(--perg); font-family: 'OldStd', Georgia, serif; font-size: 17px;
+  overflow-x: hidden; min-height: 100dvh;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right)
+           env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
+
+h1, h2, h3, .sc { font-family: 'FellSC', 'OldStd', serif; font-weight: normal;
+  letter-spacing: 0.04em; text-transform: lowercase; }
+h1 { color: var(--oro-chiaro); }
+h2 { color: var(--rosso); }
+em, i { font-style: italic; }
+
+.schermo { max-width: 1080px; margin: 0 auto; padding: 20px 16px 40px; }
+
+/* --- caricamento --- */
+.caricamento { display: flex; flex-direction: column; align-items: center;
+  justify-content: center; min-height: 80dvh; gap: 18px; color: var(--seppia); font-style: italic; }
+.sigillo-pulse { width: 74px; height: 74px; border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #9b2635, var(--rosso-scuro) 70%);
+  box-shadow: 0 0 26px rgba(122, 31, 43, .55); animation: pulse 1.6s ease-in-out infinite; }
+@keyframes pulse { 50% { transform: scale(.92); box-shadow: 0 0 12px rgba(122,31,43,.3); } }
+
+/* --- home --- */
+.home-testata { text-align: center; margin: 4vh 0 26px; }
+.home-testata h1 { font-size: clamp(34px, 7vw, 56px); text-shadow: 0 2px 14px #000; }
+.home-testata .sotto { color: var(--teal); font-style: italic; margin-top: 4px; }
+.home-testata .filetto { width: 120px; height: 2px; margin: 14px auto 0;
+  background: linear-gradient(90deg, transparent, var(--oro), transparent); }
+
+.griglia-episodi { display: grid; gap: 14px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); margin-bottom: 26px; }
+.tessera-episodio { position: relative; border: 1px solid var(--oro);
+  border-radius: 10px; overflow: hidden; background: var(--notte2); cursor: pointer;
+  min-height: 150px; display: flex; flex-direction: column; justify-content: flex-end;
+  transition: transform .15s, box-shadow .15s; }
+.tessera-episodio:active { transform: scale(.985); }
+.tessera-episodio .arte { position: absolute; inset: 0; background-size: cover;
+  background-position: center 20%; opacity: .55; }
+.tessera-episodio .velo { position: absolute; inset: 0;
+  background: linear-gradient(180deg, transparent 20%, rgba(14, 21, 25, .92) 85%); }
+.tessera-episodio .testi { position: relative; padding: 14px 16px; }
+.tessera-episodio h2 { color: var(--oro-chiaro); font-size: 24px; }
+.tessera-episodio .sotto { color: var(--perg-scura); font-style: italic; font-size: 14px; opacity: .85; }
+.tessera-episodio .stato { position: absolute; top: 10px; right: 12px; font-size: 12px;
+  color: var(--oro-chiaro); background: rgba(23, 20, 26, .8); border: 1px solid var(--oro);
+  border-radius: 20px; padding: 3px 10px; }
+
+/* --- pannelli pergamena --- */
+.pannello { background: linear-gradient(160deg, var(--perg), var(--perg-scura));
+  color: var(--ink); border: 1px solid var(--oro); border-radius: 10px;
+  padding: 18px; box-shadow: 0 8px 30px rgba(0, 0, 0, .5); }
+.pannello h2 { color: var(--rosso); margin-bottom: 8px; }
+.pannello .nota { color: var(--seppia); font-style: italic; font-size: 14px; }
+
+/* --- bottoni --- */
+.btn { display: inline-block; font-family: 'FellSC', serif; text-transform: lowercase;
+  letter-spacing: .05em; font-size: 18px; padding: 12px 22px; border-radius: 8px;
+  border: 1px solid var(--oro); background: linear-gradient(180deg, #241c22, var(--notte2));
+  color: var(--oro-chiaro); cursor: pointer; user-select: none; }
+.btn:active { transform: scale(.97); }
+.btn.pieno { background: linear-gradient(180deg, #8d2433, var(--rosso-scuro));
+  color: var(--perg); border-color: var(--rosso); }
+.btn.disabilitato { opacity: .35; pointer-events: none; }
+.btn-riga { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+
+/* --- scelta modalita' --- */
+.modi { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+.modo { border: 1px solid var(--teal); border-radius: 10px; padding: 16px;
+  background: rgba(31, 95, 107, .08); cursor: pointer; }
+.modo.attivo { border-color: var(--oro); background: rgba(168, 131, 58, .12);
+  box-shadow: 0 0 0 1px var(--oro) inset; }
+.modo h3 { color: var(--oro-chiaro); margin-bottom: 6px; font-size: 20px; }
+.modo p { font-size: 14px; color: var(--perg-scura); opacity: .9; }
+
+/* --- party picker --- */
+.griglia-eroi { display: grid; gap: 10px;
+  grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); }
+.carta-eroe { position: relative; border-radius: 8px; overflow: hidden;
+  border: 2px solid transparent; cursor: pointer; aspect-ratio: 5/7; background: var(--notte2); }
+.carta-eroe img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.carta-eroe.scelto { border-color: var(--oro-chiaro);
+  box-shadow: 0 0 14px rgba(216, 178, 94, .5); }
+.carta-eroe .spunta { position: absolute; top: 6px; right: 6px; width: 26px; height: 26px;
+  border-radius: 50%; background: var(--rosso); color: var(--perg); display: none;
+  align-items: center; justify-content: center; font-weight: bold; }
+.carta-eroe.scelto .spunta { display: flex; }
+.contatore-party { font-family: 'FellSC', serif; color: var(--oro-chiaro);
+  font-size: 20px; margin: 12px 0 4px; }
+
+/* --- barra superiore in partita (segnaposto W-B) --- */
+.barra { display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; padding: 10px 4px 16px; }
+.barra .titolo { font-family: 'FellSC', serif; color: var(--oro-chiaro); font-size: 20px; }
+.barra .btn { font-size: 14px; padding: 8px 14px; }
+
+.centrato { text-align: center; }
+.mt { margin-top: 18px; }
+.copyright { text-align: center; color: var(--seppia); font-size: 11px;
+  font-style: italic; margin-top: 34px; opacity: .8; }
