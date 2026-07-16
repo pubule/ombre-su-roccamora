@@ -23,7 +23,10 @@ const GROUPS = { heroes: HEROES, nemici: NEMICI, minacce: MINACCE, luoghi: LUOGH
 
 (async () => {
   const which = (process.argv[2] || 'all').toLowerCase();
-  const cards = GROUPS[which];
+  let cards = GROUPS[which];
+  // filtro opzionale per titolo: node generate-batch.js ep2 'Camera dei Pesi'
+  const filtro = process.argv[3];
+  if (cards && filtro) cards = cards.filter((c) => c.title.toLowerCase().includes(filtro.toLowerCase()));
   if (!cards) {
     console.error(`Gruppo sconosciuto "${which}". Usa: heroes | nemici | minacce | all`);
     process.exit(1);
