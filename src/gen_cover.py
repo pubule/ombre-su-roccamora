@@ -16,7 +16,7 @@ from reportlab.pdfgen import canvas
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 
-from deluxe_style import register_fonts, art, seal, pad_to_even_pages, F
+from deluxe_style import register_fonts, art, seal, pad_to_even_pages, scrim_gradient, F
 
 OUT_ROOT = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'pdf')
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -60,28 +60,17 @@ def cover_fit(c, name):
     c.drawImage(img, (W - dw) / 2, (H - dh) / 2, width=dw, height=dh, mask=None)
 
 
-def scrim(c, y_dark, y_clear, dark_alpha, bands=220):
+def scrim(c, y_dark, y_clear, dark_alpha):
     """Velatura scura sfumata: alpha dark_alpha al bordo y_dark, trasparente a
-    y_clear. reportlab.linearGradient ignora l'alpha dei singoli stop (le
-    shading dictionary del PDF non portano un canale alpha): con quella si
-    otteneva un blocco nero pieno, non un velo. Qui invece ogni fascia usa
-    setFillAlpha (vera trasparenza, supportata) - fasce sottili e accostate
-    SENZA sovrapporsi, cosi' l'alpha non si somma ai bordi e non lascia
-    cuciture piu' scure. Curva a ginocchio (esponente 2.4): forte solo vicino
-    al bordo, poi cala in fretta, cosi' l'arte resta visibile al centro."""
-    c.saveState()
-    c.setFillColor(colors.black)
-    step = (y_clear - y_dark) / bands
-    for i in range(bands):
-        t = i / bands              # 0 al bordo scuro, ~1 verso il chiaro
-        a = dark_alpha * (1 - t) ** 2.4
-        if a <= 0.003:
-            break
-        c.setFillAlpha(a)
-        y = y_dark + i * step
-        c.rect(0, min(y, y + step), W, abs(step), fill=1, stroke=0)
-    c.setFillAlpha(1)
-    c.restoreState()
+    y_clear. Prima era una pila di fasce con setFillAlpha (reportlab.
+    linearGradient ignora l'alpha degli stop), ma le fasce lasciano righe
+    orizzontali visibili nei viewer per quante siano: ora e' un gradiente
+    immagine vero (scrim_gradient in deluxe_style), liscio a ogni zoom.
+    Curva a ginocchio (esponente 2.4): forte solo vicino al bordo, poi cala
+    in fretta, cosi' l'arte resta visibile al centro."""
+    y0, y1 = min(y_dark, y_clear), max(y_dark, y_clear)
+    scrim_gradient(c, 0, y0, W, y1 - y0, dark_alpha, knee=2.4,
+                   opaque_top=(y_dark > y_clear))
 
 
 def engraved(c, cx, y, text, font, size, fill, tracking=0):

@@ -75,6 +75,34 @@ def art(name):
         _art_cache[name] = ImageReader(buf)
     return _art_cache[name]
 
+_scrim_cache = {}
+
+def scrim_gradient(c, x, y, w, h, alpha_max, knee=2.4, opaque_top=True):
+    """Velo nero sfumato disegnato come UNA immagine RGBA con gradiente
+    alpha vero (PIL), invece di una pila di rettangoli con setFillAlpha:
+    le fasce, per quante siano, lasciano righe orizzontali visibili nei
+    viewer (le cuciture di antialiasing tra un fill e l'altro) - con
+    un'immagine il viewer interpola e il gradiente e' liscio. `knee` e'
+    la curva (esponente): alta = forte solo vicino al bordo scuro.
+    `opaque_top`: True = scuro in alto che sfuma in basso (testate di
+    pagina), False = l'inverso (piede di pagina)."""
+    key = (round(alpha_max, 3), round(knee, 2), opaque_top)
+    if key not in _scrim_cache:
+        n = 512
+        img = Image.new('RGBA', (4, n), (0, 0, 0, 0))
+        px = img.load()
+        for j in range(n):          # j=0 = riga in alto dell'immagine
+            t = j / (n - 1)
+            frac = (1 - t) if opaque_top else t
+            a = int(round(255 * alpha_max * frac ** knee))
+            for i in range(4):
+                px[i, j] = (0, 0, 0, a)
+        buf = BytesIO()
+        img.save(buf, format='PNG')
+        buf.seek(0)
+        _scrim_cache[key] = ImageReader(buf)
+    c.drawImage(_scrim_cache[key], x, y, width=w, height=h, mask='auto')
+
 def parchment_art(c, w, h, name='background manuale.png'):
     """Full-bleed background using a real parchment texture artwork (instead of
     the procedural parchment() blobs), with the same edge-darkening vignette."""

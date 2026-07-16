@@ -27,12 +27,24 @@ from reportlab.platypus import Paragraph
 from reportlab.lib.styles import ParagraphStyle
 
 from deluxe_style import (register_fonts, parchment_art, rule_border, art, _cover_image,
-                          ARTWORKS_DIR, F, INK, RED, TEAL, SEPIA)
+                          scrim_gradient, ARTWORKS_DIR, F, INK, RED, TEAL, SEPIA)
 
 OUT_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'pdf')
 register_fonts()
 W, H = A4
 MX = 20*mm
+
+# Stesso font-titolo della copertina episodio (gen_cover): Beleren, il font
+# dei titoli carte, con fallback IMFellSC se il vendor non c'e'.
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+TITLE = F['sc']
+try:
+    pdfmetrics.registerFont(TTFont('Beleren', os.path.join(ROOT, 'vendor/cardconjurer/fonts/beleren-bsc.ttf')))
+    TITLE = 'Beleren'
+except Exception:
+    pass
 
 MAPPA_ART = 'Mappa della città di Roccamora.png'
 
@@ -85,16 +97,10 @@ def pagina_mappa(c, sottotitolo):
     art_path = os.path.join(ARTWORKS_DIR, MAPPA_ART)
     if os.path.exists(art_path):
         _cover_image(c, art(MAPPA_ART), 0, 0, W, H)
-        # L'arte e' notturna e scura: velo sfumato dal bordo alto (come le
-        # copertine di gen_cover) e titolo bianco/oro, o non si legge.
-        c.saveState()
-        passi, alt = 120, 42*mm
-        for i in range(passi):
-            c.setFillColorRGB(0, 0, 0)
-            c.setFillAlpha(0.55 * (1 - i / passi))
-            c.rect(0, H - alt + i * (alt / passi), W, alt / passi + 0.5, fill=1, stroke=0)
-        c.setFillAlpha(1)
-        c.restoreState()
+        # L'arte e' notturna e scura: velo sfumato dal bordo alto (gradiente
+        # immagine vero, vedi scrim_gradient - le fasce con setFillAlpha
+        # lasciavano righe orizzontali) e titolo bianco/oro, o non si legge.
+        scrim_gradient(c, 0, H - 42*mm, W, 42*mm, 0.6, knee=1.6, opaque_top=True)
         titolo_col, sotto_col = colors.HexColor('#f2e9d8'), colors.HexColor('#c9a86a')
     else:
         parchment_art(c, W, H)
@@ -102,8 +108,9 @@ def pagina_mappa(c, sottotitolo):
         c.drawCentredString(W/2, H/2, '(arte della mappa non ancora generata: vedi PROMPT-MIDJOURNEY.md)')
         titolo_col, sotto_col = RED, TEAL
     rule_border(c, W, H)
-    c.setFillColor(titolo_col); c.setFont(F['sc'], 24)
-    c.drawString(MX, H - 24*mm, 'mappa di roccamora')
+    titolo = 'Mappa di Roccamora' if TITLE == 'Beleren' else 'mappa di roccamora'
+    c.setFillColor(titolo_col); c.setFont(TITLE, 24)
+    c.drawString(MX, H - 24*mm, titolo)
     c.setFillColor(sotto_col); c.setFont(F['i'], 12)
     c.drawString(MX, H - 31*mm, sottotitolo)
     c.showPage()
