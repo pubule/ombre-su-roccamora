@@ -117,7 +117,7 @@ LUOGHI_P = [
                  'e nessuno dei due era il vecchio Ansaldo. Sul tavolo, il suo anello di chiavi. '
                  '<i>(Oggetto: prendete la carta L’Anello di Chiavi.)</i>'],
          approfondimenti=[
-             dict(tipo='Osservazione',
+             dict(tipo='Osservazione', soggetto='La polvere smossa a metà',
                   testo='La polvere sullo scaffale del 1741 è smossa solo a metà: chi ha preso il '
                         'fascicolo sapeva DOVE cercare, ma non era pratico dell’archivio. Non era '
                         'Ansaldo — e nemmeno un ladro qualunque.'),
@@ -175,7 +175,7 @@ LUOGHI_P = [
                  'Nel fango del molo, un lembo di carta antica strappata: mezzo disegno a inchiostro, '
                  'una linea che ondeggia. Come mezza onda.'],
          approfondimenti=[
-             dict(tipo='Presagio',
+             dict(tipo='Presagio', soggetto='Le due voci sotto la banchina',
                   testo='Chi si sofferma ad ascoltare i colpi sotto la banchina giurerebbe che, per '
                         'un istante, rispondono in due voci — non una. Come se qualcosa, là sotto, '
                         'stesse imparando la cadenza.'),

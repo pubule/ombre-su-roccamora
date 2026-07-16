@@ -93,7 +93,7 @@ const NEMICI = [
     art: 'artworks/Il Fonditore.png',
     title: 'Il Fonditore',
     type: 'Creatura — Fonditore',
-    rules: 'Gli artigiani del culto: grembiule di cuoio, mestolo colmo di cera fusa, la pazienza di chi ha versato mille candele. Non corrono mai: non ne hanno bisogno. Chi viene ferito dal Fonditore si muove di 1 casella in meno nel suo prossimo turno (la cera si addensa addosso).{divider}{i}Statistiche nel Bestiario dell’episodio.{/i}',
+    rules: 'Gli artigiani del culto: grembiule di cuoio, mestolo colmo di cera fusa, la pazienza di chi ha versato mille candele. Non corrono mai: non ne hanno bisogno. La cera bollente che schizza dal mestolo resta addosso per giorni.{divider}{i}Statistiche nel Bestiario dell’episodio.{/i}',
   },
   {
     art: 'artworks/Il Custode della Cera (boss).png',
@@ -137,7 +137,7 @@ const MINACCE = [
     effect: 'Piazzate 1 Adepto sull’ingresso della tessera corrente, alle spalle degli eroi.' },
   { art: 'artworks/La Vedetta.png', title: 'La Vedetta', tipo: 'Posseduto',
     flavor: 'Chi resta solo, a Roccamora, non resta solo a lungo.',
-    effect: 'Piazzate 1 Adepto adiacente all’eroe più isolato (quello più lontano dagli altri; a pari merito, l’eroe attivo).' },
+    effect: 'Piazzate 1 Adepto adiacente all’eroe più isolato (quello più lontano dagli altri; a pari merito: sceglie il gruppo).' },
   { art: 'artworks/Cani dei Moli.png', title: 'Cani dei Moli', tipo: 'Posseduto', subito: true,
     flavor: 'Un ringhio basso, poi unghie sulla pietra. Troppo veloci.',
     effect: 'Piazzate 1 Cane dei Moli sull’uscita più vicina agli eroi della tessera corrente: si attiva subito.' },
@@ -146,7 +146,7 @@ const MINACCE = [
     effect: 'Piazzate 1 Cane dei Moli sull’ingresso della tessera corrente: si attiva subito.' },
   { art: 'artworks/Il Fonditore.png', title: 'Il Fonditore', tipo: 'Posseduto',
     flavor: 'Passi lenti, e il gorgoglio di un mestolo colmo di cera fusa.',
-    effect: 'Piazzate 1 Fonditore sull’ingresso della Banchina (T1). Se è già in gioco un Fonditore, recupera 1 ferita.' },
+    effect: 'Piazzate 1 Fonditore sull’ingresso della Banchina (T1). Se è già in gioco un Fonditore, cancellate 1 sua ferita dal Registro.' },
   { art: 'artworks/La marea di cera.png', title: 'La Marea di Cera', tipo: 'Posseduto', subito: true,
     flavor: 'Il gorgoglio si fa coro: i mestoli avanzano tutti insieme.',
     effect: 'Piazzate 1 Fonditore sull’ingresso della Banchina (T1): tutti i Fonditori in gioco si attivano subito.' },
@@ -173,25 +173,25 @@ const MINACCE = [
     effect: 'Ogni eroe prova NERVI (Facile): chi fallisce ha 1 sola azione al prossimo turno.' },
   { art: 'artworks/Il canto sale.png', title: 'Il Canto Sale', tipo: 'Crescendo',
     flavor: 'Una voce sola, sottile, cerca il tono giusto. Lo trova.',
-    effect: 'Aggiungete 1 segnalino Canto. Al terzo: il Custode della Cera si desta. Se è già in gioco: recupera 1 ferita e si attiva subito.' },
+    effect: 'Aggiungete 1 segnalino Canto. Al terzo: il Custode si desta e da lì ogni Fase Minaccia pesca 1 carta in più. Se è già in gioco: cancellate 1 sua ferita dal Registro e si attiva subito.' },
   { art: 'artworks/Il coro risponde.png', title: 'Il Coro Risponde', tipo: 'Crescendo',
     flavor: 'Dieci voci. Poi cento. La pietra le beve tutte.',
-    effect: 'Aggiungete 1 segnalino Canto. Al terzo: il Custode della Cera si desta. Se è già in gioco: recupera 1 ferita e si attiva subito.' },
+    effect: 'Aggiungete 1 segnalino Canto. Al terzo: il Custode si desta e da lì ogni Fase Minaccia pesca 1 carta in più. Se è già in gioco: cancellate 1 sua ferita dal Registro e si attiva subito.' },
   { art: 'artworks/Il canto cresce.png', title: 'Il Canto Cresce', tipo: 'Crescendo',
     flavor: 'Le voci salgono di un tono. Sotto i piedi, la pietra vibra.',
-    effect: 'Aggiungete 1 segnalino Canto. Al terzo: il Custode della Cera si desta. Se è già in gioco: recupera 1 ferita e si attiva subito.' },
+    effect: 'Aggiungete 1 segnalino Canto. Al terzo: il Custode si desta e da lì ogni Fase Minaccia pesca 1 carta in più. Se è già in gioco: cancellate 1 sua ferita dal Registro e si attiva subito.' },
   { art: 'artworks/Presagio.png', title: 'Presagio', tipo: 'Quiete',
     flavor: 'Una candela si spegne da sola. Nessuno ha fiatato.',
     effect: 'Un brivido corre lungo la schiena. Non accade nulla... per ora.' },
   { art: 'artworks/Eco amica.png', title: 'Eco Amica', tipo: 'Favore',
     flavor: 'Tre colpi sordi, ostinati: qualcuno, là sotto, è ancora vivo.',
-    effect: 'Tre colpi sordi, in lontananza: Ruggero è vivo. Rivelate una tessera coperta adiacente a una rivelata.' },
+    effect: 'Ruggero è vivo. Rivelate una tessera coperta adiacente a una già rivelata.' },
   { art: 'artworks/Cera che cola.png', title: 'Cera che Cola', tipo: 'Ostacolo',
     flavor: 'Dalle travi piove cera bollente, filo dopo filo.',
     effect: 'Fino a fine round, sulla tessera dell’eroe attivo muoversi costa il doppio.' },
   { art: 'artworks/Corrente gelida.png', title: 'Corrente Gelida', tipo: 'Ostacolo',
     flavor: 'Un freddo d’acqua nera risale i condotti e vi entra nelle ossa.',
-    effect: 'Una corrente gelida risale dai condotti: fino all’inizio del vostro prossimo turno ogni eroe ha -1 al Movimento (minimo 1).' },
+    effect: 'Fino all’inizio del vostro prossimo turno ogni eroe ha -1 al Movimento (minimo 1).' },
   { art: 'artworks/Sussurri.png', title: 'Sussurri', tipo: 'Insidia',
     flavor: 'Qualcuno pronuncia il vostro nome. Con la vostra voce.',
     effect: 'L’eroe con meno NERVI (a pari merito: sceglie il gruppo) prova NERVI (Media): se fallisce subisce 1 danno dal terrore.' },
@@ -228,7 +228,7 @@ const LUOGHI = [
   { n: 1, nome: 'Il Campanile di San Teodoro', req: 'Disponibile dall’inizio',
     testo: 'La scala a chiocciola sale nel buio, ottanta gradini che Ruggero conosceva a memoria. In cima, la cella campanaria è un disordine congelato: lo sgabello rovesciato, la lanterna ancora appesa al gancio, la cena intatta sotto un panno. Le tre grandi campane pendono immobili come bestie addormentate, e fa più freddo di quanto dovrebbe.',
     approfondimenti: [
-      { tipo: 'Osservazione', testo: 'Tra le assi, un frammento di spartito scritto a mano. Le note non sono per organo: sono per campane — e in calce, a matita, un nome e un indirizzo: «B. Ferri — vecchio magazzino delle cere, Dellacqua, Canale Basso.» Non un semplice cantore: conosce il posto meglio di chiunque altro.' },
+      { tipo: 'Osservazione', soggetto: 'Lo spartito tra le assi', testo: 'Tra le assi, un frammento di spartito scritto a mano. Le note non sono per organo: sono per campane — e in calce, a matita, un nome e un indirizzo: «B. Ferri — vecchio magazzino delle cere, Dellacqua, Canale Basso.» Non un semplice cantore: conosce il posto meglio di chiunque altro.' },
       { tipo: 'Referto', soggetto: 'La cena intatta', testo: 'La cena è ancora sotto il panno, fredda ma composta: nessun segno di lotta. Ruggero si è alzato e ha seguito qualcuno, verso le 3. Sul pavimento, fango nero dei moli intorno al vecchio magazzino di Dellacqua, sul Canale Basso — e un frammento di corda per violino, di quelle che vende solo un liutaio: chi lascia il proprio mestiere impresso ovunque passa non si intrufola.' },
     ] },
   { n: 2, nome: 'Casa di Ruggero — Vicolo dei Fonditori', req: 'Disponibile dall’inizio',
@@ -240,30 +240,30 @@ const LUOGHI = [
     testo: 'Fumo denso, vino cattivo, il tanfo dolciastro del canale che entra a ogni porta che sbatte. I barcaioli giocano a carte sotto una lampada a olio e vi squadrano appena: qui le lingue si sciolgono con poco, purché il poco finisca nel bicchiere giusto.',
     approfondimenti: [
       { tipo: 'Testimonianza', soggetto: 'Ugo il barcaiolo', testo: 'Con un altro bicchiere, Ugo precisa: la chiatta senza lanterne ha attraccato al molo terzo del Canale Basso, poco dopo le 3, scaricando dritta al vecchio magazzino delle cere di Dellacqua — quello con la porta sempre sbarrata. A dare ordini, quella notte, non era un uomo di scarico: era il liutaio Ferri in persona, voce di chi comanda.' },
-      { tipo: 'Presagio', testo: 'Mentre i barcaioli giocano, la stessa carta cade due volte: l’Annegato. Per un istante si vede, netto come un ricordo non proprio, un vecchio magazzino sul Canale Basso — quello che fu di Dellacqua — e tra le candele, una figura con le mani da liutaio. Il canale, stanotte, ha fame.' },
+      { tipo: 'Presagio', soggetto: 'La carta dell’Annegato', testo: 'Mentre i barcaioli giocano, la stessa carta cade due volte: l’Annegato. Per un istante si vede, netto come un ricordo non proprio, un vecchio magazzino sul Canale Basso — quello che fu di Dellacqua — e tra le candele, una figura con le mani da liutaio. Il canale, stanotte, ha fame.' },
     ] },
   { n: 4, nome: 'La Sagrestia della Cattedrale', req: 'Don Callisto socchiude appena la porta e non fa entrare nessuno: si fida solo di chi gli porta notizie del suo sagrestano — quello di cui, in città, tutti fanno il nome.',
     testo: 'Odore d’incenso e di chiuso. Don Callisto vi riceve tra i paramenti, nervoso, nascondendo dietro la schiena le mani sporche di cera. Alle sue spalle la porta della cripta, sbarrata con assi nuove su pietra antica: «Chiusa per lavori», taglia corto, e la voce gli si incrina sull’ultima sillaba.',
     approfondimenti: [
-      { tipo: 'Osservazione', testo: 'La cera sulle mani di don Callisto è bianca, comune: vende candele di nascosto per pagare i debiti della parrocchia. Con la cera nera non c’entra — ma sul registro delle elemosine, una voce ricorrente: consegne mensili, sempre allo stesso destinatario, «B. Ferri, per conto del magazzino Dellacqua, Canale Basso». Non un cliente qualunque.' },
+      { tipo: 'Osservazione', soggetto: 'Il registro delle elemosine', testo: 'La cera sulle mani di don Callisto è bianca, comune: vende candele di nascosto per pagare i debiti della parrocchia. Con la cera nera non c’entra — ma sul registro delle elemosine, una voce ricorrente: consegne mensili, sempre allo stesso destinatario, «B. Ferri, per conto del magazzino Dellacqua, Canale Basso». Non un cliente qualunque.' },
       { tipo: 'Testimonianza', soggetto: 'Don Callisto', testo: 'Se rassicurato, il prete crolla: certe notti dalla cripta sale un canto di molte voci — e tra tutte, una gli è fin troppo familiare: quella di Bastiano Ferri, il liutaio. «Mi ha detto lui dove si radunano davvero: un vecchio magazzino di cera sul Canale Basso, quello che fu di Dellacqua.» Troppa paura per denunciarlo, troppa vergogna per benedirlo.' },
     ] },
   { n: 5, nome: 'Bottega del Liutaio Ferri', req: 'Un vicino sorveglia la bottega da quando Ferri è sparito: si allontana solo se vi vede portare con voi qualcosa che sembra suo, come per restituirlo.',
     testo: 'La bottega è chiusa da giorni, la polvere ha già preso possesso delle vetrine; il vicino di guardia si scosta solo davanti a ciò che riportate. Dentro, violini appesi come selvaggina e un silenzio sbagliato per un luogo nato per fare musica. Il banco da lavoro è in ordine perfetto: chi è partito, sapeva di partire.',
     approfondimenti: [
-      { tipo: 'Osservazione', testo: 'Nel camino, cenere di carta ancora tiepida. Un lembo si salva, grafia febbrile: «...il Coro canta anche senza di me, ormai, anche laggiù al magazzino delle cere di Dellacqua, sul Canale Basso. Che Dio perdoni ciò che ho svegliato. — B.» La grafia è la stessa del registro consegne sul banco: quella del liutaio Ferri.' },
+      { tipo: 'Osservazione', soggetto: 'La cenere nel camino', testo: 'Nel camino, cenere di carta ancora tiepida. Un lembo si salva, grafia febbrile: «...il Coro canta anche senza di me, ormai, anche laggiù al magazzino delle cere di Dellacqua, sul Canale Basso. Che Dio perdoni ciò che ho svegliato. — B.» La grafia è la stessa del registro consegne sul banco: quella del liutaio Ferri.' },
       { tipo: 'Referto', soggetto: 'Residui sulle lime', testo: 'Su lime e sgorbie, incrostazioni di cera nera — non la pece da liutaio. Qui Ferri lavorava le candele del culto: la sua bottega è l’unica officina della città attrezzata per fonderle in quantità. Sul registro, l’ultima consegna è diretta al vecchio magazzino delle cere di Dellacqua, sul Canale Basso — non un grammo di bronzo in vista: qualunque cosa venda Learco il ramaio, non passa da qui.' },
     ] },
   { n: 6, nome: 'Il Canale Basso', req: 'Il guardiano del molo non vi lascia avvicinare: aspetta che gli diciate la parola giusta, quella sentita altrove, tra un bicchiere e l’altro.',
     testo: 'L’acqua qui non scorre: sta. Nera, ferma, densa come olio, lambisce magazzini ciechi dai portoni murati. Il guardiano notturno esce dal casotto con la lanterna alzata e, per qualche moneta, la diffidenza si scioglie in fretta: da settimane muore dalla voglia di raccontare a qualcuno quello che sente la notte.',
     approfondimenti: [
       { tipo: 'Testimonianza', soggetto: 'Il guardiano notturno', testo: 'Il guardiano abbassa la voce. «Certe notti li ho visti entrare — un fornaio, un sagrestano, gente che saluto al mercato — sempre dallo stesso magazzino, quello che fu di Dellacqua. E tra loro, sempre lui: il liutaio Ferri.» Uscivano all’alba con gli occhi vuoti. Non erano più loro.' },
-      { tipo: 'Presagio', testo: 'Sfiorare l’acqua nera basta: non è fredda, sembra vigile. Per un istante si vede, netto come attraverso occhi non propri, l’interno del vecchio magazzino delle cere di Dellacqua, sul Canale Basso — e tra le candele, le mani di un liutaio. Qualcosa, sotto la città, conta i passi sul molo.' },
+      { tipo: 'Presagio', soggetto: 'L’acqua che ascolta', testo: 'Sfiorare l’acqua nera basta: non è fredda, sembra vigile. Per un istante si vede, netto come attraverso occhi non propri, l’interno del vecchio magazzino delle cere di Dellacqua, sul Canale Basso — e tra le candele, le mani di un liutaio. Qualcosa, sotto la città, conta i passi sul molo.' },
     ] },
   { n: 7, nome: 'L’Archivio Civico', req: 'L’archivista non alza lo sguardo finché non pronunciate la parola che avete già sentito da qualche parte in città.',
     testo: 'Scaffali fino al soffitto, cartelle legate con lo spago, la luce verde delle lampade a schermo. L’archivista, minuscolo dietro occhiali spessi, si irrigidisce quando pronunciate la parola giusta: poi, senza fiatare, vi guida a uno scaffale che nessuno tocca da decenni — la polvere è spessa un dito, tranne che su un solo fascicolo.',
     approfondimenti: [
-      { tipo: 'Osservazione', testo: 'Le mani dell’archivista tremano su un solo scaffale. Sul fascicolo, due note a margine, la stessa calligrafia frettolosa: «il sigillo a onda è ancora inciso nella cripta, sotto l’altare» e, più sotto, quasi illeggibile, «B. Ferri ha ripreso il posto del fondatore — vecchio magazzino Dellacqua, Canale Basso — nessuno osa contraddirlo». Chi ha scritto, temeva di essere letto.' },
+      { tipo: 'Osservazione', soggetto: 'Le note a margine', testo: 'Le mani dell’archivista tremano su un solo scaffale. Sul fascicolo, due note a margine, la stessa calligrafia frettolosa: «il sigillo a onda è ancora inciso nella cripta, sotto l’altare» e, più sotto, quasi illeggibile, «B. Ferri ha ripreso il posto del fondatore — vecchio magazzino Dellacqua, Canale Basso — nessuno osa contraddirlo». Chi ha scritto, temeva di essere letto.' },
     ] },
   { n: 8, nome: 'La Gendarmeria', req: 'Disponibile dall’inizio',
     testo: 'Pile di pratiche, una stufa che fuma, il brigadiere che vi riceve senza alzarsi. «Il campanaro? Sarà scappato con qualche vedova.» Ma mentre lo dice non vi guarda negli occhi, e la sua mano tamburella su un fascicolo di denunce che continua a spostare da un lato all’altro della scrivania.',
@@ -309,11 +309,16 @@ const LUOGHI = [
 const INDIZI = LUOGHI.flatMap((L) => {
   const righe = L.approfondimenti.filter((a) => a.tipo === 'Osservazione' || a.tipo === 'Presagio');
   if (!righe.length) return [];
+  // Il titolo usa il SOGGETTO della riga, mai il nome del luogo: la bibbia
+  // (1-bis) vieta qualunque riferimento al luogo sulle carte, fronte o retro
+  // - il ponte carta<->luogo vive solo nel fascicolo Luoghi (che elenca le
+  // carte proprio per questo soggetto).
+  const sogg = righe[0].soggetto;
   return [{
     art: L.art, n: L.n, kind: 'Indizio',
-    title: `Indizio Nascosto — ${L.nome}`,
-    file: `Episodio 1/Indizi/${L.nome}`,
-    type: `Luogo ${L.n} · Osservazione / Presagio`,
+    title: `Indizio Nascosto — ${sogg}`,
+    file: `Episodio 1/Indizi/${sogg.replace(/’/g, "'")}`,
+    type: `Osservazione / Presagio`,
     rules: `{i}${righe.map((a) => `◆ (${a.tipo}) ${a.testo}`).join('\n')}{/i}`,
   }];
 });
@@ -347,7 +352,7 @@ const REFERTI = LUOGHI.flatMap((L) =>
 const OGGETTI = [
   { art: 'artworks/Corda di Violino.png', nome: 'Corda di Violino d’Argento', ref: 'L2', fonte: 'Luogo 2 — Casa di Ruggero',
     flavor: 'Ancora tesa, come se qualcuno l’avesse suonata ieri.',
-    effetto: 'Sblocca la visita al Luogo 5 (Bottega del Liutaio Ferri).' },
+    effetto: 'A Roccamora una corda così la vende una sola bottega — e qualcuno, lì, potrebbe volerla indietro.' },
   { art: 'artworks/Ampolla Benedetta.png', nome: 'Ampolla di Acqua Benedetta', ref: 'L4', fonte: 'Luogo 4 — La Sagrestia della Cattedrale',
     flavor: '«Se là sotto c’è il demonio, portate questa», vi dice, e non vi guarda negli occhi.',
     effetto: 'Effetto: nessuno finora scoperto.' },
@@ -359,7 +364,7 @@ const OGGETTI = [
     effetto: '+1 alle prove per forzare e scassinare.' },
   { art: 'artworks/Talismano Onda.png', nome: 'Un Talismano a Forma d’Onda', ref: 'T3', fonte: 'Si trova cercando in T3 — Corridoio delle Candele',
     flavor: 'Tiepido al tatto, come se qualcuno lo stringesse un istante prima di voi.',
-    effetto: '+1 NERVI finché lo portate. È caldo, come stretto un istante prima da un’altra mano: prenderlo è una scelta. Se lo lasciate lì, nessuna conseguenza. Se lo prendete, prova NERVI (Media): se fallita, cera bollente — 1 danno e perdete 1 azione al prossimo turno (il talismano resta comunque vostro).' },
+    effetto: '+1 NERVI finché lo portate. Prenderlo è una scelta: se lo lasciate lì, nessuna conseguenza. Se lo prendete, prova NERVI (Media): fallita, cera bollente — 1 danno e perdete 1 azione al prossimo turno (il talismano resta comunque vostro).' },
   { art: 'artworks/Chiave della Cella.png', nome: 'La Chiave della Cella', ref: 'T4', fonte: 'Si trova cercando in T4 — Ufficio del Custode',
     flavor: 'Ruggine recente sul dente: uso frequente.',
     effetto: 'Apre la cella in T6 con Interagire, senza prove. La chiave pende da un filo teso a un vasetto rovesciato: prenderla è una scelta. Se la lasciate lì, il registro resta comunque leggibile. Se la prendete, prova NERVI (Media): se fallita, i fumi vi stordiscono — 1 sola azione al prossimo turno (la chiave resta comunque vostra).' },
@@ -400,8 +405,8 @@ const PRELUDIO_LUOGHI = [
 
 const PRELUDIO_APPROFONDIMENTI = [
   { art: 'artworks/Palazzo del Lume.png', kind: 'Indizio',
-    title: 'Indizio Nascosto — Il Palazzo del Lume',
-    file: 'Preludio/Indizio - Il Palazzo del Lume',
+    title: 'Indizio Nascosto — La polvere smossa a metà',
+    file: 'Preludio/Indizio - La polvere smossa a meta',
     type: 'Preludio · Osservazione',
     rules: '{i}◆ (Osservazione) La polvere sullo scaffale del 1741 è smossa solo a metà: chi ha preso il fascicolo sapeva DOVE cercare, ma non era pratico dell’archivio. Non era Ansaldo — e nemmeno un ladro qualunque.{/i}' },
   { art: 'artworks/Taverna della Chiatta.png', kind: 'Testimone',
@@ -415,8 +420,8 @@ const PRELUDIO_APPROFONDIMENTI = [
     type: 'Preludio · Referto',
     rules: '{i}Il vetro è incrinato e sulla corona c’è sangue secco, ma poco: un colpo solo, di taglio, non una colluttazione lunga. Ansaldo è stato tramortito, non ucciso — un morto non serve a chi ha ancora domande da fargli.{/i}' },
   { art: 'artworks/Dogana Vecchia.png', kind: 'Indizio',
-    title: 'Indizio Nascosto — La Dogana Vecchia',
-    file: 'Preludio/Indizio - La Dogana Vecchia',
+    title: 'Indizio Nascosto — Le due voci sotto la banchina',
+    file: 'Preludio/Indizio - Le due voci sotto la banchina',
     type: 'Preludio · Presagio',
     rules: '{i}◆ (Presagio) Chi si sofferma ad ascoltare i colpi sotto la banchina giurerebbe che, per un istante, rispondono in due voci — non una. Come se qualcosa, là sotto, stesse imparando la cadenza.{/i}' },
 ];

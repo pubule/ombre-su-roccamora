@@ -87,7 +87,7 @@ HEROES = [
          salute=6, difesa=8,
          abil=('<b>Discernimento</b> — In indagine: una volta per episodio indica un luogo; '
                'chi tiene il fascicolo Luoghi dice se vi si nasconde ancora qualcosa (solo '
-               'sì o no, mai cosa). Se sì, la visita a quel luogo non costa l’ora. In '
+               'sì o no, mai cosa). Se sì, la visita a quel luogo non costa l’ora (e non conta come ora avanzata). In '
                'spedizione, <b>Litania</b> (1 volta): con un’azione la sua voce copre il '
                'coro — rimuovete 1 segnalino Canto.'),
          equip='Crocifisso di ferro (arma, +1), breviario annotato, stola consunta (1 uso a '
@@ -153,7 +153,7 @@ LUOGHI = [
                  'Sul legno della balaustra, unghiate profonde intorno a una scritta quasi '
                  'cancellata. Ci vuole un attimo per ricomporla: <b>sommerso</b>.'],
          approfondimenti=[
-             dict(tipo='Osservazione',
+             dict(tipo='Osservazione', soggetto='Lo spartito tra le assi',
                   testo='Tra le assi, un frammento di spartito scritto a mano. Le note non sono per organo: sono per '
                         '<b>campane</b> — e in calce, a matita, un nome e un indirizzo: «B. Ferri — vecchio '
                         'magazzino delle cere, Dellacqua, Canale Basso.» Non un semplice cantore: conosce il posto '
@@ -202,7 +202,7 @@ LUOGHI = [
                         'magazzino delle cere di Dellacqua — quello con la porta sempre sbarrata. A dare ordini, '
                         'quella notte, non era un uomo di scarico: era il liutaio Ferri in persona, voce di chi '
                         'comanda.'),
-             dict(tipo='Presagio',
+             dict(tipo='Presagio', soggetto='La carta dell’Annegato',
                   testo='Mentre i barcaioli giocano, la stessa carta cade due volte: l’Annegato. Per un istante '
                         'si vede, netto come un ricordo non proprio, un vecchio magazzino sul Canale Basso — '
                         'quello che fu di Dellacqua — e tra le candele, una figura con le mani da liutaio. '
@@ -219,7 +219,7 @@ LUOGHI = [
                  'Prima che usciate, vi mette in mano un’<b>ampolla di acqua benedetta</b>: «Se là '
                  'sotto c’è il demonio, portate questa.»'],
          approfondimenti=[
-             dict(tipo='Osservazione',
+             dict(tipo='Osservazione', soggetto='Il registro delle elemosine',
                   testo='La cera sulle mani di don Callisto è bianca, comune: vende candele di nascosto per '
                         'pagare i debiti della parrocchia. Con la cera nera non c’entra — ma sul registro delle '
                         'elemosine, una voce ricorrente: consegne mensili, sempre allo stesso destinatario, «B. '
@@ -245,7 +245,7 @@ LUOGHI = [
                  'Uno spartito: «Dal Profondo», riscritto <b>per campane</b>. In margine: «il bronzo canta, '
                  'la pietra risponde, l’acqua ricorda».'],
          approfondimenti=[
-             dict(tipo='Osservazione',
+             dict(tipo='Osservazione', soggetto='La cenere nel camino',
                   testo='Nel camino, cenere di carta ancora tiepida. Un lembo si salva, grafia febbrile: '
                         '«...il Coro canta anche senza di me, ormai, anche laggiù al magazzino delle cere di '
                         'Dellacqua, sul Canale Basso. Che Dio perdoni ciò che ho svegliato. — B.» La grafia è la '
@@ -274,7 +274,7 @@ LUOGHI = [
                         'sagrestano, gente che saluto al mercato — sempre dallo stesso magazzino, quello che fu '
                         'di Dellacqua. E tra loro, sempre lui: il liutaio Ferri.» Uscivano all’alba con gli occhi '
                         'vuoti. Non erano più loro.'),
-             dict(tipo='Presagio',
+             dict(tipo='Presagio', soggetto='L’acqua che ascolta',
                   testo='Sfiorare l’acqua nera basta: non è fredda, sembra vigile. Per un istante si vede, netto '
                         'come attraverso occhi non propri, l’interno del vecchio magazzino delle cere di '
                         'Dellacqua, sul Canale Basso — e tra le candele, le mani di un liutaio. Qualcosa, sotto '
@@ -292,7 +292,7 @@ LUOGHI = [
                  'Registro consultazioni, due mesi fa: «<b>B. Ferri, liutaio</b>» ha richiesto questo '
                  'stesso fascicolo.'],
          approfondimenti=[
-             dict(tipo='Osservazione',
+             dict(tipo='Osservazione', soggetto='Le note a margine',
                   testo='Le mani dell’archivista tremano su un solo scaffale. Sul fascicolo, due note a margine, '
                         'la stessa calligrafia frettolosa: «il sigillo a onda è ancora inciso nella cripta, '
                         'sotto l’altare» e, più sotto, quasi illeggibile, «B. Ferri ha ripreso il posto del '
@@ -333,7 +333,7 @@ LUOGHI = [
 OGGETTI = [
     dict(nome='CORDA DI VIOLINO D’ARGENTO', ref='L2', fonte='Luogo 2 — Casa di Ruggero',
          flavor='Ancora tesa, come se qualcuno l’avesse suonata ieri.',
-         effetto='Sblocca la visita al Luogo 5 (Bottega del Liutaio Ferri).'),
+         effetto='A Roccamora una corda così la vende una sola bottega — e qualcuno, lì, potrebbe volerla indietro.'),
     dict(nome='AMPOLLA DI ACQUA BENEDETTA', ref='L4', fonte='Luogo 4 — La Sagrestia della Cattedrale',
          flavor='«Se là sotto c’è il demonio, portate questa», vi dice, e non vi guarda negli occhi.',
          effetto='Effetto: nessuno finora scoperto.'),
@@ -393,12 +393,12 @@ MINACCE = (
     [('ADEPTO IN AGGUATO', 'Piazzate 1 Adepto sull’uscita più vicina agli eroi della tessera in cui si trova l’eroe attivo.', 'posseduto', False),
      ('VOLTI TRA LE CASSE', 'Piazzate 1 Adepto sull’uscita più vicina agli eroi della tessera corrente: si è intrufolato dietro le casse.', 'posseduto', False),
      ('IL FALCETTO NEL BUIO', 'Piazzate 1 Adepto sull’ingresso della tessera corrente, alle spalle degli eroi.', 'posseduto', False),
-     ('LA VEDETTA', 'Piazzate 1 Adepto adiacente all’eroe più isolato (quello più lontano dagli altri; a pari merito, l’eroe attivo).', 'posseduto', False)] +
+     ('LA VEDETTA', 'Piazzate 1 Adepto adiacente all’eroe più isolato (quello più lontano dagli altri; a pari merito: sceglie il gruppo).', 'posseduto', False)] +
     # famiglia CANI (2)
     [('CANI DEI MOLI', 'Piazzate 1 Cane dei Moli sull’uscita più vicina agli eroi della tessera corrente: si attiva subito.', 'posseduto', True),
      ('UNGHIE SULLA PIETRA', 'Piazzate 1 Cane dei Moli sull’ingresso della tessera corrente: si attiva subito.', 'posseduto', True)] +
     # famiglia FONDITORE (2)
-    [('IL FONDITORE', 'Piazzate 1 Fonditore sull’ingresso della Banchina (T1). Se è già in gioco un Fonditore, recupera 1 ferita.', 'posseduto', False),
+    [('IL FONDITORE', 'Piazzate 1 Fonditore sull’ingresso della Banchina (T1). Se è già in gioco un Fonditore, cancellate 1 sua ferita dal Registro.', 'posseduto', False),
      ('LA MAREA DI CERA', 'Piazzate 1 Fonditore sull’ingresso della Banchina (T1): tutti i Fonditori in gioco si attivano subito.', 'posseduto', True)] +
     [('RONDA', 'Piazzate 2 Adepti sull’ingresso della Banchina (T1).', 'posseduto', False)] +
     # famiglia MALAVITA (3): i bravacci secolari a libro paga del culto
@@ -410,13 +410,13 @@ MINACCE = (
      ('CERA SOTTO I PIEDI', 'L’eroe attivo prova NERVI (Media): se fallisce, 1 danno e perde 1 azione al prossimo turno.', 'insidia', False)] +
     [('FUMI SOPORIFERI', 'Ogni eroe prova NERVI (Facile): chi fallisce ha 1 sola azione al prossimo turno.', 'insidia', False)] +
     # famiglia CANTO (3): crescendo, effetto identico
-    [('IL CANTO SALE', 'Aggiungete 1 segnalino Canto. Al terzo: il Custode della Cera si desta (vedi Soluzione). Se è già in gioco: recupera 1 ferita e si attiva subito.', 'crescendo', False),
-     ('IL CORO RISPONDE', 'Aggiungete 1 segnalino Canto. Al terzo: il Custode della Cera si desta (vedi Soluzione). Se è già in gioco: recupera 1 ferita e si attiva subito.', 'crescendo', False),
-     ('IL CANTO CRESCE', 'Aggiungete 1 segnalino Canto. Al terzo: il Custode della Cera si desta (vedi Soluzione). Se è già in gioco: recupera 1 ferita e si attiva subito.', 'crescendo', False)] +
+    [('IL CANTO SALE', 'Aggiungete 1 segnalino Canto. Al terzo: il Custode della Cera si desta e da quel momento ogni Fase Minaccia pesca 1 carta in più (vedi Soluzione). Se è già in gioco: cancellate 1 sua ferita dal Registro e si attiva subito.', 'crescendo', False),
+     ('IL CORO RISPONDE', 'Aggiungete 1 segnalino Canto. Al terzo: il Custode della Cera si desta e da quel momento ogni Fase Minaccia pesca 1 carta in più (vedi Soluzione). Se è già in gioco: cancellate 1 sua ferita dal Registro e si attiva subito.', 'crescendo', False),
+     ('IL CANTO CRESCE', 'Aggiungete 1 segnalino Canto. Al terzo: il Custode della Cera si desta e da quel momento ogni Fase Minaccia pesca 1 carta in più (vedi Soluzione). Se è già in gioco: cancellate 1 sua ferita dal Registro e si attiva subito.', 'crescendo', False)] +
     [('PRESAGIO', 'Un brivido corre lungo la schiena. Non accade nulla... per ora.', 'quiete', False)] +
-    [('ECO AMICA', 'Tre colpi sordi, in lontananza: Ruggero è vivo. Rivelate una tessera coperta adiacente a una rivelata.', 'favore', False)] +
+    [('ECO AMICA', 'Ruggero è vivo. Rivelate una tessera coperta adiacente a una già rivelata.', 'favore', False)] +
     [('CERA CHE COLA', 'Fino a fine round, sulla tessera dell’eroe attivo muoversi costa il doppio.', 'ostacolo', False)] +
-    [('CORRENTE GELIDA', 'Una corrente gelida risale dai condotti: fino all’inizio del vostro prossimo turno ogni eroe ha -1 al Movimento (minimo 1).', 'ostacolo', False)] +
+    [('CORRENTE GELIDA', 'Fino all’inizio del vostro prossimo turno ogni eroe ha -1 al Movimento (minimo 1).', 'ostacolo', False)] +
     [('SUSSURRI', 'L’eroe con meno NERVI (a pari merito: sceglie il gruppo) prova NERVI (Media): se fallisce subisce 1 danno dal terrore.', 'insidia', False)]
 )
 
@@ -436,9 +436,7 @@ NEMICI = [
     dict(nome='IL FONDITORE', att=1, dif=8, fer=2, mov=2, dan=2,
          tipo='Fonditore', art='Il Fonditore.png',
          note='Gli artigiani del culto: grembiule di cuoio, mestolo colmo di cera fusa, la '
-              'pazienza di chi ha versato mille candele. Non corrono mai: non ne hanno bisogno. '
-              'Chi viene ferito dal Fonditore si muove di 1 casella in meno nel suo prossimo '
-              'turno (la cera si addensa addosso).'),
+              'pazienza di chi ha versato mille candele. Non corrono mai: non ne hanno bisogno.'),
     dict(nome='IL CUSTODE DELLA CERA', att=3, dif=9, fer=3, mov=3, dan=2,
          tipo='Custode (Boss)', art='Il Custode della Cera (boss).png', boss=True,
          note='Un gigante ricoperto di cera colata, il volto un moncone liscio. Se il diapason '
