@@ -17,7 +17,7 @@
 set -e
 cd "$(dirname "${BASH_SOURCE[0]}")"
 
-echo "== Tessere (board/Episodio 1/) =="
+echo "== Tessere (Episodio 1/board/) =="
 node scripts/tiles/generate-tiles.js
 
 echo "== Carte (cards/) =="
@@ -51,4 +51,4 @@ echo "== Stampa completa unica, tutto fronte/retro (non committato) =="
 # di stampa a piena risoluzione, non un errore.
 python scripts/merge-print-all.py
 
-echo "== Fatto: pdf/, cards/, board/Episodio 1/, reperti/ aggiornati =="
+echo "== Fatto: Comune/, Preludio/, Episodio 1/, Episodio 2/ aggiornati =="

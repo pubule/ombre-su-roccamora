@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Ombre su Roccamora - EPISODIO 2: La voce del bronzo (pdf/Episodio 2/).
+"""Ombre su Roccamora - EPISODIO 2: La voce del bronzo (Episodio 2/pdf/).
 
 Fase B-3 del piano (vedi DESIGN-EPISODIO-2.md, la fonte di design di tutto
 questo file). Caso "della settimana": il furto dei pani del Quarantuno -
@@ -28,7 +28,7 @@ from deluxe_style import (register_fonts, parchment_art, pad_to_even_pages, rule
                           seal, wave, F, INK, RED, TEAL, GOLD as OGOLD, SEPIA)
 from gen_gothic import registro_ferite, st as st_gothic
 
-OUT_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'pdf', 'Episodio 2')
+OUT_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'Episodio 2', 'pdf')
 os.makedirs(OUT_DIR, exist_ok=True)
 register_fonts()
 W, H = A4
@@ -446,8 +446,8 @@ def spedizione():
     frame_flow(c, 28*mm, H - 108*mm, W - 56*mm, 55*mm, [
         Paragraph('Le 23 carte Minaccia dell’episodio (le 2 «Segugi del Coro» SOLO se il vostro '
                   'Bivio lo dice — vedi Soluzione) e le schede Nemici sono carte a parte '
-                  '(cartelle <b>cards/Episodio 2/</b>). Le 6 tessere della Fonderia Vecchia sono '
-                  'in <b>board/Episodio 2/</b>. Le pagine seguenti sono le note per tessera: il '
+                  '(cartella <b>Episodio 2/cards/</b>). Le 6 tessere della Fonderia Vecchia sono '
+                  'in <b>Episodio 2/board/</b>. Le pagine seguenti sono le note per tessera: il '
                   '<b>fronte</b> si legge ad alta voce quando una tessera viene rivelata; il '
                   '<b>retro del foglio</b> è solo per chi tiene questo fascicolo — dice cosa '
                   'nasconde ogni tessera, e si consulta SOLO quando un eroe Cerca (o prova ad '
@@ -603,7 +603,7 @@ def soluzione():
         'gettone Intuizione, come sempre.',
     ])
     pagina('spedizione — montaggio e boss', [
-        '<b>Montaggio</b> (tessere in board/Episodio 2/, coperte tranne T1):<br/>'
+        '<b>Montaggio</b> (tessere in Episodio 2/board/, coperte tranne T1):<br/>'
         'T1 Banchina (ingresso, da Sud) → T2 Piazzale delle Forme → a Est T3 Magazzino delle '
         'Staffe (ramo opzionale) → a Nord T4 Passerella → T5 Ufficio del Pesatore (Ilario) → a '
         'Est T6 Sala dei Forni (lo Scoriatore).',

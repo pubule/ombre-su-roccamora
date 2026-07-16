@@ -39,15 +39,15 @@ in una città immaginaria di canali e campanili nel 1889. Unisce indagine alla
   ogni episodio sta al livello comune, il resto in una sottocartella per
   episodio (mai al livello comune, per evitare confusione su cosa vale per
   quale storia):
-  - `cards/Eroi/` — per la scelta del personaggio a inizio serata (dettagli
+  - `Comune/cards/Eroi/` — per la scelta del personaggio a inizio serata (dettagli
     sulla Scheda), comune
   - `cards/Nemici/` — solo la Malavita (Sgherro, Sicario): nemici secolari
     dichiaratamente riusabili in ogni episodio, comune
-  - `cards/Episodio 1/` — Nemici del culto, Minacce, Luoghi, Indizi Nascosti,
+  - `Episodio 1/cards/` — Nemici del culto, Minacce, Luoghi, Indizi Nascosti,
     Testimoni, Referti, Oggetti di questo episodio
-  - `cards/Preludio/` — le 9 carte del tutorial (poche, restano piatte senza
+  - `Preludio/cards/` — le 9 carte del tutorial (poche, restano piatte senza
     sottocartelle per tipo)
-  - `board/Episodio 1/` — le 6 tessere T1-T6 della Spedizione,
+  - `Episodio 1/board/` — le 6 tessere T1-T6 della Spedizione,
     griglia+arredi+porte pronte (il Preludio riusa T1/T2/T4 da qui)
   - `reperti/Episodio 1/`, `reperti/Preludio/` — documenti-reperto (diario,
     registro, atti d'archivio) da consegnare durante l'indagine, composti su
@@ -100,15 +100,15 @@ node scripts/cardconjurer/generate-batch.js            # tutte (eroi, nemici, mi
 node scripts/cardconjurer/generate-batch.js luoghi     # solo un gruppo (heroes|nemici|minacce|luoghi|indizi|testimoni|referti|oggetti|preludio)
 node scripts/cardconjurer/generate-test.js "Elena Fosco" "Il Fonditore"   # solo carte specifiche, per titolo
 node scripts/cardconjurer/generate-print-sheets.js     # fronte/retro pronto da stampare, DIVISO PER BUCKET (non committati):
-                                                        #   pdf/Comune/Carte.pdf (Eroi + Nemici/Minacce Malavita)
-                                                        #   pdf/Preludio/Carte.pdf (solo le carte del Preludio)
-                                                        #   pdf/Episodio 1/Carte-e-Tessere.pdf (carte dell'episodio + le 6 tessere)
+                                                        #   Comune/pdf/Carte.pdf (Eroi + Nemici/Minacce Malavita)
+                                                        #   Preludio/pdf/Carte.pdf (solo le carte del Preludio)
+                                                        #   Episodio 1/Carte-e-Tessere.pdf (carte dell'episodio + le 6 tessere)
 ```
 
 Le tessere stanno nel bucket Episodio 1, non in Comune: sono sue
-(`board/Episodio 1/`); il Preludio ne riusa 3 (T1/T2/T4) solo perche' cosi'
+(`Episodio 1/board/`); il Preludio ne riusa 3 (T1/T2/T4) solo perche' cosi'
 e' stato scritto, non perche' siano un prop condiviso tra episodi — per
-giocare il Preludio serve quindi anche `pdf/Episodio 1/Carte-e-Tessere.pdf`,
+giocare il Preludio serve quindi anche `Episodio 1/Carte-e-Tessere.pdf`,
 non solo Comune + Preludio. Il bucket di ogni carta si legge dal suo campo
 `file` in `cards-data.js` (`Episodio 1/...`, `Preludio/...`, o nessuno dei
 due = Comune) — vedi il commento in testa a `generate-print-sheets.js`. Un
@@ -142,7 +142,7 @@ rigenerati in locale.
 ## Rigenerare tessere e reperti
 
 ```bash
-node scripts/tiles/generate-tiles.js     # le 6 tessere T1-T6 (board/Episodio 1/)
+node scripts/tiles/generate-tiles.js     # le 6 tessere T1-T6 (Episodio 1/board/)
 node scripts/reperti/generate-reperti.js # diario, registro, fascicolo + retro pergamena (reperti/)
 ```
 

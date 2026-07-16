@@ -13,7 +13,7 @@ const fs = require('fs');
 const { pathToFileURL } = require('url');
 
 const ROOT = path.resolve(__dirname, '..', '..');
-const OUT_DIR = path.join(ROOT, 'board', 'Episodio 1');
+const OUT_DIR = path.join(ROOT, 'Episodio 1', 'board');
 fs.mkdirSync(OUT_DIR, { recursive: true });
 
 const S = 2464; // 1600 * 200/130, arrotondato a multiplo di 4: tessera 130mm->200mm

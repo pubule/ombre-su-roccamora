@@ -23,7 +23,7 @@ const BG = pathToFileURL(path.join(ROOT, 'artworks', 'Sfondo pergamena per i Rep
 // cera vera, dove il .jpg forzato in un cerchio perfetto tagliava nel suo
 // sfondo a scacchi finto-trasparente invece che seguire il bordo del sigillo.
 const SEAL = `data:image/png;base64,${fs.readFileSync(path.join(ROOT, 'artworks', 'Sigillo.png')).toString('base64')}`;
-const OUT_DIR = path.join(ROOT, 'reperti');
+const OUT_DIR = path.join(ROOT);
 fs.mkdirSync(OUT_DIR, { recursive: true });
 
 const W = 1500;
@@ -195,7 +195,7 @@ Chi canterà al di sotto, non si lamenti di ciò che al di sotto risponde.`;
   ];
 
   for (const [episodio, name, html] of items) {
-    const episodioDir = path.join(OUT_DIR, episodio);
+    const episodioDir = path.join(OUT_DIR, episodio, 'reperti');
     fs.mkdirSync(episodioDir, { recursive: true });
     // page.setContent() gira su origin about:blank, che Chromium non lascia
     // caricare risorse file:// (sfondo/sigillo restavano bianchi). Scrivendo

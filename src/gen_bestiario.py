@@ -25,7 +25,7 @@ from gen_cards import HEROES, LUOGHI, MINACCE, NEMICI, TILES
 import story
 story.apply(LUOGHI, TILES, NEMICI, HEROES, MINACCE)
 
-OUT_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'pdf')
+OUT_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 register_fonts()
 W, H = A4
 
@@ -207,13 +207,13 @@ if __name__ == '__main__':
     # Episodio 1: tutti i nemici, compresi i comuni (Malavita) - ogni
     # Bestiario di episodio e' autocontenuto.
     bestiario([n['nome'] for n in NEMICI],
-              os.path.join(OUT_DIR, 'Episodio 1', 'Bestiario.pdf'),
+              os.path.join(OUT_DIR, 'Episodio 1', 'pdf', 'Bestiario.pdf'),
               'Ombre su Roccamora - Bestiario Episodio 1')
     # Preludio: solo la Malavita in campo (2 Sgherri + 1 Sicario, vedi
     # gen_preludio) - prima le statistiche vivevano sulle carte Creatura
     # dell'Episodio 1, ora il Preludio ha il proprio Bestiario e resta
     # giocabile da solo.
     bestiario(['LO SGHERRO', 'IL SICARIO'],
-              os.path.join(OUT_DIR, 'Preludio', 'Bestiario.pdf'),
+              os.path.join(OUT_DIR, 'Preludio', 'pdf', 'Bestiario.pdf'),
               'Ombre su Roccamora - Bestiario del Preludio')
     print('OK bestiario')

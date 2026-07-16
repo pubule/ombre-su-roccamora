@@ -10,8 +10,8 @@ from reportlab.platypus import (SimpleDocTemplate, Paragraph, Spacer,
 from deluxe_style import (register_fonts, parchment_art, pad_to_even_pages, seal, F,
                           INK, RED, RED_DK, TEAL, GOLD, SEPIA, PAPER_DK)
 
-OUT_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'pdf')
-EP1_DIR = os.path.join(OUT_DIR, 'Episodio 1')
+OUT_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'Comune', 'pdf')
+EP1_DIR = os.path.join(OUT_DIR, '..', '..', 'Episodio 1', 'pdf')
 os.makedirs(EP1_DIR, exist_ok=True)
 register_fonts()
 PAPER = PAPER_DK
@@ -482,7 +482,7 @@ def regolamento():
                 'potete. Teneteli da parte, coperti, e consegnateli quando il gruppo trova l’indizio '
                 'corrispondente (vedi sopra).'))
     e.append(LI('<b>Spedizione</b> (in <i>Episodio 1/</i>): carte Minaccia e miniature su cartoncino; '
-                'ritagliate tutto. Le tessere (cartella <b>board/Episodio 1/</b>) sono immagini singole, '
+                'ritagliate tutto. Le tessere (cartella <b>Episodio 1/board/</b>) sono immagini singole, '
                 'nessun PDF le forza a una dimensione: stampatele a <b>200×200mm</b> (caselle da 5cm, '
                 'la taglia minima comoda per muovere le miniature).'))
     e.append(LI('<b>Bestiario</b> (in <i>Episodio 1/</i>): una pagina per nemico — bio, statistiche e '

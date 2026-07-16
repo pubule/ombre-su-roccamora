@@ -3,12 +3,12 @@
 // Episodio 1 (ognuno solo le proprie carte specifiche: Nemici del culto,
 // Luoghi, Oggetti, Indizi Nascosti, Testimoni, Referti, Minacce non-
 // Malavita). Le tessere T1-T6 stanno nel bucket Episodio 1, NON in Comune:
-// sono sue (board/Episodio 1/), il Preludio ne riusa 3 (T1/T2/T4, vedi
+// sono sue (Episodio 1/board/), il Preludio ne riusa 3 (T1/T2/T4, vedi
 // TESSERE_P in src/gen_preludio.py) solo per come e' stato scritto oggi,
 // non perche' siano concettualmente un prop condiviso tra episodi - un
 // episodio futuro con una propria ambientazione avra' le sue tessere.
 // Effetto pratico: per giocare il Preludio serve anche
-// `pdf/Episodio 1/Carte.pdf` (le tessere), non solo Comune + Preludio.
+// `Episodio 1/pdf/Carte-e-Tessere.pdf` (le tessere), non solo Comune + Preludio.
 // Chi ha gia' stampato il Comune non ristampa Eroi/Malavita quando arriva
 // l'Episodio 1 o un episodio futuro - vedi PROMPT-ESPANSIONE.md. Il bucket
 // di ogni carta si legge dal suo campo `file` (gia' la fonte di verita' per
@@ -36,7 +36,7 @@
 // Indizi Nascosti/Testimoni/Referti restano un mazzo coperto unico in gioco
 // (vedi regolamento): dorsi diversi per tipo ma stessa famiglia visiva (teal,
 // stesso stile), cosi' si riconosce il tipo ma MAI il luogo - niente sulla
-// carta deve permettere di dedurre dove cercare (vedi pdf/Episodio 1/Luoghi.pdf,
+// carta deve permettere di dedurre dove cercare (vedi Episodio 1/pdf/Luoghi.pdf,
 // generato da src/gen_narrator.py, per quella mappa).
 //
 // Dimensione carta: 68x95.2mm (rapporto 1.4, identico alle carte reali
@@ -56,6 +56,7 @@ const fs = require('fs');
 const path = require('path');
 const { pathToFileURL } = require('url');
 const { chromium } = require('playwright');
+const { cardDiskPath } = require('./lib');
 const { HEROES, NEMICI, MINACCE, LUOGHI, OGGETTI, INDIZI, TESTIMONI, REFERTI,
         PRELUDIO_LUOGHI, PRELUDIO_APPROFONDIMENTI, PRELUDIO_OGGETTI,
         LUOGHI2, EP2_INDIZI, EP2_TESTIMONI, EP2_REFERTI, EP2_MINACCE, EP2_OGGETTI, EP2_NEMICI } = require('./cards-data');
@@ -92,15 +93,20 @@ const SIMPLE_DECKS = [
 // n.file/m.file in cards-data.js). Nessun flag duplicato da tenere
 // allineato a mano.
 function bucketOf(file) {
-  if (file.startsWith('Episodio 1/')) return 'episodio1';
+  // 'Episodio N/...' -> 'episodioN' (qualunque N: un episodio nuovo non deve
+  // toccare questa funzione - bug reale: 'Episodio 2/' non previsto rovesciava
+  // le sue 51 carte nel bucket Comune, +12 pagine di stampa per tutti).
+  const m = file.match(/^Episodio (\d+)\//);
+  if (m) return `episodio${m[1]}`;
   if (file.startsWith('Preludio/')) return 'preludio';
   return 'comune';
 }
 
 const OUTPUTS = [
-  { key: 'comune', label: 'Comune', out: path.join('pdf', 'Comune', 'Carte.pdf'), tessere: false },
-  { key: 'preludio', label: 'Preludio', out: path.join('pdf', 'Preludio', 'Carte.pdf'), tessere: false },
-  { key: 'episodio1', label: 'Episodio 1', out: path.join('pdf', 'Episodio 1', 'Carte-e-Tessere.pdf'), tessere: true },
+  { key: 'comune', label: 'Comune', out: path.join('Comune', 'pdf', 'Carte.pdf'), tessere: false },
+  { key: 'preludio', label: 'Preludio', out: path.join('Preludio', 'pdf', 'Carte.pdf'), tessere: false },
+  { key: 'episodio1', label: 'Episodio 1', out: path.join('Episodio 1', 'pdf', 'Carte-e-Tessere.pdf'), tessere: true },
+  { key: 'episodio2', label: 'Episodio 2', out: path.join('Episodio 2', 'pdf', 'Carte.pdf'), tessere: false },
 ];
 
 // id+nome 1:1 da TILES in scripts/tiles/generate-tiles.js (duplicato apposta,
@@ -147,7 +153,7 @@ async function shrinkImage(browser, absPath, maxPx = 1600, quality = 0.88) {
 }
 
 function cardFrontUri(browser, c) {
-  return shrinkImage(browser, path.join(ROOT, 'cards', c.file + '.jpg'));
+  return shrinkImage(browser, cardDiskPath(ROOT, c.file));
 }
 
 async function dorsoUri(browser, name) {
@@ -219,7 +225,7 @@ async function packedSheets(browser, items) {
 async function tileSheets(browser) {
   let html = '';
   for (const t of TILES) {
-    const frontPath = path.join(ROOT, 'board', 'Episodio 1', `${t.id} - ${t.nome}.png`);
+    const frontPath = path.join(ROOT, 'Episodio 1', 'board', `${t.id} - ${t.nome}.png`);
     const backPath = path.join(ROOT, 'artworks', `Dorso Tessera ${t.id}.png`);
     if (!fs.existsSync(frontPath)) {
       console.warn(`  salto tessera ${t.id}: manca "${frontPath}" (genera prima le tessere)`);

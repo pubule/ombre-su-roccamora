@@ -18,11 +18,11 @@ Questo file contiene solo i soggetti COMUNI a tutta la campagna (eroi,
 Malavita, cornici, dorsi, tessere e arredi, mappe, sigillo, tabellone,
 pergamene) più il workflow di coerenza. I soggetti di ogni episodio:
 
-- `PROMPT-MIDJOURNEY-Preludio.md` — P1-P4 e i 3 oggetti del Preludio.
-- `PROMPT-MIDJOURNEY-Episodio-1.md` — Minacce, Custode, Luoghi 1-8, Oggetti.
-- `PROMPT-MIDJOURNEY-Episodio-2.md` — Scoriatore, Crogiolante, Minacce, Luoghi, Oggetti, tessere e copertina de «La voce del bronzo».
+- `Preludio/PROMPT-MIDJOURNEY-Preludio.md` — P1-P4 e i 3 oggetti del Preludio.
+- `Episodio 1/PROMPT-MIDJOURNEY-Episodio-1.md` — Minacce, Custode, Luoghi 1-8, Oggetti.
+- `Episodio 2/PROMPT-MIDJOURNEY-Episodio-2.md` — Scoriatore, Crogiolante, Minacce, Luoghi, Oggetti, tessere e copertina de «La voce del bronzo».
 
-Un episodio nuovo aggiunge il SUO file `PROMPT-MIDJOURNEY-Episodio-N.md`
+Un episodio nuovo aggiunge il SUO file `Episodio N/PROMPT-MIDJOURNEY-Episodio-N.md`
 con questa stessa nota in testa; qui si aggiunge solo la riga di indice
 (e gli eventuali soggetti davvero riusabili, es. un nemico ricorrente).
 
@@ -118,7 +118,7 @@ Luoghi cosi' resta irriconoscibile finche' non si scopre. Copre anche Testimoni
 e Referti: sono lo stesso mazzo coperto unico in gioco (vedi regolamento), ma
 ora con **dorsi distinti per tipo** — stessa famiglia visiva (teal, stesso
 stile), icona e parola diverse, cosi' si riconosce il tipo ma MAI il luogo
-(quello sta solo su `pdf/Episodio 1/Luoghi.pdf`, mai sulla carta):
+(quello sta solo su `Episodio 1/pdf/Luoghi.pdf`, mai sulla carta):
 ```
 ornate symmetrical dark fantasy card back, engraved gold filigree covering the whole surface, teal gems, central round medallion with a single closed eye above the engraved gothic blackletter word "INDIZIO", deep midnight blue and black, victorian gothic, perfectly symmetrical, full bleed --ar 3:4 --style raw --no watermark, signature, blurry text
 ```

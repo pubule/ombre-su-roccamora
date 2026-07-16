@@ -68,7 +68,7 @@ esplicita.
 Facile 7 · Media 9 · Difficile 11. Ogni eroe ha 1 "Secondo fiato" (ritenta) a episodio.
 
 **Il Preludio (tutorial, esiste già — non rifarlo, usalo come riferimento):**
-"La Prova del Lume" (`src/gen_preludio.py`, `pdf/Preludio/`) è il mini-episodio
+"La Prova del Lume" (`src/gen_preludio.py`, `Preludio/pdf/`) è il mini-episodio
 introduttivo giocato prima dell'Ep. 1: racconta come gli undici si incontrano
 ed entrano nella Società, e insegna le regole con i box "Scuola del Lume" dentro i
 fascicoli. Deroga deliberatamente dalla struttura fissa (2 Domande invece di 4,
@@ -128,7 +128,7 @@ prima che l'Ep. 1 lo riveli.
    o retro, non deve mai comparire), così i giocatori non sanno in anticipo dove si
    nasconde qualcosa né possono dedurlo sfogliando il mazzo, e le carte restano riusabili
    tra episodi. Il legame carta↔luogo/tessera (quale carta prendere quando un eroe sblocca
-   quel tipo in quel luogo) vive **solo** in `pdf/Episodio N/Luoghi.pdf` (vedi Bibbia
+   quel tipo in quel luogo) vive **solo** in `Episodio N/pdf/Luoghi.pdf` (vedi Bibbia
    Visiva), mai su una carta. **Nucleo garantito scritto dentro ogni carta, ma a due
    livelli** (non un frammento condiviso appeso in coda — nell'Ep. 1 lo era, un "Eco
    del Coro" soprannaturale identico su ogni carta comprese quelle forensi/
@@ -240,7 +240,7 @@ prima che l'Ep. 1 lo riveli.
      luoghi aperti; il diapason di L5 è un oggetto da Spedizione, non una chiave
      d'accesso.
    - **La Mappa di Roccamora** (`src/gen_mappa.py`, un PDF A4 fronte/retro PER
-     EPISODIO in `pdf/<Episodio>/Mappa.pdf`): pagina 1 la mappa illustrata della
+     EPISODIO in `<Episodio>/pdf/Mappa.pdf`): pagina 1 la mappa illustrata della
      città (arte `Mappa della città di Roccamora.png`, vedi PROMPT-MIDJOURNEY.md),
      pagina 2 lo **stradario** — nome + indirizzo per esteso, MAI righe evocative,
      nome in grassetto e indirizzo in corsivo non-bold, ordine alfabetico ignorando
@@ -754,7 +754,7 @@ Tyrlov) per le carte e **mappa a china su pergamena** per le tessere.
   `pdf/06-Aiuto-Giocatore` (riepilogo regole da tavolo, **una sola pagina**, stesso
   sfondo/stile ma senza banner H1 pesanti — è un cheat-sheet, deve restare
   scannerizzabile a colpo d'occhio) sono comuni a tutta la campagna. Ogni episodio
-  ha una sua sottocartella `pdf/Episodio N/`: `Indagine` (lettera d'incarico +
+  ha i suoi fascicoli in `Episodio N/pdf/`: `Indagine` (lettera d'incarico +
   taccuino), `Spedizione` (note tessera fronte/retro — i segreti di Cercare e le
   meccaniche da scoprire SOLO sul retro fisico, vedi punto 3 — + segnalini), `Luoghi` (riferimenti per
   chi arbitra), `Bestiario` (vedi sotto), `Soluzione (non aprire)` (sigillata,
@@ -844,15 +844,20 @@ Tyrlov) per le carte e **mappa a china su pergamena** per le tessere.
   come orfane. Genera i nuovi mazzi con
   `node scripts/cardconjurer/generate-batch.js <gruppo>` (vedi `README.md`
   per la lista gruppi aggiornata).
-- **Dove finiscono i file (`cards/`, `board/`, `reperti/`): stesso schema di
-  `pdf/`.** Quello riusabile tra episodi (Eroi, Malavita) sta al livello
-  comune (`cards/Eroi/`, `cards/Nemici/` — solo Sgherro/Sicario); tutto il
+- **Dove finiscono i file: layout PER EPISODIO (dal 2026-07-16).** Le cartelle
+  alla radice sono gli episodi: `Comune/`, `Preludio/`, `Episodio N/` — ognuna
+  con dentro `pdf/`, `cards/`, `board/`, `reperti/`, il proprio
+  `PROMPT-MIDJOURNEY-<Episodio>.md` e il `…-Completo.pdf` da stampare.
+  `artworks/` resta flat alla radice (materia prima condivisa: dorsi, eroi,
+  cornici servono ovunque), come src/, scripts/, logs/. Quello riusabile tra episodi (Eroi, Malavita) sta al livello
+  comune (`Comune/cards/Eroi/`, `Comune/cards/Nemici/` — solo Sgherro/Sicario); tutto il
   resto del nuovo episodio va sotto una sua sottocartella, mai al livello
-  comune: `cards/Episodio N/<Tipo>/`, `board/Episodio N/`,
-  `reperti/Episodio N/`. In `cards-data.js` questo si imposta nel campo
+  comune: `Episodio N/cards/<Tipo>/`, `Episodio N/board/`,
+  `Episodio N/reperti/`. In `cards-data.js` questo si imposta nel campo
   `file` di ogni carta (es. `` `Episodio ${N}/Luoghi/${...}` ``) — vedi come
   già fatto per l'Episodio 1 e per `NEMICI.forEach()`, che smista i nemici
-  del culto in `Episodio 1/Nemici/` e lascia la Malavita in `Nemici/` in base
+  del culto nel bucket `Episodio 1/Nemici/` e lascia la Malavita in `Nemici/`
+  (bucket logici del campo `file`; su disco: `cardDiskPath` in lib.js) in base
   al campo `type`.
 - Tecnica: Python + reportlab, grafica vettoriale (sorgenti di riferimento nel repo:
   `src/deluxe_style.py`, `src/ornaments.py`, `src/gen_gothic.py`, `src/gen_docs.py`,

@@ -29,7 +29,7 @@ from reportlab.lib.styles import ParagraphStyle
 from deluxe_style import (register_fonts, parchment_art, rule_border, art, _cover_image,
                           scrim_gradient, ARTWORKS_DIR, F, INK, RED, TEAL, SEPIA)
 
-OUT_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'pdf')
+OUT_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 register_fonts()
 W, H = A4
 MX = 20*mm
@@ -152,7 +152,7 @@ def pagina_stradario(c, voci):
 
 def mappe():
     for sottocartella, sottotitolo, tags in MAPPE:
-        out_dir = os.path.join(OUT_DIR, sottocartella)
+        out_dir = os.path.join(OUT_DIR, sottocartella, 'pdf')
         os.makedirs(out_dir, exist_ok=True)
         out_path = os.path.join(out_dir, 'Mappa.pdf')
         c = canvas.Canvas(out_path, pagesize=A4)

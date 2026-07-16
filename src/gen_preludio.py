@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Ombre su Roccamora - PRELUDIO: La Prova del Lume (pdf/Preludio/).
+"""Ombre su Roccamora - PRELUDIO: La Prova del Lume (Preludio/pdf/).
 
 Mini-episodio tutorial, giocato PRIMA dell'Episodio 1: undici sconosciuti,
 convocati ognuno da una lettera di M., superano la prova d'ammissione alla
@@ -14,7 +14,7 @@ in modo soft:
   Accesso. Box "Scuola del Lume" che spiegano le regole man mano che
   servono, comprese le due varianti (Discernimento di Marani, esame
   Oggetti/Reperti di Carbone).
-- Mini-spedizione: 3 tessere (riusa T1/T2/T4 di board/Episodio 1/ - i depositi sul
+- Mini-spedizione: 3 tessere (riusa T1/T2/T4 di Episodio 1/board/ - i depositi sul
   canale di Roccamora si somigliano tutti), nemici solo Malavita (2 Sgherri
   + 1 Sicario), mazzo Minaccia ridotto a 6 carte prese dal mazzo Episodio 1,
   orologio "la Marea" (solo avanzamento automatico: insegna il timer senza
@@ -48,7 +48,7 @@ from deluxe_style import (register_fonts, parchment_art, pad_to_even_pages, rule
                           F, INK, RED, TEAL, GOLD as OGOLD, SEPIA)
 from ornaments import GOLD_L
 
-OUT_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'pdf', 'Preludio')
+OUT_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'Preludio', 'pdf')
 os.makedirs(OUT_DIR, exist_ok=True)
 register_fonts()
 W, H = A4
@@ -253,7 +253,7 @@ DOMANDE_P = ['1. DOVE è tenuto Ansaldo?',
              '2. COSA cercavano nel palazzo della Società?']
 
 TESSERE_P = [
-    ('T1', 'LA BANCHINA DELLA DOGANA', 'board/Episodio 1/T1 - Banchina d’Ingresso.png',
+    ('T1', 'LA BANCHINA DELLA DOGANA', 'Episodio 1/board/T1 - Banchina d’Ingresso.png',
      'La porta d’acqua della dogana: assi viscide, anelli d’ormeggio, l’acqua nera che '
      'respira sotto il molo. Qui dovete riportare Ansaldo per vincere. La porta verso il '
      'deposito (N) si apre con l’Anello di Chiavi, o forzandola (VIGORE Media).'),
@@ -261,13 +261,13 @@ TESSERE_P = [
     # (gap chiuso 20260716: l'azione era elencata ma nessuna tessera nascondeva
     # nulla). In chiaro, come tutto il tutorial - negli episodi veri gli esiti
     # di Cercare stanno sul retro delle note tessera, solo per chi arbitra.
-    ('T2', 'IL DEPOSITO', 'board/Episodio 1/T2 - Sala delle Casse.png',
+    ('T2', 'IL DEPOSITO', 'Episodio 1/board/T2 - Sala delle Casse.png',
      'Casse accatastate, quasi tutte vuote: la dogana è un guscio. Una cassa, in un angolo, '
      'è meno impolverata delle altre. QUANDO RIVELATE QUESTA TESSERA: 2 Sgherri appaiono '
      'tra le casse. Le porte E e N sono murate da anni: contano solo S (banchina) e O '
      '(stanzino). SCUOLA — qui c’è qualcosa da trovare: un eroe può spendere un’azione per '
      'Cercare (ACUME, Media). Se riesce, prendete la carta L’ACQUAVITE DEL DAZIERE.'),
-    ('T4', 'LO STANZINO DEL DAZIERE', 'board/Episodio 1/T4 - Ufficio del Custode.png',
+    ('T4', 'LO STANZINO DEL DAZIERE', 'Episodio 1/board/T4 - Ufficio del Custode.png',
      'Il vecchio ufficio del daziere: scrivania sfondata, un pagliericcio recente. QUANDO '
      'RIVELATE QUESTA TESSERA: il Sicario appare accanto alla porta. Ansaldo è legato '
      'alla branda: si libera con Interagire (nessuna prova).'),

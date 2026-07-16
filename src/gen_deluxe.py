@@ -17,7 +17,7 @@ from gen_cards import HEROES, LUOGHI, MINACCE, NEMICI, TILES
 import story
 story.apply(LUOGHI, TILES, NEMICI, HEROES, MINACCE)
 
-OUT_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'pdf')
+OUT_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'Comune', 'pdf')
 register_fonts()
 W, H = A4
 

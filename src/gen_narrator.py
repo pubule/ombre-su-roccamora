@@ -28,7 +28,7 @@ from gen_cards import LUOGHI, TILES, OGGETTI
 import story
 story.apply(LUOGHI, TILES, [], [], [])
 
-OUT_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'pdf', 'Episodio 1')
+OUT_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'Episodio 1', 'pdf')
 os.makedirs(OUT_DIR, exist_ok=True)
 register_fonts()
 W, H = A4

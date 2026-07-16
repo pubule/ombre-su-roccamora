@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Ombre su Roccamora - Copertina episodio (pdf/Episodio N/Copertina.pdf).
+"""Ombre su Roccamora - Copertina episodio (<Episodio N>/pdf/Copertina.pdf).
 
 Poster a piena pagina: l'arte della mappa di campagna (artworks) a tutto
 fondo, con nome del gioco in alto e titolo dell'episodio in basso. Il testo
@@ -18,7 +18,7 @@ from reportlab.pdfbase.ttfonts import TTFont
 
 from deluxe_style import register_fonts, art, seal, pad_to_even_pages, scrim_gradient, F
 
-OUT_ROOT = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'pdf')
+OUT_ROOT = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 register_fonts()
 
@@ -39,7 +39,7 @@ WHITE = colors.HexColor('#ffffff')
 WAVE = colors.HexColor('#e8e8e8')
 
 EPISODI = {
-    0: 'La Prova del Lume',  # il Preludio (tutorial), cartella pdf/Preludio/
+    0: 'La Prova del Lume',  # il Preludio (tutorial), cartella Preludio/pdf/
     1: 'Il caso del campanaro scomparso',
 }
 ROMAN = {1: 'I', 2: 'II', 3: 'III', 4: 'IV', 5: 'V', 6: 'VI'}
@@ -151,7 +151,7 @@ def copertina(c, num, titolo):
 
 def build(num):
     titolo = EPISODI[num]
-    out_dir = os.path.join(OUT_ROOT, cartella(num))
+    out_dir = os.path.join(OUT_ROOT, cartella(num), 'pdf')
     os.makedirs(out_dir, exist_ok=True)
     out_path = os.path.join(out_dir, 'Copertina.pdf')
     c = canvas.Canvas(out_path, pagesize=A4)

@@ -26,7 +26,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, 'src'))
 from deluxe_style import pad_to_even_pages  # noqa: E402
 
-PDF_DIR = os.path.join(ROOT, 'pdf')
+PDF_DIR = ROOT  # layout per-episodio: le cartelle episodio stanno alla radice
 
 # Un bucket = un PDF di stampa finale. `booklets` sono i fascicoli su carta
 # normale A4 (gia' fronte/retro nativamente); `cards_sheet` e' il foglio
@@ -35,55 +35,55 @@ PDF_DIR = os.path.join(ROOT, 'pdf')
 # proprie - non capita oggi ma non deve rompere lo script se succede).
 BUCKETS = [
     dict(
-        out='Ombre-su-Roccamora-Comune-Completo.pdf',
+        out=os.path.join('Comune', 'Ombre-su-Roccamora-Comune-Completo.pdf'),
         booklets=[
-            'Ombre-su-Roccamora-01-Regolamento.pdf',
-            'Ombre-su-Roccamora-02-Schede-Personaggio.pdf',
-            'Ombre-su-Roccamora-06-Aiuto-Giocatore.pdf',
-            'Ombre-su-Roccamora-07-Tabellone.pdf',
+            os.path.join('Comune', 'pdf', 'Ombre-su-Roccamora-01-Regolamento.pdf'),
+            os.path.join('Comune', 'pdf', 'Ombre-su-Roccamora-02-Schede-Personaggio.pdf'),
+            os.path.join('Comune', 'pdf', 'Ombre-su-Roccamora-06-Aiuto-Giocatore.pdf'),
+            os.path.join('Comune', 'pdf', 'Ombre-su-Roccamora-07-Tabellone.pdf'),
         ],
-        cards_sheet=os.path.join('Comune', 'Carte.pdf'),
+        cards_sheet=os.path.join('Comune', 'pdf', 'Carte.pdf'),
     ),
     dict(
-        out='Ombre-su-Roccamora-Preludio-Completo.pdf',
+        out=os.path.join('Preludio', 'Ombre-su-Roccamora-Preludio-Completo.pdf'),
         booklets=[
-            os.path.join('Preludio', 'Copertina.pdf'),
-            os.path.join('Preludio', 'Indagine.pdf'),
-            os.path.join('Preludio', 'Mappa.pdf'),
-            os.path.join('Preludio', 'Luoghi.pdf'),
-            os.path.join('Preludio', 'Spedizione.pdf'),
-            os.path.join('Preludio', 'Bestiario.pdf'),
-            os.path.join('Preludio', 'Soluzione (non aprire).pdf'),
+            os.path.join('Preludio', 'pdf', 'Copertina.pdf'),
+            os.path.join('Preludio', 'pdf', 'Indagine.pdf'),
+            os.path.join('Preludio', 'pdf', 'Mappa.pdf'),
+            os.path.join('Preludio', 'pdf', 'Luoghi.pdf'),
+            os.path.join('Preludio', 'pdf', 'Spedizione.pdf'),
+            os.path.join('Preludio', 'pdf', 'Bestiario.pdf'),
+            os.path.join('Preludio', 'pdf', 'Soluzione (non aprire).pdf'),
         ],
-        cards_sheet=os.path.join('Preludio', 'Carte.pdf'),
+        cards_sheet=os.path.join('Preludio', 'pdf', 'Carte.pdf'),
     ),
     dict(
-        out='Ombre-su-Roccamora-Episodio-1-Completo.pdf',
+        out=os.path.join('Episodio 1', 'Ombre-su-Roccamora-Episodio-1-Completo.pdf'),
         booklets=[
-            os.path.join('Episodio 1', 'Copertina.pdf'),
-            os.path.join('Episodio 1', 'Indagine.pdf'),
-            os.path.join('Episodio 1', 'Mappa.pdf'),
-            os.path.join('Episodio 1', 'Luoghi.pdf'),
-            os.path.join('Episodio 1', 'Spedizione.pdf'),
-            os.path.join('Episodio 1', 'Bestiario.pdf'),
-            os.path.join('Episodio 1', 'Soluzione (non aprire).pdf'),
+            os.path.join('Episodio 1', 'pdf', 'Copertina.pdf'),
+            os.path.join('Episodio 1', 'pdf', 'Indagine.pdf'),
+            os.path.join('Episodio 1', 'pdf', 'Mappa.pdf'),
+            os.path.join('Episodio 1', 'pdf', 'Luoghi.pdf'),
+            os.path.join('Episodio 1', 'pdf', 'Spedizione.pdf'),
+            os.path.join('Episodio 1', 'pdf', 'Bestiario.pdf'),
+            os.path.join('Episodio 1', 'pdf', 'Soluzione (non aprire).pdf'),
         ],
-        cards_sheet=os.path.join('Episodio 1', 'Carte-e-Tessere.pdf'),
+        cards_sheet=os.path.join('Episodio 1', 'pdf', 'Carte-e-Tessere.pdf'),
     ),
     # Episodio 2 «La voce del bronzo»: i fascicoli arrivano con le fasi B-3/D
     # (add() salta i mancanti con un avviso, il bucket cresce da solo).
     dict(
-        out='Ombre-su-Roccamora-Episodio-2-Completo.pdf',
+        out=os.path.join('Episodio 2', 'Ombre-su-Roccamora-Episodio-2-Completo.pdf'),
         booklets=[
-            os.path.join('Episodio 2', 'Copertina.pdf'),
-            os.path.join('Episodio 2', 'Indagine.pdf'),
-            os.path.join('Episodio 2', 'Mappa.pdf'),
-            os.path.join('Episodio 2', 'Luoghi.pdf'),
-            os.path.join('Episodio 2', 'Spedizione.pdf'),
-            os.path.join('Episodio 2', 'Bestiario.pdf'),
-            os.path.join('Episodio 2', 'Soluzione (non aprire).pdf'),
+            os.path.join('Episodio 2', 'pdf', 'Copertina.pdf'),
+            os.path.join('Episodio 2', 'pdf', 'Indagine.pdf'),
+            os.path.join('Episodio 2', 'pdf', 'Mappa.pdf'),
+            os.path.join('Episodio 2', 'pdf', 'Luoghi.pdf'),
+            os.path.join('Episodio 2', 'pdf', 'Spedizione.pdf'),
+            os.path.join('Episodio 2', 'pdf', 'Bestiario.pdf'),
+            os.path.join('Episodio 2', 'pdf', 'Soluzione (non aprire).pdf'),
         ],
-        cards_sheet=os.path.join('Episodio 2', 'Carte-e-Tessere.pdf'),
+        cards_sheet=os.path.join('Episodio 2', 'pdf', 'Carte.pdf'),
     ),
 ]
 

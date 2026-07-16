@@ -2,8 +2,8 @@
 """Ombre su Roccamora - versione GOTICA di carte e tessere (03 e 04).
 
 Le carte Minaccia, i Nemici e le 6 tessere T1-T6 sono ora generati come
-immagini a se' stanti (cardconjurer + script di board: cards/Episodio 1/Minacce/,
-cards/Episodio 1/Nemici/, board/Episodio 1/) invece che come pagine di questo
+immagini a se' stanti (cardconjurer + script di board: Episodio 1/cards/Minacce/,
+Episodio 1/cards/Nemici/, Episodio 1/board/) invece che come pagine di questo
 PDF, quindi qui non vengono piu' disegnati. spedizione() stampa le note per
 tessera in FRONTE/RETRO (fronte: ambientazione e regole lette alla
 rivelazione; retro fisico dello stesso foglio: esiti di Cercare e meccaniche
@@ -26,7 +26,7 @@ import story
 MINACCE = story.apply(LUOGHI, TILES, NEMICI, HEROES, MINACCE)
 LETTERA = story.LETTERA2
 
-OUT_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'pdf', 'Episodio 1')
+OUT_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'Episodio 1', 'pdf')
 os.makedirs(OUT_DIR, exist_ok=True)
 register_fonts()
 W, H = A4
@@ -127,8 +127,8 @@ def spedizione():
     wave(c, W/2 - 20*mm, H - 39*mm, 40*mm, OGOLD)
     frame_flow(c, 28*mm, H - 103*mm, W - 56*mm, 50*mm, [
         Paragraph(f'Le {len(MINACCE)} carte Minaccia e le {len(NEMICI)} schede Nemici sono stampate come carte a parte '
-                  '(cartelle <b>cards/Episodio 1/Minacce/</b> e <b>cards/Episodio 1/Nemici/</b>). '
-                  'Le 6 tessere T1-T6 del magazzino sono in <b>board/Episodio 1/</b>, gi\u00e0 con '
+                  '(cartelle <b>Episodio 1/cards/Minacce/</b> e <b>Episodio 1/cards/Nemici/</b>). '
+                  'Le 6 tessere T1-T6 del magazzino sono in <b>Episodio 1/board/</b>, gi\u00e0 con '
                   'griglia, arredi e porte segnate. Le pagine seguenti sono le note per tessera: '
                   'il <b>fronte</b> si legge ad alta voce quando una tessera viene rivelata; il '
                   '<b>retro del foglio</b> \u00e8 solo per chi tiene questo fascicolo \u2014 dice '

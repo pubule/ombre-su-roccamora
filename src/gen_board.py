@@ -24,7 +24,7 @@ from reportlab.pdfgen import canvas
 
 from deluxe_style import register_fonts, corner_flourish, art, pad_to_even_pages, ARTWORKS_DIR, F, GOLD
 
-OUT_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'pdf')
+OUT_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'Comune', 'pdf')
 register_fonts()
 W, H = A4
 NOTTE = colors.HexColor('#17141a')

@@ -300,11 +300,11 @@ const LUOGHI = [
 // (dorso dedicato per tipo, vedi PROMPT-MIDJOURNEY.md: "Dorso carte Indizio
 // Nascosto/Testimone/Referto") - mai il numero del luogo: un unico mazzo coperto
 // in cui si trova la carta solo visitando quel luogo con l'abilita' giusta. Quale
-// carta prendere per quale luogo sta nel PDF pdf/Episodio 1/Luoghi.pdf
+// carta prendere per quale luogo sta nel PDF Episodio 1/pdf/Luoghi.pdf
 // (src/gen_narrator.py), mai sulla carta stessa.
 // Niente nomi eroe qui: chi sblocca cosa dipende dal roster (cambia nel tempo,
 // e il jolly di Sibilla copre comunque qualunque tipo) - vive SOLO nel
-// Regolamento e in pdf/Episodio N/Luoghi.pdf, mai su una carta.
+// Regolamento e in Episodio N/pdf/Luoghi.pdf, mai su una carta.
 
 const INDIZI = LUOGHI.flatMap((L) => {
   const righe = L.approfondimenti.filter((a) => a.tipo === 'Osservazione' || a.tipo === 'Presagio');

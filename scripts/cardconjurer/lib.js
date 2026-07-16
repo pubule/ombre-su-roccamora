@@ -85,7 +85,7 @@ async function generateOne(page, card, { cwd = process.cwd(), artist = 'Fabietto
   await page.waitForTimeout(300);
 
   // --- DOWNLOAD ---
-  const outPath = path.resolve(cwd, 'cards', `${outName}.jpg`);
+  const outPath = cardDiskPath(cwd, outName);
   fs.mkdirSync(path.dirname(outPath), { recursive: true });
   const [download] = await Promise.all([
     page.waitForEvent('download', { timeout: 15000 }),
@@ -95,4 +95,17 @@ async function generateOne(page, card, { cwd = process.cwd(), artist = 'Fabietto
   return outPath;
 }
 
-module.exports = { generateOne };
+// Layout per-episodio (2026-07-16): le carte vivono DENTRO la cartella del
+// loro episodio. Il campo `file` resta la fonte di verita' del bucket
+// ('Episodio 1/Luoghi/x', 'Preludio/x', 'Eroi/x'...): qui si traduce in
+// percorso su disco - '<Episodio>/cards/<resto>', comuni in 'Comune/cards/'.
+function cardDiskPath(root, file) {
+  const i = file.indexOf('/');
+  const bucket = file.slice(0, i);
+  const rest = file.slice(i + 1);
+  if (bucket.startsWith('Episodio')) return path.resolve(root, bucket, 'cards', `${rest}.jpg`);
+  if (bucket === 'Preludio') return path.resolve(root, 'Preludio', 'cards', `${rest}.jpg`);
+  return path.resolve(root, 'Comune', 'cards', `${file}.jpg`);
+}
+
+module.exports = { generateOne, cardDiskPath };
