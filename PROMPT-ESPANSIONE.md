@@ -220,13 +220,28 @@ prima che l'Ep. 1 lo riveli.
      nascere in più luoghi aperti: doppia via, mai un gate singolo) vengono tutti da
      luoghi aperti; il diapason di L5 è un oggetto da Spedizione, non una chiave
      d'accesso.
-   - **Visitare una carta coperta**: costa 1 ora come ogni visita. Il gruppo dichiara
-     una destinazione con le parole dei propri appunti ("i magazzini sul canale") —
-     chi tiene il fascicolo trova la pagina e gira la carta giusta (precedente:
-     l'elenco di Sherlock Holmes Consulting Detective — la città risolve i nomi, mai
-     un puntatore stampato) — oppure bussa alla cieca su una carta coperta a scelta.
-     Girata la carta bloccata si legge la frase-requisito (1-quinquies): è il valore
-     dell'ora spesa anche se non si entra, e la carta resta scoperta da lì in poi.
+   - **La Mappa di Roccamora** (`src/gen_mappa.py`, un PDF A4 fronte/retro PER
+     EPISODIO in `pdf/<Episodio>/Mappa.pdf`): pagina 1 la mappa illustrata della
+     città (arte `Mappa della città di Roccamora.png`, vedi PROMPT-MIDJOURNEY.md),
+     pagina 2 lo **stradario** — nome + indirizzo per esteso, MAI righe evocative,
+     nome in grassetto e indirizzo in corsivo non-bold, ordine alfabetico ignorando
+     l'articolo. È **incrementale**: ogni episodio stampa la sua Mappa che contiene
+     tutte le voci degli episodi precedenti più le nuove (`VOCI_MAPPA` con tag di
+     provenienza + il fondo comune 'citta' di piste fredde riusabili). Le voci non
+     si rinominano MAI tra episodi; i nomi sono NON case-specific ("Vicolo dei
+     Fonditori", non "Casa di Ruggero") e MAI numerati come le carte: il ponte
+     voce→carta vive SOLO nella prima pagina del fascicolo Luoghi ("la città in
+     questo episodio — solo per chi arbitra", campo `voce_mappa` nei dati LUOGHI).
+   - **Dichiarare una destinazione**: il gruppo dichiara una voce dello stradario;
+     chi tiene il fascicolo la cerca nel suo indice (precedente: l'elenco di
+     Sherlock Holmes Consulting Detective — la città risolve i nomi, mai un
+     puntatore stampato). Voce fuori episodio → **pista fredda: risposta di colore,
+     nessuna ora spesa**. Voce in episodio → la visita parte e l'ora si spende:
+     **dichiarare è impegnarsi** (l'anti-brute-force: pescare "no" è gratis, ma chi
+     enumera lo stradario paga un'ora su ogni voce vera che becca). Resta possibile
+     bussare alla cieca su una carta coperta per numero, invariato. Girata la carta
+     bloccata si legge la frase-requisito (1-quinquies): è il valore dell'ora spesa
+     anche se non si entra, e la carta resta scoperta da lì in poi.
    - **Verifica**: il gruppo dichiara **UNA parola o UN oggetto per visita** a chi
      tiene il fascicolo, che controlla la riga **"si entra con — solo per chi
      arbitra"** stampata in rosso sul fronte della pagina del luogo bloccato (campo
@@ -665,30 +680,38 @@ Tyrlov) per le carte e **mappa a china su pergamena** per le tessere.
   l'eventuale `boss=True` (guida la riga Ferite 8-10), e la scalatura in
   tabella deve restare identica a quella del Regolamento/simulatore.
 - **`Luoghi.pdf` (`src/gen_narrator.py`; il Preludio ha l'equivalente in
-  `gen_preludio.py::luoghi()`, stesso pattern):** una pagina per luogo più le
-  tessere che nascondono un oggetto da Cercare. Stile scheda personaggio: arte
-  del luogo/tessera fusa nello strappo trasparente reale di
-  `artworks/background scheda personaggio.png` (la variante con lo strappo **in
-  alto**, per opporsi visivamente alle schede eroe che usano quella in basso —
-  vedi `torn_portrait(..., window=WINDOW_TOP)`), con numero/nome in alto a
-  sinistra dell'arte e sotto, nella stessa colonna, una **descrizione densa e
-  coinvolgente** della scena — non il testo terso della carta Luogo/Tessera, ma
-  una versione più estesa e sensoriale (suoni, odori, temperatura, un dettaglio
-  che stona), pensata per essere letta o improvvisata a voce da chi arbitra:
-  stessi fatti e stesse battute di dialogo della carta, mai nuove informazioni
-  o contraddizioni. Per le tessere con una regola in chiaro (prove NERVI,
-  apparizioni) la frase meccanica va mantenuta **verbatim** dentro il testo
-  arricchito, non riscritta. La colonna si auto-adatta in altezza (riduce il
-  font finché non entra, vedi `fit_desc()`) così si può scrivere quanto serve
-  senza contare le righe a mano. Sotto la riga separatrice, in ordine:
-  (1) **"indizi — leggeteli ad alta voce"**, i 3 indizi core del luogo
-  (`LUOGHI[n]['indizi']` in `gen_cards.py`, verbatim — la carta fisica non li
-  porta più, questa è la loro unica sede), poi una seconda riga separatrice e
-  (2) **"carte da prendere — solo per chi arbitra"**, l'elenco essenziale
-  `Tipo — carta "Titolo"` per ogni Approfondimento/Oggetto di quel luogo/
-  tessera, mai il loro contenuto (quello lo dice la carta stessa una volta
-  trovata) — questa seconda parte non va mai letta ad alta voce, è l'unica
-  informazione del fascicolo riservata a chi arbitra.
+  `gen_preludio.py::luoghi()`, stesso pattern):** apre con la pagina indice
+  **"la città in questo episodio — solo per chi arbitra"** (voce di Mappa →
+  carta Luogo, campo `voce_mappa` nei dati; le voci fuori episodio = pista
+  fredda gratuita) seguita da un retro di servizio (istruzioni d'uso) che
+  preserva la parità fronte/retro. Poi **due pagine per luogo** (fronte+retro
+  consecutivi, stampa fronte/retro) più le tessere che nascondono un oggetto
+  da Cercare. FRONTE, stile scheda personaggio: arte del luogo/tessera fusa
+  nello strappo trasparente reale di `artworks/background scheda
+  personaggio.png` (variante con lo strappo **in alto**, per opporsi alle
+  schede eroe che usano quella in basso — `torn_portrait(...,
+  window=WINDOW_TOP)`), numero/nome in alto a sinistra e sotto, nella stessa
+  colonna, una **descrizione densa e coinvolgente** della scena — non il
+  testo terso della carta, ma una versione più estesa e sensoriale (suoni,
+  odori, temperatura, un dettaglio che stona), da leggere o improvvisare a
+  voce: stessi fatti e stesse battute della carta, mai nuove informazioni o
+  contraddizioni. Per le tessere con una regola in chiaro (prove NERVI,
+  apparizioni) la frase meccanica resta **verbatim**. La colonna si
+  auto-adatta (`fit_desc()`). Sotto la riga separatrice: l'eventuale riga
+  rossa **"si entra con … — solo per chi arbitra"** (l'oracolo della regola
+  Bussare, solo luoghi bloccati, campo `chiave` nei dati), poi **"indizi —
+  leggeteli ad alta voce"** (i 3 indizi core, verbatim da `gen_cards.py` —
+  la carta fisica non li porta più) e, solo se il luogo consegna un Oggetto,
+  la sotto-sezione **"carte da prendere — solo per chi arbitra"** con la
+  carta Oggetto. RETRO (sempre presente, anche vuoto — struttura visiva
+  identica nei due casi, così sfogliando non si capisce dove si nasconde
+  qualcosa): sezione **"Approfondimenti"** con la propria sotto-sezione
+  "carte da prendere" (`Tipo — carta "Titolo"`, mai il contenuto), oppure
+  "Nessun Approfondimento qui."
+- **`Mappa.pdf` (`src/gen_mappa.py`, per episodio):** vedi 1-sexies per
+  formato, incrementalità e regole delle voci — è il componente PUBBLICO
+  (sta sul tavolo, visibile a tutti), il gemello segreto è l'indice in testa
+  a `Luoghi.pdf`.
 - **Taratura dell'arte in `Luoghi.pdf` (verifica sempre a video, non dare per
   buono il ritaglio di default):** la finestra è stretta e verticale, ma quasi
   tutta l'arte sorgente è panoramica (2688×1792 tipico da Midjourney) — col
@@ -835,6 +858,10 @@ Ogni testo deve far *vedere* la scena, non riassumerla. Regole:
       Ogni luogo bloccato ha la riga "si entra con — solo per chi arbitra" nel
       fascicolo Luoghi (campo `chiave` nei dati) e la frase-requisito narrativa
       sulla carta (1-quinquies)?
+- [ ] La Mappa dell'episodio (`gen_mappa.py`) include tutte le voci degli episodi
+      precedenti + le nuove? Ogni luogo dell'episodio ha la sua voce nello stradario
+      (nome non case-specific, con indirizzo, campo `voce_mappa` nei dati) e il
+      fascicolo Luoghi apre con l'indice voce→carta?
 - [ ] Nessuna chiave (parola/oggetto che apre un luogo) nasce dentro un luogo coperto
       (vincolo anti-fortuna, 1-sexies)?
 - [ ] Ogni oggetto trovabile (Indagine o Cercare) ha una carta Oggetto con arte dedicata,

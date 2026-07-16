@@ -164,15 +164,20 @@ def regolamento():
     e.append(LI('Per visitare un luogo, girate la carta (mostra solo l’ambientazione): chi tiene il '
                 'fascicolo <b>Luoghi</b> legge ad alta voce testo e indizi da lì. Prendete appunti sul '
                 'Taccuino: nomi, orari, parole chiave.'))
-    e.append(LI('<b>Visitare una carta coperta (“bussare”)</b> — si può, e costa 1 ora come ogni '
-                'visita: dichiarate una destinazione con le parole dei vostri appunti (“i magazzini '
-                'sul canale”, “la bottega del liutaio” — chi tiene il fascicolo <b>Luoghi</b> trova la '
-                'pagina e gira la carta giusta) oppure scegliete una carta coperta a caso ed esplorate '
-                'il quartiere. Girata la carta, leggete che cosa vi sbarra la strada. Se credete di '
-                'avere la chiave, dichiaratela — <b>UNA parola o UN oggetto per visita</b> — a chi '
-                'tiene il fascicolo, che verifica (senza dire altro): giusta, si entra subito, nella '
-                'stessa ora; sbagliata, <b>l’ora è comunque spesa</b> e restate fuori. Nessun’altra '
-                'penalità: con 6 ore e 8 luoghi, un’ora persa è già un prezzo salato.'))
+    e.append(LI('<b>Dichiarare una destinazione (la Mappa)</b> — la <b>Mappa di Roccamora</b> '
+                '(stampata con l’episodio) elenca nello stradario molti più luoghi di quelli in '
+                'gioco. Per andare in un posto che non è tra le carte scoperte, dichiarate una voce '
+                'dello stradario: chi tiene il fascicolo <b>Luoghi</b> la cerca nel suo indice. Se '
+                'la città non ha nulla per voi lì, ve lo dice subito — <b>pista fredda, nessuna ora '
+                'spesa</b>. Se invece il luogo è nell’episodio, la visita parte e <b>l’ora si '
+                'spende</b>: dichiarare è impegnarsi.'))
+    e.append(LI('<b>Bussare a una porta chiusa</b> — se la destinazione è un luogo bloccato (carta '
+                'coperta), chi tiene il fascicolo gira la carta e leggete che cosa vi sbarra la '
+                'strada. Se credete di avere la chiave, dichiaratela — <b>UNA parola o UN oggetto '
+                'per visita</b> — a chi tiene il fascicolo, che verifica (senza dire altro): giusta, '
+                'si entra subito, nella stessa ora; sbagliata, <b>l’ora è comunque spesa</b> e '
+                'restate fuori. Nessun’altra penalità: con 6 ore e 8 luoghi, un’ora persa è già un '
+                'prezzo salato.'))
     e.append(LI('Alcuni luoghi nascondono anche degli <b>Approfondimenti</b>: indizi <i>extra</i> '
                 '(oltre a quelli sopra, mai al posto loro) che emergono solo se un eroe presente sa '
                 'come cavarli <b>e</b> se avete superato la prova di “leggere la scena” a quella visita. '
@@ -469,6 +474,10 @@ def regolamento():
     e.append(LI('<b>Reperti</b> (cartella `reperti/Episodio 1/`): 2–3 documenti su carta normale, a colori se '
                 'potete. Teneteli da parte, coperti, e consegnateli quando il gruppo trova l’indizio '
                 'corrispondente (vedi sopra).'))
+    e.append(LI('<b>Mappa</b> (in <i>Episodio 1/</i>): un foglio fronte/retro sul tavolo, visibile a '
+                'tutti — la mappa della città e lo stradario delle destinazioni dichiarabili. Cresce '
+                'a ogni episodio (contiene anche i luoghi degli episodi precedenti): stampate quella '
+                'dell’episodio che giocate.'))
     e.append(LI('<b>Luoghi</b> (in <i>Episodio 1/</i>): non si stampa per i giocatori — è per chi tiene '
                 'il mazzo coperto degli Approfondimenti, da consultare al bisogno durante l’Indagine. '
                 'Non contiene le risposte alle 4 Domande, solo quale carta prendere per quale luogo. '

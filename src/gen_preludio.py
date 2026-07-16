@@ -102,7 +102,7 @@ LETTERA_P = (
     "<i>Luoghi disponibili dall’inizio: P1, P2, P3. Il quarto va sbloccato.</i>")
 
 LUOGHI_P = [
-    dict(n='P1', nome='IL PALAZZO DEL LUME', req='Disponibile dall’inizio',
+    dict(n='P1', nome='IL PALAZZO DEL LUME', voce_mappa='Il Palazzo del Lume', req='Disponibile dall’inizio',
          art='Palazzo del Lume.png',
          testo='Il palazzo della Società sa di cera d’api e di anni chiusi a chiave: undici poltrone '
                'attorno a un tavolo, dieci ritratti alle pareti e un gancio vuoto dove l’undicesimo è '
@@ -122,7 +122,7 @@ LUOGHI_P = [
                         'fascicolo sapeva DOVE cercare, ma non era pratico dell’archivio. Non era '
                         'Ansaldo — e nemmeno un ladro qualunque.'),
          ]),
-    dict(n='P2', nome='LA TAVERNA DELLA CHIATTA', req='Disponibile dall’inizio',
+    dict(n='P2', nome='LA TAVERNA DELLA CHIATTA', voce_mappa='La Taverna della Chiatta', req='Disponibile dall’inizio',
          art='Taverna della Chiatta.png',
          testo='Dirimpetto al palazzo, oltre il ponte, la taverna è il posto da cui si vede chi entra '
                'e chi esce dalla porta della Società. L’oste lucida bicchieri che restano opachi e '
@@ -142,7 +142,7 @@ LUOGHI_P = [
                         'alla riva del palazzo. «Un signore ben vestito, mani da artigiano. Pagava '
                         'doppio per non avere domande. Mai di giorno.»'),
          ]),
-    dict(n='P3', nome='IL BANCO DEI PEGNI DI FOSSA', req='Disponibile dall’inizio',
+    dict(n='P3', nome='IL BANCO DEI PEGNI DI FOSSA', voce_mappa='Il Banco dei Pegni di Fossa', req='Disponibile dall’inizio',
          art='Banco dei Pegni.png',
          testo='Mezza Roccamora è passata da Fossa a impegnare l’altra metà. Dietro la grata, il '
                'vecchio prestatore vi squadra come si squadra un anello: cercando il difetto. Il suo '
@@ -162,7 +162,7 @@ LUOGHI_P = [
                         'solo, di taglio, non una colluttazione lunga. Ansaldo è stato tramortito, '
                         'non ucciso — un morto non serve a chi ha ancora domande da fargli.'),
          ]),
-    dict(n='P4', nome='LA DOGANA VECCHIA', req='L’uomo con la canna da pesca non stacca gli occhi da voi: sembra aspettare una parola d’ordine, la stessa bisbigliata in qualche taverna.',
+    dict(n='P4', nome='LA DOGANA VECCHIA', voce_mappa='La Dogana Vecchia', req='L’uomo con la canna da pesca non stacca gli occhi da voi: sembra aspettare una parola d’ordine, la stessa bisbigliata in qualche taverna.',
          chiave=('parola', 'dogana'),
          art='Dogana Vecchia.png',
          testo='In fondo al canale di ponente, la vecchia dogana marcisce da vent’anni: banchina '
@@ -575,6 +575,45 @@ def luoghi():
         while c.stringWidth(text.lower(), F['sc'], size) > max_w and size > 10:
             size -= 1
         return size
+
+    # Indice voce di Mappa -> carta Luogo, solo per chi arbitra (stesso
+    # pattern di gen_narrator.pagina_indice_citta) + retro di servizio per
+    # la parita' fronte/retro delle coppie luogo/retro che seguono.
+    parchment_art(c, W, H)
+    rule_border(c, W, H)
+    c.setFillColor(RED); c.setFont(F['sc'], 17)
+    c.drawString(MX, H - 22*mm, 'la città in questo episodio — solo per chi arbitra')
+    c.setFillColor(INK); c.setFont(F['i'], 9.5)
+    c.drawString(MX, H - 29*mm, 'Quando il gruppo dichiara una destinazione dalla Mappa, cercatela qui:')
+    c.setStrokeColor(SEPIA); c.setLineWidth(0.5)
+    c.line(MX, H - 33*mm, W - MX, H - 33*mm)
+    y = H - 42*mm
+    for L in LUOGHI_P:
+        p = Paragraph(f"<b>{L['voce_mappa']}</b> — carta Luogo {L['n']} ({L['nome'].title()})", ROW)
+        pw, ph = p.wrapOn(c, W - 2*MX, 20*mm)
+        p.drawOn(c, MX, y - ph)
+        y -= ph + 3.5*mm
+    y -= 3*mm
+    c.setStrokeColor(SEPIA); c.setLineWidth(0.4)
+    c.line(MX, y, W - MX, y)
+    p = Paragraph('<b>Ogni altra voce della Mappa</b> — pista fredda: rispondete con una frase '
+                  'di colore («bussate, nessuno apre: qui non c’è nulla per voi stanotte»). '
+                  '<b>Nessuna ora spesa.</b>', ROW)
+    pw, ph = p.wrapOn(c, W - 2*MX, 30*mm)
+    p.drawOn(c, MX, y - 6*mm - ph)
+    c.showPage()
+    parchment_art(c, W, H)
+    rule_border(c, W, H)
+    c.setFillColor(TEAL); c.setFont(F['sc'], 12)
+    c.drawString(MX, H - 22*mm, 'come si usa questo fascicolo')
+    for i, riga in enumerate([
+            'Ogni luogo occupa un foglio: sul fronte la scena e gli indizi da leggere ad alta voce',
+            '(e, se il luogo è bloccato, la riga rossa con cui verificare la chiave dichiarata);',
+            'sul retro gli Approfondimenti — sempre presenti, anche quando non c’è nulla, così',
+            'sfogliando non si capisce mai dove si nasconde qualcosa.']):
+        c.setFillColor(INK); c.setFont(F['i'], 10)
+        c.drawString(MX, H - 32*mm - i*6*mm, riga)
+    c.showPage()
 
     for L in LUOGHI_P:
         # Fronte: arte + indizi (letti ad alta voce) + eventuale Oggetto da

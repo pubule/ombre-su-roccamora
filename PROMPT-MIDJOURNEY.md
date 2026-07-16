@@ -302,6 +302,16 @@ comunque: nel compositing il dipinto viene sovrapposto al centro coprendolo.
 
 ## Finiti così come escono
 
+**Mappa della città** → `artworks/Mappa della città di Roccamora.png`
+(usata da `src/gen_mappa.py` a piena pagina A4 verticale; finché manca, il
+generatore ripiega su pergamena + avviso). Deve leggersi come una PIANTA
+urbana d'epoca, non un paesaggio: vista dall'alto, canali, isolati, ponti,
+un campanile e una cattedrale riconoscibili — su carta ingiallita, senza
+nomi scritti (le voci vivono nello stradario generato, non nell'arte):
+```
+antique 1889 city map of a canal town, top-down hand-drawn cartography on aged yellowed paper, ink linework with subtle sepia and teal wash, winding canals, dense blocks of gabled houses, bridges, a bell tower and a cathedral, docks and warehouses along the west canal, decorative compass rose, no labels, no text, gaslamp gothic atmosphere --ar 3:4 --style raw --no frame, border, letters, words, watermark, figures, people
+```
+
 **Sfondo Tabellone** → `artworks/Tabellone.png` (opzionale: `src/gen_board.py`
 funziona già con uno sfondo scuro procedurale, questo lo sostituisce). Deve
 restare MOLTO scuro: sopra ci vanno testo/tratteggi color oro a basso

@@ -36,6 +36,7 @@ echo "== PDF (pdf/) =="
 (cd src && python gen_docs.py)
 (cd src && python gen_deluxe.py)
 (cd src && python gen_bestiario.py)
+(cd src && python gen_mappa.py)
 (cd src && python gen_gothic.py)
 (cd src && python gen_narrator.py)
 (cd src && python gen_cover.py)

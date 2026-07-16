@@ -143,7 +143,7 @@ HEROES = [
 # dagli Approfondimenti o dall'incrocio dei core). Vedi gen_docs.py soluzione()
 # per la nota al Narratore.
 LUOGHI = [
-    dict(n=1, nome='IL CAMPANILE DI SAN TEODORO', req='Disponibile dall’inizio',
+    dict(n=1, nome='IL CAMPANILE DI SAN TEODORO', voce_mappa='Il Campanile di San Teodoro', req='Disponibile dall’inizio',
          testo='La scala a chiocciola sale nel buio. In cima, la cella campanaria è in disordine: '
                'lo sgabello di Ruggero è rovesciato, la sua lanterna ancora appesa.',
          indizi=['Colate di <b>cera nera</b> sui gradini — troppo in alto perché vengano dalle candele della chiesa.',
@@ -165,7 +165,7 @@ LUOGHI = [
                         'di quelle che vende solo un liutaio: chi lascia il proprio mestiere impresso ovunque '
                         'passa non si intrufola.'),
          ]),
-    dict(n=2, nome='CASA DI RUGGERO — VICOLO DEI FONDITORI', req='Disponibile dall’inizio',
+    dict(n=2, nome='CASA DI RUGGERO — VICOLO DEI FONDITORI', voce_mappa='Vicolo dei Fonditori', req='Disponibile dall’inizio',
          testo='Bice, la sorella, vi apre con gli occhi rossi: «Negli ultimi tempi diceva di sentire '
                'musica sotto il pavimento della cripta. E aveva paura del suo stesso campanile.»',
          indizi=['Sul tavolo, una <b>corda di violino d’argento</b>: «L’ha trovata in cripta», dice Bice. '
@@ -184,7 +184,7 @@ LUOGHI = [
                         'Canale Basso — e lo sentì chiamare «il liutaio Ferri». Li vide inchinarsi a lui, come si '
                         'inchina chi teme di essere guardato.'),
          ]),
-    dict(n=3, nome='TAVERNA DEL PONTE ROTTO', req='Disponibile dall’inizio',
+    dict(n=3, nome='TAVERNA DEL PONTE ROTTO', voce_mappa='Taverna del Ponte Rotto', req='Disponibile dall’inizio',
          testo='Fumo, vino cattivo e barcaioli. Qui le lingue si sciolgono con poco.',
          indizi=['Ugo il barcaiolo: «Tre notti fa una <b>chiatta</b> senza lanterne ha scaricato casse al '
                  'Canale Basso. Alle 3, proprio mentre le campane suonavano da sole.» '
@@ -208,7 +208,7 @@ LUOGHI = [
                         'quello che fu di Dellacqua — e tra le candele, una figura con le mani da liutaio. '
                         'Il canale, stanotte, ha fame.'),
          ]),
-    dict(n=4, nome='LA SAGRESTIA DELLA CATTEDRALE', req='Don Callisto socchiude appena la porta e non fa entrare nessuno: si fida solo di chi gli porta notizie del suo sagrestano — quello di cui, in città, tutti fanno il nome.',
+    dict(n=4, nome='LA SAGRESTIA DELLA CATTEDRALE', voce_mappa='La Cattedrale', req='Don Callisto socchiude appena la porta e non fa entrare nessuno: si fida solo di chi gli porta notizie del suo sagrestano — quello di cui, in città, tutti fanno il nome.',
          chiave=('parola', 'Tonio'),
          testo='Don Callisto vi riceve nervoso, le mani sporche di cera. Dietro di lui, la porta della '
                'cripta è sbarrata: «Chiusa per lavori», taglia corto.',
@@ -233,7 +233,7 @@ LUOGHI = [
     # `chiave`: la parola/oggetto che apre il luogo bloccato - stampata SOLO
     # nel fascicolo Luoghi (riga "si entra con", per chi arbitra: e' l'oracolo
     # con cui verifica le dichiarazioni della regola Bussare), mai su una carta.
-    dict(n=5, nome='BOTTEGA DEL LIUTAIO FERRI', req='Un vicino sorveglia la bottega da quando Ferri è sparito: si allontana solo se vi vede portare con voi qualcosa che sembra suo, come per restituirlo.',
+    dict(n=5, nome='BOTTEGA DEL LIUTAIO FERRI', voce_mappa='Bottega del Liutaio Ferri', req='Un vicino sorveglia la bottega da quando Ferri è sparito: si allontana solo se vi vede portare con voi qualcosa che sembra suo, come per restituirlo.',
          chiave=('oggetto', 'Corda di Violino d’Argento'),
          testo='Bottega chiusa da giorni; la porta sul retro cede a una spallata. Dentro, polvere e '
                'violini appesi come selvaggina.',
@@ -257,7 +257,7 @@ LUOGHI = [
                         'vecchio magazzino delle cere di Dellacqua, sul Canale Basso — non un grammo di bronzo '
                         'in vista: qualunque cosa venda Learco il ramaio, non passa da qui.'),
          ]),
-    dict(n=6, nome='IL CANALE BASSO', req='Il guardiano del molo non vi lascia avvicinare: aspetta che gli diciate la parola giusta, quella sentita altrove, tra un bicchiere e l’altro.',
+    dict(n=6, nome='IL CANALE BASSO', voce_mappa='Il Canale Basso', req='Il guardiano del molo non vi lascia avvicinare: aspetta che gli diciate la parola giusta, quella sentita altrove, tra un bicchiere e l’altro.',
          chiave=('parola', 'chiatta'),
          testo='Acqua nera e ferma, magazzini ciechi. Il guardiano notturno accetta di parlare per '
                'qualche moneta.',
@@ -280,7 +280,7 @@ LUOGHI = [
                         'Dellacqua, sul Canale Basso — e tra le candele, le mani di un liutaio. Qualcosa, sotto '
                         'la città, conta i passi sul molo.'),
          ]),
-    dict(n=7, nome='L’ARCHIVIO CIVICO', req='L’archivista non alza lo sguardo finché non pronunciate la parola che avete già sentito da qualche parte in città.',
+    dict(n=7, nome='L’ARCHIVIO CIVICO', voce_mappa='L’Archivio Civico', req='L’archivista non alza lo sguardo finché non pronunciate la parola che avete già sentito da qualche parte in città.',
          chiave=('parola', 'sommerso'),
          testo='L’archivista, sentendo la parola giusta, vi guida a uno scaffale che nessuno tocca '
                'da decenni.',
@@ -299,7 +299,7 @@ LUOGHI = [
                         'fondatore — vecchio magazzino Dellacqua, Canale Basso — nessuno osa contraddirlo». '
                         'Chi ha scritto, temeva di essere letto.'),
          ]),
-    dict(n=8, nome='LA GENDARMERIA', req='Disponibile dall’inizio',
+    dict(n=8, nome='LA GENDARMERIA', voce_mappa='La Gendarmeria', req='Disponibile dall’inizio',
          testo='Il brigadiere vi riceve tra pile di pratiche: «Il campanaro? Sarà scappato con '
                'qualche vedova.»',
          indizi=['Nessuna richiesta di riscatto. Il sospettato ufficiale è <b>Tonio il sagrestano</b>, '

@@ -49,6 +49,7 @@ BUCKETS = [
         booklets=[
             os.path.join('Preludio', 'Copertina.pdf'),
             os.path.join('Preludio', 'Indagine.pdf'),
+            os.path.join('Preludio', 'Mappa.pdf'),
             os.path.join('Preludio', 'Luoghi.pdf'),
             os.path.join('Preludio', 'Spedizione.pdf'),
             os.path.join('Preludio', 'Bestiario.pdf'),
@@ -61,6 +62,7 @@ BUCKETS = [
         booklets=[
             os.path.join('Episodio 1', 'Copertina.pdf'),
             os.path.join('Episodio 1', 'Indagine.pdf'),
+            os.path.join('Episodio 1', 'Mappa.pdf'),
             os.path.join('Episodio 1', 'Luoghi.pdf'),
             os.path.join('Episodio 1', 'Spedizione.pdf'),
             os.path.join('Episodio 1', 'Bestiario.pdf'),

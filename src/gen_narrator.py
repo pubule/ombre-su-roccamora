@@ -365,10 +365,56 @@ def pagina_retro_luogo(c, L):
     c.drawString(MX, H - 50*mm, 'carte da prendere — solo per chi arbitra')
     body(c, approfondimenti_righe(L['approfondimenti']), H - 55*mm)
 
+def pagina_indice_citta(c, luoghi, etichetta_ep):
+    """Prima pagina del fascicolo: l'indice voce di Mappa -> carta Luogo,
+    solo per chi arbitra - e' il ponte che NON sta mai sulla Mappa ne'
+    sulle carte (vedi bibbia 1-sexies). Ogni altra voce dello stradario
+    e' una pista fredda: risposta di colore, nessuna ora spesa."""
+    parchment_art(c, W, H)
+    rule_border(c, W, H)
+    c.setFillColor(RED); c.setFont(F['sc'], 17)
+    c.drawString(MX, H - 22*mm, 'la città in questo episodio — solo per chi arbitra')
+    c.setFillColor(INK); c.setFont(F['i'], 9.5)
+    c.drawString(MX, H - 29*mm, 'Quando il gruppo dichiara una destinazione dalla Mappa, cercatela qui:')
+    c.setStrokeColor(SEPIA); c.setLineWidth(0.5)
+    c.line(MX, H - 33*mm, W - MX, H - 33*mm)
+    y = H - 42*mm
+    for L in luoghi:
+        p = Paragraph(f"<b>{L['voce_mappa']}</b> — carta Luogo {L['n']} ({L['nome'].title()})", ROW)
+        pw, ph = p.wrapOn(c, W - 2*MX, 20*mm)
+        p.drawOn(c, MX, y - ph)
+        y -= ph + 3.5*mm
+    y -= 3*mm
+    c.setStrokeColor(SEPIA); c.setLineWidth(0.4)
+    c.line(MX, y, W - MX, y)
+    p = Paragraph('<b>Ogni altra voce della Mappa</b> — pista fredda: rispondete con una frase '
+                  'di colore («bussate, nessuno apre: qui non c’è nulla per voi stanotte»). '
+                  '<b>Nessuna ora spesa.</b>', ROW)
+    pw, ph = p.wrapOn(c, W - 2*MX, 30*mm)
+    p.drawOn(c, MX, y - 6*mm - ph)
+    c.showPage()
+    # Retro di servizio: mantiene la parita' fronte/retro delle coppie
+    # luogo/retro che seguono (istruzioni d'uso, nessun segreto).
+    parchment_art(c, W, H)
+    rule_border(c, W, H)
+    c.setFillColor(TEAL); c.setFont(F['sc'], 12)
+    c.drawString(MX, H - 22*mm, 'come si usa questo fascicolo')
+    for i, riga in enumerate([
+            'Ogni luogo occupa un foglio: sul fronte la scena e gli indizi da leggere ad alta voce',
+            '(e, se il luogo è bloccato, la riga rossa con cui verificare la chiave dichiarata);',
+            'sul retro gli Approfondimenti — sempre presenti, anche quando non c’è nulla, così',
+            'sfogliando non si capisce mai dove si nasconde qualcosa.',
+            f'Le tessere della Spedizione ({etichetta_ep}) chiudono il fascicolo.']):
+        c.setFillColor(INK); c.setFont(F['i'], 10)
+        c.drawString(MX, H - 32*mm - i*6*mm, riga)
+    c.showPage()
+
+
 def narratore():
     out_path = os.path.join(OUT_DIR, 'Luoghi.pdf')
     c = canvas.Canvas(out_path, pagesize=A4)
     c.setTitle('Ombre su Roccamora - Episodio 1 - Luoghi (riferimenti narratore)')
+    pagina_indice_citta(c, LUOGHI, 'Episodio 1')
 
     for L in LUOGHI:
         # Fronte: arte + (se bloccato) la riga "si entra con" + indizi (letti

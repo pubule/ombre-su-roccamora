@@ -25,7 +25,10 @@ EDGE = colors.HexColor("#c8b184")
 GOLD = colors.HexColor("#a8833a")
 SEPIA = colors.HexColor("#8a7150")
 
-F = dict(r='OldStd', b='OldStd-Bold', i='OldStd-Italic', sc='IMFellSC')
+# 'hand' = grafia manoscritta (La Belle Aurore, la stessa dei Reperti via
+# generate-reperti.js): usata dove serve una mano d'epoca, es. lo stradario
+# della Mappa (gen_mappa.py).
+F = dict(r='OldStd', b='OldStd-Bold', i='OldStd-Italic', sc='IMFellSC', hand='BelleAurore')
 
 def register_fonts():
     try:
@@ -37,6 +40,10 @@ def register_fonts():
         pdfmetrics.registerFont(TTFont('IMFellSC', os.path.join(FONTS_DIR, 'IMFellEnglishSC.ttf')))
     except Exception:
         F.update(r='Times-Roman', b='Times-Bold', i='Times-Italic', sc='Times-Bold')
+    try:
+        pdfmetrics.registerFont(TTFont('BelleAurore', os.path.join(FONTS_DIR, 'LaBelleAurore.ttf')))
+    except Exception:
+        F.update(hand=F['i'])  # fallback: corsivo tipografico se il font manca
 
 ROOT_DIR = os.path.dirname(ARTWORKS_DIR)
 _art_cache = {}
