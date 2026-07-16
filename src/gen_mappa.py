@@ -101,7 +101,8 @@ def pagina_mappa(c, sottotitolo):
         # immagine vero, vedi scrim_gradient - le fasce con setFillAlpha
         # lasciavano righe orizzontali) e titolo bianco/oro, o non si legge.
         scrim_gradient(c, 0, H - 42*mm, W, 42*mm, 0.6, knee=1.6, opaque_top=True)
-        titolo_col, sotto_col = colors.HexColor('#f2e9d8'), colors.HexColor('#c9a86a')
+        # Sottotitolo: stesso colore del titolo e in grassetto (richiesta esplicita).
+        titolo_col, sotto_col = colors.HexColor('#f2e9d8'), colors.HexColor('#f2e9d8')
     else:
         parchment_art(c, W, H)
         c.setFillColor(SEPIA); c.setFont(F['i'], 10)
@@ -111,7 +112,7 @@ def pagina_mappa(c, sottotitolo):
     titolo = 'Mappa di Roccamora' if TITLE == 'Beleren' else 'mappa di roccamora'
     c.setFillColor(titolo_col); c.setFont(TITLE, 24)
     c.drawString(MX, H - 24*mm, titolo)
-    c.setFillColor(sotto_col); c.setFont(F['i'], 12)
+    c.setFillColor(sotto_col); c.setFont(F['b'], 12)
     c.drawString(MX, H - 31*mm, sottotitolo)
     c.showPage()
 

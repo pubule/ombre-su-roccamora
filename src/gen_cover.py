@@ -127,9 +127,9 @@ def copertina(c, num, titolo):
     ty = H - 34*mm
     engraved(c, W/2, ty, GAME_NAME, TITLE, 33, WHITE, tracking=1.5)
     divider(c, W/2, ty - 8*mm, 74*mm, WAVE, 1.2)
-    c.saveState(); c.setFillColor(WHITE); c.setFillAlpha(0.92)
-    c.setFont(F['i'], 12.5); c.drawCentredString(W/2, ty - 20*mm, GAME_SUB)
-    c.setFillAlpha(1); c.restoreState()
+    # Stesso trattamento inciso del titolo (ombra + controluce): il testo
+    # piatto spariva dove l'arte e' chiara (la guglia della cattedrale).
+    engraved(c, W/2, ty - 20*mm, GAME_SUB, F['b'], 12.5, WHITE, tracking=0.6)
 
     # --- basso: episodio ---
     engraved(c, W/2, 74*mm, etichetta(num), TITLE, 15, WHITE, tracking=2.5)
