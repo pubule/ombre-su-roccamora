@@ -210,3 +210,47 @@ em, i { font-style: italic; }
 .galleria-carte { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
   gap: 10px; margin-top: 8px; }
 .galleria-carte img { width: 100%; border-radius: 8px; border: 1px solid var(--seppia); }
+
+/* --- animazioni (le schermate entrano, le carte si rivelano) --- */
+@keyframes apparizione { from { opacity: 0; transform: translateY(14px); } }
+@keyframes solo-fade { from { opacity: 0; } }
+@keyframes rivela-carta { from { opacity: 0; transform: perspective(900px) rotateY(65deg) scale(.92); } }
+@keyframes pop-box { from { opacity: 0; transform: scale(.9) translateY(10px); } }
+@keyframes respiro-arte { from { background-position: center 26%; } to { background-position: center 40%; } }
+@keyframes lento-zoom { to { transform: scale(1.07); } }
+
+.barra { animation: solo-fade .35s ease both; }
+.home-testata, .pannello, .banner-luogo, .griglia-episodi, .carta-grande,
+.galleria-carte { animation: apparizione .5s ease both; }
+.pannello + .pannello, .pannello.mt, .mt + .pannello { animation-delay: .08s; }
+
+/* stradario e gallerie: le prime voci entrano in fila, il resto insieme */
+.stradario .voce, .galleria-carte img, .griglia-eroi .carta-eroe {
+  animation: apparizione .4s ease both; }
+.stradario .voce:nth-child(1), .galleria-carte img:nth-child(1), .griglia-eroi .carta-eroe:nth-child(1) { animation-delay: .03s; }
+.stradario .voce:nth-child(2), .galleria-carte img:nth-child(2), .griglia-eroi .carta-eroe:nth-child(2) { animation-delay: .07s; }
+.stradario .voce:nth-child(3), .galleria-carte img:nth-child(3), .griglia-eroi .carta-eroe:nth-child(3) { animation-delay: .11s; }
+.stradario .voce:nth-child(4), .galleria-carte img:nth-child(4), .griglia-eroi .carta-eroe:nth-child(4) { animation-delay: .15s; }
+.stradario .voce:nth-child(5), .galleria-carte img:nth-child(5), .griglia-eroi .carta-eroe:nth-child(5) { animation-delay: .19s; }
+.stradario .voce:nth-child(6), .galleria-carte img:nth-child(6), .griglia-eroi .carta-eroe:nth-child(6) { animation-delay: .23s; }
+
+/* le carte grandi (Luogo, Approfondimento, Oggetto) si girano come al tavolo */
+.carta-grande img { animation: rivela-carta .6s cubic-bezier(.2, .7, .3, 1) both; }
+
+/* l'arte respira: derive lentissime, mai invadenti */
+.banner-luogo { animation: apparizione .5s ease both, respiro-arte 22s ease-in-out infinite alternate; }
+.tessera-episodio .arte { animation: lento-zoom 28s ease-in-out infinite alternate; }
+
+/* dialoghi di scelta */
+.scelta-overlay { animation: solo-fade .25s ease both; }
+.scelta-box { animation: pop-box .3s cubic-bezier(.2, .7, .3, 1) both; }
+
+/* tocco: feedback morbido ovunque */
+.btn, .voce, .tessera-episodio, .carta-eroe, .modo { transition: transform .12s ease, box-shadow .2s ease; }
+.voce:active, .carta-eroe:active, .modo:active { transform: scale(.98); }
+
+@media (prefers-reduced-motion: reduce) {
+  .barra, .home-testata, .pannello, .banner-luogo, .griglia-episodi, .carta-grande,
+  .galleria-carte, .stradario .voce, .galleria-carte img, .griglia-eroi .carta-eroe,
+  .carta-grande img, .tessera-episodio .arte, .scelta-overlay, .scelta-box { animation: none; }
+}

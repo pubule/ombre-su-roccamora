@@ -53,8 +53,8 @@ in una città immaginaria di canali e campanili nel 1889. Unisce indagine alla
     registro, atti d'archivio) da consegnare durante l'indagine, composti su
     un'unica foto di pergamena
 - `artworks/` — arte sorgente (dipinti, ritratti, tessere, mappa)
-- `webapp/` — web-app da iPad/telefono (server sul PC: `node webapp/server.js`,
-  prima `python webapp/export-data.py && node webapp/export-data.js && python webapp/export-assets.py`)
+- `webapp/` — web-app da iPad/telefono, server sul PC (vedi la sezione
+  «Web-app» sotto)
 - `PROMPT-MIDJOURNEY.md` — prompt arte comune (eroi, cornici, dorsi, tessere, mappe); i soggetti per episodio stanno in `PROMPT-MIDJOURNEY-Preludio.md` e `PROMPT-MIDJOURNEY-Episodio-1.md`
 - `PROMPT-ESPANSIONE.md` — "bibbia" narrativa/meccanica/visiva per generare nuovi
   episodi coerenti con un assistente AI
@@ -153,6 +153,32 @@ Gira contro `vendor/cardconjurer/`, una copia locale statica di
 dipendenza da un sito di terzi per generare le carte — il sito originale
 (cardconjurer.com) è già stato chiuso una volta dopo una diffida, vedi
 `vendor/cardconjurer/README.txt` per i dettagli.
+
+## Web-app (iPad/telefono, server sul PC)
+
+L'app fa da **arbitro al tavolo**: custodisce chiavi e segreti, tira gli
+orologi, pesca le Minacce e legge gli esiti di Cercare — nessuno al tavolo
+sa più niente in anticipo. Due modalità alla partenza: **al tavolo**
+(companion: si gioca col materiale fisico stampato) e **tutto a schermo**
+(in costruzione). Nessuna dipendenza da installare oltre a Node e Pillow
+(già usati dal resto del repo).
+
+```bash
+# 1. esporta dati e immagini (da rilanciare solo dopo modifiche a carte/PDF)
+python webapp/export-data.py     # luoghi, tessere, nemici, soluzioni -> webapp/data/*.json
+node   webapp/export-data.js     # carte (testi + percorsi immagine)  -> webapp/data/carte.json
+python webapp/export-assets.py   # copie web ridotte di carte/tessere/arte -> webapp/assets/
+
+# 2. avvia il server (resta acceso finché si gioca)
+node webapp/server.js            # porta 8017; oppure: node webapp/server.js 8080
+```
+
+All'avvio stampa l'URL di rete locale (es. `http://192.168.1.x:8017`):
+aprilo dal browser dell'iPad/telefono **sulla stessa rete Wi-Fi** e usa
+"Aggiungi alla schermata Home" per averla a tutto schermo. Lo schermo non
+si spegne da solo durante la partita (wake-lock). I salvataggi sono sul
+dispositivo (una partita in corso per episodio, si riprende da dove si era
+rimasti); il server serve solo file statici, niente accessi esterni.
 
 ## Come si gioca (in breve)
 

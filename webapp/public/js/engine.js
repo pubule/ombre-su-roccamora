@@ -189,8 +189,11 @@ export function verificaRisposte(ep, risposte) {
   return ep.soluzione.domande.map((d, i) => {
     const r = norm(risposte[i] || '');
     const attesa = norm(d.risposta);
-    // match morbido: la risposta scritta contiene le parole significative
-    const chiavi = attesa.split(' ').filter((w) => w.length > 3);
+    // match morbido: la risposta scritta contiene le parole significative;
+    // risposte corte/numeriche (es. una combinazione) non hanno parole
+    // lunghe: si confrontano i token cosi' come sono
+    let chiavi = attesa.split(' ').filter((w) => w.length > 3);
+    if (!chiavi.length) chiavi = attesa.split(' ').filter(Boolean);
     const prese = chiavi.filter((w) => r.includes(w)).length;
     const ok = r.length > 0 && prese >= Math.max(1, Math.ceil(chiavi.length * 0.4));
     return { ...d, data: risposte[i], ok };
