@@ -282,6 +282,11 @@ full bleed dark fantasy painting, derelict 19th century customs house rotting on
 full bleed dark fantasy still life, a worn iron key ring with many old keys polished by twenty years of pocket wear, resting on an open archive ledger, warm candlelight, 1889 gaslamp gothic, oil painting, muted teal and crimson palette with gold accents --ar 3:4 --style raw --no frame, border, card, text, letters, watermark
 ```
 
+**L'Acquavite del Daziere** → `artworks/Acquavite del Daziere.png`
+```
+full bleed dark fantasy still life, a squat unlabeled glass bottle of amber brandy hidden between wooden shipping crates, cork stopper, a clean dust ring on the crate where it stood, warm candlelight, 1889 gaslamp gothic, oil painting, muted teal and crimson palette with gold accents --ar 3:4 --style raw --no frame, border, card, text, letters, watermark
+```
+
 **La Pipa di Ansaldo** → `artworks/Pipa di Ansaldo.png`
 ```
 full bleed dark fantasy still life, a dark briar tobacco pipe with a bite-worn stem resting on a folded wool scarf on a nightstand, a cold candle beside it, quiet melancholy, 1889 gaslamp gothic, oil painting, muted teal and crimson palette with gold accents --ar 3:4 --style raw --no frame, border, card, text, letters, watermark

@@ -256,10 +256,16 @@ TESSERE_P = [
      'La porta d’acqua della dogana: assi viscide, anelli d’ormeggio, l’acqua nera che '
      'respira sotto il molo. Qui dovete riportare Ansaldo per vincere. La porta verso il '
      'deposito (N) si apre con l’Anello di Chiavi, o forzandola (VIGORE Media).'),
+    # Oggetto-scuola: il Preludio insegna Cercare FACENDOLO trovare qualcosa
+    # (gap chiuso 20260716: l'azione era elencata ma nessuna tessera nascondeva
+    # nulla). In chiaro, come tutto il tutorial - negli episodi veri gli esiti
+    # di Cercare stanno sul retro delle note tessera, solo per chi arbitra.
     ('T2', 'IL DEPOSITO', 'board/Episodio 1/T2 - Sala delle Casse.png',
-     'Casse accatastate, quasi tutte vuote: la dogana è un guscio. QUANDO RIVELATE QUESTA '
-     'TESSERA: 2 Sgherri appaiono tra le casse. Le porte E e N sono murate da anni: '
-     'contano solo S (banchina) e O (stanzino).'),
+     'Casse accatastate, quasi tutte vuote: la dogana è un guscio. Una cassa, in un angolo, '
+     'è meno impolverata delle altre. QUANDO RIVELATE QUESTA TESSERA: 2 Sgherri appaiono '
+     'tra le casse. Le porte E e N sono murate da anni: contano solo S (banchina) e O '
+     '(stanzino). SCUOLA — qui c’è qualcosa da trovare: un eroe può spendere un’azione per '
+     'Cercare (ACUME, Media). Se riesce, prendete la carta L’ACQUAVITE DEL DAZIERE.'),
     ('T4', 'LO STANZINO DEL DAZIERE', 'board/Episodio 1/T4 - Ufficio del Custode.png',
      'Il vecchio ufficio del daziere: scrivania sfondata, un pagliericcio recente. QUANDO '
      'RIVELATE QUESTA TESSERA: il Sicario appare accanto alla porta. Ansaldo è legato '
@@ -392,8 +398,10 @@ def spedizione():
         c.setFillColor(RED); c.setFont(F['sc'], 13)
         c.drawString(20*mm, yy, '%s · %s' % (tid, nome.lower()))
         flow = [Paragraph(testo, st('tile', fontSize=9, leading=12, alignment=4))]
-        frame_flow(c, 20*mm, yy - 8*mm - 24*mm, W - 40*mm, 24*mm, flow)
-        yy -= 24*mm + 18*mm
+        # 28mm (era 24): il testo di T2 ora porta anche la riga-scuola su
+        # Cercare; gap ridotto per compensare, il totale pagina non cambia.
+        frame_flow(c, 20*mm, yy - 8*mm - 28*mm, W - 40*mm, 28*mm, flow)
+        yy -= 28*mm + 14*mm
     c.setFillColor(TEAL); c.setFont(F['b'], 9.5)
     c.drawString(20*mm, yy, 'NEMICI IN CAMPO (statistiche nel Bestiario del Preludio, PDF a parte in Preludio/):')
     frame_flow(c, 20*mm, yy - 30*mm, W - 40*mm, 26*mm, [

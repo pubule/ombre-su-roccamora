@@ -66,7 +66,11 @@ ed entrano nella Società, e insegna le regole con i box "Scuola del Lume" dentr
 fascicoli. Deroga deliberatamente dalla struttura fissa (2 Domande invece di 4,
 1 falsa pista, 1 reperto, Approfondimenti solo di corroborazione senza nucleo
 garantito, niente boss, 3 tessere e mazzo
-Minaccia riusati dall'Ep. 1, orologio "Marea" solo automatico): quelle deroghe
+Minaccia riusati dall'Ep. 1, orologio "Marea" solo automatico, e 1 oggetto da
+Cercare in T2 — l'Acquavite del Daziere — dichiarato IN CHIARO nella nota
+tessera con un box-scuola: il tutorial insegna Cercare facendolo fruttare,
+negli episodi veri gli esiti stanno invece sul retro, solo per chi arbitra):
+quelle deroghe
 valgono SOLO per il tutorial, gli episodi veri seguono la struttura sotto. Se un
 nuovo episodio vuole richiamare il Preludio: Ansaldo (il custode-archivista) e
 il nipote sono PNG riusabili; il Frammento 0 è la mezza onda; il committente mai
