@@ -182,7 +182,7 @@ rimasti); il server serve solo file statici, niente accessi esterni.
 
 ## Come si gioca (in breve)
 
-Ogni episodio è una serata: prima l'**Indagine** (10 ore di tempo, luoghi da sbloccare
+Ogni episodio è una serata: prima l'**Indagine** (6 ore di tempo, luoghi da sbloccare
 con parole chiave, 4 Domande finali da dedurre insieme), poi la **Spedizione** su
 tessere con mazzo Minaccia automatico. Le risposte esatte danno vantaggi concreti
 nella spedizione. Campagna con migliorie, cicatrici e Frammenti di mistero.
