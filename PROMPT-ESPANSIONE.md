@@ -211,10 +211,13 @@ prima che l'Ep. 1 lo riveli.
 1-sexies. *Regola "Bussare" (setup coperte + verifica chiavi)* — chiude i due buchi
    procedurali lasciati aperti da 1-quinquies: come si visita un luogo di cui non si
    conosce il volto, e chi verifica che la chiave dichiarata sia giusta.
-   - **Setup**: le carte "Disponibile dall'inizio" partono **scoperte** (le piste che
-     qualunque investigatore batterebbe); i luoghi **bloccati** partono **coperti**
-     (dorso: solo il numero — serve a chi arbitra per abbinare carta e pagina del
-     fascicolo, non ai giocatori per scegliere). **Aperti al minimo indispensabile**
+   - **Setup**: chi tiene il fascicolo Luoghi ordina le carte per numero (è nel
+     TITOLO, sul fronte) e le dispone in fila; le "Disponibile dall'inizio" partono
+     **scoperte** (le piste che qualunque investigatore batterebbe), i luoghi
+     **bloccati** partono **coperti**. Il dorso è COMUNE a tutto il mazzo Luogo
+     (targa "Luogo", nessun numero): per le carte coperte è la **posizione nella
+     fila ordinata** a dire il numero — chi prepara la fila è chi tiene il
+     fascicolo, che i nomi li conosce già. **Aperti al minimo indispensabile**
      (vedi punto 1: solo fonti di chiavi, rivelatorio senza chiavi, àncore
      narrative), e comunque **minimo 3 bloccati/coperti per episodio** (Ep. 1:
      L4/L5/L6/L7, 4 aperti / 4 bloccati): con meno bloccati, l'abbinamento
@@ -657,8 +660,10 @@ Tyrlov) per le carte e **mappa a china su pergamena** per le tessere.
   requisito narrativa (vedi 1-quinquies), mai la descrizione: gli indizi **non stanno
   più sulla carta**, vivono in `Luoghi.pdf` (vedi sotto e 3-bis) — la carta serve solo
   a mostrare ai giocatori dove sono (e, se bloccata, perché non ancora), chi arbitra
-  legge gli indizi dal fascicolo. I loro dorsi sono rosso-notte con numero
-  nel medaglione, i dorsi Minaccia verde-abisso con tripla onda. Le pagine dei dorsi
+  legge gli indizi dal fascicolo. Il dorso Luogo è COMUNE a tutto il mazzo
+  (rosso-notte, targa "Luogo" nel medaglione — NESSUN numero: il numero sta nel
+  titolo sul fronte, e per le carte coperte lo dice la posizione nella fila, vedi
+  1-sexies); i dorsi Minaccia verde-abisso con tripla onda. Le pagine dei dorsi
   seguono i fronti, specchiate in colonna, per la stampa fronte/retro sul lato lungo.
 - **Limite di lunghezza del testo in carta (verificato empiricamente, Ep. 1):** il
   box di testo delle carte piccole (Minaccia, Approfondimento — Indizio Nascosto/

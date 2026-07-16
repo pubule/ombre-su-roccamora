@@ -142,10 +142,12 @@ def regolamento():
                "Quanto bene indagate determina quanto sar\u00e0 dura la spedizione."))
 
     e.append(P('FASE 1 \u2014 L\u2019INDAGINE', 'h1'))
-    e.append(LI('Disponete le <b>carte Luogo</b> al centro del tavolo: quelle che riportano '
+    e.append(LI('Chi tiene il fascicolo <b>Luoghi</b> ordina le <b>carte Luogo</b> per numero (\u00e8 nel '
+                'titolo) e le dispone in fila al centro del tavolo: quelle che riportano '
                 '\u201cDisponibile dall\u2019inizio\u201d <b>scoperte</b> (sono le piste che qualunque investigatore '
                 'batterebbe: la casa dello scomparso, la taverna, la gendarmeria...), le altre '
-                '<b>coperte</b> \u2014 luoghi di cui per ora conoscete solo l\u2019esistenza, non il volto.'))
+                '<b>coperte</b> \u2014 luoghi di cui per ora conoscete solo l\u2019esistenza, non il volto: '
+                'il dorso \u00e8 uguale per tutte, \u00e8 la <b>posizione nella fila</b> a dirvi il numero.'))
     e.append(LI('Avete <b>6 ore</b>, dalle 18:00 alle 24:00: segnatele sul Taccuino. '
                 '<b>Ogni visita a un luogo costa 1 ora</b> (anche rivisitarlo) \u2014 gli 8 luoghi di un '
                 'episodio non entrano tutti in 6 ore: <b>dovrete scegliere cosa saltare</b>. Ogni ora '

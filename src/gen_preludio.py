@@ -298,10 +298,11 @@ def indagine():
     seal(c, W - mx - 12*mm, H - 198*mm, r=13*mm, angle=-10)
     y = scuola(c, mx, H - 218*mm, W - 2*mx,
                'Questo Preludio insegna il gioco giocando: quando compare un box come questo, '
-               'leggetelo ad alta voce. Prendete le 4 carte Luogo del Preludio, ordinatele per '
-               'sigla (guardate il titolo: P1-P4) e disponetele coperte in fila, da sinistra a '
-               'destra: la posizione vi dice la sigla. Ogni giocatore sceglie il suo eroe '
-               '(stendete le 11 carte Eroe sul tavolo) e prende la sua Scheda.')
+               'leggetelo ad alta voce. Chi tiene il fascicolo Luoghi ordina le 4 carte Luogo del '
+               'Preludio per sigla (è nel titolo: P1-P4) e le dispone in fila, da sinistra a '
+               'destra: le prime tre scoperte, l’ultima coperta — la posizione vi dice la sigla. '
+               'Ogni giocatore sceglie il suo eroe (stendete le 11 carte Eroe sul tavolo) e '
+               'prende la sua Scheda.')
     c.showPage()
     # taccuino
     parchment_art(c, W, H)
