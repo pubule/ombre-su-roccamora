@@ -30,7 +30,7 @@ tutorial: 2 Domande invece di 4, gli Approfondimenti sono solo corroborazione
 niente tabella Ore Avanzate (il vantaggio e' gia' dato per Domanda esatta,
 vedi soluzione()).
 
-Arte luoghi/oggetti: nuova, vedi PROMPT-MIDJOURNEY.md sezione Preludio.
+Arte luoghi/oggetti: nuova, vedi PROMPT-MIDJOURNEY-Preludio.md.
 Le carte si generano con `node scripts/cardconjurer/generate-batch.js preludio`
 quando le arti esistono; Luoghi.pdf viene saltato con un avviso finche' manca
 l'arte dei luoghi.
@@ -562,7 +562,7 @@ def luoghi():
                if not os.path.exists(os.path.join(ARTWORKS_DIR, L['art']))]
     if missing:
         print('SALTO Luoghi.pdf: manca arte in artworks/:', ', '.join(missing))
-        print('  (genera con i prompt della sezione Preludio in PROMPT-MIDJOURNEY.md)')
+        print('  (genera con i prompt in PROMPT-MIDJOURNEY-Preludio.md)')
         return
     out_path = os.path.join(OUT_DIR, 'Luoghi.pdf')
     c = canvas.Canvas(out_path, pagesize=A4)

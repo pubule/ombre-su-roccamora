@@ -53,7 +53,7 @@ in una città immaginaria di canali e campanili nel 1889. Unisce indagine alla
     registro, atti d'archivio) da consegnare durante l'indagine, composti su
     un'unica foto di pergamena
 - `artworks/` — arte sorgente (dipinti, ritratti, tessere, mappa)
-- `PROMPT-MIDJOURNEY.md` — prompt per generare nuova arte con lo stesso stile
+- `PROMPT-MIDJOURNEY.md` — prompt arte comune (eroi, cornici, dorsi, tessere, mappe); i soggetti per episodio stanno in `PROMPT-MIDJOURNEY-Preludio.md` e `PROMPT-MIDJOURNEY-Episodio-1.md`
 - `PROMPT-ESPANSIONE.md` — "bibbia" narrativa/meccanica/visiva per generare nuovi
   episodi coerenti con un assistente AI
 - `src/` — sorgenti Python (reportlab) che generano tutti i PDF

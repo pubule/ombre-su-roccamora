@@ -849,7 +849,8 @@ Tyrlov) per le carte e **mappa a china su pergamena** per le tessere.
 - Tecnica: Python + reportlab, grafica vettoriale (sorgenti di riferimento nel repo:
   `src/deluxe_style.py`, `src/ornaments.py`, `src/gen_gothic.py`, `src/gen_docs.py`,
   `src/gen_deluxe.py`, `src/gen_narrator.py`).
-  Illustrazioni raster generate con AI (vedi `PROMPT-MIDJOURNEY.md`) vanno inserite come
+  Illustrazioni raster generate con AI (asset comuni in `PROMPT-MIDJOURNEY.md`,
+  soggetti per episodio in `PROMPT-MIDJOURNEY-<Episodio>.md`) vanno inserite come
   arte di sfondo delle carte (cardconjurer) o come quadro/ritratto nei documenti,
   mantenendo cornici e testo vettoriali sopra.
 
@@ -983,8 +984,10 @@ Ogni testo deve far *vedere* la scena, non riassumerla. Regole:
       luoghi dell'episodio (3-cinque)?
 - [ ] Le 20-23 carte Minaccia hanno tutte titolo unico, flavor proprio e icona di famiglia?
       Hai riusato Sgherro/Sicario (Malavita) invece di inventare nemici umani nuovi?
-- [ ] I prompt Midjourney dei nuovi soggetti (inclusi eventuali nuovi Oggetti) sono stati
-      aggiunti a `PROMPT-MIDJOURNEY.md`?
+- [ ] I prompt Midjourney dei nuovi soggetti (inclusi eventuali nuovi Oggetti) sono in un
+      file dedicato `PROMPT-MIDJOURNEY-Episodio-N.md` (con la riga d'indice nel comune)?
+      Solo i soggetti davvero riusabili (nemici ricorrenti, dorsi, cornici) vanno in
+      `PROMPT-MIDJOURNEY.md`.
 - [ ] Epilogo + Frammento numerato + aggancio + Bivio sigillato con conseguenze definite?
 - [ ] Le conseguenze del Bivio dell'episodio precedente sono applicate all'inizio?
 - [ ] Ci sono 2–3 reperti stampabili coerenti con gli indizi?

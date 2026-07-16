@@ -381,7 +381,7 @@ const OGGETTI = [
 // Mini-episodio tutorial (vedi src/gen_preludio.py, fonte autoritativa dei
 // testi). Stesse regole delle carte Ep. 1: numero del luogo nel titolo,
 // niente riferimenti a luoghi su Approfondimenti/Oggetti. Le arti sono nella
-// sezione Preludio di PROMPT-MIDJOURNEY.md.
+// PROMPT-MIDJOURNEY-Preludio.md.
 const PRELUDIO_LUOGHI = [
   { n: 'P1', nome: 'Il Palazzo del Lume', req: 'Disponibile dall’inizio',
     art: 'artworks/Palazzo del Lume.png',
