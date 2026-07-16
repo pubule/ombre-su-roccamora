@@ -15,7 +15,8 @@ export function nuovaPartita(episodioId, modo, party) {
     indagine: {
       ora: 18,                 // 18..24
       visitati: [],            // numeri luogo
-      scoperti: [],            // luoghi coperti girati (bussate)
+      scoperti: [],            // luoghi coperti girati (bussate, anche fallite)
+      sbloccati: [],           // luoghi la cui chiave e' stata detta (si rientra)
       parole: [],              // parole chiave sentite (per l'oracolo)
       oggetti: [],             // nomi carta Oggetto raccolti
       approfondimentiLetti: [],// [{n, tipo, soggetto}]

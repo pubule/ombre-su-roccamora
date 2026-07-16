@@ -98,7 +98,9 @@ function dichiara(nomeVoce) {
     return pannelloMsg(l.nome.toLowerCase(), `<p><i>Troppo tardi: qui hanno chiuso alle ${l.chiude}:00. Il portone resta muto.</i></p>
       <p class="nota mt">Nessuna ora spesa: lo sapevate arrivando.</p>`, home);
   }
-  const sbloccato = ind.scoperti.includes(l.n);
+  // scoperti = carta girata (anche dopo una bussata sbagliata): NON basta a
+  // entrare. Si rientra senza ripetere la chiave solo se e' gia' stata detta.
+  const sbloccato = (ind.sbloccati || []).includes(l.n);
   if (!l.aperto && !sbloccato) return bussare(l);
   visita(l);
 }
@@ -131,6 +133,8 @@ function bussare(l) {
     const r = bussa(l, d);
     if (!ind.scoperti.includes(l.n)) ind.scoperti.push(l.n);   // carta girata
     if (r.entra) {
+      ind.sbloccati = ind.sbloccati || [];
+      if (!ind.sbloccati.includes(l.n)) ind.sbloccati.push(l.n);
       salvaP();
       pannelloMsg('la porta si apre', `<p><i>«${esc(d)}»… era la cosa giusta da dire — o da mostrare.</i></p>`,
         () => visita(l, true));
