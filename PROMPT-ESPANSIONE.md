@@ -38,10 +38,18 @@ esplicita.
 - **Stato campagna dopo l'Ep. 1:** il campanaro Ruggero Alvise è stato salvato dal
   Magazzino delle Cere; la Cattedrale è già "accordata"; i giocatori hanno il
   Frammento di Campagna n. 1.
-- **Arco previsto (adattabile):** Ep. 2 *Le voci del pozzo* (il pozzo dei Frati),
-  Ep. 3 *Il teatro dell'eco*, Ep. 4 *La fonderia dei rintocchi*, Ep. 5 *L'organo di ossa*,
-  Ep. 6 finale *Il Terzo Movimento* (discesa sotto la città, resa dei conti con Ferri e
-  il Dormiente; qui i Frammenti raccolti devono servire a una deduzione finale).
+- **Arco previsto (adattabile — rinumerato il 2026-07-16):** la sequenza è quella
+  dello spartito stampato in L5 dell'Ep. 1: «il bronzo canta, la pietra risponde,
+  l'acqua ricorda». Ep. 2 *La voce del bronzo* (la Fonderia Vecchia, vedi
+  DESIGN-EPISODIO-2.md — assorbe il tema dell'ex "fonderia dei rintocchi"; episodio
+  "caso della settimana": Malavita in primo piano, culto solo in coda, Ferri MAI in
+  scena — le puntate mythology e quelle standalone si alternano per far respirare
+  l'antagonista), Ep. 3 *Le voci del pozzo* (la pietra; l'epilogo stampato dell'Ep. 1
+  — «Secondo movimento: le voci del pozzo» — è il titolo del movimento del RITUALE,
+  non dell'episodio 2, e resta onorato: l'Ep. 2 ci costruisce verso), Ep. 4 *Il
+  teatro dell'eco*, Ep. 5 *L'organo di ossa*, Ep. 6 finale *Il Terzo Movimento*
+  (discesa sotto la città, resa dei conti con Ferri e il Dormiente; qui i Frammenti
+  raccolti devono servire a una deduzione finale — l'acqua ricorda).
 - Ogni episodio si chiude con un **Frammento di Campagna** numerato, un aggancio al successivo
   e un **Bivio morale sigillato**: due scelte sensate, conseguenze concrete (una meccanica,
   una narrativa) rivelate all'inizio dell'episodio dopo. Bivio dell'Ep. 1: lo spartito del

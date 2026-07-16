@@ -78,6 +78,15 @@ VOCI_MAPPA = [
     ('Il Canale Basso', 'banchina di Dellacqua, moli di ponente', 'ep1'),
     ('L’Archivio Civico', 'palazzo del Comune, scalone secondo', 'ep1'),
     ('La Gendarmeria', 'corso della Prefettura 3', 'ep1'),
+    # Episodio 2 — «La voce del bronzo» (vedi DESIGN-EPISODIO-2.md). Gli
+    # altri 5 luoghi dell'episodio riusano voci gia' esistenti: Le Fonderie,
+    # I Moli di Levante e Il Cimitero delle Barche (fondo 'citta' — le piste
+    # fredde di ieri si accendono), Il Campanile di San Teodoro ('ep1'),
+    # Il Banco dei Pegni di Fossa ('preludio').
+    ('L’Osteria della Bilancia', 'calle della Stadera 3, al dazio', 'ep2'),
+    ('Il Deposito Daziario', 'dogana di ponente, corpo dei magazzini', 'ep2'),
+    ('Corte della Faenza', 'al civico 6, dietro il dazio', 'ep2'),
+    ('La Camera dei Pesi e delle Misure', 'palazzo del Dazio, primo piano', 'ep2'),
 ]
 
 # (sottocartella pdf/, sottotitolo, tag inclusi). Un episodio nuovo aggiunge
@@ -85,6 +94,7 @@ VOCI_MAPPA = [
 MAPPE = [
     ('Preludio', 'preludio — la città che conoscete', ('citta', 'preludio')),
     ('Episodio 1', 'episodio 1 — la città che conoscete', ('citta', 'preludio', 'ep1')),
+    ('Episodio 2', 'episodio 2 — la città che conoscete', ('citta', 'preludio', 'ep1', 'ep2')),
 ]
 
 # Tipografico (provata la grafia manoscritta La Belle Aurore su tutta la

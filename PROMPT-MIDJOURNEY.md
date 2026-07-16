@@ -20,6 +20,7 @@ pergamene) più il workflow di coerenza. I soggetti di ogni episodio:
 
 - `PROMPT-MIDJOURNEY-Preludio.md` — P1-P4 e i 3 oggetti del Preludio.
 - `PROMPT-MIDJOURNEY-Episodio-1.md` — Minacce, Custode, Luoghi 1-8, Oggetti.
+- `PROMPT-MIDJOURNEY-Episodio-2.md` — Scoriatore, Crogiolante, Minacce, Luoghi, Oggetti, tessere e copertina de «La voce del bronzo».
 
 Un episodio nuovo aggiunge il SUO file `PROMPT-MIDJOURNEY-Episodio-N.md`
 con questa stessa nota in testa; qui si aggiunge solo la riga di indice
