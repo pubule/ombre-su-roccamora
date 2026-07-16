@@ -507,6 +507,8 @@ def soluzione():
     pad_to_even_pages(out_path)
 
 # ========================================================= LUOGHI (narratore)
+TIPO_EROI = {'Osservazione': 'Elena', 'Presagio': 'Serra',
+             'Testimonianza': 'Ottone o Carla', 'Referto': 'Attilio o Brera'}
 TIPO_LABEL = {'Osservazione': 'Indizio Nascosto', 'Presagio': 'Indizio Nascosto',
               'Testimonianza': 'Testimone', 'Referto': 'Referto'}
 TORN_TOP = 'background scheda personaggio.png'
@@ -523,13 +525,15 @@ LUOGHI_P_CROP = {
     'P2': dict(overscan=0.1, center_x=0.85),  # l'oste e mani/bicchiere sono a destra
 }
 
-def fit_desc(c, text, start=9.5, floor=7):
+def fit_desc(c, text, start=9.5, floor=7, desc_top=None):
+    top = DESC_TOP if desc_top is None else desc_top
+    max_h = top - (ART_BOTTOM - 4*mm) - 3*mm
     size = start
     while True:
         style = st('desc', fontName=F['i'], fontSize=size, leading=size*1.42, alignment=4)
         p = Paragraph(text, style)
         w, h = p.wrapOn(c, COL_W, 400*mm)
-        if h <= DESC_MAX_H or size <= floor:
+        if h <= max_h or size <= floor:
             return p, h
         size -= 0.3
 
@@ -630,23 +634,24 @@ def luoghi():
         size = nome_fit(L['nome'], COL_W, start=18)
         c.setFillColor(RED); c.setFont(F['sc'], size)
         c.drawString(MX, H - 30*mm, L['nome'].lower())
-        d, dh = fit_desc(c, LUOGHI_P_DESC[L['n']])
-        d.drawOn(c, MX, DESC_TOP - dh)
-        c.setStrokeColor(SEPIA); c.setLineWidth(0.5)
-        c.line(MX, ART_BOTTOM - 4*mm, W - MX, ART_BOTTOM - 4*mm)
-        y_indizi = ART_BOTTOM - 10*mm
+        desc_top = DESC_TOP
         if L.get('chiave'):
-            # Oracolo della regola Bussare (stesso pattern di gen_narrator.py):
-            # l'unico posto dove la chiave del luogo bloccato e' scritta.
+            # Oracolo della regola Bussare, subito sotto il nome del luogo
+            # (stesso pattern di gen_narrator.py): l'unico posto dove la
+            # chiave del luogo bloccato e' scritta.
             tipo_chiave, valore = L['chiave']
             chiave_txt = (f'la parola «{valore}»' if tipo_chiave == 'parola'
                           else f'l’oggetto “{valore}”')
             c.setFillColor(RED); c.setFont(F['sc'], 9)
-            c.drawString(MX, y_indizi, f'si entra con {chiave_txt} — solo per chi arbitra')
-            y_indizi -= 7*mm
+            c.drawString(MX, H - 36*mm, f'si entra con {chiave_txt} — solo per chi arbitra')
+            desc_top = H - 43*mm
+        d, dh = fit_desc(c, LUOGHI_P_DESC[L['n']], desc_top=desc_top)
+        d.drawOn(c, MX, desc_top - dh)
+        c.setStrokeColor(SEPIA); c.setLineWidth(0.5)
+        c.line(MX, ART_BOTTOM - 4*mm, W - MX, ART_BOTTOM - 4*mm)
         c.setFillColor(TEAL); c.setFont(F['sc'], 9)
-        c.drawString(MX, y_indizi, 'indizi — leggeteli ad alta voce')
-        y = y_indizi - 5*mm
+        c.drawString(MX, ART_BOTTOM - 10*mm, 'indizi — leggeteli ad alta voce')
+        y = ART_BOTTOM - 15*mm
         for ind in L.get('indizi', []):
             p = Paragraph(f'• {ind}', INDIZIO_ROW)
             pw, ph = p.wrapOn(c, W - 2*MX, 60*mm)
@@ -681,10 +686,11 @@ def luoghi():
         rows = []
         for a in L['approfondimenti']:
             tipo = TIPO_LABEL[a['tipo']]
+            sblocca = f"sblocca: {TIPO_EROI[a['tipo']]}, o Sibilla col jolly"
             if 'soggetto' in a:
-                rows.append(f"<b>{tipo}</b> — carta “{a['soggetto']}”")
+                rows.append(f"<b>{tipo}</b> — carta “{a['soggetto']}” <i>({sblocca})</i>")
             else:
-                rows.append(f"<b>{tipo}</b> <i>({a['tipo']})</i>")
+                rows.append(f"<b>{tipo}</b> <i>({a['tipo']} — {sblocca})</i>")
         body(rows, H - 55*mm)
         c.showPage()
     c.save()

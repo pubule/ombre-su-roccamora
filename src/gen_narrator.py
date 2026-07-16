@@ -62,6 +62,11 @@ TILE_ART = {
 }
 TIPO_LABEL = {'Osservazione': 'Indizio Nascosto', 'Presagio': 'Indizio Nascosto',
               'Testimonianza': 'Testimone', 'Referto': 'Referto'}
+# Chi sblocca ogni tipo (da gen_cards.py, abilita' eroi - il jolly di Sibilla
+# copre qualunque tipo): stampato nel fascicolo accanto a ogni carta da
+# prendere, cosi' chi arbitra sa subito se al tavolo c'e' l'eroe giusto.
+TIPO_EROI = {'Osservazione': 'Elena', 'Presagio': 'Serra',
+             'Testimonianza': 'Ottone o Carla', 'Referto': 'Attilio o Brera'}
 
 # Descrizione allargata SOLO per questo fascicolo (il narratore, non i giocatori):
 # più sensoriale e atmosferica del testo terso stampato sulla carta Luogo/Tessera,
@@ -246,34 +251,38 @@ def oggetto_riga(ref):
 def approfondimenti_righe(approfondimenti):
     """Carte Approfondimento del luogo - SOLO queste, mai l'Oggetto (vedi
     oggetto_riga): vanno nella sezione Approfondimenti, sempre sul retro
-    della pagina del luogo (vedi pagina_retro_luogo)."""
+    della pagina del luogo (vedi pagina_retro_luogo). Ogni riga dice anche
+    quale eroe puo' sbloccarla (TIPO_EROI + il jolly di Sibilla)."""
     out = []
     for a in approfondimenti:
         tipo = TIPO_LABEL[a['tipo']]
+        sblocca = f"sblocca: {TIPO_EROI[a['tipo']]}, o Sibilla col jolly"
         if 'soggetto' in a:
-            out.append(f"<b>{tipo}</b> — carta “{a['soggetto']}”")
+            out.append(f"<b>{tipo}</b> — carta “{a['soggetto']}” <i>({sblocca})</i>")
         else:
-            out.append(f"<b>{tipo}</b> <i>({a['tipo']})</i>")
+            out.append(f"<b>{tipo}</b> <i>({a['tipo']} — {sblocca})</i>")
     return out
 
 COL_W = WINDOW_TOP[0]*W - MX - 4*mm  # colonna libera a sinistra dell'arte (in alto)
 DESC_TOP = H - 37*mm
 DESC_MAX_H = DESC_TOP - (ART_BOTTOM - 4*mm) - 3*mm  # non scendere sotto la riga separatrice
 
-def fit_desc(c, text, start=9.5, floor=7):
+def fit_desc(c, text, start=9.5, floor=7, desc_top=None):
     """Testo lungo quanto serve: prova la dimensione naturale, poi la riduce
     finche' non entra nella colonna senza toccare la riga sotto l'arte -
     cosi' si puo' scrivere in liberta' senza contare le righe a mano."""
+    top = DESC_TOP if desc_top is None else desc_top
+    max_h = top - (ART_BOTTOM - 4*mm) - 3*mm
     size = start
     while True:
         style = st('desc', fontName=F['i'], fontSize=size, leading=size*1.42, alignment=4)
         p = Paragraph(text, style)
         w, h = p.wrapOn(c, COL_W, 400*mm)
-        if h <= DESC_MAX_H or size <= floor:
+        if h <= max_h or size <= floor:
             return p, h
         size -= 0.3
 
-def header(c, label_text, nome_text, desc_text):
+def header(c, label_text, nome_text, desc_text, entrata=None):
     c.setFillColor(TEAL); c.setFont(F['sc'], 10)
     c.drawString(MX, H - 20*mm, label_text.lower())
     c.setFillColor(RED); c.setFont(F['sc'], 18)
@@ -283,8 +292,17 @@ def header(c, label_text, nome_text, desc_text):
         size -= 1
     c.setFont(F['sc'], size)
     c.drawString(MX, H - 30*mm, nome_text.lower())
-    d, dh = fit_desc(c, desc_text)
-    d.drawOn(c, MX, DESC_TOP - dh)
+    desc_top = DESC_TOP
+    if entrata:
+        # L'oracolo della regola Bussare, subito sotto il nome del luogo:
+        # e' la prima cosa che chi arbitra deve trovare quando il gruppo
+        # dichiara una chiave (richiesta esplicita: non in fondo, tra gli
+        # indizi, ma in testa alla pagina).
+        c.setFillColor(RED); c.setFont(F['sc'], 9)
+        c.drawString(MX, H - 36*mm, entrata)
+        desc_top = H - 43*mm
+    d, dh = fit_desc(c, desc_text, desc_top=desc_top)
+    d.drawOn(c, MX, desc_top - dh)
     c.setStrokeColor(SEPIA); c.setLineWidth(0.5)
     c.line(MX, ART_BOTTOM - 4*mm, W - MX, ART_BOTTOM - 4*mm)
 
@@ -425,8 +443,7 @@ def narratore():
         torn_portrait(c, W, H, LUOGHI_ART[L['n']], TORN_TOP, window=WINDOW_TOP,
                       **LUOGHI_CROP.get(L['n'], {}))
         rule_border(c, W, H)
-        header(c, f"luogo {L['n']}", L['nome'], LUOGHI_DESC[L['n']])
-        y_indizi = ART_BOTTOM - 10*mm
+        entrata = None
         if L.get('chiave'):
             # L'oracolo della regola Bussare (vedi Regolamento): quando il
             # gruppo dichiara UNA parola/UN oggetto per entrare, chi arbitra
@@ -434,10 +451,9 @@ def narratore():
             tipo_chiave, valore = L['chiave']
             chiave_txt = (f'la parola «{valore}»' if tipo_chiave == 'parola'
                           else f'l’oggetto “{valore}”')
-            c.setFillColor(RED); c.setFont(F['sc'], 9)
-            c.drawString(MX, y_indizi, f'si entra con {chiave_txt} — solo per chi arbitra')
-            y_indizi -= 7*mm
-        indizi_block(c, L.get('indizi', []), oggetto_riga(f"L{L['n']}"), y_indizi)
+            entrata = f'si entra con {chiave_txt} — solo per chi arbitra'
+        header(c, f"luogo {L['n']}", L['nome'], LUOGHI_DESC[L['n']], entrata=entrata)
+        indizi_block(c, L.get('indizi', []), oggetto_riga(f"L{L['n']}"), ART_BOTTOM - 10*mm)
         c.showPage()
         pagina_retro_luogo(c, L)
         c.showPage()
