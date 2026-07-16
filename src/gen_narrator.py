@@ -56,9 +56,12 @@ LUOGHI_CROP = {
     7: dict(overscan=0.1),   # l'archivista e' quasi fuori dal ritaglio di default
 }
 TILE_ART = {
+    'T1': 'T1.png',
     'T2': 'T2.png',
     'T3': 'T3.png',
     'T4': 'T4.png',
+    'T5': 'T5.png',
+    'T6': 'T6.png',
 }
 TIPO_LABEL = {'Osservazione': 'Indizio Nascosto', 'Presagio': 'Indizio Nascosto',
               'Testimonianza': 'Testimone', 'Referto': 'Referto'}
@@ -186,6 +189,13 @@ LUOGHI_DESC = {
 }
 
 TESSERE_DESC = {
+    'T1': 'La porta d’acqua del magazzino: assi viscide che il canale lambisce senza fretta, '
+          'anelli d’ormeggio consumati da corde che non ci sono più, e l’odore del sego che '
+          'copre appena quello dell’acqua ferma. La lanterna trova solo salsedine e legno '
+          'gonfio, ma ogni tanto, sotto il molo, l’acqua fa un rumore di gola — come se '
+          'inghiottisse qualcosa di piccolo e stesse decidendo se provare con qualcosa di '
+          'più grosso. È da qui che siete entrati: è da qui che dovrete uscire, e il molo '
+          'lo sa.',
     'T2': 'Casse marchiate a fuoco con l’onda, accatastate fino a toccare il soffitto in '
           'corridoi che si restringono a ogni fila, tanto che in certi punti bisogna '
           'passare di lato per proseguire. L’aria sa di catrame e legno bagnato, e la '
@@ -216,6 +226,19 @@ TESSERE_DESC = {
           'quella porta — o l’avesse sentita aprirsi e si fosse nascosto in tempo. Il '
           'custode non è lontano: un rumore di passi, oltre la parete, si ferma non '
           'appena vi fermate anche voi, e riprende solo quando ricominciate a muovervi.',
+    'T5': 'La scala scende stretta tra pareti che sudano, gradini consumati al centro da '
+          'piedi che scendevano spesso — e risalivano chissà. A ogni gradino il canto che '
+          'avete sentito entrando si fa meno idea e più suono: non più forte, più vicino, '
+          'come una bocca che si sposta lentamente verso l’orecchio. Il freddo sale dal '
+          'basso a ondate lente, col ritmo esatto di un respiro, e la fiamma della lanterna '
+          'si piega verso il fondo — non verso l’uscita.',
+    'T6': 'La cripta è un polmone di pietra pieno di fiamme ferme: candele nere a centinaia, '
+          'sull’altare e tutt’intorno, e cera che ha colato tanto a lungo da fare colonne. '
+          'Dietro l’altare, la cella sbarrata — e dentro, una sagoma che smette di '
+          'dondolare nell’istante in cui la vostra luce la tocca. Qui il canto non ha più '
+          'bisogno di salire: sta nell’aria come l’umido, e ogni fiamma gli tiene il tempo '
+          'senza muoversi. L’odore è di cera, di chiuso, e di qualcosa di dolce che non '
+          'dovrebbe esserci.',
 }
 
 TORN_TOP = 'background scheda personaggio.png'
@@ -385,6 +408,58 @@ def pagina_retro_luogo(c, L):
     c.drawString(MX, H - 50*mm, 'carte da prendere — solo per chi arbitra')
     body(c, approfondimenti_righe(L['approfondimenti']), H - 55*mm)
 
+def pagina_tessera_fronte(c, tid, nome, desc, art_file, testo):
+    """Fronte della pagina tessera (fascicolo Spedizione): arte + descrizione
+    estesa nello stile dei Luoghi, e sotto l'arte il testo che si legge ad
+    alta voce quando la tessera viene rivelata (ambientazione, prove
+    d'ingresso, eventi QUANDO RIVELATE). NIENTE esiti di Cercare e NIENTE
+    meccaniche da scoprire: vivono sul retro fisico di questo foglio."""
+    torn_portrait(c, W, H, art_file, TORN_TOP, window=WINDOW_TOP)
+    rule_border(c, W, H)
+    header(c, f'tessera {tid}', nome, desc)
+    c.setFillColor(TEAL); c.setFont(F['sc'], 9)
+    c.drawString(MX, ART_BOTTOM - 12*mm, 'quando la rivelate — leggete ad alta voce')
+    p = Paragraph(testo, INDIZIO_ROW)
+    pw, ph = p.wrapOn(c, W - 2*MX, 80*mm)
+    p.drawOn(c, MX, ART_BOTTOM - 17*mm - ph)
+
+def pagina_retro_tessera(c, tid, nome, t, oggetto_rows=None):
+    """Retro fisico della pagina tessera: SEMPRE presente e con la stessa
+    struttura anche quando la tessera non nasconde nulla (stesso principio
+    di pagina_retro_luogo: sfogliare non deve rivelare quali tessere
+    contano). Esito di Cercare (o la frase di colore del vuoto), carta da
+    prendere, hook Indagine->Spedizione e note arbitro: solo per chi tiene
+    il fascicolo, si consulta quando un eroe Cerca o prova ad aprire."""
+    parchment_art(c, W, H)
+    rule_border(c, W, H)
+    c.setFillColor(TEAL); c.setFont(F['sc'], 10)
+    c.drawString(MX, H - 20*mm, f'tessera {tid}'.lower())
+    size = nome_fit(c, nome, W - 2*MX)
+    c.setFillColor(RED); c.setFont(F['sc'], size)
+    c.drawString(MX, H - 30*mm, nome.lower())
+    c.setStrokeColor(SEPIA); c.setLineWidth(0.5)
+    c.line(MX, H - 36*mm, W - MX, H - 36*mm)
+    c.setFillColor(TEAL); c.setFont(F['sc'], 10)
+    c.drawString(MX, H - 44*mm, 'cosa nasconde — solo per chi arbitra')
+    c.setFillColor(SEPIA); c.setFont(F['i'], 8.5)
+    c.drawString(MX, H - 50*mm, 'Consultate SOLO quando un eroe Cerca (ACUME Media) o prova ad '
+                                'aprire qualcosa. Leggete l’esito con lo stesso tono, pieno o vuoto.')
+    y = H - 60*mm
+    blocchi = [Paragraph('<b>Cercare:</b> ' + (t.get('cerca') or
+                         t.get('cerca_vuoto', 'niente da trovare qui.')), ROW)]
+    for r in (oggetto_rows or []):
+        blocchi.append(Paragraph(f'— {r}', ROW))
+    if t.get('hook'):
+        blocchi.append(Paragraph('<b>' + t['hook'] + '</b>',
+                                 st('tess_hook', fontName=F['r'], fontSize=10.5,
+                                    leading=15, textColor=RED)))
+    if t.get('arbitro'):
+        blocchi.append(Paragraph(t['arbitro'], ROW))
+    for p in blocchi:
+        pw, ph = p.wrapOn(c, W - 2*MX, 60*mm)
+        p.drawOn(c, MX, y - ph)
+        y -= ph + 5*mm
+
 def pagina_indice_citta(c, luoghi, etichetta_ep):
     """Prima pagina del fascicolo: l'indice voce di Mappa -> carta Luogo,
     solo per chi arbitra - e' il ponte che NON sta mai sulla Mappa ne'
@@ -460,15 +535,8 @@ def narratore():
         pagina_retro_luogo(c, L)
         c.showPage()
 
-    for t in TILES:
-        if t['id'] not in TILE_ART:
-            continue
-        torn_portrait(c, W, H, TILE_ART[t['id']], TORN_TOP, window=WINDOW_TOP)
-        rule_border(c, W, H)
-        header(c, f"tessera {t['id']}", t['nome'], TESSERE_DESC[t['id']])
-        body(c, oggetto_riga(t['id']), none_text='Nessun oggetto da Cercare qui.')
-        c.showPage()
-
+    # (le pagine tessera vivono nel fascicolo Spedizione, fronte/retro -
+    # vedi gen_gothic.spedizione: questo fascicolo copre solo l'Indagine)
     c.save()
     pad_to_even_pages(out_path)
 

@@ -755,11 +755,14 @@ Tyrlov) per le carte e **mappa a china su pergamena** per le tessere.
   sfondo/stile ma senza banner H1 pesanti — è un cheat-sheet, deve restare
   scannerizzabile a colpo d'occhio) sono comuni a tutta la campagna. Ogni episodio
   ha i suoi fascicoli in `Episodio N/pdf/`: `Indagine` (lettera d'incarico +
-  taccuino), `Spedizione` (note tessera fronte/retro — i segreti di Cercare e le
-  meccaniche da scoprire SOLO sul retro fisico, vedi punto 3 — + segnalini), `Luoghi` (riferimenti per
+  taccuino), `Spedizione` (note tessera: **una tessera per foglio nello stile dei
+  Luoghi** — fronte con arte, descrizione estesa e testo di rivelazione; i segreti di
+  Cercare e le meccaniche da scoprire SOLO sul retro fisico, una voce per OGNI
+  tessera anche vuota, vedi punto 3 — + segnalini), `Luoghi` (riferimenti per
   chi arbitra), `Bestiario` (vedi sotto), `Soluzione (non aprire)` (sigillata,
   con avvertimento iniziale). Le carte stesse (dorso Approfondimenti, titolo
-  Oggetti) non mostrano MAI il luogo/tessera d'origine, solo `Luoghi.pdf` lo dice.
+  Oggetti) non mostrano MAI il luogo/tessera d'origine: lo dicono solo `Luoghi.pdf`
+  (per i luoghi) e il retro delle note tessera in `Spedizione.pdf` (per le tessere).
 - **`Bestiario.pdf` (`src/gen_bestiario.py`), uno per episodio:** una pagina per
   nemico, template affine alla Scheda Personaggio (nome, tipo, ritratto in
   cornice — stessa arte della carta Creatura — bio dal campo `note` arricchito
@@ -783,8 +786,11 @@ Tyrlov) per le carte e **mappa a china su pergamena** per le tessere.
   carta Luogo, campo `voce_mappa` nei dati; le voci fuori episodio = pista
   fredda gratuita) seguita da un retro di servizio (istruzioni d'uso) che
   preserva la parità fronte/retro. Poi **due pagine per luogo** (fronte+retro
-  consecutivi, stampa fronte/retro) più le tessere che nascondono un oggetto
-  da Cercare. FRONTE, stile scheda personaggio: arte del luogo/tessera fusa
+  consecutivi, stampa fronte/retro). Le tessere NON stanno qui: hanno le loro
+  pagine fronte/retro dentro `Spedizione.pdf` (`pagina_tessera_fronte` /
+  `pagina_retro_tessera` in `gen_narrator.py`, riusate da `gen_ep2.py` — una
+  coppia per OGNI tessera, anche vuota, descrizioni estese in `TESSERE_DESC*`,
+  arte in `TILE_ART*`). FRONTE, stile scheda personaggio: arte del luogo/tessera fusa
   nello strappo trasparente reale di `artworks/background scheda
   personaggio.png` (variante con lo strappo **in alto**, per opporsi alle
   schede eroe che usano quella in basso — `torn_portrait(...,

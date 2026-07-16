@@ -129,7 +129,7 @@ def spedizione():
         Paragraph(f'Le {len(MINACCE)} carte Minaccia e le {len(NEMICI)} schede Nemici sono stampate come carte a parte '
                   '(cartelle <b>Episodio 1/cards/Minacce/</b> e <b>Episodio 1/cards/Nemici/</b>). '
                   'Le 6 tessere T1-T6 del magazzino sono in <b>Episodio 1/board/</b>, gi\u00e0 con '
-                  'griglia, arredi e porte segnate. Le pagine seguenti sono le note per tessera: '
+                  'griglia, arredi e porte segnate. Le pagine seguenti sono le note per tessera, una tessera per foglio: '
                   'il <b>fronte</b> si legge ad alta voce quando una tessera viene rivelata; il '
                   '<b>retro del foglio</b> \u00e8 solo per chi tiene questo fascicolo \u2014 dice '
                   'cosa nasconde ogni tessera, e si consulta SOLO quando un eroe Cerca (o prova '
@@ -156,63 +156,19 @@ def spedizione():
                   'retro: quello che il magazzino nasconde si scopre un\u2019azione alla volta.',
                   BODY)])
     c.showPage()
-    # FRONTE - note per tessera lette alla rivelazione (ambientazione, prove
-    # d'ingresso, eventi QUANDO RIVELATE). NIENTE esiti di Cercare e NIENTE
-    # meccaniche da scoprire: quelli vivono sul retro fisico di questo foglio,
-    # solo per chi arbitra - stesso principio fronte/retro del fascicolo
-    # Luoghi (gli Approfondimenti stanno SEMPRE sul retro). Le due pagine
-    # devono restare consecutive nel PDF: una stampa fronte/retro normale le
-    # mette sullo stesso foglio.
-    y = H - 25*mm
+    # Note per tessera: una tessera per FOGLIO, nello stile dei Luoghi.
+    # Fronte = arte + descrizione estesa + testo letto alla rivelazione;
+    # retro fisico = cosa nasconde (Cercare/carta/hook/note), solo per chi
+    # arbitra - una voce per OGNI tessera, anche vuota, cosi' sfogliare non
+    # rivela QUALI tessere contano. Le coppie restano consecutive nel PDF:
+    # una stampa fronte/retro normale le allinea sullo stesso foglio.
+    import gen_narrator as N
     for T in TILES:
-        c.setFillColor(RED); c.setFont(F['sc'], 13)
-        c.drawString(20*mm, y, '%s \u00b7 %s' % (T['id'], T['nome'].lower()))
-        fh = 22*mm
-        frame_flow(c, 20*mm, y - 8*mm - fh, W - 40*mm, fh,
-                   [Paragraph(T['testo'], st('tile', fontSize=9, leading=12, alignment=4))])
-        y -= fh + 14*mm
-    c.setFillColor(TEAL); c.setFont(F['i'], 9)
-    c.drawString(20*mm, 18*mm, 'Quando un eroe Cerca o prova ad aprire qualcosa: chi tiene il fascicolo '
-                               'legge la voce della tessera sul retro di questo foglio.')
-    c.showPage()
-    # RETRO - cosa nasconde ogni tessera, solo per chi arbitra. Una voce per
-    # OGNI tessera, anche vuota: cosi' il fronte non rivela nemmeno QUALI
-    # tessere nascondono qualcosa (chi cerca a vuoto sente un "niente" letto
-    # con lo stesso tono di un tesoro - vedi bibbia, stessa regola degli
-    # Approfondimenti sempre-sul-retro).
-    c.setFillColor(RED); c.setFont(F['sc'], 16)
-    c.drawString(20*mm, H - 22*mm, 'cosa nasconde ogni tessera \u2014 solo per chi arbitra')
-    c.setFillColor(SEPIA); c.setFont(F['i'], 8.5)
-    c.drawString(20*mm, H - 28*mm, 'Consultate la voce SOLO quando un eroe Cerca (ACUME Media) o prova ad aprire '
-                                   'qualcosa. Leggete l\u2019esito, non la lista.')
-    y = H - 38*mm
-    for T in TILES:
-        c.setFillColor(RED); c.setFont(F['sc'], 12)
-        c.drawString(20*mm, y, '%s \u00b7 %s' % (T['id'], T['nome'].lower()))
-        flow = []
-        if T.get('cerca'):
-            flow.append(Paragraph('<b>Cercare:</b> ' + T['cerca'],
-                                  st('tc', fontSize=9, leading=12, textColor=TEAL)))
-        else:
-            # Anche il "niente" ha la sua frase di colore (campo cerca_vuoto):
-            # si legge con lo stesso tono di un tesoro, mai un secco "nulla".
-            flow.append(Paragraph('<b>Cercare:</b> ' + T.get(
-                'cerca_vuoto', 'niente da trovare qui.'),
-                st('tn', fontSize=9, leading=12, textColor=TEAL)))
-        if T.get('hook'):
-            # Hook Indagine->Spedizione: possesso della carta giusta =
-            # niente prova sulla trappola di questa tessera.
-            flow.append(Spacer(1, 2))
-            flow.append(Paragraph('<b>' + T['hook'] + '</b>',
-                                  st('th', fontSize=9, leading=12, textColor=RED)))
-        if T.get('arbitro'):
-            flow.append(Spacer(1, 2))
-            flow.append(Paragraph(T['arbitro'], st('ta', fontSize=9, leading=12, textColor=TEAL)))
-        fh = 32*mm if T.get('hook') else \
-             26*mm if (T.get('cerca') and len(T['cerca']) > 120) or T.get('arbitro') else 12*mm
-        frame_flow(c, 20*mm, y - 6*mm - fh, W - 40*mm, fh, flow)
-        y -= fh + 10*mm
-    c.showPage()
+        N.pagina_tessera_fronte(c, T['id'], T['nome'], N.TESSERE_DESC[T['id']],
+                                N.TILE_ART[T['id']], T['testo'])
+        c.showPage()
+        N.pagina_retro_tessera(c, T['id'], T['nome'], T, N.oggetto_riga(T['id']))
+        c.showPage()
     token_sheet(c)
     registro_ferite(c)
     c.save()

@@ -447,7 +447,7 @@ def spedizione():
         Paragraph('Le 23 carte Minaccia dell’episodio (le 2 «Segugi del Coro» SOLO se il vostro '
                   'Bivio lo dice — vedi Soluzione) e le schede Nemici sono carte a parte '
                   '(cartella <b>Episodio 2/cards/</b>). Le 6 tessere della Fonderia Vecchia sono '
-                  'in <b>Episodio 2/board/</b>. Le pagine seguenti sono le note per tessera: il '
+                  'in <b>Episodio 2/board/</b>. Le pagine seguenti sono le note per tessera, una tessera per foglio: il '
                   '<b>fronte</b> si legge ad alta voce quando una tessera viene rivelata; il '
                   '<b>retro del foglio</b> è solo per chi tiene questo fascicolo — dice cosa '
                   'nasconde ogni tessera, e si consulta SOLO quando un eroe Cerca (o prova ad '
@@ -466,48 +466,20 @@ def spedizione():
                   'l’esito di quella sola tessera: con lo stesso tono sia che ci sia un tesoro, '
                   'sia che non ci sia niente. Gli altri giocatori non leggono il retro.', BODY)])
     c.showPage()
-    # FRONTE note tessera
-    y = H - 25*mm
+    # Note per tessera: una tessera per FOGLIO, nello stile dei Luoghi
+    # (stesso pattern di gen_gothic.spedizione). Fronte = arte + descrizione
+    # estesa + testo letto alla rivelazione; retro fisico = cosa nasconde,
+    # solo per chi arbitra - una voce per OGNI tessera, anche vuota. Le
+    # coppie restano consecutive nel PDF: una stampa fronte/retro normale
+    # le allinea sullo stesso foglio.
+    import gen_narrator as N
     for T in TILES_2:
-        c.setFillColor(RED); c.setFont(F['sc'], 13)
-        c.drawString(20*mm, y, '%s · %s' % (T['id'], T['nome'].lower()))
-        fh = 22*mm
-        frame_flow(c, 20*mm, y - 8*mm - fh, W - 40*mm, fh,
-                   [Paragraph(T['testo'], st_gothic('tile', fontSize=9, leading=12, alignment=4))])
-        y -= fh + 14*mm
-    c.setFillColor(TEAL); c.setFont(F['i'], 9)
-    c.drawString(20*mm, 18*mm, 'Quando un eroe Cerca o prova ad aprire qualcosa: chi tiene il fascicolo '
-                               'legge la voce della tessera sul retro di questo foglio.')
-    c.showPage()
-    # RETRO note tessera - solo per chi arbitra
-    c.setFillColor(RED); c.setFont(F['sc'], 16)
-    c.drawString(20*mm, H - 22*mm, 'cosa nasconde ogni tessera — solo per chi arbitra')
-    c.setFillColor(SEPIA); c.setFont(F['i'], 8.5)
-    c.drawString(20*mm, H - 28*mm, 'Consultate la voce SOLO quando un eroe Cerca (ACUME Media) o prova ad aprire '
-                                   'qualcosa. Leggete l’esito, non la lista.')
-    y = H - 38*mm
-    for T in TILES_2:
-        c.setFillColor(RED); c.setFont(F['sc'], 12)
-        c.drawString(20*mm, y, '%s · %s' % (T['id'], T['nome'].lower()))
-        flow = []
-        if T.get('cerca'):
-            flow.append(Paragraph('<b>Cercare:</b> ' + T['cerca'],
-                                  st_gothic('tc2', fontSize=9, leading=12, textColor=TEAL)))
-        else:
-            flow.append(Paragraph('<b>Cercare:</b> ' + T.get('cerca_vuoto', 'niente da trovare qui.'),
-                                  st_gothic('tn2', fontSize=9, leading=12, textColor=TEAL)))
-        if T.get('hook'):
-            flow.append(Spacer(1, 2))
-            flow.append(Paragraph('<b>' + T['hook'] + '</b>',
-                                  st_gothic('th2', fontSize=9, leading=12, textColor=RED)))
-        if T.get('arbitro'):
-            flow.append(Spacer(1, 2))
-            flow.append(Paragraph(T['arbitro'], st_gothic('ta2', fontSize=9, leading=12, textColor=TEAL)))
-        fh = 32*mm if T.get('hook') or T.get('arbitro') else \
-             26*mm if (T.get('cerca') and len(T['cerca']) > 120) else 12*mm
-        frame_flow(c, 20*mm, y - 6*mm - fh, W - 40*mm, fh, flow)
-        y -= fh + 10*mm
-    c.showPage()
+        N.pagina_tessera_fronte(c, T['id'], T['nome'], TESSERE_DESC_2[T['id']],
+                                TILE_ART_2[T['id']], T['testo'])
+        c.showPage()
+        ogg = ['<b>Oggetto</b> — carta “' + o + '”' for o in OGGETTI_TESSERA_2.get(T['id'], [])]
+        N.pagina_retro_tessera(c, T['id'], T['nome'], T, ogg)
+        c.showPage()
     # nemici in campo + registro (token sheet arriva con l'arte, Fase D)
     parchment_art(c, W, H)
     rule_border(c, W, H)
@@ -714,6 +686,54 @@ OGGETTI_LUOGO_2 = {
 # arte tessere del fascicolo (le stesse dei board)
 TILE_ART_2 = {t['id']: t['id'] + '-ep2.png' for t in TILES_2}
 
+# Descrizioni estese delle tessere (fascicolo Spedizione, pagine
+# fronte/retro nello stile dei Luoghi): stessa bibbia di scrittura di
+# LUOGHI2_DESC - stessi fatti del testo di rivelazione, molto piu' aria,
+# un dettaglio che si muove, mai indizi nuovi.
+TESSERE_DESC_2 = {
+    'T1': "La banchina dell'isola è fatta di scarti: vetro nero che scricchiola sotto "
+          "le suole, ruggine, scorie pressate da vent'anni di scarichi. Il canale morto "
+          "alle spalle non ha corrente, e ciò che galleggia resta dov'è, in un ordine "
+          "che nessuno ha voluto. Dall'altra parte, la fonderia: finestre cieche, e una "
+          "sola riga di fumo dritta nel cielo — un camino che non dovrebbe più fumare. "
+          "La chiatta che vi ha portati fin qui sembra già pentita.",
+    'T2': "Le forme delle campane dormono interrate in file ordinate, fosse aperte "
+          "vestite di mattoni refrattari, come una semina di tombe che aspetta il suo "
+          "raccolto. La brina si è posata dappertutto tranne che su una, in fondo: lì "
+          "la terra è smossa, scura, e tenendoci la mano sopra si sente ancora un "
+          "tepore che con la notte non c'entra niente. Tra le file il vento gira basso "
+          "e porta, a folate, l'odore del metallo caldo.",
+    'T3': "Staffe, casseri e morsetti accatastati fino alle travi: vent'anni di polvere "
+          "hanno arrotondato ogni spigolo e reso tutto dello stesso grigio. Ma in "
+          "basso, tra le staffe, la polvere manca: un luccichio d'olio fresco che la "
+          "lanterna fa brillare, una pista di dita e di trascinamenti. Qualcuno, qui "
+          "dentro, è venuto a prendere qualcosa di preciso — e sapeva dove guardare. "
+          "Il buio tra le pile è fitto, e ha gli angoli giusti per aspettare.",
+    'T4': "Le assi corrono basse sopra l'acqua di scolo, nera, veloce, l'unica cosa "
+          "viva dell'isola. Alcune sono nuove, inchiodate di fretta e male, e sotto il "
+          "peso rispondono con una nota diversa — più alta, più corta — che i piedi "
+          "imparano prima della testa. Il corrimano è un ricordo: un filo di ferro "
+          "molle che è meglio non ringraziare. A metà passerella l'odore cambia: non "
+          "più scorie, ma metallo caldo. Di là si lavora.",
+    'T5': "Un ufficio piccolo e ostinato nel ventre della fonderia: la scrivania con "
+          "la pesa da banco, chiodi con le ricevute infilzate, e una stufa che fuma "
+          "ancora — qualcuno l'ha caricata da poco, e contava di tornare. Legato alla "
+          "sedia, con gli occhi che vi trovano subito, Ilario Dossena: vivo, e con "
+          "l'aria di chi ha passato le ultime ore a contare i propri errori. Oltre la "
+          "parete di assi, il calore grande della sala dei forni preme come una mano.",
+    'T6': "La sala grande trema di calore: il forno riacceso ha una voce bassa e "
+          "continua che si sente nelle ossa prima che nelle orecchie, e la luce "
+          "arancione muove le ombre anche quando nessuno si muove. Sulla rastrelliera, "
+          "in fila come canne d'organo, le campanelle grezze della colata — e due "
+          "posti vuoti, due assenze precise che nessuno si è preso il disturbo di "
+          "nascondere. Il pavimento è segnato da colate vecchie, e da una nuova, "
+          "ancora lucida.",
+}
+
+# Carte Oggetto nascoste nelle tessere (retro delle pagine tessera).
+OGGETTI_TESSERA_2 = {'T2': ['Un Badile del Formatore'],
+                     'T3': ['Una Latta d’Olio di Colata ⚠ rischioso']}
+
 
 def luoghi():
     """Luoghi.pdf Episodio 2 (fronte/retro + indice citta'): costruito con
@@ -751,24 +771,8 @@ def luoghi():
         N.pagina_retro_luogo(c, L)
         c.showPage()
 
-    # tessere che nascondono un oggetto da Cercare (badile T2, latta T3)
-    TESSERE_DESC_2 = {
-        'T2': 'Il piazzale delle forme: fosse di colata in file ordinate, come tombe '
-              'che aspettano le loro campane. Una, in fondo, \u00e8 stata usata da poco.',
-        'T3': 'Il magazzino delle staffe: vent\u2019anni di polvere su casseri e morsetti '
-              '\u2014 e un luccichio d\u2019olio fresco, in basso, dove la polvere non c\u2019\u00e8 pi\u00f9.',
-    }
-    OGGETTI_TESSERA_2 = {'T2': ['Un Badile del Formatore'],
-                         'T3': ['Una Latta d\u2019Olio di Colata \u26a0 rischioso']}
-    for tid in ('T2', 'T3'):
-        t = next(x for x in TILES_2 if x['id'] == tid)
-        torn_portrait(c, W, H, TILE_ART_2[tid], N.TORN_TOP, window=N.WINDOW_TOP)
-        rule_border(c, W, H)
-        N.header(c, 'tessera ' + tid, t['nome'], TESSERE_DESC_2[tid])
-        N.body(c, ['<b>Oggetto</b> \u2014 carta \u201c' + o + '\u201d' for o in OGGETTI_TESSERA_2[tid]],
-               none_text='Nessun oggetto da Cercare qui.')
-        c.showPage()
-
+    # (le pagine tessera vivono nel fascicolo Spedizione, fronte/retro -
+    # vedi spedizione(): questo fascicolo copre solo l'Indagine)
     c.save()
     pad_to_even_pages(out_path)
     print('ok ->', out_path)
