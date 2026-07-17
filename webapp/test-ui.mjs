@@ -63,6 +63,13 @@ try {
   await page.locator('.voce').first().waitFor();
   ok(await page.locator('.voce').count() > 8, 'stradario popolato');
 
+  // rileggere la lettera dal bottone, poi tornare in strada
+  await page.locator('#rileggi').click();
+  await page.locator('.lettera-testo').waitFor();
+  await page.locator('#in-strada').click();
+  await page.locator('.voce').first().waitFor();
+  ok(true, 'lettera rileggibile dallo stradario');
+
   // --- pista fredda: voce vera della mappa ma fuori episodio ---------------
   const fredda = await page.$$eval('.voce', (els, luoghi) => {
     const testi = els.map((e) => e.dataset.voce);

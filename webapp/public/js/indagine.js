@@ -26,14 +26,17 @@ export async function vistaIndagine(app, partita, vaiA) {
 // voce, e dice quali porte sono aperte dall'inizio. Poi la città.
 function lettera() {
   const { app, ep } = ctx;
+  const rilettura = IND().lettaLettera;
   app.innerHTML = `
     ${barra(ep.titolo)}
     <div class="pannello lettera-panel">
-      <p class="nota centrato">— da leggere ad alta voce, una sola volta —</p>
+      <p class="nota centrato">${rilettura ? '— la lettera d’incarico, dal Taccuino —'
+                                           : '— da leggere ad alta voce —'}</p>
       <div class="lettera-testo">${rendi(ep.lettera)}</div>
     </div>
     <div class="btn-riga">
-      <button class="btn pieno" id="in-strada">in strada, alle ${IND().ora}:00 →</button>
+      <button class="btn pieno" id="in-strada">${rilettura ? 'torna in strada →'
+                                                : `in strada, alle ${IND().ora}:00 →`}</button>
     </div>`;
   dopoBarra();
   app.querySelector('#in-strada').onclick = () => {
@@ -94,12 +97,14 @@ function home() {
       </div>
     </div>
     <div class="btn-riga">
+      ${ep.lettera ? '<button class="btn" id="rileggi">la lettera</button>' : ''}
       <button class="btn" id="taccuino">taccuino e domande</button>
       <button class="btn" id="inventario">oggetti e carte (${ind.oggetti.length + ind.approfondimentiLetti.length})</button>
       <button class="btn pieno" id="chiudi-indagine">chiudete l’indagine</button>
     </div>`;
   dopoBarra();
   app.querySelectorAll('.voce').forEach((el) => el.onclick = () => dichiara(el.dataset.voce));
+  app.querySelector('#rileggi')?.addEventListener('click', lettera);
   app.querySelector('#taccuino').onclick = taccuino;
   app.querySelector('#inventario').onclick = inventario;
   app.querySelector('#chiudi-indagine').onclick = taccuino;
