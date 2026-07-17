@@ -216,6 +216,7 @@ episodi = dict(
         oggetti_luogo=OGGETTI_LUOGO_P,
         tessere=[dict(id=t[0], nome=t[1].title(), art=t[2], testo=t[3]) for t in TESSERE_P],
         mazzo_da_ep1=MAZZO_P,
+        pool={'LO SGHERRO': 4, 'IL SICARIO': 2},   # miniature Ep.1 riusate
         marea=dict(ogni=2, soglia=3, effetto='Movimento -1 (minimo 1) per tutti gli eroi.'),
         soluzione=SOLUZIONI['preludio'],
     ),

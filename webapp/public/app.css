@@ -315,3 +315,14 @@ em, i { font-style: italic; }
   max-width: 460px; }
 .dadi-grid .btn { min-width: 58px; padding: 12px 0; font-size: 22px; text-align: center; }
 .dadi-ripiego { font-size: 14px; padding: 8px 14px; opacity: .7; }
+
+/* --- spedizione: registro ferite e tessere --- */
+.nemico-riga { display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; padding: 8px 0; border-bottom: 1px solid rgba(138, 113, 80, .4); }
+.nemico-nome { font-family: 'FellSC', serif; font-size: 17px; color: var(--ink); }
+.nemico-nome b { color: var(--rosso); }
+.nemico-pips { display: flex; gap: 6px; cursor: pointer; padding: 6px; }
+.pip-ferita { width: 20px; height: 20px; border-radius: 50%;
+  border: 2px solid var(--rosso); background: transparent; }
+.pip-ferita.piena { background: var(--rosso); }
+.btn.coperta { opacity: .55; border-style: dashed; }

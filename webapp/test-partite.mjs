@@ -207,12 +207,57 @@ for (const sc of SCENARI) {
     ok(/vantaggio d’indagine/i.test(bustaTxt), 'riepilogo vantaggio assente');
     ok(bustaTxt.includes(`${24 - st.indagine.ora} ore avanzate`), 'ore avanzate nel riepilogo non tornano');
 
-    // alla spedizione
+    // alla spedizione: setup coi vantaggi, poi si gioca
     await page.locator('#alla-spedizione').click();
-    await page.getByText('la spedizione').first().waitFor();
+    await page.locator('#inizia-spedizione').waitFor();
+    await page.locator('#inizia-spedizione').click();
+    await page.locator('#fase-minaccia').waitFor();
     const fin = await stato(page, sc.ep);
     ok(fin.fase === 'spedizione' && fin.indagine.chiusa, 'la partita non passa alla fase spedizione');
-    console.log(`    busta: ${esatte} esatte, ${sbagliate} sbagliate — fase ${fin.fase}`);
+    ok(fin.spedizione.mazzo.pool.length > 0, 'mazzo Minaccia vuoto in spedizione');
+
+    // rivelare la seconda tessera e usare l'oracolo di Cercare
+    const t2 = ep.tessere[1].id;
+    await page.locator(`[data-tessera="${t2}"]`).click();     // rivela
+    await page.locator('#ok-msg').click();
+    await page.locator(`[data-tessera="${t2}"]`).click();     // oracolo Cercare
+    ok(/cercare/i.test(await page.locator('.pannello').innerText()), 'oracolo Cercare muto');
+    await page.locator('#ok-msg').click();
+
+    // registro: spawn di un nemico, ferito fino ad abbatterlo
+    await page.locator('[data-spawn]').first().click();
+    ok((await stato(page, sc.ep)).spedizione.nemici.length === 1, 'spawn non registrato');
+    let vivo = true;
+    for (let i = 0; i < 12 && vivo; i++) {
+      const st2 = await stato(page, sc.ep);
+      vivo = st2.spedizione.nemici.length > 0;
+      if (vivo) await page.locator('.nemico-pips').first().click();
+    }
+    ok((await stato(page, sc.ep)).spedizione.nemici.length === 0, 'nemico mai abbattuto dai pip');
+
+    // sei fasi Minaccia: pesca per taglia + tick dell'orologio
+    for (let r = 0; r < 6; r++) {
+      await page.locator('#fase-minaccia').click();
+      while (await page.locator('#ok-msg').count()) {
+        await page.locator('#ok-msg').click();
+        await page.waitForTimeout(120);
+      }
+      await page.locator('#fase-minaccia').waitFor();
+    }
+    const st3 = await stato(page, sc.ep);
+    const ogni = ep.marea ? ep.marea.ogni : 4;
+    ok(st3.spedizione.round === 7, `round dopo 6 fasi: ${st3.spedizione.round}`);
+    // minimo: i tick dell'orologio; in piu' le carte Crescendo pescate (non deterministico)
+    const tickMinimi = Math.floor(6 / ogni);
+    ok(st3.spedizione.canto >= tickMinimi && st3.spedizione.canto <= tickMinimi + 6,
+       `${ep.marea ? 'marea' : 'canto'} fuori misura (${st3.spedizione.canto}, tick minimi ${tickMinimi})`);
+
+    // vittoria
+    await page.locator('#vittoria').click();                  // confirm() accettato
+    await page.getByText('alla taverna').waitFor();
+    ok((await stato(page, sc.ep)).spedizione.esito === 'vittoria', 'esito non salvato');
+    console.log(`    busta: ${esatte} esatte, ${sbagliate} sbagliate — spedizione: ` +
+                `${st3.spedizione.round - 1} round giocati, ${ep.marea ? 'marea' : 'canto'} ${st3.spedizione.canto}, vittoria`);
   } catch (e) {
     ko(`giocata interrotta: ${e.message.split('\n')[0]}`);
   }

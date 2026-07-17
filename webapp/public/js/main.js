@@ -205,37 +205,18 @@ function dettaglioEroe(e, giaScelto) {
 
 // ---------------------------------------------------------------- PARTITA
 import { vistaIndagine } from './indagine.js';
+import { vistaSpedizione } from './spedizione.js';
 
 async function vistaPartita(partita) {
   const vaiA = (dove) => {
     if (dove === 'menu') return vistaHome();
-    if (dove === 'spedizione') return vistaSpedizioneStub(partita);
+    if (dove === 'spedizione') return vistaSpedizione(app, partita, vaiA);
     vistaPartita(partita);
   };
   if (partita.fase === 'indagine' && !partita.indagine.chiusa) {
     return vistaIndagine(app, partita, vaiA);
   }
-  return vistaSpedizioneStub(partita);
-}
-
-async function vistaSpedizioneStub(partita) {
-  const ep = await dati(partita.episodio);
-  h(`
-    <div class="barra">
-      <button class="btn" id="esci">← esci</button>
-      <div class="titolo">${esc(ep.titolo)} · ${partita.modo}</div>
-      <span class="sc" style="color:var(--oro-chiaro)">h ${partita.indagine.ora}:00</span>
-    </div>
-    <div class="pannello centrato">
-      <h2>la spedizione</h2>
-      <p class="mt">Party: <b>${partita.party.map((n) => esc(n)).join(' · ')}</b></p>
-      <p class="nota mt">La Spedizione assistita (pesca Minaccia, Canto, registro Ferite,
-      esiti di Cercare) arriva col prossimo blocco di sviluppo. L’Indagine è già
-      giocabile dall’inizio alla busta.</p>
-    </div>
-    ${RIGA_C}
-  `);
-  document.getElementById('esci').onclick = vistaHome;
+  return vistaSpedizione(app, partita, vaiA);
 }
 
 // ------------------------------------------------------------------ avvio
