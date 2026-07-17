@@ -363,6 +363,13 @@ prima che l'Ep. 1 lo riveli.
    - **Esiti vuoti con colore** (campo `cerca_vuoto` in `TILES`): il retro dà la
      frase pronta anche per il "niente", così il tono di chi legge è davvero
      identico tra tesoro e nulla — e anche il buco è immersivo.
+   - **Aiuto profano** (Regolamento + webapp): quando NESSUN eroe del party può
+     più sbloccare un tipo (abilità assente o cariche/jolly esauriti), un eroe
+     qualsiasi tenta ACUME (Difficile), una sola volta per luogo — riuscita
+     sblocca l'Approfondimento, fallita lo sigilla lì per il resto
+     dell'indagine (precedente D&D: prova senza competenza). In fase di design
+     non dare quindi mai per garantito che il party legga gli Approfondimenti:
+     il nucleo per le Domande resta sugli indizi core (regola già in vigore).
 3-bis. *Ferite nemici* — nessun gettone o dado per nemico sul tabellone: si traccia su un
    **Registro delle Ferite** riusabile (una pagina in fondo al fascicolo Spedizione, vedi
    `registro_ferite()` in `src/gen_gothic.py`), righe generiche "nemico attivo" (mai per

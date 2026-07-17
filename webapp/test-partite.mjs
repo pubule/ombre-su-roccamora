@@ -137,11 +137,19 @@ for (const sc of SCENARI) {
       if (scenaOk) {
         for (const tipo of tipi) {
           await page.locator(`[data-tipo="${tipo}"]`).click();
-          const doveA = await schermata(page);
+          let doveA = await schermata(page);
           if (doveA === '.scelta-box button') {
             await page.locator('.scelta-box button:not(.annulla)').first().click();
-            await page.locator('#ok-msg').waitFor();
+            doveA = await schermata(page);
           }
+          if (doveA === '#dadi-lancia') {      // aiuto profano: si tira
+            await page.locator('#dadi-lancia').click();
+            await page.locator('#dadi-chiudi').waitFor({ state: 'visible' });
+            await page.locator('#dadi-chiudi').click();
+            await page.locator('.dadi-overlay').waitFor({ state: 'detached' });
+            doveA = await schermata(page);
+          }
+          ok(doveA === '#ok-msg', `approfondire ${tipo}: esito non arriva (${doveA})`);
           await page.locator('#ok-msg').click();
           await page.locator('#fine-visita').waitFor();
         }

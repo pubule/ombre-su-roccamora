@@ -234,10 +234,7 @@ async function approfondisci(l, tipo, tipiQui) {
   const ind = IND();
   const gia = ind.approfondimentiLetti.some((x) => x.n === l.n && x.tipo === tipo);
   const c = idoneiPerTipo(ctx.comune, P(), tipo);
-  if (!c.length) {
-    return pannelloMsg(tipo.toLowerCase(), `<p class="nota">Nessun eroe del party può più
-      sbloccare una ${esc(tipo)} (cariche esaurite o abilità assente).</p>`, () => schedaLuogo(l));
-  }
+  if (!c.length) return aiutoProfano(l, tipo);
   // scelta di chi spende la carica (jolly incluso)
   const chi = await scegliDaLista('chi prova a vedere?', c.map((x) => ({
     id: x.nome, label: `${x.nome}${x.proprie > 0 ? '' : ' (jolly di Sibilla)'}`,
@@ -263,6 +260,53 @@ async function approfondisci(l, tipo, tipiQui) {
     `${cardA ? `<div class="carta-grande"><img src="${urlCartaSafe(cardA.file)}" alt=""></div>` : ''}
      <p class="mt"><i>${rendi(a.testo)}</i></p>
      <p class="nota mt">Prendete la carta “${esc(a.soggetto)}” dal mazzo Approfondimenti.</p>`,
+    () => schedaLuogo(l));
+}
+
+// Aiuto profano: quando NESSUN eroe puo' piu' sbloccare quel tipo (abilita'
+// assente o cariche/jolly esauriti), un eroe qualsiasi tenta da dilettante -
+// ACUME (Difficile), una sola occasione per luogo. Riuscita: l'Approfondimento
+// emerge come sbloccato. Fallita: in questo luogo resta sigillato.
+// (Precedente D&D: prova senza competenza - possibile, ma in salita.)
+async function aiutoProfano(l, tipo) {
+  const ind = IND();
+  ind.profano = ind.profano || {};
+  if (ind.profano[l.n]) {
+    return pannelloMsg('aiuto profano', `<p class="nota">Nessun eroe può più sbloccare
+      una ${esc(tipo)} — e l’occhio del dilettante, qui, ha già avuto la sua
+      occasione stanotte.</p>`, () => schedaLuogo(l));
+  }
+  const eroe = await scegliEroe(`aiuto profano — chi tenta? (ACUME, Difficile)`, 'acume');
+  if (!eroe) return schedaLuogo(l);
+  const r = await tiraProva({
+    titolo: `aiuto profano — ${eroe.nome.split(' ')[0]}`,
+    diffLabel: 'Difficile', soglia: ctx.comune.regole.diff.Difficile,
+    bonus: [{ label: 'ACUME', val: eroe.acume }],
+  });
+  if (!r) return schedaLuogo(l);          // tiro annullato: occasione non spesa
+  ind.profano[l.n] = true;
+  const a = l.approfondimenti.find((x) => x.tipo === tipo);
+  const gia = ind.approfondimentiLetti.some((x) => x.n === l.n && x.tipo === tipo);
+  if (!r.ok) {
+    salvaP();
+    return pannelloMsg('aiuto profano', `<p><i>${esc(eroe.nome.split(' ')[0])} fruga senza
+      metodo, e il luogo se ne accorge. Qualunque cosa ci fosse da cogliere qui,
+      resta sigillata — servirebbe l’occhio giusto.</i></p>`, () => schedaLuogo(l));
+  }
+  if (!a || gia) {
+    salvaP();
+    return pannelloMsg('aiuto profano', `<p><i>${esc(eroe.nome.split(' ')[0])} osserva, ascolta,
+      fruga — e stavolta con fortuna. ${gia ? 'Ma quello che c’era da cogliere qui, l’avete già colto.'
+      : 'Ma qui non c’è nulla che parli quel linguaggio.'}</i></p>`, () => schedaLuogo(l));
+  }
+  ind.approfondimentiLetti.push({ n: l.n, tipo, soggetto: a.soggetto });
+  salvaP();
+  const cardA = cartaApprofondimento(ctx.carte, P().episodio, a.soggetto);
+  pannelloMsg(`${tipo.toLowerCase()} — ${a.soggetto.toLowerCase()}`,
+    `${cardA ? `<div class="carta-grande"><img src="${urlCartaSafe(cardA.file)}" alt=""></div>` : ''}
+     <p class="mt"><i>${rendi(a.testo)}</i></p>
+     <p class="nota mt">Colto da profano, ma colto: prendete la carta “${esc(a.soggetto)}”
+     dal mazzo Approfondimenti.</p>`,
     () => schedaLuogo(l));
 }
 

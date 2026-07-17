@@ -221,6 +221,12 @@ def regolamento():
     e.append(LI('<b>Nino</b> non sblocca carte: la sua abilit\u00e0 (<b>Grimaldello</b>) entra in un luogo '
                 'bloccato senza parola chiave n\u00e9 oggetto, 1 volta a episodio \u2014 bypassa solo il '
                 'requisito d\u2019ingresso: una volta dentro si tira \u201cleggere la scena\u201d come sempre.'))
+    e.append(LI('<b>Aiuto profano</b> \u2014 se <b>nessun</b> eroe al tavolo pu\u00f2 pi\u00f9 sbloccare un tipo '
+                '(abilit\u00e0 assente o cariche esaurite, jolly di Sibilla compreso), un eroe qualsiasi '
+                'pu\u00f2 tentare da dilettante: prova <b>ACUME (Difficile)</b>, una sola volta per luogo. '
+                'Riuscita: l\u2019Approfondimento emerge come se fosse stato sbloccato. Fallita: in quel '
+                'luogo resta sigillato per il resto dell\u2019indagine. Il dilettante fruga senza metodo: '
+                'una sola occasione, e solo dove gli specialisti non arrivano.'))
     e.append(P('<b>Esempio:</b> il gruppo visita il Luogo 1 (Campanile) con Elena presente. Prima di '
                'tutto, un eroe a scelta legge la scena: 2d6+ACUME (3) = 10, raggiunge la Media (9) \u2014 '
                'via libera. Girate la carta, leggete testo e i 3 indizi core \u2014 sempre, a chiunque, '
