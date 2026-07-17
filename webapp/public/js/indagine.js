@@ -105,6 +105,10 @@ function home() {
       ${ep.lettera ? '<button class="btn" id="rileggi">la lettera</button>' : ''}
       ${P().party.includes('PADRE CELSO MARANI') && !ind.discernimentoUsato
         ? '<button class="btn" id="discernimento">Discernimento di Marani (1 volta)</button>' : ''}
+      ${P().party.includes('CARLA DOSTI') && !ind.fontiRiservateUsate && !ind.fontiRiservateAttive
+        ? '<button class="btn" id="fonti-riservate">Fonti riservate di Carla (1 volta)</button>' : ''}
+      ${P().party.includes('MORA “SPILLA” FANTI') && !ind.ombraUsata
+        ? '<button class="btn" id="ombra">Ombra in avanscoperta (1 volta)</button>' : ''}
       <button class="btn" id="taccuino">taccuino e domande</button>
       <button class="btn" id="inventario">oggetti e carte (${ind.oggetti.length + ind.approfondimentiLetti.length + (ind.reperti || []).length})</button>
       <button class="btn pieno" id="chiudi-indagine">chiudete l’indagine</button>
@@ -113,6 +117,8 @@ function home() {
   app.querySelectorAll('.voce').forEach((el) => el.onclick = () => dichiara(el.dataset.voce));
   app.querySelector('#rileggi')?.addEventListener('click', lettera);
   app.querySelector('#discernimento')?.addEventListener('click', discernimento);
+  app.querySelector('#fonti-riservate')?.addEventListener('click', fontiRiservate);
+  app.querySelector('#ombra')?.addEventListener('click', ombraFiuta);
   app.querySelector('#taccuino').onclick = taccuino;
   app.querySelector('#inventario').onclick = inventario;
   app.querySelector('#chiudi-indagine').onclick = taccuino;
@@ -200,9 +206,13 @@ function bussare(l) {
 async function visita(l, oraGiaSpesa = false) {
   const ind = IND();
   const prima = !ind.visitati.includes(l.n);
-  const gratis = ind.visitaGratis === l.n;   // Discernimento: visita senza ora
-  if (gratis) delete ind.visitaGratis;
+  // visita senza ora: Discernimento (su QUEL luogo) o Fonti riservate di
+  // Carla (sulla prossima visita, qualunque). Non conta come ora avanzata.
+  const gratis = ind.visitaGratis === l.n || ind.fontiRiservateAttive;
+  if (ind.visitaGratis === l.n) delete ind.visitaGratis;
+  if (ind.fontiRiservateAttive) delete ind.fontiRiservateAttive;
   if (!oraGiaSpesa && !gratis) ind.ora += 1;
+  else if (gratis && !oraGiaSpesa) ind.oreGratis = (ind.oreGratis || 0) + 1;
   if (prima) ind.visitati.push(l.n);
   ind.luogoAperto = l.n;
   salvaP();
@@ -475,6 +485,40 @@ async function discernimento() {
        costa l’ora (ma «leggere la scena» si tira come sempre).</p>`
     : `<p><i>Marani scuote il capo, piano: <b>no</b>. Qualunque cosa ci fosse da vedere lì,
        o l’avete già colta, o non c’è mai stata.</i></p>`, home);
+}
+
+// Fonti riservate di Carla: la PROSSIMA visita non costa l'ora (e non
+// conta come ora avanzata a fine indagine)
+function fontiRiservate() {
+  const ind = IND();
+  ind.fontiRiservateUsate = true;
+  ind.fontiRiservateAttive = true;
+  salvaP();
+  pannelloMsg('fonti riservate', `<p><i>Carla conosce la porta giusta e chi la apre
+    senza domande: la <b>prossima visita</b> non costerà l’ora.</i></p>
+    <p class="nota mt">Non conta come ora avanzata a fine indagine: il vantaggio
+    premia le ore spese davvero.</p>`, home);
+}
+
+// Ombra fiuta (Mora): il furetto in avanscoperta su un luogo — torna col
+// NUMERO di Approfondimenti che ancora nasconde, mai il tipo
+async function ombraFiuta() {
+  const { ep, comune } = ctx;
+  const ind = IND();
+  const voci = vociMappa(ep, comune);
+  const scelta = await scegliDaLista('dove mandate Ombra?',
+    voci.map((v) => ({ id: v.nome, label: v.nome })));
+  if (!scelta) return home();
+  ind.ombraUsata = true;
+  salvaP();
+  const luogo = ep.luoghi.find((l) => norm(l.voce_mappa) === norm(scelta));
+  const quanti = luogo ? (luogo.approfondimenti || []).filter((a) =>
+    !ind.approfondimentiLetti.some((y) => y.n === luogo.n && y.tipo === a.tipo && y.soggetto === a.soggetto)).length : 0;
+  pannelloMsg('ombra fiuta', `<p><i>Il furetto sguscia via sui tetti. Torna prima che
+    la candela cali di un dito, e Mora gli legge in faccia il conto:
+    <b>${quanti === 0 ? 'niente' : quanti === 1 ? 'una cosa' : quanti + ' cose'}</b> da
+    cogliere ${quanti ? 'ancora, là' : '— là non c’è più nulla, o non c’è mai stato'}.</i></p>
+    <p class="nota mt">Il numero, mai il tipo: Ombra fiuta, non legge.</p>`, home);
 }
 
 // ------------------------------------------------------------- taccuino

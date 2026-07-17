@@ -85,7 +85,9 @@ export function usaCarica(partita, nome, tipo, conJolly) {
 
 // --- vantaggio di fine indagine -------------------------------------------
 export function tierIndagine(ep, ind) {
-  const oreAvanzate = 24 - ind.ora;
+  // le visite gratuite (Fonti riservate di Carla, Discernimento di Marani)
+  // non contano come ore avanzate: il vantaggio premia le ore SPESE
+  const oreAvanzate = Math.max(0, 24 - ind.ora - (ind.oreGratis || 0));
   const luoghi = ind.visitati.length;
   const v = ep.vantaggio || { slancio_ore: 3, slancio_luoghi: 99, preparati_ore: 1, preparati_luoghi: 99 };
   let tier = 'nessuno';
