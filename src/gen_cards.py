@@ -146,12 +146,12 @@ LUOGHI = [
     dict(n=1, nome='IL CAMPANILE DI SAN TEODORO', voce_mappa='Il Campanile di San Teodoro', req='Disponibile dall’inizio',
          testo='La scala a chiocciola sale nel buio. In cima, la cella campanaria è in disordine: '
                'lo sgabello di Ruggero è rovesciato, la sua lanterna ancora appesa.',
-         indizi=['Colate di <b>cera nera</b> sui gradini — troppo in alto perché vengano dalle candele della chiesa.',
+         indizi=['Colate di cera nera sui gradini — troppo in alto perché vengano dalle candele della chiesa.',
                  'Il diario di Ruggero, con l’ultima pagina strappata. Ricalcando i solchi della penna leggete: '
-                 '«...alle 3 in punto, ogni notte. <b>Tre rintocchi, poi uno, poi cinque.</b> Non sono io a suonare.» '
+                 '«...alle 3 in punto, ogni notte. Tre rintocchi, poi uno, poi cinque. Non sono io a suonare.» '
                  '<i>(Reperto A: consegnate il Diario di Ruggero.)</i>',
                  'Sul legno della balaustra, unghiate profonde intorno a una scritta quasi '
-                 'cancellata. Ci vuole un attimo per ricomporla: <b>sommerso</b>.'],
+                 'cancellata. Ci vuole un attimo per ricomporla: sommerso.'],
          approfondimenti=[
              dict(tipo='Osservazione', soggetto='Lo spartito tra le assi',
                   testo='Tra le assi, un frammento di spartito scritto a mano. Le note non sono per organo: sono per '
@@ -168,7 +168,7 @@ LUOGHI = [
     dict(n=2, nome='CASA DI RUGGERO — VICOLO DEI FONDITORI', voce_mappa='Vicolo dei Fonditori', req='Disponibile dall’inizio',
          testo='Bice, la sorella, vi apre con gli occhi rossi: «Negli ultimi tempi diceva di sentire '
                'musica sotto il pavimento della cripta. E aveva paura del suo stesso campanile.»',
-         indizi=['Sul tavolo, una <b>corda di violino d’argento</b>: «L’ha trovata in cripta», dice Bice. '
+         indizi=['Sul tavolo, una corda di violino d’argento: «L’ha trovata in cripta», dice Bice. '
                  '<i>(Oggetto: sblocca il Luogo 5.)</i>',
                  'Bice, esitante: «Diceva anche una cosa strana — che solo un diapason d’argento, fatto '
                  'vibrare vicino a <i>quello che canta</i>, può farlo tacere per un momento. Diceva che '
@@ -186,14 +186,14 @@ LUOGHI = [
          ]),
     dict(n=3, nome='TAVERNA DEL PONTE ROTTO', voce_mappa='Taverna del Ponte Rotto', req='Disponibile dall’inizio',
          testo='Fumo, vino cattivo e barcaioli. Qui le lingue si sciolgono con poco.',
-         indizi=['Ugo il barcaiolo: «Tre notti fa una <b>chiatta</b> senza lanterne ha scaricato casse al '
+         indizi=['Ugo il barcaiolo: «Tre notti fa una chiatta senza lanterne ha scaricato casse al '
                  'Canale Basso. Alle 3, proprio mentre le campane suonavano da sole.» '
                  '<i>(Parola chiave: sblocca il Luogo 6.)</i>',
                  'Un avventore ubriaco: «Vicino ai vecchi magazzini c’è puzza di cera bruciata da settimane.»',
-                 'L’oste conferma: <b>Tonio il sagrestano</b> era qui a giocare a carte fino all’alba, '
+                 'L’oste conferma: Tonio il sagrestano era qui a giocare a carte fino all’alba, '
                  'la notte della scomparsa.',
                  'Un secondo barcaiolo, più ubriaco di Ugo, batte il pugno sul tavolo: «Ma quale Canale Basso — '
-                 'è al <b>vecchio mulino, a monte</b>, che si riuniscono. Fidatevi di chi ci è nato, su '
+                 'è al vecchio mulino, a monte, che si riuniscono. Fidatevi di chi ci è nato, su '
                  'quest’acqua.» Nessuno gli dà corda, ma nessuno lo corregge nemmeno.'],
          approfondimenti=[
              dict(tipo='Testimonianza', soggetto='Ugo il barcaiolo',
@@ -212,11 +212,11 @@ LUOGHI = [
          chiave=('parola', 'Tonio'),
          testo='Don Callisto vi riceve nervoso, le mani sporche di cera. Dietro di lui, la porta della '
                'cripta è sbarrata: «Chiusa per lavori», taglia corto.',
-         indizi=['La tabella degli inni segna il numero <b>315</b>, «Dal Profondo». Tonio giura di non averlo '
+         indizi=['La tabella degli inni segna il numero 315, «Dal Profondo». Tonio giura di non averlo '
                  'mai impostato: «Quell’inno non si canta da cent’anni. È roba dell’antico coro.»',
-                 'Don Callisto ammette: la <b>seconda chiave della cripta</b> ce l’ha il liutaio <b>Ferri</b>, '
+                 'Don Callisto ammette: la seconda chiave della cripta ce l’ha il liutaio Ferri, '
                  'che sta restaurando l’organo.',
-                 'Prima che usciate, vi mette in mano un’<b>ampolla di acqua benedetta</b>: «Se là '
+                 'Prima che usciate, vi mette in mano un’ampolla di acqua benedetta: «Se là '
                  'sotto c’è il demonio, portate questa.»'],
          approfondimenti=[
              dict(tipo='Osservazione', soggetto='Il registro delle elemosine',
@@ -237,12 +237,12 @@ LUOGHI = [
          chiave=('oggetto', 'Corda di Violino d’Argento'),
          testo='Bottega chiusa da giorni; il vicino di guardia si scosta solo davanti a ciò che riportate. Dentro, polvere e '
                'violini appesi come selvaggina.',
-         indizi=['Bastiano Ferri è sparito da tre giorni. Sul banco, un <b>diapason d’argento</b> inciso '
+         indizi=['Bastiano Ferri è sparito da tre giorni. Sul banco, un diapason d’argento inciso '
                  'con un’onda.',
-                 'Il registro consegne, ultima riga: «40 candele di cera nera — consegna al <b>C.B.</b>, '
+                 'Il registro consegne, ultima riga: «40 candele di cera nera — consegna al C.B., '
                  'molo terzo, il vecchio deposito — pagato B.F.» '
                  '<i>(Reperto B: consegnate il Registro delle Consegne.)</i>',
-                 'Uno spartito: «Dal Profondo», riscritto <b>per campane</b>. In margine: «il bronzo canta, '
+                 'Uno spartito: «Dal Profondo», riscritto per campane. In margine: «il bronzo canta, '
                  'la pietra risponde, l’acqua ricorda».'],
          approfondimenti=[
              dict(tipo='Osservazione', soggetto='La cenere nel camino',
@@ -251,7 +251,7 @@ LUOGHI = [
                         'Dellacqua, sul Canale Basso. Che Dio perdoni ciò che ho svegliato. — B.» La grafia è la '
                         'stessa del registro consegne sul banco: quella del liutaio Ferri.'),
              dict(tipo='Referto', soggetto='Residui sulle lime',
-                  testo='Su lime e sgorbie, incrostazioni di <b>cera nera</b> — non la pece da liutaio. Qui '
+                  testo='Su lime e sgorbie, incrostazioni di cera nera — non la pece da liutaio. Qui '
                         'Ferri lavorava le candele del culto: la sua bottega è l’unica officina della città '
                         'attrezzata per fonderle in quantità. Sul registro, l’ultima consegna è diretta al '
                         'vecchio magazzino delle cere di Dellacqua, sul Canale Basso — non un grammo di bronzo '
@@ -261,13 +261,13 @@ LUOGHI = [
          chiave=('parola', 'chiatta'),
          testo='Acqua nera e ferma, magazzini ciechi. Il guardiano notturno accetta di parlare per '
                'qualche moneta.',
-         indizi=['«Le casse erano marchiate a fuoco con un’<b>onda</b>. Le hanno portate in un vecchio '
+         indizi=['«Le casse erano marchiate a fuoco con un’onda. Le hanno portate in un vecchio '
                  'magazzino sul canale, chiuso da vent’anni — ce ne sono tre o quattro uguali, al buio '
                  'non saprei dirvi quale.»',
                  '«Alle 3 di notte, da là dentro, viene un canto sommesso. Di molte voci. Una volta... '
                  'ho sentito un urlo.»',
                  'Sul molo: gocce di cera nera e un lucchetto nuovo di zecca sulla porta della banchina, '
-                 'di quelli <b>a tre cifre</b>.'],
+                 'di quelli a tre cifre.'],
          approfondimenti=[
              dict(tipo='Testimonianza', soggetto='Il guardiano notturno',
                   testo='Il guardiano abbassa la voce. «Certe notti li ho visti entrare — un fornaio, un '
@@ -289,12 +289,12 @@ LUOGHI = [
          chiave=('parola', 'sommerso'),
          testo='L’archivista, sentendo la parola giusta, vi guida a uno scaffale che nessuno tocca '
                'da decenni.',
-         indizi=['Fascicolo del 1741: la confraternita del <b>Coro Sommerso</b>, bandita per «pratiche '
+         indizi=['Fascicolo del 1741: la confraternita del Coro Sommerso, bandita per «pratiche '
                  'contrarie a Dio e alla quiete delle acque». Si riuniva in cavità sotto la cattedrale, '
                  '«dove l’acqua canta». Il suo sigillo: un’onda. '
                  '<i>(Reperto C: consegnate il Fascicolo del 1741.)</i>',
-                 'Una mappa antica: dalla cripta, condotti scendono verso il <b>Canale Basso</b>.',
-                 'Registro consultazioni, due mesi fa: «<b>B. Ferri, liutaio</b>» ha richiesto questo '
+                 'Una mappa antica: dalla cripta, condotti scendono verso il Canale Basso.',
+                 'Registro consultazioni, due mesi fa: «B. Ferri, liutaio» ha richiesto questo '
                  'stesso fascicolo.'],
          approfondimenti=[
              # Hook Indagine->Spedizione (vedi bibbia punto 3): l'avvertimento
@@ -312,10 +312,10 @@ LUOGHI = [
     dict(n=8, nome='LA GENDARMERIA', voce_mappa='La Gendarmeria', req='Disponibile dall’inizio',
          testo='Il brigadiere vi riceve tra pile di pratiche: «Il campanaro? Sarà scappato con '
                'qualche vedova.»',
-         indizi=['Nessuna richiesta di riscatto. Il sospettato ufficiale è <b>Tonio il sagrestano</b>, '
+         indizi=['Nessuna richiesta di riscatto. Il sospettato ufficiale è Tonio il sagrestano, '
                  'l’ultimo ad aver visto Ruggero.',
-                 'Denunce recenti: furti di <b>cera e canapa</b> da tre chiese. <b>Learco, un ramaio del '
-                 'Vecchio Mercato</b>, giura d’aver venduto un quintale di bronzo a un compratore incappucciato '
+                 'Denunce recenti: furti di cera e canapa da tre chiese. Learco, un ramaio del '
+                 'Vecchio Mercato, giura d’aver venduto un quintale di bronzo a un compratore incappucciato '
                  '— il brigadiere lo segna come sospetto principale.',
                  '«Se trovate qualcosa di concreto, tornate. Non perquisiamo mezza città per un campanaro '
                  'con la testa fra le nuvole.»'],

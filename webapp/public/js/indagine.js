@@ -19,6 +19,11 @@ export async function vistaIndagine(app, partita, vaiA) {
     dati(partita.episodio), dati('comune'), dati('carte')]);
   ctx = { app, partita, ep, comune, carte, vaiA };
   if (!partita.indagine.lettaLettera && ep.lettera) return lettera();
+  // visita interrotta dalla navigazione (menu e ritorno): l'ora e' gia'
+  // stata spesa, si riprende dentro il luogo - non si ripaga
+  const aperto = partita.indagine.luogoAperto;
+  const l = aperto != null && ep.luoghi.find((x) => x.n === aperto);
+  if (l) return schedaLuogo(l);
   home();
 }
 
@@ -181,6 +186,7 @@ async function visita(l, oraGiaSpesa = false) {
   const prima = !ind.visitati.includes(l.n);
   if (!oraGiaSpesa) ind.ora += 1;
   if (prima) ind.visitati.push(l.n);
+  ind.luogoAperto = l.n;
   salvaP();
 
   // leggere la scena: solo alla prima visita, un eroe a scelta
@@ -242,7 +248,11 @@ function schedaLuogo(l) {
       <button class="btn pieno" id="fine-visita">lasciate il luogo</button>
     </div>`;
   dopoBarra();
-  app.querySelector('#fine-visita').onclick = home;
+  app.querySelector('#fine-visita').onclick = () => {
+    delete ind.luogoAperto;
+    salvaP();
+    home();
+  };
   app.querySelectorAll('[data-oggetto]').forEach((b) => b.onclick = () => {
     const nome = b.dataset.oggetto;
     if (!ind.oggetti.includes(nome)) ind.oggetti.push(nome);

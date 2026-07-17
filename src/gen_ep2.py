@@ -84,10 +84,10 @@ LUOGHI_2 = [
              'nota, ripassata due volte: «suono sbagliato — questa lega non è la mia». '
              '<i>(Reperto A: consegnate il Taccuino di Collaudo.)</i>',
              'Nella sala delle staffe: uno sgabello rovesciato, segni di trascinamento, e sotto un '
-             'banco il <b>martello di collaudo</b> di Ilario — lui non lo avrebbe mai lasciato a '
+             'banco il martello di collaudo di Ilario — lui non lo avrebbe mai lasciato a '
              'terra. <i>(Oggetto: prendete la carta Il Martello di Collaudo.)</i>',
-             'I pani consegnati dal dazio, ancora nei casseri, non sono bronzo: <b>ghisa da '
-             'scafo</b>, piena di sabbia di mare — roba da demolitori di barche. E il libro paga '
+             'I pani consegnati dal dazio, ancora nei casseri, non sono bronzo: ghisa da '
+             'scafo, piena di sabbia di mare — roba da demolitori di barche. E il libro paga '
              'dice che il capomastro Sartorio ha anticipato la paga a tutti: con quali soldi?'],
          approfondimenti=[
              dict(tipo='Osservazione', soggetto='Le mani del capomastro',
@@ -107,11 +107,11 @@ LUOGHI_2 = [
              'Ruggero Alvise vi fa strada: «Ilario ha suonato il provino quassù e s’è fatto '
              'bianco. “Questo non è il MIO bronzo”, ha detto. Un fonditore la sua lega la '
              'riconosce come una voce di famiglia.»',
-             'Lo <b>smorzo di feltro</b> — il cuscino che tace le campane — è ancora appeso alla '
+             'Lo smorzo di feltro — il cuscino che tace le campane — è ancora appeso alla '
              'trave, dimenticato dal provino. <i>(Oggetto: prendete la carta Lo Smorzo di '
              'Feltro.)</i>',
              'Dal parapetto si vedono i moli daziari. Ruggero, la notte del furto, ha visto '
-             'chiatte <b>senza lanterne</b> scivolare verso ponente: «è così che i barcaioli '
+             'chiatte senza lanterne scivolare verso ponente: «è così che i barcaioli '
              'chiamano quelle corse: le senza-lanterne. Nessuno ne parla volentieri.»'],
          approfondimenti=[
              dict(tipo='Presagio', soggetto='La crepa che canta',
@@ -130,9 +130,9 @@ LUOGHI_2 = [
          sblocca_parola=('PARI PESO', 'SENZA LANTERNE'), chiude=None,
          indizi=[
              'I facchini di notte entrano al Deposito con la parola del mese: quella che il '
-             'daziere borbotta quando la bilancia torna — <b>«pari peso»</b>. La sanno tutti, '
+             'daziere borbotta quando la bilancia torna — «pari peso». La sanno tutti, '
              'qui dentro. Fuori di qui, nessuno.',
-             'Un facchino insonne, pagato un bicchiere: la seconda chiatta <b>senza lanterne</b> '
+             'Un facchino insonne, pagato un bicchiere: la seconda chiatta senza lanterne '
              'ha passato la Punta delle Scorie alle 3 in punto. «Diretta al canale morto. Là non '
              'c’è niente. Cioè: non c’era.»',
              'Un sensale ubriaco giura il contrario, e non molla: «il bronzo è salito al Vecchio '
@@ -156,7 +156,7 @@ LUOGHI_2 = [
              'La pesa notturna del giorno del furto torna alla perfezione, riga per riga: troppo. '
              'Solo il pesatore notturno può firmare una pesa così — e la sua firma, quella notte, '
              'trema.',
-             'La zavorra rimasta nei casseri di carico è <b>ghisa da scafo</b>: al Deposito non è '
+             'La zavorra rimasta nei casseri di carico è ghisa da scafo: al Deposito non è '
              'mai entrata ghisa. Qualcuno l’ha portata da fuori, già fusa in pani della misura '
              'giusta.'],
          approfondimenti=[
@@ -194,11 +194,11 @@ LUOGHI_2 = [
          indizi=[
              'Il registro di Fossa non mente: il capomastro Sartorio ha riscattato TUTTI i pegni '
              'di famiglia in un giorno solo, un mese fa, in contanti nuovi.',
-             'Tra le carte del banco, dimenticata, la <b>polizza del Monte</b> intestata a '
+             'Tra le carte del banco, dimenticata, la polizza del Monte intestata a '
              'Sartorio: riscattata, timbrata — la fretta lascia ricevute. <i>(Oggetto: prendete '
              'la carta La Polizza del Monte.)</i>',
              'Fossa, gratis per una volta: «Coi facchini del dazio ci lavoro da trent’anni: al '
-             'piantone basta dire <b>“pari peso”</b>, come al cambio turno. Ma non ditegli chi ve '
+             'piantone basta dire “pari peso”, come al cambio turno. Ma non ditegli chi ve '
              'l’ha insegnato.»'],
          approfondimenti=[
              dict(tipo='Testimonianza', soggetto='Fossa',
@@ -215,7 +215,7 @@ LUOGHI_2 = [
          indizi=[
              'Il capobarca, a voce bassa: le corse senza lanterne partono dal molo daziario e '
              'tornano LEGGERE. «Chi porta, torna vuoto. Il carico resta là dove va.»',
-             'Da un chiattaiolo ubriaco ha sequestrato un <b>contrassegno di piombo</b>: una '
+             'Da un chiattaiolo ubriaco ha sequestrato un contrassegno di piombo: una '
              'moneta senza re, con mezza onda al posto della faccia. «Tenetevelo. Io non l’ho '
              'mai visto.» <i>(Oggetto: prendete la carta Il Contrassegno di Piombo.)</i>',
              'La rotta delle senza-lanterne: Punta delle Scorie, poi il canale morto dell’Isola. '
@@ -259,7 +259,7 @@ LUOGHI_2 = [
              'Learco il ramaio compra qui, con regolare bolla — e il campanaro civico della '
              'Torre ha comprato una campanella di rimpiazzo, odiando i Dossena a voce alta. Ma '
              'il registro del suo turno di guardia lo scagiona: era in Torre, tutta la notte.',
-             'Tra i relitti, una <b>medaglia votiva</b> del santo con la campana in mano, '
+             'Tra i relitti, una medaglia votiva del santo con la campana in mano, '
              'consumata dai pollici. <i>(Oggetto: prendete la carta La Medaglia del '
              'Fonditore.)</i>'],
          approfondimenti=[
@@ -577,7 +577,7 @@ def soluzione():
         'prestito suonava sbagliato. Ha risalito la pesa, ha capito, e lo ha detto alla persona '
         'sbagliata. Lo tengono legato nell’ufficio del pesatore, vivo: è l’unico che sappia '
         'rifinire la colata senza spaccarla, e il compratore paga solo campanelle che cantano.',
-        'Chi compra è il <b>Coro Sommerso</b>: il bronzo del 1741 è il bronzo delle SUE '
+        'Chi compra è il Coro Sommerso: il bronzo del 1741 è il bronzo delle SUE '
         'campane. Il culto non costruisce strumenti nuovi — ricompra i suoi. Nessun cultista '
         'compare in scena fino alla Fonderia: solo denaro, lettere e ciò che una colata di '
         'prova ha già fatto al guardiano.',

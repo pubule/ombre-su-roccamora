@@ -91,6 +91,16 @@ try {
   await page.locator('#dadi-chiudi').click();
   await page.locator('.banner-luogo').waitFor();
   ok(await page.getByText('indizi', { exact: false }).count() > 0, 'scheda luogo con indizi');
+
+  // uscire al menu a meta' visita e riprendere: si torna DENTRO il luogo,
+  // senza pagare un'altra ora
+  const oraPrima = (await page.evaluate(() => JSON.parse(localStorage.getItem('osr.partita.ep1')))).indagine.ora;
+  await page.locator('#nav-esci').click();
+  await page.locator('.tessera-episodio[data-ep="ep1"]').click();
+  await page.locator('#continua').click();
+  await page.locator('#fine-visita').waitFor();
+  const oraDopo = (await page.evaluate(() => JSON.parse(localStorage.getItem('osr.partita.ep1')))).indagine.ora;
+  ok(oraDopo === oraPrima, `riprendere la visita non costa ore (${oraPrima} -> ${oraDopo})`);
   await page.locator('#fine-visita').click();
 
   // --- bussata sbagliata: la porta NON deve sbloccarsi ----------------------

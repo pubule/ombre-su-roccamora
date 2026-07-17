@@ -172,7 +172,7 @@ LUOGHI_P = [
          indizi=['Le casse sulla chiatta sono vuote e nuove: nessun carico, solo la scusa per stare '
                  'ormeggiati. Il finto pescatore ha il calcio di un coltellaccio sotto la giacca.',
                  'Da sotto la banchina, attraverso le assi, colpi ritmici: tre, pausa, tre. Qualcuno, '
-                 'là sotto, batte per farsi sentire. <b>Ansaldo è qui.</b>',
+                 'là sotto, batte per farsi sentire. Ansaldo è qui.',
                  'Nel fango del molo, un lembo di carta antica strappata: mezzo disegno a inchiostro, '
                  'una linea che ondeggia. Come mezza onda.'],
          approfondimenti=[
