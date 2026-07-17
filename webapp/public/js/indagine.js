@@ -103,6 +103,8 @@ function home() {
     </div>
     <div class="btn-riga">
       ${ep.lettera ? '<button class="btn" id="rileggi">la lettera</button>' : ''}
+      ${P().party.includes('PADRE CELSO MARANI') && !ind.discernimentoUsato
+        ? '<button class="btn" id="discernimento">Discernimento di Marani (1 volta)</button>' : ''}
       <button class="btn" id="taccuino">taccuino e domande</button>
       <button class="btn" id="inventario">oggetti e carte (${ind.oggetti.length + ind.approfondimentiLetti.length + (ind.reperti || []).length})</button>
       <button class="btn pieno" id="chiudi-indagine">chiudete l’indagine</button>
@@ -110,6 +112,7 @@ function home() {
   dopoBarra();
   app.querySelectorAll('.voce').forEach((el) => el.onclick = () => dichiara(el.dataset.voce));
   app.querySelector('#rileggi')?.addEventListener('click', lettera);
+  app.querySelector('#discernimento')?.addEventListener('click', discernimento);
   app.querySelector('#taccuino').onclick = taccuino;
   app.querySelector('#inventario').onclick = inventario;
   app.querySelector('#chiudi-indagine').onclick = taccuino;
@@ -152,11 +155,24 @@ function bussare(l) {
              autocomplete="off" autocapitalize="characters">
       <div class="btn-riga">
         <button class="btn pieno" id="prova">bussate</button>
+        ${P().party.includes('NINO “GRIMALDELLO” CAUTO') && !IND().grimaldelloUsato
+          ? '<button class="btn" id="grimaldello">Grimaldello di Nino — dentro senza chiave (1 volta)</button>' : ''}
         <button class="btn" id="rinuncia">tornate sui vostri passi</button>
       </div>
     </div>`;
   dopoBarra();
   app.querySelector('#rinuncia').onclick = home;
+  app.querySelector('#grimaldello')?.addEventListener('click', () => {
+    const ind = IND();
+    ind.grimaldelloUsato = true;
+    ind.ora += 1;                       // la visita costa l'ora, come sempre
+    if (!ind.scoperti.includes(l.n)) ind.scoperti.push(l.n);
+    salvaP();
+    // bypassa SOLO l'ingresso di questa visita: la chiave resta da scoprire
+    pannelloMsg('la serratura cede', `<p><i>Nino ci mette meno di un respiro: la porta
+      si apre senza che nessuno abbia detto niente. La parola giusta, però, ancora
+      non la sapete.</i></p>`, () => visita(l, true));
+  });
   app.querySelector('#prova').onclick = () => {
     const d = app.querySelector('#dichiarazione').value;
     if (!norm(d)) return;
@@ -184,7 +200,9 @@ function bussare(l) {
 async function visita(l, oraGiaSpesa = false) {
   const ind = IND();
   const prima = !ind.visitati.includes(l.n);
-  if (!oraGiaSpesa) ind.ora += 1;
+  const gratis = ind.visitaGratis === l.n;   // Discernimento: visita senza ora
+  if (gratis) delete ind.visitaGratis;
+  if (!oraGiaSpesa && !gratis) ind.ora += 1;
   if (prima) ind.visitati.push(l.n);
   ind.luogoAperto = l.n;
   salvaP();
@@ -194,18 +212,42 @@ async function visita(l, oraGiaSpesa = false) {
   if (prima && scena == null) {
     const eroe = await scegliEroe('chi legge la scena?', 'acume');
     if (eroe) {
-      const r = await tiraProva({
+      const r = await provaConFiato({
         titolo: `leggere la scena — ${eroe.nome.split(' ')[0]}`,
         diffLabel: 'Media', soglia: ctx.comune.regole.diff.Media,
         bonus: [{ label: 'ACUME', val: eroe.acume }],
-        modo: P().modo,
-      });
+      }, eroe.nome);
       scena = r ? r.ok : false;
     } else scena = false;
     ind['scena_' + l.n] = scena;
     salvaP();
+  } else if (!prima && scena === false) {
+    // regola: tornare al luogo (1 ora) coglie l'Approfondimento SENZA
+    // ripetere la prova - la porta si riapre da sola alla rivisita
+    scena = true;
+    ind['scena_' + l.n] = true;
+    salvaP();
   }
   schedaLuogo(l);
+}
+
+// il tiro con la rete del Regolamento: Secondo Fiato, uno per eroe a
+// episodio, condiviso tra Indagine e Spedizione (partita.fiatoUsato)
+async function provaConFiato(prova, nomeEroe) {
+  P().fiatoUsato = P().fiatoUsato || {};
+  let r = await tiraProva({ ...prova, modo: P().modo });
+  if (r && !r.ok && !P().fiatoUsato[nomeEroe]) {
+    const scelta = await scegliDaLista('prova fallita — ritentate?', [
+      { id: 'fiato', label: `Secondo Fiato di ${nomeEroe.split(' ')[0]} (una volta a episodio)` },
+      { id: 'accetta', label: 'accettate il fallimento' },
+    ]);
+    if (scelta === 'fiato') {
+      P().fiatoUsato[nomeEroe] = true;
+      salvaP();
+      r = await tiraProva({ ...prova, modo: P().modo });
+    }
+  }
+  return r;
 }
 
 function schedaLuogo(l) {
@@ -379,12 +421,11 @@ async function aiutoProfano(l, tipo) {
   }
   const eroe = await scegliEroe(`aiuto profano — chi tenta? (ACUME, Difficile)`, 'acume');
   if (!eroe) return schedaLuogo(l);
-  const r = await tiraProva({
+  const r = await provaConFiato({
     titolo: `aiuto profano — ${eroe.nome.split(' ')[0]}`,
     diffLabel: 'Difficile', soglia: ctx.comune.regole.diff.Difficile,
     bonus: [{ label: 'ACUME', val: eroe.acume }],
-    modo: P().modo,
-  });
+  }, eroe.nome);
   if (!r) return schedaLuogo(l);          // tiro annullato: occasione non spesa
   ind.profano[l.n] = true;
   const a = l.approfondimenti.find((x) => x.tipo === tipo);
@@ -412,6 +453,30 @@ async function aiutoProfano(l, tipo) {
     () => schedaLuogo(l));
 }
 
+// Discernimento di Padre Marani: indica un luogo, la risposta e' solo
+// si'/no ("li' si nasconde ancora qualcosa?"). Se si', quella visita non
+// costa l'ora - ma "leggere la scena" si tira come sempre.
+async function discernimento() {
+  const { ep, comune } = ctx;
+  const ind = IND();
+  const voci = vociMappa(ep, comune);
+  const scelta = await scegliDaLista('Marani indica un luogo…',
+    voci.map((v) => ({ id: v.nome, label: v.nome })));
+  if (!scelta) return home();
+  ind.discernimentoUsato = true;
+  const luogo = ep.luoghi.find((l) => norm(l.voce_mappa) === norm(scelta));
+  const ancora = luogo && (luogo.approfondimenti || []).some((a) =>
+    !ind.approfondimentiLetti.some((y) => y.n === luogo.n && y.tipo === a.tipo && y.soggetto === a.soggetto));
+  if (ancora) ind.visitaGratis = luogo.n;
+  salvaP();
+  pannelloMsg('discernimento', ancora
+    ? `<p><i>Marani chiude gli occhi un istante, poi annuisce: <b>sì</b> — lì si nasconde
+       ancora qualcosa.</i></p><p class="nota mt">La prossima visita a quel luogo non
+       costa l’ora (ma «leggere la scena» si tira come sempre).</p>`
+    : `<p><i>Marani scuote il capo, piano: <b>no</b>. Qualunque cosa ci fosse da vedere lì,
+       o l’avete già colta, o non c’è mai stata.</i></p>`, home);
+}
+
 // ------------------------------------------------------------- taccuino
 function taccuino() {
   const { app, ep } = ctx;
@@ -425,6 +490,9 @@ function taccuino() {
         <p class="mt"><b>${i + 1}. ${esc(d.q)}</b></p>
         <input class="campo" data-risposta="${i}" value="${esc(ind.risposte[i] || '')}"
                placeholder="la vostra risposta…">`).join('')}
+      <p class="mt"><b>Appunti</b> — nomi, orari, parole che tornano:</p>
+      <textarea class="campo" id="note-taccuino" rows="6"
+        placeholder="quel che la notte non deve farvi dimenticare…">${esc(ind.note || '')}</textarea>
       <div class="btn-riga">
         <button class="btn" id="salva-risposte">salvate e tornate in strada</button>
         <button class="btn pieno" id="apri-busta">aprite la busta della soluzione</button>
@@ -435,6 +503,7 @@ function taccuino() {
     app.querySelectorAll('[data-risposta]').forEach((el) => {
       ind.risposte[Number(el.dataset.risposta)] = el.value;
     });
+    ind.note = app.querySelector('#note-taccuino').value;
     salvaP();
   };
   app.querySelector('#salva-risposte').onclick = () => { leggi(); home(); };

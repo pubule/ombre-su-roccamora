@@ -285,6 +285,7 @@ function plancia() {
       carta/e (${restanti} nel mazzo). ${prossimoTick()}</p>
       <div class="btn-riga">
         <button class="btn pieno" id="fase-minaccia">fase minaccia →</button>
+        <button class="btn" id="prova-libera">tirate una prova</button>
       </div>
     </div>
     <div class="btn-riga">
@@ -292,6 +293,7 @@ function plancia() {
       <button class="btn" id="sconfitta">gli eroi cadono</button>
     </div>`;
   dopoBarra();
+  app.querySelector('#prova-libera').onclick = provaLibera;
   app.querySelectorAll('[data-tessera]').forEach((b) => b.onclick = () => tessera(b.dataset.tessera));
   app.querySelector('#fase-minaccia').onclick = faseMinaccia;
   app.querySelector('#vittoria').onclick = () => fine('vittoria');
@@ -400,11 +402,13 @@ async function azioneCercare(t) {
 // per eroe, a episodio) e gettone Intuizione (se il Dossier era completo)
 async function provaConRitiro(prova, nomeEroe) {
   const sp = SP();
-  sp.fiatoUsato = sp.fiatoUsato || {};
+  // Secondo Fiato: UNO per eroe a episodio, condiviso con l'Indagine
+  P().fiatoUsato = P().fiatoUsato || {};
+  const fiato = P().fiatoUsato;
   let r = await tiraProva({ ...prova, modo: P().modo });
   while (r && !r.ok) {
     const opzioni = [];
-    if (!sp.fiatoUsato[nomeEroe]) {
+    if (!fiato[nomeEroe]) {
       opzioni.push({ id: 'fiato', label: `Secondo Fiato di ${nomeEroe.split(' ')[0]} (una volta a episodio)` });
     }
     if ((P().vantaggi || {}).dossier && !sp.intuizioneUsata) {
@@ -413,13 +417,38 @@ async function provaConRitiro(prova, nomeEroe) {
     if (!opzioni.length) break;
     opzioni.push({ id: 'accetta', label: 'accettate il fallimento' });
     const scelta = await scegliDaLista('prova fallita — ritentate?', opzioni);
-    if (scelta === 'fiato') sp.fiatoUsato[nomeEroe] = true;
+    if (scelta === 'fiato') fiato[nomeEroe] = true;
     else if (scelta === 'intuizione') sp.intuizioneUsata = true;
     else break;
     salvaP();
     r = await tiraProva({ ...prova, modo: P().modo });
   }
   return r;
+}
+
+// ---------------------------------------------------------- prova libera
+// Ogni tiro chiesto da tessere e carte (NERVI d'ingresso, fumi, scivoloni)
+// passa da qui: cosi' Secondo Fiato e Intuizione valgono anche su questi.
+async function provaLibera() {
+  const stat = await scegliDaLista('quale caratteristica?', [
+    { id: 'nervi', label: 'NERVI' }, { id: 'acume', label: 'ACUME' },
+    { id: 'vigore', label: 'VIGORE' }]);
+  if (!stat) return plancia();
+  const diff = await scegliDaLista('quale difficoltà?', [
+    { id: 'Facile', label: 'Facile (7)' }, { id: 'Media', label: 'Media (9)' },
+    { id: 'Difficile', label: 'Difficile (11)' }]);
+  if (!diff) return plancia();
+  const eroi = P().party.map((nm) => ctx.comune.eroi.find((e) => e.nome === nm)).filter(Boolean);
+  const chi = await scegliDaLista('chi tira?', eroi.map((e) => ({
+    id: e.nome, label: `${e.nome} (${stat.toUpperCase()} ${e[stat]})` })));
+  if (!chi) return plancia();
+  const eroe = eroi.find((e) => e.nome === chi);
+  await provaConRitiro({
+    titolo: `prova di ${stat.toUpperCase()} — ${eroe.nome.split(' ')[0]}`,
+    diffLabel: diff, soglia: ctx.comune.regole.diff[diff],
+    bonus: [{ label: stat.toUpperCase(), val: eroe[stat] }],
+  }, eroe.nome);
+  plancia();
 }
 
 // ------------------------------------------------------------ salute eroi

@@ -54,18 +54,23 @@ async function schermata(page) {
 }
 
 async function tiraSeServe(page) {
-  // overlay eroe -> tiro di dado -> scheda luogo
+  // scioglie qualunque catena di overlay: scelte (eroe/armato/riprovate),
+  // tiri di dado (totale inserito), finche' non resta una schermata vera
   let dove = await schermata(page);
-  if (dove === '.scelta-box button') {
-    const n = await page.locator('.scelta-box button:not(.annulla)').count();
-    await page.locator('.scelta-box button:not(.annulla)').nth(Math.floor(Math.random() * n)).click();
-    dove = await schermata(page);
-  }
-  if (dove === '.dadi-grid') {
-    await page.locator(`[data-tot="${2 + Math.floor(Math.random() * 11)}"]`).click();
-    await page.locator('#dadi-chiudi').waitFor({ state: 'visible' });
-    await page.locator('#dadi-chiudi').click();
-    await page.locator('.dadi-overlay').waitFor({ state: 'detached' });
+  for (let guardia = 0; guardia < 10; guardia++) {
+    if (dove === '.scelta-box button') {
+      const accetta = page.locator('.scelta-box [data-id="accetta"]');
+      if (await accetta.count()) await accetta.click();      // niente ritiri: si accetta
+      else {
+        const n = await page.locator('.scelta-box button:not(.annulla)').count();
+        await page.locator('.scelta-box button:not(.annulla)').nth(Math.floor(Math.random() * n)).click();
+      }
+    } else if (dove === '.dadi-grid') {
+      await page.locator(`[data-tot="${2 + Math.floor(Math.random() * 11)}"]`).click();
+      await page.locator('#dadi-chiudi').waitFor({ state: 'visible' });
+      await page.locator('#dadi-chiudi').click();
+      await page.locator('.dadi-overlay').waitFor({ state: 'detached' });
+    } else return dove;
     dove = await schermata(page);
   }
   return dove;
@@ -144,18 +149,7 @@ for (const sc of SCELTI) {
       if (scenaOk) {
         for (const tipo of tipi) {
           await page.locator(`[data-tipo="${tipo}"]`).click();
-          let doveA = await schermata(page);
-          if (doveA === '.scelta-box button') {
-            await page.locator('.scelta-box button:not(.annulla)').first().click();
-            doveA = await schermata(page);
-          }
-          if (doveA === '.dadi-grid') {      // aiuto profano: totale dai dadi veri
-            await page.locator(`[data-tot="${2 + Math.floor(Math.random() * 11)}"]`).click();
-            await page.locator('#dadi-chiudi').waitFor({ state: 'visible' });
-            await page.locator('#dadi-chiudi').click();
-            await page.locator('.dadi-overlay').waitFor({ state: 'detached' });
-            doveA = await schermata(page);
-          }
+          const doveA = await tiraSeServe(page);
           ok(doveA === '#ok-msg', `approfondire ${tipo}: esito non arriva (${doveA})`);
           await page.locator('#ok-msg').click();
           await page.locator('#fine-visita').waitFor();
