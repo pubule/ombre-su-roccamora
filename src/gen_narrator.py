@@ -397,6 +397,20 @@ def nome_fit(c, text, max_w, start=17):
         size -= 1
     return size
 
+def chiusa_pagina(c):
+    """Chiusa ornamentale IDENTICA per ogni pagina di consultazione (retro
+    luoghi, retro tessere, indice, esami): un filetto e l'onda della
+    Societa'. Essendo fissa non rivela nulla sfogliando - veste il vuoto
+    delle pagine volutamente uniformi senza toccare l'anti-deduzione."""
+    from deluxe_style import wave, GOLD as _G
+    y = 34*mm
+    c.setStrokeColor(SEPIA); c.setLineWidth(0.5)
+    c.line(MX + 18*mm, y, W/2 - 26*mm, y)
+    c.line(W/2 + 26*mm, y, W - MX - 18*mm, y)
+    wave(c, W/2 - 20*mm, y - 1.2*mm, 40*mm, _G)
+    c.setFillColor(SEPIA); c.setFont(F['sc'], 7.5)
+    c.drawCentredString(W/2, y - 9*mm, 'società del lume · roccamora')
+
 def pagina_retro_luogo(c, L):
     """Retro fisico della pagina del luogo (stampa fronte/retro): SEMPRE
     presente, anche quando il luogo non ha nessun Approfondimento - stessa
@@ -420,6 +434,7 @@ def pagina_retro_luogo(c, L):
     c.setFillColor(TEAL); c.setFont(F['sc'], 8.5)
     c.drawString(MX, H - 50*mm, 'carte da prendere — solo per chi arbitra')
     body(c, approfondimenti_righe(L['approfondimenti']), H - 55*mm)
+    chiusa_pagina(c)
 
 def pagina_tessera_fronte(c, tid, nome, desc, art_file, testo):
     """Fronte della pagina tessera (fascicolo Spedizione): arte + descrizione
@@ -480,6 +495,7 @@ def pagina_retro_tessera(c, tid, nome, t, oggetto_rows=None):
         pw, ph = p.wrapOn(c, W - 2*MX, 60*mm)
         p.drawOn(c, MX, y - ph)
         y -= ph + 5*mm
+    chiusa_pagina(c)
 
 def pagina_esami_carbone(c, esami):
     """Coda del fascicolo Luoghi: le voci che chi arbitra legge quando
@@ -504,6 +520,7 @@ def pagina_esami_carbone(c, esami):
         pw, ph = p.wrapOn(c, W - 2*MX, 60*mm)
         p.drawOn(c, MX, y - 5*mm - ph)
         y -= ph + 16*mm
+    chiusa_pagina(c)
     c.showPage()
 
 def pagina_indice_citta(c, luoghi, etichetta_ep):
@@ -533,6 +550,7 @@ def pagina_indice_citta(c, luoghi, etichetta_ep):
                   '<b>Nessuna ora spesa.</b>', ROW)
     pw, ph = p.wrapOn(c, W - 2*MX, 30*mm)
     p.drawOn(c, MX, y - 6*mm - ph)
+    chiusa_pagina(c)
     c.showPage()
     # Retro di servizio: mantiene la parita' fronte/retro delle coppie
     # luogo/retro che seguono (istruzioni d'uso, nessun segreto).
@@ -555,6 +573,7 @@ def pagina_indice_citta(c, luoghi, etichetta_ep):
             f'Spedizione ({etichetta_ep}).']):
         c.setFillColor(INK); c.setFont(F['i'], 10)
         c.drawString(MX, H - 32*mm - i*6*mm, riga)
+    chiusa_pagina(c)
     c.showPage()
 
 

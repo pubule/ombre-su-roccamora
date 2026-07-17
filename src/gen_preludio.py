@@ -623,6 +623,8 @@ def luoghi():
                   '<b>Nessuna ora spesa.</b>', ROW)
     pw, ph = p.wrapOn(c, W - 2*MX, 30*mm)
     p.drawOn(c, MX, y - 6*mm - ph)
+    import gen_narrator as _N
+    _N.chiusa_pagina(c)
     c.showPage()
     parchment_art(c, W, H)
     rule_border(c, W, H)
@@ -641,6 +643,7 @@ def luoghi():
             'ancora uno — solo il nome, mai il tipo. Se non resta nulla, il jolly non si spende.']):
         c.setFillColor(INK); c.setFont(F['i'], 10)
         c.drawString(MX, H - 32*mm - i*6*mm, riga)
+    _N.chiusa_pagina(c)
     c.showPage()
 
     for L in LUOGHI_P:
@@ -704,6 +707,8 @@ def luoghi():
             else:
                 rows.append(f"<b>{tipo}</b> <i>({a['tipo']} — {sblocca})</i>")
         body(rows, H - 55*mm)
+        import gen_narrator as N
+        N.chiusa_pagina(c)
         c.showPage()
     import gen_narrator as N
     N.pagina_esami_carbone(c, ESAMI_CARBONE_P)
