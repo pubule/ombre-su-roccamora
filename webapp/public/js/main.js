@@ -188,10 +188,13 @@ function dettaglioEroe(e, giaScelto) {
              ['difesa', e.difesa], ['salute', e.salute]].map(([l, v]) =>
             `<div class="stat"><span>${l}</span><b>${v}</b></div>`).join('')}
         </div>
-        <p class="eroe-blocco">${e.abil}</p>
-        ${e.equip ? `<p class="eroe-blocco"><b>In tasca</b> — ${esc(e.equip)}</p>` : ''}
-        ${e.bio ? `<p class="eroe-blocco eroe-bio"><i>${esc(e.bio)}</i></p>` : ''}
-        <button class="btn pieno" id="arruola">${giaScelto ? 'congedate ' : 'arruolate '}${esc(e.nome.split(' ')[0].toLowerCase())}</button>
+        ${e.bio ? `<div class="eroe-sezione"><h4>chi sei</h4>
+          <p class="eroe-blocco eroe-bio"><i>${esc(e.bio)}</i></p></div>` : ''}
+        <div class="eroe-sezione"><h4>abilità</h4>
+          <p class="eroe-blocco">${e.abil}</p></div>
+        ${e.equip ? `<div class="eroe-sezione"><h4>in tasca</h4>
+          <p class="eroe-blocco">${esc(e.equip)}</p></div>` : ''}
+        <button class="btn pieno" id="arruola">${giaScelto ? 'congeda eroe' : 'arruola eroe'}</button>
         <button class="btn scelta-btn annulla" id="chiudi-eroe">chiudete la scheda</button>
       </div>`;
     document.body.appendChild(ov);

@@ -104,8 +104,8 @@ em, i { font-style: italic; }
   border-radius: 50%; background: var(--rosso); color: var(--perg); display: none;
   align-items: center; justify-content: center; font-weight: bold; }
 .carta-eroe.scelto .spunta { display: flex; }
-.contatore-party { font-family: 'FellSC', serif; color: var(--oro-chiaro);
-  font-size: 20px; margin: 12px 0 4px; }
+.contatore-party { font-family: 'FellSC', serif; color: var(--rosso);
+  font-size: 22px; margin: 12px 0 4px; }
 
 /* --- barra superiore in partita (segnaposto W-B) --- */
 .barra { display: flex; align-items: center; justify-content: space-between;
@@ -297,3 +297,8 @@ em, i { font-style: italic; }
   color: var(--ink); margin-top: 12px; }
 .lettera-testo b { color: var(--rosso); }
 .lettera-panel .nota { letter-spacing: .08em; }
+
+/* sezioni della scheda eroe: titoletto + filetto, come la scheda stampata */
+.eroe-sezione { border-top: 1px solid rgba(216, 178, 94, .35); padding-top: 8px; }
+.eroe-sezione h4 { font-family: 'FellSC', serif; font-weight: normal; font-size: 13px;
+  letter-spacing: .1em; color: var(--oro-chiaro); margin-bottom: 4px; }
