@@ -455,7 +455,10 @@ SOGLIA_CANTO = 3
 # ricalibrazione/analisi.md). Precedente: Gloomhaven abbassa il livello
 # mostri ai tavoli piccoli; qui la lingua e' quella del bonus PREPARATI,
 # zero componenti nuovi. {} = spento.
-SALUTE_BONUS_PER_N = {4: 1}
+# {2:1} dal 20260717: il duo resta la taglia dura dichiarata, ma senza il
+# margine extra l'Ep. 2 (partite piu' lunghe: passerella, scorta, boss che
+# si cura) scivolava dal ~30% al 18%.
+SALUTE_BONUS_PER_N = {2: 1, 4: 1}
 
 
 def custode_fer_bonus(n_eroi):
@@ -882,8 +885,8 @@ def simula_indagine(party, log, esplora_a_fondo=False):
 
 def simula_indagine_2gruppi(party, log, orologio_condiviso=True):
     """Diagnostica per 8-10 giocatori (NON una regola vera): il party si
-    divide in 2 sottogruppi per l'intera Indagine (oggi la regola vera lo
-    permette una sola volta a episodio, vedi Regolamento) - serve a
+    divide in 2 sottogruppi per l'intera Indagine (la regola vera NON lo
+    permette mai: l'Indagine e' a gruppo unico, deciso 20260714) - serve a
     misurare se la scarsita' "non potete visitare tutti gli 8 luoghi",
     elemento centrale della tensione della Fase 1, regge ancora quando il
     throughput raddoppia. `orologio_condiviso=True`: una visita di UN

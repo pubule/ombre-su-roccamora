@@ -493,7 +493,7 @@ SOGLIA_CANTO = 3
 # ricalibrazione/analisi.md). Precedente: Gloomhaven abbassa il livello
 # mostri ai tavoli piccoli; qui la lingua e' quella del bonus PREPARATI,
 # zero componenti nuovi. {} = spento.
-SALUTE_BONUS_PER_N = {4: 1}
+SALUTE_BONUS_PER_N = {2: 1, 4: 1}  # {2:1} dal 20260717, vedi simulate_playtest
 
 
 def custode_fer_bonus(n_eroi):
@@ -1355,7 +1355,10 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
                     enemies.append(dict(nome='IL CROGIOLANTE', fer=a_fer, fer_max=a_fer,
                                          dif=base['dif'], att=base['att'], dan=base['dan'] + dan_bonus,
                                          mov=base['mov'], distanza=CASELLE_TESSERA, pos=None))
-        elif cura_custode and custode['fer'] > 0:
+        elif cura_custode and custode['fer'] > 0 and len(party) >= 4:
+            # Regola taglie (20260717): ai tavoli da 2-3 eroi lo Scoriatore
+            # NON recupera ferite dai Crescendo - senza questo, il duo
+            # macinava il boss piu' lentamente di quanto lui si curasse.
             custode['fer'] = min(custode['fer_max'], custode['fer'] + 1)
             custode_stunned = False
             log(f'    Il Custode recupera 1 ferita ({custode["fer"]}/{custode["fer_max"]}) e si attiva subito.')

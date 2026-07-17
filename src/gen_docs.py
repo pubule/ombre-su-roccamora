@@ -427,14 +427,18 @@ def regolamento():
     e.append(P("Ovunque il gioco parli di taglie — tabella Minaccia, bonus, Bestiario — conta il "
                "numero di <b>eroi in tavola</b>, non di giocatori: un tavolo da 2 giocatori con 4 "
                "eroi è, per le regole, un tavolo da 4. Regole per taglia:", 'body'))
-    e.append(LI('<b>2 eroi</b> — la configurazione più dura del gioco, dichiaratamente: anche col '
-                'boss alleggerito (sotto) vince circa una spedizione su due. Se siete in 2 '
-                'giocatori e preferite una sfida più morbida, guidate <b>2 eroi a testa</b>: '
-                'valgono le regole del tavolo da 4, con più scelte tattiche per ciascuno (come le '
-                'partite “multi-handed” di Gloomhaven o Arkham Horror).'))
-    e.append(LI('<b>4 eroi</b> — <b>+1 Salute massima a testa</b> (oltre a quella eventuale da '
-                'Slancio/Preparati). È la taglia dove la tensione risultava più piatta nei test: '
-                'un margine in più fa arrivare qualche colpo senza far crollare le vittorie.'))
+    e.append(LI('<b>2 eroi</b> — la configurazione più dura del gioco, dichiaratamente: anche coi '
+                'bonus (sotto) vince poco più di una spedizione su tre. In più: <b>il boss '
+                'dell’episodio non recupera mai ferite</b> ai tavoli da 2-3 eroi, qualunque cosa '
+                'dicano le carte (in due lo si macina troppo lentamente perché possa anche '
+                'curarsi). Se siete in 2 giocatori e preferite una sfida più morbida, guidate '
+                '<b>2 eroi a testa</b>: valgono le regole del tavolo da 4, con più scelte '
+                'tattiche per ciascuno (come le partite “multi-handed” di Gloomhaven o Arkham '
+                'Horror).'))
+    e.append(LI('<b>2 e 4 eroi</b> — <b>+1 Salute massima a testa</b> (oltre a quella eventuale da '
+                'Slancio/Preparati). A 4 è la taglia dove la tensione risultava più piatta nei '
+                'test; a 2 è il margine che separa “dura” da “senza speranza” nelle spedizioni '
+                'più lunghe.'))
     e.append(LI('<b>Il boss dell’episodio scala con la taglia</b> — <b>−1 Ferita ai tavoli da 2 e '
                 'da 4</b> (le taglie che pescano più carte Minaccia di quanti corpi abbiano per '
                 'assorbirle), <b>+1 Ferita a 6 e a 9–10</b>. A 3, 5, 7 e 8 nessuna modifica: '
@@ -452,16 +456,12 @@ def regolamento():
                "diventa un racconto corale, il modo più divertente di giocare in gruppo. Con più "
                "persone al tavolo contate un po’ più di tempo a episodio, per la discussione e le "
                "azioni da coordinare, non perché il mazzo peschi di più."))
-    e.append(P("In 4 o 5 giocatori potete anche <b>dividervi</b>, una sola volta a episodio: due "
-               "sottogruppi visitano due luoghi diversi nella stessa ora (costa comunque solo 1 ora "
-               "sul Taccuino, non 2), poi restate uniti per il resto dell’indagine. Ogni sottogruppo "
-               "sblocca gli Approfondimenti solo per gli eroi davvero presenti al suo luogo — se "
-               "l’eroe giusto è nell’altro sottogruppo, quell’Approfondimento resta perso (e "
-               "l’Aiuto profano non si applica: vale solo quando l’eroe giusto non esiste al "
-               "tavolo, non quando è semplicemente altrove). Dividersi "
-               "copre più terreno nelle poche ore che avete, ma a un prezzo reale — usatelo dove conta "
-               "di più, non è ripetibile. <b>Non</b> estendetelo oltre i 5 eroi: da 6 in su l’Indagine "
-               "resta un unico momento corale."))
+    e.append(P("L’Indagine si gioca a <b>gruppo unico</b>: tutti visitano lo stesso luogo, sempre — "
+               "niente sottogruppi, in nessuna taglia. Nella stessa visita, però, <b>ogni eroe "
+               "presente può tentare il proprio Approfondimento</b> (Elena l’Osservazione, Attilio "
+               "il Referto, Ottone la Testimonianza…): con più specialisti al tavolo una singola "
+               "ora rende di più — è così che un tavolo grande copre il terreno, restando un unico "
+               "momento corale."))
     e.append(P("Con un tavolo da 7–10 eroi, contate spedizioni più lunghe (13–15 round invece di "
                "11–12: più eroi in una stanza piccola vuol dire più traffico, non solo più "
                "minacce). Consigliato: nominate un <b>custode del mazzo Minaccia</b> fisso per tutta "
@@ -773,11 +773,12 @@ def aiuto():
                 'Danno indicato.'))
 
     e.append(P('TAGLIE DEL TAVOLO (contano gli EROI in tavola, non i giocatori)', 'h2'))
-    e.append(RL('<b>4 eroi</b> — bonus agli eroi: <b>+1 Salute massima a testa</b> (oltre a '
+    e.append(RL('<b>2 e 4 eroi</b> — bonus agli eroi: <b>+1 Salute massima a testa</b> (oltre a '
                 'Slancio/Preparati).'))
     e.append(RL('<b>Boss dell’episodio</b> (nemico) — le sue Ferite cambiano con la taglia: −1 a 2 e '
                 '4 eroi, +1 a 6 e 9–10 (a 3, 5, 7, 8 invariate; truppa mai toccata). Fissate a inizio '
-                'spedizione; già tabellate per taglia nel <b>Bestiario</b>.'))
+                'spedizione; già tabellate per taglia nel <b>Bestiario</b>. A 2–3 eroi il boss '
+                '<b>non recupera mai ferite</b>, qualunque cosa dicano le carte.'))
     e.append(RL('<b>7–10 eroi</b> — la terza carta Minaccia si pesca solo nei round pari (tabella sopra).'))
 
     e.append(P('REGOLA D’ORO', 'h2'))

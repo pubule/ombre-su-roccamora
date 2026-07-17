@@ -429,15 +429,21 @@ prima che l'Ep. 1 lo riveli.
      Ferita **SOLO al boss** a **6 eroi e a 8-10** — a **7 eroi nessun
      bonus** (testato: 69% contro 86% senza, la mezza carta in piu' e
      l'affollamento reale bastano gia').
-   - **Salute**: +1 Salute massima a testa **solo al tavolo da 4** (67%→
-     79%; a 8-10 la stessa leva non sposta nulla, misurato — li' il
+   - **Salute**: +1 Salute massima a testa **ai tavoli da 2 e da 4** (a 4:
+     67%→79%; a 8-10 la stessa leva non sposta nulla, misurato — li' il
      collo di bottiglia sono le ondate di rinforzo, non i punti Salute).
-   - **Tavolo da 2 eroi**: nessuna leva semplice lo porta al target (39-
-     59% con qualunque combinazione, rumore enorme su un campione cosi'
-     piccolo) — dichiarato **modalita' dura** apposta. Suggerimento nel
-     Regolamento: in 2 giocatori conviene giocare **4 eroi, 2 a testa**
-     (multi-handed, precedente Gloomhaven/Arkham Horror) invece del
-     tavolo nudo da 2.
+   - **Tavolo da 2 eroi**: nessuna leva lo porta al TARGET pieno —
+     dichiarato **modalita' dura** apposta (~35-40%, mai sotto: l'Ep. 2
+     senza correttivi scivolava al 18% per le partite piu' lunghe, vedi
+     sotto). Dal 20260717 il duo ha DUE correttivi di dignita', non di
+     target: +1 Salute massima (sopra) e la regola delle taglie **«a 2-3
+     eroi il boss non recupera mai ferite, qualunque cosa dicano le
+     carte»** (i boss curati dai Crescendo, come lo Scoriatore, superano
+     il ritmo di danno di una coppia). Suggerimento nel Regolamento: in
+     2 giocatori conviene giocare **4 eroi, 2 a testa** (multi-handed,
+     precedente Gloomhaven/Arkham Horror) invece del tavolo nudo da 2.
+     Un episodio nuovo con spedizione LUNGA (scorte, chokepoint, boss che
+     recupera) DEVE rivalidare la taglia 2, non solo la 3-10.
    Curva risultante (3-10): 77-89% vittoria, 24-39% vittorie sofferte,
    risveglio anticipato del boss mai sopra il 3%.
    **Terza ritaratura (2026-07-16, audit di fedelta')**: quella curva era
@@ -583,8 +589,9 @@ Per un episodio nuovo: **copia il file** (non modificarlo sul posto, l'Ep. 1 res
 riferimento storico), aggiorna `path`/`TILES`/`CUSTODE`/le carte Minaccia con la mappa
 e i nemici del nuovo episodio, ma **riusa senza modificarle** le costanti/formule di
 scaling (`MINACCIA_FORMULE['finale_v3']`, `CUSTODE_TENSIONE_EXTRA`,
-`SALUTE_BONUS_PER_N`, `TICK_CANTO_OGNI`/`SOGLIA_CANTO` — config di produzione
-dal 20260716, vedi 3-quater) e la
+`SALUTE_BONUS_PER_N` = {2:1, 4:1}, `TICK_CANTO_OGNI`/`SOGLIA_CANTO` — config di
+produzione dal 20260717; dal 20260717 vale anche la regola delle taglie «a 2-3
+eroi il boss non recupera mai ferite», vedi 3-quater) e la
 geometria/pathfinding (`chess()`, `cammino()`,
 `muovi_verso()`, `PORTE`) — quelle sono per numero di eroi e per griglia 4x4 generiche,
 non per episodio, e sono gia' validate. Rilancia gli stessi round diagnostici

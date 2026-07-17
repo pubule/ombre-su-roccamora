@@ -341,7 +341,9 @@ NEMICI_2 = [
               'ciò che il Coro lascia dietro di sé quando prova i suoi strumenti su chi non può '
               'rifiutare. Colpirlo è come suonare una campana rotta; ciò che lo stona davvero è '
               'un colpo che non fa rumore (lo smorzo di feltro sul martello di collaudo: Difesa '
-              '8→5 per il resto della partita, e salta la sua prossima attivazione).'),
+              '8→5 per il resto della partita, e salta la sua prossima attivazione). Ai tavoli '
+              'da 2-3 eroi il bronzo non gli risponde: non recupera mai ferite, qualunque cosa '
+              'dicano le carte Crescendo (regola delle taglie, vedi Regolamento).'),
     dict(nome='IL CROGIOLANTE', att=1, dif=7, fer=1, mov=3, dan=1,
          tipo='Operaio del Coro', art='Il Crogiolante.png',
          note='Attacca fino a 2 caselle di distanza, in linea retta (il mestolo di metallo fuso).',
@@ -492,7 +494,8 @@ def spedizione():
                   'in coda al mazzo) e <b>lo Scoriatore</b> (il boss: si desta in T6, o al 3° '
                   'segnalino Canto). Vittoria: liberate Ilario (Interagire in T5) e riportatelo '
                   'in T1, alla chiatta. Le campanelle grezze in T6 sono l’obiettivo secondario: '
-                  'ognuna recuperata pesa nell’epilogo.', BODY)])
+                  'ognuna recuperata pesa nell’epilogo. Ai tavoli da 2-3 eroi lo Scoriatore '
+                  '<b>non recupera mai ferite</b> dalle carte Crescendo (regola delle taglie).', BODY)])
     c.showPage()
     token_sheet(c, token_groups_2())
     registro_ferite(c)
