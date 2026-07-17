@@ -284,9 +284,11 @@ async function approfondisci(l, tipo, tipiQui) {
 
   const a = l.approfondimenti.find((x) => x.tipo === tipo);
   if (!a || gia) {
-    // la carica si spende comunque? NO: qui l'app e' gentile come un arbitro
-    // vero - dichiara "non c'e' nulla per te" senza consumare (il costo vero
-    // e' l'ora della visita, gia' pagata).
+    // Sesto Senso di Sibilla (jolly): «un Approfondimento QUALSIASI del
+    // luogo; se non ne ha, il pendolo indica un luogo che ne nasconde uno»
+    if (conJolly) return pendolo(l, chi);
+    // per gli altri la carica NON si consuma: l'app e' gentile come un
+    // arbitro vero - "non c'e' nulla per te", il costo vero e' l'ora.
     return pannelloMsg(tipo.toLowerCase(), `<p><i>${esc(chi.split(' ')[0])} osserva, ascolta,
       fruga. ${gia ? 'Quello che c’era da cogliere qui, l’avete già colto.' :
       'Ma qui non c’è nulla che parli il suo linguaggio.'}</i></p>`, () => schedaLuogo(l));
@@ -294,11 +296,51 @@ async function approfondisci(l, tipo, tipiQui) {
   usaCarica(P(), chi, tipo, conJolly);
   ind.approfondimentiLetti.push({ n: l.n, tipo, soggetto: a.soggetto });
   salvaP();
+  consegnaApprofondimento(l, a, tipo);
+}
+
+function consegnaApprofondimento(l, a, tipo, prefisso = '') {
   const cardA = cartaApprofondimento(ctx.carte, P().episodio, a.soggetto);
   pannelloMsg(`${tipo.toLowerCase()} — ${a.soggetto.toLowerCase()}`,
-    `${cardA ? `<div class="carta-grande"><img src="${urlCartaSafe(cardA.file)}" alt=""></div>` : ''}
+    `${prefisso}
+     ${cardA ? `<div class="carta-grande"><img src="${urlCartaSafe(cardA.file)}" alt=""></div>` : ''}
      <p class="mt"><i>${rendi(a.testo)}</i></p>
      <p class="nota mt">Prendete la carta “${esc(a.soggetto)}” dal mazzo Approfondimenti.</p>`,
+    () => schedaLuogo(l));
+}
+
+// Il pendolo di Sibilla, la parte che il tavolo dimentica: se il luogo non
+// ha (piu') nulla da cogliere, il jolly non va sprecato su un buco - legge
+// un Approfondimento QUALSIASI ancora chiuso qui, oppure indica un luogo
+// della citta' che ne nasconde ancora uno (senza dire di che tipo).
+function pendolo(l, chi) {
+  const ind = IND();
+  const letto = (n, x) => ind.approfondimentiLetti.some((y) =>
+    y.n === n && y.tipo === x.tipo && y.soggetto === x.soggetto);
+  const quiChiusi = (l.approfondimenti || []).filter((x) => !letto(l.n, x));
+  if (quiChiusi.length) {
+    const a = quiChiusi[0];
+    usaCarica(P(), chi, a.tipo, true);
+    ind.approfondimentiLetti.push({ n: l.n, tipo: a.tipo, soggetto: a.soggetto });
+    salvaP();
+    return consegnaApprofondimento(l, a, a.tipo,
+      `<p><i>Il pendolo di Sibilla oscilla appena — e si ferma. Qui c’è qualcosa,
+       anche se non dove stavate guardando.</i></p>`);
+  }
+  const altrove = ctx.ep.luoghi.filter((x) => x.n !== l.n &&
+    (x.approfondimenti || []).some((a2) => !letto(x.n, a2)));
+  if (!altrove.length) {
+    return pannelloMsg('sesto senso', `<p><i>Il pendolo resta immobile, il filo dritto
+      come un fuso: in città non è rimasto nulla da cogliere. Il dono, stavolta,
+      non si spende.</i></p>`, () => schedaLuogo(l));
+  }
+  const scelta = altrove[Math.floor(Math.random() * altrove.length)];
+  usaCarica(P(), chi, 'jolly', true);
+  salvaP();
+  pannelloMsg('sesto senso', `<p><i>Il pendolo ruota lento sopra la mappa, poi il filo
+    si tende, deciso: <b>${esc(scelta.voce_mappa)}</b>. Là qualcosa aspetta ancora
+    l’occhio giusto — il pendolo non dice quale.</i></p>
+    <p class="nota mt">Il jolly di Sibilla è speso: l’informazione è questa.</p>`,
     () => schedaLuogo(l));
 }
 
