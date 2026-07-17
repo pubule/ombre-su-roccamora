@@ -116,7 +116,7 @@ async function vistaEpisodio(epId) {
 
 // ------------------------------------------------------------------ PARTY
 async function vistaParty(epId, modo) {
-  const [comune, carte] = await Promise.all([dati('comune'), dati('carte')]);
+  const comune = await dati('comune');
   const scelti = new Set();
   h(`
     <div class="barra">
@@ -126,13 +126,15 @@ async function vistaParty(epId, modo) {
     </div>
     <div class="pannello">
       <p class="nota">Da 2 a 10 investigatori: le regole scalano da sole sulla taglia
-      del party. Chi resta a casa lascia chiuse le sue porte.</p>
+      del party. Toccate un ritratto per leggere chi è — e decidere se arruolarlo.</p>
       <div class="contatore-party" id="contatore">0 scelti</div>
-      <div class="griglia-eroi">
-        ${carte.eroi_carte.map((c) => `
-          <div class="carta-eroe" data-nome="${esc(c.title)}">
-            <img loading="lazy" src="${encodeURI(`/assets/Comune/cards/${c.file}.jpg`)}"
-                 alt="${esc(c.title)}">
+      <div class="griglia-arruolo">
+        ${comune.eroi.map((e) => `
+          <div class="eroe-tile" data-nome="${esc(e.nome)}">
+            <img loading="lazy" src="${encodeURI('/assets/artworks/' + e.art)}" alt="">
+            <div class="eroe-velo"></div>
+            <div class="eroe-nome"><b>${esc(e.nome.toLowerCase())}</b>
+              <i>${esc(e.ruolo)}</i></div>
             <div class="spunta">✓</div>
           </div>`).join('')}
       </div>
@@ -143,31 +145,59 @@ async function vistaParty(epId, modo) {
     ${RIGA_C}
   `);
   document.getElementById('indietro').onclick = () => vistaEpisodio(epId);
-  const perTitolo = {};
-  comune.eroi.forEach((e) => { perTitolo[e.nome.toLowerCase()] = e.nome; });
   const aggiornaBtn = () => {
     document.getElementById('contatore').textContent =
       `${scelti.size} ${scelti.size === 1 ? 'scelto' : 'scelti'}`;
     document.getElementById('inizia').classList.toggle('disabilitato',
       scelti.size < 2 || scelti.size > 10);
   };
-  app.querySelectorAll('.carta-eroe').forEach((el) => el.addEventListener('click', () => {
+  app.querySelectorAll('.eroe-tile').forEach((el) => el.addEventListener('click', () => {
     const nome = el.dataset.nome;
-    if (scelti.has(nome)) { scelti.delete(nome); el.classList.remove('scelto'); }
-    else { scelti.add(nome); el.classList.add('scelto'); }
-    aggiornaBtn();
+    const eroe = comune.eroi.find((e) => e.nome === nome);
+    dettaglioEroe(eroe, scelti.has(nome)).then((azione) => {
+      if (azione !== 'toggle') return;
+      if (scelti.has(nome)) { scelti.delete(nome); el.classList.remove('scelto'); }
+      else { scelti.add(nome); el.classList.add('scelto'); }
+      aggiornaBtn();
+    });
   }));
   document.getElementById('inizia').onclick = () => {
-    // il titolo carta ("Elena Fosco") va mappato sul nome dati ("ELENA FOSCO")
-    const nomi = [...scelti].map((t) => {
-      const k = t.toLowerCase();
-      return comune.eroi.find((e) => e.nome.toLowerCase().includes(k) ||
-                                     k.includes(e.nome.toLowerCase().split(' ')[0].toLowerCase()))?.nome || t;
-    });
-    const partita = nuovaPartita(epId, modo, nomi);
+    const partita = nuovaPartita(epId, modo, [...scelti]);
     salva(partita);
     vistaPartita(partita);
   };
+}
+
+// la scheda dell'eroe: art, statistiche, abilità, equipaggiamento e bio —
+// gli stessi dati della Scheda Personaggio stampata
+function dettaglioEroe(e, giaScelto) {
+  return new Promise((risolvi) => {
+    const ov = document.createElement('div');
+    ov.className = 'scelta-overlay';
+    ov.innerHTML = `
+      <div class="scelta-box eroe-dettaglio">
+        <div class="eroe-testata">
+          <img src="${encodeURI('/assets/artworks/' + e.art)}" alt="">
+          <div>
+            <h3>${esc(e.nome.toLowerCase())}</h3>
+            <p class="eroe-ruolo">${esc(e.ruolo)} — Società del Lume</p>
+          </div>
+        </div>
+        <div class="eroe-stats">
+          ${[['acume', e.acume], ['vigore', e.vigore], ['nervi', e.nervi],
+             ['difesa', e.difesa], ['salute', e.salute]].map(([l, v]) =>
+            `<div class="stat"><span>${l}</span><b>${v}</b></div>`).join('')}
+        </div>
+        <p class="eroe-blocco">${e.abil}</p>
+        ${e.equip ? `<p class="eroe-blocco"><b>In tasca</b> — ${esc(e.equip)}</p>` : ''}
+        ${e.bio ? `<p class="eroe-blocco eroe-bio"><i>${esc(e.bio)}</i></p>` : ''}
+        <button class="btn pieno" id="arruola">${giaScelto ? 'congedate ' : 'arruolate '}${esc(e.nome.split(' ')[0].toLowerCase())}</button>
+        <button class="btn scelta-btn annulla" id="chiudi-eroe">chiudete la scheda</button>
+      </div>`;
+    document.body.appendChild(ov);
+    ov.querySelector('#arruola').onclick = () => { ov.remove(); risolvi('toggle'); };
+    ov.querySelector('#chiudi-eroe').onclick = () => { ov.remove(); risolvi(null); };
+  });
 }
 
 // ---------------------------------------------------------------- PARTITA

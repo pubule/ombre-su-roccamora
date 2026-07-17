@@ -88,11 +88,14 @@ for (const sc of SCENARI) {
     await page.locator(`.tessera-episodio[data-ep="${sc.ep}"]`).click();
     await page.locator('.modo[data-modo="tavolo"]').click();
     await page.locator('#avanti').click();
-    await page.locator('.carta-eroe').first().waitFor();
+    await page.locator('.eroe-tile').first().waitFor();
     for (const nome of sc.party) {
-      await page.locator(`.carta-eroe[data-nome*="${nome}" i]`).first().click();
+      await page.locator(`.eroe-tile[data-nome*="${nome}" i]`).first().click();
+      await page.locator('#arruola').click();
     }
     await page.locator('#inizia').click();
+    // lettera d'incarico, poi la città
+    await page.locator('#in-strada').click();
     await page.locator('.voce').first().waitFor();
 
     // strategia: prima gli aperti, poi i chiusi con la loro chiave

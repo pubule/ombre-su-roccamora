@@ -23,8 +23,8 @@ os.makedirs(OUT, exist_ok=True)
 from gen_cards import HEROES, LUOGHI, TILES, NEMICI, OGGETTI  # noqa: E402
 import story  # noqa: E402
 story.apply(LUOGHI, TILES, NEMICI, HEROES, [])
-from gen_preludio import LUOGHI_P, TESSERE_P, MAZZO_P, OGGETTI_LUOGO_P  # noqa: E402
-from gen_ep2 import LUOGHI_2, TILES_2, NEMICI_2, OGGETTI_LUOGO_2  # noqa: E402
+from gen_preludio import LUOGHI_P, TESSERE_P, MAZZO_P, OGGETTI_LUOGO_P, LETTERA_P  # noqa: E402
+from gen_ep2 import LUOGHI_2, TILES_2, NEMICI_2, OGGETTI_LUOGO_2, LETTERA_2  # noqa: E402
 from gen_mappa import VOCI_MAPPA, MAPPE  # noqa: E402
 from gen_bestiario import FASCE, BOSS_DELTA, ferite_per_fascia  # noqa: E402
 from simulate_playtest import (INDAGINE_UNLOCK, TICK_CANTO_OGNI, SOGLIA_CANTO,  # noqa: E402
@@ -92,11 +92,20 @@ def nemico_json(n):
                 ferite_per_fascia=ferite_per_fascia(n))
 
 
+def _art_eroe(nome):
+    """Ritratto in artworks/: primo nome proprio (senza titoli), es.
+    'DOTT. LAZZARO SERRA' -> 'Lazzaro.png'."""
+    parole = [w for w in nome.split() if w not in ('DOTT.', 'PADRE')]
+    return parole[0].strip('“”').capitalize() + '.png'
+
+
 def eroe_json(h):
     return dict(nome=h['nome'], ruolo=h['ruolo'],
                 acume=h['acume'], vigore=h['vigore'], nervi=h['nervi'],
                 salute=h['salute'], difesa=h['difesa'],
                 abil=h['abil'], equip=h.get('equip'),
+                bio=h.get('bio_scheda', h.get('bio', '')),
+                art=_art_eroe(h['nome']),
                 cariche=INDAGINE_UNLOCK.get(h['nome'], {}))
 
 
@@ -186,6 +195,7 @@ episodi = dict(
         id='preludio', titolo='La Prova del Lume',
         sottotitolo='il preludio — la vostra prova d’ammissione',
         cartella='Preludio', ore_budget=6,
+        lettera=LETTERA_P,
         luoghi=[luogo_json(L, OGGETTI_LUOGO_P) for L in LUOGHI_P],
         oggetti_luogo=OGGETTI_LUOGO_P,
         tessere=[dict(id=t[0], nome=t[1].title(), art=t[2], testo=t[3]) for t in TESSERE_P],
@@ -197,6 +207,7 @@ episodi = dict(
         id='ep1', titolo='Il Coro Sommerso',
         sottotitolo='episodio 1 — il caso del campanaro scomparso',
         cartella='Episodio 1', ore_budget=6,
+        lettera=story.LETTERA2,
         luoghi=[luogo_json(L, OGGETTI_LUOGO_1) for L in LUOGHI],
         tessere=[tessera_json(T) for T in TILES],
         oggetti=[oggetto_json(o) for o in OGGETTI],
@@ -208,6 +219,7 @@ episodi = dict(
         id='ep2', titolo='La voce del bronzo',
         sottotitolo='episodio 2 — i pani del Quarantuno',
         cartella='Episodio 2', ore_budget=6,
+        lettera=LETTERA_2,
         luoghi=[luogo_json(L, OGGETTI_LUOGO_2) for L in LUOGHI_2],
         tessere=[tessera_json(T) for T in TILES_2],
         vantaggio=dict(slancio_ore=3, slancio_luoghi=7, preparati_ore=1, preparati_luoghi=6),

@@ -36,16 +36,27 @@ try {
   await page.locator('.modo[data-modo="tavolo"]').click();
   await page.locator('#avanti').click();
 
-  // --- party -------------------------------------------------------------
+  // --- party: tile -> scheda personaggio -> arruola ------------------------
   console.log('party');
-  await page.locator('.carta-eroe img').first().waitFor();
-  ok(await page.locator('.carta-eroe').count() === 11, '11 carte eroe');
-  const rotte = await page.$$eval('.carta-eroe img',
+  await page.locator('.eroe-tile img').first().waitFor();
+  ok(await page.locator('.eroe-tile').count() === 11, '11 ritratti eroe');
+  const rotte = await page.$$eval('.eroe-tile img',
     (imgs) => imgs.filter((i) => i.complete && i.naturalWidth === 0).map((i) => i.src));
   ok(rotte.length === 0, `ritratti eroe tutti caricati${rotte.length ? ' — rotti: ' + rotte.join(', ') : ''}`);
-  await page.locator('.carta-eroe').nth(0).click();
-  await page.locator('.carta-eroe').nth(1).click();
+  for (const n of [0, 1]) {
+    await page.locator('.eroe-tile').nth(n).click();
+    await page.locator('.eroe-dettaglio').waitFor();
+    ok(await page.locator('.eroe-stats .stat').count() === 5, 'scheda con 5 statistiche');
+    await page.locator('#arruola').click();
+  }
+  ok(await page.locator('.eroe-tile.scelto').count() === 2, 'due eroi arruolati');
   await page.locator('#inizia').click();
+
+  // --- lettera d'incarico ----------------------------------------------------
+  console.log('lettera');
+  await page.locator('.lettera-testo').waitFor();
+  ok((await page.locator('.lettera-testo').innerText()).length > 200, 'lettera con testo pieno');
+  await page.locator('#in-strada').click();
 
   // --- stradario -----------------------------------------------------------
   console.log('stradario');

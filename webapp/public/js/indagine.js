@@ -18,7 +18,29 @@ export async function vistaIndagine(app, partita, vaiA) {
   const [ep, comune, carte] = await Promise.all([
     dati(partita.episodio), dati('comune'), dati('carte')]);
   ctx = { app, partita, ep, comune, carte, vaiA };
+  if (!partita.indagine.lettaLettera && ep.lettera) return lettera();
   home();
+}
+
+// La lettera d'incarico: apre l'episodio come al tavolo — si legge ad alta
+// voce, e dice quali porte sono aperte dall'inizio. Poi la città.
+function lettera() {
+  const { app, ep } = ctx;
+  app.innerHTML = `
+    ${barra(ep.titolo)}
+    <div class="pannello lettera-panel">
+      <p class="nota centrato">— da leggere ad alta voce, una sola volta —</p>
+      <div class="lettera-testo">${rendi(ep.lettera)}</div>
+    </div>
+    <div class="btn-riga">
+      <button class="btn pieno" id="in-strada">in strada, alle ${IND().ora}:00 →</button>
+    </div>`;
+  dopoBarra();
+  app.querySelector('#in-strada').onclick = () => {
+    IND().lettaLettera = true;
+    salvaP();
+    home();
+  };
 }
 
 const P = () => ctx.partita;

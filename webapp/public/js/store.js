@@ -14,6 +14,7 @@ export function nuovaPartita(episodioId, modo, party) {
     fase: 'indagine',
     indagine: {
       ora: 18,                 // 18..24
+      lettaLettera: false,     // la lettera d'incarico si legge una volta
       visitati: [],            // numeri luogo
       scoperti: [],            // luoghi coperti girati (bussate, anche fallite)
       sbloccati: [],           // luoghi la cui chiave e' stata detta (si rientra)
