@@ -140,6 +140,25 @@ function plancia() {
     </div>
     <div class="mt"></div>
     <div class="pannello">
+      <details class="azioni-promemoria">
+        <summary><h2>il turno degli eroi — 2 azioni a testa, di tipo diverso</h2></summary>
+        <p class="nota">Si gioca sul tavolo: miniature sulle tessere stampate, dadi veri.
+        L’app non muove nulla — arbitra e basta.</p>
+        <p class="mt">◆ <b>Muovere</b> — fino a 3 caselle (Nino 4); niente diagonali, non si
+        attraversano nemici o mobili.</p>
+        <p class="mt">◆ <b>Attaccare</b> — nemico adiacente: 2d6 + VIGORE (+1 se armati)
+        ≥ Difesa → 1 ferita (segnatela qui sotto).</p>
+        <p class="mt">◆ <b>Cercare</b> — ACUME Media, 1 volta a tessera, ritentabile:
+        l’esito ve lo legge l’app (toccate la tessera qui sopra).</p>
+        <p class="mt">◆ <b>Interagire</b> — porte, grate, leve, liberare chi va scortato.</p>
+        <p class="mt">◆ <b>Usare un oggetto</b> — come dice la sua carta.</p>
+        <p class="mt">◆ <b>Rianimare</b> — un eroe a terra adiacente torna a 2 Salute.</p>
+        <p class="nota mt">Uscendo verso una tessera coperta: rivelatela (toccatela qui
+        sopra) e leggetene subito il fronte.</p>
+      </details>
+    </div>
+    <div class="mt"></div>
+    <div class="pannello">
       <h2>fine del turno degli eroi</h2>
       <p class="nota">Quando tutti hanno agito: la Minaccia pesca
       ${carteDaPescare(ctx.comune, P().party.length, sp.round, sp.cantoBonus, P().episodio)}
@@ -161,26 +180,62 @@ function plancia() {
 }
 
 // ------------------------------------------------------------- tessere
-function tessera(tid) {
+function scegliDaLista(titolo, opzioni) {
+  return new Promise((risolvi) => {
+    const ov = document.createElement('div');
+    ov.className = 'scelta-overlay';
+    ov.innerHTML = `<div class="scelta-box">
+      <h3 class="sc">${esc(titolo)}</h3>
+      ${opzioni.map((o) => `<button class="btn scelta-btn" data-id="${esc(o.id)}">${esc(o.label)}</button>`).join('')}
+      <button class="btn scelta-btn annulla" data-id="">annulla</button>
+    </div>`;
+    document.body.appendChild(ov);
+    ov.querySelectorAll('button').forEach((b) => b.onclick = () => {
+      ov.remove(); risolvi(b.dataset.id || null);
+    });
+  });
+}
+
+function fronteTessera(t) {
+  return `
+    <p class="nota">— leggete ad alta voce —</p>
+    <p class="mt"><i>${rendi(t.testo)}</i></p>
+    ${t.hook ? `<hr class="divisore"><p class="nota">solo per chi arbitra</p>
+      <p><i>${rendi(t.hook)}</i></p>` : ''}`;
+}
+
+async function tessera(tid) {
   const { ep } = ctx;
   const sp = SP();
   const t = ep.tessere.find((x) => x.id === tid);
   if (!sp.rivelate.includes(tid)) {
     sp.rivelate.push(tid);
     salvaP();
-    return pannelloMsg(`${t.id} — rivelata`, `
-      <p class="nota">— leggete ad alta voce —</p>
-      <p class="mt"><i>${rendi(t.testo)}</i></p>`, plancia);
+    return pannelloMsg(`${t.id} — rivelata`, fronteTessera(t), plancia);
   }
-  // oracolo del retro: esito di Cercare + note per chi arbitra
-  const r = cerca(ep, P(), tid);
-  pannelloMsg(`${t.id} — ${t.nome.toLowerCase()}`, `
-    <p><b>Cercare (ACUME, Media, 1 volta a tessera):</b></p>
-    <p class="mt"><i>${rendi(r.esito)}</i></p>
-    ${r.hook ? `<hr class="divisore"><p class="nota">solo per chi arbitra</p>
-      <p><i>${rendi(r.hook)}</i></p>` : ''}
-    ${r.arbitro ? `${r.hook ? '' : '<hr class="divisore"><p class="nota">solo per chi arbitra</p>'}
-      <p><i>${rendi(r.arbitro)}</i></p>` : ''}`, plancia);
+  // tessera rivelata: cosa chiedete all'arbitro?
+  const azione = await scegliDaLista(`${t.id} · ${t.nome.toLowerCase()}`, [
+    { id: 'fronte', label: 'rileggete il fronte' },
+    { id: 'cercare', label: 'Cercare — l’oracolo risponde' },
+    { id: 'interagire', label: 'Interagire / aprire — chiedete al fascicolo' },
+  ]);
+  if (!azione) return;
+  if (azione === 'fronte') {
+    return pannelloMsg(`${t.id} — ${t.nome.toLowerCase()}`, fronteTessera(t), plancia);
+  }
+  if (azione === 'cercare') {
+    const r = cerca(ep, P(), tid);
+    return pannelloMsg(`${t.id} — cercare`, `
+      <p><b>Cercare (ACUME, Media, 1 volta a tessera):</b></p>
+      <p class="mt"><i>${rendi(r.esito)}</i></p>
+      ${r.hook ? `<hr class="divisore"><p class="nota">solo per chi arbitra</p>
+        <p><i>${rendi(r.hook)}</i></p>` : ''}`, plancia);
+  }
+  // interagire/aprire: le note che al tavolo vivono sul retro del foglio
+  pannelloMsg(`${t.id} — interagire`, t.arbitro
+    ? `<p class="nota">solo per chi arbitra</p><p class="mt"><i>${rendi(t.arbitro)}</i></p>`
+    : `<p><i>Qui niente serrature né segreti: porte e leve fanno quel che sembrano.
+       Procedete col buon senso — e con la Regola d’Oro.</i></p>`, plancia);
 }
 
 // -------------------------------------------------------- registro ferite

@@ -326,3 +326,11 @@ em, i { font-style: italic; }
   border: 2px solid var(--rosso); background: transparent; }
 .pip-ferita.piena { background: var(--rosso); }
 .btn.coperta { opacity: .55; border-style: dashed; }
+
+/* promemoria azioni in spedizione: ripiegato, si apre al tocco */
+.azioni-promemoria summary { cursor: pointer; list-style: none; }
+.azioni-promemoria summary::-webkit-details-marker { display: none; }
+.azioni-promemoria summary h2 { display: inline; font-size: 19px; }
+.azioni-promemoria summary::after { content: ' ▾'; color: var(--seppia); }
+.azioni-promemoria[open] summary::after { content: ' ▴'; }
+.azioni-promemoria p { font-size: 15px; }

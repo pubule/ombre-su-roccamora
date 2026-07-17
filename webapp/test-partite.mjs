@@ -220,8 +220,13 @@ for (const sc of SCENARI) {
     const t2 = ep.tessere[1].id;
     await page.locator(`[data-tessera="${t2}"]`).click();     // rivela
     await page.locator('#ok-msg').click();
-    await page.locator(`[data-tessera="${t2}"]`).click();     // oracolo Cercare
+    await page.locator(`[data-tessera="${t2}"]`).click();     // menu azioni arbitro
+    await page.locator('.scelta-box [data-id="cercare"]').click();
     ok(/cercare/i.test(await page.locator('.pannello').innerText()), 'oracolo Cercare muto');
+    await page.locator('#ok-msg').click();
+    await page.locator(`[data-tessera="${t2}"]`).click();     // interagire
+    await page.locator('.scelta-box [data-id="interagire"]').click();
+    ok((await page.locator('.pannello').innerText()).length > 30, 'Interagire muto');
     await page.locator('#ok-msg').click();
 
     // registro: spawn di un nemico, ferito fino ad abbatterlo
