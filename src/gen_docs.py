@@ -456,7 +456,9 @@ def regolamento():
                "sottogruppi visitano due luoghi diversi nella stessa ora (costa comunque solo 1 ora "
                "sul Taccuino, non 2), poi restate uniti per il resto dell’indagine. Ogni sottogruppo "
                "sblocca gli Approfondimenti solo per gli eroi davvero presenti al suo luogo — se "
-               "l’eroe giusto è nell’altro sottogruppo, quell’Approfondimento resta perso. Dividersi "
+               "l’eroe giusto è nell’altro sottogruppo, quell’Approfondimento resta perso (e "
+               "l’Aiuto profano non si applica: vale solo quando l’eroe giusto non esiste al "
+               "tavolo, non quando è semplicemente altrove). Dividersi "
                "copre più terreno nelle poche ore che avete, ma a un prezzo reale — usatelo dove conta "
                "di più, non è ripetibile. <b>Non</b> estendetelo oltre i 5 eroi: da 6 in su l’Indagine "
                "resta un unico momento corale."))

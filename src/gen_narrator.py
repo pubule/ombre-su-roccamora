@@ -499,7 +499,10 @@ def pagina_indice_citta(c, luoghi, etichetta_ep):
             '(e, se il luogo è bloccato, la riga rossa con cui verificare la chiave dichiarata);',
             'sul retro gli Approfondimenti — sempre presenti, anche quando non c’è nulla, così',
             'sfogliando non si capisce mai dove si nasconde qualcosa.',
-            f'Le tessere della Spedizione ({etichetta_ep}) chiudono il fascicolo.']):
+            'Se NESSUN eroe al tavolo può più sbloccare un tipo, concedete l’Aiuto profano',
+            '(Regolamento): ACUME Difficile, una sola volta per luogo — riuscita sblocca,',
+            'fallita sigilla l’Approfondimento qui. Le pagine tessera stanno nel fascicolo',
+            f'Spedizione ({etichetta_ep}).']):
         c.setFillColor(INK); c.setFont(F['i'], 10)
         c.drawString(MX, H - 32*mm - i*6*mm, riga)
     c.showPage()

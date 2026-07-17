@@ -744,6 +744,7 @@ def simula_indagine(party, log, esplora_a_fondo=False):
         return (rischio, strutturale, urgenza, copertura, l['n'])
 
     da_rivisitare = []  # luoghi dove "leggere la scena" e' fallita, Approfondimento ancora da cogliere
+    profano_usato = set()  # aiuto profano: una sola occasione per luogo (Regolamento)
 
     def tenta_approfondimenti(l):
         nonlocal approf_letti, approf_falliti, chi_confermato
@@ -762,10 +763,29 @@ def simula_indagine(party, log, esplora_a_fondo=False):
                 approf_dettaglio.add((l['n'], tipo))
                 if (l['n'], tipo) in CHI_ESPLICITO:
                     chi_confermato = True
-                    log('    -> Questa carta conferma esplicitamente che Ferri comanda (Domanda 2).')
+                    log('    -> Questa carta conferma esplicitamente che il colpevole è Sartorio (Domanda 2).')
             else:
-                log(f'    [APPROFONDIMENTO {tipo}] nessun eroe idoneo presente/con usi residui — non letto.')
-                approf_falliti += 1
+                # Aiuto profano (Regolamento): nessuno puo' piu' sbloccare il
+                # tipo -> un eroe qualsiasi tenta ACUME (Difficile), una sola
+                # occasione per luogo. Riuscita = sbloccato; fallita = resta
+                # sigillato qui.
+                if l['n'] in profano_usato:
+                    log(f'    [APPROFONDIMENTO {tipo}] nessun eroe idoneo e occasione profana già spesa qui — non letto.')
+                    approf_falliti += 1
+                    continue
+                profano_usato.add(l['n'])
+                dilettante = max(party, key=lambda n: HERO[n]['acume'])
+                ok, _ = check(log, dilettante, 'ACUME', HERO[dilettante]['acume'], 'Difficile')
+                if ok:
+                    log(f'    [APPROFONDIMENTO {tipo}] colto da profano da {dilettante} (ACUME Difficile).')
+                    approf_letti += 1
+                    approf_dettaglio.add((l['n'], tipo))
+                    if (l['n'], tipo) in CHI_ESPLICITO:
+                        chi_confermato = True
+                        log('    -> Questa carta conferma esplicitamente che il colpevole è Sartorio (Domanda 2).')
+                else:
+                    log(f'    [APPROFONDIMENTO {tipo}] aiuto profano fallito: resta sigillato qui.')
+                    approf_falliti += 1
 
     while ore > 0:
         candidati = [l for l in LUOGHI_SIM if l['n'] not in visitati and luogo_raggiungibile(l)]
