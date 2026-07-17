@@ -229,7 +229,9 @@ function schedaLuogo(l) {
       ${scena === false ? `<p class="nota">“Leggere la scena” è fallita qui: gli
         Approfondimenti restano nascosti per questa visita — tornate più tardi
         (1 ora), senza ripetere la prova.</p>` : `
-      <p class="nota">Ogni eroe ha il suo modo di vedere. Chi prova, qui?</p>
+      <p class="nota">La scena è letta: nessun altro tiro. Qui si <b>spende una carica</b> —
+      ogni tipo lo sblocca l’eroe con l’abilità giusta (Elena le Osservazioni, Attilio o
+      Brera i Referti…). Scegliete il tipo, poi chi spende la sua.</p>
       <div class="btn-riga">
         ${['Osservazione', 'Testimonianza', 'Referto', 'Presagio'].map((t) =>
           `<button class="btn" data-tipo="${t}">${t}</button>`).join('')}
@@ -263,7 +265,7 @@ async function approfondisci(l, tipo, tipiQui) {
   const c = idoneiPerTipo(ctx.comune, P(), tipo);
   if (!c.length) return aiutoProfano(l, tipo);
   // scelta di chi spende la carica (jolly incluso)
-  const chi = await scegliDaLista('chi prova a vedere?', c.map((x) => ({
+  const chi = await scegliDaLista('chi spende la carica?', c.map((x) => ({
     id: x.nome, label: `${x.nome}${x.proprie > 0 ? '' : ' (jolly di Sibilla)'}`,
   })));
   if (!chi) return schedaLuogo(l);
