@@ -228,8 +228,15 @@ for (const sc of SCELTI) {
     await page.locator('#ok-msg').click();
     await page.locator(`[data-tessera="${t2}"]`).click();     // menu azioni arbitro
     await page.locator('.scelta-box [data-id="cercare"]').click();
-    ok(/cercare/i.test(await page.locator('.pannello').innerText()), 'oracolo Cercare muto');
+    await page.locator('.scelta-box [data-id]:not(.annulla)').first().click();  // chi cerca
+    await page.locator('[data-tot="12"]').click();            // prova riuscita di sicuro
+    await page.locator('#dadi-chiudi').waitFor({ state: 'visible' });
+    await page.locator('#dadi-chiudi').click();
+    await page.locator('#ok-msg').waitFor();
+    ok(/cercare/i.test(await page.locator('.barra').innerText()) ||
+       (await page.locator('.pannello').innerText()).length > 20, 'oracolo Cercare muto');
     await page.locator('#ok-msg').click();
+    ok((await stato(page, sc.ep)).spedizione.cercate[t2] === true, 'Cercare riuscito non segnato');
     await page.locator(`[data-tessera="${t2}"]`).click();     // interagire
     await page.locator('.scelta-box [data-id="interagire"]').click();
     ok((await page.locator('.pannello').innerText()).length > 30, 'Interagire muto');

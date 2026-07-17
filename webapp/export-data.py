@@ -215,6 +215,7 @@ episodi = dict(
         luoghi=[luogo_json(L, OGGETTI_LUOGO_P, REPERTI_LUOGO['preludio']) for L in LUOGHI_P],
         oggetti_luogo=OGGETTI_LUOGO_P,
         tessere=[dict(id=t[0], nome=t[1].title(), art=t[2], testo=t[3]) for t in TESSERE_P],
+        obiettivo='Liberate Ansaldo (Interagire, in T4) e riportatelo in T1, alla barca.',
         mazzo_da_ep1=MAZZO_P,
         pool={'LO SGHERRO': 4, 'IL SICARIO': 2},   # miniature Ep.1 riusate
         marea=dict(ogni=2, soglia=3, effetto='Movimento -1 (minimo 1) per tutti gli eroi.'),
@@ -225,6 +226,7 @@ episodi = dict(
         sottotitolo='episodio 1 — il caso del campanaro scomparso',
         cartella='Episodio 1', ore_budget=6,
         lettera=story.LETTERA2,
+        obiettivo='Liberate Ruggero (Interagire, la cella in T6) e riportatelo in T1, alla banchina.',
         luoghi=[luogo_json(L, OGGETTI_LUOGO_1, REPERTI_LUOGO['ep1']) for L in LUOGHI],
         tessere=[tessera_json(T) for T in TILES],
         oggetti=[oggetto_json(o) for o in OGGETTI],
@@ -237,6 +239,8 @@ episodi = dict(
         sottotitolo='episodio 2 — i pani del Quarantuno',
         cartella='Episodio 2', ore_budget=6,
         lettera=LETTERA_2,
+        obiettivo='Liberate Ilario (Interagire, in T5) e riportatelo in T1, alla chiatta. '
+                  'Secondario: le campanelle grezze in T6, una ad azione (Interagire).',
         luoghi=[luogo_json(L, OGGETTI_LUOGO_2, REPERTI_LUOGO['ep2']) for L in LUOGHI_2],
         tessere=[tessera_json(T) for T in TILES_2],
         vantaggio=dict(slancio_ore=3, slancio_luoghi=7, preparati_ore=1, preparati_luoghi=6),

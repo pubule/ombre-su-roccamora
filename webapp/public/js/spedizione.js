@@ -78,6 +78,7 @@ function spawnNemico(nome) {
   let num = 1;
   while (copie.some((x) => x.num === num)) num += 1;
   sp.nemici.push({ nome, num, ferite: 0, max: feriteMax(nemico) });
+  if (boss) sp.bossDestato = true;   // un boss abbattuto non torna (nemmeno a soglia)
   salvaP();
   return { nome, num, tanti: copie.length + 1 > 1 };
 }
@@ -223,8 +224,14 @@ function plancia() {
   if (sp.esito) return epilogo();
   if (sp.fase === 'nemici') return faseNemici();
   const restanti = sp.mazzo.ordine.length - sp.mazzo.indice;
+  const tuttiATerra = P().party.every((nm) => (sp.vite[nm] ?? 1) === 0);
+  const slancio1 = sp.round === 1 && (P().vantaggi || {}).tier === 'slancio';
   app.innerHTML = `
     ${barra(ep.titolo)}
+    ${ep.obiettivo ? `<div class="pannello"><p><b>Obiettivo:</b> ${esc(ep.obiettivo)}</p>
+      ${slancio1 ? '<p class="ok-txt">SLANCIO — in questo primo round ogni eroe ha 3 azioni.</p>' : ''}
+      ${tuttiATerra ? '<p class="ko-txt">Tutti gli eroi sono a terra: la notte vince — dichiarate la sconfitta qui sotto.</p>' : ''}
+    </div><div class="mt"></div>` : ''}
     <div class="pannello">
       <h2>le tessere</h2>
       <p class="nota">Toccate una tessera coperta quando il gruppo la rivela (l’app legge il
@@ -340,19 +347,79 @@ async function tessera(tid) {
   if (azione === 'fronte') {
     return pannelloMsg(`${t.id} — ${t.nome.toLowerCase()}`, fronteTessera(t), plancia);
   }
-  if (azione === 'cercare') {
-    const r = cerca(ep, P(), tid);
-    return pannelloMsg(`${t.id} — cercare`, `
-      <p><b>Cercare (ACUME, Media, 1 volta a tessera):</b></p>
-      <p class="mt"><i>${rendi(r.esito)}</i></p>
-      ${r.hook ? `<hr class="divisore"><p class="nota">solo per chi arbitra</p>
-        <p><i>${rendi(r.hook)}</i></p>` : ''}`, plancia);
-  }
+  if (azione === 'cercare') return azioneCercare(t);
   // interagire/aprire: le note che al tavolo vivono sul retro del foglio
   pannelloMsg(`${t.id} — interagire`, t.arbitro
     ? `<p class="nota">solo per chi arbitra</p><p class="mt"><i>${rendi(t.arbitro)}</i></p>`
     : `<p><i>Qui niente serrature né segreti: porte e leve fanno quel che sembrano.
        Procedete col buon senso — e con la Regola d’Oro.</i></p>`, plancia);
+}
+
+// ------------------------------------------------------------- cercare
+// La regola vera: azione, prova di ACUME (Media), e SOLO se riesce chi
+// arbitra legge l'esito dal retro. L'esito si legge una volta per tessera;
+// la prova fallita si puo' ritentare in un altro turno.
+async function azioneCercare(t) {
+  const sp = SP();
+  sp.cercate = sp.cercate || {};
+  if (sp.cercate[t.id]) {
+    return pannelloMsg(`${t.id} — cercare`, `<p><i>Avete già frugato qui: quel che
+      c’era da trovare è stato trovato — o non c’è mai stato. La tessera non ha
+      altro da dire.</i></p>`, plancia);
+  }
+  const eroi = P().party.map((nm) => ctx.comune.eroi.find((e) => e.nome === nm)).filter(Boolean);
+  const chi = await scegliDaLista('chi cerca? (ACUME, Media)', eroi.map((e) => ({
+    id: e.nome, label: `${e.nome} (ACUME ${e.acume}${e.nome === 'ELENA FOSCO' ? ' +2 Occhio Clinico' : ''})`,
+  })));
+  if (!chi) return plancia();
+  const eroe = eroi.find((e) => e.nome === chi);
+  const bonus = [{ label: 'ACUME', val: eroe.acume }];
+  if (eroe.nome === 'ELENA FOSCO') bonus.push({ label: 'Occhio Clinico', val: 2 });
+  const r = await provaConRitiro({
+    titolo: `cercare — ${eroe.nome.split(' ')[0]}`,
+    diffLabel: 'Media', soglia: ctx.comune.regole.diff.Media, bonus,
+  }, eroe.nome);
+  if (!r) return plancia();
+  if (!r.ok) {
+    return pannelloMsg(`${t.id} — cercare`, `<p><i>${esc(eroe.nome.split(' ')[0])} fruga,
+      ma il buio tiene per sé quel che ha. L’azione è spesa — potete ritentare
+      in un altro turno.</i></p>`, plancia);
+  }
+  sp.cercate[t.id] = true;
+  salvaP();
+  const esito = cerca(ctx.ep, P(), t.id);
+  pannelloMsg(`${t.id} — cercare`, `
+    <p class="mt"><i>${rendi(esito.esito)}</i></p>
+    ${esito.hook ? `<hr class="divisore"><p class="nota">solo per chi arbitra</p>
+      <p><i>${rendi(esito.hook)}</i></p>` : ''}
+    <p class="nota mt">Se avete trovato una carta Oggetto, registratela dal pannello
+    «gli oggetti del gruppo».</p>`, plancia);
+}
+
+// tiro con la rete di salvataggio del Regolamento: Secondo Fiato (una volta
+// per eroe, a episodio) e gettone Intuizione (se il Dossier era completo)
+async function provaConRitiro(prova, nomeEroe) {
+  const sp = SP();
+  sp.fiatoUsato = sp.fiatoUsato || {};
+  let r = await tiraProva({ ...prova, modo: P().modo });
+  while (r && !r.ok) {
+    const opzioni = [];
+    if (!sp.fiatoUsato[nomeEroe]) {
+      opzioni.push({ id: 'fiato', label: `Secondo Fiato di ${nomeEroe.split(' ')[0]} (una volta a episodio)` });
+    }
+    if ((P().vantaggi || {}).dossier && !sp.intuizioneUsata) {
+      opzioni.push({ id: 'intuizione', label: 'gettone Intuizione (una volta in spedizione)' });
+    }
+    if (!opzioni.length) break;
+    opzioni.push({ id: 'accetta', label: 'accettate il fallimento' });
+    const scelta = await scegliDaLista('prova fallita — ritentate?', opzioni);
+    if (scelta === 'fiato') sp.fiatoUsato[nomeEroe] = true;
+    else if (scelta === 'intuizione') sp.intuizioneUsata = true;
+    else break;
+    salvaP();
+    r = await tiraProva({ ...prova, modo: P().modo });
+  }
+  return r;
 }
 
 // ------------------------------------------------------------ salute eroi
@@ -505,10 +572,10 @@ async function attacca(i) {
   if (armato == null) return plancia();
   const bonus = [{ label: 'VIGORE', val: eroe.vigore }];
   if (armato === 'si') bonus.push({ label: 'arma', val: 1 });
-  const r = await tiraProva({
+  const r = await provaConRitiro({
     titolo: `attacco — ${eroe.nome.split(' ')[0]} → ${bersaglio.nome.toLowerCase()}`,
-    diffLabel: 'Difesa', soglia: nemico.dif, bonus, modo: P().modo,
-  });
+    diffLabel: 'Difesa', soglia: nemico.dif, bonus,
+  }, eroe.nome);
   if (!r) return plancia();
   if (!r.ok) {
     return pannelloMsg('mancato', `<p><i>Il colpo passa a vuoto: ${esc(bersaglio.nome.toLowerCase())}
@@ -548,9 +615,13 @@ async function faseMinaccia() {
       }
       salvaP();
     }
-    // piazzamenti scritti sulla carta (solo la parte effetto, non il flavor)
-    const effetto = carta.rules.split('{divider}').pop();
-    annunci.push(...spawnDaTesto(effetto));
+    // piazzamenti scritti sulla carta (solo la parte effetto, non il flavor).
+    // MAI sulle Crescendo: il loro "si desta" e' condizionale (soglia Canto),
+    // lo gestisce destaBossSeSoglia - il parser lo eseguirebbe sempre.
+    if (!crescendo) {
+      const effetto = carta.rules.split('{divider}').pop();
+      annunci.push(...spawnDaTesto(effetto));
+    }
     await new Promise((fatto) => {
       pannelloMsg(`minaccia ${i + 1} di ${n}`, `
         <div class="carta-grande"><img src="${urlCarta(carta.file)}" alt=""></div>
