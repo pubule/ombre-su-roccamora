@@ -86,7 +86,8 @@ try {
   await page.locator('.voce[data-voce="Taverna del Ponte Rotto"]').click();
   await page.locator('.scelta-box button').first().waitFor();   // chi legge la scena?
   await page.locator('.scelta-box button').first().click();
-  await page.locator('#dadi-lancia').click();
+  // modalità tavolo: si inserisce il totale dei dadi veri
+  await page.locator('[data-tot="9"]').click();
   await page.locator('#dadi-chiudi').waitFor({ state: 'visible' });
   await page.locator('#dadi-chiudi').click();
   await page.locator('.banner-luogo').waitFor();

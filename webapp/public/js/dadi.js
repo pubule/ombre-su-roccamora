@@ -40,8 +40,12 @@ const attesa = (ms) => new Promise((r) => setTimeout(r, ms));
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) =>
   ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
-export function tiraProva({ titolo, diffLabel = '', soglia, bonus = [] }) {
+// `modo: 'tavolo'` — al tavolo i dadi sono FISICI: l'app chiede il totale
+// dei 2d6 e applica bonus e soglia (con un ripiego "tira l'app" per chi
+// non ha dadi a portata). Senza modo (o 'digitale'): tiro animato al tocco.
+export function tiraProva({ titolo, diffLabel = '', soglia, bonus = [], modo }) {
   return new Promise((risolvi) => {
+    const tavolo = modo === 'tavolo';
     const overlay = document.createElement('div');
     overlay.className = 'dadi-overlay';
     overlay.innerHTML = `
@@ -52,7 +56,16 @@ export function tiraProva({ titolo, diffLabel = '', soglia, bonus = [] }) {
       <div class="dadi-coppia">${dadoHtml('dado-a')}${dadoHtml('dado-b')}</div>
       <div class="dadi-conto" id="dadi-conto"></div>
       <div class="dadi-verdetto sc" id="dadi-verdetto"></div>
-      <button class="btn pieno dadi-lancia" id="dadi-lancia">tocca per tirare</button>
+      <div class="dadi-tavolo" id="dadi-tavolo" ${tavolo ? '' : 'style="display:none"'}>
+        <p class="dadi-istruzione sc">tirate i 2d6 veri — quanto fanno, senza bonus?</p>
+        <div class="dadi-grid">
+          ${[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((n) =>
+            `<button class="btn" data-tot="${n}">${n}</button>`).join('')}
+        </div>
+        <button class="btn dadi-ripiego" id="dadi-app">niente dadi? tira l’app</button>
+      </div>
+      <button class="btn pieno dadi-lancia" id="dadi-lancia"
+              ${tavolo ? 'style="display:none"' : ''}>tocca per tirare</button>
       <button class="btn dadi-chiudi" id="dadi-chiudi" style="display:none">continua</button>
       <button class="dadi-annulla" id="dadi-annulla">×</button>`;
     document.body.appendChild(overlay);
@@ -65,24 +78,9 @@ export function tiraProva({ titolo, diffLabel = '', soglia, bonus = [] }) {
     };
     overlay.querySelector('#dadi-annulla').onclick = () => chiudi(null);
 
-    overlay.querySelector('#dadi-lancia').onclick = async (ev) => {
-      ev.target.style.display = 'none';
+    // conto alla BG3 + verdetto: condiviso tra tiro animato e totale inserito
+    async function esito(d1, d2) {
       overlay.querySelector('#dadi-annulla').style.display = 'none';
-      const d1 = 1 + Math.floor(Math.random() * 6);
-      const d2 = 1 + Math.floor(Math.random() * 6);
-      // rotolo: giri extra casuali + atterraggio sulla faccia giusta,
-      // il secondo dado si ferma un attimo dopo (drammaturgia)
-      for (const [id, val, dur] of [['dado-a', d1, 1.5], ['dado-b', d2, 2.0]]) {
-        const el = overlay.querySelector('#' + id);
-        const [rx, ry] = ROT[val];
-        const giriX = 360 * (2 + Math.floor(Math.random() * 2));
-        const giriY = 360 * (2 + Math.floor(Math.random() * 2));
-        el.style.transition = `transform ${dur}s cubic-bezier(.18,.9,.32,1.04)`;
-        el.style.transform = `rotateX(${giriX + rx}deg) rotateY(${giriY + ry}deg)`;
-      }
-      await attesa(2150);
-
-      // conto alla BG3: i pezzi compaiono uno a uno
       const conto = overlay.querySelector('#dadi-conto');
       const somma = d1 + d2;
       let tot = somma;
@@ -112,6 +110,47 @@ export function tiraProva({ titolo, diffLabel = '', soglia, bonus = [] }) {
       const btn = overlay.querySelector('#dadi-chiudi');
       btn.style.display = '';
       btn.onclick = () => chiudi({ d1, d2, somma, tot, ok });
+    }
+
+    // totale dai dadi veri: i cubi si orientano sul risultato, senza rotolo
+    overlay.querySelectorAll('[data-tot]').forEach((b) => b.onclick = async () => {
+      const t = Number(b.dataset.tot);
+      const d1 = Math.max(1, t - 6) + Math.floor(Math.random() *
+        (Math.min(6, t - 1) - Math.max(1, t - 6) + 1));
+      const d2 = t - d1;
+      overlay.querySelector('#dadi-tavolo').style.display = 'none';
+      for (const [id, val] of [['dado-a', d1], ['dado-b', d2]]) {
+        const el = overlay.querySelector('#' + id);
+        const [rx, ry] = ROT[val];
+        el.style.transition = 'transform .5s ease';
+        el.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg)`;
+      }
+      await attesa(550);
+      esito(d1, d2);
+    });
+
+    // ripiego al tavolo: nessun dado sottomano, tira l'app
+    overlay.querySelector('#dadi-app').onclick = () => {
+      overlay.querySelector('#dadi-tavolo').style.display = 'none';
+      overlay.querySelector('#dadi-lancia').style.display = '';
+    };
+
+    overlay.querySelector('#dadi-lancia').onclick = async (ev) => {
+      ev.target.style.display = 'none';
+      const d1 = 1 + Math.floor(Math.random() * 6);
+      const d2 = 1 + Math.floor(Math.random() * 6);
+      // rotolo: giri extra casuali + atterraggio sulla faccia giusta,
+      // il secondo dado si ferma un attimo dopo (drammaturgia)
+      for (const [id, val, dur] of [['dado-a', d1, 1.5], ['dado-b', d2, 2.0]]) {
+        const el = overlay.querySelector('#' + id);
+        const [rx, ry] = ROT[val];
+        const giriX = 360 * (2 + Math.floor(Math.random() * 2));
+        const giriY = 360 * (2 + Math.floor(Math.random() * 2));
+        el.style.transition = `transform ${dur}s cubic-bezier(.18,.9,.32,1.04)`;
+        el.style.transform = `rotateX(${giriX + rx}deg) rotateY(${giriY + ry}deg)`;
+      }
+      await attesa(2150);
+      esito(d1, d2);
     };
   });
 }

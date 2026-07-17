@@ -198,6 +198,7 @@ async function visita(l, oraGiaSpesa = false) {
         titolo: `leggere la scena — ${eroe.nome.split(' ')[0]}`,
         diffLabel: 'Media', soglia: ctx.comune.regole.diff.Media,
         bonus: [{ label: 'ACUME', val: eroe.acume }],
+        modo: P().modo,
       });
       scena = r ? r.ok : false;
     } else scena = false;
@@ -382,6 +383,7 @@ async function aiutoProfano(l, tipo) {
     titolo: `aiuto profano — ${eroe.nome.split(' ')[0]}`,
     diffLabel: 'Difficile', soglia: ctx.comune.regole.diff.Difficile,
     bonus: [{ label: 'ACUME', val: eroe.acume }],
+    modo: P().modo,
   });
   if (!r) return schedaLuogo(l);          // tiro annullato: occasione non spesa
   ind.profano[l.n] = true;

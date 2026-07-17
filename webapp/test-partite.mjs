@@ -38,7 +38,7 @@ const browser = await chromium.launch();
 async function schermata(page) {
   // dove siamo? il primo selettore VISIBILE decide (l'overlay dei dadi resta
   // nel DOM ~350ms in dissolvenza: contare i nodi non basta)
-  const sel = ['#dichiarazione', '.scelta-box button', '#dadi-lancia', '#fine-visita', '#ok-msg'];
+  const sel = ['#dichiarazione', '.scelta-box button', '.dadi-grid', '#fine-visita', '#ok-msg'];
   const inizio = Date.now();
   while (Date.now() - inizio < 8000) {
     for (const s of sel) {
@@ -58,8 +58,8 @@ async function tiraSeServe(page) {
     await page.locator('.scelta-box button:not(.annulla)').nth(Math.floor(Math.random() * n)).click();
     dove = await schermata(page);
   }
-  if (dove === '#dadi-lancia') {
-    await page.locator('#dadi-lancia').click();
+  if (dove === '.dadi-grid') {
+    await page.locator(`[data-tot="${2 + Math.floor(Math.random() * 11)}"]`).click();
     await page.locator('#dadi-chiudi').waitFor({ state: 'visible' });
     await page.locator('#dadi-chiudi').click();
     await page.locator('.dadi-overlay').waitFor({ state: 'detached' });
@@ -146,8 +146,8 @@ for (const sc of SCENARI) {
             await page.locator('.scelta-box button:not(.annulla)').first().click();
             doveA = await schermata(page);
           }
-          if (doveA === '#dadi-lancia') {      // aiuto profano: si tira
-            await page.locator('#dadi-lancia').click();
+          if (doveA === '.dadi-grid') {      // aiuto profano: totale dai dadi veri
+            await page.locator(`[data-tot="${2 + Math.floor(Math.random() * 11)}"]`).click();
             await page.locator('#dadi-chiudi').waitFor({ state: 'visible' });
             await page.locator('#dadi-chiudi').click();
             await page.locator('.dadi-overlay').waitFor({ state: 'detached' });
