@@ -137,6 +137,42 @@ for (const [epId, ep] of Object.entries(EPISODI)) {
   ok(E.verificaRisposte(ep, ep.soluzione.domande.map(() => '')).every((r) => !r.ok),
      'risposte vuote promosse');
 
+  // --- anti-softlock: ogni chiave è scopribile partendo dai luoghi aperti --
+  // BFS: un luogo bloccato è raggiungibile se la sua chiave (parola o nome
+  // dell'oggetto) compare nei testi di un luogo già raggiunto. Fixpoint.
+  {
+    const testi = (l) => [l.testo, ...(l.indizi || []),
+      ...(l.approfondimenti || []).map((a) => a.testo),
+      ...(l.oggetti || []), ...(l.reperti || [])].join(' · ');
+    const raggiunti = new Map(ep.luoghi.filter((l) => l.aperto).map((l) => [l.n, 0]));
+    let cambiato = true;
+    while (cambiato) {
+      cambiato = false;
+      const corpus = [...raggiunti.keys()]
+        .map((n) => testi(ep.luoghi.find((l) => l.n === n)));
+      for (const l of ep.luoghi) {
+        if (raggiunti.has(l.n) || !l.chiave) continue;
+        const profonditaFonti = corpus
+          .map((t, i) => E.norm(t).includes(E.norm(l.chiave[1])) ? [...raggiunti.values()][i] : null)
+          .filter((x) => x != null);
+        if (profonditaFonti.length) {
+          raggiunti.set(l.n, Math.min(...profonditaFonti) + 1);
+          cambiato = true;
+        }
+      }
+    }
+    for (const l of ep.luoghi) {
+      ok(raggiunti.has(l.n),
+         `SOFTLOCK: la chiave di L${l.n} (${l.chiave ? l.chiave.join(':') : '?'}) non è scopribile da nessun luogo raggiungibile`);
+      // un luogo che chiude a un orario deve avere la chiave a profondità 1
+      // (da un luogo APERTO), o l'orologio può renderlo irraggiungibile
+      if (l.chiude != null && raggiunti.has(l.n)) {
+        ok(raggiunti.get(l.n) <= 1,
+           `L${l.n} chiude alle ${l.chiude} ma la sua chiave richiede una catena di ${raggiunti.get(l.n)} sblocchi`);
+      }
+    }
+  }
+
   // --- vantaggio di fine indagine ------------------------------------------
   const v = ep.vantaggio || {};
   const t1 = E.tierIndagine(ep, { ora: 24 - (v.slancio_ore ?? 3), visitati: [] });
