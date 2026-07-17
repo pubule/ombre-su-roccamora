@@ -212,7 +212,6 @@ async function visita(l, oraGiaSpesa = false) {
   if (ind.visitaGratis === l.n) delete ind.visitaGratis;
   if (ind.fontiRiservateAttive) delete ind.fontiRiservateAttive;
   if (!oraGiaSpesa && !gratis) ind.ora += 1;
-  else if (gratis && !oraGiaSpesa) ind.oreGratis = (ind.oreGratis || 0) + 1;
   if (prima) ind.visitati.push(l.n);
   ind.luogoAperto = l.n;
   salvaP();

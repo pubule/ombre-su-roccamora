@@ -229,7 +229,7 @@ function plancia() {
   app.innerHTML = `
     ${barra(ep.titolo)}
     ${ep.obiettivo ? `<div class="pannello"><p><b>Obiettivo:</b> ${esc(ep.obiettivo)}</p>
-      ${slancio1 ? '<p class="ok-txt">SLANCIO — in questo primo round ogni eroe ha 3 azioni.</p>' : ''}
+      ${slancio1 ? '<p class="ok-txt">SLANCIO — in questo primo round ogni eroe ha 3 azioni (sempre di tipo diverso).</p>' : ''}
       ${tuttiATerra ? '<p class="ko-txt">Tutti gli eroi sono a terra: la notte vince — dichiarate la sconfitta qui sotto.</p>' : ''}
     </div><div class="mt"></div>` : ''}
     <div class="pannello">

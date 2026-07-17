@@ -420,6 +420,17 @@ def regolamento():
                 'caselle. A pari merito: regola d\u2019oro.'))
     e.append(LI('<b>Movimento</b> \u2014 gli alleati (e il PNG scortato) si possono attraversare, ma non ci '
                 'si pu\u00f2 fermare sulla loro casella.'))
+    e.append(LI('<b>Adiacente</b> \u2014 sempre in ortogonale, mai in diagonale: vale per Attaccare, '
+                'Rianimare, passare oggetti e gli attacchi dei nemici.'))
+    e.append(LI('<b>SLANCIO</b> \u2014 le 3 azioni del 1\u00b0 round seguono la regola di sempre: '
+                'tutte di tipo diverso.'))
+    e.append(LI('<b>Passare un oggetto</b> \u2014 gratuito una volta per turno <b>per eroe</b>, durante '
+                'il proprio turno: una catena di mani lungo la fila \u00e8 lecita, ma spende il '
+                'passaggio di ciascuno.'))
+    e.append(LI('<b>Cicatrici</b> \u2014 al massimo <b>una per eroe a episodio</b>, anche cadendo pi\u00f9 '
+                'volte: la notte lascia il segno, non ricama.'))
+    e.append(LI('<b>Migliorie</b> \u2014 si guadagnano solo la <b>prima</b> volta che un episodio \u00e8 '
+                'superato: rigiocarlo non ne frutta altre.'))
     e.append(LI('<b>Tra un episodio e l\u2019altro</b> \u2014 tutti gli eroi tornano a Salute piena e '
                 'recuperano gli usi delle abilit\u00e0. Le cicatrici invece restano.'))
 

@@ -85,9 +85,11 @@ export function usaCarica(partita, nome, tipo, conJolly) {
 
 // --- vantaggio di fine indagine -------------------------------------------
 export function tierIndagine(ep, ind) {
-  // le visite gratuite (Fonti riservate di Carla, Discernimento di Marani)
-  // non contano come ore avanzate: il vantaggio premia le ore SPESE
-  const oreAvanzate = Math.max(0, 24 - ind.ora - (ind.oreGratis || 0));
+  // Le visite gratuite (Carla, Marani) non toccano l'orologio: le ore
+  // avanzate sono semplicemente quelle non barrate sul Taccuino. La frase
+  // del Regolamento "non conta come ora avanzata" dice solo che la visita
+  // gratis non ne AGGIUNGE una - niente sconti punitivi qui.
+  const oreAvanzate = 24 - ind.ora;
   const luoghi = ind.visitati.length;
   const v = ep.vantaggio || { slancio_ore: 3, slancio_luoghi: 99, preparati_ore: 1, preparati_luoghi: 99 };
   let tier = 'nessuno';
