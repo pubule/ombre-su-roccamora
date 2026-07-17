@@ -292,7 +292,7 @@ COL_W = WINDOW_TOP[0]*W - MX - 4*mm  # colonna libera a sinistra dell'arte (in a
 DESC_TOP = H - 37*mm
 DESC_MAX_H = DESC_TOP - (ART_BOTTOM - 4*mm) - 3*mm  # non scendere sotto la riga separatrice
 
-def fit_desc(c, text, start=9.5, floor=7, desc_top=None):
+def fit_desc(c, text, start=12.5, floor=7, desc_top=None):
     """Testo lungo quanto serve: prova la dimensione naturale, poi la riduce
     finche' non entra nella colonna senza toccare la riga sotto l'arte -
     cosi' si puo' scrivere in liberta' senza contare le righe a mano."""
@@ -349,20 +349,33 @@ INDIZIO_ROW = st('indizio_row', fontName=F['i'], fontSize=10, leading=14)
 
 def indizi_block(c, indizi, oggetto_rows, y_top):
     """Indizi core del luogo: da leggere ad alta voce a tutti, in cima al
-    blocco sotto l'arte. Se il luogo sblocca un Oggetto, sotto agli indizi
-    (ben separata da una riga) una sotto-sezione 'carte da prendere' -
-    solo per chi arbitra, dice quale carta fisica consegnare (l'Oggetto e'
-    gia' nominato nell'indizio stesso). Se non c'e' un Oggetto, la
-    sotto-sezione non compare affatto: qui l'opacita' non serve, e' la
-    parte letta a voce alta, gia' sotto gli occhi di tutti."""
+    blocco sotto l'arte. Il corpo e' AUTO-DIMENSIONANTE: parte grande
+    (12.5pt, comodo da leggere a voce alta col fascicolo in mano) e si
+    riduce solo se il blocco - indizi + eventuale sotto-sezione carte -
+    non entra sopra il margine inferiore. Se il luogo sblocca un Oggetto,
+    sotto agli indizi (ben separata da una riga) una sotto-sezione 'carte
+    da prendere' - solo per chi arbitra, dice quale carta fisica
+    consegnare. Se non c'e' un Oggetto, la sotto-sezione non compare."""
+    fondo = 16*mm
+    size = 12.5
+    while size > 9:
+        stile = st('indizio_dyn%.1f' % size, fontName=F['i'], fontSize=size, leading=size*1.42)
+        altezze = [Paragraph(f'• {i}', stile).wrapOn(c, W - 2*MX, 200*mm)[1] for i in indizi]
+        tot = 5*mm + sum(altezze) + 3.5*mm*len(altezze)
+        if oggetto_rows:
+            tot += 13*mm + 8*mm*len(oggetto_rows)
+        if y_top - tot >= fondo:
+            break
+        size -= 0.4
+    stile = st('indizio_dyn%.1f' % size, fontName=F['i'], fontSize=size, leading=size*1.42)
     c.setFillColor(TEAL); c.setFont(F['sc'], 9)
     c.drawString(MX, y_top, 'indizi — leggeteli ad alta voce')
     y = y_top - 5*mm
     for ind in indizi:
-        p = Paragraph(f'• {ind}', INDIZIO_ROW)
-        pw, ph = p.wrapOn(c, W - 2*MX, 60*mm)
+        p = Paragraph(f'• {ind}', stile)
+        pw, ph = p.wrapOn(c, W - 2*MX, 200*mm)
         p.drawOn(c, MX, y - ph)
-        y -= ph + 3*mm
+        y -= ph + 3.5*mm
     if oggetto_rows:
         y -= 2*mm
         c.setStrokeColor(SEPIA); c.setLineWidth(0.3)
@@ -419,8 +432,16 @@ def pagina_tessera_fronte(c, tid, nome, desc, art_file, testo):
     header(c, f'tessera {tid}', nome, desc)
     c.setFillColor(TEAL); c.setFont(F['sc'], 9)
     c.drawString(MX, ART_BOTTOM - 12*mm, 'quando la rivelate — leggete ad alta voce')
-    p = Paragraph(testo, INDIZIO_ROW)
-    pw, ph = p.wrapOn(c, W - 2*MX, 80*mm)
+    # come gli indizi: corpo grande, ridotto solo se non entra
+    size = 12.5
+    while size > 9:
+        stile = st('tess_dyn%.1f' % size, fontName=F['i'], fontSize=size, leading=size*1.42)
+        ph = Paragraph(testo, stile).wrapOn(c, W - 2*MX, 200*mm)[1]
+        if ART_BOTTOM - 17*mm - ph >= 16*mm:
+            break
+        size -= 0.4
+    p = Paragraph(testo, st('tess_dyn%.1f' % size, fontName=F['i'], fontSize=size, leading=size*1.42))
+    pw, ph = p.wrapOn(c, W - 2*MX, 200*mm)
     p.drawOn(c, MX, ART_BOTTOM - 17*mm - ph)
 
 def pagina_retro_tessera(c, tid, nome, t, oggetto_rows=None):

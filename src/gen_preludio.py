@@ -535,7 +535,7 @@ LUOGHI_P_CROP = {
     'P2': dict(overscan=0.1, center_x=0.85),  # l'oste e mani/bicchiere sono a destra
 }
 
-def fit_desc(c, text, start=9.5, floor=7, desc_top=None):
+def fit_desc(c, text, start=12.5, floor=7, desc_top=None):
     top = DESC_TOP if desc_top is None else desc_top
     max_h = top - (ART_BOTTOM - 4*mm) - 3*mm
     size = start
@@ -673,24 +673,12 @@ def luoghi():
         d.drawOn(c, MX, desc_top - dh)
         c.setStrokeColor(SEPIA); c.setLineWidth(0.5)
         c.line(MX, ART_BOTTOM - 4*mm, W - MX, ART_BOTTOM - 4*mm)
-        c.setFillColor(TEAL); c.setFont(F['sc'], 9)
-        c.drawString(MX, ART_BOTTOM - 10*mm, 'indizi — leggeteli ad alta voce')
-        y = ART_BOTTOM - 15*mm
-        for ind in L.get('indizi', []):
-            p = Paragraph(f'• {ind}', INDIZIO_ROW)
-            pw, ph = p.wrapOn(c, W - 2*MX, 60*mm)
-            p.drawOn(c, MX, y - ph)
-            y -= ph + 3*mm
+        # blocco indizi condiviso (auto-dimensionante, vedi gen_narrator)
+        import gen_narrator as N
         oggetti = OGGETTI_LUOGO_P.get(L['n'], [])
-        if oggetti:
-            y -= 2*mm
-            c.setStrokeColor(SEPIA); c.setLineWidth(0.3)
-            c.line(MX, y, W - MX, y)
-            y -= 6*mm
-            c.setFillColor(TEAL); c.setFont(F['sc'], 8)
-            c.drawString(MX, y, 'carte da prendere — solo per chi arbitra')
-            y -= 5*mm
-            body([f'<b>Oggetto</b> — carta “{nome}”' for nome in oggetti], y)
+        N.indizi_block(c, L.get('indizi', []),
+                       [f'<b>Oggetto</b> — carta “{nome}”' for nome in oggetti],
+                       ART_BOTTOM - 10*mm)
         c.showPage()
 
         parchment_art(c, W, H)

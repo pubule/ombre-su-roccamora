@@ -718,6 +718,12 @@ OGGETTI_LUOGO_2 = {
 # arte tessere del fascicolo (le stesse dei board)
 TILE_ART_2 = {t['id']: t['id'] + '-ep2.png' for t in TILES_2}
 
+# taratura ritagli del fascicolo Luoghi (vedi bibbia: verificare A VIDEO,
+# mai fidarsi del ritaglio di default) - overscan basso = meno zoom
+LUOGHI2_CROP = {
+    2: dict(overscan=0.1),    # la campana intera, non solo il fianco
+}
+
 # Descrizioni estese delle tessere (fascicolo Spedizione, pagine
 # fronte/retro nello stile dei Luoghi): stessa bibbia di scrittura di
 # LUOGHI2_DESC - stessi fatti del testo di rivelazione, molto piu' aria,
@@ -805,7 +811,8 @@ def luoghi():
             print('  AVVISO: manca artworks/' + art_file + ' - placeholder sul Luogo '
                   + str(L['n']) + ' (rigenerare quando arriva)')
             art_file = PLACEHOLDER
-        torn_portrait(c, W, H, art_file, N.TORN_TOP, window=N.WINDOW_TOP)
+        torn_portrait(c, W, H, art_file, N.TORN_TOP, window=N.WINDOW_TOP,
+                      **LUOGHI2_CROP.get(L['n'], {}))
         rule_border(c, W, H)
         entrata = None
         if L.get('chiave'):
