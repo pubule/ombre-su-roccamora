@@ -57,6 +57,83 @@ function feriteMax(nemico) {
   return nemico.ferite_per_fascia[fascia(P().party.length)];
 }
 
+function saluteMax(eroe) {
+  const bonusTaglia = ctx.comune.regole.salute_bonus_per_taglia[String(P().party.length)] || 0;
+  const tier = (P().vantaggi || {}).tier;
+  const bonusTier = (tier === 'slancio' || tier === 'preparati') ? 1 : 0;
+  return eroe.salute + bonusTaglia + bonusTier;
+}
+
+// piazza una copia: numero piu' basso libero (riusa quelli dei caduti),
+// rispettando i segnalini fisici del pool ("se non ne restano, il
+// piazzamento non ha luogo" - Regolamento)
+function spawnNemico(nome) {
+  const sp = SP();
+  const nemico = ctx.comune.nemici.find((x) => x.nome === nome);
+  if (!nemico) return null;
+  const boss = nome === ctx.ep.soluzione.boss;
+  const copie = sp.nemici.filter((x) => x.nome === nome);
+  const disponibili = boss ? 1 : (ctx.ep.pool || {})[nome] || 0;
+  if (copie.length >= disponibili) return { esaurito: true, nome };
+  let num = 1;
+  while (copie.some((x) => x.num === num)) num += 1;
+  sp.nemici.push({ nome, num, ferite: 0, max: feriteMax(nemico) });
+  salvaP();
+  return { nome, num, tanti: copie.length + 1 > 1 };
+}
+
+// legge un testo di gioco (carta Minaccia o QUANDO RIVELATE) e piazza da
+// solo i nemici che nomina; ritorna gli annunci per il tavolo
+const SPAWN_REGEX = [
+  ['LO SGHERRO', /(\d+)?\s*sgherr[oi]/i],
+  ['IL SICARIO', /(\d+)?\s*sicari[oi]/i],
+  ['ADEPTO INCAPPUCCIATO', /(\d+)?\s*adept[oi]/i],
+  ['IL CROGIOLANTE', /(\d+)?\s*crogiolant[ei]/i],
+  ['CANE DEI MOLI', /(\d+)?\s*can[ei] dei moli/i],
+  ['IL FONDITORE', /(\d+)?\s*fonditor[ei]/i],
+  ['IL CUSTODE DELLA CERA', /custode della cera/i],
+  ['LO SCORIATORE', /scoriatore/i],
+];
+// al 3° segnalino il boss si desta (sulla tessera piu' lontana dagli eroi):
+// se non e' gia' in campo, entra nel registro da solo
+function destaBossSeSoglia() {
+  const sp = SP();
+  const boss = ctx.ep.soluzione.boss;
+  const soglia = ctx.comune.regole.soglia_canto;
+  if (!boss || ctx.ep.marea || sp.canto < soglia) return [];
+  if (sp.nemici.some((x) => x.nome === boss) || sp.bossDestato) return [];
+  sp.bossDestato = true;
+  spawnNemico(boss);
+  return [`${boss} entra nel registro: piazzatelo sulla tessera rivelata più lontana dagli eroi.`];
+}
+
+function spawnDaTesto(testo) {
+  const annunci = [];
+  const attivo = /piazzate|appare|appaiono|si desta|arriva/i.test(testo);
+  if (!attivo) return annunci;
+  // sbarco silenzioso (Ep.2): col Contrassegno l'apparizione non ha luogo
+  if (/se non mostrate il contrassegno/i.test(testo) &&
+      (P().indagine.oggetti || []).some((o) => norm(o).includes('CONTRASSEGNO'))) {
+    annunci.push('Avete il Contrassegno di Piombo: lo sbarco è silenzioso, nessuno appare.');
+    return annunci;
+  }
+  for (const [nome, re] of SPAWN_REGEX) {
+    const m = testo.match(re);
+    if (!m) continue;
+    const quanti = m[1] ? Number(m[1]) : 1;
+    for (let k = 0; k < quanti; k++) {
+      const r = spawnNemico(nome);
+      if (!r) continue;
+      if (r.esaurito) {
+        annunci.push(`Segnalini ${nome.toLowerCase()} esauriti: quel piazzamento non ha luogo.`);
+        break;
+      }
+      annunci.push(`Al registro: ${nome.toLowerCase()}${r.tanti || r.num > 1 ? ' ' + r.num : ''} — piazzate la miniatura.`);
+    }
+  }
+  return annunci;
+}
+
 function barra(titolo) {
   const sp = SP();
   const fase = sp && sp.fase === 'nemici' ? 'nemici' : 'eroi';
@@ -120,9 +197,21 @@ function setup() {
       round: 1, fase: 'eroi', canto: 0, cantoBonus: false, esito: null,
       mazzo: costruisciMazzo(ctx.carte, ep, partita.episodio),
       rivelate: [ep.tessere[0].id],
-      nemici: [], prossimoNum: {},
+      nemici: [],
+      vite: Object.fromEntries(partita.party.map((nm) => {
+        const e = ctx.comune.eroi.find((x) => x.nome === nm);
+        return [nm, e ? saluteMax(e) : 6];
+      })),
     };
     salvaP();
+    // la prima tessera parte rivelata: se il suo QUANDO RIVELATE piazza
+    // qualcuno (o il Contrassegno lo evita), va detto subito
+    const t0 = ep.tessere[0];
+    const annunci = /quando rivelate/i.test(t0.testo || '') ? spawnDaTesto(t0.testo) : [];
+    if (annunci.length) {
+      return pannelloMsg(`${t0.id} — l’arrivo`, fronteTessera(t0) +
+        annunci.map((a) => `<p class="mt"><b>${esc(a)}</b></p>`).join(''), plancia);
+    }
     plancia();
   };
 }
@@ -148,12 +237,18 @@ function plancia() {
     </div>
     <div class="mt"></div>
     <div class="pannello">
+      <h2>la salute degli eroi</h2>
+      ${eroiHtml()}
+      <p class="nota mt">A 0 l’eroe è a terra: un compagno adiacente lo Rianima a 2 (usate il +).</p>
+    </div>
+    <div class="mt"></div>
+    <div class="pannello">
       <h2>gli oggetti del gruppo</h2>
       ${oggettiHtml()}
     </div>
     <div class="mt"></div>
     <div class="pannello">
-      <h2>registro delle ferite</h2>
+      <h2>registro delle ferite — nemici</h2>
       ${registroHtml()}
     </div>
     <div class="mt"></div>
@@ -196,6 +291,7 @@ function plancia() {
   app.querySelector('#sconfitta').onclick = () => fine('sconfitta');
   agganciaRegistro();
   agganciaOggetti();
+  agganciaEroi();
 }
 
 // ------------------------------------------------------------- tessere
@@ -230,7 +326,9 @@ async function tessera(tid) {
   if (!sp.rivelate.includes(tid)) {
     sp.rivelate.push(tid);
     salvaP();
-    return pannelloMsg(`${t.id} — rivelata`, fronteTessera(t), plancia);
+    const annunci = /quando rivelate/i.test(t.testo) ? spawnDaTesto(t.testo) : [];
+    return pannelloMsg(`${t.id} — rivelata`, fronteTessera(t) +
+      annunci.map((a) => `<p class="mt"><b>${esc(a)}</b></p>`).join(''), plancia);
   }
   // tessera rivelata: cosa chiedete all'arbitro?
   const azione = await scegliDaLista(`${t.id} · ${t.nome.toLowerCase()}`, [
@@ -255,6 +353,41 @@ async function tessera(tid) {
     ? `<p class="nota">solo per chi arbitra</p><p class="mt"><i>${rendi(t.arbitro)}</i></p>`
     : `<p><i>Qui niente serrature né segreti: porte e leve fanno quel che sembrano.
        Procedete col buon senso — e con la Regola d’Oro.</i></p>`, plancia);
+}
+
+// ------------------------------------------------------------ salute eroi
+function eroiHtml() {
+  const sp = SP();
+  return P().party.map((nm) => {
+    const e = ctx.comune.eroi.find((x) => x.nome === nm);
+    if (!e) return '';
+    const max = saluteMax(e);
+    const vita = sp.vite[nm] ?? max;
+    return `
+    <div class="nemico-riga">
+      <span class="nemico-nome">${esc(nm.toLowerCase())}${vita === 0 ? ' <b>a terra</b>' : ''}</span>
+      <span class="nemico-comandi">
+        <button class="btn attacca" data-vita="${esc(nm)}" data-delta="-1">−</button>
+        <span class="nemico-pips">
+          ${Array.from({ length: max }, (_, k) =>
+            `<span class="pip-vita ${k < vita ? 'piena' : ''}"></span>`).join('')}
+        </span>
+        <button class="btn attacca" data-vita="${esc(nm)}" data-delta="1">+</button>
+      </span>
+    </div>`;
+  }).join('');
+}
+
+function agganciaEroi() {
+  const sp = SP();
+  ctx.app.querySelectorAll('[data-vita]').forEach((b) => b.onclick = () => {
+    const nm = b.dataset.vita;
+    const e = ctx.comune.eroi.find((x) => x.nome === nm);
+    const max = saluteMax(e);
+    sp.vite[nm] = Math.max(0, Math.min(max, (sp.vite[nm] ?? max) + Number(b.dataset.delta)));
+    salvaP();
+    plancia();
+  });
 }
 
 // ------------------------------------------------------ oggetti del gruppo
@@ -302,9 +435,12 @@ function agganciaOggetti() {
 // -------------------------------------------------------- registro ferite
 function registroHtml() {
   const sp = SP();
-  const righe = sp.nemici.map((n, i) => `
+  const righe = sp.nemici.map((n, i) => {
+    const copie = sp.nemici.filter((x) => x.nome === n.nome).length;
+    const mostraNum = copie > 1 || n.num > 1;
+    return `
     <div class="nemico-riga">
-      <span class="nemico-nome">${esc(n.nome.toLowerCase())}${n.num ? ` <b>${n.num}</b>` : ''}</span>
+      <span class="nemico-nome">${esc(n.nome.toLowerCase())}${mostraNum ? ` <b>${n.num}</b>` : ''}</span>
       <span class="nemico-comandi">
         <button class="btn attacca" data-attacca="${i}">⚔ attacca</button>
         <span class="nemico-pips" data-idx="${i}" title="+1 ferita a mano">
@@ -312,7 +448,8 @@ function registroHtml() {
             `<span class="pip-ferita ${k < n.ferite ? 'piena' : ''}"></span>`).join('')}
         </span>
       </span>
-    </div>`).join('');
+    </div>`;
+  }).join('');
   return `
     ${righe || '<p class="nota">Nessun nemico in campo. Durerà poco.</p>'}
     <div class="btn-riga">
@@ -325,16 +462,15 @@ function agganciaRegistro() {
   const { app } = ctx;
   const sp = SP();
   app.querySelectorAll('[data-spawn]').forEach((b) => b.onclick = () => {
-    const nome = b.dataset.spawn;
-    const nemico = ctx.comune.nemici.find((x) => x.nome === nome);
-    sp.prossimoNum[nome] = (sp.prossimoNum[nome] || 0) + 1;
-    const copie = sp.nemici.filter((x) => x.nome === nome).length;
-    sp.nemici.push({ nome, num: (copie || sp.prossimoNum[nome] > 1) ? sp.prossimoNum[nome] : null,
-                     ferite: 0, max: feriteMax(nemico) });
-    salvaP();
+    const r = spawnNemico(b.dataset.spawn);
+    if (r && r.esaurito) {
+      return pannelloMsg('segnalini finiti', `<p><i>Le copie di
+        ${esc(r.nome.toLowerCase())} sono tutte in campo: il piazzamento non ha
+        luogo (regola dei segnalini).</i></p>`, plancia);
+    }
     plancia();
   });
-  app.querySelectorAll('.nemico-pips').forEach((el) => el.onclick = () => {
+  app.querySelectorAll('.nemico-pips[data-idx]').forEach((el) => el.onclick = () => {
     ferisci(Number(el.dataset.idx), true);
   });
   app.querySelectorAll('[data-attacca]').forEach((b) => b.onclick = () =>
@@ -397,17 +533,29 @@ async function faseMinaccia() {
     let annunci = [];
     if (crescendo && !ctx.ep.marea) {
       annunci = cantoDaCarta(ctx.comune, ctx.ep, sp);
-      if (P().party.length <= 3 && ctx.ep.soluzione.boss) {
-        annunci.push('A 2–3 eroi il boss NON recupera ferite: ignorate quella riga della carta.');
+      annunci.push(...destaBossSeSoglia());
+      // il crescendo cura il boss in gioco - ma non ai tavoli da 2-3 eroi
+      const boss = sp.nemici.find((x) => x.nome === ctx.ep.soluzione.boss);
+      if (boss && /cancellate 1 sua ferita/i.test(carta.rules)) {
+        if (P().party.length >= 4) {
+          if (boss.ferite > 0) {
+            boss.ferite -= 1;
+            annunci.push(`Il boss recupera 1 ferita (${boss.ferite}/${boss.max}) e si attiva subito.`);
+          }
+        } else {
+          annunci.push('A 2–3 eroi il boss NON recupera ferite: si attiva soltanto.');
+        }
       }
       salvaP();
     }
+    // piazzamenti scritti sulla carta (solo la parte effetto, non il flavor)
+    const effetto = carta.rules.split('{divider}').pop();
+    annunci.push(...spawnDaTesto(effetto));
     await new Promise((fatto) => {
       pannelloMsg(`minaccia ${i + 1} di ${n}`, `
         <div class="carta-grande"><img src="${urlCarta(carta.file)}" alt=""></div>
         <p class="mt">${rendi(carta.rules)}</p>
-        ${annunci.map((a) => `<p class="mt"><b>${esc(a)}</b></p>`).join('')}
-        <p class="nota mt">Se la carta piazza nemici, aggiungeteli al registro appena posate le miniature.</p>`,
+        ${annunci.map((a) => `<p class="mt"><b>${esc(a)}</b></p>`).join('')}`,
         fatto);
     });
   }
@@ -439,7 +587,12 @@ function faseNemici() {
     </div>
     <div class="mt"></div>
     <div class="pannello">
-      <h2>registro delle ferite</h2>
+      <h2>la salute degli eroi</h2>
+      ${eroiHtml()}
+    </div>
+    <div class="mt"></div>
+    <div class="pannello">
+      <h2>registro delle ferite — nemici</h2>
       ${registroHtml()}
     </div>
     <div class="btn-riga">
@@ -448,9 +601,11 @@ function faseNemici() {
     </div>`;
   dopoBarra();
   agganciaRegistro();
+  agganciaEroi();
   app.querySelector('#sconfitta').onclick = () => fine('sconfitta');
   app.querySelector('#fine-round').onclick = () => {
     const annunciRound = fineRound(ctx.comune, ctx.ep, sp);   // round += 1 e tick
+    annunciRound.push(...destaBossSeSoglia());
     sp.fase = 'eroi';
     salvaP();
     if (annunciRound.length) {

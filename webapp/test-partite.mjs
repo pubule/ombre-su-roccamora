@@ -11,7 +11,7 @@ import { readFileSync } from 'fs';
 import { fileURLToPath } from 'url';
 import path from 'path';
 
-const PORT = process.argv[2] || 8017;
+const PORT = process.argv.slice(2).find((a) => /^\d+$/.test(a)) || 8017;
 const BASE = `http://localhost:${PORT}`;
 const DIR = path.dirname(fileURLToPath(import.meta.url));
 const json = (f) => JSON.parse(readFileSync(path.join(DIR, 'data', f), 'utf8'));
@@ -34,6 +34,9 @@ const SCENARI = [
 ];
 
 const browser = await chromium.launch();
+// filtro: node webapp/test-partite.mjs --solo=<indice scenario>
+const soloArg = process.argv.find((a) => a.startsWith('--solo='));
+const SCELTI = soloArg ? [SCENARI[Number(soloArg.split('=')[1])]] : SCENARI;
 
 async function schermata(page) {
   // dove siamo? il primo selettore VISIBILE decide (l'overlay dei dadi resta
@@ -72,13 +75,13 @@ async function stato(page, epId) {
   return page.evaluate((k) => JSON.parse(localStorage.getItem('osr.partita.' + k)), epId);
 }
 
-for (const sc of SCENARI) {
+for (const sc of SCELTI) {
   const ep = DATI[sc.ep];
   console.log(`\n=== ${sc.ep} — party di ${sc.party.length}, risposte ${sc.giuste ? 'giuste' : 'sbagliate'} ===`);
   const page = await browser.newPage({ viewport: { width: 1024, height: 768 } });
   const jsErrors = [];
-  page.on('pageerror', (e) => jsErrors.push(e.message));
-  page.on('console', (m) => { if (m.type() === 'error') jsErrors.push(m.text()); });
+  page.on('pageerror', (e) => { jsErrors.push(e.message); console.log('    [JS]', e.message.split('\n')[0]); });
+  page.on('console', (m) => { if (m.type() === 'error') { jsErrors.push(m.text()); console.log('    [console]', m.text().split('\n')[0]); } });
   page.on('dialog', (d) => d.accept());
 
   try {
@@ -211,6 +214,9 @@ for (const sc of SCENARI) {
     await page.locator('#alla-spedizione').click();
     await page.locator('#inizia-spedizione').waitFor();
     await page.locator('#inizia-spedizione').click();
+    // eventuale pannello d'arrivo (QUANDO RIVELATE della prima tessera)
+    await page.waitForSelector('#fase-minaccia, #ok-msg');
+    if (await page.locator('#ok-msg').count()) await page.locator('#ok-msg').click();
     await page.locator('#fase-minaccia').waitFor();
     const fin = await stato(page, sc.ep);
     ok(fin.fase === 'spedizione' && fin.indagine.chiusa, 'la partita non passa alla fase spedizione');
@@ -240,8 +246,13 @@ for (const sc of SCENARI) {
     }
 
     // azione Attaccare guidata: eroe, arma, totale 12 = colpito di sicuro
+    // (il registro puo' gia' contenere gli auto-spawn del QUANDO RIVELATE)
+    const nemiciPrima = (await stato(page, sc.ep)).spedizione.nemici.length;
     await page.locator('[data-spawn]').first().click();
-    ok((await stato(page, sc.ep)).spedizione.nemici.length === 1, 'spawn non registrato');
+    if (await page.locator('#ok-msg').count()) await page.locator('#ok-msg').click();  // segnalini finiti
+    const nemiciDopo = (await stato(page, sc.ep)).spedizione.nemici.length;
+    ok(nemiciDopo >= nemiciPrima, 'spawn manuale ha perso nemici');
+    if (!nemiciDopo) await page.locator('[data-spawn]').first().click();
     await page.locator('[data-attacca]').first().click();
     await page.locator('.scelta-box [data-id]:not(.annulla)').first().click();   // chi attacca
     await page.locator('.scelta-box [data-id="si"]').click();                    // armato
@@ -251,22 +262,15 @@ for (const sc of SCENARI) {
     await page.locator('#ok-msg').waitFor();                                     // colpito/abbattuto
     await page.locator('#ok-msg').click();
     const dopoAttacco = (await stato(page, sc.ep)).spedizione.nemici;
-    ok(dopoAttacco.length === 0 || dopoAttacco[0].ferite === 1,
+    ok(dopoAttacco.length < nemiciDopo || dopoAttacco.some((x) => x.ferite > 0),
        'attacco a segno senza ferita registrata');
-    while ((await stato(page, sc.ep)).spedizione.nemici.length) {                // ripulisci
-      await page.locator('.nemico-pips').first().click();
-    }
 
-    // registro: spawn di un nemico, ferito fino ad abbatterlo
-    await page.locator('[data-spawn]').first().click();
-    ok((await stato(page, sc.ep)).spedizione.nemici.length === 1, 'spawn non registrato (2ª volta)');
-    let vivo = true;
-    for (let i = 0; i < 12 && vivo; i++) {
-      const st2 = await stato(page, sc.ep);
-      vivo = st2.spedizione.nemici.length > 0;
-      if (vivo) await page.locator('.nemico-pips').first().click();
+    // ripulisci il registro coi pip (correzione a mano) fino a vuoto
+    for (let i = 0; i < 40 && (await stato(page, sc.ep)).spedizione.nemici.length; i++) {
+      await page.locator('.nemico-pips[data-idx]').first().click();
+      await page.waitForTimeout(80);
     }
-    ok((await stato(page, sc.ep)).spedizione.nemici.length === 0, 'nemico mai abbattuto dai pip');
+    ok((await stato(page, sc.ep)).spedizione.nemici.length === 0, 'registro mai svuotato dai pip');
 
     // sei round completi: fase minaccia (pesca), fase nemici, fine round (tick)
     for (let r = 0; r < 6; r++) {
