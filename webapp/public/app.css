@@ -334,3 +334,6 @@ em, i { font-style: italic; }
 .azioni-promemoria summary::after { content: ' ▾'; color: var(--seppia); }
 .azioni-promemoria[open] summary::after { content: ' ▴'; }
 .azioni-promemoria p { font-size: 15px; }
+
+.nemico-comandi { display: flex; align-items: center; gap: 10px; }
+.btn.attacca { font-size: 13px; padding: 6px 12px; }

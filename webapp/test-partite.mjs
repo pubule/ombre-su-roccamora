@@ -229,9 +229,37 @@ for (const sc of SCENARI) {
     ok((await page.locator('.pannello').innerText()).length > 30, 'Interagire muto');
     await page.locator('#ok-msg').click();
 
-    // registro: spawn di un nemico, ferito fino ad abbatterlo
+    // oggetti: registrare un oggetto trovato cercando
+    const oggPrima = (await stato(page, sc.ep)).indagine.oggetti.length;
+    await page.locator('#aggiungi-oggetto').click();
+    if (await page.locator('.scelta-box [data-id]:not(.annulla)').count()) {
+      await page.locator('.scelta-box [data-id]:not(.annulla)').first().click();
+      await page.locator('#fase-minaccia').waitFor();
+      ok((await stato(page, sc.ep)).indagine.oggetti.length === oggPrima + 1,
+         'oggetto trovato non registrato');
+    }
+
+    // azione Attaccare guidata: eroe, arma, totale 12 = colpito di sicuro
     await page.locator('[data-spawn]').first().click();
     ok((await stato(page, sc.ep)).spedizione.nemici.length === 1, 'spawn non registrato');
+    await page.locator('[data-attacca]').first().click();
+    await page.locator('.scelta-box [data-id]:not(.annulla)').first().click();   // chi attacca
+    await page.locator('.scelta-box [data-id="si"]').click();                    // armato
+    await page.locator('[data-tot="12"]').click();
+    await page.locator('#dadi-chiudi').waitFor({ state: 'visible' });
+    await page.locator('#dadi-chiudi').click();
+    await page.locator('#ok-msg').waitFor();                                     // colpito/abbattuto
+    await page.locator('#ok-msg').click();
+    const dopoAttacco = (await stato(page, sc.ep)).spedizione.nemici;
+    ok(dopoAttacco.length === 0 || dopoAttacco[0].ferite === 1,
+       'attacco a segno senza ferita registrata');
+    while ((await stato(page, sc.ep)).spedizione.nemici.length) {                // ripulisci
+      await page.locator('.nemico-pips').first().click();
+    }
+
+    // registro: spawn di un nemico, ferito fino ad abbatterlo
+    await page.locator('[data-spawn]').first().click();
+    ok((await stato(page, sc.ep)).spedizione.nemici.length === 1, 'spawn non registrato (2ª volta)');
     let vivo = true;
     for (let i = 0; i < 12 && vivo; i++) {
       const st2 = await stato(page, sc.ep);

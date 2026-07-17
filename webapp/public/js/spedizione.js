@@ -4,8 +4,9 @@
 // esiti di Cercare dal "retro" delle tessere, tiene il Registro delle
 // Ferite coi massimali giusti per taglia. Stato in partita.spedizione.
 import { salva, dati } from './store.js';
-import { rendi, costruisciMazzo, carteDaPescare, pesca, fineRound,
-         cantoDaCarta, cerca, urlCarta } from './engine.js';
+import { rendi, norm, costruisciMazzo, carteDaPescare, pesca, fineRound,
+         cantoDaCarta, cerca, urlCarta, cartaOggetto } from './engine.js';
+import { tiraProva } from './dadi.js';
 
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) =>
   ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -147,6 +148,11 @@ function plancia() {
     </div>
     <div class="mt"></div>
     <div class="pannello">
+      <h2>gli oggetti del gruppo</h2>
+      ${oggettiHtml()}
+    </div>
+    <div class="mt"></div>
+    <div class="pannello">
       <h2>registro delle ferite</h2>
       ${registroHtml()}
     </div>
@@ -189,6 +195,7 @@ function plancia() {
   app.querySelector('#vittoria').onclick = () => fine('vittoria');
   app.querySelector('#sconfitta').onclick = () => fine('sconfitta');
   agganciaRegistro();
+  agganciaOggetti();
 }
 
 // ------------------------------------------------------------- tessere
@@ -250,15 +257,60 @@ async function tessera(tid) {
        Procedete col buon senso — e con la Regola d’Oro.</i></p>`, plancia);
 }
 
+// ------------------------------------------------------ oggetti del gruppo
+// L'inventario segue il gruppo dall'indagine; qui si consultano le carte
+// ("Usare un oggetto" e' un'azione: la carta dice come) e si registrano
+// gli oggetti TROVATI in spedizione col Cercare.
+function oggettiHtml() {
+  const ind = P().indagine;
+  const presi = (ind.oggetti || []).map((n) => ({ nome: n, carta: cartaOggetto(ctx.carte, P().episodio, n) }));
+  return `
+    ${presi.length ? `<div class="galleria-carte">${presi.map((o, i) =>
+        o.carta ? `<img loading="lazy" data-oggetto-idx="${i}" src="${urlCarta(o.carta.file)}" alt="">` : '').join('')}
+      </div>
+      <p class="nota mt">Toccate una carta per leggerla in grande: dice lei come si usa.</p>`
+      : '<p class="nota">Il gruppo è a mani vuote. Cercare aiuta.</p>'}
+    <div class="btn-riga">
+      <button class="btn" id="aggiungi-oggetto">+ oggetto trovato cercando</button>
+    </div>`;
+}
+
+function agganciaOggetti() {
+  const { app } = ctx;
+  const ind = P().indagine;
+  app.querySelectorAll('[data-oggetto-idx]').forEach((el) => el.onclick = () => {
+    const nome = ind.oggetti[Number(el.dataset.oggettoIdx)];
+    const c = cartaOggetto(ctx.carte, P().episodio, nome);
+    pannelloMsg(nome.toLowerCase(),
+      `<div class="carta-grande"><img src="${urlCarta(c.file)}" alt=""></div>`, plancia);
+  });
+  app.querySelector('#aggiungi-oggetto').onclick = async () => {
+    const tutte = [...(ctx.carte.oggetti_carte[P().episodio] || []),
+                   ...(ctx.carte.oggetti_carte.preludio || [])];
+    const restanti = tutte.filter((c) =>
+      !(ind.oggetti || []).some((n) => norm(c.title) === norm(n) || norm(c.title).includes(norm(n))));
+    if (!restanti.length) return;
+    const scelto = await scegliDaLista('cosa avete trovato?',
+      restanti.map((c) => ({ id: c.title, label: c.title })));
+    if (!scelto) return plancia();
+    ind.oggetti.push(scelto);
+    salvaP();
+    plancia();
+  };
+}
+
 // -------------------------------------------------------- registro ferite
 function registroHtml() {
   const sp = SP();
   const righe = sp.nemici.map((n, i) => `
     <div class="nemico-riga">
       <span class="nemico-nome">${esc(n.nome.toLowerCase())}${n.num ? ` <b>${n.num}</b>` : ''}</span>
-      <span class="nemico-pips" data-idx="${i}">
-        ${Array.from({ length: n.max }, (_, k) =>
-          `<span class="pip-ferita ${k < n.ferite ? 'piena' : ''}"></span>`).join('')}
+      <span class="nemico-comandi">
+        <button class="btn attacca" data-attacca="${i}">⚔ attacca</button>
+        <span class="nemico-pips" data-idx="${i}" title="+1 ferita a mano">
+          ${Array.from({ length: n.max }, (_, k) =>
+            `<span class="pip-ferita ${k < n.ferite ? 'piena' : ''}"></span>`).join('')}
+        </span>
       </span>
     </div>`).join('');
   return `
@@ -283,14 +335,55 @@ function agganciaRegistro() {
     plancia();
   });
   app.querySelectorAll('.nemico-pips').forEach((el) => el.onclick = () => {
-    const n = sp.nemici[Number(el.dataset.idx)];
-    n.ferite += 1;
-    if (n.ferite >= n.max) {
-      sp.nemici.splice(Number(el.dataset.idx), 1);   // abbattuto: la miniatura torna nel pool
-    }
-    salvaP();
-    plancia();
+    ferisci(Number(el.dataset.idx), true);
   });
+  app.querySelectorAll('[data-attacca]').forEach((b) => b.onclick = () =>
+    attacca(Number(b.dataset.attacca)));
+}
+
+// una ferita al nemico i; ritorna true se abbattuto
+function ferisci(i, ridisegna) {
+  const sp = SP();
+  const n = sp.nemici[i];
+  n.ferite += 1;
+  const abbattuto = n.ferite >= n.max;
+  if (abbattuto) sp.nemici.splice(i, 1);   // la miniatura torna nel pool
+  salvaP();
+  if (ridisegna) plancia();
+  return abbattuto;
+}
+
+// l'azione Attaccare, guidata: eroe, arma, dadi veri, ferita segnata da sola
+async function attacca(i) {
+  const sp = SP();
+  const bersaglio = sp.nemici[i];
+  const nemico = ctx.comune.nemici.find((x) => x.nome === bersaglio.nome);
+  const eroi = P().party.map((nm) => ctx.comune.eroi.find((e) => e.nome === nm)).filter(Boolean);
+  const chi = await scegliDaLista('chi attacca?', eroi.map((e) => ({
+    id: e.nome, label: `${e.nome} (VIGORE ${e.vigore})` })));
+  if (!chi) return plancia();
+  const eroe = eroi.find((e) => e.nome === chi);
+  const armato = await scegliDaLista(`${eroe.nome.split(' ')[0]} è armato?`, [
+    { id: 'si', label: 'sì — arma in mano (+1)' },
+    { id: 'no', label: 'no — a mani nude' }]);
+  if (armato == null) return plancia();
+  const bonus = [{ label: 'VIGORE', val: eroe.vigore }];
+  if (armato === 'si') bonus.push({ label: 'arma', val: 1 });
+  const r = await tiraProva({
+    titolo: `attacco — ${eroe.nome.split(' ')[0]} → ${bersaglio.nome.toLowerCase()}`,
+    diffLabel: 'Difesa', soglia: nemico.dif, bonus, modo: P().modo,
+  });
+  if (!r) return plancia();
+  if (!r.ok) {
+    return pannelloMsg('mancato', `<p><i>Il colpo passa a vuoto: ${esc(bersaglio.nome.toLowerCase())}
+      è ancora in piedi, e adesso lo sa.</i></p>`, plancia);
+  }
+  const abbattuto = ferisci(i, false);
+  pannelloMsg(abbattuto ? 'abbattuto!' : 'colpito', abbattuto
+    ? `<p><i>${esc(bersaglio.nome.toLowerCase())} crolla: togliete la miniatura dal tavolo —
+       il segnalino torna disponibile.</i></p>`
+    : `<p><i>Colpito: segnata 1 ferita a ${esc(bersaglio.nome.toLowerCase())}
+       (${sp.nemici[i].ferite}/${sp.nemici[i].max}).</i></p>`, plancia);
 }
 
 // --------------------------------------------------------- fase minaccia
