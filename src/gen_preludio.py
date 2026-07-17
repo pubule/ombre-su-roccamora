@@ -627,7 +627,10 @@ def luoghi():
             'sfogliando non si capisce mai dove si nasconde qualcosa.',
             'Se NESSUN eroe al tavolo può più sbloccare un tipo, concedete l’Aiuto profano',
             '(Regolamento): ACUME Difficile, una sola volta per luogo — riuscita sblocca,',
-            'fallita sigilla l’Approfondimento qui.']):
+            'fallita sigilla l’Approfondimento qui.',
+            'Sesto Senso di Sibilla: consegnate un Approfondimento QUALSIASI ancora chiuso',
+            'del luogo presente; se non ne restano, nominate un luogo che ne nasconde',
+            'ancora uno — solo il nome, mai il tipo. Se non resta nulla, il jolly non si spende.']):
         c.setFillColor(INK); c.setFont(F['i'], 10)
         c.drawString(MX, H - 32*mm - i*6*mm, riga)
     c.showPage()
