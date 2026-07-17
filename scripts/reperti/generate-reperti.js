@@ -187,11 +187,82 @@ Chi canterà al di sotto, non si lamenti di ciò che al di sotto risponde.`;
     </div></div>
   `);
 
+  // --- Episodio 2, Reperto A: taccuino di collaudo di Ilario (L1) ---
+  const vociA2 = [
+    "Colata di saggio, ore 17. Campanella n. 1: suono pieno, coda lunga. La lega risponde.",
+    "Ore 19. Campanella n. 2, dalla seconda cassa: coda corta, un sibilo sotto il colpo. Rifare il provino.",
+    "Ore 20. Provino rifatto, stessa cassa. Il martello non mente.",
+  ];
+  const repertoA2 = page(`
+    <div class="wrap"><div style="zoom:0.90;">
+      <div class="serif" style="font-style:italic; font-size:38px; color:#3a2415; mix-blend-mode:multiply; margin-bottom:30px;">Reperto A — dal taccuino di collaudo di Ilario Dossena, mastro fonditore</div>
+      <div style="font-size:60px; line-height:84px;">
+        ${vociA2.map((v) => `<p class="hand" style="margin-bottom:30px;">${v}</p>`).join('')}
+      </div>
+      <div style="margin-top:90px;">
+        <div class="serif" style="font-style:italic; font-size:34px; color:#4a4a4e; mix-blend-mode:multiply; margin-bottom:16px;">L’ultima nota è ripassata due volte, incisa nella carta:</div>
+        <div class="hand" style="font-size:66px; line-height:90px; color:#4a4a4e; mix-blend-mode:multiply;">suono sbagliato — questa lega non è la mia.</div>
+      </div>
+    </div></div>
+  `);
+
+  // --- Episodio 2, Reperto B: registro delle chiatte (L8) ---
+  const righeB2 = [
+    ['2 del mese', 'laterizi refrattari', 'Fonderie', 'saldato'],
+    ['6 del mese', 'sabbia di stampo, otto sacchi', 'Fonderie', 'saldato'],
+    ['11 del mese', 'carbone di storta', 'Deposito Daziario', 'in bolla'],
+    ['14 del mese', 'zavorra', 'Isola delle Scorie', 'contanti, senza mittente'],
+    ['17 del mese', 'zavorra', 'Isola delle Scorie', 'contanti, senza mittente'],
+  ];
+  const repertoB2 = page(`
+    <div class="wrap"><div style="zoom:0.84;">
+      <div style="text-align:center; margin-bottom:60px;">
+        <div class="caps" style="font-size:64px;">camera dei pesi e delle misure · registro delle chiatte</div>
+        <div class="serif" style="font-style:italic; font-size:36px; color:#3a2415; mix-blend-mode:multiply; margin-top:14px;">Reperto B — copiato dal registro delle pese notturne</div>
+      </div>
+      <table style="width:100%; border-collapse:collapse; font-size:44px;">
+        <thead>
+          <tr class="serif" style="font-weight:bold;">
+            <th style="text-align:left; border-bottom:2px solid #3a2415; padding:10px 8px; mix-blend-mode:multiply;">data</th>
+            <th style="text-align:left; border-bottom:2px solid #3a2415; padding:10px 8px; mix-blend-mode:multiply;">carico</th>
+            <th style="text-align:left; border-bottom:2px solid #3a2415; padding:10px 8px; mix-blend-mode:multiply;">destinazione</th>
+            <th style="text-align:left; border-bottom:2px solid #3a2415; padding:10px 8px; mix-blend-mode:multiply;">nota</th>
+          </tr>
+        </thead>
+        <tbody class="hand">
+          ${righeB2.map((r) => `<tr>${r.map((v) => `<td style="border-bottom:1px solid #3a2415; padding:20px 8px; font-size:50px; mix-blend-mode:multiply;">${v}</td>`).join('')}</tr>`).join('')}
+        </tbody>
+      </table>
+      <div class="serif" style="font-style:italic; margin-top:80px; font-size:36px; color:#4a4a4e; mix-blend-mode:multiply;">
+        Una chiatta di zavorra si pesa alla partenza, mai al ritorno. Queste due
+        pesavano di più al ritorno.
+      </div>
+    </div></div>
+  `);
+
+  // --- Episodio 2, Reperto C: la lettera di C.B. (L5) ---
+  const repertoC2 = page(`
+    <div class="wrap"><div style="zoom:0.90;">
+      <div class="serif" style="font-style:italic; font-size:38px; color:#3a2415; mix-blend-mode:multiply; margin-bottom:60px;">Reperto C — lettera senza busta, trovata tra le ricevute del capomastro</div>
+      <div class="hand" style="font-size:62px; line-height:92px;">
+        <p style="margin-bottom:40px;">Al collaudo penserà il vostro mastro. Il resto a consegna.</p>
+        <p style="margin-bottom:40px;">Niente nomi, niente registri: le voci costano più del bronzo.</p>
+        <p style="text-align:right; margin-top:80px;">— C.B.</p>
+      </div>
+      <div class="serif" style="font-style:italic; margin-top:100px; font-size:36px; color:#4a4a4e; mix-blend-mode:multiply;">
+        Carta buona, piegata in tre. Nessun sigillo — chi scrive così non ne ha bisogno.
+      </div>
+    </div></div>
+  `);
+
   const items = [
     ['Episodio 1', 'Reperto A - Diario di Ruggero', repertoA],
     ['Episodio 1', 'Reperto B - Registro delle Consegne', repertoB],
     ['Episodio 1', 'Reperto C - Fascicolo del 1741', repertoC],
     ['Preludio', 'Registro delle Consultazioni', repertoP],
+    ['Episodio 2', 'Reperto A - Taccuino di Collaudo', repertoA2],
+    ['Episodio 2', 'Reperto B - Registro delle Chiatte', repertoB2],
+    ['Episodio 2', 'Reperto C - Lettera di C.B.', repertoC2],
   ];
 
   for (const [episodio, name, html] of items) {

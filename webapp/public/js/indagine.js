@@ -104,7 +104,7 @@ function home() {
     <div class="btn-riga">
       ${ep.lettera ? '<button class="btn" id="rileggi">la lettera</button>' : ''}
       <button class="btn" id="taccuino">taccuino e domande</button>
-      <button class="btn" id="inventario">oggetti e carte (${ind.oggetti.length + ind.approfondimentiLetti.length})</button>
+      <button class="btn" id="inventario">oggetti e carte (${ind.oggetti.length + ind.approfondimentiLetti.length + (ind.reperti || []).length})</button>
       <button class="btn pieno" id="chiudi-indagine">chiudete l’indagine</button>
     </div>`;
   dopoBarra();
@@ -220,13 +220,16 @@ function schedaLuogo(l) {
     <div class="pannello">
       <h2>indizi — leggeteli ad alta voce</h2>
       ${l.indizi.map((i) => `<p class="mt">◆ ${rendi(i)}</p>`).join('')}
-      ${(l.oggetti || []).length ? `
+      ${(l.oggetti || []).length || (l.reperti || []).length ? `
         <hr class="divisore">
-        <p class="nota">carte da prendere</p>
+        <p class="nota">carte e reperti da prendere</p>
         <div class="btn-riga">
-          ${l.oggetti.map((o) => ind.oggetti.includes(o)
+          ${(l.oggetti || []).map((o) => ind.oggetti.includes(o)
             ? `<button class="btn disabilitato">${esc(o)} ✓</button>`
             : `<button class="btn" data-oggetto="${esc(o)}">prendete “${esc(o)}”</button>`).join('')}
+          ${(l.reperti || []).map((r) => (ind.reperti || []).includes(r)
+            ? `<button class="btn disabilitato">${esc(nomeReperto(r))} ✓</button>`
+            : `<button class="btn" data-reperto="${esc(r)}">consegnate “${esc(nomeReperto(r))}”</button>`).join('')}
         </div>` : ''}
     </div>
     <div class="mt"></div>
@@ -263,11 +266,27 @@ function schedaLuogo(l) {
        <p class="nota mt">Prendete la carta “${esc(nome)}” dal mazzo Oggetti: da ora è vostra.</p>`,
       () => schedaLuogo(l));
   });
+  app.querySelectorAll('[data-reperto]').forEach((b) => b.onclick = () => {
+    const nome = b.dataset.reperto;
+    ind.reperti = ind.reperti || [];
+    if (!ind.reperti.includes(nome)) ind.reperti.push(nome);
+    salvaP();
+    pannelloMsg(nomeReperto(nome).toLowerCase(),
+      `<img class="reperto-img" src="${urlReperto(nome)}" alt="">
+       <p class="nota mt">Consegnate ai giocatori il reperto stampato “${esc(nomeReperto(nome))}”
+       — o leggetelo da qui, facendolo girare.</p>`,
+      () => schedaLuogo(l));
+  });
   if (scena !== false) {
     app.querySelectorAll('[data-tipo]').forEach((b) =>
       b.onclick = () => approfondisci(l, b.dataset.tipo, tipiQui));
   }
 }
+
+// 'Reperto A - Diario di Ruggero' -> 'Diario di Ruggero' (per i bottoni)
+const nomeReperto = (file) => file.replace(/^Reperto [A-Z] - /, '');
+const urlReperto = (file) =>
+  encodeURI(`/assets/${ctx.ep.cartella}/reperti/${file}.png`);
 
 async function approfondisci(l, tipo, tipiQui) {
   const ind = IND();
@@ -471,10 +490,13 @@ function inventario() {
   const ogg = ind.oggetti.map((n) => cartaOggetto(ctx.carte, epId, n)).filter(Boolean).map((c) => c.file);
   const app_ = ind.approfondimentiLetti.map((x) =>
     cartaApprofondimento(ctx.carte, epId, x.soggetto)).filter(Boolean).map((c) => c.file);
+  const rep = ind.reperti || [];
   pannelloMsg('quel che avete in mano',
     `${ogg.length ? `<p><b>Oggetti</b></p>${galleria(ogg)}` : ''}
      ${app_.length ? `<p class="mt"><b>Approfondimenti</b></p>${galleria(app_)}` : ''}
-     ${!ogg.length && !app_.length ? '<p class="nota">Ancora niente. La notte è giovane.</p>' : ''}`,
+     ${rep.length ? `<p class="mt"><b>Reperti</b></p>${rep.map((r) =>
+       `<img class="reperto-img mt" src="${urlReperto(r)}" alt="">`).join('')}` : ''}
+     ${!ogg.length && !app_.length && !rep.length ? '<p class="nota">Ancora niente. La notte è giovane.</p>' : ''}`,
     home);
 }
 

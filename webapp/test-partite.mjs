@@ -102,6 +102,7 @@ for (const sc of SCENARI) {
     const daVisitare = [...ep.luoghi].sort((a, b) => (b.aperto ? 1 : 0) - (a.aperto ? 1 : 0));
     let oreSpese = 0;
     let oggettiAttesi = 0;
+    let repertiAttesi = 0;
     for (const l of daVisitare) {
       const st = await stato(page, sc.ep);
       if (st.indagine.ora >= 24) break;
@@ -165,6 +166,14 @@ for (const sc of SCENARI) {
         await page.locator('#fine-visita').waitFor();
         oggettiAttesi += 1;
       }
+      // reperti: si consegnano e l'immagine si apre
+      for (const r of l.reperti || []) {
+        await page.locator(`[data-reperto="${r}"]`).click();
+        await page.locator('.reperto-img').waitFor();
+        await page.locator('#ok-msg').click();
+        await page.locator('#fine-visita').waitFor();
+        repertiAttesi += 1;
+      }
       await page.locator('#fine-visita').click();
       await page.locator('.voce').first().waitFor();
     }
@@ -175,9 +184,12 @@ for (const sc of SCENARI) {
        `conto ore sballato: ${st.indagine.ora} invece di ${18 + oreSpese}`);
     ok(st.indagine.oggetti.length === oggettiAttesi,
        `oggetti in inventario: ${st.indagine.oggetti.length} invece di ${oggettiAttesi}`);
+    ok((st.indagine.reperti || []).length === repertiAttesi,
+       `reperti consegnati: ${(st.indagine.reperti || []).length} invece di ${repertiAttesi}`);
     console.log(`    ${st.indagine.visitati.length} luoghi visitati, ` +
                 `${st.indagine.approfondimentiLetti.length} approfondimenti, ` +
-                `${st.indagine.oggetti.length} oggetti, ora ${st.indagine.ora}:00`);
+                `${st.indagine.oggetti.length} oggetti, ${(st.indagine.reperti || []).length} reperti, ` +
+                `ora ${st.indagine.ora}:00`);
 
     // taccuino: risposte e busta
     await page.locator('#chiudi-indagine').click();

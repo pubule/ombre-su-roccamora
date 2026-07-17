@@ -53,11 +53,26 @@ for _o in OGGETTI:
         OGGETTI_LUOGO_1.setdefault(int(_o['ref'][1:]), []).append(_titolo(_o['nome']))
 
 
-def luogo_json(L, oggetti_map=None):
+# Reperti stampabili consegnati dai luoghi (l'indizio dice quale: "Reperto X:
+# consegnate ..."): nome file base in <cartella>/reperti/. Fonte visiva:
+# scripts/reperti/generate-reperti.js.
+REPERTI_LUOGO = {
+    'preludio': {'P1': ['Registro delle Consultazioni']},
+    'ep1': {1: ['Reperto A - Diario di Ruggero'],
+            5: ['Reperto B - Registro delle Consegne'],
+            7: ['Reperto C - Fascicolo del 1741']},
+    'ep2': {1: ['Reperto A - Taccuino di Collaudo'],
+            5: ['Reperto C - Lettera di C.B.'],
+            8: ['Reperto B - Registro delle Chiatte']},
+}
+
+
+def luogo_json(L, oggetti_map=None, reperti_map=None):
     req = L.get('req')
     aperto = req in (None, 'Disponibile dall’inizio')
     chiave = L.get('chiave')
     oggetti = (oggetti_map or {}).get(L['n'], [])
+    reperti = (reperti_map or {}).get(L['n'], [])
     return dict(
         n=L['n'], nome=L['nome'],   # resa (small-caps lowercase) alla UI
         voce_mappa=L.get('voce_mappa'),
@@ -71,6 +86,7 @@ def luogo_json(L, oggetti_map=None):
         approfondimenti=[dict(tipo=a['tipo'], soggetto=a.get('soggetto'),
                               testo=a['testo']) for a in (L.get('approfondimenti') or [])],
         oggetti=oggetti,
+        reperti=reperti,
     )
 
 
@@ -196,7 +212,7 @@ episodi = dict(
         sottotitolo='il preludio — la vostra prova d’ammissione',
         cartella='Preludio', ore_budget=6,
         lettera=LETTERA_P,
-        luoghi=[luogo_json(L, OGGETTI_LUOGO_P) for L in LUOGHI_P],
+        luoghi=[luogo_json(L, OGGETTI_LUOGO_P, REPERTI_LUOGO['preludio']) for L in LUOGHI_P],
         oggetti_luogo=OGGETTI_LUOGO_P,
         tessere=[dict(id=t[0], nome=t[1].title(), art=t[2], testo=t[3]) for t in TESSERE_P],
         mazzo_da_ep1=MAZZO_P,
@@ -208,7 +224,7 @@ episodi = dict(
         sottotitolo='episodio 1 — il caso del campanaro scomparso',
         cartella='Episodio 1', ore_budget=6,
         lettera=story.LETTERA2,
-        luoghi=[luogo_json(L, OGGETTI_LUOGO_1) for L in LUOGHI],
+        luoghi=[luogo_json(L, OGGETTI_LUOGO_1, REPERTI_LUOGO['ep1']) for L in LUOGHI],
         tessere=[tessera_json(T) for T in TILES],
         oggetti=[oggetto_json(o) for o in OGGETTI],
         vantaggio=dict(slancio_ore=3, slancio_luoghi=6, preparati_ore=1, preparati_luoghi=5),
@@ -220,7 +236,7 @@ episodi = dict(
         sottotitolo='episodio 2 — i pani del Quarantuno',
         cartella='Episodio 2', ore_budget=6,
         lettera=LETTERA_2,
-        luoghi=[luogo_json(L, OGGETTI_LUOGO_2) for L in LUOGHI_2],
+        luoghi=[luogo_json(L, OGGETTI_LUOGO_2, REPERTI_LUOGO['ep2']) for L in LUOGHI_2],
         tessere=[tessera_json(T) for T in TILES_2],
         vantaggio=dict(slancio_ore=3, slancio_luoghi=7, preparati_ore=1, preparati_luoghi=6),
         soluzione=SOLUZIONI['ep2'],

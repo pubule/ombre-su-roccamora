@@ -20,6 +20,7 @@ export function nuovaPartita(episodioId, modo, party) {
       sbloccati: [],           // luoghi la cui chiave e' stata detta (si rientra)
       parole: [],              // parole chiave sentite (per l'oracolo)
       oggetti: [],             // nomi carta Oggetto raccolti
+      reperti: [],             // reperti stampabili consegnati
       approfondimentiLetti: [],// [{n, tipo, soggetto}]
       caricheUsate: {},        // {nomeEroe: {tipo: usate}}
       secondoFiato: {},        // {nomeEroe: true se ancora disponibile}
