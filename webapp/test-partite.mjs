@@ -98,6 +98,7 @@ for (const sc of SCENARI) {
     // strategia: prima gli aperti, poi i chiusi con la loro chiave
     const daVisitare = [...ep.luoghi].sort((a, b) => (b.aperto ? 1 : 0) - (a.aperto ? 1 : 0));
     let oreSpese = 0;
+    let oggettiAttesi = 0;
     for (const l of daVisitare) {
       const st = await stato(page, sc.ep);
       if (st.indagine.ora >= 24) break;
@@ -145,6 +146,14 @@ for (const sc of SCENARI) {
           await page.locator('#fine-visita').waitFor();
         }
       }
+      // carte da prendere: ogni oggetto del luogo finisce nell'inventario
+      for (const o of l.oggetti || []) {
+        await page.locator(`[data-oggetto="${o}"]`).click();
+        await page.locator('#ok-msg').waitFor();
+        await page.locator('#ok-msg').click();
+        await page.locator('#fine-visita').waitFor();
+        oggettiAttesi += 1;
+      }
       await page.locator('#fine-visita').click();
       await page.locator('.voce').first().waitFor();
     }
@@ -153,8 +162,11 @@ for (const sc of SCENARI) {
     const st = await stato(page, sc.ep);
     ok(st.indagine.ora === 18 + oreSpese,
        `conto ore sballato: ${st.indagine.ora} invece di ${18 + oreSpese}`);
+    ok(st.indagine.oggetti.length === oggettiAttesi,
+       `oggetti in inventario: ${st.indagine.oggetti.length} invece di ${oggettiAttesi}`);
     console.log(`    ${st.indagine.visitati.length} luoghi visitati, ` +
-                `${st.indagine.approfondimentiLetti.length} approfondimenti, ora ${st.indagine.ora}:00`);
+                `${st.indagine.approfondimentiLetti.length} approfondimenti, ` +
+                `${st.indagine.oggetti.length} oggetti, ora ${st.indagine.ora}:00`);
 
     // taccuino: risposte e busta
     await page.locator('#chiudi-indagine').click();

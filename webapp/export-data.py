@@ -24,7 +24,7 @@ from gen_cards import HEROES, LUOGHI, TILES, NEMICI, OGGETTI  # noqa: E402
 import story  # noqa: E402
 story.apply(LUOGHI, TILES, NEMICI, HEROES, [])
 from gen_preludio import LUOGHI_P, TESSERE_P, MAZZO_P, OGGETTI_LUOGO_P  # noqa: E402
-from gen_ep2 import LUOGHI_2, TILES_2, NEMICI_2  # noqa: E402
+from gen_ep2 import LUOGHI_2, TILES_2, NEMICI_2, OGGETTI_LUOGO_2  # noqa: E402
 from gen_mappa import VOCI_MAPPA, MAPPE  # noqa: E402
 from gen_bestiario import FASCE, BOSS_DELTA, ferite_per_fascia  # noqa: E402
 from simulate_playtest import (INDAGINE_UNLOCK, TICK_CANTO_OGNI, SOGLIA_CANTO,  # noqa: E402
@@ -37,10 +37,27 @@ def strip_tags(s):
     return re.sub(r'<[^>]+>', '', s or '')
 
 
-def luogo_json(L):
+# carte Oggetto consegnate dai luoghi (le tessere T* restano alla
+# Spedizione): Ep.1 dalla lista OGGETTI (ref 'L<n>'), gli altri episodi dai
+# loro dizionari dedicati
+def _titolo(nome):
+    minori = {'di', 'del', 'della', 'dei', 'delle', 'la', 'il', 'lo', 'a', 'da', 'in'}
+    parole = nome.title().split(' ')
+    return ' '.join(w.lower() if w.lower() in minori and i else w
+                    for i, w in enumerate(parole))
+
+
+OGGETTI_LUOGO_1 = {}
+for _o in OGGETTI:
+    if _o['ref'].startswith('L'):
+        OGGETTI_LUOGO_1.setdefault(int(_o['ref'][1:]), []).append(_titolo(_o['nome']))
+
+
+def luogo_json(L, oggetti_map=None):
     req = L.get('req')
     aperto = req in (None, 'Disponibile dall’inizio')
     chiave = L.get('chiave')
+    oggetti = (oggetti_map or {}).get(L['n'], [])
     return dict(
         n=L['n'], nome=L['nome'],   # resa (small-caps lowercase) alla UI
         voce_mappa=L.get('voce_mappa'),
@@ -53,6 +70,7 @@ def luogo_json(L):
         indizi=[i for i in (L.get('indizi') or [])],   # html-lite: la webapp rende <b>/<i>
         approfondimenti=[dict(tipo=a['tipo'], soggetto=a.get('soggetto'),
                               testo=a['testo']) for a in (L.get('approfondimenti') or [])],
+        oggetti=oggetti,
     )
 
 
@@ -168,7 +186,7 @@ episodi = dict(
         id='preludio', titolo='La Prova del Lume',
         sottotitolo='il preludio — la vostra prova d’ammissione',
         cartella='Preludio', ore_budget=6,
-        luoghi=[luogo_json(L) for L in LUOGHI_P],
+        luoghi=[luogo_json(L, OGGETTI_LUOGO_P) for L in LUOGHI_P],
         oggetti_luogo=OGGETTI_LUOGO_P,
         tessere=[dict(id=t[0], nome=t[1].title(), art=t[2], testo=t[3]) for t in TESSERE_P],
         mazzo_da_ep1=MAZZO_P,
@@ -179,7 +197,7 @@ episodi = dict(
         id='ep1', titolo='Il Coro Sommerso',
         sottotitolo='episodio 1 — il caso del campanaro scomparso',
         cartella='Episodio 1', ore_budget=6,
-        luoghi=[luogo_json(L) for L in LUOGHI],
+        luoghi=[luogo_json(L, OGGETTI_LUOGO_1) for L in LUOGHI],
         tessere=[tessera_json(T) for T in TILES],
         oggetti=[oggetto_json(o) for o in OGGETTI],
         vantaggio=dict(slancio_ore=3, slancio_luoghi=6, preparati_ore=1, preparati_luoghi=5),
@@ -190,7 +208,7 @@ episodi = dict(
         id='ep2', titolo='La voce del bronzo',
         sottotitolo='episodio 2 — i pani del Quarantuno',
         cartella='Episodio 2', ore_budget=6,
-        luoghi=[luogo_json(L) for L in LUOGHI_2],
+        luoghi=[luogo_json(L, OGGETTI_LUOGO_2) for L in LUOGHI_2],
         tessere=[tessera_json(T) for T in TILES_2],
         vantaggio=dict(slancio_ore=3, slancio_luoghi=7, preparati_ore=1, preparati_luoghi=6),
         soluzione=SOLUZIONI['ep2'],

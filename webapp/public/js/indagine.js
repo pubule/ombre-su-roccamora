@@ -187,6 +187,14 @@ function schedaLuogo(l) {
     <div class="pannello">
       <h2>indizi — leggeteli ad alta voce</h2>
       ${l.indizi.map((i) => `<p class="mt">◆ ${rendi(i)}</p>`).join('')}
+      ${(l.oggetti || []).length ? `
+        <hr class="divisore">
+        <p class="nota">carte da prendere</p>
+        <div class="btn-riga">
+          ${l.oggetti.map((o) => ind.oggetti.includes(o)
+            ? `<button class="btn disabilitato">${esc(o)} ✓</button>`
+            : `<button class="btn" data-oggetto="${esc(o)}">prendete “${esc(o)}”</button>`).join('')}
+        </div>` : ''}
     </div>
     <div class="mt"></div>
     <div class="pannello">
@@ -206,6 +214,16 @@ function schedaLuogo(l) {
     </div>`;
   dopoBarra();
   app.querySelector('#fine-visita').onclick = home;
+  app.querySelectorAll('[data-oggetto]').forEach((b) => b.onclick = () => {
+    const nome = b.dataset.oggetto;
+    if (!ind.oggetti.includes(nome)) ind.oggetti.push(nome);
+    salvaP();
+    const cardO = cartaOggetto(ctx.carte, P().episodio, nome);
+    pannelloMsg(nome.toLowerCase(),
+      `${cardO ? `<div class="carta-grande"><img src="${urlCartaSafe(cardO.file)}" alt=""></div>` : ''}
+       <p class="nota mt">Prendete la carta “${esc(nome)}” dal mazzo Oggetti: da ora è vostra.</p>`,
+      () => schedaLuogo(l));
+  });
   if (scena !== false) {
     app.querySelectorAll('[data-tipo]').forEach((b) =>
       b.onclick = () => approfondisci(l, b.dataset.tipo, tipiQui));
