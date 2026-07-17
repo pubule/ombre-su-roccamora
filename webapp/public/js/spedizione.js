@@ -26,6 +26,16 @@ const SP = () => ctx.partita.spedizione;
 const salvaP = () => salva(ctx.partita);
 const orologio = () => ctx.ep.marea ? 'Marea' : 'Canto';
 
+// quando arriva il prossimo segnalino automatico dell'orologio
+function prossimoTick() {
+  const sp = SP();
+  const ogni = ctx.ep.marea ? ctx.ep.marea.ogni : ctx.comune.regole.tick_canto_ogni;
+  const soglia = ctx.ep.marea ? ctx.ep.marea.soglia : ctx.comune.regole.soglia_canto;
+  const mancano = ogni - (sp.round % ogni || ogni) + 1;
+  return `Il ${orologio()} sale da solo a fine del ${sp.round + mancano - 1}° round` +
+         ` (e con le carte Crescendo); al ${soglia}° segnalino cambia tutto.`;
+}
+
 function fascia(taglia) {
   if (taglia === 2 || taglia === 4) return 0;
   if (taglia === 3 || taglia === 5) return 1;
@@ -48,11 +58,12 @@ function feriteMax(nemico) {
 
 function barra(titolo) {
   const sp = SP();
+  const fase = sp && sp.fase === 'nemici' ? 'nemici' : 'eroi';
   return `
   <div class="barra">
     <button class="btn" id="nav-esci">← menu</button>
     <div class="titolo">${esc(titolo)}</div>
-    <span class="sc" style="color:var(--oro-chiaro)">round ${sp ? sp.round : 1} ·
+    <span class="sc" style="color:var(--oro-chiaro)">round ${sp ? sp.round : 1} · ${fase} ·
       ${orologio().toLowerCase()} ${sp ? sp.canto : 0}</span>
   </div>`;
 }
@@ -105,7 +116,7 @@ function setup() {
   dopoBarra();
   app.querySelector('#inizia-spedizione').onclick = () => {
     partita.spedizione = {
-      round: 1, canto: 0, cantoBonus: false, esito: null,
+      round: 1, fase: 'eroi', canto: 0, cantoBonus: false, esito: null,
       mazzo: costruisciMazzo(ctx.carte, ep, partita.episodio),
       rivelate: [ep.tessere[0].id],
       nemici: [], prossimoNum: {},
@@ -120,6 +131,7 @@ function plancia() {
   const { app, ep } = ctx;
   const sp = SP();
   if (sp.esito) return epilogo();
+  if (sp.fase === 'nemici') return faseNemici();
   const restanti = sp.mazzo.ordine.length - sp.mazzo.indice;
   app.innerHTML = `
     ${barra(ep.titolo)}
@@ -162,7 +174,7 @@ function plancia() {
       <h2>fine del turno degli eroi</h2>
       <p class="nota">Quando tutti hanno agito: la Minaccia pesca
       ${carteDaPescare(ctx.comune, P().party.length, sp.round, sp.cantoBonus, P().episodio)}
-      carta/e (${restanti} nel mazzo), poi l’orologio del ${orologio()} avanza da solo.</p>
+      carta/e (${restanti} nel mazzo). ${prossimoTick()}</p>
       <div class="btn-riga">
         <button class="btn pieno" id="fase-minaccia">fase minaccia →</button>
       </div>
@@ -306,13 +318,54 @@ async function faseMinaccia() {
         fatto);
     });
   }
-  const annunciRound = fineRound(ctx.comune, ctx.ep, sp);
+  sp.fase = 'nemici';
   salvaP();
-  if (annunciRound.length) {
-    return pannelloMsg(`${orologio().toLowerCase()} — fine round ${sp.round}`,
-      annunciRound.map((a) => `<p class="mt"><b>${esc(a)}</b></p>`).join(''), plancia);
-  }
-  plancia();
+  faseNemici();
+}
+
+// ----------------------------------------------------------- fase nemici
+function faseNemici() {
+  const { app } = ctx;
+  const sp = SP();
+  const tipiInCampo = [...new Set(sp.nemici.map((x) => x.nome))]
+    .map((nome) => ctx.comune.nemici.find((x) => x.nome === nome)).filter(Boolean);
+  app.innerHTML = `
+    ${barra(ctx.ep.titolo)}
+    <div class="pannello">
+      <h2>fase nemici — si attivano tutti</h2>
+      <p class="nota">Ogni nemico in campo si muove verso l’eroe più vicino e attacca se
+      adiacente (2d6 + Attacco ≥ Difesa dell’eroe → subisce il Danno). Ambiguità?
+      Regola d’Oro: sceglie il gruppo, sempre l’opzione peggiore per sé.</p>
+      ${tipiInCampo.length ? tipiInCampo.map((n) => `
+        <div class="mt">
+          <p><b>${esc(n.nome.toLowerCase())}</b> — Mov ${n.mov} · Attacco +${n.att} ·
+             Danno ${n.dan}${n.gittata ? ` · gittata ${n.gittata}` : ''}</p>
+          ${n.note ? `<p class="nota">${rendi(n.note)}</p>` : ''}
+        </div>`).join('')
+      : '<p class="mt"><i>Nessun nemico in campo: la fonderia trattiene il fiato.</i></p>'}
+    </div>
+    <div class="mt"></div>
+    <div class="pannello">
+      <h2>registro delle ferite</h2>
+      ${registroHtml()}
+    </div>
+    <div class="btn-riga">
+      <button class="btn pieno" id="fine-round">fine round →</button>
+      <button class="btn" id="sconfitta">gli eroi cadono</button>
+    </div>`;
+  dopoBarra();
+  agganciaRegistro();
+  app.querySelector('#sconfitta').onclick = () => fine('sconfitta');
+  app.querySelector('#fine-round').onclick = () => {
+    const annunciRound = fineRound(ctx.comune, ctx.ep, sp);   // round += 1 e tick
+    sp.fase = 'eroi';
+    salvaP();
+    if (annunciRound.length) {
+      return pannelloMsg(`${orologio().toLowerCase()} — fine round ${sp.round - 1}`,
+        annunciRound.map((a) => `<p class="mt"><b>${esc(a)}</b></p>`).join(''), plancia);
+    }
+    plancia();
+  };
 }
 
 // ------------------------------------------------------------------ fine

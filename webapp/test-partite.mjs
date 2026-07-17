@@ -240,10 +240,16 @@ for (const sc of SCENARI) {
     }
     ok((await stato(page, sc.ep)).spedizione.nemici.length === 0, 'nemico mai abbattuto dai pip');
 
-    // sei fasi Minaccia: pesca per taglia + tick dell'orologio
+    // sei round completi: fase minaccia (pesca), fase nemici, fine round (tick)
     for (let r = 0; r < 6; r++) {
       await page.locator('#fase-minaccia').click();
-      while (await page.locator('#ok-msg').count()) {
+      while (await page.locator('#ok-msg').count()) {         // carte pescate
+        await page.locator('#ok-msg').click();
+        await page.waitForTimeout(120);
+      }
+      await page.locator('#fine-round').waitFor();            // fase nemici
+      await page.locator('#fine-round').click();
+      while (await page.locator('#ok-msg').count()) {         // annunci del tick
         await page.locator('#ok-msg').click();
         await page.waitForTimeout(120);
       }
