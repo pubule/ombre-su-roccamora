@@ -147,6 +147,8 @@ def pagina_stradario(c, voci):
         pw, ph = p.wrapOn(c, W - 2*MX, 20*mm)
         p.drawOn(c, MX, y - ph)
         y -= ph + 3.2*mm
+    import gen_narrator as N
+    N.chiusa_pagina(c)
     c.showPage()
 
 
