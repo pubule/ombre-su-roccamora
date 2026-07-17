@@ -20,11 +20,13 @@ sys.path.insert(0, os.path.join(ROOT, 'scripts'))
 OUT = os.path.join(ROOT, 'webapp', 'data')
 os.makedirs(OUT, exist_ok=True)
 
-from gen_cards import HEROES, LUOGHI, TILES, NEMICI, OGGETTI  # noqa: E402
+from gen_cards import HEROES, LUOGHI, TILES, NEMICI, OGGETTI, ESAMI_CARBONE  # noqa: E402
 import story  # noqa: E402
 story.apply(LUOGHI, TILES, NEMICI, HEROES, [])
-from gen_preludio import LUOGHI_P, TESSERE_P, MAZZO_P, OGGETTI_LUOGO_P, LETTERA_P  # noqa: E402
-from gen_ep2 import LUOGHI_2, TILES_2, NEMICI_2, OGGETTI_LUOGO_2, LETTERA_2  # noqa: E402
+from gen_preludio import (LUOGHI_P, TESSERE_P, MAZZO_P, OGGETTI_LUOGO_P, LETTERA_P,  # noqa: E402
+                          ESAMI_CARBONE_P)
+from gen_ep2 import (LUOGHI_2, TILES_2, NEMICI_2, OGGETTI_LUOGO_2, LETTERA_2,  # noqa: E402
+                     ESAMI_CARBONE_2)
 from gen_mappa import VOCI_MAPPA, MAPPE  # noqa: E402
 from gen_bestiario import FASCE, BOSS_DELTA, ferite_per_fascia  # noqa: E402
 from simulate_playtest import (INDAGINE_UNLOCK, TICK_CANTO_OGNI, SOGLIA_CANTO,  # noqa: E402
@@ -216,6 +218,7 @@ episodi = dict(
         oggetti_luogo=OGGETTI_LUOGO_P,
         tessere=[dict(id=t[0], nome=t[1].title(), art=t[2], testo=t[3]) for t in TESSERE_P],
         obiettivo='Liberate Ansaldo (Interagire, in T4) e riportatelo in T1, alla barca.',
+        esami_carbone=ESAMI_CARBONE_P,
         mazzo_da_ep1=MAZZO_P,
         pool={'LO SGHERRO': 4, 'IL SICARIO': 2},   # miniature Ep.1 riusate
         marea=dict(ogni=2, soglia=3, effetto='Movimento -1 (minimo 1) per tutti gli eroi.'),
@@ -227,6 +230,7 @@ episodi = dict(
         cartella='Episodio 1', ore_budget=6,
         lettera=story.LETTERA2,
         obiettivo='Liberate Ruggero (Interagire, la cella in T6) e riportatelo in T1, alla banchina.',
+        esami_carbone=ESAMI_CARBONE,
         luoghi=[luogo_json(L, OGGETTI_LUOGO_1, REPERTI_LUOGO['ep1']) for L in LUOGHI],
         tessere=[tessera_json(T) for T in TILES],
         oggetti=[oggetto_json(o) for o in OGGETTI],
@@ -241,6 +245,7 @@ episodi = dict(
         lettera=LETTERA_2,
         obiettivo='Liberate Ilario (Interagire, in T5) e riportatelo in T1, alla chiatta. '
                   'Secondario: le campanelle grezze in T6, una ad azione (Interagire).',
+        esami_carbone=ESAMI_CARBONE_2,
         luoghi=[luogo_json(L, OGGETTI_LUOGO_2, REPERTI_LUOGO['ep2']) for L in LUOGHI_2],
         tessere=[tessera_json(T) for T in TILES_2],
         vantaggio=dict(slancio_ore=3, slancio_luoghi=7, preparati_ore=1, preparati_luoghi=6),

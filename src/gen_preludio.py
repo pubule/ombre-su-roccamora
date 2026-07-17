@@ -553,6 +553,14 @@ def fit_desc(c, text, start=9.5, floor=7, desc_top=None):
 # chi arbitra per sapere quale carta fisica prendere. A differenza di
 # Episodio 1 (OGGETTI in gen_cards.py, con 'ref'), il Preludio non ha una
 # lista strutturata: solo 2 oggetti, entrambi a P1, mappati qui a mano.
+# Esami di Carbone (vedi gen_cards.ESAMI_CARBONE per la bibbia di scrittura)
+ESAMI_CARBONE_P = {
+    'ANELLO DI CHIAVI': '«Ferro dolce, chiavi vecchie — tranne una: tagliata da poco, su '
+                'calco di cera. Qualcuno ha voluto un doppione senza passare dal fabbro '
+                'della Società. Ansaldo le sue chiavi le conosceva a peso: questa non '
+                'è sua.»',
+}
+
 OGGETTI_LUOGO_P = {
     'P1': ['L’Anello di Chiavi', 'La Pipa di Ansaldo'],
 }
@@ -709,6 +717,8 @@ def luoghi():
                 rows.append(f"<b>{tipo}</b> <i>({a['tipo']} — {sblocca})</i>")
         body(rows, H - 55*mm)
         c.showPage()
+    import gen_narrator as N
+    N.pagina_esami_carbone(c, ESAMI_CARBONE_P)
     c.save()
     pad_to_even_pages(out_path)
 

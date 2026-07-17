@@ -606,13 +606,40 @@ function inventario() {
   const app_ = ind.approfondimentiLetti.map((x) =>
     cartaApprofondimento(ctx.carte, epId, x.soggetto)).filter(Boolean).map((c) => c.file);
   const rep = ind.reperti || [];
+  const carbone = P().party.includes('FULGENZIO CARBONE') && !P().carboneUsato &&
+                  (ind.oggetti.length || rep.length);
   pannelloMsg('quel che avete in mano',
     `${ogg.length ? `<p><b>Oggetti</b></p>${galleria(ogg)}` : ''}
      ${app_.length ? `<p class="mt"><b>Approfondimenti</b></p>${galleria(app_)}` : ''}
      ${rep.length ? `<p class="mt"><b>Reperti</b></p>${rep.map((r) =>
        `<img class="reperto-img mt" src="${urlReperto(r)}" alt="">`).join('')}` : ''}
-     ${!ogg.length && !app_.length && !rep.length ? '<p class="nota">Ancora niente. La notte è giovane.</p>' : ''}`,
+     ${!ogg.length && !app_.length && !rep.length ? '<p class="nota">Ancora niente. La notte è giovane.</p>' : ''}
+     ${carbone ? `<div class="btn-riga"><button class="btn" id="esame-carbone">esame di Carbone (1 volta)</button></div>` : ''}`,
     home);
+  ctx.app.querySelector('#esame-carbone')?.addEventListener('click', () => esameCarbone(inventario));
+}
+
+// "E' passato dalla mia bottega": Fulgenzio esamina un Oggetto o un Reperto.
+// Se il pezzo ha una voce d'esame la si legge e l'uso si consuma; se non ce
+// l'ha, "non ha segreti per lui" e l'occasione resta (patto gentile).
+async function esameCarbone(dopo) {
+  const ind = IND();
+  const pezzi = [...ind.oggetti, ...(ind.reperti || []).map((r) => r.replace(/^Reperto [A-Z] - /, ''))];
+  const scelto = await scegliDaLista('cosa porta al banco di Carbone?',
+    pezzi.map((n) => ({ id: n, label: n })));
+  if (!scelto) return dopo();
+  const esami = ctx.ep.esami_carbone || {};
+  const chiave = Object.keys(esami).find((k) =>
+    norm(scelto).includes(norm(k)) || norm(k).includes(norm(scelto)));
+  if (!chiave) {
+    return pannelloMsg('esame di carbone', `<p><i>Carbone lo rigira due volte, poi lo
+      rende con un mezzo inchino: «Buon pezzo. Ma non ha segreti per me.»</i></p>
+      <p class="nota mt">L’occasione non si spende: portategli qualcos’altro.</p>`, dopo);
+  }
+  P().carboneUsato = true;
+  salvaP();
+  pannelloMsg(`esame di carbone — ${scelto.toLowerCase()}`,
+    `<p><i>${rendi(esami[chiave])}</i></p>`, dopo);
 }
 
 

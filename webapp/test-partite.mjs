@@ -246,6 +246,16 @@ for (const sc of SCELTI) {
          'oggetto trovato non registrato');
     }
 
+    // esame di Carbone (se Fulgenzio e' nel party e c'e' qualcosa da esaminare)
+    if (await page.locator('#esame-carbone').count()) {
+      await page.locator('#esame-carbone').click();
+      await page.locator('.scelta-box [data-id]:not(.annulla)').first().click();
+      await page.locator('#ok-msg').waitFor();
+      ok((await page.locator('.pannello').innerText()).length > 40, 'esame di Carbone muto');
+      await page.locator('#ok-msg').click();
+      await page.locator('#fase-minaccia').waitFor();
+    }
+
     // azione Attaccare guidata: eroe, arma, totale 12 = colpito di sicuro
     // (il registro puo' gia' contenere gli auto-spawn del QUANDO RIVELATE)
     const nemiciPrima = (await stato(page, sc.ep)).spedizione.nemici.length;

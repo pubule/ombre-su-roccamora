@@ -335,6 +335,28 @@ LUOGHI = [
          ]),
 ]
 
+# Gli esami di Carbone ("E' passato dalla mia bottega", 1 volta a episodio):
+# la voce che chi tiene il fascicolo Luoghi legge quando Fulgenzio esamina un
+# Oggetto o un Reperto. Bibbia di scrittura: CORROBORAZIONE di fatti gia' in
+# gioco, colore da esperto, mai un indizio nuovo o una Domanda risolta. La
+# chiave si confronta per inclusione (norm) col nome del pezzo posseduto;
+# i pezzi senza voce non consumano l'uso.
+ESAMI_CARBONE = {
+    'DIAPASON': 'Carbone lo fa cantare con l’unghia e ascolta a occhi chiusi. «Non è '
+                'accordato per un’orchestra: è un La ribassato — l’accordatura delle '
+                'campane. Chi l’ha commissionato non voleva suonare musica: voleva '
+                'parlare con un bronzo. E la commessa è fresca: l’argento non ha ancora '
+                'preso il fiato dell’età.»',
+    'CORDA DI VIOLINO': '«Minugia e argento filato, lavoro fine — ma guardate i capi: cera '
+                'nera nelle spire. Chi l’ha maneggiata per ultimo aveva le mani nella '
+                'cera, non nella colofonia. Una corda da musica, passata per un posto '
+                'dove la musica non si suona: si cola.»',
+    'FASCICOLO DEL 1741': '«La rilegatura è stata aperta e ricucita, e non da un archivista: '
+                'filo da calzolaio, passato due volte. Qualcuno ha tolto o aggiunto '
+                'pagine prima di rimetterlo sullo scaffale — e la scheda delle '
+                'consultazioni dice chi l’ha avuto in mano per ultimo.»',
+}
+
 # Oggetti: carta fisica per ogni oggetto trovabile, in Indagine (nei Luoghi) o
 # in Spedizione (Cercare in una tessera). `effetto` e' copiato 1:1 dal dato di
 # provenienza (indizio del Luogo o `cerca` della tessera in TILES sotto) - la

@@ -24,7 +24,7 @@ from reportlab.lib.styles import ParagraphStyle
 
 from deluxe_style import (register_fonts, torn_portrait, rule_border, pad_to_even_pages, parchment_art,
                           F, INK, RED, TEAL, SEPIA)
-from gen_cards import LUOGHI, TILES, OGGETTI
+from gen_cards import LUOGHI, TILES, OGGETTI, ESAMI_CARBONE
 import story
 story.apply(LUOGHI, TILES, [], [], [])
 
@@ -460,6 +460,31 @@ def pagina_retro_tessera(c, tid, nome, t, oggetto_rows=None):
         p.drawOn(c, MX, y - ph)
         y -= ph + 5*mm
 
+def pagina_esami_carbone(c, esami):
+    """Coda del fascicolo Luoghi: le voci che chi arbitra legge quando
+    Fulgenzio Carbone esamina un Oggetto o un Reperto (1 volta a episodio).
+    Corroborazione di fatti gia' in gioco, mai indizi nuovi; i pezzi senza
+    voce non hanno segreti per lui (e l'uso non si spende)."""
+    if not esami:
+        return
+    parchment_art(c, W, H)
+    rule_border(c, W, H)
+    c.setFillColor(RED); c.setFont(F['sc'], 16)
+    c.drawString(MX, H - 22*mm, 'gli esami di carbone — solo per chi arbitra')
+    c.setFillColor(SEPIA); c.setFont(F['i'], 8.5)
+    c.drawString(MX, H - 28*mm, 'Quando Fulgenzio esamina un Oggetto o un Reperto (1 volta a episodio): se il '
+                                'pezzo è qui sotto, leggete la voce.')
+    c.drawString(MX, H - 33*mm, 'Se non c’è, il pezzo non ha segreti per lui — ditelo, e l’uso non si spende.')
+    y = H - 45*mm
+    for nome, voce in esami.items():
+        c.setFillColor(TEAL); c.setFont(F['sc'], 11)
+        c.drawString(MX, y, nome.lower())
+        p = Paragraph(voce, st('esame', fontName=F['i'], fontSize=10, leading=14, alignment=4))
+        pw, ph = p.wrapOn(c, W - 2*MX, 60*mm)
+        p.drawOn(c, MX, y - 5*mm - ph)
+        y -= ph + 16*mm
+    c.showPage()
+
 def pagina_indice_citta(c, luoghi, etichetta_ep):
     """Prima pagina del fascicolo: l'indice voce di Mappa -> carta Luogo,
     solo per chi arbitra - e' il ponte che NON sta mai sulla Mappa ne'
@@ -544,6 +569,7 @@ def narratore():
 
     # (le pagine tessera vivono nel fascicolo Spedizione, fronte/retro -
     # vedi gen_gothic.spedizione: questo fascicolo copre solo l'Indagine)
+    pagina_esami_carbone(c, ESAMI_CARBONE)
     c.save()
     pad_to_even_pages(out_path)
 

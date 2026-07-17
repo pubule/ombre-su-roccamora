@@ -363,6 +363,13 @@ prima che l'Ep. 1 lo riveli.
    - **Esiti vuoti con colore** (campo `cerca_vuoto` in `TILES`): il retro dà la
      frase pronta anche per il "niente", così il tono di chi legge è davvero
      identico tra tesoro e nulla — e anche il buco è immersivo.
+   - **Esami di Carbone** (dizionario `ESAMI_CARBONE*` per episodio, pagina in
+     coda a `Luoghi.pdf` + webapp): 2-3 voci sugli Oggetti/Reperti più
+     "materiali" dell'episodio, lette quando Fulgenzio li esamina (1 volta a
+     episodio). Bibbia di scrittura: CORROBORAZIONE di fatti già in gioco con
+     l'occhio dell'esperto — mai un indizio nuovo, mai una Domanda risolta. I
+     pezzi senza voce "non hanno segreti per lui" e l'uso non si spende.
+     (Gap storico: l'abilità è esistita per tre episodi senza alcuna voce.)
    - **Aiuto profano** (Regolamento + webapp): quando NESSUN eroe del party può
      più sbloccare un tipo (abilità assente o cariche/jolly esauriti), un eroe
      qualsiasi tenta ACUME (Difficile), una sola volta per luogo — riuscita
@@ -1028,6 +1035,8 @@ Ogni testo deve far *vedere* la scena, non riassumerla. Regole:
 - [ ] Epilogo + Frammento numerato + aggancio + Bivio sigillato con conseguenze definite?
 - [ ] Le conseguenze del Bivio dell'episodio precedente sono applicate all'inizio?
 - [ ] Ci sono 2–3 reperti stampabili coerenti con gli indizi?
+- [ ] `ESAMI_CARBONE*` ha 2–3 voci (corroborazione, mai indizi nuovi) e la pagina
+      è in coda a `Luoghi.pdf`?
 - [ ] Palette, font, sigilli, formati e dorsi identici alla bibbia visiva? Hai controllato
       che i caratteri usati coi font small-caps esistano davvero nel cmap (niente − o ♪)?
 - [ ] Tutti i testi rispettano la bibbia di scrittura (flavor sulle Minacce,

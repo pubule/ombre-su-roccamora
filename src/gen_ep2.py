@@ -762,6 +762,22 @@ TESSERE_DESC_2 = {
           "ancora lucida.",
 }
 
+# Esami di Carbone (vedi gen_cards.ESAMI_CARBONE per la bibbia di scrittura)
+ESAMI_CARBONE_2 = {
+    'CONTRASSEGNO': '«Piombo da sigillo, rifuso una volta sola: sotto la patina si legge '
+                'ancora mezzo stemma daziario. Chi conia questi gettoni ha accesso ai '
+                'sigilli del Deposito — o a chi ne raccoglie i trucioli.»',
+    'MARTELLO DI COLLAUDO': '«L’impugnatura è consumata dalla mano di Ilario, ma guardate la '
+                'testa: un solo segno di provino recente, netto. Il suono sbagliato è '
+                'stato sentito una volta — e subito dopo il martello è finito sotto il '
+                'banco. Nessun fonditore lo posa lì: gli è caduto, o gliel’hanno fatto '
+                'cadere di mano.»',
+    'LETTERA DI C.B.': '«Carta di pregio, ma piegata coi guanti: nessun grasso di dita, '
+                'nemmeno un’ombra. E l’inchiostro è ferro-gallico da registro, non da '
+                'salotto — chi ha scritto queste righe passa le giornate a firmare '
+                'carte d’ufficio.»',
+}
+
 # Carte Oggetto nascoste nelle tessere (retro delle pagine tessera).
 OGGETTI_TESSERA_2 = {'T2': ['Un Badile del Formatore'],
                      'T3': ['Una Latta d’Olio di Colata ⚠ rischioso']}
@@ -805,6 +821,7 @@ def luoghi():
 
     # (le pagine tessera vivono nel fascicolo Spedizione, fronte/retro -
     # vedi spedizione(): questo fascicolo copre solo l'Indagine)
+    N.pagina_esami_carbone(c, ESAMI_CARBONE_2)
     c.save()
     pad_to_even_pages(out_path)
     print('ok ->', out_path)

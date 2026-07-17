@@ -501,7 +501,33 @@ function oggettiHtml() {
       : '<p class="nota">Il gruppo è a mani vuote. Cercare aiuta.</p>'}
     <div class="btn-riga">
       <button class="btn" id="aggiungi-oggetto">+ oggetto trovato cercando</button>
+      ${P().party.includes('FULGENZIO CARBONE') && !P().carboneUsato &&
+        ((ind.oggetti || []).length || (ind.reperti || []).length)
+        ? '<button class="btn" id="esame-carbone">esame di Carbone (1 volta)</button>' : ''}
     </div>`;
+}
+
+// l'esame di Fulgenzio vale anche in spedizione (1 uso per episodio, come
+// in indagine): voce letta = uso speso, pezzo muto = occasione salva
+async function esameCarboneSped() {
+  const ind = P().indagine;
+  const pezzi = [...(ind.oggetti || []),
+                 ...(ind.reperti || []).map((r) => r.replace(/^Reperto [A-Z] - /, ''))];
+  const scelto = await scegliDaLista('cosa porta al banco di Carbone?',
+    pezzi.map((n) => ({ id: n, label: n })));
+  if (!scelto) return plancia();
+  const esami = ctx.ep.esami_carbone || {};
+  const chiave = Object.keys(esami).find((k) =>
+    norm(scelto).includes(norm(k)) || norm(k).includes(norm(scelto)));
+  if (!chiave) {
+    return pannelloMsg('esame di carbone', `<p><i>Carbone lo rigira due volte, poi lo
+      rende con un mezzo inchino: «Buon pezzo. Ma non ha segreti per me.»</i></p>
+      <p class="nota mt">L’occasione non si spende: portategli qualcos’altro.</p>`, plancia);
+  }
+  P().carboneUsato = true;
+  salvaP();
+  pannelloMsg(`esame di carbone — ${scelto.toLowerCase()}`,
+    `<p><i>${rendi(esami[chiave])}</i></p>`, plancia);
 }
 
 function agganciaOggetti() {
@@ -513,6 +539,7 @@ function agganciaOggetti() {
     pannelloMsg(nome.toLowerCase(),
       `<div class="carta-grande"><img src="${urlCarta(c.file)}" alt=""></div>`, plancia);
   });
+  app.querySelector('#esame-carbone')?.addEventListener('click', esameCarboneSped);
   app.querySelector('#aggiungi-oggetto').onclick = async () => {
     const tutte = [...(ctx.carte.oggetti_carte[P().episodio] || []),
                    ...(ctx.carte.oggetti_carte.preludio || [])];
