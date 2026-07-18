@@ -2122,6 +2122,229 @@ const EP8 = [...LUOGHI8, ...EP8_INDIZI, ...EP8_TESTIMONI, ...EP8_REFERTI,
              ...EP8_MINACCE, ...EP8_OGGETTI, ...EP8_NEMICI];
 
 
+
+// ============================================================ EPISODIO 9
+// «Il processo» — Atto II, mythology-light (vedi DESIGN-EPISODIO-9.md).
+// Obiettivo SCORTA: Riva vivo al Molo. Il Sicario Gentile caccia il teste.
+
+const LUOGHI9 = [
+  { n: 1, nome: 'Il Tribunale', req: 'Disponibile dall’inizio',
+    art: 'artworks/Il Tribunale.png',
+    testo: 'Un tempio spento: colonne, l’eco dei passi, la Giustizia bendata che di notte inquieta. Negli uffici del cancelliere una lampada accesa: si prepara l’udienza di domani, e in silenzio anche il modo di guastarla.',
+    approfondimenti: [
+      { tipo: 'Osservazione', soggetto: 'Il banco della difesa',
+        testo: 'I faldoni della difesa sono ORDINATI per la deposizione di domani: ogni obiezione già scritta, ogni testimone già smontato — compreso Riva, con una nota: «ritratta o non compare». La difesa non improvvisa: sa GIÀ cosa dirà Riva, o cosa non dirà. Qualcuno gliel’ha promesso.' },
+    ] },
+  { n: 2, nome: 'La Redazione della Gazzetta', req: 'Disponibile dall’inizio',
+    art: 'artworks/La Gazzetta.png',
+    testo: 'Il torchio fermo ma caldo, le bozze appese come panni, Ranuzzi curvo sul processo con l’astio del cronista a cui hanno tolto la notizia più grossa. Sa tutto e non può stampare niente: l’uomo giusto con cui parlare, di notte, a bassa voce.',
+    approfondimenti: [
+      { tipo: 'Testimonianza', soggetto: 'Ranuzzi',
+        testo: '«Ho visto arrivare l’avvocato alla stazione: nessuno ad aspettarlo tranne un uomo elegante coi guanti chiari, che gli ha preso la valigia e non ha detto una parola. Quel signore non alloggia con l’avvocato: alloggia solo, alla Locanda del Forestiero. E non è un cameriere: i camerieri non hanno quelle spalle, e non si guardano MAI alle spalle come lui.»' },
+    ] },
+  { n: 3, nome: 'La Pensione del Giurato', req: 'Disponibile dall’inizio',
+    art: 'artworks/Pensione Serena.png',
+    testo: 'Corridoi che sanno di cavolo e cera, una padrona che non fa domande, e dietro una porta al secondo piano un giurato che beve per non pensare a tre figlie di cui qualcuno conosce i nomi. La coscienza, qui, ha l’odore del vino cattivo.',
+    approfondimenti: [
+      { tipo: 'Testimonianza', soggetto: 'Amilcare Bo',
+        testo: '«L’oro della parcella dell’avvocato e l’oro dei miei debiti sono lo STESSO oro: marenghi vecchi, bordi molati. Chi ha comprato me ha comprato lui, e ha comprato il verdetto. Non è un avvocato che difende un cliente: è un impiegato che chiude una pratica. E la pratica siamo NOI.»' },
+    ] },
+  { n: 4, nome: 'La Gendarmeria', req: 'Disponibile dall’inizio',
+    art: 'artworks/La Gendarmeria.png',
+    testo: 'Mezza vuota di notte: un piantone assonnato, il registro aperto, le celle silenziose. L’usciere fidato, prestato alla guardia, custodisce un segreto troppo grande per una sacrestia — e sa che il cambio di guardia, stanotte, non gli piace.',
+    approfondimenti: [
+      { tipo: 'Testimonianza', soggetto: 'L’usciere del Tribunale',
+        testo: '«La deposizione di domani terrorizza gente importante: da quando ho nascosto Riva, mi hanno offerto uno stipendio annuo per dire dov’è. In oro vecchio. Ho detto di no — ho giurato sul Vangelo, io. Ma non tutti giurano, e il cambio di guardia di stanotte lo fa uno che ai Vangeli preferisce i marenghi.»' },
+    ] },
+  { n: 5, nome: 'Lo Studio dell’Avvocato Grassi',
+    req: 'Lo studio provvisorio dell’avvocato non riceve: «l’avvocato prepara la deposizione». Ma chi nomina il fondo giusto — quello che lo paga — trova un praticante spaventato e una porta socchiusa.',
+    art: 'artworks/Studio Grassi.png',
+    testo: 'Una scena teatrale: mobili d’affitto, faldoni nuovi di zecca, un ordine da chirurgo. Non ci vive nessuno: una bottega aperta per un solo lavoro, che chiuderà a caso chiuso. Sul tavolo l’oro non si vede — ma si sente, come un profumo.',
+    approfondimenti: [
+      { tipo: 'Referto', soggetto: 'Il registro delle ronde',
+        testo: 'Le «cortesie alle ronde» hanno un orario preciso, ripetuto: le pattuglie del porto e del centro «si diradano» tra l’una e le tre. Non è un caso: è una FINESTRA, comprata e pagata, ritagliata su misura per qualcosa che deve accadere in strada senza testimoni in divisa. Qualcosa come la scomparsa di un teste.' },
+    ] },
+  { n: 6, nome: 'La Sacrestia del Tribunale',
+    req: 'La sacrestia dietro l’aula è sbarrata e sorvegliata: si entra solo sapendo cosa custodisce — la parola giusta, quella che vale più di una chiave.',
+    art: 'artworks/Sacrestia del Tribunale.png',
+    testo: 'Una stanzetta senza finestre: un inginocchiatoio, una branda, una candela. Anselmo Riva ci vive da giorni come un topo in trappola, con la mantella addosso e gli occhi di chi ha già visto la propria lapide. L’unico posto sicuro della città — e sicuro solo fino al cambio di guardia.',
+    approfondimenti: [
+      { tipo: 'Osservazione', soggetto: 'Il verbale già scritto',
+        testo: 'La ritrattazione è battuta a macchina PRIMA che Riva l’abbia firmata — anzi, prima che l’abbiano convinto. Chi l’ha preparata non spera che Riva ritratti: DÀ PER SCONTATO che entro domani Riva non parlerà, in un modo o nell’altro. Il foglio bianco per la firma è un atto di fede in un sicario.' },
+    ] },
+  { n: 7, nome: 'La Casa del Teste',
+    req: 'La casa di Riva è vuota e sigillata dalla paura. Chi arriva sapendo del denaro giusto — l’oro che gira in questa storia — trova la porta ceduta e una minaccia lasciata bene in vista.',
+    art: 'artworks/Casa del Teste.png',
+    testo: 'Vuota e ordinata come una tomba: il letto rifatto, la valigia pronta sotto, la tazza lavata. Solo il cuscino è fuori posto — perché sopra, con cura, qualcuno ha lasciato un foglio che nessuno dovrebbe mai ricevere: il disegno della propria fine.',
+    approfondimenti: [
+      { tipo: 'Presagio', soggetto: 'La minaccia sul cuscino',
+        testo: 'A toccare il disegno della tomba: si vede una mano guantata di chiaro che posa il foglio sul cuscino con delicatezza, quasi con rispetto, e una seconda mano — nuda, con un anello da notaio — che lo raccoglie, ci scrive la data, e lo rimette a posto. Il sicario obbedisce; il notaio decide. La visione dura un rintocco.' },
+    ] },
+  { n: 8, nome: 'La Locanda del Forestiero',
+    req: 'La locanda del forestiero è discreta e cara. Chi lo nomina per quello che è — il forestiero coi guanti — trova l’oste loquace per la paura, e la stanza giusta al primo piano. Ma dopo le 23 la stanza è vuota: lui è già in strada.',
+    art: 'artworks/Locanda del Forestiero.png',
+    testo: 'Discreta e cara, la locanda di chi non vuole essere ricordato. Al primo piano, la stanza più lontana dalle scale è quella del signore coi guanti chiari: ordinata come una caserma, muta come una cassaforte. Ci si entra solo quando lui è fuori — e di notte è sempre fuori.',
+    approfondimenti: [
+      { tipo: 'Referto', soggetto: 'Il biglietto di C.B.',
+        testo: 'Carta di pregio, filigrana della cartiera dei casi passati; e la «M.» della firma ha lo stesso ricciolo del Tessitore delle lettere d’incarico. La mano che vi ha assunti scrive gli ordini a chi vi dà la caccia. «Che sia pulito» a doppia lettura: uccidere senza scandalo, o far sparire senza sangue? Perfino l’ordine è ambiguo, come chi lo firma.' },
+    ] },
+  { n: 9, nome: 'L’Approdo della Società',
+    req: 'L’approdo segreto della Società è protetto dall’oscurità e dal Salvacondotto: senza la carta del giudice, i posti di blocco notturni fermano chiunque — anche chi scorta un innocente.',
+    art: 'artworks/Molo del Lume.png',
+    testo: 'Un battello basso, due rematori fidati, una lanterna schermata. È QUI che finisce la scorta — Riva a bordo, e la verità salva fino all’alba. Da qui, di notte, si parte e si sparisce. Stanotte, se tutto va bene, si sparisce in tre.',
+    approfondimenti: [
+      { tipo: 'Presagio', soggetto: 'Il guanto sulla bitta',
+        testo: 'A raccogliere il guanto chiaro lasciato di proposito sulla bitta: si vede l’uomo che se l’è sfilato guardando il molo dall’ombra, con la calma di chi ha già scelto il punto in cui aspettarvi — non qui, dove sareste in guardia, ma prima, dove crederete d’avercela fatta. Il Sicario Gentile non insegue: ANTICIPA. La visione dura un rintocco.' },
+    ] },
+].map((L) => ({
+  art: L.art,
+  title: `${L.n} · ${L.nome}`,
+  file: `Episodio 9/Luoghi/${L.n} - ${L.nome.replace(/’/g, "'")}`,
+  type: `Luogo ${L.n}`,
+  rules: `{i}${L.req === 'Disponibile dall’inizio' ? L.testo : L.req}{/i}`,
+  approfondimenti: L.approfondimenti, n: L.n,
+}));
+
+const EP9_INDIZI = LUOGHI9.flatMap((L) =>
+  L.approfondimenti.filter((a) => a.tipo === 'Osservazione' || a.tipo === 'Presagio')
+    .map((a) => ({
+      art: L.art, n: L.n, kind: 'Indizio',
+      title: `Indizio Nascosto — ${a.soggetto}`,
+      file: `Episodio 9/Indizi/${a.soggetto.replace(/’/g, "'")}`,
+      type: a.tipo,
+      rules: `{i}◆ (${a.tipo}) ${a.testo}{/i}`,
+    })));
+
+const EP9_TESTIMONI = LUOGHI9.flatMap((L) =>
+  L.approfondimenti.filter((a) => a.tipo === 'Testimonianza').map((a) => ({
+    art: L.art, n: L.n, kind: 'Testimone',
+    title: `Testimone — ${a.soggetto}`,
+    file: `Episodio 9/Testimoni/${a.soggetto.replace(/’/g, "'")}`,
+    type: `Luogo ${L.n} · Testimone`,
+    rules: `{i}${a.testo}{/i}`,
+  })));
+
+const EP9_REFERTI = LUOGHI9.flatMap((L) =>
+  L.approfondimenti.filter((a) => a.tipo === 'Referto').map((a) => ({
+    art: L.art, n: L.n, kind: 'Referto',
+    title: `Referto — ${a.soggetto}`,
+    file: `Episodio 9/Referti/${a.soggetto}`,
+    type: `Luogo ${L.n} · Referto`,
+    rules: `{i}${a.testo}{/i}`,
+  })));
+
+// Mazzo 21: 11 spawn, 3 insidie, 3 crescendo, 4 eventi (+1 dal Bivio Ep. 8).
+const EP9_MINACCE = [
+  { art: 'artworks/I bravi del fondo.png', title: 'I Bravi del Fondo', tipo: 'Malavita',
+    flavor: 'Pagati dal fondo caritatevole. La carità, di notte, ha i coltelli.',
+    effect: 'Piazzate 1 Sgherro sull’uscita più vicina a Riva.' },
+  { art: 'artworks/I bravi del fondo.png', title: 'La Carità Armata', tipo: 'Malavita',
+    flavor: 'Un’opera pia che assume gente con le nocche rotte.',
+    effect: 'Piazzate 1 Sgherro sull’uscita più vicina a Riva.' },
+  { art: 'artworks/I bravi del fondo.png', title: 'Il Braccio dell’Avvocato', tipo: 'Malavita',
+    flavor: 'L’avvocato smonta le prove in aula. Fuori, le smonta così.',
+    effect: 'Piazzate 1 Sgherro sull’uscita più vicina a Riva: si attiva subito.' },
+  { art: 'artworks/I colleghi del gentile.png', title: 'I Colleghi del Gentile', tipo: 'Malavita',
+    flavor: 'Meno eleganti di lui. Non meno puntuali.',
+    effect: 'Piazzate 1 Sicario sull’uscita più vicina a Riva.' },
+  { art: 'artworks/I colleghi del gentile.png', title: 'Il Coltello dal Buio', tipo: 'Malavita',
+    flavor: 'Non si scusa: quello è un privilegio del capo.',
+    effect: 'Piazzate 1 Sicario sull’uscita più vicina a Riva: si attiva subito.' },
+  { art: 'artworks/La folla comprata.png', title: 'La Folla Comprata', tipo: 'Malavita',
+    flavor: 'Testimoni pagati per non testimoniare. Stanotte, per intralciare.',
+    effect: 'Piazzate 1 Sgherro sull’ingresso della tessera (dal lato da cui siete entrati).' },
+  { art: 'artworks/La folla comprata.png', title: 'Gli Ubriachi su Ordinazione', tipo: 'Malavita',
+    flavor: 'Barcollano proprio dove dovete passare. Proprio quando.',
+    effect: 'Piazzate 1 Sgherro sull’ingresso della tessera (dal lato da cui siete entrati).' },
+  { art: 'artworks/La folla comprata.png', title: 'Il Capannello', tipo: 'Malavita',
+    flavor: 'Si radunano a discutere di niente, spalle al muro, occhi su Riva.',
+    effect: 'Piazzate 1 Sgherro sull’uscita più vicina a Riva.' },
+  { art: 'artworks/I bravi del fondo.png', title: 'La Retroguardia', tipo: 'Malavita',
+    flavor: 'Chiudono la strada dietro di voi. Non si torna indietro.',
+    effect: 'Piazzate 1 Sgherro sull’ingresso della tessera (dal lato da cui siete entrati).' },
+  { art: 'artworks/I colleghi del gentile.png', title: 'L’Uomo sul Tetto', tipo: 'Malavita',
+    flavor: 'Non scende. Segnala. E qualcuno, sotto, accorre.',
+    effect: 'Piazzate 1 Sicario sull’uscita più vicina a Riva.' },
+  { art: 'artworks/I bravi del fondo.png', title: 'Il Fischio di Richiamo', tipo: 'Malavita',
+    flavor: 'Un fischio, e i bravi convergono dove serve.',
+    effect: 'Piazzate 1 Sgherro sull’uscita più vicina a Riva: si attiva subito.' },
+  { art: 'artworks/La nebbia del fiume.png', title: 'La Nebbia del Fiume', tipo: 'Insidia',
+    flavor: 'Sale dall’acqua e cancella i compagni a due passi. E Riva a uno.',
+    effect: 'Ogni eroe prova NERVI (Facile): chi fallisce ha 1 sola azione al prossimo turno.' },
+  { art: 'artworks/Il selciato viscido.png', title: 'Il Selciato Viscido', tipo: 'Insidia',
+    flavor: 'La pietra bagnata non perdona la fretta. E voi avete fretta.',
+    effect: 'L’eroe più avanzato prova NERVI (Media): se fallisce, 1 danno.' },
+  { art: 'artworks/La folla che spinge.png', title: 'La Folla che Spinge', tipo: 'Insidia',
+    flavor: 'Un capannello che si stringe: qualcuno cerca di separarvi da Riva.',
+    effect: 'L’eroe adiacente a Riva prova NERVI (Media): se fallisce, Riva è spinto di 2 caselle a caso (chi arbitra sceglie).' },
+  { art: 'artworks/La prima ronda passa.png', title: 'La Prima Ronda Passa', tipo: 'Crescendo',
+    flavor: 'Le lanterne dei gendarmi si allontanano. Puntuali, come pagate.',
+    effect: 'Aggiungete 1 segnalino Canto (l’Ora che stringe). Alla soglia: l’intervallo delle ronde è al colmo — ogni Fase Minaccia pesca 1 carta in più, per sempre. Se il Sicario Gentile è in gioco: si attiva subito.' },
+  { art: 'artworks/Le campane dell’una.png', title: 'Le Campane dell’Una', tipo: 'Crescendo',
+    flavor: 'Un rintocco solo, sull’acqua. L’ora del sicario comincia.',
+    effect: 'Aggiungete 1 segnalino Canto (l’Ora che stringe). Alla soglia: ogni Fase Minaccia pesca 1 carta in più, per sempre. Se il Sicario Gentile è in gioco: si attiva subito.' },
+  { art: 'artworks/L’intervallo delle ronde.png', title: 'L’Intervallo delle Ronde', tipo: 'Crescendo',
+    flavor: 'Per due ore, la città è di chi l’ha comprata. Sbrigatevi.',
+    effect: 'Aggiungete 1 segnalino Canto (l’Ora che stringe). Alla soglia: ogni Fase Minaccia pesca 1 carta in più, per sempre. Se il Sicario Gentile è in gioco: si attiva subito.' },
+  { art: 'artworks/Un portone amico.png', title: 'Un Portone Amico', tipo: 'Quiete',
+    flavor: 'Qualcuno lascia un portone accostato. In questa città, qualcuno vi vuole ancora bene.',
+    effect: 'Nessun effetto. Tirate il fiato: Riva vi guarda come si guarda chi non ti tradisce.' },
+  { art: 'artworks/La scorciatoia di ranuzzi.png', title: 'La Scorciatoia di Ranuzzi', tipo: 'Favore',
+    flavor: 'Il cronista conosce i vicoli meglio dei gendarmi. E ve ne regala uno.',
+    effect: 'Rivelate una tessera coperta adiacente a quella di un eroe (la scelgono i giocatori).' },
+  { art: 'artworks/Il ponte levato.png', title: 'Il Ponte Levato', tipo: 'Ostacolo',
+    flavor: 'Qualcuno ha alzato il ponticello di servizio: si passa, ma lenti.',
+    effect: 'Fino a fine round, sulla tessera dell’eroe attivo muoversi costa il doppio.' },
+  { art: 'artworks/Il coltello dal buio.png', title: 'La Lama Educata', tipo: 'Insidia',
+    flavor: '«Con permesso», dice il buio. E colpisce chi sta più vicino al teste.',
+    effect: 'L’eroe adiacente a Riva (a pari merito: sceglie il gruppo) subisce 1 danno — è il prezzo di fare da scudo.' },
+].map((m) => ({
+  art: m.art,
+  title: `${m.tipo} — ${m.title}`,
+  file: `Episodio 9/Minacce/${m.title.replace(/’/g, "'")}`,
+  rules: `{i}${m.flavor}{/i}{divider}${m.effect}`,
+}));
+
+const EP9_OGGETTI = [
+  { art: 'artworks/Salvacondotto del Giudice.png', nome: 'Il Salvacondotto del Giudice', ref: 'E9-L1',
+    fonte: 'Luogo 1 — Il Tribunale (entro le 20)',
+    flavor: 'Firmato e sigillato dal presidente. «Il teste arrivi vivo.» Apre il buio come una chiave.',
+    effetto: 'Alla partenza della scorta, scegliete UNA fra T2/T4/T5 e la SALTATE (i posti di blocco vi aprono la scorciatoia).' },
+  { art: 'artworks/Mantella da Sacrestano.png', nome: 'La Mantella da Sacrestano', ref: 'E9-L6',
+    fonte: 'Luogo 6 — La Sacrestia del Tribunale',
+    flavor: 'Grigia e anonima come cento altre. Nella folla, un sacrestano è un fantasma tra i fantasmi.',
+    effetto: 'Nel Mercato Coperto (T4), il PRIMO attacco portato a Riva manca automaticamente («non era lui»).' },
+  { art: 'artworks/Fischietto d’Allarme.png', nome: 'Il Fischietto d’Allarme', ref: 'E9-L4',
+    fonte: 'Luogo 4 — La Gendarmeria',
+    flavor: 'D’ordinanza, vero. Un fischio, e una ronda onesta accorre — dove ancora ce n’è una.',
+    effetto: 'Una volta in spedizione: rimuovete dal tavolo 1 Sgherro appena piazzato (la ronda lo mette in fuga).' },
+  { art: 'artworks/Tesserino della Gendarmeria.png', nome: 'Il Tesserino della Gendarmeria', ref: 'E9-L4',
+    fonte: 'Luogo 4 — La Gendarmeria',
+    flavor: 'Utile a un agente in servizio. Voi, di notte, non lo siete.',
+    effetto: 'Effetto: nessuno finora scoperto.' },
+  { art: 'artworks/Lettera di Ranuzzi.png', nome: 'La Lettera di Ranuzzi', ref: 'E9-L2',
+    fonte: 'Luogo 2 — La Redazione della Gazzetta',
+    flavor: 'È stampa, non autorità: convince i lettori, non i posti di blocco.',
+    effetto: 'Effetto: nessuno finora scoperto.' },
+].map((o) => ({
+  art: o.art,
+  title: o.nome,
+  file: `Episodio 9/Oggetti/${o.nome.replace(/’/g, "'")}`,
+  type: 'Oggetto',
+  rules: `{i}${o.flavor}{/i}{divider}${o.effetto}`,
+  ref: o.ref, fonte: o.fonte,
+}));
+
+const EP9_NEMICI = [
+  { art: 'artworks/Il Sicario Gentile.png', title: 'Il Sicario Gentile',
+    type: 'Il Primo Agente di C.B. (Boss) — Episodio 9',
+    rules: '{i}Il primo uomo di C.B. che la Società vede in faccia — e vorrebbe non averlo visto. Elegante, guanti chiari sempre puliti, la cortesia di chi ha fatto delle buone maniere un’arma: si scusa prima di colpire.{/i}{divider}Statistiche nel Bestiario. CACCIA IL TESTE: se può raggiungere Riva, attacca lui. «Il nome sbagliato» (D2): salta la prima attivazione.' },
+].map((n) => ({ ...n, file: `Episodio 9/Nemici/${n.title}` }));
+
+const EP9 = [...LUOGHI9, ...EP9_INDIZI, ...EP9_TESTIMONI, ...EP9_REFERTI,
+             ...EP9_MINACCE, ...EP9_OGGETTI, ...EP9_NEMICI];
+
+
 module.exports = {
   HEROES, NEMICI, MINACCE, LUOGHI, INDIZI, TESTIMONI, REFERTI, OGGETTI, PRELUDIO,
   PRELUDIO_LUOGHI, PRELUDIO_APPROFONDIMENTI, PRELUDIO_OGGETTI,
@@ -2132,5 +2355,6 @@ module.exports = {
   EP6, LUOGHI6, EP6_INDIZI, EP6_TESTIMONI, EP6_REFERTI, EP6_MINACCE, EP6_OGGETTI, EP6_NEMICI,
   EP7, LUOGHI7, EP7_INDIZI, EP7_TESTIMONI, EP7_REFERTI, EP7_MINACCE, EP7_OGGETTI, EP7_NEMICI,
   EP8, LUOGHI8, EP8_INDIZI, EP8_TESTIMONI, EP8_REFERTI, EP8_MINACCE, EP8_OGGETTI, EP8_NEMICI,
-  ALL: [...HEROES, ...NEMICI, ...MINACCE, ...LUOGHI, ...INDIZI, ...TESTIMONI, ...REFERTI, ...OGGETTI, ...PRELUDIO, ...EP2, ...EP3, ...EP4, ...EP5, ...EP6, ...EP7, ...EP8],
+  EP9, LUOGHI9, EP9_INDIZI, EP9_TESTIMONI, EP9_REFERTI, EP9_MINACCE, EP9_OGGETTI, EP9_NEMICI,
+  ALL: [...HEROES, ...NEMICI, ...MINACCE, ...LUOGHI, ...INDIZI, ...TESTIMONI, ...REFERTI, ...OGGETTI, ...PRELUDIO, ...EP2, ...EP3, ...EP4, ...EP5, ...EP6, ...EP7, ...EP8, ...EP9],
 };

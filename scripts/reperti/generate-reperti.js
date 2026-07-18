@@ -598,6 +598,61 @@ Chi canterà al di sotto, non si lamenti di ciò che al di sotto risponde.`;
     </div></div>
   `);
 
+
+  // --- Episodio 9, Reperto A: il verbale della ritrattazione (L6) ---
+  const repertoA9 = page(`
+    <div class="wrap"><div style="zoom:0.88;">
+      <div class="serif" style="font-style:italic; font-size:38px; color:#3a2415; mix-blend-mode:multiply; margin-bottom:50px;">Reperto A — verbale di ritrattazione (bozza)</div>
+      <div class="serif" style="font-size:46px; line-height:72px;">
+        <p style="margin-bottom:34px;" class="caps">deposizione del teste anselmo riva</p>
+        <p style="margin-bottom:34px;">Il sottoscritto dichiara di aver ERRATO nel riferire quanto visto la notte in questione; di non aver scorto alcuna imbarcazione sotto la Cattedrale; e di rimettersi al giudizio della Corte.</p>
+      </div>
+      <div style="margin-top:70px; font-size:44px;">
+        <p class="serif">Data: <b>__ del mese corrente</b> (domani)</p>
+        <p class="serif" style="margin-top:30px;">Firma del teste: <span style="border-bottom:2px solid #3a2415; display:inline-block; width:400px;">&nbsp;</span></p>
+      </div>
+      <div class="serif" style="font-style:italic; margin-top:70px; font-size:34px; color:#4a4a4e; mix-blend-mode:multiply;">
+        Battuto a macchina PRIMA che Riva l’abbia firmato — anzi, prima che
+        l’abbiano convinto. Il foglio bianco per la firma è un atto di fede
+        in un sicario.
+      </div>
+    </div></div>
+  `);
+
+  // --- Episodio 9, Reperto B: la parcella dell'avvocato (L5) ---
+  const repertoB9 = page(`
+    <div class="wrap"><div style="zoom:0.90;">
+      <div class="serif" style="font-style:italic; font-size:38px; color:#3a2415; mix-blend-mode:multiply; margin-bottom:60px;">Reperto B — nota d’onorario, avv. T. Grassi</div>
+      <div class="serif" style="font-size:48px; line-height:76px;">
+        <p style="margin-bottom:36px;">Per la difesa nel procedimento dei fatti dell’inverno: <b>onorario saldato in acconto</b>.</p>
+        <p style="margin-bottom:36px;">Pagatore: «Pio Fondo di Carità Cittadina» (senza altra indicazione).</p>
+        <p style="margin-bottom:36px;">Modalità: <b>numerario</b> — marenghi d’oro, consegna a mano.</p>
+      </div>
+      <div class="serif" style="font-style:italic; margin-top:90px; font-size:34px; color:#4a4a4e; mix-blend-mode:multiply;">
+        L’oro è la lega dell’ansa morta; la busta è piegata in tre, senza
+        un’ombra di dita, coi guanti. Chi paga l’avvocato paga anche i clan:
+        un solo portafoglio.
+      </div>
+    </div></div>
+  `);
+
+  // --- Episodio 9, Reperto C: il biglietto di C.B. (L8) ---
+  const repertoC9 = page(`
+    <div class="wrap"><div style="zoom:0.94;">
+      <div class="serif" style="font-style:italic; font-size:38px; color:#3a2415; mix-blend-mode:multiply; margin-bottom:80px;">Reperto C — biglietto trovato nel cestino della Locanda del Forestiero</div>
+      <div class="hand" style="font-size:66px; line-height:104px;">
+        <p style="margin-bottom:50px;">Che sia PULITO.</p>
+        <p style="margin-bottom:50px;">Il teste non deve avere un volto sui giornali di domani, solo un’assenza.</p>
+        <p style="text-align:right; margin-top:70px;">— M.</p>
+      </div>
+      <div class="serif" style="font-style:italic; margin-top:90px; font-size:34px; color:#4a4a4e; mix-blend-mode:multiply;">
+        Carta di pregio, filigrana della cartiera dei casi passati; la «M.»
+        ha il ricciolo del Tessitore. La stessa mano che scrive le vostre
+        lettere d’incarico scrive gli ordini a chi vi dà la caccia.
+      </div>
+    </div></div>
+  `);
+
   const items = [
     ['Episodio 1', 'Reperto A - Diario di Ruggero', repertoA],
     ['Episodio 1', 'Reperto B - Registro delle Consegne', repertoB],
@@ -624,6 +679,9 @@ Chi canterà al di sotto, non si lamenti di ciò che al di sotto risponde.`;
     ['Episodio 8', 'Reperto A - Inventario del Tesoro', repertoA8],
     ['Episodio 8', 'Reperto B - Fascicolo del Sequestro', repertoB8],
     ['Episodio 8', 'Reperto C - Bolle del Carbone', repertoC8],
+    ['Episodio 9', 'Reperto A - Verbale della Ritrattazione', repertoA9],
+    ['Episodio 9', 'Reperto B - Parcella dell’Avvocato', repertoB9],
+    ['Episodio 9', 'Reperto C - Biglietto di C.B.', repertoC9],
   ];
 
   for (const [episodio, name, html] of items) {

@@ -142,6 +142,14 @@ VOCI_MAPPA = [
     ('L’Archivio Demaniale', 'palazzo delle Finanze, ala storica', 'ep8'),
     ('Villa della Vedova Bruna', 'sulla curva del fiume, oltre il ponte di ferro', 'ep8'),
     ('Il Molo in Disarmo', 'ansa morta, oltre la banchina di levante', 'ep8'),
+    # Episodio 9 — il processo. Riusi: La Gazzetta, La Gendarmeria ('citta').
+    ('Il Tribunale', 'piazza del Foro, palazzo di Giustizia', 'ep9'),
+    ('Pensione Serena', 'vicolo del Salice 3, dietro il Foro', 'ep9'),
+    ('Studio Grassi', 'corso Vittorio 11, primo piano (provvisorio)', 'ep9'),
+    ('Il Tribunale, retro', 'piazza del Foro, sacrestia dell’aula', 'ep9'),
+    ('Casa di Anselmo Riva', 'campo della Cattedrale 2, casa del sacrestano', 'ep9'),
+    ('Locanda del Forestiero', 'riva degli Schiavoni 8, camere', 'ep9'),
+    ('Il Molo del Lume', 'darsena vecchia, approdo della Società', 'ep9'),
 ]
 
 # (sottocartella pdf/, sottotitolo, tag inclusi). Un episodio nuovo aggiunge
@@ -156,6 +164,7 @@ MAPPE = [
     ('Episodio 6', 'episodio 6 — la città che conoscete', ('citta', 'preludio', 'ep1', 'ep2', 'ep3', 'ep4', 'ep5', 'ep6')),
     ('Episodio 7', 'episodio 7 — la città che conoscete', ('citta', 'preludio', 'ep1', 'ep2', 'ep3', 'ep4', 'ep5', 'ep6', 'ep7')),
     ('Episodio 8', 'episodio 8 — la città che conoscete', ('citta', 'preludio', 'ep1', 'ep2', 'ep3', 'ep4', 'ep5', 'ep6', 'ep7', 'ep8')),
+    ('Episodio 9', 'episodio 9 — la città che conoscete', ('citta', 'preludio', 'ep1', 'ep2', 'ep3', 'ep4', 'ep5', 'ep6', 'ep7', 'ep8', 'ep9')),
 ]
 
 # Tipografico (provata la grafia manoscritta La Belle Aurore su tutta la
