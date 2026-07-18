@@ -37,6 +37,8 @@ from gen_ep6 import (LUOGHI_6, TILES_6, NEMICI_6, OGGETTI_LUOGO_6, LETTERA_6,  #
                      ESAMI_CARBONE_6)
 from gen_ep7 import (LUOGHI_7, TILES_7, NEMICI_7, OGGETTI_LUOGO_7, LETTERA_7,  # noqa: E402
                      ESAMI_CARBONE_7)
+from gen_ep8 import (LUOGHI_8, TILES_8, NEMICI_8, OGGETTI_LUOGO_8, LETTERA_8,  # noqa: E402
+                     ESAMI_CARBONE_8)
 from gen_mappa import VOCI_MAPPA, MAPPE  # noqa: E402
 from gen_bestiario import FASCE, BOSS_DELTA, ferite_per_fascia  # noqa: E402
 from simulate_playtest import (INDAGINE_UNLOCK, TICK_CANTO_OGNI, SOGLIA_CANTO,  # noqa: E402
@@ -48,6 +50,7 @@ from simulate_ep4 import TOKEN_POOL_BASE as POOL_EP4  # noqa: E402
 from simulate_ep5 import TOKEN_POOL_BASE as POOL_EP5  # noqa: E402
 from simulate_ep6 import TOKEN_POOL_BASE as POOL_EP6  # noqa: E402
 from simulate_ep7 import TOKEN_POOL_BASE as POOL_EP7  # noqa: E402
+from simulate_ep8 import TOKEN_POOL_BASE as POOL_EP8  # noqa: E402
 
 
 def strip_tags(s):
@@ -96,6 +99,9 @@ REPERTI_LUOGO = {
     'ep7': {5: ['Reperto B - Deposito del Brevetto'],
             6: ['Reperto C - Bolle della Calce'],
             7: ['Reperto A - Taccuino di Fava']},
+    'ep8': {5: ['Reperto C - Bolle del Carbone'],
+            6: ['Reperto A - Inventario del Tesoro'],
+            7: ['Reperto B - Fascicolo del Sequestro']},
 }
 
 
@@ -330,6 +336,27 @@ SOLUZIONI = dict(
         ],
         boss='IL CAPOCANTIERE',
     ),
+    ep8=dict(
+        domande=[
+            dict(q='DOVE si rifonde l’oro vecchio?',
+                 risposta='Al deposito dell’ansa morta, oltre il molo in disarmo.',
+                 esatta='Sapete dove sbarcare: nel 1° round non si pesca nessuna carta Minaccia.',
+                 sbagliata='Girate l’ansa a tentoni: 1 Sgherro appare in T1 alla rivelazione.'),
+            dict(q='CHI sta unificando i clan minori?',
+                 risposta='La Vedova Bruna, in prima persona.',
+                 esatta='Sapete chi comanda: la carta «I clan accorrono» la ignorate una volta.',
+                 sbagliata='Nessun effetto.'),
+            dict(q='QUANDO passa il prossimo carico?',
+                 risposta='Giovedì notte, col carro del carbone.',
+                 esatta='Arrivate prima del carico: il Canto (la Voce che gira) parte da 0.',
+                 sbagliata='Il molo è già in fermento: 1 segnalino Canto in più alla partenza.'),
+            dict(q='COSA portate con voi per passare le sentinelle?',
+                 risposta='IL MARENGO SEGNATO (il Banco di Fossa).',
+                 esatta='Le sentinelle vi prendono per corrieri: si entra dal molo senza allarme.',
+                 sbagliata='Ci si cala dalla cinta: 1 segnalino Canto in più. (Tessera della Chiatta e Sigillo di Piombo sono esche; chi porta il Marengo attira i Mastini.)'),
+        ],
+        boss='IL CAMBIAVALUTE',
+    ),
     preludio=dict(
         domande=[
             dict(q='DOVE è tenuto Ansaldo?',
@@ -467,11 +494,28 @@ episodi = dict(
         soluzione=SOLUZIONI['ep7'],
         pool=POOL_EP7,
     ),
+    ep8=dict(
+        id='ep8', titolo='L’oro vecchio',
+        sottotitolo='episodio 8 — Atto II: la Malavita comprata a marenghi del 1741',
+        cartella='Episodio 8', ore_budget=6,
+        lettera=LETTERA_8,
+        obiettivo='Sequestrate le 4 casse d’oro (Interagire, una in T2/T3/T4/T5) e '
+                  'portatele alla Porta d’Acqua (T6): 4 casse = vittoria piena, 3 = '
+                  'parziale, meno = colpo fallito. Il Cambiavalute è stanziale in T4 e '
+                  'FONDE le casse non ancora prese; abbatterlo ferma il crogiolo ma non '
+                  'è necessario.',
+        esami_carbone=ESAMI_CARBONE_8,
+        luoghi=[luogo_json(L, OGGETTI_LUOGO_8, REPERTI_LUOGO['ep8']) for L in LUOGHI_8],
+        tessere=[tessera_json(T) for T in TILES_8],
+        vantaggio=dict(slancio_ore=3, preparati_ore=1, preparati_luoghi=6),
+        soluzione=SOLUZIONI['ep8'],
+        pool=POOL_EP8,
+    ),
 )
 
 comune = dict(
     eroi=[eroe_json(h) for h in HEROES],
-    nemici=[nemico_json(n) for n in NEMICI + NEMICI_2 + NEMICI_3 + NEMICI_4 + NEMICI_5 + NEMICI_6 + NEMICI_7],
+    nemici=[nemico_json(n) for n in NEMICI + NEMICI_2 + NEMICI_3 + NEMICI_4 + NEMICI_5 + NEMICI_6 + NEMICI_7 + NEMICI_8],
     mappa=dict(voci=[dict(nome=v[0], indirizzo=v[1], tag=v[2]) for v in VOCI_MAPPA],
                mappe=[dict(cartella=m[0], sottotitolo=m[1], tags=list(m[2])) for m in MAPPE]),
     regole=REGOLE,

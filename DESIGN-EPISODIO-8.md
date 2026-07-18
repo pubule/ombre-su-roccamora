@@ -224,5 +224,9 @@ l'orologio-crogiolo al posto del boss-inseguitore.
   casse), il mix 14/2/2/3, vittoria a casse (4=piena, 3=parziale), uscita
   da T6. Config condivisa INVARIATA.
 - Fase D: IN ATTESA DELL'ARTE.
+- **Fase E — FATTA (20260718):** webapp integrata (export py/js, assets,
+  main.js a 9 episodi, soluzione/oracolo, reperti); suite verde
+  (fix voci mappa L1/L3 con l'articolo, test-ui a 9 episodi, 2 scenari
+  test-partite Ep.8).
 - Fase E: export py/js (ep8, REPERTI_LUOGO {6: A, 7: B, 5: C}), assets,
   main.js (9° episodio), test (2 scenari).

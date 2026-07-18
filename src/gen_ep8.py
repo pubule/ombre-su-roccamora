@@ -71,7 +71,7 @@ LETTERA_8 = (
 # «l'ansa morta» da L3 e L1, «il carro del carbone» da L4 e L3, il Marengo
 # Segnato da L2. Rivelatorio (Domanda 2) su L1, L2, L3 - tutti aperti.
 LUOGHI_8 = [
-    dict(n=1, nome='L’OSTERIA DELLA BILANCIA', voce_mappa='Osteria della Bilancia',
+    dict(n=1, nome='L’OSTERIA DELLA BILANCIA', voce_mappa='L’Osteria della Bilancia',
          req='Disponibile dall’inizio', art='Osteria della Bilancia.png',
          chiude=None,
          indizi=[
@@ -117,7 +117,7 @@ LUOGHI_8 = [
                         'città senza fonderie attive, si compra solo in un posto. Chiedete '
                         'ai carrettieri.'),
          ]),
-    dict(n=3, nome='LA TAVERNA DELLA CHIATTA', voce_mappa='Taverna della Chiatta',
+    dict(n=3, nome='LA TAVERNA DELLA CHIATTA', voce_mappa='La Taverna della Chiatta',
          req='Disponibile dall’inizio', art='Taverna della Chiatta.png',
          chiude=None,
          indizi=[
