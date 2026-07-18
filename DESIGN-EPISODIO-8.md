@@ -205,7 +205,19 @@ l'orologio-crogiolo al posto del boss-inseguitore.
   Taverna della Chiatta; 6 tessere nuove (deposito: legno fradicio,
   carbone, il bagliore del crogiolo); reperti A/B/C; PROMPT-MJ integrale;
   bucket merge; copertina.
-- Fase C: `simulate_ep8.py` (seed base 680000); da modellare: la raccolta
+- **Fase C — FATTA (20260718, curva v1):** curva (5 party × 30 seed):
+  2: 55% (66% sofferte — dura, multi-hand consigliato), 3: 89%, 4: 91%,
+  5: 94%, 6: 95%, 7: 94%, 8: 98%, 9: 97%, 10: 97%; sofferte 66%→2% (la
+  tensione è tutta a tavoli piccoli: i Mastini Dan 2 puniscono il duo).
+  Heist veloce (~8 round). La %Vittoria è la PIENA (4 casse); le
+  non-piene sono quasi tutte parziali (3 casse: la moneta anonima
+  circola). Leve uscite dalla taratura (stampate): sequestro cassa =
+  prova ACUME Media (un tentativo/round, il gruppo LINGERa sulla tessera
+  finché la cassa è presa o persa, cap 4 round), crogiolo che fonde la
+  cassa più profonda quando T4 è priva di eroi (cap 2 casse perse),
+  Mastino Att+2 Dan 2 (il Fiuto punta il portatore), Cambiavalute Fer 4.
+  Log: logs/playtest/20260718-curva-ep8-v1.
+- Fase C (specifica): `simulate_ep8.py` (seed base 680000); da modellare: la raccolta
   delle 4 casse (Interagire, una per tessera), il crogiolo-orologio (il
   Cambiavalute stanziale che fonde le casse non sequestrate quando T4 è
   vuota di eroi), il Fiuto dei Mastini (bersagliano chi porta marengo/

@@ -378,7 +378,7 @@ TILES_8 = [
 
 # Nemici (statistiche - fonte per Bestiario e simulatore).
 NEMICI_8 = [
-    dict(nome='IL CAMBIAVALUTE', att=2, dif=7, fer=3, mov=2, dan=1, boss=True,
+    dict(nome='IL CAMBIAVALUTE', att=2, dif=7, fer=4, mov=2, dan=1, boss=True,
          tipo='L’Orefice dell’Ansa Morta (Boss)', art='Il Cambiavalute.png',
          note='STANZIALE: non lascia mai T4. Il crogiolo-orologio: ogni round senza eroi '
               'in T4, 1 segnalino su una cassa non sequestrata — al 3° la cassa è persa. '
@@ -393,7 +393,7 @@ NEMICI_8 = [
               'e al terzo segnalino quella cassa è moneta anonima per sempre. I suoi '
               'Mastini invece viaggiano: il Fiuto li porta su chi ha addosso l’oro. Ai '
               'tavoli da 2-3 eroi non recupera mai ferite (regola delle taglie).'),
-    dict(nome='IL MASTINO', att=2, dif=6, fer=2, mov=4, dan=1,
+    dict(nome='IL MASTINO', att=2, dif=6, fer=2, mov=4, dan=2,
          tipo='Cane da guardia dell’Ansa (bestia)', art='Il Mastino.png',
          note='FIUTO: se può, attacca sempre chi porta il Marengo Segnato o una cassa '
               'd’oro. Non abbaia mai.',
