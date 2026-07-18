@@ -15,7 +15,7 @@ const PORT = process.argv.slice(2).find((a) => /^\d+$/.test(a)) || 8017;
 const BASE = `http://localhost:${PORT}`;
 const DIR = path.dirname(fileURLToPath(import.meta.url));
 const json = (f) => JSON.parse(readFileSync(path.join(DIR, 'data', f), 'utf8'));
-const DATI = { preludio: json('preludio.json'), ep1: json('ep1.json'), ep2: json('ep2.json'), ep3: json('ep3.json'), ep4: json('ep4.json'), ep5: json('ep5.json'), ep6: json('ep6.json') };
+const DATI = { preludio: json('preludio.json'), ep1: json('ep1.json'), ep2: json('ep2.json'), ep3: json('ep3.json'), ep4: json('ep4.json'), ep5: json('ep5.json'), ep6: json('ep6.json'), ep7: json('ep7.json') };
 
 let errori = 0;
 const ko = (msg) => { errori += 1; console.log('    KO', msg); };
@@ -39,6 +39,8 @@ const SCENARI = [
   { ep: 'ep5', party: ['Carla', 'Ottavio', 'Lazzaro'], giuste: false },
   { ep: 'ep6', party: ['Elena', 'Attilio', 'Ottone', 'Sibilla'], giuste: true },
   { ep: 'ep6', party: ['Carla', 'Nino', 'Celso'], giuste: false },
+  { ep: 'ep7', party: ['Elena', 'Ottone', 'Attilio', 'Sibilla'], giuste: true },
+  { ep: 'ep7', party: ['Nino', 'Carla', 'Lazzaro'], giuste: false },
 ];
 
 const browser = await chromium.launch();

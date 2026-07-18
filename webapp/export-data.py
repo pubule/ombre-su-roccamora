@@ -35,6 +35,8 @@ from gen_ep5 import (LUOGHI_5, TILES_5, NEMICI_5, OGGETTI_LUOGO_5, LETTERA_5,  #
                      ESAMI_CARBONE_5)
 from gen_ep6 import (LUOGHI_6, TILES_6, NEMICI_6, OGGETTI_LUOGO_6, LETTERA_6,  # noqa: E402
                      ESAMI_CARBONE_6)
+from gen_ep7 import (LUOGHI_7, TILES_7, NEMICI_7, OGGETTI_LUOGO_7, LETTERA_7,  # noqa: E402
+                     ESAMI_CARBONE_7)
 from gen_mappa import VOCI_MAPPA, MAPPE  # noqa: E402
 from gen_bestiario import FASCE, BOSS_DELTA, ferite_per_fascia  # noqa: E402
 from simulate_playtest import (INDAGINE_UNLOCK, TICK_CANTO_OGNI, SOGLIA_CANTO,  # noqa: E402
@@ -45,6 +47,7 @@ from simulate_ep3 import TOKEN_POOL_BASE as POOL_EP3  # noqa: E402
 from simulate_ep4 import TOKEN_POOL_BASE as POOL_EP4  # noqa: E402
 from simulate_ep5 import TOKEN_POOL_BASE as POOL_EP5  # noqa: E402
 from simulate_ep6 import TOKEN_POOL_BASE as POOL_EP6  # noqa: E402
+from simulate_ep7 import TOKEN_POOL_BASE as POOL_EP7  # noqa: E402
 
 
 def strip_tags(s):
@@ -90,6 +93,9 @@ REPERTI_LUOGO = {
     'ep6': {5: ['Reperto A - Diario di Ferri'],
             7: ['Reperto B - Pianta della Camera'],
             8: ['Reperto C - Schedario della Cripta']},
+    'ep7': {5: ['Reperto B - Deposito del Brevetto'],
+            6: ['Reperto C - Bolle della Calce'],
+            7: ['Reperto A - Taccuino di Fava']},
 }
 
 
@@ -303,6 +309,27 @@ SOLUZIONI = dict(
         ],
         boss='BASTIANO FERRI',
     ),
+    ep7=dict(
+        domande=[
+            dict(q='DOVE è tenuto Ernesto Fava?',
+                 risposta='Nell’intercapedine del terzo piano del palazzone.',
+                 esatta='Sapete dove salire: nel 1° round non si pesca nessuna carta Minaccia.',
+                 sbagliata='Girate il cantiere a tentoni: 1 Sgherro appare in T1 alla rivelazione.'),
+            dict(q='CHI vende il silenzio?',
+                 risposta='L’ingegner Silvio Voltan, l’autore del brevetto.',
+                 esatta='«Smascherato»: in T6 gridate il suo nome — il Capocantiere salta la sua PRIMA attivazione e 1 Sgherro se ne va.',
+                 sbagliata='Nessun effetto.'),
+            dict(q='QUANDO si entra senza dare l’allarme?',
+                 risposta='Alle NOVE, al cambio del guardiano notturno.',
+                 esatta='Entrate nella finestra giusta: il Canto (l’Allarme) parte da 0.',
+                 sbagliata='Il cancello vi nota: 1 segnalino Canto in più alla partenza.'),
+            dict(q='COSA portate con voi?',
+                 risposta='LA BOLLA DELLA CALCE (la baracca del cantiere).',
+                 esatta='Il carro entra dal cancello senza domande.',
+                 sbagliata='Si scavalca la cinta: 1 segnalino Canto in più. (Fischietto e Lettera di Minaccia sono esche.)'),
+        ],
+        boss='IL CAPOCANTIERE',
+    ),
     preludio=dict(
         domande=[
             dict(q='DOVE è tenuto Ansaldo?',
@@ -424,11 +451,27 @@ episodi = dict(
         soluzione=SOLUZIONI['ep6'],
         pool=POOL_EP6,
     ),
+    ep7=dict(
+        id='ep7', titolo='Il quartiere sordo',
+        sottotitolo='episodio 7 — apertura dell’Atto II: la calce che beve il suono',
+        cartella='Episodio 7', ore_budget=6,
+        lettera=LETTERA_7,
+        obiettivo='Liberate Fava (Interagire, in T6) e riportatelo in T1 per la via '
+                  'dell’andata (scelta in T2: ponteggi O intercapedini). Il Capocantiere '
+                  'non va abbattuto per forza; al 12° segnalino Allarme il cantiere si '
+                  'sbarra (sconfitta a tempo).',
+        esami_carbone=ESAMI_CARBONE_7,
+        luoghi=[luogo_json(L, OGGETTI_LUOGO_7, REPERTI_LUOGO['ep7']) for L in LUOGHI_7],
+        tessere=[tessera_json(T) for T in TILES_7],
+        vantaggio=dict(slancio_ore=3, preparati_ore=1, preparati_luoghi=6),
+        soluzione=SOLUZIONI['ep7'],
+        pool=POOL_EP7,
+    ),
 )
 
 comune = dict(
     eroi=[eroe_json(h) for h in HEROES],
-    nemici=[nemico_json(n) for n in NEMICI + NEMICI_2 + NEMICI_3 + NEMICI_4 + NEMICI_5 + NEMICI_6],
+    nemici=[nemico_json(n) for n in NEMICI + NEMICI_2 + NEMICI_3 + NEMICI_4 + NEMICI_5 + NEMICI_6 + NEMICI_7],
     mappa=dict(voci=[dict(nome=v[0], indirizzo=v[1], tag=v[2]) for v in VOCI_MAPPA],
                mappe=[dict(cartella=m[0], sottotitolo=m[1], tags=list(m[2])) for m in MAPPE]),
     regole=REGOLE,

@@ -147,7 +147,7 @@ LUOGHI_7 = [
                         'dice lui. Io dico: un genio che paga perché non si sappia cosa c’è '
                         'nel muro, che genio è?”»'),
          ]),
-    dict(n=4, nome='IL BANCO DEI PEGNI', voce_mappa='Il Banco dei Pegni',
+    dict(n=4, nome='IL BANCO DEI PEGNI', voce_mappa='Il Banco dei Pegni di Fossa',
          req='Disponibile dall’inizio', art='Banco dei Pegni.png',
          chiude=None,
          indizi=[

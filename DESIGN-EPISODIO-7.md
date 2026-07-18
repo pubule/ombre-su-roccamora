@@ -217,6 +217,10 @@ niente boss-fasi: l'atto ricomincia a salire.
   interna), lo «Smascherato» su Capocantiere, il ritorno sulla via scelta.
   Config condivisa INVARIATA (leve per-episodio soltanto).
 - Fase D: IN ATTESA DELL'ARTE (prompt integrali alla Fase B).
+- **Fase E — FATTA (20260718):** webapp integrata (export py/js, assets,
+  main.js a 8 episodi, soluzione/oracolo, reperti); suite verde
+  (test-engine con fix voce mappa L4 «Il Banco dei Pegni di Fossa»,
+  test-ui a 8 episodi, 2 scenari test-partite Ep.7).
 - Fase E: export-data py/js (episodio ep7, SOLUZIONI, REPERTI_LUOGO
   {7: A? no — A in L7, B in L5, C in L6}, pool), export-assets, main.js
   (8° episodio), test-engine/test-ui/test-partite (2 scenari ep7).
