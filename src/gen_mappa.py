@@ -118,6 +118,13 @@ VOCI_MAPPA = [
     ('La Curia', 'piazza della Cattedrale, palazzo vescovile', 'ep5'),
     ('Calle del Marmo', 'al civico 7, verso porta di terraferma', 'ep5'),
     ('Il Sagrato dei Battuti', 'campo dei Battuti, porticina sul retro', 'ep5'),
+    # Episodio 6 — «Il Terzo Movimento» (vedi DESIGN-EPISODIO-6.md). Riusi:
+    # La Cattedrale, Il Canale Basso, Bottega del Liutaio Ferri ('ep1'),
+    # Il Catasto delle Acque ('ep3'), Il Palazzo del Lume ('preludio'),
+    # Corte del Ragioniere ('ep5').
+    ('La Chiusa Grande', 'a monte del canale grande, alla paratia', 'ep6'),
+    ('L’Archivio Capitolare', 'chiostro della Cattedrale, torre d’angolo', 'ep6'),
+    ('La Porta d’Acqua', 'fianco nord della Cattedrale, a pelo di canale', 'ep6'),
 ]
 
 # (sottocartella pdf/, sottotitolo, tag inclusi). Un episodio nuovo aggiunge
@@ -129,6 +136,7 @@ MAPPE = [
     ('Episodio 3', 'episodio 3 — la città che conoscete', ('citta', 'preludio', 'ep1', 'ep2', 'ep3')),
     ('Episodio 4', 'episodio 4 — la città che conoscete', ('citta', 'preludio', 'ep1', 'ep2', 'ep3', 'ep4')),
     ('Episodio 5', 'episodio 5 — la città che conoscete', ('citta', 'preludio', 'ep1', 'ep2', 'ep3', 'ep4', 'ep5')),
+    ('Episodio 6', 'episodio 6 — la città che conoscete', ('citta', 'preludio', 'ep1', 'ep2', 'ep3', 'ep4', 'ep5', 'ep6')),
 ]
 
 # Tipografico (provata la grafia manoscritta La Belle Aurore su tutta la

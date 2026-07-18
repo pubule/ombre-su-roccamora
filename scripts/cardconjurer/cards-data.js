@@ -1430,6 +1430,239 @@ const EP5 = [...LUOGHI5, ...EP5_INDIZI, ...EP5_TESTIMONI, ...EP5_REFERTI,
              ...EP5_MINACCE, ...EP5_OGGETTI, ...EP5_NEMICI];
 
 
+// ============================================================ EPISODIO 6
+// «Il Terzo Movimento» — FINALE D'ATTO (vedi DESIGN-EPISODIO-6.md). Il
+// mazzo-antologia riusa le arti delle famiglie di tutto l'atto.
+
+const LUOGHI6 = [
+  { n: 1, nome: 'La Cattedrale, la Sagrestia', req: 'Disponibile dall’inizio',
+    art: 'artworks/nervous priest in a candlelit sacristy.png',
+    testo: 'Don Callisto non finge più: «il pavimento della cripta RESPIRA, signori. E stanotte l’acqua benedetta trema nelle pile senza che nessuno la tocchi.» Sotto la sagrestia, un battito lento — sessanta colpi l’ora, come un cuore che dorme. Stanotte batte più forte.',
+    approfondimenti: [
+      { tipo: 'Osservazione', soggetto: 'Le mani di don Callisto',
+        testo: 'Il parroco versa il vino della messa e trema — ma non di paura generica: «da tre notti, alle tre e un quarto esatte, tutto ciò che è liquido in questa chiesa fa UN’ONDA. Una sola. Poi torna fermo.» Il liutaio prova l’orchestra: e l’acqua risponde già.' },
+    ] },
+  { n: 2, nome: 'Il Canale Basso', req: 'Disponibile dall’inizio',
+    art: 'artworks/derelict warehouses over black still water.png',
+    testo: 'L’acqua del canale è FERMA: né marea né corrente, come tesa. I barcaioli non escono. Tre notti di chiatte cariche verso il fianco della Cattedrale — e stanotte c’è la marea di sizigia, la grande. L’acqua, invece di prepararsi, trattiene.',
+    approfondimenti: [
+      { tipo: 'Testimonianza', soggetto: 'Il barcaiolo più vecchio',
+        testo: '«Il liutaio l’ho portato IO, tre notti fa, alla porta d’acqua. Quando siamo passati sotto la Cattedrale ha appoggiato la mano sul fasciame, come si tasta la febbre a un figlio — e ha detto, piano: “ancora un movimento, e ti sveglio”. Non parlava con me.»' },
+    ] },
+  { n: 3, nome: 'Il Catasto delle Acque', req: 'Disponibile dall’inizio',
+    art: 'artworks/Catasto delle Acque.png',
+    testo: 'L’archivista vi riconosce, e stavolta la mappa la srotola lui: «le tre acque convergono QUI, sotto la Cattedrale. La sala non è su nessuna carta ufficiale. Ma le vene ci vanno tutte, come radici a un bulbo.»',
+    approfondimenti: [
+      { tipo: 'Referto', soggetto: 'Il bulbo delle vene',
+        testo: 'Ricalcando le tre carte idrografiche, la camera appare da sola: un vuoto rotondo dove nessuna vena passa ATTRAVERSO — tutte si fermano al bordo, come radici che nutrono senza entrare. La città non è costruita sopra qualcosa. È costruita INTORNO.' },
+    ] },
+  { n: 4, nome: 'Il Palazzo del Lume', req: 'Disponibile dall’inizio',
+    art: 'artworks/Il Palazzo del Lume.png',
+    testo: 'Tutte le lampade accese, tutte le stanze. M. ha disposto sul tavolo grande l’archivio dei Frammenti: i vostri cinque casi, le buste dei Bivi, i cimeli. «Stanotte si spende tutto», dice. «Ogni pezzo conservato è un incrocio in più. Contateli.»',
+    approfondimenti: [
+      { tipo: 'Testimonianza', soggetto: 'M., a porte chiuse',
+        testo: '«Ferri è vivo. L’ho sempre saputo — un uomo così non annega: si CONSERVA, come i suoi strumenti. Stanotte vi sembrerà stanco e gentile. Non esitate per questo. Gli uomini stanchi e gentili sono quelli che hanno già deciso tutto.»' },
+    ] },
+  { n: 5, nome: 'La Bottega di Ferri, riaperta',
+    req: 'I sigilli della Gendarmeria pendono tagliati: qualcuno è entrato con la calma di chi torna a casa. Il vicinato parla solo con chi dimostra di sapere COSA torna, con la marea giusta.',
+    art: 'artworks/abandoned luthier workshop.png',
+    testo: 'La bottega del vostro primo caso, riaperta da dentro: polvere smossa a isole, i vuoti sugli attrezzi che raccontano cosa è partito. E sul banco, in evidenza, l’astuccio del diapason d’argento: aperto, e vuoto.',
+    approfondimenti: [
+      { tipo: 'Osservazione', soggetto: 'Il banco del liutaio',
+        testo: 'Gli strumenti rimasti sono in ordine perfetto, TRANNE l’astuccio del diapason: aperto e vuoto, al centro del banco. Non è una dimenticanza: è un messaggio. Ferri sa che verrete — e vi dice: “il LA giusto, stanotte, lo do io.”' },
+    ] },
+  { n: 6, nome: 'La Chiusa Grande',
+    req: 'Il guardiano della chiusa non parla coi curiosi la notte di sizigia. Ma chi arriva nominando le acque col loro nome vero — tutte e tre — è del mestiere, o del destino.',
+    art: 'artworks/La Chiusa Grande.png',
+    testo: 'Una diga di lanterne: il guardiano regola le paratie della sizigia gridando numeri. A monte l’acqua preme; a valle, verso la città, il canale è liscio e nero come una lastra. «Non è mai stata così», ripete. «Mai.»',
+    approfondimenti: [
+      { tipo: 'Referto', soggetto: 'Le tavole di marea',
+        testo: 'Il colmo di sizigia dura undici minuti: dalle 3:15 alle 3:26. Qualunque cosa il rito debba fare con l’acqua, ha UNDICI MINUTI. E qualunque cosa dobbiate fare voi, conviene farla prima: l’acqua alta non fa sconti a chi sta nelle gallerie.' },
+    ] },
+  { n: 7, nome: 'L’Archivio Capitolare',
+    req: 'Il canonico archivista apre solo a chi è mandato dal capitolo — o a chi ne nomina l’atto che il capitolo vorrebbe dimenticare. L’anno giusto, detto ad alta voce, qui dentro è una chiave.',
+    art: 'artworks/Archivio Capitolare.png',
+    testo: 'Una torre di carta sopra il chiostro: scale a chiocciola, armadi con le date dipinte. Gli atti del Quarantuno stanno nell’armadio più in alto — «le cose che non si vogliono rileggere si mettono dove costa fatica arrivare».',
+    approfondimenti: [
+      { tipo: 'Referto', soggetto: 'La rubrica della Formula',
+        testo: 'La pergamena è del Quarantuno, ma le pieghe recenti sono DUE: il fascicolo è stato consultato due volte negli ultimi mesi, e richiuso con cura d’archivista. Qualcuno ha letto la formula prima di voi. E non l’ha distrutta.' },
+    ] },
+  { n: 8, nome: 'Il Rifugio del Maestro dei Registri',
+    req: 'Lo studio è svuotato e la corte tace. Ma il facchino del trasloco beve all’angolo, e con chi nomina il titolare — col suo titolo giusto — ricorda volentieri cosa è caduto dal carro.',
+    art: 'artworks/Studio del Maestro.png',
+    testo: 'Svuotato in una notte: chiodi nei muri, impronte di schedari sul pavimento. Chi è fuggito così non fugge dai gendarmi: fugge da un LAVORO FINITO. Dal carro è caduto uno schedario: «cripta».',
+    approfondimenti: [
+      { tipo: 'Osservazione', soggetto: 'L’impronta degli schedari',
+        testo: 'Quattro impronte: fonderia, pozzi, teatro, cripta. Ma sotto la polvere di anni ce n’è una QUINTA — più stretta, portata via molto prima. Il Maestro dei Registri teneva un quinto conto, di cui nessuno sa niente. E lo custodiva meglio degli altri.' },
+    ] },
+  { n: 9, nome: 'L’Imbocco delle Tre Acque',
+    req: 'Il cancello della porta d’acqua è chiuso a chiave dal guardiano della Chiusa: senza la sua chiave si può solo guardare, dall’altra riva, il buio che respira a filo d’acqua.',
+    art: 'artworks/La Porta d’Acqua.png',
+    testo: 'L’arco medievale nel fianco della Cattedrale, rimurato da un secolo e riaperto da un mese — conci numerati a gesso, lavoro da restauratori. Oltre l’arco, il buio respira. E sopra il battito di sempre, adesso, un ACCORDARSI.',
+    approfondimenti: [
+      { tipo: 'Osservazione', soggetto: 'I conci numerati',
+        testo: 'La numerazione a gesso non è di mano di muratore: è la calligrafia minuta di chi tiene registri. Il Maestro dei Registri ha DIRETTO la riapertura, concio per concio, come si smonta uno strumento prezioso. Tutto, in questo cantiere, è pensato per durare.' },
+    ] },
+].map((L) => ({
+  art: L.art,
+  title: `${L.n} · ${L.nome}`,
+  file: `Episodio 6/Luoghi/${L.n} - ${L.nome.replace(/’/g, "'")}`,
+  type: `Luogo ${L.n}`,
+  rules: `{i}${L.req === 'Disponibile dall’inizio' ? L.testo : L.req}{/i}`,
+  approfondimenti: L.approfondimenti, n: L.n,
+}));
+
+const EP6_INDIZI = LUOGHI6.flatMap((L) =>
+  L.approfondimenti.filter((a) => a.tipo === 'Osservazione' || a.tipo === 'Presagio')
+    .map((a) => ({
+      art: L.art, n: L.n, kind: 'Indizio',
+      title: `Indizio Nascosto — ${a.soggetto}`,
+      file: `Episodio 6/Indizi/${a.soggetto.replace(/’/g, "'")}`,
+      type: a.tipo,
+      rules: `{i}◆ (${a.tipo}) ${a.testo}{/i}`,
+    })));
+
+const EP6_TESTIMONI = LUOGHI6.flatMap((L) =>
+  L.approfondimenti.filter((a) => a.tipo === 'Testimonianza').map((a) => ({
+    art: L.art, n: L.n, kind: 'Testimone',
+    title: `Testimone — ${a.soggetto}`,
+    file: `Episodio 6/Testimoni/${a.soggetto.replace(/’/g, "'")}`,
+    type: `Luogo ${L.n} · Testimone`,
+    rules: `{i}${a.testo}{/i}`,
+  })));
+
+const EP6_REFERTI = LUOGHI6.flatMap((L) =>
+  L.approfondimenti.filter((a) => a.tipo === 'Referto').map((a) => ({
+    art: L.art, n: L.n, kind: 'Referto',
+    title: `Referto — ${a.soggetto}`,
+    file: `Episodio 6/Referti/${a.soggetto}`,
+    type: `Luogo ${L.n} · Referto`,
+    rules: `{i}${a.testo}{/i}`,
+  })));
+
+// Il mazzo-antologia: 21 carte + 1 del Bivio. Le arti riusano le famiglie
+// dell'atto (payoff visivo: la campagna intera torna nel mazzo finale).
+const EP6_MINACCE = [
+  { art: 'artworks/Il ritiro.png', title: 'Il Pellegrinaggio', tipo: 'Posseduto',
+    flavor: 'Vengono da ogni caso che avete chiuso. Stanotte nessuno vuole mancare.',
+    effect: 'Piazzate 1 Adepto sull’uscita più vicina agli eroi della tessera corrente.' },
+  { art: 'artworks/Il ritiro.png', title: 'La Barca delle Due e Mezza', tipo: 'Posseduto',
+    flavor: 'Puntuale come una paga tripla. L’ultimo viaggio è il più pieno.',
+    effect: 'Piazzate 1 Adepto sull’ingresso della Porta d’Acqua (T1).' },
+  { art: 'artworks/Il ritiro.png', title: 'I Facchini dell’Ultima Notte', tipo: 'Posseduto',
+    flavor: 'Casse leggere, passo svelto: quello che serviva è già tutto sotto.',
+    effect: 'Piazzate 1 Adepto sull’uscita più vicina agli eroi della tessera corrente.' },
+  { art: 'artworks/La Voce Cava.png', title: 'Gli Echi Tornano', tipo: 'Posseduto',
+    flavor: 'Le voci del Borgo hanno sentito accordare. Rispondono alla chiamata.',
+    effect: 'Piazzate 1 Voce Cava sull’uscita più vicina agli eroi della tessera corrente.' },
+  { art: 'artworks/La Voce Cava.png', title: 'La Voce del Borgo', tipo: 'Posseduto',
+    flavor: 'Una gola che conoscete cammina nelle gallerie, cercando il suo posto nel coro.',
+    effect: 'Piazzate 1 Voce Cava sull’uscita più vicina agli eroi della tessera corrente.' },
+  { art: 'artworks/Il passo di cera.png', title: 'La Processione Ultima', tipo: 'Posseduto',
+    flavor: 'I fratelli del Quarantuno scendono a sentire la fine del loro requiem.',
+    effect: 'Piazzate 1 Confratello sull’uscita più vicina agli eroi della tessera corrente.' },
+  { art: 'artworks/Il passo di cera.png', title: 'I Fratelli del Quarantuno', tipo: 'Posseduto',
+    flavor: 'Cera e ossa non hanno fretta. Ma stanotte, per la prima volta, camminano svelti.',
+    effect: 'Piazzate 1 Confratello sull’uscita più vicina agli eroi della tessera corrente.' },
+  { art: 'artworks/Turno di guardia.png', title: 'Le Guardie Pagate', tipo: 'Malavita',
+    flavor: 'L’ultimo stipendio della Malavita: sorvegliare una notte sola. QUESTA.',
+    effect: 'Piazzate 1 Sgherro sull’uscita più vicina agli eroi della tessera corrente.' },
+  { art: 'artworks/Turno di guardia.png', title: 'Il Servizio di Banchina', tipo: 'Malavita',
+    flavor: 'Due uomini e una lanterna schermata, dove l’acqua entra sotto la chiesa.',
+    effect: 'Piazzate 1 Sgherro sull’uscita più vicina agli eroi della tessera corrente.' },
+  { art: 'artworks/Passi sulla scala.png', title: 'Remi nel Buio', tipo: 'Posseduto',
+    flavor: 'Un’altra barca passa l’arco. Il pellegrinaggio non è finito.',
+    effect: 'Piazzate 1 Adepto sull’ingresso della Porta d’Acqua (T1).' },
+  { art: 'artworks/Passi sulla scala.png', title: 'La Seconda Barca', tipo: 'Posseduto',
+    flavor: 'Scivola sotto l’arco senza lanterna. Come le senza-lanterne di una volta.',
+    effect: 'Piazzate 1 Adepto sull’ingresso della Porta d’Acqua (T1).' },
+  { art: 'artworks/La marea di cera.png', title: 'La Marea che Sale', tipo: 'Insidia',
+    flavor: 'La sizigia non aspetta i vostri piani. Un dito d’acqua alla volta.',
+    effect: 'L’eroe attivo prova NERVI (Media): se fallisce, 1 danno e perde 1 azione al prossimo turno.' },
+  { art: 'artworks/Il ronzio nei denti.png', title: 'Il Battito Sotto', tipo: 'Insidia',
+    flavor: 'Sessanta colpi l’ora. Poi sessantuno. Sta accelerando.',
+    effect: 'L’eroe con meno NERVI (a pari merito: sceglie il gruppo) prova NERVI (Media): se fallisce subisce 1 danno.' },
+  { art: 'artworks/L’eco che chiama.png', title: 'Il Canto delle Vene', tipo: 'Insidia',
+    flavor: 'Le tre acque cantano insieme, e la vostra testa vuole cantare con loro.',
+    effect: 'Ogni eroe prova NERVI (Facile): chi fallisce ha 1 sola azione al prossimo turno.' },
+  { art: 'artworks/Il primo movimento.png', title: 'Il Primo Movimento', tipo: 'Crescendo',
+    flavor: 'Il bronzo canta. Da qualche parte sopra di voi, una campana risponde.',
+    effect: 'Aggiungete 1 segnalino Canto. Alla soglia: Ferri si desta in anticipo (vedi Soluzione). Se è già in gioco: cancellate 1 sua ferita dal Registro e si attiva subito.' },
+  { art: 'artworks/Il secondo movimento.png', title: 'Il Secondo Movimento', tipo: 'Crescendo',
+    flavor: 'La pietra risponde. I cinque righi si accendono uno dopo l’altro.',
+    effect: 'Aggiungete 1 segnalino Canto. Alla soglia: Ferri si desta in anticipo (vedi Soluzione). Se è già in gioco: cancellate 1 sua ferita dal Registro e si attiva subito.' },
+  { art: 'artworks/Il terzo movimento.png', title: 'Il Terzo Movimento', tipo: 'Crescendo',
+    flavor: 'L’acqua ricorda. E ciò che ricorda, stanotte, comincia a sognarlo forte.',
+    effect: 'Aggiungete 1 segnalino Canto. Alla soglia: Ferri si desta in anticipo (vedi Soluzione). Se è già in gioco: cancellate 1 sua ferita dal Registro e si attiva subito.' },
+  { art: 'artworks/L’acqua ferma.png', title: 'L’Acqua Trattiene', tipo: 'Quiete',
+    flavor: 'Per un momento, tutto tace: le vene, il battito, il coro. Il respiro prima.',
+    effect: 'Nessun effetto. Tirate il fiato — ve ne servirà.' },
+  { art: 'artworks/Una corrente d’aria buona.png', title: 'La Corrente Amica', tipo: 'Favore',
+    flavor: 'Uno spiffero di città: qualcuno lassù ha aperto una porta al momento giusto.',
+    effect: 'Rivelate una tessera coperta adiacente a quella di un eroe (la scelgono i giocatori).' },
+  { art: 'artworks/L’acqua sale.png', title: 'L’Acqua alle Ginocchia', tipo: 'Ostacolo',
+    flavor: 'La sizigia reclama le gallerie basse. Si cammina come nei sogni cattivi.',
+    effect: 'Fino a fine round, sulla tessera dell’eroe attivo muoversi costa il doppio.' },
+  { art: 'artworks/Il canto nelle orecchie.png', title: 'Il Richiamo', tipo: 'Insidia',
+    flavor: 'Il coro vi conosce per nome, adesso. E chiama chi è più avanti degli altri.',
+    effect: 'L’eroe più avanzato prova NERVI (Media): se fallisce, 1 danno.' },
+  { art: 'artworks/Le ossa chiamano.png', title: 'Le Ossa Chiamano', tipo: 'Bivio',
+    flavor: 'Le casse che avete tenuto rispondono all’organo da casa vostra.',
+    effect: 'Aggiungete 1 segnalino Canto. Alla soglia: Ferri si desta in anticipo (vedi Soluzione). Se è già in gioco: cancellate 1 sua ferita dal Registro e si attiva subito.' },
+].map((m) => ({
+  art: m.art,
+  title: `${m.tipo} — ${m.title}`,
+  file: `Episodio 6/Minacce/${m.title.replace(/’/g, "'")}`,
+  rules: `{i}${m.flavor}{/i}{divider}${m.effect}`,
+}));
+
+const EP6_OGGETTI = [
+  { art: 'artworks/Formula del Sigillo.png', nome: 'La Formula del Sigillo', ref: 'E6-L7',
+    fonte: 'Luogo 7 — L’Archivio Capitolare',
+    flavor: '«Si legga a voce ferma, a strumenti taciuti, nell’ora in cui l’acqua è più alta.»',
+    effetto: 'Nella Camera (T8), a TUTTI e tre i movimenti spenti: un’azione — il rito muore, il Dormiente si riassopisce (vittoria piena).' },
+  { art: 'artworks/Chiave della Porta d’Acqua.png', nome: 'La Chiave della Porta d’Acqua', ref: 'E6-L6',
+    fonte: 'Luogo 6 — La Chiusa Grande',
+    flavor: '«A voi la do volentieri. Così non tocca a me.»',
+    effetto: 'Apre il cancello della Porta d’Acqua (Luogo 9) — e la strada per le Tre Acque.' },
+  { art: 'artworks/Lanterna di Chiusa.png', nome: 'La Lanterna di Chiusa', ref: 'E6-L6',
+    fonte: 'Luogo 6 — La Chiusa Grande',
+    flavor: 'La lanterna dei guardiani di paratia: accesa da tre generazioni, mai spenta.',
+    effetto: '+1 alle prove NERVI nella Galleria di Marea (T2), come da tessera.' },
+  { art: 'artworks/Acqua Benedetta.png', nome: 'L’Acqua Benedetta', ref: 'E6-L1',
+    fonte: 'Luogo 1 — La Cattedrale',
+    flavor: 'Trema nelle pile da tre notti. Stanotte tremate insieme.',
+    effetto: 'Effetto: nessuno finora scoperto. (Il conforto non è un’arma.)' },
+  { art: 'artworks/Reliquia di San Teodoro.png', nome: 'La Reliquia di San Teodoro', ref: 'E6-L1',
+    fonte: 'Luogo 1 — La Cattedrale',
+    flavor: 'Il santo con la campana in mano. Venerabile. Muta.',
+    effetto: 'Effetto: nessuno finora scoperto.' },
+  { art: 'artworks/Mazzetta da Campanaro.png', nome: 'La Mazzetta da Campanaro', ref: 'E6-T3',
+    fonte: 'Si trova cercando in T3 — La Sala del Bronzo',
+    flavor: 'Piombo e cuoio: lo strumento di chi lavora sulle campane senza farle cantare.',
+    effetto: '+1 alle prove per spegnere i movimenti (T3, T5, T6).' },
+].map((o) => ({
+  art: o.art,
+  title: o.nome,
+  file: `Episodio 6/Oggetti/${o.nome.replace(/’/g, "'")}`,
+  type: 'Oggetto',
+  rules: `{i}${o.flavor}{/i}{divider}${o.effetto}`,
+  ref: o.ref, fonte: o.fonte,
+}));
+
+const EP6_NEMICI = [
+  { art: 'artworks/Bastiano Ferri.png', title: 'Bastiano Ferri',
+    type: 'Il Liutaio (Boss, finale d’atto) — Episodio 6',
+    rules: '{i}Cinque casi dopo, è febbrile e lucido, quasi gentile — un artigiano alla consegna. Non crede al Dormiente: lo AMA, come si ama uno strumento supremo. La sua vera difesa è il rituale stesso.{/i}{divider}Statistiche nel Bestiario. Difesa 9, MENO 1 per ogni movimento spento.' },
+  { art: 'artworks/Il Corista.png', title: 'Il Corista',
+    type: 'Impiegato del rito (sciame, solo T8) — Episodio 6',
+    rules: '{i}Dodici gole in accordo valgono una solista. Cantano una cosa che non capiscono, con la faccia di chi comincia a capirla. Non sono credenti: sono impiegati — e gli impiegati, quando il lavoro si mette male, scappano.{/i}{divider}Statistiche nel Bestiario. A 0 ferite FUGGE invece di morire.' },
+].map((n) => ({ ...n, file: `Episodio 6/Nemici/${n.title}` }));
+
+const EP6 = [...LUOGHI6, ...EP6_INDIZI, ...EP6_TESTIMONI, ...EP6_REFERTI,
+             ...EP6_MINACCE, ...EP6_OGGETTI, ...EP6_NEMICI];
+
+
 module.exports = {
   HEROES, NEMICI, MINACCE, LUOGHI, INDIZI, TESTIMONI, REFERTI, OGGETTI, PRELUDIO,
   PRELUDIO_LUOGHI, PRELUDIO_APPROFONDIMENTI, PRELUDIO_OGGETTI,
@@ -1437,5 +1670,6 @@ module.exports = {
   EP3, LUOGHI3, EP3_INDIZI, EP3_TESTIMONI, EP3_REFERTI, EP3_MINACCE, EP3_OGGETTI, EP3_NEMICI,
   EP4, LUOGHI4, EP4_INDIZI, EP4_TESTIMONI, EP4_REFERTI, EP4_MINACCE, EP4_OGGETTI, EP4_NEMICI,
   EP5, LUOGHI5, EP5_INDIZI, EP5_TESTIMONI, EP5_REFERTI, EP5_MINACCE, EP5_OGGETTI, EP5_NEMICI,
-  ALL: [...HEROES, ...NEMICI, ...MINACCE, ...LUOGHI, ...INDIZI, ...TESTIMONI, ...REFERTI, ...OGGETTI, ...PRELUDIO, ...EP2, ...EP3, ...EP4, ...EP5],
+  EP6, LUOGHI6, EP6_INDIZI, EP6_TESTIMONI, EP6_REFERTI, EP6_MINACCE, EP6_OGGETTI, EP6_NEMICI,
+  ALL: [...HEROES, ...NEMICI, ...MINACCE, ...LUOGHI, ...INDIZI, ...TESTIMONI, ...REFERTI, ...OGGETTI, ...PRELUDIO, ...EP2, ...EP3, ...EP4, ...EP5, ...EP6],
 };
