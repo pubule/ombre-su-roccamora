@@ -1214,7 +1214,7 @@ const LUOGHI5 = [
     ] },
   { n: 3, nome: 'Il Cimitero Nuovo', req: 'Disponibile dall’inizio',
     art: 'artworks/Cimitero Nuovo.png',
-    testo: 'Cipressi adulti, ghiaia rastrellata, la piccola città dei morti che cresce per file ordinate. Le transenne delle fosse «in manutenzione» sono l’unica cosa fuori posto — quelle, e il cancello di servizio con l’erba consumata da ruote che di giorno nessuno vede mai.',
+    testo: 'Cipressi adulti, ghiaia rastrellata, la piccola città dei morti che cresce per file ordinate. Le transenne delle fosse «in manutenzione» sono l’unica cosa fuori posto — quelle, e il cancello di servizio con l’erba consumata da ruote che di giorno nessuno vede mai. I carri notturni finiscono il carico verso le 21:00: dopo, le lapidi con l’onda non ci sono più (il luogo resta visitabile).',
     approfondimenti: [
       { tipo: 'Testimonianza', soggetto: 'L’inserviente sputasentenze',
         testo: '«Mola una volta scavava e basta. Da quest’inverno misura: va per file coi passi contati e un taccuino, come un agrimensore. E quando ha finito di misurare, la settimana dopo, la fossa è “in manutenzione”. Io non so leggere, signori. Ma so contare: ventidue.»' },

@@ -215,6 +215,16 @@ chiamano» SOLO nel ramo «sigillata» del Bivio Ep. 4 (vedi §8).
   cassa (D3). Log: logs/playtest/20260718-curva-ep5-v1. Nota tecnica: il
   refuso [:-0] del patch Ep.4 (docstring perso) è stato riparato in
   entrambi i simulatori.
+- **Varietà indagine (2026-07-18, torsione «orologio inverso»):** al
+  Cimitero Nuovo (L3) la prova fisica della Domanda 3 (le lapidi con
+  l'onda) SCADE alle 21:00 — i carri notturni la portano dal marmista.
+  Arrivare in tempo (entro la 3ª ora) dà il riscontro D3 + blocca gli
+  ultimi due carri (2 casse salve in T5); arrivare tardi la perde (restano
+  Ossario aperto + Marmista, doppia via anti-softlock intatta). Curva v3
+  invariata rispetto a v2 (la D3 non è nel loop di combattimento): 2:46%,
+  3-10 71-99%. Leve: `scade_prova=21` su L3, flag `prova_scaduta`/
+  `casse_gratis` nel simulatore. Log: logs/playtest/20260718-curva-ep5-v3.
+  Spec: DESIGN-INDAGINE-VARIETA-ep5.md.
 - **Fase C — aggiornamento regola Slancio (2026-07-18, curva v2):** chiuso
   il bug «Slancio gratis» (Slancio SOLO con 4/4 risposte esatte E 3+ ore
   avanzate; la via 6+ luoghi vale ora Preparati), curva rigirata sugli

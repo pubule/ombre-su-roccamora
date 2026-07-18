@@ -483,7 +483,7 @@ LUOGHI_SIM = [
          approf=['Referto'], incrocio_d3=True),
     dict(n=3, nome='Il Cimitero Nuovo', req=None,
          sblocca_parola=('IL MAESTRO DEI REGISTRI', 'CONTANTI NUOVI', 'LAPIDI RIFATTE'),
-         chiude=None, approf=['Testimonianza'], incrocio_d3=True),
+         chiude=None, scade_prova=21, approf=['Testimonianza'], incrocio_d3=True),
     dict(n=4, nome='La Parrocchia del Borgo', req=None,
          sblocca_parola='LA SCONSACRAZIONE DEL QUARANTUNO',
          sblocca_oggetto='LA CHIAVE DEL SAGRATO', chiude=None,
@@ -601,6 +601,8 @@ def simula_indagine(party, log, esplora_a_fondo=False):
     libretto = False     # qui: l'Acqua del Fonte (debolezza del boss)
     incroci_d1 = 0       # riscontri della Domanda 1 (>=2 = discesa preparata)
     incroci_d3 = 0       # riscontri della Domanda 3 (>=2 = casse riconoscibili)
+    prova_scaduta = False  # L3: lapidi/casse portate via dai carri dalle 21:00 (orologio inverso)
+    casse_gratis = 0       # 2 se blocchi gli ultimi carri in tempo (peso epilogo)
     approf_letti = 0
     approf_falliti = 0
     chi_confermato = False
@@ -661,7 +663,13 @@ def simula_indagine(party, log, esplora_a_fondo=False):
         # perde sempre contro 1/2/3 finche' non e' gia' troppo tardi per
         # visitarlo - irraggiungibile in ogni singola simulazione, non solo
         # qualche volta.
-        rischio = 0 if (l['chiude'] is not None and ora_corrente + 1 >= l['chiude']) else 1
+        # `rischio` include ora la FINESTRA da cogliere (L3, scade_prova):
+        # finche' non visitato e siamo nella finestra, salta in testa (un
+        # tavolo vero corre alla pista deperibile).
+        _scade = l.get('scade_prova')
+        rischio = 0 if ((l['chiude'] is not None and ora_corrente + 1 >= l['chiude'])
+                        or (_scade is not None and l['n'] not in visitati
+                            and ora_corrente < _scade)) else 1
         # Ep. 3: strutturali = le 4 fonti di chiavi, tutte aperte (L1-L4).
         strutturale = 0 if l['n'] in (1, 2, 3, 4) else 1
         # La "missione" del caso: un tavolo vero insegue la Canna Muta
@@ -796,8 +804,17 @@ def simula_indagine(party, log, esplora_a_fondo=False):
             incroci_d1 += 1
             log(f'    -> Riscontro sulla Domanda 1 ({incroci_d1}: calcina/fascicolo/botola).')
         if l.get('incrocio_d3'):
-            incroci_d3 += 1
-            log(f'    -> Riscontro sulla Domanda 3 ({incroci_d3}: casse marcate/lapidi/registro).')
+            if l.get('scade_prova') and ora_corrente >= l['scade_prova']:
+                prova_scaduta = True
+                log('    -> I carri hanno finito: la prova delle lapidi è persa. Nessun '
+                    'riscontro D3 da qui (restano Ossario aperto + Marmista da sbloccare).')
+            else:
+                incroci_d3 += 1
+                if l.get('scade_prova'):
+                    casse_gratis = 2
+                    log('    -> In tempo al Cimitero: bloccati gli ultimi due carri — 2 casse '
+                        'già salve in T5 (peso nell’epilogo).')
+                log(f'    -> Riscontro sulla Domanda 3 ({incroci_d3}: casse marcate/lapidi/registro).')
         if ok:
             tenta_approfondimenti(l)
         else:
@@ -869,7 +886,10 @@ def simula_indagine(party, log, esplora_a_fondo=False):
     if dossier_completo:
         log('Dossier completo (tutte le ore spese in Indagine): 1 gettone Intuizione per la Spedizione.')
     log('')
+    if prova_scaduta:
+        log('La prova delle lapidi (L3) è scaduta: la D3 va confermata via Ossario + Marmista.')
     return dict(ore_avanzate=ore_avanzate, tier=tier, libretto=libretto,
+                prova_scaduta=prova_scaduta, casse_gratis=casse_gratis,
                 pianta=pianta, d1_ok=d1_ok, d3_ok=d3_ok, visitati=visitati,
                 chi_confermato=chi_confermato, dossier_completo=dossier_completo,
                 secondo_fiato=secondo_fiato, approf_dettaglio=approf_dettaglio)

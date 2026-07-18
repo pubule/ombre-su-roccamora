@@ -63,6 +63,8 @@ LETTERA_5 = (
     "<i>Luoghi disponibili dall’inizio: la chiesa dei Battuti, l’ossario comunale, il "
     "cimitero nuovo e la Parrocchia del Borgo — che conoscete. Gli altri andranno "
     "sbloccati. L’ossario chiude alle 22:00, l’ufficio delle sconsacrazioni in Curia "
+    "alle 21:00. E al Cimitero Nuovo i carri notturni finiscono il carico verso le "
+    "21:00: le lapidi che portano via, dopo, non le trovate più. "
     "alle 21:00.</i>")
 
 # Luoghi: chiavi LETTERALI negli indizi, tutte da luoghi APERTI, doppia via
@@ -136,7 +138,10 @@ LUOGHI_5 = [
              'firma il maestro dei registri. Chi è? Boh. Ma il cancello si apre.»',
              'Dietro la rimessa, lapidi vecchie accatastate a faccia in giù: sono quelle vere '
              'delle tombe «rifatte» — e su ciascuna, sotto il muschio, un’onda scalpellata '
-             'via. Le lapidi rifatte non sono pietà: sono una cancellatura.'],
+             'via. Le lapidi rifatte non sono pietà: sono una cancellatura — e i carri le '
+             'portano dal marmista STANOTTE. Se arrivate qui dopo le 21:00 il cortile è '
+             'già vuoto: questa prova l’avete persa (il Cimitero resta visitabile, ma la '
+             'Domanda 3 dovrete confermarla altrove).'],
          approfondimenti=[
              dict(tipo='Testimonianza', soggetto='L’inserviente sputasentenze',
                   testo='«Mola una volta scavava e basta. Da quest’inverno misura: va per file '
@@ -443,6 +448,7 @@ def indagine():
     c.setFillColor(RED); c.setFont(F['i'], 8.5)
     c.drawString(16*mm + 6*17*mm + 4*mm, H - 39.5*mm, '! la Curia (7) chiude alle 21:00')
     c.drawString(16*mm + 6*17*mm + 4*mm, H - 44.5*mm, '! l’Ossario (2) chiude alle 22:00')
+    c.drawString(16*mm + 6*17*mm + 4*mm, H - 49.5*mm, '! il Cimitero (3): dalle 21:00 i carri hanno finito — prova persa')
 
     def sect(ytop, label, nlines):
         c.setFillColor(TEAL); c.setFont(F['sc'], 10)
@@ -633,6 +639,14 @@ def soluzione():
         'casse mancanti all’ossario). <i>Esatta:</i> in T5 riconoscete le casse giuste a '
         'colpo d’occhio. <i>Sbagliata:</i> ogni cassa in T5 richiede prima una prova ACUME '
         '(Media): fallita, l’azione è spesa su una cassa qualunque (non conta).',
+        '<b>Orologio inverso — la prova delle lapidi.</b> La prova fisica della Domanda 3 '
+        '(le lapidi originali con l’onda) è al Cimitero Nuovo SOLO fino alle 21:00: dopo, '
+        'i carri l’hanno portata dal marmista a farne polvere. Arrivate entro la 3ª ora '
+        '(orologio a 18/19/20): il Cimitero conta come riscontro D3 e bloccate gli ultimi '
+        'due carri — le due casse finali sono già in salvo in T5. Arrivate dopo: quel '
+        'riscontro è perso; restano l’Ossario (aperto) e il Marmista (parola «lapidi '
+        'rifatte»): due riscontri bastano ancora, ma il Marmista costa una parola e '
+        'un’ora in più. Se non rimediate, la D3 resta sbagliata (ACUME per cassa in T5).',
         '<b>4. COSA portate con voi?</b> L’ACQUA DEL FONTE (la Parrocchia del Borgo): '
         'un’azione adiacente al Salmodiante — l’unica voce più vecchia della sua: Difesa '
         '8→5 per il resto della partita, e salta la sua prossima attivazione. <i>Nota per '
