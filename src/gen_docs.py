@@ -75,6 +75,7 @@ def h1_bar(txt, width=TEXT_W):
     ]))
     t.spaceBefore = 14
     t.spaceAfter = 7
+    t.keepWithNext = 1   # mai un banner orfano in fondo pagina, col testo dopo
     return t
 
 
@@ -716,8 +717,10 @@ def aiuto():
                             pagesize=A4, leftMargin=18*mm, rightMargin=18*mm,
                             topMargin=16*mm, bottomMargin=14*mm,
                             title='Ombre su Roccamora - Aiuto di gioco')
-    ref = ParagraphStyle('ref', parent=S['body'], fontSize=9.5, leading=12.5, spaceAfter=2)
-    li = ParagraphStyle('refli', parent=ref, leftIndent=12, bulletIndent=3, spaceAfter=1.5)
+    # tarato al millimetro perche' TUTTO stia in una pagina (l'ultima riga
+    # sforava): leading e spaziature un filo piu' stretti, stesso corpo
+    ref = ParagraphStyle('ref', parent=S['body'], fontSize=9.5, leading=12.1, spaceAfter=2)
+    li = ParagraphStyle('refli', parent=ref, leftIndent=12, bulletIndent=3, spaceAfter=1.2)
 
     def RP(t):
         return Paragraph(t, ref)
