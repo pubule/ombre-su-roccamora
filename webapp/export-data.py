@@ -31,6 +31,8 @@ from gen_ep3 import (LUOGHI_3, TILES_3, NEMICI_3, OGGETTI_LUOGO_3, LETTERA_3,  #
                      ESAMI_CARBONE_3)
 from gen_ep4 import (LUOGHI_4, TILES_4, NEMICI_4, OGGETTI_LUOGO_4, LETTERA_4,  # noqa: E402
                      ESAMI_CARBONE_4)
+from gen_ep5 import (LUOGHI_5, TILES_5, NEMICI_5, OGGETTI_LUOGO_5, LETTERA_5,  # noqa: E402
+                     ESAMI_CARBONE_5)
 from gen_mappa import VOCI_MAPPA, MAPPE  # noqa: E402
 from gen_bestiario import FASCE, BOSS_DELTA, ferite_per_fascia  # noqa: E402
 from simulate_playtest import (INDAGINE_UNLOCK, TICK_CANTO_OGNI, SOGLIA_CANTO,  # noqa: E402
@@ -39,6 +41,7 @@ from simulate_playtest import (INDAGINE_UNLOCK, TICK_CANTO_OGNI, SOGLIA_CANTO,  
 from simulate_ep2 import TOKEN_POOL_BASE as POOL_EP2  # noqa: E402
 from simulate_ep3 import TOKEN_POOL_BASE as POOL_EP3  # noqa: E402
 from simulate_ep4 import TOKEN_POOL_BASE as POOL_EP4  # noqa: E402
+from simulate_ep5 import TOKEN_POOL_BASE as POOL_EP5  # noqa: E402
 
 
 def strip_tags(s):
@@ -78,6 +81,9 @@ REPERTI_LUOGO = {
     'ep4': {2: ['Reperto C - Spartito Annotato'],
             5: ['Reperto A - Registro delle Macchine'],
             6: ['Reperto B - Commissione del Notaio']},
+    'ep5': {5: ['Reperto A - Registro di Mola'],
+            6: ['Reperto B - Autorizzazione Timbrata'],
+            9: ['Reperto C - Diario di Fedele']},
 }
 
 
@@ -249,6 +255,27 @@ SOLUZIONI = dict(
         ],
         boss='IL SUGGERITORE',
     ),
+    ep5=dict(
+        domande=[
+            dict(q='DOVE si costruisce lo strumento?',
+                 risposta='Nella cripta murata dei Battuti, sotto il magazzino comunale.',
+                 esatta='Scendete preparati: nel 1° round non si pesca nessuna carta Minaccia.',
+                 sbagliata='Scendete alla cieca: 1 Confratello appare in T1 alla rivelazione.'),
+            dict(q='CHI procura le ossa?',
+                 risposta='Zaccaria Mola, il becchino-capo.',
+                 esatta='Mola fermato al cancello: in T5 due casse sono già in salvo (contano come recuperate).',
+                 sbagliata='Nessun effetto.'),
+            dict(q='QUALI ossa cercano?',
+                 risposta='Solo i confratelli del 1741 — le casse marcate con l’onda.',
+                 esatta='In T5 riconoscete le casse giuste a colpo d’occhio.',
+                 sbagliata='Ogni cassa in T5 richiede prima una prova ACUME (Media); fallita, l’azione non conta.'),
+            dict(q='COSA portate con voi?',
+                 risposta='L’ACQUA DEL FONTE (la Parrocchia del Borgo).',
+                 esatta='Un’azione adiacente al Salmodiante: Difesa 8→5 e salta la prossima attivazione.',
+                 sbagliata='Il Salmodiante conserva Difesa 8. (Crocifisso Spezzato e Olio dei Morti sono esche.)'),
+        ],
+        boss='IL SALMODIANTE',
+    ),
     preludio=dict(
         domande=[
             dict(q='DOVE è tenuto Ansaldo?',
@@ -339,11 +366,25 @@ episodi = dict(
         soluzione=SOLUZIONI['ep4'],
         pool=POOL_EP4,
     ),
+    ep5=dict(
+        id='ep5', titolo='L’organo di ossa',
+        sottotitolo='episodio 5 — la cripta dei Battuti',
+        cartella='Episodio 5', ore_budget=6,
+        lettera=LETTERA_5,
+        obiettivo='Sfregiate le 3 canne montate dell’organo (Interagire, in T6) e risalite '
+                  'da T1. Secondario: le casse di ossa in T5, una ad azione (Interagire).',
+        esami_carbone=ESAMI_CARBONE_5,
+        luoghi=[luogo_json(L, OGGETTI_LUOGO_5, REPERTI_LUOGO['ep5']) for L in LUOGHI_5],
+        tessere=[tessera_json(T) for T in TILES_5],
+        vantaggio=dict(slancio_ore=3, slancio_luoghi=7, preparati_ore=1, preparati_luoghi=6),
+        soluzione=SOLUZIONI['ep5'],
+        pool=POOL_EP5,
+    ),
 )
 
 comune = dict(
     eroi=[eroe_json(h) for h in HEROES],
-    nemici=[nemico_json(n) for n in NEMICI + NEMICI_2 + NEMICI_3 + NEMICI_4],
+    nemici=[nemico_json(n) for n in NEMICI + NEMICI_2 + NEMICI_3 + NEMICI_4 + NEMICI_5],
     mappa=dict(voci=[dict(nome=v[0], indirizzo=v[1], tag=v[2]) for v in VOCI_MAPPA],
                mappe=[dict(cartella=m[0], sottotitolo=m[1], tags=list(m[2])) for m in MAPPE]),
     regole=REGOLE,

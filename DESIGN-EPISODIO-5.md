@@ -220,5 +220,8 @@ chiamano» SOLO nel ramo «sigillata» del Bivio Ep. 4 (vedi §8).
   (+1 Dif ai Confratelli adiacenti), sfregio 3 canne + bonifica post-boss,
   D3 sbagliata = ACUME per cassa in T5, D1 sbagliata = spawn in T1,
   Confratello mov 2. Curva 2-10, taglia 2 rivalidata.
-- Fase D: in attesa dell'arte; poi taratura finale a video.
-- Fase E: webapp + 2 scenari test-partite; suite verde.
+- **Fase D — IN ATTESA DELL'ARTE** (PROMPT-MIDJOURNEY-Episodio-5.md, 38
+  soggetti, prompt integrali): al suo arrivo carte, tessere, token, PDF
+  senza placeholder e taratura finale a video.
+- **Fase E — FATTA (20260718):** webapp integrata; suite verde (test-engine
+  anti-softlock, test-ui a 6 episodi, 2 scenari test-partite Ep.5).
