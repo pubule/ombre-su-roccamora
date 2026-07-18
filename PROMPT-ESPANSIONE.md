@@ -1063,6 +1063,20 @@ successiva** — mai tutto in un colpo:
   boss-con-debolezza-oggetto consecutivi). Il design doc di Fase A dichiara
   ESPLICITAMENTE quale elemento cambia e che tipo di finale era quello
   dell'episodio precedente.
+- **REGOLA DI VARIETÀ D'INDAGINE (2026-07-18, anch'essa in FASE A):** oltre
+  alla varietà della spedizione, ogni episodio introduce UNA torsione
+  distintiva nell'INDAGINE (lo scheletro fisso — 9 luoghi, 4 Domande
+  DOVE/CHI/QUANDO/COSA, chiavi a doppia via, rivelatorio D2, esche, reperti —
+  resta, ma con una torsione), MAI uguale a quella dell'episodio adiacente.
+  Palette (estendibile): testimone inaffidabile (un indizio è un depistaggio,
+  da smascherare incrociando); catena sociale (un luogo si apre con la
+  presentazione di un PNG, non con una parola); orologio inverso (una prova
+  si sposta/si distrugge mentre indaghi); Domanda non-canonica (QUANTI? /
+  CHI MENTE? / IN CHE ORDINE?); 5ª Domanda-bonus via reperto; doppia pista con
+  esca strutturale. Implementazione: un flag nell'indagine del simulatore +
+  testo nella soluzione/carta; NON si tocca il modello `req` della webapp (le
+  chiavi-parola restano per il test anti-softlock BFS). Applicata a ritroso su
+  Ep.3-9 (vedi i «## Varietà indagine» nei DESIGN-EPISODIO-N.md).
 - **Fase A — design doc**: `DESIGN-EPISODIO-N.md` alla radice: caso, colpevole,
   8-9 luoghi con chiavi/orari, le 4 Domande coi loro incroci, tessere e percorso,
   boss e debolezza, Bivio. Si discute e si approva PRIMA di scrivere dati.
