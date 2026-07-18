@@ -1,0 +1,162 @@
+Run: ep9-05_p3_seed0  |  seed=696300  |  formula Minaccia=finale_v3  |  generato: 2026-07-18T18:04:47
+==============================================================================
+SPEDIZIONE - La scorta del teste, dopo mezzanotte
+==============================================================================
+Party: FULGENZIO CARBONE, MORA “SPILLA” FANTI, NINO “GRIMALDELLO” CAUTO, OTTAVIO BRERA, SIBILLA REVE
+Bonus da Indagine: PREPARATI (+1 Salute massima a testa); Bolla: sì; Lanterna+Tappi: sì; D1: esatta; D3: sbagliata
+NOTA: gruppo trattato come blocco unico tessera per tessera (vedi intestazione script).
+
+  Partenza tardi, ronde già ritirate (Domanda 3): +1 segnalino Canto.
+  Col Salvacondotto (Domanda 4): alla partenza si salta una tessera d’imboscata.
+  [SALVACONDOTTO] Si salta Vicolo dei Tintori.
+--- Round 1: la scorta attraversa T1 (Sacrestia) ---
+    (azioni nominali questo round: 10 — 5 eroi vivi)
+    La scorta entra in T1 da B1 (Riva in mezzo).
+    [PROVA ACUME] FULGENZIO CARBONE: 2d6(6,5)=11 +ACUME(3) = 14 vs Media(9) -> SUCCESSO
+    FULGENZIO CARBONE cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    MORA “SPILLA” FANTI: nessun bersaglio, avanza / assiste il gruppo.
+    NINO “GRIMALDELLO” CAUTO: nessun bersaglio, avanza / assiste il gruppo.
+    OTTAVIO BRERA: nessun bersaglio, avanza / assiste il gruppo.
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] L’UOMO SUL TETTO (malavita) — Piazzate 1 Sicario sull’uscita più vicina agli eroi.
+    Piazzati 1x IL SICARIO (pool residua: 2) in B1.
+  [MINACCIA] LA SCORCIATOIA DI RANUZZI (favore) — Rivelate una tessera coperta adiacente.
+    (carta senza effetto modellato in questa simulazione)
+  IL SICARIO si muove verso Riva: B1 -> C1.
+  FULGENZIO CARBONE fa da SCUDO a Riva e para il colpo di IL SICARIO:
+    [ATTACCO NEMICO] IL SICARIO -> FULGENZIO CARBONE: 2d6(3,4)=7 +Attacco(3) = 10 vs Difesa(8) -> COLPITO
+    FULGENZIO CARBONE subisce 2 danno da IL SICARIO (Salute: 5/7).
+--- Round 2: la scorta attraversa T3 (Ponte delle Catene) ---
+    (azioni nominali questo round: 10 — 5 eroi vivi)
+    La scorta entra in T3 da B1 (Riva in mezzo).
+    Sul Ponte delle Catene, appare IL SICARIO GENTILE: si toglie il cappello. «Signori. Mi dispiace per quello che segue.»
+    [ABILITÀ] FULGENZIO CARBONE usa Esca preziosa: IL SICARIO si dirige verso l’esca invece che verso il gruppo alla prossima attivazione.
+    MORA “SPILLA” FANTI si muove verso IL SICARIO: B1 -> C2.
+    [ATTACCO] MORA “SPILLA” FANTI -> IL SICARIO: 2d6(2,2)=4 +VIGORE(2)+arma(1) = 7 vs Difesa(7) -> COLPITO
+    IL SICARIO: 0/1 ferite residue.
+    IL SICARIO è ABBATTUTO.
+    NINO “GRIMALDELLO” CAUTO si muove verso IL SICARIO GENTILE: B1 -> D2.
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> IL SICARIO GENTILE: 2d6(4,3)=7 +VIGORE(2)+arma(1) = 10 vs Difesa(8) -> COLPITO
+    IL SICARIO GENTILE: 3/4 ferite residue.
+    OTTAVIO BRERA si muove verso IL SICARIO GENTILE: B1 -> B4.
+    OTTAVIO BRERA si avvicina a IL SICARIO GENTILE, non ancora a contatto.
+    [PROVA ACUME] SIBILLA REVE: 2d6(1,2)=3 +ACUME(2) = 5 vs Media(9) -> FALLITA
+    SIBILLA REVE cerca sulla tessera: niente da trovare qui, o prova fallita.
+    [ABILITÀ] SIBILLA REVE scruta il mazzo: «IL BRACCIO DELL’AVVOCATO» finisce in fondo, «IL CAPANNELLO» torna in cima (2 usi residui).
+  [MINACCIA] IL CAPANNELLO (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 4) in B1.
+  [MINACCIA] LA PRIMA RONDA PASSA (crescendo) — Aggiungete 1 segnalino Canto (l’Ora che stringe).
+    Segnalino Canto (l’Ora che stringe): 2.
+    Il Sicario Gentile si attiva subito (l’ora lo chiama):
+  IL SICARIO GENTILE attacca NINO “GRIMALDELLO” CAUTO:
+    [ATTACCO NEMICO] IL SICARIO GENTILE -> NINO “GRIMALDELLO” CAUTO: 2d6(3,2)=5 +Attacco(3) = 8 vs Difesa(8) -> COLPITO
+    NINO “GRIMALDELLO” CAUTO subisce 2 danno da IL SICARIO GENTILE (Salute: 6/8).
+  LO SGHERRO si muove verso Riva: B1 -> B2.
+  FULGENZIO CARBONE fa da SCUDO a Riva e para il colpo di LO SGHERRO:
+    [ATTACCO NEMICO] LO SGHERRO -> FULGENZIO CARBONE: 2d6(3,1)=4 +Attacco(2) = 6 vs Difesa(8) -> MANCATO
+  IL SICARIO GENTILE attacca NINO “GRIMALDELLO” CAUTO:
+    [ATTACCO NEMICO] IL SICARIO GENTILE -> NINO “GRIMALDELLO” CAUTO: 2d6(6,6)=12 +Attacco(3) = 15 vs Difesa(8) -> COLPITO
+    NINO “GRIMALDELLO” CAUTO subisce 2 danno da IL SICARIO GENTILE (Salute: 4/8).
+--- Round 3: la scorta attraversa T4 (Mercato Coperto) ---
+    (azioni nominali questo round: 10 — 5 eroi vivi)
+    La scorta entra in T4 da B1 (Riva in mezzo).
+    Nel Mercato Coperto: 1 Sgherro e 1 Sicario tra i banchi.
+    [FISCHIETTO D’ALLARME] una ronda onesta accorre: 1 Sgherro messo in fuga.
+    [ABILITÀ] FULGENZIO CARBONE usa Esca preziosa: LO SGHERRO, IL SICARIO si dirige verso l’esca invece che verso il gruppo alla prossima attivazione.
+    MORA “SPILLA” FANTI si muove verso IL SICARIO: B1 -> B2.
+    [ATTACCO] MORA “SPILLA” FANTI -> IL SICARIO: 2d6(4,6)=10 +VIGORE(2)+arma(1) = 13 vs Difesa(7) -> COLPITO
+    IL SICARIO: 0/1 ferite residue.
+    IL SICARIO è ABBATTUTO.
+    NINO “GRIMALDELLO” CAUTO si muove verso LO SGHERRO: B1 -> C2.
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> LO SGHERRO: 2d6(4,6)=10 +VIGORE(2)+arma(1) = 13 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    [ABILITÀ] OTTAVIO BRERA usa Vi conosco, Malacarne su LO SGHERRO: rimosso dal tabellone.
+    [PROVA ACUME] SIBILLA REVE: 2d6(2,6)=8 +ACUME(2) = 10 vs Media(9) -> SUCCESSO
+    SIBILLA REVE cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    [ABILITÀ] SIBILLA REVE scruta il mazzo: «IL COLTELLO DAL BUIO» finisce in fondo, «LA CARITÀ ARMATA» torna in cima (1 usi residui).
+  [MINACCIA] LA CARITÀ ARMATA (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 2) in B1.
+  [MINACCIA] IL SELCIATO VISCIDO (insidia) — L’eroe più avanzato prova NERVI (Media): se fallisce, 1 danno.
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(1,6)=7 +NERVI(1) = 8 vs Media(9) -> FALLITA
+    [SECONDO FIATO] MORA “SPILLA” FANTI ritenta la prova (unico ritento dell’episodio):
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(6,6)=12 +NERVI(1) = 13 vs Media(9) -> SUCCESSO
+  LO SGHERRO attacca MORA “SPILLA” FANTI:
+    [ATTACCO NEMICO] LO SGHERRO -> MORA “SPILLA” FANTI: 2d6(1,6)=7 +Attacco(2) = 9 vs Difesa(8) -> COLPITO
+    MORA “SPILLA” FANTI subisce 1 danno da LO SGHERRO (Salute: 7/8).
+  IL SICARIO GENTILE si muove verso Riva: D3 -> B3.
+  IL SICARIO GENTILE scambia Riva per un manichino (Mantella): il colpo va a vuoto.
+--- Round 4: la scorta attraversa T5 (Salita dei Lampionai) ---
+    (azioni nominali questo round: 10 — 5 eroi vivi)
+    La scorta entra in T5 da B1 (Riva in mezzo).
+    Il Sicario Gentile si è portato AVANTI e aspetta in cima alla Salita.
+    FULGENZIO CARBONE si muove verso IL SICARIO GENTILE: B1 -> A3.
+    FULGENZIO CARBONE si avvicina a IL SICARIO GENTILE, non ancora a contatto.
+    MORA “SPILLA” FANTI si muove verso IL SICARIO GENTILE: B1 -> D2.
+    MORA “SPILLA” FANTI si avvicina a IL SICARIO GENTILE, non ancora a contatto.
+    [PROVA ACUME] NINO “GRIMALDELLO” CAUTO: 2d6(3,1)=4 +ACUME(2) = 6 vs Media(9) -> FALLITA
+    NINO “GRIMALDELLO” CAUTO cerca sulla tessera: niente da trovare qui, o prova fallita.
+    OTTAVIO BRERA: nessun bersaglio, avanza / assiste il gruppo.
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] GLI UBRIACHI SU ORDINAZIONE (malavita) — Piazzate 1 Sgherro sull’ingresso della tessera.
+    Piazzati 1x LO SGHERRO (pool residua: 1), a 6 caselle dalla tessera del gruppo.
+  [MINACCIA] I BRAVI DEL FONDO (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 0) in B1.
+  LO SGHERRO si muove verso Riva: B1 -> C2.
+  MORA “SPILLA” FANTI fa da SCUDO a Riva e para il colpo di LO SGHERRO:
+    [ATTACCO NEMICO] LO SGHERRO -> MORA “SPILLA” FANTI: 2d6(4,3)=7 +Attacco(2) = 9 vs Difesa(8) -> COLPITO
+    MORA “SPILLA” FANTI subisce 1 danno da LO SGHERRO (Salute: 6/8).
+  LO SGHERRO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si muove verso Riva: B1 -> C1.
+  LO SGHERRO punta RIVA (il teste):
+    [ATTACCO NEMICO] LO SGHERRO -> RIVA: 2d6(6,6)=12 +Attacco(2) = 14 vs Difesa(8) -> COLPITO
+    RIVA subisce 1 danno (Salute: 2/3).
+  IL SICARIO GENTILE si avvicina, non ancora a contatto.
+  [OROLOGIO] Fine del 4° round: +1 segnalino Canto automatico.
+    Segnalino Canto (l’Ora che stringe): 3.
+    L’Ora raggiunge 3: l’intervallo delle ronde è al colmo — da ora ogni Fase Minaccia pesca 1 carta in più (fino a fine spedizione).
+--- Round 5: la scorta attraversa T6 (Molo del Lume) ---
+    (azioni nominali questo round: 10 — 5 eroi vivi)
+    La scorta entra in T6 da B1 (Riva in mezzo).
+    FULGENZIO CARBONE si muove verso LO SGHERRO: B1 -> C3.
+    FULGENZIO CARBONE si avvicina a LO SGHERRO, non ancora a contatto.
+    [ATTACCO] MORA “SPILLA” FANTI -> LO SGHERRO: 2d6(6,4)=10 +VIGORE(2)+arma(1) = 13 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> LO SGHERRO: 2d6(4,2)=6 +VIGORE(2)+arma(1) = 9 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+    OTTAVIO BRERA si muove verso LO SGHERRO: B1 -> B2.
+    [ATTACCO] OTTAVIO BRERA -> LO SGHERRO: 2d6(4,4)=8 +VIGORE(1)+arma(1) = 10 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    SIBILLA REVE si muove verso LO SGHERRO: B1 -> C1.
+    [ATTACCO] SIBILLA REVE -> LO SGHERRO: 2d6(2,3)=5 +VIGORE(1)+arma(1) = 7 vs Difesa(8) -> MANCATO
+    [ABILITÀ] SIBILLA REVE scruta il mazzo: «IL FISCHIO DI RICHIAMO» finisce in fondo, «I COLLEGHI DEL GENTILE» torna in cima (0 usi residui).
+  [MINACCIA] I COLLEGHI DEL GENTILE (malavita) — Piazzate 1 Sicario sull’uscita più vicina agli eroi.
+    Piazzati 1x IL SICARIO (pool residua: 2) in B1.
+  [MINACCIA] LA FOLLA CHE SPINGE (insidia) — L’eroe adiacente a Riva prova NERVI (Media): se fallisce, Riva è spinto.
+    [FOLLA] La folla spinge, ma Riva resta coperto dal gruppo.
+  [MINACCIA] LA LAMA EDUCATA (insidia) — L’eroe adiacente a Riva subisce 1 danno (fare da scudo ha un prezzo).
+    FULGENZIO CARBONE subisce 1 danno da LA LAMA EDUCATA (Salute: 4/7).
+  LO SGHERRO attacca OTTAVIO BRERA:
+    [ATTACCO NEMICO] LO SGHERRO -> OTTAVIO BRERA: 2d6(4,6)=10 +Attacco(2) = 12 vs Difesa(8) -> COLPITO
+    OTTAVIO BRERA subisce 1 danno da LO SGHERRO (Salute: 6/7).
+  LO SGHERRO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  IL SICARIO si muove verso Riva: B1 -> A2.
+  OTTAVIO BRERA fa da SCUDO a Riva e para il colpo di IL SICARIO:
+    [ATTACCO NEMICO] IL SICARIO -> OTTAVIO BRERA: 2d6(3,4)=7 +Attacco(3) = 10 vs Difesa(8) -> COLPITO
+    OTTAVIO BRERA subisce 2 danno da IL SICARIO (Salute: 4/7).
+  IL SICARIO GENTILE si avvicina, non ancora a contatto.
+--- Riva raggiunge la barca al Molo del Lume (Interagire): VITTORIA. ---
+
+==============================================================================
+ESITO SPEDIZIONE: VITTORIA
+Round totali: 5
+Formula Minaccia: finale_v3 | Azioni nominali/round: media 10.0, picco 10
+Mazzo Minaccia rimescolato: 0 volta/e
+Segnalini nemici esauriti nel pool (piazzamenti saltati): 0
+Riva: salvo (Salute 2/3) | Sicario Gentile: in gioco
+  FULGENZIO CARBONE: 4/7 Salute
+  MORA “SPILLA” FANTI: 6/8 Salute
+  NINO “GRIMALDELLO” CAUTO: 4/8 Salute
+  OTTAVIO BRERA: 4/7 Salute
+  SIBILLA REVE: 7/7 Salute
+==============================================================================

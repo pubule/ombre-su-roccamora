@@ -1,0 +1,115 @@
+Run: ep9-02_p4_seed0  |  seed=693400  |  formula Minaccia=finale_v3  |  generato: 2026-07-18T18:04:46
+==============================================================================
+SPEDIZIONE - La scorta del teste, dopo mezzanotte
+==============================================================================
+Party: DOTT. ATTILIO MARN, DOTT. LAZZARO SERRA
+Bonus da Indagine: PREPARATI (+1 Salute massima a testa); Bolla: sì; Lanterna+Tappi: sì; D1: esatta; D3: sbagliata
+NOTA: gruppo trattato come blocco unico tessera per tessera (vedi intestazione script).
+Tensione tavolo piccolo: +-1 Ferite SOLO al Sicario Gentile (non ai nemici di truppa).
+
+Tavolo da 2: +1 Salute massima a testa (ricalibrazione).
+Gettone Intuizione in mano (Dossier completo): un ri-tiro, una volta in Spedizione.
+  Partenza tardi, ronde già ritirate (Domanda 3): +1 segnalino Canto.
+  Col Salvacondotto (Domanda 4): alla partenza si salta una tessera d’imboscata.
+  [SALVACONDOTTO] Si salta Vicolo dei Tintori.
+--- Round 1: la scorta attraversa T1 (Sacrestia) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    La scorta entra in T1 da B1 (Riva in mezzo).
+    [PROVA ACUME] DOTT. ATTILIO MARN: 2d6(3,4)=7 +ACUME(2) = 9 vs Media(9) -> SUCCESSO
+    DOTT. ATTILIO MARN cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    DOTT. LAZZARO SERRA: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] L’UOMO SUL TETTO (malavita) — Piazzate 1 Sicario sull’uscita più vicina agli eroi.
+    Piazzati 1x IL SICARIO (pool residua: 2) in B1.
+  IL SICARIO si muove verso Riva: B1 -> C1.
+  DOTT. LAZZARO SERRA fa da SCUDO a Riva e para il colpo di IL SICARIO:
+    [ATTACCO NEMICO] IL SICARIO -> DOTT. LAZZARO SERRA: 2d6(1,1)=2 +Attacco(3) = 5 vs Difesa(8) -> MANCATO
+--- Round 2: la scorta attraversa T3 (Ponte delle Catene) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    La scorta entra in T3 da B1 (Riva in mezzo).
+    Sul Ponte delle Catene, appare IL SICARIO GENTILE: si toglie il cappello. «Signori. Mi dispiace per quello che segue.»
+    [IL NOME SBAGLIATO — D2] gli ricordate che i mandanti bruciano i sicari come Ferri: il Sicario esita (salta la prima attivazione).
+    DOTT. ATTILIO MARN si muove verso IL SICARIO: B1 -> C2.
+    [ATTACCO] DOTT. ATTILIO MARN -> IL SICARIO: 2d6(2,3)=5 +VIGORE(2)+arma(1) = 8 vs Difesa(7) -> COLPITO
+    IL SICARIO: 0/1 ferite residue.
+    IL SICARIO è ABBATTUTO.
+    [ABILITÀ] DOTT. LAZZARO SERRA attiva Voce ferma (2 usi residui): +2 NERVI agli alleati fino al suo prossimo turno.
+  [MINACCIA] IL FISCHIO DI RICHIAMO (malavita) — Piazzate 1 Sgherro: si attiva subito.
+    Piazzati 1x LO SGHERRO (pool residua: 4) in B1.
+    LO SGHERRO si attiva subito:
+  LO SGHERRO si muove verso Riva: B1 -> D2.
+  DOTT. ATTILIO MARN fa da SCUDO a Riva e para il colpo di LO SGHERRO:
+    [ATTACCO NEMICO] LO SGHERRO -> DOTT. ATTILIO MARN: 2d6(3,3)=6 +Attacco(2) = 8 vs Difesa(8) -> COLPITO
+    DOTT. ATTILIO MARN subisce 1 danno da LO SGHERRO (Salute: 8/9).
+  IL SICARIO GENTILE salta l’attivazione (stonato).
+--- Round 3: la scorta attraversa T4 (Mercato Coperto) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    La scorta entra in T4 da B1 (Riva in mezzo).
+    Nel Mercato Coperto: 1 Sgherro e 1 Sicario tra i banchi.
+    [FISCHIETTO D’ALLARME] una ronda onesta accorre: 1 Sgherro messo in fuga.
+    [ABILITÀ] DOTT. ATTILIO MARN usa Pronto Soccorso su DOTT. ATTILIO MARN -> Salute 9.
+    DOTT. LAZZARO SERRA si muove verso IL SICARIO: B1 -> B2.
+    [ATTACCO] DOTT. LAZZARO SERRA -> IL SICARIO: 2d6(2,2)=4 +VIGORE(1)+arma(1) = 6 vs Difesa(7) -> MANCATO
+  [MINACCIA] GLI UBRIACHI SU ORDINAZIONE (malavita) — Piazzate 1 Sgherro sull’ingresso della tessera.
+    Piazzati 1x LO SGHERRO (pool residua: 2), a 6 caselle dalla tessera del gruppo.
+  LO SGHERRO si muove verso Riva: C3 -> C1.
+  LO SGHERRO scambia Riva per un manichino (Mantella): il colpo va a vuoto.
+  IL SICARIO si muove verso Riva: B3 -> C2.
+  DOTT. ATTILIO MARN fa da SCUDO a Riva e para il colpo di IL SICARIO:
+    [ATTACCO NEMICO] IL SICARIO -> DOTT. ATTILIO MARN: 2d6(6,3)=9 +Attacco(3) = 12 vs Difesa(8) -> COLPITO
+    DOTT. ATTILIO MARN subisce 2 danno da IL SICARIO (Salute: 7/9).
+  LO SGHERRO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+  IL SICARIO GENTILE si avvicina, non ancora a contatto.
+--- Round 4: la scorta attraversa T5 (Salita dei Lampionai) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    La scorta entra in T5 da B1 (Riva in mezzo).
+    Il Sicario Gentile si è portato AVANTI e aspetta in cima alla Salita.
+    [ABILITÀ] DOTT. ATTILIO MARN usa Pronto Soccorso su DOTT. ATTILIO MARN -> Salute 9.
+    [ABILITÀ] DOTT. LAZZARO SERRA attiva Voce ferma (1 usi residui): +2 NERVI agli alleati fino al suo prossimo turno.
+  [MINACCIA] UN PORTONE AMICO (quiete) — Nessun effetto (tensione).
+    (carta senza effetto modellato in questa simulazione)
+  LO SGHERRO attacca DOTT. LAZZARO SERRA:
+    [ATTACCO NEMICO] LO SGHERRO -> DOTT. LAZZARO SERRA: 2d6(6,4)=10 +Attacco(2) = 12 vs Difesa(8) -> COLPITO
+    DOTT. LAZZARO SERRA subisce 1 danno da LO SGHERRO (Salute: 7/8).
+  IL SICARIO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  IL SICARIO GENTILE si muove verso Riva: B4 -> A1.
+  DOTT. LAZZARO SERRA copre Riva dal Sicario (Riva +2 Difesa, non si para del tutto un professionista).
+  IL SICARIO GENTILE punta RIVA (il teste):
+    [ATTACCO NEMICO] IL SICARIO GENTILE -> RIVA: 2d6(3,2)=5 +Attacco(3) = 8 vs Difesa(10) -> MANCATO
+  [OROLOGIO] Fine del 4° round: +1 segnalino Canto automatico.
+    Segnalino Canto (l’Ora che stringe): 2.
+--- Round 5: la scorta attraversa T6 (Molo del Lume) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    La scorta entra in T6 da B1 (Riva in mezzo).
+    [ABILITÀ] DOTT. ATTILIO MARN usa Pronto Soccorso su DOTT. LAZZARO SERRA -> Salute 8.
+    DOTT. LAZZARO SERRA si muove verso LO SGHERRO: B1 -> C3.
+    DOTT. LAZZARO SERRA si avvicina a LO SGHERRO, non ancora a contatto.
+  [MINACCIA] IL CAPANNELLO (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 1) in B1.
+  LO SGHERRO si muove verso Riva: C1 -> D4.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  IL SICARIO si muove verso Riva: C2 -> B2.
+  DOTT. ATTILIO MARN fa da SCUDO a Riva e para il colpo di IL SICARIO:
+    [ATTACCO NEMICO] IL SICARIO -> DOTT. ATTILIO MARN: 2d6(3,4)=7 +Attacco(3) = 10 vs Difesa(8) -> COLPITO
+    DOTT. ATTILIO MARN subisce 2 danno da IL SICARIO (Salute: 7/9).
+  LO SGHERRO si avvicina (Movimento 4): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si muove verso Riva: B1 -> C2.
+  LO SGHERRO punta RIVA (il teste):
+    [ATTACCO NEMICO] LO SGHERRO -> RIVA: 2d6(1,6)=7 +Attacco(2) = 9 vs Difesa(8) -> COLPITO
+    RIVA subisce 1 danno (Salute: 2/3).
+  IL SICARIO GENTILE si muove verso Riva: A1 -> A2.
+  IL SICARIO GENTILE punta RIVA (il teste):
+    [ATTACCO NEMICO] IL SICARIO GENTILE -> RIVA: 2d6(3,5)=8 +Attacco(3) = 11 vs Difesa(8) -> COLPITO
+    RIVA subisce 2 danno (Salute: 0/3).
+    *** RIVA È CADUTO. La scorta è fallita. ***
+
+==============================================================================
+ESITO SPEDIZIONE: SCONFITTA (il teste è caduto)
+Round totali: 5
+Formula Minaccia: finale_v3 | Azioni nominali/round: media 4.0, picco 4
+Mazzo Minaccia rimescolato: 0 volta/e
+Segnalini nemici esauriti nel pool (piazzamenti saltati): 0
+Riva: caduto (Salute 0/3) | Sicario Gentile: in gioco
+  DOTT. ATTILIO MARN: 7/9 Salute
+  DOTT. LAZZARO SERRA: 8/8 Salute
+==============================================================================

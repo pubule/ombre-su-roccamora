@@ -212,7 +212,20 @@ fragile invece di picchiare il gruppo; obiettivo scorta.
   Gazzetta, La Gendarmeria; 6 tessere nuove (città notturna: vicoli,
   ponte, mercato, salita, molo); reperti A/B/C; PROMPT-MJ integrale;
   bucket; copertina.
-- Fase C: `simulate_ep9.py` (seed base 690000); da modellare: la SCORTA
+- **Fase C — FATTA (20260718, curva v2):** curva (5 party × 30 seed):
+  2: 57% (dura, multi-hand consigliato), 3: 77%, 4: 61%, 5: 79%, 6: 87%,
+  7: 83%, 8: 81%, 9: 86%, 10: 95% — gradiente da scorta (la taglia serve
+  a coprire Riva). Heist notturno molto rapido (~5 round). NOTA sul KPI:
+  la % «sofferte» è bassa (misura gli eroi a terra) ma NON è la vera ansia
+  di questo episodio — qui la tensione è la SOPRAVVIVENZA di Riva, e la
+  win-rate stessa (57-95) è la misura del rischio: si perde perché il
+  teste cade, non perché cade il gruppo. Leve uscite dalla taratura
+  (stampate): Riva 3 Salute, ogni eroe entro 1 cella para UN colpo di
+  truppa per round (scudo scalato sulla taglia); il Sicario Gentile
+  BYPASSA lo scudo (un professionista) — la guardia può solo coprire Riva
+  (+2 Difesa contro di lui): abbatterlo in fretta è l'unico vero modo di
+  salvare il teste. Log: logs/playtest/20260718-curva-ep9-v2.
+- Fase C (specifica): `simulate_ep9.py` (seed base 690000); da modellare: la SCORTA
   (un PNG «Riva» 3 Salute Mov 3 non combatte; vittoria = Riva a T6; se
   Riva cade = sconfitta), gli aggressori che bersagliano Riva, il Sicario
   Gentile che caccia il teste (Mov 4, D2-esita, +1 Danno col ramo Ferri
