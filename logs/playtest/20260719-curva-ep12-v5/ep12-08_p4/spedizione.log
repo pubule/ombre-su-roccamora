@@ -1,0 +1,68 @@
+==============================================================================
+SPEDIZIONE - L’inseguimento del corriere, per i canali
+==============================================================================
+Party: CARLA DOSTI, DOTT. ATTILIO MARN, DOTT. LAZZARO SERRA, FULGENZIO CARBONE, MORA “SPILLA” FANTI, OTTAVIO BRERA, PADRE CELSO MARANI, SIBILLA REVE  |  PREPARATI  |  Fischietto: sì  |  Registro: sì  |  Lanterna: no  |  COME(D3): sì
+  FUGA iniziale: 2/10 (D3 esatta, dimezzata, −1 Registro).
+  Canto iniziale (sede violata): 1.
+  [REGISTRO DEI RITIRI] Si salta la Fondamenta Stretta (T3) e le sue reti.
+--- Round 1: inseguimento a T1 · FUGA 2/10 ---
+  [MINACCIA] LA CORRENTE CONTRARIA (insidiaFuga)
+    Il Corriere guadagna terreno: FUGA 3/10.
+  [MINACCIA] LA CORRENTE LO AIUTA (crescendo)
+    La corrente lo aiuta: FUGA 4/10.
+    7 eroe/i liberi chiudono il divario: FUGA 2/10.
+--- Round 2: inseguimento a T2 (ponte coperto) · FUGA 2/10 ---
+    Il Corriere rema avanti: FUGA 3/10.
+  [MINACCIA] RINCALZI DAL CANALE (spawn)
+    Piazzato 1 bravo della scorta (Sgherro).
+  [MINACCIA] IL PALO ALL’ANGOLO (spawn)
+    Piazzato 1 bravo della scorta (Sgherro).
+  [MINACCIA] LA BONACCIA (quiete)
+    La scorta vi BLOCCA (round perso): FUGA 4/10.
+    [FISCHIETTO] I gendarmi chiudono il varco al ponte: FUGA 3/10.
+    DOTT. ATTILIO MARN subisce 1 da scorta (Salute 7/8).
+--- Round 3: inseguimento a T4 · FUGA 3/10 ---
+    Il Corriere rema avanti: FUGA 4/10.
+    Nebbia senza Lanterna Sorda: il Corriere sparisce — FUGA 5/10.
+  [MINACCIA] LA NEBBIA CHE INGANNA (insidiaA)
+    [PROVA NERVI] CARLA DOSTI: 2d6=10 +NERVI(2) = 12 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] DOTT. ATTILIO MARN: 2d6=11 +NERVI(2) = 13 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] DOTT. LAZZARO SERRA: 2d6=7 +NERVI(2) = 9 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] FULGENZIO CARBONE: 2d6=9 +NERVI(2) = 11 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6=10 +NERVI(1) = 11 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] OTTAVIO BRERA: 2d6=6 +NERVI(2) = 8 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] PADRE CELSO MARANI: 2d6=6 +NERVI(3) = 9 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] SIBILLA REVE: 2d6=9 +NERVI(3) = 12 vs Facile(7) -> SUCCESSO
+  [MINACCIA] LA CHIATTA DI TRAVERSO (ostacolo)
+    5 eroe/i liberi chiudono il divario: FUGA 3/10.
+--- Round 4: inseguimento a T5 (ponte coperto) · FUGA 3/10 ---
+    Il Sicario Gentile fa muro al sottoportico (Dif +2).
+    Il Corriere rema avanti: FUGA 4/10.
+  [MINACCIA] IL BLOCCO SUL PONTE (spawn)
+    Piazzato 1 bravo della scorta (Sgherro) — attivo subito.
+    CARLA DOSTI subisce 1 da scorta (subito) (Salute 6/7).
+  [MINACCIA] CHI COPRE LA FUGA (spawn)
+    Piazzato 1 bravo della scorta (Sgherro).
+  [MINACCIA] LE CAMPANE COPRONO I PASSI (crescendo)
+    La sede violata pesa (Canto 3): +1 carta Minaccia per Fase, per sempre.
+    La corrente lo aiuta: FUGA 5/10.
+    La scorta vi BLOCCA (round perso): FUGA 6/10.
+    [FISCHIETTO] I gendarmi chiudono il varco al ponte: FUGA 5/10.
+    CARLA DOSTI subisce 2 da scorta (Salute 4/7).
+    CARLA DOSTI subisce 1 da scorta (Salute 3/7).
+  [OROLOGIO] Fine del 4° round: +1 Canto automatico.
+--- Round 5: inseguimento a T6 · FUGA 5/10 ---
+    Il Corriere rema avanti: FUGA 6/10.
+  [MINACCIA] LA BARCA DI TRAVERSO (spawn)
+    Piazzato 1 bravo della scorta (Sgherro) — attivo subito.
+  [MINACCIA] UN COLPO DI GAFFA (danno)
+    DOTT. LAZZARO SERRA subisce 1 da UN COLPO DI GAFFA (Salute 6/7).
+  [MINACCIA] IL CORRIERE ACCELERA (crescendo)
+    La corrente lo aiuta: FUGA 7/10.
+    La scorta vi BLOCCA (round perso): FUGA 8/10.
+    PADRE CELSO MARANI subisce 2 da scorta (Salute 5/7).
+  All’approdo, la FUGA non è piena: agganciate il Corriere. Copie sequestrate.
+
+==============================================================================
+ESITO: VITTORIA  |  Round: 5  |  FUGA 8/10  |  Canto 5
+==============================================================================

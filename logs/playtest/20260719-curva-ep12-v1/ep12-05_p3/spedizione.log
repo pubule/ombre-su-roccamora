@@ -1,0 +1,62 @@
+==============================================================================
+SPEDIZIONE - L’inseguimento del corriere, per i canali
+==============================================================================
+Party: DOTT. LAZZARO SERRA, FULGENZIO CARBONE, NINO “GRIMALDELLO” CAUTO, OTTONE “MEZZENA” MASSARI, PADRE CELSO MARANI  |  PREPARATI  |  Fischietto: sì  |  Registro: sì  |  Lanterna: no  |  COME(D3): sì
+  FUGA iniziale: 1/11 (D3 esatta, dimezzata, −1 Registro).
+  Canto iniziale (sede violata): 1.
+  [REGISTRO DEI RITIRI] Si salta la Fondamenta Stretta (T3) e le sue reti.
+--- Round 1: inseguimento a T1 · FUGA 1/11 ---
+  [MINACCIA] LA CHIATTA DI TRAVERSO (ostacolo)
+  [MINACCIA] LO SCAMBIO DI BARCA (insidiaFuga)
+    Il Corriere guadagna terreno: FUGA 2/11.
+--- Round 2: inseguimento a T2 (ponte coperto) · FUGA 2/11 ---
+  [MINACCIA] IL BLOCCO SUL PONTE (spawn)
+    Piazzato 1 bravo della scorta (Sgherro) — attivo subito.
+    DOTT. LAZZARO SERRA subisce 1 da scorta (subito) (Salute 6/7).
+  [MINACCIA] UN VARCO SI APRE (crescendo)
+    La corrente lo aiuta: FUGA 3/11.
+    La scorta vi BLOCCA (round perso): FUGA 4/11.
+    [FISCHIETTO] I gendarmi chiudono il varco al ponte: FUGA 2/11.
+--- Round 3: inseguimento a T4 · FUGA 2/11 ---
+    Nebbia senza Lanterna Sorda: il Corriere sparisce — FUGA 3/11.
+  [MINACCIA] RINCALZI DAL CANALE (spawn)
+    Piazzato 1 bravo della scorta (Sgherro).
+  [MINACCIA] IL VICOLO CIECO (insidiaA)
+    [PROVA NERVI] DOTT. LAZZARO SERRA: 2d6=6 +NERVI(2) = 8 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] FULGENZIO CARBONE: 2d6=9 +NERVI(2) = 11 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6=5 +NERVI(1) = 6 vs Facile(7) -> FALLITA
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6=5 +NERVI(1) = 6 vs Facile(7) -> FALLITA
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6=7 +NERVI(2) = 9 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] PADRE CELSO MARANI: 2d6=2 +NERVI(3) = 5 vs Facile(7) -> FALLITA
+    [PROVA NERVI] PADRE CELSO MARANI: 2d6=5 +NERVI(3) = 8 vs Facile(7) -> SUCCESSO
+    La scorta vi BLOCCA (round perso): FUGA 4/11.
+    DOTT. LAZZARO SERRA subisce 1 da scorta (Salute 5/7).
+    FULGENZIO CARBONE subisce 1 da scorta (Salute 6/7).
+--- Round 4: inseguimento a T5 (ponte coperto) · FUGA 4/11 ---
+    Il Sicario Gentile fa muro al sottoportico (Dif +2).
+  [MINACCIA] LA CORRENTE LO AIUTA (crescendo)
+    La sede violata pesa (Canto 3): +1 carta Minaccia per Fase, per sempre.
+    La corrente lo aiuta: FUGA 5/11.
+  [MINACCIA] CHI COPRE LA FUGA (spawn)
+    Piazzato 1 bravo della scorta (Sgherro).
+    La scorta vi BLOCCA (round perso): FUGA 6/11.
+    [FISCHIETTO] I gendarmi chiudono il varco al ponte: FUGA 4/11.
+    FULGENZIO CARBONE subisce 2 da scorta (Salute 4/7).
+    NINO “GRIMALDELLO” CAUTO subisce 1 da scorta (Salute 7/8).
+  [OROLOGIO] Fine del 4° round: +1 Canto automatico.
+--- Round 5: inseguimento a T6 · FUGA 4/11 ---
+  [MINACCIA] LA CORRENTE CONTRARIA (insidiaFuga)
+    Il Corriere guadagna terreno: FUGA 5/11.
+  [MINACCIA] IL PALO ALL’ANGOLO (spawn)
+    Piazzato 1 bravo della scorta (Sgherro).
+  [MINACCIA] UOMINI AI VARCHI (spawn)
+    Piazzato 1 bravo della scorta (Sgherro).
+    La scorta vi BLOCCA (round perso): FUGA 6/11.
+    PADRE CELSO MARANI subisce 2 da scorta (Salute 5/7).
+    FULGENZIO CARBONE subisce 1 da scorta (Salute 3/7).
+    OTTONE “MEZZENA” MASSARI subisce 1 da scorta (Salute 8/9).
+  All’approdo, la FUGA non è piena: agganciate il Corriere. Copie sequestrate.
+
+==============================================================================
+ESITO: VITTORIA  |  Round: 5  |  FUGA 6/11  |  Canto 4
+==============================================================================

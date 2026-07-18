@@ -264,18 +264,30 @@ FUGA_BACKGROUND, TAGLIO_PONTE, CANTO_MORALE), MAI la config condivisa.
   Deposito dei Sigilli, Il Corpo di Guardia; riusi: Il Banco dei Pegni (ep7),
   Il Cimitero delle Barche (ep2); 6 tessere nuove (inseguimento notturno per
   canali); reperti A/B/C; PROMPT-MJ integrale; bucket; copertina (placeholder).
-- **Fase C — DA FARE:** `simulate_ep12.py` (seed base 720000). Modella la
-  traccia FUGA (iniziale da D4, +1/round se il Corriere non è agganciato, +1
-  per crescendo; tagli col Fischietto ai ponti coperti T2/T5; D3 dimezza la
-  FUGA iniziale), l'aggancio (adiacenza + Interagire; automatico ai ponti col
-  Fischietto), la scorta (Sgherri + Sicario Gentile se sopravvissuto) che ruba
-  il round dell'aggancio, il morale (Canto +1 iniziale). **Torsione COME:**
-  `porta_aperta_capita = incroci_d3>=2` → FUGA iniziale dimezzata. **Leve da
-  tarare:** FUGA_MAX, FUGA_INIZIALE, FUGA_BACKGROUND, TAGLIO_PONTE,
-  CANTO_MORALE. Config condivisa importata da `simulate_playtest`: INVARIATA.
-  **Nota tecnica vincolante:** patch al simulatore con file `.py` (Write tool),
-  MAI heredoc bash (stdin cp1252 su Windows fallisce in silenzio); verificare
-  con `grep -c <flag>` sul disco.
+- **Fase C — FATTA (20260719):** `simulate_ep12.py` (seed base 720000).
+  Modella la traccia FUGA (iniziale da D4, dimezzata dalla D3; il Registro la
+  accorcia di 1; +FUGA_BACKGROUND/round da T2; +1 per crescendo — **capato a
+  1/round** perché il vantaggio non scali col volume di carte, che cresce con
+  la taglia; +1 se la scorta BLOCCA un round; +1 a T4 senza Lanterna; tagli di
+  TAGLIO_PONTE ai ponti T2/T5 col Fischietto), l'AGGANCIO (arrivo a T6 con
+  FUGA<MAX = vittoria; le «braccia libere» dopo aver ripulito la scorta
+  chiudono il divario, −FUGA fino a GUADAGNO_CAP: è ciò che compensa il volume
+  di carte dei tavoli grandi), la scorta a fuoco concentrato (Sgherri Fer 2 +
+  il Sicario Gentile che fa muro a T5, Dif +2), il morale (Canto parte da
+  CANTO_MORALE). **Torsione COME:** `porta_aperta = incroci_d3>=2` (L1 perizia
+  sigilli + L2 ordini protocollati) → FUGA iniziale dimezzata. **Leve tarate:**
+  FUGA_MAX=10, FUGA_INIZIALE=3/6, TAGLIO_PONTE=1, FUGA_BACKGROUND=1,
+  GUADAGNO_CAP=1, CANTO_MORALE=1. Config condivisa importata da
+  `simulate_playtest`: INVARIATA. **Curva (5 party × 30 seed, v7):** 2: 53%
+  (dura), 3: 87%, 4: 58% (avvallamento finale_v3), 5: 77%, 6: 89%, 7: 85%,
+  8: 93%, 9: 96%, 10: 98% — banda 3-10 = 58-98%, **FUGA media 5.8-8.9/10**:
+  ogni corsa si decide col Corriere quasi all'approdo (l'ansia è il
+  misuratore che scappa, non le morti — «sofferte» ~0 perché il Corriere non
+  attacca: è un inseguimento, non un massacro, banda dichiarata diversa).
+  Log: logs/playtest/20260719-curva-ep12-v7. PONYTAIL: modello a corsa (FUGA
+  vs traguardo), non la griglia tattica. **Nota tecnica vincolante:** patch al
+  simulatore con file `.py` (Write tool), MAI heredoc bash (stdin cp1252 su
+  Windows fallisce in silenzio); verificare con `grep -c <flag>` sul disco.
 - **Fase D: IN ATTESA DELL'ARTE** (prompt MJ integrali pronti in Fase B).
 - **Fase E — DA FARE:** export py/js (ep12, SOLUZIONI, REPERTI_LUOGO {1: A,
   6: B, 3: C}, POOL_EP12, nemici concat), assets (Episodio 12), main.js

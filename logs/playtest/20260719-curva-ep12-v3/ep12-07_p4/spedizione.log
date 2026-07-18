@@ -1,0 +1,75 @@
+==============================================================================
+SPEDIZIONE - L’inseguimento del corriere, per i canali
+==============================================================================
+Party: DOTT. ATTILIO MARN, DOTT. LAZZARO SERRA, ELENA FOSCO, MORA “SPILLA” FANTI, OTTAVIO BRERA, OTTONE “MEZZENA” MASSARI, SIBILLA REVE  |  PREPARATI  |  Fischietto: sì  |  Registro: sì  |  Lanterna: no  |  COME(D3): sì
+  FUGA iniziale: 2/10 (D3 esatta, dimezzata, −1 Registro).
+  Canto iniziale (sede violata): 1.
+  [REGISTRO DEI RITIRI] Si salta la Fondamenta Stretta (T3) e le sue reti.
+--- Round 1: inseguimento a T1 · FUGA 2/10 ---
+  [MINACCIA] UN VARCO SI APRE (crescendo)
+    La corrente lo aiuta: FUGA 3/10.
+  [MINACCIA] LE CAMPANE COPRONO I PASSI (crescendo)
+    La sede violata pesa (Canto 3): +1 carta Minaccia per Fase, per sempre.
+    La corrente lo aiuta: FUGA 4/10.
+    6 eroe/i liberi chiudono il divario: FUGA 2/10.
+--- Round 2: inseguimento a T2 (ponte coperto) · FUGA 2/10 ---
+  [MINACCIA] LA CORRENTE LO AIUTA (crescendo)
+    La corrente lo aiuta: FUGA 3/10.
+  [MINACCIA] I BRAVI DELLA SCORTA (spawn)
+    Piazzato 1 bravo della scorta (Sgherro).
+  [MINACCIA] UN GONDOLIERE AMICO (favore)
+  [MINACCIA] UOMINI AI VARCHI (spawn)
+    Piazzato 1 bravo della scorta (Sgherro).
+    La scorta vi BLOCCA (round perso): FUGA 4/10.
+    [FISCHIETTO] I gendarmi chiudono il varco al ponte: FUGA 3/10.
+    OTTONE “MEZZENA” MASSARI subisce 1 da scorta (Salute 8/9).
+--- Round 3: inseguimento a T4 · FUGA 3/10 ---
+    Nebbia senza Lanterna Sorda: il Corriere sparisce — FUGA 4/10.
+  [MINACCIA] LA CORRENTE CONTRARIA (insidiaFuga)
+    Il Corriere guadagna terreno: FUGA 5/10.
+  [MINACCIA] CHI COPRE LA FUGA (spawn)
+    Piazzato 1 bravo della scorta (Sgherro).
+  [MINACCIA] LA MAREA SALE (crescendo)
+    La corrente lo aiuta: FUGA 6/10.
+    La scorta vi BLOCCA (round perso): FUGA 7/10.
+    MORA “SPILLA” FANTI subisce 1 da scorta (Salute 7/8).
+--- Round 4: inseguimento a T5 (ponte coperto) · FUGA 7/10 ---
+    Il Sicario Gentile fa muro al sottoportico (Dif +2).
+  [MINACCIA] IL FISCHIO DELLA MALAVITA (spawn)
+    Piazzato 1 bravo della scorta (Sgherro) — attivo subito.
+    DOTT. LAZZARO SERRA subisce 1 da scorta (subito) (Salute 6/7).
+  [MINACCIA] RINCALZI DAL CANALE (spawn)
+    Piazzato 1 bravo della scorta (Sgherro).
+  [MINACCIA] LA BONACCIA (quiete)
+  [MINACCIA] IL CORRIERE ACCELERA (crescendo)
+    La corrente lo aiuta: FUGA 8/10.
+    La scorta vi BLOCCA (round perso): FUGA 9/10.
+    [FISCHIETTO] I gendarmi chiudono il varco al ponte: FUGA 8/10.
+    MORA “SPILLA” FANTI subisce 1 da scorta (Salute 6/8).
+    SIBILLA REVE subisce 2 da scorta (Salute 5/7).
+    OTTONE “MEZZENA” MASSARI subisce 1 da scorta (Salute 7/9).
+  [OROLOGIO] Fine del 4° round: +1 Canto automatico.
+--- Round 5: inseguimento a T6 · FUGA 8/10 ---
+  [MINACCIA] LA BARCA DI TRAVERSO (spawn)
+    Piazzato 1 bravo della scorta (Sgherro) — attivo subito.
+    SIBILLA REVE subisce 1 da scorta (subito) (Salute 4/7).
+  [MINACCIA] LA NEBBIA CHE INGANNA (insidiaA)
+    [PROVA NERVI] DOTT. ATTILIO MARN: 2d6=7 +NERVI(2) = 9 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] DOTT. LAZZARO SERRA: 2d6=7 +NERVI(2) = 9 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] ELENA FOSCO: 2d6=11 +NERVI(2) = 13 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6=6 +NERVI(1) = 7 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] OTTAVIO BRERA: 2d6=3 +NERVI(2) = 5 vs Facile(7) -> FALLITA
+    [PROVA NERVI] OTTAVIO BRERA: 2d6=8 +NERVI(2) = 10 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6=8 +NERVI(2) = 10 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] SIBILLA REVE: 2d6=2 +NERVI(3) = 5 vs Facile(7) -> FALLITA
+    [PROVA NERVI] SIBILLA REVE: 2d6=7 +NERVI(3) = 10 vs Facile(7) -> SUCCESSO
+  [MINACCIA] UN COLPO DI GAFFA (danno)
+    OTTONE “MEZZENA” MASSARI subisce 1 da UN COLPO DI GAFFA (Salute 6/9).
+    La scorta vi BLOCCA (round perso): FUGA 9/10.
+    OTTAVIO BRERA subisce 2 da scorta (Salute 5/7).
+    ELENA FOSCO subisce 1 da scorta (Salute 6/7).
+  All’approdo, la FUGA non è piena: agganciate il Corriere. Copie sequestrate.
+
+==============================================================================
+ESITO: VITTORIA  |  Round: 5  |  FUGA 9/10  |  Canto 7
+==============================================================================
