@@ -758,6 +758,55 @@ Chi canterà al di sotto, non si lamenti di ciò che al di sotto risponde.`;
     </div></div>
   `);
 
+  // --- Episodio 12, Reperto A: la perizia dei sigilli (L1) ---
+  const repertoA12 = page(`
+    <div class="wrap"><div style="zoom:0.90;">
+      <div class="serif" style="font-style:italic; font-size:38px; color:#3a2415; mix-blend-mode:multiply; margin-bottom:44px;">Reperto A — perizia dei sigilli (Palazzo del Lume)</div>
+      <div class="serif" style="font-size:46px; line-height:72px;">
+        <p style="margin-bottom:30px;">Ceralacca <b>mai scaldata due volte</b>. Punzoni originali della Società. Serrature <b>vergini</b>.</p>
+        <p style="margin-bottom:30px; border-top:2px solid #6b5636; padding-top:30px;">Nessuna traccia di apertura forzata. I Frammenti sono stati copiati e <b>richiusi da chi aveva le chiavi</b>.</p>
+      </div>
+      <div class="serif" style="font-style:italic; margin-top:64px; font-size:34px; color:#4a4a4e; mix-blend-mode:multiply;">
+        Non è entrato nessuno: è uscito qualcosa, per la porta principale.
+        Cercare uno scassinatore è guardare il fantasma sbagliato.
+      </div>
+    </div></div>
+  `);
+
+  // --- Episodio 12, Reperto B: la pagina ricopiata (L6) ---
+  const repertoB12 = page(`
+    <div class="wrap"><div style="zoom:0.90;">
+      <div class="serif" style="font-style:italic; font-size:38px; color:#3a2415; mix-blend-mode:multiply; margin-bottom:56px;">Reperto B — Frammento e copia, a confronto</div>
+      <div class="serif" style="font-size:46px; line-height:74px;">
+        <p style="margin-bottom:32px;">A sinistra il Frammento originale; a destra la copia. La mano è <b>identica</b>: nessun tremore, nessuna esitazione di falsario.</p>
+        <p style="margin-bottom:32px; border-top:2px solid #6b5636; padding-top:32px;">Non un’imitazione: <b>la stessa mano</b>. E in calce, l’ordine protocollato che la dispose.</p>
+      </div>
+      <div class="serif" style="font-style:italic; margin-top:76px; font-size:34px; color:#4a4a4e; mix-blend-mode:multiply;">
+        O il falsario è il più grande mai visto, o non è un falsario.
+        Nessuno protocolla un tradimento: si protocolla una «routine».
+      </div>
+    </div></div>
+  `);
+
+  // --- Episodio 12, Reperto C: la ricevuta del fermo-posta (L3) — il SEME ---
+  const repertoC12 = page(`
+    <div class="wrap"><div style="zoom:0.92;">
+      <div class="serif" style="font-style:italic; font-size:38px; color:#3a2415; mix-blend-mode:multiply; margin-bottom:64px;">Reperto C — ricevuta di fermo-posta</div>
+      <div class="serif" style="font-size:48px; line-height:78px;">
+        <p style="margin-bottom:34px;">Casella intestata a: <b>B. Camillo</b>. Ritiri notturni, regolari.</p>
+        <p style="margin-bottom:34px;">Pagamento: <b>in anticipo</b>, a mezzo lettera. Contenuto: copie e Frammenti.</p>
+      </div>
+      <div class="hand" style="font-size:64px; line-height:100px; margin-top:50px; text-align:right;">
+        <p>— C.B.</p>
+      </div>
+      <div class="serif" style="font-style:italic; margin-top:70px; font-size:34px; color:#4a4a4e; mix-blend-mode:multiply;">
+        Carta di pregio, filigrana della cartiera dei casi passati. «B. Camillo»
+        non è un nome: è un’etichetta. Il compratore delle copie e il padrone
+        delle scatole vuote sono la stessa penna.
+      </div>
+    </div></div>
+  `);
+
   const items = [
     ['Episodio 1', 'Reperto A - Diario di Ruggero', repertoA],
     ['Episodio 1', 'Reperto B - Registro delle Consegne', repertoB],
@@ -793,6 +842,9 @@ Chi canterà al di sotto, non si lamenti di ciò che al di sotto risponde.`;
     ['Episodio 11', 'Reperto A - Taccuino delle Misure', repertoA11],
     ['Episodio 11', 'Reperto B - Mappa Parziale', repertoB11],
     ['Episodio 11', 'Reperto C - Commessa del Rilievo', repertoC11],
+    ['Episodio 12', 'Reperto A - Perizia dei Sigilli', repertoA12],
+    ['Episodio 12', 'Reperto B - Pagina Ricopiata', repertoB12],
+    ['Episodio 12', 'Reperto C - Ricevuta del Fermo-Posta', repertoC12],
   ];
 
   for (const [episodio, name, html] of items) {

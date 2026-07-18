@@ -167,6 +167,15 @@ VOCI_MAPPA = [
     ('Il Sagrato della Cattedrale', 'piazza del Duomo, davanti alla navata', 'ep11'),
     ('La Bottega del Cordaio', 'riva delle Funi 5, cordaio e armatore di campane', 'ep11'),
     ('Il Ponteggio del Restauro', 'piazza Maggiore, ponteggio del fianco della Torre', 'ep11'),
+    # Episodio 12 — la seconda copia. Riusi: Il Banco dei Pegni di Fossa
+    # ('preludio'), Il Cimitero delle Barche ('citta').
+    ('Il Palazzo del Lume', 'campo del Lume, sede della Società', 'ep12'),
+    ('La Casa dell’Archivista', 'calle degli Amanuensi 2, casa di Anselmo Godi', 'ep12'),
+    ('L’Ufficio del Fermo-Posta', 'contrada delle Poste 6, sportello del fermo-posta', 'ep12'),
+    ('La Loggia dei Confratelli', 'campo del Lume, loggia riservata dei soci', 'ep12'),
+    ('Lo Scriptorium', 'campo del Lume, sala dei copisti', 'ep12'),
+    ('Il Deposito dei Sigilli', 'campo del Lume, deposito dei punzoni', 'ep12'),
+    ('Il Corpo di Guardia', 'riva dei Gendarmi 1, corpo di guardia dei canali', 'ep12'),
 ]
 
 # (sottocartella pdf/, sottotitolo, tag inclusi). Un episodio nuovo aggiunge
@@ -184,6 +193,7 @@ MAPPE = [
     ('Episodio 9', 'episodio 9 — la città che conoscete', ('citta', 'preludio', 'ep1', 'ep2', 'ep3', 'ep4', 'ep5', 'ep6', 'ep7', 'ep8', 'ep9')),
     ('Episodio 10', 'episodio 10 — la città che conoscete', ('citta', 'preludio', 'ep1', 'ep2', 'ep3', 'ep4', 'ep5', 'ep6', 'ep7', 'ep8', 'ep9', 'ep10')),
     ('Episodio 11', 'episodio 11 — la città che conoscete', ('citta', 'preludio', 'ep1', 'ep2', 'ep3', 'ep4', 'ep5', 'ep6', 'ep7', 'ep8', 'ep9', 'ep10', 'ep11')),
+    ('Episodio 12', 'episodio 12 — la città che conoscete', ('citta', 'preludio', 'ep1', 'ep2', 'ep3', 'ep4', 'ep5', 'ep6', 'ep7', 'ep8', 'ep9', 'ep10', 'ep11', 'ep12')),
 ]
 
 # Tipografico (provata la grafia manoscritta La Belle Aurore su tutta la

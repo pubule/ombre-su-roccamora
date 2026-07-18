@@ -2801,6 +2801,231 @@ const EP11 = [...LUOGHI11, ...EP11_INDIZI, ...EP11_TESTIMONI, ...EP11_REFERTI,
               ...EP11_MINACCE, ...EP11_OGGETTI, ...EP11_NEMICI];
 
 
+// ============================================================ EPISODIO 12
+// «La seconda copia» — Atto II, chiusura d'atto (vedi DESIGN-EPISODIO-12.md).
+// Spedizione INSEGUIMENTO: raggiungere il Corriere (Tullio Vela) prima che
+// consegni le copie allo scambio. Torsione d'indagine: COME sono uscite le
+// copie (esca: effrazione; verità: ordine interno autentico, sigilli intatti).
+
+const LUOGHI12 = [
+  { n: 1, nome: 'Il Palazzo del Lume', req: 'Disponibile dall’inizio',
+    art: 'artworks/Il Palazzo del Lume.png',
+    testo: 'La sede della Società: sala delle riunioni, archivio dei Frammenti, ritratti di presidenti morti. Stanotte è una scena del delitto senza delitto — nulla forzato, tutto copiato — e per la prima volta la vostra stessa casa è il luogo da indagare.',
+    approfondimenti: [
+      { tipo: 'Referto', soggetto: 'La perizia dei sigilli',
+        testo: 'La ceralacca non è mai stata scaldata due volte, i punzoni sono i nostri, le serrature vergini. Non è entrato nessuno — è uscito qualcosa, per la porta principale. Chi ha copiato aveva le chiavi, o l’autorità di farsele dare. L’effrazione che tutti immaginano non c’è mai stata: guardare fuori è guardare il fantasma sbagliato mentre il vero ladro siede al vostro tavolo.' },
+    ] },
+  { n: 2, nome: 'La Casa dell’Archivista', req: 'Disponibile dall’inizio',
+    art: 'artworks/La Casa dell’Archivista.png',
+    testo: 'Modesta e ordinata come chi ha passato la vita a mettere carte in fila. Anselmo Godi, mezzo cieco e tremante, ci vive con la sua obbedienza: ha copiato i Frammenti per ordine, e l’ordine, giura, era autentico e protocollato.',
+    approfondimenti: [
+      { tipo: 'Testimonianza', soggetto: 'Il copista Godi',
+        testo: '«Copio per la Società da quarant’anni, e conosco la mano del presidente come la mia. Questi ordini sono suoi: non imitati, suoi. Li ho eseguiti senza pensarci, come si esegue chi comanda in casa. Il colpevole, se volete un nome, sono io: ho copiato i Frammenti. Ma li ho copiati per ordine, e l’ordine era vero. Cercate un ladro e non lo troverete: non c’è stato nessun furto, solo un’obbedienza.»' },
+    ] },
+  { n: 3, nome: 'L’Ufficio del Fermo-Posta', req: 'Disponibile dall’inizio',
+    art: 'artworks/L’Ufficio del Fermo-Posta.png',
+    testo: 'Tiene la corrispondenza di chi non vuole un indirizzo: caselle numerate, ritiri notturni, nomi che non sono nomi. Qui una casella intestata a «B. Camillo» riceve, da mesi, le copie della vostra casa.',
+    approfondimenti: [
+      { tipo: 'Osservazione', soggetto: 'La casella di Camillo',
+        testo: '«B. Camillo» non è una persona: è un’etichetta d’archivio, un nome così banale da sparire tra mille. La casella è pagata in anticipo, su carta di pregio, e ritira solo copie e Frammenti. Chi si nasconde dietro un nome che non è un nome non teme di essere trovato: teme solo di essere guardato in faccia.' },
+    ] },
+  { n: 4, nome: 'Il Banco dei Pegni', req: 'Disponibile dall’inizio',
+    art: 'artworks/Il Banco dei Pegni.png',
+    testo: 'Il Banco dei Pegni di Fossa compra e vende tutto ciò che la città impegna: qui è passata la campanella nuova col segno del Coro, e qui i confratelli, già in sospetto l’uno dell’altro, cominciano a contarsi le colpe.',
+    approfondimenti: [
+      { tipo: 'Testimonianza', soggetto: 'Il prestapegni',
+        testo: '«Il ragazzo, Vela, non è nessuno: un corriere che porta quel che gli danno, senza leggere. Il vecchio della Società gli ha dato le copie con un biglietto timbrato, e lui le porta a Camillo come porterebbe pesce. Il colpevole non è il corriere e non è il ragazzo: è chi firma i biglietti timbrati. E quello, signori, firma con la vostra stessa penna.»' },
+    ] },
+  { n: 5, nome: 'La Loggia dei Confratelli',
+    req: 'La loggia dei soci è riservata, e si apre solo a chi porta la notizia che nessuno vuole sentire: che nessuno ha scassinato, che i sigilli sono intatti.',
+    art: 'artworks/La Loggia dei Confratelli.png',
+    testo: 'La sala riservata dei soci della Società: stanotte è un nido di veleni, perché sigilli intatti vogliono dire che uno di loro ha aperto. Si cerca un traditore per non dover pensare l’impensabile.',
+    approfondimenti: [
+      { tipo: 'Osservazione', soggetto: 'La paranoia in casa',
+        testo: 'La ricerca del falsario perfetto è così avvincente che nessuno considera l’alternativa più semplice: che la mano vera non abbia bisogno di imitarsi. Il sospetto reciproco è la vera vittoria di chi ha firmato: mentre i confratelli si contano le colpe, la penna resta al sicuro, perché il posto più nascosto per una firma è in cima all’ordine.' },
+    ] },
+  { n: 6, nome: 'Lo Scriptorium',
+    req: 'Lo scriptorium dove si copiava è chiuso a chiave, e cede solo a chi sa nominare ciò che vi ha fatto lavorare: gli ordini in regola, timbrati e protocollati.',
+    art: 'artworks/Lo Scriptorium.png',
+    testo: 'La stanza dove Godi copiava: leggii, calamai, i Frammenti e le loro copie affiancati. Qui la mano che ricalca non trema — perché non ricalca: scrive la propria — e gli ordini protocollati fanno da alibi a chi li ha firmati.',
+    approfondimenti: [
+      { tipo: 'Referto', soggetto: 'La mano che non imita',
+        testo: 'La mano della copia non IMITA quella dei Frammenti: è quella mano. Sicura, senza le micro-esitazioni di chi ricalca un modello. O il falsario è il più grande mai visto — capace di scrivere la mano altrui con più naturalezza del proprietario — o non è un falsario, e la mano è la sua. Gli ordini protocollati confermano il secondo: nessuno protocolla un tradimento; si protocolla un ordine che si vuole poter negare come «di routine».' },
+    ] },
+  { n: 7, nome: 'Il Deposito dei Sigilli',
+    req: 'Il deposito dei punzoni è sbarrato, e si apre solo a chi torna a dire la cosa che inchioda il caso: che i sigilli sono intatti, non violati.',
+    art: 'artworks/Il Deposito dei Sigilli.png',
+    testo: 'Custodisce i punzoni di ceralacca della Società: tutti al loro posto, tutti autentici. È la prova muta che non c’è stato scasso — e, lasciato lì bene in vista, un grimaldello che vorrebbe farvi credere il contrario.',
+    approfondimenti: [
+      { tipo: 'Presagio', soggetto: 'La casa che ascolta',
+        testo: 'A stare fermi nel deposito, tra i punzoni della Società, si ha la sensazione netta di essere ascoltati da dentro le mura di casa. Non un fantasma: un orecchio umano, paziente, che da mesi sente ogni riunione, ogni deduzione, ogni Frammento letto ad alta voce. Il nemico non ha forzato la porta perché non ne ha bisogno: è già dentro, e vi ascolta contare le chiavi.' },
+    ] },
+  { n: 8, nome: 'Il Corpo di Guardia',
+    req: 'Il corpo di guardia dei gendarmi amici apre solo a chi sa della casella segreta: il fermo-posta intestato a quel nome che non è un nome.',
+    art: 'artworks/Il Corpo di Guardia.png',
+    testo: 'I gendarmi amici della Società conoscono i canali di notte come le proprie tasche: sanno dove un fuggitivo si incanala e dove chiudere il passo. Il loro fischietto, al ponte giusto, vale più di ogni corsa.',
+    approfondimenti: [
+      { tipo: 'Testimonianza', soggetto: 'Il sergente dei canali',
+        testo: '«Un inseguimento sull’acqua non si vince coi muscoli: si vince coi ponti. Ogni ponte coperto è un imbuto dove possiamo chiudere il passo, ma solo se ci arrivate quando lui ci passa. Fischiate al momento giusto e il corriere è vostro; fischiate tardi e avrete chiuso un varco sull’acqua vuota. Il Fischietto vale quanto il vostro tempismo.»' },
+    ] },
+  { n: 9, nome: 'Il Cimitero delle Barche',
+    req: 'L’approdo dello scambio si trova solo sapendo cosa vi si scambia: il segno del Coro sulla campanella, e chi lo ha comprato.',
+    art: 'artworks/Il Cimitero delle Barche.png',
+    testo: 'L’ansa morta del canale, dove le chiatte vengono a marcire nella nebbia. È l’approdo dello scambio: qui il corriere consegna e il compratore anonimo ritira, senza mai mostrare un volto all’acqua nera.',
+    approfondimenti: [
+      { tipo: 'Presagio', soggetto: 'Le chiatte morte',
+        testo: 'Nell’ansa morta, tra gli scafi rovesciati, l’acqua nera restituisce suoni che non dovrebbe: un frammento di canto, il tonfo di un remo, una voce che conta sottovoce. Qui finiscono le barche e, stanotte, un inseguimento. Se il corriere consegna, le copie della vostra casa entrano nel mondo e non tornano più; se lo fermate, portate a casa la carta — ma non la risposta al come.' },
+    ] },
+].map((L) => ({
+  art: L.art,
+  title: `${L.n} · ${L.nome}`,
+  file: `Episodio 12/Luoghi/${L.n} - ${L.nome.replace(/’/g, "'")}`,
+  type: `Luogo ${L.n}`,
+  rules: `{i}${L.req === 'Disponibile dall’inizio' ? L.testo : L.req}{/i}`,
+  approfondimenti: L.approfondimenti, n: L.n,
+}));
+
+const EP12_INDIZI = LUOGHI12.flatMap((L) =>
+  L.approfondimenti.filter((a) => a.tipo === 'Osservazione' || a.tipo === 'Presagio')
+    .map((a) => ({
+      art: L.art, n: L.n, kind: 'Indizio',
+      title: `Indizio Nascosto — ${a.soggetto}`,
+      file: `Episodio 12/Indizi/${a.soggetto.replace(/’/g, "'")}`,
+      type: a.tipo,
+      rules: `{i}◆ (${a.tipo}) ${a.testo}{/i}`,
+    })));
+
+const EP12_TESTIMONI = LUOGHI12.flatMap((L) =>
+  L.approfondimenti.filter((a) => a.tipo === 'Testimonianza').map((a) => ({
+    art: L.art, n: L.n, kind: 'Testimone',
+    title: `Testimone — ${a.soggetto}`,
+    file: `Episodio 12/Testimoni/${a.soggetto.replace(/’/g, "'")}`,
+    type: `Luogo ${L.n} · Testimone`,
+    rules: `{i}${a.testo}{/i}`,
+  })));
+
+const EP12_REFERTI = LUOGHI12.flatMap((L) =>
+  L.approfondimenti.filter((a) => a.tipo === 'Referto').map((a) => ({
+    art: L.art, n: L.n, kind: 'Referto',
+    title: `Referto — ${a.soggetto}`,
+    file: `Episodio 12/Referti/${a.soggetto}`,
+    type: `Luogo ${L.n} · Referto`,
+    rules: `{i}${a.testo}{/i}`,
+  })));
+
+// Mazzo 21: 8 spawn (scorta comprata), 4 insidie (canale/NERVI), 5 crescendo
+// (FUGA: la corrente aiuta il Corriere), 4 eventi. Picco d'atto.
+const EP12_MINACCE = [
+  { art: 'artworks/I bravi della scorta.png', title: 'I Bravi della Scorta', tipo: 'Malavita',
+    flavor: 'Braccia pagate per rubarvi il round che serve ad agganciare il corriere.',
+    effect: 'Piazzate 1 Sgherro sull’uscita più vicina agli eroi.' },
+  { art: 'artworks/I bravi della scorta.png', title: 'Uomini ai Varchi', tipo: 'Malavita',
+    flavor: 'Ai ponti, alle calli: la scorta chiude ogni scorciatoia che non sia la loro.',
+    effect: 'Piazzate 1 Sgherro sull’ingresso della tessera (dal lato da cui siete entrati).' },
+  { art: 'artworks/I bravi della scorta.png', title: 'Il Blocco sul Ponte', tipo: 'Malavita',
+    flavor: 'Un muro di spalle sull’arco coperto: passa il corriere, non voi.',
+    effect: 'Piazzate 1 Sgherro sull’uscita più vicina agli eroi: si attiva subito.' },
+  { art: 'artworks/I bravi della scorta.png', title: 'Rincalzi dal Canale', tipo: 'Malavita',
+    flavor: 'Una barca accosta e sbarca altri due: la scorta si rinfoltisce.',
+    effect: 'Piazzate 1 Sgherro sull’ingresso della tessera (dal lato da cui siete entrati).' },
+  { art: 'artworks/I bravi della scorta.png', title: 'Il Fischio della Malavita', tipo: 'Malavita',
+    flavor: 'Un fischio dal buio, e i bravi convergono dove vogliono fermarvi.',
+    effect: 'Piazzate 1 Sgherro sull’uscita più vicina agli eroi: si attiva subito.' },
+  { art: 'artworks/I bravi della scorta.png', title: 'Chi Copre la Fuga', tipo: 'Malavita',
+    flavor: 'Non attaccano per ferire: attaccano per farvi perdere tempo.',
+    effect: 'Piazzate 1 Sgherro sull’uscita più vicina agli eroi.' },
+  { art: 'artworks/I bravi della scorta.png', title: 'Il Palo all’Angolo', tipo: 'Malavita',
+    flavor: 'Uno di vedetta all’angolo: segnala ogni vostra mossa al corriere.',
+    effect: 'Piazzate 1 Sgherro sull’ingresso della tessera (dal lato da cui siete entrati).' },
+  { art: 'artworks/I bravi della scorta.png', title: 'La Barca di Traverso', tipo: 'Malavita',
+    flavor: 'Una barca messa di traverso vi taglia la via d’acqua: aggiratela.',
+    effect: 'Piazzate 1 Sgherro sull’uscita più vicina agli eroi: si attiva subito.' },
+  { art: 'artworks/La corrente contraria.png', title: 'La Corrente Contraria', tipo: 'Insidia',
+    flavor: 'La marea vi rema contro proprio mentre lui la ha a favore.',
+    effect: 'L’eroe più avanzato prova VIGORE (Media): se fallisce, il Corriere guadagna terreno (FUGA +1).' },
+  { art: 'artworks/La nebbia che inganna.png', title: 'La Nebbia che Inganna', tipo: 'Insidia',
+    flavor: 'La foschia fa vedere il corriere dove non è: si insegue un fantasma.',
+    effect: 'Ogni eroe prova NERVI (Facile): chi fallisce ha 1 sola azione al prossimo turno.' },
+  { art: 'artworks/Il vicolo cieco.png', title: 'Il Vicolo Cieco', tipo: 'Insidia',
+    flavor: 'La calle finisce sull’acqua: la via giusta era un’altra.',
+    effect: 'L’eroe attivo perde il movimento extra questo turno (tornare indietro).' },
+  { art: 'artworks/Lo scambio di barca.png', title: 'Lo Scambio di Barca', tipo: 'Insidia',
+    flavor: 'Il corriere salta su un’altra barca pronta: un attimo, e ha cambiato passo.',
+    effect: 'Il Corriere guadagna terreno: FUGA +1.' },
+  { art: 'artworks/La corrente lo aiuta.png', title: 'La Corrente lo Aiuta', tipo: 'Crescendo',
+    flavor: 'La marea gira a suo favore: la barca del corriere fila via.',
+    effect: 'Aggiungete 1 segnalino Canto (la sede violata) E fate avanzare la FUGA di 1. Alla soglia: ogni Fase Minaccia pesca 1 carta in più, per sempre.' },
+  { art: 'artworks/Il corriere accelera.png', title: 'Il Corriere Accelera', tipo: 'Crescendo',
+    flavor: 'Vi ha visti: piega sui remi e allunga il passo verso l’approdo.',
+    effect: 'Aggiungete 1 segnalino Canto E fate avanzare la FUGA di 1. Alla soglia: ogni Fase Minaccia pesca 1 carta in più.' },
+  { art: 'artworks/Un varco si apre.png', title: 'Un Varco si Apre', tipo: 'Crescendo',
+    flavor: 'Un ramo laterale del canale gli offre una scorciatoia.',
+    effect: 'Aggiungete 1 segnalino Canto E fate avanzare la FUGA di 1. Alla soglia: ogni Fase Minaccia pesca 1 carta in più.' },
+  { art: 'artworks/La marea sale.png', title: 'La Marea Sale', tipo: 'Crescendo',
+    flavor: 'L’acqua monta e spinge: chi va con la corrente vola, chi la rema contro annaspa.',
+    effect: 'Aggiungete 1 segnalino Canto E fate avanzare la FUGA di 1. Alla soglia: ogni Fase Minaccia pesca 1 carta in più.' },
+  { art: 'artworks/Le campane coprono i passi.png', title: 'Le Campane Coprono i Passi', tipo: 'Crescendo',
+    flavor: 'I rintocchi della notte coprono il tonfo del remo: lo perdete d’orecchio.',
+    effect: 'Aggiungete 1 segnalino Canto E fate avanzare la FUGA di 1. Se il Corriere raggiunge l’approdo (T6) con la FUGA piena, consegna: sconfitta.' },
+  { art: 'artworks/La bonaccia.png', title: 'La Bonaccia', tipo: 'Quiete',
+    flavor: 'Per un tratto l’acqua è ferma e nessuno guadagna: si rifiata sui remi.',
+    effect: 'Nessun effetto. Tirate il fiato: anche la marea, per un istante, si ferma.' },
+  { art: 'artworks/Un gondoliere amico.png', title: 'Un Gondoliere Amico', tipo: 'Favore',
+    flavor: 'Un barcaiolo riconosce la Società e vi dà un passaggio veloce.',
+    effect: 'Rivelate una tessera coperta adiacente a quella di un eroe (la scelgono i giocatori).' },
+  { art: 'artworks/La chiatta di traverso.png', title: 'La Chiatta di Traverso', tipo: 'Ostacolo',
+    flavor: 'Una chiatta incagliata blocca il canale: si passa, ma piano.',
+    effect: 'Fino a fine round, sulla tessera dell’eroe attivo muoversi costa il doppio.' },
+  { art: 'artworks/Un colpo di gaffa.png', title: 'Un Colpo di Gaffa', tipo: 'Insidia',
+    flavor: 'Un bravo vi allunga una gaffa dal buio, mirando alla testa.',
+    effect: 'Un eroe a caso (chi arbitra tira) subisce 1 danno.' },
+].map((m) => ({
+  art: m.art,
+  title: `${m.tipo} — ${m.title}`,
+  file: `Episodio 12/Minacce/${m.title.replace(/’/g, "'")}`,
+  rules: `{i}${m.flavor}{/i}{divider}${m.effect}`,
+}));
+
+const EP12_OGGETTI = [
+  { art: 'artworks/Fischietto della Ronda.png', nome: 'Il Fischietto della Ronda', ref: 'E12-L8',
+    fonte: 'Luogo 8 — Il Corpo di Guardia (entro le 21)',
+    flavor: 'Il fischietto dei gendarmi amici. Al ponte giusto, un fischio chiude un varco in faccia al fuggitivo.',
+    effetto: 'Ai ponti coperti (T2, T5), se il Corriere è in vista, tagliate la traccia FUGA di 2 (i gendarmi chiudono) o lo agganciate automaticamente.' },
+  { art: 'artworks/Registro dei Ritiri.png', nome: 'Il Registro dei Ritiri', ref: 'E12-L3',
+    fonte: 'Luogo 3 — L’Ufficio del Fermo-Posta',
+    flavor: 'Il registro dei ritiri di «B. Camillo»: sapete a che ora e da dove parte il corriere.',
+    effetto: 'La traccia FUGA iniziale parte più corta (−1 al vantaggio del Corriere) e all’inizio dell’inseguimento saltate la tessera T3 e la sua trappola.' },
+  { art: 'artworks/Lanterna Sorda dei Canali.png', nome: 'La Lanterna Sorda dei Canali', ref: 'E12-L9',
+    fonte: 'Luogo 9 — Il Cimitero delle Barche',
+    flavor: 'Una lanterna cieca da barcaiolo, che buca la nebbia dell’ansa morta un braccio d’acqua per volta.',
+    effetto: 'A T4 (il Canale della Nebbia) il Corriere NON guadagna il round di nebbia: il tratto resta leggibile.' },
+  { art: 'artworks/Grimaldello Trovato.png', nome: 'Il Grimaldello Trovato', ref: 'E12-L7',
+    fonte: 'Luogo 7 — Il Deposito dei Sigilli',
+    flavor: 'Un grimaldello lasciato bene in vista. Pare la prova dello scasso, ma nessuna serratura è stata forzata.',
+    effetto: 'Effetto: nessuno finora scoperto.' },
+  { art: 'artworks/Lettera Anonima.png', nome: 'La Lettera Anonima', ref: 'E12-L5',
+    fonte: 'Luogo 5 — La Loggia dei Confratelli',
+    flavor: 'Una lettera che accusa un confratello a caso di essere la talpa. Semina paranoia; non prova nulla.',
+    effetto: 'Effetto: nessuno finora scoperto.' },
+].map((o) => ({
+  art: o.art,
+  title: o.nome,
+  file: `Episodio 12/Oggetti/${o.nome.replace(/’/g, "'")}`,
+  type: 'Oggetto',
+  rules: `{i}${o.flavor}{/i}{divider}${o.effetto}`,
+  ref: o.ref, fonte: o.fonte,
+}));
+
+const EP12_NEMICI = [
+  { art: 'artworks/Il Corriere.png', title: 'Il Corriere',
+    type: 'Il Bersaglio in Fuga (Boss) — Episodio 12',
+    rules: '{i}Tullio Vela è un ragazzo dei traghetti, un corriere pagato che non ha mai letto una riga di ciò che porta: prende quel che gli danno con un biglietto in regola e lo consegna. Non un cultista, non un assassino: un paio di braccia oneste al servizio di una firma disonesta.{/i}{divider}Statistiche nel Bestiario. FUGGE, non combatte: avanza verso lo scambio (FUGA +1 se non adiacente). Va AGGANCIATO (adiacenza + Interagire, o taglio ai ponti col Fischietto), non abbattuto. «Le porte aperte» (D3): FUGA iniziale dimezzata.' },
+].map((n) => ({ ...n, file: `Episodio 12/Nemici/${n.title}` }));
+
+const EP12 = [...LUOGHI12, ...EP12_INDIZI, ...EP12_TESTIMONI, ...EP12_REFERTI,
+              ...EP12_MINACCE, ...EP12_OGGETTI, ...EP12_NEMICI];
+
+
 module.exports = {
   HEROES, NEMICI, MINACCE, LUOGHI, INDIZI, TESTIMONI, REFERTI, OGGETTI, PRELUDIO,
   PRELUDIO_LUOGHI, PRELUDIO_APPROFONDIMENTI, PRELUDIO_OGGETTI,
@@ -2814,5 +3039,6 @@ module.exports = {
   EP9, LUOGHI9, EP9_INDIZI, EP9_TESTIMONI, EP9_REFERTI, EP9_MINACCE, EP9_OGGETTI, EP9_NEMICI,
   EP10, LUOGHI10, EP10_INDIZI, EP10_TESTIMONI, EP10_REFERTI, EP10_MINACCE, EP10_OGGETTI, EP10_NEMICI,
   EP11, LUOGHI11, EP11_INDIZI, EP11_TESTIMONI, EP11_REFERTI, EP11_MINACCE, EP11_OGGETTI, EP11_NEMICI,
-  ALL: [...HEROES, ...NEMICI, ...MINACCE, ...LUOGHI, ...INDIZI, ...TESTIMONI, ...REFERTI, ...OGGETTI, ...PRELUDIO, ...EP2, ...EP3, ...EP4, ...EP5, ...EP6, ...EP7, ...EP8, ...EP9, ...EP10, ...EP11],
+  EP12, LUOGHI12, EP12_INDIZI, EP12_TESTIMONI, EP12_REFERTI, EP12_MINACCE, EP12_OGGETTI, EP12_NEMICI,
+  ALL: [...HEROES, ...NEMICI, ...MINACCE, ...LUOGHI, ...INDIZI, ...TESTIMONI, ...REFERTI, ...OGGETTI, ...PRELUDIO, ...EP2, ...EP3, ...EP4, ...EP5, ...EP6, ...EP7, ...EP8, ...EP9, ...EP10, ...EP11, ...EP12],
 };
