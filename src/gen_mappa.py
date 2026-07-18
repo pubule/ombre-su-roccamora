@@ -125,6 +125,15 @@ VOCI_MAPPA = [
     ('La Chiusa Grande', 'a monte del canale grande, alla paratia', 'ep6'),
     ('L’Archivio Capitolare', 'chiostro della Cattedrale, torre d’angolo', 'ep6'),
     ('La Porta d’Acqua', 'fianco nord della Cattedrale, a pelo di canale', 'ep6'),
+    # Episodio 7 — Sant'Orsola e il cantiere. Riusi: Le Fonderie ('ep2'),
+    # Il Banco dei Pegni ('citta').
+    ('La Contrada di Sant’Orsola', 'contrada di Sant’Orsola, al pozzo', 'ep7'),
+    ('Bottega dell’Accordatore', 'contrada di Sant’Orsola, al civico 11', 'ep7'),
+    ('L’Ufficio Brevetti', 'palazzo del Comune, ala nuova, piano terra', 'ep7'),
+    ('Il Cantiere di Sant’Orsola', 'contrada di Sant’Orsola, dietro la cinta', 'ep7'),
+    ('Palazzo dell’Impresa Voltan', 'corso della Stazione, al civico 3', 'ep7'),
+    ('Magazzino della Calce', 'fuori cinta, tra gli orti di Sant’Orsola', 'ep7'),
+    ('Il Palazzone di Sant’Orsola', 'contrada di Sant’Orsola, il cantiere grande', 'ep7'),
 ]
 
 # (sottocartella pdf/, sottotitolo, tag inclusi). Un episodio nuovo aggiunge
@@ -137,6 +146,7 @@ MAPPE = [
     ('Episodio 4', 'episodio 4 — la città che conoscete', ('citta', 'preludio', 'ep1', 'ep2', 'ep3', 'ep4')),
     ('Episodio 5', 'episodio 5 — la città che conoscete', ('citta', 'preludio', 'ep1', 'ep2', 'ep3', 'ep4', 'ep5')),
     ('Episodio 6', 'episodio 6 — la città che conoscete', ('citta', 'preludio', 'ep1', 'ep2', 'ep3', 'ep4', 'ep5', 'ep6')),
+    ('Episodio 7', 'episodio 7 — la città che conoscete', ('citta', 'preludio', 'ep1', 'ep2', 'ep3', 'ep4', 'ep5', 'ep6', 'ep7')),
 ]
 
 # Tipografico (provata la grafia manoscritta La Belle Aurore su tutta la

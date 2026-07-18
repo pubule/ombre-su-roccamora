@@ -46,10 +46,11 @@ EPISODI = {
     4: 'Il teatro dell’eco',
     5: 'L’organo di ossa',
     6: 'Il Terzo Movimento',
+    7: 'Il quartiere sordo',
 }
 # arte dedicata per episodio (default: la mappa di campagna, MAP_ART)
-COVER_ART = {2: 'copertina episodio 2.png', 3: 'copertina episodio 3.png', 4: 'copertina episodio 4.png', 5: 'copertina episodio 5.png', 6: 'copertina episodio 6.png'}
-ROMAN = {1: 'I', 2: 'II', 3: 'III', 4: 'IV', 5: 'V', 6: 'VI'}
+COVER_ART = {2: 'copertina episodio 2.png', 3: 'copertina episodio 3.png', 4: 'copertina episodio 4.png', 5: 'copertina episodio 5.png', 6: 'copertina episodio 6.png', 7: 'copertina episodio 7.png'}
+ROMAN = {1: 'I', 2: 'II', 3: 'III', 4: 'IV', 5: 'V', 6: 'VI', 7: 'VII'}
 
 def etichetta(num):
     return 'Preludio' if num == 0 else 'Episodio ' + ROMAN.get(num, str(num))

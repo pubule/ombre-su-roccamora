@@ -1663,6 +1663,238 @@ const EP6 = [...LUOGHI6, ...EP6_INDIZI, ...EP6_TESTIMONI, ...EP6_REFERTI,
              ...EP6_MINACCE, ...EP6_OGGETTI, ...EP6_NEMICI];
 
 
+
+// ============================================================ EPISODIO 7
+// «Il quartiere sordo» — apertura Atto II (vedi DESIGN-EPISODIO-7.md).
+// Nessun mostro: Squadra del Silenzio (Sgherri), Guardiano (Sicario), il
+// Capocantiere umano. Il Canto qui è l'ALLARME del cantiere.
+
+const LUOGHI7 = [
+  { n: 1, nome: 'La Contrada di Sant’Orsola', req: 'Disponibile dall’inizio',
+    art: 'artworks/Contrada di Sant’Orsola.png',
+    testo: 'Il suono, qui, cammina a chiazze: davanti alle case vecchie la vita si sente tutta, davanti a quelle rifatte c’è un’aria ferma che inghiotte i passi. La campana di San Michele suona per metà parrocchia. La gente parla forte senza accorgersene — o non parla affatto.',
+    approfondimenti: [
+      { tipo: 'Testimonianza', soggetto: 'La contrada',
+        testo: '«Fava è passato di qui l’ultima sera, col diapason in mano, e batteva i muri come un medico batte un petto. Davanti al palazzone s’è fermato. Ha detto una parola sola: “qui”. Poi è andato verso il cantiere, e il cantiere se l’è bevuto come i muri si bevono le campane.»' },
+    ] },
+  { n: 2, nome: 'La Bottega di Fava', req: 'Disponibile dall’inizio',
+    art: 'artworks/Bottega di Fava.png',
+    testo: 'Pianoforti aperti come pazienti, martelletti in fila, diapason appesi per taglia. Tutto è fermo com’è rimasto mercoledì: la tazza sul banco, il grembiule sul gancio, il registro aperto. L’ordine di un uomo preciso — e l’assenza di un uomo preciso, che pesa di più.',
+    approfondimenti: [
+      { tipo: 'Osservazione', soggetto: 'Il banco dell’accordatore',
+        testo: 'Tra i ferri, una mattonella d’intonaco spaccata a metà, etichettata da Fava: «campione, palazzone, parete ovest». Nella frattura, una polvere grigia che luccica come metallo macinato. Fava non riparava pianoforti: faceva un’ANALISI. E chi analizza un brevetto, del brevetto è nemico.' },
+    ] },
+  { n: 3, nome: 'Le Fonderie', req: 'Disponibile dall’inizio',
+    art: 'artworks/Fonderia Dossena.png',
+    testo: 'I capannoni neri dell’episodio del bronzo, il piazzale, l’odore di ferro e pioggia. La montagna grigia in fondo — le scorie del Quarantuno — è DIMEZZATA, e il fronte di scavo è fresco. Gli operai la guardano come si guarda una tomba aperta.',
+    approfondimenti: [
+      { tipo: 'Testimonianza', soggetto: 'Il magazziniere',
+        testo: '«Il carrettiere una volta ha bevuto troppo e ha parlato: “l’ingegnere dice che il bronzo vecchio BEVE il rumore, per questo lo macina nell’intonaco. L’ingegner Voltan, quello del brevetto. Un genio, dice lui. Io dico: un genio che paga perché non si sappia cosa c’è nel muro, che genio è?”»' },
+    ] },
+  { n: 4, nome: 'Il Banco dei Pegni', req: 'Disponibile dall’inizio',
+    art: 'artworks/Banco dei Pegni.png',
+    testo: 'Stavolta è Fossa a chiamare voi: tre pegni in fila sul banco — un orologio, una fede, un rasoio — e nelle incisioni di tutti e tre la stessa polvere grigia che luccica. «Operai del palazzone. E c’è di meglio: il guardiano licenziato. Per orecchie buone, dice lui.»',
+    approfondimenti: [
+      { tipo: 'Testimonianza', soggetto: 'Il guardiano licenziato',
+        testo: '«Una notte ho sentito battere da dentro l’intercapedine del terzo piano — tre colpi, pausa, tre colpi: uno che conta, mica un topo. L’ho detto al Capocantiere. Il giorno dopo ero in strada: “le orecchie buone, qui, sono un difetto”. È stato l’ingegnere a firmare: Voltan. Il brevetto è suo, il silenzio è suo.»' },
+    ] },
+  { n: 5, nome: 'L’Ufficio Brevetti Comunale',
+    req: 'L’usciere è un muro di regolamenti: «i fascicoli si consultano su istanza motivata». Ma chi cita il nome esatto di un brevetto — quello vero, quello depositato — ha già mezza istanza fatta.',
+    art: 'artworks/Ufficio Brevetti.png',
+    testo: 'Un corridoio di sportelli e un archivio che sa di ceralacca: qui l’ingegno della provincia dorme in fascicoli numerati. Tra mille invenzioni oneste, una pratica pagata da nessuno — carta di pregio, piegata senza un’ombra di dita — aspetta chi sappia leggerla.',
+    approfondimenti: [
+      { tipo: 'Referto', soggetto: 'Il foglio della società anonima',
+        testo: 'Controluce, la carta di pregio ha la filigrana di una cartiera sola — la stessa delle commissioni dei casi passati. «La Quiete S.A.» esiste da undici mesi, non ha dipendenti, e compra silenzio: un brevetto che lo produce, un ingegnere che lo firma, un quartiere che fa da prova generale. Chi compra il silenzio a carrettate non lo fa per dormire meglio.' },
+    ] },
+  { n: 6, nome: 'La Baracca del Cantiere',
+    req: 'Il cantiere di giorno è un formicaio sorvegliato: si entra solo per lavoro. Ma chi nomina la fornitura giusta — quella che arriva di notte — trova il furiere della baracca improvvisamente disponibile.',
+    art: 'artworks/Baracca del Cantiere.png',
+    testo: 'Il cervello di legno del palazzone: i disegni sul tavolo, le bolle sul chiodo, il registro dei turni, la stufa. Dalla finestrella si vede il cantiere tutto: sei piani di teli che respirano — e una lanterna accesa al terzo, dove il progetto non mette stanze.',
+    approfondimenti: [
+      { tipo: 'Osservazione', soggetto: 'La baracca del furiere',
+        testo: 'Sotto il piano del tavolo, incollata col nastro, una seconda contabilità: le consegne notturne al terzo piano non sono calce — sono VIVERI. Pane, vino, candele. I muri non mangiano. Chi è murato, sì.' },
+    ] },
+  { n: 7, nome: 'L’Impresa Voltan & Figli',
+    req: 'Il portiere dell’impresa smista i questuanti con un sopracciglio. Ma chi nomina la materia prima segreta — quella comprata di notte e mai dichiarata — viene fatto salire in fretta, prima che la strada senta.',
+    art: 'artworks/Impresa Voltan.png',
+    testo: 'Il palazzo dell’impresa è nuovo, naturalmente: intonaco brevettato, ottoni, targa lucida. Dentro, l’atrio è fermo come una fotografia — i passi non suonano, le voci muoiono a un metro. I commessi si sono abituati a leggersi le labbra.',
+    approfondimenti: [
+      { tipo: 'Osservazione', soggetto: 'L’ufficio dell’ingegnere',
+        testo: 'Sulla scrivania di Voltan, i conti della «Quiete S.A.»: l’impresa non VENDE l’intonaco alla società anonima — lo COMPRA da lei, a prezzo doppio, brevetto compreso. Voltan non è il padrone del silenzio: è il suo primo cliente. E chi gli sta sopra non ha nome, solo carta.' },
+    ] },
+  { n: 8, nome: 'Il Magazzino della Calce',
+    req: 'Il magazzino fuori cinta è chiuso da un lucchetto da poco e da un cane da molto. Ma chi conosce il nome giusto — quello dell’uomo che ha la chiave e la sete — si fa aprire senza scavalcare.',
+    art: 'artworks/Magazzino della Calce.png',
+    testo: 'Un capannone basso tra gli orti, un cane che abbaia — QUI il suono c’è ancora — e file di sacchi marchiati con l’onda della Fonderia. Dentro, il chiarore lunare della calce: un intero magazzino di silenzio pronto da stendere. E in fondo, la sbornia del capoturno.',
+    approfondimenti: [
+      { tipo: 'Referto', soggetto: 'La calcina speciale',
+        testo: 'Un sacco su dieci porta un secondo marchio, piccolo, sotto l’onda: una Q coronata — «La Quiete S.A.». La società anonima non compra soltanto il brevetto: compra la PRODUZIONE. Il quartiere sordo non è un cantiere: è un collaudo.' },
+    ] },
+  { n: 9, nome: 'Il Cancello del Palazzone',
+    req: 'Il cancello del palazzone è l’unico varco nella cinta: guardiania nuova, squadra dentro, nessuna faccia amica. Si entra col carro della calce — e con la carta giusta sul carro.',
+    art: 'artworks/Cancello del Palazzone.png',
+    testo: 'Il confine tra la contrada e il silenzio totale: cinta di tavole, garitta nuova, il guardiano che non gira la testa nemmeno per le campane. Oltre, il cantiere di sera è una cattedrale di ponteggi — e al terzo piano una lanterna accesa dove non ci sono stanze.',
+    approfondimenti: [
+      { tipo: 'Presagio', soggetto: 'Il palazzone di sera',
+        testo: 'A fissare il terzo piano, il palazzo sembra trattenere il fiato: si vede una stanza senza porte dietro un muro fresco, un uomo seduto che conta i colpi delle proprie nocche, e una squadra che gioca a carte in silenzio, sotto una lampada schermata. Nessuno parla, là dentro. Nemmeno per dare gli ordini. La visione dura un rintocco.' },
+    ] },
+].map((L) => ({
+  art: L.art,
+  title: `${L.n} · ${L.nome}`,
+  file: `Episodio 7/Luoghi/${L.n} - ${L.nome.replace(/’/g, "'")}`,
+  type: `Luogo ${L.n}`,
+  rules: `{i}${L.req === 'Disponibile dall’inizio' ? L.testo : L.req}{/i}`,
+  approfondimenti: L.approfondimenti, n: L.n,
+}));
+
+const EP7_INDIZI = LUOGHI7.flatMap((L) =>
+  L.approfondimenti.filter((a) => a.tipo === 'Osservazione' || a.tipo === 'Presagio')
+    .map((a) => ({
+      art: L.art, n: L.n, kind: 'Indizio',
+      title: `Indizio Nascosto — ${a.soggetto}`,
+      file: `Episodio 7/Indizi/${a.soggetto.replace(/’/g, "'")}`,
+      type: a.tipo,
+      rules: `{i}◆ (${a.tipo}) ${a.testo}{/i}`,
+    })));
+
+const EP7_TESTIMONI = LUOGHI7.flatMap((L) =>
+  L.approfondimenti.filter((a) => a.tipo === 'Testimonianza').map((a) => ({
+    art: L.art, n: L.n, kind: 'Testimone',
+    title: `Testimone — ${a.soggetto}`,
+    file: `Episodio 7/Testimoni/${a.soggetto.replace(/’/g, "'")}`,
+    type: `Luogo ${L.n} · Testimone`,
+    rules: `{i}${a.testo}{/i}`,
+  })));
+
+const EP7_REFERTI = LUOGHI7.flatMap((L) =>
+  L.approfondimenti.filter((a) => a.tipo === 'Referto').map((a) => ({
+    art: L.art, n: L.n, kind: 'Referto',
+    title: `Referto — ${a.soggetto}`,
+    file: `Episodio 7/Referti/${a.soggetto}`,
+    type: `Luogo ${L.n} · Referto`,
+    rules: `{i}${a.testo}{/i}`,
+  })));
+
+// Mazzo Minaccia: 21 carte + 1 del Bivio («Gli occhi del culto», ramo
+// "Ferri vivo" dell'Ep. 6). Mix: 11 spawn, 3 insidie, 3 crescendo, 4 eventi.
+const EP7_MINACCE = [
+  { art: 'artworks/La squadra del silenzio.png', title: 'La Squadra del Silenzio', tipo: 'Malavita',
+    flavor: 'Arrivano senza un ordine detto ad alta voce. Non gli serve.',
+    effect: 'Piazzate 1 Sgherro sull’uscita più vicina agli eroi della tessera corrente.' },
+  { art: 'artworks/La squadra del silenzio.png', title: 'I Gesti del Capomastro', tipo: 'Malavita',
+    flavor: 'Due dita, un cenno del mento: la squadra legge il direttore come un’orchestra.',
+    effect: 'Piazzate 1 Sgherro sull’uscita più vicina agli eroi della tessera corrente.' },
+  { art: 'artworks/La squadra del silenzio.png', title: 'Il Piombo e la Sacca', tipo: 'Malavita',
+    flavor: 'Attrezzi da lavoro. Dipende dal lavoro.',
+    effect: 'Piazzate 1 Sgherro sull’uscita più vicina agli eroi della tessera corrente: si attiva subito.' },
+  { art: 'artworks/I manovali di notte.png', title: 'I Manovali di Notte', tipo: 'Malavita',
+    flavor: 'Pagati fuori busta, fuori registro, fuori discussioni.',
+    effect: 'Piazzate 1 Sgherro sull’ingresso del Cancello (T1).' },
+  { art: 'artworks/I manovali di notte.png', title: 'Il Turno Fuori Busta', tipo: 'Malavita',
+    flavor: 'Il cantiere di notte lavora. A cosa, non si chiede.',
+    effect: 'Piazzate 1 Sgherro sull’ingresso del Cancello (T1).' },
+  { art: 'artworks/I manovali di notte.png', title: 'Le Pale nel Buio', tipo: 'Malavita',
+    flavor: 'Le sentite solo quando smettono: qualcuno ha posato la pala per prendere altro.',
+    effect: 'Piazzate 1 Sgherro sull’uscita più vicina agli eroi della tessera corrente.' },
+  { art: 'artworks/I manovali di notte.png', title: 'La Malta Fresca', tipo: 'Malavita',
+    flavor: 'Qualcuno sta murando qualcosa, a quest’ora. È il mestiere della casa.',
+    effect: 'Piazzate 1 Sgherro sull’uscita più vicina agli eroi della tessera corrente.' },
+  { art: 'artworks/Il guardiano di notte.png', title: 'Il Guardiano di Notte', tipo: 'Malavita',
+    flavor: 'Pagato per non sentire. Ci vede benissimo.',
+    effect: 'Piazzate 1 Sicario sull’uscita più vicina agli eroi della tessera corrente.' },
+  { art: 'artworks/Il guardiano di notte.png', title: 'La Ronda del Cancello', tipo: 'Malavita',
+    flavor: 'La lanterna schermata fa un occhio solo, e l’occhio gira.',
+    effect: 'Piazzate 1 Sicario sull’uscita più vicina agli eroi della tessera corrente: si attiva subito.' },
+  { art: 'artworks/Gli uomini dell’ingegnere.png', title: 'Gli Uomini dell’Ingegnere', tipo: 'Malavita',
+    flavor: 'Non sono muratori: le mani sono sbagliate. Sono il capitolato segreto del contratto.',
+    effect: 'Piazzate 1 Sgherro sull’uscita più vicina agli eroi della tessera corrente.' },
+  { art: 'artworks/Gli uomini dell’ingegnere.png', title: 'La Paga del Silenzio', tipo: 'Malavita',
+    flavor: 'Il triplo, per non sentire i colpi dal muro. Certe paghe comprano anche di peggio.',
+    effect: 'Piazzate 1 Sgherro sull’uscita più vicina agli eroi della tessera corrente.' },
+  { art: 'artworks/Il silenzio che preme.png', title: 'Il Silenzio che Preme', tipo: 'Insidia',
+    flavor: 'Preme sulle orecchie come acqua. E come l’acqua, trova ogni crepa.',
+    effect: 'Ogni eroe prova NERVI (Facile): chi fallisce ha 1 sola azione al prossimo turno.' },
+  { art: 'artworks/La tavola che cede.png', title: 'La Tavola che Cede', tipo: 'Insidia',
+    flavor: 'Un crack asciutto — il primo suono vero da un’ora. Peccato sia sotto i vostri piedi.',
+    effect: 'L’eroe più avanzato prova NERVI (Media): se fallisce, 1 danno.' },
+  { art: 'artworks/La calce negli occhi.png', title: 'La Calce negli Occhi', tipo: 'Insidia',
+    flavor: 'Uno spiffero, un sacco aperto, una nuvola bianca che morde.',
+    effect: 'L’eroe attivo prova NERVI (Media): se fallisce, 1 danno e perde 1 azione al prossimo turno.' },
+  { art: 'artworks/Un fischio di sotto.png', title: 'Un Fischio di Sotto', tipo: 'Crescendo',
+    flavor: 'Un fischio solo, dal piano terra. In un cantiere sordo, un fischio è un telegramma.',
+    effect: 'Aggiungete 1 segnalino Canto (l’Allarme). Alla soglia: il cantiere è sveglio — ogni Fase Minaccia pesca 1 carta in più, per sempre. Se il Capocantiere è in gioco: si attiva subito.' },
+  { art: 'artworks/Le lanterne si muovono.png', title: 'Le Lanterne si Muovono', tipo: 'Crescendo',
+    flavor: 'Ai piani bassi, tre occhi di luce schermata cambiano posto. Vi stanno cercando.',
+    effect: 'Aggiungete 1 segnalino Canto (l’Allarme). Alla soglia: il cantiere è sveglio — ogni Fase Minaccia pesca 1 carta in più, per sempre. Se il Capocantiere è in gioco: si attiva subito.' },
+  { art: 'artworks/Il cantiere è sveglio.png', title: 'Il Cantiere è Sveglio', tipo: 'Crescendo',
+    flavor: 'Nessun urlo, nessuna campana d’allarme. Solo: tutte le lanterne accese insieme.',
+    effect: 'Aggiungete 1 segnalino Canto (l’Allarme). Alla soglia: il cantiere è sveglio — ogni Fase Minaccia pesca 1 carta in più, per sempre. Se il Capocantiere è in gioco: si attiva subito.' },
+  { art: 'artworks/Il turno cambia.png', title: 'Il Turno Cambia', tipo: 'Quiete',
+    flavor: 'Passi che scendono, passi che salgono, una bottiglia stappata in garitta.',
+    effect: 'Nessun effetto. Tirate il fiato: per un momento, il cantiere pensa a se stesso.' },
+  { art: 'artworks/Un’impalcatura amica.png', title: 'Un’Impalcatura Amica', tipo: 'Favore',
+    flavor: 'Una rampa di servizio che il progetto non segna. I muratori scontenti lasciano strade.',
+    effect: 'Rivelate una tessera coperta adiacente a quella di un eroe (la scelgono i giocatori).' },
+  { art: 'artworks/I sacchi franati.png', title: 'I Sacchi Franati', tipo: 'Ostacolo',
+    flavor: 'Una pila cede — piano, senza fragore: la calce inghiotte anche il proprio crollo.',
+    effect: 'Fino a fine round, sulla tessera dell’eroe attivo muoversi costa il doppio.' },
+  { art: 'artworks/Il piombo dal buio.png', title: 'Il Piombo dal Buio', tipo: 'Insidia',
+    flavor: 'Un filo a piombo lasciato cadere da tre piani non fa quasi rumore. Quasi.',
+    effect: 'L’eroe più avanzato subisce 1 danno (nessuna prova: il buio ha mirato bene).' },
+  { art: 'artworks/Gli occhi del culto.png', title: 'Gli Occhi del Culto', tipo: 'Bivio',
+    flavor: 'Ferri, in cella, ha fatto un nome solo: il vostro. Qualcuno ha pagato per sapere il resto.',
+    effect: 'Piazzate 1 Sicario sull’uscita più vicina agli eroi della tessera corrente: si attiva subito.' },
+].map((m) => ({
+  art: m.art,
+  title: `${m.tipo} — ${m.title}`,
+  file: `Episodio 7/Minacce/${m.title.replace(/’/g, "'")}`,
+  rules: `{i}${m.flavor}{/i}{divider}${m.effect}`,
+}));
+
+const EP7_OGGETTI = [
+  { art: 'artworks/Bolla della Calce.png', nome: 'La Bolla della Calce', ref: 'E7-L6',
+    fonte: 'Luogo 6 — La Baracca del Cantiere',
+    flavor: 'Timbrata, firmata, in bianco. Il cancello non legge: riconosce.',
+    effetto: 'Col carro della calce, si entra dal cancello del palazzone senza domande (vedi Soluzione: Domanda 4).' },
+  { art: 'artworks/Lanterna Schermata.png', nome: 'La Lanterna Schermata', ref: 'E7-L8',
+    fonte: 'Luogo 8 — Il Magazzino della Calce',
+    flavor: 'Un occhio di luce, stretto come una moneta. Nel silenzio, la luce è la voce.',
+    effetto: '+1 alle prove NERVI nelle tessere SORDE finché la porta chi l’ha presa.' },
+  { art: 'artworks/Tappi di Cera.png', nome: 'I Tappi di Cera', ref: 'E7-L8',
+    fonte: 'Luogo 8 — Il Magazzino della Calce',
+    flavor: 'Del fonditore, su misura. Contro il silenzio, difendersi dal suono: chiedete a un artigiano.',
+    effetto: 'Un eroe (deciso al momento) ignora la PRIMA prova NERVI da rumore o allarme della spedizione.' },
+  { art: 'artworks/Fischietto del Capoturno.png', nome: 'Il Fischietto del Capoturno', ref: 'E7-L8',
+    fonte: 'Luogo 8 — Il Magazzino della Calce',
+    flavor: 'D’ordinanza, d’ottone, d’occasione. Un fischio, e il cantiere risponde. A lui.',
+    effetto: 'Effetto: nessuno finora scoperto.' },
+  { art: 'artworks/Lettera di Minaccia.png', nome: 'La Lettera di Minaccia', ref: 'E7-L2',
+    fonte: 'Luogo 2 — La Bottega di Fava',
+    flavor: '«O mi ricevete, o deposito tutto in Questura.» Spedita lunedì. Sparito mercoledì.',
+    effetto: 'Effetto: nessuno finora scoperto.' },
+  { art: 'artworks/Fune di Servizio.png', nome: 'La Fune di Servizio', ref: 'E7-T3P',
+    fonte: 'Si trova cercando in T3P — I Ponteggi di Ponente',
+    flavor: 'Gancio buono, nodi da marinaio. Qualcuno scendeva in fretta, da qui.',
+    effetto: 'Chi la porta può ridiscendere di UNA tessera senza prove, una sola volta (poi la fune resta giù).' },
+].map((o) => ({
+  art: o.art,
+  title: o.nome,
+  file: `Episodio 7/Oggetti/${o.nome.replace(/’/g, "'")}`,
+  type: 'Oggetto',
+  rules: `{i}${o.flavor}{/i}{divider}${o.effetto}`,
+  ref: o.ref, fonte: o.fonte,
+}));
+
+const EP7_NEMICI = [
+  { art: 'artworks/Il Capocantiere.png', title: 'Il Capocantiere',
+    type: 'La Squadra del Silenzio (Boss) — Episodio 7',
+    rules: '{i}Il miglior capomastro della provincia, pagato il triplo per non sentire i colpi dall’intercapedine. Non urla mai: nel silenzio che ha costruito, non serve.{/i}{divider}Statistiche nel Bestiario. Nessuna debolezza-oggetto: è un uomo. «Smascherato» (D2): gridate il nome di Voltan — salta la sua prima attivazione e 1 Sgherro se ne va.' },
+].map((n) => ({ ...n, file: `Episodio 7/Nemici/${n.title}` }));
+
+const EP7 = [...LUOGHI7, ...EP7_INDIZI, ...EP7_TESTIMONI, ...EP7_REFERTI,
+             ...EP7_MINACCE, ...EP7_OGGETTI, ...EP7_NEMICI];
+
+
 module.exports = {
   HEROES, NEMICI, MINACCE, LUOGHI, INDIZI, TESTIMONI, REFERTI, OGGETTI, PRELUDIO,
   PRELUDIO_LUOGHI, PRELUDIO_APPROFONDIMENTI, PRELUDIO_OGGETTI,
@@ -1671,5 +1903,6 @@ module.exports = {
   EP4, LUOGHI4, EP4_INDIZI, EP4_TESTIMONI, EP4_REFERTI, EP4_MINACCE, EP4_OGGETTI, EP4_NEMICI,
   EP5, LUOGHI5, EP5_INDIZI, EP5_TESTIMONI, EP5_REFERTI, EP5_MINACCE, EP5_OGGETTI, EP5_NEMICI,
   EP6, LUOGHI6, EP6_INDIZI, EP6_TESTIMONI, EP6_REFERTI, EP6_MINACCE, EP6_OGGETTI, EP6_NEMICI,
-  ALL: [...HEROES, ...NEMICI, ...MINACCE, ...LUOGHI, ...INDIZI, ...TESTIMONI, ...REFERTI, ...OGGETTI, ...PRELUDIO, ...EP2, ...EP3, ...EP4, ...EP5, ...EP6],
+  EP7, LUOGHI7, EP7_INDIZI, EP7_TESTIMONI, EP7_REFERTI, EP7_MINACCE, EP7_OGGETTI, EP7_NEMICI,
+  ALL: [...HEROES, ...NEMICI, ...MINACCE, ...LUOGHI, ...INDIZI, ...TESTIMONI, ...REFERTI, ...OGGETTI, ...PRELUDIO, ...EP2, ...EP3, ...EP4, ...EP5, ...EP6, ...EP7],
 };

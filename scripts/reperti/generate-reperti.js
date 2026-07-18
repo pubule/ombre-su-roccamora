@@ -482,6 +482,64 @@ Chi canterà al di sotto, non si lamenti di ciò che al di sotto risponde.`;
     </div></div>
   `);
 
+
+  // --- Episodio 7, Reperto A: il taccuino di Fava (L7, portineria) ---
+  const repertoA7 = page(`
+    <div class="wrap"><div style="zoom:0.90;">
+      <div class="serif" style="font-style:italic; font-size:38px; color:#3a2415; mix-blend-mode:multiply; margin-bottom:60px;">Reperto A — dal taccuino di E. Fava, accordatore</div>
+      <div class="hand" style="font-size:58px; line-height:88px;">
+        <p style="margin-bottom:40px;">Il LA del Marchetti cala di un quarto di tono DENTRO il salotto nuovo. Fuori, sul pianerottolo, è giusto. Non è lo strumento. È la stanza.</p>
+        <p style="margin-bottom:40px;">Le note muoiono a tre passi dalla parete di ponente. La parete BEVE.</p>
+        <p style="margin-bottom:40px;">Campione preso. Polvere grigia che luccica: non è sabbia. Domani scrivo all’impresa.</p>
+      </div>
+      <div class="serif" style="font-style:italic; margin-top:100px; font-size:36px; color:#4a4a4e; mix-blend-mode:multiply;">
+        L’ultima pagina è strappata. Sulla precedente, la pressione della
+        matita: un indirizzo, e un’ora — le nove.
+      </div>
+    </div></div>
+  `);
+
+  // --- Episodio 7, Reperto B: il deposito del brevetto (L5) ---
+  const repertoB7 = page(`
+    <div class="wrap"><div style="zoom:0.90;">
+      <div class="serif" style="font-style:italic; font-size:38px; color:#3a2415; mix-blend-mode:multiply; margin-bottom:60px;">Reperto B — domanda di privativa industriale n. 1117</div>
+      <div class="serif" style="font-size:50px; line-height:80px;">
+        <p style="margin-bottom:40px;" class="caps">intonaco fonoassorbente «voltan»</p>
+        <p style="margin-bottom:40px;">Composizione: calce idraulica, sabbia di fiume, e MATERIA INERTE DI RECUPERO (non specificata — art. 12, segreto industriale).</p>
+        <p style="margin-bottom:40px;">Richiedente: «La Quiete S.A.», domiciliata presso studio notarile. Spese di deposito: saldate in contanti, anticipate.</p>
+      </div>
+      <div class="serif" style="font-style:italic; margin-top:100px; font-size:36px; color:#4a4a4e; mix-blend-mode:multiply;">
+        Il foglio di accompagnamento è carta di pregio, piegata in tre
+        senza un’ombra di dita. Nessuna firma. Solo la carta.
+      </div>
+    </div></div>
+  `);
+
+  // --- Episodio 7, Reperto C: le bolle della calce (L6) ---
+  const righeC7 = [
+    ['calcina speciale, sacchi 40', 'terzo piano', 'ore 3:00 — a mano'],
+    ['calcina speciale, sacchi 40', 'terzo piano', 'ore 2:30 — a mano'],
+    ['viveri e candele, cesta 1', 'terzo piano', 'ore 3:00 — il capoturno NON firma'],
+    ['calcina ordinaria, sacchi 12', 'piano terra', 'ore 8:00 — regolare'],
+  ];
+  const repertoC7 = page(`
+    <div class="wrap"><div style="zoom:0.84;">
+      <div style="text-align:center; margin-bottom:60px;">
+        <div class="caps" style="font-size:64px;">bolle di consegna · cantiere di sant’orsola</div>
+        <div class="serif" style="font-style:italic; font-size:36px; color:#3a2415; mix-blend-mode:multiply; margin-top:14px;">Reperto C — dal chiodo della baracca, ricopiate in fretta</div>
+      </div>
+      <table style="width:100%; border-collapse:collapse; font-size:44px;">
+        <tbody class="hand">
+          ${righeC7.map((r) => `<tr>${r.map((v) => `<td style="border-bottom:1px solid #3a2415; padding:20px 8px; font-size:44px; mix-blend-mode:multiply;">${v}</td>`).join('')}</tr>`).join('')}
+        </tbody>
+      </table>
+      <div class="serif" style="font-style:italic; margin-top:80px; font-size:36px; color:#4a4a4e; mix-blend-mode:multiply;">
+        Il triplo del fabbisogno, metà delle consegne di notte — e il terzo
+        piano è murato da mesi. I muri non mangiano. Chi è murato, sì.
+      </div>
+    </div></div>
+  `);
+
   const items = [
     ['Episodio 1', 'Reperto A - Diario di Ruggero', repertoA],
     ['Episodio 1', 'Reperto B - Registro delle Consegne', repertoB],
@@ -502,6 +560,9 @@ Chi canterà al di sotto, non si lamenti di ciò che al di sotto risponde.`;
     ['Episodio 6', 'Reperto A - Diario di Ferri', repertoA6],
     ['Episodio 6', 'Reperto B - Pianta della Camera', repertoB6],
     ['Episodio 6', 'Reperto C - Schedario della Cripta', repertoC6],
+    ['Episodio 7', 'Reperto A - Taccuino di Fava', repertoA7],
+    ['Episodio 7', 'Reperto B - Deposito del Brevetto', repertoB7],
+    ['Episodio 7', 'Reperto C - Bolle della Calce', repertoC7],
   ];
 
   for (const [episodio, name, html] of items) {
