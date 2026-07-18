@@ -650,8 +650,9 @@ def soluzione():
         'la Testimonianza «Il secondo della claque» (L3). Se il gruppo non ne ha letta '
         'nessuna, giudicate con elasticità una risposta «vicina» (es. «qualcuno del podio, '
         'che paga la claque»).',
-        '<b>Vantaggio d’Indagine (due vie):</b> Slancio con 3+ ore avanzate O 7+ luoghi '
-        'visitati; Preparati con 1-2 ore O 6 luoghi. Dossier completo (0 ore avanzate): 1 '
+        '<b>Vantaggio d’Indagine:</b> Slancio SOLO con tutte e 4 le risposte esatte E 3+ '
+        'ore avanzate (lo slancio è di chi SA dove andare); Preparati con 1+ ore avanzate '
+        'O 6+ luoghi visitati. Dossier completo (0 ore avanzate): 1 '
         'gettone Intuizione, come sempre.',
     ])
     pagina('spedizione — montaggio e boss', [

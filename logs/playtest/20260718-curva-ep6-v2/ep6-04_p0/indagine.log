@@ -1,0 +1,70 @@
+Run: ep6-04_p0_seed0  |  seed=665000  |  generato: 2026-07-18T14:45:04
+==============================================================================
+INDAGINE - Episodio 6: "Il Terzo Movimento" (finale d’atto)
+==============================================================================
+Party: CARLA DOSTI, DOTT. LAZZARO SERRA, ELENA FOSCO, MORA “SPILLA” FANTI
+Clock: 6 ore, dalle 18:00 alle 24:00.
+
+Tipi di Approfondimento coperti da questo party: Osservazione, Presagio, Testimonianza
+
+[h18:00] Visita Luogo 4 — Il Palazzo del Lume  (1 ora)
+    [PROVA ACUME] CARLA DOSTI: 2d6(4,2)=6 +ACUME(3) = 9 vs Media(9) -> SUCCESSO
+    - Indizio: M. ha fatto disporre sul tavolo grande l’archivio dei Frammenti: i vostri cinque casi, le buste dei Bivi, i cimeli. «Stanotte si spende tutto», dice. «Ogni pezzo che avete conservato è un incrocio in più. Contateli.» (La deduzione d’atto: vedi la busta della Soluzione.)
+    - Indizio: Negli appunti della Società sul caso della cripta: lo studio del «maestro dei registri» in Corte del Ragioniere risulta SVUOTATO ieri — di fretta. Un facchino ha visto portar via schedari «tranne uno, caduto dal carro».
+    - Indizio: M., davanti alla mappa: «gli atti del capitolo del Quarantuno non furono mai copiati: originale unico, Archivio Capitolare. Se esiste una formula che addormentò QUELLA cosa una volta, è scritta lì. Fatevi aprire: la parola è l’anno, il resto è coraggio.»
+    -> Parola chiave trovata (vedi indizio sopra): IL CAPITOLO DEL QUARANTUNO
+    -> Parola chiave trovata (vedi indizio sopra): IL MAESTRO DEI REGISTRI
+    -> Fonte sulla Domanda 1 (1: bulbo/archivio dei Frammenti/pianta).
+    [APPROFONDIMENTO Testimonianza] sbloccato da CARLA DOSTI.
+    -> Questa carta conferma esplicitamente che il colpevole è Ferri (Domanda 2).
+[h19:00] Visita Luogo 3 — Il Catasto delle Acque  (1 ora)
+    [PROVA ACUME] CARLA DOSTI: 2d6(3,4)=7 +ACUME(3) = 10 vs Media(9) -> SUCCESSO
+    - Indizio: L’archivista vi riconosce — l’inverno dei pozzi non si dimentica — e stavolta la mappa la srotola lui: «le tre acque convergono QUI, sotto la Cattedrale. La sala non è su nessuna carta ufficiale. Ma le vene ci vanno tutte, come radici a un bulbo.»
+    - Indizio: Il registro delle consultazioni: nessuno è più venuto coi guanti — ma il fascicolo delle tre acque mostra una piega nuova e una scheda di prestito INTERNO, sigla di Curia: qualcuno l’ha fatto uscire e rientrare senza passare dal banco.
+    - Indizio: Sulle tavole idrografiche, la chiusa grande regola l’acqua dolce: «se stanotte c’è la sizigia», dice l’archivista, «il colmo lo decide la Chiusa Grande. Il guardiano tiene le tavole di marea aggiornate all’ora.»
+    -> Parola chiave trovata (vedi indizio sopra): LE TRE ACQUE
+    -> Fonte sulla Domanda 1 (2: bulbo/archivio dei Frammenti/pianta).
+    [PROVA ACUME] CARLA DOSTI: 2d6(1,1)=2 +ACUME(3) = 5 vs Difficile(11) -> FALLITA
+    [APPROFONDIMENTO Referto] aiuto profano fallito: resta sigillato qui.
+[h20:00] Visita Luogo 7 — L’Archivio Capitolare  (1 ora)
+    [PROVA ACUME] CARLA DOSTI: 2d6(3,5)=8 +ACUME(3) = 11 vs Media(9) -> SUCCESSO
+    - Indizio: Gli atti del Quarantuno, mai copiati: la sconsacrazione dei Battuti è solo l’APPENDICE. L’atto principale è un altro: «Del sigillo posto alla camera delle acque, e della formula con cui vi si impose il sonno». La città lo fece. La città lo scrisse. La città lo dimenticò apposta.
+    - Indizio: La Formula del Sigillo è trascritta per esteso, con la rubrica: «si legga a voce ferma, a strumenti TACIUTI, nell’ora in cui l’acqua è più alta». A strumenti taciuti: prima si spegne, poi si legge. (Oggetto: prendete la carta La Formula del Sigillo.)
+    - Indizio: Allegata agli atti, la pianta della camera: tre sale-vestibolo — il bronzo, la pietra, le ossa — e al centro la Camera delle Tre Acque. Le sale non sono stanze: sono VALVOLE. (Reperto B: consegnate la Pianta della Camera.)
+    -> Trovata: LA FORMULA DEL SIGILLO (l’arma finale).
+    -> Fonte sulla Domanda 1 (3: bulbo/archivio dei Frammenti/pianta).
+    [PROVA ACUME] CARLA DOSTI: 2d6(4,6)=10 +ACUME(3) = 13 vs Difficile(11) -> SUCCESSO
+    [APPROFONDIMENTO Referto] colto da profano da CARLA DOSTI (ACUME Difficile).
+[h21:00] Visita Luogo 8 — Il Rifugio del Maestro dei Registri  (1 ora)
+    [PROVA ACUME] CARLA DOSTI: 2d6(3,2)=5 +ACUME(3) = 8 vs Media(9) -> FALLITA
+    [SECONDO FIATO] CARLA DOSTI ritenta “leggere la scena” (unico ritento dell’episodio):
+    [PROVA ACUME] CARLA DOSTI: 2d6(6,2)=8 +ACUME(3) = 11 vs Media(9) -> SUCCESSO
+    - Indizio: Lo studio è stato svuotato in una notte: restano i chiodi dei quadri e l’impronta pulita degli schedari sul pavimento. Chi è fuggito così non torna — e non fugge dai gendarmi: fugge da un LAVORO FINITO.
+    - Indizio: Dal carro del trasloco è caduto uno schedario: «cripta». Dentro, i conti del cantiere finale — e una riga che gela: «onorario del direttore: nulla. Il direttore non lavora per denaro.» (Reperto C: consegnate lo Schedario della Cripta.)
+    - Indizio: L’ultima pagina dei conti: «coristi: dodici, saldati anticipati, vestiario compreso. Rimborso barca: porta d’acqua. Ora di chiamata: le due e mezza.» Il coro entra alle due e mezza. Il colmo è alle tre e un quarto. La finestra è quella.
+    -> Fonte sulla Domanda 3 (1: tavole di marea/ora di chiamata).
+    [APPROFONDIMENTO Osservazione] sbloccato da ELENA FOSCO.
+[h22:00] Visita Luogo 1 — La Cattedrale, la Sagrestia  (1 ora)
+    [PROVA ACUME] CARLA DOSTI: 2d6(6,1)=7 +ACUME(3) = 10 vs Media(9) -> SUCCESSO
+    - Indizio: Don Callisto non finge più niente: «il pavimento della cripta RESPIRA, signori. Lo sento sotto i piedi durante i vespri, come una nave. E stanotte l’acqua benedetta trema nelle pile senza che nessuno la tocchi.» (Oggetti: prendete le carte L’Acqua Benedetta e La Reliquia di San Teodoro.)
+    - Indizio: Il capitolo della Cattedrale custodiva gli atti del Quarantuno: «il capitolo del Quarantuno decise la sconsacrazione dei Battuti E qualcos’altro, di cui non si parla. Gli atti sono all’Archivio Capitolare. Io la chiave ce l’ho, ma la parola giusta dovete saperla voi.»
+    - Indizio: Dalla sagrestia, con l’orecchio al pavimento: un battito lento, sotto, profondissimo — sessanta colpi l’ora, come un cuore che dorme. E stanotte, dice don Callisto, «batte più forte. Come chi sogna qualcosa che sta per accadere.»
+    -> Parola chiave trovata (vedi indizio sopra): IL CAPITOLO DEL QUARANTUNO
+    [APPROFONDIMENTO Osservazione] sbloccato da ELENA FOSCO.
+    -> Questa carta conferma esplicitamente che il colpevole è Ferri (Domanda 2).
+[h23:00] Visita Luogo 2 — Il Canale Basso  (1 ora)
+    [PROVA ACUME] CARLA DOSTI: 2d6(1,1)=2 +ACUME(3) = 5 vs Media(9) -> FALLITA
+    - Indizio: L’acqua del canale è FERMA: né marea né corrente, come tesa. I barcaioli non escono: «l’acqua così non si è mai vista. Stanotte c’è la marea di sizigia, la grande — e l’acqua, invece di prepararsi, trattiene.»
+    - Indizio: Tre notti di chiatte cariche verso il fianco della Cattedrale: casse lunghe, un carico «da chiesa» — e gli scaricatori pagati in contanti nuovi, mai gli stessi due volte. L’ultimo viaggio è previsto stanotte: l’attracco è la vecchia porta d’acqua.
+    - Indizio: Il barcaiolo più vecchio, indicando il pelo dell’acqua: «le tre acque, signori. La dolce del monte, la salata di laguna, la morta dei pozzi: sotto la città si incontrano in un posto solo. Mio nonno diceva: dove si incontrano, la città sogna. Il Catasto sa dove.»
+    -> Parola chiave trovata (vedi indizio sopra): LA MAREA DI SIZIGIA
+    -> Parola chiave trovata (vedi indizio sopra): LE TRE ACQUE
+    “Leggere la scena” fallita: l’Approfondimento di questo luogo resta nascosto (si può tornare più tardi, senza ripetere il tiro).
+
+Fine Indagine: 6/9 luoghi visitati, 4 Approfondimenti letti, 2 mancati.
+Ore avanzate: 0 -> PREPARATI (+1 Salute massima a testa)
+Formula del Sigillo: sì; Lanterna: no; Domanda 1 (3 fonti): esatta; Domanda 3 (1 fonti): esatta
+Chi dirige confermato esplicitamente (Domanda 2): sì
+Nota: Ombra fiuta (Fanti) avrebbe dato il conteggio Approfondimenti per luogo prima di ogni scelta — l’euristica sopra già sceglie con priorità di sblocco, effetto equivalente.
+Dossier completo (tutte le ore spese in Indagine): 1 gettone Intuizione per la Spedizione.
+

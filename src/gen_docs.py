@@ -6,7 +6,8 @@ from reportlab.lib.units import mm
 from reportlab.lib import colors
 from reportlab.lib.styles import ParagraphStyle
 from reportlab.platypus import (SimpleDocTemplate, Paragraph, Spacer,
-                                PageBreak, Table, TableStyle, HRFlowable)
+                                PageBreak, Table, TableStyle, HRFlowable,
+                                KeepTogether)
 from deluxe_style import (register_fonts, parchment_art, pad_to_even_pages, seal, F,
                           rule_border, INK, RED, RED_DK, TEAL, GOLD, SEPIA, PAPER_DK)
 
@@ -251,13 +252,12 @@ def regolamento():
                "Poi aprite la busta della <b>Soluzione</b>: per ogni risposta esatta otterrete un "
                "<b>Vantaggio</b> per la Spedizione; per certe risposte sbagliate, una complicazione. "
                "La Soluzione vi dir\u00e0 anche come preparare la mappa."))
-    e.append(LI('<b>Il Vantaggio extra (velocit\u00e0 O approfondimento)</b> \u2014 se al momento delle '
-                'risposte avete <b>ore ancora sul Taccuino</b>, oppure avete visitato <b>molti '
-                'luoghi</b> (anche spendendo tutte le ore per farlo), la Soluzione vi dar\u00e0 un '
-                'vantaggio in pi\u00f9: sono <b>due strade alternative allo stesso premio</b>, la fretta '
-                'e la completezza valgono uguale \u2014 prendete quella che vi somiglia di pi\u00f9. Fermarsi '
-                'presto senza aver visitato molto vuol dire comunque rispondere con meno indizi in '
-                'mano: quanto rischiare lo decidete voi.'))
+    e.append(LI('<b>Il Vantaggio extra</b> \u2014 lo <b>Slancio</b> \u00e8 di chi SA dove andare: scatta '
+                'solo se rispondete esattamente a <b>tutte</b> le Domande E vi avanzano <b>ore sul '
+                'Taccuino</b>. <b>Preparati</b> premia invece la fatica o un buon anticipo: '
+                'qualche ora avanzata O <b>molti luoghi visitati</b> (anche spendendo tutte le ore '
+                'per farlo), senza requisito di risposte. Fermarsi presto senza aver capito il caso '
+                'non paga: i numeri esatti sono nella Soluzione.'))
     e.append(LI('<b>Il gettone Intuizione</b> \u2014 premio a parte, riservato a chi non lascia '
                 '<b>nessuna ora</b> sul Taccuino (le avete spese tutte esplorando): <b>una volta in '
                 'Spedizione</b>, subito dopo un tiro fallito di un vostro eroe, potete ripeterlo e '
@@ -595,25 +595,30 @@ def soluzione():
         ('BOTTOMPADDING', (0, 0), (-1, -1), 4),
     ]))
     e.append(t)
-    e.append(P('ORE AVANZATE — O LUOGHI VISITATI', 'h2'))
-    e.append(P('Contate le ore ancora libere sul Taccuino <b>oppure</b> quanti luoghi avete visitato '
-               '(anche tutti e 8, spendendo ogni ora per farlo) nel momento in cui rispondete alle 4 '
-               'Domande (non quando aprite questa busta). Sono <b>due strade alternative</b>, non '
-               'cumulative: prendete il vantaggio migliore fra i due. Chi si ferma presto senza aver '
-               'visitato molto rischia comunque di rispondere con meno indizi in mano — ricompensate '
-               'sia il rischio corso (fermarsi presto) sia la fatica (visitare tutto): la visita '
-               'gratuita di Carla (Fonti riservate) non conta come ora avanzata né come luogo in più, '
-               'non è un rischio né una fatica corsi da lei.', 'box'))
+    e.append(P('IL VANTAGGIO D’INDAGINE', 'h2'))
+    e.append(P('Lo <b>Slancio</b> è di chi SA dove andare: scatta SOLO se avete risposto '
+               'esattamente a <b>tutte</b> le Domande E vi avanzano <b>3 o più ore</b> sul '
+               'Taccuino. Fermarsi presto senza aver capito il caso non premia: chi chiude in '
+               'anticipo e sbaglia scende al gradino sotto. <b>Preparati</b> ricompensa la '
+               'fatica o un buon anticipo: 1+ ore avanzate O 6+ luoghi visitati, senza requisito '
+               'di risposte. Contate ore e luoghi nel momento in cui rispondete alle Domande '
+               '(non quando aprite questa busta); la visita gratuita di Carla (Fonti riservate) '
+               'non conta come ora avanzata né come luogo in più.', 'box'))
+    cel = ParagraphStyle('cel', fontName=F['r'], fontSize=8.5, leading=11)
     rt = [
-        ['Ore avanzate', 'O luoghi visitati', 'Vantaggio'],
-        ['3 o più', '6 o più', 'Slancio: nel 1° round della Spedizione, ogni eroe ha 3 azioni invece '
-                               'di 2, e inizia con +1 Salute massima.'],
-        ['1–2', '5', 'Preparati: ogni eroe inizia la Spedizione con +1 Salute massima, solo per questa '
-                     'partita.'],
-        ['0', '4 o meno', 'Nessun vantaggio extra (le 4 Domande restano comunque valide per la tabella '
-                          'sopra).'],
+        ['Vantaggio', 'Condizione', 'Effetto'],
+        ['Slancio', Paragraph('TUTTE le Domande esatte E 3+ ore avanzate', cel),
+         Paragraph('Nel 1° round della Spedizione ogni eroe ha 3 azioni invece di 2, e '
+                   'inizia con +1 Salute massima.', cel)],
+        ['Preparati', Paragraph('1+ ore avanzate O 6+ luoghi visitati', cel),
+         Paragraph('Ogni eroe inizia la Spedizione con +1 Salute massima, solo per questa '
+                   'partita.', cel)],
+        ['Nessuno', Paragraph('tutto il resto', cel),
+         Paragraph('Nessun vantaggio extra (le 4 Domande restano comunque valide per la '
+                   'tabella sopra).', cel)],
     ]
-    rtb = Table(rt, colWidths=[22*mm, 24*mm, 114*mm])
+    rtb = Table(rt, colWidths=[22*mm, 44*mm, 94*mm])
+    # la tabella non si spezza tra le pagine: slitta intera
     rtb.setStyle(TableStyle([
         ('FONTNAME', (0, 0), (-1, 0), F['b']),
         ('FONTNAME', (0, 1), (-1, -1), F['r']),
@@ -626,7 +631,7 @@ def soluzione():
         ('TOPPADDING', (0, 0), (-1, -1), 4),
         ('BOTTOMPADDING', (0, 0), (-1, -1), 4),
     ]))
-    e.append(rtb)
+    e.append(KeepTogether(rtb))
     e.append(P('<b>Dossier completo</b> — se al momento delle risposte <b>non vi avanza nessuna ora</b> '
                '(le avete spese tutte esplorando), oltre al vantaggio qui sopra prendete <b>1 gettone '
                'Intuizione</b>: una volta in Spedizione potete <b>ripetere un vostro tiro di dado appena '

@@ -1,0 +1,327 @@
+Run: ep6-03_p4_seed0  |  seed=664400  |  formula Minaccia=finale_v3  |  generato: 2026-07-18T14:45:03
+==============================================================================
+SPEDIZIONE - Le Tre Acque, sotto la Cattedrale (finale d’atto)
+==============================================================================
+Party: OTTAVIO BRERA, PADRE CELSO MARANI, SIBILLA REVE
+Bonus da Indagine: PREPARATI (+1 Salute massima a testa); Formula: sì; Lanterna: sì; D1: esatta; D3: esatta
+NOTA: gruppo trattato come blocco unico tessera per tessera (vedi intestazione script).
+
+Gettone Intuizione in mano (Dossier completo): un ri-tiro, una volta in Spedizione.
+--- Round 1: il gruppo raggiunge T2 (Galleria di Marea) ---
+    (azioni nominali questo round: 6 — 3 eroi vivi)
+    Il gruppo entra in T2 da B1.
+    [PROVA ACUME] OTTAVIO BRERA: 2d6(3,6)=9 +ACUME(3) = 12 vs Media(9) -> SUCCESSO
+    OTTAVIO BRERA cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    PADRE CELSO MARANI: nessun bersaglio, avanza / assiste il gruppo.
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] L’ACQUA ALLE GINOCCHIA (ostacolo) — Muoversi costa il doppio sulla tessera dell’eroe attivo fino a fine round.
+    (carta senza effetto modellato in questa simulazione)
+--- Round 2: il gruppo raggiunge T3 (Sala del Bronzo) ---
+    (azioni nominali questo round: 6 — 3 eroi vivi)
+    Il gruppo entra in T3 da B1.
+    QUANDO RIVELATE: 2 Adepti a guardia del bronzo.
+    [ABILITÀ] OTTAVIO BRERA usa Vi conosco, Malacarne su ADEPTO INCAPPUCCIATO: rimosso dal tabellone.
+    [PROVA VIGORE] PADRE CELSO MARANI: 2d6(1,1)=2 +VIGORE(1) = 3 vs Media(9) -> FALLITA
+    [CARDINE] PADRE CELSO MARANI fallisce su il bronzo: si ritenta.
+    SIBILLA REVE si muove verso ADEPTO INCAPPUCCIATO: B1 -> A2.
+    [ATTACCO] SIBILLA REVE -> ADEPTO INCAPPUCCIATO: 2d6(2,2)=4 +VIGORE(1)+arma(1) = 6 vs Difesa(7) -> MANCATO
+  [MINACCIA] I FACCHINI DELL’ULTIMA NOTTE (posseduto) — Piazzate 1 Adepto sull’uscita più vicina agli eroi.
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 1) in B1.
+  ADEPTO INCAPPUCCIATO attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> PADRE CELSO MARANI: 2d6(5,1)=6 +Attacco(1) = 7 vs Difesa(8) -> MANCATO
+  ADEPTO INCAPPUCCIATO si muove verso SIBILLA REVE: B1 -> B2.
+  ADEPTO INCAPPUCCIATO attacca SIBILLA REVE:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> SIBILLA REVE: 2d6(4,3)=7 +Attacco(1) = 8 vs Difesa(8) -> COLPITO
+    SIBILLA REVE subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 6/7).
+    Il movimento di T3 non è ancora spento: il gruppo resta.
+--- Round 3: il gruppo raggiunge T3 (Sala del Bronzo) ---
+    (azioni nominali questo round: 6 — 3 eroi vivi)
+    QUANDO RIVELATE: 2 Adepti a guardia del bronzo.
+    [PROVA VIGORE] OTTAVIO BRERA: 2d6(6,4)=10 +VIGORE(1) = 11 vs Media(9) -> SUCCESSO
+    [CARDINE] OTTAVIO BRERA spegne il bronzo (1/3 movimenti spenti — la Difesa di Ferri cala).
+    [ATTACCO] PADRE CELSO MARANI -> ADEPTO INCAPPUCCIATO: 2d6(1,6)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    SIBILLA REVE si muove verso ADEPTO INCAPPUCCIATO: A2 -> B4.
+    SIBILLA REVE si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+  [MINACCIA] LA BARCA DELLE DUE E MEZZA (posseduto) — Piazzate 1 Adepto sull’ingresso della Porta d’Acqua (T1).
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 0), a 6 caselle dalla tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si muove verso PADRE CELSO MARANI: B2 -> A1.
+  ADEPTO INCAPPUCCIATO attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> PADRE CELSO MARANI: 2d6(3,5)=8 +Attacco(1) = 9 vs Difesa(8) -> COLPITO
+    PADRE CELSO MARANI subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 6/7).
+  ADEPTO INCAPPUCCIATO si muove verso SIBILLA REVE: C1 -> D4.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+--- Round 4: il gruppo raggiunge T4 (Snodo delle Vene) ---
+    (azioni nominali questo round: 6 — 3 eroi vivi)
+    Il gruppo entra in T4 da B1.
+    QUANDO RIVELATE: 1 Adepto sta calando dalla corda della Confluenza.
+    Lo Snodo delle Vene: le tre acque si sfiorano senza mescolarsi.
+    [ATTACCO] OTTAVIO BRERA -> ADEPTO INCAPPUCCIATO: 2d6(5,6)=11 +VIGORE(1)+arma(1) = 13 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    PADRE CELSO MARANI si muove verso ADEPTO INCAPPUCCIATO: B1 -> D2.
+    PADRE CELSO MARANI si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    SIBILLA REVE si muove verso ADEPTO INCAPPUCCIATO: B1 -> A3.
+    SIBILLA REVE si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+  [MINACCIA] GLI ECHI TORNANO (posseduto) — Piazzate 1 Voce Cava sull’uscita più vicina agli eroi.
+    Piazzati 1x LA VOCE CAVA (pool residua: 1) in B1.
+  ADEPTO INCAPPUCCIATO si muove verso PADRE CELSO MARANI: D4 -> D3.
+  ADEPTO INCAPPUCCIATO attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> PADRE CELSO MARANI: 2d6(5,6)=11 +Attacco(1) = 12 vs Difesa(8) -> COLPITO
+    PADRE CELSO MARANI subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 5/7).
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  LA VOCE CAVA si muove verso SIBILLA REVE: B1 -> A2.
+  LA VOCE CAVA attacca SIBILLA REVE:
+    [ATTACCO NEMICO] LA VOCE CAVA -> SIBILLA REVE: 2d6(3,5)=8 +Attacco(1) = 9 vs Difesa(8) -> COLPITO
+    SIBILLA REVE subisce 1 danno da LA VOCE CAVA (Salute: 5/7).
+  [OROLOGIO] Fine del 4° round: +1 segnalino Canto automatico.
+    Segnalino Canto: 1.
+--- Round 5: il gruppo raggiunge T5 (Sala della Pietra) ---
+    (azioni nominali questo round: 6 — 3 eroi vivi)
+    Il gruppo entra in T5 da A3.
+    QUANDO RIVELATE: le Voci Cave tra i righi della pietra.
+    [PROVA ACUME] OTTAVIO BRERA: 2d6(5,4)=9 +ACUME(3) = 12 vs Media(9) -> SUCCESSO
+    [CARDINE] OTTAVIO BRERA spegne la pietra (2/3 movimenti spenti — la Difesa di Ferri cala).
+    [ABILITÀ] PADRE CELSO MARANI usa Litania: -1 segnalino Canto (1->0).
+    [ATTACCO] SIBILLA REVE -> LA VOCE CAVA: 2d6(6,5)=11 +VIGORE(1)+arma(1) = 13 vs Difesa(6) -> COLPITO
+    LA VOCE CAVA: 0/1 ferite residue.
+    LA VOCE CAVA è ABBATTUTO.
+    La Voce Cava URLA nel disfarsi:
+    [PROVA NERVI] OTTAVIO BRERA: 2d6(3,2)=5 +NERVI(2) = 7 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] PADRE CELSO MARANI: 2d6(6,4)=10 +NERVI(3) = 13 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] SIBILLA REVE: 2d6(1,4)=5 +NERVI(3) = 8 vs Facile(7) -> SUCCESSO
+  [MINACCIA] LA SECONDA BARCA (posseduto) — Piazzate 1 Adepto sull’ingresso della Porta d’Acqua (T1).
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 0), a 6 caselle dalla tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si muove verso OTTAVIO BRERA: D3 -> A2.
+  ADEPTO INCAPPUCCIATO attacca OTTAVIO BRERA:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> OTTAVIO BRERA: 2d6(1,3)=4 +Attacco(1) = 5 vs Difesa(8) -> MANCATO
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+  LA VOCE CAVA attacca OTTAVIO BRERA:
+    [ATTACCO NEMICO] LA VOCE CAVA -> OTTAVIO BRERA: 2d6(4,4)=8 +Attacco(1) = 9 vs Difesa(8) -> COLPITO
+    OTTAVIO BRERA subisce 1 danno da LA VOCE CAVA (Salute: 6/7).
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+--- Round 6: il gruppo raggiunge T4 (Snodo - ritorno dal ramo) ---
+    (azioni nominali questo round: 6 — 3 eroi vivi)
+    Il gruppo entra in T4 da D3.
+    OTTAVIO BRERA si muove verso LA VOCE CAVA: D3 -> B4.
+    [ATTACCO] OTTAVIO BRERA -> LA VOCE CAVA: 2d6(1,1)=2 +VIGORE(1)+arma(1) = 4 vs Difesa(6) -> MANCATO
+    PADRE CELSO MARANI si muove verso ADEPTO INCAPPUCCIATO: D3 -> C1.
+    PADRE CELSO MARANI si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    [PROVA ACUME] SIBILLA REVE: 2d6(4,4)=8 +ACUME(2) = 10 vs Media(9) -> SUCCESSO
+    SIBILLA REVE cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+  [MINACCIA] LA CORRENTE AMICA (favore) — Rivelate una tessera coperta adiacente.
+    (carta senza effetto modellato in questa simulazione)
+  ADEPTO INCAPPUCCIATO si muove verso OTTAVIO BRERA: A2 -> A4.
+  ADEPTO INCAPPUCCIATO attacca OTTAVIO BRERA:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> OTTAVIO BRERA: 2d6(1,3)=4 +Attacco(1) = 5 vs Difesa(8) -> MANCATO
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  LA VOCE CAVA attacca OTTAVIO BRERA:
+    [ATTACCO NEMICO] LA VOCE CAVA -> OTTAVIO BRERA: 2d6(1,4)=5 +Attacco(1) = 6 vs Difesa(8) -> MANCATO
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+--- Round 7: il gruppo raggiunge T6 (Sala delle Ossa) ---
+    (azioni nominali questo round: 6 — 3 eroi vivi)
+    Il gruppo entra in T6 da B1.
+    QUANDO RIVELATE: i Confratelli all’organo ibrido.
+    [PROVA NERVI] OTTAVIO BRERA: 2d6(5,6)=11 +NERVI(2) = 13 vs Media(9) -> SUCCESSO
+    [CARDINE] OTTAVIO BRERA spegne le ossa (3/3 movimenti spenti — la Difesa di Ferri cala).
+    PADRE CELSO MARANI si muove verso IL CONFRATELLO: B1 -> C2.
+    [ATTACCO] PADRE CELSO MARANI -> IL CONFRATELLO: 2d6(3,3)=6 +VIGORE(1)+arma(1) = 8 vs Difesa(7) -> COLPITO
+    IL CONFRATELLO: 0/1 ferite residue.
+    IL CONFRATELLO è ABBATTUTO.
+    SIBILLA REVE si muove verso LA VOCE CAVA: B1 -> B2.
+    [ATTACCO] SIBILLA REVE -> LA VOCE CAVA: 2d6(4,5)=9 +VIGORE(1)+arma(1) = 11 vs Difesa(6) -> COLPITO
+    LA VOCE CAVA: 0/1 ferite residue.
+    LA VOCE CAVA è ABBATTUTO.
+    La Voce Cava URLA nel disfarsi:
+    [PROVA NERVI] SIBILLA REVE: 2d6(2,4)=6 +NERVI(3) = 9 vs Facile(7) -> SUCCESSO
+  [MINACCIA] IL CANTO DELLE VENE (insidia) — Ogni eroe prova NERVI (Facile): chi fallisce ha 1 sola azione al prossimo turno.
+    [PROVA NERVI] OTTAVIO BRERA: 2d6(1,5)=6 +NERVI(2) = 8 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] PADRE CELSO MARANI: 2d6(5,4)=9 +NERVI(3) = 12 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] SIBILLA REVE: 2d6(2,6)=8 +NERVI(3) = 11 vs Facile(7) -> SUCCESSO
+  ADEPTO INCAPPUCCIATO si muove verso OTTAVIO BRERA: A4 -> A1.
+  ADEPTO INCAPPUCCIATO attacca OTTAVIO BRERA:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> OTTAVIO BRERA: 2d6(5,4)=9 +Attacco(1) = 10 vs Difesa(8) -> COLPITO
+    OTTAVIO BRERA subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 5/7).
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 1 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+--- Round 8: il gruppo raggiunge T7 (Anticamera del Coro) ---
+    (azioni nominali questo round: 6 — 3 eroi vivi)
+    Il gruppo entra in T7 da B1.
+    QUANDO RIVELATE: le ultime guardie — 1 Adepto e 1 Sgherro.
+    [ATTACCO] OTTAVIO BRERA -> ADEPTO INCAPPUCCIATO: 2d6(1,5)=6 +VIGORE(1)+arma(1) = 8 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    PADRE CELSO MARANI si muove verso LO SGHERRO: B1 -> A3.
+    PADRE CELSO MARANI si avvicina a LO SGHERRO, non ancora a contatto.
+    [ATTACCO] SIBILLA REVE -> LO SGHERRO: 2d6(3,1)=4 +VIGORE(1)+arma(1) = 6 vs Difesa(8) -> MANCATO
+  [MINACCIA] IL BATTITO SOTTO (insidia) — L’eroe con meno NERVI prova NERVI (Media): se fallisce 1 danno.
+    [PROVA NERVI] OTTAVIO BRERA: 2d6(6,6)=12 +NERVI(2) = 14 vs Media(9) -> SUCCESSO
+  ADEPTO INCAPPUCCIATO raggiunge la tessera del gruppo, da A1.
+  ADEPTO INCAPPUCCIATO si muove verso PADRE CELSO MARANI: A1 -> A2.
+  ADEPTO INCAPPUCCIATO attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> PADRE CELSO MARANI: 2d6(1,4)=5 +Attacco(1) = 6 vs Difesa(8) -> MANCATO
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO attacca OTTAVIO BRERA:
+    [ATTACCO NEMICO] LO SGHERRO -> OTTAVIO BRERA: 2d6(1,6)=7 +Attacco(2) = 9 vs Difesa(8) -> COLPITO
+    OTTAVIO BRERA subisce 1 danno da LO SGHERRO (Salute: 4/7).
+  [OROLOGIO] Fine del 8° round: +1 segnalino Canto automatico.
+    Segnalino Canto: 1.
+--- Round 9: il gruppo raggiunge T8 (Camera delle Tre Acque) ---
+    (azioni nominali questo round: 6 — 3 eroi vivi)
+    Il gruppo entra in T8 da B1.
+    LA CAMERA DELLE TRE ACQUE: il Coro dei Dodici canta intorno al rito.
+    Bastiano Ferri dirige, in C2.
+    [FORMULA] OTTAVIO BRERA legge LA FORMULA DEL SIGILLO a voce ferma: il rito MUORE. Il Dormiente si riassopisce. Ferri crolla in ginocchio.
+    [ATTACCO] PADRE CELSO MARANI -> IL CORISTA: 2d6(4,4)=8 +VIGORE(1)+arma(1) = 10 vs Difesa(6) -> COLPITO
+    IL CORISTA: 0/1 ferite residue.
+    IL CORISTA FUGGE (è un impiegato, non un credente).
+    [ATTACCO] SIBILLA REVE -> LO SGHERRO: 2d6(6,4)=10 +VIGORE(1)+arma(1) = 12 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+  [MINACCIA] I FRATELLI DEL QUARANTUNO (posseduto) — Piazzate 1 Confratello sull’uscita più vicina agli eroi.
+    Piazzati 1x IL CONFRATELLO (pool residua: 1) in B1.
+  ADEPTO INCAPPUCCIATO si muove verso PADRE CELSO MARANI: A2 -> A1.
+  ADEPTO INCAPPUCCIATO attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> PADRE CELSO MARANI: 2d6(1,4)=5 +Attacco(1) = 6 vs Difesa(8) -> MANCATO
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 1 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] LO SGHERRO -> PADRE CELSO MARANI: 2d6(3,5)=8 +Attacco(2) = 10 vs Difesa(8) -> COLPITO
+    PADRE CELSO MARANI subisce 1 danno da LO SGHERRO (Salute: 4/7).
+  IL CORISTA si avvicina, non ancora a contatto.
+  IL CORISTA si avvicina, non ancora a contatto.
+  IL CORISTA si avvicina, non ancora a contatto.
+  IL CORISTA si muove verso SIBILLA REVE: B3 -> B2.
+  IL CORISTA attacca SIBILLA REVE:
+    [ATTACCO NEMICO] IL CORISTA -> SIBILLA REVE: 2d6(2,2)=4 +Attacco(1) = 5 vs Difesa(8) -> MANCATO
+  IL CORISTA si avvicina, non ancora a contatto.
+  IL CONFRATELLO si avvicina, non ancora a contatto.
+  BASTIANO FERRI si avvicina, non ancora a contatto.
+--- La Camera delle Tre Acque: Ferri, il Coro e il rito ---
+--- Round 10: il rito è in corso ---
+    (azioni nominali questo round: 6 — 3 eroi vivi)
+    [ATTACCO] OTTAVIO BRERA -> ADEPTO INCAPPUCCIATO: 2d6(6,6)=12 +VIGORE(1)+arma(1) = 14 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    [ATTACCO] PADRE CELSO MARANI -> LO SGHERRO: 2d6(3,6)=9 +VIGORE(1)+arma(1) = 11 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+    SIBILLA REVE si muove verso IL CORISTA: B1 -> A2.
+    [ATTACCO] SIBILLA REVE -> IL CORISTA: 2d6(1,5)=6 +VIGORE(1)+arma(1) = 8 vs Difesa(6) -> COLPITO
+    IL CORISTA: 0/1 ferite residue.
+    IL CORISTA FUGGE (è un impiegato, non un credente).
+  [MINACCIA] LA MAREA CHE SALE (insidia) — L’eroe attivo prova NERVI (Media): se fallisce, 1 danno e perde 1 azione.
+    [PROVA NERVI] OTTAVIO BRERA: 2d6(4,2)=6 +NERVI(2) = 8 vs Media(9) -> FALLITA
+    OTTAVIO BRERA subisce 1 danno da LA MAREA CHE SALE (Salute: 3/7).
+    OTTAVIO BRERA avrà 1 sola azione al suo prossimo turno.
+  ADEPTO INCAPPUCCIATO raggiunge la tessera del gruppo, da C1.
+  ADEPTO INCAPPUCCIATO attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> PADRE CELSO MARANI: 2d6(4,5)=9 +Attacco(1) = 10 vs Difesa(8) -> COLPITO
+    PADRE CELSO MARANI subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 3/7).
+  IL CORISTA si avvicina, non ancora a contatto.
+  IL CORISTA si avvicina, non ancora a contatto.
+  IL CORISTA si avvicina, non ancora a contatto.
+  IL CORISTA si muove verso OTTAVIO BRERA: C4 -> B3.
+  IL CORISTA si avvicina, non ancora a contatto.
+  IL CONFRATELLO si muove verso SIBILLA REVE: B1 -> B2.
+  IL CONFRATELLO attacca SIBILLA REVE:
+    [ATTACCO NEMICO] IL CONFRATELLO -> SIBILLA REVE: 2d6(5,5)=10 +Attacco(1) = 11 vs Difesa(8) -> COLPITO
+    SIBILLA REVE subisce 1 danno da IL CONFRATELLO (Salute: 4/7).
+  BASTIANO FERRI si avvicina, non ancora a contatto.
+  Il Coro tiene l’accordo: +1 segnalino Canto (coro >= 3).
+    Segnalino Canto: 2.
+  Il rito è morto: Ferri crolla. Si torna alla Porta d’Acqua.
+--- Ritorno alla Porta d’Acqua (3 round, la marea sale) ---
+    [PROVA NERVI] OTTAVIO BRERA: 2d6(4,3)=7 +NERVI(2) +Lanterna di Chiusa(+1) = 10 vs Media(9) -> SUCCESSO
+    [PROVA NERVI] PADRE CELSO MARANI: 2d6(5,5)=10 +NERVI(3) +Lanterna di Chiusa(+1) = 14 vs Media(9) -> SUCCESSO
+    [PROVA NERVI] SIBILLA REVE: 2d6(1,3)=4 +NERVI(3) +Lanterna di Chiusa(+1) = 8 vs Media(9) -> FALLITA
+--- Round 11: rientro verso T1 ---
+    (azioni nominali questo round: 6 — 3 eroi vivi)
+    OTTAVIO BRERA ha 1 sola azione questo turno (insidia del round scorso).
+    [ATTACCO] OTTAVIO BRERA -> ADEPTO INCAPPUCCIATO: 2d6(4,5)=9 +VIGORE(1)+arma(1) = 11 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    PADRE CELSO MARANI si muove verso IL CONFRATELLO: B1 -> C2.
+    [ATTACCO] PADRE CELSO MARANI -> IL CORISTA: 2d6(5,3)=8 +VIGORE(1)+arma(1) = 10 vs Difesa(6) -> COLPITO
+    IL CORISTA: 0/1 ferite residue.
+    IL CORISTA FUGGE (è un impiegato, non un credente).
+    SIBILLA REVE ha 1 sola azione questo turno (insidia del round scorso).
+    [ATTACCO] SIBILLA REVE -> IL CONFRATELLO: 2d6(3,1)=4 +VIGORE(1)+arma(1) = 6 vs Difesa(7) -> MANCATO
+  [MINACCIA] LA PROCESSIONE ULTIMA (posseduto) — Piazzate 1 Confratello sull’uscita più vicina agli eroi.
+    Piazzati 1x IL CONFRATELLO (pool residua: 0) in B1.
+  IL CORISTA si muove verso SIBILLA REVE: D3 -> C4.
+  IL CORISTA si avvicina, non ancora a contatto.
+  IL CORISTA si avvicina, non ancora a contatto.
+  IL CORISTA si avvicina, non ancora a contatto.
+  IL CONFRATELLO attacca OTTAVIO BRERA:
+    [ATTACCO NEMICO] IL CONFRATELLO -> OTTAVIO BRERA: 2d6(3,5)=8 +Attacco(1) = 9 vs Difesa(8) -> COLPITO
+    OTTAVIO BRERA subisce 1 danno da IL CONFRATELLO (Salute: 2/7).
+  IL CONFRATELLO si muove verso OTTAVIO BRERA: B1 -> C1.
+  IL CONFRATELLO attacca OTTAVIO BRERA:
+    [ATTACCO NEMICO] IL CONFRATELLO -> OTTAVIO BRERA: 2d6(1,5)=6 +Attacco(1) = 7 vs Difesa(8) -> MANCATO
+--- Round 12: rientro verso T1 ---
+    (azioni nominali questo round: 6 — 3 eroi vivi)
+    [ATTACCO] OTTAVIO BRERA -> IL CONFRATELLO: 2d6(3,6)=9 +VIGORE(1)+arma(1) = 11 vs Difesa(7) -> COLPITO
+    IL CONFRATELLO: 0/1 ferite residue.
+    IL CONFRATELLO è ABBATTUTO.
+    [ATTACCO] PADRE CELSO MARANI -> IL CONFRATELLO: 2d6(5,1)=6 +VIGORE(1)+arma(1) = 8 vs Difesa(7) -> COLPITO
+    IL CONFRATELLO: 0/1 ferite residue.
+    IL CONFRATELLO è ABBATTUTO.
+    SIBILLA REVE si muove verso IL CORISTA: A2 -> A3.
+    [ATTACCO] SIBILLA REVE -> IL CORISTA: 2d6(6,5)=11 +VIGORE(1)+arma(1) = 13 vs Difesa(6) -> COLPITO
+    IL CORISTA: 0/1 ferite residue.
+    IL CORISTA FUGGE (è un impiegato, non un credente).
+  [MINACCIA] IL SERVIZIO DI BANCHINA (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 1) in B1.
+  IL CORISTA si muove verso PADRE CELSO MARANI: C4 -> D3.
+  IL CORISTA si avvicina, non ancora a contatto.
+  IL CORISTA si muove verso PADRE CELSO MARANI: D1 -> D2.
+  IL CORISTA attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] IL CORISTA -> PADRE CELSO MARANI: 2d6(5,2)=7 +Attacco(1) = 8 vs Difesa(8) -> COLPITO
+    PADRE CELSO MARANI subisce 1 danno da IL CORISTA (Salute: 2/7).
+  LO SGHERRO si muove verso OTTAVIO BRERA: B1 -> C1.
+  LO SGHERRO attacca OTTAVIO BRERA:
+    [ATTACCO NEMICO] LO SGHERRO -> OTTAVIO BRERA: 2d6(5,1)=6 +Attacco(2) = 8 vs Difesa(8) -> COLPITO
+    OTTAVIO BRERA subisce 1 danno da LO SGHERRO (Salute: 1/7).
+  [OROLOGIO] Fine del 12° round: +1 segnalino Canto automatico.
+    Segnalino Canto: 3.
+    Il Canto raggiunge 3: da ora ogni Fase Minaccia pesca 1 carta in più (fino a fine spedizione, anche se il Custode è già stato abbattuto).
+--- Round 13: rientro verso T1 ---
+    (azioni nominali questo round: 6 — 3 eroi vivi)
+    [ATTACCO] OTTAVIO BRERA -> LO SGHERRO: 2d6(1,6)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    [ATTACCO] PADRE CELSO MARANI -> IL CORISTA: 2d6(5,2)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(6) -> COLPITO
+    IL CORISTA: 0/1 ferite residue.
+    IL CORISTA FUGGE (è un impiegato, non un credente).
+    SIBILLA REVE si muove verso IL CORISTA: A3 -> C4.
+    SIBILLA REVE si avvicina a IL CORISTA, non ancora a contatto.
+  [MINACCIA] IL RICHIAMO (insidia) — L’eroe più avanzato prova NERVI (Media): se fallisce, 1 danno.
+    [PROVA NERVI] OTTAVIO BRERA: 2d6(1,2)=3 +NERVI(2) = 5 vs Media(9) -> FALLITA
+    OTTAVIO BRERA subisce 1 danno da IL RICHIAMO (Salute: 0/7).
+    [INTUIZIONE] Il gruppo spende il gettone Dossier: OTTAVIO BRERA resta in piedi a 1 Salute invece di cadere.
+  [MINACCIA] LA VOCE DEL BORGO (posseduto) — Piazzate 1 Voce Cava sull’uscita più vicina agli eroi.
+    Piazzati 1x LA VOCE CAVA (pool residua: 1) in B1.
+  IL CORISTA si muove verso PADRE CELSO MARANI: D3 -> D2.
+  IL CORISTA attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] IL CORISTA -> PADRE CELSO MARANI: 2d6(1,5)=6 +Attacco(1) = 7 vs Difesa(8) -> MANCATO
+  LO SGHERRO attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] LO SGHERRO -> PADRE CELSO MARANI: 2d6(2,6)=8 +Attacco(2) = 10 vs Difesa(8) -> COLPITO
+    PADRE CELSO MARANI subisce 1 danno da LO SGHERRO (Salute: 1/7).
+  LA VOCE CAVA si muove verso OTTAVIO BRERA: B1 -> A1.
+  LA VOCE CAVA attacca OTTAVIO BRERA:
+    [ATTACCO NEMICO] LA VOCE CAVA -> OTTAVIO BRERA: 2d6(1,6)=7 +Attacco(1) = 8 vs Difesa(8) -> COLPITO
+    OTTAVIO BRERA subisce 1 danno da LA VOCE CAVA (Salute: 0/7).
+    *** OTTAVIO BRERA è A TERRA. ***
+
+==============================================================================
+ESITO SPEDIZIONE: VITTORIA
+Round totali: 13
+Formula Minaccia: finale_v3 | Azioni nominali/round: media 6.0, picco 6
+Mazzo Minaccia rimescolato: 0 volta/e
+Segnalini nemici esauriti nel pool (piazzamenti saltati): 0
+Ferri svegliato: solo a T6 (mai in anticipo via Canto)
+  OTTAVIO BRERA: a terra
+  PADRE CELSO MARANI: 1/7 Salute
+  SIBILLA REVE: 4/7 Salute
+==============================================================================
+Movimenti spenti: 3/3; Formula letta: sì

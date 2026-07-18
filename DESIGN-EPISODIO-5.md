@@ -215,6 +215,14 @@ chiamano» SOLO nel ramo «sigillata» del Bivio Ep. 4 (vedi §8).
   cassa (D3). Log: logs/playtest/20260718-curva-ep5-v1. Nota tecnica: il
   refuso [:-0] del patch Ep.4 (docstring perso) è stato riparato in
   entrambi i simulatori.
+- **Fase C — aggiornamento regola Slancio (2026-07-18, curva v2):** chiuso
+  il bug «Slancio gratis» (Slancio SOLO con 4/4 risposte esatte E 3+ ore
+  avanzate; la via 6+ luoghi vale ora Preparati), curva rigirata sugli
+  stessi seed: 2: 39% (41% sofferte), 3: 90%, 4: 71%, 5: 80%, 6: 93%,
+  7: 73%, 8: 73%, 9: 78%, 10: 91%. Tutte le taglie 3-10 in banda 70-95;
+  il duo scende 45→39 (entro il rumore statistico di 150 run, resta
+  «dura» dichiarata). Ep.2/3/4/6: curve INVARIATE dalla nuova regola
+  (verificato sugli stessi seed). Log: logs/playtest/20260718-curva-ep5-v2.
 - Fase C (specifica): `simulate_ep5.py` (seed base 650000); da modellare: trappola T3
   Difficile (candele +1, presagio→Media), regola d'insieme del Salmodiante
   (+1 Dif ai Confratelli adiacenti), sfregio 3 canne + bonifica post-boss,

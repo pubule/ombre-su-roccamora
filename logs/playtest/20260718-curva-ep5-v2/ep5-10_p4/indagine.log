@@ -1,0 +1,68 @@
+Run: ep5-10_p4_seed0  |  seed=661400  |  generato: 2026-07-18T14:45:02
+==============================================================================
+INDAGINE - Episodio 5: "L’organo di ossa"
+==============================================================================
+Party: DOTT. ATTILIO MARN, DOTT. LAZZARO SERRA, ELENA FOSCO, FULGENZIO CARBONE, MORA “SPILLA” FANTI, NINO “GRIMALDELLO” CAUTO, OTTAVIO BRERA, OTTONE “MEZZENA” MASSARI, PADRE CELSO MARANI, SIBILLA REVE
+Clock: 6 ore, dalle 18:00 alle 24:00.
+
+Tipi di Approfondimento coperti da questo party: Osservazione, Presagio, Referto, Testimonianza
+
+[h18:00] Visita Luogo 2 — L’Ossario Comunale  (1 ora)
+    [PROVA ACUME] DOTT. LAZZARO SERRA: 2d6(3,6)=9 +ACUME(3) = 12 vs Media(9) -> SUCCESSO
+    - Indizio: Le casse mancanti sono ventidue, e non sono a caso: solo sepolture del secolo scorso, solo casse marcate con un segno d’onda sul legno. Il custode dell’ossario: «le ricognizioni le fa la Curia. Ma la Curia qui non viene da vent’anni.»
+    - Indizio: Nel registro delle consegne, le uscite risultano autorizzate e ritirate «per ricognizione» — sempre di notte, sempre con lo stesso carrettiere. Il custode: «pagato in contanti nuovi, davanti a me. Chi paga il carrettiere davanti al custode, il custode lo sta pagando in silenzio.»
+    - Indizio: Tre nicchie svuotate portano lapidi NUOVE, di marmo appena tagliato, coi nomi ricopiati — «lapidi rifatte, per pietà dei discendenti», dice la carta. I discendenti di confratelli banditi nel Quarantuno. Che non esistono.
+    -> Parola chiave trovata (vedi indizio sopra): CONTANTI NUOVI
+    -> Parola chiave trovata (vedi indizio sopra): LAPIDI RIFATTE
+    -> Riscontro sulla Domanda 3 (1: casse marcate/lapidi/registro).
+    [APPROFONDIMENTO Referto] sbloccato da DOTT. ATTILIO MARN.
+    -> Questa carta conferma esplicitamente che il colpevole è Mola (Domanda 2).
+[h19:00] Visita Luogo 1 — La Chiesa dei Battuti  (1 ora)
+    [PROVA ACUME] DOTT. LAZZARO SERRA: 2d6(4,3)=7 +ACUME(3) = 10 vs Media(9) -> SUCCESSO
+    - Indizio: Fedele è dove l’hanno trovato, tra le scaffalature del magazzino: la faccia di chi ha visto, le mani piene di calcina fresca. Ai piedi della parete di fondo, una breccia rimurata a metà — da FUORI. Stava chiudendo qualcosa dentro. (Oggetto: prendete la carta Il Crocifisso Spezzato.)
+    - Indizio: Gli inservienti del magazzino, a bassa voce: Fedele negli ultimi giorni parlava di un «maestro dei registri» che veniva a misurare le navate di notte, con due uomini e una lanterna schermata. «Diceva: quello non conta le casse. Conta i PASSI.»
+    - Indizio: Il pavimento davanti alla breccia è pulito in una striscia larga un carro: qualcosa è entrato e uscito molte volte, e qualcuno ha spazzato — ma la calcina nuova sulla parete viene da un sacco che in magazzino non esiste. La sconsacrazione del Quarantuno murò la cripta: il fascicolo dev’essere in Curia.
+    -> Parola chiave trovata (vedi indizio sopra): IL MAESTRO DEI REGISTRI
+    -> Parola chiave trovata (vedi indizio sopra): LA SCONSACRAZIONE DEL QUARANTUNO
+    -> Riscontro sulla Domanda 1 (1: calcina/fascicolo/botola).
+    [APPROFONDIMENTO Osservazione] sbloccato da ELENA FOSCO.
+    -> Questa carta conferma esplicitamente che il colpevole è Mola (Domanda 2).
+    [APPROFONDIMENTO Presagio] sbloccato da DOTT. LAZZARO SERRA.
+[h20:00] Visita Luogo 7 — L’Ufficio delle Sconsacrazioni  (1 ora)
+    [PROVA ACUME] DOTT. LAZZARO SERRA: 2d6(1,6)=7 +ACUME(3) = 10 vs Media(9) -> SUCCESSO
+    - Indizio: Il fascicolo del Quarantuno, tre giorni in tutto: sconsacrazione «per quiete pubblica», l’organo murato, le campane fuse — e in margine, la riga che pesa: «la cripta capitolare, murata com’è, si abbandona ALLO STATO in cui giace». Mai svuotata. Mai riconsacrata. Mai più aperta.
+    - Indizio: Il registro dei timbri: quello impresso sulle autorizzazioni alle riesumazioni è il timbro della Cancelleria per gli atti mortuari — e da vent’anni, per regolamento, NON ESCE dalla stanza del cancelliere. Il cancelliere impallidisce: «non esce. Non è mai uscito. Ci sono io, qui.»
+    - Indizio: Nell’annuario diocesano, il funzionario firmatario non esiste: né oggi, né mai. Il cancelliere sfoglia due volte, tre volte, e alla fine chiude l’annuario piano, come si chiude una bara: «vi chiedo di non dire a nessuno quello che avete visto qui.»
+    -> Riscontro sulla Domanda 1 (2: calcina/fascicolo/botola).
+    [APPROFONDIMENTO Referto] sbloccato da OTTAVIO BRERA.
+[h21:00] Visita Luogo 3 — Il Cimitero Nuovo  (1 ora)
+    [PROVA ACUME] DOTT. LAZZARO SERRA: 2d6(3,1)=4 +ACUME(3) = 7 vs Media(9) -> FALLITA
+    [SECONDO FIATO] DOTT. LAZZARO SERRA ritenta “leggere la scena” (unico ritento dell’episodio):
+    [PROVA ACUME] DOTT. LAZZARO SERRA: 2d6(6,2)=8 +ACUME(3) = 11 vs Media(9) -> SUCCESSO
+    - Indizio: Il regno di Zaccaria Mola, becchino-capo: fosse «in manutenzione» transennate da settimane, e gli inservienti pagati il doppio — in contanti nuovi — per i turni di notte. «Manutenzione di cosa», dice uno sputando, «se là sotto non c’è più nessuno?»
+    - Indizio: I carri notturni escono dal cancello di servizio e NON portano terra: un guardiano li ha contati — «entrano vuoti, escono pesanti, e il lasciapassare lo firma il maestro dei registri. Chi è? Boh. Ma il cancello si apre.»
+    - Indizio: Dietro la rimessa, lapidi vecchie accatastate a faccia in giù: sono quelle vere delle tombe «rifatte» — e su ciascuna, sotto il muschio, un’onda scalpellata via. Le lapidi rifatte non sono pietà: sono una cancellatura.
+    -> Parola chiave trovata (vedi indizio sopra): IL MAESTRO DEI REGISTRI
+    -> Parola chiave trovata (vedi indizio sopra): CONTANTI NUOVI
+    -> Parola chiave trovata (vedi indizio sopra): LAPIDI RIFATTE
+    -> Riscontro sulla Domanda 3 (2: casse marcate/lapidi/registro).
+    [APPROFONDIMENTO Testimonianza] sbloccato da OTTONE “MEZZENA” MASSARI.
+    -> Questa carta conferma esplicitamente che il colpevole è Mola (Domanda 2).
+[h22:00] Visita Luogo 4 — La Parrocchia del Borgo  (1 ora)
+    [PROVA ACUME] DOTT. LAZZARO SERRA: 2d6(4,3)=7 +ACUME(3) = 10 vs Media(9) -> SUCCESSO
+    - Indizio: Il sagrestano vi riconosce — il Borgo non dimentica i pozzi — e per una volta parla per primo: «i Battuti? La sconsacrazione del Quarantuno la fece il vescovado in tre giorni, di fretta, A PORTE CHIUSE. Il fascicolo è in Curia. E in Curia, di solito, la fretta non abita.»
+    - Indizio: Nel ripostiglio della sacrestia, sotto un telo: il fonte battesimale dei Battuti, salvato nel Quarantuno da un parroco testardo. Dentro il piede cavo, un’ampolla sigillata a cera: l’acqua dell’ultimo battesimo. (Oggetti: prendete le carte L’Acqua del Fonte e Le Candele della Parrocchia.)
+    - Indizio: Il sagrestano custodisce anche un anello di chiavi «che non aprono più niente»: una è marcata coi flagelli incrociati dei Battuti — la chiave del sagrato e della sagrestia vecchia. «Se la prendete, non ditemi per cosa.» (Oggetto: prendete la carta La Chiave del Sagrato.)
+    -> Parola chiave trovata (vedi indizio sopra): LA SCONSACRAZIONE DEL QUARANTUNO
+    -> Oggetto trovato (vedi indizio sopra): LA CHIAVE DEL SAGRATO
+    -> Trovate: LE CANDELE DELLA PARROCCHIA (+1 nel Corridoio degli Ossari).
+    -> Trovata: L’ACQUA DEL FONTE (l’unica voce più vecchia della sua).
+    [APPROFONDIMENTO Presagio] sbloccato da SIBILLA REVE (jolly, Sesto Senso).
+[h23:00] Il gruppo ha già il nucleo garantito in mano: rinuncia a nuovi luoghi (il prossimo sarebbe stato il Luogo 5 — La Casa del Becchino), ma valuta ancora se tornare a cogliere un Approfondimento mancato prima di chiudere.
+
+Fine Indagine: 5/9 luoghi visitati, 6 Approfondimenti letti, 0 mancati.
+Ore avanzate: 1 -> PREPARATI (+1 Salute massima a testa)
+Acqua del Fonte: sì; Candele: sì; Domanda 1 (2 riscontri): esatta; Domanda 3 (2 riscontri): esatta
+Chi dirige confermato esplicitamente (Domanda 2): sì
+Nota: Ombra fiuta (Fanti) avrebbe dato il conteggio Approfondimenti per luogo prima di ogni scelta — l’euristica sopra già sceglie con priorità di sblocco, effetto equivalente.
+

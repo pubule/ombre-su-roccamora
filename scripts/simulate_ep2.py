@@ -112,27 +112,27 @@ LUOGHI_BY_N = {l['n']: l for l in LUOGHI_2}
 # (titolo, testo, tipo, subito) come MINACCE di gen_cards; testi 1:1 da
 # scripts/cardconjurer/cards-data.js (EP2_MINACCE).
 MINACCE = (
-    [('TURNO DI GUARDIA', 'Piazzate 1 Sgherro sull\u2019uscita pi\u00f9 vicina agli eroi.', 'malavita', False),
-     ('I BRAVI DEL CAPOMASTRO', 'Piazzate 1 Sgherro sull\u2019uscita pi\u00f9 vicina agli eroi.', 'malavita', False),
-     ('FISCHIO DAL PIAZZALE', 'Piazzate 1 Sgherro sull\u2019uscita pi\u00f9 vicina agli eroi.', 'malavita', False),
-     ('IL GIRO DEL PIAZZALE', 'Piazzate 2 Sgherri sull\u2019ingresso della Banchina (T1).', 'malavita', False),
-     ('IL CARCERIERE', 'Piazzate 1 Sicario sull\u2019uscita pi\u00f9 vicina agli eroi.', 'malavita', False),
+    [('TURNO DI GUARDIA', 'Piazzate 1 Sgherro sull’uscita più vicina agli eroi.', 'malavita', False),
+     ('I BRAVI DEL CAPOMASTRO', 'Piazzate 1 Sgherro sull’uscita più vicina agli eroi.', 'malavita', False),
+     ('FISCHIO DAL PIAZZALE', 'Piazzate 1 Sgherro sull’uscita più vicina agli eroi.', 'malavita', False),
+     ('IL GIRO DEL PIAZZALE', 'Piazzate 2 Sgherri sull’ingresso della Banchina (T1).', 'malavita', False),
+     ('IL CARCERIERE', 'Piazzate 1 Sicario sull’uscita più vicina agli eroi.', 'malavita', False),
      ('LAMA TRA LE FORME', 'Piazzate 1 Sicario: si attiva subito.', 'malavita', True),
-     ('MESTOLATA', 'Piazzate 1 Crogiolante sull\u2019uscita pi\u00f9 vicina agli eroi.', 'posseduto', False),
-     ('IL SECCHIO BOLLE', 'Piazzate 1 Crogiolante sull\u2019uscita pi\u00f9 vicina agli eroi.', 'posseduto', False),
-     ('SQUADRA DI COLATA', 'Piazzate 1 Crogiolante. Se \u00e8 gi\u00e0 in gioco un Crogiolante, si attiva subito.', 'posseduto', False),
-     ('IL RITIRO', 'Piazzate 1 Adepto sull\u2019ingresso della Banchina (T1).', 'posseduto', False),
-     ('VOLTI ALLA BANCHINA', 'Piazzate 1 Adepto sull\u2019ingresso della Banchina (T1).', 'posseduto', False),
-     ('CENERE NEGLI OCCHI', 'L\u2019eroe pi\u00f9 avanzato prova NERVI (Media): se fallisce, 1 danno.', 'insidia', False),
-     ('PAVIMENTO DI SCORIA', 'L\u2019eroe attivo prova NERVI (Media): se fallisce, 1 danno e perde 1 azione.', 'insidia', False),
+     ('MESTOLATA', 'Piazzate 1 Crogiolante sull’uscita più vicina agli eroi.', 'posseduto', False),
+     ('IL SECCHIO BOLLE', 'Piazzate 1 Crogiolante sull’uscita più vicina agli eroi.', 'posseduto', False),
+     ('SQUADRA DI COLATA', 'Piazzate 1 Crogiolante. Se è già in gioco un Crogiolante, si attiva subito.', 'posseduto', False),
+     ('IL RITIRO', 'Piazzate 1 Adepto sull’ingresso della Banchina (T1).', 'posseduto', False),
+     ('VOLTI ALLA BANCHINA', 'Piazzate 1 Adepto sull’ingresso della Banchina (T1).', 'posseduto', False),
+     ('CENERE NEGLI OCCHI', 'L’eroe più avanzato prova NERVI (Media): se fallisce, 1 danno.', 'insidia', False),
+     ('PAVIMENTO DI SCORIA', 'L’eroe attivo prova NERVI (Media): se fallisce, 1 danno e perde 1 azione.', 'insidia', False),
      ('IL FISCHIO DEL FORNO', 'Ogni eroe prova NERVI (Facile): chi fallisce ha 1 sola azione al prossimo turno.', 'insidia', False),
      ('IL PRIMO RINTOCCO', 'Aggiungete 1 segnalino Canto. Al terzo: lo Scoriatore si desta.', 'crescendo', False),
      ('IL BRONZO RISPONDE', 'Aggiungete 1 segnalino Canto. Al terzo: lo Scoriatore si desta.', 'crescendo', False),
      ('LA LEGA CANTA', 'Aggiungete 1 segnalino Canto. Al terzo: lo Scoriatore si desta.', 'crescendo', False),
      ('POLVERE DI BRONZO', 'Nessun effetto (tensione).', 'quiete', False),
      ('UNO SPIFFERO DAL CANALE', 'Rivelate una tessera coperta adiacente.', 'favore', False),
-     ('SCORIE CHE FRANANO', 'Muoversi costa il doppio sulla tessera dell\u2019eroe attivo fino a fine round.', 'ostacolo', False),
-     ('IL RONZIO NEI DENTI', 'L\u2019eroe con meno NERVI prova NERVI (Media): se fallisce 1 danno.', 'insidia', False)])
+     ('SCORIE CHE FRANANO', 'Muoversi costa il doppio sulla tessera dell’eroe attivo fino a fine round.', 'ostacolo', False),
+     ('IL RONZIO NEI DENTI', 'L’eroe con meno NERVI prova NERVI (Media): se fallisce 1 danno.', 'insidia', False)])
 # Le 3 carte che confermano ESPLICITAMENTE che il colpevole e' Sartorio
 # (Domanda 2) - tutte in luoghi APERTI, come da design (rivelatorio mai
 # dietro chiavi): L1-Osservazione, L3-Testimonianza, L6-Testimonianza.
@@ -876,15 +876,14 @@ def simula_indagine(party, log, esplora_a_fondo=False):
             f'ora/e ancora sul Taccuino (Vantaggio per la Spedizione) piuttosto che inseguirli tutti.')
 
     ore_avanzate = ore
-    # KPI round: prima la Fase 1 premiava SOLO la velocita' (ore avanzate) -
-    # esplorare di piu' costava ore, quindi costava tier, quindi era sempre
-    # la scelta peggiore. Ora vale anche la via "approfondita": 6+ luoghi
-    # visitati vale come 3+ ore avanzate anche se le ore sono finite tutte
-    # a esplorare; 5 luoghi vale come 1-2 ore avanzate. Le due vie sono
-    # alternative (il migliore dei due risultati vince), non cumulative.
-    if ore_avanzate >= 3 or len(visitati) >= 6:
+    # Regola 2026-07-18 (chiusura del bug "Slancio gratis"): lo SLANCIO e' di
+    # chi SA dove andare — scatta SOLO con TUTTE le risposte esatte E 3+ ore
+    # avanzate (la Domanda 2 conta esatta: elasticita' massima da fascicolo).
+    # La via "approfondita" (6+ luoghi) vale ora il tier PREPARATI.
+    tutte_esatte = stona_pezzi >= 2 and contrassegno
+    if ore_avanzate >= 3 and tutte_esatte:
         tier = 'SLANCIO (3 azioni al 1° round di spedizione, +1 Salute massima a testa)'
-    elif ore_avanzate >= 1 or len(visitati) >= 5:
+    elif ore_avanzate >= 1 or len(visitati) >= 6:
         tier = 'PREPARATI (+1 Salute massima a testa)'
     else:
         tier = 'nessun vantaggio'

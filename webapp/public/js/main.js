@@ -25,6 +25,8 @@ const COPERTINE = {
   ep3: '/assets/artworks/derelict warehouses over black still water.png',
   ep4: '/assets/artworks/bell tower.png',
   ep5: '/assets/artworks/nervous priest in a candlelit sacristy.png',
+  // finché manca l'arte dedicata dell'Ep. 6 (Fase D): la bottega di Ferri
+  ep6: '/assets/artworks/abandoned luthier workshop.png',
 };
 
 const RIGA_C = `<p class="copyright">© 2026 Fabio Stocco — «Ombre su Roccamora» ·
@@ -39,7 +41,7 @@ window.addEventListener('error', (e) => {
 
 // ------------------------------------------------------------------- HOME
 async function vistaHome() {
-  const episodi = ['preludio', 'ep1', 'ep2', 'ep3', 'ep4', 'ep5'];
+  const episodi = ['preludio', 'ep1', 'ep2', 'ep3', 'ep4', 'ep5', 'ep6'];
   const info = await Promise.all(episodi.map((e) => dati(e)));
   h(`
     <header class="home-testata">

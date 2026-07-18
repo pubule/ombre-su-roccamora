@@ -630,8 +630,9 @@ def soluzione():
         'Testimonianza «Le lavandaie» (L1), l’Osservazione «Le mani del barbiere» (L2) e la '
         'Testimonianza «Il tipografo» (L3). Se il gruppo non ne ha letta nessuna, giudicate con '
         'elasticità una risposta «vicina» (es. «qualcuno che gira all’alba per i salassi»).',
-        '<b>Vantaggio d’Indagine (due vie):</b> Slancio con 3+ ore avanzate O 7+ luoghi '
-        'visitati; Preparati con 1-2 ore O 6 luoghi. Dossier completo (0 ore avanzate): 1 '
+        '<b>Vantaggio d’Indagine:</b> Slancio SOLO con tutte e 4 le risposte esatte E 3+ '
+        'ore avanzate (lo slancio è di chi SA dove andare); Preparati con 1+ ore avanzate '
+        'O 6+ luoghi visitati. Dossier completo (0 ore avanzate): 1 '
         'gettone Intuizione, come sempre.',
     ])
     pagina('spedizione — montaggio e boss', [

@@ -378,9 +378,9 @@ TILES_6 = [
                  'ferite FUGGE invece di morire (sceglie chi arbitra: sono impiegati). LA '
                  'FORMULA DEL SIGILLO: a TUTTI e tre i movimenti spenti, un’azione — '
                  'leggerla a voce ferma: il rito muore, il Dormiente si riassopisce '
-                 '(vittoria piena; Ferri crolla: Bivio). IL DORMIENTE (ambiente): al 3° '
-                 'segnalino Canto tutte le prove -1; al 5°: ogni round l’eroe con meno '
-                 'NERVI subisce 1 danno; al 7°: il rituale si compie — fuga forzata '
+                 '(vittoria piena; Ferri crolla: Bivio). IL DORMIENTE (ambiente): al 4° '
+                 'segnalino Canto tutte le prove -1; al 6°: ogni round l’eroe con meno '
+                 'NERVI subisce 1 danno; al 9°: il rituale si compie — fuga forzata '
                  '(epilogo peggiore, non sconfitta).',
          cerca_vuoto='Qui non si cerca. Qui si finisce quello per cui siete venuti.',
          arredi=[(2, 2, 'altare')]),
@@ -657,8 +657,9 @@ def soluzione():
         'don Callisto» (L1), la Testimonianza «Il barcaiolo più vecchio» (L2) e la '
         'Testimonianza «M., a porte chiuse» (L4). Dopo cinque casi, giudicate con la '
         'massima elasticità: il tavolo che dice «Ferri» ha già vinto questa domanda.',
-        '<b>Vantaggio d’Indagine (due vie):</b> Slancio con 3+ ore avanzate O 7+ luoghi '
-        'visitati; Preparati con 1-2 ore O 6 luoghi. Dossier completo: 1 gettone '
+        '<b>Vantaggio d’Indagine:</b> Slancio SOLO con tutte e 4 le risposte esatte E 3+ '
+        'ore avanzate (lo slancio è di chi SA dove andare); Preparati con 1+ ore avanzate '
+        'O 6+ luoghi visitati. Dossier completo: 1 gettone '
         'Intuizione, come sempre.',
     ])
     pagina('spedizione — montaggio, fasi e boss', [
@@ -673,9 +674,9 @@ def soluzione():
         'leggere LA FORMULA — vittoria piena.',
         '<b>La marea (T2):</b> dal 6° round di partita, chi si trova in T2 prova NERVI '
         '(Media) a inizio round o ha 1 sola azione (l’acqua alla cintola).',
-        '<b>Il Dormiente (ambiente, solo T8 rivelata):</b> al 3° segnalino Canto tutte le '
-        'prove hanno -1; al 5°: ogni round l’eroe con meno NERVI subisce 1 danno (il '
-        'battito); al 7°: il rituale si compie — fuga forzata: epilogo peggiore, NON '
+        '<b>Il Dormiente (ambiente, solo T8 rivelata):</b> al 4° segnalino Canto tutte le '
+        'prove hanno -1; al 6°: ogni round l’eroe con meno NERVI subisce 1 danno (il '
+        'battito); al 9°: il rituale si compie — fuga forzata: epilogo peggiore, NON '
         'sconfitta a tavolino.',
         '<b>Ferri e il Coro:</b> Ferri si desta in T8 (o al 3° segnalino: piazzatelo '
         'sulla tessera più lontana, con 1 Adepto di scorta — e da quel momento ogni Fase '

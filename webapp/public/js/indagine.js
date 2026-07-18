@@ -561,8 +561,8 @@ function busta() {
   const { app, ep } = ctx;
   const ind = IND();
   ind.chiusa = true;
-  const t = tierIndagine(ep, ind);
   const esiti = verificaRisposte(ep, ind.risposte);
+  const t = tierIndagine(ep, ind, esiti.map((e) => e.ok));
   P().vantaggi = { tier: t.tier, dossier: t.dossier, risposte: esiti.map((e) => e.ok) };
   salvaP();
   app.innerHTML = `

@@ -12,7 +12,7 @@ const DIR = path.dirname(fileURLToPath(import.meta.url));
 const json = (f) => JSON.parse(readFileSync(path.join(DIR, 'data', f), 'utf8'));
 const comune = json('comune.json');
 const carte = json('carte.json');
-const EPISODI = { preludio: json('preludio.json'), ep1: json('ep1.json'), ep2: json('ep2.json'), ep3: json('ep3.json'), ep4: json('ep4.json'), ep5: json('ep5.json') };
+const EPISODI = { preludio: json('preludio.json'), ep1: json('ep1.json'), ep2: json('ep2.json'), ep3: json('ep3.json'), ep4: json('ep4.json'), ep5: json('ep5.json'), ep6: json('ep6.json') };
 
 let errori = 0;
 const ko = (msg) => { errori += 1; console.log('  KO', msg); };
@@ -179,10 +179,18 @@ for (const [epId, ep] of Object.entries(EPISODI)) {
   }
 
   // --- vantaggio di fine indagine ------------------------------------------
+  // Slancio = TUTTE le risposte esatte E le ore avanzate; chiudere subito a
+  // caso non paga (il bug dello "Slancio gratis")
   const v = ep.vantaggio || {};
-  const t1 = E.tierIndagine(ep, { ora: 24 - (v.slancio_ore ?? 3), visitati: [] });
-  ok(t1.tier === 'slancio', `slancio non scatta con ${v.slancio_ore ?? 3} ore avanzate`);
-  ok(E.tierIndagine(ep, { ora: 24, visitati: [] }).dossier, 'dossier non scatta a ore finite');
+  const tutteOk = ep.soluzione.domande.map(() => true);
+  const t1 = E.tierIndagine(ep, { ora: 24 - (v.slancio_ore ?? 3), visitati: [] }, tutteOk);
+  ok(t1.tier === 'slancio', `slancio non scatta con ${v.slancio_ore ?? 3} ore avanzate e 4/4 esatte`);
+  const t2 = E.tierIndagine(ep, { ora: 18, visitati: [] }, ep.soluzione.domande.map(() => false));
+  ok(t2.tier !== 'slancio', 'slancio gratis: chiusura immediata con risposte sbagliate');
+  const unaNo = ep.soluzione.domande.map((_, i) => i !== 0);
+  ok(E.tierIndagine(ep, { ora: 18, visitati: [] }, unaNo).tier !== 'slancio',
+     'slancio con una risposta sbagliata');
+  ok(E.tierIndagine(ep, { ora: 24, visitati: [] }, tutteOk).dossier, 'dossier non scatta a ore finite');
 }
 
 // --- eroi: carta e ritratto per tutti ---------------------------------------

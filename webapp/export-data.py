@@ -33,6 +33,8 @@ from gen_ep4 import (LUOGHI_4, TILES_4, NEMICI_4, OGGETTI_LUOGO_4, LETTERA_4,  #
                      ESAMI_CARBONE_4)
 from gen_ep5 import (LUOGHI_5, TILES_5, NEMICI_5, OGGETTI_LUOGO_5, LETTERA_5,  # noqa: E402
                      ESAMI_CARBONE_5)
+from gen_ep6 import (LUOGHI_6, TILES_6, NEMICI_6, OGGETTI_LUOGO_6, LETTERA_6,  # noqa: E402
+                     ESAMI_CARBONE_6)
 from gen_mappa import VOCI_MAPPA, MAPPE  # noqa: E402
 from gen_bestiario import FASCE, BOSS_DELTA, ferite_per_fascia  # noqa: E402
 from simulate_playtest import (INDAGINE_UNLOCK, TICK_CANTO_OGNI, SOGLIA_CANTO,  # noqa: E402
@@ -42,6 +44,7 @@ from simulate_ep2 import TOKEN_POOL_BASE as POOL_EP2  # noqa: E402
 from simulate_ep3 import TOKEN_POOL_BASE as POOL_EP3  # noqa: E402
 from simulate_ep4 import TOKEN_POOL_BASE as POOL_EP4  # noqa: E402
 from simulate_ep5 import TOKEN_POOL_BASE as POOL_EP5  # noqa: E402
+from simulate_ep6 import TOKEN_POOL_BASE as POOL_EP6  # noqa: E402
 
 
 def strip_tags(s):
@@ -84,6 +87,9 @@ REPERTI_LUOGO = {
     'ep5': {5: ['Reperto A - Registro di Mola'],
             6: ['Reperto B - Autorizzazione Timbrata'],
             9: ['Reperto C - Diario di Fedele']},
+    'ep6': {5: ['Reperto A - Diario di Ferri'],
+            7: ['Reperto B - Pianta della Camera'],
+            8: ['Reperto C - Schedario della Cripta']},
 }
 
 
@@ -276,6 +282,27 @@ SOLUZIONI = dict(
         ],
         boss='IL SALMODIANTE',
     ),
+    ep6=dict(
+        domande=[
+            dict(q='DOVE si compie il rituale?',
+                 risposta='Nella Camera delle Tre Acque, sotto la Cattedrale (deduzione d’atto: 5+ incroci = esatta garantita).',
+                 esatta='Nel 1° round non si pesca nessuna carta Minaccia.',
+                 sbagliata='Si scende per tentativi: la spedizione parte con 1 segnalino Canto in più.'),
+            dict(q='CHI dirige il rito?',
+                 risposta='Bastiano Ferri, il liutaio.',
+                 esatta='Lo chiamate per nome sulla soglia della Camera: Ferri salta la sua PRIMA attivazione.',
+                 sbagliata='Nessun effetto.'),
+            dict(q='QUANDO comincia?',
+                 risposta='Alle 3:15, al colmo della marea di sizigia.',
+                 esatta='Entrate nella finestra giusta: il Canto parte da 0.',
+                 sbagliata='Arrivate a rito avviato: 1 segnalino Canto in più.'),
+            dict(q='COSA portate contro il Dormiente?',
+                 risposta='LA FORMULA DEL SIGILLO (l’Archivio Capitolare).',
+                 esatta='A movimenti spenti, un’azione nella Camera per leggerla: vittoria piena.',
+                 sbagliata='Senza Formula niente vittoria piena: solo sfregiare e ritirarsi. (Acqua Benedetta e Reliquia sono esche.)'),
+        ],
+        boss='BASTIANO FERRI',
+    ),
     preludio=dict(
         domande=[
             dict(q='DOVE è tenuto Ansaldo?',
@@ -318,7 +345,7 @@ episodi = dict(
         luoghi=[luogo_json(L, OGGETTI_LUOGO_1, REPERTI_LUOGO['ep1']) for L in LUOGHI],
         tessere=[tessera_json(T) for T in TILES],
         oggetti=[oggetto_json(o) for o in OGGETTI],
-        vantaggio=dict(slancio_ore=3, slancio_luoghi=6, preparati_ore=1, preparati_luoghi=5),
+        vantaggio=dict(slancio_ore=3, preparati_ore=1, preparati_luoghi=6),
         soluzione=SOLUZIONI['ep1'],
         pool=TOKEN_POOL_BASE,
     ),
@@ -332,7 +359,7 @@ episodi = dict(
         esami_carbone=ESAMI_CARBONE_2,
         luoghi=[luogo_json(L, OGGETTI_LUOGO_2, REPERTI_LUOGO['ep2']) for L in LUOGHI_2],
         tessere=[tessera_json(T) for T in TILES_2],
-        vantaggio=dict(slancio_ore=3, slancio_luoghi=7, preparati_ore=1, preparati_luoghi=6),
+        vantaggio=dict(slancio_ore=3, preparati_ore=1, preparati_luoghi=6),
         soluzione=SOLUZIONI['ep2'],
         pool=POOL_EP2,
         passerella_due_round=True,
@@ -347,7 +374,7 @@ episodi = dict(
         esami_carbone=ESAMI_CARBONE_3,
         luoghi=[luogo_json(L, OGGETTI_LUOGO_3, REPERTI_LUOGO['ep3']) for L in LUOGHI_3],
         tessere=[tessera_json(T) for T in TILES_3],
-        vantaggio=dict(slancio_ore=3, slancio_luoghi=7, preparati_ore=1, preparati_luoghi=6),
+        vantaggio=dict(slancio_ore=3, preparati_ore=1, preparati_luoghi=6),
         soluzione=SOLUZIONI['ep3'],
         pool=POOL_EP3,
     ),
@@ -362,7 +389,7 @@ episodi = dict(
         esami_carbone=ESAMI_CARBONE_4,
         luoghi=[luogo_json(L, OGGETTI_LUOGO_4, REPERTI_LUOGO['ep4']) for L in LUOGHI_4],
         tessere=[tessera_json(T) for T in TILES_4],
-        vantaggio=dict(slancio_ore=3, slancio_luoghi=7, preparati_ore=1, preparati_luoghi=6),
+        vantaggio=dict(slancio_ore=3, preparati_ore=1, preparati_luoghi=6),
         soluzione=SOLUZIONI['ep4'],
         pool=POOL_EP4,
     ),
@@ -376,15 +403,30 @@ episodi = dict(
         esami_carbone=ESAMI_CARBONE_5,
         luoghi=[luogo_json(L, OGGETTI_LUOGO_5, REPERTI_LUOGO['ep5']) for L in LUOGHI_5],
         tessere=[tessera_json(T) for T in TILES_5],
-        vantaggio=dict(slancio_ore=3, slancio_luoghi=7, preparati_ore=1, preparati_luoghi=6),
+        vantaggio=dict(slancio_ore=3, preparati_ore=1, preparati_luoghi=6),
         soluzione=SOLUZIONI['ep5'],
         pool=POOL_EP5,
+    ),
+    ep6=dict(
+        id='ep6', titolo='Il Terzo Movimento',
+        sottotitolo='episodio 6 — finale dell’Atto I: la notte del rituale',
+        cartella='Episodio 6', ore_budget=6,
+        lettera=LETTERA_6,
+        obiettivo='Spegnete i 3 movimenti — BRONZO (T3, VIGORE), PIETRA (T5, ACUME), OSSA '
+                  '(T6, NERVI) — poi nella Camera (T8) leggete la Formula del Sigillo: '
+                  'vittoria piena. Vittoria parziale: 2+ movimenti spenti e ritirata a T1.',
+        esami_carbone=ESAMI_CARBONE_6,
+        luoghi=[luogo_json(L, OGGETTI_LUOGO_6, REPERTI_LUOGO['ep6']) for L in LUOGHI_6],
+        tessere=[tessera_json(T) for T in TILES_6],
+        vantaggio=dict(slancio_ore=3, preparati_ore=1, preparati_luoghi=6),
+        soluzione=SOLUZIONI['ep6'],
+        pool=POOL_EP6,
     ),
 )
 
 comune = dict(
     eroi=[eroe_json(h) for h in HEROES],
-    nemici=[nemico_json(n) for n in NEMICI + NEMICI_2 + NEMICI_3 + NEMICI_4 + NEMICI_5],
+    nemici=[nemico_json(n) for n in NEMICI + NEMICI_2 + NEMICI_3 + NEMICI_4 + NEMICI_5 + NEMICI_6],
     mappa=dict(voci=[dict(nome=v[0], indirizzo=v[1], tag=v[2]) for v in VOCI_MAPPA],
                mappe=[dict(cartella=m[0], sottotitolo=m[1], tags=list(m[2])) for m in MAPPE]),
     regole=REGOLE,

@@ -121,26 +121,26 @@ LUOGHI_BY_N = {l['n']: l for l in LUOGHI_3}
 # scripts/cardconjurer/cards-data.js (EP3_MINACCE).
 MINACCE = (
     [('IL CALARE DEI SECCHI', 'Piazzate 1 Adepto sotto la corda della Confluenza (T4).', 'posseduto', False),
-     ('CORDE DALL\u2019ALTO', 'Piazzate 1 Adepto sotto la corda della Confluenza (T4).', 'posseduto', False),
-     ('IL RITIRO DELLE CANNE', 'Piazzate 1 Adepto sull\u2019ingresso dell\u2019Officina (T5).', 'posseduto', False),
-     ('UN\u2019ECO DI TROPPO', 'Piazzate 1 Voce Cava sull\u2019uscita pi\u00f9 vicina agli eroi.', 'posseduto', False),
-     ('LA VOCE CHE MANCA', 'Piazzate 1 Voce Cava sull\u2019uscita pi\u00f9 vicina agli eroi.', 'posseduto', False),
-     ('IL CORO PROVA', 'Piazzate 1 Voce Cava. Se \u00e8 gi\u00e0 in gioco una Voce Cava, si attiva subito.', 'posseduto', False),
-     ('GUARDIANI DEI CHIUSINI', 'Piazzate 1 Sgherro sull\u2019uscita pi\u00f9 vicina agli eroi.', 'malavita', False),
-     ('IL TURNO DI SOTTO', 'Piazzate 1 Sgherro sull\u2019uscita pi\u00f9 vicina agli eroi.', 'malavita', False),
-     ('L\u2019UOMO PAGATO IN CONTANTI', 'Piazzate 1 Sicario: si attiva subito.', 'malavita', True),
-     ('PASSI NELLA GALLERIA', 'Piazzate 1 Adepto sull\u2019ingresso della Scala dei Chiusini (T1).', 'posseduto', False),
-     ('CHIUSINI CHE SBATTONO', 'Piazzate 1 Adepto sull\u2019ingresso della Scala dei Chiusini (T1).', 'posseduto', False),
-     ('IL BUIO D\u2019ACQUA', 'L\u2019eroe pi\u00f9 avanzato prova NERVI (Media): se fallisce, 1 danno.', 'insidia', False),
-     ('IL PASSO SUL VUOTO', 'L\u2019eroe attivo prova NERVI (Media): se fallisce, 1 danno e perde 1 azione.', 'insidia', False),
-     ('L\u2019ECO CHE CHIAMA', 'Ogni eroe prova NERVI (Facile): chi fallisce ha 1 sola azione al prossimo turno.', 'insidia', False),
-     ('LA PIETRA IMPARA', 'Aggiungete 1 segnalino Canto. Alla soglia: l\u2019Accordatore si desta.', 'crescendo', False),
-     ('LA PIETRA RIPETE', 'Aggiungete 1 segnalino Canto. Alla soglia: l\u2019Accordatore si desta.', 'crescendo', False),
-     ('LA PIETRA RISPONDE', 'Aggiungete 1 segnalino Canto. Alla soglia: l\u2019Accordatore si desta.', 'crescendo', False),
-     ('L\u2019ACQUA FERMA', 'Nessun effetto (tensione).', 'quiete', False),
-     ('UNA CORRENTE D\u2019ARIA BUONA', 'Rivelate una tessera coperta adiacente.', 'favore', False),
-     ('L\u2019ACQUA SALE', 'Muoversi costa il doppio sulla tessera dell\u2019eroe attivo fino a fine round.', 'ostacolo', False),
-     ('IL CANTO NELLE ORECCHIE', 'L\u2019eroe con meno NERVI prova NERVI (Media): se fallisce 1 danno.', 'insidia', False)])
+     ('CORDE DALL’ALTO', 'Piazzate 1 Adepto sotto la corda della Confluenza (T4).', 'posseduto', False),
+     ('IL RITIRO DELLE CANNE', 'Piazzate 1 Adepto sull’ingresso dell’Officina (T5).', 'posseduto', False),
+     ('UN’ECO DI TROPPO', 'Piazzate 1 Voce Cava sull’uscita più vicina agli eroi.', 'posseduto', False),
+     ('LA VOCE CHE MANCA', 'Piazzate 1 Voce Cava sull’uscita più vicina agli eroi.', 'posseduto', False),
+     ('IL CORO PROVA', 'Piazzate 1 Voce Cava. Se è già in gioco una Voce Cava, si attiva subito.', 'posseduto', False),
+     ('GUARDIANI DEI CHIUSINI', 'Piazzate 1 Sgherro sull’uscita più vicina agli eroi.', 'malavita', False),
+     ('IL TURNO DI SOTTO', 'Piazzate 1 Sgherro sull’uscita più vicina agli eroi.', 'malavita', False),
+     ('L’UOMO PAGATO IN CONTANTI', 'Piazzate 1 Sicario: si attiva subito.', 'malavita', True),
+     ('PASSI NELLA GALLERIA', 'Piazzate 1 Adepto sull’ingresso della Scala dei Chiusini (T1).', 'posseduto', False),
+     ('CHIUSINI CHE SBATTONO', 'Piazzate 1 Adepto sull’ingresso della Scala dei Chiusini (T1).', 'posseduto', False),
+     ('IL BUIO D’ACQUA', 'L’eroe più avanzato prova NERVI (Media): se fallisce, 1 danno.', 'insidia', False),
+     ('IL PASSO SUL VUOTO', 'L’eroe attivo prova NERVI (Media): se fallisce, 1 danno e perde 1 azione.', 'insidia', False),
+     ('L’ECO CHE CHIAMA', 'Ogni eroe prova NERVI (Facile): chi fallisce ha 1 sola azione al prossimo turno.', 'insidia', False),
+     ('LA PIETRA IMPARA', 'Aggiungete 1 segnalino Canto. Alla soglia: l’Accordatore si desta.', 'crescendo', False),
+     ('LA PIETRA RIPETE', 'Aggiungete 1 segnalino Canto. Alla soglia: l’Accordatore si desta.', 'crescendo', False),
+     ('LA PIETRA RISPONDE', 'Aggiungete 1 segnalino Canto. Alla soglia: l’Accordatore si desta.', 'crescendo', False),
+     ('L’ACQUA FERMA', 'Nessun effetto (tensione).', 'quiete', False),
+     ('UNA CORRENTE D’ARIA BUONA', 'Rivelate una tessera coperta adiacente.', 'favore', False),
+     ('L’ACQUA SALE', 'Muoversi costa il doppio sulla tessera dell’eroe attivo fino a fine round.', 'ostacolo', False),
+     ('IL CANTO NELLE ORECCHIE', 'L’eroe con meno NERVI prova NERVI (Media): se fallisce 1 danno.', 'insidia', False)])
 # Le 3 carte che confermano ESPLICITAMENTE che il colpevole e' Silvano
 # (Domanda 2) - tutte in luoghi APERTI, come da design (rivelatorio mai
 # dietro chiavi): L1-Testimonianza, L2-Osservazione, L3-Testimonianza.
@@ -515,14 +515,14 @@ def token_pool_extra(n_eroi):
 # titolo carta Minaccia -> (nemico da piazzare, quanti, si attiva subito)
 CARD_SPAWN = {
     'IL CALARE DEI SECCHI': ('ADEPTO INCAPPUCCIATO', 1, False),
-    'CORDE DALL\u2019ALTO': ('ADEPTO INCAPPUCCIATO', 1, False),
+    'CORDE DALL’ALTO': ('ADEPTO INCAPPUCCIATO', 1, False),
     'IL RITIRO DELLE CANNE': ('ADEPTO INCAPPUCCIATO', 1, False),
-    'UN\u2019ECO DI TROPPO': ('LA VOCE CAVA', 1, False),
+    'UN’ECO DI TROPPO': ('LA VOCE CAVA', 1, False),
     'LA VOCE CHE MANCA': ('LA VOCE CAVA', 1, False),
     'IL CORO PROVA': ('LA VOCE CAVA', 1, False),
     'GUARDIANI DEI CHIUSINI': ('LO SGHERRO', 1, False),
     'IL TURNO DI SOTTO': ('LO SGHERRO', 1, False),
-    'L\u2019UOMO PAGATO IN CONTANTI': ('IL SICARIO', 1, True),
+    'L’UOMO PAGATO IN CONTANTI': ('IL SICARIO', 1, True),
     'PASSI NELLA GALLERIA': ('ADEPTO INCAPPUCCIATO', 1, False),
     'CHIUSINI CHE SBATTONO': ('ADEPTO INCAPPUCCIATO', 1, False),
 }
@@ -533,9 +533,9 @@ CARD_SPAWN = {
 DISTANZA_PORTA = 1
 SPAWN_DISTANZA = {
     'IL CALARE DEI SECCHI': None,
-    'CORDE DALL\u2019ALTO': None,
+    'CORDE DALL’ALTO': None,
     'IL RITIRO DELLE CANNE': None,
-    'UN\u2019ECO DI TROPPO': DISTANZA_PORTA,
+    'UN’ECO DI TROPPO': DISTANZA_PORTA,
     'LA VOCE CHE MANCA': DISTANZA_PORTA,
     'IL CORO PROVA': DISTANZA_PORTA,
     'GUARDIANI DEI CHIUSINI': DISTANZA_PORTA,
@@ -544,13 +544,13 @@ SPAWN_DISTANZA = {
     'CHIUSINI CHE SBATTONO': None,
 }
 INSIDIA = {  # titolo -> (difficolta', danno, chi prova)
-    'IL BUIO D\u2019ACQUA': ('Media', 1, 'l\u2019eroe pi\u00f9 avanzato'),
-    'IL PASSO SUL VUOTO': ('Media', 1, 'l\u2019eroe attivo'),
-    'L\u2019ECO CHE CHIAMA': ('Facile', 0, 'ogni eroe (chi fallisce: 1 sola azione prossimo turno)'),
-    'IL CANTO NELLE ORECCHIE': ('Media', 1, 'l\u2019eroe con meno NERVI'),
+    'IL BUIO D’ACQUA': ('Media', 1, 'l’eroe più avanzato'),
+    'IL PASSO SUL VUOTO': ('Media', 1, 'l’eroe attivo'),
+    'L’ECO CHE CHIAMA': ('Facile', 0, 'ogni eroe (chi fallisce: 1 sola azione prossimo turno)'),
+    'IL CANTO NELLE ORECCHIE': ('Media', 1, 'l’eroe con meno NERVI'),
 }
 # Insidie il cui fallimento costa anche 1 azione (BUIO e CANTO no).
-PERDE_AZIONE = {'IL PASSO SUL VUOTO', 'L\u2019ECO CHE CHIAMA'}
+PERDE_AZIONE = {'IL PASSO SUL VUOTO', 'L’ECO CHE CHIAMA'}
 CRESCENDO = {'LA PIETRA IMPARA', 'LA PIETRA RIPETE', 'LA PIETRA RISPONDE'}
 MALAVITA_TRUPPA = {'LO SGHERRO', 'IL SICARIO', 'ADEPTO INCAPPUCCIATO', 'LA VOCE CAVA'}
 
@@ -558,7 +558,7 @@ MALAVITA_TRUPPA = {'LO SGHERRO', 'IL SICARIO', 'ADEPTO INCAPPUCCIATO', 'LA VOCE 
 # livello Custode con Dif -1 (umano, si colpisce meglio). Il Campanello
 # di Piero fa Dif 8->5 + salta un'attivazione: stessa matematica del
 # diapason/della stonatura.
-CUSTODE = dict(nome='L\u2019ACCORDATORE', att=3, dif=8, fer=3, mov=3, dan=2)
+CUSTODE = dict(nome='L’ACCORDATORE', att=3, dif=8, fer=3, mov=3, dan=2)
 
 # Luoghi Indagine, versione compatta per la sola AI di scelta + sblocchi.
 # (n, req_key or None, sblocca[list], chiude_ore[set], approfondimenti[tipo->eroi idonei])
@@ -573,21 +573,21 @@ LUOGHI_SIM = [
          sblocca_oggetto='LE CHIAVI DEI CHIUSINI', chiude=None,
          approf=['Testimonianza', 'Osservazione'], incrocio_d3=True),
     dict(n=2, nome='La Bottega del Barbiere', req=None,
-         sblocca_parola=('SALASSO', 'REQUIEM PER PIERO', 'CANNE D\u2019ORGANO'), chiude=None,
+         sblocca_parola=('SALASSO', 'REQUIEM PER PIERO', 'CANNE D’ORGANO'), chiude=None,
          approf=['Osservazione', 'Testimonianza'], campanello=True),
     dict(n=3, nome='La Gazzetta di Roccamora', req=None,
-         sblocca_parola=('CANNE D\u2019ORGANO', 'SALASSO'), chiude=23,
+         sblocca_parola=('CANNE D’ORGANO', 'SALASSO'), chiude=23,
          approf=['Testimonianza']),
     dict(n=4, nome='La Casa di Tobia', req=None,
          sblocca_parola=('ACQUA MORTA', 'REQUIEM PER PIERO'), chiude=None,
          approf=['Testimonianza']),
     dict(n=5, nome='Il Catasto delle Acque', req=('parola', 'ACQUA MORTA'), chiude=None,
          approf=['Referto'], incrocio_d3=True),
-    dict(n=6, nome='La Bottega del Lattoniere Bo', req=('parola', 'CANNE D\u2019ORGANO'), chiude=None,
+    dict(n=6, nome='La Bottega del Lattoniere Bo', req=('parola', 'CANNE D’ORGANO'), chiude=None,
          approf=['Testimonianza'], canna=True, incrocio_d3=True),
     dict(n=7, nome='La Parrocchia del Borgo', req=('parola', 'REQUIEM PER PIERO'), chiude=None,
          approf=['Presagio']),
-    dict(n=8, nome='L\u2019Ospedale della Carit\u00e0', req=('parola', 'SALASSO'), chiude=22,
+    dict(n=8, nome='L’Ospedale della Carità', req=('parola', 'SALASSO'), chiude=22,
          approf=['Referto']),
     dict(n=9, nome='La Corte dei Pozzi Murati', req=('oggetto', 'LE CHIAVI DEI CHIUSINI'),
          chiude=None, approf=['Osservazione'], incrocio_d3=True),
@@ -910,15 +910,14 @@ def simula_indagine(party, log, esplora_a_fondo=False):
             f'ora/e ancora sul Taccuino (Vantaggio per la Spedizione) piuttosto che inseguirli tutti.')
 
     ore_avanzate = ore
-    # KPI round: prima la Fase 1 premiava SOLO la velocita' (ore avanzate) -
-    # esplorare di piu' costava ore, quindi costava tier, quindi era sempre
-    # la scelta peggiore. Ora vale anche la via "approfondita": 6+ luoghi
-    # visitati vale come 3+ ore avanzate anche se le ore sono finite tutte
-    # a esplorare; 5 luoghi vale come 1-2 ore avanzate. Le due vie sono
-    # alternative (il migliore dei due risultati vince), non cumulative.
-    if ore_avanzate >= 3 or len(visitati) >= 6:
+    # Regola 2026-07-18 (chiusura del bug "Slancio gratis"): lo SLANCIO e' di
+    # chi SA dove andare — scatta SOLO con TUTTE le risposte esatte E 3+ ore
+    # avanzate (la Domanda 2 conta esatta: elasticita' massima da fascicolo).
+    # La via "approfondita" (6+ luoghi) vale ora il tier PREPARATI.
+    tutte_esatte = canna and incroci_d3 >= 2
+    if ore_avanzate >= 3 and tutte_esatte:
         tier = 'SLANCIO (3 azioni al 1° round di spedizione, +1 Salute massima a testa)'
-    elif ore_avanzate >= 1 or len(visitati) >= 5:
+    elif ore_avanzate >= 1 or len(visitati) >= 6:
         tier = 'PREPARATI (+1 Salute massima a testa)'
     else:
         tier = 'nessun vantaggio'
@@ -1159,7 +1158,7 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
         log(f'Scalatura nemici ({nemico_scale}): +{fer_bonus} Ferite, +{dan_bonus} Danno su ogni nemico incluso il Custode.')
     custode_extra_fer = custode_fer_bonus(len(party))
     if custode_extra_fer:
-        log(f'Tensione tavolo piccolo: +{custode_extra_fer} Ferite SOLO all\u2019Accordatore (non ai nemici di truppa).')
+        log(f'Tensione tavolo piccolo: +{custode_extra_fer} Ferite SOLO all’Accordatore (non ai nemici di truppa).')
     log('')
 
     salute = {}
@@ -1350,7 +1349,7 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
             ok_u, _ = check(log, m, 'NERVI', HERO[m]['nervi'], 'Facile')
             if not ok_u:
                 azioni_perse.add(m)
-                log(f'    {m} avrà 1 sola azione al suo prossimo turno (l\u2019urlo).')
+                log(f'    {m} avrà 1 sola azione al suo prossimo turno (l’urlo).')
 
     def voce_ferma_bonus(bersaglio=None):
         # Regola vera: +2 NERVI SOLO agli eroi ADIACENTI a Serra, non a tutto
@@ -1394,7 +1393,7 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
         if custode is None:
             if canto >= SOGLIA_CANTO:
                 round_custode_svegliato = round_n
-                log(f'    L\u2019Accordatore si desta in anticipo ({SOGLIA_CANTO}° segnalino Canto), '
+                log(f'    L’Accordatore si desta in anticipo ({SOGLIA_CANTO}° segnalino Canto), '
                     'sulla tessera più lontana dagli eroi!')
                 # Su una tessera diversa da dove si trova il gruppo ora: niente
                 # `pos` reale finche' non colma la distanza (vedi fase_nemici).
@@ -1404,7 +1403,7 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
                 for _ in range(1):
                     if pool['LA VOCE CAVA'] <= 0:
                         pool_esauriti_totale += 1
-                        log('    Segnalini LA VOCE CAVA esauriti: l\u2019Accordatore si desta senza scorta.')
+                        log('    Segnalini LA VOCE CAVA esauriti: l’Accordatore si desta senza scorta.')
                         continue
                     pool['LA VOCE CAVA'] -= 1
                     base = NEMICO['LA VOCE CAVA']
@@ -1417,9 +1416,9 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
             # NON recupera ferite dai Crescendo.
             custode['fer'] = min(custode['fer_max'], custode['fer'] + 1)
             custode_stunned = False
-            log(f'    L\u2019Accordatore recupera 1 ferita ({custode["fer"]}/{custode["fer_max"]}) e si attiva subito.')
+            log(f'    L’Accordatore recupera 1 ferita ({custode["fer"]}/{custode["fer_max"]}) e si attiva subito.')
         elif cura_custode:
-            log('    L\u2019Accordatore è già stato sconfitto: nessun effetto su di lui.')
+            log('    L’Accordatore è già stato sconfitto: nessun effetto su di lui.')
 
     def tick_canto():
         """Il secondo orologio (regola vera, MAI simulato prima del
@@ -1694,7 +1693,7 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
                 continue
             if custode and custode['fer'] > 0 and campanello['has'] and not campanello_usato and not custode_stunned:
                 campanello_usato = True
-                log(f'    [OGGETTO] {n} suona IL CAMPANELLO DI PIERO accanto all\u2019Accordatore: '
+                log(f'    [OGGETTO] {n} suona IL CAMPANELLO DI PIERO accanto all’Accordatore: '
                     f'la voce vera, non quella rubata — Difesa 8->5, salta la prossima attivazione.')
                 custode['dif'] = 5
                 custode_stunned = True
@@ -1745,7 +1744,7 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
                     if bersaglio_e['fer'] <= 0:
                         log(f'    {bersaglio_e["nome"]} è ABBATTUTO.')
                         if bersaglio_e is custode:
-                            log('    *** L\u2019ACCORDATORE È SCONFITTO. ***')
+                            log('    *** L’ACCORDATORE È SCONFITTO. ***')
                         else:
                             urlo_voce_cava(bersaglio_e)
                             # La miniatura torna disponibile (si toglie dal tavolo, non
@@ -1830,7 +1829,7 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
                                   f'Voce ferma di {chi_bonus}' if bonus else '')
                     if not ok and secondo_fiato.get(n):
                         secondo_fiato[n] = False
-                        log(f'    [SECONDO FIATO] {n} ritenta la prova (unico ritento dell\u2019episodio):')
+                        log(f'    [SECONDO FIATO] {n} ritenta la prova (unico ritento dell’episodio):')
                         ok, _ = check(log, n, 'NERVI', HERO[n]['nervi'], diff_galleria, bonus,
                                       f'Voce ferma di {chi_bonus}' if bonus else '')
                     if not ok:
@@ -1869,7 +1868,7 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
                     log('    La rastrelliera non rende la scatolina: la debolezza del boss resta introvabile.')
                 tessere_cercate.add(tappa)
             else:
-                log('    Le canne-voce in fila: un\u2019azione Interagire ciascuna (contano nell\u2019epilogo).')
+                log('    Le canne-voce in fila: un’azione Interagire ciascuna (contano nell’epilogo).')
             t5_rivelata = True
         if tappa.startswith('T6') and custode is None:
             # Vicino all'altare, non sulla soglia: "un altare circondato da
@@ -1878,7 +1877,7 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
             # per gli eroi che arrivano, invece di essere gia' occupata da
             # lui nello stesso istante in cui il gruppo mette piede in T6.
             custode_spawn_pos = (2, 1) if (2, 1) not in _arredi('T6') else porta_attuale_pos
-            log(f'    Rivelato il Pozzo Maestro: l\u2019Accordatore con 1 Voce Cava, '
+            log(f'    Rivelato il Pozzo Maestro: l’Accordatore con 1 Voce Cava, '
                 f'in {chess(custode_spawn_pos)} — Tobia è legato alla carrucola.')
             c_fer = CUSTODE['fer'] + fer_bonus + custode_extra_fer
             custode = dict(CUSTODE, fer=c_fer, fer_max=c_fer, dan=CUSTODE['dan'] + dan_bonus,
@@ -1916,7 +1915,7 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
             break
 
     if esito is None and custode and custode['fer'] > 0:
-        log('--- Combattimento contro l\u2019Accordatore ---')
+        log('--- Combattimento contro l’Accordatore ---')
         while custode['fer'] > 0 and vivi():
             round_n += 1
             attivati_extra.clear()

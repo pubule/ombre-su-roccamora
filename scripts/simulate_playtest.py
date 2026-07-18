@@ -844,15 +844,14 @@ def simula_indagine(party, log, esplora_a_fondo=False):
             f'ora/e ancora sul Taccuino (Vantaggio per la Spedizione) piuttosto che inseguirli tutti.')
 
     ore_avanzate = ore
-    # KPI round: prima la Fase 1 premiava SOLO la velocita' (ore avanzate) -
-    # esplorare di piu' costava ore, quindi costava tier, quindi era sempre
-    # la scelta peggiore. Ora vale anche la via "approfondita": 6+ luoghi
-    # visitati vale come 3+ ore avanzate anche se le ore sono finite tutte
-    # a esplorare; 5 luoghi vale come 1-2 ore avanzate. Le due vie sono
-    # alternative (il migliore dei due risultati vince), non cumulative.
-    if ore_avanzate >= 3 or len(visitati) >= 6:
+    # Regola 2026-07-18 (chiusura del bug "Slancio gratis"): lo SLANCIO e' di
+    # chi SA dove andare — scatta SOLO con TUTTE le risposte esatte E 3+ ore
+    # avanzate (la Domanda 2 conta esatta: elasticita' massima da fascicolo).
+    # La via "approfondita" (6+ luoghi) vale ora il tier PREPARATI.
+    tutte_esatte = diapason
+    if ore_avanzate >= 3 and tutte_esatte:
         tier = 'SLANCIO (3 azioni al 1° round di spedizione, +1 Salute massima a testa)'
-    elif ore_avanzate >= 1 or len(visitati) >= 5:
+    elif ore_avanzate >= 1 or len(visitati) >= 6:
         tier = 'PREPARATI (+1 Salute massima a testa)'
     else:
         tier = 'nessun vantaggio'

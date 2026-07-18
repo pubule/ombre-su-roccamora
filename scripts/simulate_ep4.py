@@ -30,27 +30,27 @@ LUOGHI_BY_N = {l['n']: l for l in LUOGHI_4}
 # Bivio NON e' simulata). Tuple (titolo, testo, tipo, subito); testi 1:1
 # da cards-data.js (EP4_MINACCE).
 MINACCE = (
-    [('IL BATTIMANI', 'Piazzate 1 Claque sull\u2019uscita pi\u00f9 vicina agli eroi.', 'posseduto', False),
-     ('L\u2019APPLAUSO A COMANDO', 'Piazzate 1 Claque sull\u2019uscita pi\u00f9 vicina agli eroi.', 'posseduto', False),
-     ('IL TEMPO BATTUTO', 'Piazzate 1 Claque. Se \u00e8 gi\u00e0 in gioco una Claque, si attiva subito.', 'posseduto', False),
-     ('I FACCHINI DEL CARICO', 'Piazzate 1 Adepto sull\u2019ingresso della Quinta di Carico (T1).', 'posseduto', False),
-     ('LE CASSE DI CANDELE', 'Piazzate 1 Adepto sull\u2019ingresso della Quinta di Carico (T1).', 'posseduto', False),
-     ('IL RITIRO DELLE LASTRE', 'Piazzate 1 Adepto sull\u2019ingresso della Conchiglia (T6).', 'posseduto', False),
-     ('LE MASCHERE DI SALA', 'Piazzate 1 Sgherro sull\u2019uscita pi\u00f9 vicina agli eroi.', 'malavita', False),
-     ('IL GIRO DELLE POLTRONE', 'Piazzate 1 Sgherro sull\u2019uscita pi\u00f9 vicina agli eroi.', 'malavita', False),
-     ('IL SERVIZIO D\u2019ORDINE', 'Piazzate 1 Sicario: si attiva subito.', 'malavita', True),
-     ('PASSI IN PLATEA', 'Piazzate 1 Adepto sull\u2019ingresso della Quinta di Carico (T1).', 'posseduto', False),
-     ('LA PORTA DELLA PLATEA', 'Piazzate 1 Adepto sull\u2019ingresso della Quinta di Carico (T1).', 'posseduto', False),
-     ('IL BUIO DI QUINTA', 'L\u2019eroe pi\u00f9 avanzato prova NERVI (Media): se fallisce, 1 danno.', 'insidia', False),
-     ('L\u2019APPLAUSO CHE COPRE', 'Ogni eroe prova NERVI (Facile): chi fallisce ha 1 sola azione al prossimo turno.', 'insidia', False),
-     ('IL CONTRAPPESO CHE CHIAMA', 'L\u2019eroe attivo prova NERVI (Media): se fallisce, 1 danno e perde 1 azione.', 'insidia', False),
-     ('L\u2019OUVERTURE', 'Aggiungete 1 segnalino Canto. Alla soglia: il Suggeritore si desta.', 'crescendo', False),
+    [('IL BATTIMANI', 'Piazzate 1 Claque sull’uscita più vicina agli eroi.', 'posseduto', False),
+     ('L’APPLAUSO A COMANDO', 'Piazzate 1 Claque sull’uscita più vicina agli eroi.', 'posseduto', False),
+     ('IL TEMPO BATTUTO', 'Piazzate 1 Claque. Se è già in gioco una Claque, si attiva subito.', 'posseduto', False),
+     ('I FACCHINI DEL CARICO', 'Piazzate 1 Adepto sull’ingresso della Quinta di Carico (T1).', 'posseduto', False),
+     ('LE CASSE DI CANDELE', 'Piazzate 1 Adepto sull’ingresso della Quinta di Carico (T1).', 'posseduto', False),
+     ('IL RITIRO DELLE LASTRE', 'Piazzate 1 Adepto sull’ingresso della Conchiglia (T6).', 'posseduto', False),
+     ('LE MASCHERE DI SALA', 'Piazzate 1 Sgherro sull’uscita più vicina agli eroi.', 'malavita', False),
+     ('IL GIRO DELLE POLTRONE', 'Piazzate 1 Sgherro sull’uscita più vicina agli eroi.', 'malavita', False),
+     ('IL SERVIZIO D’ORDINE', 'Piazzate 1 Sicario: si attiva subito.', 'malavita', True),
+     ('PASSI IN PLATEA', 'Piazzate 1 Adepto sull’ingresso della Quinta di Carico (T1).', 'posseduto', False),
+     ('LA PORTA DELLA PLATEA', 'Piazzate 1 Adepto sull’ingresso della Quinta di Carico (T1).', 'posseduto', False),
+     ('IL BUIO DI QUINTA', 'L’eroe più avanzato prova NERVI (Media): se fallisce, 1 danno.', 'insidia', False),
+     ('L’APPLAUSO CHE COPRE', 'Ogni eroe prova NERVI (Facile): chi fallisce ha 1 sola azione al prossimo turno.', 'insidia', False),
+     ('IL CONTRAPPESO CHE CHIAMA', 'L’eroe attivo prova NERVI (Media): se fallisce, 1 danno e perde 1 azione.', 'insidia', False),
+     ('L’OUVERTURE', 'Aggiungete 1 segnalino Canto. Alla soglia: il Suggeritore si desta.', 'crescendo', False),
      ('IL SECONDO ATTO', 'Aggiungete 1 segnalino Canto. Alla soglia: il Suggeritore si desta.', 'crescendo', False),
-     ('L\u2019ARIA SI AVVICINA', 'Aggiungete 1 segnalino Canto. Alla soglia: il Suggeritore si desta.', 'crescendo', False),
+     ('L’ARIA SI AVVICINA', 'Aggiungete 1 segnalino Canto. Alla soglia: il Suggeritore si desta.', 'crescendo', False),
      ('IL CAMBIO SCENA', 'Nessun effetto (tensione).', 'quiete', False),
      ('UNO SPIRAGLIO DI SIPARIO', 'Rivelate una tessera coperta adiacente.', 'favore', False),
-     ('LE FUNI CALATE', 'Muoversi costa il doppio sulla tessera dell\u2019eroe attivo fino a fine round.', 'ostacolo', False),
-     ('L\u2019ACUTO', 'L\u2019eroe con meno NERVI prova NERVI (Media): se fallisce 1 danno.', 'insidia', False)])
+     ('LE FUNI CALATE', 'Muoversi costa il doppio sulla tessera dell’eroe attivo fino a fine round.', 'ostacolo', False),
+     ('L’ACUTO', 'L’eroe con meno NERVI prova NERVI (Media): se fallisce 1 danno.', 'insidia', False)])
 # Rivelatorio Domanda 2 (Alboni), 3 carte in aperti: L1-Osservazione,
 # L2-Testimonianza, L3-Testimonianza.
 CHI_ESPLICITO = {(1, 'Osservazione'), (2, 'Testimonianza'), (3, 'Testimonianza')}
@@ -424,21 +424,21 @@ def token_pool_extra(n_eroi):
 # titolo carta Minaccia -> (nemico da piazzare, quanti, si attiva subito)
 CARD_SPAWN = {
     'IL BATTIMANI': ('LA CLAQUE', 1, False),
-    'L\u2019APPLAUSO A COMANDO': ('LA CLAQUE', 1, False),
+    'L’APPLAUSO A COMANDO': ('LA CLAQUE', 1, False),
     'IL TEMPO BATTUTO': ('LA CLAQUE', 1, False),
     'I FACCHINI DEL CARICO': ('ADEPTO INCAPPUCCIATO', 1, False),
     'LE CASSE DI CANDELE': ('ADEPTO INCAPPUCCIATO', 1, False),
     'IL RITIRO DELLE LASTRE': ('ADEPTO INCAPPUCCIATO', 1, False),
     'LE MASCHERE DI SALA': ('LO SGHERRO', 1, False),
     'IL GIRO DELLE POLTRONE': ('LO SGHERRO', 1, False),
-    'IL SERVIZIO D\u2019ORDINE': ('IL SICARIO', 1, True),
+    'IL SERVIZIO D’ORDINE': ('IL SICARIO', 1, True),
     'PASSI IN PLATEA': ('ADEPTO INCAPPUCCIATO', 1, False),
     'LA PORTA DELLA PLATEA': ('ADEPTO INCAPPUCCIATO', 1, False),
 }
 DISTANZA_PORTA = 1
 SPAWN_DISTANZA = {
     'IL BATTIMANI': DISTANZA_PORTA,
-    'L\u2019APPLAUSO A COMANDO': DISTANZA_PORTA,
+    'L’APPLAUSO A COMANDO': DISTANZA_PORTA,
     'IL TEMPO BATTUTO': DISTANZA_PORTA,
     'I FACCHINI DEL CARICO': None,
     'LE CASSE DI CANDELE': None,
@@ -449,13 +449,13 @@ SPAWN_DISTANZA = {
     'LA PORTA DELLA PLATEA': None,
 }
 INSIDIA = {  # titolo -> (difficolta', danno, chi prova)
-    'IL BUIO DI QUINTA': ('Media', 1, 'l\u2019eroe pi\u00f9 avanzato'),
-    'IL CONTRAPPESO CHE CHIAMA': ('Media', 1, 'l\u2019eroe attivo'),
-    'L\u2019APPLAUSO CHE COPRE': ('Facile', 0, 'ogni eroe (chi fallisce: 1 sola azione prossimo turno)'),
-    'L\u2019ACUTO': ('Media', 1, 'l\u2019eroe con meno NERVI'),
+    'IL BUIO DI QUINTA': ('Media', 1, 'l’eroe più avanzato'),
+    'IL CONTRAPPESO CHE CHIAMA': ('Media', 1, 'l’eroe attivo'),
+    'L’APPLAUSO CHE COPRE': ('Facile', 0, 'ogni eroe (chi fallisce: 1 sola azione prossimo turno)'),
+    'L’ACUTO': ('Media', 1, 'l’eroe con meno NERVI'),
 }
-PERDE_AZIONE = {'IL CONTRAPPESO CHE CHIAMA', 'L\u2019APPLAUSO CHE COPRE'}
-CRESCENDO = {'L\u2019OUVERTURE', 'IL SECONDO ATTO', 'L\u2019ARIA SI AVVICINA'}
+PERDE_AZIONE = {'IL CONTRAPPESO CHE CHIAMA', 'L’APPLAUSO CHE COPRE'}
+CRESCENDO = {'L’OUVERTURE', 'IL SECONDO ATTO', 'L’ARIA SI AVVICINA'}
 MALAVITA_TRUPPA = {'LO SGHERRO', 'IL SICARIO', 'ADEPTO INCAPPUCCIATO', 'LA CLAQUE'}
 
 # Il boss dell'episodio (vedi gen_ep4.NEMICI_4 e DESIGN-EPISODIO-4.md):
@@ -477,22 +477,22 @@ LUOGHI_SIM = [
          sblocca_parola='CONTRAPPESO MORTO', chiude=None,
          approf=['Osservazione', 'Presagio'], incrocio_d1=True, incrocio_d3=True),
     dict(n=2, nome='Il Camerino della Vetri', req=None,
-         sblocca_parola=('LO SPARTITO CHE CANTA', 'L\u2019ARIA DEL TERZO ATTO'),
+         sblocca_parola=('LO SPARTITO CHE CANTA', 'L’ARIA DEL TERZO ATTO'),
          sblocca_oggetto='IL PASSE-PARTOUT DI SCENA', chiude=None,
          approf=['Testimonianza']),
     dict(n=3, nome='Il Loggione', req=None, apre=20,
-         sblocca_parola=('L\u2019ARIA DEL TERZO ATTO', 'CERA NERA'), chiude=None,
+         sblocca_parola=('L’ARIA DEL TERZO ATTO', 'CERA NERA'), chiude=None,
          approf=['Testimonianza']),
-    dict(n=4, nome='Il Caff\u00e8 dei Cantanti', req=None,
+    dict(n=4, nome='Il Caffè dei Cantanti', req=None,
          sblocca_parola=('CONTRAPPESO MORTO', 'LO SPARTITO CHE CANTA', 'CERA NERA'),
          chiude=None, approf=['Testimonianza'], incrocio_d1=True),
     dict(n=5, nome='Il Sottopalco delle Macchine', req=('parola', 'CONTRAPPESO MORTO'),
          chiude=None, approf=['Referto'], incrocio_d1=True, incrocio_d3=True, pianta=True),
-    dict(n=6, nome='Casa del Maestro Alboni', req=('parola', 'L\u2019ARIA DEL TERZO ATTO'),
+    dict(n=6, nome='Casa del Maestro Alboni', req=('parola', 'L’ARIA DEL TERZO ATTO'),
          chiude=None, approf=['Osservazione'], incrocio_d3=True),
-    dict(n=7, nome='L\u2019Archivio degli Spartiti', req=('parola', 'LO SPARTITO CHE CANTA'),
+    dict(n=7, nome='L’Archivio degli Spartiti', req=('parola', 'LO SPARTITO CHE CANTA'),
          chiude=None, approf=['Referto'], libretto=True),
-    dict(n=8, nome='Il Palco Reale e l\u2019Amministrazione',
+    dict(n=8, nome='Il Palco Reale e l’Amministrazione',
          req=('oggetto', 'IL PASSE-PARTOUT DI SCENA'), chiude=22,
          approf=['Osservazione']),
     dict(n=9, nome='Il Laboratorio degli Scenografi', req=('parola', 'CERA NERA'),
@@ -830,15 +830,14 @@ def simula_indagine(party, log, esplora_a_fondo=False):
             f'ora/e ancora sul Taccuino (Vantaggio per la Spedizione) piuttosto che inseguirli tutti.')
 
     ore_avanzate = ore
-    # KPI round: prima la Fase 1 premiava SOLO la velocita' (ore avanzate) -
-    # esplorare di piu' costava ore, quindi costava tier, quindi era sempre
-    # la scelta peggiore. Ora vale anche la via "approfondita": 6+ luoghi
-    # visitati vale come 3+ ore avanzate anche se le ore sono finite tutte
-    # a esplorare; 5 luoghi vale come 1-2 ore avanzate. Le due vie sono
-    # alternative (il migliore dei due risultati vince), non cumulative.
-    if ore_avanzate >= 3 or len(visitati) >= 6:
+    # Regola 2026-07-18 (chiusura del bug "Slancio gratis"): lo SLANCIO e' di
+    # chi SA dove andare — scatta SOLO con TUTTE le risposte esatte E 3+ ore
+    # avanzate (la Domanda 2 conta esatta: elasticita' massima da fascicolo).
+    # La via "approfondita" (6+ luoghi) vale ora il tier PREPARATI.
+    tutte_esatte = libretto and incroci_d1 >= 2 and incroci_d3 >= 2
+    if ore_avanzate >= 3 and tutte_esatte:
         tier = 'SLANCIO (3 azioni al 1° round di spedizione, +1 Salute massima a testa)'
-    elif ore_avanzate >= 1 or len(visitati) >= 5:
+    elif ore_avanzate >= 1 or len(visitati) >= 6:
         tier = 'PREPARATI (+1 Salute massima a testa)'
     else:
         tier = 'nessun vantaggio'
