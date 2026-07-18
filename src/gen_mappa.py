@@ -167,9 +167,9 @@ VOCI_MAPPA = [
     ('Il Sagrato della Cattedrale', 'piazza del Duomo, davanti alla navata', 'ep11'),
     ('La Bottega del Cordaio', 'riva delle Funi 5, cordaio e armatore di campane', 'ep11'),
     ('Il Ponteggio del Restauro', 'piazza Maggiore, ponteggio del fianco della Torre', 'ep11'),
-    # Episodio 12 — la seconda copia. Riusi: Il Banco dei Pegni di Fossa
-    # ('preludio'), Il Cimitero delle Barche ('citta').
-    ('Il Palazzo del Lume', 'campo del Lume, sede della Società', 'ep12'),
+    # Episodio 12 — la seconda copia. Riusi: Il Palazzo del Lume ('preludio',
+    # la sede: ora luogo d'indagine), Il Banco dei Pegni di Fossa ('preludio'),
+    # Il Cimitero delle Barche ('citta').
     ('La Casa dell’Archivista', 'calle degli Amanuensi 2, casa di Anselmo Godi', 'ep12'),
     ('L’Ufficio del Fermo-Posta', 'contrada delle Poste 6, sportello del fermo-posta', 'ep12'),
     ('La Loggia dei Confratelli', 'campo del Lume, loggia riservata dei soci', 'ep12'),

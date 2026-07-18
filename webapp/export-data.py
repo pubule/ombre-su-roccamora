@@ -45,6 +45,8 @@ from gen_ep10 import (LUOGHI_10, TILES_10, NEMICI_10, OGGETTI_LUOGO_10, LETTERA_
                       ESAMI_CARBONE_10)
 from gen_ep11 import (LUOGHI_11, TILES_11, NEMICI_11, OGGETTI_LUOGO_11, LETTERA_11,  # noqa: E402
                       ESAMI_CARBONE_11)
+from gen_ep12 import (LUOGHI_12, TILES_12, NEMICI_12, OGGETTI_LUOGO_12, LETTERA_12,  # noqa: E402
+                      ESAMI_CARBONE_12)
 from gen_mappa import VOCI_MAPPA, MAPPE  # noqa: E402
 from gen_bestiario import FASCE, BOSS_DELTA, ferite_per_fascia  # noqa: E402
 from simulate_playtest import (INDAGINE_UNLOCK, TICK_CANTO_OGNI, SOGLIA_CANTO,  # noqa: E402
@@ -60,6 +62,7 @@ from simulate_ep8 import TOKEN_POOL_BASE as POOL_EP8  # noqa: E402
 from simulate_ep9 import TOKEN_POOL_BASE as POOL_EP9  # noqa: E402
 from simulate_ep10 import TOKEN_POOL_BASE as POOL_EP10  # noqa: E402
 from simulate_ep11 import TOKEN_POOL_BASE as POOL_EP11  # noqa: E402
+from simulate_ep12 import TOKEN_POOL_BASE as POOL_EP12  # noqa: E402
 
 
 def strip_tags(s):
@@ -120,6 +123,9 @@ REPERTI_LUOGO = {
     'ep11': {1: ['Reperto A - Taccuino delle Misure'],
              3: ['Reperto B - Mappa Parziale'],
              5: ['Reperto C - Commessa del Rilievo']},
+    'ep12': {1: ['Reperto A - Perizia dei Sigilli'],
+             6: ['Reperto B - Pagina Ricopiata'],
+             3: ['Reperto C - Ricevuta del Fermo-Posta']},
 }
 
 
@@ -438,6 +444,27 @@ SOLUZIONI = dict(
         ],
         boss='IL CAPOSQUADRA',
     ),
+    ep12=dict(
+        domande=[
+            dict(q='DOVE avviene lo scambio?',
+                 risposta='Al Cimitero delle Barche, l’approdo delle chiatte morte.',
+                 esatta='Sapete dov’è il traguardo: nel 1° round non si pesca nessuna carta Minaccia.',
+                 sbagliata='Inseguite alla cieca: 1 bravo della scorta appare in T1.'),
+            dict(q='CHI ha copiato i Frammenti?',
+                 risposta='Anselmo Godi, il vecchio copista della Società, su ordine autentico.',
+                 esatta='Sapete di recuperare una prova, non d’inseguire un ladro: al Cimitero l’aggancio riesce senza contendere il round alla scorta.',
+                 sbagliata='Nessun effetto.'),
+            dict(q='COME sono uscite dall’archivio?',
+                 risposta='Non per effrazione (sigilli intatti): per ordine interno autentico e protocollato. Le porte sono state aperte, non forzate.',
+                 esatta='Sapete da dove parte il Corriere e con quale anticipo: la traccia FUGA iniziale è DIMEZZATA.',
+                 sbagliata='Inseguite dal punto sbagliato: FUGA iniziale piena. (Il Grimaldello e la Lettera Anonima sono esche: nessuno scasso, nessun confratello traditore.)'),
+            dict(q='COSA portate per l’inseguimento?',
+                 risposta='IL FISCHIETTO DELLA RONDA (il Corpo di Guardia, entro le 21).',
+                 esatta='Ai ponti coperti (T2, T5) tagliate la FUGA / agganciate automaticamente.',
+                 sbagliata='Dovete raggiungerlo a forza, quasi impossibile (Mov 5). (Registro dei Ritiri: FUGA iniziale più corta e salta T3; Lanterna Sorda: niente round di nebbia a T4.)'),
+        ],
+        boss='IL CORRIERE',
+    ),
     preludio=dict(
         domande=[
             dict(q='DOVE è tenuto Ansaldo?',
@@ -640,6 +667,22 @@ episodi = dict(
         vantaggio=dict(slancio_ore=3, preparati_ore=1, preparati_luoghi=6),
         soluzione=SOLUZIONI['ep11'],
         pool=POOL_EP11,
+    ),
+    ep12=dict(
+        id='ep12', titolo='La seconda copia',
+        sottotitolo='episodio 12 — Atto II (chiusura): la seconda copia, e l’inseguimento del corriere',
+        cartella='Episodio 12', ore_budget=6,
+        lettera=LETTERA_12,
+        obiettivo='Inseguite il corriere Tullio Vela per i canali e AGGANCIATELO (adiacenza + '
+                  'Interagire, o taglio ai ponti coperti col Fischietto) prima che consegni le '
+                  'copie allo scambio al Cimitero delle Barche (T6). Se la traccia FUGA si riempie '
+                  'prima, le copie sono nel mondo: spedizione fallita.',
+        esami_carbone=ESAMI_CARBONE_12,
+        luoghi=[luogo_json(L, OGGETTI_LUOGO_12, REPERTI_LUOGO['ep12']) for L in LUOGHI_12],
+        tessere=[tessera_json(T) for T in TILES_12],
+        vantaggio=dict(slancio_ore=3, preparati_ore=1, preparati_luoghi=6),
+        soluzione=SOLUZIONI['ep12'],
+        pool=POOL_EP12,
     ),
 )
 

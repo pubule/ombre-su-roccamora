@@ -26,6 +26,7 @@ const out = {
     ep9: d.EP9_MINACCE.map(carta),
     ep10: d.EP10_MINACCE.map(carta),
     ep11: d.EP11_MINACCE.map(carta),
+    ep12: d.EP12_MINACCE.map(carta),
   },
   luoghi_carte: {
     ep1: d.LUOGHI.map(carta),
@@ -39,6 +40,7 @@ const out = {
     ep9: d.LUOGHI9.map(carta),
     ep10: d.LUOGHI10.map(carta),
     ep11: d.LUOGHI11.map(carta),
+    ep12: d.LUOGHI12.map(carta),
     preludio: d.PRELUDIO_LUOGHI.map(carta),
   },
   approfondimenti_carte: {
@@ -53,6 +55,7 @@ const out = {
     ep9: [...d.EP9_INDIZI, ...d.EP9_TESTIMONI, ...d.EP9_REFERTI].map(carta),
     ep10: [...d.EP10_INDIZI, ...d.EP10_TESTIMONI, ...d.EP10_REFERTI].map(carta),
     ep11: [...d.EP11_INDIZI, ...d.EP11_TESTIMONI, ...d.EP11_REFERTI].map(carta),
+    ep12: [...d.EP12_INDIZI, ...d.EP12_TESTIMONI, ...d.EP12_REFERTI].map(carta),
     preludio: d.PRELUDIO_APPROFONDIMENTI.map(carta),
   },
   oggetti_carte: {
@@ -67,10 +70,11 @@ const out = {
     ep9: d.EP9_OGGETTI.map(carta),
     ep10: d.EP10_OGGETTI.map(carta),
     ep11: d.EP11_OGGETTI.map(carta),
+    ep12: d.EP12_OGGETTI.map(carta),
     preludio: d.PRELUDIO_OGGETTI.map(carta),
   },
   eroi_carte: d.HEROES.map(carta),
-  nemici_carte: [...d.NEMICI, ...d.EP2_NEMICI, ...d.EP3_NEMICI, ...d.EP4_NEMICI, ...d.EP5_NEMICI, ...d.EP6_NEMICI, ...d.EP7_NEMICI, ...d.EP8_NEMICI, ...d.EP9_NEMICI, ...d.EP10_NEMICI, ...d.EP11_NEMICI].map(carta),
+  nemici_carte: [...d.NEMICI, ...d.EP2_NEMICI, ...d.EP3_NEMICI, ...d.EP4_NEMICI, ...d.EP5_NEMICI, ...d.EP6_NEMICI, ...d.EP7_NEMICI, ...d.EP8_NEMICI, ...d.EP9_NEMICI, ...d.EP10_NEMICI, ...d.EP11_NEMICI, ...d.EP12_NEMICI].map(carta),
 };
 
 const p = path.join(OUT, 'carte.json');
