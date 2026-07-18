@@ -318,26 +318,26 @@ prima che l'Ep. 1 lo riveli.
    quali (l'esito, anche vuoto, lo legge chi tiene il fascicolo dal retro delle note
    tessera, vedi sotto); non serve per liberare prigionieri, quello è Interagire · Interagisci · Usa
    oggetto, come indicato sulla sua carta · Rianima a 2 Salute) → **Fase Minaccia** (pesca
-   1 carta ogni 2 eroi,
-   arrotondando per eccesso, applicane il testo) → **Turno dei nemici** (ognuno si muove
+   per taglia del tavolo: 1 carta a 2-3 eroi, 2 a 4-6, 2+1-nei-round-pari a 7-10 — la
+   tabella di produzione di 3-quater, MAI la vecchia "1 ogni 2 eroi" che sopravvive solo
+   nel Preludio-tutorial; +1 permanente a soglia Canto) → **Turno dei nemici** (ognuno si muove
    verso l'eroe più vicino, attacca se adiacente: 2d6+Attacco ≥ Difesa eroe). Nota: rivelare
    una tessera (vedere che stanza è, quando un eroe ci entra) è automatico e diverso da
    Cercare (trovare cosa nasconde, un'azione a parte). Obiettivo di salvataggio/recupero +
    ritorno all'ingresso.
-   **Le note tessera sono fronte/retro** (dal 2026-07-16, stesso principio degli
-   Approfondimenti sempre-sul-retro nel fascicolo Luoghi): il **fronte** (un foglio,
-   tutte le tessere) contiene SOLO ciò che si legge ad alta voce alla rivelazione —
-   ambientazione, prove d'ingresso, eventi "QUANDO RIVELATE"; il **retro fisico dello
-   stesso foglio** è "cosa nasconde ogni tessera — solo per chi arbitra": esiti di
-   Cercare (campo `cerca` in `TILES`) e meccaniche da scoprire (campo `arbitro`, es.
-   come si apre la cella di T6), con una voce per OGNI tessera anche se vuota
-   ("niente da trovare qui"), così il fronte non rivela nemmeno quali tessere
-   nascondono qualcosa. Prima era tutto su una pagina in chiaro: chi la leggeva
-   sapeva in anticipo dove stava la chiave, il talismano e che in T6 aspettava il
-   boss. Precedente di genere: il quest book di HeroQuest/Descent in mano al solo
-   overlord. Serve la pagina di servizio dopo la copertina per tenere la coppia
-   fronte/segreti sullo stesso foglio in stampa fronte/retro (parità pagine, come
-   `pagina_indice_citta`). Il Preludio resta volutamente in chiaro: è la scuola.
+   **Le note tessera sono UNA TESSERA PER FOGLIO, fronte/retro** (formato definitivo dal
+   2026-07-17 — supera il vecchio "tutte le tessere su un foglio" del 2026-07-16): il
+   **fronte** di ogni foglio-tessera (stile pagina Luogo: arte nella finestra strappata,
+   descrizione estesa da `TESSERE_DESC*`) contiene SOLO ciò che si legge ad alta voce
+   alla rivelazione — ambientazione, prove d'ingresso, eventi "QUANDO RIVELATE"; il
+   **retro fisico dello stesso foglio** è "cosa nasconde — solo per chi arbitra": esiti
+   di Cercare (campo `cerca` in `TILES`) e meccaniche da scoprire (campo `arbitro`, es.
+   come si apre la cella di T6), con la pagina retro per OGNI tessera anche se vuota
+   ("niente da trovare qui"), così sfogliare non rivela quali tessere nascondono
+   qualcosa. Funzioni condivise: `pagina_tessera_fronte`/`pagina_retro_tessera` in
+   `gen_narrator.py` (vedi Bibbia Visiva). Precedente di genere: il quest book di
+   HeroQuest/Descent in mano al solo overlord. Le coppie restano consecutive nel PDF
+   per la stampa fronte/retro. Il Preludio resta volutamente in chiaro: è la scuola.
    Tre regole che completano il sistema (dal 2026-07-16, seconda passata):
    - **Tell obbligatorio sul fronte**: ogni tessera con qualcosa da trovare
      (`cerca`/`arbitro`) ha un dettaglio sensoriale nel testo letto ad alta voce
@@ -775,8 +775,8 @@ Tyrlov) per le carte e **mappa a china su pergamena** per le tessere.
   vuoto. Usa il trattino ASCII **-** (U+002D) al posto di − ovunque in quel font; per
   simboli decorativi usa glifi verificati presenti (es. **†**, bullet, asterisco). Se in
   dubbio, verifica col cmap del font (`fontTools`) prima di generare, non dopo.
-- **File di output:** `pdf/01-Regolamento`, `pdf/02-Schede-Personaggio`,
-  `pdf/06-Aiuto-Giocatore` (riepilogo regole da tavolo, **una sola pagina**, stesso
+- **File di output:** `Comune/pdf/…-01-Regolamento`, `…-02-Schede-Personaggio`,
+  `…-06-Aiuto-Giocatore` (riepilogo regole da tavolo, **una sola pagina**, stesso
   sfondo/stile ma senza banner H1 pesanti — è un cheat-sheet, deve restare
   scannerizzabile a colpo d'occhio) sono comuni a tutta la campagna. Ogni episodio
   ha i suoi fascicoli in `Episodio N/pdf/`: `Indagine` (lettera d'incarico +
@@ -988,6 +988,49 @@ Ogni testo deve far *vedere* la scena, non riassumerla. Regole:
   (vedi il controllo con `Paragraph.wrap` usato in sviluppo); i testi estesi si
   tengono separati dai dati di gioco in un modulo dedicato come `src/story.py`.
 
+## 3-web. LA WEBAPP (companion "al tavolo" — ogni episodio nuovo va cablato)
+
+La webapp (`webapp/`, server locale `node webapp/server.js`) è l'arbitro digitale
+della modalità Tavolo: lettera, stradario con oracolo Bussare, indizi e
+Approfondimenti coi vincoli veri delle cariche (jolly di Sibilla col pendolo,
+Aiuto profano, tutte le abilità d'indagine degli 11 eroi), oggetti e reperti,
+busta, e la Spedizione a fasi (pesca per taglia, Canto col tick, registro Ferite
+coi massimali del Bestiario, oracolo Cercare con la prova vera, auto-piazzamento
+dei nemici dalle carte). I dadi restano FISICI (l'app chiede i totali); il tiro
+animato è solo della modalità "tutto a schermo". Un episodio "finito" sui PDF ma
+non cablato qui è un episodio a metà. **Integrazione di un Episodio N nuovo:**
+
+- **`webapp/export-data.py`** — import dei dati dell'episodio (LUOGHI_N, TILES_N,
+  NEMICI_N, OGGETTI_LUOGO_N, LETTERA_N, ESAMI_CARBONE_N) e: voce nel dict
+  `episodi` (id, titolo, sottotitolo, cartella, ore_budget, `lettera`,
+  `obiettivo` — la frase di vittoria in due tempi —, `esami_carbone`, luoghi con
+  mappa oggetti E la voce nuova in `REPERTI_LUOGO`, tessere, `pool` dei
+  segnalini dal simulatore, `vantaggio` con le soglie luoghi riproporzionate,
+  soluzione in `SOLUZIONI`); i nemici nuovi vanno anche nella lista
+  `nemici=[...]` comune (statistiche + ferite per fascia per il registro).
+- **`webapp/export-data.js`** — i gruppi carte del nuovo episodio (minacce,
+  luoghi_carte, approfondimenti_carte, oggetti_carte, nemici_carte) mappati
+  dall'export di `cards-data.js`, chiave `epN`.
+- **`webapp/export-assets.py`** — `SORGENTI` += `Episodio N/cards`, `/board`,
+  `/reperti`.
+- **`webapp/public/js/main.js`** — l'array `episodi` della home e la voce in
+  `COPERTINE` (un'arte rappresentativa).
+- **Il motore non si tocca**: `engine.js` è data-driven (mazzo, pesca, canto,
+  bussare, cerca funzionano su qualunque episodio esportato). Le meccaniche
+  DAVVERO nuove di un episodio (es. un boss a due fasi) vanno però supportate in
+  `spedizione.js` o almeno annunciate come regola da tavolo — deciderlo in Fase
+  A, non scoprirlo dopo.
+- **Test**: `webapp/test-engine.mjs` (aggiungi l'episodio a `EPISODI`: valida
+  stradario, chiavi, anti-softlock, carte/arte esistenti su disco, busta) e
+  `webapp/test-partite.mjs` (aggiungi 1-2 scenari con party diversi: giocano
+  l'episodio INTERO, dalla lettera alla vittoria in spedizione). La suite
+  completa (engine + ui + partite) deve essere VERDE prima di dichiarare
+  l'episodio finito.
+- **Fuori scope per ora**: campagna (Bivi, Frammenti, migliorie tra episodi)
+  non è ancora modellata nella webapp — le conseguenze del Bivio si applicano
+  al tavolo leggendo la Soluzione, e le carte `Bivio` restano fuori dal mazzo
+  digitale (già filtrate in `costruisciMazzo`).
+
 ## 4. CHECKLIST DI COERENZA (verifica prima di consegnare)
 
 - [ ] Le 4 Domande sono tutte deducibili dai soli indizi **core** (senza Approfondimenti) e
@@ -1081,6 +1124,11 @@ Ogni testo deve far *vedere* la scena, non riassumerla. Regole:
 - [ ] Le carte spawn di nemici piazzano "sull'uscita più vicina agli eroi" (non
       "più lontana"), salvo le eccezioni tematiche dichiarate (inseguitori dalla
       Banchina, carte "si attiva subito")?
+- [ ] **Webapp cablata** (vedi 3-web): export-data py/js con la voce episodio
+      completa (lettera, obiettivo, esami, reperti, pool, vantaggio
+      riproporzionato), assets esportati, episodio in home con copertina, e la
+      suite completa (`test-engine` + `test-ui` + `test-partite` con 1-2
+      scenari nuovi) VERDE?
 - [ ] Stampa a bucket (Comune vs Preludio vs episodio): ogni nuova carta
       Nemico/Minaccia in `cards-data.js` ha un `file` che comincia per
       `Episodio N/...` se specifica di questo episodio, o senza quel prefisso
