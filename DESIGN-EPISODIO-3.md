@@ -233,3 +233,14 @@ ramo «rifusa» del Bivio Ep. 2 (vedi §8).
   «requiem per Piero» rese letterali negli indizi), test-ui (4 episodi),
   test-partite con 2 scenari Ep.3 (giuste/sbagliate). I check jpg degli
   episodi senza cards/ sono AVVISI finché la Fase D non consegna l'arte.
+
+## Varietà indagine (2026-07-18) — testimone inaffidabile
+
+Il cronista Ranuzzi (Gazzetta, L3) accusa con sicurezza «il maestro del
+coro»: è un DEPISTAGGIO (Ranuzzi vende storie; il maestro del coro, L7,
+trema di rabbia, non di colpa). Lo smaschera qualsiasi rivelatorio D2
+(lavandaie L1 / mani del barbiere L2 / tipografo L3, che contraddice lo
+stesso Ranuzzi). Chi accusa il maestro del coro senza incrociare: D2
+sbagliata e spedizione con +1 segnalino Canto (tempo perso). Simulatore:
+flag `depistaggio_creduto` (L3 visitato e non chi_confermato) → canto
+init +1. Curva v8 invariata rispetto a v7 (banda 2:59, 3-10 67-93).

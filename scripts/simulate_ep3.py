@@ -946,8 +946,17 @@ def simula_indagine(party, log, esplora_a_fondo=False):
     dossier_completo = ore_avanzate == 0
     if dossier_completo:
         log('Dossier completo (tutte le ore spese in Indagine): 1 gettone Intuizione per la Spedizione.')
+    # Torsione «testimone inaffidabile»: Ranuzzi (L3) accusa il maestro del
+    # coro. Se il gruppo ha sentito Ranuzzi (visitato L3) ma non ha
+    # confermato il vero colpevole con un rivelatorio (chi_confermato),
+    # crede al depistaggio: parte con 1 Canto in piu' (tempo perso).
+    depistaggio_creduto = (3 in visitati) and not chi_confermato
+    if depistaggio_creduto:
+        log('Depistaggio di Ranuzzi creduto (accusa il maestro del coro, D2 non incrociata): '
+            '1 segnalino Canto in piu\' alla spedizione.')
     log('')
     return dict(ore_avanzate=ore_avanzate, tier=tier, campanello=campanello,
+                depistaggio_creduto=depistaggio_creduto,
                 canna=canna, d3_ok=d3_ok, visitati=visitati,
                 chi_confermato=chi_confermato, dossier_completo=dossier_completo,
                 secondo_fiato=secondo_fiato, approf_dettaglio=approf_dettaglio)
@@ -1198,7 +1207,10 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
         log('  Pozzo sbagliato (Domanda 3): 1 Voce Cava appare alla Scala dei Chiusini.')
     pos = {}  # nome eroe -> (gx, gy) nella tessera corrente (griglia tattica)
     tile_attuale = None  # id della tessera dove valgono le `pos` correnti
-    canto = 0
+    canto = 1 if indagine.get('depistaggio_creduto') else 0
+    if indagine.get('depistaggio_creduto'):
+        log('  Avete inseguito il maestro del coro (depistaggio di Ranuzzi): la spedizione '
+            'parte con 1 segnalino Canto.')
     custode = None
     custode_stunned = False
     campanello_usato = False

@@ -615,7 +615,10 @@ def soluzione():
         'segnalino Canto in più.',
         '<b>2. CHI è il Ladro di Voci?</b> Mastro Silvano Alcesti, il barbiere. <i>Esatta:</i> '
         'Vantaggio «Il nome vero»: quando l’Accordatore appare, chiamatelo per nome — Silvano '
-        'esita, e salta la sua PRIMA attivazione. <i>Sbagliata:</i> nessun effetto.',
+        'esita, e salta la sua PRIMA attivazione. <i>Sbagliata:</i> se avete accusato «il '
+        'maestro del coro» (il depistaggio di Ranuzzi), avete perso tempo dietro l’uomo '
+        'sbagliato: la spedizione parte con <b>1 segnalino Canto in più</b>. (Altre risposte '
+        '«vicine» ma non incrociate: nessun effetto.)',
         '<b>3. QUALE pozzo è il Pozzo Maestro?</b> Il terzo della corte del Lavatoio — «il '
         'pozzo che non gela mai» (lo confermano il registro dei livelli, il ventaglio delle '
         'falde e il conto delle canne: dodici canne, undici pozzi). <i>Esatta:</i> scendete dal '
@@ -626,10 +629,15 @@ def soluzione():
         '<i>Nota per chi arbitra:</i> la Lanterna a Specchio e il Rasoio d’Argento sono esche — '
         'nessun effetto là sotto (la luce non è il problema, e il rasoio non è mai stato '
         'dell’Accordatore). I Tappi di Cera sono onesti: +1 NERVI in T3, come da carta.',
-        '<b>Nota sul rivelatorio (Domanda 2):</b> lo confermano apertamente solo tre carte — la '
-        'Testimonianza «Le lavandaie» (L1), l’Osservazione «Le mani del barbiere» (L2) e la '
-        'Testimonianza «Il tipografo» (L3). Se il gruppo non ne ha letta nessuna, giudicate con '
-        'elasticità una risposta «vicina» (es. «qualcuno che gira all’alba per i salassi»).',
+        '<b>Testimone inaffidabile (Domanda 2):</b> il cronista Ranuzzi (Gazzetta, L3) accusa con '
+        'sicurezza «il maestro del coro della Parrocchia» — è un DEPISTAGGIO: Ranuzzi vende '
+        'storie, e il maestro del coro (L7) trema di rabbia, non di colpa. Lo smaschera '
+        'QUALSIASI dei tre rivelatori — la Testimonianza «Le lavandaie» (L1), l’Osservazione '
+        '«Le mani del barbiere» (L2), la Testimonianza «Il tipografo» (L3, che contraddice lo '
+        'stesso Ranuzzi). Chi accusa il maestro del coro senza aver letto un rivelatorio crede '
+        'al depistaggio (penalità sopra, Domanda 2 sbagliata). Se non hanno letto nulla né '
+        'accusato nessuno, giudicate con elasticità una risposta «vicina» (es. «qualcuno che '
+        'gira all’alba per i salassi»).',
         '<b>Vantaggio d’Indagine:</b> Slancio SOLO con tutte e 4 le risposte esatte E 3+ '
         'ore avanzate (lo slancio è di chi SA dove andare); Preparati con 1+ ore avanzate '
         'O 6+ luoghi visitati. Dossier completo (0 ore avanzate): 1 '
