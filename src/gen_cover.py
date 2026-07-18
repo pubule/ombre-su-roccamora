@@ -42,9 +42,10 @@ EPISODI = {
     0: 'La Prova del Lume',  # il Preludio (tutorial), cartella Preludio/pdf/
     1: 'Il caso del campanaro scomparso',
     2: 'La voce del bronzo',
+    3: 'Le voci del pozzo',
 }
 # arte dedicata per episodio (default: la mappa di campagna, MAP_ART)
-COVER_ART = {2: 'copertina episodio 2.png'}
+COVER_ART = {2: 'copertina episodio 2.png', 3: 'copertina episodio 3.png'}
 ROMAN = {1: 'I', 2: 'II', 3: 'III', 4: 'IV', 5: 'V', 6: 'VI'}
 
 def etichetta(num):
@@ -122,7 +123,12 @@ def divider(c, cx, y, w, col, lw=1.1):
 
 
 def copertina(c, num, titolo):
-    cover_fit(c, COVER_ART.get(num, MAP_ART))
+    cover_name = COVER_ART.get(num, MAP_ART)
+    if not os.path.exists(os.path.join(ROOT, 'artworks', cover_name)):
+        print(f'  AVVISO: manca artworks/{cover_name} - uso la mappa di campagna '
+              '(rigenerare quando arriva)')
+        cover_name = MAP_ART
+    cover_fit(c, cover_name)
     scrim(c, H, H - 70*mm, 0.4)            # velo leggero dal bordo alto: l'arte resta ben visibile
     scrim(c, 0, 96*mm, 0.36)              # velo leggero dal bordo basso
 
