@@ -256,3 +256,13 @@ diretto «l'acuto»). +1 crescendo «La melodia impressa» SOLO nel ramo
   main.js, engine con vincolo inverso `apre`, soluzione/oracolo, reperti);
   suite verde (test-engine con fix carta-per-riga degli Indizi Nascosti,
   test-ui a 5 episodi, 2 scenari test-partite Ep.4).
+
+## Varietà indagine (2026-07-18) — catena sociale
+
+La Casa di Alboni (L6) non si apre solo con una parola-chiave: la governante
+apre a chi porta una PRESENTAZIONE della Vetri (essere passati dal suo
+camerino, L2) — Alboni le deve tutto. La parola «l'aria del terzo atto» resta
+la via alternativa (doppia via anti-softlock intatta; sulla webapp L6 conserva
+la chiave-parola per il test BFS). Simulatore: campo `sblocca_visita=2` su L6
++ estensione di `luogo_raggiungibile` (aperto anche se L2 è visitato). Curva
+v4 invariata (2:27, 3-10 83-97).

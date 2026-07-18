@@ -195,9 +195,11 @@ LUOGHI_4 = [
                         'adesso: è un montacarichi per prigionieri.'),
          ]),
     dict(n=6, nome='CASA DEL MAESTRO ALBONI', voce_mappa='Vicolo dell’Armonia',
-         req='La governante non apre: «il maestro prova e non riceve». Dalla finestra, sempre '
-             'la stessa frase al pianoforte — chi la riconosce e la nomina, in questa casa, è '
-             'del mestiere.',
+         req='La governante non apre agli estranei: «il maestro prova e non riceve». Ma '
+             'Alboni obbedisce a una persona sola — la signora Vetri: chi arriva con una '
+             'sua parola (dopo esser passati dal suo camerino, L2) entra subito. In '
+             'alternativa, dalla finestra c’è sempre la stessa frase al pianoforte — chi '
+             'la riconosce e la nomina, in questa casa, è del mestiere.',
          chiave=('parola', 'L’ARIA DEL TERZO ATTO'), art='Casa del Maestro Alboni.png',
          chiude=None,
          indizi=[
@@ -656,6 +658,10 @@ def soluzione():
         'la Testimonianza «Il secondo della claque» (L3). Se il gruppo non ne ha letta '
         'nessuna, giudicate con elasticità una risposta «vicina» (es. «qualcuno del podio, '
         'che paga la claque»).',
+        '<b>Catena sociale (Casa di Alboni, L6):</b> la governante non apre agli estranei — ma '
+        'Alboni deve tutto alla Vetri: chi è passato dal suo camerino (L2) porta la sua '
+        'presentazione e la porta si apre, senza bisogno della parola. La parola «l’aria '
+        'del terzo atto» resta la via alternativa (per chi non è passato dalla Vetri).',
         '<b>Vantaggio d’Indagine:</b> Slancio SOLO con tutte e 4 le risposte esatte E 3+ '
         'ore avanzate (lo slancio è di chi SA dove andare); Preparati con 1+ ore avanzate '
         'O 6+ luoghi visitati. Dossier completo (0 ore avanzate): 1 '
