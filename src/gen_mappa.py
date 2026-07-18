@@ -87,6 +87,17 @@ VOCI_MAPPA = [
     ('Il Deposito Daziario', 'dogana di ponente, corpo dei magazzini', 'ep2'),
     ('Corte della Faenza', 'al civico 6, dietro il dazio', 'ep2'),
     ('La Camera dei Pesi e delle Misure', 'palazzo del Dazio, primo piano', 'ep2'),
+    # Episodio 3 — «Le voci del pozzo» (vedi DESIGN-EPISODIO-3.md). Gli
+    # altri 2 luoghi dell'episodio riusano voci gia' esistenti: Il Lavatoio
+    # Grande e L'Ospedale della Carita' (fondo 'citta' — la pista fredda
+    # degli episodi passati stavolta risponde).
+    ('Vicolo del Sapone', 'al civico 2, Borgo delle Cisterne', 'ep3'),
+    ('La Gazzetta di Roccamora', 'corso della Prefettura 14, sopra la tipografia', 'ep3'),
+    ('Corte dei Pozzaioli', 'al civico 5, Borgo delle Cisterne', 'ep3'),
+    ('Il Catasto delle Acque', 'palazzo del Comune, mezzanino', 'ep3'),
+    ('Calle degli Stagnini', 'al civico 9, dietro il mercato coperto', 'ep3'),
+    ('La Parrocchia del Borgo', 'sagrato di Santa Brigida, Borgo delle Cisterne', 'ep3'),
+    ('Il Pozzo del Cieco', 'corte dei pozzi murati, Borgo delle Cisterne', 'ep3'),
 ]
 
 # (sottocartella pdf/, sottotitolo, tag inclusi). Un episodio nuovo aggiunge
@@ -95,6 +106,7 @@ MAPPE = [
     ('Preludio', 'preludio — la città che conoscete', ('citta', 'preludio')),
     ('Episodio 1', 'episodio 1 — la città che conoscete', ('citta', 'preludio', 'ep1')),
     ('Episodio 2', 'episodio 2 — la città che conoscete', ('citta', 'preludio', 'ep1', 'ep2')),
+    ('Episodio 3', 'episodio 3 — la città che conoscete', ('citta', 'preludio', 'ep1', 'ep2', 'ep3')),
 ]
 
 # Tipografico (provata la grafia manoscritta La Belle Aurore su tutta la

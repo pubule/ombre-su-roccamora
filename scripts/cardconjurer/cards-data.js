@@ -708,9 +708,253 @@ const EP2 = [...LUOGHI2, ...EP2_INDIZI, ...EP2_TESTIMONI, ...EP2_REFERTI,
              ...EP2_MINACCE, ...EP2_OGGETTI, ...EP2_NEMICI];
 
 
+// ============================================================ EPISODIO 3
+// «Le voci del pozzo» — vedi DESIGN-EPISODIO-3.md. Stesso schema dell'Ep. 2.
+
+const LUOGHI3 = [
+  { n: 1, nome: 'Il Lavatoio Grande', req: 'Disponibile dall’inizio',
+    art: 'artworks/Lavatoio Grande.png',
+    testo: 'Il chiostro d’acqua del Borgo: mastelli in fila, vapore a colonne, panni stesi che dividono la luce in stanze. Una volta qui si lavorava cantando. Adesso si sente solo l’acqua — e sul terzo pozzo, in fondo alla corte, nessuna lavandaia stende più.',
+    approfondimenti: [
+      { tipo: 'Testimonianza', soggetto: 'Le lavandaie',
+        testo: '«Il barbiere passa all’alba, col suo borsone dei salassi. Anche nelle corti dove non è malato nessuno. Lo vediamo perché all’alba ci siamo solo noi — e lui non guarda mai le finestre: guarda i chiusini, e conta coi passi.»' },
+      { tipo: 'Osservazione', soggetto: 'L’acqua che ascolta',
+        testo: 'L’acqua del terzo pozzo non increspa: bussando sul coperchio del chiusino, il suono torna su lungo, doppio, come da una stanza grande. Gli altri pozzi rispondono corto. Là sotto non c’è una canna d’acqua: c’è una sala.' },
+    ] },
+  { n: 2, nome: 'La Bottega del Barbiere', req: 'Disponibile dall’inizio',
+    art: 'artworks/Bottega del Barbiere.png',
+    testo: 'Piccola, calda, in ordine feroce: i rasoi per taglia, la poltrona lucidata dagli anni, alla parete il carboncino di un bambino che ride. Mastro Silvano lavora piano e parla piano — ma quando il vento passa sotto la porta, la mano col rasoio si ferma a mezz’aria, in ascolto.',
+    approfondimenti: [
+      { tipo: 'Osservazione', soggetto: 'Le mani del barbiere',
+        testo: 'Mani curatissime, da mestiere. Ma le nocche portano segni di corda e d’argano, e sotto le unghie — mentre versa l’acqua di lavanda — una polvere chiara che non è talco: polvere di pietra, e cera da sigillo. Mani che di notte fanno un altro lavoro.' },
+      { tipo: 'Testimonianza', soggetto: 'Silvano, su Piero',
+        testo: 'Quando parlate di Piero, la cortesia si incrina. Dal collo tira fuori un campanellino d’argento, consumato: «lo suonavo io, piano, quando aveva le febbri. Tenetelo voi, per la processione di San Rocco — a me, ormai, canta troppo.» (Prendete la carta Il Campanello di Piero.)' },
+    ] },
+  { n: 3, nome: 'La Gazzetta di Roccamora', req: 'Disponibile dall’inizio',
+    art: 'artworks/Gazzetta di Roccamora.png',
+    testo: 'Una stanza sola sopra la tipografia, che trema tutta quando le macchine battono. Ranuzzi parla come titola, a corpo dodici: il suo mostro col rasoio vende benissimo. Di sotto, il tipografo compone parole al contrario, piombo a piombo — e ascolta tutto, da sempre.',
+    approfondimenti: [
+      { tipo: 'Testimonianza', soggetto: 'Il tipografo',
+        testo: '«Stampo alle tre, e alle tre il Borgo è mio. Due volte ho visto il barbiere coi suoi ferri, fermo a un chiusino, col lanternino schermato. Non l’ho scritto a Ranuzzi: il barbiere mi ha cavato un dente gratis, e poi il mostro col rasoio vende di più di un uomo in ginocchio che ascolta un buco.»' },
+    ] },
+  { n: 4, nome: 'La Casa di Tobia', req: 'Disponibile dall’inizio',
+    art: 'artworks/Casa di Tobia.png',
+    testo: 'Corda, sego e minestra fredda: i ferri del pozzaiolo appesi per taglia, il quaderno dei pozzi aperto sul banco, sfogliato da mani estranee. La moglie sta alla finestra che guarda la corte — e ogni volta che un chiusino sbatte nel Borgo, il suo respiro si ferma un momento.',
+    approfondimenti: [
+      { tipo: 'Testimonianza', soggetto: 'La moglie di Tobia',
+        testo: '«Un mese fa qualcuno lo ha pagato per sapere dei pozzi murati. Tanto. Lui ha detto no — “certe acque si lasciano dormire” — e da allora ha smesso di raccontarmi le giornate. L’ultima sera ha detto solo: devo chiudere una cosa che ho aperto io.»' },
+    ] },
+  { n: 5, nome: 'Il Catasto delle Acque',
+    req: 'L’archivista non alza gli occhi dal timbro: «Le acque vive al piano di sopra. Questa sala è un’altra materia — e la materia, qui, bisogna saperla chiamare col suo nome.»',
+    art: 'artworks/Catasto delle Acque.png',
+    testo: 'La sala delle acque morte è in fondo a un corridoio che nessuno spazza: mappe arrotolate, il catasto delle falde, un lume verde. Sul tavolo grande, tenuta ferma da quattro pesi, la mappa del Borgo — e intorno, nella polvere, un rettangolo pulito.',
+    approfondimenti: [
+      { tipo: 'Referto', soggetto: 'Il ventaglio delle falde',
+        testo: 'Ricalcando le mappe una sull’altra, il ventaglio si chiude: ogni vena del Borgo passa per il terzo pozzo della corte del Lavatoio prima di andare altrove. Chi parla in quella gola di pietra, parla in tutte le acque di Roccamora.' },
+    ] },
+  { n: 6, nome: 'La Bottega del Lattoniere Bo',
+    req: 'Bo salda e non ascolta: mezzo Borgo gli deve grondaie. Alza la testa solo per i clienti che sanno di che lavoro si parla — e voi, per ora, non lo sapete.',
+    art: 'artworks/Lattoniere Bo.png',
+    testo: 'La bottega è un organo essa stessa: canne, grondaie e lattoneria appese a ogni trave, che al passaggio d’aria suonano piano, ognuna la sua nota. Sul ripiano dei resi, in mezzo alla ferraglia onesta, una sola canna sigillata che non suona.',
+    approfondimenti: [
+      { tipo: 'Testimonianza', soggetto: 'Bo, sul committente',
+        testo: '«Il committente mai visto: solo il garzone, uno svelto, di quelli che non guardano in faccia. La carta però la riconosco: è carta da registro, di quella che usano negli uffici buoni. E chi scrive così non ha mai saldato una grondaia in vita sua.»' },
+    ] },
+  { n: 7, nome: 'La Parrocchia del Borgo',
+    req: 'Il parroco vi ferma sul portale: «Se venite per il coro, la prova è finita. Se venite per altro, ditemi per CHI venite — qui i nomi contano più delle facce.»',
+    art: 'artworks/Parrocchia del Borgo.png',
+    testo: 'Povera e pulita: banchi lucidi di cera, l’organo piccolo con una canna storta, il registro dei morti sul leggio della sacrestia. Dalla finestra si vede la corte dei pozzi murati — e il sagrestano, ogni volta che ci passa davanti, cambia lato al corridoio.',
+    approfondimenti: [
+      { tipo: 'Presagio', soggetto: 'La voce nel pozzo',
+        testo: 'Nella sacrestia, l’acquasantiera trema senza mani: si vede una galleria di pietra bagnata dove l’eco non restituisce la vostra voce — ne restituisce un’altra, sbagliata, che vi chiama per nome. E si vede che chi tace, e stringe qualcosa al petto, passa. La visione dura un rintocco.' },
+    ] },
+  { n: 8, nome: 'L’Ospedale della Carità',
+    req: 'La suora portinaia non apre ai curiosi: «I muti non sono bestie da fiera». Entra chi sa dire di che CURA si tratta — il nome del mestiere, non quello del male.',
+    art: 'artworks/Ospedale della Carità.png',
+    testo: 'La sezione dei muti è la più silenziosa di un posto già silenzioso: quattro letti, quattro lavagnette, il gesso che stride. Gli ammutoliti vi seguono con gli occhi tutti insieme, come una cosa sola — e nessuno dei quattro, dice il medico, piange mai.',
+    approfondimenti: [
+      { tipo: 'Referto', soggetto: 'L’accordatura',
+        testo: 'Sotto la lente, il taglio non recide: TENDE. La lama è entrata a metà e ha tirato, come si tende una corda sul ponticello. Un lavoro che al mondo sanno fare in due: chi accorda strumenti, e chi apre gole per mestiere senza ucciderle — un cerusico. O tutt’e due insieme.' },
+    ] },
+  { n: 9, nome: 'La Corte dei Pozzi Murati',
+    req: 'I chiusini della corte sono serrati con lucchetti daziari: senza le chiavi giuste si può solo girare intorno ai coperchi — e ascoltare da fuori, come fanno i cani.',
+    art: 'artworks/Corte dei Pozzi Murati.png',
+    testo: 'Una piazza che la città ha dimenticato apposta: undici coperchi di ferro in cerchio, il selciato gobbo, l’erba nelle fughe. La brina, all’alba, fa l’appello dei coperchi uno a uno — e uno, ogni volta, non risponde: asciutto, tiepido, col suo cerchio scuro intorno.',
+    approfondimenti: [
+      { tipo: 'Osservazione', soggetto: 'I segni delle corde',
+        testo: 'I solchi non sono tutti uguali: quelli vecchi scendono dritti — secchi d’acqua. Quelli nuovi strisciano di lato, dove la corda ha lavorato di peso e di paziente: casse, o canne, o un uomo che non collabora. L’ultimo solco è di stanotte.' },
+    ] },
+].map((L) => ({
+  art: L.art,
+  title: `${L.n} · ${L.nome}`,
+  file: `Episodio 3/Luoghi/${L.n} - ${L.nome}`,
+  type: `Luogo ${L.n}`,
+  rules: `{i}${L.req === 'Disponibile dall’inizio' ? L.testo : L.req}{/i}`,
+  approfondimenti: L.approfondimenti, n: L.n,
+}));
+
+const EP3_INDIZI = LUOGHI3.flatMap((L) => {
+  const righe = L.approfondimenti.filter((a) => a.tipo === 'Osservazione' || a.tipo === 'Presagio');
+  if (!righe.length) return [];
+  const sogg = righe[0].soggetto;
+  return [{
+    art: L.art, n: L.n, kind: 'Indizio',
+    title: `Indizio Nascosto — ${sogg}`,
+    file: `Episodio 3/Indizi/${sogg.replace(/’/g, "'")}`,
+    type: 'Osservazione / Presagio',
+    rules: `{i}${righe.map((a) => `◆ (${a.tipo}) ${a.testo}`).join('\n')}{/i}`,
+  }];
+});
+
+const EP3_TESTIMONI = LUOGHI3.flatMap((L) =>
+  L.approfondimenti.filter((a) => a.tipo === 'Testimonianza').map((a) => ({
+    art: L.art, n: L.n, kind: 'Testimone',
+    title: `Testimone — ${a.soggetto}`,
+    file: `Episodio 3/Testimoni/${a.soggetto}`,
+    type: `Luogo ${L.n} · Testimone`,
+    rules: `{i}${a.testo}{/i}`,
+  })));
+
+const EP3_REFERTI = LUOGHI3.flatMap((L) =>
+  L.approfondimenti.filter((a) => a.tipo === 'Referto').map((a) => ({
+    art: L.art, n: L.n, kind: 'Referto',
+    title: `Referto — ${a.soggetto}`,
+    file: `Episodio 3/Referti/${a.soggetto}`,
+    type: `Luogo ${L.n} · Referto`,
+    rules: `{i}${a.testo}{/i}`,
+  })));
+
+// Mazzo Minaccia dell'episodio: 21 carte + 1 del Bivio («La campana nuova»,
+// solo ramo "rifusa"). Mix: 11 spawn, 3 insidie, 3 crescendo, 4 eventi.
+const EP3_MINACCE = [
+  { art: 'artworks/Il calare dei secchi.png', title: 'Il Calare dei Secchi', tipo: 'Posseduto',
+    flavor: 'Dall’occhio della volta, una corda si tende. Il secchio non porta acqua.',
+    effect: 'Piazzate 1 Adepto sotto la corda della Confluenza (T4). Se T4 non è rivelata: sull’uscita più vicina agli eroi della tessera corrente.' },
+  { art: 'artworks/Il calare dei secchi.png', title: 'Corde dall’Alto', tipo: 'Posseduto',
+    flavor: 'Il sego non cigola. È questo, il punto del sego.',
+    effect: 'Piazzate 1 Adepto sotto la corda della Confluenza (T4). Se T4 non è rivelata: sull’uscita più vicina agli eroi della tessera corrente.' },
+  { art: 'artworks/Il calare dei secchi.png', title: 'Il Ritiro delle Canne', tipo: 'Posseduto',
+    flavor: 'Qualcuno è venuto a prendere le voci. Non se ne andrà a mani vuote.',
+    effect: 'Piazzate 1 Adepto sull’ingresso dell’Officina delle Canne (T5). Se T5 non è rivelata: sull’uscita più vicina agli eroi della tessera corrente.' },
+  { art: 'artworks/La Voce Cava.png', title: 'Un’Eco di Troppo', tipo: 'Posseduto',
+    flavor: 'Contate i vostri respiri. Ce n’è uno in più.',
+    effect: 'Piazzate 1 Voce Cava sull’uscita più vicina agli eroi della tessera corrente.' },
+  { art: 'artworks/La Voce Cava.png', title: 'La Voce che Manca', tipo: 'Posseduto',
+    flavor: 'Una gola del Borgo cammina laggiù, cercando il suo padrone.',
+    effect: 'Piazzate 1 Voce Cava sull’uscita più vicina agli eroi della tessera corrente.' },
+  { art: 'artworks/La Voce Cava.png', title: 'Il Coro Prova', tipo: 'Posseduto',
+    flavor: 'Una nota sola, tenuta troppo a lungo per polmoni veri.',
+    effect: 'Piazzate 1 Voce Cava sull’uscita più vicina agli eroi della tessera corrente. Se è già in gioco una Voce Cava, si attiva subito.' },
+  { art: 'artworks/Guardiani dei chiusini.png', title: 'Guardiani dei Chiusini', tipo: 'Malavita',
+    flavor: 'Qualcuno paga perché i coperchi restino coperchi.',
+    effect: 'Piazzate 1 Sgherro sull’uscita più vicina agli eroi della tessera corrente.' },
+  { art: 'artworks/Guardiani dei chiusini.png', title: 'Il Turno di Sotto', tipo: 'Malavita',
+    flavor: 'Anche laggiù si smonta e si monta. La paga è doppia, e si capisce perché.',
+    effect: 'Piazzate 1 Sgherro sull’uscita più vicina agli eroi della tessera corrente.' },
+  { art: 'artworks/Guardiani dei chiusini.png', title: 'L’Uomo Pagato in Contanti', tipo: 'Malavita',
+    flavor: 'Non fa domande da così tanto tempo che ha disimparato.',
+    effect: 'Piazzate 1 Sicario sull’uscita più vicina agli eroi della tessera corrente: si attiva subito.' },
+  { art: 'artworks/Chiusini che sbattono.png', title: 'Passi nella Galleria', tipo: 'Posseduto',
+    flavor: 'Dietro di voi, qualcuno cammina nel vostro stesso passo. Per non farsi contare.',
+    effect: 'Piazzate 1 Adepto sull’ingresso della Scala dei Chiusini (T1).' },
+  { art: 'artworks/Chiusini che sbattono.png', title: 'Chiusini che Sbattono', tipo: 'Posseduto',
+    flavor: 'In superficie, uno dopo l’altro, i coperchi salutano qualcuno che scende.',
+    effect: 'Piazzate 1 Adepto sull’ingresso della Scala dei Chiusini (T1).' },
+  { art: 'artworks/Il buio d’acqua.png', title: 'Il Buio d’Acqua', tipo: 'Insidia',
+    flavor: 'Il lume regge. È il buio, qui sotto, che spinge.',
+    effect: 'L’eroe più avanzato prova NERVI (Media): se fallisce, un passo nell’acqua nera — 1 danno.' },
+  { art: 'artworks/Il passo sul vuoto.png', title: 'Il Passo sul Vuoto', tipo: 'Insidia',
+    flavor: 'La passerella c’è. Poi, per un passo, non c’è.',
+    effect: 'L’eroe attivo prova NERVI (Media): se fallisce, 1 danno e perde 1 azione al prossimo turno.' },
+  { art: 'artworks/L’eco che chiama.png', title: 'L’Eco che Chiama', tipo: 'Insidia',
+    flavor: 'Qualcuno, con la vostra voce, chiama il vostro nome. Da davanti.',
+    effect: 'Ogni eroe prova NERVI (Facile): chi fallisce ha 1 sola azione al prossimo turno.' },
+  { art: 'artworks/La pietra impara.png', title: 'La Pietra Impara', tipo: 'Crescendo',
+    flavor: 'Il canto del bambino si ferma. Poi riprende — una nota più in basso.',
+    effect: 'Aggiungete 1 segnalino Canto. Alla soglia: l’Accordatore si desta e da quel momento ogni Fase Minaccia pesca 1 carta in più (vedi Soluzione). Se è già in gioco: cancellate 1 sua ferita dal Registro e si attiva subito.' },
+  { art: 'artworks/La pietra ripete.png', title: 'La Pietra Ripete', tipo: 'Crescendo',
+    flavor: 'Le pareti provano la melodia da sole, a bocca chiusa.',
+    effect: 'Aggiungete 1 segnalino Canto. Alla soglia: l’Accordatore si desta e da quel momento ogni Fase Minaccia pesca 1 carta in più (vedi Soluzione). Se è già in gioco: cancellate 1 sua ferita dal Registro e si attiva subito.' },
+  { art: 'artworks/La pietra risponde.png', title: 'La Pietra Risponde', tipo: 'Crescendo',
+    flavor: 'Bussate una volta. La pietra bussa due.',
+    effect: 'Aggiungete 1 segnalino Canto. Alla soglia: l’Accordatore si desta e da quel momento ogni Fase Minaccia pesca 1 carta in più (vedi Soluzione). Se è già in gioco: cancellate 1 sua ferita dal Registro e si attiva subito.' },
+  { art: 'artworks/L’acqua ferma.png', title: 'L’Acqua Ferma', tipo: 'Quiete',
+    flavor: 'Per un momento, le cisterne sono solo cisterne: pietra, acqua e il vostro lume.',
+    effect: 'Nessun effetto. Tirate il fiato — qualcosa, là sotto, lo sta trattenendo.' },
+  { art: 'artworks/Una corrente d’aria buona.png', title: 'Una Corrente d’Aria Buona', tipo: 'Favore',
+    flavor: 'Aria fredda e pulita, da una gola che non canta.',
+    effect: 'Rivelate una tessera coperta adiacente a quella di un eroe (la scelgono i giocatori).' },
+  { art: 'artworks/L’acqua sale.png', title: 'L’Acqua Sale', tipo: 'Ostacolo',
+    flavor: 'Nessuna pioggia, nessuna chiusa. Eppure sale — come un respiro preso.',
+    effect: 'Fino a fine round, sulla tessera dell’eroe attivo muoversi costa il doppio.' },
+  { art: 'artworks/Il canto nelle orecchie.png', title: 'Il Canto nelle Orecchie', tipo: 'Insidia',
+    flavor: 'La melodia vi entra da un orecchio. Non esce dall’altro.',
+    effect: 'L’eroe con meno NERVI (a pari merito: sceglie il gruppo) prova NERVI (Media): se fallisce subisce 1 danno dal dolore.' },
+  { art: 'artworks/La campana nuova.png', title: 'La Campana Nuova', tipo: 'Bivio',
+    flavor: 'San Teodoro canta sopra Roccamora — giusta, piena, accordabile. E qualcosa, qui sotto, la sente.',
+    effect: 'Aggiungete 1 segnalino Canto. Alla soglia: l’Accordatore si desta e da quel momento ogni Fase Minaccia pesca 1 carta in più (vedi Soluzione). Se è già in gioco: cancellate 1 sua ferita dal Registro e si attiva subito.' },
+].map((m) => ({
+  art: m.art,
+  title: `${m.tipo} — ${m.title}`,
+  file: `Episodio 3/Minacce/${m.title.replace(/’/g, "'")}`,
+  rules: `{i}${m.flavor}{/i}{divider}${m.effect}`,
+}));
+
+const EP3_OGGETTI = [
+  { art: 'artworks/Chiavi dei Chiusini.png', nome: 'Le Chiavi dei Chiusini', ref: 'E3-L1',
+    fonte: 'Luogo 1 — Il Lavatoio Grande',
+    flavor: 'Un anello di ferro con undici chiavi, e una dodicesima aggiunta dopo, più nuova.',
+    effetto: 'Aprono i lucchetti daziari della corte dei pozzi murati — e certe porte si aprono solo per chi può aprire anche i coperchi.' },
+  { art: 'artworks/Tappi di Cera.png', nome: 'I Tappi di Cera', ref: 'E3-L4',
+    fonte: 'Luogo 4 — La Casa di Tobia',
+    flavor: 'Modellati sulle orecchie di Tobia. «Il pozzo parla», diceva, «e chi ascolta troppo resta giù.»',
+    effetto: '+1 alle prove NERVI contro suoni, echi e voci (vale nella Galleria delle Eco).' },
+  { art: 'artworks/Lanterna a Specchio.png', nome: 'La Lanterna a Specchio', ref: 'E3-L4',
+    fonte: 'Luogo 4 — La Casa di Tobia',
+    flavor: 'La lanterna buona del pozzaiolo: uno specchio parabolico che butta la luce lontano.',
+    effetto: 'Effetto: nessuno finora scoperto.' },
+  { art: 'artworks/La Canna Muta.png', nome: 'La Canna Muta', ref: 'E3-L6',
+    fonte: 'Luogo 6 — La Bottega del Lattoniere Bo',
+    flavor: 'Sigillata, vuota, resa per difetto. L’unica canna del Borgo che non suonerà mai.',
+    effetto: 'In spedizione: finché il gruppo la porta, nella Galleria delle Eco (T3) nessuna prova — il coro là sotto non vi «sente».' },
+  { art: 'artworks/Rasoio d’Argento.png', nome: 'Il Rasoio d’Argento', ref: 'E3-L8',
+    fonte: 'Luogo 8 — L’Ospedale della Carità',
+    flavor: 'Trovato accanto al primo ammutolito. Il filo è intatto: non ha mai tagliato niente.',
+    effetto: 'Effetto: nessuno finora scoperto.' },
+  { art: 'artworks/Campanello di Piero.png', nome: 'Il Campanello di Piero', ref: 'E3-L2',
+    fonte: 'Luogo 2 — dal barbiere (o cercando in T5)',
+    flavor: 'Argento consumato solo sul battente: suonato per anni, piano, come si parla a un malato.',
+    effetto: 'Un’azione adiacente all’Accordatore: suonarlo — la voce vera, non quella rubata. Difesa 8→5 per il resto della partita, e salta la sua prossima attivazione.' },
+  { art: 'artworks/Lanterna da Minatore.png', nome: 'Una Lanterna da Minatore', ref: 'E3-T2',
+    fonte: 'Si trova cercando in T2 — La Cisterna delle Colonne',
+    flavor: 'Il vetro è integro e la fiamma sta dritta: laggiù è già qualcosa.',
+    effetto: '+1 alle prove NERVI finché la porta chi l’ha trovata.' },
+].map((o) => ({
+  art: o.art,
+  title: o.nome,
+  file: `Episodio 3/Oggetti/${o.nome.replace(/’/g, "'")}`,
+  type: 'Oggetto',
+  rules: `{i}${o.flavor}{/i}{divider}${o.effetto}`,
+  ref: o.ref, fonte: o.fonte,
+}));
+
+const EP3_NEMICI = [
+  { art: 'artworks/L’Accordatore.png', title: 'L’Accordatore',
+    type: 'Il Ladro di Voci (Boss) — Episodio 3',
+    rules: '{i}Un grembiule da barbiere, un rasoio che non uccide, e una promessa: la voce del figlio, calata nei pozzi, da fissare con le voci degli altri. Combatte come lavora — con metodo, senza rabbia. E piange, mentre lo fa.{/i}{divider}Statistiche nel Bestiario dell’episodio.' },
+  { art: 'artworks/La Voce Cava.png', title: 'La Voce Cava',
+    type: 'Eco del Coro — Episodio 3',
+    rules: '{i}Quello che resta quando una voce rubata scappa dalla sua canna: aria ed eco a forma d’uomo, che cammina perché ricorda di aver camminato. Attenti a spegnerla: tutta la voce che tratteneva esce in una volta sola.{/i}{divider}Statistiche nel Bestiario dell’episodio.' },
+].map((n) => ({ ...n, file: `Episodio 3/Nemici/${n.title.replace(/’/g, "'")}` }));
+
+const EP3 = [...LUOGHI3, ...EP3_INDIZI, ...EP3_TESTIMONI, ...EP3_REFERTI,
+             ...EP3_MINACCE, ...EP3_OGGETTI, ...EP3_NEMICI];
+
+
 module.exports = {
   HEROES, NEMICI, MINACCE, LUOGHI, INDIZI, TESTIMONI, REFERTI, OGGETTI, PRELUDIO,
   PRELUDIO_LUOGHI, PRELUDIO_APPROFONDIMENTI, PRELUDIO_OGGETTI,
   EP2, LUOGHI2, EP2_INDIZI, EP2_TESTIMONI, EP2_REFERTI, EP2_MINACCE, EP2_OGGETTI, EP2_NEMICI,
-  ALL: [...HEROES, ...NEMICI, ...MINACCE, ...LUOGHI, ...INDIZI, ...TESTIMONI, ...REFERTI, ...OGGETTI, ...PRELUDIO, ...EP2],
+  EP3, LUOGHI3, EP3_INDIZI, EP3_TESTIMONI, EP3_REFERTI, EP3_MINACCE, EP3_OGGETTI, EP3_NEMICI,
+  ALL: [...HEROES, ...NEMICI, ...MINACCE, ...LUOGHI, ...INDIZI, ...TESTIMONI, ...REFERTI, ...OGGETTI, ...PRELUDIO, ...EP2, ...EP3],
 };

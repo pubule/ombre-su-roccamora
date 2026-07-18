@@ -85,6 +85,20 @@ BUCKETS = [
         ],
         cards_sheet=os.path.join('Episodio 2', 'pdf', 'Carte.pdf'),
     ),
+    # Episodio 3 «Le voci del pozzo»: stesso schema (add() salta i mancanti).
+    dict(
+        out=os.path.join('Episodio 3', 'Ombre-su-Roccamora-Episodio-3-Completo.pdf'),
+        booklets=[
+            os.path.join('Episodio 3', 'pdf', 'Copertina.pdf'),
+            os.path.join('Episodio 3', 'pdf', 'Indagine.pdf'),
+            os.path.join('Episodio 3', 'pdf', 'Mappa.pdf'),
+            os.path.join('Episodio 3', 'pdf', 'Luoghi.pdf'),
+            os.path.join('Episodio 3', 'pdf', 'Spedizione.pdf'),
+            os.path.join('Episodio 3', 'pdf', 'Bestiario.pdf'),
+            os.path.join('Episodio 3', 'pdf', 'Soluzione (non aprire).pdf'),
+        ],
+        cards_sheet=os.path.join('Episodio 3', 'pdf', 'Carte.pdf'),
+    ),
 ]
 
 

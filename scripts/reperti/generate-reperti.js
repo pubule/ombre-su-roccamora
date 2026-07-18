@@ -255,6 +255,64 @@ Chi canterà al di sotto, non si lamenti di ciò che al di sotto risponde.`;
     </div></div>
   `);
 
+  // --- Episodio 3, Reperto A: registro dei livelli del Lavatoio (L1) ---
+  const righeA3 = [
+    ['lunedì', 'primo: al segno', 'secondo: al segno', 'terzo: due dita SOTTO'],
+    ['martedì', 'primo: al segno', 'secondo: al segno', 'terzo: al segno'],
+    ['mercoledì', 'primo: al segno', 'secondo: un dito sopra', 'terzo: tre dita SOTTO'],
+    ['giovedì', 'primo: al segno', 'secondo: al segno', 'terzo: al segno'],
+    ['venerdì', 'primo: al segno', 'secondo: al segno', 'terzo: QUATTRO dita sotto'],
+  ];
+  const repertoA3 = page(`
+    <div class="wrap"><div style="zoom:0.84;">
+      <div style="text-align:center; margin-bottom:60px;">
+        <div class="caps" style="font-size:64px;">lavatoio grande · registro dei livelli</div>
+        <div class="serif" style="font-style:italic; font-size:36px; color:#3a2415; mix-blend-mode:multiply; margin-top:14px;">Reperto A — la settimana copiata dal registro della loggia</div>
+      </div>
+      <table style="width:100%; border-collapse:collapse; font-size:44px;">
+        <tbody class="hand">
+          ${righeA3.map((r) => `<tr>${r.map((v) => `<td style="border-bottom:1px solid #3a2415; padding:20px 8px; font-size:42px; white-space:nowrap; mix-blend-mode:multiply;">${v}</td>`).join('')}</tr>`).join('')}
+        </tbody>
+      </table>
+      <div class="serif" style="font-style:italic; margin-top:80px; font-size:36px; color:#4a4a4e; mix-blend-mode:multiply;">
+        Di giorno nessuno attinge dal terzo pozzo — è murato. Un pozzo murato che
+        «beve» solo certe notti non sta bevendo: sta INGHIOTTENDO qualcosa che scende.
+      </div>
+    </div></div>
+  `);
+
+  // --- Episodio 3, Reperto B: la commissione di C.B. (L6) ---
+  const repertoB3 = page(`
+    <div class="wrap"><div style="zoom:0.90;">
+      <div class="serif" style="font-style:italic; font-size:38px; color:#3a2415; mix-blend-mode:multiply; margin-bottom:60px;">Reperto B — commissione appesa alla lesina, bottega del lattoniere Bo</div>
+      <div class="hand" style="font-size:60px; line-height:90px;">
+        <p style="margin-bottom:40px;">Al mastro lattoniere. Dodici canne di piombo, misura da organo, sigillo a cera piena. Nessuna deve suonare.</p>
+        <p style="margin-bottom:40px;">Ritiro a mezzo garzone, a lume spento. Il compenso è anticipato: contatelo, e non contate altro.</p>
+        <p style="text-align:right; margin-top:80px;">— C.B.</p>
+      </div>
+      <div class="serif" style="font-style:italic; margin-top:100px; font-size:36px; color:#4a4a4e; mix-blend-mode:multiply;">
+        Carta di pregio, piegata coi guanti. La stessa mano elegante che il capomastro
+        della fonderia conosceva bene — e i pozzi murati del Borgo sono undici, non dodici.
+      </div>
+    </div></div>
+  `);
+
+  // --- Episodio 3, Reperto C: la pagina del quaderno di Tobia (L4) ---
+  const repertoC3 = page(`
+    <div class="wrap"><div style="zoom:0.90;">
+      <div class="serif" style="font-style:italic; font-size:38px; color:#3a2415; mix-blend-mode:multiply; margin-bottom:60px;">Reperto C — pagina ricalcata a matita, dal quaderno dei pozzi di Tobia Manfredi</div>
+      <div class="hand" style="font-size:62px; line-height:92px;">
+        <p style="margin-bottom:40px;">Il terzo pozzo non gela mai. Non è l’acqua a scaldarlo.</p>
+        <p style="margin-bottom:40px;">Sotto la corte non c’è una canna: c’è una GOLA. Le falde ci passano tutte, come corde sul ponticello.</p>
+        <p style="margin-bottom:40px;">Se qualcuno la accorda, Roccamora intera fa da cassa. Per questo li hanno murati. Per questo non l’ho detto a nessuno.</p>
+      </div>
+      <div class="serif" style="font-style:italic; margin-top:100px; font-size:36px; color:#4a4a4e; mix-blend-mode:multiply;">
+        La pagina originale è stata strappata dal quaderno. Questa è la ricalcatura
+        che Tobia teneva nascosta dietro il cassetto — come chi sa di avere in casa una cosa pericolosa.
+      </div>
+    </div></div>
+  `);
+
   const items = [
     ['Episodio 1', 'Reperto A - Diario di Ruggero', repertoA],
     ['Episodio 1', 'Reperto B - Registro delle Consegne', repertoB],
@@ -263,6 +321,9 @@ Chi canterà al di sotto, non si lamenti di ciò che al di sotto risponde.`;
     ['Episodio 2', 'Reperto A - Taccuino di Collaudo', repertoA2],
     ['Episodio 2', 'Reperto B - Registro delle Chiatte', repertoB2],
     ['Episodio 2', 'Reperto C - Lettera di C.B.', repertoC2],
+    ['Episodio 3', 'Reperto A - Registro dei Livelli', repertoA3],
+    ['Episodio 3', 'Reperto B - Commissione di C.B.', repertoB3],
+    ['Episodio 3', 'Reperto C - Pagina del Quaderno', repertoC3],
   ];
 
   for (const [episodio, name, html] of items) {
