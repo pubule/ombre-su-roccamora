@@ -1051,6 +1051,18 @@ Ogni testo deve far *vedere* la scena, non riassumerla. Regole:
 Un episodio nuovo si costruisce **a fasi, ognuna approvata prima della
 successiva** — mai tutto in un colpo:
 
+- **REGOLA DI VARIETÀ STRUTTURALE (richiesta esplicita 2026-07-18, si
+  verifica IN FASE A, mai a posteriori):** ogni spedizione deve cambiare
+  almeno UN elemento strutturale rispetto allo schema base — (a) obiettivo
+  non-boss: fuga, scorta, inseguimento, difesa; (b) boss senza
+  debolezza-oggetto, o incontrato a metà percorso, o assente del tutto;
+  (c) mappa con una scelta di percorso VERA (due vie che cambiano la
+  partita, non un ramo cosmetico); (d) mix del mazzo fuori standard
+  (proporzioni spawn/insidie/crescendo diverse dal riferimento 11/3/3/4).
+  E MAI lo stesso tipo di finale per due episodi di fila (es. due
+  boss-con-debolezza-oggetto consecutivi). Il design doc di Fase A dichiara
+  ESPLICITAMENTE quale elemento cambia e che tipo di finale era quello
+  dell'episodio precedente.
 - **Fase A — design doc**: `DESIGN-EPISODIO-N.md` alla radice: caso, colpevole,
   8-9 luoghi con chiavi/orari, le 4 Domande coi loro incroci, tessere e percorso,
   boss e debolezza, Bivio. Si discute e si approva PRIMA di scrivere dati.
@@ -1167,6 +1179,10 @@ non cablato qui è un episodio a metà. **Integrazione di un Episodio N nuovo:**
       luoghi dell'episodio (3-cinque)?
 - [ ] Le 20-23 carte Minaccia hanno tutte titolo unico, flavor proprio e icona di famiglia?
       Hai riusato Sgherro/Sicario (Malavita) invece di inventare nemici umani nuovi?
+- [ ] La spedizione cambia almeno UN elemento strutturale (obiettivo non-boss /
+      boss senza debolezza-oggetto o spostato o assente / scelta di percorso vera /
+      mix del mazzo fuori standard) e il tipo di finale è DIVERSO da quello
+      dell'episodio precedente? (Dichiarato nel design doc di Fase A.)
 - [ ] I prompt Midjourney dei nuovi soggetti (inclusi eventuali nuovi Oggetti) sono in un
       file dedicato `PROMPT-MIDJOURNEY-Episodio-N.md` (con la riga d'indice nel comune)?
       Solo i soggetti davvero riusabili (nemici ricorrenti, dorsi, cornici) vanno in

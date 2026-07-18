@@ -138,8 +138,8 @@ azione-cardine per sala, con prova), poi la camera.
   Dormiente NON è un nemico: è l'ambiente — vedi sotto).
 
 **Il Dormiente che ascolta (ambiente):** a ogni soglia di Canto (3, 5, 7) la
-camera «risponde» — a 3: tutte le prove -1; a 5: ogni round, l'eroe con meno
-NERVI subisce 1 danno (il battito); a 7: sconfitta narrativa (il rituale si
+camera «risponde» — a 4: tutte le prove -1; a 6: ogni round, l'eroe con meno
+NERVI subisce 1 danno (il battito); a 9: sconfitta narrativa (il rituale si
 compie — non party wipe: fuga forzata, epilogo peggiore).
 **Boss — BASTIANO FERRI:** Att +3, Dif 9, Fer 5, Mov 3, Danno 2. Il liutaio:
 febbrile, lucido, quasi gentile. **La sua Difesa cala di 1 per ogni
@@ -209,7 +209,24 @@ Bivio Ep. 5.
   Porta d'Acqua — tag ep6; 6 riusi); PROMPT-MIDJOURNEY-Episodio-6.md
   integrale (il più corto della campagna: boss Ferri, Coro dei Dodici, 3
   luoghi nuovi, oggetti, 8 tessere, copertina).
-- Fase C: `simulate_ep6.py` (seed base 660000); da modellare: percorso a 8
+- **Varietà strutturale (regola 2026-07-18, dichiarazione):** questo finale
+  cambia PIÙ di un elemento — boss SENZA debolezza-oggetto (la Difesa cala
+  coi movimenti spenti), obiettivo a fasi non-boss (3 cardini + Formula),
+  ambiente-boss (il Dormiente a soglie), sciame che fugge (il Coro), mappa a
+  8 tessere. Finale precedente (Ep. 5): boss con debolezza-oggetto — tipo
+  DIVERSO ✓.
+- **Fase C — FATTA (20260718):** curva (5 party × 30 seed): 2: 16% (finale
+  a 2 eroi quasi impossibile — dichiarato: a duo si consiglia il multi-hand
+  con 4 eroi, come da Regolamento), 3: 80% (38% sofferte), 4: 87%, 5: 82%,
+  6: 86%, 7: 85%, 8: 89%, 9: 85%, 10: 83%. Fuori scala dichiarata; le
+  NON-VITTORIE sono quasi tutte «il rituale si compie» (fuga forzata,
+  epilogo peggiore) — il finale perde sul TEMPO, non sul sangue. Tarature
+  di fedeltà uscite dalla C: soglie del Dormiente 4/6/9 (3/5/7 era una
+  ghigliottina col ritmo reale del Canto — componenti aggiornati), il
+  gruppo NON lascia una sala-cardine finché il movimento non è spento, la
+  Formula/cardine ha priorità sull'attacco (un eroe per round). Log:
+  logs/playtest/20260718-curva-ep6-v1.
+- Fase C (specifica): `simulate_ep6.py` (seed base 660000); da modellare: percorso a 8
   tessere con 3 azioni-cardine (prove VIGORE/ACUME/NERVI), Ferri con Dif a
   scalare, il Coro dei Dodici (sciame con fuga e canto extra), le soglie
   ambiente del Dormiente (3/5/7), la marea in T2, la deduzione a incroci.

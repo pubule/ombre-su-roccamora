@@ -764,6 +764,16 @@ l'alba e il silenzio.
 
 ## Nota di produzione
 
+**Regola di varietà strutturale (2026-07-18, vincolante dalla Fase A di ogni
+episodio):** ogni spedizione cambia almeno UN elemento strutturale (obiettivo
+non-boss: fuga/scorta/inseguimento/difesa; boss senza debolezza-oggetto o a
+metà percorso o assente; scelta di percorso vera; mix del mazzo fuori
+standard) e MAI lo stesso tipo di finale per due episodi di fila. Le bozze
+qui sotto vanno lette come compatibili: la Fase A di ciascun episodio
+dichiara l'elemento variato e verifica il vincolo di alternanza col
+precedente PRIMA di scrivere componenti.
+
+
 Ordine di generazione: 4 → 20, un episodio completo alla volta (Fase A → B →
 C → E; la Fase D di ciascuno resta in attesa dell'arte, coi prompt Midjourney
 pronti). Checkpoint con conferma dell'utente alla chiusura di ogni atto
