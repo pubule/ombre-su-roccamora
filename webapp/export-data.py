@@ -384,8 +384,10 @@ episodi = dict(
         cartella='Episodio 4', ore_budget=6,
         lettera=LETTERA_4,
         obiettivo='Liberate Gaspare e Rocco (Interagire, in T5), disaccordate i 3 pannelli '
-                  'della Conchiglia (Interagire, in T6) e riportate tutti in T1. '
-                  'Secondario: le lastre di cera incise, una ad azione (Interagire).',
+                  'della Conchiglia (Interagire, in T6) prima del 4° segnalino Canto e '
+                  'riportate tutti in T1 — col Suggeritore alle calcagna da T4: abbatterlo '
+                  'NON è necessario. Secondario: le lastre di cera incise, una ad azione '
+                  '(Interagire).',
         esami_carbone=ESAMI_CARBONE_4,
         luoghi=[luogo_json(L, OGGETTI_LUOGO_4, REPERTI_LUOGO['ep4']) for L in LUOGHI_4],
         tessere=[tessera_json(T) for T in TILES_4],

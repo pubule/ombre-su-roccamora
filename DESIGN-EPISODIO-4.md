@@ -137,20 +137,30 @@ avanza verso l'aria del terzo atto. 6 tessere:
   sipario di sopra «chiama» i contrappesi senza preavviso; con la Pianta
   delle Macchine: niente prova).
 - **T4 — Il Corridoio dei Camerini Morti** (i camerini della stagione
-  chiusa; specchi coperti; Cercare: la Maschera della Prima Stagione ⚠ esca).
+  chiusa; specchi coperti; Cercare: la Maschera della Prima Stagione ⚠ esca.
+  QUANDO RIVELATE: appare **IL SUGGERITORE** in fondo al corridoio — l'eco vi
+  ha sentiti, e da qui in poi vi INCALZA).
 - **T5 — La Fossa del Contrappeso Morto** (Gaspare e Rocco, legati, vivi.
   QUANDO RIVELATE: 1 Adepto di guardia appare. Liberarli: Interagire,
   nessuna prova; si muovono col gruppo, 3 caselle).
 - **T6 — La Conchiglia** (il ventre di legno del proscenio, i pannelli del
   '41 a vista, le lastre di cera già incise in rastrelliera. QUANDO
-  RIVELATE: appare **IL SUGGERITORE** con la Claque — 1 gruppo ogni 4 eroi,
+  RIVELATE: appare la scorta di **Claque** — 1 gruppo ogni 4 eroi,
   arrotondate per eccesso).
 
-Obiettivo: liberare i prigionieri (T5) e **sabotare l'accordatura in T6 prima
-che il Canto raggiunga la soglia** (l'aria del terzo atto): tre pannelli da
-disaccordare (azioni Interagire, come le canne dell'Ep. 3). Secondario: le
+Obiettivo: liberare i prigionieri (T5), **sabotare l'accordatura in T6** (tre
+pannelli da disaccordare, azioni Interagire) e **riportare tutti in T1** — con
+il Suggeritore alle calcagna. Abbatterlo NON è necessario: è la buca del
+teatro, non si uccide un'eco — la si lascia senza spartito. Secondario: le
 lastre di cera già incise (voci di prova rubate nelle settimane — contano
 nell'epilogo e nel Bivio).
+
+**Varietà strutturale (regola 2026-07-18, retrofit del 18/7):** il tipo di
+finale dell'Ep. 4 è «obiettivo non-boss con boss-inseguitore da metà
+percorso»: il Suggeritore appare in T4 (metà discesa) e incalza; la vittoria
+è sabotaggio + fuga. Catena dei finali d'atto: Ep. 3 boss-con-debolezza →
+Ep. 4 inseguitore/obiettivo → Ep. 5 boss-con-debolezza → Ep. 6 obiettivo a
+fasi con boss senza debolezza: mai due tipi uguali consecutivi ✓.
 
 **Boss — IL SUGGERITORE:** Att +3, Dif 8, Fer 4, Mov 3, Danno 2. L'eco che ha
 preso il posto di Gaspare nella buca: gobba, bisbiglio, pagine che frusciano
@@ -158,7 +168,8 @@ senza mani. Attacca ai NERVI più che alla carne: «suggerisce» (vedi Bestiario
 il bersaglio colpito prova NERVI Facile o perde 1 azione — dice parole non
 sue). Debolezza: **il Libretto di Gaspare** — un'azione adiacente: l'eco
 riconosce la voce VERA del suo posto, Dif 8→5 per il resto della partita e
-salta la prossima attivazione.
+salta la prossima attivazione — nel retrofit la debolezza serve a
+scrollarselo di dosso durante la fuga, non ad abbatterlo prima del finale.
 **Nemico nuovo — LA CLAQUE** (truppa d'aura): Att +1, Dif 6, Fer 1, Mov 3,
 Danno 1 — finché una Claque è adiacente a un eroe, quell'eroe ha −1 alle
 prove (il battimani cadenzato che copre i pensieri). Riuso: Adepti (i
@@ -222,6 +233,18 @@ diretto «l'acuto»). +1 crescendo «La melodia impressa» SOLO nel ramo
   apre-alle-20, aura Claque, «suggerimento» del boss, sabotaggio pannelli
   (con bonifica post-boss), fallback Gaspare-debolezza. Log:
   logs/playtest/20260718-curva-ep4-v1.
+- **Fase C — RETROFIT VARIETÀ (20260718, curva v3):** il Suggeritore a
+  metà percorso ha richiesto 4 leve per-episodio (tutte stampate sul
+  fascicolo): «il palco risponde» (+1 pesca con boss in gioco),
+  registrazione al 4° segnalino (vittoria piena solo col sabotaggio prima
+  dell'aria), ritorno a 3 tratti con aggancio (boss adiacente a fine round
+  = non si avanza), a 2 eroi il boss si attiva nei round pari. Scorta T4:
+  1 Claque ogni 4 eroi per difetto. Curva v3 (5 party × 30 seed): 2: 27%
+  (52% sofferte — dura, multi-hand consigliato), 3: 87%, 4: 83%, 5: 95%,
+  6: 89%, 7: 95%, 8: 86%, 9: 97%, 10: 91%; sofferte 16-45% (v1 era 9-14:
+  l'inseguitore rende le vittorie più tirate). Le non-vittorie sono in
+  gran parte «la conchiglia registra» (epilogo peggiore): si perde sul
+  tempo, non sul sangue. Log: logs/playtest/20260718-curva-ep4-v3.
 - Fase C (specifica): `simulate_ep4.py` (seed base 640000); da modellare: il vincolo L3
   apre-alle-20 nell'euristica, l'aura della Claque, il «suggerimento» del
   boss, il sabotaggio a 3 pannelli come obiettivo, il Canto-programma di

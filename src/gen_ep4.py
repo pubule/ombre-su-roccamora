@@ -335,7 +335,14 @@ TILES_4 = [
     dict(id='T4', nome='IL CORRIDOIO DEI CAMERINI MORTI', exits={'S': 'T3', 'E': 'T5', 'N': 'T6'},
          testo='I camerini della stagione chiusa: porte accostate, specchi coperti da lenzuoli, '
                'nomi sbiaditi sulle targhette. In fondo, il corridoio si divide: da una parte '
-               'la fossa del contrappeso morto, dall’altra il ventre della conchiglia.',
+               'la fossa del contrappeso morto, dall’altra il ventre della conchiglia. E in '
+               'mezzo al corridoio, una gobba familiare china su un leggio che non c’è. '
+               'QUANDO RIVELATE QUESTA TESSERA: appare IL SUGGERITORE con 1 Claque ogni 4 '
+               'eroi (per difetto: nessuna a 2-3 eroi) — l’eco vi ha sentiti, e da questo '
+               'momento vi INCALZA.',
+         arbitro='Il Suggeritore NON va abbattuto per vincere: è la buca del teatro fatta '
+                 'eco — si lascia senza spartito, non si uccide. Vi seguirà fino alla fine: '
+                 'la sua debolezza (Domanda 4) serve a scrollarselo di dosso.',
          cerca='Dietro uno specchio coperto, una maschera dorata identica a quella del '
                'laboratorio — o è la stessa? ⚠ (vedi la nota per chi arbitra).',
          arredi=[(1, 1, 'scrivania'), (2, 2, 'casse')]),
@@ -356,12 +363,11 @@ TILES_4 = [
          testo='Il ventre di legno del proscenio: i pannelli del 1741 curvano sopra di voi '
                'come il fasciame di una nave capovolta, e VIBRANO — l’orchestra è a un palmo, '
                'oltre le assi. Su una rastrelliera, lastre di cera incise in fila. In mezzo, '
-               'una gobba familiare china su un leggio che non c’è. QUANDO RIVELATE QUESTA '
-               'TESSERA: appare IL SUGGERITORE con 1 gruppo di Claque ogni 4 eroi (arrotondate '
-               'per eccesso).',
+               'la platea di legno ASCOLTA. QUANDO RIVELATE QUESTA TESSERA: appare la '
+               'scorta — 1 gruppo di Claque ogni 4 eroi (arrotondate per eccesso).',
          arbitro='Il sabotaggio: TRE pannelli da disaccordare (un’azione Interagire ciascuno, '
-                 'contrassegnati sulla tessera) prima che il Canto raggiunga la soglia — a '
-                 'soglia raggiunta, l’aria del terzo atto comincia di sopra e la conchiglia '
+                 'contrassegnati sulla tessera) prima del 4° segnalino Canto — al 4°, '
+                 'l’aria del terzo atto comincia di sopra e la conchiglia '
                  'REGISTRA (vedi Soluzione: non è una sconfitta, è l’epilogo peggiore). Le '
                  'lastre di cera già incise: un’azione Interagire ciascuna (contano '
                  'nell’epilogo e nel Bivio). La debolezza del Suggeritore è IL LIBRETTO DI '
@@ -664,14 +670,27 @@ def soluzione():
         '<b>Mazzo Minaccia:</b> le 21 carte dell’episodio (più «La melodia impressa» se il '
         'Bivio lo dice). Il Canto qui è il programma di sala: carte crescendo + 1 segnalino '
         'automatico ogni 4° round; alla soglia (3 segnalini — o 4, col Bivio «conservate») '
-        'l’aria del terzo atto comincia e il Suggeritore si desta in anticipo (piazzatelo '
-        'sulla tessera più lontana dagli eroi, con 1 Claque di scorta) e da quel momento '
+        'l’aria del terzo atto comincia e il Suggeritore si desta in anticipo, se non è già in '
+        'gioco (piazzatelo sulla tessera più lontana dagli eroi, con 1 Claque di scorta), e da quel momento '
         'ogni Fase Minaccia pesca 1 carta in più, per sempre.',
         '<b>Il Suggeritore</b> (statistiche nel Bestiario; Ferite per taglia già tabellate): '
-        'si desta quando rivelate T6, o in anticipo col Canto. La sua debolezza è la Domanda '
-        '4. <b>Due finali di vittoria:</b> potete fuggire coi prigionieri senza disaccordare '
-        'i pannelli — ma la conchiglia registra l’aria (epilogo peggiore, non sconfitta). '
-        'Ogni lastra di cera recuperata (Interagire in T6) pesa nell’epilogo e nel Bivio.',
+        'si desta quando rivelate T4 — a metà discesa — o in anticipo col Canto, e da lì vi '
+        'INCALZA fino all’uscita. <b>Abbatterlo non è necessario:</b> la vittoria è liberare '
+        'i prigionieri, disaccordare i 3 pannelli e riportare TUTTI in T1. La sua debolezza '
+        'è la Domanda 4: un’azione adiacente e l’eco esita (Difesa 8→5, salta '
+        'un’attivazione) — respiro per fuggire, non per finirlo. <b>Due finali di '
+        'vittoria:</b> potete fuggire coi prigionieri senza disaccordare i pannelli — ma la '
+        'conchiglia registra l’aria (epilogo peggiore, non sconfitta). Ogni lastra di cera '
+        'recuperata (Interagire in T6) pesa nell’epilogo e nel Bivio.',
+        '<b>Il palco risponde:</b> finché il Suggeritore è in gioco, ogni Fase Minaccia '
+        'pesca 1 carta in più (l’eco vi ha sentiti: il teatro è contro di voi). '
+        '<b>La registrazione:</b> se il 4° segnalino Canto arriva PRIMA del terzo '
+        'pannello disaccordato, la conchiglia REGISTRA l’aria: epilogo peggiore, non '
+        'sconfitta. <b>Il ritorno (3 tratti):</b> a fine di ogni round di ritorno, se il '
+        'Suggeritore è ADIACENTE a un eroe il gruppo non avanza di un tratto: seminatelo, '
+        'stordirlo (la debolezza) o abbattetelo. <b>A 2 eroi:</b> l’eco esita — il '
+        'Suggeritore si attiva solo nei round PARI (regola di taglia, come le Ferite del '
+        'Bestiario).',
     ])
     pagina('epilogo, frammento e bivio', [
         '<b>EPILOGO — da leggere a voce alta a vittoria ottenuta.</b> «Gaspare risale nella '

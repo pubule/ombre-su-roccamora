@@ -3,6 +3,7 @@
 
 COPIA di simulate_ep3.py cucita sull'Episodio 4 (vedi DESIGN-EPISODIO-4.md):
 sottopalco del Comunale a gala in corso, boss IL SUGGERITORE (quando
+rivelate T4 — retrofit varieta' 2026-07-18: incalza, non va abbattuto —
 colpisce: NERVI Facile o -1 azione), truppa LA CLAQUE (aura -1 alle
 prove per gli eroi adiacenti), Loggione che apre alle 20, sabotaggio
 dei 3 pannelli con bonifica post-boss, fallback Gaspare-debolezza.
@@ -1126,6 +1127,10 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
     campanello_t5 = False      # qui: Gaspare liberato (fallback debolezza, T5)
     t5_rivelata = False
     pannelli = 3               # i pannelli della conchiglia da disaccordare (T6)
+    SOGLIA_REGISTRAZIONE = 4   # leva per-episodio (stampata): al 4o segnalino l'aria del
+                               # terzo atto comincia e la conchiglia REGISTRA; la soglia
+                               # condivisa (3) resta per pesca extra e risveglio anticipato
+    conchiglia_registra = [False]  # sabotaggio finito DOPO l'inizio dell'aria (T6, regola stampata)
     canto = 1 if not indagine.get('d3_ok') else 0  # D3 sbagliata: spettacolo iniziato
     voce_ferma_scade_round = 0
     adescati = []  # nemici che l'Esca preziosa (Carbone) distoglie per il round corrente
@@ -1368,8 +1373,13 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
         # pari (giro 5 di ricalibrazione: il gradino 2->3 carte e' un dirupo
         # da ~30 punti di %vittoria ovunque cada - serve il mezzo passo;
         # precedente di genere: escalation a scatti alla Pandemic).
+        # Retrofit varieta' (leva per-episodio): "il palco risponde" —
+        # finche' il Suggeritore e' in gioco (vivo), ogni Fase Minaccia
+        # pesca 1 carta in piu' (l'eco vi ha sentiti: il teatro e' contro
+        # di voi). Stampata sulla pagina spedizione del fascicolo.
+        palco_risponde = 1 if (custode and custode['fer'] > 0) else 0
         n_carte = int(base_carte) + (1 if base_carte % 1 and round_n % 2 == 0 else 0) \
-            + (1 if canto_bonus_carte else 0)
+            + (1 if canto_bonus_carte else 0) + palco_risponde
         # Sibilla: "prima della fase Minaccia, guarda le prime 2 carte del
         # mazzo e mettine una in fondo; l'altra torna in cima" (3 usi).
         # Euristica: scruta solo sotto pressione (Canto avviato o dal 3°
@@ -1542,6 +1552,12 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
             if custode.pop('salta_flash', False):
                 log(f'  {custode["nome"]} salta l’attivazione (Flash! di Carla).')
                 return
+            if len(party) == 2 and round_n % 2 == 1:
+                # regola di taglia (Bestiario Ep.4, come le Ferite): a 2 eroi
+                # l'eco esita — il Suggeritore si attiva solo nei round PARI
+                log(f'  {custode["nome"]} esita: due voci sole sono poche da suggerire '
+                    '(a 2 eroi si attiva nei round pari).')
+                return
             if custode.get('pos') is None:
                 # Svegliato in anticipo dal Canto (vedi fase_minaccia): parte "sulla
                 # tessera piu' lontana dagli eroi" (regola vera), quindi deve
@@ -1657,6 +1673,19 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
                     log(f'    [ABILITÀ] {n} usa Flash! su {bersaglio_f["nome"]}: accecato, salta '
                         f'la sua prossima attivazione ({ability_uses[n]["flash"]} usi residui).')
                     continue
+            # RETROFIT varieta' (2026-07-18): in T6 il sabotaggio ha la
+            # priorita' sull'attacco — il finale e' l'obiettivo, non il boss
+            # (che incalza e non va abbattuto). Chi e' in T6 disaccorda; chi
+            # e' ingaggiato para i colpi nelle Fasi nemiche, non qui.
+            if luogo_label.startswith('T6') and pannelli > 0:
+                pannelli -= 1
+                log(f'    [AZIONE] {n} disaccorda un pannello della conchiglia '
+                    f'({3 - pannelli}/3 sabotati).')
+                if pannelli == 0 and canto >= SOGLIA_REGISTRAZIONE:
+                    conchiglia_registra[0] = True
+                    log('    ...ma l’aria del terzo atto è GIÀ cominciata di sopra: '
+                        'la conchiglia ha REGISTRATO (epilogo peggiore).')
+                continue
             # Solo i nemici con un cammino vero fino a loro sono bersagli validi
             # (bug: con una tessera affollata a 8-10 eroi, TUTTI i bersagli
             # potevano risultare irraggiungibili e l'eroe li "inseguiva"
@@ -1732,11 +1761,6 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
                 salute[bersaglio_down] = min(salute_max[bersaglio_down], 2)
                 log(f'    [AZIONE] {n} rianima {bersaglio_down}: torna in piedi con 2 Salute.')
                 continue
-            if luogo_label.startswith('T6') and pannelli > 0:
-                pannelli -= 1
-                log(f'    [AZIONE] {n} disaccorda un pannello della conchiglia '
-                    f'({3 - pannelli}/3 sabotati).')
-                continue
             if luogo_label not in tessere_cercate:
                 tessere_cercate.add(luogo_label)
                 ok_cerca, _ = check(log, n, 'ACUME', h['acume'], 'Media')
@@ -1806,19 +1830,42 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
             log('    Gaspare e Rocco si liberano con Interagire (nessuna prova): si muovono col gruppo.')
             campanello_t5 = True  # Gaspare liberato: fallback della debolezza
             t5_rivelata = True
-        if tappa.startswith('T6') and custode is None:
-            # Vicino all'altare, non sulla soglia: "un altare circondato da
-            # candele nere" (testo del luogo) e' piu' fedele di piazzarlo
-            # esattamente sulla porta - e lascia la cella d'ingresso libera
-            # per gli eroi che arrivano, invece di essere gia' occupata da
-            # lui nello stesso istante in cui il gruppo mette piede in T6.
-            custode_spawn_pos = (2, 1) if (2, 1) not in _arredi('T6') else porta_attuale_pos
-            log(f'    Rivelata la Conchiglia: il Suggeritore con la scorta di Claque, '
-                f'in {chess(custode_spawn_pos)} — le lastre incise in rastrelliera.')
+        if tappa.startswith('T4') and 'ritorno' not in tappa and custode is None:
+            # RETROFIT varieta' (2026-07-18): il Suggeritore appare a meta'
+            # percorso, in fondo al corridoio, e da qui INCALZA il gruppo per
+            # tutta la discesa e la fuga. Non va abbattuto per vincere: il
+            # finale e' il sabotaggio dei pannelli + il rientro. Stesso
+            # pattern del risveglio via Canto: distanza da colmare, niente
+            # pos finche' non aggancia (fase_nemici).
+            round_custode_svegliato = None  # spawn di copione, non anticipo
+            log('    Rivelato il Corridoio: in fondo, la gobba china su un leggio che '
+                'non c’è — IL SUGGERITORE vi ha sentiti, e vi INCALZA.')
             c_fer = CUSTODE['fer'] + fer_bonus + custode_extra_fer
+            # pos reale nella tessera (e' in fondo al corridoio, non una
+            # tessera dietro): da qui in poi incalza per contatto, come la
+            # truppa — e' questa la pressione del retrofit.
+            c_pos = cella_libera_vicino(tile_id, (2, 1) if (2, 1) not in _arredi('T4')
+                                        else porta_attuale_pos, celle_occupate())
             custode = dict(CUSTODE, fer=c_fer, fer_max=c_fer, dan=CUSTODE['dan'] + dan_bonus,
-                            pos=custode_spawn_pos)
-            occupate_reveal = celle_occupate() | {custode_spawn_pos}
+                           pos=c_pos or porta_attuale_pos)
+            occ_t4 = celle_occupate() | {custode['pos']}
+            for _ in range(len(party) // 4):  # scorta: 1 Claque ogni 4 eroi PER DIFETTO (stampata su T4)
+                if pool['LA CLAQUE'] <= 0:
+                    break
+                pool['LA CLAQUE'] -= 1
+                base = NEMICO['LA CLAQUE']
+                a_fer = base['fer'] + fer_bonus
+                libere = [c for c in _vicini(custode['pos'])
+                          if c not in occ_t4 and c not in _arredi('T4')]
+                a_pos = libere[0] if libere else porta_attuale_pos
+                occ_t4.add(a_pos)
+                enemies.append(dict(nome='LA CLAQUE', fer=a_fer, fer_max=a_fer,
+                                     dif=base['dif'], att=base['att'], dan=base['dan'] + dan_bonus,
+                                     mov=base['mov'], distanza=0, pos=a_pos))
+        if tappa.startswith('T6'):
+            log('    Rivelata la Conchiglia: le lastre incise in rastrelliera, la platea '
+                'di legno ASCOLTA.')
+            occupate_reveal = celle_occupate()
             if indagine.get('chi_confermato'):
                 log('    [VANTAGGIO D2] Alboni è stato fermato in camerino: la scorta di Claque non appare.')
             else:
@@ -1828,7 +1875,7 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
                     pool['LA CLAQUE'] -= 1
                     base = NEMICO['LA CLAQUE']
                     a_fer = base['fer'] + fer_bonus
-                    libere = [c for c in _vicini(custode_spawn_pos)
+                    libere = [c for c in _vicini((2, 1))
                               if c not in occupate_reveal and c not in _arredi('T6')]
                     a_pos = libere[0] if libere else porta_attuale_pos
                     occupate_reveal.add(a_pos)
@@ -1849,48 +1896,38 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
             esito = 'TIMEOUT (30 round, simulazione interrotta)'
             break
 
-    if esito is None and custode and custode['fer'] > 0:
-        log('--- Combattimento contro il Suggeritore ---')
-        while custode['fer'] > 0 and vivi():
-            round_n += 1
-            attivati_extra.clear()
-            log(f'--- Round {round_n}: scontro nella Conchiglia ---')
-            log_azioni_round()
-            fase_eroi('T6')
-            fase_minaccia()
-            fase_nemici('T6', False)
-            tick_canto()
-            max_down_simultanei = max(max_down_simultanei, len(down))
-            if not vivi():
-                esito = 'SCONFITTA (party wipe)'
-                break
-            if round_n > 30:
-                esito = 'TIMEOUT (30 round)'
-                break
-
-    if esito is None and pannelli > 0 and vivi():
-        # A boss abbattuto (o mai destato) la Conchiglia e' del gruppo: i
-        # pannelli restanti si disaccordano in un giro di bonifica (le
-        # azioni ci sono; costa 1 round di orologio, col Canto che corre).
+    # RETROFIT varieta' (2026-07-18): niente scontro obbligatorio col
+    # Suggeritore — si resta nella Conchiglia solo finche' i pannelli non
+    # sono tutti disaccordati, poi si FUGGE (lui incalza nel rientro).
+    while esito is None and pannelli > 0 and vivi():
         round_n += 1
         attivati_extra.clear()
-        log(f'--- Round {round_n}: bonifica della Conchiglia ({pannelli} pannelli restanti) ---')
+        log(f'--- Round {round_n}: il sabotaggio continua ({pannelli} pannelli restanti) ---')
         log_azioni_round()
-        pannelli = 0
+        fase_eroi('T6')
         fase_minaccia()
         fase_nemici('T6', False)
         tick_canto()
+        max_down_simultanei = max(max_down_simultanei, len(down))
         if not vivi():
             esito = 'SCONFITTA (party wipe)'
+            break
+        if round_n > 30:
+            esito = 'TIMEOUT (30 round)'
+            break
+
     if esito is None:
         if not tobia_libero:
             log('    Il gruppo non ha mai raggiunto la fossa: si torna indietro a mani vuote.')
             esito = 'SCONFITTA (Gaspare e Rocco non liberati)'
-        log('--- Ritorno a T1 con Gaspare e Rocco (3 round di movimento, minacce ancora attive) ---')
-        for _ in range(3):
+        log('--- Ritorno a T1 con Gaspare e Rocco (3 round di progresso; col Suggeritore '
+            'ADIACENTE a fine round il gruppo resta agganciato e non avanza — seminatelo, '
+            'stordientelo col Libretto, o abbattetelo) ---')
+        progresso = 0
+        while progresso < 3:
             round_n += 1
             attivati_extra.clear()
-            log(f'--- Round {round_n}: rientro verso T1 ---')
+            log(f'--- Round {round_n}: rientro verso T1 ({progresso}/3) ---')
             log_azioni_round()
             fase_eroi('rientro')
             fase_minaccia()
@@ -1900,8 +1937,23 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
             if not vivi():
                 esito = 'SCONFITTA (party wipe durante il rientro)'
                 break
+            agganciato = (custode and custode['fer'] > 0 and custode.get('pos')
+                          and any(adiacenti(custode['pos'], pos[m]) for m in vivi()))
+            if agganciato and not custode_stunned:
+                log('    Il Suggeritore è ADDOSSO al gruppo: questo round non si avanza.')
+            else:
+                progresso += 1
+            if round_n > 30:
+                esito = 'TIMEOUT (30 round: il Suggeritore non molla la presa)'
+                break
         if esito is None:
-            esito = 'VITTORIA'
+            if pannelli > 0:
+                # fuga coi prigionieri ma conchiglia intatta: registra comunque
+                conchiglia_registra[0] = True
+            if conchiglia_registra[0]:
+                esito = 'VITTORIA PARZIALE (la conchiglia ha registrato: epilogo peggiore)'
+            else:
+                esito = 'VITTORIA'
 
     azioni_media = sum(azioni_per_round) / len(azioni_per_round) if azioni_per_round else 0
     azioni_max = max(azioni_per_round) if azioni_per_round else 0
@@ -1913,7 +1965,7 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
         f'picco {azioni_max}')
     log(f'Mazzo Minaccia rimescolato: {rimescolamenti_mazzo} volta/e')
     log(f'Segnalini nemici esauriti nel pool (piazzamenti saltati): {pool_esauriti_totale}')
-    log(f'Suggeritore svegliato: {"in anticipo al round " + str(round_custode_svegliato) if round_custode_svegliato else "solo a T6 (mai in anticipo via Canto)"}')
+    log(f'Suggeritore svegliato: {"in anticipo al round " + str(round_custode_svegliato) if round_custode_svegliato else "di copione, alla rivelazione di T4 (mai in anticipo via Canto)"}')
     for n in party:
         stato = 'a terra' if n in down else f'{max(salute[n], 0)}/{salute_max[n]} Salute'
         log(f'  {n}: {stato}')

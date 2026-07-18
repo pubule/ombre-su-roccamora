@@ -1,0 +1,387 @@
+Run: ep4-05_p2_seed0  |  seed=646200  |  formula Minaccia=finale_v3  |  generato: 2026-07-18T15:24:34
+==============================================================================
+SPEDIZIONE - Il sottopalco del Comunale (a gala in corso)
+==============================================================================
+Party: CARLA DOSTI, MORA “SPILLA” FANTI, NINO “GRIMALDELLO” CAUTO, PADRE CELSO MARANI, SIBILLA REVE
+Bonus da Indagine: PREPARATI (+1 Salute massima a testa); Libretto: sì; Pianta: sì; D1: esatta; D3: esatta
+NOTA: gruppo trattato come blocco unico tessera per tessera (vedi intestazione script).
+
+Gettone Intuizione in mano (Dossier completo): un ri-tiro, una volta in Spedizione.
+--- Round 1: il gruppo raggiunge T2 (Magazzino delle Scene) ---
+    (azioni nominali questo round: 10 — 5 eroi vivi)
+    Il gruppo entra in T2 da B1.
+    [PROVA ACUME] CARLA DOSTI: 2d6(2,4)=6 +ACUME(3) = 9 vs Media(9) -> SUCCESSO
+    CARLA DOSTI cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    MORA “SPILLA” FANTI: nessun bersaglio, avanza / assiste il gruppo.
+    NINO “GRIMALDELLO” CAUTO: nessun bersaglio, avanza / assiste il gruppo.
+    PADRE CELSO MARANI: nessun bersaglio, avanza / assiste il gruppo.
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] IL CAMBIO SCENA (quiete) — Nessun effetto (tensione).
+    (carta senza effetto modellato in questa simulazione)
+  [MINACCIA] LA PORTA DELLA PLATEA (posseduto) — Piazzate 1 Adepto sull’ingresso della Quinta di Carico (T1).
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 3), a 6 caselle dalla tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+--- Round 2: il gruppo raggiunge T3 (Sala dei Contrappesi) ---
+    (azioni nominali questo round: 10 — 5 eroi vivi)
+    Il gruppo entra in T3 da B1.
+    [OGGETTO] LA PIANTA DELLE MACCHINE: sapete dove NON stare — nessuna prova.
+    [PROVA ACUME] CARLA DOSTI: 2d6(1,6)=7 +ACUME(3) = 10 vs Media(9) -> SUCCESSO
+    CARLA DOSTI cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    MORA “SPILLA” FANTI: nessun bersaglio, avanza / assiste il gruppo.
+    NINO “GRIMALDELLO” CAUTO: nessun bersaglio, avanza / assiste il gruppo.
+    PADRE CELSO MARANI: nessun bersaglio, avanza / assiste il gruppo.
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] IL SERVIZIO D’ORDINE (malavita) — Piazzate 1 Sicario: si attiva subito.
+    Piazzati 1x IL SICARIO (pool residua: 0) in C1.
+    IL SICARIO si attiva subito:
+  IL SICARIO si muove verso CARLA DOSTI: C1 -> B2.
+  IL SICARIO attacca CARLA DOSTI:
+    [ATTACCO NEMICO] IL SICARIO -> CARLA DOSTI: 2d6(4,5)=9 +Attacco(3) = 12 vs Difesa(8) -> COLPITO
+    CARLA DOSTI subisce 2 danno da IL SICARIO (Salute: 5/7).
+  [MINACCIA] IL BUIO DI QUINTA (insidia) — L’eroe più avanzato prova NERVI (Media): se fallisce, 1 danno.
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(4,3)=7 +NERVI(1) = 8 vs Media(9) -> FALLITA
+    [SECONDO FIATO] MORA “SPILLA” FANTI ritenta la prova (unico ritento dell’episodio):
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(4,3)=7 +NERVI(1) = 8 vs Media(9) -> FALLITA
+    MORA “SPILLA” FANTI subisce 1 danno da IL BUIO DI QUINTA (Salute: 7/8).
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+--- Round 3: il gruppo raggiunge T4 (Corridoio dei Camerini Morti) ---
+    (azioni nominali questo round: 10 — 5 eroi vivi)
+    Il gruppo entra in T4 da B1.
+    QUANDO RIVELATE: 1 Adepto sta calando dalla corda della Confluenza.
+    Rivelato il Corridoio: in fondo, la gobba china su un leggio che non c’è — IL SUGGERITORE vi ha sentiti, e vi INCALZA.
+    [OGGETTO] CARLA DOSTI mostra IL LIBRETTO DI GASPARE: l’eco riconosce la voce vera del suo posto — Difesa 8->5, salta la prossima attivazione.
+    MORA “SPILLA” FANTI si muove verso IL SUGGERITORE: B1 -> C1.
+    [ATTACCO] MORA “SPILLA” FANTI -> IL SUGGERITORE: 2d6(2,4)=6 +VIGORE(2)+arma(1) = 9 vs Difesa(5) -> COLPITO
+    IL SUGGERITORE: 3/4 ferite residue.
+    NINO “GRIMALDELLO” CAUTO si muove verso ADEPTO INCAPPUCCIATO: B1 -> B3.
+    NINO “GRIMALDELLO” CAUTO si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    PADRE CELSO MARANI si muove verso ADEPTO INCAPPUCCIATO: B1 -> A3.
+    PADRE CELSO MARANI si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    [PROVA ACUME] SIBILLA REVE: 2d6(1,2)=3 +ACUME(2) = 5 vs Media(9) -> FALLITA
+    SIBILLA REVE cerca sulla tessera: niente da trovare qui, o prova fallita.
+    [ABILITÀ] SIBILLA REVE scruta il mazzo: «L’OUVERTURE» finisce in fondo, «L’ACUTO» torna in cima (2 usi residui).
+  [MINACCIA] L’ACUTO (insidia) — L’eroe con meno NERVI prova NERVI (Media): se fallisce 1 danno.
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(2,3)=5 +NERVI(1) = 6 vs Media(9) -> FALLITA
+    MORA “SPILLA” FANTI subisce 1 danno da L’ACUTO (Salute: 6/8).
+  [MINACCIA] I FACCHINI DEL CARICO (posseduto) — Piazzate 1 Adepto sull’ingresso della Quinta di Carico (T1).
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 1), a 6 caselle dalla tessera del gruppo.
+  [MINACCIA] IL GIRO DELLE POLTRONE (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 1) in B1.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+  IL SICARIO attacca NINO “GRIMALDELLO” CAUTO:
+    [ATTACCO NEMICO] IL SICARIO -> NINO “GRIMALDELLO” CAUTO: 2d6(6,2)=8 +Attacco(3) = 11 vs Difesa(8) -> COLPITO
+    NINO “GRIMALDELLO” CAUTO subisce 2 danno da IL SICARIO (Salute: 6/8).
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  LA CLAQUE si muove verso MORA “SPILLA” FANTI: D2 -> D1.
+  LA CLAQUE attacca MORA “SPILLA” FANTI:
+    [ATTACCO NEMICO] LA CLAQUE -> MORA “SPILLA” FANTI: 2d6(3,1)=4 +Attacco(1) = 5 vs Difesa(8) -> MANCATO
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si muove verso PADRE CELSO MARANI: B1 -> A2.
+  LO SGHERRO attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] LO SGHERRO -> PADRE CELSO MARANI: 2d6(6,2)=8 +Attacco(2) = 10 vs Difesa(8) -> COLPITO
+    PADRE CELSO MARANI subisce 1 danno da LO SGHERRO (Salute: 6/7).
+  IL SUGGERITORE salta l’attivazione (stonato).
+--- Round 4: il gruppo raggiunge T5 (Fossa del Contrappeso Morto) ---
+    (azioni nominali questo round: 10 — 5 eroi vivi)
+    Il gruppo entra in T5 da A3.
+    QUANDO RIVELATE: 1 Adepto di guardia appare tra le funi della fossa.
+    Gaspare e Rocco si liberano con Interagire (nessuna prova): si muovono col gruppo.
+    [ABILITÀ] CARLA DOSTI usa Flash! su IL SICARIO: accecato, salta la sua prossima attivazione (1 usi residui).
+    [ATTACCO] MORA “SPILLA” FANTI -> ADEPTO INCAPPUCCIATO: 2d6(4,1)=5 +VIGORE(2)+arma(1) = 8 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> LO SGHERRO: 2d6(4,3)=7 +VIGORE(2)+arma(1) = 10 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    [ATTACCO] PADRE CELSO MARANI -> LO SGHERRO: 2d6(5,5)=10 +VIGORE(1)+arma(1) = 12 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+    SIBILLA REVE si muove verso IL SICARIO: A3 -> A2.
+    [ATTACCO] SIBILLA REVE -> IL SICARIO: 2d6(4,4)=8 +VIGORE(1)+arma(1) = 10 vs Difesa(7) -> COLPITO
+    IL SICARIO: 0/1 ferite residue.
+    IL SICARIO è ABBATTUTO.
+    [ABILITÀ] SIBILLA REVE scruta il mazzo: «L’ARIA SI AVVICINA» finisce in fondo, «L’APPLAUSO A COMANDO» torna in cima (1 usi residui).
+  [MINACCIA] L’APPLAUSO A COMANDO (posseduto) — Piazzate 1 Claque sull’uscita più vicina agli eroi.
+    Piazzati 1x LA CLAQUE (pool residua: 1) in A3.
+  [MINACCIA] UNO SPIRAGLIO DI SIPARIO (favore) — Rivelate una tessera coperta adiacente.
+    (carta senza effetto modellato in questa simulazione)
+  [MINACCIA] LE FUNI CALATE (ostacolo) — Muoversi costa il doppio sulla tessera dell’eroe attivo fino a fine round.
+    (carta senza effetto modellato in questa simulazione)
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si muove verso PADRE CELSO MARANI: D3 -> B3.
+  ADEPTO INCAPPUCCIATO attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> PADRE CELSO MARANI: 2d6(2,5)=7 +Attacco(1) = 8 vs Difesa(8) -> COLPITO
+    PADRE CELSO MARANI subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 5/7).
+  LA CLAQUE si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  LA CLAQUE attacca SIBILLA REVE:
+    [ATTACCO NEMICO] LA CLAQUE -> SIBILLA REVE: 2d6(2,6)=8 +Attacco(1) = 9 vs Difesa(8) -> COLPITO
+    SIBILLA REVE subisce 1 danno da LA CLAQUE (Salute: 6/7).
+  IL SUGGERITORE si avvicina, non ancora a contatto.
+  [OROLOGIO] Fine del 4° round: +1 segnalino Canto automatico.
+    Segnalino Canto: 1.
+--- Round 5: il gruppo raggiunge T4 (Corridoio - ritorno dal ramo) ---
+    (azioni nominali questo round: 10 — 5 eroi vivi)
+    Il gruppo entra in T4 da D3.
+    [ABILITÀ] CARLA DOSTI usa Flash! su IL SUGGERITORE: accecato, salta la sua prossima attivazione (0 usi residui).
+    MORA “SPILLA” FANTI si muove verso LA CLAQUE: D3 -> D2.
+    [ATTACCO] MORA “SPILLA” FANTI -> LA CLAQUE: 2d6(4,2)=6 +VIGORE(2)+arma(1) = 9 vs Difesa(6) -> COLPITO
+    LA CLAQUE: 0/1 ferite residue.
+    LA CLAQUE è ABBATTUTO.
+    NINO “GRIMALDELLO” CAUTO si muove verso ADEPTO INCAPPUCCIATO: D3 -> B4.
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> ADEPTO INCAPPUCCIATO: 2d6(4,4)=8 +VIGORE(2)+arma(1) = 11 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    [PROVA ACUME] PADRE CELSO MARANI: 2d6(5,6)=11 +ACUME(2) = 13 vs Media(9) -> SUCCESSO
+    PADRE CELSO MARANI cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+    [ABILITÀ] SIBILLA REVE scruta il mazzo: «IL SECONDO ATTO» finisce in fondo, «PASSI IN PLATEA» torna in cima (0 usi residui).
+  [MINACCIA] PASSI IN PLATEA (posseduto) — Piazzate 1 Adepto sull’ingresso della Quinta di Carico (T1).
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 1), a 6 caselle dalla tessera del gruppo.
+  [MINACCIA] IL CONTRAPPESO CHE CHIAMA (insidia) — L’eroe attivo prova NERVI (Media): se fallisce, 1 danno e perde 1 azione.
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(6,4)=10 +NERVI(1) = 11 vs Media(9) -> SUCCESSO
+  [MINACCIA] IL RITIRO DELLE LASTRE (posseduto) — Piazzate 1 Adepto sull’ingresso della Conchiglia (T6).
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 0), a 6 caselle dalla tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 1 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+  LA CLAQUE si muove verso MORA “SPILLA” FANTI: A3 -> B1.
+  LA CLAQUE si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+  IL SUGGERITORE salta l’attivazione (Flash! di Carla).
+--- Round 6: il gruppo raggiunge T6 (La Conchiglia) ---
+    (azioni nominali questo round: 10 — 5 eroi vivi)
+    Il gruppo entra in T6 da B1.
+    Rivelata la Conchiglia: le lastre incise in rastrelliera, la platea di legno ASCOLTA.
+    [VANTAGGIO D2] Alboni è stato fermato in camerino: la scorta di Claque non appare.
+    [AZIONE] CARLA DOSTI disaccorda un pannello della conchiglia (1/3 sabotati).
+    [AZIONE] MORA “SPILLA” FANTI disaccorda un pannello della conchiglia (2/3 sabotati).
+    [AZIONE] NINO “GRIMALDELLO” CAUTO disaccorda un pannello della conchiglia (3/3 sabotati).
+    PADRE CELSO MARANI si muove verso IL SUGGERITORE: B1 -> B2.
+    [ATTACCO] PADRE CELSO MARANI -> LA CLAQUE: 2d6(3,1)=4 +VIGORE(1)+arma(1) = 6 vs Difesa(6) -> COLPITO
+    LA CLAQUE: 0/1 ferite residue.
+    LA CLAQUE è ABBATTUTO.
+    SIBILLA REVE si muove verso IL SUGGERITORE: B1 -> C1.
+    [ATTACCO] SIBILLA REVE -> IL SUGGERITORE: 2d6(3,5)=8 +VIGORE(1)+arma(1) = 10 vs Difesa(5) -> COLPITO
+    IL SUGGERITORE: 2/4 ferite residue.
+  [MINACCIA] IL BATTIMANI (posseduto) — Piazzate 1 Claque sull’uscita più vicina agli eroi.
+    Piazzati 1x LA CLAQUE (pool residua: 2) in B1.
+  [MINACCIA] LE MASCHERE DI SALA (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 1) in B1.
+  [MINACCIA] IL TEMPO BATTUTO (posseduto) — Piazzate 1 Claque. Se è già in gioco una Claque, si attiva subito.
+    Piazzati 1x LA CLAQUE (pool residua: 1) in B1.
+  ADEPTO INCAPPUCCIATO raggiunge la tessera del gruppo, da A1.
+  ADEPTO INCAPPUCCIATO attacca CARLA DOSTI:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> CARLA DOSTI: 2d6(3,4)=7 +Attacco(1) = 8 vs Difesa(8) -> COLPITO
+    CARLA DOSTI subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 4/7).
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  LA CLAQUE attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] LA CLAQUE -> PADRE CELSO MARANI: 2d6(3,6)=9 +Attacco(1) = 10 vs Difesa(8) -> COLPITO
+    PADRE CELSO MARANI subisce 1 danno da LA CLAQUE (Salute: 4/7).
+  LO SGHERRO attacca SIBILLA REVE:
+    [ATTACCO NEMICO] LO SGHERRO -> SIBILLA REVE: 2d6(6,2)=8 +Attacco(2) = 10 vs Difesa(8) -> COLPITO
+    SIBILLA REVE subisce 1 danno da LO SGHERRO (Salute: 5/7).
+  LA CLAQUE attacca SIBILLA REVE:
+    [ATTACCO NEMICO] LA CLAQUE -> SIBILLA REVE: 2d6(4,5)=9 +Attacco(1) = 10 vs Difesa(8) -> COLPITO
+    SIBILLA REVE subisce 1 danno da LA CLAQUE (Salute: 4/7).
+  IL SUGGERITORE si muove verso PADRE CELSO MARANI: C2 -> D4.
+  IL SUGGERITORE si avvicina, non ancora a contatto.
+--- Ritorno a T1 con Gaspare e Rocco (3 round di progresso; col Suggeritore ADIACENTE a fine round il gruppo resta agganciato e non avanza — seminatelo, stordientelo col Libretto, o abbattetelo) ---
+--- Round 7: rientro verso T1 (0/3) ---
+    (azioni nominali questo round: 10 — 5 eroi vivi)
+    [ATTACCO] CARLA DOSTI -> ADEPTO INCAPPUCCIATO: 2d6(3,1)=4 +VIGORE(1)+arma(1) = 6 vs Difesa(7) -> MANCATO
+    [ATTACCO] MORA “SPILLA” FANTI -> ADEPTO INCAPPUCCIATO: 2d6(5,4)=9 +VIGORE(2)+arma(1) = 12 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    NINO “GRIMALDELLO” CAUTO si muove verso IL SUGGERITORE: B1 -> B3.
+    NINO “GRIMALDELLO” CAUTO si avvicina a IL SUGGERITORE, non ancora a contatto.
+    PADRE CELSO MARANI si muove verso LA CLAQUE: B2 -> A1.
+    [ATTACCO] PADRE CELSO MARANI -> LA CLAQUE: 2d6(3,6)=9 +VIGORE(1)+arma(1) = 11 vs Difesa(6) -> COLPITO
+    LA CLAQUE: 0/1 ferite residue.
+    LA CLAQUE è ABBATTUTO.
+    SIBILLA REVE si muove verso LA CLAQUE: C1 -> B2.
+    [ATTACCO] SIBILLA REVE -> LA CLAQUE: 2d6(6,6)=12 +VIGORE(1)+arma(1) = 14 vs Difesa(6) -> COLPITO
+    LA CLAQUE: 0/1 ferite residue.
+    LA CLAQUE è ABBATTUTO.
+  [MINACCIA] L’APPLAUSO CHE COPRE (insidia) — Ogni eroe prova NERVI (Facile): chi fallisce ha 1 sola azione al prossimo turno.
+    [PROVA NERVI] CARLA DOSTI: 2d6(5,3)=8 +NERVI(2) = 10 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(6,2)=8 +NERVI(1) = 9 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6(2,1)=3 +NERVI(1) = 4 vs Facile(7) -> FALLITA
+    [SECONDO FIATO] NINO “GRIMALDELLO” CAUTO ritenta la prova (unico ritento dell’episodio):
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6(3,5)=8 +NERVI(1) = 9 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] PADRE CELSO MARANI: 2d6(6,2)=8 +NERVI(3) = 11 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] SIBILLA REVE: 2d6(3,6)=9 +NERVI(3) = 12 vs Facile(7) -> SUCCESSO
+  [MINACCIA] LE CASSE DI CANDELE (posseduto) — Piazzate 1 Adepto sull’ingresso della Quinta di Carico (T1).
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 0), a 6 caselle dalla tessera del gruppo.
+  [MINACCIA] L’OUVERTURE (crescendo) — Aggiungete 1 segnalino Canto. Alla soglia: il Suggeritore si desta.
+    Segnalino Canto: 2.
+    Il Suggeritore recupera 1 ferita (3/4) e si attiva subito.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 1 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si muove verso SIBILLA REVE: B1 -> C2.
+  LO SGHERRO attacca SIBILLA REVE:
+    [ATTACCO NEMICO] LO SGHERRO -> SIBILLA REVE: 2d6(5,4)=9 +Attacco(2) = 11 vs Difesa(8) -> COLPITO
+    SIBILLA REVE subisce 1 danno da LO SGHERRO (Salute: 3/7).
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+  IL SUGGERITORE si muove verso SIBILLA REVE: D4 -> A4.
+  IL SUGGERITORE si avvicina, non ancora a contatto.
+--- Round 8: rientro verso T1 (1/3) ---
+    (azioni nominali questo round: 10 — 5 eroi vivi)
+    CARLA DOSTI si muove verso LO SGHERRO: B1 -> C1.
+    [ATTACCO] CARLA DOSTI -> LO SGHERRO: 2d6(6,3)=9 +VIGORE(1)+arma(1) = 11 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    [PROVA ACUME] MORA “SPILLA” FANTI: 2d6(6,3)=9 +ACUME(3) = 12 vs Media(9) -> SUCCESSO
+    MORA “SPILLA” FANTI cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    NINO “GRIMALDELLO” CAUTO si muove verso IL SUGGERITORE: B3 -> B4.
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> IL SUGGERITORE: 2d6(1,4)=5 +VIGORE(2)+arma(1) = 8 vs Difesa(5) -> COLPITO
+    IL SUGGERITORE: 2/4 ferite residue.
+    PADRE CELSO MARANI si muove verso IL SUGGERITORE: A1 -> A3.
+    [ATTACCO] PADRE CELSO MARANI -> IL SUGGERITORE: 2d6(1,3)=4 +VIGORE(1)+arma(1) = 6 vs Difesa(5) -> COLPITO
+    IL SUGGERITORE: 1/4 ferite residue.
+    [ATTACCO] SIBILLA REVE -> LO SGHERRO: 2d6(3,4)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+  [MINACCIA] L’ARIA SI AVVICINA (crescendo) — Aggiungete 1 segnalino Canto. Alla soglia: il Suggeritore si desta.
+    Segnalino Canto: 3.
+    Il Canto raggiunge 3: da ora ogni Fase Minaccia pesca 1 carta in più (fino a fine spedizione, anche se il Custode è già stato abbattuto).
+    Il Suggeritore recupera 1 ferita (2/4) e si attiva subito.
+  [MINACCIA] IL SECONDO ATTO (crescendo) — Aggiungete 1 segnalino Canto. Alla soglia: il Suggeritore si desta.
+    Segnalino Canto: 4.
+    Il Suggeritore recupera 1 ferita (3/4) e si attiva subito.
+    Mazzo Minaccia esaurito: si rimescolano gli scarti.
+  [MINACCIA] L’OUVERTURE (crescendo) — Aggiungete 1 segnalino Canto. Alla soglia: il Suggeritore si desta.
+    Segnalino Canto: 5.
+    Il Suggeritore recupera 1 ferita (4/4) e si attiva subito.
+  ADEPTO INCAPPUCCIATO raggiunge la tessera del gruppo, da A1.
+  ADEPTO INCAPPUCCIATO attacca MORA “SPILLA” FANTI:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> MORA “SPILLA” FANTI: 2d6(2,2)=4 +Attacco(1) = 5 vs Difesa(8) -> MANCATO
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  IL SUGGERITORE attacca NINO “GRIMALDELLO” CAUTO:
+    [ATTACCO NEMICO] IL SUGGERITORE -> NINO “GRIMALDELLO” CAUTO: 2d6(2,2)=4 +Attacco(3) = 7 vs Difesa(8) -> MANCATO
+  [OROLOGIO] Fine del 8° round: +1 segnalino Canto automatico.
+    Segnalino Canto: 6.
+    Il Suggeritore è ADDOSSO al gruppo: questo round non si avanza.
+--- Round 9: rientro verso T1 (1/3) ---
+    (azioni nominali questo round: 10 — 5 eroi vivi)
+    CARLA DOSTI: nessun bersaglio, avanza / assiste il gruppo.
+    [ATTACCO] MORA “SPILLA” FANTI -> ADEPTO INCAPPUCCIATO: 2d6(6,1)=7 +VIGORE(2)+arma(1) = 10 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> IL SUGGERITORE: 2d6(2,1)=3 +VIGORE(2)+arma(1) = 6 vs Difesa(5) -> COLPITO
+    IL SUGGERITORE: 3/4 ferite residue.
+    [ATTACCO] PADRE CELSO MARANI -> IL SUGGERITORE: 2d6(1,4)=5 +VIGORE(1)+arma(1) = 7 vs Difesa(5) -> COLPITO
+    IL SUGGERITORE: 2/4 ferite residue.
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] LE CASSE DI CANDELE (posseduto) — Piazzate 1 Adepto sull’ingresso della Quinta di Carico (T1).
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 0), a 6 caselle dalla tessera del gruppo.
+  [MINACCIA] LE FUNI CALATE (ostacolo) — Muoversi costa il doppio sulla tessera dell’eroe attivo fino a fine round.
+    (carta senza effetto modellato in questa simulazione)
+  [MINACCIA] IL TEMPO BATTUTO (posseduto) — Piazzate 1 Claque. Se è già in gioco una Claque, si attiva subito.
+    Piazzati 1x LA CLAQUE (pool residua: 2) in B1.
+  [MINACCIA] LA PORTA DELLA PLATEA (posseduto) — Piazzate 1 Adepto sull’ingresso della Quinta di Carico (T1).
+    Segnalini ADEPTO INCAPPUCCIATO esauriti: il piazzamento non ha luogo (resto della carta si applica comunque).
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 1 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 1 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+  LA CLAQUE si muove verso PADRE CELSO MARANI: B1 -> A2.
+  LA CLAQUE attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] LA CLAQUE -> PADRE CELSO MARANI: 2d6(4,3)=7 +Attacco(1) = 8 vs Difesa(8) -> COLPITO
+    PADRE CELSO MARANI subisce 1 danno da LA CLAQUE (Salute: 3/7).
+  IL SUGGERITORE attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] IL SUGGERITORE -> PADRE CELSO MARANI: 2d6(5,2)=7 +Attacco(3) = 10 vs Difesa(8) -> COLPITO
+    PADRE CELSO MARANI subisce 2 danno da IL SUGGERITORE (Salute: 1/7).
+    [PROVA NERVI] PADRE CELSO MARANI: 2d6(3,6)=9 +NERVI(3) +aura Claque(-1) = 11 vs Facile(7) -> SUCCESSO
+    Il Suggeritore è ADDOSSO al gruppo: questo round non si avanza.
+--- Round 10: rientro verso T1 (1/3) ---
+    (azioni nominali questo round: 10 — 5 eroi vivi)
+    CARLA DOSTI: nessun bersaglio, avanza / assiste il gruppo.
+    MORA “SPILLA” FANTI si muove verso LA CLAQUE: B1 -> A1.
+    [ATTACCO] MORA “SPILLA” FANTI -> LA CLAQUE: 2d6(5,2)=7 +VIGORE(2)+arma(1) = 10 vs Difesa(6) -> COLPITO
+    LA CLAQUE: 0/1 ferite residue.
+    LA CLAQUE è ABBATTUTO.
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> IL SUGGERITORE: 2d6(3,6)=9 +VIGORE(2)+arma(1) = 12 vs Difesa(5) -> COLPITO
+    IL SUGGERITORE: 1/4 ferite residue.
+    [ATTACCO] PADRE CELSO MARANI -> IL SUGGERITORE: 2d6(5,2)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(5) -> COLPITO
+    IL SUGGERITORE: 0/4 ferite residue.
+    IL SUGGERITORE è ABBATTUTO.
+    *** IL SUGGERITORE È SCONFITTO. ***
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] LE MASCHERE DI SALA (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 1) in B1.
+  [MINACCIA] IL RITIRO DELLE LASTRE (posseduto) — Piazzate 1 Adepto sull’ingresso della Conchiglia (T6).
+    Segnalini ADEPTO INCAPPUCCIATO esauriti: il piazzamento non ha luogo (resto della carta si applica comunque).
+  [MINACCIA] IL SECONDO ATTO (crescendo) — Aggiungete 1 segnalino Canto. Alla soglia: il Suggeritore si desta.
+    Segnalino Canto: 7.
+    Il Suggeritore è già stato sconfitto: nessun effetto su di lui.
+  ADEPTO INCAPPUCCIATO raggiunge la tessera del gruppo, da D1.
+  ADEPTO INCAPPUCCIATO attacca CARLA DOSTI:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> CARLA DOSTI: 2d6(5,5)=10 +Attacco(1) = 11 vs Difesa(8) -> COLPITO
+    CARLA DOSTI subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 3/7).
+  ADEPTO INCAPPUCCIATO raggiunge la tessera del gruppo, da C2.
+  ADEPTO INCAPPUCCIATO si muove verso NINO “GRIMALDELLO” CAUTO: C2 -> C4.
+  ADEPTO INCAPPUCCIATO attacca NINO “GRIMALDELLO” CAUTO:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> NINO “GRIMALDELLO” CAUTO: 2d6(2,1)=3 +Attacco(1) = 4 vs Difesa(8) -> MANCATO
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO attacca CARLA DOSTI:
+    [ATTACCO NEMICO] LO SGHERRO -> CARLA DOSTI: 2d6(1,2)=3 +Attacco(2) = 5 vs Difesa(8) -> MANCATO
+--- Round 11: rientro verso T1 (2/3) ---
+    (azioni nominali questo round: 10 — 5 eroi vivi)
+    CARLA DOSTI si muove verso ADEPTO INCAPPUCCIATO: C1 -> D2.
+    [ATTACCO] CARLA DOSTI -> ADEPTO INCAPPUCCIATO: 2d6(1,6)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    [ATTACCO] MORA “SPILLA” FANTI -> LO SGHERRO: 2d6(3,2)=5 +VIGORE(2)+arma(1) = 8 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> ADEPTO INCAPPUCCIATO: 2d6(2,4)=6 +VIGORE(2)+arma(1) = 9 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    PADRE CELSO MARANI: nessun bersaglio, avanza / assiste il gruppo.
+    SIBILLA REVE si muove verso LO SGHERRO: B2 -> C1.
+    [ATTACCO] SIBILLA REVE -> LO SGHERRO: 2d6(6,4)=10 +VIGORE(1)+arma(1) = 12 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+  [MINACCIA] I FACCHINI DEL CARICO (posseduto) — Piazzate 1 Adepto sull’ingresso della Quinta di Carico (T1).
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 1), a 6 caselle dalla tessera del gruppo.
+  [MINACCIA] L’APPLAUSO A COMANDO (posseduto) — Piazzate 1 Claque sull’uscita più vicina agli eroi.
+    Piazzati 1x LA CLAQUE (pool residua: 2) in B1.
+  [MINACCIA] L’APPLAUSO CHE COPRE (insidia) — Ogni eroe prova NERVI (Facile): chi fallisce ha 1 sola azione al prossimo turno.
+    [PROVA NERVI] CARLA DOSTI: 2d6(1,1)=2 +NERVI(2) = 4 vs Facile(7) -> FALLITA
+    CARLA DOSTI avrà 1 sola azione al suo prossimo turno.
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(4,3)=7 +NERVI(1) +con aura Claque(-1) = 7 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6(1,2)=3 +NERVI(1) = 4 vs Facile(7) -> FALLITA
+    NINO “GRIMALDELLO” CAUTO avrà 1 sola azione al suo prossimo turno.
+    [PROVA NERVI] PADRE CELSO MARANI: 2d6(1,2)=3 +NERVI(3) = 6 vs Facile(7) -> FALLITA
+    [SECONDO FIATO] PADRE CELSO MARANI ritenta la prova (unico ritento dell’episodio):
+    [PROVA NERVI] PADRE CELSO MARANI: 2d6(6,5)=11 +NERVI(3) = 14 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] SIBILLA REVE: 2d6(2,2)=4 +NERVI(3) +con aura Claque(-1) = 6 vs Facile(7) -> FALLITA
+    [SECONDO FIATO] SIBILLA REVE ritenta la prova (unico ritento dell’episodio):
+    [PROVA NERVI] SIBILLA REVE: 2d6(1,1)=2 +NERVI(3) +Voce ferma di None(-1) = 4 vs Facile(7) -> FALLITA
+    SIBILLA REVE avrà 1 sola azione al suo prossimo turno.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 1 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+  LA CLAQUE si muove verso SIBILLA REVE: B1 -> C2.
+  LA CLAQUE attacca SIBILLA REVE:
+    [ATTACCO NEMICO] LA CLAQUE -> SIBILLA REVE: 2d6(3,4)=7 +Attacco(1) = 8 vs Difesa(8) -> COLPITO
+    SIBILLA REVE subisce 1 danno da LA CLAQUE (Salute: 2/7).
+
+==============================================================================
+ESITO SPEDIZIONE: VITTORIA
+Round totali: 11
+Formula Minaccia: finale_v3 | Azioni nominali/round: media 10.0, picco 10
+Mazzo Minaccia rimescolato: 1 volta/e
+Segnalini nemici esauriti nel pool (piazzamenti saltati): 2
+Suggeritore svegliato: di copione, alla rivelazione di T4 (mai in anticipo via Canto)
+  CARLA DOSTI: 3/7 Salute
+  MORA “SPILLA” FANTI: 6/8 Salute
+  NINO “GRIMALDELLO” CAUTO: 6/8 Salute
+  PADRE CELSO MARANI: 1/7 Salute
+  SIBILLA REVE: 2/7 Salute
+==============================================================================
+Pannelli della conchiglia disaccordati: 3/3
