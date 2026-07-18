@@ -236,3 +236,13 @@ Bivio Ep. 5.
 - Fase E: webapp + 2 scenari test-partite; suite verde. Al termine:
   CHECKPOINT DI FINE ATTO — il loop si ferma e chiede conferma all'utente
   prima di aprire l'Atto II.
+
+## Varietà indagine (2026-07-18) — 5ª Domanda via reperto
+
+Bonus di deduzione: il Diario di Ferri (Reperto A, L5) + la Pianta della
+Camera (Reperto B, L7) rivelano che le tre sale sono valvole e l'ordine di
+spegnimento (bronzo, pietra, ossa). Con entrambi i reperti si affronta la
+Camera con più margine: le soglie ambiente del Dormiente salgono di 1
+(4/6/9 → 5/7/10). Simulatore: flag `quinta_domanda_ok` (L5 e L7 visitati) →
+`dorm_off=1` sulle tre soglie. Curva v3 invariata (finale fuori scala: 2:16,
+3-10 80-89).

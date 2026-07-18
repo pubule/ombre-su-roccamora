@@ -1,0 +1,523 @@
+Run: ep6-07_p2_seed0  |  seed=668200  |  formula Minaccia=finale_v3  |  generato: 2026-07-18T21:08:20
+==============================================================================
+SPEDIZIONE - Le Tre Acque, sotto la Cattedrale (finale d’atto)
+==============================================================================
+Party: DOTT. ATTILIO MARN, ELENA FOSCO, FULGENZIO CARBONE, MORA “SPILLA” FANTI, NINO “GRIMALDELLO” CAUTO, OTTAVIO BRERA, PADRE CELSO MARANI
+Bonus da Indagine: PREPARATI (+1 Salute massima a testa); Formula: sì; Lanterna: sì; D1: esatta; D3: esatta
+NOTA: gruppo trattato come blocco unico tessera per tessera (vedi intestazione script).
+
+Gettone Intuizione in mano (Dossier completo): un ri-tiro, una volta in Spedizione.
+--- Round 1: il gruppo raggiunge T2 (Galleria di Marea) ---
+    (azioni nominali questo round: 14 — 7 eroi vivi)
+    Il gruppo entra in T2 da B1.
+    [PROVA ACUME] DOTT. ATTILIO MARN: 2d6(2,1)=3 +ACUME(2) = 5 vs Media(9) -> FALLITA
+    DOTT. ATTILIO MARN cerca sulla tessera: niente da trovare qui, o prova fallita.
+    ELENA FOSCO: nessun bersaglio, avanza / assiste il gruppo.
+    FULGENZIO CARBONE: nessun bersaglio, avanza / assiste il gruppo.
+    MORA “SPILLA” FANTI: nessun bersaglio, avanza / assiste il gruppo.
+    NINO “GRIMALDELLO” CAUTO: nessun bersaglio, avanza / assiste il gruppo.
+    OTTAVIO BRERA: nessun bersaglio, avanza / assiste il gruppo.
+    PADRE CELSO MARANI: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] IL PELLEGRINAGGIO (posseduto) — Piazzate 1 Adepto sull’uscita più vicina agli eroi.
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 3) in B1.
+  [MINACCIA] LA CORRENTE AMICA (favore) — Rivelate una tessera coperta adiacente.
+    (carta senza effetto modellato in questa simulazione)
+  ADEPTO INCAPPUCCIATO si muove verso ELENA FOSCO: B1 -> C1.
+  ADEPTO INCAPPUCCIATO attacca ELENA FOSCO:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> ELENA FOSCO: 2d6(4,5)=9 +Attacco(1) = 10 vs Difesa(8) -> COLPITO
+    ELENA FOSCO subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 6/7).
+--- Round 2: il gruppo raggiunge T3 (Sala del Bronzo) ---
+    (azioni nominali questo round: 14 — 7 eroi vivi)
+    Il gruppo entra in T3 da B1.
+    QUANDO RIVELATE: 2 Adepti a guardia del bronzo.
+    [ABILITÀ] DOTT. ATTILIO MARN usa Pronto Soccorso su ELENA FOSCO -> Salute 7.
+    [PROVA VIGORE] ELENA FOSCO: 2d6(4,6)=10 +VIGORE(1) = 11 vs Media(9) -> SUCCESSO
+    [CARDINE] ELENA FOSCO spegne il bronzo (1/3 movimenti spenti — la Difesa di Ferri cala).
+    [ABILITÀ] FULGENZIO CARBONE usa Esca preziosa: ADEPTO INCAPPUCCIATO, ADEPTO INCAPPUCCIATO si dirige verso l’esca invece che verso il gruppo alla prossima attivazione.
+    [ATTACCO] MORA “SPILLA” FANTI -> ADEPTO INCAPPUCCIATO: 2d6(4,2)=6 +VIGORE(2)+arma(1) = 9 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    NINO “GRIMALDELLO” CAUTO si muove verso ADEPTO INCAPPUCCIATO: B1 -> D3.
+    NINO “GRIMALDELLO” CAUTO si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    [ABILITÀ] OTTAVIO BRERA usa Vi conosco, Malacarne su ADEPTO INCAPPUCCIATO: rimosso dal tabellone.
+    PADRE CELSO MARANI si muove verso ADEPTO INCAPPUCCIATO: B1 -> C2.
+    [ATTACCO] PADRE CELSO MARANI -> ADEPTO INCAPPUCCIATO: 2d6(1,1)=2 +VIGORE(1)+arma(1) = 4 vs Difesa(7) -> MANCATO
+  [MINACCIA] IL BATTITO SOTTO (insidia) — L’eroe con meno NERVI prova NERVI (Media): se fallisce 1 danno.
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(5,2)=7 +NERVI(1) = 8 vs Media(9) -> FALLITA
+    [SECONDO FIATO] MORA “SPILLA” FANTI ritenta la prova (unico ritento dell’episodio):
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(6,4)=10 +NERVI(1) = 11 vs Media(9) -> SUCCESSO
+  [MINACCIA] LA MAREA CHE SALE (insidia) — L’eroe attivo prova NERVI (Media): se fallisce, 1 danno e perde 1 azione.
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(4,3)=7 +NERVI(1) = 8 vs Media(9) -> FALLITA
+    MORA “SPILLA” FANTI subisce 1 danno da LA MAREA CHE SALE (Salute: 7/8).
+    MORA “SPILLA” FANTI avrà 1 sola azione al suo prossimo turno.
+  [MINACCIA] GLI ECHI TORNANO (posseduto) — Piazzate 1 Voce Cava sull’uscita più vicina agli eroi.
+    Piazzati 1x LA VOCE CAVA (pool residua: 1) in B1.
+  ADEPTO INCAPPUCCIATO si muove verso NINO “GRIMALDELLO” CAUTO: B2 -> B4.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  LA VOCE CAVA si muove verso PADRE CELSO MARANI: B1 -> B2.
+  LA VOCE CAVA attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] LA VOCE CAVA -> PADRE CELSO MARANI: 2d6(6,1)=7 +Attacco(1) = 8 vs Difesa(8) -> COLPITO
+    PADRE CELSO MARANI subisce 1 danno da LA VOCE CAVA (Salute: 6/7).
+--- Round 3: il gruppo raggiunge T4 (Snodo delle Vene) ---
+    (azioni nominali questo round: 14 — 7 eroi vivi)
+    Il gruppo entra in T4 da B1.
+    QUANDO RIVELATE: 1 Adepto sta calando dalla corda della Confluenza.
+    Lo Snodo delle Vene: le tre acque si sfiorano senza mescolarsi.
+    [ABILITÀ] DOTT. ATTILIO MARN usa Pronto Soccorso su PADRE CELSO MARANI -> Salute 7.
+    ELENA FOSCO si muove verso ADEPTO INCAPPUCCIATO: B1 -> D2.
+    [ATTACCO] ELENA FOSCO -> ADEPTO INCAPPUCCIATO: 2d6(6,6)=12 +VIGORE(1)+arma(1) = 14 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    [ABILITÀ] FULGENZIO CARBONE usa Esca preziosa: ADEPTO INCAPPUCCIATO, LA VOCE CAVA si dirige verso l’esca invece che verso il gruppo alla prossima attivazione.
+    MORA “SPILLA” FANTI ha 1 sola azione questo turno (insidia del round scorso).
+    MORA “SPILLA” FANTI si muove verso ADEPTO INCAPPUCCIATO: B1 -> A3.
+    MORA “SPILLA” FANTI si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    [PROVA ACUME] NINO “GRIMALDELLO” CAUTO: 2d6(5,6)=11 +ACUME(2) = 13 vs Media(9) -> SUCCESSO
+    NINO “GRIMALDELLO” CAUTO cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    OTTAVIO BRERA: nessun bersaglio, avanza / assiste il gruppo.
+    PADRE CELSO MARANI: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] LA VOCE DEL BORGO (posseduto) — Piazzate 1 Voce Cava sull’uscita più vicina agli eroi.
+    Piazzati 1x LA VOCE CAVA (pool residua: 0) in B1.
+  [MINACCIA] IL PRIMO MOVIMENTO (crescendo) — Aggiungete 1 segnalino Canto. Alla soglia: Ferri si desta.
+    Segnalino Canto: 1.
+  ADEPTO INCAPPUCCIATO si dirige verso l’esca (Carbone): non attacca questo round.
+  LA VOCE CAVA si dirige verso l’esca (Carbone): non attacca questo round.
+  LA VOCE CAVA si muove verso FULGENZIO CARBONE: B1 -> C1.
+  LA VOCE CAVA attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] LA VOCE CAVA -> FULGENZIO CARBONE: 2d6(1,1)=2 +Attacco(1) = 3 vs Difesa(8) -> MANCATO
+--- Round 4: il gruppo raggiunge T5 (Sala della Pietra) ---
+    (azioni nominali questo round: 14 — 7 eroi vivi)
+    Il gruppo entra in T5 da A3.
+    QUANDO RIVELATE: le Voci Cave tra i righi della pietra.
+    [ABILITÀ] DOTT. ATTILIO MARN usa Pronto Soccorso su MORA “SPILLA” FANTI -> Salute 8.
+    [PROVA ACUME] ELENA FOSCO: 2d6(4,1)=5 +ACUME(3) = 8 vs Media(9) -> FALLITA
+    [CARDINE] ELENA FOSCO fallisce su la pietra: si ritenta.
+    FULGENZIO CARBONE si muove verso LA VOCE CAVA: A3 -> A2.
+    [ATTACCO] FULGENZIO CARBONE -> LA VOCE CAVA: 2d6(3,4)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(6) -> COLPITO
+    LA VOCE CAVA: 0/1 ferite residue.
+    LA VOCE CAVA è ABBATTUTO.
+    La Voce Cava URLA nel disfarsi:
+    [PROVA NERVI] FULGENZIO CARBONE: 2d6(4,6)=10 +NERVI(2) = 12 vs Facile(7) -> SUCCESSO
+    MORA “SPILLA” FANTI si muove verso LA VOCE CAVA: A3 -> B1.
+    [ATTACCO] MORA “SPILLA” FANTI -> LA VOCE CAVA: 2d6(5,1)=6 +VIGORE(2)+arma(1) = 9 vs Difesa(6) -> COLPITO
+    LA VOCE CAVA: 0/1 ferite residue.
+    LA VOCE CAVA è ABBATTUTO.
+    La Voce Cava URLA nel disfarsi:
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(2,6)=8 +NERVI(1) = 9 vs Facile(7) -> SUCCESSO
+    [PROVA ACUME] NINO “GRIMALDELLO” CAUTO: 2d6(2,6)=8 +ACUME(2) = 10 vs Media(9) -> SUCCESSO
+    NINO “GRIMALDELLO” CAUTO cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    OTTAVIO BRERA: nessun bersaglio, avanza / assiste il gruppo.
+    [ABILITÀ] PADRE CELSO MARANI usa Litania: -1 segnalino Canto (1->0).
+  [MINACCIA] IL CANTO DELLE VENE (insidia) — Ogni eroe prova NERVI (Facile): chi fallisce ha 1 sola azione al prossimo turno.
+    [PROVA NERVI] DOTT. ATTILIO MARN: 2d6(2,3)=5 +NERVI(2) = 7 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] ELENA FOSCO: 2d6(2,1)=3 +NERVI(2) = 5 vs Facile(7) -> FALLITA
+    ELENA FOSCO avrà 1 sola azione al suo prossimo turno.
+    [PROVA NERVI] FULGENZIO CARBONE: 2d6(2,4)=6 +NERVI(2) = 8 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(5,2)=7 +NERVI(1) = 8 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6(2,1)=3 +NERVI(1) = 4 vs Facile(7) -> FALLITA
+    [SECONDO FIATO] NINO “GRIMALDELLO” CAUTO ritenta la prova (unico ritento dell’episodio):
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6(6,6)=12 +NERVI(1) = 13 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] OTTAVIO BRERA: 2d6(3,1)=4 +NERVI(2) = 6 vs Facile(7) -> FALLITA
+    [SECONDO FIATO] OTTAVIO BRERA ritenta la prova (unico ritento dell’episodio):
+    [PROVA NERVI] OTTAVIO BRERA: 2d6(1,1)=2 +NERVI(2) = 4 vs Facile(7) -> FALLITA
+    OTTAVIO BRERA avrà 1 sola azione al suo prossimo turno.
+    [PROVA NERVI] PADRE CELSO MARANI: 2d6(5,1)=6 +NERVI(3) = 9 vs Facile(7) -> SUCCESSO
+  [MINACCIA] IL RICHIAMO (insidia) — L’eroe più avanzato prova NERVI (Media): se fallisce, 1 danno.
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(3,6)=9 +NERVI(1) = 10 vs Media(9) -> SUCCESSO
+  [MINACCIA] I FRATELLI DEL QUARANTUNO (posseduto) — Piazzate 1 Confratello sull’uscita più vicina agli eroi.
+    Piazzati 1x IL CONFRATELLO (pool residua: 1) in A3.
+  ADEPTO INCAPPUCCIATO si muove verso FULGENZIO CARBONE: B4 -> B2.
+  ADEPTO INCAPPUCCIATO attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> FULGENZIO CARBONE: 2d6(6,4)=10 +Attacco(1) = 11 vs Difesa(8) -> COLPITO
+    FULGENZIO CARBONE subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 6/7).
+  IL CONFRATELLO attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] IL CONFRATELLO -> FULGENZIO CARBONE: 2d6(3,5)=8 +Attacco(1) = 9 vs Difesa(8) -> COLPITO
+    FULGENZIO CARBONE subisce 1 danno da IL CONFRATELLO (Salute: 5/7).
+  [OROLOGIO] Fine del 4° round: +1 segnalino Canto automatico.
+    Segnalino Canto: 1.
+    Il movimento di T5 non è ancora spento: il gruppo resta.
+--- Round 5: il gruppo raggiunge T5 (Sala della Pietra) ---
+    (azioni nominali questo round: 14 — 7 eroi vivi)
+    [PROVA ACUME] DOTT. ATTILIO MARN: 2d6(1,5)=6 +ACUME(2) = 8 vs Media(9) -> FALLITA
+    [CARDINE] DOTT. ATTILIO MARN fallisce su la pietra: si ritenta.
+    ELENA FOSCO ha 1 sola azione questo turno (insidia del round scorso).
+    ELENA FOSCO si muove verso ADEPTO INCAPPUCCIATO: A3 -> B3.
+    ELENA FOSCO (1 sola azione) si limita ad avvicinarsi a ADEPTO INCAPPUCCIATO.
+    [ATTACCO] FULGENZIO CARBONE -> ADEPTO INCAPPUCCIATO: 2d6(4,3)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    MORA “SPILLA” FANTI: nessun bersaglio, avanza / assiste il gruppo.
+    NINO “GRIMALDELLO” CAUTO: nessun bersaglio, avanza / assiste il gruppo.
+    OTTAVIO BRERA ha 1 sola azione questo turno (insidia del round scorso).
+    OTTAVIO BRERA: nessun bersaglio, avanza / assiste il gruppo.
+    PADRE CELSO MARANI: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] IL SECONDO MOVIMENTO (crescendo) — Aggiungete 1 segnalino Canto. Alla soglia: Ferri si desta.
+    Segnalino Canto: 2.
+  [MINACCIA] REMI NEL BUIO (posseduto) — Piazzate 1 Adepto sull’ingresso della Porta d’Acqua (T1).
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 2), a 6 caselle dalla tessera del gruppo.
+  IL CONFRATELLO si muove verso PADRE CELSO MARANI: A3 -> A4.
+  IL CONFRATELLO attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] IL CONFRATELLO -> PADRE CELSO MARANI: 2d6(6,1)=7 +Attacco(1) = 8 vs Difesa(8) -> COLPITO
+    PADRE CELSO MARANI subisce 1 danno da IL CONFRATELLO (Salute: 6/7).
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+    Il movimento di T5 non è ancora spento: il gruppo resta.
+--- Round 6: il gruppo raggiunge T5 (Sala della Pietra) ---
+    (azioni nominali questo round: 14 — 7 eroi vivi)
+    [PROVA ACUME] DOTT. ATTILIO MARN: 2d6(5,3)=8 +ACUME(2) = 10 vs Media(9) -> SUCCESSO
+    [CARDINE] DOTT. ATTILIO MARN spegne la pietra (2/3 movimenti spenti — la Difesa di Ferri cala).
+    ELENA FOSCO: nessun bersaglio, avanza / assiste il gruppo.
+    FULGENZIO CARBONE: nessun bersaglio, avanza / assiste il gruppo.
+    MORA “SPILLA” FANTI: nessun bersaglio, avanza / assiste il gruppo.
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> IL CONFRATELLO: 2d6(1,3)=4 +VIGORE(2)+arma(1) = 7 vs Difesa(7) -> COLPITO
+    IL CONFRATELLO: 0/1 ferite residue.
+    IL CONFRATELLO è ABBATTUTO.
+    OTTAVIO BRERA: nessun bersaglio, avanza / assiste il gruppo.
+    PADRE CELSO MARANI: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] LA SECONDA BARCA (posseduto) — Piazzate 1 Adepto sull’ingresso della Porta d’Acqua (T1).
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 1), a 6 caselle dalla tessera del gruppo.
+  [MINACCIA] IL TERZO MOVIMENTO (crescendo) — Aggiungete 1 segnalino Canto. Alla soglia: Ferri si desta.
+    Segnalino Canto: 3.
+    Il Canto raggiunge 3: da ora ogni Fase Minaccia pesca 1 carta in più (fino a fine spedizione, anche se il Custode è già stato abbattuto).
+    Ferri lascia la Camera e viene a cercarvi (3° segnalino), sulla tessera più lontana dagli eroi!
+  [MINACCIA] LE GUARDIE PAGATE (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 1) in A3.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si muove verso OTTAVIO BRERA: A3 -> A4.
+  LO SGHERRO attacca OTTAVIO BRERA:
+    [ATTACCO NEMICO] LO SGHERRO -> OTTAVIO BRERA: 2d6(3,4)=7 +Attacco(2) = 9 vs Difesa(8) -> COLPITO
+    OTTAVIO BRERA subisce 1 danno da LO SGHERRO (Salute: 6/7).
+  BASTIANO FERRI si avvicina (Movimento 3): ancora 6 caselle prima di raggiungere la tessera del gruppo.
+--- Round 7: il gruppo raggiunge T4 (Snodo - ritorno dal ramo) ---
+    (azioni nominali questo round: 14 — 7 eroi vivi)
+    Il gruppo entra in T4 da D3.
+    DOTT. ATTILIO MARN si muove verso LO SGHERRO: D3 -> B4.
+    [ATTACCO] DOTT. ATTILIO MARN -> LO SGHERRO: 2d6(1,2)=3 +VIGORE(2)+arma(1) = 6 vs Difesa(8) -> MANCATO
+    ELENA FOSCO si muove verso LO SGHERRO: D3 -> C1.
+    ELENA FOSCO si avvicina a LO SGHERRO, non ancora a contatto.
+    [PROVA ACUME] FULGENZIO CARBONE: 2d6(6,5)=11 +ACUME(3) = 14 vs Media(9) -> SUCCESSO
+    FULGENZIO CARBONE cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    MORA “SPILLA” FANTI: nessun bersaglio, avanza / assiste il gruppo.
+    NINO “GRIMALDELLO” CAUTO: nessun bersaglio, avanza / assiste il gruppo.
+    OTTAVIO BRERA: nessun bersaglio, avanza / assiste il gruppo.
+    PADRE CELSO MARANI: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] LA BARCA DELLE DUE E MEZZA (posseduto) — Piazzate 1 Adepto sull’ingresso della Porta d’Acqua (T1).
+    Segnalini ADEPTO INCAPPUCCIATO esauriti: il piazzamento non ha luogo (resto della carta si applica comunque).
+  [MINACCIA] L’ACQUA TRATTIENE (quiete) — Nessun effetto (tensione).
+    (carta senza effetto modellato in questa simulazione)
+  [MINACCIA] LA PROCESSIONE ULTIMA (posseduto) — Piazzate 1 Confratello sull’uscita più vicina agli eroi.
+    Piazzati 1x IL CONFRATELLO (pool residua: 1) in D3.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si muove verso DOTT. ATTILIO MARN: A4 -> B3.
+  LO SGHERRO attacca DOTT. ATTILIO MARN:
+    [ATTACCO NEMICO] LO SGHERRO -> DOTT. ATTILIO MARN: 2d6(2,5)=7 +Attacco(2) = 9 vs Difesa(8) -> COLPITO
+    DOTT. ATTILIO MARN subisce 1 danno da LO SGHERRO (Salute: 7/8).
+  IL CONFRATELLO si muove verso FULGENZIO CARBONE: D3 -> D4.
+  IL CONFRATELLO attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] IL CONFRATELLO -> FULGENZIO CARBONE: 2d6(5,2)=7 +Attacco(1) = 8 vs Difesa(8) -> COLPITO
+    FULGENZIO CARBONE subisce 1 danno da IL CONFRATELLO (Salute: 4/7).
+  BASTIANO FERRI si avvicina (Movimento 3): ancora 6 caselle prima di raggiungere la tessera del gruppo.
+--- Round 8: il gruppo raggiunge T6 (Sala delle Ossa) ---
+    (azioni nominali questo round: 14 — 7 eroi vivi)
+    Il gruppo entra in T6 da B1.
+    QUANDO RIVELATE: i Confratelli all’organo ibrido.
+    [PROVA NERVI] DOTT. ATTILIO MARN: 2d6(6,3)=9 +NERVI(2) = 11 vs Media(9) -> SUCCESSO
+    [CARDINE] DOTT. ATTILIO MARN spegne le ossa (3/3 movimenti spenti — la Difesa di Ferri cala).
+    ELENA FOSCO si muove verso IL CONFRATELLO: B1 -> C2.
+    [ATTACCO] ELENA FOSCO -> IL CONFRATELLO: 2d6(1,6)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(7) -> COLPITO
+    IL CONFRATELLO: 0/1 ferite residue.
+    IL CONFRATELLO è ABBATTUTO.
+    FULGENZIO CARBONE si muove verso LO SGHERRO: B1 -> B2.
+    [ATTACCO] FULGENZIO CARBONE -> LO SGHERRO: 2d6(4,3)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    MORA “SPILLA” FANTI si muove verso LO SGHERRO: B1 -> A3.
+    [ATTACCO] MORA “SPILLA” FANTI -> LO SGHERRO: 2d6(2,5)=7 +VIGORE(2)+arma(1) = 10 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+    NINO “GRIMALDELLO” CAUTO si muove verso IL CONFRATELLO: B1 -> D3.
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> IL CONFRATELLO: 2d6(4,5)=9 +VIGORE(2)+arma(1) = 12 vs Difesa(7) -> COLPITO
+    IL CONFRATELLO: 0/1 ferite residue.
+    IL CONFRATELLO è ABBATTUTO.
+    [PROVA ACUME] OTTAVIO BRERA: 2d6(6,1)=7 +ACUME(3) = 10 vs Media(9) -> SUCCESSO
+    OTTAVIO BRERA cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    PADRE CELSO MARANI: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] IL SERVIZIO DI BANCHINA (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 1) in B1.
+  [MINACCIA] L’ACQUA ALLE GINOCCHIA (ostacolo) — Muoversi costa il doppio sulla tessera dell’eroe attivo fino a fine round.
+    (carta senza effetto modellato in questa simulazione)
+  [MINACCIA] I FACCHINI DELL’ULTIMA NOTTE (posseduto) — Piazzate 1 Adepto sull’uscita più vicina agli eroi.
+    Segnalini ADEPTO INCAPPUCCIATO esauriti: il piazzamento non ha luogo (resto della carta si applica comunque).
+    Mazzo Minaccia esaurito: si rimescolano gli scarti.
+  [MINACCIA] I FACCHINI DELL’ULTIMA NOTTE (posseduto) — Piazzate 1 Adepto sull’uscita più vicina agli eroi.
+    Segnalini ADEPTO INCAPPUCCIATO esauriti: il piazzamento non ha luogo (resto della carta si applica comunque).
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si muove verso ELENA FOSCO: B1 -> C1.
+  LO SGHERRO attacca ELENA FOSCO:
+    [ATTACCO NEMICO] LO SGHERRO -> ELENA FOSCO: 2d6(5,6)=11 +Attacco(2) = 13 vs Difesa(8) -> COLPITO
+    ELENA FOSCO subisce 1 danno da LO SGHERRO (Salute: 6/7).
+  BASTIANO FERRI si avvicina (Movimento 3): ancora 6 caselle prima di raggiungere la tessera del gruppo.
+  [OROLOGIO] Fine del 8° round: +1 segnalino Canto automatico.
+    Segnalino Canto: 4.
+--- Round 9: il gruppo raggiunge T7 (Anticamera del Coro) ---
+    (azioni nominali questo round: 14 — 7 eroi vivi)
+    Il gruppo entra in T7 da B1.
+    QUANDO RIVELATE: le ultime guardie — 1 Adepto e 1 Sgherro.
+    [ATTACCO] DOTT. ATTILIO MARN -> LO SGHERRO: 2d6(2,5)=7 +VIGORE(2)+arma(1) = 10 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    [ATTACCO] ELENA FOSCO -> LO SGHERRO: 2d6(1,3)=4 +VIGORE(1)+arma(1) = 6 vs Difesa(8) -> MANCATO
+    [ATTACCO] FULGENZIO CARBONE -> LO SGHERRO: 2d6(3,5)=8 +VIGORE(1)+arma(1) = 10 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+    MORA “SPILLA” FANTI si muove verso LO SGHERRO: B1 -> D2.
+    MORA “SPILLA” FANTI si avvicina a LO SGHERRO, non ancora a contatto.
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> LO SGHERRO: 2d6(6,2)=8 +VIGORE(2)+arma(1) = 11 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    [ATTACCO] OTTAVIO BRERA -> LO SGHERRO: 2d6(1,1)=2 +VIGORE(1)+arma(1) = 4 vs Difesa(8) -> MANCATO
+    [ATTACCO] PADRE CELSO MARANI -> LO SGHERRO: 2d6(6,3)=9 +VIGORE(1)+arma(1) = 11 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+  [MINACCIA] LA PROCESSIONE ULTIMA (posseduto) — Piazzate 1 Confratello sull’uscita più vicina agli eroi.
+    Piazzati 1x IL CONFRATELLO (pool residua: 1) in B1.
+  [MINACCIA] IL PELLEGRINAGGIO (posseduto) — Piazzate 1 Adepto sull’uscita più vicina agli eroi.
+    Segnalini ADEPTO INCAPPUCCIATO esauriti: il piazzamento non ha luogo (resto della carta si applica comunque).
+  [MINACCIA] REMI NEL BUIO (posseduto) — Piazzate 1 Adepto sull’ingresso della Porta d’Acqua (T1).
+    Segnalini ADEPTO INCAPPUCCIATO esauriti: il piazzamento non ha luogo (resto della carta si applica comunque).
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 1 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  IL CONFRATELLO si muove verso MORA “SPILLA” FANTI: B1 -> C2.
+  IL CONFRATELLO attacca MORA “SPILLA” FANTI:
+    [ATTACCO NEMICO] IL CONFRATELLO -> MORA “SPILLA” FANTI: 2d6(4,3)=7 +Attacco(1) = 8 vs Difesa(8) -> COLPITO
+    MORA “SPILLA” FANTI subisce 1 danno da IL CONFRATELLO (Salute: 7/8).
+  BASTIANO FERRI si avvicina (Movimento 3): ancora 6 caselle prima di raggiungere la tessera del gruppo.
+--- Round 10: il gruppo raggiunge T8 (Camera delle Tre Acque) ---
+    (azioni nominali questo round: 14 — 7 eroi vivi)
+    Il gruppo entra in T8 da B1.
+    LA CAMERA DELLE TRE ACQUE: il Coro dei Dodici canta intorno al rito.
+    Ferri, gia’ desto, vi ha seguiti fin qui: il rito continua senza direttore.
+    [FORMULA] DOTT. ATTILIO MARN legge LA FORMULA DEL SIGILLO a voce ferma: il rito MUORE. Il Dormiente si riassopisce. Ferri crolla in ginocchio.
+    [ATTACCO] ELENA FOSCO -> IL CORISTA: 2d6(6,5)=11 +VIGORE(1)+arma(1) = 13 vs Difesa(6) -> COLPITO
+    IL CORISTA: 0/1 ferite residue.
+    IL CORISTA FUGGE (è un impiegato, non un credente).
+    [ATTACCO] FULGENZIO CARBONE -> IL CORISTA: 2d6(6,2)=8 +VIGORE(1)+arma(1) = 10 vs Difesa(6) -> COLPITO
+    IL CORISTA: 0/1 ferite residue.
+    IL CORISTA FUGGE (è un impiegato, non un credente).
+    MORA “SPILLA” FANTI si muove verso IL CONFRATELLO: B1 -> B2.
+    [ATTACCO] MORA “SPILLA” FANTI -> IL CONFRATELLO: 2d6(5,1)=6 +VIGORE(2)+arma(1) = 9 vs Difesa(7) -> COLPITO
+    IL CONFRATELLO: 0/1 ferite residue.
+    IL CONFRATELLO è ABBATTUTO.
+    NINO “GRIMALDELLO” CAUTO si muove verso IL CORISTA: B1 -> C1.
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> IL CORISTA: 2d6(5,1)=6 +VIGORE(2)+arma(1) = 9 vs Difesa(6) -> COLPITO
+    IL CORISTA: 0/1 ferite residue.
+    IL CORISTA FUGGE (è un impiegato, non un credente).
+    OTTAVIO BRERA si muove verso IL CORISTA: B1 -> A1.
+    [ATTACCO] OTTAVIO BRERA -> IL CORISTA: 2d6(3,1)=4 +VIGORE(1)+arma(1) = 6 vs Difesa(6) -> COLPITO
+    IL CORISTA: 0/1 ferite residue.
+    IL CORISTA FUGGE (è un impiegato, non un credente).
+    [PROVA ACUME] PADRE CELSO MARANI: 2d6(1,6)=7 +ACUME(2) = 9 vs Media(9) -> SUCCESSO
+    PADRE CELSO MARANI cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+  [MINACCIA] GLI ECHI TORNANO (posseduto) — Piazzate 1 Voce Cava sull’uscita più vicina agli eroi.
+    Piazzati 1x LA VOCE CAVA (pool residua: 1) in B1.
+  [MINACCIA] L’ACQUA ALLE GINOCCHIA (ostacolo) — Muoversi costa il doppio sulla tessera dell’eroe attivo fino a fine round.
+    (carta senza effetto modellato in questa simulazione)
+  [MINACCIA] IL BATTITO SOTTO (insidia) — L’eroe con meno NERVI prova NERVI (Media): se fallisce 1 danno.
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(2,6)=8 +NERVI(1) = 9 vs Media(9) -> SUCCESSO
+  [MINACCIA] L’ACQUA TRATTIENE (quiete) — Nessun effetto (tensione).
+    (carta senza effetto modellato in questa simulazione)
+  ADEPTO INCAPPUCCIATO raggiunge la tessera del gruppo, da D1.
+  ADEPTO INCAPPUCCIATO attacca NINO “GRIMALDELLO” CAUTO:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> NINO “GRIMALDELLO” CAUTO: 2d6(3,3)=6 +Attacco(1) = 7 vs Difesa(8) -> MANCATO
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 1 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 1 caselle prima di raggiungere la tessera del gruppo.
+  IL CORISTA si avvicina, non ancora a contatto.
+  IL CORISTA si avvicina, non ancora a contatto.
+  LA VOCE CAVA attacca OTTAVIO BRERA:
+    [ATTACCO NEMICO] LA VOCE CAVA -> OTTAVIO BRERA: 2d6(2,4)=6 +Attacco(1) = 7 vs Difesa(8) -> MANCATO
+  BASTIANO FERRI si avvicina (Movimento 3): ancora 6 caselle prima di raggiungere la tessera del gruppo.
+--- La Camera delle Tre Acque: Ferri, il Coro e il rito ---
+--- Round 11: il rito è in corso ---
+    (azioni nominali questo round: 14 — 7 eroi vivi)
+    [PROVA ACUME] DOTT. ATTILIO MARN: 2d6(2,4)=6 +ACUME(2) = 8 vs Media(9) -> FALLITA
+    DOTT. ATTILIO MARN cerca sulla tessera: niente da trovare qui, o prova fallita.
+    ELENA FOSCO: nessun bersaglio, avanza / assiste il gruppo.
+    FULGENZIO CARBONE: nessun bersaglio, avanza / assiste il gruppo.
+    [ATTACCO] MORA “SPILLA” FANTI -> LA VOCE CAVA: 2d6(5,3)=8 +VIGORE(2)+arma(1) = 11 vs Difesa(6) -> COLPITO
+    LA VOCE CAVA: 0/1 ferite residue.
+    LA VOCE CAVA è ABBATTUTO.
+    La Voce Cava URLA nel disfarsi:
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(3,3)=6 +NERVI(1) = 7 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6(5,6)=11 +NERVI(1) = 12 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] OTTAVIO BRERA: 2d6(4,2)=6 +NERVI(2) = 8 vs Facile(7) -> SUCCESSO
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> ADEPTO INCAPPUCCIATO: 2d6(5,1)=6 +VIGORE(2)+arma(1) = 9 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    OTTAVIO BRERA si muove verso IL CORISTA: A1 -> B3.
+    OTTAVIO BRERA si avvicina a IL CORISTA, non ancora a contatto.
+    PADRE CELSO MARANI si muove verso IL CORISTA: B1 -> A3.
+    PADRE CELSO MARANI si avvicina a IL CORISTA, non ancora a contatto.
+  [MINACCIA] LE GUARDIE PAGATE (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 1) in B1.
+  [MINACCIA] IL CANTO DELLE VENE (insidia) — Ogni eroe prova NERVI (Facile): chi fallisce ha 1 sola azione al prossimo turno.
+    [PROVA NERVI] DOTT. ATTILIO MARN: 2d6(3,4)=7 +NERVI(2) = 9 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] ELENA FOSCO: 2d6(4,5)=9 +NERVI(2) = 11 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] FULGENZIO CARBONE: 2d6(6,4)=10 +NERVI(2) = 12 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(6,2)=8 +NERVI(1) = 9 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6(6,6)=12 +NERVI(1) = 13 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] OTTAVIO BRERA: 2d6(5,4)=9 +NERVI(2) = 11 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] PADRE CELSO MARANI: 2d6(5,1)=6 +NERVI(3) = 9 vs Facile(7) -> SUCCESSO
+  [MINACCIA] IL PRIMO MOVIMENTO (crescendo) — Aggiungete 1 segnalino Canto. Alla soglia: Ferri si desta.
+    Segnalino Canto: 5.
+    Ferri recupera 1 ferita (5/5) e si attiva subito.
+  ADEPTO INCAPPUCCIATO raggiunge la tessera del gruppo, da A1.
+  ADEPTO INCAPPUCCIATO attacca ELENA FOSCO:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> ELENA FOSCO: 2d6(4,1)=5 +Attacco(1) = 6 vs Difesa(8) -> MANCATO
+  ADEPTO INCAPPUCCIATO raggiunge la tessera del gruppo, da D1.
+  ADEPTO INCAPPUCCIATO attacca NINO “GRIMALDELLO” CAUTO:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> NINO “GRIMALDELLO” CAUTO: 2d6(1,6)=7 +Attacco(1) = 8 vs Difesa(8) -> COLPITO
+    NINO “GRIMALDELLO” CAUTO subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 7/8).
+  IL CORISTA si avvicina, non ancora a contatto.
+  IL CORISTA si avvicina, non ancora a contatto.
+  LO SGHERRO attacca NINO “GRIMALDELLO” CAUTO:
+    [ATTACCO NEMICO] LO SGHERRO -> NINO “GRIMALDELLO” CAUTO: 2d6(1,5)=6 +Attacco(2) = 8 vs Difesa(8) -> COLPITO
+    NINO “GRIMALDELLO” CAUTO subisce 1 danno da LO SGHERRO (Salute: 6/8).
+  BASTIANO FERRI si avvicina (Movimento 3): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+  Il rito è morto: Ferri crolla. Si torna alla Porta d’Acqua.
+--- Ritorno alla Porta d’Acqua (3 round, la marea sale) ---
+    [PROVA NERVI] DOTT. ATTILIO MARN: 2d6(1,6)=7 +NERVI(2) +Lanterna di Chiusa(+1) = 10 vs Media(9) -> SUCCESSO
+    [PROVA NERVI] ELENA FOSCO: 2d6(6,6)=12 +NERVI(2) +Lanterna di Chiusa(+1) = 15 vs Media(9) -> SUCCESSO
+    [PROVA NERVI] FULGENZIO CARBONE: 2d6(3,5)=8 +NERVI(2) +Lanterna di Chiusa(+1) = 11 vs Media(9) -> SUCCESSO
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(6,5)=11 +NERVI(1) +Lanterna di Chiusa(+1) = 13 vs Media(9) -> SUCCESSO
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6(6,6)=12 +NERVI(1) +Lanterna di Chiusa(+1) = 14 vs Media(9) -> SUCCESSO
+    [PROVA NERVI] OTTAVIO BRERA: 2d6(4,3)=7 +NERVI(2) +Lanterna di Chiusa(+1) = 10 vs Media(9) -> SUCCESSO
+    [PROVA NERVI] PADRE CELSO MARANI: 2d6(2,4)=6 +NERVI(3) +Lanterna di Chiusa(+1) = 10 vs Media(9) -> SUCCESSO
+--- Round 12: rientro verso T1 ---
+    (azioni nominali questo round: 14 — 7 eroi vivi)
+    [ATTACCO] DOTT. ATTILIO MARN -> ADEPTO INCAPPUCCIATO: 2d6(3,4)=7 +VIGORE(2)+arma(1) = 10 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    [PROVA ACUME] ELENA FOSCO: 2d6(4,3)=7 +ACUME(3) = 10 vs Media(9) -> SUCCESSO
+    ELENA FOSCO cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    FULGENZIO CARBONE: nessun bersaglio, avanza / assiste il gruppo.
+    MORA “SPILLA” FANTI si muove verso LO SGHERRO: B2 -> A1.
+    [ATTACCO] MORA “SPILLA” FANTI -> LO SGHERRO: 2d6(3,6)=9 +VIGORE(2)+arma(1) = 12 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> ADEPTO INCAPPUCCIATO: 2d6(6,2)=8 +VIGORE(2)+arma(1) = 11 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    OTTAVIO BRERA si muove verso LO SGHERRO: B3 -> B2.
+    [ATTACCO] OTTAVIO BRERA -> LO SGHERRO: 2d6(3,2)=5 +VIGORE(1)+arma(1) = 7 vs Difesa(8) -> MANCATO
+    PADRE CELSO MARANI si muove verso IL CORISTA: A3 -> C4.
+    PADRE CELSO MARANI si avvicina a IL CORISTA, non ancora a contatto.
+  [MINACCIA] IL RICHIAMO (insidia) — L’eroe più avanzato prova NERVI (Media): se fallisce, 1 danno.
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(2,3)=5 +NERVI(1) = 6 vs Media(9) -> FALLITA
+    MORA “SPILLA” FANTI subisce 1 danno da IL RICHIAMO (Salute: 6/8).
+  [MINACCIA] LA CORRENTE AMICA (favore) — Rivelate una tessera coperta adiacente.
+    (carta senza effetto modellato in questa simulazione)
+  [MINACCIA] I FRATELLI DEL QUARANTUNO (posseduto) — Piazzate 1 Confratello sull’uscita più vicina agli eroi.
+    Piazzati 1x IL CONFRATELLO (pool residua: 1) in B1.
+  [MINACCIA] IL SERVIZIO DI BANCHINA (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 0) in B1.
+  IL CORISTA si muove verso NINO “GRIMALDELLO” CAUTO: D2 -> D1.
+  IL CORISTA attacca NINO “GRIMALDELLO” CAUTO:
+    [ATTACCO NEMICO] IL CORISTA -> NINO “GRIMALDELLO” CAUTO: 2d6(5,6)=11 +Attacco(1) = 12 vs Difesa(8) -> COLPITO
+    NINO “GRIMALDELLO” CAUTO subisce 1 danno da IL CORISTA (Salute: 5/8).
+  IL CORISTA si avvicina, non ancora a contatto.
+  LO SGHERRO attacca MORA “SPILLA” FANTI:
+    [ATTACCO NEMICO] LO SGHERRO -> MORA “SPILLA” FANTI: 2d6(3,2)=5 +Attacco(2) = 7 vs Difesa(8) -> MANCATO
+  IL CONFRATELLO attacca NINO “GRIMALDELLO” CAUTO:
+    [ATTACCO NEMICO] IL CONFRATELLO -> NINO “GRIMALDELLO” CAUTO: 2d6(3,4)=7 +Attacco(1) = 8 vs Difesa(8) -> COLPITO
+    NINO “GRIMALDELLO” CAUTO subisce 1 danno da IL CONFRATELLO (Salute: 4/8).
+  LO SGHERRO attacca OTTAVIO BRERA:
+    [ATTACCO NEMICO] LO SGHERRO -> OTTAVIO BRERA: 2d6(4,5)=9 +Attacco(2) = 11 vs Difesa(8) -> COLPITO
+    OTTAVIO BRERA subisce 1 danno da LO SGHERRO (Salute: 5/7).
+  [OROLOGIO] Fine del 12° round: +1 segnalino Canto automatico.
+    Segnalino Canto: 6.
+--- Round 13: rientro verso T1 ---
+    (azioni nominali questo round: 14 — 7 eroi vivi)
+    DOTT. ATTILIO MARN: nessun bersaglio, avanza / assiste il gruppo.
+    ELENA FOSCO: nessun bersaglio, avanza / assiste il gruppo.
+    FULGENZIO CARBONE: nessun bersaglio, avanza / assiste il gruppo.
+    [ATTACCO] MORA “SPILLA” FANTI -> LO SGHERRO: 2d6(3,1)=4 +VIGORE(2)+arma(1) = 7 vs Difesa(8) -> MANCATO
+    NINO “GRIMALDELLO” CAUTO si muove verso IL CORISTA: C1 -> D2.
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> IL CORISTA: 2d6(3,1)=4 +VIGORE(2)+arma(1) = 7 vs Difesa(6) -> COLPITO
+    IL CORISTA: 0/1 ferite residue.
+    IL CORISTA FUGGE (è un impiegato, non un credente).
+    OTTAVIO BRERA si muove verso LO SGHERRO: B2 -> C1.
+    [ATTACCO] OTTAVIO BRERA -> LO SGHERRO: 2d6(4,4)=8 +VIGORE(1)+arma(1) = 10 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+    PADRE CELSO MARANI si muove verso IL CORISTA: C4 -> D4.
+    [ATTACCO] PADRE CELSO MARANI -> IL CORISTA: 2d6(6,6)=12 +VIGORE(1)+arma(1) = 14 vs Difesa(6) -> COLPITO
+    IL CORISTA: 0/1 ferite residue.
+    IL CORISTA FUGGE (è un impiegato, non un credente).
+  [MINACCIA] LA BARCA DELLE DUE E MEZZA (posseduto) — Piazzate 1 Adepto sull’ingresso della Porta d’Acqua (T1).
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 2), a 6 caselle dalla tessera del gruppo.
+  [MINACCIA] IL TERZO MOVIMENTO (crescendo) — Aggiungete 1 segnalino Canto. Alla soglia: Ferri si desta.
+    Segnalino Canto: 7.
+    Ferri è già stato sconfitto: nessun effetto su di lui.
+  [MINACCIA] LA SECONDA BARCA (posseduto) — Piazzate 1 Adepto sull’ingresso della Porta d’Acqua (T1).
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 1), a 6 caselle dalla tessera del gruppo.
+  IL CONFRATELLO si muove verso PADRE CELSO MARANI: B1 -> B3.
+  IL CONFRATELLO si avvicina, non ancora a contatto.
+  LO SGHERRO si muove verso MORA “SPILLA” FANTI: B1 -> A2.
+  LO SGHERRO attacca MORA “SPILLA” FANTI:
+    [ATTACCO NEMICO] LO SGHERRO -> MORA “SPILLA” FANTI: 2d6(1,3)=4 +Attacco(2) = 6 vs Difesa(8) -> MANCATO
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+--- Round 14: rientro verso T1 ---
+    (azioni nominali questo round: 14 — 7 eroi vivi)
+    DOTT. ATTILIO MARN si muove verso IL CONFRATELLO: B1 -> B2.
+    [ATTACCO] DOTT. ATTILIO MARN -> IL CONFRATELLO: 2d6(2,2)=4 +VIGORE(2)+arma(1) = 7 vs Difesa(7) -> COLPITO
+    IL CONFRATELLO: 0/1 ferite residue.
+    IL CONFRATELLO è ABBATTUTO.
+    ELENA FOSCO: nessun bersaglio, avanza / assiste il gruppo.
+    FULGENZIO CARBONE: nessun bersaglio, avanza / assiste il gruppo.
+    [ATTACCO] MORA “SPILLA” FANTI -> LO SGHERRO: 2d6(3,5)=8 +VIGORE(2)+arma(1) = 11 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    NINO “GRIMALDELLO” CAUTO: nessun bersaglio, avanza / assiste il gruppo.
+    OTTAVIO BRERA: nessun bersaglio, avanza / assiste il gruppo.
+    PADRE CELSO MARANI si muove verso LO SGHERRO: D4 -> A4.
+    PADRE CELSO MARANI si avvicina a LO SGHERRO, non ancora a contatto.
+  [MINACCIA] IL SECONDO MOVIMENTO (crescendo) — Aggiungete 1 segnalino Canto. Alla soglia: Ferri si desta.
+    Segnalino Canto: 8.
+    Ferri è già stato sconfitto: nessun effetto su di lui.
+  [MINACCIA] LA VOCE DEL BORGO (posseduto) — Piazzate 1 Voce Cava sull’uscita più vicina agli eroi.
+    Piazzati 1x LA VOCE CAVA (pool residua: 1) in B1.
+  [MINACCIA] LA MAREA CHE SALE (insidia) — L’eroe attivo prova NERVI (Media): se fallisce, 1 danno e perde 1 azione.
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(2,2)=4 +NERVI(1) = 5 vs Media(9) -> FALLITA
+    MORA “SPILLA” FANTI subisce 1 danno da LA MAREA CHE SALE (Salute: 5/8).
+    MORA “SPILLA” FANTI avrà 1 sola azione al suo prossimo turno.
+    Mazzo Minaccia esaurito: si rimescolano gli scarti.
+  [MINACCIA] GLI ECHI TORNANO (posseduto) — Piazzate 1 Voce Cava sull’uscita più vicina agli eroi.
+    Piazzati 1x LA VOCE CAVA (pool residua: 0) in B1.
+  LO SGHERRO attacca DOTT. ATTILIO MARN:
+    [ATTACCO NEMICO] LO SGHERRO -> DOTT. ATTILIO MARN: 2d6(4,3)=7 +Attacco(2) = 9 vs Difesa(8) -> COLPITO
+    DOTT. ATTILIO MARN subisce 1 danno da LO SGHERRO (Salute: 6/8).
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  LA VOCE CAVA attacca MORA “SPILLA” FANTI:
+    [ATTACCO NEMICO] LA VOCE CAVA -> MORA “SPILLA” FANTI: 2d6(3,1)=4 +Attacco(1) = 5 vs Difesa(8) -> MANCATO
+  LA VOCE CAVA attacca OTTAVIO BRERA:
+    [ATTACCO NEMICO] LA VOCE CAVA -> OTTAVIO BRERA: 2d6(3,2)=5 +Attacco(1) = 6 vs Difesa(8) -> MANCATO
+
+==============================================================================
+ESITO SPEDIZIONE: VITTORIA
+Round totali: 14
+Formula Minaccia: finale_v3 | Azioni nominali/round: media 14.0, picco 14
+Mazzo Minaccia rimescolato: 2 volta/e
+Segnalini nemici esauriti nel pool (piazzamenti saltati): 5
+Ferri svegliato: in anticipo al round 6
+  DOTT. ATTILIO MARN: 6/8 Salute
+  ELENA FOSCO: 6/7 Salute
+  FULGENZIO CARBONE: 4/7 Salute
+  MORA “SPILLA” FANTI: 5/8 Salute
+  NINO “GRIMALDELLO” CAUTO: 4/8 Salute
+  OTTAVIO BRERA: 5/7 Salute
+  PADRE CELSO MARANI: 6/7 Salute
+==============================================================================
+Movimenti spenti: 3/3; Formula letta: sì

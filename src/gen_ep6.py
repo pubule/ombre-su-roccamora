@@ -473,7 +473,8 @@ def indagine():
     doms = ['1. DOVE si compie il rituale? (la deduzione d’atto: contate Frammenti e cimeli)',
             '2. CHI dirige il rito?',
             '3. QUANDO comincia?',
-            '4. COSA portate contro il Dormiente?']
+            '4. COSA portate contro il Dormiente?',
+            '5. (bonus) IN CHE ORDINE si spengono le valvole? — solo col Diario di Ferri E la Pianta della Camera']
     for i, d in enumerate(doms):
         yd = yy - 10*mm - i*15*mm
         c.setFillColor(INK); c.setFont(F['b'], 10.5)
@@ -657,6 +658,16 @@ def soluzione():
         'don Callisto» (L1), la Testimonianza «Il barcaiolo più vecchio» (L2) e la '
         'Testimonianza «M., a porte chiuse» (L4). Dopo cinque casi, giudicate con la '
         'massima elasticità: il tavolo che dice «Ferri» ha già vinto questa domanda.',
+        '<b>5ª DOMANDA — IN CHE ORDINE si spengono le valvole? (deduzione bonus da '
+        'reperto).</b> Si sblocca SOLO se avete in mano DUE reperti: il Diario di Ferri '
+        '(Reperto A, la Bottega L5) e la Pianta della Camera (Reperto B, l’Archivio '
+        'Capitolare L7). Insieme rivelano che le tre sale-movimento sono VALVOLE, e '
+        'l’ordine con cui il capitolo del ’41 le chiuse: <b>bronzo, poi pietra, poi '
+        'ossa</b>. Chi ha entrambi i reperti affronta la Camera SAPENDO — e il Dormiente '
+        'gli concede più margine: tutte le sue soglie ambiente salgono di 1 '
+        '(<b>4/6/9→5/7/10</b>, cioè prove -1 al 5° segnalino, battito al 7°, rituale '
+        'compiuto al 10° invece che a 4/6/9). Un solo reperto non basta: servono '
+        'entrambi.',
         '<b>Vantaggio d’Indagine:</b> Slancio SOLO con tutte e 4 le risposte esatte E 3+ '
         'ore avanzate (lo slancio è di chi SA dove andare); Preparati con 1+ ore avanzate '
         'O 6+ luoghi visitati. Dossier completo: 1 gettone '
