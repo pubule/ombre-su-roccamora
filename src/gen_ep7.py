@@ -682,6 +682,13 @@ def soluzione():
         'magazziniere» (L3) e la Testimonianza «Il guardiano licenziato» (L4). Se il '
         'gruppo non ne ha letta nessuna, giudicate con elasticità una risposta «vicina» '
         '(es. «l’impresa del palazzone», «quelli del brevetto»).',
+        '<b>QUANTE consegne notturne? (deduzione bonus di CONTEGGIO).</b> Le bolle della '
+        'Baracca (Reperto C, L6) contano le consegne notturne «al terzo piano»; le chiazze '
+        'sorde della Contrada (L1) dicono quante case sono già intonacate. Incrociando i '
+        'due numeri sapete ESATTAMENTE come è presidiato il cantiere e a che ritmo lavora: '
+        'reggete un round in più prima che il cantiere si sbarri (soglia di sbarramento '
+        'dal 12° al 13° segnalino Allarme). Un conteggio approssimato non basta: servono '
+        'entrambe le fonti.',
         '<b>Vantaggio d’Indagine:</b> Slancio SOLO con tutte e 4 le risposte esatte E 3+ '
         'ore avanzate (lo slancio è di chi SA dove andare); Preparati con 1+ ore avanzate '
         'O 6+ luoghi visitati. Dossier completo (0 ore avanzate): 1 gettone Intuizione, '
@@ -705,7 +712,7 @@ def soluzione():
         'pagina). Il Canto qui è l’ALLARME del cantiere: carte crescendo + 1 segnalino '
         'automatico ogni 4° round; alla soglia (3 segnalini) il cantiere è sveglio — da '
         'quel momento ogni Fase Minaccia pesca 1 carta in più, per sempre. <b>Il '
-        'cantiere si sbarra (12° segnalino):</b> portoni chiusi, squadre a ogni varco — '
+        'cantiere si sbarra (12° segnalino, 13° se avete il conteggio esatto — vedi Domanda QUANTI?):</b> portoni chiusi, squadre a ogni varco — '
         'la fuga è impossibile, Fava resta dentro: sconfitta (a tempo, non a sangue).',
         '<b>Il Capocantiere</b> (statistiche nel Bestiario; Ferite per taglia tabellate): '
         'appare quando rivelate T6, con 2 Sgherri (+1 ogni 4 eroi oltre il quarto). '

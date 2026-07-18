@@ -224,3 +224,12 @@ niente boss-fasi: l'atto ricomincia a salire.
 - Fase E: export-data py/js (episodio ep7, SOLUZIONI, REPERTI_LUOGO
   {7: A? no — A in L7, B in L5, C in L6}, pool), export-assets, main.js
   (8° episodio), test-engine/test-ui/test-partite (2 scenari ep7).
+
+## Varietà indagine (2026-07-18) — Domanda non-canonica "QUANTI?"
+
+Deduzione bonus di conteggio: quante consegne notturne al terzo piano
+(bolle Reperto C, L6) incrociate con quante case già sorde (Contrada, L1).
+Il conteggio esatto fa sapere come è presidiato il cantiere → si regge un
+round in più prima dello sbarramento (soglia dal 12° al 13° segnalino
+Allarme). Simulatore: flag `conteggio_ok` (L6 e L1 visitati) → SOGLIA_SBARRAMENTO
++1. Curva v3 invariata (2:33, 3-10 68-92).

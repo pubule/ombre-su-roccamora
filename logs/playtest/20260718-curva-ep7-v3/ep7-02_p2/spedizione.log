@@ -1,0 +1,211 @@
+Run: ep7-02_p2_seed0  |  seed=673200  |  formula Minaccia=finale_v3  |  generato: 2026-07-18T21:05:11
+==============================================================================
+SPEDIZIONE - Il Palazzone di Sant’Orsola (al cambio delle nove)
+==============================================================================
+Party: PADRE CELSO MARANI, SIBILLA REVE
+Bonus da Indagine: PREPARATI (+1 Salute massima a testa); Bolla: sì; Lanterna+Tappi: sì; D1: esatta; D3: esatta
+NOTA: gruppo trattato come blocco unico tessera per tessera (vedi intestazione script).
+Tensione tavolo piccolo: +-1 Ferite SOLO al Capocantiere (non ai nemici di truppa).
+
+Tavolo da 2: +1 Salute massima a testa (ricalibrazione).
+Gettone Intuizione in mano (Dossier completo): un ri-tiro, una volta in Spedizione.
+La via scelta (media NERVI 3.0): i PONTEGGI (corta, esposta).
+--- Round 1: il gruppo raggiunge T2 (Il Piano Terra) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    Il gruppo entra in T2 da B1.
+    [PROVA ACUME] PADRE CELSO MARANI: 2d6(1,3)=4 +ACUME(2) = 6 vs Media(9) -> FALLITA
+    PADRE CELSO MARANI cerca sulla tessera: niente da trovare qui, o prova fallita.
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] I GESTI DEL CAPOMASTRO (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 4) in B1.
+  LO SGHERRO si muove verso SIBILLA REVE: B1 -> C1.
+  LO SGHERRO attacca SIBILLA REVE:
+    [ATTACCO NEMICO] LO SGHERRO -> SIBILLA REVE: 2d6(1,1)=2 +Attacco(2) = 4 vs Difesa(8) -> MANCATO
+--- Round 2: il gruppo raggiunge T3P (I Ponteggi di Ponente) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    Il gruppo entra in T3P da D2.
+    [PROVA NERVI] PADRE CELSO MARANI: 2d6(5,1)=6 +NERVI(3) = 9 vs Media(9) -> SUCCESSO
+    [PROVA NERVI] SIBILLA REVE: 2d6(6,2)=8 +NERVI(3) = 11 vs Media(9) -> SUCCESSO
+    PADRE CELSO MARANI si muove verso LO SGHERRO: D2 -> D1.
+    [ATTACCO] PADRE CELSO MARANI -> LO SGHERRO: 2d6(5,3)=8 +VIGORE(1)+arma(1) = 10 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    SIBILLA REVE si muove verso LO SGHERRO: D2 -> C2.
+    [ATTACCO] SIBILLA REVE -> LO SGHERRO: 2d6(1,4)=5 +VIGORE(1)+arma(1) = 7 vs Difesa(8) -> MANCATO
+  [MINACCIA] IL SILENZIO CHE PREME (insidia) — Ogni eroe prova NERVI (Facile): chi fallisce ha 1 sola azione al prossimo turno.
+    [PROVA NERVI] PADRE CELSO MARANI: 2d6(3,1)=4 +NERVI(3) = 7 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] SIBILLA REVE: 2d6(6,1)=7 +NERVI(3) = 10 vs Facile(7) -> SUCCESSO
+  LO SGHERRO attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] LO SGHERRO -> PADRE CELSO MARANI: 2d6(4,1)=5 +Attacco(2) = 7 vs Difesa(8) -> MANCATO
+--- Round 3: il gruppo raggiunge T4P (Il Castello di Tavole) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    Il gruppo entra in T4P da B1.
+    [PROVA NERVI] PADRE CELSO MARANI: 2d6(1,1)=2 +NERVI(3) = 5 vs Media(9) -> FALLITA
+    PADRE CELSO MARANI: il vuoto tira, le tavole ballano — 1 sola azione al prossimo turno.
+    [PROVA NERVI] SIBILLA REVE: 2d6(3,2)=5 +NERVI(3) = 8 vs Media(9) -> FALLITA
+    [SECONDO FIATO] SIBILLA REVE ritenta la prova (unico ritento dell’episodio):
+    [PROVA NERVI] SIBILLA REVE: 2d6(1,1)=2 +NERVI(3) = 5 vs Media(9) -> FALLITA
+    SIBILLA REVE: il vuoto tira, le tavole ballano — 1 sola azione al prossimo turno.
+    QUANDO RIVELATE: un Sicario di ronda — la lanterna schermata si gira.
+    PADRE CELSO MARANI ha 1 sola azione questo turno (insidia del round scorso).
+    PADRE CELSO MARANI si muove verso LO SGHERRO: B1 -> C2.
+    [ATTACCO] PADRE CELSO MARANI -> LO SGHERRO: 2d6(6,4)=10 +VIGORE(1)+arma(1) = 12 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+    SIBILLA REVE ha 1 sola azione questo turno (insidia del round scorso).
+    SIBILLA REVE si muove verso IL SICARIO: B1 -> D2.
+    SIBILLA REVE (1 sola azione) si limita ad avvicinarsi a IL SICARIO.
+  [MINACCIA] LA CALCE NEGLI OCCHI (insidia) — L’eroe attivo prova NERVI (Media): se fallisce, 1 danno e perde 1 azione.
+    [PROVA NERVI] PADRE CELSO MARANI: 2d6(1,5)=6 +NERVI(3) = 9 vs Media(9) -> SUCCESSO
+  IL SICARIO si muove verso PADRE CELSO MARANI: C3 -> A2.
+  IL SICARIO si avvicina, non ancora a contatto.
+--- Round 4: il gruppo raggiunge T6 (L’Intercapedine del Terzo Piano) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    Il gruppo entra in T6 da A3.
+    Rivelata l’Intercapedine del Terzo Piano: Fava legato tra i sacchi — e la Squadra del Silenzio posa le carte da gioco.
+    [SMASCHERATO — D2] «VOLTAN!» — il Capocantiere esita (salta la sua prima attivazione) e 1 Sgherro posa gli attrezzi e se ne va.
+    Fava si libera con Interagire (nessuna prova): si muove col gruppo (Mov 3).
+    PADRE CELSO MARANI si muove verso IL SICARIO: A3 -> B2.
+    [ATTACCO] PADRE CELSO MARANI -> IL SICARIO: 2d6(3,2)=5 +VIGORE(1)+arma(1) = 7 vs Difesa(7) -> COLPITO
+    IL SICARIO: 0/1 ferite residue.
+    IL SICARIO è ABBATTUTO.
+    SIBILLA REVE si muove verso IL CAPOCANTIERE: A3 -> B1.
+    SIBILLA REVE si avvicina a IL CAPOCANTIERE, non ancora a contatto.
+  [MINACCIA] LE PALE NEL BUIO (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 3) in A3.
+  LO SGHERRO si muove verso SIBILLA REVE: D2 -> C1.
+  LO SGHERRO attacca SIBILLA REVE:
+    [ATTACCO NEMICO] LO SGHERRO -> SIBILLA REVE: 2d6(2,1)=3 +Attacco(2) = 5 vs Difesa(8) -> MANCATO
+  LO SGHERRO si muove verso SIBILLA REVE: A3 -> A1.
+  LO SGHERRO attacca SIBILLA REVE:
+    [ATTACCO NEMICO] LO SGHERRO -> SIBILLA REVE: 2d6(1,4)=5 +Attacco(2) = 7 vs Difesa(8) -> MANCATO
+  IL CAPOCANTIERE salta l’attivazione (stonato).
+  [OROLOGIO] Fine del 4° round: +1 segnalino Canto automatico.
+    Segnalino Canto (Allarme): 1.
+--- Ritorno a T1 per la via dell’andata (i ponteggi): la squadra insegue ---
+--- Round 5: rientro — T4P (Il Castello di Tavole) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    [PROVA NERVI] PADRE CELSO MARANI: 2d6(5,1)=6 +NERVI(3) = 9 vs Media(9) -> SUCCESSO
+    [PROVA NERVI] SIBILLA REVE: 2d6(4,5)=9 +NERVI(3) = 12 vs Media(9) -> SUCCESSO
+    PADRE CELSO MARANI si muove verso IL CAPOCANTIERE: B2 -> C4.
+    PADRE CELSO MARANI si avvicina a IL CAPOCANTIERE, non ancora a contatto.
+    [ATTACCO] SIBILLA REVE -> LO SGHERRO: 2d6(4,3)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    [ABILITÀ] SIBILLA REVE scruta il mazzo: «LE LANTERNE SI MUOVONO» finisce in fondo, «LA MALTA FRESCA» torna in cima (2 usi residui).
+  [MINACCIA] LA MALTA FRESCA (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 2) in A3.
+  LO SGHERRO si muove verso PADRE CELSO MARANI: C1 -> D4.
+  LO SGHERRO attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] LO SGHERRO -> PADRE CELSO MARANI: 2d6(5,6)=11 +Attacco(2) = 13 vs Difesa(8) -> COLPITO
+    PADRE CELSO MARANI subisce 1 danno da LO SGHERRO (Salute: 7/8).
+  LO SGHERRO si muove verso PADRE CELSO MARANI: A1 -> B4.
+  LO SGHERRO attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] LO SGHERRO -> PADRE CELSO MARANI: 2d6(2,6)=8 +Attacco(2) = 10 vs Difesa(8) -> COLPITO
+    PADRE CELSO MARANI subisce 1 danno da LO SGHERRO (Salute: 6/8).
+  LO SGHERRO si avvicina, non ancora a contatto.
+  IL CAPOCANTIERE si avvicina, non ancora a contatto.
+--- Round 6: rientro — T3P (I Ponteggi di Ponente) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    [PROVA NERVI] PADRE CELSO MARANI: 2d6(2,1)=3 +NERVI(3) = 6 vs Media(9) -> FALLITA
+    PADRE CELSO MARANI: il vuoto tira anche in discesa — 1 sola azione al prossimo turno.
+    [PROVA NERVI] SIBILLA REVE: 2d6(1,3)=4 +NERVI(3) = 7 vs Media(9) -> FALLITA
+    SIBILLA REVE: il vuoto tira anche in discesa — 1 sola azione al prossimo turno.
+    PADRE CELSO MARANI ha 1 sola azione questo turno (insidia del round scorso).
+    [ATTACCO] PADRE CELSO MARANI -> LO SGHERRO: 2d6(3,2)=5 +VIGORE(1)+arma(1) = 7 vs Difesa(8) -> MANCATO
+    SIBILLA REVE ha 1 sola azione questo turno (insidia del round scorso).
+    SIBILLA REVE si muove verso IL CAPOCANTIERE: B1 -> B2.
+    SIBILLA REVE (1 sola azione) si limita ad avvicinarsi a IL CAPOCANTIERE.
+  [MINACCIA] IL PIOMBO DAL BUIO (insidia) — L’eroe più avanzato subisce 1 danno (nessuna prova).
+    PADRE CELSO MARANI subisce 1 danno da IL PIOMBO DAL BUIO (Salute: 5/8).
+  LO SGHERRO attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] LO SGHERRO -> PADRE CELSO MARANI: 2d6(2,1)=3 +Attacco(2) = 5 vs Difesa(8) -> MANCATO
+  LO SGHERRO si muove verso SIBILLA REVE: B4 -> B3.
+  LO SGHERRO attacca SIBILLA REVE:
+    [ATTACCO NEMICO] LO SGHERRO -> SIBILLA REVE: 2d6(5,6)=11 +Attacco(2) = 13 vs Difesa(8) -> COLPITO
+    SIBILLA REVE subisce 1 danno da LO SGHERRO (Salute: 7/8).
+  LO SGHERRO si muove verso SIBILLA REVE: A3 -> A2.
+  LO SGHERRO attacca SIBILLA REVE:
+    [ATTACCO NEMICO] LO SGHERRO -> SIBILLA REVE: 2d6(6,5)=11 +Attacco(2) = 13 vs Difesa(8) -> COLPITO
+    SIBILLA REVE subisce 1 danno da LO SGHERRO (Salute: 6/8).
+  IL CAPOCANTIERE si muove verso SIBILLA REVE: C2 -> B1.
+  IL CAPOCANTIERE attacca SIBILLA REVE:
+    [ATTACCO NEMICO] IL CAPOCANTIERE -> SIBILLA REVE: 2d6(6,1)=7 +Attacco(2) = 9 vs Difesa(8) -> COLPITO
+    SIBILLA REVE subisce 2 danno da IL CAPOCANTIERE (Salute: 4/8).
+    La squadra vi SBARRA la strada: questo round non si avanza.
+--- Round 7: rientro — T3P (I Ponteggi di Ponente) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    [PROVA NERVI] PADRE CELSO MARANI: 2d6(5,5)=10 +NERVI(3) = 13 vs Media(9) -> SUCCESSO
+    [PROVA NERVI] SIBILLA REVE: 2d6(6,2)=8 +NERVI(3) = 11 vs Media(9) -> SUCCESSO
+    La squadra esita sulle tavole (2d6(2,4)+2 < 9): resta indietro un round.
+    [ATTACCO] PADRE CELSO MARANI -> LO SGHERRO: 2d6(6,2)=8 +VIGORE(1)+arma(1) = 10 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+    [ATTACCO] SIBILLA REVE -> LO SGHERRO: 2d6(5,6)=11 +VIGORE(1)+arma(1) = 13 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    [ABILITÀ] SIBILLA REVE scruta il mazzo: «IL CANTIERE È SVEGLIO» finisce in fondo, «IL TURNO CAMBIA» torna in cima (1 usi residui).
+  [MINACCIA] IL TURNO CAMBIA (quiete) — Nessun effetto (tensione).
+    (carta senza effetto modellato in questa simulazione)
+    (la squadra non attacca questo round: è rimasta indietro)
+    La squadra vi SBARRA la strada: questo round non si avanza.
+--- Round 8: rientro — T3P (I Ponteggi di Ponente) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    [PROVA NERVI] PADRE CELSO MARANI: 2d6(3,3)=6 +NERVI(3) = 9 vs Media(9) -> SUCCESSO
+    [PROVA NERVI] SIBILLA REVE: 2d6(2,2)=4 +NERVI(3) = 7 vs Media(9) -> FALLITA
+    SIBILLA REVE: il vuoto tira anche in discesa — 1 sola azione al prossimo turno.
+    La squadra esita sulle tavole (2d6(1,2)+2 < 9): resta indietro un round.
+    PADRE CELSO MARANI si muove verso LO SGHERRO: C4 -> B4.
+    [ATTACCO] PADRE CELSO MARANI -> LO SGHERRO: 2d6(2,6)=8 +VIGORE(1)+arma(1) = 10 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+    SIBILLA REVE ha 1 sola azione questo turno (insidia del round scorso).
+    SIBILLA REVE si muove verso LO SGHERRO: B2 -> A3.
+    [ATTACCO] SIBILLA REVE -> LO SGHERRO: 2d6(2,3)=5 +VIGORE(1)+arma(1) = 7 vs Difesa(8) -> MANCATO
+    [ABILITÀ] SIBILLA REVE scruta il mazzo: «LA RONDA DEL CANCELLO» finisce in fondo, «LA PAGA DEL SILENZIO» torna in cima (0 usi residui).
+  [MINACCIA] LA PAGA DEL SILENZIO (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 3) in A3.
+    (la squadra non attacca questo round: è rimasta indietro)
+  [OROLOGIO] Fine del 8° round: +1 segnalino Canto automatico.
+    Segnalino Canto (Allarme): 2.
+--- Round 9: rientro — T2 (Il Piano Terra) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    PADRE CELSO MARANI si muove verso LO SGHERRO: B4 -> B3.
+    [ATTACCO] PADRE CELSO MARANI -> LO SGHERRO: 2d6(3,5)=8 +VIGORE(1)+arma(1) = 10 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    SIBILLA REVE si muove verso LO SGHERRO: A3 -> C4.
+    SIBILLA REVE si avvicina a LO SGHERRO, non ancora a contatto.
+  [MINACCIA] I SACCHI FRANATI (ostacolo) — Muoversi costa il doppio sulla tessera dell’eroe attivo fino a fine round.
+    (carta senza effetto modellato in questa simulazione)
+  LO SGHERRO si muove verso SIBILLA REVE: A2 -> D3.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si muove verso PADRE CELSO MARANI: A3 -> B4.
+  LO SGHERRO attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] LO SGHERRO -> PADRE CELSO MARANI: 2d6(5,4)=9 +Attacco(2) = 11 vs Difesa(8) -> COLPITO
+    PADRE CELSO MARANI subisce 1 danno da LO SGHERRO (Salute: 4/8).
+  IL CAPOCANTIERE si avvicina, non ancora a contatto.
+--- Round 10: rientro — T1 (Il Cancello) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    PADRE CELSO MARANI si muove verso LO SGHERRO: B3 -> A4.
+    [ATTACCO] PADRE CELSO MARANI -> LO SGHERRO: 2d6(4,2)=6 +VIGORE(1)+arma(1) = 8 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+    SIBILLA REVE si muove verso LO SGHERRO: C4 -> D4.
+    [ATTACCO] SIBILLA REVE -> LO SGHERRO: 2d6(4,6)=10 +VIGORE(1)+arma(1) = 12 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+  [MINACCIA] LA SQUADRA DEL SILENZIO (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 3) in A3.
+  LO SGHERRO si muove verso SIBILLA REVE: D3 -> B3.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] LO SGHERRO -> PADRE CELSO MARANI: 2d6(2,2)=4 +Attacco(2) = 6 vs Difesa(8) -> MANCATO
+  IL CAPOCANTIERE si muove verso SIBILLA REVE: B1 -> D2.
+  IL CAPOCANTIERE si avvicina, non ancora a contatto.
+
+==============================================================================
+ESITO SPEDIZIONE: VITTORIA
+Round totali: 10
+Formula Minaccia: finale_v3 | Azioni nominali/round: media 4.0, picco 4
+Mazzo Minaccia rimescolato: 0 volta/e
+Segnalini nemici esauriti nel pool (piazzamenti saltati): 0
+Via scelta: i ponteggi | Capocantiere: in piedi
+  PADRE CELSO MARANI: 4/8 Salute
+  SIBILLA REVE: 4/8 Salute
+==============================================================================
