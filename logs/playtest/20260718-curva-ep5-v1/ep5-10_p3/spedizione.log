@@ -1,0 +1,546 @@
+Run: ep5-10_p3_seed0  |  seed=661300  |  formula Minaccia=finale_v3  |  generato: 2026-07-18T11:45:58
+==============================================================================
+SPEDIZIONE - La cripta dei Battuti
+==============================================================================
+Party: CARLA DOSTI, DOTT. ATTILIO MARN, ELENA FOSCO, FULGENZIO CARBONE, MORA “SPILLA” FANTI, NINO “GRIMALDELLO” CAUTO, OTTAVIO BRERA, OTTONE “MEZZENA” MASSARI, PADRE CELSO MARANI, SIBILLA REVE
+Bonus da Indagine: PREPARATI (+1 Salute massima a testa); Acqua del Fonte: sì; Candele: sì; D1: esatta; D3: esatta
+NOTA: gruppo trattato come blocco unico tessera per tessera (vedi intestazione script).
+Tensione tavolo piccolo: +1 Ferite SOLO al Salmodiante (non ai nemici di truppa).
+
+Gettone Intuizione in mano (Dossier completo): un ri-tiro, una volta in Spedizione.
+--- Round 1: il gruppo raggiunge T2 (Navata Sepolta) ---
+    (azioni nominali questo round: 20 — 10 eroi vivi)
+    Il gruppo entra in T2 da B1.
+    [PROVA ACUME] CARLA DOSTI: 2d6(4,5)=9 +ACUME(3) = 12 vs Media(9) -> SUCCESSO
+    CARLA DOSTI cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    DOTT. ATTILIO MARN: nessun bersaglio, avanza / assiste il gruppo.
+    ELENA FOSCO: nessun bersaglio, avanza / assiste il gruppo.
+    FULGENZIO CARBONE: nessun bersaglio, avanza / assiste il gruppo.
+    MORA “SPILLA” FANTI: nessun bersaglio, avanza / assiste il gruppo.
+    NINO “GRIMALDELLO” CAUTO: nessun bersaglio, avanza / assiste il gruppo.
+    OTTAVIO BRERA: nessun bersaglio, avanza / assiste il gruppo.
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+    PADRE CELSO MARANI: nessun bersaglio, avanza / assiste il gruppo.
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] L’ACCORDATURA (crescendo) — Aggiungete 1 segnalino Canto. Alla soglia: il Salmodiante si desta.
+    Segnalino Canto: 1.
+  [MINACCIA] I MANOVALI DEL CANTIERE (posseduto) — Piazzate 1 Adepto sull’ingresso della Scala del Sagrato (T1).
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 3), a 6 caselle dalla tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+--- Round 2: il gruppo raggiunge T3 (Corridoio degli Ossari) ---
+    (azioni nominali questo round: 20 — 10 eroi vivi)
+    Il gruppo entra in T3 da B1.
+    [HOOK INDAGINE] La salmodia sotto: tacendo e in fretta — prova declassata a Media.
+    [OGGETTO] Le Candele della Parrocchia: +1 alla prova.
+    [PROVA NERVI] CARLA DOSTI: 2d6(6,1)=7 +NERVI(2) +candele(+1) = 10 vs Media(9) -> SUCCESSO
+    [PROVA NERVI] DOTT. ATTILIO MARN: 2d6(6,5)=11 +NERVI(2) +candele(+1) = 14 vs Media(9) -> SUCCESSO
+    [PROVA NERVI] ELENA FOSCO: 2d6(3,5)=8 +NERVI(2) +candele(+1) = 11 vs Media(9) -> SUCCESSO
+    [PROVA NERVI] FULGENZIO CARBONE: 2d6(4,5)=9 +NERVI(2) +candele(+1) = 12 vs Media(9) -> SUCCESSO
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(2,3)=5 +NERVI(1) +candele(+1) = 7 vs Media(9) -> FALLITA
+    [SECONDO FIATO] MORA “SPILLA” FANTI ritenta la prova (unico ritento dell’episodio):
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(1,2)=3 +NERVI(1) +candele(+1) = 5 vs Media(9) -> FALLITA
+    MORA “SPILLA” FANTI: il muro gli canta accanto — 1 sola azione al prossimo turno.
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6(2,2)=4 +NERVI(1) +candele(+1) = 6 vs Media(9) -> FALLITA
+    [SECONDO FIATO] NINO “GRIMALDELLO” CAUTO ritenta la prova (unico ritento dell’episodio):
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6(2,1)=3 +NERVI(1) +candele(+1) = 5 vs Media(9) -> FALLITA
+    NINO “GRIMALDELLO” CAUTO: il muro gli canta accanto — 1 sola azione al prossimo turno.
+    [PROVA NERVI] OTTAVIO BRERA: 2d6(4,6)=10 +NERVI(2) +candele(+1) = 13 vs Media(9) -> SUCCESSO
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6(1,3)=4 +NERVI(2) +candele(+1) = 7 vs Media(9) -> FALLITA
+    [SECONDO FIATO] OTTONE “MEZZENA” MASSARI ritenta la prova (unico ritento dell’episodio):
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6(1,1)=2 +NERVI(2) +candele(+1) = 5 vs Media(9) -> FALLITA
+    OTTONE “MEZZENA” MASSARI: il muro gli canta accanto — 1 sola azione al prossimo turno.
+    [PROVA NERVI] PADRE CELSO MARANI: 2d6(4,6)=10 +NERVI(3) +candele(+1) = 14 vs Media(9) -> SUCCESSO
+    [PROVA NERVI] SIBILLA REVE: 2d6(2,4)=6 +NERVI(3) +candele(+1) = 10 vs Media(9) -> SUCCESSO
+    [PROVA ACUME] CARLA DOSTI: 2d6(3,3)=6 +ACUME(3) = 9 vs Media(9) -> SUCCESSO
+    CARLA DOSTI cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    DOTT. ATTILIO MARN: nessun bersaglio, avanza / assiste il gruppo.
+    ELENA FOSCO: nessun bersaglio, avanza / assiste il gruppo.
+    [ABILITÀ] FULGENZIO CARBONE usa Esca preziosa: ADEPTO INCAPPUCCIATO si dirige verso l’esca invece che verso il gruppo alla prossima attivazione.
+    MORA “SPILLA” FANTI ha 1 sola azione questo turno (insidia del round scorso).
+    MORA “SPILLA” FANTI: nessun bersaglio, avanza / assiste il gruppo.
+    NINO “GRIMALDELLO” CAUTO ha 1 sola azione questo turno (insidia del round scorso).
+    NINO “GRIMALDELLO” CAUTO: nessun bersaglio, avanza / assiste il gruppo.
+    [ABILITÀ] OTTAVIO BRERA usa Vi conosco, Malacarne su ADEPTO INCAPPUCCIATO: rimosso dal tabellone.
+    OTTONE “MEZZENA” MASSARI ha 1 sola azione questo turno (insidia del round scorso).
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+    [ABILITÀ] PADRE CELSO MARANI usa Litania: -1 segnalino Canto (1->0).
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] LA PROCESSIONE (posseduto) — Piazzate 1 Confratello sull’uscita più vicina agli eroi.
+    Piazzati 1x IL CONFRATELLO (pool residua: 3) in B1.
+  [MINACCIA] LA BOTOLA SI APRE (posseduto) — Piazzate 1 Adepto sull’ingresso della Scala del Sagrato (T1).
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 2), a 6 caselle dalla tessera del gruppo.
+  [MINACCIA] I CARRETTIERI (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 1) in B1.
+  IL CONFRATELLO si muove verso OTTONE “MEZZENA” MASSARI: B1 -> C1.
+  IL CONFRATELLO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] IL CONFRATELLO -> OTTONE “MEZZENA” MASSARI: 2d6(5,3)=8 +Attacco(1) = 9 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 1 danno da IL CONFRATELLO (Salute: 8/9).
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si muove verso ELENA FOSCO: B1 -> A1.
+  LO SGHERRO attacca ELENA FOSCO:
+    [ATTACCO NEMICO] LO SGHERRO -> ELENA FOSCO: 2d6(2,4)=6 +Attacco(2) = 8 vs Difesa(8) -> COLPITO
+    ELENA FOSCO subisce 1 danno da LO SGHERRO (Salute: 6/7).
+--- Round 3: il gruppo raggiunge T4 (Sala del Capitolo) ---
+    (azioni nominali questo round: 20 — 10 eroi vivi)
+    Il gruppo entra in T4 da B1.
+    QUANDO RIVELATE: 1 Adepto sta calando dalla corda della Confluenza.
+    QUANDO RIVELATE: 1 Confratello di guardia appare tra i sedili del capitolo.
+    [ATTACCO] CARLA DOSTI -> IL CONFRATELLO: 2d6(4,3)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(7) -> COLPITO
+    IL CONFRATELLO: 0/1 ferite residue.
+    IL CONFRATELLO è ABBATTUTO.
+    [ABILITÀ] DOTT. ATTILIO MARN usa Pronto Soccorso su ELENA FOSCO -> Salute 7.
+    [ATTACCO] ELENA FOSCO -> LO SGHERRO: 2d6(5,4)=9 +VIGORE(1)+arma(1) = 11 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    [ABILITÀ] FULGENZIO CARBONE usa Esca preziosa: ADEPTO INCAPPUCCIATO, LO SGHERRO si dirige verso l’esca invece che verso il gruppo alla prossima attivazione.
+    [ATTACCO] MORA “SPILLA” FANTI -> LO SGHERRO: 2d6(3,3)=6 +VIGORE(2)+arma(1) = 9 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+    NINO “GRIMALDELLO” CAUTO si muove verso IL CONFRATELLO: B1 -> C1.
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> IL CONFRATELLO: 2d6(3,5)=8 +VIGORE(2)+arma(1) = 11 vs Difesa(7) -> COLPITO
+    IL CONFRATELLO: 0/1 ferite residue.
+    IL CONFRATELLO è ABBATTUTO.
+    OTTAVIO BRERA si muove verso ADEPTO INCAPPUCCIATO: B1 -> A3.
+    OTTAVIO BRERA si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    [PROVA ACUME] OTTONE “MEZZENA” MASSARI: 2d6(5,4)=9 +ACUME(1) = 10 vs Media(9) -> SUCCESSO
+    OTTONE “MEZZENA” MASSARI cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    PADRE CELSO MARANI: nessun bersaglio, avanza / assiste il gruppo.
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] IL CARRO VUOTO (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 1) in B1.
+  [MINACCIA] LA POLVERE DI CRIPTA (insidia) — L’eroe attivo prova NERVI (Media): se fallisce, 1 danno e perde 1 azione.
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(4,4)=8 +NERVI(1) = 9 vs Media(9) -> SUCCESSO
+  ADEPTO INCAPPUCCIATO si dirige verso l’esca (Carbone): non attacca questo round.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  LO SGHERRO si muove verso MORA “SPILLA” FANTI: B1 -> A1.
+  LO SGHERRO attacca MORA “SPILLA” FANTI:
+    [ATTACCO NEMICO] LO SGHERRO -> MORA “SPILLA” FANTI: 2d6(3,1)=4 +Attacco(2) = 6 vs Difesa(8) -> MANCATO
+--- Round 4: il gruppo raggiunge T5 (Officina delle Canne d’Ossa) ---
+    (azioni nominali questo round: 20 — 10 eroi vivi)
+    Il gruppo entra in T5 da A3.
+    QUANDO RIVELATE: l’officina delle canne — le casse contro il muro.
+    Le casse di ossa contro il muro: Interagire per salvarle (contano nell’epilogo, non simulate).
+    CARLA DOSTI si muove verso LO SGHERRO: A3 -> A2.
+    [ATTACCO] CARLA DOSTI -> LO SGHERRO: 2d6(4,2)=6 +VIGORE(1)+arma(1) = 8 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    [ABILITÀ] DOTT. ATTILIO MARN usa Pronto Soccorso su OTTONE “MEZZENA” MASSARI -> Salute 9.
+    ELENA FOSCO si muove verso ADEPTO INCAPPUCCIATO: A3 -> C3.
+    [ATTACCO] ELENA FOSCO -> ADEPTO INCAPPUCCIATO: 2d6(1,5)=6 +VIGORE(1)+arma(1) = 8 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    FULGENZIO CARBONE si muove verso LO SGHERRO: A3 -> B1.
+    [ATTACCO] FULGENZIO CARBONE -> LO SGHERRO: 2d6(4,1)=5 +VIGORE(1)+arma(1) = 7 vs Difesa(8) -> MANCATO
+    [PROVA ACUME] MORA “SPILLA” FANTI: 2d6(3,6)=9 +ACUME(3) = 12 vs Media(9) -> SUCCESSO
+    MORA “SPILLA” FANTI cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    NINO “GRIMALDELLO” CAUTO: nessun bersaglio, avanza / assiste il gruppo.
+    OTTAVIO BRERA: nessun bersaglio, avanza / assiste il gruppo.
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+    PADRE CELSO MARANI: nessun bersaglio, avanza / assiste il gruppo.
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] UNO SPIFFERO DI SAGRATO (favore) — Rivelate una tessera coperta adiacente.
+    (carta senza effetto modellato in questa simulazione)
+  [MINACCIA] LA SALMODIA TACE (quiete) — Nessun effetto (tensione).
+    (carta senza effetto modellato in questa simulazione)
+  [MINACCIA] PASSI SULLA SCALA (posseduto) — Piazzate 1 Adepto sull’ingresso della Scala del Sagrato (T1).
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 1), a 6 caselle dalla tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO attacca CARLA DOSTI:
+    [ATTACCO NEMICO] LO SGHERRO -> CARLA DOSTI: 2d6(4,6)=10 +Attacco(2) = 12 vs Difesa(8) -> COLPITO
+    CARLA DOSTI subisce 1 danno da LO SGHERRO (Salute: 6/7).
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+  [OROLOGIO] Fine del 4° round: +1 segnalino Canto automatico.
+    Segnalino Canto: 1.
+--- Round 5: il gruppo raggiunge T4 (Sala del Capitolo - ritorno dal ramo) ---
+    (azioni nominali questo round: 20 — 10 eroi vivi)
+    Il gruppo entra in T4 da D3.
+    CARLA DOSTI si muove verso LO SGHERRO: D3 -> C1.
+    CARLA DOSTI si avvicina a LO SGHERRO, non ancora a contatto.
+    [ABILITÀ] DOTT. ATTILIO MARN usa Pronto Soccorso su CARLA DOSTI -> Salute 7.
+    ELENA FOSCO si muove verso LO SGHERRO: D3 -> B4.
+    ELENA FOSCO si avvicina a LO SGHERRO, non ancora a contatto.
+    [PROVA ACUME] FULGENZIO CARBONE: 2d6(3,6)=9 +ACUME(3) = 12 vs Media(9) -> SUCCESSO
+    FULGENZIO CARBONE cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    MORA “SPILLA” FANTI: nessun bersaglio, avanza / assiste il gruppo.
+    NINO “GRIMALDELLO” CAUTO: nessun bersaglio, avanza / assiste il gruppo.
+    OTTAVIO BRERA: nessun bersaglio, avanza / assiste il gruppo.
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+    PADRE CELSO MARANI: nessun bersaglio, avanza / assiste il gruppo.
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+    [ABILITÀ] SIBILLA REVE scruta il mazzo: «LA PRIMA CANNA» finisce in fondo, «LE IMPALCATURE» torna in cima (2 usi residui).
+  [MINACCIA] LE IMPALCATURE (ostacolo) — Muoversi costa il doppio sulla tessera dell’eroe attivo fino a fine round.
+    (carta senza effetto modellato in questa simulazione)
+  [MINACCIA] IL BUIO DELLE NICCHIE (insidia) — L’eroe più avanzato prova NERVI (Media): se fallisce, 1 danno.
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(1,4)=5 +NERVI(1) = 6 vs Media(9) -> FALLITA
+    MORA “SPILLA” FANTI subisce 1 danno da IL BUIO DELLE NICCHIE (Salute: 7/8).
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si muove verso CARLA DOSTI: A1 -> B1.
+  LO SGHERRO attacca CARLA DOSTI:
+    [ATTACCO NEMICO] LO SGHERRO -> CARLA DOSTI: 2d6(1,2)=3 +Attacco(2) = 5 vs Difesa(8) -> MANCATO
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+--- Round 6: il gruppo raggiunge T6 (L’Organo Murato) ---
+    (azioni nominali questo round: 20 — 10 eroi vivi)
+    Il gruppo entra in T6 da B1.
+    Rivelato l’Organo Murato: il Salmodiante con la scorta di Confratelli, in C2 — il Maestro dei Registri fugge dalla condotta.
+    [OGGETTO] CARLA DOSTI versa L’ACQUA DEL FONTE davanti al Salmodiante: l’unica voce più vecchia della sua — Difesa 8->5, salta la prossima attivazione.
+    DOTT. ATTILIO MARN si muove verso IL CONFRATELLO: B1 -> A2.
+    [ATTACCO] DOTT. ATTILIO MARN -> IL CONFRATELLO: 2d6(1,5)=6 +VIGORE(2)+arma(1) = 9 vs Difesa(8) -> COLPITO
+    IL CONFRATELLO: 0/1 ferite residue.
+    IL CONFRATELLO è ABBATTUTO.
+    [ATTACCO] ELENA FOSCO -> IL CONFRATELLO: 2d6(5,6)=11 +VIGORE(1)+arma(1) = 13 vs Difesa(8) -> COLPITO
+    IL CONFRATELLO: 0/1 ferite residue.
+    IL CONFRATELLO è ABBATTUTO.
+    FULGENZIO CARBONE si muove verso IL SALMODIANTE: B1 -> B2.
+    [ATTACCO] FULGENZIO CARBONE -> LO SGHERRO: 2d6(4,4)=8 +VIGORE(1)+arma(1) = 10 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+    MORA “SPILLA” FANTI si muove verso IL SALMODIANTE: B1 -> C1.
+    [ATTACCO] MORA “SPILLA” FANTI -> IL SALMODIANTE: 2d6(2,5)=7 +VIGORE(2)+arma(1) = 10 vs Difesa(5) -> COLPITO
+    IL SALMODIANTE: 4/5 ferite residue.
+    [AZIONE] NINO “GRIMALDELLO” CAUTO sfregia una canna montata dell’organo (1/3 sfregiate).
+    [AZIONE] OTTAVIO BRERA sfregia una canna montata dell’organo (2/3 sfregiate).
+    [AZIONE] OTTONE “MEZZENA” MASSARI sfregia una canna montata dell’organo (3/3 sfregiate).
+    [PROVA ACUME] PADRE CELSO MARANI: 2d6(6,5)=11 +ACUME(2) = 13 vs Media(9) -> SUCCESSO
+    PADRE CELSO MARANI cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+    [ABILITÀ] SIBILLA REVE scruta il mazzo: «IL SORVEGLIANTE DEL SAGRATO» finisce in fondo, «LA SALMODIA NELLE OSSA» torna in cima (1 usi residui).
+  [MINACCIA] LA SALMODIA NELLE OSSA (insidia) — Ogni eroe prova NERVI (Facile): chi fallisce ha 1 sola azione al prossimo turno.
+    [PROVA NERVI] CARLA DOSTI: 2d6(1,4)=5 +NERVI(2) = 7 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] DOTT. ATTILIO MARN: 2d6(3,5)=8 +NERVI(2) = 10 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] ELENA FOSCO: 2d6(3,1)=4 +NERVI(2) = 6 vs Facile(7) -> FALLITA
+    [SECONDO FIATO] ELENA FOSCO ritenta la prova (unico ritento dell’episodio):
+    [PROVA NERVI] ELENA FOSCO: 2d6(6,4)=10 +NERVI(2) = 12 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] FULGENZIO CARBONE: 2d6(6,6)=12 +NERVI(2) = 14 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(3,5)=8 +NERVI(1) = 9 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6(2,2)=4 +NERVI(1) = 5 vs Facile(7) -> FALLITA
+    NINO “GRIMALDELLO” CAUTO avrà 1 sola azione al suo prossimo turno.
+    [PROVA NERVI] OTTAVIO BRERA: 2d6(4,5)=9 +NERVI(2) = 11 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6(2,2)=4 +NERVI(2) = 6 vs Facile(7) -> FALLITA
+    OTTONE “MEZZENA” MASSARI avrà 1 sola azione al suo prossimo turno.
+    [PROVA NERVI] PADRE CELSO MARANI: 2d6(5,5)=10 +NERVI(3) = 13 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] SIBILLA REVE: 2d6(5,3)=8 +NERVI(3) = 11 vs Facile(7) -> SUCCESSO
+  [MINACCIA] IL TURNO DI NOTTE (posseduto) — Piazzate 1 Adepto sull’ingresso della Scala del Sagrato (T1).
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 0), a 6 caselle dalla tessera del gruppo.
+  [MINACCIA] LA CALATA DELLE CASSE (posseduto) — Piazzate 1 Adepto sull’ingresso dell’Officina (T5).
+    Segnalini ADEPTO INCAPPUCCIATO esauriti: il piazzamento non ha luogo (resto della carta si applica comunque).
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+  IL CONFRATELLO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+  IL SALMODIANTE salta l’attivazione (stonato).
+--- Combattimento contro il Salmodiante ---
+--- Round 7: scontro all’Organo Murato ---
+    (azioni nominali questo round: 20 — 10 eroi vivi)
+    [ABILITÀ] CARLA DOSTI usa Flash! su IL SALMODIANTE: accecato, salta la sua prossima attivazione (1 usi residui).
+    DOTT. ATTILIO MARN si muove verso IL CONFRATELLO: A2 -> B4.
+    DOTT. ATTILIO MARN si avvicina a IL CONFRATELLO, non ancora a contatto.
+    [PROVA ACUME] ELENA FOSCO: 2d6(5,3)=8 +ACUME(3) = 11 vs Media(9) -> SUCCESSO
+    ELENA FOSCO cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    [ATTACCO] FULGENZIO CARBONE -> IL SALMODIANTE: 2d6(6,1)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(5) -> COLPITO
+    IL SALMODIANTE: 3/5 ferite residue.
+    [ATTACCO] MORA “SPILLA” FANTI -> IL SALMODIANTE: 2d6(3,6)=9 +VIGORE(2)+arma(1) = 12 vs Difesa(5) -> COLPITO
+    IL SALMODIANTE: 2/5 ferite residue.
+    NINO “GRIMALDELLO” CAUTO ha 1 sola azione questo turno (insidia del round scorso).
+    NINO “GRIMALDELLO” CAUTO: nessun bersaglio, avanza / assiste il gruppo.
+    OTTAVIO BRERA: nessun bersaglio, avanza / assiste il gruppo.
+    OTTONE “MEZZENA” MASSARI ha 1 sola azione questo turno (insidia del round scorso).
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+    PADRE CELSO MARANI: nessun bersaglio, avanza / assiste il gruppo.
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+    [ABILITÀ] SIBILLA REVE scruta il mazzo: «IL REGISTRO PIENO» finisce in fondo, «IL PASSO DI CERA» torna in cima (0 usi residui).
+  [MINACCIA] IL PASSO DI CERA (posseduto) — Piazzate 1 Confratello sull’uscita più vicina agli eroi.
+    Piazzati 1x IL CONFRATELLO (pool residua: 2) in B1.
+  [MINACCIA] IL CAPITOLO SI ALZA (posseduto) — Piazzate 1 Confratello. Se è già in gioco un Confratello, si attiva subito.
+    Piazzati 1x IL CONFRATELLO (pool residua: 1) in B1.
+  ADEPTO INCAPPUCCIATO raggiunge la tessera del gruppo, da A1.
+  ADEPTO INCAPPUCCIATO attacca ELENA FOSCO:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> ELENA FOSCO: 2d6(4,1)=5 +Attacco(1) = 6 vs Difesa(8) -> MANCATO
+  ADEPTO INCAPPUCCIATO raggiunge la tessera del gruppo, da D1.
+  ADEPTO INCAPPUCCIATO attacca MORA “SPILLA” FANTI:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> MORA “SPILLA” FANTI: 2d6(3,3)=6 +Attacco(1) = 7 vs Difesa(8) -> MANCATO
+  IL CONFRATELLO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 1 caselle prima di raggiungere la tessera del gruppo.
+  IL CONFRATELLO attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] IL CONFRATELLO -> FULGENZIO CARBONE: 2d6(3,2)=5 +Attacco(1) = 6 vs Difesa(8) -> MANCATO
+  IL CONFRATELLO attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] IL CONFRATELLO -> FULGENZIO CARBONE: 2d6(2,2)=4 +Attacco(1) = 5 vs Difesa(8) -> MANCATO
+  IL SALMODIANTE salta l’attivazione (Flash! di Carla).
+--- Round 8: scontro all’Organo Murato ---
+    (azioni nominali questo round: 20 — 10 eroi vivi)
+    [ABILITÀ] CARLA DOSTI usa Flash! su IL SALMODIANTE: accecato, salta la sua prossima attivazione (0 usi residui).
+    DOTT. ATTILIO MARN si muove verso ADEPTO INCAPPUCCIATO: B4 -> A2.
+    [ATTACCO] DOTT. ATTILIO MARN -> ADEPTO INCAPPUCCIATO: 2d6(3,6)=9 +VIGORE(2)+arma(1) = 12 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    ELENA FOSCO: nessun bersaglio, avanza / assiste il gruppo.
+    [ATTACCO] FULGENZIO CARBONE -> IL CONFRATELLO: 2d6(1,5)=6 +VIGORE(1)+arma(1) = 8 vs Difesa(7) -> COLPITO
+    IL CONFRATELLO: 0/1 ferite residue.
+    IL CONFRATELLO è ABBATTUTO.
+    [ATTACCO] MORA “SPILLA” FANTI -> ADEPTO INCAPPUCCIATO: 2d6(3,5)=8 +VIGORE(2)+arma(1) = 11 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    NINO “GRIMALDELLO” CAUTO: nessun bersaglio, avanza / assiste il gruppo.
+    OTTAVIO BRERA: nessun bersaglio, avanza / assiste il gruppo.
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+    PADRE CELSO MARANI: nessun bersaglio, avanza / assiste il gruppo.
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] LA NOTA BASSA (insidia) — L’eroe con meno NERVI prova NERVI (Media): se fallisce 1 danno.
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(1,2)=3 +NERVI(1) = 4 vs Media(9) -> FALLITA
+    MORA “SPILLA” FANTI subisce 1 danno da LA NOTA BASSA (Salute: 6/8).
+  [MINACCIA] LA PRIMA CANNA (crescendo) — Aggiungete 1 segnalino Canto. Alla soglia: il Salmodiante si desta.
+    Segnalino Canto: 2.
+    Il Salmodiante recupera 1 ferita (3/5) e si attiva subito.
+  [MINACCIA] IL SORVEGLIANTE DEL SAGRATO (malavita) — Piazzate 1 Sicario: si attiva subito.
+    Piazzati 1x IL SICARIO (pool residua: 0) in D1.
+    IL SICARIO si attiva subito:
+  IL SICARIO attacca MORA “SPILLA” FANTI:
+    [ATTACCO NEMICO] IL SICARIO -> MORA “SPILLA” FANTI: 2d6(4,6)=10 +Attacco(3) = 13 vs Difesa(8) -> COLPITO
+    MORA “SPILLA” FANTI subisce 2 danno da IL SICARIO (Salute: 4/8).
+  IL CONFRATELLO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO raggiunge la tessera del gruppo, da A1.
+  ADEPTO INCAPPUCCIATO attacca CARLA DOSTI:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> CARLA DOSTI: 2d6(6,1)=7 +Attacco(1) = 8 vs Difesa(8) -> COLPITO
+    CARLA DOSTI subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 6/7).
+  IL CONFRATELLO attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] IL CONFRATELLO -> FULGENZIO CARBONE: 2d6(4,5)=9 +Attacco(1) = 10 vs Difesa(8) -> COLPITO
+    FULGENZIO CARBONE subisce 1 danno da IL CONFRATELLO (Salute: 6/7).
+  IL SALMODIANTE salta l’attivazione (Flash! di Carla).
+  [OROLOGIO] Fine del 8° round: +1 segnalino Canto automatico.
+    Segnalino Canto: 3.
+    Il Canto raggiunge 3: da ora ogni Fase Minaccia pesca 1 carta in più (fino a fine spedizione, anche se il Custode è già stato abbattuto).
+--- Round 9: scontro all’Organo Murato ---
+    (azioni nominali questo round: 20 — 10 eroi vivi)
+    [ATTACCO] CARLA DOSTI -> ADEPTO INCAPPUCCIATO: 2d6(4,2)=6 +VIGORE(1)+arma(1) = 8 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    DOTT. ATTILIO MARN si muove verso IL CONFRATELLO: A2 -> A1.
+    [ATTACCO] DOTT. ATTILIO MARN -> IL CONFRATELLO: 2d6(4,3)=7 +VIGORE(2)+arma(1) = 10 vs Difesa(7) -> COLPITO
+    IL CONFRATELLO: 0/1 ferite residue.
+    IL CONFRATELLO è ABBATTUTO.
+    ELENA FOSCO: nessun bersaglio, avanza / assiste il gruppo.
+    [ATTACCO] FULGENZIO CARBONE -> IL SALMODIANTE: 2d6(2,4)=6 +VIGORE(1)+arma(1) = 8 vs Difesa(5) -> COLPITO
+    IL SALMODIANTE: 2/5 ferite residue.
+    [ATTACCO] MORA “SPILLA” FANTI -> IL SICARIO: 2d6(3,4)=7 +VIGORE(2)+arma(1) = 10 vs Difesa(7) -> COLPITO
+    IL SICARIO: 0/1 ferite residue.
+    IL SICARIO è ABBATTUTO.
+    NINO “GRIMALDELLO” CAUTO: nessun bersaglio, avanza / assiste il gruppo.
+    OTTAVIO BRERA: nessun bersaglio, avanza / assiste il gruppo.
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+    PADRE CELSO MARANI: nessun bersaglio, avanza / assiste il gruppo.
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] IL REGISTRO PIENO (crescendo) — Aggiungete 1 segnalino Canto. Alla soglia: il Salmodiante si desta.
+    Segnalino Canto: 4.
+    Il Salmodiante recupera 1 ferita (3/5) e si attiva subito.
+    Mazzo Minaccia esaurito: si rimescolano gli scarti.
+  [MINACCIA] LA PRIMA CANNA (crescendo) — Aggiungete 1 segnalino Canto. Alla soglia: il Salmodiante si desta.
+    Segnalino Canto: 5.
+    Il Salmodiante recupera 1 ferita (4/5) e si attiva subito.
+  [MINACCIA] UNO SPIFFERO DI SAGRATO (favore) — Rivelate una tessera coperta adiacente.
+    (carta senza effetto modellato in questa simulazione)
+  IL CONFRATELLO si avvicina, non ancora a contatto.
+  IL SALMODIANTE attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] IL SALMODIANTE -> FULGENZIO CARBONE: 2d6(1,2)=3 +Attacco(3) = 6 vs Difesa(8) -> MANCATO
+--- Round 10: scontro all’Organo Murato ---
+    (azioni nominali questo round: 20 — 10 eroi vivi)
+    CARLA DOSTI: nessun bersaglio, avanza / assiste il gruppo.
+    DOTT. ATTILIO MARN si muove verso IL CONFRATELLO: A1 -> B3.
+    DOTT. ATTILIO MARN si avvicina a IL CONFRATELLO, non ancora a contatto.
+    ELENA FOSCO si muove verso IL CONFRATELLO: B1 -> A3.
+    ELENA FOSCO si avvicina a IL CONFRATELLO, non ancora a contatto.
+    [ATTACCO] FULGENZIO CARBONE -> IL SALMODIANTE: 2d6(1,2)=3 +VIGORE(1)+arma(1) = 5 vs Difesa(5) -> COLPITO
+    IL SALMODIANTE: 3/5 ferite residue.
+    [ATTACCO] MORA “SPILLA” FANTI -> IL SALMODIANTE: 2d6(1,4)=5 +VIGORE(2)+arma(1) = 8 vs Difesa(5) -> COLPITO
+    IL SALMODIANTE: 2/5 ferite residue.
+    NINO “GRIMALDELLO” CAUTO: nessun bersaglio, avanza / assiste il gruppo.
+    OTTAVIO BRERA: nessun bersaglio, avanza / assiste il gruppo.
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+    PADRE CELSO MARANI: nessun bersaglio, avanza / assiste il gruppo.
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] LA SALMODIA TACE (quiete) — Nessun effetto (tensione).
+    (carta senza effetto modellato in questa simulazione)
+  [MINACCIA] IL REGISTRO PIENO (crescendo) — Aggiungete 1 segnalino Canto. Alla soglia: il Salmodiante si desta.
+    Segnalino Canto: 6.
+    Il Salmodiante recupera 1 ferita (3/5) e si attiva subito.
+  [MINACCIA] LA POLVERE DI CRIPTA (insidia) — L’eroe attivo prova NERVI (Media): se fallisce, 1 danno e perde 1 azione.
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(2,4)=6 +NERVI(1) = 7 vs Media(9) -> FALLITA
+    MORA “SPILLA” FANTI subisce 1 danno da LA POLVERE DI CRIPTA (Salute: 3/8).
+    MORA “SPILLA” FANTI avrà 1 sola azione al suo prossimo turno.
+  [MINACCIA] IL TURNO DI NOTTE (posseduto) — Piazzate 1 Adepto sull’ingresso della Scala del Sagrato (T1).
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 2), a 6 caselle dalla tessera del gruppo.
+  IL CONFRATELLO si muove verso ELENA FOSCO: D2 -> D4.
+  IL CONFRATELLO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  IL SALMODIANTE attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] IL SALMODIANTE -> FULGENZIO CARBONE: 2d6(3,3)=6 +Attacco(3) = 9 vs Difesa(8) -> COLPITO
+    FULGENZIO CARBONE subisce 2 danno da IL SALMODIANTE (Salute: 4/7).
+--- Round 11: scontro all’Organo Murato ---
+    (azioni nominali questo round: 20 — 10 eroi vivi)
+    CARLA DOSTI: nessun bersaglio, avanza / assiste il gruppo.
+    DOTT. ATTILIO MARN si muove verso IL CONFRATELLO: B3 -> C4.
+    [ATTACCO] DOTT. ATTILIO MARN -> IL CONFRATELLO: 2d6(5,1)=6 +VIGORE(2)+arma(1) = 9 vs Difesa(7) -> COLPITO
+    IL CONFRATELLO: 0/1 ferite residue.
+    IL CONFRATELLO è ABBATTUTO.
+    ELENA FOSCO: nessun bersaglio, avanza / assiste il gruppo.
+    [ATTACCO] FULGENZIO CARBONE -> IL SALMODIANTE: 2d6(2,1)=3 +VIGORE(1)+arma(1) = 5 vs Difesa(5) -> COLPITO
+    IL SALMODIANTE: 2/5 ferite residue.
+    MORA “SPILLA” FANTI ha 1 sola azione questo turno (insidia del round scorso).
+    MORA “SPILLA” FANTI si muove verso IL SALMODIANTE: C1 -> D2.
+    [ATTACCO] MORA “SPILLA” FANTI -> IL SALMODIANTE: 2d6(6,2)=8 +VIGORE(2)+arma(1) = 11 vs Difesa(5) -> COLPITO
+    IL SALMODIANTE: 1/5 ferite residue.
+    NINO “GRIMALDELLO” CAUTO si muove verso IL SALMODIANTE: B1 -> C1.
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> IL SALMODIANTE: 2d6(4,3)=7 +VIGORE(2)+arma(1) = 10 vs Difesa(5) -> COLPITO
+    IL SALMODIANTE: 0/5 ferite residue.
+    IL SALMODIANTE è ABBATTUTO.
+    *** IL SALMODIANTE È SCONFITTO. ***
+    OTTAVIO BRERA: nessun bersaglio, avanza / assiste il gruppo.
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+    PADRE CELSO MARANI: nessun bersaglio, avanza / assiste il gruppo.
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] LA NOTA BASSA (insidia) — L’eroe con meno NERVI prova NERVI (Media): se fallisce 1 danno.
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(3,2)=5 +NERVI(1) = 6 vs Media(9) -> FALLITA
+    MORA “SPILLA” FANTI subisce 1 danno da LA NOTA BASSA (Salute: 2/8).
+  [MINACCIA] PASSI SULLA SCALA (posseduto) — Piazzate 1 Adepto sull’ingresso della Scala del Sagrato (T1).
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 1), a 6 caselle dalla tessera del gruppo.
+  [MINACCIA] I CARRETTIERI (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 1) in B1.
+  ADEPTO INCAPPUCCIATO raggiunge la tessera del gruppo, da A1.
+  ADEPTO INCAPPUCCIATO attacca OTTAVIO BRERA:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> OTTAVIO BRERA: 2d6(6,6)=12 +Attacco(1) = 13 vs Difesa(8) -> COLPITO
+    OTTAVIO BRERA subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 6/7).
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] LO SGHERRO -> FULGENZIO CARBONE: 2d6(5,1)=6 +Attacco(2) = 8 vs Difesa(8) -> COLPITO
+    FULGENZIO CARBONE subisce 1 danno da LO SGHERRO (Salute: 3/7).
+--- Ritorno a T1 (3 round di movimento, minacce ancora attive) ---
+--- Round 12: rientro verso T1 ---
+    (azioni nominali questo round: 20 — 10 eroi vivi)
+    [ATTACCO] CARLA DOSTI -> ADEPTO INCAPPUCCIATO: 2d6(4,6)=10 +VIGORE(1)+arma(1) = 12 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    [PROVA ACUME] DOTT. ATTILIO MARN: 2d6(1,3)=4 +ACUME(2) = 6 vs Media(9) -> FALLITA
+    DOTT. ATTILIO MARN cerca sulla tessera: niente da trovare qui, o prova fallita.
+    ELENA FOSCO si muove verso LO SGHERRO: A3 -> A1.
+    [ATTACCO] ELENA FOSCO -> LO SGHERRO: 2d6(4,6)=10 +VIGORE(1)+arma(1) = 12 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    [ATTACCO] FULGENZIO CARBONE -> LO SGHERRO: 2d6(4,5)=9 +VIGORE(1)+arma(1) = 11 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+    MORA “SPILLA” FANTI: nessun bersaglio, avanza / assiste il gruppo.
+    NINO “GRIMALDELLO” CAUTO: nessun bersaglio, avanza / assiste il gruppo.
+    OTTAVIO BRERA: nessun bersaglio, avanza / assiste il gruppo.
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+    PADRE CELSO MARANI: nessun bersaglio, avanza / assiste il gruppo.
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] IL CAPITOLO SI ALZA (posseduto) — Piazzate 1 Confratello. Se è già in gioco un Confratello, si attiva subito.
+    Piazzati 1x IL CONFRATELLO (pool residua: 3) in B1.
+  [MINACCIA] LA SALMODIA NELLE OSSA (insidia) — Ogni eroe prova NERVI (Facile): chi fallisce ha 1 sola azione al prossimo turno.
+    [PROVA NERVI] CARLA DOSTI: 2d6(3,1)=4 +NERVI(2) = 6 vs Facile(7) -> FALLITA
+    CARLA DOSTI avrà 1 sola azione al suo prossimo turno.
+    [PROVA NERVI] DOTT. ATTILIO MARN: 2d6(1,6)=7 +NERVI(2) = 9 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] ELENA FOSCO: 2d6(2,6)=8 +NERVI(2) = 10 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] FULGENZIO CARBONE: 2d6(1,3)=4 +NERVI(2) = 6 vs Facile(7) -> FALLITA
+    [SECONDO FIATO] FULGENZIO CARBONE ritenta la prova (unico ritento dell’episodio):
+    [PROVA NERVI] FULGENZIO CARBONE: 2d6(5,2)=7 +NERVI(2) = 9 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(2,5)=7 +NERVI(1) = 8 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6(2,4)=6 +NERVI(1) = 7 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] OTTAVIO BRERA: 2d6(6,3)=9 +NERVI(2) = 11 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6(5,4)=9 +NERVI(2) = 11 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] PADRE CELSO MARANI: 2d6(2,5)=7 +NERVI(3) = 10 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] SIBILLA REVE: 2d6(6,2)=8 +NERVI(3) = 11 vs Facile(7) -> SUCCESSO
+  [MINACCIA] IL PASSO DI CERA (posseduto) — Piazzate 1 Confratello sull’uscita più vicina agli eroi.
+    Piazzati 1x IL CONFRATELLO (pool residua: 2) in B1.
+  [MINACCIA] I MANOVALI DEL CANTIERE (posseduto) — Piazzate 1 Adepto sull’ingresso della Scala del Sagrato (T1).
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 1), a 6 caselle dalla tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 1 caselle prima di raggiungere la tessera del gruppo.
+  IL CONFRATELLO attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] IL CONFRATELLO -> FULGENZIO CARBONE: 2d6(3,4)=7 +Attacco(1) = 8 vs Difesa(8) -> COLPITO
+    FULGENZIO CARBONE subisce 1 danno da IL CONFRATELLO (Salute: 2/7).
+  IL CONFRATELLO attacca NINO “GRIMALDELLO” CAUTO:
+    [ATTACCO NEMICO] IL CONFRATELLO -> NINO “GRIMALDELLO” CAUTO: 2d6(2,4)=6 +Attacco(1) = 7 vs Difesa(8) -> MANCATO
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+  [OROLOGIO] Fine del 12° round: +1 segnalino Canto automatico.
+    Segnalino Canto: 7.
+--- Round 13: rientro verso T1 ---
+    (azioni nominali questo round: 20 — 10 eroi vivi)
+    CARLA DOSTI ha 1 sola azione questo turno (insidia del round scorso).
+    CARLA DOSTI: nessun bersaglio, avanza / assiste il gruppo.
+    DOTT. ATTILIO MARN: nessun bersaglio, avanza / assiste il gruppo.
+    [ATTACCO] ELENA FOSCO -> IL CONFRATELLO: 2d6(6,6)=12 +VIGORE(1)+arma(1) = 14 vs Difesa(7) -> COLPITO
+    IL CONFRATELLO: 0/1 ferite residue.
+    IL CONFRATELLO è ABBATTUTO.
+    [ATTACCO] FULGENZIO CARBONE -> IL CONFRATELLO: 2d6(6,1)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(7) -> COLPITO
+    IL CONFRATELLO: 0/1 ferite residue.
+    IL CONFRATELLO è ABBATTUTO.
+    MORA “SPILLA” FANTI: nessun bersaglio, avanza / assiste il gruppo.
+    NINO “GRIMALDELLO” CAUTO: nessun bersaglio, avanza / assiste il gruppo.
+    OTTAVIO BRERA: nessun bersaglio, avanza / assiste il gruppo.
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+    PADRE CELSO MARANI: nessun bersaglio, avanza / assiste il gruppo.
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] L’ACCORDATURA (crescendo) — Aggiungete 1 segnalino Canto. Alla soglia: il Salmodiante si desta.
+    Segnalino Canto: 8.
+    Il Salmodiante è già stato sconfitto: nessun effetto su di lui.
+  [MINACCIA] LA BOTOLA SI APRE (posseduto) — Piazzate 1 Adepto sull’ingresso della Scala del Sagrato (T1).
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 0), a 6 caselle dalla tessera del gruppo.
+  [MINACCIA] IL CARRO VUOTO (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 1) in B1.
+  ADEPTO INCAPPUCCIATO raggiunge la tessera del gruppo, da D1.
+  ADEPTO INCAPPUCCIATO attacca NINO “GRIMALDELLO” CAUTO:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> NINO “GRIMALDELLO” CAUTO: 2d6(5,5)=10 +Attacco(1) = 11 vs Difesa(8) -> COLPITO
+    NINO “GRIMALDELLO” CAUTO subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 7/8).
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] LO SGHERRO -> FULGENZIO CARBONE: 2d6(5,6)=11 +Attacco(2) = 13 vs Difesa(8) -> COLPITO
+    FULGENZIO CARBONE subisce 1 danno da LO SGHERRO (Salute: 1/7).
+--- Round 14: rientro verso T1 ---
+    (azioni nominali questo round: 20 — 10 eroi vivi)
+    CARLA DOSTI: nessun bersaglio, avanza / assiste il gruppo.
+    DOTT. ATTILIO MARN: nessun bersaglio, avanza / assiste il gruppo.
+    [ATTACCO] ELENA FOSCO -> LO SGHERRO: 2d6(6,2)=8 +VIGORE(1)+arma(1) = 10 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    [ATTACCO] FULGENZIO CARBONE -> LO SGHERRO: 2d6(1,3)=4 +VIGORE(1)+arma(1) = 6 vs Difesa(8) -> MANCATO
+    [ATTACCO] MORA “SPILLA” FANTI -> ADEPTO INCAPPUCCIATO: 2d6(3,4)=7 +VIGORE(2)+arma(1) = 10 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> LO SGHERRO: 2d6(4,4)=8 +VIGORE(2)+arma(1) = 11 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+    OTTAVIO BRERA: nessun bersaglio, avanza / assiste il gruppo.
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+    PADRE CELSO MARANI: nessun bersaglio, avanza / assiste il gruppo.
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] LE IMPALCATURE (ostacolo) — Muoversi costa il doppio sulla tessera dell’eroe attivo fino a fine round.
+    (carta senza effetto modellato in questa simulazione)
+  [MINACCIA] LA CALATA DELLE CASSE (posseduto) — Piazzate 1 Adepto sull’ingresso dell’Officina (T5).
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 0), a 6 caselle dalla tessera del gruppo.
+  [MINACCIA] IL BUIO DELLE NICCHIE (insidia) — L’eroe più avanzato prova NERVI (Media): se fallisce, 1 danno.
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(1,6)=7 +NERVI(1) = 8 vs Media(9) -> FALLITA
+    MORA “SPILLA” FANTI subisce 1 danno da IL BUIO DELLE NICCHIE (Salute: 1/8).
+  [MINACCIA] LA PROCESSIONE (posseduto) — Piazzate 1 Confratello sull’uscita più vicina agli eroi.
+    Piazzati 1x IL CONFRATELLO (pool residua: 3) in B1.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+  IL CONFRATELLO attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] IL CONFRATELLO -> FULGENZIO CARBONE: 2d6(6,4)=10 +Attacco(1) = 11 vs Difesa(8) -> COLPITO
+    FULGENZIO CARBONE subisce 1 danno da IL CONFRATELLO (Salute: 0/7).
+    [INTUIZIONE] Il gruppo spende il gettone Dossier: FULGENZIO CARBONE resta in piedi a 1 Salute invece di cadere.
+
+==============================================================================
+ESITO SPEDIZIONE: VITTORIA
+Round totali: 14
+Formula Minaccia: finale_v3 | Azioni nominali/round: media 20.0, picco 20
+Mazzo Minaccia rimescolato: 1 volta/e
+Segnalini nemici esauriti nel pool (piazzamenti saltati): 1
+Salmodiante svegliato: solo a T6 (mai in anticipo via Canto)
+  CARLA DOSTI: 6/7 Salute
+  DOTT. ATTILIO MARN: 8/8 Salute
+  ELENA FOSCO: 7/7 Salute
+  FULGENZIO CARBONE: 1/7 Salute
+  MORA “SPILLA” FANTI: 1/8 Salute
+  NINO “GRIMALDELLO” CAUTO: 7/8 Salute
+  OTTAVIO BRERA: 6/7 Salute
+  OTTONE “MEZZENA” MASSARI: 9/9 Salute
+  PADRE CELSO MARANI: 7/7 Salute
+  SIBILLA REVE: 7/7 Salute
+==============================================================================
+Canne dell’organo sfregiate: 3/3

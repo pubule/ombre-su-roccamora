@@ -205,7 +205,17 @@ chiamano» SOLO nel ramo «sigillata» del Bivio Ep. 4 (vedi §8).
   Cimitero Nuovo, Vicolo delle Croci, Corte del Ragioniere, La Curia, Calle
   del Marmo, Il Sagrato dei Battuti — tag ep5; riuso: La Parrocchia del
   Borgo); PROMPT-MIDJOURNEY-Episodio-5.md con TUTTI i prompt integrali.
-- Fase C: `simulate_ep5.py` (seed base 650000); da modellare: trappola T3
+- **Fase C — FATTA (20260718):** curva al primo giro (5 party × 30 seed,
+  config condivisa invariata): 2: 45% (29% sofferte), 3: 91%, 4: 72%,
+  5: 96%, 6: 94%, 7: 72% (32%), 8: 76%, 9: 79%, 10: 92% (33%). Banda
+  coerente con Ep.3-4, sofferte in crescita (scala d'atto). Modellati:
+  T3 Difficile con candele +1 e Presagio→Media, regola d'insieme del
+  Salmodiante, sfregio 3 canne + bonifica, Confratello mov 2, spawn T4.
+  Dichiarati non simulati: Bivio Ep.4, vantaggio D2 (casse), ACUME per
+  cassa (D3). Log: logs/playtest/20260718-curva-ep5-v1. Nota tecnica: il
+  refuso [:-0] del patch Ep.4 (docstring perso) è stato riparato in
+  entrambi i simulatori.
+- Fase C (specifica): `simulate_ep5.py` (seed base 650000); da modellare: trappola T3
   Difficile (candele +1, presagio→Media), regola d'insieme del Salmodiante
   (+1 Dif ai Confratelli adiacenti), sfregio 3 canne + bonifica post-boss,
   D3 sbagliata = ACUME per cassa in T5, D1 sbagliata = spawn in T1,

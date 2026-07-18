@@ -1,14 +1,20 @@
 # -*- coding: utf-8 -*-
-"""Simulatore di playtest - EPISODIO 4 «Il teatro dell'eco».
+"""Simulatore di playtest - EPISODIO 5 «L'organo di ossa».
 
-COPIA di simulate_ep3.py cucita sull'Episodio 4 (vedi DESIGN-EPISODIO-4.md):
-sottopalco del Comunale a gala in corso, boss IL SUGGERITORE (quando
-colpisce: NERVI Facile o -1 azione), truppa LA CLAQUE (aura -1 alle
-prove per gli eroi adiacenti), Loggione che apre alle 20, sabotaggio
-dei 3 pannelli con bonifica post-boss, fallback Gaspare-debolezza.
-Config di produzione condivisa riusata. Curva: logs/playtest/
-20260718-curva-ep4-v1 (docstring reintegrato: perso per un refuso
-del patch di generazione).
+COPIA di simulate_ep4.py cucita sull'Episodio 5 (vedi DESIGN-EPISODIO-5.md):
+la cripta dei Battuti, boss IL SALMODIANTE (regola d'insieme: +1 Difesa
+ai Confratelli a lui adiacenti - simulata), truppa nuova IL CONFRATELLO
+(Movimento 2, non arretra), mazzo proprio. Formule di scaling condivise
+RIUSATE identiche (config produzione). Specifiche Ep. 5 modellate: il
+Corridoio degli Ossari (T3, NERVI Difficile per ogni eroe; le Candele
+della Parrocchia +1 - L4 visitato; il Presagio di L1 declassa a Media),
+l'Acqua del Fonte (debolezza, indizio core di L4), lo sfregio delle 3
+canne in T6 con bonifica post-boss, il Confratello in T1 se la Domanda
+1 e' sbagliata (<2 incroci tra L1/L7/L9). Non simulati e dichiarati:
+il Bivio Ep.4 (Canto 0 / +1 crescendo / testimone rimosso), il
+vantaggio D2 (due casse gia' salve: solo epilogo), la Domanda 3
+(ACUME per cassa in T5: le casse non sono nel loop di combattimento),
+le esche.
 """
 
 import os
@@ -20,40 +26,39 @@ from datetime import datetime
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, 'src'))
 from gen_cards import HEROES, NEMICI as NEMICI_COMUNI  # noqa: E402
-from gen_ep4 import TILES_4 as TILES, NEMICI_4, LUOGHI_4  # noqa: E402
+from gen_ep5 import TILES_5 as TILES, NEMICI_5, LUOGHI_5  # noqa: E402
 
-NEMICI = NEMICI_COMUNI + NEMICI_4
+NEMICI = NEMICI_COMUNI + NEMICI_5
 HERO = {h['nome']: h for h in HEROES}
-LUOGHI_BY_N = {l['n']: l for l in LUOGHI_4}
+LUOGHI_BY_N = {l['n']: l for l in LUOGHI_5}
 
-# Mazzo Minaccia dell'episodio (21 carte - «La melodia impressa» del
-# Bivio NON e' simulata). Tuple (titolo, testo, tipo, subito); testi 1:1
-# da cards-data.js (EP4_MINACCE).
+# Mazzo Minaccia dell'episodio (21 carte - «I legni chiamano» del Bivio
+# NON e' simulata). Testi 1:1 da cards-data.js (EP5_MINACCE).
 MINACCE = (
-    [('IL BATTIMANI', 'Piazzate 1 Claque sull\u2019uscita pi\u00f9 vicina agli eroi.', 'posseduto', False),
-     ('L\u2019APPLAUSO A COMANDO', 'Piazzate 1 Claque sull\u2019uscita pi\u00f9 vicina agli eroi.', 'posseduto', False),
-     ('IL TEMPO BATTUTO', 'Piazzate 1 Claque. Se \u00e8 gi\u00e0 in gioco una Claque, si attiva subito.', 'posseduto', False),
-     ('I FACCHINI DEL CARICO', 'Piazzate 1 Adepto sull\u2019ingresso della Quinta di Carico (T1).', 'posseduto', False),
-     ('LE CASSE DI CANDELE', 'Piazzate 1 Adepto sull\u2019ingresso della Quinta di Carico (T1).', 'posseduto', False),
-     ('IL RITIRO DELLE LASTRE', 'Piazzate 1 Adepto sull\u2019ingresso della Conchiglia (T6).', 'posseduto', False),
-     ('LE MASCHERE DI SALA', 'Piazzate 1 Sgherro sull\u2019uscita pi\u00f9 vicina agli eroi.', 'malavita', False),
-     ('IL GIRO DELLE POLTRONE', 'Piazzate 1 Sgherro sull\u2019uscita pi\u00f9 vicina agli eroi.', 'malavita', False),
-     ('IL SERVIZIO D\u2019ORDINE', 'Piazzate 1 Sicario: si attiva subito.', 'malavita', True),
-     ('PASSI IN PLATEA', 'Piazzate 1 Adepto sull\u2019ingresso della Quinta di Carico (T1).', 'posseduto', False),
-     ('LA PORTA DELLA PLATEA', 'Piazzate 1 Adepto sull\u2019ingresso della Quinta di Carico (T1).', 'posseduto', False),
-     ('IL BUIO DI QUINTA', 'L\u2019eroe pi\u00f9 avanzato prova NERVI (Media): se fallisce, 1 danno.', 'insidia', False),
-     ('L\u2019APPLAUSO CHE COPRE', 'Ogni eroe prova NERVI (Facile): chi fallisce ha 1 sola azione al prossimo turno.', 'insidia', False),
-     ('IL CONTRAPPESO CHE CHIAMA', 'L\u2019eroe attivo prova NERVI (Media): se fallisce, 1 danno e perde 1 azione.', 'insidia', False),
-     ('L\u2019OUVERTURE', 'Aggiungete 1 segnalino Canto. Alla soglia: il Suggeritore si desta.', 'crescendo', False),
-     ('IL SECONDO ATTO', 'Aggiungete 1 segnalino Canto. Alla soglia: il Suggeritore si desta.', 'crescendo', False),
-     ('L\u2019ARIA SI AVVICINA', 'Aggiungete 1 segnalino Canto. Alla soglia: il Suggeritore si desta.', 'crescendo', False),
-     ('IL CAMBIO SCENA', 'Nessun effetto (tensione).', 'quiete', False),
-     ('UNO SPIRAGLIO DI SIPARIO', 'Rivelate una tessera coperta adiacente.', 'favore', False),
-     ('LE FUNI CALATE', 'Muoversi costa il doppio sulla tessera dell\u2019eroe attivo fino a fine round.', 'ostacolo', False),
-     ('L\u2019ACUTO', 'L\u2019eroe con meno NERVI prova NERVI (Media): se fallisce 1 danno.', 'insidia', False)])
-# Rivelatorio Domanda 2 (Alboni), 3 carte in aperti: L1-Osservazione,
-# L2-Testimonianza, L3-Testimonianza.
-CHI_ESPLICITO = {(1, 'Osservazione'), (2, 'Testimonianza'), (3, 'Testimonianza')}
+    [('IL PASSO DI CERA', 'Piazzate 1 Confratello sull’uscita più vicina agli eroi.', 'posseduto', False),
+     ('LA PROCESSIONE', 'Piazzate 1 Confratello sull’uscita più vicina agli eroi.', 'posseduto', False),
+     ('IL CAPITOLO SI ALZA', 'Piazzate 1 Confratello. Se è già in gioco un Confratello, si attiva subito.', 'posseduto', False),
+     ('I MANOVALI DEL CANTIERE', 'Piazzate 1 Adepto sull’ingresso della Scala del Sagrato (T1).', 'posseduto', False),
+     ('IL TURNO DI NOTTE', 'Piazzate 1 Adepto sull’ingresso della Scala del Sagrato (T1).', 'posseduto', False),
+     ('LA CALATA DELLE CASSE', 'Piazzate 1 Adepto sull’ingresso dell’Officina (T5).', 'posseduto', False),
+     ('I CARRETTIERI', 'Piazzate 1 Sgherro sull’uscita più vicina agli eroi.', 'malavita', False),
+     ('IL CARRO VUOTO', 'Piazzate 1 Sgherro sull’uscita più vicina agli eroi.', 'malavita', False),
+     ('IL SORVEGLIANTE DEL SAGRATO', 'Piazzate 1 Sicario: si attiva subito.', 'malavita', True),
+     ('PASSI SULLA SCALA', 'Piazzate 1 Adepto sull’ingresso della Scala del Sagrato (T1).', 'posseduto', False),
+     ('LA BOTOLA SI APRE', 'Piazzate 1 Adepto sull’ingresso della Scala del Sagrato (T1).', 'posseduto', False),
+     ('LA SALMODIA NELLE OSSA', 'Ogni eroe prova NERVI (Facile): chi fallisce ha 1 sola azione al prossimo turno.', 'insidia', False),
+     ('IL BUIO DELLE NICCHIE', 'L’eroe più avanzato prova NERVI (Media): se fallisce, 1 danno.', 'insidia', False),
+     ('LA POLVERE DI CRIPTA', 'L’eroe attivo prova NERVI (Media): se fallisce, 1 danno e perde 1 azione.', 'insidia', False),
+     ('LA PRIMA CANNA', 'Aggiungete 1 segnalino Canto. Alla soglia: il Salmodiante si desta.', 'crescendo', False),
+     ('L’ACCORDATURA', 'Aggiungete 1 segnalino Canto. Alla soglia: il Salmodiante si desta.', 'crescendo', False),
+     ('IL REGISTRO PIENO', 'Aggiungete 1 segnalino Canto. Alla soglia: il Salmodiante si desta.', 'crescendo', False),
+     ('LA SALMODIA TACE', 'Nessun effetto (tensione).', 'quiete', False),
+     ('UNO SPIFFERO DI SAGRATO', 'Rivelate una tessera coperta adiacente.', 'favore', False),
+     ('LE IMPALCATURE', 'Muoversi costa il doppio sulla tessera dell’eroe attivo fino a fine round.', 'ostacolo', False),
+     ('LA NOTA BASSA', 'L’eroe con meno NERVI prova NERVI (Media): se fallisce 1 danno.', 'insidia', False)])
+# Rivelatorio Domanda 2 (Mola), 3 carte in aperti: L1-Osservazione,
+# L2-Referto, L3-Testimonianza.
+CHI_ESPLICITO = {(1, 'Osservazione'), (2, 'Referto'), (3, 'Testimonianza')}
 
 
 def strip_tags(s):
@@ -66,7 +71,7 @@ DIFF = {'Facile': 7, 'Media': 9, 'Difficile': 11}
 SESSION = sys.argv[1] if len(sys.argv) > 1 else datetime.now().strftime('%Y%m%d-%H%M%S')
 LOG_DIR = os.path.join(ROOT, 'logs', 'playtest', SESSION)
 
-TOKEN_POOL_BASE = {'ADEPTO INCAPPUCCIATO': 4, 'LA CLAQUE': 3,
+TOKEN_POOL_BASE = {'ADEPTO INCAPPUCCIATO': 4, 'IL CONFRATELLO': 4,
                     'LO SGHERRO': 2, 'IL SICARIO': 1}
 
 # Le tessere sono griglie 4x4 caselle (vedi scripts/tiles/generate-tiles.js,
@@ -423,80 +428,78 @@ def token_pool_extra(n_eroi):
 
 # titolo carta Minaccia -> (nemico da piazzare, quanti, si attiva subito)
 CARD_SPAWN = {
-    'IL BATTIMANI': ('LA CLAQUE', 1, False),
-    'L\u2019APPLAUSO A COMANDO': ('LA CLAQUE', 1, False),
-    'IL TEMPO BATTUTO': ('LA CLAQUE', 1, False),
-    'I FACCHINI DEL CARICO': ('ADEPTO INCAPPUCCIATO', 1, False),
-    'LE CASSE DI CANDELE': ('ADEPTO INCAPPUCCIATO', 1, False),
-    'IL RITIRO DELLE LASTRE': ('ADEPTO INCAPPUCCIATO', 1, False),
-    'LE MASCHERE DI SALA': ('LO SGHERRO', 1, False),
-    'IL GIRO DELLE POLTRONE': ('LO SGHERRO', 1, False),
-    'IL SERVIZIO D\u2019ORDINE': ('IL SICARIO', 1, True),
-    'PASSI IN PLATEA': ('ADEPTO INCAPPUCCIATO', 1, False),
-    'LA PORTA DELLA PLATEA': ('ADEPTO INCAPPUCCIATO', 1, False),
+    'IL PASSO DI CERA': ('IL CONFRATELLO', 1, False),
+    'LA PROCESSIONE': ('IL CONFRATELLO', 1, False),
+    'IL CAPITOLO SI ALZA': ('IL CONFRATELLO', 1, False),
+    'I MANOVALI DEL CANTIERE': ('ADEPTO INCAPPUCCIATO', 1, False),
+    'IL TURNO DI NOTTE': ('ADEPTO INCAPPUCCIATO', 1, False),
+    'LA CALATA DELLE CASSE': ('ADEPTO INCAPPUCCIATO', 1, False),
+    'I CARRETTIERI': ('LO SGHERRO', 1, False),
+    'IL CARRO VUOTO': ('LO SGHERRO', 1, False),
+    'IL SORVEGLIANTE DEL SAGRATO': ('IL SICARIO', 1, True),
+    'PASSI SULLA SCALA': ('ADEPTO INCAPPUCCIATO', 1, False),
+    'LA BOTOLA SI APRE': ('ADEPTO INCAPPUCCIATO', 1, False),
 }
 DISTANZA_PORTA = 1
 SPAWN_DISTANZA = {
-    'IL BATTIMANI': DISTANZA_PORTA,
-    'L\u2019APPLAUSO A COMANDO': DISTANZA_PORTA,
-    'IL TEMPO BATTUTO': DISTANZA_PORTA,
-    'I FACCHINI DEL CARICO': None,
-    'LE CASSE DI CANDELE': None,
-    'IL RITIRO DELLE LASTRE': None,
-    'LE MASCHERE DI SALA': DISTANZA_PORTA,
-    'IL GIRO DELLE POLTRONE': DISTANZA_PORTA,
-    'PASSI IN PLATEA': None,
-    'LA PORTA DELLA PLATEA': None,
+    'IL PASSO DI CERA': DISTANZA_PORTA,
+    'LA PROCESSIONE': DISTANZA_PORTA,
+    'IL CAPITOLO SI ALZA': DISTANZA_PORTA,
+    'I MANOVALI DEL CANTIERE': None,
+    'IL TURNO DI NOTTE': None,
+    'LA CALATA DELLE CASSE': None,
+    'I CARRETTIERI': DISTANZA_PORTA,
+    'IL CARRO VUOTO': DISTANZA_PORTA,
+    'PASSI SULLA SCALA': None,
+    'LA BOTOLA SI APRE': None,
 }
 INSIDIA = {  # titolo -> (difficolta', danno, chi prova)
-    'IL BUIO DI QUINTA': ('Media', 1, 'l\u2019eroe pi\u00f9 avanzato'),
-    'IL CONTRAPPESO CHE CHIAMA': ('Media', 1, 'l\u2019eroe attivo'),
-    'L\u2019APPLAUSO CHE COPRE': ('Facile', 0, 'ogni eroe (chi fallisce: 1 sola azione prossimo turno)'),
-    'L\u2019ACUTO': ('Media', 1, 'l\u2019eroe con meno NERVI'),
+    'IL BUIO DELLE NICCHIE': ('Media', 1, 'l’eroe più avanzato'),
+    'LA POLVERE DI CRIPTA': ('Media', 1, 'l’eroe attivo'),
+    'LA SALMODIA NELLE OSSA': ('Facile', 0, 'ogni eroe (chi fallisce: 1 sola azione prossimo turno)'),
+    'LA NOTA BASSA': ('Media', 1, 'l’eroe con meno NERVI'),
 }
-PERDE_AZIONE = {'IL CONTRAPPESO CHE CHIAMA', 'L\u2019APPLAUSO CHE COPRE'}
-CRESCENDO = {'L\u2019OUVERTURE', 'IL SECONDO ATTO', 'L\u2019ARIA SI AVVICINA'}
-MALAVITA_TRUPPA = {'LO SGHERRO', 'IL SICARIO', 'ADEPTO INCAPPUCCIATO', 'LA CLAQUE'}
+PERDE_AZIONE = {'LA POLVERE DI CRIPTA', 'LA SALMODIA NELLE OSSA'}
+CRESCENDO = {'LA PRIMA CANNA', 'L’ACCORDATURA', 'IL REGISTRO PIENO'}
+MALAVITA_TRUPPA = {'LO SGHERRO', 'IL SICARIO', 'ADEPTO INCAPPUCCIATO', 'IL CONFRATELLO'}
 
-# Il boss dell'episodio (vedi gen_ep4.NEMICI_4 e DESIGN-EPISODIO-4.md):
-# livello Scoriatore (Dif 8, Fer 4). Quando colpisce, il colpito prova
-# NERVI (Facile) o perde 1 azione ("suggerimento" - vedi _avvicina_e_
-# attacca). Il Libretto di Gaspare fa Dif 8->5 + salta un'attivazione.
-CUSTODE = dict(nome='IL SUGGERITORE', att=3, dif=8, fer=4, mov=3, dan=2)
+# Il boss dell'episodio (vedi gen_ep5.NEMICI_5 e DESIGN-EPISODIO-5.md):
+# regola d'insieme: +1 Difesa ai Confratelli a lui adiacenti (vedi
+# fase_eroi). L'Acqua del Fonte fa Dif 8->5 + salta un'attivazione.
+CUSTODE = dict(nome='IL SALMODIANTE', att=3, dif=8, fer=4, mov=3, dan=2)
 
 # Luoghi Indagine, versione compatta per la sola AI di scelta + sblocchi.
 # (n, req_key or None, sblocca[list], chiude_ore[set], approfondimenti[tipo->eroi idonei])
 LUOGHI_SIM = [
-    # Ep. 4: chiavi garantite negli indizi core, tutte da aperti (1-4).
-    # `libretto=True` = L7 consegna il Libretto di Gaspare (indizio core);
-    # `pianta=True` = L5 (niente prova in T3); `incrocio_d1` = riscontri
-    # della Domanda 1 (L1/L4/L5, ne servono 2); `incrocio_d3` = riscontri
-    # della Domanda 3 (L1/L5/L6/L9, ne servono 2). `apre` = vincolo
-    # d'orologio inverso (il Loggione apre col pubblico).
-    dict(n=1, nome='Il Palcoscenico del Comunale', req=None,
-         sblocca_parola='CONTRAPPESO MORTO', chiude=None,
-         approf=['Osservazione', 'Presagio'], incrocio_d1=True, incrocio_d3=True),
-    dict(n=2, nome='Il Camerino della Vetri', req=None,
-         sblocca_parola=('LO SPARTITO CHE CANTA', 'L\u2019ARIA DEL TERZO ATTO'),
-         sblocca_oggetto='IL PASSE-PARTOUT DI SCENA', chiude=None,
+    # Ep. 5: chiavi da aperti (1-4). `acqua=True` = L4 (debolezza del boss,
+    # indizio core); `candele=True` = L4 (+1 in T3); `incrocio_d1` =
+    # riscontri Domanda 1 (L1/L7/L9, ne servono 2); `incrocio_d3` =
+    # riscontri Domanda 3 (L2/L3/L8, ne servono 2).
+    dict(n=1, nome='La Chiesa dei Battuti', req=None,
+         sblocca_parola=('IL MAESTRO DEI REGISTRI', 'LA SCONSACRAZIONE DEL QUARANTUNO'),
+         chiude=None, approf=['Osservazione', 'Presagio'], incrocio_d1=True),
+    dict(n=2, nome='L’Ossario Comunale', req=None,
+         sblocca_parola=('CONTANTI NUOVI', 'LAPIDI RIFATTE'), chiude=22,
+         approf=['Referto'], incrocio_d3=True),
+    dict(n=3, nome='Il Cimitero Nuovo', req=None,
+         sblocca_parola=('IL MAESTRO DEI REGISTRI', 'CONTANTI NUOVI', 'LAPIDI RIFATTE'),
+         chiude=None, approf=['Testimonianza'], incrocio_d3=True),
+    dict(n=4, nome='La Parrocchia del Borgo', req=None,
+         sblocca_parola='LA SCONSACRAZIONE DEL QUARANTUNO',
+         sblocca_oggetto='LA CHIAVE DEL SAGRATO', chiude=None,
+         approf=['Presagio'], acqua=True, candele=True),
+    dict(n=5, nome='La Casa del Becchino', req=('parola', 'CONTANTI NUOVI'), chiude=None,
          approf=['Testimonianza']),
-    dict(n=3, nome='Il Loggione', req=None, apre=20,
-         sblocca_parola=('L\u2019ARIA DEL TERZO ATTO', 'CERA NERA'), chiude=None,
-         approf=['Testimonianza']),
-    dict(n=4, nome='Il Caff\u00e8 dei Cantanti', req=None,
-         sblocca_parola=('CONTRAPPESO MORTO', 'LO SPARTITO CHE CANTA', 'CERA NERA'),
-         chiude=None, approf=['Testimonianza'], incrocio_d1=True),
-    dict(n=5, nome='Il Sottopalco delle Macchine', req=('parola', 'CONTRAPPESO MORTO'),
-         chiude=None, approf=['Referto'], incrocio_d1=True, incrocio_d3=True, pianta=True),
-    dict(n=6, nome='Casa del Maestro Alboni', req=('parola', 'L\u2019ARIA DEL TERZO ATTO'),
-         chiude=None, approf=['Osservazione'], incrocio_d3=True),
-    dict(n=7, nome='L\u2019Archivio degli Spartiti', req=('parola', 'LO SPARTITO CHE CANTA'),
-         chiude=None, approf=['Referto'], libretto=True),
-    dict(n=8, nome='Il Palco Reale e l\u2019Amministrazione',
-         req=('oggetto', 'IL PASSE-PARTOUT DI SCENA'), chiude=22,
+    dict(n=6, nome='Lo Studio del Maestro dei Registri',
+         req=('parola', 'IL MAESTRO DEI REGISTRI'), chiude=None,
          approf=['Osservazione']),
-    dict(n=9, nome='Il Laboratorio degli Scenografi', req=('parola', 'CERA NERA'),
-         chiude=None, approf=['Presagio'], incrocio_d3=True),
+    dict(n=7, nome='L’Ufficio delle Sconsacrazioni',
+         req=('parola', 'LA SCONSACRAZIONE DEL QUARANTUNO'), chiude=21,
+         approf=['Referto'], incrocio_d1=True),
+    dict(n=8, nome='Il Deposito del Marmista', req=('parola', 'LAPIDI RIFATTE'), chiude=None,
+         approf=['Osservazione'], incrocio_d3=True),
+    dict(n=9, nome='La Sagrestia dei Battuti', req=('oggetto', 'LA CHIAVE DEL SAGRATO'),
+         chiude=None, approf=['Osservazione'], incrocio_d1=True),
 ]
 
 # Sblocchi Approfondimento per eroe, presi 1:1 dal testo abilita' in
@@ -583,7 +586,7 @@ class NullLogger:
 
 def simula_indagine(party, log, esplora_a_fondo=False):
     log('=' * 78)
-    log('INDAGINE - Episodio 4: "Il teatro dell’eco"')
+    log('INDAGINE - Episodio 5: "L’organo di ossa"')
     log('=' * 78)
     log(f'Party: {", ".join(party)}')
     log('Clock: 6 ore, dalle 18:00 alle 24:00.')
@@ -594,10 +597,10 @@ def simula_indagine(party, log, esplora_a_fondo=False):
     visitati = []
     parole = set()
     oggetti = set()
-    pianta = False       # L5: la Pianta delle Macchine (T3 senza prova)
-    libretto = False     # L7: il Libretto di Gaspare (debolezza del boss)
-    incroci_d1 = 0       # riscontri della Domanda 1 (>=2 = lato giusto)
-    incroci_d3 = 0       # riscontri della Domanda 3 (>=2 = anticipo giusto)
+    pianta = False       # qui: le Candele della Parrocchia (+1 in T3)
+    libretto = False     # qui: l'Acqua del Fonte (debolezza del boss)
+    incroci_d1 = 0       # riscontri della Domanda 1 (>=2 = discesa preparata)
+    incroci_d3 = 0       # riscontri della Domanda 3 (>=2 = casse riconoscibili)
     approf_letti = 0
     approf_falliti = 0
     chi_confermato = False
@@ -667,8 +670,7 @@ def simula_indagine(party, log, esplora_a_fondo=False):
         # si seguono le piste nominate dagli indizi (L1/L3/L4 le nominano
         # tutte). Senza questo, l'euristica chiudeva a 4 luoghi con D3
         # sbagliata e senza Canna (misurato nello smoke test).
-        missione = 0 if ((l.get('libretto') and not libretto)
-                         or (l.get('pianta') and not pianta)
+        missione = 0 if ((l.get('acqua') and not libretto)
                          or (l.get('incrocio_d1') and incroci_d1 < 2)
                          or (l.get('incrocio_d3') and incroci_d3 < 2)) else 1
         urgenza = l['chiude'] or 99  # chi chiude prima, tra i pari, va prima
@@ -699,9 +701,9 @@ def simula_indagine(party, log, esplora_a_fondo=False):
                 approf_dettaglio.add((l['n'], tipo))
                 if (l['n'], tipo) in CHI_ESPLICITO:
                     chi_confermato = True
-                    log('    -> Questa carta conferma esplicitamente che il colpevole è Alboni (Domanda 2).')
+                    log('    -> Questa carta conferma esplicitamente che il colpevole è Mola (Domanda 2).')
                 if (l['n'], tipo) == (2, 'Testimonianza'):
-                    log('    -> (la Vetri non consegna oggetti: la debolezza del boss vive in L7)')
+                    log('    -> (nessuna consegna extra: la debolezza del boss vive in L4)')
             else:
                 # Aiuto profano (Regolamento): nessuno puo' piu' sbloccare il
                 # tipo -> un eroe qualsiasi tenta ACUME (Difficile), una sola
@@ -720,9 +722,9 @@ def simula_indagine(party, log, esplora_a_fondo=False):
                     approf_dettaglio.add((l['n'], tipo))
                     if (l['n'], tipo) in CHI_ESPLICITO:
                         chi_confermato = True
-                        log('    -> Questa carta conferma esplicitamente che il colpevole è Alboni (Domanda 2).')
+                        log('    -> Questa carta conferma esplicitamente che il colpevole è Mola (Domanda 2).')
                     if (l['n'], tipo) == (2, 'Testimonianza'):
-                        log('    -> (la Vetri non consegna oggetti: la debolezza del boss vive in L7)')
+                        log('    -> (nessuna consegna extra: la debolezza del boss vive in L4)')
                 else:
                     log(f'    [APPROFONDIMENTO {tipo}] aiuto profano fallito: resta sigillato qui.')
                     approf_falliti += 1
@@ -744,8 +746,7 @@ def simula_indagine(party, log, esplora_a_fondo=False):
         # ...ma MAI rinunciare finche' mancano la Canna Muta o il secondo
         # riscontro della Domanda 3, se il prossimo candidato li porta: un
         # tavolo vero non "banca" ore lasciando la Domanda 4 senza oggetto.
-        candidato_missione = ((l.get('libretto') and not libretto)
-                              or (l.get('pianta') and not pianta)
+        candidato_missione = ((l.get('acqua') and not libretto)
                               or (l.get('incrocio_d1') and incroci_d1 < 2)
                               or (l.get('incrocio_d3') and incroci_d3 < 2))
         if (approf_letti >= 1 and ore <= 2 and l['n'] not in (1, 2, 3)
@@ -785,18 +786,18 @@ def simula_indagine(party, log, esplora_a_fondo=False):
         if l.get('sblocca_oggetto'):
             oggetti.add(l['sblocca_oggetto'])
             log(f'    -> Oggetto trovato (vedi indizio sopra): {l["sblocca_oggetto"]}')
-        if l.get('pianta'):
+        if l.get('candele'):
             pianta = True
-            log('    -> Trovata: LA PIANTA DELLE MACCHINE (la Sala dei Contrappesi non vi sorprenderà).')
-        if l.get('libretto'):
+            log('    -> Trovate: LE CANDELE DELLA PARROCCHIA (+1 nel Corridoio degli Ossari).')
+        if l.get('acqua'):
             libretto = True
-            log('    -> Trovato: IL LIBRETTO DI GASPARE (la voce vera della buca).')
+            log('    -> Trovata: L’ACQUA DEL FONTE (l’unica voce più vecchia della sua).')
         if l.get('incrocio_d1'):
             incroci_d1 += 1
-            log(f'    -> Riscontro sulla Domanda 1 ({incroci_d1}: registro/razioni/macchinista).')
+            log(f'    -> Riscontro sulla Domanda 1 ({incroci_d1}: calcina/fascicolo/botola).')
         if l.get('incrocio_d3'):
             incroci_d3 += 1
-            log(f'    -> Riscontro sulla Domanda 3 ({incroci_d3}: calendario/candele/pannello).')
+            log(f'    -> Riscontro sulla Domanda 3 ({incroci_d3}: casse marcate/lapidi/registro).')
         if ok:
             tenta_approfondimenti(l)
         else:
@@ -848,10 +849,10 @@ def simula_indagine(party, log, esplora_a_fondo=False):
     log(f'Ore avanzate: {ore_avanzate} -> {tier}')
     d1_ok = incroci_d1 >= 2
     d3_ok = incroci_d3 >= 2
-    log(f'Libretto di Gaspare: {"sì" if libretto else "no (resterà solo Gaspare, in T5)"}; '
-        f'Pianta delle Macchine: {"sì" if pianta else "no"}; Domanda 1 ({incroci_d1} riscontri): '
+    log(f'Acqua del Fonte: {"sì" if libretto else "NO — la debolezza del boss manca"}; '
+        f'Candele: {"sì" if pianta else "no"}; Domanda 1 ({incroci_d1} riscontri): '
         f'{"esatta" if d1_ok else "SBAGLIATA"}; Domanda 3 ({incroci_d3} riscontri): '
-        f'{"esatta" if d3_ok else "SBAGLIATA — arriverete a spettacolo iniziato"}')
+        f'{"esatta" if d3_ok else "SBAGLIATA — le casse non saranno riconoscibili"}')
     log(f'Chi dirige confermato esplicitamente (Domanda 2): '
         f'{"sì" if chi_confermato else "no — risposta “vicina” da giudicare con elasticità"}')
     if fanti_scout:
@@ -1067,11 +1068,11 @@ def spawn_from_card(log, title, pool, enemies, round_n, fer_bonus=0, dan_bonus=0
 def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard',
                        nemico_scale='nessuna', pool_extra=False):
     log('=' * 78)
-    log('SPEDIZIONE - Il sottopalco del Comunale (a gala in corso)')
+    log('SPEDIZIONE - La cripta dei Battuti')
     log('=' * 78)
     log(f'Party: {", ".join(party)}')
-    log(f'Bonus da Indagine: {indagine["tier"]}; Libretto: '
-        f'{"sì" if indagine["libretto"] else "no"}; Pianta: '
+    log(f'Bonus da Indagine: {indagine["tier"]}; Acqua del Fonte: '
+        f'{"sì" if indagine["libretto"] else "no"}; Candele: '
         f'{"sì" if indagine.get("pianta") else "no"}; D1: '
         f'{"esatta" if indagine.get("d1_ok") else "sbagliata"}; D3: '
         f'{"esatta" if indagine.get("d3_ok") else "sbagliata"}')
@@ -1081,7 +1082,7 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
         log(f'Scalatura nemici ({nemico_scale}): +{fer_bonus} Ferite, +{dan_bonus} Danno su ogni nemico incluso il Custode.')
     custode_extra_fer = custode_fer_bonus(len(party))
     if custode_extra_fer:
-        log(f'Tensione tavolo piccolo: +{custode_extra_fer} Ferite SOLO al Suggeritore (non ai nemici di truppa).')
+        log(f'Tensione tavolo piccolo: +{custode_extra_fer} Ferite SOLO al Salmodiante (non ai nemici di truppa).')
     log('')
 
     salute = {}
@@ -1100,8 +1101,8 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
     if intuizione['disponibile']:
         log('Gettone Intuizione in mano (Dossier completo): un ri-tiro, una volta in Spedizione.')
     pool = dict(TOKEN_POOL_BASE)
-    # Domanda 1 sbagliata: lato sbagliato del sottopalco - 1 Claque in T1.
-    # Domanda 3 sbagliata: spettacolo iniziato - +1 segnalino Canto (sotto).
+    # Domanda 1 sbagliata: discesa alla cieca - 1 Confratello in T1.
+    # Domanda 3: le casse di T5 (solo epilogo, non simulate).
     sbarco_rumoroso = not indagine.get('d1_ok')
     if pool_extra:
         extra = token_pool_extra(len(party))
@@ -1111,23 +1112,24 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
                 pool[k] += extra
     enemies = []
     if sbarco_rumoroso:
-        if pool['LA CLAQUE'] > 0:
-            pool['LA CLAQUE'] -= 1
-            base = NEMICO['LA CLAQUE']
+        if pool['IL CONFRATELLO'] > 0:
+            pool['IL CONFRATELLO'] -= 1
+            base = NEMICO['IL CONFRATELLO']
             g_fer = base['fer'] + fer_bonus
-            enemies.append(dict(nome='LA CLAQUE', fer=g_fer, fer_max=g_fer,
+            enemies.append(dict(nome='IL CONFRATELLO', fer=g_fer, fer_max=g_fer,
                                  dif=base['dif'], att=base['att'], dan=base['dan'] + dan_bonus,
                                  mov=base['mov'], distanza=DISTANZA_PORTA, pos=None))
-        log('  Lato sbagliato (Domanda 1): 1 Claque appare alla Quinta di Carico.')
+        log('  Discesa alla cieca (Domanda 1): 1 Confratello appare alla Scala del Sagrato.')
     pos = {}  # nome eroe -> (gx, gy) nella tessera corrente (griglia tattica)
     tile_attuale = None  # id della tessera dove valgono le `pos` correnti
     custode = None
     custode_stunned = False
     campanello_usato = False   # qui: il Libretto (o Gaspare) gia' usato sul boss
-    campanello_t5 = False      # qui: Gaspare liberato (fallback debolezza, T5)
+    campanello_t5 = False      # (in Ep.5 non c'e' fallback in T5: la debolezza e' solo L4)
     t5_rivelata = False
-    pannelli = 3               # i pannelli della conchiglia da disaccordare (T6)
-    canto = 1 if not indagine.get('d3_ok') else 0  # D3 sbagliata: spettacolo iniziato
+    t4_rivelata = False
+    pannelli = 3               # le canne montate da sfregiare (T6)
+    canto = 0  # (in Ep.5 la D3 sbagliata pesa sulle casse di T5, non sul Canto)
     voce_ferma_scade_round = 0
     adescati = []  # nemici che l'Esca preziosa (Carbone) distoglie per il round corrente
     attivati_extra = set()  # id() dei nemici gia' attivati "subito" questo round (vedi fase_minaccia) -
@@ -1276,14 +1278,8 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
                 log(f'    {m} avrà 1 sola azione al suo prossimo turno (l’urlo).')
 
     def malus_claque(eroe):
-        """Aura della Claque (regola nuova dell'episodio): -1 alle prove
-        per gli eroi adiacenti a una Claque viva."""
-        if pos.get(eroe) is None:
-            return 0
-        for e in enemies:
-            if e['nome'] == 'LA CLAQUE' and e['fer'] > 0 and e.get('pos') \
-                    and adiacenti(pos[eroe], e['pos']):
-                return -1
+        """Nessuna aura in questo episodio: helper mantenuto come no-op
+        (le chiamate ereditate restano innocue)."""
         return 0
 
     def voce_ferma_bonus(bersaglio=None):
@@ -1302,12 +1298,10 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
     # all'Officina delle Canne (obiettivo secondario: le canne-voce pesano
     # nell'epilogo, e il Campanello di Piero e' li' se il barbiere non lo
     # ha affidato). T5 e' un ramo: si ripassa da T4 per salire a T6.
-    # 6 tappe come l'Ep. 3 (stessa geometria: ramo T5 a Est di T4, T6 a
-    # Nord): il round di ritorno dal ramo tiene la spedizione sui 12-15
-    # round della banda di produzione.
-    path = ['T2 (Magazzino delle Scene)', 'T3 (Sala dei Contrappesi)',
-            'T4 (Corridoio dei Camerini Morti)', 'T5 (Fossa del Contrappeso Morto)',
-            'T4 (Corridoio - ritorno dal ramo)', 'T6 (La Conchiglia)']
+    # 6 tappe, stessa geometria (ramo T5 a Est di T4, T6 a Nord).
+    path = ['T2 (Navata Sepolta)', 'T3 (Corridoio degli Ossari)',
+            'T4 (Sala del Capitolo)', 'T5 (Officina delle Canne d’Ossa)',
+            'T4 (Sala del Capitolo - ritorno dal ramo)', 'T6 (L’Organo Murato)']
     round_n = 0
     esito = None
 
@@ -1327,7 +1321,7 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
         if custode is None:
             if canto >= SOGLIA_CANTO:
                 round_custode_svegliato = round_n
-                log(f'    Il Suggeritore si desta in anticipo (l’aria comincia, {SOGLIA_CANTO}° segnalino), '
+                log(f'    Il Salmodiante si desta in anticipo ({SOGLIA_CANTO}° segnalino Canto), '
                     'sulla tessera più lontana dagli eroi!')
                 # Su una tessera diversa da dove si trova il gruppo ora: niente
                 # `pos` reale finche' non colma la distanza (vedi fase_nemici).
@@ -1335,14 +1329,14 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
                 custode = dict(CUSTODE, fer=c_fer, fer_max=c_fer, dan=CUSTODE['dan'] + dan_bonus,
                                distanza=CASELLE_TESSERA, pos=None)
                 for _ in range(1):
-                    if pool['LA CLAQUE'] <= 0:
+                    if pool['IL CONFRATELLO'] <= 0:
                         pool_esauriti_totale += 1
-                        log('    Segnalini LA CLAQUE esauriti: il Suggeritore si desta senza scorta.')
+                        log('    Segnalini IL CONFRATELLO esauriti: il Salmodiante si desta senza scorta.')
                         continue
-                    pool['LA CLAQUE'] -= 1
-                    base = NEMICO['LA CLAQUE']
+                    pool['IL CONFRATELLO'] -= 1
+                    base = NEMICO['IL CONFRATELLO']
                     a_fer = base['fer'] + fer_bonus
-                    enemies.append(dict(nome='LA CLAQUE', fer=a_fer, fer_max=a_fer,
+                    enemies.append(dict(nome='IL CONFRATELLO', fer=a_fer, fer_max=a_fer,
                                          dif=base['dif'], att=base['att'], dan=base['dan'] + dan_bonus,
                                          mov=base['mov'], distanza=CASELLE_TESSERA, pos=None))
         elif cura_custode and custode['fer'] > 0 and len(party) >= 4:
@@ -1350,9 +1344,9 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
             # NON recupera ferite dai Crescendo.
             custode['fer'] = min(custode['fer_max'], custode['fer'] + 1)
             custode_stunned = False
-            log(f'    Il Suggeritore recupera 1 ferita ({custode["fer"]}/{custode["fer_max"]}) e si attiva subito.')
+            log(f'    Il Salmodiante recupera 1 ferita ({custode["fer"]}/{custode["fer_max"]}) e si attiva subito.')
         elif cura_custode:
-            log('    Il Suggeritore è già stato sconfitto: nessun effetto su di lui.')
+            log('    Il Salmodiante è già stato sconfitto: nessun effetto su di lui.')
 
     def tick_canto():
         """Il secondo orologio (regola vera, MAI simulato prima del
@@ -1487,15 +1481,6 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
         log(f'  {e["nome"]} attacca {bersaglio_reale}:')
         if enemy_attack_roll(log, e['nome'], e['att'], bersaglio_reale, difesa):
             applica_danno(bersaglio_reale, e['dan'], e['nome'])
-            # Il "suggerimento" (regola del boss): il colpito prova NERVI
-            # (Facile) o dice parole non sue - 1 azione in meno.
-            if e['nome'] == 'IL SUGGERITORE' and bersaglio_reale not in down:
-                ok_s, _ = check(log, bersaglio_reale, 'NERVI', HERO[bersaglio_reale]['nervi'],
-                                'Facile', malus_claque(bersaglio_reale),
-                                'aura Claque' if malus_claque(bersaglio_reale) else '')
-                if not ok_s:
-                    azioni_perse.add(bersaglio_reale)
-                    log(f'    {bersaglio_reale} dice parole non sue: 1 sola azione al prossimo turno.')
 
     def fase_nemici(luogo_label, party_in_transito):
         nonlocal custode_stunned
@@ -1637,9 +1622,8 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
                 continue
             if custode and custode['fer'] > 0 and campanello['has'] and not campanello_usato and not custode_stunned:
                 campanello_usato = True
-                fonte = 'mostra IL LIBRETTO DI GASPARE' if indagine['libretto'] else 'porta Gaspare davanti alla buca'
-                log(f'    [OGGETTO] {n} {fonte}: l’eco riconosce la voce vera del suo posto '
-                    f'— Difesa 8->5, salta la prossima attivazione.')
+                log(f'    [OGGETTO] {n} versa L’ACQUA DEL FONTE davanti al Salmodiante: '
+                    f'l’unica voce più vecchia della sua — Difesa 8->5, salta la prossima attivazione.')
                 custode['dif'] = 5
                 custode_stunned = True
                 continue
@@ -1683,13 +1667,21 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
                     continue
                 adiacenti_ora = [e for e in bersagli_vivi if adiacenti(pos[n], e['pos'])]
                 bersaglio_e = min(adiacenti_ora, key=lambda e: e['fer'])
-                if attack_roll(log, n, h['vigore'], armed[n], bersaglio_e['nome'], bersaglio_e['dif']):
+                # Regola d'insieme del Salmodiante: +1 Difesa ai Confratelli
+                # a lui adiacenti (la salmodia li tiene insieme).
+                dif_eff = bersaglio_e['dif']
+                if (bersaglio_e['nome'] == 'IL CONFRATELLO' and custode
+                        and custode['fer'] > 0 and custode.get('pos')
+                        and bersaglio_e.get('pos')
+                        and adiacenti(custode['pos'], bersaglio_e['pos'])):
+                    dif_eff += 1
+                if attack_roll(log, n, h['vigore'], armed[n], bersaglio_e['nome'], dif_eff):
                     bersaglio_e['fer'] -= 1
                     log(f'    {bersaglio_e["nome"]}: {max(bersaglio_e["fer"], 0)}/{bersaglio_e["fer_max"]} ferite residue.')
                     if bersaglio_e['fer'] <= 0:
                         log(f'    {bersaglio_e["nome"]} è ABBATTUTO.')
                         if bersaglio_e is custode:
-                            log('    *** IL SUGGERITORE È SCONFITTO. ***')
+                            log('    *** IL SALMODIANTE È SCONFITTO. ***')
                         else:
                             urlo_voce_cava(bersaglio_e)
                             # La miniatura torna disponibile (si toglie dal tavolo, non
@@ -1735,8 +1727,8 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
                 continue
             if luogo_label.startswith('T6') and pannelli > 0:
                 pannelli -= 1
-                log(f'    [AZIONE] {n} disaccorda un pannello della conchiglia '
-                    f'({3 - pannelli}/3 sabotati).')
+                log(f'    [AZIONE] {n} sfregia una canna montata dell’organo '
+                    f'({3 - pannelli}/3 sfregiate).')
                 continue
             if luogo_label not in tessere_cercate:
                 tessere_cercate.add(luogo_label)
@@ -1763,27 +1755,28 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
             tile_attuale = tile_id
             log(f'    Il gruppo entra in {tile_id} da {chess(porta_attuale_pos)}.')
         if tappa.startswith('T3') and 'ritorno' not in tappa:
-            # La Sala dei Contrappesi: con LA PIANTA DELLE MACCHINE nessuna
-            # prova; altrimenti NERVI (Media) per ogni eroe - chi fallisce
-            # perde 1 azione (o solo lo spavento, col Presagio di L1).
-            if indagine.get('pianta'):
-                log('    [OGGETTO] LA PIANTA DELLE MACCHINE: sapete dove NON stare — nessuna prova.')
-            else:
-                presagio_l1 = (1, 'Presagio') in indagine.get('approf_dettaglio', set())
-                if presagio_l1:
-                    log('    [HOOK INDAGINE] Il Presagio della buca: chi fallisce non perde l’azione (solo lo spavento).')
-                for n in vivi():
-                    bonus, chi_bonus = voce_ferma_bonus(n)
-                    ok, _ = check(log, n, 'NERVI', HERO[n]['nervi'], 'Media', bonus,
-                                  f'Voce ferma di {chi_bonus}' if bonus else '')
-                    if not ok and secondo_fiato.get(n):
-                        secondo_fiato[n] = False
-                        log(f'    [SECONDO FIATO] {n} ritenta la prova (unico ritento dell’episodio):')
-                        ok, _ = check(log, n, 'NERVI', HERO[n]['nervi'], 'Media', bonus,
-                                      f'Voce ferma di {chi_bonus}' if bonus else '')
-                    if not ok and not presagio_l1:
-                        azioni_perse.add(n)
-                        log(f'    {n}: il sipario chiama i contrappesi — 1 sola azione al prossimo turno.')
+            # Il Corridoio degli Ossari: NERVI (Difficile) per ogni eroe;
+            # le Candele della Parrocchia danno +1; il Presagio di L1
+            # declassa a Media.
+            diff_t3 = 'Media' if (1, 'Presagio') in indagine.get('approf_dettaglio', set()) else 'Difficile'
+            if diff_t3 == 'Media':
+                log('    [HOOK INDAGINE] La salmodia sotto: tacendo e in fretta — prova declassata a Media.')
+            bonus_candele = 1 if indagine.get('pianta') else 0
+            if bonus_candele:
+                log('    [OGGETTO] Le Candele della Parrocchia: +1 alla prova.')
+            for n in vivi():
+                bonus, chi_bonus = voce_ferma_bonus(n)
+                bonus += bonus_candele
+                ok, _ = check(log, n, 'NERVI', HERO[n]['nervi'], diff_t3, bonus,
+                              'candele' if bonus_candele and not chi_bonus else (f'Voce ferma di {chi_bonus}' if chi_bonus else ''))
+                if not ok and secondo_fiato.get(n):
+                    secondo_fiato[n] = False
+                    log(f'    [SECONDO FIATO] {n} ritenta la prova (unico ritento dell’episodio):')
+                    ok, _ = check(log, n, 'NERVI', HERO[n]['nervi'], diff_t3, bonus,
+                                  'candele' if bonus_candele else '')
+                if not ok:
+                    azioni_perse.add(n)
+                    log(f'    {n}: il muro gli canta accanto — 1 sola azione al prossimo turno.')
         if tappa.startswith('T4') and 'ritorno' not in tappa:
             log('    QUANDO RIVELATE: 1 Adepto sta calando dalla corda della Confluenza.')
             if pool['ADEPTO INCAPPUCCIATO'] > 0:
@@ -1794,18 +1787,20 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
                 enemies.append(dict(nome='ADEPTO INCAPPUCCIATO', fer=s_fer, fer_max=s_fer,
                                      dif=base['dif'], att=base['att'], dan=base['dan'] + dan_bonus,
                                      mov=base['mov'], pos=cella))
-        if tappa.startswith('T5') and not t5_rivelata:
-            log('    QUANDO RIVELATE: 1 Adepto di guardia appare tra le funi della fossa.')
-            if pool['ADEPTO INCAPPUCCIATO'] > 0:
-                pool['ADEPTO INCAPPUCCIATO'] -= 1
-                base = NEMICO['ADEPTO INCAPPUCCIATO']
+        if tappa.startswith('T4') and 'ritorno' not in tappa and not t4_rivelata:
+            t4_rivelata = True
+            log('    QUANDO RIVELATE: 1 Confratello di guardia appare tra i sedili del capitolo.')
+            if pool['IL CONFRATELLO'] > 0:
+                pool['IL CONFRATELLO'] -= 1
+                base = NEMICO['IL CONFRATELLO']
                 s_fer = base['fer'] + fer_bonus
                 cella = cella_libera_vicino(tile_attuale, porta_attuale_pos, celle_occupate())
-                enemies.append(dict(nome='ADEPTO INCAPPUCCIATO', fer=s_fer, fer_max=s_fer,
+                enemies.append(dict(nome='IL CONFRATELLO', fer=s_fer, fer_max=s_fer,
                                      dif=base['dif'], att=base['att'], dan=base['dan'] + dan_bonus,
                                      mov=base['mov'], pos=cella))
-            log('    Gaspare e Rocco si liberano con Interagire (nessuna prova): si muovono col gruppo.')
-            campanello_t5 = True  # Gaspare liberato: fallback della debolezza
+        if tappa.startswith('T5') and not t5_rivelata:
+            log('    QUANDO RIVELATE: l’officina delle canne — le casse contro il muro.')
+            log('    Le casse di ossa contro il muro: Interagire per salvarle (contano nell’epilogo, non simulate).')
             t5_rivelata = True
         if tappa.startswith('T6') and custode is None:
             # Vicino all'altare, non sulla soglia: "un altare circondato da
@@ -1814,30 +1809,27 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
             # per gli eroi che arrivano, invece di essere gia' occupata da
             # lui nello stesso istante in cui il gruppo mette piede in T6.
             custode_spawn_pos = (2, 1) if (2, 1) not in _arredi('T6') else porta_attuale_pos
-            log(f'    Rivelata la Conchiglia: il Suggeritore con la scorta di Claque, '
-                f'in {chess(custode_spawn_pos)} — le lastre incise in rastrelliera.')
+            log(f'    Rivelato l’Organo Murato: il Salmodiante con la scorta di Confratelli, '
+                f'in {chess(custode_spawn_pos)} — il Maestro dei Registri fugge dalla condotta.')
             c_fer = CUSTODE['fer'] + fer_bonus + custode_extra_fer
             custode = dict(CUSTODE, fer=c_fer, fer_max=c_fer, dan=CUSTODE['dan'] + dan_bonus,
                             pos=custode_spawn_pos)
             occupate_reveal = celle_occupate() | {custode_spawn_pos}
-            if indagine.get('chi_confermato'):
-                log('    [VANTAGGIO D2] Alboni è stato fermato in camerino: la scorta di Claque non appare.')
-            else:
-                for _ in range(-(-len(party) // 4)):  # 1 Claque ogni 4 eroi, per eccesso (stampata su T6)
-                    if pool['LA CLAQUE'] <= 0:
-                        break
-                    pool['LA CLAQUE'] -= 1
-                    base = NEMICO['LA CLAQUE']
-                    a_fer = base['fer'] + fer_bonus
-                    libere = [c for c in _vicini(custode_spawn_pos)
-                              if c not in occupate_reveal and c not in _arredi('T6')]
-                    a_pos = libere[0] if libere else porta_attuale_pos
-                    occupate_reveal.add(a_pos)
-                    enemies.append(dict(nome='LA CLAQUE', fer=a_fer, fer_max=a_fer,
-                                         dif=base['dif'], att=base['att'], dan=base['dan'] + dan_bonus,
-                                         mov=base['mov'], distanza=0, pos=a_pos))
-            tobia_libero = t5_rivelata  # i prigionieri sono gia' con voi (T5)
-        campanello = {'has': indagine['libretto'] or campanello_t5}
+            for _ in range(-(-len(party) // 4)):  # 1 Confratello ogni 4 eroi, per eccesso (stampata su T6)
+                if pool['IL CONFRATELLO'] <= 0:
+                    break
+                pool['IL CONFRATELLO'] -= 1
+                base = NEMICO['IL CONFRATELLO']
+                a_fer = base['fer'] + fer_bonus
+                libere = [c for c in _vicini(custode_spawn_pos)
+                          if c not in occupate_reveal and c not in _arredi('T6')]
+                a_pos = libere[0] if libere else porta_attuale_pos
+                occupate_reveal.add(a_pos)
+                enemies.append(dict(nome='IL CONFRATELLO', fer=a_fer, fer_max=a_fer,
+                                     dif=base['dif'], att=base['att'], dan=base['dan'] + dan_bonus,
+                                     mov=base['mov'], distanza=0, pos=a_pos))
+            tobia_libero = True  # niente prigionieri in Ep.5: obiettivo = sfregio e ritorno
+        campanello = {'has': indagine['libretto']}
         fase_eroi(tappa)
         fase_minaccia()
         fase_nemici(tappa, True)
@@ -1851,11 +1843,11 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
             break
 
     if esito is None and custode and custode['fer'] > 0:
-        log('--- Combattimento contro il Suggeritore ---')
+        log('--- Combattimento contro il Salmodiante ---')
         while custode['fer'] > 0 and vivi():
             round_n += 1
             attivati_extra.clear()
-            log(f'--- Round {round_n}: scontro nella Conchiglia ---')
+            log(f'--- Round {round_n}: scontro all’Organo Murato ---')
             log_azioni_round()
             fase_eroi('T6')
             fase_minaccia()
@@ -1875,7 +1867,7 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
         # azioni ci sono; costa 1 round di orologio, col Canto che corre).
         round_n += 1
         attivati_extra.clear()
-        log(f'--- Round {round_n}: bonifica della Conchiglia ({pannelli} pannelli restanti) ---')
+        log(f'--- Round {round_n}: sfregio finale dell’organo ({pannelli} canne restanti) ---')
         log_azioni_round()
         pannelli = 0
         fase_minaccia()
@@ -1885,9 +1877,9 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
             esito = 'SCONFITTA (party wipe)'
     if esito is None:
         if not tobia_libero:
-            log('    Il gruppo non ha mai raggiunto la fossa: si torna indietro a mani vuote.')
-            esito = 'SCONFITTA (Gaspare e Rocco non liberati)'
-        log('--- Ritorno a T1 con Gaspare e Rocco (3 round di movimento, minacce ancora attive) ---')
+            log('    Il gruppo non ha mai raggiunto l’organo: si torna indietro a mani vuote.')
+            esito = 'SCONFITTA (organo mai raggiunto)'
+        log('--- Ritorno a T1 (3 round di movimento, minacce ancora attive) ---')
         for _ in range(3):
             round_n += 1
             attivati_extra.clear()
@@ -1914,12 +1906,12 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
         f'picco {azioni_max}')
     log(f'Mazzo Minaccia rimescolato: {rimescolamenti_mazzo} volta/e')
     log(f'Segnalini nemici esauriti nel pool (piazzamenti saltati): {pool_esauriti_totale}')
-    log(f'Suggeritore svegliato: {"in anticipo al round " + str(round_custode_svegliato) if round_custode_svegliato else "solo a T6 (mai in anticipo via Canto)"}')
+    log(f'Salmodiante svegliato: {"in anticipo al round " + str(round_custode_svegliato) if round_custode_svegliato else "solo a T6 (mai in anticipo via Canto)"}')
     for n in party:
         stato = 'a terra' if n in down else f'{max(salute[n], 0)}/{salute_max[n]} Salute'
         log(f'  {n}: {stato}')
     log('=' * 78)
-    log(f'Pannelli della conchiglia disaccordati: {3 - pannelli}/3')
+    log(f'Canne dell’organo sfregiate: {3 - pannelli}/3')
     return dict(esito=esito, round_n=round_n, salute_finale=dict(salute), down=list(down),
                 pannelli_sabotati=3 - pannelli,
                 formula_minaccia=formula_minaccia, nemico_scale=nemico_scale, pool_extra=pool_extra,
@@ -2103,24 +2095,24 @@ def esegui_batch_multi_party(nome_base, size, formula, scale, n_party=5, n_seed=
 
 
 def sessione_curva():
-    """Curva completa 2-10 dell'Episodio 4, config di produzione riusata.
-    Seed 640000+ (mai usati altrove)."""
+    """Curva completa 2-10 dell'Episodio 5, config di produzione riusata.
+    Seed 650000+ (mai usati altrove)."""
     os.makedirs(LOG_DIR, exist_ok=True)
     risultati = []
     for size in (2, 3, 4, 5, 6, 7, 8, 9, 10):
-        nome = f'ep4-{size:02d}'
+        nome = f'ep5-{size:02d}'
         print(f'Eseguo {nome} (5 party x 30 seed)...')
         m = esegui_batch_multi_party(nome, size, 'finale_v3', 'nessuna',
-                                      n_party=5, n_seed=30, seed_base=640000 + size * 1000)
+                                      n_party=5, n_seed=30, seed_base=650000 + size * 1000)
         risultati.append(m)
 
-    path = os.path.join(LOG_DIR, 'riepilogo_ep4.md')
+    path = os.path.join(LOG_DIR, 'riepilogo_ep5.md')
     with open(path, 'w', encoding='utf-8') as f:
-        f.write('# Episodio 4 — curva 2-10, config di produzione riusata\n\n')
+        f.write('# Episodio 5 — curva 2-10, config di produzione riusata\n\n')
         f.write(f'Generato: {datetime.now().isoformat(timespec="seconds")}\n\n')
         f.write(f'finale_v3 + CUSTODE_TENSIONE_EXTRA {CUSTODE_TENSIONE_EXTRA} + SALUTE_BONUS_PER_N '
                 f'{SALUTE_BONUS_PER_N}; TICK_CANTO_OGNI={TICK_CANTO_OGNI}, SOGLIA_CANTO={SOGLIA_CANTO}. '
-                'Seed 640000+size*1000.\n\n')
+                'Seed 650000+size*1000.\n\n')
         f.write('| Taglia | % Vittoria | % Vitt. sofferte | Picco a terra | '
                 'Canto finale | Round medi | % Boss anticipo | Pool esauriti |\n')
         f.write('|---|---|---|---|---|---|---|---|\n')
@@ -2129,7 +2121,7 @@ def sessione_curva():
                     f'{m["pct_vittoria_sofferta"]:.0f}% | {m["media_max_down"]:.1f} | '
                     f'{m["media_canto_finale"]:.1f} | {m["media_round"]:.1f} | '
                     f'{m["pct_custode_anticipo"]:.0f}% | {m["media_pool_esauriti"]:.1f} |\n')
-    print(f'\nCurva Episodio 4 fatta. Riepilogo in {path}')
+    print(f'\nCurva Episodio 5 fatta. Riepilogo in {path}')
 
 
 if __name__ == '__main__':
