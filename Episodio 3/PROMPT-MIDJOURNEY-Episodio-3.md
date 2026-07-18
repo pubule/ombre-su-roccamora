@@ -167,17 +167,39 @@ full bleed dark fantasy still life, a small silver hand bell worn only on the cl
 full bleed dark fantasy still life, an old miner's lantern with an intact glass and a steady upright flame, hanging from an ancient hook on a wet cistern column, black still water below, 1889 gaslamp gothic, oil painting, muted teal palette with warm gold accents --ar 3:4 --style raw --no frame, border, card, text, letters, watermark
 ```
 
-## Tessere (template comune, sostituisci AMBIENTE)
+## Tessere (--ar 1:1, prompt completi pronti al copia-incolla)
 
-Usare il template «Tessere mappa» di `PROMPT-MIDJOURNEY.md`. File: `T1-ep3.png` ... `T6-ep3.png`. Ambienti:
-**T1** stone chamber at the base of a well ladder shaft, iron rungs and a circle of faint light high above ·
-**T2** low vaulted cistern hall with rows of columns rising from shallow black water, worn stone walkways ·
-**T3** narrow carved stone gallery with horizontal tuning grooves on the walls, five by five ·
-**T4** round confluence chamber where three stone channels meet, water slowly circling, a greased rope hanging from the vault eye ·
-**T5** dry raised cell with wooden racks holding sealed lead pipes in rows ·
-**T6** vast vertical well shaft seen from inside, carved stone gullet rising out of sight, a pulley with ropes over taut black water
+**T1 — La Scala dei Chiusini** → `artworks/T1-ep3.png`
+```
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, stone chamber at the base of a well ladder shaft, iron rungs and a circle of faint light high above, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark
+```
 
-Arredi: si riusano quelli già esistenti del comune e dell'Ep. 2 (molo, casse, scrivania, forma, crogiolo, scorie) — nessun arredo nuovo.
+**T2 — La Cisterna delle Colonne** → `artworks/T2-ep3.png`
+```
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, low vaulted cistern hall with rows of columns rising from shallow black water, worn stone walkways, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark
+```
+
+**T3 — La Galleria delle Eco** → `artworks/T3-ep3.png`
+```
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, narrow carved stone gallery with horizontal tuning grooves on the walls five by five, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark
+```
+
+**T4 — La Confluenza** → `artworks/T4-ep3.png`
+```
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, round confluence chamber where three stone channels meet, water slowly circling, a greased rope hanging from the vault eye, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark
+```
+
+**T5 — L'Officina delle Canne** → `artworks/T5-ep3.png`
+```
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, dry raised cell with wooden racks holding sealed lead pipes in rows, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark
+```
+
+**T6 — Il Pozzo Maestro** → `artworks/T6-ep3.png`
+```
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, vast vertical well shaft seen from inside, carved stone gullet rising out of sight, a pulley with ropes over taut black water, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark
+```
+
+Arredi: si riusano quelli già esistenti del comune e dell'Ep. 2 (molo, casse, scrivania, forma, crogiolo, scorie) — nessun arredo nuovo da generare.
 
 ## Copertina episodio
 

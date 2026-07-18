@@ -1057,8 +1057,12 @@ successiva** — mai tutto in un colpo:
 - **Fase B — dati e componenti testuali**: dati py (`gen_epN.py` sul modello di
   `gen_ep2.py`, costruito sulle funzioni parametriche di `gen_narrator`) +
   carte in `cards-data.js` (testi identici ai dati py) + fascicoli PDF + mappa
-  incrementale + prompt MJ dell'episodio. L'arte non c'è ancora: i generatori
-  saltano con AVVISO ciò che ne ha bisogno.
+  incrementale + prompt MJ dell'episodio. REGOLA (richiesta esplicita
+  2026-07-18): nel `PROMPT-MIDJOURNEY-Episodio-N.md` OGNI prompt è scritto
+  PER ESTESO, pronto al copia-incolla diretto — mai «usa il template comune e
+  sostituisci AMBIENTE/oggetto», nemmeno per tessere o soggetti che variano di
+  poco: l'utente incolla riga per riga, non ricostruisce. L'arte non c'è
+  ancora: i generatori saltano con AVVISO ciò che ne ha bisogno.
 - **Fase C — simulatore e curva**: copia di `simulate_playtest.py` adattata
   (vedi paragrafo dedicato), curva 2-10 completa sui 4 KPI. La taglia 2 va
   SEMPRE rivalidata (vedi 3-quater). Si tara QUI, coi numeri, non a sensazione.
