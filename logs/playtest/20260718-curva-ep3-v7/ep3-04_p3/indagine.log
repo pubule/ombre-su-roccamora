@@ -1,0 +1,72 @@
+Run: ep3-04_p3_seed0  |  seed=625300  |  generato: 2026-07-18T06:05:28
+==============================================================================
+INDAGINE - Episodio 3: "Le voci del pozzo"
+==============================================================================
+Party: CARLA DOSTI, FULGENZIO CARBONE, OTTONE “MEZZENA” MASSARI, PADRE CELSO MARANI
+Clock: 6 ore, dalle 18:00 alle 24:00.
+
+Tipi di Approfondimento coperti da questo party: Testimonianza
+
+[h18:00] Visita Luogo 1 — Il Lavatoio Grande  (1 ora)
+    [PROVA ACUME] CARLA DOSTI: 2d6(5,1)=6 +ACUME(3) = 9 vs Media(9) -> SUCCESSO
+    - Indizio: L’ultima ammutolita è una lavandaia: l’hanno trovata all’alba sul bordo del pozzo della corte, in ginocchio, con le mani ancora nell’acqua. Le altre giurano che cantava sempre, ai mastelli — «era lei che dava il tempo a tutte».
+    - Indizio: Il registro dei livelli del lavatoio: ogni mattina si segna quanta acqua danno i pozzi. Da un mese una colonna «beve» — il terzo pozzo della corte cala di notte, quando nessuno attinge. (Reperto A: consegnate il Registro dei Livelli.)
+    - Indizio: Le lavandaie lo chiamano «il pozzo dell’acqua morta»: non gela mai, non fa schiuma, e il Catasto delle Acque — dicono — ha una stanza intera per le acque morte del Borgo. Nella loggia, appese a un chiodo, le chiavi dei chiusini della corte. (Oggetto: prendete la carta Le Chiavi dei Chiusini.)
+    -> Parola chiave trovata (vedi indizio sopra): ACQUA MORTA
+    -> Oggetto trovato (vedi indizio sopra): LE CHIAVI DEI CHIUSINI
+    -> Riscontro sulla Domanda 3 (1: registro/falde/conto/sopralluogo).
+    [APPROFONDIMENTO Testimonianza] sbloccato da CARLA DOSTI.
+    -> Questa carta conferma esplicitamente che il colpevole è Silvano (Domanda 2).
+    [PROVA ACUME] CARLA DOSTI: 2d6(2,6)=8 +ACUME(3) = 11 vs Difficile(11) -> SUCCESSO
+    [APPROFONDIMENTO Osservazione] colto da profano da CARLA DOSTI (ACUME Difficile).
+[h19:00] Visita Luogo 5 — Il Catasto delle Acque  (1 ora)
+    [PROVA ACUME] CARLA DOSTI: 2d6(4,1)=5 +ACUME(3) = 8 vs Media(9) -> FALLITA
+    [SECONDO FIATO] CARLA DOSTI ritenta “leggere la scena” (unico ritento dell’episodio):
+    [PROVA ACUME] CARLA DOSTI: 2d6(1,5)=6 +ACUME(3) = 9 vs Media(9) -> SUCCESSO
+    - Indizio: Le mappe delle falde del Borgo: undici pozzi murati, e le vene d’acqua convergono a ventaglio tutte verso lo stesso punto — la corte del Lavatoio Grande.
+    - Indizio: Il fascicolo del 1741: i pozzi non furono murati per l’acqua. L’ordinanza li dice chiusi «per la quiete pubblica», e in margine, a mano antica: «acciocché tacciano». La pietra, nel Borgo, ha già risposto una volta.
+    - Indizio: Il registro delle consultazioni: un mese fa qualcuno ha chiesto proprio queste mappe. Pagato in contanti, nessuna firma. L’archivista ricorda solo i guanti — «buoni. D’estate.»
+    -> Riscontro sulla Domanda 3 (2: registro/falde/conto/sopralluogo).
+    [PROVA ACUME] CARLA DOSTI: 2d6(2,1)=3 +ACUME(3) = 6 vs Difficile(11) -> FALLITA
+    [APPROFONDIMENTO Referto] aiuto profano fallito: resta sigillato qui.
+[h20:00] Visita Luogo 3 — La Gazzetta di Roccamora  (1 ora)
+    [PROVA ACUME] CARLA DOSTI: 2d6(3,1)=4 +ACUME(3) = 7 vs Media(9) -> FALLITA
+    - Indizio: Il cronista Ranuzzi vi accoglie come clienti: «Il Ladro di Voci! Un mostro col rasoio, signori, e io so chi è: il maestro del coro della Parrocchia. Scartato, livoroso, e con le mani in gola ai ragazzini da vent’anni, si fa per dire.» Ci crede davvero — ed è il suo mestiere, far credere.
+    - Indizio: L’archivio della Gazzetta, a pagamento: un trafiletto di tre mesi fa deride una «commissione curiosa» al lattoniere Bo — dodici canne d’organo per un organo che nessuna chiesa del circondario ha mai ordinato.
+    - Indizio: Il tipografo, gratis: gli ammutoliti non hanno niente in comune — età, mestiere, rione. Niente, tranne una cosa che il giornale non ha scritto: «cantavano tutti. La lavandaia ai mastelli, il garzone che fischiava, la vedova del rosario. Il Borgo, di notte, adesso è muto.»
+    -> Parola chiave trovata (vedi indizio sopra): CANNE D’ORGANO
+    -> Parola chiave trovata (vedi indizio sopra): SALASSO
+    “Leggere la scena” fallita: l’Approfondimento di questo luogo resta nascosto (si può tornare più tardi, senza ripetere il tiro).
+[h21:00] Visita Luogo 8 — L’Ospedale della Carità  (1 ora)
+    [PROVA ACUME] CARLA DOSTI: 2d6(2,6)=8 +ACUME(3) = 11 vs Media(9) -> SUCCESSO
+    - Indizio: Gli ammutoliti sono in corsia, insieme: vivi, sani, muti. Scrivono, mangiano, dormono. Ma nessuno di loro piange — il medico dice che è la cosa che lo spaventa di più: «il pianto è voce. Gliel’hanno presa tutta.»
+    - Indizio: Il taglio è identico su tutti: sottile, obliquo, non sanguina e non guarisce. Il medico, mostrandolo: «non è una ferita. È un’accordatura — come si fa alle canne, per cambiarne la voce. Chi l’ha fatto sapeva dove fermarsi: qui non c’è rabbia. C’è metodo.»
+    - Indizio: I registri d’accettazione: nelle settimane prima, tutti e quattro erano stati salassati — visite regolari, mai pagate per intero. La bottega non è segnata: nel Borgo di botteghe da salasso ce n’è una sola, e ci passa mezza città. Tra gli effetti del primo ammutolito, in guardiola, un rasoio d’argento trovato accanto al corpo — sequestrato e mai reclamato. (Oggetto: prendete la carta Il Rasoio d’Argento.)
+    [PROVA ACUME] CARLA DOSTI: 2d6(1,6)=7 +ACUME(3) = 10 vs Difficile(11) -> FALLITA
+    [APPROFONDIMENTO Referto] aiuto profano fallito: resta sigillato qui.
+[h22:00] Visita Luogo 6 — La Bottega del Lattoniere Bo  (1 ora)
+    [PROVA ACUME] CARLA DOSTI: 2d6(4,4)=8 +ACUME(3) = 11 vs Media(9) -> SUCCESSO
+    - Indizio: La commissione delle canne, appesa alla lesina come una ricevuta qualsiasi: carta di pregio, mano elegante, una sigla in calce — «C.B.». Ritiro a mezzo garzone, pagamento anticipato, in contanti. (Reperto B: consegnate la Commissione di C.B.)
+    - Indizio: Il conto di bottega: dodici canne di piombo consegnate, «da organo, sigillo a cera». Bo non se n’è mai chiesto il perché — ma i pozzi murati del Borgo sono undici. Una canna è per qualcosa che pozzo non è.
+    - Indizio: Sul ripiano dei resi, una canna tornata indietro per difetto di fusione: vuota, sigillata, mai ritirata. Bo ve la cede volentieri — «a me i lavori muti non piacciono». (Oggetto: prendete la carta La Canna Muta.)
+    -> Trovata: LA CANNA MUTA (la Galleria delle Eco non vi sentirà).
+    -> Riscontro sulla Domanda 3 (3: registro/falde/conto/sopralluogo).
+    [APPROFONDIMENTO Testimonianza] sbloccato da OTTONE “MEZZENA” MASSARI.
+[h23:00] Visita Luogo 2 — La Bottega del Barbiere  (1 ora)
+    [PROVA ACUME] CARLA DOSTI: 2d6(4,2)=6 +ACUME(3) = 9 vs Media(9) -> SUCCESSO
+    - Indizio: Mastro Silvano Alcesti vi riceve con cortesia stanca: mezza città passa dalla sua poltrona. Dei tagli dice, piano: «un taglio così non lo fa un coltello. Lo fa una mano ferma, e una lama che sa dove fermarsi.» Di notte lo chiamano per i salassi — il medico costa, il barbiere no.
+    - Indizio: Alla parete, tra gli ex-voto, il ritratto a carboncino di un bambino: Piero, il figlio, morto di febbri due inverni fa. «Aveva una voce che il rione si fermava. Non gli ho fatto cantare il requiem: certe voci non si seppelliscono.»
+    - Indizio: Sul banco, tra i rasoi in fila, una canna di piombo corta fa da vaso a un fiore secco. «Me l’ha lasciata un cliente. Il lattoniere ne ha fatte a dozzine, mesi fa — canne d’organo, diceva, per una chiesa che non ho mai saputo.»
+    -> Parola chiave trovata (vedi indizio sopra): SALASSO
+    -> Parola chiave trovata (vedi indizio sopra): REQUIEM PER PIERO
+    -> Parola chiave trovata (vedi indizio sopra): CANNE D’ORGANO
+    [PROVA ACUME] CARLA DOSTI: 2d6(1,3)=4 +ACUME(3) = 7 vs Difficile(11) -> FALLITA
+    [APPROFONDIMENTO Osservazione] aiuto profano fallito: resta sigillato qui.
+    [APPROFONDIMENTO Testimonianza] nessun eroe idoneo e occasione profana già spesa qui — non letto.
+
+Fine Indagine: 6/9 luoghi visitati, 3 Approfondimenti letti, 5 mancati.
+Ore avanzate: 0 -> SLANCIO (3 azioni al 1° round di spedizione, +1 Salute massima a testa)
+Campanello di Piero: no (resta da cercare in T5); Canna Muta: sì; Domanda 3 (pozzo giusto, 3 riscontri): esatta
+Chi è il Ladro di Voci confermato esplicitamente (Domanda 2): sì
+Dossier completo (tutte le ore spese in Indagine): 1 gettone Intuizione per la Spedizione.
+

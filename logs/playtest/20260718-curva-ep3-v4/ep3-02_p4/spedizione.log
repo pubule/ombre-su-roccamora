@@ -1,0 +1,200 @@
+Run: ep3-02_p4_seed0  |  seed=623400  |  formula Minaccia=finale_v3  |  generato: 2026-07-18T05:55:37
+==============================================================================
+SPEDIZIONE - Le Cisterne del Borgo (sotto il Lavatoio Grande)
+==============================================================================
+Party: DOTT. LAZZARO SERRA, PADRE CELSO MARANI
+Bonus da Indagine: SLANCIO (3 azioni al 1° round di spedizione, +1 Salute massima a testa); Campanello di Piero: no; Canna Muta: sì; Domanda 3: esatta
+NOTA: gruppo trattato come blocco unico tessera per tessera (vedi intestazione script).
+Tensione tavolo piccolo: +-1 Ferite SOLO all’Accordatore (non ai nemici di truppa).
+
+Tavolo da 2: +1 Salute massima a testa (ricalibrazione).
+Gettone Intuizione in mano (Dossier completo): un ri-tiro, una volta in Spedizione.
+--- Round 1: il gruppo raggiunge T2 (Cisterna delle Colonne) ---
+    (azioni nominali questo round: 6 — 2 eroi vivi)
+    Il gruppo entra in T2 da B1.
+    [PROVA ACUME] DOTT. LAZZARO SERRA: 2d6(3,5)=8 +ACUME(3) = 11 vs Media(9) -> SUCCESSO
+    DOTT. LAZZARO SERRA cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    PADRE CELSO MARANI: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] LA PIETRA IMPARA (crescendo) — Aggiungete 1 segnalino Canto. Alla soglia: l’Accordatore si desta.
+    Segnalino Canto: 1.
+--- Round 2: il gruppo raggiunge T3 (Galleria delle Eco) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    Il gruppo entra in T3 da B1.
+    [OGGETTO] LA CANNA MUTA al petto: la galleria non vi sente — nessuna prova.
+    [PROVA ACUME] DOTT. LAZZARO SERRA: 2d6(4,2)=6 +ACUME(3) = 9 vs Media(9) -> SUCCESSO
+    DOTT. LAZZARO SERRA cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    [ABILITÀ] PADRE CELSO MARANI usa Litania: -1 segnalino Canto (1->0).
+  [MINACCIA] L’UOMO PAGATO IN CONTANTI (malavita) — Piazzate 1 Sicario: si attiva subito.
+    Piazzati 1x IL SICARIO (pool residua: 0) in C1.
+    IL SICARIO si attiva subito:
+  IL SICARIO si muove verso PADRE CELSO MARANI: C1 -> B2.
+  IL SICARIO attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] IL SICARIO -> PADRE CELSO MARANI: 2d6(6,2)=8 +Attacco(3) = 11 vs Difesa(8) -> COLPITO
+    PADRE CELSO MARANI subisce 2 danno da IL SICARIO (Salute: 6/8).
+--- Round 3: il gruppo raggiunge T4 (La Confluenza) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    Il gruppo entra in T4 da B1.
+    QUANDO RIVELATE: 1 Adepto sta calando dalla corda della Confluenza.
+    [ABILITÀ] DOTT. LAZZARO SERRA attiva Voce ferma (2 usi residui): +2 NERVI agli alleati fino al suo prossimo turno.
+    PADRE CELSO MARANI si muove verso ADEPTO INCAPPUCCIATO: B1 -> D2.
+    [ATTACCO] PADRE CELSO MARANI -> ADEPTO INCAPPUCCIATO: 2d6(6,2)=8 +VIGORE(1)+arma(1) = 10 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+  [MINACCIA] PASSI NELLA GALLERIA (posseduto) — Piazzate 1 Adepto sull’ingresso della Scala dei Chiusini (T1).
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 3), a 6 caselle dalla tessera del gruppo.
+  IL SICARIO si muove verso DOTT. LAZZARO SERRA: B2 -> C1.
+  IL SICARIO attacca DOTT. LAZZARO SERRA:
+    [ATTACCO NEMICO] IL SICARIO -> DOTT. LAZZARO SERRA: 2d6(4,6)=10 +Attacco(3) = 13 vs Difesa(8) -> COLPITO
+    DOTT. LAZZARO SERRA subisce 2 danno da IL SICARIO (Salute: 6/8).
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+--- Round 4: il gruppo raggiunge T5 (Officina delle Canne) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    Il gruppo entra in T5 da A3.
+    QUANDO RIVELATE: 1 Adepto appare tra le rastrelliere delle canne-voce.
+    Cercando sulla rastrelliera più alta: la scatolina di legno — IL CAMPANELLO DI PIERO.
+    DOTT. LAZZARO SERRA si muove verso ADEPTO INCAPPUCCIATO: A3 -> B2.
+    [ATTACCO] DOTT. LAZZARO SERRA -> ADEPTO INCAPPUCCIATO: 2d6(4,2)=6 +VIGORE(1)+arma(1) = 8 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    PADRE CELSO MARANI si muove verso IL SICARIO: A3 -> B1.
+    [ATTACCO] PADRE CELSO MARANI -> IL SICARIO: 2d6(5,1)=6 +VIGORE(1)+arma(1) = 8 vs Difesa(7) -> COLPITO
+    IL SICARIO: 0/1 ferite residue.
+    IL SICARIO è ABBATTUTO.
+  [MINACCIA] IL TURNO DI SOTTO (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 1) in A3.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si muove verso PADRE CELSO MARANI: A3 -> A1.
+  LO SGHERRO attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] LO SGHERRO -> PADRE CELSO MARANI: 2d6(5,6)=11 +Attacco(2) = 13 vs Difesa(8) -> COLPITO
+    PADRE CELSO MARANI subisce 1 danno da LO SGHERRO (Salute: 5/8).
+  [OROLOGIO] Fine del 4° round: +1 segnalino Canto automatico.
+    Segnalino Canto: 1.
+--- Round 5: il gruppo raggiunge T6 (Il Pozzo Maestro) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    Il gruppo entra in T6 da B1.
+    Rivelato il Pozzo Maestro: l’Accordatore con 1 Voce Cava, in C2 — Tobia è legato alla carrucola.
+    Tobia si libera con Interagire (nessuna prova): si muove col gruppo.
+    [ABILITÀ] DOTT. LAZZARO SERRA attiva Voce ferma (1 usi residui): +2 NERVI agli alleati fino al suo prossimo turno.
+    [OGGETTO] PADRE CELSO MARANI suona IL CAMPANELLO DI PIERO accanto all’Accordatore: la voce vera, non quella rubata — Difesa 8->5, salta la prossima attivazione.
+  [MINACCIA] GUARDIANI DEI CHIUSINI (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 0) in B1.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO attacca DOTT. LAZZARO SERRA:
+    [ATTACCO NEMICO] LO SGHERRO -> DOTT. LAZZARO SERRA: 2d6(5,6)=11 +Attacco(2) = 13 vs Difesa(8) -> COLPITO
+    DOTT. LAZZARO SERRA subisce 1 danno da LO SGHERRO (Salute: 5/8).
+  LA VOCE CAVA si muove verso PADRE CELSO MARANI: D2 -> C1.
+  LA VOCE CAVA attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] LA VOCE CAVA -> PADRE CELSO MARANI: 2d6(1,2)=3 +Attacco(1) = 4 vs Difesa(8) -> MANCATO
+  LA VOCE CAVA attacca DOTT. LAZZARO SERRA:
+    [ATTACCO NEMICO] LA VOCE CAVA -> DOTT. LAZZARO SERRA: 2d6(3,6)=9 +Attacco(1) = 10 vs Difesa(8) -> COLPITO
+    DOTT. LAZZARO SERRA subisce 1 danno da LA VOCE CAVA (Salute: 4/8).
+  LO SGHERRO si avvicina, non ancora a contatto.
+  L’ACCORDATORE salta l’attivazione (stonato).
+--- Combattimento contro l’Accordatore ---
+--- Round 6: scontro nel Pozzo Maestro ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    [ATTACCO] DOTT. LAZZARO SERRA -> LA VOCE CAVA: 2d6(6,1)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(6) -> COLPITO
+    LA VOCE CAVA: 0/1 ferite residue.
+    LA VOCE CAVA è ABBATTUTO.
+    La Voce Cava URLA nel disfarsi:
+    [PROVA NERVI] DOTT. LAZZARO SERRA: 2d6(2,5)=7 +NERVI(2) = 9 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] PADRE CELSO MARANI: 2d6(6,1)=7 +NERVI(3) = 10 vs Facile(7) -> SUCCESSO
+    PADRE CELSO MARANI si muove verso LA VOCE CAVA: B1 -> D2.
+    PADRE CELSO MARANI si avvicina a LA VOCE CAVA, non ancora a contatto.
+  [MINACCIA] LA VOCE CHE MANCA (posseduto) — Piazzate 1 Voce Cava sull’uscita più vicina agli eroi.
+    Piazzati 1x LA VOCE CAVA (pool residua: 1) in B1.
+  ADEPTO INCAPPUCCIATO raggiunge la tessera del gruppo, da C1.
+  ADEPTO INCAPPUCCIATO si muove verso PADRE CELSO MARANI: C1 -> D1.
+  ADEPTO INCAPPUCCIATO attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> PADRE CELSO MARANI: 2d6(1,5)=6 +Attacco(1) = 7 vs Difesa(8) -> MANCATO
+  LO SGHERRO si muove verso PADRE CELSO MARANI: A1 -> B4.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LA VOCE CAVA si muove verso DOTT. LAZZARO SERRA: B2 -> A1.
+  LA VOCE CAVA attacca DOTT. LAZZARO SERRA:
+    [ATTACCO NEMICO] LA VOCE CAVA -> DOTT. LAZZARO SERRA: 2d6(5,4)=9 +Attacco(1) = 10 vs Difesa(8) -> COLPITO
+    DOTT. LAZZARO SERRA subisce 1 danno da LA VOCE CAVA (Salute: 3/8).
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LA VOCE CAVA si avvicina, non ancora a contatto.
+  L’ACCORDATORE attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] L’ACCORDATORE -> PADRE CELSO MARANI: 2d6(2,1)=3 +Attacco(3) = 6 vs Difesa(8) -> MANCATO
+--- Round 7: scontro nel Pozzo Maestro ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    [ABILITÀ] DOTT. LAZZARO SERRA attiva Voce ferma (0 usi residui): +2 NERVI agli alleati fino al suo prossimo turno.
+    [ATTACCO] PADRE CELSO MARANI -> ADEPTO INCAPPUCCIATO: 2d6(1,3)=4 +VIGORE(1)+arma(1) = 6 vs Difesa(7) -> MANCATO
+  [MINACCIA] L’ECO CHE CHIAMA (insidia) — Ogni eroe prova NERVI (Facile): chi fallisce ha 1 sola azione al prossimo turno.
+    [PROVA NERVI] DOTT. LAZZARO SERRA: 2d6(4,2)=6 +NERVI(2) = 8 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] PADRE CELSO MARANI: 2d6(6,3)=9 +NERVI(3) = 12 vs Facile(7) -> SUCCESSO
+  ADEPTO INCAPPUCCIATO si muove verso DOTT. LAZZARO SERRA: D1 -> C1.
+  ADEPTO INCAPPUCCIATO attacca DOTT. LAZZARO SERRA:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> DOTT. LAZZARO SERRA: 2d6(6,2)=8 +Attacco(1) = 9 vs Difesa(8) -> COLPITO
+    DOTT. LAZZARO SERRA subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 2/8).
+  LO SGHERRO si muove verso PADRE CELSO MARANI: B4 -> D3.
+  LO SGHERRO attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] LO SGHERRO -> PADRE CELSO MARANI: 2d6(4,1)=5 +Attacco(2) = 7 vs Difesa(8) -> MANCATO
+  LA VOCE CAVA attacca DOTT. LAZZARO SERRA:
+    [ATTACCO NEMICO] LA VOCE CAVA -> DOTT. LAZZARO SERRA: 2d6(1,1)=2 +Attacco(1) = 3 vs Difesa(8) -> MANCATO
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LA VOCE CAVA si avvicina, non ancora a contatto.
+  L’ACCORDATORE attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] L’ACCORDATORE -> PADRE CELSO MARANI: 2d6(3,3)=6 +Attacco(3) = 9 vs Difesa(8) -> COLPITO
+    PADRE CELSO MARANI subisce 2 danno da L’ACCORDATORE (Salute: 3/8).
+--- Round 8: scontro nel Pozzo Maestro ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    [ATTACCO] DOTT. LAZZARO SERRA -> ADEPTO INCAPPUCCIATO: 2d6(4,5)=9 +VIGORE(1)+arma(1) = 11 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    [ATTACCO] PADRE CELSO MARANI -> LO SGHERRO: 2d6(2,5)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+  [MINACCIA] IL CORO PROVA (posseduto) — Piazzate 1 Voce Cava. Se è già in gioco una Voce Cava, si attiva subito.
+    Piazzati 1x LA VOCE CAVA (pool residua: 0) in B1.
+  LO SGHERRO attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] LO SGHERRO -> PADRE CELSO MARANI: 2d6(1,2)=3 +Attacco(2) = 5 vs Difesa(8) -> MANCATO
+  LA VOCE CAVA attacca DOTT. LAZZARO SERRA:
+    [ATTACCO NEMICO] LA VOCE CAVA -> DOTT. LAZZARO SERRA: 2d6(3,5)=8 +Attacco(1) = 9 vs Difesa(8) -> COLPITO
+    DOTT. LAZZARO SERRA subisce 1 danno da LA VOCE CAVA (Salute: 1/8).
+  LO SGHERRO si muove verso DOTT. LAZZARO SERRA: B1 -> C1.
+  LO SGHERRO attacca DOTT. LAZZARO SERRA:
+    [ATTACCO NEMICO] LO SGHERRO -> DOTT. LAZZARO SERRA: 2d6(2,4)=6 +Attacco(2) = 8 vs Difesa(8) -> COLPITO
+    DOTT. LAZZARO SERRA subisce 1 danno da LO SGHERRO (Salute: 0/8).
+    [INTUIZIONE] Il gruppo spende il gettone Dossier: DOTT. LAZZARO SERRA resta in piedi a 1 Salute invece di cadere.
+  LA VOCE CAVA si muove verso DOTT. LAZZARO SERRA: B1 -> B2.
+  LA VOCE CAVA attacca DOTT. LAZZARO SERRA:
+    [ATTACCO NEMICO] LA VOCE CAVA -> DOTT. LAZZARO SERRA: 2d6(1,6)=7 +Attacco(1) = 8 vs Difesa(8) -> COLPITO
+    DOTT. LAZZARO SERRA subisce 1 danno da LA VOCE CAVA (Salute: 0/8).
+    *** DOTT. LAZZARO SERRA è A TERRA. ***
+  LA VOCE CAVA si avvicina, non ancora a contatto.
+  L’ACCORDATORE attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] L’ACCORDATORE -> PADRE CELSO MARANI: 2d6(2,5)=7 +Attacco(3) = 10 vs Difesa(8) -> COLPITO
+    PADRE CELSO MARANI subisce 2 danno da L’ACCORDATORE (Salute: 1/8).
+  [OROLOGIO] Fine del 8° round: +1 segnalino Canto automatico.
+    Segnalino Canto: 2.
+--- Round 9: scontro nel Pozzo Maestro ---
+    (azioni nominali questo round: 2 — 1 eroi vivi)
+    [ATTACCO] PADRE CELSO MARANI -> LO SGHERRO: 2d6(5,6)=11 +VIGORE(1)+arma(1) = 13 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+  [MINACCIA] UNA CORRENTE D’ARIA BUONA (favore) — Rivelate una tessera coperta adiacente.
+    (carta senza effetto modellato in questa simulazione)
+  LA VOCE CAVA si muove verso PADRE CELSO MARANI: A1 -> B3.
+  LA VOCE CAVA si avvicina, non ancora a contatto.
+  LO SGHERRO si muove verso PADRE CELSO MARANI: C1 -> D1.
+  LO SGHERRO attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] LO SGHERRO -> PADRE CELSO MARANI: 2d6(4,1)=5 +Attacco(2) = 7 vs Difesa(8) -> MANCATO
+  LA VOCE CAVA si muove verso PADRE CELSO MARANI: B2 -> A4.
+  LA VOCE CAVA si avvicina, non ancora a contatto.
+  LA VOCE CAVA si avvicina, non ancora a contatto.
+  L’ACCORDATORE attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] L’ACCORDATORE -> PADRE CELSO MARANI: 2d6(4,5)=9 +Attacco(3) = 12 vs Difesa(8) -> COLPITO
+    PADRE CELSO MARANI subisce 2 danno da L’ACCORDATORE (Salute: 0/8).
+    *** PADRE CELSO MARANI è A TERRA. ***
+
+==============================================================================
+ESITO SPEDIZIONE: SCONFITTA (party wipe)
+Round totali: 9
+Formula Minaccia: finale_v3 | Azioni nominali/round: media 4.0, picco 6
+Mazzo Minaccia rimescolato: 0 volta/e
+Segnalini nemici esauriti nel pool (piazzamenti saltati): 0
+Accordatore svegliato: solo a T6 (mai in anticipo via Canto)
+  DOTT. LAZZARO SERRA: a terra
+  PADRE CELSO MARANI: a terra
+==============================================================================

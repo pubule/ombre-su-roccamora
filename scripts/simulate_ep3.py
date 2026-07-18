@@ -1203,7 +1203,8 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
     custode = None
     custode_stunned = False
     campanello_usato = False
-    campanello_t5 = False  # trovato Cercando nell'Officina delle Canne
+    campanello_t5 = False  # trovato Cercando nell'Officina delle Canne (prova ACUME)
+    t5_rivelata = False
     voce_ferma_scade_round = 0
     adescati = []  # nemici che l'Esca preziosa (Carbone) distoglie per il round corrente
     attivati_extra = set()  # id() dei nemici gia' attivati "subito" questo round (vedi fase_minaccia) -
@@ -1367,9 +1368,13 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
     # all'Officina delle Canne (obiettivo secondario: le canne-voce pesano
     # nell'epilogo, e il Campanello di Piero e' li' se il barbiere non lo
     # ha affidato). T5 e' un ramo: si ripassa da T4 per salire a T6.
+    # 6 tappe (il ramo T5 si paga con un round di ritorno per la Confluenza):
+    # provata la variante a 5 (curva-v4), la spedizione scendeva a 10-12
+    # round e mezza curva volava sopra il 90% con sofferte al 3-13% - lo
+    # stesso sintomo che in Ep.2 porto' alla passerella in fila indiana.
     path = ['T2 (Cisterna delle Colonne)', 'T3 (Galleria delle Eco)',
             'T4 (La Confluenza)', 'T5 (Officina delle Canne)',
-            'T4 (La Confluenza — ritorno dal ramo)', 'T6 (Il Pozzo Maestro)']
+            'T4 (La Confluenza - ritorno dal ramo)', 'T6 (Il Pozzo Maestro)']
     round_n = 0
     esito = None
 
@@ -1831,7 +1836,17 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
                     if not ok:
                         azioni_perse.add(n)
                         log(f'    {n}: la propria voce torna sbagliata — 1 sola azione al prossimo turno.')
-        if tappa.startswith('T5') and not campanello_t5:
+        if tappa.startswith('T4') and 'ritorno' not in tappa:
+            log('    QUANDO RIVELATE: 1 Adepto sta calando dalla corda della Confluenza.')
+            if pool['ADEPTO INCAPPUCCIATO'] > 0:
+                pool['ADEPTO INCAPPUCCIATO'] -= 1
+                base = NEMICO['ADEPTO INCAPPUCCIATO']
+                s_fer = base['fer'] + fer_bonus
+                cella = cella_libera_vicino(tile_attuale, (2, 2), celle_occupate())
+                enemies.append(dict(nome='ADEPTO INCAPPUCCIATO', fer=s_fer, fer_max=s_fer,
+                                     dif=base['dif'], att=base['att'], dan=base['dan'] + dan_bonus,
+                                     mov=base['mov'], pos=cella))
+        if tappa.startswith('T5') and not t5_rivelata:
             log('    QUANDO RIVELATE: 1 Adepto appare tra le rastrelliere delle canne-voce.')
             if pool['ADEPTO INCAPPUCCIATO'] > 0:
                 pool['ADEPTO INCAPPUCCIATO'] -= 1
@@ -1842,11 +1857,20 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
                                      dif=base['dif'], att=base['att'], dan=base['dan'] + dan_bonus,
                                      mov=base['mov'], pos=cella))
             if not indagine.get('campanello'):
-                campanello_t5 = True
-                log('    Cercando sulla rastrelliera più alta: la scatolina di legno — IL CAMPANELLO DI PIERO.')
+                # Cercare vero (prova ACUME Media, una volta): la debolezza
+                # del boss NON e' gratis - in curva-v4 il campanello era
+                # automatico e mezza curva volava sopra il 90%.
+                cercatore = max(vivi(), key=lambda m: HERO[m]['acume'])
+                ok_c, _ = check(log, cercatore, 'ACUME', HERO[cercatore]['acume'], 'Media')
+                if ok_c:
+                    campanello_t5 = True
+                    log('    Cercando sulla rastrelliera più alta: la scatolina di legno — IL CAMPANELLO DI PIERO.')
+                else:
+                    log('    La rastrelliera non rende la scatolina: la debolezza del boss resta introvabile.')
+                tessere_cercate.add(tappa)
             else:
-                campanello_t5 = True
                 log('    Le canne-voce in fila: un\u2019azione Interagire ciascuna (contano nell\u2019epilogo).')
+            t5_rivelata = True
         if tappa.startswith('T6') and custode is None:
             # Vicino all'altare, non sulla soglia: "un altare circondato da
             # candele nere" (testo del luogo) e' piu' fedele di piazzarlo
@@ -1860,13 +1884,19 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
             custode = dict(CUSTODE, fer=c_fer, fer_max=c_fer, dan=CUSTODE['dan'] + dan_bonus,
                             pos=custode_spawn_pos)
             occupate_reveal = celle_occupate() | {custode_spawn_pos}
-            if pool['LA VOCE CAVA'] > 0:
+            # Scorta scalata (stampata sulla tessera): 1 Voce Cava, 2 se il
+            # gruppo e' di 5 o piu' - misurato in curva-v3: 2 fisse a T6
+            # costavano ~17 punti di vittoria alla taglia 4 e ~30 al duo.
+            for _ in range(-(-len(party) // 4)):  # 1 Voce Cava ogni 4 eroi, per eccesso (stampata su T6)
+                if pool['LA VOCE CAVA'] <= 0:
+                    break
                 pool['LA VOCE CAVA'] -= 1
                 base = NEMICO['LA VOCE CAVA']
                 a_fer = base['fer'] + fer_bonus
                 libere = [c for c in _vicini(custode_spawn_pos)
                           if c not in occupate_reveal and c not in _arredi('T6')]
                 a_pos = libere[0] if libere else porta_attuale_pos
+                occupate_reveal.add(a_pos)
                 enemies.append(dict(nome='LA VOCE CAVA', fer=a_fer, fer_max=a_fer,
                                      dif=base['dif'], att=base['att'], dan=base['dan'] + dan_bonus,
                                      mov=base['mov'], distanza=0, pos=a_pos))
@@ -1908,8 +1938,8 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
         if not tobia_libero:
             log('    Il gruppo non ha mai raggiunto Tobia: si torna indietro a mani vuote.')
             esito = 'SCONFITTA (Tobia non liberato)'
-        log('--- Ritorno a T1 con Tobia (4 round di movimento, minacce ancora attive) ---')
-        for _ in range(4):
+        log('--- Ritorno a T1 con Tobia (3 round di movimento: la strada ormai la conoscete, e Tobia conosce le scorciatoie dei pozzaioli) ---')
+        for _ in range(3):
             round_n += 1
             attivati_extra.clear()
             log(f'--- Round {round_n}: rientro verso T1 ---')

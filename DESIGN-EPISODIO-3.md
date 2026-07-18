@@ -134,21 +134,26 @@ a vuoto («stavolta la città risponde»).
   Difficile** della scala Ep. 3 — l'eco restituisce la TUA voce, sbagliata;
   con la Canna Muta al petto: niente prova. Hook: il Presagio di L7 avverte).
 - **T4 — La Confluenza** (ramo opzionale: da qui a T5 o dritti a T6; rivelate
-  QUI le corde fresche: «qualcuno cala e risale ogni notte»).
+  QUI le corde fresche — e QUANDO RIVELATE: 1 Adepto sta calando, appare sotto
+  la corda [aggiunto in Fase C: gli spawn scriptati dell'episodio erano metà
+  di quelli dell'Ep. 2 e le taglie piccole volavano]).
 - **T5 — L'Officina delle Canne** (ramo: rastrelliera delle canne-voce;
   Interagire: una canna ad azione, recuperarle pesa nell'epilogo; Cercare: il
   Campanello di Piero, se non preso in indagine ⚠ rischioso — suonarlo qui
   sveglia una Voce Cava).
 - **T6 — Il Pozzo Maestro** (boss + Tobia legato alla carrucola + le 2
-  campanelle dell'Ep. 2 appese come metronomi). QUANDO RIVELATE: appare
-  **l'Accordatore** con 1 Voce Cava.
+  campanelle dell'Ep. 2 appese come metronomi; sala GRANDE, un solo arredo —
+  in Fase C tre arredi causavano stallo d'affollamento a 9-10 eroi). QUANDO
+  RIVELATE: appare **l'Accordatore** con 1 Voce Cava ogni 4 eroi, arrotondate
+  per eccesso (scorta scalata, tarata in Fase C).
 
 Obiettivo: liberare Tobia (Interagire in T6) e riportarlo in T1. Secondario: le
 canne-voce di T5 (ciascuna = un ammutolito che può riavere la voce — pesa
 nell'epilogo e nel Bivio).
 
-**Boss — L'ACCORDATORE (Mastro Silvano):** Att +3, Dif 8, Fer 3, Mov 3, Danno 2
-(livello Custode, −1 Dif). Primo boss UMANO: niente mostro, un uomo col rasoio
+**Boss — L'ACCORDATORE (Mastro Silvano):** Att +3, Dif 8, Fer 4, Mov 3, Danno 2
+(livello Scoriatore: −1 Dif dal Custode, Fer 4 — il Fer 3 iniziale cadeva
+troppo in fretta, curva-v1 di Fase C). Primo boss UMANO: niente mostro, un uomo col rasoio
 d'accordatura e il grembiule da barbiere, che piange mentre lavora. Debolezza:
 **il Campanello di Piero** — usato adiacente, Silvano si ferma («la voce vera,
 non quella rubata»): Dif 8→5 per il resto della partita e salta la prossima
@@ -202,6 +207,16 @@ ramo «rifusa» del Bivio Ep. 2 (vedi §8).
   delle Acque, Calle degli Stagnini, La Parrocchia del Borgo, Il Pozzo del
   Cieco — tag ep3); PROMPT-MIDJOURNEY-Episodio-3.md (luoghi, boss umano, Voce
   Cava, Tobia NPC, oggetti nature morte, tessere, copertina).
+- **Fase C — FATTA (20260718):** curva finale (v7, 5 party × 30 seed per
+  taglia, config di produzione condivisa invariata): 2: 62% (13% sofferte),
+  3: 93%, 4: 79%, 5: 71%, 6: 93%, 7: 77%, 8: 89% (23%), 9: 87% (31%),
+  10: 93%. Note dichiarate: il duo respira più dei 38-39% degli Ep. 1-2
+  (terza uscita, migliorie accumulate — resta la taglia più dura); la
+  taglia 3 è la più morbida (93%, come il picco facile degli episodi
+  precedenti). Tarature uscite dalla Fase C e riportate sui componenti:
+  boss Fer 4, scorta T6 scalata (1 Voce Cava/4 eroi), Adepto scriptato in
+  T4, T6 a un solo arredo, Campanello in T5 dietro prova ACUME (Cercare
+  vero). Log: logs/playtest/20260718-curva-ep3-v7.
 - Fase C: `simulate_ep3.py` da simulate_ep2 (percorso T1→T6 con ramo T5,
   Galleria Difficile con hook, boss senza cura sotto i 4, Voce Cava con urlo
   simulato, proxy KPI: CHI_ESPLICITO su L1/L2/L3 + `pct_canna_muta`).

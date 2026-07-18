@@ -317,7 +317,8 @@ TILES_3 = [
     dict(id='T4', nome='LA CONFLUENZA', exits={'S': 'T3', 'E': 'T5', 'N': 'T6'},
          testo='Tre gole di pietra si incontrano in una sala rotonda, e l’acqua qui ha una '
                'direzione: gira, piano, come rimestata. Dall’alto pende una corda nuova, unta di '
-               'sego — e i suoi solchi sulla pietra sono di settimane, non di ieri.',
+               'sego — e la corda LAVORA. QUANDO RIVELATE QUESTA TESSERA: 1 Adepto sta calando — '
+               'appare sotto la corda.',
          cerca_vuoto='Solo l’acqua che gira e la corda che pende. Quello che scendeva da qui è '
                      'già arrivato dove doveva.',
          arredi=[(1, 1, 'forma'), (2, 2, 'crogiolo')]),
@@ -338,7 +339,7 @@ TILES_3 = [
                'Appeso alla carrucola, legato, VIVO — Tobia. Ai lati, come metronomi, due '
                'campanelle di bronzo grezzo. E in mezzo alla sala, di spalle, un uomo col '
                'grembiule da barbiere sta accordando la pietra. QUANDO RIVELATE QUESTA TESSERA: '
-               'appare L’ACCORDATORE con 1 Voce Cava.',
+               'appare L’ACCORDATORE con 1 Voce Cava ogni 4 eroi (arrotondate per eccesso).',
          arbitro='Tobia si libera con Interagire (nessuna prova); si muove con voi: 3 caselle, '
                  'nessuna azione. Le 2 campanelle grezze (quelle dell’Episodio 2): un’azione '
                  'Interagire ciascuna (contano nell’epilogo — e sul Frammento n. 2, se lo '
@@ -348,12 +349,12 @@ TILES_3 = [
                  'non è mai stato suo.',
          cerca_vuoto='Qui non si trova: si ascolta. E quello che si sente — un canto di bambino '
                      'fermo sull’acqua — non si può mettere in tasca.',
-         arredi=[(1, 2, 'crogiolo'), (2, 2, 'forma'), (3, 3, 'forma')]),
+         arredi=[(2, 2, 'forma')]),
 ]
 
 # Nemici nuovi (statistiche - fonte per Bestiario e simulatore).
 NEMICI_3 = [
-    dict(nome='L’ACCORDATORE', att=3, dif=8, fer=3, mov=3, dan=2, boss=True,
+    dict(nome='L’ACCORDATORE', att=3, dif=8, fer=4, mov=3, dan=2, boss=True,
          tipo='Il Ladro di Voci (Boss)', art='L’Accordatore.png',
          note='Umano: Mastro Silvano Alcesti, il barbiere del Borgo. La debolezza è il '
               'Campanello di Piero (Difesa 8→5 + salta la prossima attivazione).',

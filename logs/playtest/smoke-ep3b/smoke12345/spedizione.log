@@ -1,0 +1,325 @@
+Run: smoke12345  |  seed=12345  |  formula Minaccia=finale_v3  |  generato: 2026-07-18T05:48:40
+==============================================================================
+SPEDIZIONE - Le Cisterne del Borgo (sotto il Lavatoio Grande)
+==============================================================================
+Party: OTTONE “MEZZENA” MASSARI, ELENA FOSCO, OTTAVIO BRERA, FULGENZIO CARBONE
+Bonus da Indagine: PREPARATI (+1 Salute massima a testa); Campanello di Piero: no; Canna Muta: no; Domanda 3: sbagliata
+NOTA: gruppo trattato come blocco unico tessera per tessera (vedi intestazione script).
+Tensione tavolo piccolo: +-1 Ferite SOLO all’Accordatore (non ai nemici di truppa).
+
+Tavolo da 4: +1 Salute massima a testa (ricalibrazione).
+  Pozzo sbagliato (Domanda 3): 1 Voce Cava appare alla Scala dei Chiusini.
+--- Round 1: il gruppo raggiunge T2 (Cisterna delle Colonne) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    Il gruppo entra in T2 da B1.
+    [PROVA ACUME] OTTONE “MEZZENA” MASSARI: 2d6(4,3)=7 +ACUME(1) = 8 vs Media(9) -> FALLITA
+    OTTONE “MEZZENA” MASSARI cerca sulla tessera: niente da trovare qui, o prova fallita.
+    ELENA FOSCO: nessun bersaglio, avanza / assiste il gruppo.
+    [ABILITÀ] OTTAVIO BRERA usa Vi conosco, Malacarne su LA VOCE CAVA: rimosso dal tabellone.
+    FULGENZIO CARBONE: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] L’ACQUA FERMA (quiete) — Nessun effetto (tensione).
+    (carta senza effetto modellato in questa simulazione)
+  [MINACCIA] IL CORO PROVA (posseduto) — Piazzate 1 Voce Cava. Se è già in gioco una Voce Cava, si attiva subito.
+    Piazzati 1x LA VOCE CAVA (pool residua: 1) in B1.
+  LA VOCE CAVA si muove verso OTTONE “MEZZENA” MASSARI: B1 -> C1.
+  LA VOCE CAVA attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] LA VOCE CAVA -> OTTONE “MEZZENA” MASSARI: 2d6(5,6)=11 +Attacco(1) = 12 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 1 danno da LA VOCE CAVA (Salute: 9/10).
+--- Round 2: il gruppo raggiunge T3 (Galleria delle Eco) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    Il gruppo entra in T3 da B1.
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6(6,4)=10 +NERVI(2) = 12 vs Difficile(11) -> SUCCESSO
+    [PROVA NERVI] ELENA FOSCO: 2d6(1,1)=2 +NERVI(2) = 4 vs Difficile(11) -> FALLITA
+    ELENA FOSCO: la propria voce torna sbagliata — 1 sola azione al prossimo turno.
+    [PROVA NERVI] OTTAVIO BRERA: 2d6(6,2)=8 +NERVI(2) = 10 vs Difficile(11) -> FALLITA
+    [SECONDO FIATO] OTTAVIO BRERA ritenta la prova (unico ritento dell’episodio):
+    [PROVA NERVI] OTTAVIO BRERA: 2d6(5,2)=7 +NERVI(2) = 9 vs Difficile(11) -> FALLITA
+    OTTAVIO BRERA: la propria voce torna sbagliata — 1 sola azione al prossimo turno.
+    [PROVA NERVI] FULGENZIO CARBONE: 2d6(3,1)=4 +NERVI(2) = 6 vs Difficile(11) -> FALLITA
+    [SECONDO FIATO] FULGENZIO CARBONE ritenta la prova (unico ritento dell’episodio):
+    [PROVA NERVI] FULGENZIO CARBONE: 2d6(6,4)=10 +NERVI(2) = 12 vs Difficile(11) -> SUCCESSO
+    OTTONE “MEZZENA” MASSARI si muove verso LA VOCE CAVA: B1 -> C2.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> LA VOCE CAVA: 2d6(1,6)=7 +VIGORE(3)+arma(1) = 11 vs Difesa(6) -> COLPITO
+    LA VOCE CAVA: 0/1 ferite residue.
+    LA VOCE CAVA è ABBATTUTO.
+    La Voce Cava URLA nel disfarsi:
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6(5,2)=7 +NERVI(2) = 9 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] ELENA FOSCO: 2d6(6,4)=10 +NERVI(2) = 12 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] OTTAVIO BRERA: 2d6(2,5)=7 +NERVI(2) = 9 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] FULGENZIO CARBONE: 2d6(5,6)=11 +NERVI(2) = 13 vs Facile(7) -> SUCCESSO
+    ELENA FOSCO ha 1 sola azione questo turno (insidia del round scorso).
+    [PROVA ACUME] ELENA FOSCO: 2d6(3,1)=4 +ACUME(3) = 7 vs Media(9) -> FALLITA
+    ELENA FOSCO cerca sulla tessera: niente da trovare qui, o prova fallita.
+    OTTAVIO BRERA ha 1 sola azione questo turno (insidia del round scorso).
+    OTTAVIO BRERA: nessun bersaglio, avanza / assiste il gruppo.
+    FULGENZIO CARBONE: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] IL CANTO NELLE ORECCHIE (insidia) — L’eroe con meno NERVI prova NERVI (Media): se fallisce 1 danno.
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6(2,1)=3 +NERVI(2) = 5 vs Media(9) -> FALLITA
+    [SECONDO FIATO] OTTONE “MEZZENA” MASSARI ritenta la prova (unico ritento dell’episodio):
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6(4,2)=6 +NERVI(2) = 8 vs Media(9) -> FALLITA
+    OTTONE “MEZZENA” MASSARI subisce 1 danno da IL CANTO NELLE ORECCHIE (Salute: 8/10).
+  [MINACCIA] L’ACQUA SALE (ostacolo) — Muoversi costa il doppio sulla tessera dell’eroe attivo fino a fine round.
+    (carta senza effetto modellato in questa simulazione)
+--- Round 3: il gruppo raggiunge T4 (La Confluenza) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    Il gruppo entra in T4 da B1.
+    [PROVA ACUME] OTTONE “MEZZENA” MASSARI: 2d6(6,5)=11 +ACUME(1) = 12 vs Media(9) -> SUCCESSO
+    OTTONE “MEZZENA” MASSARI cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    ELENA FOSCO: nessun bersaglio, avanza / assiste il gruppo.
+    OTTAVIO BRERA: nessun bersaglio, avanza / assiste il gruppo.
+    FULGENZIO CARBONE: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] IL BUIO D’ACQUA (insidia) — L’eroe più avanzato prova NERVI (Media): se fallisce, 1 danno.
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6(6,2)=8 +NERVI(2) = 10 vs Media(9) -> SUCCESSO
+  [MINACCIA] IL RITIRO DELLE CANNE (posseduto) — Piazzate 1 Adepto sull’ingresso dell’Officina (T5).
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 3), a 6 caselle dalla tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+--- Round 4: il gruppo raggiunge T5 (Officina delle Canne) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    Il gruppo entra in T5 da A3.
+    QUANDO RIVELATE: 1 Adepto appare tra le rastrelliere delle canne-voce.
+    Cercando sulla rastrelliera più alta: la scatolina di legno — IL CAMPANELLO DI PIERO.
+    OTTONE “MEZZENA” MASSARI si muove verso ADEPTO INCAPPUCCIATO: A3 -> B2.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> ADEPTO INCAPPUCCIATO: 2d6(3,5)=8 +VIGORE(3)+arma(1) = 12 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    [PROVA ACUME] ELENA FOSCO: 2d6(4,5)=9 +ACUME(3) = 12 vs Media(9) -> SUCCESSO
+    ELENA FOSCO cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    OTTAVIO BRERA: nessun bersaglio, avanza / assiste il gruppo.
+    [ABILITÀ] FULGENZIO CARBONE usa Esca preziosa: ADEPTO INCAPPUCCIATO si dirige verso l’esca invece che verso il gruppo alla prossima attivazione.
+  [MINACCIA] L’UOMO PAGATO IN CONTANTI (malavita) — Piazzate 1 Sicario: si attiva subito.
+    Piazzati 1x IL SICARIO (pool residua: 0) in B3.
+    IL SICARIO si attiva subito:
+  IL SICARIO si muove verso OTTONE “MEZZENA” MASSARI: B3 -> C2.
+  IL SICARIO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] IL SICARIO -> OTTONE “MEZZENA” MASSARI: 2d6(2,3)=5 +Attacco(3) = 8 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 2 danno da IL SICARIO (Salute: 6/10).
+  [MINACCIA] LA PIETRA RISPONDE (crescendo) — Aggiungete 1 segnalino Canto. Alla soglia: l’Accordatore si desta.
+    Segnalino Canto: 1.
+  ADEPTO INCAPPUCCIATO si dirige verso l’esca (Carbone): non attacca questo round.
+  [OROLOGIO] Fine del 4° round: +1 segnalino Canto automatico.
+    Segnalino Canto: 2.
+--- Round 5: il gruppo raggiunge T4 (La Confluenza — ritorno dal ramo) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    Il gruppo entra in T4 da D3.
+    OTTONE “MEZZENA” MASSARI si muove verso IL SICARIO: D3 -> D2.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> IL SICARIO: 2d6(1,2)=3 +VIGORE(3)+arma(1) = 7 vs Difesa(7) -> COLPITO
+    IL SICARIO: 0/1 ferite residue.
+    IL SICARIO è ABBATTUTO.
+    [PROVA ACUME] ELENA FOSCO: 2d6(2,3)=5 +ACUME(3) = 8 vs Media(9) -> FALLITA
+    ELENA FOSCO cerca sulla tessera: niente da trovare qui, o prova fallita.
+    OTTAVIO BRERA: nessun bersaglio, avanza / assiste il gruppo.
+    [ABILITÀ] FULGENZIO CARBONE usa Esca preziosa: ADEPTO INCAPPUCCIATO si dirige verso l’esca invece che verso il gruppo alla prossima attivazione.
+  [MINACCIA] GUARDIANI DEI CHIUSINI (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 1) in D3.
+  [MINACCIA] PASSI NELLA GALLERIA (posseduto) — Piazzate 1 Adepto sull’ingresso della Scala dei Chiusini (T1).
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 2), a 6 caselle dalla tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si dirige verso l’esca (Carbone): non attacca questo round.
+  LO SGHERRO si muove verso OTTAVIO BRERA: D3 -> D4.
+  LO SGHERRO attacca OTTAVIO BRERA:
+    [ATTACCO NEMICO] LO SGHERRO -> OTTAVIO BRERA: 2d6(2,4)=6 +Attacco(2) = 8 vs Difesa(8) -> COLPITO
+    OTTAVIO BRERA subisce 1 danno da LO SGHERRO (Salute: 7/8).
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+--- Round 6: il gruppo raggiunge T6 (Il Pozzo Maestro) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    Il gruppo entra in T6 da B1.
+    Rivelato il Pozzo Maestro: l’Accordatore con 1 Voce Cava, in C2 — Tobia è legato alla carrucola.
+    Tobia si libera con Interagire (nessuna prova): si muove col gruppo.
+    [OGGETTO] OTTONE “MEZZENA” MASSARI suona IL CAMPANELLO DI PIERO accanto all’Accordatore: la voce vera, non quella rubata — Difesa 8->5, salta la prossima attivazione.
+    ELENA FOSCO si muove verso L’ACCORDATORE: B1 -> B2.
+    [ATTACCO] ELENA FOSCO -> L’ACCORDATORE: 2d6(3,1)=4 +VIGORE(1)+arma(1) = 6 vs Difesa(5) -> COLPITO
+    L’ACCORDATORE: 1/2 ferite residue.
+    OTTAVIO BRERA si muove verso L’ACCORDATORE: B1 -> C1.
+    [ATTACCO] OTTAVIO BRERA -> L’ACCORDATORE: 2d6(1,1)=2 +VIGORE(1)+arma(1) = 4 vs Difesa(5) -> MANCATO
+    [PROVA ACUME] FULGENZIO CARBONE: 2d6(6,4)=10 +ACUME(3) = 13 vs Media(9) -> SUCCESSO
+    FULGENZIO CARBONE cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+  [MINACCIA] LA PIETRA IMPARA (crescendo) — Aggiungete 1 segnalino Canto. Alla soglia: l’Accordatore si desta.
+    Segnalino Canto: 3.
+    Il Canto raggiunge 3: da ora ogni Fase Minaccia pesca 1 carta in più (fino a fine spedizione, anche se il Custode è già stato abbattuto).
+    L’Accordatore recupera 1 ferita (2/2) e si attiva subito.
+  [MINACCIA] LA PIETRA RIPETE (crescendo) — Aggiungete 1 segnalino Canto. Alla soglia: l’Accordatore si desta.
+    Segnalino Canto: 4.
+    L’Accordatore recupera 1 ferita (2/2) e si attiva subito.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si muove verso OTTONE “MEZZENA” MASSARI: D4 -> A3.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  LA VOCE CAVA si avvicina, non ancora a contatto.
+  L’ACCORDATORE attacca ELENA FOSCO:
+    [ATTACCO NEMICO] L’ACCORDATORE -> ELENA FOSCO: 2d6(1,6)=7 +Attacco(3) = 10 vs Difesa(8) -> COLPITO
+    ELENA FOSCO subisce 2 danno da L’ACCORDATORE (Salute: 6/8).
+--- Combattimento contro l’Accordatore ---
+--- Round 7: scontro nel Pozzo Maestro ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    OTTONE “MEZZENA” MASSARI si muove verso LO SGHERRO: B1 -> A2.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> LO SGHERRO: 2d6(3,2)=5 +VIGORE(3)+arma(1) = 9 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    [ATTACCO] ELENA FOSCO -> L’ACCORDATORE: 2d6(6,5)=11 +VIGORE(1)+arma(1) = 13 vs Difesa(5) -> COLPITO
+    L’ACCORDATORE: 1/2 ferite residue.
+    [ATTACCO] OTTAVIO BRERA -> L’ACCORDATORE: 2d6(1,4)=5 +VIGORE(1)+arma(1) = 7 vs Difesa(5) -> COLPITO
+    L’ACCORDATORE: 0/2 ferite residue.
+    L’ACCORDATORE è ABBATTUTO.
+    *** L’ACCORDATORE È SCONFITTO. ***
+    [PROVA ACUME] FULGENZIO CARBONE: 2d6(5,1)=6 +ACUME(3) = 9 vs Media(9) -> SUCCESSO
+    FULGENZIO CARBONE cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+  [MINACCIA] L’ECO CHE CHIAMA (insidia) — Ogni eroe prova NERVI (Facile): chi fallisce ha 1 sola azione al prossimo turno.
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6(1,6)=7 +NERVI(2) = 9 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] ELENA FOSCO: 2d6(4,3)=7 +NERVI(2) = 9 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] OTTAVIO BRERA: 2d6(5,4)=9 +NERVI(2) = 11 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] FULGENZIO CARBONE: 2d6(5,2)=7 +NERVI(2) = 9 vs Facile(7) -> SUCCESSO
+  [MINACCIA] UN’ECO DI TROPPO (posseduto) — Piazzate 1 Voce Cava sull’uscita più vicina agli eroi.
+    Piazzati 1x LA VOCE CAVA (pool residua: 0) in B1.
+  [MINACCIA] UNA CORRENTE D’ARIA BUONA (favore) — Rivelate una tessera coperta adiacente.
+    (carta senza effetto modellato in questa simulazione)
+  ADEPTO INCAPPUCCIATO raggiunge la tessera del gruppo, da A1.
+  ADEPTO INCAPPUCCIATO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> OTTONE “MEZZENA” MASSARI: 2d6(5,2)=7 +Attacco(1) = 8 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 5/10).
+  LO SGHERRO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] LO SGHERRO -> OTTONE “MEZZENA” MASSARI: 2d6(4,2)=6 +Attacco(2) = 8 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 1 danno da LO SGHERRO (Salute: 4/10).
+  ADEPTO INCAPPUCCIATO raggiunge la tessera del gruppo, da D1.
+  ADEPTO INCAPPUCCIATO attacca OTTAVIO BRERA:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> OTTAVIO BRERA: 2d6(2,2)=4 +Attacco(1) = 5 vs Difesa(8) -> MANCATO
+  LA VOCE CAVA si muove verso ELENA FOSCO: D2 -> C2.
+  LA VOCE CAVA attacca ELENA FOSCO:
+    [ATTACCO NEMICO] LA VOCE CAVA -> ELENA FOSCO: 2d6(2,3)=5 +Attacco(1) = 6 vs Difesa(8) -> MANCATO
+  LA VOCE CAVA attacca ELENA FOSCO:
+    [ATTACCO NEMICO] LA VOCE CAVA -> ELENA FOSCO: 2d6(5,1)=6 +Attacco(1) = 7 vs Difesa(8) -> MANCATO
+--- Ritorno a T1 con Tobia (4 round di movimento, minacce ancora attive) ---
+--- Round 8: rientro verso T1 ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> ADEPTO INCAPPUCCIATO: 2d6(5,6)=11 +VIGORE(3)+arma(1) = 15 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    [ABILITÀ] OTTONE “MEZZENA” MASSARI usa Colpo da macello: attacco extra su LO SGHERRO.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> LO SGHERRO: 2d6(1,2)=3 +VIGORE(3)+arma(1) = 7 vs Difesa(8) -> MANCATO
+    [ATTACCO] ELENA FOSCO -> LA VOCE CAVA: 2d6(1,6)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(6) -> COLPITO
+    LA VOCE CAVA: 0/1 ferite residue.
+    LA VOCE CAVA è ABBATTUTO.
+    La Voce Cava URLA nel disfarsi:
+    [PROVA NERVI] ELENA FOSCO: 2d6(4,2)=6 +NERVI(2) = 8 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] OTTAVIO BRERA: 2d6(5,1)=6 +NERVI(2) = 8 vs Facile(7) -> SUCCESSO
+    OTTAVIO BRERA si muove verso ADEPTO INCAPPUCCIATO: C1 -> D2.
+    [ATTACCO] OTTAVIO BRERA -> ADEPTO INCAPPUCCIATO: 2d6(3,5)=8 +VIGORE(1)+arma(1) = 10 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    [PROVA ACUME] FULGENZIO CARBONE: 2d6(4,1)=5 +ACUME(3) = 8 vs Media(9) -> FALLITA
+    FULGENZIO CARBONE cerca sulla tessera: niente da trovare qui, o prova fallita.
+  [MINACCIA] IL CALARE DEI SECCHI (posseduto) — Piazzate 1 Adepto sotto la corda della Confluenza (T4).
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 3), a 6 caselle dalla tessera del gruppo.
+  [MINACCIA] CORDE DALL’ALTO (posseduto) — Piazzate 1 Adepto sotto la corda della Confluenza (T4).
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 2), a 6 caselle dalla tessera del gruppo.
+  [MINACCIA] CHIUSINI CHE SBATTONO (posseduto) — Piazzate 1 Adepto sull’ingresso della Scala dei Chiusini (T1).
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 1), a 6 caselle dalla tessera del gruppo.
+  LO SGHERRO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] LO SGHERRO -> OTTONE “MEZZENA” MASSARI: 2d6(2,2)=4 +Attacco(2) = 6 vs Difesa(8) -> MANCATO
+  LA VOCE CAVA si muove verso ELENA FOSCO: B1 -> C2.
+  LA VOCE CAVA attacca ELENA FOSCO:
+    [ATTACCO NEMICO] LA VOCE CAVA -> ELENA FOSCO: 2d6(1,3)=4 +Attacco(1) = 5 vs Difesa(8) -> MANCATO
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+  [OROLOGIO] Fine del 8° round: +1 segnalino Canto automatico.
+    Segnalino Canto: 5.
+--- Round 9: rientro verso T1 ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> LO SGHERRO: 2d6(3,2)=5 +VIGORE(3)+arma(1) = 9 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+    [ATTACCO] ELENA FOSCO -> LA VOCE CAVA: 2d6(4,2)=6 +VIGORE(1)+arma(1) = 8 vs Difesa(6) -> COLPITO
+    LA VOCE CAVA: 0/1 ferite residue.
+    LA VOCE CAVA è ABBATTUTO.
+    La Voce Cava URLA nel disfarsi:
+    [PROVA NERVI] ELENA FOSCO: 2d6(2,5)=7 +NERVI(2) = 9 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] OTTAVIO BRERA: 2d6(6,5)=11 +NERVI(2) = 13 vs Facile(7) -> SUCCESSO
+    OTTAVIO BRERA: nessun bersaglio, avanza / assiste il gruppo.
+    FULGENZIO CARBONE: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] LA VOCE CHE MANCA (posseduto) — Piazzate 1 Voce Cava sull’uscita più vicina agli eroi.
+    Piazzati 1x LA VOCE CAVA (pool residua: 1) in B1.
+  [MINACCIA] IL PASSO SUL VUOTO (insidia) — L’eroe attivo prova NERVI (Media): se fallisce, 1 danno e perde 1 azione.
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6(2,4)=6 +NERVI(2) = 8 vs Media(9) -> FALLITA
+    OTTONE “MEZZENA” MASSARI subisce 1 danno da IL PASSO SUL VUOTO (Salute: 3/10).
+    OTTONE “MEZZENA” MASSARI avrà 1 sola azione al suo prossimo turno.
+  [MINACCIA] IL TURNO DI SOTTO (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 1) in B1.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  LA VOCE CAVA si muove verso FULGENZIO CARBONE: B1 -> C1.
+  LA VOCE CAVA attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] LA VOCE CAVA -> FULGENZIO CARBONE: 2d6(3,1)=4 +Attacco(1) = 5 vs Difesa(8) -> MANCATO
+  LO SGHERRO si muove verso OTTONE “MEZZENA” MASSARI: B1 -> A1.
+  LO SGHERRO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] LO SGHERRO -> OTTONE “MEZZENA” MASSARI: 2d6(6,4)=10 +Attacco(2) = 12 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 1 danno da LO SGHERRO (Salute: 2/10).
+--- Round 10: rientro verso T1 ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    OTTONE “MEZZENA” MASSARI ha 1 sola azione questo turno (insidia del round scorso).
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> LO SGHERRO: 2d6(6,2)=8 +VIGORE(3)+arma(1) = 12 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    ELENA FOSCO si muove verso LA VOCE CAVA: B2 -> C2.
+    [ATTACCO] ELENA FOSCO -> LA VOCE CAVA: 2d6(6,5)=11 +VIGORE(1)+arma(1) = 13 vs Difesa(6) -> COLPITO
+    LA VOCE CAVA: 0/1 ferite residue.
+    LA VOCE CAVA è ABBATTUTO.
+    La Voce Cava URLA nel disfarsi:
+    [PROVA NERVI] ELENA FOSCO: 2d6(5,2)=7 +NERVI(2) = 9 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] FULGENZIO CARBONE: 2d6(6,2)=8 +NERVI(2) = 10 vs Facile(7) -> SUCCESSO
+    OTTAVIO BRERA: nessun bersaglio, avanza / assiste il gruppo.
+    [ATTACCO] FULGENZIO CARBONE -> LO SGHERRO: 2d6(5,2)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+    Mazzo Minaccia esaurito: si rimescolano gli scarti.
+  [MINACCIA] LA PIETRA IMPARA (crescendo) — Aggiungete 1 segnalino Canto. Alla soglia: l’Accordatore si desta.
+    Segnalino Canto: 6.
+    L’Accordatore è già stato sconfitto: nessun effetto su di lui.
+  [MINACCIA] LA VOCE CHE MANCA (posseduto) — Piazzate 1 Voce Cava sull’uscita più vicina agli eroi.
+    Piazzati 1x LA VOCE CAVA (pool residua: 1) in B1.
+  [MINACCIA] PASSI NELLA GALLERIA (posseduto) — Piazzate 1 Adepto sull’ingresso della Scala dei Chiusini (T1).
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 0), a 6 caselle dalla tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+  LA VOCE CAVA si muove verso OTTAVIO BRERA: B1 -> D1.
+  LA VOCE CAVA attacca OTTAVIO BRERA:
+    [ATTACCO NEMICO] LA VOCE CAVA -> OTTAVIO BRERA: 2d6(6,4)=10 +Attacco(1) = 11 vs Difesa(8) -> COLPITO
+    OTTAVIO BRERA subisce 1 danno da LA VOCE CAVA (Salute: 6/8).
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+--- Round 11: rientro verso T1 ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+    ELENA FOSCO si muove verso LA VOCE CAVA: C2 -> C1.
+    [ATTACCO] ELENA FOSCO -> LA VOCE CAVA: 2d6(6,3)=9 +VIGORE(1)+arma(1) = 11 vs Difesa(6) -> COLPITO
+    LA VOCE CAVA: 0/1 ferite residue.
+    LA VOCE CAVA è ABBATTUTO.
+    La Voce Cava URLA nel disfarsi:
+    [PROVA NERVI] ELENA FOSCO: 2d6(4,3)=7 +NERVI(2) = 9 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] OTTAVIO BRERA: 2d6(4,5)=9 +NERVI(2) = 11 vs Facile(7) -> SUCCESSO
+    OTTAVIO BRERA: nessun bersaglio, avanza / assiste il gruppo.
+    FULGENZIO CARBONE: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] IL BUIO D’ACQUA (insidia) — L’eroe più avanzato prova NERVI (Media): se fallisce, 1 danno.
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6(3,3)=6 +NERVI(2) = 8 vs Media(9) -> FALLITA
+    OTTONE “MEZZENA” MASSARI subisce 1 danno da IL BUIO D’ACQUA (Salute: 1/10).
+  [MINACCIA] CORDE DALL’ALTO (posseduto) — Piazzate 1 Adepto sotto la corda della Confluenza (T4).
+    Segnalini ADEPTO INCAPPUCCIATO esauriti: il piazzamento non ha luogo (resto della carta si applica comunque).
+  [MINACCIA] IL CORO PROVA (posseduto) — Piazzate 1 Voce Cava. Se è già in gioco una Voce Cava, si attiva subito.
+    Piazzati 1x LA VOCE CAVA (pool residua: 1) in B1.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  LA VOCE CAVA si muove verso FULGENZIO CARBONE: B1 -> A1.
+  LA VOCE CAVA attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] LA VOCE CAVA -> FULGENZIO CARBONE: 2d6(4,1)=5 +Attacco(1) = 6 vs Difesa(8) -> MANCATO
+
+==============================================================================
+ESITO SPEDIZIONE: VITTORIA
+Round totali: 11
+Formula Minaccia: finale_v3 | Azioni nominali/round: media 8.0, picco 8
+Mazzo Minaccia rimescolato: 1 volta/e
+Segnalini nemici esauriti nel pool (piazzamenti saltati): 1
+Accordatore svegliato: solo a T6 (mai in anticipo via Canto)
+  OTTONE “MEZZENA” MASSARI: 1/10 Salute
+  ELENA FOSCO: 6/8 Salute
+  OTTAVIO BRERA: 6/8 Salute
+  FULGENZIO CARBONE: 8/8 Salute
+==============================================================================
