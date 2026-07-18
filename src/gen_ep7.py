@@ -355,7 +355,8 @@ TILES_7 = [
                'telo strappato schiaffeggia l’aria, la contrada è un pozzo nero là sotto. '
                'OGNI VOLTA che un eroe entra in questa tessera, prova NERVI (Media); chi '
                'fallisce perde 1 azione al prossimo turno. A Est, il varco nel muro fresco: '
-               'l’intercapedine del terzo piano.',
+               'l’intercapedine del terzo piano. QUANDO RIVELATE QUESTA TESSERA: appare 1 '
+               'Sicario di ronda — quassù la lanterna schermata gira.',
          arbitro='Vale la stessa regola di T3P (prova a ogni ingresso, niente regola '
                  'sorda). Dal varco a Est si entra in T6 — e la squadra, di là, non vi ha '
                  'sentiti arrivare SOLO se nessuno ha fallito prove in questa tessera '
@@ -396,7 +397,8 @@ TILES_7 = [
                'senza fare rumore, da mesi. REGOLA D’AMBIENTE — IL SILENZIO SEPARA (come '
                'T3I): aiuti solo tra adiacenti; la PRIMA carta spawn della tessera piazza '
                '1 nemico in meno. A Ovest, in cima, la porta bassa: l’intercapedine del '
-               'terzo piano.',
+               'terzo piano. QUANDO RIVELATE QUESTA TESSERA: appare 1 Sicario di ronda — '
+               'il guardiano dei piedi di feltro fa le scale ogni ora.',
          cerca_vuoto='Feltro, polvere di calce, e i segni di gesso del muratore che '
                      'arrivano fin qui: «III», e una freccia verso la porta bassa.',
          arredi=[(0, 1, 'casse')]),
@@ -422,7 +424,7 @@ TILES_7 = [
 # Nemici (statistiche - fonte per Bestiario e simulatore). Nessun mostro:
 # la Squadra del Silenzio sono Sgherri riusati, il boss e' un uomo.
 NEMICI_7 = [
-    dict(nome='IL CAPOCANTIERE', att=2, dif=7, fer=4, mov=3, dan=2, boss=True,
+    dict(nome='IL CAPOCANTIERE', att=2, dif=8, fer=4, mov=3, dan=2, boss=True,
          tipo='La Squadra del Silenzio (Boss)', art='Il Capocantiere.png',
          note='Non parla mai. Nessuna debolezza-oggetto: è un uomo. «Smascherato» (D2 '
               'esatta): gridate il nome di Voltan — salta la sua PRIMA attivazione e 1 '
@@ -702,14 +704,19 @@ def soluzione():
         '<b>Il mazzo Minaccia:</b> le 21 carte dell’episodio (±1 dal Bivio, vedi prima '
         'pagina). Il Canto qui è l’ALLARME del cantiere: carte crescendo + 1 segnalino '
         'automatico ogni 4° round; alla soglia (3 segnalini) il cantiere è sveglio — da '
-        'quel momento ogni Fase Minaccia pesca 1 carta in più, per sempre.',
+        'quel momento ogni Fase Minaccia pesca 1 carta in più, per sempre. <b>Il '
+        'cantiere si sbarra (12° segnalino):</b> portoni chiusi, squadre a ogni varco — '
+        'la fuga è impossibile, Fava resta dentro: sconfitta (a tempo, non a sangue).',
         '<b>Il Capocantiere</b> (statistiche nel Bestiario; Ferite per taglia tabellate): '
         'appare quando rivelate T6, con 2 Sgherri (+1 ogni 4 eroi oltre il quarto). '
         'Nessuna debolezza-oggetto: è un uomo — si combatte, si aggira, o si smaschera '
         '(Domanda 2). Vittoria: Fava (Interagire) fuori da T1 per la via dell’andata. '
         'Il Capocantiere e la squadra INSEGUONO: le prove dei ponteggi al ritorno valgono '
         'anche per loro (chi arbitra tira una prova unica per la squadra: se fallisce, '
-        'la squadra resta indietro di un round).',
+        'la squadra resta indietro di un round). <b>L’aggancio:</b> a fine di ogni round '
+        'di ritorno, se il Capocantiere è ADIACENTE a un eroe (e non stordito dallo '
+        'Smascherato), o se 3+ membri della squadra sono adiacenti a eroi, il gruppo non '
+        'avanza di un tratto: sganciatevi o abbatteteli.',
     ])
     pagina('epilogo, frammento e bivio', [
         '<b>EPILOGO — da leggere a voce alta a vittoria ottenuta.</b> «Fava riapre '

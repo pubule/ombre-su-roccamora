@@ -1,0 +1,401 @@
+Run: ep7-04_p0_seed0  |  seed=675000  |  formula Minaccia=finale_v3  |  generato: 2026-07-18T16:16:09
+==============================================================================
+SPEDIZIONE - Il Palazzone di Sant’Orsola (al cambio delle nove)
+==============================================================================
+Party: FULGENZIO CARBONE, MORA “SPILLA” FANTI, OTTONE “MEZZENA” MASSARI, SIBILLA REVE
+Bonus da Indagine: PREPARATI (+1 Salute massima a testa); Bolla: sì; Lanterna+Tappi: sì; D1: esatta; D3: esatta
+NOTA: gruppo trattato come blocco unico tessera per tessera (vedi intestazione script).
+Tensione tavolo piccolo: +-1 Ferite SOLO al Capocantiere (non ai nemici di truppa).
+
+Tavolo da 4: +1 Salute massima a testa (ricalibrazione).
+Gettone Intuizione in mano (Dossier completo): un ri-tiro, una volta in Spedizione.
+La via scelta (media NERVI 2.0): le INTERCAPEDINI (lunga, sorda).
+--- Round 1: il gruppo raggiunge T2 (Il Piano Terra) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    Il gruppo entra in T2 da B1.
+    [PROVA ACUME] FULGENZIO CARBONE: 2d6(3,4)=7 +ACUME(3) = 10 vs Media(9) -> SUCCESSO
+    FULGENZIO CARBONE cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    MORA “SPILLA” FANTI: nessun bersaglio, avanza / assiste il gruppo.
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] IL GUARDIANO DI NOTTE (malavita) — Piazzate 1 Sicario sull’uscita più vicina agli eroi.
+    Piazzati 1x IL SICARIO (pool residua: 1) in B1.
+  [MINACCIA] LA MALTA FRESCA (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 4) in B1.
+  IL SICARIO si muove verso FULGENZIO CARBONE: B1 -> C1.
+  IL SICARIO attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] IL SICARIO -> FULGENZIO CARBONE: 2d6(5,5)=10 +Attacco(3) = 13 vs Difesa(8) -> COLPITO
+    FULGENZIO CARBONE subisce 2 danno da IL SICARIO (Salute: 6/8).
+  LO SGHERRO si muove verso MORA “SPILLA” FANTI: B1 -> A1.
+  LO SGHERRO attacca MORA “SPILLA” FANTI:
+    [ATTACCO NEMICO] LO SGHERRO -> MORA “SPILLA” FANTI: 2d6(1,3)=4 +Attacco(2) = 6 vs Difesa(8) -> MANCATO
+--- Round 2: il gruppo raggiunge T3I (L’Intercapedine di Levante) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    Il gruppo entra in T3I da A2.
+    Tessera SORDA: ogni aiuto tra eroi richiede adiacenza (già regola base del motore); la prima carta spawn qui non piazzerà nessuno.
+    [ABILITÀ] FULGENZIO CARBONE usa Esca preziosa: IL SICARIO, LO SGHERRO si dirige verso l’esca invece che verso il gruppo alla prossima attivazione.
+    MORA “SPILLA” FANTI si muove verso LO SGHERRO: A2 -> B1.
+    [ATTACCO] MORA “SPILLA” FANTI -> IL SICARIO: 2d6(4,3)=7 +VIGORE(2)+arma(1) = 10 vs Difesa(7) -> COLPITO
+    IL SICARIO: 0/1 ferite residue.
+    IL SICARIO è ABBATTUTO.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> LO SGHERRO: 2d6(6,2)=8 +VIGORE(3)+arma(1) = 12 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    [ATTACCO] SIBILLA REVE -> LO SGHERRO: 2d6(6,4)=10 +VIGORE(1)+arma(1) = 12 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+  [MINACCIA] LA TAVOLA CHE CEDE (insidia) — L’eroe più avanzato prova NERVI (Media): se fallisce, 1 danno.
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(2,5)=7 +NERVI(1) = 8 vs Media(9) -> FALLITA
+    [SECONDO FIATO] MORA “SPILLA” FANTI ritenta la prova (unico ritento dell’episodio):
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(1,5)=6 +NERVI(1) = 7 vs Media(9) -> FALLITA
+    MORA “SPILLA” FANTI subisce 1 danno da LA TAVOLA CHE CEDE (Salute: 8/9).
+  [MINACCIA] IL CANTIERE È SVEGLIO (crescendo) — Aggiungete 1 segnalino Canto (l’Allarme).
+    Segnalino Canto (Allarme): 1.
+--- Round 3: il gruppo raggiunge T4I (Il Vano delle Canne Morte) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    Il gruppo entra in T4I da B1.
+    Tessera SORDA: ogni aiuto tra eroi richiede adiacenza (già regola base del motore); la prima carta spawn qui non piazzerà nessuno.
+    [PROVA ACUME] FULGENZIO CARBONE: 2d6(1,6)=7 +ACUME(3) = 10 vs Media(9) -> SUCCESSO
+    FULGENZIO CARBONE cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    MORA “SPILLA” FANTI: nessun bersaglio, avanza / assiste il gruppo.
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+    [ABILITÀ] SIBILLA REVE scruta il mazzo: «IL PIOMBO E LA SACCA» finisce in fondo, «I GESTI DEL CAPOMASTRO» torna in cima (2 usi residui).
+  [MINACCIA] I GESTI DEL CAPOMASTRO (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    [TESSERA SORDA] Non vi hanno sentiti: il primo piazzamento qui non ha luogo.
+  [MINACCIA] UN FISCHIO DI SOTTO (crescendo) — Aggiungete 1 segnalino Canto (l’Allarme).
+    Segnalino Canto (Allarme): 2.
+--- Round 4: il gruppo raggiunge T5I (La Scala di Servizio) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    Il gruppo entra in T5I da B1.
+    Tessera SORDA: ogni aiuto tra eroi richiede adiacenza (già regola base del motore); la prima carta spawn qui non piazzerà nessuno.
+    QUANDO RIVELATE: un Sicario di ronda — la lanterna schermata si gira.
+    [ABILITÀ] FULGENZIO CARBONE usa Esca preziosa: IL SICARIO si dirige verso l’esca invece che verso il gruppo alla prossima attivazione.
+    MORA “SPILLA” FANTI si muove verso IL SICARIO: B1 -> B3.
+    [ATTACCO] MORA “SPILLA” FANTI -> IL SICARIO: 2d6(1,6)=7 +VIGORE(2)+arma(1) = 10 vs Difesa(7) -> COLPITO
+    IL SICARIO: 0/1 ferite residue.
+    IL SICARIO è ABBATTUTO.
+    [PROVA ACUME] OTTONE “MEZZENA” MASSARI: 2d6(2,1)=3 +ACUME(1) = 4 vs Media(9) -> FALLITA
+    OTTONE “MEZZENA” MASSARI cerca sulla tessera: niente da trovare qui, o prova fallita.
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] I MANOVALI DI NOTTE (malavita) — Piazzate 1 Sgherro sull’ingresso del Cancello (T1).
+    [TESSERA SORDA] Non vi hanno sentiti: il primo piazzamento qui non ha luogo.
+  [MINACCIA] LA PAGA DEL SILENZIO (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 4) in B1.
+  LO SGHERRO si muove verso OTTONE “MEZZENA” MASSARI: B1 -> C1.
+  LO SGHERRO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] LO SGHERRO -> OTTONE “MEZZENA” MASSARI: 2d6(1,4)=5 +Attacco(2) = 7 vs Difesa(8) -> MANCATO
+  [OROLOGIO] Fine del 4° round: +1 segnalino Canto automatico.
+    Segnalino Canto (Allarme): 3.
+    L’Allarme raggiunge 3: il cantiere è sveglio — da ora ogni Fase Minaccia pesca 1 carta in più (fino a fine spedizione).
+--- Round 5: il gruppo raggiunge T6 (L’Intercapedine del Terzo Piano) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    Il gruppo entra in T6 da D3.
+    Rivelata l’Intercapedine del Terzo Piano: Fava legato tra i sacchi — e la Squadra del Silenzio posa le carte da gioco.
+    [SMASCHERATO — D2] «VOLTAN!» — il Capocantiere esita (salta la sua prima attivazione) e 1 Sgherro posa gli attrezzi e se ne va.
+    Fava si libera con Interagire (nessuna prova): si muove col gruppo (Mov 3).
+    [ATTACCO] FULGENZIO CARBONE -> LO SGHERRO: 2d6(3,3)=6 +VIGORE(1)+arma(1) = 8 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    [ATTACCO] MORA “SPILLA” FANTI -> LO SGHERRO: 2d6(5,5)=10 +VIGORE(2)+arma(1) = 13 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+    OTTONE “MEZZENA” MASSARI si muove verso IL CAPOCANTIERE: D3 -> D2.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> IL CAPOCANTIERE: 2d6(3,3)=6 +VIGORE(3)+arma(1) = 10 vs Difesa(8) -> COLPITO
+    IL CAPOCANTIERE: 2/3 ferite residue.
+    SIBILLA REVE si muove verso LO SGHERRO: D3 -> B4.
+    SIBILLA REVE si avvicina a LO SGHERRO, non ancora a contatto.
+  [MINACCIA] GLI UOMINI DELL’INGEGNERE (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 2) in D3.
+  [MINACCIA] LE PALE NEL BUIO (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 1) in D3.
+  [MINACCIA] I SACCHI FRANATI (ostacolo) — Muoversi costa il doppio sulla tessera dell’eroe attivo fino a fine round.
+    (carta senza effetto modellato in questa simulazione)
+  LO SGHERRO si muove verso SIBILLA REVE: C1 -> A3.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si muove verso FULGENZIO CARBONE: D3 -> D4.
+  LO SGHERRO attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] LO SGHERRO -> FULGENZIO CARBONE: 2d6(2,2)=4 +Attacco(2) = 6 vs Difesa(8) -> MANCATO
+  LO SGHERRO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] LO SGHERRO -> OTTONE “MEZZENA” MASSARI: 2d6(3,5)=8 +Attacco(2) = 10 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 1 danno da LO SGHERRO (Salute: 9/10).
+  IL CAPOCANTIERE salta l’attivazione (stonato).
+--- Ritorno a T1 per la via dell’andata (le intercapedini): la squadra insegue ---
+--- Round 6: rientro — T5I (La Scala di Servizio) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    [ATTACCO] FULGENZIO CARBONE -> LO SGHERRO: 2d6(1,4)=5 +VIGORE(1)+arma(1) = 7 vs Difesa(8) -> MANCATO
+    [ATTACCO] MORA “SPILLA” FANTI -> LO SGHERRO: 2d6(2,2)=4 +VIGORE(2)+arma(1) = 7 vs Difesa(8) -> MANCATO
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> LO SGHERRO: 2d6(2,2)=4 +VIGORE(3)+arma(1) = 8 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    SIBILLA REVE si muove verso LO SGHERRO: B4 -> B3.
+    [ATTACCO] SIBILLA REVE -> LO SGHERRO: 2d6(6,3)=9 +VIGORE(1)+arma(1) = 11 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+  [MINACCIA] LA CALCE NEGLI OCCHI (insidia) — L’eroe attivo prova NERVI (Media): se fallisce, 1 danno e perde 1 azione.
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(3,2)=5 +NERVI(1) = 6 vs Media(9) -> FALLITA
+    MORA “SPILLA” FANTI subisce 1 danno da LA CALCE NEGLI OCCHI (Salute: 7/9).
+    MORA “SPILLA” FANTI avrà 1 sola azione al suo prossimo turno.
+  [MINACCIA] UN’IMPALCATURA AMICA (favore) — Rivelate una tessera coperta adiacente.
+    (carta senza effetto modellato in questa simulazione)
+  [MINACCIA] LA RONDA DEL CANCELLO (malavita) — Piazzate 1 Sicario: si attiva subito.
+    Piazzati 1x IL SICARIO (pool residua: 1) in D3.
+    IL SICARIO si attiva subito:
+  IL SICARIO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] IL SICARIO -> OTTONE “MEZZENA” MASSARI: 2d6(4,5)=9 +Attacco(3) = 12 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 2 danno da IL SICARIO (Salute: 7/10).
+  LO SGHERRO attacca SIBILLA REVE:
+    [ATTACCO NEMICO] LO SGHERRO -> SIBILLA REVE: 2d6(3,4)=7 +Attacco(2) = 9 vs Difesa(8) -> COLPITO
+    SIBILLA REVE subisce 1 danno da LO SGHERRO (Salute: 7/8).
+  LO SGHERRO attacca SIBILLA REVE:
+    [ATTACCO NEMICO] LO SGHERRO -> SIBILLA REVE: 2d6(1,1)=2 +Attacco(2) = 4 vs Difesa(8) -> MANCATO
+  LO SGHERRO si muove verso SIBILLA REVE: D4 -> B4.
+  LO SGHERRO attacca SIBILLA REVE:
+    [ATTACCO NEMICO] LO SGHERRO -> SIBILLA REVE: 2d6(2,3)=5 +Attacco(2) = 7 vs Difesa(8) -> MANCATO
+  LO SGHERRO si muove verso FULGENZIO CARBONE: D3 -> D4.
+  LO SGHERRO attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] LO SGHERRO -> FULGENZIO CARBONE: 2d6(6,5)=11 +Attacco(2) = 13 vs Difesa(8) -> COLPITO
+    FULGENZIO CARBONE subisce 1 danno da LO SGHERRO (Salute: 5/8).
+  IL CAPOCANTIERE attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] IL CAPOCANTIERE -> OTTONE “MEZZENA” MASSARI: 2d6(3,4)=7 +Attacco(2) = 9 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 2 danno da IL CAPOCANTIERE (Salute: 5/10).
+    La squadra vi SBARRA la strada: questo round non si avanza.
+--- Round 7: rientro — T5I (La Scala di Servizio) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    [ATTACCO] FULGENZIO CARBONE -> LO SGHERRO: 2d6(1,3)=4 +VIGORE(1)+arma(1) = 6 vs Difesa(8) -> MANCATO
+    MORA “SPILLA” FANTI ha 1 sola azione questo turno (insidia del round scorso).
+    [ATTACCO] MORA “SPILLA” FANTI -> LO SGHERRO: 2d6(4,2)=6 +VIGORE(2)+arma(1) = 9 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> IL SICARIO: 2d6(5,4)=9 +VIGORE(3)+arma(1) = 13 vs Difesa(7) -> COLPITO
+    IL SICARIO: 0/1 ferite residue.
+    IL SICARIO è ABBATTUTO.
+    [ATTACCO] SIBILLA REVE -> LO SGHERRO: 2d6(5,6)=11 +VIGORE(1)+arma(1) = 13 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+    [ABILITÀ] SIBILLA REVE scruta il mazzo: «LE LANTERNE SI MUOVONO» finisce in fondo, «IL TURNO FUORI BUSTA» torna in cima (1 usi residui).
+  [MINACCIA] IL TURNO FUORI BUSTA (malavita) — Piazzate 1 Sgherro sull’ingresso del Cancello (T1).
+    Piazzati 1x LO SGHERRO (pool residua: 2), a 6 caselle dalla tessera del gruppo.
+  [MINACCIA] IL TURNO CAMBIA (quiete) — Nessun effetto (tensione).
+    (carta senza effetto modellato in questa simulazione)
+  [MINACCIA] LA SQUADRA DEL SILENZIO (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 1) in D3.
+  LO SGHERRO attacca SIBILLA REVE:
+    [ATTACCO NEMICO] LO SGHERRO -> SIBILLA REVE: 2d6(2,6)=8 +Attacco(2) = 10 vs Difesa(8) -> COLPITO
+    SIBILLA REVE subisce 1 danno da LO SGHERRO (Salute: 6/8).
+  LO SGHERRO si muove verso MORA “SPILLA” FANTI: B4 -> D4.
+  LO SGHERRO attacca MORA “SPILLA” FANTI:
+    [ATTACCO NEMICO] LO SGHERRO -> MORA “SPILLA” FANTI: 2d6(5,6)=11 +Attacco(2) = 13 vs Difesa(8) -> COLPITO
+    MORA “SPILLA” FANTI subisce 1 danno da LO SGHERRO (Salute: 6/9).
+  LO SGHERRO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] LO SGHERRO -> OTTONE “MEZZENA” MASSARI: 2d6(1,1)=2 +Attacco(2) = 4 vs Difesa(8) -> MANCATO
+  IL CAPOCANTIERE si muove verso OTTONE “MEZZENA” MASSARI: C2 -> D1.
+  IL CAPOCANTIERE attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] IL CAPOCANTIERE -> OTTONE “MEZZENA” MASSARI: 2d6(4,5)=9 +Attacco(2) = 11 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 2 danno da IL CAPOCANTIERE (Salute: 3/10).
+    La squadra vi SBARRA la strada: questo round non si avanza.
+--- Round 8: rientro — T5I (La Scala di Servizio) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    [ATTACCO] FULGENZIO CARBONE -> LO SGHERRO: 2d6(4,5)=9 +VIGORE(1)+arma(1) = 11 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    [ATTACCO] MORA “SPILLA” FANTI -> LO SGHERRO: 2d6(5,3)=8 +VIGORE(2)+arma(1) = 11 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+    OTTONE “MEZZENA” MASSARI si muove verso LO SGHERRO: D2 -> B1.
+    OTTONE “MEZZENA” MASSARI si avvicina a LO SGHERRO, non ancora a contatto.
+    SIBILLA REVE si muove verso LO SGHERRO: B3 -> A2.
+    [ATTACCO] SIBILLA REVE -> LO SGHERRO: 2d6(1,4)=5 +VIGORE(1)+arma(1) = 7 vs Difesa(8) -> MANCATO
+  [MINACCIA] IL SILENZIO CHE PREME (insidia) — Ogni eroe prova NERVI (Facile): chi fallisce ha 1 sola azione al prossimo turno.
+    [PROVA NERVI] FULGENZIO CARBONE: 2d6(2,2)=4 +NERVI(2) = 6 vs Facile(7) -> FALLITA
+    FULGENZIO CARBONE avrà 1 sola azione al suo prossimo turno.
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(1,4)=5 +NERVI(1) = 6 vs Facile(7) -> FALLITA
+    MORA “SPILLA” FANTI avrà 1 sola azione al suo prossimo turno.
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6(3,2)=5 +NERVI(2) = 7 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] SIBILLA REVE: 2d6(1,3)=4 +NERVI(3) = 7 vs Facile(7) -> SUCCESSO
+  [MINACCIA] IL PIOMBO DAL BUIO (insidia) — L’eroe più avanzato subisce 1 danno (nessuna prova).
+    FULGENZIO CARBONE subisce 1 danno da IL PIOMBO DAL BUIO (Salute: 4/8).
+  [MINACCIA] IL PIOMBO E LA SACCA (malavita) — Piazzate 1 Sgherro: si attiva subito.
+    Piazzati 1x LO SGHERRO (pool residua: 1) in D3.
+    LO SGHERRO si attiva subito:
+  LO SGHERRO si muove verso FULGENZIO CARBONE: D3 -> D4.
+  LO SGHERRO attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] LO SGHERRO -> FULGENZIO CARBONE: 2d6(4,5)=9 +Attacco(2) = 11 vs Difesa(8) -> COLPITO
+    FULGENZIO CARBONE subisce 1 danno da LO SGHERRO (Salute: 3/8).
+  LO SGHERRO si muove verso OTTONE “MEZZENA” MASSARI: B2 -> C1.
+  LO SGHERRO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] LO SGHERRO -> OTTONE “MEZZENA” MASSARI: 2d6(1,2)=3 +Attacco(2) = 5 vs Difesa(8) -> MANCATO
+  LO SGHERRO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si muove verso FULGENZIO CARBONE: D3 -> D2.
+  LO SGHERRO attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] LO SGHERRO -> FULGENZIO CARBONE: 2d6(6,1)=7 +Attacco(2) = 9 vs Difesa(8) -> COLPITO
+    FULGENZIO CARBONE subisce 1 danno da LO SGHERRO (Salute: 2/8).
+  IL CAPOCANTIERE si avvicina, non ancora a contatto.
+  [OROLOGIO] Fine del 8° round: +1 segnalino Canto automatico.
+    Segnalino Canto (Allarme): 4.
+    La squadra vi SBARRA la strada: questo round non si avanza.
+--- Round 9: rientro — T5I (La Scala di Servizio) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    FULGENZIO CARBONE ha 1 sola azione questo turno (insidia del round scorso).
+    [ATTACCO] FULGENZIO CARBONE -> LO SGHERRO: 2d6(6,2)=8 +VIGORE(1)+arma(1) = 10 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    MORA “SPILLA” FANTI ha 1 sola azione questo turno (insidia del round scorso).
+    [ATTACCO] MORA “SPILLA” FANTI -> LO SGHERRO: 2d6(6,1)=7 +VIGORE(2)+arma(1) = 10 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+    OTTONE “MEZZENA” MASSARI si muove verso LO SGHERRO: B1 -> C2.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> LO SGHERRO: 2d6(1,2)=3 +VIGORE(3)+arma(1) = 7 vs Difesa(8) -> MANCATO
+    SIBILLA REVE si muove verso LO SGHERRO: A2 -> B1.
+    [ATTACCO] SIBILLA REVE -> LO SGHERRO: 2d6(4,1)=5 +VIGORE(1)+arma(1) = 7 vs Difesa(8) -> MANCATO
+  [MINACCIA] LE LANTERNE SI MUOVONO (crescendo) — Aggiungete 1 segnalino Canto (l’Allarme).
+    Segnalino Canto (Allarme): 5.
+    Il Capocantiere si attiva subito (l’allarme lo chiama).
+  IL CAPOCANTIERE si muove verso OTTONE “MEZZENA” MASSARI: D1 -> D2.
+  IL CAPOCANTIERE attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] IL CAPOCANTIERE -> OTTONE “MEZZENA” MASSARI: 2d6(4,3)=7 +Attacco(2) = 9 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 2 danno da IL CAPOCANTIERE (Salute: 1/10).
+    Mazzo Minaccia esaurito: si rimescolano gli scarti.
+  [MINACCIA] IL PIOMBO DAL BUIO (insidia) — L’eroe più avanzato subisce 1 danno (nessuna prova).
+    FULGENZIO CARBONE subisce 1 danno da IL PIOMBO DAL BUIO (Salute: 1/8).
+  [MINACCIA] LE PALE NEL BUIO (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 1) in D3.
+  LO SGHERRO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] LO SGHERRO -> OTTONE “MEZZENA” MASSARI: 2d6(6,3)=9 +Attacco(2) = 11 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 1 danno da LO SGHERRO (Salute: 0/10).
+    [INTUIZIONE] Il gruppo spende il gettone Dossier: OTTONE “MEZZENA” MASSARI resta in piedi a 1 Salute invece di cadere.
+  LO SGHERRO si avvicina (Movimento 4): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si muove verso OTTONE “MEZZENA” MASSARI: D4 -> B2.
+  LO SGHERRO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] LO SGHERRO -> OTTONE “MEZZENA” MASSARI: 2d6(5,4)=9 +Attacco(2) = 11 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 1 danno da LO SGHERRO (Salute: 0/10).
+    *** OTTONE “MEZZENA” MASSARI è A TERRA. ***
+  LO SGHERRO si muove verso MORA “SPILLA” FANTI: D3 -> D4.
+  LO SGHERRO attacca MORA “SPILLA” FANTI:
+    [ATTACCO NEMICO] LO SGHERRO -> MORA “SPILLA” FANTI: 2d6(3,6)=9 +Attacco(2) = 11 vs Difesa(8) -> COLPITO
+    MORA “SPILLA” FANTI subisce 1 danno da LO SGHERRO (Salute: 5/9).
+  IL CAPOCANTIERE attacca MORA “SPILLA” FANTI:
+    [ATTACCO NEMICO] IL CAPOCANTIERE -> MORA “SPILLA” FANTI: 2d6(5,4)=9 +Attacco(2) = 11 vs Difesa(8) -> COLPITO
+    MORA “SPILLA” FANTI subisce 2 danno da IL CAPOCANTIERE (Salute: 3/9).
+    La squadra vi SBARRA la strada: questo round non si avanza.
+--- Round 10: rientro — T5I (La Scala di Servizio) ---
+    (azioni nominali questo round: 6 — 3 eroi vivi)
+    [ATTACCO] FULGENZIO CARBONE -> LO SGHERRO: 2d6(6,5)=11 +VIGORE(1)+arma(1) = 13 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    [ATTACCO] MORA “SPILLA” FANTI -> LO SGHERRO: 2d6(5,5)=10 +VIGORE(2)+arma(1) = 13 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+    [ATTACCO] SIBILLA REVE -> LO SGHERRO: 2d6(5,5)=10 +VIGORE(1)+arma(1) = 12 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    [ABILITÀ] SIBILLA REVE scruta il mazzo: «IL PIOMBO E LA SACCA» finisce in fondo, «LA CALCE NEGLI OCCHI» torna in cima (0 usi residui).
+  [MINACCIA] LA CALCE NEGLI OCCHI (insidia) — L’eroe attivo prova NERVI (Media): se fallisce, 1 danno e perde 1 azione.
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(3,3)=6 +NERVI(1) = 7 vs Media(9) -> FALLITA
+    MORA “SPILLA” FANTI subisce 1 danno da LA CALCE NEGLI OCCHI (Salute: 2/9).
+    MORA “SPILLA” FANTI avrà 1 sola azione al suo prossimo turno.
+  [MINACCIA] LA PAGA DEL SILENZIO (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 1) in D3.
+  LO SGHERRO attacca SIBILLA REVE:
+    [ATTACCO NEMICO] LO SGHERRO -> SIBILLA REVE: 2d6(5,6)=11 +Attacco(2) = 13 vs Difesa(8) -> COLPITO
+    SIBILLA REVE subisce 1 danno da LO SGHERRO (Salute: 5/8).
+  LO SGHERRO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si muove verso FULGENZIO CARBONE: B2 -> D4.
+  LO SGHERRO attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] LO SGHERRO -> FULGENZIO CARBONE: 2d6(6,4)=10 +Attacco(2) = 12 vs Difesa(8) -> COLPITO
+    FULGENZIO CARBONE subisce 1 danno da LO SGHERRO (Salute: 0/8).
+    *** FULGENZIO CARBONE è A TERRA. ***
+  LO SGHERRO si avvicina, non ancora a contatto.
+  IL CAPOCANTIERE attacca MORA “SPILLA” FANTI:
+    [ATTACCO NEMICO] IL CAPOCANTIERE -> MORA “SPILLA” FANTI: 2d6(2,3)=5 +Attacco(2) = 7 vs Difesa(8) -> MANCATO
+    La squadra vi SBARRA la strada: questo round non si avanza.
+--- Round 11: rientro — T5I (La Scala di Servizio) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    MORA “SPILLA” FANTI ha 1 sola azione questo turno (insidia del round scorso).
+    [ATTACCO] MORA “SPILLA” FANTI -> LO SGHERRO: 2d6(6,5)=11 +VIGORE(2)+arma(1) = 14 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    [ATTACCO] SIBILLA REVE -> LO SGHERRO: 2d6(1,4)=5 +VIGORE(1)+arma(1) = 7 vs Difesa(8) -> MANCATO
+  [MINACCIA] UN’IMPALCATURA AMICA (favore) — Rivelate una tessera coperta adiacente.
+    (carta senza effetto modellato in questa simulazione)
+  [MINACCIA] LA SQUADRA DEL SILENZIO (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 0) in D3.
+  LO SGHERRO attacca SIBILLA REVE:
+    [ATTACCO NEMICO] LO SGHERRO -> SIBILLA REVE: 2d6(1,4)=5 +Attacco(2) = 7 vs Difesa(8) -> MANCATO
+  LO SGHERRO si avvicina (Movimento 4): ancora 1 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO attacca MORA “SPILLA” FANTI:
+    [ATTACCO NEMICO] LO SGHERRO -> MORA “SPILLA” FANTI: 2d6(4,2)=6 +Attacco(2) = 8 vs Difesa(8) -> COLPITO
+    MORA “SPILLA” FANTI subisce 1 danno da LO SGHERRO (Salute: 1/9).
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  IL CAPOCANTIERE attacca MORA “SPILLA” FANTI:
+    [ATTACCO NEMICO] IL CAPOCANTIERE -> MORA “SPILLA” FANTI: 2d6(6,1)=7 +Attacco(2) = 9 vs Difesa(8) -> COLPITO
+    MORA “SPILLA” FANTI subisce 2 danno da IL CAPOCANTIERE (Salute: 0/9).
+    *** MORA “SPILLA” FANTI è A TERRA. ***
+--- Round 12: rientro — T4I (Il Vano delle Canne Morte) ---
+    (azioni nominali questo round: 2 — 1 eroi vivi)
+    [ATTACCO] SIBILLA REVE -> LO SGHERRO: 2d6(6,3)=9 +VIGORE(1)+arma(1) = 11 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+  [MINACCIA] I GESTI DEL CAPOMASTRO (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 0) in D3.
+  [MINACCIA] I MANOVALI DI NOTTE (malavita) — Piazzate 1 Sgherro sull’ingresso del Cancello (T1).
+    Segnalini LO SGHERRO esauriti: il piazzamento non ha luogo (resto della carta si applica comunque).
+  LO SGHERRO raggiunge la tessera del gruppo, da B3.
+  LO SGHERRO si muove verso SIBILLA REVE: B3 -> B2.
+  LO SGHERRO attacca SIBILLA REVE:
+    [ATTACCO NEMICO] LO SGHERRO -> SIBILLA REVE: 2d6(6,1)=7 +Attacco(2) = 9 vs Difesa(8) -> COLPITO
+    SIBILLA REVE subisce 1 danno da LO SGHERRO (Salute: 4/8).
+  LO SGHERRO si muove verso SIBILLA REVE: D4 -> A3.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  IL CAPOCANTIERE si muove verso SIBILLA REVE: D2 -> C1.
+  IL CAPOCANTIERE attacca SIBILLA REVE:
+    [ATTACCO NEMICO] IL CAPOCANTIERE -> SIBILLA REVE: 2d6(1,5)=6 +Attacco(2) = 8 vs Difesa(8) -> COLPITO
+    SIBILLA REVE subisce 2 danno da IL CAPOCANTIERE (Salute: 2/8).
+  [OROLOGIO] Fine del 12° round: +1 segnalino Canto automatico.
+    Segnalino Canto (Allarme): 6.
+    La squadra vi SBARRA la strada: questo round non si avanza.
+--- Round 13: rientro — T4I (Il Vano delle Canne Morte) ---
+    (azioni nominali questo round: 2 — 1 eroi vivi)
+    SIBILLA REVE si muove verso LO SGHERRO: B1 -> A2.
+    [ATTACCO] SIBILLA REVE -> LO SGHERRO: 2d6(1,6)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+  [MINACCIA] IL TURNO FUORI BUSTA (malavita) — Piazzate 1 Sgherro sull’ingresso del Cancello (T1).
+    Piazzati 1x LO SGHERRO (pool residua: 0), a 6 caselle dalla tessera del gruppo.
+  [MINACCIA] IL SILENZIO CHE PREME (insidia) — Ogni eroe prova NERVI (Facile): chi fallisce ha 1 sola azione al prossimo turno.
+    [PROVA NERVI] SIBILLA REVE: 2d6(2,4)=6 +NERVI(3) = 9 vs Facile(7) -> SUCCESSO
+  LO SGHERRO si muove verso SIBILLA REVE: B2 -> A3.
+  LO SGHERRO attacca SIBILLA REVE:
+    [ATTACCO NEMICO] LO SGHERRO -> SIBILLA REVE: 2d6(1,6)=7 +Attacco(2) = 9 vs Difesa(8) -> COLPITO
+    SIBILLA REVE subisce 1 danno da LO SGHERRO (Salute: 1/8).
+  LO SGHERRO si muove verso SIBILLA REVE: D3 -> B3.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+  IL CAPOCANTIERE si muove verso SIBILLA REVE: C1 -> B2.
+  IL CAPOCANTIERE attacca SIBILLA REVE:
+    [ATTACCO NEMICO] IL CAPOCANTIERE -> SIBILLA REVE: 2d6(3,1)=4 +Attacco(2) = 6 vs Difesa(8) -> MANCATO
+    La squadra vi SBARRA la strada: questo round non si avanza.
+--- Round 14: rientro — T4I (Il Vano delle Canne Morte) ---
+    (azioni nominali questo round: 2 — 1 eroi vivi)
+    [ATTACCO] SIBILLA REVE -> LO SGHERRO: 2d6(2,5)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+  [MINACCIA] LA TAVOLA CHE CEDE (insidia) — L’eroe più avanzato prova NERVI (Media): se fallisce, 1 danno.
+    [PROVA NERVI] SIBILLA REVE: 2d6(4,5)=9 +NERVI(3) = 12 vs Media(9) -> SUCCESSO
+  [MINACCIA] IL GUARDIANO DI NOTTE (malavita) — Piazzate 1 Sicario sull’uscita più vicina agli eroi.
+    Piazzati 1x IL SICARIO (pool residua: 1) in D3.
+  LO SGHERRO attacca SIBILLA REVE:
+    [ATTACCO NEMICO] LO SGHERRO -> SIBILLA REVE: 2d6(6,6)=12 +Attacco(2) = 14 vs Difesa(8) -> COLPITO
+    SIBILLA REVE subisce 1 danno da LO SGHERRO (Salute: 0/8).
+    *** SIBILLA REVE è A TERRA. ***
+
+==============================================================================
+ESITO SPEDIZIONE: SCONFITTA (party wipe durante il rientro)
+Round totali: 14
+Formula Minaccia: finale_v3 | Azioni nominali/round: media 6.3, picco 8
+Mazzo Minaccia rimescolato: 1 volta/e
+Segnalini nemici esauriti nel pool (piazzamenti saltati): 1
+Via scelta: le intercapedini | Capocantiere: in piedi
+  FULGENZIO CARBONE: a terra
+  MORA “SPILLA” FANTI: a terra
+  OTTONE “MEZZENA” MASSARI: a terra
+  SIBILLA REVE: a terra
+==============================================================================

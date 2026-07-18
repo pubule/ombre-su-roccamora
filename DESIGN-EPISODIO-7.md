@@ -196,7 +196,21 @@ niente boss-fasi: l'atto ricomincia a salire.
   (cantiere: legno crudo, calce, buio); reperti A/B/C in
   generate-reperti.js; PROMPT-MIDJOURNEY-Episodio-7.md con TUTTI i prompt
   per esteso; bucket in merge-print-all.py; copertina fallback gen_cover.
-- Fase C: `simulate_ep7.py` (seed base 670000); da modellare: la SCELTA
+- **Fase C — FATTA (20260718, curva v2):** curva (5 party × 30 seed):
+  2: 33% (44% sofferte — dura, multi-hand consigliato), 3: 81%, 4: 85%,
+  5: 91%, 6: 92%, 7: 73%, 8: 78%, 9: 68%, 10: 73%; sofferte 41-96%,
+  picco a terra 1.1-2.1 (l'episodio più «tirato» della campagna finora).
+  Le non-vittorie delle taglie alte sono quasi tutte «il cantiere si
+  sbarra» (sconfitta a tempo). Leve per-episodio uscite dalla taratura
+  (tutte STAMPATE sui componenti): Capocantiere Dif 8 (non 7); 1 Sicario
+  di ronda al reveal di T4P/T5I; scorta T6 = 2 Sgherri +1 ogni 4 eroi per
+  difetto; l'aggancio del ritorno (boss adiacente non stordito, o 3+
+  squadra adiacenti = non si avanza); il cantiere si sbarra al 12°
+  segnalino Allarme. Scelta del percorso nel sim: ponteggi solo se OGNI
+  eroe ha NERVI ≥ 2 (l'anello debole decide) — i due rami escono ~50/50
+  ai tavoli medi, le taglie grandi preferiscono le intercapedini.
+  Log: logs/playtest/20260718-curva-ep7-v2.
+- Fase C (specifica): `simulate_ep7.py` (seed base 670000); da modellare: la SCELTA
   del percorso (euristica: party con media NERVI alta → ponteggi, altri →
   intercapedini; curva riportata anche per ramo), le prove dei ponteggi,
   la regola sorda (supporto solo adiacenti + primo spawn -1 nella via
