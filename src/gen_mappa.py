@@ -98,6 +98,16 @@ VOCI_MAPPA = [
     ('Calle degli Stagnini', 'al civico 9, dietro il mercato coperto', 'ep3'),
     ('La Parrocchia del Borgo', 'sagrato di Santa Brigida, Borgo delle Cisterne', 'ep3'),
     ('Il Pozzo del Cieco', 'corte dei pozzi murati, Borgo delle Cisterne', 'ep3'),
+    # Episodio 4 — «Il teatro dell'eco» (vedi DESIGN-EPISODIO-4.md). Riuso:
+    # Il Teatro Comunale (fondo 'citta').
+    ('L’Ingresso degli Artisti', 'retro del Teatro Comunale, vicolo delle Quinte', 'ep4'),
+    ('La Scala del Loggione', 'fianco del Teatro Comunale, ingresso popolare', 'ep4'),
+    ('Il Caffè dei Cantanti', 'corso della Prefettura 11, di fronte al Teatro', 'ep4'),
+    ('La Porta di Servizio del Teatro', 'vicolo delle Quinte, al carico scene', 'ep4'),
+    ('Vicolo dell’Armonia', 'al civico 3, quartiere della Cattedrale', 'ep4'),
+    ('L’Archivio del Teatro', 'palazzina attigua al Comunale, primo piano', 'ep4'),
+    ('Il Ridotto del Teatro', 'Teatro Comunale, ingresso di gala', 'ep4'),
+    ('Il Laboratorio degli Scenografi', 'capannone dietro la Stazione delle Carrozze', 'ep4'),
 ]
 
 # (sottocartella pdf/, sottotitolo, tag inclusi). Un episodio nuovo aggiunge
@@ -107,6 +117,7 @@ MAPPE = [
     ('Episodio 1', 'episodio 1 — la città che conoscete', ('citta', 'preludio', 'ep1')),
     ('Episodio 2', 'episodio 2 — la città che conoscete', ('citta', 'preludio', 'ep1', 'ep2')),
     ('Episodio 3', 'episodio 3 — la città che conoscete', ('citta', 'preludio', 'ep1', 'ep2', 'ep3')),
+    ('Episodio 4', 'episodio 4 — la città che conoscete', ('citta', 'preludio', 'ep1', 'ep2', 'ep3', 'ep4')),
 ]
 
 # Tipografico (provata la grafia manoscritta La Belle Aurore su tutta la

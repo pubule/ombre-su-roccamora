@@ -951,10 +951,253 @@ const EP3 = [...LUOGHI3, ...EP3_INDIZI, ...EP3_TESTIMONI, ...EP3_REFERTI,
              ...EP3_MINACCE, ...EP3_OGGETTI, ...EP3_NEMICI];
 
 
+// ============================================================ EPISODIO 4
+// «Il teatro dell'eco» — vedi DESIGN-EPISODIO-4.md. Stesso schema dell'Ep. 3.
+
+const LUOGHI4 = [
+  { n: 1, nome: 'Il Palcoscenico del Comunale', req: 'Disponibile dall’inizio',
+    art: 'artworks/Palcoscenico del Comunale.png',
+    testo: 'A sipario chiuso il palcoscenico finge di dormire: le quinte respirano agli spifferi, la conchiglia curva sul proscenio come l’interno di un liuto — e manca un pannello, in mezzo, come un dente. Dalla buca del suggeritore, ogni tanto, un fruscio di pagine. Nessuno, là sotto, dovrebbe sfogliare.',
+    approfondimenti: [
+      { tipo: 'Osservazione', soggetto: 'Le mani del concertatore',
+        testo: 'Il maestro Alboni prova l’orchestra guardando il SOFFITTO: dirige i pannelli, non i violini. E sui polsini, dove un direttore porta il gesso delle bacchette, lui porta ditate di cera nera. Un concertatore accorda musicisti. Questo sta accordando la sala.' },
+      { tipo: 'Presagio', soggetto: 'La buca che respira',
+        testo: 'Dalla buca del suggeritore sale un fiato regolare, come una platea che dorme: si vede una fossa di legno sotto il palco, un contrappeso fermo, e due uomini legati che respirano piano — vivi, e sorvegliati da qualcosa che non ha fretta. La visione dura un rintocco.' },
+    ] },
+  { n: 2, nome: 'Il Camerino della Vetri', req: 'Disponibile dall’inizio',
+    art: 'artworks/Camerino della Vetri.png',
+    testo: 'Cipria, gelsomino, telegrammi nella cornice dello specchio. La diva siede dritta come in scena anche quando è sola — e guarda la pila degli spartiti anonimi come si guarda una lettera di minacce scritta in bella calligrafia.',
+    approfondimenti: [
+      { tipo: 'Testimonianza', soggetto: 'La Vetri',
+        testo: '«Alboni mi corregge il respiro come si accorda un mobile: mezzo grado di petto in qua, il mento in là. L’altra sera ho steccato l’acuto e l’ho visto piangere — non di rabbia: di paura. Un uomo che ha paura dei MIEI errori sta rispondendo a qualcuno dei suoi.»' },
+    ] },
+  { n: 3, nome: 'Il Loggione', req: 'Apre col pubblico, alle 20:00',
+    art: 'artworks/Il Loggione.png',
+    testo: 'Panche lucide, ringhiera di ferro e l’acustica migliore della sala: i soldi stanno sotto, le orecchie stanno sopra. La claque senza Rocco è un’orchestra senza direttore — battibecchi, lutto e vino. E da quassù, da settimane, qualcuno guarda giù molto più di quanto applauda.',
+    approfondimenti: [
+      { tipo: 'Testimonianza', soggetto: 'Il secondo della claque',
+        testo: '«Le sere di prova a porte chiuse ci pagava il maestro Alboni in persona: battimani a tempo, mezz’ora, sipario chiuso. “Coprite i lavori”, diceva. Che lavori si fanno in un teatro vuoto, con le candele nere e il sipario giù? Rocco è andato a vedere. Ecco che lavori.»' },
+    ] },
+  { n: 4, nome: 'Il Caffè dei Cantanti', req: 'Disponibile dall’inizio',
+    art: 'artworks/Caffè dei Cantanti.png',
+    testo: 'Specchi dorati, caricature dei divi, il pianoforte scordato che nessuno suona. Il Caffè vive degli orari del teatro — pieno alle sei, vuoto alle otto, pieno a mezzanotte — e qui il Comunale parla di sé senza il sipario: i segreti passano col vassoio, un bicchiere alla volta.',
+    approfondimenti: [
+      { tipo: 'Testimonianza', soggetto: 'Il copista',
+        testo: '«L’originale scottava, ve lo giuro: carta vecchia, righi a mano, e una piega sola, da busta elegante. Me lo riprese un fattorino coi guanti prima che finissi il caffè. Il compenso? Anticipato, in contanti nuovi. Chi paga così non ama la musica: la COMPRA.»' },
+    ] },
+  { n: 5, nome: 'Il Sottopalco delle Macchine',
+    req: 'La porta di servizio è sprangata dal capomacchinista: «giù non si scende, ordine della direzione». Ma il suo sguardo corre alla fossa in fondo — e chi sa chiamare le cose col loro nome, di là dentro, passa.',
+    art: 'artworks/Sottopalco delle Macchine.png',
+    testo: 'Travi catramate, funi che salgono nel buio come sartie, sabbia nei sacchi. I pannelli della conchiglia stanno in fila contro il muro come pale d’altare in restauro. In fondo, la fossa del contrappeso morto: una botola di buio che il capomacchinista non guarda mai — e ingrassata di fresco, luccica.',
+    approfondimenti: [
+      { tipo: 'Referto', soggetto: 'Il registro delle macchine',
+        testo: 'Le movimentazioni notturne del contrappeso morto sollevano sempre lo stesso peso: ottanta chili, poi centosessanta. Ottanta chili è un uomo. Centosessanta sono due. Il contrappeso morto non è un argano, adesso: è un montacarichi per prigionieri.' },
+    ] },
+  { n: 6, nome: 'Casa del Maestro Alboni',
+    req: 'La governante non apre: «il maestro prova e non riceve». Dalla finestra, sempre la stessa frase al pianoforte — chi la riconosce e la nomina, in questa casa, è del mestiere.',
+    art: 'artworks/Casa del Maestro Alboni.png',
+    testo: 'Una casa tutta studio: il mezza coda, le partiture in pile geometriche, il metronomo fermo. È la casa di un uomo ordinato che non dorme — le candele consumate fino al piattino, e sul leggio sempre la stessa aria, aperta alla stessa pagina, con quattro battute cerchiate in rosso.',
+    approfondimenti: [
+      { tipo: 'Osservazione', soggetto: 'I conti di Alboni',
+        testo: 'I debiti saldati fanno una cifra tonda spaventosa — e le ricevute sono in ordine di data, legate col nastro, come si tengono le prove di un ricatto CONTRO SE STESSI. Alboni sa di aver venduto qualcosa. Le tiene per ricordarsi il prezzo.' },
+    ] },
+  { n: 7, nome: 'L’Archivio degli Spartiti',
+    req: 'L’archivista, tra le scaffalature, non alza gli occhi: «qui si entra per consultare, non per curiosare. Ditemi COSA cercate — col suo nome di catalogo — o tornate al foyer.»',
+    art: 'artworks/Archivio degli Spartiti.png',
+    testo: 'Una chiesa di carta: scaffali fino al soffitto, spartiti rilegati in tela, l’odore buono della colla vecchia. Nel fondo Gaspare — quarant’anni di servizio in tre scatole — c’è un vuoto a forma di libretto, e all’archivista quel vuoto brucia più di un furto.',
+    approfondimenti: [
+      { tipo: 'Referto', soggetto: 'La carta degli spartiti',
+        testo: 'Sotto la lente, l’inchiostro degli spartiti anonimi è impastato con polvere di cera nera: la pagina non è scritta per essere letta — è scritta per TRATTENERE. Chi la canta, la nutre. Dodici copie in città: dodici piccole reti da voce, in attesa della retata grande.' },
+    ] },
+  { n: 8, nome: 'Il Palco Reale e l’Amministrazione',
+    req: 'Il segretario del ridotto è cortesia pura e porte chiuse: «l’amministrazione riceve su appuntamento». Ma un passe-partout di scena, in questo teatro, apre anche le cortesie.',
+    art: 'artworks/Palco Reale.png',
+    testo: 'Il teatro dei ricchi: specchi, stucchi, il registro dei palchi rilegato in rosso. Il palco 13 è in fondo al corridoio di velluto: la porta è come le altre, ma la maniglia non ha ditate — e dentro, l’aria ferma di vent’anni disegna nella polvere il contorno di un binocolo mai alzato.',
+    approfondimenti: [
+      { tipo: 'Osservazione', soggetto: 'Il palco tredici',
+        testo: 'Dal 13 non si vede bene il palcoscenico: l’angolo è mediocre, mezzo proscenio è tagliato. Ma la CONCHIGLIA, da lì, si vede tutta — ogni pannello, ogni giuntura. Non è un palco per guardare lo spettacolo: è un palco per sorvegliare uno strumento.' },
+    ] },
+  { n: 9, nome: 'Il Laboratorio degli Scenografi',
+    req: 'Il capo scenografo difende il suo capannone come un forte: «qui si lavora per sabato, fuori i curiosi». Solo chi nomina il materiale giusto — quello che non dovrebbe esserci — lo fa impallidire e aprire.',
+    art: 'artworks/Laboratorio degli Scenografi.png',
+    testo: 'Un duomo di tela e trementina: fondali stesi come vele, impalcature, cieli a metà. In fondo, dove la luce non arriva, il legname vecchio del restauro dorme sotto i teli — quercia scura, stagionata d’acqua — e chi ci passa accanto abbassa la voce senza sapere perché.',
+    approfondimenti: [
+      { tipo: 'Presagio', soggetto: 'I legni marchiati',
+        testo: 'Toccare le assi basta: si vede una chiesa spogliata, un organo murato che respira dietro i mattoni, e casse di legname che partono su un carro, vent’anni fa, verso il teatro. I legni non furono venduti: furono AFFIDATI. E ciò che è affidato, un giorno, si viene a riprendere. La visione dura un rintocco.' },
+    ] },
+].map((L) => ({
+  art: L.art,
+  title: `${L.n} · ${L.nome}`,
+  file: `Episodio 4/Luoghi/${L.n} - ${L.nome.replace(/’/g, "'")}`,
+  type: `Luogo ${L.n}`,
+  rules: `{i}${L.req === 'Disponibile dall’inizio' ? L.testo : L.req}{/i}`,
+  approfondimenti: L.approfondimenti, n: L.n,
+}));
+
+const EP4_INDIZI = LUOGHI4.flatMap((L) => {
+  const righe = L.approfondimenti.filter((a) => a.tipo === 'Osservazione' || a.tipo === 'Presagio');
+  if (!righe.length) return [];
+  const sogg = righe[0].soggetto;
+  return [{
+    art: L.art, n: L.n, kind: 'Indizio',
+    title: `Indizio Nascosto — ${sogg}`,
+    file: `Episodio 4/Indizi/${sogg.replace(/’/g, "'")}`,
+    type: 'Osservazione / Presagio',
+    rules: `{i}${righe.map((a) => `◆ (${a.tipo}) ${a.testo}`).join('\n')}{/i}`,
+  }];
+});
+
+const EP4_TESTIMONI = LUOGHI4.flatMap((L) =>
+  L.approfondimenti.filter((a) => a.tipo === 'Testimonianza').map((a) => ({
+    art: L.art, n: L.n, kind: 'Testimone',
+    title: `Testimone — ${a.soggetto}`,
+    file: `Episodio 4/Testimoni/${a.soggetto}`,
+    type: `Luogo ${L.n} · Testimone`,
+    rules: `{i}${a.testo}{/i}`,
+  })));
+
+const EP4_REFERTI = LUOGHI4.flatMap((L) =>
+  L.approfondimenti.filter((a) => a.tipo === 'Referto').map((a) => ({
+    art: L.art, n: L.n, kind: 'Referto',
+    title: `Referto — ${a.soggetto}`,
+    file: `Episodio 4/Referti/${a.soggetto}`,
+    type: `Luogo ${L.n} · Referto`,
+    rules: `{i}${a.testo}{/i}`,
+  })));
+
+// Mazzo Minaccia dell'episodio: 21 carte + 1 del Bivio («La melodia
+// impressa», solo ramo "restituite" dell'Ep. 3). Mix: 11 spawn, 3 insidie,
+// 3 crescendo, 4 eventi.
+const EP4_MINACCE = [
+  { art: 'artworks/La Claque.png', title: 'Il Battimani', tipo: 'Posseduto',
+    flavor: 'Un applauso a tempo, da nessuna platea. Vi cerca il ritmo del cuore.',
+    effect: 'Piazzate 1 Claque sull’uscita più vicina agli eroi della tessera corrente.' },
+  { art: 'artworks/La Claque.png', title: 'L’Applauso a Comando', tipo: 'Posseduto',
+    flavor: 'Qualcuno, di sopra, ha abbassato la mano. Qualcosa, quaggiù, ha obbedito.',
+    effect: 'Piazzate 1 Claque sull’uscita più vicina agli eroi della tessera corrente.' },
+  { art: 'artworks/La Claque.png', title: 'Il Tempo Battuto', tipo: 'Posseduto',
+    flavor: 'Due mani sole. Poi quattro. Poi il buio intero, a tempo.',
+    effect: 'Piazzate 1 Claque sull’uscita più vicina agli eroi della tessera corrente. Se è già in gioco una Claque, si attiva subito.' },
+  { art: 'artworks/I facchini del carico.png', title: 'I Facchini del Carico', tipo: 'Posseduto',
+    flavor: 'Casse in spalla, passo sicuro: conoscono il sottopalco meglio dei macchinisti.',
+    effect: 'Piazzate 1 Adepto sull’ingresso della Quinta di Carico (T1).' },
+  { art: 'artworks/I facchini del carico.png', title: 'Le Casse di Candele', tipo: 'Posseduto',
+    flavor: 'Cera nera, imballata come argenteria. Il carico non deve aspettare.',
+    effect: 'Piazzate 1 Adepto sull’ingresso della Quinta di Carico (T1).' },
+  { art: 'artworks/I facchini del carico.png', title: 'Il Ritiro delle Lastre', tipo: 'Posseduto',
+    flavor: 'Vengono per le lastre incise. Le voci di prova non devono restare qui.',
+    effect: 'Piazzate 1 Adepto sull’ingresso dell’Officina della Conchiglia (T6). Se T6 non è rivelata: sull’uscita più vicina agli eroi della tessera corrente.' },
+  { art: 'artworks/Le maschere di sala.png', title: 'Le Maschere di Sala', tipo: 'Malavita',
+    flavor: 'Divisa del teatro, paga di qualcun altro. Controllano i biglietti che non esistono.',
+    effect: 'Piazzate 1 Sgherro sull’uscita più vicina agli eroi della tessera corrente.' },
+  { art: 'artworks/Le maschere di sala.png', title: 'Il Giro delle Poltrone', tipo: 'Malavita',
+    flavor: 'La ronda scende dal foyer, lampada schermata e passo felpato.',
+    effect: 'Piazzate 1 Sgherro sull’uscita più vicina agli eroi della tessera corrente.' },
+  { art: 'artworks/Le maschere di sala.png', title: 'Il Servizio d’Ordine', tipo: 'Malavita',
+    flavor: 'Uno solo, in frac. Non chiede il biglietto: chiede il nome.',
+    effect: 'Piazzate 1 Sicario sull’uscita più vicina agli eroi della tessera corrente: si attiva subito.' },
+  { art: 'artworks/Passi in platea.png', title: 'Passi in Platea', tipo: 'Posseduto',
+    flavor: 'Sopra le vostre teste, tra una fila e l’altra, qualcuno cammina verso il palco.',
+    effect: 'Piazzate 1 Adepto sull’ingresso della Quinta di Carico (T1).' },
+  { art: 'artworks/Passi in platea.png', title: 'La Porta della Platea', tipo: 'Posseduto',
+    flavor: 'Uno spiffero di applausi: la porta di sala si è aperta, e richiusa.',
+    effect: 'Piazzate 1 Adepto sull’ingresso della Quinta di Carico (T1).' },
+  { art: 'artworks/Il buio di quinta.png', title: 'Il Buio di Quinta', tipo: 'Insidia',
+    flavor: 'Tra due fondali il buio è totale — e ha la forma delle cose dipinte.',
+    effect: 'L’eroe più avanzato prova NERVI (Media): se fallisce, un passo nel vuoto tra le scene — 1 danno.' },
+  { art: 'artworks/L’applauso che copre.png', title: 'L’Applauso che Copre', tipo: 'Insidia',
+    flavor: 'Ottocento paia di mani. Sotto quell’onda, nessuno sente nessuno.',
+    effect: 'Ogni eroe prova NERVI (Facile): chi fallisce ha 1 sola azione al prossimo turno.' },
+  { art: 'artworks/Il contrappeso che chiama.png', title: 'Il Contrappeso che Chiama', tipo: 'Insidia',
+    flavor: 'Un fischio di canapa. Qualcosa piomba dove un attimo fa non c’era niente.',
+    effect: 'L’eroe attivo prova NERVI (Media): se fallisce, 1 danno e perde 1 azione al prossimo turno.' },
+  { art: 'artworks/L’ouverture.png', title: 'L’Ouverture', tipo: 'Crescendo',
+    flavor: 'Il programma di sala avanza. L’orchestra accorda il respiro della serata.',
+    effect: 'Aggiungete 1 segnalino Canto. Alla soglia: l’aria comincia e il Suggeritore si desta (vedi Soluzione). Se è già in gioco: cancellate 1 sua ferita dal Registro e si attiva subito.' },
+  { art: 'artworks/Il secondo atto.png', title: 'Il Secondo Atto', tipo: 'Crescendo',
+    flavor: 'Applausi, sipario, applausi. Il momento si avvicina una scena alla volta.',
+    effect: 'Aggiungete 1 segnalino Canto. Alla soglia: l’aria comincia e il Suggeritore si desta (vedi Soluzione). Se è già in gioco: cancellate 1 sua ferita dal Registro e si attiva subito.' },
+  { art: 'artworks/L’aria si avvicina.png', title: 'L’Aria si Avvicina', tipo: 'Crescendo',
+    flavor: 'La Vetri è in quinta. La conchiglia, sopra di voi, trattiene il fiato.',
+    effect: 'Aggiungete 1 segnalino Canto. Alla soglia: l’aria comincia e il Suggeritore si desta (vedi Soluzione). Se è già in gioco: cancellate 1 sua ferita dal Registro e si attiva subito.' },
+  { art: 'artworks/Il cambio scena.png', title: 'Il Cambio Scena', tipo: 'Quiete',
+    flavor: 'Di sopra si cambia quadro: buio in sala, macchine ferme, un minuto di niente.',
+    effect: 'Nessun effetto. Tirate il fiato — il teatro sta trattenendo il suo.' },
+  { art: 'artworks/Uno spiraglio di sipario.png', title: 'Uno Spiraglio di Sipario', tipo: 'Favore',
+    flavor: 'Una lama di luce dorata taglia il sottopalco: per un attimo si vede TUTTO.',
+    effect: 'Rivelate una tessera coperta adiacente a quella di un eroe (la scelgono i giocatori).' },
+  { art: 'artworks/Le funi calate.png', title: 'Le Funi Calate', tipo: 'Ostacolo',
+    flavor: 'Un cambio di scena cala un bosco di funi dove prima c’era un corridoio.',
+    effect: 'Fino a fine round, sulla tessera dell’eroe attivo muoversi costa il doppio.' },
+  { art: 'artworks/L’acuto.png', title: 'L’Acuto', tipo: 'Insidia',
+    flavor: 'Un acuto di prova trafigge le assi. I pannelli lo bevono. Voi no.',
+    effect: 'L’eroe con meno NERVI (a pari merito: sceglie il gruppo) prova NERVI (Media): se fallisce subisce 1 danno dal dolore.' },
+  { art: 'artworks/La melodia impressa.png', title: 'La Melodia Impressa', tipo: 'Bivio',
+    flavor: 'Le voci guarite del Borgo la canticchiano nel sonno. I legni la riconoscono.',
+    effect: 'Aggiungete 1 segnalino Canto. Alla soglia: l’aria comincia e il Suggeritore si desta (vedi Soluzione). Se è già in gioco: cancellate 1 sua ferita dal Registro e si attiva subito.' },
+].map((m) => ({
+  art: m.art,
+  title: `${m.tipo} — ${m.title}`,
+  file: `Episodio 4/Minacce/${m.title.replace(/’/g, "'")}`,
+  rules: `{i}${m.flavor}{/i}{divider}${m.effect}`,
+}));
+
+const EP4_OGGETTI = [
+  { art: 'artworks/Passe-partout di Scena.png', nome: 'Il Passe-partout di Scena', ref: 'E4-L2',
+    fonte: 'Luogo 2 — Il Camerino della Vetri',
+    flavor: 'Apre ogni porta del teatro. La diva ha cominciato ad averne paura.',
+    effetto: 'Apre il ridotto e l’amministrazione (Luogo 8) — e certe porte del teatro, in spedizione, si aprono senza prova.' },
+  { art: 'artworks/Pianta delle Macchine.png', nome: 'La Pianta delle Macchine', ref: 'E4-L5',
+    fonte: 'Luogo 5 — Il Sottopalco delle Macchine',
+    flavor: 'Ogni argano, ogni leva, ogni botola. E una fossa cancellata a matita.',
+    effetto: 'Nella Sala dei Contrappesi (T3) nessuna prova: sapete dove NON stare. E +1 alle prove Interagire con argani e leve.' },
+  { art: 'artworks/Chiave del Tagliafuoco.png', nome: 'La Chiave del Tagliafuoco', ref: 'E4-L5',
+    fonte: 'Luogo 5 — Il Sottopalco delle Macchine',
+    flavor: 'La chiave del sipario di ferro: pesante, drammatica, definitiva.',
+    effetto: 'Effetto: nessuno finora scoperto. (Il tagliafuoco è bloccato dalla ruggine da vent’anni.)' },
+  { art: 'artworks/Libretto di Gaspare.png', nome: 'Il Libretto di Gaspare', ref: 'E4-L7',
+    fonte: 'Luogo 7 — L’Archivio degli Spartiti',
+    flavor: 'Quarant’anni di recite, consumate dal pollice. La voce vera della buca.',
+    effetto: 'Un’azione adiacente al Suggeritore: l’eco riconosce la voce vera del suo posto — Difesa 8→5 per il resto della partita, e salta la sua prossima attivazione.' },
+  { art: 'artworks/Binocolo della Contessa.png', nome: 'Il Binocolo della Contessa', ref: 'E4-L8',
+    fonte: 'Luogo 8 — Il Palco Reale',
+    flavor: 'Madreperla e ottone, mai messo a fuoco in vent’anni.',
+    effetto: 'Effetto: nessuno finora scoperto.' },
+  { art: 'artworks/Maschera della Prima Stagione.png', nome: 'La Maschera della Prima Stagione', ref: 'E4-L9',
+    fonte: 'Luogo 9 — Il Laboratorio degli Scenografi (o cercando in T4)',
+    flavor: 'Dorata, bellissima, inquietante. La tengono per scaramanzia.',
+    effetto: 'Effetto: nessuno finora scoperto.' },
+  { art: 'artworks/Lanterna Cieca.png', nome: 'Una Lanterna Cieca', ref: 'E4-T2',
+    fonte: 'Si trova cercando in T2 — Il Magazzino delle Scene',
+    flavor: 'Lo sportello schermato del trovarobe: la luce solo dove serve.',
+    effetto: '+1 alle prove NERVI finché la porta chi l’ha trovata.' },
+].map((o) => ({
+  art: o.art,
+  title: o.nome,
+  file: `Episodio 4/Oggetti/${o.nome.replace(/’/g, "'")}`,
+  type: 'Oggetto',
+  rules: `{i}${o.flavor}{/i}{divider}${o.effetto}`,
+  ref: o.ref, fonte: o.fonte,
+}));
+
+const EP4_NEMICI = [
+  { art: 'artworks/Il Suggeritore.png', title: 'Il Suggeritore',
+    type: 'Eco della Buca (Boss) — Episodio 4',
+    rules: '{i}Quarant’anni di battute sussurrate lasciano un solco — e il solco, quando la conchiglia ha cominciato a ricordare, si è riempito: una gobba, un bisbiglio, pagine che frusciano senza mani. Non è Gaspare: è il POSTO di Gaspare.{/i}{divider}Statistiche nel Bestiario dell’episodio.' },
+  { art: 'artworks/La Claque.png', title: 'La Claque',
+    type: 'Applauso del Coro — Episodio 4',
+    rules: '{i}Pagati per applaudire a tempo, poi pagati per non chiedersi cosa coprisse l’applauso. Ora battono le mani anche quando non c’è nessuno a sentirli — un ritmo cavo che entra nel petto e sfratta i pensieri.{/i}{divider}Statistiche nel Bestiario dell’episodio.' },
+].map((n) => ({ ...n, file: `Episodio 4/Nemici/${n.title}` }));
+
+const EP4 = [...LUOGHI4, ...EP4_INDIZI, ...EP4_TESTIMONI, ...EP4_REFERTI,
+             ...EP4_MINACCE, ...EP4_OGGETTI, ...EP4_NEMICI];
+
+
 module.exports = {
   HEROES, NEMICI, MINACCE, LUOGHI, INDIZI, TESTIMONI, REFERTI, OGGETTI, PRELUDIO,
   PRELUDIO_LUOGHI, PRELUDIO_APPROFONDIMENTI, PRELUDIO_OGGETTI,
   EP2, LUOGHI2, EP2_INDIZI, EP2_TESTIMONI, EP2_REFERTI, EP2_MINACCE, EP2_OGGETTI, EP2_NEMICI,
   EP3, LUOGHI3, EP3_INDIZI, EP3_TESTIMONI, EP3_REFERTI, EP3_MINACCE, EP3_OGGETTI, EP3_NEMICI,
-  ALL: [...HEROES, ...NEMICI, ...MINACCE, ...LUOGHI, ...INDIZI, ...TESTIMONI, ...REFERTI, ...OGGETTI, ...PRELUDIO, ...EP2, ...EP3],
+  EP4, LUOGHI4, EP4_INDIZI, EP4_TESTIMONI, EP4_REFERTI, EP4_MINACCE, EP4_OGGETTI, EP4_NEMICI,
+  ALL: [...HEROES, ...NEMICI, ...MINACCE, ...LUOGHI, ...INDIZI, ...TESTIMONI, ...REFERTI, ...OGGETTI, ...PRELUDIO, ...EP2, ...EP3, ...EP4],
 };

@@ -313,6 +313,63 @@ Chi canterà al di sotto, non si lamenti di ciò che al di sotto risponde.`;
     </div></div>
   `);
 
+  // --- Episodio 4, Reperto A: registro delle macchine sceniche (L5) ---
+  const righeA4 = [
+    ['lunedì, 02:10', 'contrappeso morto', 'movimentato — kg 80', 'firma: nessuna'],
+    ['martedì, 02:40', 'contrappeso morto', 'movimentato — kg 160', 'firma: nessuna'],
+    ['mercoledì, 03:05', 'contrappeso morto', 'movimentato — kg 80', 'firma: nessuna'],
+    ['giovedì, 02:20', 'contrappeso morto', 'movimentato — kg 160', 'firma: nessuna'],
+  ];
+  const repertoA4 = page(`
+    <div class="wrap"><div style="zoom:0.84;">
+      <div style="text-align:center; margin-bottom:60px;">
+        <div class="caps" style="font-size:64px;">teatro comunale · registro delle macchine sceniche</div>
+        <div class="serif" style="font-style:italic; font-size:36px; color:#3a2415; mix-blend-mode:multiply; margin-top:14px;">Reperto A — la settimana copiata dal registro del sottopalco</div>
+      </div>
+      <table style="width:100%; border-collapse:collapse; font-size:44px;">
+        <tbody class="hand">
+          ${righeA4.map((r) => `<tr>${r.map((v) => `<td style="border-bottom:1px solid #3a2415; padding:20px 8px; font-size:42px; white-space:nowrap; mix-blend-mode:multiply;">${v}</td>`).join('')}</tr>`).join('')}
+        </tbody>
+      </table>
+      <div class="serif" style="font-style:italic; margin-top:80px; font-size:36px; color:#4a4a4e; mix-blend-mode:multiply;">
+        Il contrappeso morto è fuori uso dal 1870. Ottanta chili è un uomo.
+        Centosessanta sono due. E i registri, di notte, non si firmano da soli.
+      </div>
+    </div></div>
+  `);
+
+  // --- Episodio 4, Reperto B: la commissione del notaio (L6) ---
+  const repertoB4 = page(`
+    <div class="wrap"><div style="zoom:0.90;">
+      <div class="serif" style="font-style:italic; font-size:38px; color:#3a2415; mix-blend-mode:multiply; margin-bottom:60px;">Reperto B — commissione trovata sotto il fermacarte, casa del maestro Alboni</div>
+      <div class="hand" style="font-size:60px; line-height:90px;">
+        <p style="margin-bottom:40px;">Al maestro concertatore. L’accordatura della conchiglia si compia entro la gala, pannello per pannello, a teatro chiuso.</p>
+        <p style="margin-bottom:40px;">Il mio assistito ama la lirica e detesta i ritardi. I saldi dei suoi debiti restino il nostro comune segreto.</p>
+        <p style="text-align:right; margin-top:80px;">— not. Grillanda, per conto del benefattore</p>
+      </div>
+      <div class="serif" style="font-style:italic; margin-top:100px; font-size:36px; color:#4a4a4e; mix-blend-mode:multiply;">
+        Carta di pregio, piegata coi guanti: la terza volta che questa risma
+        compare in un caso della Società. Il notaio firma. Il benefattore mai.
+      </div>
+    </div></div>
+  `);
+
+  // --- Episodio 4, Reperto C: lo spartito annotato dalla Vetri (L2) ---
+  const repertoC4 = page(`
+    <div class="wrap"><div style="zoom:0.90;">
+      <div class="serif" style="font-style:italic; font-size:38px; color:#3a2415; mix-blend-mode:multiply; margin-bottom:60px;">Reperto C — uno dei dodici spartiti anonimi, con le annotazioni della signora Vetri</div>
+      <div class="hand" style="font-size:62px; line-height:92px;">
+        <p style="margin-bottom:40px;">La leggo una volta e mi resta in testa per giorni. La mia cameriera dice che la canticchio nel sonno.</p>
+        <p style="margin-bottom:40px;">Io nel sonno non canto mai. Non ho MAI cantato nel sonno.</p>
+        <p style="margin-bottom:40px;">E questa non è musica scritta PER me. È musica scritta DA me — che io non ho mai scritto.</p>
+      </div>
+      <div class="serif" style="font-style:italic; margin-top:100px; font-size:36px; color:#4a4a4e; mix-blend-mode:multiply;">
+        L’inchiostro dei righi, sotto la lente, luccica: polvere di cera nera.
+        La pagina non è scritta per essere letta. È scritta per trattenere.
+      </div>
+    </div></div>
+  `);
+
   const items = [
     ['Episodio 1', 'Reperto A - Diario di Ruggero', repertoA],
     ['Episodio 1', 'Reperto B - Registro delle Consegne', repertoB],
@@ -324,6 +381,9 @@ Chi canterà al di sotto, non si lamenti di ciò che al di sotto risponde.`;
     ['Episodio 3', 'Reperto A - Registro dei Livelli', repertoA3],
     ['Episodio 3', 'Reperto B - Commissione di C.B.', repertoB3],
     ['Episodio 3', 'Reperto C - Pagina del Quaderno', repertoC3],
+    ['Episodio 4', 'Reperto A - Registro delle Macchine', repertoA4],
+    ['Episodio 4', 'Reperto B - Commissione del Notaio', repertoB4],
+    ['Episodio 4', 'Reperto C - Spartito Annotato', repertoC4],
   ];
 
   for (const [episodio, name, html] of items) {
