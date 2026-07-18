@@ -1192,11 +1192,250 @@ const EP4 = [...LUOGHI4, ...EP4_INDIZI, ...EP4_TESTIMONI, ...EP4_REFERTI,
              ...EP4_MINACCE, ...EP4_OGGETTI, ...EP4_NEMICI];
 
 
+// ============================================================ EPISODIO 5
+// «L'organo di ossa» — vedi DESIGN-EPISODIO-5.md. Stesso schema dell'Ep. 4.
+
+const LUOGHI5 = [
+  { n: 1, nome: 'La Chiesa dei Battuti', req: 'Disponibile dall’inizio',
+    art: 'artworks/Chiesa dei Battuti.png',
+    testo: 'Il magazzino comunale abita la chiesa come un ospite maleducato: scaffali su per le navate, casse dove stavano i banchi. Ma la chiesa, sotto, non ha traslocato — e davanti alla parete di fondo, dove la calcina è fresca, l’aria sa di cera che nessuno ha acceso.',
+    approfondimenti: [
+      { tipo: 'Osservazione', soggetto: 'Le mani del becchino',
+        testo: 'Al funerale lampo di Fedele, il becchino-capo lavora di pala con le maniche lunghe, d’estate. Quando le rimbocca per un attimo, i polsi sono segnati di bianco: non calce da fossa — polvere d’ossa. Un becchino la conosce. E la lava, di solito.' },
+      { tipo: 'Presagio', soggetto: 'La salmodia sotto',
+        testo: 'Con l’orecchio alla breccia rimurata: un canto piano, senza parole, che non si ferma MAI — e si vede un corridoio di nicchie dove le ossa nei muri rispondono al canto, una per una. Chi passerà di lì, tacendo e in fretta, passerà meglio. La visione dura un rintocco.' },
+    ] },
+  { n: 2, nome: 'L’Ossario Comunale', req: 'Disponibile dall’inizio',
+    art: 'artworks/Ossario Comunale.png',
+    testo: 'Una biblioteca di casse: corridoi di scaffali fino al soffitto, etichette di tre generazioni di custodi, l’odore asciutto della polvere buona. Dove mancano le casse, gli scaffali mostrano rettangoli puliti — ventidue denti caduti nel sorriso ordinato dei morti.',
+    approfondimenti: [
+      { tipo: 'Referto', soggetto: 'Le casse marcate',
+        testo: 'Il segno d’onda sulle casse mancanti non è del falegname: è inciso DOPO, con una sgorbia, sempre dalla stessa mano. Qualcuno ha censito l’ossario prima di svuotarlo — cassa per cassa, negli anni. Il furto è l’ultimo atto di un inventario cominciato molto tempo fa.' },
+    ] },
+  { n: 3, nome: 'Il Cimitero Nuovo', req: 'Disponibile dall’inizio',
+    art: 'artworks/Cimitero Nuovo.png',
+    testo: 'Cipressi adulti, ghiaia rastrellata, la piccola città dei morti che cresce per file ordinate. Le transenne delle fosse «in manutenzione» sono l’unica cosa fuori posto — quelle, e il cancello di servizio con l’erba consumata da ruote che di giorno nessuno vede mai.',
+    approfondimenti: [
+      { tipo: 'Testimonianza', soggetto: 'L’inserviente sputasentenze',
+        testo: '«Mola una volta scavava e basta. Da quest’inverno misura: va per file coi passi contati e un taccuino, come un agrimensore. E quando ha finito di misurare, la settimana dopo, la fossa è “in manutenzione”. Io non so leggere, signori. Ma so contare: ventidue.»' },
+    ] },
+  { n: 4, nome: 'La Parrocchia del Borgo', req: 'Disponibile dall’inizio',
+    art: 'artworks/Parrocchia del Borgo.png',
+    testo: 'La stessa dell’inverno dei pozzi: banchi lucidi di cera, l’organo piccolo con la canna storta. Ma stavolta vi aspettano: la porta della sacrestia è aperta, e sul tavolo c’è un telo ripiegato di fresco, come per mostrare qualcosa che aspettava da centocinquant’anni.',
+    approfondimenti: [
+      { tipo: 'Presagio', soggetto: 'Il fonte che trattiene',
+        testo: 'L’acqua nell’ampolla è ferma da centocinquant’anni, eppure — contro luce — trema: si vede un saio inginocchiato a un fonte, un bambino che piange al battesimo, e lo stesso saio, molto dopo, che canta in un buio pieno di nicchie senza fermarsi mai. La visione dura un rintocco.' },
+    ] },
+  { n: 5, nome: 'La Casa del Becchino',
+    req: 'La moglie di Mola non apre a nessuno: «mio marito lavora, i morti non aspettano». Ma chi arriva sapendo COME viene pagato Mola trova la porta socchiusa e la moglie in lacrime.',
+    art: 'artworks/Casa del Becchino.png',
+    testo: 'La casa di un becchino con la credenza nuova, la stufa nuova, le scarpe buone per tutti i figli: tre stipendi in sei mesi, tutti in contanti mai piegati. Ogni cosa comprata è un mattone di un muro che non tiene — e la moglie spolvera tutto due volte al giorno, come si tiene pulita una colpa.',
+    approfondimenti: [
+      { tipo: 'Testimonianza', soggetto: 'Mola, alla fine',
+        testo: '«Io le ossa le SCAVO, signori. Non chiedo per chi suonano. Il maestro dei registri paga, il timbro è vero, la carta è vera — se la carta è vera, il peccato è di chi la scrive. Ditemi che è così. Vi prego: ditemi che è così.»' },
+    ] },
+  { n: 6, nome: 'Lo Studio del Maestro dei Registri',
+    req: 'Uno studio di contabilità senza clienti: il praticante ripete «il titolare è fuori per inventari». Solo chi nomina il titolare col suo TITOLO giusto viene fatto entrare ad aspettare — in una stanza che parla.',
+    art: 'artworks/Studio del Maestro.png',
+    testo: 'Lo studio è una scenografia: registri finti in bella vista, polvere vera sui calamai. Ma le sedie d’attesa sono consumate davvero, e il campanello della porta è unto e silenzioso: qui la gente entra, aspetta, paga — e non viene per la contabilità.',
+    approfondimenti: [
+      { tipo: 'Osservazione', soggetto: 'Lo studio-scenografia',
+        testo: 'I registri finti hanno i dorsi scoloriti DAL LATO SBAGLIATO: comprati usati, messi in scena in fretta. Ma le sedie d’attesa sono consumate davvero: qui la gente viene, aspetta, e paga. Uno studio che non lavora e incassa non è uno studio: è uno sportello. Di qualcosa.' },
+    ] },
+  { n: 7, nome: 'L’Ufficio delle Sconsacrazioni',
+    req: 'Il cancelliere di Curia è cortesia e diffidenza: «gli archivi diocesani non sono un pubblico passeggio». Ma un fascicolo preciso, chiesto con l’anno preciso, è un atto dovuto.',
+    art: 'artworks/La Curia.png',
+    testo: 'Tre stanze in fondo alla Curia: armadi blindati d’archivio, il cancelliere che conosce ogni fascicolo per nome, l’odore di ceralacca e di secoli. Qui la Chiesa registra ciò che smette di essere sacro — con una cura che somiglia al rimorso.',
+    approfondimenti: [
+      { tipo: 'Referto', soggetto: 'Il timbro prestato',
+        testo: 'L’impronta del timbro è perfetta ma STANCA: cuscinetto quasi asciutto, impronta ribattuta. Chi timbra così non lavora in Curia: timbra di fretta, altrove, con un timbro che deve RIENTRARE prima che qualcuno ne senta la mancanza. Il prestito dura una notte. Da vent’anni, quando serve.' },
+    ] },
+  { n: 8, nome: 'Il Deposito del Marmista',
+    req: 'Il marmista lavora e non alza gli occhi: «i preventivi il giovedì». Ma chi entra nominando il lavoro che lo imbarazza — quello delle lapidi — trova un uomo con una gran voglia di scaricarsi la coscienza.',
+    art: 'artworks/Deposito del Marmista.png',
+    testo: 'Un giardino di pietre in attesa: lapidi bianche per file, angeli a metà, nomi già incisi di gente ancora viva che paga in anticipo. E in fondo, girate contro il muro, le pietre di cui il marmista si vergogna.',
+    approfondimenti: [
+      { tipo: 'Osservazione', soggetto: 'Le ultime due lapidi',
+        testo: 'Le due lapidi pronte hanno le date di consegna a matita sul retro, come usa il marmista: dopodomani. Chiunque paghi verrà a ritirarle — o manderà il garzone — dopodomani. Un appuntamento, scolpito nel marmo da chi non sa di averlo dato.' },
+    ] },
+  { n: 9, nome: 'La Sagrestia dei Battuti',
+    req: 'La porticina della sagrestia vecchia è serrata da una toppa nera di flagelli incrociati: senza la chiave giusta resta un muro — e il sagrato, di notte, non gradisce chi forza le porte dei morti.',
+    art: 'artworks/Sagrestia dei Battuti.png',
+    testo: 'La sagrestia vecchia è rimasta al Quarantuno: paramenti neri appesi, un inginocchiatoio, la polvere come neve. Sul tavolo, però, impronte fresche — e sotto l’armadio dei paramenti, trascinato di lato, il pavimento mostra una botola col flagello inciso.',
+    approfondimenti: [
+      { tipo: 'Osservazione', soggetto: 'I cardini unti',
+        testo: 'Il sego sui cardini è steso con metodo, dall’alto verso il basso, SENZA sbavature: la mano di chi apre questa botola non ha mai fretta e non ha mai paura. Voi avrete entrambe. Regolatevi sulle candele: là sotto le vostre saranno le uniche a tremare.' },
+    ] },
+].map((L) => ({
+  art: L.art,
+  title: `${L.n} · ${L.nome}`,
+  file: `Episodio 5/Luoghi/${L.n} - ${L.nome.replace(/’/g, "'")}`,
+  type: `Luogo ${L.n}`,
+  rules: `{i}${L.req === 'Disponibile dall’inizio' ? L.testo : L.req}{/i}`,
+  approfondimenti: L.approfondimenti, n: L.n,
+}));
+
+const EP5_INDIZI = LUOGHI5.flatMap((L) =>
+  L.approfondimenti.filter((a) => a.tipo === 'Osservazione' || a.tipo === 'Presagio')
+    .map((a) => ({
+      art: L.art, n: L.n, kind: 'Indizio',
+      title: `Indizio Nascosto — ${a.soggetto}`,
+      file: `Episodio 5/Indizi/${a.soggetto.replace(/’/g, "'")}`,
+      type: a.tipo,
+      rules: `{i}◆ (${a.tipo}) ${a.testo}{/i}`,
+    })));
+
+const EP5_TESTIMONI = LUOGHI5.flatMap((L) =>
+  L.approfondimenti.filter((a) => a.tipo === 'Testimonianza').map((a) => ({
+    art: L.art, n: L.n, kind: 'Testimone',
+    title: `Testimone — ${a.soggetto}`,
+    file: `Episodio 5/Testimoni/${a.soggetto.replace(/’/g, "'")}`,
+    type: `Luogo ${L.n} · Testimone`,
+    rules: `{i}${a.testo}{/i}`,
+  })));
+
+const EP5_REFERTI = LUOGHI5.flatMap((L) =>
+  L.approfondimenti.filter((a) => a.tipo === 'Referto').map((a) => ({
+    art: L.art, n: L.n, kind: 'Referto',
+    title: `Referto — ${a.soggetto}`,
+    file: `Episodio 5/Referti/${a.soggetto}`,
+    type: `Luogo ${L.n} · Referto`,
+    rules: `{i}${a.testo}{/i}`,
+  })));
+
+// Mazzo Minaccia: 21 carte + 1 del Bivio («I legni chiamano», ramo
+// "sigillata" dell'Ep. 4). Mix: 11 spawn, 3 insidie, 3 crescendo, 4 eventi.
+const EP5_MINACCE = [
+  { art: 'artworks/Il passo di cera.png', title: 'Il Passo di Cera', tipo: 'Posseduto',
+    flavor: 'Due passi, mai di corsa. La cera non ricorda la paura.',
+    effect: 'Piazzate 1 Confratello sull’uscita più vicina agli eroi della tessera corrente.' },
+  { art: 'artworks/Il passo di cera.png', title: 'La Processione', tipo: 'Posseduto',
+    flavor: 'Vengono in fila, come andavano in chiesa. Ci vanno ancora.',
+    effect: 'Piazzate 1 Confratello sull’uscita più vicina agli eroi della tessera corrente.' },
+  { art: 'artworks/Il passo di cera.png', title: 'Il Capitolo si Alza', tipo: 'Posseduto',
+    flavor: 'I sedili di pietra restituiscono i loro occupanti, uno alla volta.',
+    effect: 'Piazzate 1 Confratello sull’uscita più vicina agli eroi della tessera corrente. Se è già in gioco un Confratello, si attiva subito.' },
+  { art: 'artworks/I manovali del cantiere.png', title: 'I Manovali del Cantiere', tipo: 'Posseduto',
+    flavor: 'Sanno segare, incollare, montare. Non sanno più perché.',
+    effect: 'Piazzate 1 Adepto sull’ingresso della Scala del Sagrato (T1).' },
+  { art: 'artworks/I manovali del cantiere.png', title: 'Il Turno di Notte', tipo: 'Posseduto',
+    flavor: 'Il cantiere non chiude mai: la marea non aspetta.',
+    effect: 'Piazzate 1 Adepto sull’ingresso della Scala del Sagrato (T1).' },
+  { art: 'artworks/I manovali del cantiere.png', title: 'La Calata delle Casse', tipo: 'Posseduto',
+    flavor: 'Un’altra cassa scende dalla botola, piano, con rispetto. Il rispetto dei ladri.',
+    effect: 'Piazzate 1 Adepto sull’ingresso dell’Officina delle Canne d’Ossa (T5). Se T5 non è rivelata: sull’uscita più vicina agli eroi della tessera corrente.' },
+  { art: 'artworks/I carrettieri.png', title: 'I Carrettieri', tipo: 'Malavita',
+    flavor: 'Pagati per portare e non guardare. Guardano solo voi.',
+    effect: 'Piazzate 1 Sgherro sull’uscita più vicina agli eroi della tessera corrente.' },
+  { art: 'artworks/I carrettieri.png', title: 'Il Carro Vuoto', tipo: 'Malavita',
+    flavor: 'Un carro che torna vuoto ha sempre due uomini di troppo.',
+    effect: 'Piazzate 1 Sgherro sull’uscita più vicina agli eroi della tessera corrente.' },
+  { art: 'artworks/I carrettieri.png', title: 'Il Sorvegliante del Sagrato', tipo: 'Malavita',
+    flavor: 'Uno solo, fermo tra i cipressi, da prima che arrivaste.',
+    effect: 'Piazzate 1 Sicario sull’uscita più vicina agli eroi della tessera corrente: si attiva subito.' },
+  { art: 'artworks/Passi sulla scala.png', title: 'Passi sulla Scala', tipo: 'Posseduto',
+    flavor: 'Qualcuno scende i gradini del sagrato. Con la calma di chi torna a casa.',
+    effect: 'Piazzate 1 Adepto sull’ingresso della Scala del Sagrato (T1).' },
+  { art: 'artworks/Passi sulla scala.png', title: 'La Botola si Apre', tipo: 'Posseduto',
+    flavor: 'Uno spiraglio di notte vera, lassù. Poi si richiude, con qualcuno in più quaggiù.',
+    effect: 'Piazzate 1 Adepto sull’ingresso della Scala del Sagrato (T1).' },
+  { art: 'artworks/La salmodia nelle ossa.png', title: 'La Salmodia nelle Ossa', tipo: 'Insidia',
+    flavor: 'Il canto passa dal muro alle vostre ossa. Le sentite rispondere.',
+    effect: 'Ogni eroe prova NERVI (Facile): chi fallisce ha 1 sola azione al prossimo turno.' },
+  { art: 'artworks/Il buio delle nicchie.png', title: 'Il Buio delle Nicchie', tipo: 'Insidia',
+    flavor: 'Cento alloggi di buio perfetto, alla distanza giusta di un braccio.',
+    effect: 'L’eroe più avanzato prova NERVI (Media): se fallisce, 1 danno.' },
+  { art: 'artworks/La polvere di cripta.png', title: 'La Polvere di Cripta', tipo: 'Insidia',
+    flavor: 'La polvere qui non è sporco: è qualcuno. Ed è ovunque.',
+    effect: 'L’eroe attivo prova NERVI (Media): se fallisce, 1 danno e perde 1 azione al prossimo turno.' },
+  { art: 'artworks/La prima canna.png', title: 'La Prima Canna', tipo: 'Crescendo',
+    flavor: 'Una nota sola, bassa, perfetta. L’organo prova la voce nuova.',
+    effect: 'Aggiungete 1 segnalino Canto. Alla soglia: il Salmodiante si desta (vedi Soluzione). Se è già in gioco: cancellate 1 sua ferita dal Registro e si attiva subito.' },
+  { art: 'artworks/L’accordatura.png', title: 'L’Accordatura', tipo: 'Crescendo',
+    flavor: 'Le canne d’ossa si rispondono per quinte. Qualcuno, un tempo, cantava così in coro.',
+    effect: 'Aggiungete 1 segnalino Canto. Alla soglia: il Salmodiante si desta (vedi Soluzione). Se è già in gioco: cancellate 1 sua ferita dal Registro e si attiva subito.' },
+  { art: 'artworks/Il registro pieno.png', title: 'Il Registro Pieno', tipo: 'Crescendo',
+    flavor: 'Il mantice si gonfia da solo. Lo strumento è quasi pronto — e lo sa.',
+    effect: 'Aggiungete 1 segnalino Canto. Alla soglia: il Salmodiante si desta (vedi Soluzione). Se è già in gioco: cancellate 1 sua ferita dal Registro e si attiva subito.' },
+  { art: 'artworks/La salmodia tace.png', title: 'La Salmodia Tace', tipo: 'Quiete',
+    flavor: 'Per la prima volta in centocinquant’anni: silenzio. È peggio.',
+    effect: 'Nessun effetto. Tirate il fiato — e chiedetevi perché ha smesso.' },
+  { art: 'artworks/Uno spiffero di sagrato.png', title: 'Uno Spiffero di Sagrato', tipo: 'Favore',
+    flavor: 'Aria di sopra: erba, notte, pioggia lontana. La strada di casa esiste ancora.',
+    effect: 'Rivelate una tessera coperta adiacente a quella di un eroe (la scelgono i giocatori).' },
+  { art: 'artworks/Le impalcature.png', title: 'Le Impalcature', tipo: 'Ostacolo',
+    flavor: 'Il cantiere invade il passaggio: assi, corde, pali. Ordinatissimi. Ovunque.',
+    effect: 'Fino a fine round, sulla tessera dell’eroe attivo muoversi costa il doppio.' },
+  { art: 'artworks/La nota bassa.png', title: 'La Nota Bassa', tipo: 'Insidia',
+    flavor: 'Sotto la soglia dell’udito, sopra la soglia del cuore. Fedele lo sapeva.',
+    effect: 'L’eroe con meno NERVI (a pari merito: sceglie il gruppo) prova NERVI (Media): se fallisce subisce 1 danno.' },
+  { art: 'artworks/I legni chiamano.png', title: 'I Legni Chiamano', tipo: 'Bivio',
+    flavor: 'La melodia impressa nella conchiglia riconosce le ossa che cantarono con lei.',
+    effect: 'Aggiungete 1 segnalino Canto. Alla soglia: il Salmodiante si desta (vedi Soluzione). Se è già in gioco: cancellate 1 sua ferita dal Registro e si attiva subito.' },
+].map((m) => ({
+  art: m.art,
+  title: `${m.tipo} — ${m.title}`,
+  file: `Episodio 5/Minacce/${m.title.replace(/’/g, "'")}`,
+  rules: `{i}${m.flavor}{/i}{divider}${m.effect}`,
+}));
+
+const EP5_OGGETTI = [
+  { art: 'artworks/Acqua del Fonte.png', nome: 'L’Acqua del Fonte', ref: 'E5-L4',
+    fonte: 'Luogo 4 — La Parrocchia del Borgo',
+    flavor: 'L’acqua dell’ultimo battesimo dei Battuti, sigillata a cera da cinque generazioni.',
+    effetto: 'Un’azione adiacente al Salmodiante: l’unica voce più vecchia della sua — Difesa 8→5 per il resto della partita, e salta la sua prossima attivazione.' },
+  { art: 'artworks/Chiave del Sagrato.png', nome: 'La Chiave del Sagrato', ref: 'E5-L4',
+    fonte: 'Luogo 4 — La Parrocchia del Borgo',
+    flavor: 'Marcata coi flagelli incrociati. «Se la prendete, non ditemi per cosa.»',
+    effetto: 'Apre la sagrestia vecchia dei Battuti (Luogo 9) — e la strada per la cripta.' },
+  { art: 'artworks/Candele della Parrocchia.png', nome: 'Le Candele della Parrocchia', ref: 'E5-L4',
+    fonte: 'Luogo 4 — La Parrocchia del Borgo',
+    flavor: 'Benedette, oneste, di cera BIANCA. Laggiù farà la differenza.',
+    effetto: '+1 alle prove NERVI nel Corridoio degli Ossari (T3), come da tessera.' },
+  { art: 'artworks/Crocifisso Spezzato.png', nome: 'Il Crocifisso Spezzato', ref: 'E5-L1',
+    fonte: 'Luogo 1 — tra le mani di Fedele',
+    flavor: 'Piegato a mani nude, verso l’esterno. Da lui stesso.',
+    effetto: 'Effetto: nessuno finora scoperto.' },
+  { art: 'artworks/Olio dei Morti.png', nome: 'L’Olio dei Morti', ref: 'E5-L5',
+    fonte: 'Luogo 5 — La Casa del Becchino',
+    flavor: 'Regalo «del committente, per il lavoro fino». Mai toccato.',
+    effetto: 'Effetto: nessuno finora scoperto.' },
+  { art: 'artworks/Lanterna d’Altare.png', nome: 'Una Lanterna d’Altare', ref: 'E5-T2',
+    fonte: 'Si trova cercando in T2 — La Navata Sepolta',
+    flavor: 'Ottone e vetro rubino: la luce giusta per una chiesa in apnea.',
+    effetto: '+1 alle prove NERVI finché la porta chi l’ha trovata.' },
+  { art: 'artworks/Scalpello da Liutaio.png', nome: 'Uno Scalpello da Liutaio', ref: 'E5-T5',
+    fonte: 'Si trova cercando in T5 — L’Officina delle Canne d’Ossa',
+    flavor: 'Manico d’osso, filo perfetto. Lo strumento del sacrilegio, restituito al mittente.',
+    effetto: '+1 alle prove Interagire con le canne e con l’organo.' },
+].map((o) => ({
+  art: o.art,
+  title: o.nome,
+  file: `Episodio 5/Oggetti/${o.nome.replace(/’/g, "'")}`,
+  type: 'Oggetto',
+  rules: `{i}${o.flavor}{/i}{divider}${o.effetto}`,
+  ref: o.ref, fonte: o.fonte,
+}));
+
+const EP5_NEMICI = [
+  { art: 'artworks/Il Salmodiante.png', title: 'Il Salmodiante',
+    type: 'Confratello del Quarantuno (Boss) — Episodio 5',
+    rules: '{i}Quando murarono la cripta, uno dei confratelli non volle uscire: rimase a cantare l’ufficio dei morti per i fratelli senza requiem. La cera lo ha vestito, il canto lo ha conservato — finché la voce e l’uomo non sono diventati la stessa cosa.{/i}{divider}Statistiche nel Bestiario dell’episodio.' },
+  { art: 'artworks/Il Confratello.png', title: 'Il Confratello',
+    type: 'Cera e ossa del Coro — Episodio 5',
+    rules: '{i}Sai vuoti riempiti di cera e d’ossa spaiate: camminano come in processione — due passi, mai di corsa — e non arretrano, perché la cera non ricorda la paura.{/i}{divider}Statistiche nel Bestiario dell’episodio.' },
+].map((n) => ({ ...n, file: `Episodio 5/Nemici/${n.title}` }));
+
+const EP5 = [...LUOGHI5, ...EP5_INDIZI, ...EP5_TESTIMONI, ...EP5_REFERTI,
+             ...EP5_MINACCE, ...EP5_OGGETTI, ...EP5_NEMICI];
+
+
 module.exports = {
   HEROES, NEMICI, MINACCE, LUOGHI, INDIZI, TESTIMONI, REFERTI, OGGETTI, PRELUDIO,
   PRELUDIO_LUOGHI, PRELUDIO_APPROFONDIMENTI, PRELUDIO_OGGETTI,
   EP2, LUOGHI2, EP2_INDIZI, EP2_TESTIMONI, EP2_REFERTI, EP2_MINACCE, EP2_OGGETTI, EP2_NEMICI,
   EP3, LUOGHI3, EP3_INDIZI, EP3_TESTIMONI, EP3_REFERTI, EP3_MINACCE, EP3_OGGETTI, EP3_NEMICI,
   EP4, LUOGHI4, EP4_INDIZI, EP4_TESTIMONI, EP4_REFERTI, EP4_MINACCE, EP4_OGGETTI, EP4_NEMICI,
-  ALL: [...HEROES, ...NEMICI, ...MINACCE, ...LUOGHI, ...INDIZI, ...TESTIMONI, ...REFERTI, ...OGGETTI, ...PRELUDIO, ...EP2, ...EP3, ...EP4],
+  EP5, LUOGHI5, EP5_INDIZI, EP5_TESTIMONI, EP5_REFERTI, EP5_MINACCE, EP5_OGGETTI, EP5_NEMICI,
+  ALL: [...HEROES, ...NEMICI, ...MINACCE, ...LUOGHI, ...INDIZI, ...TESTIMONI, ...REFERTI, ...OGGETTI, ...PRELUDIO, ...EP2, ...EP3, ...EP4, ...EP5],
 };

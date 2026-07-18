@@ -44,9 +44,10 @@ EPISODI = {
     2: 'La voce del bronzo',
     3: 'Le voci del pozzo',
     4: 'Il teatro dell’eco',
+    5: 'L’organo di ossa',
 }
 # arte dedicata per episodio (default: la mappa di campagna, MAP_ART)
-COVER_ART = {2: 'copertina episodio 2.png', 3: 'copertina episodio 3.png', 4: 'copertina episodio 4.png'}
+COVER_ART = {2: 'copertina episodio 2.png', 3: 'copertina episodio 3.png', 4: 'copertina episodio 4.png', 5: 'copertina episodio 5.png'}
 ROMAN = {1: 'I', 2: 'II', 3: 'III', 4: 'IV', 5: 'V', 6: 'VI'}
 
 def etichetta(num):

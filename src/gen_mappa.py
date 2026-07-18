@@ -108,6 +108,16 @@ VOCI_MAPPA = [
     ('L’Archivio del Teatro', 'palazzina attigua al Comunale, primo piano', 'ep4'),
     ('Il Ridotto del Teatro', 'Teatro Comunale, ingresso di gala', 'ep4'),
     ('Il Laboratorio degli Scenografi', 'capannone dietro la Stazione delle Carrozze', 'ep4'),
+    # Episodio 5 — «L'organo di ossa» (vedi DESIGN-EPISODIO-5.md). Riuso:
+    # La Parrocchia del Borgo ('ep3').
+    ('La Chiesa dei Battuti', 'campo dei Battuti 1, oltre il mercato coperto', 'ep5'),
+    ('L’Ossario Comunale', 'cimitero vecchio, corpo di fondo', 'ep5'),
+    ('Il Cimitero Nuovo', 'fuori porta di terraferma, viale dei cipressi', 'ep5'),
+    ('Vicolo delle Croci', 'al civico 4, dietro il cimitero vecchio', 'ep5'),
+    ('Corte del Ragioniere', 'al civico 2, quartiere del Comune', 'ep5'),
+    ('La Curia', 'piazza della Cattedrale, palazzo vescovile', 'ep5'),
+    ('Calle del Marmo', 'al civico 7, verso porta di terraferma', 'ep5'),
+    ('Il Sagrato dei Battuti', 'campo dei Battuti, porticina sul retro', 'ep5'),
 ]
 
 # (sottocartella pdf/, sottotitolo, tag inclusi). Un episodio nuovo aggiunge
@@ -118,6 +128,7 @@ MAPPE = [
     ('Episodio 2', 'episodio 2 — la città che conoscete', ('citta', 'preludio', 'ep1', 'ep2')),
     ('Episodio 3', 'episodio 3 — la città che conoscete', ('citta', 'preludio', 'ep1', 'ep2', 'ep3')),
     ('Episodio 4', 'episodio 4 — la città che conoscete', ('citta', 'preludio', 'ep1', 'ep2', 'ep3', 'ep4')),
+    ('Episodio 5', 'episodio 5 — la città che conoscete', ('citta', 'preludio', 'ep1', 'ep2', 'ep3', 'ep4', 'ep5')),
 ]
 
 # Tipografico (provata la grafia manoscritta La Belle Aurore su tutta la

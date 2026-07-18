@@ -370,6 +370,62 @@ Chi canterà al di sotto, non si lamenti di ciò che al di sotto risponde.`;
     </div></div>
   `);
 
+  // --- Episodio 5, Reperto A: il registro privato di Mola (L5) ---
+  const righeA5 = [
+    ['9 del mese', 'casse due', 'fossa 12, fila C', 'M.d.R.'],
+    ['14 del mese', 'casse tre', 'ossario, scaffale IX', 'M.d.R.'],
+    ['21 del mese', 'casse due', 'ossario, scaffale XI', 'M.d.R.'],
+    ['28 del mese', 'casse tre', 'fossa 31, fila F', 'M.d.R.'],
+  ];
+  const repertoA5 = page(`
+    <div class="wrap"><div style="zoom:0.84;">
+      <div style="text-align:center; margin-bottom:60px;">
+        <div class="caps" style="font-size:66px;">quaderno di z. mola · conto delle consegne</div>
+        <div class="serif" style="font-style:italic; font-size:36px; color:#3a2415; mix-blend-mode:multiply; margin-top:14px;">Reperto A — trovato sotto il pagliericcio, in casa del becchino</div>
+      </div>
+      <table style="width:100%; border-collapse:collapse; font-size:44px;">
+        <tbody class="hand">
+          ${righeA5.map((r) => `<tr>${r.map((v) => `<td style="border-bottom:1px solid #3a2415; padding:20px 8px; font-size:44px; white-space:nowrap; mix-blend-mode:multiply;">${v}</td>`).join('')}</tr>`).join('')}
+        </tbody>
+      </table>
+      <div class="hand" style="margin-top:70px; font-size:56px; line-height:76px;">
+        totale: ventidue. Ne mancano due. Poi basta, giuro su mia moglie: basta.
+      </div>
+    </div></div>
+  `);
+
+  // --- Episodio 5, Reperto B: l'autorizzazione timbrata (L6) ---
+  const repertoB5 = page(`
+    <div class="wrap"><div style="zoom:0.90;">
+      <div class="serif" style="font-style:italic; font-size:38px; color:#3a2415; mix-blend-mode:multiply; margin-bottom:60px;">Reperto B — autorizzazione trovata sotto il tampone, studio del Maestro dei Registri</div>
+      <div class="serif" style="font-size:52px; line-height:82px;">
+        <p style="margin-bottom:40px; text-align:center;" class="caps">CANCELLERIA DIOCESANA — ATTI MORTUARI</p>
+        <p style="margin-bottom:40px;">Si autorizza la ricognizione e traslazione delle salme giacenti presso l’Ossario Comunale, scaffali come da elenco allegato, a cura del personale incaricato.</p>
+        <p style="text-align:right; margin-top:60px;" class="hand">il funzionario delegato — dott. Silvio Ordan</p>
+      </div>
+      <div class="serif" style="font-style:italic; margin-top:100px; font-size:36px; color:#4a4a4e; mix-blend-mode:multiply;">
+        Il timbro è autentico: non esce dalla stanza del cancelliere da vent’anni.
+        Il dott. Silvio Ordan non risulta in nessun annuario. Mai esistito.
+      </div>
+    </div></div>
+  `);
+
+  // --- Episodio 5, Reperto C: il diario di Fedele (L9) ---
+  const repertoC5 = page(`
+    <div class="wrap"><div style="zoom:0.90;">
+      <div class="serif" style="font-style:italic; font-size:38px; color:#3a2415; mix-blend-mode:multiply; margin-bottom:60px;">Reperto C — dal diario di Fedele, custode dei Battuti, trovato nella sagrestia vecchia</div>
+      <div class="hand" style="font-size:62px; line-height:92px;">
+        <p style="margin-bottom:40px;">Martedì. La parete di fondo suona vuota dove ha sempre suonato piena. Non l’ho detto a nessuno.</p>
+        <p style="margin-bottom:40px;">Giovedì. Di notte cantano. Non è il vento: il vento non tiene il tempo.</p>
+        <p style="margin-bottom:40px;">Stanotte l’ho sentito accordarsi. Domani chiudo il muro e non lo dico a nessuno: certe porte, a denunciarle, si aprono.</p>
+      </div>
+      <div class="serif" style="font-style:italic; margin-top:100px; font-size:36px; color:#4a4a4e; mix-blend-mode:multiply;">
+        L’ultima pagina è pulita e la calcina sulla copertina è fresca.
+        Fedele è morto la mattina dopo, con la cazzuola in mano.
+      </div>
+    </div></div>
+  `);
+
   const items = [
     ['Episodio 1', 'Reperto A - Diario di Ruggero', repertoA],
     ['Episodio 1', 'Reperto B - Registro delle Consegne', repertoB],
@@ -384,6 +440,9 @@ Chi canterà al di sotto, non si lamenti di ciò che al di sotto risponde.`;
     ['Episodio 4', 'Reperto A - Registro delle Macchine', repertoA4],
     ['Episodio 4', 'Reperto B - Commissione del Notaio', repertoB4],
     ['Episodio 4', 'Reperto C - Spartito Annotato', repertoC4],
+    ['Episodio 5', 'Reperto A - Registro di Mola', repertoA5],
+    ['Episodio 5', 'Reperto B - Autorizzazione Timbrata', repertoB5],
+    ['Episodio 5', 'Reperto C - Diario di Fedele', repertoC5],
   ];
 
   for (const [episodio, name, html] of items) {
