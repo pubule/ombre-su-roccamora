@@ -97,8 +97,10 @@ esplicita.
     scritta **a doppia lettura**: innocente alla prima, incriminante alla
     rilettura post-Ep. 18 (es. sa cose prima dei giornali, chiede di "bruciare"
     o "conservare per me" con precisione sospetta) — è il materiale della
-    deduzione finale; (e) i titoli degli episodi 7-17 sono TEMI, non vincoli:
-    ogni Fase A li fissa davvero.
+    deduzione finale; (e) le bozze approvate di TUTTI gli
+    episodi 4-20 vivono in CAMPAGNA-EPISODI.md (2026-07-18): ogni Fase A
+    parte dalla sua bozza e può arricchirla, MAI contraddirne tappe, semi e
+    Bivi senza aggiornare quel file.
 - Ogni episodio si chiude con un **Frammento di Campagna** numerato, un aggancio al successivo
   e un **Bivio morale sigillato**: due scelte sensate, conseguenze concrete (una meccanica,
   una narrativa) rivelate all'inizio dell'episodio dopo. Bivio dell'Ep. 1: lo spartito del
