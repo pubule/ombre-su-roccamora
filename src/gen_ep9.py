@@ -96,7 +96,7 @@ LUOGHI_9 = [
                         'improvvisa: sa GIÀ cosa dirà Riva, o cosa non dirà. Qualcuno gliel’ha '
                         'promesso.'),
          ]),
-    dict(n=2, nome='LA REDAZIONE DELLA GAZZETTA', voce_mappa='La Gazzetta',
+    dict(n=2, nome='LA REDAZIONE DELLA GAZZETTA', voce_mappa='La Gazzetta di Roccamora',
          req='Disponibile dall’inizio', art='La Gazzetta.png',
          chiude=None,
          indizi=[
@@ -159,8 +159,9 @@ LUOGHI_9 = [
              '<i>(Esca: potete prendere la carta Il Tesserino della Gendarmeria.)</i> '
              'Accanto, un fischietto d’ordinanza vero. <i>(Oggetto: prendete la carta Il '
              'Fischietto d’Allarme.)</i>',
-             'Il brigadiere, sottovoce e a disagio: «è arrivato in città un forestiero coi '
-             'guanti chiari, alla Locanda del Forestiero. Documenti in regola, troppo in '
+             'Il brigadiere, sottovoce e a disagio: «è arrivato in città un forestiero — «il '
+             'forestiero coi guanti», lo chiamano i miei — alla Locanda del Forestiero. '
+             'Documenti in regola, troppo in '
              'regola. Non ha fatto niente. Ma da quando è arrivato, i miei uomini “non '
              'sono disponibili” proprio nelle ore in cui servirebbero. Qualcuno, sopra di '
              'me, ha dato ordini.»'],
@@ -187,6 +188,8 @@ LUOGHI_9 = [
              'La parcella dell’avvocato, ancora nella busta: marenghi d’oro vecchio — la '
              'lega dell’ansa morta — e la busta è piegata in tre, senza un’ombra di dita, '
              'coi guanti. <i>(Reperto B: consegnate la Parcella dell’Avvocato.)</i>',
+             'Tra le carte, un promemoria dell’avvocato: «coordinarsi con “il forestiero '
+             'coi guanti” per la faccenda del teste — non per iscritto, mai per iscritto».',
              'Appunti per l’arringa: «ridurre il tutto a una SETTA di truffatori — la '
              'Società del Lume, dilettanti esaltati. Caso chiuso, nessun mandante, nessun '
              'oltre.» L’avvocato non difende l’imputato: seppellisce la pista che porta '

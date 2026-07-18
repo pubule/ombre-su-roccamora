@@ -28,7 +28,7 @@ try {
   await page.goto(BASE, { waitUntil: 'networkidle' });
   await page.evaluate(() => localStorage.clear());
   await page.goto(BASE, { waitUntil: 'networkidle' });
-  ok(await page.locator('.tessera-episodio').count() === 9, '9 episodi in taverna');
+  ok(await page.locator('.tessera-episodio').count() === 10, '10 episodi in taverna');
 
   // --- episodio -> modalita' tavolo -------------------------------------
   console.log('episodio 1, modalità tavolo');

@@ -233,5 +233,9 @@ fragile invece di picchiare il gruppo; obiettivo scorta.
   spawn una volta), il Salvacondotto (salta una tessera d'imboscata),
   l'ora che stringe. Config condivisa INVARIATA.
 - Fase D: IN ATTESA DELL'ARTE.
+- **Fase E — FATTA (20260718):** webapp integrata (export py/js, assets,
+  main.js a 10 episodi, soluzione/oracolo, reperti); suite verde (fix voce
+  mappa L2 «La Gazzetta di Roccamora» e chiave letterale «il forestiero coi
+  guanti» in L4/L5, test-ui a 10 episodi, 2 scenari test-partite Ep.9).
 - Fase E: export py/js (ep9, REPERTI_LUOGO {6: A, 5: B, 8: C}), assets,
   main.js (10° episodio), test (2 scenari).

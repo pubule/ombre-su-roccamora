@@ -39,6 +39,8 @@ from gen_ep7 import (LUOGHI_7, TILES_7, NEMICI_7, OGGETTI_LUOGO_7, LETTERA_7,  #
                      ESAMI_CARBONE_7)
 from gen_ep8 import (LUOGHI_8, TILES_8, NEMICI_8, OGGETTI_LUOGO_8, LETTERA_8,  # noqa: E402
                      ESAMI_CARBONE_8)
+from gen_ep9 import (LUOGHI_9, TILES_9, NEMICI_9, OGGETTI_LUOGO_9, LETTERA_9,  # noqa: E402
+                     ESAMI_CARBONE_9)
 from gen_mappa import VOCI_MAPPA, MAPPE  # noqa: E402
 from gen_bestiario import FASCE, BOSS_DELTA, ferite_per_fascia  # noqa: E402
 from simulate_playtest import (INDAGINE_UNLOCK, TICK_CANTO_OGNI, SOGLIA_CANTO,  # noqa: E402
@@ -51,6 +53,7 @@ from simulate_ep5 import TOKEN_POOL_BASE as POOL_EP5  # noqa: E402
 from simulate_ep6 import TOKEN_POOL_BASE as POOL_EP6  # noqa: E402
 from simulate_ep7 import TOKEN_POOL_BASE as POOL_EP7  # noqa: E402
 from simulate_ep8 import TOKEN_POOL_BASE as POOL_EP8  # noqa: E402
+from simulate_ep9 import TOKEN_POOL_BASE as POOL_EP9  # noqa: E402
 
 
 def strip_tags(s):
@@ -102,6 +105,9 @@ REPERTI_LUOGO = {
     'ep8': {5: ['Reperto C - Bolle del Carbone'],
             6: ['Reperto A - Inventario del Tesoro'],
             7: ['Reperto B - Fascicolo del Sequestro']},
+    'ep9': {6: ['Reperto A - Verbale della Ritrattazione'],
+            5: ['Reperto B - Parcella dell’Avvocato'],
+            8: ['Reperto C - Biglietto di C.B.']},
 }
 
 
@@ -357,6 +363,27 @@ SOLUZIONI = dict(
         ],
         boss='IL CAMBIAVALUTE',
     ),
+    ep9=dict(
+        domande=[
+            dict(q='DOVE è nascosto il teste stanotte?',
+                 risposta='Nella sacrestia del Tribunale, dietro l’aula.',
+                 esatta='Lo raggiungete per la via sicura: nel 1° round della scorta non si pesca nessuna carta Minaccia.',
+                 sbagliata='Lo cercate a tentoni: 1 Sgherro appare in T1 alla rivelazione.'),
+            dict(q='CHI paga l’avvocato?',
+                 risposta='Un fondo fittizio; il denaro è oro vecchio, la stessa mano dell’ansa morta.',
+                 esatta='«Il nome sbagliato»: in T3 ricordate al Sicario Gentile che i mandanti bruciano i sicari — salta la sua PRIMA attivazione.',
+                 sbagliata='Nessun effetto.'),
+            dict(q='QUANDO scatta il colpo al teste?',
+                 risposta='Stanotte, tra l’una e le tre, nell’intervallo delle ronde comprate.',
+                 esatta='Partite nella finestra giusta: il Canto (l’Ora che stringe) parte da 0.',
+                 sbagliata='Partite tardi, ronde già ritirate: 1 segnalino Canto in più.'),
+            dict(q='COSA portate con voi per la scorta?',
+                 risposta='IL SALVACONDOTTO DEL GIUDICE (il Tribunale, entro le 20).',
+                 esatta='Alla partenza saltate una tessera d’imboscata (T2/T4/T5).',
+                 sbagliata='Le fate tutte. (Tesserino e Lettera di Ranuzzi sono esche; la Mantella e il Fischietto restano armi vere.)'),
+        ],
+        boss='IL SICARIO GENTILE',
+    ),
     preludio=dict(
         domande=[
             dict(q='DOVE è tenuto Ansaldo?',
@@ -511,11 +538,27 @@ episodi = dict(
         soluzione=SOLUZIONI['ep8'],
         pool=POOL_EP8,
     ),
+    ep9=dict(
+        id='ep9', titolo='Il processo',
+        sottotitolo='episodio 9 — Atto II: la scorta del teste, e il primo volto di C.B.',
+        cartella='Episodio 9', ore_budget=6,
+        lettera=LETTERA_9,
+        obiettivo='Portate vivo il teste Anselmo Riva (3 Salute, si muove col gruppo, non '
+                  'combatte) dalla sacrestia (T1) al Molo del Lume (T6): gli aggressori '
+                  'bersagliano LUI, il Sicario Gentile lo CACCIA. Riva a bordo = vittoria; '
+                  'Riva a terra = scorta fallita.',
+        esami_carbone=ESAMI_CARBONE_9,
+        luoghi=[luogo_json(L, OGGETTI_LUOGO_9, REPERTI_LUOGO['ep9']) for L in LUOGHI_9],
+        tessere=[tessera_json(T) for T in TILES_9],
+        vantaggio=dict(slancio_ore=3, preparati_ore=1, preparati_luoghi=6),
+        soluzione=SOLUZIONI['ep9'],
+        pool=POOL_EP9,
+    ),
 )
 
 comune = dict(
     eroi=[eroe_json(h) for h in HEROES],
-    nemici=[nemico_json(n) for n in NEMICI + NEMICI_2 + NEMICI_3 + NEMICI_4 + NEMICI_5 + NEMICI_6 + NEMICI_7 + NEMICI_8],
+    nemici=[nemico_json(n) for n in NEMICI + NEMICI_2 + NEMICI_3 + NEMICI_4 + NEMICI_5 + NEMICI_6 + NEMICI_7 + NEMICI_8 + NEMICI_9],
     mappa=dict(voci=[dict(nome=v[0], indirizzo=v[1], tag=v[2]) for v in VOCI_MAPPA],
                mappe=[dict(cartella=m[0], sottotitolo=m[1], tags=list(m[2])) for m in MAPPE]),
     regole=REGOLE,
