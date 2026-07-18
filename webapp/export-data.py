@@ -41,6 +41,8 @@ from gen_ep8 import (LUOGHI_8, TILES_8, NEMICI_8, OGGETTI_LUOGO_8, LETTERA_8,  #
                      ESAMI_CARBONE_8)
 from gen_ep9 import (LUOGHI_9, TILES_9, NEMICI_9, OGGETTI_LUOGO_9, LETTERA_9,  # noqa: E402
                      ESAMI_CARBONE_9)
+from gen_ep10 import (LUOGHI_10, TILES_10, NEMICI_10, OGGETTI_LUOGO_10, LETTERA_10,  # noqa: E402
+                      ESAMI_CARBONE_10)
 from gen_mappa import VOCI_MAPPA, MAPPE  # noqa: E402
 from gen_bestiario import FASCE, BOSS_DELTA, ferite_per_fascia  # noqa: E402
 from simulate_playtest import (INDAGINE_UNLOCK, TICK_CANTO_OGNI, SOGLIA_CANTO,  # noqa: E402
@@ -54,6 +56,7 @@ from simulate_ep6 import TOKEN_POOL_BASE as POOL_EP6  # noqa: E402
 from simulate_ep7 import TOKEN_POOL_BASE as POOL_EP7  # noqa: E402
 from simulate_ep8 import TOKEN_POOL_BASE as POOL_EP8  # noqa: E402
 from simulate_ep9 import TOKEN_POOL_BASE as POOL_EP9  # noqa: E402
+from simulate_ep10 import TOKEN_POOL_BASE as POOL_EP10  # noqa: E402
 
 
 def strip_tags(s):
@@ -108,6 +111,9 @@ REPERTI_LUOGO = {
     'ep9': {6: ['Reperto A - Verbale della Ritrattazione'],
             5: ['Reperto B - Parcella dell’Avvocato'],
             8: ['Reperto C - Biglietto di C.B.']},
+    'ep10': {3: ['Reperto A - Denuncia di Abbandono'],
+             5: ['Reperto B - Libro Mastro della Muratura'],
+             8: ['Reperto C - Commessa del Fornitore']},
 }
 
 
@@ -384,6 +390,27 @@ SOLUZIONI = dict(
         ],
         boss='IL SICARIO GENTILE',
     ),
+    ep10=dict(
+        domande=[
+            dict(q='DOVE è murata la prima moglie?',
+                 risposta='Nell’intercapedine dietro la parete della camera al primo piano — quella che detta.',
+                 esatta='Andate dritti al vano: nel 1° round non si pesca nessuna carta Minaccia.',
+                 sbagliata='Cercate la parete a tentoni: 1 garzone appare in T1 alla rivelazione.'),
+            dict(q='CHI l’ha uccisa?',
+                 risposta='Corrado Malfanti, il vedovo, archiviato come «abbandono del tetto coniugale».',
+                 esatta='«La casa ha già parlato»: nominate Ada al Muratore — salta il suo PRIMO colpo di demolizione (e il Vedovo in T4 crolla, rimosso).',
+                 sbagliata='Nessun effetto.'),
+            dict(q='QUANDO torna il Muratore a demolire?',
+                 risposta='Stanotte, prima dell’alba, nell’intervallo delle ronde, dalla cantina.',
+                 esatta='Arrivate mentre comincia: la traccia DEMOLIZIONE parte da 0.',
+                 sbagliata='Arrivate a mazza già in azione: la DEMOLIZIONE parte da 2.'),
+            dict(q='COSA portate per fissare la prova?',
+                 risposta='LA MACCHINA FOTOGRAFICA (la Bottega del Fotografo, entro le 21).',
+                 esatta='Ogni documentazione all’intercapedine vale +2 alla traccia PROVA invece di +1.',
+                 sbagliata='Solo testimonianza a voce: +1 per volta, con prova NERVI. (Fede di Rosa e Ferro del Muratore sono esche; Pianta del Restauro salta T2, Ritratto di Ada abbassa le prove NERVI.)'),
+        ],
+        boss='IL MURATORE',
+    ),
     preludio=dict(
         domande=[
             dict(q='DOVE è tenuto Ansaldo?',
@@ -554,11 +581,28 @@ episodi = dict(
         soluzione=SOLUZIONI['ep9'],
         pool=POOL_EP9,
     ),
+    ep10=dict(
+        id='ep10', titolo='La casa che ricorda',
+        sottotitolo='episodio 10 — Atto II: la casa che ricorda, e la corsa alla demolizione',
+        cartella='Episodio 10', ore_budget=6,
+        lettera=LETTERA_10,
+        obiettivo='Fissate la prova (fotografate il corpo murato) prima che il Muratore abbatta '
+                  'il muro: due tracce, DEMOLIZIONE (il boss demolisce se non inchiodato) e '
+                  'PROVA (documentate all’intercapedine, +2 con la Macchina Fotografica). PROVA '
+                  'piena = vittoria; DEMOLIZIONE piena = il muro crolla, sconfitta. Abbattere il '
+                  'Muratore ferma la demolizione (seconda via).',
+        esami_carbone=ESAMI_CARBONE_10,
+        luoghi=[luogo_json(L, OGGETTI_LUOGO_10, REPERTI_LUOGO['ep10']) for L in LUOGHI_10],
+        tessere=[tessera_json(T) for T in TILES_10],
+        vantaggio=dict(slancio_ore=3, preparati_ore=1, preparati_luoghi=6),
+        soluzione=SOLUZIONI['ep10'],
+        pool=POOL_EP10,
+    ),
 )
 
 comune = dict(
     eroi=[eroe_json(h) for h in HEROES],
-    nemici=[nemico_json(n) for n in NEMICI + NEMICI_2 + NEMICI_3 + NEMICI_4 + NEMICI_5 + NEMICI_6 + NEMICI_7 + NEMICI_8 + NEMICI_9],
+    nemici=[nemico_json(n) for n in NEMICI + NEMICI_2 + NEMICI_3 + NEMICI_4 + NEMICI_5 + NEMICI_6 + NEMICI_7 + NEMICI_8 + NEMICI_9 + NEMICI_10],
     mappa=dict(voci=[dict(nome=v[0], indirizzo=v[1], tag=v[2]) for v in VOCI_MAPPA],
                mappe=[dict(cartella=m[0], sottotitolo=m[1], tags=list(m[2])) for m in MAPPE]),
     regole=REGOLE,

@@ -150,6 +150,14 @@ VOCI_MAPPA = [
     ('Casa di Anselmo Riva', 'campo della Cattedrale 2, casa del sacrestano', 'ep9'),
     ('Locanda del Forestiero', 'riva degli Schiavoni 8, camere', 'ep9'),
     ('Il Molo del Lume', 'darsena vecchia, approdo della Società', 'ep9'),
+    # Episodio 10 — la casa che ricorda. Riusi: La Corte della Faenza (ep2),
+    # L'Archivio Civico ('citta'), La Gendarmeria ('citta').
+    ('La Casa della Corte', 'Corte della Faenza 7, casa d’affitto ristrutturata', 'ep10'),
+    ('Deposito del Muratore', 'calle dei Muri 4, deposito di Bortolo Sassi', 'ep10'),
+    ('Il vano murato', 'Corte della Faenza 7, camera al primo piano', 'ep10'),
+    ('Casa Malfanti', 'Corte della Faenza 11, casa del vedovo', 'ep10'),
+    ('Fornitura del Borgo', 'Borgo delle Cisterne, magazzino dei materiali', 'ep10'),
+    ('Bottega del Fotografo', 'contrada del Collodio 2, studio fotografico', 'ep10'),
 ]
 
 # (sottocartella pdf/, sottotitolo, tag inclusi). Un episodio nuovo aggiunge
@@ -165,6 +173,7 @@ MAPPE = [
     ('Episodio 7', 'episodio 7 — la città che conoscete', ('citta', 'preludio', 'ep1', 'ep2', 'ep3', 'ep4', 'ep5', 'ep6', 'ep7')),
     ('Episodio 8', 'episodio 8 — la città che conoscete', ('citta', 'preludio', 'ep1', 'ep2', 'ep3', 'ep4', 'ep5', 'ep6', 'ep7', 'ep8')),
     ('Episodio 9', 'episodio 9 — la città che conoscete', ('citta', 'preludio', 'ep1', 'ep2', 'ep3', 'ep4', 'ep5', 'ep6', 'ep7', 'ep8', 'ep9')),
+    ('Episodio 10', 'episodio 10 — la città che conoscete', ('citta', 'preludio', 'ep1', 'ep2', 'ep3', 'ep4', 'ep5', 'ep6', 'ep7', 'ep8', 'ep9', 'ep10')),
 ]
 
 # Tipografico (provata la grafia manoscritta La Belle Aurore su tutta la

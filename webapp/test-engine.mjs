@@ -12,7 +12,7 @@ const DIR = path.dirname(fileURLToPath(import.meta.url));
 const json = (f) => JSON.parse(readFileSync(path.join(DIR, 'data', f), 'utf8'));
 const comune = json('comune.json');
 const carte = json('carte.json');
-const EPISODI = { preludio: json('preludio.json'), ep1: json('ep1.json'), ep2: json('ep2.json'), ep3: json('ep3.json'), ep4: json('ep4.json'), ep5: json('ep5.json'), ep6: json('ep6.json'), ep7: json('ep7.json'), ep8: json('ep8.json'), ep9: json('ep9.json') };
+const EPISODI = { preludio: json('preludio.json'), ep1: json('ep1.json'), ep2: json('ep2.json'), ep3: json('ep3.json'), ep4: json('ep4.json'), ep5: json('ep5.json'), ep6: json('ep6.json'), ep7: json('ep7.json'), ep8: json('ep8.json'), ep9: json('ep9.json'), ep10: json('ep10.json') };
 
 let errori = 0;
 const ko = (msg) => { errori += 1; console.log('  KO', msg); };

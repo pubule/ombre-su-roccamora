@@ -653,6 +653,61 @@ Chi canterà al di sotto, non si lamenti di ciò che al di sotto risponde.`;
     </div></div>
   `);
 
+  // --- Episodio 10, Reperto A: la denuncia di abbandono del 1879 (L3) ---
+  const repertoA10 = page(`
+    <div class="wrap"><div style="zoom:0.88;">
+      <div class="serif" style="font-style:italic; font-size:38px; color:#3a2415; mix-blend-mode:multiply; margin-bottom:44px;">Reperto A — denuncia di abbandono del tetto coniugale (Archivio Civico, 1879)</div>
+      <div class="serif" style="font-size:46px; line-height:72px;">
+        <p style="margin-bottom:32px;">Il sottoscritto <b>Corrado Malfanti</b> dichiara che la moglie <b>Ada</b> ha abbandonato il tetto coniugale, allontanandosi di sua volontà e senza far ritorno.</p>
+        <p style="margin-bottom:32px;">Chiede che ne sia presa nota agli atti.</p>
+      </div>
+      <div style="margin-top:60px; font-size:44px;">
+        <p class="serif">Data della denuncia: <b>il quarto giorno</b> dalla scomparsa.</p>
+        <p class="serif" style="margin-top:26px;">Firma: <span class="hand" style="font-size:52px;">Corrado Malfanti</span></p>
+      </div>
+      <div class="serif" style="font-style:italic; margin-top:64px; font-size:34px; color:#4a4a4e; mix-blend-mode:multiply;">
+        L’inchiostro è premuto forte, la mano recita. Quattro giorni: nessuno
+        denuncia così in fretta un abbandono che spera passeggero — si
+        denuncia così in fretta solo ciò che si è già fatto sparire.
+      </div>
+    </div></div>
+  `);
+
+  // --- Episodio 10, Reperto B: il libro mastro della muratura (L5) ---
+  const repertoB10 = page(`
+    <div class="wrap"><div style="zoom:0.90;">
+      <div class="serif" style="font-style:italic; font-size:38px; color:#3a2415; mix-blend-mode:multiply; margin-bottom:56px;">Reperto B — libro mastro di B. Sassi, muratore</div>
+      <div class="serif" style="font-size:46px; line-height:74px;">
+        <p style="margin-bottom:32px;"><b>1879</b> — Corte della Faenza: chiudere il vano piccolo, primo piano. <i>Pagato in contanti. Non registrare.</i></p>
+        <p style="margin-bottom:32px; border-top:2px solid #6b5636; padding-top:32px;"><b>ieri</b> — tornare ad aprire lo stesso vano. Malfanti insiste. Prima dell’alba, dalla cantina.</p>
+      </div>
+      <div class="serif" style="font-style:italic; margin-top:80px; font-size:34px; color:#4a4a4e; mix-blend-mode:multiply;">
+        La stessa mano, dieci anni dopo, costretta a disfare quel che murò.
+        Chi chiude un vano «e non registra» sa di murare qualcosa che non è
+        calce.
+      </div>
+    </div></div>
+  `);
+
+  // --- Episodio 10, Reperto C: la commessa del fornitore (L8) — il SEME ---
+  const repertoC10 = page(`
+    <div class="wrap"><div style="zoom:0.92;">
+      <div class="serif" style="font-style:italic; font-size:38px; color:#3a2415; mix-blend-mode:multiply; margin-bottom:64px;">Reperto C — commessa di fornitura (Borgo delle Cisterne)</div>
+      <div class="serif" style="font-size:48px; line-height:78px;">
+        <p style="margin-bottom:34px;">Fornitura: <b>sabbia scelta del Borgo delle Cisterne</b>, per restauri in città.</p>
+        <p style="margin-bottom:34px;">Pagamento: <b>in anticipo</b>, a mezzo lettera. Consegne su indicazione.</p>
+      </div>
+      <div class="hand" style="font-size:64px; line-height:100px; margin-top:50px; text-align:right;">
+        <p>— C.B.</p>
+      </div>
+      <div class="serif" style="font-style:italic; margin-top:70px; font-size:34px; color:#4a4a4e; mix-blend-mode:multiply;">
+        Carta di pregio, filigrana della cartiera dei casi passati; la sabbia
+        pagata prima ancora d’essere cavata. Chi sceglie i materiali sceglie
+        che cosa la città ricorderà.
+      </div>
+    </div></div>
+  `);
+
   const items = [
     ['Episodio 1', 'Reperto A - Diario di Ruggero', repertoA],
     ['Episodio 1', 'Reperto B - Registro delle Consegne', repertoB],
@@ -682,6 +737,9 @@ Chi canterà al di sotto, non si lamenti di ciò che al di sotto risponde.`;
     ['Episodio 9', 'Reperto A - Verbale della Ritrattazione', repertoA9],
     ['Episodio 9', 'Reperto B - Parcella dell’Avvocato', repertoB9],
     ['Episodio 9', 'Reperto C - Biglietto di C.B.', repertoC9],
+    ['Episodio 10', 'Reperto A - Denuncia di Abbandono', repertoA10],
+    ['Episodio 10', 'Reperto B - Libro Mastro della Muratura', repertoB10],
+    ['Episodio 10', 'Reperto C - Commessa del Fornitore', repertoC10],
   ];
 
   for (const [episodio, name, html] of items) {

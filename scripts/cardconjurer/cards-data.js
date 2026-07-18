@@ -2344,6 +2344,234 @@ const EP9_NEMICI = [
 const EP9 = [...LUOGHI9, ...EP9_INDIZI, ...EP9_TESTIMONI, ...EP9_REFERTI,
              ...EP9_MINACCE, ...EP9_OGGETTI, ...EP9_NEMICI];
 
+// ============================================================ EPISODIO 10
+// «La casa che ricorda» — Atto II, standalone (vedi DESIGN-EPISODIO-10.md).
+// Obiettivo CORSA ALLA DEMOLIZIONE: fissare la prova (fotografare il corpo
+// murato) prima che il Muratore abbatta il muro. Mazzo con più insidie,
+// meno spawn: l'orrore è ascoltare la casa che ricorda.
+
+const LUOGHI10 = [
+  { n: 1, nome: 'La Casa che Ricorda', req: 'Disponibile dall’inizio',
+    art: 'artworks/La Casa della Corte.png',
+    testo: 'Una modesta casa d’affitto appena ristrutturata: intonaco chiaro, odore di calce nuova. Di giorno pare una casa come le altre; di notte i muri sussurrano, e da una parete della camera al primo piano una voce detta, ostinata, sempre le stesse parole.',
+    approfondimenti: [
+      { tipo: 'Osservazione', soggetto: 'La parete che detta',
+        testo: 'La parete della camera è più spessa delle altre di una spanna: battendola, in un punto suona vuota. Non è un muro pieno — è un muro DOPPIO, con un vano dietro. La voce non viene «dalla casa»: viene da quel vano. Qualcosa, o qualcuno, è murato lì da anni, e la calce che ricorda gli ha ridato la voce.' },
+    ] },
+  { n: 2, nome: 'La Corte della Faenza', req: 'Disponibile dall’inizio',
+    art: 'artworks/Corte della Faenza.png',
+    testo: 'Un cortile di case popolari strette attorno a un pozzo, panni stesi e chiacchiere di ballatoio. Qui tutti sanno tutto di tutti — e nessuno ha mai davvero creduto che Ada Malfanti se ne fosse andata di sua volontà. La conoscono da sempre. La piangono ancora.',
+    approfondimenti: [
+      { tipo: 'Testimonianza', soggetto: 'La vicina di Ada',
+        testo: '«Una donna che scappa si porta via qualcosa. Ada lasciò tutto: l’anello, i vestiti, perfino le scarpe. Chi scappa scalza? Chi non è scappata: è stata portata via. E l’ha portata via lui, Corrado, che un anno dopo ha sposato la ragazza del fornaio. Abbandono, dissero. Io so cosa ho visto in faccia a quell’uomo.»' },
+    ] },
+  { n: 3, nome: 'L’Archivio Civico', req: 'Disponibile dall’inizio',
+    art: 'artworks/L’Archivio Civico.png',
+    testo: 'Un labirinto di scaffali e polvere: atti, licenze, denunce, piante catastali. Qui riposa, in un fascicolo del 1879, la menzogna ufficiale su Ada — e, nelle piante dell’edificio, la prova muta di una parete tirata su l’anno stesso in cui sparì.',
+    approfondimenti: [
+      { tipo: 'Referto', soggetto: 'La denuncia del 1879',
+        testo: 'La grafia è nervosa, l’inchiostro premuto forte: non la mano di chi ha perso qualcuno, ma di chi recita una parte provata. E la data — quattro giorni dopo la scomparsa — è troppo presto: denuncia in fretta solo chi ha già bisogno che l’assenza sia ufficiale. Corrado Malfanti non cercava Ada: la dichiarava sparita perché sapeva che non sarebbe tornata.' },
+    ] },
+  { n: 4, nome: 'La Gendarmeria', req: 'Disponibile dall’inizio',
+    art: 'artworks/La Gendarmeria.png',
+    testo: 'Mezza vuota di notte: un piantone, un registro, le vecchie pratiche. Il brigadiere ricorda bene il caso Malfanti — lo ricorda come una delle tante cose chiuse troppo in fretta — e ha l’aria di chi aspettava da dieci anni qualcuno che gliene chiedesse conto.',
+    approfondimenti: [
+      { tipo: 'Testimonianza', soggetto: 'Il brigadiere',
+        testo: '«Dieci anni fa Malfanti denunciò l’abbandono, noi archiviammo, e lui il mese dopo fece murare una parete “per umidità” — al primo piano, sul muro asciutto verso la corte. Nessuno collegò le due cose. Io sì, stanotte. Il colpevole è lui: l’ha uccisa e l’ha murata, e ha chiamato tutto “abbandono del tetto coniugale”.»' },
+    ] },
+  { n: 5, nome: 'Il Deposito del Muratore',
+    req: 'Il deposito è chiuso e il muratore diffida degli sconosciuti: si apre solo a chi sa di cosa è fatta quella casa — la materia giusta, quella cara, nominata per nome.',
+    art: 'artworks/Deposito del Muratore.png',
+    testo: 'Un antro di sacchi di calce, secchi e attrezzi. Bortolo Sassi ci vive dentro il suo terrore: un uomo onesto che dieci anni fa fece una cosa disonesta per denaro, e che stanotte è costretto a farne una peggiore per paura. Sul banco, il libro mastro racconta tutto a chi sa leggere.',
+    approfondimenti: [
+      { tipo: 'Referto', soggetto: 'Gli ordini di Malfanti',
+        testo: 'Il biglietto del ricatto fissa l’ora: «prima dell’alba, nell’intervallo delle ronde — entra dalla cantina e non farti sentire». Il muratore entrerà dal sottoscala e comincerà dal piano di sopra. Chi ha la pianta e conosce la parete doppia può andare dritto al vano senza cercarlo — e senza mettere il piede sul gradino marcio della scala.' },
+    ] },
+  { n: 6, nome: 'L’Intercapedine',
+    req: 'Il vano è dietro un muro, e il muro è dietro una casa che nessuno vuole aprire: ci si arriva solo sapendo cosa custodisce — la parete di cui parlano tutti, quella che non tace.',
+    art: 'artworks/Il vano murato.png',
+    testo: 'Non è un luogo dove si va: è un luogo che si raggiunge sapendo. Dietro la parete doppia della camera, in un vano largo quanto un uomo, c’è Ada — e la calce del Borgo, che le ha tenuto la voce per dieci anni. L’unico posto della città dove una morta parla, e chiede solo di essere trovata.',
+    approfondimenti: [
+      { tipo: 'Presagio', soggetto: 'La voce nel muro',
+        testo: 'A posare la mano sull’intonaco fresco: si sente Ada, non come un fantasma ma come un solco inciso nella calce, ripetere le ultime parole che udì — «ferma di battere le mani» — e poi il silenzio del vano che si chiude. Non chiede vendetta: chiede solo di essere trovata prima che il muro cada di nuovo. La visione dura un rintocco, e sa di calce e di lacrime.' },
+    ] },
+  { n: 7, nome: 'La Casa del Vedovo',
+    req: 'La casa di Malfanti è sbarrata e lui non apre agli estranei: cede solo davanti a chi nomina la parola vecchia con cui seppellì tutto — quella scritta nel registro del 1879.',
+    art: 'artworks/Casa Malfanti.png',
+    testo: 'Pulita, ordinata, borghese: la casa di chi ha ricostruito una vita sopra una tomba. Rosa, la seconda moglie, la tiene come uno specchio. Solo sul comò una cosa stona: la fede di Ada, lucidata e in mostra, il cimelio di un possesso che si spaccia per ricordo di un dolore.',
+    approfondimenti: [
+      { tipo: 'Osservazione', soggetto: 'L’ignoranza di Rosa',
+        testo: 'Rosa parla di Ada senza odio, con la pena sincera di chi crede a una storia triste: è innocente, e la sua innocenza è la prova più crudele della colpa di Corrado. Ma sul comò la fede di Ada è disposta con cura maniacale, girata verso la porta: non il ricordo di un abbandono — il cimelio di un possesso. Corrado non ha perso Ada. Se l’è tenuta, murata e in vista, per dieci anni.' },
+    ] },
+  { n: 8, nome: 'La Fornitura del Borgo',
+    req: 'Il magazzino della fornitura tratta solo con chi sa cosa cercare: la materia buona, quella del quartiere dei pozzi, nominata per quello che è.',
+    art: 'artworks/Fornitura del Borgo.png',
+    testo: 'Un magazzino di materiali edili sull’orlo del quartiere dei pozzi: sabbia, pietra, calce. Da qui è partita la sabbia buona che ha dato voce alla casa — venduta a un privato che paga in anticipo, per lettera, e si firma con due sole lettere che il magazziniere non ha mai osato decifrare.',
+    approfondimenti: [
+      { tipo: 'Referto', soggetto: 'La commessa firmata «C.B.»',
+        testo: 'Carta di pregio, filigrana della cartiera dei casi passati; la sabbia del Borgo pagata prima ancora di essere cavata; e la firma è un ricciolo solo, «C.B.», la stessa mano che affiora nei registri dell’inverno. La casa che parla non è un incidente della ristrutturazione: è un esperimento. Qualcuno sta scegliendo di che cosa è fatta Roccamora — e chi sceglie i materiali sceglie che cosa la città ricorderà.' },
+    ] },
+  { n: 9, nome: 'La Bottega del Fotografo',
+    req: 'La bottega è chiusa a quest’ora, e il fotografo apre solo a chi gli spiega perché gli serva la notte: non un ritratto, ma qualcosa che resti anche quando la cosa ritratta non c’è più.',
+    art: 'artworks/Bottega del Fotografo.png',
+    testo: 'Sa di collodio e di chimica: lastre, cavalletti, un fondale dipinto. Il fotografo crede nella sua arte come in una missione — che un giorno si condanneranno gli assassini con la luce, non con le chiacchiere — e stanotte vi presta la macchina e il lampo per provarlo.',
+    approfondimenti: [
+      { tipo: 'Osservazione', soggetto: 'Il lampo al magnesio',
+        testo: 'La macchina è pesante ma pronta: cavalletto, otturatore, e una vaschetta di polvere di magnesio per il lampo. La regola è semplice: al buio della casa, un lampo fissa quello che la voce sola non basta a provare. Con la macchina, ogni istante passato a documentare l’intercapedine vale il doppio: la memoria effimera della casa diventa lastra permanente.' },
+    ] },
+].map((L) => ({
+  art: L.art,
+  title: `${L.n} · ${L.nome}`,
+  file: `Episodio 10/Luoghi/${L.n} - ${L.nome.replace(/’/g, "'")}`,
+  type: `Luogo ${L.n}`,
+  rules: `{i}${L.req === 'Disponibile dall’inizio' ? L.testo : L.req}{/i}`,
+  approfondimenti: L.approfondimenti, n: L.n,
+}));
+
+const EP10_INDIZI = LUOGHI10.flatMap((L) =>
+  L.approfondimenti.filter((a) => a.tipo === 'Osservazione' || a.tipo === 'Presagio')
+    .map((a) => ({
+      art: L.art, n: L.n, kind: 'Indizio',
+      title: `Indizio Nascosto — ${a.soggetto}`,
+      file: `Episodio 10/Indizi/${a.soggetto.replace(/’/g, "'")}`,
+      type: a.tipo,
+      rules: `{i}◆ (${a.tipo}) ${a.testo}{/i}`,
+    })));
+
+const EP10_TESTIMONI = LUOGHI10.flatMap((L) =>
+  L.approfondimenti.filter((a) => a.tipo === 'Testimonianza').map((a) => ({
+    art: L.art, n: L.n, kind: 'Testimone',
+    title: `Testimone — ${a.soggetto}`,
+    file: `Episodio 10/Testimoni/${a.soggetto.replace(/’/g, "'")}`,
+    type: `Luogo ${L.n} · Testimone`,
+    rules: `{i}${a.testo}{/i}`,
+  })));
+
+const EP10_REFERTI = LUOGHI10.flatMap((L) =>
+  L.approfondimenti.filter((a) => a.tipo === 'Referto').map((a) => ({
+    art: L.art, n: L.n, kind: 'Referto',
+    title: `Referto — ${a.soggetto}`,
+    file: `Episodio 10/Referti/${a.soggetto}`,
+    type: `Luogo ${L.n} · Referto`,
+    rules: `{i}${a.testo}{/i}`,
+  })));
+
+// Mazzo 21: 6 spawn (garzoni), 8 insidie (NERVI, l'orrore della casa), 3
+// crescendo (la casa trema, +Demolizione), 4 eventi. Più insidie, meno
+// spawn: la scala di questo episodio (vedi DESIGN-EPISODIO-10.md §7).
+const EP10_MINACCE = [
+  { art: 'artworks/I garzoni del muratore.png', title: 'I Garzoni del Muratore', tipo: 'Malavita',
+    flavor: 'Ragazzi pagati che non sanno cosa c’è nel muro. Solo che non dovete salire.',
+    effect: 'Piazzate 1 Sgherro sull’uscita più vicina agli eroi.' },
+  { art: 'artworks/I garzoni del muratore.png', title: 'Il Manovale Spaventato', tipo: 'Malavita',
+    flavor: 'Trema più di voi. Ma ha una famiglia da sfamare, e ordini da eseguire.',
+    effect: 'Piazzate 1 Sgherro sull’ingresso della tessera (dal lato da cui siete entrati).' },
+  { art: 'artworks/I garzoni del muratore.png', title: 'Ordini dal Deposito', tipo: 'Malavita',
+    flavor: '«Non far salire nessuno», ha detto Bortolo. E loro obbediscono, subito.',
+    effect: 'Piazzate 1 Sgherro sull’uscita più vicina agli eroi: si attiva subito.' },
+  { art: 'artworks/I garzoni del muratore.png', title: 'Chi Non Deve Salire', tipo: 'Malavita',
+    flavor: 'Un braccio teso sulla scala. Non minacciano: sbarrano.',
+    effect: 'Piazzate 1 Sgherro sull’uscita più vicina agli eroi.' },
+  { art: 'artworks/I garzoni del muratore.png', title: 'La Ronda del Cantiere', tipo: 'Malavita',
+    flavor: 'Fanno il giro della casa con la lanterna cieca, come guardiani di un morto.',
+    effect: 'Piazzate 1 Sgherro sull’ingresso della tessera (dal lato da cui siete entrati).' },
+  { art: 'artworks/I garzoni del muratore.png', title: 'Il Fischio di Bortolo', tipo: 'Malavita',
+    flavor: 'Un fischio dall’alto, e i garzoni convergono dove il padrone li vuole.',
+    effect: 'Piazzate 1 Sgherro sull’uscita più vicina agli eroi: si attiva subito.' },
+  { art: 'artworks/La voce che urla.png', title: 'La Voce che Urla', tipo: 'Insidia',
+    flavor: 'Il muro non sussurra più: urla, con la gola di dieci anni fa.',
+    effect: 'Ogni eroe prova NERVI (Facile): chi fallisce ha 1 sola azione al prossimo turno.' },
+  { art: 'artworks/Il nome sussurrato.png', title: 'Il Nome Sussurrato', tipo: 'Insidia',
+    flavor: 'Tra i nomi dei morti, la casa sillaba il vostro. Come vi conosce?',
+    effect: 'L’eroe più avanzato prova NERVI (Media): se fallisce, 1 danno.' },
+  { art: 'artworks/La parete che suda calce.png', title: 'La Parete che Suda Calce', tipo: 'Insidia',
+    flavor: 'Gocce bianche colano dall’intonaco, come lacrime dense. La casa piange.',
+    effect: 'L’eroe più avanzato prova NERVI (Media): se fallisce, 1 danno.' },
+  { art: 'artworks/La voce che urla.png', title: 'L’Eco del Colpo', tipo: 'Insidia',
+    flavor: 'Ogni mazzata di sopra rimbomba anche in voi, come un cuore che sbaglia.',
+    effect: 'Ogni eroe prova NERVI (Facile): chi fallisce ha 1 sola azione al prossimo turno.' },
+  { art: 'artworks/La ninnananna di ada.png', title: 'La Ninnananna di Ada', tipo: 'Insidia',
+    flavor: 'Una nenia dolcissima dalla parete. È peggio dell’urlo: vi vuole restare.',
+    effect: 'L’eroe con meno NERVI prova NERVI (Media): se fallisce, 1 danno.' },
+  { art: 'artworks/La parete che suda calce.png', title: 'Il Respiro nel Muro', tipo: 'Insidia',
+    flavor: 'Dietro l’intonaco, qualcosa respira piano. Aspetta di essere trovato.',
+    effect: 'L’eroe più avanzato prova NERVI (Media): se fallisce, 1 danno.' },
+  { art: 'artworks/La voce che urla.png', title: 'Il Silenzio Improvviso', tipo: 'Insidia',
+    flavor: 'D’un tratto la casa tace, del tutto. È il silenzio a gelarvi il sangue.',
+    effect: 'Ogni eroe prova NERVI (Facile): chi fallisce ha 1 sola azione al prossimo turno.' },
+  { art: 'artworks/Il nome sussurrato.png', title: 'La Casa Trema', tipo: 'Insidia',
+    flavor: 'Un fremito percorre i muri: la casa sa che stanno per aprirla.',
+    effect: 'L’eroe più avanzato prova NERVI (Media): se fallisce, 1 danno.' },
+  { art: 'artworks/Il primo colpo di mazza.png', title: 'Il Primo Colpo di Mazza', tipo: 'Crescendo',
+    flavor: 'Dall’intercapedine, la prima mazzata. Un pezzo di verità va in polvere.',
+    effect: 'Aggiungete 1 segnalino Canto (la Casa che trema) E fate avanzare la DEMOLIZIONE di 1. Alla soglia: la casa è al colmo — ogni Fase Minaccia pesca 1 carta in più, per sempre.' },
+  { art: 'artworks/La crepa si allarga.png', title: 'La Crepa si Allarga', tipo: 'Crescendo',
+    flavor: 'Una crepa corre lungo la parete, e con lei corre il tempo che vi resta.',
+    effect: 'Aggiungete 1 segnalino Canto (la Casa che trema) E fate avanzare la DEMOLIZIONE di 1. Alla soglia: ogni Fase Minaccia pesca 1 carta in più, per sempre.' },
+  { art: 'artworks/Il muro geme.png', title: 'Il Muro Geme', tipo: 'Crescendo',
+    flavor: 'Il muro cede con un lamento quasi umano. Ada sta per tornare alla luce — o alle macerie.',
+    effect: 'Aggiungete 1 segnalino Canto (la Casa che trema) E fate avanzare la DEMOLIZIONE di 1. Alla soglia: ogni Fase Minaccia pesca 1 carta in più, per sempre.' },
+  { art: 'artworks/Un raggio di luna.png', title: 'Un Raggio di Luna', tipo: 'Quiete',
+    flavor: 'Dal lucernario, per un attimo, la luna. La casa, sotto, sembra quasi in pace.',
+    effect: 'Nessun effetto. Tirate il fiato: anche una casa che ricorda, ogni tanto, riposa.' },
+  { art: 'artworks/Una crepa mostra la via.png', title: 'Una Crepa Mostra la Via', tipo: 'Favore',
+    flavor: 'Una fenditura nel muro rivela la stanza accanto: la casa vi apre una porta.',
+    effect: 'Rivelate una tessera coperta adiacente a quella di un eroe (la scelgono i giocatori).' },
+  { art: 'artworks/Calcinacci sul passo.png', title: 'Calcinacci sul Passo', tipo: 'Ostacolo',
+    flavor: 'Detriti franati sbarrano il corridoio: si passa, ma piano.',
+    effect: 'Fino a fine round, sulla tessera dell’eroe attivo muoversi costa il doppio.' },
+  { art: 'artworks/Un mattone dallalto.png', title: 'Un Mattone dall’Alto', tipo: 'Insidia',
+    flavor: 'La demolizione fa piovere macerie: un mattone si stacca proprio sopra di voi.',
+    effect: 'Un eroe a caso (chi arbitra tira) subisce 1 danno.' },
+].map((m) => ({
+  art: m.art,
+  title: `${m.tipo} — ${m.title}`,
+  file: `Episodio 10/Minacce/${m.title.replace(/’/g, "'")}`,
+  rules: `{i}${m.flavor}{/i}{divider}${m.effect}`,
+}));
+
+const EP10_OGGETTI = [
+  { art: 'artworks/Macchina Fotografica.png', nome: 'La Macchina Fotografica', ref: 'E10-L9',
+    fonte: 'Luogo 9 — La Bottega del Fotografo (entro le 21)',
+    flavor: 'Cavalletto, otturatore, lampo al magnesio. Una voce svanisce all’alba; una lastra impressa resta per sempre.',
+    effetto: 'All’intercapedine (T6), ogni azione Interagire per documentare il corpo fa avanzare la traccia PROVA di 2 invece di 1 (e senza prova NERVI).' },
+  { art: 'artworks/Pianta del Restauro.png', nome: 'La Pianta del Restauro', ref: 'E10-L5',
+    fonte: 'Luogo 5 — Il Deposito del Muratore',
+    flavor: 'La parete doppia segnata a matita rossa. Sapete quale muro nasconde il vano — e quale gradino non calpestare.',
+    effetto: 'All’inizio della spedizione saltate la tessera T2 (la Scala che Ripete) e la sua trappola: andate dritti verso l’intercapedine.' },
+  { art: 'artworks/Ritratto di Ada.png', nome: 'Il Ritratto di Ada', ref: 'E10-L6',
+    fonte: 'Luogo 6 — L’Intercapedine',
+    flavor: 'Un dagherrotipo di dieci anni fa: una giovane donna che ride nella corte, viva. Guardarla cambia il terrore in pietà.',
+    effetto: 'Chi porta il Ritratto ha +1 a tutte le prove NERVI provocate dalla casa (le carte insidia dell’episodio).' },
+  { art: 'artworks/Ferro del Muratore.png', nome: 'Il Ferro del Muratore', ref: 'E10-L5',
+    fonte: 'Luogo 5 — Il Deposito del Muratore',
+    flavor: 'Un ferro da muratore arrugginito. Sembra l’arma di un delitto. È solo un attrezzo di un delitto.',
+    effetto: 'Effetto: nessuno finora scoperto.' },
+  { art: 'artworks/Fede di Rosa.png', nome: 'La Fede di Rosa', ref: 'E10-L7',
+    fonte: 'Luogo 7 — La Casa del Vedovo',
+    flavor: 'La fede di Ada, che Corrado tiene in mostra come un trofeo. Prova la sua crudeltà, non il suo delitto.',
+    effetto: 'Effetto: nessuno finora scoperto.' },
+].map((o) => ({
+  art: o.art,
+  title: o.nome,
+  file: `Episodio 10/Oggetti/${o.nome.replace(/’/g, "'")}`,
+  type: 'Oggetto',
+  rules: `{i}${o.flavor}{/i}{divider}${o.effetto}`,
+  ref: o.ref, fonte: o.fonte,
+}));
+
+const EP10_NEMICI = [
+  { art: 'artworks/Il Muratore.png', title: 'Il Muratore',
+    type: 'Il Bruto della Calce (Boss) — Episodio 10',
+    rules: '{i}Bortolo «Malta» Sassi non è un assassino: è un muratore ricattato che, per denaro e per paura, dieci anni fa murò un corpo e stanotte è costretto a portarlo via. Cala la mazza sul muro come chi butta giù il proprio passato.{/i}{divider}Statistiche nel Bestiario. DEMOLISCE: se non inchiodato all’intercapedine, +2 alla traccia Demolizione invece di attaccare. «La casa ha già parlato» (D2): salta il primo colpo di demolizione.' },
+  { art: 'artworks/Il Vedovo.png', title: 'Il Vedovo',
+    type: 'Il Colpevole Disperato — Episodio 10',
+    rules: '{i}Corrado Malfanti, il vedovo risposato, entrato di nascosto nella sua stessa casa per assistere alla cancellazione della sua colpa. Non ha più la freddezza di dieci anni fa: vede crollare la menzogna con l’intonaco.{/i}{divider}Nemico minore (appare in T4): intralcia chi documenta. «La casa ha già parlato» (D2): nominare Ada lo paralizza, rimosso dal gioco.' },
+].map((n) => ({ ...n, file: `Episodio 10/Nemici/${n.title}` }));
+
+const EP10 = [...LUOGHI10, ...EP10_INDIZI, ...EP10_TESTIMONI, ...EP10_REFERTI,
+              ...EP10_MINACCE, ...EP10_OGGETTI, ...EP10_NEMICI];
+
 
 module.exports = {
   HEROES, NEMICI, MINACCE, LUOGHI, INDIZI, TESTIMONI, REFERTI, OGGETTI, PRELUDIO,
@@ -2356,5 +2584,6 @@ module.exports = {
   EP7, LUOGHI7, EP7_INDIZI, EP7_TESTIMONI, EP7_REFERTI, EP7_MINACCE, EP7_OGGETTI, EP7_NEMICI,
   EP8, LUOGHI8, EP8_INDIZI, EP8_TESTIMONI, EP8_REFERTI, EP8_MINACCE, EP8_OGGETTI, EP8_NEMICI,
   EP9, LUOGHI9, EP9_INDIZI, EP9_TESTIMONI, EP9_REFERTI, EP9_MINACCE, EP9_OGGETTI, EP9_NEMICI,
-  ALL: [...HEROES, ...NEMICI, ...MINACCE, ...LUOGHI, ...INDIZI, ...TESTIMONI, ...REFERTI, ...OGGETTI, ...PRELUDIO, ...EP2, ...EP3, ...EP4, ...EP5, ...EP6, ...EP7, ...EP8, ...EP9],
+  EP10, LUOGHI10, EP10_INDIZI, EP10_TESTIMONI, EP10_REFERTI, EP10_MINACCE, EP10_OGGETTI, EP10_NEMICI,
+  ALL: [...HEROES, ...NEMICI, ...MINACCE, ...LUOGHI, ...INDIZI, ...TESTIMONI, ...REFERTI, ...OGGETTI, ...PRELUDIO, ...EP2, ...EP3, ...EP4, ...EP5, ...EP6, ...EP7, ...EP8, ...EP9, ...EP10],
 };
