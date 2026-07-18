@@ -38,18 +38,55 @@ esplicita.
 - **Stato campagna dopo l'Ep. 1:** il campanaro Ruggero Alvise è stato salvato dal
   Magazzino delle Cere; la Cattedrale è già "accordata"; i giocatori hanno il
   Frammento di Campagna n. 1.
-- **Arco previsto (adattabile — rinumerato il 2026-07-16):** la sequenza è quella
-  dello spartito stampato in L5 dell'Ep. 1: «il bronzo canta, la pietra risponde,
-  l'acqua ricorda». Ep. 2 *La voce del bronzo* (la Fonderia Vecchia, vedi
-  DESIGN-EPISODIO-2.md — assorbe il tema dell'ex "fonderia dei rintocchi"; episodio
-  "caso della settimana": Malavita in primo piano, culto solo in coda, Ferri MAI in
-  scena — le puntate mythology e quelle standalone si alternano per far respirare
-  l'antagonista), Ep. 3 *Le voci del pozzo* (la pietra; l'epilogo stampato dell'Ep. 1
-  — «Secondo movimento: le voci del pozzo» — è il titolo del movimento del RITUALE,
-  non dell'episodio 2, e resta onorato: l'Ep. 2 ci costruisce verso), Ep. 4 *Il
-  teatro dell'eco*, Ep. 5 *L'organo di ossa*, Ep. 6 finale *Il Terzo Movimento*
-  (discesa sotto la città, resa dei conti con Ferri e il Dormiente; qui i Frammenti
-  raccolti devono servire a una deduzione finale — l'acqua ricorda).
+- **Arco di campagna: VENTI episodi in quattro atti (ristrutturato 2026-07-18 —
+  supera il vecchio arco a 6).** Il vero antagonista di CAMPAGNA non è Ferri né il
+  solo Dormiente: è **«C.B.»**, la mente elegante già seminata negli episodi
+  stampati (il registro dell'Ep. 1 «consegna al C.B.», il mandante senza volto
+  dell'Ep. 2) — e **C.B. è M.**, il presidente della Società. CANON SEGRETO, da
+  non rivelare in nessun componente prima dei punti fissati sotto: la Società è
+  lo strumento con cui M. ripulisce i rivali e si fa CONSEGNARE i Frammenti che
+  servono al rituale. La rivelazione è una DEDUZIONE (rileggendo lettere e
+  Frammenti), mai un colpo di scena calato dall'alto.
+  - **Atto I — Il Rituale dei Tre Movimenti (Ep. 1-6):** lo spartito di L5:
+    «il bronzo canta, la pietra risponde, l'acqua ricorda». Ep. 2 *La voce del
+    bronzo* (fatto). Ep. 3 *Le voci del pozzo* (la pietra: il Ladro di Voci,
+    primo boss umano — vedi DESIGN-EPISODIO-3.md). Ep. 4 *Il teatro dell'eco*
+    (standalone col seme), Ep. 5 *L'organo di ossa*, Ep. 6 *Il Terzo Movimento*:
+    il rituale viene SVENTATO — vittoria vera, il Dormiente si riassopisce,
+    Ferri esce di scena (esecutore bruciato, non la mente) — ma C.B. resta
+    un'ombra senza volto. L'atto chiude un cerchio giocabile: chi si ferma qui
+    ha una campagna completa.
+  - **Atto II — La Città che Risuona (Ep. 7-12):** Roccamora mezz'accordata
+    "risuona" (casi standalone su echi e anomalie: la città stessa è cambiata);
+    la Malavita si riorganizza sotto un protettore invisibile; Ep. 9 il processo
+    per i fatti dell'Atto I (un capro espiatorio: qualcuno ripulisce le tracce);
+    Ep. 12, chiusura d'atto: un segno del Coro riappare, e una copia dei
+    Frammenti custoditi da M. risulta... già fatta.
+  - **Atto III — L'Uomo dai Guanti (Ep. 13-18):** la caccia a C.B. diventa il
+    caso. Scisma nella Società (un PNG storico dubita di M. — e sembra
+    paranoia); Ep. 15 il FALSO smascheramento (C.B. pare il rivale storico di
+    M.: il depistaggio usa la spiegazione "comoda"); **Ep. 18: la rivelazione
+    C.B. = M.**, per deduzione (le lettere rilette, gli inchiostri, ciò che M.
+    sapeva prima dei giornali). Due episodi di margine dopo il twist, mai il
+    twist nell'ultimo atto utile.
+  - **Atto IV — Il Quarto Movimento (Ep. 19-20):** M. ha quasi tutto (glielo
+    avete portato voi, per diciotto episodi). Ep. 19 la Società braccata, senza
+    sede e senza committente; Ep. 20 finale sotto la Cattedrale: il Quarto
+    Movimento è la voce umana — la vostra. Dormiente + M., e la deduzione
+    finale coi Frammenti (metà servono al rituale, e M. li voleva; metà
+    servono a smascherare LUI, e non lo ha mai saputo).
+  - **Regole di diluizione (vincolanti, la tela regge 20 episodi solo così):**
+    (a) massimo UN seme C.B./M. per episodio, periferico (un Approfondimento,
+    un reperto, un dettaglio della lettera) — mai due, mai nel nucleo delle 4
+    Domande prima dell'Atto III; (b) ritmo mythology/standalone ≈ 1:2 — il
+    culto respira, i casi della settimana tengono viva la città; (c) ogni atto
+    chiude un cerchio giocabile (la campagna è interrompibile a fine atto senza
+    sentirsi monca); (d) dalla Ep. 3 in poi ogni Lettera d'incarico di M. è
+    scritta **a doppia lettura**: innocente alla prima, incriminante alla
+    rilettura post-Ep. 18 (es. sa cose prima dei giornali, chiede di "bruciare"
+    o "conservare per me" con precisione sospetta) — è il materiale della
+    deduzione finale; (e) i titoli degli episodi 7-17 sono TEMI, non vincoli:
+    ogni Fase A li fissa davvero.
 - Ogni episodio si chiude con un **Frammento di Campagna** numerato, un aggancio al successivo
   e un **Bivio morale sigillato**: due scelte sensate, conseguenze concrete (una meccanica,
   una narrativa) rivelate all'inizio dell'episodio dopo. Bivio dell'Ep. 1: lo spartito del
@@ -556,7 +593,11 @@ sveglia del Dormiente.
 
 
 **Scala di difficoltà (progressione tra episodi):** ogni episodio deve essere un
-gradino sopra il precedente, mai un salto. Manopole da girare una o due alla volta:
+gradino sopra il precedente, mai un salto. Le manopole qui sotto valgono per
+l'ATTO I (Ep. 2-6); dagli atti successivi la difficoltà NON continua a salire
+linearmente (a 20 episodi diventerebbe ingiocabile): ogni atto RIPARTE dal
+gradino ~Ep. 3-4 e risale, variando le manopole (non sempre le stesse), e le
+migliorie accumulate degli eroi compensano. Manopole da girare una o due alla volta:
 
 - **Ep. 2** — 9 luoghi con le STESSE 6 ore (il budget ore non scala mai, vedi punto 1 e
   3-cinque: la pressione in più viene dal luogo in più, non da un orologio diverso —
