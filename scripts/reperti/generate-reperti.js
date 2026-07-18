@@ -540,6 +540,64 @@ Chi canterà al di sotto, non si lamenti di ciò che al di sotto risponde.`;
     </div></div>
   `);
 
+
+  // --- Episodio 8, Reperto A: l'inventario del tesoro (L6) ---
+  const repertoA8 = page(`
+    <div class="wrap"><div style="zoom:0.90;">
+      <div class="serif" style="font-style:italic; font-size:38px; color:#3a2415; mix-blend-mode:multiply; margin-bottom:60px;">Reperto A — inventario del sequestro demaniale, copia del praticante</div>
+      <div class="serif" style="font-size:50px; line-height:80px;">
+        <p style="margin-bottom:40px;" class="caps">beni della disciolta confraternita · anno 1741</p>
+        <p style="margin-bottom:40px;">Casse ventidue, once quattromila circa, in marenghi e verghe di fusione antica. Sigilli demaniali dal n. 1 al n. 22.</p>
+        <p style="margin-bottom:40px;">Destinazione: deposito giudiziario. Custodia: a chi tiene le matrici dei sigilli, d’ufficio.</p>
+      </div>
+      <div class="hand" style="margin-top:80px; font-size:52px; line-height:78px;">
+        Nota a margine, mano diversa: «il deposito non esiste più. Le casse nemmeno. Chiedere ai sigilli.»
+      </div>
+    </div></div>
+  `);
+
+  // --- Episodio 8, Reperto B: il fascicolo del sequestro (L7) ---
+  const repertoB8 = page(`
+    <div class="wrap"><div style="zoom:0.90;">
+      <div class="serif" style="font-style:italic; font-size:38px; color:#3a2415; mix-blend-mode:multiply; margin-bottom:60px;">Reperto B — dal fascicolo del sequestro, Archivio Demaniale</div>
+      <div class="serif" style="font-size:50px; line-height:80px;">
+        <p style="margin-bottom:40px;" class="caps">verbale di apposizione dei sigilli · 1741</p>
+        <p style="margin-bottom:40px;">Si attesta l’apposizione dei sigilli demaniali nn. 1-22 alle casse della disciolta confraternita, alla presenza dell’esattore capo.</p>
+        <p style="margin-bottom:40px;">Le matrici seguono la carica, non l’archivio: passano d’ufficio a chi eredita la funzione.</p>
+      </div>
+      <div class="serif" style="font-style:italic; margin-top:100px; font-size:36px; color:#4a4a4e; mix-blend-mode:multiply;">
+        I sigilli sul faldone sono scaduti da un secolo. La ceralacca di due
+        di essi è fresca: lucida, elastica, di quest’anno.
+      </div>
+    </div></div>
+  `);
+
+  // --- Episodio 8, Reperto C: le bolle del carbone (L5) ---
+  const righeC8 = [
+    ['carbone da forgia, sacchi 30', 'molo in disarmo', 'giovedì, ore 23 — coi cani'],
+    ['carbone da forgia, sacchi 30', 'molo in disarmo', 'giovedì, ore 23 — coi cani'],
+    ['carbone da stufa, sacchi 8', 'Monte di Pietà', 'martedì, ore 8 — regolare'],
+    ['carbone da forgia, sacchi 30', 'molo in disarmo', 'giovedì, ore 23 — coi cani'],
+  ];
+  const repertoC8 = page(`
+    <div class="wrap"><div style="zoom:0.84;">
+      <div style="text-align:center; margin-bottom:60px;">
+        <div class="caps" style="font-size:64px;">bolle del carbone · carbonaia del porto</div>
+        <div class="serif" style="font-style:italic; font-size:36px; color:#3a2415; mix-blend-mode:multiply; margin-top:14px;">Reperto C — dal chiodo della carbonaia, ricopiate in fretta</div>
+      </div>
+      <table style="width:100%; border-collapse:collapse; font-size:44px;">
+        <tbody class="hand">
+          ${righeC8.map((r) => `<tr>${r.map((v) => `<td style="border-bottom:1px solid #3a2415; padding:20px 8px; font-size:44px; mix-blend-mode:multiply;">${v}</td>`).join('')}</tr>`).join('')}
+        </tbody>
+      </table>
+      <div class="serif" style="font-style:italic; margin-top:80px; font-size:36px; color:#4a4a4e; mix-blend-mode:multiply;">
+        Carbone da forgia, il triplo del fabbisogno di un porto senza
+        fonderie. E il carro del giovedì torna scarico ma pesante: il
+        carbone non piega le assi. L’oro sì.
+      </div>
+    </div></div>
+  `);
+
   const items = [
     ['Episodio 1', 'Reperto A - Diario di Ruggero', repertoA],
     ['Episodio 1', 'Reperto B - Registro delle Consegne', repertoB],
@@ -563,6 +621,9 @@ Chi canterà al di sotto, non si lamenti di ciò che al di sotto risponde.`;
     ['Episodio 7', 'Reperto A - Taccuino di Fava', repertoA7],
     ['Episodio 7', 'Reperto B - Deposito del Brevetto', repertoB7],
     ['Episodio 7', 'Reperto C - Bolle della Calce', repertoC7],
+    ['Episodio 8', 'Reperto A - Inventario del Tesoro', repertoA8],
+    ['Episodio 8', 'Reperto B - Fascicolo del Sequestro', repertoB8],
+    ['Episodio 8', 'Reperto C - Bolle del Carbone', repertoC8],
   ];
 
   for (const [episodio, name, html] of items) {

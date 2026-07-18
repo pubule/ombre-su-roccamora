@@ -1895,6 +1895,233 @@ const EP7 = [...LUOGHI7, ...EP7_INDIZI, ...EP7_TESTIMONI, ...EP7_REFERTI,
              ...EP7_MINACCE, ...EP7_OGGETTI, ...EP7_NEMICI];
 
 
+
+// ============================================================ EPISODIO 8
+// «L'oro vecchio» — standalone di Malavita (vedi DESIGN-EPISODIO-8.md).
+// MAZZO FUORI STANDARD (regola varietà): 14 spawn / 2 insidie / 2
+// crescendo / 3 eventi — la pressione è fatta di corpi.
+
+const LUOGHI8 = [
+  { n: 1, nome: 'L’Osteria della Bilancia', req: 'Disponibile dall’inizio',
+    art: 'artworks/Osteria della Bilancia.png',
+    testo: 'Il parlamento dei clan minori: tavoli assegnati per bandiera, il vino che misura le alleanze. Stasera la geografia è nuova — tavoli nemici da vent’anni si sono avvicinati, e si beve piano, come a un funerale andato bene.',
+    approfondimenti: [
+      { tipo: 'Testimonianza', soggetto: 'Il sensale dei banchi',
+        testo: '«Il pagamento l’ho visto contare: marenghi con l’aquila vecchia, mai un millesimo leggibile — i bordi molati di fresco, tutti. E chi contava non era un gregario: era la Vedova Bruna in persona, coi guanti da messa. Contava senza guardare le dita. Chi conta così ha contato TANTO, nella vita.»' },
+    ] },
+  { n: 2, nome: 'Il Banco dei Pegni', req: 'Disponibile dall’inizio',
+    art: 'artworks/Banco dei Pegni.png',
+    testo: 'Il bancone lucido, la lente d’ottone, l’occhio che pesa prima della bilancia. I sette marenghi in fila sul velluto sembrano una costellazione — e Fossa li guarda come si guarda un cielo che promette tempesta.',
+    approfondimenti: [
+      { tipo: 'Osservazione', soggetto: 'La lente di Fossa',
+        testo: 'Sotto la lente, tra le molature, un residuo nero nelle zigrinature: polvere di carbone da forgia. L’oro non viene speso com’è: viene RIFUSO, vicino a molto carbone — e il carbone da crogiolo, in una città senza fonderie attive, si compra solo in un posto. Chiedete ai carrettieri.' },
+    ] },
+  { n: 3, nome: 'La Taverna della Chiatta', req: 'Disponibile dall’inizio',
+    art: 'artworks/Taverna della Chiatta.png',
+    testo: 'Il porto senza il porto: reti alle travi, il pavimento che sa di sentina, il tavolo della Vedova in fondo come un altare laico. I patti qui si chiudono a bicchieri alzati e si rompono a bicchieri rotti — e nessun bicchiere è rotto da mesi.',
+    approfondimenti: [
+      { tipo: 'Testimonianza', soggetto: 'Il barcaiolo della Chiatta',
+        testo: '«La Vedova è salita sulla mia barca una volta sola, per andare all’ansa morta. Non ha aperto bocca per tutto il viaggio. Alla banchina l’aspettava l’orefice — quello radiato, il Cambiavalute — col bilancino sotto il braccio. Lei gli ha dato UNA busta. Lui s’è inchinato come si fa coi vescovi.»' },
+    ] },
+  { n: 4, nome: 'Il Monte di Pietà', req: 'Disponibile dall’inizio',
+    art: 'artworks/Monte di Pietà.png',
+    testo: 'La memoria economica dei poveri: scaffali di pegni etichettati, la grata, l’odore di naftalina e dignità. File insolite: gente che RITIRA. Il direttore firma svincoli con la penna che trema — l’oro vecchio scotta anche a chi lo incassa.',
+    approfondimenti: [
+      { tipo: 'Referto', soggetto: 'Il registro dei riscatti',
+        testo: 'I riscatti anomali dell’ultimo trimestre fanno una mappa: tutti i quartieri dei clan minori, nessuno dei clan grandi. Chi paga sta comprando i PICCOLI — uno alla volta, casa per casa, come si compra un isolato prima di costruirci sopra. Questo non è racket: è un CONSOLIDAMENTO. E ha un progetto.' },
+    ] },
+  { n: 5, nome: 'La Carbonaia del Porto',
+    req: 'Il carbonaio non parla coi curiosi: «il carbone è carbone». Ma chi nomina il carico giusto — quello che viaggia di notte — scopre che il carbonaio ha una coscienza, e che pesa più dei sacchi.',
+    art: 'artworks/Carbonaia del Porto.png',
+    testo: 'Una cattedrale nera: montagne di sacchi, polvere che inghiotte la luce, il carbonaio bianco solo intorno agli occhi. Le bolle sul chiodo, i carri in fila — e un carico che parte solo di giovedì, quando il porto dorme.',
+    approfondimenti: [
+      { tipo: 'Referto', soggetto: 'Le bolle del carbone',
+        testo: 'Le firme di ricevuta sulle bolle del giovedì sono tutte della stessa mano — una mano ELEGANTE, da scrivano, che si sforza di sembrare rozza: le aste tremano dove non dovrebbero. Chi riceve il carbone all’ansa morta sa scrivere molto meglio di quanto voglia mostrare. Un orefice radiato, per esempio.' },
+    ] },
+  { n: 6, nome: 'La Casa del Vecchio Esattore',
+    req: 'L’esattore in pensione non apre: «i conti dello Stato sono chiusi». Ma chi nomina l’oro giusto — quello che lo Stato ha perso — trova un vecchio che aspetta da cinquant’anni di raccontare.',
+    art: 'artworks/Casa dell’Esattore.png',
+    testo: 'Un archivio in pensione: fascicoli rilegati in casa, timbri a secco senza inchiostro, la divisa demaniale nell’armadio con la canfora. Un uomo che ha contato l’oro dello Stato per quarant’anni — e che da cinquanta aspetta qualcuno a cui raccontare dove è finito.',
+    approfondimenti: [
+      { tipo: 'Osservazione', soggetto: 'L’inventario dell’esattore',
+        testo: 'In fondo all’inventario, una nota a margine di mano diversa — più recente, inchiostro moderno: «il deposito non esiste più. Le casse nemmeno. Chiedere ai sigilli.» L’esattore giura di non averla scritta lui. Qualcuno ha letto questa copia PRIMA di voi — e ha lasciato un appunto da collega.' },
+    ] },
+  { n: 7, nome: 'L’Archivio dei Sequestri',
+    req: 'L’archivista demaniale è un uomo prudente: «i fascicoli storici si aprono su istanza». Ma chi cita il sequestro giusto — con la sua lega e il suo anno — ottiene il faldone prima ancora di finire la frase.',
+    art: 'artworks/Archivio Demaniale.png',
+    testo: 'La soffitta dello Stato: sequestri, confische, eredità giacenti — tre secoli di roba tolta e mai resa, in faldoni legati col nastro rosso. L’archivista cammina piano, come in chiesa. Qui niente sparisce mai. Qui, ufficialmente, niente è mai sparito.',
+    approfondimenti: [
+      { tipo: 'Referto', soggetto: 'La ceralacca fresca',
+        testo: 'Il sigillo è impresso con la matrice AUTENTICA: ogni dente, ogni difetto del conio originale. Non è un falso: è un USO. Qualcuno possiede ancora la matrice demaniale del 1741, la usa per aprire e richiudere ciò che lo Stato credeva sepolto — e un’eredità così non si ruba: si riceve, d’ufficio, in silenzio. Il tesoro non fu perso. Fu CUSTODITO.' },
+    ] },
+  { n: 8, nome: 'La Corte della Vedova',
+    req: 'La villa non riceve chi non è atteso. Ma chi arriva nominando l’ansa morta — ad alta voce, davanti al cancello — scopre di essere atteso da giorni.',
+    art: 'artworks/Villa della Vedova.png',
+    testo: 'Sobria come un conto in pareggio: niente ori, una veranda sul fiume col dondolo e il binocolo da teatro. Il potere nuovo non si veste: si siede sulla curva del fiume, da dove vede passare ogni chiatta — e versa il caffè di persona, per contare le mani degli ospiti.',
+    approfondimenti: [
+      { tipo: 'Osservazione', soggetto: 'Le mani della Vedova',
+        testo: 'Versa il caffè con la grazia di una padrona di casa — ma tiene la tazza da sotto, a dita aperte, come si tiene un BILANCINO. E quando vi porge lo zucchero, conta i movimenti: due, sempre due. Chi ha pesato oro per una vita non smette per un caffè. La Vedova non riceve ordini dal Cambiavalute: è il contrario.' },
+    ] },
+  { n: 9, nome: 'Il Molo delle Chiatte in Disarmo',
+    req: 'Il molo è «chiuso per disarmo»: catena, sentinelle annoiate, cani che non abbaiano. Le sentinelle non trattano — ma un corriere col marengo giusto non tratta: PASSA.',
+    art: 'artworks/Molo in Disarmo.png',
+    testo: 'Il cimitero della flotta minuta: scafi in secca, bitte arrugginite, la catena col cartello DISARMO. Ma il cimitero ha sentinelle, e i cani non abbaiano: aspettano. In fondo, sotto la tettoia grande, un bagliore basso che nessun faro ha mai avuto.',
+    approfondimenti: [
+      { tipo: 'Presagio', soggetto: 'L’ansa morta',
+        testo: 'A fissare il bagliore sotto la tettoia: si vede un crogiolo che non si spegne mai, un uomo col bilancino che pesa senza guardare, e ventidue casse col sigillo del Quarantuno che si svuotano una colata alla volta — la memoria di un tesoro che diventa moneta senza memoria. La visione dura un rintocco.' },
+    ] },
+].map((L) => ({
+  art: L.art,
+  title: `${L.n} · ${L.nome}`,
+  file: `Episodio 8/Luoghi/${L.n} - ${L.nome.replace(/’/g, "'")}`,
+  type: `Luogo ${L.n}`,
+  rules: `{i}${L.req === 'Disponibile dall’inizio' ? L.testo : L.req}{/i}`,
+  approfondimenti: L.approfondimenti, n: L.n,
+}));
+
+const EP8_INDIZI = LUOGHI8.flatMap((L) =>
+  L.approfondimenti.filter((a) => a.tipo === 'Osservazione' || a.tipo === 'Presagio')
+    .map((a) => ({
+      art: L.art, n: L.n, kind: 'Indizio',
+      title: `Indizio Nascosto — ${a.soggetto}`,
+      file: `Episodio 8/Indizi/${a.soggetto.replace(/’/g, "'")}`,
+      type: a.tipo,
+      rules: `{i}◆ (${a.tipo}) ${a.testo}{/i}`,
+    })));
+
+const EP8_TESTIMONI = LUOGHI8.flatMap((L) =>
+  L.approfondimenti.filter((a) => a.tipo === 'Testimonianza').map((a) => ({
+    art: L.art, n: L.n, kind: 'Testimone',
+    title: `Testimone — ${a.soggetto}`,
+    file: `Episodio 8/Testimoni/${a.soggetto.replace(/’/g, "'")}`,
+    type: `Luogo ${L.n} · Testimone`,
+    rules: `{i}${a.testo}{/i}`,
+  })));
+
+const EP8_REFERTI = LUOGHI8.flatMap((L) =>
+  L.approfondimenti.filter((a) => a.tipo === 'Referto').map((a) => ({
+    art: L.art, n: L.n, kind: 'Referto',
+    title: `Referto — ${a.soggetto}`,
+    file: `Episodio 8/Referti/${a.soggetto}`,
+    type: `Luogo ${L.n} · Referto`,
+    rules: `{i}${a.testo}{/i}`,
+  })));
+
+// MAZZO FUORI STANDARD: 14 spawn / 2 insidie / 2 crescendo / 3 eventi.
+const EP8_MINACCE = [
+  { art: 'artworks/Le sentinelle del molo.png', title: 'Le Sentinelle del Molo', tipo: 'Malavita',
+    flavor: 'Contano tutti quelli che passano. Voi non tornate nel conto.',
+    effect: 'Piazzate 1 Sgherro sull’uscita più vicina agli eroi della tessera corrente.' },
+  { art: 'artworks/Le sentinelle del molo.png', title: 'Il Giro di Ronda', tipo: 'Malavita',
+    flavor: 'Una lanterna bassa, un passo svogliato, un coltello per niente svogliato.',
+    effect: 'Piazzate 1 Sgherro sull’uscita più vicina agli eroi della tessera corrente.' },
+  { art: 'artworks/Le sentinelle del molo.png', title: 'Il Fischio Basso', tipo: 'Malavita',
+    flavor: 'Due note, sull’acqua. La risposta arriva da tre punti diversi.',
+    effect: 'Piazzate 1 Sgherro sull’uscita più vicina agli eroi: si attiva subito.' },
+  { art: 'artworks/Le sentinelle del molo.png', title: 'Gli Uomini della Tettoia', tipo: 'Malavita',
+    flavor: 'Scaricano di notte e sorvegliano di giorno. O il contrario. Sempre lì, comunque.',
+    effect: 'Piazzate 1 Sgherro sull’ingresso del Molo in Disarmo (T1).' },
+  { art: 'artworks/Le sentinelle del molo.png', title: 'Il Cambio di Guardia', tipo: 'Malavita',
+    flavor: 'Quelli smontanti raccontano ai montanti cosa hanno visto. Stanotte: voi.',
+    effect: 'Piazzate 1 Sgherro sull’ingresso del Molo in Disarmo (T1).' },
+  { art: 'artworks/Il mastino sciolto.png', title: 'Il Mastino Sciolto', tipo: 'Malavita',
+    flavor: 'Non abbaia. È questo il punto.',
+    effect: 'Piazzate 1 Mastino sull’uscita più vicina agli eroi della tessera corrente.' },
+  { art: 'artworks/Il mastino sciolto.png', title: 'I Cani dell’Ansa', tipo: 'Malavita',
+    flavor: 'Nutriti a carne e silenzio. Il gioco che conoscono ha un odore solo: il vostro.',
+    effect: 'Piazzate 1 Mastino sull’uscita più vicina agli eroi della tessera corrente.' },
+  { art: 'artworks/Il mastino sciolto.png', title: 'Il Guinzaglio Tagliato', tipo: 'Malavita',
+    flavor: 'Qualcuno, da qualche parte, ha appena aperto una mano.',
+    effect: 'Piazzate 1 Mastino sull’uscita più vicina agli eroi: si attiva subito.' },
+  { art: 'artworks/Il guardaspalle.png', title: 'Il Guardaspalle', tipo: 'Malavita',
+    flavor: 'Il pesatore conta l’oro. Lui conta i respiri del pesatore. E i vostri.',
+    effect: 'Piazzate 1 Sicario sull’uscita più vicina agli eroi della tessera corrente.' },
+  { art: 'artworks/Il guardaspalle.png', title: 'L’Ombra del Pesatore', tipo: 'Malavita',
+    flavor: 'Dove c’è un registro, c’è un uomo pagato perché il registro non si legga.',
+    effect: 'Piazzate 1 Sicario sull’uscita più vicina agli eroi: si attiva subito.' },
+  { art: 'artworks/Gli uomini dei clan.png', title: 'Gli Uomini dei Clan', tipo: 'Malavita',
+    flavor: 'La nuova paga è arrivata puntuale. Il nuovo lavoro pure.',
+    effect: 'Piazzate 1 Sgherro sull’uscita più vicina agli eroi della tessera corrente.' },
+  { art: 'artworks/Gli uomini dei clan.png', title: 'La Paga del Giovedì', tipo: 'Malavita',
+    flavor: 'Chi è pagato di giovedì, il giovedì lavora volentieri.',
+    effect: 'Piazzate 1 Sgherro sull’uscita più vicina agli eroi della tessera corrente.' },
+  { art: 'artworks/Gli uomini dei clan.png', title: 'Il Debito di Bandiera', tipo: 'Malavita',
+    flavor: 'Hanno cambiato ala, non abitudini: quando il capo chiama, si corre.',
+    effect: 'Piazzate 1 Sgherro sull’ingresso del Molo in Disarmo (T1).' },
+  { art: 'artworks/Gli uomini dei clan.png', title: 'I Nuovi Assunti', tipo: 'Malavita',
+    flavor: 'Facce nuove, coltelli vecchi. L’ansa morta assume in fretta.',
+    effect: 'Piazzate 1 Sgherro sull’ingresso del Molo in Disarmo (T1).' },
+  { art: 'artworks/La polvere negli occhi.png', title: 'La Polvere negli Occhi', tipo: 'Insidia',
+    flavor: 'Il carbone non perdona chi respira nel momento sbagliato.',
+    effect: 'L’eroe attivo prova NERVI (Media): se fallisce, 1 danno e perde 1 azione al prossimo turno.' },
+  { art: 'artworks/La passerella marcia.png', title: 'La Passerella Marcia', tipo: 'Insidia',
+    flavor: 'Il molo in disarmo è in disarmo davvero, dove serve a lui.',
+    effect: 'L’eroe più avanzato prova NERVI (Media): se fallisce, 1 danno.' },
+  { art: 'artworks/Un fischio sull’acqua.png', title: 'Un Fischio sull’Acqua', tipo: 'Crescendo',
+    flavor: 'La voce gira: c’è gente all’ansa che non doveva entrarci.',
+    effect: 'Aggiungete 1 segnalino Canto (la Voce che gira). Alla soglia: i clan sono in strada — ogni Fase Minaccia pesca 1 carta in più, per sempre. Se un Mastino è in gioco: si attiva subito.' },
+  { art: 'artworks/I clan accorrono.png', title: 'I Clan Accorrono', tipo: 'Crescendo',
+    flavor: 'La nuova paga si difende. I clan lo sanno prima ancora dell’ordine.',
+    effect: 'Aggiungete 1 segnalino Canto (la Voce che gira). Alla soglia: ogni Fase Minaccia pesca 1 carta in più, per sempre. Se un Mastino è in gioco: si attiva subito.' },
+  { art: 'artworks/Il turno di guardia.png', title: 'Il Turno di Guardia', tipo: 'Quiete',
+    flavor: 'Una bottiglia passa di mano in garitta. Per un momento, l’ansa pensa a sé.',
+    effect: 'Nessun effetto. Tirate il fiato — e contate le casse.' },
+  { art: 'artworks/Una chiatta amica.png', title: 'Una Chiatta Amica', tipo: 'Favore',
+    flavor: 'Un barcaiolo che deve un favore a Fossa passa lento, e guarda altrove.',
+    effect: 'Rivelate una tessera coperta adiacente a quella di un eroe (la scelgono i giocatori).' },
+  { art: 'artworks/Le casse rovesciate.png', title: 'Le Casse Rovesciate', tipo: 'Ostacolo',
+    flavor: 'Una pila cede senza fragore: il carbone attutisce anche i crolli.',
+    effect: 'Fino a fine round, sulla tessera dell’eroe attivo muoversi costa il doppio.' },
+].map((m) => ({
+  art: m.art,
+  title: `${m.tipo} — ${m.title}`,
+  file: `Episodio 8/Minacce/${m.title.replace(/’/g, "'")}`,
+  rules: `{i}${m.flavor}{/i}{divider}${m.effect}`,
+}));
+
+const EP8_OGGETTI = [
+  { art: 'artworks/Marengo Segnato.png', nome: 'Il Marengo Segnato', ref: 'E8-L2',
+    fonte: 'Luogo 2 — Il Banco dei Pegni',
+    flavor: 'La tacca di Fossa, quasi invisibile. Per le sentinelle vale un lasciapassare; per i Mastini, un profumo.',
+    effetto: 'Le sentinelle vi prendono per corrieri (vedi Soluzione: Domanda 4). ATTENZIONE: il Fiuto dei Mastini punta chi lo porta — si passa tra eroi adiacenti (gratuito, una volta per turno).' },
+  { art: 'artworks/Lanterna da Sentina.png', nome: 'La Lanterna da Sentina', ref: 'E8-L5',
+    fonte: 'Luogo 5 — La Carbonaia del Porto',
+    flavor: 'Vetro basso, fiamma corta: la luce del contrabbando, che non si vede dal fiume.',
+    effetto: '+1 alle prove NERVI nel deposito finché la porta chi l’ha presa.' },
+  { art: 'artworks/Gancio da Carico.png', nome: 'Il Gancio da Carico', ref: 'E8-T2',
+    fonte: 'Si trova cercando in T2 — La Tettoia delle Chiatte',
+    flavor: 'Manico consumato da mani oneste, in un posto che non lo è.',
+    effetto: '+1 alle prove Interagire con casse e paranchi.' },
+  { art: 'artworks/Tessera della Chiatta.png', nome: 'La Tessera della Chiatta', ref: 'E8-L3',
+    fonte: 'Luogo 3 — La Taverna della Chiatta',
+    flavor: 'Di corno, incisa a caldo: vale un passaggio sul fiume, tra amici.',
+    effetto: 'Effetto: nessuno finora scoperto.' },
+  { art: 'artworks/Sigillo di Piombo.png', nome: 'Il Sigillo di Piombo del Monte', ref: 'E8-L4',
+    fonte: 'Luogo 4 — Il Monte di Pietà',
+    flavor: 'Autentica i pegni, non le persone.',
+    effetto: 'Effetto: nessuno finora scoperto.' },
+].map((o) => ({
+  art: o.art,
+  title: o.nome,
+  file: `Episodio 8/Oggetti/${o.nome.replace(/’/g, "'")}`,
+  type: 'Oggetto',
+  rules: `{i}${o.flavor}{/i}{divider}${o.effetto}`,
+  ref: o.ref, fonte: o.fonte,
+}));
+
+const EP8_NEMICI = [
+  { art: 'artworks/Il Cambiavalute.png', title: 'Il Cambiavalute',
+    type: 'L’Orefice dell’Ansa Morta (Boss) — Episodio 8',
+    rules: '{i}Un orefice radiato, ripescato per il lavoro della vita: rifondere un tesoro che non esiste. Mani d’artista, bilancino da farmacista, la calma di chi pesa l’oro degli altri da trent’anni.{/i}{divider}Statistiche nel Bestiario. STANZIALE in T4. Il crogiolo: ogni round senza eroi in T4, 1 segnalino su una cassa non sequestrata — al 3° la cassa è persa.' },
+  { art: 'artworks/Il Mastino.png', title: 'Il Mastino',
+    type: 'Cane da guardia dell’Ansa (bestia) — Episodio 8',
+    rules: '{i}I cani dell’ansa morta non abbaiano: aspettano. Un solo gioco: l’odore dell’oro conta più di quello della paura.{/i}{divider}Statistiche nel Bestiario. FIUTO: se può, attacca sempre chi porta il Marengo Segnato o una cassa d’oro.' },
+].map((n) => ({ ...n, file: `Episodio 8/Nemici/${n.title}` }));
+
+const EP8 = [...LUOGHI8, ...EP8_INDIZI, ...EP8_TESTIMONI, ...EP8_REFERTI,
+             ...EP8_MINACCE, ...EP8_OGGETTI, ...EP8_NEMICI];
+
+
 module.exports = {
   HEROES, NEMICI, MINACCE, LUOGHI, INDIZI, TESTIMONI, REFERTI, OGGETTI, PRELUDIO,
   PRELUDIO_LUOGHI, PRELUDIO_APPROFONDIMENTI, PRELUDIO_OGGETTI,
@@ -1904,5 +2131,6 @@ module.exports = {
   EP5, LUOGHI5, EP5_INDIZI, EP5_TESTIMONI, EP5_REFERTI, EP5_MINACCE, EP5_OGGETTI, EP5_NEMICI,
   EP6, LUOGHI6, EP6_INDIZI, EP6_TESTIMONI, EP6_REFERTI, EP6_MINACCE, EP6_OGGETTI, EP6_NEMICI,
   EP7, LUOGHI7, EP7_INDIZI, EP7_TESTIMONI, EP7_REFERTI, EP7_MINACCE, EP7_OGGETTI, EP7_NEMICI,
-  ALL: [...HEROES, ...NEMICI, ...MINACCE, ...LUOGHI, ...INDIZI, ...TESTIMONI, ...REFERTI, ...OGGETTI, ...PRELUDIO, ...EP2, ...EP3, ...EP4, ...EP5, ...EP6, ...EP7],
+  EP8, LUOGHI8, EP8_INDIZI, EP8_TESTIMONI, EP8_REFERTI, EP8_MINACCE, EP8_OGGETTI, EP8_NEMICI,
+  ALL: [...HEROES, ...NEMICI, ...MINACCE, ...LUOGHI, ...INDIZI, ...TESTIMONI, ...REFERTI, ...OGGETTI, ...PRELUDIO, ...EP2, ...EP3, ...EP4, ...EP5, ...EP6, ...EP7, ...EP8],
 };

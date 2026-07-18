@@ -134,6 +134,14 @@ VOCI_MAPPA = [
     ('Palazzo dell’Impresa Voltan', 'corso della Stazione, al civico 3', 'ep7'),
     ('Magazzino della Calce', 'fuori cinta, tra gli orti di Sant’Orsola', 'ep7'),
     ('Il Palazzone di Sant’Orsola', 'contrada di Sant’Orsola, il cantiere grande', 'ep7'),
+    # Episodio 8 — l'oro vecchio. Riusi: Osteria della Bilancia, Il Banco
+    # dei Pegni di Fossa, Taverna della Chiatta ('citta'/'preludio').
+    ('Il Monte di Pietà', 'via del Monte 1, dietro il Duomo vecchio', 'ep8'),
+    ('La Carbonaia del Porto', 'banchina di levante, al piazzale nero', 'ep8'),
+    ('Casa dell’Esattore', 'salita dei Cappuccini, al civico 9', 'ep8'),
+    ('L’Archivio Demaniale', 'palazzo delle Finanze, ala storica', 'ep8'),
+    ('Villa della Vedova Bruna', 'sulla curva del fiume, oltre il ponte di ferro', 'ep8'),
+    ('Il Molo in Disarmo', 'ansa morta, oltre la banchina di levante', 'ep8'),
 ]
 
 # (sottocartella pdf/, sottotitolo, tag inclusi). Un episodio nuovo aggiunge
@@ -147,6 +155,7 @@ MAPPE = [
     ('Episodio 5', 'episodio 5 — la città che conoscete', ('citta', 'preludio', 'ep1', 'ep2', 'ep3', 'ep4', 'ep5')),
     ('Episodio 6', 'episodio 6 — la città che conoscete', ('citta', 'preludio', 'ep1', 'ep2', 'ep3', 'ep4', 'ep5', 'ep6')),
     ('Episodio 7', 'episodio 7 — la città che conoscete', ('citta', 'preludio', 'ep1', 'ep2', 'ep3', 'ep4', 'ep5', 'ep6', 'ep7')),
+    ('Episodio 8', 'episodio 8 — la città che conoscete', ('citta', 'preludio', 'ep1', 'ep2', 'ep3', 'ep4', 'ep5', 'ep6', 'ep7', 'ep8')),
 ]
 
 # Tipografico (provata la grafia manoscritta La Belle Aurore su tutta la
