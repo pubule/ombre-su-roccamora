@@ -580,7 +580,10 @@ la % di vittoria. `scripts/simulate_playtest.py` li misura con proxy (vedi
 `esegui_batch`/`esegui_batch_multi_party`, campo `pct_vittoria_sofferta` e
 `media_max_down` per l'ansia, `media_luoghi_visitati` e `media_ore_avanzate` per il
 coinvolgimento in Indagine, `pct_vittoria`/`media_pool_esauriti` per la giocabilita',
-`pct_chi_confermato`/`pct_diapason` per l'immersione/payoff narrativo). Una % di
+`pct_chi_confermato`/`pct_diapason` per l'immersione/payoff narrativo — questi due
+sono proxy dell'Ep. 1: l'episodio nuovo definisce nel SUO simulatore gli
+equivalenti, sempre uno per la conferma del colpevole (`CHI_ESPLICITO`) e uno per
+l'oggetto/scoperta critica del caso). Una % di
 vittoria perfetta con vittorie mai "sofferte" (nessun eroe mai a terra) o con meta'
 dei luoghi mai visitati e' una regressione anche se i numeri di bilanciamento tornano
 - vedi 3-cinque per un bug reale trovato proprio cosi' (KPI piatto, non un crollo di
@@ -987,6 +990,29 @@ Ogni testo deve far *vedere* la scena, non riassumerla. Regole:
 - **Vincolo tecnico:** ogni testo va verificato contro lo spazio del suo riquadro
   (vedi il controllo con `Paragraph.wrap` usato in sviluppo); i testi estesi si
   tengono separati dai dati di gioco in un modulo dedicato come `src/story.py`.
+
+## 3-fasi. COME SI LAVORA (la pipeline collaudata sull'Episodio 2)
+
+Un episodio nuovo si costruisce **a fasi, ognuna approvata prima della
+successiva** — mai tutto in un colpo:
+
+- **Fase A — design doc**: `DESIGN-EPISODIO-N.md` alla radice: caso, colpevole,
+  8-9 luoghi con chiavi/orari, le 4 Domande coi loro incroci, tessere e percorso,
+  boss e debolezza, Bivio. Si discute e si approva PRIMA di scrivere dati.
+- **Fase B — dati e componenti testuali**: dati py (`gen_epN.py` sul modello di
+  `gen_ep2.py`, costruito sulle funzioni parametriche di `gen_narrator`) +
+  carte in `cards-data.js` (testi identici ai dati py) + fascicoli PDF + mappa
+  incrementale + prompt MJ dell'episodio. L'arte non c'è ancora: i generatori
+  saltano con AVVISO ciò che ne ha bisogno.
+- **Fase C — simulatore e curva**: copia di `simulate_playtest.py` adattata
+  (vedi paragrafo dedicato), curva 2-10 completa sui 4 KPI. La taglia 2 va
+  SEMPRE rivalidata (vedi 3-quater). Si tara QUI, coi numeri, non a sensazione.
+- **Fase D — arte e rigenerazione**: l'utente genera le arti dai prompt; poi
+  carte (Playwright MAI in parallelo: pagine mezze caricate = carte nere),
+  tessere, Luoghi.pdf senza placeholder, token sheet, Bestiario, Completo — e
+  la **taratura finale** su tutto il renderizzato (vedi Bibbia Visiva).
+- **Fase E — webapp e chiusura**: integrazione 3-web, suite di test completa
+  verde, checklist di coerenza (sezione 4) spuntata voce per voce.
 
 ## 3-web. LA WEBAPP (companion "al tavolo" — ogni episodio nuovo va cablato)
 
