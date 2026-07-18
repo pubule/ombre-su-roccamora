@@ -49,7 +49,9 @@ pietra regge l'accordatura, e il Coro non sa ancora farlo cantare.
 **Il seme C.B./M. (uno solo, periferico):** la commissione delle canne di piombo
 è firmata «C.B.» — stessa carta di pregio, stesso inchiostro ferro-gallico da
 registro dell'Ep. 2 (l'esame di Carbone può notarlo: corroborazione, mai
-conferma). E la lettera di M. — a doppia lettura — sa che Tobia è sparito «da
+conferma). La sigla è la maschera-Cavour del burattinaio (vedi bibbia, arco di
+campagna: «M.» = maschera-Machiavelli, «C.B.» = maschera-Camillo Benso, una
+mano sola). E la lettera di M. — a doppia lettura — sa che Tobia è sparito «da
 martedì», un giorno PRIMA che la moglie ne denunciasse la scomparsa.
 
 ## 3. Le 4 Domande

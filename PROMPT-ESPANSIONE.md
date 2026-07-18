@@ -42,11 +42,21 @@ esplicita.
   supera il vecchio arco a 6).** Il vero antagonista di CAMPAGNA non è Ferri né il
   solo Dormiente: è **«C.B.»**, la mente elegante già seminata negli episodi
   stampati (il registro dell'Ep. 1 «consegna al C.B.», il mandante senza volto
-  dell'Ep. 2) — e **C.B. è M.**, il presidente della Società. CANON SEGRETO, da
-  non rivelare in nessun componente prima dei punti fissati sotto: la Società è
-  lo strumento con cui M. ripulisce i rivali e si fa CONSEGNARE i Frammenti che
-  servono al rituale. La rivelazione è una DEDUZIONE (rileggendo lettere e
-  Frammenti), mai un colpo di scena calato dall'alto.
+  dell'Ep. 2, la commissione dell'Ep. 3) — e **C.B. è M.**, il presidente della
+  Società. Le due firme sono MASCHERE STORICHE (deciso 2026-07-18): **«M.»
+  evoca Niccolò Machiavelli** — il Principe, il burattinaio per antonomasia:
+  chi si firma così dichiara, a chi sa leggere, «io muovo i fili» — e
+  **«C.B.» evoca Camillo Benso di Cavour**, il Tessitore. Il gancio che le
+  salda, deducibile dai giocatori colti: Cavour era detto «il Machiavelli
+  italiano» — due maschere, due volti della stessa idea, UNA mano. Con la
+  firma M. quest'uomo guida gli idealisti (la Società del Lume); con la firma
+  C.B. compra il lavoro sporco. REGOLA: le figure storiche vere restano
+  maschere ed echi (sono morte da secoli o decenni) — mai persone storiche in
+  scena come personaggi o colpevoli. CANON SEGRETO, da non rivelare in nessun
+  componente prima dei punti fissati sotto: la Società è lo strumento con cui
+  M. ripulisce i rivali e si fa CONSEGNARE i Frammenti che servono al rituale.
+  La rivelazione è una DEDUZIONE (rileggendo lettere e Frammenti), mai un
+  colpo di scena calato dall'alto.
   - **Atto I — Il Rituale dei Tre Movimenti (Ep. 1-6):** lo spartito di L5:
     «il bronzo canta, la pietra risponde, l'acqua ricorda». Ep. 2 *La voce del
     bronzo* (fatto). Ep. 3 *Le voci del pozzo* (la pietra: il Ladro di Voci,
@@ -67,7 +77,9 @@ esplicita.
     paranoia); Ep. 15 il FALSO smascheramento (C.B. pare il rivale storico di
     M.: il depistaggio usa la spiegazione "comoda"); **Ep. 18: la rivelazione
     C.B. = M.**, per deduzione (le lettere rilette, gli inchiostri, ciò che M.
-    sapeva prima dei giornali). Due episodi di margine dopo il twist, mai il
+    sapeva prima dei giornali — e il vezzo delle firme: chi conosce la storia
+    lega «il Machiavelli italiano» al Tessitore, due maschere della stessa
+    idea, prima degli altri). Due episodi di margine dopo il twist, mai il
     twist nell'ultimo atto utile.
   - **Atto IV — Il Quarto Movimento (Ep. 19-20):** M. ha quasi tutto (glielo
     avete portato voi, per diciotto episodi). Ep. 19 la Società braccata, senza
