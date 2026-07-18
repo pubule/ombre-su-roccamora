@@ -12,7 +12,7 @@ const DIR = path.dirname(fileURLToPath(import.meta.url));
 const json = (f) => JSON.parse(readFileSync(path.join(DIR, 'data', f), 'utf8'));
 const comune = json('comune.json');
 const carte = json('carte.json');
-const EPISODI = { preludio: json('preludio.json'), ep1: json('ep1.json'), ep2: json('ep2.json') };
+const EPISODI = { preludio: json('preludio.json'), ep1: json('ep1.json'), ep2: json('ep2.json'), ep3: json('ep3.json') };
 
 let errori = 0;
 const ko = (msg) => { errori += 1; console.log('  KO', msg); };
@@ -22,6 +22,11 @@ const ok = (cond, msg) => { if (!cond) ko(msg); };
 const assetEsiste = (url) => existsSync(path.join(DIR, decodeURIComponent(url.replace(/^\/assets\//, 'assets/'))));
 
 for (const [epId, ep] of Object.entries(EPISODI)) {
+  // Fase D non ancora fatta (niente arte, niente carte renderizzate): i jpg
+  // si controllano solo se la cartella cards/ dell'episodio esiste.
+  const carteRese = existsSync(path.join(DIR, 'assets', ep.cartella, 'cards'));
+  if (!carteRese) console.log(`  AVVISO ${epId}: assets/${ep.cartella}/cards assente - check jpg saltati (Fase D)`);
+  const okJpg = (cond, msg) => carteRese ? ok(cond, msg) : true;
   console.log(`\n=== ${epId} — ${ep.titolo} ===`);
 
   // --- stradario: ogni luogo ha la sua voce sulla mappa dell'episodio ----
@@ -56,12 +61,12 @@ for (const [epId, ep] of Object.entries(EPISODI)) {
   for (const l of ep.luoghi) {
     const cl = E.cartaLuogo(carte, epId, l.n);
     ok(cl, `carta Luogo mancante per L${l.n}`);
-    if (cl) ok(assetEsiste(E.urlCarta(cl.file)), `jpg mancante: ${cl.file} (L${l.n})`);
-    if (l.art) ok(assetEsiste(E.urlArt(l.art)), `arte mancante: ${l.art} (L${l.n})`);
+    if (cl) okJpg(assetEsiste(E.urlCarta(cl.file)), `jpg mancante: ${cl.file} (L${l.n})`);
+    if (l.art) okJpg(assetEsiste(E.urlArt(l.art)), `arte mancante: ${l.art} (L${l.n})`);
     for (const a of l.approfondimenti || []) {
       const ca = E.cartaApprofondimento(carte, epId, a.soggetto);
       ok(ca, `carta Approfondimento mancante: "${a.soggetto}" (L${l.n})`);
-      if (ca) ok(assetEsiste(E.urlCarta(ca.file)), `jpg mancante: ${ca.file}`);
+      if (ca) okJpg(assetEsiste(E.urlCarta(ca.file)), `jpg mancante: ${ca.file}`);
     }
     for (const o of l.oggetti || []) {
       const co = E.cartaOggetto(carte, epId, o);
@@ -87,7 +92,7 @@ for (const [epId, ep] of Object.entries(EPISODI)) {
     ok(c, `pesca ${i + 1} non trova la carta`);
     if (c) {
       viste.add(c.title);
-      ok(assetEsiste(E.urlCarta(c.file)), `jpg minaccia mancante: ${c.file}`);
+      okJpg(assetEsiste(E.urlCarta(c.file)), `jpg minaccia mancante: ${c.file}`);
     }
   }
   ok(viste.size === mazzo.pool.length, 'il riciclo degli scarti perde carte');

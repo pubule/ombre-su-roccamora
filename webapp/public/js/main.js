@@ -21,14 +21,23 @@ const COPERTINE = {
   preludio: '/assets/artworks/humble candlelit canal-side room.png',
   ep1: '/assets/artworks/copertina spedizione.png',
   ep2: '/assets/artworks/Il Fonditore.png',
+  // finché manca l'arte dedicata dell'Ep. 3 (Fase D): un'atmosfera d'acqua
+  ep3: '/assets/artworks/derelict warehouses over black still water.png',
 };
 
 const RIGA_C = `<p class="copyright">© 2026 Fabio Stocco — «Ombre su Roccamora» ·
   uso non commerciale (PolyForm NC 1.0.0)</p>`;
 
+// Arte non ancora generata (Fase D di un episodio nuovo): un'immagine rotta
+// sparisce invece di mostrare l'icona rotta del browser — i testi di gioco
+// ci sono comunque, la carta è solo l'illustrazione.
+window.addEventListener('error', (e) => {
+  if (e.target && e.target.tagName === 'IMG') e.target.style.display = 'none';
+}, true);
+
 // ------------------------------------------------------------------- HOME
 async function vistaHome() {
-  const episodi = ['preludio', 'ep1', 'ep2'];
+  const episodi = ['preludio', 'ep1', 'ep2', 'ep3'];
   const info = await Promise.all(episodi.map((e) => dati(e)));
   h(`
     <header class="home-testata">

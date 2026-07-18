@@ -27,12 +27,15 @@ from gen_preludio import (LUOGHI_P, TESSERE_P, MAZZO_P, OGGETTI_LUOGO_P, LETTERA
                           ESAMI_CARBONE_P)
 from gen_ep2 import (LUOGHI_2, TILES_2, NEMICI_2, OGGETTI_LUOGO_2, LETTERA_2,  # noqa: E402
                      ESAMI_CARBONE_2)
+from gen_ep3 import (LUOGHI_3, TILES_3, NEMICI_3, OGGETTI_LUOGO_3, LETTERA_3,  # noqa: E402
+                     ESAMI_CARBONE_3)
 from gen_mappa import VOCI_MAPPA, MAPPE  # noqa: E402
 from gen_bestiario import FASCE, BOSS_DELTA, ferite_per_fascia  # noqa: E402
 from simulate_playtest import (INDAGINE_UNLOCK, TICK_CANTO_OGNI, SOGLIA_CANTO,  # noqa: E402
                                MINACCIA_FORMULE, CUSTODE_TENSIONE_EXTRA,
                                SALUTE_BONUS_PER_N, TOKEN_POOL_BASE)
 from simulate_ep2 import TOKEN_POOL_BASE as POOL_EP2  # noqa: E402
+from simulate_ep3 import TOKEN_POOL_BASE as POOL_EP3  # noqa: E402
 
 
 def strip_tags(s):
@@ -66,6 +69,9 @@ REPERTI_LUOGO = {
     'ep2': {1: ['Reperto A - Taccuino di Collaudo'],
             5: ['Reperto C - Lettera di C.B.'],
             8: ['Reperto B - Registro delle Chiatte']},
+    'ep3': {1: ['Reperto A - Registro dei Livelli'],
+            4: ['Reperto C - Pagina del Quaderno'],
+            6: ['Reperto B - Commissione di C.B.']},
 }
 
 
@@ -192,6 +198,27 @@ SOLUZIONI = dict(
         ],
         boss='LO SCORIATORE',
     ),
+    ep3=dict(
+        domande=[
+            dict(q='DOVE è tenuto il pozzaiolo Tobia Manfredi?',
+                 risposta='Nel Pozzo Maestro, sotto la corte del Lavatoio Grande.',
+                 esatta='Sapete dove scendere: nel 1° round non si pesca nessuna carta Minaccia.',
+                 sbagliata='Girate a vuoto nei cunicoli: la spedizione parte con 1 segnalino Canto in più.'),
+            dict(q='CHI è il Ladro di Voci?',
+                 risposta='Mastro Silvano Alcesti, il barbiere.',
+                 esatta='“Il nome vero”: quando l’Accordatore appare, chiamatelo per nome — esita, e salta la sua PRIMA attivazione.',
+                 sbagliata='Nessun effetto.'),
+            dict(q='QUALE dei pozzi murati è il Pozzo Maestro?',
+                 risposta='Il terzo della corte del Lavatoio — «il pozzo che non gela mai».',
+                 esatta='Scendete dal chiusino giusto: T1 è tranquilla.',
+                 sbagliata='Pozzo sbagliato, cunicoli rumorosi: 1 Voce Cava appare in T1 alla rivelazione.'),
+            dict(q='COSA portate con voi per passare là sotto?',
+                 risposta='LA CANNA MUTA (il reso del lattoniere).',
+                 esatta='Portata al petto: nella Galleria delle Eco (T3) nessuna prova.',
+                 sbagliata='La Galleria vi sente: prova come da tessera. (Lanterna a Specchio e Rasoio d’Argento sono esche.)'),
+        ],
+        boss='L’ACCORDATORE',
+    ),
     preludio=dict(
         domande=[
             dict(q='DOVE è tenuto Ansaldo?',
@@ -253,11 +280,25 @@ episodi = dict(
         pool=POOL_EP2,
         passerella_due_round=True,
     ),
+    ep3=dict(
+        id='ep3', titolo='Le voci del pozzo',
+        sottotitolo='episodio 3 — il Ladro di Voci',
+        cartella='Episodio 3', ore_budget=6,
+        lettera=LETTERA_3,
+        obiettivo='Liberate Tobia (Interagire, in T6) e riportatelo in T1, alla scala. '
+                  'Secondario: le canne-voce in T5, una ad azione (Interagire).',
+        esami_carbone=ESAMI_CARBONE_3,
+        luoghi=[luogo_json(L, OGGETTI_LUOGO_3, REPERTI_LUOGO['ep3']) for L in LUOGHI_3],
+        tessere=[tessera_json(T) for T in TILES_3],
+        vantaggio=dict(slancio_ore=3, slancio_luoghi=7, preparati_ore=1, preparati_luoghi=6),
+        soluzione=SOLUZIONI['ep3'],
+        pool=POOL_EP3,
+    ),
 )
 
 comune = dict(
     eroi=[eroe_json(h) for h in HEROES],
-    nemici=[nemico_json(n) for n in NEMICI + NEMICI_2],
+    nemici=[nemico_json(n) for n in NEMICI + NEMICI_2 + NEMICI_3],
     mappa=dict(voci=[dict(nome=v[0], indirizzo=v[1], tag=v[2]) for v in VOCI_MAPPA],
                mappe=[dict(cartella=m[0], sottotitolo=m[1], tags=list(m[2])) for m in MAPPE]),
     regole=REGOLE,

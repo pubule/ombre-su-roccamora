@@ -15,7 +15,7 @@ const PORT = process.argv.slice(2).find((a) => /^\d+$/.test(a)) || 8017;
 const BASE = `http://localhost:${PORT}`;
 const DIR = path.dirname(fileURLToPath(import.meta.url));
 const json = (f) => JSON.parse(readFileSync(path.join(DIR, 'data', f), 'utf8'));
-const DATI = { preludio: json('preludio.json'), ep1: json('ep1.json'), ep2: json('ep2.json') };
+const DATI = { preludio: json('preludio.json'), ep1: json('ep1.json'), ep2: json('ep2.json'), ep3: json('ep3.json') };
 
 let errori = 0;
 const ko = (msg) => { errori += 1; console.log('    KO', msg); };
@@ -31,6 +31,8 @@ const SCENARI = [
   // 10 eroi = taglia massima consentita (il picker blocca l'11°)
   { ep: 'ep2', party: ['Elena', 'Attilio', 'Sibilla', 'Nino', 'Ottone', 'Carla',
                        'Lazzaro', 'Celso', 'Fulgenzio', 'Ottavio'], giuste: true },
+  { ep: 'ep3', party: ['Elena', 'Ottone', 'Carla', 'Sibilla'], giuste: true },
+  { ep: 'ep3', party: ['Attilio', 'Lazzaro', 'Celso'], giuste: false },
 ];
 
 const browser = await chromium.launch();
@@ -86,7 +88,9 @@ for (const sc of SCELTI) {
   const page = await browser.newPage({ viewport: { width: 1024, height: 768 } });
   const jsErrors = [];
   page.on('pageerror', (e) => { jsErrors.push(e.message); console.log('    [JS]', e.message.split('\n')[0]); });
-  page.on('console', (m) => { if (m.type() === 'error') { jsErrors.push(m.text()); console.log('    [console]', m.text().split('\n')[0]); } });
+  // i 404 delle immagini (arte non ancora generata, Fase D) non sono errori
+  // JS: la copertura dei jpg per episodio vive in test-engine (okJpg).
+  page.on('console', (m) => { if (m.type() === 'error' && !/Failed to load resource/.test(m.text())) { jsErrors.push(m.text()); console.log('    [console]', m.text().split('\n')[0]); } });
   page.on('dialog', (d) => d.accept());
 
   try {

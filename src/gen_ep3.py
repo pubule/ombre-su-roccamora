@@ -76,8 +76,9 @@ LUOGHI_3 = [
          chiude=None,
          indizi=[
              'L’ultima ammutolita è una lavandaia: l’hanno trovata all’alba sul bordo del pozzo '
-             'della corte, in ginocchio, con le mani ancora nell’acqua. Le altre giurano che '
-             'cantava sempre, ai mastelli — «era lei che dava il tempo a tutte».',
+             'della corte, in ginocchio, con le mani ancora nell’acqua. Cantava sempre, ai '
+             'mastelli — «era lei che dava il tempo a tutte» — ed era debole, dicono le altre: '
+             'il giorno prima s’era fatta fare un salasso, come mezzo Borgo.',
              'Il registro dei livelli del lavatoio: ogni mattina si segna quanta acqua danno i '
              'pozzi. Da un mese una colonna «beve» — il terzo pozzo della corte cala di notte, '
              'quando nessuno attinge. <i>(Reperto A: consegnate il Registro dei Livelli.)</i>',
@@ -107,7 +108,7 @@ LUOGHI_3 = [
              'salassi — il medico costa, il barbiere no.',
              'Alla parete, tra gli ex-voto, il ritratto a carboncino di un bambino: Piero, il '
              'figlio, morto di febbri due inverni fa. «Aveva una voce che il rione si fermava. '
-             'Non gli ho fatto cantare il requiem: certe voci non si seppelliscono.»',
+             'Il requiem per Piero non l’ho voluto: certe voci non si seppelliscono.»',
              'Sul banco, tra i rasoi in fila, una canna di piombo corta fa da vaso a un fiore '
              'secco. «Me l’ha lasciata un cliente. Il lattoniere ne ha fatte a dozzine, mesi fa — '
              'canne d’organo, diceva, per una chiesa che non ho mai saputo.»'],
@@ -161,8 +162,10 @@ LUOGHI_3 = [
              'consegnate la Pagina del Quaderno.)</i>',
              'I ferri del mestiere mancano, ma non tutti: restano i tappi di cera che Tobia si '
              'faceva per scendere — «il pozzo parla», diceva, «e chi ascolta troppo resta giù» — '
-             'e la sua lanterna a specchio, quella buona. Della moglie: «dell’acqua morta non '
-             'voleva più parlare. Diceva che al Catasto sanno, e che è meglio così.» '
+             'e la sua lanterna a specchio, quella buona. Al muro, il santino del funerale di '
+             'Piero Alcesti: Tobia c’era — «al requiem per Piero mai cantato», diceva, «il Borgo '
+             'ha perso due voci». Della moglie: «dell’acqua morta non voleva più parlare. Diceva '
+             'che al Catasto sanno, e che è meglio così.» '
              '<i>(Oggetti: prendete le carte I Tappi di Cera e La Lanterna a Specchio.)</i>'],
          approfondimenti=[
              dict(tipo='Testimonianza', soggetto='La moglie di Tobia',

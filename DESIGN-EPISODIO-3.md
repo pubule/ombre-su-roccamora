@@ -87,7 +87,7 @@ Aperti al minimo vincolato: **4 aperti / 5 bloccati** (come Ep. 2).
 | 5 | Il Catasto delle Acque | Il Catasto delle Acque (nuova) | BLOCCATO — parola «acqua morta» (da L4/L1) | le mappe delle falde (incrocio D3); Referto |
 | 6 | Il Lattoniere Bo | Calle degli Stagnini (nuova) | BLOCCATO — parola «canne d'organo» (da L3/L2) | la commissione firmata C.B. (Reperto B, seme); il conto: 12 canne; la Canna Muta (oggetto) |
 | 7 | La Parrocchia del Borgo | La Parrocchia del Borgo (nuova) | BLOCCATO — parola «requiem per Piero» (da L2/L4) | il maestro del coro (falsa pista del cronista) si scagiona; il registro dei funerali: Piero Alcesti; Presagio (la voce del bambino nei pozzi) |
-| 8 | L'Ospedale della Carità | L'Ospedale della Carità (esiste, finora pista fredda!) | BLOCCATO — parola «salasso» (da L2/L3) | gli ammutoliti; Referto sul taglio («non è ferita: è accordatura»); chiude alle 22 — 2° vincolo orologio |
+| 8 | L'Ospedale della Carità | L'Ospedale della Carità (esiste, finora pista fredda!) | BLOCCATO — parola «salasso» (da L1/L2) | gli ammutoliti; Referto sul taglio («non è ferita: è accordatura»); chiude alle 22 — 2° vincolo orologio |
 | 9 | La Corte dei Pozzi Murati | Il Pozzo del Cieco (nuova) | BLOCCATO — oggetto «Le Chiavi dei Chiusini» (da L1, il lavatoio le custodisce) | sopralluogo: il pozzo che non gela, i segni delle corde fresche (incrocio D3 di conferma); Osservazione |
 
 Falsa pista a costo zero: il maestro del coro (movente: fu scartato per la voce
@@ -96,7 +96,7 @@ che gli ammutoliti «hanno tutti debiti col Monte» — contraddice il Referto d
 L8; chi non incrocia risponde male alla D3 (indirizzo sbagliato = complicazione).
 Rivelatorio (D2) su 3 carte in L1/L2/L3, tutti aperti ✓. Anti-fortuna: «acqua
 morta» (L4+L1), «canne d'organo» (L3+L2), «requiem per Piero» (L2+L4), «salasso»
-(L2+L3), Chiavi dei Chiusini (L1) — tutte le chiavi nascono in aperti, doppia
+(L1+L2), Chiavi dei Chiusini (L1) — tutte le chiavi nascono in aperti, doppia
 via ✓. NB: L'Ospedale della Carità era una pista fredda negli Ep. 1-2 — diventare
 luogo vero in Ep. 3 è un piccolo brivido gratuito per chi lo aveva già dichiarato
 a vuoto («stavolta la città risponde»).
@@ -220,5 +220,14 @@ ramo «rifusa» del Bivio Ep. 2 (vedi §8).
 - Fase C: `simulate_ep3.py` da simulate_ep2 (percorso T1→T6 con ramo T5,
   Galleria Difficile con hook, boss senza cura sotto i 4, Voce Cava con urlo
   simulato, proxy KPI: CHI_ESPLICITO su L1/L2/L3 + `pct_canna_muta`).
-- Fase D: arte (l'utente genera), taratura finale obbligatoria.
-- Fase E: webapp (3-web) + suite verde con 2 scenari nuovi.
+- **Fase D — IN ATTESA DELL'ARTE** (PROMPT-MIDJOURNEY-Episodio-3.md, 39
+  soggetti): al suo arrivo — carte (generate-batch, Playwright MAI in
+  parallelo), tessere, token, Luoghi/Spedizione/Bestiario/Copertina senza
+  placeholder, LUOGHI3_CROP, e la TARATURA FINALE a video (bibbia:
+  generare ≠ finire).
+- **Fase E — FATTA (20260718):** webapp integrata (export-data py/js,
+  assets, main.js con fallback immagini rotte, soluzione/oracolo, reperti);
+  suite verde: test-engine (anti-softlock incluso: chiavi «salasso» e
+  «requiem per Piero» rese letterali negli indizi), test-ui (4 episodi),
+  test-partite con 2 scenari Ep.3 (giuste/sbagliate). I check jpg degli
+  episodi senza cards/ sono AVVISI finché la Fase D non consegna l'arte.
