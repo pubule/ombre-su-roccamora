@@ -158,6 +158,15 @@ VOCI_MAPPA = [
     ('Casa Malfanti', 'Corte della Faenza 11, casa del vedovo', 'ep10'),
     ('Fornitura del Borgo', 'Borgo delle Cisterne, magazzino dei materiali', 'ep10'),
     ('Bottega del Fotografo', 'contrada del Collodio 2, studio fotografico', 'ep10'),
+    # Episodio 11 — il censimento delle campane. Riusi: L'Archivio Civico
+    # ('ep1'), La Camera dei Pesi e delle Misure ('ep2'), Il Campanile di San
+    # Teodoro ('ep1').
+    ('La Torre Civica', 'piazza Maggiore, torre dell’orologio e delle campane', 'ep11'),
+    ('La Pensione dei Topografi', 'calle dei Forestieri 3, alloggio della squadra', 'ep11'),
+    ('Lo Studio Corrispondente', 'contrada dei Notai 9, recapito della ditta di Milano', 'ep11'),
+    ('Il Sagrato della Cattedrale', 'piazza del Duomo, davanti alla navata', 'ep11'),
+    ('La Bottega del Cordaio', 'riva delle Funi 5, cordaio e armatore di campane', 'ep11'),
+    ('Il Ponteggio del Restauro', 'piazza Maggiore, ponteggio del fianco della Torre', 'ep11'),
 ]
 
 # (sottocartella pdf/, sottotitolo, tag inclusi). Un episodio nuovo aggiunge
@@ -174,6 +183,7 @@ MAPPE = [
     ('Episodio 8', 'episodio 8 — la città che conoscete', ('citta', 'preludio', 'ep1', 'ep2', 'ep3', 'ep4', 'ep5', 'ep6', 'ep7', 'ep8')),
     ('Episodio 9', 'episodio 9 — la città che conoscete', ('citta', 'preludio', 'ep1', 'ep2', 'ep3', 'ep4', 'ep5', 'ep6', 'ep7', 'ep8', 'ep9')),
     ('Episodio 10', 'episodio 10 — la città che conoscete', ('citta', 'preludio', 'ep1', 'ep2', 'ep3', 'ep4', 'ep5', 'ep6', 'ep7', 'ep8', 'ep9', 'ep10')),
+    ('Episodio 11', 'episodio 11 — la città che conoscete', ('citta', 'preludio', 'ep1', 'ep2', 'ep3', 'ep4', 'ep5', 'ep6', 'ep7', 'ep8', 'ep9', 'ep10', 'ep11')),
 ]
 
 # Tipografico (provata la grafia manoscritta La Belle Aurore su tutta la

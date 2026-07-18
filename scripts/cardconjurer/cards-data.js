@@ -2573,6 +2573,234 @@ const EP10 = [...LUOGHI10, ...EP10_INDIZI, ...EP10_TESTIMONI, ...EP10_REFERTI,
               ...EP10_MINACCE, ...EP10_OGGETTI, ...EP10_NEMICI];
 
 
+// ============================================================ EPISODIO 11
+// «Il censimento delle campane» — Atto II, mythology-light (vedi
+// DESIGN-EPISODIO-11.md). Spedizione LA VIA DELLE GUGLIE: ascesa in quota con
+// regola d'ambiente (vento/vertigine → NERVI). Obiettivo CATTURA VIVA del
+// Caposquadra (overkill = filo perso). Torsione d'indagine: IN CHE ORDINE?
+
+const LUOGHI11 = [
+  { n: 1, nome: 'La Torre Civica', req: 'Disponibile dall’inizio',
+    art: 'artworks/La Torre Civica.png',
+    testo: 'Domina la piazza col suo quadrante e le sue campane. Ai suoi piedi, stanotte, un telo copre un morto; in cima, la cella campanaria da cui è caduto. È l’ultimo posto dove Emilio Ratti ha misurato qualcosa — e il primo dove le sue misure cominciano a raccontare, se qualcuno le rimette in fila.',
+    approfondimenti: [
+      { tipo: 'Osservazione', soggetto: 'La caduta',
+        testo: 'Il parapetto della cella è alto al petto: non ci si sporge per sbaglio. E sul davanzale, nella polvere di calce, due impronte di mani larghe — non di Ratti, che le aveva magre — puntate come chi spinge, non come chi trattiene. Ratti non è caduto: è stato buttato. Da uno abituato a stare in quota, che sui tetti non ha vertigini.' },
+    ] },
+  { n: 2, nome: 'La Pensione dei Topografi', req: 'Disponibile dall’inizio',
+    art: 'artworks/La Pensione dei Topografi.png',
+    testo: 'Un alloggio dignitoso e provvisorio: sei uomini venuti da fuori, treppiedi negli angoli, cordelle appese. Si parla poco e si guarda la porta: da quando Ratti è morto, la squadra sa più di quanto dica, e il caposquadra sorride un sorriso che non arriva agli occhi.',
+    approfondimenti: [
+      { tipo: 'Testimonianza', soggetto: 'Il topografo più giovane',
+        testo: '«Ratti aveva rimesso in ordine le sue pagine e aveva capito: tutte le misure puntano allo stesso posto. Voleva vendere il rilievo per conto suo. Speranza lo ha saputo — se perdiamo la commessa, siamo sei uomini in mezzo a una strada. Ieri sono saliti insieme alla Torre. È sceso solo Speranza. È stato lui. Ma non è un mostro: è uno che aveva più paura della fame che del sangue.»' },
+    ] },
+  { n: 3, nome: 'L’Archivio Civico', req: 'Disponibile dall’inizio',
+    art: 'artworks/L’Archivio Civico.png',
+    testo: 'Un labirinto di scaffali e polvere: catasti, reti idriche, piante del sottosuolo. Qui le misure sciolte di un morto trovano una carta su cui posarsi — e, posate, disegnano una freccia verso un punto che nessuna mappa civica ammette di conoscere.',
+    approfondimenti: [
+      { tipo: 'Referto', soggetto: 'Il punto che non c’è',
+        testo: 'Le misure di Ratti, ordinate e riportate sulla pianta, non descrivono la città: la triangolano verso un solo fuoco, un punto sotto la Cattedrale che nessuna mappa civica riconosce. Non è un censimento di campane: è un rilievo di puntamento. Qualcuno vuole sapere al palmo dove si trova quel vuoto — e da quali bocche di pietra, in tutta Roccamora, il suono ci arriverebbe sopra.' },
+    ] },
+  { n: 4, nome: 'La Camera dei Pesi', req: 'Disponibile dall’inizio',
+    art: 'artworks/La Camera dei Pesi.png',
+    testo: 'L’ufficio che tara gli strumenti della città: bilance di ottone, regoli campione, e le tavole delle maree del molo aggiornate ogni giorno. È il posto meno misterioso di Roccamora — ed è proprio qui che le misure impossibili di Ratti trovano l’orologio che le mette in ordine.',
+    approfondimenti: [
+      { tipo: 'Referto', soggetto: 'L’ordine delle misure',
+        testo: 'Datando ogni pagina con la marea e l’accordatura, la sequenza si chiude: fontane, poi campanili, poi la Torre Civica per ultima, al tramonto di ieri. L’ultima misura è il puntamento verso la Cattedrale: è lì che Ratti capì il disegno, ed è lì che decise di vendersi. L’ordine non serve solo a voi: seguire i suoi passi vi dice per dove Speranza salirà e fuggirà stanotte — i tetti non hanno segreti, se sai in che ordine sono stati calpestati.' },
+    ] },
+  { n: 5, nome: 'Lo Studio Corrispondente',
+    req: 'Lo studio è chiuso e sulla targa non c’è che una sigla: apre solo a chi sa nominare chi lo tiene in piedi — quegli uomini venuti da fuori, la ditta che paga.',
+    art: 'artworks/Lo Studio Corrispondente.png',
+    testo: 'Una porta con una targa nuova su una via qualunque: dentro, uno scrittoio, una lampada spenta, un timbro, e la posta che si accumula non aperta. Non uno studio: un recapito. Una scatola vuota che gira lettere e denaro verso un’altra scatola, e così via, fino a una mano che nessuno vede.',
+    approfondimenti: [
+      { tipo: 'Referto', soggetto: 'La commessa firmata',
+        testo: 'Carta di pregio, filigrana della cartiera dei casi passati; il rilievo acustico di mezza Roccamora pagato prima ancora di cominciare; e la firma è un ricciolo solo, la stessa mano che affiora nei registri dell’inverno. «La squadra di Milano» non esiste: è un nome dipinto su una porta chiusa. Dietro c’è una penna sola, che compra misure come chi accorda uno strumento prima del concerto.' },
+    ] },
+  { n: 6, nome: 'Il Campanile di San Teodoro',
+    req: 'Al campanile si sale, e a quest’ora la salita è chiusa: apre solo a chi sa che la misura buona si prende con la marea, quando l’acqua del molo è al suo segno.',
+    art: 'artworks/Il Campanile di San Teodoro.png',
+    testo: 'Si sale per una scala a chiocciola fino alla cella dei bronzi. Da lassù la città è una mappa e il vento è un padrone. Il vecchio campanaro accorda le campane al vespro, e in quell’ora — e solo in quella — le misure prese dall’alto tornano giuste. Di qui parte la via delle guglie.',
+    approfondimenti: [
+      { tipo: 'Presagio', soggetto: 'La città che aspetta il suono',
+        testo: 'In cima, con il vento che porta via le parole, per un istante le campane di tutta Roccamora paiono trattenere il fiato insieme, accordate sullo stesso vuoto. Non è una visione: è un calcolo che si fa carne. Qualcuno vuole che ogni bocca di bronzo della città, a un segnale, canti verso lo stesso punto sotto la Cattedrale. Il censimento non conta le campane: le prepara.' },
+    ] },
+  { n: 7, nome: 'Il Sagrato della Cattedrale',
+    req: 'Il sagrato è aperto a tutti, ma quello che conta è sotto, e ci si arriva solo sapendo cosa cercare: il luogo segnato dalle misure, quello che sulle carte non esiste.',
+    art: 'artworks/Il Sagrato della Cattedrale.png',
+    testo: 'Di notte, una distesa di pietra silenziosa. Sotto, dicono, solo vecchie cisterne murate. Eppure ogni linea del taccuino di Ratti converge qui, su una lastra più nuova delle altre, senza nome: il punto che non c’è, il fuoco verso cui qualcuno vuole far cantare la città intera.',
+    approfondimenti: [
+      { tipo: 'Osservazione', soggetto: 'La colpa del morto',
+        testo: 'Tutto sembra accusare Ratti: era lui a misurare con più zelo, lui a tornare di notte, lui a scrivere di «venderlo». Facile crederlo il regista del disegno. Ma un regista non si fa buttare da una torre dal proprio caposquadra: Ratti aveva solo capito troppo e voluto guadagnarci. La vera mano non misura e non sale: firma, paga, e resta pulita. Attenti a non prendere la vittima per il mandante.' },
+    ] },
+  { n: 8, nome: 'La Bottega del Cordaio',
+    req: 'La bottega del cordaio è chiusa, e lui apre a quest’ora solo a chi gli parla del suo mestiere vero: le corde che tengono i bronzi, quelle che non devono cedere.',
+    art: 'artworks/La Bottega del Cordaio.png',
+    testo: 'Odora di canapa e di sego. Qui si fanno le funi che tengono i bronzi delle campane — e che, all’occorrenza, tengono un uomo sospeso nel vuoto. Il cordaio conosce la via alta meglio di chiunque: sa quali corde reggono, e sa che stanotte reggeranno o lasceranno cadere.',
+    approfondimenti: [
+      { tipo: 'Osservazione', soggetto: 'La corda che trattiene',
+        testo: 'La corda del campanaro non è un attrezzo da scalata: è fatta per reggere il peso oscillante di un bronzo, e per anni di strappi. In quota fa due cose: vi assicura ai passaggi esposti (le trappole di caduta non vi feriscono) e vi dà di che afferrare un uomo aggrappato al cornicione senza precipitare con lui. Prendere Speranza vivo, senza questa corda, è quasi impossibile: il vento decide prima di voi.' },
+    ] },
+  { n: 9, nome: 'Il Ponteggio del Restauro',
+    req: 'Il ponteggio dà accesso ai tetti, ed è sbarrato: ci si passa solo mostrando di sapere del morto e del suo taccuino — la faccenda delle misure che non tornano.',
+    art: 'artworks/Il Ponteggio del Restauro.png',
+    testo: 'Fascia il fianco della Torre come una gabbia di tavole e corde: è la via che i topografi usano per salire senza farsi vedere. Da qui, ieri sera, sono saliti in due; è tornato giù uno solo. E di qui, stanotte, comincia la salita verso la guglia e verso l’uomo che non deve morire prima di parlare.',
+    approfondimenti: [
+      { tipo: 'Osservazione', soggetto: 'Il falso troppo perfetto',
+        testo: 'Il tesserino è un falso di qualità impossibile per un falsario di strada: carta giusta, timbri autentici, sigilli veri. Solo un ufficio fa falsi così — o qualcuno che ha accesso agli originali. Ma è proprio la perfezione a tradirlo: è lasciato dove chi indaga lo trovi, non dove serva a lavorare. È un’esca, posata per far accusare un ministero che non c’entra. La penna che paga vi vuole a caccia della preda sbagliata.' },
+    ] },
+].map((L) => ({
+  art: L.art,
+  title: `${L.n} · ${L.nome}`,
+  file: `Episodio 11/Luoghi/${L.n} - ${L.nome.replace(/’/g, "'")}`,
+  type: `Luogo ${L.n}`,
+  rules: `{i}${L.req === 'Disponibile dall’inizio' ? L.testo : L.req}{/i}`,
+  approfondimenti: L.approfondimenti, n: L.n,
+}));
+
+const EP11_INDIZI = LUOGHI11.flatMap((L) =>
+  L.approfondimenti.filter((a) => a.tipo === 'Osservazione' || a.tipo === 'Presagio')
+    .map((a) => ({
+      art: L.art, n: L.n, kind: 'Indizio',
+      title: `Indizio Nascosto — ${a.soggetto}`,
+      file: `Episodio 11/Indizi/${a.soggetto.replace(/’/g, "'")}`,
+      type: a.tipo,
+      rules: `{i}◆ (${a.tipo}) ${a.testo}{/i}`,
+    })));
+
+const EP11_TESTIMONI = LUOGHI11.flatMap((L) =>
+  L.approfondimenti.filter((a) => a.tipo === 'Testimonianza').map((a) => ({
+    art: L.art, n: L.n, kind: 'Testimone',
+    title: `Testimone — ${a.soggetto}`,
+    file: `Episodio 11/Testimoni/${a.soggetto.replace(/’/g, "'")}`,
+    type: `Luogo ${L.n} · Testimone`,
+    rules: `{i}${a.testo}{/i}`,
+  })));
+
+const EP11_REFERTI = LUOGHI11.flatMap((L) =>
+  L.approfondimenti.filter((a) => a.tipo === 'Referto').map((a) => ({
+    art: L.art, n: L.n, kind: 'Referto',
+    title: `Referto — ${a.soggetto}`,
+    file: `Episodio 11/Referti/${a.soggetto}`,
+    type: `Luogo ${L.n} · Referto`,
+    rules: `{i}${a.testo}{/i}`,
+  })));
+
+// Mazzo 21: 6 spawn (topografi lealisti), 7 insidie (vertigine/NERVI, il
+// cuore dell'episodio), 4 crescendo (raffiche/la Bora, +vento), 4 eventi.
+const EP11_MINACCE = [
+  { art: 'artworks/I topografi lealisti.png', title: 'Il Topografo Ligio', tipo: 'Malavita',
+    flavor: 'Crede alla disposizione ministeriale. Vi sbarra il passo con un treppiede alzato.',
+    effect: 'Piazzate 1 Sgherro sull’uscita più vicina agli eroi.' },
+  { art: 'artworks/I topografi lealisti.png', title: 'Ordini del Caposquadra', tipo: 'Malavita',
+    flavor: '«Non far salire nessuno stanotte», ha detto Speranza. E loro obbediscono.',
+    effect: 'Piazzate 1 Sgherro sull’ingresso della tessera (dal lato da cui siete entrati).' },
+  { art: 'artworks/I topografi lealisti.png', title: 'Chi Non Deve Salire', tipo: 'Malavita',
+    flavor: 'Un braccio teso sul camminamento. Non minacciano: sbarrano.',
+    effect: 'Piazzate 1 Sgherro sull’uscita più vicina agli eroi: si attiva subito.' },
+  { art: 'artworks/I topografi lealisti.png', title: 'La Ronda dei Tetti', tipo: 'Malavita',
+    flavor: 'Fanno il giro delle guglie con la lanterna, come gatti pagati.',
+    effect: 'Piazzate 1 Sgherro sull’ingresso della tessera (dal lato da cui siete entrati).' },
+  { art: 'artworks/I topografi lealisti.png', title: 'Il Fischio dall’Alto', tipo: 'Malavita',
+    flavor: 'Un fischio dalla guglia, e i lealisti convergono dove il padrone li vuole.',
+    effect: 'Piazzate 1 Sgherro sull’uscita più vicina agli eroi: si attiva subito.' },
+  { art: 'artworks/La claque.png', title: 'La Claque sul Cornicione', tipo: 'Malavita',
+    flavor: 'Voci comprate che dall’alto vi coprono di insulti e vi fanno perdere l’equilibrio.',
+    effect: 'L’eroe più avanzato prova NERVI (Facile): se fallisce, 1 sola azione al prossimo turno. (Se la Claque dell’Ep. 4 non è sopravvissuta, ignorate: pescate un’altra carta.)' },
+  { art: 'artworks/Il vuoto sotto i piedi.png', title: 'Il Vuoto Sotto i Piedi', tipo: 'Insidia',
+    flavor: 'Un passo, e sotto la suola non c’è più tetto: solo la piazza minuscola, in fondo.',
+    effect: 'Ogni eroe su tessera ESPOSTA prova NERVI (Media): se fallisce, 1 danno.' },
+  { art: 'artworks/Leco dei bronzi.png', title: 'L’Eco dei Bronzi', tipo: 'Insidia',
+    flavor: 'Una folata muove i battagli: un rintocco improvviso vi entra nelle ossa.',
+    effect: 'L’eroe più avanzato prova NERVI (Media): se fallisce, 1 danno.' },
+  { art: 'artworks/La tegola che scivola.png', title: 'La Tegola che Scivola', tipo: 'Insidia',
+    flavor: 'Un coppo si stacca sotto il piede e vola giù, contando i secondi fino a terra.',
+    effect: 'L’eroe attivo prova VIGORE (Media): se fallisce, scivola — 1 danno e perde lo scatto. Con la Corda del Campanaro: nessuna prova.' },
+  { art: 'artworks/Le mani sudate.png', title: 'Le Mani Sudate', tipo: 'Insidia',
+    flavor: 'La presa si fa incerta proprio quando serve salda. Il vuoto lo sa.',
+    effect: 'Ogni eroe su tessera ESPOSTA prova NERVI (Facile): chi fallisce ha 1 sola azione al prossimo turno.' },
+  { art: 'artworks/Lo sguardo in giu.png', title: 'Lo Sguardo in Giù', tipo: 'Insidia',
+    flavor: 'Basta un attimo a guardare sotto, e la città gira come un gorgo.',
+    effect: 'L’eroe con meno NERVI prova NERVI (Media): se fallisce, 1 danno.' },
+  { art: 'artworks/Il rintocco improvviso.png', title: 'Il Rintocco Improvviso', tipo: 'Insidia',
+    flavor: 'Le campane suonano l’ora senza avviso, e il fragore vi stacca dal muro.',
+    effect: 'Ogni eroe prova NERVI (Facile): chi fallisce ha 1 sola azione al prossimo turno.' },
+  { art: 'artworks/La ringhiera che cede.png', title: 'La Ringhiera che Cede', tipo: 'Insidia',
+    flavor: 'Vi appoggiate, e il ferro arrugginito cede con uno schianto sul vuoto.',
+    effect: 'L’eroe più avanzato su tessera ESPOSTA prova NERVI (Media): se fallisce, 1 danno.' },
+  { art: 'artworks/Il primo refolo.png', title: 'Il Primo Refolo', tipo: 'Crescendo',
+    flavor: 'Il vento cambia e comincia a spingere. È solo l’inizio: monterà.',
+    effect: 'Aggiungete 1 segnalino Canto (la Bora) E alzate di 1 la difficoltà delle prove di vento, per sempre. Alla soglia: ogni Fase Minaccia pesca 1 carta in più.' },
+  { art: 'artworks/Il vento gira.png', title: 'Il Vento Gira', tipo: 'Crescendo',
+    flavor: 'Cambia lato senza avvisare: quello che vi teneva, ora vi spinge giù.',
+    effect: 'Aggiungete 1 segnalino Canto (la Bora) E alzate di 1 la difficoltà delle prove di vento, per sempre. Alla soglia: ogni Fase Minaccia pesca 1 carta in più.' },
+  { art: 'artworks/La bora dal mare.png', title: 'La Bora dal Mare', tipo: 'Crescendo',
+    flavor: 'Dal mare arriva la bora, dura e fredda, che sui tetti non perdona.',
+    effect: 'Aggiungete 1 segnalino Canto (la Bora) E alzate di 1 la difficoltà delle prove di vento, per sempre. Alla soglia: ogni Fase Minaccia pesca 1 carta in più.' },
+  { art: 'artworks/La raffica sulla guglia.png', title: 'La Raffica sulla Guglia', tipo: 'Crescendo',
+    flavor: 'La raffica investe la cima: chi è in bilico sul cornicione, adesso, rischia di volare.',
+    effect: 'Aggiungete 1 segnalino Canto (la Bora) E alzate di 1 la difficoltà delle prove di vento. Se il Caposquadra è a 1 Ferita su tessera ESPOSTA, CADE nel vuoto (filo perso): tenetelo al riparo prima!' },
+  { art: 'artworks/Il vento cade.png', title: 'Il Vento Cade', tipo: 'Quiete',
+    flavor: 'Per un istante, l’aria si ferma. La città, sotto, sembra a portata di mano.',
+    effect: 'Nessun effetto. Tirate il fiato: anche la bora, ogni tanto, riprende lena.' },
+  { art: 'artworks/Un appiglio sicuro.png', title: 'Un Appiglio Sicuro', tipo: 'Favore',
+    flavor: 'Una sporgenza di pietra buona, giusto dove serve: il tetto vi offre una mano.',
+    effect: 'Rivelate una tessera coperta adiacente a quella di un eroe (la scelgono i giocatori).' },
+  { art: 'artworks/Labbaino sbarrato.png', title: 'L’Abbaino Sbarrato', tipo: 'Ostacolo',
+    flavor: 'Una botola incrostata di ghiaccio blocca il passaggio corto: si gira, ma piano.',
+    effect: 'Fino a fine round, sulla tessera dell’eroe attivo muoversi costa il doppio.' },
+  { art: 'artworks/Una tegola in testa.png', title: 'Una Tegola in Testa', tipo: 'Insidia',
+    flavor: 'Il vento stacca un coppo da più in alto e lo scaglia dritto sul gruppo.',
+    effect: 'Un eroe a caso (chi arbitra tira) subisce 1 danno.' },
+].map((m) => ({
+  art: m.art,
+  title: `${m.tipo} — ${m.title}`,
+  file: `Episodio 11/Minacce/${m.title.replace(/’/g, "'")}`,
+  rules: `{i}${m.flavor}{/i}{divider}${m.effect}`,
+}));
+
+const EP11_OGGETTI = [
+  { art: 'artworks/Corda del Campanaro.png', nome: 'La Corda del Campanaro', ref: 'E11-L8',
+    fonte: 'Luogo 8 — La Bottega del Cordaio',
+    flavor: 'Una fune da campane, fatta per reggere il peso oscillante di un bronzo. In quota, tiene un uomo meglio di qualsiasi ringhiera.',
+    effetto: 'Assicurati: le trappole di caduta (T2, T4) non vi feriscono. Alla guglia, la cattura del Caposquadra a 1 Ferita è automatica (Interagire), senza prova FORZA e senza rischio di vederlo cadere.' },
+  { art: 'artworks/Taccuino Ordinato.png', nome: 'Il Taccuino Ordinato', ref: 'E11-L4',
+    fonte: 'Luogo 4 — La Camera dei Pesi (col Taccuino grezzo dalla Torre)',
+    flavor: 'Le pagine sciolte di Ratti, rimesse in fila con la marea e le campane. Conoscete i suoi passi — e per dove Speranza salirà.',
+    effetto: 'Il Caposquadra perde la scorciatoia sui tetti (non può saltare a tessere non adiacenti) e voi avete +1 a tutte le prove NERVI del vento.' },
+  { art: 'artworks/Lanterna Cieca.png', nome: 'La Lanterna Cieca', ref: 'E11-L6',
+    fonte: 'Luogo 6 — Il Campanile di San Teodoro',
+    flavor: 'Una lanterna a specchio, che getta un fascio solo davanti a sé: la via alta al buio si legge un appiglio per volta.',
+    effetto: 'Annulla il −1 alle prove di vento dovuto al buio sulle tessere ESPOSTE: la salita notturna diventa leggibile.' },
+  { art: 'artworks/Tesserino Perfetto.png', nome: 'Il Tesserino Perfetto', ref: 'E11-L9',
+    fonte: 'Luogo 9 — Il Ponteggio del Restauro',
+    flavor: 'Un falso di qualità impossibile: carta giusta, timbri veri. Sembra la prova di un mandante ufficiale. È un’esca posata per depistare.',
+    effetto: 'Effetto: nessuno finora scoperto.' },
+  { art: 'artworks/Colpa del Morto.png', nome: 'La Colpa del Morto', ref: 'E11-L7',
+    fonte: 'Luogo 7 — Il Sagrato della Cattedrale',
+    flavor: 'Gli appunti che paiono fare di Ratti il regista del disegno. Prova solo che aveva capito troppo — e voluto guadagnarci.',
+    effetto: 'Effetto: nessuno finora scoperto.' },
+].map((o) => ({
+  art: o.art,
+  title: o.nome,
+  file: `Episodio 11/Oggetti/${o.nome.replace(/’/g, "'")}`,
+  type: 'Oggetto',
+  rules: `{i}${o.flavor}{/i}{divider}${o.effetto}`,
+  ref: o.ref, fonte: o.fonte,
+}));
+
+const EP11_NEMICI = [
+  { art: 'artworks/Il Caposquadra.png', title: 'Il Caposquadra',
+    type: 'Il Cacciatore di Tetti (Boss) — Episodio 11',
+    rules: '{i}Ivo Speranza non è un cultista: è un caposquadra con sei uomini da sfamare e una commessa che è la sua sola salvezza. Quando Ratti volle vendersi, vide sparire il pane di tutti — e lo spinse dalla cella. Una colpa sola, per paura, non per vocazione.{/i}{divider}Statistiche nel Bestiario. CONOSCE I TETTI: ignora il vento, 1 scorciatoia per round. Va preso VIVO (a 1 Ferita: Interagire adiacente; overkill = CADE, filo perso). «Le misure ordinate» (D3): perde la scorciatoia, +1 NERVI agli eroi.' },
+  { art: 'artworks/Il Topografo Lealista.png', title: 'Il Topografo Lealista',
+    type: 'L’Ingannato in Buona Fede — Episodio 11',
+    rules: '{i}Uno dei sei uomini della squadra: crede davvero di lavorare per un ministero, di fare un servizio alla città. Non sa nulla della penna che paga né del vuoto sotto la Cattedrale: sa solo che stanotte non deve far salire nessuno.{/i}{divider}Nemico minore (appare in T4): vi sbarra il camminamento. Cade con poco; non ha colpe, solo ordini.' },
+].map((n) => ({ ...n, file: `Episodio 11/Nemici/${n.title}` }));
+
+const EP11 = [...LUOGHI11, ...EP11_INDIZI, ...EP11_TESTIMONI, ...EP11_REFERTI,
+              ...EP11_MINACCE, ...EP11_OGGETTI, ...EP11_NEMICI];
+
+
 module.exports = {
   HEROES, NEMICI, MINACCE, LUOGHI, INDIZI, TESTIMONI, REFERTI, OGGETTI, PRELUDIO,
   PRELUDIO_LUOGHI, PRELUDIO_APPROFONDIMENTI, PRELUDIO_OGGETTI,
@@ -2585,5 +2813,6 @@ module.exports = {
   EP8, LUOGHI8, EP8_INDIZI, EP8_TESTIMONI, EP8_REFERTI, EP8_MINACCE, EP8_OGGETTI, EP8_NEMICI,
   EP9, LUOGHI9, EP9_INDIZI, EP9_TESTIMONI, EP9_REFERTI, EP9_MINACCE, EP9_OGGETTI, EP9_NEMICI,
   EP10, LUOGHI10, EP10_INDIZI, EP10_TESTIMONI, EP10_REFERTI, EP10_MINACCE, EP10_OGGETTI, EP10_NEMICI,
-  ALL: [...HEROES, ...NEMICI, ...MINACCE, ...LUOGHI, ...INDIZI, ...TESTIMONI, ...REFERTI, ...OGGETTI, ...PRELUDIO, ...EP2, ...EP3, ...EP4, ...EP5, ...EP6, ...EP7, ...EP8, ...EP9, ...EP10],
+  EP11, LUOGHI11, EP11_INDIZI, EP11_TESTIMONI, EP11_REFERTI, EP11_MINACCE, EP11_OGGETTI, EP11_NEMICI,
+  ALL: [...HEROES, ...NEMICI, ...MINACCE, ...LUOGHI, ...INDIZI, ...TESTIMONI, ...REFERTI, ...OGGETTI, ...PRELUDIO, ...EP2, ...EP3, ...EP4, ...EP5, ...EP6, ...EP7, ...EP8, ...EP9, ...EP10, ...EP11],
 };

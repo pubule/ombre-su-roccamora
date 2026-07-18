@@ -708,6 +708,56 @@ Chi canterà al di sotto, non si lamenti di ciò che al di sotto risponde.`;
     </div></div>
   `);
 
+  // --- Episodio 11, Reperto A: il taccuino delle misure (L1) ---
+  const repertoA11 = page(`
+    <div class="wrap"><div style="zoom:0.90;">
+      <div class="serif" style="font-style:italic; font-size:38px; color:#3a2415; mix-blend-mode:multiply; margin-bottom:44px;">Reperto A — taccuino di rilievo di E. Ratti (pagine sciolte)</div>
+      <div class="serif" style="font-size:44px; line-height:70px;">
+        <p style="margin-bottom:28px;">fontana del chiostro → portico, <b>40 passi</b> — <i>bassa marea</i></p>
+        <p style="margin-bottom:28px;">campanile S. Teodoro → tetti, quota — <i>ora d’accordatura</i></p>
+        <p style="margin-bottom:28px; border-top:2px solid #6b5636; padding-top:28px;">Torre Civica → <b>Cattedrale</b>: convergenza. <span class="hand" style="font-size:50px;">è QUI</span></p>
+      </div>
+      <div class="serif" style="font-style:italic; margin-top:64px; font-size:34px; color:#4a4a4e; mix-blend-mode:multiply;">
+        Pagine senza data, prese a caso non chiudono. Datate con la marea e le
+        campane, trovano un ordine — e l’ordine punta tutto allo stesso vuoto.
+      </div>
+    </div></div>
+  `);
+
+  // --- Episodio 11, Reperto B: la mappa parziale (L3) ---
+  const repertoB11 = page(`
+    <div class="wrap"><div style="zoom:0.90;">
+      <div class="serif" style="font-style:italic; font-size:38px; color:#3a2415; mix-blend-mode:multiply; margin-bottom:56px;">Reperto B — riporto delle misure sulla pianta civica</div>
+      <div class="serif" style="font-size:46px; line-height:74px;">
+        <p style="margin-bottom:32px;">Linee di rilievo tracciate da campanili, fontane e portici: tutte convergono in un solo fuoco.</p>
+        <p style="margin-bottom:32px; border-top:2px solid #6b5636; padding-top:32px;">Il fuoco cade <b>sotto la navata della Cattedrale</b> — dove la pianta ufficiale non segna nulla.</p>
+      </div>
+      <div class="serif" style="font-style:italic; margin-top:80px; font-size:34px; color:#4a4a4e; mix-blend-mode:multiply;">
+        Non è un censimento di campane: è un rilievo di puntamento. Qualcuno
+        vuole sapere al palmo dove si trova un vuoto che le mappe negano.
+      </div>
+    </div></div>
+  `);
+
+  // --- Episodio 11, Reperto C: la commessa del rilievo (L5) — il SEME ---
+  const repertoC11 = page(`
+    <div class="wrap"><div style="zoom:0.92;">
+      <div class="serif" style="font-style:italic; font-size:38px; color:#3a2415; mix-blend-mode:multiply; margin-bottom:64px;">Reperto C — commessa di rilievo fonico (studio corrispondente)</div>
+      <div class="serif" style="font-size:48px; line-height:78px;">
+        <p style="margin-bottom:34px;">Incarico: <b>censimento fonico di Roccamora</b> — campane, organi, fontane.</p>
+        <p style="margin-bottom:34px;">Pagamento: <b>in anticipo</b>, a mezzo lettera. Consegne al fermo-posta indicato.</p>
+      </div>
+      <div class="hand" style="font-size:64px; line-height:100px; margin-top:50px; text-align:right;">
+        <p>— C.B.</p>
+      </div>
+      <div class="serif" style="font-style:italic; margin-top:70px; font-size:34px; color:#4a4a4e; mix-blend-mode:multiply;">
+        Carta di pregio, filigrana della cartiera dei casi passati; il rilievo
+        pagato prima di cominciare. Non uno studio: una penna sola, che accorda
+        la città come uno strumento prima del concerto.
+      </div>
+    </div></div>
+  `);
+
   const items = [
     ['Episodio 1', 'Reperto A - Diario di Ruggero', repertoA],
     ['Episodio 1', 'Reperto B - Registro delle Consegne', repertoB],
@@ -740,6 +790,9 @@ Chi canterà al di sotto, non si lamenti di ciò che al di sotto risponde.`;
     ['Episodio 10', 'Reperto A - Denuncia di Abbandono', repertoA10],
     ['Episodio 10', 'Reperto B - Libro Mastro della Muratura', repertoB10],
     ['Episodio 10', 'Reperto C - Commessa del Fornitore', repertoC10],
+    ['Episodio 11', 'Reperto A - Taccuino delle Misure', repertoA11],
+    ['Episodio 11', 'Reperto B - Mappa Parziale', repertoB11],
+    ['Episodio 11', 'Reperto C - Commessa del Rilievo', repertoC11],
   ];
 
   for (const [episodio, name, html] of items) {
