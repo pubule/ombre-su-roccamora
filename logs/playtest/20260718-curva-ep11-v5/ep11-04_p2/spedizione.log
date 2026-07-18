@@ -1,0 +1,98 @@
+==============================================================================
+SPEDIZIONE - La via delle guglie: cattura viva in quota
+==============================================================================
+Party: CARLA DOSTI, OTTONE “MEZZENA” MASSARI, PADRE CELSO MARANI, SIBILLA REVE  |  PREPARATI  |  Corda: sì  |  Ordine(D3): sì  |  Lanterna: no
+--- Round 1: la via delle guglie attraversa T1 (riparata) ---
+  [MINACCIA] LA RAFFICA SULLA GUGLIA (raffica)
+    Raffica: il vento sale a livello 1.
+  [MINACCIA] LA CLAQUE SUL CORNICIONE (insidiaA)
+    [PROVA NERVI] CARLA DOSTI: 2d6=7 +NERVI(2) = 9 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6=3 +NERVI(2) = 5 vs Facile(7) -> FALLITA
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6=7 +NERVI(2) = 9 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] PADRE CELSO MARANI: 2d6=6 +NERVI(3) = 9 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] SIBILLA REVE: 2d6=8 +NERVI(3) = 11 vs Facile(7) -> SUCCESSO
+--- Round 2: la via delle guglie attraversa T2 (ESPOSTA) ---
+    [PROVA NERVI] CARLA DOSTI: 2d6=9 +NERVI(2) -1 = 10 vs Media(9) -> SUCCESSO
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6=9 +NERVI(2) -1 = 10 vs Media(9) -> SUCCESSO
+    [PROVA NERVI] PADRE CELSO MARANI: 2d6=12 +NERVI(3) -1 = 14 vs Media(9) -> SUCCESSO
+    [PROVA NERVI] SIBILLA REVE: 2d6=7 +NERVI(3) -1 = 9 vs Media(9) -> SUCCESSO
+  [MINACCIA] CHI NON DEVE SALIRE (spawn)
+    Piazzato 1 topografo lealista (Sgherro) — si attiva subito.
+    CARLA DOSTI subisce 1 da lealista (subito) (Salute 7/8).
+  [MINACCIA] UN APPIGLIO SICURO (favore)
+    SIBILLA REVE subisce 1 da lealista (Salute 7/8).
+--- Round 3: la via delle guglie attraversa T3 (riparata) ---
+  [MINACCIA] LO SGUARDO IN GIÙ (insidiaC)
+    [PROVA NERVI] CARLA DOSTI: 2d6=6 +NERVI(2) = 8 vs Media(9) -> FALLITA
+    CARLA DOSTI subisce 1 da LO SGUARDO IN GIÙ (Salute 6/8).
+  [MINACCIA] IL PRIMO REFOLO (crescendo)
+    Raffica: il vento sale a livello 2.
+    SIBILLA REVE subisce 1 da lealista (Salute 6/8).
+--- Round 4: la via delle guglie attraversa T4 (ESPOSTA) ---
+    [PROVA NERVI] CARLA DOSTI: 2d6=11 +NERVI(2) -2 = 11 vs Media(9) -> SUCCESSO
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6=4 +NERVI(2) -2 = 4 vs Media(9) -> FALLITA
+    OTTONE “MEZZENA” MASSARI subisce 1 da vertigine (vento) (Salute 9/10).
+    [PROVA NERVI] PADRE CELSO MARANI: 2d6=7 +NERVI(3) -2 = 8 vs Media(9) -> FALLITA
+    [PROVA NERVI] PADRE CELSO MARANI: 2d6=7 +NERVI(3) -2 = 8 vs Media(9) -> FALLITA
+    PADRE CELSO MARANI subisce 1 da vertigine (vento) (Salute 7/8).
+    [PROVA NERVI] SIBILLA REVE: 2d6=5 +NERVI(3) -2 = 6 vs Media(9) -> FALLITA
+    [PROVA NERVI] SIBILLA REVE: 2d6=9 +NERVI(3) -2 = 10 vs Media(9) -> SUCCESSO
+    Appare IL TOPOGRAFO LEALISTA (ingannato in buona fede), e vi sbarra.
+  [MINACCIA] LE MANI SUDATE (insidiaA)
+    [PROVA NERVI] CARLA DOSTI: 2d6=8 +NERVI(2) = 10 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6=5 +NERVI(2) = 7 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] PADRE CELSO MARANI: 2d6=11 +NERVI(3) = 14 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] SIBILLA REVE: 2d6=11 +NERVI(3) = 14 vs Facile(7) -> SUCCESSO
+  [MINACCIA] LA RONDA DEI TETTI (spawn)
+    Piazzato 1 topografo lealista (Sgherro).
+    PADRE CELSO MARANI subisce 1 da lealista (Salute 6/8).
+    La Bora è al colmo (Canto 3): +1 carta Minaccia per Fase, per sempre.
+  [OROLOGIO] Fine del 4° round: +1 Canto automatico.
+--- Round 5: la via delle guglie attraversa T5 (ESPOSTA) ---
+    [PROVA NERVI] CARLA DOSTI: 2d6=8 +NERVI(2) -2 = 8 vs Media(9) -> FALLITA
+    CARLA DOSTI subisce 1 da vertigine (vento) (Salute 5/8).
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6=9 +NERVI(2) -2 = 9 vs Media(9) -> SUCCESSO
+    [PROVA NERVI] PADRE CELSO MARANI: 2d6=8 +NERVI(3) -2 = 9 vs Media(9) -> SUCCESSO
+    [PROVA NERVI] SIBILLA REVE: 2d6=10 +NERVI(3) -2 = 11 vs Media(9) -> SUCCESSO
+    Il Topografo Lealista è messo fuori gioco.
+  [MINACCIA] UNA TEGOLA IN TESTA (danno)
+    OTTONE “MEZZENA” MASSARI subisce 1 da UNA TEGOLA IN TESTA (Salute 8/10).
+  [MINACCIA] LA RINGHIERA CHE CEDE (insidiaB)
+    [PROVA NERVI] CARLA DOSTI: 2d6=6 +NERVI(2) = 8 vs Media(9) -> FALLITA
+    CARLA DOSTI subisce 1 da LA RINGHIERA CHE CEDE (Salute 4/8).
+  [MINACCIA] ORDINI DEL CAPOSQUADRA (spawn)
+    Piazzato 1 topografo lealista (Sgherro).
+--- Round 6+: LA GUGLIA (T6, ESPOSTA) — il Caposquadra (Fer 4), va preso VIVO ---
+--- Round 6 (T6): vento 2 · Caposquadra 4/4 Fer ---
+    [PROVA NERVI] CARLA DOSTI: 2d6=7 +NERVI(2) -3 = 6 vs Media(9) -> FALLITA
+    CARLA DOSTI subisce 1 da vertigine (vento) (Salute 3/8).
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6=6 +NERVI(2) -3 = 5 vs Media(9) -> FALLITA
+    OTTONE “MEZZENA” MASSARI subisce 1 da vertigine (vento) (Salute 7/10).
+    [PROVA NERVI] PADRE CELSO MARANI: 2d6=7 +NERVI(3) -3 = 7 vs Media(9) -> FALLITA
+    PADRE CELSO MARANI subisce 1 da vertigine (vento) (Salute 5/8).
+    [PROVA NERVI] SIBILLA REVE: 2d6=9 +NERVI(3) -3 = 9 vs Media(9) -> SUCCESSO
+  [MINACCIA] LA BORA DAL MARE (crescendo)
+    Raffica: il vento sale a livello 3.
+  [MINACCIA] L’ECO DEI BRONZI (insidiaB)
+    [PROVA NERVI] CARLA DOSTI: 2d6=3 +NERVI(2) = 5 vs Media(9) -> FALLITA
+    CARLA DOSTI subisce 1 da L’ECO DEI BRONZI (Salute 2/8).
+  [MINACCIA] LA TEGOLA CHE SCIVOLA (tegola)
+    [CORDA DEL CAMPANARO] assicurati: la tegola non ferisce.
+    CARLA DOSTI subisce 2 da il Caposquadra (Salute 0/8).
+    *** CARLA DOSTI è A TERRA. ***
+    PADRE CELSO MARANI subisce 2 da il Caposquadra (Salute 3/8).
+--- Round 7 (T6): vento 3 · Caposquadra 2/4 Fer ---
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6=12 +NERVI(2) -4 = 10 vs Media(9) -> SUCCESSO
+    [PROVA NERVI] PADRE CELSO MARANI: 2d6=10 +NERVI(3) -4 = 9 vs Media(9) -> SUCCESSO
+    [PROVA NERVI] SIBILLA REVE: 2d6=12 +NERVI(3) -4 = 11 vs Media(9) -> SUCCESSO
+    Il Caposquadra è ridotto all’ultima Ferita: si aggrappa al cornicione.
+    [CORDA DEL CAMPANARO] OTTONE “MEZZENA” MASSARI lo trattiene e lo cattura subito: preso VIVO.
+  [MINACCIA] IL VENTO GIRA (crescendo)
+    Raffica: il vento sale a livello 4.
+  [MINACCIA] IL VUOTO SOTTO I PIEDI (insidiaB)
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6=7 +NERVI(2) = 9 vs Media(9) -> SUCCESSO
+    PADRE CELSO MARANI subisce 2 da il Caposquadra (Salute 1/8).
+
+==============================================================================
+ESITO: VITTORIA  |  Round: 7  |  vento 4  |  Canto 5
+==============================================================================

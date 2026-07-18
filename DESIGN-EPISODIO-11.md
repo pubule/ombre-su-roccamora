@@ -286,21 +286,34 @@ VENTO_STEP, CATTURA_SOGLIA, SHORTCUT), MAI la config condivisa.
   Campanile di San Teodoro; 6 tessere nuove (via delle guglie notturna);
   reperti A/B/C; PROMPT-MJ integrale (PROMPT-MIDJOURNEY-Episodio-11.md);
   bucket; copertina (placeholder arte).
-- **Fase C — DA FARE:** `simulate_ep11.py` (seed base 710000). Modella la
-  regola d'ambiente (prove NERVI su tessere esposte, vento cumulativo dai
-  crescendo), la cattura viva (soglia a 1 Ferita, Corda = cattura automatica /
-  senza = FORZA, overkill = filo perso, raffica su esposta = caduta), il
-  vantaggio di terreno del boss (scorciatoia annullata da D3), gli oggetti
-  (Corda annulla trappole + abilita cattura, Taccuino Ordinato spegne la
-  scorciatoia e +1 NERVI, Lanterna leva il buio). **Torsione IN CHE ORDINE**
-  nel simulatore: `ordine_ricostruito = (1 in visitati) and (4 in visitati)`
-  → boss senza scorciatoia + party +1 NERVI. **Leve per-episodio da tarare:**
-  VENTO_BASE, VENTO_STEP (per crescendo), CATTURA_SOGLIA=1, SHORTCUT.
-  Config condivisa (finale_v3, TICK_CANTO_OGNI=4, SOGLIA_CANTO=3, boss delta,
-  salute bonus) importata da `simulate_playtest`: INVARIATA. **Nota tecnica
-  vincolante:** le patch al simulatore vanno scritte con file `.py` (Write
-  tool), non con heredoc bash (stdin cp1252 su Windows fa fallire il match in
-  silenzio); poi verificare con `grep -c <flag>` che il flag sia sul disco.
+- **Fase C — FATTA (20260718):** `simulate_ep11.py` (seed base 710000).
+  Modella la regola d'ambiente (prova NERVI a ogni eroe su tessera ESPOSTA
+  {T2,T4,T5,T6}, `extra = -vento_livello + ordine_bonus + buio_malus`; fallire
+  ferisce 1 con vento≥1 o allo stremo, altrimenti toglie lo scatto; il vento
+  sale di 1 per ogni crescendo), la cattura viva (a `CATTURA_SOGLIA=1` il boss
+  si aggrappa: con Corda cattura automatica **nello stesso turno** in cui è
+  sottomesso — niente finestra per la raffica —, senza Corda prova FORZA al
+  turno dopo, e la raffica sull'esposto lo fa CADERE = filo perso), il
+  vantaggio di terreno (`elude` = un attacco a vuoto/round finché non c'è D3),
+  la guglia stretta (`MAX_INGAGGIO_GUGLIA=3` eroi al boss: bottleneck che
+  allunga l'esposizione ai tavoli grandi), il boss cornered (2 attacchi/round
+  al più debole) e il footing ghiacciato (−1 a colpirlo a T6). **Torsione IN
+  CHE ORDINE:** `ordine_ok = incroci_d3>=2` (L1 taccuino grezzo + L4 marea/
+  accordatura) → Taccuino Ordinato → boss senza scorciatoia + party +1 NERVI.
+  Oggetti: Corda (D4, L8) annulla trappole+abilita cattura; Lanterna (L6) leva
+  il buio; ordine (D3). **Leve tarate:** TESSERE_ESPOSTE={T2,T4,T5,T6},
+  VENTO_DIFF=Media, VENTO_T6_EXTRA=1, CATTURA_SOGLIA=1, MAX_INGAGGIO_GUGLIA=3,
+  BOSS_MOV_ELUSIONE. Config condivisa (finale_v3, TICK_CANTO_OGNI=4,
+  SOGLIA_CANTO=3, boss delta, salute bonus) importata da `simulate_playtest`:
+  INVARIATA. **Curva (5 party × 30 seed, v5):** 2: 50% (dura), 3: 78%, 4: 95%,
+  5: 91%, 6: 85%, 7: 96%, 8: 97%, 9: 98%, 10: 97% — banda 3-10 = 78-98%, con
+  «sofferte» altissime (89-100% su tutte le taglie): ogni vittoria è al filo,
+  il vento e un uomo da prendere vivo tengono l'ansia al massimo. Log:
+  logs/playtest/20260718-curva-ep11-v5. PONYTAIL: modello a blocco (ascesa
+  tessera-per-tessera + resa dei conti a cattura), non la griglia tattica.
+  **Nota tecnica vincolante:** le patch al simulatore vanno scritte con file
+  `.py` (Write tool), non con heredoc bash (stdin cp1252 su Windows fa fallire
+  il match in silenzio); poi verificare con `grep -c <flag>` sul disco.
 - **Fase D: IN ATTESA DELL'ARTE** (prompt MJ integrali pronti in Fase B).
 - **Fase E — DA FARE:** export py/js (ep11, SOLUZIONI, REPERTI_LUOGO {1: A,
   3: B, 5: C}, POOL_EP11, nemici concat), assets (Episodio 11), main.js

@@ -1,0 +1,85 @@
+==============================================================================
+SPEDIZIONE - La via delle guglie: cattura viva in quota
+==============================================================================
+Party: CARLA DOSTI, SIBILLA REVE  |  PREPARATI  |  Corda: sì  |  Ordine(D3): sì  |  Lanterna: no
+--- Round 1: la via delle guglie attraversa T1 (riparata) ---
+  [MINACCIA] LA RINGHIERA CHE CEDE (insidiaB)
+    [PROVA NERVI] CARLA DOSTI: 2d6=8 +NERVI(2) = 10 vs Media(9) -> SUCCESSO
+--- Round 2: la via delle guglie attraversa T2 (ESPOSTA) ---
+    [PROVA NERVI] CARLA DOSTI: 2d6=3 +NERVI(2) = 5 vs Media(9) -> FALLITA
+    CARLA DOSTI: il vento gli toglie lo scatto (nessun danno, per ora).
+    [PROVA NERVI] SIBILLA REVE: 2d6=7 +NERVI(3) = 10 vs Media(9) -> SUCCESSO
+  [MINACCIA] LE MANI SUDATE (insidiaA)
+    [PROVA NERVI] CARLA DOSTI: 2d6=9 +NERVI(2) = 11 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] SIBILLA REVE: 2d6=7 +NERVI(3) = 10 vs Facile(7) -> SUCCESSO
+--- Round 3: la via delle guglie attraversa T3 (riparata) ---
+  [MINACCIA] IL VENTO GIRA (crescendo)
+    Raffica: il vento sale a livello 1.
+--- Round 4: la via delle guglie attraversa T4 (ESPOSTA) ---
+    [PROVA NERVI] CARLA DOSTI: 2d6=11 +NERVI(2) -1 = 12 vs Media(9) -> SUCCESSO
+    [PROVA NERVI] SIBILLA REVE: 2d6=5 +NERVI(3) -1 = 7 vs Media(9) -> FALLITA
+    [PROVA NERVI] SIBILLA REVE: 2d6=6 +NERVI(3) -1 = 8 vs Media(9) -> FALLITA
+    SIBILLA REVE: il vento gli toglie lo scatto (nessun danno, per ora).
+    Appare IL TOPOGRAFO LEALISTA (ingannato in buona fede), e vi sbarra.
+  [MINACCIA] IL FISCHIO DALL’ALTO (spawn)
+    Piazzato 1 topografo lealista (Sgherro) — si attiva subito.
+    CARLA DOSTI subisce 1 da lealista (subito) (Salute 7/8).
+  [OROLOGIO] Fine del 4° round: +1 Canto automatico.
+--- Round 5: la via delle guglie attraversa T5 (ESPOSTA) ---
+    [PROVA NERVI] CARLA DOSTI: 2d6=5 +NERVI(2) -1 = 6 vs Media(9) -> FALLITA
+    CARLA DOSTI: il vento gli toglie lo scatto (nessun danno, per ora).
+    [PROVA NERVI] SIBILLA REVE: 2d6=7 +NERVI(3) -1 = 9 vs Media(9) -> SUCCESSO
+    Il Topografo Lealista è messo fuori gioco.
+  [MINACCIA] IL TOPOGRAFO LIGIO (spawn)
+    Piazzato 1 topografo lealista (Sgherro).
+    SIBILLA REVE subisce 1 da lealista (Salute 7/8).
+    CARLA DOSTI subisce 1 da lealista (Salute 6/8).
+--- Round 6+: LA GUGLIA (T6, ESPOSTA) — il Caposquadra (Fer 4), va preso VIVO ---
+--- Round 6 (T6): vento 1 · Caposquadra 4/4 Fer ---
+    [PROVA NERVI] CARLA DOSTI: 2d6=4 +NERVI(2) -2 = 4 vs Media(9) -> FALLITA
+    CARLA DOSTI: il vento gli toglie lo scatto (nessun danno, per ora).
+    [PROVA NERVI] SIBILLA REVE: 2d6=10 +NERVI(3) -2 = 11 vs Media(9) -> SUCCESSO
+  [MINACCIA] LA CLAQUE SUL CORNICIONE (insidiaA)
+    [PROVA NERVI] CARLA DOSTI: 2d6=9 +NERVI(2) = 11 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] SIBILLA REVE: 2d6=9 +NERVI(3) = 12 vs Facile(7) -> SUCCESSO
+    SIBILLA REVE subisce 2 da il Caposquadra (Salute 5/8).
+--- Round 7 (T6): vento 1 · Caposquadra 4/4 Fer ---
+    [PROVA NERVI] CARLA DOSTI: 2d6=10 +NERVI(2) -2 = 10 vs Media(9) -> SUCCESSO
+    [PROVA NERVI] SIBILLA REVE: 2d6=9 +NERVI(3) -2 = 10 vs Media(9) -> SUCCESSO
+  [MINACCIA] UN APPIGLIO SICURO (favore)
+    CARLA DOSTI subisce 1 da lealista (Salute 5/8).
+    SIBILLA REVE subisce 2 da il Caposquadra (Salute 3/8).
+--- Round 8 (T6): vento 1 · Caposquadra 3/4 Fer ---
+    [PROVA NERVI] CARLA DOSTI: 2d6=7 +NERVI(2) -2 = 7 vs Media(9) -> FALLITA
+    CARLA DOSTI: il vento gli toglie lo scatto (nessun danno, per ora).
+    [PROVA NERVI] SIBILLA REVE: 2d6=5 +NERVI(3) -2 = 6 vs Media(9) -> FALLITA
+    SIBILLA REVE: il vento gli toglie lo scatto (nessun danno, per ora).
+  [MINACCIA] IL VENTO CADE (quiete)
+    SIBILLA REVE subisce 1 da lealista (Salute 2/8).
+    SIBILLA REVE subisce 2 da il Caposquadra (Salute 0/8).
+    *** SIBILLA REVE è A TERRA. ***
+    La Bora è al colmo (Canto 3): +1 carta Minaccia per Fase, per sempre.
+  [OROLOGIO] Fine del 8° round: +1 Canto automatico.
+--- Round 9 (T6): vento 1 · Caposquadra 3/4 Fer ---
+    [PROVA NERVI] CARLA DOSTI: 2d6=6 +NERVI(2) -2 = 6 vs Media(9) -> FALLITA
+    CARLA DOSTI: il vento gli toglie lo scatto (nessun danno, per ora).
+  [MINACCIA] LA RONDA DEI TETTI (spawn)
+    Piazzato 1 topografo lealista (Sgherro).
+  [MINACCIA] LO SGUARDO IN GIÙ (insidiaC)
+    [PROVA NERVI] CARLA DOSTI: 2d6=7 +NERVI(2) = 9 vs Media(9) -> SUCCESSO
+    CARLA DOSTI subisce 1 da lealista (Salute 4/8).
+    CARLA DOSTI subisce 2 da il Caposquadra (Salute 2/8).
+--- Round 10 (T6): vento 1 · Caposquadra 2/4 Fer ---
+    [PROVA NERVI] CARLA DOSTI: 2d6=4 +NERVI(2) -2 = 4 vs Media(9) -> FALLITA
+    CARLA DOSTI: il vento gli toglie lo scatto (nessun danno, per ora).
+    Il Caposquadra è ridotto all’ultima Ferita: si aggrappa al cornicione.
+  [MINACCIA] CHI NON DEVE SALIRE (spawn)
+    Piazzato 1 topografo lealista (Sgherro) — si attiva subito.
+    CARLA DOSTI subisce 1 da lealista (subito) (Salute 1/8).
+  [MINACCIA] L’ABBAINO SBARRATO (ostacolo)
+    CARLA DOSTI subisce 1 da lealista (Salute 0/8).
+    *** CARLA DOSTI è A TERRA. ***
+
+==============================================================================
+ESITO: SCONFITTA (party wipe alla guglia)  |  Round: 10  |  vento 1  |  Canto 3
+==============================================================================

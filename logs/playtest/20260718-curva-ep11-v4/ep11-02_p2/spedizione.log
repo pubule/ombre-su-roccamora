@@ -1,0 +1,55 @@
+==============================================================================
+SPEDIZIONE - La via delle guglie: cattura viva in quota
+==============================================================================
+Party: MORA “SPILLA” FANTI, SIBILLA REVE  |  PREPARATI  |  Corda: sì  |  Ordine(D3): sì  |  Lanterna: no
+--- Round 1: la via delle guglie attraversa T1 (riparata) ---
+  [MINACCIA] IL VENTO GIRA (crescendo)
+    Raffica: il vento sale a livello 1.
+--- Round 2: la via delle guglie attraversa T2 (ESPOSTA) ---
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6=6 +NERVI(1) -1 = 6 vs Media(9) -> FALLITA
+    MORA “SPILLA” FANTI subisce 1 da vertigine (vento) (Salute 8/9).
+    [PROVA NERVI] SIBILLA REVE: 2d6=4 +NERVI(3) -1 = 6 vs Media(9) -> FALLITA
+    [PROVA NERVI] SIBILLA REVE: 2d6=5 +NERVI(3) -1 = 7 vs Media(9) -> FALLITA
+    SIBILLA REVE subisce 1 da vertigine (vento) (Salute 7/8).
+  [MINACCIA] IL VENTO CADE (quiete)
+--- Round 3: la via delle guglie attraversa T3 (riparata) ---
+  [MINACCIA] UN APPIGLIO SICURO (favore)
+--- Round 4: la via delle guglie attraversa T4 (ESPOSTA) ---
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6=6 +NERVI(1) -1 = 6 vs Media(9) -> FALLITA
+    MORA “SPILLA” FANTI subisce 1 da vertigine (vento) (Salute 7/9).
+    [PROVA NERVI] SIBILLA REVE: 2d6=5 +NERVI(3) -1 = 7 vs Media(9) -> FALLITA
+    SIBILLA REVE subisce 1 da vertigine (vento) (Salute 6/8).
+    Appare IL TOPOGRAFO LEALISTA (ingannato in buona fede), e vi sbarra.
+  [MINACCIA] LA TEGOLA CHE SCIVOLA (tegola)
+    [CORDA DEL CAMPANARO] assicurati: la tegola non ferisce.
+  [OROLOGIO] Fine del 4° round: +1 Canto automatico.
+--- Round 5: la via delle guglie attraversa T5 (ESPOSTA) ---
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6=6 +NERVI(1) -1 = 6 vs Media(9) -> FALLITA
+    MORA “SPILLA” FANTI subisce 1 da vertigine (vento) (Salute 6/9).
+    [PROVA NERVI] SIBILLA REVE: 2d6=4 +NERVI(3) -1 = 6 vs Media(9) -> FALLITA
+    SIBILLA REVE subisce 1 da vertigine (vento) (Salute 5/8).
+  [MINACCIA] LA CLAQUE SUL CORNICIONE (insidiaA)
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6=5 +NERVI(1) = 6 vs Facile(7) -> FALLITA
+    [PROVA NERVI] SIBILLA REVE: 2d6=4 +NERVI(3) = 7 vs Facile(7) -> SUCCESSO
+--- Round 6+: LA GUGLIA (T6, ESPOSTA) — il Caposquadra (Fer 4), va preso VIVO ---
+--- Round 6 (T6): vento 1 · Caposquadra 4/4 Fer ---
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6=4 +NERVI(1) -2 = 3 vs Media(9) -> FALLITA
+    MORA “SPILLA” FANTI subisce 1 da vertigine (vento) (Salute 5/9).
+    [PROVA NERVI] SIBILLA REVE: 2d6=4 +NERVI(3) -2 = 5 vs Media(9) -> FALLITA
+    SIBILLA REVE subisce 1 da vertigine (vento) (Salute 4/8).
+  [MINACCIA] L’ECO DEI BRONZI (insidiaB)
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6=8 +NERVI(1) = 9 vs Media(9) -> SUCCESSO
+--- Round 7 (T6): vento 1 · Caposquadra 3/4 Fer ---
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6=9 +NERVI(1) -2 = 8 vs Media(9) -> FALLITA
+    MORA “SPILLA” FANTI subisce 1 da vertigine (vento) (Salute 4/9).
+    [PROVA NERVI] SIBILLA REVE: 2d6=5 +NERVI(3) -2 = 6 vs Media(9) -> FALLITA
+    SIBILLA REVE subisce 1 da vertigine (vento) (Salute 3/8).
+    Il Caposquadra è ridotto all’ultima Ferita: si aggrappa al cornicione.
+    [CORDA DEL CAMPANARO] MORA “SPILLA” FANTI lo trattiene e lo cattura subito: preso VIVO.
+  [MINACCIA] L’ABBAINO SBARRATO (ostacolo)
+    MORA “SPILLA” FANTI subisce 1 da il Topografo Lealista (Salute 3/9).
+    MORA “SPILLA” FANTI subisce 2 da il Caposquadra (Salute 1/9).
+
+==============================================================================
+ESITO: VITTORIA  |  Round: 7  |  vento 1  |  Canto 2
+==============================================================================
