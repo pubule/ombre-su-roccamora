@@ -239,3 +239,13 @@ fragile invece di picchiare il gruppo; obiettivo scorta.
   guanti» in L4/L5, test-ui a 10 episodi, 2 scenari test-partite Ep.9).
 - Fase E: export py/js (ep9, REPERTI_LUOGO {6: A, 5: B, 8: C}), assets,
   main.js (10° episodio), test (2 scenari).
+
+## Varietà indagine (2026-07-18) — Domanda non-canonica "CHI MENTE?"
+
+Al processo, uno dei tre testimoni (Ranuzzi L2 / Bo L3 / usciere L4) è stato
+girato e dà una falsa «via sicura» (l'ora del colpo non combacia col registro
+delle ronde). Deduzione bonus: confrontando le versioni (rivelatorio D2 +
+almeno due testimoni uditi) si smaschera il bugiardo → nella scorta l'imboscata
+del Vicolo (T2) è alleggerita di 1 Sgherro. Simulatore: flag
+`bugiardo_smascherato` (chi_confermato and >=2 di L2/L3/L4 visitati) → T2 -1
+Sgherro. Curva v3 invariata (2:57, 3-10 61-95).

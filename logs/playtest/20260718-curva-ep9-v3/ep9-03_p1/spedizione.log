@@ -1,0 +1,113 @@
+Run: ep9-03_p1_seed0  |  seed=694100  |  formula Minaccia=finale_v3  |  generato: 2026-07-18T21:02:33
+==============================================================================
+SPEDIZIONE - La scorta del teste, dopo mezzanotte
+==============================================================================
+Party: MORA “SPILLA” FANTI, OTTAVIO BRERA, OTTONE “MEZZENA” MASSARI
+Bonus da Indagine: PREPARATI (+1 Salute massima a testa); Bolla: sì; Lanterna+Tappi: sì; D1: esatta; D3: sbagliata
+NOTA: gruppo trattato come blocco unico tessera per tessera (vedi intestazione script).
+
+  Partenza tardi, ronde già ritirate (Domanda 3): +1 segnalino Canto.
+  Col Salvacondotto (Domanda 4): alla partenza si salta una tessera d’imboscata.
+  [SALVACONDOTTO] Si salta Vicolo dei Tintori.
+--- Round 1: la scorta attraversa T1 (Sacrestia) ---
+    (azioni nominali questo round: 6 — 3 eroi vivi)
+    La scorta entra in T1 da B1 (Riva in mezzo).
+    [PROVA ACUME] MORA “SPILLA” FANTI: 2d6(4,4)=8 +ACUME(3) = 11 vs Media(9) -> SUCCESSO
+    MORA “SPILLA” FANTI cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    OTTAVIO BRERA: nessun bersaglio, avanza / assiste il gruppo.
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] GLI UBRIACHI SU ORDINAZIONE (malavita) — Piazzate 1 Sgherro sull’ingresso della tessera.
+    Piazzati 1x LO SGHERRO (pool residua: 4), a 6 caselle dalla tessera del gruppo.
+  LO SGHERRO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+--- Round 2: la scorta attraversa T3 (Ponte delle Catene) ---
+    (azioni nominali questo round: 6 — 3 eroi vivi)
+    La scorta entra in T3 da B1 (Riva in mezzo).
+    Sul Ponte delle Catene, appare IL SICARIO GENTILE: si toglie il cappello. «Signori. Mi dispiace per quello che segue.»
+    [IL NOME SBAGLIATO — D2] gli ricordate che i mandanti bruciano i sicari come Ferri: il Sicario esita (salta la prima attivazione).
+    MORA “SPILLA” FANTI si muove verso IL SICARIO GENTILE: B1 -> D2.
+    [ATTACCO] MORA “SPILLA” FANTI -> IL SICARIO GENTILE: 2d6(3,2)=5 +VIGORE(2)+arma(1) = 8 vs Difesa(8) -> COLPITO
+    IL SICARIO GENTILE: 3/4 ferite residue.
+    [ABILITÀ] OTTAVIO BRERA usa Vi conosco, Malacarne su LO SGHERRO: rimosso dal tabellone.
+    OTTONE “MEZZENA” MASSARI si muove verso IL SICARIO GENTILE: B1 -> B4.
+    OTTONE “MEZZENA” MASSARI si avvicina a IL SICARIO GENTILE, non ancora a contatto.
+  [MINACCIA] IL COLTELLO DAL BUIO (malavita) — Piazzate 1 Sicario: si attiva subito.
+    Piazzati 1x IL SICARIO (pool residua: 2) in B1.
+    IL SICARIO si attiva subito:
+  IL SICARIO si avvicina, non ancora a contatto.
+  IL SICARIO GENTILE salta l’attivazione (stonato).
+--- Round 3: la scorta attraversa T4 (Mercato Coperto) ---
+    (azioni nominali questo round: 6 — 3 eroi vivi)
+    La scorta entra in T4 da B1 (Riva in mezzo).
+    Nel Mercato Coperto: 1 Sgherro e 1 Sicario tra i banchi.
+    [FISCHIETTO D’ALLARME] una ronda onesta accorre: 1 Sgherro messo in fuga.
+    MORA “SPILLA” FANTI si muove verso IL SICARIO: B1 -> B2.
+    [ATTACCO] MORA “SPILLA” FANTI -> IL SICARIO: 2d6(4,4)=8 +VIGORE(2)+arma(1) = 11 vs Difesa(7) -> COLPITO
+    IL SICARIO: 0/1 ferite residue.
+    IL SICARIO è ABBATTUTO.
+    OTTAVIO BRERA si muove verso IL SICARIO: B1 -> C3.
+    [ATTACCO] OTTAVIO BRERA -> IL SICARIO: 2d6(6,2)=8 +VIGORE(1)+arma(1) = 10 vs Difesa(7) -> COLPITO
+    IL SICARIO: 0/1 ferite residue.
+    IL SICARIO è ABBATTUTO.
+    [PROVA ACUME] OTTONE “MEZZENA” MASSARI: 2d6(5,3)=8 +ACUME(1) = 9 vs Media(9) -> SUCCESSO
+    OTTONE “MEZZENA” MASSARI cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+  [MINACCIA] LA FOLLA COMPRATA (malavita) — Piazzate 1 Sgherro sull’ingresso della tessera.
+    Piazzati 1x LO SGHERRO (pool residua: 2), a 6 caselle dalla tessera del gruppo.
+  LO SGHERRO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+  IL SICARIO GENTILE attacca OTTAVIO BRERA:
+    [ATTACCO NEMICO] IL SICARIO GENTILE -> OTTAVIO BRERA: 2d6(2,3)=5 +Attacco(3) = 8 vs Difesa(8) -> COLPITO
+    OTTAVIO BRERA subisce 2 danno da IL SICARIO GENTILE (Salute: 5/7).
+--- Round 4: la scorta attraversa T5 (Salita dei Lampionai) ---
+    (azioni nominali questo round: 6 — 3 eroi vivi)
+    La scorta entra in T5 da B1 (Riva in mezzo).
+    Il Sicario Gentile si è portato AVANTI e aspetta in cima alla Salita.
+    MORA “SPILLA” FANTI si muove verso IL SICARIO GENTILE: B1 -> A3.
+    MORA “SPILLA” FANTI si avvicina a IL SICARIO GENTILE, non ancora a contatto.
+    OTTAVIO BRERA si muove verso IL SICARIO GENTILE: B1 -> D2.
+    OTTAVIO BRERA si avvicina a IL SICARIO GENTILE, non ancora a contatto.
+    [PROVA ACUME] OTTONE “MEZZENA” MASSARI: 2d6(2,2)=4 +ACUME(1) = 5 vs Media(9) -> FALLITA
+    OTTONE “MEZZENA” MASSARI cerca sulla tessera: niente da trovare qui, o prova fallita.
+  [MINACCIA] I COLLEGHI DEL GENTILE (malavita) — Piazzate 1 Sicario sull’uscita più vicina agli eroi.
+    Piazzati 1x IL SICARIO (pool residua: 2) in B1.
+  LO SGHERRO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  IL SICARIO si muove verso Riva: B1 -> C1.
+  OTTONE “MEZZENA” MASSARI fa da SCUDO a Riva e para il colpo di IL SICARIO:
+    [ATTACCO NEMICO] IL SICARIO -> OTTONE “MEZZENA” MASSARI: 2d6(6,1)=7 +Attacco(3) = 10 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 2 danno da IL SICARIO (Salute: 7/9).
+  IL SICARIO GENTILE si avvicina, non ancora a contatto.
+  [OROLOGIO] Fine del 4° round: +1 segnalino Canto automatico.
+    Segnalino Canto (l’Ora che stringe): 2.
+--- Round 5: la scorta attraversa T6 (Molo del Lume) ---
+    (azioni nominali questo round: 6 — 3 eroi vivi)
+    La scorta entra in T6 da B1 (Riva in mezzo).
+    MORA “SPILLA” FANTI si muove verso IL SICARIO: B1 -> C2.
+    [ATTACCO] MORA “SPILLA” FANTI -> IL SICARIO: 2d6(6,5)=11 +VIGORE(2)+arma(1) = 14 vs Difesa(7) -> COLPITO
+    IL SICARIO: 0/1 ferite residue.
+    IL SICARIO è ABBATTUTO.
+    OTTAVIO BRERA si muove verso IL SICARIO GENTILE: B1 -> B3.
+    [ATTACCO] OTTAVIO BRERA -> IL SICARIO GENTILE: 2d6(2,5)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(8) -> COLPITO
+    IL SICARIO GENTILE: 2/4 ferite residue.
+    OTTONE “MEZZENA” MASSARI si muove verso IL SICARIO GENTILE: B1 -> D2.
+    OTTONE “MEZZENA” MASSARI si avvicina a IL SICARIO GENTILE, non ancora a contatto.
+  [MINACCIA] IL CAPANNELLO (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 1) in B1.
+  LO SGHERRO si avvicina (Movimento 4): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si muove verso Riva: B1 -> B2.
+  OTTAVIO BRERA fa da SCUDO a Riva e para il colpo di LO SGHERRO:
+    [ATTACCO NEMICO] LO SGHERRO -> OTTAVIO BRERA: 2d6(2,4)=6 +Attacco(2) = 8 vs Difesa(8) -> COLPITO
+    OTTAVIO BRERA subisce 1 danno da LO SGHERRO (Salute: 4/7).
+  IL SICARIO GENTILE attacca OTTAVIO BRERA:
+    [ATTACCO NEMICO] IL SICARIO GENTILE -> OTTAVIO BRERA: 2d6(6,5)=11 +Attacco(3) = 14 vs Difesa(8) -> COLPITO
+    OTTAVIO BRERA subisce 2 danno da IL SICARIO GENTILE (Salute: 2/7).
+--- Riva raggiunge la barca al Molo del Lume (Interagire): VITTORIA. ---
+
+==============================================================================
+ESITO SPEDIZIONE: VITTORIA
+Round totali: 5
+Formula Minaccia: finale_v3 | Azioni nominali/round: media 6.0, picco 6
+Mazzo Minaccia rimescolato: 0 volta/e
+Segnalini nemici esauriti nel pool (piazzamenti saltati): 0
+Riva: salvo (Salute 3/3) | Sicario Gentile: in gioco
+  MORA “SPILLA” FANTI: 8/8 Salute
+  OTTAVIO BRERA: 2/7 Salute
+  OTTONE “MEZZENA” MASSARI: 7/9 Salute
+==============================================================================

@@ -642,6 +642,14 @@ def soluzione():
         'la Testimonianza «Ranuzzi» (L2), la Testimonianza «Amilcare Bo» (L3) e la '
         'Testimonianza «L’usciere del Tribunale» (L4). Senza nessuna delle tre, giudicate '
         'con elasticità una risposta «vicina» (es. «chi pagava i clan, l’oro vecchio»).',
+        '<b>CHI MENTE? (deduzione bonus).</b> È un processo: uno dei tre testimoni è stato '
+        'girato e dà una versione falsa (una «via sicura» per il teste che è invece una '
+        'trappola — l’ora del colpo secondo chi mente non combacia col registro delle '
+        'ronde comprate). Il gruppo lo smaschera CONFRONTANDO le versioni: se hanno '
+        'incrociato il vero colpevole (un rivelatorio D2) e sentito almeno DUE dei tre '
+        'testimoni, individuano il bugiardo — e nella scorta non si fidano della falsa via '
+        'sicura: l’imboscata del Vicolo dei Tintori (T2) è alleggerita di 1 Sgherro '
+        '(l’avete anticipata). Chi non confronta parte alla cieca: imboscata piena.',
         '<b>Vantaggio d’Indagine:</b> Slancio SOLO con tutte e 4 le risposte esatte E 3+ '
         'ore avanzate; Preparati con 1+ ore avanzate O 6+ luoghi visitati. Dossier '
         'completo (0 ore avanzate): 1 gettone Intuizione, come sempre.',

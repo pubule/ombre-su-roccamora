@@ -1,0 +1,168 @@
+Run: ep9-07_p3_seed0  |  seed=698300  |  formula Minaccia=finale_v3  |  generato: 2026-07-18T21:02:33
+==============================================================================
+SPEDIZIONE - La scorta del teste, dopo mezzanotte
+==============================================================================
+Party: DOTT. LAZZARO SERRA, ELENA FOSCO, FULGENZIO CARBONE, NINO “GRIMALDELLO” CAUTO, OTTONE “MEZZENA” MASSARI, PADRE CELSO MARANI, SIBILLA REVE
+Bonus da Indagine: PREPARATI (+1 Salute massima a testa); Bolla: sì; Lanterna+Tappi: sì; D1: esatta; D3: sbagliata
+NOTA: gruppo trattato come blocco unico tessera per tessera (vedi intestazione script).
+
+  Partenza tardi, ronde già ritirate (Domanda 3): +1 segnalino Canto.
+  Col Salvacondotto (Domanda 4): alla partenza si salta una tessera d’imboscata.
+  [SALVACONDOTTO] Si salta Vicolo dei Tintori.
+--- Round 1: la scorta attraversa T1 (Sacrestia) ---
+    (azioni nominali questo round: 14 — 7 eroi vivi)
+    La scorta entra in T1 da B1 (Riva in mezzo).
+    [PROVA ACUME] DOTT. LAZZARO SERRA: 2d6(2,5)=7 +ACUME(3) = 10 vs Media(9) -> SUCCESSO
+    DOTT. LAZZARO SERRA cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    ELENA FOSCO: nessun bersaglio, avanza / assiste il gruppo.
+    FULGENZIO CARBONE: nessun bersaglio, avanza / assiste il gruppo.
+    NINO “GRIMALDELLO” CAUTO: nessun bersaglio, avanza / assiste il gruppo.
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+    [ABILITÀ] PADRE CELSO MARANI usa Litania: -1 segnalino Canto (1->0).
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] LA FOLLA COMPRATA (malavita) — Piazzate 1 Sgherro sull’ingresso della tessera.
+    Piazzati 1x LO SGHERRO (pool residua: 4), a 6 caselle dalla tessera del gruppo.
+  [MINACCIA] LA CARITÀ ARMATA (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 3) in B1.
+  LO SGHERRO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si muove verso Riva: B1 -> C1.
+  DOTT. LAZZARO SERRA fa da SCUDO a Riva e para il colpo di LO SGHERRO:
+    [ATTACCO NEMICO] LO SGHERRO -> DOTT. LAZZARO SERRA: 2d6(4,3)=7 +Attacco(2) = 9 vs Difesa(8) -> COLPITO
+    DOTT. LAZZARO SERRA subisce 1 danno da LO SGHERRO (Salute: 6/7).
+--- Round 2: la scorta attraversa T3 (Ponte delle Catene) ---
+    (azioni nominali questo round: 14 — 7 eroi vivi)
+    La scorta entra in T3 da B1 (Riva in mezzo).
+    Sul Ponte delle Catene, appare IL SICARIO GENTILE: si toglie il cappello. «Signori. Mi dispiace per quello che segue.»
+    [IL NOME SBAGLIATO — D2] gli ricordate che i mandanti bruciano i sicari come Ferri: il Sicario esita (salta la prima attivazione).
+    [ABILITÀ] DOTT. LAZZARO SERRA attiva Voce ferma (2 usi residui): +2 NERVI agli alleati fino al suo prossimo turno.
+    ELENA FOSCO si muove verso LO SGHERRO: B1 -> C2.
+    [ATTACCO] ELENA FOSCO -> LO SGHERRO: 2d6(1,5)=6 +VIGORE(1)+arma(1) = 8 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    [ABILITÀ] FULGENZIO CARBONE usa Esca preziosa: LO SGHERRO, LO SGHERRO si dirige verso l’esca invece che verso il gruppo alla prossima attivazione.
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> LO SGHERRO: 2d6(3,3)=6 +VIGORE(2)+arma(1) = 9 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+    OTTONE “MEZZENA” MASSARI si muove verso IL SICARIO GENTILE: B1 -> D2.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> IL SICARIO GENTILE: 2d6(6,2)=8 +VIGORE(3)+arma(1) = 12 vs Difesa(8) -> COLPITO
+    IL SICARIO GENTILE: 3/4 ferite residue.
+    PADRE CELSO MARANI si muove verso IL SICARIO GENTILE: B1 -> B4.
+    PADRE CELSO MARANI si avvicina a IL SICARIO GENTILE, non ancora a contatto.
+    [PROVA ACUME] SIBILLA REVE: 2d6(3,2)=5 +ACUME(2) = 7 vs Media(9) -> FALLITA
+    SIBILLA REVE cerca sulla tessera: niente da trovare qui, o prova fallita.
+  [MINACCIA] GLI UBRIACHI SU ORDINAZIONE (malavita) — Piazzate 1 Sgherro sull’ingresso della tessera.
+    Piazzati 1x LO SGHERRO (pool residua: 3), a 6 caselle dalla tessera del gruppo.
+  [MINACCIA] LE CAMPANE DELL’UNA (crescendo) — Aggiungete 1 segnalino Canto (l’Ora che stringe).
+    Segnalino Canto (l’Ora che stringe): 1.
+    Il Sicario Gentile si attiva subito (l’ora lo chiama):
+  IL SICARIO GENTILE attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] IL SICARIO GENTILE -> OTTONE “MEZZENA” MASSARI: 2d6(2,5)=7 +Attacco(3) = 10 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 2 danno da IL SICARIO GENTILE (Salute: 7/9).
+  [MINACCIA] LA SCORCIATOIA DI RANUZZI (favore) — Rivelate una tessera coperta adiacente.
+    (carta senza effetto modellato in questa simulazione)
+  LO SGHERRO si dirige verso l’esca (Carbone): non attacca questo round.
+  LO SGHERRO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+  IL SICARIO GENTILE salta l’attivazione (stonato).
+--- Round 3: la scorta attraversa T4 (Mercato Coperto) ---
+    (azioni nominali questo round: 14 — 7 eroi vivi)
+    La scorta entra in T4 da B1 (Riva in mezzo).
+    Nel Mercato Coperto: 1 Sgherro e 1 Sicario tra i banchi.
+    [FISCHIETTO D’ALLARME] una ronda onesta accorre: 1 Sgherro messo in fuga.
+    DOTT. LAZZARO SERRA si muove verso IL SICARIO: B1 -> B2.
+    [ATTACCO] DOTT. LAZZARO SERRA -> IL SICARIO: 2d6(3,4)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(7) -> COLPITO
+    IL SICARIO: 0/1 ferite residue.
+    IL SICARIO è ABBATTUTO.
+    ELENA FOSCO si muove verso LO SGHERRO: B1 -> C2.
+    [ATTACCO] ELENA FOSCO -> LO SGHERRO: 2d6(2,4)=6 +VIGORE(1)+arma(1) = 8 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    [ABILITÀ] FULGENZIO CARBONE usa Esca preziosa: LO SGHERRO, LO SGHERRO si dirige verso l’esca invece che verso il gruppo alla prossima attivazione.
+    [PROVA ACUME] NINO “GRIMALDELLO” CAUTO: 2d6(3,2)=5 +ACUME(2) = 7 vs Media(9) -> FALLITA
+    NINO “GRIMALDELLO” CAUTO cerca sulla tessera: niente da trovare qui, o prova fallita.
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+    PADRE CELSO MARANI: nessun bersaglio, avanza / assiste il gruppo.
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] LA FOLLA CHE SPINGE (insidia) — L’eroe adiacente a Riva prova NERVI (Media): se fallisce, Riva è spinto.
+    [FOLLA] Riva è spinto allo scoperto: 1 danno (Salute 2/3).
+  [MINACCIA] IL SELCIATO VISCIDO (insidia) — L’eroe più avanzato prova NERVI (Media): se fallisce, 1 danno.
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6(1,5)=6 +NERVI(1) +Voce ferma di DOTT. LAZZARO SERRA(+2) = 9 vs Media(9) -> SUCCESSO
+  LO SGHERRO si dirige verso l’esca (Carbone): non attacca questo round.
+  LO SGHERRO si dirige verso l’esca (Carbone): non attacca questo round.
+  IL SICARIO GENTILE si avvicina, non ancora a contatto.
+--- Round 4: la scorta attraversa T5 (Salita dei Lampionai) ---
+    (azioni nominali questo round: 14 — 7 eroi vivi)
+    La scorta entra in T5 da B1 (Riva in mezzo).
+    Il Sicario Gentile si è portato AVANTI e aspetta in cima alla Salita.
+    [ABILITÀ] DOTT. LAZZARO SERRA attiva Voce ferma (1 usi residui): +2 NERVI agli alleati fino al suo prossimo turno.
+    ELENA FOSCO si muove verso IL SICARIO GENTILE: B1 -> A3.
+    ELENA FOSCO si avvicina a IL SICARIO GENTILE, non ancora a contatto.
+    FULGENZIO CARBONE si muove verso IL SICARIO GENTILE: B1 -> D2.
+    FULGENZIO CARBONE si avvicina a IL SICARIO GENTILE, non ancora a contatto.
+    [PROVA ACUME] NINO “GRIMALDELLO” CAUTO: 2d6(2,4)=6 +ACUME(2) = 8 vs Media(9) -> FALLITA
+    NINO “GRIMALDELLO” CAUTO cerca sulla tessera: niente da trovare qui, o prova fallita.
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+    PADRE CELSO MARANI: nessun bersaglio, avanza / assiste il gruppo.
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] LA LAMA EDUCATA (insidia) — L’eroe adiacente a Riva subisce 1 danno (fare da scudo ha un prezzo).
+    ELENA FOSCO subisce 1 danno da LA LAMA EDUCATA (Salute: 6/7).
+  [MINACCIA] IL PONTE LEVATO (ostacolo) — Muoversi costa il doppio sulla tessera dell’eroe attivo fino a fine round.
+    (carta senza effetto modellato in questa simulazione)
+  [MINACCIA] UN PORTONE AMICO (quiete) — Nessun effetto (tensione).
+    (carta senza effetto modellato in questa simulazione)
+  LO SGHERRO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si muove verso Riva: C3 -> C1.
+  DOTT. LAZZARO SERRA fa da SCUDO a Riva e para il colpo di LO SGHERRO:
+    [ATTACCO NEMICO] LO SGHERRO -> DOTT. LAZZARO SERRA: 2d6(2,1)=3 +Attacco(2) = 5 vs Difesa(8) -> MANCATO
+  IL SICARIO GENTILE si avvicina, non ancora a contatto.
+  [OROLOGIO] Fine del 4° round: +1 segnalino Canto automatico.
+    Segnalino Canto (l’Ora che stringe): 2.
+--- Round 5: la scorta attraversa T6 (Molo del Lume) ---
+    (azioni nominali questo round: 14 — 7 eroi vivi)
+    La scorta entra in T6 da B1 (Riva in mezzo).
+    DOTT. LAZZARO SERRA si muove verso LO SGHERRO: B1 -> C2.
+    [ATTACCO] DOTT. LAZZARO SERRA -> LO SGHERRO: 2d6(1,4)=5 +VIGORE(1)+arma(1) = 7 vs Difesa(8) -> MANCATO
+    ELENA FOSCO si muove verso LO SGHERRO: B1 -> C3.
+    ELENA FOSCO si avvicina a LO SGHERRO, non ancora a contatto.
+    [ATTACCO] FULGENZIO CARBONE -> LO SGHERRO: 2d6(5,2)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+    NINO “GRIMALDELLO” CAUTO si muove verso IL SICARIO GENTILE: B1 -> B3.
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> IL SICARIO GENTILE: 2d6(3,3)=6 +VIGORE(2)+arma(1) = 9 vs Difesa(8) -> COLPITO
+    IL SICARIO GENTILE: 2/4 ferite residue.
+    OTTONE “MEZZENA” MASSARI si muove verso IL SICARIO GENTILE: B1 -> D2.
+    OTTONE “MEZZENA” MASSARI si avvicina a IL SICARIO GENTILE, non ancora a contatto.
+    [PROVA ACUME] PADRE CELSO MARANI: 2d6(2,6)=8 +ACUME(2) = 10 vs Media(9) -> SUCCESSO
+    PADRE CELSO MARANI cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+    [ABILITÀ] SIBILLA REVE scruta il mazzo: «L’INTERVALLO DELLE RONDE» finisce in fondo, «IL BRACCIO DELL’AVVOCATO» torna in cima (2 usi residui).
+  [MINACCIA] IL BRACCIO DELL’AVVOCATO (malavita) — Piazzate 1 Sgherro: si attiva subito.
+    Piazzati 1x LO SGHERRO (pool residua: 2) in B1.
+    LO SGHERRO si attiva subito:
+  LO SGHERRO si muove verso Riva: B1 -> B2.
+  DOTT. LAZZARO SERRA fa da SCUDO a Riva e para il colpo di LO SGHERRO:
+    [ATTACCO NEMICO] LO SGHERRO -> DOTT. LAZZARO SERRA: 2d6(6,2)=8 +Attacco(2) = 10 vs Difesa(8) -> COLPITO
+    DOTT. LAZZARO SERRA subisce 1 danno da LO SGHERRO (Salute: 5/7).
+  [MINACCIA] L’UOMO SUL TETTO (malavita) — Piazzate 1 Sicario sull’uscita più vicina agli eroi.
+    Piazzati 1x IL SICARIO (pool residua: 2) in B1.
+  LO SGHERRO si avvicina (Movimento 4): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+  IL SICARIO si muove verso Riva: B1 -> A2.
+  DOTT. LAZZARO SERRA fa da SCUDO a Riva e para il colpo di IL SICARIO:
+    [ATTACCO NEMICO] IL SICARIO -> DOTT. LAZZARO SERRA: 2d6(1,5)=6 +Attacco(3) = 9 vs Difesa(8) -> COLPITO
+    DOTT. LAZZARO SERRA subisce 2 danno da IL SICARIO (Salute: 3/7).
+  IL SICARIO GENTILE attacca NINO “GRIMALDELLO” CAUTO:
+    [ATTACCO NEMICO] IL SICARIO GENTILE -> NINO “GRIMALDELLO” CAUTO: 2d6(2,2)=4 +Attacco(3) = 7 vs Difesa(8) -> MANCATO
+--- Riva raggiunge la barca al Molo del Lume (Interagire): VITTORIA. ---
+
+==============================================================================
+ESITO SPEDIZIONE: VITTORIA
+Round totali: 5
+Formula Minaccia: finale_v3 | Azioni nominali/round: media 14.0, picco 14
+Mazzo Minaccia rimescolato: 0 volta/e
+Segnalini nemici esauriti nel pool (piazzamenti saltati): 0
+Riva: salvo (Salute 2/3) | Sicario Gentile: in gioco
+  DOTT. LAZZARO SERRA: 3/7 Salute
+  ELENA FOSCO: 6/7 Salute
+  FULGENZIO CARBONE: 7/7 Salute
+  NINO “GRIMALDELLO” CAUTO: 8/8 Salute
+  OTTONE “MEZZENA” MASSARI: 7/9 Salute
+  PADRE CELSO MARANI: 7/7 Salute
+  SIBILLA REVE: 7/7 Salute
+==============================================================================
