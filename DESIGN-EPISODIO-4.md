@@ -213,7 +213,16 @@ diretto «l'acuto»). +1 crescendo «La melodia impressa» SOLO nel ramo
   degli Scenografi — tag ep4; riuso: Il Teatro Comunale);
   PROMPT-MIDJOURNEY-Episodio-4.md con TUTTI i prompt per esteso (regola
   2026-07-18: copia-incolla diretto, zero template).
-- Fase C: `simulate_ep4.py` (seed base 640000); da modellare: il vincolo L3
+- **Fase C — FATTA (20260718):** curva finale (5 party × 30 seed per taglia,
+  config condivisa invariata): 2: 56% (27% sofferte), 3: 92%, 4: 73%,
+  5: 84%, 6: 96%, 7: 79%, 8: 88%, 9: 93%, 10: 89%. Nota dichiarata: la sim
+  azzecca quasi sempre le Domande a incroci multipli (euristica di
+  missione) — al tavolo vero D1/D3 falliranno più spesso e la banda scende
+  (Claque in T1, Canto +1): i numeri sono un tetto. Modellati: Loggione
+  apre-alle-20, aura Claque, «suggerimento» del boss, sabotaggio pannelli
+  (con bonifica post-boss), fallback Gaspare-debolezza. Log:
+  logs/playtest/20260718-curva-ep4-v1.
+- Fase C (specifica): `simulate_ep4.py` (seed base 640000); da modellare: il vincolo L3
   apre-alle-20 nell'euristica, l'aura della Claque, il «suggerimento» del
   boss, il sabotaggio a 3 pannelli come obiettivo, il Canto-programma di
   sala. Curva 2-10, taglia 2 rivalidata.
