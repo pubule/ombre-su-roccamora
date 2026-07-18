@@ -226,6 +226,10 @@ diretto «l'acuto»). +1 crescendo «La melodia impressa» SOLO nel ramo
   apre-alle-20 nell'euristica, l'aura della Claque, il «suggerimento» del
   boss, il sabotaggio a 3 pannelli come obiettivo, il Canto-programma di
   sala. Curva 2-10, taglia 2 rivalidata.
-- Fase D: in attesa dell'arte; poi taratura finale a video (generare ≠
-  finire).
-- Fase E: webapp + 2 scenari test-partite; suite verde.
+- **Fase D — IN ATTESA DELL'ARTE** (PROMPT-MIDJOURNEY-Episodio-4.md, 40
+  soggetti, prompt integrali): al suo arrivo carte, tessere, token, PDF
+  senza placeholder e taratura finale a video (generare ≠ finire).
+- **Fase E — FATTA (20260718):** webapp integrata (export py/js, assets,
+  main.js, engine con vincolo inverso `apre`, soluzione/oracolo, reperti);
+  suite verde (test-engine con fix carta-per-riga degli Indizi Nascosti,
+  test-ui a 5 episodi, 2 scenari test-partite Ep.4).

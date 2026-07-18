@@ -60,6 +60,8 @@ export function vociMappa(ep, comune) {
 // --- orologio d'indagine -------------------------------------------------
 export function luogoVisitabile(luogo, ora) {
   if (luogo.chiude != null && ora >= luogo.chiude) return false;
+  // vincolo inverso (Ep.4, il Loggione): il luogo APRE a una certa ora
+  if (luogo.apre != null && ora < luogo.apre) return false;
   return true;
 }
 

@@ -29,6 +29,8 @@ from gen_ep2 import (LUOGHI_2, TILES_2, NEMICI_2, OGGETTI_LUOGO_2, LETTERA_2,  #
                      ESAMI_CARBONE_2)
 from gen_ep3 import (LUOGHI_3, TILES_3, NEMICI_3, OGGETTI_LUOGO_3, LETTERA_3,  # noqa: E402
                      ESAMI_CARBONE_3)
+from gen_ep4 import (LUOGHI_4, TILES_4, NEMICI_4, OGGETTI_LUOGO_4, LETTERA_4,  # noqa: E402
+                     ESAMI_CARBONE_4)
 from gen_mappa import VOCI_MAPPA, MAPPE  # noqa: E402
 from gen_bestiario import FASCE, BOSS_DELTA, ferite_per_fascia  # noqa: E402
 from simulate_playtest import (INDAGINE_UNLOCK, TICK_CANTO_OGNI, SOGLIA_CANTO,  # noqa: E402
@@ -36,6 +38,7 @@ from simulate_playtest import (INDAGINE_UNLOCK, TICK_CANTO_OGNI, SOGLIA_CANTO,  
                                SALUTE_BONUS_PER_N, TOKEN_POOL_BASE)
 from simulate_ep2 import TOKEN_POOL_BASE as POOL_EP2  # noqa: E402
 from simulate_ep3 import TOKEN_POOL_BASE as POOL_EP3  # noqa: E402
+from simulate_ep4 import TOKEN_POOL_BASE as POOL_EP4  # noqa: E402
 
 
 def strip_tags(s):
@@ -72,12 +75,17 @@ REPERTI_LUOGO = {
     'ep3': {1: ['Reperto A - Registro dei Livelli'],
             4: ['Reperto C - Pagina del Quaderno'],
             6: ['Reperto B - Commissione di C.B.']},
+    'ep4': {2: ['Reperto C - Spartito Annotato'],
+            5: ['Reperto A - Registro delle Macchine'],
+            6: ['Reperto B - Commissione del Notaio']},
 }
 
 
 def luogo_json(L, oggetti_map=None, reperti_map=None):
     req = L.get('req')
-    aperto = req in (None, 'Disponibile dall’inizio')
+    # un luogo con solo vincolo d'orario inverso (`apre`) e' APERTO: niente
+    # chiave, lo tiene chiuso l'orologio (engine.luogoVisitabile)
+    aperto = req in (None, 'Disponibile dall’inizio') or L.get('apre') is not None
     chiave = L.get('chiave')
     oggetti = (oggetti_map or {}).get(L['n'], [])
     reperti = (reperti_map or {}).get(L['n'], [])
@@ -88,6 +96,7 @@ def luogo_json(L, oggetti_map=None, reperti_map=None):
         requisito=None if aperto else req,
         chiave=list(chiave) if chiave else None,      # ('parola'|'oggetto', valore)
         chiude=L.get('chiude'),
+        apre=L.get('apre'),
         art=L.get('art'),
         testo=strip_tags(L.get('testo', '')) or None,  # testo carta (Ep.1 via story)
         indizi=[i for i in (L.get('indizi') or [])],   # html-lite: la webapp rende <b>/<i>
@@ -219,6 +228,27 @@ SOLUZIONI = dict(
         ],
         boss='L’ACCORDATORE',
     ),
+    ep4=dict(
+        domande=[
+            dict(q='DOVE sono tenuti Gaspare e Rocco?',
+                 risposta='Nella fossa del contrappeso morto, sotto il palco.',
+                 esatta='Scendete dal lato giusto: nel 1° round non si pesca nessuna carta Minaccia.',
+                 sbagliata='Girate nel sottopalco facendo rumore: 1 Claque appare in T1 alla rivelazione.'),
+            dict(q='CHI dirige il lavoro notturno?',
+                 risposta='Il maestro concertatore Ermete Alboni.',
+                 esatta='Alboni fermato in camerino prima della gala: la scorta di Claque in T6 NON appare.',
+                 sbagliata='Nessun effetto.'),
+            dict(q='QUANDO scatta la «registrazione»?',
+                 risposta='Alla gala di sabato, sull’aria del terzo atto.',
+                 esatta='Entrate col giusto anticipo: il Canto parte da 0.',
+                 sbagliata='Arrivate a spettacolo iniziato: la spedizione parte con 1 segnalino Canto in più.'),
+            dict(q='COSA portate là sotto?',
+                 risposta='IL LIBRETTO DI GASPARE (l’Archivio degli Spartiti).',
+                 esatta='Un’azione adiacente al Suggeritore: Difesa 8→5 e salta la prossima attivazione.',
+                 sbagliata='Resta Gaspare in persona, liberato in T5 — rischioso. (Binocolo, Chiave del Tagliafuoco e Maschera sono esche.)'),
+        ],
+        boss='IL SUGGERITORE',
+    ),
     preludio=dict(
         domande=[
             dict(q='DOVE è tenuto Ansaldo?',
@@ -294,11 +324,26 @@ episodi = dict(
         soluzione=SOLUZIONI['ep3'],
         pool=POOL_EP3,
     ),
+    ep4=dict(
+        id='ep4', titolo='Il teatro dell’eco',
+        sottotitolo='episodio 4 — la conchiglia che ricorda',
+        cartella='Episodio 4', ore_budget=6,
+        lettera=LETTERA_4,
+        obiettivo='Liberate Gaspare e Rocco (Interagire, in T5), disaccordate i 3 pannelli '
+                  'della Conchiglia (Interagire, in T6) e riportate tutti in T1. '
+                  'Secondario: le lastre di cera incise, una ad azione (Interagire).',
+        esami_carbone=ESAMI_CARBONE_4,
+        luoghi=[luogo_json(L, OGGETTI_LUOGO_4, REPERTI_LUOGO['ep4']) for L in LUOGHI_4],
+        tessere=[tessera_json(T) for T in TILES_4],
+        vantaggio=dict(slancio_ore=3, slancio_luoghi=7, preparati_ore=1, preparati_luoghi=6),
+        soluzione=SOLUZIONI['ep4'],
+        pool=POOL_EP4,
+    ),
 )
 
 comune = dict(
     eroi=[eroe_json(h) for h in HEROES],
-    nemici=[nemico_json(n) for n in NEMICI + NEMICI_2 + NEMICI_3],
+    nemici=[nemico_json(n) for n in NEMICI + NEMICI_2 + NEMICI_3 + NEMICI_4],
     mappa=dict(voci=[dict(nome=v[0], indirizzo=v[1], tag=v[2]) for v in VOCI_MAPPA],
                mappe=[dict(cartella=m[0], sottotitolo=m[1], tags=list(m[2])) for m in MAPPE]),
     regole=REGOLE,

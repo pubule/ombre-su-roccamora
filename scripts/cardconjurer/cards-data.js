@@ -1034,18 +1034,17 @@ const LUOGHI4 = [
   approfondimenti: L.approfondimenti, n: L.n,
 }));
 
-const EP4_INDIZI = LUOGHI4.flatMap((L) => {
-  const righe = L.approfondimenti.filter((a) => a.tipo === 'Osservazione' || a.tipo === 'Presagio');
-  if (!righe.length) return [];
-  const sogg = righe[0].soggetto;
-  return [{
-    art: L.art, n: L.n, kind: 'Indizio',
-    title: `Indizio Nascosto — ${sogg}`,
-    file: `Episodio 4/Indizi/${sogg.replace(/’/g, "'")}`,
-    type: 'Osservazione / Presagio',
-    rules: `{i}${righe.map((a) => `◆ (${a.tipo}) ${a.testo}`).join('\n')}{/i}`,
-  }];
-});
+// Una carta per OGNI Osservazione/Presagio (L1 ne ha due: il flatMap a
+// carta unica lasciava il secondo soggetto senza carta).
+const EP4_INDIZI = LUOGHI4.flatMap((L) =>
+  L.approfondimenti.filter((a) => a.tipo === 'Osservazione' || a.tipo === 'Presagio')
+    .map((a) => ({
+      art: L.art, n: L.n, kind: 'Indizio',
+      title: `Indizio Nascosto — ${a.soggetto}`,
+      file: `Episodio 4/Indizi/${a.soggetto.replace(/’/g, "'")}`,
+      type: a.tipo,
+      rules: `{i}◆ (${a.tipo}) ${a.testo}{/i}`,
+    })));
 
 const EP4_TESTIMONI = LUOGHI4.flatMap((L) =>
   L.approfondimenti.filter((a) => a.tipo === 'Testimonianza').map((a) => ({
