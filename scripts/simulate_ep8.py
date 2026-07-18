@@ -869,8 +869,17 @@ def simula_indagine(party, log, esplora_a_fondo=False):
     if dossier_completo:
         log('Dossier completo (tutte le ore spese in Indagine): 1 gettone Intuizione per la Spedizione.')
     log('')
+    # Torsione «doppia pista con esca strutturale»: la storia comoda che la
+    # Vedova sia una figura di comodo (L1: «quella che ricama») e il vero
+    # regista un clan rivale. Chi ha sentito quella versione (L1) e NON ha
+    # incrociato un rivelatorio (chi_confermato) crede all'esca: muove contro
+    # il bersaglio sbagliato e il deposito e' avvisato (+1 Mastino).
+    pista_falsa_creduta = (1 in visitati) and not chi_confermato
+    if pista_falsa_creduta:
+        log('Pista falsa creduta (la Vedova figura di comodo): +1 Mastino alla spedizione.')
     return dict(ore_avanzate=ore_avanzate, tier=tier, libretto=libretto,
                 pianta=pianta, d1_ok=d1_ok, d3_ok=d3_ok, visitati=visitati,
+                pista_falsa_creduta=pista_falsa_creduta,
                 chi_confermato=chi_confermato, dossier_completo=dossier_completo,
                 secondo_fiato=secondo_fiato, approf_dettaglio=approf_dettaglio)
 
@@ -1131,6 +1140,9 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
     fusione = {'T2': 0, 'T3': 0, 'T4': 0, 'T5': 0}
     t4_rivelata = [False]
     portatore = [None]         # chi porta il Marengo/le casse (bersaglio del Fiuto)
+    if indagine.get('pista_falsa_creduta'):
+        pool['IL MASTINO'] += 1
+        log('  Pista falsa: il deposito e sull avviso, +1 Mastino nel pool.')
     canto = (0 if indagine.get('d3_ok') else 1) + (0 if indagine.get('libretto') else 1)
     if not indagine.get('libretto'):
         log('  Senza Marengo (Domanda 4): ci si cala dalla cinta a monte — +1 segnalino Canto.')

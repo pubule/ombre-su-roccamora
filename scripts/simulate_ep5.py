@@ -602,7 +602,6 @@ def simula_indagine(party, log, esplora_a_fondo=False):
     incroci_d1 = 0       # riscontri della Domanda 1 (>=2 = discesa preparata)
     incroci_d3 = 0       # riscontri della Domanda 3 (>=2 = casse riconoscibili)
     prova_scaduta = False  # L3: lapidi/casse portate via dai carri dalle 21:00 (orologio inverso)
-    casse_gratis = 0       # 2 se blocchi gli ultimi carri in tempo (peso epilogo)
     approf_letti = 0
     approf_falliti = 0
     chi_confermato = False
@@ -666,6 +665,11 @@ def simula_indagine(party, log, esplora_a_fondo=False):
         # `rischio` include ora la FINESTRA da cogliere (L3, scade_prova):
         # finche' non visitato e siamo nella finestra, salta in testa (un
         # tavolo vero corre alla pista deperibile).
+        # L3 (Cimitero) ha una finestra: la prova delle lapidi scade alle 21.
+        # Un tavolo competente, avvisato dal fascicolo, ci corre — quindi in
+        # finestra L3 sale in testa (rischio=0), come un luogo che sta per
+        # chiudere. prova_scaduta resta raro nel sim (tavolo competente); i
+        # denti del +1 Canto valgono per il tavolo distratto che arriva tardi.
         _scade = l.get('scade_prova')
         rischio = 0 if ((l['chiude'] is not None and ora_corrente + 1 >= l['chiude'])
                         or (_scade is not None and l['n'] not in visitati
@@ -811,9 +815,8 @@ def simula_indagine(party, log, esplora_a_fondo=False):
             else:
                 incroci_d3 += 1
                 if l.get('scade_prova'):
-                    casse_gratis = 2
                     log('    -> In tempo al Cimitero: bloccati gli ultimi due carri — 2 casse '
-                        'già salve in T5 (peso nell’epilogo).')
+                        'già salve in T5 (peso nell’epilogo, non simulato).')
                 log(f'    -> Riscontro sulla Domanda 3 ({incroci_d3}: casse marcate/lapidi/registro).')
         if ok:
             tenta_approfondimenti(l)
@@ -889,7 +892,7 @@ def simula_indagine(party, log, esplora_a_fondo=False):
     if prova_scaduta:
         log('La prova delle lapidi (L3) è scaduta: la D3 va confermata via Ossario + Marmista.')
     return dict(ore_avanzate=ore_avanzate, tier=tier, libretto=libretto,
-                prova_scaduta=prova_scaduta, casse_gratis=casse_gratis,
+                prova_scaduta=prova_scaduta,
                 pianta=pianta, d1_ok=d1_ok, d3_ok=d3_ok, visitati=visitati,
                 chi_confermato=chi_confermato, dossier_completo=dossier_completo,
                 secondo_fiato=secondo_fiato, approf_dettaglio=approf_dettaglio)
@@ -1148,7 +1151,9 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
     t5_rivelata = False
     t4_rivelata = False
     pannelli = 3               # le canne montate da sfregiare (T6)
-    canto = 0  # (in Ep.5 la D3 sbagliata pesa sulle casse di T5, non sul Canto)
+    canto = 1 if indagine.get('prova_scaduta') else 0  # prova lapidi persa: il culto ha guadagnato tempo
+    if indagine.get('prova_scaduta'):
+        log('  La prova delle lapidi e scaduta in indagine: il cantiere ha guadagnato tempo, 1 segnalino Canto.')
     voce_ferma_scade_round = 0
     adescati = []  # nemici che l'Esca preziosa (Carbone) distoglie per il round corrente
     attivati_extra = set()  # id() dei nemici gia' attivati "subito" questo round (vedi fase_minaccia) -

@@ -637,6 +637,11 @@ def simula_indagine(party, log, esplora_a_fondo=False):
         req = l.get('req')
         if req is None:
             return True
+        # Catena sociale (Ep.4): `sblocca_visita=X` apre anche se hai gia'
+        # visitato il luogo X (presentazione di un PNG). La parola resta come
+        # via alternativa (doppia via anti-softlock).
+        if l.get('sblocca_visita') in visitati:
+            return True
         kind, key = req
         return key in (parole if kind == 'parola' else oggetti)
 

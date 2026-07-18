@@ -887,8 +887,15 @@ def simula_indagine(party, log, esplora_a_fondo=False):
     if dossier_completo:
         log('Dossier completo (tutte le ore spese in Indagine): 1 gettone Intuizione per la Spedizione.')
     log('')
+    # Torsione «5a Domanda via reperto»: Diario di Ferri (Reperto A, L5) +
+    # Pianta della Camera (Reperto B, L7) rivelano l'ordine delle valvole:
+    # chi ha entrambi affronta il Dormiente con +1 a tutte le soglie ambiente.
+    quinta_domanda_ok = (5 in visitati) and (7 in visitati)
+    if quinta_domanda_ok:
+        log('5a Domanda (ordine delle valvole): soglie del Dormiente +1.')
     return dict(ore_avanzate=ore_avanzate, tier=tier, libretto=libretto,
                 pianta=pianta, d1_ok=d1_ok, d3_ok=d3_ok, visitati=visitati,
+                quinta_domanda_ok=quinta_domanda_ok,
                 chi_confermato=chi_confermato, dossier_completo=dossier_completo,
                 secondo_fiato=secondo_fiato, approf_dettaglio=approf_dettaglio)
 
@@ -1148,6 +1155,7 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
     t6_rivelata = False
     t7_rivelata = False
     t8_rivelata = False
+    dorm_off = 1 if indagine.get('quinta_domanda_ok') else 0  # 5a Domanda: soglie Dormiente +1
     pannelli = 3               # i TRE movimenti da spegnere (T3/T5/T6, con prova)
     cardini = {'T3': ('VIGORE', 'il bronzo'), 'T5': ('ACUME', 'la pietra'),
                'T6': ('NERVI', 'le ossa')}
@@ -1677,7 +1685,7 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
                 if tid in cardini and tid not in cardini_spenti:
                     obiettivo_provato[0] = True
                     stat, nome_mov = cardini[tid]
-                    malus = -1 if (canto >= 4 and t8_rivelata) else 0
+                    malus = -1 if (canto >= 4 + dorm_off and t8_rivelata) else 0
                     statv = {'VIGORE': HERO[n]['vigore'], 'ACUME': HERO[n]['acume'],
                              'NERVI': HERO[n]['nervi']}[stat]
                     ok_c, _ = check(log, n, stat, statv, 'Media', malus,
@@ -1937,10 +1945,10 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
                 log('  Il Coro tiene l’accordo: +1 segnalino Canto (coro >= 3).')
                 aggiungi_canto(cura_custode=False)
             # Le soglie del Dormiente (ambiente, T8 rivelata).
-            if t8_rivelata and canto >= 6 and vivi():
+            if t8_rivelata and canto >= 6 + dorm_off and vivi():
                 b = min(vivi(), key=lambda m: HERO[m]['nervi'])
                 applica_danno(b, 1, 'il battito del Dormiente (soglia 6)')
-            if t8_rivelata and canto >= 9:
+            if t8_rivelata and canto >= 9 + dorm_off:
                 esito = 'NON-VITTORIA (il rituale si compie: fuga forzata)'
                 break
             if formula_letta:

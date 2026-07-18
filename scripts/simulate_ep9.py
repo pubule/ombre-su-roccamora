@@ -867,8 +867,17 @@ def simula_indagine(party, log, esplora_a_fondo=False):
     if dossier_completo:
         log('Dossier completo (tutte le ore spese in Indagine): 1 gettone Intuizione per la Spedizione.')
     log('')
+    # Torsione «CHI MENTE?»: tra i tre testimoni (Ranuzzi L2, Bo L3, usciere
+    # L4) uno e' stato girato. Si smaschera confrontando le versioni: serve
+    # aver incrociato (chi_confermato) e sentito almeno DUE dei tre. Allora
+    # nella scorta non ci si fida della falsa via sicura: imboscata del
+    # Vicolo (T2) alleggerita di 1 Sgherro.
+    bugiardo_smascherato = chi_confermato and sum(1 for _ln in (2, 3, 4) if _ln in visitati) >= 2
+    if bugiardo_smascherato:
+        log('Bugiardo smascherato: imboscata del Vicolo (T2) -1 Sgherro.')
     return dict(ore_avanzate=ore_avanzate, tier=tier, libretto=libretto,
                 pianta=pianta, d1_ok=d1_ok, d3_ok=d3_ok, visitati=visitati,
+                bugiardo_smascherato=bugiardo_smascherato,
                 chi_confermato=chi_confermato, dossier_completo=dossier_completo,
                 secondo_fiato=secondo_fiato, approf_dettaglio=approf_dettaglio)
 
@@ -1784,8 +1793,10 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
         log(f'    La scorta entra in {tile_id} da {chess(porta_attuale_pos)} (Riva in mezzo).')
         # imboscate scriptate per tessera
         if tile_id == 'T2':
-            log('    Imboscata del Vicolo: 1 Sgherro su ogni uscita.')
-            for _ in range(2):
+            _n_imb = 1 if indagine.get('bugiardo_smascherato') else 2
+            log(f'    Imboscata del Vicolo: {_n_imb} Sgherro (anticipata)' if _n_imb == 1
+                else '    Imboscata del Vicolo: 2 Sgherro su ogni uscita.')
+            for _ in range(_n_imb):
                 if pool['LO SGHERRO'] <= 0:
                     pool_esauriti_totale += 1
                     break

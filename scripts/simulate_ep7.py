@@ -870,8 +870,17 @@ def simula_indagine(party, log, esplora_a_fondo=False):
     if dossier_completo:
         log('Dossier completo (tutte le ore spese in Indagine): 1 gettone Intuizione per la Spedizione.')
     log('')
+    # Torsione «QUANTI?»: quante consegne notturne al terzo piano? Il numero
+    # si ricava incrociando le bolle della Baracca (L6) con le chiazze sorde
+    # della Contrada (L1). Chi lo ha regge un round in piu' prima dello
+    # sbarramento (soglia +1).
+    conteggio_ok = (6 in visitati) and (1 in visitati)
+    if conteggio_ok:
+        log('Conteggio delle consegne notturne esatto (bolle L6 + contrada L1): '
+            'soglia di sbarramento +1.')
     return dict(ore_avanzate=ore_avanzate, tier=tier, libretto=libretto,
                 pianta=pianta, d1_ok=d1_ok, d3_ok=d3_ok, visitati=visitati,
+                conteggio_ok=conteggio_ok,
                 chi_confermato=chi_confermato, dossier_completo=dossier_completo,
                 secondo_fiato=secondo_fiato, approf_dettaglio=approf_dettaglio)
 
@@ -1126,7 +1135,7 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
     custode = None
     custode_stunned = False
     sorde_scontate = set()     # tessere sorde col primo spawn gia' scontato
-    SOGLIA_SBARRAMENTO = 12    # leva per-episodio (stampata): al 12° segnalino
+    SOGLIA_SBARRAMENTO = 12 + (1 if indagine.get('conteggio_ok') else 0)  # +1 col conteggio esatto (Domanda QUANTI?). Leva per-episodio (stampata): al 12°/13° segnalino
                                # Allarme il cantiere si sbarra — Fava resta dentro
                                # (sconfitta a tempo, non a sangue)
     sbarrato = [False]
