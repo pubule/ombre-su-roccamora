@@ -43,6 +43,8 @@ from gen_ep9 import (LUOGHI_9, TILES_9, NEMICI_9, OGGETTI_LUOGO_9, LETTERA_9,  #
                      ESAMI_CARBONE_9)
 from gen_ep10 import (LUOGHI_10, TILES_10, NEMICI_10, OGGETTI_LUOGO_10, LETTERA_10,  # noqa: E402
                       ESAMI_CARBONE_10)
+from gen_ep11 import (LUOGHI_11, TILES_11, NEMICI_11, OGGETTI_LUOGO_11, LETTERA_11,  # noqa: E402
+                      ESAMI_CARBONE_11)
 from gen_mappa import VOCI_MAPPA, MAPPE  # noqa: E402
 from gen_bestiario import FASCE, BOSS_DELTA, ferite_per_fascia  # noqa: E402
 from simulate_playtest import (INDAGINE_UNLOCK, TICK_CANTO_OGNI, SOGLIA_CANTO,  # noqa: E402
@@ -57,6 +59,7 @@ from simulate_ep7 import TOKEN_POOL_BASE as POOL_EP7  # noqa: E402
 from simulate_ep8 import TOKEN_POOL_BASE as POOL_EP8  # noqa: E402
 from simulate_ep9 import TOKEN_POOL_BASE as POOL_EP9  # noqa: E402
 from simulate_ep10 import TOKEN_POOL_BASE as POOL_EP10  # noqa: E402
+from simulate_ep11 import TOKEN_POOL_BASE as POOL_EP11  # noqa: E402
 
 
 def strip_tags(s):
@@ -114,6 +117,9 @@ REPERTI_LUOGO = {
     'ep10': {3: ['Reperto A - Denuncia di Abbandono'],
              5: ['Reperto B - Libro Mastro della Muratura'],
              8: ['Reperto C - Commessa del Fornitore']},
+    'ep11': {1: ['Reperto A - Taccuino delle Misure'],
+             3: ['Reperto B - Mappa Parziale'],
+             5: ['Reperto C - Commessa del Rilievo']},
 }
 
 
@@ -411,6 +417,27 @@ SOLUZIONI = dict(
         ],
         boss='IL MURATORE',
     ),
+    ep11=dict(
+        domande=[
+            dict(q='DOVE converge la mappatura?',
+                 risposta='In un punto sotto la Cattedrale che sulle mappe ufficiali non esiste.',
+                 esatta='Sapete già dove tutto punta: nel 1° round non si pesca nessuna carta Minaccia.',
+                 sbagliata='Salite alla cieca: 1 topografo lealista appare in T1 alla rivelazione.'),
+            dict(q='CHI ha spinto il topografo dalla Torre?',
+                 risposta='Ivo Speranza, il caposquadra, per paura di perdere la commessa.',
+                 esatta='Lo affrontate sapendo chi è: alla guglia la cattura riesce anche senza Corda (prova FORZA a Facile invece di Media).',
+                 sbagliata='Nessun effetto.'),
+            dict(q='IN CHE ORDINE ha preso le ultime misure?',
+                 risposta='Fontane, poi campanili, poi la Torre per ultima (il puntamento verso la Cattedrale). Il Taccuino Ordinato: serve più di una conferma (L1 grezzo + L4 marea/accordatura).',
+                 esatta='Conoscete la via del boss: il Caposquadra PERDE la scorciatoia sui tetti e avete +1 a tutte le prove NERVI del vento.',
+                 sbagliata='Lui taglia per i tetti e vi guadagna terreno (scorciatoia attiva).'),
+            dict(q='COSA portate per la via delle guglie?',
+                 risposta='LA CORDA DEL CAMPANARO (la Bottega del Cordaio).',
+                 esatta='Assicurati (le trappole di caduta T2/T4 non feriscono) e la cattura del Caposquadra a 1 Ferita è automatica.',
+                 sbagliata='Trappole feriscono e la cattura richiede una prova FORZA rischiosa (fallita = lo perdete nel vuoto). (Tesserino Perfetto e Colpa del Morto sono esche; Taccuino Ordinato spegne la scorciatoia, Lanterna Cieca leva il buio.)'),
+        ],
+        boss='IL CAPOSQUADRA',
+    ),
     preludio=dict(
         domande=[
             dict(q='DOVE è tenuto Ansaldo?',
@@ -597,6 +624,22 @@ episodi = dict(
         vantaggio=dict(slancio_ore=3, preparati_ore=1, preparati_luoghi=6),
         soluzione=SOLUZIONI['ep10'],
         pool=POOL_EP10,
+    ),
+    ep11=dict(
+        id='ep11', titolo='Il censimento delle campane',
+        sottotitolo='episodio 11 — Atto II: il censimento delle campane, e la via delle guglie',
+        cartella='Episodio 11', ore_budget=6,
+        lettera=LETTERA_11,
+        obiettivo='Salite la via delle guglie e prendete VIVO il Caposquadra (l’unico testimone di '
+                  'chi paga): riducetelo all’ultima Ferita, tenetelo al riparo dal vento e '
+                  'catturatelo (Interagire; con la Corda del Campanaro è automatico). Un colpo che '
+                  'lo uccide, o una raffica che lo fa cadere dall’esposto, perde il filo.',
+        esami_carbone=ESAMI_CARBONE_11,
+        luoghi=[luogo_json(L, OGGETTI_LUOGO_11, REPERTI_LUOGO['ep11']) for L in LUOGHI_11],
+        tessere=[tessera_json(T) for T in TILES_11],
+        vantaggio=dict(slancio_ore=3, preparati_ore=1, preparati_luoghi=6),
+        soluzione=SOLUZIONI['ep11'],
+        pool=POOL_EP11,
     ),
 )
 
