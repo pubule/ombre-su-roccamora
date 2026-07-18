@@ -841,6 +841,17 @@ Tyrlov) per le carte e **mappa a china su pergamena** per le tessere.
   formato, incrementalità e regole delle voci — è il componente PUBBLICO
   (sta sul tavolo, visibile a tutti), il gemello segreto è l'indice in testa
   a `Luoghi.pdf`.
+- **Taratura FINALE di ogni artefatto nuovo (regola generale, non solo
+  Luoghi.pdf):** finita la generazione di qualunque componente nuovo — pagine
+  PDF, carte, tessere, reperti, miniature, copertine — la fase NON è chiusa
+  finché non hai fatto un giro di taratura sul RENDERIZZATO: rasterizza le
+  pagine/carte nuove, guardale una per una, e sistema (a) i ritagli d'arte
+  (soggetto visibile? testa mozzata? cfr. `LUOGHI_CROP`/`MINI_CROP` sotto) e
+  (b) il layout (titoli orfani, righe che sforano pagina, colonne mezze vuote,
+  font ridotti al minimo quando c'è spazio — la tipografia auto-dimensionante
+  di `fit_desc`/`indizi_block` parte grande e si riduce solo se serve, usala).
+  L'Ep. 2 è uscito dalla Fase D con la campana mozzata e mezza pagina vuota
+  sui fronti proprio perché questo giro mancava: generare ≠ finire.
 - **Taratura dell'arte in `Luoghi.pdf` (verifica sempre a video, non dare per
   buono il ritaglio di default):** la finestra è stretta e verticale, ma quasi
   tutta l'arte sorgente è panoramica (2688×1792 tipico da Midjourney) — col
@@ -1055,6 +1066,10 @@ Ogni testo deve far *vedere* la scena, non riassumerla. Regole:
       corretto?
 - [ ] Le carte Luogo mostrano **solo** il testo d'apertura (mai gli indizi)? Ogni carta
       Approfondimento resta sotto ~65-70 parole (verificato a video, non solo contate)?
+- [ ] **Taratura finale fatta su TUTTI gli artefatti nuovi?** Rasterizzati e
+      guardati a video pagina per pagina e carta per carta: ritagli d'arte a
+      posto, niente titoli orfani o righe che sforano, niente colonne mezze
+      vuote o font minuscoli dove c'è spazio. Generare non è finire.
 - [ ] Hai guardato ogni pagina di `Luoghi.pdf` a confronto con l'arte originale in
       `artworks/`? Se il soggetto non si vede bene nel ritaglio, hai tarato
       `LUOGHI_CROP`/`LUOGHI_P_CROP` (overscan/top_margin/center_x)?
