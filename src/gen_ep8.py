@@ -626,7 +626,9 @@ def soluzione():
         '<b>2. CHI unifica i clan?</b> La Vedova Bruna, in prima persona. <i>Esatta:</i> '
         'sapete CHI comanda davvero: quando pescate la carta «I clan accorrono», la '
         'ignorate (una volta sola) — i clan aspettano un ordine che la Vedova non ha '
-        'dato. <i>Sbagliata:</i> nessun effetto.',
+        'dato. <i>Sbagliata:</i> se avete seguito la pista falsa (la Vedova «figura di '
+        'comodo», il vero capo un clan rivale), avete mosso contro il bersaglio sbagliato '
+        'e il deposito è sull’avviso: <b>1 Mastino in più</b> nel pool.',
         '<b>3. QUANDO passa il prossimo carico?</b> Giovedì notte, col carro del carbone '
         '(bolle + carrettiere: serve più di una conferma). <i>Esatta:</i> arrivate '
         'PRIMA del carico: il Canto (la Voce che gira) parte da 0. <i>Sbagliata:</i> il '
@@ -636,10 +638,15 @@ def soluzione():
         '<i>Nota per chi arbitra:</i> la Tessera della Chiatta e il Sigillo di Piombo '
         'sono esche. ATTENZIONE: chi tiene il Marengo attira il Fiuto dei Mastini — '
         'passarlo di mano è lecito (e saggio).',
-        '<b>Nota sul rivelatorio (Domanda 2):</b> lo confermano apertamente tre carte — '
-        'la Testimonianza «Il sensale dei banchi» (L1), l’Osservazione «La lente di '
+        '<b>Doppia pista — l’esca strutturale (Domanda 2):</b> qualcuno ha costruito la '
+        'storia comoda che la Vedova sia solo una figura di comodo e il vero regista un '
+        'clan rivale (le false prove sono seminate: un capro pronto). È un DEPISTAGGIO. '
+        'La pista VERA la confermano tre carte in luoghi aperti — la Testimonianza «Il '
+        'sensale dei banchi» (L1: contava lei di persona), l’Osservazione «La lente di '
         'Fossa» (L2, indiretta: giudicate con favore) e la Testimonianza «Il barcaiolo '
-        'della Chiatta» (L3). Senza nessuna delle tre, giudicate con elasticità una '
+        'della Chiatta» (L3: l’orefice si inchina a LEI) — e la scena della Corte (L8) '
+        'la sigilla. Chi accusa il clan rivale senza aver letto un rivelatorio crede '
+        'all’esca (penalità sopra). Senza nulla in mano, giudicate con elasticità una '
         'risposta «vicina» (es. «la vedova del vecchio capo»).',
         '<b>Vantaggio d’Indagine:</b> Slancio SOLO con tutte e 4 le risposte esatte E 3+ '
         'ore avanzate; Preparati con 1+ ore avanzate O 6+ luoghi visitati. Dossier '

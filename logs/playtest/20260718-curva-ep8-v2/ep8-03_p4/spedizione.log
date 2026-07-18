@@ -1,0 +1,183 @@
+Run: ep8-03_p4_seed0  |  seed=684400  |  formula Minaccia=finale_v3  |  generato: 2026-07-18T20:59:12
+==============================================================================
+SPEDIZIONE - Il Deposito dell’Ansa Morta (giovedì notte)
+==============================================================================
+Party: DOTT. LAZZARO SERRA, FULGENZIO CARBONE, SIBILLA REVE
+Bonus da Indagine: nessun vantaggio; Marengo: sì; Lanterna: sì; D1: esatta; D3: esatta
+NOTA: gruppo trattato come blocco unico tessera per tessera (vedi intestazione script).
+
+Gettone Intuizione in mano (Dossier completo): un ri-tiro, una volta in Spedizione.
+  Il Marengo Segnato lo porta DOTT. LAZZARO SERRA (il Fiuto dei Mastini lo sa).
+--- Round 1: il gruppo raggiunge T2 (La Tettoia delle Chiatte) ---
+    (azioni nominali questo round: 6 — 3 eroi vivi)
+    Il gruppo entra in T2 da B1.
+    [PROVA ACUME] DOTT. LAZZARO SERRA: 2d6(6,6)=12 +ACUME(3) = 15 vs Media(9) -> SUCCESSO
+    [AZIONE] DOTT. LAZZARO SERRA sequestra la cassa d’oro di T2 (1/4).
+    [PROVA ACUME] FULGENZIO CARBONE: 2d6(6,1)=7 +ACUME(3) = 10 vs Media(9) -> SUCCESSO
+    FULGENZIO CARBONE cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] IL GIRO DI RONDA (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 4) in B1.
+  LO SGHERRO si muove verso DOTT. LAZZARO SERRA: B1 -> C1.
+  LO SGHERRO attacca DOTT. LAZZARO SERRA:
+    [ATTACCO NEMICO] LO SGHERRO -> DOTT. LAZZARO SERRA: 2d6(4,3)=7 +Attacco(2) = 9 vs Difesa(8) -> COLPITO
+    DOTT. LAZZARO SERRA subisce 1 danno da LO SGHERRO (Salute: 5/6).
+--- Round 2: il gruppo raggiunge T3 (Il Magazzino del Carbone) ---
+    (azioni nominali questo round: 6 — 3 eroi vivi)
+    Il gruppo entra in T3 da B1.
+    [ABILITÀ] DOTT. LAZZARO SERRA attiva Voce ferma (2 usi residui): +2 NERVI agli alleati fino al suo prossimo turno.
+    [ABILITÀ] FULGENZIO CARBONE usa Esca preziosa: LO SGHERRO si dirige verso l’esca invece che verso il gruppo alla prossima attivazione.
+    [PROVA ACUME] SIBILLA REVE: 2d6(1,2)=3 +ACUME(2) = 5 vs Media(9) -> FALLITA
+    SIBILLA REVE forza la cassa di T3: lucchetto duro, azione persa — la cassa resta (e il crogiolo corre).
+  [MINACCIA] IL CAMBIO DI GUARDIA (malavita) — Piazzate 1 Sgherro sull’ingresso del Molo (T1).
+    Piazzati 1x LO SGHERRO (pool residua: 3), a 6 caselle dalla tessera del gruppo.
+  LO SGHERRO si dirige verso l’esca (Carbone): non attacca questo round.
+  LO SGHERRO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+--- Round 3: ancora a T3 (Il Magazzino del Carbone) (la cassa resiste) ---
+    (azioni nominali questo round: 6 — 3 eroi vivi)
+    [PROVA ACUME] DOTT. LAZZARO SERRA: 2d6(5,5)=10 +ACUME(3) = 13 vs Media(9) -> SUCCESSO
+    [AZIONE] DOTT. LAZZARO SERRA sequestra la cassa d’oro di T3 (2/4).
+    [ABILITÀ] FULGENZIO CARBONE usa Esca preziosa: LO SGHERRO, LO SGHERRO si dirige verso l’esca invece che verso il gruppo alla prossima attivazione.
+    SIBILLA REVE si muove verso LO SGHERRO: B1 -> C2.
+    [ATTACCO] SIBILLA REVE -> LO SGHERRO: 2d6(3,5)=8 +VIGORE(1)+arma(1) = 10 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    [ABILITÀ] SIBILLA REVE scruta il mazzo: «L’OMBRA DEL PESATORE» finisce in fondo, «IL MASTINO SCIOLTO» torna in cima (2 usi residui).
+  [MINACCIA] IL MASTINO SCIOLTO (malavita) — Piazzate 1 Mastino sull’uscita più vicina agli eroi.
+    Piazzati 1x IL MASTINO (pool residua: 1) in B1.
+  LO SGHERRO si dirige verso l’esca (Carbone): non attacca questo round.
+  LO SGHERRO si dirige verso l’esca (Carbone): non attacca questo round.
+  IL MASTINO si muove verso DOTT. LAZZARO SERRA: B1 -> A1.
+  IL MASTINO attacca DOTT. LAZZARO SERRA:
+    [ATTACCO NEMICO] IL MASTINO -> DOTT. LAZZARO SERRA: 2d6(5,3)=8 +Attacco(2) = 10 vs Difesa(8) -> COLPITO
+    DOTT. LAZZARO SERRA subisce 2 danno da IL MASTINO (Salute: 3/6).
+--- Round 4: il gruppo raggiunge T4 (La Sala del Crogiolo) ---
+    (azioni nominali questo round: 6 — 3 eroi vivi)
+    Il gruppo entra in T4 da B1.
+    Rivelata la Sala del Crogiolo: IL CAMBIAVALUTE non alza gli occhi dal bilancino — i suoi due MASTINI sì.
+    [ABILITÀ] DOTT. LAZZARO SERRA attiva Voce ferma (1 usi residui): +2 NERVI agli alleati fino al suo prossimo turno.
+    [PROVA ACUME] FULGENZIO CARBONE: 2d6(2,5)=7 +ACUME(3) = 10 vs Media(9) -> SUCCESSO
+    [AZIONE] FULGENZIO CARBONE sequestra la cassa d’oro di T4 (3/4).
+    [ATTACCO] SIBILLA REVE -> LO SGHERRO: 2d6(2,1)=3 +VIGORE(1)+arma(1) = 5 vs Difesa(8) -> MANCATO
+  [MINACCIA] GLI UOMINI DELLA TETTOIA (malavita) — Piazzate 1 Sgherro sull’ingresso del Molo (T1).
+    Piazzati 1x LO SGHERRO (pool residua: 2), a 6 caselle dalla tessera del gruppo.
+  LO SGHERRO attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] LO SGHERRO -> FULGENZIO CARBONE: 2d6(3,6)=9 +Attacco(2) = 11 vs Difesa(8) -> COLPITO
+    FULGENZIO CARBONE subisce 1 danno da LO SGHERRO (Salute: 5/6).
+  LO SGHERRO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  IL MASTINO attacca DOTT. LAZZARO SERRA:
+    [ATTACCO NEMICO] IL MASTINO -> DOTT. LAZZARO SERRA: 2d6(2,5)=7 +Attacco(2) = 9 vs Difesa(8) -> COLPITO
+    DOTT. LAZZARO SERRA subisce 2 danno da IL MASTINO (Salute: 1/6).
+  IL MASTINO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+  IL CAMBIAVALUTE attacca SIBILLA REVE:
+    [ATTACCO NEMICO] IL CAMBIAVALUTE -> SIBILLA REVE: 2d6(5,3)=8 +Attacco(2) = 10 vs Difesa(8) -> COLPITO
+    SIBILLA REVE subisce 1 danno da IL CAMBIAVALUTE (Salute: 5/6).
+  [OROLOGIO] Fine del 4° round: +1 segnalino Canto automatico.
+    Segnalino Canto (la Voce che gira): 1.
+--- Round 5: il gruppo raggiunge T5 (L’Ufficio del Pesatore) ---
+    (azioni nominali questo round: 6 — 3 eroi vivi)
+    Il gruppo entra in T5 da A3.
+    QUANDO RIVELATE: il guardaspalle del pesatore, dall’ombra.
+    [PROVA ACUME] DOTT. LAZZARO SERRA: 2d6(1,1)=2 +ACUME(3) = 5 vs Media(9) -> FALLITA
+    DOTT. LAZZARO SERRA forza la cassa di T5: lucchetto duro, azione persa — la cassa resta (e il crogiolo corre).
+    [ATTACCO] FULGENZIO CARBONE -> IL SICARIO: 2d6(3,3)=6 +VIGORE(1)+arma(1) = 8 vs Difesa(7) -> COLPITO
+    IL SICARIO: 0/1 ferite residue.
+    IL SICARIO è ABBATTUTO.
+    SIBILLA REVE si muove verso IL MASTINO: A3 -> A2.
+    [ATTACCO] SIBILLA REVE -> IL MASTINO: 2d6(2,5)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(6) -> COLPITO
+    IL MASTINO: 1/2 ferite residue.
+  [MINACCIA] UNA CHIATTA AMICA (favore) — Rivelate una tessera coperta adiacente.
+    (carta senza effetto modellato in questa simulazione)
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina (Movimento 4): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+  IL MASTINO attacca SIBILLA REVE:
+    [ATTACCO NEMICO] IL MASTINO -> SIBILLA REVE: 2d6(3,1)=4 +Attacco(2) = 6 vs Difesa(8) -> MANCATO
+  IL MASTINO si muove verso DOTT. LAZZARO SERRA: C2 -> B3.
+  IL MASTINO attacca DOTT. LAZZARO SERRA:
+    [ATTACCO NEMICO] IL MASTINO -> DOTT. LAZZARO SERRA: 2d6(6,6)=12 +Attacco(2) = 14 vs Difesa(8) -> COLPITO
+    DOTT. LAZZARO SERRA subisce 2 danno da IL MASTINO (Salute: 0/6).
+    [INTUIZIONE] Il gruppo spende il gettone Dossier: DOTT. LAZZARO SERRA resta in piedi a 1 Salute invece di cadere.
+  LO SGHERRO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+    [CROGIOLO] Il Cambiavalute fonde: segnalino 1/3 sulla cassa di T5.
+--- Round 6: ancora a T5 (L’Ufficio del Pesatore) (la cassa resiste) ---
+    (azioni nominali questo round: 6 — 3 eroi vivi)
+    [ABILITÀ] DOTT. LAZZARO SERRA attiva Voce ferma (0 usi residui): +2 NERVI agli alleati fino al suo prossimo turno.
+    [PROVA ACUME] FULGENZIO CARBONE: 2d6(6,1)=7 +ACUME(3) = 10 vs Media(9) -> SUCCESSO
+    [AZIONE] FULGENZIO CARBONE sequestra la cassa d’oro di T5 (4/4).
+    [ATTACCO] SIBILLA REVE -> IL MASTINO: 2d6(2,5)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(6) -> COLPITO
+    IL MASTINO: 0/2 ferite residue.
+    IL MASTINO è ABBATTUTO.
+    [ABILITÀ] SIBILLA REVE scruta il mazzo: «IL FISCHIO BASSO» finisce in fondo, «LA PAGA DEL GIOVEDÌ» torna in cima (1 usi residui).
+  [MINACCIA] LA PAGA DEL GIOVEDÌ (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 1) in A3.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  IL MASTINO attacca DOTT. LAZZARO SERRA:
+    [ATTACCO NEMICO] IL MASTINO -> DOTT. LAZZARO SERRA: 2d6(5,3)=8 +Attacco(2) = 10 vs Difesa(8) -> COLPITO
+    DOTT. LAZZARO SERRA subisce 2 danno da IL MASTINO (Salute: 0/6).
+    *** DOTT. LAZZARO SERRA è A TERRA. ***
+  LO SGHERRO si avvicina (Movimento 4): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO attacca SIBILLA REVE:
+    [ATTACCO NEMICO] LO SGHERRO -> SIBILLA REVE: 2d6(4,2)=6 +Attacco(2) = 8 vs Difesa(8) -> COLPITO
+    SIBILLA REVE subisce 1 danno da LO SGHERRO (Salute: 4/6).
+--- Round 7: il gruppo raggiunge T4 (Crogiolo - ritorno dal ramo) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    Il gruppo entra in T4 da D3.
+    FULGENZIO CARBONE si muove verso LO SGHERRO: D3 -> D1.
+    [ATTACCO] FULGENZIO CARBONE -> LO SGHERRO: 2d6(4,6)=10 +VIGORE(1)+arma(1) = 12 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+    SIBILLA REVE si muove verso IL CAMBIAVALUTE: D3 -> C2.
+    [ATTACCO] SIBILLA REVE -> IL CAMBIAVALUTE: 2d6(4,3)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(7) -> COLPITO
+    IL CAMBIAVALUTE: 3/4 ferite residue.
+    [ABILITÀ] SIBILLA REVE scruta il mazzo: «IL GUINZAGLIO TAGLIATO» finisce in fondo, «GLI UOMINI DEI CLAN» torna in cima (0 usi residui).
+  [MINACCIA] GLI UOMINI DEI CLAN (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 1) in D3.
+  LO SGHERRO si avvicina (Movimento 4): ancora 1 caselle prima di raggiungere la tessera del gruppo.
+  IL MASTINO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si muove verso SIBILLA REVE: A3 -> C1.
+  LO SGHERRO attacca SIBILLA REVE:
+    [ATTACCO NEMICO] LO SGHERRO -> SIBILLA REVE: 2d6(2,6)=8 +Attacco(2) = 10 vs Difesa(8) -> COLPITO
+    SIBILLA REVE subisce 1 danno da LO SGHERRO (Salute: 3/6).
+  LO SGHERRO si muove verso FULGENZIO CARBONE: D3 -> D2.
+  LO SGHERRO attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] LO SGHERRO -> FULGENZIO CARBONE: 2d6(3,3)=6 +Attacco(2) = 8 vs Difesa(8) -> COLPITO
+    FULGENZIO CARBONE subisce 1 danno da LO SGHERRO (Salute: 4/6).
+  IL CAMBIAVALUTE attacca SIBILLA REVE:
+    [ATTACCO NEMICO] IL CAMBIAVALUTE -> SIBILLA REVE: 2d6(1,4)=5 +Attacco(2) = 7 vs Difesa(8) -> MANCATO
+--- Round 8: il gruppo raggiunge T6 (La Porta d’Acqua) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    Il gruppo entra in T6 da B1.
+    [ATTACCO] FULGENZIO CARBONE -> LO SGHERRO: 2d6(2,6)=8 +VIGORE(1)+arma(1) = 10 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    [ATTACCO] SIBILLA REVE -> LO SGHERRO: 2d6(5,5)=10 +VIGORE(1)+arma(1) = 12 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+  [MINACCIA] I CANI DELL’ANSA (malavita) — Piazzate 1 Mastino sull’uscita più vicina agli eroi.
+    Piazzati 1x IL MASTINO (pool residua: 0) in B1.
+  LO SGHERRO raggiunge la tessera del gruppo, da C1.
+  LO SGHERRO attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] LO SGHERRO -> FULGENZIO CARBONE: 2d6(5,5)=10 +Attacco(2) = 12 vs Difesa(8) -> COLPITO
+    FULGENZIO CARBONE subisce 1 danno da LO SGHERRO (Salute: 3/6).
+  IL MASTINO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina (Movimento 4): ancora 1 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  IL MASTINO si muove verso FULGENZIO CARBONE: B1 -> A1.
+  IL MASTINO attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] IL MASTINO -> FULGENZIO CARBONE: 2d6(3,2)=5 +Attacco(2) = 7 vs Difesa(8) -> MANCATO
+  [OROLOGIO] Fine del 8° round: +1 segnalino Canto automatico.
+    Segnalino Canto (la Voce che gira): 2.
+--- Alla Porta d’Acqua (T6) con 4/4 casse ---
+
+==============================================================================
+ESITO SPEDIZIONE: VITTORIA
+Round totali: 8
+Formula Minaccia: finale_v3 | Azioni nominali/round: media 5.5, picco 6
+Mazzo Minaccia rimescolato: 0 volta/e
+Segnalini nemici esauriti nel pool (piazzamenti saltati): 1
+Casse sequestrate: 4/4 | Cambiavalute: al crogiolo
+  DOTT. LAZZARO SERRA: a terra
+  FULGENZIO CARBONE: 3/6 Salute
+  SIBILLA REVE: 3/6 Salute
+==============================================================================

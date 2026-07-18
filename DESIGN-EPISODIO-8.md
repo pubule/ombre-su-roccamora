@@ -230,3 +230,12 @@ l'orologio-crogiolo al posto del boss-inseguitore.
   test-partite Ep.8).
 - Fase E: export py/js (ep8, REPERTI_LUOGO {6: A, 7: B, 5: C}), assets,
   main.js (9° episodio), test (2 scenari).
+
+## Varietà indagine (2026-07-18) — doppia pista con esca strutturale
+
+Una storia comoda (la Vedova Bruna «figura di comodo», il vero capo un clan
+rivale) è un depistaggio con false prove seminate. La pista vera la confermano
+i tre rivelatori D2 (L1/L2/L3) + la scena della Corte (L8). Crederci senza
+incrociare = D2 sbagliata e +1 Mastino nel pool (il deposito è sull'avviso).
+Simulatore: flag `pista_falsa_creduta` (= not chi_confermato) → pool Mastino +1.
+Curva v2 invariata (2:55, 3-10 89-98).
