@@ -270,8 +270,31 @@ INTOCCABILE. Seed base **770000**.
   l'Ep. 18; `decano_lucido = decano_vivo and not trasferito`.
 - Ramo Bivio Ep. 16: +1 carta (affrontato) o −1 spawn iniziale (taciuto).
 
-**Corridoio-obiettivo (il picco):** l'episodio PIÙ DURO dell'atto — duo basso
-(~40-55%), 3-10 in salita ma con sofferte alte (il malus di morale morde i
-NERVI, la Guardia Danno 2 + la soglia-decano). Metrica doppia: % vittoria
-(decano salvo + Notaio preso) e % piena (decano lucido + matrice + Notaio preso).
-La ansia è massima: casa divisa, ostaggio a termine, e il sospetto addosso.
+**Corridoio-obiettivo (il picco):** l'episodio PIÙ TESO dell'atto — non per la
+% di vittoria (l'apertura Ep. 13 resta il duo più letale, 61%) ma per le
+**sofferte più alte** della campagna e per la meccanica del **morale**. Metrica
+doppia: % vittoria (decano salvo + Notaio preso) e % piena (decano lucido +
+matrice). La ansia è massima: casa divisa, ostaggio a termine, sospetto addosso.
+
+**Curva accettata (v2, 5 party × 30 seed per taglia, seed 770000+size·1000):**
+
+| Taglia | % Vitt | % piena | % sofferte | Decano lucido | Canto |
+|---|---|---|---|---|---|
+| 2 | 78 | 78 | 41 | 99 | 3.4 |
+| 3 | 93 | 93 | 42 | 99 | 3.3 |
+| 4 | 100 | 96 | 7 | 96 | 3.6 |
+| 5 | 100 | 93 | 23 | 93 | 3.9 |
+| 6 | 100 | 95 | 47 | 95 | 4.4 |
+| 7 | 100 | 87 | 21 | 87 | 4.6 |
+| 8 | 100 | 81 | 19 | 81 | 4.6 |
+| 9 | 100 | 89 | 44 | 89 | 5.4 |
+| 10 | 100 | 85 | 42 | 85 | 5.4 |
+
+Duo davvero in bilico (78% vitt, 41% sofferte); **sofferte 41-47% su cinque
+taglie** — le più alte dell'atto: il malus di morale (−1 NERVI) + la −1 Salute
+dello scisma + la Guardia Danno 2 mordono. La **piena cala coi gruppi grandi**
+(96%→81%): più eroi = più carte = il Canto raggiunge la soglia-decano e il
+decano è «trasferito» ferito (perde la lucidità), l'Ep. 18 con un incrocio in
+meno. Leve finali: `MORALE_MALUS=-1` (NERVI, fino al decano), `SCISMA_SALUTE=-1`
+(Salute iniziale), `SOGLIA_DECANO=3` (+1 con il Salvacondotto), `BOSS_INGAGGIO=4`,
+`BOSS_COLPI=2` (Guardia Danno 2, uno saltato con D3). Seed base 770000.
