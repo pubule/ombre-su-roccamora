@@ -210,6 +210,14 @@ VOCI_MAPPA = [
     ('Il Fioraio', 'calle dei Fiori 7, bottega', 'ep16'),
     ('Il Registro degli Affitti', 'corso della Prefettura 12, ufficio degli affitti', 'ep16'),
     ('La Villa sul Lago', 'sponda di ponente, villa dei Càrpine, fuori porta', 'ep16'),
+    # Episodio 17 — lo scisma (Atto III, il picco). Riusi: Il Palazzo del Lume
+    # (preludio), Il Tribunale ('ep9'), Lo Studio del Notaio ('ep13'), La Dogana
+    # Vecchia ('preludio').
+    ('Lo Studio del Decano', 'palazzo del Lume, studio del decano', 'ep17'),
+    ('L’Aula del Cifrario', 'via dell’Ateneo 3, aula del cifrario', 'ep17'),
+    ('Il Membro Interno', 'contrada dei Confratelli 6, alloggio', 'ep17'),
+    ('Il Rifugio del Notaio', 'calle dei Notai 9, rifugio riservato', 'ep17'),
+    ('La Villa-Prigione', 'sponda di levante, villa di custodia, fuori porta', 'ep17'),
 ]
 
 # (sottocartella pdf/, sottotitolo, tag inclusi). Un episodio nuovo aggiunge
@@ -232,6 +240,7 @@ MAPPE = [
     ('Episodio 14', 'episodio 14 — la città e i tetti del Corso', ('citta', 'preludio', 'ep1', 'ep2', 'ep3', 'ep4', 'ep5', 'ep6', 'ep7', 'ep8', 'ep9', 'ep10', 'ep11', 'ep12', 'ep13', 'ep14')),
     ('Episodio 15', 'episodio 15 — la città e la villa di Braga', ('citta', 'preludio', 'ep1', 'ep2', 'ep3', 'ep4', 'ep5', 'ep6', 'ep7', 'ep8', 'ep9', 'ep10', 'ep11', 'ep12', 'ep13', 'ep14', 'ep15')),
     ('Episodio 16', 'episodio 16 — la città e la villa sul lago', ('citta', 'preludio', 'ep1', 'ep2', 'ep3', 'ep4', 'ep5', 'ep6', 'ep7', 'ep8', 'ep9', 'ep10', 'ep11', 'ep12', 'ep13', 'ep14', 'ep15', 'ep16')),
+    ('Episodio 17', 'episodio 17 — la città spaccata e la villa-prigione', ('citta', 'preludio', 'ep1', 'ep2', 'ep3', 'ep4', 'ep5', 'ep6', 'ep7', 'ep8', 'ep9', 'ep10', 'ep11', 'ep12', 'ep13', 'ep14', 'ep15', 'ep16', 'ep17')),
 ]
 
 # Tipografico (provata la grafia manoscritta La Belle Aurore su tutta la

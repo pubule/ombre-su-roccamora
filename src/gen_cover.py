@@ -56,10 +56,11 @@ EPISODI = {
     14: 'Il rivale',
     15: 'Lo smascheramento',
     16: 'Un caso qualunque',
+    17: 'Lo scisma',
 }
 # arte dedicata per episodio (default: la mappa di campagna, MAP_ART)
-COVER_ART = {2: 'copertina episodio 2.png', 3: 'copertina episodio 3.png', 4: 'copertina episodio 4.png', 5: 'copertina episodio 5.png', 6: 'copertina episodio 6.png', 7: 'copertina episodio 7.png', 8: 'copertina episodio 8.png', 9: 'copertina episodio 9.png', 10: 'copertina episodio 10.png', 11: 'copertina episodio 11.png', 12: 'copertina episodio 12.png', 13: 'copertina episodio 13.png', 14: 'copertina episodio 14.png', 15: 'copertina episodio 15.png', 16: 'copertina episodio 16.png'}
-ROMAN = {1: 'I', 2: 'II', 3: 'III', 4: 'IV', 5: 'V', 6: 'VI', 7: 'VII', 8: 'VIII', 9: 'IX', 10: 'X', 11: 'XI', 12: 'XII', 13: 'XIII', 14: 'XIV', 15: 'XV', 16: 'XVI'}
+COVER_ART = {2: 'copertina episodio 2.png', 3: 'copertina episodio 3.png', 4: 'copertina episodio 4.png', 5: 'copertina episodio 5.png', 6: 'copertina episodio 6.png', 7: 'copertina episodio 7.png', 8: 'copertina episodio 8.png', 9: 'copertina episodio 9.png', 10: 'copertina episodio 10.png', 11: 'copertina episodio 11.png', 12: 'copertina episodio 12.png', 13: 'copertina episodio 13.png', 14: 'copertina episodio 14.png', 15: 'copertina episodio 15.png', 16: 'copertina episodio 16.png', 17: 'copertina episodio 17.png'}
+ROMAN = {1: 'I', 2: 'II', 3: 'III', 4: 'IV', 5: 'V', 6: 'VI', 7: 'VII', 8: 'VIII', 9: 'IX', 10: 'X', 11: 'XI', 12: 'XII', 13: 'XIII', 14: 'XIV', 15: 'XV', 16: 'XVI', 17: 'XVII'}
 
 def etichetta(num):
     return 'Preludio' if num == 0 else 'Episodio ' + ROMAN.get(num, str(num))

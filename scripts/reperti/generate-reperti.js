@@ -996,6 +996,51 @@ Chi canterà al di sotto, non si lamenti di ciò che al di sotto risponde.`;
     </div></div>
   `);
 
+  // --- Episodio 17, Reperto A: il dossier cifrato del decano (L5) — il SEME ---
+  const repertoA17 = page(`
+    <div class="wrap"><div style="zoom:0.90;">
+      <div class="serif" style="font-style:italic; font-size:38px; color:#3a2415; mix-blend-mode:multiply; margin-bottom:44px;">Reperto A — dossier cifrato, decifrato (Aula del Cifrario)</div>
+      <div class="serif" style="font-size:46px; line-height:74px;">
+        <p style="margin-bottom:32px;">Una <b>matrice</b>: ogni lettera d’incarico di M. dal 1885, e di fronte ciò che sapeva prima del dovuto.</p>
+        <p style="margin-bottom:32px; border-top:2px solid #6b5636; padding-top:32px;">Un nome, un luogo, un morto, un nastro verde. <b>Nessuna eccezione</b>.</p>
+      </div>
+      <div class="serif" style="font-style:italic; margin-top:70px; font-size:34px; color:#4a4a4e; mix-blend-mode:multiply;">
+        Il decano non cercava una talpa. Dimostrava che il traditore firma le
+        lettere. «Ho cercato lo specchio, e mi ha restituito la nostra faccia.»
+      </div>
+    </div></div>
+  `);
+
+  // --- Episodio 17, Reperto B: la deposizione del decano (L9) ---
+  const repertoB17 = page(`
+    <div class="wrap"><div style="zoom:0.92;">
+      <div class="serif" style="font-style:italic; font-size:38px; color:#3a2415; mix-blend-mode:multiply; margin-bottom:56px;">Reperto B — deposizione del decano (Villa-Prigione)</div>
+      <div class="serif" style="font-size:46px; line-height:76px;">
+        <p style="margin-bottom:32px;">«Non c’è nessuna talpa. Mi ha fatto prendere <b>lui</b>, per non farmi parlare.»</p>
+        <p style="margin-bottom:32px;">«Il rapitore lavora per il presidente — l’ha detto ridendo, poi ha detto che scherzava.»</p>
+      </div>
+      <div class="serif" style="font-style:italic; margin-top:60px; font-size:34px; color:#4a4a4e; mix-blend-mode:multiply;">
+        Non scherzava. È il seme più vicino al volto che abbiate mai avuto: la
+        mano guantata ha, finalmente, una direzione.
+      </div>
+    </div></div>
+  `);
+
+  // --- Episodio 17, Reperto C: l'archivio del Notaio (L8) ---
+  const repertoC17 = page(`
+    <div class="wrap"><div style="zoom:0.90;">
+      <div class="serif" style="font-style:italic; font-size:38px; color:#3a2415; mix-blend-mode:multiply; margin-bottom:56px;">Reperto C — registro dei lavori (Rifugio del Notaio)</div>
+      <div class="serif" style="font-size:46px; line-height:74px;">
+        <p style="margin-bottom:32px;">Pagine di sparizioni, custodie, interrogatori. Mai un nome: solo «<b>il cliente di sempre</b>».</p>
+        <p style="margin-bottom:32px;">Iniziali, e una cifra che paga sempre, da anni, senza mai mancare.</p>
+      </div>
+      <div class="serif" style="font-style:italic; margin-top:80px; font-size:34px; color:#4a4a4e; mix-blend-mode:multiply;">
+        Un solo cliente, che paga per far sparire chi si avvicina troppo. Letta
+        con la matrice, la lista ha una sola firma in fondo.
+      </div>
+    </div></div>
+  `);
+
   const items = [
     ['Episodio 1', 'Reperto A - Diario di Ruggero', repertoA],
     ['Episodio 1', 'Reperto B - Registro delle Consegne', repertoB],
@@ -1046,6 +1091,9 @@ Chi canterà al di sotto, non si lamenti di ciò che al di sotto risponde.`;
     ['Episodio 16', 'Reperto A - Lettera d’Incarico', repertoA16],
     ['Episodio 16', 'Reperto B - Registro degli Affitti', repertoB16],
     ['Episodio 16', 'Reperto C - Libro delle Promesse', repertoC16],
+    ['Episodio 17', 'Reperto A - Dossier Cifrato', repertoA17],
+    ['Episodio 17', 'Reperto B - Deposizione del Decano', repertoB17],
+    ['Episodio 17', 'Reperto C - Archivio del Notaio', repertoC17],
   ];
 
   for (const [episodio, name, html] of items) {

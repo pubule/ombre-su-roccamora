@@ -3934,6 +3934,236 @@ const EP16 = [...LUOGHI16, ...EP16_INDIZI, ...EP16_TESTIMONI, ...EP16_REFERTI,
               ...EP16_MINACCE, ...EP16_OGGETTI, ...EP16_NEMICI];
 
 
+// ===================================================================== EP17
+// «Lo scisma» — Atto III, il picco (vedi DESIGN-EPISODIO-17.md). Il decano
+// rapito, un dossier cifrato (la matrice delle doppie letture di M.), la
+// Società spaccata da una caccia alla talpa che è l'insabbiamento di M. Il
+// decano è VIVO: rapito dal Notaio. Spedizione: la villa-prigione, salvare il
+// decano (cancella il MORALE) e catturare il Notaio. Boss: la Guardia del
+// Notaio. Torsione: «il caso contro di voi».
+
+const LUOGHI17 = [
+  { n: 1, nome: 'Lo Studio del Decano', req: 'Disponibile dall’inizio',
+    art: 'artworks/Lo Studio del Decano.png',
+    testo: 'Messo a soqquadro con metodo: cassetti aperti, niente rotto, una perquisizione più che un furto. Murato nel camino, un dossier cifrato — e sul tavolo, l’ultimo appunto di un uomo che sapeva: «non c’è nessuna talpa».',
+    approfondimenti: [
+      { tipo: 'Presagio', soggetto: 'La perquisizione educata',
+        testo: 'Chi ha messo a soqquadro lo studio del decano non era un ladro: sapeva cosa cercare (il dossier cifrato) e aveva tempo e chiavi. Non ha rotto nulla, non ha rubato i valori. È entrato come si entra in casa propria. E l’ultimo appunto del decano lo dice chiaro: non temeva una talpa. Temeva chi la talpa la avrebbe inventata — per spiegare la sua sparizione senza sospetti su di sé.' },
+    ] },
+  { n: 2, nome: 'L’Assemblea della Società', req: 'Disponibile dall’inizio',
+    art: 'artworks/Palazzo del Lume.png',
+    testo: 'Il Palazzo del Lume spaccato in due: M. guida la caccia alla talpa e metà confratelli lo seguono; l’altra metà guarda voi. Ogni indizio interno passa dal presidente — e un vecchio confratello si chiede come facesse M. a sapere della talpa prima di cercarla.',
+    approfondimenti: [
+      { tipo: 'Testimonianza', soggetto: 'Il confratello anziano',
+        testo: '«La caccia alla talpa è cominciata troppo in fretta, troppo sicura. Il presidente sapeva del traditore prima di cercarlo — perché il traditore non esiste. È una storia che serve a spiegare perché il decano è sparito, e a tenere ogni indizio nelle mani di M. Il decano non è stato venduto da uno di noi: è stato preso su ordine di chi ora ci aizza gli uni contro gli altri. Guardate l’ultimo lavoro del Notaio.»' },
+    ] },
+  { n: 3, nome: 'Il Tribunale', req: 'Disponibile dall’inizio',
+    art: 'artworks/Il Tribunale.png',
+    testo: 'La cella di Braga: morto nel sonno, o — se protetto — mittente di un ultimo biglietto, «guardate le penne, non le mani». Qui sono passate visite notturne di un signore in guanti, e le carte portano allo studio del Notaio.',
+    approfondimenti: [
+      { tipo: 'Referto', soggetto: 'Le penne, non le mani',
+        testo: 'Il biglietto di Braga è un lascito da criminologo: «guardate le penne, non le mani». Le mani che hanno preso il decano sono quelle del Notaio; ma la penna che ha scritto l’ordine è un’altra. Braga, che ha studiato M. per trent’anni, sa che il presidente non sporca mai le proprie mani: firma, e paga. La caccia alla talpa è un teatro di mani; la verità è in una penna sola.' },
+    ] },
+  { n: 4, nome: 'Lo Studio del Notaio', req: 'Disponibile dall’inizio',
+    art: 'artworks/Lo Studio del Notaio.png',
+    testo: 'Chiuso, il padrone sparito. Ma le pratiche restano e raccontano l’ultimo lavoro: un affitto di villa fuori porta, una carrozza notturna, una «custodia riservata per il cliente di sempre». Non c’è talpa qui: c’è un esecutore.',
+    approfondimenti: [
+      { tipo: 'Testimonianza', soggetto: 'Il praticante del Notaio',
+        testo: '«Il Notaio Rasca è l’uomo che fa sparire le persone con le carte in regola: un affitto, un nolo, una custodia "riservata", e nessuno può dire che sia un rapimento. L’ultimo lavoro è il decano: preso, portato alla villa fuori porta, interrogato per sapere quanto sa la Società. Non c’è talpa, signori. C’è un notaio che esegue e un cliente che paga. E il cliente, giuro, non è fuori dalla vostra Società. È in cima.»' },
+    ] },
+  { n: 5, nome: 'L’Aula del Cifrario',
+    req: 'L’aula dove il decano insegnava apre solo a chi ha trovato la sua opera nascosta: lo studio a soqquadro e ciò che vi era murato.',
+    art: 'artworks/L’Aula del Cifrario.png',
+    testo: 'Dove il decano insegnava la crittografia della Società: tra i suoi appunti, la chiave del suo codice, e con essa il dossier cifrato diventa una matrice — ogni lettera di M. e, di fronte, ciò che sapeva prima del dovuto. «Non ho cercato una talpa. Ho cercato lo specchio.»',
+    approfondimenti: [
+      { tipo: 'Referto', soggetto: 'La matrice delle doppie letture',
+        testo: 'Il dossier del decano, decifrato con la sua Cifra, non è un elenco di sospetti: è una matrice. Mette in colonna ogni lettera d’incarico di M. e, di fronte, la cosa che M. sapeva prima del dovuto — un nome, un luogo, un morto, un nastro verde. Dal 1885, nessuna eccezione. Il decano non cercava chi tradiva la Società: dimostrava che il traditore la guida. Con questa matrice, ogni vecchia lettera riletta diventa un incrocio per il giorno del giudizio.' },
+    ] },
+  { n: 6, nome: 'Il Membro Interno',
+    req: 'Chi la caccia alla talpa addita apre la sua porta solo a chi entra nel gioco di M.: il sospetto interno, il presunto traditore.',
+    art: 'artworks/Il Membro Interno.png',
+    testo: 'Il confratello che la caccia alla talpa addita: un uomo mite, terrorizzato, con indizi contro di lui spuntati dal nulla, troppo puliti — come quelli di Braga. Un innocente cucito su misura per la talpa che non esiste.',
+    approfondimenti: [
+      { tipo: 'Osservazione', soggetto: 'La talpa fabbricata',
+        testo: 'La talpa è un capolavoro di scena, come il caso Braga: indizi troppo puliti, spuntati al momento giusto, contro un innocente incapace di difendersi. Serve a due cose: dare alla Società un colpevole da odiare (così nessuno cerca più in alto), e tenervi occupati a processare un confratello mentre il decano viene interrogato. Seguire la talpa fittizia è perdere. La domanda non è chi sia la talpa. È perché a qualcuno serva tanto che ce ne sia una.' },
+    ] },
+  { n: 7, nome: 'La Dogana Vecchia',
+    req: 'La Dogana Vecchia apre i suoi registri a chi legge tra le righe del decano: il dossier cifrato e la carrozza che porta fuori porta.',
+    art: 'artworks/La Dogana Vecchia.png',
+    testo: 'Dove è passata la carrozza chiusa del Notaio tre notti fa, verso una villa fuori porta: «custodia riservata, dazio pagato». Il doganiere ha paura, e vi porge un salvacondotto: «le carrozze chiuse del Notaio, di solito, tornano vuote».',
+    approfondimenti: [
+      { tipo: 'Referto', soggetto: 'La carrozza che torna vuota',
+        testo: 'La carrozza chiusa del Notaio è passata alla Dogana tre notti fa, diretta a una villa fuori porta, con un «trasferimento riservato» a bordo: il decano. Le carte erano in regola, come sempre con Rasca — perché il suo mestiere è far sembrare legale ciò che non lo è. Il doganiere ha paura: dice che le carrozze chiuse del Notaio, di solito, tornano vuote. Il decano è vivo solo perché serve, per ora, a sapere quanto sapete voi. Fate presto.' },
+    ] },
+  { n: 8, nome: 'Il Rifugio del Notaio',
+    req: 'Il rifugio in città del Notaio si apre a chi ha decifrato dove tiene i suoi segreti: il dossier cifrato indica la mano che esegue.',
+    art: 'artworks/Il Rifugio del Notaio.png',
+    testo: 'Dove Rasca tiene ciò che non porta allo studio: chiavi, copie, un registro dei lavori sporchi per «il cliente di sempre», e una piantina della villa-prigione. Nessun nome — solo iniziali e una cifra che paga sempre.',
+    approfondimenti: [
+      { tipo: 'Osservazione', soggetto: 'Il cliente di sempre',
+        testo: 'Il registro sporco del Notaio è un capolavoro di reticenza: pagine di sparizioni e custodie, e mai un nome — solo «il cliente di sempre», iniziali, una cifra che non manca mai. Rasca è il perfetto intermediario: non sa nulla che possa dire, e non direbbe nulla che sa. Ma la costanza tradisce: un solo cliente, da anni, che paga per far sparire chi si avvicina troppo. Il decano è l’ultimo di una lista lunga. E la lista, letta con la matrice, ha una sola firma in fondo.' },
+    ] },
+  { n: 9, nome: 'La Villa-Prigione del Notaio',
+    req: 'La villa-prigione è fuori porta, e non ci si arriva per caso: ci si va sapendo che è lì che la caccia alla talpa non vuole che guardiate.',
+    art: 'artworks/La Villa-Prigione.png',
+    testo: 'Fuori le mura: un tempo casa di campagna, ora covo di custodie riservate. Al piano di sotto, il decano vivo; in fondo, il Notaio coi suoi incartamenti; ovunque, la sua Guardia. È qui che la mano guantata, per la prima volta, è a portata di manette.',
+    approfondimenti: [
+      { tipo: 'Presagio', soggetto: 'La mano che si lascia prendere',
+        testo: 'Nella villa-prigione, per la prima volta, il ricorrente dell’Atto è a portata di mano. Il Notaio non fugge come al Molino: si lascia prendere quasi con sollievo, perché sa che non parlerà, e sa che prenderlo non chiude nulla. «Il mio cliente firma poco, ma paga sempre», dirà. È la mano guantata che si offre alle manette per proteggere la penna che la muove. Salvate il decano, prendete il Notaio, e portate a casa la matrice: domani, in assemblea, quella penna avrà finalmente un nome.' },
+    ] },
+].map((L) => ({
+  art: L.art,
+  title: `${L.n} · ${L.nome}`,
+  file: `Episodio 17/Luoghi/${L.n} - ${L.nome.replace(/’/g, "'")}`,
+  type: `Luogo ${L.n}`,
+  rules: `{i}${L.req === 'Disponibile dall’inizio' ? L.testo : L.req}{/i}`,
+  approfondimenti: L.approfondimenti, n: L.n,
+}));
+
+const EP17_INDIZI = LUOGHI17.flatMap((L) =>
+  L.approfondimenti.filter((a) => a.tipo === 'Osservazione' || a.tipo === 'Presagio')
+    .map((a) => ({
+      art: L.art, n: L.n, kind: 'Indizio',
+      title: `Indizio Nascosto — ${a.soggetto}`,
+      file: `Episodio 17/Indizi/${a.soggetto.replace(/’/g, "'")}`,
+      type: a.tipo,
+      rules: `{i}◆ (${a.tipo}) ${a.testo}{/i}`,
+    })));
+
+const EP17_TESTIMONI = LUOGHI17.flatMap((L) =>
+  L.approfondimenti.filter((a) => a.tipo === 'Testimonianza').map((a) => ({
+    art: L.art, n: L.n, kind: 'Testimone',
+    title: `Testimone — ${a.soggetto}`,
+    file: `Episodio 17/Testimoni/${a.soggetto.replace(/’/g, "'")}`,
+    type: `Luogo ${L.n} · Testimone`,
+    rules: `{i}${a.testo}{/i}`,
+  })));
+
+const EP17_REFERTI = LUOGHI17.flatMap((L) =>
+  L.approfondimenti.filter((a) => a.tipo === 'Referto').map((a) => ({
+    art: L.art, n: L.n, kind: 'Referto',
+    title: `Referto — ${a.soggetto}`,
+    file: `Episodio 17/Referti/${a.soggetto.replace(/’/g, "'")}`,
+    type: `Luogo ${L.n} · Referto`,
+    rules: `{i}${a.testo}{/i}`,
+  })));
+
+// Mazzo 21: 7 spawn (uomini/Guardia), 6 insidie (scisma/prigione), 4 crescendo
+// (TRASFERIMENTO del decano), 4 eventi.
+const EP17_MINACCE = [
+  { art: 'artworks/Gli Uomini del Notaio.png', title: 'La Guardia al Cortile', tipo: 'Malavita',
+    flavor: 'Gli uomini di fiducia del Notaio pattugliano con calma professionale.',
+    effect: 'Piazzate 1 Sgherro (uomo del Notaio) sull’uscita più vicina agli eroi.' },
+  { art: 'artworks/Gli Uomini del Notaio.png', title: 'Posto di Blocco', tipo: 'Malavita',
+    flavor: 'Agli imbocchi dei corridoi, chiedono chi siete. Senza salvacondotto, costa tempo.',
+    effect: 'Piazzate 1 Sgherro sull’ingresso della tessera (dal lato da cui siete entrati).' },
+  { art: 'artworks/Gli Uomini del Notaio.png', title: 'Chi Copre il Notaio', tipo: 'Malavita',
+    flavor: 'Fanno muro tra voi e Rasca, per dargli il tempo di raccogliere le carte.',
+    effect: 'Piazzate 1 Sgherro sull’uscita più vicina agli eroi: si attiva subito.' },
+  { art: 'artworks/Gli Uomini del Notaio.png', title: 'Rincalzi dalla Rimessa', tipo: 'Malavita',
+    flavor: 'Dalla rimessa escono altri uomini, silenziosi e addestrati.',
+    effect: 'Piazzate 1 Sgherro sull’ingresso della tessera (dal lato da cui siete entrati).' },
+  { art: 'artworks/Gli Uomini del Notaio.png', title: 'La Ronda della Villa', tipo: 'Malavita',
+    flavor: 'Il giro di guardia rientra proprio adesso, lanterna alta.',
+    effect: 'Piazzate 1 Sgherro sull’uscita più vicina agli eroi.' },
+  { art: 'artworks/Gli Uomini del Notaio.png', title: 'Chi Scorta il Trasferimento', tipo: 'Malavita',
+    flavor: 'Alcuni si staccano per scortare la carrozza chiusa: il decano sta per essere spostato.',
+    effect: 'Piazzate 1 Sgherro sull’ingresso della tessera (dal lato da cui siete entrati).' },
+  { art: 'artworks/Gli Uomini del Notaio.png', title: 'L’Ultimo Muro', tipo: 'Malavita',
+    flavor: 'Davanti allo studio, gli uomini più fidati non arretrano di un passo.',
+    effect: 'Piazzate 1 Sgherro sull’uscita più vicina agli eroi: si attiva subito.' },
+  { art: 'artworks/Il sospetto reciproco.png', title: 'Il Sospetto Reciproco', tipo: 'Insidia',
+    flavor: 'Lo scisma vi è entrato dentro: e se davvero uno di voi fosse la talpa?',
+    effect: 'L’eroe attivo prova NERVI (Media, col −1 morale se il decano non è ancora libero): se fallisce, 1 sola azione al prossimo turno (il dubbio lo paralizza).' },
+  { art: 'artworks/La voce del traditore.png', title: 'La Voce del Traditore', tipo: 'Insidia',
+    flavor: 'Un uomo del Notaio vi grida che sa chi vi ha venduti: mezza verità per dividervi.',
+    effect: 'Ogni eroe prova NERVI (Facile, −1 morale): chi fallisce non può aiutare gli altri questo round.' },
+  { art: 'artworks/La porta blindata.png', title: 'La Porta Blindata', tipo: 'Insidia',
+    flavor: 'Una porta di ferro sbarra il corridoio delle celle.',
+    effect: 'Fino a fine round, sulla tessera dell’eroe attivo muoversi verso Nord costa il doppio.' },
+  { art: 'artworks/Il corridoio delle celle.png', title: 'Il Corridoio delle Celle', tipo: 'Insidia',
+    flavor: 'Grida soffocate dietro le porte: quale è il decano? Quale una trappola?',
+    effect: 'L’eroe più avanzato prova NERVI (Media, −1 morale): se fallisce, 1 danno (una trappola).' },
+  { art: 'artworks/Lo sguardo della Guardia.png', title: 'Lo Sguardo della Guardia', tipo: 'Insidia',
+    flavor: 'La Guardia del Notaio vi studia senza fretta, cercando il vostro punto debole.',
+    effect: 'La Guardia (se in campo) colpisce subito l’eroe con meno Salute; altrimenti nessun effetto.' },
+  { art: 'artworks/Il freddo della cantina.png', title: 'Il Freddo della Cantina', tipo: 'Insidia',
+    flavor: 'L’umido gelido delle celle sotterranee entra nelle ossa.',
+    effect: 'L’eroe più avanzato prova VIGORE (Media): se fallisce, perde il movimento extra questo turno.' },
+  { art: 'artworks/Rasca dà l’ordine.png', title: 'Rasca dà l’Ordine', tipo: 'Crescendo',
+    flavor: 'Il Notaio, sentendovi vicini, ordina di spostare il decano.',
+    effect: 'Aggiungete 1 segnalino Canto (il Trasferimento). Alla soglia-decano (Canto 4, 5 col Salvacondotto): il decano è trasferito — vedi Soluzione. Alla soglia (3): +1 carta Minaccia per Fase, per sempre.' },
+  { art: 'artworks/Il decano viene spostato.png', title: 'Il Decano Viene Spostato', tipo: 'Crescendo',
+    flavor: 'Passi frettolosi, una porta che sbatte: lo stanno portando via.',
+    effect: 'Aggiungete 1 segnalino Canto (il Trasferimento). Se non avete ancora raggiunto la cella (T5), affrettatevi: ogni round conta.' },
+  { art: 'artworks/La carrozza al cancello posteriore.png', title: 'La Carrozza al Cancello Posteriore', tipo: 'Crescendo',
+    flavor: 'Ruote sulla ghiaia sul retro: la carrozza chiusa aspetta il suo carico.',
+    effect: 'Aggiungete 1 segnalino Canto (il Trasferimento). Se il decano non è ancora libero, è a un passo dal partire ferito.' },
+  { art: 'artworks/L’ultimo lavoro.png', title: 'L’Ultimo Lavoro', tipo: 'Crescendo',
+    flavor: 'Il Notaio chiude la borsa: l’ultimo lavoro è finito, è ora di sparire.',
+    effect: 'Aggiungete 1 segnalino Canto (il Trasferimento). Se il decano non è libero, è trasferito (ferito grave). Il Notaio si prepara a dileguarsi: prendetelo al più presto.' },
+  { art: 'artworks/La villa che tace.png', title: 'La Villa che Tace', tipo: 'Quiete',
+    flavor: 'Per un attimo, solo il gocciolio della cantina e il vostro fiato.',
+    effect: 'Nessun effetto. Tirate il fiato: anche una casa di segreti, per un istante, tace.' },
+  { art: 'artworks/Un uomo del decano.png', title: 'Un Uomo del Decano', tipo: 'Favore',
+    flavor: 'Un fedele del decano, infiltrato, vi apre una porta di servizio.',
+    effect: 'Rivelate una tessera coperta adiacente a quella di un eroe (la scelgono i giocatori).' },
+  { art: 'artworks/Casse di custodia.png', title: 'Casse di Custodia', tipo: 'Ostacolo',
+    flavor: 'Casse di documenti «in custodia» ingombrano il passaggio: si passa, ma piano.',
+    effect: 'Fino a fine round, sulla tessera dell’eroe attivo muoversi costa il doppio.' },
+  { art: 'artworks/Un colpo dalla Guardia.png', title: 'Un Colpo dalla Guardia', tipo: 'Danno',
+    flavor: 'Un uomo di fiducia del Notaio colpisce con la freddezza di chi archivia.',
+    effect: 'Un eroe a caso (chi arbitra tira) subisce 1 danno.' },
+].map((m) => ({
+  art: m.art,
+  title: `${m.tipo} — ${m.title}`,
+  file: `Episodio 17/Minacce/${m.title.replace(/’/g, "'")}`,
+  rules: `{i}${m.flavor}{/i}{divider}${m.effect}`,
+}));
+
+const EP17_OGGETTI = [
+  { art: 'artworks/Cifra del Decano.png', nome: 'La Cifra del Decano', ref: 'E17-L5',
+    fonte: 'Luogo 5 — L’Aula del Cifrario',
+    flavor: 'La chiave del codice personale del decano: con questa, il dossier cifrato si apre come un libro e diventa la matrice delle doppie letture.',
+    effetto: 'Decifra il dossier (D3): la matrice arma l’Ep. 18 (ogni rilettura diventa un incrocio). In spedizione, allo studio del Notaio la Guardia salta un attacco (il segreto è bruciato).' },
+  { art: 'artworks/Chiavi della Villa-Prigione.png', nome: 'Le Chiavi della Villa-Prigione', ref: 'E17-L8',
+    fonte: 'Luogo 8 — Il Rifugio del Notaio',
+    flavor: 'Le chiavi che il Notaio teneva al rifugio: aprono la villa-prigione senza sfondare e senza svegliare la Guardia.',
+    effetto: 'All’inizio della spedizione saltate lo sbarramento del cancello (T1) e la sua Guardia: entrate silenziosi.' },
+  { art: 'artworks/Salvacondotto.png', nome: 'Il Salvacondotto', ref: 'E17-L7',
+    fonte: 'Luogo 7 — La Dogana Vecchia',
+    flavor: 'Un lasciapassare del Notaio: passate i posti di blocco come gente sua, senza fermarvi.',
+    effetto: 'Passate i posti di blocco (T3) senza perdere round, e alzate la soglia-decano di 1 (arrivate al decano prima del trasferimento).' },
+  { art: 'artworks/Talpa Fittizia.png', nome: 'La Talpa Fittizia', ref: 'E17-L6',
+    fonte: 'Luogo 6 — Il Membro Interno',
+    flavor: 'Il nome che la caccia di M. vi serve pronto: un confratello innocente, con indizi troppo puliti. Seguirla è fare il gioco di M.',
+    effetto: 'Effetto: nessuno finora scoperto.' },
+  { art: 'artworks/Biglietto di Braga.png', nome: 'Il Biglietto di Braga', ref: 'E17-L3',
+    fonte: 'Luogo 3 — Il Tribunale',
+    flavor: '«Vincete voi. Guardate le penne, non le mani.» Vero e prezioso per la deduzione finale, ma nessun vantaggio meccanico ora.',
+    effetto: 'Effetto: nessuno finora scoperto.' },
+].map((o) => ({
+  art: o.art,
+  title: o.nome,
+  file: `Episodio 17/Oggetti/${o.nome.replace(/’/g, "'")}`,
+  type: 'Oggetto',
+  rules: `{i}${o.flavor}{/i}{divider}${o.effetto}`,
+  ref: o.ref, fonte: o.fonte,
+}));
+
+const EP17_NEMICI = [
+  { art: 'artworks/La Guardia del Notaio.png', title: 'La Guardia del Notaio',
+    type: 'Gli Uomini di Fiducia (Boss) — Episodio 17',
+    rules: '{i}Non la solita ciurma: gli uomini di fiducia di Rasca, addestrati a custodire, trasferire e far sparire con la freddezza di chi tratta le persone come pratiche. Fanno muro tra voi e il padrone.{/i}{divider}Statistiche nel Bestiario. Nessuna debolezza-oggetto. «La matrice» (D3): sapere che avete già decifrato tutto toglie senso alla difesa del segreto — saltano un attacco. Va superata per catturare il Notaio.' },
+  { art: 'artworks/Il Notaio.png', title: 'Il Notaio',
+    type: 'Il Ricorrente dell’Atto (stavolta si prende) — Episodio 17',
+    rules: '{i}Ludovico Rasca, la mano guantata che vi sfugge dall’Ep. 13: l’uomo che fa sparire le persone con le carte in regola. Al Molino scappò; qui, raggiunto, si lascia prendere quasi con sollievo.{/i}{divider}NON combatte. Al T6 tenta di sparire coi suoi incartamenti: se non lo agganciate (Interagire) entro un round, fugge — ma con la Guardia a terra è cattura quasi automatica. Preso, tace: «Il mio cliente firma poco, ma paga sempre.»' },
+].map((n) => ({ ...n, file: `Episodio 17/Nemici/${n.title}` }));
+
+const EP17 = [...LUOGHI17, ...EP17_INDIZI, ...EP17_TESTIMONI, ...EP17_REFERTI,
+              ...EP17_MINACCE, ...EP17_OGGETTI, ...EP17_NEMICI];
+
+
 module.exports = {
   HEROES, NEMICI, MINACCE, LUOGHI, INDIZI, TESTIMONI, REFERTI, OGGETTI, PRELUDIO,
   PRELUDIO_LUOGHI, PRELUDIO_APPROFONDIMENTI, PRELUDIO_OGGETTI,
@@ -3952,5 +4182,6 @@ module.exports = {
   EP14, LUOGHI14, EP14_INDIZI, EP14_TESTIMONI, EP14_REFERTI, EP14_MINACCE, EP14_OGGETTI, EP14_NEMICI,
   EP15, LUOGHI15, EP15_INDIZI, EP15_TESTIMONI, EP15_REFERTI, EP15_MINACCE, EP15_OGGETTI, EP15_NEMICI,
   EP16, LUOGHI16, EP16_INDIZI, EP16_TESTIMONI, EP16_REFERTI, EP16_MINACCE, EP16_OGGETTI, EP16_NEMICI,
-  ALL: [...HEROES, ...NEMICI, ...MINACCE, ...LUOGHI, ...INDIZI, ...TESTIMONI, ...REFERTI, ...OGGETTI, ...PRELUDIO, ...EP2, ...EP3, ...EP4, ...EP5, ...EP6, ...EP7, ...EP8, ...EP9, ...EP10, ...EP11, ...EP12, ...EP13, ...EP14, ...EP15, ...EP16],
+  EP17, LUOGHI17, EP17_INDIZI, EP17_TESTIMONI, EP17_REFERTI, EP17_MINACCE, EP17_OGGETTI, EP17_NEMICI,
+  ALL: [...HEROES, ...NEMICI, ...MINACCE, ...LUOGHI, ...INDIZI, ...TESTIMONI, ...REFERTI, ...OGGETTI, ...PRELUDIO, ...EP2, ...EP3, ...EP4, ...EP5, ...EP6, ...EP7, ...EP8, ...EP9, ...EP10, ...EP11, ...EP12, ...EP13, ...EP14, ...EP15, ...EP16, ...EP17],
 };
