@@ -260,6 +260,30 @@ da `simulate_playtest`: INTOCCABILE. Seed base **790000**.
 
 **Corridoio-obiettivo (apertura del finale):** vittoria alta (il Fascicolo si
 prende quasi sempre; l'Ispettore si ferma comunque), ma la **piena** (Ispettore
-convinto) dipende dal conto dei Bivi e dalle Prove — una metrica di pay-off, non
-di letalità. Sofferte moderate-alte (l'Ispettore Danno 2 + i gendarmi). La ansia
-è la caccia; il colpo è il ritorno dei PNG. Metrica = **% convinto** (piena).
+convinto) dipende dal conto dei Bivi e dalle Prove — pay-off, non letalità.
+
+**Curva accettata (v1, 5 party × 30 seed per taglia, seed 790000+size·1000):**
+
+| Taglia | % Vitt | % convinto | % sofferte | Alleati | Canto |
+|---|---|---|---|---|---|
+| 2 | 95 | 49 | 22 | 2.5 | 1.7 |
+| 3 | 99 | 52 | 11 | 2.5 | 1.3 |
+| 4 | 100 | 53 | 1 | 2.6 | 2.0 |
+| 5 | 100 | 51 | 5 | 2.6 | 2.1 |
+| 6 | 100 | 57 | 8 | 2.7 | 2.1 |
+| 7 | 100 | 47 | 8 | 2.4 | 3.3 |
+| 8 | 100 | 48 | 8 | 2.5 | 3.1 |
+| 9 | 100 | 43 | 18 | 2.4 | 3.1 |
+| 10 | 100 | 53 | 20 | 2.6 | 3.1 |
+
+Vittoria quasi garantita (l'Ispettore non uccide, il Fascicolo si prende): la
+sopravvivenza è facile, la posta è il **pay-off**. La **% convinto ~43-57%** è la
+metrica-tensione: circa metà delle volte il conto (alleati ~2.5 + le Prove)
+supera la soglia e Vidal passa dalla vostra parte — nel gioco reale, un gruppo
+con molti Bivi a favore convince quasi sempre, uno con pochi quasi mai (il sim
+modella la distribuzione delle scelte di campagna come `alleati_base` random
+0-3, +1 con le Prove). Sofferte 1-22% (Vidal Danno 2, ma si ferma all'ultima
+Ferita: scontro breve; il conto scarta minacce). La ansia è la caccia dello
+Stato; il colpo è il ritorno dei PNG. Leve finali: `CONTO_SOGLIA=3`,
+`BOSS_INGAGGIO=4`, `BOSS_COLPI=2`, il boss si ferma a Fer 1 (non muore). Seed
+base 790000.
