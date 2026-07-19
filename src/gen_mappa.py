@@ -227,6 +227,7 @@ VOCI_MAPPA = [
     ('La Carta di Pregio', 'palazzo del Lume, archivio della carta', 'ep18'),
     ('La Matrice del Decano', 'palazzo del Lume, sala del cifrario', 'ep18'),
     ('Il Vezzo delle Firme', 'palazzo del Lume, sala del confronto', 'ep18'),
+    ('Il Palazzo del Lume (la fuga)', 'palazzo del Lume, la sede che si spegne', 'ep18'),
 ]
 
 # (sottocartella pdf/, sottotitolo, tag inclusi). Un episodio nuovo aggiunge

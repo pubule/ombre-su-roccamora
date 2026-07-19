@@ -57,6 +57,8 @@ from gen_ep16 import (LUOGHI_16, TILES_16, NEMICI_16, OGGETTI_LUOGO_16, LETTERA_
                       ESAMI_CARBONE_16)
 from gen_ep17 import (LUOGHI_17, TILES_17, NEMICI_17, OGGETTI_LUOGO_17, LETTERA_17,  # noqa: E402
                       ESAMI_CARBONE_17)
+from gen_ep18 import (LUOGHI_18, TILES_18, NEMICI_18, OGGETTI_LUOGO_18, LETTERA_18,  # noqa: E402
+                      ESAMI_CARBONE_18)
 from gen_mappa import VOCI_MAPPA, MAPPE  # noqa: E402
 from gen_bestiario import FASCE, BOSS_DELTA, ferite_per_fascia  # noqa: E402
 from simulate_playtest import (INDAGINE_UNLOCK, TICK_CANTO_OGNI, SOGLIA_CANTO,  # noqa: E402
@@ -78,6 +80,7 @@ from simulate_ep14 import TOKEN_POOL_BASE as POOL_EP14  # noqa: E402
 from simulate_ep15 import TOKEN_POOL_BASE as POOL_EP15  # noqa: E402
 from simulate_ep16 import TOKEN_POOL_BASE as POOL_EP16  # noqa: E402
 from simulate_ep17 import TOKEN_POOL_BASE as POOL_EP17  # noqa: E402
+from simulate_ep18 import TOKEN_POOL_BASE as POOL_EP18  # noqa: E402
 
 
 def strip_tags(s):
@@ -156,6 +159,9 @@ REPERTI_LUOGO = {
     'ep17': {5: ['Reperto A - Dossier Cifrato'],
              9: ['Reperto B - Deposizione del Decano'],
              8: ['Reperto C - Archivio del Notaio']},
+    'ep18': {5: ['Reperto A - Firma Doppia'],
+             9: ['Reperto B - Piantina del Palazzo'],
+             8: ['Reperto C - Due Firme a Confronto']},
 }
 
 
@@ -604,6 +610,27 @@ SOLUZIONI = dict(
         ],
         boss='LA GUARDIA DEL NOTAIO',
     ),
+    ep18=dict(
+        domande=[
+            dict(q='DOVE firma C.B.?',
+                 risposta='Sulla carta di pregio, con l’inchiostro ferro-gallico della penna d’archivio del PRESIDENTE (l’Archivio delle Penne L2 + la Carta di Pregio L6).',
+                 esatta='La prova materiale regge: nel 1° round della spedizione non si pesca nessuna carta Minaccia.',
+                 sbagliata='1 gendarme appare in T1.'),
+            dict(q='CHI paga C.B.?',
+                 risposta='Con l’oro d’antica fusione, dalla STESSA cassa della Società (l’Assemblea L1 + la Contabilità L3 + il Fascicolo L4). Il presidente non finanzia C.B.: È il bilancio di C.B.',
+                 esatta='La prova contabile è pubblica: la Società vi crede.',
+                 sbagliata='Nessun effetto meccanico.'),
+            dict(q='COSA muove C.B.?',
+                 risposta='La carrozza condivisa dei noli, una sola logistica per due maschere (la matrice del decano L7 + il vezzo delle firme L8).',
+                 esatta='«Una mano sola»: al maggiordomo, dirgli che ha servito un uomo che si dava la caccia da sé gli fa saltare un attacco.',
+                 sbagliata='Nessun effetto.'),
+            dict(q='CHI È C.B.?',
+                 risposta='M. — Camillo Benso («C.B.») e il Machiavelli («M.»): due maschere di un uomo solo, che si è dato la caccia da sé per anni. Il vezzo delle firme lo prova. UNA MANO SOLA.',
+                 esatta='LA RIVELAZIONE. Non un vantaggio meccanico: il volto del mostro. Con gli INCROCI DI CAMPAGNA pieni (bivi, verbali, riletture, matrice) uscite col la prova FORTE — M. è latitante, non voi. M. NON si cattura: è l’Atto IV.',
+                 sbagliata='Senza la deduzione, non c’è caso: è la soluzione che vi ha scritto M.'),
+        ],
+        boss='LA GUARDIA DEL PRESIDENTE',
+    ),
     preludio=dict(
         domande=[
             dict(q='DOVE è tenuto Ansaldo?',
@@ -919,6 +946,26 @@ episodi = dict(
         vantaggio=dict(slancio_ore=3, preparati_ore=1, preparati_luoghi=6),
         soluzione=SOLUZIONI['ep17'],
         pool=POOL_EP17,
+    ),
+    ep18=dict(
+        id='ep18', titolo='La mano sola',
+        sottotitolo='episodio 18 — Atto III (la rivelazione): C.B. è M., e la fuga da casa vostra',
+        cartella='Episodio 18', ore_budget=6,
+        lettera=LETTERA_18,
+        obiettivo='Non c’è un nuovo delitto: c’è la DEDUZIONE finale. Le 4 Domande sono una sola — '
+                  'CHI È C.B.? — e si rispondono con gli incroci di tutta la campagna. C.B. è M.: '
+                  'Camillo Benso e il Machiavelli, due maschere, una mano sola. Smascherato, M. non '
+                  'nega — spiega, rovescia il tavolo (accusa VOI) e fugge. La caccia si rovescia: '
+                  'NON inseguite M. (sfugge, è l’Atto IV), FUGGITE voi dal Palazzo del Lume (casa '
+                  'vostra da nemico) col maggiordomo traditore (boss), portando fuori la PROVA prima '
+                  'che i gendarmi vi arrestino. Con la prova forte (incroci pieni) e senza eroi '
+                  'arrestati: M. è latitante, non voi. CHIUSURA dell’Atto III.',
+        esami_carbone=ESAMI_CARBONE_18,
+        luoghi=[luogo_json(L, OGGETTI_LUOGO_18, REPERTI_LUOGO['ep18']) for L in LUOGHI_18],
+        tessere=[tessera_json(T) for T in TILES_18],
+        vantaggio=dict(slancio_ore=3, preparati_ore=1, preparati_luoghi=6),
+        soluzione=SOLUZIONI['ep18'],
+        pool=POOL_EP18,
     ),
 )
 

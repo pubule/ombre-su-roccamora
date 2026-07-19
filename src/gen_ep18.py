@@ -270,7 +270,7 @@ LUOGHI_18 = [
                         'non fugge per paura. Si ritira, con calma, per continuare l’opera. Voi avete '
                         'il suo volto; lui ha ancora il suo Dormiente.'),
          ]),
-    dict(n=9, nome='IL PALAZZO DEL LUME (LA FUGA)', voce_mappa='Il Palazzo del Lume',
+    dict(n=9, nome='IL PALAZZO DEL LUME (LA FUGA)', voce_mappa='Il Palazzo del Lume (la fuga)',
          req='Il Palazzo del Lume, casa vostra, si rivolta in dungeon solo quando avete pronunciato '
              'il nome: una mano sola lo ha sempre governato, e ora lo spegne.',
          chiave=('parola', 'UNA MANO SOLA'), art='Il Palazzo del Lume (fuga).png',
