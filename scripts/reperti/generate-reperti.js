@@ -855,6 +855,54 @@ Chi canterà al di sotto, non si lamenti di ciò che al di sotto risponde.`;
     </div></div>
   `);
 
+  // --- Episodio 14, Reperto A: il sigillo «C.B.» intruso (L9) — il SEME ---
+  const repertoA14 = page(`
+    <div class="wrap"><div style="zoom:0.90;">
+      <div class="serif" style="font-style:italic; font-size:38px; color:#3a2415; mix-blend-mode:multiply; margin-bottom:44px;">Reperto A — sigillo di ceralacca (Attico del Corso)</div>
+      <div class="serif" style="font-size:46px; line-height:74px;">
+        <p style="margin-bottom:32px;">Un sigillo con le iniziali <b>«C.B.»</b>, trovato tra la refurtiva restituita a Braga.</p>
+        <p style="margin-bottom:32px; border-top:2px solid #6b5636; padding-top:32px;">Le iniziali sono di Braga; la <b>ceralacca no</b>: la stessa pasta rossa dei sigilli di ogni scatola vuota della campagna.</p>
+      </div>
+      <div class="serif" style="font-style:italic; margin-top:70px; font-size:34px; color:#4a4a4e; mix-blend-mode:multiply;">
+        Non l’ha fatto Braga: qualcuno lo fa sembrare Braga. La firma di chi non
+        firma, prestata a un innocente — da chi lo conosce da una vita.
+      </div>
+    </div></div>
+  `);
+
+  // --- Episodio 14, Reperto B: la lastra fonografica (L8) ---
+  const repertoB14 = page(`
+    <div class="wrap"><div style="zoom:0.90;">
+      <div class="serif" style="font-style:italic; font-size:38px; color:#3a2415; mix-blend-mode:multiply; margin-bottom:56px;">Reperto B — lastra fonografica (Covo dei Gatti)</div>
+      <div class="serif" style="font-size:46px; line-height:74px;">
+        <p style="margin-bottom:32px;">Una delle voci rubate: un <b>criminale celebre</b> inciso su cera, decenni fa.</p>
+        <p style="margin-bottom:32px;">Sul bordo, un <b>graffio fresco</b>: maneggiata di recente, con guanti che non erano di Braga.</p>
+      </div>
+      <div class="serif" style="font-style:italic; margin-top:80px; font-size:34px; color:#4a4a4e; mix-blend-mode:multiply;">
+        Non si ruba una collezione per riportarla intera. Si ruba per avere il
+        pretesto di rimetterci dentro qualcosa.
+      </div>
+    </div></div>
+  `);
+
+  // --- Episodio 14, Reperto C: il verbale d'inventario (L7) — il SEME a verbale ---
+  const repertoC14 = page(`
+    <div class="wrap"><div style="zoom:0.92;">
+      <div class="serif" style="font-style:italic; font-size:38px; color:#3a2415; mix-blend-mode:multiply; margin-bottom:60px;">Reperto C — verbale d’inventario (Archivio della Gendarmeria)</div>
+      <div class="serif" style="font-size:46px; line-height:76px;">
+        <p style="margin-bottom:32px;">Colonna «sottratto»: <b>dodici</b> voci. Colonna «restituito»: <b>quindici</b>.</p>
+        <p style="margin-bottom:32px;">Tre righe in più: un sigillo «C.B.», due ricevute intestate a Braga.</p>
+      </div>
+      <div class="hand" style="font-size:52px; line-height:84px; margin-top:40px; text-align:right;">
+        <p>il professore ne disconosce la proprietà</p>
+      </div>
+      <div class="serif" style="font-style:italic; margin-top:52px; font-size:34px; color:#4a4a4e; mix-blend-mode:multiply;">
+        Nessun ladro rende più di quanto ha preso. Quelle tre righe non sono
+        refurtiva: sono un impianto. E a verbale, un impianto diventa verità.
+      </div>
+    </div></div>
+  `);
+
   const items = [
     ['Episodio 1', 'Reperto A - Diario di Ruggero', repertoA],
     ['Episodio 1', 'Reperto B - Registro delle Consegne', repertoB],
@@ -896,6 +944,9 @@ Chi canterà al di sotto, non si lamenti di ciò che al di sotto risponde.`;
     ['Episodio 13', 'Reperto A - Filigrana', repertoA13],
     ['Episodio 13', 'Reperto B - Bolla di Transito', repertoB13],
     ['Episodio 13', 'Reperto C - Registro dei Noli', repertoC13],
+    ['Episodio 14', 'Reperto A - Sigillo C.B.', repertoA14],
+    ['Episodio 14', 'Reperto B - Lastra Fonografica', repertoB14],
+    ['Episodio 14', 'Reperto C - Verbale d’Inventario', repertoC14],
   ];
 
   for (const [episodio, name, html] of items) {

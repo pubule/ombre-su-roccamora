@@ -3254,6 +3254,232 @@ const EP13 = [...LUOGHI13, ...EP13_INDIZI, ...EP13_TESTIMONI, ...EP13_REFERTI,
               ...EP13_MINACCE, ...EP13_OGGETTI, ...EP13_NEMICI];
 
 
+// ===================================================================== EP14
+// «Il rivale» — Atto III, standalone che si rivela collegato (vedi
+// DESIGN-EPISODIO-14.md). L'episodio È un'esca: si smaschera l'ARREDO della
+// colpa di Braga (M. prepara il falso dell'Ep.15). Spedizione: i tetti del
+// Corso, negoziato col Primo Gatto (tratta a 1 Ferita). Torsione d'indagine:
+// «l'inventario al contrario» (ciò che è tornato IN PIÙ).
+
+const LUOGHI14 = [
+  { n: 1, nome: 'La Villa-Museo di Braga', req: 'Disponibile dall’inizio',
+    art: 'artworks/La Villa-Museo di Braga.png',
+    testo: 'Un tempio della criminologia positivista: vetrine di cimeli del delitto, le lastre fonografiche coi mostri celebri, e ovunque i guanti bianchi del professore, che non tocca nulla a mani nude. Un uomo che vive per non lasciare tracce.',
+    approfondimenti: [
+      { tipo: 'Testimonianza', soggetto: 'Il professor Braga',
+        testo: '«Ve lo dico da criminologo, non da derubato: guardate cosa manca, sì, ma guardate meglio cosa resta. Un ladro che restituisce è una contraddizione in termini. Non era un furto: era un pretesto per mettermi in casa qualcosa. Ho i guanti da quarant’anni per non lasciare traccia — qualcuno vuole che ne lasci una. Chiedetevi chi, tra quelli che mi conoscono da una vita.»' },
+    ] },
+  { n: 2, nome: 'Gazzetta di Roccamora', req: 'Disponibile dall’inizio',
+    art: 'artworks/Gazzetta di Roccamora.png',
+    testo: 'La redazione vive di indiscrezioni e duelli, e quello di trent’anni tra M. e Braga è il piatto forte di Ranuzzi. Qui si sa chi cammina sui tetti, chi paga chi, e quali storie qualcuno vuole vedere stampate.',
+    approfondimenti: [
+      { tipo: 'Testimonianza', soggetto: 'Il cronista Ranuzzi',
+        testo: '«Fiuto le storie, e questa puzza. Due criminologi rivali, un furto che torna indietro, e la città che aspetta solo di vedere uno dei due nel fango. Non chiedetevi chi ha rubato — quello lo so io, i gatti del Corso — ma chi VUOLE questa storia sui giornali. Una storia così non nasce da sola: qualcuno la sta scrivendo, e la scrive perché finisca su Braga.»' },
+    ] },
+  { n: 3, nome: 'Il Banco dei Pegni', req: 'Disponibile dall’inizio',
+    art: 'artworks/Banco dei Pegni.png',
+    testo: 'Il termometro della malavita: ci passa tutto ciò che è stato rubato, prima o poi. Stavolta è passata roba che torna indietro imballata e pulita — un controsenso che al gestore, che di refurtiva se ne intende, non torna affatto.',
+    approfondimenti: [
+      { tipo: 'Osservazione', soggetto: 'La refurtiva imballata',
+        testo: 'La refurtiva che passa da un banco dei pegni è merce da svendere, sporca e a lotti. Questa no: è tornata inventariata, pulita, quasi catalogata — come se qualcuno avesse voluto che la Gendarmeria la trovasse in perfetto ordine, per poterla verbalizzare comodamente. Un ladro non imballa la refurtiva. Un regista sì.' },
+    ] },
+  { n: 4, nome: 'La Gendarmeria', req: 'Disponibile dall’inizio',
+    art: 'artworks/La Gendarmeria.png',
+    testo: 'Tiene la denuncia di Braga e l’inventario del furto. Un caso quasi chiuso — refurtiva rientrata — se non fosse per quelle tre righe in più nella colonna del restituito, che nessuno sa spiegare e che qualcuno preferirebbe archiviare in fretta.',
+    approfondimenti: [
+      { tipo: 'Referto', soggetto: 'L’inventario che non torna',
+        testo: 'Il verbale è impietoso nella sua noia: colonna «sottratto», dodici voci; colonna «restituito», quindici. Tre righe in più. Nessun ladro al mondo restituisce di più di quanto ha preso. Quelle tre righe — un sigillo con le iniziali di Braga, due ricevute intestate a lui — non sono refurtiva: sono un impianto. Qualcuno sta costruendo, riga per riga d’inventario, la colpevolezza del professore.' },
+    ] },
+  { n: 5, nome: 'Il Ricettatore',
+    req: 'La bottega del ricettatore apre solo di notte, e solo a chi sa nominare la stranezza che gira in città: la refurtiva che, invece di sparire, è tornata.',
+    art: 'artworks/Il Ricettatore.png',
+    testo: 'Un buco che apre solo di notte, dove la refurtiva cambia mani. Stavolta il suo mestiere è girato al contrario: pagato per restituire, non per comprare, e per aggiungere alle casse del professore oggetti che qualcun altro gli ha messo in mano.',
+    approfondimenti: [
+      { tipo: 'Presagio', soggetto: 'Il furto al contrario',
+        testo: 'Un ricettatore pagato per restituire è il mondo alla rovescia: non deve esistere. Eppure eccolo, con in tasca l’elenco di ciò che ha rimesso nelle casse di Braga — più di quanto ne fosse uscito. Chi ha ordinato questo non voleva la refurtiva né il denaro: voleva usare i ladri come corrieri della colpa, e un ricettatore come sarto. L’oro vecchio e la carta col giglio dicono di chi è la mano. La stessa di sempre.' },
+    ] },
+  { n: 6, nome: 'Lo Studio del Perito',
+    req: 'Lo studio del vecchio perito rivale apre a chi conosce la faida accademica che lo rode: il duello di trent’anni tra le due scuole del delitto.',
+    art: 'artworks/Lo Studio del Perito.png',
+    testo: 'La tana di un rancore accademico vecchio di trent’anni: pareti di attestati mai bastati, e l’odio per Braga come unica passione rimasta. Movente da vendere, ma né oro né uomini: il sospetto perfetto, e perfettamente innocente.',
+    approfondimenti: [
+      { tipo: 'Osservazione', soggetto: 'Il rivale che non c’entra',
+        testo: 'Coda è l’esca perfetta: movente enorme, astio autentico, una lettera che sembra una confessione. Ma un movente non è una mano. Chi ha comprato i gatti, pagato un ricettatore e falsificato un sigillo ha risorse e freddezza che a un perito invidioso mancano del tutto. La rabbia di Coda è vera e inutile: serve solo a farvi perdere una notte guardando dalla parte sbagliata. Come è stata messa lì apposta.' },
+    ] },
+  { n: 7, nome: 'Il Faldone d’Inventario',
+    req: 'L’archivio della Gendarmeria tira fuori il faldone giusto solo a chi sa esattamente cosa cercare: le lastre sparite, e ciò che è tornato al loro posto.',
+    art: 'artworks/L’Archivio della Gendarmeria.png',
+    testo: 'Dove le cose diventano vere: una volta a verbale, un oggetto esiste, anche se è falso. Qui il Sigillo «C.B.» trovato nelle casse di Braga è ormai un fatto agli atti — la prima pietra, involontaria e perfetta, del falso che verrà.',
+    approfondimenti: [
+      { tipo: 'Referto', soggetto: 'La prima pietra del falso',
+        testo: 'Il Verbale d’Inventario è il capolavoro involontario del falsario: non ha dovuto corrompere nessun gendarme, gli è bastato far trovare gli oggetti giusti e lasciare che la burocrazia li rendesse reali. Il Sigillo «C.B.» è ora un fatto agli atti: quando arriverà un dossier che accusa Braga, questo faldone sarà la sua prima conferma. Non si costruisce un colpevole con una bugia, ma con verità piccole e vere, messe dove servono.' },
+    ] },
+  { n: 8, nome: 'Il Covo dei Gatti',
+    req: 'Il covo dei ladri di grondaia non si trova per strada: ci si arriva sapendo dove passano, chi lavora in quota — i gatti sui tetti del Corso.',
+    art: 'artworks/Il Covo dei Gatti.png',
+    testo: 'Un sottotetto di funi e ramponi, il quartier generale dei ladri di grondaia. Qui hanno «lavorato» la refurtiva prima di renderla, e qui vive la parola dei tetti — il segno che, al Primo Gatto, vale più di una lama alla gola.',
+    approfondimenti: [
+      { tipo: 'Presagio', soggetto: 'La parola dei tetti',
+        testo: 'I Gatti del Corso hanno un codice più vecchio di loro: chi conosce la parola dei tetti è gente di rispetto, non un gendarme travestito. Presentarla al Primo Gatto non è una minaccia — è un salvacondotto. Un re dei tetti non parla sotto tortura, ma parla volentieri con chi tratta da pari. E stanotte ha in tasca un lavoro sbagliato, di quelli che a un ladro d’onore lasciano l’amaro. Datele voce, e lui vi darà la sua.' },
+    ] },
+  { n: 9, nome: 'L’Attico del Corso',
+    req: 'L’attico dove i Gatti tengono il bottino è in cima ai tetti del Corso: ci si arriva solo sapendo che lassù lavorano loro, i gatti sui tetti.',
+    art: 'artworks/L’Attico del Corso.png',
+    testo: 'In cima ai tetti: il bottino accatastato e imballato per la restituzione, il cielo aperto e il vuoto della via sotto. È da qui che i pacchi sono scesi arredati del «di più», e qui che il Primo Gatto vi aspetta — o vi sfugge, sulla cresta.',
+    approfondimenti: [
+      { tipo: 'Testimonianza', soggetto: 'Lo Spillo, sulla cresta',
+        testo: '«Di solito ci pagano per portar via, signori. Stavolta metà oro era per lasciare: roba non sua, da mettere nelle casse del professore con cura, dove i vostri gendarmi l’avrebbero pescata. Non so chi paga — oro vecchio, un intermediario mai visto, ricevute su carta col giglio. Ma chi ordina un furto per arredare una casa d’altri non vuole rubare: vuole che quell’uomo sia colpevole. E per farlo bene, lo conosce da una vita.»' },
+    ] },
+].map((L) => ({
+  art: L.art,
+  title: `${L.n} · ${L.nome}`,
+  file: `Episodio 14/Luoghi/${L.n} - ${L.nome.replace(/’/g, "'")}`,
+  type: `Luogo ${L.n}`,
+  rules: `{i}${L.req === 'Disponibile dall’inizio' ? L.testo : L.req}{/i}`,
+  approfondimenti: L.approfondimenti, n: L.n,
+}));
+
+const EP14_INDIZI = LUOGHI14.flatMap((L) =>
+  L.approfondimenti.filter((a) => a.tipo === 'Osservazione' || a.tipo === 'Presagio')
+    .map((a) => ({
+      art: L.art, n: L.n, kind: 'Indizio',
+      title: `Indizio Nascosto — ${a.soggetto}`,
+      file: `Episodio 14/Indizi/${a.soggetto.replace(/’/g, "'")}`,
+      type: a.tipo,
+      rules: `{i}◆ (${a.tipo}) ${a.testo}{/i}`,
+    })));
+
+const EP14_TESTIMONI = LUOGHI14.flatMap((L) =>
+  L.approfondimenti.filter((a) => a.tipo === 'Testimonianza').map((a) => ({
+    art: L.art, n: L.n, kind: 'Testimone',
+    title: `Testimone — ${a.soggetto}`,
+    file: `Episodio 14/Testimoni/${a.soggetto.replace(/’/g, "'")}`,
+    type: `Luogo ${L.n} · Testimone`,
+    rules: `{i}${a.testo}{/i}`,
+  })));
+
+const EP14_REFERTI = LUOGHI14.flatMap((L) =>
+  L.approfondimenti.filter((a) => a.tipo === 'Referto').map((a) => ({
+    art: L.art, n: L.n, kind: 'Referto',
+    title: `Referto — ${a.soggetto}`,
+    file: `Episodio 14/Referti/${a.soggetto.replace(/’/g, "'")}`,
+    type: `Luogo ${L.n} · Referto`,
+    rules: `{i}${a.testo}{/i}`,
+  })));
+
+// Mazzo 21: 7 spawn (Gatti minori), 6 insidie (quota: comignolo/grondaia/vuoto/
+// vetro/fune/colombo), 4 crescendo (FUGA: soglia-fuga), 4 eventi.
+const EP14_MINACCE = [
+  { art: 'artworks/I Gatti del Corso.png', title: 'Ombre tra i Panni', tipo: 'Malavita',
+    flavor: 'Un Gatto minore sguscia tra le lenzuola stese: un colpo, e via.',
+    effect: 'Piazzate 1 Sgherro (Gatto minore) sull’uscita più vicina agli eroi.' },
+  { art: 'artworks/I Gatti del Corso.png', title: 'Sopra la Cresta', tipo: 'Malavita',
+    flavor: 'Sbucano dalla cresta del tetto, dove nessuno pensa di guardare.',
+    effect: 'Piazzate 1 Sgherro (Gatto minore) sull’ingresso della tessera (dal lato da cui siete entrati).' },
+  { art: 'artworks/I Gatti del Corso.png', title: 'Colpisci e Scappa', tipo: 'Malavita',
+    flavor: 'Non vogliono battervi: vogliono rubarvi il round che vi serve.',
+    effect: 'Piazzate 1 Sgherro (Gatto minore) sull’uscita più vicina agli eroi: si attiva subito.' },
+  { art: 'artworks/I Gatti del Corso.png', title: 'Dalla Grondaia', tipo: 'Malavita',
+    flavor: 'Due si arrampicano dalla grondaia, silenziosi come gatti veri.',
+    effect: 'Piazzate 1 Sgherro (Gatto minore) sull’ingresso della tessera (dal lato da cui siete entrati).' },
+  { art: 'artworks/I Gatti del Corso.png', title: 'Il Fischio dello Spillo', tipo: 'Malavita',
+    flavor: 'Un fischio dalla cresta, e i suoi convergono dove il capo li vuole.',
+    effect: 'Piazzate 1 Sgherro (Gatto minore) sull’uscita più vicina agli eroi.' },
+  { art: 'artworks/I Gatti del Corso.png', title: 'Coprono la Fuga del Capo', tipo: 'Malavita',
+    flavor: 'Mentre lo Spillo cerca la via di scampo, qualcuno resta a coprirlo.',
+    effect: 'Piazzate 1 Sgherro (Gatto minore) sull’ingresso della tessera (dal lato da cui siete entrati).' },
+  { art: 'artworks/I Gatti del Corso.png', title: 'Rincalzi dall’Abbaino', tipo: 'Malavita',
+    flavor: 'Dall’abbaino socchiuso ne escono altri, agili e beffardi.',
+    effect: 'Piazzate 1 Sgherro (Gatto minore) sull’uscita più vicina agli eroi: si attiva subito.' },
+  { art: 'artworks/Il coppo che frana.png', title: 'Il Coppo che Frana', tipo: 'Insidia',
+    flavor: 'Una tegola si stacca sotto il piede e scivola verso il vuoto, trascinando l’appoggio.',
+    effect: 'L’eroe attivo prova DESTREZZA (Media): se fallisce, resta un round aggrappato — perde il turno e la FUGA avanza. Coi Ramponi: nessun effetto.' },
+  { art: 'artworks/La grondaia marcia.png', title: 'La Grondaia Marcia', tipo: 'Insidia',
+    flavor: 'Il ferro arrugginito cede con un gemito proprio mentre ci si appoggia.',
+    effect: 'L’eroe più avanzato prova VIGORE (Media): se fallisce, 1 danno (uno strappo, un volo breve). Coi Ramponi: nessun danno.' },
+  { art: 'artworks/Il vuoto sotto.png', title: 'Il Vuoto Sotto', tipo: 'Insidia',
+    flavor: 'Uno sguardo alla via a picco, e le gambe si fanno di piombo.',
+    effect: 'L’eroe attivo prova NERVI (Media): se fallisce, ha 1 sola azione al prossimo turno (la vertigine).' },
+  { art: 'artworks/Il vetro del lucernario.png', title: 'Il Vetro del Lucernario', tipo: 'Insidia',
+    flavor: 'Il vetro sporco geme, si incrina a ragnatela: un attimo prima di cedere.',
+    effect: 'L’eroe attivo prova DESTREZZA (Media): se fallisce, 1 danno (sfonda il vetro) e la FUGA avanza. Coi Ramponi o la fune (T3): nessun danno.' },
+  { art: 'artworks/La fune tesa.png', title: 'La Fune Tesa', tipo: 'Insidia',
+    flavor: 'Una fune da bucato tesa all’altezza del collo, invisibile nel buio.',
+    effect: 'L’eroe più avanzato prova DESTREZZA (Media): se fallisce, perde il movimento extra questo turno.' },
+  { art: 'artworks/Il colombo in volo.png', title: 'Il Colombo in Volo', tipo: 'Insidia',
+    flavor: 'Uno stormo esplode in volo da un comignolo, all’improvviso, in faccia.',
+    effect: 'Ogni eroe prova NERVI (Facile): chi fallisce indietreggia di un passo — se sul bordo, prova DESTREZZA o cade di un livello (rientra al turno dopo).' },
+  { art: 'artworks/Un fischio sui tetti.png', title: 'Un Fischio sui Tetti', tipo: 'Crescendo',
+    flavor: 'Un fischio lontano risponde a un altro: lo Spillo ha chiamato, e si muove.',
+    effect: 'Aggiungete 1 segnalino Canto (la Fuga). Alla soglia-fuga (Canto 4, 3 senza la Parola dei Tetti) il Primo Gatto sparisce se non agganciato. Alla soglia (3): +1 carta Minaccia per Fase, per sempre.' },
+  { art: 'artworks/Il Gatto si sposta.png', title: 'Il Gatto si Sposta', tipo: 'Crescendo',
+    flavor: 'La sagoma sulla cresta cambia posto: guadagna un tetto, poi un altro.',
+    effect: 'Aggiungete 1 segnalino Canto (la Fuga). Il Primo Gatto arretra di una tessera verso l’uscita alta: agganciarlo costa ora un passo in più.' },
+  { art: 'artworks/Le tegole cedono la traccia.png', title: 'Le Tegole Cedono la Traccia', tipo: 'Crescendo',
+    flavor: 'Dietro di lui le tegole franano: la via che ha fatto non si può più rifare.',
+    effect: 'Aggiungete 1 segnalino Canto (la Fuga). L’ultima tessera attraversata si «chiude» (non si torna indietro): se restate staccati dal gruppo, siete soli coi Gatti minori.' },
+  { art: 'artworks/La cresta è vicina.png', title: 'La Cresta è Vicina', tipo: 'Crescendo',
+    flavor: 'Lo Spillo è quasi al colmo del tetto: un salto, e sarà oltre, nel buio.',
+    effect: 'Aggiungete 1 segnalino Canto (la Fuga). Se non lo agganciate entro il prossimo round, il Gatto scavalca la cresta e sparisce: vittoria parziale. Giocate la Parola dei Tetti ORA, se l’avete.' },
+  { art: 'artworks/La notte sui tetti.png', title: 'La Notte sui Tetti', tipo: 'Quiete',
+    flavor: 'Per un attimo solo il vento e le luci lontane della città. Si respira.',
+    effect: 'Nessun effetto. Tirate il fiato: anche una caccia sui tetti, per un istante, si ferma.' },
+  { art: 'artworks/Un abbaino aperto.png', title: 'Un Abbaino Aperto', tipo: 'Favore',
+    flavor: 'Un abbaino lasciato aperto offre un appiglio e una scorciatoia.',
+    effect: 'Rivelate una tessera coperta adiacente a quella di un eroe (la scelgono i giocatori).' },
+  { art: 'artworks/Comignoli sul passo.png', title: 'Comignoli sul Passo', tipo: 'Ostacolo',
+    flavor: 'Una selva di comignoli e antenne intralcia il passaggio: si passa, ma piano.',
+    effect: 'Fino a fine round, sulla tessera dell’eroe attivo muoversi costa il doppio.' },
+  { art: 'artworks/Il cornicione che cede.png', title: 'Il Cornicione che Cede', tipo: 'Danno',
+    flavor: 'Un pezzo di cornicione si stacca sotto il gruppo e porta giù chi c’è sopra.',
+    effect: 'Un eroe a caso (chi arbitra tira) subisce 1 danno.' },
+].map((m) => ({
+  art: m.art,
+  title: `${m.tipo} — ${m.title}`,
+  file: `Episodio 14/Minacce/${m.title.replace(/’/g, "'")}`,
+  rules: `{i}${m.flavor}{/i}{divider}${m.effect}`,
+}));
+
+const EP14_OGGETTI = [
+  { art: 'artworks/Parola dei Tetti.png', nome: 'La Parola dei Tetti', ref: 'E14-L8',
+    fonte: 'Luogo 8 — Il Covo dei Gatti',
+    flavor: 'Il segno di riconoscimento dei Gatti del Corso, quello che ci si scambia sui tetti per non spararsi al buio. Vale più di una lama.',
+    effetto: 'Al Primo Gatto (T6): vi riconosce come gente di codice — tratta già a 2 Ferite (non serve portarlo all’ultima) e non tenta la fuga finale. Abbassa la soglia-fuga d’ingaggio.' },
+  { art: 'artworks/I Ramponi.png', nome: 'I Ramponi', ref: 'E14-L8',
+    fonte: 'Luogo 8 — Il Covo dei Gatti',
+    flavor: 'Gli attrezzi da quota dei ladri di grondaia: rampini, cinghie, suole chiodate. Sui tetti, la differenza tra un passo e un volo.',
+    effetto: 'Sui tetti le cadute non vi feriscono e non vi fanno perdere il round: saltate lo strapiombo di T1 e superate le insidie di quota (comignolo, lucernario) senza danno.' },
+  { art: 'artworks/Inventario Originale.png', nome: 'L’Inventario Originale', ref: 'E14-L1',
+    fonte: 'Luogo 1 — La Villa-Museo di Braga',
+    flavor: 'Il catalogo firmato della collezione, di pugno di Braga: ogni lastra, ogni cimelio, numerato. Il metro per misurare il «di più».',
+    effetto: 'Confrontato col verbale della refurtiva (D3), rende visibili gli oggetti-intrusi. All’Attico (T6) documentate il «di più» sul posto: torsione piena, il falso dell’Ep.15 nasce con una crepa.' },
+  { art: 'artworks/Pegno Anonimo.png', nome: 'Il Pegno Anonimo', ref: 'E14-L3',
+    fonte: 'Luogo 3 — Il Banco dei Pegni',
+    flavor: 'Una lastra impegnata e riscattata da un Gatto: pare tradire il mandante, è solo un ladro che ha fatto cassa per conto suo.',
+    effetto: 'Effetto: nessuno finora scoperto.' },
+  { art: 'artworks/Lettera del Perito.png', nome: 'La Lettera del Perito', ref: 'E14-L6',
+    fonte: 'Luogo 6 — Lo Studio del Perito',
+    flavor: 'Una lettera livorosa in cui Coda minaccia di «smascherare» Braga. Rancore da cattedra: Coda non ha né i mezzi né i gatti.',
+    effetto: 'Effetto: nessuno finora scoperto.' },
+].map((o) => ({
+  art: o.art,
+  title: o.nome,
+  file: `Episodio 14/Oggetti/${o.nome.replace(/’/g, "'")}`,
+  type: 'Oggetto',
+  rules: `{i}${o.flavor}{/i}{divider}${o.effetto}`,
+  ref: o.ref, fonte: o.fonte,
+}));
+
+const EP14_NEMICI = [
+  { art: 'artworks/Il Primo Gatto.png', title: 'Il Primo Gatto',
+    type: 'Il Re dei Tetti (Boss) — Episodio 14',
+    rules: '{i}Berto detto lo Spillo è il re dei tetti del Corso: cammina sulle grondaie come voi sul pavimento, e ruba da vent’anni senza aver mai fatto male a nessuno. Un ladro d’onore, con un codice più vecchio di lui.{/i}{divider}Statistiche nel Bestiario. Nessuna debolezza-oggetto. Ridotto all’ultima Ferita TRATTA (non muore): dice la verità sulla commissione. «La Parola dei Tetti» (D4): tratta già a 2 Ferite. «La commissione era cieca» (D2): gli salta un attacco. Ucciderlo perde la sua parola.' },
+].map((n) => ({ ...n, file: `Episodio 14/Nemici/${n.title}` }));
+
+const EP14 = [...LUOGHI14, ...EP14_INDIZI, ...EP14_TESTIMONI, ...EP14_REFERTI,
+              ...EP14_MINACCE, ...EP14_OGGETTI, ...EP14_NEMICI];
+
+
 module.exports = {
   HEROES, NEMICI, MINACCE, LUOGHI, INDIZI, TESTIMONI, REFERTI, OGGETTI, PRELUDIO,
   PRELUDIO_LUOGHI, PRELUDIO_APPROFONDIMENTI, PRELUDIO_OGGETTI,
@@ -3269,5 +3495,6 @@ module.exports = {
   EP11, LUOGHI11, EP11_INDIZI, EP11_TESTIMONI, EP11_REFERTI, EP11_MINACCE, EP11_OGGETTI, EP11_NEMICI,
   EP12, LUOGHI12, EP12_INDIZI, EP12_TESTIMONI, EP12_REFERTI, EP12_MINACCE, EP12_OGGETTI, EP12_NEMICI,
   EP13, LUOGHI13, EP13_INDIZI, EP13_TESTIMONI, EP13_REFERTI, EP13_MINACCE, EP13_OGGETTI, EP13_NEMICI,
-  ALL: [...HEROES, ...NEMICI, ...MINACCE, ...LUOGHI, ...INDIZI, ...TESTIMONI, ...REFERTI, ...OGGETTI, ...PRELUDIO, ...EP2, ...EP3, ...EP4, ...EP5, ...EP6, ...EP7, ...EP8, ...EP9, ...EP10, ...EP11, ...EP12, ...EP13],
+  EP14, LUOGHI14, EP14_INDIZI, EP14_TESTIMONI, EP14_REFERTI, EP14_MINACCE, EP14_OGGETTI, EP14_NEMICI,
+  ALL: [...HEROES, ...NEMICI, ...MINACCE, ...LUOGHI, ...INDIZI, ...TESTIMONI, ...REFERTI, ...OGGETTI, ...PRELUDIO, ...EP2, ...EP3, ...EP4, ...EP5, ...EP6, ...EP7, ...EP8, ...EP9, ...EP10, ...EP11, ...EP12, ...EP13, ...EP14],
 };
