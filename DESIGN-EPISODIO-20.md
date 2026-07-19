@@ -284,11 +284,33 @@ Seed base **800000**.
 - Rami Bivi finali: margine (± round), rete (recupero a terra sì/no), sorpresa
   (± carte primo giro).
 
-**Corridoio-obiettivo (il finale, fuori scala):** vittoria dipende dal
-**controcanto** (Frammenti + Domande) vinto sul **risveglio** — una corsa a due
-tracce; la letalità è reale (sofferte alte, wipe/risveglio possibili anche ai
-tavoli grandi, dichiaratamente). Metrica doppia: **% vittoria** (Dormiente
-dormito) e **% sofferte/perdite**. NON puntare a una win-rate alta uniforme: è
-il finale, deve poter finire male. Corridoio: duo teso, 3-10 in salita ma mai
-banale; le morti contano. Il pay-off dei Bivi (margine/rete/sorpresa) è la
-manopola narrativa.
+**Modello di tensione (il finale, fuori scala):** una corsa a due tracce —
+il **controcanto** (Frammenti + Domande) contro il **risveglio** (Canto). La
+posta non è la morte del singolo eroe: è **collettiva e tragica** — se il dio si
+desta, la campagna si chiude nell'epilogo amaro. Deve poter finire male.
+
+**Curva accettata (v4, 5 party × 30 seed per taglia, seed 800000+size·1000):**
+
+| Taglia | % Vitt | % risveglio | % sofferte | Controcanto | Canto |
+|---|---|---|---|---|---|
+| 2 | 93 | 5 | 7 | 11.1 | 6.6 |
+| 3 | 93 | 7 | 6 | 11.5 | 6.8 |
+| 4 | 85 | 15 | 5 | 11.1 | 7.7 |
+| 5 | 91 | 9 | 6 | 11.2 | 7.7 |
+| 6 | 87 | 13 | 6 | 11.1 | 7.7 |
+| 7 | 89 | 11 | 5 | 11.4 | 8.5 |
+| 8 | 91 | 9 | 2 | 11.3 | 8.6 |
+| 9 | 93 | 7 | 0 | 11.5 | 8.8 |
+| 10 | 93 | 7 | 1 | 11.5 | 8.6 |
+
+Climax **arduo ma vinto quasi sempre** (85-93%) — con una **fine tragica reale**
+al 5-15% (il Dormiente si desta, la città cambia per sempre): è la porta lasciata
+socchiusa alla sconfitta, come deve avere un finale. Il **Canto (risveglio)
+arriva a ridosso della soglia 8** (media 6.6-8.8): la corsa col controcanto (10
+righe, media 11.1-11.5 nei successi) è serrata al fotofinish. La ansia è la
+traccia doppia; il colpo è il pay-off di venti serate (i Frammenti conservati
+danno il ritmo del controcanto: chi ne ha di più canta più giusto). Le sofferte
+individuali sono secondarie (la posta è collettiva). Leve finali:
+`SOGLIA_CONTROCANTO=10`, `SOGLIA_RISVEGLIO=8`, controcanto/round = `1 +
+Frammenti//6 + Mappa − coro`, +1 Canto/round nella camera, danno-camera 1/2/3 a
+Canto 4/6/7. `Frammenti` 8-19 (la campagna). Seed base 800000.
