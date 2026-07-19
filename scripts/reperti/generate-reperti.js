@@ -903,6 +903,51 @@ Chi canterà al di sotto, non si lamenti di ciò che al di sotto risponde.`;
     </div></div>
   `);
 
+  // --- Episodio 15, Reperto A: le istruzioni con la grafia di Braga (L9) — il SEME ---
+  const repertoA15 = page(`
+    <div class="wrap"><div style="zoom:0.90;">
+      <div class="serif" style="font-style:italic; font-size:38px; color:#3a2415; mix-blend-mode:multiply; margin-bottom:44px;">Reperto A — foglio di istruzioni (Studio Segreto)</div>
+      <div class="serif" style="font-size:46px; line-height:74px;">
+        <p style="margin-bottom:32px;">Le istruzioni di lavoro tolte al Capo Apparecchiatore: dove posare, cosa cancellare.</p>
+        <p style="margin-bottom:32px; border-top:2px solid #6b5636; padding-top:32px;">La grafia è del professor Braga. <b>Perfetta</b> — e nessuno scrive due volte identico.</p>
+      </div>
+      <div class="serif" style="font-style:italic; margin-top:70px; font-size:34px; color:#4a4a4e; mix-blend-mode:multiply;">
+        Un falsario che imita col metodo morelliano scrive così. Chi ha steso
+        questo conosce Braga e il metodo meglio di Braga: è dentro casa nostra.
+      </div>
+    </div></div>
+  `);
+
+  // --- Episodio 15, Reperto B: la lastra dell'incisore (L8) ---
+  const repertoB15 = page(`
+    <div class="wrap"><div style="zoom:0.90;">
+      <div class="serif" style="font-style:italic; font-size:38px; color:#3a2415; mix-blend-mode:multiply; margin-bottom:56px;">Reperto B — matrice d’incisione (Bottega dell’Incisore)</div>
+      <div class="serif" style="font-size:46px; line-height:74px;">
+        <p style="margin-bottom:32px;">Una sola matrice ha battuto il sigillo <b>«C.B.»</b> e mezze lettere del dossier.</p>
+        <p style="margin-bottom:32px;">Commissione anonima: oro d’antica fusione, carta col giglio, grafia da imitare.</p>
+      </div>
+      <div class="serif" style="font-style:italic; margin-top:80px; font-size:34px; color:#4a4a4e; mix-blend-mode:multiply;">
+        Le prove non sono state raccolte: sono state stampate, tutte dalla stessa
+        mano, in pochi giorni. La firma di sempre.
+      </div>
+    </div></div>
+  `);
+
+  // --- Episodio 15, Reperto C: il dossier originale (L7) ---
+  const repertoC15 = page(`
+    <div class="wrap"><div style="zoom:0.92;">
+      <div class="serif" style="font-style:italic; font-size:38px; color:#3a2415; mix-blend-mode:multiply; margin-bottom:60px;">Reperto C — dossier anonimo (Deposito Reperti)</div>
+      <div class="serif" style="font-size:46px; line-height:76px;">
+        <p style="margin-bottom:32px;">Carta tagliata tutta dallo stesso foglio. Inchiostro «di trent’anni fa»: <b>fresco di settimane</b>.</p>
+        <p style="margin-bottom:32px;">Arrivato già repertato, coi numeri e le buste: <b>nato archiviato</b>.</p>
+      </div>
+      <div class="serif" style="font-style:italic; margin-top:56px; font-size:34px; color:#4a4a4e; mix-blend-mode:multiply;">
+        Non la prova di un delitto trentennale: la rappresentazione di un delitto
+        trentennale, prodotta in una settimana da chi sa che aspetto deve avere.
+      </div>
+    </div></div>
+  `);
+
   const items = [
     ['Episodio 1', 'Reperto A - Diario di Ruggero', repertoA],
     ['Episodio 1', 'Reperto B - Registro delle Consegne', repertoB],
@@ -947,6 +992,9 @@ Chi canterà al di sotto, non si lamenti di ciò che al di sotto risponde.`;
     ['Episodio 14', 'Reperto A - Sigillo C.B.', repertoA14],
     ['Episodio 14', 'Reperto B - Lastra Fonografica', repertoB14],
     ['Episodio 14', 'Reperto C - Verbale d’Inventario', repertoC14],
+    ['Episodio 15', 'Reperto A - Istruzioni', repertoA15],
+    ['Episodio 15', 'Reperto B - Lastra dell’Incisore', repertoB15],
+    ['Episodio 15', 'Reperto C - Dossier Originale', repertoC15],
   ];
 
   for (const [episodio, name, html] of items) {

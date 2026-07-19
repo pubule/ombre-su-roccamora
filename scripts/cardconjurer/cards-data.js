@@ -3480,6 +3480,234 @@ const EP14 = [...LUOGHI14, ...EP14_INDIZI, ...EP14_TESTIMONI, ...EP14_REFERTI,
               ...EP14_MINACCE, ...EP14_OGGETTI, ...EP14_NEMICI];
 
 
+// ===================================================================== EP15
+// «Lo smascheramento» — Atto III, falso finale (vedi DESIGN-EPISODIO-15.md).
+// Un dossier anonimo incastra Braga: tutto combacia troppo (è M. che ha SCRITTO
+// il caso col metodo della Società). Doppia busta (pubblica + contro-busta).
+// Spedizione: la villa, cogliere gli Apparecchiatori che cancellano i tell,
+// prima del sigillo. Boss: il Capo Apparecchiatore. Torsione: «la soluzione che
+// qualcuno ha scritto per voi».
+
+const LUOGHI15 = [
+  { n: 1, nome: 'La Gendarmeria', req: 'Disponibile dall’inizio',
+    art: 'artworks/La Gendarmeria.png',
+    testo: 'Custodisce il plico anonimo: il dossier più pulito mai visto, arrivato già ordinato come una pratica chiusa. Il maresciallo firmerebbe l’arresto a occhi chiusi — ed è la fretta di tutti a insospettire chi guarda meglio.',
+    approfondimenti: [
+      { tipo: 'Referto', soggetto: 'Il dossier troppo pulito',
+        testo: 'Ogni prova del dossier regge alla verifica: ed è proprio questo il problema. Un caso vero ha crepe; questo combacia riga per riga, come un teorema scritto all’indietro dalla soluzione. Chi lo ha cucito non ha raccolto prove — le ha disposte perché tornassero. La domanda non è se Braga sia colpevole. È chi ha avuto la mano tanto ferma da renderlo perfetto.' },
+    ] },
+  { n: 2, nome: 'Il Tribunale', req: 'Disponibile dall’inizio',
+    art: 'artworks/Il Tribunale.png',
+    testo: 'Prepara il processo del secolo: il rivale del presidente della Società inchiodato dal metodo della Società stessa. Ma un vecchio giudice riconosce nel dossier una mano che il metodo non lo subisce: lo insegna.',
+    approfondimenti: [
+      { tipo: 'Testimonianza', soggetto: 'Il vecchio giudice',
+        testo: '«Quel dossier non l’ha scritto un nemico di Braga. L’ha scritto un allievo del vostro metodo — uno che sa come la Società legge un uomo dagli inchiostri e dalle abitudini, e ha disposto gli inchiostri e le abitudini perché li leggeste così. È un falso fatto con la vostra grammatica. E di gente che conosce la vostra grammatica, a Roccamora, ce n’è pochissima. Contatela.»' },
+    ] },
+  { n: 3, nome: 'La Gazzetta di Roccamora', req: 'Disponibile dall’inizio',
+    art: 'artworks/Gazzetta di Roccamora.png',
+    testo: 'Ha già il titolo — «IL MOSTRO HA UN VOLTO» — ma Ranuzzi fiuta la scena montata. Qui si sa chi, a Roccamora, padroneggia il metodo indiziario: una manciata di nomi, tutti attorno alla confraternita.',
+    approfondimenti: [
+      { tipo: 'Osservazione', soggetto: 'I pochi che sanno il metodo',
+        testo: 'Il metodo indiziario non è roba da strada: lo padroneggiano in pochi, tutti dentro o attorno alla confraternita. Un falso costruito con quel metodo restringe i sospetti a una manciata di persone — e nessuna è Braga, che il metodo lo combatte da trent’anni. Chi ha scritto il dossier non odia Braga: lo usa. Odia, o teme, qualcos’altro.' },
+    ] },
+  { n: 4, nome: 'La Stanza del Testimone', req: 'Disponibile dall’inizio',
+    art: 'artworks/La Stanza del Testimone.png',
+    testo: 'Il testimone oculare che ha «visto» Braga: sicuro, preciso, senza un’esitazione. Troppo. Chi ricorda davvero dubita; chi recita una parte scritta da altri torna sempre al binario, e qui il binario scricchiola.',
+    approfondimenti: [
+      { tipo: 'Testimonianza', soggetto: 'Il testimone istruito',
+        testo: '«Me l’hanno fatta imparare» gli scappa, e poi si corregge. È tutto lì. Il testimone non mente su ciò che ha visto: mente sull’aver visto. È stato istruito, e recita una parte scritta da altri — la stessa mano che ha scritto il dossier. Un testimone vero è la crepa di un caso; questo ne è il cemento. Chi lo ha preparato sapeva quale tassello mancava, e l’ha fabbricato.' },
+    ] },
+  { n: 5, nome: 'L’Archivio dei Manuali',
+    req: 'L’archivio dei manuali della Società apre solo a chi sospetta la mano dietro il falso: qualcuno che scrive col metodo della società, il nostro stesso ago.',
+    art: 'artworks/L’Archivio dei Manuali.png',
+    testo: 'Dodici copie numerate del metodo indiziario, tutte presenti — e una, la n. 7, riletta di recente da una mano che ha cancellato la propria firma. Chi ha ripassato il metodo, poco prima che il dossier nascesse?',
+    approfondimenti: [
+      { tipo: 'Presagio', soggetto: 'La copia consultata',
+        testo: 'Dodici copie, tutte presenti, e una — la n. 7 — riletta di recente da una mano che ha poi cancellato la propria firma. Non un ladro: un confratello. Chi ha scritto il dossier non ha rubato il metodo, lo aveva: è dentro la Società, ha diritto a quella copia, e l’ha usata per costruire un colpevole a tavolino. Il cerchio dei sospetti si stringe fino a diventare un ritratto — e il ritratto vi somiglia.' },
+    ] },
+  { n: 6, nome: 'Lo Studio del Perito',
+    req: 'Lo studio del vecchio perito rivale apre a chi insegue la falsa conferma: il testimone oculare che tutti citano e nessuno ha davvero vagliato.',
+    art: 'artworks/Lo Studio del Perito.png',
+    testo: 'Il perito Coda, pronto a «confermare» il testimone contro Braga per puro astio: l’esca perfetta della scena montata. Ma qualcuno — non la Gendarmeria — lo ha sollecitato a farlo, e sapeva del teste prima di lui.',
+    approfondimenti: [
+      { tipo: 'Osservazione', soggetto: 'La falsa conferma',
+        testo: 'Coda è l’esca perfetta: un rivale astioso pronto a giurare il falso per rancore, così che l’accusa a Braga sembri avere più voci. Ma Coda non ha visto niente e non prova niente; serve solo a fare volume. Il dettaglio che conta è un altro: qualcuno, non la Gendarmeria, lo ha sollecitato a confermare — qualcuno che orchestra il coro. La stessa mano che dispone le voci.' },
+    ] },
+  { n: 7, nome: 'Il Deposito Reperti',
+    req: 'Il deposito reperti della Gendarmeria apre solo a chi vuole toccare con mano il falso: il dossier che combacia, carta e inchiostro alla luce.',
+    art: 'artworks/Il Deposito Reperti.png',
+    testo: 'Dove il dossier fisico attende il processo: carta e inchiostro alla lente rivelano settimane, non trent’anni. Un dossier nato già archiviato — coi suoi numeri, le sue buste — come una messinscena che porta la propria catalogazione.',
+    approfondimenti: [
+      { tipo: 'Referto', soggetto: 'Il dossier nato archiviato',
+        testo: 'Un dossier vero cresce per accumulo: inchiostri e carte di epoche diverse. Questo è nato tutto insieme, stessa carta, stesso inchiostro fresco, già impaginato e numerato come una pratica chiusa. Non è la prova di un delitto trentennale: è la rappresentazione di un delitto trentennale, prodotta in una settimana da chi sapeva esattamente che aspetto deve avere una prova per essere creduta.' },
+    ] },
+  { n: 8, nome: 'La Bottega dell’Incisore',
+    req: 'La bottega dell’incisore apre a chi ha capito che il dossier che combacia è stato fabbricato, non trovato: qualcuno ha inciso quelle prove.',
+    art: 'artworks/La Bottega dell’Incisore.png',
+    testo: 'Dove il falso è stato materialmente prodotto: una matrice per il sigillo «C.B.» e le lettere, un mazzo di chiavi copiate della villa. Un artigiano terrorizzato, pagato in oro vecchio da un signore mai visto, che gli ha ordinato una grafia da imitare.',
+    approfondimenti: [
+      { tipo: 'Osservazione', soggetto: 'Le prove stampate',
+        testo: 'Un incisore, una matrice, pochi giorni: ecco come trent’anni di colpevolezza entrano in un plico. Il sigillo «C.B.», le mezze lettere, i timbri — tutto uscito dalla stessa mano su commissione anonima, pagato in oro d’antica fusione e carta col giglio. La firma di sempre. Le prove contro Braga non raccontano ciò che Braga ha fatto: raccontano ciò che qualcuno vuole che abbiate visto.' },
+    ] },
+  { n: 9, nome: 'La Villa di Braga',
+    req: 'La villa di Braga, di notte, prima che la Gendarmeria la sigilli: ci si va sapendo che è lì, sulla scena non ancora sigillata, che il falso è ancora vivo.',
+    art: 'artworks/La Villa-Museo di Braga.png',
+    testo: 'Di notte, prima del sigillo: dentro, gli Apparecchiatori posano gli ultimi tocchi del falso e cancellano le tracce del proprio lavoro. È l’unico posto dove la scena è ancora viva — dopo il sigillo, resterà solo la versione ufficiale.',
+    approfondimenti: [
+      { tipo: 'Presagio', soggetto: 'La scena da smontare',
+        testo: 'Nella villa silenziosa, ogni cosa è al suo posto — ed è questa perfezione a gridare il falso. Gli Apparecchiatori non rubano e non uccidono: scrivono, con oggetti invece che con parole, la colpevolezza di un innocente. Salvarne i tell prima che li cancellino, e prima che il sigillo cali, è l’unico modo di riavvolgere la scena e leggere, sotto, la mano che l’ha diretta. Non è la mano di Braga. È una delle nostre.' },
+    ] },
+].map((L) => ({
+  art: L.art,
+  title: `${L.n} · ${L.nome}`,
+  file: `Episodio 15/Luoghi/${L.n} - ${L.nome.replace(/’/g, "'")}`,
+  type: `Luogo ${L.n}`,
+  rules: `{i}${L.req === 'Disponibile dall’inizio' ? L.testo : L.req}{/i}`,
+  approfondimenti: L.approfondimenti, n: L.n,
+}));
+
+const EP15_INDIZI = LUOGHI15.flatMap((L) =>
+  L.approfondimenti.filter((a) => a.tipo === 'Osservazione' || a.tipo === 'Presagio')
+    .map((a) => ({
+      art: L.art, n: L.n, kind: 'Indizio',
+      title: `Indizio Nascosto — ${a.soggetto}`,
+      file: `Episodio 15/Indizi/${a.soggetto.replace(/’/g, "'")}`,
+      type: a.tipo,
+      rules: `{i}◆ (${a.tipo}) ${a.testo}{/i}`,
+    })));
+
+const EP15_TESTIMONI = LUOGHI15.flatMap((L) =>
+  L.approfondimenti.filter((a) => a.tipo === 'Testimonianza').map((a) => ({
+    art: L.art, n: L.n, kind: 'Testimone',
+    title: `Testimone — ${a.soggetto}`,
+    file: `Episodio 15/Testimoni/${a.soggetto.replace(/’/g, "'")}`,
+    type: `Luogo ${L.n} · Testimone`,
+    rules: `{i}${a.testo}{/i}`,
+  })));
+
+const EP15_REFERTI = LUOGHI15.flatMap((L) =>
+  L.approfondimenti.filter((a) => a.tipo === 'Referto').map((a) => ({
+    art: L.art, n: L.n, kind: 'Referto',
+    title: `Referto — ${a.soggetto}`,
+    file: `Episodio 15/Referti/${a.soggetto.replace(/’/g, "'")}`,
+    type: `Luogo ${L.n} · Referto`,
+    rules: `{i}${a.testo}{/i}`,
+  })));
+
+// Mazzo 21: 7 spawn (Apparecchiatori/Sicari), 6 insidie (scena: prova che
+// svanisce / specchio / pavimento / porta / faro / stanza rifatta), 4 crescendo
+// (SIGILLO), 4 eventi.
+const EP15_MINACCE = [
+  { art: 'artworks/Gli Apparecchiatori.png', title: 'Ombre che Lucidano', tipo: 'Malavita',
+    flavor: 'Due Apparecchiatori entrano in coppia, stracci e spugne in mano.',
+    effect: 'Piazzate 1 Sgherro (Apparecchiatore) sull’uscita più vicina agli eroi.' },
+  { art: 'artworks/Gli Apparecchiatori.png', title: 'La Coppia di Scena', tipo: 'Malavita',
+    flavor: 'Lavorano sempre a due: uno cancella, l’altro copre.',
+    effect: 'Piazzate 1 Sgherro (Apparecchiatore) sull’ingresso della tessera (dal lato da cui siete entrati).' },
+  { art: 'artworks/Gli Apparecchiatori.png', title: 'Sicari di Scorta', tipo: 'Malavita',
+    flavor: 'Non tutti puliscono: qualcuno è lì solo per farvi perdere tempo.',
+    effect: 'Piazzate 1 Sgherro (Sicario) sull’uscita più vicina agli eroi: si attiva subito.' },
+  { art: 'artworks/Gli Apparecchiatori.png', title: 'Rincalzi dal Servizio', tipo: 'Malavita',
+    flavor: 'Dalle scale di servizio ne salgono altri, silenziosi.',
+    effect: 'Piazzate 1 Sgherro (Apparecchiatore) sull’ingresso della tessera (dal lato da cui siete entrati).' },
+  { art: 'artworks/Gli Apparecchiatori.png', title: 'Il Cenno del Capo', tipo: 'Malavita',
+    flavor: 'Un gesto secco, e la squadra converge dove serve finire il lavoro.',
+    effect: 'Piazzate 1 Sgherro (Apparecchiatore) sull’uscita più vicina agli eroi.' },
+  { art: 'artworks/Gli Apparecchiatori.png', title: 'Chi Copre la Ritirata', tipo: 'Malavita',
+    flavor: 'Mentre il Capo finisce, i Sicari fanno da tappo sulle scale.',
+    effect: 'Piazzate 1 Sgherro (Sicario) sull’ingresso della tessera (dal lato da cui siete entrati).' },
+  { art: 'artworks/Gli Apparecchiatori.png', title: 'Mani in Più', tipo: 'Malavita',
+    flavor: 'Più stracci, più in fretta: la scena va chiusa prima del sigillo.',
+    effect: 'Piazzate 1 Sgherro (Apparecchiatore) sull’uscita più vicina agli eroi: si attiva subito.' },
+  { art: 'artworks/La prova che svanisce.png', title: 'La Prova che Svanisce', tipo: 'Insidia',
+    flavor: 'Uno straccio passa, e un tell che stavate per documentare non c’è più.',
+    effect: 'Gli Apparecchiatori cancellano 1 tell in più questo round (oltre a quello normale). Col Manuale Indiziario: nessun tell perso extra (lo documentate al volo).' },
+  { art: 'artworks/Lo specchio della scena.png', title: 'Lo Specchio della Scena', tipo: 'Insidia',
+    flavor: 'Un grande specchio moltiplica la stanza: dove guardare, cosa è vero?',
+    effect: 'L’eroe attivo prova NERVI (Media): se fallisce, questo round non può documentare tell (disorientato).' },
+  { art: 'artworks/Il pavimento lucidato.png', title: 'Il Pavimento Lucidato', tipo: 'Insidia',
+    flavor: 'Cera fresca, lucida a specchio: un passo e si scivola lungo la sala.',
+    effect: 'L’eroe più avanzato prova VIGORE (Media): se fallisce, perde il movimento extra questo turno.' },
+  { art: 'artworks/La porta che si chiude.png', title: 'La Porta che si Chiude', tipo: 'Insidia',
+    flavor: 'Una porta si chiude piano alle vostre spalle: siete dove vogliono loro.',
+    effect: 'Fino a fine round, sulla tessera dell’eroe attivo muoversi verso Nord costa il doppio.' },
+  { art: 'artworks/Il faro della ronda.png', title: 'Il Faro della Ronda', tipo: 'Insidia',
+    flavor: 'Un fascio di luce spazza la stanza dal cortile: la ronda della Gendarmeria.',
+    effect: 'Aggiungete 1 segnalino Canto (il Sigillo si avvicina). Ogni eroe prova NERVI (Facile) o si acquatta: 1 sola azione al prossimo turno.' },
+  { art: 'artworks/La stanza rifatta.png', title: 'La Stanza Rifatta', tipo: 'Insidia',
+    flavor: 'Tornate in una stanza già vista, e non la riconoscete: l’hanno rifatta.',
+    effect: 'Se non avete documentato tell in questa tessera, il primo tell qui è già cancellato (perso). Col Reagente: lo recuperate lo stesso.' },
+  { art: 'artworks/Passi nel cortile.png', title: 'Passi nel Cortile', tipo: 'Crescendo',
+    flavor: 'Passi sulla ghiaia, lanterne che si avvicinano: il cordone si muove.',
+    effect: 'Aggiungete 1 segnalino Canto (il Sigillo). Alla soglia-sigillo (Canto 5): la Gendarmeria sigilla — vedi Soluzione. Alla soglia (3): +1 carta Minaccia per Fase, per sempre.' },
+  { art: 'artworks/Il cordone si stringe.png', title: 'Il Cordone si Stringe', tipo: 'Crescendo',
+    flavor: 'I gendarmi chiudono ogni uscita: il tempo per documentare si accorcia.',
+    effect: 'Aggiungete 1 segnalino Canto (il Sigillo). Gli Apparecchiatori, sentendo la fretta, cancellano 1 tell in più questo round.' },
+  { art: 'artworks/La Gendarmeria alla porta.png', title: 'La Gendarmeria alla Porta', tipo: 'Crescendo',
+    flavor: 'Bussano al portone principale: pochi istanti, e saranno dentro.',
+    effect: 'Aggiungete 1 segnalino Canto (il Sigillo). Se il Capo è ancora in piedi, prendetelo ORA: al prossimo crescendo la villa è sigillata.' },
+  { art: 'artworks/Il sigillo di ceralacca.png', title: 'Il Sigillo di Ceralacca', tipo: 'Crescendo',
+    flavor: 'La ceralacca cola sul verbale: la scena è chiusa, ufficiale, intoccabile.',
+    effect: 'Aggiungete 1 segnalino Canto (il Sigillo). Se la villa non è ancora sigillata, lo è ora: fine documentazione, resta la sola Busta pubblica (vittoria parziale).' },
+  { art: 'artworks/La casa che tace.png', title: 'La Casa che Tace', tipo: 'Quiete',
+    flavor: 'Per un attimo, solo il ticchettio di un orologio e il fruscio degli stracci.',
+    effect: 'Nessun effetto. Tirate il fiato: anche una scena che si cancella, per un istante, si ferma.' },
+  { art: 'artworks/Una finestra sul retro.png', title: 'Una Finestra sul Retro', tipo: 'Favore',
+    flavor: 'Una finestra lasciata aperta dagli Apparecchiatori offre una scorciatoia.',
+    effect: 'Rivelate una tessera coperta adiacente a quella di un eroe (la scelgono i giocatori).' },
+  { art: 'artworks/Mobili spostati.png', title: 'Mobili Spostati', tipo: 'Ostacolo',
+    flavor: 'La scena è stata rifatta di fresco: i mobili non sono dove ve li aspettate.',
+    effect: 'Fino a fine round, sulla tessera dell’eroe attivo muoversi costa il doppio.' },
+  { art: 'artworks/Un colpo al buio.png', title: 'Un Colpo al Buio', tipo: 'Danno',
+    flavor: 'Un Apparecchiatore, colto sul fatto, sferra un colpo disperato nel buio.',
+    effect: 'Un eroe a caso (chi arbitra tira) subisce 1 danno.' },
+].map((m) => ({
+  art: m.art,
+  title: `${m.tipo} — ${m.title}`,
+  file: `Episodio 15/Minacce/${m.title.replace(/’/g, "'")}`,
+  rules: `{i}${m.flavor}{/i}{divider}${m.effect}`,
+}));
+
+const EP15_OGGETTI = [
+  { art: 'artworks/Manuale Indiziario.png', nome: 'Il Manuale Indiziario', ref: 'E15-L5',
+    fonte: 'Luogo 5 — L’Archivio dei Manuali',
+    flavor: 'Una delle dodici copie del metodo della Società: leggere l’uomo dagli inchiostri e dalle abitudini. In mano vostra, legge il falso al contrario.',
+    effetto: 'Alla villa riconoscete i tell al volo: documentate 1 tell in più per round (tenete il passo della cancellazione). È la chiave della Contro-busta.' },
+  { art: 'artworks/Chiave di Servizio.png', nome: 'La Chiave di Servizio', ref: 'E15-L8',
+    fonte: 'Luogo 8 — La Bottega dell’Incisore',
+    flavor: 'Copiata di fresco dall’incisore, apre il retro della villa: chi apparecchia una scena entra ed esce quando vuole.',
+    effetto: 'All’inizio della spedizione entrate dal servizio e saltate il cordone (T1): un round di margine in più prima del sigillo.' },
+  { art: 'artworks/Reagente per gli Inchiostri.png', nome: 'Il Reagente per gli Inchiostri', ref: 'E15-L7',
+    fonte: 'Luogo 7 — Il Deposito Reperti',
+    flavor: 'Il reagente della scientifica: gli inchiostri freschi sui documenti «di trent’anni fa» si tradiscono al suo contatto.',
+    effetto: 'Documentate 1 tell in più all’inizio della spedizione (l’occhio nudo non lo coglierebbe).' },
+  { art: 'artworks/Deposizione del Testimone.png', nome: 'La Deposizione del Testimone', ref: 'E15-L4',
+    fonte: 'Luogo 4 — La Stanza del Testimone',
+    flavor: 'La deposizione battuta a macchina, pronta per il verbale. Pare la prova regina: è costruita a tavolino.',
+    effetto: 'Effetto: nessuno finora scoperto.' },
+  { art: 'artworks/Il Sigillo intruso.png', nome: 'Il Sigillo «C.B.»', ref: 'E15-L6',
+    fonte: 'Luogo 6 — Lo Studio del Perito',
+    flavor: 'Il sigillo che circola come prova regina. È la pietra piantata nelle casse di Braga due mesi fa: un intruso, non una firma.',
+    effetto: 'Effetto: nessuno finora scoperto.' },
+].map((o) => ({
+  art: o.art,
+  title: o.nome,
+  file: `Episodio 15/Oggetti/${o.nome.replace(/’/g, "'").replace(/«|»/g, '')}`,
+  type: 'Oggetto',
+  rules: `{i}${o.flavor}{/i}{divider}${o.effetto}`,
+  ref: o.ref, fonte: o.fonte,
+}));
+
+const EP15_NEMICI = [
+  { art: 'artworks/Il Capo Apparecchiatore.png', title: 'Il Capo Apparecchiatore',
+    type: 'Il Regista della Scena (Boss) — Episodio 15',
+    rules: '{i}Il regista di scena di C.B.: non un sicario, un artigiano dell’inganno. Dirige la squadra che piazza le prove e cancella le tracce, con la freddezza di chi ha studiato come si legge un uomo — per poterlo scrivere.{/i}{divider}Statistiche nel Bestiario. Nessuna debolezza-oggetto. Finché è in piedi, i suoi cancellano 1 tell/round. Prenderlo (Interagire) dà le Istruzioni con la Grafia di Braga. «Il metodo della società» (D3): mostrargli che avete riconosciuto il vostro metodo gli fa saltare un attacco.' },
+].map((n) => ({ ...n, file: `Episodio 15/Nemici/${n.title}` }));
+
+const EP15 = [...LUOGHI15, ...EP15_INDIZI, ...EP15_TESTIMONI, ...EP15_REFERTI,
+              ...EP15_MINACCE, ...EP15_OGGETTI, ...EP15_NEMICI];
+
+
 module.exports = {
   HEROES, NEMICI, MINACCE, LUOGHI, INDIZI, TESTIMONI, REFERTI, OGGETTI, PRELUDIO,
   PRELUDIO_LUOGHI, PRELUDIO_APPROFONDIMENTI, PRELUDIO_OGGETTI,
@@ -3496,5 +3724,6 @@ module.exports = {
   EP12, LUOGHI12, EP12_INDIZI, EP12_TESTIMONI, EP12_REFERTI, EP12_MINACCE, EP12_OGGETTI, EP12_NEMICI,
   EP13, LUOGHI13, EP13_INDIZI, EP13_TESTIMONI, EP13_REFERTI, EP13_MINACCE, EP13_OGGETTI, EP13_NEMICI,
   EP14, LUOGHI14, EP14_INDIZI, EP14_TESTIMONI, EP14_REFERTI, EP14_MINACCE, EP14_OGGETTI, EP14_NEMICI,
-  ALL: [...HEROES, ...NEMICI, ...MINACCE, ...LUOGHI, ...INDIZI, ...TESTIMONI, ...REFERTI, ...OGGETTI, ...PRELUDIO, ...EP2, ...EP3, ...EP4, ...EP5, ...EP6, ...EP7, ...EP8, ...EP9, ...EP10, ...EP11, ...EP12, ...EP13, ...EP14],
+  EP15, LUOGHI15, EP15_INDIZI, EP15_TESTIMONI, EP15_REFERTI, EP15_MINACCE, EP15_OGGETTI, EP15_NEMICI,
+  ALL: [...HEROES, ...NEMICI, ...MINACCE, ...LUOGHI, ...INDIZI, ...TESTIMONI, ...REFERTI, ...OGGETTI, ...PRELUDIO, ...EP2, ...EP3, ...EP4, ...EP5, ...EP6, ...EP7, ...EP8, ...EP9, ...EP10, ...EP11, ...EP12, ...EP13, ...EP14, ...EP15],
 };

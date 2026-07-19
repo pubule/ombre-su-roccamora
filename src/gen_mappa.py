@@ -194,6 +194,13 @@ VOCI_MAPPA = [
     ('L’Archivio della Gendarmeria', 'corso della Prefettura 3, archivio dei faldoni', 'ep14'),
     ('Il Covo dei Gatti', 'tetti del Corso, sottotetto senza numero', 'ep14'),
     ('L’Attico del Corso', 'tetti del Corso, l’attico alto', 'ep14'),
+    # Episodio 15 — lo smascheramento (Atto III). Riusi: La Gendarmeria ('ep1'),
+    # Il Tribunale ('ep9'), La Gazzetta di Roccamora ('ep3'), Lo Studio del
+    # Perito ('ep14'), La Villa-Museo di Braga ('ep14').
+    ('La Stanza del Testimone', 'vicolo dei Testimoni 2, alloggio sorvegliato', 'ep15'),
+    ('L’Archivio dei Manuali', 'palazzo del Lume, sala dei dodici manuali', 'ep15'),
+    ('Il Deposito Reperti', 'corso della Prefettura 3, deposito della scientifica', 'ep15'),
+    ('La Bottega dell’Incisore', 'calle degli Incisori 5, retrobottega', 'ep15'),
 ]
 
 # (sottocartella pdf/, sottotitolo, tag inclusi). Un episodio nuovo aggiunge
@@ -214,6 +221,7 @@ MAPPE = [
     ('Episodio 12', 'episodio 12 — la città che conoscete', ('citta', 'preludio', 'ep1', 'ep2', 'ep3', 'ep4', 'ep5', 'ep6', 'ep7', 'ep8', 'ep9', 'ep10', 'ep11', 'ep12')),
     ('Episodio 13', 'episodio 13 — la città e la strada fuori porta', ('citta', 'preludio', 'ep1', 'ep2', 'ep3', 'ep4', 'ep5', 'ep6', 'ep7', 'ep8', 'ep9', 'ep10', 'ep11', 'ep12', 'ep13')),
     ('Episodio 14', 'episodio 14 — la città e i tetti del Corso', ('citta', 'preludio', 'ep1', 'ep2', 'ep3', 'ep4', 'ep5', 'ep6', 'ep7', 'ep8', 'ep9', 'ep10', 'ep11', 'ep12', 'ep13', 'ep14')),
+    ('Episodio 15', 'episodio 15 — la città e la villa di Braga', ('citta', 'preludio', 'ep1', 'ep2', 'ep3', 'ep4', 'ep5', 'ep6', 'ep7', 'ep8', 'ep9', 'ep10', 'ep11', 'ep12', 'ep13', 'ep14', 'ep15')),
 ]
 
 # Tipografico (provata la grafia manoscritta La Belle Aurore su tutta la
