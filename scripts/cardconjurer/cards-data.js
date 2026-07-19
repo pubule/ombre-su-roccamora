@@ -2762,7 +2762,7 @@ const EP11_OGGETTI = [
   { art: 'artworks/Corda del Campanaro.png', nome: 'La Corda del Campanaro', ref: 'E11-L8',
     fonte: 'Luogo 8 — La Bottega del Cordaio',
     flavor: 'Una fune da campane, fatta per reggere il peso oscillante di un bronzo. In quota, tiene un uomo meglio di qualsiasi ringhiera.',
-    effetto: 'Assicurati: le trappole di caduta (T2, T4) non vi feriscono. Alla guglia, la cattura del Caposquadra a 1 Ferita è automatica (Interagire), senza prova FORZA e senza rischio di vederlo cadere.' },
+    effetto: 'Assicurati: le trappole di caduta (T2, T4) non vi feriscono. Alla guglia, la cattura del Caposquadra a 1 Ferita è automatica (Interagire), senza prova VIGORE e senza rischio di vederlo cadere.' },
   { art: 'artworks/Taccuino Ordinato.png', nome: 'Il Taccuino Ordinato', ref: 'E11-L4',
     fonte: 'Luogo 4 — La Camera dei Pesi (col Taccuino grezzo dalla Torre)',
     flavor: 'Le pagine sciolte di Ratti, rimesse in fila con la marea e le campane. Conoscete i suoi passi — e per dove Speranza salirà.',

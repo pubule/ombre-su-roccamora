@@ -114,6 +114,19 @@ def arrow(c, x0, y0, x1, y1, head=5*mm):
         c.line(x1, y1, x1 - head*math.cos(ang - da), y1 - head*math.sin(ang - da))
     c.restoreState()
 
+def numbered_track(c, x0, y, box, gap, count, label):
+    """Una riga di caselle numerate 0..count-1 (segnaposto per una traccia:
+    FUGA/Demolizione/Prova/Controcanto). Un segnalino qualsiasi la percorre."""
+    c.setFillColor(GOLD); c.setFont(F['sc'], 10)
+    c.drawString(x0, y + box + 2.5*mm, label.lower())
+    for i in range(count):
+        x = x0 + i*(box + gap)
+        dashed_rect_plain(c, x, y, box, box)
+        c.setFillColor(CREMA); c.setFillAlpha(0.7); c.setFont(F['i'], 6.5)
+        c.drawCentredString(x + box/2, y + box/2 - 2, str(i))
+        c.setFillAlpha(1)
+
+
 def tabellone():
     out_path = os.path.join(OUT_DIR, 'Ombre-su-Roccamora-07-Tabellone.pdf')
     c = canvas.Canvas(out_path, pagesize=A4)
@@ -184,6 +197,31 @@ def tabellone():
 
     c.setFillColor(CREMA); c.setFillAlpha(0.7); c.setFont(F['i'], 8.5)
     c.drawCentredString(W/2, 12*mm, 'ombre su roccamora · società del lume — tabellone riusabile, tutte le tessere si posano libere')
+    c.setFillAlpha(1)
+    c.showPage()
+
+    # --- pagina 2: tracce di spedizione numerate (riusabili). Alcuni episodi
+    # fanno correre un segnalino su una traccia (FUGA, Demolizione, Prova,
+    # Controcanto): qui hanno una casa stampata invece di "un segnalino su
+    # carta". L'Ep.10 ne usa DUE insieme (Demolizione + Prova). ---
+    bg(c); gold_border(c)
+    c.setFillColor(GOLD); c.setFont(F['sc'], 14)
+    c.drawCentredString(W/2, H - 24*mm, 'tracce di spedizione')
+    c.setFillColor(CREMA); c.setFillAlpha(0.8); c.setFont(F['i'], 8.5)
+    c.drawCentredString(W/2, H - 30*mm,
+                        'un segnalino su ciascuna. Usatele secondo l’episodio: Fuga, Demolizione, Prova, Controcanto.')
+    c.drawCentredString(W/2, H - 34.5*mm,
+                        'l’Ep. 10 ne usa due insieme (Demolizione e Prova). La casella d’arrivo è la soglia scritta nella Soluzione.')
+    c.setFillAlpha(1)
+    box, gap = 9*mm, 2.6*mm
+    tx0 = (W - (15*box + 14*gap)) / 2
+    ty = H - 58*mm
+    for lab, cnt in (('traccia A (0–14)', 15), ('traccia B (0–14)', 15),
+                     ('traccia C (0–10)', 11), ('traccia D (0–10)', 11)):
+        numbered_track(c, tx0, ty, box, gap, cnt, lab)
+        ty -= 26*mm
+    c.setFillColor(CREMA); c.setFillAlpha(0.7); c.setFont(F['i'], 8.5)
+    c.drawCentredString(W/2, 12*mm, 'ombre su roccamora · società del lume — tracce riusabili')
     c.setFillAlpha(1)
     c.showPage()
     c.save()

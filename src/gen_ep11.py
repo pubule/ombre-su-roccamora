@@ -390,7 +390,7 @@ TILES_11 = [
          arbitro='CATTURA VIVA. Vento al massimo (+1 alla difficoltà NERVI, oltre alle raffiche). '
                  'Portate Speranza all’ultima Ferita: si aggrappa al cornicione. Allora un eroe '
                  'adiacente lo CATTURA con Interagire (con la Corda del Campanaro è automatico; '
-                 'senza, prova FORZA Media). Un attacco che lo porterebbe a 0 lo fa CADERE: filo '
+                 'senza, prova VIGORE Media). Un attacco che lo porterebbe a 0 lo fa CADERE: filo '
                  'perso. Se resta sull’esposto a 1 Ferita e si pesca una raffica, cade da solo: '
                  'tenetelo sul lato riparato della guglia.',
          cerca_vuoto='Non c’è niente da raccogliere quassù: c’è solo un uomo aggrappato al vuoto '
@@ -546,7 +546,7 @@ def spedizione():
                   'cumulativo, oltre al +1 Canto. Il Taccuino Ordinato dà +1 a queste prove.', BODY),
         Paragraph('• <b>CATTURA VIVA.</b> Il Caposquadra va preso vivo. Ridotto a 1 Ferita si '
                   'aggrappa al cornicione: un eroe adiacente lo <b>cattura</b> con Interagire — '
-                  'automatico con la <b>Corda del Campanaro</b>, altrimenti prova FORZA. Un '
+                  'automatico con la <b>Corda del Campanaro</b>, altrimenti prova VIGORE. Un '
                   'attacco che lo porterebbe a 0 lo fa <b>CADERE</b>: non è wipe, ma il filo '
                   'dell’Atto III è perso. Tenetelo lontano dal vuoto: sull’esposto, a 1 Ferita, '
                   'una raffica lo butta giù da sola.', BODY),
@@ -661,8 +661,8 @@ def soluzione():
         '<b>2. CHI ha spinto il topografo?</b> Ivo Speranza, il caposquadra, per paura di '
         'perdere la commessa (impronte di mani sul davanzale + la testimonianza della squadra + '
         'la lite alla pensione). <i>Esatta:</i> lo affrontate sapendo chi è e perché — quando è '
-        'a 1 Ferita, la cattura con Interagire riesce anche senza prova FORZA (con la Corda '
-        'resta automatica; senza Corda, la FORZA è a Facile). <i>Sbagliata:</i> nessun effetto.',
+        'a 1 Ferita, la cattura con Interagire riesce anche senza prova VIGORE (con la Corda '
+        'resta automatica; senza Corda, la VIGORE è a Facile). <i>Sbagliata:</i> nessun effetto.',
         '<b>3. IN CHE ORDINE ha preso le ultime misure?</b> Fontane, poi campanili, poi la Torre '
         'per ultima — l’ultima misura è il puntamento verso la Cattedrale (il taccuino grezzo + '
         'la marea e l’accordatura della Camera dei Pesi: serve più di una conferma; il Campanile '
@@ -673,7 +673,7 @@ def soluzione():
         '<b>4. COSA portate per la via delle guglie?</b> LA CORDA DEL CAMPANARO (la Bottega del '
         'Cordaio). <i>Con la Corda:</i> siete assicurati (le trappole di caduta T2/T4 non vi '
         'feriscono) e potete TRATTENERE Speranza sul cornicione — la cattura a 1 Ferita è '
-        'automatica. <i>Senza:</i> le trappole feriscono e la cattura richiede una prova FORZA '
+        'automatica. <i>Senza:</i> le trappole feriscono e la cattura richiede una prova VIGORE '
         'rischiosa (fallita = lo perdete nel vuoto). Aiuti: il Taccuino Ordinato (Camera dei '
         'Pesi, spegne la scorciatoia e +1 NERVI), la Lanterna Cieca (Campanile, leva il malus '
         'del buio). <i>Esche:</i> il Tesserino Perfetto (un falso, non un mandante) e la Colpa '
@@ -708,7 +708,7 @@ def soluzione():
         'Taccuino Ordinato (D3) perde la scorciatoia e non può usarla per sganciarsi da chi lo '
         'tiene. Nessuna debolezza-oggetto: è un uomo.',
         '<b>La cattura viva.</b> Portatelo all’ultima Ferita: si aggrappa al cornicione. Un eroe '
-        'adiacente lo cattura con Interagire — automatico con la Corda, altrimenti prova FORZA '
+        'adiacente lo cattura con Interagire — automatico con la Corda, altrimenti prova VIGORE '
         '(Facile se D2 esatta, Media se no). Un colpo che lo porterebbe a 0 lo fa CADERE: filo '
         'perso (l’Atto III perde l’aggancio; la campagna prosegue depotenziata, non è wipe). Se '
         'resta su tessera ESPOSTA a 1 Ferita e si pesca una raffica, cade da solo: portatelo/'

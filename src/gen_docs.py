@@ -138,6 +138,9 @@ def regolamento():
     e.append(LI('<b>NERVI</b> \u2014 sangue freddo davanti a trappole, buio e orrori.'))
     e.append(P("Inoltre: <b>Salute</b> (i danni che potete subire), <b>Difesa</b> (quanto \u00e8 difficile "
                "colpirvi) e un\u2019<b>Abilit\u00e0 unica</b>. Tutto \u00e8 sulla scheda personaggio."))
+    e.append(P("<i>Nota: qualche prova d\u2019episodio cita DESTREZZA (l\u2019agilit\u00e0) accanto a VIGORE \u2014 "
+               "\u00e8 solo colore, si tira sempre <b>VIGORE</b> (lo sforzo fisico e l\u2019agilit\u00e0 "
+               "ricadono l\u00ec).</i>"))
     e.append(P('Le prove', 'h2'))
     e.append(P('<b>Tirate 2d6 e sommate la caratteristica richiesta.</b> Dovete raggiungere la '
                'difficolt\u00e0: <b>Facile 7 \u2022 Media 9 \u2022 Difficile 11</b>. '
@@ -401,6 +404,9 @@ def regolamento():
                 'trappola: carte Minaccia di tipo insidia, l\u2019ingresso in una tessera pericolosa, o '
                 'la scelta di prendere un oggetto rischioso. Non copre le prove NERVI di gruppo n\u00e9 '
                 'le sconfitte in combattimento.'))
+    e.append(LI('<b>Diversivo (Fanti)</b> \u2014 riduce di 1 le carte Minaccia pescate quel round '
+                '(ai tavoli da 2-3 eroi, che ne pescano 1, pu\u00f2 azzerare la pesca); non tocca mai '
+                'il segnalino Canto automatico di fine round.'))
     e.append(LI('<b>Oggetti</b> \u2014 ci\u00f2 che trovate nell\u2019Indagine \u00e8 del gruppo: all\u2019inizio della '
                 'Spedizione decidete chi porta cosa (annotatelo). In Spedizione, passare un oggetto a '
                 'un eroe adiacente \u00e8 gratuito, una volta per turno; un eroe a terra pu\u00f2 essere '
