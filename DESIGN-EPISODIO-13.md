@@ -264,18 +264,30 @@ La soglia-fuoco e i pericoli si tarano con leve per-episodio nel simulatore
   Risme, Il Molino delle Carte; riusi: La Stazione delle Carrozze (citta), La
   Dogana Vecchia (preludio), L'Ufficio del Fermo-Posta (ep12); 6 tessere nuove
   (molino notturno); reperti A/B/C; PROMPT-MJ integrale; bucket; copertina.
-- **Fase C — DA FARE:** `simulate_ep13.py` (seed base 730000), su modello dei
-  dungeon-boss (ep7/ep8). Modella la SOGLIA_ROGO (legata al Canto; oltre,
-  danno-prova al torchio se non in Cassetta Stagna), i pericoli d'ambiente
-  (roggia/macine/telai come insidie VIGORE/NERVI), il Sorvegliante (boss, «il
-  nome del Notaio» salta un attacco con D2), il Notaio (T4, ordina il rogo e
-  fugge, trappola-inseguimento), gli oggetti (Cassetta = prova immune,
-  Lasciapassare = salta T1, Taccuino = +SOGLIA_ROGO). **Torsione «testimone che
-  non c'è più»:** `deposizione_ok = incroci_d3>=2` (L5 appunti + L7 registro) →
-  Taccuino ricostruito → +SOGLIA_ROGO e turni del Sorvegliante noti. Vittoria =
-  registri in Cassetta a T6; vittoria parziale = presi col fuoco alto. **Leve
-  da tarare:** SOGLIA_ROGO, DANNO_PROVA, pericoli. Config condivisa importata
-  da `simulate_playtest`: INVARIATA. **Nota tecnica vincolante:** patch al
+- **Fase C — FATTA (20260719):** `simulate_ep13.py` (seed base 730000),
+  dungeon-boss con soglia-fuoco. Modella: traversata T1-T5 con pericoli
+  d'ambiente (roggia T2 = round perso, macine T3 = 1 danno, essiccatoio T5 in
+  fiamme = NERVI/1 danno a ogni eroe); la SOGLIA_FUOCO=4 (+1 col Taccuino)
+  legata al Canto — oltre, T5/T6 in fiamme (ogni eroe NERVI o 1 danno) e, a
+  soglia+1, una trave inevitabile (1 danno/round); il Sorvegliante (boss al
+  torchio, DUE colpi/round da guardiano disperato — uno saltato con «il nome
+  del Notaio», D2); il Notaio (T4, ordina il rogo e sparisce, flavor); il
+  bottleneck del torchio (`BOSS_INGAGGIO=3`); gli oggetti (Cassetta = registri
+  salvi = vittoria piena; Lasciapassare = salta lo sbarramento T1; Taccuino =
+  +soglia-fuoco e prove d'ambiente Facili). Il Molino (L9) costa **2 ore** in
+  Indagine (trasferta). **Torsione «testimone che non c'è più»:**
+  `deposizione_ok = incroci_d3>=2` (L5 appunti + L7 registro) → Taccuino →
+  +soglia-fuoco. Vittoria = registri sequestrati a T6 (piena con Cassetta /
+  parziale se fuoco alto senza). **Leve tarate:** SOGLIA_FUOCO=4, DANNO_FUOCO=1,
+  BOSS_INGAGGIO=3, TESSERE_PERICOLO={T2,T3,T5}. Config condivisa importata da
+  `simulate_playtest`: INVARIATA (read-only). **Curva (5 party × 30 seed, v5):**
+  2: 61% (dura), 3: 93%, 4-10: 100% — banda alta (Atto-opener «dal gradino
+  Ep.4», più facile), ma «sofferte» 27-77% su tutte le taglie: la tensione è il
+  boss che picchia doppio sotto il fuoco, ogni vittoria costa un eroe a terra.
+  `pct_piena=pct_vittoria` in sim (la Cassetta è ~sempre presa dal tavolo
+  competente → prova mai degradata; la vittoria parziale è reale al tavolo
+  distratto senza Cassetta, ~0% in sim per scelta euristica, come Ep.5). Log:
+  logs/playtest/20260719-curva-ep13-v5. **Nota tecnica vincolante:** patch al
   simulatore con file `.py` (Write tool), MAI heredoc bash (stdin cp1252 su
   Windows fallisce in silenzio); verificare con `grep -c <flag>` sul disco.
 - **Fase D: IN ATTESA DELL'ARTE** (prompt MJ integrali pronti in Fase B).
