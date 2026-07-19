@@ -255,8 +255,20 @@ spedizione a blocco SENZA soglia-catastrofe). Config condivisa importata da
 - Torsione: `crepa_vista = incroci_d4 >= 1` (aver riletto la lettera di M. col
   nastro verde) — sempre vera se si visita L6; è narrativa, non di difficoltà.
 
-**Corridoio-obiettivo (respiro):** l'episodio PIÙ facile dell'atto —
-vittoria ~molto alta a ogni taglia (anche duo alto), sofferte basse (è un
-respiro). La «vittoria pulita» (col Fascicolo, cattura automatica) vs «amara»
-(senza) è il vero asse; la RILETTURA è ortogonale (carica l'Ep. 18). NON forzare
-tensione: la ansia qui è emotiva (la crepa), non meccanica.
+**Corridoio-obiettivo (respiro):** l'episodio PIÙ facile dell'atto, per
+progetto. La «vittoria pulita» (col Fascicolo, cattura automatica) vs «amara»
+(senza, si combatte lo Sposo che tenta la barca) è il vero asse; la RILETTURA è
+ortogonale (carica l'Ep. 18). NON forzare tensione: la ansia qui è emotiva (la
+crepa), non meccanica.
+
+**Curva accettata (v1, 5 party × 30 seed per taglia, seed 760000+size·1000):**
+a gioco competente, **100% vittoria, 100% pulita, 0% sofferte a ogni taglia** —
+ed è voluto. L'auto-player prende sempre il Fascicolo (missione prioritaria) e
+cattura lo Sposo senza un graffio: il respiro è totale. La «vittoria amara» (lo
+Sposo battuto a forza, o fuggito in barca con Bruna per scudo) esiste come
+percorso per chi corre e salta la Casa dell'Ex Fidanzata (L5) — un costo
+narrativo (Bruna torna ferita), non una penalità di curva. Nessun mostro,
+nessuna soglia, boss Att 2/Fer 4/Danno 1. È l'unico episodio della campagna la
+cui tensione è **interamente emotiva**: guardare in faccia un male piccolo e
+umano, e la crepa nella lettera del maestro. La giocabilità è servita dalla
+meccanica nuova (la RILETTURA) e dal contrasto col resto dell'atto. Seed 760000.
