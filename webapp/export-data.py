@@ -61,6 +61,8 @@ from gen_ep18 import (LUOGHI_18, TILES_18, NEMICI_18, OGGETTI_LUOGO_18, LETTERA_
                       ESAMI_CARBONE_18)
 from gen_ep19 import (LUOGHI_19, TILES_19, NEMICI_19, OGGETTI_LUOGO_19, LETTERA_19,  # noqa: E402
                       ESAMI_CARBONE_19)
+from gen_ep20 import (LUOGHI_20, TILES_20, NEMICI_20, OGGETTI_LUOGO_20, LETTERA_20,  # noqa: E402
+                      ESAMI_CARBONE_20)
 from gen_mappa import VOCI_MAPPA, MAPPE  # noqa: E402
 from gen_bestiario import FASCE, BOSS_DELTA, ferite_per_fascia  # noqa: E402
 from simulate_playtest import (INDAGINE_UNLOCK, TICK_CANTO_OGNI, SOGLIA_CANTO,  # noqa: E402
@@ -84,6 +86,7 @@ from simulate_ep16 import TOKEN_POOL_BASE as POOL_EP16  # noqa: E402
 from simulate_ep17 import TOKEN_POOL_BASE as POOL_EP17  # noqa: E402
 from simulate_ep18 import TOKEN_POOL_BASE as POOL_EP18  # noqa: E402
 from simulate_ep19 import TOKEN_POOL_BASE as POOL_EP19  # noqa: E402
+from simulate_ep20 import TOKEN_POOL_BASE as POOL_EP20  # noqa: E402
 
 
 def strip_tags(s):
@@ -168,6 +171,8 @@ REPERTI_LUOGO = {
     'ep19': {9: ['Reperto A - Fascicolo del 1741'],
              8: ['Reperto B - Mappa Acustica'],
              1: ['Reperto C - Manifesto dei Ricercati']},
+    'ep20': {9: ['Reperto A - Partitura del Controcanto', 'Reperto C - Gola della Città'],
+             6: ['Reperto B - Voce che Crede']},
 }
 
 
@@ -658,6 +663,27 @@ SOLUZIONI = dict(
         ],
         boss='L’ISPETTORE VIDAL',
     ),
+    ep20=dict(
+        domande=[
+            dict(q='QUANDO?',
+                 risposta='All’ora del picco delle maree di sizigia, quando la gola della città si apre (gli ossari L2 + il calendario dei Padri L4).',
+                 esatta='Scendete all’ora giusta: nel 1° round della discesa non si pesca nessuna carta Minaccia.',
+                 sbagliata='Arrivate scomposti: il Canto (risveglio) parte da 1.'),
+            dict(q='DOVE? (la via delle tre acque)',
+                 risposta='La via delle tre acque sotto la Cattedrale, dalla Mappa Acustica (la Cattedrale L1 + la Taverna L3 + l’Archivio L4).',
+                 esatta='La Mappa guida la discesa (niente round persi nel buio; la città può suonare a favore: +1 riga di controcanto).',
+                 sbagliata='La gola vi confonde (round persi, l’eco che mente vi ruba righe).'),
+            dict(q='CHI è l’ultima voce?',
+                 risposta='La candidata che il Coro insegue dall’Ep.3, l’unica che M. non può comprare (i vecchi del Coro L5 + l’organo di ossa L6).',
+                 esatta='Sapete chi cercare: salvatela nella fase del coro — togliete a M. la voce che crede, il risveglio rallenta.',
+                 sbagliata='M. la costringe: il suo rito accelera il risveglio.'),
+            dict(q='COME si fa dormire il Dormiente senza sogni?',
+                 risposta='Il CONTROCANTO del Fascicolo del 1741, cantato coi Frammenti (metà erano il canto del sonno, che M. voleva; metà lo smascheravano). Non si uccide un dio: lo si canta a dormire.',
+                 esatta='LA DEDUZIONE FINALE. Contate i Frammenti conservati (1-19): più ne avete, più righe di controcanto/round. Completate le 6 righe prima del risveglio (Canto 8) = VITTORIA. (Esche: la Chiave del Coro e il Grimorio — cantano il risveglio, aiutano M.)',
+                 sbagliata='Senza il controcanto e i Frammenti, il Dormiente si desta: la campagna si chiude in tragedia.'),
+        ],
+        boss='LA CAMERA DEL DORMIENTE',
+    ),
     preludio=dict(
         domande=[
             dict(q='DOVE è tenuto Ansaldo?',
@@ -1013,6 +1039,26 @@ episodi = dict(
         vantaggio=dict(slancio_ore=3, preparati_ore=1, preparati_luoghi=6),
         soluzione=SOLUZIONI['ep19'],
         pool=POOL_EP19,
+    ),
+    ep20=dict(
+        id='ep20', titolo='Il Quarto Movimento',
+        sottotitolo='episodio 20 — il finale: la gola della città, e il controcanto',
+        cartella='Episodio 20', ore_budget=6,
+        lettera=LETTERA_20,
+        obiettivo='IL FINALE. Un’indagine breve (l’ora, la via delle tre acque, la voce, il '
+                  'controcanto), poi la discesa più lunga: sotto la Cattedrale, oltre Ferri, nella '
+                  'gola della città. Non si vince con l’acciaio: col CONTROCANTO (le righe giuste '
+                  'tra i 20 Frammenti — metà erano il canto del sonno che M. voleva, metà lo '
+                  'smascheravano). La camera è il boss (fasi ambientali); il coro comprato si rompe; '
+                  'M. è un uomo, fragile. Completate il controcanto (6 righe) prima che il Dormiente '
+                  'si svegli (RISVEGLIO) = il dio torna al sonno senza sogni. FUORI SCALA: il finale '
+                  'può perdere eroi, e può finire male. NIENTE Bivio: è la fine.',
+        esami_carbone=ESAMI_CARBONE_20,
+        luoghi=[luogo_json(L, OGGETTI_LUOGO_20, REPERTI_LUOGO['ep20']) for L in LUOGHI_20],
+        tessere=[tessera_json(T) for T in TILES_20],
+        vantaggio=dict(slancio_ore=3, preparati_ore=1, preparati_luoghi=6),
+        soluzione=SOLUZIONI['ep20'],
+        pool=POOL_EP20,
     ),
 )
 
