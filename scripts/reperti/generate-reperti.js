@@ -948,6 +948,54 @@ Chi canterà al di sotto, non si lamenti di ciò che al di sotto risponde.`;
     </div></div>
   `);
 
+  // --- Episodio 16, Reperto A: la lettera d'incarico di M. (L6) — il SEME ---
+  const repertoA16 = page(`
+    <div class="wrap"><div style="zoom:0.90;">
+      <div class="serif" style="font-style:italic; font-size:38px; color:#3a2415; mix-blend-mode:multiply; margin-bottom:44px;">Reperto A — lettera d’incarico (Archivio delle Lettere)</div>
+      <div class="serif" style="font-size:46px; line-height:74px;">
+        <p style="margin-bottom:32px;">«Riportatemela a casa — la piccola col <b>nastro verde al polso</b>.»</p>
+        <p style="margin-bottom:32px; border-top:2px solid #6b5636; padding-top:32px;">Di pugno del presidente, scritto <b>prima</b> che voi lo scopriste.</p>
+      </div>
+      <div class="hand" style="font-size:56px; line-height:88px; margin-top:40px; text-align:right;">
+        <p>— M.</p>
+      </div>
+      <div class="serif" style="font-style:italic; margin-top:48px; font-size:34px; color:#4a4a4e; mix-blend-mode:multiply;">
+        Un segreto tra un padre e una figlia, mai detto ad anima viva. Come fa un
+        uomo a sapere ciò che nessuno gli ha detto?
+      </div>
+    </div></div>
+  `);
+
+  // --- Episodio 16, Reperto B: il registro degli affitti (L8) ---
+  const repertoB16 = page(`
+    <div class="wrap"><div style="zoom:0.90;">
+      <div class="serif" style="font-style:italic; font-size:38px; color:#3a2415; mix-blend-mode:multiply; margin-bottom:56px;">Reperto B — contratto d’affitto (Ufficio degli Affitti)</div>
+      <div class="serif" style="font-size:46px; line-height:74px;">
+        <p style="margin-bottom:32px;">Villa dei Càrpine, sponda di ponente. Affitto <b>trimestrale</b>, nome falso.</p>
+        <p style="margin-bottom:32px;">Con <b>imbarcadero e barca</b>. Pagamento anticipato, riservatezza assoluta.</p>
+      </div>
+      <div class="serif" style="font-style:italic; margin-top:80px; font-size:34px; color:#4a4a4e; mix-blend-mode:multiply;">
+        Non una prigione con le sbarre: una prigione di miraggi, con una barca
+        sempre pronta per l’altra sponda.
+      </div>
+    </div></div>
+  `);
+
+  // --- Episodio 16, Reperto C: il libro delle promesse dello Sposo (L5) ---
+  const repertoC16 = page(`
+    <div class="wrap"><div style="zoom:0.92;">
+      <div class="serif" style="font-style:italic; font-size:38px; color:#3a2415; mix-blend-mode:multiply; margin-bottom:60px;">Reperto C — il libro delle promesse (Casa dell’Ex Fidanzata)</div>
+      <div class="serif" style="font-size:46px; line-height:76px;">
+        <p style="margin-bottom:32px;"><b>Dieci nomi</b>, dieci ragazze, dieci doti sparite. Nessuno è il vero.</p>
+        <p style="margin-bottom:32px;">Un dossier costruito per rabbia, negli anni, da chi non ha denunciato per vergogna.</p>
+      </div>
+      <div class="serif" style="font-style:italic; margin-top:56px; font-size:34px; color:#4a4a4e; mix-blend-mode:multiply;">
+        Lo Sposo è un mestiere, non un mostro. Piccolo, umano, prevedibile. Ed è
+        per questo che fa male: qui, per una volta, il male ha una misura.
+      </div>
+    </div></div>
+  `);
+
   const items = [
     ['Episodio 1', 'Reperto A - Diario di Ruggero', repertoA],
     ['Episodio 1', 'Reperto B - Registro delle Consegne', repertoB],
@@ -995,6 +1043,9 @@ Chi canterà al di sotto, non si lamenti di ciò che al di sotto risponde.`;
     ['Episodio 15', 'Reperto A - Istruzioni', repertoA15],
     ['Episodio 15', 'Reperto B - Lastra dell’Incisore', repertoB15],
     ['Episodio 15', 'Reperto C - Dossier Originale', repertoC15],
+    ['Episodio 16', 'Reperto A - Lettera d’Incarico', repertoA16],
+    ['Episodio 16', 'Reperto B - Registro degli Affitti', repertoB16],
+    ['Episodio 16', 'Reperto C - Libro delle Promesse', repertoC16],
   ];
 
   for (const [episodio, name, html] of items) {

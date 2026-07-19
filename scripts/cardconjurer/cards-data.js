@@ -3708,6 +3708,232 @@ const EP15 = [...LUOGHI15, ...EP15_INDIZI, ...EP15_TESTIMONI, ...EP15_REFERTI,
               ...EP15_MINACCE, ...EP15_OGGETTI, ...EP15_NEMICI];
 
 
+// ===================================================================== EP16
+// «Un caso qualunque» — Atto III, respiro (vedi DESIGN-EPISODIO-16.md). Caso
+// piccolo e umano: figlia del lampionaio rapita dallo Sposo (truffatore). Ma
+// la lettera di M. cita il nastro verde — un segreto che non poteva sapere.
+// Meccanica di campagna: la RILETTURA. Boss debolissimo. Torsione: «il
+// dettaglio che il mandante non poteva sapere».
+
+const LUOGHI16 = [
+  { n: 1, nome: 'La Casa del Lampionaio', req: 'Disponibile dall’inizio',
+    art: 'artworks/La Casa del Lampionaio.png',
+    testo: 'Povera, pulita, con una fotografia di Bruna sul comò e un uomo che accende ancora i lumi ogni sera, come se la figlia potesse tornare a vederli. Qui nasce il nastro verde: un pegno segreto tra un padre e una figlia.',
+    approfondimenti: [
+      { tipo: 'Testimonianza', soggetto: 'Il lampionaio',
+        testo: '«Il nastro verde al polso di Bruna era un segreto tra me e lei, un pegno di compleanno, mai detto ad anima viva. Eppure il signore della vostra Società lo sapeva, ieri, prima ancora che voi arrivaste. Chiedetevi come fa un uomo a sapere un segreto che nessuno gli ha detto. Io, la notte, non dormo più a pensarci.»' },
+    ] },
+  { n: 2, nome: 'Il Caffè degli Annunci', req: 'Disponibile dall’inizio',
+    art: 'artworks/Il Caffè degli Annunci.png',
+    testo: 'Dove si leggono gli annunci matrimoniali: il territorio di caccia dello sposo perfetto, che qui adescava le ragazze coi begli annunci. La cameriera ne ha viste tante sedersi a quel tavolo con la stessa luce negli occhi, e poi sparire.',
+    approfondimenti: [
+      { tipo: 'Testimonianza', soggetto: 'La cameriera del caffè',
+        testo: '«Non è la prima, sa. Ne ho viste altre, negli anni, sedersi a quel tavolo con lo stesso tipo di uomo e poi sparire nel nulla o tornare rovinate. Lo sposo perfetto cambia faccia e nome, ma è sempre lo stesso mestiere: promette nozze, si fa firmare la dote, e via. Non è un mostro dei vostri. È un uomo che ha fatto del cuore delle ragazze un commercio.»' },
+    ] },
+  { n: 3, nome: 'La Gazzetta di Roccamora', req: 'Disponibile dall’inizio',
+    art: 'artworks/Gazzetta di Roccamora.png',
+    testo: 'Tiene la memoria della città: gli annunci, e le sparizioni che li seguono negli anni. Una scia di ragazze rovinate e doti sparite — la firma dello Sposo. E la domanda di Ranuzzi: perché la Società si abbassa a un caso così piccolo?',
+    approfondimenti: [
+      { tipo: 'Osservazione', soggetto: 'La scia dello Sposo',
+        testo: 'Incrociate gli annunci e le sparizioni: lo Sposo è un seriale prevedibile, quasi noioso. Villa affittata sul lago, promessa di nozze, dote firmata, fuga dall’altra sponda. Nessun mistero. È proprio la sua piccolezza a stonare col vostro incarico: perché M. vi manda a caccia di un topo, quando cacciate lupi da quindici mesi? O per farvi respirare, o per tenervi lontani da qualcos’altro.' },
+    ] },
+  { n: 4, nome: 'La Stazione delle Carrozze', req: 'Disponibile dall’inizio',
+    art: 'artworks/La Stazione delle Carrozze.png',
+    testo: 'Snodo dei trasporti: da qui, tre giorni fa, sono partiti Bruna e il suo «fidanzato», carrozza per il lago. Il capostazione ricorda il nastro verde al polso di lei, e le notti in cui l’uomo tornava indietro da solo — una villa di nozze non ne ha bisogno.',
+    approfondimenti: [
+      { tipo: 'Testimonianza', soggetto: 'Il capostazione',
+        testo: '«Il nastro verde al polso della ragazza me lo ricordo bene: ci giocava nervosa mentre saliva. E la carrozza per il lago era quella di sempre, la villa dei Càrpine sulla sponda di ponente. Un’ora scarsa da qui. Se cercate la piccola del lampionaio, è là che l’hanno portata: non a nozze, ma a marcire finché lui non ha in mano la dote.»' },
+    ] },
+  { n: 5, nome: 'La Casa dell’Ex Fidanzata',
+    req: 'La casa di una vittima precedente apre solo a chi ha capito il mestiere del rapitore: lo sposo perfetto che colleziona cuori e doti.',
+    art: 'artworks/La Casa dell’Ex Fidanzata.png',
+    testo: 'Una donna rovinata anni fa dallo stesso uomo, la voce piatta di chi non si stupisce più, e un fascicolo costruito per rabbia negli anni — nomi, date, le altre vittime. L’unica arma che scioglie l’incantesimo: vedere che non sei l’unica.',
+    approfondimenti: [
+      { tipo: 'Presagio', soggetto: 'Il male con una misura',
+        testo: 'Nella casa di questa donna il male ha una faccia piccola e un nome — anzi dieci nomi, tutti falsi. Dopo mesi di ombre senza volto, fa quasi tenerezza un cattivo così: prevedibile, meschino, umano. Ed è proprio questo il tarlo. Perché mentre inseguite questo topo, il vero lupo — quello che sapeva del nastro verde — vi guarda da casa vostra, e sorride del vostro riposo.' },
+    ] },
+  { n: 6, nome: 'L’Archivio delle Lettere',
+    req: 'L’archivio delle lettere della Società apre solo a chi ha notato la crepa: il nastro verde che il presidente sapeva prima di tutti.',
+    art: 'artworks/L’Archivio delle Lettere.png',
+    testo: 'Il Taccuino e le vecchie lettere d’incarico di M., conservate una a una. È qui che debutta la RILETTURA, e qui che la crepa si apre: la lettera di stanotte nomina il nastro verde, un segreto che il presidente non poteva sapere.',
+    approfondimenti: [
+      { tipo: 'Referto', soggetto: 'La firma nelle lettere',
+        testo: 'Il nastro verde non è un caso isolato. Rileggete le lettere d’incarico di M. dal primo giorno, e ognuna nasconde un dettaglio che lui non poteva sapere per vie oneste: il nome di un colpevole prima delle prove, un luogo prima della scoperta, un morto prima del ritrovamento. Uno alla volta, li avete letti come genio deduttivo. Tutti insieme, sono un uomo che sa perché è lui a muovere le cose. Rileggete tutto. (RILETTURA: ogni lettera vecchia riletta banca un incrocio per l’Ep. 18.)' },
+    ] },
+  { n: 7, nome: 'Il Fioraio',
+    req: 'La bottega del fioraio apre a chi segue il metodo d’adescamento dello sposo perfetto: i fiori con cui incanta le ragazze.',
+    art: 'artworks/Il Fioraio.png',
+    testo: 'Dove lo sposo perfetto comprava sempre le stesse rose bianche, ogni volta per una ragazza diversa. Un vicolo cieco profumato: bello, inutile, un altro modo per non guardare la vera domanda, che non riguarda lo Sposo.',
+    approfondimenti: [
+      { tipo: 'Osservazione', soggetto: 'Le rose dell’inganno',
+        testo: 'Le rose bianche sono lo strumento del mestiere: fanno credere all’amore chi ha voglia di crederci. Il fioraio è l’unico che ha visto lo Sposo da vicino, ma non serve a nulla — dieci nomi, dieci facce. La pista dei fiori porta solo alla villa, che già conoscete. È un vicolo cieco profumato: bello, inutile, e un altro modo per non guardare la vera domanda, che non riguarda lo Sposo ma chi vi ha mandato a prenderlo.' },
+    ] },
+  { n: 8, nome: 'Il Registro degli Affitti',
+    req: 'L’ufficio degli affitti apre a chi sa dove cercare: la villa presa in affitto per la fuga, la carrozza per il lago.',
+    art: 'artworks/Il Registro degli Affitti.png',
+    testo: 'Dove la carrozza per il lago trova la sua meta: la villa dei Càrpine, sponda di ponente, affittata con nome falso, con imbarcadero e barca. Non una prigione con le sbarre, ma una prigione di miraggi.',
+    approfondimenti: [
+      { tipo: 'Referto', soggetto: 'La villa dell’inganno',
+        testo: 'La villa sul lago è la scena perfetta della truffa: isolata, riservata, con una barca sempre pronta all’imbarcadero. Non una prigione con le sbarre, ma una prigione di miraggi, dove una ragazza aspetta nozze che non verranno. Sapere dov’è e che c’è una barca vi dice come finirà: o lo prendete prima che raggiunga il molo, o vi scappa sull’acqua con lei per scudo. Portate qualcosa che spezzi l’incantesimo, non solo qualcosa che spezzi le ossa.' },
+    ] },
+  { n: 9, nome: 'La Villa sul Lago',
+    req: 'La villa sul lago, poco fuori porta, dove finisce il caso: ci si va sapendo che è lì che porta la carrozza per il lago.',
+    art: 'artworks/La Villa sul Lago.png',
+    testo: 'La villa dei Càrpine sulla sponda di ponente, di sera: giardino, serra, un imbarcadero con la barca pronta. Illuminata a festa per nozze che non verranno, con una ragazza dal nastro verde al polso che aspetta di essere felice. Il caso più piccolo, e forse il più giusto.',
+    approfondimenti: [
+      { tipo: 'Presagio', soggetto: 'La ragazza che aspetta le nozze',
+        testo: 'Nella villa illuminata a festa per un matrimonio che non ci sarà, una ragazza col nastro verde al polso aspetta di essere felice. Non c’è un Dormiente, non c’è un Coro, non c’è C.B.: c’è solo un uomo meschino e una bugia grande abbastanza da tenere prigioniera una giovane senza catene. Riportatela al padre e ai suoi lampioni. È il caso più piccolo della vostra carriera. Fatelo bene: perché domani, quando il decano non ci sarà più, rimpiangerete i casi piccoli.' },
+    ] },
+].map((L) => ({
+  art: L.art,
+  title: `${L.n} · ${L.nome}`,
+  file: `Episodio 16/Luoghi/${L.n} - ${L.nome.replace(/’/g, "'")}`,
+  type: `Luogo ${L.n}`,
+  rules: `{i}${L.req === 'Disponibile dall’inizio' ? L.testo : L.req}{/i}`,
+  approfondimenti: L.approfondimenti, n: L.n,
+}));
+
+const EP16_INDIZI = LUOGHI16.flatMap((L) =>
+  L.approfondimenti.filter((a) => a.tipo === 'Osservazione' || a.tipo === 'Presagio')
+    .map((a) => ({
+      art: L.art, n: L.n, kind: 'Indizio',
+      title: `Indizio Nascosto — ${a.soggetto}`,
+      file: `Episodio 16/Indizi/${a.soggetto.replace(/’/g, "'")}`,
+      type: a.tipo,
+      rules: `{i}◆ (${a.tipo}) ${a.testo}{/i}`,
+    })));
+
+const EP16_TESTIMONI = LUOGHI16.flatMap((L) =>
+  L.approfondimenti.filter((a) => a.tipo === 'Testimonianza').map((a) => ({
+    art: L.art, n: L.n, kind: 'Testimone',
+    title: `Testimone — ${a.soggetto}`,
+    file: `Episodio 16/Testimoni/${a.soggetto.replace(/’/g, "'")}`,
+    type: `Luogo ${L.n} · Testimone`,
+    rules: `{i}${a.testo}{/i}`,
+  })));
+
+const EP16_REFERTI = LUOGHI16.flatMap((L) =>
+  L.approfondimenti.filter((a) => a.tipo === 'Referto').map((a) => ({
+    art: L.art, n: L.n, kind: 'Referto',
+    title: `Referto — ${a.soggetto}`,
+    file: `Episodio 16/Referti/${a.soggetto.replace(/’/g, "'")}`,
+    type: `Luogo ${L.n} · Referto`,
+    rules: `{i}${a.testo}{/i}`,
+  })));
+
+// Mazzo 21: 7 spawn (complici), 6 insidie (casa: cane/serra/lampadario/vetri/
+// buio/ringhiera), 4 crescendo (allarme, senza catastrofe), 4 eventi.
+const EP16_MINACCE = [
+  { art: 'artworks/I Complici dello Sposo.png', title: 'Il Cocchiere di Ronda', tipo: 'Malavita',
+    flavor: 'Un uomo in livrea fa il giro del giardino, lanterna bassa.',
+    effect: 'Piazzate 1 Sgherro (complice) sull’uscita più vicina agli eroi.' },
+  { art: 'artworks/I Complici dello Sposo.png', title: 'Il Tuttofare', tipo: 'Malavita',
+    flavor: 'Il factotum della villa, più spaventato che pericoloso.',
+    effect: 'Piazzate 1 Sgherro (complice) sull’ingresso della tessera (dal lato da cui siete entrati).' },
+  { art: 'artworks/I Complici dello Sposo.png', title: 'Domestici Allarmati', tipo: 'Malavita',
+    flavor: 'La servitù, svegliata di soprassalto, sbarra le porte per confusione.',
+    effect: 'Piazzate 1 Sgherro (complice) sull’uscita più vicina agli eroi: si attiva subito.' },
+  { art: 'artworks/I Complici dello Sposo.png', title: 'Chi Copre lo Sposo', tipo: 'Malavita',
+    flavor: 'Un complice si mette tra voi e il padrone per dargli tempo di scappare.',
+    effect: 'Piazzate 1 Sgherro (complice) sull’ingresso della tessera (dal lato da cui siete entrati).' },
+  { art: 'artworks/I Complici dello Sposo.png', title: 'Il Fischio d’Allarme', tipo: 'Malavita',
+    flavor: 'Un fischio nella notte, e i pochi uomini della villa convergono.',
+    effect: 'Piazzate 1 Sgherro (complice) sull’uscita più vicina agli eroi.' },
+  { art: 'artworks/I Complici dello Sposo.png', title: 'Verso l’Imbarcadero', tipo: 'Malavita',
+    flavor: 'Uno corre a slegare la barca: lo Sposo prepara la ritirata.',
+    effect: 'Piazzate 1 Sgherro (complice) sull’ingresso della tessera (dal lato da cui siete entrati).' },
+  { art: 'artworks/I Complici dello Sposo.png', title: 'L’Ultimo a Difendere la Truffa', tipo: 'Malavita',
+    flavor: 'Chi ha già preso la sua parte non vuole perderla: resta a combattere.',
+    effect: 'Piazzate 1 Sgherro (complice) sull’uscita più vicina agli eroi: si attiva subito.' },
+  { art: 'artworks/Il cane da guardia.png', title: 'Il Cane da Guardia', tipo: 'Insidia',
+    flavor: 'Un cane abbaia e azzanna dal buio del pergolato.',
+    effect: 'L’eroe attivo prova NERVI (Facile): se fallisce, 1 sola azione al prossimo turno (tenuto a bada).' },
+  { art: 'artworks/La serra scivolosa.png', title: 'La Serra Scivolosa', tipo: 'Insidia',
+    flavor: 'Il pavimento della serra, umido e coperto di petali, tradisce il passo.',
+    effect: 'L’eroe più avanzato prova VIGORE (Facile): se fallisce, perde il movimento extra questo turno.' },
+  { art: 'artworks/Il lampadario che oscilla.png', title: 'Il Lampadario che Oscilla', tipo: 'Insidia',
+    flavor: 'Nella colluttazione un grande lampadario si stacca e oscilla pericoloso.',
+    effect: 'L’eroe attivo prova DESTREZZA… VIGORE (Media): se fallisce, 1 danno (una scheggia).' },
+  { art: 'artworks/La porta a vetri.png', title: 'La Porta a Vetri', tipo: 'Insidia',
+    flavor: 'Una porta-finestra a vetri: attraversarla di corsa è un rischio.',
+    effect: 'Fino a fine round, sulla tessera dell’eroe attivo muoversi verso Nord costa il doppio.' },
+  { art: 'artworks/Il buio del giardino.png', title: 'Il Buio del Giardino', tipo: 'Insidia',
+    flavor: 'Fuori dalle finestre illuminate, il giardino è nero come pece.',
+    effect: 'Ogni eroe prova NERVI (Facile): chi fallisce non può documentare né aiutare questo round (cerca la strada).' },
+  { art: 'artworks/La ringhiera del molo.png', title: 'La Ringhiera del Molo', tipo: 'Insidia',
+    flavor: 'La ringhiera marcia dell’imbarcadero cede sotto il peso.',
+    effect: 'L’eroe più avanzato prova VIGORE (Media): se fallisce, 1 danno (un piede in acqua fredda).' },
+  { art: 'artworks/Un grido nella notte.png', title: 'Un Grido nella Notte', tipo: 'Crescendo',
+    flavor: 'Un grido rompe il silenzio della villa: qualcuno ha dato l’allarme.',
+    effect: 'Aggiungete 1 segnalino Canto (l’allarme). Alla soglia (Canto 3): +1 carta Minaccia per Fase, per sempre. NIENTE catastrofe a termine: è un respiro.' },
+  { art: 'artworks/Le luci si accendono.png', title: 'Le Luci si Accendono', tipo: 'Crescendo',
+    flavor: 'Finestra dopo finestra, la villa si illumina: non c’è più sorpresa.',
+    effect: 'Aggiungete 1 segnalino Canto (l’allarme). Lo Sposo comincia a muovere Bruna verso l’imbarcadero (T5).' },
+  { art: 'artworks/Lo Sposo capisce.png', title: 'Lo Sposo Capisce', tipo: 'Crescendo',
+    flavor: 'Lo Sposo intuisce chi siete: il sorriso gli muore, cerca la barca.',
+    effect: 'Aggiungete 1 segnalino Canto (l’allarme). Se lo Sposo è al Salone (T4) o oltre, avanza di una tessera verso l’imbarcadero.' },
+  { art: 'artworks/La barca è slegata.png', title: 'La Barca è Slegata', tipo: 'Crescendo',
+    flavor: 'La cima è sciolta, i remi in acqua: la fuga sul lago è a un passo.',
+    effect: 'Aggiungete 1 segnalino Canto (l’allarme). Se lo Sposo raggiunge l’imbarcadero con Bruna sotto l’inganno, tenta la fuga in barca (vedi Soluzione). Mostratele il Fascicolo ORA, se l’avete.' },
+  { art: 'artworks/La villa che dorme.png', title: 'La Villa che Dorme', tipo: 'Quiete',
+    flavor: 'Per un attimo, solo il fruscio dell’acqua e la festa finta che continua.',
+    effect: 'Nessun effetto. Tirate il fiato: perfino una casa di bugie, per un istante, riposa.' },
+  { art: 'artworks/Una finestra socchiusa.png', title: 'Una Finestra Socchiusa', tipo: 'Favore',
+    flavor: 'Una finestra lasciata aperta per la festa offre una scorciatoia.',
+    effect: 'Rivelate una tessera coperta adiacente a quella di un eroe (la scelgono i giocatori).' },
+  { art: 'artworks/Tavoli del banchetto.png', title: 'Tavoli del Banchetto', tipo: 'Ostacolo',
+    flavor: 'Tavoli imbanditi per le nozze ingombrano il salone: si passa, ma piano.',
+    effect: 'Fino a fine round, sulla tessera dell’eroe attivo muoversi costa il doppio.' },
+  { art: 'artworks/Un candeliere in faccia.png', title: 'Un Candeliere in Faccia', tipo: 'Danno',
+    flavor: 'Un complice, disperato, afferra un candeliere e lo scaglia.',
+    effect: 'Un eroe a caso (chi arbitra tira) subisce 1 danno.' },
+].map((m) => ({
+  art: m.art,
+  title: `${m.tipo} — ${m.title}`,
+  file: `Episodio 16/Minacce/${m.title.replace(/’/g, "'")}`,
+  rules: `{i}${m.flavor}{/i}{divider}${m.effect}`,
+}));
+
+const EP16_OGGETTI = [
+  { art: 'artworks/Fascicolo delle Vittime.png', nome: 'Il Fascicolo delle Vittime', ref: 'E16-L5',
+    fonte: 'Luogo 5 — La Casa dell’Ex Fidanzata',
+    flavor: 'Nomi, date, le altre ragazze rovinate dallo stesso uomo: un dossier costruito per rabbia negli anni. La sola cosa che scioglie l’incantesimo.',
+    effetto: 'Mostrato a Bruna (T6, o già al Salone T4): la bugia delle nozze crolla, lei si stacca dallo Sposo — CATTURA AUTOMATICA (vittoria pulita), niente fuga in barca.' },
+  { art: 'artworks/Lettera di M.png', nome: 'La Lettera di M.', ref: 'E16-L6',
+    fonte: 'Luogo 6 — L’Archivio delle Lettere',
+    flavor: 'La lettera d’incarico di stanotte: nomina «la piccola col nastro verde al polso», un segreto che nessuno ha confidato al presidente. La crepa.',
+    effetto: 'Il seme più pesante della campagna. Abilita la RILETTURA: rileggere le vecchie lettere di M. banca incroci per l’Ep. 18. Nessun vantaggio meccanico in questo episodio.' },
+  { art: 'artworks/Indirizzo della Villa.png', nome: 'L’Indirizzo della Villa', ref: 'E16-L8',
+    fonte: 'Luogo 8 — Il Registro degli Affitti',
+    flavor: 'La villa dei Càrpine, sponda di ponente, affittata con nome falso. Sapete dove sbarcare.',
+    effetto: 'All’inizio della spedizione entrate dal punto giusto (T1): non perdete il round a orientarvi nel buio del giardino.' },
+  { art: 'artworks/Mazzo di Fiori.png', nome: 'Il Mazzo di Fiori dello Sposo', ref: 'E16-L7',
+    fonte: 'Luogo 7 — Il Fioraio',
+    flavor: 'Le rose bianche con cui lo sposo perfetto incanta le ragazze. Il suo metodo d’adescamento.',
+    effetto: 'Effetto: nessuno finora scoperto.' },
+  { art: 'artworks/Biglietto d’Amore.png', nome: 'Un Biglietto d’Amore', ref: 'E16-L2',
+    fonte: 'Luogo 2 — Il Caffè degli Annunci',
+    flavor: 'Un biglietto d’amore dimenticato, firma illeggibile. Alimenta la voce della fuga d’amore.',
+    effetto: 'Effetto: nessuno finora scoperto.' },
+].map((o) => ({
+  art: o.art,
+  title: o.nome,
+  file: `Episodio 16/Oggetti/${o.nome.replace(/’/g, "'")}`,
+  type: 'Oggetto',
+  rules: `{i}${o.flavor}{/i}{divider}${o.effetto}`,
+  ref: o.ref, fonte: o.fonte,
+}));
+
+const EP16_NEMICI = [
+  { art: 'artworks/Lo Sposo.png', title: 'Lo Sposo',
+    type: 'Il Truffatore Matrimoniale (Boss) — Episodio 16',
+    rules: '{i}Aldo Sereni, o uno dei dieci nomi che indossa come cravatte: un truffatore matrimoniale, non un mostro. Promette nozze, si fa firmare la dote, sparisce. Vile, viscido, quasi patetico — il contrario di tutto ciò che cacciate.{/i}{divider}Statistiche nel Bestiario. Il boss più debole della campagna. Debolezza: il Fascicolo delle Vittime (cattura automatica). «Quale nome?» (D2): chiedergli quale dei dieci sia il vero lo confonde, salta un attacco. Se raggiunge l’imbarcadero con Bruna sotto l’inganno, tenta la fuga in barca.' },
+].map((n) => ({ ...n, file: `Episodio 16/Nemici/${n.title}` }));
+
+const EP16 = [...LUOGHI16, ...EP16_INDIZI, ...EP16_TESTIMONI, ...EP16_REFERTI,
+              ...EP16_MINACCE, ...EP16_OGGETTI, ...EP16_NEMICI];
+
+
 module.exports = {
   HEROES, NEMICI, MINACCE, LUOGHI, INDIZI, TESTIMONI, REFERTI, OGGETTI, PRELUDIO,
   PRELUDIO_LUOGHI, PRELUDIO_APPROFONDIMENTI, PRELUDIO_OGGETTI,
@@ -3725,5 +3951,6 @@ module.exports = {
   EP13, LUOGHI13, EP13_INDIZI, EP13_TESTIMONI, EP13_REFERTI, EP13_MINACCE, EP13_OGGETTI, EP13_NEMICI,
   EP14, LUOGHI14, EP14_INDIZI, EP14_TESTIMONI, EP14_REFERTI, EP14_MINACCE, EP14_OGGETTI, EP14_NEMICI,
   EP15, LUOGHI15, EP15_INDIZI, EP15_TESTIMONI, EP15_REFERTI, EP15_MINACCE, EP15_OGGETTI, EP15_NEMICI,
-  ALL: [...HEROES, ...NEMICI, ...MINACCE, ...LUOGHI, ...INDIZI, ...TESTIMONI, ...REFERTI, ...OGGETTI, ...PRELUDIO, ...EP2, ...EP3, ...EP4, ...EP5, ...EP6, ...EP7, ...EP8, ...EP9, ...EP10, ...EP11, ...EP12, ...EP13, ...EP14, ...EP15],
+  EP16, LUOGHI16, EP16_INDIZI, EP16_TESTIMONI, EP16_REFERTI, EP16_MINACCE, EP16_OGGETTI, EP16_NEMICI,
+  ALL: [...HEROES, ...NEMICI, ...MINACCE, ...LUOGHI, ...INDIZI, ...TESTIMONI, ...REFERTI, ...OGGETTI, ...PRELUDIO, ...EP2, ...EP3, ...EP4, ...EP5, ...EP6, ...EP7, ...EP8, ...EP9, ...EP10, ...EP11, ...EP12, ...EP13, ...EP14, ...EP15, ...EP16],
 };

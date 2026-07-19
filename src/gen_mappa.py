@@ -201,6 +201,15 @@ VOCI_MAPPA = [
     ('L’Archivio dei Manuali', 'palazzo del Lume, sala dei dodici manuali', 'ep15'),
     ('Il Deposito Reperti', 'corso della Prefettura 3, deposito della scientifica', 'ep15'),
     ('La Bottega dell’Incisore', 'calle degli Incisori 5, retrobottega', 'ep15'),
+    # Episodio 16 — un caso qualunque (Atto III, respiro). Riusi: La Gazzetta di
+    # Roccamora ('ep3'), La Stazione delle Carrozze ('citta').
+    ('La Casa del Lampionaio', 'riva dei Lumi 4, casa del lampionaio', 'ep16'),
+    ('Il Caffè degli Annunci', 'piazza del Foro 9, caffè degli annunci', 'ep16'),
+    ('La Casa dell’Ex Fidanzata', 'contrada delle Vedove 2, alloggio', 'ep16'),
+    ('L’Archivio delle Lettere', 'palazzo del Lume, archivio delle corrispondenze', 'ep16'),
+    ('Il Fioraio', 'calle dei Fiori 7, bottega', 'ep16'),
+    ('Il Registro degli Affitti', 'corso della Prefettura 12, ufficio degli affitti', 'ep16'),
+    ('La Villa sul Lago', 'sponda di ponente, villa dei Càrpine, fuori porta', 'ep16'),
 ]
 
 # (sottocartella pdf/, sottotitolo, tag inclusi). Un episodio nuovo aggiunge
@@ -222,6 +231,7 @@ MAPPE = [
     ('Episodio 13', 'episodio 13 — la città e la strada fuori porta', ('citta', 'preludio', 'ep1', 'ep2', 'ep3', 'ep4', 'ep5', 'ep6', 'ep7', 'ep8', 'ep9', 'ep10', 'ep11', 'ep12', 'ep13')),
     ('Episodio 14', 'episodio 14 — la città e i tetti del Corso', ('citta', 'preludio', 'ep1', 'ep2', 'ep3', 'ep4', 'ep5', 'ep6', 'ep7', 'ep8', 'ep9', 'ep10', 'ep11', 'ep12', 'ep13', 'ep14')),
     ('Episodio 15', 'episodio 15 — la città e la villa di Braga', ('citta', 'preludio', 'ep1', 'ep2', 'ep3', 'ep4', 'ep5', 'ep6', 'ep7', 'ep8', 'ep9', 'ep10', 'ep11', 'ep12', 'ep13', 'ep14', 'ep15')),
+    ('Episodio 16', 'episodio 16 — la città e la villa sul lago', ('citta', 'preludio', 'ep1', 'ep2', 'ep3', 'ep4', 'ep5', 'ep6', 'ep7', 'ep8', 'ep9', 'ep10', 'ep11', 'ep12', 'ep13', 'ep14', 'ep15', 'ep16')),
 ]
 
 # Tipografico (provata la grafia manoscritta La Belle Aurore su tutta la
