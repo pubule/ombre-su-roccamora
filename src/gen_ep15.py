@@ -652,21 +652,21 @@ def soluzione():
         'da quel round niente più documentazione, gli Apparecchiatori spariscono, resta la sola '
         'Busta pubblica. Le carte crescendo (passi/cordone) accelerano.',
         '<b>La cancellazione e i tell.</b> Ci sono <b>5 tell</b> del falso da documentare '
-        '(Interagire, a T2/T3 soprattutto). Da T4 gli Apparecchiatori ne cancellano <b>1 per '
-        'round</b> (finché il Capo è in piedi). Servono <b>3 tell documentati</b> per la '
+        '(Interagire, a T2/T3 soprattutto). Da T4 gli Apparecchiatori ne cancellano <b>2 per '
+        'round</b> (finché il Capo è in piedi). Servono <b>4 tell documentati</b> per la '
         'Contro-busta. Il Manuale Indiziario: +1 documentato/round. Il Reagente: +1 tell iniziale.',
         '<b>Il Capo Apparecchiatore.</b> Boss: Att +3, Dif 8, Fer 6, Mov 3, Danno 2. Va '
         'ridotto/abbattuto e poi preso (Interagire) per le Istruzioni con la Grafia di Braga. '
         'Nessuna debolezza-oggetto. «Il metodo della società» (D3 esatta): saltare un attacco. Ai '
         'tavoli da 2-3 eroi non recupera ferite.',
-        '<b>Vittoria.</b> Capo preso E 3+ tell documentati prima del sigillo = <b>vittoria '
-        'piena</b> (si apre la Contro-busta: «chi ha scritto il dossier?»). Capo preso ma pochi '
+        '<b>Vittoria.</b> Capo preso E 4+ tell documentati prima del sigillo = <b>vittoria '
+        'piena</b> (si apre la Contro-busta se avete 4+ tell). Capo preso ma pochi '
         'tell, o sigillo già scattato = <b>vittoria parziale</b> (un dubbio, non una prova: l’Ep. '
         '17 parte più fragile). <b>Il mazzo:</b> 21 carte (7 Apparecchiatori/Sicari, 6 insidie di '
         'scena, 4 crescendo-sigillo, 4 eventi).',
     ])
     pagina('contro-busta, epilogo, frammento e bivio', [
-        '<b>CONTRO-BUSTA — apritela SOLO se avete preso il Capo e documentato 3+ tell.</b><br/>'
+        '<b>CONTRO-BUSTA — apritela SOLO se avete preso il Capo e documentato 4+ tell.</b><br/>'
         '<b>5. CHI HA SCRITTO IL DOSSIER?</b> Una mano interna alla Società: il metodo è quello del '
         'manuale (12 copie, la n. 7 consultata di recente), le istruzioni agli Apparecchiatori sono '
         'di grafia di Braga ma troppo perfette. Non un nome, ancora: «uno di noi». È il seme verso '

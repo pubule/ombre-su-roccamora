@@ -14,7 +14,7 @@ Ispettore onesto e bravissimo che M. vi ha aizzato addosso.
 **Varietà strutturale (regola 2026-07-18, dichiarazione di Fase A):**
 elemento variato = **(a) la CAMPAGNA COME INDAGINE — il pay-off totale**. Per la
 prima e unica volta, i nove «luoghi» non sono edifici ma **PNG del passato**
-(Fossa, Ruggero, la Vedova, Braga, il decano, l'Ispettore…), e ciascuno vi
+(Fossa, Ruggero, la Vedova, Braga, il decano…), e ciascuno vi
 apre o vi chiude la porta secondo il **Bivio** che lo riguarda: la campagna
 presenta il conto delle vostre scelte, in bene e in male. Non si scoprono nuovi
 indizi: si **incassa** ciò che si è seminato. **Seconda variazione (boss che si

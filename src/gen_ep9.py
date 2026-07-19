@@ -554,7 +554,7 @@ def token_groups_9():
     from deluxe_style import ARTWORKS_DIR
     groups = [
         TOKEN_EROI,
-        ('SGHERRI (x5) · SICARI (x2)', [('Lo Sgherro.png', 5), ('Il Sicario.png', 2)]),
+        ('SGHERRI (x5) · SICARI (x3)', [('Lo Sgherro.png', 5), ('Il Sicario.png', 3)]),
         ('SICARIO GENTILE · RIVA', [('Il Sicario Gentile.png', 1), ('Anselmo Riva.png', 1)]),
         ('L’ORA CHE STRINGE (CANTO)', [('La prima ronda passa.png', 1),
                                        ('Le campane dell’una.png', 1),

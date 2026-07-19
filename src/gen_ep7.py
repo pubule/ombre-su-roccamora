@@ -408,7 +408,7 @@ TILES_7 = [
                'proprio sangue. Al centro, legato a una sedia tra i sacchi di scorie, '
                'ERNESTO FAVA: vivo, magro, e con gli occhi di chi conta i giorni. QUANDO '
                'RIVELATE QUESTA TESSERA: appare IL CAPOCANTIERE con la Squadra del '
-               'Silenzio — 2 Sgherri, più 1 ogni 4 eroi oltre il quarto.',
+               'Silenzio — 2 Sgherri, più 1 ogni 4 eroi.',
          arbitro='Liberare Fava: Interagire, nessuna prova; si muove col gruppo (Movimento '
                  '3, non agisce). Il Capocantiere NON parla mai durante lo scontro: nel '
                  'silenzio che ha costruito, non serve. «Smascherato» (Domanda 2 esatta): '
@@ -573,7 +573,7 @@ def spedizione():
         Paragraph('Statistiche nel <b>Bestiario dell’Episodio 7</b> (PDF a parte). In campo: '
                   'la <b>Squadra del Silenzio</b> e i manovali (Sgherri), il <b>Guardiano di '
                   'notte</b> (Sicario) e <b>il Capocantiere</b> (il boss: appare in T6 con 2 '
-                  'Sgherri, +1 ogni 4 eroi oltre il quarto). Nessun mostro: l’orrore, qui, è '
+                  'Sgherri, +1 ogni 4 eroi). Nessun mostro: l’orrore, qui, è '
                   'il silenzio. Vittoria: liberate Fava (Interagire in T6) e riportatelo in '
                   'T1 per la via dell’andata. <b>Nelle tessere SORDE</b> (T3I, T4I, T5I) ogni '
                   'aiuto tra eroi richiede adiacenza, e la prima carta spawn di ogni tessera '
@@ -596,7 +596,7 @@ def token_groups_7():
     from deluxe_style import ARTWORKS_DIR
     groups = [
         TOKEN_EROI,
-        ('SGHERRI (x4) · SICARI (x2)', [('Lo Sgherro.png', 4), ('Il Sicario.png', 2)]),
+        ('SGHERRI (x5) · SICARI (x2)', [('Lo Sgherro.png', 5), ('Il Sicario.png', 2)]),
         ('CAPOCANTIERE · FAVA', [('Il Capocantiere.png', 1), ('Ernesto Fava.png', 1)]),
         ('ALLARME (CANTO)', [('Un fischio di sotto.png', 1), ('Le lanterne si muovono.png', 1),
                              ('Il cantiere è sveglio.png', 1)]),
@@ -715,7 +715,7 @@ def soluzione():
         'cantiere si sbarra (12° segnalino, 13° se avete il conteggio esatto — vedi Domanda QUANTI?):</b> portoni chiusi, squadre a ogni varco — '
         'la fuga è impossibile, Fava resta dentro: sconfitta (a tempo, non a sangue).',
         '<b>Il Capocantiere</b> (statistiche nel Bestiario; Ferite per taglia tabellate): '
-        'appare quando rivelate T6, con 2 Sgherri (+1 ogni 4 eroi oltre il quarto). '
+        'appare quando rivelate T6, con 2 Sgherri (+1 ogni 4 eroi). '
         'Nessuna debolezza-oggetto: è un uomo — si combatte, si aggira, o si smaschera '
         '(Domanda 2). Vittoria: Fava (Interagire) fuori da T1 per la via dell’andata. '
         'Il Capocantiere e la squadra INSEGUONO: le prove dei ponteggi al ritorno valgono '

@@ -236,12 +236,14 @@ più al cortile (siete soli).
 - **Il seme C.B./M. (uno, periferico):** il Registro dei Noli (L7, Reperto C):
   sessant'anni di forniture a un professore collezionista «C.B.», e la carrozza
   condivisa col Palazzo del Lume. Apre l'Ep. 14 (Braga).
-- **Bivio Ep. 13** (sigillare): *Arrestare il Notaio subito* — in cella Rasca
-  fa UN nome, il **professor Braga** (l'Ep. 14 parte con un sospetto già in
-  mano), ma la filiera si chiude: **un incrocio in meno nell'Ep. 14**.
+- **Bivio Ep. 13** (sigillare): *Puntare all'arresto del Notaio* — un fermo
+  breve: in cella, prima che i soldi di C.B. lo scarcerino in pochi giorni,
+  Rasca fa UN nome, il **professor Braga** (l'Ep. 14 parte con un sospetto già
+  in mano), ma il fermo chiude la filiera: **un incrocio in meno nell'Ep. 14**.
   *Pedinarlo* — **un incrocio in più nell'Ep. 14**, ma è lui che vi porta dove
-  vuole: la falsa pista su Braga nasce qui, più credibile. Ogni ramo ha il suo
-  controfattuale concreto.
+  vuole: la falsa pista su Braga nasce qui, più credibile. In entrambi i rami
+  Rasca resta libero per l'Atto III (lo si cattura solo nell'Ep. 17): il fermo
+  è temporaneo, C.B. lo tira fuori. Ogni ramo ha il suo controfattuale.
 - **Aggancio Ep. 14:** sul registro del molino, tra i clienti storici,
   sessant'anni di forniture a un professore collezionista. Iniziali C.B. Un
   nome che in città conoscono tutti: il rivale storico del vostro presidente.

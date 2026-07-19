@@ -565,9 +565,9 @@ def simula_spedizione(party, indagine, log, formula_minaccia='finale_v3'):
                         f'({prova}/{PROVA_MAX}).')
 
             fase_minaccia(a_t6=True)
-            # Muratore: inchiodato -> attacca il pinner E demolisce a mezza mazza
-            # (un bruto: una mano sul muro); libero -> colpo pieno. Solo
-            # abbatterlo ferma del tutto la demolizione (seconda via).
+            # Muratore: inchiodato (un eroe adiacente) -> attacca il pinner INVECE
+            # di demolire, la traccia si ferma; libero -> cala la mazza (colpo
+            # pieno). Solo tenerlo inchiodato o abbatterlo ferma la demolizione.
             fase_nemici_combattimento(pinner=pinner)
             if muratore['fer'] > 0:
                 pinned = pinner is not None and pinner not in down
@@ -575,11 +575,13 @@ def simula_spedizione(party, indagine, log, formula_minaccia='finale_v3'):
                     muratore_primo_colpo_saltato[0] = True
                     log('    [LA CASA HA GIÀ PARLATO — D2] il Muratore esita: salta il primo '
                         'colpo di demolizione.')
+                elif pinned:
+                    log('    Il Muratore inchiodato attacca chi lo tiene INVECE di demolire: '
+                        f'DEMOLIZIONE ferma a {demolizione}/{DEMOLIZIONE_MAX}.')
                 else:
-                    inc = 1 if pinned else DEMO_STRIKE
-                    demolizione += inc
-                    log(f'    Il Muratore {"a mezza mazza (inchiodato)" if pinned else "cala la mazza"}: '
-                        f'+{inc} -> DEMOLIZIONE {demolizione}/{DEMOLIZIONE_MAX}.')
+                    demolizione += DEMO_STRIKE
+                    log(f'    Il Muratore cala la mazza: +{DEMO_STRIKE} -> '
+                        f'DEMOLIZIONE {demolizione}/{DEMOLIZIONE_MAX}.')
             if round_n % TICK_CANTO_OGNI == 0 and vivi():
                 aggiungi_canto()
                 log(f'  [OROLOGIO] Fine del {round_n}° round: +1 Canto automatico.')

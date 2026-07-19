@@ -630,7 +630,7 @@ def soluzione():
     ])
     pagina('spedizione — l’inseguimento del corriere', [
         '<b>La traccia FUGA (segnalino su carta):</b> lunga <b>10 caselle</b>. Vantaggio iniziale: '
-        '<b>2</b> (Domanda 3 esatta) o <b>4</b> (sbagliata). Il Registro dei Ritiri toglie 1 al '
+        '<b>3</b> (Domanda 3 esatta) o <b>6</b> (sbagliata). Il Registro dei Ritiri toglie 1 al '
         'vantaggio iniziale. Se la FUGA si riempie quando il Corriere è a T6: consegna, sconfitta. '
         'Se lo agganciate prima: vittoria.',
         '<b>Montaggio</b> (tessere in Episodio 12/board/, coperte tranne T1):<br/>'
@@ -639,7 +639,7 @@ def soluzione():
         'T6 Cimitero delle Barche (lo scambio). Con il Registro si salta T3 e la sua trappola.',
         '<b>FUGA.</b> Alla fine di ogni round in cui NESSUN eroe è adiacente al Corriere, +1; ogni '
         'carta crescendo (la corrente lo aiuta) +1. Ai ponti coperti (T2, T5), col Fischietto, i '
-        'gendarmi chiudono il varco: −2 alla FUGA (o aggancio automatico se il Corriere vi è in '
+        'gendarmi chiudono il varco: −1 alla FUGA (o aggancio automatico se il Corriere vi è in '
         'vista). Senza Lanterna Sorda, a T4 la nebbia dà +1 FUGA.',
         '<b>AGGANCIO.</b> Essere adiacenti al Corriere e spendere Interagire lo blocca (vittoria). '
         'La scorta comprata (Sgherri; il Sicario Gentile se sopravvissuto, che bypassa lo scudo e '

@@ -5,8 +5,8 @@ COPIA di simulate_ep5.py cucita sul finale (vedi DESIGN-EPISODIO-6.md):
 8 tessere, tre azioni-cardine con prova (VIGORE/ACUME/NERVI Media) che
 spengono i movimenti e CALANO la Difesa di Ferri (9->8->7->6), il Coro
 dei Dodici in T8 (6 Coristi: finche' 3+ vivi, +1 Canto ogni 2 round; a
-0 ferite fuggono), le soglie ambiente del Dormiente (Canto 3: prove -1;
-5: 1 danno/round all'eroe con meno NERVI; 7: il rituale si compie -
+0 ferite fuggono), le soglie ambiente del Dormiente (Canto 4: prove -1;
+6: 1 danno/round all'eroe con meno NERVI; 9: il rituale si compie -
 non-vittoria), la marea al rientro in T2, la Formula del Sigillo (L7:
 letta a 3 movimenti spenti, Ferri crolla senza combattere fino in
 fondo). Config condivisa riusata. Non simulati e dichiarati: la

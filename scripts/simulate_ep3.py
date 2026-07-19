@@ -558,7 +558,7 @@ MALAVITA_TRUPPA = {'LO SGHERRO', 'IL SICARIO', 'ADEPTO INCAPPUCCIATO', 'LA VOCE 
 # livello Custode con Dif -1 (umano, si colpisce meglio). Il Campanello
 # di Piero fa Dif 8->5 + salta un'attivazione: stessa matematica del
 # diapason/della stonatura.
-CUSTODE = dict(nome='L’ACCORDATORE', att=3, dif=8, fer=3, mov=3, dan=2)
+CUSTODE = dict(nome='L’ACCORDATORE', att=3, dif=8, fer=4, mov=3, dan=2)
 
 # Luoghi Indagine, versione compatta per la sola AI di scelta + sblocchi.
 # (n, req_key or None, sblocca[list], chiude_ore[set], approfondimenti[tipo->eroi idonei])

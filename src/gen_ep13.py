@@ -700,9 +700,11 @@ def soluzione():
         '<b>FRAMMENTO DI CAMPAGNA N. 13:</b> <i>«C.B. non compra la carta: compra il silenzio di '
         'chi la vende. Il prezzo è sempre esatto. Conosce i bilanci di tutti.»</i> Conservatelo.',
         '<b>IL BIVIO — decidete insieme, poi sigillate.</b><br/>'
-        '<b>Arrestare il Notaio subito.</b> In cella Rasca fa UN nome — il professor Braga '
-        '(l’Episodio 14 parte con un sospetto già in mano), ma la filiera si chiude: un incrocio '
-        'in meno nell’Episodio 14.<br/>'
+        '<b>Puntare all’arresto del Notaio.</b> La filiera di carta basta per un fermo: in cella, '
+        'prima che i soldi di C.B. lo facciano scarcerare in pochi giorni, Rasca fa UN nome — il '
+        'professor Braga (l’Episodio 14 parte con un sospetto già in mano), ma il fermo chiude la '
+        'filiera: un incrocio in meno nell’Episodio 14. Rasca torna comunque libero: lo '
+        'riprenderete solo molto più avanti.<br/>'
         '<b>Pedinarlo.</b> Un incrocio in più nell’Episodio 14, ma è lui che vi porta dove vuole: '
         'la falsa pista su Braga nasce qui, più credibile.<br/>'
         'Scrivete la scelta sul retro del Frammento n. 13.',
