@@ -47,6 +47,8 @@ from gen_ep11 import (LUOGHI_11, TILES_11, NEMICI_11, OGGETTI_LUOGO_11, LETTERA_
                       ESAMI_CARBONE_11)
 from gen_ep12 import (LUOGHI_12, TILES_12, NEMICI_12, OGGETTI_LUOGO_12, LETTERA_12,  # noqa: E402
                       ESAMI_CARBONE_12)
+from gen_ep13 import (LUOGHI_13, TILES_13, NEMICI_13, OGGETTI_LUOGO_13, LETTERA_13,  # noqa: E402
+                      ESAMI_CARBONE_13)
 from gen_mappa import VOCI_MAPPA, MAPPE  # noqa: E402
 from gen_bestiario import FASCE, BOSS_DELTA, ferite_per_fascia  # noqa: E402
 from simulate_playtest import (INDAGINE_UNLOCK, TICK_CANTO_OGNI, SOGLIA_CANTO,  # noqa: E402
@@ -63,6 +65,7 @@ from simulate_ep9 import TOKEN_POOL_BASE as POOL_EP9  # noqa: E402
 from simulate_ep10 import TOKEN_POOL_BASE as POOL_EP10  # noqa: E402
 from simulate_ep11 import TOKEN_POOL_BASE as POOL_EP11  # noqa: E402
 from simulate_ep12 import TOKEN_POOL_BASE as POOL_EP12  # noqa: E402
+from simulate_ep13 import TOKEN_POOL_BASE as POOL_EP13  # noqa: E402
 
 
 def strip_tags(s):
@@ -126,6 +129,9 @@ REPERTI_LUOGO = {
     'ep12': {1: ['Reperto A - Perizia dei Sigilli'],
              6: ['Reperto B - Pagina Ricopiata'],
              3: ['Reperto C - Ricevuta del Fermo-Posta']},
+    'ep13': {9: ['Reperto A - Filigrana'],
+             8: ['Reperto B - Bolla di Transito'],
+             7: ['Reperto C - Registro dei Noli']},
 }
 
 
@@ -465,6 +471,27 @@ SOLUZIONI = dict(
         ],
         boss='IL CORRIERE',
     ),
+    ep13=dict(
+        domande=[
+            dict(q='DOVE si produce la carta di pregio?',
+                 risposta='Al Molino delle Carte, due ore fuori città: un solo opificio ha quella filigrana.',
+                 esatta='Sapete dove finisce la corsa: col Lasciapassare del Nolo saltate lo sbarramento del Cortile (T1) e la sua guardia.',
+                 sbagliata='Arrivate al cancello alla cieca: la guardia del Cortile (T1) vi ingaggia.'),
+            dict(q='CHI amministra la filiera?',
+                 risposta='Il Notaio Rasca, che intesta e paga i noli — appare al Molino e fugge in carrozza.',
+                 esatta='Sapete il nome che comanda: al torchio il Sorvegliante esita un round (salta il suo primo attacco).',
+                 sbagliata='Nessun effetto. (Il Timbro del Notaio è un’esca: timbro di routine, non lo inchioda.)'),
+            dict(q='COSA SAPEVA il capo-catena annegato?',
+                 risposta='Che le risme di C.B. viaggiano sulla carrozza del Palazzo del Lume — la deposizione mai resa, ricostruita dai suoi appunti e dal registro dei noli.',
+                 esatta='La deposizione è ricostruita (incroci L5+L7): il seme dell’Atto III è saldo, la prova regge in tribunale.',
+                 sbagliata='Il filo resta monco: senza la deposizione la prova al torchio vale meno (verso la vittoria parziale).'),
+            dict(q='COSA portate al Molino?',
+                 risposta='LA CASSETTA STAGNA (il Deposito delle Risme, L8): chiusa, salva i registri dall’acqua e dal fuoco.',
+                 esatta='I registri sequestrati sono immuni al rogo: la prova esce intatta — VITTORIA PIENA anche col fuoco alto.',
+                 sbagliata='Portate via i registri a mani nude: se il Canto ha superato la soglia-rogo la prova è degradata — vittoria parziale. (La Lettera di Raccomandazione è un’esca.)'),
+        ],
+        boss='IL SORVEGLIANTE DEL MOLINO',
+    ),
     preludio=dict(
         domande=[
             dict(q='DOVE è tenuto Ansaldo?',
@@ -683,6 +710,24 @@ episodi = dict(
         vantaggio=dict(slancio_ore=3, preparati_ore=1, preparati_luoghi=6),
         soluzione=SOLUZIONI['ep12'],
         pool=POOL_EP12,
+    ),
+    ep13=dict(
+        id='ep13', titolo='Carta di pregio',
+        sottotitolo='episodio 13 — Atto III (apertura): la cartiera di C.B., il molino fuori città',
+        cartella='Episodio 13', ore_budget=6,
+        lettera=LETTERA_13,
+        obiettivo='Salite il Molino delle Carte fino al torchio (T6), superate o abbattete il '
+                  'Sorvegliante e SEQUESTRATE i registri (Interagire). Con la Cassetta Stagna sono '
+                  'salvi dal rogo: prova intatta, VITTORIA PIENA. Se il Notaio ha già dato fuoco ai '
+                  'magazzini (Canto oltre la soglia-rogo) e non avete la Cassetta, li portate via '
+                  'anneriti: vittoria parziale, ma l’Atto prosegue. Il Notaio non si prende: appare '
+                  'in T4, ordina il rogo e fugge in carrozza.',
+        esami_carbone=ESAMI_CARBONE_13,
+        luoghi=[luogo_json(L, OGGETTI_LUOGO_13, REPERTI_LUOGO['ep13']) for L in LUOGHI_13],
+        tessere=[tessera_json(T) for T in TILES_13],
+        vantaggio=dict(slancio_ore=3, preparati_ore=1, preparati_luoghi=6),
+        soluzione=SOLUZIONI['ep13'],
+        pool=POOL_EP13,
     ),
 )
 
