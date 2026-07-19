@@ -490,6 +490,7 @@ LUOGHI_SIM = [
     dict(n=5, nome='Il Sottopalco delle Macchine', req=('parola', 'CONTRAPPESO MORTO'),
          chiude=None, approf=['Referto'], incrocio_d1=True, incrocio_d3=True, pianta=True),
     dict(n=6, nome='Casa del Maestro Alboni', req=('parola', 'L’ARIA DEL TERZO ATTO'),
+         sblocca_visita=2,  # catena sociale: la Vetri (L2) presenta ad Alboni
          chiude=None, approf=['Osservazione'], incrocio_d3=True),
     dict(n=7, nome='L’Archivio degli Spartiti', req=('parola', 'LO SPARTITO CHE CANTA'),
          chiude=None, approf=['Referto'], libretto=True),

@@ -97,7 +97,7 @@ LUOGHI_9 = [
                         'promesso.'),
          ]),
     dict(n=2, nome='LA REDAZIONE DELLA GAZZETTA', voce_mappa='La Gazzetta di Roccamora',
-         req='Disponibile dall’inizio', art='La Gazzetta.png',
+         req='Disponibile dall’inizio', art='Gazzetta di Roccamora.png',
          chiude=None,
          indizi=[
              'Ranuzzi copre il processo e ha un dente avvelenato: «l’avvocato Grassi non ha '

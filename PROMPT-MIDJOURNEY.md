@@ -41,6 +41,20 @@ full bleed dark fantasy painting, brutish dockside thug in a worn wool coat and 
 full bleed dark fantasy painting, lean silent assassin in dark tailored clothes, half his face in shadow under a low brim, a thin stiletto blade catching a glint of lamplight, poised to strike from an alley, no mask no robe, ordinary killer, 1889 gaslamp gothic, oil painting, dramatic candlelight, muted teal and crimson palette with gold accents --ar 3:4 --style raw --no frame, border, card, text, letters, watermark, wax, mask, hood, robe, monster
 ```
 
+### Luoghi ricorrenti (cross-episodio)
+
+Due sedi civiche che tornano in più episodi (l'Archivio negli Ep. 9-11, la Gendarmeria negli Ep. 9-10). Si generano UNA volta e si riusano; finché mancano, il codice cade sul placeholder. Salva coi nomi esatti che il codice referenzia.
+
+**L’Archivio Civico** → `artworks/L’Archivio Civico.png`
+```
+full bleed dark fantasy painting, a labyrinth of a municipal civic archive at night, towering shelves of dusty ledgers, deeds and cadastral maps, a reading lamp on a cluttered desk, motes of dust in the lamplight, 1889 gaslamp gothic, oil painting, one warm lamp in the gloom, sepia and dust-grey palette with teal shadows --ar 3:4 --style raw --no frame, border, card, text, letters, watermark, figures
+```
+
+**La Gendarmeria** → `artworks/La Gendarmeria.png`
+```
+full bleed dark fantasy painting, a half-empty gendarmerie station at night, a duty register open on a worn counter, old case files pigeonholed on the wall, a single lamp, the quiet of a place that closed too many cases too fast, 1889 gaslamp gothic, oil painting, one lamp on cold order, sepia and grey palette with teal shadows --ar 3:4 --style raw --no frame, border, card, text, letters, watermark, figures
+```
+
 ## Soggetti — Eroi (ritratti, --ar 3:4)
 
 Sostituisci RITRATTO e usa questo prompt unico:

@@ -156,7 +156,7 @@ LUOGHI_11 = [
                         'pietra, in tutta Roccamora, il suono ci arriverebbe sopra.'),
          ]),
     dict(n=4, nome='LA CAMERA DEI PESI', voce_mappa='La Camera dei Pesi e delle Misure',
-         req='Disponibile dall’inizio', art='La Camera dei Pesi.png',
+         req='Disponibile dall’inizio', art='Camera dei Pesi.png',
          chiude=20,
          indizi=[
              'L’ufficio dei pesi e misure tara gli strumenti della città: bilance, regoli, e le '
@@ -211,7 +211,7 @@ LUOGHI_11 = [
     dict(n=6, nome='IL CAMPANILE DI SAN TEODORO', voce_mappa='Il Campanile di San Teodoro',
          req='Al campanile si sale, e a quest’ora la salita è chiusa: apre solo a chi sa che la '
              'misura buona si prende con la marea, quando l’acqua del molo è al suo segno.',
-         chiave=('parola', 'LA MAREA DEL MOLO'), art='Il Campanile di San Teodoro.png',
+         chiave=('parola', 'LA MAREA DEL MOLO'), art='Cella campanaria.png',
          chiude=19,
          indizi=[
              'Il campanaro, vecchio e sordo di un orecchio, ricorda i topografi: «salivano '

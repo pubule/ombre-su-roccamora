@@ -1457,7 +1457,7 @@ const LUOGHI6 = [
         testo: 'Ricalcando le tre carte idrografiche, la camera appare da sola: un vuoto rotondo dove nessuna vena passa ATTRAVERSO — tutte si fermano al bordo, come radici che nutrono senza entrare. La città non è costruita sopra qualcosa. È costruita INTORNO.' },
     ] },
   { n: 4, nome: 'Il Palazzo del Lume', req: 'Disponibile dall’inizio',
-    art: 'artworks/Il Palazzo del Lume.png',
+    art: 'artworks/Palazzo del Lume.png',
     testo: 'Tutte le lampade accese, tutte le stanze. M. ha disposto sul tavolo grande l’archivio dei Frammenti: i vostri cinque casi, le buste dei Bivi, i cimeli. «Stanotte si spende tutto», dice. «Ogni pezzo conservato è un incrocio in più. Contateli.»',
     approfondimenti: [
       { tipo: 'Testimonianza', soggetto: 'M., a porte chiuse',
@@ -2136,7 +2136,7 @@ const LUOGHI9 = [
         testo: 'I faldoni della difesa sono ORDINATI per la deposizione di domani: ogni obiezione già scritta, ogni testimone già smontato — compreso Riva, con una nota: «ritratta o non compare». La difesa non improvvisa: sa GIÀ cosa dirà Riva, o cosa non dirà. Qualcuno gliel’ha promesso.' },
     ] },
   { n: 2, nome: 'La Redazione della Gazzetta', req: 'Disponibile dall’inizio',
-    art: 'artworks/La Gazzetta.png',
+    art: 'artworks/Gazzetta di Roccamora.png',
     testo: 'Il torchio fermo ma caldo, le bozze appese come panni, Ranuzzi curvo sul processo con l’astio del cronista a cui hanno tolto la notizia più grossa. Sa tutto e non può stampare niente: l’uomo giusto con cui parlare, di notte, a bassa voce.',
     approfondimenti: [
       { tipo: 'Testimonianza', soggetto: 'Ranuzzi',
@@ -2602,7 +2602,7 @@ const LUOGHI11 = [
         testo: 'Le misure di Ratti, ordinate e riportate sulla pianta, non descrivono la città: la triangolano verso un solo fuoco, un punto sotto la Cattedrale che nessuna mappa civica riconosce. Non è un censimento di campane: è un rilievo di puntamento. Qualcuno vuole sapere al palmo dove si trova quel vuoto — e da quali bocche di pietra, in tutta Roccamora, il suono ci arriverebbe sopra.' },
     ] },
   { n: 4, nome: 'La Camera dei Pesi', req: 'Disponibile dall’inizio',
-    art: 'artworks/La Camera dei Pesi.png',
+    art: 'artworks/Camera dei Pesi.png',
     testo: 'L’ufficio che tara gli strumenti della città: bilance di ottone, regoli campione, e le tavole delle maree del molo aggiornate ogni giorno. È il posto meno misterioso di Roccamora — ed è proprio qui che le misure impossibili di Ratti trovano l’orologio che le mette in ordine.',
     approfondimenti: [
       { tipo: 'Referto', soggetto: 'L’ordine delle misure',
@@ -2618,7 +2618,7 @@ const LUOGHI11 = [
     ] },
   { n: 6, nome: 'Il Campanile di San Teodoro',
     req: 'Al campanile si sale, e a quest’ora la salita è chiusa: apre solo a chi sa che la misura buona si prende con la marea, quando l’acqua del molo è al suo segno.',
-    art: 'artworks/Il Campanile di San Teodoro.png',
+    art: 'artworks/Cella campanaria.png',
     testo: 'Si sale per una scala a chiocciola fino alla cella dei bronzi. Da lassù la città è una mappa e il vento è un padrone. Il vecchio campanaro accorda le campane al vespro, e in quell’ora — e solo in quella — le misure prese dall’alto tornano giuste. Di qui parte la via delle guglie.',
     approfondimenti: [
       { tipo: 'Presagio', soggetto: 'La città che aspetta il suono',
@@ -2703,7 +2703,7 @@ const EP11_MINACCE = [
   { art: 'artworks/I topografi lealisti.png', title: 'Il Fischio dall’Alto', tipo: 'Malavita',
     flavor: 'Un fischio dalla guglia, e i lealisti convergono dove il padrone li vuole.',
     effect: 'Piazzate 1 Sgherro sull’uscita più vicina agli eroi: si attiva subito.' },
-  { art: 'artworks/La claque.png', title: 'La Claque sul Cornicione', tipo: 'Malavita',
+  { art: 'artworks/La Claque.png', title: 'La Claque sul Cornicione', tipo: 'Malavita',
     flavor: 'Voci comprate che dall’alto vi coprono di insulti e vi fanno perdere l’equilibrio.',
     effect: 'L’eroe più avanzato prova NERVI (Facile): se fallisce, 1 sola azione al prossimo turno. (Se la Claque dell’Ep. 4 non è sopravvissuta, ignorate: pescate un’altra carta.)' },
   { art: 'artworks/Il vuoto sotto i piedi.png', title: 'Il Vuoto Sotto i Piedi', tipo: 'Insidia',
@@ -2830,7 +2830,7 @@ const LUOGHI12 = [
         testo: '«B. Camillo» non è una persona: è un’etichetta d’archivio, un nome così banale da sparire tra mille. La casella è pagata in anticipo, su carta di pregio, e ritira solo copie e Frammenti. Chi si nasconde dietro un nome che non è un nome non teme di essere trovato: teme solo di essere guardato in faccia.' },
     ] },
   { n: 4, nome: 'Il Banco dei Pegni', req: 'Disponibile dall’inizio',
-    art: 'artworks/Il Banco dei Pegni.png',
+    art: 'artworks/Banco dei Pegni.png',
     testo: 'Il Banco dei Pegni di Fossa compra e vende tutto ciò che la città impegna: qui è passata la campanella nuova col segno del Coro, e qui i confratelli, già in sospetto l’uno dell’altro, cominciano a contarsi le colpe.',
     approfondimenti: [
       { tipo: 'Testimonianza', soggetto: 'Il prestapegni',
@@ -2870,7 +2870,7 @@ const LUOGHI12 = [
     ] },
   { n: 9, nome: 'Il Cimitero delle Barche',
     req: 'L’approdo dello scambio si trova solo sapendo cosa vi si scambia: il segno del Coro sulla campanella, e chi lo ha comprato.',
-    art: 'artworks/Il Cimitero delle Barche.png',
+    art: 'artworks/Cimitero delle Barche.png',
     testo: 'L’ansa morta del canale, dove le chiatte vengono a marcire nella nebbia. È l’approdo dello scambio: qui il corriere consegna e il compratore anonimo ritira, senza mai mostrare un volto all’acqua nera.',
     approfondimenti: [
       { tipo: 'Presagio', soggetto: 'Le chiatte morte',

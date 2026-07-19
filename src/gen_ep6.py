@@ -137,7 +137,7 @@ LUOGHI_6 = [
                         'La città non è costruita SOPRA qualcosa. È costruita INTORNO.'),
          ]),
     dict(n=4, nome='IL PALAZZO DEL LUME', voce_mappa='Il Palazzo del Lume',
-         req='Disponibile dall’inizio', art='Il Palazzo del Lume.png',
+         req='Disponibile dall’inizio', art='Palazzo del Lume.png',
          sblocca_parola=('IL CAPITOLO DEL QUARANTUNO', 'IL MAESTRO DEI REGISTRI'),
          chiude=None,
          indizi=[

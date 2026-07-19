@@ -148,7 +148,7 @@ LUOGHI_12 = [
                         'guardato in faccia.'),
          ]),
     dict(n=4, nome='IL BANCO DEI PEGNI', voce_mappa='Il Banco dei Pegni di Fossa',
-         req='Disponibile dall’inizio', art='Il Banco dei Pegni.png',
+         req='Disponibile dall’inizio', art='Banco dei Pegni.png',
          chiude=None,
          indizi=[
              'Al banco dei pegni la campanella nuova col segno del Coro è passata di mano ieri: '
@@ -268,7 +268,7 @@ LUOGHI_12 = [
     dict(n=9, nome='IL CIMITERO DELLE BARCHE', voce_mappa='Il Cimitero delle Barche',
          req='L’approdo dello scambio si trova solo sapendo cosa vi si scambia: il segno del '
              'Coro sulla campanella, e chi lo ha comprato.',
-         chiave=('parola', 'IL SEGNO SULLA CAMPANELLA'), art='Il Cimitero delle Barche.png',
+         chiave=('parola', 'IL SEGNO SULLA CAMPANELLA'), art='Cimitero delle Barche.png',
          chiude=None,
          indizi=[
              'L’ansa morta del canale, dove le chiatte vengono a marcire: è qui che Vela consegna '
