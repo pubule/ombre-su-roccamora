@@ -296,11 +296,33 @@ INTOCCABILE. Seed base **750000**.
   capo_preso`. La Busta pubblica si «chiude» comunque (vittoria pubblica) — la
   metrica-tensione è **% contro-busta** (piena), non la % di vittoria.
 
-**Modello di tensione (distinto da Ep. 13-14):** come l'Ep. 14, non è un
-mattatoio: la posta non è la morte ma la **verità che si cancella**. Si «vince»
-quasi sempre (la cornice pubblica si chiude), ma la **Contro-busta** è la vera
-sfida — una corsa a documentare i tell mentre gli Apparecchiatori li scancellano
-e il sigillo cala. Metrica = **% piena** (contro-busta). Corridoio-obiettivo:
-vittoria pubblica ~alta; contro-busta con gradiente sensibile alle scelte
-d'Indagine (Manuale/Chiave/Reagente) e alla taglia; sofferte moderate (i Sicari
-e il Capo Danno 2 fanno male, ma il vero nemico è il tempo).
+**Modello di tensione (distinto da Ep. 13-14):** non è un mattatoio: la posta è
+la **verità che si cancella**. La cornice pubblica si chiude quasi sempre; la
+**Contro-busta** è la vera sfida — prendere il Capo *prima del sigillo* dopo
+aver documentato abbastanza tell. Metrica = **% contro-busta**. Il **Manuale
+Indiziario** è di fatto essenziale: chi salta l'Archivio (L5) non documenta i
+tell abbastanza in fretta e resta con la sola Busta pubblica — la CANCELLAZIONE
+morde il gioco che si accontenta.
+
+**Curva accettata (v2, 5 party × 30 seed per taglia, seed 750000+size·1000):**
+
+| Taglia | % Vitt | % contro-busta | % sofferte | Canto |
+|---|---|---|---|---|
+| 2 | 76 | 71 | 47 | 4.0 |
+| 3 | 97 | 94 | 40 | 3.7 |
+| 4 | 100 | 95 | 6 | 4.4 |
+| 5 | 100 | 97 | 18 | 4.6 |
+| 6 | 100 | 89 | 37 | 5.2 |
+| 7 | 100 | 79 | 15 | 5.5 |
+| 8 | 100 | 80 | 13 | 5.6 |
+| 9 | 100 | 71 | 27 | 6.0 |
+| 10 | 100 | 65 | 22 | 6.1 |
+
+Duo davvero in bilico (76% vitt, 47% sofferte: l'unico episodio dell'atto con
+morte reale al tavolo piccolo); 3-10 vincono la cornice pubblica ma la
+**contro-busta cala coi gruppi grandi** (94-97% in pochi, 65-80% in tanti: più
+eroi = più carte = sigillo più rapido, il Capo scappa al verbale prima d'essere
+preso). Sofferte >10% su 7 taglie su 9. Leve finali: `SOGLIA_SIGILLO=5` (+1 con
+la Chiave di Servizio), `PROVE_PIAZZATE=5` (+1 Reagente), `SOGLIA_CONTRO=4`,
+`CANCELLA_PER_ROUND=2` (da T4, Capo vivo), `BOSS_INGAGGIO=4`, `BOSS_COLPI=2`
+(il Capo Danno 2, uno saltato con D3). La torsione (doppia busta) è la % piena.
