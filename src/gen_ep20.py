@@ -237,7 +237,7 @@ LUOGHI_20 = [
                         'stonato e umano, riga per riga. Chi cerca la via facile canta, senza '
                         'saperlo, il rito del risveglio. È il tema di M. fino all’ultimo: offrire una '
                         'soluzione perfetta che è la sua vittoria travestita. L’avete imparato con '
-                        'Braga. Non caScateci ora, a un passo dalla fine.'),
+                        'Braga. Non cascateci ora, a un passo dalla fine.'),
          ]),
     dict(n=8, nome='IL GRIMORIO DEL RITO', voce_mappa='Lo Scriptorium',
          req='Lo scriptorium apre a chi cerca lo spartito: il grimorio del Quarto Movimento, il '

@@ -597,11 +597,12 @@ def soluzione():
         'solo dopo aver risposto per iscritto alle 4 Domande.',
         '<b>APERTURA — il Bivio dell’Episodio 7</b> (applicare PRIMA della lettera): se '
         'avete <b>DENUNCIATO IL BREVETTO</b> — i registri degli acquirenti sono bruciati: '
-        'l’esame di Carbone sul marengo NON è disponibile in questo episodio (Carbone non '
-        'ha riscontri). Se avete <b>TACIUTO E TRACCIATO</b> — partite con la lista degli '
-        'acquirenti: un incrocio in più alla Domanda 1; ma Sant’Orsola è rimasta sorda e '
-        'la voce gira: la Testimonianza «Il sensale dei banchi» (Luogo 1) esce dal mazzo '
-        'Approfondimenti.',
+        'l’esame di Carbone sul marengo NON è disponibile (Carbone non ha riscontri); ma '
+        'Sant’Orsola, salva e riconoscente, parla: la Testimonianza «Il sensale dei banchi» '
+        '(Luogo 1) parte GIÀ RIVELATA. Se avete <b>TACIUTO E TRACCIATO</b> — partite con la '
+        'lista degli acquirenti: un incrocio in più alla Domanda 1; ma Sant’Orsola è rimasta '
+        'sorda e la voce gira: la Testimonianza «Il sensale dei banchi» (Luogo 1) esce dal '
+        'mazzo Approfondimenti.',
     ])
     pagina('la verità', [
         'Il «protettore invisibile» sta consolidando i clan minori sotto la <b>Vedova '

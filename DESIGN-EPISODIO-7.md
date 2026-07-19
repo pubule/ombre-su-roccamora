@@ -169,11 +169,12 @@ carte.
   dita». Chi archivia nota: «è la terza pratica quest'anno con questa
   carta. Le altre due? Una cartiera e un notaio.» (fili verso Ep. 13.)
 - **Bivio Ep. 7** (sigillare): *Denunciare il brevetto* — Sant'Orsola è
-  salva (le demolizioni cominciano), ma chi comprava l'intonaco brucia i
-  registri: nell'Ep. 8 l'esame di Carbone sull'oro NON è disponibile.
+  salva e riconoscente: nell'Ep. 8 la Testimonianza «Il sensale dei banchi»
+  (L1) parte GIÀ RIVELATA (gratis), ma chi comprava l'intonaco brucia i
+  registri: l'esame di Carbone sull'oro NON è disponibile.
   *Tacere e tracciare gli acquirenti* — nell'Ep. 8 partite con la lista
   degli acquirenti (un incrocio in più alla Domanda 1), ma Sant'Orsola
-  resta sorda: la Testimonianza della contrada (L1) esce dal mazzo
+  resta sorda: la Testimonianza «Il sensale dei banchi» (L1) esce dal mazzo
   Approfondimenti dell'Ep. 8. [Nota: la bozza diceva «un filo in meno
   nell'Ep. 8» / «un testimone in meno» — resa concreta qui.]
 - **Aggancio Ep. 8:** tra gli acquirenti dell'intonaco, tre taverne dei

@@ -769,7 +769,7 @@ ESAMI_CARBONE_12 = {
                 'porta principale. Chi ha copiato aveva le chiavi, o l’autorità di farsele dare. '
                 'L’effrazione che tutti immaginano non c’è mai stata: cercare uno scassinatore è '
                 'guardare il fantasma sbagliato mentre il vero ladro siede al vostro tavolo.»',
-    'LA PAGINA RICOPIATA': '«La mano della copia non imita quella dei Frammenti: È quella mano, '
+    'LA PAGINA RICOPIATA': '«La mano della copia non imita quella dei Frammenti: è quella mano, '
                 'sicura, senza le esitazioni di chi ricalca. O il falsario è il più grande mai '
                 'visto — capace di scrivere l’altrui con più naturalezza del proprietario — o non '
                 'è un falsario. Gli ordini protocollati sciolgono il dubbio: nessuno protocolla un '

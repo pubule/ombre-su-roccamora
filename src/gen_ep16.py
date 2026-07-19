@@ -336,7 +336,7 @@ TILES_16 = [
                  'come scudo per la barca. Se avete il Fascicolo delle Vittime, potete già qui '
                  'mostrarlo a Bruna: l’incantesimo si incrina, lei rallenta i suoi piani.',
          hook='Il Fascicolo delle Vittime (dalla ex fidanzata): mostrato a Bruna, spezza la bugia '
-              '— lo Sposo perde lo scudo e la cattura diventa automatica al torchio (T6).',
+              '— lo Sposo perde lo scudo e la cattura diventa automatica alla stanza (T6).',
          cerca_vuoto='Tavoli imbanditi per un banchetto di nozze. Lo Sposo indietreggia verso il '
                      'lago, la mano sul braccio di Bruna: non lasciatelo arrivare alla barca.',
          arredi=[(1, 2, 'casse'), (2, 0, 'altare')]),

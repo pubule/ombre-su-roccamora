@@ -398,7 +398,7 @@ NEMICI_18 = [
          bio_bestiario='M. — il presidente della Società del Lume, e C.B.: Camillo Benso e il '
               'Machiavelli, due maschere rivali e una mano sola. Per diciotto mesi vi ha mandati a '
               'caccia di se stesso, muovendo entrambi i lati del tavolo, restando sempre un passo '
-              'avanti perché il passo lo dettava lui. Non lo fa per denaro né per potere spiccioli: '
+              'avanti perché il passo lo dettava lui. Non lo fa per denaro né per potere spicciolo: '
               'crede di rifare l’Italia, di essere lui — da solo — il cospiratore e il contabile che '
               '«la fecero in due», qualcosa di più grande con le stesse mani. Smascherato, non nega: '
               'spiega, con l’orgoglio di chi finalmente può dirlo, e poi rovescia il tavolo — le '
@@ -765,7 +765,7 @@ TESSERE_DESC_18 = {
 }
 
 ESAMI_CARBONE_18 = {
-    'LA FIRMA DOPPIA': '«"M." e "C.B.", scritte a anni di distanza da mani che si fingono nemiche, '
+    'LA FIRMA DOPPIA': '«"M." e "C.B.", scritte ad anni di distanza da mani che si fingono nemiche, '
                 'hanno lo stesso vezzo: lo stesso allungo sulla coda, la stessa esitazione prima '
                 'della maiuscola. Un falsario imita una firma; nessuno imita <i>due</i> firme rivali '
                 'con lo stesso identico tic, se non l’unico uomo che le scrive entrambe.»',

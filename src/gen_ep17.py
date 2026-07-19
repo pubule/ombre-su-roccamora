@@ -61,7 +61,7 @@ LETTERA_17 = (
     "<i>educata</i>. C’è un <b>traditore</b> in casa nostra, amici miei: qualcuno ha venduto il "
     "decano a C.B. Apro la caccia alla talpa, e vi voglio con me.<br/><br/>"
     "Cominciate da chi ha visto Ferrante per ultimo… ma siate prudenti: a volte il traditore è "
-    "l’ultimo che sospetteresti. Persino uno di voi. E se trovate, murato nel camino del decano, "
+    "l’ultimo che sospettereste. Persino uno di voi. E se trovate, murato nel camino del decano, "
     "un certo dossier cifrato — portatelo a me, e a nessun altro. Avete <b>6 ore</b>, dalle 18:00 "
     "alle 24:00.<br/>"
     "— M., presidente della Società»<br/><br/>"

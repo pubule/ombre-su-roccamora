@@ -105,7 +105,7 @@ LUOGHI_7 = [
              'Il registro dei lavori è aperto sull’ultima settimana: sette pianoforti '
              'accordati e RIACCORDATI a distanza di giorni, tutti a Sant’Orsola, tutti in '
              'case nuove. In margine, la grafia fitta di Fava: «non sono io. Non è lo '
-             'strumento. È la STANZA. La stanza beve i acuti.»',
+             'strumento. È la STANZA. La stanza beve gli acuti.»',
              'Sul banco, la copia di una lettera all’impresa Voltan & Figli: «il vostro '
              'intonaco brevettato altera l’acustica delle abitazioni ed è impastato con '
              'materiale che non avete dichiarato. O mi ricevete, o deposito tutto in '
@@ -738,12 +738,15 @@ def soluzione():
         'finale di campagna.',
         '<b>IL BIVIO — decidete insieme, poi sigillate.</b> Il fascicolo del brevetto è '
         'in mano vostra:<br/>'
-        '<b>Denunciare il brevetto.</b> Sant’Orsola è salva: le demolizioni cominciano, '
-        'la contrada risente le campane. Ma chi comprava l’intonaco brucia i registri: '
-        'nell’Episodio 8, l’esame di Carbone sull’oro NON sarà disponibile.<br/>'
+        '<b>Denunciare il brevetto.</b> Sant’Orsola è salva e riconoscente: le demolizioni '
+        'cominciano, la contrada risente le campane e parla. Nell’Episodio 8 la Testimonianza '
+        '«Il sensale dei banchi» (Luogo 1) parte GIÀ RIVELATA (gratis). Ma chi comprava '
+        'l’intonaco brucia i registri: nell’Episodio 8 l’esame di Carbone sull’oro NON sarà '
+        'disponibile.<br/>'
         '<b>Tacere e tracciare gli acquirenti.</b> Partite con la lista dei compratori: '
         'nell’Episodio 8, un incrocio in più alla Domanda 1. Ma Sant’Orsola resta sorda: '
-        'la Testimonianza «La contrada» esce dal mazzo Approfondimenti dell’Episodio 8.<br/>'
+        'la Testimonianza «Il sensale dei banchi» (Luogo 1) esce dal mazzo Approfondimenti '
+        'dell’Episodio 8.<br/>'
         'Scrivete la scelta sul retro del Frammento n. 7 e non parlatene più fino '
         'all’Episodio 8.',
         '<b>MIGLIORIE</b> (una a testa dopo la vittoria): le solite — Tempra, Fibra, '
