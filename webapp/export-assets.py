@@ -31,6 +31,7 @@ SORGENTI = [
     ('Episodio 12/cards', MAX_PX),
     ('Episodio 13/cards', MAX_PX),
     ('Episodio 14/cards', MAX_PX),
+    ('Episodio 15/cards', MAX_PX),
     ('Episodio 1/board', MAX_PX_TESSERE),
     ('Preludio/reperti', MAX_PX_TESSERE),
     ('Episodio 1/reperti', MAX_PX_TESSERE),
@@ -47,6 +48,7 @@ SORGENTI = [
     ('Episodio 12/reperti', MAX_PX_TESSERE),
     ('Episodio 13/reperti', MAX_PX_TESSERE),
     ('Episodio 14/reperti', MAX_PX_TESSERE),
+    ('Episodio 15/reperti', MAX_PX_TESSERE),
 ]
 
 # tutta artworks/ (arti luogo per i banner, ritratti, sfondi): ~60 file,

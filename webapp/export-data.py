@@ -51,6 +51,8 @@ from gen_ep13 import (LUOGHI_13, TILES_13, NEMICI_13, OGGETTI_LUOGO_13, LETTERA_
                       ESAMI_CARBONE_13)
 from gen_ep14 import (LUOGHI_14, TILES_14, NEMICI_14, OGGETTI_LUOGO_14, LETTERA_14,  # noqa: E402
                       ESAMI_CARBONE_14)
+from gen_ep15 import (LUOGHI_15, TILES_15, NEMICI_15, OGGETTI_LUOGO_15, LETTERA_15,  # noqa: E402
+                      ESAMI_CARBONE_15)
 from gen_mappa import VOCI_MAPPA, MAPPE  # noqa: E402
 from gen_bestiario import FASCE, BOSS_DELTA, ferite_per_fascia  # noqa: E402
 from simulate_playtest import (INDAGINE_UNLOCK, TICK_CANTO_OGNI, SOGLIA_CANTO,  # noqa: E402
@@ -69,6 +71,7 @@ from simulate_ep11 import TOKEN_POOL_BASE as POOL_EP11  # noqa: E402
 from simulate_ep12 import TOKEN_POOL_BASE as POOL_EP12  # noqa: E402
 from simulate_ep13 import TOKEN_POOL_BASE as POOL_EP13  # noqa: E402
 from simulate_ep14 import TOKEN_POOL_BASE as POOL_EP14  # noqa: E402
+from simulate_ep15 import TOKEN_POOL_BASE as POOL_EP15  # noqa: E402
 
 
 def strip_tags(s):
@@ -138,6 +141,9 @@ REPERTI_LUOGO = {
     'ep14': {9: ['Reperto A - Sigillo C.B.'],
              8: ['Reperto B - Lastra Fonografica'],
              7: ['Reperto C - Verbale d’Inventario']},
+    'ep15': {9: ['Reperto A - Istruzioni'],
+             8: ['Reperto B - Lastra dell’Incisore'],
+             7: ['Reperto C - Dossier Originale']},
 }
 
 
@@ -519,6 +525,31 @@ SOLUZIONI = dict(
         ],
         boss='IL PRIMO GATTO',
     ),
+    ep15=dict(
+        domande=[
+            dict(q='DOVE sono le prove contro Braga?',
+                 risposta='Nel dossier anonimo (la Gendarmeria) e nella villa (la perquisizione): il dossier fisico L7 + la scena L9.',
+                 esatta='Sapete dove guardare: nel 1° round della spedizione non si pesca nessuna carta Minaccia.',
+                 sbagliata='Entrate scomposti: 1 gendarme (Sgherro) appare in T1.'),
+            dict(q='CHI accusa il dossier?',
+                 risposta='Il professor Cesare Braga: pagamenti, lettere, il sigillo, un testimone. Tutto combacia.',
+                 esatta='La Busta pubblica «si chiude» in ordine (la città esulta, l’arresto è pronto).',
+                 sbagliata='Nessun effetto meccanico, ma senza questa non avete nemmeno la cornice.'),
+            dict(q='COSA regge alla verifica? (e perché è un problema)',
+                 risposta='Tutto — perché il dossier segue il METODO della Società (il manuale, 12 copie, la n.7 consultata). Un caso vero è sporco; solo un caso scritto è pulito.',
+                 esatta='«Il metodo della società»: al Capo Apparecchiatore potete gridare che avete riconosciuto il vostro metodo nel suo falso — gli fa saltare un attacco.',
+                 sbagliata='Non aprite la strada alla Contro-busta con la stessa facilità.'),
+            dict(q='COSA consegnate alla Gendarmeria?',
+                 risposta='Il fascicolo che chiude il caso pubblico (l’arresto di Braga).',
+                 esatta='ATTENZIONE: rispondere SOLO alle 4 Domande = «vittoria pubblica», ma è la soluzione che vi ha scritto M. La vittoria vera è la Contro-busta. (Aiuti spedizione: la Chiave di Servizio L8, il Manuale L5, il Reagente L7. Esche: la Deposizione, il Sigillo «C.B.».)',
+                 sbagliata='Senza il fascicolo non chiudete nemmeno la cornice pubblica.'),
+            dict(q='CONTRO-BUSTA — CHI HA SCRITTO IL DOSSIER? (si apre solo dopo la spedizione)',
+                 risposta='Una MANO INTERNA alla Società: il metodo è quello del manuale (12 copie, una consultata), le istruzioni agli Apparecchiatori sono di grafia di Braga ma troppo perfette. Non un nome, ancora: «uno di noi». Il seme verso M.',
+                 esatta='Presa col Capo Apparecchiatore + 3-4 tell documentati alla villa: rispondere = VITTORIA PIENA — avete rifiutato la soluzione perfetta.',
+                 sbagliata='Chi ha chiuso solo la Busta pubblica ha già scelto, senza saperlo, di avallare l’arresto di un innocente: ha fatto il lavoro di M.'),
+        ],
+        boss='IL CAPO APPARECCHIATORE',
+    ),
     preludio=dict(
         domande=[
             dict(q='DOVE è tenuto Ansaldo?',
@@ -774,6 +805,26 @@ episodi = dict(
         vantaggio=dict(slancio_ore=3, preparati_ore=1, preparati_luoghi=6),
         soluzione=SOLUZIONI['ep14'],
         pool=POOL_EP14,
+    ),
+    ep15=dict(
+        id='ep15', titolo='Lo smascheramento',
+        sottotitolo='episodio 15 — Atto III: il falso finale, la doppia busta',
+        cartella='Episodio 15', ore_budget=6,
+        lettera=LETTERA_15,
+        obiettivo='Un dossier anonimo incastra Braga come C.B.: tutto combacia troppo. Rispondete '
+                  'alle 4 Domande della Busta pubblica — ma non fermatevi lì: è la soluzione che vi '
+                  'ha SCRITTO M. col metodo della Società. Entrate nella villa di Braga (T1-T6) '
+                  'prima che la Gendarmeria la SIGILLI, documentate i tell del falso mentre gli '
+                  'Apparecchiatori li cancellano, e prendete il Capo Apparecchiatore (T6): con '
+                  'abbastanza tell si apre la CONTRO-BUSTA («chi ha scritto il dossier?») — la '
+                  'vittoria piena, il rifiuto della soluzione perfetta. Solo la Busta pubblica = '
+                  'un innocente in cella e la «vittoria» di M.',
+        esami_carbone=ESAMI_CARBONE_15,
+        luoghi=[luogo_json(L, OGGETTI_LUOGO_15, REPERTI_LUOGO['ep15']) for L in LUOGHI_15],
+        tessere=[tessera_json(T) for T in TILES_15],
+        vantaggio=dict(slancio_ore=3, preparati_ore=1, preparati_luoghi=6),
+        soluzione=SOLUZIONI['ep15'],
+        pool=POOL_EP15,
     ),
 )
 

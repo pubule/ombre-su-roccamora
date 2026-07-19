@@ -43,6 +43,8 @@ const COPERTINE = {
   ep13: '/assets/artworks/derelict warehouses over black still water.png',
   // finché manca l'arte dedicata dell'Ep. 14 (Fase D): i tetti nella notte
   ep14: '/assets/artworks/bell tower.png',
+  // finché manca l'arte dedicata dell'Ep. 15 (Fase D): la villa nella notte
+  ep15: '/assets/artworks/cluttered 19th century police office.png',
 };
 
 const RIGA_C = `<p class="copyright">© 2026 Fabio Stocco — «Ombre su Roccamora» ·
@@ -57,7 +59,7 @@ window.addEventListener('error', (e) => {
 
 // ------------------------------------------------------------------- HOME
 async function vistaHome() {
-  const episodi = ['preludio', 'ep1', 'ep2', 'ep3', 'ep4', 'ep5', 'ep6', 'ep7', 'ep8', 'ep9', 'ep10', 'ep11', 'ep12', 'ep13', 'ep14'];
+  const episodi = ['preludio', 'ep1', 'ep2', 'ep3', 'ep4', 'ep5', 'ep6', 'ep7', 'ep8', 'ep9', 'ep10', 'ep11', 'ep12', 'ep13', 'ep14', 'ep15'];
   const info = await Promise.all(episodi.map((e) => dati(e)));
   h(`
     <header class="home-testata">
