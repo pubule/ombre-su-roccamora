@@ -55,6 +55,8 @@ from gen_ep15 import (LUOGHI_15, TILES_15, NEMICI_15, OGGETTI_LUOGO_15, LETTERA_
                       ESAMI_CARBONE_15)
 from gen_ep16 import (LUOGHI_16, TILES_16, NEMICI_16, OGGETTI_LUOGO_16, LETTERA_16,  # noqa: E402
                       ESAMI_CARBONE_16)
+from gen_ep17 import (LUOGHI_17, TILES_17, NEMICI_17, OGGETTI_LUOGO_17, LETTERA_17,  # noqa: E402
+                      ESAMI_CARBONE_17)
 from gen_mappa import VOCI_MAPPA, MAPPE  # noqa: E402
 from gen_bestiario import FASCE, BOSS_DELTA, ferite_per_fascia  # noqa: E402
 from simulate_playtest import (INDAGINE_UNLOCK, TICK_CANTO_OGNI, SOGLIA_CANTO,  # noqa: E402
@@ -75,6 +77,7 @@ from simulate_ep13 import TOKEN_POOL_BASE as POOL_EP13  # noqa: E402
 from simulate_ep14 import TOKEN_POOL_BASE as POOL_EP14  # noqa: E402
 from simulate_ep15 import TOKEN_POOL_BASE as POOL_EP15  # noqa: E402
 from simulate_ep16 import TOKEN_POOL_BASE as POOL_EP16  # noqa: E402
+from simulate_ep17 import TOKEN_POOL_BASE as POOL_EP17  # noqa: E402
 
 
 def strip_tags(s):
@@ -150,6 +153,9 @@ REPERTI_LUOGO = {
     'ep16': {6: ['Reperto A - Lettera d’Incarico'],
              8: ['Reperto B - Registro degli Affitti'],
              5: ['Reperto C - Libro delle Promesse']},
+    'ep17': {5: ['Reperto A - Dossier Cifrato'],
+             9: ['Reperto B - Deposizione del Decano'],
+             8: ['Reperto C - Archivio del Notaio']},
 }
 
 
@@ -577,6 +583,27 @@ SOLUZIONI = dict(
         ],
         boss='LO SPOSO',
     ),
+    ep17=dict(
+        domande=[
+            dict(q='DOVE è il decano?',
+                 risposta='Non morto: RAPITO, nella villa-prigione del Notaio fuori porta (la Dogana L7 + il rifugio del Notaio L8).',
+                 esatta='Sapete dove sbarcare: nel 1° round della spedizione non si pesca nessuna carta Minaccia.',
+                 sbagliata='Arrivate scomposti: 1 uomo del Notaio appare in T1.'),
+            dict(q='CHI l’ha preso?',
+                 risposta='Gli uomini di C.B., per mano del Notaio Rasca (l’ultimo lavoro) — NON una talpa, il mandante stesso.',
+                 esatta='Sapete che non c’è talpa: il malus di morale della spedizione si cancella subito trovando il decano.',
+                 sbagliata='Nessun effetto.'),
+            dict(q='COSA dice il dossier cifrato?',
+                 risposta='La MATRICE delle doppie letture di tutte le lettere di M. (la Cifra del decano L5 la decifra): la prova che il presidente sa sempre troppo.',
+                 esatta='«La matrice»: la Guardia salta un attacco (il segreto è bruciato); e ogni rilettura dell’Ep.16 diventa un incrocio per l’Ep.18.',
+                 sbagliata='Niente incroci di campagna per la deduzione finale.'),
+            dict(q='COSA portate alla villa?',
+                 risposta='Le CHIAVI della villa-prigione (L8) e il SALVACONDOTTO (L7).',
+                 esatta='Chiavi: saltate lo sbarramento del cancello (T1). Salvacondotto: passate i posti di blocco e alzate la soglia-decano (arrivate prima del trasferimento). (Esche: la Talpa Fittizia, il Biglietto di Braga.)',
+                 sbagliata='Sbarramento al cancello e soglia-decano più bassa: rischiate di trovare il decano già trasferito, ferito.'),
+        ],
+        boss='LA GUARDIA DEL NOTAIO',
+    ),
     preludio=dict(
         domande=[
             dict(q='DOVE è tenuto Ansaldo?',
@@ -872,6 +899,26 @@ episodi = dict(
         vantaggio=dict(slancio_ore=3, preparati_ore=1, preparati_luoghi=6),
         soluzione=SOLUZIONI['ep16'],
         pool=POOL_EP16,
+    ),
+    ep17=dict(
+        id='ep17', titolo='Lo scisma',
+        sottotitolo='episodio 17 — Atto III (il picco): la Società spaccata, il Notaio preso',
+        cartella='Episodio 17', ore_budget=6,
+        lettera=LETTERA_17,
+        obiettivo='Il decano è sparito, la Società spaccata da una «caccia alla talpa» che è '
+                  'l’insabbiamento di M.: non c’è nessuna talpa, il decano è VIVO, rapito dal '
+                  'Notaio. Decifrate il dossier cifrato (la matrice delle doppie letture di M., '
+                  'la Cifra L5), poi andate alla villa-prigione fuori porta: liberate il decano '
+                  'vivo (T5, cancella lo SCISMA che vi pesa: −1 NERVI) e catturate il Notaio (T6, '
+                  'il ricorrente dell’Atto, finalmente preso) superando la sua Guardia. Decano '
+                  'lucido + matrice = vittoria piena, l’Ep.18 parte armato. Attenti alla '
+                  'soglia-decano: se tardate, lo trovate «trasferito», ferito.',
+        esami_carbone=ESAMI_CARBONE_17,
+        luoghi=[luogo_json(L, OGGETTI_LUOGO_17, REPERTI_LUOGO['ep17']) for L in LUOGHI_17],
+        tessere=[tessera_json(T) for T in TILES_17],
+        vantaggio=dict(slancio_ore=3, preparati_ore=1, preparati_luoghi=6),
+        soluzione=SOLUZIONI['ep17'],
+        pool=POOL_EP17,
     ),
 )
 
