@@ -286,8 +286,35 @@ base **740000**.
   Verbale): con l'Inventario Originale il «di più» è provato = vittoria piena
   della torsione; senza, la refurtiva torna ma il falso resta invisibile.
 
-**Corridoio-obiettivo (apertura d'atto, dal gradino Ep. 4):** duo ~55-70%,
-3-10 eroi ~85-100%, sofferte >10% su almeno metà delle taglie (la tensione è
-la FUGA + le cadute + la scelta trattare/uccidere). Vittoria piena col patto
-(Primo Gatto trattato); vittoria parziale se ucciso o se sparisce; la torsione
-(intrusi documentati) è ortogonale all'esito di combattimento.
+**Modello di tensione (distinto da Ep. 13, che era una trappola mortale col
+fuoco):** questo è un **colpo sui tetti**, non un mattatoio. La posta in gioco
+non è la morte ma la **verità che sfugge**: si vince quasi sempre (recuperate
+comunque la refurtiva), ma la **confessione** del Primo Gatto è una corsa — un
+gruppo grande e rumoroso spaventa il gatto, che scavalca la cresta e sparisce.
+La ansia vive nella **FUGA che monta** (Canto verso la soglia mentre inchiodate
+il boss) e nel **sangue** delle cadute e della raffica del Gatto, non nel
+wipe. Metrica-tensione = **% piena** (Gatto trattato *e* intrusi documentati),
+non la % di vittoria.
+
+**Curva accettata (v3, 5 party × 30 seed per taglia, seed 740000+size·1000):**
+
+| Taglia | % Vitt | % piena | % sofferte | Canto |
+|---|---|---|---|---|
+| 2 | 99 | 90 | 28 | 2.5 |
+| 3 | 100 | 93 | 19 | 2.4 |
+| 4 | 100 | 95 | 3 | 3.0 |
+| 5 | 100 | 75 | 15 | 3.3 |
+| 6 | 100 | 60 | 19 | 3.6 |
+| 7 | 100 | 63 | 6 | 3.8 |
+| 8 | 100 | 68 | 9 | 3.9 |
+| 9 | 100 | 42 | 12 | 4.1 |
+| 10 | 100 | 46 | 11 | 4.0 |
+
+Vittoria quasi garantita (colpo riuscito); la **piena** cala coi gruppi grandi
+(la confessione è la vera sfida: 90-95% in pochi, 42-68% in tanti). Sofferte
+>10% su 6 taglie su 9. Leve finali: `SOGLIA_FUGA=3` (+1 con la Parola dei
+Tetti), `TESSERE_QUOTA={T2,T5}`, `BOSS_INGAGGIO=4`, `BOSS_COLPI=3` (raffica del
+Gatto agile, uno saltato con D2), `DANNO_QUOTA=1`, + 1 danno inevitabile/round
+all'Attico quando la FUGA è aperta (i Gatti coprono la fuga). La torsione
+(intrusi documentati) è la condizione della **piena** una volta trattato il
+boss.
