@@ -141,13 +141,13 @@ oltre T4). Percorso lineare col ramo T5; le 4 casse stanno in T2/T3/T4/T5:
 per la vittoria PIENA servono TUTTE e quattro fuori da T6 (3 = parziale,
 vedi Soluzione).
 
-**Boss — IL CAMBIAVALUTE:** Att +2, Dif 7, Fer 3, Mov 2, Danno 1 (il
+**Boss — IL CAMBIAVALUTE:** Att +2, Dif 7, Fer 4, Mov 2, Danno 1 (il
 bilancino non è un'arma: i Mastini sì). STANZIALE: non lascia mai T4.
 «Ogni round in cui nessun eroe è in T4, il Cambiavalute FONDE: una cassa
 non ancora sequestrata perde valore — al 3° round di fusione della stessa
 cassa, quella cassa è persa (moneta anonima).» L'orologio dell'episodio
 non è il Canto: è il crogiolo.
-**Nemico nuovo — IL MASTINO** (bestia): Att +2, Dif 6, Fer 2, Mov 4,
+**Nemico nuovo — IL MASTINO** (bestia): Att +2, Dif 6, Fer 2, Mov 4, Danno 2,
 Danno 1. «Fiuto: il Mastino attacca sempre, se può, chi porta il Marengo
 Segnato o una cassa d'oro.» Riuso: Sgherri (le sentinelle dei clan),
 Sicario (il guardaspalle del pesatore).
@@ -237,5 +237,5 @@ Una storia comoda (la Vedova Bruna «figura di comodo», il vero capo un clan
 rivale) è un depistaggio con false prove seminate. La pista vera la confermano
 i tre rivelatori D2 (L1/L2/L3) + la scena della Corte (L8). Crederci senza
 incrociare = D2 sbagliata e +1 Mastino nel pool (il deposito è sull'avviso).
-Simulatore: flag `pista_falsa_creduta` (= not chi_confermato) → pool Mastino +1.
+Simulatore: flag `pista_falsa_creduta` (= visitato L1 e not chi_confermato) → pool Mastino +1.
 Curva v2 invariata (2:55, 3-10 89-98).

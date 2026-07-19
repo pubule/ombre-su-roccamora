@@ -125,8 +125,8 @@ VOCI_MAPPA = [
     ('La Chiusa Grande', 'a monte del canale grande, alla paratia', 'ep6'),
     ('L’Archivio Capitolare', 'chiostro della Cattedrale, torre d’angolo', 'ep6'),
     ('La Porta d’Acqua', 'fianco nord della Cattedrale, a pelo di canale', 'ep6'),
-    # Episodio 7 — Sant'Orsola e il cantiere. Riusi: Le Fonderie ('ep2'),
-    # Il Banco dei Pegni ('citta').
+    # Episodio 7 — Sant'Orsola e il cantiere. Riusi: Le Fonderie ('citta'),
+    # Il Banco dei Pegni di Fossa ('preludio').
     ('La Contrada di Sant’Orsola', 'contrada di Sant’Orsola, al pozzo', 'ep7'),
     ('Bottega dell’Accordatore', 'contrada di Sant’Orsola, al civico 11', 'ep7'),
     ('L’Ufficio Brevetti', 'palazzo del Comune, ala nuova, piano terra', 'ep7'),
@@ -142,7 +142,8 @@ VOCI_MAPPA = [
     ('L’Archivio Demaniale', 'palazzo delle Finanze, ala storica', 'ep8'),
     ('Villa della Vedova Bruna', 'sulla curva del fiume, oltre il ponte di ferro', 'ep8'),
     ('Il Molo in Disarmo', 'ansa morta, oltre la banchina di levante', 'ep8'),
-    # Episodio 9 — il processo. Riusi: La Gazzetta, La Gendarmeria ('citta').
+    # Episodio 9 — il processo. Riusi: La Gazzetta di Roccamora ('ep3'),
+    # La Gendarmeria ('ep1').
     ('Il Tribunale', 'piazza del Foro, palazzo di Giustizia', 'ep9'),
     ('Pensione Serena', 'vicolo del Salice 3, dietro il Foro', 'ep9'),
     ('Studio Grassi', 'corso Vittorio 11, primo piano (provvisorio)', 'ep9'),

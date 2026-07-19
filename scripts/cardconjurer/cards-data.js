@@ -1838,7 +1838,7 @@ const EP7_MINACCE = [
   { art: 'artworks/I sacchi franati.png', title: 'I Sacchi Franati', tipo: 'Ostacolo',
     flavor: 'Una pila cede — piano, senza fragore: la calce inghiotte anche il proprio crollo.',
     effect: 'Fino a fine round, sulla tessera dell’eroe attivo muoversi costa il doppio.' },
-  { art: 'artworks/Il piombo dal buio.png', title: 'Il Piombo dal Buio', tipo: 'Insidia',
+  { art: 'artworks/Il piombo dal buio.png', title: 'Il Piombo dal Buio', tipo: 'Danno',
     flavor: 'Un filo a piombo lasciato cadere da tre piani non fa quasi rumore. Quasi.',
     effect: 'L’eroe più avanzato subisce 1 danno (nessuna prova: il buio ha mirato bene).' },
   { art: 'artworks/Gli occhi del culto.png', title: 'Gli Occhi del Culto', tipo: 'Bivio',
@@ -2520,7 +2520,7 @@ const EP10_MINACCE = [
   { art: 'artworks/Calcinacci sul passo.png', title: 'Calcinacci sul Passo', tipo: 'Ostacolo',
     flavor: 'Detriti franati sbarrano il corridoio: si passa, ma piano.',
     effect: 'Fino a fine round, sulla tessera dell’eroe attivo muoversi costa il doppio.' },
-  { art: 'artworks/Un mattone dallalto.png', title: 'Un Mattone dall’Alto', tipo: 'Insidia',
+  { art: 'artworks/Un mattone dallalto.png', title: 'Un Mattone dall’Alto', tipo: 'Danno',
     flavor: 'La demolizione fa piovere macerie: un mattone si stacca proprio sopra di voi.',
     effect: 'Un eroe a caso (chi arbitra tira) subisce 1 danno.' },
 ].map((m) => ({
@@ -2748,7 +2748,7 @@ const EP11_MINACCE = [
   { art: 'artworks/Labbaino sbarrato.png', title: 'L’Abbaino Sbarrato', tipo: 'Ostacolo',
     flavor: 'Una botola incrostata di ghiaccio blocca il passaggio corto: si gira, ma piano.',
     effect: 'Fino a fine round, sulla tessera dell’eroe attivo muoversi costa il doppio.' },
-  { art: 'artworks/Una tegola in testa.png', title: 'Una Tegola in Testa', tipo: 'Insidia',
+  { art: 'artworks/Una tegola in testa.png', title: 'Una Tegola in Testa', tipo: 'Danno',
     flavor: 'Il vento stacca un coppo da più in alto e lo scaglia dritto sul gruppo.',
     effect: 'Un eroe a caso (chi arbitra tira) subisce 1 danno.' },
 ].map((m) => ({
@@ -2976,7 +2976,7 @@ const EP12_MINACCE = [
   { art: 'artworks/La chiatta di traverso.png', title: 'La Chiatta di Traverso', tipo: 'Ostacolo',
     flavor: 'Una chiatta incagliata blocca il canale: si passa, ma piano.',
     effect: 'Fino a fine round, sulla tessera dell’eroe attivo muoversi costa il doppio.' },
-  { art: 'artworks/Un colpo di gaffa.png', title: 'Un Colpo di Gaffa', tipo: 'Insidia',
+  { art: 'artworks/Un colpo di gaffa.png', title: 'Un Colpo di Gaffa', tipo: 'Danno',
     flavor: 'Un bravo vi allunga una gaffa dal buio, mirando alla testa.',
     effect: 'Un eroe a caso (chi arbitra tira) subisce 1 danno.' },
 ].map((m) => ({

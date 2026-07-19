@@ -29,9 +29,9 @@ NEMICI = NEMICI_COMUNI + NEMICI_8
 HERO = {h['nome']: h for h in HEROES}
 LUOGHI_BY_N = {l['n']: l for l in LUOGHI_8}
 
-# Mazzo Minaccia dell'episodio (21 carte - «La melodia impressa» del
-# Bivio NON e' simulata). Tuple (titolo, testo, tipo, subito); testi 1:1
-# da cards-data.js (EP4_MINACCE).
+# Mazzo Minaccia dell'episodio (21 carte - la carta Bivio NON e'
+# simulata). Tuple (titolo, testo, tipo, subito); testi 1:1
+# da cards-data.js (EP8_MINACCE).
 MINACCE = (
     [('LE SENTINELLE DEL MOLO', 'Piazzate 1 Sgherro sull’uscita più vicina agli eroi.', 'malavita', False),
      ('IL GIRO DI RONDA', 'Piazzate 1 Sgherro sull’uscita più vicina agli eroi.', 'malavita', False),
@@ -882,142 +882,6 @@ def simula_indagine(party, log, esplora_a_fondo=False):
                 pista_falsa_creduta=pista_falsa_creduta,
                 chi_confermato=chi_confermato, dossier_completo=dossier_completo,
                 secondo_fiato=secondo_fiato, approf_dettaglio=approf_dettaglio)
-
-
-def simula_indagine_2gruppi(party, log, orologio_condiviso=True):
-    """Diagnostica per 8-10 giocatori (NON una regola vera): il party si
-    divide in 2 sottogruppi per l'intera Indagine (oggi la regola vera lo
-    permette una sola volta a episodio, vedi Regolamento) - serve a
-    misurare se la scarsita' "non potete visitare tutti gli 8 luoghi",
-    elemento centrale della tensione della Fase 1, regge ancora quando il
-    throughput raddoppia. `orologio_condiviso=True`: una visita di UN
-    sottogruppo costa comunque solo 1 ora dal Taccuino comune (come la
-    regola vera per la divisione singola, estesa qui a ogni visita).
-    `orologio_condiviso=False`: ogni sottogruppo ha le proprie 6 ore
-    indipendenti. Parole chiave/oggetti/Approfondimenti trovati da un
-    sottogruppo restano disponibili per l'altro (stessa indagine, stesso
-    Taccuino fisico) - solo `visitati` e' condiviso per evitare doppie
-    visite allo stesso luogo."""
-    log('=' * 78)
-    log('INDAGINE (2 SOTTOGRUPPI, diagnostica) - Episodio 1: "Il Coro Sommerso"')
-    log('=' * 78)
-    meta = len(party) // 2
-    gruppi = {'A': party[0::2], 'B': party[1::2]}  # alternati: copertura tipi piu' bilanciata dei due
-    log(f'Sottogruppo A: {", ".join(gruppi["A"])}')
-    log(f'Sottogruppo B: {", ".join(gruppi["B"])}')
-    log(f'Orologio: {"condiviso (1 ora per visita, di qualunque sottogruppo)" if orologio_condiviso else "separato (6 ore a testa)"}')
-    log('')
-
-    visitati = set()
-    parole, oggetti = set(), set()
-    diapason = False
-    approf_letti, approf_falliti = 0, 0
-    chi_confermato = False
-    charges = {g: {n: dict(INDAGINE_UNLOCK.get(n, {})) for n in gruppi[g]} for g in gruppi}
-    ore = {'A': 6, 'B': 6} if not orologio_condiviso else {'condivisa': 6}
-
-    def tipi_coperti(g):
-        tc, jolly = set(), False
-        for n in gruppi[g]:
-            for tipo in INDAGINE_UNLOCK.get(n, {}):
-                if tipo == 'jolly':
-                    jolly = True
-                else:
-                    tc.add(tipo)
-        if jolly:
-            tc |= {'Osservazione', 'Testimonianza', 'Referto', 'Presagio'}
-        return tc
-
-    tc_gruppo = {g: tipi_coperti(g) for g in gruppi}
-
-    def luogo_raggiungibile(l):
-        if l['n'] in visitati:
-            return False
-        req = l.get('req')
-        if req is None:
-            return True
-        kind, key = req
-        return key in (parole if kind == 'parola' else oggetti)
-
-    def punteggio(l, g):
-        strutturale = 0 if l['n'] in (1, 2, 3) else 1
-        copertura = -sum(1 for t in l['approf'] if t in tc_gruppo[g])
-        return (strutturale, copertura, l['n'])
-
-    def tenta_approfondimenti(l, g):
-        nonlocal approf_letti, approf_falliti, chi_confermato
-        for tipo in l['approf']:
-            idoneo = next((n for n in gruppi[g] if
-                           charges[g][n].get(tipo, 0) > 0 or charges[g][n].get('jolly', 0) > 0), None)
-            if idoneo:
-                usa_jolly = charges[g][idoneo].get(tipo, 0) <= 0
-                charges[g][idoneo]['jolly' if usa_jolly else tipo] -= 1
-                approf_letti += 1
-                log(f'    [{g}] [APPROFONDIMENTO {tipo}] sbloccato da {idoneo}'
-                    f'{" (jolly)" if usa_jolly else ""}.')
-                if (l['n'], tipo) in CHI_ESPLICITO:
-                    chi_confermato = True
-            else:
-                approf_falliti += 1
-                log(f'    [{g}] [APPROFONDIMENTO {tipo}] nessun eroe idoneo — non letto.')
-
-    def visita(g, l):
-        nonlocal diapason, approf_falliti
-        visitati.add(l['n'])
-        log(f'  [{g}] Visita Luogo {l["n"]} — {l["nome"]}')
-        lettore = max(gruppi[g], key=lambda n: HERO[n]['acume'])
-        ok, _ = check(log, lettore, 'ACUME', HERO[lettore]['acume'], 'Media')
-        if l.get('sblocca_parola'):
-            sp = l['sblocca_parola']
-            parole.update([sp] if isinstance(sp, str) else sp)
-        if l.get('sblocca_oggetto'):
-            oggetti.add(l['sblocca_oggetto'])
-        if l.get('stona'):
-            diapason = True  # approssimazione diagnostica: un pezzo basta
-        if ok:
-            tenta_approfondimenti(l, g)
-        else:
-            approf_falliti += len(l['approf'])
-
-    if orologio_condiviso:
-        turno = 0
-        while ore['condivisa'] > 0:
-            g = 'A' if turno % 2 == 0 else 'B'
-            candidati = sorted((l for l in LUOGHI_SIM if luogo_raggiungibile(l)), key=lambda l: punteggio(l, g))
-            if not candidati:
-                # prova l'altro sottogruppo prima di arrendersi: puo' vedere luoghi
-                # diversi solo per copertura tipi, non per raggiungibilita' (quella
-                # e' oggettiva), quindi in pratica qui i candidati coincidono - ma
-                # teniamo la struttura simmetrica per chiarezza del log.
-                break
-            visita(g, candidati[0])
-            ore['condivisa'] -= 1
-            turno += 1
-        ore_avanzate = ore['condivisa']
-    else:
-        for g in gruppi:
-            while ore[g] > 0:
-                candidati = sorted((l for l in LUOGHI_SIM if luogo_raggiungibile(l)), key=lambda l: punteggio(l, g))
-                if not candidati:
-                    break
-                visita(g, candidati[0])
-                ore[g] -= 1
-        ore_avanzate = min(ore.values())  # il Vantaggio della Spedizione vale per tutto il party
-
-    if ore_avanzate >= 3:
-        tier = 'SLANCIO (3 azioni al 1° round di spedizione, +1 Salute massima a testa)'
-    elif ore_avanzate >= 1:
-        tier = 'PREPARATI (+1 Salute massima a testa)'
-    else:
-        tier = 'nessun vantaggio'
-    log('')
-    log(f'Fine Indagine (2 sottogruppi): {len(visitati)}/8 luoghi visitati (TUTTI, se 8), '
-        f'{approf_letti} Approfondimenti letti, {approf_falliti} mancati.')
-    log(f'Ore avanzate (min tra i sottogruppi se orologio separato): {ore_avanzate} -> {tier}')
-    log('')
-    return dict(ore_avanzate=ore_avanzate, tier=tier, diapason=diapason, visitati=list(visitati),
-                chi_confermato=chi_confermato, luoghi_coperti=len(visitati),
-                dossier_completo=ore_avanzate == 0)
 
 
 def spawn_from_card(log, title, pool, enemies, round_n, fer_bonus=0, dan_bonus=0,
@@ -1898,12 +1762,10 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
                 custode_ingaggiato=custode is not None)
 
 
-def esegui_run(nome_run, party, seed, formula_minaccia='standard', indagine_2gruppi=None,
+def esegui_run(nome_run, party, seed, formula_minaccia='standard',
                nemico_scale='nessuna', pool_extra=False, ind_log=None, sped_log=None,
                esplora_a_fondo=False):
-    """`indagine_2gruppi`: None = Indagine normale (1 gruppo, regola vera).
-    True/False = diagnostica 2 sottogruppi, valore = orologio_condiviso.
-    `esplora_a_fondo`: euristica "thorough" (KPI round) - non chiude
+    """`esplora_a_fondo`: euristica "thorough" (KPI round) - non chiude
     l'Indagine appena il nucleo garantito e' in mano, continua a visitare
     nuovi luoghi finche' ci sono ore/candidati. Serve a testare la via
     "approfondita" del nuovo Vantaggio (6+ luoghi = SLANCIO anche a 0 ore
@@ -1921,10 +1783,7 @@ def esegui_run(nome_run, party, seed, formula_minaccia='standard', indagine_2gru
     ind_log(f'Run: {nome_run}  |  seed={seed}  |  generato: {datetime.now().isoformat(timespec="seconds")}')
     sped_log(f'Run: {nome_run}  |  seed={seed}  |  formula Minaccia={formula_minaccia}  |  '
              f'generato: {datetime.now().isoformat(timespec="seconds")}')
-    if indagine_2gruppi is None:
-        indagine = simula_indagine(party, ind_log, esplora_a_fondo=esplora_a_fondo)
-    else:
-        indagine = simula_indagine_2gruppi(party, ind_log, orologio_condiviso=indagine_2gruppi)
+    indagine = simula_indagine(party, ind_log, esplora_a_fondo=esplora_a_fondo)
     if chiudi_log:
         ind_log.close()
     spedizione = simula_spedizione(party, indagine, sped_log, seed, formula_minaccia,
@@ -1951,7 +1810,7 @@ def esegui_batch(nome_base, party, seeds, formula_minaccia='standard', nemico_sc
         else:
             ind_log = NullLogger()
             sped_log = NullLogger()
-        r = esegui_run(f'{nome_base}_seed{i}', party, seed, formula_minaccia, None,
+        r = esegui_run(f'{nome_base}_seed{i}', party, seed, formula_minaccia,
                         nemico_scale, pool_extra, ind_log, sped_log, esplora_a_fondo)
         risultati.append(r)
 

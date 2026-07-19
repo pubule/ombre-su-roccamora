@@ -35,7 +35,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, 'src'))
 sys.path.insert(0, os.path.join(ROOT, 'scripts'))
 from gen_cards import HEROES, NEMICI as NEMICI_COMUNI  # noqa: E402
-from gen_ep10 import NEMICI_10, LUOGHI_10  # noqa: E402
+from gen_ep10 import NEMICI_10  # noqa: E402
 # Config di produzione CONDIVISA e INTOCCABILE (unica fonte: simulate_playtest).
 from simulate_playtest import (INDAGINE_UNLOCK, MINACCIA_FORMULE,  # noqa: E402
                                CUSTODE_TENSIONE_EXTRA, SALUTE_BONUS_PER_N,

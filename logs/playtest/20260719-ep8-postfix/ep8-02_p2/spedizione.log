@@ -1,0 +1,126 @@
+Run: ep8-02_p2_seed0  |  seed=683200  |  formula Minaccia=finale_v3  |  generato: 2026-07-19T09:58:02
+==============================================================================
+SPEDIZIONE - Il Deposito dell’Ansa Morta (giovedì notte)
+==============================================================================
+Party: NINO “GRIMALDELLO” CAUTO, OTTAVIO BRERA
+Bonus da Indagine: nessun vantaggio; Marengo: sì; Lanterna: sì; D1: esatta; D3: esatta
+NOTA: gruppo trattato come blocco unico tessera per tessera (vedi intestazione script).
+Tensione tavolo piccolo: +-1 Ferite SOLO al Cambiavalute (non ai nemici di truppa).
+
+Tavolo da 2: +1 Salute massima a testa (ricalibrazione).
+Gettone Intuizione in mano (Dossier completo): un ri-tiro, una volta in Spedizione.
+  Il Marengo Segnato lo porta NINO “GRIMALDELLO” CAUTO (il Fiuto dei Mastini lo sa).
+--- Round 1: il gruppo raggiunge T2 (La Tettoia delle Chiatte) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    Il gruppo entra in T2 da B1.
+    [PROVA ACUME] NINO “GRIMALDELLO” CAUTO: 2d6(1,6)=7 +ACUME(2) = 9 vs Media(9) -> SUCCESSO
+    [AZIONE] NINO “GRIMALDELLO” CAUTO sequestra la cassa d’oro di T2 (1/4).
+    [PROVA ACUME] OTTAVIO BRERA: 2d6(4,5)=9 +ACUME(3) = 12 vs Media(9) -> SUCCESSO
+    OTTAVIO BRERA cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+  [MINACCIA] UN FISCHIO SULL’ACQUA (crescendo) — Aggiungete 1 segnalino Canto (la Voce che gira).
+    Segnalino Canto (la Voce che gira): 1.
+--- Round 2: il gruppo raggiunge T3 (Il Magazzino del Carbone) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    Il gruppo entra in T3 da B1.
+    [PROVA ACUME] NINO “GRIMALDELLO” CAUTO: 2d6(4,5)=9 +ACUME(2) = 11 vs Media(9) -> SUCCESSO
+    [AZIONE] NINO “GRIMALDELLO” CAUTO sequestra la cassa d’oro di T3 (2/4).
+    [PROVA ACUME] OTTAVIO BRERA: 2d6(4,4)=8 +ACUME(3) = 11 vs Media(9) -> SUCCESSO
+    OTTAVIO BRERA cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+  [MINACCIA] IL FISCHIO BASSO (malavita) — Piazzate 1 Sgherro: si attiva subito.
+    Piazzati 1x LO SGHERRO (pool residua: 4) in B1.
+    LO SGHERRO si attiva subito:
+  LO SGHERRO si muove verso OTTAVIO BRERA: B1 -> C1.
+  LO SGHERRO attacca OTTAVIO BRERA:
+    [ATTACCO NEMICO] LO SGHERRO -> OTTAVIO BRERA: 2d6(3,1)=4 +Attacco(2) = 6 vs Difesa(8) -> MANCATO
+--- Round 3: il gruppo raggiunge T4 (La Sala del Crogiolo) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    Il gruppo entra in T4 da B1.
+    Rivelata la Sala del Crogiolo: IL CAMBIAVALUTE non alza gli occhi dal bilancino — i suoi due MASTINI sì.
+    [PROVA ACUME] NINO “GRIMALDELLO” CAUTO: 2d6(5,5)=10 +ACUME(2) = 12 vs Media(9) -> SUCCESSO
+    [AZIONE] NINO “GRIMALDELLO” CAUTO sequestra la cassa d’oro di T4 (3/4).
+    [ABILITÀ] OTTAVIO BRERA usa Vi conosco, Malacarne su LO SGHERRO: rimosso dal tabellone.
+  [MINACCIA] IL GIRO DI RONDA (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 3) in B1.
+  IL MASTINO si muove verso NINO “GRIMALDELLO” CAUTO: A2 -> B2.
+  IL MASTINO attacca NINO “GRIMALDELLO” CAUTO:
+    [ATTACCO NEMICO] IL MASTINO -> NINO “GRIMALDELLO” CAUTO: 2d6(3,3)=6 +Attacco(2) = 8 vs Difesa(8) -> COLPITO
+    NINO “GRIMALDELLO” CAUTO subisce 2 danno da IL MASTINO (Salute: 6/8).
+  IL MASTINO si muove verso NINO “GRIMALDELLO” CAUTO: B1 -> C1.
+  IL MASTINO attacca NINO “GRIMALDELLO” CAUTO:
+    [ATTACCO NEMICO] IL MASTINO -> NINO “GRIMALDELLO” CAUTO: 2d6(2,2)=4 +Attacco(2) = 6 vs Difesa(8) -> MANCATO
+  LO SGHERRO si avvicina, non ancora a contatto.
+  IL CAMBIAVALUTE attacca OTTAVIO BRERA:
+    [ATTACCO NEMICO] IL CAMBIAVALUTE -> OTTAVIO BRERA: 2d6(1,2)=3 +Attacco(2) = 5 vs Difesa(8) -> MANCATO
+--- Round 4: il gruppo raggiunge T5 (L’Ufficio del Pesatore) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    Il gruppo entra in T5 da A3.
+    QUANDO RIVELATE: il guardaspalle del pesatore, dall’ombra.
+    [PROVA ACUME] NINO “GRIMALDELLO” CAUTO: 2d6(5,5)=10 +ACUME(2) = 12 vs Media(9) -> SUCCESSO
+    [AZIONE] NINO “GRIMALDELLO” CAUTO sequestra la cassa d’oro di T5 (4/4).
+    [ATTACCO] OTTAVIO BRERA -> IL SICARIO: 2d6(1,3)=4 +VIGORE(1)+arma(1) = 6 vs Difesa(7) -> MANCATO
+  [MINACCIA] LA POLVERE NEGLI OCCHI (insidia) — L’eroe attivo prova NERVI (Media): se fallisce, 1 danno e perde 1 azione.
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6(2,6)=8 +NERVI(1) = 9 vs Media(9) -> SUCCESSO
+  IL MASTINO si muove verso NINO “GRIMALDELLO” CAUTO: B2 -> A2.
+  IL MASTINO attacca NINO “GRIMALDELLO” CAUTO:
+    [ATTACCO NEMICO] IL MASTINO -> NINO “GRIMALDELLO” CAUTO: 2d6(6,6)=12 +Attacco(2) = 14 vs Difesa(8) -> COLPITO
+    NINO “GRIMALDELLO” CAUTO subisce 2 danno da IL MASTINO (Salute: 4/8).
+  IL MASTINO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  IL SICARIO attacca NINO “GRIMALDELLO” CAUTO:
+    [ATTACCO NEMICO] IL SICARIO -> NINO “GRIMALDELLO” CAUTO: 2d6(2,4)=6 +Attacco(3) = 9 vs Difesa(8) -> COLPITO
+    NINO “GRIMALDELLO” CAUTO subisce 2 danno da IL SICARIO (Salute: 2/8).
+  [OROLOGIO] Fine del 4° round: +1 segnalino Canto automatico.
+    Segnalino Canto (la Voce che gira): 2.
+--- Round 5: il gruppo raggiunge T4 (Crogiolo - ritorno dal ramo) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    Il gruppo entra in T4 da D3.
+    NINO “GRIMALDELLO” CAUTO si muove verso IL MASTINO: D3 -> D1.
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> IL MASTINO: 2d6(6,4)=10 +VIGORE(2)+arma(1) = 13 vs Difesa(6) -> COLPITO
+    IL MASTINO: 1/2 ferite residue.
+    OTTAVIO BRERA si muove verso IL MASTINO: D3 -> C2.
+    [ATTACCO] OTTAVIO BRERA -> IL MASTINO: 2d6(4,3)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(6) -> COLPITO
+    IL MASTINO: 0/2 ferite residue.
+    IL MASTINO è ABBATTUTO.
+  [MINACCIA] IL TURNO DI GUARDIA (quiete) — Nessun effetto (tensione).
+    (carta senza effetto modellato in questa simulazione)
+  IL MASTINO si muove verso NINO “GRIMALDELLO” CAUTO: A2 -> C4.
+  IL MASTINO si avvicina, non ancora a contatto.
+  LO SGHERRO si muove verso OTTAVIO BRERA: B1 -> B2.
+  LO SGHERRO attacca OTTAVIO BRERA:
+    [ATTACCO NEMICO] LO SGHERRO -> OTTAVIO BRERA: 2d6(5,5)=10 +Attacco(2) = 12 vs Difesa(8) -> COLPITO
+    OTTAVIO BRERA subisce 1 danno da LO SGHERRO (Salute: 6/7).
+  IL SICARIO si avvicina, non ancora a contatto.
+  IL CAMBIAVALUTE si muove verso NINO “GRIMALDELLO” CAUTO: A1 -> C1.
+  IL CAMBIAVALUTE attacca NINO “GRIMALDELLO” CAUTO:
+    [ATTACCO NEMICO] IL CAMBIAVALUTE -> NINO “GRIMALDELLO” CAUTO: 2d6(1,2)=3 +Attacco(2) = 5 vs Difesa(8) -> MANCATO
+--- Round 6: il gruppo raggiunge T6 (La Porta d’Acqua) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    Il gruppo entra in T6 da B1.
+    NINO “GRIMALDELLO” CAUTO si muove verso LO SGHERRO: B1 -> A2.
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> LO SGHERRO: 2d6(1,4)=5 +VIGORE(2)+arma(1) = 8 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    [ATTACCO] OTTAVIO BRERA -> LO SGHERRO: 2d6(3,3)=6 +VIGORE(1)+arma(1) = 8 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+  [MINACCIA] IL GUINZAGLIO TAGLIATO (malavita) — Piazzate 1 Mastino: si attiva subito.
+    Piazzati 1x IL MASTINO (pool residua: 0) in B1.
+    IL MASTINO si attiva subito:
+  IL MASTINO si muove verso NINO “GRIMALDELLO” CAUTO: B1 -> B2.
+  IL MASTINO attacca NINO “GRIMALDELLO” CAUTO:
+    [ATTACCO NEMICO] IL MASTINO -> NINO “GRIMALDELLO” CAUTO: 2d6(4,5)=9 +Attacco(2) = 11 vs Difesa(8) -> COLPITO
+    NINO “GRIMALDELLO” CAUTO subisce 2 danno da IL MASTINO (Salute: 0/8).
+    [INTUIZIONE] Il gruppo spende il gettone Dossier: NINO “GRIMALDELLO” CAUTO resta in piedi a 1 Salute invece di cadere.
+  IL MASTINO si avvicina, non ancora a contatto.
+  IL SICARIO si avvicina, non ancora a contatto.
+--- Alla Porta d’Acqua (T6) con 4/4 casse ---
+
+==============================================================================
+ESITO SPEDIZIONE: VITTORIA
+Round totali: 6
+Formula Minaccia: finale_v3 | Azioni nominali/round: media 4.0, picco 4
+Mazzo Minaccia rimescolato: 0 volta/e
+Segnalini nemici esauriti nel pool (piazzamenti saltati): 0
+Casse sequestrate: 4/4 | Cambiavalute: al crogiolo
+  NINO “GRIMALDELLO” CAUTO: 1/8 Salute
+  OTTAVIO BRERA: 6/7 Salute
+==============================================================================

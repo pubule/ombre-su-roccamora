@@ -223,7 +223,7 @@ chiamano» SOLO nel ramo «sigillata» del Bivio Ep. 4 (vedi §8).
   Ossario aperto + Marmista, doppia via anti-softlock intatta). Curva v3
   invariata rispetto a v2 (la D3 non è nel loop di combattimento): 2:46%,
   3-10 71-99%. Leve: `scade_prova=21` su L3, flag `prova_scaduta`/
-  `casse_gratis` nel simulatore. Log: logs/playtest/20260718-curva-ep5-v3.
+  Log: logs/playtest/20260718-curva-ep5-v3.
   Spec: DESIGN-INDAGINE-VARIETA-ep5.md.
 - **Fase C — aggiornamento regola Slancio (2026-07-18, curva v2):** chiuso
   il bug «Slancio gratis» (Slancio SOLO con 4/4 risposte esatte E 3+ ore

@@ -64,8 +64,7 @@ LETTERA_5 = (
     "cimitero nuovo e la Parrocchia del Borgo — che conoscete. Gli altri andranno "
     "sbloccati. L’ossario chiude alle 22:00, l’ufficio delle sconsacrazioni in Curia "
     "alle 21:00. E al Cimitero Nuovo i carri notturni finiscono il carico verso le "
-    "21:00: le lapidi che portano via, dopo, non le trovate più. "
-    "alle 21:00.</i>")
+    "21:00: le lapidi che portano via, dopo, non le trovate più.</i>")
 
 # Luoghi: chiavi LETTERALI negli indizi, tutte da luoghi APERTI, doppia via
 # (anti-fortuna): «il maestro dei registri» da L1 e L3, «contanti nuovi» da
