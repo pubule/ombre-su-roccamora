@@ -120,7 +120,8 @@ LUOGHI_11 = [
              'In un cassetto della camera di Ratti, una minuta mai spedita, di suo pugno: «Ho '
              'capito dove va tutto. Non è uno studio. È una PENNA. So quanto vale, e a chi '
              'venderlo.» <i>(Aggancio: conservatela per l’Episodio 12.)</i> Le misure che non '
-             'tornano tornano eccome, se sai che cosa cercavano.'],
+             'tornano tornano eccome, se sai che cosa cercavano: fra tutte, le funi delle '
+             'campane di ogni torre, misurate a una a una.'],
          approfondimenti=[
              dict(tipo='Testimonianza', soggetto='Il topografo più giovane',
                   testo='«Ve lo dico perché ho paura, non per denaro. Ratti aveva rimesso in '

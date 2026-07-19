@@ -68,7 +68,7 @@ LETTERA_3 = (
 # Luoghi: fonte autoritativa py (indizi core GARANTITI - regola 1-ter).
 # Chiavi tutte da luoghi APERTI, doppia via (anti-fortuna, 1-sexies):
 # «acqua morta» da L1 e L4, «canne d'organo» da L2 e L3, «requiem per
-# Piero» da L2 e L4, «salasso» da L2 e L3, le Chiavi dei Chiusini da L1.
+# Piero» da L2 e L4, «salasso» da L1 e L2, le Chiavi dei Chiusini da L1.
 # Rivelatorio (Domanda 2) su 3 carte designate: L1, L2, L3 - tutti aperti.
 LUOGHI_3 = [
     dict(n=1, nome='IL LAVATOIO GRANDE', voce_mappa='Il Lavatoio Grande',
@@ -104,8 +104,8 @@ LUOGHI_3 = [
          indizi=[
              'Mastro Silvano Alcesti vi riceve con cortesia stanca: mezza città passa dalla sua '
              'poltrona. Dei tagli dice, piano: «un taglio così non lo fa un coltello. Lo fa una '
-             'mano ferma, e una lama che sa dove fermarsi.» Di notte lo chiamano per i '
-             'salassi — il medico costa, il barbiere no.',
+             'mano ferma, e una lama che sa dove fermarsi.» Di notte lo chiamano per un '
+             'salasso — il medico costa, il barbiere no.',
              'Alla parete, tra gli ex-voto, il ritratto a carboncino di un bambino: Piero, il '
              'figlio, morto di febbri due inverni fa. «Aveva una voce che il rione si fermava. '
              'Il requiem per Piero non l’ho voluto: certe voci non si seppelliscono.»',

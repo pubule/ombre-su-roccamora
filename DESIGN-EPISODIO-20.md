@@ -109,7 +109,7 @@ lui. Chi ha conservato più Frammenti canta più giusto.
 | 2 | Gli Ossari / le maree | Il Cimitero delle Barche (riuso) | APERTO | l'ora delle acque, i vecchi che leggono le maree; chiavi «le maree di sizigia», «la voce che crede»; incrocio D1 |
 | 3 | La Taverna della Chiatta | La Taverna della Chiatta (riuso) | APERTO | la Società (e Vidal, se convinto) che vi prepara; chiavi «la via delle tre acque», «il controcanto»; **rivelatoria** (Testimonianza) |
 | 4 | L'Archivio del 1741 | L'Archivio delle Penne (riuso Ep. 18) | APERTO | il Fascicolo e il calendario dei Padri; chiavi «il controcanto», «le maree di sizigia»; **rivelatoria** (Referto); incrocio D1 |
-| 5 | I Vecchi del Coro | L'Organo di Ossa (riuso Ep. 5) | BLOCCATO — «la voce che crede» (da L2, e L3 la ripete) | chi ricorda la candidata dall'Ep. 3; incrocio D3 |
+| 5 | I Vecchi del Coro | L'Ossario Comunale (riuso Ep. 5) | BLOCCATO — «la voce che crede» (da L2, e L3 la ripete) | chi ricorda la candidata dall'Ep. 3; incrocio D3 |
 | 6 | Ciò che resta dell'Organo di Ossa | La Chiesa dei Battuti (riuso Ep. 5) | BLOCCATO — «la voce che crede» (da L2, e L3 la ripete) | le canne-voce, la melodia; incrocio D3; Reperto |
 | 7 | La Camera del Coro (esca) | La Loggia dei Confratelli (riuso Ep. 12) | BLOCCATO — «il controcanto» (da L3, e L4 la ripete) | la Chiave del Coro (esca: apre l'estasi di M., non il sonno) |
 | 8 | Il Grimorio del Rito (esca) | Lo Scriptorium (riuso Ep. 12) | BLOCCATO — «il controcanto» (da L3, e L4 la ripete) | lo spartito del Quarto Movimento (esca: aiuta M.) |

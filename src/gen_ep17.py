@@ -652,7 +652,7 @@ def soluzione():
         '— lo cancella per il resto della spedizione. È il peso dell’episodio: entrate dubitando '
         'l’uno dell’altro.',
         '<b>La soglia-decano.</b> Dalla Sala degli Interrogatori (T4), le carte crescendo '
-        '(trasferimento) spingono il Canto. Alla <b>soglia-decano = Canto 4</b> (5 col Salvacondotto), '
+        '(trasferimento) spingono il Canto. Alla <b>soglia-decano = Canto 3</b> (4 col Salvacondotto), '
         'il decano è trasferito: lo recuperate ferito grave (vittoria parziale sul fronte '
         'deposizione — l’Ep. 18 perde un incrocio).',
         '<b>La Guardia e il Notaio.</b> Guardia (boss): Att +3, Dif 8, Fer 6, Mov 3, Danno 2. Va '

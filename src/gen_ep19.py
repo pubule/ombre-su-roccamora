@@ -155,7 +155,8 @@ LUOGHI_19 = [
              'il confronto col metodo di M. <i>(Oggetto: prendete le Prove per l’Ispettore.)</i> '
              '«Se riuscite a parlargli prima che spari, questo lo ferma.»',
              'Il gendarme, sottovoce: «Vidal è già all’Archivio, vi aspetta. Sa che tornerete per '
-             'il Fascicolo del 1741: è troppo bravo per non averlo capito. Andateci sapendo che '
+             'il Fascicolo del 1741, per l’ultima discesa: è troppo bravo per non averlo capito. '
+            'Andateci sapendo che '
              'l’unica arma che funziona con lui è la verità.»'],
          approfondimenti=[
              dict(tipo='Referto', soggetto='La via all’Archivio',

@@ -69,7 +69,7 @@ LETTERA_9 = (
 
 # Chiavi LETTERALI negli indizi, tutte da luoghi APERTI, doppia via:
 # «la deposizione di domani» da L1 e L4, «il fondo caritatevole» da L2 e L3,
-# «l'oro della parcella» da L3 e L2, «il forestiero coi guanti» da L4 e L5
+# «l'oro della parcella» da L3 e L2, «il forestiero coi guanti» da L4 e L2
 # (interna), il Salvacondotto da L1. Rivelatorio (D2) su L2, L3, L4.
 LUOGHI_9 = [
     dict(n=1, nome='IL TRIBUNALE', voce_mappa='Il Tribunale',
@@ -102,8 +102,9 @@ LUOGHI_9 = [
          indizi=[
              'Ranuzzi copre il processo e ha un dente avvelenato: «l’avvocato Grassi non ha '
              'clienti in città, non ha studio qui, non ha un motivo al mondo per difendere '
-             'questo caso. Eppure è arrivato in prima classe. Chi lo paga? Un “fondo '
-             'caritatevole” che non ho trovato da nessuna parte.»',
+             'questo caso. Eppure è arrivato in prima classe. Chi lo paga? Il forestiero coi '
+             'guanti che l’ha accolto alla stazione, e un “fondo caritatevole” che non ho '
+             'trovato da nessuna parte.»',
              'Sulla scrivania di Ranuzzi, una parcella intravista al volo e mai avuta in '
              'mano: «marenghi d’oro, vecchi, in una busta piegata coi guanti. Come le '
              'ricevute del porto di cui mi parlaste. Stesso oro, stessa piega. Ma provatelo '

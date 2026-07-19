@@ -632,8 +632,8 @@ def soluzione():
         'contate i Frammenti conservati (1-19) — più ne avete, più righe di controcanto cantate per '
         'round. Aiuti: la Mappa Acustica, la Candidata Salvata. <i>Esche:</i> la Chiave del Coro e '
         'il Grimorio del Rito (cantano il RISVEGLIO — aiutano M.).',
-        '<b>IL CONTROCANTO E I FRAMMENTI:</b> servono <b>6 righe</b> di controcanto per vincere. Ogni '
-        'round nella camera (T6) cantate <b>1 riga + 1 ogni 4 Frammenti conservati</b> (Mappa '
+        '<b>IL CONTROCANTO E I FRAMMENTI:</b> servono <b>10 righe</b> di controcanto per vincere. Ogni '
+        'round nella camera (T6) cantate <b>1 riga + 1 ogni 6 Frammenti conservati</b> (Mappa '
         'Acustica: +1). Ogni impiegato del coro in campo: −1 riga/round. Il Canto (risveglio) sale '
         'come sempre; alla <b>soglia-risveglio = Canto 8</b> il Dormiente si desta.',
     ])
@@ -653,7 +653,7 @@ def soluzione():
         'camera fanno danno inevitabile a soglie di Canto (Canto 4: 1 danno a un eroe; Canto 6: 1 '
         'danno a due; Canto 7: prova NERVI a tutti o 1 danno). M. (umano) in piedi con la voce '
         'accelera il risveglio (+1 Canto/round); a terra, o senza la Candidata, no.',
-        '<b>Vittoria e sconfitta.</b> Controcanto (6 righe) completo PRIMA del risveglio (Canto 8) = '
+        '<b>Vittoria e sconfitta.</b> Controcanto (10 righe) completo PRIMA del risveglio (Canto 8) = '
         '<b>VITTORIA</b> (il Dormiente torna al sonno senza sogni). Risveglio (Canto 8) prima = '
         '<b>SCONFITTA</b> (il dio si desta — vedi epilogo). FUORI SCALA: le fasi ambientali possono '
         'far cadere eroi, e il finale può finire male. <b>Il mazzo:</b> 21 carte (7 coro, 6 insidie '

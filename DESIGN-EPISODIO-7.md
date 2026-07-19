@@ -129,7 +129,7 @@ dopo il piano terra — la scelta è del gruppo, ANNUNCIATA prima di rivelare:
   caselle). Vittoria: Fava fuori da T1. Il ritorno percorre la via scelta
   all'andata (le prove dei ponteggi si ripetono; il silenzio resta).
 
-**Boss — IL CAPOCANTIERE:** Att +2, Dif 7, Fer 4, Mov 3, Danno 2. Un uomo
+**Boss — IL CAPOCANTIERE:** Att +2, Dif 8, Fer 4, Mov 3, Danno 2. Un uomo
 grande e paziente col piombo da muratore in mano; non urla mai (nel
 silenzio che ha costruito, non serve). Nessuna debolezza-oggetto: è un
 uomo. **«Smascherato» (D2 esatta):** gridando il nome di Voltan davanti a

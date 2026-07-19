@@ -313,7 +313,7 @@ TILES_14 = [
                'dei Gatti che sale di tetto in tetto. QUANDO RIVELATE QUESTA TESSERA: applicate '
                'l’esito delle Domande 3 e 4. Coi Ramponi saltate lo strapiombo di partenza (e la '
                'sua caduta).',
-         arbitro='STRAPIOMBO: senza i Ramponi, il primo salto è una prova DESTREZZA (Media); chi '
+         arbitro='STRAPIOMBO: senza i Ramponi, il primo salto è una prova VIGORE/DESTREZZA (Media); chi '
                  'fallisce perde un round aggrappato e la FUGA avanza. Coi Ramponi passate senza '
                  'prova. Da qui il pericolo non sono solo i Gatti: è la quota, il vuoto, il vetro.',
          hook='I Ramponi (dal Covo): sui tetti le cadute non vi feriscono, saltate lo strapiombo.',

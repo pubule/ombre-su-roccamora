@@ -31,7 +31,7 @@ LUOGHI_BY_N = {l['n']: l for l in LUOGHI_9}
 
 # Mazzo Minaccia dell'episodio (21 carte - «Gli occhi del culto» del
 # Bivio NON e' simulata). Tuple (titolo, testo, tipo, subito); testi 1:1
-# da cards-data.js (EP7_MINACCE).
+# da cards-data.js (EP9_MINACCE).
 MINACCE = (
     [('I BRAVI DEL FONDO', 'Piazzate 1 Sgherro sull’uscita più vicina agli eroi.', 'malavita', False),
      ('LA CARITÀ ARMATA', 'Piazzate 1 Sgherro sull’uscita più vicina agli eroi.', 'malavita', False),

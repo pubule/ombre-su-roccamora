@@ -73,7 +73,7 @@ LETTERA_2 = (
 # Luoghi: fonte autoritativa py (indizi core GARANTITI - le chiavi vivono
 # qui, mai solo negli Approfondimenti: regola 1-ter). Le chiavi nascono
 # tutte in luoghi APERTI (anti-fortuna, 1-sexies): «pari peso» da L3 e L6,
-# «senza lanterne» da L2 e L3, «ghisa da scafo» da L1 (indizio core (c) -
+# «senza lanterne» da L2 e L3, «ghisa da scafo» da L1 e L3 (indizio core (c) -
 # NON solo dal Referto gated), la polizza da L6.
 LUOGHI_2 = [
     dict(n=1, nome='LA FONDERIA DOSSENA', voce_mappa='Le Fonderie',
@@ -136,8 +136,8 @@ LUOGHI_2 = [
              'ha passato la Punta delle Scorie alle 3 in punto. «Diretta al canale morto. Là non '
              'c’è niente. Cioè: non c’era.»',
              'Un sensale ubriaco giura il contrario, e non molla: «il bronzo è salito al Vecchio '
-             'Mulino, l’ho caricato io con queste mani». Nessuno lo smentisce — qui dentro le '
-             'storie non si pesano.'],
+             'Mulino, l’ho caricato io con queste mani». Ma quel «bronzo» pesava troppo poco: era '
+             'ghisa da scafo, fusa male. Nessuno lo smentisce — qui dentro le storie non si pesano.'],
          approfondimenti=[
              dict(tipo='Testimonianza', soggetto='Il facchino insonne',
                   testo='«Il capomastro dei Dossena beveva qui ogni notte, e ai tavoli di dietro '

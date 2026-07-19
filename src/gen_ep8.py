@@ -67,7 +67,7 @@ LETTERA_8 = (
     "Taverna della Chiatta e il Monte di Pietà. Gli altri andranno sbloccati.</i>")
 
 # Chiavi LETTERALI negli indizi, tutte da luoghi APERTI, doppia via:
-# «l'oro vecchio» da L1 e L2, «la fusione antica» da L2 e L6 (interna),
+# «l'oro vecchio» da L1 e L2, «la fusione antica» da L2 e L4,
 # «l'ansa morta» da L3 e L1, «il carro del carbone» da L4 e L3, il Marengo
 # Segnato da L2. Rivelatorio (Domanda 2) su L1, L2, L3 - tutti aperti.
 LUOGHI_8 = [
@@ -151,7 +151,8 @@ LUOGHI_8 = [
              'Tra i pegni NON riscattati: la divisa da esattore demaniale di un vecchio '
              'impiegato, «quello dei sequestri». Il direttore: «viene ogni mese a pagare '
              'gli interessi, mai a riscattare. Abita alla salita dei Cappuccini. Se '
-             'cercate l’oro vecchio, lui l’oro vecchio l’ha CONTATO, da giovane.»',
+             'cercate l’oro vecchio, lui l’oro vecchio l’ha CONTATO, da giovane — e la '
+             'fusione antica delle zecche la riconosce a colpo d’occhio.»',
              'Il carrettiere del carbone scarica sacchi anche qui, per le stufe: «il '
              'grosso però va al porto, il giovedì notte. Il carro del carbone, lo '
              'chiamano — ma da quando il carbone si scorta coi cani? Io scarico, incasso '

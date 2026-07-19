@@ -60,9 +60,9 @@ LETTERA_6 = (
     "Catasto delle Acque e il Palazzo del Lume — dove M. ha aperto per voi l’archivio dei "
     "Frammenti. Gli altri andranno sbloccati. L’Archivio Capitolare chiude alle 22:00.</i>")
 
-# Chiavi LETTERALI, doppia via da aperti: «la marea di sizigia» (L2),
+# Chiavi LETTERALI, doppia via da aperti: «la marea di sizigia» (L2+L3),
 # «le tre acque» (L3+L2), «il capitolo del Quarantuno» (L1+L4), «il maestro
-# dei registri» (L4), Chiave della Porta d'Acqua (L6). Rivelatorio (D2) su
+# dei registri» (L4+L3), Chiave della Porta d'Acqua (L6). Rivelatorio (D2) su
 # L1, L2, L4.
 LUOGHI_6 = [
     dict(n=1, nome='LA CATTEDRALE, LA SAGRESTIA', voce_mappa='La Cattedrale',
@@ -125,9 +125,10 @@ LUOGHI_6 = [
              'Il registro delle consultazioni: nessuno è più venuto coi guanti — ma il '
              'fascicolo delle tre acque mostra una piega nuova e una scheda di prestito '
              'INTERNO, sigla di Curia: qualcuno l’ha fatto uscire e rientrare senza passare '
-             'dal banco.',
+             'dal banco — la mano del Maestro dei Registri, che negli archivi entra ed esce '
+             'senza lasciare firma.',
              'Sulle tavole idrografiche, la chiusa grande regola l’acqua dolce: «se '
-             'stanotte c’è la sizigia», dice l’archivista, «il colmo lo decide la Chiusa '
+             'stanotte c’è la marea di sizigia», dice l’archivista, «il colmo lo decide la Chiusa '
              'Grande. Il guardiano tiene le tavole di marea aggiornate all’ora.»'],
          approfondimenti=[
              dict(tipo='Referto', soggetto='Il bulbo delle vene',
