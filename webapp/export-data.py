@@ -59,6 +59,8 @@ from gen_ep17 import (LUOGHI_17, TILES_17, NEMICI_17, OGGETTI_LUOGO_17, LETTERA_
                       ESAMI_CARBONE_17)
 from gen_ep18 import (LUOGHI_18, TILES_18, NEMICI_18, OGGETTI_LUOGO_18, LETTERA_18,  # noqa: E402
                       ESAMI_CARBONE_18)
+from gen_ep19 import (LUOGHI_19, TILES_19, NEMICI_19, OGGETTI_LUOGO_19, LETTERA_19,  # noqa: E402
+                      ESAMI_CARBONE_19)
 from gen_mappa import VOCI_MAPPA, MAPPE  # noqa: E402
 from gen_bestiario import FASCE, BOSS_DELTA, ferite_per_fascia  # noqa: E402
 from simulate_playtest import (INDAGINE_UNLOCK, TICK_CANTO_OGNI, SOGLIA_CANTO,  # noqa: E402
@@ -81,6 +83,7 @@ from simulate_ep15 import TOKEN_POOL_BASE as POOL_EP15  # noqa: E402
 from simulate_ep16 import TOKEN_POOL_BASE as POOL_EP16  # noqa: E402
 from simulate_ep17 import TOKEN_POOL_BASE as POOL_EP17  # noqa: E402
 from simulate_ep18 import TOKEN_POOL_BASE as POOL_EP18  # noqa: E402
+from simulate_ep19 import TOKEN_POOL_BASE as POOL_EP19  # noqa: E402
 
 
 def strip_tags(s):
@@ -162,6 +165,9 @@ REPERTI_LUOGO = {
     'ep18': {5: ['Reperto A - Firma Doppia'],
              9: ['Reperto B - Piantina del Palazzo'],
              8: ['Reperto C - Due Firme a Confronto']},
+    'ep19': {9: ['Reperto A - Fascicolo del 1741'],
+             8: ['Reperto B - Mappa Acustica'],
+             1: ['Reperto C - Manifesto dei Ricercati']},
 }
 
 
@@ -631,6 +637,27 @@ SOLUZIONI = dict(
         ],
         boss='LA GUARDIA DEL PRESIDENTE',
     ),
+    ep19=dict(
+        domande=[
+            dict(q='DOVE è il Fascicolo del 1741?',
+                 risposta='Nell’Archivio sequestrato, dove i gendarmi hanno ammassato la roba della Società (il gendarme amico L4 + la mappa dei sigilli di Fossa L2).',
+                 esatta='Entrate senza allarme: nel 1° round della spedizione non si pesca nessuna carta Minaccia.',
+                 sbagliata='Forzate l’ingresso: 1 gendarme appare in T1.'),
+            dict(q='CHI vi apre ancora la porta?',
+                 risposta='I PNG del passato, secondo i BIVI: chi avete protetto/aiutato torna per voi; chi avete usato/abbandonato vi volta le spalle. Il CONTO della campagna.',
+                 esatta='Avete chiaro il vostro conto di alleati: sapete su chi contare per convincere l’Ispettore.',
+                 sbagliata='Andate alla cieca sul conto.'),
+            dict(q='COSA manca a M. per il Quarto Movimento?',
+                 risposta='Una VOCE CHE CREDA: il suo coro è comprato (impiegati, non fedeli), canta senza fede. È la sua crepa, e M. cerca stanotte l’ultima candidata (il decano L6 + i vecchi testimoni L8).',
+                 esatta='Conoscete la crepa del coro: la chiave tattica dell’Ep.20 (gli impiegati si rompono e fuggono).',
+                 sbagliata='Entrerete nel finale senza sapere la debolezza di M.'),
+            dict(q='COSA portate alla discesa?',
+                 risposta='La Mappa Acustica (L8), il Fascicolo del 1741 (L9, in spedizione) e i Frammenti-bis. È l’economia dell’Ep.20: ciò che manca qui, manca là.',
+                 esatta='Aiuti: la mappa dei sigilli (Fossa), le Prove per l’Ispettore (L4 + l’archivio di Braga se protetto). (Esche: la Taglia da Riscuotere, la Via Facile.)',
+                 sbagliata='Scendete nell’Ep.20 senza il controcanto o la mappa: quasi impossibile.'),
+        ],
+        boss='L’ISPETTORE VIDAL',
+    ),
     preludio=dict(
         domande=[
             dict(q='DOVE è tenuto Ansaldo?',
@@ -966,6 +993,26 @@ episodi = dict(
         vantaggio=dict(slancio_ore=3, preparati_ore=1, preparati_luoghi=6),
         soluzione=SOLUZIONI['ep18'],
         pool=POOL_EP18,
+    ),
+    ep19=dict(
+        id='ep19', titolo='La Società braccata',
+        sottotitolo='episodio 19 — Atto IV (apertura): il conto della campagna',
+        cartella='Episodio 19', ore_budget=6,
+        lettera=LETTERA_19,
+        obiettivo='Braccati (manifesto RICERCATI), la sede sigillata. L’indagine è la vostra STESSA '
+                  'campagna: ogni luogo è un PNG del passato, che vi apre o vi chiude la porta '
+                  'secondo i BIVI di 18 serate (il conto, in bene e in male). Raccogliete gli '
+                  'alleati e i pezzi (Mappa Acustica, Prove), poi irrompete nell’Archivio '
+                  'sequestrato per il Fascicolo del 1741 (T6, indispensabile per il finale). Ad '
+                  'aspettarvi, l’Ispettore Vidal: NON si uccide — ridotto all’ultima Ferita ascolta, '
+                  'e si vince CONVINCENDOLO con le Prove, se il conto dei vostri alleati regge '
+                  '(≥3). Convinto, nell’Ep.20 tiene aperte le uscite.',
+        esami_carbone=ESAMI_CARBONE_19,
+        luoghi=[luogo_json(L, OGGETTI_LUOGO_19, REPERTI_LUOGO['ep19']) for L in LUOGHI_19],
+        tessere=[tessera_json(T) for T in TILES_19],
+        vantaggio=dict(slancio_ore=3, preparati_ore=1, preparati_luoghi=6),
+        soluzione=SOLUZIONI['ep19'],
+        pool=POOL_EP19,
     ),
 )
 

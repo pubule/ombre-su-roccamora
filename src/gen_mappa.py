@@ -228,9 +228,8 @@ VOCI_MAPPA = [
     ('La Matrice del Decano', 'palazzo del Lume, sala del cifrario', 'ep18'),
     ('Il Vezzo delle Firme', 'palazzo del Lume, sala del confronto', 'ep18'),
     ('Il Palazzo del Lume (la fuga)', 'palazzo del Lume, la sede che si spegne', 'ep18'),
-    # Episodio 19 — la Società braccata (Atto IV). Un solo luogo nuovo: il
-    # rifugio in esilio. Tutto il resto riuso (la città come memoria).
-    ('La Taverna della Chiatta', 'riva bassa, taverna sull’acqua', 'ep19'),
+    # Episodio 19 — la Società braccata (Atto IV). Nessuna voce nuova: la Taverna
+    # della Chiatta esiste già ('preludio'); tutto il resto riuso (città-memoria).
 ]
 
 # (sottocartella pdf/, sottotitolo, tag inclusi). Un episodio nuovo aggiunge
