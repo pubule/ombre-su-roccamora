@@ -1135,6 +1135,51 @@ Chi canterà al di sotto, non si lamenti di ciò che al di sotto risponde.`;
     </div></div>
   `);
 
+  // --- Episodio 20, Reperto A: la partitura del controcanto (L9) — il finale ---
+  const repertoA20 = page(`
+    <div class="wrap"><div style="zoom:0.90;">
+      <div class="serif" style="font-style:italic; font-size:38px; color:#3a2415; mix-blend-mode:multiply; margin-bottom:44px;">Reperto A — la partitura del controcanto (Gola della Città)</div>
+      <div class="serif" style="font-size:46px; line-height:74px;">
+        <p style="margin-bottom:32px;">Il Fascicolo del 1741 aperto sulla <b>riga finale</b>, che si completa coi Frammenti.</p>
+        <p style="margin-bottom:32px; border-top:2px solid #6b5636; padding-top:32px;">Non si abbatte un dio: lo si <b>canta a dormire</b>, senza sogni.</p>
+      </div>
+      <div class="serif" style="font-style:italic; margin-top:70px; font-size:34px; color:#4a4a4e; mix-blend-mode:multiply;">
+        Metà dei vostri Frammenti erano queste righe; l’altra metà, la sua firma.
+        Cantate le prime più giusto di quanto lui canti il suo rito.
+      </div>
+    </div></div>
+  `);
+
+  // --- Episodio 20, Reperto B: la voce che crede (L6) ---
+  const repertoB20 = page(`
+    <div class="wrap"><div style="zoom:0.92;">
+      <div class="serif" style="font-style:italic; font-size:38px; color:#3a2415; mix-blend-mode:multiply; margin-bottom:56px;">Reperto B — la voce che crede (Organo di Ossa)</div>
+      <div class="serif" style="font-size:46px; line-height:76px;">
+        <p style="margin-bottom:32px;">L’ultima candidata del Coro: l’unica voce che M. <b>non può comprare</b>.</p>
+        <p style="margin-bottom:32px;">La fede non si costringe. La sua speranza è la paura; la vostra, salvarla.</p>
+      </div>
+      <div class="serif" style="font-style:italic; margin-top:70px; font-size:34px; color:#4a4a4e; mix-blend-mode:multiply;">
+        Salvatela, e M. avrà un coro senza anima: un rumore, non un risveglio.
+        È metà della vittoria — l’altra metà è il controcanto.
+      </div>
+    </div></div>
+  `);
+
+  // --- Episodio 20, Reperto C: la gola della città (L9) ---
+  const repertoC20 = page(`
+    <div class="wrap"><div style="zoom:0.90;">
+      <div class="serif" style="font-style:italic; font-size:38px; color:#3a2415; mix-blend-mode:multiply; margin-bottom:56px;">Reperto C — la gola della città (oltre il punto di Ferri)</div>
+      <div class="serif" style="font-size:46px; line-height:74px;">
+        <p style="margin-bottom:32px;">La camera che <b>nessuna mappa registra</b>: la pietra dà sull’acqua, l’acqua sul buio.</p>
+        <p style="margin-bottom:32px;">E nel buio, qualcosa di grande <b>respira piano</b>: un dio che sogna.</p>
+      </div>
+      <div class="serif" style="font-style:italic; margin-top:80px; font-size:34px; color:#4a4a4e; mix-blend-mode:multiply;">
+        Non abbassate la lama. Alzate la voce. È l’ultima cosa che vi resta da
+        fare, e la più gentile.
+      </div>
+    </div></div>
+  `);
+
   const items = [
     ['Episodio 1', 'Reperto A - Diario di Ruggero', repertoA],
     ['Episodio 1', 'Reperto B - Registro delle Consegne', repertoB],
@@ -1194,6 +1239,9 @@ Chi canterà al di sotto, non si lamenti di ciò che al di sotto risponde.`;
     ['Episodio 19', 'Reperto A - Fascicolo del 1741', repertoA19],
     ['Episodio 19', 'Reperto B - Mappa Acustica', repertoB19],
     ['Episodio 19', 'Reperto C - Manifesto dei Ricercati', repertoC19],
+    ['Episodio 20', 'Reperto A - Partitura del Controcanto', repertoA20],
+    ['Episodio 20', 'Reperto B - Voce che Crede', repertoB20],
+    ['Episodio 20', 'Reperto C - Gola della Città', repertoC20],
   ];
 
   for (const [episodio, name, html] of items) {

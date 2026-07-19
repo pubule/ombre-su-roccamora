@@ -307,6 +307,19 @@ BUCKETS = [
         ],
         cards_sheet=os.path.join('Episodio 19', 'pdf', 'Carte.pdf'),
     ),
+    dict(
+        out=os.path.join('Episodio 20', 'Ombre-su-Roccamora-Episodio-20-Completo.pdf'),
+        booklets=[
+            os.path.join('Episodio 20', 'pdf', 'Copertina.pdf'),
+            os.path.join('Episodio 20', 'pdf', 'Indagine.pdf'),
+            os.path.join('Episodio 20', 'pdf', 'Mappa.pdf'),
+            os.path.join('Episodio 20', 'pdf', 'Luoghi.pdf'),
+            os.path.join('Episodio 20', 'pdf', 'Spedizione.pdf'),
+            os.path.join('Episodio 20', 'pdf', 'Bestiario.pdf'),
+            os.path.join('Episodio 20', 'pdf', 'Soluzione (non aprire).pdf'),
+        ],
+        cards_sheet=os.path.join('Episodio 20', 'pdf', 'Carte.pdf'),
+    ),
 ]
 
 

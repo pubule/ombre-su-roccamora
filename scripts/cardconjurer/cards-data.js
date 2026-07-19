@@ -4619,6 +4619,235 @@ const EP19 = [...LUOGHI19, ...EP19_INDIZI, ...EP19_TESTIMONI, ...EP19_REFERTI,
               ...EP19_MINACCE, ...EP19_OGGETTI, ...EP19_NEMICI];
 
 
+// ===================================================================== EP20
+// «Il Quarto Movimento» — IL FINALE (vedi DESIGN-EPISODIO-20.md). La discesa
+// nella gola della città, il coro a pagamento che si rompe, M. umano, il
+// Dormiente che ascolta. Si vince col CONTROCANTO (i 20 Frammenti), non con
+// l'acciaio. Fuori scala. Finale aperto (un nuovo C.B.). Torsione: «il
+// controcanto» — la deduzione di tutti i Frammenti.
+
+const LUOGHI20 = [
+  { n: 1, nome: 'La Cattedrale (la soglia)', req: 'Disponibile dall’inizio',
+    art: 'artworks/La Cattedrale.png',
+    testo: 'La bocca dell’ultima discesa: oltre la cripta dove fermaste Ferri, la pietra dà sull’acqua e le maree di sizigia salgono verso il picco. Non un luogo da indagare: una porta da attraversare, coi Frammenti in pugno.',
+    approfondimenti: [
+      { tipo: 'Presagio', soggetto: 'La bocca della discesa',
+        testo: 'La Cattedrale è la soglia dell’ultima notte. Sotto, oltre il punto dove fermaste Ferri, la gola della città aspetta il picco delle maree di sizigia per aprirsi. Non è un luogo da indagare: è una porta da attraversare, coi Frammenti in pugno. Perché là sotto non servono lame né deduzioni su chi o come — serve sapere una cosa sola: come si canta un dio a dormire senza sogni. E quella cosa è scritta, riga per riga, in ciò che avete raccolto in venti serate senza saperlo.' },
+    ] },
+  { n: 2, nome: 'Gli Ossari e le Maree', req: 'Disponibile dall’inizio',
+    art: 'artworks/Cimitero delle Barche.png',
+    testo: 'Tra le barche morte, i vecchi che leggono le maree: sanno l’ora esatta del picco, la finestra breve in cui la gola si apre. E ricordano il Coro dall’inizio, e la voce che insegue dal principio.',
+    approfondimenti: [
+      { tipo: 'Osservazione', soggetto: 'L’ora del picco',
+        testo: 'I vecchi delle maree conoscono l’ora esatta in cui la sizigia apre la gola della città: il momento in cui il salato risale nel dolce, e la pietra sotto la Cattedrale si fa porta. È una finestra sola, breve. Scendere prima è impossibile; scendere dopo è tardi (M. avrà cantato). Sapere l’ora è la prima riga di questa notte: tutto il resto — la via, la voce, il controcanto — si gioca dentro quella finestra d’acqua.' },
+    ] },
+  { n: 3, nome: 'La Taverna della Chiatta', req: 'Disponibile dall’inizio',
+    art: 'artworks/La Taverna della Chiatta.png',
+    testo: 'Il rifugio, l’ultima volta: la Società (e Vidal, se convinto) vi arma di tutto ciò che venti serate hanno messo da parte — la mappa acustica, il Fascicolo del 1741, i Frammenti. Il pay-off finale, ridotto a un canto e agli amici.',
+    approfondimenti: [
+      { tipo: 'Testimonianza', soggetto: 'Chi vi resta',
+        testo: 'Alla Taverna della Chiatta, l’ultima notte, si tira la somma di tutto: la mappa acustica (la via delle tre acque), il Fascicolo del 1741 (il controcanto), e i Frammenti conservati (le righe da cantare). Chi vi resta — il decano, Fossa, Ranuzzi, Vidal se convinto, i PNG del conto — non scende con voi, ma vi arma di tutto ciò che venti serate hanno messo da parte. È il pay-off finale: la campagna intera, ridotta a un canto e a una manciata di amici. Portateli con voi, almeno nel cuore. Poi scendete.' },
+    ] },
+  { n: 4, nome: 'L’Archivio del 1741', req: 'Disponibile dall’inizio',
+    art: 'artworks/L’Archivio delle Penne.png',
+    testo: 'Il Fascicolo del 1741 aperto sulla riga finale del controcanto, e il calendario dei Padri. Qui i venti Frammenti si dividono in due metà — il canto del sonno che M. voleva, e la sua firma che non ha mai saputo di avervi dato.',
+    approfondimenti: [
+      { tipo: 'Referto', soggetto: 'Le due metà dei Frammenti',
+        testo: 'La deduzione finale non è un nome né un come: è un canto. Messi in fila tutti e venti, i Frammenti si dividono in due metà. La prima — i dispari — sono le righe del controcanto che riporta il Dormiente al sonno senza sogni: M. le voleva per il Quarto Movimento, e vi ha usati per raccoglierle. La seconda — i pari — erano la sua firma, la traccia che lo smascherava, e non ha mai saputo che raccoglievate anche quelle. Ora la partita è semplice e terribile: cantate le prime più in fretta di quanto lui canti il suo rito. Chi ha conservato più Frammenti canta più giusto.' },
+    ] },
+  { n: 5, nome: 'I Vecchi del Coro',
+    req: 'I vecchi del Coro si aprono a chi cerca l’ultima voce: la candidata che il Coro insegue dall’inizio, la voce che crede.',
+    art: 'artworks/Ossario Comunale.png',
+    testo: 'Chi ricorda il Coro dall’Ep. 3 sa chi è l’ultima candidata: la voce che crede, l’unica che M. non può comprare. È viva, o quel che ne resta, secondo come avete chiuso i casi del Coro. Salvarla lascia a M. un coro senza anima.',
+    approfondimenti: [
+      { tipo: 'Presagio', soggetto: 'La voce che non si compra',
+        testo: 'La voce che crede è l’ultima cosa che il denaro di M. non ha potuto comprare, e la sua unica speranza per il Quarto Movimento: un cuore che canti il quarto rigo con l’anima e svegli il Dormiente in un’estasi che lui crede di cavalcare. Ma la fede non si costringe, e M. lo sa: la sua candidata la tiene con la paura. Salvatela nella discesa, e M. resterà con un coro comprato che canta con la bocca e non con l’anima — un rumore, non un risveglio. È metà della vittoria: l’altra metà è il vostro controcanto.' },
+    ] },
+  { n: 6, nome: 'L’Organo di Ossa',
+    req: 'La chiesa dei Battuti apre a chi cerca la voce che crede: ciò che resta dell’organo di ossa e delle sue canne-voce.',
+    art: 'artworks/Chiesa dei Battuti.png',
+    testo: 'Ciò che resta dell’organo di ossa (Ep. 5): le canne-voce, la melodia della conchiglia, il campanello di Piero — dipende dai vostri Bivi. Lo strumento con cui il Coro chiamava la voce, e con cui voi la riconoscerete.',
+    approfondimenti: [
+      { tipo: 'Osservazione', soggetto: 'Lo strumento e la mano',
+        testo: 'L’organo di ossa dell’Ep. 5 torna, un’ultima volta, come chiave della voce che crede: le sue canne cantano il risveglio o il sonno secondo chi le suona. Non è il male: è uno strumento, come la città intera è uno strumento. M. gli fa cantare il Quarto Movimento; voi, con la mappa acustica e il controcanto, potete fargli cantare il contrario. È il tema di tutta la campagna, ridotto all’osso: gli stessi strumenti, le stesse mani, due canzoni opposte. Scegliete quale far suonare.' },
+    ] },
+  { n: 7, nome: 'La Camera del Coro',
+    req: 'La camera del Coro apre a chi crede di aver trovato la scorciatoia: la chiave che pare aprire la camera del Dormiente, il controcanto facile.',
+    art: 'artworks/La Loggia dei Confratelli.png',
+    testo: 'La camera dove il Coro provava il Quarto Movimento: sul leggìo, una chiave che pare aprire la camera del Dormiente. È l’ultima esca di M.: apre l’estasi, non il sonno. Non c’è una scorciatoia per cantare un dio a dormire.',
+    approfondimenti: [
+      { tipo: 'Osservazione', soggetto: 'La scorciatoia che uccide',
+        testo: 'La Chiave del Coro è l’ultima esca di M.: pare la via facile alla camera, e invece è la sua trappola più elegante. Non esiste una scorciatoia per cantare un dio a dormire; esiste solo il controcanto lungo, difficile, stonato e umano, riga per riga. Chi cerca la via facile canta, senza saperlo, il rito del risveglio. È il tema di M. fino all’ultimo: offrire una soluzione perfetta che è la sua vittoria travestita. L’avete imparato con Braga. Non cascateci ora, a un passo dalla fine.' },
+    ] },
+  { n: 8, nome: 'Il Grimorio del Rito',
+    req: 'Lo scriptorium apre a chi cerca lo spartito: il grimorio del Quarto Movimento, il controcanto scritto — o il suo contrario.',
+    art: 'artworks/Lo Scriptorium.png',
+    testo: 'Lo scriptorium col grimorio del Quarto Movimento: lo spartito del rito, affascinante e mortale. È la partitura del RISVEGLIO, non del sonno: chi lo canta, canta per M. Il vostro controcanto non è in un libro — è nei Frammenti di venti serate.',
+    approfondimenti: [
+      { tipo: 'Presagio', soggetto: 'Il libro che canta per lui',
+        testo: 'Il Grimorio del Rito è l’altra faccia della tentazione: un libro solo, completo, che pare contenere tutto il canto — e invece contiene il canto sbagliato, la partitura del risveglio che M. vuole. Il controcanto vero non sta in un grimorio: sta sparso nei venti Frammenti che avete raccolto una serata alla volta, senza sapere che stavate imparando a spegnere un dio. La differenza tra il grimorio e i Frammenti è la differenza tra M. e voi: lui cerca il canto in un libro di potere; voi lo avete costruito coi pezzi di una città che avete imparato ad amare.' },
+    ] },
+  { n: 9, nome: 'La Gola della Città',
+    req: 'La gola della città si apre solo al picco delle maree, a chi conosce la via delle tre acque: è lì che finisce tutto.',
+    art: 'artworks/La Gola della Città.png',
+    testo: 'Oltre il punto dove fermaste Ferri: la pietra dà sull’acqua, l’acqua sul buio, e nel buio un dio sogna piano. Non un mostro da colpire: un dio da cantare a dormire, col controcanto e i Frammenti, più giusto di M.',
+    approfondimenti: [
+      { tipo: 'Presagio', soggetto: 'Il dio che sogna',
+        testo: 'Nella gola della città, oltre ogni mappa, il Dormiente respira nel buio, e non è un mostro: è un dio che sogna, e i suoi sogni sono la storia segreta di Roccamora. M. vuole svegliarlo per cavalcarne l’estasi e rifare l’Italia; voi volete rimetterlo a dormire senza sogni, col controcanto dei Padri e i Frammenti di venti serate. Non c’è un boss da abbattere: c’è un canto da finire prima che il dio apra l’occhio del tutto. I dadi contano; la deduzione — quali righe, quanti Frammenti — di più. E quando l’ultima riga salirà, roca e umana, e il dio richiuderà l’occhio, avrete fatto la cosa più gentile e più difficile: non ucciso, ma cantato a dormire.' },
+    ] },
+].map((L) => ({
+  art: L.art,
+  title: `${L.n} · ${L.nome}`,
+  file: `Episodio 20/Luoghi/${L.n} - ${L.nome.replace(/’/g, "'")}`,
+  type: `Luogo ${L.n}`,
+  rules: `{i}${L.req === 'Disponibile dall’inizio' ? L.testo : L.req}{/i}`,
+  approfondimenti: L.approfondimenti, n: L.n,
+}));
+
+const EP20_INDIZI = LUOGHI20.flatMap((L) =>
+  L.approfondimenti.filter((a) => a.tipo === 'Osservazione' || a.tipo === 'Presagio')
+    .map((a) => ({
+      art: L.art, n: L.n, kind: 'Indizio',
+      title: `Indizio Nascosto — ${a.soggetto}`,
+      file: `Episodio 20/Indizi/${a.soggetto.replace(/’/g, "'")}`,
+      type: a.tipo,
+      rules: `{i}◆ (${a.tipo}) ${a.testo}{/i}`,
+    })));
+
+const EP20_TESTIMONI = LUOGHI20.flatMap((L) =>
+  L.approfondimenti.filter((a) => a.tipo === 'Testimonianza').map((a) => ({
+    art: L.art, n: L.n, kind: 'Testimone',
+    title: `Testimone — ${a.soggetto}`,
+    file: `Episodio 20/Testimoni/${a.soggetto.replace(/’/g, "'")}`,
+    type: `Luogo ${L.n} · Testimone`,
+    rules: `{i}${a.testo}{/i}`,
+  })));
+
+const EP20_REFERTI = LUOGHI20.flatMap((L) =>
+  L.approfondimenti.filter((a) => a.tipo === 'Referto').map((a) => ({
+    art: L.art, n: L.n, kind: 'Referto',
+    title: `Referto — ${a.soggetto}`,
+    file: `Episodio 20/Referti/${a.soggetto.replace(/’/g, "'")}`,
+    type: `Luogo ${L.n} · Referto`,
+    rules: `{i}${a.testo}{/i}`,
+  })));
+
+// Mazzo 21: 7 spawn (coro che si rompe), 6 insidie (discesa/camera), 4 crescendo
+// (RISVEGLIO del Dormiente), 4 eventi.
+const EP20_MINACCE = [
+  { art: 'artworks/Il Coro a Pagamento.png', title: 'Le Voci Prezzolate', tipo: 'Malavita',
+    flavor: 'Impiegati che cantano lo spartito senza crederci, gli occhi impauriti.',
+    effect: 'Piazzate 1 Sgherro (impiegato del coro) sull’uscita più vicina. Rallenta il controcanto di 1 riga/round; a metà Ferite fugge.' },
+  { art: 'artworks/Il Coro a Pagamento.png', title: 'Il Rinforzo del Coro', tipo: 'Malavita',
+    flavor: 'M. ha pagato bene: altre voci salgono dall’antecamera.',
+    effect: 'Piazzate 1 Sgherro (impiegato) sull’ingresso della tessera (dal lato da cui siete entrati). Si rompe a metà Ferite.' },
+  { art: 'artworks/Il Coro a Pagamento.png', title: 'Chi Copre M.', tipo: 'Malavita',
+    flavor: 'Alcuni fanno scudo al padrone perché finisca il quarto rigo.',
+    effect: 'Piazzate 1 Sgherro (impiegato) sull’uscita più vicina agli eroi: si attiva subito. Si rompe a metà Ferite.' },
+  { art: 'artworks/Il Coro a Pagamento.png', title: 'Il Coro Stonato', tipo: 'Malavita',
+    flavor: 'Cantano male, contro il vostro controcanto, ma cantano forte.',
+    effect: 'Piazzate 1 Sgherro (impiegato) sull’ingresso della tessera. Ogni impiegato in campo: −1 riga di controcanto/round.' },
+  { art: 'artworks/Il Coro a Pagamento.png', title: 'La Sezione dei Bassi', tipo: 'Malavita',
+    flavor: 'Le voci gravi del coro comprato risuonano nella pietra.',
+    effect: 'Piazzate 1 Sgherro (impiegato) sull’uscita più vicina agli eroi. Si rompe a metà Ferite.' },
+  { art: 'artworks/Il Coro a Pagamento.png', title: 'Chi Trattiene la Candidata', tipo: 'Malavita',
+    flavor: 'Due tengono la voce che crede, in attesa che M. la costringa.',
+    effect: 'Piazzate 1 Sgherro (impiegato). Finché sono in campo e la Candidata non è salvata, M. è più vicino a costringerla.' },
+  { art: 'artworks/Il Coro a Pagamento.png', title: 'L’Ultima Voce Comprata', tipo: 'Malavita',
+    flavor: 'Anche i più fedeli a M. sono qui per denaro, non per fede.',
+    effect: 'Piazzate 1 Sgherro (impiegato) sull’ingresso della tessera: si attiva subito. Si rompe a metà Ferite.' },
+  { art: 'artworks/L’acqua che sale.png', title: 'L’Acqua che Sale', tipo: 'Insidia',
+    flavor: 'La marea di sizigia riempie la gola gradino dopo gradino.',
+    effect: 'L’eroe più avanzato prova VIGORE (Media): se fallisce, 1 danno (travolto). Con la Mappa Acustica: prova a Facile.' },
+  { art: 'artworks/La pietra viva.png', title: 'La Pietra Viva', tipo: 'Insidia',
+    flavor: 'La roccia pulsa al respiro del dio e si muove sotto i piedi.',
+    effect: 'L’eroe attivo prova NERVI (Media): se fallisce, 1 sola azione al prossimo turno.' },
+  { art: 'artworks/Il buio della gola.png', title: 'Il Buio della Gola', tipo: 'Insidia',
+    flavor: 'Un buio così fitto che inghiotte le lanterne e il senso della via.',
+    effect: 'Senza la Mappa Acustica: l’eroe attivo perde il movimento extra (si è perso). Con la Mappa: nessun effetto.' },
+  { art: 'artworks/Il canto che confonde.png', title: 'Il Canto che Confonde', tipo: 'Insidia',
+    flavor: 'Il canto del Dormiente filtra nella pietra e riempie i crani.',
+    effect: 'Ogni eroe prova NERVI (Facile): chi fallisce non può cantare né aiutare questo round.' },
+  { art: 'artworks/La corrente fredda.png', title: 'La Corrente Fredda', tipo: 'Insidia',
+    flavor: 'Una delle tre acque è gelida e morta, e trascina in basso.',
+    effect: 'L’eroe più avanzato prova VIGORE (Media): se fallisce, 1 round perso a risalire.' },
+  { art: 'artworks/L’eco che mente.png', title: 'L’Eco che Mente', tipo: 'Insidia',
+    flavor: 'L’eco della gola ripete le vostre voci sbagliate, per confondere il controcanto.',
+    effect: 'Nella camera: il controcanto avanza di 1 riga in meno questo round (l’eco disturba). Con la Mappa Acustica: nessun effetto.' },
+  { art: 'artworks/Il Dormiente si muove.png', title: 'Il Dormiente si Muove', tipo: 'Crescendo',
+    flavor: 'Qualcosa di grande si rigira nel sonno, e la gola trema.',
+    effect: 'Aggiungete 1 segnalino Canto (il RISVEGLIO). Alla soglia-risveglio (Canto 8): il Dormiente si desta — SCONFITTA. Alla soglia (3): +1 carta Minaccia per Fase.' },
+  { art: 'artworks/Le maree al picco.png', title: 'Le Maree al Picco', tipo: 'Crescendo',
+    flavor: 'Le sizigie toccano il colmo: l’acqua e il dio sono al massimo.',
+    effect: 'Aggiungete 1 segnalino Canto (il risveglio). Le fasi ambientali della camera si intensificano: al prossimo giro, 1 danno inevitabile a un eroe.' },
+  { art: 'artworks/Il quarto rigo sale.png', title: 'Il Quarto Rigo Sale', tipo: 'Crescendo',
+    flavor: 'Il canto di M. e del suo coro guadagna una riga: il rito avanza.',
+    effect: 'Aggiungete 1 segnalino Canto (il risveglio). Se M. è in piedi con la voce che crede, il suo rito avanza: +1 Canto extra.' },
+  { art: 'artworks/Il dio apre un occhio.png', title: 'Il Dio Apre un Occhio', tipo: 'Crescendo',
+    flavor: 'Nel buio, qualcosa di immenso comincia ad aprirsi. Poco. Troppo.',
+    effect: 'Aggiungete 1 segnalino Canto (il risveglio). Se non completate il controcanto entro pochi round, il Dormiente si desta. Cantate ORA le righe che avete.' },
+  { art: 'artworks/Un respiro del dio.png', title: 'Un Respiro del Dio', tipo: 'Quiete',
+    flavor: 'Il dio inspira lento, nel sonno, e per un attimo la gola è quieta.',
+    effect: 'Nessun effetto. Tirate il fiato: anche un dio che si desta, tra un respiro e l’altro, dorme ancora.' },
+  { art: 'artworks/La città suona a favore.png', title: 'La Città Suona a Favore', tipo: 'Favore',
+    flavor: 'Dalla mappa acustica, una campana lontana suona la nota giusta.',
+    effect: 'Il controcanto avanza di 1 riga in più questo round (la città canta con voi). Serve la Mappa Acustica.' },
+  { art: 'artworks/Detriti nella corrente.png', title: 'Detriti nella Corrente', tipo: 'Ostacolo',
+    flavor: 'Relitti e ossa trascinati dalla marea ingombrano il passaggio.',
+    effect: 'Fino a fine round, sulla tessera dell’eroe attivo muoversi costa il doppio.' },
+  { art: 'artworks/La pietra che crolla.png', title: 'La Pietra che Crolla', tipo: 'Danno',
+    flavor: 'Un blocco di volta cede al tremito del dio e piomba giù.',
+    effect: 'Un eroe a caso (chi arbitra tira) subisce 1 danno.' },
+].map((m) => ({
+  art: m.art,
+  title: `${m.tipo} — ${m.title}`,
+  file: `Episodio 20/Minacce/${m.title.replace(/’/g, "'")}`,
+  rules: `{i}${m.flavor}{/i}{divider}${m.effect}`,
+}));
+
+const EP20_OGGETTI = [
+  { art: 'artworks/Frammenti del Controcanto.png', nome: 'I Frammenti del Controcanto', ref: 'E20-L4',
+    fonte: 'Luogo 4 — L’Archivio del 1741',
+    flavor: 'Le righe giuste tra i venti Frammenti di campagna: metà erano il canto del sonno, che M. voleva; metà lo smascheravano, e non l’ha mai saputo.',
+    effetto: 'La deduzione finale. Nella camera (T6), il controcanto avanza di 1 riga + 1 ogni 4 Frammenti conservati per round: più ne avete, più cantate giusto.' },
+  { art: 'artworks/Candidata Salvata.png', nome: 'La Candidata Salvata', ref: 'E20-L5',
+    fonte: 'Luogo 5 — I Vecchi del Coro (salvata nella discesa)',
+    flavor: 'La voce che crede, l’unica che M. non può comprare, sottratta a lui prima del Quarto Movimento.',
+    effetto: 'Salvata (fase del coro): M. resta con un coro senza anima, un rumore. Il risveglio non accelera più per la sua voce.' },
+  { art: 'artworks/Mappa Acustica Attiva.png', nome: 'La Mappa Acustica Attiva', ref: 'E20-L3',
+    fonte: 'Luogo 3 — La Taverna della Chiatta (dall’Ep. 19)',
+    flavor: 'La via delle tre acque, e quali suoni della città portare o spegnere lungo la discesa. Senza, la gola confonde.',
+    effetto: 'Nella discesa annulla la confusione (niente round persi nel buio); nella camera fa suonare la città a favore (+1 riga di controcanto quando esce «la città suona a favore»).' },
+  { art: 'artworks/Chiave del Coro.png', nome: 'La Chiave del Coro', ref: 'E20-L7',
+    fonte: 'Luogo 7 — La Camera del Coro',
+    flavor: 'Pare aprire la camera del Dormiente. Apre l’estasi di M., non il sonno: la scorciatoia che canta il risveglio.',
+    effetto: 'Effetto: nessuno finora scoperto. (Usarla canta il rito di M.: sconsigliata.)' },
+  { art: 'artworks/Grimorio del Rito.png', nome: 'Il Grimorio del Rito', ref: 'E20-L8',
+    fonte: 'Luogo 8 — Lo Scriptorium',
+    flavor: 'Lo spartito del Quarto Movimento. È la partitura del risveglio, non del sonno: chi lo canta, canta per M.',
+    effetto: 'Effetto: nessuno finora scoperto. (È il canto di M.: aiuta lui, non voi.)' },
+].map((o) => ({
+  art: o.art,
+  title: o.nome,
+  file: `Episodio 20/Oggetti/${o.nome.replace(/’/g, "'")}`,
+  type: 'Oggetto',
+  rules: `{i}${o.flavor}{/i}{divider}${o.effetto}`,
+  ref: o.ref, fonte: o.fonte,
+}));
+
+const EP20_NEMICI = [
+  { art: 'artworks/La Camera del Dormiente.png', title: 'La Camera del Dormiente',
+    type: 'Il Boss Finale (non si colpisce: si canta) — Episodio 20',
+    rules: '{i}Non un nemico: la gola della città, oltre ogni mappa, dove un dio sogna nel buio. Non attacca per malizia: reagisce. Ogni rigo giusto lo culla; ogni rigo sbagliato lo desta.{/i}{divider}Statistiche nel Bestiario. NON si colpisce e non ha attacchi classici: FASI AMBIENTALI legate al Canto (danno inevitabile e prove NERVI a soglie crescenti). La si «vince» completando il CONTROCANTO prima del risveglio (Canto 8). Fuori scala: può far cadere eroi.' },
+  { art: 'artworks/Il Presidente M.png', title: 'M. (senza maschera)',
+    type: 'C.B. — l’uomo, l’ultima maschera che cade — Episodio 20',
+    rules: '{i}M. — il presidente, C.B., il Machiavelli — per la prima e ultima volta senza maschere: un uomo solo nell’acqua bassa, che canta il quarto rigo con la disperazione di chi ha giocato tutto.{/i}{divider}Umano e fragile (Att 2, Fer 5, Danno 1). NON è l’obiettivo (la vittoria è il controcanto): finché è in piedi con la sua voce, accelera il risveglio. Neutralizzarlo o aver salvato la Candidata lo rallenta. Quando il controcanto giusto sale, ha paura — per la prima volta.' },
+].map((n) => ({ ...n, file: `Episodio 20/Nemici/${n.title.replace(/[().]/g, '').trim()}` }));
+
+const EP20 = [...LUOGHI20, ...EP20_INDIZI, ...EP20_TESTIMONI, ...EP20_REFERTI,
+              ...EP20_MINACCE, ...EP20_OGGETTI, ...EP20_NEMICI];
+
+
 module.exports = {
   HEROES, NEMICI, MINACCE, LUOGHI, INDIZI, TESTIMONI, REFERTI, OGGETTI, PRELUDIO,
   PRELUDIO_LUOGHI, PRELUDIO_APPROFONDIMENTI, PRELUDIO_OGGETTI,
@@ -4640,5 +4869,6 @@ module.exports = {
   EP17, LUOGHI17, EP17_INDIZI, EP17_TESTIMONI, EP17_REFERTI, EP17_MINACCE, EP17_OGGETTI, EP17_NEMICI,
   EP18, LUOGHI18, EP18_INDIZI, EP18_TESTIMONI, EP18_REFERTI, EP18_MINACCE, EP18_OGGETTI, EP18_NEMICI,
   EP19, LUOGHI19, EP19_INDIZI, EP19_TESTIMONI, EP19_REFERTI, EP19_MINACCE, EP19_OGGETTI, EP19_NEMICI,
-  ALL: [...HEROES, ...NEMICI, ...MINACCE, ...LUOGHI, ...INDIZI, ...TESTIMONI, ...REFERTI, ...OGGETTI, ...PRELUDIO, ...EP2, ...EP3, ...EP4, ...EP5, ...EP6, ...EP7, ...EP8, ...EP9, ...EP10, ...EP11, ...EP12, ...EP13, ...EP14, ...EP15, ...EP16, ...EP17, ...EP18, ...EP19],
+  EP20, LUOGHI20, EP20_INDIZI, EP20_TESTIMONI, EP20_REFERTI, EP20_MINACCE, EP20_OGGETTI, EP20_NEMICI,
+  ALL: [...HEROES, ...NEMICI, ...MINACCE, ...LUOGHI, ...INDIZI, ...TESTIMONI, ...REFERTI, ...OGGETTI, ...PRELUDIO, ...EP2, ...EP3, ...EP4, ...EP5, ...EP6, ...EP7, ...EP8, ...EP9, ...EP10, ...EP11, ...EP12, ...EP13, ...EP14, ...EP15, ...EP16, ...EP17, ...EP18, ...EP19, ...EP20],
 };
