@@ -53,6 +53,8 @@ from gen_ep14 import (LUOGHI_14, TILES_14, NEMICI_14, OGGETTI_LUOGO_14, LETTERA_
                       ESAMI_CARBONE_14)
 from gen_ep15 import (LUOGHI_15, TILES_15, NEMICI_15, OGGETTI_LUOGO_15, LETTERA_15,  # noqa: E402
                       ESAMI_CARBONE_15)
+from gen_ep16 import (LUOGHI_16, TILES_16, NEMICI_16, OGGETTI_LUOGO_16, LETTERA_16,  # noqa: E402
+                      ESAMI_CARBONE_16)
 from gen_mappa import VOCI_MAPPA, MAPPE  # noqa: E402
 from gen_bestiario import FASCE, BOSS_DELTA, ferite_per_fascia  # noqa: E402
 from simulate_playtest import (INDAGINE_UNLOCK, TICK_CANTO_OGNI, SOGLIA_CANTO,  # noqa: E402
@@ -72,6 +74,7 @@ from simulate_ep12 import TOKEN_POOL_BASE as POOL_EP12  # noqa: E402
 from simulate_ep13 import TOKEN_POOL_BASE as POOL_EP13  # noqa: E402
 from simulate_ep14 import TOKEN_POOL_BASE as POOL_EP14  # noqa: E402
 from simulate_ep15 import TOKEN_POOL_BASE as POOL_EP15  # noqa: E402
+from simulate_ep16 import TOKEN_POOL_BASE as POOL_EP16  # noqa: E402
 
 
 def strip_tags(s):
@@ -144,6 +147,9 @@ REPERTI_LUOGO = {
     'ep15': {9: ['Reperto A - Istruzioni'],
              8: ['Reperto B - Lastra dell’Incisore'],
              7: ['Reperto C - Dossier Originale']},
+    'ep16': {6: ['Reperto A - Lettera d’Incarico'],
+             8: ['Reperto B - Registro degli Affitti'],
+             5: ['Reperto C - Libro delle Promesse']},
 }
 
 
@@ -550,6 +556,27 @@ SOLUZIONI = dict(
         ],
         boss='IL CAPO APPARECCHIATORE',
     ),
+    ep16=dict(
+        domande=[
+            dict(q='DOVE è Bruna?',
+                 risposta='Nella villa dei Càrpine sul lago, poco fuori città (registro affitti L8 + carrozza vista alla Stazione L4).',
+                 esatta='Sapete dove sbarcare: nel 1° round non si pesca nessuna carta Minaccia.',
+                 sbagliata='Perdete il 1° round a orientarvi nel giardino (nessun danno: è un respiro).'),
+            dict(q='CHI l’ha presa?',
+                 risposta='Lo Sposo, truffatore matrimoniale coi dieci nomi, e due complici.',
+                 esatta='«Quale nome?»: alla villa, chiedergli quale dei dieci sia il vero lo confonde — salta un attacco.',
+                 sbagliata='Nessun effetto.'),
+            dict(q='COSA la tiene lì?',
+                 risposta='Non catene: la BUGIA delle nozze. Si libera mostrandole le altre vittime (il Fascicolo, L5).',
+                 esatta='Col Fascicolo delle Vittime mostrato a Bruna, l’inganno crolla: cattura AUTOMATICA dello Sposo (VITTORIA PULITA), niente fuga in barca.',
+                 sbagliata='Senza il Fascicolo, strappate Bruna con la forza e lo Sposo tenta la barca (vittoria amara).'),
+            dict(q='COSA SAPEVA M.? (il dettaglio impossibile)',
+                 risposta='Il NASTRO VERDE al polso di Bruna — un segreto tra padre e figlia, mai confidato, eppure di pugno del presidente nella lettera d’incarico (L6).',
+                 esatta='La CREPA. Nessun vantaggio meccanico: dà il seme più pesante della campagna e abilita la RILETTURA (rileggere le vecchie lettere di M. banca incroci per l’Ep.18). Come faceva M. a saperlo?',
+                 sbagliata='Se non aprite l’Archivio delle Lettere, non vedete la crepa — e non caricate il finale.'),
+        ],
+        boss='LO SPOSO',
+    ),
     preludio=dict(
         domande=[
             dict(q='DOVE è tenuto Ansaldo?',
@@ -825,6 +852,26 @@ episodi = dict(
         vantaggio=dict(slancio_ore=3, preparati_ore=1, preparati_luoghi=6),
         soluzione=SOLUZIONI['ep15'],
         pool=POOL_EP15,
+    ),
+    ep16=dict(
+        id='ep16', titolo='Un caso qualunque',
+        sottotitolo='episodio 16 — Atto III: il respiro, e la crepa nella lettera di M.',
+        cartella='Episodio 16', ore_budget=6,
+        lettera=LETTERA_16,
+        obiettivo='Il caso più piccolo della campagna: riportate a casa Bruna, la figlia del '
+                  'lampionaio, dallo Sposo (un truffatore matrimoniale) nella villa sul lago. '
+                  'Col Fascicolo delle Vittime mostrato a Bruna, l’inganno crolla e lo Sposo è '
+                  'preso senza combattere (vittoria pulita); senza, lo strappate con la forza '
+                  '(amara). Nessuna soglia, nessun mostro: è il respiro. Il vero peso è la CREPA — '
+                  'la lettera di M. cita il nastro verde, un segreto che nessuno gli ha detto. '
+                  'NUOVO: la RILETTURA — all’Archivio delle Lettere rileggete le vecchie lettere '
+                  'di M.: ogni rilettura banca un incrocio per la deduzione finale (Ep.18).',
+        esami_carbone=ESAMI_CARBONE_16,
+        luoghi=[luogo_json(L, OGGETTI_LUOGO_16, REPERTI_LUOGO['ep16']) for L in LUOGHI_16],
+        tessere=[tessera_json(T) for T in TILES_16],
+        vantaggio=dict(slancio_ore=3, preparati_ore=1, preparati_luoghi=6),
+        soluzione=SOLUZIONI['ep16'],
+        pool=POOL_EP16,
     ),
 )
 
