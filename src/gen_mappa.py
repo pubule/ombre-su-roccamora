@@ -228,6 +228,9 @@ VOCI_MAPPA = [
     ('La Matrice del Decano', 'palazzo del Lume, sala del cifrario', 'ep18'),
     ('Il Vezzo delle Firme', 'palazzo del Lume, sala del confronto', 'ep18'),
     ('Il Palazzo del Lume (la fuga)', 'palazzo del Lume, la sede che si spegne', 'ep18'),
+    # Episodio 19 — la Società braccata (Atto IV). Un solo luogo nuovo: il
+    # rifugio in esilio. Tutto il resto riuso (la città come memoria).
+    ('La Taverna della Chiatta', 'riva bassa, taverna sull’acqua', 'ep19'),
 ]
 
 # (sottocartella pdf/, sottotitolo, tag inclusi). Un episodio nuovo aggiunge
@@ -252,6 +255,7 @@ MAPPE = [
     ('Episodio 16', 'episodio 16 — la città e la villa sul lago', ('citta', 'preludio', 'ep1', 'ep2', 'ep3', 'ep4', 'ep5', 'ep6', 'ep7', 'ep8', 'ep9', 'ep10', 'ep11', 'ep12', 'ep13', 'ep14', 'ep15', 'ep16')),
     ('Episodio 17', 'episodio 17 — la città spaccata e la villa-prigione', ('citta', 'preludio', 'ep1', 'ep2', 'ep3', 'ep4', 'ep5', 'ep6', 'ep7', 'ep8', 'ep9', 'ep10', 'ep11', 'ep12', 'ep13', 'ep14', 'ep15', 'ep16', 'ep17')),
     ('Episodio 18', 'episodio 18 — il Palazzo del Lume che si spegne', ('citta', 'preludio', 'ep1', 'ep2', 'ep3', 'ep4', 'ep5', 'ep6', 'ep7', 'ep8', 'ep9', 'ep10', 'ep11', 'ep12', 'ep13', 'ep14', 'ep15', 'ep16', 'ep17', 'ep18')),
+    ('Episodio 19', 'episodio 19 — la città-memoria e l’Archivio sequestrato', ('citta', 'preludio', 'ep1', 'ep2', 'ep3', 'ep4', 'ep5', 'ep6', 'ep7', 'ep8', 'ep9', 'ep10', 'ep11', 'ep12', 'ep13', 'ep14', 'ep15', 'ep16', 'ep17', 'ep18', 'ep19')),
 ]
 
 # Tipografico (provata la grafia manoscritta La Belle Aurore su tutta la

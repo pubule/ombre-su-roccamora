@@ -4393,6 +4393,232 @@ const EP18 = [...LUOGHI18, ...EP18_INDIZI, ...EP18_TESTIMONI, ...EP18_REFERTI,
               ...EP18_MINACCE, ...EP18_OGGETTI, ...EP18_NEMICI];
 
 
+// ===================================================================== EP19
+// «La Società braccata» — Atto IV, apertura del finale (vedi
+// DESIGN-EPISODIO-19.md). Braccati (manifesto RICERCATI). L'indagine è la
+// campagna: 9 luoghi = PNG del passato, aperti/chiusi dai Bivi (il conto).
+// Spedizione: l'Archivio sequestrato, il Fascicolo del 1741, l'Ispettore Vidal
+// che NON si uccide (si convince). Torsione: «la campagna vi presenta il conto».
+
+const LUOGHI19 = [
+  { n: 1, nome: 'La Taverna della Chiatta', req: 'Disponibile dall’inizio',
+    art: 'artworks/La Taverna della Chiatta.png',
+    testo: 'Sull’acqua bassa: il rifugio della Società in esilio, dove si sono raccolti quelli che vi restano fedeli sotto le taglie. Qui si pianifica l’ultima discesa, e si comincia a fare il conto di chi vi apre ancora la porta.',
+    approfondimenti: [
+      { tipo: 'Testimonianza', soggetto: 'L’oste del rifugio',
+        testo: '«Stanotte non contano le prove, contano le persone. Ogni porta a cui bussate vi risponderà secondo ciò che avete fatto per loro, o a loro, in diciotto mesi. Braga vivo se l’avete protetto; il decano lucido se l’avete salvato; la città con voi se avete reso pubblica la verità. È il conto della campagna. M. ha comprato il suo coro; voi dovete meritarvi il vostro. È questa la differenza, e forse è tutto.»' },
+    ] },
+  { n: 2, nome: 'Il Banco dei Pegni di Fossa', req: 'Disponibile dall’inizio',
+    art: 'artworks/Banco dei Pegni.png',
+    testo: 'Fossa vi deve la vita dal Preludio e non l’ha dimenticato. Con la Società braccata, lui la porta la tiene aperta, e vi passa la mappa dei sigilli dell’Archivio. Chi avete salvato torna a salvarvi: il conto, stavolta, a favore.',
+    approfondimenti: [
+      { tipo: 'Osservazione', soggetto: 'La mappa dei sigilli',
+        testo: 'Fossa, che vi deve la vita, è la prova che il conto della campagna non è solo un peso: è anche un tesoro. Chi avete salvato torna a salvarvi. La sua mappa dei sigilli dell’Archivio è la vostra via dentro senza allarme; e la sua rete d’usura vi dice che le taglie le paga M. in oro vecchio — la stessa cassa di sempre. Braccati, ma non ciechi: ogni vecchio amico che apre è un pezzo dell’ultima discesa che si rimette a posto.' },
+    ] },
+  { n: 3, nome: 'La Gazzetta di Roccamora', req: 'Disponibile dall’inizio',
+    art: 'artworks/Gazzetta di Roccamora.png',
+    testo: 'Ranuzzi è l’unico che non ha bevuto il manifesto: la Società braccata da un giorno all’altro, per crimini di trent’anni? Troppo comodo. Ha capito il metodo — un dossier perfetto in mano a un Ispettore onesto, come con Braga.',
+    approfondimenti: [
+      { tipo: 'Testimonianza', soggetto: 'Il cronista Ranuzzi',
+        testo: '«L’Ispettore Vidal non è un uomo di M.: è un uomo onesto a cui M. ha dato in mano un dossier perfetto, esattamente come con Braga. È il metodo, sempre lo stesso: non corrompere il migliore, ingannalo. E un uomo onesto ingannato è più pericoloso di dieci sicari, perché ci crede. Ma è anche la vostra speranza: mostrategli come è stato usato — la matrice del decano, il metodo di M. — e l’onestà che lo rende pericoloso lo farà passare dalla vostra parte. Non uccidetelo. Convincetelo.»' },
+    ] },
+  { n: 4, nome: 'La Gendarmeria', req: 'Disponibile dall’inizio',
+    art: 'artworks/La Gendarmeria.png',
+    testo: 'Non tutti i gendarmi credono al manifesto: uno vi ha visti lavorare e non vi crede colpevoli. Vi apre la via all’Archivio e vi passa di nascosto le prove che smontano il dossier di Vidal.',
+    approfondimenti: [
+      { tipo: 'Referto', soggetto: 'La via all’Archivio',
+        testo: 'Un gendarme che vi crede è una crepa nel muro che M. vi ha tirato addosso. Vi apre la via all’Archivio sequestrato e vi consegna le prove che potrebbero convincere Vidal — se arrivate a mostrargliele invece di combatterlo. È il nodo dell’episodio: l’Ispettore non è il nemico, è la vittima più utile del metodo di M., e riportarlo dalla parte giusta vale più di dieci gendarmi abbattuti. La caccia può cambiare bersaglio, stanotte. Da voi a M.' },
+    ] },
+  { n: 5, nome: 'Il Professor Braga',
+    req: 'La villa di Braga apre a chi ricorda il conto dei bivi: il professore che avete salvato — o lasciato cadere — nell’Ep. 15.',
+    art: 'artworks/La Villa-Museo di Braga.png',
+    testo: 'Apre SOLO se l’avete protetto (Ep. 15): allora vi consegna trent’anni di studio del rivale M., la prova vivente della sua doppiezza. Se l’avete avallato, la villa è vuota, la porta chiusa: il conto, qui, a vostro sfavore.',
+    approfondimenti: [
+      { tipo: 'Osservazione', soggetto: 'Il debito di Braga',
+        testo: 'Braga è il conto più caro della campagna: se l’avete protetto quando la città voleva la sua testa, stanotte vi ripaga con l’unica cosa che ha — trent’anni di studio del suo rivale, la prova vivente che M. ha due facce. Se l’avete lasciato cadere per comodità, la sua porta è chiusa, e con essa una delle prove migliori per Vidal. Ogni scelta pesa: è il pay-off. La campagna non dimentica, e stanotte ve lo dice in faccia.' },
+    ] },
+  { n: 6, nome: 'Il Decano Ferrante',
+    req: 'Lo studio del decano apre a chi ha pagato il conto dell’Ep. 17: il decano che avete salvato lucido — o ferito grave — nella villa-prigione.',
+    art: 'artworks/Lo Studio del Decano.png',
+    testo: 'Apre lucido SOLO se l’avete salvato in tempo (Ep. 17): allora vi dà la matrice completa e la crepa del coro — M. ha comprato i cantori, non li ha convertiti. Se è ferito grave, la sua metà di verità è confusa.',
+    approfondimenti: [
+      { tipo: 'Presagio', soggetto: 'La crepa del coro',
+        testo: 'Il decano, se lucido, vi dà la chiave tattica del finale: il coro di M. è comprato, non convertito, e un uomo pagato per cantare uno spartito che non capisce, alla prima crepa, scappa. È la debolezza del Quarto Movimento. Ma la crepa è più profonda: a M. manca la voce che CREDA, e senza quella il rito non si compie. Non dovete vincere una battaglia: dovete impedire che una sola persona canti con l’anima. Cercatela prima di lui.' },
+    ] },
+  { n: 7, nome: 'Un Debito Antico',
+    req: 'La porta di un vecchio debito si apre a chi ricorda cosa deve: sotto le taglie sulle vostre teste, ogni conto in sospeso torna a bussare.',
+    art: 'artworks/La Casa dell’Ex Fidanzata.png',
+    testo: 'Un PNG a cui dovete qualcosa dai casi passati: se il conto è a favore, vi nasconde e vi rifornisce; se è a sfavore, è tentato dalla taglia in oro vecchio. «Vi ho aiutato una volta. Stanotte dipende da come mi avete trattato dopo.»',
+    approfondimenti: [
+      { tipo: 'Osservazione', soggetto: 'Il conto in sospeso',
+        testo: 'Ogni debito lasciato aperto in diciotto mesi, stanotte, torna a presentarsi con gli interessi. Un PNG che avete trattato bene vi nasconde dai gendarmi; uno che avete usato e scaricato è tentato dalle taglie. Non è punizione né premio morale: è economia della fiducia. M. compra la lealtà con l’oro vecchio, e l’oro finisce; voi l’avete guadagnata (o sprecata) un caso alla volta, e stanotte scoprite quanto ne resta in cassa.' },
+    ] },
+  { n: 8, nome: 'I Vecchi Testimoni del Coro',
+    req: 'I vecchi testimoni si aprono a chi si prepara all’ultima discesa: chi ricorda il Coro dall’inizio, e la via delle tre acque.',
+    art: 'artworks/Cimitero delle Barche.png',
+    testo: 'Chi ricorda il Coro dall’Ep. 3, i vecchi barcaioli e ossari: vi danno la mappa acustica, la via delle tre acque sotto la città. Senza, sotto la Cattedrale sareste sordi. La voce che il Coro cerca è ancora là sotto — o ciò che ne resta.',
+    approfondimenti: [
+      { tipo: 'Referto', soggetto: 'La via delle tre acque',
+        testo: 'I vecchi testimoni del Coro custodiscono la mappa acustica: la città è uno strumento accordato dai Padri, e la mappa dice come suonarlo per il controcanto che riporta il Dormiente al sonno senza sogni. È la via delle tre acque sotto la Cattedrale, il percorso dell’Ep. 20. Ciò che avete fatto nei casi del Coro (Ep. 3-6) decide quanto della voce che M. cerca è ancora recuperabile. Il conto, di nuovo: la campagna presenta il suo saldo anche qui, sotto forma di eco.' },
+    ] },
+  { n: 9, nome: 'L’Archivio Sequestrato',
+    req: 'L’Archivio sequestrato, dove è ammassata la roba della Società, apre a chi ha la mappa dei sigilli e sa che è lì che finisce la caccia: la Società braccata torna a casa propria da ladra.',
+    art: 'artworks/L’Archivio Civico.png',
+    testo: 'L’Archivio Civico sotto sigillo, dove hanno portato tutto ciò che era della Società: la vostra vita impacchettata da mani estranee. Dentro, il Fascicolo del 1741 — e l’Ispettore Vidal, che vi aspetta e va convinto, non ucciso.',
+    approfondimenti: [
+      { tipo: 'Presagio', soggetto: 'La caccia che cambia bersaglio',
+        testo: 'Nell’Archivio che vi ha sequestrato la casa, la partita non si vince con l’acciaio ma con la verità. L’Ispettore Vidal è il migliore, e per questo il più pericoloso e il più prezioso: abbatterlo è impossibile e inutile; convincerlo è difficile e decisivo. Riducetelo, fermatelo, e mettetegli in mano ciò che ha in mano lui — un dossier perfetto e falso, come quello di Braga. Se il conto della campagna vi sostiene, l’uomo mandato a prendervi terrà aperte le uscite della cripta. La caccia cambia bersaglio: da voi, a M.' },
+    ] },
+].map((L) => ({
+  art: L.art,
+  title: `${L.n} · ${L.nome}`,
+  file: `Episodio 19/Luoghi/${L.n} - ${L.nome.replace(/’/g, "'")}`,
+  type: `Luogo ${L.n}`,
+  rules: `{i}${L.req === 'Disponibile dall’inizio' ? L.testo : L.req}{/i}`,
+  approfondimenti: L.approfondimenti, n: L.n,
+}));
+
+const EP19_INDIZI = LUOGHI19.flatMap((L) =>
+  L.approfondimenti.filter((a) => a.tipo === 'Osservazione' || a.tipo === 'Presagio')
+    .map((a) => ({
+      art: L.art, n: L.n, kind: 'Indizio',
+      title: `Indizio Nascosto — ${a.soggetto}`,
+      file: `Episodio 19/Indizi/${a.soggetto.replace(/’/g, "'")}`,
+      type: a.tipo,
+      rules: `{i}◆ (${a.tipo}) ${a.testo}{/i}`,
+    })));
+
+const EP19_TESTIMONI = LUOGHI19.flatMap((L) =>
+  L.approfondimenti.filter((a) => a.tipo === 'Testimonianza').map((a) => ({
+    art: L.art, n: L.n, kind: 'Testimone',
+    title: `Testimone — ${a.soggetto}`,
+    file: `Episodio 19/Testimoni/${a.soggetto.replace(/’/g, "'")}`,
+    type: `Luogo ${L.n} · Testimone`,
+    rules: `{i}${a.testo}{/i}`,
+  })));
+
+const EP19_REFERTI = LUOGHI19.flatMap((L) =>
+  L.approfondimenti.filter((a) => a.tipo === 'Referto').map((a) => ({
+    art: L.art, n: L.n, kind: 'Referto',
+    title: `Referto — ${a.soggetto}`,
+    file: `Episodio 19/Referti/${a.soggetto.replace(/’/g, "'")}`,
+    type: `Luogo ${L.n} · Referto`,
+    rules: `{i}${a.testo}{/i}`,
+  })));
+
+// Mazzo 21: 7 spawn (gendarmi archivio), 6 insidie (archivio/caccia), 4
+// crescendo (INDIVIDUAZIONE dell'Ispettore), 4 eventi.
+const EP19_MINACCE = [
+  { art: 'artworks/I Gendarmi dell’Archivio.png', title: 'La Guardia Notturna', tipo: 'Malavita',
+    flavor: 'Gendarmi di ronda, convinti di sorvegliare la roba di criminali.',
+    effect: 'Piazzate 1 Sgherro (gendarme) sull’uscita più vicina agli eroi.' },
+  { art: 'artworks/I Gendarmi dell’Archivio.png', title: 'Il Posto di Blocco', tipo: 'Malavita',
+    flavor: 'Un controllo agli imbocchi delle sale: chi va là?',
+    effect: 'Piazzate 1 Sgherro sull’ingresso della tessera (dal lato da cui siete entrati).' },
+  { art: 'artworks/I Gendarmi dell’Archivio.png', title: 'Chi Dà l’Allarme', tipo: 'Malavita',
+    flavor: 'Un giovane gendarme vi scorge e grida: «intrusi!»',
+    effect: 'Piazzate 1 Sgherro sull’uscita più vicina agli eroi: si attiva subito.' },
+  { art: 'artworks/I Gendarmi dell’Archivio.png', title: 'Rinforzi dai Piani', tipo: 'Malavita',
+    flavor: 'Altri scendono dai piani superiori, in buona fede e in forze.',
+    effect: 'Piazzate 1 Sgherro sull’ingresso della tessera (dal lato da cui siete entrati).' },
+  { art: 'artworks/I Gendarmi dell’Archivio.png', title: 'La Ronda dei Depositi', tipo: 'Malavita',
+    flavor: 'Il giro di guardia ai depositi sigillati rientra proprio adesso.',
+    effect: 'Piazzate 1 Sgherro sull’uscita più vicina agli eroi.' },
+  { art: 'artworks/I Gendarmi dell’Archivio.png', title: 'Chi Copre l’Ispettore', tipo: 'Malavita',
+    flavor: 'Alcuni fanno muro per dare a Vidal il tempo di raggiungervi.',
+    effect: 'Piazzate 1 Sgherro sull’ingresso della tessera (dal lato da cui siete entrati).' },
+  { art: 'artworks/I Gendarmi dell’Archivio.png', title: 'L’Ordine di Cattura', tipo: 'Malavita',
+    flavor: 'Un ufficiale legge il mandato: siete i ricercati del manifesto.',
+    effect: 'Piazzate 1 Sgherro sull’uscita più vicina agli eroi: si attiva subito.' },
+  { art: 'artworks/Lo scaffale che frana.png', title: 'Lo Scaffale che Frana', tipo: 'Insidia',
+    flavor: 'Uno scaffale carico di faldoni cede e piomba giù.',
+    effect: 'L’eroe più avanzato prova VIGORE (Media): se fallisce, 1 danno (sepolto di carte).' },
+  { art: 'artworks/La porta a tempo.png', title: 'La Porta a Tempo', tipo: 'Insidia',
+    flavor: 'Una porta di sicurezza si chiude con un ticchettio: pochi secondi.',
+    effect: 'Fino a fine round, sulla tessera dell’eroe attivo muoversi verso Nord costa il doppio.' },
+  { art: 'artworks/Il faldone sbagliato.png', title: 'Il Faldone Sbagliato', tipo: 'Insidia',
+    flavor: 'Migliaia di faldoni identici: quale è il Fascicolo del 1741?',
+    effect: 'L’eroe attivo prova NERVI (Media): se fallisce, 1 sola azione al prossimo turno (perde tempo tra le carte).' },
+  { art: 'artworks/L’allarme silenzioso.png', title: 'L’Allarme Silenzioso', tipo: 'Insidia',
+    flavor: 'Un filo teso fa scattare una spia in guardiola, senza un suono.',
+    effect: 'Aggiungete 1 segnalino Canto (l’Ispettore si avvicina). Con la mappa dei sigilli: nessun effetto.' },
+  { art: 'artworks/Il fiuto dell’Ispettore.png', title: 'Il Fiuto dell’Ispettore', tipo: 'Insidia',
+    flavor: 'Vidal legge una traccia che avete lasciato: sa dove siete stati.',
+    effect: 'Aggiungete 1 segnalino Canto (l’individuazione). L’Ispettore, se in campo, colpisce subito l’eroe più avanzato.' },
+  { art: 'artworks/La polvere dei sigilli.png', title: 'La Polvere dei Sigilli', tipo: 'Insidia',
+    flavor: 'La polvere di decenni si alza dai faldoni e fa tossire.',
+    effect: 'Ogni eroe prova NERVI (Facile): chi fallisce non può aiutare gli altri questo round.' },
+  { art: 'artworks/Un rumore di troppo.png', title: 'Un Rumore di Troppo', tipo: 'Crescendo',
+    flavor: 'Un faldone cade, un passo scricchiola: qualcuno ha sentito.',
+    effect: 'Aggiungete 1 segnalino Canto (l’individuazione). Alla soglia (Canto 3): +1 carta Minaccia per Fase, per sempre.' },
+  { art: 'artworks/L’Ispettore fiuta la pista.png', title: 'L’Ispettore Fiuta la Pista', tipo: 'Crescendo',
+    flavor: 'Vidal ricostruisce i vostri passi: la distanza si accorcia.',
+    effect: 'Aggiungete 1 segnalino Canto. L’Ispettore avanza di una tessera verso di voi.' },
+  { art: 'artworks/Le guardie convergono.png', title: 'Le Guardie Convergono', tipo: 'Crescendo',
+    flavor: 'Su un cenno di Vidal, i gendarmi chiudono le vie di fuga.',
+    effect: 'Aggiungete 1 segnalino Canto. La prossima carta spawn piazza 1 gendarme in più.' },
+  { art: 'artworks/Sei alle strette.png', title: 'Sei alle Strette', tipo: 'Crescendo',
+    flavor: 'Vidal è a un passo, i gendarmi alle spalle: è il momento delle parole.',
+    effect: 'Aggiungete 1 segnalino Canto. Se l’Ispettore vi ha raggiunti (T5), preparate le Prove: è ora di convincerlo, non di combatterlo oltre.' },
+  { art: 'artworks/L’Archivio che tace.png', title: 'L’Archivio che Tace', tipo: 'Quiete',
+    flavor: 'Per un attimo, solo il fruscio della carta e le vostre scarpe sul marmo.',
+    effect: 'Nessun effetto. Tirate il fiato: anche la casa che vi ha sequestrato, per un istante, tace.' },
+  { art: 'artworks/Un alleato del conto.png', title: 'Un Alleato del Conto', tipo: 'Favore',
+    flavor: 'Un PNG che vi dovete apre una porta di servizio: il conto a favore.',
+    effect: 'Rivelate una tessera coperta adiacente a quella di un eroe (la scelgono i giocatori).' },
+  { art: 'artworks/Casse sequestrate.png', title: 'Casse Sequestrate', tipo: 'Ostacolo',
+    flavor: 'Le vostre casse, ammassate e sigillate, ingombrano il passaggio.',
+    effect: 'Fino a fine round, sulla tessera dell’eroe attivo muoversi costa il doppio.' },
+  { art: 'artworks/Un colpo di manganello.png', title: 'Un Colpo di Manganello', tipo: 'Danno',
+    flavor: 'Un gendarme, convinto di fare il suo dovere, mena un colpo.',
+    effect: 'Un eroe a caso (chi arbitra tira) subisce 1 danno.' },
+].map((m) => ({
+  art: m.art,
+  title: `${m.tipo} — ${m.title}`,
+  file: `Episodio 19/Minacce/${m.title.replace(/’/g, "'")}`,
+  rules: `{i}${m.flavor}{/i}{divider}${m.effect}`,
+}));
+
+const EP19_OGGETTI = [
+  { art: 'artworks/Mappa dei Sigilli.png', nome: 'La Mappa dei Sigilli', ref: 'E19-L2',
+    fonte: 'Luogo 2 — Il Banco dei Pegni di Fossa',
+    flavor: 'La mappa dei sigilli deboli dell’Archivio, dono di Fossa che vi deve la vita. Chi avete salvato torna a salvarvi.',
+    effetto: 'All’ingresso dell’Archivio (T1) entrate dal sigillo debole senza far scattare l’allarme: nessuno spawn iniziale.' },
+  { art: 'artworks/Mappa Acustica.png', nome: 'La Mappa Acustica', ref: 'E19-L8',
+    fonte: 'Luogo 8 — I Vecchi Testimoni del Coro',
+    flavor: 'La via delle tre acque sotto la città, quali campane e fontane far tacere o suonare per il controcanto. Senza, sotto la Cattedrale sareste sordi.',
+    effetto: 'Indispensabile per l’Ep. 20 (la discesa e il controcanto): portatela alla fine. Ciò che manca qui, manca là.' },
+  { art: 'artworks/Prove per l’Ispettore.png', nome: 'Le Prove per l’Ispettore', ref: 'E19-L4',
+    fonte: 'Luogo 4 — La Gendarmeria (+ l’archivio di Braga, se protetto)',
+    flavor: 'La matrice del decano e il confronto col metodo di M.: la prova che Vidal è stato ingannato, come Braga.',
+    effetto: 'Alla Sala di Lettura (T5), all’Ispettore fermato: con queste e un conto ≥ 3 alleati lo CONVINCETE (dalla vostra parte, vittoria piena).' },
+  { art: 'artworks/Taglia da Riscuotere.png', nome: 'La Taglia da Riscuotere', ref: 'E19-L7',
+    fonte: 'Luogo 7 — Un Debito Antico',
+    flavor: 'La taglia in oro vecchio su di voi: chi vi consegnerebbe sembra guadagnarci, ma M. usa e scarta.',
+    effetto: 'Effetto: nessuno finora scoperto.' },
+  { art: 'artworks/Via Facile.png', nome: 'La Via Facile', ref: 'E19-L5',
+    fonte: 'Luogo 5 — Il Professor Braga (se avallato)',
+    flavor: 'Un passaggio comodo all’Archivio, che pare un dono. È un’imboscata dei gendarmi.',
+    effetto: 'Effetto: nessuno finora scoperto.' },
+].map((o) => ({
+  art: o.art,
+  title: o.nome,
+  file: `Episodio 19/Oggetti/${o.nome.replace(/’/g, "'")}`,
+  type: 'Oggetto',
+  rules: `{i}${o.flavor}{/i}{divider}${o.effetto}`,
+  ref: o.ref, fonte: o.fonte,
+}));
+
+const EP19_NEMICI = [
+  { art: 'artworks/L’Ispettore Vidal.png', title: 'L’Ispettore Vidal',
+    type: 'L’Inseguitore Onesto (Boss, non si uccide) — Episodio 19',
+    rules: '{i}Il migliore che la Gendarmeria abbia: onesto, incorruttibile — e per questo l’arma perfetta di M., che non l’ha comprato ma l’ha ingannato con un dossier come quello di Braga. Vi bracca in buona fede.{/i}{divider}Statistiche nel Bestiario. NON si uccide: all’ultima Ferita si ferma ad ascoltare. Le Prove (matrice del decano + metodo di M.) e un conto ≥ 3 alleati lo CONVINCONO (dalla vostra parte: piena). Senza, si ferma ma resta contro (parziale).' },
+].map((n) => ({ ...n, file: `Episodio 19/Nemici/${n.title}` }));
+
+const EP19 = [...LUOGHI19, ...EP19_INDIZI, ...EP19_TESTIMONI, ...EP19_REFERTI,
+              ...EP19_MINACCE, ...EP19_OGGETTI, ...EP19_NEMICI];
+
+
 module.exports = {
   HEROES, NEMICI, MINACCE, LUOGHI, INDIZI, TESTIMONI, REFERTI, OGGETTI, PRELUDIO,
   PRELUDIO_LUOGHI, PRELUDIO_APPROFONDIMENTI, PRELUDIO_OGGETTI,
@@ -4413,5 +4639,6 @@ module.exports = {
   EP16, LUOGHI16, EP16_INDIZI, EP16_TESTIMONI, EP16_REFERTI, EP16_MINACCE, EP16_OGGETTI, EP16_NEMICI,
   EP17, LUOGHI17, EP17_INDIZI, EP17_TESTIMONI, EP17_REFERTI, EP17_MINACCE, EP17_OGGETTI, EP17_NEMICI,
   EP18, LUOGHI18, EP18_INDIZI, EP18_TESTIMONI, EP18_REFERTI, EP18_MINACCE, EP18_OGGETTI, EP18_NEMICI,
-  ALL: [...HEROES, ...NEMICI, ...MINACCE, ...LUOGHI, ...INDIZI, ...TESTIMONI, ...REFERTI, ...OGGETTI, ...PRELUDIO, ...EP2, ...EP3, ...EP4, ...EP5, ...EP6, ...EP7, ...EP8, ...EP9, ...EP10, ...EP11, ...EP12, ...EP13, ...EP14, ...EP15, ...EP16, ...EP17, ...EP18],
+  EP19, LUOGHI19, EP19_INDIZI, EP19_TESTIMONI, EP19_REFERTI, EP19_MINACCE, EP19_OGGETTI, EP19_NEMICI,
+  ALL: [...HEROES, ...NEMICI, ...MINACCE, ...LUOGHI, ...INDIZI, ...TESTIMONI, ...REFERTI, ...OGGETTI, ...PRELUDIO, ...EP2, ...EP3, ...EP4, ...EP5, ...EP6, ...EP7, ...EP8, ...EP9, ...EP10, ...EP11, ...EP12, ...EP13, ...EP14, ...EP15, ...EP16, ...EP17, ...EP18, ...EP19],
 };

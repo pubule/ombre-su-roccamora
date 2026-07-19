@@ -1088,6 +1088,53 @@ Chi canterà al di sotto, non si lamenti di ciò che al di sotto risponde.`;
     </div></div>
   `);
 
+  // --- Episodio 19, Reperto A: il Fascicolo del 1741 (L9) — il controcanto ---
+  const repertoA19 = page(`
+    <div class="wrap"><div style="zoom:0.90;">
+      <div class="serif" style="font-style:italic; font-size:38px; color:#3a2415; mix-blend-mode:multiply; margin-bottom:44px;">Reperto A — il Fascicolo del 1741 (Archivio Sequestrato)</div>
+      <div class="serif" style="font-size:46px; line-height:74px;">
+        <p style="margin-bottom:32px;">Come i Padri fecero <b>tacere</b> il Dormiente la prima volta: non uccidendolo, ma col <b>controcanto</b>.</p>
+        <p style="margin-bottom:32px; border-top:2px solid #6b5636; padding-top:32px;">Metà dei vostri Frammenti sono righe di questo canto. M. li voleva per il Quarto Movimento.</p>
+      </div>
+      <div class="serif" style="font-style:italic; margin-top:70px; font-size:34px; color:#4a4a4e; mix-blend-mode:multiply;">
+        Un dio non si abbatte: si riporta al sonno senza sogni. È l’unica arma
+        dell’ultima discesa — e ve l’ha fatta cercare lui stesso.
+      </div>
+    </div></div>
+  `);
+
+  // --- Episodio 19, Reperto B: la mappa acustica (L8) ---
+  const repertoB19 = page(`
+    <div class="wrap"><div style="zoom:0.92;">
+      <div class="serif" style="font-style:italic; font-size:38px; color:#3a2415; mix-blend-mode:multiply; margin-bottom:56px;">Reperto B — la mappa acustica (Vecchi Testimoni del Coro)</div>
+      <div class="serif" style="font-size:46px; line-height:76px;">
+        <p style="margin-bottom:32px;">La città è uno <b>strumento</b>: campane, organi, fontane, cisterne, accordati dai Padri.</p>
+        <p style="margin-bottom:32px;">Quali <b>tacere</b> e quali <b>far suonare</b> per il controcanto. La via delle tre acque.</p>
+      </div>
+      <div class="serif" style="font-style:italic; margin-top:70px; font-size:34px; color:#4a4a4e; mix-blend-mode:multiply;">
+        Senza, sotto la Cattedrale sareste sordi. È il percorso dell’ultima
+        discesa, disegnato sull’eco.
+      </div>
+    </div></div>
+  `);
+
+  // --- Episodio 19, Reperto C: il manifesto dei ricercati (L1) ---
+  const repertoC19 = page(`
+    <div class="wrap"><div style="zoom:0.90;">
+      <div class="serif" style="font-style:italic; font-size:38px; color:#3a2415; mix-blend-mode:multiply; margin-bottom:44px;">Reperto C — manifesto dei ricercati (Taverna della Chiatta)</div>
+      <div class="hand" style="font-size:64px; line-height:96px; text-align:center; margin-bottom:32px;">
+        <p>RICERCATI</p>
+      </div>
+      <div class="serif" style="font-size:44px; line-height:70px; border-top:2px solid #6b5636; padding-top:28px;">
+        <p style="margin-bottom:24px;">«La Società del Lume, per i crimini di <b>C.B.</b>» Il vostro volto su ogni muro.</p>
+      </div>
+      <div class="serif" style="font-style:italic; margin-top:44px; font-size:34px; color:#4a4a4e; mix-blend-mode:multiply;">
+        La misura della disperazione di M.: per fermarvi ha bruciato la sua stessa
+        maschera pubblica. Un uomo che rovescia il tavolo ha finito le carte buone.
+      </div>
+    </div></div>
+  `);
+
   const items = [
     ['Episodio 1', 'Reperto A - Diario di Ruggero', repertoA],
     ['Episodio 1', 'Reperto B - Registro delle Consegne', repertoB],
@@ -1144,6 +1191,9 @@ Chi canterà al di sotto, non si lamenti di ciò che al di sotto risponde.`;
     ['Episodio 18', 'Reperto A - Firma Doppia', repertoA18],
     ['Episodio 18', 'Reperto B - Piantina del Palazzo', repertoB18],
     ['Episodio 18', 'Reperto C - Due Firme a Confronto', repertoC18],
+    ['Episodio 19', 'Reperto A - Fascicolo del 1741', repertoA19],
+    ['Episodio 19', 'Reperto B - Mappa Acustica', repertoB19],
+    ['Episodio 19', 'Reperto C - Manifesto dei Ricercati', repertoC19],
   ];
 
   for (const [episodio, name, html] of items) {
