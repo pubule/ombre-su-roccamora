@@ -49,6 +49,8 @@ from gen_ep12 import (LUOGHI_12, TILES_12, NEMICI_12, OGGETTI_LUOGO_12, LETTERA_
                       ESAMI_CARBONE_12)
 from gen_ep13 import (LUOGHI_13, TILES_13, NEMICI_13, OGGETTI_LUOGO_13, LETTERA_13,  # noqa: E402
                       ESAMI_CARBONE_13)
+from gen_ep14 import (LUOGHI_14, TILES_14, NEMICI_14, OGGETTI_LUOGO_14, LETTERA_14,  # noqa: E402
+                      ESAMI_CARBONE_14)
 from gen_mappa import VOCI_MAPPA, MAPPE  # noqa: E402
 from gen_bestiario import FASCE, BOSS_DELTA, ferite_per_fascia  # noqa: E402
 from simulate_playtest import (INDAGINE_UNLOCK, TICK_CANTO_OGNI, SOGLIA_CANTO,  # noqa: E402
@@ -66,6 +68,7 @@ from simulate_ep10 import TOKEN_POOL_BASE as POOL_EP10  # noqa: E402
 from simulate_ep11 import TOKEN_POOL_BASE as POOL_EP11  # noqa: E402
 from simulate_ep12 import TOKEN_POOL_BASE as POOL_EP12  # noqa: E402
 from simulate_ep13 import TOKEN_POOL_BASE as POOL_EP13  # noqa: E402
+from simulate_ep14 import TOKEN_POOL_BASE as POOL_EP14  # noqa: E402
 
 
 def strip_tags(s):
@@ -132,6 +135,9 @@ REPERTI_LUOGO = {
     'ep13': {9: ['Reperto A - Filigrana'],
              8: ['Reperto B - Bolla di Transito'],
              7: ['Reperto C - Registro dei Noli']},
+    'ep14': {9: ['Reperto A - Sigillo C.B.'],
+             8: ['Reperto B - Lastra Fonografica'],
+             7: ['Reperto C - Verbale d’Inventario']},
 }
 
 
@@ -492,6 +498,27 @@ SOLUZIONI = dict(
         ],
         boss='IL SORVEGLIANTE DEL MOLINO',
     ),
+    ep14=dict(
+        domande=[
+            dict(q='DOVE è tornata la refurtiva prima di rientrare?',
+                 risposta='All’Attico del Corso, il covo dei Gatti sui tetti.',
+                 esatta='Sapete dove salire: nel 1° round della spedizione non si pesca nessuna carta Minaccia.',
+                 sbagliata='Salite alla cieca: 1 Gatto minore appare in T1.'),
+            dict(q='CHI ha eseguito il furto?',
+                 risposta='I Gatti del Corso, su commissione anonima e cieca (nessuno ha visto il mandante).',
+                 esatta='«La commissione era cieca»: all’Attico, dirlo al Primo Gatto gli toglie la leva — salta un attacco.',
+                 sbagliata='Nessun effetto.'),
+            dict(q='COSA è tornato IN PIÙ?',
+                 risposta='Gli oggetti-intrusi (il sigillo «C.B.», ricevute, appunti) che arredano la colpa di Braga — non un furto, un impianto.',
+                 esatta='Con l’Inventario Originale documentate il «di più» sul posto: torsione piena, il falso dell’Ep.15 nasce con una crepa (VITTORIA PIENA una volta trattato il Gatto).',
+                 sbagliata='La refurtiva torna, ma il falso resta invisibile: senza documentare gli intrusi, la vittoria resta parziale.'),
+            dict(q='COSA portate ai tetti?',
+                 risposta='LA PAROLA DEI TETTI (il Covo dei Gatti): il segno di riconoscimento della banda.',
+                 esatta='Il Primo Gatto vi riconosce come gente di codice — tratta già a 2 Ferite e non tenta la fuga finale. (I Ramponi tolgono le cadute di quota.)',
+                 sbagliata='Dovete ridurlo all’ultima Ferita senza ucciderlo, e senza Ramponi le cadute feriscono. (La Lettera del Perito e il Pegno Anonimo sono esche.)'),
+        ],
+        boss='IL PRIMO GATTO',
+    ),
     preludio=dict(
         domande=[
             dict(q='DOVE è tenuto Ansaldo?',
@@ -728,6 +755,25 @@ episodi = dict(
         vantaggio=dict(slancio_ore=3, preparati_ore=1, preparati_luoghi=6),
         soluzione=SOLUZIONI['ep13'],
         pool=POOL_EP13,
+    ),
+    ep14=dict(
+        id='ep14', titolo='Il rivale',
+        sottotitolo='episodio 14 — Atto III: l’episodio-esca, arredare la colpa di Braga',
+        cartella='Episodio 14', ore_budget=6,
+        lettera=LETTERA_14,
+        obiettivo='Salite i tetti del Corso fino all’Attico (T6) e AGGANCIATE il Primo Gatto '
+                  '(adiacenza + Interagire, o la Parola dei Tetti) prima che il Canto raggiunga '
+                  'la soglia-FUGA e lo faccia sparire oltre la cresta. Ridotto all’ultima Ferita '
+                  '(a 2 con la Parola) TRATTA: dice che la commissione era cieca e che gli hanno '
+                  'ordinato di LASCIARE roba — con gli intrusi documentati (Inventario Originale) '
+                  'è VITTORIA PIENA. Se sfugge, recuperate la refurtiva ma non la confessione: '
+                  'vittoria parziale. Il mandante (M.) non è qui: sta preparando il falso dell’Ep.15.',
+        esami_carbone=ESAMI_CARBONE_14,
+        luoghi=[luogo_json(L, OGGETTI_LUOGO_14, REPERTI_LUOGO['ep14']) for L in LUOGHI_14],
+        tessere=[tessera_json(T) for T in TILES_14],
+        vantaggio=dict(slancio_ore=3, preparati_ore=1, preparati_luoghi=6),
+        soluzione=SOLUZIONI['ep14'],
+        pool=POOL_EP14,
     ),
 )
 
