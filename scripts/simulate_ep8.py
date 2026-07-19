@@ -1088,8 +1088,8 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
             u['esca'] = 2
         if 'Malacarne' in a:
             u['malacarne'] = 1
-        if 'Scambio di mano' in a:
-            u['scambio'] = 2
+        if 'Diversivo' in a:
+            u['diversivo'] = 2
 
     def carica_minaccia_deck():
         d = list(MINACCE)
@@ -1238,6 +1238,16 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
         # precedente di genere: escalation a scatti alla Pandemic).
         n_carte = int(base_carte) + (1 if base_carte % 1 and round_n % 2 == 0 else 0) \
             + (1 if canto_bonus_carte else 0)
+        # Fanti: "Diversivo" (2 usi) — semina una falsa pista sui canali e
+        # salta una carta Minaccia del round. Euristica: sotto pressione
+        # (Canto avviato o dal 3° round) e solo se c'e' almeno una carta da
+        # saltare. Consuma una carica.
+        fanti = next((x for x in vivi() if ability_uses[x].get('diversivo', 0) > 0), None)
+        if fanti and (canto >= 1 or round_n >= 3) and n_carte >= 1:
+            ability_uses[fanti]['diversivo'] -= 1
+            n_carte -= 1
+            log(f'    [ABILITÀ] {fanti} semina un diversivo: una carta Minaccia in meno '
+                f'questo round ({ability_uses[fanti]["diversivo"]} usi residui).')
         # Sibilla: "prima della fase Minaccia, guarda le prime 2 carte del
         # mazzo e mettine una in fondo; l'altra torna in cima" (3 usi).
         # Euristica: scruta solo sotto pressione (Canto avviato o dal 3°
@@ -1342,6 +1352,8 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
         avvicina soltanto: stesso esito di "colma parte della distanza"
         di prima, ora con una posizione vera invece di uno scalare."""
         vivi_ora = vivi()
+        if not vivi_ora:
+            return
         bersaglio = _bersaglio_fiuto(e) or random.choice(vivi_ora)
         nuova = muovi_verso(tile_attuale, e['pos'], pos[bersaglio], e['mov'], celle_occupate(esclusa=e))
         if nuova != e['pos']:

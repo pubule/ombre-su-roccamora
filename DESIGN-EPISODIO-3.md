@@ -244,5 +244,6 @@ stesso Ranuzzi). Chi accusa il maestro del coro senza incrociare: D2
 sbagliata e spedizione con +1 segnalino Canto (tempo perso). Simulatore:
 flag `depistaggio_creduto` (L3 visitato e non chi_confermato) → canto
 init +1. Curva v9 (audit 2026-07-19): boss Accordatore fer=4 nel sim, allineato
-al componente e ai fratelli Ep.2/4/5 (prima il sim usava fer=3, più facile del
-gioco reale). Banda onesta: 2:54, 3-10 64-93, sofferte 12-36%.
+al componente e ai fratelli Ep.2/4/5 (prima il sim usava fer=3). Rifatta dopo il
+rebalance eroi (Carbone/Fanti fuori dal cluster ACUME, Diversivo modellato).
+Banda finale: 2:57, 3-10 71-99, sofferte 9-28%.

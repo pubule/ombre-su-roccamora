@@ -93,7 +93,7 @@ HEROES = [
          equip='Crocifisso di ferro (arma, +1), breviario annotato, stola consunta (1 uso a '
                'spedizione: un eroe adiacente che fallisce una prova NERVI contro un’insidia '
                'non ne subisce l’effetto).'),
-    dict(nome='FULGENZIO CARBONE', ruolo='L’Antiquario dell’Occulto', acume=3, vigore=1, nervi=2,
+    dict(nome='FULGENZIO CARBONE', ruolo='L’Antiquario dell’Occulto', acume=2, vigore=1, nervi=3,
          salute=6, difesa=8,
          abil=('<b>È passato dalla mia bottega</b> — In indagine: una volta per episodio, '
                'esaminando un <b>Oggetto o un Reperto</b> trovato, ne ricava un dettaglio '
@@ -113,14 +113,14 @@ HEROES = [
          equip='Bastone da magistrato (arma, +1), toga ripiegata (1 uso: durante il Turno dei '
                'nemici, un nemico Malavita che dovrebbe attaccare Brera colpisce invece un '
                'altro bersaglio valido, se ce n’è uno), fascicoli rilegati.'),
-    dict(nome='MORA “SPILLA” FANTI', ruolo='La Contrabbandiera dei Canali', acume=3, vigore=2, nervi=1,
+    dict(nome='MORA “SPILLA” FANTI', ruolo='La Contrabbandiera dei Canali', acume=2, vigore=3, nervi=1,
          salute=7, difesa=8,
          abil=('<b>Ombra fiuta</b> — In indagine: una volta per episodio, prima di scegliere il '
                'prossimo luogo, il furetto Ombra va in avanscoperta — sapete quanti '
-               '<b>Approfondimenti</b> nasconde (il numero, mai il tipo). In spedizione, '
-               '<b>Scambio di mano</b> (2 usi, azione): Ombra porta un oggetto d’equipaggiamento '
-               'o un Oggetto/Reperto trovato da un eroe a un altro non adiacente sulla stessa '
-               'tessera.'),
+               '<b>Approfondimenti</b> un luogo nasconde e <b>di che tipo</b> (numero e tipo, '
+               'mai il contenuto). In spedizione, <b>Diversivo</b> (2 usi): Ombra sguscia nei '
+               'canali e semina una falsa pista — <b>saltate una carta Minaccia</b> di questo '
+               'round (una in meno da pescare).'),
          equip='Gancio da barcaiola (arma, +1), lanterna cieca, involto di contrabbando, Ombra (furetto).'),
 ]
 
