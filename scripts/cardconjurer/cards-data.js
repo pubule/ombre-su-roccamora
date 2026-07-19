@@ -3026,6 +3026,234 @@ const EP12 = [...LUOGHI12, ...EP12_INDIZI, ...EP12_TESTIMONI, ...EP12_REFERTI,
               ...EP12_MINACCE, ...EP12_OGGETTI, ...EP12_NEMICI];
 
 
+// ============================================================ EPISODIO 13
+// «Carta di pregio» — Atto III (apertura), mythology (vedi
+// DESIGN-EPISODIO-13.md). Trasferta al Molino delle Carte: salvare i registri
+// dei noli prima del rogo (soglia-Canto), mentre il Notaio sfugge. Boss: il
+// Sorvegliante. Torsione d'indagine: «il testimone che non c'è più».
+
+const LUOGHI13 = [
+  { n: 1, nome: 'La Stazione delle Carrozze', req: 'Disponibile dall’inizio',
+    art: 'artworks/La Stazione delle Carrozze.png',
+    testo: 'Lo snodo dei trasporti di terraferma: rimesse, cavalli, il quadro dei noli. Da qui parte, ogni notte, il nolo puntuale della carta di pregio; e qui lavorava il capo-catena, prima che il canale se lo prendesse.',
+    approfondimenti: [
+      { tipo: 'Testimonianza', soggetto: 'Il capostazione',
+        testo: '«Quel nolo puntuale lo intesta sempre lo stesso studio, quello del Notaio Rasca. Carta in regola, paga prima. E il capo-catena, buon’anima, aveva cominciato a farsi domande su una cosa sola: che la carrozza del nolo, certe notti, faceva una fermata in più. Al Palazzo del Lume. La vostra sede. Poi è annegato.»' },
+    ] },
+  { n: 2, nome: 'Lo Studio del Notaio', req: 'Disponibile dall’inizio',
+    art: 'artworks/Lo Studio del Notaio.png',
+    testo: 'Ordine e cortesia: scaffali di pratiche, bolli, ceralacca. Ogni carta è in regola, ogni pagamento tracciato. È il posto più pulito della città — ed è proprio la sua pulizia impeccabile a puzzare di bruciato.',
+    approfondimenti: [
+      { tipo: 'Referto', soggetto: 'La cortesia del Notaio',
+        testo: 'Rasca non commette errori: ogni carta in regola, ogni pagamento puntuale. È la perfezione a tradirlo — nessun cliente onesto è così invisibile. È l’uomo del «benefattore che ama la lirica» di due inverni fa: il legale che dà un indirizzo di carta a chi non vuole un volto. Non lo prenderete stanotte; ma sapere che è lui a tenere la penna del nolo è metà della caccia.' },
+    ] },
+  { n: 3, nome: 'L’Ufficio del Fermo-Posta', req: 'Disponibile dall’inizio',
+    art: 'artworks/L’Ufficio del Fermo-Posta.png',
+    testo: 'Uno dei tre che comprano la carta col giglio: caselle numerate, ritiri riservati. La carta pregiata costa un occhio, e la compra solo chi ha da scrivere cose che devono sembrare autentiche — o esserlo.',
+    approfondimenti: [
+      { tipo: 'Osservazione', soggetto: 'I tre compratori',
+        testo: 'La carta col giglio la comprano in tre: il vescovado, la Prefettura, e questa casella riservata. Due sono facciate rispettabili che giustificano l’acquisto; la terza è il vero destinatario. Chi vuole nascondere una carta la fa comprare anche da chi non ne ha bisogno: così la sua non spicca. Il fermo-posta è la foglia nella foresta.' },
+    ] },
+  { n: 4, nome: 'La Dogana Vecchia', req: 'Disponibile dall’inizio',
+    art: 'artworks/La Dogana Vecchia.png',
+    testo: 'Timbra le bolle di transito delle risme dal molino fuori porta. Roba pulita, dazio pagato; troppo pulita. È qui che il capo-catena veniva a confrontare i noli, e qui che aveva copiato l’ultima bolla prima di finire in acqua.',
+    approfondimenti: [
+      { tipo: 'Testimonianza', soggetto: 'Il doganiere',
+        testo: '«Ve lo metto a verbale perché ormai è morto lui e non io: il capo-catena aveva capito che la carrozza del nolo della carta, nelle notti giuste, fa una fermata in più prima di lasciare la città. Al Palazzo del Lume. La stessa carrozza che porta la carta di quel signore riservato porta anche la carta della vostra Società. È annegato non per quello che aveva rubato, per quello che aveva contato.»' },
+    ] },
+  { n: 5, nome: 'La Casa del Capo-Catena',
+    req: 'La casa del morto è sigillata dai gendarmi, e si apre solo a chi sa perché è morto — la parola che tutti dicono a bassa voce, l’annegato che sapeva nuotare.',
+    art: 'artworks/La Casa del Capo-Catena.png',
+    testo: 'La stanza di un uomo che aveva cominciato a contare: fogli, colonne di date, un mezzo diario, e una riga sottolineata due volte. Non una confessione — un calcolo, quello per cui è annegato. I morti non depongono, ma lasciano il calco.',
+    approfondimenti: [
+      { tipo: 'Presagio', soggetto: 'La deposizione mai resa',
+        testo: 'A leggere i suoi fogli nell’ordine giusto, la voce del capo-catena torna come da sotto l’acqua: il calco di una testimonianza che nessuno ha raccolto in tempo. Vi dice tre cose — che la carta di C.B. viaggia sulla carrozza della vostra sede; a che ora, stanotte, daranno fuoco ai registri; e per dove passa la guardia. È tutto quello che sarebbe morto in tribunale, se fosse arrivato vivo. Fatelo arrivare voi.' },
+    ] },
+  { n: 6, nome: 'La Cancelleria Vescovile',
+    req: 'La cancelleria del vescovado riceve solo chi sa nominare la merce che vi si compra a caro prezzo: la carta pregiata col segno del giglio.',
+    art: 'artworks/La Cancelleria Vescovile.png',
+    testo: 'Compra la carta col giglio alla luce del sole, per gli atti solenni della diocesi: il compratore di facciata perfetto e involontario. Finché esiste chi la compra per forza, chi la compra di nascosto non spicca.',
+    approfondimenti: [
+      { tipo: 'Osservazione', soggetto: 'Il compratore di facciata',
+        testo: 'Il vescovado compra la carta col giglio per atti che la richiedono davvero: è la copertura perfetta, e involontaria. Finché esistono compratori legittimi, il compratore illegittimo non spicca. Rasca ha scelto bene la sua foresta: tre alberi identici, e solo uno nasconde il nido.' },
+    ] },
+  { n: 7, nome: 'La Prefettura',
+    req: 'La Prefettura apre i suoi registri solo a chi sa del trasporto che non salta mai: il nolo pagato in anticipo, sempre in orario.',
+    art: 'artworks/La Prefettura.png',
+    testo: 'Custodisce i registri di ogni nolo autorizzato: è qui che il calcolo del capo-catena trova conferma nero su bianco. Sessant’anni di forniture allo stesso «C.B.», e una carrozza che, certe notti, fa una fermata di troppo.',
+    approfondimenti: [
+      { tipo: 'Referto', soggetto: 'Il registro dei noli',
+        testo: 'Sessant’anni di forniture allo stesso cliente storico, pagate al centesimo e sempre in orario, intestate con due iniziali: «C.B.». E il nolo parte con la carrozza che, certe notti, serve anche il Palazzo del Lume. Liquidatelo pure come coincidenza dei vetturini — ma i vetturini non sanno di esserlo. Chi paga la carta di C.B. paga da dove pagate voi: è dentro casa, e da sessant’anni.' },
+    ] },
+  { n: 8, nome: 'Il Deposito delle Risme',
+    req: 'Il deposito dove arrivano le risme è chiuso a quest’ora, e apre solo a chi sa da dove vengono: l’opificio fuori le mura che fa la filigrana.',
+    art: 'artworks/Il Deposito delle Risme.png',
+    testo: 'Riceve le risme dal molino fuori porta e le smista ai tre compratori: bolle, quantità, date. Qui, in un armadio, una cassetta di latta stagna — la sola cosa che, stanotte, può portar via delle carte sane da un molino in fiamme.',
+    approfondimenti: [
+      { tipo: 'Osservazione', soggetto: 'La cassetta stagna',
+        testo: 'La cassetta di latta è a doppia parete, guarnizione di sughero: tiene fuori l’acqua e regge le fiamme il tempo di attraversare una stanza in fiamme. In un molino di stracci pronto a bruciare, è la differenza tra portare a casa i registri e portare a casa la cenere. Riempitela al torchio, chiudetela, e uscite.' },
+    ] },
+  { n: 9, nome: 'Il Molino delle Carte',
+    req: 'Il molino è due ore fuori città, e non ci si arriva per caso: ci si va sapendo che è lì che nasce la carta col giglio, dietro le mura, sull’acqua.',
+    art: 'artworks/Il Molino delle Carte.png',
+    testo: 'Sull’acqua, fuori le mura: rogge, la grande macina, i magazzini di stracci per la pasta. È qui che si fa la filigrana col giglio, e qui che stanotte qualcuno vuole ridurre in cenere i registri prima che li leggiate.',
+    approfondimenti: [
+      { tipo: 'Presagio', soggetto: 'La carta che aspetta la fiamma',
+        testo: 'Nel molino silenzioso, la macina gira ancora piano e l’acqua della roggia parla da sola. Tra i telai coi fogli appesi, per un istante pare di sentire il fruscio di sessant’anni di carta scritta con la stessa mano: lettere, ordini, sentenze del Coro, tutto uscito da questa filigrana. Stanotte qualcuno vuole ridurla in cenere prima che la leggiate. Arrivate al torchio, prendete i registri, e non guardate il fuoco: guardate la porta.' },
+    ] },
+].map((L) => ({
+  art: L.art,
+  title: `${L.n} · ${L.nome}`,
+  file: `Episodio 13/Luoghi/${L.n} - ${L.nome.replace(/’/g, "'")}`,
+  type: `Luogo ${L.n}`,
+  rules: `{i}${L.req === 'Disponibile dall’inizio' ? L.testo : L.req}{/i}`,
+  approfondimenti: L.approfondimenti, n: L.n,
+}));
+
+const EP13_INDIZI = LUOGHI13.flatMap((L) =>
+  L.approfondimenti.filter((a) => a.tipo === 'Osservazione' || a.tipo === 'Presagio')
+    .map((a) => ({
+      art: L.art, n: L.n, kind: 'Indizio',
+      title: `Indizio Nascosto — ${a.soggetto}`,
+      file: `Episodio 13/Indizi/${a.soggetto.replace(/’/g, "'")}`,
+      type: a.tipo,
+      rules: `{i}◆ (${a.tipo}) ${a.testo}{/i}`,
+    })));
+
+const EP13_TESTIMONI = LUOGHI13.flatMap((L) =>
+  L.approfondimenti.filter((a) => a.tipo === 'Testimonianza').map((a) => ({
+    art: L.art, n: L.n, kind: 'Testimone',
+    title: `Testimone — ${a.soggetto}`,
+    file: `Episodio 13/Testimoni/${a.soggetto.replace(/’/g, "'")}`,
+    type: `Luogo ${L.n} · Testimone`,
+    rules: `{i}${a.testo}{/i}`,
+  })));
+
+const EP13_REFERTI = LUOGHI13.flatMap((L) =>
+  L.approfondimenti.filter((a) => a.tipo === 'Referto').map((a) => ({
+    art: L.art, n: L.n, kind: 'Referto',
+    title: `Referto — ${a.soggetto}`,
+    file: `Episodio 13/Referti/${a.soggetto}`,
+    type: `Luogo ${L.n} · Referto`,
+    rules: `{i}${a.testo}{/i}`,
+  })));
+
+// Mazzo 21: 7 spawn (uomini del molino), 6 insidie (ambiente: roggia/macine/
+// telai/polvere), 4 crescendo (FUOCO: soglia-rogo), 4 eventi.
+const EP13_MINACCE = [
+  { art: 'artworks/Gli uomini del molino.png', title: 'La Guardia al Cancello', tipo: 'Malavita',
+    flavor: 'Uomini pagati per sorvegliare un molino e non fare domande. Stanotte hanno ordini.',
+    effect: 'Piazzate 1 Sgherro sull’uscita più vicina agli eroi.' },
+  { art: 'artworks/Gli uomini del molino.png', title: 'Ordini dal Sorvegliante', tipo: 'Malavita',
+    flavor: 'Il Sorvegliante li schiera dove servono: tra voi e il torchio.',
+    effect: 'Piazzate 1 Sgherro sull’ingresso della tessera (dal lato da cui siete entrati).' },
+  { art: 'artworks/Gli uomini del molino.png', title: 'Chi Sbarra la Strada', tipo: 'Malavita',
+    flavor: 'Non vogliono uccidervi: vogliono farvi perdere il round che vi serve.',
+    effect: 'Piazzate 1 Sgherro sull’uscita più vicina agli eroi: si attiva subito.' },
+  { art: 'artworks/Gli uomini del molino.png', title: 'Rincalzi dalle Macine', tipo: 'Malavita',
+    flavor: 'Altri due sbucano da dietro la grande ruota, chiave inglese in pugno.',
+    effect: 'Piazzate 1 Sgherro sull’ingresso della tessera (dal lato da cui siete entrati).' },
+  { art: 'artworks/Gli uomini del molino.png', title: 'La Ronda del Cortile', tipo: 'Malavita',
+    flavor: 'Il giro di guardia rientra proprio adesso, lanterna alta.',
+    effect: 'Piazzate 1 Sgherro sull’uscita più vicina agli eroi.' },
+  { art: 'artworks/Gli uomini del molino.png', title: 'Il Fischio del Sorvegliante', tipo: 'Malavita',
+    flavor: 'Un fischio secco, e gli uomini convergono dove il capo li vuole.',
+    effect: 'Piazzate 1 Sgherro sull’uscita più vicina agli eroi: si attiva subito.' },
+  { art: 'artworks/Gli uomini del molino.png', title: 'Chi Copre la Fuga del Notaio', tipo: 'Malavita',
+    flavor: 'Mentre la carrozza si scalda, qualcuno resta a coprirla. Contro di voi.',
+    effect: 'Piazzate 1 Sgherro sull’ingresso della tessera (dal lato da cui siete entrati).' },
+  { art: 'artworks/La corrente della roggia.png', title: 'La Corrente della Roggia', tipo: 'Insidia',
+    flavor: 'L’acqua nera precipita verso la ruota e vuole prendersi chi scivola.',
+    effect: 'L’eroe attivo prova VIGORE/DESTREZZA (Media): se fallisce, cade in acqua — 1 round perso a risalire. Con il Taccuino del Capo-Catena: a Facile.' },
+  { art: 'artworks/Lingranaggio delle macine.png', title: 'L’Ingranaggio delle Macine', tipo: 'Insidia',
+    flavor: 'La macchina non distingue amici da nemici: un lembo di giacca, e ti tira.',
+    effect: 'L’eroe più avanzato prova NERVI (Media): se fallisce, 1 danno (spinto contro gli ingranaggi).' },
+  { art: 'artworks/La passerella scivolosa.png', title: 'La Passerella Scivolosa', tipo: 'Insidia',
+    flavor: 'Assi viscide sopra la corrente: un passo troppo lungo e sei sotto.',
+    effect: 'L’eroe attivo prova DESTREZZA (Media): se fallisce, perde il movimento extra questo turno.' },
+  { art: 'artworks/La polvere che soffoca.png', title: 'La Polvere che Soffoca', tipo: 'Insidia',
+    flavor: 'La polvere di stracci riempie i polmoni: si tossisce, si vede meno.',
+    effect: 'Ogni eroe prova NERVI (Facile): chi fallisce ha 1 sola azione al prossimo turno.' },
+  { art: 'artworks/Il telaio che cade.png', title: 'Il Telaio che Cade', tipo: 'Insidia',
+    flavor: 'Un telaio carico di fogli si stacca dall’alto e piomba giù.',
+    effect: 'L’eroe più avanzato prova DESTREZZA (Media): se fallisce, 1 danno.' },
+  { art: 'artworks/Lo straccio in fiamme.png', title: 'Lo Straccio in Fiamme', tipo: 'Insidia',
+    flavor: 'Uno straccio prende e vola, portando il fuoco dove non deve.',
+    effect: 'Se la soglia-fuoco è superata, l’eroe attivo prova NERVI (Media) o 1 danno; altrimenti nessun effetto (ancora).' },
+  { art: 'artworks/Odore di fumo.png', title: 'Odore di Fumo', tipo: 'Crescendo',
+    flavor: 'Un filo di fumo dai magazzini: hanno cominciato. Poco, per ora.',
+    effect: 'Aggiungete 1 segnalino Canto (il Fuoco). Alla soglia-fuoco (Canto 4, 5 col Taccuino): i magazzini bruciano — vedi Soluzione. Alla soglia (3): +1 carta Minaccia per Fase, per sempre.' },
+  { art: 'artworks/Il primo focolaio.png', title: 'Il Primo Focolaio', tipo: 'Crescendo',
+    flavor: 'Le fiamme trovano gli stracci e cominciano a correre lungo le pile.',
+    effect: 'Aggiungete 1 segnalino Canto (il Fuoco). Alla soglia-fuoco, l’Essiccatoio e il Torchio sono in fiamme (prova NERVI o 1 danno ad attraversarli).' },
+  { art: 'artworks/I magazzini bruciano.png', title: 'I Magazzini Bruciano', tipo: 'Crescendo',
+    flavor: 'Un boato morbido: i magazzini di stracci sono una torcia sola.',
+    effect: 'Aggiungete 1 segnalino Canto (il Fuoco). Da ora ogni round al torchio senza la Cassetta Stagna DANNEGGIA i registri (vittoria parziale).' },
+  { art: 'artworks/Il tetto prende.png', title: 'Il Tetto Prende', tipo: 'Crescendo',
+    flavor: 'Il fuoco sale alle travi: il molino non è più un posto dove restare.',
+    effect: 'Aggiungete 1 segnalino Canto (il Fuoco). Se siete ancora dentro con i registri non salvati, il round dopo la prova è perduta: uscite o chiudete la Cassetta ORA.' },
+  { art: 'artworks/La macina si ferma.png', title: 'La Macina si Ferma', tipo: 'Quiete',
+    flavor: 'Qualcuno stacca la ruota: per un attimo, silenzio. Si sente il proprio fiato.',
+    effect: 'Nessun effetto. Tirate il fiato: anche un molino che brucia, per un istante, tace.' },
+  { art: 'artworks/Una porta dacqua aperta.png', title: 'Una Porta d’Acqua Aperta', tipo: 'Favore',
+    flavor: 'Una paratia lasciata aperta rivela un passaggio di servizio.',
+    effect: 'Rivelate una tessera coperta adiacente a quella di un eroe (la scelgono i giocatori).' },
+  { art: 'artworks/Balle di stracci sul passo.png', title: 'Balle di Stracci sul Passo', tipo: 'Ostacolo',
+    flavor: 'Balle di stracci rovesciate ingombrano il corridoio: si passa, ma piano.',
+    effect: 'Fino a fine round, sulla tessera dell’eroe attivo muoversi costa il doppio.' },
+  { art: 'artworks/Una trave in fiamme.png', title: 'Una Trave in Fiamme', tipo: 'Danno',
+    flavor: 'Una trave accesa si stacca dal soffitto e piomba sul gruppo.',
+    effect: 'Un eroe a caso (chi arbitra tira) subisce 1 danno.' },
+].map((m) => ({
+  art: m.art,
+  title: `${m.tipo} — ${m.title}`,
+  file: `Episodio 13/Minacce/${m.title.replace(/’/g, "'")}`,
+  rules: `{i}${m.flavor}{/i}{divider}${m.effect}`,
+}));
+
+const EP13_OGGETTI = [
+  { art: 'artworks/Cassetta Stagna.png', nome: 'La Cassetta Stagna', ref: 'E13-L8',
+    fonte: 'Luogo 8 — Il Deposito delle Risme (entro le 20)',
+    flavor: 'Latta a doppia parete, guarnizione di sughero: tiene fuori l’acqua e regge le fiamme il tempo di attraversare una stanza che brucia.',
+    effetto: 'Al torchio (T6), i registri messi nella Cassetta sono SALVI dal fuoco: vittoria piena a prescindere dalla soglia-fuoco. Senza, se il fuoco è alto, ogni round li danneggia.' },
+  { art: 'artworks/Lasciapassare del Nolo.png', nome: 'Il Lasciapassare del Nolo', ref: 'E13-L1',
+    fonte: 'Luogo 1 — La Stazione delle Carrozze',
+    flavor: 'La bolla di carico del nolo: chi la mostra al cancello è «gente del trasporto», non un intruso.',
+    effetto: 'All’inizio della spedizione saltate lo sbarramento del cortile (T1) e la sua guardia: entrate senza combattere.' },
+  { art: 'artworks/Taccuino del Capo-Catena.png', nome: 'Il Taccuino del Capo-Catena', ref: 'E13-L5',
+    fonte: 'Luogo 5 — La Casa del Capo-Catena',
+    flavor: 'I suoi conti rimessi in ordine: la deposizione che non ha fatto in tempo a rendere — l’ora del rogo e i turni della guardia.',
+    effetto: 'Alza di 1 la soglia-fuoco (arrivate col fuoco più lontano) e rende Facili le prove d’ambiente del molino (roggia, macine, telai).' },
+  { art: 'artworks/Lettera di Raccomandazione.png', nome: 'La Lettera di Raccomandazione', ref: 'E13-L6',
+    fonte: 'Luogo 6 — La Cancelleria Vescovile',
+    flavor: 'Una lettera che accredita un signore presso «ambienti che contano». Cortesia di facciata, non porta a C.B.',
+    effetto: 'Effetto: nessuno finora scoperto.' },
+  { art: 'artworks/Timbro del Notaio.png', nome: 'Il Timbro del Notaio', ref: 'E13-L2',
+    fonte: 'Luogo 2 — Lo Studio del Notaio',
+    flavor: 'Il timbro di studio di Rasca, quello che finisce su ogni bolla. È di routine: non lo inchioda.',
+    effetto: 'Effetto: nessuno finora scoperto.' },
+].map((o) => ({
+  art: o.art,
+  title: o.nome,
+  file: `Episodio 13/Oggetti/${o.nome.replace(/’/g, "'")}`,
+  type: 'Oggetto',
+  rules: `{i}${o.flavor}{/i}{divider}${o.effetto}`,
+  ref: o.ref, fonte: o.fonte,
+}));
+
+const EP13_NEMICI = [
+  { art: 'artworks/Il Sorvegliante del Molino.png', title: 'Il Sorvegliante del Molino',
+    type: 'Il Guardiano della Filiera (Boss) — Episodio 13',
+    rules: '{i}Ezio Fonda è il capo della sicurezza della filiera: un uomo pagato per sorvegliare un molino e non fare domande, che stanotte difende un rogo che non ha deciso lui, mentre il suo padrone sale in carrozza e lo scarica.{/i}{divider}Statistiche nel Bestiario. Nessuna debolezza-oggetto. Guarda il torchio: va superato/abbattuto per i registri. «Il nome del Notaio» (D2): gridargli che Rasca è già fuggito gli fa saltare un attacco.' },
+  { art: 'artworks/Il Notaio.png', title: 'Il Notaio',
+    type: 'Il Ricorrente dell’Atto (non si prende) — Episodio 13',
+    rules: '{i}Ludovico Rasca dà un indirizzo di carta a chi non vuole un volto: intesta, protocolla, paga, e resta pulito. Stanotte è venuto a far sparire i registri che lo legano a C.B.{/i}{divider}NON combatte. Appare in T4, ordina il rogo, e alla fine del round dopo fugge in carrozza (rimosso): è il ricorrente dell’Atto III. Inseguirlo = round perso, il fuoco avanza. Puntate ai registri.' },
+].map((n) => ({ ...n, file: `Episodio 13/Nemici/${n.title}` }));
+
+const EP13 = [...LUOGHI13, ...EP13_INDIZI, ...EP13_TESTIMONI, ...EP13_REFERTI,
+              ...EP13_MINACCE, ...EP13_OGGETTI, ...EP13_NEMICI];
+
+
 module.exports = {
   HEROES, NEMICI, MINACCE, LUOGHI, INDIZI, TESTIMONI, REFERTI, OGGETTI, PRELUDIO,
   PRELUDIO_LUOGHI, PRELUDIO_APPROFONDIMENTI, PRELUDIO_OGGETTI,
@@ -3040,5 +3268,6 @@ module.exports = {
   EP10, LUOGHI10, EP10_INDIZI, EP10_TESTIMONI, EP10_REFERTI, EP10_MINACCE, EP10_OGGETTI, EP10_NEMICI,
   EP11, LUOGHI11, EP11_INDIZI, EP11_TESTIMONI, EP11_REFERTI, EP11_MINACCE, EP11_OGGETTI, EP11_NEMICI,
   EP12, LUOGHI12, EP12_INDIZI, EP12_TESTIMONI, EP12_REFERTI, EP12_MINACCE, EP12_OGGETTI, EP12_NEMICI,
-  ALL: [...HEROES, ...NEMICI, ...MINACCE, ...LUOGHI, ...INDIZI, ...TESTIMONI, ...REFERTI, ...OGGETTI, ...PRELUDIO, ...EP2, ...EP3, ...EP4, ...EP5, ...EP6, ...EP7, ...EP8, ...EP9, ...EP10, ...EP11, ...EP12],
+  EP13, LUOGHI13, EP13_INDIZI, EP13_TESTIMONI, EP13_REFERTI, EP13_MINACCE, EP13_OGGETTI, EP13_NEMICI,
+  ALL: [...HEROES, ...NEMICI, ...MINACCE, ...LUOGHI, ...INDIZI, ...TESTIMONI, ...REFERTI, ...OGGETTI, ...PRELUDIO, ...EP2, ...EP3, ...EP4, ...EP5, ...EP6, ...EP7, ...EP8, ...EP9, ...EP10, ...EP11, ...EP12, ...EP13],
 };

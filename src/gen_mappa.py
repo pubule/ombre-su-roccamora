@@ -177,6 +177,15 @@ VOCI_MAPPA = [
     ('Lo Scriptorium', 'campo del Lume, sala dei copisti', 'ep12'),
     ('Il Deposito dei Sigilli', 'campo del Lume, deposito dei punzoni', 'ep12'),
     ('Il Corpo di Guardia', 'riva dei Gendarmi 1, corpo di guardia dei canali', 'ep12'),
+    # Episodio 13 — carta di pregio (apertura Atto III). Riusi: La Stazione
+    # delle Carrozze ('citta'), La Dogana Vecchia ('preludio'), L'Ufficio del
+    # Fermo-Posta ('ep12').
+    ('Lo Studio del Notaio', 'contrada dei Notai 4, studio Rasca', 'ep13'),
+    ('La Casa del Capo-Catena', 'riva dei Traghetti 9, alloggio del capo-catena', 'ep13'),
+    ('La Cancelleria Vescovile', 'palazzo vescovile, cancelleria', 'ep13'),
+    ('La Prefettura', 'corso della Prefettura 1, archivio dei noli', 'ep13'),
+    ('Il Deposito delle Risme', 'calle della Carta 6, deposito di smistamento', 'ep13'),
+    ('Il Molino delle Carte', 'fuori porta di terraferma, due ore a monte del fiume', 'ep13'),
 ]
 
 # (sottocartella pdf/, sottotitolo, tag inclusi). Un episodio nuovo aggiunge
@@ -195,6 +204,7 @@ MAPPE = [
     ('Episodio 10', 'episodio 10 — la città che conoscete', ('citta', 'preludio', 'ep1', 'ep2', 'ep3', 'ep4', 'ep5', 'ep6', 'ep7', 'ep8', 'ep9', 'ep10')),
     ('Episodio 11', 'episodio 11 — la città che conoscete', ('citta', 'preludio', 'ep1', 'ep2', 'ep3', 'ep4', 'ep5', 'ep6', 'ep7', 'ep8', 'ep9', 'ep10', 'ep11')),
     ('Episodio 12', 'episodio 12 — la città che conoscete', ('citta', 'preludio', 'ep1', 'ep2', 'ep3', 'ep4', 'ep5', 'ep6', 'ep7', 'ep8', 'ep9', 'ep10', 'ep11', 'ep12')),
+    ('Episodio 13', 'episodio 13 — la città e la strada fuori porta', ('citta', 'preludio', 'ep1', 'ep2', 'ep3', 'ep4', 'ep5', 'ep6', 'ep7', 'ep8', 'ep9', 'ep10', 'ep11', 'ep12', 'ep13')),
 ]
 
 # Tipografico (provata la grafia manoscritta La Belle Aurore su tutta la

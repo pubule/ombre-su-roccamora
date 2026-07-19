@@ -807,6 +807,54 @@ Chi canterà al di sotto, non si lamenti di ciò che al di sotto risponde.`;
     </div></div>
   `);
 
+  // --- Episodio 13, Reperto A: la filigrana (L9) ---
+  const repertoA13 = page(`
+    <div class="wrap"><div style="zoom:0.90;">
+      <div class="serif" style="font-style:italic; font-size:38px; color:#3a2415; mix-blend-mode:multiply; margin-bottom:44px;">Reperto A — foglio in controluce (Molino delle Carte)</div>
+      <div class="serif" style="font-size:46px; line-height:74px;">
+        <p style="margin-bottom:32px;">In controluce, nella pasta del foglio, un <b>giglio spezzato</b>: la filigrana della carta di pregio.</p>
+        <p style="margin-bottom:32px; border-top:2px solid #6b5636; padding-top:32px;">Identica alla carta di <b>ogni caso della campagna</b>. Un’unica risma, tagliata per una penna sola.</p>
+      </div>
+      <div class="serif" style="font-style:italic; margin-top:70px; font-size:34px; color:#4a4a4e; mix-blend-mode:multiply;">
+        Non una cartiera che vende a tanti: la firma di chi non firma. Ogni suo
+        foglio riconoscibile e irripetibile.
+      </div>
+    </div></div>
+  `);
+
+  // --- Episodio 13, Reperto B: la bolla di transito (L8) ---
+  const repertoB13 = page(`
+    <div class="wrap"><div style="zoom:0.90;">
+      <div class="serif" style="font-style:italic; font-size:38px; color:#3a2415; mix-blend-mode:multiply; margin-bottom:56px;">Reperto B — bolla di transito (Dogana / Deposito Risme)</div>
+      <div class="serif" style="font-size:46px; line-height:74px;">
+        <p style="margin-bottom:32px;">Merce: <b>carta di pregio, risme</b>. Provenienza: Molino delle Carte, fuori porta.</p>
+        <p style="margin-bottom:32px;">Nolo: <b>prepagato, puntuale</b>. Dazio assolto. Intestazione: studio del Notaio.</p>
+      </div>
+      <div class="serif" style="font-style:italic; margin-top:80px; font-size:34px; color:#4a4a4e; mix-blend-mode:multiply;">
+        Tutto in regola, tutto tracciato, tutto troppo pulito. Il collo di
+        bottiglia della filiera passa di qui — e passa sempre alla stessa ora.
+      </div>
+    </div></div>
+  `);
+
+  // --- Episodio 13, Reperto C: il registro dei noli (L7) — il SEME ---
+  const repertoC13 = page(`
+    <div class="wrap"><div style="zoom:0.92;">
+      <div class="serif" style="font-style:italic; font-size:38px; color:#3a2415; mix-blend-mode:multiply; margin-bottom:60px;">Reperto C — registro dei noli (Prefettura)</div>
+      <div class="serif" style="font-size:46px; line-height:76px;">
+        <p style="margin-bottom:32px;">Cliente storico: <b>sessant’anni</b> di forniture, pagate al centesimo, sempre in orario.</p>
+        <p style="margin-bottom:32px;">Nolo condiviso, certe notti, con la carrozza del <b>Palazzo del Lume</b>.</p>
+      </div>
+      <div class="hand" style="font-size:60px; line-height:96px; margin-top:44px; text-align:right;">
+        <p>— C.B.</p>
+      </div>
+      <div class="serif" style="font-style:italic; margin-top:56px; font-size:34px; color:#4a4a4e; mix-blend-mode:multiply;">
+        I vetturini non sanno di esserlo. Chi paga la carta di C.B. paga da dove
+        pagate voi: è in casa, e da sessant’anni.
+      </div>
+    </div></div>
+  `);
+
   const items = [
     ['Episodio 1', 'Reperto A - Diario di Ruggero', repertoA],
     ['Episodio 1', 'Reperto B - Registro delle Consegne', repertoB],
@@ -845,6 +893,9 @@ Chi canterà al di sotto, non si lamenti di ciò che al di sotto risponde.`;
     ['Episodio 12', 'Reperto A - Perizia dei Sigilli', repertoA12],
     ['Episodio 12', 'Reperto B - Pagina Ricopiata', repertoB12],
     ['Episodio 12', 'Reperto C - Ricevuta del Fermo-Posta', repertoC12],
+    ['Episodio 13', 'Reperto A - Filigrana', repertoA13],
+    ['Episodio 13', 'Reperto B - Bolla di Transito', repertoB13],
+    ['Episodio 13', 'Reperto C - Registro dei Noli', repertoC13],
   ];
 
   for (const [episodio, name, html] of items) {
