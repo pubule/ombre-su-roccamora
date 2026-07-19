@@ -218,6 +218,15 @@ VOCI_MAPPA = [
     ('Il Membro Interno', 'contrada dei Confratelli 6, alloggio', 'ep17'),
     ('Il Rifugio del Notaio', 'calle dei Notai 9, rifugio riservato', 'ep17'),
     ('La Villa-Prigione', 'sponda di levante, villa di custodia, fuori porta', 'ep17'),
+    # Episodio 18 — la mano sola (Atto III, la rivelazione). Riuso: Il Palazzo
+    # del Lume (preludio). Tutto orbita sulla sede della Società.
+    ('L’Archivio delle Penne', 'palazzo del Lume, archivio delle penne', 'ep18'),
+    ('La Contabilità', 'palazzo del Lume, ufficio della contabilità', 'ep18'),
+    ('Il Fascicolo di Campagna', 'palazzo del Lume, sala del fascicolo', 'ep18'),
+    ('Lo Studio Privato di M.', 'palazzo del Lume, studio del presidente', 'ep18'),
+    ('La Carta di Pregio', 'palazzo del Lume, archivio della carta', 'ep18'),
+    ('La Matrice del Decano', 'palazzo del Lume, sala del cifrario', 'ep18'),
+    ('Il Vezzo delle Firme', 'palazzo del Lume, sala del confronto', 'ep18'),
 ]
 
 # (sottocartella pdf/, sottotitolo, tag inclusi). Un episodio nuovo aggiunge
@@ -241,6 +250,7 @@ MAPPE = [
     ('Episodio 15', 'episodio 15 — la città e la villa di Braga', ('citta', 'preludio', 'ep1', 'ep2', 'ep3', 'ep4', 'ep5', 'ep6', 'ep7', 'ep8', 'ep9', 'ep10', 'ep11', 'ep12', 'ep13', 'ep14', 'ep15')),
     ('Episodio 16', 'episodio 16 — la città e la villa sul lago', ('citta', 'preludio', 'ep1', 'ep2', 'ep3', 'ep4', 'ep5', 'ep6', 'ep7', 'ep8', 'ep9', 'ep10', 'ep11', 'ep12', 'ep13', 'ep14', 'ep15', 'ep16')),
     ('Episodio 17', 'episodio 17 — la città spaccata e la villa-prigione', ('citta', 'preludio', 'ep1', 'ep2', 'ep3', 'ep4', 'ep5', 'ep6', 'ep7', 'ep8', 'ep9', 'ep10', 'ep11', 'ep12', 'ep13', 'ep14', 'ep15', 'ep16', 'ep17')),
+    ('Episodio 18', 'episodio 18 — il Palazzo del Lume che si spegne', ('citta', 'preludio', 'ep1', 'ep2', 'ep3', 'ep4', 'ep5', 'ep6', 'ep7', 'ep8', 'ep9', 'ep10', 'ep11', 'ep12', 'ep13', 'ep14', 'ep15', 'ep16', 'ep17', 'ep18')),
 ]
 
 # Tipografico (provata la grafia manoscritta La Belle Aurore su tutta la

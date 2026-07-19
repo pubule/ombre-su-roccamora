@@ -4164,6 +4164,235 @@ const EP17 = [...LUOGHI17, ...EP17_INDIZI, ...EP17_TESTIMONI, ...EP17_REFERTI,
               ...EP17_MINACCE, ...EP17_OGGETTI, ...EP17_NEMICI];
 
 
+// ===================================================================== EP18
+// «La mano sola» — Atto III, la rivelazione, chiusura d'atto (vedi
+// DESIGN-EPISODIO-18.md). L'indagine È la deduzione: le 4 Domande = «chi è
+// C.B.», risposte con gli incroci di campagna. C.B. è M. (Camillo Benso + il
+// Machiavelli, una mano sola). Spedizione: la fuga dal Palazzo del Lume col
+// maggiordomo traditore. M. non si cattura (Atto IV). Torsione: «chi è C.B.».
+
+const LUOGHI18 = [
+  { n: 1, nome: 'L’Assemblea della Società', req: 'Disponibile dall’inizio',
+    art: 'artworks/Palazzo del Lume.png',
+    testo: 'La Società riunita, nella forma scelta dall’Ep. 17. Sul tavolo, diciotto mesi di indizi da mettere in fila. Basta il coraggio di pronunciare il nome che avete avuto sotto gli occhi da sempre: una mano sola muove entrambe le maschere.',
+    approfondimenti: [
+      { tipo: 'Testimonianza', soggetto: 'La Società riunita',
+        testo: 'Messi in fila davanti all’assemblea, i diciotto mesi non raccontano diciotto casi: raccontano un uomo solo che, da presidente, vi mandava a caccia di se stesso da C.B., restando sempre un passo avanti perché il passo lo dettava lui. La carta di pregio, la carrozza dei noli, il nastro verde, il sigillo, la matrice del decano: ogni seme converge su una sola mano. Serve solo il coraggio di dire il nome.' },
+    ] },
+  { n: 2, nome: 'L’Archivio delle Penne', req: 'Disponibile dall’inizio',
+    art: 'artworks/L’Archivio delle Penne.png',
+    testo: 'Calamai, pennini, l’inchiostro ferro-gallico. La penna d’archivio del presidente scrive con lo stesso inchiostro di ogni firma di C.B., e «M.» e «C.B.» hanno lo stesso vezzo. Una mano sola, un calamaio solo.',
+    approfondimenti: [
+      { tipo: 'Referto', soggetto: 'L’inchiostro del presidente',
+        testo: 'L’inchiostro ferro-gallico della penna d’archivio del presidente è identico, ricetta per ricetta, a quello di ogni firma di C.B. sulla carta di pregio. Non due fornitori simili: lo stesso calamaio. E il vezzo della mano — l’esitazione prima della maiuscola — è lo stesso in «M.» e in «C.B.». Il presidente firma da entrambi i lati del tavolo, e da entrambi vi ha guardati cadere nella caccia.' },
+    ] },
+  { n: 3, nome: 'La Contabilità della Società', req: 'Disponibile dall’inizio',
+    art: 'artworks/La Contabilità.png',
+    testo: 'Il libro mastro, l’oro d’antica fusione che paga i lavori di C.B. e finanzia la confraternita, senza mai un conflitto. Due imprese rivali si contendono l’oro; queste se lo spartiscono come un uomo si sposta la borsa di tasca.',
+    approfondimenti: [
+      { tipo: 'Referto', soggetto: 'L’oro d’una cassa sola',
+        testo: 'L’oro d’antica fusione che paga C.B. e quello che finanzia la Società escono dalla stessa cassa, senza mai un lotto conteso. Due imprese rivali si contendono le risorse; queste due si spartiscono l’oro come un uomo si sposta la borsa da una tasca all’altra. Non è collusione tra due poteri: è un potere solo che finge di essere due. Il presidente non finanzia C.B.: il presidente È il bilancio di C.B.' },
+    ] },
+  { n: 4, nome: 'Il Fascicolo di Campagna', req: 'Disponibile dall’inizio',
+    art: 'artworks/Il Fascicolo di Campagna.png',
+    testo: 'Il vostro fascicolo di diciotto mesi: verbali, bivi, riletture dell’Ep. 16, la matrice del decano. La vera arma stanotte — non un indizio, ma diciotto mesi di indizi che si tengono per mano, e che presi insieme danno il volto del presidente.',
+    approfondimenti: [
+      { tipo: 'Osservazione', soggetto: 'Gli incroci di diciotto mesi',
+        testo: 'Il fascicolo di campagna è la vostra vera arma: non un indizio, ma diciotto mesi di indizi che si tengono per mano. Ogni bivio deciso, ogni verbale sigillato, ogni lettera riletta, la matrice del decano: presi uno a uno, coincidenze; presi insieme, un ritratto. E il ritratto ha il volto del presidente. Più fili avete chiuso, più la mano che li tiene è innegabile — davanti alla Società, e davanti a voi stessi, che non avete mai osato guardarlo.' },
+    ] },
+  { n: 5, nome: 'Lo Studio Privato di M.',
+    req: 'Lo studio privato del presidente, dove non siete mai entrati, si apre solo a chi ha osato pensare l’impensabile: che dietro le due maschere ci sia una mano sola.',
+    art: 'artworks/Lo Studio Privato di M.png',
+    testo: 'Dove non siete mai entrati in diciotto mesi: alle pareti, il ritratto del Machiavelli e, di fronte, uno specchio. Le due maschere si guardano. Qui M. era C.B. e C.B. era M., ogni notte, da solo.',
+    approfondimenti: [
+      { tipo: 'Presagio', soggetto: 'Le due maschere allo specchio',
+        testo: 'Nello studio privato del presidente, il ritratto del Machiavelli e lo specchio si fronteggiano: e ora capite. M. non serviva un padrone né temeva un rivale — M. era il rivale, l’altra faccia di sé. Camillo Benso e il suo specchio, il cospiratore e il contabile, le due mani con cui «si fa un’Italia». Si è dato la caccia da sé per anni, perché un uomo che si crede la storia non ha bisogno di complici: ha bisogno di un palcoscenico. E il palcoscenico eravate voi.' },
+    ] },
+  { n: 6, nome: 'La Carta di Pregio',
+    req: 'Il richiamo alla carta di pregio si apre a chi ricollega la firma di C.B. alla penna del presidente: l’inchiostro del presidente sul giglio spezzato.',
+    art: 'artworks/La Carta di Pregio.png',
+    testo: 'Il richiamo all’Ep. 13: la carta col giglio spezzato, l’inchiostro ferro-gallico. Confrontata con la penna d’archivio del presidente, la mano è la stessa. Il nascondiglio migliore è sempre stato il più esposto: la sedia da cui vi guardava indagare.',
+    approfondimenti: [
+      { tipo: 'Referto', soggetto: 'Il giglio del presidente',
+        testo: 'La carta col giglio spezzato dell’Ep. 13, l’inchiostro ferro-gallico, la penna d’archivio del presidente: tre fili che, incrociati, danno una sola risposta alla Domanda 1. C.B. non firma da nessun luogo segreto: firma dal Palazzo del Lume, con la penna del presidente, sulla carta della Società. Il nascondiglio migliore è sempre stato il più esposto: la sedia da cui vi guardava indagare.' },
+    ] },
+  { n: 7, nome: 'La Matrice del Decano',
+    req: 'La matrice del decano si applica solo a chi porta gli incroci: la carrozza condivisa dei due mondi di M.',
+    art: 'artworks/La Matrice del Decano.png',
+    testo: 'Il richiamo all’Ep. 17: le doppie letture applicate a tutte le lettere, e la carrozza condivisa dei noli. Il decano è morto per questa riga; ora la riga parla, e chiude la Domanda sulla logistica di una mano sola.',
+    approfondimenti: [
+      { tipo: 'Referto', soggetto: 'La logistica di una mano sola',
+        testo: 'La matrice del decano, incrociata con la carrozza dei noli, chiude la Domanda 3: una sola carrozza, una sola ora, un solo cortile — quello del Palazzo — servono due maschere che fingono di non conoscersi. C.B. non ha una logistica sua: usa quella della Società, perché sono la stessa impresa. Il decano l’aveva capito, e per questo è stato preso. La sua matrice trasforma diciotto mesi di riletture in una sola, incontestabile deduzione.' },
+    ] },
+  { n: 8, nome: 'Il Vezzo delle Firme',
+    req: 'Il confronto delle firme si apre a chi porta gli incroci: la carrozza condivisa che lega i due nomi di un uomo solo.',
+    art: 'artworks/Il Vezzo delle Firme.png',
+    testo: 'Le due firme a confronto: «M.» e «C.B.», lo stesso allungo, la stessa esitazione prima della maiuscola. Il Machiavelli e Camillo Benso, le due maschere che «hanno fatto l’Italia in due». Non c’è più niente da provare: c’è un nome da pronunciare.',
+    approfondimenti: [
+      { tipo: 'Presagio', soggetto: 'Il Machiavelli e il contabile',
+        testo: '«M.» e «C.B.» non sono due uomini: sono le due maschere di uno solo — il Machiavelli e Camillo Benso, il cospiratore e il contabile, «quelli che hanno fatto l’Italia in due». M. non si crede un criminale: si crede un padre della patria, che rifà la storia con le stesse mani della prima volta. Ed è questo a renderlo imprendibile stanotte: un uomo che si crede l’Italia intera non fugge per paura. Si ritira, con calma, per continuare l’opera. Voi avete il suo volto; lui ha ancora il suo Dormiente.' },
+    ] },
+  { n: 9, nome: 'Il Palazzo del Lume (la fuga)',
+    req: 'Il Palazzo del Lume, casa vostra, si rivolta in dungeon solo quando avete pronunciato il nome: una mano sola lo ha sempre governato, e ora lo spegne.',
+    art: 'artworks/Il Palazzo del Lume (fuga).png',
+    testo: 'Casa vostra da diciotto mesi diventa un labirinto ostile: M. fugge spegnendo le luci, porte che si chiudono, passaggi che non sapevate. Il maggiordomo vi tradisce, i gendarmi vengono per voi. Non inseguite M.: uscite con la prova, prima della cella.',
+    approfondimenti: [
+      { tipo: 'Presagio', soggetto: 'La casa che si spegne',
+        testo: 'La vostra casa, stanotte, vi si volta contro: le sue luci si spengono a una a una sotto la mano che l’ha sempre governata, e i suoi corridoi nascondono passaggi che erano solo di M. Non è più una spedizione: è una fuga. Il cacciatore è diventato preda, in casa propria, tradito da chi gli apriva la porta. Portate fuori la prova, e sopravvivete all’accusa: perché domani, con la firma doppia in mano, sarete voi a dare la caccia — e M., per la prima volta, dovrà scappare.' },
+    ] },
+].map((L) => ({
+  art: L.art,
+  title: `${L.n} · ${L.nome}`,
+  file: `Episodio 18/Luoghi/${L.n} - ${L.nome.replace(/’/g, "'")}`,
+  type: `Luogo ${L.n}`,
+  rules: `{i}${L.req === 'Disponibile dall’inizio' ? L.testo : L.req}{/i}`,
+  approfondimenti: L.approfondimenti, n: L.n,
+}));
+
+const EP18_INDIZI = LUOGHI18.flatMap((L) =>
+  L.approfondimenti.filter((a) => a.tipo === 'Osservazione' || a.tipo === 'Presagio')
+    .map((a) => ({
+      art: L.art, n: L.n, kind: 'Indizio',
+      title: `Indizio Nascosto — ${a.soggetto}`,
+      file: `Episodio 18/Indizi/${a.soggetto.replace(/’/g, "'")}`,
+      type: a.tipo,
+      rules: `{i}◆ (${a.tipo}) ${a.testo}{/i}`,
+    })));
+
+const EP18_TESTIMONI = LUOGHI18.flatMap((L) =>
+  L.approfondimenti.filter((a) => a.tipo === 'Testimonianza').map((a) => ({
+    art: L.art, n: L.n, kind: 'Testimone',
+    title: `Testimone — ${a.soggetto}`,
+    file: `Episodio 18/Testimoni/${a.soggetto.replace(/’/g, "'")}`,
+    type: `Luogo ${L.n} · Testimone`,
+    rules: `{i}${a.testo}{/i}`,
+  })));
+
+const EP18_REFERTI = LUOGHI18.flatMap((L) =>
+  L.approfondimenti.filter((a) => a.tipo === 'Referto').map((a) => ({
+    art: L.art, n: L.n, kind: 'Referto',
+    title: `Referto — ${a.soggetto}`,
+    file: `Episodio 18/Referti/${a.soggetto.replace(/’/g, "'")}`,
+    type: `Luogo ${L.n} · Referto`,
+    rules: `{i}${a.testo}{/i}`,
+  })));
+
+// Mazzo 21: 7 spawn (gendarmi in buona fede), 6 insidie (casa-ostile: luci/
+// porte/passaggi/specchio/maggiordomo/buio), 4 crescendo (ARRESTO), 4 eventi.
+const EP18_MINACCE = [
+  { art: 'artworks/I Gendarmi.png', title: 'La Prima Pattuglia', tipo: 'Malavita',
+    flavor: 'Gendarmi in buona fede entrano dal cortile: credono di arrestare colpevoli.',
+    effect: 'Piazzate 1 Sgherro (gendarme) sull’uscita più vicina agli eroi.' },
+  { art: 'artworks/I Gendarmi.png', title: 'Ai Piani Alti', tipo: 'Malavita',
+    flavor: 'Salgono le scale a ondate, convinti della vostra colpa.',
+    effect: 'Piazzate 1 Sgherro (gendarme) sull’ingresso della tessera (dal lato da cui siete entrati).' },
+  { art: 'artworks/I Gendarmi.png', title: 'Chi Vi Riconosce', tipo: 'Malavita',
+    flavor: 'Un brigadiere vi indica: «sono loro, quelli del manifesto!»',
+    effect: 'Piazzate 1 Sgherro (gendarme) sull’uscita più vicina agli eroi: si attiva subito.' },
+  { art: 'artworks/I Gendarmi.png', title: 'Il Cordone alle Porte', tipo: 'Malavita',
+    flavor: 'Piazzano uomini alle uscite: la rete comincia a chiudersi.',
+    effect: 'Piazzate 1 Sgherro (gendarme) sull’ingresso della tessera (dal lato da cui siete entrati).' },
+  { art: 'artworks/I Gendarmi.png', title: 'La Ronda Interna', tipo: 'Malavita',
+    flavor: 'Una ronda perlustra i corridoi con le lanterne alte.',
+    effect: 'Piazzate 1 Sgherro (gendarme) sull’uscita più vicina agli eroi.' },
+  { art: 'artworks/I Gendarmi.png', title: 'Rinforzi dal Cortile', tipo: 'Malavita',
+    flavor: 'Altri arrivano di corsa: il Palazzo è circondato.',
+    effect: 'Piazzate 1 Sgherro (gendarme) sull’ingresso della tessera (dal lato da cui siete entrati).' },
+  { art: 'artworks/I Gendarmi.png', title: 'L’Ordine d’Arresto', tipo: 'Malavita',
+    flavor: 'Un ufficiale legge ad alta voce il vostro nome sul mandato.',
+    effect: 'Piazzate 1 Sgherro (gendarme) sull’uscita più vicina agli eroi: si attiva subito.' },
+  { art: 'artworks/La lampada che si spegne.png', title: 'La Lampada che si Spegne', tipo: 'Insidia',
+    flavor: 'Un’altra lampada si spegne alle vostre spalle: il buio avanza sotto la mano di M.',
+    effect: 'L’eroe attivo prova NERVI (Media): se fallisce, 1 sola azione al prossimo turno (perde l’orientamento nel buio).' },
+  { art: 'artworks/La porta che si chiude.png', title: 'La Porta che si Chiude', tipo: 'Insidia',
+    flavor: 'Una porta si serra da sola davanti a voi: il Palazzo obbedisce al suo padrone.',
+    effect: 'Fino a fine round, sulla tessera dell’eroe attivo muoversi verso Nord costa il doppio.' },
+  { art: 'artworks/Il passaggio che non c’è più.png', title: 'Il Passaggio che Non C’è Più', tipo: 'Insidia',
+    flavor: 'La scorciatoia che credevate di conoscere è murata, o non è mai esistita.',
+    effect: 'L’eroe più avanzato prova NERVI (Media): se fallisce, torna indietro di una tessera (si è perso).' },
+  { art: 'artworks/Lo specchio del corridoio.png', title: 'Lo Specchio del Corridoio', tipo: 'Insidia',
+    flavor: 'Uno specchio nel buio vi restituisce la vostra faccia — quella del manifesto.',
+    effect: 'Ogni eroe prova NERVI (Facile): chi fallisce esita (non può aiutare gli altri questo round).' },
+  { art: 'artworks/Il maggiordomo sa dove siete.png', title: 'Il Maggiordomo sa Dove Siete', tipo: 'Insidia',
+    flavor: 'Anselmo conosce ogni angolo: indica ai gendarmi la vostra stanza.',
+    effect: 'L’eroe con meno Salute è preso di mira: il prossimo gendarme piazzato appare adiacente a lui.' },
+  { art: 'artworks/Il buio che conoscete male.png', title: 'Il Buio che Conoscete Male', tipo: 'Insidia',
+    flavor: 'Diciotto mesi in questa casa, e nel buio non riconoscete più nulla.',
+    effect: 'L’eroe attivo prova DESTREZZA… VIGORE (Media): se fallisce, perde il movimento extra questo turno.' },
+  { art: 'artworks/Fischietti nel cortile.png', title: 'Fischietti nel Cortile', tipo: 'Crescendo',
+    flavor: 'Fischietti e lanterne nel cortile: la rete comincia a stringersi.',
+    effect: 'Aggiungete 1 segnalino Canto (la Rete). Alla soglia-arresto (Canto 5, 6 con l’Uscita di Servizio): i gendarmi sigillano — vedi Soluzione. Alla soglia (3): +1 carta Minaccia per Fase, per sempre.' },
+  { art: 'artworks/I gendarmi ai piani.png', title: 'I Gendarmi ai Piani', tipo: 'Crescendo',
+    flavor: 'Passi pesanti su tutti i piani: vi cercano stanza per stanza.',
+    effect: 'Aggiungete 1 segnalino Canto (la Rete). Affrettatevi verso l’uscita (T6): ogni round nel Palazzo è un rischio in più.' },
+  { art: 'artworks/Le uscite si sigillano.png', title: 'Le Uscite si Sigillano', tipo: 'Crescendo',
+    flavor: 'Una a una, le vie di fuga vengono chiuse e presidiate.',
+    effect: 'Aggiungete 1 segnalino Canto (la Rete). Se la soglia-arresto è superata, da ora ogni round un eroe rischia l’arresto (prova NERVI o «catturato», fuori scena).' },
+  { art: 'artworks/La rete si chiude.png', title: 'La Rete si Chiude', tipo: 'Crescendo',
+    flavor: 'Il cerchio è quasi completo: fuori resta solo l’uscita di servizio.',
+    effect: 'Aggiungete 1 segnalino Canto (la Rete). Se non siete già all’uscita (T6), correte: al prossimo crescendo il Palazzo è sigillato del tutto.' },
+  { art: 'artworks/Il Palazzo che trattiene il fiato.png', title: 'Il Palazzo che Trattiene il Fiato', tipo: 'Quiete',
+    flavor: 'Per un attimo, solo il vostro respiro e lo scricchiolìo del parquet.',
+    effect: 'Nessun effetto. Tirate il fiato: perfino una casa che vi tradisce, per un istante, tace.' },
+  { art: 'artworks/Un confratello vi copre.png', title: 'Un Confratello vi Copre', tipo: 'Favore',
+    flavor: 'Un membro della Società che vi crede sbarra la strada ai gendarmi.',
+    effect: 'Rivelate una tessera coperta adiacente a quella di un eroe (la scelgono i giocatori).' },
+  { art: 'artworks/Mobili rovesciati.png', title: 'Mobili Rovesciati', tipo: 'Ostacolo',
+    flavor: 'Nella fuga, mobili rovesciati ingombrano il corridoio: si passa, ma piano.',
+    effect: 'Fino a fine round, sulla tessera dell’eroe attivo muoversi costa il doppio.' },
+  { art: 'artworks/Un manganello nel buio.png', title: 'Un Manganello nel Buio', tipo: 'Danno',
+    flavor: 'Un gendarme, convinto di fare il suo dovere, mena un colpo al buio.',
+    effect: 'Un eroe a caso (chi arbitra tira) subisce 1 danno.' },
+].map((m) => ({
+  art: m.art,
+  title: `${m.tipo} — ${m.title}`,
+  file: `Episodio 18/Minacce/${m.title.replace(/’/g, "'")}`,
+  rules: `{i}${m.flavor}{/i}{divider}${m.effect}`,
+}));
+
+const EP18_OGGETTI = [
+  { art: 'artworks/Vezzo delle Firme.png', nome: 'Il Vezzo delle Firme', ref: 'E18-L8',
+    fonte: 'Luogo 8 — Il Vezzo delle Firme',
+    flavor: 'Le due firme «M.» e «C.B.» a confronto, lo stesso vezzo morelliano: la prova che la mano è una. La deduzione che smaschera.',
+    effetto: 'È la prova (D4) che C.B. è M. In spedizione, mostrata al maggiordomo con «una mano sola» (D4): gli fa saltare un attacco. Parte della prova da portare fuori.' },
+  { art: 'artworks/Incroci di Campagna.png', nome: 'Gli Incroci di Campagna', ref: 'E18-L4',
+    fonte: 'Luogo 4 — Il Fascicolo di Campagna',
+    flavor: 'Diciotto mesi di indizi che si tengono per mano: bivi, verbali, riletture (Ep. 16), matrice (Ep. 17). Più ne avete, più la prova è pubblica.',
+    effetto: 'La forza della prova: con gli Incroci pieni, la Società vi crede (evento-favore garantito a T1) e uscire con la prova forte = M. latitante, non voi (vittoria piena).' },
+  { art: 'artworks/Uscita di Servizio.png', nome: 'L’Uscita di Servizio', ref: 'E18-L9',
+    fonte: 'Luogo 9 — Il Palazzo del Lume',
+    flavor: 'La via che il maggiordomo non ha bloccato: la porta di servizio nel buio, che i gendarmi non sorvegliano.',
+    effetto: 'Alza la soglia-arresto di 1 (un round di margine in più) e all’uscita (T6) salta l’ultimo giro dei gendarmi.' },
+  { art: 'artworks/Accusa contro di Voi.png', nome: 'L’Accusa Pronta contro di Voi', ref: 'E18-L1',
+    fonte: 'Luogo 1 — L’Assemblea della Società',
+    flavor: 'Le prove che M. ha arredato per farvi cadere: pagamenti, lettere, un testimone. Toccarle è entrare nella sua trappola prima del tempo.',
+    effetto: 'Effetto: nessuno finora scoperto.' },
+  { art: 'artworks/Ritratto del Rivale.png', nome: 'Il Ritratto del Rivale', ref: 'E18-L5',
+    fonte: 'Luogo 5 — Lo Studio Privato di M.',
+    flavor: 'Il ritratto di un rivale immaginario che M. fingeva di temere. È solo una delle sue maschere, non un altro uomo.',
+    effetto: 'Effetto: nessuno finora scoperto.' },
+].map((o) => ({
+  art: o.art,
+  title: o.nome,
+  file: `Episodio 18/Oggetti/${o.nome.replace(/’/g, "'")}`,
+  type: 'Oggetto',
+  rules: `{i}${o.flavor}{/i}{divider}${o.effetto}`,
+  ref: o.ref, fonte: o.fonte,
+}));
+
+const EP18_NEMICI = [
+  { art: 'artworks/La Guardia del Presidente.png', title: 'La Guardia del Presidente',
+    type: 'Il Maggiordomo Traditore (Boss) — Episodio 18',
+    rules: '{i}Anselmo, il maggiordomo che vi ha aperto la porta per diciotto mesi, servito il tè, annunciato le lettere. Era la Guardia del Presidente da sempre: un servitore fedele fino al tradimento, che vi sbarra la strada con le lacrime agli occhi.{/i}{divider}Statistiche nel Bestiario. Nessuna debolezza-oggetto. «Una mano sola» (D4): dirgli che ha servito un uomo che si dava la caccia da sé lo fa vacillare — salta un attacco. È l’ultimo muro tra voi e la porta di casa vostra.' },
+  { art: 'artworks/Il Presidente M.png', title: 'M. (Il Presidente)',
+    type: 'C.B. — la mano sola (non si affronta) — Episodio 18',
+    rules: '{i}Il presidente della Società, e C.B.: Camillo Benso e il Machiavelli, due maschere e una mano sola. Per diciotto mesi vi ha mandati a caccia di se stesso. Smascherato, non nega: spiega, con orgoglio, e rovescia il tavolo.{/i}{divider}NON si affronta e NON si cattura. Appare in T4, prende una cosa (Atto IV), spiega e sparisce nel passaggio segreto. Inseguirlo = perdersi mentre la rete si chiude. Stanotte lo smascherate, non lo prendete: è l’Atto IV.' },
+].map((n) => ({ ...n, file: `Episodio 18/Nemici/${n.title.replace(/[().]/g, '').trim()}` }));
+
+const EP18 = [...LUOGHI18, ...EP18_INDIZI, ...EP18_TESTIMONI, ...EP18_REFERTI,
+              ...EP18_MINACCE, ...EP18_OGGETTI, ...EP18_NEMICI];
+
+
 module.exports = {
   HEROES, NEMICI, MINACCE, LUOGHI, INDIZI, TESTIMONI, REFERTI, OGGETTI, PRELUDIO,
   PRELUDIO_LUOGHI, PRELUDIO_APPROFONDIMENTI, PRELUDIO_OGGETTI,
@@ -4183,5 +4412,6 @@ module.exports = {
   EP15, LUOGHI15, EP15_INDIZI, EP15_TESTIMONI, EP15_REFERTI, EP15_MINACCE, EP15_OGGETTI, EP15_NEMICI,
   EP16, LUOGHI16, EP16_INDIZI, EP16_TESTIMONI, EP16_REFERTI, EP16_MINACCE, EP16_OGGETTI, EP16_NEMICI,
   EP17, LUOGHI17, EP17_INDIZI, EP17_TESTIMONI, EP17_REFERTI, EP17_MINACCE, EP17_OGGETTI, EP17_NEMICI,
-  ALL: [...HEROES, ...NEMICI, ...MINACCE, ...LUOGHI, ...INDIZI, ...TESTIMONI, ...REFERTI, ...OGGETTI, ...PRELUDIO, ...EP2, ...EP3, ...EP4, ...EP5, ...EP6, ...EP7, ...EP8, ...EP9, ...EP10, ...EP11, ...EP12, ...EP13, ...EP14, ...EP15, ...EP16, ...EP17],
+  EP18, LUOGHI18, EP18_INDIZI, EP18_TESTIMONI, EP18_REFERTI, EP18_MINACCE, EP18_OGGETTI, EP18_NEMICI,
+  ALL: [...HEROES, ...NEMICI, ...MINACCE, ...LUOGHI, ...INDIZI, ...TESTIMONI, ...REFERTI, ...OGGETTI, ...PRELUDIO, ...EP2, ...EP3, ...EP4, ...EP5, ...EP6, ...EP7, ...EP8, ...EP9, ...EP10, ...EP11, ...EP12, ...EP13, ...EP14, ...EP15, ...EP16, ...EP17, ...EP18],
 };

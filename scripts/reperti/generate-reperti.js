@@ -1041,6 +1041,53 @@ Chi canterà al di sotto, non si lamenti di ciò che al di sotto risponde.`;
     </div></div>
   `);
 
+  // --- Episodio 18, Reperto A: la firma doppia (L5) — la RIVELAZIONE ---
+  const repertoA18 = page(`
+    <div class="wrap"><div style="zoom:0.90;">
+      <div class="serif" style="font-style:italic; font-size:38px; color:#3a2415; mix-blend-mode:multiply; margin-bottom:44px;">Reperto A — la firma doppia (Studio Privato di M.)</div>
+      <div class="hand" style="font-size:72px; line-height:110px; margin-bottom:36px; text-align:center;">
+        <p>M. &nbsp;&nbsp; C.B.</p>
+      </div>
+      <div class="serif" style="font-size:44px; line-height:70px; border-top:2px solid #6b5636; padding-top:28px;">
+        <p style="margin-bottom:24px;">Lo stesso allungo, la stessa esitazione prima della maiuscola. <b>La stessa mano.</b></p>
+      </div>
+      <div class="serif" style="font-style:italic; margin-top:44px; font-size:34px; color:#4a4a4e; mix-blend-mode:multiply;">
+        Un falsario imita una firma. Nessuno imita due firme rivali con lo stesso
+        identico tic, se non l’unico uomo che le scrive entrambe.
+      </div>
+    </div></div>
+  `);
+
+  // --- Episodio 18, Reperto B: la piantina del Palazzo (L9) ---
+  const repertoB18 = page(`
+    <div class="wrap"><div style="zoom:0.92;">
+      <div class="serif" style="font-style:italic; font-size:38px; color:#3a2415; mix-blend-mode:multiply; margin-bottom:56px;">Reperto B — piantina del Palazzo del Lume</div>
+      <div class="serif" style="font-size:46px; line-height:76px;">
+        <p style="margin-bottom:32px;">I <b>passaggi segreti</b> che M. conosceva e voi no: dietro la biblioteca, dallo studio, sotto la scalinata.</p>
+        <p style="margin-bottom:32px;">Diciotto mesi in questa casa, e non ne sapevate nulla.</p>
+      </div>
+      <div class="serif" style="font-style:italic; margin-top:70px; font-size:34px; color:#4a4a4e; mix-blend-mode:multiply;">
+        Il nascondiglio migliore è sempre stato il più esposto: la sedia da cui
+        vi guardava indagare, in una casa che era solo sua.
+      </div>
+    </div></div>
+  `);
+
+  // --- Episodio 18, Reperto C: le due firme a confronto (L8) ---
+  const repertoC18 = page(`
+    <div class="wrap"><div style="zoom:0.90;">
+      <div class="serif" style="font-style:italic; font-size:38px; color:#3a2415; mix-blend-mode:multiply; margin-bottom:56px;">Reperto C — le due firme a confronto (Vezzo delle Firme)</div>
+      <div class="serif" style="font-size:46px; line-height:74px;">
+        <p style="margin-bottom:32px;"><b>«M.»</b> — Machiavelli, il cospiratore. <b>«C.B.»</b> — Camillo Benso, il contabile.</p>
+        <p style="margin-bottom:32px;">Due maschere rivali che «hanno fatto l’Italia in due». Una mano sola.</p>
+      </div>
+      <div class="serif" style="font-style:italic; margin-top:80px; font-size:34px; color:#4a4a4e; mix-blend-mode:multiply;">
+        Un uomo che si crede l’Italia intera non fugge per paura: si ritira per
+        continuare l’opera. Voi avete il suo volto; lui ha ancora il suo Dormiente.
+      </div>
+    </div></div>
+  `);
+
   const items = [
     ['Episodio 1', 'Reperto A - Diario di Ruggero', repertoA],
     ['Episodio 1', 'Reperto B - Registro delle Consegne', repertoB],
@@ -1094,6 +1141,9 @@ Chi canterà al di sotto, non si lamenti di ciò che al di sotto risponde.`;
     ['Episodio 17', 'Reperto A - Dossier Cifrato', repertoA17],
     ['Episodio 17', 'Reperto B - Deposizione del Decano', repertoB17],
     ['Episodio 17', 'Reperto C - Archivio del Notaio', repertoC17],
+    ['Episodio 18', 'Reperto A - Firma Doppia', repertoA18],
+    ['Episodio 18', 'Reperto B - Piantina del Palazzo', repertoB18],
+    ['Episodio 18', 'Reperto C - Due Firme a Confronto', repertoC18],
   ];
 
   for (const [episodio, name, html] of items) {
