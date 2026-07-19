@@ -294,10 +294,33 @@ importata da `simulate_playtest`: INTOCCABILE. Seed base **780000**.
   affronta (flavor).
 - Ramo Bivio Ep. 17: processo → +1 favore; trappola → +1 gendarme iniziale.
 
-**Corridoio-obiettivo (la chiusura):** vittoria alta (fuggite quasi sempre: i
-gendarmi sono in buona fede, non letali come un boss), ma la **prova forte** (la
-piena) dipende dagli incroci di campagna accumulati e dalla taglia; sofferte
-moderate (il maggiordomo Danno 2 morde, ma la posta è l'arresto, non la morte).
-Metrica-tensione = **% prova forte** (piena) + % eroi non arrestati. La ansia è
-la rete che si chiude, non il wipe. Chiusura d'atto: alta soddisfazione, non
-alta letalità — il colpo è emotivo (il volto del mostro), non meccanico.
+**Modello di tensione (la chiusura):** non è un mattatoio — i gendarmi sono in
+buona fede, la posta è l'**arresto**, non la morte. Si fugge quasi sempre; la
+sfida vera è uscirne **puliti e con la prova forte** (M. latitante, non voi).
+Metrica-tensione = **% prova forte** (piena) + eroi non arrestati.
+
+**Curva accettata (v3, 5 party × 30 seed per taglia, seed 780000+size·1000):**
+
+| Taglia | % Vitt | % prova forte | % sofferte | Arrestati | Canto |
+|---|---|---|---|---|---|
+| 2 | 82 | 71 | 32 | 0.2 | 3.7 |
+| 3 | 96 | 84 | 16 | 0.2 | 3.6 |
+| 4 | 99 | 67 | 33 | 0.4 | 4.0 |
+| 5 | 100 | 68 | 33 | 0.4 | 4.4 |
+| 6 | 100 | 59 | 44 | 0.5 | 4.9 |
+| 7 | 100 | 48 | 53 | 0.6 | 5.1 |
+| 8 | 100 | 53 | 47 | 0.6 | 5.2 |
+| 9 | 100 | 45 | 56 | 0.8 | 5.8 |
+| 10 | 100 | 49 | 52 | 0.7 | 5.8 |
+
+Fuga quasi garantita (duo 82%, 3-10 ~100%: sopravvivere è facile, i gendarmi
+non uccidono); la **prova forte cala coi gruppi grandi** (71-84% in pochi,
+45-53% in tanti): un gruppo piccolo e agile sguscia via pulito, uno grande
+attira più calore, la rete si chiude e qualcuno viene **arrestato** (0.2→0.8),
+e un eroe in cella spegne la piena. Sofferte 16-56% (il maggiordomo Danno 2
+morde, ma la posta è l'arresto). La ansia è la rete che si chiude; il colpo è
+**emotivo** (il volto del mostro è il nostro presidente), non letale — come
+deve essere una chiusura d'atto. Leve finali: `SOGLIA_ARRESTO=4` (+1 con
+l'Uscita di Servizio), `BOSS_INGAGGIO=4`, `BOSS_COLPI=1` (il maggiordomo
+riluttante, uno saltato con D4). `prova_forte = vezzo + incroci_campagna +
+(d1_ok o d3_ok)`. Seed base 780000.
