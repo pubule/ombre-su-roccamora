@@ -18,7 +18,8 @@
 /* rail di mini-token (giro eroi / nemici) */
 .rail-wrap { }
 .rail-titolo { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 6px; }
-.rail { display: flex; gap: 8px; overflow-x: auto; padding: 4px 2px 8px; scroll-snap-type: x proximity; }
+.rail { display: flex; gap: 8px; overflow-x: auto; padding: 4px 2px 8px; scroll-snap-type: x proximity; min-width: 0; }
+.tessere-rail, .luoghi-rail { min-width: 0; }
 .rail::-webkit-scrollbar { height: 6px; } .rail::-webkit-scrollbar-thumb { background: var(--oro); border-radius: 3px; }
 .mini { flex: 0 0 auto; width: 58px; text-align: center; scroll-snap-align: center; }
 .mini .tok { width: 58px; height: 58px; border-radius: 50%; }
@@ -49,5 +50,6 @@
   .mini { width: 74px; } .mini .tok { width: 74px; height: 74px; } .mini.attivo .tok { width: 84px; height: 84px; }
   .tess { width: 130px; } .tess img { height: 82px; }
   .sped-griglia { display: grid; grid-template-columns: 1.4fr 1fr; gap: 16px; align-items: start; }
+  .sped-griglia > * { min-width: 0; }   /* i rail scrollano dentro, non sfondano la colonna */
   .sped-griglia .full { grid-column: 1 / -1; }
 }
