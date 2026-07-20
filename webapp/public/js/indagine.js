@@ -12,6 +12,13 @@ import { rendi, norm, bussa, dichiaraVoce, vociMappa, luogoVisitabile,
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) =>
   ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
+// nome breve distintivo: salta il titolo (DOTT./PADRE), altrimenti Attilio e
+// Serra sarebbero entrambi «dott.».
+const breve = (nome) => {
+  const t = String(nome).split(' ');
+  return ((t[0] === 'DOTT.' || t[0] === 'PADRE') ? (t[1] || t[0]) : t[0]).replace(/["“”]/g, '').toLowerCase();
+};
+
 let ctx = null;   // { app, partita, ep, comune, carte, vaiA }
 
 export async function vistaIndagine(app, partita, vaiA) {
@@ -88,6 +95,16 @@ function home() {
   ep.luoghi.forEach((l) => { luoghiPerVoce[norm(l.voce_mappa)] = l; });
   app.innerHTML = `
     ${barra(ep.titolo)}
+    <div class="pannello">
+      <h2>il gruppo sul caso</h2>
+      <div class="giro-strip">${P().party.map((nm) => {
+        const e = ctx.comune.eroi.find((x) => x.nome === nm);
+        return `<div class="chip-turno ritratto"><span class="rit"><img src="${e && e.art ? urlArt(e.art) : ''}" alt="" loading="lazy"></span>
+          <span class="et">${breve(nm)}</span></div>`;
+      }).join('')}</div>
+      <p class="nota">Ogni eroe legge un tipo di Approfondimento (Elena le Osservazioni, Serra i Presagi…) — se è nel party, l'app ve lo propone al momento giusto.</p>
+    </div>
+    <div class="mt"></div>
     <div class="pannello">
       <h2>lo stradario di roccamora</h2>
       <p class="nota">Dichiarate una destinazione: se la pista è fredda non costa nulla,
@@ -654,9 +671,24 @@ function pannelloMsg(titolo, corpoHtml, dopo) {
 
 function scegliEroe(titolo, statKey) {
   const eroi = P().party.map((n) => ctx.comune.eroi.find((e) => e.nome === n)).filter(Boolean);
-  return scegliDaLista(titolo, eroi.map((e) => ({
-    id: e.nome, label: `${e.nome} (${statKey.toUpperCase()} ${e[statKey]})`,
-  }))).then((id) => eroi.find((e) => e.nome === id) || null);
+  return new Promise((risolvi) => {
+    const ov = document.createElement('div');
+    ov.className = 'scelta-overlay';
+    ov.innerHTML = `<div class="scelta-box">
+      <h3 class="sc">${esc(titolo)}</h3>
+      <div class="eroe-picker">
+        ${eroi.map((e) => `<button class="eroe-pick" data-id="${esc(e.nome)}">
+          <span class="rit"><img src="${e.art ? urlArt(e.art) : ''}" alt="" loading="lazy"></span>
+          <span class="np">${breve(e.nome)}</span>
+          <span class="sv">${statKey.toUpperCase()} ${e[statKey]}</span></button>`).join('')}
+      </div>
+      <button class="btn scelta-btn annulla" data-id="">annulla</button>
+    </div>`;
+    document.body.appendChild(ov);
+    ov.querySelectorAll('button').forEach((b) => b.onclick = () => {
+      ov.remove(); risolvi(eroi.find((e) => e.nome === b.dataset.id) || null);
+    });
+  });
 }
 
 function scegliDaLista(titolo, opzioni) {
