@@ -55,11 +55,32 @@ if (nTok < 3) fail(`token eroe attesi 3, trovati ${nTok}`);
 // prova un movimento: clicca una cella raggiungibile se c'e'
 await clickIf('.cella-mossa');
 
+// risolve un tiro di dado nell'overlay (una sola scena dadi)
+const tira = async () => {
+  if (!(await has('.dadi-overlay'))) return false;
+  await clickIf('#dadi-lancia'); await page.waitForTimeout(2400);
+  await clickIf('#dadi-chiudi'); await page.waitForTimeout(500);
+  return true;
+};
+const visible = async (sel) => page.locator(sel).first().isVisible().catch(() => false);
+// risolve una carta insidia (prova obbligatoria: scelta bersaglio + dadi)
+const risolviInsidia = async () => {
+  if (!(await visible('#ins-risolvi'))) return false;   // gia' risolta = display:none
+  await clickIf('#ins-risolvi'); await page.waitForTimeout(150);
+  if (await has('.scelta-btn')) await clickIf('.scelta-btn:not(.annulla)');
+  for (let k = 0; k < 8; k++) {                     // uno o piu' bersagli (ogni eroe)
+    if (!(await tira())) break;
+    if (await has('.scelta-btn')) await clickIf('.scelta-btn:not(.annulla)');
+  }
+  return true;
+};
+
 // gioca parecchi round: esplora (celle reveal/mossa), chiudi eroi, passa messaggi
 for (let step = 0; step < 160; step++) {
   if (await has('#al-menu')) break;                 // epilogo raggiunto
+  if (await risolviInsidia()) continue;             // prova obbligatoria della carta insidia
   if (await clickIf('#ok-msg')) continue;           // carta minaccia / messaggio
-  if (await has('#dadi-lancia')) { await page.locator('#dadi-lancia').click(); await page.waitForTimeout(2400); await clickIf('#dadi-chiudi'); continue; }
+  if (await tira()) continue;
   // preferisci esplorare: le celle dorate rivelano stanze nuove (verso T6)
   if (await clickIf('.cella-mossa.reveal')) continue;
   if (step % 2 === 0 && await clickIf('.cella-mossa')) continue;  // ogni tanto muovi
@@ -70,8 +91,9 @@ for (let step = 0; step < 160; step++) {
 // drena eventuali messaggi/dadi in coda per fermarsi su uno stato stabile
 for (let d = 0; d < 8; d++) {
   if (await has('#al-menu') || await has('.board-digitale')) break;
+  if (await risolviInsidia()) continue;
   if (await clickIf('#ok-msg')) continue;
-  if (await has('#dadi-lancia')) { await page.locator('#dadi-lancia').click(); await page.waitForTimeout(2400); await clickIf('#dadi-chiudi'); continue; }
+  if (await tira()) continue;
   await page.waitForTimeout(120);
 }
 

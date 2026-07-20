@@ -603,9 +603,10 @@ function messaggioCarta(titolo, carta, annunci) {
         ${annunci.map((a) => `<p class="mt"><b>${esc(a)}</b></p>`).join('')}
         <div id="ins-esito"></div>
       </div>
+      ${req ? '<p class="nota mt"><b class="ko-txt">Insidia:</b> risolvete la prova prima di continuare.</p>' : ''}
       <div class="btn-riga">
-        ${req ? '<button class="btn" id="ins-risolvi">🎲 risolvi la prova</button>' : ''}
-        <button class="btn pieno" id="ok-msg">continua</button>
+        ${req ? '<button class="btn pieno" id="ins-risolvi">🎲 risolvi la prova richiesta</button>' : ''}
+        <button class="btn pieno" id="ok-msg"${req ? ' style="display:none"' : ''}>continua</button>
       </div>`;
     app.querySelector('#ok-msg').onclick = ok;
     const rb = app.querySelector('#ins-risolvi');
@@ -625,6 +626,7 @@ function messaggioCarta(titolo, carta, annunci) {
       salvaP();
       app.querySelector('#ins-esito').innerHTML = esiti.map((x) => `<p class="nota mt">${esc(x)}</p>`).join('');
       rb.style.display = 'none';
+      app.querySelector('#ok-msg').style.display = '';   // sblocca «continua» solo dopo la prova
     };
   });
 }
