@@ -1165,16 +1165,22 @@ function faseNemiciAI() {
     }
     piano.push({ i, nome: n.nome, pos0, pos1, flash: false, attacco });
   }
-  // Ruggero
+  // Ruggero: segue il gruppo (Mov 3) fermandosi in una cella LIBERA adiacente
+  // all'eroe piu' vicino — mai sulla sua casella. Se gia' adiacente non si muove;
+  // se per qualche motivo e' sovrapposto a un eroe, si sposta via.
   if (sp.ruggero.liberato && sp.ruggero.pos) {
     const rug0 = sp.ruggero.pos; const vivi2 = vivi();
-    if (vivi2.length) {
-      let mira = null, best = 1e9;
-      for (const nm of vivi2) { const path = camminoGlob(sp.ruggero.pos, sp.eroiPos[nm], occupati('R', false)); if (path.length && path.length < best) { best = path.length; mira = path; } }
-      if (mira) sp.ruggero.pos = mira[Math.min(3, mira.length) - 1];
-      piano.ruggero = { pos0: rug0, pos1: sp.ruggero.pos };
-      if (sp.ruggero.pos.t === 'T1') { sp.ruggero.tile = 'T1'; sp.esito = 'vittoria'; sp.log.push('Ruggero è alla banchina: siete salvi.'); }
+    if (vivi2.length && !vivi2.some((nm) => adiacGlob(sp.ruggero.pos, sp.eroiPos[nm]))) {
+      const blocco = occupati('R', false);
+      let best = null, bl = Infinity;
+      for (const nm of vivi2) for (const g of celleAdiacLibere(sp.eroiPos[nm], blocco)) {
+        const p = camminoGlob(sp.ruggero.pos, g, blocco);
+        if (p.length && p.length < bl) { bl = p.length; best = p; }
+      }
+      if (best) sp.ruggero.pos = best[Math.min(3, best.length) - 1];
     }
+    piano.ruggero = { pos0: rug0, pos1: sp.ruggero.pos };
+    if (sp.ruggero.pos.t === 'T1') { sp.ruggero.tile = 'T1'; sp.esito = 'vittoria'; sp.log.push('Ruggero è alla banchina: siete salvi.'); }
   }
   // fine round: tick canto, boss a soglia (annunci mostrati dopo l'animazione)
   piano.annunci.push(...fineRound(ctx.comune, ctx.ep, sp));
