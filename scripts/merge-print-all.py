@@ -417,6 +417,12 @@ def build(bucket):
 def main():
     for bucket in BUCKETS:
         build(bucket)
+    # schiarisce i completi per la stampa (troppo scuri): agisce solo sulle
+    # immagini incorporate, non sui file artwork ne' sul testo vettoriale.
+    print('\nSchiaritura per la stampa:')
+    import runpy
+    runpy.run_path(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'lighten-completi.py'),
+                   run_name='__main__')
 
 
 if __name__ == '__main__':
