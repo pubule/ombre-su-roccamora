@@ -367,21 +367,21 @@ function boardHtml() {
       data-t="${v.node.t}" data-x="${v.node.x}" data-y="${v.node.y}"${v.reveal ? ` data-reveal="${v.reveal}"` : ''}></div>`;
   }).join('');
 
-  // token
+  // token — `data-tok` sul .tok-slot per indirizzarlo nell'animazione (N:i / E:nome / R)
   const toks = [];
-  const tok = (n, inner, extra) => { const p = scr(n); toks.push(`<div class="tok-slot" style="left:${p.l}px;top:${p.t}px;width:${cell}px;height:${cell}px">${inner}</div>`); };
+  const tok = (n, inner, dataTok) => { const p = scr(n); toks.push(`<div class="tok-slot" data-tok="${dataTok}" style="left:${p.l}px;top:${p.t}px;width:${cell}px;height:${cell}px">${inner}</div>`); };
   for (const [nm, p] of Object.entries(sp.eroiPos)) {
     const e = eroe(nm); const giu = (sp.vite[nm] ?? 0) <= 0;
     tok(p, `<span class="tok-board eroe${nm === attivo ? ' attivo' : ''}${giu ? ' giu' : ''}" data-eroe="${esc(nm)}" title="${esc(nm)}">
-      ${e && e.art ? `<img src="${urlArt(e.art)}" alt="" loading="lazy">` : ''}</span>`);
+      ${e && e.art ? `<img src="${urlArt(e.art)}" alt="" loading="lazy">` : ''}</span>`, `E:${esc(nm)}`);
   }
   sp.nemici.forEach((n, i) => {
     if (!n.pos) return; const st = nemStat(n.nome); const boss = st && st.boss ? ' boss' : '';
     tok(n.pos, `<span class="tok-board nemico${boss}" data-nemico="${i}" title="${esc(n.nome)} ${n.ferite}/${n.max}">
-      ${st && st.art ? `<img src="${urlArt(st.art)}" alt="" loading="lazy">` : ''}</span>`);
+      ${st && st.art ? `<img src="${urlArt(st.art)}" alt="" loading="lazy">` : ''}</span>`, `N:${i}`);
   });
   if (sp.ruggero.liberato && sp.ruggero.pos) {
-    tok(sp.ruggero.pos, `<span class="tok-board ruggero" title="Ruggero"><img src="${urlArt('Ruggero.png')}" alt=""></span>`);
+    tok(sp.ruggero.pos, `<span class="tok-board ruggero" title="Ruggero"><img src="${urlArt('Ruggero.png')}" alt=""></span>`, 'R');
   }
 
   return `<div class="board-digitale" style="width:${cols * cell}px;height:${rows * cell}px;zoom:${SP().zoom || 1}">
@@ -708,43 +708,44 @@ function aggancia() {
 
 // transizione di passaggio turno: un banner «tocca a <nome>» col ritratto, che
 // compare e sfuma da solo quando l'eroe attivo cambia (non bloccante)
+// banner riusabile di passaggio turno (ritratto/token + testo), compare e sfuma
+function bannerTurno(imgUrl, testoHtml, variante) {
+  document.querySelectorAll('.turno-banner').forEach((n) => n.remove());
+  const el = document.createElement('div'); el.className = 'turno-banner' + (variante ? ' ' + variante : '');
+  el.innerHTML = `<span class="rit"><img src="${imgUrl || ''}" alt=""></span><span class="tb-txt">${testoHtml}</span>`;
+  document.body.appendChild(el);
+  requestAnimationFrame(() => el.classList.add('on'));
+  setTimeout(() => { el.classList.remove('on'); setTimeout(() => el.remove(), 400); }, 1300);
+}
 function annunciaTurno() {
   const attivo = eroiAttivoNome();
   if (ctx.ultimoAttivo === (attivo || null)) return;
   ctx.ultimoAttivo = attivo || null;
   if (!attivo || SP().fase !== 'eroi') return;
-  document.querySelectorAll('.turno-banner').forEach((n) => n.remove());
   const e = eroe(attivo);
-  const el = document.createElement('div'); el.className = 'turno-banner';
-  el.innerHTML = `<span class="rit"><img src="${e && e.art ? urlArt(e.art) : ''}" alt=""></span>
-    <span class="tb-txt">tocca a<br><b>${esc(primo(attivo))}</b></span>`;
-  document.body.appendChild(el);
-  requestAnimationFrame(() => el.classList.add('on'));
-  setTimeout(() => { el.classList.remove('on'); setTimeout(() => el.remove(), 400); }, 1300);
+  bannerTurno(e && e.art ? urlArt(e.art) : '', `tocca a<br><b>${esc(primo(attivo))}</b>`);
 }
 
-// centra la finestra sulla CASELLA dell'eroe attivo, con scroll animato: segue
-// l'eroe a ogni spostamento e al cambio di eroe. Ricentra solo quando la sua
-// posizione cambia (non a ogni render, per non combattere il pan). Senza attivo
-// (fase minaccia) mira alla tessera piu' affollata.
-function centraSuAttivo() {
+// centra la finestra su un nodo (casella) con scroll animato. `forza` ignora la
+// cache (per ricentrare a ogni nemico anche se la chiave non cambia).
+function centraSuNodo(node, key, forza) {
   const g = ctx._geo; const wrap = ctx.app.querySelector('#board-wrap'); if (!g || !wrap) return;
-  const attivo = eroiAttivoNome(); const z = SP().zoom || 1;
-  let key, cx, cy;
-  if (attivo) {
-    const p = SP().eroiPos[attivo]; const [TX, TY] = layout()[p.t] || [g.minX, g.maxY];
-    key = `${attivo}@${nk(p)}`;
-    cx = ((TX - g.minX) * 4 + p.x + 0.5) * g.cell * z;
-    cy = ((g.maxY - TY) * 4 + (3 - p.y) + 0.5) * g.cell * z;
-  } else {
-    const t = tileAffollata(); const [TX, TY] = layout()[t] || [g.minX, g.maxY];
-    key = `_@${t}`;
-    cx = ((TX - g.minX) * 4 + 2) * g.cell * z; cy = ((g.maxY - TY) * 4 + 2) * g.cell * z;
-  }
-  if (ctx.ultimaCentrata === key) return;
-  const left = Math.max(0, cx - wrap.clientWidth / 2), top = Math.max(0, cy - wrap.clientHeight / 2);
-  wrap.scrollTo({ left, top, behavior: 'smooth' });
+  if (!forza && ctx.ultimaCentrata === key) return;
+  const z = SP().zoom || 1; const [TX, TY] = layout()[node.t] || [g.minX, g.maxY];
+  const cx = ((TX - g.minX) * 4 + node.x + 0.5) * g.cell * z;
+  const cy = ((g.maxY - TY) * 4 + (3 - node.y) + 0.5) * g.cell * z;
+  wrap.scrollTo({ left: Math.max(0, cx - wrap.clientWidth / 2), top: Math.max(0, cy - wrap.clientHeight / 2), behavior: 'smooth' });
   ctx.ultimaCentrata = key;
+}
+// centra sull'eroe attivo (o sulla tessera piu' affollata in fase nemici).
+// `forza`: ogni render() ricostruisce il board e azzera lo scroll, quindi va
+// ricentrato SEMPRE (altrimenti dopo un attacco/ricerca — stessa posizione —
+// il board resterebbe in alto a sinistra). Il pan manuale tra due azioni resta
+// comunque: senza render lo scroll non si azzera.
+function centraSuAttivo() {
+  const attivo = eroiAttivoNome();
+  if (attivo) { const p = SP().eroiPos[attivo]; centraSuNodo(p, `${attivo}@${nk(p)}`, true); }
+  else { const t = tileAffollata(); centraSuNodo({ t, x: 1.5, y: 1.5 }, `_@${t}`, true); }
 }
 
 // zoom (pulsanti + Ctrl+rotella) e pan (trascinamento mouse/touch)
@@ -988,51 +989,166 @@ async function faseMinaccia() {
 
 // --------------------------------------------------------- fase nemici (IA)
 const r1 = () => 1 + Math.floor(Math.random() * 6);
+const pausa = (ms) => new Promise((r) => setTimeout(r, ms));
+const nemArt = (nome) => { const st = nemStat(nome); return st && st.art ? urlArt(st.art) : ''; };
+const nemBreve = (nome) => esc(nome.toLowerCase());   // i nemici mostrano il nome intero (primo() darebbe l'articolo)
+// coordinate (px, non zoomate) di un nodo sul board — come lo scr di boardHtml
+function scrGeo(node) {
+  const g = ctx._geo; const [TX, TY] = layout()[node.t] || [g.minX, g.maxY];
+  return { l: ((TX - g.minX) * 4 + node.x) * g.cell, t: ((g.maxY - TY) * 4 + (3 - node.y)) * g.cell };
+}
+function setTokenPos(dataTok, node, istantaneo) {
+  const el = ctx.app.querySelector(`.tok-slot[data-tok="${dataTok}"]`); if (!el) return;
+  const p = scrGeo(node);
+  if (istantaneo) { el.style.transition = 'none'; el.style.left = p.l + 'px'; el.style.top = p.t + 'px'; void el.offsetWidth; el.style.transition = ''; }
+  else { el.style.left = p.l + 'px'; el.style.top = p.t + 'px'; }
+}
+const muoviToken = async (dataTok, node) => { setTokenPos(dataTok, node); await pausa(470); };
+
+// striscia del giro dei nemici (read-only, come giroEroiHtml ma per i nemici)
+function giroNemiciHtml(attivoIdx) {
+  return `<div class="giro-strip">${SP().nemici.map((n, i) => {
+    const boss = (nemStat(n.nome) || {}).boss ? ' boss' : '';
+    return `<span class="chip-turno ritratto${boss}${i === attivoIdx ? ' attivo' : ''}">
+      <span class="rit"><img src="${nemArt(n.nome)}" alt=""></span><span class="et">${nemBreve(n.nome)}${n.num > 1 ? ' ×' + n.num : ''}</span></span>`;
+  }).join('')}</div>`;
+}
+
+// board della fase nemici (niente pannelli d'azione eroe) — la sequenza animata
+// gira sopra questo DOM
+function vistaNemici(piano) {
+  const { app, ep } = ctx; const sp = SP();
+  app.innerHTML = `
+    <div class="barra"><button class="btn" id="nav-esci">← menu</button>
+      <div class="titolo">la notte reagisce</div>
+      <span class="sc" style="color:var(--oro-chiaro)">round ${sp.round} · canto ${sp.canto}</span></div>
+    <div class="pannello"><p><b>Turno dei nemici.</b> ${esc(ep.obiettivo ? '' : '')}Ogni nemico si avvicina all’eroe più vicino e colpisce se adiacente.</p></div>
+    <div class="mt"></div>
+    <div class="board-area">
+      <div class="board-wrap" id="board-wrap">${boardHtml()}</div>
+      <div class="zoom-ctrl"><button class="zoom-btn" data-zoom="-">−</button><button class="zoom-btn" data-zoom="0">⤢</button><button class="zoom-btn" data-zoom="+">+</button></div>
+    </div>
+    <div class="btn-riga"><button class="btn" id="salta-nemici">salta l’azione della notte →</button></div>
+    <div class="mt"></div>
+    <div class="pannello giro"><h2>il giro dei nemici</h2><div id="giro-nem">${giroNemiciHtml(-1)}</div></div>
+    <div class="mt"></div>
+    <div class="pannello"><h2>la salute degli eroi</h2><div id="salute-nem">${saluteHtml()}</div></div>
+    <div class="mt"></div>
+    <div class="pannello"><h2>diario</h2>${logHtml()}</div>`;
+  app.querySelector('#nav-esci').onclick = () => ctx.vaiA('menu');
+  app.querySelector('#salta-nemici').onclick = () => { ctx.saltaNemici = true; };
+  agganciaMappa();
+  // porta subito (prima del paint) i token che si muovono alla posizione di PARTENZA:
+  // lo stato e' gia' finale (pos1), ma l'animazione parte da pos0
+  for (const s of piano) { if (s.pos0 && s.pos1 && nk(s.pos0) !== nk(s.pos1)) setTokenPos(`N:${s.i}`, s.pos0, true); }
+  if (piano.ruggero && nk(piano.ruggero.pos0) !== nk(piano.ruggero.pos1)) setTokenPos('R', piano.ruggero.pos0, true);
+}
+
+// numero fluttuante «−N» sopra un token
+function dmgPop(dataTok, testo) {
+  const el = ctx.app.querySelector(`.tok-slot[data-tok="${dataTok}"]`); if (!el) return;
+  const d = document.createElement('div'); d.className = 'dmg-pop'; d.textContent = testo;
+  el.appendChild(d); requestAnimationFrame(() => d.classList.add('on'));
+  setTimeout(() => d.remove(), 1100);
+}
+function evidenziaColpito(vitt) {
+  const el = ctx.app.querySelector(`[data-eroe="${vitt}"]`); if (!el) return;
+  el.classList.add('colpito'); setTimeout(() => el.classList.remove('colpito'), 600);
+}
+
+// sequenza animata: centra su ogni nemico, ne mostra spostamento e azione
+async function eseguiTurnoNemici(piano) {
+  const sp = SP();
+  for (const s of piano) {
+    if (ctx.saltaNemici) break;
+    const tokel = ctx.app.querySelector(`.tok-slot[data-tok="N:${s.i}"] .tok-board`);
+    centraSuNodo(s.pos0, `nem-${s.i}-a`, true);
+    await pausa(360);
+    if (s.flash) { bannerTurno(nemArt(s.nome), `<b>${nemBreve(s.nome)}</b><br>accecato: salta`, 'nemico'); await pausa(700); continue; }
+    bannerTurno(nemArt(s.nome), `agisce<br><b>${nemBreve(s.nome)}</b>`, 'nemico');
+    if (tokel) tokel.classList.add('attivo-nem');
+    if (nk(s.pos0) !== nk(s.pos1)) { await muoviToken(`N:${s.i}`, s.pos1); centraSuNodo(s.pos1, `nem-${s.i}-b`, true); }
+    if (s.attacco) {
+      if (tokel) { tokel.classList.add('attacca'); setTimeout(() => tokel && tokel.classList.remove('attacca'), 400); }
+      await pausa(180);
+      if (s.attacco.colpito) { evidenziaColpito(s.attacco.vitt); dmgPop(`E:${s.attacco.vitt}`, `−${s.attacco.dan}`); }
+      bannerTurno(nemArt(s.nome), s.attacco.colpito
+        ? `<b>${nemBreve(s.nome)}</b> colpisce ${esc(primo(s.attacco.vitt))} <b class="ko-txt">−${s.attacco.dan}</b>`
+        : `<b>${nemBreve(s.nome)}</b> manca ${esc(primo(s.attacco.vitt))}`, 'nemico');
+      const sn = ctx.app.querySelector('#salute-nem'); if (sn) sn.innerHTML = saluteHtml();
+      await pausa(520);
+    } else { await pausa(360); }
+    if (tokel) tokel.classList.remove('attivo-nem');
+  }
+  // Ruggero segue il gruppo
+  if (piano.ruggero && nk(piano.ruggero.pos0) !== nk(piano.ruggero.pos1) && !ctx.saltaNemici) {
+    centraSuNodo(piano.ruggero.pos0, 'rug-a', true); await pausa(300);
+    await muoviToken('R', piano.ruggero.pos1);
+  } else if (piano.ruggero && ctx.saltaNemici) { setTokenPos('R', piano.ruggero.pos1, true); }
+  if (ctx.saltaNemici) { for (const s of piano) setTokenPos(`N:${s.i}`, s.pos1, true); }
+  piano.annunci.forEach((a) => log(a));
+  ctx.saltaNemici = false; ctx.ultimaCentrata = null;
+  salvaP();
+  if (sp.esito) return epilogo();
+  render();
+}
+
+// entry: pianifica (logica IA invariata), applica lo stato, poi anima
 function faseNemiciAI() {
   const sp = SP();
   const vivi = () => P().party.filter((nm) => (sp.vite[nm] ?? 0) > 0);
+  const piano = []; piano.annunci = [];
   for (let i = 0; i < sp.nemici.length; i++) {
     const n = sp.nemici[i]; const st = nemStat(n.nome); if (!n.pos) continue;
-    if (n.flash) { n.flash = false; log(`${n.nome.toLowerCase()} è accecato: salta il turno.`); continue; }  // Flash! di Carla
+    const pos0 = n.pos;
+    if (n.flash) { n.flash = false; log(`${n.nome.toLowerCase()} è accecato: salta il turno.`); piano.push({ i, nome: n.nome, pos0, pos1: pos0, flash: true, attacco: null }); continue; }
     const bersagli = vivi(); if (!bersagli.length) break;
     const scelto = bersagli[Math.floor(Math.random() * bersagli.length)];
-    // avvicinamento: se non e' gia' a contatto con NESSUN eroe, punta la cella
-    // LIBERA adiacente piu' vicina di un eroe qualsiasi (mai sulla sua casella;
-    // cosi' non si impila e non resta bloccato se il bersaglio e' circondato).
     if (!bersagli.some((nm) => adiacGlob(n.pos, sp.eroiPos[nm]))) {
-      const blocco = occupati(`N:${i}`, false);          // per l'IA tutti murano (come nel simulatore)
+      const blocco = occupati(`N:${i}`, false);          // tutti murano (come nel simulatore)
       let best = null, bestLen = Infinity;
       for (const nm of bersagli) for (const g of celleAdiacLibere(sp.eroiPos[nm], blocco)) {
         const p = camminoGlob(n.pos, g, blocco);
         if (p.length && p.length < bestLen) { bestLen = p.length; best = p; }
       }
-      if (best) n.pos = best[Math.min(st.mov, best.length) - 1];
+      if (best) n.pos = best[Math.min(st.mov, best.length) - 1];   // muta live: blocco del prossimo lo vede
     }
+    const pos1 = n.pos;
+    let attacco = null;
     const adiacenti = bersagli.filter((nm) => adiacGlob(n.pos, sp.eroiPos[nm]));
-    if (!adiacenti.length) continue;
-    const vitt = adiacenti.includes(scelto) ? scelto : adiacenti[Math.floor(Math.random() * adiacenti.length)];
-    const e = eroe(vitt);
-    if (r1() + r1() + st.att >= e.difesa) {
-      sp.vite[vitt] = Math.max(0, (sp.vite[vitt] ?? saluteMax(e)) - st.dan);
-      log(`${n.nome.toLowerCase()} colpisce ${primo(vitt)} (−${st.dan}).`);
-      if (sp.vite[vitt] <= 0) log(`${primo(vitt)} va a terra!`);
-    } else log(`${n.nome.toLowerCase()} manca ${primo(vitt)}.`);
+    if (adiacenti.length) {
+      const vitt = adiacenti.includes(scelto) ? scelto : adiacenti[Math.floor(Math.random() * adiacenti.length)];
+      const e = eroe(vitt);
+      const colpito = r1() + r1() + st.att >= e.difesa;
+      if (colpito) {
+        sp.vite[vitt] = Math.max(0, (sp.vite[vitt] ?? saluteMax(e)) - st.dan);
+        log(`${n.nome.toLowerCase()} colpisce ${primo(vitt)} (−${st.dan}).`);
+        if (sp.vite[vitt] <= 0) log(`${primo(vitt)} va a terra!`);
+      } else log(`${n.nome.toLowerCase()} manca ${primo(vitt)}.`);
+      attacco = { vitt, colpito, dan: st.dan };
+    }
+    piano.push({ i, nome: n.nome, pos0, pos1, flash: false, attacco });
   }
-  // Ruggero segue il gruppo (si avvicina all'eroe piu' vicino)
+  // Ruggero
   if (sp.ruggero.liberato && sp.ruggero.pos) {
-    const vivi2 = vivi(); if (vivi2.length) {
+    const rug0 = sp.ruggero.pos; const vivi2 = vivi();
+    if (vivi2.length) {
       let mira = null, best = 1e9;
       for (const nm of vivi2) { const path = camminoGlob(sp.ruggero.pos, sp.eroiPos[nm], occupati('R', false)); if (path.length && path.length < best) { best = path.length; mira = path; } }
       if (mira) sp.ruggero.pos = mira[Math.min(3, mira.length) - 1];
-      if (sp.ruggero.pos.t === 'T1') { sp.ruggero.tile = 'T1'; sp.esito = 'vittoria'; sp.log.push('Ruggero è alla banchina: siete salvi.'); salvaP(); return epilogo(); }
+      piano.ruggero = { pos0: rug0, pos1: sp.ruggero.pos };
+      if (sp.ruggero.pos.t === 'T1') { sp.ruggero.tile = 'T1'; sp.esito = 'vittoria'; sp.log.push('Ruggero è alla banchina: siete salvi.'); }
     }
   }
-  const annunci = fineRound(ctx.comune, ctx.ep, sp); annunci.forEach((a) => log(a));
-  destaBossSeSoglia().forEach((a) => log(a));       // boss a soglia Canto (tessera piu' lontana)
+  // fine round: tick canto, boss a soglia (annunci mostrati dopo l'animazione)
+  piano.annunci.push(...fineRound(ctx.comune, ctx.ep, sp));
+  piano.annunci.push(...destaBossSeSoglia());
   sp.fase = 'eroi'; sp.eroiFatti = []; sp.eroiAttivo = null; sp.azioni = {};
-  salvaP();
-  if (P().party.every((nm) => (sp.vite[nm] ?? 0) <= 0)) { sp.esito = 'sconfitta'; salvaP(); return epilogo(); }
-  render();
+  if (!sp.esito && P().party.every((nm) => (sp.vite[nm] ?? 0) <= 0)) sp.esito = 'sconfitta';
+  salvaP();                                    // stato gia' finale: reload -> fase eroi coerente
+  ctx.saltaNemici = false; ctx.ultimaCentrata = null;
+  vistaNemici(piano);                          // board a posizioni di partenza
+  return eseguiTurnoNemici(piano);             // animazione (async)
 }
 
 // --------------------------------------------------------------- utilita'

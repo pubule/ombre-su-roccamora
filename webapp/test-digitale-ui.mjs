@@ -78,6 +78,7 @@ const risolviInsidia = async () => {
 // gioca parecchi round: esplora (celle reveal/mossa), chiudi eroi, passa messaggi
 for (let step = 0; step < 160; step++) {
   if (await has('#al-menu')) break;                 // epilogo raggiunto
+  if (await clickIf('#salta-nemici')) { await page.waitForTimeout(500); continue; }  // turno nemici animato
   if (await risolviInsidia()) continue;             // prova obbligatoria della carta insidia
   if (await clickIf('#ok-msg')) continue;           // carta minaccia / messaggio
   if (await tira()) continue;
@@ -90,7 +91,9 @@ for (let step = 0; step < 160; step++) {
 }
 // drena eventuali messaggi/dadi in coda per fermarsi su uno stato stabile
 for (let d = 0; d < 8; d++) {
-  if (await has('#al-menu') || await has('.board-digitale')) break;
+  if (await has('#al-menu')) break;
+  if (await clickIf('#salta-nemici')) { await page.waitForTimeout(500); continue; }
+  if (await has('.board-digitale') && !(await has('#salta-nemici'))) break;   // board fase eroi
   if (await risolviInsidia()) continue;
   if (await clickIf('#ok-msg')) continue;
   if (await tira()) continue;
