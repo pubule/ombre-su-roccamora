@@ -5,7 +5,7 @@
 // Ferite coi massimali giusti per taglia. Stato in partita.spedizione.
 import { salva, dati } from './store.js';
 import { rendi, norm, costruisciMazzo, carteDaPescare, pesca, fineRound,
-         cantoDaCarta, cerca, urlCarta, cartaOggetto } from './engine.js';
+         cantoDaCarta, cerca, urlCarta, urlArt, cartaOggetto } from './engine.js';
 import { tiraProva } from './dadi.js';
 
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) =>
@@ -484,7 +484,7 @@ function eroiHtml() {
     const vita = sp.vite[nm] ?? max;
     return `
     <div class="nemico-riga">
-      <span class="nemico-nome">${esc(nm.toLowerCase())}${vita === 0 ? ' <b>a terra</b>' : ''}</span>
+      <span class="nemico-nome"><span class="rit-row">${ritEroe(nm)}</span>${esc(nm.toLowerCase())}${vita === 0 ? ' <b>a terra</b>' : ''}</span>
       <span class="nemico-comandi">
         <button class="btn attacca" data-vita="${esc(nm)}" data-delta="-1">−</button>
         <span class="nemico-pips">
@@ -625,6 +625,14 @@ function eroiAttivoNome() {
   return party.find((nm) => !fatti.includes(nm)) || null;
 }
 
+// ritratto eroe / token nemico dai dati Comune (art PNG in artworks/). Se l'arte
+// manca (Fase D di un episodio) l'immagine si nasconde da sola (main.js) e resta
+// il solo nome: nessun buco. I ritratti EROE sono Comune -> valgono ovunque.
+const eroeArt = (nome) => { const e = ctx.comune.eroi.find((x) => x.nome === nome); return e && e.art ? urlArt(e.art) : ''; };
+const nemArt = (nome) => { const n = ctx.comune.nemici.find((x) => x.nome === nome); return n && n.art ? urlArt(n.art) : ''; };
+const ritEroe = (nm) => `<span class="rit"><img src="${eroeArt(nm)}" alt="" loading="lazy"></span>`;
+const ritNem = (nome) => `<span class="rit"><img src="${nemArt(nome)}" alt="" loading="lazy"></span>`;
+
 function giroEroiHtml() {
   const sp = SP();
   const fatti = sp.eroiFatti || [];
@@ -632,8 +640,8 @@ function giroEroiHtml() {
   const chips = P().party.map((nm) => {
     const done = fatti.includes(nm);
     const att = nm === attivo;
-    return `<button class="chip-turno${att ? ' attivo' : ''}${done ? ' fatto' : ''}"
-      data-turno-eroe="${esc(nm)}">${done ? '✓ ' : ''}${primo(nm)}</button>`;
+    return `<button class="chip-turno ritratto${att ? ' attivo' : ''}${done ? ' fatto' : ''}"
+      data-turno-eroe="${esc(nm)}">${ritEroe(nm)}<span class="et">${done ? '✓ ' : ''}${primo(nm)}</span></button>`;
   }).join('');
   const azione = attivo
     ? `<button class="btn pieno" id="eroe-finito">«${primo(attivo)}» ha finito →</button>`
@@ -690,8 +698,8 @@ function giroNemiciHtml() {
   const chips = sp.nemici.map((n, i) => {
     const done = fatti.includes(i);
     const att = i === attivo;
-    return `<button class="chip-turno${att ? ' attivo' : ''}${done ? ' fatto' : ''}"
-      data-turno-nemico="${i}">${done ? '✓ ' : ''}${primo(n.nome)}${n.num > 1 ? ' ×' + n.num : ''}</button>`;
+    return `<button class="chip-turno ritratto${n.nome === ctx.ep.soluzione.boss ? ' boss' : ''}${att ? ' attivo' : ''}${done ? ' fatto' : ''}"
+      data-turno-nemico="${i}">${ritNem(n.nome)}<span class="et">${done ? '✓ ' : ''}${primo(n.nome)}${n.num > 1 ? ' ×' + n.num : ''}</span></button>`;
   }).join('');
   const azione = attivo >= 0
     ? `<button class="btn pieno" id="nemico-fatto">«${esc(sp.nemici[attivo].nome.toLowerCase())}» attivato →</button>`
@@ -803,7 +811,7 @@ function registroHtml() {
     const mostraNum = copie > 1 || n.num > 1;
     return `
     <div class="nemico-riga">
-      <span class="nemico-nome">${esc(n.nome.toLowerCase())}${mostraNum ? ` <b>${n.num}</b>` : ''}</span>
+      <span class="nemico-nome"><span class="rit-row ${n.nome === ctx.ep.soluzione.boss ? 'boss' : ''}">${ritNem(n.nome)}</span>${esc(n.nome.toLowerCase())}${mostraNum ? ` <b>${n.num}</b>` : ''}</span>
       <span class="nemico-comandi">
         <button class="btn attacca" data-attacca="${i}">⚔ attacca</button>
         <span class="nemico-pips" data-idx="${i}" title="+1 ferita a mano">
