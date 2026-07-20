@@ -106,7 +106,14 @@ const OUTPUTS = [
   { key: 'comune', label: 'Comune', out: path.join('Comune', 'pdf', 'Carte.pdf'), tessere: false },
   { key: 'preludio', label: 'Preludio', out: path.join('Preludio', 'pdf', 'Carte.pdf'), tessere: false },
   { key: 'episodio1', label: 'Episodio 1', out: path.join('Episodio 1', 'pdf', 'Carte-e-Tessere.pdf'), tessere: true },
-  { key: 'episodio2', label: 'Episodio 2', out: path.join('Episodio 2', 'pdf', 'Carte.pdf'), tessere: false },
+  // Episodi 2-20: stesso schema (Carte.pdf). I fogli si generano solo quando
+  // le carte dell'episodio sono state renderizzate (Episodio N/cards/, Fase D):
+  // un bucket senza carte renderizzate viene semplicemente saltato.
+  ...Array.from({ length: 19 }, (_, i) => {
+    const n = i + 2;
+    return { key: `episodio${n}`, label: `Episodio ${n}`,
+             out: path.join(`Episodio ${n}`, 'pdf', 'Carte.pdf'), tessere: false };
+  }),
 ];
 
 // id+nome 1:1 da TILES in scripts/tiles/generate-tiles.js (duplicato apposta,

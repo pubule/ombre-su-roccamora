@@ -18,9 +18,14 @@ Uso: python scripts/merge-print-all.py
 Va lanciato DOPO aver generato tutto il resto (build-all.sh lo fa gia' per
 te, come ultimo passo).
 """
+import io
 import os
 import sys
 from pypdf import PdfReader, PdfWriter
+from reportlab.lib.pagesizes import A4
+from reportlab.lib.units import mm
+from reportlab.lib.utils import ImageReader
+from reportlab.pdfgen import canvas as rl_canvas
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, 'src'))
@@ -342,12 +347,51 @@ def add(writer, rel_path):
     print(f'    + {rel_path} ({n} pagine)')
 
 
+def add_reperti(writer, bucket_dir):
+    """Impagina i PNG dei reperti (bucket_dir/reperti/) su A4, uno per pagina,
+    fronte subito seguito dal retro: cosi' la stampa fronte/retro accoppia da
+    sola le due facce di ogni reperto. Sezione a pagine pari (pad in coda)."""
+    rep_dir = os.path.join(PDF_DIR, bucket_dir, 'reperti')
+    if not os.path.isdir(rep_dir):
+        print('    (nessun reperto per questo bucket)')
+        return
+    files = [f for f in sorted(os.listdir(rep_dir))
+             if f.lower().endswith('.png') and not f.startswith('.')]
+    # ordina: fronte prima del suo retro (alfabeticamente "(retro)" verrebbe prima)
+    files.sort(key=lambda f: (f.replace(' (retro)', ''), ' (retro)' in f))
+    if not files:
+        print('    (cartella reperti vuota)')
+        return
+    buf = io.BytesIO()
+    c = rl_canvas.Canvas(buf, pagesize=A4)
+    w, h = A4
+    margin = 10 * mm
+    for f in files:
+        img = ImageReader(os.path.join(rep_dir, f))
+        iw, ih = img.getSize()
+        k = min((w - 2 * margin) / iw, (h - 2 * margin) / ih)
+        dw, dh = iw * k, ih * k
+        c.drawImage(img, (w - dw) / 2, (h - dh) / 2, width=dw, height=dh, mask='auto')
+        c.showPage()
+    if len(files) % 2:  # sezione pari: non sfasare il fronte/retro di cio' che segue
+        c.showPage()
+    c.save()
+    buf.seek(0)
+    reader = PdfReader(buf)
+    for page in reader.pages:
+        writer.add_page(page)
+    print(f'    + {bucket_dir}/reperti/ ({len(files)} facce, {len(reader.pages)} pagine)')
+
+
 def build(bucket):
     print(f'{bucket["out"]}:')
     writer = PdfWriter()
     print('  Fascicoli:')
     for rel in bucket['booklets']:
         add(writer, rel)
+
+    print('  Reperti:')
+    add_reperti(writer, os.path.dirname(bucket['out']))
 
     print('  Carte + tessere:')
     if bucket['cards_sheet']:
