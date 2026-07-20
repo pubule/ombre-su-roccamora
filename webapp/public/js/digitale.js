@@ -813,16 +813,18 @@ async function muoviEroe(nm, node, revealId) {
 
 async function attaccaNemico(nm, i) {
   const sp = SP(); const e = eroe(nm); const n = sp.nemici[i]; if (!n) return;
-  if (azioneSpesa(nm, 'attaccare') || !azioniRestano(nm)) return;
+  if (azioneSpesa(nm, 'attaccare')) { flash(`${primo(nm)} ha già attaccato: le 2 azioni sono di tipo diverso.`); return; }
+  if (!azioniRestano(nm)) { flash(`${primo(nm)} non ha più azioni.`); return; }
   if (!adiacGlob(sp.eroiPos[nm], n.pos)) { flash('Nemico non adiacente: avvicinati prima.'); return; }
   const st = nemStat(n.nome);
   const r = await tiraProva({ titolo: `${primo(nm)} → ${n.nome.toLowerCase()}`, diffLabel: 'Difesa', soglia: n.difMod ?? st.dif,
     bonus: [{ label: 'VIGORE', val: e.vigore }, { label: 'arma', val: 1 }], modo: 'digitale' });
   if (r == null) return;
+  const dif = n.difMod ?? st.dif;
   if (r.ok) {
-    n.ferite += 1; log(`${primo(nm)} colpisce ${n.nome.toLowerCase()} (${n.ferite}/${n.max}).`);
+    n.ferite += 1; log(`${primo(nm)} colpisce ${n.nome.toLowerCase()} (2d6+VIG ${r.tot} ≥ Dif ${dif} → ${n.ferite}/${n.max}).`);
     if (n.ferite >= n.max) { log(`${n.nome.toLowerCase()} è abbattuto!`); sp.nemici.splice(i, 1); }
-  } else log(`${primo(nm)} manca il colpo.`);
+  } else log(`${primo(nm)} manca ${n.nome.toLowerCase()} (${r.tot} < Dif ${dif}).`);
   salvaP(); segnaAzione(nm, 'attaccare');
 }
 
