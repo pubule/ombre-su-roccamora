@@ -47,12 +47,22 @@ em, i { font-style: italic; }
 .home-testata .filetto { width: 120px; height: 2px; margin: 14px auto 0;
   background: linear-gradient(90deg, transparent, var(--oro), transparent); }
 
-.griglia-episodi { display: grid; gap: 14px;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); margin-bottom: 26px; }
+/* Home «carte a scorrimento»: su telefono un carosello snap di copertine, su
+   schermo largo la griglia (21 episodi restano scannabili). */
+.griglia-episodi { display: flex; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory;
+  padding: 4px 2px 18px; margin-bottom: 10px; }
+.griglia-episodi::-webkit-scrollbar { height: 8px; }
+.griglia-episodi::-webkit-scrollbar-thumb { background: var(--oro); border-radius: 4px; }
 .tessera-episodio { position: relative; border: 1px solid var(--oro);
   border-radius: 10px; overflow: hidden; background: var(--notte2); cursor: pointer;
-  min-height: 150px; display: flex; flex-direction: column; justify-content: flex-end;
+  flex: 0 0 82%; max-width: 360px; scroll-snap-align: center;
+  min-height: 230px; display: flex; flex-direction: column; justify-content: flex-end;
   transition: transform .15s, box-shadow .15s; }
+@media (min-width: 820px) {
+  .griglia-episodi { display: grid; gap: 14px; overflow: visible;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+  .tessera-episodio { flex: none; max-width: none; min-height: 180px; }
+}
 .tessera-episodio:active { transform: scale(.985); }
 .tessera-episodio .arte { position: absolute; inset: 0; background-size: cover;
   background-position: center 20%; opacity: .55; }
