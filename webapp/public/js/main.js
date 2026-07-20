@@ -17,28 +17,26 @@ document.addEventListener('visibilitychange', () => {
   if (document.visibilityState === 'visible') tieniSveglio();
 });
 
+// Copertine home: dove esiste una copertina/arte di LUOGO dedicata all'episodio
+// (gia' su disco, Fase D non necessaria) la usiamo; altrove un'atmosfera coerente.
 const COPERTINE = {
-  preludio: '/assets/artworks/humble candlelit canal-side room.png',
+  preludio: '/assets/artworks/Taverna della Chiatta.png',   // preludio: la taverna del Ponte dei Lumi
   ep1: '/assets/artworks/copertina spedizione.png',
-  ep2: '/assets/artworks/Il Fonditore.png',
+  ep2: '/assets/artworks/copertina episodio 2.png',         // copertina dedicata Ep.2
   // finché manca l'arte dedicata dell'Ep. 3 (Fase D): un'atmosfera d'acqua
   ep3: '/assets/artworks/derelict warehouses over black still water.png',
-  ep4: '/assets/artworks/bell tower.png',
+  ep4: '/assets/artworks/Il buio di quinta.png',            // Ep.4 il teatro: il buio di quinta
   ep5: '/assets/artworks/nervous priest in a candlelit sacristy.png',
   // finché manca l'arte dedicata dell'Ep. 6 (Fase D): la bottega di Ferri
   ep6: '/assets/artworks/abandoned luthier workshop.png',
   // finché manca l'arte dedicata dell'Ep. 7 (Fase D): l'archivio
   ep7: '/assets/artworks/dusty municipal archive.png',
-  // finché manca l'arte dedicata dell'Ep. 8 (Fase D): l'acqua nera
-  ep8: '/assets/artworks/derelict warehouses over black still water.png',
+  ep8: '/assets/artworks/Banco dei Pegni.png',              // Ep.8 l'oro vecchio: il Monte/banco dei pegni
   // finché manca l'arte dedicata dell'Ep. 9 (Fase D): l'ufficio notturno
   ep9: '/assets/artworks/cluttered 19th century police office.png',
-  // finché manca l'arte dedicata dell'Ep. 10 (Fase D): una stanza a lume di candela
-  ep10: '/assets/artworks/humble candlelit canal-side room.png',
-  // finché manca l'arte dedicata dell'Ep. 11 (Fase D): la torre delle campane
-  ep11: '/assets/artworks/bell tower.png',
-  // finché manca l'arte dedicata dell'Ep. 12 (Fase D): i magazzini sull'acqua nera
-  ep12: '/assets/artworks/derelict warehouses over black still water.png',
+  ep10: '/assets/artworks/Corte della Faenza.png',          // Ep.10 la casa che ricorda: Corte della Faenza
+  ep11: '/assets/artworks/Cella campanaria.png',            // Ep.11 censimento campane: la cella campanaria
+  ep12: '/assets/artworks/Palazzo del Lume.png',            // Ep.12: sede della Società (Palazzo del Lume)
   // finché manca l'arte dedicata dell'Ep. 13 (Fase D): il molino sulle rogge
   ep13: '/assets/artworks/derelict warehouses over black still water.png',
   // finché manca l'arte dedicata dell'Ep. 14 (Fase D): i tetti nella notte
@@ -49,8 +47,7 @@ const COPERTINE = {
   ep16: '/assets/artworks/humble candlelit canal-side room.png',
   // finché manca l'arte dedicata dell'Ep. 17 (Fase D): la villa-prigione
   ep17: '/assets/artworks/derelict warehouses over black still water.png',
-  // finché manca l'arte dedicata dell'Ep. 18 (Fase D): il Palazzo del Lume
-  ep18: '/assets/artworks/cluttered 19th century police office.png',
+  ep18: '/assets/artworks/Palazzo del Lume.png',            // Ep.18 il Palazzo del Lume che si spegne
   // finché manca l'arte dedicata dell'Ep. 19 (Fase D): l'Archivio sequestrato
   ep19: '/assets/artworks/dusty municipal archive.png',
   // finché manca l'arte dedicata dell'Ep. 20 (Fase D): la gola sotto la Cattedrale
