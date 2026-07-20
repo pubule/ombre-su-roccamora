@@ -430,7 +430,7 @@ function giroEroiHtml() {
 }
 
 // ------------------------------------------------------------------ azioni
-const tipiAzione = { muovere: 'Muovere', attaccare: 'Attaccare', cercare: 'Cercare', interagire: 'Interagire', rianimare: 'Rianimare', abilita: 'Abilità' };
+const tipiAzione = { muovere: 'Muovere', attaccare: 'Attaccare', cercare: 'Cercare', interagire: 'Interagire', rianimare: 'Rianimare', abilita: 'Abilità', oggetto: 'Oggetto' };
 const azioniOf = (nm) => (SP().azioni[nm] || []);
 const azioneSpesa = (nm, tipo) => azioniOf(nm).includes(tipo);
 // un eroe stordito (insidia/fumi) ha 1 sola azione nel round indicato
@@ -465,6 +465,7 @@ function azioniHtml() {
       ${inter && azioniRestano(attivo) && !azioneSpesa(attivo, 'interagire') ? `<button class="btn" id="az-interagire">${esc(inter.label)}</button>` : ''}
       ${giuVicino && azioniRestano(attivo) && !azioneSpesa(attivo, 'rianimare') ? '<button class="btn" id="az-rianimare">Rianimare</button>' : ''}
       ${azioniRestano(attivo) && !azioneSpesa(attivo, 'cercare') ? '<button class="btn" id="az-cercare">Cercare</button>' : ''}
+      ${azioniRestano(attivo) && (P().indagine.oggetti || []).length ? '<button class="btn" id="az-oggetto">Usa oggetto</button>' : ''}
       <button class="btn pieno" id="az-fine">«${esc(primo(attivo))}» ha finito →</button>
     </div>`;
 }
@@ -697,6 +698,7 @@ function aggancia() {
   });
   app.querySelectorAll('[data-abil]').forEach((btn) => btn.onclick = () => usaAbilita(btn.dataset.abil));
   app.querySelector('#az-cercare') && (app.querySelector('#az-cercare').onclick = () => azioneCercare(attivo));
+  app.querySelector('#az-oggetto') && (app.querySelector('#az-oggetto').onclick = () => usaOggetto(attivo));
   app.querySelector('#az-interagire') && (app.querySelector('#az-interagire').onclick = () => azioneInteragire(attivo));
   app.querySelector('#az-rianimare') && (app.querySelector('#az-rianimare').onclick = () => azioneRianima(attivo));
   app.querySelector('#az-fine') && (app.querySelector('#az-fine').onclick = () => finisciEroe(attivo));
@@ -814,7 +816,7 @@ async function attaccaNemico(nm, i) {
   if (azioneSpesa(nm, 'attaccare') || !azioniRestano(nm)) return;
   if (!adiacGlob(sp.eroiPos[nm], n.pos)) { flash('Nemico non adiacente: avvicinati prima.'); return; }
   const st = nemStat(n.nome);
-  const r = await tiraProva({ titolo: `${primo(nm)} → ${n.nome.toLowerCase()}`, diffLabel: 'Difesa', soglia: st.dif,
+  const r = await tiraProva({ titolo: `${primo(nm)} → ${n.nome.toLowerCase()}`, diffLabel: 'Difesa', soglia: n.difMod ?? st.dif,
     bonus: [{ label: 'VIGORE', val: e.vigore }, { label: 'arma', val: 1 }], modo: 'digitale' });
   if (r == null) return;
   if (r.ok) {
@@ -888,6 +890,36 @@ function azioneRianima(nm) {
   sp.vite[giu] = nm.includes('ATTILIO') ? 3 : 2;
   log(`${primo(nm)} rianima ${primo(giu)} (${sp.vite[giu]} salute).`);
   segnaAzione(nm, 'rianimare');
+}
+
+// azione «Usare un oggetto»: sceglie dall'inventario e ne applica l'effetto di
+// spedizione. Effetti attivi noti (Ep.1): Diapason (Custode Difesa 5 + salta
+// attivazione), Chiave della cella (apre la cella in T6). Passivi/quest: si
+// leggono soltanto (nessuna azione spesa).
+async function usaOggetto(nm) {
+  const sp = SP(); const inv = P().indagine.oggetti || [];
+  if (!inv.length) { flash('Inventario del gruppo vuoto.'); return; }
+  if (!azioniRestano(nm)) { flash('Nessuna azione rimasta.'); return; }
+  const scelto = await scegli('usa quale oggetto?', inv.map((o) => ({ id: o, label: o.toLowerCase() })));
+  if (!scelto) return;
+  const pos = sp.eroiPos[nm];
+  if (/diapason/i.test(scelto)) {
+    const boss = ctx.ep.soluzione.boss;
+    const i = sp.nemici.findIndex((n) => n.nome === boss && n.pos && adiacGlob(pos, n.pos));
+    if (i < 0) { flash(`Devi essere adiacente al ${boss.toLowerCase()}.`); return; }
+    sp.nemici[i].difMod = 5; sp.nemici[i].flash = true;
+    log(`${primo(nm)} fa vibrare il diapason: ${boss.toLowerCase()} Difesa 5 e salta la prossima attivazione.`);
+    await messaggio('il diapason d’argento', `<p><i>La cera del Custode si incrina come ghiaccio: <b>Difesa 5</b> per il resto della partita, e <b>salta la prossima attivazione</b>.</i></p>`);
+    segnaAzione(nm, 'oggetto'); return;
+  }
+  if (/chiave della cella/i.test(scelto)) {
+    const disp = interazioneDisponibile(nm);
+    if (pos.t === 'T6' && !sp.ruggero.liberato && disp && disp.tipo === 'cella') { liberaRuggero(nm); return; }
+    flash('La chiave apre la cella in T6 (vacci adiacente).'); return;
+  }
+  const o = (ctx.ep.oggetti || []).find((x) => norm(x.nome) === norm(scelto));
+  await messaggio(scelto.toLowerCase(), `${o && o.effetto ? `<p>${rendi(o.effetto)}</p>` : '<p class="nota">Nessun effetto attivo qui.</p>'}
+    <p class="nota mt">Effetto passivo o narrativo: nessuna azione spesa.</p>`);
 }
 
 // --------------------------------------------------------- spawn nemici
