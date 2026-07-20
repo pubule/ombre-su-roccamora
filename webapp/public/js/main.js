@@ -129,8 +129,8 @@ async function vistaEpisodio(epId) {
         </div>
         <div class="modo" data-modo="digitale">
           <h3>tutto a schermo</h3>
-          <p>Niente componenti fisici: board, carte e dadi vivono qui.
-          <i>(in costruzione: per ora apre la modalità arbitro)</i></p>
+          <p>Niente componenti fisici: il board, i token e i dadi vivono qui.
+          Muovete gli eroi a caselle, la notte reagisce da sola.</p>
         </div>
       </div>
       <div class="btn-riga">
@@ -247,17 +247,21 @@ function dettaglioEroe(e, giaScelto) {
 // ---------------------------------------------------------------- PARTITA
 import { vistaIndagine } from './indagine.js';
 import { vistaSpedizione } from './spedizione.js';
+import { vistaDigitale } from './digitale.js';
 
 async function vistaPartita(partita) {
+  // ramo spedizione: TAVOLO (arbitro) o DIGITALE (board a schermo). Il tavolo
+  // resta invariato; il digitale e' un file separato.
+  const sped = partita.modo === 'digitale' ? vistaDigitale : vistaSpedizione;
   const vaiA = (dove) => {
     if (dove === 'menu') return vistaHome();
-    if (dove === 'spedizione') return vistaSpedizione(app, partita, vaiA);
+    if (dove === 'spedizione') return sped(app, partita, vaiA);
     vistaPartita(partita);
   };
   if (partita.fase === 'indagine' && !partita.indagine.chiusa) {
     return vistaIndagine(app, partita, vaiA);
   }
-  return vistaSpedizione(app, partita, vaiA);
+  return sped(app, partita, vaiA);
 }
 
 // ------------------------------------------------------------------ avvio
