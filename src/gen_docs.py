@@ -532,7 +532,9 @@ def regolamento():
                'Lettera d\u2019incarico nel fascicolo Indagine. Buona fortuna \u2014 e non fidatevi della '
                'cera nera.', 'box'))
     doc.build(e, onFirstPage=bg_cover, onLaterPages=bg)
-    pad_to_even_pages(doc.filename)
+    # niente pad qui: Regolamento e Aiuto vengono uniti in un solo fascicolo
+    # (combina_regolamento_aiuto), il pad si fa una volta alla fine — cosi' non
+    # resta una pagina bianca in mezzo tra le regole e l'aiuto di gioco.
 
 
 # ------------------------------------------------------------------ SOLUZIONE
@@ -741,7 +743,7 @@ def aiuto():
 
     e = []
     e.append(P('AIUTO DI GIOCO', 'title'))
-    e.append(P('Riepilogo da tavolo — una pagina. Le regole complete sono nel fascicolo 01.', 'subtitle'))
+    e.append(P('Riepilogo da tavolo — una pagina. Le regole complete sono nelle pagine precedenti.', 'subtitle'))
     e.append(hr())
 
     e.append(P('PROVE', 'h2'))
@@ -820,7 +822,7 @@ def aiuto():
                 'Tutti a terra = episodio fallito.'))
 
     doc.build(e, onFirstPage=bg, onLaterPages=bg)
-    pad_to_even_pages(doc.filename)
+    # niente pad qui: l'Aiuto viene accodato al Regolamento (vedi combina_...)
 
 
 def colophon():
@@ -866,8 +868,42 @@ def colophon():
     print('ok ->', out_path)
 
 
+REG_PATH = os.path.join(OUT_DIR, 'Ombre-su-Roccamora-01-Regolamento.pdf')
+AIU_PATH = os.path.join(OUT_DIR, 'Ombre-su-Roccamora-06-Aiuto-Giocatore.pdf')
+
+
+def combina_regolamento_aiuto():
+    """Un solo fascicolo: copertina-poster + Regolamento completo + Aiuto di
+    gioco (la pagina di riepilogo da tavolo, in coda). Cosi' regole e aiuto
+    stanno assieme. Il file Aiuto separato viene rimosso."""
+    import gen_cover
+    from io import BytesIO
+    from pypdf import PdfReader, PdfWriter
+    from reportlab.pdfgen import canvas as _canvas
+    buf = BytesIO()
+    cc = _canvas.Canvas(buf, pagesize=A4)
+    cc.setTitle('Ombre su Roccamora - Regolamento e aiuto di gioco')
+    gen_cover.cover_generic(cc, 'Regolamento', 'Regole complete e aiuto di gioco', gen_cover.MAP_ART)
+    cc.showPage(); cc.save(); buf.seek(0)
+    w = PdfWriter()
+    w.add_page(PdfReader(buf).pages[0])                 # copertina
+    for p in PdfReader(REG_PATH).pages:                 # regolamento
+        w.add_page(p)
+    for p in PdfReader(AIU_PATH).pages:                 # aiuto di gioco (in coda)
+        w.add_page(p)
+    with open(REG_PATH, 'wb') as f:
+        w.write(f)
+    pad_to_even_pages(REG_PATH)
+    try:
+        os.remove(AIU_PATH)
+    except OSError:
+        pass
+    print('ok combinato (regolamento + aiuto) ->', REG_PATH)
+
+
 regolamento()
 soluzione()
 aiuto()
+combina_regolamento_aiuto()
 colophon()
 print('OK docs')

@@ -127,6 +127,25 @@ def numbered_track(c, x0, y, box, gap, count, label):
         c.setFillAlpha(1)
 
 
+def retro(c, sub):
+    """Retro scuro coerente col gioco: sigillo centrale + nome, cornice oro.
+    Serve perche' board e tracce vanno su DUE fogli distinti (entrambi in
+    tavola insieme): stampati fronte/retro finirebbero sui due lati dello
+    stesso foglio, inservibili. Cosi' ogni fronte funzionale ha il suo retro."""
+    c.setFillColor(NOTTE); c.rect(0, 0, W, H, fill=1, stroke=0)
+    _vignette(c)
+    gold_border(c)
+    seal_img = art('Sigillo.png'); sw, sh = seal_img.getSize()
+    d = 76*mm; dw, dh = d, d * sh / sw
+    c.drawImage(seal_img, W/2 - dw/2, H/2 - dh/2 + 8*mm, width=dw, height=dh, mask='auto')
+    c.setFillColor(GOLD); c.setFont(F['sc'], 24)
+    c.drawCentredString(W/2, H/2 - dh/2 - 2*mm, 'ombre su roccamora')
+    c.setFillColor(CREMA); c.setFillAlpha(0.75); c.setFont(F['i'], 11)
+    c.drawCentredString(W/2, H/2 - dh/2 - 12*mm, sub)
+    c.setFillAlpha(1)
+    c.showPage()
+
+
 def tabellone():
     out_path = os.path.join(OUT_DIR, 'Ombre-su-Roccamora-07-Tabellone.pdf')
     c = canvas.Canvas(out_path, pagesize=A4)
@@ -199,8 +218,10 @@ def tabellone():
     c.drawCentredString(W/2, 12*mm, 'ombre su roccamora · società del lume — tabellone riusabile, tutte le tessere si posano libere')
     c.setFillAlpha(1)
     c.showPage()
+    retro(c, 'tabellone — il canto e la minaccia')   # retro del foglio 1
 
-    # --- pagina 2: tracce di spedizione numerate (riusabili). Alcuni episodi
+    # --- foglio 2 (fronte): tracce di spedizione numerate (riusabili). Va su un
+    # foglio a se': board e tracce servono in tavola CONTEMPORANEAMENTE. Alcuni episodi
     # fanno correre un segnalino su una traccia (FUGA, Demolizione, Prova,
     # Controcanto): qui hanno una casa stampata invece di "un segnalino su
     # carta". L'Ep.10 ne usa DUE insieme (Demolizione + Prova). ---
@@ -224,6 +245,7 @@ def tabellone():
     c.drawCentredString(W/2, 12*mm, 'ombre su roccamora · società del lume — tracce riusabili')
     c.setFillAlpha(1)
     c.showPage()
+    retro(c, 'tracce di spedizione')                 # retro del foglio 2
     c.save()
     pad_to_even_pages(out_path)
 

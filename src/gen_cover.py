@@ -175,6 +175,33 @@ def copertina(c, num, titolo):
     c.showPage()
 
 
+def cover_generic(c, titolo, sottotitolo='', art_name=MAP_ART):
+    """Copertina-poster riusabile per i documenti comuni (Regolamento, Aiuto):
+    stesso linguaggio delle copertine episodio (arte a tutto fondo, nome del
+    gioco in alto, titolo del documento in basso), ma NON chiama showPage: il
+    chiamante decide (serve per anteporla via merge a un PDF gia' impaginato)."""
+    name = art_name if os.path.exists(os.path.join(ROOT, 'artworks', art_name)) else MAP_ART
+    cover_fit(c, name)
+    scrim(c, H, H - 70*mm, 0.4)
+    scrim(c, 0, 96*mm, 0.36)
+    ty = H - 34*mm
+    engraved(c, W/2, ty, GAME_NAME, TITLE, 33, WHITE, tracking=1.5)
+    divider(c, W/2, ty - 8*mm, 74*mm, WAVE, 1.2)
+    engraved(c, W/2, ty - 20*mm, GAME_SUB, F['b'], 12.5, WHITE, tracking=0.6)
+    size = 34
+    while c.stringWidth(titolo, TITLE, size) > W - 44*mm and size > 16:
+        size -= 0.5
+    engraved(c, W/2, 62*mm, titolo, TITLE, size, WHITE, tracking=1.0)
+    if sottotitolo:
+        engraved(c, W/2, 50*mm, sottotitolo, F['i'], 13, WHITE, tracking=0.4)
+    divider(c, W/2, 42*mm, 58*mm, WAVE, 1.0)
+    seal(c, W/2, 26*mm, r=9*mm, angle=-10)
+    c.saveState()
+    c.setStrokeColor(WHITE); c.setLineWidth(0.8); c.setStrokeAlpha(0.4)
+    c.rect(7*mm, 7*mm, W - 14*mm, H - 14*mm)
+    c.restoreState()
+
+
 def build(num):
     titolo = EPISODI[num]
     out_dir = os.path.join(OUT_ROOT, cartella(num), 'pdf')

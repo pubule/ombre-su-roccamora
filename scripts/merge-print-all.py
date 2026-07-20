@@ -42,9 +42,9 @@ BUCKETS = [
     dict(
         out=os.path.join('Comune', 'Ombre-su-Roccamora-Comune-Completo.pdf'),
         booklets=[
+            # l'Aiuto di gioco e' ora in coda al Regolamento (un solo fascicolo)
             os.path.join('Comune', 'pdf', 'Ombre-su-Roccamora-01-Regolamento.pdf'),
             os.path.join('Comune', 'pdf', 'Ombre-su-Roccamora-02-Schede-Personaggio.pdf'),
-            os.path.join('Comune', 'pdf', 'Ombre-su-Roccamora-06-Aiuto-Giocatore.pdf'),
             os.path.join('Comune', 'pdf', 'Ombre-su-Roccamora-07-Tabellone.pdf'),
         ],
         cards_sheet=os.path.join('Comune', 'pdf', 'Carte.pdf'),
