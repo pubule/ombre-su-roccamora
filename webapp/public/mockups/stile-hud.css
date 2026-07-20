@@ -1,0 +1,53 @@
+/* Direzione 1 — HUD duello: eroe attivo vs nemico attivo in evidenza. */
+.hud-duello { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 10px;
+  background: linear-gradient(180deg, rgba(29,16,20,.85), rgba(14,21,25,.85));
+  border: 1px solid var(--oro); border-radius: 12px; padding: 12px; }
+.hud-lato { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.hud-lato.nemico { align-items: flex-end; text-align: right; }
+.hud-tok { width: 96px; height: 120px; }
+.hud-lato.nemico .hud-tok { margin-left: auto; }
+.hud-nome { font-family: 'FellSC', serif; text-transform: lowercase; color: var(--oro-chiaro); font-size: 18px; line-height: 1.05; }
+.hud-ruolo { color: var(--seppia); font-style: italic; font-size: 12px; }
+.hud-centro { text-align: center; color: var(--seppia); }
+.hud-centro .vs { font-family: 'FellSC', serif; color: var(--rosso); font-size: 22px; }
+.hud-riga { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--perg-scura); }
+.hud-lato.nemico .hud-riga { justify-content: flex-end; }
+.hud-etichetta { font-size: 11px; color: var(--seppia); text-transform: uppercase; letter-spacing: .05em; }
+.statmini { font-size: 12px; color: var(--perg-scura); }
+
+/* rail di mini-token (giro eroi / nemici) */
+.rail-wrap { }
+.rail-titolo { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 6px; }
+.rail { display: flex; gap: 8px; overflow-x: auto; padding: 4px 2px 8px; scroll-snap-type: x proximity; }
+.rail::-webkit-scrollbar { height: 6px; } .rail::-webkit-scrollbar-thumb { background: var(--oro); border-radius: 3px; }
+.mini { flex: 0 0 auto; width: 58px; text-align: center; scroll-snap-align: center; }
+.mini .tok { width: 58px; height: 58px; border-radius: 50%; }
+.mini.attivo .tok { width: 66px; height: 66px; }
+.mini .et { font-family: 'FellSC', serif; text-transform: lowercase; font-size: 12px; color: var(--perg-scura); margin-top: 2px; display: block;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mini.fatto { opacity: .4; } .mini.fatto .et { text-decoration: line-through; }
+.mini.attivo .et { color: var(--oro-chiaro); font-weight: 700; }
+
+/* tessere come chip con miniatura */
+.tessere-rail { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 6px; }
+.tess { flex: 0 0 auto; width: 92px; border: 1px solid var(--oro); border-radius: 8px; overflow: hidden; background: var(--notte2); }
+.tess img { width: 100%; height: 60px; object-fit: cover; display: block; }
+.tess.coperta { filter: grayscale(1) brightness(.4); border-style: dashed; }
+.tess .et { font-family: 'FellSC', serif; text-transform: lowercase; font-size: 11px; color: var(--oro-chiaro); padding: 3px 5px; display: block; }
+
+/* lista compatta eroi (salute + cariche) */
+.eroe-row { display: grid; grid-template-columns: 40px 1fr auto; align-items: center; gap: 10px;
+  border-bottom: 1px solid rgba(138,113,80,.4); padding: 8px 0; }
+.eroe-row .tok { width: 40px; height: 40px; border-radius: 50%; }
+.eroe-row .nm { font-family: 'FellSC', serif; text-transform: lowercase; color: var(--ink); }
+.eroe-row.attivo .nm { color: var(--rosso); font-weight: 700; }
+.gap { height: 14px; }
+
+@media (min-width: 760px) {
+  .hud-tok { width: 150px; height: 190px; }
+  .hud-nome { font-size: 26px; }
+  .mini { width: 74px; } .mini .tok { width: 74px; height: 74px; } .mini.attivo .tok { width: 84px; height: 84px; }
+  .tess { width: 130px; } .tess img { height: 82px; }
+  .sped-griglia { display: grid; grid-template-columns: 1.4fr 1fr; gap: 16px; align-items: start; }
+  .sped-griglia .full { grid-column: 1 / -1; }
+}

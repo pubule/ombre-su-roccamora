@@ -1,0 +1,61 @@
+<!doctype html><html lang="it"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Carte · Spedizione</title>
+<link rel="stylesheet" href="../comune.css"><link rel="stylesheet" href="../stile-carte.css">
+</head><body>
+<div class="wrap">
+  <div class="barra">
+    <a class="btn" href="../index.html" style="min-height:36px;padding:6px 12px">← mockup</a>
+    <span class="titolo" id="tit"></span>
+    <span class="stato" id="stt"></span>
+  </div>
+  <div id="app"></div>
+</div>
+<script src="../dati.js"></script>
+<script>
+const { S, pips, clock, esc, urlArt, urlTessera } = MOCK;
+document.getElementById('tit').textContent = S.ep.titolo.toLowerCase();
+document.getElementById('stt').innerHTML = 'round ' + S.round + ' · ' + clock();
+
+const cardEroe = (e) => `
+<div class="gcard ${e.attivo ? 'attivo' : ''} ${e.fatto ? 'fatto' : ''}">
+  <div class="art"><img src="${urlArt(e.art)}" alt=""><div class="velo"></div>
+    ${e.attivo ? '<span class="tag">tocca a lui</span>' : e.fatto ? '<span class="tag" style="background:rgba(31,95,107,.9)">✓ ha agito</span>' : ''}
+    <span class="nm">${esc(e.breve)}</span></div>
+  <div class="corpo">
+    <div class="ru">${esc(e.ruolo)}</div>
+    <div class="kv"><span class="lab">salute</span> ${pips(e.sal, e.salMax, '')}</div>
+    <div class="kv"><span class="lab">${esc(e.ab.toLowerCase())}</span> ${e.carMax ? pips(e.car, e.carMax, 'car') : '<span class="nota">1 per turno</span>'}</div>
+    <div class="stat4"><span>ac <b>${e.ac}</b></span><span>vi <b>${e.vi}</b></span><span>ne <b>${e.ne}</b></span><span>di <b>${e.di}</b></span></div>
+  </div>
+</div>`;
+
+const cardNemico = (n) => `
+<div class="gcard ${n.boss ? 'boss' : ''} ${n.attivo ? 'attivo' : ''}">
+  <div class="art"><img src="${urlArt(n.art)}" alt=""><div class="velo"></div>
+    ${n.attivo ? '<span class="tag">si attiva</span>' : ''}${n.boss ? '<span class="badge-boss">boss</span>' : ''}
+    <span class="nm">${esc(n.breve)}</span></div>
+  <div class="corpo">
+    <div class="stat4"><span>att <b>+${n.att}</b></span><span>dif <b>${n.dif}</b></span><span>dan <b>${n.dan}</b></span><span>mov <b>${n.mov}</b></span></div>
+    <div class="kv"><span class="lab">ferite</span> ${pips(n.fer, n.max, 'fer')}</div>
+  </div>
+</div>`;
+
+const tessere = `
+<div class="pannello mt"><div class="sez-tit"><h2>le tessere</h2><span class="nota">scorri →</span></div>
+  <div class="film">${S.tessere.map(t => `<div class="frame ${t.rivelata ? '' : 'coperta'}">
+    <img src="${urlTessera(t)}" alt=""><span class="et">${t.id} · ${t.rivelata ? esc(t.nome.toLowerCase()) : 'coperta'}</span></div>`).join('')}</div>
+</div>`;
+
+document.getElementById('app').innerHTML = `
+  <div class="sez-tit"><h2>il giro degli eroi</h2>
+    <button class="btn pieno" style="min-height:38px">«${esc(S.party.find(e => e.attivo).breve)}» ha finito →</button></div>
+  <div class="carosello">${S.party.map(cardEroe).join('')}</div>
+  <p class="nota" style="margin:-6px 6px 0">La carta attiva è al centro, illuminata · scorri per scegliere chi agisce.</p>
+
+  <div class="sez-tit mt"><h2>i nemici in campo</h2><span class="nota">${S.nemici.length} in campo</span></div>
+  <div class="carosello">${S.nemici.map(cardNemico).join('')}</div>
+
+  ${tessere}`;
+</script>
+</body></html>

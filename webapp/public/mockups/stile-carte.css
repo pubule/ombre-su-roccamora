@@ -1,0 +1,30 @@
+/* Direzione 3 — Carte a scorrimento: caroselli snap, l'attiva al centro. */
+.carosello { display: flex; gap: 14px; overflow-x: auto; padding: 10px 6px 18px; scroll-snap-type: x mandatory; }
+.carosello::-webkit-scrollbar { height: 8px; } .carosello::-webkit-scrollbar-thumb { background: var(--oro); border-radius: 4px; }
+.gcard { flex: 0 0 76%; max-width: 320px; scroll-snap-align: center; border: 1px solid var(--oro); border-radius: 14px;
+  overflow: hidden; background: var(--notte2); transition: transform .2s, box-shadow .2s; transform: scale(.94); opacity: .82; position: relative; }
+.gcard.attivo { transform: scale(1); opacity: 1; border-color: var(--oro-chiaro); box-shadow: 0 0 26px rgba(216,178,94,.5); }
+.gcard.boss { border-color: var(--rosso); } .gcard.boss.attivo { box-shadow: 0 0 26px rgba(122,31,43,.6); }
+.gcard.fatto { opacity: .45; filter: grayscale(.5); }
+.gcard .art { position: relative; aspect-ratio: 4/3; background: #0f0c10; }
+.gcard .art img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; }
+.gcard .art .velo { position: absolute; inset: 0; background: linear-gradient(180deg, transparent 45%, rgba(14,10,14,.9)); }
+.gcard .art .nm { position: absolute; left: 12px; bottom: 8px; font-family: 'FellSC', serif; text-transform: lowercase;
+  color: var(--oro-chiaro); font-size: 26px; text-shadow: 0 2px 8px #000; }
+.gcard .art .tag { position: absolute; top: 10px; left: 10px; background: rgba(122,31,43,.9); color: var(--perg);
+  font-family: 'FellSC', serif; font-size: 12px; padding: 3px 10px; border-radius: 20px; }
+.gcard .art .badge-boss { position: absolute; top: 10px; right: 10px; background: rgba(23,20,26,.85); border: 1px solid var(--rosso);
+  color: #e07a86; font-family: 'FellSC', serif; font-size: 12px; padding: 3px 8px; border-radius: 20px; }
+.gcard .corpo { padding: 12px; color: var(--perg-scura); }
+.gcard .ru { color: var(--seppia); font-style: italic; font-size: 13px; margin-bottom: 8px; }
+.gcard .kv { display: flex; align-items: center; gap: 8px; margin: 6px 0; font-size: 13px; }
+.gcard .kv .lab { font-size: 11px; text-transform: uppercase; letter-spacing: .05em; color: var(--seppia); min-width: 56px; }
+.gcard .stat4 { display: flex; gap: 12px; font-size: 14px; } .gcard .stat4 b { color: var(--oro-chiaro); }
+
+.film { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 8px; scroll-snap-type: x proximity; }
+.frame { flex: 0 0 auto; width: 130px; scroll-snap-align: start; border: 1px solid var(--oro); border-radius: 8px; overflow: hidden; background: var(--notte2); }
+.frame img { width: 100%; height: 84px; object-fit: cover; display: block; }
+.frame.coperta img { filter: grayscale(1) brightness(.4); } .frame.coperta { border-style: dashed; }
+.frame .et { font-family: 'FellSC', serif; text-transform: lowercase; font-size: 11px; color: var(--oro-chiaro); padding: 3px 5px; display: block; }
+.sez-tit { display: flex; align-items: center; justify-content: space-between; margin: 8px 2px 0; }
+@media (min-width: 820px) { .gcard { flex-basis: 320px; } }

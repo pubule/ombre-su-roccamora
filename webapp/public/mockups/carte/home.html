@@ -1,0 +1,33 @@
+<!doctype html><html lang="it"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Carte · Home</title>
+<link rel="stylesheet" href="../comune.css"><link rel="stylesheet" href="../stile-carte.css">
+<style>
+.testata { text-align: center; padding: 22px 0 6px; } .testata h1 { font-size: 36px; margin: 0; }
+.testata .sub { color: var(--teal); font-style: italic; }
+.cover-card { flex: 0 0 82%; max-width: 360px; }
+.cover-card .art { aspect-ratio: 3/4; }
+.cover-card .azioni { display: flex; gap: 8px; }
+</style></head><body>
+<div class="wrap">
+  <div class="testata"><h1>ombre su roccamora</h1><div class="sub">la società del lume — arbitro digitale</div></div>
+  <div class="nota center">mockup · direzione «carte a scorrimento» · <a href="../index.html">torna al confronto</a></div>
+  <div class="carosello" id="ep"></div>
+</div>
+<script src="../dati.js"></script>
+<script>
+const { S, esc, urlArt } = MOCK;
+document.getElementById('ep').innerHTML = S.episodi.map((e, i) => `
+  <div class="gcard cover-card ${i === 0 ? 'attivo' : ''}">
+    <div class="art"><img src="${urlArt(e.cover)}" alt=""><div class="velo"></div>
+      <span class="tag" style="background:rgba(23,20,26,.85);border:1px solid var(--oro);color:var(--oro-chiaro)">${esc(e.stato)}</span>
+      <span class="nm">${esc(e.titolo.toLowerCase())}</span></div>
+    <div class="corpo">
+      <div class="ru">${esc(e.sotto)}</div>
+      <div class="azioni">${e.stato === 'in corso'
+        ? '<a class="btn pieno" href="spedizione.html">continua →</a><a class="btn" href="indagine.html">indagine</a>'
+        : '<a class="btn" href="indagine.html">comincia</a>'}</div>
+    </div>
+  </div>`).join('');
+</script>
+</body></html>

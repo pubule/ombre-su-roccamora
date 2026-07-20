@@ -1,0 +1,70 @@
+/* Design-system condiviso dei mockup — replica di webapp/public/app.css.
+   Usato da tutte e 3 le direzioni; le differenze di layout stanno nei CSS
+   per-direzione (stile-hud/plancia/carte.css). */
+@font-face { font-family: 'OldStd'; src: url('/fonts/OldStandard-Regular.ttf'); font-weight: 400; }
+@font-face { font-family: 'OldStd'; src: url('/fonts/OldStandard-Bold.ttf'); font-weight: 700; }
+@font-face { font-family: 'OldStd'; src: url('/fonts/OldStandard-Italic.ttf'); font-style: italic; }
+@font-face { font-family: 'FellSC'; src: url('/fonts/IMFellEnglishSC.ttf'); }
+
+:root {
+  --notte: #17141a; --notte2: #1d1014; --abisso: #0e1519;
+  --perg: #f0e6cc; --perg-scura: #e2d3ac; --ink: #33291f;
+  --rosso: #7a1f2b; --rosso-scuro: #571420; --teal: #1f5f6b;
+  --oro: #a8833a; --oro-chiaro: #d8b25e; --seppia: #8a7150;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  background: radial-gradient(ellipse at 50% 0%, #221a20 0%, var(--notte) 55%, var(--abisso) 100%);
+  background-attachment: fixed;
+  color: var(--perg); font-family: 'OldStd', Georgia, serif; font-size: 17px;
+  min-height: 100vh; -webkit-text-size-adjust: 100%;
+}
+h1, h2, h3, .sc { font-family: 'FellSC', serif; text-transform: lowercase; letter-spacing: .04em; font-weight: 400; }
+h1 { color: var(--oro-chiaro); } h2 { color: var(--rosso); margin: 0 0 8px; } h3 { color: var(--oro-chiaro); }
+a { color: var(--oro-chiaro); }
+.wrap { max-width: 1240px; margin: 0 auto; padding: 14px; }
+
+.pannello { background: linear-gradient(160deg, var(--perg), var(--perg-scura));
+  color: var(--ink); border: 1px solid var(--oro); border-radius: 10px;
+  padding: 16px; box-shadow: 0 8px 30px rgba(0,0,0,.5); }
+.pannello h2 { color: var(--rosso); }
+.nota { color: var(--seppia); font-style: italic; font-size: 14px; }
+
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  font-family: 'FellSC', serif; text-transform: lowercase; font-size: 17px; letter-spacing: .03em;
+  padding: 11px 18px; min-height: 44px; border-radius: 8px; cursor: pointer;
+  border: 1px solid var(--oro); background: linear-gradient(180deg, #241c22, var(--notte2));
+  color: var(--oro-chiaro); text-decoration: none; }
+.btn.pieno { background: linear-gradient(180deg, #8d2433, var(--rosso-scuro)); color: var(--perg); border-color: var(--rosso); }
+.btn:active { transform: scale(.98); }
+
+/* barra superiore comune */
+.barra { display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  padding: 8px 4px 14px; }
+.barra .titolo { font-family: 'FellSC', serif; color: var(--oro-chiaro); font-size: 20px; text-transform: lowercase; }
+.barra .stato { font-family: 'FellSC', serif; color: var(--seppia); font-size: 14px; text-transform: lowercase; }
+.clock { display: inline-flex; align-items: center; gap: 6px; }
+.clock .gem { width: 14px; height: 14px; border-radius: 50%; border: 2px solid var(--oro); }
+.clock .gem.on { background: var(--rosso); border-color: var(--rosso); }
+
+/* pip riusabili */
+.pips { display: inline-flex; gap: 5px; flex-wrap: wrap; }
+.pip { width: 16px; height: 16px; border-radius: 50%; border: 2px solid var(--teal); background: transparent; }
+.pip.on { background: var(--teal); }
+.pip.fer { border-color: var(--rosso); } .pip.fer.on { background: var(--rosso); }
+.pip.car { border-color: var(--oro); width: 13px; height: 13px; } .pip.car.on { background: var(--oro-chiaro); }
+
+/* token immagine (ritratto eroe / token nemico) */
+.tok { border-radius: 10px; overflow: hidden; border: 1px solid var(--oro);
+  background: #0f0c10 center/cover no-repeat; position: relative; }
+.tok img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; }
+.tok.boss { border-color: var(--rosso); box-shadow: 0 0 0 2px var(--rosso-scuro) inset; }
+.tok.attivo { border-color: var(--oro-chiaro); box-shadow: 0 0 16px rgba(216,178,94,.55), 0 0 0 2px var(--oro-chiaro) inset; }
+.tok .cad { position: absolute; inset: 0; background: rgba(10,8,12,.55); }
+
+.griglia { display: grid; gap: 14px; }
+.mt { margin-top: 14px; } .center { text-align: center; }
+img { max-width: 100%; }
+.riga { display: flex; align-items: center; gap: 10px; }
+.spazio { flex: 1; }

@@ -1,0 +1,53 @@
+<!doctype html><html lang="it"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Carte · Indagine</title>
+<link rel="stylesheet" href="../comune.css"><link rel="stylesheet" href="../stile-carte.css">
+<style>
+.lg-card .art { aspect-ratio: 3/4; }
+.gruppo-rail { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 8px; }
+.gmini { flex: 0 0 auto; width: 66px; text-align: center; }
+.gmini .tok { width: 66px; height: 66px; border-radius: 50%; }
+.gmini .et { font-family: 'FellSC', serif; text-transform: lowercase; font-size: 12px; color: var(--perg-scura); display: block; margin-top: 3px; }
+</style></head><body>
+<div class="wrap">
+  <div class="barra">
+    <a class="btn" href="../index.html" style="min-height:36px;padding:6px 12px">← mockup</a>
+    <span class="titolo" id="tit"></span>
+    <span class="stato" id="ore"></span>
+  </div>
+  <div id="app"></div>
+</div>
+<script src="../dati.js"></script>
+<script>
+const { S, esc, urlCarta, tokEroe, pips } = MOCK;
+document.getElementById('tit').textContent = S.ep.titolo.toLowerCase() + ' · indagine';
+document.getElementById('ore').innerHTML = '<span class="sc">ore ' + S.ora + ':00 → 24:00</span>';
+const stLabel = { visitato: '✓ già visitato', aperto: 'aperto', attivo: 'siete qui', bloccato: '🔒 serve la parola' };
+const stTag = { visitato: 'rgba(31,95,107,.9)', attivo: 'rgba(168,131,58,.95)', aperto: 'rgba(23,20,26,.85)', bloccato: 'rgba(87,20,32,.9)' };
+
+const luoghi = `
+<div class="sez-tit"><h2>i luoghi della città</h2><span class="nota">scorri →</span></div>
+<div class="carosello">${S.luoghi.map(l => `
+  <div class="gcard lg-card ${l.stato === 'attivo' ? 'attivo' : ''} ${l.stato === 'bloccato' ? 'fatto' : ''}">
+    <div class="art"><img src="${urlCarta(l.file)}" alt=""><div class="velo"></div>
+      <span class="tag" style="background:${stTag[l.stato]}">${stLabel[l.stato]}</span>
+      <span class="nm">${esc(l.nome.toLowerCase())}</span></div>
+  </div>`).join('')}</div>`;
+
+const gruppo = `
+<div class="pannello mt"><h2>il gruppo · abilità d'indagine</h2>
+  <div class="gruppo-rail">${S.party.map(e => `<div class="gmini">${tokEroe(e)}<span class="et">${esc(e.breve)}</span></div>`).join('')}</div>
+  ${S.party.map(e => `<div class="riga" style="padding:6px 0;border-bottom:1px solid rgba(138,113,80,.35)">
+    <div class="tok" style="width:30px;height:30px;border-radius:50%"><img src="${MOCK.urlArt(e.art)}"></div>
+    <b>${esc(e.breve)}</b><span class="spazio"></span><span class="nota" style="font-size:13px">${esc(e.ab.toLowerCase())}</span> ${e.carMax ? pips(e.car, e.carMax, 'car') : ''}</div>`).join('')}
+</div>`;
+
+const domande = `
+<div class="pannello mt"><h2>il caso — le 4 domande</h2><p class="nota">${esc(S.ep.obiettivo)}</p>
+  ${['CHI ha fatto sparire il campanaro?', 'DOVE è tenuto Ruggero?', 'COME entrano ed escono non visti?', 'PERCHÉ la cera, e per chi?']
+    .map((d, i) => `<div style="border-bottom:1px solid rgba(138,113,80,.4);padding:7px 0"><b style="color:var(--rosso)">${i + 1}.</b> ${esc(d)}</div>`).join('')}
+</div>`;
+
+document.getElementById('app').innerHTML = luoghi + gruppo + domande;
+</script>
+</body></html>

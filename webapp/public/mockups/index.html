@@ -1,0 +1,71 @@
+<!doctype html><html lang="it"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mockup UI · Ombre su Roccamora</title>
+<link rel="stylesheet" href="comune.css">
+<style>
+.testata { text-align: center; padding: 26px 0 6px; } .testata h1 { font-size: 36px; margin: 0; }
+.testata .sub { color: var(--teal); font-style: italic; }
+.dir { margin-top: 18px; }
+.dir .head { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.dir h2 { color: var(--oro-chiaro); font-size: 26px; }
+.dir .desc { color: var(--ink); }
+.link-riga { display: flex; gap: 10px; margin-top: 12px; flex-wrap: wrap; }
+.link-riga .btn { flex: 1 1 160px; }
+.griglia3 { display: grid; grid-template-columns: 1fr; gap: 16px; }
+@media (min-width: 900px) { .griglia3 { grid-template-columns: 1fr 1fr 1fr; } }
+.note-fin { margin-top: 20px; }
+</style></head><body>
+<div class="wrap">
+  <div class="testata"><h1>mockup UI — ombre su roccamora</h1>
+    <div class="sub">3 direzioni di layout × 3 schermate · immagini reali (Comune + Episodio 1) · mobile + desktop</div></div>
+
+  <div class="pannello note-fin">
+    <p>La webapp attuale è funzionale ma <b>tutta testo</b>: gli asset (ritratti eroe, token nemico, miniature
+    tessere) esistono ma non si vedono in gioco. Qui tre <b>direzioni</b> più visive, con in Spedizione il
+    <b>token dell'eroe e del nemico attivo</b> in evidenza. Aprite ogni schermata su telefono (~390px) e su
+    schermo largo. Sono <i>mockup statici</i>: nessuna logica, solo il look da confrontare.</p>
+  </div>
+
+  <div class="griglia3 mt">
+    <div class="pannello dir">
+      <div class="head"><h2>1 · HUD duello</h2></div>
+      <p class="desc">In alto lo <b>scontro</b>: eroe attivo (ritratto grande, salute, cariche) contro nemico attivo
+      (token, statistiche, ferite), col Canto al centro. Il giro è un <b>rail di mini-ritratti</b> con l'attivo
+      illuminato. Massima chiarezza su «chi agisce ora».</p>
+      <div class="link-riga">
+        <a class="btn pieno" href="hud/spedizione.html">spedizione ★</a>
+        <a class="btn" href="hud/indagine.html">indagine</a>
+        <a class="btn" href="hud/home.html">home</a>
+      </div>
+    </div>
+
+    <div class="pannello dir">
+      <div class="head"><h2>2 · Plancia a 2 colonne</h2></div>
+      <p class="desc">Colonna <b>eroi</b> a sinistra (card-ritratto con salute e cariche), colonna <b>nemici</b> a
+      destra (token con ferite e statistiche), in cima la <b>plancia</b> con Canto e tessere-miniatura. Su mobile
+      si impila; su desktop è un tavolo. Vista d'insieme completa.</p>
+      <div class="link-riga">
+        <a class="btn pieno" href="plancia/spedizione.html">spedizione ★</a>
+        <a class="btn" href="plancia/indagine.html">indagine</a>
+        <a class="btn" href="plancia/home.html">home</a>
+      </div>
+    </div>
+
+    <div class="pannello dir">
+      <div class="head"><h2>3 · Carte a scorrimento</h2></div>
+      <p class="desc">Eroi e nemici come <b>carte grandi</b> in un carosello: l'attiva al centro, illuminata, le
+      altre leggermente scalate. Tessere in <b>filmstrip</b>. Molto visivo, da sfogliare col pollice; su desktop
+      mostra più carte affiancate.</p>
+      <div class="link-riga">
+        <a class="btn pieno" href="carte/spedizione.html">spedizione ★</a>
+        <a class="btn" href="carte/indagine.html">indagine</a>
+        <a class="btn" href="carte/home.html">home</a>
+      </div>
+    </div>
+  </div>
+
+  <p class="nota note-fin center">Servito da <code>node webapp/server.js</code> — apri
+  <code>http://localhost:8017/mockups/</code>. I mockup sono isolati sotto <code>/mockups/</code>: nessun impatto
+  sulla webapp reale. Scelta la direzione preferita, la porto nella webapp vera.</p>
+</div>
+</body></html>

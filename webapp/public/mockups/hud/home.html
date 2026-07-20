@@ -1,0 +1,46 @@
+<!doctype html><html lang="it"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>HUD · Home</title>
+<link rel="stylesheet" href="../comune.css"><link rel="stylesheet" href="../stile-hud.css">
+<style>
+.testata { text-align: center; padding: 24px 0 8px; }
+.testata h1 { font-size: 38px; margin: 0; }
+.testata .sub { color: var(--teal); font-style: italic; }
+.ep-griglia { display: grid; grid-template-columns: 1fr; gap: 16px; margin-top: 18px; }
+@media (min-width: 720px) { .ep-griglia { grid-template-columns: 1fr 1fr; } }
+.ep { position: relative; border: 1px solid var(--oro); border-radius: 12px; overflow: hidden;
+  background: var(--notte2); min-height: 220px; display: flex; align-items: flex-end; }
+.ep img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .85; }
+.ep .velo { position: absolute; inset: 0; background: linear-gradient(180deg, transparent 30%, rgba(14,10,14,.92)); }
+.ep .info { position: relative; padding: 16px; width: 100%; }
+.ep h2 { color: var(--oro-chiaro); font-size: 26px; margin: 0; }
+.ep .sotto { color: var(--perg-scura); font-style: italic; font-size: 14px; }
+.ep .badge { position: absolute; top: 10px; right: 10px; background: rgba(23,20,26,.85); border: 1px solid var(--oro);
+  color: var(--oro-chiaro); font-family: 'FellSC', serif; font-size: 12px; padding: 3px 8px; border-radius: 20px; }
+.ep .azioni { display: flex; gap: 8px; margin-top: 10px; }
+</style></head><body>
+<div class="wrap">
+  <div class="testata"><h1>ombre su roccamora</h1><div class="sub">la società del lume — arbitro digitale</div></div>
+  <div class="nota center">mockup · direzione «HUD duello» · <a href="../index.html">torna al confronto</a></div>
+  <div class="ep-griglia" id="ep"></div>
+</div>
+<script src="../dati.js"></script>
+<script>
+const { S, esc, urlArt } = MOCK;
+document.getElementById('ep').innerHTML = S.episodi.map(e => `
+  <div class="ep">
+    <img src="${urlArt(e.cover)}" alt="">
+    <div class="velo"></div>
+    <span class="badge">${esc(e.stato)}</span>
+    <div class="info">
+      <h2>${esc(e.titolo.toLowerCase())}</h2>
+      <div class="sotto">${esc(e.sotto)}</div>
+      <div class="azioni">
+        ${e.stato === 'in corso'
+          ? '<a class="btn pieno" href="spedizione.html">continua →</a><a class="btn" href="indagine.html">indagine</a>'
+          : '<a class="btn" href="indagine.html">comincia</a>'}
+      </div>
+    </div>
+  </div>`).join('');
+</script>
+</body></html>

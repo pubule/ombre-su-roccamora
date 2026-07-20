@@ -1,0 +1,52 @@
+<!doctype html><html lang="it"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Plancia · Indagine</title>
+<link rel="stylesheet" href="../comune.css"><link rel="stylesheet" href="../stile-plancia.css">
+<style>
+.lcard { display: grid; grid-template-columns: 72px 1fr; gap: 10px; align-items: center; border: 1px solid var(--oro);
+  border-radius: 10px; padding: 8px; margin-bottom: 10px; background: linear-gradient(180deg, rgba(240,230,204,.06), rgba(0,0,0,.15)); position: relative; }
+.lcard .rit { width: 72px; height: 90px; border-radius: 8px; overflow: hidden; border: 1px solid var(--oro); }
+.lcard .rit img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
+.lcard .nm { font-family: 'FellSC', serif; text-transform: lowercase; color: var(--oro-chiaro); font-size: 17px; }
+.lcard .st { font-size: 12px; font-style: italic; }
+.lcard.attivo { box-shadow: 0 0 14px rgba(216,178,94,.4), 0 0 0 2px var(--oro-chiaro) inset; }
+.lcard.bloccato .rit img { filter: grayscale(1) brightness(.45); }
+.lcard.visitato::after { content: '✓ visitato'; position: absolute; top: 6px; right: 8px; color: var(--teal); font-size: 11px; font-style: italic; }
+</style></head><body>
+<div class="wrap">
+  <div class="barra">
+    <a class="btn" href="../index.html" style="min-height:36px;padding:6px 12px">← mockup</a>
+    <span class="titolo" id="tit"></span>
+    <span class="stato" id="ore"></span>
+  </div>
+  <div id="app"></div>
+</div>
+<script src="../dati.js"></script>
+<script>
+const { S, esc, urlCarta, urlArt, pips } = MOCK;
+document.getElementById('tit').textContent = S.ep.titolo.toLowerCase() + ' · indagine';
+document.getElementById('ore').innerHTML = '<span class="sc">ore ' + S.ora + ':00 → 24:00</span>';
+const stLabel = { visitato: 'già visitato', aperto: 'aperto — potete andarci', attivo: 'siete qui ora', bloccato: 'serve la parola chiave' };
+
+const luoghi = `<div class="col"><h2>i luoghi <span class="conta">— ${S.luoghi.length}</span></h2>
+  ${S.luoghi.map(l => `<div class="lcard ${l.stato}">
+    <div class="rit"><img src="${urlCarta(l.file)}" alt=""></div>
+    <div><div class="nm">${esc(l.nome.toLowerCase())}</div>
+      <div class="st nota">${stLabel[l.stato] || l.stato}</div></div>
+  </div>`).join('')}
+</div>`;
+
+const gruppo = `<div class="col"><h2>il gruppo <span class="conta">— abilità d'indagine</span></h2>
+  ${S.party.map(e => `<div class="pcard">
+    <div class="rit"><img src="${urlArt(e.art)}" alt=""></div>
+    <div><div class="nm">${esc(e.breve)}</div><div class="ru">${esc(e.ruolo)}</div>
+      <div class="lin"><span class="lab">acume</span> <b>${e.ac}</b> · <span class="lab">${esc(e.ab.toLowerCase())}</span> ${e.carMax ? pips(e.car, e.carMax, 'car') : ''}</div></div>
+  </div>`).join('')}
+  <div class="pannello mt"><h2>il caso</h2><p class="nota">${esc(S.ep.obiettivo)}</p>
+    ${['CHI', 'DOVE', 'COME', 'PERCHÉ'].map((d, i) => `<div class="dom" style="border-bottom:1px solid rgba(138,113,80,.4);padding:6px 0"><b style="color:var(--rosso)">${i + 1}. ${d}</b> <span class="nota">— da rispondere</span></div>`).join('')}
+  </div>
+</div>`;
+
+document.getElementById('app').innerHTML = `<div class="due-col">${luoghi}${gruppo}</div>`;
+</script>
+</body></html>

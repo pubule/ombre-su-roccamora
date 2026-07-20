@@ -1,0 +1,74 @@
+<!doctype html><html lang="it"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>HUD · Indagine</title>
+<link rel="stylesheet" href="../comune.css"><link rel="stylesheet" href="../stile-hud.css">
+<style>
+.banner { position: relative; border: 1px solid var(--oro); border-radius: 12px; overflow: hidden; min-height: 190px;
+  display: flex; align-items: flex-end; background: var(--notte2); }
+.banner img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; opacity: .9; }
+.banner .velo { position: absolute; inset: 0; background: linear-gradient(180deg, transparent 20%, rgba(14,10,14,.94)); }
+.banner .info { position: relative; padding: 14px; display: flex; align-items: flex-end; gap: 12px; width: 100%; }
+.banner .info .tok { width: 56px; height: 56px; border-radius: 50%; flex: 0 0 auto; }
+.banner h2 { color: var(--oro-chiaro); margin: 0; font-size: 24px; }
+.luoghi-rail { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 8px; }
+.lg { flex: 0 0 auto; width: 120px; border: 1px solid var(--oro); border-radius: 10px; overflow: hidden; background: var(--notte2); position: relative; }
+.lg img { width: 100%; height: 92px; object-fit: cover; object-position: top; display: block; }
+.lg .et { font-family: 'FellSC', serif; text-transform: lowercase; font-size: 12px; color: var(--oro-chiaro); padding: 4px 6px; display: block; }
+.lg.bloccato img { filter: grayscale(1) brightness(.45); } .lg.bloccato .et::before { content: '🔒 '; }
+.lg.visitato::after { content: '✓'; position: absolute; top: 4px; right: 6px; color: var(--teal); font-weight: 700; }
+.lg.attivo { box-shadow: 0 0 14px rgba(216,178,94,.5), 0 0 0 2px var(--oro-chiaro) inset; }
+.dom { border-bottom: 1px solid rgba(138,113,80,.4); padding: 8px 0; }
+.dom b { color: var(--rosso); }
+</style></head><body>
+<div class="wrap">
+  <div class="barra">
+    <a class="btn" href="../index.html" style="min-height:36px;padding:6px 12px">← mockup</a>
+    <span class="titolo" id="tit"></span>
+    <span class="stato" id="ore"></span>
+  </div>
+  <div id="app"></div>
+</div>
+<script src="../dati.js"></script>
+<script>
+const { S, esc, urlCarta, tokEroe, pips } = MOCK;
+document.getElementById('tit').textContent = S.ep.titolo.toLowerCase() + ' · indagine';
+document.getElementById('ore').innerHTML = '<span class="sc">ore ' + S.ora + ':00 → 24:00</span>';
+const attivoL = S.luoghi.find(l => l.stato === 'attivo');
+const elena = S.party[0];
+
+const banner = `
+<div class="banner">
+  <img src="${urlCarta(attivoL.file)}" alt="">
+  <div class="velo"></div>
+  <div class="info">
+    ${tokEroe(elena)}
+    <div><div class="nota">stai visitando · elena legge la scena (acume ${elena.ac})</div>
+    <h2>${esc(attivoL.nome.toLowerCase())}</h2></div>
+  </div>
+</div>`;
+
+const luoghi = `
+<div class="pannello mt"><h2>i luoghi della città</h2>
+  <div class="luoghi-rail">${S.luoghi.map(l => `
+    <div class="lg ${l.stato}"><img src="${urlCarta(l.file)}" alt=""><span class="et">${esc(l.nome.toLowerCase())}</span></div>`).join('')}</div>
+  <p class="nota">Verde = visitato · illuminato = dove siete ora · 🔒 = serve la parola chiave.</p>
+</div>`;
+
+const gruppo = `
+<div class="pannello mt"><h2>il gruppo · abilità d'indagine</h2>
+  <div class="rail">${S.party.map(e => `<div class="mini">${tokEroe(e)}<span class="et">${esc(e.breve)}</span></div>`).join('')}</div>
+  ${S.party.map(e => `<div class="riga" style="padding:6px 0;border-bottom:1px solid rgba(138,113,80,.35)">
+    <div class="tok" style="width:32px;height:32px;border-radius:50%"><img src="${MOCK.urlArt(e.art)}"></div>
+    <b>${esc(e.breve)}</b><span class="spazio"></span><span class="nota" style="font-size:13px">${esc(e.ab.toLowerCase())}</span> ${e.carMax ? pips(e.car, e.carMax, 'car') : ''}</div>`).join('')}
+</div>`;
+
+const domande = `
+<div class="pannello mt"><h2>il caso — le 4 domande</h2>
+  <p class="nota">${esc(S.ep.obiettivo)}</p>
+  ${['CHI ha fatto sparire il campanaro?', 'DOVE è tenuto Ruggero?', 'COME entrano ed escono non visti?', 'PERCHÉ la cera, e per chi?']
+    .map((d, i) => `<div class="dom"><b>${i + 1}.</b> ${esc(d)} <span class="nota">— rispondete per iscritto prima della busta</span></div>`).join('')}
+</div>`;
+
+document.getElementById('app').innerHTML = banner + `<div class="sped-griglia mt"><div>${luoghi}${domande}</div><div>${gruppo}</div></div>`;
+</script>
+</body></html>

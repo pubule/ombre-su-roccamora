@@ -1,0 +1,65 @@
+<!doctype html><html lang="it"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Plancia · Spedizione</title>
+<link rel="stylesheet" href="../comune.css"><link rel="stylesheet" href="../stile-plancia.css">
+</head><body>
+<div class="wrap">
+  <div class="barra">
+    <a class="btn" href="../index.html" style="min-height:36px;padding:6px 12px">← mockup</a>
+    <span class="titolo" id="tit"></span>
+    <span class="stato" id="stt"></span>
+  </div>
+  <div id="app"></div>
+</div>
+<script src="../dati.js"></script>
+<script>
+const { S, pips, clock, esc, urlArt, urlTessera, statMini } = MOCK;
+document.getElementById('tit').textContent = S.ep.titolo.toLowerCase();
+document.getElementById('stt').innerHTML = 'round ' + S.round + ' · ' + clock();
+
+const board = `
+<div class="board">
+  <div class="board-top">
+    <h2 style="margin:0">la plancia · round ${S.round}</h2>
+    <div class="riga">${clock()}</div>
+  </div>
+  <div class="tess-mini-row">${S.tessere.map(t => `
+    <div class="tmini ${t.rivelata ? '' : 'coperta'}"><img src="${urlTessera(t)}" alt="">
+      <span class="et">${t.id} · ${t.rivelata ? esc(t.nome.toLowerCase()) : 'coperta'}</span></div>`).join('')}</div>
+</div>`;
+
+const cardEroe = (e) => `
+<div class="pcard ${e.attivo ? 'attivo' : ''} ${e.fatto ? 'fatto' : ''} ${e.sal === 0 ? 'giu' : ''}">
+  <div class="rit"><img src="${urlArt(e.art)}" alt=""></div>
+  <div>
+    <div class="nm">${esc(e.breve)}${e.attivo ? ' — tocca a lui' : e.fatto ? ' ✓' : ''}</div>
+    <div class="ru">${esc(e.ruolo)}</div>
+    <div class="lin"><span class="lab">salute</span> ${pips(e.sal, e.salMax, '')}</div>
+    <div class="lin"><span class="lab">${esc(e.ab.toLowerCase())}</span> ${e.carMax ? pips(e.car, e.carMax, 'car') : '<span class="statmini">1 per turno</span>'}</div>
+  </div>
+</div>`;
+
+const cardNemico = (n) => `
+<div class="pcard ${n.boss ? 'boss' : ''} ${n.attivo ? 'attivo' : ''}">
+  <div class="rit"><img src="${urlArt(n.art)}" alt=""></div>
+  <div>
+    <div class="nm">${esc(n.breve)}${n.boss ? ' · boss' : ''}${n.attivo ? ' — si attiva' : ''}</div>
+    <div class="stat-g"><span>att <b>+${n.att}</b></span><span>dif <b>${n.dif}</b></span><span>dan <b>${n.dan}</b></span><span>mov <b>${n.mov}</b></span></div>
+    <div class="lin"><span class="lab">ferite</span> ${pips(n.fer, n.max, 'fer')}</div>
+  </div>
+</div>`;
+
+const eroi = `<div class="col">
+  <h2>gli eroi <span class="conta">— tocca a ${esc(S.party.find(e => e.attivo).breve)}</span></h2>
+  ${S.party.map(cardEroe).join('')}
+  <button class="btn pieno" style="width:100%">«${esc(S.party.find(e => e.attivo).breve)}» ha finito →</button>
+</div>`;
+
+const nemici = `<div class="col">
+  <h2>i nemici <span class="conta">— ${S.nemici.length} in campo</span></h2>
+  ${S.nemici.map(cardNemico).join('')}
+</div>`;
+
+document.getElementById('app').innerHTML = board + `<div class="due-col">${eroi}${nemici}</div>`;
+</script>
+</body></html>

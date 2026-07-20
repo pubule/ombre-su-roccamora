@@ -1,0 +1,92 @@
+<!doctype html><html lang="it"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>HUD · Spedizione</title>
+<link rel="stylesheet" href="../comune.css"><link rel="stylesheet" href="../stile-hud.css">
+</head><body>
+<div class="wrap">
+  <div class="barra">
+    <a class="btn" href="../index.html" style="min-height:36px;padding:6px 12px">← mockup</a>
+    <span class="titolo" id="tit"></span>
+    <span class="stato" id="stt"></span>
+  </div>
+  <div id="app"></div>
+</div>
+<script src="../dati.js"></script>
+<script>
+const { S, pips, clock, tokEroe, tokNemico, statMini, esc, urlTessera } = MOCK;
+document.getElementById('tit').textContent = S.ep.titolo.toLowerCase();
+document.getElementById('stt').innerHTML = 'round ' + S.round + ' · ' + clock();
+
+const he = S.party.find(e => e.attivo);
+const ne = S.nemici.find(n => n.attivo);
+
+const duello = `
+<div class="hud-duello">
+  <div class="hud-lato">
+    <div class="hud-etichetta">tocca a</div>
+    <div class="hud-tok">${tokEroe(he)}</div>
+    <div class="hud-nome">${esc(he.breve)}</div>
+    <div class="hud-ruolo">${esc(he.ruolo)}</div>
+    <div class="hud-riga"><span class="hud-etichetta">salute</span> ${pips(he.sal, he.salMax, '')}</div>
+    <div class="hud-riga"><span class="hud-etichetta">${esc(he.ab.toLowerCase())}</span> ${he.carMax ? pips(he.car, he.carMax, 'car') : '<span class="statmini">1/turno</span>'}</div>
+  </div>
+  <div class="hud-centro">
+    <div class="vs">✦</div>
+    <div class="sc">canto</div>
+    <div>${clock()}</div>
+  </div>
+  <div class="hud-lato nemico">
+    <div class="hud-etichetta">${ne.boss ? 'boss attivo' : 'si attiva'}</div>
+    <div class="hud-tok">${tokNemico(ne)}</div>
+    <div class="hud-nome">${esc(ne.breve)}</div>
+    <div class="hud-riga">${statMini(ne)}</div>
+    <div class="hud-riga"><span class="hud-etichetta">ferite</span> ${pips(ne.fer, ne.max, 'fer')}</div>
+  </div>
+</div>`;
+
+const giroEroi = `
+<div class="pannello full mt">
+  <div class="rail-titolo"><h2>il giro degli eroi</h2>
+    <button class="btn pieno" style="min-height:38px">«${esc(he.breve)}» ha finito →</button></div>
+  <div class="rail">${S.party.map(e => `
+    <div class="mini ${e.attivo ? 'attivo' : ''} ${e.fatto ? 'fatto' : ''}">
+      ${tokEroe(e)}<span class="et">${e.fatto ? '✓ ' : ''}${esc(e.breve)}</span></div>`).join('')}</div>
+  <p class="nota">Il ritratto attivo è illuminato; toccate un ritratto per scegliere chi agisce.</p>
+</div>`;
+
+const tessere = `
+<div class="pannello mt">
+  <h2>le tessere</h2>
+  <div class="tessere-rail">${S.tessere.map(t => t.rivelata
+    ? `<div class="tess"><img src="${urlTessera(t)}" alt=""><span class="et">${t.id} · ${esc(t.nome.toLowerCase())}</span></div>`
+    : `<div class="tess coperta"><img src="${urlTessera(t)}" alt=""><span class="et">${t.id} · coperta</span></div>`).join('')}</div>
+</div>`;
+
+const nemiciRail = `
+<div class="pannello mt">
+  <div class="rail-titolo"><h2>i nemici in campo</h2><span class="nota">3 in campo</span></div>
+  <div class="rail">${S.nemici.map(n => `
+    <div class="mini ${n.attivo ? 'attivo' : ''}">
+      ${tokNemico(n)}<span class="et">${esc(n.breve)}</span></div>`).join('')}</div>
+  ${S.nemici.map(n => `<div class="riga" style="padding:6px 0;border-bottom:1px solid rgba(138,113,80,.35)">
+     <div class="tok nemico ${n.boss ? 'boss' : ''}" style="width:34px;height:34px;border-radius:50%"><img src="${MOCK.urlArt(n.art)}"></div>
+     <b style="color:${n.boss ? 'var(--rosso)' : 'var(--ink)'}">${esc(n.breve)}</b><span class="spazio"></span>${statMini(n)} · ${pips(n.fer, n.max, 'fer')}</div>`).join('')}
+</div>`;
+
+const salute = `
+<div class="pannello mt">
+  <h2>salute e cariche</h2>
+  ${S.party.map(e => `<div class="eroe-row ${e.attivo ? 'attivo' : ''}">
+    ${tokEroe(e)}
+    <div><div class="nm">${esc(e.breve)}</div><div>${pips(e.sal, e.salMax, '')}</div></div>
+    <div style="text-align:right"><div class="nota" style="font-size:12px">${esc(e.ab.toLowerCase())}</div>${e.carMax ? pips(e.car, e.carMax, 'car') : '<span class="statmini">1/turno</span>'}</div>
+  </div>`).join('')}
+</div>`;
+
+document.getElementById('app').innerHTML = duello + `
+  <div class="sped-griglia mt">
+    <div>${giroEroi}${salute}</div>
+    <div>${tessere}${nemiciRail}</div>
+  </div>`;
+</script>
+</body></html>

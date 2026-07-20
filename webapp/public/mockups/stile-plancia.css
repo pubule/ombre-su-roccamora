@@ -1,0 +1,34 @@
+/* Direzione 2 — Plancia a 2 colonne: eroi a sinistra, nemici a destra. */
+.board { background: linear-gradient(180deg, rgba(29,16,20,.85), rgba(14,21,25,.85));
+  border: 1px solid var(--oro); border-radius: 12px; padding: 12px; }
+.board-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
+.tess-mini-row { display: flex; gap: 8px; overflow-x: auto; }
+.tmini { flex: 0 0 auto; width: 88px; border: 1px solid var(--oro); border-radius: 8px; overflow: hidden; background: var(--notte2); }
+.tmini img { width: 100%; height: 56px; object-fit: cover; display: block; }
+.tmini.coperta img { filter: grayscale(1) brightness(.4); }
+.tmini .et { font-family: 'FellSC', serif; text-transform: lowercase; font-size: 10px; color: var(--oro-chiaro); padding: 2px 4px; display: block; }
+
+.due-col { display: grid; grid-template-columns: 1fr; gap: 14px; margin-top: 14px; }
+@media (min-width: 820px) { .due-col { grid-template-columns: 1fr 1fr; align-items: start; } }
+.col h2 { display: flex; align-items: center; gap: 8px; }
+.col .conta { font-family: 'FellSC', serif; color: var(--seppia); font-size: 14px; }
+
+/* carte eroe/nemico nella plancia */
+.pcard { display: grid; grid-template-columns: 64px 1fr; gap: 10px; align-items: center;
+  border: 1px solid var(--oro); border-radius: 10px; padding: 8px; margin-bottom: 10px;
+  background: linear-gradient(180deg, rgba(240,230,204,.06), rgba(0,0,0,.15)); }
+.pcard .rit { width: 64px; height: 80px; border-radius: 8px; overflow: hidden; border: 1px solid var(--oro); background: #0f0c10; }
+.pcard .rit img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; }
+.pcard .nm { font-family: 'FellSC', serif; text-transform: lowercase; color: var(--oro-chiaro); font-size: 18px; }
+.pcard .ru { color: var(--seppia); font-style: italic; font-size: 12px; }
+.pcard .lin { display: flex; align-items: center; gap: 6px; margin-top: 5px; font-size: 12px; color: var(--perg-scura); flex-wrap: wrap; }
+.pcard .lab { font-size: 10px; text-transform: uppercase; letter-spacing: .05em; color: var(--seppia); }
+.pcard.attivo { border-color: var(--oro-chiaro); box-shadow: 0 0 14px rgba(216,178,94,.4), 0 0 0 2px var(--oro-chiaro) inset; }
+.pcard.attivo .nm { color: var(--oro-chiaro); }
+.pcard.boss { border-color: var(--rosso); }
+.pcard.boss .nm { color: #e07a86; }
+.pcard.fatto { opacity: .5; }
+.pcard.fatto .nm { text-decoration: line-through; }
+.pcard.giu .rit img { filter: grayscale(.7) brightness(.6); }
+.stat-g { display: flex; gap: 10px; font-size: 12px; color: var(--perg-scura); }
+.stat-g b { color: var(--oro-chiaro); }
