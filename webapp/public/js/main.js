@@ -20,7 +20,7 @@ document.addEventListener('visibilitychange', () => {
 // Copertine home: dove esiste una copertina/arte di LUOGO dedicata all'episodio
 // (gia' su disco, Fase D non necessaria) la usiamo; altrove un'atmosfera coerente.
 const COPERTINE = {
-  preludio: '/assets/artworks/Taverna della Chiatta.png',   // preludio: la taverna del Ponte dei Lumi
+  preludio: '/assets/artworks/Palazzo del Lume.png',        // preludio «La Prova del Lume»: la sede della Società del Lume
   ep1: '/assets/artworks/copertina spedizione.png',
   ep2: '/assets/artworks/copertina episodio 2.png',         // copertina dedicata Ep.2
   // finché manca l'arte dedicata dell'Ep. 3 (Fase D): un'atmosfera d'acqua
