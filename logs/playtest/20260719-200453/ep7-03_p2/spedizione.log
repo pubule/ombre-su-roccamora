@@ -1,0 +1,206 @@
+Run: ep7-03_p2_seed0  |  seed=674200  |  formula Minaccia=finale_v3  |  generato: 2026-07-19T20:04:54
+==============================================================================
+SPEDIZIONE - Il Palazzone di Sant’Orsola (al cambio delle nove)
+==============================================================================
+Party: DOTT. ATTILIO MARN, NINO “GRIMALDELLO” CAUTO, OTTONE “MEZZENA” MASSARI
+Bonus da Indagine: PREPARATI (+1 Salute massima a testa); Bolla: sì; Lanterna+Tappi: sì; D1: esatta; D3: esatta
+NOTA: gruppo trattato come blocco unico tessera per tessera (vedi intestazione script).
+
+Gettone Intuizione in mano (Dossier completo): un ri-tiro, una volta in Spedizione.
+La via scelta (media NERVI 1.7): le INTERCAPEDINI (lunga, sorda).
+--- Round 1: il gruppo raggiunge T2 (Il Piano Terra) ---
+    (azioni nominali questo round: 6 — 3 eroi vivi)
+    Il gruppo entra in T2 da B1.
+    [PROVA ACUME] DOTT. ATTILIO MARN: 2d6(3,3)=6 +ACUME(2) = 8 vs Media(9) -> FALLITA
+    DOTT. ATTILIO MARN cerca sulla tessera: niente da trovare qui, o prova fallita.
+    NINO “GRIMALDELLO” CAUTO: nessun bersaglio, avanza / assiste il gruppo.
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] LA MALTA FRESCA (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 4) in B1.
+  LO SGHERRO si muove verso OTTONE “MEZZENA” MASSARI: B1 -> C1.
+  LO SGHERRO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] LO SGHERRO -> OTTONE “MEZZENA” MASSARI: 2d6(1,3)=4 +Attacco(2) = 6 vs Difesa(8) -> MANCATO
+--- Round 2: il gruppo raggiunge T3I (L’Intercapedine di Levante) ---
+    (azioni nominali questo round: 6 — 3 eroi vivi)
+    Il gruppo entra in T3I da A2.
+    Tessera SORDA: ogni aiuto tra eroi richiede adiacenza (già regola base del motore); la prima carta spawn qui non piazzerà nessuno.
+    DOTT. ATTILIO MARN si muove verso LO SGHERRO: A2 -> B1.
+    [ATTACCO] DOTT. ATTILIO MARN -> LO SGHERRO: 2d6(5,5)=10 +VIGORE(2)+arma(1) = 13 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    NINO “GRIMALDELLO” CAUTO si muove verso LO SGHERRO: A2 -> C2.
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> LO SGHERRO: 2d6(4,4)=8 +VIGORE(2)+arma(1) = 11 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+    [PROVA ACUME] OTTONE “MEZZENA” MASSARI: 2d6(3,2)=5 +ACUME(1) = 6 vs Media(9) -> FALLITA
+    OTTONE “MEZZENA” MASSARI cerca sulla tessera: niente da trovare qui, o prova fallita.
+  [MINACCIA] IL TURNO CAMBIA (quiete) — Nessun effetto (tensione).
+    (carta senza effetto modellato in questa simulazione)
+--- Round 3: il gruppo raggiunge T4I (Il Vano delle Canne Morte) ---
+    (azioni nominali questo round: 6 — 3 eroi vivi)
+    Il gruppo entra in T4I da B1.
+    Tessera SORDA: ogni aiuto tra eroi richiede adiacenza (già regola base del motore); la prima carta spawn qui non piazzerà nessuno.
+    [PROVA ACUME] DOTT. ATTILIO MARN: 2d6(5,2)=7 +ACUME(2) = 9 vs Media(9) -> SUCCESSO
+    DOTT. ATTILIO MARN cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    NINO “GRIMALDELLO” CAUTO: nessun bersaglio, avanza / assiste il gruppo.
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] IL PIOMBO DAL BUIO (insidia) — L’eroe più avanzato subisce 1 danno (nessuna prova).
+    DOTT. ATTILIO MARN subisce 1 danno da IL PIOMBO DAL BUIO (Salute: 7/8).
+--- Round 4: il gruppo raggiunge T5I (La Scala di Servizio) ---
+    (azioni nominali questo round: 6 — 3 eroi vivi)
+    Il gruppo entra in T5I da B1.
+    Tessera SORDA: ogni aiuto tra eroi richiede adiacenza (già regola base del motore); la prima carta spawn qui non piazzerà nessuno.
+    QUANDO RIVELATE: un Sicario di ronda — la lanterna schermata si gira.
+    [ABILITÀ] DOTT. ATTILIO MARN usa Pronto Soccorso su DOTT. ATTILIO MARN -> Salute 8.
+    NINO “GRIMALDELLO” CAUTO si muove verso IL SICARIO: B1 -> B3.
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> IL SICARIO: 2d6(2,4)=6 +VIGORE(2)+arma(1) = 9 vs Difesa(7) -> COLPITO
+    IL SICARIO: 0/1 ferite residue.
+    IL SICARIO è ABBATTUTO.
+    [PROVA ACUME] OTTONE “MEZZENA” MASSARI: 2d6(5,1)=6 +ACUME(1) = 7 vs Media(9) -> FALLITA
+    OTTONE “MEZZENA” MASSARI cerca sulla tessera: niente da trovare qui, o prova fallita.
+  [MINACCIA] LE PALE NEL BUIO (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    [TESSERA SORDA] Non vi hanno sentiti: il primo piazzamento qui non ha luogo.
+  [OROLOGIO] Fine del 4° round: +1 segnalino Canto automatico.
+    Segnalino Canto (Allarme): 1.
+--- Round 5: il gruppo raggiunge T6 (L’Intercapedine del Terzo Piano) ---
+    (azioni nominali questo round: 6 — 3 eroi vivi)
+    Il gruppo entra in T6 da D3.
+    Rivelata l’Intercapedine del Terzo Piano: Fava legato tra i sacchi — e la Squadra del Silenzio posa le carte da gioco.
+    [SMASCHERATO — D2] «VOLTAN!» — il Capocantiere esita (salta la sua prima attivazione) e 1 Sgherro posa gli attrezzi e se ne va.
+    Fava si libera con Interagire (nessuna prova): si muove col gruppo (Mov 3).
+    DOTT. ATTILIO MARN si muove verso LO SGHERRO: D3 -> B4.
+    DOTT. ATTILIO MARN si avvicina a LO SGHERRO, non ancora a contatto.
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> LO SGHERRO: 2d6(5,4)=9 +VIGORE(2)+arma(1) = 12 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> LO SGHERRO: 2d6(3,5)=8 +VIGORE(3)+arma(1) = 12 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+  [MINACCIA] IL GUARDIANO DI NOTTE (malavita) — Piazzate 1 Sicario sull’uscita più vicina agli eroi.
+    Piazzati 1x IL SICARIO (pool residua: 1) in D3.
+  IL SICARIO si muove verso OTTONE “MEZZENA” MASSARI: D3 -> D4.
+  IL SICARIO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] IL SICARIO -> OTTONE “MEZZENA” MASSARI: 2d6(1,1)=2 +Attacco(3) = 5 vs Difesa(8) -> MANCATO
+  IL CAPOCANTIERE salta l’attivazione (stonato).
+--- Ritorno a T1 per la via dell’andata (le intercapedini): la squadra insegue ---
+--- Round 6: rientro — T5I (La Scala di Servizio) ---
+    (azioni nominali questo round: 6 — 3 eroi vivi)
+    DOTT. ATTILIO MARN si muove verso IL SICARIO: B4 -> C4.
+    [ATTACCO] DOTT. ATTILIO MARN -> IL SICARIO: 2d6(2,4)=6 +VIGORE(2)+arma(1) = 9 vs Difesa(7) -> COLPITO
+    IL SICARIO: 0/1 ferite residue.
+    IL SICARIO è ABBATTUTO.
+    NINO “GRIMALDELLO” CAUTO si muove verso IL CAPOCANTIERE: D3 -> D2.
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> IL CAPOCANTIERE: 2d6(6,4)=10 +VIGORE(2)+arma(1) = 13 vs Difesa(8) -> COLPITO
+    IL CAPOCANTIERE: 3/4 ferite residue.
+    [PROVA ACUME] OTTONE “MEZZENA” MASSARI: 2d6(2,6)=8 +ACUME(1) = 9 vs Media(9) -> SUCCESSO
+    OTTONE “MEZZENA” MASSARI cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+  [MINACCIA] I GESTI DEL CAPOMASTRO (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 4) in D3.
+  LO SGHERRO si muove verso OTTONE “MEZZENA” MASSARI: D3 -> D4.
+  LO SGHERRO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] LO SGHERRO -> OTTONE “MEZZENA” MASSARI: 2d6(2,2)=4 +Attacco(2) = 6 vs Difesa(8) -> MANCATO
+  IL CAPOCANTIERE si muove verso DOTT. ATTILIO MARN: C2 -> B4.
+  IL CAPOCANTIERE attacca DOTT. ATTILIO MARN:
+    [ATTACCO NEMICO] IL CAPOCANTIERE -> DOTT. ATTILIO MARN: 2d6(6,2)=8 +Attacco(2) = 10 vs Difesa(8) -> COLPITO
+    DOTT. ATTILIO MARN subisce 2 danno da IL CAPOCANTIERE (Salute: 6/8).
+    La squadra vi SBARRA la strada: questo round non si avanza.
+--- Round 7: rientro — T5I (La Scala di Servizio) ---
+    (azioni nominali questo round: 6 — 3 eroi vivi)
+    [ABILITÀ] DOTT. ATTILIO MARN usa Pronto Soccorso su DOTT. ATTILIO MARN -> Salute 8.
+    NINO “GRIMALDELLO” CAUTO si muove verso IL CAPOCANTIERE: D2 -> B3.
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> IL CAPOCANTIERE: 2d6(6,2)=8 +VIGORE(2)+arma(1) = 11 vs Difesa(8) -> COLPITO
+    IL CAPOCANTIERE: 2/4 ferite residue.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> LO SGHERRO: 2d6(4,4)=8 +VIGORE(3)+arma(1) = 12 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+  [MINACCIA] UN’IMPALCATURA AMICA (favore) — Rivelate una tessera coperta adiacente.
+    (carta senza effetto modellato in questa simulazione)
+  LO SGHERRO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] LO SGHERRO -> OTTONE “MEZZENA” MASSARI: 2d6(2,6)=8 +Attacco(2) = 10 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 1 danno da LO SGHERRO (Salute: 8/9).
+  IL CAPOCANTIERE si muove verso OTTONE “MEZZENA” MASSARI: B4 -> A2.
+  IL CAPOCANTIERE si avvicina, non ancora a contatto.
+--- Round 8: rientro — T4I (Il Vano delle Canne Morte) ---
+    (azioni nominali questo round: 6 — 3 eroi vivi)
+    [ABILITÀ] DOTT. ATTILIO MARN usa Pronto Soccorso su OTTONE “MEZZENA” MASSARI -> Salute 9.
+    NINO “GRIMALDELLO” CAUTO si muove verso IL CAPOCANTIERE: B3 -> B2.
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> IL CAPOCANTIERE: 2d6(6,3)=9 +VIGORE(2)+arma(1) = 12 vs Difesa(8) -> COLPITO
+    IL CAPOCANTIERE: 1/4 ferite residue.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> LO SGHERRO: 2d6(5,2)=7 +VIGORE(3)+arma(1) = 11 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+  [MINACCIA] LA CALCE NEGLI OCCHI (insidia) — L’eroe attivo prova NERVI (Media): se fallisce, 1 danno e perde 1 azione.
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6(4,1)=5 +NERVI(1) = 6 vs Media(9) -> FALLITA
+    [SECONDO FIATO] NINO “GRIMALDELLO” CAUTO ritenta la prova (unico ritento dell’episodio):
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6(2,5)=7 +NERVI(1) = 8 vs Media(9) -> FALLITA
+    NINO “GRIMALDELLO” CAUTO subisce 1 danno da LA CALCE NEGLI OCCHI (Salute: 7/8).
+    NINO “GRIMALDELLO” CAUTO avrà 1 sola azione al suo prossimo turno.
+  IL CAPOCANTIERE si muove verso NINO “GRIMALDELLO” CAUTO: A2 -> B3.
+  IL CAPOCANTIERE attacca NINO “GRIMALDELLO” CAUTO:
+    [ATTACCO NEMICO] IL CAPOCANTIERE -> NINO “GRIMALDELLO” CAUTO: 2d6(1,4)=5 +Attacco(2) = 7 vs Difesa(8) -> MANCATO
+  [OROLOGIO] Fine del 8° round: +1 segnalino Canto automatico.
+    Segnalino Canto (Allarme): 2.
+    La squadra vi SBARRA la strada: questo round non si avanza.
+--- Round 9: rientro — T4I (Il Vano delle Canne Morte) ---
+    (azioni nominali questo round: 6 — 3 eroi vivi)
+    DOTT. ATTILIO MARN si muove verso IL CAPOCANTIERE: C4 -> B4.
+    [ATTACCO] DOTT. ATTILIO MARN -> IL CAPOCANTIERE: 2d6(6,1)=7 +VIGORE(2)+arma(1) = 10 vs Difesa(8) -> COLPITO
+    IL CAPOCANTIERE: 0/4 ferite residue.
+    IL CAPOCANTIERE è ABBATTUTO.
+    *** IL CAPOCANTIERE È A TERRA: la squadra ha perso il direttore. ***
+    NINO “GRIMALDELLO” CAUTO ha 1 sola azione questo turno (insidia del round scorso).
+    NINO “GRIMALDELLO” CAUTO: nessun bersaglio, avanza / assiste il gruppo.
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] I SACCHI FRANATI (ostacolo) — Muoversi costa il doppio sulla tessera dell’eroe attivo fino a fine round.
+    (carta senza effetto modellato in questa simulazione)
+--- Round 10: rientro — T3I (L’Intercapedine di Levante) ---
+    (azioni nominali questo round: 6 — 3 eroi vivi)
+    DOTT. ATTILIO MARN: nessun bersaglio, avanza / assiste il gruppo.
+    NINO “GRIMALDELLO” CAUTO: nessun bersaglio, avanza / assiste il gruppo.
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] IL SILENZIO CHE PREME (insidia) — Ogni eroe prova NERVI (Facile): chi fallisce ha 1 sola azione al prossimo turno.
+    [PROVA NERVI] DOTT. ATTILIO MARN: 2d6(1,3)=4 +NERVI(2) = 6 vs Facile(7) -> FALLITA
+    DOTT. ATTILIO MARN avrà 1 sola azione al suo prossimo turno.
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6(4,6)=10 +NERVI(1) = 11 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6(2,2)=4 +NERVI(2) = 6 vs Facile(7) -> FALLITA
+    [SECONDO FIATO] OTTONE “MEZZENA” MASSARI ritenta la prova (unico ritento dell’episodio):
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6(2,6)=8 +NERVI(2) = 10 vs Facile(7) -> SUCCESSO
+--- Round 11: rientro — T2 (Il Piano Terra) ---
+    (azioni nominali questo round: 6 — 3 eroi vivi)
+    DOTT. ATTILIO MARN ha 1 sola azione questo turno (insidia del round scorso).
+    DOTT. ATTILIO MARN: nessun bersaglio, avanza / assiste il gruppo.
+    NINO “GRIMALDELLO” CAUTO: nessun bersaglio, avanza / assiste il gruppo.
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] LA PAGA DEL SILENZIO (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 4) in D3.
+  LO SGHERRO si muove verso NINO “GRIMALDELLO” CAUTO: D3 -> C2.
+  LO SGHERRO attacca NINO “GRIMALDELLO” CAUTO:
+    [ATTACCO NEMICO] LO SGHERRO -> NINO “GRIMALDELLO” CAUTO: 2d6(5,2)=7 +Attacco(2) = 9 vs Difesa(8) -> COLPITO
+    NINO “GRIMALDELLO” CAUTO subisce 1 danno da LO SGHERRO (Salute: 6/8).
+--- Round 12: rientro — T1 (Il Cancello) ---
+    (azioni nominali questo round: 6 — 3 eroi vivi)
+    DOTT. ATTILIO MARN si muove verso LO SGHERRO: B4 -> A2.
+    DOTT. ATTILIO MARN si avvicina a LO SGHERRO, non ancora a contatto.
+    NINO “GRIMALDELLO” CAUTO si muove verso LO SGHERRO: B2 -> C1.
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> LO SGHERRO: 2d6(2,3)=5 +VIGORE(2)+arma(1) = 8 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    OTTONE “MEZZENA” MASSARI si muove verso LO SGHERRO: D3 -> D2.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> LO SGHERRO: 2d6(5,1)=6 +VIGORE(3)+arma(1) = 10 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+  [MINACCIA] LA SQUADRA DEL SILENZIO (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 4) in D3.
+  LO SGHERRO si muove verso NINO “GRIMALDELLO” CAUTO: D3 -> B3.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  [OROLOGIO] Fine del 12° round: +1 segnalino Canto automatico.
+    Segnalino Canto (Allarme): 3.
+    L’Allarme raggiunge 3: il cantiere è sveglio — da ora ogni Fase Minaccia pesca 1 carta in più (fino a fine spedizione).
+
+==============================================================================
+ESITO SPEDIZIONE: VITTORIA
+Round totali: 12
+Formula Minaccia: finale_v3 | Azioni nominali/round: media 6.0, picco 6
+Mazzo Minaccia rimescolato: 0 volta/e
+Segnalini nemici esauriti nel pool (piazzamenti saltati): 0
+Via scelta: le intercapedini | Capocantiere: abbattuto
+  DOTT. ATTILIO MARN: 8/8 Salute
+  NINO “GRIMALDELLO” CAUTO: 6/8 Salute
+  OTTONE “MEZZENA” MASSARI: 9/9 Salute
+==============================================================================

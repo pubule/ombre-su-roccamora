@@ -1,0 +1,455 @@
+Run: ep7-06_p4_seed0  |  seed=677400  |  formula Minaccia=finale_v3  |  generato: 2026-07-19T20:04:55
+==============================================================================
+SPEDIZIONE - Il Palazzone di Sant’Orsola (al cambio delle nove)
+==============================================================================
+Party: ELENA FOSCO, MORA “SPILLA” FANTI, NINO “GRIMALDELLO” CAUTO, OTTONE “MEZZENA” MASSARI, PADRE CELSO MARANI, SIBILLA REVE
+Bonus da Indagine: PREPARATI (+1 Salute massima a testa); Bolla: sì; Lanterna+Tappi: sì; D1: esatta; D3: esatta
+NOTA: gruppo trattato come blocco unico tessera per tessera (vedi intestazione script).
+Tensione tavolo piccolo: +1 Ferite SOLO al Capocantiere (non ai nemici di truppa).
+
+Gettone Intuizione in mano (Dossier completo): un ri-tiro, una volta in Spedizione.
+La via scelta (media NERVI 2.0): le INTERCAPEDINI (lunga, sorda).
+--- Round 1: il gruppo raggiunge T2 (Il Piano Terra) ---
+    (azioni nominali questo round: 12 — 6 eroi vivi)
+    Il gruppo entra in T2 da B1.
+    [PROVA ACUME] ELENA FOSCO: 2d6(6,3)=9 +ACUME(3) = 12 vs Media(9) -> SUCCESSO
+    ELENA FOSCO cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    MORA “SPILLA” FANTI: nessun bersaglio, avanza / assiste il gruppo.
+    NINO “GRIMALDELLO” CAUTO: nessun bersaglio, avanza / assiste il gruppo.
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+    PADRE CELSO MARANI: nessun bersaglio, avanza / assiste il gruppo.
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] IL SILENZIO CHE PREME (insidia) — Ogni eroe prova NERVI (Facile): chi fallisce ha 1 sola azione al prossimo turno.
+    [PROVA NERVI] ELENA FOSCO: 2d6(3,3)=6 +NERVI(2) = 8 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(5,1)=6 +NERVI(1) = 7 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6(1,6)=7 +NERVI(1) = 8 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6(5,3)=8 +NERVI(2) = 10 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] PADRE CELSO MARANI: 2d6(6,5)=11 +NERVI(3) = 14 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] SIBILLA REVE: 2d6(6,3)=9 +NERVI(3) = 12 vs Facile(7) -> SUCCESSO
+  [MINACCIA] I MANOVALI DI NOTTE (malavita) — Piazzate 1 Sgherro sull’ingresso del Cancello (T1).
+    Piazzati 1x LO SGHERRO (pool residua: 4), a 6 caselle dalla tessera del gruppo.
+  LO SGHERRO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+--- Round 2: il gruppo raggiunge T3I (L’Intercapedine di Levante) ---
+    (azioni nominali questo round: 12 — 6 eroi vivi)
+    Il gruppo entra in T3I da A2.
+    Tessera SORDA: ogni aiuto tra eroi richiede adiacenza (già regola base del motore); la prima carta spawn qui non piazzerà nessuno.
+    [PROVA ACUME] ELENA FOSCO: 2d6(2,1)=3 +ACUME(3) = 6 vs Media(9) -> FALLITA
+    ELENA FOSCO cerca sulla tessera: niente da trovare qui, o prova fallita.
+    MORA “SPILLA” FANTI: nessun bersaglio, avanza / assiste il gruppo.
+    NINO “GRIMALDELLO” CAUTO: nessun bersaglio, avanza / assiste il gruppo.
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+    PADRE CELSO MARANI: nessun bersaglio, avanza / assiste il gruppo.
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] I SACCHI FRANATI (ostacolo) — Muoversi costa il doppio sulla tessera dell’eroe attivo fino a fine round.
+    (carta senza effetto modellato in questa simulazione)
+  [MINACCIA] LA CALCE NEGLI OCCHI (insidia) — L’eroe attivo prova NERVI (Media): se fallisce, 1 danno e perde 1 azione.
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(1,4)=5 +NERVI(1) = 6 vs Media(9) -> FALLITA
+    [SECONDO FIATO] MORA “SPILLA” FANTI ritenta la prova (unico ritento dell’episodio):
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(5,6)=11 +NERVI(1) = 12 vs Media(9) -> SUCCESSO
+  LO SGHERRO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+--- Round 3: il gruppo raggiunge T4I (Il Vano delle Canne Morte) ---
+    (azioni nominali questo round: 12 — 6 eroi vivi)
+    Il gruppo entra in T4I da B1.
+    Tessera SORDA: ogni aiuto tra eroi richiede adiacenza (già regola base del motore); la prima carta spawn qui non piazzerà nessuno.
+    [PROVA ACUME] ELENA FOSCO: 2d6(3,4)=7 +ACUME(3) = 10 vs Media(9) -> SUCCESSO
+    ELENA FOSCO cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    MORA “SPILLA” FANTI: nessun bersaglio, avanza / assiste il gruppo.
+    NINO “GRIMALDELLO” CAUTO: nessun bersaglio, avanza / assiste il gruppo.
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+    PADRE CELSO MARANI: nessun bersaglio, avanza / assiste il gruppo.
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+    [ABILITÀ] MORA “SPILLA” FANTI semina un diversivo: una carta Minaccia in meno questo round (1 usi residui).
+  [MINACCIA] LA PAGA DEL SILENZIO (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    [TESSERA SORDA] Non vi hanno sentiti: il primo piazzamento qui non ha luogo.
+  LO SGHERRO si avvicina (Movimento 4): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+--- Round 4: il gruppo raggiunge T5I (La Scala di Servizio) ---
+    (azioni nominali questo round: 12 — 6 eroi vivi)
+    Il gruppo entra in T5I da B1.
+    Tessera SORDA: ogni aiuto tra eroi richiede adiacenza (già regola base del motore); la prima carta spawn qui non piazzerà nessuno.
+    QUANDO RIVELATE: un Sicario di ronda — la lanterna schermata si gira.
+    ELENA FOSCO si muove verso IL SICARIO: B1 -> B3.
+    [ATTACCO] ELENA FOSCO -> IL SICARIO: 2d6(5,2)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(7) -> COLPITO
+    IL SICARIO: 0/1 ferite residue.
+    IL SICARIO è ABBATTUTO.
+    [PROVA ACUME] MORA “SPILLA” FANTI: 2d6(2,5)=7 +ACUME(2) = 9 vs Media(9) -> SUCCESSO
+    MORA “SPILLA” FANTI cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    NINO “GRIMALDELLO” CAUTO: nessun bersaglio, avanza / assiste il gruppo.
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+    PADRE CELSO MARANI: nessun bersaglio, avanza / assiste il gruppo.
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+    [ABILITÀ] MORA “SPILLA” FANTI semina un diversivo: una carta Minaccia in meno questo round (0 usi residui).
+  [MINACCIA] LA TAVOLA CHE CEDE (insidia) — L’eroe più avanzato prova NERVI (Media): se fallisce, 1 danno.
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(2,4)=6 +NERVI(1) = 7 vs Media(9) -> FALLITA
+    MORA “SPILLA” FANTI subisce 1 danno da LA TAVOLA CHE CEDE (Salute: 7/8).
+  LO SGHERRO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  [OROLOGIO] Fine del 4° round: +1 segnalino Canto automatico.
+    Segnalino Canto (Allarme): 1.
+--- Round 5: il gruppo raggiunge T6 (L’Intercapedine del Terzo Piano) ---
+    (azioni nominali questo round: 12 — 6 eroi vivi)
+    Il gruppo entra in T6 da D3.
+    Rivelata l’Intercapedine del Terzo Piano: Fava legato tra i sacchi — e la Squadra del Silenzio posa le carte da gioco.
+    [SMASCHERATO — D2] «VOLTAN!» — il Capocantiere esita (salta la sua prima attivazione) e 1 Sgherro posa gli attrezzi e se ne va.
+    Fava si libera con Interagire (nessuna prova): si muove col gruppo (Mov 3).
+    ELENA FOSCO si muove verso LO SGHERRO: D3 -> B4.
+    ELENA FOSCO si avvicina a LO SGHERRO, non ancora a contatto.
+    [ATTACCO] MORA “SPILLA” FANTI -> LO SGHERRO: 2d6(1,3)=4 +VIGORE(3)+arma(1) = 8 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> LO SGHERRO: 2d6(1,5)=6 +VIGORE(2)+arma(1) = 9 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+    OTTONE “MEZZENA” MASSARI si muove verso IL CAPOCANTIERE: D3 -> D2.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> IL CAPOCANTIERE: 2d6(2,4)=6 +VIGORE(3)+arma(1) = 10 vs Difesa(8) -> COLPITO
+    IL CAPOCANTIERE: 4/5 ferite residue.
+    [PROVA ACUME] PADRE CELSO MARANI: 2d6(5,1)=6 +ACUME(2) = 8 vs Media(9) -> FALLITA
+    PADRE CELSO MARANI cerca sulla tessera: niente da trovare qui, o prova fallita.
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+    [ABILITÀ] SIBILLA REVE scruta il mazzo: «IL PIOMBO E LA SACCA» finisce in fondo, «IL GUARDIANO DI NOTTE» torna in cima (2 usi residui).
+  [MINACCIA] IL GUARDIANO DI NOTTE (malavita) — Piazzate 1 Sicario sull’uscita più vicina agli eroi.
+    Piazzati 1x IL SICARIO (pool residua: 1) in D3.
+  [MINACCIA] UN FISCHIO DI SOTTO (crescendo) — Aggiungete 1 segnalino Canto (l’Allarme).
+    Segnalino Canto (Allarme): 2.
+    Il Capocantiere si attiva subito (l’allarme lo chiama).
+  IL CAPOCANTIERE attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] IL CAPOCANTIERE -> OTTONE “MEZZENA” MASSARI: 2d6(3,1)=4 +Attacco(2) = 6 vs Difesa(8) -> MANCATO
+  LO SGHERRO si avvicina (Movimento 4): ancora 1 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  IL SICARIO si muove verso PADRE CELSO MARANI: D3 -> D4.
+  IL SICARIO attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] IL SICARIO -> PADRE CELSO MARANI: 2d6(6,3)=9 +Attacco(3) = 12 vs Difesa(8) -> COLPITO
+    PADRE CELSO MARANI subisce 2 danno da IL SICARIO (Salute: 5/7).
+  IL CAPOCANTIERE salta l’attivazione (stonato).
+--- Ritorno a T1 per la via dell’andata (le intercapedini): la squadra insegue ---
+--- Round 6: rientro — T5I (La Scala di Servizio) ---
+    (azioni nominali questo round: 12 — 6 eroi vivi)
+    ELENA FOSCO si muove verso IL SICARIO: B4 -> C4.
+    [ATTACCO] ELENA FOSCO -> IL SICARIO: 2d6(4,1)=5 +VIGORE(1)+arma(1) = 7 vs Difesa(7) -> COLPITO
+    IL SICARIO: 0/1 ferite residue.
+    IL SICARIO è ABBATTUTO.
+    [PROVA ACUME] MORA “SPILLA” FANTI: 2d6(5,4)=9 +ACUME(2) = 11 vs Media(9) -> SUCCESSO
+    MORA “SPILLA” FANTI cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    NINO “GRIMALDELLO” CAUTO: nessun bersaglio, avanza / assiste il gruppo.
+    OTTONE “MEZZENA” MASSARI si muove verso IL CAPOCANTIERE: D2 -> C1.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> IL CAPOCANTIERE: 2d6(6,6)=12 +VIGORE(3)+arma(1) = 16 vs Difesa(8) -> COLPITO
+    IL CAPOCANTIERE: 3/5 ferite residue.
+    PADRE CELSO MARANI si muove verso IL CAPOCANTIERE: D3 -> D2.
+    [ATTACCO] PADRE CELSO MARANI -> IL CAPOCANTIERE: 2d6(2,1)=3 +VIGORE(1)+arma(1) = 5 vs Difesa(8) -> MANCATO
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] GLI UOMINI DELL’INGEGNERE (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 2) in D3.
+  [MINACCIA] IL TURNO CAMBIA (quiete) — Nessun effetto (tensione).
+    (carta senza effetto modellato in questa simulazione)
+  LO SGHERRO raggiunge la tessera del gruppo, da D4.
+  LO SGHERRO attacca NINO “GRIMALDELLO” CAUTO:
+    [ATTACCO NEMICO] LO SGHERRO -> NINO “GRIMALDELLO” CAUTO: 2d6(5,5)=10 +Attacco(2) = 12 vs Difesa(8) -> COLPITO
+    NINO “GRIMALDELLO” CAUTO subisce 1 danno da LO SGHERRO (Salute: 7/8).
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] LO SGHERRO -> PADRE CELSO MARANI: 2d6(6,5)=11 +Attacco(2) = 13 vs Difesa(8) -> COLPITO
+    PADRE CELSO MARANI subisce 1 danno da LO SGHERRO (Salute: 4/7).
+  IL CAPOCANTIERE attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] IL CAPOCANTIERE -> OTTONE “MEZZENA” MASSARI: 2d6(1,3)=4 +Attacco(2) = 6 vs Difesa(8) -> MANCATO
+    La squadra vi SBARRA la strada: questo round non si avanza.
+--- Round 7: rientro — T5I (La Scala di Servizio) ---
+    (azioni nominali questo round: 12 — 6 eroi vivi)
+    [ATTACCO] ELENA FOSCO -> LO SGHERRO: 2d6(6,3)=9 +VIGORE(1)+arma(1) = 11 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    [ATTACCO] MORA “SPILLA” FANTI -> LO SGHERRO: 2d6(5,3)=8 +VIGORE(3)+arma(1) = 12 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+    NINO “GRIMALDELLO” CAUTO: nessun bersaglio, avanza / assiste il gruppo.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> IL CAPOCANTIERE: 2d6(6,6)=12 +VIGORE(3)+arma(1) = 16 vs Difesa(8) -> COLPITO
+    IL CAPOCANTIERE: 2/5 ferite residue.
+    [ATTACCO] PADRE CELSO MARANI -> LO SGHERRO: 2d6(6,2)=8 +VIGORE(1)+arma(1) = 10 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] I GESTI DEL CAPOMASTRO (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 2) in D3.
+  [MINACCIA] LA SQUADRA DEL SILENZIO (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 1) in D3.
+  LO SGHERRO si muove verso OTTONE “MEZZENA” MASSARI: B2 -> B1.
+  LO SGHERRO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] LO SGHERRO -> OTTONE “MEZZENA” MASSARI: 2d6(2,6)=8 +Attacco(2) = 10 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 1 danno da LO SGHERRO (Salute: 8/9).
+  LO SGHERRO si muove verso SIBILLA REVE: D3 -> D4.
+  LO SGHERRO attacca SIBILLA REVE:
+    [ATTACCO NEMICO] LO SGHERRO -> SIBILLA REVE: 2d6(6,3)=9 +Attacco(2) = 11 vs Difesa(8) -> COLPITO
+    SIBILLA REVE subisce 1 danno da LO SGHERRO (Salute: 6/7).
+  LO SGHERRO attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] LO SGHERRO -> PADRE CELSO MARANI: 2d6(4,2)=6 +Attacco(2) = 8 vs Difesa(8) -> COLPITO
+    PADRE CELSO MARANI subisce 1 danno da LO SGHERRO (Salute: 3/7).
+  LO SGHERRO attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] LO SGHERRO -> PADRE CELSO MARANI: 2d6(4,2)=6 +Attacco(2) = 8 vs Difesa(8) -> COLPITO
+    PADRE CELSO MARANI subisce 1 danno da LO SGHERRO (Salute: 2/7).
+  IL CAPOCANTIERE attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] IL CAPOCANTIERE -> OTTONE “MEZZENA” MASSARI: 2d6(5,3)=8 +Attacco(2) = 10 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 2 danno da IL CAPOCANTIERE (Salute: 6/9).
+    La squadra vi SBARRA la strada: questo round non si avanza.
+--- Round 8: rientro — T5I (La Scala di Servizio) ---
+    (azioni nominali questo round: 12 — 6 eroi vivi)
+    [ATTACCO] ELENA FOSCO -> LO SGHERRO: 2d6(5,3)=8 +VIGORE(1)+arma(1) = 10 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+    MORA “SPILLA” FANTI: nessun bersaglio, avanza / assiste il gruppo.
+    NINO “GRIMALDELLO” CAUTO: nessun bersaglio, avanza / assiste il gruppo.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> LO SGHERRO: 2d6(6,3)=9 +VIGORE(3)+arma(1) = 13 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    [ATTACCO] PADRE CELSO MARANI -> LO SGHERRO: 2d6(3,3)=6 +VIGORE(1)+arma(1) = 8 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] UN’IMPALCATURA AMICA (favore) — Rivelate una tessera coperta adiacente.
+    (carta senza effetto modellato in questa simulazione)
+  [MINACCIA] IL TURNO FUORI BUSTA (malavita) — Piazzate 1 Sgherro sull’ingresso del Cancello (T1).
+    Piazzati 1x LO SGHERRO (pool residua: 1), a 6 caselle dalla tessera del gruppo.
+  LO SGHERRO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] LO SGHERRO -> OTTONE “MEZZENA” MASSARI: 2d6(6,6)=12 +Attacco(2) = 14 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 1 danno da LO SGHERRO (Salute: 5/9).
+  LO SGHERRO si muove verso SIBILLA REVE: D3 -> D4.
+  LO SGHERRO attacca SIBILLA REVE:
+    [ATTACCO NEMICO] LO SGHERRO -> SIBILLA REVE: 2d6(4,4)=8 +Attacco(2) = 10 vs Difesa(8) -> COLPITO
+    SIBILLA REVE subisce 1 danno da LO SGHERRO (Salute: 5/7).
+  LO SGHERRO attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] LO SGHERRO -> PADRE CELSO MARANI: 2d6(6,2)=8 +Attacco(2) = 10 vs Difesa(8) -> COLPITO
+    PADRE CELSO MARANI subisce 1 danno da LO SGHERRO (Salute: 1/7).
+  LO SGHERRO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+  IL CAPOCANTIERE attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] IL CAPOCANTIERE -> PADRE CELSO MARANI: 2d6(5,2)=7 +Attacco(2) = 9 vs Difesa(8) -> COLPITO
+    PADRE CELSO MARANI subisce 2 danno da IL CAPOCANTIERE (Salute: 0/7).
+    [INTUIZIONE] Il gruppo spende il gettone Dossier: PADRE CELSO MARANI resta in piedi a 1 Salute invece di cadere.
+  [OROLOGIO] Fine del 8° round: +1 segnalino Canto automatico.
+    Segnalino Canto (Allarme): 3.
+    L’Allarme raggiunge 3: il cantiere è sveglio — da ora ogni Fase Minaccia pesca 1 carta in più (fino a fine spedizione).
+    La squadra vi SBARRA la strada: questo round non si avanza.
+--- Round 9: rientro — T5I (La Scala di Servizio) ---
+    (azioni nominali questo round: 12 — 6 eroi vivi)
+    [ATTACCO] ELENA FOSCO -> LO SGHERRO: 2d6(5,6)=11 +VIGORE(1)+arma(1) = 13 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+    MORA “SPILLA” FANTI: nessun bersaglio, avanza / assiste il gruppo.
+    NINO “GRIMALDELLO” CAUTO: nessun bersaglio, avanza / assiste il gruppo.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> LO SGHERRO: 2d6(2,6)=8 +VIGORE(3)+arma(1) = 12 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+    [ATTACCO] PADRE CELSO MARANI -> LO SGHERRO: 2d6(1,4)=5 +VIGORE(1)+arma(1) = 7 vs Difesa(8) -> MANCATO
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] LE PALE NEL BUIO (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 2) in D3.
+  [MINACCIA] LA MALTA FRESCA (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 1) in D3.
+  [MINACCIA] LE LANTERNE SI MUOVONO (crescendo) — Aggiungete 1 segnalino Canto (l’Allarme).
+    Segnalino Canto (Allarme): 4.
+    Il Capocantiere si attiva subito (l’allarme lo chiama).
+  IL CAPOCANTIERE attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] IL CAPOCANTIERE -> OTTONE “MEZZENA” MASSARI: 2d6(1,1)=2 +Attacco(2) = 4 vs Difesa(8) -> MANCATO
+  LO SGHERRO si muove verso SIBILLA REVE: D3 -> D4.
+  LO SGHERRO attacca SIBILLA REVE:
+    [ATTACCO NEMICO] LO SGHERRO -> SIBILLA REVE: 2d6(5,6)=11 +Attacco(2) = 13 vs Difesa(8) -> COLPITO
+    SIBILLA REVE subisce 1 danno da LO SGHERRO (Salute: 4/7).
+  LO SGHERRO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] LO SGHERRO -> PADRE CELSO MARANI: 2d6(5,3)=8 +Attacco(2) = 10 vs Difesa(8) -> COLPITO
+    PADRE CELSO MARANI subisce 1 danno da LO SGHERRO (Salute: 0/7).
+    *** PADRE CELSO MARANI è A TERRA. ***
+  LO SGHERRO si avvicina, non ancora a contatto.
+  IL CAPOCANTIERE attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] IL CAPOCANTIERE -> OTTONE “MEZZENA” MASSARI: 2d6(5,1)=6 +Attacco(2) = 8 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 2 danno da IL CAPOCANTIERE (Salute: 3/9).
+    La squadra vi SBARRA la strada: questo round non si avanza.
+--- Round 10: rientro — T5I (La Scala di Servizio) ---
+    (azioni nominali questo round: 10 — 5 eroi vivi)
+    [ATTACCO] ELENA FOSCO -> LO SGHERRO: 2d6(3,6)=9 +VIGORE(1)+arma(1) = 11 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    [ATTACCO] MORA “SPILLA” FANTI -> LO SGHERRO: 2d6(5,1)=6 +VIGORE(3)+arma(1) = 10 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+    [AZIONE] NINO “GRIMALDELLO” CAUTO rianima PADRE CELSO MARANI: torna in piedi con 2 Salute.
+    OTTONE “MEZZENA” MASSARI si muove verso IL CAPOCANTIERE: C1 -> B2.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> IL CAPOCANTIERE: 2d6(5,4)=9 +VIGORE(3)+arma(1) = 13 vs Difesa(8) -> COLPITO
+    IL CAPOCANTIERE: 1/5 ferite residue.
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+    [ABILITÀ] SIBILLA REVE scruta il mazzo: «LA RONDA DEL CANCELLO» finisce in fondo, «IL PIOMBO DAL BUIO» torna in cima (1 usi residui).
+  [MINACCIA] IL PIOMBO DAL BUIO (insidia) — L’eroe più avanzato subisce 1 danno (nessuna prova).
+    ELENA FOSCO subisce 1 danno da IL PIOMBO DAL BUIO (Salute: 6/7).
+  [MINACCIA] IL CANTIERE È SVEGLIO (crescendo) — Aggiungete 1 segnalino Canto (l’Allarme).
+    Segnalino Canto (Allarme): 5.
+    Il Capocantiere si attiva subito (l’allarme lo chiama).
+  IL CAPOCANTIERE si muove verso PADRE CELSO MARANI: C2 -> D1.
+  IL CAPOCANTIERE attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] IL CAPOCANTIERE -> PADRE CELSO MARANI: 2d6(4,5)=9 +Attacco(2) = 11 vs Difesa(8) -> COLPITO
+    PADRE CELSO MARANI subisce 2 danno da IL CAPOCANTIERE (Salute: 0/7).
+    *** PADRE CELSO MARANI è A TERRA. ***
+  [MINACCIA] IL PIOMBO E LA SACCA (malavita) — Piazzate 1 Sgherro: si attiva subito.
+    Piazzati 1x LO SGHERRO (pool residua: 1) in D3.
+    LO SGHERRO si attiva subito:
+  LO SGHERRO si muove verso MORA “SPILLA” FANTI: D3 -> D4.
+  LO SGHERRO attacca MORA “SPILLA” FANTI:
+    [ATTACCO NEMICO] LO SGHERRO -> MORA “SPILLA” FANTI: 2d6(3,2)=5 +Attacco(2) = 7 vs Difesa(8) -> MANCATO
+  LO SGHERRO si avvicina (Movimento 4): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  IL CAPOCANTIERE si muove verso ELENA FOSCO: D1 -> A1.
+  IL CAPOCANTIERE si avvicina, non ancora a contatto.
+--- Round 11: rientro — T4I (Il Vano delle Canne Morte) ---
+    (azioni nominali questo round: 10 — 5 eroi vivi)
+    [ATTACCO] ELENA FOSCO -> LO SGHERRO: 2d6(1,3)=4 +VIGORE(1)+arma(1) = 6 vs Difesa(8) -> MANCATO
+    [ATTACCO] MORA “SPILLA” FANTI -> LO SGHERRO: 2d6(4,2)=6 +VIGORE(3)+arma(1) = 10 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> LO SGHERRO: 2d6(5,4)=9 +VIGORE(2)+arma(1) = 12 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+    OTTONE “MEZZENA” MASSARI si muove verso IL CAPOCANTIERE: B2 -> B1.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> IL CAPOCANTIERE: 2d6(1,6)=7 +VIGORE(3)+arma(1) = 11 vs Difesa(8) -> COLPITO
+    IL CAPOCANTIERE: 0/5 ferite residue.
+    IL CAPOCANTIERE è ABBATTUTO.
+    *** IL CAPOCANTIERE È A TERRA: la squadra ha perso il direttore. ***
+    [AZIONE] SIBILLA REVE rianima PADRE CELSO MARANI: torna in piedi con 2 Salute.
+  [MINACCIA] LA RONDA DEL CANCELLO (malavita) — Piazzate 1 Sicario: si attiva subito.
+    Piazzati 1x IL SICARIO (pool residua: 1) in D3.
+    IL SICARIO si attiva subito:
+  IL SICARIO si muove verso NINO “GRIMALDELLO” CAUTO: D3 -> D4.
+  IL SICARIO attacca NINO “GRIMALDELLO” CAUTO:
+    [ATTACCO NEMICO] IL SICARIO -> NINO “GRIMALDELLO” CAUTO: 2d6(4,5)=9 +Attacco(3) = 12 vs Difesa(8) -> COLPITO
+    NINO “GRIMALDELLO” CAUTO subisce 2 danno da IL SICARIO (Salute: 5/8).
+    Mazzo Minaccia esaurito: si rimescolano gli scarti.
+  [MINACCIA] LA MALTA FRESCA (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 1) in D3.
+  [MINACCIA] IL CANTIERE È SVEGLIO (crescendo) — Aggiungete 1 segnalino Canto (l’Allarme).
+    Segnalino Canto (Allarme): 6.
+  LO SGHERRO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] LO SGHERRO -> PADRE CELSO MARANI: 2d6(5,3)=8 +Attacco(2) = 10 vs Difesa(8) -> COLPITO
+    PADRE CELSO MARANI subisce 1 danno da LO SGHERRO (Salute: 1/7).
+  LO SGHERRO attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] LO SGHERRO -> PADRE CELSO MARANI: 2d6(1,4)=5 +Attacco(2) = 7 vs Difesa(8) -> MANCATO
+  LO SGHERRO attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] LO SGHERRO -> PADRE CELSO MARANI: 2d6(2,4)=6 +Attacco(2) = 8 vs Difesa(8) -> COLPITO
+    PADRE CELSO MARANI subisce 1 danno da LO SGHERRO (Salute: 0/7).
+    *** PADRE CELSO MARANI è A TERRA. ***
+--- Round 12: rientro — T3I (L’Intercapedine di Levante) ---
+    (azioni nominali questo round: 10 — 5 eroi vivi)
+    [ATTACCO] ELENA FOSCO -> IL SICARIO: 2d6(4,4)=8 +VIGORE(1)+arma(1) = 10 vs Difesa(7) -> COLPITO
+    IL SICARIO: 0/1 ferite residue.
+    IL SICARIO è ABBATTUTO.
+    [AZIONE] MORA “SPILLA” FANTI rianima PADRE CELSO MARANI: torna in piedi con 2 Salute.
+    NINO “GRIMALDELLO” CAUTO: nessun bersaglio, avanza / assiste il gruppo.
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+    [ABILITÀ] SIBILLA REVE scruta il mazzo: «LE LANTERNE SI MUOVONO» finisce in fondo, «LA RONDA DEL CANCELLO» torna in cima (0 usi residui).
+  [MINACCIA] LA RONDA DEL CANCELLO (malavita) — Piazzate 1 Sicario: si attiva subito.
+    Piazzati 1x IL SICARIO (pool residua: 1) in D3.
+    IL SICARIO si attiva subito:
+  IL SICARIO si muove verso SIBILLA REVE: D3 -> D4.
+  IL SICARIO attacca SIBILLA REVE:
+    [ATTACCO NEMICO] IL SICARIO -> SIBILLA REVE: 2d6(1,1)=2 +Attacco(3) = 5 vs Difesa(8) -> MANCATO
+  [MINACCIA] IL TURNO FUORI BUSTA (malavita) — Piazzate 1 Sgherro sull’ingresso del Cancello (T1).
+    Piazzati 1x LO SGHERRO (pool residua: 0), a 6 caselle dalla tessera del gruppo.
+  [MINACCIA] GLI UOMINI DELL’INGEGNERE (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Segnalini LO SGHERRO esauriti: il piazzamento non ha luogo (resto della carta si applica comunque).
+  LO SGHERRO si avvicina (Movimento 4): ancora 1 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] LO SGHERRO -> PADRE CELSO MARANI: 2d6(6,2)=8 +Attacco(2) = 10 vs Difesa(8) -> COLPITO
+    PADRE CELSO MARANI subisce 1 danno da LO SGHERRO (Salute: 1/7).
+  LO SGHERRO attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] LO SGHERRO -> PADRE CELSO MARANI: 2d6(5,5)=10 +Attacco(2) = 12 vs Difesa(8) -> COLPITO
+    PADRE CELSO MARANI subisce 1 danno da LO SGHERRO (Salute: 0/7).
+    *** PADRE CELSO MARANI è A TERRA. ***
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+  [OROLOGIO] Fine del 12° round: +1 segnalino Canto automatico.
+    Segnalino Canto (Allarme): 7.
+--- Round 13: rientro — T2 (Il Piano Terra) ---
+    (azioni nominali questo round: 10 — 5 eroi vivi)
+    [ATTACCO] ELENA FOSCO -> IL SICARIO: 2d6(6,1)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(7) -> COLPITO
+    IL SICARIO: 0/1 ferite residue.
+    IL SICARIO è ABBATTUTO.
+    [AZIONE] MORA “SPILLA” FANTI rianima PADRE CELSO MARANI: torna in piedi con 2 Salute.
+    NINO “GRIMALDELLO” CAUTO: nessun bersaglio, avanza / assiste il gruppo.
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] LA PAGA DEL SILENZIO (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Segnalini LO SGHERRO esauriti: il piazzamento non ha luogo (resto della carta si applica comunque).
+  [MINACCIA] UN’IMPALCATURA AMICA (favore) — Rivelate una tessera coperta adiacente.
+    (carta senza effetto modellato in questa simulazione)
+  [MINACCIA] LA SQUADRA DEL SILENZIO (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Segnalini LO SGHERRO esauriti: il piazzamento non ha luogo (resto della carta si applica comunque).
+  LO SGHERRO raggiunge la tessera del gruppo, da D4.
+  LO SGHERRO attacca MORA “SPILLA” FANTI:
+    [ATTACCO NEMICO] LO SGHERRO -> MORA “SPILLA” FANTI: 2d6(4,1)=5 +Attacco(2) = 7 vs Difesa(8) -> MANCATO
+  LO SGHERRO attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] LO SGHERRO -> PADRE CELSO MARANI: 2d6(5,4)=9 +Attacco(2) = 11 vs Difesa(8) -> COLPITO
+    PADRE CELSO MARANI subisce 1 danno da LO SGHERRO (Salute: 1/7).
+  LO SGHERRO attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] LO SGHERRO -> PADRE CELSO MARANI: 2d6(6,2)=8 +Attacco(2) = 10 vs Difesa(8) -> COLPITO
+    PADRE CELSO MARANI subisce 1 danno da LO SGHERRO (Salute: 0/7).
+    *** PADRE CELSO MARANI è A TERRA. ***
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+--- Round 14: rientro — T1 (Il Cancello) ---
+    (azioni nominali questo round: 10 — 5 eroi vivi)
+    [ATTACCO] ELENA FOSCO -> LO SGHERRO: 2d6(4,2)=6 +VIGORE(1)+arma(1) = 8 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    [ATTACCO] MORA “SPILLA” FANTI -> LO SGHERRO: 2d6(2,4)=6 +VIGORE(3)+arma(1) = 10 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+    [AZIONE] NINO “GRIMALDELLO” CAUTO rianima PADRE CELSO MARANI: torna in piedi con 2 Salute.
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] I SACCHI FRANATI (ostacolo) — Muoversi costa il doppio sulla tessera dell’eroe attivo fino a fine round.
+    (carta senza effetto modellato in questa simulazione)
+  [MINACCIA] LA TAVOLA CHE CEDE (insidia) — L’eroe più avanzato prova NERVI (Media): se fallisce, 1 danno.
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(4,2)=6 +NERVI(1) = 7 vs Media(9) -> FALLITA
+    MORA “SPILLA” FANTI subisce 1 danno da LA TAVOLA CHE CEDE (Salute: 6/8).
+  [MINACCIA] IL PIOMBO DAL BUIO (insidia) — L’eroe più avanzato subisce 1 danno (nessuna prova).
+    ELENA FOSCO subisce 1 danno da IL PIOMBO DAL BUIO (Salute: 5/7).
+  LO SGHERRO si muove verso MORA “SPILLA” FANTI: D3 -> D4.
+  LO SGHERRO attacca MORA “SPILLA” FANTI:
+    [ATTACCO NEMICO] LO SGHERRO -> MORA “SPILLA” FANTI: 2d6(6,2)=8 +Attacco(2) = 10 vs Difesa(8) -> COLPITO
+    MORA “SPILLA” FANTI subisce 1 danno da LO SGHERRO (Salute: 5/8).
+  LO SGHERRO attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] LO SGHERRO -> PADRE CELSO MARANI: 2d6(3,3)=6 +Attacco(2) = 8 vs Difesa(8) -> COLPITO
+    PADRE CELSO MARANI subisce 1 danno da LO SGHERRO (Salute: 1/7).
+  LO SGHERRO attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] LO SGHERRO -> PADRE CELSO MARANI: 2d6(1,4)=5 +Attacco(2) = 7 vs Difesa(8) -> MANCATO
+  LO SGHERRO si avvicina (Movimento 4): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+    La squadra vi SBARRA la strada: questo round non si avanza.
+--- Round 15: rientro — T1 (Il Cancello) ---
+    (azioni nominali questo round: 12 — 6 eroi vivi)
+    [ATTACCO] ELENA FOSCO -> LO SGHERRO: 2d6(6,4)=10 +VIGORE(1)+arma(1) = 12 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    [ATTACCO] MORA “SPILLA” FANTI -> LO SGHERRO: 2d6(3,4)=7 +VIGORE(3)+arma(1) = 11 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+    NINO “GRIMALDELLO” CAUTO: nessun bersaglio, avanza / assiste il gruppo.
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+    [ATTACCO] PADRE CELSO MARANI -> LO SGHERRO: 2d6(1,4)=5 +VIGORE(1)+arma(1) = 7 vs Difesa(8) -> MANCATO
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] IL TURNO CAMBIA (quiete) — Nessun effetto (tensione).
+    (carta senza effetto modellato in questa simulazione)
+  [MINACCIA] I GESTI DEL CAPOMASTRO (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 1) in D3.
+  [MINACCIA] LE PALE NEL BUIO (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 0) in D3.
+  LO SGHERRO attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] LO SGHERRO -> PADRE CELSO MARANI: 2d6(4,6)=10 +Attacco(2) = 12 vs Difesa(8) -> COLPITO
+    PADRE CELSO MARANI subisce 1 danno da LO SGHERRO (Salute: 0/7).
+    *** PADRE CELSO MARANI è A TERRA. ***
+  LO SGHERRO si muove verso MORA “SPILLA” FANTI: D3 -> D4.
+  LO SGHERRO attacca MORA “SPILLA” FANTI:
+    [ATTACCO NEMICO] LO SGHERRO -> MORA “SPILLA” FANTI: 2d6(2,3)=5 +Attacco(2) = 7 vs Difesa(8) -> MANCATO
+  LO SGHERRO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+
+==============================================================================
+ESITO SPEDIZIONE: VITTORIA
+Round totali: 15
+Formula Minaccia: finale_v3 | Azioni nominali/round: media 11.3, picco 12
+Mazzo Minaccia rimescolato: 1 volta/e
+Segnalini nemici esauriti nel pool (piazzamenti saltati): 3
+Via scelta: le intercapedini | Capocantiere: abbattuto
+  ELENA FOSCO: 5/7 Salute
+  MORA “SPILLA” FANTI: 5/8 Salute
+  NINO “GRIMALDELLO” CAUTO: 5/8 Salute
+  OTTONE “MEZZENA” MASSARI: 3/9 Salute
+  PADRE CELSO MARANI: a terra
+  SIBILLA REVE: 4/7 Salute
+==============================================================================

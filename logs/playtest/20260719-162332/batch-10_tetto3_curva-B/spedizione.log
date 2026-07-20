@@ -1,0 +1,1120 @@
+Run: batch-10_tetto3_curva-B_seed0  |  seed=37160  |  formula Minaccia=tetto3  |  generato: 2026-07-19T16:23:45
+==============================================================================
+SPEDIZIONE - Il Campanile di San Teodoro (sotterranei)
+==============================================================================
+Party: ELENA FOSCO, DOTT. ATTILIO MARN, SIBILLA REVE, NINO “GRIMALDELLO” CAUTO, OTTONE “MEZZENA” MASSARI, DOTT. LAZZARO SERRA, PADRE CELSO MARANI, FULGENZIO CARBONE, OTTAVIO BRERA, MORA “SPILLA” FANTI
+Bonus da Indagine: PREPARATI (+1 Salute massima a testa); diapason: no
+NOTA: gruppo trattato come blocco unico tessera per tessera (vedi intestazione script).
+Scalatura nemici (curva-B): +3 Ferite, +0 Danno su ogni nemico incluso il Custode.
+Tensione tavolo piccolo: +1 Ferite SOLO al Custode della Cera (non ai nemici di truppa).
+
+--- Round 1: il gruppo raggiunge T2 (Sala delle Casse) ---
+    (azioni nominali questo round: 20 — 10 eroi vivi)
+    Il gruppo entra in T2 da B1.
+    [PROVA ACUME] ELENA FOSCO: 2d6(2,3)=5 +ACUME(3) = 8 vs Media(9) -> FALLITA
+    ELENA FOSCO cerca sulla tessera: niente da trovare qui, o prova fallita.
+    DOTT. ATTILIO MARN: nessun bersaglio, avanza / assiste il gruppo.
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+    NINO “GRIMALDELLO” CAUTO: nessun bersaglio, avanza / assiste il gruppo.
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+    DOTT. LAZZARO SERRA: nessun bersaglio, avanza / assiste il gruppo.
+    PADRE CELSO MARANI: nessun bersaglio, avanza / assiste il gruppo.
+    FULGENZIO CARBONE: nessun bersaglio, avanza / assiste il gruppo.
+    OTTAVIO BRERA: nessun bersaglio, avanza / assiste il gruppo.
+    MORA “SPILLA” FANTI: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] IL CANTO SALE (crescendo) — Aggiungete 1 segnalino Canto. Al terzo: il Custode della Cera si desta e da quel momento o…
+    Segnalino Canto: 1.
+  [MINACCIA] LA VEDETTA (posseduto) — Piazzate 1 Adepto adiacente all’eroe più isolato (quello più lontano dagli altri; a pari m…
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 9) in C1.
+  [MINACCIA] UNGHIE SULLA PIETRA (posseduto) — Piazzate 1 Cane dei Moli sull’ingresso della tessera corrente: si attiva subito.
+    Piazzati 1x CANE DEI MOLI (pool residua: 2) in A1.
+    CANE DEI MOLI si attiva subito:
+  CANE DEI MOLI attacca ELENA FOSCO:
+    [ATTACCO NEMICO] CANE DEI MOLI -> ELENA FOSCO: 2d6(3,4)=7 +Attacco(2) = 9 vs Difesa(8) -> COLPITO
+    ELENA FOSCO subisce 1 danno da CANE DEI MOLI (Salute: 6/7).
+  ADEPTO INCAPPUCCIATO attacca NINO “GRIMALDELLO” CAUTO:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> NINO “GRIMALDELLO” CAUTO: 2d6(2,2)=4 +Attacco(1) = 5 vs Difesa(8) -> MANCATO
+--- Round 2: il gruppo raggiunge T4 (Ufficio del Custode) ---
+    (azioni nominali questo round: 20 — 10 eroi vivi)
+    Il gruppo entra in T4 da D3.
+    Cercando: trovata LA CHIAVE DELLA CELLA. Prenderla è una scelta — il gruppo decide di prenderla (oggetto rischioso).
+    [PROVA NERVI] SIBILLA REVE: 2d6(3,3)=6 +NERVI(3) = 9 vs Media(9) -> SUCCESSO
+    ELENA FOSCO si muove verso ADEPTO INCAPPUCCIATO: D3 -> C2.
+    [ATTACCO] ELENA FOSCO -> ADEPTO INCAPPUCCIATO: 2d6(5,3)=8 +VIGORE(1)+arma(1) = 10 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 3/4 ferite residue.
+    [ABILITÀ] DOTT. ATTILIO MARN usa Pronto Soccorso su ELENA FOSCO -> Salute 7.
+    SIBILLA REVE si muove verso ADEPTO INCAPPUCCIATO: D3 -> B2.
+    SIBILLA REVE si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    NINO “GRIMALDELLO” CAUTO si muove verso CANE DEI MOLI: D3 -> A2.
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> CANE DEI MOLI: 2d6(5,5)=10 +VIGORE(2)+arma(1) = 13 vs Difesa(6) -> COLPITO
+    CANE DEI MOLI: 3/4 ferite residue.
+    [PROVA ACUME] OTTONE “MEZZENA” MASSARI: 2d6(5,3)=8 +ACUME(1) = 9 vs Media(9) -> SUCCESSO
+    OTTONE “MEZZENA” MASSARI cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    [ABILITÀ] DOTT. LAZZARO SERRA attiva Voce ferma (2 usi residui): +2 NERVI agli alleati fino al suo prossimo turno.
+    [ABILITÀ] PADRE CELSO MARANI usa Litania: -1 segnalino Canto (1->0).
+    [ABILITÀ] FULGENZIO CARBONE usa Esca preziosa: ADEPTO INCAPPUCCIATO, CANE DEI MOLI si dirige verso l’esca invece che verso il gruppo alla prossima attivazione.
+    [ABILITÀ] OTTAVIO BRERA usa Vi conosco, Malacarne su ADEPTO INCAPPUCCIATO: rimosso dal tabellone.
+    MORA “SPILLA” FANTI: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] FUMI SOPORIFERI (insidia) — Ogni eroe prova NERVI (Facile): chi fallisce ha 1 sola azione al prossimo turno.
+    [PROVA NERVI] ELENA FOSCO: 2d6(3,4)=7 +NERVI(2) = 9 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] DOTT. ATTILIO MARN: 2d6(4,5)=9 +NERVI(2) = 11 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] SIBILLA REVE: 2d6(3,5)=8 +NERVI(3) = 11 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6(4,5)=9 +NERVI(1) = 10 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6(1,4)=5 +NERVI(2) = 7 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] DOTT. LAZZARO SERRA: 2d6(6,3)=9 +NERVI(2) = 11 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] PADRE CELSO MARANI: 2d6(1,3)=4 +NERVI(3) = 7 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] FULGENZIO CARBONE: 2d6(3,1)=4 +NERVI(2) = 6 vs Facile(7) -> FALLITA
+    [SECONDO FIATO] FULGENZIO CARBONE ritenta la prova (unico ritento dell’episodio):
+    [PROVA NERVI] FULGENZIO CARBONE: 2d6(2,1)=3 +NERVI(2) = 5 vs Facile(7) -> FALLITA
+    FULGENZIO CARBONE avrà 1 sola azione al suo prossimo turno.
+    [PROVA NERVI] OTTAVIO BRERA: 2d6(6,6)=12 +NERVI(2) = 14 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(5,3)=8 +NERVI(1) = 9 vs Facile(7) -> SUCCESSO
+  [MINACCIA] CERA SOTTO I PIEDI (insidia) — L’eroe attivo prova NERVI (Media): se fallisce, 1 danno e perde 1 azione al prossimo turno…
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6(1,5)=6 +NERVI(1) = 7 vs Media(9) -> FALLITA
+    [SECONDO FIATO] NINO “GRIMALDELLO” CAUTO ritenta la prova (unico ritento dell’episodio):
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6(1,6)=7 +NERVI(1) = 8 vs Media(9) -> FALLITA
+    NINO “GRIMALDELLO” CAUTO subisce 1 danno da CERA SOTTO I PIEDI (Salute: 7/8).
+    NINO “GRIMALDELLO” CAUTO avrà 1 sola azione al suo prossimo turno.
+  [MINACCIA] CANI DEI MOLI (posseduto) — Piazzate 1 Cane dei Moli sull’uscita più vicina agli eroi della tessera corrente: si attiv…
+    Piazzati 1x CANE DEI MOLI (pool residua: 1) in A3.
+    CANE DEI MOLI si attiva subito:
+  CANE DEI MOLI si muove verso PADRE CELSO MARANI: A3 -> C3.
+  CANE DEI MOLI attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] CANE DEI MOLI -> PADRE CELSO MARANI: 2d6(6,5)=11 +Attacco(2) = 13 vs Difesa(8) -> COLPITO
+    PADRE CELSO MARANI subisce 1 danno da CANE DEI MOLI (Salute: 6/7).
+  CANE DEI MOLI si dirige verso l’esca (Carbone): non attacca questo round.
+--- Round 3: il gruppo raggiunge T2 (Sala delle Casse) ---
+    (azioni nominali questo round: 20 — 10 eroi vivi)
+    Il gruppo entra in T2 da A3.
+    ELENA FOSCO si muove verso CANE DEI MOLI: A3 -> A2.
+    [ATTACCO] ELENA FOSCO -> CANE DEI MOLI: 2d6(5,2)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(6) -> COLPITO
+    CANE DEI MOLI: 2/4 ferite residue.
+    [ABILITÀ] DOTT. ATTILIO MARN usa Pronto Soccorso su PADRE CELSO MARANI -> Salute 7.
+    SIBILLA REVE si muove verso CANE DEI MOLI: A3 -> C4.
+    SIBILLA REVE si avvicina a CANE DEI MOLI, non ancora a contatto.
+    NINO “GRIMALDELLO” CAUTO ha 1 sola azione questo turno (insidia del round scorso).
+    NINO “GRIMALDELLO” CAUTO: nessun bersaglio, avanza / assiste il gruppo.
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+    DOTT. LAZZARO SERRA: nessun bersaglio, avanza / assiste il gruppo.
+    PADRE CELSO MARANI: nessun bersaglio, avanza / assiste il gruppo.
+    FULGENZIO CARBONE ha 1 sola azione questo turno (insidia del round scorso).
+    [ABILITÀ] FULGENZIO CARBONE usa Esca preziosa: CANE DEI MOLI, CANE DEI MOLI si dirige verso l’esca invece che verso il gruppo alla prossima attivazione.
+    OTTAVIO BRERA: nessun bersaglio, avanza / assiste il gruppo.
+    MORA “SPILLA” FANTI: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] VOLTI TRA LE CASSE (posseduto) — Piazzate 1 Adepto sull’uscita più vicina agli eroi della tessera corrente: si è intrufolat…
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 8) in A3.
+  [MINACCIA] IL BRANCO (malavita) — Piazzate 2 Sgherri, adiacenti tra loro, sull’uscita più vicina agli eroi della tessera cor…
+    Piazzati 2x LO SGHERRO (pool residua: 2) in A3.
+  [MINACCIA] ADEPTO IN AGGUATO (posseduto) — Piazzate 1 Adepto sull’uscita più vicina agli eroi della tessera in cui si trova l’eroe at…
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 7) in A3.
+  CANE DEI MOLI si dirige verso l’esca (Carbone): non attacca questo round.
+  CANE DEI MOLI si dirige verso l’esca (Carbone): non attacca questo round.
+  ADEPTO INCAPPUCCIATO si muove verso OTTONE “MEZZENA” MASSARI: A3 -> B3.
+  ADEPTO INCAPPUCCIATO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> OTTONE “MEZZENA” MASSARI: 2d6(3,6)=9 +Attacco(1) = 10 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 8/9).
+  LO SGHERRO si muove verso OTTAVIO BRERA: A3 -> A4.
+  LO SGHERRO attacca OTTAVIO BRERA:
+    [ATTACCO NEMICO] LO SGHERRO -> OTTAVIO BRERA: 2d6(5,4)=9 +Attacco(2) = 11 vs Difesa(8) -> COLPITO
+    OTTAVIO BRERA subisce 1 danno da LO SGHERRO (Salute: 6/7).
+  LO SGHERRO attacca ELENA FOSCO:
+    [ATTACCO NEMICO] LO SGHERRO -> ELENA FOSCO: 2d6(2,1)=3 +Attacco(2) = 5 vs Difesa(8) -> MANCATO
+  ADEPTO INCAPPUCCIATO attacca ELENA FOSCO:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> ELENA FOSCO: 2d6(4,6)=10 +Attacco(1) = 11 vs Difesa(8) -> COLPITO
+    ELENA FOSCO subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 6/7).
+--- Round 4: il gruppo raggiunge T5 (Scala interrata) ---
+    (azioni nominali questo round: 20 — 10 eroi vivi)
+    Il gruppo entra in T5 da B1.
+    [PROVA NERVI] ELENA FOSCO: 2d6(2,4)=6 +NERVI(2) = 8 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] DOTT. ATTILIO MARN: 2d6(1,2)=3 +NERVI(2) = 5 vs Facile(7) -> FALLITA
+    DOTT. ATTILIO MARN avrà solo 1 azione al prossimo turno.
+    [PROVA NERVI] SIBILLA REVE: 2d6(4,5)=9 +NERVI(3) = 12 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6(4,5)=9 +NERVI(1) = 10 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6(6,2)=8 +NERVI(2) = 10 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] DOTT. LAZZARO SERRA: 2d6(4,3)=7 +NERVI(2) = 9 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] PADRE CELSO MARANI: 2d6(3,6)=9 +NERVI(3) = 12 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] FULGENZIO CARBONE: 2d6(5,3)=8 +NERVI(2) = 10 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] OTTAVIO BRERA: 2d6(4,1)=5 +NERVI(2) = 7 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(1,6)=7 +NERVI(1) = 8 vs Facile(7) -> SUCCESSO
+    [ATTACCO] ELENA FOSCO -> CANE DEI MOLI: 2d6(1,1)=2 +VIGORE(1)+arma(1) = 4 vs Difesa(6) -> MANCATO
+    DOTT. ATTILIO MARN ha 1 sola azione questo turno (insidia del round scorso).
+    [ABILITÀ] DOTT. ATTILIO MARN usa Pronto Soccorso su ELENA FOSCO -> Salute 7.
+    [ATTACCO] SIBILLA REVE -> CANE DEI MOLI: 2d6(6,4)=10 +VIGORE(1)+arma(1) = 12 vs Difesa(6) -> COLPITO
+    CANE DEI MOLI: 1/4 ferite residue.
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> CANE DEI MOLI: 2d6(2,6)=8 +VIGORE(2)+arma(1) = 11 vs Difesa(6) -> COLPITO
+    CANE DEI MOLI: 0/4 ferite residue.
+    CANE DEI MOLI è ABBATTUTO.
+    OTTONE “MEZZENA” MASSARI si muove verso ADEPTO INCAPPUCCIATO: B1 -> A2.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> ADEPTO INCAPPUCCIATO: 2d6(1,5)=6 +VIGORE(3)+arma(1) = 10 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 3/4 ferite residue.
+    [ABILITÀ] DOTT. LAZZARO SERRA attiva Voce ferma (1 usi residui): +2 NERVI agli alleati fino al suo prossimo turno.
+    PADRE CELSO MARANI si muove verso LO SGHERRO: B1 -> D2.
+    PADRE CELSO MARANI si avvicina a LO SGHERRO, non ancora a contatto.
+    [PROVA ACUME] FULGENZIO CARBONE: 2d6(1,1)=2 +ACUME(3) = 5 vs Media(9) -> FALLITA
+    FULGENZIO CARBONE cerca sulla tessera: niente da trovare qui, o prova fallita.
+    OTTAVIO BRERA: nessun bersaglio, avanza / assiste il gruppo.
+    MORA “SPILLA” FANTI: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] SUSSURRI (insidia) — L’eroe con meno NERVI (a pari merito: sceglie il gruppo) prova NERVI (Media): se fallisce …
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6(1,3)=4 +NERVI(1) = 5 vs Media(9) -> FALLITA
+    NINO “GRIMALDELLO” CAUTO subisce 1 danno da SUSSURRI (Salute: 6/8).
+  [MINACCIA] CERA CHE COLA (ostacolo) — Fino a fine round, sulla tessera dell’eroe attivo muoversi costa il doppio.
+    Penalità di Movimento fino al prossimo turno (non modellata nel loop di combattimento).
+  [MINACCIA] RONDA (posseduto) — Piazzate 2 Adepti sull’ingresso della Banchina (T1).
+    Piazzati 2x ADEPTO INCAPPUCCIATO (pool residua: 5), a 6 caselle dalla tessera del gruppo.
+  CANE DEI MOLI si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] LO SGHERRO -> OTTONE “MEZZENA” MASSARI: 2d6(4,2)=6 +Attacco(2) = 8 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 1 danno da LO SGHERRO (Salute: 7/9).
+  ADEPTO INCAPPUCCIATO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> OTTONE “MEZZENA” MASSARI: 2d6(3,6)=9 +Attacco(1) = 10 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 6/9).
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+  [OROLOGIO] Fine del 4° round: +1 segnalino Canto automatico.
+    Segnalino Canto: 1.
+--- Round 5: il gruppo raggiunge T6 (Cripta della Cera) ---
+    (azioni nominali questo round: 20 — 10 eroi vivi)
+    Il gruppo entra in T6 da B1.
+    Rivelata la Cripta della Cera: il Custode della Cera si desta con 2 Adepti, in C2.
+    [ATTACCO] ELENA FOSCO -> ADEPTO INCAPPUCCIATO: 2d6(4,4)=8 +VIGORE(1)+arma(1) = 10 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 3/4 ferite residue.
+    [ATTACCO] DOTT. ATTILIO MARN -> ADEPTO INCAPPUCCIATO: 2d6(6,6)=12 +VIGORE(2)+arma(1) = 15 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 2/4 ferite residue.
+    [ATTACCO] SIBILLA REVE -> ADEPTO INCAPPUCCIATO: 2d6(5,3)=8 +VIGORE(1)+arma(1) = 10 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 1/4 ferite residue.
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> ADEPTO INCAPPUCCIATO: 2d6(1,6)=7 +VIGORE(2)+arma(1) = 10 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/4 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    OTTONE “MEZZENA” MASSARI si muove verso ADEPTO INCAPPUCCIATO: B1 -> A2.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> ADEPTO INCAPPUCCIATO: 2d6(5,5)=10 +VIGORE(3)+arma(1) = 14 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 2/4 ferite residue.
+    [ATTACCO] DOTT. LAZZARO SERRA -> ADEPTO INCAPPUCCIATO: 2d6(1,5)=6 +VIGORE(1)+arma(1) = 8 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 3/4 ferite residue.
+    [ATTACCO] PADRE CELSO MARANI -> ADEPTO INCAPPUCCIATO: 2d6(3,6)=9 +VIGORE(1)+arma(1) = 11 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 2/4 ferite residue.
+    [ATTACCO] FULGENZIO CARBONE -> ADEPTO INCAPPUCCIATO: 2d6(6,1)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 1/4 ferite residue.
+    [ATTACCO] OTTAVIO BRERA -> ADEPTO INCAPPUCCIATO: 2d6(3,1)=4 +VIGORE(1)+arma(1) = 6 vs Difesa(7) -> MANCATO
+    [ATTACCO] MORA “SPILLA” FANTI -> ADEPTO INCAPPUCCIATO: 2d6(5,3)=8 +VIGORE(2)+arma(1) = 11 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/4 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    [ABILITÀ] SIBILLA REVE scruta il mazzo: «LAMA NEL BUIO» finisce in fondo, «BRAVI SUL MOLO» torna in cima (2 usi residui).
+  [MINACCIA] BRAVI SUL MOLO (malavita) — Piazzate 1 Sgherro sull’ingresso della Banchina (T1).
+    Piazzati 1x LO SGHERRO (pool residua: 1), a 6 caselle dalla tessera del gruppo.
+  [MINACCIA] ECO AMICA (favore) — Ruggero è vivo. Rivelate una tessera coperta adiacente a una già rivelata.
+    Rivelata una tessera coperta adiacente (nessun effetto in questa astrazione).
+  [MINACCIA] CORRENTE GELIDA (ostacolo) — Fino all’inizio del vostro prossimo turno ogni eroe ha -1 al Movimento (minimo 1).
+    Penalità di Movimento fino al prossimo turno (non modellata nel loop di combattimento).
+  CANE DEI MOLI si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si muove verso FULGENZIO CARBONE: B3 -> B2.
+  ADEPTO INCAPPUCCIATO attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> FULGENZIO CARBONE: 2d6(2,1)=3 +Attacco(1) = 4 vs Difesa(8) -> MANCATO
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] LO SGHERRO -> OTTONE “MEZZENA” MASSARI: 2d6(6,5)=11 +Attacco(2) = 13 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 1 danno da LO SGHERRO (Salute: 5/9).
+  ADEPTO INCAPPUCCIATO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> OTTONE “MEZZENA” MASSARI: 2d6(1,2)=3 +Attacco(1) = 4 vs Difesa(8) -> MANCATO
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+  IL CUSTODE DELLA CERA si muove verso FULGENZIO CARBONE: C2 -> C1.
+  IL CUSTODE DELLA CERA attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] IL CUSTODE DELLA CERA -> FULGENZIO CARBONE: 2d6(1,5)=6 +Attacco(3) = 9 vs Difesa(8) -> COLPITO
+    FULGENZIO CARBONE subisce 2 danno da IL CUSTODE DELLA CERA (Salute: 5/7).
+--- Combattimento contro il Custode della Cera ---
+--- Round 6: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 20 — 10 eroi vivi)
+    [ATTACCO] ELENA FOSCO -> ADEPTO INCAPPUCCIATO: 2d6(5,3)=8 +VIGORE(1)+arma(1) = 10 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 3/4 ferite residue.
+    [ATTACCO] DOTT. ATTILIO MARN -> ADEPTO INCAPPUCCIATO: 2d6(3,3)=6 +VIGORE(2)+arma(1) = 9 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 2/4 ferite residue.
+    [ATTACCO] SIBILLA REVE -> ADEPTO INCAPPUCCIATO: 2d6(5,2)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 1/4 ferite residue.
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> ADEPTO INCAPPUCCIATO: 2d6(4,1)=5 +VIGORE(2)+arma(1) = 8 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/4 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> ADEPTO INCAPPUCCIATO: 2d6(2,1)=3 +VIGORE(3)+arma(1) = 7 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 1/4 ferite residue.
+    [ABILITÀ] DOTT. LAZZARO SERRA attiva Voce ferma (0 usi residui): +2 NERVI agli alleati fino al suo prossimo turno.
+    PADRE CELSO MARANI si muove verso IL CUSTODE DELLA CERA: B1 -> C2.
+    [ATTACCO] PADRE CELSO MARANI -> CANE DEI MOLI: 2d6(1,1)=2 +VIGORE(1)+arma(1) = 4 vs Difesa(6) -> MANCATO
+    [ATTACCO] FULGENZIO CARBONE -> IL CUSTODE DELLA CERA: 2d6(3,4)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(9) -> COLPITO
+    IL CUSTODE DELLA CERA: 6/7 ferite residue.
+    [ATTACCO] OTTAVIO BRERA -> IL CUSTODE DELLA CERA: 2d6(1,4)=5 +VIGORE(1)+arma(1) = 7 vs Difesa(9) -> MANCATO
+    [ATTACCO] MORA “SPILLA” FANTI -> IL CUSTODE DELLA CERA: 2d6(6,5)=11 +VIGORE(2)+arma(1) = 14 vs Difesa(9) -> COLPITO
+    IL CUSTODE DELLA CERA: 5/7 ferite residue.
+    [ABILITÀ] SIBILLA REVE scruta il mazzo: «LA MAREA DI CERA» finisce in fondo, «TRAPPOLA DI CERA» torna in cima (1 usi residui).
+  [MINACCIA] TRAPPOLA DI CERA (insidia) — L’eroe più avanzato prova NERVI (Media): se fallisce, cera bollente: 1 danno e perde 1 azi…
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6(5,4)=9 +NERVI(1) = 10 vs Media(9) -> SUCCESSO
+  [MINACCIA] PRESAGIO (quiete) — Un brivido corre lungo la schiena. Non accade nulla... per ora.
+    Nessun effetto meccanico (tensione).
+  [MINACCIA] IL FALCETTO NEL BUIO (posseduto) — Piazzate 1 Adepto sull’ingresso della tessera corrente, alle spalle degli eroi.
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 5) in B1.
+  CANE DEI MOLI attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] CANE DEI MOLI -> PADRE CELSO MARANI: 2d6(4,5)=9 +Attacco(2) = 11 vs Difesa(8) -> COLPITO
+    PADRE CELSO MARANI subisce 1 danno da CANE DEI MOLI (Salute: 6/7).
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] LO SGHERRO -> OTTONE “MEZZENA” MASSARI: 2d6(3,5)=8 +Attacco(2) = 10 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 1 danno da LO SGHERRO (Salute: 4/9).
+  ADEPTO INCAPPUCCIATO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> OTTONE “MEZZENA” MASSARI: 2d6(1,5)=6 +Attacco(1) = 7 vs Difesa(8) -> MANCATO
+  ADEPTO INCAPPUCCIATO raggiunge la tessera del gruppo, da A1.
+  ADEPTO INCAPPUCCIATO attacca DOTT. LAZZARO SERRA:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> DOTT. LAZZARO SERRA: 2d6(1,5)=6 +Attacco(1) = 7 vs Difesa(8) -> MANCATO
+  ADEPTO INCAPPUCCIATO raggiunge la tessera del gruppo, da B2.
+  ADEPTO INCAPPUCCIATO attacca SIBILLA REVE:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> SIBILLA REVE: 2d6(1,4)=5 +Attacco(1) = 6 vs Difesa(8) -> MANCATO
+  LO SGHERRO si avvicina (Movimento 4): ancora 1 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  IL CUSTODE DELLA CERA attacca OTTAVIO BRERA:
+    [ATTACCO NEMICO] IL CUSTODE DELLA CERA -> OTTAVIO BRERA: 2d6(3,2)=5 +Attacco(3) = 8 vs Difesa(8) -> COLPITO
+    OTTAVIO BRERA subisce 2 danno da IL CUSTODE DELLA CERA (Salute: 4/7).
+--- Round 7: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 20 — 10 eroi vivi)
+    [ATTACCO] ELENA FOSCO -> ADEPTO INCAPPUCCIATO: 2d6(1,2)=3 +VIGORE(1)+arma(1) = 5 vs Difesa(7) -> MANCATO
+    [ATTACCO] DOTT. ATTILIO MARN -> ADEPTO INCAPPUCCIATO: 2d6(2,5)=7 +VIGORE(2)+arma(1) = 10 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 3/4 ferite residue.
+    [ATTACCO] SIBILLA REVE -> ADEPTO INCAPPUCCIATO: 2d6(2,6)=8 +VIGORE(1)+arma(1) = 10 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 2/4 ferite residue.
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> ADEPTO INCAPPUCCIATO: 2d6(3,6)=9 +VIGORE(2)+arma(1) = 12 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 1/4 ferite residue.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> ADEPTO INCAPPUCCIATO: 2d6(5,2)=7 +VIGORE(3)+arma(1) = 11 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/4 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    [ABILITÀ] OTTONE “MEZZENA” MASSARI usa Colpo da macello: attacco extra su LO SGHERRO.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> LO SGHERRO: 2d6(2,6)=8 +VIGORE(3)+arma(1) = 12 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 4/5 ferite residue.
+    [ATTACCO] DOTT. LAZZARO SERRA -> ADEPTO INCAPPUCCIATO: 2d6(4,4)=8 +VIGORE(1)+arma(1) = 10 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/4 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    [ATTACCO] PADRE CELSO MARANI -> CANE DEI MOLI: 2d6(5,6)=11 +VIGORE(1)+arma(1) = 13 vs Difesa(6) -> COLPITO
+    CANE DEI MOLI: 3/4 ferite residue.
+    [ATTACCO] FULGENZIO CARBONE -> ADEPTO INCAPPUCCIATO: 2d6(6,2)=8 +VIGORE(1)+arma(1) = 10 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 3/4 ferite residue.
+    [ATTACCO] OTTAVIO BRERA -> ADEPTO INCAPPUCCIATO: 2d6(6,6)=12 +VIGORE(1)+arma(1) = 14 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 2/4 ferite residue.
+    [ATTACCO] MORA “SPILLA” FANTI -> ADEPTO INCAPPUCCIATO: 2d6(5,6)=11 +VIGORE(2)+arma(1) = 14 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 1/4 ferite residue.
+    [ABILITÀ] SIBILLA REVE scruta il mazzo: «IL CANTO CRESCE» finisce in fondo, «IL FONDITORE» torna in cima (0 usi residui).
+  [MINACCIA] IL FONDITORE (posseduto) — Piazzate 1 Fonditore sull’ingresso della Banchina (T1). Se è già in gioco un Fonditore, ca…
+    Piazzati 1x IL FONDITORE (pool residua: 2), a 6 caselle dalla tessera del gruppo.
+  [MINACCIA] IL CORO RISPONDE (crescendo) — Aggiungete 1 segnalino Canto. Al terzo: il Custode della Cera si desta e da quel momento o…
+    Segnalino Canto: 2.
+    Il Custode recupera 1 ferita (6/7) e si attiva subito.
+  [MINACCIA] LAMA NEL BUIO (malavita) — Piazzate 1 Sicario adiacente all’eroe più isolato o più ferito (a pari merito: sceglie il …
+    Piazzati 1x IL SICARIO (pool residua: 1) in A1.
+    IL SICARIO si attiva subito:
+  IL SICARIO attacca DOTT. LAZZARO SERRA:
+    [ATTACCO NEMICO] IL SICARIO -> DOTT. LAZZARO SERRA: 2d6(5,4)=9 +Attacco(3) = 12 vs Difesa(8) -> COLPITO
+    DOTT. LAZZARO SERRA subisce 2 danno da IL SICARIO (Salute: 5/7).
+  CANE DEI MOLI attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] CANE DEI MOLI -> PADRE CELSO MARANI: 2d6(5,5)=10 +Attacco(2) = 12 vs Difesa(8) -> COLPITO
+    PADRE CELSO MARANI subisce 1 danno da CANE DEI MOLI (Salute: 5/7).
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] LO SGHERRO -> OTTONE “MEZZENA” MASSARI: 2d6(4,6)=10 +Attacco(2) = 12 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 1 danno da LO SGHERRO (Salute: 3/9).
+  ADEPTO INCAPPUCCIATO attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> FULGENZIO CARBONE: 2d6(4,2)=6 +Attacco(1) = 7 vs Difesa(8) -> MANCATO
+  LO SGHERRO raggiunge la tessera del gruppo, da D1.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  IL FONDITORE si avvicina (Movimento 2): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  IL CUSTODE DELLA CERA attacca DOTT. ATTILIO MARN:
+    [ATTACCO NEMICO] IL CUSTODE DELLA CERA -> DOTT. ATTILIO MARN: 2d6(6,4)=10 +Attacco(3) = 13 vs Difesa(8) -> COLPITO
+    DOTT. ATTILIO MARN subisce 2 danno da IL CUSTODE DELLA CERA (Salute: 6/8).
+--- Round 8: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 20 — 10 eroi vivi)
+    [ATTACCO] ELENA FOSCO -> ADEPTO INCAPPUCCIATO: 2d6(6,2)=8 +VIGORE(1)+arma(1) = 10 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/4 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    [ATTACCO] DOTT. ATTILIO MARN -> IL SICARIO: 2d6(5,3)=8 +VIGORE(2)+arma(1) = 11 vs Difesa(7) -> COLPITO
+    IL SICARIO: 3/4 ferite residue.
+    [ATTACCO] SIBILLA REVE -> IL SICARIO: 2d6(1,2)=3 +VIGORE(1)+arma(1) = 5 vs Difesa(7) -> MANCATO
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> IL SICARIO: 2d6(3,5)=8 +VIGORE(2)+arma(1) = 11 vs Difesa(7) -> COLPITO
+    IL SICARIO: 2/4 ferite residue.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> IL SICARIO: 2d6(3,4)=7 +VIGORE(3)+arma(1) = 11 vs Difesa(7) -> COLPITO
+    IL SICARIO: 1/4 ferite residue.
+    [ATTACCO] DOTT. LAZZARO SERRA -> IL SICARIO: 2d6(6,1)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(7) -> COLPITO
+    IL SICARIO: 0/4 ferite residue.
+    IL SICARIO è ABBATTUTO.
+    [ATTACCO] PADRE CELSO MARANI -> CANE DEI MOLI: 2d6(2,5)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(6) -> COLPITO
+    CANE DEI MOLI: 2/4 ferite residue.
+    [ATTACCO] FULGENZIO CARBONE -> IL CUSTODE DELLA CERA: 2d6(2,2)=4 +VIGORE(1)+arma(1) = 6 vs Difesa(9) -> MANCATO
+    [ATTACCO] OTTAVIO BRERA -> IL CUSTODE DELLA CERA: 2d6(3,6)=9 +VIGORE(1)+arma(1) = 11 vs Difesa(9) -> COLPITO
+    IL CUSTODE DELLA CERA: 5/7 ferite residue.
+    [ATTACCO] MORA “SPILLA” FANTI -> IL CUSTODE DELLA CERA: 2d6(3,1)=4 +VIGORE(2)+arma(1) = 7 vs Difesa(9) -> MANCATO
+  [MINACCIA] LA MAREA DI CERA (posseduto) — Piazzate 1 Fonditore sull’ingresso della Banchina (T1): tutti i Fonditori in gioco si atti…
+    1x IL FONDITORE già in gioco si attiva subito.
+    Piazzati 1x IL FONDITORE (pool residua: 1), a 6 caselle dalla tessera del gruppo.
+  [MINACCIA] IL CANTO CRESCE (crescendo) — Aggiungete 1 segnalino Canto. Al terzo: il Custode della Cera si desta e da quel momento o…
+    Segnalino Canto: 3.
+    Il Canto raggiunge 3: da ora ogni Fase Minaccia pesca 1 carta in più (fino a fine spedizione, anche se il Custode è già stato abbattuto).
+    Il Custode recupera 1 ferita (6/7) e si attiva subito.
+    Mazzo Minaccia esaurito: si rimescolano gli scarti.
+  [MINACCIA] TRAPPOLA DI CERA (insidia) — L’eroe più avanzato prova NERVI (Media): se fallisce, cera bollente: 1 danno e perde 1 azi…
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6(3,1)=4 +NERVI(1) = 5 vs Media(9) -> FALLITA
+    NINO “GRIMALDELLO” CAUTO subisce 1 danno da TRAPPOLA DI CERA (Salute: 5/8).
+    NINO “GRIMALDELLO” CAUTO avrà 1 sola azione al suo prossimo turno.
+  CANE DEI MOLI attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] CANE DEI MOLI -> PADRE CELSO MARANI: 2d6(5,4)=9 +Attacco(2) = 11 vs Difesa(8) -> COLPITO
+    PADRE CELSO MARANI subisce 1 danno da CANE DEI MOLI (Salute: 4/7).
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] LO SGHERRO -> OTTONE “MEZZENA” MASSARI: 2d6(6,5)=11 +Attacco(2) = 13 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 1 danno da LO SGHERRO (Salute: 2/9).
+  LO SGHERRO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si muove verso MORA “SPILLA” FANTI: B1 -> A1.
+  ADEPTO INCAPPUCCIATO attacca MORA “SPILLA” FANTI:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> MORA “SPILLA” FANTI: 2d6(3,3)=6 +Attacco(1) = 7 vs Difesa(8) -> MANCATO
+  IL FONDITORE si muove verso FULGENZIO CARBONE: B1 -> B2.
+  IL FONDITORE attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] IL FONDITORE -> FULGENZIO CARBONE: 2d6(5,4)=9 +Attacco(1) = 10 vs Difesa(8) -> COLPITO
+    FULGENZIO CARBONE subisce 2 danno da IL FONDITORE (Salute: 3/7).
+  IL FONDITORE si avvicina (Movimento 2): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  IL CUSTODE DELLA CERA attacca ELENA FOSCO:
+    [ATTACCO NEMICO] IL CUSTODE DELLA CERA -> ELENA FOSCO: 2d6(3,4)=7 +Attacco(3) = 10 vs Difesa(8) -> COLPITO
+    ELENA FOSCO subisce 2 danno da IL CUSTODE DELLA CERA (Salute: 5/7).
+  [OROLOGIO] Fine del 8° round: +1 segnalino Canto automatico.
+    Segnalino Canto: 4.
+--- Round 9: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 20 — 10 eroi vivi)
+    [ATTACCO] ELENA FOSCO -> ADEPTO INCAPPUCCIATO: 2d6(4,6)=10 +VIGORE(1)+arma(1) = 12 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 3/4 ferite residue.
+    [ATTACCO] DOTT. ATTILIO MARN -> ADEPTO INCAPPUCCIATO: 2d6(1,1)=2 +VIGORE(2)+arma(1) = 5 vs Difesa(7) -> MANCATO
+    [ATTACCO] SIBILLA REVE -> ADEPTO INCAPPUCCIATO: 2d6(6,6)=12 +VIGORE(1)+arma(1) = 14 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 2/4 ferite residue.
+    NINO “GRIMALDELLO” CAUTO ha 1 sola azione questo turno (insidia del round scorso).
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> ADEPTO INCAPPUCCIATO: 2d6(3,1)=4 +VIGORE(2)+arma(1) = 7 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 1/4 ferite residue.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> ADEPTO INCAPPUCCIATO: 2d6(1,4)=5 +VIGORE(3)+arma(1) = 9 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/4 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    [ABILITÀ] OTTONE “MEZZENA” MASSARI usa Colpo da macello: attacco extra su LO SGHERRO.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> LO SGHERRO: 2d6(4,1)=5 +VIGORE(3)+arma(1) = 9 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 3/5 ferite residue.
+    [ATTACCO] DOTT. LAZZARO SERRA -> IL FONDITORE: 2d6(1,6)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(8) -> COLPITO
+    IL FONDITORE: 4/5 ferite residue.
+    [ATTACCO] PADRE CELSO MARANI -> CANE DEI MOLI: 2d6(5,5)=10 +VIGORE(1)+arma(1) = 12 vs Difesa(6) -> COLPITO
+    CANE DEI MOLI: 1/4 ferite residue.
+    [ATTACCO] FULGENZIO CARBONE -> IL FONDITORE: 2d6(6,4)=10 +VIGORE(1)+arma(1) = 12 vs Difesa(8) -> COLPITO
+    IL FONDITORE: 3/5 ferite residue.
+    [ATTACCO] OTTAVIO BRERA -> IL FONDITORE: 2d6(1,2)=3 +VIGORE(1)+arma(1) = 5 vs Difesa(8) -> MANCATO
+    [ATTACCO] MORA “SPILLA” FANTI -> IL FONDITORE: 2d6(6,3)=9 +VIGORE(2)+arma(1) = 12 vs Difesa(8) -> COLPITO
+    IL FONDITORE: 2/5 ferite residue.
+  [MINACCIA] VOLTI TRA LE CASSE (posseduto) — Piazzate 1 Adepto sull’uscita più vicina agli eroi della tessera corrente: si è intrufolat…
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 8) in B1.
+  [MINACCIA] PRESAGIO (quiete) — Un brivido corre lungo la schiena. Non accade nulla... per ora.
+    Nessun effetto meccanico (tensione).
+  [MINACCIA] CERA SOTTO I PIEDI (insidia) — L’eroe attivo prova NERVI (Media): se fallisce, 1 danno e perde 1 azione al prossimo turno…
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6(3,4)=7 +NERVI(1) = 8 vs Media(9) -> FALLITA
+    NINO “GRIMALDELLO” CAUTO subisce 1 danno da CERA SOTTO I PIEDI (Salute: 4/8).
+    NINO “GRIMALDELLO” CAUTO avrà 1 sola azione al suo prossimo turno.
+  [MINACCIA] SUSSURRI (insidia) — L’eroe con meno NERVI (a pari merito: sceglie il gruppo) prova NERVI (Media): se fallisce …
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6(3,1)=4 +NERVI(1) = 5 vs Media(9) -> FALLITA
+    NINO “GRIMALDELLO” CAUTO subisce 1 danno da SUSSURRI (Salute: 3/8).
+  CANE DEI MOLI attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] CANE DEI MOLI -> PADRE CELSO MARANI: 2d6(5,3)=8 +Attacco(2) = 10 vs Difesa(8) -> COLPITO
+    PADRE CELSO MARANI subisce 1 danno da CANE DEI MOLI (Salute: 3/7).
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] LO SGHERRO -> OTTONE “MEZZENA” MASSARI: 2d6(3,6)=9 +Attacco(2) = 11 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 1 danno da LO SGHERRO (Salute: 1/9).
+  LO SGHERRO si muove verso PADRE CELSO MARANI: D1 -> D2.
+  LO SGHERRO attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] LO SGHERRO -> PADRE CELSO MARANI: 2d6(3,4)=7 +Attacco(2) = 9 vs Difesa(8) -> COLPITO
+    PADRE CELSO MARANI subisce 1 danno da LO SGHERRO (Salute: 2/7).
+  IL FONDITORE attacca NINO “GRIMALDELLO” CAUTO:
+    [ATTACCO NEMICO] IL FONDITORE -> NINO “GRIMALDELLO” CAUTO: 2d6(4,2)=6 +Attacco(1) = 7 vs Difesa(8) -> MANCATO
+  IL FONDITORE si avvicina (Movimento 2): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si muove verso DOTT. ATTILIO MARN: B1 -> A1.
+  ADEPTO INCAPPUCCIATO attacca DOTT. ATTILIO MARN:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> DOTT. ATTILIO MARN: 2d6(4,4)=8 +Attacco(1) = 9 vs Difesa(8) -> COLPITO
+    DOTT. ATTILIO MARN subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 5/8).
+  IL CUSTODE DELLA CERA attacca DOTT. ATTILIO MARN:
+    [ATTACCO NEMICO] IL CUSTODE DELLA CERA -> DOTT. ATTILIO MARN: 2d6(4,4)=8 +Attacco(3) = 11 vs Difesa(8) -> COLPITO
+    DOTT. ATTILIO MARN subisce 2 danno da IL CUSTODE DELLA CERA (Salute: 3/8).
+--- Round 10: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 20 — 10 eroi vivi)
+    [ATTACCO] ELENA FOSCO -> IL FONDITORE: 2d6(1,5)=6 +VIGORE(1)+arma(1) = 8 vs Difesa(8) -> COLPITO
+    IL FONDITORE: 1/5 ferite residue.
+    [ATTACCO] DOTT. ATTILIO MARN -> IL FONDITORE: 2d6(4,1)=5 +VIGORE(2)+arma(1) = 8 vs Difesa(8) -> COLPITO
+    IL FONDITORE: 0/5 ferite residue.
+    IL FONDITORE è ABBATTUTO.
+    [ATTACCO] SIBILLA REVE -> ADEPTO INCAPPUCCIATO: 2d6(2,1)=3 +VIGORE(1)+arma(1) = 5 vs Difesa(7) -> MANCATO
+    NINO “GRIMALDELLO” CAUTO ha 1 sola azione questo turno (insidia del round scorso).
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> ADEPTO INCAPPUCCIATO: 2d6(4,6)=10 +VIGORE(2)+arma(1) = 13 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 3/4 ferite residue.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> LO SGHERRO: 2d6(3,2)=5 +VIGORE(3)+arma(1) = 9 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 2/5 ferite residue.
+    [ATTACCO] DOTT. LAZZARO SERRA -> ADEPTO INCAPPUCCIATO: 2d6(5,3)=8 +VIGORE(1)+arma(1) = 10 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 2/4 ferite residue.
+    [ATTACCO] PADRE CELSO MARANI -> CANE DEI MOLI: 2d6(2,2)=4 +VIGORE(1)+arma(1) = 6 vs Difesa(6) -> COLPITO
+    CANE DEI MOLI: 0/4 ferite residue.
+    CANE DEI MOLI è ABBATTUTO.
+    [ATTACCO] FULGENZIO CARBONE -> ADEPTO INCAPPUCCIATO: 2d6(2,1)=3 +VIGORE(1)+arma(1) = 5 vs Difesa(7) -> MANCATO
+    [ATTACCO] OTTAVIO BRERA -> ADEPTO INCAPPUCCIATO: 2d6(5,1)=6 +VIGORE(1)+arma(1) = 8 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 1/4 ferite residue.
+    [ATTACCO] MORA “SPILLA” FANTI -> ADEPTO INCAPPUCCIATO: 2d6(2,2)=4 +VIGORE(2)+arma(1) = 7 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/4 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+  [MINACCIA] IL BRANCO (malavita) — Piazzate 2 Sgherri, adiacenti tra loro, sull’uscita più vicina agli eroi della tessera cor…
+    Segnalini LO SGHERRO esauriti: il piazzamento non ha luogo (resto della carta si applica comunque).
+    Piazzati 1x LO SGHERRO (pool residua: 0) in B1.
+  [MINACCIA] LAMA NEL BUIO (malavita) — Piazzate 1 Sicario adiacente all’eroe più isolato o più ferito (a pari merito: sceglie il …
+    Piazzati 1x IL SICARIO (pool residua: 1) in A1.
+    IL SICARIO si attiva subito:
+  IL SICARIO attacca SIBILLA REVE:
+    [ATTACCO NEMICO] IL SICARIO -> SIBILLA REVE: 2d6(3,6)=9 +Attacco(3) = 12 vs Difesa(8) -> COLPITO
+    SIBILLA REVE subisce 2 danno da IL SICARIO (Salute: 5/7).
+  [MINACCIA] IL CORO RISPONDE (crescendo) — Aggiungete 1 segnalino Canto. Al terzo: il Custode della Cera si desta e da quel momento o…
+    Segnalino Canto: 5.
+    Il Custode recupera 1 ferita (7/7) e si attiva subito.
+  [MINACCIA] IL FALCETTO NEL BUIO (posseduto) — Piazzate 1 Adepto sull’ingresso della tessera corrente, alle spalle degli eroi.
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 8) in B1.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] LO SGHERRO -> OTTONE “MEZZENA” MASSARI: 2d6(4,4)=8 +Attacco(2) = 10 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 1 danno da LO SGHERRO (Salute: 0/9).
+    *** OTTONE “MEZZENA” MASSARI è A TERRA. ***
+  LO SGHERRO attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] LO SGHERRO -> PADRE CELSO MARANI: 2d6(3,1)=4 +Attacco(2) = 6 vs Difesa(8) -> MANCATO
+  IL FONDITORE raggiunge la tessera del gruppo, da B2.
+  IL FONDITORE attacca NINO “GRIMALDELLO” CAUTO:
+    [ATTACCO NEMICO] IL FONDITORE -> NINO “GRIMALDELLO” CAUTO: 2d6(3,6)=9 +Attacco(1) = 10 vs Difesa(8) -> COLPITO
+    NINO “GRIMALDELLO” CAUTO subisce 2 danno da IL FONDITORE (Salute: 1/8).
+  LO SGHERRO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  IL CUSTODE DELLA CERA attacca MORA “SPILLA” FANTI:
+    [ATTACCO NEMICO] IL CUSTODE DELLA CERA -> MORA “SPILLA” FANTI: 2d6(5,2)=7 +Attacco(3) = 10 vs Difesa(8) -> COLPITO
+    MORA “SPILLA” FANTI subisce 2 danno da IL CUSTODE DELLA CERA (Salute: 6/8).
+--- Round 11: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 18 — 9 eroi vivi)
+    [ATTACCO] ELENA FOSCO -> IL SICARIO: 2d6(5,3)=8 +VIGORE(1)+arma(1) = 10 vs Difesa(7) -> COLPITO
+    IL SICARIO: 3/4 ferite residue.
+    [ATTACCO] DOTT. ATTILIO MARN -> IL SICARIO: 2d6(6,4)=10 +VIGORE(2)+arma(1) = 13 vs Difesa(7) -> COLPITO
+    IL SICARIO: 2/4 ferite residue.
+    [ATTACCO] SIBILLA REVE -> IL SICARIO: 2d6(3,3)=6 +VIGORE(1)+arma(1) = 8 vs Difesa(7) -> COLPITO
+    IL SICARIO: 1/4 ferite residue.
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> IL SICARIO: 2d6(6,3)=9 +VIGORE(2)+arma(1) = 12 vs Difesa(7) -> COLPITO
+    IL SICARIO: 0/4 ferite residue.
+    IL SICARIO è ABBATTUTO.
+    [ATTACCO] DOTT. LAZZARO SERRA -> IL FONDITORE: 2d6(1,1)=2 +VIGORE(1)+arma(1) = 4 vs Difesa(8) -> MANCATO
+    [ATTACCO] PADRE CELSO MARANI -> LO SGHERRO: 2d6(4,4)=8 +VIGORE(1)+arma(1) = 10 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 4/5 ferite residue.
+    [ATTACCO] FULGENZIO CARBONE -> IL FONDITORE: 2d6(2,2)=4 +VIGORE(1)+arma(1) = 6 vs Difesa(8) -> MANCATO
+    [ATTACCO] OTTAVIO BRERA -> IL FONDITORE: 2d6(6,1)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(8) -> COLPITO
+    IL FONDITORE: 4/5 ferite residue.
+    [ATTACCO] MORA “SPILLA” FANTI -> IL FONDITORE: 2d6(1,5)=6 +VIGORE(2)+arma(1) = 9 vs Difesa(8) -> COLPITO
+    IL FONDITORE: 3/5 ferite residue.
+  [MINACCIA] IL CANTO SALE (crescendo) — Aggiungete 1 segnalino Canto. Al terzo: il Custode della Cera si desta e da quel momento o…
+    Segnalino Canto: 6.
+    Il Custode recupera 1 ferita (7/7) e si attiva subito.
+  [MINACCIA] BRAVI SUL MOLO (malavita) — Piazzate 1 Sgherro sull’ingresso della Banchina (T1).
+    Segnalini LO SGHERRO esauriti: il piazzamento non ha luogo (resto della carta si applica comunque).
+  [MINACCIA] CORRENTE GELIDA (ostacolo) — Fino all’inizio del vostro prossimo turno ogni eroe ha -1 al Movimento (minimo 1).
+    Penalità di Movimento fino al prossimo turno (non modellata nel loop di combattimento).
+  [MINACCIA] LA MAREA DI CERA (posseduto) — Piazzate 1 Fonditore sull’ingresso della Banchina (T1): tutti i Fonditori in gioco si atti…
+    1x IL FONDITORE già in gioco si attiva subito.
+    Piazzati 1x IL FONDITORE (pool residua: 1), a 6 caselle dalla tessera del gruppo.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] LO SGHERRO -> PADRE CELSO MARANI: 2d6(6,2)=8 +Attacco(2) = 10 vs Difesa(8) -> COLPITO
+    PADRE CELSO MARANI subisce 1 danno da LO SGHERRO (Salute: 1/7).
+  IL FONDITORE attacca NINO “GRIMALDELLO” CAUTO:
+    [ATTACCO NEMICO] IL FONDITORE -> NINO “GRIMALDELLO” CAUTO: 2d6(1,5)=6 +Attacco(1) = 7 vs Difesa(8) -> MANCATO
+  LO SGHERRO si muove verso SIBILLA REVE: B1 -> A1.
+  LO SGHERRO attacca SIBILLA REVE:
+    [ATTACCO NEMICO] LO SGHERRO -> SIBILLA REVE: 2d6(1,3)=4 +Attacco(2) = 6 vs Difesa(8) -> MANCATO
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  IL FONDITORE si avvicina (Movimento 2): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  IL CUSTODE DELLA CERA attacca NINO “GRIMALDELLO” CAUTO:
+    [ATTACCO NEMICO] IL CUSTODE DELLA CERA -> NINO “GRIMALDELLO” CAUTO: 2d6(5,6)=11 +Attacco(3) = 14 vs Difesa(8) -> COLPITO
+    NINO “GRIMALDELLO” CAUTO subisce 2 danno da IL CUSTODE DELLA CERA (Salute: 0/8).
+    *** NINO “GRIMALDELLO” CAUTO è A TERRA. ***
+--- Round 12: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 16 — 8 eroi vivi)
+    [ATTACCO] ELENA FOSCO -> IL FONDITORE: 2d6(4,6)=10 +VIGORE(1)+arma(1) = 12 vs Difesa(8) -> COLPITO
+    IL FONDITORE: 2/5 ferite residue.
+    [ATTACCO] DOTT. ATTILIO MARN -> IL FONDITORE: 2d6(2,1)=3 +VIGORE(2)+arma(1) = 6 vs Difesa(8) -> MANCATO
+    [ATTACCO] SIBILLA REVE -> IL FONDITORE: 2d6(3,2)=5 +VIGORE(1)+arma(1) = 7 vs Difesa(8) -> MANCATO
+    [ATTACCO] DOTT. LAZZARO SERRA -> IL FONDITORE: 2d6(1,2)=3 +VIGORE(1)+arma(1) = 5 vs Difesa(8) -> MANCATO
+    [ATTACCO] PADRE CELSO MARANI -> IL FONDITORE: 2d6(5,6)=11 +VIGORE(1)+arma(1) = 13 vs Difesa(8) -> COLPITO
+    IL FONDITORE: 1/5 ferite residue.
+    [ATTACCO] FULGENZIO CARBONE -> IL FONDITORE: 2d6(5,5)=10 +VIGORE(1)+arma(1) = 12 vs Difesa(8) -> COLPITO
+    IL FONDITORE: 0/5 ferite residue.
+    IL FONDITORE è ABBATTUTO.
+    [ATTACCO] OTTAVIO BRERA -> LO SGHERRO: 2d6(1,2)=3 +VIGORE(1)+arma(1) = 5 vs Difesa(8) -> MANCATO
+    [ATTACCO] MORA “SPILLA” FANTI -> LO SGHERRO: 2d6(3,6)=9 +VIGORE(2)+arma(1) = 12 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 4/5 ferite residue.
+  [MINACCIA] CANI DEI MOLI (posseduto) — Piazzate 1 Cane dei Moli sull’uscita più vicina agli eroi della tessera corrente: si attiv…
+    Piazzati 1x CANE DEI MOLI (pool residua: 2) in B2.
+    CANE DEI MOLI si attiva subito:
+  CANE DEI MOLI attacca ELENA FOSCO:
+    [ATTACCO NEMICO] CANE DEI MOLI -> ELENA FOSCO: 2d6(4,6)=10 +Attacco(2) = 12 vs Difesa(8) -> COLPITO
+    ELENA FOSCO subisce 1 danno da CANE DEI MOLI (Salute: 4/7).
+  [MINACCIA] CERA CHE COLA (ostacolo) — Fino a fine round, sulla tessera dell’eroe attivo muoversi costa il doppio.
+    Penalità di Movimento fino al prossimo turno (non modellata nel loop di combattimento).
+  [MINACCIA] LA VEDETTA (posseduto) — Piazzate 1 Adepto adiacente all’eroe più isolato (quello più lontano dagli altri; a pari m…
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 7) in B1.
+  [MINACCIA] ECO AMICA (favore) — Ruggero è vivo. Rivelate una tessera coperta adiacente a una già rivelata.
+    Rivelata una tessera coperta adiacente (nessun effetto in questa astrazione).
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] LO SGHERRO -> PADRE CELSO MARANI: 2d6(1,6)=7 +Attacco(2) = 9 vs Difesa(8) -> COLPITO
+    PADRE CELSO MARANI subisce 1 danno da LO SGHERRO (Salute: 0/7).
+    *** PADRE CELSO MARANI è A TERRA. ***
+  LO SGHERRO attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] LO SGHERRO -> FULGENZIO CARBONE: 2d6(6,2)=8 +Attacco(2) = 10 vs Difesa(8) -> COLPITO
+    FULGENZIO CARBONE subisce 1 danno da LO SGHERRO (Salute: 2/7).
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  IL FONDITORE si avvicina (Movimento 2): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  IL CUSTODE DELLA CERA attacca DOTT. ATTILIO MARN:
+    [ATTACCO NEMICO] IL CUSTODE DELLA CERA -> DOTT. ATTILIO MARN: 2d6(3,6)=9 +Attacco(3) = 12 vs Difesa(8) -> COLPITO
+    DOTT. ATTILIO MARN subisce 2 danno da IL CUSTODE DELLA CERA (Salute: 1/8).
+  [OROLOGIO] Fine del 12° round: +1 segnalino Canto automatico.
+    Segnalino Canto: 7.
+--- Round 13: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 14 — 7 eroi vivi)
+    [ATTACCO] ELENA FOSCO -> LO SGHERRO: 2d6(4,6)=10 +VIGORE(1)+arma(1) = 12 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 3/5 ferite residue.
+    [ATTACCO] DOTT. ATTILIO MARN -> LO SGHERRO: 2d6(2,4)=6 +VIGORE(2)+arma(1) = 9 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 2/5 ferite residue.
+    [ATTACCO] SIBILLA REVE -> LO SGHERRO: 2d6(4,6)=10 +VIGORE(1)+arma(1) = 12 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/5 ferite residue.
+    [ATTACCO] DOTT. LAZZARO SERRA -> LO SGHERRO: 2d6(5,2)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/5 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+    [ATTACCO] FULGENZIO CARBONE -> CANE DEI MOLI: 2d6(2,4)=6 +VIGORE(1)+arma(1) = 8 vs Difesa(6) -> COLPITO
+    CANE DEI MOLI: 3/4 ferite residue.
+    [ATTACCO] OTTAVIO BRERA -> CANE DEI MOLI: 2d6(4,6)=10 +VIGORE(1)+arma(1) = 12 vs Difesa(6) -> COLPITO
+    CANE DEI MOLI: 2/4 ferite residue.
+    [ATTACCO] MORA “SPILLA” FANTI -> CANE DEI MOLI: 2d6(6,2)=8 +VIGORE(2)+arma(1) = 11 vs Difesa(6) -> COLPITO
+    CANE DEI MOLI: 1/4 ferite residue.
+  [MINACCIA] RONDA (posseduto) — Piazzate 2 Adepti sull’ingresso della Banchina (T1).
+    Piazzati 2x ADEPTO INCAPPUCCIATO (pool residua: 5), a 6 caselle dalla tessera del gruppo.
+  [MINACCIA] FUMI SOPORIFERI (insidia) — Ogni eroe prova NERVI (Facile): chi fallisce ha 1 sola azione al prossimo turno.
+    [PROVA NERVI] ELENA FOSCO: 2d6(1,3)=4 +NERVI(2) = 6 vs Facile(7) -> FALLITA
+    ELENA FOSCO avrà 1 sola azione al suo prossimo turno.
+    [PROVA NERVI] DOTT. ATTILIO MARN: 2d6(6,4)=10 +NERVI(2) = 12 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] SIBILLA REVE: 2d6(5,3)=8 +NERVI(3) = 11 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] DOTT. LAZZARO SERRA: 2d6(1,6)=7 +NERVI(2) = 9 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] FULGENZIO CARBONE: 2d6(1,2)=3 +NERVI(2) = 5 vs Facile(7) -> FALLITA
+    FULGENZIO CARBONE avrà 1 sola azione al suo prossimo turno.
+    [PROVA NERVI] OTTAVIO BRERA: 2d6(3,3)=6 +NERVI(2) = 8 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(5,2)=7 +NERVI(1) = 8 vs Facile(7) -> SUCCESSO
+  [MINACCIA] UNGHIE SULLA PIETRA (posseduto) — Piazzate 1 Cane dei Moli sull’ingresso della tessera corrente: si attiva subito.
+    Piazzati 1x CANE DEI MOLI (pool residua: 1) in A1.
+    CANE DEI MOLI si attiva subito:
+  CANE DEI MOLI attacca OTTAVIO BRERA:
+    [ATTACCO NEMICO] CANE DEI MOLI -> OTTAVIO BRERA: 2d6(1,2)=3 +Attacco(2) = 5 vs Difesa(8) -> MANCATO
+  [MINACCIA] IL FONDITORE (posseduto) — Piazzate 1 Fonditore sull’ingresso della Banchina (T1). Se è già in gioco un Fonditore, ca…
+    Piazzati 1x IL FONDITORE (pool residua: 1), a 6 caselle dalla tessera del gruppo.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  IL FONDITORE raggiunge la tessera del gruppo, da D1.
+  IL FONDITORE si avvicina, non ancora a contatto.
+  CANE DEI MOLI attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] CANE DEI MOLI -> FULGENZIO CARBONE: 2d6(4,2)=6 +Attacco(2) = 8 vs Difesa(8) -> COLPITO
+    FULGENZIO CARBONE subisce 1 danno da CANE DEI MOLI (Salute: 1/7).
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  IL FONDITORE si avvicina (Movimento 2): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  IL CUSTODE DELLA CERA attacca ELENA FOSCO:
+    [ATTACCO NEMICO] IL CUSTODE DELLA CERA -> ELENA FOSCO: 2d6(6,3)=9 +Attacco(3) = 12 vs Difesa(8) -> COLPITO
+    ELENA FOSCO subisce 2 danno da IL CUSTODE DELLA CERA (Salute: 2/7).
+--- Round 14: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 14 — 7 eroi vivi)
+    ELENA FOSCO ha 1 sola azione questo turno (insidia del round scorso).
+    [ATTACCO] ELENA FOSCO -> CANE DEI MOLI: 2d6(5,1)=6 +VIGORE(1)+arma(1) = 8 vs Difesa(6) -> COLPITO
+    CANE DEI MOLI: 0/4 ferite residue.
+    CANE DEI MOLI è ABBATTUTO.
+    [ATTACCO] DOTT. ATTILIO MARN -> CANE DEI MOLI: 2d6(4,4)=8 +VIGORE(2)+arma(1) = 11 vs Difesa(6) -> COLPITO
+    CANE DEI MOLI: 3/4 ferite residue.
+    [ATTACCO] SIBILLA REVE -> CANE DEI MOLI: 2d6(4,6)=10 +VIGORE(1)+arma(1) = 12 vs Difesa(6) -> COLPITO
+    CANE DEI MOLI: 2/4 ferite residue.
+    [ATTACCO] DOTT. LAZZARO SERRA -> CANE DEI MOLI: 2d6(5,3)=8 +VIGORE(1)+arma(1) = 10 vs Difesa(6) -> COLPITO
+    CANE DEI MOLI: 1/4 ferite residue.
+    FULGENZIO CARBONE ha 1 sola azione questo turno (insidia del round scorso).
+    [ATTACCO] FULGENZIO CARBONE -> CANE DEI MOLI: 2d6(2,3)=5 +VIGORE(1)+arma(1) = 7 vs Difesa(6) -> COLPITO
+    CANE DEI MOLI: 0/4 ferite residue.
+    CANE DEI MOLI è ABBATTUTO.
+    [ATTACCO] OTTAVIO BRERA -> IL CUSTODE DELLA CERA: 2d6(6,1)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(9) -> COLPITO
+    IL CUSTODE DELLA CERA: 6/7 ferite residue.
+    [ATTACCO] MORA “SPILLA” FANTI -> IL CUSTODE DELLA CERA: 2d6(5,3)=8 +VIGORE(2)+arma(1) = 11 vs Difesa(9) -> COLPITO
+    IL CUSTODE DELLA CERA: 5/7 ferite residue.
+  [MINACCIA] IL CANTO CRESCE (crescendo) — Aggiungete 1 segnalino Canto. Al terzo: il Custode della Cera si desta e da quel momento o…
+    Segnalino Canto: 8.
+    Il Custode recupera 1 ferita (6/7) e si attiva subito.
+  [MINACCIA] ADEPTO IN AGGUATO (posseduto) — Piazzate 1 Adepto sull’uscita più vicina agli eroi della tessera in cui si trova l’eroe at…
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 4) in B1.
+    Mazzo Minaccia esaurito: si rimescolano gli scarti.
+  [MINACCIA] ADEPTO IN AGGUATO (posseduto) — Piazzate 1 Adepto sull’uscita più vicina agli eroi della tessera in cui si trova l’eroe at…
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 3) in B1.
+  [MINACCIA] CERA SOTTO I PIEDI (insidia) — L’eroe attivo prova NERVI (Media): se fallisce, 1 danno e perde 1 azione al prossimo turno…
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(5,1)=6 +NERVI(1) = 7 vs Media(9) -> FALLITA
+    [SECONDO FIATO] MORA “SPILLA” FANTI ritenta la prova (unico ritento dell’episodio):
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(3,5)=8 +NERVI(1) = 9 vs Media(9) -> SUCCESSO
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si muove verso DOTT. ATTILIO MARN: B1 -> A1.
+  ADEPTO INCAPPUCCIATO attacca DOTT. ATTILIO MARN:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> DOTT. ATTILIO MARN: 2d6(4,1)=5 +Attacco(1) = 6 vs Difesa(8) -> MANCATO
+  IL FONDITORE si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si muove verso OTTAVIO BRERA: B1 -> B2.
+  ADEPTO INCAPPUCCIATO attacca OTTAVIO BRERA:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> OTTAVIO BRERA: 2d6(3,5)=8 +Attacco(1) = 9 vs Difesa(8) -> COLPITO
+    OTTAVIO BRERA subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 3/7).
+  ADEPTO INCAPPUCCIATO raggiunge la tessera del gruppo, da B4.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO raggiunge la tessera del gruppo, da D3.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  IL FONDITORE si avvicina (Movimento 2): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  IL CUSTODE DELLA CERA attacca ELENA FOSCO:
+    [ATTACCO NEMICO] IL CUSTODE DELLA CERA -> ELENA FOSCO: 2d6(1,6)=7 +Attacco(3) = 10 vs Difesa(8) -> COLPITO
+    ELENA FOSCO subisce 2 danno da IL CUSTODE DELLA CERA (Salute: 0/7).
+    *** ELENA FOSCO è A TERRA. ***
+--- Round 15: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 12 — 6 eroi vivi)
+    [ATTACCO] DOTT. ATTILIO MARN -> ADEPTO INCAPPUCCIATO: 2d6(1,6)=7 +VIGORE(2)+arma(1) = 10 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 3/4 ferite residue.
+    [ATTACCO] SIBILLA REVE -> ADEPTO INCAPPUCCIATO: 2d6(6,3)=9 +VIGORE(1)+arma(1) = 11 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 2/4 ferite residue.
+    [ATTACCO] DOTT. LAZZARO SERRA -> ADEPTO INCAPPUCCIATO: 2d6(1,1)=2 +VIGORE(1)+arma(1) = 4 vs Difesa(7) -> MANCATO
+    [ATTACCO] FULGENZIO CARBONE -> ADEPTO INCAPPUCCIATO: 2d6(4,1)=5 +VIGORE(1)+arma(1) = 7 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 1/4 ferite residue.
+    [ATTACCO] OTTAVIO BRERA -> ADEPTO INCAPPUCCIATO: 2d6(2,2)=4 +VIGORE(1)+arma(1) = 6 vs Difesa(7) -> MANCATO
+    [ATTACCO] MORA “SPILLA” FANTI -> ADEPTO INCAPPUCCIATO: 2d6(3,4)=7 +VIGORE(2)+arma(1) = 10 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/4 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+  [MINACCIA] IL CORO RISPONDE (crescendo) — Aggiungete 1 segnalino Canto. Al terzo: il Custode della Cera si desta e da quel momento o…
+    Segnalino Canto: 9.
+    Il Custode recupera 1 ferita (7/7) e si attiva subito.
+  [MINACCIA] LA MAREA DI CERA (posseduto) — Piazzate 1 Fonditore sull’ingresso della Banchina (T1): tutti i Fonditori in gioco si atti…
+    2x IL FONDITORE già in gioco si attiva subito.
+    Piazzati 1x IL FONDITORE (pool residua: 0), a 6 caselle dalla tessera del gruppo.
+  [MINACCIA] LAMA NEL BUIO (malavita) — Piazzate 1 Sicario adiacente all’eroe più isolato o più ferito (a pari merito: sceglie il …
+    Piazzati 1x IL SICARIO (pool residua: 1) in A1.
+    IL SICARIO si attiva subito:
+  IL SICARIO attacca SIBILLA REVE:
+    [ATTACCO NEMICO] IL SICARIO -> SIBILLA REVE: 2d6(1,3)=4 +Attacco(3) = 7 vs Difesa(8) -> MANCATO
+  [MINACCIA] PRESAGIO (quiete) — Un brivido corre lungo la schiena. Non accade nulla... per ora.
+    Nessun effetto meccanico (tensione).
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  IL FONDITORE si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO attacca DOTT. LAZZARO SERRA:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> DOTT. LAZZARO SERRA: 2d6(4,5)=9 +Attacco(1) = 10 vs Difesa(8) -> COLPITO
+    DOTT. LAZZARO SERRA subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 4/7).
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  IL FONDITORE si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  IL FONDITORE si avvicina (Movimento 2): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  IL CUSTODE DELLA CERA attacca DOTT. LAZZARO SERRA:
+    [ATTACCO NEMICO] IL CUSTODE DELLA CERA -> DOTT. LAZZARO SERRA: 2d6(2,1)=3 +Attacco(3) = 6 vs Difesa(8) -> MANCATO
+--- Round 16: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 12 — 6 eroi vivi)
+    [ATTACCO] DOTT. ATTILIO MARN -> ADEPTO INCAPPUCCIATO: 2d6(4,5)=9 +VIGORE(2)+arma(1) = 12 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 3/4 ferite residue.
+    [ATTACCO] SIBILLA REVE -> ADEPTO INCAPPUCCIATO: 2d6(6,3)=9 +VIGORE(1)+arma(1) = 11 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 2/4 ferite residue.
+    [ATTACCO] DOTT. LAZZARO SERRA -> ADEPTO INCAPPUCCIATO: 2d6(1,3)=4 +VIGORE(1)+arma(1) = 6 vs Difesa(7) -> MANCATO
+    [ATTACCO] FULGENZIO CARBONE -> ADEPTO INCAPPUCCIATO: 2d6(6,3)=9 +VIGORE(1)+arma(1) = 11 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 1/4 ferite residue.
+    [ATTACCO] OTTAVIO BRERA -> ADEPTO INCAPPUCCIATO: 2d6(2,4)=6 +VIGORE(1)+arma(1) = 8 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/4 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    [ATTACCO] MORA “SPILLA” FANTI -> IL SICARIO: 2d6(4,3)=7 +VIGORE(2)+arma(1) = 10 vs Difesa(7) -> COLPITO
+    IL SICARIO: 3/4 ferite residue.
+  [MINACCIA] VOLTI TRA LE CASSE (posseduto) — Piazzate 1 Adepto sull’uscita più vicina agli eroi della tessera corrente: si è intrufolat…
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 4) in B1.
+  [MINACCIA] IL CANTO CRESCE (crescendo) — Aggiungete 1 segnalino Canto. Al terzo: il Custode della Cera si desta e da quel momento o…
+    Segnalino Canto: 10.
+    Il Custode recupera 1 ferita (7/7) e si attiva subito.
+  [MINACCIA] CORRENTE GELIDA (ostacolo) — Fino all’inizio del vostro prossimo turno ogni eroe ha -1 al Movimento (minimo 1).
+    Penalità di Movimento fino al prossimo turno (non modellata nel loop di combattimento).
+  [MINACCIA] RONDA (posseduto) — Piazzate 2 Adepti sull’ingresso della Banchina (T1).
+    Piazzati 2x ADEPTO INCAPPUCCIATO (pool residua: 2), a 6 caselle dalla tessera del gruppo.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  IL FONDITORE si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  IL FONDITORE si muove verso MORA “SPILLA” FANTI: B1 -> B2.
+  IL FONDITORE attacca MORA “SPILLA” FANTI:
+    [ATTACCO NEMICO] IL FONDITORE -> MORA “SPILLA” FANTI: 2d6(1,2)=3 +Attacco(1) = 4 vs Difesa(8) -> MANCATO
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  IL FONDITORE si avvicina (Movimento 2): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  IL SICARIO attacca DOTT. LAZZARO SERRA:
+    [ATTACCO NEMICO] IL SICARIO -> DOTT. LAZZARO SERRA: 2d6(1,5)=6 +Attacco(3) = 9 vs Difesa(8) -> COLPITO
+    DOTT. LAZZARO SERRA subisce 2 danno da IL SICARIO (Salute: 2/7).
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  IL CUSTODE DELLA CERA attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] IL CUSTODE DELLA CERA -> FULGENZIO CARBONE: 2d6(1,3)=4 +Attacco(3) = 7 vs Difesa(8) -> MANCATO
+  [OROLOGIO] Fine del 16° round: +1 segnalino Canto automatico.
+    Segnalino Canto: 11.
+--- Round 17: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 12 — 6 eroi vivi)
+    [ATTACCO] DOTT. ATTILIO MARN -> IL SICARIO: 2d6(2,3)=5 +VIGORE(2)+arma(1) = 8 vs Difesa(7) -> COLPITO
+    IL SICARIO: 2/4 ferite residue.
+    [ATTACCO] SIBILLA REVE -> IL SICARIO: 2d6(3,3)=6 +VIGORE(1)+arma(1) = 8 vs Difesa(7) -> COLPITO
+    IL SICARIO: 1/4 ferite residue.
+    [ATTACCO] DOTT. LAZZARO SERRA -> IL SICARIO: 2d6(2,1)=3 +VIGORE(1)+arma(1) = 5 vs Difesa(7) -> MANCATO
+    [ATTACCO] FULGENZIO CARBONE -> IL SICARIO: 2d6(6,2)=8 +VIGORE(1)+arma(1) = 10 vs Difesa(7) -> COLPITO
+    IL SICARIO: 0/4 ferite residue.
+    IL SICARIO è ABBATTUTO.
+    [ATTACCO] OTTAVIO BRERA -> IL FONDITORE: 2d6(6,2)=8 +VIGORE(1)+arma(1) = 10 vs Difesa(8) -> COLPITO
+    IL FONDITORE: 4/5 ferite residue.
+    [ATTACCO] MORA “SPILLA” FANTI -> IL FONDITORE: 2d6(1,2)=3 +VIGORE(2)+arma(1) = 6 vs Difesa(8) -> MANCATO
+  [MINACCIA] CERA CHE COLA (ostacolo) — Fino a fine round, sulla tessera dell’eroe attivo muoversi costa il doppio.
+    Penalità di Movimento fino al prossimo turno (non modellata nel loop di combattimento).
+  [MINACCIA] SUSSURRI (insidia) — L’eroe con meno NERVI (a pari merito: sceglie il gruppo) prova NERVI (Media): se fallisce …
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(6,3)=9 +NERVI(1) = 10 vs Media(9) -> SUCCESSO
+  [MINACCIA] CANI DEI MOLI (posseduto) — Piazzate 1 Cane dei Moli sull’uscita più vicina agli eroi della tessera corrente: si attiv…
+    Piazzati 1x CANE DEI MOLI (pool residua: 2) in A1.
+    CANE DEI MOLI si attiva subito:
+  CANE DEI MOLI attacca DOTT. ATTILIO MARN:
+    [ATTACCO NEMICO] CANE DEI MOLI -> DOTT. ATTILIO MARN: 2d6(3,2)=5 +Attacco(2) = 7 vs Difesa(8) -> MANCATO
+  [MINACCIA] TRAPPOLA DI CERA (insidia) — L’eroe più avanzato prova NERVI (Media): se fallisce, cera bollente: 1 danno e perde 1 azi…
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(2,6)=8 +NERVI(1) = 9 vs Media(9) -> SUCCESSO
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  IL FONDITORE si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  IL FONDITORE attacca SIBILLA REVE:
+    [ATTACCO NEMICO] IL FONDITORE -> SIBILLA REVE: 2d6(4,2)=6 +Attacco(1) = 7 vs Difesa(8) -> MANCATO
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  IL FONDITORE raggiunge la tessera del gruppo, da C4.
+  IL FONDITORE si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO arriva alla porta ma la tessera è piena: resta in coda fuori tessera.
+  ADEPTO INCAPPUCCIATO arriva alla porta ma la tessera è piena: resta in coda fuori tessera.
+  IL CUSTODE DELLA CERA attacca DOTT. ATTILIO MARN:
+    [ATTACCO NEMICO] IL CUSTODE DELLA CERA -> DOTT. ATTILIO MARN: 2d6(3,6)=9 +Attacco(3) = 12 vs Difesa(8) -> COLPITO
+    DOTT. ATTILIO MARN subisce 2 danno da IL CUSTODE DELLA CERA (Salute: 0/8).
+    *** DOTT. ATTILIO MARN è A TERRA. ***
+--- Round 18: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 10 — 5 eroi vivi)
+    [ATTACCO] SIBILLA REVE -> IL FONDITORE: 2d6(6,4)=10 +VIGORE(1)+arma(1) = 12 vs Difesa(8) -> COLPITO
+    IL FONDITORE: 3/5 ferite residue.
+    [ATTACCO] DOTT. LAZZARO SERRA -> IL FONDITORE: 2d6(4,5)=9 +VIGORE(1)+arma(1) = 11 vs Difesa(8) -> COLPITO
+    IL FONDITORE: 2/5 ferite residue.
+    [ATTACCO] FULGENZIO CARBONE -> IL FONDITORE: 2d6(5,6)=11 +VIGORE(1)+arma(1) = 13 vs Difesa(8) -> COLPITO
+    IL FONDITORE: 1/5 ferite residue.
+    [ATTACCO] OTTAVIO BRERA -> IL FONDITORE: 2d6(4,1)=5 +VIGORE(1)+arma(1) = 7 vs Difesa(8) -> MANCATO
+    [ATTACCO] MORA “SPILLA” FANTI -> IL FONDITORE: 2d6(4,4)=8 +VIGORE(2)+arma(1) = 11 vs Difesa(8) -> COLPITO
+    IL FONDITORE: 0/5 ferite residue.
+    IL FONDITORE è ABBATTUTO.
+  [MINACCIA] IL BRANCO (malavita) — Piazzate 2 Sgherri, adiacenti tra loro, sull’uscita più vicina agli eroi della tessera cor…
+    Segnalini LO SGHERRO esauriti: il piazzamento non ha luogo (resto della carta si applica comunque).
+    Piazzati 1x LO SGHERRO (pool residua: 0) in B1.
+  [MINACCIA] LA VEDETTA (posseduto) — Piazzate 1 Adepto adiacente all’eroe più isolato (quello più lontano dagli altri; a pari m…
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 1) in B2.
+  [MINACCIA] UNGHIE SULLA PIETRA (posseduto) — Piazzate 1 Cane dei Moli sull’ingresso della tessera corrente: si attiva subito.
+    Piazzati 1x CANE DEI MOLI (pool residua: 1) in B1.
+    CANE DEI MOLI si attiva subito:
+  CANE DEI MOLI si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  IL FONDITORE si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  IL FONDITORE si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO arriva alla porta ma la tessera è piena: resta in coda fuori tessera.
+  ADEPTO INCAPPUCCIATO arriva alla porta ma la tessera è piena: resta in coda fuori tessera.
+  CANE DEI MOLI attacca SIBILLA REVE:
+    [ATTACCO NEMICO] CANE DEI MOLI -> SIBILLA REVE: 2d6(3,5)=8 +Attacco(2) = 10 vs Difesa(8) -> COLPITO
+    SIBILLA REVE subisce 1 danno da CANE DEI MOLI (Salute: 4/7).
+  LO SGHERRO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO attacca DOTT. LAZZARO SERRA:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> DOTT. LAZZARO SERRA: 2d6(6,6)=12 +Attacco(1) = 13 vs Difesa(8) -> COLPITO
+    DOTT. LAZZARO SERRA subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 1/7).
+  IL CUSTODE DELLA CERA attacca OTTAVIO BRERA:
+    [ATTACCO NEMICO] IL CUSTODE DELLA CERA -> OTTAVIO BRERA: 2d6(1,3)=4 +Attacco(3) = 7 vs Difesa(8) -> MANCATO
+--- Round 19: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 10 — 5 eroi vivi)
+    [ATTACCO] SIBILLA REVE -> CANE DEI MOLI: 2d6(6,3)=9 +VIGORE(1)+arma(1) = 11 vs Difesa(6) -> COLPITO
+    CANE DEI MOLI: 3/4 ferite residue.
+    [ATTACCO] DOTT. LAZZARO SERRA -> CANE DEI MOLI: 2d6(6,6)=12 +VIGORE(1)+arma(1) = 14 vs Difesa(6) -> COLPITO
+    CANE DEI MOLI: 2/4 ferite residue.
+    [ATTACCO] FULGENZIO CARBONE -> CANE DEI MOLI: 2d6(2,5)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(6) -> COLPITO
+    CANE DEI MOLI: 1/4 ferite residue.
+    [ATTACCO] OTTAVIO BRERA -> CANE DEI MOLI: 2d6(5,2)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(6) -> COLPITO
+    CANE DEI MOLI: 0/4 ferite residue.
+    CANE DEI MOLI è ABBATTUTO.
+    [ATTACCO] MORA “SPILLA” FANTI -> ADEPTO INCAPPUCCIATO: 2d6(3,1)=4 +VIGORE(2)+arma(1) = 7 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 3/4 ferite residue.
+  [MINACCIA] IL FALCETTO NEL BUIO (posseduto) — Piazzate 1 Adepto sull’ingresso della tessera corrente, alle spalle degli eroi.
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 0) in B1.
+  [MINACCIA] FUMI SOPORIFERI (insidia) — Ogni eroe prova NERVI (Facile): chi fallisce ha 1 sola azione al prossimo turno.
+    [PROVA NERVI] SIBILLA REVE: 2d6(4,1)=5 +NERVI(3) = 8 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] DOTT. LAZZARO SERRA: 2d6(4,2)=6 +NERVI(2) = 8 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] FULGENZIO CARBONE: 2d6(3,1)=4 +NERVI(2) = 6 vs Facile(7) -> FALLITA
+    FULGENZIO CARBONE avrà 1 sola azione al suo prossimo turno.
+    [PROVA NERVI] OTTAVIO BRERA: 2d6(2,6)=8 +NERVI(2) = 10 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(5,6)=11 +NERVI(1) = 12 vs Facile(7) -> SUCCESSO
+  [MINACCIA] BRAVI SUL MOLO (malavita) — Piazzate 1 Sgherro sull’ingresso della Banchina (T1).
+    Segnalini LO SGHERRO esauriti: il piazzamento non ha luogo (resto della carta si applica comunque).
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  IL FONDITORE si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si muove verso SIBILLA REVE: B1 -> A1.
+  ADEPTO INCAPPUCCIATO attacca SIBILLA REVE:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> SIBILLA REVE: 2d6(1,3)=4 +Attacco(1) = 5 vs Difesa(8) -> MANCATO
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  IL FONDITORE si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO arriva alla porta ma la tessera è piena: resta in coda fuori tessera.
+  ADEPTO INCAPPUCCIATO arriva alla porta ma la tessera è piena: resta in coda fuori tessera.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO attacca OTTAVIO BRERA:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> OTTAVIO BRERA: 2d6(4,5)=9 +Attacco(1) = 10 vs Difesa(8) -> COLPITO
+    OTTAVIO BRERA subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 2/7).
+  CANE DEI MOLI si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  IL CUSTODE DELLA CERA attacca SIBILLA REVE:
+    [ATTACCO NEMICO] IL CUSTODE DELLA CERA -> SIBILLA REVE: 2d6(1,1)=2 +Attacco(3) = 5 vs Difesa(8) -> MANCATO
+--- Round 20: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 10 — 5 eroi vivi)
+    [ATTACCO] SIBILLA REVE -> ADEPTO INCAPPUCCIATO: 2d6(3,3)=6 +VIGORE(1)+arma(1) = 8 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 2/4 ferite residue.
+    [ATTACCO] DOTT. LAZZARO SERRA -> ADEPTO INCAPPUCCIATO: 2d6(2,2)=4 +VIGORE(1)+arma(1) = 6 vs Difesa(7) -> MANCATO
+    FULGENZIO CARBONE ha 1 sola azione questo turno (insidia del round scorso).
+    [ATTACCO] FULGENZIO CARBONE -> ADEPTO INCAPPUCCIATO: 2d6(1,6)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 1/4 ferite residue.
+    [ATTACCO] OTTAVIO BRERA -> ADEPTO INCAPPUCCIATO: 2d6(5,3)=8 +VIGORE(1)+arma(1) = 10 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/4 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    [ATTACCO] MORA “SPILLA” FANTI -> ADEPTO INCAPPUCCIATO: 2d6(1,2)=3 +VIGORE(2)+arma(1) = 6 vs Difesa(7) -> MANCATO
+  [MINACCIA] IL FONDITORE (posseduto) — Piazzate 1 Fonditore sull’ingresso della Banchina (T1). Se è già in gioco un Fonditore, ca…
+    Piazzati 1x IL FONDITORE (pool residua: 0), a 6 caselle dalla tessera del gruppo.
+  [MINACCIA] IL CANTO SALE (crescendo) — Aggiungete 1 segnalino Canto. Al terzo: il Custode della Cera si desta e da quel momento o…
+    Segnalino Canto: 12.
+    Il Custode recupera 1 ferita (7/7) e si attiva subito.
+  [MINACCIA] ECO AMICA (favore) — Ruggero è vivo. Rivelate una tessera coperta adiacente a una già rivelata.
+    Rivelata una tessera coperta adiacente (nessun effetto in questa astrazione).
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  IL FONDITORE si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO attacca OTTAVIO BRERA:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> OTTAVIO BRERA: 2d6(6,4)=10 +Attacco(1) = 11 vs Difesa(8) -> COLPITO
+    OTTAVIO BRERA subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 1/7).
+  ADEPTO INCAPPUCCIATO si muove verso OTTAVIO BRERA: B1 -> B2.
+  ADEPTO INCAPPUCCIATO attacca OTTAVIO BRERA:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> OTTAVIO BRERA: 2d6(1,5)=6 +Attacco(1) = 7 vs Difesa(8) -> MANCATO
+  IL FONDITORE si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO arriva alla porta ma la tessera è piena: resta in coda fuori tessera.
+  ADEPTO INCAPPUCCIATO arriva alla porta ma la tessera è piena: resta in coda fuori tessera.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  CANE DEI MOLI si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  IL FONDITORE si avvicina (Movimento 2): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  IL CUSTODE DELLA CERA attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] IL CUSTODE DELLA CERA -> FULGENZIO CARBONE: 2d6(3,6)=9 +Attacco(3) = 12 vs Difesa(8) -> COLPITO
+    FULGENZIO CARBONE subisce 2 danno da IL CUSTODE DELLA CERA (Salute: 0/7).
+    *** FULGENZIO CARBONE è A TERRA. ***
+  [OROLOGIO] Fine del 20° round: +1 segnalino Canto automatico.
+    Segnalino Canto: 13.
+--- Round 21: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    [ATTACCO] SIBILLA REVE -> ADEPTO INCAPPUCCIATO: 2d6(3,5)=8 +VIGORE(1)+arma(1) = 10 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 3/4 ferite residue.
+    [ATTACCO] DOTT. LAZZARO SERRA -> ADEPTO INCAPPUCCIATO: 2d6(5,4)=9 +VIGORE(1)+arma(1) = 11 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 2/4 ferite residue.
+    [ATTACCO] OTTAVIO BRERA -> ADEPTO INCAPPUCCIATO: 2d6(5,1)=6 +VIGORE(1)+arma(1) = 8 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 1/4 ferite residue.
+    [ATTACCO] MORA “SPILLA” FANTI -> ADEPTO INCAPPUCCIATO: 2d6(5,2)=7 +VIGORE(2)+arma(1) = 10 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/4 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    Mazzo Minaccia esaurito: si rimescolano gli scarti.
+  [MINACCIA] IL CANTO SALE (crescendo) — Aggiungete 1 segnalino Canto. Al terzo: il Custode della Cera si desta e da quel momento o…
+    Segnalino Canto: 14.
+    Il Custode recupera 1 ferita (7/7) e si attiva subito.
+  [MINACCIA] IL FALCETTO NEL BUIO (posseduto) — Piazzate 1 Adepto sull’ingresso della tessera corrente, alle spalle degli eroi.
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 1) in B1.
+  [MINACCIA] CERA CHE COLA (ostacolo) — Fino a fine round, sulla tessera dell’eroe attivo muoversi costa il doppio.
+    Penalità di Movimento fino al prossimo turno (non modellata nel loop di combattimento).
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  IL FONDITORE si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO attacca MORA “SPILLA” FANTI:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> MORA “SPILLA” FANTI: 2d6(1,3)=4 +Attacco(1) = 5 vs Difesa(8) -> MANCATO
+  IL FONDITORE si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si muove verso SIBILLA REVE: B1 -> A1.
+  ADEPTO INCAPPUCCIATO attacca SIBILLA REVE:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> SIBILLA REVE: 2d6(6,4)=10 +Attacco(1) = 11 vs Difesa(8) -> COLPITO
+    SIBILLA REVE subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 3/7).
+  ADEPTO INCAPPUCCIATO arriva alla porta ma la tessera è piena: resta in coda fuori tessera.
+  ADEPTO INCAPPUCCIATO arriva alla porta ma la tessera è piena: resta in coda fuori tessera.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  CANE DEI MOLI si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  IL FONDITORE si avvicina (Movimento 2): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  IL CUSTODE DELLA CERA attacca DOTT. LAZZARO SERRA:
+    [ATTACCO NEMICO] IL CUSTODE DELLA CERA -> DOTT. LAZZARO SERRA: 2d6(5,4)=9 +Attacco(3) = 12 vs Difesa(8) -> COLPITO
+    DOTT. LAZZARO SERRA subisce 2 danno da IL CUSTODE DELLA CERA (Salute: 0/7).
+    *** DOTT. LAZZARO SERRA è A TERRA. ***
+--- Round 22: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 6 — 3 eroi vivi)
+    [ATTACCO] SIBILLA REVE -> ADEPTO INCAPPUCCIATO: 2d6(1,4)=5 +VIGORE(1)+arma(1) = 7 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 3/4 ferite residue.
+    [ATTACCO] OTTAVIO BRERA -> ADEPTO INCAPPUCCIATO: 2d6(1,2)=3 +VIGORE(1)+arma(1) = 5 vs Difesa(7) -> MANCATO
+    [ATTACCO] MORA “SPILLA” FANTI -> ADEPTO INCAPPUCCIATO: 2d6(4,4)=8 +VIGORE(2)+arma(1) = 11 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 2/4 ferite residue.
+  [MINACCIA] IL CANTO CRESCE (crescendo) — Aggiungete 1 segnalino Canto. Al terzo: il Custode della Cera si desta e da quel momento o…
+    Segnalino Canto: 15.
+    Il Custode recupera 1 ferita (7/7) e si attiva subito.
+  [MINACCIA] TRAPPOLA DI CERA (insidia) — L’eroe più avanzato prova NERVI (Media): se fallisce, cera bollente: 1 danno e perde 1 azi…
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(2,1)=3 +NERVI(1) = 4 vs Media(9) -> FALLITA
+    MORA “SPILLA” FANTI subisce 1 danno da TRAPPOLA DI CERA (Salute: 5/8).
+    MORA “SPILLA” FANTI avrà 1 sola azione al suo prossimo turno.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  IL FONDITORE si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO attacca OTTAVIO BRERA:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> OTTAVIO BRERA: 2d6(2,5)=7 +Attacco(1) = 8 vs Difesa(8) -> COLPITO
+    OTTAVIO BRERA subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 0/7).
+    *** OTTAVIO BRERA è A TERRA. ***
+  IL FONDITORE si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO attacca SIBILLA REVE:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> SIBILLA REVE: 2d6(1,3)=4 +Attacco(1) = 5 vs Difesa(8) -> MANCATO
+  ADEPTO INCAPPUCCIATO arriva alla porta ma la tessera è piena: resta in coda fuori tessera.
+  ADEPTO INCAPPUCCIATO arriva alla porta ma la tessera è piena: resta in coda fuori tessera.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  CANE DEI MOLI si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  IL FONDITORE arriva alla porta ma la tessera è piena: resta in coda fuori tessera.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  IL CUSTODE DELLA CERA attacca MORA “SPILLA” FANTI:
+    [ATTACCO NEMICO] IL CUSTODE DELLA CERA -> MORA “SPILLA” FANTI: 2d6(2,5)=7 +Attacco(3) = 10 vs Difesa(8) -> COLPITO
+    MORA “SPILLA” FANTI subisce 2 danno da IL CUSTODE DELLA CERA (Salute: 3/8).
+--- Round 23: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    [ATTACCO] SIBILLA REVE -> ADEPTO INCAPPUCCIATO: 2d6(1,2)=3 +VIGORE(1)+arma(1) = 5 vs Difesa(7) -> MANCATO
+    MORA “SPILLA” FANTI ha 1 sola azione questo turno (insidia del round scorso).
+    [ATTACCO] MORA “SPILLA” FANTI -> ADEPTO INCAPPUCCIATO: 2d6(1,2)=3 +VIGORE(2)+arma(1) = 6 vs Difesa(7) -> MANCATO
+  [MINACCIA] VOLTI TRA LE CASSE (posseduto) — Piazzate 1 Adepto sull’uscita più vicina agli eroi della tessera corrente: si è intrufolat…
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 0) in B1.
+  [MINACCIA] IL FONDITORE (posseduto) — Piazzate 1 Fonditore sull’ingresso della Banchina (T1). Se è già in gioco un Fonditore, ca…
+    Segnalini IL FONDITORE esauriti: il piazzamento non ha luogo (resto della carta si applica comunque).
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  IL FONDITORE si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO attacca MORA “SPILLA” FANTI:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> MORA “SPILLA” FANTI: 2d6(6,5)=11 +Attacco(1) = 12 vs Difesa(8) -> COLPITO
+    MORA “SPILLA” FANTI subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 2/8).
+  IL FONDITORE si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO attacca MORA “SPILLA” FANTI:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> MORA “SPILLA” FANTI: 2d6(6,2)=8 +Attacco(1) = 9 vs Difesa(8) -> COLPITO
+    MORA “SPILLA” FANTI subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 1/8).
+  ADEPTO INCAPPUCCIATO arriva alla porta ma la tessera è piena: resta in coda fuori tessera.
+  ADEPTO INCAPPUCCIATO arriva alla porta ma la tessera è piena: resta in coda fuori tessera.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  CANE DEI MOLI si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  IL FONDITORE arriva alla porta ma la tessera è piena: resta in coda fuori tessera.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  IL CUSTODE DELLA CERA attacca SIBILLA REVE:
+    [ATTACCO NEMICO] IL CUSTODE DELLA CERA -> SIBILLA REVE: 2d6(3,4)=7 +Attacco(3) = 10 vs Difesa(8) -> COLPITO
+    SIBILLA REVE subisce 2 danno da IL CUSTODE DELLA CERA (Salute: 1/7).
+--- Round 24: scontro nella Cripta della Cera ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    [ATTACCO] SIBILLA REVE -> ADEPTO INCAPPUCCIATO: 2d6(5,6)=11 +VIGORE(1)+arma(1) = 13 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 1/4 ferite residue.
+    [ATTACCO] MORA “SPILLA” FANTI -> ADEPTO INCAPPUCCIATO: 2d6(3,6)=9 +VIGORE(2)+arma(1) = 12 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/4 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+  [MINACCIA] ECO AMICA (favore) — Ruggero è vivo. Rivelate una tessera coperta adiacente a una già rivelata.
+    Rivelata una tessera coperta adiacente (nessun effetto in questa astrazione).
+  [MINACCIA] UNGHIE SULLA PIETRA (posseduto) — Piazzate 1 Cane dei Moli sull’ingresso della tessera corrente: si attiva subito.
+    Piazzati 1x CANE DEI MOLI (pool residua: 1) in B2.
+    CANE DEI MOLI si attiva subito:
+  CANE DEI MOLI attacca SIBILLA REVE:
+    [ATTACCO NEMICO] CANE DEI MOLI -> SIBILLA REVE: 2d6(1,3)=4 +Attacco(2) = 6 vs Difesa(8) -> MANCATO
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  IL FONDITORE si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  IL FONDITORE si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO attacca SIBILLA REVE:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> SIBILLA REVE: 2d6(6,4)=10 +Attacco(1) = 11 vs Difesa(8) -> COLPITO
+    SIBILLA REVE subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 0/7).
+    *** SIBILLA REVE è A TERRA. ***
+  ADEPTO INCAPPUCCIATO arriva alla porta ma la tessera è piena: resta in coda fuori tessera.
+  ADEPTO INCAPPUCCIATO arriva alla porta ma la tessera è piena: resta in coda fuori tessera.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  CANE DEI MOLI si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  IL FONDITORE arriva alla porta ma la tessera è piena: resta in coda fuori tessera.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  IL CUSTODE DELLA CERA attacca MORA “SPILLA” FANTI:
+    [ATTACCO NEMICO] IL CUSTODE DELLA CERA -> MORA “SPILLA” FANTI: 2d6(4,6)=10 +Attacco(3) = 13 vs Difesa(8) -> COLPITO
+    MORA “SPILLA” FANTI subisce 2 danno da IL CUSTODE DELLA CERA (Salute: 0/8).
+    *** MORA “SPILLA” FANTI è A TERRA. ***
+
+==============================================================================
+ESITO SPEDIZIONE: SCONFITTA (party wipe)
+Round totali: 24
+Formula Minaccia: tetto3 | Azioni nominali/round: media 14.6, picco 20
+Mazzo Minaccia rimescolato: 3 volta/e
+Segnalini nemici esauriti nel pool (piazzamenti saltati): 5
+Custode della Cera svegliato: solo a T6 (mai in anticipo via Canto)
+  ELENA FOSCO: a terra
+  DOTT. ATTILIO MARN: a terra
+  SIBILLA REVE: a terra
+  NINO “GRIMALDELLO” CAUTO: a terra
+  OTTONE “MEZZENA” MASSARI: a terra
+  DOTT. LAZZARO SERRA: a terra
+  PADRE CELSO MARANI: a terra
+  FULGENZIO CARBONE: a terra
+  OTTAVIO BRERA: a terra
+  MORA “SPILLA” FANTI: a terra
+==============================================================================

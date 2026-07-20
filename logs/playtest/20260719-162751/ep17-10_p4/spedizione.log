@@ -1,0 +1,91 @@
+==============================================================================
+SPEDIZIONE - La villa-prigione (il picco: lo scisma pesa)
+==============================================================================
+Party: CARLA DOSTI, DOTT. LAZZARO SERRA, ELENA FOSCO, FULGENZIO CARBONE, MORA “SPILLA” FANTI, NINO “GRIMALDELLO” CAUTO, OTTAVIO BRERA, OTTONE “MEZZENA” MASSARI, PADRE CELSO MARANI, SIBILLA REVE  |  PREPARATI  |  Cifra: sì  |  Chiavi: sì  |  Salvacondotto: sì
+  [CHIAVI] Entrate senza sfondare: niente sbarramento al cancello (T1).
+  [SCISMA] Malus di morale: -1 ai NERVI finché il decano non è libero.
+--- Round 1: T1 · Canto 0/4 decano · morale -1 ---
+    [DOVE — D1] sapete dove sbarcare: nessuna carta Minaccia questo round.
+--- Round 2: T2 · Canto 0/4 decano · morale -1 ---
+  [MINACCIA] CASSE DI CUSTODIA (ostacolo)
+  [MINACCIA] RASCA DÀ L’ORDINE (crescendo)
+  [MINACCIA] LA VILLA CHE TACE (quiete)
+--- Round 3: T3 · Canto 1/4 decano · morale -1 ---
+  [MINACCIA] LA VOCE DEL TRADITORE (insidiaA)
+    [PROVA NERVI] CARLA DOSTI: 2d6=6 +NERVI(2) -1 = 7 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] DOTT. LAZZARO SERRA: 2d6=2 +NERVI(2) -1 = 3 vs Facile(7) -> FALLITA
+    [PROVA NERVI] DOTT. LAZZARO SERRA: 2d6=6 +NERVI(2) -1 = 7 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] ELENA FOSCO: 2d6=6 +NERVI(2) -1 = 7 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] FULGENZIO CARBONE: 2d6=7 +NERVI(2) -1 = 8 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6=7 +NERVI(1) -1 = 7 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6=4 +NERVI(1) -1 = 4 vs Facile(7) -> FALLITA
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6=7 +NERVI(1) -1 = 7 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] OTTAVIO BRERA: 2d6=4 +NERVI(2) -1 = 5 vs Facile(7) -> FALLITA
+    [PROVA NERVI] OTTAVIO BRERA: 2d6=7 +NERVI(2) -1 = 8 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6=8 +NERVI(2) -1 = 9 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] PADRE CELSO MARANI: 2d6=8 +NERVI(3) -1 = 10 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] SIBILLA REVE: 2d6=11 +NERVI(3) -1 = 13 vs Facile(7) -> SUCCESSO
+  [MINACCIA] POSTO DI BLOCCO (spawn)
+    Piazzato 1 uomo del Notaio (Sgherro).
+--- Round 4: T4 · Canto 1/4 decano · morale -1 ---
+    Il Notaio ordina il trasferimento: da ora la soglia-decano corre.
+  [MINACCIA] L’ULTIMO MURO (spawn)
+    Piazzato 1 uomo del Notaio (Sgherro) — subito.
+    CARLA DOSTI subisce 1 da uomo del Notaio (subito) (Salute 5/6).
+  [MINACCIA] CHI SCORTA IL TRASFERIMENTO (spawn)
+    Piazzato 1 uomo del Notaio (Sgherro).
+  [MINACCIA] LA RONDA DELLA VILLA (spawn)
+    Piazzato 1 uomo del Notaio (Sgherro).
+    OTTAVIO BRERA subisce 1 da uomo del Notaio (Salute 5/6).
+  [OROLOGIO] Fine del 4° round: +1 Canto automatico.
+--- Round 5: T5 · Canto 2/4 decano · morale -1 ---
+    *** Il decano è liberato VIVO e lucido: non c’è nessuna talpa. ***
+    [MORALE] Trovato il decano vivo: il malus di scisma è CANCELLATO.
+  [MINACCIA] LA GUARDIA AL CORTILE (spawn)
+    Piazzato 1 uomo del Notaio (Sgherro).
+  [MINACCIA] IL DECANO VIENE SPOSTATO (crescendo)
+    Il trasferimento si avvicina (Canto 3): +1 carta Minaccia per Fase.
+--- Round 6+: LO STUDIO DEL NOTAIO (T6) — la Guardia (Fer 7) + il Notaio ---
+--- Round 6 (T6): Guardia 7/7 · Canto 3 ---
+  [MINACCIA] UN UOMO DEL DECANO (favore)
+  [MINACCIA] RINCALZI DALLA RIMESSA (spawn)
+    Piazzato 1 uomo del Notaio (Sgherro).
+  [MINACCIA] LA CARROZZA AL CANCELLO POSTERIORE (crescendo)
+  [MINACCIA] UN COLPO DALLA GUARDIA (danno)
+    DOTT. LAZZARO SERRA subisce 1 da UN COLPO DALLA GUARDIA (Salute 5/6).
+    OTTONE “MEZZENA” MASSARI subisce 1 da uomo del Notaio (Salute 7/8).
+    [LA MATRICE — D3] la Guardia esita: un colpo in meno.
+--- Round 7 (T6): Guardia 4/7 · Canto 4 ---
+  [MINACCIA] IL FREDDO DELLA CANTINA (insidiaV)
+    [PROVA VIGORE] OTTONE “MEZZENA” MASSARI: 2d6=7 +VIGORE(3) = 10 vs Media(9) -> SUCCESSO
+  [MINACCIA] LO SGUARDO DELLA GUARDIA (insidiaB)
+    [PROVA NERVI] PADRE CELSO MARANI: 2d6=8 +NERVI(3) = 11 vs Media(9) -> SUCCESSO
+  [MINACCIA] IL SOSPETTO RECIPROCO (insidiaA)
+    [PROVA NERVI] CARLA DOSTI: 2d6=6 +NERVI(2) = 8 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] DOTT. LAZZARO SERRA: 2d6=3 +NERVI(2) = 5 vs Facile(7) -> FALLITA
+    [PROVA NERVI] ELENA FOSCO: 2d6=11 +NERVI(2) = 13 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] FULGENZIO CARBONE: 2d6=6 +NERVI(2) = 8 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6=4 +NERVI(1) = 5 vs Facile(7) -> FALLITA
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6=3 +NERVI(1) = 4 vs Facile(7) -> FALLITA
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6=8 +NERVI(1) = 9 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] OTTAVIO BRERA: 2d6=5 +NERVI(2) = 7 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6=7 +NERVI(2) = 9 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] PADRE CELSO MARANI: 2d6=9 +NERVI(3) = 12 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] SIBILLA REVE: 2d6=9 +NERVI(3) = 12 vs Facile(7) -> SUCCESSO
+    CARLA DOSTI subisce 2 da la Guardia del Notaio (Salute 3/6).
+    CARLA DOSTI subisce 2 da la Guardia del Notaio (Salute 1/6).
+--- Round 8 (T6): Guardia 1/7 · Canto 4 ---
+    *** LA GUARDIA È A TERRA: la strada al Notaio è libera. ***
+  [MINACCIA] L’ULTIMO LAVORO (crescendo)
+  [MINACCIA] CHI COPRE IL NOTAIO (spawn)
+    Piazzato 1 uomo del Notaio (Sgherro) — subito.
+  [MINACCIA] IL CORRIDOIO DELLE CELLE (insidiaB)
+    [PROVA NERVI] FULGENZIO CARBONE: 2d6=6 +NERVI(2) = 8 vs Media(9) -> FALLITA
+    [PROVA NERVI] FULGENZIO CARBONE: 2d6=10 +NERVI(2) = 12 vs Media(9) -> SUCCESSO
+  [MINACCIA] LA PORTA BLINDATA (ostacolo)
+    [INTUIZIONE] CARLA DOSTI resta a 1 Salute invece di cadere (gettone Dossier).
+    Il Notaio è catturato. Decano lucido + matrice: prova PIENA per l’Ep.18.
+
+==============================================================================
+ESITO: VITTORIA  |  Round: 8  |  Canto 6  |  decano lucido  |  soglia 4
+==============================================================================

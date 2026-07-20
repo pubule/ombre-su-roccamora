@@ -1,0 +1,50 @@
+==============================================================================
+SPEDIZIONE - Il Palazzo del Lume, la fuga da casa vostra
+==============================================================================
+Party: MORA “SPILLA” FANTI, NINO “GRIMALDELLO” CAUTO, PADRE CELSO MARANI  |  PREPARATI  |  Prova forte: sì  |  Uscita: no  |  Vezzo: sì
+  [PROVA FORTE] La Società vi crede: un confratello copre la fuga (nessuno spawn a T1).
+--- Round 1: T1 · Canto 0/4 arresto  ---
+    [T1] la Società dalla vostra parte: nessuna carta Minaccia questo round.
+--- Round 2: T2 · Canto 0/4 arresto  ---
+  [MINACCIA] IL PASSAGGIO CHE NON C’È PIÙ (insidiaB)
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6=5 +NERVI(1) = 6 vs Media(9) -> FALLITA
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6=4 +NERVI(1) = 5 vs Media(9) -> FALLITA
+    NINO “GRIMALDELLO” CAUTO subisce 1 da IL PASSAGGIO CHE NON C’È PIÙ (Salute 7/8).
+--- Round 3: T3 · Canto 0/4 arresto  ---
+  [MINACCIA] CHI VI RICONOSCE (spawn)
+    Piazzato 1 gendarme (Sgherro) — subito.
+    NINO “GRIMALDELLO” CAUTO subisce 1 da gendarme (subito) (Salute 6/8).
+    MORA “SPILLA” FANTI subisce 1 da gendarme (Salute 7/8).
+--- Round 4: T4 · Canto 0/4 arresto  ---
+    Appare M.: prende una cosa e sparisce nel muro (Atto IV, non si affronta).
+  [MINACCIA] AI PIANI ALTI (spawn)
+    Piazzato 1 gendarme (Sgherro).
+    PADRE CELSO MARANI subisce 1 da gendarme (Salute 6/7).
+  [OROLOGIO] Fine del 4° round: +1 Canto automatico.
+--- Round 5: T5 · Canto 1/4 arresto  ---
+  [MINACCIA] IL BUIO CHE CONOSCETE MALE (insidiaA)
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6=7 +NERVI(1) = 8 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6=9 +NERVI(1) = 10 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] PADRE CELSO MARANI: 2d6=3 +NERVI(3) = 6 vs Facile(7) -> FALLITA
+    [PROVA NERVI] PADRE CELSO MARANI: 2d6=9 +NERVI(3) = 12 vs Facile(7) -> SUCCESSO
+--- Round 6+: L’USCITA (T6) — la Guardia del Presidente (Fer 7) ---
+--- Round 6 (T6): Guardia 7/7 · Canto 1 · 0 arrestati ---
+  [MINACCIA] RINFORZI DAL CORTILE (spawn)
+    Piazzato 1 gendarme (Sgherro).
+    PADRE CELSO MARANI subisce 1 da gendarme (Salute 5/7).
+    [UNA MANO SOLA — D4] il maggiordomo vacilla: un colpo in meno.
+--- Round 7 (T6): Guardia 5/7 · Canto 1 · 0 arrestati ---
+  [MINACCIA] IL MAGGIORDOMO SA DOVE SIETE (insidiaB)
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6=5 +NERVI(1) = 6 vs Media(9) -> FALLITA
+    NINO “GRIMALDELLO” CAUTO subisce 1 da IL MAGGIORDOMO SA DOVE SIETE (Salute 5/8).
+    NINO “GRIMALDELLO” CAUTO subisce 1 da gendarme (Salute 4/8).
+    NINO “GRIMALDELLO” CAUTO subisce 2 da la Guardia del Presidente (Salute 2/8).
+--- Round 8 (T6): Guardia 2/7 · Canto 1 · 0 arrestati ---
+    *** Il maggiordomo è a terra: la porta è libera. ***
+  [MINACCIA] UN CONFRATELLO VI COPRE (favore)
+    MORA “SPILLA” FANTI subisce 1 da gendarme (Salute 6/8).
+    Uscite dal Palazzo con la prova. Prova forte, tutti liberi: M. latitante — VITTORIA PIENA.
+
+==============================================================================
+ESITO: VITTORIA  |  Round: 8  |  Canto 2  |  arrestati 0  |  a terra 0
+==============================================================================

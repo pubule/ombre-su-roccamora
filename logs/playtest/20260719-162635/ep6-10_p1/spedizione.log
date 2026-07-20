@@ -1,0 +1,525 @@
+Run: ep6-10_p1_seed0  |  seed=671100  |  formula Minaccia=finale_v3  |  generato: 2026-07-19T16:26:40
+==============================================================================
+SPEDIZIONE - Le Tre Acque, sotto la Cattedrale (finale d’atto)
+==============================================================================
+Party: CARLA DOSTI, DOTT. LAZZARO SERRA, ELENA FOSCO, FULGENZIO CARBONE, MORA “SPILLA” FANTI, NINO “GRIMALDELLO” CAUTO, OTTAVIO BRERA, OTTONE “MEZZENA” MASSARI, PADRE CELSO MARANI, SIBILLA REVE
+Bonus da Indagine: PREPARATI (+1 Salute massima a testa); Formula: sì; Lanterna: sì; D1: esatta; D3: esatta
+NOTA: gruppo trattato come blocco unico tessera per tessera (vedi intestazione script).
+Tensione tavolo piccolo: +1 Ferite SOLO a Ferri (non ai nemici di truppa).
+
+Gettone Intuizione in mano (Dossier completo): un ri-tiro, una volta in Spedizione.
+--- Round 1: il gruppo raggiunge T2 (Galleria di Marea) ---
+    (azioni nominali questo round: 20 — 10 eroi vivi)
+    Il gruppo entra in T2 da B1.
+    [PROVA ACUME] CARLA DOSTI: 2d6(4,2)=6 +ACUME(3) = 9 vs Media(9) -> SUCCESSO
+    CARLA DOSTI cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    DOTT. LAZZARO SERRA: nessun bersaglio, avanza / assiste il gruppo.
+    ELENA FOSCO: nessun bersaglio, avanza / assiste il gruppo.
+    FULGENZIO CARBONE: nessun bersaglio, avanza / assiste il gruppo.
+    MORA “SPILLA” FANTI: nessun bersaglio, avanza / assiste il gruppo.
+    NINO “GRIMALDELLO” CAUTO: nessun bersaglio, avanza / assiste il gruppo.
+    OTTAVIO BRERA: nessun bersaglio, avanza / assiste il gruppo.
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+    PADRE CELSO MARANI: nessun bersaglio, avanza / assiste il gruppo.
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] IL SERVIZIO DI BANCHINA (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 1) in B1.
+  [MINACCIA] IL TERZO MOVIMENTO (crescendo) — Aggiungete 1 segnalino Canto. Alla soglia: Ferri si desta.
+    Segnalino Canto: 1.
+  LO SGHERRO si muove verso CARLA DOSTI: B1 -> C1.
+  LO SGHERRO attacca CARLA DOSTI:
+    [ATTACCO NEMICO] LO SGHERRO -> CARLA DOSTI: 2d6(2,3)=5 +Attacco(2) = 7 vs Difesa(8) -> MANCATO
+--- Round 2: il gruppo raggiunge T3 (Sala del Bronzo) ---
+    (azioni nominali questo round: 20 — 10 eroi vivi)
+    Il gruppo entra in T3 da B1.
+    QUANDO RIVELATE: 2 Adepti a guardia del bronzo.
+    [PROVA VIGORE] CARLA DOSTI: 2d6(4,6)=10 +VIGORE(1) = 11 vs Media(9) -> SUCCESSO
+    [CARDINE] CARLA DOSTI spegne il bronzo (1/3 movimenti spenti — la Difesa di Ferri cala).
+    [ABILITÀ] DOTT. LAZZARO SERRA attiva Voce ferma (2 usi residui): +2 NERVI agli alleati fino al suo prossimo turno.
+    [ATTACCO] ELENA FOSCO -> ADEPTO INCAPPUCCIATO: 2d6(4,3)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    [ABILITÀ] FULGENZIO CARBONE usa Esca preziosa: LO SGHERRO, ADEPTO INCAPPUCCIATO si dirige verso l’esca invece che verso il gruppo alla prossima attivazione.
+    MORA “SPILLA” FANTI si muove verso ADEPTO INCAPPUCCIATO: B1 -> A2.
+    [ATTACCO] MORA “SPILLA” FANTI -> ADEPTO INCAPPUCCIATO: 2d6(6,4)=10 +VIGORE(2)+arma(1) = 13 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    NINO “GRIMALDELLO” CAUTO si muove verso LO SGHERRO: B1 -> C2.
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> LO SGHERRO: 2d6(3,6)=9 +VIGORE(2)+arma(1) = 12 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    [ABILITÀ] OTTAVIO BRERA usa Vi conosco, Malacarne su LO SGHERRO: rimosso dal tabellone.
+    [PROVA ACUME] OTTONE “MEZZENA” MASSARI: 2d6(4,6)=10 +ACUME(1) = 11 vs Media(9) -> SUCCESSO
+    OTTONE “MEZZENA” MASSARI cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    [ABILITÀ] PADRE CELSO MARANI usa Litania: -1 segnalino Canto (1->0).
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] L’ACQUA ALLE GINOCCHIA (ostacolo) — Muoversi costa il doppio sulla tessera dell’eroe attivo fino a fine round.
+    (carta senza effetto modellato in questa simulazione)
+  [MINACCIA] I FRATELLI DEL QUARANTUNO (posseduto) — Piazzate 1 Confratello sull’uscita più vicina agli eroi.
+    Piazzati 1x IL CONFRATELLO (pool residua: 1) in B1.
+  [MINACCIA] LE GUARDIE PAGATE (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 0) in B1.
+  IL CONFRATELLO si muove verso CARLA DOSTI: B1 -> C1.
+  IL CONFRATELLO attacca CARLA DOSTI:
+    [ATTACCO NEMICO] IL CONFRATELLO -> CARLA DOSTI: 2d6(5,1)=6 +Attacco(1) = 7 vs Difesa(8) -> MANCATO
+  LO SGHERRO si muove verso SIBILLA REVE: B1 -> A1.
+  LO SGHERRO attacca SIBILLA REVE:
+    [ATTACCO NEMICO] LO SGHERRO -> SIBILLA REVE: 2d6(6,2)=8 +Attacco(2) = 10 vs Difesa(8) -> COLPITO
+    SIBILLA REVE subisce 1 danno da LO SGHERRO (Salute: 6/7).
+--- Round 3: il gruppo raggiunge T4 (Snodo delle Vene) ---
+    (azioni nominali questo round: 20 — 10 eroi vivi)
+    Il gruppo entra in T4 da B1.
+    QUANDO RIVELATE: 1 Adepto sta calando dalla corda della Confluenza.
+    Lo Snodo delle Vene: le tre acque si sfiorano senza mescolarsi.
+    [ATTACCO] CARLA DOSTI -> IL CONFRATELLO: 2d6(1,6)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(7) -> COLPITO
+    IL CONFRATELLO: 0/1 ferite residue.
+    IL CONFRATELLO è ABBATTUTO.
+    [ATTACCO] DOTT. LAZZARO SERRA -> LO SGHERRO: 2d6(6,2)=8 +VIGORE(1)+arma(1) = 10 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    [ATTACCO] ELENA FOSCO -> LO SGHERRO: 2d6(6,3)=9 +VIGORE(1)+arma(1) = 11 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+    [ABILITÀ] FULGENZIO CARBONE usa Esca preziosa: ADEPTO INCAPPUCCIATO si dirige verso l’esca invece che verso il gruppo alla prossima attivazione.
+    MORA “SPILLA” FANTI si muove verso ADEPTO INCAPPUCCIATO: B1 -> D2.
+    [ATTACCO] MORA “SPILLA” FANTI -> ADEPTO INCAPPUCCIATO: 2d6(3,1)=4 +VIGORE(2)+arma(1) = 7 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    [PROVA ACUME] NINO “GRIMALDELLO” CAUTO: 2d6(1,6)=7 +ACUME(2) = 9 vs Media(9) -> SUCCESSO
+    NINO “GRIMALDELLO” CAUTO cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    OTTAVIO BRERA: nessun bersaglio, avanza / assiste il gruppo.
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+    PADRE CELSO MARANI: nessun bersaglio, avanza / assiste il gruppo.
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] LA PROCESSIONE ULTIMA (posseduto) — Piazzate 1 Confratello sull’uscita più vicina agli eroi.
+    Piazzati 1x IL CONFRATELLO (pool residua: 1) in B1.
+  [MINACCIA] IL RICHIAMO (insidia) — L’eroe più avanzato prova NERVI (Media): se fallisce, 1 danno.
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(3,3)=6 +NERVI(1) = 7 vs Media(9) -> FALLITA
+    [SECONDO FIATO] MORA “SPILLA” FANTI ritenta la prova (unico ritento dell’episodio):
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(5,2)=7 +NERVI(1) = 8 vs Media(9) -> FALLITA
+    MORA “SPILLA” FANTI subisce 1 danno da IL RICHIAMO (Salute: 7/8).
+  IL CONFRATELLO si muove verso DOTT. LAZZARO SERRA: B1 -> C1.
+  IL CONFRATELLO attacca DOTT. LAZZARO SERRA:
+    [ATTACCO NEMICO] IL CONFRATELLO -> DOTT. LAZZARO SERRA: 2d6(3,2)=5 +Attacco(1) = 6 vs Difesa(8) -> MANCATO
+--- Round 4: il gruppo raggiunge T5 (Sala della Pietra) ---
+    (azioni nominali questo round: 20 — 10 eroi vivi)
+    Il gruppo entra in T5 da A3.
+    QUANDO RIVELATE: le Voci Cave tra i righi della pietra.
+    [PROVA ACUME] CARLA DOSTI: 2d6(2,6)=8 +ACUME(3) = 11 vs Media(9) -> SUCCESSO
+    [CARDINE] CARLA DOSTI spegne la pietra (2/3 movimenti spenti — la Difesa di Ferri cala).
+    [ABILITÀ] DOTT. LAZZARO SERRA attiva Voce ferma (1 usi residui): +2 NERVI agli alleati fino al suo prossimo turno.
+    ELENA FOSCO si muove verso LA VOCE CAVA: A3 -> B2.
+    [ATTACCO] ELENA FOSCO -> LA VOCE CAVA: 2d6(4,4)=8 +VIGORE(1)+arma(1) = 10 vs Difesa(6) -> COLPITO
+    LA VOCE CAVA: 0/1 ferite residue.
+    LA VOCE CAVA è ABBATTUTO.
+    La Voce Cava URLA nel disfarsi:
+    [PROVA NERVI] CARLA DOSTI: 2d6(2,6)=8 +NERVI(2) = 10 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] DOTT. LAZZARO SERRA: 2d6(3,5)=8 +NERVI(2) = 10 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] ELENA FOSCO: 2d6(2,3)=5 +NERVI(2) = 7 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] FULGENZIO CARBONE: 2d6(5,1)=6 +NERVI(2) = 8 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(3,3)=6 +NERVI(1) = 7 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6(4,2)=6 +NERVI(1) = 7 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] OTTAVIO BRERA: 2d6(2,4)=6 +NERVI(2) = 8 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6(6,6)=12 +NERVI(2) = 14 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] PADRE CELSO MARANI: 2d6(4,3)=7 +NERVI(3) = 10 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] SIBILLA REVE: 2d6(6,6)=12 +NERVI(3) = 15 vs Facile(7) -> SUCCESSO
+    [ATTACCO] FULGENZIO CARBONE -> LA VOCE CAVA: 2d6(5,6)=11 +VIGORE(1)+arma(1) = 13 vs Difesa(6) -> COLPITO
+    LA VOCE CAVA: 0/1 ferite residue.
+    LA VOCE CAVA è ABBATTUTO.
+    La Voce Cava URLA nel disfarsi:
+    [PROVA NERVI] CARLA DOSTI: 2d6(4,5)=9 +NERVI(2) = 11 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] DOTT. LAZZARO SERRA: 2d6(4,5)=9 +NERVI(2) = 11 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] FULGENZIO CARBONE: 2d6(1,2)=3 +NERVI(2) = 5 vs Facile(7) -> FALLITA
+    FULGENZIO CARBONE avrà 1 sola azione al suo prossimo turno (l’urlo).
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(4,1)=5 +NERVI(1) = 6 vs Facile(7) -> FALLITA
+    MORA “SPILLA” FANTI avrà 1 sola azione al suo prossimo turno (l’urlo).
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6(2,5)=7 +NERVI(1) = 8 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] OTTAVIO BRERA: 2d6(5,4)=9 +NERVI(2) = 11 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6(2,6)=8 +NERVI(2) = 10 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] PADRE CELSO MARANI: 2d6(1,4)=5 +NERVI(3) = 8 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] SIBILLA REVE: 2d6(4,1)=5 +NERVI(3) = 8 vs Facile(7) -> SUCCESSO
+    MORA “SPILLA” FANTI ha 1 sola azione questo turno (insidia del round scorso).
+    MORA “SPILLA” FANTI si muove verso IL CONFRATELLO: A3 -> B1.
+    MORA “SPILLA” FANTI (1 sola azione) si limita ad avvicinarsi a IL CONFRATELLO.
+    NINO “GRIMALDELLO” CAUTO si muove verso IL CONFRATELLO: A3 -> C2.
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> IL CONFRATELLO: 2d6(1,4)=5 +VIGORE(2)+arma(1) = 8 vs Difesa(7) -> COLPITO
+    IL CONFRATELLO: 0/1 ferite residue.
+    IL CONFRATELLO è ABBATTUTO.
+    [PROVA ACUME] OTTAVIO BRERA: 2d6(4,2)=6 +ACUME(3) = 9 vs Media(9) -> SUCCESSO
+    OTTAVIO BRERA cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+    PADRE CELSO MARANI: nessun bersaglio, avanza / assiste il gruppo.
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+    [ABILITÀ] SIBILLA REVE scruta il mazzo: «IL PRIMO MOVIMENTO» finisce in fondo, «LA VOCE DEL BORGO» torna in cima (2 usi residui).
+  [MINACCIA] LA VOCE DEL BORGO (posseduto) — Piazzate 1 Voce Cava sull’uscita più vicina agli eroi.
+    Piazzati 1x LA VOCE CAVA (pool residua: 1) in A3.
+  [MINACCIA] REMI NEL BUIO (posseduto) — Piazzate 1 Adepto sull’ingresso della Porta d’Acqua (T1).
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 3), a 6 caselle dalla tessera del gruppo.
+  [MINACCIA] GLI ECHI TORNANO (posseduto) — Piazzate 1 Voce Cava sull’uscita più vicina agli eroi.
+    Piazzati 1x LA VOCE CAVA (pool residua: 0) in A3.
+  LA VOCE CAVA si muove verso FULGENZIO CARBONE: A3 -> B3.
+  LA VOCE CAVA attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] LA VOCE CAVA -> FULGENZIO CARBONE: 2d6(3,6)=9 +Attacco(1) = 10 vs Difesa(8) -> COLPITO
+    FULGENZIO CARBONE subisce 1 danno da LA VOCE CAVA (Salute: 6/7).
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+  LA VOCE CAVA si muove verso OTTONE “MEZZENA” MASSARI: A3 -> A4.
+  LA VOCE CAVA attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] LA VOCE CAVA -> OTTONE “MEZZENA” MASSARI: 2d6(2,5)=7 +Attacco(1) = 8 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 1 danno da LA VOCE CAVA (Salute: 8/9).
+  [OROLOGIO] Fine del 4° round: +1 segnalino Canto automatico.
+    Segnalino Canto: 1.
+--- Round 5: il gruppo raggiunge T4 (Snodo - ritorno dal ramo) ---
+    (azioni nominali questo round: 20 — 10 eroi vivi)
+    Il gruppo entra in T4 da D3.
+    CARLA DOSTI si muove verso LA VOCE CAVA: D3 -> B4.
+    [ATTACCO] CARLA DOSTI -> LA VOCE CAVA: 2d6(5,5)=10 +VIGORE(1)+arma(1) = 12 vs Difesa(6) -> COLPITO
+    LA VOCE CAVA: 0/1 ferite residue.
+    LA VOCE CAVA è ABBATTUTO.
+    La Voce Cava URLA nel disfarsi:
+    [PROVA NERVI] CARLA DOSTI: 2d6(3,5)=8 +NERVI(2) = 10 vs Facile(7) -> SUCCESSO
+    DOTT. LAZZARO SERRA si muove verso LA VOCE CAVA: D3 -> C1.
+    DOTT. LAZZARO SERRA si avvicina a LA VOCE CAVA, non ancora a contatto.
+    [PROVA ACUME] ELENA FOSCO: 2d6(5,4)=9 +ACUME(3) = 12 vs Media(9) -> SUCCESSO
+    ELENA FOSCO cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    FULGENZIO CARBONE ha 1 sola azione questo turno (insidia del round scorso).
+    FULGENZIO CARBONE: nessun bersaglio, avanza / assiste il gruppo.
+    MORA “SPILLA” FANTI: nessun bersaglio, avanza / assiste il gruppo.
+    NINO “GRIMALDELLO” CAUTO: nessun bersaglio, avanza / assiste il gruppo.
+    OTTAVIO BRERA: nessun bersaglio, avanza / assiste il gruppo.
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+    PADRE CELSO MARANI: nessun bersaglio, avanza / assiste il gruppo.
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+    [ABILITÀ] SIBILLA REVE scruta il mazzo: «IL SECONDO MOVIMENTO» finisce in fondo, «L’ACQUA TRATTIENE» torna in cima (1 usi residui).
+  [MINACCIA] L’ACQUA TRATTIENE (quiete) — Nessun effetto (tensione).
+    (carta senza effetto modellato in questa simulazione)
+  [MINACCIA] LA MAREA CHE SALE (insidia) — L’eroe attivo prova NERVI (Media): se fallisce, 1 danno e perde 1 azione.
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(2,5)=7 +NERVI(1) = 8 vs Media(9) -> FALLITA
+    MORA “SPILLA” FANTI subisce 1 danno da LA MAREA CHE SALE (Salute: 6/8).
+    MORA “SPILLA” FANTI avrà 1 sola azione al suo prossimo turno.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  LA VOCE CAVA attacca CARLA DOSTI:
+    [ATTACCO NEMICO] LA VOCE CAVA -> CARLA DOSTI: 2d6(2,2)=4 +Attacco(1) = 5 vs Difesa(8) -> MANCATO
+--- Round 6: il gruppo raggiunge T6 (Sala delle Ossa) ---
+    (azioni nominali questo round: 20 — 10 eroi vivi)
+    Il gruppo entra in T6 da B1.
+    QUANDO RIVELATE: i Confratelli all’organo ibrido.
+    [PROVA NERVI] CARLA DOSTI: 2d6(6,6)=12 +NERVI(2) = 14 vs Media(9) -> SUCCESSO
+    [CARDINE] CARLA DOSTI spegne le ossa (3/3 movimenti spenti — la Difesa di Ferri cala).
+    [ABILITÀ] DOTT. LAZZARO SERRA attiva Voce ferma (0 usi residui): +2 NERVI agli alleati fino al suo prossimo turno.
+    ELENA FOSCO si muove verso IL CONFRATELLO: B1 -> C2.
+    [ATTACCO] ELENA FOSCO -> IL CONFRATELLO: 2d6(3,5)=8 +VIGORE(1)+arma(1) = 10 vs Difesa(7) -> COLPITO
+    IL CONFRATELLO: 0/1 ferite residue.
+    IL CONFRATELLO è ABBATTUTO.
+    FULGENZIO CARBONE si muove verso IL CONFRATELLO: B1 -> A2.
+    [ATTACCO] FULGENZIO CARBONE -> IL CONFRATELLO: 2d6(1,3)=4 +VIGORE(1)+arma(1) = 6 vs Difesa(7) -> MANCATO
+    MORA “SPILLA” FANTI ha 1 sola azione questo turno (insidia del round scorso).
+    [ATTACCO] MORA “SPILLA” FANTI -> IL CONFRATELLO: 2d6(3,1)=4 +VIGORE(2)+arma(1) = 7 vs Difesa(7) -> COLPITO
+    IL CONFRATELLO: 0/1 ferite residue.
+    IL CONFRATELLO è ABBATTUTO.
+    NINO “GRIMALDELLO” CAUTO si muove verso LA VOCE CAVA: B1 -> B4.
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> LA VOCE CAVA: 2d6(4,4)=8 +VIGORE(2)+arma(1) = 11 vs Difesa(6) -> COLPITO
+    LA VOCE CAVA: 0/1 ferite residue.
+    LA VOCE CAVA è ABBATTUTO.
+    La Voce Cava URLA nel disfarsi:
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6(3,5)=8 +NERVI(1) = 9 vs Facile(7) -> SUCCESSO
+    [PROVA ACUME] OTTAVIO BRERA: 2d6(6,5)=11 +ACUME(3) = 14 vs Media(9) -> SUCCESSO
+    OTTAVIO BRERA cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+    PADRE CELSO MARANI: nessun bersaglio, avanza / assiste il gruppo.
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] IL PELLEGRINAGGIO (posseduto) — Piazzate 1 Adepto sull’uscita più vicina agli eroi.
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 2) in B1.
+  [MINACCIA] IL CANTO DELLE VENE (insidia) — Ogni eroe prova NERVI (Facile): chi fallisce ha 1 sola azione al prossimo turno.
+    [PROVA NERVI] CARLA DOSTI: 2d6(1,2)=3 +NERVI(2) = 5 vs Facile(7) -> FALLITA
+    CARLA DOSTI avrà 1 sola azione al suo prossimo turno.
+    [PROVA NERVI] DOTT. LAZZARO SERRA: 2d6(2,2)=4 +NERVI(2) = 6 vs Facile(7) -> FALLITA
+    [SECONDO FIATO] DOTT. LAZZARO SERRA ritenta la prova (unico ritento dell’episodio):
+    [PROVA NERVI] DOTT. LAZZARO SERRA: 2d6(3,4)=7 +NERVI(2) = 9 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] ELENA FOSCO: 2d6(2,5)=7 +NERVI(2) = 9 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] FULGENZIO CARBONE: 2d6(4,1)=5 +NERVI(2) = 7 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(6,5)=11 +NERVI(1) = 12 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6(3,6)=9 +NERVI(1) = 10 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] OTTAVIO BRERA: 2d6(4,2)=6 +NERVI(2) = 8 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6(4,6)=10 +NERVI(2) = 12 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] PADRE CELSO MARANI: 2d6(3,3)=6 +NERVI(3) = 9 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] SIBILLA REVE: 2d6(1,3)=4 +NERVI(3) = 7 vs Facile(7) -> SUCCESSO
+  [MINACCIA] LA BARCA DELLE DUE E MEZZA (posseduto) — Piazzate 1 Adepto sull’ingresso della Porta d’Acqua (T1).
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 1), a 6 caselle dalla tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si muove verso MORA “SPILLA” FANTI: B1 -> C1.
+  ADEPTO INCAPPUCCIATO attacca MORA “SPILLA” FANTI:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> MORA “SPILLA” FANTI: 2d6(1,4)=5 +Attacco(1) = 6 vs Difesa(8) -> MANCATO
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+--- Round 7: il gruppo raggiunge T7 (Anticamera del Coro) ---
+    (azioni nominali questo round: 20 — 10 eroi vivi)
+    Il gruppo entra in T7 da B1.
+    QUANDO RIVELATE: le ultime guardie — 1 Adepto e 1 Sgherro.
+    CARLA DOSTI ha 1 sola azione questo turno (insidia del round scorso).
+    [ATTACCO] CARLA DOSTI -> ADEPTO INCAPPUCCIATO: 2d6(4,4)=8 +VIGORE(1)+arma(1) = 10 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    DOTT. LAZZARO SERRA si muove verso ADEPTO INCAPPUCCIATO: B1 -> D2.
+    DOTT. LAZZARO SERRA si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    [ATTACCO] ELENA FOSCO -> ADEPTO INCAPPUCCIATO: 2d6(3,3)=6 +VIGORE(1)+arma(1) = 8 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    FULGENZIO CARBONE si muove verso LO SGHERRO: B1 -> C1.
+    [ATTACCO] FULGENZIO CARBONE -> LO SGHERRO: 2d6(4,2)=6 +VIGORE(1)+arma(1) = 8 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    [PROVA ACUME] MORA “SPILLA” FANTI: 2d6(4,2)=6 +ACUME(3) = 9 vs Media(9) -> SUCCESSO
+    MORA “SPILLA” FANTI cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    NINO “GRIMALDELLO” CAUTO: nessun bersaglio, avanza / assiste il gruppo.
+    OTTAVIO BRERA: nessun bersaglio, avanza / assiste il gruppo.
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+    PADRE CELSO MARANI: nessun bersaglio, avanza / assiste il gruppo.
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] I FACCHINI DELL’ULTIMA NOTTE (posseduto) — Piazzate 1 Adepto sull’uscita più vicina agli eroi.
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 1) in B1.
+  [MINACCIA] LA CORRENTE AMICA (favore) — Rivelate una tessera coperta adiacente.
+    (carta senza effetto modellato in questa simulazione)
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] LO SGHERRO -> FULGENZIO CARBONE: 2d6(3,6)=9 +Attacco(2) = 11 vs Difesa(8) -> COLPITO
+    FULGENZIO CARBONE subisce 1 danno da LO SGHERRO (Salute: 5/7).
+  ADEPTO INCAPPUCCIATO si muove verso SIBILLA REVE: B1 -> A1.
+  ADEPTO INCAPPUCCIATO attacca SIBILLA REVE:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> SIBILLA REVE: 2d6(4,2)=6 +Attacco(1) = 7 vs Difesa(8) -> MANCATO
+--- Round 8: il gruppo raggiunge T8 (Camera delle Tre Acque) ---
+    (azioni nominali questo round: 20 — 10 eroi vivi)
+    Il gruppo entra in T8 da B1.
+    LA CAMERA DELLE TRE ACQUE: il Coro dei Dodici canta intorno al rito.
+    Bastiano Ferri dirige, in C2.
+    [ABILITÀ] CARLA DOSTI usa Flash! su BASTIANO FERRI: accecato, salta la sua prossima attivazione (1 usi residui).
+    [FORMULA] DOTT. LAZZARO SERRA legge LA FORMULA DEL SIGILLO a voce ferma: il rito MUORE. Il Dormiente si riassopisce. Ferri crolla in ginocchio.
+    [ATTACCO] ELENA FOSCO -> ADEPTO INCAPPUCCIATO: 2d6(2,3)=5 +VIGORE(1)+arma(1) = 7 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    [ATTACCO] FULGENZIO CARBONE -> IL CORISTA: 2d6(3,6)=9 +VIGORE(1)+arma(1) = 11 vs Difesa(6) -> COLPITO
+    IL CORISTA: 0/1 ferite residue.
+    IL CORISTA FUGGE (è un impiegato, non un credente).
+    [ATTACCO] MORA “SPILLA” FANTI -> IL CORISTA: 2d6(6,1)=7 +VIGORE(2)+arma(1) = 10 vs Difesa(6) -> COLPITO
+    IL CORISTA: 0/1 ferite residue.
+    IL CORISTA FUGGE (è un impiegato, non un credente).
+    NINO “GRIMALDELLO” CAUTO si muove verso LO SGHERRO: B1 -> C1.
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> LO SGHERRO: 2d6(2,6)=8 +VIGORE(2)+arma(1) = 11 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+    OTTAVIO BRERA si muove verso IL CORISTA: B1 -> B2.
+    [ATTACCO] OTTAVIO BRERA -> IL CORISTA: 2d6(4,6)=10 +VIGORE(1)+arma(1) = 12 vs Difesa(6) -> COLPITO
+    IL CORISTA: 0/1 ferite residue.
+    IL CORISTA FUGGE (è un impiegato, non un credente).
+    OTTONE “MEZZENA” MASSARI si muove verso IL CORISTA: B1 -> A3.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> IL CORISTA: 2d6(1,5)=6 +VIGORE(3)+arma(1) = 10 vs Difesa(6) -> COLPITO
+    IL CORISTA: 0/1 ferite residue.
+    IL CORISTA FUGGE (è un impiegato, non un credente).
+    [PROVA ACUME] PADRE CELSO MARANI: 2d6(5,4)=9 +ACUME(2) = 11 vs Media(9) -> SUCCESSO
+    PADRE CELSO MARANI cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] LA SECONDA BARCA (posseduto) — Piazzate 1 Adepto sull’ingresso della Porta d’Acqua (T1).
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 1), a 6 caselle dalla tessera del gruppo.
+  [MINACCIA] IL BATTITO SOTTO (insidia) — L’eroe con meno NERVI prova NERVI (Media): se fallisce 1 danno.
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(5,3)=8 +NERVI(1) = 9 vs Media(9) -> SUCCESSO
+  [MINACCIA] IL PRIMO MOVIMENTO (crescendo) — Aggiungete 1 segnalino Canto. Alla soglia: Ferri si desta.
+    Segnalino Canto: 2.
+    Ferri recupera 1 ferita (6/6) e si attiva subito.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 1 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+  IL CORISTA si avvicina, non ancora a contatto.
+  IL CORISTA si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+  BASTIANO FERRI salta l’attivazione (Flash! di Carla).
+  [OROLOGIO] Fine del 8° round: +1 segnalino Canto automatico.
+    Segnalino Canto: 3.
+    Il Canto raggiunge 3: da ora ogni Fase Minaccia pesca 1 carta in più (fino a fine spedizione, anche se il Custode è già stato abbattuto).
+--- La Camera delle Tre Acque: Ferri, il Coro e il rito ---
+--- Round 9: il rito è in corso ---
+    (azioni nominali questo round: 20 — 10 eroi vivi)
+    [ABILITÀ] CARLA DOSTI usa Flash! su BASTIANO FERRI: accecato, salta la sua prossima attivazione (0 usi residui).
+    [PROVA ACUME] DOTT. LAZZARO SERRA: 2d6(3,4)=7 +ACUME(3) = 10 vs Media(9) -> SUCCESSO
+    DOTT. LAZZARO SERRA cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    ELENA FOSCO: nessun bersaglio, avanza / assiste il gruppo.
+    FULGENZIO CARBONE: nessun bersaglio, avanza / assiste il gruppo.
+    MORA “SPILLA” FANTI: nessun bersaglio, avanza / assiste il gruppo.
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> BASTIANO FERRI: 2d6(1,3)=4 +VIGORE(2)+arma(1) = 7 vs Difesa(6) -> COLPITO
+    BASTIANO FERRI: 5/6 ferite residue.
+    [ATTACCO] OTTAVIO BRERA -> BASTIANO FERRI: 2d6(1,6)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(6) -> COLPITO
+    BASTIANO FERRI: 4/6 ferite residue.
+    OTTONE “MEZZENA” MASSARI si muove verso IL CORISTA: A3 -> C4.
+    OTTONE “MEZZENA” MASSARI si avvicina a IL CORISTA, non ancora a contatto.
+    PADRE CELSO MARANI: nessun bersaglio, avanza / assiste il gruppo.
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] IL SECONDO MOVIMENTO (crescendo) — Aggiungete 1 segnalino Canto. Alla soglia: Ferri si desta.
+    Segnalino Canto: 4.
+    Ferri recupera 1 ferita (5/6) e si attiva subito.
+    Mazzo Minaccia esaurito: si rimescolano gli scarti.
+  [MINACCIA] LA PROCESSIONE ULTIMA (posseduto) — Piazzate 1 Confratello sull’uscita più vicina agli eroi.
+    Piazzati 1x IL CONFRATELLO (pool residua: 1) in B1.
+  [MINACCIA] I FRATELLI DEL QUARANTUNO (posseduto) — Piazzate 1 Confratello sull’uscita più vicina agli eroi.
+    Piazzati 1x IL CONFRATELLO (pool residua: 0) in B1.
+  ADEPTO INCAPPUCCIATO raggiunge la tessera del gruppo, da A1.
+  ADEPTO INCAPPUCCIATO attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> PADRE CELSO MARANI: 2d6(5,3)=8 +Attacco(1) = 9 vs Difesa(8) -> COLPITO
+    PADRE CELSO MARANI subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 6/7).
+  ADEPTO INCAPPUCCIATO raggiunge la tessera del gruppo, da D1.
+  ADEPTO INCAPPUCCIATO attacca NINO “GRIMALDELLO” CAUTO:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> NINO “GRIMALDELLO” CAUTO: 2d6(6,3)=9 +Attacco(1) = 10 vs Difesa(8) -> COLPITO
+    NINO “GRIMALDELLO” CAUTO subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 7/8).
+  IL CORISTA si avvicina, non ancora a contatto.
+  IL CORISTA si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 1 caselle prima di raggiungere la tessera del gruppo.
+  IL CONFRATELLO attacca NINO “GRIMALDELLO” CAUTO:
+    [ATTACCO NEMICO] IL CONFRATELLO -> NINO “GRIMALDELLO” CAUTO: 2d6(5,3)=8 +Attacco(1) = 9 vs Difesa(8) -> COLPITO
+    NINO “GRIMALDELLO” CAUTO subisce 1 danno da IL CONFRATELLO (Salute: 6/8).
+  IL CONFRATELLO attacca OTTAVIO BRERA:
+    [ATTACCO NEMICO] IL CONFRATELLO -> OTTAVIO BRERA: 2d6(2,3)=5 +Attacco(1) = 6 vs Difesa(8) -> MANCATO
+  BASTIANO FERRI salta l’attivazione (Flash! di Carla).
+  Il rito è morto: Ferri crolla. Si torna alla Porta d’Acqua.
+--- Ritorno alla Porta d’Acqua (3 round, la marea sale) ---
+    [PROVA NERVI] CARLA DOSTI: 2d6(5,2)=7 +NERVI(2) +Lanterna di Chiusa(+1) = 10 vs Media(9) -> SUCCESSO
+    [PROVA NERVI] DOTT. LAZZARO SERRA: 2d6(1,5)=6 +NERVI(2) +Lanterna di Chiusa(+1) = 9 vs Media(9) -> SUCCESSO
+    [PROVA NERVI] ELENA FOSCO: 2d6(4,3)=7 +NERVI(2) +Lanterna di Chiusa(+1) = 10 vs Media(9) -> SUCCESSO
+    [PROVA NERVI] FULGENZIO CARBONE: 2d6(4,3)=7 +NERVI(2) +Lanterna di Chiusa(+1) = 10 vs Media(9) -> SUCCESSO
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(3,6)=9 +NERVI(1) +Lanterna di Chiusa(+1) = 11 vs Media(9) -> SUCCESSO
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6(4,1)=5 +NERVI(1) +Lanterna di Chiusa(+1) = 7 vs Media(9) -> FALLITA
+    [PROVA NERVI] OTTAVIO BRERA: 2d6(5,4)=9 +NERVI(2) +Lanterna di Chiusa(+1) = 12 vs Media(9) -> SUCCESSO
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6(1,5)=6 +NERVI(2) +Lanterna di Chiusa(+1) = 9 vs Media(9) -> SUCCESSO
+    [PROVA NERVI] PADRE CELSO MARANI: 2d6(1,3)=4 +NERVI(3) +Lanterna di Chiusa(+1) = 8 vs Media(9) -> FALLITA
+    [PROVA NERVI] SIBILLA REVE: 2d6(3,5)=8 +NERVI(3) +Lanterna di Chiusa(+1) = 12 vs Media(9) -> SUCCESSO
+--- Round 10: rientro verso T1 ---
+    (azioni nominali questo round: 20 — 10 eroi vivi)
+    [ATTACCO] CARLA DOSTI -> ADEPTO INCAPPUCCIATO: 2d6(4,4)=8 +VIGORE(1)+arma(1) = 10 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    [PROVA ACUME] DOTT. LAZZARO SERRA: 2d6(5,2)=7 +ACUME(3) = 10 vs Media(9) -> SUCCESSO
+    DOTT. LAZZARO SERRA cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    ELENA FOSCO: nessun bersaglio, avanza / assiste il gruppo.
+    FULGENZIO CARBONE: nessun bersaglio, avanza / assiste il gruppo.
+    MORA “SPILLA” FANTI: nessun bersaglio, avanza / assiste il gruppo.
+    NINO “GRIMALDELLO” CAUTO ha 1 sola azione questo turno (insidia del round scorso).
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> ADEPTO INCAPPUCCIATO: 2d6(4,1)=5 +VIGORE(2)+arma(1) = 8 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    OTTAVIO BRERA si muove verso IL CONFRATELLO: B2 -> A1.
+    [ATTACCO] OTTAVIO BRERA -> IL CONFRATELLO: 2d6(2,4)=6 +VIGORE(1)+arma(1) = 8 vs Difesa(7) -> COLPITO
+    IL CONFRATELLO: 0/1 ferite residue.
+    IL CONFRATELLO è ABBATTUTO.
+    OTTONE “MEZZENA” MASSARI si muove verso IL CORISTA: C4 -> D4.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> IL CORISTA: 2d6(3,6)=9 +VIGORE(3)+arma(1) = 13 vs Difesa(6) -> COLPITO
+    IL CORISTA: 0/1 ferite residue.
+    IL CORISTA FUGGE (è un impiegato, non un credente).
+    PADRE CELSO MARANI ha 1 sola azione questo turno (insidia del round scorso).
+    PADRE CELSO MARANI si muove verso IL CORISTA: B1 -> C2.
+    PADRE CELSO MARANI (1 sola azione) si limita ad avvicinarsi a IL CORISTA.
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] L’ACQUA TRATTIENE (quiete) — Nessun effetto (tensione).
+    (carta senza effetto modellato in questa simulazione)
+  [MINACCIA] L’ACQUA ALLE GINOCCHIA (ostacolo) — Muoversi costa il doppio sulla tessera dell’eroe attivo fino a fine round.
+    (carta senza effetto modellato in questa simulazione)
+  [MINACCIA] LA SECONDA BARCA (posseduto) — Piazzate 1 Adepto sull’ingresso della Porta d’Acqua (T1).
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 2), a 6 caselle dalla tessera del gruppo.
+  [MINACCIA] I FACCHINI DELL’ULTIMA NOTTE (posseduto) — Piazzate 1 Adepto sull’uscita più vicina agli eroi.
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 1) in B1.
+  IL CORISTA si muove verso NINO “GRIMALDELLO” CAUTO: D2 -> D1.
+  IL CORISTA attacca NINO “GRIMALDELLO” CAUTO:
+    [ATTACCO NEMICO] IL CORISTA -> NINO “GRIMALDELLO” CAUTO: 2d6(6,5)=11 +Attacco(1) = 12 vs Difesa(8) -> COLPITO
+    NINO “GRIMALDELLO” CAUTO subisce 1 danno da IL CORISTA (Salute: 5/8).
+  ADEPTO INCAPPUCCIATO raggiunge la tessera del gruppo, da B2.
+  ADEPTO INCAPPUCCIATO attacca SIBILLA REVE:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> SIBILLA REVE: 2d6(3,4)=7 +Attacco(1) = 8 vs Difesa(8) -> COLPITO
+    SIBILLA REVE subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 5/7).
+  IL CONFRATELLO attacca NINO “GRIMALDELLO” CAUTO:
+    [ATTACCO NEMICO] IL CONFRATELLO -> NINO “GRIMALDELLO” CAUTO: 2d6(6,1)=7 +Attacco(1) = 8 vs Difesa(8) -> COLPITO
+    NINO “GRIMALDELLO” CAUTO subisce 1 danno da IL CONFRATELLO (Salute: 4/8).
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO attacca NINO “GRIMALDELLO” CAUTO:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> NINO “GRIMALDELLO” CAUTO: 2d6(6,1)=7 +Attacco(1) = 8 vs Difesa(8) -> COLPITO
+    NINO “GRIMALDELLO” CAUTO subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 3/8).
+--- Round 11: rientro verso T1 ---
+    (azioni nominali questo round: 20 — 10 eroi vivi)
+    [ATTACCO] CARLA DOSTI -> ADEPTO INCAPPUCCIATO: 2d6(4,2)=6 +VIGORE(1)+arma(1) = 8 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    DOTT. LAZZARO SERRA: nessun bersaglio, avanza / assiste il gruppo.
+    ELENA FOSCO: nessun bersaglio, avanza / assiste il gruppo.
+    FULGENZIO CARBONE: nessun bersaglio, avanza / assiste il gruppo.
+    MORA “SPILLA” FANTI: nessun bersaglio, avanza / assiste il gruppo.
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> IL CORISTA: 2d6(4,3)=7 +VIGORE(2)+arma(1) = 10 vs Difesa(6) -> COLPITO
+    IL CORISTA: 0/1 ferite residue.
+    IL CORISTA FUGGE (è un impiegato, non un credente).
+    OTTAVIO BRERA si muove verso IL CONFRATELLO: A1 -> B2.
+    [ATTACCO] OTTAVIO BRERA -> IL CONFRATELLO: 2d6(4,3)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(7) -> COLPITO
+    IL CONFRATELLO: 0/1 ferite residue.
+    IL CONFRATELLO è ABBATTUTO.
+    OTTONE “MEZZENA” MASSARI si muove verso ADEPTO INCAPPUCCIATO: D4 -> A4.
+    OTTONE “MEZZENA” MASSARI si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    PADRE CELSO MARANI si muove verso ADEPTO INCAPPUCCIATO: C2 -> D4.
+    PADRE CELSO MARANI si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] IL RICHIAMO (insidia) — L’eroe più avanzato prova NERVI (Media): se fallisce, 1 danno.
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(2,4)=6 +NERVI(1) = 7 vs Media(9) -> FALLITA
+    MORA “SPILLA” FANTI subisce 1 danno da IL RICHIAMO (Salute: 5/8).
+  [MINACCIA] LA BARCA DELLE DUE E MEZZA (posseduto) — Piazzate 1 Adepto sull’ingresso della Porta d’Acqua (T1).
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 1), a 6 caselle dalla tessera del gruppo.
+  [MINACCIA] IL PELLEGRINAGGIO (posseduto) — Piazzate 1 Adepto sull’uscita più vicina agli eroi.
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 0) in B1.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si muove verso SIBILLA REVE: B1 -> A1.
+  ADEPTO INCAPPUCCIATO attacca SIBILLA REVE:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> SIBILLA REVE: 2d6(2,1)=3 +Attacco(1) = 4 vs Difesa(8) -> MANCATO
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO attacca OTTAVIO BRERA:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> OTTAVIO BRERA: 2d6(3,3)=6 +Attacco(1) = 7 vs Difesa(8) -> MANCATO
+--- Round 12: rientro verso T1 ---
+    (azioni nominali questo round: 20 — 10 eroi vivi)
+    [ATTACCO] CARLA DOSTI -> ADEPTO INCAPPUCCIATO: 2d6(3,4)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    DOTT. LAZZARO SERRA: nessun bersaglio, avanza / assiste il gruppo.
+    ELENA FOSCO: nessun bersaglio, avanza / assiste il gruppo.
+    FULGENZIO CARBONE: nessun bersaglio, avanza / assiste il gruppo.
+    MORA “SPILLA” FANTI: nessun bersaglio, avanza / assiste il gruppo.
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> ADEPTO INCAPPUCCIATO: 2d6(3,4)=7 +VIGORE(2)+arma(1) = 10 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    OTTAVIO BRERA: nessun bersaglio, avanza / assiste il gruppo.
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+    PADRE CELSO MARANI: nessun bersaglio, avanza / assiste il gruppo.
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+    [ABILITÀ] SIBILLA REVE scruta il mazzo: «IL TERZO MOVIMENTO» finisce in fondo, «LA VOCE DEL BORGO» torna in cima (0 usi residui).
+  [MINACCIA] LA VOCE DEL BORGO (posseduto) — Piazzate 1 Voce Cava sull’uscita più vicina agli eroi.
+    Piazzati 1x LA VOCE CAVA (pool residua: 1) in B1.
+  [MINACCIA] IL SECONDO MOVIMENTO (crescendo) — Aggiungete 1 segnalino Canto. Alla soglia: Ferri si desta.
+    Segnalino Canto: 5.
+    Ferri è già stato sconfitto: nessun effetto su di lui.
+  [MINACCIA] LA MAREA CHE SALE (insidia) — L’eroe attivo prova NERVI (Media): se fallisce, 1 danno e perde 1 azione.
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(2,3)=5 +NERVI(1) = 6 vs Media(9) -> FALLITA
+    MORA “SPILLA” FANTI subisce 1 danno da LA MAREA CHE SALE (Salute: 4/8).
+    MORA “SPILLA” FANTI avrà 1 sola azione al suo prossimo turno.
+  [MINACCIA] LA CORRENTE AMICA (favore) — Rivelate una tessera coperta adiacente.
+    (carta senza effetto modellato in questa simulazione)
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  LA VOCE CAVA si muove verso PADRE CELSO MARANI: B1 -> A3.
+  LA VOCE CAVA attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] LA VOCE CAVA -> OTTONE “MEZZENA” MASSARI: 2d6(3,3)=6 +Attacco(1) = 7 vs Difesa(8) -> MANCATO
+  [OROLOGIO] Fine del 12° round: +1 segnalino Canto automatico.
+    Segnalino Canto: 6.
+
+==============================================================================
+ESITO SPEDIZIONE: VITTORIA
+Round totali: 12
+Formula Minaccia: finale_v3 | Azioni nominali/round: media 20.0, picco 20
+Mazzo Minaccia rimescolato: 1 volta/e
+Segnalini nemici esauriti nel pool (piazzamenti saltati): 0
+Ferri svegliato: solo a T6 (mai in anticipo via Canto)
+  CARLA DOSTI: 7/7 Salute
+  DOTT. LAZZARO SERRA: 7/7 Salute
+  ELENA FOSCO: 7/7 Salute
+  FULGENZIO CARBONE: 5/7 Salute
+  MORA “SPILLA” FANTI: 4/8 Salute
+  NINO “GRIMALDELLO” CAUTO: 3/8 Salute
+  OTTAVIO BRERA: 7/7 Salute
+  OTTONE “MEZZENA” MASSARI: 8/9 Salute
+  PADRE CELSO MARANI: 6/7 Salute
+  SIBILLA REVE: 5/7 Salute
+==============================================================================
+Movimenti spenti: 3/3; Formula letta: sì

@@ -1,0 +1,65 @@
+==============================================================================
+SPEDIZIONE - Il Molino delle Carte, prima che bruci
+==============================================================================
+Party: CARLA DOSTI, DOTT. ATTILIO MARN  |  PREPARATI  |  Cassetta: sì  |  Taccuino: sì  |  Lasciapassare: sì
+  [LASCIAPASSARE] Entrate come gente del trasporto: nessuno sbarramento a T1.
+--- Round 1: T1 · Canto 0/5 fuoco ---
+  [MINACCIA] IL TETTO PRENDE (crescendo)
+--- Round 2: T2 (pericolo d’ambiente) · Canto 1/5 fuoco ---
+    [PROVA VIGORE] CARLA DOSTI: 2d6=4 +VIGORE(1) +1 = 6 vs Media(9) -> FALLITA
+    CARLA DOSTI: pericolo d’ambiente a T2 — 1 round perso.
+  [MINACCIA] LA RONDA DEL CORTILE (spawn)
+    Piazzato 1 uomo del molino (Sgherro).
+    DOTT. ATTILIO MARN subisce 1 da uomo del molino (Salute 8/9).
+--- Round 3: T3 (pericolo d’ambiente) · Canto 1/5 fuoco ---
+    [PROVA VIGORE] DOTT. ATTILIO MARN: 2d6=3 +VIGORE(2) +1 = 6 vs Media(9) -> FALLITA
+    DOTT. ATTILIO MARN: pericolo d’ambiente a T3 — 1 round perso.
+  [MINACCIA] RINCALZI DALLE MACINE (spawn)
+    Piazzato 1 uomo del molino (Sgherro).
+    DOTT. ATTILIO MARN subisce 1 da uomo del molino (Salute 7/9).
+--- Round 4: T4 · Canto 1/5 fuoco ---
+    Appare IL NOTAIO: ordina il rogo e fugge in carrozza (non si prende).
+  [MINACCIA] ORDINI DAL SORVEGLIANTE (spawn)
+    Piazzato 1 uomo del molino (Sgherro).
+    CARLA DOSTI subisce 1 da uomo del molino (Salute 7/8).
+    DOTT. ATTILIO MARN subisce 1 da uomo del molino (Salute 6/9).
+    CARLA DOSTI subisce 1 da uomo del molino (Salute 6/8).
+  [OROLOGIO] Fine del 4° round: +1 Canto automatico.
+--- Round 5: T5 (pericolo d’ambiente) · Canto 2/5 fuoco ---
+    [PROVA VIGORE] CARLA DOSTI: 2d6=9 +VIGORE(1) +1 = 11 vs Media(9) -> SUCCESSO
+  [MINACCIA] IL FISCHIO DEL SORVEGLIANTE (spawn)
+    Piazzato 1 uomo del molino (Sgherro) — subito.
+    CARLA DOSTI subisce 1 da uomo del molino (subito) (Salute 5/8).
+    CARLA DOSTI subisce 1 da uomo del molino (Salute 4/8).
+--- Round 6+: LA SALA DEL TORCHIO (T6) — il Sorvegliante (Fer 5) ---
+--- Round 6 (T6): Sorvegliante 5/5 · Canto 2 (no fuoco) ---
+  [MINACCIA] ODORE DI FUMO (crescendo)
+    Il fuoco monta (Canto 3): +1 carta Minaccia per Fase, per sempre.
+    CARLA DOSTI subisce 1 da uomo del molino (Salute 3/8).
+    [IL NOME DEL NOTAIO — D2] il Sorvegliante esita: salta un attacco.
+--- Round 7 (T6): Sorvegliante 4/5 · Canto 3 (no fuoco) ---
+  [MINACCIA] L’INGRANAGGIO DELLE MACINE (insidiaB)
+    [PROVA NERVI] CARLA DOSTI: 2d6=8 +NERVI(2) +1 = 11 vs Media(9) -> SUCCESSO
+  [MINACCIA] LA PASSERELLA SCIVOLOSA (ambiente)
+    [PROVA VIGORE] CARLA DOSTI: 2d6=2 +VIGORE(1) +1 = 4 vs Media(9) -> FALLITA
+    CARLA DOSTI: travolto dall’ambiente — 1 round perso (nessun danno).
+    CARLA DOSTI subisce 1 da uomo del molino (Salute 2/8).
+    DOTT. ATTILIO MARN subisce 1 da uomo del molino (Salute 5/9).
+    DOTT. ATTILIO MARN subisce 1 da uomo del molino (Salute 4/9).
+--- Round 8 (T6): Sorvegliante 2/5 · Canto 3 (no fuoco) ---
+    *** IL SORVEGLIANTE È A TERRA: la strada al torchio è libera. ***
+  [MINACCIA] CHI SBARRA LA STRADA (spawn)
+    Piazzato 1 uomo del molino (Sgherro) — subito.
+    CARLA DOSTI subisce 1 da uomo del molino (subito) (Salute 1/8).
+  [MINACCIA] I MAGAZZINI BRUCIANO (crescendo)
+    [INTUIZIONE] CARLA DOSTI resta a 1 Salute invece di cadere (gettone Dossier).
+    CARLA DOSTI subisce 1 da uomo del molino (Salute 0/8).
+    *** CARLA DOSTI è A TERRA. ***
+    DOTT. ATTILIO MARN subisce 1 da uomo del molino (Salute 3/9).
+    DOTT. ATTILIO MARN subisce 1 da uomo del molino (Salute 2/9).
+    *** SOGLIA-FUOCO (5): i magazzini bruciano. Essiccatoio e Torchio in fiamme. ***
+    Registri sequestrati. In Cassetta Stagna: prova INTATTA.
+
+==============================================================================
+ESITO: VITTORIA  |  Round: 8  |  Canto 5  |  soglia-fuoco 5
+==============================================================================

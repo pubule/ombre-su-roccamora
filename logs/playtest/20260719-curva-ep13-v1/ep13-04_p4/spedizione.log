@@ -1,0 +1,62 @@
+==============================================================================
+SPEDIZIONE - Il Molino delle Carte, prima che bruci
+==============================================================================
+Party: DOTT. ATTILIO MARN, ELENA FOSCO, MORA “SPILLA” FANTI, NINO “GRIMALDELLO” CAUTO  |  PREPARATI  |  Cassetta: sì  |  Taccuino: sì  |  Lasciapassare: no
+  Senza Lasciapassare del Nolo: 2 uomini al cancello (T1).
+    Piazzato 1 uomo del molino (Sgherro).
+    Piazzato 1 uomo del molino (Sgherro).
+--- Round 1: T1 · Canto 0/5 fuoco ---
+  [MINACCIA] LA RONDA DEL CORTILE (spawn)
+    Piazzato 1 uomo del molino (Sgherro).
+  [MINACCIA] CHI COPRE LA FUGA DEL NOTAIO (spawn)
+    Piazzato 1 uomo del molino (Sgherro).
+    DOTT. ATTILIO MARN subisce 1 da uomo del molino (Salute 8/9).
+    ELENA FOSCO subisce 1 da uomo del molino (Salute 7/8).
+--- Round 2: T2 (pericolo d’ambiente) · Canto 0/5 fuoco ---
+    [PROVA VIGORE] MORA “SPILLA” FANTI: 2d6=7 +VIGORE(2) +1 = 10 vs Media(9) -> SUCCESSO
+  [MINACCIA] UNA TRAVE IN FIAMME (danno)
+    DOTT. ATTILIO MARN subisce 1 da UNA TRAVE IN FIAMME (Salute 7/9).
+  [MINACCIA] ODORE DI FUMO (crescendo)
+    ELENA FOSCO subisce 1 da uomo del molino (Salute 6/8).
+--- Round 3: T3 (pericolo d’ambiente) · Canto 1/5 fuoco ---
+    [PROVA VIGORE] ELENA FOSCO: 2d6=7 +VIGORE(1) +1 = 9 vs Media(9) -> SUCCESSO
+  [MINACCIA] RINCALZI DALLE MACINE (spawn)
+    Piazzato 1 uomo del molino (Sgherro).
+  [MINACCIA] LA MACINA SI FERMA (quiete)
+    MORA “SPILLA” FANTI subisce 1 da uomo del molino (Salute 8/9).
+--- Round 4: T4 · Canto 1/5 fuoco ---
+    Appare IL NOTAIO: ordina il rogo e fugge in carrozza (non si prende).
+  [MINACCIA] ORDINI DAL SORVEGLIANTE (spawn)
+    Piazzato 1 uomo del molino (Sgherro).
+  [MINACCIA] LA CORRENTE DELLA ROGGIA (ambiente)
+    [PROVA VIGORE] ELENA FOSCO: 2d6=11 +VIGORE(1) +1 = 13 vs Media(9) -> SUCCESSO
+  [OROLOGIO] Fine del 4° round: +1 Canto automatico.
+--- Round 5: T5 (pericolo d’ambiente) · Canto 2/5 fuoco ---
+    [PROVA VIGORE] ELENA FOSCO: 2d6=11 +VIGORE(1) +1 = 13 vs Media(9) -> SUCCESSO
+  [MINACCIA] IL TELAIO CHE CADE (insidiaB)
+    [PROVA NERVI] ELENA FOSCO: 2d6=8 +NERVI(2) +1 = 11 vs Media(9) -> SUCCESSO
+  [MINACCIA] LA PASSERELLA SCIVOLOSA (ambiente)
+    [PROVA VIGORE] ELENA FOSCO: 2d6=6 +VIGORE(1) +1 = 8 vs Media(9) -> FALLITA
+    ELENA FOSCO: travolto dall’ambiente — 1 round perso (nessun danno).
+--- Round 6+: LA SALA DEL TORCHIO (T6) — il Sorvegliante (Fer 5) ---
+--- Round 6 (T6): Sorvegliante 5/5 · Canto 2 (no fuoco) ---
+  [MINACCIA] LO STRACCIO IN FIAMME (insidiaB)
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6=9 +NERVI(1) +1 = 11 vs Media(9) -> SUCCESSO
+  [MINACCIA] LA POLVERE CHE SOFFOCA (insidiaA)
+    [PROVA NERVI] DOTT. ATTILIO MARN: 2d6=5 +NERVI(2) +1 = 8 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] ELENA FOSCO: 2d6=11 +NERVI(2) +1 = 14 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6=7 +NERVI(1) +1 = 9 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6=8 +NERVI(1) +1 = 10 vs Facile(7) -> SUCCESSO
+    ELENA FOSCO subisce 2 da il Sorvegliante (Salute 4/8).
+--- Round 7 (T6): Sorvegliante 3/5 · Canto 2 (no fuoco) ---
+    *** IL SORVEGLIANTE È A TERRA: la strada al torchio è libera. ***
+  [MINACCIA] IL PRIMO FOCOLAIO (crescendo)
+    Il fuoco monta (Canto 3): +1 carta Minaccia per Fase, per sempre.
+  [MINACCIA] IL FISCHIO DEL SORVEGLIANTE (spawn)
+    Piazzato 1 uomo del molino (Sgherro) — subito.
+    ELENA FOSCO subisce 1 da uomo del molino (subito) (Salute 3/8).
+    Registri sequestrati. In Cassetta Stagna: prova INTATTA.
+
+==============================================================================
+ESITO: VITTORIA  |  Round: 7  |  Canto 3  |  soglia-fuoco 5
+==============================================================================

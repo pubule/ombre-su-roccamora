@@ -1,0 +1,96 @@
+==============================================================================
+SPEDIZIONE - Il Molino delle Carte, prima che bruci
+==============================================================================
+Party: CARLA DOSTI, DOTT. ATTILIO MARN, FULGENZIO CARBONE, NINO “GRIMALDELLO” CAUTO, OTTAVIO BRERA, OTTONE “MEZZENA” MASSARI, SIBILLA REVE  |  PREPARATI  |  Cassetta: sì  |  Taccuino: sì  |  Lasciapassare: sì
+  [LASCIAPASSARE] Entrate come gente del trasporto: nessuno sbarramento a T1.
+--- Round 1: T1 · Canto 0/5 fuoco ---
+  [MINACCIA] L’INGRANAGGIO DELLE MACINE (insidiaB)
+    [PROVA NERVI] FULGENZIO CARBONE: 2d6=6 +NERVI(2) +1 = 9 vs Media(9) -> SUCCESSO
+  [MINACCIA] CHI COPRE LA FUGA DEL NOTAIO (spawn)
+    Piazzato 1 uomo del molino (Sgherro).
+--- Round 2: T2 (pericolo d’ambiente) · Canto 0/5 fuoco ---
+    [PROVA VIGORE] OTTONE “MEZZENA” MASSARI: 2d6=7 +VIGORE(3) +1 = 11 vs Media(9) -> SUCCESSO
+  [MINACCIA] IL PRIMO FOCOLAIO (crescendo)
+  [MINACCIA] IL TETTO PRENDE (crescendo)
+  [MINACCIA] CHI SBARRA LA STRADA (spawn)
+    Piazzato 1 uomo del molino (Sgherro) — subito.
+--- Round 3: T3 (pericolo d’ambiente) · Canto 2/5 fuoco ---
+    [PROVA VIGORE] FULGENZIO CARBONE: 2d6=7 +VIGORE(1) +1 = 9 vs Media(9) -> SUCCESSO
+  [MINACCIA] IL TELAIO CHE CADE (insidiaB)
+    [PROVA NERVI] DOTT. ATTILIO MARN: 2d6=5 +NERVI(2) +1 = 8 vs Media(9) -> FALLITA
+    [PROVA NERVI] DOTT. ATTILIO MARN: 2d6=3 +NERVI(2) +1 = 6 vs Media(9) -> FALLITA
+    DOTT. ATTILIO MARN subisce 1 da IL TELAIO CHE CADE (Salute 7/8).
+  [MINACCIA] LA MACINA SI FERMA (quiete)
+--- Round 4: T4 · Canto 2/5 fuoco ---
+    Appare IL NOTAIO: ordina il rogo e fugge in carrozza (non si prende).
+  [MINACCIA] LA GUARDIA AL CANCELLO (spawn)
+    Piazzato 1 uomo del molino (Sgherro).
+  [MINACCIA] LA CORRENTE DELLA ROGGIA (ambiente)
+    [PROVA VIGORE] FULGENZIO CARBONE: 2d6=11 +VIGORE(1) +1 = 13 vs Media(9) -> SUCCESSO
+  [MINACCIA] ODORE DI FUMO (crescendo)
+    Il fuoco monta (Canto 3): +1 carta Minaccia per Fase, per sempre.
+    OTTONE “MEZZENA” MASSARI subisce 1 da uomo del molino (Salute 8/9).
+  [OROLOGIO] Fine del 4° round: +1 Canto automatico.
+--- Round 5: T5 (pericolo d’ambiente) · Canto 4/5 fuoco ---
+    [PROVA VIGORE] DOTT. ATTILIO MARN: 2d6=7 +VIGORE(2) +1 = 10 vs Media(9) -> SUCCESSO
+  [MINACCIA] ORDINI DAL SORVEGLIANTE (spawn)
+    Piazzato 1 uomo del molino (Sgherro).
+  [MINACCIA] LA PASSERELLA SCIVOLOSA (ambiente)
+    [PROVA VIGORE] NINO “GRIMALDELLO” CAUTO: 2d6=8 +VIGORE(2) +1 = 11 vs Media(9) -> SUCCESSO
+  [MINACCIA] RINCALZI DALLE MACINE (spawn)
+    Piazzato 1 uomo del molino (Sgherro).
+    OTTAVIO BRERA subisce 1 da uomo del molino (Salute 6/7).
+    CARLA DOSTI subisce 1 da uomo del molino (Salute 6/7).
+--- Round 6+: LA SALA DEL TORCHIO (T6) — il Sorvegliante (Fer 6) ---
+--- Round 6 (T6): Sorvegliante 6/6 · Canto 4 (no fuoco) ---
+  [MINACCIA] IL FISCHIO DEL SORVEGLIANTE (spawn)
+    Piazzato 1 uomo del molino (Sgherro) — subito.
+    CARLA DOSTI subisce 1 da uomo del molino (subito) (Salute 5/7).
+  [MINACCIA] BALLE DI STRACCI SUL PASSO (ostacolo)
+  [MINACCIA] LA POLVERE CHE SOFFOCA (insidiaA)
+    [PROVA NERVI] CARLA DOSTI: 2d6=9 +NERVI(2) +1 = 12 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] DOTT. ATTILIO MARN: 2d6=10 +NERVI(2) +1 = 13 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] FULGENZIO CARBONE: 2d6=6 +NERVI(2) +1 = 9 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6=10 +NERVI(1) +1 = 12 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] OTTAVIO BRERA: 2d6=7 +NERVI(2) +1 = 10 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6=6 +NERVI(2) +1 = 9 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] SIBILLA REVE: 2d6=11 +NERVI(3) +1 = 15 vs Facile(7) -> SUCCESSO
+  [MINACCIA] LO STRACCIO IN FIAMME (insidiaB)
+    [PROVA NERVI] CARLA DOSTI: 2d6=9 +NERVI(2) +1 = 12 vs Media(9) -> SUCCESSO
+    CARLA DOSTI subisce 1 da uomo del molino (Salute 4/7).
+    DOTT. ATTILIO MARN subisce 1 da uomo del molino (Salute 6/8).
+    [IL NOME DEL NOTAIO — D2] il Sorvegliante esita: salta un attacco.
+--- Round 7 (T6): Sorvegliante 3/6 · Canto 4 (no fuoco) ---
+  [MINACCIA] I MAGAZZINI BRUCIANO (crescendo)
+    *** SOGLIA-FUOCO (5): i magazzini bruciano. Essiccatoio e Torchio in fiamme. ***
+  [MINACCIA] UNA PORTA D’ACQUA APERTA (favore)
+  [MINACCIA] LA RONDA DEL CORTILE (spawn)
+    Piazzato 1 uomo del molino (Sgherro).
+    CARLA DOSTI subisce 1 da uomo del molino (Salute 3/7).
+    OTTONE “MEZZENA” MASSARI subisce 1 da uomo del molino (Salute 7/9).
+    DOTT. ATTILIO MARN subisce 2 da il Sorvegliante (Salute 4/8).
+--- Round 8 (T6): Sorvegliante 1/6 · Canto 5 (FUOCO) ---
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6=5 +NERVI(1) +1 = 7 vs Media(9) -> FALLITA
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6=10 +NERVI(1) +1 = 12 vs Media(9) -> SUCCESSO
+    *** IL SORVEGLIANTE È A TERRA: la strada al torchio è libera. ***
+  [MINACCIA] UNA TRAVE IN FIAMME (danno)
+    SIBILLA REVE subisce 1 da UNA TRAVE IN FIAMME (Salute 6/7).
+  [MINACCIA] LA POLVERE CHE SOFFOCA (insidiaA)
+    [PROVA NERVI] CARLA DOSTI: 2d6=8 +NERVI(2) +1 = 11 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] DOTT. ATTILIO MARN: 2d6=5 +NERVI(2) +1 = 8 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] FULGENZIO CARBONE: 2d6=2 +NERVI(2) +1 = 5 vs Facile(7) -> FALLITA
+    [PROVA NERVI] FULGENZIO CARBONE: 2d6=7 +NERVI(2) +1 = 10 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6=10 +NERVI(1) +1 = 12 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] OTTAVIO BRERA: 2d6=11 +NERVI(2) +1 = 14 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6=9 +NERVI(2) +1 = 12 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] SIBILLA REVE: 2d6=6 +NERVI(3) +1 = 10 vs Facile(7) -> SUCCESSO
+  [MINACCIA] L’INGRANAGGIO DELLE MACINE (insidiaB)
+    [PROVA NERVI] OTTAVIO BRERA: 2d6=4 +NERVI(2) +1 = 7 vs Media(9) -> FALLITA
+    [PROVA NERVI] OTTAVIO BRERA: 2d6=10 +NERVI(2) +1 = 13 vs Media(9) -> SUCCESSO
+  [MINACCIA] IL TELAIO CHE CADE (insidiaB)
+    [PROVA NERVI] SIBILLA REVE: 2d6=12 +NERVI(3) +1 = 16 vs Media(9) -> SUCCESSO
+    Registri sequestrati. In Cassetta Stagna: prova INTATTA.
+
+==============================================================================
+ESITO: VITTORIA  |  Round: 8  |  Canto 6  |  soglia-fuoco 5
+==============================================================================

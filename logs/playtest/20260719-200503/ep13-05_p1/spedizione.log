@@ -1,0 +1,85 @@
+==============================================================================
+SPEDIZIONE - Il Molino delle Carte, prima che bruci
+==============================================================================
+Party: DOTT. LAZZARO SERRA, ELENA FOSCO, FULGENZIO CARBONE, NINO “GRIMALDELLO” CAUTO, OTTAVIO BRERA  |  PREPARATI  |  Cassetta: sì  |  Taccuino: sì  |  Lasciapassare: no
+  Senza Lasciapassare del Nolo: 2 uomini al cancello (T1).
+    Piazzato 1 uomo del molino (Sgherro).
+    Piazzato 1 uomo del molino (Sgherro).
+--- Round 1: T1 · Canto 0/5 fuoco ---
+  [MINACCIA] L’INGRANAGGIO DELLE MACINE (insidiaB)
+    [PROVA NERVI] DOTT. LAZZARO SERRA: 2d6=5 +NERVI(2) +1 = 8 vs Media(9) -> FALLITA
+    DOTT. LAZZARO SERRA subisce 1 da L’INGRANAGGIO DELLE MACINE (Salute 6/7).
+  [MINACCIA] BALLE DI STRACCI SUL PASSO (ostacolo)
+--- Round 2: T2 (pericolo d’ambiente) · Canto 0/5 fuoco ---
+    [PROVA VIGORE] NINO “GRIMALDELLO” CAUTO: 2d6=5 +VIGORE(2) +1 = 8 vs Media(9) -> FALLITA
+    NINO “GRIMALDELLO” CAUTO: travolto dalla roggia — 1 round perso.
+  [MINACCIA] I MAGAZZINI BRUCIANO (crescendo)
+  [MINACCIA] IL TETTO PRENDE (crescendo)
+--- Round 3: T3 (pericolo d’ambiente) · Canto 2/5 fuoco ---
+    [PROVA VIGORE] OTTAVIO BRERA: 2d6=7 +VIGORE(1) +1 = 9 vs Media(9) -> SUCCESSO
+  [MINACCIA] LA MACINA SI FERMA (quiete)
+  [MINACCIA] LO STRACCIO IN FIAMME (insidiaB)
+    [PROVA NERVI] DOTT. LAZZARO SERRA: 2d6=11 +NERVI(2) +1 = 14 vs Media(9) -> SUCCESSO
+--- Round 4: T4 · Canto 2/5 fuoco ---
+    Appare IL NOTAIO: ordina il rogo e fugge in carrozza (non si prende).
+  [MINACCIA] LA RONDA DEL CORTILE (spawn)
+    Piazzato 1 uomo del molino (Sgherro).
+  [MINACCIA] LA CORRENTE DELLA ROGGIA (ambiente)
+    [PROVA VIGORE] OTTAVIO BRERA: 2d6=8 +VIGORE(1) +1 = 10 vs Media(9) -> SUCCESSO
+    ELENA FOSCO subisce 1 da uomo del molino (Salute 6/7).
+    Il fuoco monta (Canto 3): +1 carta Minaccia per Fase, per sempre.
+  [OROLOGIO] Fine del 4° round: +1 Canto automatico.
+--- Round 5: T5 (pericolo d’ambiente) · Canto 3/5 fuoco ---
+  [MINACCIA] LA GUARDIA AL CANCELLO (spawn)
+    Piazzato 1 uomo del molino (Sgherro).
+  [MINACCIA] LA PASSERELLA SCIVOLOSA (ambiente)
+    [PROVA VIGORE] OTTAVIO BRERA: 2d6=11 +VIGORE(1) +1 = 13 vs Media(9) -> SUCCESSO
+  [MINACCIA] CHI SBARRA LA STRADA (spawn)
+    Piazzato 1 uomo del molino (Sgherro) — subito.
+    DOTT. LAZZARO SERRA subisce 1 da uomo del molino (subito) (Salute 5/7).
+    FULGENZIO CARBONE subisce 1 da uomo del molino (Salute 6/7).
+--- Round 6+: LA SALA DEL TORCHIO (T6) — il Sorvegliante (Fer 6) ---
+--- Round 6 (T6): Sorvegliante 6/6 · Canto 3 (no fuoco) ---
+  [MINACCIA] IL PRIMO FOCOLAIO (crescendo)
+  [MINACCIA] UNA TRAVE IN FIAMME (danno)
+    OTTAVIO BRERA subisce 1 da UNA TRAVE IN FIAMME (Salute 6/7).
+  [MINACCIA] IL FISCHIO DEL SORVEGLIANTE (spawn)
+    Piazzato 1 uomo del molino (Sgherro) — subito.
+    DOTT. LAZZARO SERRA subisce 1 da uomo del molino (subito) (Salute 4/7).
+    DOTT. LAZZARO SERRA subisce 1 da uomo del molino (Salute 3/7).
+    OTTAVIO BRERA subisce 1 da uomo del molino (Salute 5/7).
+    [IL NOME DEL NOTAIO — D2] il Sorvegliante esita: un colpo in meno.
+    DOTT. LAZZARO SERRA subisce 2 da il Sorvegliante (Salute 1/7).
+--- Round 7 (T6): Sorvegliante 3/6 · Canto 4 (no fuoco) ---
+  [MINACCIA] CHI COPRE LA FUGA DEL NOTAIO (spawn)
+    Piazzato 1 uomo del molino (Sgherro).
+  [MINACCIA] RINCALZI DALLE MACINE (spawn)
+    Piazzato 1 uomo del molino (Sgherro).
+  [MINACCIA] IL TELAIO CHE CADE (insidiaB)
+    [PROVA NERVI] DOTT. LAZZARO SERRA: 2d6=3 +NERVI(2) +1 = 6 vs Media(9) -> FALLITA
+    [INTUIZIONE] DOTT. LAZZARO SERRA resta a 1 Salute invece di cadere (gettone Dossier).
+    OTTAVIO BRERA subisce 1 da uomo del molino (Salute 4/7).
+    OTTAVIO BRERA subisce 1 da uomo del molino (Salute 3/7).
+    DOTT. LAZZARO SERRA subisce 2 da il Sorvegliante (Salute 0/7).
+    *** DOTT. LAZZARO SERRA è A TERRA. ***
+    OTTAVIO BRERA subisce 2 da il Sorvegliante (Salute 1/7).
+--- Round 8 (T6): Sorvegliante 1/6 · Canto 4 (no fuoco) ---
+    *** IL SORVEGLIANTE È A TERRA: la strada al torchio è libera. ***
+  [MINACCIA] UNA PORTA D’ACQUA APERTA (favore)
+  [MINACCIA] ODORE DI FUMO (crescendo)
+    *** SOGLIA-FUOCO (5): i magazzini bruciano. Essiccatoio e Torchio in fiamme. ***
+  [MINACCIA] LA POLVERE CHE SOFFOCA (insidiaA)
+    [PROVA NERVI] ELENA FOSCO: 2d6=8 +NERVI(2) +1 = 11 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] FULGENZIO CARBONE: 2d6=8 +NERVI(3) +1 = 12 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6=8 +NERVI(1) +1 = 10 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] OTTAVIO BRERA: 2d6=4 +NERVI(2) +1 = 7 vs Facile(7) -> SUCCESSO
+    ELENA FOSCO subisce 1 da uomo del molino (Salute 5/7).
+    OTTAVIO BRERA subisce 1 da uomo del molino (Salute 0/7).
+    *** OTTAVIO BRERA è A TERRA. ***
+    ELENA FOSCO subisce 1 da uomo del molino (Salute 4/7).
+    ELENA FOSCO subisce 1 da uomo del molino (Salute 3/7).
+    Registri sequestrati. In Cassetta Stagna: prova INTATTA.
+
+==============================================================================
+ESITO: VITTORIA  |  Round: 8  |  Canto 6  |  soglia-fuoco 5
+==============================================================================

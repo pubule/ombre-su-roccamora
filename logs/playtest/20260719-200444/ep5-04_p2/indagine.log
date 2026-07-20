@@ -1,0 +1,69 @@
+Run: ep5-04_p2_seed0  |  seed=655200  |  generato: 2026-07-19T20:04:44
+==============================================================================
+INDAGINE - Episodio 5: "L’organo di ossa"
+==============================================================================
+Party: DOTT. ATTILIO MARN, ELENA FOSCO, OTTONE “MEZZENA” MASSARI, SIBILLA REVE
+Clock: 6 ore, dalle 18:00 alle 24:00.
+
+Tipi di Approfondimento coperti da questo party: Osservazione, Presagio, Referto, Testimonianza
+
+[h18:00] Visita Luogo 3 — Il Cimitero Nuovo  (1 ora)
+    [PROVA ACUME] ELENA FOSCO: 2d6(4,1)=5 +ACUME(3) = 8 vs Media(9) -> FALLITA
+    [SECONDO FIATO] ELENA FOSCO ritenta “leggere la scena” (unico ritento dell’episodio):
+    [PROVA ACUME] ELENA FOSCO: 2d6(3,2)=5 +ACUME(3) = 8 vs Media(9) -> FALLITA
+    - Indizio: Il regno di Zaccaria Mola, becchino-capo: fosse «in manutenzione» transennate da settimane, e gli inservienti pagati il doppio — in contanti nuovi — per i turni di notte. «Manutenzione di cosa», dice uno sputando, «se là sotto non c’è più nessuno?»
+    - Indizio: I carri notturni escono dal cancello di servizio e NON portano terra: un guardiano li ha contati — «entrano vuoti, escono pesanti, e il lasciapassare lo firma il maestro dei registri. Chi è? Boh. Ma il cancello si apre.»
+    - Indizio: Dietro la rimessa, lapidi vecchie accatastate a faccia in giù: sono quelle vere delle tombe «rifatte» — e su ciascuna, sotto il muschio, un’onda scalpellata via. Le lapidi rifatte non sono pietà: sono una cancellatura — e i carri le portano dal marmista STANOTTE. Se arrivate qui dopo le 21:00 il cortile è già vuoto: questa prova l’avete persa (il Cimitero resta visitabile, ma la Domanda 3 dovrete confermarla altrove).
+    -> Parola chiave trovata (vedi indizio sopra): IL MAESTRO DEI REGISTRI
+    -> Parola chiave trovata (vedi indizio sopra): CONTANTI NUOVI
+    -> Parola chiave trovata (vedi indizio sopra): LAPIDI RIFATTE
+    -> In tempo al Cimitero: bloccati gli ultimi due carri — 2 casse già salve in T5 (peso nell’epilogo, non simulato).
+    -> Riscontro sulla Domanda 3 (1: casse marcate/lapidi/registro).
+    “Leggere la scena” fallita: l’Approfondimento di questo luogo resta nascosto (si può tornare più tardi, senza ripetere il tiro).
+[h19:00] Visita Luogo 2 — L’Ossario Comunale  (1 ora)
+    [PROVA ACUME] ELENA FOSCO: 2d6(6,5)=11 +ACUME(3) = 14 vs Media(9) -> SUCCESSO
+    - Indizio: Le casse mancanti sono ventidue, e non sono a caso: solo sepolture del secolo scorso, solo casse marcate con un segno d’onda sul legno. Il custode dell’ossario: «le ricognizioni le fa la Curia. Ma la Curia qui non viene da vent’anni.»
+    - Indizio: Nel registro delle consegne, le uscite risultano autorizzate e ritirate «per ricognizione» — sempre di notte, sempre con lo stesso carrettiere. Il custode: «pagato in contanti nuovi, davanti a me. Chi paga il carrettiere davanti al custode, il custode lo sta pagando in silenzio.»
+    - Indizio: Tre nicchie svuotate portano lapidi NUOVE, di marmo appena tagliato, coi nomi ricopiati — «lapidi rifatte, per pietà dei discendenti», dice la carta. I discendenti di confratelli banditi nel Quarantuno. Che non esistono.
+    -> Parola chiave trovata (vedi indizio sopra): CONTANTI NUOVI
+    -> Parola chiave trovata (vedi indizio sopra): LAPIDI RIFATTE
+    -> Riscontro sulla Domanda 3 (2: casse marcate/lapidi/registro).
+    [APPROFONDIMENTO Referto] sbloccato da DOTT. ATTILIO MARN.
+    -> Questa carta conferma esplicitamente che il colpevole è Mola (Domanda 2).
+[h20:00] Visita Luogo 1 — La Chiesa dei Battuti  (1 ora)
+    [PROVA ACUME] ELENA FOSCO: 2d6(2,2)=4 +ACUME(3) = 7 vs Media(9) -> FALLITA
+    - Indizio: Fedele è dove l’hanno trovato, tra le scaffalature del magazzino: la faccia di chi ha visto, le mani piene di calcina fresca. Ai piedi della parete di fondo, una breccia rimurata a metà — da FUORI. Stava chiudendo qualcosa dentro. (Oggetto: prendete la carta Il Crocifisso Spezzato.)
+    - Indizio: Gli inservienti del magazzino, a bassa voce: Fedele negli ultimi giorni parlava di un «maestro dei registri» che veniva a misurare le navate di notte, con due uomini e una lanterna schermata. «Diceva: quello non conta le casse. Conta i PASSI.»
+    - Indizio: Il pavimento davanti alla breccia è pulito in una striscia larga un carro: qualcosa è entrato e uscito molte volte, e qualcuno ha spazzato — ma la calcina nuova sulla parete viene da un sacco che in magazzino non esiste. La sconsacrazione del Quarantuno murò la cripta: il fascicolo dev’essere in Curia.
+    -> Parola chiave trovata (vedi indizio sopra): IL MAESTRO DEI REGISTRI
+    -> Parola chiave trovata (vedi indizio sopra): LA SCONSACRAZIONE DEL QUARANTUNO
+    -> Riscontro sulla Domanda 1 (1: calcina/fascicolo/botola).
+    “Leggere la scena” fallita: l’Approfondimento di questo luogo resta nascosto (si può tornare più tardi, senza ripetere il tiro).
+[h21:00] Visita Luogo 4 — La Parrocchia del Borgo  (1 ora)
+    [PROVA ACUME] ELENA FOSCO: 2d6(4,5)=9 +ACUME(3) = 12 vs Media(9) -> SUCCESSO
+    - Indizio: Il sagrestano vi riconosce — il Borgo non dimentica i pozzi — e per una volta parla per primo: «i Battuti? La sconsacrazione del Quarantuno la fece il vescovado in tre giorni, di fretta, A PORTE CHIUSE. Il fascicolo è in Curia. E in Curia, di solito, la fretta non abita.»
+    - Indizio: Nel ripostiglio della sacrestia, sotto un telo: il fonte battesimale dei Battuti, salvato nel Quarantuno da un parroco testardo. Dentro il piede cavo, un’ampolla sigillata a cera: l’acqua dell’ultimo battesimo. (Oggetti: prendete le carte L’Acqua del Fonte e Le Candele della Parrocchia.)
+    - Indizio: Il sagrestano custodisce anche un anello di chiavi «che non aprono più niente»: una è marcata coi flagelli incrociati dei Battuti — la chiave del sagrato e della sagrestia vecchia. «Se la prendete, non ditemi per cosa.» (Oggetto: prendete la carta La Chiave del Sagrato.)
+    -> Parola chiave trovata (vedi indizio sopra): LA SCONSACRAZIONE DEL QUARANTUNO
+    -> Oggetto trovato (vedi indizio sopra): LA CHIAVE DEL SAGRATO
+    -> Trovate: LE CANDELE DELLA PARROCCHIA (+1 nel Corridoio degli Ossari).
+    -> Trovata: L’ACQUA DEL FONTE (l’unica voce più vecchia della sua).
+    [APPROFONDIMENTO Presagio] sbloccato da SIBILLA REVE (jolly, Sesto Senso).
+[h22:00] Visita Luogo 9 — La Sagrestia dei Battuti  (1 ora)
+    [PROVA ACUME] ELENA FOSCO: 2d6(3,4)=7 +ACUME(3) = 10 vs Media(9) -> SUCCESSO
+    - Indizio: La sagrestia vecchia è rimasta al Quarantuno: paramenti neri appesi, un inginocchiatoio, la polvere come neve. Sul tavolo, però, IMPRONTE fresche: qualcuno ci passa, e da poco. Sotto l’armadio dei paramenti, trascinato di lato, il pavimento mostra una botola col flagello inciso.
+    - Indizio: Nel cassetto dell’inginocchiatoio, il diario di Fedele — portato QUI, al sicuro, dove dormiva la sua paura: «stanotte l’ho sentito accordarsi. Domani chiudo il muro e non lo dico a nessuno: certe porte, a denunciarle, si aprono.» (Reperto C: consegnate il Diario di Fedele.)
+    - Indizio: La botola è unta di fresco sui cardini, e dal buio sotto sale — piano, senza parole, senza fermarsi mai — una salmodia. Da qui si scende. Da qui, ogni notte, scendono LORO.
+    -> Riscontro sulla Domanda 1 (2: calcina/fascicolo/botola).
+    [APPROFONDIMENTO Osservazione] sbloccato da ELENA FOSCO.
+[h23:00] Il gruppo ha già il nucleo garantito in mano: rinuncia a nuovi luoghi (il prossimo sarebbe stato il Luogo 5 — La Casa del Becchino), ma valuta ancora se tornare a cogliere un Approfondimento mancato prima di chiudere.
+[h23:00] Ritorno al Luogo 3 — Il Cimitero Nuovo per cogliere l’Approfondimento mancato (1 ora, nessun nuovo tiro).
+    [APPROFONDIMENTO Testimonianza] sbloccato da OTTONE “MEZZENA” MASSARI.
+    -> Questa carta conferma esplicitamente che il colpevole è Mola (Domanda 2).
+
+Fine Indagine: 5/9 luoghi visitati, 4 Approfondimenti letti, 3 mancati.
+Ore avanzate: 0 -> nessun vantaggio
+Acqua del Fonte: sì; Candele: sì; Domanda 1 (2 riscontri): esatta; Domanda 3 (2 riscontri): esatta
+Chi dirige confermato esplicitamente (Domanda 2): sì
+Dossier completo (tutte le ore spese in Indagine): 1 gettone Intuizione per la Spedizione.
+

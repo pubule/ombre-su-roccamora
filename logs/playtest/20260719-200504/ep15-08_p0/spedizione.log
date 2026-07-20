@@ -1,0 +1,61 @@
+==============================================================================
+SPEDIZIONE - La villa di Braga, prima del sigillo
+==============================================================================
+Party: CARLA DOSTI, DOTT. LAZZARO SERRA, ELENA FOSCO, MORA “SPILLA” FANTI, NINO “GRIMALDELLO” CAUTO, OTTONE “MEZZENA” MASSARI, PADRE CELSO MARANI, SIBILLA REVE  |  PREPARATI  |  Manuale: sì  |  Chiave: sì  |  Reagente: sì
+  [CHIAVE] Entrate dal servizio: niente cordone, un round di margine sul sigillo.
+--- Round 1: T1 · Canto 0/6 sigillo · tell 1/4 (pool 5) ---
+    [DOVE — D1] sapete dove guardare: nessuna carta Minaccia questo round.
+    Documentati 2 tell (tot 3/4; pool 3).
+--- Round 2: T2 · Canto 0/6 sigillo · tell 3/4 (pool 3) ---
+  [MINACCIA] IL PAVIMENTO LUCIDATO (insidiaB)
+    [PROVA NERVI] PADRE CELSO MARANI: 2d6=4 +NERVI(3) = 7 vs Media(9) -> FALLITA
+    [PROVA NERVI] PADRE CELSO MARANI: 2d6=6 +NERVI(3) = 9 vs Media(9) -> SUCCESSO
+  [MINACCIA] IL CORDONE SI STRINGE (crescendo)
+  [MINACCIA] IL CENNO DEL CAPO (spawn)
+    Piazzato 1 Apparecchiatore/Sicario (Sgherro).
+    Documentati 2 tell (tot 5/4; pool 1).
+--- Round 3: T3 · Canto 1/6 sigillo · tell 5/4 (pool 1) ---
+  [MINACCIA] LA COPPIA DI SCENA (spawn)
+    Piazzato 1 Apparecchiatore/Sicario (Sgherro).
+  [MINACCIA] LO SPECCHIO DELLA SCENA (disorienta)
+    [PROVA NERVI] SIBILLA REVE: 2d6=11 +NERVI(3) = 14 vs Media(9) -> SUCCESSO
+    Documentati 1 tell (tot 6/4; pool 0).
+    SIBILLA REVE subisce 1 da Apparecchiatore/Sicario (Salute 6/7).
+--- Round 4: T4 · Canto 1/6 sigillo · tell 6/4 (pool 0) ---
+    Appaiono gli APPARECCHIATORI: da ora cancellano i tell ogni round.
+  [MINACCIA] IL SIGILLO DI CERALACCA (crescendo)
+  [MINACCIA] IL FARO DELLA RONDA (crescendo)
+    Il cordone si muove (Canto 3): +1 carta Minaccia per Fase, per sempre.
+  [MINACCIA] UN COLPO AL BUIO (danno)
+    ELENA FOSCO subisce 1 da UN COLPO AL BUIO (Salute 6/7).
+  [OROLOGIO] Fine del 4° round: +1 Canto automatico.
+--- Round 5: T5 · Canto 4/6 sigillo · tell 6/4 (pool 0) ---
+  [MINACCIA] UNA FINESTRA SUL RETRO (favore)
+  [MINACCIA] LA GENDARMERIA ALLA PORTA (crescendo)
+  [MINACCIA] OMBRE CHE LUCIDANO (spawn)
+    Piazzato 1 Apparecchiatore/Sicario (Sgherro).
+--- Round 6+: LO STUDIO SEGRETO (T6) — il Capo Apparecchiatore (Fer 6) ---
+--- Round 6 (T6): Capo 6/6 · Canto 5/6  · tell 6/4 ---
+  [MINACCIA] LA STANZA RIFATTA (cancella)
+    [MANUALE] riconosciuto al volo: nessun tell perso extra.
+  [MINACCIA] MOBILI SPOSTATI (ostacolo)
+  [MINACCIA] LA PROVA CHE SVANISCE (cancella)
+    [MANUALE] riconosciuto al volo: nessun tell perso extra.
+  [MINACCIA] CHI COPRE LA RITIRATA (spawn)
+    Piazzato 1 Apparecchiatore/Sicario (Sgherro).
+    [IL METODO DELLA SOCIETÀ — D3] il Capo esita: un colpo in meno.
+    ELENA FOSCO subisce 2 da il Capo Apparecchiatore (Salute 4/7).
+--- Round 7 (T6): Capo 2/6 · Canto 5/6  · tell 6/4 ---
+    *** IL CAPO APPARECCHIATORE È PRESO: ottenete le Istruzioni con la Grafia di Braga. ***
+  [MINACCIA] LA PORTA CHE SI CHIUDE (ostacolo)
+  [MINACCIA] RINCALZI DAL SERVIZIO (spawn)
+    Piazzato 1 Apparecchiatore/Sicario (Sgherro).
+  [MINACCIA] MANI IN PIÙ (spawn)
+    Piazzato 1 Apparecchiatore/Sicario (Sgherro) — subito.
+    CARLA DOSTI subisce 1 da Apparecchiatore/Sicario (Salute 6/7).
+    CARLA DOSTI subisce 1 da Apparecchiatore/Sicario (Salute 5/7).
+    Doppia busta: CONTRO-BUSTA aperta (tell a sufficienza).
+
+==============================================================================
+ESITO: VITTORIA  |  Round: 7  |  Canto 5  |  tell 6/4  |  soglia-sigillo 6
+==============================================================================

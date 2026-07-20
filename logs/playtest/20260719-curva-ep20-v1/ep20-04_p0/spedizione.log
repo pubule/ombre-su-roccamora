@@ -1,0 +1,57 @@
+==============================================================================
+SPEDIZIONE - La discesa nella gola della città (il finale)
+==============================================================================
+Party: FULGENZIO CARBONE, MORA “SPILLA” FANTI, NINO “GRIMALDELLO” CAUTO, OTTAVIO BRERA  |  PREPARATI  |  Frammenti: 14  |  Mappa: sì  |  VOCE(D3): sì
+--- Round 1: T1 · Canto 0/8 risveglio · controcanto 0/6 ---
+    [QUANDO — D1] all’ora giusta: nessuna carta Minaccia questo round.
+--- Round 2: T2 · Canto 0/8 risveglio · controcanto 0/6 ---
+  [MINACCIA] CHI TRATTIENE LA CANDIDATA (spawn)
+    Piazzato 1 impiegato del coro (Sgherro).
+  [MINACCIA] LE VOCI PREZZOLATE (spawn)
+    Piazzato 1 impiegato del coro (Sgherro).
+    OTTAVIO BRERA subisce 1 da impiegato del coro (Salute 7/8).
+    OTTAVIO BRERA subisce 1 da impiegato del coro (Salute 6/8).
+--- Round 3: T3 · Canto 0/8 risveglio · controcanto 0/6 ---
+    Un impiegato si ROMPE e fugge (crepa del Frammento 19).
+    Un impiegato si ROMPE e fugge (crepa del Frammento 19).
+  [MINACCIA] IL DORMIENTE SI MUOVE (crescendo)
+  [MINACCIA] LE MAREE AL PICCO (crescendo)
+--- Round 4: T4 · Canto 2/8 risveglio · controcanto 0/6 ---
+    *** La Candidata è SALVATA: M. resta con un coro senza anima. ***
+  [MINACCIA] IL RINFORZO DEL CORO (spawn)
+    Piazzato 1 impiegato del coro (Sgherro).
+  [MINACCIA] LA PIETRA CHE CROLLA (danno)
+    MORA “SPILLA” FANTI subisce 1 da LA PIETRA CHE CROLLA (Salute 8/9).
+    NINO “GRIMALDELLO” CAUTO subisce 1 da impiegato del coro (Salute 8/9).
+    Il Dormiente si desta (Canto 3): +1 carta Minaccia per Fase.
+--- Round 5: T5 · Canto 3/8 risveglio · controcanto 0/6 ---
+    Un impiegato si ROMPE e fugge (crepa del Frammento 19).
+  [MINACCIA] DETRITI NELLA CORRENTE (ostacolo)
+  [MINACCIA] LA CITTÀ SUONA A FAVORE (favore_canto)
+    La città suona a favore: +1 riga di controcanto al prossimo giro.
+  [MINACCIA] IL CANTO CHE CONFONDE (insidiaA)
+    [PROVA NERVI] FULGENZIO CARBONE: 2d6=12 +NERVI(2) = 14 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6=9 +NERVI(1) = 10 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6=5 +NERVI(1) = 6 vs Facile(7) -> FALLITA
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6=5 +NERVI(1) = 6 vs Facile(7) -> FALLITA
+    [PROVA NERVI] OTTAVIO BRERA: 2d6=6 +NERVI(2) = 8 vs Facile(7) -> SUCCESSO
+--- Round 6+: LA CAMERA DEL DORMIENTE (T6) — M. (Fer 5) + il controcanto ---
+--- Round 6 (T6): Canto 3/8 · controcanto 0/6 · coro 0 · M. in piedi ---
+    Cantate 6 righe di controcanto (tot 6/6).
+  [MINACCIA] L’ULTIMA VOCE COMPRATA (spawn)
+    Piazzato 1 impiegato del coro (Sgherro) — subito.
+    OTTAVIO BRERA subisce 1 da impiegato (subito) (Salute 5/8).
+  [MINACCIA] LA PIETRA VIVA (insidiaA)
+    [PROVA NERVI] FULGENZIO CARBONE: 2d6=10 +NERVI(2) = 12 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6=6 +NERVI(1) = 7 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6=10 +NERVI(1) = 11 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] OTTAVIO BRERA: 2d6=8 +NERVI(2) = 10 vs Facile(7) -> SUCCESSO
+  [MINACCIA] L’ACQUA CHE SALE (insidiaB)
+    [PROVA VIGORE] NINO “GRIMALDELLO” CAUTO: 2d6=7 +VIGORE(2) +1 = 10 vs Media(9) -> SUCCESSO
+    NINO “GRIMALDELLO” CAUTO subisce 1 da impiegato del coro (Salute 7/9).
+    OTTAVIO BRERA subisce 1 da M. (senza maschera) (Salute 4/8).
+    *** Il controcanto è completo: il Dormiente torna al sonno senza sogni. VITTORIA. ***
+
+==============================================================================
+ESITO: VITTORIA  |  Round: 6  |  Canto 3  |  controcanto 6/6  |  a terra 0
+==============================================================================

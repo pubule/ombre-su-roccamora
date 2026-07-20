@@ -1,0 +1,113 @@
+==============================================================================
+SPEDIZIONE - Il Molino delle Carte, prima che bruci
+==============================================================================
+Party: CARLA DOSTI, DOTT. ATTILIO MARN, DOTT. LAZZARO SERRA, FULGENZIO CARBONE, MORA “SPILLA” FANTI, NINO “GRIMALDELLO” CAUTO, OTTAVIO BRERA, OTTONE “MEZZENA” MASSARI, SIBILLA REVE  |  PREPARATI  |  Cassetta: sì  |  Taccuino: sì  |  Lasciapassare: sì
+  [LASCIAPASSARE] Entrate come gente del trasporto: nessuno sbarramento a T1.
+--- Round 1: T1 · Canto 0/5 fuoco ---
+  [MINACCIA] UNA PORTA D’ACQUA APERTA (favore)
+  [MINACCIA] BALLE DI STRACCI SUL PASSO (ostacolo)
+--- Round 2: T2 (pericolo d’ambiente) · Canto 0/5 fuoco ---
+    [PROVA VIGORE] DOTT. ATTILIO MARN: 2d6=5 +VIGORE(2) +1 = 8 vs Media(9) -> FALLITA
+    DOTT. ATTILIO MARN: travolto dalla roggia — 1 round perso.
+  [MINACCIA] CHI SBARRA LA STRADA (spawn)
+    Piazzato 1 uomo del molino (Sgherro) — subito.
+    CARLA DOSTI subisce 1 da uomo del molino (subito) (Salute 6/7).
+  [MINACCIA] L’INGRANAGGIO DELLE MACINE (insidiaB)
+    [PROVA NERVI] FULGENZIO CARBONE: 2d6=9 +NERVI(3) +1 = 13 vs Media(9) -> SUCCESSO
+  [MINACCIA] ORDINI DAL SORVEGLIANTE (spawn)
+    Piazzato 1 uomo del molino (Sgherro).
+    SIBILLA REVE subisce 1 da uomo del molino (Salute 6/7).
+--- Round 3: T3 (pericolo d’ambiente) · Canto 0/5 fuoco ---
+    [PROVA VIGORE] OTTONE “MEZZENA” MASSARI: 2d6=2 +VIGORE(3) +1 = 6 vs Media(9) -> FALLITA
+    OTTONE “MEZZENA” MASSARI subisce 1 da gli ingranaggi delle macine (Salute 8/9).
+  [MINACCIA] LA CORRENTE DELLA ROGGIA (ambiente)
+    [PROVA VIGORE] SIBILLA REVE: 2d6=6 +VIGORE(1) +1 = 8 vs Media(9) -> FALLITA
+    SIBILLA REVE: travolto dall’ambiente — 1 round perso (nessun danno).
+  [MINACCIA] LA POLVERE CHE SOFFOCA (insidiaA)
+    [PROVA NERVI] CARLA DOSTI: 2d6=3 +NERVI(2) +1 = 6 vs Facile(7) -> FALLITA
+    [PROVA NERVI] DOTT. ATTILIO MARN: 2d6=6 +NERVI(2) +1 = 9 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] DOTT. LAZZARO SERRA: 2d6=4 +NERVI(2) +1 = 7 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] FULGENZIO CARBONE: 2d6=6 +NERVI(3) +1 = 10 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6=6 +NERVI(1) +1 = 8 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6=5 +NERVI(1) +1 = 7 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] OTTAVIO BRERA: 2d6=12 +NERVI(2) +1 = 15 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6=7 +NERVI(2) +1 = 10 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] SIBILLA REVE: 2d6=7 +NERVI(3) +1 = 11 vs Facile(7) -> SUCCESSO
+--- Round 4: T4 · Canto 0/5 fuoco ---
+    Appare IL NOTAIO: ordina il rogo e fugge in carrozza (non si prende).
+  [MINACCIA] LA GUARDIA AL CANCELLO (spawn)
+    Piazzato 1 uomo del molino (Sgherro).
+  [MINACCIA] RINCALZI DALLE MACINE (spawn)
+    Piazzato 1 uomo del molino (Sgherro).
+  [MINACCIA] UNA TRAVE IN FIAMME (danno)
+    OTTAVIO BRERA subisce 1 da UNA TRAVE IN FIAMME (Salute 6/7).
+  [OROLOGIO] Fine del 4° round: +1 Canto automatico.
+--- Round 5: T5 (pericolo d’ambiente) · Canto 1/5 fuoco ---
+  [MINACCIA] LA RONDA DEL CORTILE (spawn)
+    Piazzato 1 uomo del molino (Sgherro).
+  [MINACCIA] LO STRACCIO IN FIAMME (insidiaB)
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6=9 +NERVI(1) +1 = 11 vs Media(9) -> SUCCESSO
+    DOTT. LAZZARO SERRA subisce 1 da uomo del molino (Salute 6/7).
+--- Round 6+: LA SALA DEL TORCHIO (T6) — il Sorvegliante (Fer 7) ---
+--- Round 6 (T6): Sorvegliante 7/7 · Canto 1 (no fuoco) ---
+  [MINACCIA] CHI COPRE LA FUGA DEL NOTAIO (spawn)
+    Piazzato 1 uomo del molino (Sgherro).
+  [MINACCIA] IL PRIMO FOCOLAIO (crescendo)
+  [MINACCIA] I MAGAZZINI BRUCIANO (crescendo)
+    Il fuoco monta (Canto 3): +1 carta Minaccia per Fase, per sempre.
+    CARLA DOSTI subisce 1 da uomo del molino (Salute 5/7).
+    [IL NOME DEL NOTAIO — D2] il Sorvegliante esita: un colpo in meno.
+    CARLA DOSTI subisce 2 da il Sorvegliante (Salute 3/7).
+--- Round 7 (T6): Sorvegliante 6/7 · Canto 3 (no fuoco) ---
+  [MINACCIA] ODORE DI FUMO (crescendo)
+  [MINACCIA] LA MACINA SI FERMA (quiete)
+  [MINACCIA] LA PASSERELLA SCIVOLOSA (ambiente)
+    [PROVA VIGORE] DOTT. LAZZARO SERRA: 2d6=8 +VIGORE(1) +1 = 10 vs Media(9) -> SUCCESSO
+    CARLA DOSTI subisce 2 da il Sorvegliante (Salute 1/7).
+    [INTUIZIONE] CARLA DOSTI resta a 1 Salute invece di cadere (gettone Dossier).
+--- Round 8 (T6): Sorvegliante 4/7 · Canto 4 (no fuoco) ---
+  [MINACCIA] IL TETTO PRENDE (crescendo)
+    *** SOGLIA-FUOCO (5): i magazzini bruciano. Essiccatoio e Torchio in fiamme. ***
+  [MINACCIA] IL TELAIO CHE CADE (insidiaB)
+    [PROVA NERVI] DOTT. ATTILIO MARN: 2d6=7 +NERVI(2) +1 = 10 vs Media(9) -> SUCCESSO
+  [MINACCIA] IL FISCHIO DEL SORVEGLIANTE (spawn)
+    Piazzato 1 uomo del molino (Sgherro) — subito.
+  [MINACCIA] LA POLVERE CHE SOFFOCA (insidiaA)
+    [PROVA NERVI] CARLA DOSTI: 2d6=9 +NERVI(2) +1 = 12 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] DOTT. ATTILIO MARN: 2d6=10 +NERVI(2) +1 = 13 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] DOTT. LAZZARO SERRA: 2d6=10 +NERVI(2) +1 = 13 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] FULGENZIO CARBONE: 2d6=6 +NERVI(3) +1 = 10 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6=6 +NERVI(1) +1 = 8 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6=6 +NERVI(1) +1 = 8 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] OTTAVIO BRERA: 2d6=8 +NERVI(2) +1 = 11 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6=7 +NERVI(2) +1 = 10 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] SIBILLA REVE: 2d6=9 +NERVI(3) +1 = 13 vs Facile(7) -> SUCCESSO
+    NINO “GRIMALDELLO” CAUTO subisce 1 da uomo del molino (Salute 7/8).
+    CARLA DOSTI subisce 2 da il Sorvegliante (Salute 0/7).
+    *** CARLA DOSTI è A TERRA. ***
+    DOTT. LAZZARO SERRA subisce 2 da il Sorvegliante (Salute 4/7).
+--- Round 9 (T6): Sorvegliante 1/7 · Canto 6 (FUOCO) ---
+    [PROVA NERVI] DOTT. ATTILIO MARN: 2d6=8 +NERVI(2) +1 = 11 vs Media(9) -> SUCCESSO
+    [PROVA NERVI] DOTT. LAZZARO SERRA: 2d6=4 +NERVI(2) +1 = 7 vs Media(9) -> FALLITA
+    [PROVA NERVI] DOTT. LAZZARO SERRA: 2d6=4 +NERVI(2) +1 = 7 vs Media(9) -> FALLITA
+    DOTT. LAZZARO SERRA subisce 1 da il torchio in fiamme (Salute 3/7).
+    [PROVA NERVI] FULGENZIO CARBONE: 2d6=10 +NERVI(3) +1 = 14 vs Media(9) -> SUCCESSO
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6=7 +NERVI(1) +1 = 9 vs Media(9) -> SUCCESSO
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6=9 +NERVI(1) +1 = 11 vs Media(9) -> SUCCESSO
+    [PROVA NERVI] OTTAVIO BRERA: 2d6=9 +NERVI(2) +1 = 12 vs Media(9) -> SUCCESSO
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6=2 +NERVI(2) +1 = 5 vs Media(9) -> FALLITA
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6=3 +NERVI(2) +1 = 6 vs Media(9) -> FALLITA
+    OTTONE “MEZZENA” MASSARI subisce 1 da il torchio in fiamme (Salute 7/9).
+    [PROVA NERVI] SIBILLA REVE: 2d6=5 +NERVI(3) +1 = 9 vs Media(9) -> SUCCESSO
+    DOTT. LAZZARO SERRA subisce 1 da una trave in fiamme (inevitabile) (Salute 2/7).
+    *** IL SORVEGLIANTE È A TERRA: la strada al torchio è libera. ***
+  [MINACCIA] ODORE DI FUMO (crescendo)
+  [MINACCIA] UNA TRAVE IN FIAMME (danno)
+    DOTT. LAZZARO SERRA subisce 1 da UNA TRAVE IN FIAMME (Salute 1/7).
+  [MINACCIA] L’INGRANAGGIO DELLE MACINE (insidiaB)
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6=12 +NERVI(1) +1 = 14 vs Media(9) -> SUCCESSO
+    Registri sequestrati. In Cassetta Stagna: prova INTATTA.
+
+==============================================================================
+ESITO: VITTORIA  |  Round: 9  |  Canto 7  |  soglia-fuoco 5
+==============================================================================

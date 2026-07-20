@@ -1,0 +1,77 @@
+==============================================================================
+SPEDIZIONE - La villa-prigione (il picco: lo scisma pesa)
+==============================================================================
+Party: CARLA DOSTI, DOTT. LAZZARO SERRA, FULGENZIO CARBONE, NINO “GRIMALDELLO” CAUTO, OTTAVIO BRERA, SIBILLA REVE  |  PREPARATI  |  Cifra: sì  |  Chiavi: sì  |  Salvacondotto: sì
+  [CHIAVI] Entrate senza sfondare: niente sbarramento al cancello (T1).
+  [SCISMA] Malus di morale: -1 ai NERVI finché il decano non è libero.
+--- Round 1: T1 · Canto 0/5 decano · morale -1 ---
+    [DOVE — D1] sapete dove sbarcare: nessuna carta Minaccia questo round.
+--- Round 2: T2 · Canto 0/5 decano · morale -1 ---
+  [MINACCIA] LA VILLA CHE TACE (quiete)
+  [MINACCIA] IL DECANO VIENE SPOSTATO (crescendo)
+--- Round 3: T3 · Canto 1/5 decano · morale -1 ---
+  [MINACCIA] L’ULTIMO LAVORO (crescendo)
+  [MINACCIA] LA CARROZZA AL CANCELLO POSTERIORE (crescendo)
+    Il trasferimento si avvicina (Canto 3): +1 carta Minaccia per Fase.
+--- Round 4: T4 · Canto 3/5 decano · morale -1 ---
+    Il Notaio ordina il trasferimento: da ora la soglia-decano corre.
+  [MINACCIA] IL CORRIDOIO DELLE CELLE (insidiaB)
+    [PROVA NERVI] DOTT. LAZZARO SERRA: 2d6=7 +NERVI(2) -1 = 8 vs Media(9) -> FALLITA
+    [PROVA NERVI] DOTT. LAZZARO SERRA: 2d6=9 +NERVI(2) -1 = 10 vs Media(9) -> SUCCESSO
+  [MINACCIA] IL SOSPETTO RECIPROCO (insidiaA)
+    [PROVA NERVI] CARLA DOSTI: 2d6=5 +NERVI(2) -1 = 6 vs Facile(7) -> FALLITA
+    [PROVA NERVI] DOTT. LAZZARO SERRA: 2d6=5 +NERVI(2) -1 = 6 vs Facile(7) -> FALLITA
+    [PROVA NERVI] FULGENZIO CARBONE: 2d6=8 +NERVI(2) -1 = 9 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6=5 +NERVI(1) -1 = 5 vs Facile(7) -> FALLITA
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6=8 +NERVI(1) -1 = 8 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] OTTAVIO BRERA: 2d6=11 +NERVI(2) -1 = 12 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] SIBILLA REVE: 2d6=4 +NERVI(3) -1 = 6 vs Facile(7) -> FALLITA
+    [PROVA NERVI] SIBILLA REVE: 2d6=4 +NERVI(3) -1 = 6 vs Facile(7) -> FALLITA
+  [MINACCIA] UN COLPO DALLA GUARDIA (danno)
+    FULGENZIO CARBONE subisce 1 da UN COLPO DALLA GUARDIA (Salute 6/7).
+  [OROLOGIO] Fine del 4° round: +1 Canto automatico.
+--- Round 5: T5 · Canto 4/5 decano · morale -1 ---
+    *** Il decano è liberato VIVO e lucido: non c’è nessuna talpa. ***
+    [MORALE] Trovato il decano vivo: il malus di scisma è CANCELLATO.
+  [MINACCIA] IL FREDDO DELLA CANTINA (insidiaV)
+    [PROVA VIGORE] NINO “GRIMALDELLO” CAUTO: 2d6=6 +VIGORE(2) = 8 vs Media(9) -> FALLITA
+  [MINACCIA] LO SGUARDO DELLA GUARDIA (insidiaB)
+    [PROVA NERVI] CARLA DOSTI: 2d6=6 +NERVI(2) = 8 vs Media(9) -> FALLITA
+    CARLA DOSTI subisce 1 da LO SGUARDO DELLA GUARDIA (Salute 6/7).
+  [MINACCIA] LA GUARDIA AL CORTILE (spawn)
+    Piazzato 1 uomo del Notaio (Sgherro).
+    FULGENZIO CARBONE subisce 1 da uomo del Notaio (Salute 5/7).
+--- Round 6+: LO STUDIO DEL NOTAIO (T6) — la Guardia (Fer 7) + il Notaio ---
+--- Round 6 (T6): Guardia 7/7 · Canto 4 ---
+  [MINACCIA] POSTO DI BLOCCO (spawn)
+    Piazzato 1 uomo del Notaio (Sgherro).
+  [MINACCIA] CHI SCORTA IL TRASFERIMENTO (spawn)
+    Piazzato 1 uomo del Notaio (Sgherro).
+  [MINACCIA] CHI COPRE IL NOTAIO (spawn)
+    Piazzato 1 uomo del Notaio (Sgherro) — subito.
+    FULGENZIO CARBONE subisce 1 da uomo del Notaio (subito) (Salute 4/7).
+    FULGENZIO CARBONE subisce 1 da uomo del Notaio (Salute 3/7).
+    [LA MATRICE — D3] la Guardia esita: un colpo in meno.
+--- Round 7 (T6): Guardia 5/7 · Canto 4 ---
+  [MINACCIA] RASCA DÀ L’ORDINE (crescendo)
+  [MINACCIA] UN UOMO DEL DECANO (favore)
+  [MINACCIA] LA PORTA BLINDATA (ostacolo)
+    NINO “GRIMALDELLO” CAUTO subisce 1 da uomo del Notaio (Salute 7/8).
+    FULGENZIO CARBONE subisce 2 da la Guardia del Notaio (Salute 1/7).
+    [INTUIZIONE] FULGENZIO CARBONE resta a 1 Salute invece di cadere (gettone Dossier).
+--- Round 8 (T6): Guardia 2/7 · Canto 5 ---
+    *** LA GUARDIA È A TERRA: la strada al Notaio è libera. ***
+  [MINACCIA] CASSE DI CUSTODIA (ostacolo)
+  [MINACCIA] RINCALZI DALLA RIMESSA (spawn)
+    Piazzato 1 uomo del Notaio (Sgherro).
+  [MINACCIA] L’ULTIMO MURO (spawn)
+    Piazzato 1 uomo del Notaio (Sgherro) — subito.
+    FULGENZIO CARBONE subisce 1 da uomo del Notaio (subito) (Salute 0/7).
+    *** FULGENZIO CARBONE è A TERRA. ***
+    DOTT. LAZZARO SERRA subisce 1 da uomo del Notaio (Salute 6/7).
+    DOTT. LAZZARO SERRA subisce 1 da uomo del Notaio (Salute 5/7).
+    Il Notaio è catturato. Decano lucido + matrice: prova PIENA per l’Ep.18.
+
+==============================================================================
+ESITO: VITTORIA  |  Round: 8  |  Canto 6  |  decano lucido  |  soglia 5
+==============================================================================

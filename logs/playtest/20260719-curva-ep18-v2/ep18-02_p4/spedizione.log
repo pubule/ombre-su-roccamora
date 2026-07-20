@@ -1,0 +1,66 @@
+==============================================================================
+SPEDIZIONE - Il Palazzo del Lume, la fuga da casa vostra
+==============================================================================
+Party: NINO “GRIMALDELLO” CAUTO, OTTONE “MEZZENA” MASSARI  |  PREPARATI  |  Prova forte: no  |  Uscita: sì  |  Vezzo: sì
+--- Round 1: T1 · Canto 0/5 arresto  ---
+  [MINACCIA] IL BUIO CHE CONOSCETE MALE (insidiaA)
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6=5 +NERVI(1) = 6 vs Facile(7) -> FALLITA
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6=8 +NERVI(2) = 10 vs Facile(7) -> SUCCESSO
+--- Round 2: T2 · Canto 0/5 arresto  ---
+  [MINACCIA] LA LAMPADA CHE SI SPEGNE (insidiaA)
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6=8 +NERVI(1) = 9 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6=7 +NERVI(2) = 9 vs Facile(7) -> SUCCESSO
+--- Round 3: T3 · Canto 0/5 arresto  ---
+  [MINACCIA] LE USCITE SI SIGILLANO (crescendo)
+--- Round 4: T4 · Canto 1/5 arresto  ---
+    Appare M.: prende una cosa e sparisce nel muro (Atto IV, non si affronta).
+  [MINACCIA] I GENDARMI AI PIANI (crescendo)
+    La rete si stringe (Canto 3): +1 carta Minaccia per Fase, per sempre.
+  [OROLOGIO] Fine del 4° round: +1 Canto automatico.
+--- Round 5: T5 · Canto 3/5 arresto  ---
+  [MINACCIA] LA RETE SI CHIUDE (crescendo)
+  [MINACCIA] IL CORDONE ALLE PORTE (spawn)
+    Piazzato 1 gendarme (Sgherro).
+    NINO “GRIMALDELLO” CAUTO subisce 1 da gendarme (Salute 8/9).
+--- Round 6+: L’USCITA (T6) — la Guardia del Presidente (Fer 6) ---
+--- Round 6 (T6): Guardia 6/6 · Canto 4 · 0 arrestati ---
+  [MINACCIA] LO SPECCHIO DEL CORRIDOIO (insidiaA)
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6=4 +NERVI(1) = 5 vs Facile(7) -> FALLITA
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6=8 +NERVI(2) = 10 vs Facile(7) -> SUCCESSO
+  [MINACCIA] LA PRIMA PATTUGLIA (spawn)
+    Piazzato 1 gendarme (Sgherro).
+    OTTONE “MEZZENA” MASSARI subisce 1 da gendarme (Salute 9/10).
+    OTTONE “MEZZENA” MASSARI subisce 1 da gendarme (Salute 8/10).
+--- Round 7 (T6): Guardia 5/6 · Canto 4 · 0 arrestati ---
+  [MINACCIA] UN CONFRATELLO VI COPRE (favore)
+  [MINACCIA] LA PORTA CHE SI CHIUDE (ostacolo)
+    NINO “GRIMALDELLO” CAUTO subisce 1 da gendarme (Salute 7/9).
+    OTTONE “MEZZENA” MASSARI subisce 1 da gendarme (Salute 7/10).
+    NINO “GRIMALDELLO” CAUTO subisce 2 da la Guardia del Presidente (Salute 5/9).
+--- Round 8 (T6): Guardia 3/6 · Canto 4 · 0 arrestati ---
+  [MINACCIA] UN MANGANELLO NEL BUIO (danno)
+    OTTONE “MEZZENA” MASSARI subisce 1 da UN MANGANELLO NEL BUIO (Salute 6/10).
+  [MINACCIA] RINFORZI DAL CORTILE (spawn)
+    Piazzato 1 gendarme (Sgherro).
+    OTTONE “MEZZENA” MASSARI subisce 1 da gendarme (Salute 5/10).
+    NINO “GRIMALDELLO” CAUTO subisce 1 da gendarme (Salute 4/9).
+    *** SOGLIA-ARRESTO (5): i gendarmi sigillano. Da ora ogni round un eroe rischia l’arresto. ***
+--- Round 9 (T6): Guardia 1/6 · Canto 5 · 0 arrestati ---
+    *** Il maggiordomo è a terra: la porta è libera. ***
+  [MINACCIA] L’ORDINE D’ARRESTO (spawn)
+    Piazzato 1 gendarme (Sgherro) — subito.
+    NINO “GRIMALDELLO” CAUTO subisce 1 da gendarme (subito) (Salute 3/9).
+  [MINACCIA] CHI VI RICONOSCE (spawn)
+    Piazzato 1 gendarme (Sgherro) — subito.
+    NINO “GRIMALDELLO” CAUTO subisce 1 da gendarme (subito) (Salute 2/9).
+    OTTONE “MEZZENA” MASSARI subisce 1 da gendarme (Salute 4/10).
+    NINO “GRIMALDELLO” CAUTO subisce 1 da gendarme (Salute 1/9).
+    [INTUIZIONE] NINO “GRIMALDELLO” CAUTO resta a 1 Salute invece di cadere (gettone Dossier).
+    NINO “GRIMALDELLO” CAUTO subisce 1 da gendarme (Salute 0/9).
+    *** NINO “GRIMALDELLO” CAUTO è A TERRA. ***
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6=11 +NERVI(2) = 13 vs Media(9) -> SUCCESSO
+    Uscite dal Palazzo con la prova. Prova debole o eroi arrestati: ve la cavate ma braccati.
+
+==============================================================================
+ESITO: VITTORIA-PARZIALE  |  Round: 9  |  Canto 5  |  arrestati 0  |  a terra 1
+==============================================================================

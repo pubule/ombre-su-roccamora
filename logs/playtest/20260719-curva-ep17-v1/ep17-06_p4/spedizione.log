@@ -1,0 +1,67 @@
+==============================================================================
+SPEDIZIONE - La villa-prigione (il picco: lo scisma pesa)
+==============================================================================
+Party: DOTT. ATTILIO MARN, DOTT. LAZZARO SERRA, ELENA FOSCO, MORA “SPILLA” FANTI, OTTAVIO BRERA, PADRE CELSO MARANI  |  PREPARATI  |  Cifra: sì  |  Chiavi: sì  |  Salvacondotto: sì
+  [CHIAVI] Entrate senza sfondare: niente sbarramento al cancello (T1).
+  [SCISMA] Malus di morale: -1 ai NERVI finché il decano non è libero.
+--- Round 1: T1 · Canto 0/5 decano · morale -1 ---
+    [DOVE — D1] sapete dove sbarcare: nessuna carta Minaccia questo round.
+--- Round 2: T2 · Canto 0/5 decano · morale -1 ---
+  [MINACCIA] RASCA DÀ L’ORDINE (crescendo)
+  [MINACCIA] IL DECANO VIENE SPOSTATO (crescendo)
+--- Round 3: T3 · Canto 2/5 decano · morale -1 ---
+  [MINACCIA] IL CORRIDOIO DELLE CELLE (insidiaB)
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6=5 +NERVI(1) -1 = 5 vs Media(9) -> FALLITA
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6=3 +NERVI(1) -1 = 3 vs Media(9) -> FALLITA
+    MORA “SPILLA” FANTI subisce 1 da IL CORRIDOIO DELLE CELLE (Salute 7/8).
+  [MINACCIA] CHI COPRE IL NOTAIO (spawn)
+    Piazzato 1 uomo del Notaio (Sgherro) — subito.
+    DOTT. LAZZARO SERRA subisce 1 da uomo del Notaio (subito) (Salute 6/7).
+--- Round 4: T4 · Canto 2/5 decano · morale -1 ---
+    Il Notaio ordina il trasferimento: da ora la soglia-decano corre.
+  [MINACCIA] LA VOCE DEL TRADITORE (insidiaA)
+    [PROVA NERVI] DOTT. ATTILIO MARN: 2d6=7 +NERVI(2) -1 = 8 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] DOTT. LAZZARO SERRA: 2d6=8 +NERVI(2) -1 = 9 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] ELENA FOSCO: 2d6=10 +NERVI(2) -1 = 11 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6=9 +NERVI(1) -1 = 9 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] OTTAVIO BRERA: 2d6=7 +NERVI(2) -1 = 8 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] PADRE CELSO MARANI: 2d6=8 +NERVI(3) -1 = 10 vs Facile(7) -> SUCCESSO
+  [MINACCIA] LA GUARDIA AL CORTILE (spawn)
+    Piazzato 1 uomo del Notaio (Sgherro).
+    OTTAVIO BRERA subisce 1 da uomo del Notaio (Salute 6/7).
+    Il trasferimento si avvicina (Canto 3): +1 carta Minaccia per Fase.
+  [OROLOGIO] Fine del 4° round: +1 Canto automatico.
+--- Round 5: T5 · Canto 3/5 decano · morale -1 ---
+    *** Il decano è liberato VIVO e lucido: non c’è nessuna talpa. ***
+    [MORALE] Trovato il decano vivo: il malus di scisma è CANCELLATO.
+  [MINACCIA] CHI SCORTA IL TRASFERIMENTO (spawn)
+    Piazzato 1 uomo del Notaio (Sgherro).
+  [MINACCIA] CASSE DI CUSTODIA (ostacolo)
+  [MINACCIA] LA RONDA DELLA VILLA (spawn)
+    Piazzato 1 uomo del Notaio (Sgherro).
+    ELENA FOSCO subisce 1 da uomo del Notaio (Salute 6/7).
+    OTTAVIO BRERA subisce 1 da uomo del Notaio (Salute 5/7).
+--- Round 6+: LO STUDIO DEL NOTAIO (T6) — la Guardia (Fer 7) + il Notaio ---
+--- Round 6 (T6): Guardia 7/7 · Canto 3 ---
+  [MINACCIA] LA VILLA CHE TACE (quiete)
+  [MINACCIA] POSTO DI BLOCCO (spawn)
+    Piazzato 1 uomo del Notaio (Sgherro).
+  [MINACCIA] RINCALZI DALLA RIMESSA (spawn)
+    Piazzato 1 uomo del Notaio (Sgherro).
+    PADRE CELSO MARANI subisce 1 da uomo del Notaio (Salute 6/7).
+    MORA “SPILLA” FANTI subisce 1 da uomo del Notaio (Salute 6/8).
+    MORA “SPILLA” FANTI subisce 1 da uomo del Notaio (Salute 5/8).
+    [LA MATRICE — D3] la Guardia esita: un colpo in meno.
+--- Round 7 (T6): Guardia 3/7 · Canto 3 ---
+    *** LA GUARDIA È A TERRA: la strada al Notaio è libera. ***
+  [MINACCIA] LA PORTA BLINDATA (ostacolo)
+  [MINACCIA] UN COLPO DALLA GUARDIA (danno)
+    PADRE CELSO MARANI subisce 1 da UN COLPO DALLA GUARDIA (Salute 5/7).
+  [MINACCIA] UN UOMO DEL DECANO (favore)
+    DOTT. LAZZARO SERRA subisce 1 da uomo del Notaio (Salute 5/7).
+    MORA “SPILLA” FANTI subisce 1 da uomo del Notaio (Salute 4/8).
+    Il Notaio è catturato. Decano lucido + matrice: prova PIENA per l’Ep.18.
+
+==============================================================================
+ESITO: VITTORIA  |  Round: 7  |  Canto 3  |  decano lucido  |  soglia 5
+==============================================================================

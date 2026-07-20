@@ -1,0 +1,124 @@
+Run: ep9-04_p1_seed0  |  seed=695100  |  formula Minaccia=finale_v3  |  generato: 2026-07-19T20:04:59
+==============================================================================
+SPEDIZIONE - La scorta del teste, dopo mezzanotte
+==============================================================================
+Party: DOTT. LAZZARO SERRA, ELENA FOSCO, FULGENZIO CARBONE, PADRE CELSO MARANI
+Bonus da Indagine: PREPARATI (+1 Salute massima a testa); Bolla: sì; Lanterna+Tappi: sì; D1: esatta; D3: sbagliata
+NOTA: gruppo trattato come blocco unico tessera per tessera (vedi intestazione script).
+Tensione tavolo piccolo: +-1 Ferite SOLO al Sicario Gentile (non ai nemici di truppa).
+
+Tavolo da 4: +1 Salute massima a testa (ricalibrazione).
+  Partenza tardi, ronde già ritirate (Domanda 3): +1 segnalino Canto.
+  Col Salvacondotto (Domanda 4): alla partenza si salta una tessera d’imboscata.
+  [SALVACONDOTTO] Si salta Vicolo dei Tintori.
+--- Round 1: la scorta attraversa T1 (Sacrestia) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    La scorta entra in T1 da B1 (Riva in mezzo).
+    [PROVA ACUME] DOTT. LAZZARO SERRA: 2d6(3,3)=6 +ACUME(3) = 9 vs Media(9) -> SUCCESSO
+    DOTT. LAZZARO SERRA cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    ELENA FOSCO: nessun bersaglio, avanza / assiste il gruppo.
+    FULGENZIO CARBONE: nessun bersaglio, avanza / assiste il gruppo.
+    [ABILITÀ] PADRE CELSO MARANI usa Litania: -1 segnalino Canto (1->0).
+  [MINACCIA] LA RETROGUARDIA (malavita) — Piazzate 1 Sgherro sull’ingresso della tessera.
+    Piazzati 1x LO SGHERRO (pool residua: 4), a 6 caselle dalla tessera del gruppo.
+  [MINACCIA] IL CAPANNELLO (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 3) in B1.
+  LO SGHERRO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si muove verso Riva: B1 -> C1.
+  DOTT. LAZZARO SERRA fa da SCUDO a Riva e para il colpo di LO SGHERRO:
+    [ATTACCO NEMICO] LO SGHERRO -> DOTT. LAZZARO SERRA: 2d6(5,3)=8 +Attacco(2) = 10 vs Difesa(8) -> COLPITO
+    DOTT. LAZZARO SERRA subisce 1 danno da LO SGHERRO (Salute: 7/8).
+--- Round 2: la scorta attraversa T3 (Ponte delle Catene) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    La scorta entra in T3 da B1 (Riva in mezzo).
+    Sul Ponte delle Catene, appare IL SICARIO GENTILE: si toglie il cappello. «Signori. Mi dispiace per quello che segue.»
+    [IL NOME SBAGLIATO — D2] gli ricordate che i mandanti bruciano i sicari come Ferri: il Sicario esita (salta la prima attivazione).
+    [ABILITÀ] DOTT. LAZZARO SERRA attiva Voce ferma (2 usi residui): +2 NERVI agli alleati fino al suo prossimo turno.
+    ELENA FOSCO si muove verso LO SGHERRO: B1 -> C2.
+    [ATTACCO] ELENA FOSCO -> LO SGHERRO: 2d6(4,1)=5 +VIGORE(1)+arma(1) = 7 vs Difesa(8) -> MANCATO
+    [ABILITÀ] FULGENZIO CARBONE usa Esca preziosa: LO SGHERRO, LO SGHERRO si dirige verso l’esca invece che verso il gruppo alla prossima attivazione.
+    [ATTACCO] PADRE CELSO MARANI -> LO SGHERRO: 2d6(5,5)=10 +VIGORE(1)+arma(1) = 12 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+  [MINACCIA] IL COLTELLO DAL BUIO (malavita) — Piazzate 1 Sicario: si attiva subito.
+    Piazzati 1x IL SICARIO (pool residua: 2) in B1.
+    IL SICARIO si attiva subito:
+  IL SICARIO si avvicina, non ancora a contatto.
+  [MINACCIA] LA FOLLA COMPRATA (malavita) — Piazzate 1 Sgherro sull’ingresso della tessera.
+    Piazzati 1x LO SGHERRO (pool residua: 2), a 6 caselle dalla tessera del gruppo.
+  LO SGHERRO si dirige verso l’esca (Carbone): non attacca questo round.
+  LO SGHERRO si dirige verso l’esca (Carbone): non attacca questo round.
+  LO SGHERRO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+  IL SICARIO GENTILE salta l’attivazione (stonato).
+--- Round 3: la scorta attraversa T4 (Mercato Coperto) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    La scorta entra in T4 da B1 (Riva in mezzo).
+    Nel Mercato Coperto: 1 Sgherro e 1 Sicario tra i banchi.
+    [FISCHIETTO D’ALLARME] una ronda onesta accorre: 1 Sgherro messo in fuga.
+    DOTT. LAZZARO SERRA si muove verso LO SGHERRO: B1 -> C2.
+    [ATTACCO] DOTT. LAZZARO SERRA -> LO SGHERRO: 2d6(6,2)=8 +VIGORE(1)+arma(1) = 10 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+    ELENA FOSCO si muove verso IL SICARIO: B1 -> B2.
+    [ATTACCO] ELENA FOSCO -> IL SICARIO: 2d6(4,5)=9 +VIGORE(1)+arma(1) = 11 vs Difesa(7) -> COLPITO
+    IL SICARIO: 0/1 ferite residue.
+    IL SICARIO è ABBATTUTO.
+    [ABILITÀ] FULGENZIO CARBONE usa Esca preziosa: LO SGHERRO, LO SGHERRO si dirige verso l’esca invece che verso il gruppo alla prossima attivazione.
+    [PROVA ACUME] PADRE CELSO MARANI: 2d6(5,5)=10 +ACUME(2) = 12 vs Media(9) -> SUCCESSO
+    PADRE CELSO MARANI cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+  [MINACCIA] LA PRIMA RONDA PASSA (crescendo) — Aggiungete 1 segnalino Canto (l’Ora che stringe).
+    Segnalino Canto (l’Ora che stringe): 1.
+    Il Sicario Gentile si attiva subito (l’ora lo chiama):
+  IL SICARIO GENTILE si avvicina, non ancora a contatto.
+  [MINACCIA] IL FISCHIO DI RICHIAMO (malavita) — Piazzate 1 Sgherro: si attiva subito.
+    Piazzati 1x LO SGHERRO (pool residua: 1) in B1.
+    LO SGHERRO si attiva subito:
+  LO SGHERRO scambia Riva per un manichino (Mantella): il colpo va a vuoto.
+  LO SGHERRO si dirige verso l’esca (Carbone): non attacca questo round.
+  LO SGHERRO si dirige verso l’esca (Carbone): non attacca questo round.
+  DOTT. LAZZARO SERRA fa da SCUDO a Riva e para il colpo di IL SICARIO:
+    [ATTACCO NEMICO] IL SICARIO -> DOTT. LAZZARO SERRA: 2d6(3,4)=7 +Attacco(3) = 10 vs Difesa(8) -> COLPITO
+    DOTT. LAZZARO SERRA subisce 2 danno da IL SICARIO (Salute: 5/8).
+  IL SICARIO GENTILE si avvicina, non ancora a contatto.
+--- Round 4: la scorta attraversa T5 (Salita dei Lampionai) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    La scorta entra in T5 da B1 (Riva in mezzo).
+    Il Sicario Gentile si è portato AVANTI e aspetta in cima alla Salita.
+    [ABILITÀ] DOTT. LAZZARO SERRA attiva Voce ferma (1 usi residui): +2 NERVI agli alleati fino al suo prossimo turno.
+    ELENA FOSCO si muove verso IL SICARIO: B1 -> A3.
+    [ATTACCO] ELENA FOSCO -> IL SICARIO: 2d6(3,5)=8 +VIGORE(1)+arma(1) = 10 vs Difesa(7) -> COLPITO
+    IL SICARIO: 0/1 ferite residue.
+    IL SICARIO è ABBATTUTO.
+    FULGENZIO CARBONE si muove verso IL SICARIO GENTILE: B1 -> D2.
+    FULGENZIO CARBONE si avvicina a IL SICARIO GENTILE, non ancora a contatto.
+    [PROVA ACUME] PADRE CELSO MARANI: 2d6(4,5)=9 +ACUME(2) = 11 vs Media(9) -> SUCCESSO
+    PADRE CELSO MARANI cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+  [MINACCIA] I BRAVI DEL FONDO (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 0) in B1.
+  [MINACCIA] LA FOLLA CHE SPINGE (insidia) — L’eroe adiacente a Riva prova NERVI (Media): se fallisce, Riva è spinto.
+    [FOLLA] Riva è spinto allo scoperto: 1 danno (Salute 2/3).
+  LO SGHERRO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si muove verso Riva: C3 -> B3.
+  ELENA FOSCO fa da SCUDO a Riva e para il colpo di LO SGHERRO:
+    [ATTACCO NEMICO] LO SGHERRO -> ELENA FOSCO: 2d6(6,3)=9 +Attacco(2) = 11 vs Difesa(8) -> COLPITO
+    ELENA FOSCO subisce 1 danno da LO SGHERRO (Salute: 7/8).
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  IL SICARIO GENTILE punta RIVA (il teste):
+    [ATTACCO NEMICO] IL SICARIO GENTILE -> RIVA: 2d6(2,3)=5 +Attacco(3) = 8 vs Difesa(8) -> COLPITO
+    RIVA subisce 2 danno (Salute: 0/3).
+    *** RIVA È CADUTO. La scorta è fallita. ***
+  [OROLOGIO] Fine del 4° round: +1 segnalino Canto automatico.
+    Segnalino Canto (l’Ora che stringe): 2.
+
+==============================================================================
+ESITO SPEDIZIONE: SCONFITTA (il teste è caduto)
+Round totali: 4
+Formula Minaccia: finale_v3 | Azioni nominali/round: media 8.0, picco 8
+Mazzo Minaccia rimescolato: 0 volta/e
+Segnalini nemici esauriti nel pool (piazzamenti saltati): 0
+Riva: caduto (Salute 0/3) | Sicario Gentile: in gioco
+  DOTT. LAZZARO SERRA: 5/8 Salute
+  ELENA FOSCO: 7/8 Salute
+  FULGENZIO CARBONE: 8/8 Salute
+  PADRE CELSO MARANI: 8/8 Salute
+==============================================================================

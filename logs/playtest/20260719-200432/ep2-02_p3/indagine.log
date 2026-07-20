@@ -1,0 +1,52 @@
+Run: ep2-02_p3_seed0  |  seed=613300  |  generato: 2026-07-19T20:04:32
+==============================================================================
+INDAGINE - Episodio 1: "Il Coro Sommerso"
+==============================================================================
+Party: CARLA DOSTI, NINO “GRIMALDELLO” CAUTO
+Clock: 6 ore, dalle 18:00 alle 24:00.
+
+Tipi di Approfondimento coperti da questo party: Testimonianza
+
+[h18:00] Visita Luogo 2 — La Cella Campanaria di San Teodoro  (1 ora)
+    [PROVA ACUME] CARLA DOSTI: 2d6(3,6)=9 +ACUME(3) = 12 vs Media(9) -> SUCCESSO
+    - Indizio: Ruggero Alvise vi fa strada: «Ilario ha suonato il provino quassù e s’è fatto bianco. “Questo non è il MIO bronzo”, ha detto. Un fonditore la sua lega la riconosce come una voce di famiglia.»
+    - Indizio: Lo smorzo di feltro — il cuscino che tace le campane — è ancora appeso alla trave, dimenticato dal provino. (Oggetto: prendete la carta Lo Smorzo di Feltro.)
+    - Indizio: Dal parapetto si vedono i moli daziari. Ruggero, la notte del furto, ha visto chiatte senza lanterne scivolare verso ponente: «è così che i barcaioli chiamano quelle corse: le senza-lanterne. Nessuno ne parla volentieri.»
+    -> Parola chiave trovata (vedi indizio sopra): SENZA LANTERNE
+    -> Trovato un pezzo della stonatura (1/2: martello di collaudo + smorzo di feltro).
+    [PROVA ACUME] CARLA DOSTI: 2d6(1,2)=3 +ACUME(3) = 6 vs Difficile(11) -> FALLITA
+    [APPROFONDIMENTO Presagio] aiuto profano fallito: resta sigillato qui.
+    [APPROFONDIMENTO Testimonianza] sbloccato da CARLA DOSTI.
+[h19:00] Visita Luogo 3 — L’Osteria della Bilancia  (1 ora)
+    [PROVA ACUME] CARLA DOSTI: 2d6(3,1)=4 +ACUME(3) = 7 vs Media(9) -> FALLITA
+    [SECONDO FIATO] CARLA DOSTI ritenta “leggere la scena” (unico ritento dell’episodio):
+    [PROVA ACUME] CARLA DOSTI: 2d6(6,6)=12 +ACUME(3) = 15 vs Media(9) -> SUCCESSO
+    - Indizio: I facchini di notte entrano al Deposito con la parola del mese: quella che il daziere borbotta quando la bilancia torna — «pari peso». La sanno tutti, qui dentro. Fuori di qui, nessuno.
+    - Indizio: Un facchino insonne, pagato un bicchiere: la seconda chiatta senza lanterne ha passato la Punta delle Scorie alle 3 in punto. «Diretta al canale morto. Là non c’è niente. Cioè: non c’era.»
+    - Indizio: Un sensale ubriaco giura il contrario, e non molla: «il bronzo è salito al Vecchio Mulino, l’ho caricato io con queste mani». Ma quel «bronzo» pesava troppo poco: era ghisa da scafo, fusa male. Nessuno lo smentisce — qui dentro le storie non si pesano.
+    -> Parola chiave trovata (vedi indizio sopra): PARI PESO
+    -> Parola chiave trovata (vedi indizio sopra): SENZA LANTERNE
+    [PROVA ACUME] CARLA DOSTI: 2d6(4,1)=5 +ACUME(3) = 8 vs Difficile(11) -> FALLITA
+    [APPROFONDIMENTO Testimonianza] aiuto profano fallito: resta sigillato qui.
+[h20:00] Visita Luogo 7 — Il Molo delle Chiatte  (1 ora)
+    [PROVA ACUME] CARLA DOSTI: 2d6(4,6)=10 +ACUME(3) = 13 vs Media(9) -> SUCCESSO
+    - Indizio: Il capobarca, a voce bassa: le corse senza lanterne partono dal molo daziario e tornano LEGGERE. «Chi porta, torna vuoto. Il carico resta là dove va.»
+    - Indizio: Da un chiattaiolo ubriaco ha sequestrato un contrassegno di piombo: una moneta senza re, con mezza onda al posto della faccia. «Tenetevelo. Io non l’ho mai visto.» (Oggetto: prendete la carta Il Contrassegno di Piombo.)
+    - Indizio: La rotta delle senza-lanterne: Punta delle Scorie, poi il canale morto dell’Isola. «Là c’è solo la fonderia vecchia. Spenta da vent’anni. Be’: fino a poco fa.»
+    -> Trovato: IL CONTRASSEGNO DI PIOMBO (sbarco silenzioso alla Banchina).
+    [PROVA ACUME] CARLA DOSTI: 2d6(4,6)=10 +ACUME(3) = 13 vs Difficile(11) -> SUCCESSO
+    [APPROFONDIMENTO Presagio] colto da profano da CARLA DOSTI (ACUME Difficile).
+[h21:00] Visita Luogo 8 — La Camera dei Pesi e delle Misure  (1 ora)
+    [PROVA ACUME] CARLA DOSTI: 2d6(5,6)=11 +ACUME(3) = 14 vs Media(9) -> SUCCESSO
+    - Indizio: Il registro delle pese notturne: la firma del pesatore compare in nottate in cui NON era di turno. Qualcuno firmava per lui — o lui firmava per qualcuno.
+    - Indizio: Il registro delle chiatte: due corse «di zavorra» verso l’Isola delle Scorie, pagate in contanti, senza mittente. (Reperto B: consegnate il Registro delle Chiatte.)
+    - Indizio: Il pesatore notturno non si presenta da tre giorni: l’indirizzo è una stanza d’affitto già vuota. Scappato — con più paura che soldi, a giudicare da cosa ha lasciato.
+    [PROVA ACUME] CARLA DOSTI: 2d6(1,2)=3 +ACUME(3) = 6 vs Difficile(11) -> FALLITA
+    [APPROFONDIMENTO Referto] aiuto profano fallito: resta sigillato qui.
+[h22:00] Il gruppo ha già il nucleo garantito in mano: rinuncia a nuovi luoghi (il prossimo sarebbe stato il Luogo 6 — Il Banco dei Pegni di Fossa), ma valuta ancora se tornare a cogliere un Approfondimento mancato prima di chiudere.
+
+Fine Indagine: 4/8 luoghi visitati, 2 Approfondimenti letti, 3 mancati.
+Ore avanzate: 2 -> PREPARATI (+1 Salute massima a testa)
+Stonatura completa (smorzo+martello): no; contrassegno: sì
+Chi comanda confermato esplicitamente (Domanda 2, Vantaggio Smascherato): no — risposta “vicina” da giudicare con elasticità
+

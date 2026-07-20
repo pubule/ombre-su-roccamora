@@ -1,0 +1,243 @@
+Run: ep3-02_p4_seed0  |  seed=623400  |  formula Minaccia=finale_v3  |  generato: 2026-07-19T18:44:21
+==============================================================================
+SPEDIZIONE - Le Cisterne del Borgo (sotto il Lavatoio Grande)
+==============================================================================
+Party: FULGENZIO CARBONE, OTTONE “MEZZENA” MASSARI
+Bonus da Indagine: PREPARATI (+1 Salute massima a testa); Campanello di Piero: no; Canna Muta: sì; Domanda 3: esatta
+NOTA: gruppo trattato come blocco unico tessera per tessera (vedi intestazione script).
+Tensione tavolo piccolo: +-1 Ferite SOLO all’Accordatore (non ai nemici di truppa).
+
+Tavolo da 2: +1 Salute massima a testa (ricalibrazione).
+Gettone Intuizione in mano (Dossier completo): un ri-tiro, una volta in Spedizione.
+--- Round 1: il gruppo raggiunge T2 (Cisterna delle Colonne) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    Il gruppo entra in T2 da B1.
+    [PROVA ACUME] FULGENZIO CARBONE: 2d6(3,5)=8 +ACUME(3) = 11 vs Media(9) -> SUCCESSO
+    FULGENZIO CARBONE cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] LA PIETRA IMPARA (crescendo) — Aggiungete 1 segnalino Canto. Alla soglia: l’Accordatore si desta.
+    Segnalino Canto: 1.
+--- Round 2: il gruppo raggiunge T3 (Galleria delle Eco) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    Il gruppo entra in T3 da B1.
+    [OGGETTO] LA CANNA MUTA al petto: la galleria non vi sente — nessuna prova.
+    [PROVA ACUME] FULGENZIO CARBONE: 2d6(4,2)=6 +ACUME(3) = 9 vs Media(9) -> SUCCESSO
+    FULGENZIO CARBONE cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] L’UOMO PAGATO IN CONTANTI (malavita) — Piazzate 1 Sicario: si attiva subito.
+    Piazzati 1x IL SICARIO (pool residua: 0) in C1.
+    IL SICARIO si attiva subito:
+  IL SICARIO si muove verso OTTONE “MEZZENA” MASSARI: C1 -> B2.
+  IL SICARIO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] IL SICARIO -> OTTONE “MEZZENA” MASSARI: 2d6(6,2)=8 +Attacco(3) = 11 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 2 danno da IL SICARIO (Salute: 8/10).
+--- Round 3: il gruppo raggiunge T4 (La Confluenza) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    Il gruppo entra in T4 da B1.
+    QUANDO RIVELATE: 1 Adepto sta calando dalla corda della Confluenza.
+    [ABILITÀ] FULGENZIO CARBONE usa Esca preziosa: IL SICARIO, ADEPTO INCAPPUCCIATO si dirige verso l’esca invece che verso il gruppo alla prossima attivazione.
+    OTTONE “MEZZENA” MASSARI si muove verso ADEPTO INCAPPUCCIATO: B1 -> D2.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> ADEPTO INCAPPUCCIATO: 2d6(6,2)=8 +VIGORE(3)+arma(1) = 12 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+  [MINACCIA] PASSI NELLA GALLERIA (posseduto) — Piazzate 1 Adepto sull’ingresso della Scala dei Chiusini (T1).
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 3), a 6 caselle dalla tessera del gruppo.
+  IL SICARIO si dirige verso l’esca (Carbone): non attacca questo round.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+--- Round 4: il gruppo raggiunge T5 (Officina delle Canne) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    Il gruppo entra in T5 da A3.
+    QUANDO RIVELATE: 1 Adepto appare tra le rastrelliere delle canne-voce.
+    [PROVA ACUME] FULGENZIO CARBONE: 2d6(1,4)=5 +ACUME(3) = 8 vs Media(9) -> FALLITA
+    La rastrelliera non rende la scatolina: la debolezza del boss resta introvabile.
+    [ABILITÀ] FULGENZIO CARBONE usa Esca preziosa: IL SICARIO, ADEPTO INCAPPUCCIATO si dirige verso l’esca invece che verso il gruppo alla prossima attivazione.
+    OTTONE “MEZZENA” MASSARI si muove verso ADEPTO INCAPPUCCIATO: A3 -> B1.
+    OTTONE “MEZZENA” MASSARI si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+  [MINACCIA] IL TURNO DI SOTTO (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 1) in A3.
+  IL SICARIO si dirige verso l’esca (Carbone): non attacca questo round.
+  ADEPTO INCAPPUCCIATO si dirige verso l’esca (Carbone): non attacca questo round.
+  ADEPTO INCAPPUCCIATO si muove verso OTTONE “MEZZENA” MASSARI: B3 -> C1.
+  ADEPTO INCAPPUCCIATO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> OTTONE “MEZZENA” MASSARI: 2d6(2,5)=7 +Attacco(1) = 8 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 7/10).
+  LO SGHERRO si muove verso FULGENZIO CARBONE: A3 -> B3.
+  LO SGHERRO attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] LO SGHERRO -> FULGENZIO CARBONE: 2d6(4,5)=9 +Attacco(2) = 11 vs Difesa(8) -> COLPITO
+    FULGENZIO CARBONE subisce 1 danno da LO SGHERRO (Salute: 7/8).
+  [OROLOGIO] Fine del 4° round: +1 segnalino Canto automatico.
+    Segnalino Canto: 2.
+--- Round 5: il gruppo raggiunge T4 (La Confluenza - ritorno dal ramo) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    Il gruppo entra in T4 da D3.
+    FULGENZIO CARBONE si muove verso ADEPTO INCAPPUCCIATO: D3 -> D1.
+    [ATTACCO] FULGENZIO CARBONE -> ADEPTO INCAPPUCCIATO: 2d6(6,6)=12 +VIGORE(1)+arma(1) = 14 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    OTTONE “MEZZENA” MASSARI si muove verso LO SGHERRO: D3 -> B4.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> LO SGHERRO: 2d6(6,2)=8 +VIGORE(3)+arma(1) = 12 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+  [MINACCIA] GUARDIANI DEI CHIUSINI (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 0) in D3.
+  IL SICARIO si muove verso OTTONE “MEZZENA” MASSARI: B2 -> A4.
+  IL SICARIO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] IL SICARIO -> OTTONE “MEZZENA” MASSARI: 2d6(1,2)=3 +Attacco(3) = 6 vs Difesa(8) -> MANCATO
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si muove verso FULGENZIO CARBONE: B3 -> B1.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si muove verso OTTONE “MEZZENA” MASSARI: D3 -> C4.
+  LO SGHERRO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] LO SGHERRO -> OTTONE “MEZZENA” MASSARI: 2d6(6,6)=12 +Attacco(2) = 14 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 1 danno da LO SGHERRO (Salute: 6/10).
+--- Round 6: il gruppo raggiunge T6 (Il Pozzo Maestro) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    Il gruppo entra in T6 da B1.
+    Rivelato il Pozzo Maestro: l’Accordatore con 1 Voce Cava, in C2 — Tobia è legato alla carrucola.
+    Tobia si libera con Interagire (nessuna prova): si muove col gruppo.
+    FULGENZIO CARBONE si muove verso L’ACCORDATORE: B1 -> B2.
+    [ATTACCO] FULGENZIO CARBONE -> LO SGHERRO: 2d6(6,6)=12 +VIGORE(1)+arma(1) = 14 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+    OTTONE “MEZZENA” MASSARI si muove verso L’ACCORDATORE: B1 -> C1.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> L’ACCORDATORE: 2d6(1,6)=7 +VIGORE(3)+arma(1) = 11 vs Difesa(8) -> COLPITO
+    L’ACCORDATORE: 2/3 ferite residue.
+  [MINACCIA] LA VOCE CHE MANCA (posseduto) — Piazzate 1 Voce Cava sull’uscita più vicina agli eroi.
+    Piazzati 1x LA VOCE CAVA (pool residua: 1) in B1.
+  IL SICARIO si muove verso FULGENZIO CARBONE: A4 -> A2.
+  IL SICARIO attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] IL SICARIO -> FULGENZIO CARBONE: 2d6(2,5)=7 +Attacco(3) = 10 vs Difesa(8) -> COLPITO
+    FULGENZIO CARBONE subisce 2 danno da IL SICARIO (Salute: 5/8).
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si muove verso FULGENZIO CARBONE: C4 -> B3.
+  LO SGHERRO attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] LO SGHERRO -> FULGENZIO CARBONE: 2d6(4,1)=5 +Attacco(2) = 7 vs Difesa(8) -> MANCATO
+  LA VOCE CAVA si muove verso OTTONE “MEZZENA” MASSARI: D2 -> D1.
+  LA VOCE CAVA attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] LA VOCE CAVA -> OTTONE “MEZZENA” MASSARI: 2d6(6,1)=7 +Attacco(1) = 8 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 1 danno da LA VOCE CAVA (Salute: 5/10).
+  LA VOCE CAVA attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] LA VOCE CAVA -> OTTONE “MEZZENA” MASSARI: 2d6(3,6)=9 +Attacco(1) = 10 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 1 danno da LA VOCE CAVA (Salute: 4/10).
+  L’ACCORDATORE attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] L’ACCORDATORE -> OTTONE “MEZZENA” MASSARI: 2d6(5,3)=8 +Attacco(3) = 11 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 2 danno da L’ACCORDATORE (Salute: 2/10).
+--- Combattimento contro l’Accordatore ---
+--- Round 7: scontro nel Pozzo Maestro ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    [ATTACCO] FULGENZIO CARBONE -> IL SICARIO: 2d6(2,1)=3 +VIGORE(1)+arma(1) = 5 vs Difesa(7) -> MANCATO
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> LA VOCE CAVA: 2d6(1,3)=4 +VIGORE(3)+arma(1) = 8 vs Difesa(6) -> COLPITO
+    LA VOCE CAVA: 0/1 ferite residue.
+    LA VOCE CAVA è ABBATTUTO.
+    La Voce Cava URLA nel disfarsi:
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6(4,2)=6 +NERVI(2) = 8 vs Facile(7) -> SUCCESSO
+    [ABILITÀ] OTTONE “MEZZENA” MASSARI usa Colpo da macello: attacco extra su LA VOCE CAVA.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> LA VOCE CAVA: 2d6(6,3)=9 +VIGORE(3)+arma(1) = 13 vs Difesa(6) -> COLPITO
+    LA VOCE CAVA: 0/1 ferite residue.
+    LA VOCE CAVA è ABBATTUTO.
+    La Voce Cava URLA nel disfarsi:
+    [PROVA NERVI] FULGENZIO CARBONE: 2d6(1,6)=7 +NERVI(2) = 9 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6(2,6)=8 +NERVI(2) = 10 vs Facile(7) -> SUCCESSO
+  [MINACCIA] L’ECO CHE CHIAMA (insidia) — Ogni eroe prova NERVI (Facile): chi fallisce ha 1 sola azione al prossimo turno.
+    [PROVA NERVI] FULGENZIO CARBONE: 2d6(3,4)=7 +NERVI(2) = 9 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6(1,3)=4 +NERVI(2) = 6 vs Facile(7) -> FALLITA
+    [SECONDO FIATO] OTTONE “MEZZENA” MASSARI ritenta la prova (unico ritento dell’episodio):
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6(5,5)=10 +NERVI(2) = 12 vs Facile(7) -> SUCCESSO
+  IL SICARIO si muove verso OTTONE “MEZZENA” MASSARI: A2 -> B1.
+  IL SICARIO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] IL SICARIO -> OTTONE “MEZZENA” MASSARI: 2d6(1,1)=2 +Attacco(3) = 5 vs Difesa(8) -> MANCATO
+  ADEPTO INCAPPUCCIATO raggiunge la tessera del gruppo, da A1.
+  ADEPTO INCAPPUCCIATO si muove verso OTTONE “MEZZENA” MASSARI: A1 -> B4.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  LO SGHERRO attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] LO SGHERRO -> FULGENZIO CARBONE: 2d6(3,3)=6 +Attacco(2) = 8 vs Difesa(8) -> COLPITO
+    FULGENZIO CARBONE subisce 1 danno da LO SGHERRO (Salute: 4/8).
+  L’ACCORDATORE si muove verso OTTONE “MEZZENA” MASSARI: C2 -> D1.
+  L’ACCORDATORE attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] L’ACCORDATORE -> OTTONE “MEZZENA” MASSARI: 2d6(5,2)=7 +Attacco(3) = 10 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 2 danno da L’ACCORDATORE (Salute: 0/10).
+    [INTUIZIONE] Il gruppo spende il gettone Dossier: OTTONE “MEZZENA” MASSARI resta in piedi a 1 Salute invece di cadere.
+--- Round 8: scontro nel Pozzo Maestro ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    FULGENZIO CARBONE si muove verso IL SICARIO: B2 -> A1.
+    [ATTACCO] FULGENZIO CARBONE -> IL SICARIO: 2d6(5,4)=9 +VIGORE(1)+arma(1) = 11 vs Difesa(7) -> COLPITO
+    IL SICARIO: 0/1 ferite residue.
+    IL SICARIO è ABBATTUTO.
+    OTTONE “MEZZENA” MASSARI si muove verso L’ACCORDATORE: C1 -> D2.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> L’ACCORDATORE: 2d6(1,2)=3 +VIGORE(3)+arma(1) = 7 vs Difesa(8) -> MANCATO
+  [MINACCIA] IL CORO PROVA (posseduto) — Piazzate 1 Voce Cava. Se è già in gioco una Voce Cava, si attiva subito.
+    Piazzati 1x LA VOCE CAVA (pool residua: 2) in B1.
+  ADEPTO INCAPPUCCIATO si muove verso OTTONE “MEZZENA” MASSARI: B4 -> D3.
+  ADEPTO INCAPPUCCIATO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> OTTONE “MEZZENA” MASSARI: 2d6(4,3)=7 +Attacco(1) = 8 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 0/10).
+    *** OTTONE “MEZZENA” MASSARI è A TERRA. ***
+  LO SGHERRO si muove verso FULGENZIO CARBONE: B3 -> A2.
+  LO SGHERRO attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] LO SGHERRO -> FULGENZIO CARBONE: 2d6(2,4)=6 +Attacco(2) = 8 vs Difesa(8) -> COLPITO
+    FULGENZIO CARBONE subisce 1 danno da LO SGHERRO (Salute: 3/8).
+  LA VOCE CAVA attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] LA VOCE CAVA -> FULGENZIO CARBONE: 2d6(1,6)=7 +Attacco(1) = 8 vs Difesa(8) -> COLPITO
+    FULGENZIO CARBONE subisce 1 danno da LA VOCE CAVA (Salute: 2/8).
+  L’ACCORDATORE si avvicina, non ancora a contatto.
+  [OROLOGIO] Fine del 8° round: +1 segnalino Canto automatico.
+    Segnalino Canto: 3.
+    Il Canto raggiunge 3: da ora ogni Fase Minaccia pesca 1 carta in più (fino a fine spedizione, anche se il Custode è già stato abbattuto).
+--- Round 9: scontro nel Pozzo Maestro ---
+    (azioni nominali questo round: 2 — 1 eroi vivi)
+    [ATTACCO] FULGENZIO CARBONE -> LA VOCE CAVA: 2d6(5,1)=6 +VIGORE(1)+arma(1) = 8 vs Difesa(6) -> COLPITO
+    LA VOCE CAVA: 0/1 ferite residue.
+    LA VOCE CAVA è ABBATTUTO.
+    La Voce Cava URLA nel disfarsi:
+    [PROVA NERVI] FULGENZIO CARBONE: 2d6(2,5)=7 +NERVI(2) = 9 vs Facile(7) -> SUCCESSO
+  [MINACCIA] UNA CORRENTE D’ARIA BUONA (favore) — Rivelate una tessera coperta adiacente.
+    (carta senza effetto modellato in questa simulazione)
+  [MINACCIA] L’ACQUA FERMA (quiete) — Nessun effetto (tensione).
+    (carta senza effetto modellato in questa simulazione)
+  ADEPTO INCAPPUCCIATO si muove verso FULGENZIO CARBONE: D3 -> B3.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  LO SGHERRO si muove verso FULGENZIO CARBONE: A2 -> B1.
+  LO SGHERRO attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] LO SGHERRO -> FULGENZIO CARBONE: 2d6(4,1)=5 +Attacco(2) = 7 vs Difesa(8) -> MANCATO
+  L’ACCORDATORE si muove verso FULGENZIO CARBONE: D1 -> B2.
+  L’ACCORDATORE si avvicina, non ancora a contatto.
+--- Round 10: scontro nel Pozzo Maestro ---
+    (azioni nominali questo round: 2 — 1 eroi vivi)
+    [ATTACCO] FULGENZIO CARBONE -> LO SGHERRO: 2d6(2,5)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+  [MINACCIA] CHIUSINI CHE SBATTONO (posseduto) — Piazzate 1 Adepto sull’ingresso della Scala dei Chiusini (T1).
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 2), a 6 caselle dalla tessera del gruppo.
+  [MINACCIA] IL CALARE DEI SECCHI (posseduto) — Piazzate 1 Adepto sotto la corda della Confluenza (T4).
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 1), a 6 caselle dalla tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si muove verso FULGENZIO CARBONE: B3 -> A2.
+  ADEPTO INCAPPUCCIATO attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> FULGENZIO CARBONE: 2d6(4,5)=9 +Attacco(1) = 10 vs Difesa(8) -> COLPITO
+    FULGENZIO CARBONE subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 1/8).
+  LO SGHERRO attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] LO SGHERRO -> FULGENZIO CARBONE: 2d6(1,4)=5 +Attacco(2) = 7 vs Difesa(8) -> MANCATO
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  L’ACCORDATORE si avvicina, non ancora a contatto.
+--- Round 11: scontro nel Pozzo Maestro ---
+    (azioni nominali questo round: 2 — 1 eroi vivi)
+    [ATTACCO] FULGENZIO CARBONE -> ADEPTO INCAPPUCCIATO: 2d6(2,1)=3 +VIGORE(1)+arma(1) = 5 vs Difesa(7) -> MANCATO
+  [MINACCIA] IL RITIRO DELLE CANNE (posseduto) — Piazzate 1 Adepto sull’ingresso dell’Officina (T5).
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 0), a 6 caselle dalla tessera del gruppo.
+  [MINACCIA] IL PASSO SUL VUOTO (insidia) — L’eroe attivo prova NERVI (Media): se fallisce, 1 danno e perde 1 azione.
+    [PROVA NERVI] FULGENZIO CARBONE: 2d6(6,4)=10 +NERVI(2) = 12 vs Media(9) -> SUCCESSO
+  ADEPTO INCAPPUCCIATO attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> FULGENZIO CARBONE: 2d6(1,2)=3 +Attacco(1) = 4 vs Difesa(8) -> MANCATO
+  LO SGHERRO attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] LO SGHERRO -> FULGENZIO CARBONE: 2d6(6,1)=7 +Attacco(2) = 9 vs Difesa(8) -> COLPITO
+    FULGENZIO CARBONE subisce 1 danno da LO SGHERRO (Salute: 0/8).
+    *** FULGENZIO CARBONE è A TERRA. ***
+
+==============================================================================
+ESITO SPEDIZIONE: SCONFITTA (party wipe)
+Round totali: 11
+Formula Minaccia: finale_v3 | Azioni nominali/round: media 3.5, picco 4
+Mazzo Minaccia rimescolato: 0 volta/e
+Segnalini nemici esauriti nel pool (piazzamenti saltati): 0
+Accordatore svegliato: solo a T6 (mai in anticipo via Canto)
+  FULGENZIO CARBONE: a terra
+  OTTONE “MEZZENA” MASSARI: a terra
+==============================================================================

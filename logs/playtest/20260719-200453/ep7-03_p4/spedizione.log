@@ -1,0 +1,314 @@
+Run: ep7-03_p4_seed0  |  seed=674400  |  formula Minaccia=finale_v3  |  generato: 2026-07-19T20:04:54
+==============================================================================
+SPEDIZIONE - Il Palazzone di Sant’Orsola (al cambio delle nove)
+==============================================================================
+Party: DOTT. ATTILIO MARN, ELENA FOSCO, OTTONE “MEZZENA” MASSARI
+Bonus da Indagine: PREPARATI (+1 Salute massima a testa); Bolla: sì; Lanterna+Tappi: sì; D1: esatta; D3: esatta
+NOTA: gruppo trattato come blocco unico tessera per tessera (vedi intestazione script).
+
+Gettone Intuizione in mano (Dossier completo): un ri-tiro, una volta in Spedizione.
+La via scelta (media NERVI 2.0): i PONTEGGI (corta, esposta).
+--- Round 1: il gruppo raggiunge T2 (Il Piano Terra) ---
+    (azioni nominali questo round: 6 — 3 eroi vivi)
+    Il gruppo entra in T2 da B1.
+    [PROVA ACUME] DOTT. ATTILIO MARN: 2d6(2,6)=8 +ACUME(2) = 10 vs Media(9) -> SUCCESSO
+    DOTT. ATTILIO MARN cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    ELENA FOSCO: nessun bersaglio, avanza / assiste il gruppo.
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] IL PIOMBO E LA SACCA (malavita) — Piazzate 1 Sgherro: si attiva subito.
+    Piazzati 1x LO SGHERRO (pool residua: 4) in B1.
+    LO SGHERRO si attiva subito:
+  LO SGHERRO si muove verso DOTT. ATTILIO MARN: B1 -> C1.
+  LO SGHERRO attacca DOTT. ATTILIO MARN:
+    [ATTACCO NEMICO] LO SGHERRO -> DOTT. ATTILIO MARN: 2d6(6,6)=12 +Attacco(2) = 14 vs Difesa(8) -> COLPITO
+    DOTT. ATTILIO MARN subisce 1 danno da LO SGHERRO (Salute: 7/8).
+--- Round 2: il gruppo raggiunge T3P (I Ponteggi di Ponente) ---
+    (azioni nominali questo round: 6 — 3 eroi vivi)
+    Il gruppo entra in T3P da D2.
+    [PROVA NERVI] DOTT. ATTILIO MARN: 2d6(5,4)=9 +NERVI(2) = 11 vs Media(9) -> SUCCESSO
+    [PROVA NERVI] ELENA FOSCO: 2d6(5,3)=8 +NERVI(2) = 10 vs Media(9) -> SUCCESSO
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6(4,4)=8 +NERVI(2) = 10 vs Media(9) -> SUCCESSO
+    [ABILITÀ] DOTT. ATTILIO MARN usa Pronto Soccorso su DOTT. ATTILIO MARN -> Salute 8.
+    ELENA FOSCO si muove verso LO SGHERRO: D2 -> D1.
+    [ATTACCO] ELENA FOSCO -> LO SGHERRO: 2d6(4,1)=5 +VIGORE(1)+arma(1) = 7 vs Difesa(8) -> MANCATO
+    OTTONE “MEZZENA” MASSARI si muove verso LO SGHERRO: D2 -> C2.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> LO SGHERRO: 2d6(1,1)=2 +VIGORE(3)+arma(1) = 6 vs Difesa(8) -> MANCATO
+  [MINACCIA] LA CALCE NEGLI OCCHI (insidia) — L’eroe attivo prova NERVI (Media): se fallisce, 1 danno e perde 1 azione.
+    [PROVA NERVI] DOTT. ATTILIO MARN: 2d6(1,6)=7 +NERVI(2) = 9 vs Media(9) -> SUCCESSO
+  LO SGHERRO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] LO SGHERRO -> OTTONE “MEZZENA” MASSARI: 2d6(3,6)=9 +Attacco(2) = 11 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 1 danno da LO SGHERRO (Salute: 8/9).
+--- Round 3: il gruppo raggiunge T4P (Il Castello di Tavole) ---
+    (azioni nominali questo round: 6 — 3 eroi vivi)
+    Il gruppo entra in T4P da B1.
+    [PROVA NERVI] DOTT. ATTILIO MARN: 2d6(2,3)=5 +NERVI(2) = 7 vs Media(9) -> FALLITA
+    [SECONDO FIATO] DOTT. ATTILIO MARN ritenta la prova (unico ritento dell’episodio):
+    [PROVA NERVI] DOTT. ATTILIO MARN: 2d6(6,6)=12 +NERVI(2) = 14 vs Media(9) -> SUCCESSO
+    [PROVA NERVI] ELENA FOSCO: 2d6(1,1)=2 +NERVI(2) = 4 vs Media(9) -> FALLITA
+    ELENA FOSCO: il vuoto tira, le tavole ballano — 1 sola azione al prossimo turno.
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6(5,3)=8 +NERVI(2) = 10 vs Media(9) -> SUCCESSO
+    QUANDO RIVELATE: un Sicario di ronda — la lanterna schermata si gira.
+    [ABILITÀ] DOTT. ATTILIO MARN usa Pronto Soccorso su OTTONE “MEZZENA” MASSARI -> Salute 9.
+    ELENA FOSCO ha 1 sola azione questo turno (insidia del round scorso).
+    ELENA FOSCO si muove verso LO SGHERRO: B1 -> C2.
+    [ATTACCO] ELENA FOSCO -> IL SICARIO: 2d6(4,5)=9 +VIGORE(1)+arma(1) = 11 vs Difesa(7) -> COLPITO
+    IL SICARIO: 0/1 ferite residue.
+    IL SICARIO è ABBATTUTO.
+    OTTONE “MEZZENA” MASSARI si muove verso LO SGHERRO: B1 -> A3.
+    OTTONE “MEZZENA” MASSARI si avvicina a LO SGHERRO, non ancora a contatto.
+  [MINACCIA] IL CANTIERE È SVEGLIO (crescendo) — Aggiungete 1 segnalino Canto (l’Allarme).
+    Segnalino Canto (Allarme): 1.
+  LO SGHERRO attacca DOTT. ATTILIO MARN:
+    [ATTACCO NEMICO] LO SGHERRO -> DOTT. ATTILIO MARN: 2d6(1,3)=4 +Attacco(2) = 6 vs Difesa(8) -> MANCATO
+--- Round 4: il gruppo raggiunge T6 (L’Intercapedine del Terzo Piano) ---
+    (azioni nominali questo round: 6 — 3 eroi vivi)
+    Il gruppo entra in T6 da A3.
+    Rivelata l’Intercapedine del Terzo Piano: Fava legato tra i sacchi — e la Squadra del Silenzio posa le carte da gioco.
+    Fava si libera con Interagire (nessuna prova): si muove col gruppo (Mov 3).
+    DOTT. ATTILIO MARN si muove verso LO SGHERRO: A3 -> A2.
+    [ATTACCO] DOTT. ATTILIO MARN -> LO SGHERRO: 2d6(1,5)=6 +VIGORE(2)+arma(1) = 9 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    ELENA FOSCO si muove verso LO SGHERRO: A3 -> B3.
+    [ATTACCO] ELENA FOSCO -> LO SGHERRO: 2d6(5,3)=8 +VIGORE(1)+arma(1) = 10 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+    OTTONE “MEZZENA” MASSARI si muove verso LO SGHERRO: A3 -> C4.
+    OTTONE “MEZZENA” MASSARI si avvicina a LO SGHERRO, non ancora a contatto.
+  [MINACCIA] GLI UOMINI DELL’INGEGNERE (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 2) in A3.
+  LO SGHERRO si muove verso DOTT. ATTILIO MARN: C1 -> B2.
+  LO SGHERRO attacca DOTT. ATTILIO MARN:
+    [ATTACCO NEMICO] LO SGHERRO -> DOTT. ATTILIO MARN: 2d6(4,1)=5 +Attacco(2) = 7 vs Difesa(8) -> MANCATO
+  LO SGHERRO si muove verso OTTONE “MEZZENA” MASSARI: D2 -> D4.
+  LO SGHERRO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] LO SGHERRO -> OTTONE “MEZZENA” MASSARI: 2d6(5,2)=7 +Attacco(2) = 9 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 1 danno da LO SGHERRO (Salute: 8/9).
+  LO SGHERRO si muove verso OTTONE “MEZZENA” MASSARI: A3 -> B4.
+  LO SGHERRO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] LO SGHERRO -> OTTONE “MEZZENA” MASSARI: 2d6(2,2)=4 +Attacco(2) = 6 vs Difesa(8) -> MANCATO
+  IL CAPOCANTIERE si avvicina, non ancora a contatto.
+  [OROLOGIO] Fine del 4° round: +1 segnalino Canto automatico.
+    Segnalino Canto (Allarme): 2.
+--- Ritorno a T1 per la via dell’andata (i ponteggi): la squadra insegue ---
+--- Round 5: rientro — T4P (Il Castello di Tavole) ---
+    (azioni nominali questo round: 6 — 3 eroi vivi)
+    [PROVA NERVI] DOTT. ATTILIO MARN: 2d6(4,1)=5 +NERVI(2) = 7 vs Media(9) -> FALLITA
+    DOTT. ATTILIO MARN: il vuoto tira anche in discesa — 1 sola azione al prossimo turno.
+    [PROVA NERVI] ELENA FOSCO: 2d6(2,1)=3 +NERVI(2) = 5 vs Media(9) -> FALLITA
+    ELENA FOSCO: il vuoto tira anche in discesa — 1 sola azione al prossimo turno.
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6(5,4)=9 +NERVI(2) = 11 vs Media(9) -> SUCCESSO
+    DOTT. ATTILIO MARN ha 1 sola azione questo turno (insidia del round scorso).
+    [ABILITÀ] DOTT. ATTILIO MARN usa Pronto Soccorso su OTTONE “MEZZENA” MASSARI -> Salute 9.
+    ELENA FOSCO ha 1 sola azione questo turno (insidia del round scorso).
+    [ATTACCO] ELENA FOSCO -> LO SGHERRO: 2d6(5,1)=6 +VIGORE(1)+arma(1) = 8 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> LO SGHERRO: 2d6(5,6)=11 +VIGORE(3)+arma(1) = 15 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+  [MINACCIA] LA MALTA FRESCA (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 1) in A3.
+  LO SGHERRO attacca ELENA FOSCO:
+    [ATTACCO NEMICO] LO SGHERRO -> ELENA FOSCO: 2d6(2,2)=4 +Attacco(2) = 6 vs Difesa(8) -> MANCATO
+  LO SGHERRO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] LO SGHERRO -> OTTONE “MEZZENA” MASSARI: 2d6(1,3)=4 +Attacco(2) = 6 vs Difesa(8) -> MANCATO
+  LO SGHERRO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] LO SGHERRO -> OTTONE “MEZZENA” MASSARI: 2d6(3,5)=8 +Attacco(2) = 10 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 1 danno da LO SGHERRO (Salute: 8/9).
+  LO SGHERRO attacca DOTT. ATTILIO MARN:
+    [ATTACCO NEMICO] LO SGHERRO -> DOTT. ATTILIO MARN: 2d6(4,2)=6 +Attacco(2) = 8 vs Difesa(8) -> COLPITO
+    DOTT. ATTILIO MARN subisce 1 danno da LO SGHERRO (Salute: 7/8).
+  IL CAPOCANTIERE si muove verso DOTT. ATTILIO MARN: C2 -> A1.
+  IL CAPOCANTIERE attacca DOTT. ATTILIO MARN:
+    [ATTACCO NEMICO] IL CAPOCANTIERE -> DOTT. ATTILIO MARN: 2d6(3,5)=8 +Attacco(2) = 10 vs Difesa(8) -> COLPITO
+    DOTT. ATTILIO MARN subisce 2 danno da IL CAPOCANTIERE (Salute: 5/8).
+    La squadra vi SBARRA la strada: questo round non si avanza.
+--- Round 6: rientro — T4P (Il Castello di Tavole) ---
+    (azioni nominali questo round: 6 — 3 eroi vivi)
+    [PROVA NERVI] DOTT. ATTILIO MARN: 2d6(6,6)=12 +NERVI(2) = 14 vs Media(9) -> SUCCESSO
+    [PROVA NERVI] ELENA FOSCO: 2d6(1,6)=7 +NERVI(2) = 9 vs Media(9) -> SUCCESSO
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6(1,5)=6 +NERVI(2) = 8 vs Media(9) -> FALLITA
+    [SECONDO FIATO] OTTONE “MEZZENA” MASSARI ritenta la prova (unico ritento dell’episodio):
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6(4,4)=8 +NERVI(2) = 10 vs Media(9) -> SUCCESSO
+    [ATTACCO] DOTT. ATTILIO MARN -> LO SGHERRO: 2d6(2,5)=7 +VIGORE(2)+arma(1) = 10 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+    [ATTACCO] ELENA FOSCO -> LO SGHERRO: 2d6(4,2)=6 +VIGORE(1)+arma(1) = 8 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> LO SGHERRO: 2d6(2,6)=8 +VIGORE(3)+arma(1) = 12 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+    [ABILITÀ] OTTONE “MEZZENA” MASSARI usa Colpo da macello: attacco extra su LO SGHERRO.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> LO SGHERRO: 2d6(3,5)=8 +VIGORE(3)+arma(1) = 12 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+  [MINACCIA] UN’IMPALCATURA AMICA (favore) — Rivelate una tessera coperta adiacente.
+    (carta senza effetto modellato in questa simulazione)
+  LO SGHERRO si muove verso ELENA FOSCO: A3 -> B4.
+  LO SGHERRO attacca ELENA FOSCO:
+    [ATTACCO NEMICO] LO SGHERRO -> ELENA FOSCO: 2d6(5,5)=10 +Attacco(2) = 12 vs Difesa(8) -> COLPITO
+    ELENA FOSCO subisce 1 danno da LO SGHERRO (Salute: 6/7).
+  IL CAPOCANTIERE si muove verso DOTT. ATTILIO MARN: A1 -> B2.
+  IL CAPOCANTIERE attacca DOTT. ATTILIO MARN:
+    [ATTACCO NEMICO] IL CAPOCANTIERE -> DOTT. ATTILIO MARN: 2d6(5,4)=9 +Attacco(2) = 11 vs Difesa(8) -> COLPITO
+    DOTT. ATTILIO MARN subisce 2 danno da IL CAPOCANTIERE (Salute: 3/8).
+    La squadra vi SBARRA la strada: questo round non si avanza.
+--- Round 7: rientro — T4P (Il Castello di Tavole) ---
+    (azioni nominali questo round: 6 — 3 eroi vivi)
+    [PROVA NERVI] DOTT. ATTILIO MARN: 2d6(1,5)=6 +NERVI(2) = 8 vs Media(9) -> FALLITA
+    DOTT. ATTILIO MARN: il vuoto tira anche in discesa — 1 sola azione al prossimo turno.
+    [PROVA NERVI] ELENA FOSCO: 2d6(3,1)=4 +NERVI(2) = 6 vs Media(9) -> FALLITA
+    ELENA FOSCO: il vuoto tira anche in discesa — 1 sola azione al prossimo turno.
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6(5,3)=8 +NERVI(2) = 10 vs Media(9) -> SUCCESSO
+    DOTT. ATTILIO MARN ha 1 sola azione questo turno (insidia del round scorso).
+    DOTT. ATTILIO MARN si muove verso IL CAPOCANTIERE: A2 -> B1.
+    [ATTACCO] DOTT. ATTILIO MARN -> IL CAPOCANTIERE: 2d6(3,4)=7 +VIGORE(2)+arma(1) = 10 vs Difesa(8) -> COLPITO
+    IL CAPOCANTIERE: 3/4 ferite residue.
+    ELENA FOSCO ha 1 sola azione questo turno (insidia del round scorso).
+    ELENA FOSCO si muove verso LO SGHERRO: B3 -> A4.
+    [ATTACCO] ELENA FOSCO -> LO SGHERRO: 2d6(6,3)=9 +VIGORE(1)+arma(1) = 11 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> LO SGHERRO: 2d6(6,2)=8 +VIGORE(3)+arma(1) = 12 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+  [MINACCIA] UN FISCHIO DI SOTTO (crescendo) — Aggiungete 1 segnalino Canto (l’Allarme).
+    Segnalino Canto (Allarme): 3.
+    L’Allarme raggiunge 3: il cantiere è sveglio — da ora ogni Fase Minaccia pesca 1 carta in più (fino a fine spedizione).
+    Il Capocantiere si attiva subito (l’allarme lo chiama).
+  IL CAPOCANTIERE si muove verso OTTONE “MEZZENA” MASSARI: B2 -> B4.
+  IL CAPOCANTIERE attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] IL CAPOCANTIERE -> OTTONE “MEZZENA” MASSARI: 2d6(5,1)=6 +Attacco(2) = 8 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 2 danno da IL CAPOCANTIERE (Salute: 6/9).
+  IL CAPOCANTIERE si muove verso OTTONE “MEZZENA” MASSARI: B4 -> C2.
+  IL CAPOCANTIERE si avvicina, non ancora a contatto.
+--- Round 8: rientro — T3P (I Ponteggi di Ponente) ---
+    (azioni nominali questo round: 6 — 3 eroi vivi)
+    [PROVA NERVI] DOTT. ATTILIO MARN: 2d6(3,2)=5 +NERVI(2) = 7 vs Media(9) -> FALLITA
+    DOTT. ATTILIO MARN: il vuoto tira anche in discesa — 1 sola azione al prossimo turno.
+    [PROVA NERVI] ELENA FOSCO: 2d6(6,1)=7 +NERVI(2) = 9 vs Media(9) -> SUCCESSO
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6(6,4)=10 +NERVI(2) = 12 vs Media(9) -> SUCCESSO
+    DOTT. ATTILIO MARN ha 1 sola azione questo turno (insidia del round scorso).
+    DOTT. ATTILIO MARN si muove verso IL CAPOCANTIERE: B1 -> B2.
+    DOTT. ATTILIO MARN (1 sola azione) si limita ad avvicinarsi a IL CAPOCANTIERE.
+    ELENA FOSCO si muove verso IL CAPOCANTIERE: A4 -> A1.
+    ELENA FOSCO si avvicina a IL CAPOCANTIERE, non ancora a contatto.
+    OTTONE “MEZZENA” MASSARI si muove verso IL CAPOCANTIERE: C4 -> D2.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> IL CAPOCANTIERE: 2d6(1,3)=4 +VIGORE(3)+arma(1) = 8 vs Difesa(8) -> COLPITO
+    IL CAPOCANTIERE: 2/4 ferite residue.
+  [MINACCIA] IL TURNO CAMBIA (quiete) — Nessun effetto (tensione).
+    (carta senza effetto modellato in questa simulazione)
+  [MINACCIA] LA RONDA DEL CANCELLO (malavita) — Piazzate 1 Sicario: si attiva subito.
+    Piazzati 1x IL SICARIO (pool residua: 1) in A3.
+    IL SICARIO si attiva subito:
+  IL SICARIO si muove verso DOTT. ATTILIO MARN: A3 -> A2.
+  IL SICARIO attacca DOTT. ATTILIO MARN:
+    [ATTACCO NEMICO] IL SICARIO -> DOTT. ATTILIO MARN: 2d6(2,1)=3 +Attacco(3) = 6 vs Difesa(8) -> MANCATO
+  IL CAPOCANTIERE si muove verso ELENA FOSCO: C2 -> B1.
+  IL CAPOCANTIERE attacca ELENA FOSCO:
+    [ATTACCO NEMICO] IL CAPOCANTIERE -> ELENA FOSCO: 2d6(2,6)=8 +Attacco(2) = 10 vs Difesa(8) -> COLPITO
+    ELENA FOSCO subisce 2 danno da IL CAPOCANTIERE (Salute: 4/7).
+  [OROLOGIO] Fine del 8° round: +1 segnalino Canto automatico.
+    Segnalino Canto (Allarme): 4.
+    La squadra vi SBARRA la strada: questo round non si avanza.
+--- Round 9: rientro — T3P (I Ponteggi di Ponente) ---
+    (azioni nominali questo round: 6 — 3 eroi vivi)
+    [PROVA NERVI] DOTT. ATTILIO MARN: 2d6(6,1)=7 +NERVI(2) = 9 vs Media(9) -> SUCCESSO
+    [PROVA NERVI] ELENA FOSCO: 2d6(5,5)=10 +NERVI(2) = 12 vs Media(9) -> SUCCESSO
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6(4,5)=9 +NERVI(2) = 11 vs Media(9) -> SUCCESSO
+    DOTT. ATTILIO MARN si muove verso IL SICARIO: B2 -> A3.
+    [ATTACCO] DOTT. ATTILIO MARN -> IL SICARIO: 2d6(3,6)=9 +VIGORE(2)+arma(1) = 12 vs Difesa(7) -> COLPITO
+    IL SICARIO: 0/1 ferite residue.
+    IL SICARIO è ABBATTUTO.
+    ELENA FOSCO si muove verso IL CAPOCANTIERE: A1 -> B2.
+    [ATTACCO] ELENA FOSCO -> IL CAPOCANTIERE: 2d6(1,3)=4 +VIGORE(1)+arma(1) = 6 vs Difesa(8) -> MANCATO
+    OTTONE “MEZZENA” MASSARI si muove verso IL CAPOCANTIERE: D2 -> C1.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> IL CAPOCANTIERE: 2d6(2,1)=3 +VIGORE(3)+arma(1) = 7 vs Difesa(8) -> MANCATO
+  [MINACCIA] IL SILENZIO CHE PREME (insidia) — Ogni eroe prova NERVI (Facile): chi fallisce ha 1 sola azione al prossimo turno.
+    [PROVA NERVI] DOTT. ATTILIO MARN: 2d6(5,6)=11 +NERVI(2) = 13 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] ELENA FOSCO: 2d6(3,5)=8 +NERVI(2) = 10 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6(2,4)=6 +NERVI(2) = 8 vs Facile(7) -> SUCCESSO
+  [MINACCIA] IL TURNO FUORI BUSTA (malavita) — Piazzate 1 Sgherro sull’ingresso del Cancello (T1).
+    Piazzati 1x LO SGHERRO (pool residua: 4), a 6 caselle dalla tessera del gruppo.
+  LO SGHERRO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+  IL CAPOCANTIERE si muove verso ELENA FOSCO: B1 -> A2.
+  IL CAPOCANTIERE attacca ELENA FOSCO:
+    [ATTACCO NEMICO] IL CAPOCANTIERE -> ELENA FOSCO: 2d6(5,6)=11 +Attacco(2) = 13 vs Difesa(8) -> COLPITO
+    ELENA FOSCO subisce 2 danno da IL CAPOCANTIERE (Salute: 2/7).
+    La squadra vi SBARRA la strada: questo round non si avanza.
+--- Round 10: rientro — T3P (I Ponteggi di Ponente) ---
+    (azioni nominali questo round: 6 — 3 eroi vivi)
+    [PROVA NERVI] DOTT. ATTILIO MARN: 2d6(2,5)=7 +NERVI(2) = 9 vs Media(9) -> SUCCESSO
+    [PROVA NERVI] ELENA FOSCO: 2d6(2,4)=6 +NERVI(2) = 8 vs Media(9) -> FALLITA
+    ELENA FOSCO: il vuoto tira anche in discesa — 1 sola azione al prossimo turno.
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6(4,2)=6 +NERVI(2) = 8 vs Media(9) -> FALLITA
+    OTTONE “MEZZENA” MASSARI: il vuoto tira anche in discesa — 1 sola azione al prossimo turno.
+    [ATTACCO] DOTT. ATTILIO MARN -> IL CAPOCANTIERE: 2d6(6,3)=9 +VIGORE(2)+arma(1) = 12 vs Difesa(8) -> COLPITO
+    IL CAPOCANTIERE: 1/4 ferite residue.
+    ELENA FOSCO ha 1 sola azione questo turno (insidia del round scorso).
+    ELENA FOSCO si muove verso IL CAPOCANTIERE: B2 -> A1.
+    [ATTACCO] ELENA FOSCO -> IL CAPOCANTIERE: 2d6(6,4)=10 +VIGORE(1)+arma(1) = 12 vs Difesa(8) -> COLPITO
+    IL CAPOCANTIERE: 0/4 ferite residue.
+    IL CAPOCANTIERE è ABBATTUTO.
+    *** IL CAPOCANTIERE È A TERRA: la squadra ha perso il direttore. ***
+    OTTONE “MEZZENA” MASSARI ha 1 sola azione questo turno (insidia del round scorso).
+    [PROVA ACUME] OTTONE “MEZZENA” MASSARI: 2d6(2,5)=7 +ACUME(1) = 8 vs Media(9) -> FALLITA
+    OTTONE “MEZZENA” MASSARI cerca sulla tessera: niente da trovare qui, o prova fallita.
+  [MINACCIA] LE LANTERNE SI MUOVONO (crescendo) — Aggiungete 1 segnalino Canto (l’Allarme).
+    Segnalino Canto (Allarme): 5.
+  [MINACCIA] LE PALE NEL BUIO (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 3) in A3.
+  LO SGHERRO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si muove verso OTTONE “MEZZENA” MASSARI: A3 -> B1.
+  LO SGHERRO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] LO SGHERRO -> OTTONE “MEZZENA” MASSARI: 2d6(6,4)=10 +Attacco(2) = 12 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 1 danno da LO SGHERRO (Salute: 5/9).
+--- Round 11: rientro — T2 (Il Piano Terra) ---
+    (azioni nominali questo round: 6 — 3 eroi vivi)
+    DOTT. ATTILIO MARN si muove verso LO SGHERRO: A3 -> B2.
+    [ATTACCO] DOTT. ATTILIO MARN -> LO SGHERRO: 2d6(5,2)=7 +VIGORE(2)+arma(1) = 10 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    [ATTACCO] ELENA FOSCO -> LO SGHERRO: 2d6(2,4)=6 +VIGORE(1)+arma(1) = 8 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] IL GUARDIANO DI NOTTE (malavita) — Piazzate 1 Sicario sull’uscita più vicina agli eroi.
+    Piazzati 1x IL SICARIO (pool residua: 1) in A3.
+  [MINACCIA] I MANOVALI DI NOTTE (malavita) — Piazzate 1 Sgherro sull’ingresso del Cancello (T1).
+    Piazzati 1x LO SGHERRO (pool residua: 3), a 6 caselle dalla tessera del gruppo.
+  LO SGHERRO si avvicina (Movimento 4): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+  IL SICARIO si muove verso ELENA FOSCO: A3 -> A2.
+  IL SICARIO attacca ELENA FOSCO:
+    [ATTACCO NEMICO] IL SICARIO -> ELENA FOSCO: 2d6(2,6)=8 +Attacco(3) = 11 vs Difesa(8) -> COLPITO
+    ELENA FOSCO subisce 2 danno da IL SICARIO (Salute: 0/7).
+    [INTUIZIONE] Il gruppo spende il gettone Dossier: ELENA FOSCO resta in piedi a 1 Salute invece di cadere.
+  LO SGHERRO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+--- Round 12: rientro — T1 (Il Cancello) ---
+    (azioni nominali questo round: 6 — 3 eroi vivi)
+    DOTT. ATTILIO MARN si muove verso IL SICARIO: B2 -> A3.
+    [ATTACCO] DOTT. ATTILIO MARN -> IL SICARIO: 2d6(6,3)=9 +VIGORE(2)+arma(1) = 12 vs Difesa(7) -> COLPITO
+    IL SICARIO: 0/1 ferite residue.
+    IL SICARIO è ABBATTUTO.
+    ELENA FOSCO: nessun bersaglio, avanza / assiste il gruppo.
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] LA PAGA DEL SILENZIO (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 2) in A3.
+  [MINACCIA] IL PIOMBO DAL BUIO (insidia) — L’eroe più avanzato subisce 1 danno (nessuna prova).
+    DOTT. ATTILIO MARN subisce 1 danno da IL PIOMBO DAL BUIO (Salute: 2/8).
+  LO SGHERRO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si muove verso DOTT. ATTILIO MARN: A3 -> B3.
+  LO SGHERRO attacca DOTT. ATTILIO MARN:
+    [ATTACCO NEMICO] LO SGHERRO -> DOTT. ATTILIO MARN: 2d6(3,3)=6 +Attacco(2) = 8 vs Difesa(8) -> COLPITO
+    DOTT. ATTILIO MARN subisce 1 danno da LO SGHERRO (Salute: 1/8).
+  [OROLOGIO] Fine del 12° round: +1 segnalino Canto automatico.
+    Segnalino Canto (Allarme): 6.
+
+==============================================================================
+ESITO SPEDIZIONE: VITTORIA
+Round totali: 12
+Formula Minaccia: finale_v3 | Azioni nominali/round: media 6.0, picco 6
+Mazzo Minaccia rimescolato: 0 volta/e
+Segnalini nemici esauriti nel pool (piazzamenti saltati): 0
+Via scelta: i ponteggi | Capocantiere: abbattuto
+  DOTT. ATTILIO MARN: 1/8 Salute
+  ELENA FOSCO: 1/7 Salute
+  OTTONE “MEZZENA” MASSARI: 5/9 Salute
+==============================================================================

@@ -1,0 +1,134 @@
+Run: ep8-02_p2_seed0  |  seed=683200  |  formula Minaccia=finale_v3  |  generato: 2026-07-19T20:06:36
+==============================================================================
+SPEDIZIONE - Il Deposito dell’Ansa Morta (giovedì notte)
+==============================================================================
+Party: FULGENZIO CARBONE, NINO “GRIMALDELLO” CAUTO
+Bonus da Indagine: nessun vantaggio; Marengo: sì; Lanterna: sì; D1: esatta; D3: esatta
+NOTA: gruppo trattato come blocco unico tessera per tessera (vedi intestazione script).
+Tensione tavolo piccolo: +-1 Ferite SOLO al Cambiavalute (non ai nemici di truppa).
+
+Tavolo da 2: +1 Salute massima a testa (ricalibrazione).
+Gettone Intuizione in mano (Dossier completo): un ri-tiro, una volta in Spedizione.
+  Il Marengo Segnato lo porta NINO “GRIMALDELLO” CAUTO (il Fiuto dei Mastini lo sa).
+--- Round 1: il gruppo raggiunge T2 (La Tettoia delle Chiatte) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    Il gruppo entra in T2 da B1.
+    [PROVA ACUME] FULGENZIO CARBONE: 2d6(1,6)=7 +ACUME(2) = 9 vs Media(9) -> SUCCESSO
+    [AZIONE] FULGENZIO CARBONE sequestra la cassa d’oro di T2 (1/4).
+    [PROVA ACUME] NINO “GRIMALDELLO” CAUTO: 2d6(4,5)=9 +ACUME(2) = 11 vs Media(9) -> SUCCESSO
+    NINO “GRIMALDELLO” CAUTO cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+  [MINACCIA] IL FISCHIO BASSO (malavita) — Piazzate 1 Sgherro: si attiva subito.
+    Piazzati 1x LO SGHERRO (pool residua: 4) in B1.
+    LO SGHERRO si attiva subito:
+  LO SGHERRO si muove verso NINO “GRIMALDELLO” CAUTO: B1 -> C1.
+  LO SGHERRO attacca NINO “GRIMALDELLO” CAUTO:
+    [ATTACCO NEMICO] LO SGHERRO -> NINO “GRIMALDELLO” CAUTO: 2d6(5,4)=9 +Attacco(2) = 11 vs Difesa(8) -> COLPITO
+    NINO “GRIMALDELLO” CAUTO subisce 1 danno da LO SGHERRO (Salute: 7/8).
+--- Round 2: il gruppo raggiunge T3 (Il Magazzino del Carbone) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    Il gruppo entra in T3 da B1.
+    [ABILITÀ] FULGENZIO CARBONE usa Esca preziosa: LO SGHERRO si dirige verso l’esca invece che verso il gruppo alla prossima attivazione.
+    [PROVA ACUME] NINO “GRIMALDELLO” CAUTO: 2d6(4,3)=7 +ACUME(2) = 9 vs Media(9) -> SUCCESSO
+    [AZIONE] NINO “GRIMALDELLO” CAUTO sequestra la cassa d’oro di T3 (2/4).
+  [MINACCIA] IL GIRO DI RONDA (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 3) in B1.
+  LO SGHERRO si dirige verso l’esca (Carbone): non attacca questo round.
+  LO SGHERRO si muove verso NINO “GRIMALDELLO” CAUTO: B1 -> A1.
+  LO SGHERRO attacca NINO “GRIMALDELLO” CAUTO:
+    [ATTACCO NEMICO] LO SGHERRO -> NINO “GRIMALDELLO” CAUTO: 2d6(1,5)=6 +Attacco(2) = 8 vs Difesa(8) -> COLPITO
+    NINO “GRIMALDELLO” CAUTO subisce 1 danno da LO SGHERRO (Salute: 6/8).
+--- Round 3: il gruppo raggiunge T4 (La Sala del Crogiolo) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    Il gruppo entra in T4 da B1.
+    Rivelata la Sala del Crogiolo: IL CAMBIAVALUTE non alza gli occhi dal bilancino — i suoi due MASTINI sì.
+    [ABILITÀ] FULGENZIO CARBONE usa Esca preziosa: LO SGHERRO, LO SGHERRO si dirige verso l’esca invece che verso il gruppo alla prossima attivazione.
+    [PROVA ACUME] NINO “GRIMALDELLO” CAUTO: 2d6(5,3)=8 +ACUME(2) = 10 vs Media(9) -> SUCCESSO
+    [AZIONE] NINO “GRIMALDELLO” CAUTO sequestra la cassa d’oro di T4 (3/4).
+  [MINACCIA] LA POLVERE NEGLI OCCHI (insidia) — L’eroe attivo prova NERVI (Media): se fallisce, 1 danno e perde 1 azione.
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6(3,2)=5 +NERVI(1) = 6 vs Media(9) -> FALLITA
+    [SECONDO FIATO] NINO “GRIMALDELLO” CAUTO ritenta la prova (unico ritento dell’episodio):
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6(2,4)=6 +NERVI(1) = 7 vs Media(9) -> FALLITA
+    NINO “GRIMALDELLO” CAUTO subisce 1 danno da LA POLVERE NEGLI OCCHI (Salute: 5/8).
+    NINO “GRIMALDELLO” CAUTO avrà 1 sola azione al suo prossimo turno.
+  LO SGHERRO si dirige verso l’esca (Carbone): non attacca questo round.
+  LO SGHERRO si dirige verso l’esca (Carbone): non attacca questo round.
+  IL MASTINO si avvicina, non ancora a contatto.
+  IL MASTINO si avvicina, non ancora a contatto.
+  IL CAMBIAVALUTE attacca NINO “GRIMALDELLO” CAUTO:
+    [ATTACCO NEMICO] IL CAMBIAVALUTE -> NINO “GRIMALDELLO” CAUTO: 2d6(1,2)=3 +Attacco(2) = 5 vs Difesa(8) -> MANCATO
+--- Round 4: il gruppo raggiunge T5 (L’Ufficio del Pesatore) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    Il gruppo entra in T5 da A3.
+    QUANDO RIVELATE: il guardaspalle del pesatore, dall’ombra.
+    [PROVA ACUME] FULGENZIO CARBONE: 2d6(5,5)=10 +ACUME(2) = 12 vs Media(9) -> SUCCESSO
+    [AZIONE] FULGENZIO CARBONE sequestra la cassa d’oro di T5 (4/4).
+    NINO “GRIMALDELLO” CAUTO ha 1 sola azione questo turno (insidia del round scorso).
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> IL SICARIO: 2d6(1,3)=4 +VIGORE(2)+arma(1) = 7 vs Difesa(7) -> COLPITO
+    IL SICARIO: 0/1 ferite residue.
+    IL SICARIO è ABBATTUTO.
+  [MINACCIA] UNA CHIATTA AMICA (favore) — Rivelate una tessera coperta adiacente.
+    (carta senza effetto modellato in questa simulazione)
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  IL MASTINO si muove verso NINO “GRIMALDELLO” CAUTO: C2 -> B3.
+  IL MASTINO attacca NINO “GRIMALDELLO” CAUTO:
+    [ATTACCO NEMICO] IL MASTINO -> NINO “GRIMALDELLO” CAUTO: 2d6(6,1)=7 +Attacco(2) = 9 vs Difesa(8) -> COLPITO
+    NINO “GRIMALDELLO” CAUTO subisce 2 danno da IL MASTINO (Salute: 3/8).
+  IL MASTINO attacca NINO “GRIMALDELLO” CAUTO:
+    [ATTACCO NEMICO] IL MASTINO -> NINO “GRIMALDELLO” CAUTO: 2d6(2,4)=6 +Attacco(2) = 8 vs Difesa(8) -> COLPITO
+    NINO “GRIMALDELLO” CAUTO subisce 2 danno da IL MASTINO (Salute: 1/8).
+  [OROLOGIO] Fine del 4° round: +1 segnalino Canto automatico.
+    Segnalino Canto (la Voce che gira): 1.
+--- Round 5: il gruppo raggiunge T4 (Crogiolo - ritorno dal ramo) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    Il gruppo entra in T4 da D3.
+    FULGENZIO CARBONE si muove verso LO SGHERRO: D3 -> D1.
+    [ATTACCO] FULGENZIO CARBONE -> LO SGHERRO: 2d6(6,4)=10 +VIGORE(1)+arma(1) = 12 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    NINO “GRIMALDELLO” CAUTO si muove verso LO SGHERRO: D3 -> C2.
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> LO SGHERRO: 2d6(4,3)=7 +VIGORE(2)+arma(1) = 10 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+  [MINACCIA] IL GUINZAGLIO TAGLIATO (malavita) — Piazzate 1 Mastino: si attiva subito.
+    Segnalini IL MASTINO esauriti: il piazzamento non ha luogo (resto della carta si applica comunque).
+  LO SGHERRO si muove verso NINO “GRIMALDELLO” CAUTO: A1 -> C1.
+  LO SGHERRO attacca NINO “GRIMALDELLO” CAUTO:
+    [ATTACCO NEMICO] LO SGHERRO -> NINO “GRIMALDELLO” CAUTO: 2d6(5,5)=10 +Attacco(2) = 12 vs Difesa(8) -> COLPITO
+    NINO “GRIMALDELLO” CAUTO subisce 1 danno da LO SGHERRO (Salute: 0/8).
+    [INTUIZIONE] Il gruppo spende il gettone Dossier: NINO “GRIMALDELLO” CAUTO resta in piedi a 1 Salute invece di cadere.
+  IL MASTINO si muove verso NINO “GRIMALDELLO” CAUTO: B3 -> D3.
+  IL MASTINO si avvicina, non ancora a contatto.
+  IL MASTINO si avvicina, non ancora a contatto.
+  IL CAMBIAVALUTE attacca NINO “GRIMALDELLO” CAUTO:
+    [ATTACCO NEMICO] IL CAMBIAVALUTE -> NINO “GRIMALDELLO” CAUTO: 2d6(2,1)=3 +Attacco(2) = 5 vs Difesa(8) -> MANCATO
+--- Round 6: il gruppo raggiunge T6 (La Porta d’Acqua) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    Il gruppo entra in T6 da B1.
+    [ATTACCO] FULGENZIO CARBONE -> LO SGHERRO: 2d6(2,1)=3 +VIGORE(1)+arma(1) = 5 vs Difesa(8) -> MANCATO
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> LO SGHERRO: 2d6(4,3)=7 +VIGORE(2)+arma(1) = 10 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+  [MINACCIA] L’OMBRA DEL PESATORE (malavita) — Piazzate 1 Sicario: si attiva subito.
+    Piazzati 1x IL SICARIO (pool residua: 1) in B1.
+    IL SICARIO si attiva subito:
+  IL SICARIO si muove verso NINO “GRIMALDELLO” CAUTO: B1 -> A1.
+  IL SICARIO attacca NINO “GRIMALDELLO” CAUTO:
+    [ATTACCO NEMICO] IL SICARIO -> NINO “GRIMALDELLO” CAUTO: 2d6(4,5)=9 +Attacco(3) = 12 vs Difesa(8) -> COLPITO
+    NINO “GRIMALDELLO” CAUTO subisce 2 danno da IL SICARIO (Salute: 0/8).
+    *** NINO “GRIMALDELLO” CAUTO è A TERRA. ***
+  LO SGHERRO attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] LO SGHERRO -> FULGENZIO CARBONE: 2d6(6,2)=8 +Attacco(2) = 10 vs Difesa(8) -> COLPITO
+    FULGENZIO CARBONE subisce 1 danno da LO SGHERRO (Salute: 6/7).
+  IL MASTINO si avvicina, non ancora a contatto.
+  IL MASTINO si avvicina, non ancora a contatto.
+--- Alla Porta d’Acqua (T6) con 4/4 casse ---
+
+==============================================================================
+ESITO SPEDIZIONE: VITTORIA
+Round totali: 6
+Formula Minaccia: finale_v3 | Azioni nominali/round: media 4.0, picco 4
+Mazzo Minaccia rimescolato: 0 volta/e
+Segnalini nemici esauriti nel pool (piazzamenti saltati): 1
+Casse sequestrate: 4/4 | Cambiavalute: al crogiolo
+  FULGENZIO CARBONE: 6/7 Salute
+  NINO “GRIMALDELLO” CAUTO: a terra
+==============================================================================

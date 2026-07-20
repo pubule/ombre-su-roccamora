@@ -1,0 +1,72 @@
+==============================================================================
+SPEDIZIONE - Il Molino delle Carte, prima che bruci
+==============================================================================
+Party: CARLA DOSTI, FULGENZIO CARBONE, OTTAVIO BRERA, OTTONE “MEZZENA” MASSARI  |  PREPARATI  |  Cassetta: sì  |  Taccuino: sì  |  Lasciapassare: sì
+  [LASCIAPASSARE] Entrate come gente del trasporto: nessuno sbarramento a T1.
+--- Round 1: T1 · Canto 0/5 fuoco ---
+  [MINACCIA] ORDINI DAL SORVEGLIANTE (spawn)
+    Piazzato 1 uomo del molino (Sgherro).
+  [MINACCIA] LA RONDA DEL CORTILE (spawn)
+    Piazzato 1 uomo del molino (Sgherro).
+    OTTONE “MEZZENA” MASSARI subisce 1 da uomo del molino (Salute 9/10).
+--- Round 2: T2 (pericolo d’ambiente) · Canto 0/5 fuoco ---
+    [PROVA VIGORE] OTTAVIO BRERA: 2d6=10 +VIGORE(1) +1 = 12 vs Media(9) -> SUCCESSO
+  [MINACCIA] LA POLVERE CHE SOFFOCA (insidiaA)
+    [PROVA NERVI] CARLA DOSTI: 2d6=5 +NERVI(2) +1 = 8 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] FULGENZIO CARBONE: 2d6=8 +NERVI(3) +1 = 12 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] OTTAVIO BRERA: 2d6=3 +NERVI(2) +1 = 6 vs Facile(7) -> FALLITA
+    [PROVA NERVI] OTTAVIO BRERA: 2d6=10 +NERVI(2) +1 = 13 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6=7 +NERVI(2) +1 = 10 vs Facile(7) -> SUCCESSO
+  [MINACCIA] RINCALZI DALLE MACINE (spawn)
+    Piazzato 1 uomo del molino (Sgherro).
+    OTTONE “MEZZENA” MASSARI subisce 1 da uomo del molino (Salute 8/10).
+    FULGENZIO CARBONE subisce 1 da uomo del molino (Salute 7/8).
+--- Round 3: T3 (pericolo d’ambiente) · Canto 0/5 fuoco ---
+    [PROVA VIGORE] OTTONE “MEZZENA” MASSARI: 2d6=7 +VIGORE(3) +1 = 11 vs Media(9) -> SUCCESSO
+  [MINACCIA] LA CORRENTE DELLA ROGGIA (ambiente)
+    [PROVA VIGORE] OTTAVIO BRERA: 2d6=6 +VIGORE(1) +1 = 8 vs Media(9) -> FALLITA
+    OTTAVIO BRERA: travolto dall’ambiente — 1 round perso (nessun danno).
+  [MINACCIA] IL TETTO PRENDE (crescendo)
+--- Round 4: T4 · Canto 1/5 fuoco ---
+    Appare IL NOTAIO: ordina il rogo e fugge in carrozza (non si prende).
+  [MINACCIA] LA MACINA SI FERMA (quiete)
+  [MINACCIA] LO STRACCIO IN FIAMME (insidiaB)
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6=6 +NERVI(2) +1 = 9 vs Media(9) -> SUCCESSO
+  [OROLOGIO] Fine del 4° round: +1 Canto automatico.
+--- Round 5: T5 (pericolo d’ambiente) · Canto 2/5 fuoco ---
+  [MINACCIA] CHI COPRE LA FUGA DEL NOTAIO (spawn)
+    Piazzato 1 uomo del molino (Sgherro).
+  [MINACCIA] IL FISCHIO DEL SORVEGLIANTE (spawn)
+    Piazzato 1 uomo del molino (Sgherro) — subito.
+    FULGENZIO CARBONE subisce 1 da uomo del molino (Salute 6/8).
+--- Round 6+: LA SALA DEL TORCHIO (T6) — il Sorvegliante (Fer 5) ---
+--- Round 6 (T6): Sorvegliante 5/5 · Canto 2 (no fuoco) ---
+  [MINACCIA] UNA PORTA D’ACQUA APERTA (favore)
+  [MINACCIA] L’INGRANAGGIO DELLE MACINE (insidiaB)
+    [PROVA NERVI] OTTAVIO BRERA: 2d6=6 +NERVI(2) +1 = 9 vs Media(9) -> SUCCESSO
+    OTTAVIO BRERA subisce 1 da uomo del molino (Salute 7/8).
+    OTTONE “MEZZENA” MASSARI subisce 1 da uomo del molino (Salute 7/10).
+    [IL NOME DEL NOTAIO — D2] il Sorvegliante esita: un colpo in meno.
+    FULGENZIO CARBONE subisce 2 da il Sorvegliante (Salute 4/8).
+--- Round 7 (T6): Sorvegliante 5/5 · Canto 2 (no fuoco) ---
+  [MINACCIA] CHI SBARRA LA STRADA (spawn)
+    Piazzato 1 uomo del molino (Sgherro) — subito.
+  [MINACCIA] LA PASSERELLA SCIVOLOSA (ambiente)
+    [PROVA VIGORE] OTTONE “MEZZENA” MASSARI: 2d6=9 +VIGORE(3) +1 = 13 vs Media(9) -> SUCCESSO
+    CARLA DOSTI subisce 1 da uomo del molino (Salute 7/8).
+    OTTAVIO BRERA subisce 1 da uomo del molino (Salute 6/8).
+    FULGENZIO CARBONE subisce 2 da il Sorvegliante (Salute 2/8).
+    [INTUIZIONE] FULGENZIO CARBONE resta a 1 Salute invece di cadere (gettone Dossier).
+--- Round 8 (T6): Sorvegliante 3/5 · Canto 2 (no fuoco) ---
+    *** IL SORVEGLIANTE È A TERRA: la strada al torchio è libera. ***
+  [MINACCIA] IL PRIMO FOCOLAIO (crescendo)
+    Il fuoco monta (Canto 3): +1 carta Minaccia per Fase, per sempre.
+  [MINACCIA] UNA TRAVE IN FIAMME (danno)
+    CARLA DOSTI subisce 1 da UNA TRAVE IN FIAMME (Salute 6/8).
+    FULGENZIO CARBONE subisce 1 da uomo del molino (Salute 0/8).
+    *** FULGENZIO CARBONE è A TERRA. ***
+    Registri sequestrati. In Cassetta Stagna: prova INTATTA.
+
+==============================================================================
+ESITO: VITTORIA  |  Round: 8  |  Canto 4  |  soglia-fuoco 5
+==============================================================================

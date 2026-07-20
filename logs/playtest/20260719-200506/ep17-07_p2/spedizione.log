@@ -1,0 +1,81 @@
+==============================================================================
+SPEDIZIONE - La villa-prigione (il picco: lo scisma pesa)
+==============================================================================
+Party: DOTT. ATTILIO MARN, DOTT. LAZZARO SERRA, ELENA FOSCO, FULGENZIO CARBONE, OTTAVIO BRERA, OTTONE “MEZZENA” MASSARI, SIBILLA REVE  |  PREPARATI  |  Cifra: sì  |  Chiavi: sì  |  Salvacondotto: sì
+  [CHIAVI] Entrate senza sfondare: niente sbarramento al cancello (T1).
+  [SCISMA] Malus di morale: -1 ai NERVI finché il decano non è libero.
+--- Round 1: T1 · Canto 0/4 decano · morale -1 ---
+    [DOVE — D1] sapete dove sbarcare: nessuna carta Minaccia questo round.
+--- Round 2: T2 · Canto 0/4 decano · morale -1 ---
+  [MINACCIA] IL DECANO VIENE SPOSTATO (crescendo)
+  [MINACCIA] LA CARROZZA AL CANCELLO POSTERIORE (crescendo)
+  [MINACCIA] CHI COPRE IL NOTAIO (spawn)
+    Piazzato 1 uomo del Notaio (Sgherro) — subito.
+    DOTT. LAZZARO SERRA subisce 1 da uomo del Notaio (subito) (Salute 5/6).
+    SIBILLA REVE subisce 1 da uomo del Notaio (Salute 5/6).
+--- Round 3: T3 · Canto 2/4 decano · morale -1 ---
+  [MINACCIA] POSTO DI BLOCCO (spawn)
+    Piazzato 1 uomo del Notaio (Sgherro).
+  [MINACCIA] L’ULTIMO LAVORO (crescendo)
+    Il trasferimento si avvicina (Canto 3): +1 carta Minaccia per Fase.
+    OTTAVIO BRERA subisce 1 da uomo del Notaio (Salute 5/6).
+--- Round 4: T4 · Canto 3/4 decano · morale -1 ---
+    Il Notaio ordina il trasferimento: da ora la soglia-decano corre.
+  [MINACCIA] UN COLPO DALLA GUARDIA (danno)
+    DOTT. ATTILIO MARN subisce 1 da UN COLPO DALLA GUARDIA (Salute 6/7).
+  [MINACCIA] RASCA DÀ L’ORDINE (crescendo)
+    *** SOGLIA-DECANO (4): il decano è trasferito. Lo recupererete ferito grave. ***
+  [MINACCIA] LA VOCE DEL TRADITORE (insidiaA)
+    [PROVA NERVI] DOTT. ATTILIO MARN: 2d6=3 +NERVI(2) -1 = 4 vs Facile(7) -> FALLITA
+    [PROVA NERVI] DOTT. ATTILIO MARN: 2d6=2 +NERVI(2) -1 = 3 vs Facile(7) -> FALLITA
+    [PROVA NERVI] DOTT. LAZZARO SERRA: 2d6=4 +NERVI(2) -1 = 5 vs Facile(7) -> FALLITA
+    [PROVA NERVI] ELENA FOSCO: 2d6=8 +NERVI(2) -1 = 9 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] FULGENZIO CARBONE: 2d6=4 +NERVI(3) -1 = 6 vs Facile(7) -> FALLITA
+    [PROVA NERVI] FULGENZIO CARBONE: 2d6=8 +NERVI(3) -1 = 10 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] OTTAVIO BRERA: 2d6=5 +NERVI(2) -1 = 6 vs Facile(7) -> FALLITA
+    [PROVA NERVI] OTTAVIO BRERA: 2d6=6 +NERVI(2) -1 = 7 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6=8 +NERVI(2) -1 = 9 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] SIBILLA REVE: 2d6=9 +NERVI(3) -1 = 11 vs Facile(7) -> SUCCESSO
+  [MINACCIA] IL SOSPETTO RECIPROCO (insidiaA)
+    [PROVA NERVI] DOTT. ATTILIO MARN: 2d6=7 +NERVI(2) -1 = 8 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] DOTT. LAZZARO SERRA: 2d6=7 +NERVI(2) -1 = 8 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] ELENA FOSCO: 2d6=4 +NERVI(2) -1 = 5 vs Facile(7) -> FALLITA
+    [PROVA NERVI] ELENA FOSCO: 2d6=6 +NERVI(2) -1 = 7 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] FULGENZIO CARBONE: 2d6=3 +NERVI(3) -1 = 5 vs Facile(7) -> FALLITA
+    [PROVA NERVI] OTTAVIO BRERA: 2d6=10 +NERVI(2) -1 = 11 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6=7 +NERVI(2) -1 = 8 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] SIBILLA REVE: 2d6=6 +NERVI(3) -1 = 8 vs Facile(7) -> SUCCESSO
+  [OROLOGIO] Fine del 4° round: +1 Canto automatico.
+--- Round 5: T5 · Canto 5/4 decano · morale -1 ---
+    Il decano era già in trasferimento: recuperato VIVO ma ferito grave (non depone lucido).
+    [MORALE] Trovato il decano vivo: il malus di scisma è CANCELLATO.
+  [MINACCIA] IL FREDDO DELLA CANTINA (insidiaV)
+    [PROVA VIGORE] SIBILLA REVE: 2d6=7 +VIGORE(1) = 8 vs Media(9) -> FALLITA
+  [MINACCIA] LA RONDA DELLA VILLA (spawn)
+    Piazzato 1 uomo del Notaio (Sgherro).
+  [MINACCIA] L’ULTIMO MURO (spawn)
+    Piazzato 1 uomo del Notaio (Sgherro) — subito.
+    OTTAVIO BRERA subisce 1 da uomo del Notaio (Salute 4/6).
+    DOTT. ATTILIO MARN subisce 1 da uomo del Notaio (Salute 5/7).
+--- Round 6+: LO STUDIO DEL NOTAIO (T6) — la Guardia (Fer 6) + il Notaio ---
+--- Round 6 (T6): Guardia 6/6 · Canto 5 ---
+  [MINACCIA] IL CORRIDOIO DELLE CELLE (insidiaB)
+    [PROVA NERVI] OTTAVIO BRERA: 2d6=10 +NERVI(2) = 12 vs Media(9) -> SUCCESSO
+  [MINACCIA] LA PORTA BLINDATA (ostacolo)
+  [MINACCIA] UN UOMO DEL DECANO (favore)
+  [MINACCIA] RINCALZI DALLA RIMESSA (spawn)
+    Piazzato 1 uomo del Notaio (Sgherro).
+    DOTT. LAZZARO SERRA subisce 1 da uomo del Notaio (Salute 4/6).
+    FULGENZIO CARBONE subisce 1 da uomo del Notaio (Salute 5/6).
+    [LA MATRICE — D3] la Guardia esita: un colpo in meno.
+--- Round 7 (T6): Guardia 3/6 · Canto 5 ---
+    *** LA GUARDIA È A TERRA: la strada al Notaio è libera. ***
+  [MINACCIA] LA VILLA CHE TACE (quiete)
+  [MINACCIA] LA GUARDIA AL CORTILE (spawn)
+    Piazzato 1 uomo del Notaio (Sgherro).
+  [MINACCIA] CASSE DI CUSTODIA (ostacolo)
+    Il Notaio è catturato. Decano ferito o niente matrice: prova parziale.
+
+==============================================================================
+ESITO: VITTORIA-PARZIALE  |  Round: 7  |  Canto 5  |  decano ferito  |  soglia 4
+==============================================================================

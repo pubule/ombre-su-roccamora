@@ -1,0 +1,96 @@
+Run: ep9-02_p0_seed0  |  seed=693000  |  formula Minaccia=finale_v3  |  generato: 2026-07-19T20:04:58
+==============================================================================
+SPEDIZIONE - La scorta del teste, dopo mezzanotte
+==============================================================================
+Party: DOTT. LAZZARO SERRA, FULGENZIO CARBONE
+Bonus da Indagine: PREPARATI (+1 Salute massima a testa); Bolla: sì; Lanterna+Tappi: sì; D1: esatta; D3: sbagliata
+NOTA: gruppo trattato come blocco unico tessera per tessera (vedi intestazione script).
+Tensione tavolo piccolo: +-1 Ferite SOLO al Sicario Gentile (non ai nemici di truppa).
+
+Tavolo da 2: +1 Salute massima a testa (ricalibrazione).
+  Partenza tardi, ronde già ritirate (Domanda 3): +1 segnalino Canto.
+  Col Salvacondotto (Domanda 4): alla partenza si salta una tessera d’imboscata.
+  [SALVACONDOTTO] Si salta Vicolo dei Tintori.
+--- Round 1: la scorta attraversa T1 (Sacrestia) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    La scorta entra in T1 da B1 (Riva in mezzo).
+    [PROVA ACUME] DOTT. LAZZARO SERRA: 2d6(4,1)=5 +ACUME(3) = 8 vs Media(9) -> FALLITA
+    DOTT. LAZZARO SERRA cerca sulla tessera: niente da trovare qui, o prova fallita.
+    FULGENZIO CARBONE: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] L’UOMO SUL TETTO (malavita) — Piazzate 1 Sicario sull’uscita più vicina agli eroi.
+    Piazzati 1x IL SICARIO (pool residua: 2) in B1.
+  IL SICARIO si muove verso Riva: B1 -> C1.
+  DOTT. LAZZARO SERRA fa da SCUDO a Riva e para il colpo di IL SICARIO:
+    [ATTACCO NEMICO] IL SICARIO -> DOTT. LAZZARO SERRA: 2d6(3,1)=4 +Attacco(3) = 7 vs Difesa(8) -> MANCATO
+--- Round 2: la scorta attraversa T3 (Ponte delle Catene) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    La scorta entra in T3 da B1 (Riva in mezzo).
+    Sul Ponte delle Catene, appare IL SICARIO GENTILE: si toglie il cappello. «Signori. Mi dispiace per quello che segue.»
+    [IL NOME SBAGLIATO — D2] gli ricordate che i mandanti bruciano i sicari come Ferri: il Sicario esita (salta la prima attivazione).
+    [ABILITÀ] DOTT. LAZZARO SERRA attiva Voce ferma (2 usi residui): +2 NERVI agli alleati fino al suo prossimo turno.
+    [ABILITÀ] FULGENZIO CARBONE usa Esca preziosa: IL SICARIO si dirige verso l’esca invece che verso il gruppo alla prossima attivazione.
+  [MINACCIA] LA LAMA EDUCATA (insidia) — L’eroe adiacente a Riva subisce 1 danno (fare da scudo ha un prezzo).
+    FULGENZIO CARBONE subisce 1 danno da LA LAMA EDUCATA (Salute: 7/8).
+  IL SICARIO si dirige verso l’esca (Carbone): non attacca questo round.
+  IL SICARIO GENTILE salta l’attivazione (stonato).
+--- Round 3: la scorta attraversa T4 (Mercato Coperto) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    La scorta entra in T4 da B1 (Riva in mezzo).
+    Nel Mercato Coperto: 1 Sgherro e 1 Sicario tra i banchi.
+    [FISCHIETTO D’ALLARME] una ronda onesta accorre: 1 Sgherro messo in fuga.
+    DOTT. LAZZARO SERRA si muove verso IL SICARIO: B1 -> C2.
+    [ATTACCO] DOTT. LAZZARO SERRA -> IL SICARIO: 2d6(2,4)=6 +VIGORE(1)+arma(1) = 8 vs Difesa(7) -> COLPITO
+    IL SICARIO: 0/1 ferite residue.
+    IL SICARIO è ABBATTUTO.
+    [ABILITÀ] FULGENZIO CARBONE usa Esca preziosa: IL SICARIO si dirige verso l’esca invece che verso il gruppo alla prossima attivazione.
+  [MINACCIA] IL PONTE LEVATO (ostacolo) — Muoversi costa il doppio sulla tessera dell’eroe attivo fino a fine round.
+    (carta senza effetto modellato in questa simulazione)
+  IL SICARIO si dirige verso l’esca (Carbone): non attacca questo round.
+  IL SICARIO GENTILE si avvicina, non ancora a contatto.
+--- Round 4: la scorta attraversa T5 (Salita dei Lampionai) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    La scorta entra in T5 da B1 (Riva in mezzo).
+    Il Sicario Gentile si è portato AVANTI e aspetta in cima alla Salita.
+    [ABILITÀ] DOTT. LAZZARO SERRA attiva Voce ferma (1 usi residui): +2 NERVI agli alleati fino al suo prossimo turno.
+    FULGENZIO CARBONE si muove verso IL SICARIO: B1 -> A3.
+    [ATTACCO] FULGENZIO CARBONE -> IL SICARIO: 2d6(1,6)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(7) -> COLPITO
+    IL SICARIO: 0/1 ferite residue.
+    IL SICARIO è ABBATTUTO.
+  [MINACCIA] I BRAVI DEL FONDO (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 3) in B1.
+  LO SGHERRO si muove verso Riva: B1 -> C1.
+  DOTT. LAZZARO SERRA fa da SCUDO a Riva e para il colpo di LO SGHERRO:
+    [ATTACCO NEMICO] LO SGHERRO -> DOTT. LAZZARO SERRA: 2d6(5,6)=11 +Attacco(2) = 13 vs Difesa(8) -> COLPITO
+    DOTT. LAZZARO SERRA subisce 1 danno da LO SGHERRO (Salute: 7/8).
+  IL SICARIO GENTILE si muove verso Riva: B4 -> D2.
+  IL SICARIO GENTILE si avvicina, non ancora a contatto.
+  [OROLOGIO] Fine del 4° round: +1 segnalino Canto automatico.
+    Segnalino Canto (l’Ora che stringe): 2.
+--- Round 5: la scorta attraversa T6 (Molo del Lume) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    La scorta entra in T6 da B1 (Riva in mezzo).
+    DOTT. LAZZARO SERRA si muove verso LO SGHERRO: B1 -> C2.
+    [ATTACCO] DOTT. LAZZARO SERRA -> LO SGHERRO: 2d6(3,1)=4 +VIGORE(1)+arma(1) = 6 vs Difesa(8) -> MANCATO
+    [ATTACCO] FULGENZIO CARBONE -> LO SGHERRO: 2d6(3,1)=4 +VIGORE(1)+arma(1) = 6 vs Difesa(8) -> MANCATO
+  [MINACCIA] LA NEBBIA DEL FIUME (insidia) — Ogni eroe prova NERVI (Facile): chi fallisce ha 1 sola azione al prossimo turno.
+    [PROVA NERVI] DOTT. LAZZARO SERRA: 2d6(5,2)=7 +NERVI(2) = 9 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] FULGENZIO CARBONE: 2d6(4,6)=10 +NERVI(3) = 13 vs Facile(7) -> SUCCESSO
+  LO SGHERRO attacca DOTT. LAZZARO SERRA:
+    [ATTACCO NEMICO] LO SGHERRO -> DOTT. LAZZARO SERRA: 2d6(3,2)=5 +Attacco(2) = 7 vs Difesa(8) -> MANCATO
+  IL SICARIO GENTILE si muove verso Riva: D2 -> B2.
+  DOTT. LAZZARO SERRA copre Riva dal Sicario (Riva +2 Difesa, non si para del tutto un professionista).
+  IL SICARIO GENTILE punta RIVA (il teste):
+    [ATTACCO NEMICO] IL SICARIO GENTILE -> RIVA: 2d6(5,3)=8 +Attacco(3) = 11 vs Difesa(10) -> COLPITO
+    RIVA subisce 2 danno (Salute: 1/3).
+--- Riva raggiunge la barca al Molo del Lume (Interagire): VITTORIA. ---
+
+==============================================================================
+ESITO SPEDIZIONE: VITTORIA
+Round totali: 5
+Formula Minaccia: finale_v3 | Azioni nominali/round: media 4.0, picco 4
+Mazzo Minaccia rimescolato: 0 volta/e
+Segnalini nemici esauriti nel pool (piazzamenti saltati): 0
+Riva: salvo (Salute 1/3) | Sicario Gentile: in gioco
+  DOTT. LAZZARO SERRA: 7/8 Salute
+  FULGENZIO CARBONE: 7/8 Salute
+==============================================================================

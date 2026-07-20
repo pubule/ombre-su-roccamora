@@ -1,0 +1,266 @@
+Run: ep5-02_p3_seed0  |  seed=653300  |  formula Minaccia=finale_v3  |  generato: 2026-07-19T16:26:35
+==============================================================================
+SPEDIZIONE - La cripta dei Battuti
+==============================================================================
+Party: ELENA FOSCO, SIBILLA REVE
+Bonus da Indagine: nessun vantaggio; Acqua del Fonte: sì; Candele: sì; D1: esatta; D3: esatta
+NOTA: gruppo trattato come blocco unico tessera per tessera (vedi intestazione script).
+Tensione tavolo piccolo: +-1 Ferite SOLO al Salmodiante (non ai nemici di truppa).
+
+Tavolo da 2: +1 Salute massima a testa (ricalibrazione).
+Gettone Intuizione in mano (Dossier completo): un ri-tiro, una volta in Spedizione.
+--- Round 1: il gruppo raggiunge T2 (Navata Sepolta) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    Il gruppo entra in T2 da B1.
+    [PROVA ACUME] ELENA FOSCO: 2d6(1,5)=6 +ACUME(3) = 9 vs Media(9) -> SUCCESSO
+    ELENA FOSCO cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] LA NOTA BASSA (insidia) — L’eroe con meno NERVI prova NERVI (Media): se fallisce 1 danno.
+    [PROVA NERVI] ELENA FOSCO: 2d6(3,3)=6 +NERVI(2) = 8 vs Media(9) -> FALLITA
+    ELENA FOSCO subisce 1 danno da LA NOTA BASSA (Salute: 6/7).
+--- Round 2: il gruppo raggiunge T3 (Corridoio degli Ossari) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    Il gruppo entra in T3 da B1.
+    [OGGETTO] Le Candele della Parrocchia: +1 alla prova.
+    [PROVA NERVI] ELENA FOSCO: 2d6(4,2)=6 +NERVI(2) +candele(+1) = 9 vs Difficile(11) -> FALLITA
+    ELENA FOSCO: il muro gli canta accanto — 1 sola azione al prossimo turno.
+    [PROVA NERVI] SIBILLA REVE: 2d6(3,1)=4 +NERVI(3) +candele(+1) = 8 vs Difficile(11) -> FALLITA
+    [SECONDO FIATO] SIBILLA REVE ritenta la prova (unico ritento dell’episodio):
+    [PROVA NERVI] SIBILLA REVE: 2d6(5,1)=6 +NERVI(3) +candele(+1) = 10 vs Difficile(11) -> FALLITA
+    SIBILLA REVE: il muro gli canta accanto — 1 sola azione al prossimo turno.
+    ELENA FOSCO ha 1 sola azione questo turno (insidia del round scorso).
+    [PROVA ACUME] ELENA FOSCO: 2d6(2,4)=6 +ACUME(3) = 9 vs Media(9) -> SUCCESSO
+    ELENA FOSCO cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    SIBILLA REVE ha 1 sola azione questo turno (insidia del round scorso).
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] IL CARRO VUOTO (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 1) in B1.
+  LO SGHERRO si muove verso ELENA FOSCO: B1 -> C1.
+  LO SGHERRO attacca ELENA FOSCO:
+    [ATTACCO NEMICO] LO SGHERRO -> ELENA FOSCO: 2d6(1,1)=2 +Attacco(2) = 4 vs Difesa(8) -> MANCATO
+--- Round 3: il gruppo raggiunge T4 (Sala del Capitolo) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    Il gruppo entra in T4 da B1.
+    QUANDO RIVELATE: 1 Adepto sta calando dalla corda della Confluenza.
+    QUANDO RIVELATE: 1 Confratello di guardia appare tra i sedili del capitolo.
+    [ATTACCO] ELENA FOSCO -> IL CONFRATELLO: 2d6(6,5)=11 +VIGORE(1)+arma(1) = 13 vs Difesa(7) -> COLPITO
+    IL CONFRATELLO: 0/1 ferite residue.
+    IL CONFRATELLO è ABBATTUTO.
+    [ATTACCO] SIBILLA REVE -> LO SGHERRO: 2d6(4,6)=10 +VIGORE(1)+arma(1) = 12 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    [ABILITÀ] SIBILLA REVE scruta il mazzo: «IL REGISTRO PIENO» finisce in fondo, «LA PROCESSIONE» torna in cima (2 usi residui).
+  [MINACCIA] LA PROCESSIONE (posseduto) — Piazzate 1 Confratello sull’uscita più vicina agli eroi.
+    Piazzati 1x IL CONFRATELLO (pool residua: 3) in B1.
+  LO SGHERRO attacca SIBILLA REVE:
+    [ATTACCO NEMICO] LO SGHERRO -> SIBILLA REVE: 2d6(6,2)=8 +Attacco(2) = 10 vs Difesa(8) -> COLPITO
+    SIBILLA REVE subisce 1 danno da LO SGHERRO (Salute: 6/7).
+  ADEPTO INCAPPUCCIATO si muove verso ELENA FOSCO: D3 -> A4.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  IL CONFRATELLO si muove verso ELENA FOSCO: B1 -> A1.
+  IL CONFRATELLO attacca ELENA FOSCO:
+    [ATTACCO NEMICO] IL CONFRATELLO -> ELENA FOSCO: 2d6(5,3)=8 +Attacco(1) = 9 vs Difesa(8) -> COLPITO
+    ELENA FOSCO subisce 1 danno da IL CONFRATELLO (Salute: 5/7).
+--- Round 4: il gruppo raggiunge T5 (Officina delle Canne d’Ossa) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    Il gruppo entra in T5 da A3.
+    QUANDO RIVELATE: l’officina delle canne — le casse contro il muro.
+    Le casse di ossa contro il muro: Interagire per salvarle (contano nell’epilogo, non simulate).
+    [ATTACCO] ELENA FOSCO -> ADEPTO INCAPPUCCIATO: 2d6(2,5)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    SIBILLA REVE si muove verso IL CONFRATELLO: A3 -> A2.
+    [ATTACCO] SIBILLA REVE -> IL CONFRATELLO: 2d6(5,4)=9 +VIGORE(1)+arma(1) = 11 vs Difesa(7) -> COLPITO
+    IL CONFRATELLO: 0/1 ferite residue.
+    IL CONFRATELLO è ABBATTUTO.
+    [ABILITÀ] SIBILLA REVE scruta il mazzo: «LA PRIMA CANNA» finisce in fondo, «LA CALATA DELLE CASSE» torna in cima (1 usi residui).
+  [MINACCIA] LA CALATA DELLE CASSE (posseduto) — Piazzate 1 Adepto sull’ingresso dell’Officina (T5).
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 3), a 6 caselle dalla tessera del gruppo.
+  LO SGHERRO si muove verso SIBILLA REVE: C1 -> B2.
+  LO SGHERRO attacca SIBILLA REVE:
+    [ATTACCO NEMICO] LO SGHERRO -> SIBILLA REVE: 2d6(1,6)=7 +Attacco(2) = 9 vs Difesa(8) -> COLPITO
+    SIBILLA REVE subisce 1 danno da LO SGHERRO (Salute: 5/7).
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+  [OROLOGIO] Fine del 4° round: +1 segnalino Canto automatico.
+    Segnalino Canto: 1.
+--- Round 5: il gruppo raggiunge T4 (Sala del Capitolo - ritorno dal ramo) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    Il gruppo entra in T4 da D3.
+    [PROVA ACUME] ELENA FOSCO: 2d6(2,1)=3 +ACUME(3) = 6 vs Media(9) -> FALLITA
+    ELENA FOSCO cerca sulla tessera: niente da trovare qui, o prova fallita.
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+    [ABILITÀ] SIBILLA REVE scruta il mazzo: «L’ACCORDATURA» finisce in fondo, «PASSI SULLA SCALA» torna in cima (0 usi residui).
+  [MINACCIA] PASSI SULLA SCALA (posseduto) — Piazzate 1 Adepto sull’ingresso della Scala del Sagrato (T1).
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 2), a 6 caselle dalla tessera del gruppo.
+  LO SGHERRO si muove verso SIBILLA REVE: B2 -> D2.
+  LO SGHERRO attacca SIBILLA REVE:
+    [ATTACCO NEMICO] LO SGHERRO -> SIBILLA REVE: 2d6(2,1)=3 +Attacco(2) = 5 vs Difesa(8) -> MANCATO
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+--- Round 6: il gruppo raggiunge T6 (L’Organo Murato) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    Il gruppo entra in T6 da B1.
+    Rivelato l’Organo Murato: il Salmodiante con la scorta di Confratelli, in C2 — il Maestro dei Registri fugge dalla condotta.
+    [OGGETTO] ELENA FOSCO versa L’ACQUA DEL FONTE davanti al Salmodiante: l’unica voce più vecchia della sua — Difesa 8->5, salta la prossima attivazione.
+    SIBILLA REVE si muove verso IL CONFRATELLO: B1 -> A2.
+    [ATTACCO] SIBILLA REVE -> IL CONFRATELLO: 2d6(4,6)=10 +VIGORE(1)+arma(1) = 12 vs Difesa(8) -> COLPITO
+    IL CONFRATELLO: 0/1 ferite residue.
+    IL CONFRATELLO è ABBATTUTO.
+  [MINACCIA] LA BOTOLA SI APRE (posseduto) — Piazzate 1 Adepto sull’ingresso della Scala del Sagrato (T1).
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 1), a 6 caselle dalla tessera del gruppo.
+  LO SGHERRO si muove verso SIBILLA REVE: D2 -> B4.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+  IL SALMODIANTE salta l’attivazione (stonato).
+--- Combattimento contro il Salmodiante ---
+--- Round 7: scontro all’Organo Murato ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    ELENA FOSCO si muove verso IL SALMODIANTE: B1 -> B2.
+    [ATTACCO] ELENA FOSCO -> IL SALMODIANTE: 2d6(2,5)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(5) -> COLPITO
+    IL SALMODIANTE: 2/3 ferite residue.
+    SIBILLA REVE si muove verso LO SGHERRO: A2 -> A4.
+    [ATTACCO] SIBILLA REVE -> LO SGHERRO: 2d6(3,3)=6 +VIGORE(1)+arma(1) = 8 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+  [MINACCIA] LA SALMODIA NELLE OSSA (insidia) — Ogni eroe prova NERVI (Facile): chi fallisce ha 1 sola azione al prossimo turno.
+    [PROVA NERVI] ELENA FOSCO: 2d6(6,6)=12 +NERVI(2) = 14 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] SIBILLA REVE: 2d6(2,1)=3 +NERVI(3) = 6 vs Facile(7) -> FALLITA
+    SIBILLA REVE avrà 1 sola azione al suo prossimo turno.
+  ADEPTO INCAPPUCCIATO raggiunge la tessera del gruppo, da B1.
+  ADEPTO INCAPPUCCIATO si muove verso ELENA FOSCO: B1 -> A2.
+  ADEPTO INCAPPUCCIATO attacca ELENA FOSCO:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> ELENA FOSCO: 2d6(4,3)=7 +Attacco(1) = 8 vs Difesa(8) -> COLPITO
+    ELENA FOSCO subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 4/7).
+  ADEPTO INCAPPUCCIATO raggiunge la tessera del gruppo, da B1.
+  ADEPTO INCAPPUCCIATO si muove verso SIBILLA REVE: B1 -> D3.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 1 caselle prima di raggiungere la tessera del gruppo.
+  IL SALMODIANTE attacca ELENA FOSCO:
+    [ATTACCO NEMICO] IL SALMODIANTE -> ELENA FOSCO: 2d6(4,5)=9 +Attacco(3) = 12 vs Difesa(8) -> COLPITO
+    ELENA FOSCO subisce 2 danno da IL SALMODIANTE (Salute: 2/7).
+--- Round 8: scontro all’Organo Murato ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    ELENA FOSCO si muove verso ADEPTO INCAPPUCCIATO: B2 -> A3.
+    [ATTACCO] ELENA FOSCO -> ADEPTO INCAPPUCCIATO: 2d6(4,5)=9 +VIGORE(1)+arma(1) = 11 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    SIBILLA REVE ha 1 sola azione questo turno (insidia del round scorso).
+    SIBILLA REVE si muove verso ADEPTO INCAPPUCCIATO: A4 -> D4.
+    SIBILLA REVE (1 sola azione) si limita ad avvicinarsi a ADEPTO INCAPPUCCIATO.
+  [MINACCIA] LA POLVERE DI CRIPTA (insidia) — L’eroe attivo prova NERVI (Media): se fallisce, 1 danno e perde 1 azione.
+    [PROVA NERVI] ELENA FOSCO: 2d6(3,3)=6 +NERVI(2) = 8 vs Media(9) -> FALLITA
+    ELENA FOSCO subisce 1 danno da LA POLVERE DI CRIPTA (Salute: 1/7).
+    ELENA FOSCO avrà 1 sola azione al suo prossimo turno.
+  ADEPTO INCAPPUCCIATO si muove verso SIBILLA REVE: D3 -> B1.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO raggiunge la tessera del gruppo, da C1.
+  ADEPTO INCAPPUCCIATO si muove verso SIBILLA REVE: C1 -> D3.
+  ADEPTO INCAPPUCCIATO attacca SIBILLA REVE:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> SIBILLA REVE: 2d6(4,2)=6 +Attacco(1) = 7 vs Difesa(8) -> MANCATO
+  IL SALMODIANTE si muove verso ELENA FOSCO: C2 -> B3.
+  IL SALMODIANTE attacca ELENA FOSCO:
+    [ATTACCO NEMICO] IL SALMODIANTE -> ELENA FOSCO: 2d6(6,6)=12 +Attacco(3) = 15 vs Difesa(8) -> COLPITO
+    ELENA FOSCO subisce 2 danno da IL SALMODIANTE (Salute: 0/7).
+    [INTUIZIONE] Il gruppo spende il gettone Dossier: ELENA FOSCO resta in piedi a 1 Salute invece di cadere.
+  [OROLOGIO] Fine del 8° round: +1 segnalino Canto automatico.
+    Segnalino Canto: 2.
+--- Round 9: scontro all’Organo Murato ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    ELENA FOSCO ha 1 sola azione questo turno (insidia del round scorso).
+    ELENA FOSCO si muove verso IL SALMODIANTE: A3 -> B4.
+    [ATTACCO] ELENA FOSCO -> IL SALMODIANTE: 2d6(3,1)=4 +VIGORE(1)+arma(1) = 6 vs Difesa(5) -> COLPITO
+    IL SALMODIANTE: 1/3 ferite residue.
+    [ATTACCO] SIBILLA REVE -> ADEPTO INCAPPUCCIATO: 2d6(6,3)=9 +VIGORE(1)+arma(1) = 11 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+  [MINACCIA] I CARRETTIERI (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 1) in B1.
+  ADEPTO INCAPPUCCIATO si muove verso ELENA FOSCO: B1 -> A4.
+  ADEPTO INCAPPUCCIATO attacca ELENA FOSCO:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> ELENA FOSCO: 2d6(4,2)=6 +Attacco(1) = 7 vs Difesa(8) -> MANCATO
+  LO SGHERRO si muove verso SIBILLA REVE: B1 -> D3.
+  LO SGHERRO attacca SIBILLA REVE:
+    [ATTACCO NEMICO] LO SGHERRO -> SIBILLA REVE: 2d6(5,5)=10 +Attacco(2) = 12 vs Difesa(8) -> COLPITO
+    SIBILLA REVE subisce 1 danno da LO SGHERRO (Salute: 4/7).
+  IL SALMODIANTE attacca ELENA FOSCO:
+    [ATTACCO NEMICO] IL SALMODIANTE -> ELENA FOSCO: 2d6(1,6)=7 +Attacco(3) = 10 vs Difesa(8) -> COLPITO
+    ELENA FOSCO subisce 2 danno da IL SALMODIANTE (Salute: 0/7).
+    *** ELENA FOSCO è A TERRA. ***
+--- Round 10: scontro all’Organo Murato ---
+    (azioni nominali questo round: 2 — 1 eroi vivi)
+    [ATTACCO] SIBILLA REVE -> LO SGHERRO: 2d6(4,1)=5 +VIGORE(1)+arma(1) = 7 vs Difesa(8) -> MANCATO
+  [MINACCIA] LE IMPALCATURE (ostacolo) — Muoversi costa il doppio sulla tessera dell’eroe attivo fino a fine round.
+    (carta senza effetto modellato in questa simulazione)
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  LO SGHERRO attacca SIBILLA REVE:
+    [ATTACCO NEMICO] LO SGHERRO -> SIBILLA REVE: 2d6(6,6)=12 +Attacco(2) = 14 vs Difesa(8) -> COLPITO
+    SIBILLA REVE subisce 1 danno da LO SGHERRO (Salute: 3/7).
+  IL SALMODIANTE si avvicina, non ancora a contatto.
+--- Round 11: scontro all’Organo Murato ---
+    (azioni nominali questo round: 2 — 1 eroi vivi)
+    [ATTACCO] SIBILLA REVE -> LO SGHERRO: 2d6(5,4)=9 +VIGORE(1)+arma(1) = 11 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+  [MINACCIA] UNO SPIFFERO DI SAGRATO (favore) — Rivelate una tessera coperta adiacente.
+    (carta senza effetto modellato in questa simulazione)
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  LO SGHERRO attacca SIBILLA REVE:
+    [ATTACCO NEMICO] LO SGHERRO -> SIBILLA REVE: 2d6(1,3)=4 +Attacco(2) = 6 vs Difesa(8) -> MANCATO
+  IL SALMODIANTE si avvicina, non ancora a contatto.
+--- Round 12: scontro all’Organo Murato ---
+    (azioni nominali questo round: 2 — 1 eroi vivi)
+    [ATTACCO] SIBILLA REVE -> LO SGHERRO: 2d6(1,4)=5 +VIGORE(1)+arma(1) = 7 vs Difesa(8) -> MANCATO
+  [MINACCIA] IL TURNO DI NOTTE (posseduto) — Piazzate 1 Adepto sull’ingresso della Scala del Sagrato (T1).
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 2), a 6 caselle dalla tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  LO SGHERRO attacca SIBILLA REVE:
+    [ATTACCO NEMICO] LO SGHERRO -> SIBILLA REVE: 2d6(2,3)=5 +Attacco(2) = 7 vs Difesa(8) -> MANCATO
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  IL SALMODIANTE si avvicina, non ancora a contatto.
+  [OROLOGIO] Fine del 12° round: +1 segnalino Canto automatico.
+    Segnalino Canto: 3.
+    Il Canto raggiunge 3: da ora ogni Fase Minaccia pesca 1 carta in più (fino a fine spedizione, anche se il Custode è già stato abbattuto).
+--- Round 13: scontro all’Organo Murato ---
+    (azioni nominali questo round: 2 — 1 eroi vivi)
+    [ATTACCO] SIBILLA REVE -> LO SGHERRO: 2d6(2,5)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+  [MINACCIA] I MANOVALI DEL CANTIERE (posseduto) — Piazzate 1 Adepto sull’ingresso della Scala del Sagrato (T1).
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 1), a 6 caselle dalla tessera del gruppo.
+  [MINACCIA] IL SORVEGLIANTE DEL SAGRATO (malavita) — Piazzate 1 Sicario: si attiva subito.
+    Piazzati 1x IL SICARIO (pool residua: 0) in C4.
+    IL SICARIO si attiva subito:
+  IL SICARIO attacca SIBILLA REVE:
+    [ATTACCO NEMICO] IL SICARIO -> SIBILLA REVE: 2d6(2,5)=7 +Attacco(3) = 10 vs Difesa(8) -> COLPITO
+    SIBILLA REVE subisce 2 danno da IL SICARIO (Salute: 1/7).
+  ADEPTO INCAPPUCCIATO si muove verso SIBILLA REVE: A4 -> C2.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO raggiunge la tessera del gruppo, da B1.
+  ADEPTO INCAPPUCCIATO si muove verso SIBILLA REVE: B1 -> D3.
+  ADEPTO INCAPPUCCIATO attacca SIBILLA REVE:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> SIBILLA REVE: 2d6(4,1)=5 +Attacco(1) = 6 vs Difesa(8) -> MANCATO
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  IL SALMODIANTE si avvicina, non ancora a contatto.
+--- Round 14: scontro all’Organo Murato ---
+    (azioni nominali questo round: 2 — 1 eroi vivi)
+    [ATTACCO] SIBILLA REVE -> ADEPTO INCAPPUCCIATO: 2d6(3,5)=8 +VIGORE(1)+arma(1) = 10 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+  [MINACCIA] IL BUIO DELLE NICCHIE (insidia) — L’eroe più avanzato prova NERVI (Media): se fallisce, 1 danno.
+    [PROVA NERVI] SIBILLA REVE: 2d6(2,3)=5 +NERVI(3) = 8 vs Media(9) -> FALLITA
+    SIBILLA REVE subisce 1 danno da IL BUIO DELLE NICCHIE (Salute: 0/7).
+    *** SIBILLA REVE è A TERRA. ***
+  [MINACCIA] IL PASSO DI CERA (posseduto) — Piazzate 1 Confratello sull’uscita più vicina agli eroi.
+    Piazzati 1x IL CONFRATELLO (pool residua: 3) in B1.
+
+==============================================================================
+ESITO SPEDIZIONE: SCONFITTA (party wipe)
+Round totali: 14
+Formula Minaccia: finale_v3 | Azioni nominali/round: media 3.3, picco 4
+Mazzo Minaccia rimescolato: 0 volta/e
+Segnalini nemici esauriti nel pool (piazzamenti saltati): 0
+Salmodiante svegliato: solo a T6 (mai in anticipo via Canto)
+  ELENA FOSCO: a terra
+  SIBILLA REVE: a terra
+==============================================================================
+Canne dell’organo sfregiate: 0/3

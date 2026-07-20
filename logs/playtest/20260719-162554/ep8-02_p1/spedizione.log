@@ -1,0 +1,204 @@
+Run: ep8-02_p1_seed0  |  seed=683100  |  formula Minaccia=finale_v3  |  generato: 2026-07-19T16:25:54
+==============================================================================
+SPEDIZIONE - Il Deposito dell’Ansa Morta (giovedì notte)
+==============================================================================
+Party: FULGENZIO CARBONE, OTTONE “MEZZENA” MASSARI
+Bonus da Indagine: PREPARATI (+1 Salute massima a testa); Marengo: sì; Lanterna: sì; D1: esatta; D3: esatta
+NOTA: gruppo trattato come blocco unico tessera per tessera (vedi intestazione script).
+Tensione tavolo piccolo: +-1 Ferite SOLO al Cambiavalute (non ai nemici di truppa).
+
+Tavolo da 2: +1 Salute massima a testa (ricalibrazione).
+  Il Marengo Segnato lo porta OTTONE “MEZZENA” MASSARI (il Fiuto dei Mastini lo sa).
+--- Round 1: il gruppo raggiunge T2 (La Tettoia delle Chiatte) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    Il gruppo entra in T2 da B1.
+    [PROVA ACUME] FULGENZIO CARBONE: 2d6(4,1)=5 +ACUME(3) = 8 vs Media(9) -> FALLITA
+    FULGENZIO CARBONE forza la cassa di T2: lucchetto duro, azione persa — la cassa resta (e il crogiolo corre).
+    [PROVA ACUME] OTTONE “MEZZENA” MASSARI: 2d6(5,6)=11 +ACUME(1) = 12 vs Media(9) -> SUCCESSO
+    OTTONE “MEZZENA” MASSARI cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+  [MINACCIA] UN FISCHIO SULL’ACQUA (crescendo) — Aggiungete 1 segnalino Canto (la Voce che gira).
+    Segnalino Canto (la Voce che gira): 1.
+--- Round 2: ancora a T2 (La Tettoia delle Chiatte) (la cassa resiste) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    [PROVA ACUME] FULGENZIO CARBONE: 2d6(1,4)=5 +ACUME(3) = 8 vs Media(9) -> FALLITA
+    FULGENZIO CARBONE forza la cassa di T2: lucchetto duro, azione persa — la cassa resta (e il crogiolo corre).
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] UNA CHIATTA AMICA (favore) — Rivelate una tessera coperta adiacente.
+    (carta senza effetto modellato in questa simulazione)
+--- Round 3: ancora a T2 (La Tettoia delle Chiatte) (la cassa resiste) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    [PROVA ACUME] FULGENZIO CARBONE: 2d6(6,5)=11 +ACUME(3) = 14 vs Media(9) -> SUCCESSO
+    [AZIONE] FULGENZIO CARBONE sequestra la cassa d’oro di T2 (1/4).
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] I CLAN ACCORRONO (crescendo) — Aggiungete 1 segnalino Canto (la Voce che gira).
+    Segnalino Canto (la Voce che gira): 2.
+--- Round 4: il gruppo raggiunge T3 (Il Magazzino del Carbone) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    Il gruppo entra in T3 da B1.
+    [PROVA ACUME] FULGENZIO CARBONE: 2d6(2,6)=8 +ACUME(3) = 11 vs Media(9) -> SUCCESSO
+    [AZIONE] FULGENZIO CARBONE sequestra la cassa d’oro di T3 (2/4).
+    [PROVA ACUME] OTTONE “MEZZENA” MASSARI: 2d6(1,3)=4 +ACUME(1) = 5 vs Media(9) -> FALLITA
+    OTTONE “MEZZENA” MASSARI cerca sulla tessera: niente da trovare qui, o prova fallita.
+  [MINACCIA] IL GUINZAGLIO TAGLIATO (malavita) — Piazzate 1 Mastino: si attiva subito.
+    Piazzati 1x IL MASTINO (pool residua: 1) in B1.
+    IL MASTINO si attiva subito:
+  IL MASTINO si muove verso OTTONE “MEZZENA” MASSARI: B1 -> C1.
+  IL MASTINO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] IL MASTINO -> OTTONE “MEZZENA” MASSARI: 2d6(5,1)=6 +Attacco(2) = 8 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 2 danno da IL MASTINO (Salute: 8/10).
+  [OROLOGIO] Fine del 4° round: +1 segnalino Canto automatico.
+    Segnalino Canto (la Voce che gira): 3.
+    La Voce raggiunge 3: i clan sono in strada — da ora ogni Fase Minaccia pesca 1 carta in più (fino a fine spedizione).
+--- Round 5: il gruppo raggiunge T4 (La Sala del Crogiolo) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    Il gruppo entra in T4 da B1.
+    Rivelata la Sala del Crogiolo: IL CAMBIAVALUTE non alza gli occhi dal bilancino — i suoi due MASTINI sì.
+    [ABILITÀ] FULGENZIO CARBONE usa Esca preziosa: IL MASTINO, IL MASTINO si dirige verso l’esca invece che verso il gruppo alla prossima attivazione.
+    [PROVA ACUME] OTTONE “MEZZENA” MASSARI: 2d6(2,5)=7 +ACUME(1) = 8 vs Media(9) -> FALLITA
+    OTTONE “MEZZENA” MASSARI forza la cassa di T4: lucchetto duro, azione persa — la cassa resta (e il crogiolo corre).
+  [MINACCIA] LA PAGA DEL GIOVEDÌ (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 4) in B1.
+  [MINACCIA] IL FISCHIO BASSO (malavita) — Piazzate 1 Sgherro: si attiva subito.
+    Piazzati 1x LO SGHERRO (pool residua: 3) in B1.
+    LO SGHERRO si attiva subito:
+  LO SGHERRO si muove verso FULGENZIO CARBONE: B1 -> B2.
+  LO SGHERRO attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] LO SGHERRO -> FULGENZIO CARBONE: 2d6(5,6)=11 +Attacco(2) = 13 vs Difesa(8) -> COLPITO
+    FULGENZIO CARBONE subisce 1 danno da LO SGHERRO (Salute: 7/8).
+  IL MASTINO si dirige verso l’esca (Carbone): non attacca questo round.
+  IL MASTINO si dirige verso l’esca (Carbone): non attacca questo round.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  IL CAMBIAVALUTE attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] IL CAMBIAVALUTE -> FULGENZIO CARBONE: 2d6(1,2)=3 +Attacco(2) = 5 vs Difesa(8) -> MANCATO
+--- Round 6: ancora a T4 (La Sala del Crogiolo) (la cassa resiste) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    [ABILITÀ] FULGENZIO CARBONE usa Esca preziosa: IL MASTINO, IL MASTINO si dirige verso l’esca invece che verso il gruppo alla prossima attivazione.
+    [PROVA ACUME] OTTONE “MEZZENA” MASSARI: 2d6(3,3)=6 +ACUME(1) = 7 vs Media(9) -> FALLITA
+    OTTONE “MEZZENA” MASSARI forza la cassa di T4: lucchetto duro, azione persa — la cassa resta (e il crogiolo corre).
+  [MINACCIA] LA POLVERE NEGLI OCCHI (insidia) — L’eroe attivo prova NERVI (Media): se fallisce, 1 danno e perde 1 azione.
+    [PROVA NERVI] FULGENZIO CARBONE: 2d6(6,5)=11 +NERVI(2) = 13 vs Media(9) -> SUCCESSO
+  [MINACCIA] IL CAMBIO DI GUARDIA (malavita) — Piazzate 1 Sgherro sull’ingresso del Molo (T1).
+    Piazzati 1x LO SGHERRO (pool residua: 2), a 6 caselle dalla tessera del gruppo.
+  IL MASTINO si dirige verso l’esca (Carbone): non attacca questo round.
+  IL MASTINO si dirige verso l’esca (Carbone): non attacca questo round.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] LO SGHERRO -> OTTONE “MEZZENA” MASSARI: 2d6(6,5)=11 +Attacco(2) = 13 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 1 danno da LO SGHERRO (Salute: 7/10).
+  LO SGHERRO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+  IL CAMBIAVALUTE attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] IL CAMBIAVALUTE -> FULGENZIO CARBONE: 2d6(2,3)=5 +Attacco(2) = 7 vs Difesa(8) -> MANCATO
+--- Round 7: ancora a T4 (La Sala del Crogiolo) (la cassa resiste) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    [PROVA ACUME] FULGENZIO CARBONE: 2d6(2,4)=6 +ACUME(3) = 9 vs Media(9) -> SUCCESSO
+    [AZIONE] FULGENZIO CARBONE sequestra la cassa d’oro di T4 (3/4).
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> IL MASTINO: 2d6(1,6)=7 +VIGORE(3)+arma(1) = 11 vs Difesa(6) -> COLPITO
+    IL MASTINO: 1/2 ferite residue.
+  [MINACCIA] GLI UOMINI DELLA TETTOIA (malavita) — Piazzate 1 Sgherro sull’ingresso del Molo (T1).
+    Piazzati 1x LO SGHERRO (pool residua: 1), a 6 caselle dalla tessera del gruppo.
+  [MINACCIA] IL TURNO DI GUARDIA (quiete) — Nessun effetto (tensione).
+    (carta senza effetto modellato in questa simulazione)
+  IL MASTINO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] IL MASTINO -> OTTONE “MEZZENA” MASSARI: 2d6(2,4)=6 +Attacco(2) = 8 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 2 danno da IL MASTINO (Salute: 5/10).
+  IL MASTINO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] LO SGHERRO -> FULGENZIO CARBONE: 2d6(2,2)=4 +Attacco(2) = 6 vs Difesa(8) -> MANCATO
+  LO SGHERRO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+  IL CAMBIAVALUTE attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] IL CAMBIAVALUTE -> FULGENZIO CARBONE: 2d6(5,6)=11 +Attacco(2) = 13 vs Difesa(8) -> COLPITO
+    FULGENZIO CARBONE subisce 1 danno da IL CAMBIAVALUTE (Salute: 6/8).
+--- Round 8: il gruppo raggiunge T5 (L’Ufficio del Pesatore) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    Il gruppo entra in T5 da A3.
+    QUANDO RIVELATE: il guardaspalle del pesatore, dall’ombra.
+    [PROVA ACUME] FULGENZIO CARBONE: 2d6(1,5)=6 +ACUME(3) = 9 vs Media(9) -> SUCCESSO
+    [AZIONE] FULGENZIO CARBONE sequestra la cassa d’oro di T5 (4/4).
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> IL SICARIO: 2d6(5,4)=9 +VIGORE(3)+arma(1) = 13 vs Difesa(7) -> COLPITO
+    IL SICARIO: 0/1 ferite residue.
+    IL SICARIO è ABBATTUTO.
+    [ABILITÀ] OTTONE “MEZZENA” MASSARI usa Colpo da macello: attacco extra su IL MASTINO.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> IL MASTINO: 2d6(2,3)=5 +VIGORE(3)+arma(1) = 9 vs Difesa(6) -> COLPITO
+    IL MASTINO: 1/2 ferite residue.
+  [MINACCIA] IL MASTINO SCIOLTO (malavita) — Piazzate 1 Mastino sull’uscita più vicina agli eroi.
+    Segnalini IL MASTINO esauriti: il piazzamento non ha luogo (resto della carta si applica comunque).
+  [MINACCIA] GLI UOMINI DEI CLAN (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 0) in A3.
+  IL MASTINO si muove verso OTTONE “MEZZENA” MASSARI: C1 -> B3.
+  IL MASTINO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] IL MASTINO -> OTTONE “MEZZENA” MASSARI: 2d6(5,1)=6 +Attacco(2) = 8 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 2 danno da IL MASTINO (Salute: 3/10).
+  IL MASTINO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] IL MASTINO -> OTTONE “MEZZENA” MASSARI: 2d6(2,4)=6 +Attacco(2) = 8 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 2 danno da IL MASTINO (Salute: 1/10).
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina (Movimento 4): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si muove verso OTTONE “MEZZENA” MASSARI: A3 -> A4.
+  LO SGHERRO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] LO SGHERRO -> OTTONE “MEZZENA” MASSARI: 2d6(6,2)=8 +Attacco(2) = 10 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 1 danno da LO SGHERRO (Salute: 0/10).
+    *** OTTONE “MEZZENA” MASSARI è A TERRA. ***
+  [OROLOGIO] Fine del 8° round: +1 segnalino Canto automatico.
+    Segnalino Canto (la Voce che gira): 4.
+--- Round 9: il gruppo raggiunge T4 (Crogiolo - ritorno dal ramo) ---
+    (azioni nominali questo round: 2 — 1 eroi vivi)
+    Il gruppo entra in T4 da D3.
+    FULGENZIO CARBONE si muove verso LO SGHERRO: D3 -> C2.
+    [ATTACCO] FULGENZIO CARBONE -> LO SGHERRO: 2d6(3,4)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+  [MINACCIA] LE SENTINELLE DEL MOLO (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Segnalini LO SGHERRO esauriti: il piazzamento non ha luogo (resto della carta si applica comunque).
+  [MINACCIA] IL DEBITO DI BANDIERA (malavita) — Piazzate 1 Sgherro sull’ingresso del Molo (T1).
+    Segnalini LO SGHERRO esauriti: il piazzamento non ha luogo (resto della carta si applica comunque).
+  IL MASTINO si muove verso FULGENZIO CARBONE: B3 -> D3.
+  IL MASTINO si avvicina, non ancora a contatto.
+  IL MASTINO si avvicina, non ancora a contatto.
+  LO SGHERRO si muove verso FULGENZIO CARBONE: B1 -> C1.
+  LO SGHERRO attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] LO SGHERRO -> FULGENZIO CARBONE: 2d6(4,5)=9 +Attacco(2) = 11 vs Difesa(8) -> COLPITO
+    FULGENZIO CARBONE subisce 1 danno da LO SGHERRO (Salute: 5/8).
+  LO SGHERRO attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] LO SGHERRO -> FULGENZIO CARBONE: 2d6(3,4)=7 +Attacco(2) = 9 vs Difesa(8) -> COLPITO
+    FULGENZIO CARBONE subisce 1 danno da LO SGHERRO (Salute: 4/8).
+  LO SGHERRO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si avvicina (Movimento 4): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  IL CAMBIAVALUTE si avvicina, non ancora a contatto.
+--- Round 10: il gruppo raggiunge T6 (La Porta d’Acqua) ---
+    (azioni nominali questo round: 2 — 1 eroi vivi)
+    Il gruppo entra in T6 da B1.
+    [ATTACCO] FULGENZIO CARBONE -> LO SGHERRO: 2d6(6,3)=9 +VIGORE(1)+arma(1) = 11 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+  [MINACCIA] LA PASSERELLA MARCIA (insidia) — L’eroe più avanzato prova NERVI (Media): se fallisce, 1 danno.
+    [PROVA NERVI] FULGENZIO CARBONE: 2d6(5,3)=8 +NERVI(2) = 10 vs Media(9) -> SUCCESSO
+  [MINACCIA] IL GUARDASPALLE (malavita) — Piazzate 1 Sicario sull’uscita più vicina agli eroi.
+    Piazzati 1x IL SICARIO (pool residua: 1) in B1.
+  IL MASTINO si muove verso FULGENZIO CARBONE: D3 -> B2.
+  IL MASTINO attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] IL MASTINO -> FULGENZIO CARBONE: 2d6(5,4)=9 +Attacco(2) = 11 vs Difesa(8) -> COLPITO
+    FULGENZIO CARBONE subisce 2 danno da IL MASTINO (Salute: 2/8).
+  IL MASTINO si avvicina, non ancora a contatto.
+  LO SGHERRO attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] LO SGHERRO -> FULGENZIO CARBONE: 2d6(2,4)=6 +Attacco(2) = 8 vs Difesa(8) -> COLPITO
+    FULGENZIO CARBONE subisce 1 danno da LO SGHERRO (Salute: 1/8).
+  LO SGHERRO si avvicina (Movimento 4): ancora 1 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  IL SICARIO si avvicina, non ancora a contatto.
+--- Alla Porta d’Acqua (T6) con 4/4 casse ---
+
+==============================================================================
+ESITO SPEDIZIONE: VITTORIA
+Round totali: 10
+Formula Minaccia: finale_v3 | Azioni nominali/round: media 3.6, picco 4
+Mazzo Minaccia rimescolato: 0 volta/e
+Segnalini nemici esauriti nel pool (piazzamenti saltati): 4
+Casse sequestrate: 4/4 | Cambiavalute: al crogiolo
+  FULGENZIO CARBONE: 1/8 Salute
+  OTTONE “MEZZENA” MASSARI: a terra
+==============================================================================

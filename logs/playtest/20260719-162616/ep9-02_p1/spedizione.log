@@ -1,0 +1,109 @@
+Run: ep9-02_p1_seed0  |  seed=693100  |  formula Minaccia=finale_v3  |  generato: 2026-07-19T16:26:16
+==============================================================================
+SPEDIZIONE - La scorta del teste, dopo mezzanotte
+==============================================================================
+Party: ELENA FOSCO, PADRE CELSO MARANI
+Bonus da Indagine: PREPARATI (+1 Salute massima a testa); Bolla: sì; Lanterna+Tappi: sì; D1: esatta; D3: sbagliata
+NOTA: gruppo trattato come blocco unico tessera per tessera (vedi intestazione script).
+Tensione tavolo piccolo: +-1 Ferite SOLO al Sicario Gentile (non ai nemici di truppa).
+
+Tavolo da 2: +1 Salute massima a testa (ricalibrazione).
+  Partenza tardi, ronde già ritirate (Domanda 3): +1 segnalino Canto.
+  Col Salvacondotto (Domanda 4): alla partenza si salta una tessera d’imboscata.
+  [SALVACONDOTTO] Si salta Vicolo dei Tintori.
+--- Round 1: la scorta attraversa T1 (Sacrestia) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    La scorta entra in T1 da B1 (Riva in mezzo).
+    [PROVA ACUME] ELENA FOSCO: 2d6(5,2)=7 +ACUME(3) = 10 vs Media(9) -> SUCCESSO
+    ELENA FOSCO cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    [ABILITÀ] PADRE CELSO MARANI usa Litania: -1 segnalino Canto (1->0).
+  [MINACCIA] I COLLEGHI DEL GENTILE (malavita) — Piazzate 1 Sicario sull’uscita più vicina agli eroi.
+    Piazzati 1x IL SICARIO (pool residua: 2) in B1.
+  IL SICARIO si muove verso Riva: B1 -> C1.
+  ELENA FOSCO fa da SCUDO a Riva e para il colpo di IL SICARIO:
+    [ATTACCO NEMICO] IL SICARIO -> ELENA FOSCO: 2d6(1,2)=3 +Attacco(3) = 6 vs Difesa(8) -> MANCATO
+--- Round 2: la scorta attraversa T3 (Ponte delle Catene) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    La scorta entra in T3 da B1 (Riva in mezzo).
+    Sul Ponte delle Catene, appare IL SICARIO GENTILE: si toglie il cappello. «Signori. Mi dispiace per quello che segue.»
+    [IL NOME SBAGLIATO — D2] gli ricordate che i mandanti bruciano i sicari come Ferri: il Sicario esita (salta la prima attivazione).
+    ELENA FOSCO si muove verso IL SICARIO: B1 -> C2.
+    [ATTACCO] ELENA FOSCO -> IL SICARIO: 2d6(6,4)=10 +VIGORE(1)+arma(1) = 12 vs Difesa(7) -> COLPITO
+    IL SICARIO: 0/1 ferite residue.
+    IL SICARIO è ABBATTUTO.
+    PADRE CELSO MARANI si muove verso IL SICARIO GENTILE: B1 -> D2.
+    [ATTACCO] PADRE CELSO MARANI -> IL SICARIO GENTILE: 2d6(5,1)=6 +VIGORE(1)+arma(1) = 8 vs Difesa(8) -> COLPITO
+    IL SICARIO GENTILE: 2/3 ferite residue.
+  [MINACCIA] LA PRIMA RONDA PASSA (crescendo) — Aggiungete 1 segnalino Canto (l’Ora che stringe).
+    Segnalino Canto (l’Ora che stringe): 1.
+    Il Sicario Gentile si attiva subito (l’ora lo chiama):
+  IL SICARIO GENTILE si muove verso Riva: D3 -> B3.
+  ELENA FOSCO copre Riva dal Sicario (Riva +2 Difesa, non si para del tutto un professionista).
+  IL SICARIO GENTILE punta RIVA (il teste):
+    [ATTACCO NEMICO] IL SICARIO GENTILE -> RIVA: 2d6(2,2)=4 +Attacco(3) = 7 vs Difesa(10) -> MANCATO
+  IL SICARIO GENTILE salta l’attivazione (stonato).
+--- Round 3: la scorta attraversa T4 (Mercato Coperto) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    La scorta entra in T4 da B1 (Riva in mezzo).
+    Nel Mercato Coperto: 1 Sgherro e 1 Sicario tra i banchi.
+    [FISCHIETTO D’ALLARME] una ronda onesta accorre: 1 Sgherro messo in fuga.
+    ELENA FOSCO si muove verso IL SICARIO GENTILE: B1 -> B2.
+    [ATTACCO] ELENA FOSCO -> IL SICARIO GENTILE: 2d6(3,5)=8 +VIGORE(1)+arma(1) = 10 vs Difesa(8) -> COLPITO
+    IL SICARIO GENTILE: 1/3 ferite residue.
+    PADRE CELSO MARANI si muove verso IL SICARIO: B1 -> C3.
+    [ATTACCO] PADRE CELSO MARANI -> IL SICARIO: 2d6(6,1)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(7) -> COLPITO
+    IL SICARIO: 0/1 ferite residue.
+    IL SICARIO è ABBATTUTO.
+  [MINACCIA] LA RETROGUARDIA (malavita) — Piazzate 1 Sgherro sull’ingresso della tessera.
+    Piazzati 1x LO SGHERRO (pool residua: 3), a 6 caselle dalla tessera del gruppo.
+  LO SGHERRO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+  IL SICARIO GENTILE attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] IL SICARIO GENTILE -> PADRE CELSO MARANI: 2d6(2,4)=6 +Attacco(3) = 9 vs Difesa(8) -> COLPITO
+    PADRE CELSO MARANI subisce 2 danno da IL SICARIO GENTILE (Salute: 6/8).
+--- Round 4: la scorta attraversa T5 (Salita dei Lampionai) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    La scorta entra in T5 da B1 (Riva in mezzo).
+    Il Sicario Gentile si è portato AVANTI e aspetta in cima alla Salita.
+    ELENA FOSCO si muove verso IL SICARIO GENTILE: B1 -> A3.
+    ELENA FOSCO si avvicina a IL SICARIO GENTILE, non ancora a contatto.
+    PADRE CELSO MARANI si muove verso IL SICARIO GENTILE: B1 -> D2.
+    PADRE CELSO MARANI si avvicina a IL SICARIO GENTILE, non ancora a contatto.
+  [MINACCIA] L’UOMO SUL TETTO (malavita) — Piazzate 1 Sicario sull’uscita più vicina agli eroi.
+    Piazzati 1x IL SICARIO (pool residua: 2) in B1.
+  LO SGHERRO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  IL SICARIO si avvicina, non ancora a contatto.
+  IL SICARIO GENTILE si muove verso Riva: B4 -> B3.
+  ELENA FOSCO copre Riva dal Sicario (Riva +2 Difesa, non si para del tutto un professionista).
+  IL SICARIO GENTILE punta RIVA (il teste):
+    [ATTACCO NEMICO] IL SICARIO GENTILE -> RIVA: 2d6(5,5)=10 +Attacco(3) = 13 vs Difesa(10) -> COLPITO
+    RIVA subisce 2 danno (Salute: 1/3).
+  [OROLOGIO] Fine del 4° round: +1 segnalino Canto automatico.
+    Segnalino Canto (l’Ora che stringe): 2.
+--- Round 5: la scorta attraversa T6 (Molo del Lume) ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    La scorta entra in T6 da B1 (Riva in mezzo).
+    ELENA FOSCO si muove verso IL SICARIO GENTILE: B1 -> B2.
+    [ATTACCO] ELENA FOSCO -> IL SICARIO: 2d6(6,4)=10 +VIGORE(1)+arma(1) = 12 vs Difesa(7) -> COLPITO
+    IL SICARIO: 0/1 ferite residue.
+    IL SICARIO è ABBATTUTO.
+    PADRE CELSO MARANI si muove verso IL SICARIO GENTILE: B1 -> C3.
+    [ATTACCO] PADRE CELSO MARANI -> IL SICARIO GENTILE: 2d6(1,2)=3 +VIGORE(1)+arma(1) = 5 vs Difesa(8) -> MANCATO
+  [MINACCIA] IL PONTE LEVATO (ostacolo) — Muoversi costa il doppio sulla tessera dell’eroe attivo fino a fine round.
+    (carta senza effetto modellato in questa simulazione)
+  LO SGHERRO si avvicina (Movimento 4): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+  IL SICARIO GENTILE si muove verso Riva: B3 -> D3.
+  IL SICARIO GENTILE attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] IL SICARIO GENTILE -> PADRE CELSO MARANI: 2d6(4,2)=6 +Attacco(3) = 9 vs Difesa(8) -> COLPITO
+    PADRE CELSO MARANI subisce 2 danno da IL SICARIO GENTILE (Salute: 4/8).
+--- Riva raggiunge la barca al Molo del Lume (Interagire): VITTORIA. ---
+
+==============================================================================
+ESITO SPEDIZIONE: VITTORIA
+Round totali: 5
+Formula Minaccia: finale_v3 | Azioni nominali/round: media 4.0, picco 4
+Mazzo Minaccia rimescolato: 0 volta/e
+Segnalini nemici esauriti nel pool (piazzamenti saltati): 0
+Riva: salvo (Salute 1/3) | Sicario Gentile: in gioco
+  ELENA FOSCO: 8/8 Salute
+  PADRE CELSO MARANI: 4/8 Salute
+==============================================================================
