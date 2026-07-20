@@ -200,6 +200,8 @@ function setup() {
       diversivoPronto: false, // Fanti: -1 carta alla prossima Fase Minaccia
       eroiFatti: [],          // nomi eroi che hanno agito nel giro (fase eroi)
       nemiciFatti: [],        // indici nemici attivati nel giro (fase nemici)
+      eroiAttivo: null,       // eroe scelto come attivo (override; null = primo non-fatto)
+      nemiciAttivo: null,     // nemico scelto come attivo (indice)
       mazzo: costruisciMazzo(ctx.carte, ep, partita.episodio),
       rivelate: [ep.tessere[0].id],
       nemici: [],
@@ -615,10 +617,18 @@ const primo = (nome) => {
   return esc(t.replace(/["“”]/g, '').toLowerCase());
 };
 
+function eroiAttivoNome() {
+  const sp = SP();
+  const fatti = sp.eroiFatti || [];
+  const party = P().party;
+  if (sp.eroiAttivo && party.includes(sp.eroiAttivo) && !fatti.includes(sp.eroiAttivo)) return sp.eroiAttivo;
+  return party.find((nm) => !fatti.includes(nm)) || null;
+}
+
 function giroEroiHtml() {
   const sp = SP();
   const fatti = sp.eroiFatti || [];
-  const attivo = P().party.find((nm) => !fatti.includes(nm)) || null;
+  const attivo = eroiAttivoNome();
   const chips = P().party.map((nm) => {
     const done = fatti.includes(nm);
     const att = nm === attivo;
@@ -630,7 +640,7 @@ function giroEroiHtml() {
     : `<button class="btn pieno" id="tutti-finiti">tutti hanno agito — fase minaccia →</button>`;
   return `<div class="giro-strip">${chips}</div>
     <p class="nota mt">${attivo
-      ? `Tocca a <b>${primo(attivo)}</b> — 2 azioni a testa. Toccate un segnaposto per correggere l’ordine.`
+      ? `Tocca a <b>${primo(attivo)}</b> — 2 azioni a testa. Toccate un segnaposto per scegliere chi agisce; «ha finito» chiude il suo turno.`
       : 'Il giro degli eroi è completo.'}</p>
     <div class="btn-riga mt">${azione}</div>`;
 }
@@ -638,17 +648,26 @@ function giroEroiHtml() {
 function agganciaGiroEroi() {
   const sp = SP();
   if (!sp.eroiFatti) sp.eroiFatti = [];
+  // toccare un segnaposto: se l'eroe ha GIA' finito lo si rimette in gioco
+  // (annulla per errore); altrimenti lo si rende ATTIVO (tocca a lui) — NON
+  // lo si segna come finito. Solo «ha finito» chiude il turno dell'attivo.
   ctx.app.querySelectorAll('[data-turno-eroe]').forEach((b) => b.onclick = () => {
     const nm = b.dataset.turnoEroe;
     const i = sp.eroiFatti.indexOf(nm);
-    if (i >= 0) sp.eroiFatti.splice(i, 1); else sp.eroiFatti.push(nm);
+    if (i >= 0) {
+      sp.eroiFatti.splice(i, 1);
+      sp.eroiAttivo = nm;          // riportato in gioco e reso attivo
+    } else {
+      sp.eroiAttivo = nm;          // scelto come attivo, non segnato finito
+    }
     salvaP();
     plancia();
   });
   const fin = ctx.app.querySelector('#eroe-finito');
   if (fin) fin.onclick = () => {
-    const attivo = P().party.find((nm) => !sp.eroiFatti.includes(nm));
-    if (attivo) sp.eroiFatti.push(attivo);
+    const attivo = eroiAttivoNome();
+    if (attivo && !sp.eroiFatti.includes(attivo)) sp.eroiFatti.push(attivo);
+    sp.eroiAttivo = null;          // il prossimo attivo torna al primo non-fatto
     salvaP();
     plancia();
   };
@@ -656,11 +675,18 @@ function agganciaGiroEroi() {
   if (tutti) tutti.onclick = faseMinaccia;
 }
 
+function nemicoAttivoIdx() {
+  const sp = SP();
+  const fatti = sp.nemiciFatti || [];
+  if (sp.nemiciAttivo != null && sp.nemici[sp.nemiciAttivo] && !fatti.includes(sp.nemiciAttivo)) return sp.nemiciAttivo;
+  return sp.nemici.findIndex((_, i) => !fatti.includes(i));
+}
+
 function giroNemiciHtml() {
   const sp = SP();
   if (!sp.nemici.length) return '';
   const fatti = sp.nemiciFatti || [];
-  const attivo = sp.nemici.findIndex((_, i) => !fatti.includes(i));
+  const attivo = nemicoAttivoIdx();
   const chips = sp.nemici.map((n, i) => {
     const done = fatti.includes(i);
     const att = i === attivo;
@@ -683,14 +709,16 @@ function agganciaGiroNemici(fineRoundFn) {
   ctx.app.querySelectorAll('[data-turno-nemico]').forEach((b) => b.onclick = () => {
     const i = Number(b.dataset.turnoNemico);
     const k = sp.nemiciFatti.indexOf(i);
-    if (k >= 0) sp.nemiciFatti.splice(k, 1); else sp.nemiciFatti.push(i);
+    if (k >= 0) { sp.nemiciFatti.splice(k, 1); sp.nemiciAttivo = i; } // annulla + attivo
+    else sp.nemiciAttivo = i;                                        // solo attivo, non finito
     salvaP();
     faseNemici();
   });
   const fatto = ctx.app.querySelector('#nemico-fatto');
   if (fatto) fatto.onclick = () => {
-    const attivo = sp.nemici.findIndex((_, i) => !sp.nemiciFatti.includes(i));
-    if (attivo >= 0) sp.nemiciFatti.push(attivo);
+    const attivo = nemicoAttivoIdx();
+    if (attivo >= 0 && !sp.nemiciFatti.includes(attivo)) sp.nemiciFatti.push(attivo);
+    sp.nemiciAttivo = null;
     salvaP();
     faseNemici();
   };
@@ -907,6 +935,7 @@ async function faseMinaccia() {
   }
   sp.fase = 'nemici';
   sp.nemiciFatti = [];        // nuovo giro nemici
+  sp.nemiciAttivo = null;
   salvaP();
   faseNemici();
 }
@@ -918,6 +947,7 @@ function chiudiRound() {
   annunciRound.push(...destaBossSeSoglia());
   sp.fase = 'eroi';
   sp.eroiFatti = [];          // nuovo giro eroi
+  sp.eroiAttivo = null;
   salvaP();
   if (annunciRound.length) {
     return pannelloMsg(`${orologio().toLowerCase()} — fine round ${sp.round - 1}`,
