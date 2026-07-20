@@ -717,7 +717,7 @@ function bannerTurno(imgUrl, testoHtml, variante) {
   el.innerHTML = `<span class="rit"><img src="${imgUrl || ''}" alt=""></span><span class="tb-txt">${testoHtml}</span>`;
   document.body.appendChild(el);
   requestAnimationFrame(() => el.classList.add('on'));
-  setTimeout(() => { el.classList.remove('on'); setTimeout(() => el.remove(), 400); }, 1300);
+  setTimeout(() => { el.classList.remove('on'); setTimeout(() => el.remove(), 400); }, 1600);
 }
 function annunciaTurno() {
   const attivo = eroiAttivoNome();
@@ -1035,7 +1035,7 @@ function setTokenPos(dataTok, node, istantaneo) {
   if (istantaneo) { el.style.transition = 'none'; el.style.left = p.l + 'px'; el.style.top = p.t + 'px'; void el.offsetWidth; el.style.transition = ''; }
   else { el.style.left = p.l + 'px'; el.style.top = p.t + 'px'; }
 }
-const muoviToken = async (dataTok, node) => { setTokenPos(dataTok, node); await pausa(470); };
+const muoviToken = async (dataTok, node) => { setTokenPos(dataTok, node); await pausa(650); };
 
 // striscia del giro dei nemici (read-only, come giroEroiHtml ma per i nemici)
 function giroNemiciHtml(attivoIdx) {
@@ -1095,21 +1095,24 @@ async function eseguiTurnoNemici(piano) {
     if (ctx.saltaNemici) break;
     const tokel = ctx.app.querySelector(`.tok-slot[data-tok="N:${s.i}"] .tok-board`);
     centraSuNodo(s.pos0, `nem-${s.i}-a`, true);
-    await pausa(360);
-    if (s.flash) { bannerTurno(nemArt(s.nome), `<b>${nemBreve(s.nome)}</b><br>accecato: salta`, 'nemico'); await pausa(700); continue; }
+    await pausa(650);
+    if (s.flash) { bannerTurno(nemArt(s.nome), `<b>${nemBreve(s.nome)}</b><br>accecato: salta`, 'nemico'); await pausa(1100); continue; }
     bannerTurno(nemArt(s.nome), `agisce<br><b>${nemBreve(s.nome)}</b>`, 'nemico');
     if (tokel) tokel.classList.add('attivo-nem');
-    if (nk(s.pos0) !== nk(s.pos1)) { await muoviToken(`N:${s.i}`, s.pos1); centraSuNodo(s.pos1, `nem-${s.i}-b`, true); }
+    if (nk(s.pos0) !== nk(s.pos1)) { await muoviToken(`N:${s.i}`, s.pos1); centraSuNodo(s.pos1, `nem-${s.i}-b`, true); await pausa(300); }
     if (s.attacco) {
+      const a = s.attacco;
       if (tokel) { tokel.classList.add('attacca'); setTimeout(() => tokel && tokel.classList.remove('attacca'), 400); }
-      await pausa(180);
-      if (s.attacco.colpito) { evidenziaColpito(s.attacco.vitt); dmgPop(`E:${s.attacco.vitt}`, `−${s.attacco.dan}`); }
-      bannerTurno(nemArt(s.nome), s.attacco.colpito
-        ? `<b>${nemBreve(s.nome)}</b> colpisce ${esc(primo(s.attacco.vitt))} <b class="ko-txt">−${s.attacco.dan}</b>`
-        : `<b>${nemBreve(s.nome)}</b> manca ${esc(primo(s.attacco.vitt))}`, 'nemico');
+      await pausa(450);
+      if (a.colpito) { evidenziaColpito(a.vitt); dmgPop(`E:${a.vitt}`, `−${a.dan}`); }
+      // tiro VISIBILE: 2d6 + Attacco vs Difesa dell'eroe (i nemici tirano i dadi, non colpiscono al 100%)
+      const tiro = `<span class="tb-roll">🎲 ${a.tot} ${a.colpito ? '≥' : '<'} Dif ${a.dif}</span>`;
+      bannerTurno(nemArt(s.nome), a.colpito
+        ? `<b>${nemBreve(s.nome)}</b> colpisce ${esc(primo(a.vitt))} ${tiro} <b class="ko-txt">−${a.dan}</b>`
+        : `<b>${nemBreve(s.nome)}</b> manca ${esc(primo(a.vitt))} ${tiro}`, 'nemico');
       const sn = ctx.app.querySelector('#salute-nem'); if (sn) sn.innerHTML = saluteHtml();
-      await pausa(520);
-    } else { await pausa(360); }
+      await pausa(1050);
+    } else { await pausa(650); }
     if (tokel) tokel.classList.remove('attivo-nem');
   }
   // Ruggero segue il gruppo
@@ -1151,13 +1154,14 @@ function faseNemiciAI() {
     if (adiacenti.length) {
       const vitt = adiacenti.includes(scelto) ? scelto : adiacenti[Math.floor(Math.random() * adiacenti.length)];
       const e = eroe(vitt);
-      const colpito = r1() + r1() + st.att >= e.difesa;
+      const tot = r1() + r1() + st.att;      // 2d6 + Attacco (tiro visibile nel banner)
+      const colpito = tot >= e.difesa;
       if (colpito) {
         sp.vite[vitt] = Math.max(0, (sp.vite[vitt] ?? saluteMax(e)) - st.dan);
-        log(`${n.nome.toLowerCase()} colpisce ${primo(vitt)} (−${st.dan}).`);
+        log(`${n.nome.toLowerCase()} colpisce ${primo(vitt)} (2d6+att ${tot} ≥ ${e.difesa}, −${st.dan}).`);
         if (sp.vite[vitt] <= 0) log(`${primo(vitt)} va a terra!`);
-      } else log(`${n.nome.toLowerCase()} manca ${primo(vitt)}.`);
-      attacco = { vitt, colpito, dan: st.dan };
+      } else log(`${n.nome.toLowerCase()} manca ${primo(vitt)} (${tot} < ${e.difesa}).`);
+      attacco = { vitt, colpito, dan: st.dan, tot, dif: e.difesa };
     }
     piano.push({ i, nome: n.nome, pos0, pos1, flash: false, attacco });
   }
