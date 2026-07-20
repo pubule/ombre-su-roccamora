@@ -183,13 +183,15 @@ function saluteMax(e) {
   const bonus = ctx.comune.regole.salute_bonus_per_taglia[String(P().party.length)] || 0;
   return e.salute + bonus;
 }
-// nodi occupati (eroi + nemici + Ruggero), tranne exclKey. Se soloNemici, solo
-// nemici+Ruggero (per il cammino eroi, che attraversa gli alleati).
-function occupati(exclKey, soloNemici) {
+// nodi occupati (eroi + nemici + Ruggero), tranne exclKey. `soloNemici`: escludi
+// gli eroi (cammino eroi: gli alleati si attraversano). `senzaRuggero`: escludi
+// il PNG scortato — nei set di CAMMINO (eroi e nemici lo attraversano: si passa
+// attraverso, non ci si ferma sopra → l'arrivo usa senzaRuggero=false).
+function occupati(exclKey, soloNemici, senzaRuggero) {
   const sp = SP(); const s = new Set();
   if (!soloNemici) for (const [nm, p] of Object.entries(sp.eroiPos)) { if (`E:${nm}` !== exclKey && p) s.add(nk(p)); }
   sp.nemici.forEach((n, i) => { if (`N:${i}` !== exclKey && n.pos) s.add(nk(n.pos)); });
-  if (sp.ruggero.liberato && sp.ruggero.pos && exclKey !== 'R') s.add(nk(sp.ruggero.pos));
+  if (!senzaRuggero && sp.ruggero.liberato && sp.ruggero.pos && exclKey !== 'R') s.add(nk(sp.ruggero.pos));
   return s;
 }
 
@@ -279,7 +281,7 @@ function render() {
     <div class="mt"></div>
     <div class="pannello giro"><h2>il giro degli eroi</h2>${giroEroiHtml()}</div>
     <div class="mt"></div>
-    <div class="pannello"><h2>azioni di ${attivo ? esc(primo(attivo)) : '—'}</h2>${azioniHtml()}</div>
+    <div class="pannello"><h2>azioni di ${sp.ruggeroAttivo ? 'Ruggero' : (attivo ? esc(primo(attivo)) : '—')}</h2>${azioniHtml()}</div>
     <div class="mt"></div>
     <div class="pannello"><h2>la salute degli eroi</h2>${saluteHtml()}</div>
     <div class="mt"></div>
@@ -303,7 +305,7 @@ function raggEroe(nm) {
   const sp = SP();
   if (sp.fase !== 'eroi' || azioneSpesa(nm, 'muovere') || !azioniRestano(nm)) return {};
   const start = sp.eroiPos[nm];
-  const info = esploraMosse(start, movimento(nm), occupati(`E:${nm}`, true));  // solo nemici/Ruggero murano
+  const info = esploraMosse(start, movimento(nm), occupati(`E:${nm}`, true, true));  // solo nemici murano (alleati e Ruggero attraversabili)
   const tuttiOcc = occupati(`E:${nm}`, false);
   const out = {};
   for (const [k, v] of Object.entries(info)) { if (v.dist === 0 || tuttiOcc.has(k)) continue; out[k] = v; }
@@ -326,7 +328,7 @@ function boardHtml() {
   const scr = (n) => { const [TX, TY] = lay[n.t]; return { l: ((TX - minX) * 4 + n.x) * cell, t: ((maxY - TY) * 4 + (3 - n.y)) * cell }; };
   const attivo = eroiAttivoNome();
 
-  const ragg = attivo ? raggEroe(attivo) : {};
+  const ragg = attivo ? raggEroe(attivo) : (sp.ruggeroAttivo ? raggRuggero() : {});
 
   // blocchi tessera: rivelate (sfondo + griglia) e frontiera (coperte, scure)
   const tiles = mostrate.map((id) => {
@@ -381,7 +383,7 @@ function boardHtml() {
       ${st && st.art ? `<img src="${urlArt(st.art)}" alt="" loading="lazy">` : ''}</span>`, `N:${i}`);
   });
   if (sp.ruggero.liberato && sp.ruggero.pos) {
-    tok(sp.ruggero.pos, `<span class="tok-board ruggero" title="Ruggero"><img src="${urlArt('Ruggero.png')}" alt=""></span>`, 'R');
+    tok(sp.ruggero.pos, `<span class="tok-board ruggero${sp.ruggeroAttivo ? ' attivo' : ''}" data-ruggero="1" title="Ruggero"><img src="${urlArt('Ruggero.png')}" alt=""></span>`, 'R');
   }
 
   return `<div class="board-digitale" style="width:${cols * cell}px;height:${rows * cell}px;zoom:${SP().zoom || 1}">
@@ -416,17 +418,35 @@ const primo = (nome) => {
 };
 function eroiAttivoNome() {
   const sp = SP(); const fatti = sp.eroiFatti || [];
+  if (sp.ruggeroAttivo) return null;             // Ruggero selezionato: nessun eroe attivo
   const vivi = P().party.filter((nm) => (sp.vite[nm] ?? 0) > 0);
   if (sp.eroiAttivo && vivi.includes(sp.eroiAttivo) && !fatti.includes(sp.eroiAttivo)) return sp.eroiAttivo;
   return vivi.find((nm) => !fatti.includes(nm)) || null;
 }
 function giroEroiHtml() {
   const sp = SP(); const fatti = sp.eroiFatti || []; const attivo = eroiAttivoNome();
-  return `<div class="giro-strip">${P().party.map((nm) => {
+  const chips = P().party.map((nm) => {
     const e = eroe(nm); const done = fatti.includes(nm); const giu = (sp.vite[nm] ?? 0) <= 0;
     return `<button class="chip-turno ritratto${nm === attivo ? ' attivo' : ''}${done || giu ? ' fatto' : ''}" data-turno="${esc(nm)}">
       <span class="rit"><img src="${e && e.art ? urlArt(e.art) : ''}" alt=""></span><span class="et">${done ? '✓ ' : ''}${esc(primo(nm))}</span></button>`;
-  }).join('')}</div>`;
+  });
+  // chip di Ruggero: unità mossa dal giocatore (Mov 3, non agisce) una volta liberato
+  if (sp.ruggero && sp.ruggero.liberato) {
+    chips.push(`<button class="chip-turno ritratto ruggero${sp.ruggeroAttivo ? ' attivo' : ''}${sp.ruggero.mosso ? ' fatto' : ''}" data-ruggero-chip="1">
+      <span class="rit"><img src="${urlArt('Ruggero.png')}" alt=""></span><span class="et">${sp.ruggero.mosso ? '✓ ' : ''}ruggero</span></button>`);
+  }
+  return `<div class="giro-strip">${chips.join('')}</div>`;
+}
+// celle raggiungibili da Ruggero (Mov 3): passa per eroi/porte, blocca sui nemici,
+// non rivela tessere, non si ferma su celle occupate
+function raggRuggero() {
+  const sp = SP();
+  if (!sp.ruggeroAttivo || !sp.ruggero.liberato || !sp.ruggero.pos) return {};
+  const info = esploraMosse(sp.ruggero.pos, 3, occupati('R', true, true));  // solo nemici murano
+  const tuttiOcc = occupati('R', false);
+  const out = {};
+  for (const [k, v] of Object.entries(info)) { if (v.dist === 0 || v.reveal || tuttiOcc.has(k)) continue; out[k] = v; }
+  return out;
 }
 
 // ------------------------------------------------------------------ azioni
@@ -439,7 +459,14 @@ const azioniMax = (nm) => (stordito(nm) ? 1 : 2);
 const azioniRestano = (nm) => azioniOf(nm).length < azioniMax(nm);
 
 function azioniHtml() {
-  const sp = SP(); const attivo = eroiAttivoNome();
+  const sp = SP();
+  if (sp.ruggeroAttivo) {
+    const n = Object.keys(raggRuggero()).length;
+    return `<p class="nota">Tocca a <b>Ruggero</b> — si muove con voi (Mov 3), <b>non compie azioni</b>.</p>
+      <p class="nota mt">${n ? '▸ Tocca una <b class="verde">casella verde</b> per muovere Ruggero (fino a 3 caselle). Portalo alla <b>banchina T1</b> per vincere.' : '▸ Ruggero non ha caselle libere raggiungibili (nemici o arredi intorno).'}</p>
+      <div class="btn-riga mt"><button class="btn pieno" id="rug-fine">Ruggero ha finito →</button></div>`;
+  }
+  const attivo = eroiAttivoNome();
   if (!attivo) {
     return `<p class="nota">Tutti gli eroi hanno agito. La notte reagisce.</p>
       <div class="btn-riga"><button class="btn pieno" id="fase-minaccia">fase minaccia →</button></div>`;
@@ -675,15 +702,23 @@ function interazioneDisponibile(nm) {
 function aggancia() {
   const { app } = ctx; const sp = SP(); const attivo = eroiAttivoNome();
   app.querySelectorAll('.cella-mossa').forEach((c) => c.onclick = () => {
+    const node = { t: c.dataset.t, x: +c.dataset.x, y: +c.dataset.y };
+    if (sp.ruggeroAttivo) return muoviRuggero(node);
     if (!attivo) return;
-    muoviEroe(attivo, { t: c.dataset.t, x: +c.dataset.x, y: +c.dataset.y }, c.dataset.reveal || null);
+    muoviEroe(attivo, node, c.dataset.reveal || null);
   });
   app.querySelectorAll('[data-nemico]').forEach((el) => el.onclick = () => { if (attivo) attaccaNemico(attivo, Number(el.dataset.nemico)); });
   app.querySelectorAll('[data-eroe]').forEach((el) => el.onclick = () => {
     const nm = el.dataset.eroe; if ((sp.vite[nm] ?? 0) <= 0) return;
+    sp.ruggeroAttivo = false;
     const i = sp.eroiFatti.indexOf(nm); if (i >= 0) sp.eroiFatti.splice(i, 1);
     sp.eroiAttivo = nm; salvaP(); render();
   });
+  // selezione di Ruggero (pedina sul board o chip nel giro)
+  const selRug = () => { if (sp.ruggero.liberato) { sp.ruggeroAttivo = true; salvaP(); render(); } };
+  app.querySelectorAll('[data-ruggero]').forEach((el) => el.onclick = selRug);
+  app.querySelectorAll('[data-ruggero-chip]').forEach((el) => el.onclick = selRug);
+  app.querySelector('#rug-fine') && (app.querySelector('#rug-fine').onclick = () => { sp.ruggeroAttivo = false; salvaP(); render(); });
   app.querySelectorAll('[data-turno]').forEach((b) => b.onclick = () => {
     const nm = b.dataset.turno; if ((sp.vite[nm] ?? 0) <= 0) return;
     const i = sp.eroiFatti.indexOf(nm); if (i >= 0) sp.eroiFatti.splice(i, 1);
@@ -745,8 +780,9 @@ function centraSuNodo(node, key, forza) {
 // il board resterebbe in alto a sinistra). Il pan manuale tra due azioni resta
 // comunque: senza render lo scroll non si azzera.
 function centraSuAttivo() {
-  const attivo = eroiAttivoNome();
-  if (attivo) { const p = SP().eroiPos[attivo]; centraSuNodo(p, `${attivo}@${nk(p)}`, true); }
+  const sp = SP(); const attivo = eroiAttivoNome();
+  if (sp.ruggeroAttivo && sp.ruggero.pos) { centraSuNodo(sp.ruggero.pos, `R@${nk(sp.ruggero.pos)}`, true); }
+  else if (attivo) { const p = sp.eroiPos[attivo]; centraSuNodo(p, `${attivo}@${nk(p)}`, true); }
   else { const t = tileAffollata(); centraSuNodo({ t, x: 1.5, y: 1.5 }, `_@${t}`, true); }
 }
 
@@ -809,6 +845,15 @@ async function muoviEroe(nm, node, revealId) {
     await messaggioProva(`${node.t} — ${tnow.nome.toLowerCase()}`, `<p><i>${rendi(tnow.testo)}</i></p>`, tnow.testo, nm);
   }
   segnaAzione(nm, 'muovere');
+}
+
+// Ruggero mosso dal giocatore (Mov 3, non agisce): a T1 è vittoria
+function muoviRuggero(node) {
+  const sp = SP();
+  sp.ruggero.pos = node; sp.ruggero.mosso = true; sp.ruggeroAttivo = false;
+  log(`Ruggero avanza in ${node.t}.`);
+  if (node.t === 'T1') { sp.ruggero.tile = 'T1'; sp.esito = 'vittoria'; sp.log.push('Ruggero è alla banchina: siete salvi.'); salvaP(); return epilogo(); }
+  salvaP(); render();
 }
 
 async function attaccaNemico(nm, i) {
@@ -1142,7 +1187,7 @@ function faseNemiciAI() {
     const bersagli = vivi(); if (!bersagli.length) break;
     const scelto = bersagli[Math.floor(Math.random() * bersagli.length)];
     if (!bersagli.some((nm) => adiacGlob(n.pos, sp.eroiPos[nm]))) {
-      const blocco = occupati(`N:${i}`, false);          // tutti murano (come nel simulatore)
+      const blocco = occupati(`N:${i}`, false, true);    // eroi (in piedi/a terra) + altri nemici murano; Ruggero no (i nemici lo ignorano)
       let best = null, bestLen = Infinity;
       for (const nm of bersagli) for (const g of celleAdiacLibere(sp.eroiPos[nm], blocco)) {
         const p = camminoGlob(n.pos, g, blocco);
@@ -1167,27 +1212,14 @@ function faseNemiciAI() {
     }
     piano.push({ i, nome: n.nome, pos0, pos1, flash: false, attacco });
   }
-  // Ruggero: segue il gruppo (Mov 3) fermandosi in una cella LIBERA adiacente
-  // all'eroe piu' vicino — mai sulla sua casella. Se gia' adiacente non si muove;
-  // se per qualche motivo e' sovrapposto a un eroe, si sposta via.
-  if (sp.ruggero.liberato && sp.ruggero.pos) {
-    const rug0 = sp.ruggero.pos; const vivi2 = vivi();
-    if (vivi2.length && !vivi2.some((nm) => adiacGlob(sp.ruggero.pos, sp.eroiPos[nm]))) {
-      const blocco = occupati('R', false);
-      let best = null, bl = Infinity;
-      for (const nm of vivi2) for (const g of celleAdiacLibere(sp.eroiPos[nm], blocco)) {
-        const p = camminoGlob(sp.ruggero.pos, g, blocco);
-        if (p.length && p.length < bl) { bl = p.length; best = p; }
-      }
-      if (best) sp.ruggero.pos = best[Math.min(3, best.length) - 1];
-    }
-    piano.ruggero = { pos0: rug0, pos1: sp.ruggero.pos };
-    if (sp.ruggero.pos.t === 'T1') { sp.ruggero.tile = 'T1'; sp.esito = 'vittoria'; sp.log.push('Ruggero è alla banchina: siete salvi.'); }
-  }
+  // NB: Ruggero NON si muove nella notte — lo muove il giocatore nel turno eroi
+  // (regolamento: «si muove nel turno degli eroi, non compie azioni»).
   // fine round: tick canto, boss a soglia (annunci mostrati dopo l'animazione)
   piano.annunci.push(...fineRound(ctx.comune, ctx.ep, sp));
   piano.annunci.push(...destaBossSeSoglia());
   sp.fase = 'eroi'; sp.eroiFatti = []; sp.eroiAttivo = null; sp.azioni = {};
+  if (sp.ruggero) sp.ruggero.mosso = false;    // Ruggero può muoversi nel nuovo turno eroi
+  sp.ruggeroAttivo = false;
   if (!sp.esito && P().party.every((nm) => (sp.vite[nm] ?? 0) <= 0)) sp.esito = 'sconfitta';
   salvaP();                                    // stato gia' finale: reload -> fase eroi coerente
   ctx.saltaNemici = false; ctx.ultimaCentrata = null;

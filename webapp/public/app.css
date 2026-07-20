@@ -450,7 +450,11 @@ em, i { font-style: italic; }
 .tok-board.eroe.giu { filter: grayscale(1) brightness(.5); }
 .tok-board.nemico { border-color: #7a1f2b; cursor: pointer; }
 .tok-board.nemico.boss { border-color: #d83b3b; border-width: 3px; box-shadow: 0 0 12px rgba(216,59,59,.7); }
-.tok-board.ruggero { border-color: var(--teal); }
+.tok-board.ruggero { border-color: var(--teal); cursor: pointer; }
+.tok-board.ruggero.attivo { border-width: 3px; box-shadow: 0 0 14px rgba(31,95,107,.9); }
+.chip-turno.ritratto.ruggero .rit { border-color: var(--teal); }
+.chip-turno.ritratto.ruggero.attivo .rit { width: 62px; height: 62px; border-color: var(--teal); box-shadow: 0 0 12px rgba(31,95,107,.7); }
+.chip-turno.ritratto.ruggero.attivo .et { color: var(--teal); font-weight: 700; }
 /* turno nemici animato: nemico attivo, scatto d'attacco, bersaglio colpito, danno */
 .tok-board.attivo-nem { border-color: #d83b3b; border-width: 3px; box-shadow: 0 0 16px rgba(216,59,59,.85); z-index: 3; }
 .tok-board.attacca { animation: tok-attacca .4s ease; }
