@@ -196,6 +196,10 @@ function setup() {
   app.querySelector('#inizia-spedizione').onclick = () => {
     partita.spedizione = {
       round: 1, fase: 'eroi', canto: 0, cantoBonus: false, esito: null,
+      abilita: {},            // {nomeEroe: cariche spese} per le abilità a usi
+      diversivoPronto: false, // Fanti: -1 carta alla prossima Fase Minaccia
+      eroiFatti: [],          // nomi eroi che hanno agito nel giro (fase eroi)
+      nemiciFatti: [],        // indici nemici attivati nel giro (fase nemici)
       mazzo: costruisciMazzo(ctx.carte, ep, partita.episodio),
       rivelate: [ep.tessere[0].id],
       nemici: [],
@@ -232,6 +236,11 @@ function plancia() {
       ${slancio1 ? '<p class="ok-txt">SLANCIO — in questo primo round ogni eroe ha 3 azioni (sempre di tipo diverso).</p>' : ''}
       ${tuttiATerra ? '<p class="ko-txt">Tutti gli eroi sono a terra: la notte vince — dichiarate la sconfitta qui sotto.</p>' : ''}
     </div><div class="mt"></div>` : ''}
+    <div class="pannello giro">
+      <h2>il giro degli eroi</h2>
+      ${giroEroiHtml()}
+    </div>
+    <div class="mt"></div>
     <div class="pannello">
       <h2>le tessere</h2>
       <p class="nota">Toccate una tessera coperta quando il gruppo la rivela (l’app legge il
@@ -247,6 +256,15 @@ function plancia() {
       <h2>la salute degli eroi</h2>
       ${eroiHtml()}
       <p class="nota mt">A 0 l’eroe è a terra: un compagno adiacente lo Rianima a 2 (usate il +).</p>
+    </div>
+    <div class="mt"></div>
+    <div class="pannello">
+      <h2>le abilità degli eroi</h2>
+      ${abilitaHtml()}
+      <p class="nota mt">Toccate «usa» per spendere una carica. L’effetto si risolve al tavolo
+      (dadi, posizioni, salute); l’app tiene il conto.</p>
+      <hr class="divisore">
+      ${cantoControlloHtml()}
     </div>
     <div class="mt"></div>
     <div class="pannello">
@@ -301,6 +319,9 @@ function plancia() {
   agganciaRegistro();
   agganciaOggetti();
   agganciaEroi();
+  agganciaAbilita();
+  agganciaCanto();
+  agganciaGiroEroi();
 }
 
 // ------------------------------------------------------------- tessere
@@ -486,6 +507,197 @@ function agganciaEroi() {
   });
 }
 
+// -------------------------------------------------- abilità di spedizione
+// Ogni eroe ha UNA abilità a cariche in Spedizione: l'app tiene il conto degli
+// usi (prima si ricordavano a memoria). Litania e Diversivo agiscono su stato
+// che l'app possiede (Canto, mazzo Minaccia) e vengono applicate qui; le altre
+// hanno effetto al tavolo (dadi/posizioni/salute), l'app segna solo la carica.
+const CARICHE_SPED = [
+  { key: 'ATTILIO', ab: 'Pronto Soccorso', usi: 3 },
+  { key: 'SIBILLA', ab: 'Sesto Senso (scruta)', usi: 3 },
+  { key: 'SERRA',   ab: 'Voce ferma', usi: 3 },
+  { key: 'CARLA',   ab: 'Flash!', usi: 2 },
+  { key: 'CARBONE', ab: 'Esca preziosa', usi: 2 },
+  { key: 'FANTI',   ab: 'Diversivo', usi: 2, effetto: 'diversivo' },
+  { key: 'MARANI',  ab: 'Litania', usi: 1, effetto: 'litania' },
+  { key: 'BRERA',   ab: 'Vi conosco, Malacarne', usi: 1 },
+  { key: 'OTTONE',  ab: 'Colpo da macello', usi: null }, // 1 per turno, senza pool
+];
+const caricaDi = (nome) => CARICHE_SPED.find((c) => nome.includes(c.key));
+
+function abilitaHtml() {
+  const sp = SP();
+  const righe = P().party.map((nm) => {
+    const c = caricaDi(nm);
+    if (!c) return '';
+    const breve = primo(nm);
+    if (c.usi === null) {
+      return `<div class="nemico-riga"><span class="nemico-nome">${breve} · ${esc(c.ab.toLowerCase())}</span>
+        <span class="nota">1 per turno (a piacere)</span></div>`;
+    }
+    const usate = (sp.abilita && sp.abilita[nm]) || 0;
+    const rest = c.usi - usate;
+    const pips = Array.from({ length: c.usi }, (_, k) =>
+      `<span class="pip-vita ${k < rest ? 'piena' : ''}"></span>`).join('');
+    return `<div class="nemico-riga">
+      <span class="nemico-nome">${breve} · ${esc(c.ab.toLowerCase())}</span>
+      <span class="nemico-comandi">
+        <button class="btn attacca" data-abil-undo="${esc(nm)}"${usate <= 0 ? ' disabled' : ''}>+</button>
+        <span class="nemico-pips">${pips}</span>
+        <button class="btn attacca" data-abil-usa="${esc(nm)}"${rest <= 0 ? ' disabled' : ''}>usa</button>
+      </span></div>`;
+  }).join('');
+  return righe || '<p class="nota">Nessun eroe con abilità a cariche in questo party.</p>';
+}
+
+function agganciaAbilita() {
+  const sp = SP();
+  if (!sp.abilita) sp.abilita = {};
+  ctx.app.querySelectorAll('[data-abil-usa]').forEach((b) => b.onclick = () => {
+    const nm = b.dataset.abilUsa;
+    const c = caricaDi(nm);
+    const usate = sp.abilita[nm] || 0;
+    if (!c || c.usi === null || usate >= c.usi) return;
+    sp.abilita[nm] = usate + 1;
+    let extra = '';
+    if (c.effetto === 'litania') {
+      sp.canto = Math.max(0, sp.canto - 1);
+      extra = ` Rimosso 1 segnalino ${orologio()} (ora ${sp.canto}).`;
+    } else if (c.effetto === 'diversivo') {
+      sp.diversivoPronto = true;
+      extra = ' La prossima Fase Minaccia pescherà 1 carta in meno.';
+    }
+    salvaP();
+    pannelloMsg(`${primo(nm)} — ${esc(c.ab.toLowerCase())}`,
+      `<p>Carica spesa (${c.usi - sp.abilita[nm]} di ${c.usi} residue).${esc(extra)}</p>
+       <p class="nota mt">L'effetto si risolve al tavolo come dice la scheda.</p>`, plancia);
+  });
+  ctx.app.querySelectorAll('[data-abil-undo]').forEach((b) => b.onclick = () => {
+    const nm = b.dataset.abilUndo;
+    sp.abilita[nm] = Math.max(0, (sp.abilita[nm] || 0) - 1);
+    salvaP();
+    plancia();
+  });
+}
+
+// Canto/Marea manuale: per la Litania (già cablata) e per gli effetti-carta
+// che dicono "+1 Canto" fuori dalle Crescendo (l'arbitro li registra qui).
+function cantoControlloHtml() {
+  const sp = SP();
+  return `<div class="nemico-riga">
+    <span class="nemico-nome">${orologio().toLowerCase()} · ${sp.canto}</span>
+    <span class="nemico-comandi">
+      <button class="btn attacca" data-canto="-1"${sp.canto <= 0 ? ' disabled' : ''}>−</button>
+      <button class="btn attacca" data-canto="1">+</button>
+    </span></div>
+    <p class="nota mt">Sale da solo a fine round e con le Crescendo. Usa qui per la Litania o per un effetto-carta.</p>`;
+}
+
+function agganciaCanto() {
+  const sp = SP();
+  ctx.app.querySelectorAll('[data-canto]').forEach((b) => b.onclick = () => {
+    sp.canto = Math.max(0, sp.canto + Number(b.dataset.canto));
+    salvaP();
+    plancia();
+  });
+}
+
+// -------------------------------------------------- il giro (turn tracker)
+// Sidebar/striscia degli eroi in cima alla fase eroi: l'attivo evidenziato,
+// «ha finito» passa al successivo, finiti tutti si va in Fase Minaccia. Stessa
+// idea per i nemici nella fase nemici. E' un aiuto d'ordine, non una regola:
+// si puo' toccare un segnaposto per correggere l'ordine.
+// nome breve distintivo: salta il titolo (DOTT./PADRE) — altrimenti Attilio e
+// Serra diventerebbero entrambi «dott.» — e toglie il soprannome tra virgolette.
+const primo = (nome) => {
+  const toks = String(nome).split(' ').filter(Boolean);
+  const t = (toks[0] === 'DOTT.' || toks[0] === 'PADRE') ? (toks[1] || toks[0]) : toks[0];
+  return esc(t.replace(/["“”]/g, '').toLowerCase());
+};
+
+function giroEroiHtml() {
+  const sp = SP();
+  const fatti = sp.eroiFatti || [];
+  const attivo = P().party.find((nm) => !fatti.includes(nm)) || null;
+  const chips = P().party.map((nm) => {
+    const done = fatti.includes(nm);
+    const att = nm === attivo;
+    return `<button class="chip-turno${att ? ' attivo' : ''}${done ? ' fatto' : ''}"
+      data-turno-eroe="${esc(nm)}">${done ? '✓ ' : ''}${primo(nm)}</button>`;
+  }).join('');
+  const azione = attivo
+    ? `<button class="btn pieno" id="eroe-finito">«${primo(attivo)}» ha finito →</button>`
+    : `<button class="btn pieno" id="tutti-finiti">tutti hanno agito — fase minaccia →</button>`;
+  return `<div class="giro-strip">${chips}</div>
+    <p class="nota mt">${attivo
+      ? `Tocca a <b>${primo(attivo)}</b> — 2 azioni a testa. Toccate un segnaposto per correggere l’ordine.`
+      : 'Il giro degli eroi è completo.'}</p>
+    <div class="btn-riga mt">${azione}</div>`;
+}
+
+function agganciaGiroEroi() {
+  const sp = SP();
+  if (!sp.eroiFatti) sp.eroiFatti = [];
+  ctx.app.querySelectorAll('[data-turno-eroe]').forEach((b) => b.onclick = () => {
+    const nm = b.dataset.turnoEroe;
+    const i = sp.eroiFatti.indexOf(nm);
+    if (i >= 0) sp.eroiFatti.splice(i, 1); else sp.eroiFatti.push(nm);
+    salvaP();
+    plancia();
+  });
+  const fin = ctx.app.querySelector('#eroe-finito');
+  if (fin) fin.onclick = () => {
+    const attivo = P().party.find((nm) => !sp.eroiFatti.includes(nm));
+    if (attivo) sp.eroiFatti.push(attivo);
+    salvaP();
+    plancia();
+  };
+  const tutti = ctx.app.querySelector('#tutti-finiti');
+  if (tutti) tutti.onclick = faseMinaccia;
+}
+
+function giroNemiciHtml() {
+  const sp = SP();
+  if (!sp.nemici.length) return '';
+  const fatti = sp.nemiciFatti || [];
+  const attivo = sp.nemici.findIndex((_, i) => !fatti.includes(i));
+  const chips = sp.nemici.map((n, i) => {
+    const done = fatti.includes(i);
+    const att = i === attivo;
+    return `<button class="chip-turno${att ? ' attivo' : ''}${done ? ' fatto' : ''}"
+      data-turno-nemico="${i}">${done ? '✓ ' : ''}${primo(n.nome)}${n.num > 1 ? ' ×' + n.num : ''}</button>`;
+  }).join('');
+  const azione = attivo >= 0
+    ? `<button class="btn pieno" id="nemico-fatto">«${esc(sp.nemici[attivo].nome.toLowerCase())}» attivato →</button>`
+    : `<button class="btn pieno" id="nemici-finiti">tutti attivati — fine round →</button>`;
+  return `<div class="giro-strip">${chips}</div>
+    <p class="nota mt">${attivo >= 0
+      ? `Attiva <b>${esc(sp.nemici[attivo].nome.toLowerCase())}</b>: muove verso l’eroe più vicino, attacca se adiacente.`
+      : 'Tutti i nemici hanno agito.'}</p>
+    <div class="btn-riga mt">${azione}</div>`;
+}
+
+function agganciaGiroNemici(fineRoundFn) {
+  const sp = SP();
+  if (!sp.nemiciFatti) sp.nemiciFatti = [];
+  ctx.app.querySelectorAll('[data-turno-nemico]').forEach((b) => b.onclick = () => {
+    const i = Number(b.dataset.turnoNemico);
+    const k = sp.nemiciFatti.indexOf(i);
+    if (k >= 0) sp.nemiciFatti.splice(k, 1); else sp.nemiciFatti.push(i);
+    salvaP();
+    faseNemici();
+  });
+  const fatto = ctx.app.querySelector('#nemico-fatto');
+  if (fatto) fatto.onclick = () => {
+    const attivo = sp.nemici.findIndex((_, i) => !sp.nemiciFatti.includes(i));
+    if (attivo >= 0) sp.nemiciFatti.push(attivo);
+    salvaP();
+    faseNemici();
+  };
+  const fin = ctx.app.querySelector('#nemici-finiti');
+  if (fin) fin.onclick = fineRoundFn;
+}
+
 // ------------------------------------------------------ oggetti del gruppo
 // L'inventario segue il gruppo dall'indagine; qui si consultano le carte
 // ("Usare un oggetto" e' un'azione: la carta dice come) e si registrano
@@ -648,7 +860,14 @@ async function attacca(i) {
 // --------------------------------------------------------- fase minaccia
 async function faseMinaccia() {
   const sp = SP();
-  const n = carteDaPescare(ctx.comune, P().party.length, sp.round, sp.cantoBonus, P().episodio);
+  let n = carteDaPescare(ctx.comune, P().party.length, sp.round, sp.cantoBonus, P().episodio);
+  if (sp.diversivoPronto) {          // Fanti: il Diversivo salta una carta di questo round
+    n = Math.max(0, n - 1);
+    sp.diversivoPronto = false;
+    salvaP();
+    await new Promise((fatto) => pannelloMsg('diversivo di Fanti',
+      `<p>Il furetto Ombra semina una falsa pista: questo round si pesca <b>1 carta Minaccia in meno</b>.</p>`, fatto));
+  }
   for (let i = 0; i < n; i++) {
     const carta = pesca(sp.mazzo, ctx.carte, P().episodio, ctx.ep);
     salvaP();
@@ -687,11 +906,26 @@ async function faseMinaccia() {
     });
   }
   sp.fase = 'nemici';
+  sp.nemiciFatti = [];        // nuovo giro nemici
   salvaP();
   faseNemici();
 }
 
 // ----------------------------------------------------------- fase nemici
+function chiudiRound() {
+  const sp = SP();
+  const annunciRound = fineRound(ctx.comune, ctx.ep, sp);   // tick e round += 1
+  annunciRound.push(...destaBossSeSoglia());
+  sp.fase = 'eroi';
+  sp.eroiFatti = [];          // nuovo giro eroi
+  salvaP();
+  if (annunciRound.length) {
+    return pannelloMsg(`${orologio().toLowerCase()} — fine round ${sp.round - 1}`,
+      annunciRound.map((a) => `<p class="mt"><b>${esc(a)}</b></p>`).join(''), plancia);
+  }
+  plancia();
+}
+
 function faseNemici() {
   const { app } = ctx;
   const sp = SP();
@@ -699,20 +933,25 @@ function faseNemici() {
     .map((nome) => ctx.comune.nemici.find((x) => x.nome === nome)).filter(Boolean);
   app.innerHTML = `
     ${barra(ctx.ep.titolo)}
-    <div class="pannello">
-      <h2>fase nemici — si attivano tutti</h2>
-      <p class="nota">Ogni nemico in campo si muove verso l’eroe più vicino e attacca se
-      adiacente (2d6 + Attacco ≥ Difesa dell’eroe → subisce il Danno). Ambiguità?
-      Regola d’Oro: sceglie il gruppo, sempre l’opzione peggiore per sé.</p>
-      ${tipiInCampo.length ? tipiInCampo.map((n) => `
+    <div class="pannello giro">
+      <h2>il giro dei nemici</h2>
+      ${sp.nemici.length ? giroNemiciHtml()
+        : '<p class="mt"><i>Nessun nemico in campo: la notte trattiene il fiato.</i></p>'}
+      <p class="nota mt">Ogni nemico si muove verso l’eroe più vicino e attacca se adiacente
+      (2d6 + Attacco ≥ Difesa → subisce il Danno). Ambiguità? Regola d’Oro: il gruppo sceglie
+      l’opzione peggiore per sé.</p>
+    </div>
+    <div class="mt"></div>
+    ${tipiInCampo.length ? `<div class="pannello">
+      <h2>schede dei nemici in campo</h2>
+      ${tipiInCampo.map((n) => `
         <div class="mt">
           <p><b>${esc(n.nome.toLowerCase())}</b> — Mov ${n.mov} · Attacco +${n.att} ·
              Danno ${n.dan}${n.gittata ? ` · gittata ${n.gittata}` : ''}</p>
           ${n.note ? `<p class="nota">${rendi(n.note)}</p>` : ''}
-        </div>`).join('')
-      : '<p class="mt"><i>Nessun nemico in campo: la fonderia trattiene il fiato.</i></p>'}
+        </div>`).join('')}
     </div>
-    <div class="mt"></div>
+    <div class="mt"></div>` : ''}
     <div class="pannello">
       <h2>la salute degli eroi</h2>
       ${eroiHtml()}
@@ -723,24 +962,15 @@ function faseNemici() {
       ${registroHtml()}
     </div>
     <div class="btn-riga">
-      <button class="btn pieno" id="fine-round">fine round →</button>
+      <button class="btn" id="fine-round">salta a fine round →</button>
       <button class="btn" id="sconfitta">gli eroi cadono</button>
     </div>`;
   dopoBarra();
   agganciaRegistro();
   agganciaEroi();
+  agganciaGiroNemici(chiudiRound);
   app.querySelector('#sconfitta').onclick = () => fine('sconfitta');
-  app.querySelector('#fine-round').onclick = () => {
-    const annunciRound = fineRound(ctx.comune, ctx.ep, sp);   // round += 1 e tick
-    annunciRound.push(...destaBossSeSoglia());
-    sp.fase = 'eroi';
-    salvaP();
-    if (annunciRound.length) {
-      return pannelloMsg(`${orologio().toLowerCase()} — fine round ${sp.round - 1}`,
-        annunciRound.map((a) => `<p class="mt"><b>${esc(a)}</b></p>`).join(''), plancia);
-    }
-    plancia();
-  };
+  app.querySelector('#fine-round').onclick = chiudiRound;
 }
 
 // ------------------------------------------------------------------ fine

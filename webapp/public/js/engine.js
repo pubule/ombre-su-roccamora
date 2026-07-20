@@ -151,7 +151,10 @@ export function pesca(mazzo, carte, epId, ep) {
 // --- Canto / Marea ----------------------------------------------------------
 // da chiamare a fine round; ritorna gli annunci da mostrare
 export function fineRound(comune, ep, sped) {
-  sped.round += 1;
+  // Il segnalino scatta DOPO l'N-esimo round giocato (round 4, 8, 12 con
+  // tick=4), come nel simulatore tarato: si valuta il modulo sul round
+  // appena concluso, POI si avanza al prossimo. (Prima: round += 1 prima
+  // del check -> tick sfasato di 1 round in anticipo, tavolo piu' duro.)
   const annunci = [];
   const ogni = ep.marea ? ep.marea.ogni : comune.regole.tick_canto_ogni;
   const soglia = ep.marea ? ep.marea.soglia : comune.regole.soglia_canto;
@@ -167,6 +170,7 @@ export function fineRound(comune, ep, sped) {
       }
     }
   }
+  sped.round += 1;
   return annunci;
 }
 

@@ -112,7 +112,9 @@ for (const [epId, ep] of Object.entries(EPISODI)) {
   }
 
   // --- Canto/Marea: tick e soglia una volta sola ---------------------------
-  const sped = { round: 0, canto: 0 };
+  // round parte da 1 come nel gioco reale (setup): fineRound valuta il round
+  // appena giocato e poi avanza, quindi il tick scatta ai round ogni/2ogni/...
+  const sped = { round: 1, canto: 0 };
   const ogni = ep.marea ? ep.marea.ogni : comune.regole.tick_canto_ogni;
   const soglia = ep.marea ? ep.marea.soglia : comune.regole.soglia_canto;
   let annunciSoglia = 0;
