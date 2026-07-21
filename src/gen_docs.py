@@ -395,8 +395,10 @@ def regolamento():
                 'nella Soluzione dell\u2019episodio). Si muove nel turno degli eroi, fino a 3 caselle, e non '
                 'compie azioni.'))
     e.append(LI('<b>La via che conosce</b> \u2014 in alcuni episodi (la Soluzione lo dice) il PNG, '
-                'appena libero, indica una <b>uscita segreta</b> nella stanza in cui l\u2019hanno tenuto: \u00e8 sotto uno dei mobili, e lui sa quale '
-                'stanza ma non quale mobile. <b>Interagire</b> stando adiacenti a un mobile e '
+                'appena libero, indica una <b>uscita segreta</b>: conosce il posto e sa dov\u2019\u00e8 '
+                'una via che non rif\u00e0 la strada. In quale stanza sia lo dice la <b>Soluzione</b> '
+                '\u2014 non \u00e8 sempre quella dove l\u2019hanno tenuto. \u00c8 sotto uno dei mobili, e voi '
+                'sapete la stanza ma non quale mobile. <b>Interagire</b> stando adiacenti a un mobile e '
                 'superare una prova di <b>VIGORE</b> lo sposta: se \u00e8 quello giusto si apre il '
                 'passaggio, altrimenti sotto c\u2019\u00e8 solo pietra e l\u2019azione \u00e8 spesa lo stesso. '
                 'Portateci il PNG e la spedizione \u00e8 vinta \u2014 non serve rifare tutta la strada '

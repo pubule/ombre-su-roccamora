@@ -318,10 +318,23 @@ TILES_2 = [
          testo='Il forno grande è riacceso e la sala trema di calore. Sulla rastrelliera, '
                'campanelle grezze in fila — e due posti vuoti. QUANDO RIVELATE QUESTA TESSERA: '
                'appare lo Scoriatore con 1 Crogiolante.',
+         # L'uscita segreta sta QUI, non nella stanza dove tenevano Ilario: se
+         # stesse in T5 l'episodio si vincerebbe in 7 round senza mai rivelare
+         # questa tessera, quindi senza Scoriatore e senza campanelle (misurato).
          arbitro='Le campanelle grezze: un’azione Interagire ciascuna per prenderle (contano '
                  'nell’epilogo — due sono già state portate via). Lo Scoriatore si «stona» solo '
                  'con SMORZO DI FELTRO + MARTELLO DI COLLAUDO insieme (vedi le carte Oggetto): '
-                 'un oggetto solo non basta.',
+                 'un oggetto solo non basta. '
+                 '— APPENA ILARIO È LIBERO (in T5), leggete ad alta voce: «Ilario non guarda la '
+                 'strada da cui siete venuti. — La scoria colata la calano nel canale, dalla sala '
+                 'dei forni. Il condotto resta aperto finché il forno tira. Ci sono sceso a pesare '
+                 'la cenere mille volte.» Il gruppo sa che si esce dalla sala dei forni, ma non '
+                 'sotto quale mobile: scoprirlo è Interagire adiacenti a un mobile + prova VIGORE '
+                 '(Media). '
+                 '— SEGRETO: è sotto il CROGIOLO GRANDE. Sotto le due forme non c’è nulla — '
+                 '«solo scoria fredda», stesso tono, e l’azione è spesa lo stesso. '
+                 '— QUANDO ILARIO ENTRA NEL CONDOTTO la spedizione è VINTA: leggete l’epilogo. '
+                 'Le campanelle prese fino a quel momento contano.',
          cerca_vuoto='Solo scorie e calore. Ciò che vale, qui, è in fila sulla rastrelliera — e '
                      'non si trova Cercando.',
          arredi=[(1, 2, 'crogiolo'), (2, 2, 'forma'), (3, 3, 'forma')]),

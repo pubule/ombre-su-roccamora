@@ -781,13 +781,24 @@ episodi = dict(
         sottotitolo='episodio 2 — i pani del Quarantuno',
         cartella='Episodio 2', ore_budget=6,
         lettera=LETTERA_2,
-        obiettivo='Liberate Ilario (Interagire, in T5) e riportatelo in T1, alla chiatta. '
+        obiettivo='Liberate Ilario (Interagire, in T5) e portatelo fuori: alla chiatta (T1) '
+                  'oppure per la via che lui stesso vi indica, una volta libero. '
                   'Secondario: le campanelle grezze in T6, una ad azione (Interagire).',
         # «Ilario si libera con Interagire (nessuna prova)» — testo di T5
         scortato=[scortato(
             'Ilario', 'T5', 'T1', 'Ilario.png',
             etichetta='Libera Ilario (Interagire)',
-            vittoria='Ilario è alla chiatta: siete salvi.')],
+            vittoria='Ilario è fuori dal canale di scolo: siete salvi.',
+            # L'uscita sta in T6, la SALA DEI FORNI: non dove l'hanno tenuto, ma
+            # dove lui lavora — e' il pesatore, la fonderia la conosce tutta.
+            # Misurato: con l'uscita in T5 l'episodio si vinceva in 7 round
+            # senza mai rivelare T6, quindi senza incontrare lo Scoriatore ne'
+            # toccare le campanelle. Metterla oltre il boss tiene il climax.
+            uscita=uscita_segreta(
+                'T6', (1, 2),
+                'Ilario guarda il crogiolo grande: — Sotto quello. La scoria colata '
+                'la calano nel canale, e il condotto resta aperto finche’ il forno '
+                'tira. Ci sono sceso a pesare la cenere mille volte.'))],
         esami_carbone=ESAMI_CARBONE_2,
         luoghi=[luogo_json(L, OGGETTI_LUOGO_2, REPERTI_LUOGO['ep2']) for L in LUOGHI_2],
         tessere=[tessera_json(T) for T in TILES_2],
