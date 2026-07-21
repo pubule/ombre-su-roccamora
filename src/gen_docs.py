@@ -351,9 +351,12 @@ def regolamento():
     e.append(P('La Soluzione fissa l’obiettivo dell’episodio, sempre in due tempi: <b>compiere '
                'qualcosa nella tessera finale</b> (liberare un prigioniero, prendere ciò che va '
                'portato via — si fa con <b>Interagire</b>, dove la Soluzione lo indica) e poi '
-               '<b>tornare all’ingresso</b> con chi o cosa dovete portare in salvo. Solo allora '
-               'l’episodio è vinto. Chi scortate si muove nel turno degli eroi (fino a 3 caselle) '
-               'e non compie azioni.'))
+               '<b>portare in salvo</b> chi o cosa avete recuperato. Solo allora l’episodio è '
+               'vinto. Le vie d’uscita sono <b>due</b>: tornare all’<b>ingresso</b> rifacendo la '
+               'strada, oppure — quando scortate qualcuno — la <b>via che lui conosce</b>, '
+               'l’uscita segreta nascosta sotto un mobile della stanza in cui l’hanno tenuto '
+               '(vedi sotto). Chi scortate si muove nel turno degli eroi (fino a 3 caselle) e '
+               'non compie azioni.'))
     e.append(P('Ferite e sconfitta', 'h2'))
     e.append(P("A 0 Salute un eroe cade <b>a terra</b>: non agisce finch\u00e9 non viene rianimato. "
                "Se tutti gli eroi sono a terra, l\u2019episodio \u00e8 fallito: potete rigiocarlo, ma il "
@@ -389,8 +392,8 @@ def regolamento():
     e.append(LI('<b>Il PNG che scortate</b> \u2014 non \u00e8 un eroe: i nemici lo <b>ignorano</b> (i motivi sono '
                 'nella Soluzione dell\u2019episodio). Si muove nel turno degli eroi, fino a 3 caselle, e non '
                 'compie azioni.'))
-    e.append(LI('<b>La via che conosce</b> \u2014 appena libero, il PNG indica una <b>uscita segreta</b> '
-                'nella stanza in cui l\u2019hanno tenuto: \u00e8 sotto uno dei mobili, e lui sa quale '
+    e.append(LI('<b>La via che conosce</b> \u2014 in alcuni episodi (la Soluzione lo dice) il PNG, '
+                'appena libero, indica una <b>uscita segreta</b> nella stanza in cui l\u2019hanno tenuto: \u00e8 sotto uno dei mobili, e lui sa quale '
                 'stanza ma non quale mobile. <b>Interagire</b> stando adiacenti a un mobile e '
                 'superare una prova di <b>VIGORE</b> lo sposta: se \u00e8 quello giusto si apre il '
                 'passaggio, altrimenti sotto c\u2019\u00e8 solo pietra e l\u2019azione \u00e8 spesa lo stesso. '
@@ -821,7 +824,9 @@ def aiuto():
 
     e.append(P('OBIETTIVO E CANTO', 'h2'))
     e.append(RL('<b>Vittoria:</b> completare l’obiettivo dell’episodio nella tessera finale (T6, '
-                'vedi Soluzione) e tornare all’ingresso (T1) con chi/cosa dovete portare in salvo. '
+                'vedi Soluzione) e portare in salvo chi/cosa avete recuperato — tornando '
+                'all’ingresso (T1) <b>oppure</b> per l’uscita segreta che il prigioniero vi '
+                'indica, sotto un mobile della stanza dov’era tenuto. '
                 'Chi scortate si muove con voi (Mov. 3, non agisce).'))
     e.append(RL('<b>Canto:</b> al <b>3° segnalino</b> si desta il boss dell’episodio e da lì ogni fase '
                 'Minaccia pescate 1 carta in più. Ogni 4° round (4°, 8°...): +1 Canto automatico.'))

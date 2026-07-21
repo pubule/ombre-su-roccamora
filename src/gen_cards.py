@@ -494,7 +494,7 @@ TILES = [
     # mai un secco "non c'e' nulla" (bibbia punto 3).
     dict(id='T1', nome='BANCHINA D’INGRESSO', exits={'N': 'T2'},
          testo='Acqua nera che lambisce le pietre, odore di sego. La porta sul retro ha un lucchetto '
-               'a tre cifre (vedi Soluzione). Qui dovete riportare Ruggero per vincere.',
+               'a tre cifre (vedi Soluzione). Riportare qui Ruggero vince la spedizione — ma non è l’unica via: quando sarà libero, chiedetegli come uscivano quelli che portavano la cera.',
          cerca_vuoto='Frugate tra le cime e gli anelli d’ormeggio: solo salsedine, e l’acqua nera '
                      'che vi osserva frugare.',
          arredi=[(0, 3, 'molo'), (3, 3, 'casse')]),
@@ -555,9 +555,17 @@ TILES = [
          # SINISTRA; sotto l'altro non c'e' nulla e il tentativo costa l'azione.
          arbitro='La cella: si apre con LA CHIAVE DELLA CELLA (T4) con Interagire, senza prove — '
                  'oppure scassinando, ACUME Difficile (il piede di porco di T2 dà +1). '
-                 'L’USCITA SEGRETA che Ruggero indica è sotto l’ALTARE DI SINISTRA: Interagire '
-                 'adiacenti + prova VIGORE (Media) per scostarlo, e sotto c’è il chiusino che dà '
-                 'sull’acqua nera. Sotto l’altare di destra non c’è nulla: l’azione è spesa lo stesso.',
+                 '— APPENA RUGGERO È LIBERO, leggete ad alta voce: «Ruggero non guarda la porta. '
+                 'Guarda gli altari, e dice: — Di là. Ci portavano dentro la cera di là, e non '
+                 'passavano mai dalla banchina. Sotto uno dei due c’è il chiusino.» Da quel momento '
+                 'il gruppo sa che c’è una via sotto un altare, ma non SOTTO QUALE: scoprirlo è '
+                 'Interagire stando adiacenti a un altare + prova VIGORE (Media) per scostarlo. '
+                 '— SEGRETO: è l’ALTARE DI SINISTRA. Sotto quello di destra non c’è nulla — '
+                 'dite «solo pietra» con lo stesso tono, e l’azione è spesa lo stesso. '
+                 '— Scostato quello giusto: «Sotto la pietra, un chiusino di piombo, e il rumore '
+                 'dell’acqua nera che scorre.» La sua casella diventa percorribile. '
+                 '— QUANDO RUGGERO ENTRA NEL CHIUSINO la spedizione è VINTA, senza tornare a T1: '
+                 'leggete l’epilogo nella Soluzione. Gli eroi ancora dentro escono con lui.',
          cerca_vuoto='Tra le stalattiti di cera e le candele nere, nulla che si possa portare via — '
                      'tutto, qui, è già di qualcuno.',
          arredi=[(1, 2, 'altare'), (2, 2, 'altare'), (3, 3, 'CELLA')]),

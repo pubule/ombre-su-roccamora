@@ -750,7 +750,7 @@ episodi = dict(
         sottotitolo='episodio 1 — il caso del campanaro scomparso',
         cartella='Episodio 1', ore_budget=6,
         lettera=story.LETTERA2,
-        obiettivo='Liberate Ruggero (Interagire, la cella in T6) e riportatelo in T1, alla banchina.',
+        obiettivo='Liberate Ruggero (Interagire, la cella in T6) e portatelo fuori: alla banchina (T1) oppure per la via che lui stesso vi indica, una volta libero.',
         # 3 segnalini Canto in scatola e traccia stampata a 3 caselle: qui il
         # tetto coincide con la soglia. NON e' generalizzabile — l'Ep.4 arriva a
         # 4 (registrazione), l'Ep.20 a 8 (risveglio): senza canto_max nessun tetto.
