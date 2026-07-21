@@ -739,6 +739,10 @@ episodi = dict(
         cartella='Episodio 1', ore_budget=6,
         lettera=story.LETTERA2,
         obiettivo='Liberate Ruggero (Interagire, la cella in T6) e riportatelo in T1, alla banchina.',
+        # 3 segnalini Canto in scatola e traccia stampata a 3 caselle: qui il
+        # tetto coincide con la soglia. NON e' generalizzabile — l'Ep.4 arriva a
+        # 4 (registrazione), l'Ep.20 a 8 (risveglio): senza canto_max nessun tetto.
+        canto_max=3,
         scortato=[scortato(
             'Ruggero', 'T6', 'T1', 'Ruggero.png', cella='CELLA',
             etichetta='Libera Ruggero (Interagire)',

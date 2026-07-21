@@ -590,20 +590,21 @@ function cantoControlloHtml() {
     <span class="nemico-nome">${orologio().toLowerCase()} · ${sp.canto}</span>
     <span class="nemico-comandi">
       <button class="btn attacca" data-canto="-1"${sp.canto <= 0 ? ' disabled' : ''}>−</button>
-      <button class="btn attacca" data-canto="1"${sp.canto >= sogliaCanto() ? ' disabled' : ''}>+</button>
+      <button class="btn attacca" data-canto="1"${sp.canto >= tettoCanto() ? ' disabled' : ''}>+</button>
     </span></div>
     <p class="nota mt">Sale da solo a fine round e con le Crescendo. Usa qui per la Litania o per un effetto-carta.</p>`;
 }
 
-// i segnalini sono finiti: la traccia stampata sul tabellone ha esattamente
-// `soglia` caselle (gen_board.py: «la traccia del Canto (3 caselle)»), quindi
-// nemmeno l'arbitro puo' segnarne di piu' — non ci sarebbe il pezzo da mettere
-const sogliaCanto = () => (ctx.ep.marea ? ctx.ep.marea.soglia : ctx.comune.regole.soglia_canto);
+// tetto ai segnalini: dato PER EPISODIO (`canto_max`), non la soglia di
+// risveglio. Nell'Ep.1 coincidono (3 segnalini in scatola, 3 caselle sulla
+// traccia stampata), ma l'Ep.4 registra al 4° e l'Ep.20 sveglia all'8°:
+// dove `canto_max` non e' dichiarato, l'arbitro non ha alcun tetto.
+const tettoCanto = () => (ctx.ep.marea ? ctx.ep.marea.soglia : (ctx.ep.canto_max ?? Infinity));
 
 function agganciaCanto() {
   const sp = SP();
   ctx.app.querySelectorAll('[data-canto]').forEach((b) => b.onclick = () => {
-    sp.canto = Math.min(sogliaCanto(), Math.max(0, sp.canto + Number(b.dataset.canto)));
+    sp.canto = Math.min(tettoCanto(), Math.max(0, sp.canto + Number(b.dataset.canto)));
     salvaP();
     plancia();
   });

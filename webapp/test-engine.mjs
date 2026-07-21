@@ -119,18 +119,19 @@ for (const [epId, ep] of Object.entries(EPISODI)) {
   const soglia = ep.marea ? ep.marea.soglia : comune.regole.soglia_canto;
   let annunciSoglia = 0;
   const roundGiocati = ogni * soglia + 4;
-  // I segnalini sono un componente FISICO e finito: la traccia stampata sul
-  // tabellone ha esattamente `soglia` caselle (gen_board.py: «la traccia del
-  // Canto (3 caselle)»). Il tick scatta finche' c'e' una casella libera, poi
-  // il contatore si ferma — al tavolo non ci sarebbe nulla da spostare.
+  // Il tetto ai segnalini e' un dato PER EPISODIO (`canto_max`), non la soglia:
+  // l'Ep.1 ha 3 segnalini in scatola e 3 caselle sulla traccia, ma l'Ep.4 arriva
+  // a 4 (registrazione) e l'Ep.20 a 8 (risveglio). Senza canto_max, nessun tetto.
+  const tetto = ep.canto_max ?? Infinity;
   for (let r = 1; r <= roundGiocati; r++) {
     const primaCanto = sped.canto;
     const a = E.fineRound(comune, ep, sped);
-    if (r % ogni === 0 && primaCanto < soglia) ok(a.length >= 1, `round ${r}: tick mancato`);
-    else ok(a.length === 0, `round ${r}: tick fuori tempo (canto ${primaCanto}/${soglia})`);
+    if (r % ogni === 0 && primaCanto < tetto) ok(a.length >= 1, `round ${r}: tick mancato`);
+    else ok(a.length === 0, `round ${r}: tick fuori tempo (canto ${primaCanto}, tetto ${tetto})`);
     if (a.length >= 2) annunciSoglia += 1;   // tick + annuncio soglia/boss
   }
-  ok(sped.canto === soglia, `segnalini a fine giro: ${sped.canto} (attesi ${soglia}, il massimo stampato)`);
+  ok(sped.canto === Math.min(Math.floor(roundGiocati / ogni), tetto),
+     `segnalini a fine giro: ${sped.canto} (tetto ${tetto})`);
   ok(annunciSoglia === 1, `annuncio soglia ripetuto o assente (${annunciSoglia})`);
 
   // --- Cercare: ogni tessera risponde, senza mai un buco -------------------
@@ -208,19 +209,25 @@ ok(carte.eroi_carte.length === comune.eroi.length,
    `carte eroi (${carte.eroi_carte.length}) != dati eroi (${comune.eroi.length})`);
 
 // --- Canto: anche le carte «crescendo» non sforano i segnalini disponibili ---
-console.log('\n=== canto — tetto ai segnalini fisici ===');
-{
-  const soglia = comune.regole.soglia_canto;
+console.log('\n=== canto — tetto per episodio, non globale ===');
+// Col tetto (Ep.1: 3 segnalini in scatola, 3 caselle sulla traccia) il
+// contatore si ferma. SENZA tetto deve salire: l'Ep.4 registra al 4° segnalino
+// e l'Ep.20 sveglia il Dormiente all'8° — un tetto globale a 3 li romperebbe.
+for (const [etichetta, tetto] of [['Ep.1 (canto_max 3)', 3], ['episodio senza tetto', null]]) {
   const sped = { round: 1, canto: 0, cantoBonus: false };
   const ep = { soluzione: { boss: 'IL CUSTODE DELLA CERA' } };
-  let sforato = 0;
+  if (tetto != null) ep.canto_max = tetto;
   for (let i = 0; i < 40; i++) {
     E.fineRound(comune, ep, sped);
     if (i % 3 === 0) E.cantoDaCarta(comune, ep, sped);      // carta crescendo
-    if (sped.canto > soglia) sforato++;
   }
-  ok(!sforato, `Canto oltre la soglia ${soglia} (arrivato a ${sped.canto}): la traccia stampata ha ${soglia} caselle`);
-  ok(sped.cantoBonus, 'la soglia non e\' mai scattata in 40 round');
+  if (tetto != null) {
+    ok(sped.canto === tetto, `${etichetta}: canto ${sped.canto}, atteso ${tetto}`);
+  } else {
+    ok(sped.canto > comune.regole.soglia_canto,
+       `${etichetta}: canto fermo a ${sped.canto} — cosi' l'Ep.4 non registra e l'Ep.20 non sveglia il Dormiente`);
+  }
+  ok(sped.cantoBonus, `${etichetta}: la soglia non e' mai scattata`);
 }
 
 console.log(errori ? `\n${errori} CHECK FALLITI` : '\nTUTTO OK');
