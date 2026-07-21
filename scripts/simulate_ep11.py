@@ -97,6 +97,11 @@ MINACCE = [
 CHI_ESPLICITO = {(2, 'Testimonianza'), (3, 'Referto'), (4, 'Referto')}
 
 
+MARCIA_TESSERA = 2   # round per attraversare una tessera: media misurata sui
+# simulatori con griglia (Ep.1-9), dove il Movimento 3 del Regolamento impone
+# 2 round per andare da una porta all'altra di una tessera 4x4. Prima era 1
+# (spostamento gratis), e ogni round regalato era una Fase Minaccia in meno.
+
 def strip_tags(s):
     return re.sub(r'<[^>]+>', '', s)
 
@@ -491,6 +496,21 @@ def simula_spedizione(party, indagine, log, formula_minaccia='finale_v3'):
 
     # --- Fase 1: ascesa T1..T5 (una tessera per round) ---
     for tile in TRAVERSATA:
+        # ROUND DI MARCIA: attraversare una tessera costa MARCIA_TESSERA round
+        # (Movimento 3, Regolamento), non uno gratis. Il round in piu' porta la
+        # pressione: carte Minaccia, nemici, Canto.
+        for _ in range(MARCIA_TESSERA - 1):
+            round_n += 1
+            log(f'--- Round {round_n}: il gruppo marcia verso {tile} ---')
+            fase_minaccia(tile in TESSERE_ESPOSTE)   # `esposta` si calcola piu' sotto
+            fase_nemici_combattimento()
+            if round_n % TICK_CANTO_OGNI == 0 and vivi():
+                aggiungi_canto()
+            if not vivi():
+                esito = 'SCONFITTA (party wipe in marcia)'
+                break
+        if esito:
+            break
         round_n += 1
         esposta = tile in TESSERE_ESPOSTE
         log(f'--- Round {round_n}: la via delle guglie attraversa {tile} '
