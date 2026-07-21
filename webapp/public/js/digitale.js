@@ -1275,13 +1275,22 @@ function faseNemiciAI() {
     const bersagli = vivi(); if (!bersagli.length) break;
     const scelto = bersagli[Math.floor(Math.random() * bersagli.length)];
     if (!bersagli.some((nm) => adiacGlob(n.pos, sp.eroiPos[nm]))) {
-      const blocco = occupati(`N:${i}`, false, true);    // eroi (in piedi/a terra) + altri nemici murano; i PNG scortati no (i nemici li ignorano)
+      // Due insiemi diversi, come per gli eroi: il PNG scortato si ATTRAVERSA
+      // ma non ci si FERMA sopra (regolamento: gli alleati e il PNG si passano,
+      // non si sostano). Usare il solo set di cammino anche per l'arrivo faceva
+      // fermare i nemici sulla sua casella, sovrapposti alla pedina.
+      const blocco = occupati(`N:${i}`, false, true);     // cammino: il PNG si attraversa
+      const bloccoArrivo = occupati(`N:${i}`, false);     // arrivo: sul PNG non ci si ferma
       let best = null, bestLen = Infinity;
-      for (const nm of bersagli) for (const g of celleAdiacLibere(sp.eroiPos[nm], blocco)) {
+      for (const nm of bersagli) for (const g of celleAdiacLibere(sp.eroiPos[nm], bloccoArrivo)) {
         const p = camminoGlob(n.pos, g, blocco);
         if (p.length && p.length < bestLen) { bestLen = p.length; best = p; }
       }
-      if (best) n.pos = best[Math.min(st.mov, best.length) - 1];   // muta live: blocco del prossimo lo vede
+      if (best) {
+        let k = Math.min(st.mov, best.length) - 1;
+        while (k >= 0 && bloccoArrivo.has(nk(best[k]))) k -= 1;   // arretra fino a una casella libera
+        if (k >= 0) n.pos = best[k];                              // muta live: blocco del prossimo lo vede
+      }
     }
     const pos1 = n.pos;
     let attacco = null;

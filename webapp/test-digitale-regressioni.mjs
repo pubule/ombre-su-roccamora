@@ -43,6 +43,55 @@ await page.evaluate(() => {
 });
 await entra();
 
+console.log('\n(D) i nemici non si fermano sulla casella del PNG scortato');
+// Regolamento: alleati e PNG scortato si ATTRAVERSANO, non ci si ferma sopra —
+// lo dichiara il commento di `occupati` in digitale.js. L'IA nemica usava lo
+// stesso insieme per il cammino E per l'arrivo, quindi si fermava SOPRA la
+// pedina del PNG (visto in diagnostica: «ADEPTO@3,1» con Ruggero a (3,1)).
+// Scenario deterministico: il PNG occupa l'unica casella libera adiacente
+// all'unico eroe vivo e il cammino corto del nemico ci passa sopra. Serve lo
+// stato azzerato (round/canto), altrimenti le carte extra dei casi precedenti
+// schierano altri nemici e lo scenario non e' piu' controllato.
+{
+  await patch(`(p) => { const sp = p.spedizione; const [a, b, c] = p.party;
+    const T = sp.eroiPos[a].t;
+    sp.eroiPos[a] = { t: T, x: 0, y: 0 };
+    sp.eroiPos[b] = { t: T, x: 3, y: 3 }; sp.vite[b] = 0;
+    sp.eroiPos[c] = { t: T, x: 2, y: 3 }; sp.vite[c] = 0;
+    sp.scortati = [{ liberato: true, pos: { t: T, x: 1, y: 0 }, mosso: false }];
+    sp.scortAttivo = null;
+    sp.nemici = [{ nome: 'LO SGHERRO', num: 1, ferite: 0, max: 2, pos: { t: T, x: 3, y: 0 } }];
+    sp.fase = 'eroi'; sp.eroiFatti = [...p.party]; sp.eroiAttivo = null; sp.azioni = {};
+    localStorage.setItem('osr.partita.ep1', JSON.stringify(p)); }`);
+  await entra();
+  const pre = await stato();
+  const png = pre.scortati[0].pos;
+  check(pre.nemici.length === 1, `parte un solo nemico (trovati ${pre.nemici.length})`);
+  const c1 = async (sel) => (await page.locator(sel).count()) > 0;
+  if (await c1('#fase-minaccia')) { await page.locator('#fase-minaccia').click({ force: true }); await page.waitForTimeout(600); }
+  for (let k = 0; k < 8; k++) {
+    let fatto = false;
+    for (const sel of ['.scelta-overlay .scelta-btn', '#dadi-lancia', '#dadi-chiudi', '#ins-risolvi', '#ok-msg']) {
+      if (await c1(sel) && await page.locator(sel).first().isVisible().catch(() => false)) {
+        await page.locator(sel).first().click({ force: true }).catch(() => {});
+        await page.waitForTimeout(400); fatto = true; break;
+      }
+    }
+    if (!fatto) break;
+  }
+  if (await c1('#salta-nemici')) await page.locator('#salta-nemici').click({ force: true });
+  await page.waitForTimeout(1800);
+  const post = await stato();
+  const dove = (post.nemici || []).map((n) => n.nome.split(' ')[0] + '@' + (n.pos ? n.pos.x + ',' + n.pos.y : '-'));
+  // senza queste due, il caso passerebbe anche se la fase nemici non fosse mai
+  // stata eseguita: la prova sarebbe vacua
+  check(post.round > pre.round, `la fase nemici e' stata giocata (round ${pre.round} -> ${post.round})`);
+  const mosso = (post.nemici || []).some((n) => n.pos && !(n.pos.x === 3 && n.pos.y === 0));
+  check(mosso, `il nemico si e' mosso dalla partenza (3,0) — posizioni: ${JSON.stringify(dove)}`);
+  const sopra = (post.nemici || []).filter((n) => n.pos && n.pos.t === png.t && n.pos.x === png.x && n.pos.y === png.y);
+  check(sopra.length === 0, `nessun nemico sulla casella del PNG (${png.x},${png.y}) — posizioni: ${JSON.stringify(dove)}`);
+}
+
 console.log('\n(A) chi rianima tiene il turno (non se lo fa rubare dal rianimato)');
 // condizione del playtest: nessun eroe «fissato» (sp.eroiAttivo nullo, com\'e\'
 // dopo finisciEroe), quindi l\'attivo lo decide il fallback sull\'ordine del
@@ -50,6 +99,8 @@ console.log('\n(A) chi rianima tiene il turno (non se lo fa rubare dal rianimato
 // rianimare rimette Attilio fra i vivi, lui sta PRIMA nell\'ordine e ruberebbe
 // il turno a Sibilla con un\'azione ancora in mano.
 await patch(`(p) => { const sp = p.spedizione; const [elena, att, sib] = p.party;
+  for (const n of p.party) sp.vite[n] = 6;   // stato pulito: il caso (D) ne lascia due a terra
+  sp.nemici = [];
   sp.vite[att] = 0;
   const s = sp.eroiPos[sib];
   sp.eroiPos[att] = { t: s.t, x: s.x + 1 <= 3 ? s.x + 1 : s.x - 1, y: s.y };
