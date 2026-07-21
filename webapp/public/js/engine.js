@@ -159,12 +159,12 @@ export function fineRound(comune, ep, sped) {
   const ogni = ep.marea ? ep.marea.ogni : comune.regole.tick_canto_ogni;
   const soglia = ep.marea ? ep.marea.soglia : comune.regole.soglia_canto;
   const nome = ep.marea ? 'Marea' : 'Canto';
-  // Tetto ai segnalini: e' un dato PER EPISODIO (`canto_max`), non la soglia.
-  // Nell'Ep.1 i due valori coincidono (3 segnalini in scatola, 3 caselle sulla
-  // traccia stampata, soglia 3), ma altrove il Canto e' un orologio che va ben
-  // oltre: 4 per la registrazione dell'Ep.4, 8 per il risveglio dell'Ep.20.
-  // Senza `canto_max` non si mette alcun tetto.
-  if (sped.round % ogni === 0 && (ep.canto_max == null || sped.canto < ep.canto_max)) {
+  // Tetto ai segnalini: sono un componente FISICO e finito — 8 in scatola, il
+  // massimo che un episodio richieda (il risveglio del Dormiente, Ep.20). Il
+  // contatore si ferma li' perche' non c'e' un nono pezzo. QUANDO scatta cosa
+  // lo decide l'episodio (soglia del boss, registrazione dell'Ep.4, rogo,
+  // sigillo), non questo tetto. Un episodio puo' dichiarare un `canto_max` suo.
+  if (sped.round % ogni === 0 && sped.canto < tettoCanto(comune, ep)) {
     sped.canto += 1;
     annunci.push(`Fine del ${sped.round}° round: +1 segnalino ${nome} (${sped.canto}).`);
     if (sped.canto === soglia) {
@@ -180,10 +180,14 @@ export function fineRound(comune, ep, sped) {
 }
 
 // segnalino Canto da carta crescendo (il testo lo dice): stessa soglia
+export const tettoCanto = (comune, ep) =>
+  (ep && ep.canto_max != null ? ep.canto_max : (comune.regole.canto_max ?? Infinity));
+
 export function cantoDaCarta(comune, ep, sped) {
   const soglia = comune.regole.soglia_canto;
-  if (ep.canto_max != null && sped.canto >= ep.canto_max) {   // segnalini finiti
-    return [`Il Canto è già al massimo (${ep.canto_max}).`];
+  const tetto = tettoCanto(comune, ep);
+  if (sped.canto >= tetto) {                                  // segnalini finiti
+    return [`Il Canto è già al massimo (${tetto}).`];
   }
   sped.canto += 1;
   const annunci = [`Segnalino Canto: ${sped.canto}.`];

@@ -248,6 +248,12 @@ REGOLE = dict(
     diff=dict(Facile=7, Media=9, Difficile=11),
     tick_canto_ogni=TICK_CANTO_OGNI,
     soglia_canto=SOGLIA_CANTO,
+    # I segnalini Canto in scatola sono 8: il piu' alto che un episodio
+    # richieda (il risveglio del Dormiente, Ep.20). Il contatore si ferma
+    # li' perche' non c'e' un nono pezzo da mettere; QUANDO scatta cosa lo
+    # decide l'episodio (soglia di risveglio del boss, registrazione
+    # dell'Ep.4, rogo, sigillo...), non questo tetto.
+    canto_max=8,
     # pesca Minaccia per taglia: [carte fisse, terza nei round pari (bool)]
     pesca={n: [int(MINACCIA_FORMULE['finale_v3'](n)),
                MINACCIA_FORMULE['finale_v3'](n) % 1 != 0] for n in range(2, 11)},
@@ -751,10 +757,6 @@ episodi = dict(
         cartella='Episodio 1', ore_budget=6,
         lettera=story.LETTERA2,
         obiettivo='Liberate Ruggero (Interagire, la cella in T6) e portatelo fuori: alla banchina (T1) oppure per la via che lui stesso vi indica, una volta libero.',
-        # 3 segnalini Canto in scatola e traccia stampata a 3 caselle: qui il
-        # tetto coincide con la soglia. NON e' generalizzabile — l'Ep.4 arriva a
-        # 4 (registrazione), l'Ep.20 a 8 (risveglio): senza canto_max nessun tetto.
-        canto_max=3,
         scortato=[scortato(
             'Ruggero', 'T6', 'T1', 'Ruggero.png', cella='CELLA',
             etichetta='Libera Ruggero (Interagire)',

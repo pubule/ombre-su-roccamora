@@ -599,7 +599,8 @@ function cantoControlloHtml() {
 // risveglio. Nell'Ep.1 coincidono (3 segnalini in scatola, 3 caselle sulla
 // traccia stampata), ma l'Ep.4 registra al 4° e l'Ep.20 sveglia all'8°:
 // dove `canto_max` non e' dichiarato, l'arbitro non ha alcun tetto.
-const tettoCanto = () => (ctx.ep.marea ? ctx.ep.marea.soglia : (ctx.ep.canto_max ?? Infinity));
+const tettoCanto = () => (ctx.ep.marea ? ctx.ep.marea.soglia
+  : (ctx.ep.canto_max ?? ctx.comune.regole.canto_max ?? Infinity));
 
 function agganciaCanto() {
   const sp = SP();

@@ -119,10 +119,11 @@ for (const [epId, ep] of Object.entries(EPISODI)) {
   const soglia = ep.marea ? ep.marea.soglia : comune.regole.soglia_canto;
   let annunciSoglia = 0;
   const roundGiocati = ogni * soglia + 4;
-  // Il tetto ai segnalini e' un dato PER EPISODIO (`canto_max`), non la soglia:
-  // l'Ep.1 ha 3 segnalini in scatola e 3 caselle sulla traccia, ma l'Ep.4 arriva
-  // a 4 (registrazione) e l'Ep.20 a 8 (risveglio). Senza canto_max, nessun tetto.
-  const tetto = ep.canto_max ?? Infinity;
+  // Tetto ai segnalini: 8 in scatola (comune.regole.canto_max), il massimo che
+  // un episodio richieda — il risveglio del Dormiente nell'Ep.20. Un episodio
+  // puo' dichiararne uno proprio piu' basso. QUANDO scatta cosa lo decide
+  // l'episodio, non questo tetto.
+  const tetto = ep.canto_max ?? comune.regole.canto_max ?? Infinity;
   for (let r = 1; r <= roundGiocati; r++) {
     const primaCanto = sped.canto;
     const a = E.fineRound(comune, ep, sped);
@@ -209,11 +210,11 @@ ok(carte.eroi_carte.length === comune.eroi.length,
    `carte eroi (${carte.eroi_carte.length}) != dati eroi (${comune.eroi.length})`);
 
 // --- Canto: anche le carte «crescendo» non sforano i segnalini disponibili ---
-console.log('\n=== canto — tetto per episodio, non globale ===');
+console.log('\n=== canto — tetto ai segnalini in scatola ===');
 // Col tetto (Ep.1: 3 segnalini in scatola, 3 caselle sulla traccia) il
 // contatore si ferma. SENZA tetto deve salire: l'Ep.4 registra al 4° segnalino
 // e l'Ep.20 sveglia il Dormiente all'8° — un tetto globale a 3 li romperebbe.
-for (const [etichetta, tetto] of [['Ep.1 (canto_max 3)', 3], ['episodio senza tetto', null]]) {
+for (const [etichetta, tetto] of [['episodio con tetto proprio (3)', 3], ['tetto comune: 8 segnalini', null]]) {
   const sped = { round: 1, canto: 0, cantoBonus: false };
   const ep = { soluzione: { boss: 'IL CUSTODE DELLA CERA' } };
   if (tetto != null) ep.canto_max = tetto;
@@ -224,8 +225,12 @@ for (const [etichetta, tetto] of [['Ep.1 (canto_max 3)', 3], ['episodio senza te
   if (tetto != null) {
     ok(sped.canto === tetto, `${etichetta}: canto ${sped.canto}, atteso ${tetto}`);
   } else {
+    // senza tetto proprio vale quello comune: 8 segnalini in scatola, il massimo
+    // che un episodio richieda (risveglio del Dormiente, Ep.20)
+    ok(sped.canto === comune.regole.canto_max,
+       `${etichetta}: canto ${sped.canto}, atteso ${comune.regole.canto_max}`);
     ok(sped.canto > comune.regole.soglia_canto,
-       `${etichetta}: canto fermo a ${sped.canto} — cosi' l'Ep.4 non registra e l'Ep.20 non sveglia il Dormiente`);
+       `${etichetta}: supera la soglia ${comune.regole.soglia_canto} — l'Ep.4 registra al 4°, l'Ep.20 sveglia all'8°`);
   }
   ok(sped.cantoBonus, `${etichetta}: la soglia non e' mai scattata`);
 }

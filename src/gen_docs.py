@@ -685,7 +685,7 @@ def soluzione():
                '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[T1 Banchina \u2014 INGRESSO]</font>', 'box'))
     e.append(LI('Eroi sulla porta di T1. Mischiate il mazzo Minaccia. Tenete a portata i segnalini '
                 'Adepto, Cane, Fonditore, Sgherro e Sicario (la malavita a libro paga del culto), '
-                'il Custode, Ruggero e i 3 segnalini Canto.'))
+                'il Custode, Ruggero e i segnalini Canto.'))
     e.append(LI('<b>Obiettivo:</b> aprire la cella in T6, liberare Ruggero e riportarlo sulla '
                 'Banchina (T1). Ruggero si muove con voi (Movimento 3, non agisce).'))
     e.append(LI('<b>Il Custode della Cera</b> appare (con 2 Adepti) quando rivelate T6, oppure al '
