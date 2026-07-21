@@ -4,8 +4,10 @@
 Overlay riusabile in ogni episodio per la Spedizione: NON contiene le tessere
 (quelle si posano libere sul tavolo, la mappa cambia episodio per episodio,
 vedi il pivot "generico/libero" scelto apposta per questo) ma da' una casa
-fissa a due elementi che altrimenti girano sciolti sul tavolo - la traccia
-del Canto (3 caselle) e il mazzo Minaccia con gli scarti.
+fissa a cio' che altrimenti gira sciolto sul tavolo: il mazzo Minaccia con
+gli scarti (foglio 1) e gli orologi della spedizione (foglio 2) - il Canto,
+che gira in ogni episodio, piu' le tracce riusabili per Fuga, Demolizione,
+Prova e Controcanto.
 
 Sfondo: usa `artworks/Tabellone.png` se esiste (prompt in PROMPT-MIDJOURNEY.md,
 sezione "Sfondo Tabellone"), altrimenti un fondo scuro liscio con un sigillo
@@ -153,21 +155,15 @@ def tabellone():
     bg(c)
     gold_border(c)
 
-    # --- traccia del Canto: 3 caselle, quadrate e a taglia vera (TOKEN) come
-    # le miniature Canto stampate (gen_gothic.py) - non cerchi: le miniature
-    # sono quadrate da quando hanno preso l'arte dedicata, gli slot devono
-    # combaciare con l'oggetto fisico che ci va sopra. ---
-    c.setFillColor(GOLD); c.setFont(F['sc'], 12)
-    c.drawCentredString(W/2, H - 22*mm, 'il canto')
-    canto_gap = 8*mm
-    canto_total = 3*TOKEN + 2*canto_gap
-    canto_x0 = (W - canto_total) / 2
-    canto_y = H - 32*mm - TOKEN
-    for i in range(3):
-        dashed_rect_plain(c, canto_x0 + i*(TOKEN + canto_gap), canto_y, TOKEN, TOKEN)
+    # Il Canto NON sta piu' qui: era una fila di 3 caselle a taglia miniatura
+    # (50mm), e portarlo a 8 avrebbe richiesto 456mm su una pagina di 210. E'
+    # diventato una traccia numerata 0-8 sul foglio degli orologi (102mm, un
+    # segnalino solo che avanza) - dove stanno gia' Fuga, Demolizione e le
+    # altre. Le 3 arti del crescendo restano: si sostituisce il segnalino ai
+    # passi (sale -> risponde -> cresce).
 
     # --- mazzo Minaccia + scarti (taglia carta vera, CARD_W/CARD_H) ---
-    minaccia_label_y = canto_y - 8*mm
+    minaccia_label_y = H - 32*mm
     c.setFillColor(GOLD); c.setFont(F['sc'], 12)
     c.drawCentredString(W/2, minaccia_label_y, 'minaccia')
     gap = 15*mm
@@ -218,7 +214,7 @@ def tabellone():
     c.drawCentredString(W/2, 12*mm, 'ombre su roccamora · società del lume — tabellone riusabile, tutte le tessere si posano libere')
     c.setFillAlpha(1)
     c.showPage()
-    retro(c, 'tabellone — il canto e la minaccia')   # retro del foglio 1
+    retro(c, 'tabellone — la minaccia')             # retro del foglio 1
 
     # --- foglio 2 (fronte): tracce di spedizione numerate (riusabili). Va su un
     # foglio a se': board e tracce servono in tavola CONTEMPORANEAMENTE. Alcuni episodi
@@ -227,25 +223,31 @@ def tabellone():
     # carta". L'Ep.10 ne usa DUE insieme (Demolizione + Prova). ---
     bg(c); gold_border(c)
     c.setFillColor(GOLD); c.setFont(F['sc'], 14)
-    c.drawCentredString(W/2, H - 24*mm, 'tracce di spedizione')
+    c.drawCentredString(W/2, H - 24*mm, 'gli orologi della spedizione')
     c.setFillColor(CREMA); c.setFillAlpha(0.8); c.setFont(F['i'], 8.5)
     c.drawCentredString(W/2, H - 30*mm,
-                        'un segnalino su ciascuna. Usatele secondo l’episodio: Fuga, Demolizione, Prova, Controcanto.')
+                        'un segnalino su ciascuna. Il Canto vale in ogni episodio; le altre usatele '
+                        'secondo l’episodio: Fuga, Demolizione, Prova, Controcanto.')
     c.drawCentredString(W/2, H - 34.5*mm,
                         'l’Ep. 10 ne usa due insieme (Demolizione e Prova). La casella d’arrivo è la soglia scritta nella Soluzione.')
     c.setFillAlpha(1)
     box, gap = 9*mm, 2.6*mm
     tx0 = (W - (15*box + 14*gap)) / 2
     ty = H - 58*mm
+    # Il CANTO per primo: e' l'unico orologio che gira in ogni episodio. Arriva
+    # a 8, il massimo che un episodio richieda (il risveglio del Dormiente,
+    # Ep.20); dove scatti la soglia lo dice la Soluzione dell'episodio.
+    numbered_track(c, tx0, ty, box, gap, 9, 'il canto (0–8)')
+    ty -= 26*mm
     for lab, cnt in (('traccia A (0–14)', 15), ('traccia B (0–14)', 15),
                      ('traccia C (0–10)', 11), ('traccia D (0–10)', 11)):
         numbered_track(c, tx0, ty, box, gap, cnt, lab)
         ty -= 26*mm
     c.setFillColor(CREMA); c.setFillAlpha(0.7); c.setFont(F['i'], 8.5)
-    c.drawCentredString(W/2, 12*mm, 'ombre su roccamora · società del lume — tracce riusabili')
+    c.drawCentredString(W/2, 12*mm, 'ombre su roccamora · società del lume — gli orologi della spedizione')
     c.setFillAlpha(1)
     c.showPage()
-    retro(c, 'tracce di spedizione')                 # retro del foglio 2
+    retro(c, 'gli orologi della spedizione')         # retro del foglio 2
     c.save()
     pad_to_even_pages(out_path)
 

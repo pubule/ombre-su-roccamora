@@ -337,8 +337,10 @@ def regolamento():
     e.append(LI('<b>In pi\u00f9</b>, a prescindere dalle carte pescate: <b>ogni 4\u00b0 round</b> (4\u00b0, 8\u00b0, '
                 '12\u00b0...) aggiungete comunque 1 segnalino. \u00c8 un secondo orologio parallelo: garantisce '
                 'che il pericolo massimo arrivi comunque, anche evitando ogni carta Canto.'))
-    e.append(P('Ogni episodio fissa una <b>soglia</b> (l\u2019episodio dice quale \u2014 per l\u2019Episodio 1: '
-               '<b>3 segnalini</b>): al suo raggiungimento, il nemico pi\u00f9 forte dell\u2019episodio si '
+    e.append(P('Il Canto si segna con <b>un segnalino</b> che avanza sulla sua traccia (0\u20138) sul '
+               'tabellone degli orologi; sostituitelo con l\u2019arte del crescendo raggiunto. '
+               'Ogni episodio fissa una <b>soglia</b> (l\u2019episodio dice quale \u2014 per l\u2019Episodio 1: '
+               '<b>3</b>): al suo raggiungimento, il nemico pi\u00f9 forte dell\u2019episodio si '
                'desta immediatamente e da quel momento <b>ogni Fase Minaccia pesca 1 carta in pi\u00f9</b> '
                'del normale, per il resto della spedizione. La Soluzione vi dir\u00e0 i dettagli specifici '
                '(chi si desta, dove compare).', 'box'))
@@ -685,17 +687,19 @@ def soluzione():
                '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[T1 Banchina \u2014 INGRESSO]</font>', 'box'))
     e.append(LI('Eroi sulla porta di T1. Mischiate il mazzo Minaccia. Tenete a portata i segnalini '
                 'Adepto, Cane, Fonditore, Sgherro e Sicario (la malavita a libro paga del culto), '
-                'il Custode, Ruggero e i segnalini Canto.'))
+                'il Custode, Ruggero e il segnalino Canto — uno solo: avanza sulla sua traccia '
+                '(0–8) sul tabellone degli orologi, e lo sostituite con l’arte del crescendo '
+                'raggiunto.'))
     e.append(LI('<b>Obiettivo:</b> aprire la cella in T6, liberare Ruggero e riportarlo sulla '
                 'Banchina (T1). Ruggero si muove con voi (Movimento 3, non agisce).'))
     e.append(LI('<b>Il Custode della Cera</b> appare (con 2 Adepti) quando rivelate T6, oppure al '
-                'terzo segnalino Canto: in quel caso piazzatelo sulla tessera pi\u00f9 lontana dagli '
+                'Canto a 3: in quel caso piazzatelo sulla tessera pi\u00f9 lontana dagli '
                 'eroi. Se avete il <b>diapason</b>: con un\u2019azione adiacente al Custode lo fate '
                 'vibrare: la sua Difesa scende a 5 per il resto della partita e il Custode salta la '
                 'sua prossima attivazione.'))
     e.append(LI('<b>Il Canto avanza da solo:</b> alla fine di ogni quarto round (4\u00b0, 8\u00b0...), '
-                'aggiungete 1 segnalino Canto anche senza pescare la carta.'))
-    e.append(LI('<b>Terzo segnalino Canto:</b> il rituale \u00e8 quasi compiuto. Da ora ogni fase '
+                'avanzate il segnalino Canto di una casella anche senza pescare la carta.'))
+    e.append(LI('<b>Canto a 3:</b> il rituale \u00e8 quasi compiuto. Da ora ogni fase '
                 'Minaccia pescate 1 carta in pi\u00f9 \u2014 <b>anche se il Custode \u00e8 gi\u00e0 stato '
                 'abbattuto</b>: il Canto non riguarda solo lui, \u00e8 il culto intero che sente '
                 'il rituale avvicinarsi.'))
