@@ -163,6 +163,34 @@ def porta_ingresso(tile_id, tile_precedente):
     return (1, 0)  # non dovrebbe succedere con un `path` valido; centro-basso come fallback
 
 
+MOV_EROE = 3   # Regolamento: «Muovere — fino a 3 caselle» (niente diagonali)
+
+
+def round_di_marcia(da_tile, a_tile, partenza):
+    """Round per attraversare `da_tile` e varcare la porta verso `a_tile`, col
+    movimento VERO del Regolamento (Mov 3, niente diagonali).
+
+    Prima del 20260721 lo spostamento fra tessere era gratis (una tessera per
+    round). Ma una tessera e' 4x4 con le porte su lati opposti: sono 4-6
+    caselle, cioe' DUE round. Regalarli dimezzava le Fasi Minaccia - e quindi
+    carte, nemici e Canto - rendendo la %vittoria misurata ottimistica.
+    """
+    if not da_tile or da_tile == a_tile or partenza is None:
+        return 1
+    uscita = None
+    for direzione, dest in TILE[da_tile]['exits'].items():
+        if dest.split()[0] == a_tile:
+            uscita = PORTE[da_tile][direzione]
+            break
+    if uscita is None:
+        return 1
+    passi = len(cammino(da_tile, partenza, uscita, set()))
+    if not passi:
+        passi = abs(uscita[0] - partenza[0]) + abs(uscita[1] - partenza[1])
+    passi += 1                       # il passo che varca la porta
+    return max(1, -(-passi // MOV_EROE))
+
+
 def _vicini(cella):
     x, y = cella
     for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)):
@@ -1806,6 +1834,7 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
     # Il gruppo NON lascia una sala-cardine finche' il movimento non e'
     # spento (fedelta' al tavolo: nessuno abbandona il bronzo acceso alle
     # spalle): la tappa si ripete, max 3 volte, poi si avanza comunque.
+    tappa_prec = None
     coda_tappe = list(path)
     ripetizioni = {}
     while coda_tappe:
@@ -1814,10 +1843,29 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
         if (tid_t in cardini and tid_t not in cardini_spenti
                 and ripetizioni.get(tid_t, 0) < 3 and not coda_tappe[:1] == [tappa]):
             pass  # la ripetizione si decide a fine round (vedi sotto)
+        # ROUND DI MARCIA: attraversare una tessera col Movimento 3 costa in
+        # genere 2 round, non e' gratis (vedi round_di_marcia).
+        for _ in range(round_di_marcia(tile_attuale, tappa.split()[0], porta_attuale_pos) - 1):
+            round_n += 1
+            attivati_extra.clear()
+            log(f'--- Round {round_n}: il gruppo attraversa {tile_attuale} '
+                f'verso {tappa.split()[0]} ---')
+            log_azioni_round()
+            fase_eroi(tappa_prec or tappa)
+            fase_minaccia()
+            fase_nemici(tappa_prec or tappa, True)
+            tick_canto()
+            max_down_simultanei = max(max_down_simultanei, len(down))
+            if not vivi():
+                esito = 'SCONFITTA (party wipe in marcia)'
+                break
+        if esito:
+            break
         round_n += 1
         attivati_extra.clear()
         log(f'--- Round {round_n}: il gruppo raggiunge {tappa} ---')
         log_azioni_round()
+        tappa_prec = tappa
         tile_id = tappa.split()[0]
         if tile_id != tile_attuale:
             porta_attuale_pos = porta_ingresso(tile_id, tile_attuale or 'T1')
@@ -1935,8 +1983,8 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
         if not vivi():
             esito = 'SCONFITTA (party wipe)'
             break
-        if round_n > 30:
-            esito = 'TIMEOUT (30 round, simulazione interrotta)'
+        if round_n > 60:
+            esito = 'TIMEOUT (60 round, simulazione interrotta)'
             break
 
     if esito is None and custode and custode['fer'] > 0:
@@ -1970,8 +2018,8 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
             if not vivi():
                 esito = 'SCONFITTA (party wipe)'
                 break
-            if round_n > 30:
-                esito = 'TIMEOUT (30 round)'
+            if round_n > 60:
+                esito = 'TIMEOUT (60 round)'
                 break
 
     if esito is None and pannelli > 0 and vivi():

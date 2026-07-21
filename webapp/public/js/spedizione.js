@@ -590,15 +590,20 @@ function cantoControlloHtml() {
     <span class="nemico-nome">${orologio().toLowerCase()} · ${sp.canto}</span>
     <span class="nemico-comandi">
       <button class="btn attacca" data-canto="-1"${sp.canto <= 0 ? ' disabled' : ''}>−</button>
-      <button class="btn attacca" data-canto="1">+</button>
+      <button class="btn attacca" data-canto="1"${sp.canto >= sogliaCanto() ? ' disabled' : ''}>+</button>
     </span></div>
     <p class="nota mt">Sale da solo a fine round e con le Crescendo. Usa qui per la Litania o per un effetto-carta.</p>`;
 }
 
+// i segnalini sono finiti: la traccia stampata sul tabellone ha esattamente
+// `soglia` caselle (gen_board.py: «la traccia del Canto (3 caselle)»), quindi
+// nemmeno l'arbitro puo' segnarne di piu' — non ci sarebbe il pezzo da mettere
+const sogliaCanto = () => (ctx.ep.marea ? ctx.ep.marea.soglia : ctx.comune.regole.soglia_canto);
+
 function agganciaCanto() {
   const sp = SP();
   ctx.app.querySelectorAll('[data-canto]').forEach((b) => b.onclick = () => {
-    sp.canto = Math.max(0, sp.canto + Number(b.dataset.canto));
+    sp.canto = Math.min(sogliaCanto(), Math.max(0, sp.canto + Number(b.dataset.canto)));
     salvaP();
     plancia();
   });

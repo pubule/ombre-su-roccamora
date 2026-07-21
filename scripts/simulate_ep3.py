@@ -231,6 +231,68 @@ def porta_ingresso(tile_id, tile_precedente):
     return (1, 0)  # non dovrebbe succedere con un `path` valido; centro-basso come fallback
 
 
+MOV_EROE = 3   # Regolamento: «Muovere — fino a 3 caselle» (niente diagonali)
+
+
+def round_di_marcia(da_tile, a_tile, partenza):
+    """Round per attraversare `da_tile` e varcare la porta verso `a_tile`, col
+    movimento VERO del Regolamento (Mov 3, niente diagonali).
+
+    Prima del 20260721 lo spostamento fra tessere era gratis (una tessera per
+    round). Ma una tessera e' 4x4 con le porte su lati opposti: sono 4-6
+    caselle, cioe' DUE round. Regalarli dimezzava le Fasi Minaccia - e quindi
+    carte, nemici e Canto - rendendo la %vittoria misurata ottimistica.
+    """
+    if not da_tile or da_tile == a_tile or partenza is None:
+        return 1
+    uscita = None
+    for direzione, dest in TILE[da_tile]['exits'].items():
+        if dest.split()[0] == a_tile:
+            uscita = PORTE[da_tile][direzione]
+            break
+    if uscita is None:
+        return 1
+    passi = len(cammino(da_tile, partenza, uscita, set()))
+    if not passi:
+        passi = abs(uscita[0] - partenza[0]) + abs(uscita[1] - partenza[1])
+    passi += 1                       # il passo che varca la porta
+    return max(1, -(-passi // MOV_EROE))
+
+
+def percorso_verso(da_tile, a_tile):
+    """Sequenza di tessere dal punto attuale a `a_tile` (BFS sulle uscite)."""
+    if not da_tile or da_tile == a_tile:
+        return []
+    prec = {da_tile: None}
+    coda = [da_tile]
+    while coda:
+        cur = coda.pop(0)
+        for dest in TILE[cur]['exits'].values():
+            d = dest.split()[0]
+            if d in prec or d not in TILE:
+                continue
+            prec[d] = cur
+            if d == a_tile:
+                out = []
+                n = d
+                while n != da_tile:
+                    out.append(n)
+                    n = prec[n]
+                return out[::-1]
+            coda.append(d)
+    return []
+
+
+def round_marcia_percorso(tappe, tile_partenza, pos_partenza):
+    """Round di marcia per una sequenza di tessere (usato per il rientro)."""
+    tot, cur_tile, cur_pos = 0, tile_partenza, pos_partenza
+    for t in tappe:
+        tot += round_di_marcia(cur_tile, t, cur_pos)
+        cur_pos = porta_ingresso(t, cur_tile)
+        cur_tile = t
+    return tot
+
+
 def _vicini(cella):
     x, y = cella
     for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)):
@@ -1822,11 +1884,32 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
             log(f'    {n}: nessun bersaglio, avanza / assiste il gruppo.')
 
     porta_attuale_pos = None  # cella (gx,gy) della porta d'ingresso della tessera corrente
+    tappa_prec = None
     for tappa in path:
+        # ROUND DI MARCIA: il gruppo non salta piu' da una tessera all'altra a
+        # costo zero. Col Movimento 3 attraversare una tessera costa in genere
+        # 2 round, e ogni round in piu' e' una Fase Minaccia in piu'.
+        for _ in range(round_di_marcia(tile_attuale, tappa.split()[0], porta_attuale_pos) - 1):
+            round_n += 1
+            attivati_extra.clear()
+            log(f'--- Round {round_n}: il gruppo attraversa {tile_attuale} '
+                f'verso {tappa.split()[0]} ---')
+            log_azioni_round()
+            fase_eroi(tappa_prec or tappa)
+            fase_minaccia()
+            fase_nemici(tappa_prec or tappa, True)
+            tick_canto()
+            max_down_simultanei = max(max_down_simultanei, len(down))
+            if not vivi():
+                esito = 'SCONFITTA (party wipe in marcia)'
+                break
+        if esito:
+            break
         round_n += 1
         attivati_extra.clear()
         log(f'--- Round {round_n}: il gruppo raggiunge {tappa} ---')
         log_azioni_round()
+        tappa_prec = tappa
         tile_id = tappa.split()[0]
         if tile_id != tile_attuale:
             porta_attuale_pos = porta_ingresso(tile_id, tile_attuale or 'T1')
@@ -1932,8 +2015,8 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
         if not vivi():
             esito = 'SCONFITTA (party wipe)'
             break
-        if round_n > 30:
-            esito = 'TIMEOUT (30 round, simulazione interrotta)'
+        if round_n > 60:
+            esito = 'TIMEOUT (60 round, simulazione interrotta)'
             break
 
     if esito is None and custode and custode['fer'] > 0:
@@ -1951,8 +2034,8 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
             if not vivi():
                 esito = 'SCONFITTA (party wipe)'
                 break
-            if round_n > 30:
-                esito = 'TIMEOUT (30 round)'
+            if round_n > 60:
+                esito = 'TIMEOUT (60 round)'
                 break
 
     if esito is None:
@@ -1960,7 +2043,7 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
             log('    Il gruppo non ha mai raggiunto Tobia: si torna indietro a mani vuote.')
             esito = 'SCONFITTA (Tobia non liberato)'
         log('--- Ritorno a T1 con Tobia (3 round di movimento: la strada ormai la conoscete, e Tobia conosce le scorciatoie dei pozzaioli) ---')
-        for _ in range(3):
+        for _ in range(round_marcia_percorso(percorso_verso(tile_attuale, 'T1'), tile_attuale, porta_attuale_pos)):
             round_n += 1
             attivati_extra.clear()
             log(f'--- Round {round_n}: rientro verso T1 ---')

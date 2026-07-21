@@ -119,14 +119,18 @@ for (const [epId, ep] of Object.entries(EPISODI)) {
   const soglia = ep.marea ? ep.marea.soglia : comune.regole.soglia_canto;
   let annunciSoglia = 0;
   const roundGiocati = ogni * soglia + 4;
+  // I segnalini sono un componente FISICO e finito: la traccia stampata sul
+  // tabellone ha esattamente `soglia` caselle (gen_board.py: «la traccia del
+  // Canto (3 caselle)»). Il tick scatta finche' c'e' una casella libera, poi
+  // il contatore si ferma — al tavolo non ci sarebbe nulla da spostare.
   for (let r = 1; r <= roundGiocati; r++) {
+    const primaCanto = sped.canto;
     const a = E.fineRound(comune, ep, sped);
-    if (r % ogni === 0) ok(a.length >= 1, `round ${r}: tick mancato`);
-    else ok(a.length === 0, `round ${r}: tick fuori tempo`);
+    if (r % ogni === 0 && primaCanto < soglia) ok(a.length >= 1, `round ${r}: tick mancato`);
+    else ok(a.length === 0, `round ${r}: tick fuori tempo (canto ${primaCanto}/${soglia})`);
     if (a.length >= 2) annunciSoglia += 1;   // tick + annuncio soglia/boss
   }
-  const attesi = Math.floor(roundGiocati / ogni);
-  ok(sped.canto === attesi, `segnalini a fine giro: ${sped.canto} (attesi ${attesi})`);
+  ok(sped.canto === soglia, `segnalini a fine giro: ${sped.canto} (attesi ${soglia}, il massimo stampato)`);
   ok(annunciSoglia === 1, `annuncio soglia ripetuto o assente (${annunciSoglia})`);
 
   // --- Cercare: ogni tessera risponde, senza mai un buco -------------------
@@ -202,6 +206,22 @@ for (const c of carte.eroi_carte) {
 }
 ok(carte.eroi_carte.length === comune.eroi.length,
    `carte eroi (${carte.eroi_carte.length}) != dati eroi (${comune.eroi.length})`);
+
+// --- Canto: anche le carte «crescendo» non sforano i segnalini disponibili ---
+console.log('\n=== canto — tetto ai segnalini fisici ===');
+{
+  const soglia = comune.regole.soglia_canto;
+  const sped = { round: 1, canto: 0, cantoBonus: false };
+  const ep = { soluzione: { boss: 'IL CUSTODE DELLA CERA' } };
+  let sforato = 0;
+  for (let i = 0; i < 40; i++) {
+    E.fineRound(comune, ep, sped);
+    if (i % 3 === 0) E.cantoDaCarta(comune, ep, sped);      // carta crescendo
+    if (sped.canto > soglia) sforato++;
+  }
+  ok(!sforato, `Canto oltre la soglia ${soglia} (arrivato a ${sped.canto}): la traccia stampata ha ${soglia} caselle`);
+  ok(sped.cantoBonus, 'la soglia non e\' mai scattata in 40 round');
+}
 
 console.log(errori ? `\n${errori} CHECK FALLITI` : '\nTUTTO OK');
 process.exit(errori ? 1 : 0);

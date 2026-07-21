@@ -159,7 +159,11 @@ export function fineRound(comune, ep, sped) {
   const ogni = ep.marea ? ep.marea.ogni : comune.regole.tick_canto_ogni;
   const soglia = ep.marea ? ep.marea.soglia : comune.regole.soglia_canto;
   const nome = ep.marea ? 'Marea' : 'Canto';
-  if (sped.round % ogni === 0) {
+  // I segnalini Canto sono un componente FISICO e finito: l'Ep.1 ne ha 3 in
+  // scatola (Regolamento, componenti), e la soglia coincide col loro numero.
+  // Oltre la soglia non c'e' nulla da segnare: il contatore si ferma li',
+  // altrimenti si mostrano stati impossibili al tavolo («Canto 14» con 3 pezzi).
+  if (sped.round % ogni === 0 && sped.canto < soglia) {
     sped.canto += 1;
     annunci.push(`Fine del ${sped.round}° round: +1 segnalino ${nome} (${sped.canto}).`);
     if (sped.canto === soglia) {
@@ -176,8 +180,11 @@ export function fineRound(comune, ep, sped) {
 
 // segnalino Canto da carta crescendo (il testo lo dice): stessa soglia
 export function cantoDaCarta(comune, ep, sped) {
-  sped.canto += 1;
   const soglia = comune.regole.soglia_canto;
+  if (sped.canto >= soglia) {                 // segnalini finiti: non si aggiunge altro
+    return sped.cantoBonus ? [] : [`Il Canto è già al massimo (${soglia}).`];
+  }
+  sped.canto += 1;
   const annunci = [`Segnalino Canto: ${sped.canto}.`];
   if (sped.canto === soglia && !sped.cantoBonus) {
     sped.cantoBonus = true;
