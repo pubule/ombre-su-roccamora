@@ -174,6 +174,78 @@ else {
   check(campioni[campioni.length - 1] === 'giu', 'a fine animazione il token riflette lo stato reale');
 }
 
+console.log('\n(F) uscita segreta: arredo giusto apre, sbagliato costa l\'azione');
+// Liberato il PNG, lui indica la STANZA e non il mobile: l'arredo giusto sta nei
+// dati (ep.scortato[0].uscita.arredo) e i giocatori non lo sanno. Aprire e'
+// Interagire + prova VIGORE; sotto l'arredo sbagliato si perde l'azione.
+// Aperta l'uscita, la sua casella diventa percorribile e il PNG che vi entra vince.
+{
+  const U = await page.evaluate(() => fetch('/data/ep1.json').then((r) => r.json()).then((e) => e.scortato[0].uscita));
+  check(!!U && U.tile === 'T6', `il dato dell'uscita esiste: ${JSON.stringify(U)}`);
+  const [ax, ay] = U.arredo;                       // l'altare giusto: (1,2)
+  const c1 = async (sel) => (await page.locator(sel).count()) > 0;
+  // stesso ciclo del pilota: clicca solo cio' che e' VISIBILE e aspetta
+  // l'animazione dei dadi, altrimenti «continua» arriva prima dell'esito e
+  // la prova viene annullata invece che risolta
+  const visib = async (sel) => await c1(sel) && await page.locator(sel).first().isVisible().catch(() => false);
+  const risolviDadi = async () => {
+    for (let k = 0; k < 25; k++) {
+      if (await visib('#dadi-lancia')) { await page.locator('#dadi-lancia').first().click({ force: true }); await page.waitForTimeout(1200); continue; }
+      if (await visib('#dadi-chiudi')) { await page.locator('#dadi-chiudi').first().click({ force: true }); await page.waitForTimeout(400); continue; }
+      if (await visib('#ok-msg')) { await page.locator('#ok-msg').first().click({ force: true }); await page.waitForTimeout(250); continue; }
+      if (await visib('.dadi-overlay')) { await page.waitForTimeout(400); continue; }
+      return;
+    }
+  };
+  // scenario: eroe adiacente SOLO all'altare sbagliato (2,2) -> da (3,2)
+  const semina = (hx, hy) => patch(`(p) => { const sp = p.spedizione; const [a, b, c] = p.party;
+    for (const n of p.party) sp.vite[n] = 8;
+    sp.eroiPos[a] = { t: 'T6', x: ${hx}, y: ${hy} };
+    sp.eroiPos[b] = { t: 'T6', x: 0, y: 0 }; sp.eroiPos[c] = { t: 'T6', x: 3, y: 0 };
+    sp.scortati = [{ liberato: true, pos: { t: 'T6', x: 0, y: 1 }, mosso: false }];
+    sp.scortAttivo = null; sp.nemici = []; sp.uscita = null; sp.uscitaTentati = [];
+    sp.rivelate = ['T1','T2','T4','T5','T6'];
+    sp.fase = 'eroi'; sp.eroiFatti = [b, c]; sp.eroiAttivo = a; sp.azioni = {};
+    localStorage.setItem('osr.partita.ep1', JSON.stringify(p)); }`);
+
+  await semina(3, 2); await entra();          // adiacente all'altare SBAGLIATO
+  check(await c1('#az-interagire'), 'compare l\'azione per frugare sotto l\'arredo');
+  const et = await page.locator('#az-interagire').first().textContent().catch(() => '');
+  check(/sposta/i.test(et), `l'etichetta dice di spostare l'arredo: ${JSON.stringify(et.trim())}`);
+  await page.locator('#az-interagire').first().click({ force: true }); await page.waitForTimeout(400);
+  await risolviDadi();
+  const sw = await stato();
+  check(!sw.uscita, `l'arredo sbagliato NON apre l'uscita (uscita=${JSON.stringify(sw.uscita)})`);
+  console.log('      [diag] azioni=' + JSON.stringify(sw.azioni) + ' tentati=' + JSON.stringify(sw.uscitaTentati)
+    + ' log=' + JSON.stringify((sw.log || []).slice(-2)));
+  check((sw.azioni[(await page.evaluate(() => JSON.parse(localStorage.getItem('osr.partita.ep1')).party))[0]] || []).length > 0
+        || (sw.uscitaTentati || []).length > 0, 'il tentativo e\' costato l\'azione o e\' stato registrato');
+
+  await semina(0, 2); await entra();          // adiacente all'altare GIUSTO
+  for (let tent = 0; tent < 6; tent++) {
+    if ((await stato()).uscita) break;
+    if (!(await c1('#az-interagire'))) { await semina(0, 2); await entra(); continue; }
+    await page.locator('#az-interagire').first().click({ force: true }); await page.waitForTimeout(400);
+    await risolviDadi();
+    if ((await stato()).uscita) break;
+    await semina(0, 2); await entra();        // prova VIGORE fallita: si ritenta
+  }
+  const sg = await stato();
+  check(!!sg.uscita?.aperta, `l'arredo giusto (${ax},${ay}) apre l'uscita: ${JSON.stringify(sg.uscita)}`);
+  if (sg.uscita?.aperta) {
+    check(sg.uscita.cella[0] === ax && sg.uscita.cella[1] === ay, 'la casella d\'uscita e\' quella dell\'arredo dichiarato');
+    // il PNG entra nell'uscita: vittoria
+    await patch(`(p) => { const sp = p.spedizione;
+      sp.scortati[0].pos = { t: 'T6', x: ${ax}, y: ${ay + 1 <= 3 ? ay + 1 : ay - 1} };
+      sp.scortati[0].mosso = false; sp.scortAttivo = 0; sp.eroiFatti = [...p.party];
+      localStorage.setItem('osr.partita.ep1', JSON.stringify(p)); }`);
+    await entra();
+    await page.evaluate(({ x, y }) => document.querySelector(`.cella-mossa[data-t="T6"][data-x="${x}"][data-y="${y}"]`)?.click(), { x: ax, y: ay });
+    await page.waitForTimeout(600);
+    check((await stato()).esito === 'vittoria', `il PNG che entra nell'uscita vince (esito=${(await stato()).esito})`);
+  }
+}
+
 await browser.close();
 console.log(ko ? `\n${ko} FALLITI` : '\nTUTTO OK');
 process.exit(ko ? 1 : 0);

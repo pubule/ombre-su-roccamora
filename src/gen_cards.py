@@ -550,8 +550,14 @@ TILES = [
          # chiede a chi tiene il fascicolo), non un'informazione da tavolo:
          # vive sul retro delle note tessera (campo `arbitro`, vedi
          # gen_gothic.spedizione), mai nel testo letto alla rivelazione.
+         # L'uscita segreta (regola generale della scorta, Regolamento): il PNG
+         # liberato indica la STANZA, non il mobile. Qui sta sotto l'altare di
+         # SINISTRA; sotto l'altro non c'e' nulla e il tentativo costa l'azione.
          arbitro='La cella: si apre con LA CHIAVE DELLA CELLA (T4) con Interagire, senza prove — '
-                 'oppure scassinando, ACUME Difficile (il piede di porco di T2 dà +1).',
+                 'oppure scassinando, ACUME Difficile (il piede di porco di T2 dà +1). '
+                 'L’USCITA SEGRETA che Ruggero indica è sotto l’ALTARE DI SINISTRA: Interagire '
+                 'adiacenti + prova VIGORE (Media) per scostarlo, e sotto c’è il chiusino che dà '
+                 'sull’acqua nera. Sotto l’altare di destra non c’è nulla: l’azione è spesa lo stesso.',
          cerca_vuoto='Tra le stalattiti di cera e le candele nere, nulla che si possa portare via — '
                      'tutto, qui, è già di qualcuno.',
          arredi=[(1, 2, 'altare'), (2, 2, 'altare'), (3, 3, 'CELLA')]),

@@ -711,9 +711,21 @@ SOLUZIONI = dict(
 #               oggetti che danno +1
 #   chiave    = oggetto d'inventario che libera senza prova
 def scortato(nome, tile, meta, art, etichetta, vittoria,
-             prova=None, chiave=None, cella=None, mov=3):
+             prova=None, chiave=None, cella=None, mov=3, uscita=None):
     return dict(nome=nome, tile=tile, meta=meta, art=art, mov=mov, cella=cella,
-                etichetta=etichetta, vittoria=vittoria, prova=prova, chiave=chiave)
+                etichetta=etichetta, vittoria=vittoria, prova=prova, chiave=chiave,
+                uscita=uscita)
+
+
+# L'USCITA SEGRETA: liberato, il PNG indica una via di fuga sotto un arredo
+# della STANZA in cui era tenuto — la conosce perche' ci ha passato dei giorni.
+# `arredo` e' la casella esatta, e i giocatori NON la sanno: il PNG dice la
+# stanza, non il mobile. Frugare sotto quello sbagliato costa comunque l'azione.
+# Aprirla e' Interagire + una prova (spostare una lastra pesa).
+# Misurato: senza, il rientro e' meta' della serata e la sua parte piu' letale;
+# con l'uscita, le 5 liberazioni su 5 sono diventate vittoria nello stesso round.
+def uscita_segreta(tile, arredo, testo, diff='Media'):
+    return dict(tile=tile, arredo=list(arredo), diff=diff, testo=testo)
 
 
 # --- Episodi ---------------------------------------------------------------
@@ -749,7 +761,11 @@ episodi = dict(
             vittoria='Ruggero è alla banchina: siete salvi.',
             prova=dict(attr='acume', diff='Difficile', bonus=['piede di porco'],
                        titolo='scassinare la cella', fallita='non riesce ad aprire la cella'),
-            chiave='chiave della cella')],
+            chiave='chiave della cella',
+            uscita=uscita_segreta(
+                'T6', (1, 2),
+                'Ruggero scosta l’altare di sinistra: sotto, un chiusino di piombo '
+                'e il rumore dell’acqua nera. È di lì che portavano dentro la cera.'))],
         esami_carbone=ESAMI_CARBONE,
         luoghi=[luogo_json(L, OGGETTI_LUOGO_1, REPERTI_LUOGO['ep1']) for L in LUOGHI],
         tessere=[tessera_json(T) for T in TILES],

@@ -34,7 +34,12 @@ const OPP = { N: 'S', S: 'N', E: 'O', O: 'E' };
 const DELTA = { N: [0, 1], S: [0, -1], E: [1, 0], O: [-1, 0] };
 
 function arrediSet(tile) {
-  return new Set((tile.arredi || []).map(([gx, gy]) => chiave([gx, gy])));
+  const s = new Set((tile.arredi || []).map(([gx, gy]) => chiave([gx, gy])));
+  // l'arredo sotto cui si e' trovata l'uscita segreta viene spostato: la sua
+  // casella diventa percorribile ed e' li' che il PNG scortato esce
+  const u = ctx && ctx.partita && SP() && SP().uscita;
+  if (u && u.aperta && u.tile === tile.id) s.delete(chiave(u.cella));
+  return s;
 }
 function vicini([x, y]) {
   return [[x + 1, y], [x - 1, y], [x, y + 1], [x, y - 1]].filter(dentro);
@@ -247,7 +252,7 @@ function iniziaPartita() {
     digitale: true, round: 1, fase: 'eroi', canto: 0, cantoBonus: false, esito: null,
     rivelate: [t0.id], eroiPos, nemici: [],
     scortati: specScortati().map(() => ({ liberato: false, pos: null, mosso: false })),
-    scortAttivo: null, grate: [],
+    scortAttivo: null, grate: [], uscita: null, uscitaTentati: [],
     vite: Object.fromEntries(partita.party.map((nm) => { const e = eroe(nm); return [nm, e ? saluteMax(e) : 6]; })),
     eroiFatti: [], eroiAttivo: null, azioni: {}, cercate: {}, insidie: {},
     abilita: {}, diversivoPronto: false, storditi: {},
@@ -731,7 +736,26 @@ function interazioneDisponibile(nm) {
   }
   const i = scortLiberabile(pos);
   if (i != null) return { tipo: 'scortato', i, label: specScort(i).etichetta || `Libera ${specScort(i).nome} (Interagire)` };
+  // uscita segreta: il PNG liberato la indica, ma dice solo la STANZA. Quale
+  // arredo la nasconda lo sa solo chi tiene il fascicolo: frugare sotto quello
+  // sbagliato costa comunque l'azione.
+  const a = arredoUscita(pos);
+  if (a) return { tipo: 'uscita', arredo: a, label: `Sposta ${String(a[2]).toLowerCase()} — l'uscita che indica ${nomeScortato()} (Interagire)` };
   return null;
+}
+const specUscita = () => (specScortati()[0] || {}).uscita || null;
+const nomeScortato = () => (specScortati()[0] || {}).nome || 'il prigioniero';
+// arredo adiacente sotto cui si puo' cercare l'uscita: serve il PNG gia' libero,
+// l'uscita non ancora aperta, e non aver gia' provato sotto quell'arredo
+function arredoUscita(pos) {
+  const sp = SP(); const u = specUscita();
+  if (!u || u.tile !== pos.t) return null;
+  if (!statoScortati().some((g) => g.liberato)) return null;
+  if (sp.uscita && sp.uscita.aperta) return null;
+  const tile = tileDi(pos.t);
+  return (tile.arredi || []).find((a) => String(a[2]).toUpperCase() !== 'CELLA'
+    && !(sp.uscitaTentati || []).includes(chiave([a[0], a[1]]))
+    && (adiacGlob(pos, { t: pos.t, x: a[0], y: a[1] }) || (pos.x === a[0] && pos.y === a[1]))) || null;
 }
 // indice del PNG scortato liberabile dalla posizione `pos`: dev'essere la sua
 // tessera-prigione e, se l'episodio nomina un arredo (`cella`), esserne adiacenti
@@ -912,6 +936,13 @@ function muoviScortato(i, node) {
   const sp = SP(); const g = sp.scortati[i]; const s = specScort(i);
   g.pos = node; g.mosso = true; sp.scortAttivo = null;
   log(`${s.nome} avanza in ${node.t}.`);
+  // vittoria alternativa: l'uscita segreta aperta nella tessera della prigionia
+  const u = sp.uscita;
+  if (u && u.aperta && node.t === u.tile && node.x === u.cella[0] && node.y === u.cella[1]) {
+    sp.esito = 'vittoria';
+    sp.log.push(s.vittoria || `${s.nome} è fuori: siete salvi.`);
+    salvaP(); return epilogo();
+  }
   const arrivati = sp.scortati.every((x, k) => x.liberato && x.pos && x.pos.t === specScort(k).meta);
   if (node.t === s.meta && arrivati) {
     sp.esito = 'vittoria';
@@ -975,6 +1006,24 @@ function oggettiHtml() {
 async function azioneInteragire(nm) {
   const sp = SP(); const disp = interazioneDisponibile(nm); if (!disp) return;
   if (disp.tipo === 'grata') { sp.grate.push(`${sp.eroiPos[nm].t}-${disp.dir}`); log('La grata è aperta.'); segnaAzione(nm, 'interagire'); return; }
+  if (disp.tipo === 'uscita') {
+    const u = specUscita(); const a = disp.arredo; const e = eroe(nm);
+    const giusto = a[0] === u.arredo[0] && a[1] === u.arredo[1];
+    const r = await tiraProva({ titolo: `spostare ${String(a[2]).toLowerCase()} — ${primo(nm)}`,
+      diffLabel: u.diff || 'Media', soglia: ctx.comune.regole.diff[u.diff || 'Media'],
+      bonus: [{ label: 'VIGORE', val: e.vigore }], modo: 'digitale' });
+    if (r == null) return;
+    if (!r.ok) { log(`${primo(nm)} non riesce a smuovere ${String(a[2]).toLowerCase()}.`); salvaP(); segnaAzione(nm, 'interagire'); return; }
+    if (!giusto) {
+      // arredo sbagliato: l'azione e' spesa, e quell'arredo non si ritenta piu'
+      sp.uscitaTentati = (sp.uscitaTentati || []).concat(chiave([a[0], a[1]]));
+      log(`Sotto ${String(a[2].toLowerCase())} non c'è nulla: solo pietra.`);
+      salvaP(); segnaAzione(nm, 'interagire'); return;
+    }
+    sp.uscita = { aperta: true, tile: u.tile, cella: [u.arredo[0], u.arredo[1]] };
+    log(`${u.testo || 'Sotto l’arredo si apre un passaggio.'} Portateci ${nomeScortato()}.`);
+    ctx.layout = null; segnaAzione(nm, 'interagire'); return;
+  }
   if (disp.tipo === 'scortato') {
     const i = disp.i; const s = specScort(i); const inv = P().indagine.oggetti || [];
     // la chiave dell'episodio apre senza prova; senza prova dichiarata basta Interagire

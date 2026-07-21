@@ -389,6 +389,13 @@ def regolamento():
     e.append(LI('<b>Il PNG che scortate</b> \u2014 non \u00e8 un eroe: i nemici lo <b>ignorano</b> (i motivi sono '
                 'nella Soluzione dell\u2019episodio). Si muove nel turno degli eroi, fino a 3 caselle, e non '
                 'compie azioni.'))
+    e.append(LI('<b>La via che conosce</b> \u2014 appena libero, il PNG indica una <b>uscita segreta</b> '
+                'nella stanza in cui l\u2019hanno tenuto: \u00e8 sotto uno dei mobili, e lui sa quale '
+                'stanza ma non quale mobile. <b>Interagire</b> stando adiacenti a un mobile e '
+                'superare una prova di <b>VIGORE</b> lo sposta: se \u00e8 quello giusto si apre il '
+                'passaggio, altrimenti sotto c\u2019\u00e8 solo pietra e l\u2019azione \u00e8 spesa lo stesso. '
+                'Portateci il PNG e la spedizione \u00e8 vinta \u2014 non serve rifare tutta la strada '
+                'all\u2019indietro. Quale mobile lo sa solo chi tiene il fascicolo <b>Spedizione</b>.'))
     e.append(LI('<b>Eroi a terra</b> \u2014 i nemici li ignorano: puntano sempre l\u2019eroe in piedi pi\u00f9 vicino.'))
     e.append(LI('<b>Mazzo Minaccia esaurito</b> \u2014 rimescolate gli scarti e continuate. I segnalini '
                 'Canto gi\u00e0 in gioco restano.'))
