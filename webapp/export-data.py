@@ -699,6 +699,23 @@ SOLUZIONI = dict(
     ),
 )
 
+# --- PNG da scortare -------------------------------------------------------
+# Regolamento: il PNG scortato non e' un eroe (i nemici lo ignorano), si muove
+# nel TURNO DEGLI EROI fino a 3 caselle e non compie azioni; si attraversa ma
+# non ci si ferma sopra. Qui sta il solo dato che cambia da episodio a
+# episodio, cosi' la modalita' digitale non ha piu' nulla di cablato:
+#   nome/art  = pedina;  tile = dov'e' prigioniero;  meta = tessera-vittoria
+#   cella     = etichetta dell'arredo che fa da prigione (None = basta essere
+#               sulla tessera con il PNG)
+#   prova     = None se basta Interagire, altrimenti attributo/difficolta' e
+#               oggetti che danno +1
+#   chiave    = oggetto d'inventario che libera senza prova
+def scortato(nome, tile, meta, art, etichetta, vittoria,
+             prova=None, chiave=None, cella=None, mov=3):
+    return dict(nome=nome, tile=tile, meta=meta, art=art, mov=mov, cella=cella,
+                etichetta=etichetta, vittoria=vittoria, prova=prova, chiave=chiave)
+
+
 # --- Episodi ---------------------------------------------------------------
 episodi = dict(
     preludio=dict(
@@ -722,6 +739,13 @@ episodi = dict(
         cartella='Episodio 1', ore_budget=6,
         lettera=story.LETTERA2,
         obiettivo='Liberate Ruggero (Interagire, la cella in T6) e riportatelo in T1, alla banchina.',
+        scortato=[scortato(
+            'Ruggero', 'T6', 'T1', 'Ruggero.png', cella='CELLA',
+            etichetta='Libera Ruggero (Interagire)',
+            vittoria='Ruggero è alla banchina: siete salvi.',
+            prova=dict(attr='acume', diff='Difficile', bonus=['piede di porco'],
+                       titolo='scassinare la cella', fallita='non riesce ad aprire la cella'),
+            chiave='chiave della cella')],
         esami_carbone=ESAMI_CARBONE,
         luoghi=[luogo_json(L, OGGETTI_LUOGO_1, REPERTI_LUOGO['ep1']) for L in LUOGHI],
         tessere=[tessera_json(T) for T in TILES],
@@ -737,6 +761,11 @@ episodi = dict(
         lettera=LETTERA_2,
         obiettivo='Liberate Ilario (Interagire, in T5) e riportatelo in T1, alla chiatta. '
                   'Secondario: le campanelle grezze in T6, una ad azione (Interagire).',
+        # «Ilario si libera con Interagire (nessuna prova)» — testo di T5
+        scortato=[scortato(
+            'Ilario', 'T5', 'T1', 'Ilario.png',
+            etichetta='Libera Ilario (Interagire)',
+            vittoria='Ilario è alla chiatta: siete salvi.')],
         esami_carbone=ESAMI_CARBONE_2,
         luoghi=[luogo_json(L, OGGETTI_LUOGO_2, REPERTI_LUOGO['ep2']) for L in LUOGHI_2],
         tessere=[tessera_json(T) for T in TILES_2],

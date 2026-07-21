@@ -20,16 +20,10 @@ const P = () => ctx.partita;
 const SP = () => ctx.partita.spedizione;
 const salvaP = () => salva(ctx.partita);
 
-// board PNG per Ep.1 (i file usano il maiuscoletto con apostrofo tipografico,
-// diverso dal nome JSON). ponytail: mappa per ep1; generalizzare per altri ep.
-const BOARD_EP1 = {
-  T1: 'Banchina d’Ingresso', T2: 'Sala delle Casse', T3: 'Corridoio delle Candele',
-  T4: 'Ufficio del Custode', T5: 'Scala al Piano Interrato', T6: 'Cripta della Cera',
-};
-const urlBoard = (tileId) => {
-  const nm = BOARD_EP1[tileId];
-  return nm ? encodeURI(`/assets/${ctx.ep.cartella}/board/${tileId} - ${nm}.png`) : '';
-};
+// board PNG: export-assets.py copia le tessere stampate in webapp/assets con il
+// nome normalizzato «<TileId>.png» (a monte i file sono «T1 - Nome Tessera.png»,
+// e il nome non coincide con quello del JSON — maiuscoletto, apostrofi diversi).
+const urlBoard = (tileId) => `/assets/${encodeURI(ctx.ep.cartella)}/board/${tileId}.png`;
 
 // ---------------------------------------------------------- motore a griglia
 const dentro = ([x, y]) => x >= 0 && x < 4 && y >= 0 && y < 4;
@@ -105,7 +99,7 @@ function viciniGlob(n, allowReveal) {
   return out;
 }
 // BFS a budget: mappa nodeKey -> { node, dist, reveal, prev }. `blocco` = celle
-// muro (nemici/Ruggero); gli alleati NON bloccano il passaggio ma si passano i
+// muro (nemici/PNG scortati); gli alleati NON bloccano il passaggio ma si passano i
 // loro nodi (l'arrivo libero si filtra dopo). I bersagli reveal sono terminali.
 function esploraMosse(start, budget, blocco) {
   const info = { [nk(start)]: { node: start, dist: 0 } }; let q = [start];
@@ -183,15 +177,24 @@ function saluteMax(e) {
   const bonus = ctx.comune.regole.salute_bonus_per_taglia[String(P().party.length)] || 0;
   return e.salute + bonus;
 }
-// nodi occupati (eroi + nemici + Ruggero), tranne exclKey. `soloNemici`: escludi
-// gli eroi (cammino eroi: gli alleati si attraversano). `senzaRuggero`: escludi
-// il PNG scortato — nei set di CAMMINO (eroi e nemici lo attraversano: si passa
-// attraverso, non ci si ferma sopra → l'arrivo usa senzaRuggero=false).
-function occupati(exclKey, soloNemici, senzaRuggero) {
+// ------------------------------------------------------------ PNG scortati
+// Dato per episodio (webapp/data/epN.json → `scortato`): pedina, prigione,
+// tessera-vittoria, prova di liberazione. Regolamento: il PNG non e' un eroe,
+// i nemici lo ignorano, si muove nel turno degli eroi (Mov 3) e non agisce.
+const specScortati = () => (ctx.ep.scortato || []);
+const specScort = (i) => specScortati()[i] || {};
+const statoScortati = () => (SP().scortati || []);
+const scortAttivo = () => { const v = SP().scortAttivo; return (v === 0 || v > 0) ? v : null; };
+
+// nodi occupati (eroi + nemici + PNG scortati), tranne exclKey. `soloNemici`:
+// escludi gli eroi (cammino eroi: gli alleati si attraversano). `senzaScortati`:
+// escludi i PNG scortati — nei set di CAMMINO (eroi e nemici li attraversano: si
+// passa attraverso, non ci si ferma sopra → l'arrivo usa senzaScortati=false).
+function occupati(exclKey, soloNemici, senzaScortati) {
   const sp = SP(); const s = new Set();
   if (!soloNemici) for (const [nm, p] of Object.entries(sp.eroiPos)) { if (`E:${nm}` !== exclKey && p) s.add(nk(p)); }
   sp.nemici.forEach((n, i) => { if (`N:${i}` !== exclKey && n.pos) s.add(nk(n.pos)); });
-  if (!senzaRuggero && sp.ruggero.liberato && sp.ruggero.pos && exclKey !== 'R') s.add(nk(sp.ruggero.pos));
+  if (!senzaScortati) statoScortati().forEach((g, i) => { if (g.liberato && g.pos && exclKey !== `S:${i}`) s.add(nk(g.pos)); });
   return s;
 }
 
@@ -201,7 +204,21 @@ export async function vistaDigitale(app, partita, vaiA) {
     dati(partita.episodio), dati('comune'), dati('carte')]);
   ctx = { app, partita, ep, comune, carte, vaiA, layout: null };
   if (!partita.spedizione || !partita.spedizione.digitale) return setup();
+  migraScortati(partita.spedizione);
   render();
+}
+
+// salvataggi precedenti al dato per episodio: il singolo `sp.ruggero` diventa
+// la lista `sp.scortati` (una voce per PNG dichiarato in ep.scortato)
+function migraScortati(sp) {
+  if (sp.scortati) return;
+  const vecchio = sp.ruggero;
+  sp.scortati = specScortati().map((_, i) => (i === 0 && vecchio
+    ? { liberato: !!vecchio.liberato, pos: vecchio.pos || null, mosso: !!vecchio.mosso }
+    : { liberato: false, pos: null, mosso: false }));
+  sp.scortAttivo = null;
+  delete sp.ruggero; delete sp.ruggeroAttivo;
+  salvaP();
 }
 
 function setup() {
@@ -229,7 +246,8 @@ function iniziaPartita() {
   partita.spedizione = {
     digitale: true, round: 1, fase: 'eroi', canto: 0, cantoBonus: false, esito: null,
     rivelate: [t0.id], eroiPos, nemici: [],
-    ruggero: { liberato: false, pos: null, tile: 'T6' }, grate: [],
+    scortati: specScortati().map(() => ({ liberato: false, pos: null, mosso: false })),
+    scortAttivo: null, grate: [],
     vite: Object.fromEntries(partita.party.map((nm) => { const e = eroe(nm); return [nm, e ? saluteMax(e) : 6]; })),
     eroiFatti: [], eroiAttivo: null, azioni: {}, cercate: {}, insidie: {},
     abilita: {}, diversivoPronto: false, storditi: {},
@@ -266,7 +284,8 @@ function render() {
       <div class="titolo">tutto a schermo</div>
       <span class="sc" style="color:var(--oro-chiaro)">round ${sp.round} · canto ${sp.canto}</span></div>
     <div class="pannello"><p><b>Obiettivo:</b> ${esc(ep.obiettivo || '')}
-      ${sp.ruggero.liberato ? ' <span class="ok-txt">— Ruggero vi segue: riportatelo alla banchina (T1).</span>' : ''}</p>
+      ${statoScortati().map((g, i) => (g.liberato && SP().esito == null
+        ? ` <span class="ok-txt">— ${esc(specScort(i).nome)} vi segue: riportatelo in ${esc(specScort(i).meta || '')}.</span>` : '')).join('')}</p>
       ${tpk ? '<p class="ko-txt">Tutti gli eroi sono a terra: la notte vince.</p>' : ''}</div>
     <div class="mt"></div>
     <div class="board-area">
@@ -281,7 +300,7 @@ function render() {
     <div class="mt"></div>
     <div class="pannello giro"><h2>il giro degli eroi</h2>${giroEroiHtml()}</div>
     <div class="mt"></div>
-    <div class="pannello"><h2>azioni di ${sp.ruggeroAttivo ? 'Ruggero' : (attivo ? esc(primo(attivo)) : '—')}</h2>${azioniHtml()}</div>
+    <div class="pannello"><h2>azioni di ${scortAttivo() != null ? esc((specScort(scortAttivo()).nome || '').toLowerCase()) : (attivo ? esc(primo(attivo)) : '—')}</h2>${azioniHtml()}</div>
     <div class="mt"></div>
     <div class="pannello"><h2>la salute degli eroi</h2>${saluteHtml()}</div>
     <div class="mt"></div>
@@ -305,7 +324,7 @@ function raggEroe(nm) {
   const sp = SP();
   if (sp.fase !== 'eroi' || azioneSpesa(nm, 'muovere') || !azioniRestano(nm)) return {};
   const start = sp.eroiPos[nm];
-  const info = esploraMosse(start, movimento(nm), occupati(`E:${nm}`, true, true));  // solo nemici murano (alleati e Ruggero attraversabili)
+  const info = esploraMosse(start, movimento(nm), occupati(`E:${nm}`, true, true));  // solo nemici murano (alleati e PNG scortati attraversabili)
   const tuttiOcc = occupati(`E:${nm}`, false);
   const out = {};
   for (const [k, v] of Object.entries(info)) { if (v.dist === 0 || tuttiOcc.has(k)) continue; out[k] = v; }
@@ -328,7 +347,7 @@ function boardHtml() {
   const scr = (n) => { const [TX, TY] = lay[n.t]; return { l: ((TX - minX) * 4 + n.x) * cell, t: ((maxY - TY) * 4 + (3 - n.y)) * cell }; };
   const attivo = eroiAttivoNome();
 
-  const ragg = attivo ? raggEroe(attivo) : (sp.ruggeroAttivo ? raggRuggero() : {});
+  const ragg = attivo ? raggEroe(attivo) : (scortAttivo() != null ? raggScortato(scortAttivo()) : {});
 
   // blocchi tessera: rivelate (sfondo + griglia) e frontiera (coperte, scure)
   const tiles = mostrate.map((id) => {
@@ -373,7 +392,7 @@ function boardHtml() {
   const toks = [];
   const tok = (n, inner, dataTok) => { const p = scr(n); toks.push(`<div class="tok-slot" data-tok="${dataTok}" style="left:${p.l}px;top:${p.t}px;width:${cell}px;height:${cell}px">${inner}</div>`); };
   for (const [nm, p] of Object.entries(sp.eroiPos)) {
-    const e = eroe(nm); const giu = (sp.vite[nm] ?? 0) <= 0;
+    const e = eroe(nm); const giu = (viteVista(nm) ?? 0) <= 0;
     tok(p, `<span class="tok-board eroe${nm === attivo ? ' attivo' : ''}${giu ? ' giu' : ''}" data-eroe="${esc(nm)}" title="${esc(nm)}">
       ${e && e.art ? `<img src="${urlArt(e.art)}" alt="" loading="lazy">` : ''}</span>`, `E:${esc(nm)}`);
   }
@@ -382,9 +401,11 @@ function boardHtml() {
     tok(n.pos, `<span class="tok-board nemico${boss}" data-nemico="${i}" title="${esc(n.nome)} ${n.ferite}/${n.max}">
       ${st && st.art ? `<img src="${urlArt(st.art)}" alt="" loading="lazy">` : ''}</span>`, `N:${i}`);
   });
-  if (sp.ruggero.liberato && sp.ruggero.pos) {
-    tok(sp.ruggero.pos, `<span class="tok-board ruggero${sp.ruggeroAttivo ? ' attivo' : ''}" data-ruggero="1" title="Ruggero"><img src="${urlArt('Ruggero.png')}" alt=""></span>`, 'R');
-  }
+  statoScortati().forEach((g, i) => {
+    if (!g.liberato || !g.pos) return; const s = specScort(i);
+    tok(g.pos, `<span class="tok-board scortato${scortAttivo() === i ? ' attivo' : ''}" data-scortato="${i}" title="${esc(s.nome || '')}">
+      ${s.art ? `<img src="${urlArt(s.art)}" alt="">` : ''}</span>`, `S:${i}`);
+  });
 
   return `<div class="board-digitale" style="width:${cols * cell}px;height:${rows * cell}px;zoom:${SP().zoom || 1}">
     ${tiles}${etichette}${raggHtml}${toks.join('')}</div>`;
@@ -394,10 +415,15 @@ function logHtml() {
   const sp = SP();
   return `<div class="diario">${sp.log.slice(-6).map((l) => `<p class="nota">${esc(l)}</p>`).join('')}</div>`;
 }
+// Salute MOSTRATA. Nella fase nemici lo stato e' gia' committato prima
+// dell'animazione (cosi' un reload trova una fase eroi coerente): senza questo
+// filtro il board disegnerebbe subito a terra chi cade a meta' animazione, e si
+// vedrebbero i nemici accanirsi su un corpo. `ctx.viteVista` e' la fotografia a
+// inizio fase, aggiornata colpo per colpo mentre l'animazione scorre.
+const viteVista = (nm) => (ctx.viteVista ? ctx.viteVista[nm] : SP().vite[nm]);
 function saluteHtml() {
-  const sp = SP();
   return P().party.map((nm) => {
-    const e = eroe(nm); const max = saluteMax(e); const v = sp.vite[nm] ?? max;
+    const e = eroe(nm); const max = saluteMax(e); const v = viteVista(nm) ?? max;
     return `<div class="nemico-riga"><span class="nemico-nome">${esc(primo(nm))}${v <= 0 ? ' <b>a terra</b>' : ''}</span>
       <span class="nemico-pips">${Array.from({ length: max }, (_, k) => `<span class="pip-vita ${k < v ? 'piena' : ''}"></span>`).join('')}</span></div>`;
   }).join('');
@@ -418,7 +444,7 @@ const primo = (nome) => {
 };
 function eroiAttivoNome() {
   const sp = SP(); const fatti = sp.eroiFatti || [];
-  if (sp.ruggeroAttivo) return null;             // Ruggero selezionato: nessun eroe attivo
+  if (scortAttivo() != null) return null;        // PNG scortato selezionato: nessun eroe attivo
   const vivi = P().party.filter((nm) => (sp.vite[nm] ?? 0) > 0);
   if (sp.eroiAttivo && vivi.includes(sp.eroiAttivo) && !fatti.includes(sp.eroiAttivo)) return sp.eroiAttivo;
   return vivi.find((nm) => !fatti.includes(nm)) || null;
@@ -430,20 +456,21 @@ function giroEroiHtml() {
     return `<button class="chip-turno ritratto${nm === attivo ? ' attivo' : ''}${done || giu ? ' fatto' : ''}" data-turno="${esc(nm)}">
       <span class="rit"><img src="${e && e.art ? urlArt(e.art) : ''}" alt=""></span><span class="et">${done ? '✓ ' : ''}${esc(primo(nm))}</span></button>`;
   });
-  // chip di Ruggero: unità mossa dal giocatore (Mov 3, non agisce) una volta liberato
-  if (sp.ruggero && sp.ruggero.liberato) {
-    chips.push(`<button class="chip-turno ritratto ruggero${sp.ruggeroAttivo ? ' attivo' : ''}${sp.ruggero.mosso ? ' fatto' : ''}" data-ruggero-chip="1">
-      <span class="rit"><img src="${urlArt('Ruggero.png')}" alt=""></span><span class="et">${sp.ruggero.mosso ? '✓ ' : ''}ruggero</span></button>`);
-  }
+  // chip dei PNG scortati: unità mosse dal giocatore (Mov 3, non agiscono)
+  statoScortati().forEach((g, i) => {
+    if (!g.liberato) return; const s = specScort(i);
+    chips.push(`<button class="chip-turno ritratto scortato${scortAttivo() === i ? ' attivo' : ''}${g.mosso ? ' fatto' : ''}" data-scortato-chip="${i}">
+      <span class="rit"><img src="${s.art ? urlArt(s.art) : ''}" alt=""></span><span class="et">${g.mosso ? '✓ ' : ''}${esc((s.nome || '').toLowerCase())}</span></button>`);
+  });
   return `<div class="giro-strip">${chips.join('')}</div>`;
 }
-// celle raggiungibili da Ruggero (Mov 3): passa per eroi/porte, blocca sui nemici,
-// non rivela tessere, non si ferma su celle occupate
-function raggRuggero() {
-  const sp = SP();
-  if (!sp.ruggeroAttivo || !sp.ruggero.liberato || !sp.ruggero.pos) return {};
-  const info = esploraMosse(sp.ruggero.pos, 3, occupati('R', true, true));  // solo nemici murano
-  const tuttiOcc = occupati('R', false);
+// celle raggiungibili da un PNG scortato (Mov 3): passa per eroi/porte, blocca
+// sui nemici, non rivela tessere, non si ferma su celle occupate
+function raggScortato(i) {
+  const g = statoScortati()[i];
+  if (scortAttivo() !== i || !g || !g.liberato || !g.pos) return {};
+  const info = esploraMosse(g.pos, specScort(i).mov || 3, occupati(`S:${i}`, true, true));  // solo nemici murano
+  const tuttiOcc = occupati(`S:${i}`, false);
   const out = {};
   for (const [k, v] of Object.entries(info)) { if (v.dist === 0 || v.reveal || tuttiOcc.has(k)) continue; out[k] = v; }
   return out;
@@ -460,16 +487,27 @@ const azioniRestano = (nm) => azioniOf(nm).length < azioniMax(nm);
 
 function azioniHtml() {
   const sp = SP();
-  if (sp.ruggeroAttivo) {
-    const n = Object.keys(raggRuggero()).length;
-    return `<p class="nota">Tocca a <b>Ruggero</b> — si muove con voi (Mov 3), <b>non compie azioni</b>.</p>
-      <p class="nota mt">${n ? '▸ Tocca una <b class="verde">casella verde</b> per muovere Ruggero (fino a 3 caselle). Portalo alla <b>banchina T1</b> per vincere.' : '▸ Ruggero non ha caselle libere raggiungibili (nemici o arredi intorno).'}</p>
-      <div class="btn-riga mt"><button class="btn pieno" id="rug-fine">Ruggero ha finito →</button></div>`;
+  const iS = scortAttivo();
+  if (iS != null) {
+    const s = specScort(iS); const mov = s.mov || 3; const nome = s.nome || 'il PNG';
+    const n = Object.keys(raggScortato(iS)).length;
+    return `<p class="nota">Tocca a <b>${esc(nome)}</b> — si muove con voi (Mov ${mov}), <b>non compie azioni</b>.</p>
+      <p class="nota mt">${n ? `▸ Tocca una <b class="verde">casella verde</b> per muovere ${esc(nome)} (fino a ${mov} caselle). Portalo in <b>${esc(s.meta || '')}</b> per vincere.` : `▸ ${esc(nome)} non ha caselle libere raggiungibili (nemici o arredi intorno).`}</p>
+      <div class="btn-riga mt"><button class="btn pieno" id="rug-fine">${esc(nome)} ha finito →</button></div>`;
   }
   const attivo = eroiAttivoNome();
   if (!attivo) {
-    return `<p class="nota">Tutti gli eroi hanno agito. La notte reagisce.</p>
-      <div class="btn-riga"><button class="btn pieno" id="fase-minaccia">fase minaccia →</button></div>`;
+    // PNG scortati liberati e non ancora mossi: il loro turno va OFFERTO qui,
+    // altrimenti non arriva mai (si muovono nel turno degli eroi, che e' finito)
+    const daMuovere = statoScortati()
+      .map((g, i) => ({ g, i })).filter(({ g }) => g.liberato && g.pos && !g.mosso);
+    return `<p class="nota">Tutti gli eroi hanno agito.${daMuovere.length
+      ? ` Prima che la notte reagisca, ${daMuovere.map(({ i }) => `<b>${esc(specScort(i).nome)}</b>`).join(' e ')} può ancora seguirvi.`
+      : ' La notte reagisce.'}</p>
+      <div class="btn-riga">
+        ${daMuovere.map(({ i }) => `<button class="btn" data-scortato-chip="${i}">muovi ${esc((specScort(i).nome || '').toLowerCase())} →</button>`).join('')}
+        <button class="btn${daMuovere.length ? '' : ' pieno'}" id="fase-minaccia">fase minaccia →</button>
+      </div>`;
   }
   const fatte = azioniOf(attivo);
   const inter = interazioneDisponibile(attivo);
@@ -684,17 +722,27 @@ function messaggioProva(titolo, corpo, provaText, nm) {
   });
 }
 
-// interazione a portata dell'eroe: grata da aprire, o cella di Ruggero (T6)
+// interazione a portata dell'eroe: grata da aprire, o PNG scortato da liberare
 function interazioneDisponibile(nm) {
   const sp = SP(); const pos = sp.eroiPos[nm]; const tile = tileDi(pos.t);
   // grata: l'eroe e' sulla cella-porta con grata chiusa
   for (const [dir, raw] of Object.entries(tile.exits || {})) {
     if (grataChiusa(pos.t, dir, raw)) { const dc = portaCella(tile, dir); if (dc[0] === pos.x && dc[1] === pos.y) return { tipo: 'grata', dir, label: `Apri la grata → ${dirExit(raw)}` }; }
   }
-  // cella di Ruggero in T6
-  if (pos.t === 'T6' && !sp.ruggero.liberato) {
-    const cella = (tile.arredi || []).find((a) => String(a[2]).toUpperCase() === 'CELLA');
-    if (cella && (adiacGlob(pos, { t: 'T6', x: cella[0], y: cella[1] }) || (pos.x === cella[0] && pos.y === cella[1]))) return { tipo: 'cella', label: 'Libera Ruggero (Interagire)' };
+  const i = scortLiberabile(pos);
+  if (i != null) return { tipo: 'scortato', i, label: specScort(i).etichetta || `Libera ${specScort(i).nome} (Interagire)` };
+  return null;
+}
+// indice del PNG scortato liberabile dalla posizione `pos`: dev'essere la sua
+// tessera-prigione e, se l'episodio nomina un arredo (`cella`), esserne adiacenti
+function scortLiberabile(pos) {
+  const st = statoScortati();
+  for (let i = 0; i < st.length; i++) {
+    const s = specScort(i); if (st[i].liberato || pos.t !== s.tile) continue;
+    if (!s.cella) return i;
+    const c = (tileDi(pos.t).arredi || []).find((a) => String(a[2]).toUpperCase() === String(s.cella).toUpperCase());
+    if (!c) return i;                       // arredo non stampato: basta la tessera
+    if (adiacGlob(pos, { t: pos.t, x: c[0], y: c[1] }) || (pos.x === c[0] && pos.y === c[1])) return i;
   }
   return null;
 }
@@ -703,22 +751,26 @@ function aggancia() {
   const { app } = ctx; const sp = SP(); const attivo = eroiAttivoNome();
   app.querySelectorAll('.cella-mossa').forEach((c) => c.onclick = () => {
     const node = { t: c.dataset.t, x: +c.dataset.x, y: +c.dataset.y };
-    if (sp.ruggeroAttivo) return muoviRuggero(node);
+    if (scortAttivo() != null) return muoviScortato(scortAttivo(), node);
     if (!attivo) return;
     muoviEroe(attivo, node, c.dataset.reveal || null);
   });
   app.querySelectorAll('[data-nemico]').forEach((el) => el.onclick = () => { if (attivo) attaccaNemico(attivo, Number(el.dataset.nemico)); });
   app.querySelectorAll('[data-eroe]').forEach((el) => el.onclick = () => {
     const nm = el.dataset.eroe; if ((sp.vite[nm] ?? 0) <= 0) return;
-    sp.ruggeroAttivo = false;
+    sp.scortAttivo = null;
     const i = sp.eroiFatti.indexOf(nm); if (i >= 0) sp.eroiFatti.splice(i, 1);
     sp.eroiAttivo = nm; salvaP(); render();
   });
-  // selezione di Ruggero (pedina sul board o chip nel giro)
-  const selRug = () => { if (sp.ruggero.liberato) { sp.ruggeroAttivo = true; salvaP(); render(); } };
-  app.querySelectorAll('[data-ruggero]').forEach((el) => el.onclick = selRug);
-  app.querySelectorAll('[data-ruggero-chip]').forEach((el) => el.onclick = selRug);
-  app.querySelector('#rug-fine') && (app.querySelector('#rug-fine').onclick = () => { sp.ruggeroAttivo = false; salvaP(); render(); });
+  // selezione di un PNG scortato (pedina sul board o chip nel giro)
+  const selScort = (el, attr) => el.onclick = () => {
+    const i = Number(el.dataset[attr]);
+    if (!(statoScortati()[i] || {}).liberato) return;
+    sp.scortAttivo = i; salvaP(); render();
+  };
+  app.querySelectorAll('[data-scortato]').forEach((el) => selScort(el, 'scortato'));
+  app.querySelectorAll('[data-scortato-chip]').forEach((el) => selScort(el, 'scortatoChip'));
+  app.querySelector('#rug-fine') && (app.querySelector('#rug-fine').onclick = () => { sp.scortAttivo = null; salvaP(); render(); });
   app.querySelectorAll('[data-turno]').forEach((b) => b.onclick = () => {
     const nm = b.dataset.turno; if ((sp.vite[nm] ?? 0) <= 0) return;
     const i = sp.eroiFatti.indexOf(nm); if (i >= 0) sp.eroiFatti.splice(i, 1);
@@ -780,8 +832,8 @@ function centraSuNodo(node, key, forza) {
 // il board resterebbe in alto a sinistra). Il pan manuale tra due azioni resta
 // comunque: senza render lo scroll non si azzera.
 function centraSuAttivo() {
-  const sp = SP(); const attivo = eroiAttivoNome();
-  if (sp.ruggeroAttivo && sp.ruggero.pos) { centraSuNodo(sp.ruggero.pos, `R@${nk(sp.ruggero.pos)}`, true); }
+  const sp = SP(); const attivo = eroiAttivoNome(); const iS = scortAttivo();
+  if (iS != null && (statoScortati()[iS] || {}).pos) { const p = sp.scortati[iS].pos; centraSuNodo(p, `S${iS}@${nk(p)}`, true); }
   else if (attivo) { const p = sp.eroiPos[attivo]; centraSuNodo(p, `${attivo}@${nk(p)}`, true); }
   else { const t = tileAffollata(); centraSuNodo({ t, x: 1.5, y: 1.5 }, `_@${t}`, true); }
 }
@@ -818,6 +870,12 @@ function agganciaMappa() {
 
 function segnaAzione(nm, tipo) {
   const sp = SP(); if (!sp.azioni[nm]) sp.azioni[nm] = [];
+  // Chi ha iniziato il turno lo TIENE finche' non dichiara di aver finito.
+  // Senza questa riga l'eroe attivo resta quello scelto dal fallback di
+  // eroiAttivoNome() (l'ordine del party), ricalcolato a ogni render: rianimare
+  // un compagno lo rimette fra i vivi e, se sta prima nell'ordine, si prende il
+  // turno rubando al rianimatore la seconda azione.
+  sp.eroiAttivo = nm;
   sp.azioni[nm].push(tipo);
   if (sp.azioni[nm].length >= azioniMax(nm)) finisciEroe(nm); else { salvaP(); render(); }
 }
@@ -847,12 +905,19 @@ async function muoviEroe(nm, node, revealId) {
   segnaAzione(nm, 'muovere');
 }
 
-// Ruggero mosso dal giocatore (Mov 3, non agisce): a T1 è vittoria
-function muoviRuggero(node) {
-  const sp = SP();
-  sp.ruggero.pos = node; sp.ruggero.mosso = true; sp.ruggeroAttivo = false;
-  log(`Ruggero avanza in ${node.t}.`);
-  if (node.t === 'T1') { sp.ruggero.tile = 'T1'; sp.esito = 'vittoria'; sp.log.push('Ruggero è alla banchina: siete salvi.'); salvaP(); return epilogo(); }
+// PNG scortato mosso dal giocatore (Mov 3, non agisce): sulla tessera-meta e'
+// vittoria — ma solo quando TUTTI i PNG dell'episodio ci sono arrivati (Ep.4
+// ne ha due, Gaspare e Rocco: vanno portati fuori entrambi).
+function muoviScortato(i, node) {
+  const sp = SP(); const g = sp.scortati[i]; const s = specScort(i);
+  g.pos = node; g.mosso = true; sp.scortAttivo = null;
+  log(`${s.nome} avanza in ${node.t}.`);
+  const arrivati = sp.scortati.every((x, k) => x.liberato && x.pos && x.pos.t === specScort(k).meta);
+  if (node.t === s.meta && arrivati) {
+    sp.esito = 'vittoria';
+    sp.log.push(s.vittoria || `${s.nome} è al sicuro: siete salvi.`);
+    salvaP(); return epilogo();
+  }
   salvaP(); render();
 }
 
@@ -910,23 +975,28 @@ function oggettiHtml() {
 async function azioneInteragire(nm) {
   const sp = SP(); const disp = interazioneDisponibile(nm); if (!disp) return;
   if (disp.tipo === 'grata') { sp.grate.push(`${sp.eroiPos[nm].t}-${disp.dir}`); log('La grata è aperta.'); segnaAzione(nm, 'interagire'); return; }
-  if (disp.tipo === 'cella') {
-    const e = eroe(nm);
-    if ((P().indagine.oggetti || []).some((o) => /chiave della cella/i.test(o))) { liberaRuggero(nm); return; }
-    const bonus = [{ label: 'ACUME', val: e.acume }];
-    if ((P().indagine.oggetti || []).some((o) => /piede di porco/i.test(o))) bonus.push({ label: 'piede di porco', val: 1 });
-    const r = await tiraProva({ titolo: `scassinare la cella — ${primo(nm)}`, diffLabel: 'Difficile', soglia: ctx.comune.regole.diff.Difficile, bonus, modo: 'digitale' });
+  if (disp.tipo === 'scortato') {
+    const i = disp.i; const s = specScort(i); const inv = P().indagine.oggetti || [];
+    // la chiave dell'episodio apre senza prova; senza prova dichiarata basta Interagire
+    if (s.chiave && inv.some((o) => new RegExp(s.chiave, 'i').test(o))) { liberaScortato(nm, i); return; }
+    if (!s.prova) { liberaScortato(nm, i); return; }
+    const e = eroe(nm); const attr = s.prova.attr || 'acume';
+    const bonus = [{ label: attr.toUpperCase(), val: e[attr] || 0 }];
+    for (const b of s.prova.bonus || []) { if (inv.some((o) => new RegExp(b, 'i').test(o))) bonus.push({ label: b, val: 1 }); }
+    const r = await tiraProva({ titolo: `${s.prova.titolo || 'liberare ' + s.nome} — ${primo(nm)}`,
+      diffLabel: s.prova.diff, soglia: ctx.comune.regole.diff[s.prova.diff], bonus, modo: 'digitale' });
     if (r == null) return;
-    if (r.ok) liberaRuggero(nm); else { log(`${primo(nm)} non riesce ad aprire la cella.`); salvaP(); segnaAzione(nm, 'interagire'); }
+    if (r.ok) liberaScortato(nm, i);
+    else { log(`${primo(nm)} ${s.prova.fallita || 'non riesce a liberare ' + s.nome}.`); salvaP(); segnaAzione(nm, 'interagire'); }
   }
 }
-function liberaRuggero(nm) {
-  const sp = SP(); const pos = sp.eroiPos[nm]; const tile = tileDi(pos.t);
-  sp.ruggero.liberato = true;
+function liberaScortato(nm, i) {
+  const sp = SP(); const pos = sp.eroiPos[nm]; const tile = tileDi(pos.t); const s = specScort(i);
+  sp.scortati[i].liberato = true;
   const occ = new Set(); occupati(null, false).forEach((k) => { const [t, x, y] = k.split(','); if (t === pos.t) occ.add(`${x},${y}`); });
   const cella = celleLibereTile(tile, [pos.x, pos.y], 1, occ)[0] || [pos.x, pos.y];
-  sp.ruggero.pos = { t: pos.t, x: cella[0], y: cella[1] };
-  log('Ruggero è libero! Riportatelo alla banchina (T1).');
+  sp.scortati[i].pos = { t: pos.t, x: cella[0], y: cella[1] };
+  log(`${s.nome} è libero! Riportatelo in ${s.meta}.`);
   segnaAzione(nm, 'interagire');
 }
 
@@ -940,9 +1010,9 @@ function azioneRianima(nm) {
 }
 
 // azione «Usare un oggetto»: sceglie dall'inventario e ne applica l'effetto di
-// spedizione. Effetti attivi noti (Ep.1): Diapason (Custode Difesa 5 + salta
-// attivazione), Chiave della cella (apre la cella in T6). Passivi/quest: si
-// leggono soltanto (nessuna azione spesa).
+// spedizione. Diapason: Ep.1, Custode Difesa 5 + salta attivazione. La chiave
+// che libera il PNG scortato viene dal dato (ep.scortato[].chiave). Passivi e
+// oggetti-quest: si leggono soltanto (nessuna azione spesa).
 async function usaOggetto(nm) {
   const sp = SP(); const inv = P().indagine.oggetti || [];
   if (!inv.length) { flash('Inventario del gruppo vuoto.'); return; }
@@ -959,10 +1029,12 @@ async function usaOggetto(nm) {
     await messaggio('il diapason d’argento', `<p><i>La cera del Custode si incrina come ghiaccio: <b>Difesa 5</b> per il resto della partita, e <b>salta la prossima attivazione</b>.</i></p>`);
     segnaAzione(nm, 'oggetto'); return;
   }
-  if (/chiave della cella/i.test(scelto)) {
-    const disp = interazioneDisponibile(nm);
-    if (pos.t === 'T6' && !sp.ruggero.liberato && disp && disp.tipo === 'cella') { liberaRuggero(nm); return; }
-    flash('La chiave apre la cella in T6 (vacci adiacente).'); return;
+  // chiave di liberazione dell'episodio (dato: ep.scortato[].chiave)
+  const iChiave = specScortati().findIndex((s) => s.chiave && new RegExp(s.chiave, 'i').test(scelto));
+  if (iChiave >= 0) {
+    const s = specScort(iChiave);
+    if (scortLiberabile(pos) === iChiave) { liberaScortato(nm, iChiave); return; }
+    flash(`${scelto} apre la cella in ${s.tile} (vacci adiacente).`); return;
   }
   const o = (ctx.ep.oggetti || []).find((x) => norm(x.nome) === norm(scelto));
   await messaggio(scelto.toLowerCase(), `${o && o.effetto ? `<p>${rendi(o.effetto)}</p>` : '<p class="nota">Nessun effetto attivo qui.</p>'}
@@ -970,14 +1042,27 @@ async function usaOggetto(nm) {
 }
 
 // --------------------------------------------------------- spawn nemici
-const SPAWN_REGEX = [
-  ['IL CUSTODE DELLA CERA', /custode della cera/i],
-  ['ADEPTO INCAPPUCCIATO', /(\d+|un|due|tre)?\s*adept/i],
-  ['CANE DEI MOLI', /(\d+)?\s*can[ei] dei moli/i],
-  ['IL FONDITORE', /(\d+)?\s*fonditor/i],
-  ['LO SGHERRO', /(\d+)?\s*sgherr/i],
-  ['IL SICARIO', /(\d+)?\s*sicari/i],
-];
+// I nemici evocati dai testi si ricavano dall'episodio (`pool` + boss), non da
+// una lista cablata: ogni episodio nuovo funziona senza toccare il codice.
+// Truppa: prima parola piena, senza la vocale finale («LO SGHERRO» → /sgherr/).
+// Boss: nome intero, cosi' una citazione parziale non lo desta per sbaglio.
+const SPAWN_OVERRIDE = {
+  'CANE DEI MOLI': /(\d+)?\s*can[ei] dei moli/i,   // «can» da solo pescherebbe «canto»
+};
+const senzaArticolo = (n) => String(n).replace(/^(il|lo|la|i|gli|le|l’|l')\s*/i, '');
+const tronca = (w) => w.replace(/[aeio]+$/i, '');
+function spawnRegex() {
+  const nomi = [...Object.keys(ctx.ep.pool || {}), (ctx.ep.soluzione || {}).boss].filter(Boolean);
+  const boss = (ctx.ep.soluzione || {}).boss;
+  return nomi.map((n) => {
+    if (SPAWN_OVERRIDE[n]) return [n, SPAWN_OVERRIDE[n]];
+    const parole = senzaArticolo(n).split(/\s+/);
+    const corpo = n === boss
+      ? [...parole.slice(0, -1), tronca(parole[parole.length - 1])].join('\\s+')
+      : tronca(parole[0]);
+    return [n, new RegExp(`(\\d+|un|due|tre)?\\s*${corpo}`, 'i')];
+  });
+}
 const NUM_PAROLA = { un: 1, due: 2, tre: 3 };
 function spawnUno(nome, tileId) {
   const sp = SP(); const st = nemStat(nome); if (!st) return false;
@@ -1026,7 +1111,7 @@ function destaBossSeSoglia() {
   return [`${boss.toLowerCase()} si desta nella stanza rivelata più lontana (${tile}).`];
 }
 function spawnDaTesto(testo, tileId) {
-  for (const [nome, re] of SPAWN_REGEX) {
+  for (const [nome, re] of spawnRegex()) {
     const m = testo.match(re); if (!m) continue;
     let q = 1; if (m[1]) q = NUM_PAROLA[m[1].toLowerCase()] || Number(m[1]) || 1;
     for (let k = 0; k < q; k++) if (spawnUno(nome, tileId)) log(`Appare ${nome.toLowerCase()} in ${tileId}.`);
@@ -1120,7 +1205,6 @@ function vistaNemici(piano) {
   // porta subito (prima del paint) i token che si muovono alla posizione di PARTENZA:
   // lo stato e' gia' finale (pos1), ma l'animazione parte da pos0
   for (const s of piano) { if (s.pos0 && s.pos1 && nk(s.pos0) !== nk(s.pos1)) setTokenPos(`N:${s.i}`, s.pos0, true); }
-  if (piano.ruggero && nk(piano.ruggero.pos0) !== nk(piano.ruggero.pos1)) setTokenPos('R', piano.ruggero.pos0, true);
 }
 
 // numero fluttuante «−N» sopra un token
@@ -1151,7 +1235,15 @@ async function eseguiTurnoNemici(piano) {
       const a = s.attacco;
       if (tokel) { tokel.classList.add('attacca'); setTimeout(() => tokel && tokel.classList.remove('attacca'), 400); }
       await pausa(450);
-      if (a.colpito) { evidenziaColpito(a.vitt); dmgPop(`E:${a.vitt}`, `−${a.dan}`); }
+      if (a.colpito) {
+        // il danno entra nella vista ADESSO: prima di questo istante l'eroe e'
+        // ancora in piedi sul board, anche se lo stato salvato lo sa gia' a terra
+        if (ctx.viteVista) ctx.viteVista[a.vitt] = Math.max(0, (ctx.viteVista[a.vitt] ?? 0) - a.dan);
+        evidenziaColpito(a.vitt); dmgPop(`E:${a.vitt}`, `−${a.dan}`);
+        if ((ctx.viteVista ? ctx.viteVista[a.vitt] : 1) <= 0) {
+          const t = ctx.app.querySelector(`[data-eroe="${a.vitt}"]`); if (t) t.classList.add('giu');
+        }
+      }
       // tiro VISIBILE: 2d6 + Attacco vs Difesa dell'eroe (i nemici tirano i dadi, non colpiscono al 100%)
       const tiro = `<span class="tb-roll">🎲 ${a.tot} ${a.colpito ? '≥' : '<'} Dif ${a.dif}</span>`;
       bannerTurno(nemArt(s.nome), a.colpito
@@ -1162,13 +1254,9 @@ async function eseguiTurnoNemici(piano) {
     } else { await pausa(650); }
     if (tokel) tokel.classList.remove('attivo-nem');
   }
-  // Ruggero segue il gruppo
-  if (piano.ruggero && nk(piano.ruggero.pos0) !== nk(piano.ruggero.pos1) && !ctx.saltaNemici) {
-    centraSuNodo(piano.ruggero.pos0, 'rug-a', true); await pausa(300);
-    await muoviToken('R', piano.ruggero.pos1);
-  } else if (piano.ruggero && ctx.saltaNemici) { setTokenPos('R', piano.ruggero.pos1, true); }
   if (ctx.saltaNemici) { for (const s of piano) setTokenPos(`N:${s.i}`, s.pos1, true); }
   piano.annunci.forEach((a) => log(a));
+  ctx.viteVista = null;          // da qui in poi si mostra lo stato reale
   ctx.saltaNemici = false; ctx.ultimaCentrata = null;
   salvaP();
   if (sp.esito) return epilogo();
@@ -1179,7 +1267,7 @@ async function eseguiTurnoNemici(piano) {
 function faseNemiciAI() {
   const sp = SP();
   const vivi = () => P().party.filter((nm) => (sp.vite[nm] ?? 0) > 0);
-  const piano = []; piano.annunci = [];
+  const piano = []; piano.annunci = []; piano.vite0 = { ...sp.vite };
   for (let i = 0; i < sp.nemici.length; i++) {
     const n = sp.nemici[i]; const st = nemStat(n.nome); if (!n.pos) continue;
     const pos0 = n.pos;
@@ -1187,7 +1275,7 @@ function faseNemiciAI() {
     const bersagli = vivi(); if (!bersagli.length) break;
     const scelto = bersagli[Math.floor(Math.random() * bersagli.length)];
     if (!bersagli.some((nm) => adiacGlob(n.pos, sp.eroiPos[nm]))) {
-      const blocco = occupati(`N:${i}`, false, true);    // eroi (in piedi/a terra) + altri nemici murano; Ruggero no (i nemici lo ignorano)
+      const blocco = occupati(`N:${i}`, false, true);    // eroi (in piedi/a terra) + altri nemici murano; i PNG scortati no (i nemici li ignorano)
       let best = null, bestLen = Infinity;
       for (const nm of bersagli) for (const g of celleAdiacLibere(sp.eroiPos[nm], blocco)) {
         const p = camminoGlob(n.pos, g, blocco);
@@ -1212,17 +1300,18 @@ function faseNemiciAI() {
     }
     piano.push({ i, nome: n.nome, pos0, pos1, flash: false, attacco });
   }
-  // NB: Ruggero NON si muove nella notte — lo muove il giocatore nel turno eroi
-  // (regolamento: «si muove nel turno degli eroi, non compie azioni»).
+  // NB: i PNG scortati NON si muovono nella notte — li muove il giocatore nel
+  // turno eroi (regolamento: «si muove nel turno degli eroi, non compie azioni»).
   // fine round: tick canto, boss a soglia (annunci mostrati dopo l'animazione)
   piano.annunci.push(...fineRound(ctx.comune, ctx.ep, sp));
   piano.annunci.push(...destaBossSeSoglia());
   sp.fase = 'eroi'; sp.eroiFatti = []; sp.eroiAttivo = null; sp.azioni = {};
-  if (sp.ruggero) sp.ruggero.mosso = false;    // Ruggero può muoversi nel nuovo turno eroi
-  sp.ruggeroAttivo = false;
+  statoScortati().forEach((g) => { g.mosso = false; });   // possono muoversi nel nuovo turno eroi
+  sp.scortAttivo = null;
   if (!sp.esito && P().party.every((nm) => (sp.vite[nm] ?? 0) <= 0)) sp.esito = 'sconfitta';
   salvaP();                                    // stato gia' finale: reload -> fase eroi coerente
   ctx.saltaNemici = false; ctx.ultimaCentrata = null;
+  ctx.viteVista = { ...piano.vite0 };          // board come a inizio fase: nessuno ancora a terra
   vistaNemici(piano);                          // board a posizioni di partenza
   return eseguiTurnoNemici(piano);             // animazione (async)
 }
@@ -1254,7 +1343,7 @@ function epilogo() {
     <div class="pannello centrato">
       <h2>${sp.esito === 'vittoria' ? 'l’alba vi trova in piedi' : 'la notte ha vinto'}</h2>
       <p class="mt">${sp.esito === 'vittoria'
-        ? `Ruggero è al sicuro. ${sp.round} round, canto ${sp.canto}. Leggete l’epilogo nel fascicolo Soluzione.`
+        ? `${specScortati().map((s) => s.nome).join(' e ') || 'Il gruppo'} è al sicuro. ${sp.round} round, canto ${sp.canto}. Leggete l’epilogo nel fascicolo Soluzione.`
         : 'Rialzatevi: la Soluzione dice cosa resta di questa notte.'}</p>
       <div class="btn-riga" style="justify-content:center"><button class="btn pieno" id="al-menu">alla taverna</button></div></div>`;
   app.querySelector('#nav-esci').onclick = () => ctx.vaiA('menu');

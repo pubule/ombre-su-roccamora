@@ -37,7 +37,6 @@ SORGENTI = [
     ('Episodio 18/cards', MAX_PX),
     ('Episodio 19/cards', MAX_PX),
     ('Episodio 20/cards', MAX_PX),
-    ('Episodio 1/board', MAX_PX_TESSERE),
     ('Preludio/reperti', MAX_PX_TESSERE),
     ('Episodio 1/reperti', MAX_PX_TESSERE),
     ('Episodio 2/reperti', MAX_PX_TESSERE),
@@ -60,6 +59,13 @@ SORGENTI = [
     ('Episodio 19/reperti', MAX_PX_TESSERE),
     ('Episodio 20/reperti', MAX_PX_TESSERE),
 ]
+
+# tessere board: si esportano da OGNI cartella che ne ha (oggi Ep.1 ed Ep.2, i
+# soli con le tessere stampate), e il nome si NORMALIZZA a «<TileId>.png». A
+# monte i file sono «T1 - Nome della Tessera.png» con un nome che non coincide
+# con quello del JSON (maiuscoletto, apostrofo tipografico o dritto a seconda
+# dell'episodio): normalizzando qui, la webapp costruisce l'URL dal solo id.
+BOARD_DIRS = ['Preludio/board'] + [f'Episodio {n}/board' for n in range(1, 21)]
 
 # tutta artworks/ (arti luogo per i banner, ritratti, sfondi): ~60 file,
 # ridotti una volta e riusati ovunque dalla webapp
@@ -98,6 +104,17 @@ def main():
                 dst = os.path.join(OUT, os.path.relpath(src, ROOT))
                 if converti(src, dst, mx):
                     fatti += 1
+    for rel in BOARD_DIRS:
+        base = os.path.join(ROOT, rel)
+        if not os.path.isdir(base):
+            continue
+        for f in os.listdir(base):
+            if not f.lower().endswith('.png'):
+                continue
+            tile_id = f.split(' - ')[0].strip()     # «T1 - Nome.png» -> «T1»
+            dst = os.path.join(OUT, rel, f'{tile_id}.png')
+            if converti(os.path.join(base, f), dst, MAX_PX_TESSERE):
+                fatti += 1
     art_dir = os.path.join(ROOT, 'artworks')
     for f in os.listdir(art_dir):
         if not f.lower().endswith(('.jpg', '.png')):
