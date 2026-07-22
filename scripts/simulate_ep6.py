@@ -1132,6 +1132,16 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
         f'{"esatta" if indagine.get("d1_ok") else "sbagliata"}; D3: '
         f'{"esatta" if indagine.get("d3_ok") else "sbagliata"}')
     log('NOTA: gruppo trattato come blocco unico tessera per tessera (vedi intestazione script).')
+    # Ferri si affronta solo a TRE MOVIMENTI SPENTI: ogni movimento gli toglie
+    # 1 Difesa (9->8->7->6), ed e' il modo che l'episodio da' per renderlo
+    # affrontabile. Finche' ne resta anche uno, il gruppo lo evita e lavora ai
+    # cardini. Condizione dinamica, non fissa: cambia durante la spedizione.
+    # Serve anche a scegliere il bersaglio: la vecchia euristica «il piu'
+    # vicino, poi il piu' debole» non attaccava MAI il boss (ha piu' ferite di
+    # ogni gregario e la sala si riempie a ogni round). Sull'Ep.2 lo stesso
+    # difetto valeva 37% -> 69% di vittorie.
+    def affronta_boss():
+        return pannelli == 0
     fer_bonus, dan_bonus = NEMICO_SCALE_FORMULE[nemico_scale](len(party))
     if fer_bonus or dan_bonus:
         log(f'Scalatura nemici ({nemico_scale}): +{fer_bonus} Ferite, +{dan_bonus} Danno su ogni nemico incluso il Custode.')
@@ -1757,6 +1767,7 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
                 # in un'unica azione; se arredi/affollamento lo impediscono,
                 # il round si spende tutto nell'avvicinamento (nessun attacco).
                 obiettivo = min(raggiungibili, key=lambda e: (
+                    0 if (affronta_boss() and e is custode) else 1,
                     len(cammino(tile_attuale, pos[n], e['pos'], celle_occupate(esclusa=n))), e['fer']))
                 if sola_azione and not any(adiacenti(pos[n], e['pos']) for e in bersagli_vivi):
                     sposta_verso(n, tile_attuale, obiettivo['pos'], obiettivo['nome'])
@@ -1766,7 +1777,8 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
                     log(f'    {n} si avvicina a {obiettivo["nome"]}, non ancora a contatto.')
                     continue
                 adiacenti_ora = [e for e in bersagli_vivi if adiacenti(pos[n], e['pos'])]
-                bersaglio_e = min(adiacenti_ora, key=lambda e: e['fer'])
+                bersaglio_e = min(adiacenti_ora,
+                                  key=lambda e: (0 if (affronta_boss() and e is custode) else 1, e['fer']))
                 dif_eff = bersaglio_e['dif']
                 if attack_roll(log, n, h['vigore'], armed[n], bersaglio_e['nome'], dif_eff):
                     bersaglio_e['fer'] -= 1
@@ -1990,7 +2002,9 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
             esito = 'TIMEOUT (60 round, simulazione interrotta)'
             break
 
-    if esito is None and custode and custode['fer'] > 0:
+    if esito is None and custode and custode['fer'] > 0 and not affronta_boss():
+        log('--- Movimenti ancora accesi: non si ingaggia Ferri, si ripiega ---')
+    if esito is None and custode and custode['fer'] > 0 and affronta_boss():
         log('--- La Camera delle Tre Acque: Ferri, il Coro e il rito ---')
         while custode['fer'] > 0 and vivi():
             round_n += 1

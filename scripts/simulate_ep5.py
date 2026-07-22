@@ -1164,6 +1164,14 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
         f'{"esatta" if indagine.get("d1_ok") else "sbagliata"}; D3: '
         f'{"esatta" if indagine.get("d3_ok") else "sbagliata"}')
     log('NOTA: gruppo trattato come blocco unico tessera per tessera (vedi intestazione script).')
+    # Con la debolezza in mano il gruppo VA ADDOSSO al boss: e' l'unica ragione
+    # per cui l'ha cercata in Indagine. Senza, non ingaggia e punta all'uscita.
+    # Serve anche a scegliere il bersaglio: la vecchia euristica «il piu' vicino,
+    # poi il piu' debole» non attaccava MAI il boss (ha piu' ferite di ogni
+    # gregario e la sala si riempie a ogni round), quindi restava schermato per
+    # sempre e il ciclo che ne aspettava la morte non finiva. Sull'Ep.2 questo
+    # solo difetto valeva 37% -> 69% di vittorie.
+    affronta_boss = bool(indagine['libretto'])
     fer_bonus, dan_bonus = NEMICO_SCALE_FORMULE[nemico_scale](len(party))
     if fer_bonus or dan_bonus:
         log(f'Scalatura nemici ({nemico_scale}): +{fer_bonus} Ferite, +{dan_bonus} Danno su ogni nemico incluso il Custode.')
@@ -1756,6 +1764,7 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
                 # in un'unica azione; se arredi/affollamento lo impediscono,
                 # il round si spende tutto nell'avvicinamento (nessun attacco).
                 obiettivo = min(raggiungibili, key=lambda e: (
+                    0 if (affronta_boss and e is custode) else 1,
                     len(cammino(tile_attuale, pos[n], e['pos'], celle_occupate(esclusa=n))), e['fer']))
                 if sola_azione and not any(adiacenti(pos[n], e['pos']) for e in bersagli_vivi):
                     sposta_verso(n, tile_attuale, obiettivo['pos'], obiettivo['nome'])
@@ -1765,7 +1774,8 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
                     log(f'    {n} si avvicina a {obiettivo["nome"]}, non ancora a contatto.')
                     continue
                 adiacenti_ora = [e for e in bersagli_vivi if adiacenti(pos[n], e['pos'])]
-                bersaglio_e = min(adiacenti_ora, key=lambda e: e['fer'])
+                bersaglio_e = min(adiacenti_ora,
+                                  key=lambda e: (0 if (affronta_boss and e is custode) else 1, e['fer']))
                 # Regola d'insieme del Salmodiante: +1 Difesa ai Confratelli
                 # a lui adiacenti (la salmodia li tiene insieme).
                 dif_eff = bersaglio_e['dif']
@@ -1962,7 +1972,9 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
             esito = 'TIMEOUT (60 round, simulazione interrotta)'
             break
 
-    if esito is None and custode and custode['fer'] > 0:
+    if esito is None and custode and custode['fer'] > 0 and not affronta_boss:
+        log('--- Senza la debolezza (Domanda 4) non si ingaggia il Salmodiante: si punta all’uscita ---')
+    if esito is None and custode and custode['fer'] > 0 and affronta_boss:
         log('--- Combattimento contro il Salmodiante ---')
         while custode['fer'] > 0 and vivi():
             round_n += 1
