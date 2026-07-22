@@ -83,6 +83,45 @@ function scoreArredi(c, tentati) {
   return Math.min(...cand.map((a) => Math.abs(a[0] - c.x) + Math.abs(a[1] - c.y)));
 }
 
+const comune = await (await fetch(BASE + '/data/comune.json')).json();
+const statNem = (nome) => comune.nemici.find((x) => x.nome === nome) || {};
+const SOGLIA_CANTO = comune.regole.soglia_canto;
+// le abilità a cariche, con la sola informazione che serve al pilota per
+// giudicare quando valgono (specchio di CARICHE_SPED in digitale.js)
+const CARICHE = [
+  { key: 'ATTILIO', eff: 'cura' }, { key: 'SIBILLA', eff: 'scruta' }, { key: 'SERRA', eff: 'presenza' },
+  { key: 'CARLA', eff: 'flash' }, { key: 'CARBONE', eff: 'presenza' }, { key: 'FANTI', eff: 'diversivo' },
+  { key: 'MARANI', eff: 'litania' }, { key: 'BRERA', eff: 'malacarne' },
+];
+const vicino = (a, b, d = 1) => !!a && !!b && a.t === b.t && Math.abs(a.x - b.x) + Math.abs(a.y - b.y) <= d;
+
+// Chi colpire fra gli adiacenti. Finire un nemico a una ferita dalla morte
+// toglie un attaccante dal round dopo: è la scelta che un tavolo fa sempre.
+function bersaglio(s, pos) {
+  const adj = s.nemici.map((n, i) => ({ n, i })).filter(({ n }) => vicino(n.pos, pos));
+  if (!adj.length) return -1;
+  const peso = ({ n }) => { const st = statNem(n.nome); return (n.ferite >= n.max - 1 ? -100 : 0) + (st.boss ? -10 : 0) - (st.dan || 0); };
+  return adj.slice().sort((a, z) => peso(a) - peso(z))[0].i;
+}
+
+// Un'abilità vale la pena solo al suo momento: il pilota la giudica invece di
+// bruciarla appena il bottone compare.
+function abilitaUtile(nm, s) {
+  const c = CARICHE.find((k) => nm.includes(k.key)); if (!c) return false;
+  const pos = s.eroiPos[nm];
+  const entro2 = s.nemici.filter((n) => vicino(n.pos, pos, 2));
+  if (c.eff === 'litania') return s.canto >= SOGLIA_CANTO - 1;
+  if (c.eff === 'cura') {
+    if ((s.vite[nm] ?? 0) > 0 && (s.vite[nm] ?? 0) <= 2) return true;
+    return Object.entries(s.vite).some(([x, v]) => x !== nm && v > 0 && v <= 2 && vicino(s.eroiPos[x], pos));
+  }
+  if (c.eff === 'flash') return entro2.some((n) => statNem(n.nome).boss || (statNem(n.nome).dan || 0) >= 2);
+  if (c.eff === 'malacarne') return s.nemici.some((n) => n.pos && /malavita|cultista|cane/i.test(statNem(n.nome).tipo || ''));
+  if (c.eff === 'diversivo') return s.round >= 3;
+  if (c.eff === 'scruta') return true;
+  return entro2.length > 0;                      // Voce ferma / Esca: solo col nemico addosso
+}
+
 const br = await chromium.launch();
 const pg = await br.newPage({ viewport: { width: 1400, height: 1000 } });
 await pg.addInitScript(() => { window.confirm = () => true; window.alert = () => {}; });
@@ -107,7 +146,12 @@ async function scegliEroe() {
   const b = await pg.$$eval('.scelta-overlay .scelta-btn', (e) => e.map((x, i) => ({ i, t: x.textContent.trim().toLowerCase() })));
   const u = b.filter((x) => x.t !== 'annulla');
   if (!u.length) return clicDom('.scelta-overlay .scelta-btn');
-  const sal = (x) => { const e = Object.entries(v).find(([k]) => breve(k).toLowerCase() === x.t); return e ? e[1] : 0; };
+  const tit = await pg.$eval('.scelta-overlay h3', (e) => e.textContent.toLowerCase()).catch(() => '');
+  // la cura va al più malmesso, non al primo della lista: le etichette portano
+  // la Salute fra parentesi («attilio (2)»)
+  const sal = /curare/.test(tit)
+    ? (x) => -(Number((x.t.match(/\((\d+)\)/) || [])[1] ?? 99))
+    : (x) => { const e = Object.entries(v).find(([k]) => breve(k).toLowerCase() === x.t); return e ? e[1] : 0; };
   const scelto = u.slice().sort((a, z) => sal(z) - sal(a))[0];
   await pg.evaluate((i) => document.querySelectorAll('.scelta-overlay .scelta-btn')[i].click(), scelto.i);
   await pg.waitForTimeout(150);
@@ -172,20 +216,25 @@ async function turnoEroe(nm, mt) {
     if (lib('interagire') && await vis('#az-interagire')) { tipo = 'interagire'; await clicDom('#az-interagire'); await sciogli(); }
     else if (lib('cercare') && TILE_CHIAVE && pos.t === TILE_CHIAVE && !s.cercate?.[TILE_CHIAVE] && await vis('#az-cercare')) { tipo = 'cercare'; await clicDom('#az-cercare'); await sciogli(); }
     else if (lib('rianimare') && (s.vite[nm] ?? 0) >= 3 && await vis('#az-rianimare')) { tipo = 'rianimare'; await clicDom('#az-rianimare'); await sciogli(); }
-    else if (lib('abilita') && await vis(`[data-abil="${nm}"]`)) { tipo = 'abilita'; await pg.evaluate((n) => document.querySelector(`[data-abil="${CSS.escape(n)}"]`)?.click(), nm); await sciogli(); }
+    else if (lib('oggetto') && bersaglio(s, pos) >= 0 && await vis('#az-oggetto')) { tipo = 'oggetto'; await clicDom('#az-oggetto'); await sciogli(); }
+    else if (lib('abilita') && abilitaUtile(nm, s) && await vis(`[data-abil="${nm}"]`)) { tipo = 'abilita'; await pg.evaluate((n) => document.querySelector(`[data-abil="${CSS.escape(n)}"]`)?.click(), nm); await sciogli(); }
     else if (lib('muovere')) {
       tipo = 'muovere';
       const versoArredi = (s.scortati || []).some((g) => g.liberato) && !(s.uscita && s.uscita.aperta);
+      // niente ritirata dei feriti: provata e MISURATA PEGGIORE — 1/12 vittorie
+      // con la regola (e 2 corse in stallo) contro 3/12 senza. Un eroe che
+      // rifiuta ogni casella a contatto in una stanza affollata non arretra:
+      // si pianta, e il gruppo non arriva mai in fondo alla spina.
       const punt = versoArredi ? (c) => scoreArredi(c, s.uscitaTentati || []) : (c) => score(c, mt);
       const r = await muoviCon(punt, pos, async () => (await sp()).eroiPos[nm]);
       if (r !== 'mosso') {
         tentate.add('muovere');
-        const i = s.nemici.findIndex((n) => n.pos && n.pos.t === pos.t && Math.abs(n.pos.x - pos.x) + Math.abs(n.pos.y - pos.y) === 1);
+        const i = bersaglio(s, pos);
         if (!fatte.includes('attaccare') && i >= 0) { await pg.evaluate((j) => document.querySelector(`[data-nemico="${j}"]`)?.click(), i); await sciogli(); }
         else continue;
       }
     } else if (lib('attaccare')) {
-      const i = s.nemici.findIndex((n) => n.pos && n.pos.t === pos.t && Math.abs(n.pos.x - pos.x) + Math.abs(n.pos.y - pos.y) === 1);
+      const i = bersaglio(s, pos);
       if (i < 0) break;
       tipo = 'attaccare';
       await pg.evaluate((j) => document.querySelector(`[data-nemico="${j}"]`)?.click(), i);
@@ -194,7 +243,7 @@ async function turnoEroe(nm, mt) {
     const dopo = JSON.stringify((await sp()).azioni[nm] || []);
     if (dopo === prima) {
       tentate.add(tipo);
-      if (tipo === 'abilita' || tipo === 'attaccare' || tipo === 'muovere') continue;
+      if (tipo === 'abilita' || tipo === 'attaccare' || tipo === 'muovere' || tipo === 'oggetto') continue;
       ko(`${tipo} non registrata per ${breve(nm)}`); break;
     }
   }
@@ -219,7 +268,6 @@ async function turnoScortato() {
 }
 
 const righe = [];
-const comune = await (await fetch(BASE + '/data/comune.json')).json();
 for (let g = 0; g < N; g++) {
   const party = comune.eroi.map((e) => e.nome).sort(() => Math.random() - 0.5).slice(0, 4);
   await pg.goto(BASE, { waitUntil: 'domcontentloaded' });
@@ -257,7 +305,9 @@ for (let g = 0; g < N; g++) {
     }
     const mt = await meta();
     if (process.env.DIAG) {
-      const pos = Object.entries(s.eroiPos).map(([k, v]) => breve(k) + '@' + v.t).join(' ');
+      const pos = Object.entries(s.eroiPos).map(([k, v]) => `${breve(k)}@${v.t}(${v.x},${v.y})/${s.vite[k]}`).join(' ');
+      const nem = (s.nemici || []).filter((n) => n.pos).map((n) => breve(n.nome) + '@' + n.pos.t).join(' ');
+      console.log(`      nemici: ${nem || '-'}`);
       console.log(`   r${s.round} meta=${mt} rivelate=${(s.rivelate || []).join(',')} | ${pos}` +
         ` | PNG ${(s.scortati || [])[0]?.liberato ? 'libero@' + (s.scortati[0].pos || {}).t : 'no'}`);
     }
@@ -267,7 +317,11 @@ for (let g = 0; g < N; g++) {
     const s2 = await sp();
     if (!vittoriaAl && s2.esito === 'vittoria') vittoriaAl = s2.round;
     if (s2.esito) break;
-    for (const nm of party) {
+    // chi apre la strada va per primo, il curatore per ultimo: così la cura
+    // arriva dopo i danni del round invece che prima
+    const ordine = party.slice().sort((a, z) =>
+      (a.includes('ATTILIO') ? 1 : 0) - (z.includes('ATTILIO') ? 1 : 0) || (s.vite[z] ?? 0) - (s.vite[a] ?? 0));
+    for (const nm of ordine) {
       const st = await sp(); if (st.esito) break;
       if ((st.vite[nm] ?? 0) <= 0 || (st.eroiFatti || []).includes(nm)) continue;
       await turnoEroe(nm, mt);
