@@ -13,8 +13,11 @@ I simulatori sono di DUE generazioni e non si leggono allo stesso modo:
 Qui sta l'unico posto che conosce la differenza. Tutto il resto — il loop di
 bilanciamento, i confronti fra episodi — riceve le stesse quattro chiavi.
 
-I TRE KPI MISURABILI (il bersaglio e' a 4 eroi):
-  vittoria  70-80%   giocabilita'
+I KPI MISURABILI (il bersaglio e' a 4 eroi):
+  vittoria  70-80%   giocabilita' (finale vero + finale amaro insieme)
+  piena     40-60%   il finale VERO e' un premio, non la norma — e nemmeno
+                     una decorazione: l'Ep.15 stava al 100% di «vittoria»
+                     mentre la sua Contro-busta non si apriva mai
   sofferte  >= 60%   ansia: hai vinto, ma qualcuno e' andato a terra
   picco     >= 1.0   ansia: quanti eroi a terra nel momento peggiore
 
@@ -37,6 +40,13 @@ sys.path.insert(0, os.path.join(ROOT, 'scripts'))
 
 # la fascia e le soglie decise col committente (2026-07-22)
 BANDA = (70, 80)
+# Molti episodi hanno DUE finali: quello vero (la Contro-busta, il decano
+# lucido, la matrice) e quello amaro. `pct_vittoria` li conta insieme, e cosi'
+# l'Ep.15 sembrava al 100% mentre il suo finale vero non si apriva MAI in 600
+# partite, e l'Ep.17 due volte su cento. Il finale vero e' un premio, non la
+# norma: lo vede circa meta' dei tavoli, e quasi tutti portano a casa almeno
+# quello amaro.
+BANDA_PIENA = (40, 60)
 SOFFERTE_MIN = 60
 PICCO_MIN = 1.0
 TAGLIA = 4
@@ -78,6 +88,7 @@ def misura(ep, n_party=20, n_seed=30, seed_base=970000, taglia=TAGLIA, zitto=Tru
         ep=ep, taglia=taglia, partite=n_party * n_seed,
         vittoria=m['pct_vittoria'],
         sofferte=_primo(m, 'pct_vittoria_sofferta', 'pct_sofferta'),
+        piena=_primo(m, 'pct_piena'),          # None se l'episodio ha un finale solo
         picco=m['media_max_down'],
         round=_primo(m, 'media_round'),
         canto=_primo(m, 'media_canto_finale', 'media_canto'),
@@ -97,6 +108,11 @@ def verdetto(k):
         manca.append(f'troppo duro ({k["vittoria"]:.0f}% < {BANDA[0]}%)')
     elif k['vittoria'] > BANDA[1]:
         manca.append(f'troppo facile ({k["vittoria"]:.0f}% > {BANDA[1]}%)')
+    if k.get('piena') is not None:
+        if k['piena'] < BANDA_PIENA[0]:
+            manca.append(f'il finale vero non si vede ({k["piena"]:.0f}% < {BANDA_PIENA[0]}%)')
+        elif k['piena'] > BANDA_PIENA[1]:
+            manca.append(f'il finale amaro non esiste ({k["piena"]:.0f}% > {BANDA_PIENA[1]}%)')
     if (k['sofferte'] or 0) < SOFFERTE_MIN:
         manca.append(f'poca ansia: sofferte {k["sofferte"]:.0f}% < {SOFFERTE_MIN}%')
     if (k['picco'] or 0) < PICCO_MIN:
@@ -107,7 +123,8 @@ def verdetto(k):
 def riga(k):
     v = verdetto(k)
     stato = 'ESENTE' if v == 'esente' else ('CHIUSO' if not v else 'aperto')
-    return (f'{k["ep"]:>5}  {k["vittoria"]:5.0f}%  sofferte {(k["sofferte"] or 0):5.0f}%  '
+    piena = '' if k.get('piena') is None else f'piena {k["piena"]:4.0f}%  '
+    return (f'{k["ep"]:>5}  {k["vittoria"]:5.0f}%  {piena}sofferte {(k["sofferte"] or 0):5.0f}%  '
             f'picco {(k["picco"] or 0):4.1f}  round {(k["round"] or 0):5.1f}  '
             f'canto {(k["canto"] or 0):5.1f}  {stato:6}  {"" if v == "esente" else v}')
 
