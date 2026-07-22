@@ -110,10 +110,20 @@ in T6 si arriva al round 11. **Il viaggio è più lungo dell'orologio**, come pe
 Ep.10 ed Ep.12 — ma qui la soglia è un numero d'episodio, che la Soluzione già
 dichiara, e alzarla funziona:
 
-| soglia-sigillo | 5 (oggi) | 7 | 9 | 11 |
-|---|---:|---:|---:|---:|
-| vittoria piena | 0% | 16% | **82%** | 95% |
-| vittorie sofferte | 34% | 40% | 55% | 56% |
+**APPLICATO il 22/07/2026.** Le tre soglie erano tarate su una marcia lunga la
+metà: la spedizione arriva al secondo obiettivo al round 11-12, e scattavano al
+round 5-8. Alzate nei simulatori e nelle Soluzioni stampate (testo verificato
+nei PDF renderizzati):
+
+| ep | soglia | prima | dopo | piena prima | piena dopo |
+|----|--------|------:|-----:|------------:|-----------:|
+| ep15 | sigillo | 5 | **8** | 0% | **58%** |
+| ep17 | decano | 3 | **6** | 1% | **71%** |
+| ep18 | arresto | 4 | **7** | 21% | **46%** |
+
+Non chiudono gli episodi: restano troppo facili sul totale (98%, 83%, 86%) e
+due su tre sono piatti (picco 0.7 e 0.8). Ma i finali che portano avanti l'Atto
+III adesso si vedono.
 
 ## Il difetto che invalida la colonna «troppo duro» (22/07/2026)
 

@@ -45,7 +45,12 @@ LOG_DIR = os.path.join(ROOT, 'logs', 'playtest', SESSION)
 TOKEN_POOL_BASE = {'LO SGHERRO': 5}
 
 # ============================ LEVE PER-EPISODIO (la chiusura: si tara QUI) ===
-SOGLIA_ARRESTO = 4       # Canto oltre cui i gendarmi sigillano (5 con l'Uscita di Servizio)
+# ALZATA DA 4 A 7 (20260722). Il secondo obiettivo sta in fondo alla
+# spina e la spedizione ci arriva al round 11-12, ma questa soglia scattava al
+# round 5-8: era tarata su una marcia lunga la meta', prima che il costo di
+# attraversamento fosse corretto a 2 round per tessera. Il finale vero non si
+# apriva quasi mai — misurato su 600 partite a 4 eroi.
+SOGLIA_ARRESTO = 7       # Canto oltre cui i gendarmi sigillano (5 con l'Uscita di Servizio)
 BOSS_INGAGGIO = 4        # eroi che ingaggiano il maggiordomo (T5)
 BOSS_COLPI = 1           # il maggiordomo, Danno 2 ma riluttante: un colpo (saltato con D4)
 ARRESTO_DIFF = 'Media'   # prova NERVI per non essere «catturati» dopo la soglia

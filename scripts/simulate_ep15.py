@@ -47,7 +47,12 @@ LOG_DIR = os.path.join(ROOT, 'logs', 'playtest', SESSION)
 TOKEN_POOL_BASE = {'LO SGHERRO': 5}
 
 # ============================ LEVE PER-EPISODIO (la curva si tara QUI) ======
-SOGLIA_SIGILLO = 5        # Canto oltre cui la Gendarmeria sigilla (6 con la Chiave)
+# ALZATA DA 5 A 8 (20260722). Il secondo obiettivo sta in fondo alla
+# spina e la spedizione ci arriva al round 11-12, ma questa soglia scattava al
+# round 5-8: era tarata su una marcia lunga la meta', prima che il costo di
+# attraversamento fosse corretto a 2 round per tessera. Il finale vero non si
+# apriva quasi mai — misurato su 600 partite a 4 eroi.
+SOGLIA_SIGILLO = 8        # Canto oltre cui la Gendarmeria sigilla (6 con la Chiave)
 PROVE_PIAZZATE = 5        # tell del falso da documentare (pool iniziale, +1 col Reagente)
 SOGLIA_CONTRO = 4         # tell documentati per aprire la Contro-busta
 CANCELLA_PER_ROUND = 2    # tell cancellati dagli Apparecchiatori da T4 (Capo vivo)

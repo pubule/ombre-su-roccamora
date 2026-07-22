@@ -47,7 +47,12 @@ TOKEN_POOL_BASE = {'LO SGHERRO': 5}
 # ============================ LEVE PER-EPISODIO (il picco: si tara QUI) ======
 MORALE_MALUS = -1        # ai NERVI, finché il decano non è liberato vivo (T5)
 SCISMA_SALUTE = -1       # −1 Salute iniziale a tutti: la casa divisa entra sfiancata
-SOGLIA_DECANO = 3        # Canto oltre cui il decano è «trasferito» (4 col Salvacondotto)
+# ALZATA DA 3 A 6 (20260722). Il secondo obiettivo sta in fondo alla
+# spina e la spedizione ci arriva al round 11-12, ma questa soglia scattava al
+# round 5-8: era tarata su una marcia lunga la meta', prima che il costo di
+# attraversamento fosse corretto a 2 round per tessera. Il finale vero non si
+# apriva quasi mai — misurato su 600 partite a 4 eroi.
+SOGLIA_DECANO = 6        # Canto oltre cui il decano è «trasferito» (4 col Salvacondotto)
 BOSS_INGAGGIO = 4        # eroi che ingaggiano la Guardia del Notaio (T6)
 BOSS_COLPI = 2           # la Guardia, Danno 2, due colpi (uno saltato con D3/matrice)
 

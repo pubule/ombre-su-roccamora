@@ -639,7 +639,7 @@ def soluzione():
         'Biblioteca → T4 Lo Studio Privato di M. (M. appare e sfugge) → T5 La Scalinata (la Guardia) '
         '→ T6 L’Uscita. Con l’Uscita di Servizio si salta l’ultimo giro dei gendarmi.',
         '<b>La soglia-arresto.</b> Segnate il Canto come al solito. Alla <b>soglia-arresto = Canto '
-        '4</b> (5 con l’Uscita di Servizio), i gendarmi sigillano le uscite: da quel round, ogni '
+        '7</b> (8 con l’Uscita di Servizio), i gendarmi sigillano le uscite: da quel round, ogni '
         'round un eroe rischia l’arresto (prova NERVI o «catturato», fuori scena fino a fine '
         'spedizione). Le carte crescendo (fischietti/gendarmi ai piani) accelerano.',
         '<b>M. e il maggiordomo.</b> M. NON si affronta: appare in T4, prende una cosa, sparisce nel '

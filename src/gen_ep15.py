@@ -647,7 +647,7 @@ def soluzione():
         'dei Cimeli (appaiono gli Apparecchiatori, parte la cancellazione) → T5 Le Scale di '
         'Servizio → T6 Lo Studio Segreto (il Capo). Con la Chiave di Servizio si salta il cordone '
         'di T1.',
-        '<b>Il sigillo.</b> Segnate il Canto come al solito. Alla <b>soglia-sigillo = Canto 5</b> '
+        '<b>Il sigillo.</b> Segnate il Canto come al solito. Alla <b>soglia-sigillo = Canto 8</b> '
         '(la Chiave di Servizio vi dà un round di margine entrando presto), la Gendarmeria sigilla: '
         'da quel round niente più documentazione, gli Apparecchiatori spariscono, resta la sola '
         'Busta pubblica. Le carte crescendo (passi/cordone) accelerano.',
