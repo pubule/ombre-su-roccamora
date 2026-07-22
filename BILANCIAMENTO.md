@@ -94,6 +94,32 @@ le carte che generano nemici sposta le vittorie sofferte dal 21% al 26%, perché
 lo Sgherro fa 1 danno contro 7-9 Salute. Non erano tarati male: sono fatti di
 un'altra materia.
 
+## Il Preludio non è mai stato misurato — e non può esserlo (22/07/2026)
+
+Il tutorial, la prima cosa che un tavolo tocca, **non compare in nessuna misura
+di questa giornata**: non ha un simulatore, e la modalità digitale non riesce a
+disporne la mappa. Non è colpa dell'arte — le sue tre tessere **riusano quelle
+dell'Ep.1** (`Episodio 1/board/T1 - Banchina d'Ingresso.png`), che esistono. È
+il dato a essere incompleto in `webapp/data/preludio.json`:
+
+- **`exits` vuoto** su T1, T2 e T4, mentre il fascicolo stampato descrive i
+  collegamenti a parole: «la porta verso il deposito (N) si apre con l'Anello
+  di Chiavi», «le porte E e N sono murate: contano solo S (banchina) e O
+  (stanzino)». La prosa c'è, la struttura no — e senza `exits` il motore
+  digitale non può montare la spina.
+- **`arredi` vuoto**, quindi nessun ingombro e nessun nascondiglio.
+- **`scortato` vuoto**, mentre l'obiettivo dice «Liberate Ansaldo (Interagire,
+  in T4) e riportatelo in T1, alla barca». È lo stesso buco chiuso il 22/07 per
+  Ep.3, 4, 7 e 16, saltando proprio il Preludio.
+
+La causa sta in `webapp/export-data.py`, dove le tessere del Preludio si
+esportano con `dict(id=..., nome=..., art=..., testo=...)` e basta: `TESSERE_P`
+in `src/gen_preludio.py` è una tupla di quattro campi e la connettività vive
+solo dentro il testo da leggere ad alta voce.
+
+**Finché non si struttura quel dato, il Preludio non ha numeri** — né dal
+simulatore né da Playwright.
+
 ## Il KPI misurava la cosa sbagliata (22/07/2026)
 
 `pct_vittoria` conta **anche le vittorie parziali**. Negli episodi con due
