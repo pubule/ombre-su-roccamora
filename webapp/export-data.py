@@ -39,6 +39,20 @@ from gen_ep7 import (LUOGHI_7, TILES_7, NEMICI_7, OGGETTI_LUOGO_7, LETTERA_7,  #
                      ESAMI_CARBONE_7)
 from gen_ep8 import (LUOGHI_8, TILES_8, NEMICI_8, OGGETTI_LUOGO_8, LETTERA_8,  # noqa: E402
                      ESAMI_CARBONE_8)
+# I nemici propri degli episodi 11-20 non erano MAI stati esportati: il motore
+# digitale non conosceva i loro boss, quindi da Ep.11 a Ep.20 il boss non
+# entrava in partita — dieci climax inesistenti, e ogni obiettivo che chiedeva
+# di catturarli era irraggiungibile per costruzione.
+from gen_ep11 import NEMICI_11  # noqa: E402
+from gen_ep12 import NEMICI_12  # noqa: E402
+from gen_ep13 import NEMICI_13  # noqa: E402
+from gen_ep14 import NEMICI_14  # noqa: E402
+from gen_ep15 import NEMICI_15  # noqa: E402
+from gen_ep16 import NEMICI_16  # noqa: E402
+from gen_ep17 import NEMICI_17  # noqa: E402
+from gen_ep18 import NEMICI_18  # noqa: E402
+from gen_ep19 import NEMICI_19  # noqa: E402
+from gen_ep20 import NEMICI_20  # noqa: E402
 from gen_ep9 import (LUOGHI_9, TILES_9, NEMICI_9, OGGETTI_LUOGO_9, LETTERA_9,  # noqa: E402
                      ESAMI_CARBONE_9)
 from gen_ep10 import (LUOGHI_10, TILES_10, NEMICI_10, OGGETTI_LUOGO_10, LETTERA_10,  # noqa: E402
@@ -1328,7 +1342,10 @@ episodi = dict(
 
 comune = dict(
     eroi=[eroe_json(h) for h in HEROES],
-    nemici=[nemico_json(n) for n in NEMICI + NEMICI_2 + NEMICI_3 + NEMICI_4 + NEMICI_5 + NEMICI_6 + NEMICI_7 + NEMICI_8 + NEMICI_9 + NEMICI_10],
+    nemici=[nemico_json(n) for n in NEMICI + NEMICI_2 + NEMICI_3 + NEMICI_4 + NEMICI_5
+            + NEMICI_6 + NEMICI_7 + NEMICI_8 + NEMICI_9 + NEMICI_10 + NEMICI_11
+            + NEMICI_12 + NEMICI_13 + NEMICI_14 + NEMICI_15 + NEMICI_16 + NEMICI_17
+            + NEMICI_18 + NEMICI_19 + NEMICI_20],
     mappa=dict(voci=[dict(nome=v[0], indirizzo=v[1], tag=v[2]) for v in VOCI_MAPPA],
                mappe=[dict(cartella=m[0], sottotitolo=m[1], tags=list(m[2])) for m in MAPPE]),
     regole=REGOLE,

@@ -1245,7 +1245,12 @@ const SPAWN_OVERRIDE = {
 const senzaArticolo = (n) => String(n).replace(/^(il|lo|la|i|gli|le|l’|l')\s*/i, '');
 const tronca = (w) => w.replace(/[aeio]+$/i, '');
 function spawnRegex() {
-  const nomi = [...Object.keys(ctx.ep.pool || {}), (ctx.ep.soluzione || {}).boss].filter(Boolean);
+  // IL BOSS NON SI PESCA DAL TESTO. Da quando le sue statistiche esistono, la
+  // regola generica lo faceva apparire in qualunque tessera che lo nominasse di
+  // sfuggita: nell'Ep.12 il Corriere spuntava nella prima stanza e la caccia
+  // finiva al secondo round. Il boss compare dove dice `soluzione.boss_tile`,
+  // e basta.
+  const nomi = Object.keys(ctx.ep.pool || {});
   const boss = (ctx.ep.soluzione || {}).boss;
   return nomi.map((n) => {
     if (SPAWN_OVERRIDE[n]) return [n, SPAWN_OVERRIDE[n]];
@@ -1304,6 +1309,18 @@ function destaBossSeSoglia() {
   return [`${boss.toLowerCase()} si desta nella stanza rivelata più lontana (${tile}).`];
 }
 function spawnDaTesto(testo, tileId) {
+  // IL BOSS E' UN DATO, non un incidente di lettura. Finora appariva solo se il
+  // testo della tessera lo nominava in una forma che l'espressione regolare
+  // riconosceva: nell'Ep.19 il testo dice «con l'Ispettore convinto alle
+  // spalle» e Vidal non entrava MAI in partita — l'obiettivo «convincilo» era
+  // irraggiungibile per una questione di prosa. `ep.soluzione.boss_tile` (di
+  // norma l'ultima tessera della spina) lo fa comparire di sicuro.
+  const bossNome = (ctx.ep.soluzione || {}).boss;
+  const bossTile = (ctx.ep.soluzione || {}).boss_tile
+    || (ctx.ep.tessere[ctx.ep.tessere.length - 1] || {}).id;
+  if (bossNome && tileId === bossTile && !SP().nemici.some((n) => n.nome === bossNome)) {
+    if (spawnUno(bossNome, tileId)) log(`Appare ${bossNome.toLowerCase()} in ${tileId}.`);
+  }
   for (const [nome, re] of spawnRegex()) {
     const m = testo.match(re); if (!m) continue;
     let q = 1; if (m[1]) q = NUM_PAROLA[m[1].toLowerCase()] || Number(m[1]) || 1;
