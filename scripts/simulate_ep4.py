@@ -77,6 +77,12 @@ TOKEN_POOL_BASE = {'ADEPTO INCAPPUCCIATO': 4, 'LA CLAQUE': 3,
 # sulla tessera, non sul ritmo del gruppo (vedi GUADAGNO_GRUPPO sotto).
 CASELLE_TESSERA = 6
 
+# Arredi della fossa dove Gaspare e Rocco sono tenuti (webapp/data/ep4.json,
+# tessere[T5].arredi): scrivania e casse. L'uscita e' sotto le casse, ma il
+# gruppo non lo sa — sotto la scrivania si spende l'azione per nulla.
+ARREDI_USCITA = 2
+
+
 # Regola vera (aggiornata): 2 azioni a round, sempre di tipo diverso (niente
 # doppio Movimento) - "Muovere" e' una sola azione da 3 caselle (Nino 4).
 # Un'abilita' che concede un'azione extra (es. Colpo da macello) non conta
@@ -2019,11 +2025,54 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
         if not tobia_libero:
             log('    Il gruppo non ha mai raggiunto la fossa: si torna indietro a mani vuote.')
             esito = 'SCONFITTA (Gaspare e Rocco non liberati)'
-        log('--- Ritorno a T1 con Gaspare e Rocco (3 round di progresso; col Suggeritore '
-            'ADIACENTE a fine round il gruppo resta agganciato e non avanza — seminatelo, '
-            'stordientelo col Libretto, o abbattetelo) ---')
+        # USCITA SEGRETA (regola del 20260722, dato in webapp/export-data.py
+        # ep4.scortato[0].uscita): dietro le casse della fossa c'e' il vano del
+        # contrappeso vecchio, che sale dritto al carico (T1). Gaspare lo
+        # conosce: e' il macchinista. Due arredi nella fossa, quindi si puo'
+        # sbagliare mobile — e l'azione e' spesa lo stesso. Vale solo a
+        # PANNELLI GIA' DISACCORDATI: altrimenti si e' soltanto al sicuro e la
+        # Conchiglia registra (e' la riga che il fascicolo da' all'arbitro).
+        if pannelli == 0:
+            log('--- Uscita segreta: Gaspare indica il vano del contrappeso vecchio ---')
+            da_provare = list(range(ARREDI_USCITA))
+            giusto = random.randrange(ARREDI_USCITA)
+            aperta = False
+            while not aperta and esito is None:
+                round_n += 1
+                attivati_extra.clear()
+                log(f'--- Round {round_n}: si cerca l’uscita nella fossa ---')
+                log_azioni_round()
+                scelto = da_provare.pop(random.randrange(len(da_provare))) if da_provare else giusto
+                if scelto == giusto:
+                    chi = max(vivi(), key=lambda n: HERO[n]['vigore'])
+                    aperta, _ = check(log, chi, 'VIGORE', HERO[chi]['vigore'], 'Media')
+                    if not aperta:
+                        da_provare.append(giusto)
+                        log('    Le casse non si spostano: ci vuole un altro tentativo.')
+                else:
+                    log('    Sotto l’arredo sbagliato non c’è nulla: l’azione è spesa lo stesso.')
+                fase_eroi('rientro')
+                fase_minaccia()
+                fase_nemici('rientro', True)
+                tick_canto()
+                max_down_simultanei = max(max_down_simultanei, len(down))
+                if not vivi():
+                    esito = 'SCONFITTA (party wipe mentre si cerca l’uscita)'
+                elif round_n > 60:
+                    esito = 'TIMEOUT (60 round)'
+            if esito is None:
+                round_n += 1
+                log(f'--- Round {round_n}: Gaspare e Rocco salgono al carico — VITTORIA ---')
+                esito = 'VITTORIA'
+            return_fatto = True
+        else:
+            return_fatto = False
+        if not return_fatto:
+            log('--- Ritorno a T1 con Gaspare e Rocco (3 round di progresso; col Suggeritore '
+                'ADIACENTE a fine round il gruppo resta agganciato e non avanza — seminatelo, '
+                'stordientelo col Libretto, o abbattetelo) ---')
         progresso = 0
-        while progresso < 3:
+        while progresso < 3 and not return_fatto:
             round_n += 1
             attivati_extra.clear()
             log(f'--- Round {round_n}: rientro verso T1 ({progresso}/3) ---')

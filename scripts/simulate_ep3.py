@@ -167,6 +167,12 @@ TOKEN_POOL_BASE = {'ADEPTO INCAPPUCCIATO': 4, 'LA VOCE CAVA': 3,
 # sulla tessera, non sul ritmo del gruppo (vedi GUADAGNO_GRUPPO sotto).
 CASELLE_TESSERA = 6
 
+# Arredi della stanza in cui il PNG e' tenuto prigioniero: sotto uno di essi
+# c'e' l'uscita segreta (Ep.3: IL POZZO MAESTRO, un solo arredo — la forma da
+# colata). Fonte: webapp/data/ep3.json, tessere[T6].arredi.
+ARREDI_USCITA = 1
+
+
 # Regola vera (aggiornata): 2 azioni a round, sempre di tipo diverso (niente
 # doppio Movimento) - "Muovere" e' una sola azione da 3 caselle (Nino 4).
 # Un'abilita' che concede un'azione extra (es. Colpo da macello) non conta
@@ -2042,21 +2048,44 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
         if not tobia_libero:
             log('    Il gruppo non ha mai raggiunto Tobia: si torna indietro a mani vuote.')
             esito = 'SCONFITTA (Tobia non liberato)'
-        log('--- Ritorno a T1 con Tobia (3 round di movimento: la strada ormai la conoscete, e Tobia conosce le scorciatoie dei pozzaioli) ---')
-        for _ in range(round_marcia_percorso(percorso_verso(tile_attuale, 'T1'), tile_attuale, porta_attuale_pos)):
+        # USCITA SEGRETA (regola del 20260722, dato in webapp/export-data.py
+        # ep3.scortato[0].uscita): il rientro a piedi fino a T1 non e' piu'
+        # l'unica via. Liberato, Tobia dice che si esce di qui — sotto un
+        # arredo di QUESTA sala — ma non quale: frugare sotto quello sbagliato
+        # costa comunque l'azione, e sollevare la lastra e' VIGORE (Media).
+        # Il Pozzo Maestro ha un solo arredo (la forma da colata), quindi qui
+        # non si sbaglia mobile: il costo e' tutto nella prova.
+        log('--- Uscita segreta: Tobia indica il canale sotto la sala ---')
+        da_provare = list(range(ARREDI_USCITA))
+        giusto = random.randrange(ARREDI_USCITA)
+        aperta = False
+        while not aperta and esito is None:
             round_n += 1
             attivati_extra.clear()
-            log(f'--- Round {round_n}: rientro verso T1 ---')
+            log(f'--- Round {round_n}: si cerca l’uscita in {tile_attuale} ---')
             log_azioni_round()
+            scelto = da_provare.pop(random.randrange(len(da_provare))) if da_provare else giusto
+            if scelto == giusto:
+                chi = max(vivi(), key=lambda n: HERO[n]['vigore'])
+                aperta, _ = check(log, chi, 'VIGORE', HERO[chi]['vigore'], 'Media')
+                if not aperta:
+                    da_provare.append(giusto)      # la lastra non si e' mossa: si ritenta
+                    log('    La lastra non si muove: ci vuole un altro tentativo.')
+            else:
+                log('    Sotto l’arredo sbagliato non c’è nulla: l’azione è spesa lo stesso.')
             fase_eroi('rientro')
             fase_minaccia()
             fase_nemici('rientro', True)
             tick_canto()
             max_down_simultanei = max(max_down_simultanei, len(down))
             if not vivi():
-                esito = 'SCONFITTA (party wipe durante il rientro)'
-                break
+                esito = 'SCONFITTA (party wipe mentre si cerca l’uscita)'
+            elif round_n > 60:
+                esito = 'TIMEOUT (60 round)'
         if esito is None:
+            # aperta: Tobia scende nel canale (un round, e' nella stessa sala)
+            round_n += 1
+            log(f'--- Round {round_n}: Tobia scende nel canale — VITTORIA ---')
             esito = 'VITTORIA'
 
     azioni_media = sum(azioni_per_round) / len(azioni_per_round) if azioni_per_round else 0
