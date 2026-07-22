@@ -53,6 +53,7 @@ function dirVerso(da, a) {
 const dist = (a, b) => { let n = 0, c = a; while (c !== b && n < 12) { const d = dirVerso(c, b); if (!d) return 99; c = USCITE[c][d]; n++; } return n; };
 const verso = (d, x, y) => ({ N: 3 - y, S: y, E: 3 - x, O: x }[d] ?? 0);
 const SC = (EP.scortato || [])[0];
+const COMPITI = EP.compiti || [];
 const cellaObj = (mt) => {
   if (!SC || SC.tile !== mt || !SC.cella) return null;
   const t = EP.tessere.find((x) => x.id === mt);
@@ -131,7 +132,29 @@ function abilitaUtile(nm, s) {
 
 const br = await chromium.launch();
 const pg = await br.newPage({ viewport: { width: 1400, height: 1000 } });
-await pg.addInitScript(() => { window.confirm = () => true; window.alert = () => {}; });
+await pg.addInitScript(() => {
+  window.confirm = () => true; window.alert = () => {};
+  // ZERO ATTESE. Il costo vero non erano i miei sleep: e' la fase nemici, che
+  // anima — `await pausa(650)` per ogni nemico che si muove, 1050 quando
+  // colpisce, 1100 se e' accecato. Con dieci nemici sono dieci secondi a round
+  // di sola animazione. Qui i timer della pagina scattano subito: il gioco fa
+  // esattamente le stesse cose, nello stesso ordine (i timeout a pari ritardo
+  // restano FIFO), solo senza aspettare. Il motore non viene toccato.
+  const vero = window.setTimeout;
+  window.setTimeout = (fn, _ms, ...a) => vero(fn, 0, ...a);
+  // e le animazioni vere e proprie: transizioni CSS e frame. Senza queste il
+  // token "scivola" ancora da una casella all'altra e il pilota legge stati
+  // intermedi.
+  const raf = window.requestAnimationFrame;
+  window.requestAnimationFrame = (fn) => raf(() => fn(performance.now()));
+  const stile = () => {
+    if (!document.head || document.getElementById('senza-animazioni')) return;
+    const st = document.createElement('style'); st.id = 'senza-animazioni';
+    st.textContent = '*,*::before,*::after{transition:none !important;animation:none !important}';
+    document.head.appendChild(st);
+  };
+  document.addEventListener('DOMContentLoaded', stile); stile();
+});
 const errsJS = []; pg.on('pageerror', (e) => errsJS.push(e.message));
 
 const P = () => pg.evaluate((k) => JSON.parse(localStorage.getItem(k)), CHIAVE_SALVATAGGIO);
@@ -142,6 +165,25 @@ const clicDom = (s) => pg.evaluate((sel) => {
   const e = document.querySelectorAll(sel); if (!e.length) return false;
   e[0].click(); return true;
 }, s);
+
+// Attesa condizionata invece che a tempo: il pilota dormiva 4.8 secondi a giro
+// su 16 `waitForTimeout` fissi, tarati sul caso peggiore dell'animazione. Qui
+// si guarda venticinque volte al secondo se la cosa e' successa, e si prosegue
+// appena lo e'. Il tetto resta, come rete.
+async function finoA(cond, max = 1200) {
+  const t0 = Date.now();
+  while (Date.now() - t0 < max) {
+    try { if (await cond()) return true; } catch { /* render in corso */ }
+    // nessuna pausa: il round-trip di Playwright e' gia' la nostra granularita'
+  }
+  return false;
+}
+const cambiato = async (letto, prima) => finoA(async () => JSON.stringify(await letto()) !== prima);
+// clicca APPENA l'elemento compare: i gestori del gioco sono async, quindi fra
+// un click e il successivo il DOM deve essersi ridisegnato — ma aspettare a
+// tempo e' sprecato: si guarda finche' c'e', poi si clicca.
+const clicQuando = async (sel, max = 4000) =>
+  (await finoA(() => vis(sel), max)) ? clicDom(sel) : false;
 
 let roundNonMisurati = 0;
 const KO = {};
@@ -161,17 +203,24 @@ async function scegliEroe() {
     : (x) => { const e = Object.entries(v).find(([k]) => breve(k).toLowerCase() === x.t); return e ? e[1] : 0; };
   const scelto = u.slice().sort((a, z) => sal(z) - sal(a))[0];
   await pg.evaluate((i) => document.querySelectorAll('.scelta-overlay .scelta-btn')[i].click(), scelto.i);
-  await pg.waitForTimeout(150);
+  
 }
 const sciogli = async () => {
-  for (let i = 0; i < 50; i++) {
+  // UN SOLO round-trip per giro. Prima erano dieci: `vis()` costa due chiamate
+  // (conteggio + visibilita') e i bottoni da controllare sono cinque. Qui la
+  // scelta e il click li fa la pagina, e torna solo che cosa ha premuto.
+  for (let k = 0; k < 60; k++) {
     if (await vis('.scelta-overlay')) { await scegliEroe(); continue; }
-    if (await vis('#dadi-lancia')) { await clicDom('#dadi-lancia'); await pg.waitForTimeout(900); continue; }
-    if (await vis('#dadi-chiudi')) { await clicDom('#dadi-chiudi'); await pg.waitForTimeout(250); continue; }
-    if (await vis('#ins-risolvi:not([disabled])')) { await clicDom('#ins-risolvi'); await pg.waitForTimeout(300); continue; }
-    if (await vis('#ok-msg')) { await clicDom('#ok-msg'); await pg.waitForTimeout(150); continue; }
-    if (await vis('.dadi-overlay')) { await pg.waitForTimeout(300); continue; }
-    return;
+    const premuto = await pg.evaluate(() => {
+      const visibile = (e) => e && e.offsetParent !== null;
+      for (const sel of ['#dadi-lancia', '#dadi-chiudi', '#ins-risolvi:not([disabled])', '#ok-msg']) {
+        const e = document.querySelector(sel);
+        if (visibile(e)) { e.click(); return sel; }
+      }
+      return document.querySelector('.dadi-overlay') ? 'attesa' : null;
+    });
+    if (premuto === null) return;
+    if (premuto === 'attesa' && !(await finoA(async () => !(await vis('.dadi-overlay')), 800))) return;
   }
 };
 // la fase nemici è animata e la sua schermata non ha la striscia eroi
@@ -182,13 +231,22 @@ async function attendiFaseEroi(maxMs = 25000) {
     const s = await sp();
     if (s.esito) return true;
     if (s.fase === 'eroi' && (await cnt('[data-turno]')) > 0) return true;
-    await pg.waitForTimeout(250);
+    
   }
   return false;
 }
 async function meta() {
   const p = await P(); const s = p.spedizione;
   if ((s.scortati || [])[0]?.liberato) return USCITA_TILE;
+  // OBIETTIVI D'EPISODIO (ep.compiti): prima la tessera dove si lavora, poi il
+  // rientro dichiarato da ep.vittoria. Senza questo il pilota andava in fondo
+  // alla spina e ci restava, perche' non sapeva che si torna indietro.
+  if (COMPITI.length) {
+    const fatti = s.compiti || {};
+    const aperto = COMPITI.find((c) => (fatti[c.id] || 0) < c.quante);
+    if (aperto) return aperto.tile;
+    if (EP.vittoria && EP.vittoria.tessera) return EP.vittoria.tessera;
+  }
   if (!SC) return TILE_BOSS;                           // nessun PNG: dritti in fondo alla spina
   if (!TILE_CHIAVE) return SC.tile;                    // nessuna chiave: dritti dal prigioniero
   const k = (p.indagine.oggetti || []).some((o) => new RegExp(SC.chiave, 'i').test(o));
@@ -204,7 +262,7 @@ async function muoviCon(punteggio, chiPos, leggiPos) {
   const b = c.slice().sort((a, z) => punteggio(a) - punteggio(z))[0];
   if (punteggio(b) >= punteggio(chiPos)) return 'nessun-progresso';
   if (!(await clicCella(b))) { ko('click sulla cella non riuscito'); return 'click-ko'; }
-  await pg.waitForTimeout(250); await sciogli();
+   await sciogli();
   const dopo = await leggiPos();
   if (!dopo || (dopo.t === chiPos.t && dopo.x === chiPos.x && dopo.y === chiPos.y)) { ko('cella cliccata ma pedina ferma'); return 'non-mosso'; }
   return 'mosso';
@@ -212,7 +270,7 @@ async function muoviCon(punteggio, chiPos, leggiPos) {
 
 async function turnoEroe(nm, mt) {
   await pg.evaluate((n) => document.querySelector(`[data-turno="${CSS.escape(n)}"]`)?.click(), nm);
-  await pg.waitForTimeout(150);
+  
   const tentate = new Set();
   for (let k = 0; k < 5; k++) {
     const s = await sp();
@@ -272,7 +330,7 @@ async function turnoScortato() {
     if (!g || !g.pos || g.mosso) continue;
     if (!(await cnt(`[data-scortato-chip="${i}"]`))) { roundNonMisurati++; continue; }
     await clicDom(`[data-scortato-chip="${i}"]`);
-    await pg.waitForTimeout(200);
+    
     if ((await sp()).scortAttivo !== i) { roundNonMisurati++; continue; }
     const c = await celle();
     const u = st.uscita;
@@ -313,10 +371,11 @@ for (let g = 0; g < N; g++) {
       spedizione: { round: 0, canto: 0, cantoBonus: false, mazzo: null, esito: null },
     }));
   }, { p: party, k: CHIAVE_SALVATAGGIO, id: EPID, TIER });
-  await pg.goto(BASE, { waitUntil: 'domcontentloaded' }); await pg.waitForTimeout(200);
-  await pg.getByText(EP.titolo).first().click(); await pg.waitForTimeout(200);
-  await clicDom('#continua'); await pg.waitForTimeout(200);
-  await clicDom('#via'); await pg.waitForTimeout(300); await sciogli();
+  await pg.goto(BASE, { waitUntil: 'domcontentloaded' }); 
+  await pg.getByText(EP.titolo).first().click(); 
+  await clicQuando('#continua');
+  await clicQuando('#via');
+  await sciogli();
 
   let vittoriaAl = null, liberatoAl = null, apertaAl = null;
   const tappe = {}; let allIngresso = null;   // fotografia all'ingresso in T6
@@ -361,10 +420,12 @@ for (let g = 0; g < N; g++) {
     const s3 = await sp();
     if (!vittoriaAl && s3.esito === 'vittoria') vittoriaAl = s3.round;
     if (s3.esito) break;
-    if (await vis('#fase-minaccia')) { await clicDom('#fase-minaccia'); await pg.waitForTimeout(400); }
+    if (await vis('#fase-minaccia')) { await clicDom('#fase-minaccia'); await finoA(async () => !(await vis('#fase-minaccia')), 2000); }
     await sciogli();
     if (await cnt('#salta-nemici')) await clicDom('#salta-nemici');
-    await pg.waitForTimeout(600);
+    // la fase nemici la aspetta gia' attendiFaseEroi a inizio giro: qui basta
+    // lasciare che il click parta
+    await finoA(async () => !(await cnt('#salta-nemici')), 2000);
   }
   const f = await sp();
   righe.push({ esito: f.esito || 'stallo', round: f.round, tappe, allIngresso, liberatoAl, apertaAl, vittoriaAl });

@@ -882,6 +882,16 @@ episodi = dict(
         # (21 round di media) e la clessidra comune la strangolava. Misurato a 4
         # eroi, stessi party e stessi seed: 9% -> 30% di vittorie.
         canto_ogni=6,
+        # L'OBIETTIVO, come dato e non piu' come sola stringa a schermo (22/07/2026):
+        # «Sfregiate le 3 canne montate dell'organo (Interagire, in T6) e risalite
+        # da T1». Prima la modalita' digitale non aveva NESSUN modo di vincere
+        # questo episodio — le due condizioni di vittoria stavano dentro il
+        # movimento del PNG scortato, e l'Ep.5 non ha PNG.
+        compiti=[dict(id='canne', tile='T6', quante=3,
+                      etichetta='Sfregia una canna montata',
+                      fatto='Le tre canne sono sfregiate: l’organo non canterà.')],
+        vittoria=dict(tessera='T1',
+                      testo='Le canne sono sfregiate e siete risaliti: l’organo di ossa è muto.'),
         esami_carbone=ESAMI_CARBONE_5,
         luoghi=[luogo_json(L, OGGETTI_LUOGO_5, REPERTI_LUOGO['ep5']) for L in LUOGHI_5],
         tessere=[tessera_json(T) for T in TILES_5],

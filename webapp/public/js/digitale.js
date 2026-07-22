@@ -751,6 +751,10 @@ function interazioneDisponibile(nm) {
   // sbagliato costa comunque l'azione.
   const a = arredoUscita(pos);
   if (a) return { tipo: 'uscita', arredo: a, label: `Sposta ${String(a[2]).toLowerCase()} — l'uscita che indica ${nomeScortato()} (Interagire)` };
+  // compito d'episodio: le canne da sfregiare, i movimenti da spegnere, le
+  // casse da sequestrare — l'obiettivo vero di quindici episodi su ventuno
+  const c = compitoDisponibile(pos);
+  if (c) return { tipo: 'compito', c, label: `${c.etichetta} (${compitoFatte(c.id)}/${c.quante})` };
   return null;
 }
 const specUscita = () => (specScortati()[0] || {}).uscita || null;
@@ -911,7 +915,53 @@ function segnaAzione(nm, tipo) {
   // turno rubando al rianimatore la seconda azione.
   sp.eroiAttivo = nm;
   sp.azioni[nm].push(tipo);
+  if (controllaVittoria()) return;
   if (sp.azioni[nm].length >= azioniMax(nm)) finisciEroe(nm); else { salvaP(); render(); }
+}
+
+// ------------------------------------------------------- obiettivi d'episodio
+// Fino al 22/07/2026 la modalita' digitale si poteva vincere SOLO muovendo un
+// PNG scortato: le due condizioni stavano dentro `muoviScortato`, e quindici
+// episodi su ventuno non avevano alcun modo di finire bene — l'obiettivo era
+// una stringa mostrata a schermo e nient'altro. Qui c'e' il meccanismo
+// generico, guidato dai dati (`ep.compiti` e `ep.vittoria` in webapp/data).
+//
+//   compiti:  [{ id, tile, quante, etichetta, prova?, cella? }]
+//             N azioni Interagire sulla stessa tessera (le canne da sfregiare,
+//             i movimenti da spegnere, le casse da sequestrare, i tell da
+//             documentare). `prova` le rende incerte, `cella` le lega a un arredo.
+//   vittoria: { tessera?, boss?, testo }
+//             a compiti finiti serve, se dichiarato, che gli eroi vivi siano
+//             tutti su `tessera` (il rientro) e/o che il boss sia a terra.
+const specCompiti = () => (ctx.ep.compiti || []);
+const statoCompiti = () => { const sp = SP(); sp.compiti = sp.compiti || {}; return sp.compiti; };
+const compitoFatte = (id) => statoCompiti()[id] || 0;
+const compitiFiniti = () => specCompiti().every((c) => compitoFatte(c.id) >= c.quante);
+
+// il compito a portata dell'eroe: giusta tessera, quante ne restano, e — se il
+// dato nomina un arredo — esserne adiacenti
+function compitoDisponibile(pos) {
+  for (const c of specCompiti()) {
+    if (c.tile !== pos.t || compitoFatte(c.id) >= c.quante) continue;
+    if (c.cella) {
+      const t = tileDi(pos.t);
+      const a = (t.arredi || []).find((v) => String(v[2]).toUpperCase() === String(c.cella).toUpperCase());
+      if (a && !adiacGlob(pos, { t: pos.t, x: a[0], y: a[1] }) && !(pos.x === a[0] && pos.y === a[1])) continue;
+    }
+    return c;
+  }
+  return null;
+}
+
+function controllaVittoria() {
+  const sp = SP(); const v = ctx.ep.vittoria;
+  if (sp.esito || !v || !specCompiti().length || !compitiFiniti()) return false;
+  const vivi = P().party.filter((nm) => (sp.vite[nm] ?? 0) > 0);
+  if (v.tessera && !vivi.every((nm) => sp.eroiPos[nm] && sp.eroiPos[nm].t === v.tessera)) return false;
+  if (v.boss && sp.nemici.some((n) => n.nome === ctx.ep.soluzione.boss && n.pos)) return false;
+  sp.esito = 'vittoria';
+  sp.log.push(v.testo || 'L’obiettivo è compiuto: siete salvi.');
+  salvaP(); epilogo(); return true;
 }
 function finisciEroe(nm) {
   const sp = SP(); if (nm && !sp.eroiFatti.includes(nm)) sp.eroiFatti.push(nm);
@@ -1025,6 +1075,21 @@ function oggettiHtml() {
 async function azioneInteragire(nm) {
   const sp = SP(); const disp = interazioneDisponibile(nm); if (!disp) return;
   if (disp.tipo === 'grata') { sp.grate.push(`${sp.eroiPos[nm].t}-${disp.dir}`); log('La grata è aperta.'); segnaAzione(nm, 'interagire'); return; }
+  if (disp.tipo === 'compito') {
+    const c = disp.c;
+    if (c.prova) {
+      const e = eroe(nm);
+      const r = await tiraProva({ titolo: `${c.prova.attr.toUpperCase()} — ${primo(nm)}`, diffLabel: c.prova.diff,
+        soglia: ctx.comune.regole.diff[c.prova.diff],
+        bonus: [{ label: c.prova.attr.toUpperCase(), val: e[c.prova.attr] || 0 }], modo: 'digitale' });
+      if (r == null) return;                                  // prova annullata: nessuna azione spesa
+      if (!r.ok) { log(`${primo(nm)}: ${c.fallita || 'non ci riesce'}.`); segnaAzione(nm, 'interagire'); return; }
+    }
+    const st = statoCompiti(); st[c.id] = (st[c.id] || 0) + 1;
+    log(`${primo(nm)}: ${c.etichetta.toLowerCase()} (${st[c.id]}/${c.quante}).`);
+    if (st[c.id] >= c.quante && c.fatto) log(c.fatto);
+    segnaAzione(nm, 'interagire'); return;
+  }
   if (disp.tipo === 'uscita') {
     const u = specUscita(); const a = disp.arredo; const e = eroe(nm);
     const giusto = a[0] === u.arredo[0] && a[1] === u.arredo[1];
