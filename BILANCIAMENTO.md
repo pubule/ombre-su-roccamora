@@ -86,6 +86,35 @@ anche piatti (ep19 vince sempre col 14% di vittorie sofferte e un picco di 0.2):
 non è che si vincano troppo spesso, è che **non succede niente**. E l'Ep.9, con
 il 48% di vittorie, ha un picco di 0.3 su sette round: si perde senza cadere.
 
+## Il KPI misurava la cosa sbagliata (22/07/2026)
+
+`pct_vittoria` conta **anche le vittorie parziali**. Negli episodi con due
+finali questo nasconde il dato che conta:
+
+| ep | a tabellone | vittoria **piena** | scarto |
+|----|------------:|-------------------:|-------:|
+| ep14 | 100% | 76% | 24 |
+| ep15 | 100% | **0%** | 100 |
+| ep17 | 82% | **2%** | 80 |
+| ep18 | 58% | 16% | 42 |
+| ep19 | 100% | 52% | 48 |
+
+L'Ep.15 non apre **mai** la Contro-busta — il finale che dice «chi ha scritto
+il dossier?» — in seicento partite. L'Ep.17 due volte su cento. Sono i finali
+che portano avanti l'Atto III, e nessun tavolo li vedrà.
+
+Causa, per l'Ep.15: la regola stampata vuole «Capo preso E 4+ tell documentati
+prima del sigillo». I tell si raccolgono in abbondanza (6 su 4 richiesti), ma
+il Capo sta in T6 e la villa si sigilla al Canto 5, cioè al round 8-9, mentre
+in T6 si arriva al round 11. **Il viaggio è più lungo dell'orologio**, come per
+Ep.10 ed Ep.12 — ma qui la soglia è un numero d'episodio, che la Soluzione già
+dichiara, e alzarla funziona:
+
+| soglia-sigillo | 5 (oggi) | 7 | 9 | 11 |
+|---|---:|---:|---:|---:|
+| vittoria piena | 0% | 16% | **82%** | 95% |
+| vittorie sofferte | 34% | 40% | 55% | 56% |
+
 ## Il difetto che invalida la colonna «troppo duro» (22/07/2026)
 
 Cinque simulatori — **Ep.1, 2, 3, 5, 6** — contengono un ciclo
