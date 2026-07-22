@@ -357,7 +357,19 @@ TILES_4 = [
                  'entrambi); si muovono col gruppo: 3 caselle, nessuna azione. Se il gruppo '
                  'NON ha il Libretto di Gaspare: Gaspare stesso è la voce vera — portato '
                  'adiacente al Suggeritore, un’azione: vale come la debolezza (ma è un uomo '
-                 'ferito in mezzo a una battaglia: se subisce 1 danno, torna a T1 da solo).',
+                 'ferito in mezzo a una battaglia: se subisce 1 danno, torna a T1 da solo). '
+                 '— APPENA GASPARE E ROCCO SONO LIBERI, leggete ad alta voce: «Gaspare non '
+                 'guarda il corridoio da cui siete venuti. — Dietro le casse c’è il vano del '
+                 'contrappeso vecchio. Da lì si sale dritti al carico: ci calavamo i fondali, '
+                 'e murarlo non l’ha mai fatto nessuno.» Il gruppo sa che si esce da questa '
+                 'fossa, ma non da sotto quale mobile: scoprirlo è Interagire adiacenti a un '
+                 'mobile + prova VIGORE (Media). '
+                 '— SEGRETO: è dietro le CASSE. Sotto la scrivania non c’è nulla — «solo '
+                 'segatura e chiodi», stesso tono, e l’azione è spesa lo stesso. '
+                 '— ATTENZIONE, QUI L’USCITA NON BASTA: la spedizione è VINTA solo se i TRE '
+                 'pannelli della Conchiglia sono già disaccordati. Se non lo sono, chi imbocca '
+                 'il vano si mette al sicuro (esce dal tabellone e non può più essere colpito) '
+                 'ma la partita continua: la Conchiglia registra lo stesso.',
          cerca_vuoto='Nella fossa: coperte, una cesta di cibo ripiegata, e i segni di due '
                      'uomini che hanno contato i giorni sul legno. Niente altro.',
          arredi=[(1, 3, 'scrivania'), (3, 0, 'casse')]),
@@ -544,7 +556,10 @@ def spedizione():
                   '(le maschere di sala comprate) e <b>il Suggeritore</b> (il boss: si desta '
                   'in T6, o al 3° segnalino Canto). Vittoria: liberate Gaspare e Rocco '
                   '(Interagire in T5), disaccordate i 3 pannelli della Conchiglia (Interagire '
-                  'in T6) e riportate tutti in T1. Le lastre di cera in T6 sono l’obiettivo '
+                  'in T6) e portate fuori tutti — alla quinta di carico (T1) oppure per la via '
+                  'che Gaspare stesso vi indica, una volta libero: ma solo a pannelli già '
+                  'disaccordati, altrimenti si è solo al sicuro e la Conchiglia registra. '
+                  'Le lastre di cera in T6 sono l’obiettivo '
                   'secondario: ognuna recuperata è una voce rubata, e pesa nell’epilogo e nel '
                   'Bivio. Ai tavoli da 2-3 eroi il Suggeritore <b>non recupera mai ferite</b> '
                   'dalle carte Crescendo (regola delle taglie).', BODY)])

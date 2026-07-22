@@ -35,8 +35,18 @@ else:
 for dati in sorted(glob.glob('webapp/data/ep*.json'), key=lambda p: int(re.search(r'\d+', os.path.basename(p)).group())):
     ep = json.load(open(dati, encoding='utf-8'))
     n = re.search(r'\d+', os.path.basename(dati)).group()
-    sc = (ep.get('scortato') or [{}])[0]
+    tutti = ep.get('scortato') or []
+    sc = (tutti or [{}])[0]
     u = sc.get('uscita')
+    # CONTRATTO DEI PIU' PRIGIONIERI (Ep.4: Gaspare e Rocco). Il motore digitale
+    # ci si appoggia: un'azione libera tutti quelli tenuti nello stesso punto, e
+    # l'uscita segreta e' una sola per episodio (la legge dal primo della lista).
+    if len(tutti) > 1:
+        if len({(s.get('tile'), s.get('cella')) for s in tutti}) > 1:
+            problemi.append(f'Ep.{n}: i prigionieri non sono tenuti nello stesso punto — un\'azione non puo\' liberarli tutti')
+        conu = [s['nome'] for s in tutti if s.get('uscita')]
+        if len(conu) > 1:
+            problemi.append(f'Ep.{n}: piu\' di un\'uscita segreta ({", ".join(conu)}): il motore legge solo la prima')
     fasc = f'Episodio {n}/pdf/Spedizione.pdf'
     if not os.path.exists(fasc):
         continue

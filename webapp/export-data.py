@@ -812,8 +812,19 @@ episodi = dict(
         sottotitolo='episodio 3 — il Ladro di Voci',
         cartella='Episodio 3', ore_budget=6,
         lettera=LETTERA_3,
-        obiettivo='Liberate Tobia (Interagire, in T6) e riportatelo in T1, alla scala. '
+        obiettivo='Liberate Tobia (Interagire, in T6) e portatelo fuori: alla scala (T1) '
+                  'oppure per la via che lui stesso vi indica, una volta libero. '
                   'Secondario: le canne-voce in T5, una ad azione (Interagire).',
+        # «Tobia si libera con Interagire (nessuna prova)» — testo di T6
+        scortato=[scortato(
+            'Tobia', 'T6', 'T1', 'Tobia.png',
+            etichetta='Libera Tobia (Interagire)',
+            vittoria='Tobia è fuori dal pozzo maestro: siete salvi.',
+            uscita=uscita_segreta(
+                'T6', (2, 2),
+                'Tobia indica la forma da colata: — Sotto quella. La svuotano dal fondo '
+                'e il canale scende dritto ai chiusini della scala. Ci sono passato '
+                'quando mi hanno portato giù: contavo i gradini al buio.'))],
         esami_carbone=ESAMI_CARBONE_3,
         luoghi=[luogo_json(L, OGGETTI_LUOGO_3, REPERTI_LUOGO['ep3']) for L in LUOGHI_3],
         tessere=[tessera_json(T) for T in TILES_3],
@@ -831,6 +842,24 @@ episodi = dict(
                   'riportate tutti in T1 — col Suggeritore alle calcagna da T4: abbatterlo '
                   'NON è necessario. Secondario: le lastre di cera incise, una ad azione '
                   '(Interagire).',
+        # DUE prigionieri nella stessa fossa: il testo d'arbitro dice «un'azione
+        # per entrambi», quindi liberarne uno libera anche l'altro. La vittoria
+        # richiede che escano TUTTI E DUE (nessuno resta nel sottopalco).
+        # L'uscita segreta sta su Gaspare, il primo: e' il macchinista, il vano
+        # del contrappeso vecchio lo conosce lui.
+        scortato=[
+            scortato('Gaspare', 'T5', 'T1', 'Gaspare.png',
+                     etichetta='Libera Gaspare e Rocco (Interagire)',
+                     vittoria='Gaspare e Rocco sono fuori dal sottopalco: siete salvi.',
+                     uscita=uscita_segreta(
+                         'T5', (3, 0),
+                         'Gaspare indica le casse in fondo: — Dietro quelle c’è il vano '
+                         'del contrappeso vecchio. Da lì si sale dritti al carico: ci '
+                         'calavamo i fondali, e murarlo non l’ha mai fatto nessuno.')),
+            scortato('Rocco', 'T5', 'T1', 'Rocco.png',
+                     etichetta='Libera Gaspare e Rocco (Interagire)',
+                     vittoria='Gaspare e Rocco sono fuori dal sottopalco: siete salvi.'),
+        ],
         esami_carbone=ESAMI_CARBONE_4,
         luoghi=[luogo_json(L, OGGETTI_LUOGO_4, REPERTI_LUOGO['ep4']) for L in LUOGHI_4],
         tessere=[tessera_json(T) for T in TILES_4],
@@ -876,6 +905,13 @@ episodi = dict(
                   'dell’andata (scelta in T2: ponteggi O intercapedini). Il Capocantiere '
                   'non va abbattuto per forza; al 12° segnalino Allarme il cantiere si '
                   'sbarra (sconfitta a tempo).',
+        # NESSUNA uscita segreta: la via del ritorno e' quella scelta in T2
+        # (ponteggi o intercapedini) ed e' il cuore dell'episodio — una
+        # scorciatoia la cancellerebbe. L'Ep.7 e' gia' in fascia (75% a 4 eroi).
+        scortato=[scortato(
+            'Fava', 'T6', 'T1', 'Fava.png',
+            etichetta='Libera Fava (Interagire)',
+            vittoria='Ernesto Fava è fuori dal cantiere: siete salvi.')],
         esami_carbone=ESAMI_CARBONE_7,
         luoghi=[luogo_json(L, OGGETTI_LUOGO_7, REPERTI_LUOGO['ep7']) for L in LUOGHI_7],
         tessere=[tessera_json(T) for T in TILES_7],
@@ -1035,6 +1071,13 @@ episodi = dict(
                   'la lettera di M. cita il nastro verde, un segreto che nessuno gli ha detto. '
                   'NUOVO: la RILETTURA — all’Archivio delle Lettere rileggete le vecchie lettere '
                   'di M.: ogni rilettura banca un incrocio per la deduzione finale (Ep.18).',
+        # NESSUNA uscita segreta: l'Ep.16 e' il respiro dell'Atto III e vince
+        # gia' nel 100% delle simulazioni. Bruna non e' rinchiusa: si stacca
+        # dallo Sposo (col Fascicolo l'inganno crolla da solo) e torna al cancello.
+        scortato=[scortato(
+            'Bruna', 'T6', 'T1', 'Bruna.png',
+            etichetta='Porta via Bruna (Interagire)',
+            vittoria='Bruna è fuori dal cancello: la riportate a casa.')],
         esami_carbone=ESAMI_CARBONE_16,
         luoghi=[luogo_json(L, OGGETTI_LUOGO_16, REPERTI_LUOGO['ep16']) for L in LUOGHI_16],
         tessere=[tessera_json(T) for T in TILES_16],

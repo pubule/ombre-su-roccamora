@@ -939,11 +939,20 @@ function muoviScortato(i, node) {
   // vittoria alternativa: l'uscita segreta aperta nella tessera della prigionia
   const u = sp.uscita;
   if (u && u.aperta && node.t === u.tile && node.x === u.cella[0] && node.y === u.cella[1]) {
-    sp.esito = 'vittoria';
-    sp.log.push(s.vittoria || `${s.nome} è fuori: siete salvi.`);
-    salvaP(); return epilogo();
+    g.uscito = true; g.pos = null;             // sparisce dal board: libera il chiusino per l'altro
+    // anche dal condotto devono passare TUTTI: con due prigionieri (Ep.4) il
+    // primo che ci mette il piede non chiude la partita da solo
+    if (sp.scortati.every((x) => x.uscito)) {
+      sp.esito = 'vittoria';
+      sp.log.push(s.vittoria || `${s.nome} è fuori: siete salvi.`);
+      salvaP(); return epilogo();
+    }
+    log(`${s.nome} sparisce nel passaggio: manca ancora qualcuno.`);
+    salvaP(); return render();
   }
-  const arrivati = sp.scortati.every((x, k) => x.liberato && x.pos && x.pos.t === specScort(k).meta);
+  // chi e' gia' passato dal condotto conta come arrivato: i due dell'Ep.4
+  // possono uscire uno per la via segreta e uno dalla porta d'ingresso
+  const arrivati = sp.scortati.every((x, k) => x.uscito || (x.liberato && x.pos && x.pos.t === specScort(k).meta));
   if (node.t === s.meta && arrivati) {
     sp.esito = 'vittoria';
     sp.log.push(s.vittoria || `${s.nome} è al sicuro: siete salvi.`);
@@ -1041,11 +1050,20 @@ async function azioneInteragire(nm) {
 }
 function liberaScortato(nm, i) {
   const sp = SP(); const pos = sp.eroiPos[nm]; const tile = tileDi(pos.t); const s = specScort(i);
-  sp.scortati[i].liberato = true;
+  // Un'azione libera TUTTI i prigionieri tenuti nello stesso punto: e' quanto
+  // dice il testo d'arbitro dell'Ep.4 («un'azione per entrambi»), dove Gaspare
+  // e Rocco sono legati insieme nella stessa fossa.
+  const insieme = specScortati()
+    .map((x, k) => ({ x, k }))
+    .filter(({ x, k }) => !sp.scortati[k].liberato && x.tile === s.tile && x.cella === s.cella);
   const occ = new Set(); occupati(null, false).forEach((k) => { const [t, x, y] = k.split(','); if (t === pos.t) occ.add(`${x},${y}`); });
-  const cella = celleLibereTile(tile, [pos.x, pos.y], 1, occ)[0] || [pos.x, pos.y];
-  sp.scortati[i].pos = { t: pos.t, x: cella[0], y: cella[1] };
-  log(`${s.nome} è libero! Riportatelo in ${s.meta}.`);
+  const libere = celleLibereTile(tile, [pos.x, pos.y], insieme.length, occ);
+  insieme.forEach(({ x, k }, n) => {
+    sp.scortati[k].liberato = true;
+    const cella = libere[n] || [pos.x, pos.y];
+    sp.scortati[k].pos = { t: pos.t, x: cella[0], y: cella[1] };
+    log(`${x.nome} è libero! Riportatelo in ${x.meta}.`);
+  });
   segnaAzione(nm, 'interagire');
 }
 

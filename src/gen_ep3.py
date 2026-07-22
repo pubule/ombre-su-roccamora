@@ -349,7 +349,16 @@ TILES_3 = [
                  'avete). La debolezza dell’Accordatore è IL CAMPANELLO DI PIERO (vedi la carta '
                  'e il Bestiario): un’azione adiacente — Difesa 8→5 per il resto della partita, '
                  'e salta la sua prossima attivazione. Il Rasoio d’Argento non gli fa niente: '
-                 'non è mai stato suo.',
+                 'non è mai stato suo. '
+                 '— APPENA TOBIA È LIBERO, leggete ad alta voce: «Tobia non guarda la scala da '
+                 'cui siete scesi. — Sotto la forma da colata. La svuotano dal fondo e il '
+                 'canale scende dritto ai chiusini. Ci sono passato quando mi hanno portato '
+                 'giù: contavo i gradini al buio.» Il gruppo sa che si esce da questa sala, ma '
+                 'aprire il passaggio è Interagire adiacenti alla forma + prova VIGORE (Media): '
+                 'la lastra pesa. '
+                 '— SEGRETO: è sotto la FORMA DA COLATA, l’unico mobile della sala. '
+                 '— QUANDO TOBIA ENTRA NEL CANALE la spedizione è VINTA: leggete l’epilogo. '
+                 'Le campanelle prese fino a quel momento contano.',
          cerca_vuoto='Qui non si trova: si ascolta. E quello che si sente — un canto di bambino '
                      'fermo sull’acqua — non si può mettere in tasca.',
          arredi=[(2, 2, 'forma')]),
@@ -518,7 +527,8 @@ def spedizione():
                   '<b>Adepti</b> (calano e risalgono), le <b>Voci Cave</b> (quando abbattute '
                   'URLANO: prova NERVI Facile per gli adiacenti, o 1 azione in meno) e '
                   '<b>l’Accordatore</b> (il boss: si desta in T6, o al 3° segnalino Canto). '
-                  'Vittoria: liberate Tobia (Interagire in T6) e riportatelo in T1, alla scala. '
+                  'Vittoria: liberate Tobia (Interagire in T6) e portatelo fuori — alla scala '
+                  '(T1) oppure per la via che lui stesso vi indica, una volta libero. '
                   'Le canne-voce in T5 sono l’obiettivo secondario: ognuna recuperata è una voce '
                   'del Borgo, e pesa nell’epilogo e nel Bivio. Ai tavoli da 2-3 eroi '
                   'l’Accordatore <b>non recupera mai ferite</b> dalle carte Crescendo (regola '
