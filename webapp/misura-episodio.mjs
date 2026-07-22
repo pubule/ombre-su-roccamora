@@ -258,21 +258,40 @@ async function turnoEroe(nm, mt) {
   await clicDom('#az-fine');
 }
 
+// TUTTI i PNG liberati, non solo il primo. L'Ep.4 ne ha due (Gaspare e Rocco) e
+// la vittoria richiede che escano ENTRAMBI: muovendo solo `scortati[0]`, Rocco
+// restava piantato nella fossa e l'episodio risultava allo 0% su 12 partite —
+// con l'uscita segreta regolarmente aperta in 11 di quelle. Era il pilota.
 async function turnoScortato() {
-  const s0 = await sp(); const g = (s0.scortati || [])[0];
-  if (!g?.liberato || !g.pos) return null;
-  if (!(await cnt('[data-scortato-chip]'))) { roundNonMisurati++; return null; }
-  await clicDom('[data-scortato-chip]');
-  await pg.waitForTimeout(200);
-  if ((await sp()).scortAttivo !== 0) { roundNonMisurati++; return null; }
-  const c = await celle();
-  const u = s0.uscita;
-  const punteggio = (u && u.aperta)
-    ? (cc) => (cc.t === u.tile ? Math.abs(cc.x - u.cella[0]) + Math.abs(cc.y - u.cella[1]) : 100 + dist(cc.t, u.tile) * 100)
-    : (cc) => scoreArredi(cc, s0.uscitaTentati || []);
-  const esito = c.length ? await muoviCon(punteggio, g.pos, async () => (await sp()).scortati?.[0]?.pos) : 'bloccato';
-  if (esito !== 'mosso') await clicDom('#rug-fine');
-  return { esito };
+  const s0 = await sp();
+  const liberi = (s0.scortati || []).map((g, i) => ({ g, i })).filter(({ g }) => g.liberato && g.pos);
+  if (!liberi.length) return null;
+  let ultimo = null;
+  for (const { i } of liberi) {
+    const st = await sp(); const g = st.scortati[i];
+    if (!g || !g.pos || g.mosso) continue;
+    if (!(await cnt(`[data-scortato-chip="${i}"]`))) { roundNonMisurati++; continue; }
+    await clicDom(`[data-scortato-chip="${i}"]`);
+    await pg.waitForTimeout(200);
+    if ((await sp()).scortAttivo !== i) { roundNonMisurati++; continue; }
+    const c = await celle();
+    const u = st.uscita;
+    const punteggio = (u && u.aperta)
+      ? (cc) => (cc.t === u.tile ? Math.abs(cc.x - u.cella[0]) + Math.abs(cc.y - u.cella[1]) : 100 + dist(cc.t, u.tile) * 100)
+      : (cc) => scoreArredi(cc, st.uscitaTentati || []);
+    // chi imbocca il condotto ESCE dal board (`pos = null`, digitale.js): per il
+    // pilota era «pedina ferma», cioe' un'azione riuscita contata come fallita —
+    // ed erano quelle a far dichiarare NON VALIDE le corse dell'Ep.4.
+    const leggi = async () => {
+      const x = (await sp()).scortati?.[i];
+      return x?.uscito ? { t: '~uscito', x: -1, y: -1 } : x?.pos;
+    };
+    const esito = c.length ? await muoviCon(punteggio, g.pos, leggi) : 'bloccato';
+    if (esito !== 'mosso') await clicDom('#rug-fine');
+    ultimo = { esito };
+    if ((await sp()).esito) break;
+  }
+  return ultimo;
 }
 
 const righe = [];
