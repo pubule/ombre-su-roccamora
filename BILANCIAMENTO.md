@@ -139,9 +139,25 @@ tessera a round finché la marcia non è stata corretta a 2 round per tessera.
 `FUGA_MAX = 10` con +1 a round garantisce la sconfitta entro il 10° round; la
 spedizione ne dura 11-12. È aritmetica, non difficoltà.
 
-Alzare le tracce non basta e non si può: sono **componenti stampati**, e la più
-lunga arriva a 14 caselle — non al doppio. La strada che il gioco già usa
-altrove è far battere l'orologio **a round alterni**: è lo stesso trucco della
-pesca Minaccia, dove la carta in più si pesca solo nei round pari
-(`finale_v3`). Raddoppia la durata senza chiedere una casella in più al
-cartone.
+**Provato: far battere l'orologio a round alterni non serve** — misurato su
+entrambi, zero guadagno, e la modifica è stata rimossa invece di lasciare nel
+gioco una regola cambiata senza prove. Il ritmo di fondo non è il termine che
+decide. Quello che decide, in tutti e due, è una regola che il simulatore non
+sa rappresentare:
+
+- **Ep.12**, dalla Soluzione: «alla fine di ogni round in cui **NESSUN eroe è
+  adiacente al Corriere**, +1». Il freno è stargli addosso — e nel modello il
+  Corriere non sta nemmeno sulla plancia: la FUGA sale sempre.
+- **Ep.10**, dalla Soluzione: all'intercapedine «ogni turno del Muratore in cui
+  **NESSUN eroe gli è adiacente** vale +2; **inchiodato, attacca voi e non
+  demolisce**». È da lì che arrivano i salti a +2 che riempiono la traccia,
+  non dal ritmo di fondo. Tracciata una partita: DEMOLIZIONE 13/12 contro PROVA
+  12/14 — persa per **due caselle**.
+
+In entrambi gli episodi la vittoria dipende dal **tenere il nemico inchiodato**,
+cioè da una scelta di posizione che il modello a corsa non ha. Sono nella stessa
+condizione degli episodi di scorta: numeri da non usare per tarare.
+
+Il che sposta la domanda: se anche Ep.10 e Ep.12 vanno misurati sulla plancia,
+gli episodi che il simulatore sa misurare davvero sono quelli senza inseguimento
+e senza scorta.
