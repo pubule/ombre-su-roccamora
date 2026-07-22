@@ -121,6 +121,12 @@ TOKEN_POOL_BASE = {'ADEPTO INCAPPUCCIATO': 10, 'CANE DEI MOLI': 3, 'IL FONDITORE
 # sulla tessera, non sul ritmo del gruppo (vedi GUADAGNO_GRUPPO sotto).
 CASELLE_TESSERA = 6
 
+# Arredi della stanza dove si apre l'uscita segreta (Ep.1: IL SANTUARIO, T6 —
+# due altari; la CELLA non conta, e' la prigione). Il gruppo sa la stanza, non
+# il mobile: sotto quello sbagliato l'azione e' spesa lo stesso.
+ARREDI_USCITA = 2
+
+
 # Regola vera (aggiornata): 2 azioni a round, sempre di tipo diverso (niente
 # doppio Movimento) - "Muovere" e' una sola azione da 3 caselle (Nino 4).
 # Un'abilita' che concede un'azione extra (es. Colpo da macello) non conta
@@ -1881,23 +1887,43 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
             else:
                 log('    Scasso fallito: si ritenta il prossimo round (non modellato oltre il log).')
                 ruggero_libero = True  # non blocchiamo la simulazione su un loop di retry
-        rientro_round = round_marcia_percorso(['T5', 'T2', 'T1'], 'T6', porta_attuale_pos)
-        log(f'--- Ritorno a T1 con Ruggero ({rientro_round} round di movimento, minacce ancora '
-            f'attive) ---')
-        for _ in range(rientro_round):
+        # USCITA SEGRETA (regola del 20260722, dato in webapp/export-data.py
+        # ep1.scortato[0].uscita): il rientro a piedi T6->T5->T2->T1 non e' piu'
+        # l'unica via. Libero, Ruggero scosta l'altare di sinistra e sotto c'e'
+        # il chiusino di piombo. Il gruppo sa la STANZA, non il mobile: sotto
+        # l'altare sbagliato non c'e' niente e l'azione e' spesa lo stesso;
+        # sollevare la lastra e' VIGORE (Media). La cella non conta come
+        # nascondiglio (e' la prigione), quindi i candidati sono due.
+        log('--- Uscita segreta: Ruggero indica il chiusino sotto un altare ---')
+        da_provare = list(range(ARREDI_USCITA))
+        giusto = random.randrange(ARREDI_USCITA)
+        aperta = False
+        while not aperta and esito is None:
             round_n += 1
             attivati_extra.clear()
-            log(f'--- Round {round_n}: rientro verso T1 ---')
+            log(f'--- Round {round_n}: si cerca il chiusino ---')
             log_azioni_round()
+            scelto = da_provare.pop(random.randrange(len(da_provare))) if da_provare else giusto
+            if scelto == giusto:
+                chi = max(vivi(), key=lambda n: HERO[n]['vigore'])
+                aperta, _ = check(log, chi, 'VIGORE', HERO[chi]['vigore'], 'Media')
+                if not aperta:
+                    da_provare.append(giusto)
+                    log('    L’altare non si scosta: ci vuole un altro tentativo.')
+            else:
+                log('    Sotto l’altare sbagliato non c’è nulla: solo pietra. L’azione è spesa.')
             fase_eroi('rientro')
             fase_minaccia()
             fase_nemici('rientro', True)
             tick_canto()
             max_down_simultanei = max(max_down_simultanei, len(down))
             if not vivi():
-                esito = 'SCONFITTA (party wipe durante il rientro)'
-                break
+                esito = 'SCONFITTA (party wipe mentre si cerca l’uscita)'
+            elif round_n > 60:
+                esito = 'TIMEOUT (60 round)'
         if esito is None:
+            round_n += 1
+            log(f'--- Round {round_n}: Ruggero scende nell’acqua nera — VITTORIA ---')
             esito = 'VITTORIA'
 
     azioni_media = sum(azioni_per_round) / len(azioni_per_round) if azioni_per_round else 0

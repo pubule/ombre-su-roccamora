@@ -81,6 +81,27 @@ anche piatti (ep14 sofferte 48%, ep15 26%, ep19 14%, picchi 0.2-0.6): non è che
 si vincano troppo spesso, è che **non succede niente**. E l'Ep.9, con 48% di
 vittorie, ha un picco di 0.3 su sette round: si perde senza nemmeno cadere.
 
+## Il difetto che invalida la colonna «troppo duro» (22/07/2026)
+
+Cinque simulatori — **Ep.1, 2, 3, 5, 6** — contengono un ciclo
+`while boss['fer'] > 0 and vivi()`: **inchiodano il gruppo al boss finché uno
+dei due non muore**. Sono esattamente i cinque episodi «troppo duri» con
+l'orologio del Canto.
+
+Ma i fascicoli dicono il contrario. L'Ep.2: «QUANDO ILARIO ENTRA NEL CONDOTTO
+la spedizione è VINTA». L'Ep.3: «potete fuggire con Tobia senza affrontarlo».
+Il boss, in quegli episodi, **si può evitare** — e il simulatore non lo sa.
+
+Cosa succede davvero, tracciato su una partita dell'Ep.2 (party wipe al round
+30): 22 round di scontro, **51 carte Minaccia pescate, 24 nemici piazzati
+contro 19 abbattuti**. Il gruppo uccide quasi alla stessa velocità con cui la
+stanza si riempie, e intanto incassa. Non è un boss difficile: è un tapis
+roulant da cui il simulatore non lascia scendere.
+
+**Nessuna taratura di quei cinque episodi vale niente finché questo non è
+risolto**: si renderebbe il gioco più facile per compensare uno strumento che
+lo gioca male.
+
 ## Lavoro preliminare ancora aperto
 
 - **I simulatori di Ep.1 ed Ep.2 sono ciechi sulla loro uscita segreta**

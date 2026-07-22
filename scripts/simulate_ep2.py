@@ -159,6 +159,12 @@ TOKEN_POOL_BASE = {'ADEPTO INCAPPUCCIATO': 4, 'IL CROGIOLANTE': 4,
 # sulla tessera, non sul ritmo del gruppo (vedi GUADAGNO_GRUPPO sotto).
 CASELLE_TESSERA = 6
 
+# Arredi della SALA DEI FORNI (Ep.2, T6: crogiolo + due forme), dove Ilario
+# indica il condotto della scoria — non dove l'hanno tenuto: e' il pesatore, la
+# fonderia la conosce tutta. Sotto l'arredo sbagliato l'azione e' spesa lo stesso.
+ARREDI_USCITA = 3
+
+
 # Regola vera (aggiornata): 2 azioni a round, sempre di tipo diverso (niente
 # doppio Movimento) - "Muovere" e' una sola azione da 3 caselle (Nino 4).
 # Un'abilita' che concede un'azione extra (es. Colpo da macello) non conta
@@ -1933,11 +1939,18 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
         if not ruggero_libero:
             log('    Il gruppo non ha mai raggiunto Ilario: si torna indietro a mani vuote.')
             esito = 'SCONFITTA (Ilario non liberato)'
-        log('--- Ritorno a T1 con Ilario (3 round di movimento, minacce ancora attive) ---')
-        for _ in range(round_marcia_percorso(percorso_verso(tile_attuale, 'T1'), tile_attuale, porta_attuale_pos)):
+        # USCITA SEGRETA (regola del 20260722, dato in webapp/export-data.py
+        # ep2.scortato[0].uscita): il rientro a piedi fino a T1 non e' piu'
+        # l'unica via. Il condotto della scoria sta nella SALA DEI FORNI (T6) —
+        # non dove l'hanno tenuto: Ilario e' il pesatore, la fonderia la conosce
+        # tutta. Va raggiunta (di solito ci si e' gia' per il boss), poi si
+        # frugano gli arredi: quello sbagliato spende l'azione lo stesso, e
+        # sollevare la lastra e' VIGORE (Media).
+        log('--- Uscita segreta: Ilario indica il condotto nella sala dei forni (T6) ---')
+        for _ in range(round_marcia_percorso(percorso_verso(tile_attuale, 'T6'), tile_attuale, porta_attuale_pos)):
             round_n += 1
             attivati_extra.clear()
-            log(f'--- Round {round_n}: rientro verso T1 ---')
+            log(f'--- Round {round_n}: verso la sala dei forni ---')
             log_azioni_round()
             fase_eroi('rientro')
             fase_minaccia()
@@ -1945,9 +1958,37 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
             tick_canto()
             max_down_simultanei = max(max_down_simultanei, len(down))
             if not vivi():
-                esito = 'SCONFITTA (party wipe durante il rientro)'
+                esito = 'SCONFITTA (party wipe raggiungendo l’uscita)'
                 break
+        da_provare = list(range(ARREDI_USCITA))
+        giusto = random.randrange(ARREDI_USCITA)
+        aperta = False
+        while not aperta and esito is None:
+            round_n += 1
+            attivati_extra.clear()
+            log(f'--- Round {round_n}: si cerca il condotto ---')
+            log_azioni_round()
+            scelto = da_provare.pop(random.randrange(len(da_provare))) if da_provare else giusto
+            if scelto == giusto:
+                chi = max(vivi(), key=lambda n: HERO[n]['vigore'])
+                aperta, _ = check(log, chi, 'VIGORE', HERO[chi]['vigore'], 'Media')
+                if not aperta:
+                    da_provare.append(giusto)
+                    log('    Il crogiolo non si scosta: ci vuole un altro tentativo.')
+            else:
+                log('    Sotto l’arredo sbagliato non c’è nulla: l’azione è spesa lo stesso.')
+            fase_eroi('rientro')
+            fase_minaccia()
+            fase_nemici('rientro', True)
+            tick_canto()
+            max_down_simultanei = max(max_down_simultanei, len(down))
+            if not vivi():
+                esito = 'SCONFITTA (party wipe mentre si cerca l’uscita)'
+            elif round_n > 60:
+                esito = 'TIMEOUT (60 round)'
         if esito is None:
+            round_n += 1
+            log(f'--- Round {round_n}: Ilario scende nel canale — VITTORIA ---')
             esito = 'VITTORIA'
 
     azioni_media = sum(azioni_per_round) / len(azioni_per_round) if azioni_per_round else 0
