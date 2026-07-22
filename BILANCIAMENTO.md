@@ -204,23 +204,34 @@ lo gioca male.
 
 ## Due strumenti, e quando credere a quale (22/07/2026)
 
-Corretti i due difetti sopra, l'Ep.1 misura **99%** di vittorie in **10.4
-round**. Il pilota Playwright, che gioca la plancia vera, misura lo stesso
-episodio al **22%** in **17-25 round**.
+Corretti i difetti del boss, l'Ep.1 misura **99%** di vittorie in **10.4 round**
+nel simulatore. Il pilota Playwright, che gioca la plancia vera, misura lo
+stesso episodio al **22%** in **17-25 round**.
 
 Settantasette punti di scarto non sono rumore: è il limite del simulatore.
-Regala una tessera a round e ignora blocchi, porte e ingombri — e negli
-episodi di **scorta con uscita segreta** tutta la difficoltà è proprio lì:
-portare fuori un PNG lento (Mov 3, non agisce) attraverso una stanza piena.
-Tolto il rientro a piedi, al simulatore non resta niente da simulare.
+Regala una tessera a round e ignora blocchi, porte e ingombri. Dove la
+difficoltà è spaziale — portare fuori un PNG lento, tenere inchiodato un
+Muratore, restare addosso a un Corriere — quel modello non vede la cosa che
+decide la partita.
 
-| episodi | strumento da usare |
-|---------|--------------------|
-| Ep.1-4 (scorta + uscita segreta) | **Playwright** (`webapp/misura-episodio.mjs`) — lento (~1-2 min a partita) ma vede lo spazio; richiede le tessere disegnate, che oggi esistono solo per Ep.1 e Ep.2 |
-| tutti gli altri | il simulatore, che per loro va bene |
+**RETTIFICA (22/07/2026).** Avevo scritto che gli episodi senza tessere
+disegnate non erano misurabili con Playwright. **È falso, e non l'avevo mai
+verificato.** Le tessere sono `<div>` con larghezza e altezza esplicite e
+l'arte come `background-image` (`digitale.js:370`): se il PNG manca, il
+riquadro resta, le celle restano, e il pilota gioca lo stesso. Provato
+sull'Ep.3, che non ha arte: partita completa, Tobia liberato, uscita segreta
+aperta, vittoria al 9° round.
 
-Le percentuali di Ep.1, 2, 3 e 4 in questa tabella **non vanno usate per
-tarare**: descrivono una spedizione senza geometria.
+Quindi **tutti gli episodi sono misurabili sulla plancia vera**. Il vincolo
+non è l'arte, è il tempo: Playwright costa 1-2 minuti a partita contro le
+centinaia al secondo del simulatore. Campioni da 12-20 partite, non da 600 —
+con un rumore attorno ai ±15 punti, che basta per una diagnosi grossolana e
+non per distinguere il 74% dal 78%.
+
+| episodi | strumento |
+|---------|-----------|
+| Ep.1-4 (scorta e uscita segreta), Ep.10, Ep.12 (la vittoria dipende dal tenere inchiodato un nemico) | **Playwright**: la loro difficoltà è nello spazio, e il simulatore lo appiattisce |
+| tutti gli altri | il simulatore, molto più veloce e per loro fedele |
 
 ## Gli orologi che non si possono battere (Ep.10, 12, 20)
 
