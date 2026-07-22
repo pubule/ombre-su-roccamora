@@ -102,6 +102,26 @@ roulant da cui il simulatore non lascia scendere.
 risolto**: si renderebbe il gioco più facile per compensare uno strumento che
 lo gioca male.
 
+## Due strumenti, e quando credere a quale (22/07/2026)
+
+Corretti i due difetti sopra, l'Ep.1 misura **99%** di vittorie in **10.4
+round**. Il pilota Playwright, che gioca la plancia vera, misura lo stesso
+episodio al **22%** in **17-25 round**.
+
+Settantasette punti di scarto non sono rumore: è il limite del simulatore.
+Regala una tessera a round e ignora blocchi, porte e ingombri — e negli
+episodi di **scorta con uscita segreta** tutta la difficoltà è proprio lì:
+portare fuori un PNG lento (Mov 3, non agisce) attraverso una stanza piena.
+Tolto il rientro a piedi, al simulatore non resta niente da simulare.
+
+| episodi | strumento da usare |
+|---------|--------------------|
+| Ep.1-4 (scorta + uscita segreta) | **Playwright** (`webapp/misura-episodio.mjs`) — lento (~1-2 min a partita) ma vede lo spazio; richiede le tessere disegnate, che oggi esistono solo per Ep.1 e Ep.2 |
+| tutti gli altri | il simulatore, che per loro va bene |
+
+Le percentuali di Ep.1, 2, 3 e 4 in questa tabella **non vanno usate per
+tarare**: descrivono una spedizione senza geometria.
+
 ## Lavoro preliminare ancora aperto
 
 - **I simulatori di Ep.1 ed Ep.2 sono ciechi sulla loro uscita segreta**
