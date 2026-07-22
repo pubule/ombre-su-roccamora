@@ -180,7 +180,13 @@ function fascia(taglia) {
 const feriteMaxNem = (st) => st.ferite_per_fascia[fascia(P().party.length)];
 function saluteMax(e) {
   const bonus = ctx.comune.regole.salute_bonus_per_taglia[String(P().party.length)] || 0;
-  return e.salute + bonus;
+  // IL VANTAGGIO D'INDAGINE (stessa formula del tavolo, spedizione.js:62): chi
+  // e' arrivato in anticipo o preparato ha +1 Salute massima. Mancava, e la
+  // modalita' digitale giocava con un punto in meno a testa rispetto alle
+  // regole stampate — piu' dura del gioco vero, per tutti, sempre.
+  const tier = (P().vantaggi || {}).tier;
+  const bonusTier = (tier === 'slancio' || tier === 'preparati') ? 1 : 0;
+  return e.salute + bonus + bonusTier;
 }
 // ------------------------------------------------------------ PNG scortati
 // Dato per episodio (webapp/data/epN.json → `scortato`): pedina, prigione,
@@ -487,7 +493,11 @@ const azioniOf = (nm) => (SP().azioni[nm] || []);
 const azioneSpesa = (nm, tipo) => azioniOf(nm).includes(tipo);
 // un eroe stordito (insidia/fumi) ha 1 sola azione nel round indicato
 const stordito = (nm) => (SP().storditi && SP().storditi[nm] === SP().round);
-const azioniMax = (nm) => (stordito(nm) ? 1 : 2);
+// SLANCIO: nel primo round ogni eroe ha 3 azioni invece di 2 (sempre di tipo
+// diverso). Il tavolo lo annuncia da sempre (spedizione.js:236); il digitale
+// non lo applicava, quindi il vantaggio piu' alto dell'Indagine valeva zero.
+const azioniMax = (nm) => (stordito(nm) ? 1
+  : (SP().round === 1 && (P().vantaggi || {}).tier === 'slancio') ? 3 : 2);
 const azioniRestano = (nm) => azioniOf(nm).length < azioniMax(nm);
 
 function azioniHtml() {

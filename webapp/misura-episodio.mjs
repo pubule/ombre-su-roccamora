@@ -26,6 +26,9 @@ const EPID = (process.argv[2] || 'ep1').replace(/[^a-z0-9]/gi, '');
 const N = Number(process.argv[3]) || 10;
 const EP = JSON.parse(fs.readFileSync(`webapp/data/${EPID}.json`, 'utf8'));
 const CHIAVE_SALVATAGGIO = `osr.partita.${EPID}`;
+// esito d'Indagine da simulare: 'slancio' (ottimo), 'preparati' (medio),
+// 'nessuno' (indagine fallita). Cambia la Salute massima e il 1o round.
+const TIER = process.env.INDAGINE || 'preparati';
 // la tessera dove cercare l'oggetto che apre la cella, se l'episodio ne ha uno
 const TILE_CHIAVE = (SC0 => (SC0 && SC0.chiave ? 'T4' : null))((EP.scortato || [])[0]);
 
@@ -276,16 +279,21 @@ const righe = [];
 for (let g = 0; g < N; g++) {
   const party = comune.eroi.map((e) => e.nome).sort(() => Math.random() - 0.5).slice(0, 4);
   await pg.goto(BASE, { waitUntil: 'domcontentloaded' });
-  await pg.evaluate(({ p, k, id }) => {
+  await pg.evaluate(({ p, k, id, TIER }) => {
     localStorage.clear();
     localStorage.setItem(k, JSON.stringify({
       v: 1, episodio: id, modo: 'digitale', party: p, creata: Date.now(), fase: 'spedizione',
       indagine: { ora: 24, lettaLettera: true, visitati: [], scoperti: [], sbloccati: [], parole: [],
         oggetti: [], reperti: [], approfondimentiLetti: [], caricheUsate: {}, secondoFiato: {},
         note: '', risposte: ['', '', '', ''], chiusa: true },
+      // IL VANTAGGIO D'INDAGINE. Senza, il pilota misura sempre il gruppo che
+      // dall'Indagine non porta NIENTE: niente +1 Salute, niente slancio,
+      // niente oggetti — cioe' il pavimento, non l'episodio. Si sceglie con
+      // INDAGINE=slancio|preparati|nessuno (default: preparati, l'esito medio).
+      vantaggi: { tier: TIER, dossier: TIER === 'slancio', risposte: [false, false, false, false] },
       spedizione: { round: 0, canto: 0, cantoBonus: false, mazzo: null, esito: null },
     }));
-  }, { p: party, k: CHIAVE_SALVATAGGIO, id: EPID });
+  }, { p: party, k: CHIAVE_SALVATAGGIO, id: EPID, TIER });
   await pg.goto(BASE, { waitUntil: 'domcontentloaded' }); await pg.waitForTimeout(200);
   await pg.getByText(EP.titolo).first().click(); await pg.waitForTimeout(200);
   await clicDom('#continua'); await pg.waitForTimeout(200);
