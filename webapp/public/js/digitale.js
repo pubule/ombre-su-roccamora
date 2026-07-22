@@ -1527,6 +1527,16 @@ function faseNemiciAI() {
   // fine round: tick canto, boss a soglia (annunci mostrati dopo l'animazione)
   piano.annunci.push(...fineRound(ctx.comune, ctx.ep, sp));
   if (specOrologio() && specOrologio().ogni) piano.annunci.push(...avanzaOrologio(specOrologio().ogni, 'fine round'));
+  // Cinque episodi non hanno una traccia propria: la loro soglia E' IL CANTO —
+  // «prima che il Canto raggiunga la soglia-FUGA» (Ep.14), soglia-sigillo,
+  // soglia-decano, soglia-arresto, risveglio. Sono i numeri che le Soluzioni
+  // dichiarano episodio per episodio, e qui diventano reali anche in digitale.
+  const oc = specOrologio();
+  if (oc && oc.su_canto && !sp.esito && sp.canto >= oc.su_canto) {
+    sp.esito = oc.esito === 'parziale' ? 'parziale' : 'sconfitta';
+    sp.log.push(oc.testo || `${oc.nome}: troppo tardi.`);
+    piano.annunci.push(oc.testo || `${oc.nome}: troppo tardi.`);
+  }
   piano.annunci.push(...destaBossSeSoglia());
   sp.fase = 'eroi'; sp.eroiFatti = []; sp.eroiAttivo = null; sp.azioni = {};
   statoScortati().forEach((g) => { g.mosso = false; });   // possono muoversi nel nuovo turno eroi

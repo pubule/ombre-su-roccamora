@@ -60,8 +60,18 @@ const cellaObj = (mt) => {
   const a = (t?.arredi || []).find((v) => String(v[2]).toUpperCase() === SC.cella.toUpperCase());
   return a ? [a[0], a[1]] : null;
 };
+// cella da raggiungere dentro la tessera-meta: l'arredo del compito aperto, se
+// il dato lo nomina — altrimenti l'eroe girava per la stanza senza mai essere
+// adiacente alla cosa da fare
+function cellaCompito(mt) {
+  const c = COMPITI.find((x) => x.tile === mt && x.cella);
+  if (!c) return null;
+  const t = EP.tessere.find((x) => x.id === mt);
+  const a = (t?.arredi || []).find((v) => String(v[2]).toUpperCase() === String(c.cella).toUpperCase());
+  return a ? [a[0], a[1]] : null;
+}
 function score(c, mt) {
-  const d = dist(c.t, mt) * 100; const o = cellaObj(mt);
+  const d = dist(c.t, mt) * 100; const o = cellaObj(mt) || cellaCompito(mt);
   if (c.t === mt) return d + (o ? Math.abs(o[0] - c.x) + Math.abs(o[1] - c.y) : 0);
   const dir = dirVerso(c.t, mt);
   return d + (dir ? verso(dir, c.x, c.y) : 0);
@@ -106,8 +116,17 @@ const vicino = (a, b, d = 1) => !!a && !!b && a.t === b.t && Math.abs(a.x - b.x)
 
 // Chi colpire fra gli adiacenti. Finire un nemico a una ferita dalla morte
 // toglie un attaccante dal round dopo: è la scelta che un tavolo fa sempre.
+// nomi dei nemici che un compito chiede di PRENDERE, non di abbattere: il
+// Corriere, il Primo Gatto, il Caposquadra, il Notaio, Vidal. Ucciderli e' il
+// modo piu' rapido di perdere l'episodio, e il pilota lo faceva.
+const daCatturare = (s) => new Set(COMPITI
+  .filter((c) => c.nemico && ((s.compiti || {})[c.id] || 0) < c.quante)
+  .map((c) => c.nemico));
+
 function bersaglio(s, pos) {
-  const adj = s.nemici.map((n, i) => ({ n, i })).filter(({ n }) => vicino(n.pos, pos));
+  const salva = daCatturare(s);
+  const adj = s.nemici.map((n, i) => ({ n, i }))
+    .filter(({ n }) => vicino(n.pos, pos) && !salva.has(n.nome));
   if (!adj.length) return -1;
   const peso = ({ n }) => { const st = statNem(n.nome); return (n.ferite >= n.max - 1 ? -100 : 0) + (st.boss ? -10 : 0) - (st.dan || 0); };
   return adj.slice().sort((a, z) => peso(a) - peso(z))[0].i;
@@ -301,7 +320,17 @@ async function turnoEroe(nm, mt) {
       // con la regola (e 2 corse in stallo) contro 3/12 senza. Un eroe che
       // rifiuta ogni casella a contatto in una stanza affollata non arretra:
       // si pianta, e il gruppo non arriva mai in fondo alla spina.
-      const punt = versoArredi ? (c) => scoreArredi(c, s.uscitaTentati || []) : (c) => score(c, mt);
+      // compito su una miniatura: bisogna finirgli ACCANTO, non nella stanza.
+      // Senza questo l'eroe entrava in T6, girava, e non agganciava mai nessuno.
+      const preda = (() => {
+        const c = COMPITI.find((x) => x.nemico && ((s.compiti || {})[x.id] || 0) < x.quante);
+        return c ? (s.nemici || []).find((n) => n.pos && n.nome === c.nemico) : null;
+      })();
+      const punt = preda
+        ? (c) => (c.t === preda.pos.t
+            ? Math.abs(c.x - preda.pos.x) + Math.abs(c.y - preda.pos.y)
+            : 100 + dist(c.t, preda.pos.t) * 100)
+        : versoArredi ? (c) => scoreArredi(c, s.uscitaTentati || []) : (c) => score(c, mt);
       const r = await muoviCon(punt, pos, async () => (await sp()).eroiPos[nm]);
       if (r !== 'mosso') {
         tentate.add('muovere');
