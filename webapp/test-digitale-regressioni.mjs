@@ -80,7 +80,16 @@ console.log('\n(D) i nemici non si fermano sulla casella del PNG scortato');
     if (!fatto) break;
   }
   if (await c1('#salta-nemici')) await page.locator('#salta-nemici').click({ force: true });
-  await page.waitForTimeout(1800);
+  // La fase nemici ANIMA (`await pausa(650)` per nemico): 1800 ms bastavano
+  // quasi sempre, e «quasi» faceva fallire una corsa su tre — sempre questo
+  // caso e il successivo, sempre con «la fase nemici non e' stata giocata».
+  // Un test intermittente non garantisce nulla: qui si aspetta il FATTO (il
+  // round e' avanzato, o la partita e' finita), non un tempo.
+  for (let t = 0; t < 60; t++) {
+    const s = await stato();
+    if (s.esito || s.round > pre.round) break;
+    await page.waitForTimeout(150);
+  }
   const post = await stato();
   const dove = (post.nemici || []).map((n) => n.nome.split(' ')[0] + '@' + (n.pos ? n.pos.x + ',' + n.pos.y : '-'));
   // senza queste due, il caso passerebbe anche se la fase nemici non fosse mai
