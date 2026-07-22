@@ -45,41 +45,46 @@ Suggeritore**. Il KPI diceva «risolto», il gioco era peggiorato.
 
 ## Il tabellone
 
-Misura di base del **22/07/2026**, 4 eroi, 600 partite per episodio
-(`seed_base=970000`). **Un episodio chiuso su venti.**
+Rimisura del **22/07/2026, dopo le correzioni allo strumento**, 4 eroi, 600
+partite per episodio (`seed_base=970000`).
 
-| ep | vittoria | sofferte | picco | round | canto | stato | cosa manca |
-|----|---------:|---------:|------:|------:|------:|-------|------------|
-| ep1 | 64% | 60% | 1.9 | 17.9 | 9.0 | aperto | troppo duro; sofferte al limite |
-| ep2 | 39% | 93% | 2.7 | 34.5 | 19.8 | aperto | troppo duro — **34 round**, il più lungo |
-| ep3 | 43% | 32% | 1.1 | 17.5 | 7.8 | aperto | troppo duro e poca ansia |
-| ep4 | 87% | 35% | 1.0 | 14.0 | 8.0 | aperto | troppo facile e piatto |
-| ep5 | 36% | 75% | 2.1 | 21.7 | 10.0 | aperto | troppo duro |
-| ep6 | 55% | 64% | 0.8 | 18.8 | 9.4 | aperto | troppo duro, picco sotto |
-| **ep7** | **73%** | **89%** | **2.4** | 17.0 | 9.4 | **CHIUSO** | il riferimento sano |
-| ep8 | 86% | 84% | 1.7 | 11.9 | 4.5 | aperto | troppo facile (ansia buona) |
-| ep9 | 48% | 31% | 0.3 | 7.2 | 4.2 | aperto | duro **e** senza ansia: 7 round |
-| ep10 | 0% | 10% | 3.6 | 12.2 | 6.5 | aperto | impossibile; orologio da rifare |
-| ep11 | 16% | 95% | 3.9 | 11.2 | 6.9 | aperto | troppo duro (ansia altissima) |
-| ep12 | 0% | 0% | 0.1 | 7.1 | 6.4 | aperto | impossibile; orologio da rifare |
-| ep13 | 58% | 87% | 2.5 | 12.2 | 8.5 | aperto | troppo duro, poco |
-| ep14 | 100% | 48% | 0.6 | 11.0 | 6.8 | aperto | passeggiata |
-| ep15 | 100% | 26% | 0.3 | 11.0 | 8.2 | aperto | passeggiata |
-| **ep16** | 100% | 5% | 0.1 | 10.0 | 6.2 | **ESENTE** | «il respiro»: facile per scelta |
-| ep17 | 83% | 75% | 1.6 | 12.1 | 8.2 | aperto | poco troppo facile |
-| ep18 | 63% | 78% | 1.0 | 12.5 | 8.1 | aperto | troppo duro, poco |
-| ep19 | 100% | 14% | 0.2 | 9.6 | 4.5 | aperto | passeggiata |
-| ep20 | 8% | 45% | 0.2 | 11.3 | 8.8 | aperto | il finale è impossibile |
+| ep | vittoria | sofferte | picco | round | canto | stato | nota |
+|----|---------:|---------:|------:|------:|------:|-------|------|
+| ep1 | 99% | 10% | 0.2 | 10.4 | 4.0 | aperto | scorta: **il simulatore non vale** (Playwright: 22%) |
+| ep2 | 69% | 60% | 1.6 | 23.9 | 12.8 | aperto | scorta: il simulatore non vale — era 39% |
+| ep3 | 99% | 6% | 0.1 | 13.0 | 5.1 | aperto | scorta: **il simulatore non vale** |
+| ep4 | 87% | 35% | 1.0 | 14.0 | 8.0 | aperto | scorta: **il simulatore non vale** |
+| ep5 | 83% | 82% | 1.7 | 20.2 | 9.6 | aperto | era 36%: il flag di vittoria non scattava col boss anticipato |
+| ep6 | 62% | 66% | 0.9 | 19.1 | 9.7 | aperto |  |
+| ep7 | 73% | 89% | 2.4 | 17.0 | 9.4 | **CHIUSO** | il riferimento sano |
+| ep8 | 86% | 84% | 1.7 | 11.9 | 4.5 | aperto | ansia buona, solo un po’ facile |
+| ep9 | 48% | 31% | 0.3 | 7.2 | 4.2 | aperto | sette round: si perde senza che cada nessuno |
+| ep10 | 0% | 10% | 3.6 | 12.2 | 6.5 | aperto | orologio Demolizione: sale e non scende mai |
+| ep11 | 16% | 95% | 3.9 | 11.2 | 6.9 | aperto | ansia altissima (95%), vittoria troppo bassa |
+| ep12 | 0% | 0% | 0.1 | 7.1 | 6.4 | aperto | orologio FUGA: **12 sconfitte su 12 per scadenza** |
+| ep13 | 58% | 87% | 2.5 | 12.2 | 8.5 | aperto |  |
+| ep14 | 100% | 48% | 0.6 | 11.0 | 6.8 | aperto | passeggiata piatta |
+| ep15 | 100% | 26% | 0.3 | 11.0 | 8.2 | aperto | passeggiata piatta |
+| ep16 | 100% | 5% | 0.1 | 10.0 | 6.2 | **esente** | «il respiro»: facile per scelta |
+| ep17 | 83% | 75% | 1.6 | 12.1 | 8.2 | aperto |  |
+| ep18 | 63% | 78% | 1.0 | 12.5 | 8.1 | aperto |  |
+| ep19 | 100% | 14% | 0.2 | 9.6 | 4.5 | aperto | passeggiata piatta |
+| ep20 | 8% | 45% | 0.2 | 11.3 | 8.8 | aperto | il finale è quasi impossibile |
 
-**Come si distribuiscono i guai:** sette episodi troppo duri (ep2, 3, 5, 6, 9,
-13, 18), quattro impossibili (ep10, 12, 20, 11), cinque passeggiate (ep14, 15,
-19, 4, 8), uno appena sopra (ep17). Nessuno è «quasi a posto» per caso: l'unico
-chiuso è l'Ep.7.
+**Cinque difetti dello strumento, nessuna modifica al gioco** hanno spostato
+l'Ep.2 da 39% a 69% e l'Ep.5 da 36% a 83%. Restano fuori, con numeri di cui ci
+si può fidare:
+
+- **troppo duri**: ep6 62%, ep9 48%, ep13 58%, ep18 63%
+- **impossibili**: ep10 0%, ep12 0%, ep20 8%, ep11 16%
+- **passeggiate piatte**: ep14, ep15, ep19 (100%, sofferte 14-48%)
+- **appena sopra, ma tesi**: ep5 83%, ep8 86%, ep17 83% — l'ansia è a posto
+  (75-84% di vittorie sofferte), manca solo qualche punto di difficoltà
 
 **Il pattern più netto** non è la difficoltà, è l'ansia. Gli episodi facili sono
-anche piatti (ep14 sofferte 48%, ep15 26%, ep19 14%, picchi 0.2-0.6): non è che
-si vincano troppo spesso, è che **non succede niente**. E l'Ep.9, con 48% di
-vittorie, ha un picco di 0.3 su sette round: si perde senza nemmeno cadere.
+anche piatti (ep19 vince sempre col 14% di vittorie sofferte e un picco di 0.2):
+non è che si vincano troppo spesso, è che **non succede niente**. E l'Ep.9, con
+il 48% di vittorie, ha un picco di 0.3 su sette round: si perde senza cadere.
 
 ## Il difetto che invalida la colonna «troppo duro» (22/07/2026)
 
@@ -122,11 +127,21 @@ Tolto il rientro a piedi, al simulatore non resta niente da simulare.
 Le percentuali di Ep.1, 2, 3 e 4 in questa tabella **non vanno usate per
 tarare**: descrivono una spedizione senza geometria.
 
-## Lavoro preliminare ancora aperto
+## Gli orologi che non si possono battere (Ep.10, 12, 20)
 
-- **I simulatori di Ep.1 ed Ep.2 sono ciechi sulla loro uscita segreta**
-  (insegnata solo a `simulate_ep3.py` e `simulate_ep4.py`): i loro numeri
-  descrivono un episodio che non esiste più e vanno corretti prima di tararli.
-- **Ep.10, 11, 12 e 20** hanno orologi per-round (`FUGA_MAX`,
-  `DEMOLIZIONE_MAX`, `SOGLIA_RISVEGLIO`) tarati su partite di lunghezza
-  dimezzata: vanno rifatti, non ritoccati.
+Ep.10 ed Ep.12 misurano **0%**, e non perché il gruppo muoia: su 12 partite
+dell'Ep.12, **12 sconfitte per scadenza** della traccia FUGA, mai una per
+ferite. Le tracce salgono di 1 a round e non scendono quasi mai
+(`FUGA_BACKGROUND = 1`, `DEMO_BACKGROUND`), mentre il viaggio è lungo il doppio
+di quanto era quando quei numeri furono scelti: i simulatori regalavano una
+tessera a round finché la marcia non è stata corretta a 2 round per tessera.
+
+`FUGA_MAX = 10` con +1 a round garantisce la sconfitta entro il 10° round; la
+spedizione ne dura 11-12. È aritmetica, non difficoltà.
+
+Alzare le tracce non basta e non si può: sono **componenti stampati**, e la più
+lunga arriva a 14 caselle — non al doppio. La strada che il gioco già usa
+altrove è far battere l'orologio **a round alterni**: è lo stesso trucco della
+pesca Minaccia, dove la carta in più si pesca solo nei round pari
+(`finale_v3`). Raddoppia la durata senza chiedere una casella in più al
+cartone.
