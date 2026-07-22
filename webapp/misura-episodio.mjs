@@ -78,7 +78,8 @@ const TILE_BOSS = EP.tessere[EP.tessere.length - 1].id;
 // il fondo della spina. Prima il pilota dava per scontato `EP.scortato[0]` e
 // si rompeva prima di cominciare, e per questo quegli episodi risultavano
 // «non misurabili sulla plancia» — non lo erano: mancava il caso nel pilota.
-const USCITA_TILE = SC ? ((SC.uscita && SC.uscita.tile) || SC.tile) : TILE_BOSS;
+const USCITA_TILE = SC ? ((SC.uscita && SC.uscita.tile) || (SC.parte_libero ? SC.meta : SC.tile))
+  : TILE_BOSS;   // chi parte libero (Ep.9) va PORTATO avanti, non riportato indietro
 const _tu = EP.tessere.find((t) => t.id === USCITA_TILE) || {};
 const ARREDI_USCITA = (_tu.arredi || []).filter((a) => String(a[2]).toUpperCase() !== 'CELLA');
 function scoreArredi(c, tentati) {
@@ -243,7 +244,16 @@ async function meta() {
   // alla spina e ci restava, perche' non sapeva che si torna indietro.
   if (COMPITI.length) {
     const fatti = s.compiti || {};
-    const aperto = COMPITI.find((c) => (fatti[c.id] || 0) < c.quante);
+    const aperti = COMPITI.filter((c) => (fatti[c.id] || 0) < c.quante
+      && !(c.dopo && (fatti[c.dopo] || 0) < (COMPITI.find((x) => x.id === c.dopo) || {}).quante));
+    // compito su una MINIATURA (agganciare il Corriere, catturare il Gatto): la
+    // meta e' dove sta quel nemico adesso, non una stanza fissa
+    const suNemico = aperti.find((c) => c.nemico);
+    if (suNemico) {
+      const n = (s.nemici || []).find((x) => x.pos && x.nome === suNemico.nemico);
+      if (n) return n.pos.t;
+    }
+    const aperto = aperti.find((c) => c.tile);
     if (aperto) return aperto.tile;
     if (EP.vittoria && EP.vittoria.tessera) return EP.vittoria.tessera;
   }
@@ -334,7 +344,15 @@ async function turnoScortato() {
     if ((await sp()).scortAttivo !== i) { roundNonMisurati++; continue; }
     const c = await celle();
     const u = st.uscita;
-    const punteggio = (u && u.aperta)
+    const spec = (EP.scortato || [])[i] || {};
+    // Verso la META quando non c'e' un'uscita segreta da cercare (il Preludio,
+    // l'Ep.7, l'Ep.16) o quando il PNG parte gia' libero (Ep.9): prima il pilota
+    // puntava alla stanza della prigionia, dove il PNG gia' si trovava — quindi
+    // «nessun progresso», e Ansaldo restava nello stanzino per sempre.
+    const versoMeta = (m) => (cc) => (cc.t === m ? 0
+      : dist(cc.t, m) * 100 + (dirVerso(cc.t, m) ? verso(dirVerso(cc.t, m), cc.x, cc.y) : 0));
+    const punteggio = (spec.parte_libero || !spec.uscita) ? versoMeta(spec.meta)
+      : (u && u.aperta)
       ? (cc) => (cc.t === u.tile ? Math.abs(cc.x - u.cella[0]) + Math.abs(cc.y - u.cella[1]) : 100 + dist(cc.t, u.tile) * 100)
       : (cc) => scoreArredi(cc, st.uscitaTentati || []);
     // chi imbocca il condotto ESCE dal board (`pos = null`, digitale.js): per il

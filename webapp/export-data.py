@@ -705,6 +705,21 @@ SOLUZIONI = dict(
     ),
 )
 
+# Il Preludio, letto dal suo stesso fascicolo Spedizione:
+#   T1 la banchina — «la porta verso il deposito (N)»
+#   T2 il deposito — «le porte E e N sono murate: contano solo S (banchina) e O (stanzino)»
+#   T4 lo stanzino del daziere — dov'e' tenuto Ansaldo
+PRELUDIO_EXITS = {
+    'T1': {'N': 'T2'},
+    'T2': {'S': 'T1', 'O': 'T4'},
+    'T4': {'E': 'T2'},
+}
+# «Casse accatastate... una cassa, in un angolo, e' meno impolverata delle altre»
+PRELUDIO_ARREDI = {
+    'T2': [(1, 2, 'casse'), (3, 1, 'casse')],
+    'T4': [(2, 2, 'casse')],
+}
+
 # --- PNG da scortare -------------------------------------------------------
 # Regolamento: il PNG scortato non e' un eroe (i nemici lo ignorano), si muove
 # nel TURNO DEGLI EROI fino a 3 caselle e non compie azioni; si attraversa ma
@@ -717,10 +732,11 @@ SOLUZIONI = dict(
 #               oggetti che danno +1
 #   chiave    = oggetto d'inventario che libera senza prova
 def scortato(nome, tile, meta, art, etichetta, vittoria,
-             prova=None, chiave=None, cella=None, mov=3, uscita=None):
+             prova=None, chiave=None, cella=None, mov=3, uscita=None,
+             parte_libero=False, salute=None, difesa=7):
     return dict(nome=nome, tile=tile, meta=meta, art=art, mov=mov, cella=cella,
                 etichetta=etichetta, vittoria=vittoria, prova=prova, chiave=chiave,
-                uscita=uscita)
+                uscita=uscita, parte_libero=parte_libero, salute=salute, difesa=difesa)
 
 
 # L'USCITA SEGRETA: liberato, il PNG indica una via di fuga sotto un arredo
@@ -743,7 +759,19 @@ episodi = dict(
         lettera=LETTERA_P,
         luoghi=[luogo_json(L, OGGETTI_LUOGO_P, REPERTI_LUOGO['preludio']) for L in LUOGHI_P],
         oggetti_luogo=OGGETTI_LUOGO_P,
-        tessere=[dict(id=t[0], nome=t[1].title(), art=t[2], testo=t[3]) for t in TESSERE_P],
+        # LA STRUTTURA DEL PRELUDIO (22/07/2026). Le porte esistevano solo come
+        # prosa nel fascicolo — «la porta verso il deposito (N)», «le porte E e N
+        # sono murate: contano solo S (banchina) e O (stanzino)» — e senza `exits`
+        # il motore digitale non riusciva nemmeno a disporre la mappa: il tutorial
+        # non era giocabile ne' misurabile. Qui la prosa diventa dato.
+        tessere=[dict(id=t[0], nome=t[1].title(), art=t[2], testo=t[3],
+                      exits=PRELUDIO_EXITS.get(t[0], {}), arredi=PRELUDIO_ARREDI.get(t[0], []))
+                 for t in TESSERE_P],
+        # «Liberate Ansaldo (Interagire, in T4) e riportatelo in T1, alla barca.»
+        scortato=[scortato(
+            'Ansaldo', 'T4', 'T1', 'Ansaldo.png',
+            etichetta='Libera Ansaldo (Interagire)',
+            vittoria='Ansaldo è sulla barca: la prova d’ammissione è superata.')],
         obiettivo='Liberate Ansaldo (Interagire, in T4) e riportatelo in T1, alla barca.',
         esami_carbone=ESAMI_CARBONE_P,
         mazzo_da_ep1=MAZZO_P,
@@ -911,6 +939,21 @@ episodi = dict(
         # (18 round di media) e la clessidra comune la strangolava. Misurato a 4
         # eroi, stessi party e stessi seed: 18% -> 51% di vittorie.
         canto_ogni=6,
+        # OBIETTIVO (22/07/2026): «spegnete i 3 movimenti — BRONZO (T3, VIGORE),
+        # PIETRA (T5, ACUME), OSSA (T6, NERVI) — poi nella Camera (T8) leggete la
+        # Formula del Sigillo». Tre compiti con lo stesso `id`: il contatore e' uno,
+        # le stanze e le prove no. La Formula aspetta che sia a 3 (`dopo`).
+        compiti=[
+            dict(id='movimenti', tile='T3', quante=3, etichetta='Spegni il movimento di BRONZO',
+                 prova=dict(attr='vigore', diff='Media'), fallita='il bronzo non tace'),
+            dict(id='movimenti', tile='T5', quante=3, etichetta='Spegni il movimento di PIETRA',
+                 prova=dict(attr='acume', diff='Media'), fallita='la pietra continua'),
+            dict(id='movimenti', tile='T6', quante=3, etichetta='Spegni il movimento di OSSA',
+                 prova=dict(attr='nervi', diff='Media'), fallita='le ossa rispondono ancora'),
+            dict(id='formula', tile='T8', quante=1, dopo='movimenti',
+                 etichetta='Leggi la Formula del Sigillo',
+                 fatto='Il Sigillo è pronunciato: il Terzo Movimento non si compie.')],
+        vittoria=dict(testo='Il rito è spezzato: il Dormiente torna a dormire.'),
         esami_carbone=ESAMI_CARBONE_6,
         luoghi=[luogo_json(L, OGGETTI_LUOGO_6, REPERTI_LUOGO['ep6']) for L in LUOGHI_6],
         tessere=[tessera_json(T) for T in TILES_6],
@@ -951,6 +994,11 @@ episodi = dict(
                   'parziale, meno = colpo fallito. Il Cambiavalute è stanziale in T4 e '
                   'FONDE le casse non ancora prese; abbatterlo ferma il crogiolo ma non '
                   'è necessario.',
+        # «Sequestrate le 4 casse d'oro (una in T2/T3/T4/T5) e portatele alla Porta
+        # d'Acqua (T6)»: un contatore solo, quattro stanze.
+        compiti=[dict(id='casse', tile=t, quante=4, etichetta='Sequestra la cassa d’oro')
+                 for t in ('T2', 'T3', 'T4', 'T5')],
+        vittoria=dict(tessera='T6', testo='Le casse sono alla Porta d’Acqua: l’oro vecchio è vostro.'),
         esami_carbone=ESAMI_CARBONE_8,
         luoghi=[luogo_json(L, OGGETTI_LUOGO_8, REPERTI_LUOGO['ep8']) for L in LUOGHI_8],
         tessere=[tessera_json(T) for T in TILES_8],
@@ -967,6 +1015,14 @@ episodi = dict(
                   'combatte) dalla sacrestia (T1) al Molo del Lume (T6): gli aggressori '
                   'bersagliano LUI, il Sicario Gentile lo CACCIA. Riva a bordo = vittoria; '
                   'Riva a terra = scorta fallita.',
+        # SCORTA INVERSA: il teste non va liberato, parte con voi dalla sacrestia
+        # (T1) e va portato al Molo (T6). E' l'unico PNG che i nemici possono
+        # colpire — «gli aggressori bersagliano LUI» — e a 0 Salute l'episodio è
+        # fallito. Da qui `parte_libero` e `salute` nel dato.
+        scortato=[scortato(
+            'Anselmo Riva', 'T1', 'T6', 'Anselmo Riva.png',
+            etichetta='Il teste vi segue', vittoria='Anselmo Riva è a bordo: il teste deporrà.',
+            parte_libero=True, salute=3, difesa=7)],
         esami_carbone=ESAMI_CARBONE_9,
         luoghi=[luogo_json(L, OGGETTI_LUOGO_9, REPERTI_LUOGO['ep9']) for L in LUOGHI_9],
         tessere=[tessera_json(T) for T in TILES_9],
@@ -984,6 +1040,14 @@ episodi = dict(
                   'PROVA (documentate all’intercapedine, +2 con la Macchina Fotografica). PROVA '
                   'piena = vittoria; DEMOLIZIONE piena = il muro crolla, sconfitta. Abbattere il '
                   'Muratore ferma la demolizione (seconda via).',
+        # «Fissate la prova prima che il Muratore abbatta il muro»: due tracce che
+        # corrono. La PROVA si riempie documentando all'intercapedine; la
+        # DEMOLIZIONE sale da sola e con le carte crescendo («la casa trema»).
+        compiti=[dict(id='prova', tile='T6', quante=7, etichetta='Documenta il corpo murato',
+                      fatto='La prova è fissata: il muro può anche cadere.')],
+        vittoria=dict(testo='La prova è fissata: il corpo murato è documentato.'),
+        orologio=dict(id='demolizione', nome='Demolizione', max=12, ogni=1, da_carta=1,
+                      esito='sconfitta', testo='Il muro è crollato: la prova è distrutta.'),
         esami_carbone=ESAMI_CARBONE_10,
         luoghi=[luogo_json(L, OGGETTI_LUOGO_10, REPERTI_LUOGO['ep10']) for L in LUOGHI_10],
         tessere=[tessera_json(T) for T in TILES_10],
@@ -1000,6 +1064,12 @@ episodi = dict(
                   'chi paga): riducetelo all’ultima Ferita, tenetelo al riparo dal vento e '
                   'catturatelo (Interagire; con la Corda del Campanaro è automatico). Un colpo che '
                   'lo uccide, o una raffica che lo fa cadere dall’esposto, perde il filo.',
+        # «Prendete VIVO il Caposquadra»: un compito su una MINIATURA, non su una
+        # stanza — adiacenza e Interagire.
+        compiti=[dict(id='caposquadra', nemico='IL CAPOSQUADRA', quante=1,
+                      etichetta='Cattura il Caposquadra',
+                      fatto='Il Caposquadra è preso vivo: il testimone parlerà.')],
+        vittoria=dict(testo='Il Caposquadra è vostro, e vivo.'),
         esami_carbone=ESAMI_CARBONE_11,
         luoghi=[luogo_json(L, OGGETTI_LUOGO_11, REPERTI_LUOGO['ep11']) for L in LUOGHI_11],
         tessere=[tessera_json(T) for T in TILES_11],
@@ -1016,6 +1086,15 @@ episodi = dict(
                   'Interagire, o taglio ai ponti coperti col Fischietto) prima che consegni le '
                   'copie allo scambio al Cimitero delle Barche (T6). Se la traccia FUGA si riempie '
                   'prima, le copie sono nel mondo: spedizione fallita.',
+        # «Inseguite il corriere e AGGANCIATELO prima che consegni»: compito sulla
+        # miniatura del Corriere, e la traccia FUGA che corre — «alla fine di ogni
+        # round +1; ogni carta crescendo +1» (Soluzione).
+        compiti=[dict(id='corriere', nemico='IL CORRIERE', quante=1,
+                      etichetta='Aggancia il Corriere',
+                      fatto='Il Corriere è agganciato: le copie sono sequestrate.')],
+        vittoria=dict(testo='Le copie non arriveranno allo scambio.'),
+        orologio=dict(id='fuga', nome='Fuga', max=10, ogni=1, da_carta=1,
+                      esito='sconfitta', testo='Il Corriere ha consegnato: le copie sono nel mondo.'),
         esami_carbone=ESAMI_CARBONE_12,
         luoghi=[luogo_json(L, OGGETTI_LUOGO_12, REPERTI_LUOGO['ep12']) for L in LUOGHI_12],
         tessere=[tessera_json(T) for T in TILES_12],
@@ -1034,6 +1113,10 @@ episodi = dict(
                   'magazzini (Canto oltre la soglia-rogo) e non avete la Cassetta, li portate via '
                   'anneriti: vittoria parziale, ma l’Atto prosegue. Il Notaio non si prende: appare '
                   'in T4, ordina il rogo e fugge in carrozza.',
+        # «Superate o abbattete il Sorvegliante e SEQUESTRATE i registri (T6)».
+        compiti=[dict(id='registri', tile='T6', quante=1, etichetta='Sequestra i registri',
+                      fatto='I registri sono vostri.')],
+        vittoria=dict(testo='I registri escono dal Molino: la prova è salva.'),
         esami_carbone=ESAMI_CARBONE_13,
         luoghi=[luogo_json(L, OGGETTI_LUOGO_13, REPERTI_LUOGO['ep13']) for L in LUOGHI_13],
         tessere=[tessera_json(T) for T in TILES_13],
@@ -1053,6 +1136,14 @@ episodi = dict(
                   'ordinato di LASCIARE roba — con gli intrusi documentati (Inventario Originale) '
                   'è VITTORIA PIENA. Se sfugge, recuperate la refurtiva ma non la confessione: '
                   'vittoria parziale. Il mandante (M.) non è qui: sta preparando il falso dell’Ep.15.',
+        # «AGGANCIATE il Primo Gatto prima che il Canto raggiunga la soglia-FUGA e
+        # lo faccia sparire oltre la cresta».
+        compiti=[dict(id='gatto', nemico='IL PRIMO GATTO', quante=1,
+                      etichetta='Aggancia il Primo Gatto',
+                      fatto='Il Primo Gatto è agganciato: parlerà della commissione.')],
+        vittoria=dict(testo='Il Primo Gatto tratta: sapete chi ha commissionato il furto.'),
+        orologio=dict(id='fuga', nome='Fuga sui tetti', max=9, ogni=1,
+                      esito='parziale', testo='Il Gatto scavalca la cresta e sparisce.'),
         esami_carbone=ESAMI_CARBONE_14,
         luoghi=[luogo_json(L, OGGETTI_LUOGO_14, REPERTI_LUOGO['ep14']) for L in LUOGHI_14],
         tessere=[tessera_json(T) for T in TILES_14],
@@ -1073,6 +1164,16 @@ episodi = dict(
                   'abbastanza tell si apre la CONTRO-BUSTA («chi ha scritto il dossier?») — la '
                   'vittoria piena, il rifiuto della soluzione perfetta. Solo la Busta pubblica = '
                   'un innocente in cella e la «vittoria» di M.',
+        # «Documentare i tell del falso e prendere il Capo prima del SIGILLO»: i
+        # tell sono 5 sparsi, ne servono 4; il Capo è una miniatura da catturare.
+        compiti=[dict(id='tell', tile=t, quante=4, etichetta='Documenta un tell del falso')
+                 for t in ('T2', 'T3', 'T4')] + [
+            dict(id='capo', nemico='IL CAPO APPARECCHIATORE', quante=1, dopo='tell',
+                 etichetta='Prendi il Capo Apparecchiatore',
+                 fatto='Il Capo è preso: la Contro-busta si apre.')],
+        vittoria=dict(testo='Contro-busta: sapete chi ha scritto il dossier.'),
+        orologio=dict(id='sigillo', nome='Sigillo', max=8, ogni=1, da_carta=1,
+                      esito='parziale', testo='La Gendarmeria sigilla la villa: resta la sola Busta pubblica.'),
         esami_carbone=ESAMI_CARBONE_15,
         luoghi=[luogo_json(L, OGGETTI_LUOGO_15, REPERTI_LUOGO['ep15']) for L in LUOGHI_15],
         tessere=[tessera_json(T) for T in TILES_15],
@@ -1120,6 +1221,17 @@ episodi = dict(
                   'il ricorrente dell’Atto, finalmente preso) superando la sua Guardia. Decano '
                   'lucido + matrice = vittoria piena, l’Ep.18 parte armato. Attenti alla '
                   'soglia-decano: se tardate, lo trovate «trasferito», ferito.',
+        # Due obiettivi: il decano nella cella (T5) e il Notaio nello studio (T6),
+        # con l'orologio del trasferimento che corre.
+        compiti=[
+            dict(id='decano', tile='T5', quante=1, etichetta='Libera il decano',
+                 fatto='Il decano è libero e lucido: lo scisma è finito.'),
+            dict(id='notaio', nemico='IL NOTAIO RASCA', quante=1,
+                 etichetta='Cattura il Notaio Rasca',
+                 fatto='Il Notaio è preso: il ricorrente dell’Atto, finalmente.')],
+        vittoria=dict(testo='Decano lucido e Notaio in mano: l’Ep. 18 parte armato.'),
+        orologio=dict(id='decano', nome='Trasferimento', max=8, ogni=1, da_carta=1,
+                      esito='parziale', testo='Il decano è già stato trasferito: lo recuperate ferito.'),
         esami_carbone=ESAMI_CARBONE_17,
         luoghi=[luogo_json(L, OGGETTI_LUOGO_17, REPERTI_LUOGO['ep17']) for L in LUOGHI_17],
         tessere=[tessera_json(T) for T in TILES_17],
@@ -1140,6 +1252,12 @@ episodi = dict(
                   'vostra da nemico) col maggiordomo traditore (boss), portando fuori la PROVA prima '
                   'che i gendarmi vi arrestino. Con la prova forte (incroci pieni) e senza eroi '
                   'arrestati: M. è latitante, non voi. CHIUSURA dell’Atto III.',
+        # La fuga dal Palazzo del Lume: uscire con la prova prima dell'arresto.
+        compiti=[dict(id='prova', tile='T5', quante=1, etichetta='Recupera la prova',
+                      fatto='La prova è vostra: ora fuori di qui.')],
+        vittoria=dict(tessera='T1', testo='Siete fuori dal Palazzo con la prova: M. è latitante.'),
+        orologio=dict(id='arresto', nome='Arresto', max=9, ogni=1, da_carta=1,
+                      esito='parziale', testo='I gendarmi sigillano le uscite: braccati.'),
         esami_carbone=ESAMI_CARBONE_18,
         luoghi=[luogo_json(L, OGGETTI_LUOGO_18, REPERTI_LUOGO['ep18']) for L in LUOGHI_18],
         tessere=[tessera_json(T) for T in TILES_18],
@@ -1160,6 +1278,14 @@ episodi = dict(
                   'aspettarvi, l’Ispettore Vidal: NON si uccide — ridotto all’ultima Ferita ascolta, '
                   'e si vince CONVINCENDOLO con le Prove, se il conto dei vostri alleati regge '
                   '(≥3). Convinto, nell’Ep.20 tiene aperte le uscite.',
+        # Vidal NON si uccide: si convince. Un compito sulla sua miniatura.
+        compiti=[
+            dict(id='fascicolo', tile='T6', quante=1, etichetta='Prendi il Fascicolo del 1741',
+                 fatto='Il Fascicolo del 1741 è vostro.'),
+            dict(id='vidal', nemico='L’ISPETTORE VIDAL', quante=1,
+                 etichetta='Convinci l’Ispettore Vidal',
+                 fatto='Vidal ascolta: da stanotte è dalla vostra parte.')],
+        vittoria=dict(testo='Il Fascicolo è vostro e Vidal è con voi.'),
         esami_carbone=ESAMI_CARBONE_19,
         luoghi=[luogo_json(L, OGGETTI_LUOGO_19, REPERTI_LUOGO['ep19']) for L in LUOGHI_19],
         tessere=[tessera_json(T) for T in TILES_19],
@@ -1180,6 +1306,15 @@ episodi = dict(
                   'M. è un uomo, fragile. Completate il controcanto (6 righe) prima che il Dormiente '
                   'si svegli (RISVEGLIO) = il dio torna al sonno senza sogni. FUORI SCALA: il finale '
                   'può perdere eroi, e può finire male. NIENTE Bivio: è la fine.',
+        # IL FINALE: non si vince con l'acciaio ma col CONTROCANTO — righe da
+        # pronunciare, mentre il Dormiente si sveglia.
+        compiti=[dict(id='controcanto', tile='T6', quante=10,
+                      etichetta='Pronuncia una riga del Controcanto',
+                      prova=dict(attr='nervi', diff='Media'), fallita='la voce si spezza',
+                      fatto='Il Controcanto è compiuto.')],
+        vittoria=dict(testo='Il Controcanto copre il Canto: la città si sveglia, il Dormiente no.'),
+        orologio=dict(id='risveglio', nome='Risveglio', max=8, ogni=1, da_carta=1,
+                      esito='sconfitta', testo='Il Dormiente si desta: è troppo tardi.'),
         esami_carbone=ESAMI_CARBONE_20,
         luoghi=[luogo_json(L, OGGETTI_LUOGO_20, REPERTI_LUOGO['ep20']) for L in LUOGHI_20],
         tessere=[tessera_json(T) for T in TILES_20],

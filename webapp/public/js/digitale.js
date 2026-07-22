@@ -257,7 +257,14 @@ function iniziaPartita() {
   partita.spedizione = {
     digitale: true, round: 1, fase: 'eroi', canto: 0, cantoBonus: false, esito: null,
     rivelate: [t0.id], eroiPos, nemici: [],
-    scortati: specScortati().map(() => ({ liberato: false, pos: null, mosso: false })),
+    // `parte_libero`: certi PNG non vanno liberati, partono col gruppo — il teste
+    // dell'Ep.9 esce dalla sacrestia con voi e va portato al Molo. `salute`: e'
+    // l'unico che i nemici possono colpire, ed e' li' che sta la tensione.
+    scortati: specScortati().map((sc, k) => ({ liberato: !!sc.parte_libero, mosso: false,
+      vite: sc.salute || null,
+      // chi parte libero e' gia' sul tabellone, accanto al gruppo
+      pos: sc.parte_libero ? (() => { const c = celleLibereTile(t0, entrata, partita.party.length + k + 1, new Set())
+        .slice(-1)[0] || entrata; return { t: t0.id, x: c[0], y: c[1] }; })() : null })),
     scortAttivo: null, grate: [], uscita: null, uscitaTentati: [],
     vite: Object.fromEntries(partita.party.map((nm) => { const e = eroe(nm); return [nm, e ? saluteMax(e) : 6]; })),
     eroiFatti: [], eroiAttivo: null, azioni: {}, cercate: {}, insidie: {},
@@ -941,8 +948,19 @@ const compitiFiniti = () => specCompiti().every((c) => compitoFatte(c.id) >= c.q
 // il compito a portata dell'eroe: giusta tessera, quante ne restano, e — se il
 // dato nomina un arredo — esserne adiacenti
 function compitoDisponibile(pos) {
+  const sp = SP();
   for (const c of specCompiti()) {
-    if (c.tile !== pos.t || compitoFatte(c.id) >= c.quante) continue;
+    if (compitoFatte(c.id) >= c.quante) continue;
+    // dipendenza: la Formula si legge solo a movimenti spenti (Ep.6)
+    if (c.dopo && compitoFatte(c.dopo) < (specCompiti().find((x) => x.id === c.dopo) || {}).quante) continue;
+    // compito su un NEMICO: agganciare il corriere, prendere vivo il Caposquadra,
+    // catturare il Notaio — adiacenza a quella miniatura, non una stanza
+    if (c.nemico) {
+      const q = sp.nemici.some((n) => n.pos && n.nome === c.nemico && adiacGlob(pos, n.pos));
+      if (!q) continue;
+      return c;
+    }
+    if (c.tile !== pos.t) continue;
     if (c.cella) {
       const t = tileDi(pos.t);
       const a = (t.arredi || []).find((v) => String(v[2]).toUpperCase() === String(c.cella).toUpperCase());
@@ -951,6 +969,24 @@ function compitoDisponibile(pos) {
     return c;
   }
   return null;
+}
+
+// L'OROLOGIO D'EPISODIO: la traccia che il fascicolo fa segnare all'arbitro —
+// sigillo, arresto, FUGA, DEMOLIZIONE, risveglio. Sale di `ogni` a fine round e
+// di `da_carta` per ogni carta crescendo; alla soglia l'episodio finisce come
+// dice `esito` ('sconfitta' o 'parziale'). Senza questo quei sette episodi non
+// avevano un tempo: si poteva girare per sempre.
+const specOrologio = () => ctx.ep.orologio || null;
+function avanzaOrologio(quanto, motivo) {
+  const o = specOrologio(); const sp = SP(); if (!o || sp.esito) return [];
+  sp.traccia = (sp.traccia || 0) + quanto;
+  const ann = [`${o.nome}: ${Math.min(sp.traccia, o.max)}/${o.max}${motivo ? ' — ' + motivo : ''}.`];
+  if (sp.traccia >= o.max) {
+    sp.esito = o.esito === 'parziale' ? 'parziale' : 'sconfitta';
+    ann.push(o.testo || `${o.nome} al massimo: la spedizione è persa.`);
+    sp.log.push(ann[ann.length - 1]); salvaP();
+  }
+  return ann;
 }
 
 function controllaVittoria() {
@@ -1086,6 +1122,10 @@ async function azioneInteragire(nm) {
       if (!r.ok) { log(`${primo(nm)}: ${c.fallita || 'non ci riesce'}.`); segnaAzione(nm, 'interagire'); return; }
     }
     const st = statoCompiti(); st[c.id] = (st[c.id] || 0) + 1;
+    if (c.nemico) {                       // catturato: esce dal tavolo, non e' un morto
+      const j = sp.nemici.findIndex((n) => n.pos && n.nome === c.nemico && adiacGlob(sp.eroiPos[nm], n.pos));
+      if (j >= 0) sp.nemici.splice(j, 1);
+    }
     log(`${primo(nm)}: ${c.etichetta.toLowerCase()} (${st[c.id]}/${c.quante}).`);
     if (st[c.id] >= c.quante && c.fatto) log(c.fatto);
     segnaAzione(nm, 'interagire'); return;
@@ -1279,6 +1319,10 @@ async function faseMinaccia() {
     const crescendo = carta.title.startsWith('Crescendo'); let annunci = [];
     if (crescendo) {
       annunci = cantoDaCarta(ctx.comune, ctx.ep, sp); annunci.push(...destaBossSeSoglia());
+      // la stessa carta che alza il Canto spinge anche l'orologio dell'episodio
+      // («ogni carta crescendo: +1 FUGA», «la casa trema: +1 Demolizione»)
+      if (annunci.length && specOrologio() && specOrologio().da_carta)
+        annunci.push(...avanzaOrologio(specOrologio().da_carta, 'carta crescendo'));
       // Crescendo: se il boss e' gia' in gioco recupera 1 ferita — ma NON a 2-3 eroi
       const boss = sp.nemici.find((x) => x.nome === ctx.ep.soluzione.boss);
       if (boss && /cancellate 1 sua ferita/i.test(carta.rules)) {
@@ -1436,7 +1480,23 @@ function faseNemiciAI() {
     }
     const pos1 = n.pos;
     let attacco = null;
+    // il PNG vulnerabile e' un bersaglio come gli eroi (Ep.9: 3 Salute, non
+    // combatte). Gli altri PNG scortati restano invisibili ai nemici, come dice
+    // il Regolamento.
+    const iPng = statoScortati().findIndex((g, k) => g.liberato && g.pos && g.vite > 0
+      && specScort(k).salute && adiacGlob(n.pos, g.pos));
     const adiacenti = bersagli.filter((nm) => adiacGlob(n.pos, sp.eroiPos[nm]));
+    if (iPng >= 0 && (!adiacenti.length || Math.random() < 0.5)) {
+      const g = statoScortati()[iPng]; const sc = specScort(iPng);
+      const tot = r1() + r1() + st.att;
+      if (tot >= (sc.difesa || 7)) {
+        g.vite = Math.max(0, g.vite - st.dan);
+        log(`${n.nome.toLowerCase()} colpisce ${sc.nome} (${tot}, −${st.dan}: ${g.vite}/${sc.salute}).`);
+        if (g.vite <= 0) { sp.esito = 'sconfitta'; sp.log.push(`${sc.nome} è caduto: la spedizione è fallita.`); }
+      } else log(`${n.nome.toLowerCase()} manca ${sc.nome} (${tot}).`);
+      piano.push({ i, nome: n.nome, pos0, pos1, flash: false, attacco: null });
+      continue;
+    }
     if (adiacenti.length) {
       const vitt = adiacenti.includes(scelto) ? scelto : adiacenti[Math.floor(Math.random() * adiacenti.length)];
       const e = eroe(vitt);
@@ -1455,6 +1515,7 @@ function faseNemiciAI() {
   // turno eroi (regolamento: «si muove nel turno degli eroi, non compie azioni»).
   // fine round: tick canto, boss a soglia (annunci mostrati dopo l'animazione)
   piano.annunci.push(...fineRound(ctx.comune, ctx.ep, sp));
+  if (specOrologio() && specOrologio().ogni) piano.annunci.push(...avanzaOrologio(specOrologio().ogni, 'fine round'));
   piano.annunci.push(...destaBossSeSoglia());
   sp.fase = 'eroi'; sp.eroiFatti = []; sp.eroiAttivo = null; sp.azioni = {};
   statoScortati().forEach((g) => { g.mosso = false; });   // possono muoversi nel nuovo turno eroi
