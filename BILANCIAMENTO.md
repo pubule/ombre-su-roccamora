@@ -45,46 +45,54 @@ Suggeritore**. Il KPI diceva «risolto», il gioco era peggiorato.
 
 ## Il tabellone
 
-Rimisura del **22/07/2026, dopo le correzioni allo strumento**, 4 eroi, 600
-partite per episodio (`seed_base=970000`).
+Rimisura del **22/07/2026**, 4 eroi, 600 partite per episodio
+(`seed_base=970000`). Lo stato con l'asterisco (`aperto*`) segna gli episodi a
+**tensione non letale**, dove le soglie sul sangue non si applicano.
 
-| ep | vittoria | sofferte | picco | round | canto | stato | nota |
-|----|---------:|---------:|------:|------:|------:|-------|------|
-| ep1 | 99% | 10% | 0.2 | 10.4 | 4.0 | aperto | scorta: **il simulatore non vale** (Playwright: 22%) |
-| ep2 | 69% | 60% | 1.6 | 23.9 | 12.8 | aperto | scorta: il simulatore non vale — era 39% |
-| ep3 | 99% | 6% | 0.1 | 13.0 | 5.1 | aperto | scorta: **il simulatore non vale** |
-| ep4 | 87% | 35% | 1.0 | 14.0 | 8.0 | aperto | scorta: **il simulatore non vale** |
-| ep5 | 83% | 82% | 1.7 | 20.2 | 9.6 | aperto | era 36%: il flag di vittoria non scattava col boss anticipato |
-| ep6 | 62% | 66% | 0.9 | 19.1 | 9.7 | aperto |  |
-| ep7 | 73% | 89% | 2.4 | 17.0 | 9.4 | **CHIUSO** | il riferimento sano |
-| ep8 | 86% | 84% | 1.7 | 11.9 | 4.5 | aperto | ansia buona, solo un po’ facile |
-| ep9 | 48% | 31% | 0.3 | 7.2 | 4.2 | aperto | sette round: si perde senza che cada nessuno |
-| ep10 | 0% | 10% | 3.6 | 12.2 | 6.5 | aperto | orologio Demolizione: sale e non scende mai |
-| ep11 | 16% | 95% | 3.9 | 11.2 | 6.9 | aperto | ansia altissima (95%), vittoria troppo bassa |
-| ep12 | 0% | 0% | 0.1 | 7.1 | 6.4 | aperto | orologio FUGA: **12 sconfitte su 12 per scadenza** |
-| ep13 | 58% | 87% | 2.5 | 12.2 | 8.5 | aperto |  |
-| ep14 | 100% | 48% | 0.6 | 11.0 | 6.8 | aperto | passeggiata piatta |
-| ep15 | 100% | 26% | 0.3 | 11.0 | 8.2 | aperto | passeggiata piatta |
-| ep16 | 100% | 5% | 0.1 | 10.0 | 6.2 | **esente** | «il respiro»: facile per scelta |
-| ep17 | 83% | 75% | 1.6 | 12.1 | 8.2 | aperto |  |
-| ep18 | 63% | 78% | 1.0 | 12.5 | 8.1 | aperto |  |
-| ep19 | 100% | 14% | 0.2 | 9.6 | 4.5 | aperto | passeggiata piatta |
-| ep20 | 8% | 45% | 0.2 | 11.3 | 8.8 | aperto | il finale è quasi impossibile |
+| ep | vittoria | piena | sofferte | picco | round | stato | cosa manca |
+|----|---------:|------:|---------:|------:|------:|-------|------------|
+| ep1 | 99% | — | 10% | 0.2 | 10.4 | aperto | troppo facile (99% > 80%); poca ansia: sofferte 10% < 60%; poca ansia: |
+| ep2 | 69% | — | 60% | 1.6 | 23.9 | aperto | troppo duro (69% < 70%) |
+| ep3 | 99% | — | 6% | 0.1 | 13.0 | aperto | troppo facile (99% > 80%); poca ansia: sofferte 6% < 60%; poca ansia:  |
+| ep4 | 87% | — | 35% | 1.0 | 14.0 | aperto | troppo facile (87% > 80%); poca ansia: sofferte 35% < 60% |
+| ep5 | 83% | — | 82% | 1.7 | 20.2 | aperto | troppo facile (83% > 80%) |
+| ep6 | 62% | — | 66% | 0.9 | 19.1 | aperto | troppo duro (62% < 70%); poca ansia: picco a terra 0.9 < 1.0 |
+| ep7 | 73% | — | 89% | 2.4 | 17.0 | **CHIUSO** | il riferimento sano |
+| ep8 | 86% | — | 84% | 1.7 | 11.9 | aperto | troppo facile (86% > 80%) |
+| ep9 | 48% | — | 31% | 0.3 | 7.2 | aperto* | troppo duro (48% < 70%) |
+| ep10 | 0% | — | 10% | 3.6 | 12.2 | aperto | troppo duro (0% < 70%); poca ansia: sofferte 10% < 60% |
+| ep11 | 16% | — | 95% | 3.9 | 11.2 | aperto | troppo duro (16% < 70%) |
+| ep12 | 0% | — | 0% | 0.1 | 7.1 | aperto | troppo duro (0% < 70%); poca ansia: sofferte 0% < 60%; poca ansia: pic |
+| ep13 | 58% | 58% | 87% | 2.5 | 12.2 | aperto | troppo duro (58% < 70%) |
+| ep14 | 100% | 78% | 48% | 0.6 | 11.0 | aperto* | troppo facile (100% > 80%); il finale amaro non esiste (78% > 60%) |
+| ep15 | 98% | 58% | 47% | 0.7 | 11.7 | aperto* | troppo facile (98% > 80%) |
+| ep16 | 100% | 100% | 5% | 0.1 | 10.0 | **esente** | «il respiro»: facile per scelta |
+| ep17 | 83% | 71% | 75% | 1.6 | 12.1 | aperto | troppo facile (83% > 80%); il finale amaro non esiste (71% > 60%) |
+| ep18 | 86% | 46% | 68% | 0.8 | 12.4 | aperto* | troppo facile (86% > 80%) |
+| ep19 | 100% | 51% | 14% | 0.2 | 9.6 | aperto* | troppo facile (100% > 80%) |
+| ep20 | 8% | — | 45% | 0.2 | 11.3 | aperto | troppo duro (8% < 70%); poca ansia: sofferte 45% < 60%; poca ansia: pi |
 
-**Cinque difetti dello strumento, nessuna modifica al gioco** hanno spostato
-l'Ep.2 da 39% a 69% e l'Ep.5 da 36% a 83%. Restano fuori, con numeri di cui ci
-si può fidare:
+**Dove siamo, dopo una giornata di correzioni.** Un episodio chiuso (Ep.7),
+uno esente per scelta (Ep.16), e il resto raggruppato per che cosa gli manca:
 
-- **troppo duri**: ep6 62%, ep9 48%, ep13 58%, ep18 63%
-- **impossibili**: ep10 0%, ep12 0%, ep20 8%, ep11 16%
-- **passeggiate piatte**: ep14, ep15, ep19 (100%, sofferte 14-48%)
-- **appena sopra, ma tesi**: ep5 83%, ep8 86%, ep17 83% — l'ansia è a posto
-  (75-84% di vittorie sofferte), manca solo qualche punto di difficoltà
+- **troppo facili**: ep5 83%, ep8 86%, ep17 83%, ep18 86%, ep15 98%, ep14 100%,
+  ep19 100% — quasi tutti con l'ansia già a posto o non pertinente
+- **troppo duri**: ep6 62%, ep9 48%, ep13 58%, ep11 16%, ep20 8%
+- **non misurabili col simulatore**: ep1, ep3, ep4 (scorta e uscita segreta),
+  ep10, ep12 (la vittoria dipende dal tenere inchiodato un nemico)
 
-**Il pattern più netto** non è la difficoltà, è l'ansia. Gli episodi facili sono
-anche piatti (ep19 vince sempre col 14% di vittorie sofferte e un picco di 0.2):
-non è che si vincano troppo spesso, è che **non succede niente**. E l'Ep.9, con
-il 48% di vittorie, ha un picco di 0.3 su sette round: si perde senza cadere.
+Quasi tutto il resto è arrivato qui **senza toccare il gioco**: cinque difetti
+dello strumento valevano l'Ep.2 da 39% a 69% e l'Ep.5 da 36% a 83%. Le uniche
+modifiche di gioco applicate finora sono la cadenza del Canto per Ep.3, 5 e 6 e
+le tre soglie dell'Atto III.
+
+**Due lezioni che il tabellone deve ricordare.** La prima: il KPI contava le
+vittorie parziali insieme a quelle vere, e nascondeva finali che nessuno
+avrebbe mai visto. La seconda: cinque episodi non sono letali per scelta, e
+misurarli col sangue avrebbe portato a insanguinarli — nell'Ep.19, raddoppiare
+le carte che generano nemici sposta le vittorie sofferte dal 21% al 26%, perché
+lo Sgherro fa 1 danno contro 7-9 Salute. Non erano tarati male: sono fatti di
+un'altra materia.
 
 ## Il KPI misurava la cosa sbagliata (22/07/2026)
 
