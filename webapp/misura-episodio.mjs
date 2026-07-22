@@ -70,8 +70,12 @@ const TILE_BOSS = EP.tessere[EP.tessere.length - 1].id;
 // coincidono, nell'Ep.2 il PNG e' in T5 ma il condotto e' in T6 (oltre il
 // boss). Puntare la stanza sbagliata faceva sembrare 0 vittorie un dato di
 // gioco, mentre era il pilota che non ci andava mai.
-const USCITA_TILE = (SC.uscita && SC.uscita.tile) || SC.tile;
-const _tu = EP.tessere.find((t) => t.id === USCITA_TILE);
+// Episodi SENZA PNG da scortare (Ep.10, 12, 20...): la meta e' semplicemente
+// il fondo della spina. Prima il pilota dava per scontato `EP.scortato[0]` e
+// si rompeva prima di cominciare, e per questo quegli episodi risultavano
+// «non misurabili sulla plancia» — non lo erano: mancava il caso nel pilota.
+const USCITA_TILE = SC ? ((SC.uscita && SC.uscita.tile) || SC.tile) : TILE_BOSS;
+const _tu = EP.tessere.find((t) => t.id === USCITA_TILE) || {};
 const ARREDI_USCITA = (_tu.arredi || []).filter((a) => String(a[2]).toUpperCase() !== 'CELLA');
 function scoreArredi(c, tentati) {
   const cand = ARREDI_USCITA.filter((a) => !tentati.includes(`${a[0]},${a[1]}`));
@@ -182,6 +186,7 @@ async function attendiFaseEroi(maxMs = 25000) {
 async function meta() {
   const p = await P(); const s = p.spedizione;
   if ((s.scortati || [])[0]?.liberato) return USCITA_TILE;
+  if (!SC) return TILE_BOSS;                           // nessun PNG: dritti in fondo alla spina
   if (!TILE_CHIAVE) return SC.tile;                    // nessuna chiave: dritti dal prigioniero
   const k = (p.indagine.oggetti || []).some((o) => new RegExp(SC.chiave, 'i').test(o));
   return (!k && !s.cercate?.[TILE_CHIAVE]) ? TILE_CHIAVE : SC.tile;

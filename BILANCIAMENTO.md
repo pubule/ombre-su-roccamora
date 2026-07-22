@@ -94,6 +94,32 @@ le carte che generano nemici sposta le vittorie sofferte dal 21% al 26%, perché
 lo Sgherro fa 1 danno contro 7-9 Salute. Non erano tarati male: sono fatti di
 un'altra materia.
 
+## L'Ep.1 sulla plancia vera: 8% (22/07/2026)
+
+Dodici partite col pilota Playwright, che gioca la modalità digitale con
+movimento, porte e ingombri veri:
+
+| | |
+|---|---|
+| vittorie | **1 su 12 (8%)** |
+| Ruggero liberato | 6/12 |
+| uscita segreta aperta | **1/12** |
+| T6 (la stanza del Custode) mai raggiunta | **6/12** |
+
+Il simulatore, per lo stesso episodio, dice **99% in 10.4 round**. Novantuno
+punti di scarto — sul **primo episodio della campagna**, quello che decide se
+qualcuno arriverà al secondo.
+
+E le sconfitte non sono stermini: durano **32, 36, 40 round**. Il gruppo non
+muore, **non arriva**. Metà delle partite non vede nemmeno la stanza del boss.
+
+Il simulatore regala una tessera a round; sulla plancia, con Mov 3, le porte
+da imboccare e i nemici che bloccano il passo, la stessa spina costa il triplo.
+
+*(una delle quattro corse è uscita NON VALIDA per 3 click a vuoto: c'è ancora
+un difetto nel pilota da isolare, ma il quadro non cambia — le altre nove
+partite valide danno zero vittorie.)*
+
 ## Cosa NON è stato analizzato (22/07/2026)
 
 Il materiale è **Preludio + Ep.1-20**, e non c'è altro: `PROMPT-ESPANSIONE.md` è
