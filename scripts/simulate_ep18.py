@@ -601,6 +601,10 @@ def esegui_batch(nome_base, party, seeds, formula='finale_v3', esplora_a_fondo=F
                 pct_sofferta=(sum(1 for x in vitt if x['max_down'] >= 1 or x['arrestati'] >= 1)
                               / len(vitt) * 100) if vitt else 0,
                 media_arrestati=sum(x['arrestati'] for x in sp) / n,
+                # proxy "ansia": picco di eroi a terra. Era l'unico simulatore a
+                # non riportarlo, e senza non si puo' dire se una vittoria e'
+                # costata qualcosa (vedi scripts/misura_kpi.py).
+                media_max_down=sum(x['max_down'] for x in sp) / n,
                 media_round=sum(x['round_n'] for x in sp) / n,
                 media_canto=sum(x['canto_finale'] for x in sp) / n,
                 media_ore=sum(x['ore_avanzate'] for x in ind) / n,
@@ -632,7 +636,8 @@ def esegui_multi_party(nome, size, n_party=5, n_seed=30, seed_base=90000, formul
     def media(k):
         return sum(b[k] for b in per_party) / n_party
     return dict(size=size, **{k: media(k) for k in
-                ('pct_vittoria', 'pct_piena', 'pct_sofferta', 'media_arrestati', 'media_round',
+                ('pct_vittoria', 'pct_piena', 'pct_sofferta', 'media_arrestati',
+                 'media_max_down', 'media_round',
                  'media_canto', 'media_ore', 'media_luoghi', 'pct_prova_forte')})
 
 
