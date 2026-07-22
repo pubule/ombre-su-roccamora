@@ -979,6 +979,17 @@ function compitoDisponibile(pos) {
 const specOrologio = () => ctx.ep.orologio || null;
 function avanzaOrologio(quanto, motivo) {
   const o = specOrologio(); const sp = SP(); if (!o || sp.esito) return [];
+  // IL FRENO. Le Soluzioni non fanno salire queste tracce sempre: «alla fine di
+  // ogni round in cui NESSUN eroe e' adiacente al Corriere, +1» (Ep.12), «ogni
+  // turno del Muratore in cui NESSUN eroe gli e' adiacente vale +2; inchiodato,
+  // attacca voi e non demolisce» (Ep.10). Tenere il nemico a contatto FERMA
+  // l'orologio: e' lo scopo di quegli episodi, e senza il freno la traccia si
+  // riempiva in sei round e la partita era persa per aritmetica.
+  if (o.frena_adiacente) {
+    const vicino = sp.nemici.some((n) => n.pos && n.nome === o.frena_adiacente
+      && P().party.some((nm) => (sp.vite[nm] ?? 0) > 0 && adiacGlob(sp.eroiPos[nm], n.pos)));
+    if (vicino) return [`${o.nome}: fermo — ${o.frena_adiacente.toLowerCase()} è inchiodato.`];
+  }
   sp.traccia = (sp.traccia || 0) + quanto;
   const ann = [`${o.nome}: ${Math.min(sp.traccia, o.max)}/${o.max}${motivo ? ' — ' + motivo : ''}.`];
   if (sp.traccia >= o.max) {
