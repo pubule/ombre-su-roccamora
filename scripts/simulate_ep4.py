@@ -2042,8 +2042,20 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
                 attivati_extra.clear()
                 log(f'--- Round {round_n}: si cerca l’uscita nella fossa ---')
                 log_azioni_round()
-                scelto = da_provare.pop(random.randrange(len(da_provare))) if da_provare else giusto
-                if scelto == giusto:
+                # IL FRENO (20260722): nel vano non ci si infila col Suggeritore
+                # addosso. Se e' adiacente a fine round, il tentativo non parte:
+                # bisogna seminarlo, stordirlo col Libretto o abbatterlo. Senza
+                # questo, l'uscita cancellava l'inseguimento e l'episodio saliva
+                # al 97% (misurato). Precedente: il disimpegno di D&D e le prove
+                # di fuga di Descent — staccarsi non e' un diritto.
+                addosso = (custode and custode['fer'] > 0 and custode.get('pos')
+                           and any(adiacenti(custode['pos'], pos[m]) for m in vivi())
+                           and not custode_stunned)
+                scelto = None if addosso else (
+                    da_provare.pop(random.randrange(len(da_provare))) if da_provare else giusto)
+                if addosso:
+                    log('    Il Suggeritore è ADDOSSO: nessuno può infilarsi nel vano.')
+                elif scelto == giusto:
                     chi = max(vivi(), key=lambda n: HERO[n]['vigore'])
                     aperta, _ = check(log, chi, 'VIGORE', HERO[chi]['vigore'], 'Media')
                     if not aperta:
