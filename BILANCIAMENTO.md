@@ -94,6 +94,28 @@ le carte che generano nemici sposta le vittorie sofferte dal 21% al 26%, perché
 lo Sgherro fa 1 danno contro 7-9 Salute. Non erano tarati male: sono fatti di
 un'altra materia.
 
+## Cosa NON è stato analizzato (22/07/2026)
+
+Il materiale è **Preludio + Ep.1-20**, e non c'è altro: `PROMPT-ESPANSIONE.md` è
+un modello per generarne di nuovi, non contenuto esistente. Dentro quello che
+c'è, però, tre cose non sono mai state misurate:
+
+1. **Le varianti Bivio.** I sorgenti lo dichiarano — «la variante Bivio NON è
+   simulata» in Ep.2, 3, 4, 7, 9. Il Bivio è la scelta di fine episodio che
+   aggiunge una carta al mazzo del successivo: è il modo in cui la campagna si
+   porta dietro le conseguenze, e nessuna misura lo include.
+2. **La campagna come catena.** Ogni episodio si misura da solo, con l'Indagine
+   rigenerata da zero. Un oggetto non trovato, un Bivio scelto male, un PNG
+   perso: il peso che si trascina nell'episodio dopo non è mai stato guardato.
+3. **I due rami dell'Ep.7.** Ponteggi (2 tessere) e intercapedini (3) danno 74%
+   e 72%, stessa ansia — ma **entrambi 17.0 round esatti**, benché uno sia più
+   lungo di una tessera. Il modello non fa pagare quel tratto: al tavolo sono
+   due round di Minaccia in più, nel simulatore zero. La scelta di percorso, lì,
+   è cosmetica.
+
+Il punto 3 è la stessa cecità che invalida Ep.1-4, 10 e 12: **il simulatore non
+vede lo spazio**.
+
 ## Il Preludio non è mai stato misurato — e non può esserlo (22/07/2026)
 
 Il tutorial, la prima cosa che un tavolo tocca, **non compare in nessuna misura
