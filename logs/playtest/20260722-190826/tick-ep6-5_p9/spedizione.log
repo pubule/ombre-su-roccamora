@@ -1,0 +1,581 @@
+Run: tick-ep6-5_p9_seed0  |  seed=971900  |  formula Minaccia=finale_v3  |  generato: 2026-07-22T19:08:27
+==============================================================================
+SPEDIZIONE - Le Tre Acque, sotto la Cattedrale (finale d’atto)
+==============================================================================
+Party: DOTT. LAZZARO SERRA, ELENA FOSCO, NINO “GRIMALDELLO” CAUTO, PADRE CELSO MARANI
+Bonus da Indagine: PREPARATI (+1 Salute massima a testa); Formula: sì; Lanterna: no; D1: esatta; D3: esatta
+NOTA: gruppo trattato come blocco unico tessera per tessera (vedi intestazione script).
+Tensione tavolo piccolo: +-1 Ferite SOLO a Ferri (non ai nemici di truppa).
+
+Tavolo da 4: +1 Salute massima a testa (ricalibrazione).
+Gettone Intuizione in mano (Dossier completo): un ri-tiro, una volta in Spedizione.
+--- Round 1: il gruppo raggiunge T2 (Galleria di Marea) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    Il gruppo entra in T2 da B1.
+    [PROVA ACUME] DOTT. LAZZARO SERRA: 2d6(6,5)=11 +ACUME(3) = 14 vs Media(9) -> SUCCESSO
+    DOTT. LAZZARO SERRA cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    ELENA FOSCO: nessun bersaglio, avanza / assiste il gruppo.
+    NINO “GRIMALDELLO” CAUTO: nessun bersaglio, avanza / assiste il gruppo.
+    PADRE CELSO MARANI: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] IL SERVIZIO DI BANCHINA (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 1) in B1.
+  [MINACCIA] IL BATTITO SOTTO (insidia) — L’eroe con meno NERVI prova NERVI (Media): se fallisce 1 danno.
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6(4,6)=10 +NERVI(1) = 11 vs Media(9) -> SUCCESSO
+  LO SGHERRO si muove verso PADRE CELSO MARANI: B1 -> C1.
+  LO SGHERRO attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] LO SGHERRO -> PADRE CELSO MARANI: 2d6(6,1)=7 +Attacco(2) = 9 vs Difesa(8) -> COLPITO
+    PADRE CELSO MARANI subisce 1 danno da LO SGHERRO (Salute: 7/8).
+--- Round 2: il gruppo attraversa T2 verso T3 ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    [ABILITÀ] DOTT. LAZZARO SERRA attiva Voce ferma (2 usi residui): +2 NERVI agli alleati fino al suo prossimo turno.
+    ELENA FOSCO si muove verso LO SGHERRO: B1 -> C2.
+    [ATTACCO] ELENA FOSCO -> LO SGHERRO: 2d6(2,5)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> LO SGHERRO: 2d6(6,4)=10 +VIGORE(2)+arma(1) = 13 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+    PADRE CELSO MARANI: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] IL RICHIAMO (insidia) — L’eroe più avanzato prova NERVI (Media): se fallisce, 1 danno.
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6(6,4)=10 +NERVI(1) = 11 vs Media(9) -> SUCCESSO
+  [MINACCIA] IL CANTO DELLE VENE (insidia) — Ogni eroe prova NERVI (Facile): chi fallisce ha 1 sola azione al prossimo turno.
+    [PROVA NERVI] DOTT. LAZZARO SERRA: 2d6(6,3)=9 +NERVI(2) = 11 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] ELENA FOSCO: 2d6(3,3)=6 +NERVI(2) = 8 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6(5,4)=9 +NERVI(1) = 10 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] PADRE CELSO MARANI: 2d6(1,5)=6 +NERVI(3) = 9 vs Facile(7) -> SUCCESSO
+--- Round 3: il gruppo raggiunge T3 (Sala del Bronzo) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    Il gruppo entra in T3 da B1.
+    QUANDO RIVELATE: 2 Adepti a guardia del bronzo.
+    [PROVA VIGORE] DOTT. LAZZARO SERRA: 2d6(5,4)=9 +VIGORE(1) = 10 vs Media(9) -> SUCCESSO
+    [CARDINE] DOTT. LAZZARO SERRA spegne il bronzo (1/3 movimenti spenti — la Difesa di Ferri cala).
+    ELENA FOSCO si muove verso ADEPTO INCAPPUCCIATO: B1 -> C2.
+    [ATTACCO] ELENA FOSCO -> ADEPTO INCAPPUCCIATO: 2d6(2,2)=4 +VIGORE(1)+arma(1) = 6 vs Difesa(7) -> MANCATO
+    NINO “GRIMALDELLO” CAUTO si muove verso ADEPTO INCAPPUCCIATO: B1 -> A4.
+    NINO “GRIMALDELLO” CAUTO si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    [ATTACCO] PADRE CELSO MARANI -> ADEPTO INCAPPUCCIATO: 2d6(5,4)=9 +VIGORE(1)+arma(1) = 11 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+  [MINACCIA] IL SECONDO MOVIMENTO (crescendo) — Aggiungete 1 segnalino Canto. Alla soglia: Ferri si desta.
+    Segnalino Canto: 1.
+  [MINACCIA] LA CORRENTE AMICA (favore) — Rivelate una tessera coperta adiacente.
+    (carta senza effetto modellato in questa simulazione)
+  ADEPTO INCAPPUCCIATO si muove verso PADRE CELSO MARANI: A1 -> B2.
+  ADEPTO INCAPPUCCIATO attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> PADRE CELSO MARANI: 2d6(3,6)=9 +Attacco(1) = 10 vs Difesa(8) -> COLPITO
+    PADRE CELSO MARANI subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 6/8).
+--- Round 4: il gruppo attraversa T3 verso T4 ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    [ABILITÀ] DOTT. LAZZARO SERRA attiva Voce ferma (1 usi residui): +2 NERVI agli alleati fino al suo prossimo turno.
+    [ATTACCO] ELENA FOSCO -> ADEPTO INCAPPUCCIATO: 2d6(5,4)=9 +VIGORE(1)+arma(1) = 11 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    [PROVA ACUME] NINO “GRIMALDELLO” CAUTO: 2d6(1,1)=2 +ACUME(2) = 4 vs Media(9) -> FALLITA
+    NINO “GRIMALDELLO” CAUTO cerca sulla tessera: niente da trovare qui, o prova fallita.
+    [ABILITÀ] PADRE CELSO MARANI usa Litania: -1 segnalino Canto (1->0).
+  [MINACCIA] IL PRIMO MOVIMENTO (crescendo) — Aggiungete 1 segnalino Canto. Alla soglia: Ferri si desta.
+    Segnalino Canto: 1.
+  [MINACCIA] IL PELLEGRINAGGIO (posseduto) — Piazzate 1 Adepto sull’uscita più vicina agli eroi.
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 3) in B1.
+  ADEPTO INCAPPUCCIATO si muove verso DOTT. LAZZARO SERRA: B1 -> C1.
+  ADEPTO INCAPPUCCIATO attacca DOTT. LAZZARO SERRA:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> DOTT. LAZZARO SERRA: 2d6(1,1)=2 +Attacco(1) = 3 vs Difesa(8) -> MANCATO
+--- Round 5: il gruppo raggiunge T4 (Snodo delle Vene) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    Il gruppo entra in T4 da B1.
+    QUANDO RIVELATE: 1 Adepto sta calando dalla corda della Confluenza.
+    Lo Snodo delle Vene: le tre acque si sfiorano senza mescolarsi.
+    [ATTACCO] DOTT. LAZZARO SERRA -> ADEPTO INCAPPUCCIATO: 2d6(6,3)=9 +VIGORE(1)+arma(1) = 11 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    ELENA FOSCO si muove verso ADEPTO INCAPPUCCIATO: B1 -> D2.
+    [ATTACCO] ELENA FOSCO -> ADEPTO INCAPPUCCIATO: 2d6(6,4)=10 +VIGORE(1)+arma(1) = 12 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    [PROVA ACUME] NINO “GRIMALDELLO” CAUTO: 2d6(5,6)=11 +ACUME(2) = 13 vs Media(9) -> SUCCESSO
+    NINO “GRIMALDELLO” CAUTO cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    PADRE CELSO MARANI: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] GLI ECHI TORNANO (posseduto) — Piazzate 1 Voce Cava sull’uscita più vicina agli eroi.
+    Piazzati 1x LA VOCE CAVA (pool residua: 1) in B1.
+  [MINACCIA] LA SECONDA BARCA (posseduto) — Piazzate 1 Adepto sull’ingresso della Porta d’Acqua (T1).
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 3), a 6 caselle dalla tessera del gruppo.
+  LA VOCE CAVA si muove verso DOTT. LAZZARO SERRA: B1 -> C1.
+  LA VOCE CAVA attacca DOTT. LAZZARO SERRA:
+    [ATTACCO NEMICO] LA VOCE CAVA -> DOTT. LAZZARO SERRA: 2d6(5,3)=8 +Attacco(1) = 9 vs Difesa(8) -> COLPITO
+    DOTT. LAZZARO SERRA subisce 1 danno da LA VOCE CAVA (Salute: 7/8).
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+  [OROLOGIO] Fine del 5° round: +1 segnalino Canto automatico.
+    Segnalino Canto: 2.
+--- Round 6: il gruppo attraversa T4 verso T5 ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    [ABILITÀ] DOTT. LAZZARO SERRA attiva Voce ferma (0 usi residui): +2 NERVI agli alleati fino al suo prossimo turno.
+    ELENA FOSCO si muove verso LA VOCE CAVA: D2 -> D1.
+    [ATTACCO] ELENA FOSCO -> LA VOCE CAVA: 2d6(1,1)=2 +VIGORE(1)+arma(1) = 4 vs Difesa(6) -> MANCATO
+    NINO “GRIMALDELLO” CAUTO si muove verso LA VOCE CAVA: B1 -> B3.
+    NINO “GRIMALDELLO” CAUTO si avvicina a LA VOCE CAVA, non ancora a contatto.
+    PADRE CELSO MARANI si muove verso LA VOCE CAVA: B1 -> A3.
+    PADRE CELSO MARANI si avvicina a LA VOCE CAVA, non ancora a contatto.
+  [MINACCIA] LA VOCE DEL BORGO (posseduto) — Piazzate 1 Voce Cava sull’uscita più vicina agli eroi.
+    Piazzati 1x LA VOCE CAVA (pool residua: 0) in B1.
+  [MINACCIA] IL TERZO MOVIMENTO (crescendo) — Aggiungete 1 segnalino Canto. Alla soglia: Ferri si desta.
+    Segnalino Canto: 3.
+    Il Canto raggiunge 3: da ora ogni Fase Minaccia pesca 1 carta in più (fino a fine spedizione, anche se il Custode è già stato abbattuto).
+    Ferri lascia la Camera e viene a cercarvi (3° segnalino), sulla tessera più lontana dagli eroi!
+  LA VOCE CAVA si muove verso ELENA FOSCO: C1 -> D2.
+  LA VOCE CAVA attacca ELENA FOSCO:
+    [ATTACCO NEMICO] LA VOCE CAVA -> ELENA FOSCO: 2d6(1,6)=7 +Attacco(1) = 8 vs Difesa(8) -> COLPITO
+    ELENA FOSCO subisce 1 danno da LA VOCE CAVA (Salute: 7/8).
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  LA VOCE CAVA si muove verso PADRE CELSO MARANI: B1 -> A2.
+  LA VOCE CAVA attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] LA VOCE CAVA -> PADRE CELSO MARANI: 2d6(4,5)=9 +Attacco(1) = 10 vs Difesa(8) -> COLPITO
+    PADRE CELSO MARANI subisce 1 danno da LA VOCE CAVA (Salute: 5/8).
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+  BASTIANO FERRI si avvicina (Movimento 3): ancora 6 caselle prima di raggiungere la tessera del gruppo.
+--- Round 7: il gruppo raggiunge T5 (Sala della Pietra) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    Il gruppo entra in T5 da A3.
+    QUANDO RIVELATE: le Voci Cave tra i righi della pietra.
+    [PROVA ACUME] DOTT. LAZZARO SERRA: 2d6(4,2)=6 +ACUME(3) = 9 vs Media(9) -> SUCCESSO
+    [CARDINE] DOTT. LAZZARO SERRA spegne la pietra (2/3 movimenti spenti — la Difesa di Ferri cala).
+    ELENA FOSCO si muove verso LA VOCE CAVA: A3 -> B2.
+    [ATTACCO] ELENA FOSCO -> LA VOCE CAVA: 2d6(3,5)=8 +VIGORE(1)+arma(1) = 10 vs Difesa(6) -> COLPITO
+    LA VOCE CAVA: 0/1 ferite residue.
+    LA VOCE CAVA è ABBATTUTO.
+    La Voce Cava URLA nel disfarsi:
+    [PROVA NERVI] DOTT. LAZZARO SERRA: 2d6(4,4)=8 +NERVI(2) = 10 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] ELENA FOSCO: 2d6(2,1)=3 +NERVI(2) = 5 vs Facile(7) -> FALLITA
+    ELENA FOSCO avrà 1 sola azione al suo prossimo turno (l’urlo).
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6(4,5)=9 +NERVI(1) = 10 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] PADRE CELSO MARANI: 2d6(3,6)=9 +NERVI(3) = 12 vs Facile(7) -> SUCCESSO
+    NINO “GRIMALDELLO” CAUTO si muove verso LA VOCE CAVA: A3 -> C2.
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> LA VOCE CAVA: 2d6(6,1)=7 +VIGORE(2)+arma(1) = 10 vs Difesa(6) -> COLPITO
+    LA VOCE CAVA: 0/1 ferite residue.
+    LA VOCE CAVA è ABBATTUTO.
+    La Voce Cava URLA nel disfarsi:
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6(4,2)=6 +NERVI(1) = 7 vs Facile(7) -> SUCCESSO
+    [PROVA ACUME] PADRE CELSO MARANI: 2d6(4,5)=9 +ACUME(2) = 11 vs Media(9) -> SUCCESSO
+    PADRE CELSO MARANI cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+  [MINACCIA] LA PROCESSIONE ULTIMA (posseduto) — Piazzate 1 Confratello sull’uscita più vicina agli eroi.
+    Piazzati 1x IL CONFRATELLO (pool residua: 1) in A3.
+  [MINACCIA] LA BARCA DELLE DUE E MEZZA (posseduto) — Piazzate 1 Adepto sull’ingresso della Porta d’Acqua (T1).
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 1), a 6 caselle dalla tessera del gruppo.
+  [MINACCIA] REMI NEL BUIO (posseduto) — Piazzate 1 Adepto sull’ingresso della Porta d’Acqua (T1).
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 0), a 6 caselle dalla tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  IL CONFRATELLO si muove verso PADRE CELSO MARANI: A3 -> B3.
+  IL CONFRATELLO attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] IL CONFRATELLO -> PADRE CELSO MARANI: 2d6(1,4)=5 +Attacco(1) = 6 vs Difesa(8) -> MANCATO
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+  BASTIANO FERRI si avvicina (Movimento 3): ancora 6 caselle prima di raggiungere la tessera del gruppo.
+--- Round 8: il gruppo raggiunge T4 (Snodo - ritorno dal ramo) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    Il gruppo entra in T4 da D3.
+    DOTT. LAZZARO SERRA si muove verso IL CONFRATELLO: D3 -> B4.
+    [ATTACCO] DOTT. LAZZARO SERRA -> IL CONFRATELLO: 2d6(2,2)=4 +VIGORE(1)+arma(1) = 6 vs Difesa(7) -> MANCATO
+    ELENA FOSCO ha 1 sola azione questo turno (insidia del round scorso).
+    ELENA FOSCO si muove verso IL CONFRATELLO: D3 -> C1.
+    ELENA FOSCO (1 sola azione) si limita ad avvicinarsi a IL CONFRATELLO.
+    [PROVA ACUME] NINO “GRIMALDELLO” CAUTO: 2d6(6,6)=12 +ACUME(2) = 14 vs Media(9) -> SUCCESSO
+    NINO “GRIMALDELLO” CAUTO cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    PADRE CELSO MARANI: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] I FRATELLI DEL QUARANTUNO (posseduto) — Piazzate 1 Confratello sull’uscita più vicina agli eroi.
+    Piazzati 1x IL CONFRATELLO (pool residua: 0) in D3.
+  [MINACCIA] LA MAREA CHE SALE (insidia) — L’eroe attivo prova NERVI (Media): se fallisce, 1 danno e perde 1 azione.
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6(1,2)=3 +NERVI(1) = 4 vs Media(9) -> FALLITA
+    [SECONDO FIATO] NINO “GRIMALDELLO” CAUTO ritenta la prova (unico ritento dell’episodio):
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6(4,5)=9 +NERVI(1) = 10 vs Media(9) -> SUCCESSO
+  [MINACCIA] LE GUARDIE PAGATE (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 1) in D3.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+  IL CONFRATELLO si muove verso ELENA FOSCO: B3 -> A2.
+  IL CONFRATELLO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  IL CONFRATELLO si muove verso NINO “GRIMALDELLO” CAUTO: D3 -> D4.
+  IL CONFRATELLO attacca NINO “GRIMALDELLO” CAUTO:
+    [ATTACCO NEMICO] IL CONFRATELLO -> NINO “GRIMALDELLO” CAUTO: 2d6(6,4)=10 +Attacco(1) = 11 vs Difesa(8) -> COLPITO
+    NINO “GRIMALDELLO” CAUTO subisce 1 danno da IL CONFRATELLO (Salute: 8/9).
+  LO SGHERRO si muove verso ELENA FOSCO: D3 -> D1.
+  LO SGHERRO attacca ELENA FOSCO:
+    [ATTACCO NEMICO] LO SGHERRO -> ELENA FOSCO: 2d6(6,3)=9 +Attacco(2) = 11 vs Difesa(8) -> COLPITO
+    ELENA FOSCO subisce 1 danno da LO SGHERRO (Salute: 6/8).
+  BASTIANO FERRI si avvicina (Movimento 3): ancora 6 caselle prima di raggiungere la tessera del gruppo.
+--- Round 9: il gruppo attraversa T4 verso T6 ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    DOTT. LAZZARO SERRA si muove verso IL CONFRATELLO: B4 -> C4.
+    [ATTACCO] DOTT. LAZZARO SERRA -> IL CONFRATELLO: 2d6(4,2)=6 +VIGORE(1)+arma(1) = 8 vs Difesa(7) -> COLPITO
+    IL CONFRATELLO: 0/1 ferite residue.
+    IL CONFRATELLO è ABBATTUTO.
+    ELENA FOSCO si muove verso LO SGHERRO: C1 -> D2.
+    [ATTACCO] ELENA FOSCO -> LO SGHERRO: 2d6(3,6)=9 +VIGORE(1)+arma(1) = 11 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    NINO “GRIMALDELLO” CAUTO: nessun bersaglio, avanza / assiste il gruppo.
+    PADRE CELSO MARANI: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] I FACCHINI DELL’ULTIMA NOTTE (posseduto) — Piazzate 1 Adepto sull’uscita più vicina agli eroi.
+    Segnalini ADEPTO INCAPPUCCIATO esauriti: il piazzamento non ha luogo (resto della carta si applica comunque).
+  [MINACCIA] L’ACQUA ALLE GINOCCHIA (ostacolo) — Muoversi costa il doppio sulla tessera dell’eroe attivo fino a fine round.
+    (carta senza effetto modellato in questa simulazione)
+  [MINACCIA] L’ACQUA TRATTIENE (quiete) — Nessun effetto (tensione).
+    (carta senza effetto modellato in questa simulazione)
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 1 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  IL CONFRATELLO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO attacca ELENA FOSCO:
+    [ATTACCO NEMICO] LO SGHERRO -> ELENA FOSCO: 2d6(2,3)=5 +Attacco(2) = 7 vs Difesa(8) -> MANCATO
+  BASTIANO FERRI si avvicina (Movimento 3): ancora 6 caselle prima di raggiungere la tessera del gruppo.
+--- Round 10: il gruppo raggiunge T6 (Sala delle Ossa) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    Il gruppo entra in T6 da B1.
+    QUANDO RIVELATE: i Confratelli all’organo ibrido.
+    [PROVA NERVI] DOTT. LAZZARO SERRA: 2d6(3,5)=8 +NERVI(2) = 10 vs Media(9) -> SUCCESSO
+    [CARDINE] DOTT. LAZZARO SERRA spegne le ossa (3/3 movimenti spenti — la Difesa di Ferri cala).
+    ELENA FOSCO si muove verso IL CONFRATELLO: B1 -> C2.
+    [ATTACCO] ELENA FOSCO -> IL CONFRATELLO: 2d6(6,4)=10 +VIGORE(1)+arma(1) = 12 vs Difesa(7) -> COLPITO
+    IL CONFRATELLO: 0/1 ferite residue.
+    IL CONFRATELLO è ABBATTUTO.
+    NINO “GRIMALDELLO” CAUTO si muove verso IL CONFRATELLO: B1 -> B2.
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> IL CONFRATELLO: 2d6(1,6)=7 +VIGORE(2)+arma(1) = 10 vs Difesa(7) -> COLPITO
+    IL CONFRATELLO: 0/1 ferite residue.
+    IL CONFRATELLO è ABBATTUTO.
+    PADRE CELSO MARANI si muove verso LO SGHERRO: B1 -> C1.
+    [ATTACCO] PADRE CELSO MARANI -> LO SGHERRO: 2d6(4,2)=6 +VIGORE(1)+arma(1) = 8 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+    Mazzo Minaccia esaurito: si rimescolano gli scarti.
+  [MINACCIA] LA VOCE DEL BORGO (posseduto) — Piazzate 1 Voce Cava sull’uscita più vicina agli eroi.
+    Piazzati 1x LA VOCE CAVA (pool residua: 1) in B1.
+  [MINACCIA] LA CORRENTE AMICA (favore) — Rivelate una tessera coperta adiacente.
+    (carta senza effetto modellato in questa simulazione)
+  [MINACCIA] REMI NEL BUIO (posseduto) — Piazzate 1 Adepto sull’ingresso della Porta d’Acqua (T1).
+    Segnalini ADEPTO INCAPPUCCIATO esauriti: il piazzamento non ha luogo (resto della carta si applica comunque).
+  ADEPTO INCAPPUCCIATO raggiunge la tessera del gruppo, da A1.
+  ADEPTO INCAPPUCCIATO attacca DOTT. LAZZARO SERRA:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> DOTT. LAZZARO SERRA: 2d6(6,6)=12 +Attacco(1) = 13 vs Difesa(8) -> COLPITO
+    DOTT. LAZZARO SERRA subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 6/8).
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 1 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  LA VOCE CAVA attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] LA VOCE CAVA -> PADRE CELSO MARANI: 2d6(3,5)=8 +Attacco(1) = 9 vs Difesa(8) -> COLPITO
+    PADRE CELSO MARANI subisce 1 danno da LA VOCE CAVA (Salute: 4/8).
+  BASTIANO FERRI si avvicina (Movimento 3): ancora 6 caselle prima di raggiungere la tessera del gruppo.
+  [OROLOGIO] Fine del 10° round: +1 segnalino Canto automatico.
+    Segnalino Canto: 4.
+--- Round 11: il gruppo attraversa T6 verso T7 ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    [ATTACCO] DOTT. LAZZARO SERRA -> ADEPTO INCAPPUCCIATO: 2d6(1,3)=4 +VIGORE(1)+arma(1) = 6 vs Difesa(7) -> MANCATO
+    ELENA FOSCO si muove verso ADEPTO INCAPPUCCIATO: C2 -> D4.
+    ELENA FOSCO si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> LA VOCE CAVA: 2d6(3,4)=7 +VIGORE(2)+arma(1) = 10 vs Difesa(6) -> COLPITO
+    LA VOCE CAVA: 0/1 ferite residue.
+    LA VOCE CAVA è ABBATTUTO.
+    La Voce Cava URLA nel disfarsi:
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6(1,2)=3 +NERVI(1) = 4 vs Facile(7) -> FALLITA
+    NINO “GRIMALDELLO” CAUTO avrà 1 sola azione al suo prossimo turno (l’urlo).
+    [PROVA NERVI] PADRE CELSO MARANI: 2d6(2,3)=5 +NERVI(3) = 8 vs Facile(7) -> SUCCESSO
+    [PROVA ACUME] PADRE CELSO MARANI: 2d6(1,6)=7 +ACUME(2) = 9 vs Media(9) -> SUCCESSO
+    PADRE CELSO MARANI cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+  [MINACCIA] GLI ECHI TORNANO (posseduto) — Piazzate 1 Voce Cava sull’uscita più vicina agli eroi.
+    Piazzati 1x LA VOCE CAVA (pool residua: 1) in B1.
+  [MINACCIA] IL TERZO MOVIMENTO (crescendo) — Aggiungete 1 segnalino Canto. Alla soglia: Ferri si desta.
+    Segnalino Canto: 5.
+    Ferri recupera 1 ferita (4/4) e si attiva subito.
+  [MINACCIA] LA MAREA CHE SALE (insidia) — L’eroe attivo prova NERVI (Media): se fallisce, 1 danno e perde 1 azione.
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6(4,6)=10 +NERVI(1) = 11 vs Media(9) -> SUCCESSO
+  ADEPTO INCAPPUCCIATO attacca DOTT. LAZZARO SERRA:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> DOTT. LAZZARO SERRA: 2d6(1,4)=5 +Attacco(1) = 6 vs Difesa(8) -> MANCATO
+  ADEPTO INCAPPUCCIATO raggiunge la tessera del gruppo, da D1.
+  ADEPTO INCAPPUCCIATO attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> PADRE CELSO MARANI: 2d6(4,5)=9 +Attacco(1) = 10 vs Difesa(8) -> COLPITO
+    PADRE CELSO MARANI subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 3/8).
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 1 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 1 caselle prima di raggiungere la tessera del gruppo.
+  LA VOCE CAVA attacca NINO “GRIMALDELLO” CAUTO:
+    [ATTACCO NEMICO] LA VOCE CAVA -> NINO “GRIMALDELLO” CAUTO: 2d6(3,1)=4 +Attacco(1) = 5 vs Difesa(8) -> MANCATO
+  BASTIANO FERRI si avvicina (Movimento 3): ancora 6 caselle prima di raggiungere la tessera del gruppo.
+--- Round 12: il gruppo raggiunge T7 (Anticamera del Coro) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    Il gruppo entra in T7 da B1.
+    QUANDO RIVELATE: le ultime guardie — 1 Adepto e 1 Sgherro.
+    [ATTACCO] DOTT. LAZZARO SERRA -> ADEPTO INCAPPUCCIATO: 2d6(5,2)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    ELENA FOSCO si muove verso LO SGHERRO: B1 -> A3.
+    ELENA FOSCO si avvicina a LO SGHERRO, non ancora a contatto.
+    NINO “GRIMALDELLO” CAUTO ha 1 sola azione questo turno (insidia del round scorso).
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> LO SGHERRO: 2d6(5,5)=10 +VIGORE(2)+arma(1) = 13 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    [ATTACCO] PADRE CELSO MARANI -> LO SGHERRO: 2d6(4,1)=5 +VIGORE(1)+arma(1) = 7 vs Difesa(8) -> MANCATO
+  [MINACCIA] IL SECONDO MOVIMENTO (crescendo) — Aggiungete 1 segnalino Canto. Alla soglia: Ferri si desta.
+    Segnalino Canto: 6.
+    Ferri recupera 1 ferita (4/4) e si attiva subito.
+  [MINACCIA] LA SECONDA BARCA (posseduto) — Piazzate 1 Adepto sull’ingresso della Porta d’Acqua (T1).
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 0), a 6 caselle dalla tessera del gruppo.
+  [MINACCIA] LA BARCA DELLE DUE E MEZZA (posseduto) — Piazzate 1 Adepto sull’ingresso della Porta d’Acqua (T1).
+    Segnalini ADEPTO INCAPPUCCIATO esauriti: il piazzamento non ha luogo (resto della carta si applica comunque).
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO raggiunge la tessera del gruppo, da A1.
+  ADEPTO INCAPPUCCIATO attacca DOTT. LAZZARO SERRA:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> DOTT. LAZZARO SERRA: 2d6(2,3)=5 +Attacco(1) = 6 vs Difesa(8) -> MANCATO
+  ADEPTO INCAPPUCCIATO raggiunge la tessera del gruppo, da C2.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  LA VOCE CAVA si avvicina, non ancora a contatto.
+  LO SGHERRO attacca DOTT. LAZZARO SERRA:
+    [ATTACCO NEMICO] LO SGHERRO -> DOTT. LAZZARO SERRA: 2d6(2,6)=8 +Attacco(2) = 10 vs Difesa(8) -> COLPITO
+    DOTT. LAZZARO SERRA subisce 1 danno da LO SGHERRO (Salute: 5/8).
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+  BASTIANO FERRI si avvicina (Movimento 3): ancora 6 caselle prima di raggiungere la tessera del gruppo.
+--- Round 13: il gruppo attraversa T7 verso T8 ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    [ATTACCO] DOTT. LAZZARO SERRA -> ADEPTO INCAPPUCCIATO: 2d6(3,1)=4 +VIGORE(1)+arma(1) = 6 vs Difesa(7) -> MANCATO
+    ELENA FOSCO si muove verso ADEPTO INCAPPUCCIATO: A3 -> A2.
+    [ATTACCO] ELENA FOSCO -> ADEPTO INCAPPUCCIATO: 2d6(5,1)=6 +VIGORE(1)+arma(1) = 8 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> LO SGHERRO: 2d6(4,3)=7 +VIGORE(2)+arma(1) = 10 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+    PADRE CELSO MARANI si muove verso ADEPTO INCAPPUCCIATO: B1 -> C1.
+    [ATTACCO] PADRE CELSO MARANI -> ADEPTO INCAPPUCCIATO: 2d6(1,4)=5 +VIGORE(1)+arma(1) = 7 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+  [MINACCIA] L’ACQUA ALLE GINOCCHIA (ostacolo) — Muoversi costa il doppio sulla tessera dell’eroe attivo fino a fine round.
+    (carta senza effetto modellato in questa simulazione)
+  [MINACCIA] IL BATTITO SOTTO (insidia) — L’eroe con meno NERVI prova NERVI (Media): se fallisce 1 danno.
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6(4,5)=9 +NERVI(1) = 10 vs Media(9) -> SUCCESSO
+  [MINACCIA] IL RICHIAMO (insidia) — L’eroe più avanzato prova NERVI (Media): se fallisce, 1 danno.
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6(2,3)=5 +NERVI(1) = 6 vs Media(9) -> FALLITA
+    NINO “GRIMALDELLO” CAUTO subisce 1 danno da IL RICHIAMO (Salute: 7/9).
+  ADEPTO INCAPPUCCIATO si muove verso ELENA FOSCO: C2 -> C4.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  LA VOCE CAVA si muove verso DOTT. LAZZARO SERRA: B1 -> A1.
+  LA VOCE CAVA attacca DOTT. LAZZARO SERRA:
+    [ATTACCO NEMICO] LA VOCE CAVA -> DOTT. LAZZARO SERRA: 2d6(1,6)=7 +Attacco(1) = 8 vs Difesa(8) -> COLPITO
+    DOTT. LAZZARO SERRA subisce 1 danno da LA VOCE CAVA (Salute: 4/8).
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  BASTIANO FERRI si avvicina (Movimento 3): ancora 6 caselle prima di raggiungere la tessera del gruppo.
+--- Round 14: il gruppo raggiunge T8 (Camera delle Tre Acque) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    Il gruppo entra in T8 da B1.
+    LA CAMERA DELLE TRE ACQUE: il Coro dei Dodici canta intorno al rito.
+    Ferri, gia’ desto, vi ha seguiti fin qui: il rito continua senza direttore.
+    [FORMULA] DOTT. LAZZARO SERRA legge LA FORMULA DEL SIGILLO a voce ferma: il rito MUORE. Il Dormiente si riassopisce. Ferri crolla in ginocchio.
+    [ATTACCO] ELENA FOSCO -> LA VOCE CAVA: 2d6(3,6)=9 +VIGORE(1)+arma(1) = 11 vs Difesa(6) -> COLPITO
+    LA VOCE CAVA: 0/1 ferite residue.
+    LA VOCE CAVA è ABBATTUTO.
+    La Voce Cava URLA nel disfarsi:
+    [PROVA NERVI] DOTT. LAZZARO SERRA: 2d6(1,3)=4 +NERVI(2) = 6 vs Facile(7) -> FALLITA
+    DOTT. LAZZARO SERRA avrà 1 sola azione al suo prossimo turno (l’urlo).
+    [PROVA NERVI] ELENA FOSCO: 2d6(2,3)=5 +NERVI(2) = 7 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6(6,4)=10 +NERVI(1) = 11 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] PADRE CELSO MARANI: 2d6(2,2)=4 +NERVI(3) = 7 vs Facile(7) -> SUCCESSO
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> IL CORISTA: 2d6(2,1)=3 +VIGORE(2)+arma(1) = 6 vs Difesa(6) -> COLPITO
+    IL CORISTA: 0/1 ferite residue.
+    IL CORISTA FUGGE (è un impiegato, non un credente).
+    PADRE CELSO MARANI si muove verso IL CORISTA: B1 -> C2.
+    [ATTACCO] PADRE CELSO MARANI -> IL CORISTA: 2d6(3,6)=9 +VIGORE(1)+arma(1) = 11 vs Difesa(6) -> COLPITO
+    IL CORISTA: 0/1 ferite residue.
+    IL CORISTA FUGGE (è un impiegato, non un credente).
+  [MINACCIA] LE GUARDIE PAGATE (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 1) in B1.
+  [MINACCIA] IL PRIMO MOVIMENTO (crescendo) — Aggiungete 1 segnalino Canto. Alla soglia: Ferri si desta.
+    Segnalino Canto: 7.
+    Ferri recupera 1 ferita (4/4) e si attiva subito.
+  [MINACCIA] LA PROCESSIONE ULTIMA (posseduto) — Piazzate 1 Confratello sull’uscita più vicina agli eroi.
+    Piazzati 1x IL CONFRATELLO (pool residua: 1) in B1.
+  ADEPTO INCAPPUCCIATO si muove verso NINO “GRIMALDELLO” CAUTO: C4 -> B2.
+  ADEPTO INCAPPUCCIATO attacca NINO “GRIMALDELLO” CAUTO:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> NINO “GRIMALDELLO” CAUTO: 2d6(4,1)=5 +Attacco(1) = 6 vs Difesa(8) -> MANCATO
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+  IL CORISTA attacca ELENA FOSCO:
+    [ATTACCO NEMICO] IL CORISTA -> ELENA FOSCO: 2d6(1,3)=4 +Attacco(1) = 5 vs Difesa(8) -> MANCATO
+  IL CORISTA si avvicina, non ancora a contatto.
+  IL CORISTA si avvicina, non ancora a contatto.
+  IL CORISTA si muove verso DOTT. LAZZARO SERRA: A2 -> A1.
+  IL CORISTA attacca DOTT. LAZZARO SERRA:
+    [ATTACCO NEMICO] IL CORISTA -> DOTT. LAZZARO SERRA: 2d6(5,5)=10 +Attacco(1) = 11 vs Difesa(8) -> COLPITO
+    DOTT. LAZZARO SERRA subisce 1 danno da IL CORISTA (Salute: 3/8).
+  LO SGHERRO si avvicina, non ancora a contatto.
+  IL CONFRATELLO si avvicina, non ancora a contatto.
+  BASTIANO FERRI si avvicina (Movimento 3): ancora 6 caselle prima di raggiungere la tessera del gruppo.
+--- La Camera delle Tre Acque: Ferri, il Coro e il rito ---
+--- Round 15: il rito è in corso ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    DOTT. LAZZARO SERRA ha 1 sola azione questo turno (insidia del round scorso).
+    [ATTACCO] DOTT. LAZZARO SERRA -> ADEPTO INCAPPUCCIATO: 2d6(6,4)=10 +VIGORE(1)+arma(1) = 12 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    [ATTACCO] ELENA FOSCO -> IL CORISTA: 2d6(5,2)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(6) -> COLPITO
+    IL CORISTA: 0/1 ferite residue.
+    IL CORISTA FUGGE (è un impiegato, non un credente).
+    NINO “GRIMALDELLO” CAUTO si muove verso IL CORISTA: B1 -> A2.
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> IL CORISTA: 2d6(2,3)=5 +VIGORE(2)+arma(1) = 8 vs Difesa(6) -> COLPITO
+    IL CORISTA: 0/1 ferite residue.
+    IL CORISTA FUGGE (è un impiegato, non un credente).
+    PADRE CELSO MARANI si muove verso IL CORISTA: C2 -> D2.
+    [ATTACCO] PADRE CELSO MARANI -> IL CORISTA: 2d6(5,6)=11 +VIGORE(1)+arma(1) = 13 vs Difesa(6) -> COLPITO
+    IL CORISTA: 0/1 ferite residue.
+    IL CORISTA FUGGE (è un impiegato, non un credente).
+  [MINACCIA] I FRATELLI DEL QUARANTUNO (posseduto) — Piazzate 1 Confratello sull’uscita più vicina agli eroi.
+    Piazzati 1x IL CONFRATELLO (pool residua: 0) in B1.
+  [MINACCIA] IL CANTO DELLE VENE (insidia) — Ogni eroe prova NERVI (Facile): chi fallisce ha 1 sola azione al prossimo turno.
+    [PROVA NERVI] DOTT. LAZZARO SERRA: 2d6(1,1)=2 +NERVI(2) = 4 vs Facile(7) -> FALLITA
+    DOTT. LAZZARO SERRA avrà 1 sola azione al suo prossimo turno.
+    [PROVA NERVI] ELENA FOSCO: 2d6(3,5)=8 +NERVI(2) = 10 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6(3,2)=5 +NERVI(1) = 6 vs Facile(7) -> FALLITA
+    NINO “GRIMALDELLO” CAUTO avrà 1 sola azione al suo prossimo turno.
+    [PROVA NERVI] PADRE CELSO MARANI: 2d6(2,1)=3 +NERVI(3) = 6 vs Facile(7) -> FALLITA
+    [SECONDO FIATO] PADRE CELSO MARANI ritenta la prova (unico ritento dell’episodio):
+    [PROVA NERVI] PADRE CELSO MARANI: 2d6(5,3)=8 +NERVI(3) = 11 vs Facile(7) -> SUCCESSO
+  [MINACCIA] I FACCHINI DELL’ULTIMA NOTTE (posseduto) — Piazzate 1 Adepto sull’uscita più vicina agli eroi.
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 2) in B1.
+  ADEPTO INCAPPUCCIATO raggiunge la tessera del gruppo, da C1.
+  ADEPTO INCAPPUCCIATO si muove verso NINO “GRIMALDELLO” CAUTO: C1 -> B2.
+  ADEPTO INCAPPUCCIATO attacca NINO “GRIMALDELLO” CAUTO:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> NINO “GRIMALDELLO” CAUTO: 2d6(4,2)=6 +Attacco(1) = 7 vs Difesa(8) -> MANCATO
+  IL CORISTA si muove verso PADRE CELSO MARANI: D1 -> C2.
+  IL CORISTA attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] IL CORISTA -> PADRE CELSO MARANI: 2d6(3,4)=7 +Attacco(1) = 8 vs Difesa(8) -> COLPITO
+    PADRE CELSO MARANI subisce 1 danno da IL CORISTA (Salute: 2/8).
+  LO SGHERRO si muove verso DOTT. LAZZARO SERRA: B1 -> C1.
+  LO SGHERRO attacca DOTT. LAZZARO SERRA:
+    [ATTACCO NEMICO] LO SGHERRO -> DOTT. LAZZARO SERRA: 2d6(1,4)=5 +Attacco(2) = 7 vs Difesa(8) -> MANCATO
+  IL CONFRATELLO si muove verso ELENA FOSCO: B1 -> A1.
+  IL CONFRATELLO attacca ELENA FOSCO:
+    [ATTACCO NEMICO] IL CONFRATELLO -> ELENA FOSCO: 2d6(5,3)=8 +Attacco(1) = 9 vs Difesa(8) -> COLPITO
+    ELENA FOSCO subisce 1 danno da IL CONFRATELLO (Salute: 5/8).
+  IL CONFRATELLO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  BASTIANO FERRI si avvicina (Movimento 3): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+  [OROLOGIO] Fine del 15° round: +1 segnalino Canto automatico.
+    Segnalino Canto: 8.
+    NINO “GRIMALDELLO” CAUTO subisce 1 danno da il battito del Dormiente (soglia 6) (Salute: 6/9).
+  Il rito è morto: Ferri crolla. Si torna alla Porta d’Acqua.
+--- Ritorno alla Porta d’Acqua (3 round, la marea sale) ---
+    [PROVA NERVI] DOTT. LAZZARO SERRA: 2d6(6,4)=10 +NERVI(2) = 12 vs Media(9) -> SUCCESSO
+    [PROVA NERVI] ELENA FOSCO: 2d6(1,3)=4 +NERVI(2) = 6 vs Media(9) -> FALLITA
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6(4,3)=7 +NERVI(1) = 8 vs Media(9) -> FALLITA
+    [PROVA NERVI] PADRE CELSO MARANI: 2d6(4,4)=8 +NERVI(3) = 11 vs Media(9) -> SUCCESSO
+--- Round 16: rientro verso T1 ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    DOTT. LAZZARO SERRA ha 1 sola azione questo turno (insidia del round scorso).
+    [ATTACCO] DOTT. LAZZARO SERRA -> ADEPTO INCAPPUCCIATO: 2d6(6,1)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    ELENA FOSCO ha 1 sola azione questo turno (insidia del round scorso).
+    [ATTACCO] ELENA FOSCO -> IL CONFRATELLO: 2d6(6,6)=12 +VIGORE(1)+arma(1) = 14 vs Difesa(7) -> COLPITO
+    IL CONFRATELLO: 0/1 ferite residue.
+    IL CONFRATELLO è ABBATTUTO.
+    NINO “GRIMALDELLO” CAUTO ha 1 sola azione questo turno (insidia del round scorso).
+    NINO “GRIMALDELLO” CAUTO si muove verso IL CORISTA: A2 -> B2.
+    NINO “GRIMALDELLO” CAUTO (1 sola azione) si limita ad avvicinarsi a IL CORISTA.
+    [ATTACCO] PADRE CELSO MARANI -> IL CORISTA: 2d6(5,5)=10 +VIGORE(1)+arma(1) = 12 vs Difesa(6) -> COLPITO
+    IL CORISTA: 0/1 ferite residue.
+    IL CORISTA FUGGE (è un impiegato, non un credente).
+  [MINACCIA] L’ACQUA TRATTIENE (quiete) — Nessun effetto (tensione).
+    (carta senza effetto modellato in questa simulazione)
+  [MINACCIA] IL SERVIZIO DI BANCHINA (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 0) in B1.
+  [MINACCIA] IL PELLEGRINAGGIO (posseduto) — Piazzate 1 Adepto sull’uscita più vicina agli eroi.
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 2) in B1.
+  LO SGHERRO si muove verso PADRE CELSO MARANI: C1 -> C2.
+  LO SGHERRO attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] LO SGHERRO -> PADRE CELSO MARANI: 2d6(3,3)=6 +Attacco(2) = 8 vs Difesa(8) -> COLPITO
+    PADRE CELSO MARANI subisce 1 danno da LO SGHERRO (Salute: 1/8).
+  IL CONFRATELLO si muove verso ELENA FOSCO: B1 -> C1.
+  IL CONFRATELLO attacca ELENA FOSCO:
+    [ATTACCO NEMICO] IL CONFRATELLO -> ELENA FOSCO: 2d6(6,4)=10 +Attacco(1) = 11 vs Difesa(8) -> COLPITO
+    ELENA FOSCO subisce 1 danno da IL CONFRATELLO (Salute: 4/8).
+  ADEPTO INCAPPUCCIATO si muove verso NINO “GRIMALDELLO” CAUTO: B1 -> A2.
+  ADEPTO INCAPPUCCIATO attacca NINO “GRIMALDELLO” CAUTO:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> NINO “GRIMALDELLO” CAUTO: 2d6(4,2)=6 +Attacco(1) = 7 vs Difesa(8) -> MANCATO
+  LO SGHERRO si muove verso DOTT. LAZZARO SERRA: B1 -> A1.
+  LO SGHERRO attacca DOTT. LAZZARO SERRA:
+    [ATTACCO NEMICO] LO SGHERRO -> DOTT. LAZZARO SERRA: 2d6(3,1)=4 +Attacco(2) = 6 vs Difesa(8) -> MANCATO
+  ADEPTO INCAPPUCCIATO attacca NINO “GRIMALDELLO” CAUTO:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> NINO “GRIMALDELLO” CAUTO: 2d6(3,2)=5 +Attacco(1) = 6 vs Difesa(8) -> MANCATO
+--- Round 17: rientro verso T1 ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    [ATTACCO] DOTT. LAZZARO SERRA -> IL CONFRATELLO: 2d6(2,5)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(7) -> COLPITO
+    IL CONFRATELLO: 0/1 ferite residue.
+    IL CONFRATELLO è ABBATTUTO.
+    [ATTACCO] ELENA FOSCO -> LO SGHERRO: 2d6(6,2)=8 +VIGORE(1)+arma(1) = 10 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    NINO “GRIMALDELLO” CAUTO si muove verso ADEPTO INCAPPUCCIATO: B2 -> A3.
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> ADEPTO INCAPPUCCIATO: 2d6(5,6)=11 +VIGORE(2)+arma(1) = 14 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    PADRE CELSO MARANI si muove verso LO SGHERRO: D2 -> C1.
+    [ATTACCO] PADRE CELSO MARANI -> ADEPTO INCAPPUCCIATO: 2d6(2,3)=5 +VIGORE(1)+arma(1) = 7 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    Mazzo Minaccia esaurito: si rimescolano gli scarti.
+  [MINACCIA] I FACCHINI DELL’ULTIMA NOTTE (posseduto) — Piazzate 1 Adepto sull’uscita più vicina agli eroi.
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 3) in B1.
+  [MINACCIA] I FRATELLI DEL QUARANTUNO (posseduto) — Piazzate 1 Confratello sull’uscita più vicina agli eroi.
+    Piazzati 1x IL CONFRATELLO (pool residua: 1) in B1.
+  [MINACCIA] IL SECONDO MOVIMENTO (crescendo) — Aggiungete 1 segnalino Canto. Alla soglia: Ferri si desta.
+    Segnalino Canto: 9.
+    Ferri è già stato sconfitto: nessun effetto su di lui.
+  LO SGHERRO si muove verso DOTT. LAZZARO SERRA: C2 -> B2.
+  LO SGHERRO attacca DOTT. LAZZARO SERRA:
+    [ATTACCO NEMICO] LO SGHERRO -> DOTT. LAZZARO SERRA: 2d6(1,6)=7 +Attacco(2) = 9 vs Difesa(8) -> COLPITO
+    DOTT. LAZZARO SERRA subisce 1 danno da LO SGHERRO (Salute: 2/8).
+  LO SGHERRO attacca ELENA FOSCO:
+    [ATTACCO NEMICO] LO SGHERRO -> ELENA FOSCO: 2d6(4,5)=9 +Attacco(2) = 11 vs Difesa(8) -> COLPITO
+    ELENA FOSCO subisce 1 danno da LO SGHERRO (Salute: 3/8).
+  ADEPTO INCAPPUCCIATO attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> PADRE CELSO MARANI: 2d6(1,1)=2 +Attacco(1) = 3 vs Difesa(8) -> MANCATO
+  IL CONFRATELLO attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] IL CONFRATELLO -> PADRE CELSO MARANI: 2d6(3,2)=5 +Attacco(1) = 6 vs Difesa(8) -> MANCATO
+--- Round 18: rientro verso T1 ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    [ATTACCO] DOTT. LAZZARO SERRA -> LO SGHERRO: 2d6(5,4)=9 +VIGORE(1)+arma(1) = 11 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+    ELENA FOSCO si muove verso LO SGHERRO: B1 -> A2.
+    [ATTACCO] ELENA FOSCO -> LO SGHERRO: 2d6(5,3)=8 +VIGORE(1)+arma(1) = 10 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    NINO “GRIMALDELLO” CAUTO si muove verso LO SGHERRO: A3 -> B3.
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> LO SGHERRO: 2d6(5,5)=10 +VIGORE(2)+arma(1) = 13 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+    PADRE CELSO MARANI si muove verso ADEPTO INCAPPUCCIATO: C1 -> B2.
+    [ATTACCO] PADRE CELSO MARANI -> ADEPTO INCAPPUCCIATO: 2d6(6,6)=12 +VIGORE(1)+arma(1) = 14 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+  [MINACCIA] IL CANTO DELLE VENE (insidia) — Ogni eroe prova NERVI (Facile): chi fallisce ha 1 sola azione al prossimo turno.
+    [PROVA NERVI] DOTT. LAZZARO SERRA: 2d6(1,3)=4 +NERVI(2) = 6 vs Facile(7) -> FALLITA
+    DOTT. LAZZARO SERRA avrà 1 sola azione al suo prossimo turno.
+    [PROVA NERVI] ELENA FOSCO: 2d6(3,4)=7 +NERVI(2) = 9 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6(4,1)=5 +NERVI(1) = 6 vs Facile(7) -> FALLITA
+    NINO “GRIMALDELLO” CAUTO avrà 1 sola azione al suo prossimo turno.
+    [PROVA NERVI] PADRE CELSO MARANI: 2d6(2,3)=5 +NERVI(3) = 8 vs Facile(7) -> SUCCESSO
+  [MINACCIA] LA VOCE DEL BORGO (posseduto) — Piazzate 1 Voce Cava sull’uscita più vicina agli eroi.
+    Piazzati 1x LA VOCE CAVA (pool residua: 1) in B1.
+  [MINACCIA] REMI NEL BUIO (posseduto) — Piazzate 1 Adepto sull’ingresso della Porta d’Acqua (T1).
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 3), a 6 caselle dalla tessera del gruppo.
+  IL CONFRATELLO si muove verso NINO “GRIMALDELLO” CAUTO: B1 -> D1.
+  IL CONFRATELLO si avvicina, non ancora a contatto.
+  LA VOCE CAVA si muove verso NINO “GRIMALDELLO” CAUTO: B1 -> D2.
+  LA VOCE CAVA si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+
+==============================================================================
+ESITO SPEDIZIONE: VITTORIA
+Round totali: 18
+Formula Minaccia: finale_v3 | Azioni nominali/round: media 8.0, picco 8
+Mazzo Minaccia rimescolato: 2 volta/e
+Segnalini nemici esauriti nel pool (piazzamenti saltati): 3
+Ferri svegliato: in anticipo al round 6
+  DOTT. LAZZARO SERRA: 2/8 Salute
+  ELENA FOSCO: 3/8 Salute
+  NINO “GRIMALDELLO” CAUTO: 6/9 Salute
+  PADRE CELSO MARANI: 1/8 Salute
+==============================================================================
+Movimenti spenti: 3/3; Formula letta: sì

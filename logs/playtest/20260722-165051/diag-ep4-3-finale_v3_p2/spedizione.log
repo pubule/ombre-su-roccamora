@@ -1,0 +1,375 @@
+Run: diag-ep4-3-finale_v3_p2_seed0  |  seed=934200  |  formula Minaccia=finale_v3  |  generato: 2026-07-22T16:50:52
+==============================================================================
+SPEDIZIONE - Il sottopalco del Comunale (a gala in corso)
+==============================================================================
+Party: DOTT. ATTILIO MARN, DOTT. LAZZARO SERRA, MORA “SPILLA” FANTI
+Bonus da Indagine: PREPARATI (+1 Salute massima a testa); Libretto: sì; Pianta: sì; D1: esatta; D3: esatta
+NOTA: gruppo trattato come blocco unico tessera per tessera (vedi intestazione script).
+
+Gettone Intuizione in mano (Dossier completo): un ri-tiro, una volta in Spedizione.
+--- Round 1: il gruppo raggiunge T2 (Magazzino delle Scene) ---
+    (azioni nominali questo round: 6 — 3 eroi vivi)
+    Il gruppo entra in T2 da B1.
+    [PROVA ACUME] DOTT. ATTILIO MARN: 2d6(3,1)=4 +ACUME(2) = 6 vs Media(9) -> FALLITA
+    DOTT. ATTILIO MARN cerca sulla tessera: niente da trovare qui, o prova fallita.
+    DOTT. LAZZARO SERRA: nessun bersaglio, avanza / assiste il gruppo.
+    MORA “SPILLA” FANTI: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] IL BATTIMANI (posseduto) — Piazzate 1 Claque sull’uscita più vicina agli eroi.
+    Piazzati 1x LA CLAQUE (pool residua: 2) in B1.
+  LA CLAQUE si muove verso DOTT. LAZZARO SERRA: B1 -> C1.
+  LA CLAQUE attacca DOTT. LAZZARO SERRA:
+    [ATTACCO NEMICO] LA CLAQUE -> DOTT. LAZZARO SERRA: 2d6(2,3)=5 +Attacco(1) = 6 vs Difesa(8) -> MANCATO
+--- Round 2: il gruppo attraversa T2 verso T3 ---
+    (azioni nominali questo round: 6 — 3 eroi vivi)
+    DOTT. ATTILIO MARN si muove verso LA CLAQUE: B1 -> A3.
+    DOTT. ATTILIO MARN si avvicina a LA CLAQUE, non ancora a contatto.
+    [ABILITÀ] DOTT. LAZZARO SERRA attiva Voce ferma (2 usi residui): +2 NERVI agli alleati fino al suo prossimo turno.
+    [ATTACCO] MORA “SPILLA” FANTI -> LA CLAQUE: 2d6(1,2)=3 +VIGORE(3)+arma(1) = 7 vs Difesa(6) -> COLPITO
+    LA CLAQUE: 0/1 ferite residue.
+    LA CLAQUE è ABBATTUTO.
+  [MINACCIA] IL SERVIZIO D’ORDINE (malavita) — Piazzate 1 Sicario: si attiva subito.
+    Piazzati 1x IL SICARIO (pool residua: 0) in C1.
+    IL SICARIO si attiva subito:
+  IL SICARIO si muove verso DOTT. ATTILIO MARN: C1 -> C4.
+  IL SICARIO si avvicina, non ancora a contatto.
+--- Round 3: il gruppo raggiunge T3 (Sala dei Contrappesi) ---
+    (azioni nominali questo round: 6 — 3 eroi vivi)
+    Il gruppo entra in T3 da B1.
+    [OGGETTO] LA PIANTA DELLE MACCHINE: sapete dove NON stare — nessuna prova.
+    DOTT. ATTILIO MARN si muove verso IL SICARIO: B1 -> B4.
+    [ATTACCO] DOTT. ATTILIO MARN -> IL SICARIO: 2d6(1,6)=7 +VIGORE(2)+arma(1) = 10 vs Difesa(7) -> COLPITO
+    IL SICARIO: 0/1 ferite residue.
+    IL SICARIO è ABBATTUTO.
+    [PROVA ACUME] DOTT. LAZZARO SERRA: 2d6(4,2)=6 +ACUME(3) = 9 vs Media(9) -> SUCCESSO
+    DOTT. LAZZARO SERRA cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    MORA “SPILLA” FANTI: nessun bersaglio, avanza / assiste il gruppo.
+    [ABILITÀ] MORA “SPILLA” FANTI semina un diversivo: una carta Minaccia in meno questo round (1 usi residui).
+--- Round 4: il gruppo attraversa T3 verso T4 ---
+    (azioni nominali questo round: 6 — 3 eroi vivi)
+    DOTT. ATTILIO MARN: nessun bersaglio, avanza / assiste il gruppo.
+    [ABILITÀ] DOTT. LAZZARO SERRA attiva Voce ferma (1 usi residui): +2 NERVI agli alleati fino al suo prossimo turno.
+    MORA “SPILLA” FANTI: nessun bersaglio, avanza / assiste il gruppo.
+    [ABILITÀ] MORA “SPILLA” FANTI semina un diversivo: una carta Minaccia in meno questo round (0 usi residui).
+  [OROLOGIO] Fine del 4° round: +1 segnalino Canto automatico.
+    Segnalino Canto: 1.
+--- Round 5: il gruppo raggiunge T4 (Corridoio dei Camerini Morti) ---
+    (azioni nominali questo round: 6 — 3 eroi vivi)
+    Il gruppo entra in T4 da B1.
+    QUANDO RIVELATE: 1 Adepto sta calando dalla corda della Confluenza.
+    Rivelato il Corridoio: in fondo, la gobba china su un leggio che non c’è — IL SUGGERITORE vi ha sentiti, e vi INCALZA.
+    [OGGETTO] DOTT. ATTILIO MARN mostra IL LIBRETTO DI GASPARE: l’eco riconosce la voce vera del suo posto — Difesa 8->5, salta la prossima attivazione.
+    DOTT. LAZZARO SERRA si muove verso IL SUGGERITORE: B1 -> C1.
+    [ATTACCO] DOTT. LAZZARO SERRA -> IL SUGGERITORE: 2d6(2,2)=4 +VIGORE(1)+arma(1) = 6 vs Difesa(5) -> COLPITO
+    IL SUGGERITORE: 3/4 ferite residue.
+    MORA “SPILLA” FANTI si muove verso ADEPTO INCAPPUCCIATO: B1 -> A3.
+    MORA “SPILLA” FANTI si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+  [MINACCIA] LA PORTA DELLA PLATEA (posseduto) — Piazzate 1 Adepto sull’ingresso della Quinta di Carico (T1).
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 2), a 6 caselle dalla tessera del gruppo.
+  [MINACCIA] IL RITIRO DELLE LASTRE (posseduto) — Piazzate 1 Adepto sull’ingresso della Conchiglia (T6).
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 1), a 6 caselle dalla tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si muove verso MORA “SPILLA” FANTI: D3 -> B3.
+  ADEPTO INCAPPUCCIATO attacca MORA “SPILLA” FANTI:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> MORA “SPILLA” FANTI: 2d6(1,5)=6 +Attacco(1) = 7 vs Difesa(8) -> MANCATO
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+  IL SUGGERITORE salta l’attivazione (stonato).
+--- Round 6: il gruppo attraversa T4 verso T5 ---
+    (azioni nominali questo round: 6 — 3 eroi vivi)
+    [PROVA ACUME] DOTT. ATTILIO MARN: 2d6(3,2)=5 +ACUME(2) = 7 vs Media(9) -> FALLITA
+    DOTT. ATTILIO MARN cerca sulla tessera: niente da trovare qui, o prova fallita.
+    [ABILITÀ] DOTT. LAZZARO SERRA attiva Voce ferma (0 usi residui): +2 NERVI agli alleati fino al suo prossimo turno.
+    MORA “SPILLA” FANTI si muove verso ADEPTO INCAPPUCCIATO: A3 -> B4.
+    [ATTACCO] MORA “SPILLA” FANTI -> ADEPTO INCAPPUCCIATO: 2d6(1,5)=6 +VIGORE(3)+arma(1) = 10 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+  [MINACCIA] IL CONTRAPPESO CHE CHIAMA (insidia) — L’eroe attivo prova NERVI (Media): se fallisce, 1 danno e perde 1 azione.
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(6,1)=7 +NERVI(1) = 8 vs Media(9) -> FALLITA
+    [SECONDO FIATO] MORA “SPILLA” FANTI ritenta la prova (unico ritento dell’episodio):
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(3,3)=6 +NERVI(1) = 7 vs Media(9) -> FALLITA
+    MORA “SPILLA” FANTI subisce 1 danno da IL CONTRAPPESO CHE CHIAMA (Salute: 7/8).
+    MORA “SPILLA” FANTI avrà 1 sola azione al suo prossimo turno.
+  [MINACCIA] UNO SPIRAGLIO DI SIPARIO (favore) — Rivelate una tessera coperta adiacente.
+    (carta senza effetto modellato in questa simulazione)
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  IL SUGGERITORE si muove verso MORA “SPILLA” FANTI: C2 -> D4.
+  IL SUGGERITORE si avvicina, non ancora a contatto.
+--- Round 7: il gruppo raggiunge T5 (Fossa del Contrappeso Morto) ---
+    (azioni nominali questo round: 6 — 3 eroi vivi)
+    Il gruppo entra in T5 da A3.
+    QUANDO RIVELATE: 1 Adepto di guardia appare tra le funi della fossa.
+    Gaspare e Rocco si liberano con Interagire (nessuna prova): si muovono col gruppo.
+    [ABILITÀ] DOTT. ATTILIO MARN usa Pronto Soccorso su MORA “SPILLA” FANTI -> Salute 8.
+    DOTT. LAZZARO SERRA si muove verso ADEPTO INCAPPUCCIATO: A3 -> B2.
+    [ATTACCO] DOTT. LAZZARO SERRA -> ADEPTO INCAPPUCCIATO: 2d6(3,6)=9 +VIGORE(1)+arma(1) = 11 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    MORA “SPILLA” FANTI ha 1 sola azione questo turno (insidia del round scorso).
+    MORA “SPILLA” FANTI si muove verso IL SUGGERITORE: A3 -> C4.
+    MORA “SPILLA” FANTI (1 sola azione) si limita ad avvicinarsi a IL SUGGERITORE.
+  [MINACCIA] L’ACUTO (insidia) — L’eroe con meno NERVI prova NERVI (Media): se fallisce 1 danno.
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(6,4)=10 +NERVI(1) = 11 vs Media(9) -> SUCCESSO
+  [MINACCIA] L’OUVERTURE (crescendo) — Aggiungete 1 segnalino Canto. Alla soglia: il Suggeritore si desta.
+    Segnalino Canto: 2.
+    Il Suggeritore è già stato sconfitto: nessun effetto su di lui.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+  IL SUGGERITORE si muove verso DOTT. ATTILIO MARN: D4 -> B3.
+  IL SUGGERITORE attacca DOTT. ATTILIO MARN:
+    [ATTACCO NEMICO] IL SUGGERITORE -> DOTT. ATTILIO MARN: 2d6(1,6)=7 +Attacco(3) = 10 vs Difesa(8) -> COLPITO
+    DOTT. ATTILIO MARN subisce 2 danno da IL SUGGERITORE (Salute: 6/8).
+    [PROVA NERVI] DOTT. ATTILIO MARN: 2d6(1,4)=5 +NERVI(2) = 7 vs Facile(7) -> SUCCESSO
+--- Round 8: il gruppo raggiunge T4 (Corridoio - ritorno dal ramo) ---
+    (azioni nominali questo round: 6 — 3 eroi vivi)
+    Il gruppo entra in T4 da D3.
+    [ABILITÀ] DOTT. ATTILIO MARN usa Pronto Soccorso su DOTT. ATTILIO MARN -> Salute 8.
+    DOTT. LAZZARO SERRA si muove verso IL SUGGERITORE: D3 -> B4.
+    [ATTACCO] DOTT. LAZZARO SERRA -> IL SUGGERITORE: 2d6(1,1)=2 +VIGORE(1)+arma(1) = 4 vs Difesa(5) -> MANCATO
+    MORA “SPILLA” FANTI si muove verso IL SUGGERITORE: D3 -> C1.
+    MORA “SPILLA” FANTI si avvicina a IL SUGGERITORE, non ancora a contatto.
+  [MINACCIA] LE MASCHERE DI SALA (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 1) in D3.
+  [MINACCIA] L’APPLAUSO CHE COPRE (insidia) — Ogni eroe prova NERVI (Facile): chi fallisce ha 1 sola azione al prossimo turno.
+    [PROVA NERVI] DOTT. ATTILIO MARN: 2d6(1,5)=6 +NERVI(2) = 8 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] DOTT. LAZZARO SERRA: 2d6(4,1)=5 +NERVI(2) = 7 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(4,3)=7 +NERVI(1) = 8 vs Facile(7) -> SUCCESSO
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si muove verso DOTT. LAZZARO SERRA: D3 -> C4.
+  LO SGHERRO attacca DOTT. LAZZARO SERRA:
+    [ATTACCO NEMICO] LO SGHERRO -> DOTT. LAZZARO SERRA: 2d6(2,6)=8 +Attacco(2) = 10 vs Difesa(8) -> COLPITO
+    DOTT. LAZZARO SERRA subisce 1 danno da LO SGHERRO (Salute: 6/7).
+  IL SUGGERITORE si muove verso MORA “SPILLA” FANTI: B3 -> A1.
+  IL SUGGERITORE si avvicina, non ancora a contatto.
+  [OROLOGIO] Fine del 8° round: +1 segnalino Canto automatico.
+    Segnalino Canto: 3.
+    Il Canto raggiunge 3: da ora ogni Fase Minaccia pesca 1 carta in più (fino a fine spedizione, anche se il Custode è già stato abbattuto).
+--- Round 9: il gruppo attraversa T4 verso T6 ---
+    (azioni nominali questo round: 6 — 3 eroi vivi)
+    [ABILITÀ] DOTT. ATTILIO MARN usa Pronto Soccorso su DOTT. LAZZARO SERRA -> Salute 7.
+    [ATTACCO] DOTT. LAZZARO SERRA -> LO SGHERRO: 2d6(6,2)=8 +VIGORE(1)+arma(1) = 10 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    MORA “SPILLA” FANTI si muove verso IL SUGGERITORE: C1 -> B1.
+    [ATTACCO] MORA “SPILLA” FANTI -> IL SUGGERITORE: 2d6(3,3)=6 +VIGORE(3)+arma(1) = 10 vs Difesa(5) -> COLPITO
+    IL SUGGERITORE: 2/4 ferite residue.
+  [MINACCIA] L’APPLAUSO A COMANDO (posseduto) — Piazzate 1 Claque sull’uscita più vicina agli eroi.
+    Piazzati 1x LA CLAQUE (pool residua: 2) in D3.
+  [MINACCIA] PASSI IN PLATEA (posseduto) — Piazzate 1 Adepto sull’ingresso della Quinta di Carico (T1).
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 1), a 6 caselle dalla tessera del gruppo.
+  [MINACCIA] LE CASSE DI CANDELE (posseduto) — Piazzate 1 Adepto sull’ingresso della Quinta di Carico (T1).
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 0), a 6 caselle dalla tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 1 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 1 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO attacca DOTT. LAZZARO SERRA:
+    [ATTACCO NEMICO] LO SGHERRO -> DOTT. LAZZARO SERRA: 2d6(3,2)=5 +Attacco(2) = 7 vs Difesa(8) -> MANCATO
+  LA CLAQUE si muove verso MORA “SPILLA” FANTI: D3 -> C1.
+  LA CLAQUE attacca MORA “SPILLA” FANTI:
+    [ATTACCO NEMICO] LA CLAQUE -> MORA “SPILLA” FANTI: 2d6(6,2)=8 +Attacco(1) = 9 vs Difesa(8) -> COLPITO
+    MORA “SPILLA” FANTI subisce 1 danno da LA CLAQUE (Salute: 7/8).
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+  IL SUGGERITORE si muove verso DOTT. LAZZARO SERRA: A1 -> A4.
+  IL SUGGERITORE attacca DOTT. LAZZARO SERRA:
+    [ATTACCO NEMICO] IL SUGGERITORE -> DOTT. LAZZARO SERRA: 2d6(1,2)=3 +Attacco(3) = 6 vs Difesa(8) -> MANCATO
+--- Round 10: il gruppo raggiunge T6 (La Conchiglia) ---
+    (azioni nominali questo round: 6 — 3 eroi vivi)
+    Il gruppo entra in T6 da B1.
+    Rivelata la Conchiglia: le lastre incise in rastrelliera, la platea di legno ASCOLTA.
+    [VANTAGGIO D2] Alboni è stato fermato in camerino: la scorta di Claque non appare.
+    [AZIONE] DOTT. ATTILIO MARN disaccorda un pannello della conchiglia (1/3 sabotati).
+    [AZIONE] DOTT. LAZZARO SERRA disaccorda un pannello della conchiglia (2/3 sabotati).
+    [AZIONE] MORA “SPILLA” FANTI disaccorda un pannello della conchiglia (3/3 sabotati).
+  [MINACCIA] IL TEMPO BATTUTO (posseduto) — Piazzate 1 Claque. Se è già in gioco una Claque, si attiva subito.
+    Piazzati 1x LA CLAQUE (pool residua: 1) in B1.
+  [MINACCIA] LE FUNI CALATE (ostacolo) — Muoversi costa il doppio sulla tessera dell’eroe attivo fino a fine round.
+    (carta senza effetto modellato in questa simulazione)
+  [MINACCIA] L’ARIA SI AVVICINA (crescendo) — Aggiungete 1 segnalino Canto. Alla soglia: il Suggeritore si desta.
+    Segnalino Canto: 4.
+    Il Suggeritore è già stato sconfitto: nessun effetto su di lui.
+  ADEPTO INCAPPUCCIATO raggiunge la tessera del gruppo, da A1.
+  ADEPTO INCAPPUCCIATO si muove verso DOTT. LAZZARO SERRA: A1 -> B2.
+  ADEPTO INCAPPUCCIATO attacca DOTT. LAZZARO SERRA:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> DOTT. LAZZARO SERRA: 2d6(5,1)=6 +Attacco(1) = 7 vs Difesa(8) -> MANCATO
+  ADEPTO INCAPPUCCIATO raggiunge la tessera del gruppo, da A1.
+  ADEPTO INCAPPUCCIATO attacca DOTT. LAZZARO SERRA:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> DOTT. LAZZARO SERRA: 2d6(6,1)=7 +Attacco(1) = 8 vs Difesa(8) -> COLPITO
+    DOTT. LAZZARO SERRA subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 6/7).
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LA CLAQUE attacca MORA “SPILLA” FANTI:
+    [ATTACCO NEMICO] LA CLAQUE -> MORA “SPILLA” FANTI: 2d6(5,1)=6 +Attacco(1) = 7 vs Difesa(8) -> MANCATO
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  LA CLAQUE si avvicina, non ancora a contatto.
+  IL SUGGERITORE si avvicina, non ancora a contatto.
+--- Ritorno a T1 con Gaspare e Rocco (3 round di progresso; col Suggeritore ADIACENTE a fine round il gruppo resta agganciato e non avanza — seminatelo, stordientelo col Libretto, o abbattetelo) ---
+--- Round 11: rientro verso T1 (0/3) ---
+    (azioni nominali questo round: 6 — 3 eroi vivi)
+    [ATTACCO] DOTT. ATTILIO MARN -> ADEPTO INCAPPUCCIATO: 2d6(5,2)=7 +VIGORE(2)+arma(1) = 10 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    DOTT. LAZZARO SERRA si muove verso ADEPTO INCAPPUCCIATO: B1 -> A2.
+    [ATTACCO] DOTT. LAZZARO SERRA -> ADEPTO INCAPPUCCIATO: 2d6(2,3)=5 +VIGORE(1)+arma(1) = 7 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    MORA “SPILLA” FANTI si muove verso LA CLAQUE: B1 -> C2.
+    [ATTACCO] MORA “SPILLA” FANTI -> LA CLAQUE: 2d6(3,4)=7 +VIGORE(3)+arma(1) = 11 vs Difesa(6) -> COLPITO
+    LA CLAQUE: 0/1 ferite residue.
+    LA CLAQUE è ABBATTUTO.
+  [MINACCIA] IL BUIO DI QUINTA (insidia) — L’eroe più avanzato prova NERVI (Media): se fallisce, 1 danno.
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(2,1)=3 +NERVI(1) = 4 vs Media(9) -> FALLITA
+    MORA “SPILLA” FANTI subisce 1 danno da IL BUIO DI QUINTA (Salute: 6/8).
+  [MINACCIA] IL GIRO DELLE POLTRONE (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 0) in B1.
+  [MINACCIA] IL CAMBIO SCENA (quiete) — Nessun effetto (tensione).
+    (carta senza effetto modellato in questa simulazione)
+  LO SGHERRO si muove verso MORA “SPILLA” FANTI: C4 -> D2.
+  LO SGHERRO attacca MORA “SPILLA” FANTI:
+    [ATTACCO NEMICO] LO SGHERRO -> MORA “SPILLA” FANTI: 2d6(5,6)=11 +Attacco(2) = 13 vs Difesa(8) -> COLPITO
+    MORA “SPILLA” FANTI subisce 1 danno da LO SGHERRO (Salute: 5/8).
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+  LA CLAQUE si muove verso DOTT. ATTILIO MARN: B1 -> C1.
+  LA CLAQUE attacca DOTT. ATTILIO MARN:
+    [ATTACCO NEMICO] LA CLAQUE -> DOTT. ATTILIO MARN: 2d6(4,5)=9 +Attacco(1) = 10 vs Difesa(8) -> COLPITO
+    DOTT. ATTILIO MARN subisce 1 danno da LA CLAQUE (Salute: 7/8).
+  LO SGHERRO si muove verso DOTT. LAZZARO SERRA: B1 -> B2.
+  LO SGHERRO attacca DOTT. LAZZARO SERRA:
+    [ATTACCO NEMICO] LO SGHERRO -> DOTT. LAZZARO SERRA: 2d6(1,6)=7 +Attacco(2) = 9 vs Difesa(8) -> COLPITO
+    DOTT. LAZZARO SERRA subisce 1 danno da LO SGHERRO (Salute: 5/7).
+  IL SUGGERITORE si avvicina, non ancora a contatto.
+--- Round 12: rientro verso T1 (1/3) ---
+    (azioni nominali questo round: 6 — 3 eroi vivi)
+    [ATTACCO] DOTT. ATTILIO MARN -> LA CLAQUE: 2d6(4,1)=5 +VIGORE(2)+arma(1) = 8 vs Difesa(6) -> COLPITO
+    LA CLAQUE: 0/1 ferite residue.
+    LA CLAQUE è ABBATTUTO.
+    DOTT. LAZZARO SERRA si muove verso LO SGHERRO: A2 -> B3.
+    [ATTACCO] DOTT. LAZZARO SERRA -> LO SGHERRO: 2d6(2,5)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    MORA “SPILLA” FANTI si muove verso LO SGHERRO: C2 -> D1.
+    [ATTACCO] MORA “SPILLA” FANTI -> LO SGHERRO: 2d6(2,2)=4 +VIGORE(3)+arma(1) = 8 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+  [MINACCIA] IL SECONDO ATTO (crescendo) — Aggiungete 1 segnalino Canto. Alla soglia: il Suggeritore si desta.
+    Segnalino Canto: 5.
+    Il Suggeritore è già stato sconfitto: nessun effetto su di lui.
+  [MINACCIA] I FACCHINI DEL CARICO (posseduto) — Piazzate 1 Adepto sull’ingresso della Quinta di Carico (T1).
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 1), a 6 caselle dalla tessera del gruppo.
+    Mazzo Minaccia esaurito: si rimescolano gli scarti.
+  [MINACCIA] IL RITIRO DELLE LASTRE (posseduto) — Piazzate 1 Adepto sull’ingresso della Conchiglia (T6).
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 0), a 6 caselle dalla tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si muove verso DOTT. LAZZARO SERRA: B2 -> A3.
+  LO SGHERRO attacca DOTT. LAZZARO SERRA:
+    [ATTACCO NEMICO] LO SGHERRO -> DOTT. LAZZARO SERRA: 2d6(6,5)=11 +Attacco(2) = 13 vs Difesa(8) -> COLPITO
+    DOTT. LAZZARO SERRA subisce 1 danno da LO SGHERRO (Salute: 4/7).
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+  IL SUGGERITORE si muove verso DOTT. LAZZARO SERRA: A4 -> B4.
+  IL SUGGERITORE attacca DOTT. LAZZARO SERRA:
+    [ATTACCO NEMICO] IL SUGGERITORE -> DOTT. LAZZARO SERRA: 2d6(2,2)=4 +Attacco(3) = 7 vs Difesa(8) -> MANCATO
+  [OROLOGIO] Fine del 12° round: +1 segnalino Canto automatico.
+    Segnalino Canto: 6.
+    Il Suggeritore è ADDOSSO al gruppo: questo round non si avanza.
+--- Round 13: rientro verso T1 (1/3) ---
+    (azioni nominali questo round: 6 — 3 eroi vivi)
+    DOTT. ATTILIO MARN si muove verso LO SGHERRO: B1 -> A2.
+    [ATTACCO] DOTT. ATTILIO MARN -> LO SGHERRO: 2d6(5,6)=11 +VIGORE(2)+arma(1) = 14 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+    DOTT. LAZZARO SERRA si muove verso IL SUGGERITORE: B3 -> A4.
+    [ATTACCO] DOTT. LAZZARO SERRA -> IL SUGGERITORE: 2d6(6,5)=11 +VIGORE(1)+arma(1) = 13 vs Difesa(5) -> COLPITO
+    IL SUGGERITORE: 1/4 ferite residue.
+    MORA “SPILLA” FANTI si muove verso IL SUGGERITORE: D1 -> D4.
+    MORA “SPILLA” FANTI si avvicina a IL SUGGERITORE, non ancora a contatto.
+  [MINACCIA] L’APPLAUSO CHE COPRE (insidia) — Ogni eroe prova NERVI (Facile): chi fallisce ha 1 sola azione al prossimo turno.
+    [PROVA NERVI] DOTT. ATTILIO MARN: 2d6(6,4)=10 +NERVI(2) = 12 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] DOTT. LAZZARO SERRA: 2d6(2,1)=3 +NERVI(2) = 5 vs Facile(7) -> FALLITA
+    DOTT. LAZZARO SERRA avrà 1 sola azione al suo prossimo turno.
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(6,5)=11 +NERVI(1) = 12 vs Facile(7) -> SUCCESSO
+  [MINACCIA] IL SERVIZIO D’ORDINE (malavita) — Piazzate 1 Sicario: si attiva subito.
+    Piazzati 1x IL SICARIO (pool residua: 0) in B2.
+    IL SICARIO si attiva subito:
+  IL SICARIO si muove verso DOTT. LAZZARO SERRA: B2 -> A3.
+  IL SICARIO attacca DOTT. LAZZARO SERRA:
+    [ATTACCO NEMICO] IL SICARIO -> DOTT. LAZZARO SERRA: 2d6(6,3)=9 +Attacco(3) = 12 vs Difesa(8) -> COLPITO
+    DOTT. LAZZARO SERRA subisce 2 danno da IL SICARIO (Salute: 2/7).
+  [MINACCIA] IL BATTIMANI (posseduto) — Piazzate 1 Claque sull’uscita più vicina agli eroi.
+    Piazzati 1x LA CLAQUE (pool residua: 2) in B1.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 1 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 1 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  LA CLAQUE si avvicina, non ancora a contatto.
+  IL SUGGERITORE si muove verso MORA “SPILLA” FANTI: B4 -> C4.
+  IL SUGGERITORE attacca MORA “SPILLA” FANTI:
+    [ATTACCO NEMICO] IL SUGGERITORE -> MORA “SPILLA” FANTI: 2d6(4,3)=7 +Attacco(3) = 10 vs Difesa(8) -> COLPITO
+    MORA “SPILLA” FANTI subisce 2 danno da IL SUGGERITORE (Salute: 3/8).
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(1,3)=4 +NERVI(1) = 5 vs Facile(7) -> FALLITA
+    MORA “SPILLA” FANTI dice parole non sue: 1 sola azione al prossimo turno.
+    Il Suggeritore è ADDOSSO al gruppo: questo round non si avanza.
+--- Round 14: rientro verso T1 (1/3) ---
+    (azioni nominali questo round: 6 — 3 eroi vivi)
+    DOTT. ATTILIO MARN si muove verso IL SICARIO: A2 -> B3.
+    [ATTACCO] DOTT. ATTILIO MARN -> IL SICARIO: 2d6(2,1)=3 +VIGORE(2)+arma(1) = 6 vs Difesa(7) -> MANCATO
+    DOTT. LAZZARO SERRA ha 1 sola azione questo turno (insidia del round scorso).
+    [ATTACCO] DOTT. LAZZARO SERRA -> IL SICARIO: 2d6(2,3)=5 +VIGORE(1)+arma(1) = 7 vs Difesa(7) -> COLPITO
+    IL SICARIO: 0/1 ferite residue.
+    IL SICARIO è ABBATTUTO.
+    MORA “SPILLA” FANTI ha 1 sola azione questo turno (insidia del round scorso).
+    [ATTACCO] MORA “SPILLA” FANTI -> IL SUGGERITORE: 2d6(6,1)=7 +VIGORE(3)+arma(1) = 11 vs Difesa(5) -> COLPITO
+    IL SUGGERITORE: 0/4 ferite residue.
+    IL SUGGERITORE è ABBATTUTO.
+    *** IL SUGGERITORE È SCONFITTO. ***
+  [MINACCIA] IL SECONDO ATTO (crescendo) — Aggiungete 1 segnalino Canto. Alla soglia: il Suggeritore si desta.
+    Segnalino Canto: 7.
+    Il Suggeritore è già stato sconfitto: nessun effetto su di lui.
+  [MINACCIA] LE CASSE DI CANDELE (posseduto) — Piazzate 1 Adepto sull’ingresso della Quinta di Carico (T1).
+    Segnalini ADEPTO INCAPPUCCIATO esauriti: il piazzamento non ha luogo (resto della carta si applica comunque).
+  ADEPTO INCAPPUCCIATO raggiunge la tessera del gruppo, da C1.
+  ADEPTO INCAPPUCCIATO si muove verso DOTT. LAZZARO SERRA: C1 -> A3.
+  ADEPTO INCAPPUCCIATO attacca DOTT. LAZZARO SERRA:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> DOTT. LAZZARO SERRA: 2d6(6,1)=7 +Attacco(1) = 8 vs Difesa(8) -> COLPITO
+    DOTT. LAZZARO SERRA subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 1/7).
+  ADEPTO INCAPPUCCIATO raggiunge la tessera del gruppo, da C1.
+  ADEPTO INCAPPUCCIATO si muove verso DOTT. ATTILIO MARN: C1 -> B2.
+  ADEPTO INCAPPUCCIATO attacca DOTT. ATTILIO MARN:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> DOTT. ATTILIO MARN: 2d6(1,5)=6 +Attacco(1) = 7 vs Difesa(8) -> MANCATO
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+  LA CLAQUE si avvicina, non ancora a contatto.
+--- Round 15: rientro verso T1 (2/3) ---
+    (azioni nominali questo round: 6 — 3 eroi vivi)
+    [ATTACCO] DOTT. ATTILIO MARN -> ADEPTO INCAPPUCCIATO: 2d6(4,1)=5 +VIGORE(2)+arma(1) = 8 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    DOTT. LAZZARO SERRA si muove verso ADEPTO INCAPPUCCIATO: A4 -> A2.
+    [ATTACCO] DOTT. LAZZARO SERRA -> ADEPTO INCAPPUCCIATO: 2d6(2,4)=6 +VIGORE(1)+arma(1) = 8 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    MORA “SPILLA” FANTI si muove verso LA CLAQUE: D4 -> C2.
+    MORA “SPILLA” FANTI si avvicina a LA CLAQUE, non ancora a contatto.
+  [MINACCIA] L’ARIA SI AVVICINA (crescendo) — Aggiungete 1 segnalino Canto. Alla soglia: il Suggeritore si desta.
+    Segnalino Canto: 8.
+    Il Suggeritore è già stato sconfitto: nessun effetto su di lui.
+  [MINACCIA] I FACCHINI DEL CARICO (posseduto) — Piazzate 1 Adepto sull’ingresso della Quinta di Carico (T1).
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 1), a 6 caselle dalla tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  LA CLAQUE si muove verso MORA “SPILLA” FANTI: B1 -> B2.
+  LA CLAQUE attacca MORA “SPILLA” FANTI:
+    [ATTACCO NEMICO] LA CLAQUE -> MORA “SPILLA” FANTI: 2d6(1,3)=4 +Attacco(1) = 5 vs Difesa(8) -> MANCATO
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+
+==============================================================================
+ESITO SPEDIZIONE: VITTORIA
+Round totali: 15
+Formula Minaccia: finale_v3 | Azioni nominali/round: media 6.0, picco 6
+Mazzo Minaccia rimescolato: 1 volta/e
+Segnalini nemici esauriti nel pool (piazzamenti saltati): 1
+Suggeritore svegliato: di copione, alla rivelazione di T4 (mai in anticipo via Canto)
+  DOTT. ATTILIO MARN: 7/8 Salute
+  DOTT. LAZZARO SERRA: 1/7 Salute
+  MORA “SPILLA” FANTI: 3/8 Salute
+==============================================================================
+Pannelli della conchiglia disaccordati: 3/3

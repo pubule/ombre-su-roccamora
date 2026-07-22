@@ -1,0 +1,594 @@
+Run: pool-ep3-4-produzione_p3_seed0  |  seed=945300  |  formula Minaccia=finale_v3  |  generato: 2026-07-22T18:56:27
+==============================================================================
+SPEDIZIONE - Le Cisterne del Borgo (sotto il Lavatoio Grande)
+==============================================================================
+Party: DOTT. ATTILIO MARN, OTTONE “MEZZENA” MASSARI, PADRE CELSO MARANI, SIBILLA REVE
+Bonus da Indagine: PREPARATI (+1 Salute massima a testa); Campanello di Piero: no; Canna Muta: sì; Domanda 3: esatta
+NOTA: gruppo trattato come blocco unico tessera per tessera (vedi intestazione script).
+Tensione tavolo piccolo: +-1 Ferite SOLO all’Accordatore (non ai nemici di truppa).
+
+Tavolo da 4: +1 Salute massima a testa (ricalibrazione).
+Gettone Intuizione in mano (Dossier completo): un ri-tiro, una volta in Spedizione.
+--- Round 1: il gruppo raggiunge T2 (Cisterna delle Colonne) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    Il gruppo entra in T2 da B1.
+    [PROVA ACUME] DOTT. ATTILIO MARN: 2d6(1,2)=3 +ACUME(2) = 5 vs Media(9) -> FALLITA
+    DOTT. ATTILIO MARN cerca sulla tessera: niente da trovare qui, o prova fallita.
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+    PADRE CELSO MARANI: nessun bersaglio, avanza / assiste il gruppo.
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] UNA CORRENTE D’ARIA BUONA (favore) — Rivelate una tessera coperta adiacente.
+    (carta senza effetto modellato in questa simulazione)
+  [MINACCIA] GUARDIANI DEI CHIUSINI (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 1) in B1.
+  LO SGHERRO si muove verso OTTONE “MEZZENA” MASSARI: B1 -> C1.
+  LO SGHERRO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] LO SGHERRO -> OTTONE “MEZZENA” MASSARI: 2d6(2,6)=8 +Attacco(2) = 10 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 1 danno da LO SGHERRO (Salute: 9/10).
+--- Round 2: il gruppo attraversa T2 verso T3 ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    [ABILITÀ] DOTT. ATTILIO MARN usa Pronto Soccorso su OTTONE “MEZZENA” MASSARI -> Salute 10.
+    OTTONE “MEZZENA” MASSARI si muove verso LO SGHERRO: B1 -> A3.
+    OTTONE “MEZZENA” MASSARI si avvicina a LO SGHERRO, non ancora a contatto.
+    [ATTACCO] PADRE CELSO MARANI -> LO SGHERRO: 2d6(6,1)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    [ATTACCO] SIBILLA REVE -> LO SGHERRO: 2d6(2,2)=4 +VIGORE(1)+arma(1) = 6 vs Difesa(8) -> MANCATO
+  [MINACCIA] IL TURNO DI SOTTO (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 0) in B1.
+  [MINACCIA] LA PIETRA RIPETE (crescendo) — Aggiungete 1 segnalino Canto. Alla soglia: l’Accordatore si desta.
+    Segnalino Canto: 1.
+  LO SGHERRO attacca SIBILLA REVE:
+    [ATTACCO NEMICO] LO SGHERRO -> SIBILLA REVE: 2d6(3,2)=5 +Attacco(2) = 7 vs Difesa(8) -> MANCATO
+  LO SGHERRO si muove verso SIBILLA REVE: B1 -> A1.
+  LO SGHERRO attacca SIBILLA REVE:
+    [ATTACCO NEMICO] LO SGHERRO -> SIBILLA REVE: 2d6(3,1)=4 +Attacco(2) = 6 vs Difesa(8) -> MANCATO
+--- Round 3: il gruppo raggiunge T3 (Galleria delle Eco) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    Il gruppo entra in T3 da B1.
+    [OGGETTO] LA CANNA MUTA al petto: la galleria non vi sente — nessuna prova.
+    DOTT. ATTILIO MARN si muove verso LO SGHERRO: B1 -> C2.
+    [ATTACCO] DOTT. ATTILIO MARN -> LO SGHERRO: 2d6(4,1)=5 +VIGORE(2)+arma(1) = 8 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> LO SGHERRO: 2d6(6,3)=9 +VIGORE(3)+arma(1) = 13 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    [ABILITÀ] PADRE CELSO MARANI usa Litania: -1 segnalino Canto (1->0).
+    [ATTACCO] SIBILLA REVE -> LO SGHERRO: 2d6(6,6)=12 +VIGORE(1)+arma(1) = 14 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+    [ABILITÀ] SIBILLA REVE scruta il mazzo: «L’UOMO PAGATO IN CONTANTI» finisce in fondo, «IL BUIO D’ACQUA» torna in cima (2 usi residui).
+  [MINACCIA] IL BUIO D’ACQUA (insidia) — L’eroe più avanzato prova NERVI (Media): se fallisce, 1 danno.
+    [PROVA NERVI] DOTT. ATTILIO MARN: 2d6(5,3)=8 +NERVI(2) = 10 vs Media(9) -> SUCCESSO
+  [MINACCIA] L’ECO CHE CHIAMA (insidia) — Ogni eroe prova NERVI (Facile): chi fallisce ha 1 sola azione al prossimo turno.
+    [PROVA NERVI] DOTT. ATTILIO MARN: 2d6(2,5)=7 +NERVI(2) = 9 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6(3,5)=8 +NERVI(2) = 10 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] PADRE CELSO MARANI: 2d6(4,4)=8 +NERVI(3) = 11 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] SIBILLA REVE: 2d6(3,3)=6 +NERVI(3) = 9 vs Facile(7) -> SUCCESSO
+--- Round 4: il gruppo attraversa T3 verso T4 ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    [PROVA ACUME] DOTT. ATTILIO MARN: 2d6(5,3)=8 +ACUME(2) = 10 vs Media(9) -> SUCCESSO
+    DOTT. ATTILIO MARN cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+    PADRE CELSO MARANI: nessun bersaglio, avanza / assiste il gruppo.
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+    [ABILITÀ] SIBILLA REVE scruta il mazzo: «LA PIETRA RISPONDE» finisce in fondo, «CHIUSINI CHE SBATTONO» torna in cima (1 usi residui).
+  [MINACCIA] CHIUSINI CHE SBATTONO (posseduto) — Piazzate 1 Adepto sull’ingresso della Scala dei Chiusini (T1).
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 3), a 6 caselle dalla tessera del gruppo.
+  [MINACCIA] CORDE DALL’ALTO (posseduto) — Piazzate 1 Adepto sotto la corda della Confluenza (T4).
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 2), a 6 caselle dalla tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+  [OROLOGIO] Fine del 4° round: +1 segnalino Canto automatico.
+    Segnalino Canto: 1.
+--- Round 5: il gruppo raggiunge T4 (La Confluenza) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    Il gruppo entra in T4 da B1.
+    QUANDO RIVELATE: 1 Adepto sta calando dalla corda della Confluenza.
+    DOTT. ATTILIO MARN si muove verso ADEPTO INCAPPUCCIATO: B1 -> D2.
+    [ATTACCO] DOTT. ATTILIO MARN -> ADEPTO INCAPPUCCIATO: 2d6(6,3)=9 +VIGORE(2)+arma(1) = 12 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    [PROVA ACUME] OTTONE “MEZZENA” MASSARI: 2d6(5,4)=9 +ACUME(1) = 10 vs Media(9) -> SUCCESSO
+    OTTONE “MEZZENA” MASSARI cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    PADRE CELSO MARANI: nessun bersaglio, avanza / assiste il gruppo.
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] IL CALARE DEI SECCHI (posseduto) — Piazzate 1 Adepto sotto la corda della Confluenza (T4).
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 1), a 6 caselle dalla tessera del gruppo.
+  [MINACCIA] LA VOCE CHE MANCA (posseduto) — Piazzate 1 Voce Cava sull’uscita più vicina agli eroi.
+    Piazzati 1x LA VOCE CAVA (pool residua: 2) in B1.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+  LA VOCE CAVA si muove verso SIBILLA REVE: B1 -> C1.
+  LA VOCE CAVA attacca SIBILLA REVE:
+    [ATTACCO NEMICO] LA VOCE CAVA -> SIBILLA REVE: 2d6(3,3)=6 +Attacco(1) = 7 vs Difesa(8) -> MANCATO
+--- Round 6: il gruppo attraversa T4 verso T5 ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    DOTT. ATTILIO MARN si muove verso LA VOCE CAVA: D2 -> D1.
+    [ATTACCO] DOTT. ATTILIO MARN -> LA VOCE CAVA: 2d6(5,2)=7 +VIGORE(2)+arma(1) = 10 vs Difesa(6) -> COLPITO
+    LA VOCE CAVA: 0/1 ferite residue.
+    LA VOCE CAVA è ABBATTUTO.
+    La Voce Cava URLA nel disfarsi:
+    [PROVA NERVI] DOTT. ATTILIO MARN: 2d6(1,2)=3 +NERVI(2) = 5 vs Facile(7) -> FALLITA
+    DOTT. ATTILIO MARN avrà 1 sola azione al suo prossimo turno (l’urlo).
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6(3,5)=8 +NERVI(2) = 10 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] PADRE CELSO MARANI: 2d6(2,6)=8 +NERVI(3) = 11 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] SIBILLA REVE: 2d6(5,6)=11 +NERVI(3) = 14 vs Facile(7) -> SUCCESSO
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+    PADRE CELSO MARANI: nessun bersaglio, avanza / assiste il gruppo.
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] IL RITIRO DELLE CANNE (posseduto) — Piazzate 1 Adepto sull’ingresso dell’Officina (T5).
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 0), a 6 caselle dalla tessera del gruppo.
+  [MINACCIA] IL PASSO SUL VUOTO (insidia) — L’eroe attivo prova NERVI (Media): se fallisce, 1 danno e perde 1 azione.
+    [PROVA NERVI] DOTT. ATTILIO MARN: 2d6(2,1)=3 +NERVI(2) = 5 vs Media(9) -> FALLITA
+    DOTT. ATTILIO MARN subisce 1 danno da IL PASSO SUL VUOTO (Salute: 8/9).
+    DOTT. ATTILIO MARN avrà 1 sola azione al suo prossimo turno.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+--- Round 7: il gruppo raggiunge T5 (Officina delle Canne) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    Il gruppo entra in T5 da A3.
+    QUANDO RIVELATE: 1 Adepto appare tra le rastrelliere delle canne-voce.
+    [PROVA ACUME] DOTT. ATTILIO MARN: 2d6(6,4)=10 +ACUME(2) = 12 vs Media(9) -> SUCCESSO
+    Cercando sulla rastrelliera più alta: la scatolina di legno — IL CAMPANELLO DI PIERO.
+    DOTT. ATTILIO MARN ha 1 sola azione questo turno (insidia del round scorso).
+    [ABILITÀ] DOTT. ATTILIO MARN usa Pronto Soccorso su DOTT. ATTILIO MARN -> Salute 9.
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+    PADRE CELSO MARANI: nessun bersaglio, avanza / assiste il gruppo.
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] UN’ECO DI TROPPO (posseduto) — Piazzate 1 Voce Cava sull’uscita più vicina agli eroi.
+    Piazzati 1x LA VOCE CAVA (pool residua: 2) in A3.
+  [MINACCIA] PASSI NELLA GALLERIA (posseduto) — Piazzate 1 Adepto sull’ingresso della Scala dei Chiusini (T1).
+    Segnalini ADEPTO INCAPPUCCIATO esauriti: il piazzamento non ha luogo (resto della carta si applica comunque).
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  LA VOCE CAVA si muove verso OTTONE “MEZZENA” MASSARI: A3 -> B3.
+  LA VOCE CAVA attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] LA VOCE CAVA -> OTTONE “MEZZENA” MASSARI: 2d6(3,5)=8 +Attacco(1) = 9 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 1 danno da LA VOCE CAVA (Salute: 9/10).
+--- Round 8: il gruppo raggiunge T4 (La Confluenza - ritorno dal ramo) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    Il gruppo entra in T4 da D3.
+    [ABILITÀ] DOTT. ATTILIO MARN usa Pronto Soccorso su OTTONE “MEZZENA” MASSARI -> Salute 10.
+    OTTONE “MEZZENA” MASSARI si muove verso LA VOCE CAVA: D3 -> B4.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> LA VOCE CAVA: 2d6(5,5)=10 +VIGORE(3)+arma(1) = 14 vs Difesa(6) -> COLPITO
+    LA VOCE CAVA: 0/1 ferite residue.
+    LA VOCE CAVA è ABBATTUTO.
+    La Voce Cava URLA nel disfarsi:
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6(1,3)=4 +NERVI(2) = 6 vs Facile(7) -> FALLITA
+    OTTONE “MEZZENA” MASSARI avrà 1 sola azione al suo prossimo turno (l’urlo).
+    [PROVA ACUME] PADRE CELSO MARANI: 2d6(6,2)=8 +ACUME(2) = 10 vs Media(9) -> SUCCESSO
+    PADRE CELSO MARANI cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] L’ACQUA SALE (ostacolo) — Muoversi costa il doppio sulla tessera dell’eroe attivo fino a fine round.
+    (carta senza effetto modellato in questa simulazione)
+  [MINACCIA] L’ACQUA FERMA (quiete) — Nessun effetto (tensione).
+    (carta senza effetto modellato in questa simulazione)
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 1 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 1 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+  [OROLOGIO] Fine del 8° round: +1 segnalino Canto automatico.
+    Segnalino Canto: 2.
+--- Round 9: il gruppo attraversa T4 verso T6 ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    DOTT. ATTILIO MARN: nessun bersaglio, avanza / assiste il gruppo.
+    OTTONE “MEZZENA” MASSARI ha 1 sola azione questo turno (insidia del round scorso).
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+    PADRE CELSO MARANI: nessun bersaglio, avanza / assiste il gruppo.
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+    [ABILITÀ] SIBILLA REVE scruta il mazzo: «LA PIETRA IMPARA» finisce in fondo, «IL CORO PROVA» torna in cima (0 usi residui).
+  [MINACCIA] IL CORO PROVA (posseduto) — Piazzate 1 Voce Cava. Se è già in gioco una Voce Cava, si attiva subito.
+    Piazzati 1x LA VOCE CAVA (pool residua: 2) in D3.
+  [MINACCIA] IL CANTO NELLE ORECCHIE (insidia) — L’eroe con meno NERVI prova NERVI (Media): se fallisce 1 danno.
+    [PROVA NERVI] DOTT. ATTILIO MARN: 2d6(1,2)=3 +NERVI(2) = 5 vs Media(9) -> FALLITA
+    DOTT. ATTILIO MARN subisce 1 danno da IL CANTO NELLE ORECCHIE (Salute: 8/9).
+  ADEPTO INCAPPUCCIATO raggiunge la tessera del gruppo, da D4.
+  ADEPTO INCAPPUCCIATO attacca DOTT. ATTILIO MARN:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> DOTT. ATTILIO MARN: 2d6(2,2)=4 +Attacco(1) = 5 vs Difesa(8) -> MANCATO
+  ADEPTO INCAPPUCCIATO raggiunge la tessera del gruppo, da D2.
+  ADEPTO INCAPPUCCIATO attacca SIBILLA REVE:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> SIBILLA REVE: 2d6(5,3)=8 +Attacco(1) = 9 vs Difesa(8) -> COLPITO
+    SIBILLA REVE subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 7/8).
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 1 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  LA VOCE CAVA si avvicina, non ancora a contatto.
+--- Round 10: il gruppo raggiunge T6 (Il Pozzo Maestro) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    Il gruppo entra in T6 da B1.
+    Rivelato il Pozzo Maestro: l’Accordatore con 1 Voce Cava, in C2 — Tobia è legato alla carrucola.
+    Tobia si libera con Interagire (nessuna prova): si muove col gruppo.
+    [OGGETTO] DOTT. ATTILIO MARN suona IL CAMPANELLO DI PIERO accanto all’Accordatore: la voce vera, non quella rubata — Difesa 8->5, salta la prossima attivazione.
+    OTTONE “MEZZENA” MASSARI si muove verso LA VOCE CAVA: B1 -> A2.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> LA VOCE CAVA: 2d6(4,1)=5 +VIGORE(3)+arma(1) = 9 vs Difesa(6) -> COLPITO
+    LA VOCE CAVA: 0/1 ferite residue.
+    LA VOCE CAVA è ABBATTUTO.
+    La Voce Cava URLA nel disfarsi:
+    [PROVA NERVI] DOTT. ATTILIO MARN: 2d6(2,4)=6 +NERVI(2) = 8 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6(1,4)=5 +NERVI(2) = 7 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] PADRE CELSO MARANI: 2d6(4,2)=6 +NERVI(3) = 9 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] SIBILLA REVE: 2d6(5,2)=7 +NERVI(3) = 10 vs Facile(7) -> SUCCESSO
+    PADRE CELSO MARANI si muove verso L’ACCORDATORE: B1 -> B2.
+    [ATTACCO] PADRE CELSO MARANI -> L’ACCORDATORE: 2d6(5,6)=11 +VIGORE(1)+arma(1) = 13 vs Difesa(5) -> COLPITO
+    L’ACCORDATORE: 2/3 ferite residue.
+    SIBILLA REVE si muove verso L’ACCORDATORE: B1 -> C1.
+    [ATTACCO] SIBILLA REVE -> L’ACCORDATORE: 2d6(6,3)=9 +VIGORE(1)+arma(1) = 11 vs Difesa(5) -> COLPITO
+    L’ACCORDATORE: 1/3 ferite residue.
+  [MINACCIA] L’UOMO PAGATO IN CONTANTI (malavita) — Piazzate 1 Sicario: si attiva subito.
+    Piazzati 1x IL SICARIO (pool residua: 0) in A3.
+    IL SICARIO si attiva subito:
+  IL SICARIO si muove verso PADRE CELSO MARANI: A3 -> B3.
+  IL SICARIO attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] IL SICARIO -> PADRE CELSO MARANI: 2d6(1,3)=4 +Attacco(3) = 7 vs Difesa(8) -> MANCATO
+  [MINACCIA] LA PIETRA RISPONDE (crescendo) — Aggiungete 1 segnalino Canto. Alla soglia: l’Accordatore si desta.
+    Segnalino Canto: 3.
+    Il Canto raggiunge 3: da ora ogni Fase Minaccia pesca 1 carta in più (fino a fine spedizione, anche se il Custode è già stato abbattuto).
+    L’Accordatore recupera 1 ferita (2/3) e si attiva subito.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si muove verso SIBILLA REVE: D2 -> D1.
+  ADEPTO INCAPPUCCIATO attacca SIBILLA REVE:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> SIBILLA REVE: 2d6(3,4)=7 +Attacco(1) = 8 vs Difesa(8) -> COLPITO
+    SIBILLA REVE subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 6/8).
+  ADEPTO INCAPPUCCIATO raggiunge la tessera del gruppo, da A1.
+  ADEPTO INCAPPUCCIATO attacca DOTT. ATTILIO MARN:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> DOTT. ATTILIO MARN: 2d6(2,2)=4 +Attacco(1) = 5 vs Difesa(8) -> MANCATO
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 1 caselle prima di raggiungere la tessera del gruppo.
+  LA VOCE CAVA si avvicina, non ancora a contatto.
+  L’ACCORDATORE attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] L’ACCORDATORE -> PADRE CELSO MARANI: 2d6(5,2)=7 +Attacco(3) = 10 vs Difesa(8) -> COLPITO
+    PADRE CELSO MARANI subisce 2 danno da L’ACCORDATORE (Salute: 6/8).
+--- Combattimento contro l’Accordatore ---
+--- Round 11: scontro nel Pozzo Maestro ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    [ATTACCO] DOTT. ATTILIO MARN -> ADEPTO INCAPPUCCIATO: 2d6(3,5)=8 +VIGORE(2)+arma(1) = 11 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    OTTONE “MEZZENA” MASSARI si muove verso IL SICARIO: A2 -> A3.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> IL SICARIO: 2d6(1,3)=4 +VIGORE(3)+arma(1) = 8 vs Difesa(7) -> COLPITO
+    IL SICARIO: 0/1 ferite residue.
+    IL SICARIO è ABBATTUTO.
+    [ATTACCO] PADRE CELSO MARANI -> L’ACCORDATORE: 2d6(3,5)=8 +VIGORE(1)+arma(1) = 10 vs Difesa(5) -> COLPITO
+    L’ACCORDATORE: 1/3 ferite residue.
+    [ATTACCO] SIBILLA REVE -> ADEPTO INCAPPUCCIATO: 2d6(2,1)=3 +VIGORE(1)+arma(1) = 5 vs Difesa(7) -> MANCATO
+  [MINACCIA] LA PIETRA IMPARA (crescendo) — Aggiungete 1 segnalino Canto. Alla soglia: l’Accordatore si desta.
+    Segnalino Canto: 4.
+    L’Accordatore recupera 1 ferita (2/3) e si attiva subito.
+    Mazzo Minaccia esaurito: si rimescolano gli scarti.
+  [MINACCIA] IL CALARE DEI SECCHI (posseduto) — Piazzate 1 Adepto sotto la corda della Confluenza (T4).
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 0), a 6 caselle dalla tessera del gruppo.
+  [MINACCIA] UNA CORRENTE D’ARIA BUONA (favore) — Rivelate una tessera coperta adiacente.
+    (carta senza effetto modellato in questa simulazione)
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO attacca SIBILLA REVE:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> SIBILLA REVE: 2d6(6,4)=10 +Attacco(1) = 11 vs Difesa(8) -> COLPITO
+    SIBILLA REVE subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 5/8).
+  ADEPTO INCAPPUCCIATO raggiunge la tessera del gruppo, da A1.
+  ADEPTO INCAPPUCCIATO attacca DOTT. ATTILIO MARN:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> DOTT. ATTILIO MARN: 2d6(4,5)=9 +Attacco(1) = 10 vs Difesa(8) -> COLPITO
+    DOTT. ATTILIO MARN subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 7/9).
+  LA VOCE CAVA si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  L’ACCORDATORE attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] L’ACCORDATORE -> PADRE CELSO MARANI: 2d6(3,3)=6 +Attacco(3) = 9 vs Difesa(8) -> COLPITO
+    PADRE CELSO MARANI subisce 2 danno da L’ACCORDATORE (Salute: 4/8).
+--- Round 12: scontro nel Pozzo Maestro ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    [ATTACCO] DOTT. ATTILIO MARN -> ADEPTO INCAPPUCCIATO: 2d6(3,2)=5 +VIGORE(2)+arma(1) = 8 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    OTTONE “MEZZENA” MASSARI si muove verso ADEPTO INCAPPUCCIATO: A3 -> C4.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> ADEPTO INCAPPUCCIATO: 2d6(5,5)=10 +VIGORE(3)+arma(1) = 14 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    [ATTACCO] PADRE CELSO MARANI -> L’ACCORDATORE: 2d6(6,1)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(5) -> COLPITO
+    L’ACCORDATORE: 1/3 ferite residue.
+    [ATTACCO] SIBILLA REVE -> ADEPTO INCAPPUCCIATO: 2d6(6,6)=12 +VIGORE(1)+arma(1) = 14 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+  [MINACCIA] IL BUIO D’ACQUA (insidia) — L’eroe più avanzato prova NERVI (Media): se fallisce, 1 danno.
+    [PROVA NERVI] DOTT. ATTILIO MARN: 2d6(2,6)=8 +NERVI(2) = 10 vs Media(9) -> SUCCESSO
+  [MINACCIA] L’ACQUA FERMA (quiete) — Nessun effetto (tensione).
+    (carta senza effetto modellato in questa simulazione)
+  [MINACCIA] L’ECO CHE CHIAMA (insidia) — Ogni eroe prova NERVI (Facile): chi fallisce ha 1 sola azione al prossimo turno.
+    [PROVA NERVI] DOTT. ATTILIO MARN: 2d6(6,4)=10 +NERVI(2) = 12 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6(2,2)=4 +NERVI(2) = 6 vs Facile(7) -> FALLITA
+    [SECONDO FIATO] OTTONE “MEZZENA” MASSARI ritenta la prova (unico ritento dell’episodio):
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6(2,1)=3 +NERVI(2) = 5 vs Facile(7) -> FALLITA
+    OTTONE “MEZZENA” MASSARI avrà 1 sola azione al suo prossimo turno.
+    [PROVA NERVI] PADRE CELSO MARANI: 2d6(1,2)=3 +NERVI(3) = 6 vs Facile(7) -> FALLITA
+    [SECONDO FIATO] PADRE CELSO MARANI ritenta la prova (unico ritento dell’episodio):
+    [PROVA NERVI] PADRE CELSO MARANI: 2d6(5,1)=6 +NERVI(3) = 9 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] SIBILLA REVE: 2d6(2,4)=6 +NERVI(3) = 9 vs Facile(7) -> SUCCESSO
+  LA VOCE CAVA si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO raggiunge la tessera del gruppo, da A1.
+  ADEPTO INCAPPUCCIATO attacca DOTT. ATTILIO MARN:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> DOTT. ATTILIO MARN: 2d6(2,1)=3 +Attacco(1) = 4 vs Difesa(8) -> MANCATO
+  L’ACCORDATORE si muove verso SIBILLA REVE: C2 -> D1.
+  L’ACCORDATORE attacca SIBILLA REVE:
+    [ATTACCO NEMICO] L’ACCORDATORE -> SIBILLA REVE: 2d6(6,6)=12 +Attacco(3) = 15 vs Difesa(8) -> COLPITO
+    SIBILLA REVE subisce 2 danno da L’ACCORDATORE (Salute: 3/8).
+  [OROLOGIO] Fine del 12° round: +1 segnalino Canto automatico.
+    Segnalino Canto: 5.
+--- Round 13: scontro nel Pozzo Maestro ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    [ATTACCO] DOTT. ATTILIO MARN -> ADEPTO INCAPPUCCIATO: 2d6(6,3)=9 +VIGORE(2)+arma(1) = 12 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    OTTONE “MEZZENA” MASSARI ha 1 sola azione questo turno (insidia del round scorso).
+    OTTONE “MEZZENA” MASSARI si muove verso LA VOCE CAVA: C4 -> D4.
+    OTTONE “MEZZENA” MASSARI (1 sola azione) si limita ad avvicinarsi a LA VOCE CAVA.
+    PADRE CELSO MARANI si muove verso LA VOCE CAVA: B2 -> D2.
+    [ATTACCO] PADRE CELSO MARANI -> LA VOCE CAVA: 2d6(4,1)=5 +VIGORE(1)+arma(1) = 7 vs Difesa(6) -> COLPITO
+    LA VOCE CAVA: 0/1 ferite residue.
+    LA VOCE CAVA è ABBATTUTO.
+    La Voce Cava URLA nel disfarsi:
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6(6,3)=9 +NERVI(2) = 11 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] PADRE CELSO MARANI: 2d6(6,1)=7 +NERVI(3) = 10 vs Facile(7) -> SUCCESSO
+    [ATTACCO] SIBILLA REVE -> L’ACCORDATORE: 2d6(1,1)=2 +VIGORE(1)+arma(1) = 4 vs Difesa(5) -> MANCATO
+  [MINACCIA] LA PIETRA IMPARA (crescendo) — Aggiungete 1 segnalino Canto. Alla soglia: l’Accordatore si desta.
+    Segnalino Canto: 6.
+    L’Accordatore recupera 1 ferita (2/3) e si attiva subito.
+  [MINACCIA] PASSI NELLA GALLERIA (posseduto) — Piazzate 1 Adepto sull’ingresso della Scala dei Chiusini (T1).
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 3), a 6 caselle dalla tessera del gruppo.
+  [MINACCIA] CORDE DALL’ALTO (posseduto) — Piazzate 1 Adepto sotto la corda della Confluenza (T4).
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 2), a 6 caselle dalla tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  L’ACCORDATORE attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] L’ACCORDATORE -> PADRE CELSO MARANI: 2d6(5,2)=7 +Attacco(3) = 10 vs Difesa(8) -> COLPITO
+    PADRE CELSO MARANI subisce 2 danno da L’ACCORDATORE (Salute: 2/8).
+--- Round 14: scontro nel Pozzo Maestro ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    [PROVA ACUME] DOTT. ATTILIO MARN: 2d6(3,2)=5 +ACUME(2) = 7 vs Media(9) -> FALLITA
+    DOTT. ATTILIO MARN cerca sulla tessera: niente da trovare qui, o prova fallita.
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+    [ATTACCO] PADRE CELSO MARANI -> L’ACCORDATORE: 2d6(6,2)=8 +VIGORE(1)+arma(1) = 10 vs Difesa(5) -> COLPITO
+    L’ACCORDATORE: 1/3 ferite residue.
+    [ATTACCO] SIBILLA REVE -> L’ACCORDATORE: 2d6(2,3)=5 +VIGORE(1)+arma(1) = 7 vs Difesa(5) -> COLPITO
+    L’ACCORDATORE: 0/3 ferite residue.
+    L’ACCORDATORE è ABBATTUTO.
+    *** L’ACCORDATORE È SCONFITTO. ***
+  [MINACCIA] IL TURNO DI SOTTO (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 1) in B1.
+  [MINACCIA] LA VOCE CHE MANCA (posseduto) — Piazzate 1 Voce Cava sull’uscita più vicina agli eroi.
+    Piazzati 1x LA VOCE CAVA (pool residua: 2) in B1.
+  [MINACCIA] GUARDIANI DEI CHIUSINI (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 0) in B1.
+  ADEPTO INCAPPUCCIATO raggiunge la tessera del gruppo, da A1.
+  ADEPTO INCAPPUCCIATO si muove verso PADRE CELSO MARANI: A1 -> C2.
+  ADEPTO INCAPPUCCIATO attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> PADRE CELSO MARANI: 2d6(4,6)=10 +Attacco(1) = 11 vs Difesa(8) -> COLPITO
+    PADRE CELSO MARANI subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 1/8).
+  ADEPTO INCAPPUCCIATO raggiunge la tessera del gruppo, da A1.
+  ADEPTO INCAPPUCCIATO attacca DOTT. ATTILIO MARN:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> DOTT. ATTILIO MARN: 2d6(5,6)=11 +Attacco(1) = 12 vs Difesa(8) -> COLPITO
+    DOTT. ATTILIO MARN subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 6/9).
+  LO SGHERRO attacca SIBILLA REVE:
+    [ATTACCO NEMICO] LO SGHERRO -> SIBILLA REVE: 2d6(5,5)=10 +Attacco(2) = 12 vs Difesa(8) -> COLPITO
+    SIBILLA REVE subisce 1 danno da LO SGHERRO (Salute: 2/8).
+  LA VOCE CAVA attacca SIBILLA REVE:
+    [ATTACCO NEMICO] LA VOCE CAVA -> SIBILLA REVE: 2d6(5,2)=7 +Attacco(1) = 8 vs Difesa(8) -> COLPITO
+    SIBILLA REVE subisce 1 danno da LA VOCE CAVA (Salute: 1/8).
+  LO SGHERRO attacca SIBILLA REVE:
+    [ATTACCO NEMICO] LO SGHERRO -> SIBILLA REVE: 2d6(2,2)=4 +Attacco(2) = 6 vs Difesa(8) -> MANCATO
+--- Ritorno a T1 con Tobia (3 round di movimento: la strada ormai la conoscete, e Tobia conosce le scorciatoie dei pozzaioli) ---
+--- Round 15: rientro verso T1 ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    DOTT. ATTILIO MARN si muove verso ADEPTO INCAPPUCCIATO: B1 -> A2.
+    [ATTACCO] DOTT. ATTILIO MARN -> ADEPTO INCAPPUCCIATO: 2d6(4,4)=8 +VIGORE(2)+arma(1) = 11 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    OTTONE “MEZZENA” MASSARI si muove verso ADEPTO INCAPPUCCIATO: D4 -> B3.
+    OTTONE “MEZZENA” MASSARI si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    [ATTACCO] PADRE CELSO MARANI -> ADEPTO INCAPPUCCIATO: 2d6(1,3)=4 +VIGORE(1)+arma(1) = 6 vs Difesa(7) -> MANCATO
+    [ATTACCO] SIBILLA REVE -> ADEPTO INCAPPUCCIATO: 2d6(3,6)=9 +VIGORE(1)+arma(1) = 11 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+  [MINACCIA] IL CANTO NELLE ORECCHIE (insidia) — L’eroe con meno NERVI prova NERVI (Media): se fallisce 1 danno.
+    [PROVA NERVI] DOTT. ATTILIO MARN: 2d6(5,1)=6 +NERVI(2) = 8 vs Media(9) -> FALLITA
+    DOTT. ATTILIO MARN subisce 1 danno da IL CANTO NELLE ORECCHIE (Salute: 5/9).
+  [MINACCIA] IL RITIRO DELLE CANNE (posseduto) — Piazzate 1 Adepto sull’ingresso dell’Officina (T5).
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 3), a 6 caselle dalla tessera del gruppo.
+  [MINACCIA] IL CORO PROVA (posseduto) — Piazzate 1 Voce Cava. Se è già in gioco una Voce Cava, si attiva subito.
+    Piazzati 1x LA VOCE CAVA (pool residua: 1) in B1.
+  LO SGHERRO si muove verso PADRE CELSO MARANI: B1 -> C2.
+  LO SGHERRO attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] LO SGHERRO -> PADRE CELSO MARANI: 2d6(1,1)=2 +Attacco(2) = 4 vs Difesa(8) -> MANCATO
+  LA VOCE CAVA si muove verso DOTT. ATTILIO MARN: B1 -> B2.
+  LA VOCE CAVA attacca DOTT. ATTILIO MARN:
+    [ATTACCO NEMICO] LA VOCE CAVA -> DOTT. ATTILIO MARN: 2d6(4,1)=5 +Attacco(1) = 6 vs Difesa(8) -> MANCATO
+  LO SGHERRO attacca SIBILLA REVE:
+    [ATTACCO NEMICO] LO SGHERRO -> SIBILLA REVE: 2d6(4,2)=6 +Attacco(2) = 8 vs Difesa(8) -> COLPITO
+    SIBILLA REVE subisce 1 danno da LO SGHERRO (Salute: 0/8).
+    [INTUIZIONE] Il gruppo spende il gettone Dossier: SIBILLA REVE resta in piedi a 1 Salute invece di cadere.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+  LA VOCE CAVA attacca SIBILLA REVE:
+    [ATTACCO NEMICO] LA VOCE CAVA -> SIBILLA REVE: 2d6(3,6)=9 +Attacco(1) = 10 vs Difesa(8) -> COLPITO
+    SIBILLA REVE subisce 1 danno da LA VOCE CAVA (Salute: 0/8).
+    *** SIBILLA REVE è A TERRA. ***
+--- Round 16: rientro verso T1 ---
+    (azioni nominali questo round: 6 — 3 eroi vivi)
+    [ATTACCO] DOTT. ATTILIO MARN -> LA VOCE CAVA: 2d6(4,5)=9 +VIGORE(2)+arma(1) = 12 vs Difesa(6) -> COLPITO
+    LA VOCE CAVA: 0/1 ferite residue.
+    LA VOCE CAVA è ABBATTUTO.
+    La Voce Cava URLA nel disfarsi:
+    [PROVA NERVI] DOTT. ATTILIO MARN: 2d6(2,5)=7 +NERVI(2) = 9 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6(6,1)=7 +NERVI(2) = 9 vs Facile(7) -> SUCCESSO
+    OTTONE “MEZZENA” MASSARI si muove verso LA VOCE CAVA: B3 -> B2.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> LA VOCE CAVA: 2d6(5,6)=11 +VIGORE(3)+arma(1) = 15 vs Difesa(6) -> COLPITO
+    LA VOCE CAVA: 0/1 ferite residue.
+    LA VOCE CAVA è ABBATTUTO.
+    La Voce Cava URLA nel disfarsi:
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6(6,1)=7 +NERVI(2) = 9 vs Facile(7) -> SUCCESSO
+    [ABILITÀ] OTTONE “MEZZENA” MASSARI usa Colpo da macello: attacco extra su LO SGHERRO.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> LO SGHERRO: 2d6(5,2)=7 +VIGORE(3)+arma(1) = 11 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    [ATTACCO] PADRE CELSO MARANI -> LO SGHERRO: 2d6(4,4)=8 +VIGORE(1)+arma(1) = 10 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+  [MINACCIA] LA PIETRA RIPETE (crescendo) — Aggiungete 1 segnalino Canto. Alla soglia: l’Accordatore si desta.
+    Segnalino Canto: 7.
+    L’Accordatore è già stato sconfitto: nessun effetto su di lui.
+  [MINACCIA] L’UOMO PAGATO IN CONTANTI (malavita) — Piazzate 1 Sicario: si attiva subito.
+    Piazzati 1x IL SICARIO (pool residua: 0) in C2.
+    IL SICARIO si attiva subito:
+  IL SICARIO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] IL SICARIO -> OTTONE “MEZZENA” MASSARI: 2d6(1,4)=5 +Attacco(3) = 8 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 2 danno da IL SICARIO (Salute: 8/10).
+  LO SGHERRO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] LO SGHERRO -> OTTONE “MEZZENA” MASSARI: 2d6(4,6)=10 +Attacco(2) = 12 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 1 danno da LO SGHERRO (Salute: 7/10).
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  [OROLOGIO] Fine del 16° round: +1 segnalino Canto automatico.
+    Segnalino Canto: 8.
+--- Round 17: rientro verso T1 ---
+    (azioni nominali questo round: 6 — 3 eroi vivi)
+    DOTT. ATTILIO MARN si muove verso LO SGHERRO: A2 -> A1.
+    [ATTACCO] DOTT. ATTILIO MARN -> LO SGHERRO: 2d6(1,3)=4 +VIGORE(2)+arma(1) = 7 vs Difesa(8) -> MANCATO
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> IL SICARIO: 2d6(5,5)=10 +VIGORE(3)+arma(1) = 14 vs Difesa(7) -> COLPITO
+    IL SICARIO: 0/1 ferite residue.
+    IL SICARIO è ABBATTUTO.
+    [ABILITÀ] OTTONE “MEZZENA” MASSARI usa Colpo da macello: attacco extra su LO SGHERRO.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> LO SGHERRO: 2d6(3,6)=9 +VIGORE(3)+arma(1) = 13 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    PADRE CELSO MARANI si muove verso SIBILLA REVE: D2 -> D1.
+    [AZIONE] PADRE CELSO MARANI rianima SIBILLA REVE: torna in piedi con 2 Salute.
+  [MINACCIA] L’ACQUA SALE (ostacolo) — Muoversi costa il doppio sulla tessera dell’eroe attivo fino a fine round.
+    (carta senza effetto modellato in questa simulazione)
+  [MINACCIA] CHIUSINI CHE SBATTONO (posseduto) — Piazzate 1 Adepto sull’ingresso della Scala dei Chiusini (T1).
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 2), a 6 caselle dalla tessera del gruppo.
+  [MINACCIA] UN’ECO DI TROPPO (posseduto) — Piazzate 1 Voce Cava sull’uscita più vicina agli eroi.
+    Piazzati 1x LA VOCE CAVA (pool residua: 2) in B1.
+  LO SGHERRO attacca DOTT. ATTILIO MARN:
+    [ATTACCO NEMICO] LO SGHERRO -> DOTT. ATTILIO MARN: 2d6(3,4)=7 +Attacco(2) = 9 vs Difesa(8) -> COLPITO
+    DOTT. ATTILIO MARN subisce 1 danno da LO SGHERRO (Salute: 4/9).
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+  LA VOCE CAVA attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] LA VOCE CAVA -> OTTONE “MEZZENA” MASSARI: 2d6(6,5)=11 +Attacco(1) = 12 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 1 danno da LA VOCE CAVA (Salute: 6/10).
+--- Round 18: rientro verso T1 ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    [ATTACCO] DOTT. ATTILIO MARN -> LO SGHERRO: 2d6(3,2)=5 +VIGORE(2)+arma(1) = 8 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> LA VOCE CAVA: 2d6(1,1)=2 +VIGORE(3)+arma(1) = 6 vs Difesa(6) -> COLPITO
+    LA VOCE CAVA: 0/1 ferite residue.
+    LA VOCE CAVA è ABBATTUTO.
+    La Voce Cava URLA nel disfarsi:
+    [PROVA NERVI] DOTT. ATTILIO MARN: 2d6(2,4)=6 +NERVI(2) = 8 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6(2,3)=5 +NERVI(2) = 7 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] SIBILLA REVE: 2d6(1,2)=3 +NERVI(3) = 6 vs Facile(7) -> FALLITA
+    SIBILLA REVE avrà 1 sola azione al suo prossimo turno (l’urlo).
+    [PROVA ACUME] PADRE CELSO MARANI: 2d6(4,5)=9 +ACUME(2) = 11 vs Media(9) -> SUCCESSO
+    PADRE CELSO MARANI cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    SIBILLA REVE ha 1 sola azione questo turno (insidia del round scorso).
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] LA PIETRA RISPONDE (crescendo) — Aggiungete 1 segnalino Canto. Alla soglia: l’Accordatore si desta.
+    Segnalino Canto: 9.
+    L’Accordatore è già stato sconfitto: nessun effetto su di lui.
+  [MINACCIA] IL PASSO SUL VUOTO (insidia) — L’eroe attivo prova NERVI (Media): se fallisce, 1 danno e perde 1 azione.
+    [PROVA NERVI] DOTT. ATTILIO MARN: 2d6(1,1)=2 +NERVI(2) = 4 vs Media(9) -> FALLITA
+    DOTT. ATTILIO MARN subisce 1 danno da IL PASSO SUL VUOTO (Salute: 3/9).
+    DOTT. ATTILIO MARN avrà 1 sola azione al suo prossimo turno.
+    Mazzo Minaccia esaurito: si rimescolano gli scarti.
+  [MINACCIA] LA VOCE CHE MANCA (posseduto) — Piazzate 1 Voce Cava sull’uscita più vicina agli eroi.
+    Piazzati 1x LA VOCE CAVA (pool residua: 2) in B1.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  LA VOCE CAVA attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] LA VOCE CAVA -> OTTONE “MEZZENA” MASSARI: 2d6(4,5)=9 +Attacco(1) = 10 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 1 danno da LA VOCE CAVA (Salute: 5/10).
+--- Round 19: rientro verso T1 ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    DOTT. ATTILIO MARN ha 1 sola azione questo turno (insidia del round scorso).
+    [ATTACCO] DOTT. ATTILIO MARN -> LA VOCE CAVA: 2d6(5,1)=6 +VIGORE(2)+arma(1) = 9 vs Difesa(6) -> COLPITO
+    LA VOCE CAVA: 0/1 ferite residue.
+    LA VOCE CAVA è ABBATTUTO.
+    La Voce Cava URLA nel disfarsi:
+    [PROVA NERVI] DOTT. ATTILIO MARN: 2d6(4,5)=9 +NERVI(2) = 11 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6(5,6)=11 +NERVI(2) = 13 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] SIBILLA REVE: 2d6(3,2)=5 +NERVI(3) = 8 vs Facile(7) -> SUCCESSO
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+    PADRE CELSO MARANI: nessun bersaglio, avanza / assiste il gruppo.
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] IL PASSO SUL VUOTO (insidia) — L’eroe attivo prova NERVI (Media): se fallisce, 1 danno e perde 1 azione.
+    [PROVA NERVI] DOTT. ATTILIO MARN: 2d6(4,1)=5 +NERVI(2) = 7 vs Media(9) -> FALLITA
+    DOTT. ATTILIO MARN subisce 1 danno da IL PASSO SUL VUOTO (Salute: 2/9).
+    DOTT. ATTILIO MARN avrà 1 sola azione al suo prossimo turno.
+  [MINACCIA] LA PIETRA RIPETE (crescendo) — Aggiungete 1 segnalino Canto. Alla soglia: l’Accordatore si desta.
+    Segnalino Canto: 10.
+    L’Accordatore è già stato sconfitto: nessun effetto su di lui.
+  [MINACCIA] L’ACQUA FERMA (quiete) — Nessun effetto (tensione).
+    (carta senza effetto modellato in questa simulazione)
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 1 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+--- Round 20: rientro verso T1 ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    DOTT. ATTILIO MARN ha 1 sola azione questo turno (insidia del round scorso).
+    DOTT. ATTILIO MARN: nessun bersaglio, avanza / assiste il gruppo.
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+    PADRE CELSO MARANI: nessun bersaglio, avanza / assiste il gruppo.
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] IL CALARE DEI SECCHI (posseduto) — Piazzate 1 Adepto sotto la corda della Confluenza (T4).
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 1), a 6 caselle dalla tessera del gruppo.
+  [MINACCIA] GUARDIANI DEI CHIUSINI (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 1) in B1.
+  [MINACCIA] L’ECO CHE CHIAMA (insidia) — Ogni eroe prova NERVI (Facile): chi fallisce ha 1 sola azione al prossimo turno.
+    [PROVA NERVI] DOTT. ATTILIO MARN: 2d6(6,6)=12 +NERVI(2) = 14 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6(3,3)=6 +NERVI(2) = 8 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] PADRE CELSO MARANI: 2d6(5,3)=8 +NERVI(3) = 11 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] SIBILLA REVE: 2d6(4,3)=7 +NERVI(3) = 10 vs Facile(7) -> SUCCESSO
+  ADEPTO INCAPPUCCIATO raggiunge la tessera del gruppo, da C2.
+  ADEPTO INCAPPUCCIATO si muove verso PADRE CELSO MARANI: C2 -> D2.
+  ADEPTO INCAPPUCCIATO attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> PADRE CELSO MARANI: 2d6(4,1)=5 +Attacco(1) = 6 vs Difesa(8) -> MANCATO
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO attacca DOTT. ATTILIO MARN:
+    [ATTACCO NEMICO] LO SGHERRO -> DOTT. ATTILIO MARN: 2d6(1,3)=4 +Attacco(2) = 6 vs Difesa(8) -> MANCATO
+  [OROLOGIO] Fine del 20° round: +1 segnalino Canto automatico.
+    Segnalino Canto: 11.
+--- Round 21: rientro verso T1 ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    [ATTACCO] DOTT. ATTILIO MARN -> LO SGHERRO: 2d6(6,1)=7 +VIGORE(2)+arma(1) = 10 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> LO SGHERRO: 2d6(4,3)=7 +VIGORE(3)+arma(1) = 11 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+    [ATTACCO] PADRE CELSO MARANI -> ADEPTO INCAPPUCCIATO: 2d6(1,1)=2 +VIGORE(1)+arma(1) = 4 vs Difesa(7) -> MANCATO
+    SIBILLA REVE si muove verso ADEPTO INCAPPUCCIATO: C1 -> C2.
+    [ATTACCO] SIBILLA REVE -> ADEPTO INCAPPUCCIATO: 2d6(3,2)=5 +VIGORE(1)+arma(1) = 7 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+  [MINACCIA] IL TURNO DI SOTTO (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 1) in B1.
+  [MINACCIA] LA PIETRA RISPONDE (crescendo) — Aggiungete 1 segnalino Canto. Alla soglia: l’Accordatore si desta.
+    Segnalino Canto: 12.
+    L’Accordatore è già stato sconfitto: nessun effetto su di lui.
+  [MINACCIA] IL CORO PROVA (posseduto) — Piazzate 1 Voce Cava. Se è già in gioco una Voce Cava, si attiva subito.
+    Piazzati 1x LA VOCE CAVA (pool residua: 2) in B1.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 1 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] LO SGHERRO -> OTTONE “MEZZENA” MASSARI: 2d6(1,3)=4 +Attacco(2) = 6 vs Difesa(8) -> MANCATO
+  LA VOCE CAVA si muove verso PADRE CELSO MARANI: B1 -> C1.
+  LA VOCE CAVA attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] LA VOCE CAVA -> PADRE CELSO MARANI: 2d6(1,1)=2 +Attacco(1) = 3 vs Difesa(8) -> MANCATO
+
+==============================================================================
+ESITO SPEDIZIONE: VITTORIA
+Round totali: 21
+Formula Minaccia: finale_v3 | Azioni nominali/round: media 7.8, picco 8
+Mazzo Minaccia rimescolato: 2 volta/e
+Segnalini nemici esauriti nel pool (piazzamenti saltati): 1
+Accordatore svegliato: solo a T6 (mai in anticipo via Canto)
+  DOTT. ATTILIO MARN: 2/9 Salute
+  OTTONE “MEZZENA” MASSARI: 5/10 Salute
+  PADRE CELSO MARANI: 1/8 Salute
+  SIBILLA REVE: 2/8 Salute
+==============================================================================

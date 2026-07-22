@@ -1,0 +1,592 @@
+Run: tick-ep6-6_p9_seed0  |  seed=971900  |  formula Minaccia=finale_v3  |  generato: 2026-07-22T19:08:28
+==============================================================================
+SPEDIZIONE - Le Tre Acque, sotto la Cattedrale (finale d’atto)
+==============================================================================
+Party: MORA “SPILLA” FANTI, NINO “GRIMALDELLO” CAUTO, OTTAVIO BRERA, OTTONE “MEZZENA” MASSARI
+Bonus da Indagine: PREPARATI (+1 Salute massima a testa); Formula: sì; Lanterna: sì; D1: esatta; D3: esatta
+NOTA: gruppo trattato come blocco unico tessera per tessera (vedi intestazione script).
+Tensione tavolo piccolo: +-1 Ferite SOLO a Ferri (non ai nemici di truppa).
+
+Tavolo da 4: +1 Salute massima a testa (ricalibrazione).
+Gettone Intuizione in mano (Dossier completo): un ri-tiro, una volta in Spedizione.
+--- Round 1: il gruppo raggiunge T2 (Galleria di Marea) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    Il gruppo entra in T2 da B1.
+    [PROVA ACUME] MORA “SPILLA” FANTI: 2d6(6,5)=11 +ACUME(2) = 13 vs Media(9) -> SUCCESSO
+    MORA “SPILLA” FANTI cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    NINO “GRIMALDELLO” CAUTO: nessun bersaglio, avanza / assiste il gruppo.
+    OTTAVIO BRERA: nessun bersaglio, avanza / assiste il gruppo.
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] IL SERVIZIO DI BANCHINA (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 1) in B1.
+  [MINACCIA] IL BATTITO SOTTO (insidia) — L’eroe con meno NERVI prova NERVI (Media): se fallisce 1 danno.
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(4,6)=10 +NERVI(1) = 11 vs Media(9) -> SUCCESSO
+  LO SGHERRO si muove verso OTTONE “MEZZENA” MASSARI: B1 -> C1.
+  LO SGHERRO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] LO SGHERRO -> OTTONE “MEZZENA” MASSARI: 2d6(6,1)=7 +Attacco(2) = 9 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 1 danno da LO SGHERRO (Salute: 9/10).
+--- Round 2: il gruppo attraversa T2 verso T3 ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    MORA “SPILLA” FANTI si muove verso LO SGHERRO: B1 -> C2.
+    [ATTACCO] MORA “SPILLA” FANTI -> LO SGHERRO: 2d6(2,5)=7 +VIGORE(3)+arma(1) = 11 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> LO SGHERRO: 2d6(6,4)=10 +VIGORE(2)+arma(1) = 13 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+    OTTAVIO BRERA: nessun bersaglio, avanza / assiste il gruppo.
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] IL RICHIAMO (insidia) — L’eroe più avanzato prova NERVI (Media): se fallisce, 1 danno.
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(6,4)=10 +NERVI(1) = 11 vs Media(9) -> SUCCESSO
+  [MINACCIA] IL CANTO DELLE VENE (insidia) — Ogni eroe prova NERVI (Facile): chi fallisce ha 1 sola azione al prossimo turno.
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(6,3)=9 +NERVI(1) = 10 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6(3,3)=6 +NERVI(1) = 7 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] OTTAVIO BRERA: 2d6(5,4)=9 +NERVI(2) = 11 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6(1,5)=6 +NERVI(2) = 8 vs Facile(7) -> SUCCESSO
+--- Round 3: il gruppo raggiunge T3 (Sala del Bronzo) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    Il gruppo entra in T3 da B1.
+    QUANDO RIVELATE: 2 Adepti a guardia del bronzo.
+    [PROVA VIGORE] MORA “SPILLA” FANTI: 2d6(5,4)=9 +VIGORE(3) = 12 vs Media(9) -> SUCCESSO
+    [CARDINE] MORA “SPILLA” FANTI spegne il bronzo (1/3 movimenti spenti — la Difesa di Ferri cala).
+    NINO “GRIMALDELLO” CAUTO si muove verso ADEPTO INCAPPUCCIATO: B1 -> C2.
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> ADEPTO INCAPPUCCIATO: 2d6(2,2)=4 +VIGORE(2)+arma(1) = 7 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    [ABILITÀ] OTTAVIO BRERA usa Vi conosco, Malacarne su ADEPTO INCAPPUCCIATO: rimosso dal tabellone.
+    [PROVA ACUME] OTTONE “MEZZENA” MASSARI: 2d6(5,4)=9 +ACUME(1) = 10 vs Media(9) -> SUCCESSO
+    OTTONE “MEZZENA” MASSARI cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    [ABILITÀ] MORA “SPILLA” FANTI semina un diversivo: una carta Minaccia in meno questo round (1 usi residui).
+  [MINACCIA] IL SECONDO MOVIMENTO (crescendo) — Aggiungete 1 segnalino Canto. Alla soglia: Ferri si desta.
+    Segnalino Canto: 1.
+--- Round 4: il gruppo attraversa T3 verso T4 ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    MORA “SPILLA” FANTI: nessun bersaglio, avanza / assiste il gruppo.
+    NINO “GRIMALDELLO” CAUTO: nessun bersaglio, avanza / assiste il gruppo.
+    OTTAVIO BRERA: nessun bersaglio, avanza / assiste il gruppo.
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+    [ABILITÀ] MORA “SPILLA” FANTI semina un diversivo: una carta Minaccia in meno questo round (0 usi residui).
+  [MINACCIA] LA CORRENTE AMICA (favore) — Rivelate una tessera coperta adiacente.
+    (carta senza effetto modellato in questa simulazione)
+--- Round 5: il gruppo raggiunge T4 (Snodo delle Vene) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    Il gruppo entra in T4 da B1.
+    QUANDO RIVELATE: 1 Adepto sta calando dalla corda della Confluenza.
+    Lo Snodo delle Vene: le tre acque si sfiorano senza mescolarsi.
+    MORA “SPILLA” FANTI si muove verso ADEPTO INCAPPUCCIATO: B1 -> D2.
+    [ATTACCO] MORA “SPILLA” FANTI -> ADEPTO INCAPPUCCIATO: 2d6(4,3)=7 +VIGORE(3)+arma(1) = 11 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    [PROVA ACUME] NINO “GRIMALDELLO” CAUTO: 2d6(6,5)=11 +ACUME(2) = 13 vs Media(9) -> SUCCESSO
+    NINO “GRIMALDELLO” CAUTO cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    OTTAVIO BRERA: nessun bersaglio, avanza / assiste il gruppo.
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] IL PRIMO MOVIMENTO (crescendo) — Aggiungete 1 segnalino Canto. Alla soglia: Ferri si desta.
+    Segnalino Canto: 2.
+  [MINACCIA] IL PELLEGRINAGGIO (posseduto) — Piazzate 1 Adepto sull’uscita più vicina agli eroi.
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 2) in B1.
+  ADEPTO INCAPPUCCIATO si muove verso OTTONE “MEZZENA” MASSARI: B1 -> C1.
+  ADEPTO INCAPPUCCIATO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> OTTONE “MEZZENA” MASSARI: 2d6(1,1)=2 +Attacco(1) = 3 vs Difesa(8) -> MANCATO
+--- Round 6: il gruppo attraversa T4 verso T5 ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    MORA “SPILLA” FANTI si muove verso ADEPTO INCAPPUCCIATO: D2 -> D1.
+    [ATTACCO] MORA “SPILLA” FANTI -> ADEPTO INCAPPUCCIATO: 2d6(1,1)=2 +VIGORE(3)+arma(1) = 6 vs Difesa(7) -> MANCATO
+    NINO “GRIMALDELLO” CAUTO si muove verso ADEPTO INCAPPUCCIATO: B1 -> B3.
+    NINO “GRIMALDELLO” CAUTO si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    OTTAVIO BRERA si muove verso ADEPTO INCAPPUCCIATO: B1 -> A3.
+    OTTAVIO BRERA si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> ADEPTO INCAPPUCCIATO: 2d6(1,6)=7 +VIGORE(3)+arma(1) = 11 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+  [MINACCIA] GLI ECHI TORNANO (posseduto) — Piazzate 1 Voce Cava sull’uscita più vicina agli eroi.
+    Piazzati 1x LA VOCE CAVA (pool residua: 1) in B1.
+  [MINACCIA] LA SECONDA BARCA (posseduto) — Piazzate 1 Adepto sull’ingresso della Porta d’Acqua (T1).
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 2), a 6 caselle dalla tessera del gruppo.
+  LA VOCE CAVA si muove verso OTTAVIO BRERA: B1 -> A2.
+  LA VOCE CAVA attacca OTTAVIO BRERA:
+    [ATTACCO NEMICO] LA VOCE CAVA -> OTTAVIO BRERA: 2d6(6,4)=10 +Attacco(1) = 11 vs Difesa(8) -> COLPITO
+    OTTAVIO BRERA subisce 1 danno da LA VOCE CAVA (Salute: 7/8).
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+  [OROLOGIO] Fine del 6° round: +1 segnalino Canto automatico.
+    Segnalino Canto: 3.
+    Il Canto raggiunge 3: da ora ogni Fase Minaccia pesca 1 carta in più (fino a fine spedizione, anche se il Custode è già stato abbattuto).
+    Ferri lascia la Camera e viene a cercarvi (3° segnalino), sulla tessera più lontana dagli eroi!
+--- Round 7: il gruppo raggiunge T5 (Sala della Pietra) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    Il gruppo entra in T5 da A3.
+    QUANDO RIVELATE: le Voci Cave tra i righi della pietra.
+    [PROVA ACUME] MORA “SPILLA” FANTI: 2d6(5,6)=11 +ACUME(2) = 13 vs Media(9) -> SUCCESSO
+    [CARDINE] MORA “SPILLA” FANTI spegne la pietra (2/3 movimenti spenti — la Difesa di Ferri cala).
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> LA VOCE CAVA: 2d6(1,5)=6 +VIGORE(2)+arma(1) = 9 vs Difesa(6) -> COLPITO
+    LA VOCE CAVA: 0/1 ferite residue.
+    LA VOCE CAVA è ABBATTUTO.
+    La Voce Cava URLA nel disfarsi:
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(3,1)=4 +NERVI(1) = 5 vs Facile(7) -> FALLITA
+    MORA “SPILLA” FANTI avrà 1 sola azione al suo prossimo turno (l’urlo).
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6(1,2)=3 +NERVI(1) = 4 vs Facile(7) -> FALLITA
+    NINO “GRIMALDELLO” CAUTO avrà 1 sola azione al suo prossimo turno (l’urlo).
+    [PROVA NERVI] OTTAVIO BRERA: 2d6(1,6)=7 +NERVI(2) = 9 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6(6,4)=10 +NERVI(2) = 12 vs Facile(7) -> SUCCESSO
+    OTTAVIO BRERA si muove verso LA VOCE CAVA: A3 -> B2.
+    [ATTACCO] OTTAVIO BRERA -> LA VOCE CAVA: 2d6(4,5)=9 +VIGORE(1)+arma(1) = 11 vs Difesa(6) -> COLPITO
+    LA VOCE CAVA: 0/1 ferite residue.
+    LA VOCE CAVA è ABBATTUTO.
+    La Voce Cava URLA nel disfarsi:
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(4,2)=6 +NERVI(1) = 7 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6(3,5)=8 +NERVI(1) = 9 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] OTTAVIO BRERA: 2d6(4,4)=8 +NERVI(2) = 10 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6(2,1)=3 +NERVI(2) = 5 vs Facile(7) -> FALLITA
+    OTTONE “MEZZENA” MASSARI avrà 1 sola azione al suo prossimo turno (l’urlo).
+    OTTONE “MEZZENA” MASSARI ha 1 sola azione questo turno (insidia del round scorso).
+    [PROVA ACUME] OTTONE “MEZZENA” MASSARI: 2d6(4,5)=9 +ACUME(1) = 10 vs Media(9) -> SUCCESSO
+    OTTONE “MEZZENA” MASSARI cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+  [MINACCIA] LA VOCE DEL BORGO (posseduto) — Piazzate 1 Voce Cava sull’uscita più vicina agli eroi.
+    Piazzati 1x LA VOCE CAVA (pool residua: 1) in A3.
+  [MINACCIA] IL TERZO MOVIMENTO (crescendo) — Aggiungete 1 segnalino Canto. Alla soglia: Ferri si desta.
+    Segnalino Canto: 4.
+    Ferri recupera 1 ferita (4/4) e si attiva subito.
+  [MINACCIA] LA PROCESSIONE ULTIMA (posseduto) — Piazzate 1 Confratello sull’uscita più vicina agli eroi.
+    Piazzati 1x IL CONFRATELLO (pool residua: 1) in A3.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+  LA VOCE CAVA si muove verso OTTAVIO BRERA: A3 -> A2.
+  LA VOCE CAVA attacca OTTAVIO BRERA:
+    [ATTACCO NEMICO] LA VOCE CAVA -> OTTAVIO BRERA: 2d6(6,6)=12 +Attacco(1) = 13 vs Difesa(8) -> COLPITO
+    OTTAVIO BRERA subisce 1 danno da LA VOCE CAVA (Salute: 6/8).
+  IL CONFRATELLO si muove verso MORA “SPILLA” FANTI: A3 -> B3.
+  IL CONFRATELLO attacca MORA “SPILLA” FANTI:
+    [ATTACCO NEMICO] IL CONFRATELLO -> MORA “SPILLA” FANTI: 2d6(4,2)=6 +Attacco(1) = 7 vs Difesa(8) -> MANCATO
+  BASTIANO FERRI si avvicina (Movimento 3): ancora 6 caselle prima di raggiungere la tessera del gruppo.
+--- Round 8: il gruppo raggiunge T4 (Snodo - ritorno dal ramo) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    Il gruppo entra in T4 da D3.
+    MORA “SPILLA” FANTI ha 1 sola azione questo turno (insidia del round scorso).
+    MORA “SPILLA” FANTI si muove verso IL CONFRATELLO: D3 -> B4.
+    MORA “SPILLA” FANTI (1 sola azione) si limita ad avvicinarsi a IL CONFRATELLO.
+    NINO “GRIMALDELLO” CAUTO ha 1 sola azione questo turno (insidia del round scorso).
+    NINO “GRIMALDELLO” CAUTO si muove verso LA VOCE CAVA: D3 -> B1.
+    NINO “GRIMALDELLO” CAUTO (1 sola azione) si limita ad avvicinarsi a LA VOCE CAVA.
+    [PROVA ACUME] OTTAVIO BRERA: 2d6(4,5)=9 +ACUME(3) = 12 vs Media(9) -> SUCCESSO
+    OTTAVIO BRERA cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] LA BARCA DELLE DUE E MEZZA (posseduto) — Piazzate 1 Adepto sull’ingresso della Porta d’Acqua (T1).
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 0), a 6 caselle dalla tessera del gruppo.
+  [MINACCIA] REMI NEL BUIO (posseduto) — Piazzate 1 Adepto sull’ingresso della Porta d’Acqua (T1).
+    Segnalini ADEPTO INCAPPUCCIATO esauriti: il piazzamento non ha luogo (resto della carta si applica comunque).
+  [MINACCIA] I FRATELLI DEL QUARANTUNO (posseduto) — Piazzate 1 Confratello sull’uscita più vicina agli eroi.
+    Piazzati 1x IL CONFRATELLO (pool residua: 0) in D3.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  LA VOCE CAVA si avvicina, non ancora a contatto.
+  IL CONFRATELLO si muove verso MORA “SPILLA” FANTI: B3 -> A4.
+  IL CONFRATELLO attacca MORA “SPILLA” FANTI:
+    [ATTACCO NEMICO] IL CONFRATELLO -> MORA “SPILLA” FANTI: 2d6(4,2)=6 +Attacco(1) = 7 vs Difesa(8) -> MANCATO
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+  IL CONFRATELLO si muove verso NINO “GRIMALDELLO” CAUTO: D3 -> C2.
+  IL CONFRATELLO si avvicina, non ancora a contatto.
+  BASTIANO FERRI si avvicina (Movimento 3): ancora 6 caselle prima di raggiungere la tessera del gruppo.
+--- Round 9: il gruppo attraversa T4 verso T6 ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    MORA “SPILLA” FANTI si muove verso IL CONFRATELLO: B4 -> A3.
+    [ATTACCO] MORA “SPILLA” FANTI -> LA VOCE CAVA: 2d6(6,6)=12 +VIGORE(3)+arma(1) = 16 vs Difesa(6) -> COLPITO
+    LA VOCE CAVA: 0/1 ferite residue.
+    LA VOCE CAVA è ABBATTUTO.
+    La Voce Cava URLA nel disfarsi:
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(1,2)=3 +NERVI(1) = 4 vs Facile(7) -> FALLITA
+    MORA “SPILLA” FANTI avrà 1 sola azione al suo prossimo turno (l’urlo).
+    NINO “GRIMALDELLO” CAUTO si muove verso IL CONFRATELLO: B1 -> C1.
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> IL CONFRATELLO: 2d6(4,5)=9 +VIGORE(2)+arma(1) = 12 vs Difesa(7) -> COLPITO
+    IL CONFRATELLO: 0/1 ferite residue.
+    IL CONFRATELLO è ABBATTUTO.
+    OTTAVIO BRERA si muove verso IL CONFRATELLO: D3 -> B4.
+    [ATTACCO] OTTAVIO BRERA -> IL CONFRATELLO: 2d6(6,2)=8 +VIGORE(1)+arma(1) = 10 vs Difesa(7) -> COLPITO
+    IL CONFRATELLO: 0/1 ferite residue.
+    IL CONFRATELLO è ABBATTUTO.
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] LA MAREA CHE SALE (insidia) — L’eroe attivo prova NERVI (Media): se fallisce, 1 danno e perde 1 azione.
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(5,5)=10 +NERVI(1) = 11 vs Media(9) -> SUCCESSO
+  [MINACCIA] LE GUARDIE PAGATE (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 1) in D3.
+  [MINACCIA] I FACCHINI DELL’ULTIMA NOTTE (posseduto) — Piazzate 1 Adepto sull’uscita più vicina agli eroi.
+    Segnalini ADEPTO INCAPPUCCIATO esauriti: il piazzamento non ha luogo (resto della carta si applica comunque).
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si muove verso OTTAVIO BRERA: D3 -> C4.
+  LO SGHERRO attacca OTTAVIO BRERA:
+    [ATTACCO NEMICO] LO SGHERRO -> OTTAVIO BRERA: 2d6(6,4)=10 +Attacco(2) = 12 vs Difesa(8) -> COLPITO
+    OTTAVIO BRERA subisce 1 danno da LO SGHERRO (Salute: 5/8).
+  BASTIANO FERRI si avvicina (Movimento 3): ancora 6 caselle prima di raggiungere la tessera del gruppo.
+--- Round 10: il gruppo raggiunge T6 (Sala delle Ossa) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    Il gruppo entra in T6 da B1.
+    QUANDO RIVELATE: i Confratelli all’organo ibrido.
+    MORA “SPILLA” FANTI ha 1 sola azione questo turno (insidia del round scorso).
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(5,2)=7 +NERVI(1) = 8 vs Media(9) -> FALLITA
+    [CARDINE] MORA “SPILLA” FANTI fallisce su le ossa: si ritenta.
+    NINO “GRIMALDELLO” CAUTO si muove verso IL CONFRATELLO: B1 -> C2.
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> IL CONFRATELLO: 2d6(6,3)=9 +VIGORE(2)+arma(1) = 12 vs Difesa(7) -> COLPITO
+    IL CONFRATELLO: 0/1 ferite residue.
+    IL CONFRATELLO è ABBATTUTO.
+    OTTAVIO BRERA si muove verso LO SGHERRO: B1 -> B4.
+    [ATTACCO] OTTAVIO BRERA -> LO SGHERRO: 2d6(4,2)=6 +VIGORE(1)+arma(1) = 8 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    OTTONE “MEZZENA” MASSARI si muove verso LO SGHERRO: B1 -> D2.
+    OTTONE “MEZZENA” MASSARI si avvicina a LO SGHERRO, non ancora a contatto.
+  [MINACCIA] L’ACQUA ALLE GINOCCHIA (ostacolo) — Muoversi costa il doppio sulla tessera dell’eroe attivo fino a fine round.
+    (carta senza effetto modellato in questa simulazione)
+  [MINACCIA] L’ACQUA TRATTIENE (quiete) — Nessun effetto (tensione).
+    (carta senza effetto modellato in questa simulazione)
+    Mazzo Minaccia esaurito: si rimescolano gli scarti.
+  [MINACCIA] LA SECONDA BARCA (posseduto) — Piazzate 1 Adepto sull’ingresso della Porta d’Acqua (T1).
+    Segnalini ADEPTO INCAPPUCCIATO esauriti: il piazzamento non ha luogo (resto della carta si applica comunque).
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 1 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO attacca OTTAVIO BRERA:
+    [ATTACCO NEMICO] LO SGHERRO -> OTTAVIO BRERA: 2d6(3,5)=8 +Attacco(2) = 10 vs Difesa(8) -> COLPITO
+    OTTAVIO BRERA subisce 1 danno da LO SGHERRO (Salute: 4/8).
+  BASTIANO FERRI si avvicina (Movimento 3): ancora 6 caselle prima di raggiungere la tessera del gruppo.
+    Il movimento di T6 non è ancora spento: il gruppo resta.
+--- Round 11: il gruppo raggiunge T6 (Sala delle Ossa) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(5,3)=8 +NERVI(1) = 9 vs Media(9) -> SUCCESSO
+    [CARDINE] MORA “SPILLA” FANTI spegne le ossa (3/3 movimenti spenti — la Difesa di Ferri cala).
+    [PROVA ACUME] NINO “GRIMALDELLO” CAUTO: 2d6(1,2)=3 +ACUME(2) = 5 vs Media(9) -> FALLITA
+    NINO “GRIMALDELLO” CAUTO cerca sulla tessera: niente da trovare qui, o prova fallita.
+    [ATTACCO] OTTAVIO BRERA -> LO SGHERRO: 2d6(5,5)=10 +VIGORE(1)+arma(1) = 12 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] GLI ECHI TORNANO (posseduto) — Piazzate 1 Voce Cava sull’uscita più vicina agli eroi.
+    Piazzati 1x LA VOCE CAVA (pool residua: 1) in B1.
+  [MINACCIA] IL SERVIZIO DI BANCHINA (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 1) in B1.
+  [MINACCIA] REMI NEL BUIO (posseduto) — Piazzate 1 Adepto sull’ingresso della Porta d’Acqua (T1).
+    Segnalini ADEPTO INCAPPUCCIATO esauriti: il piazzamento non ha luogo (resto della carta si applica comunque).
+  ADEPTO INCAPPUCCIATO raggiunge la tessera del gruppo, da C1.
+  ADEPTO INCAPPUCCIATO si muove verso OTTONE “MEZZENA” MASSARI: C1 -> D1.
+  ADEPTO INCAPPUCCIATO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> OTTONE “MEZZENA” MASSARI: 2d6(3,6)=9 +Attacco(1) = 10 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 8/10).
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 1 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  LA VOCE CAVA si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  BASTIANO FERRI si avvicina (Movimento 3): ancora 6 caselle prima di raggiungere la tessera del gruppo.
+--- Round 12: il gruppo attraversa T6 verso T7 ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    MORA “SPILLA” FANTI si muove verso ADEPTO INCAPPUCCIATO: B1 -> C1.
+    [ATTACCO] MORA “SPILLA” FANTI -> ADEPTO INCAPPUCCIATO: 2d6(4,1)=5 +VIGORE(3)+arma(1) = 9 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    NINO “GRIMALDELLO” CAUTO si muove verso LA VOCE CAVA: C2 -> B2.
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> LA VOCE CAVA: 2d6(5,1)=6 +VIGORE(2)+arma(1) = 9 vs Difesa(6) -> COLPITO
+    LA VOCE CAVA: 0/1 ferite residue.
+    LA VOCE CAVA è ABBATTUTO.
+    La Voce Cava URLA nel disfarsi:
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(6,6)=12 +NERVI(1) = 13 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6(1,3)=4 +NERVI(1) = 5 vs Facile(7) -> FALLITA
+    NINO “GRIMALDELLO” CAUTO avrà 1 sola azione al suo prossimo turno (l’urlo).
+    OTTAVIO BRERA si muove verso LO SGHERRO: B4 -> A2.
+    OTTAVIO BRERA si avvicina a LO SGHERRO, non ancora a contatto.
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] IL SECONDO MOVIMENTO (crescendo) — Aggiungete 1 segnalino Canto. Alla soglia: Ferri si desta.
+    Segnalino Canto: 5.
+    Ferri recupera 1 ferita (4/4) e si attiva subito.
+  [MINACCIA] L’ACQUA ALLE GINOCCHIA (ostacolo) — Muoversi costa il doppio sulla tessera dell’eroe attivo fino a fine round.
+    (carta senza effetto modellato in questa simulazione)
+  [MINACCIA] LA PROCESSIONE ULTIMA (posseduto) — Piazzate 1 Confratello sull’uscita più vicina agli eroi.
+    Piazzati 1x IL CONFRATELLO (pool residua: 1) in B1.
+  ADEPTO INCAPPUCCIATO raggiunge la tessera del gruppo, da A1.
+  ADEPTO INCAPPUCCIATO attacca OTTAVIO BRERA:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> OTTAVIO BRERA: 2d6(5,1)=6 +Attacco(1) = 7 vs Difesa(8) -> MANCATO
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 1 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO attacca NINO “GRIMALDELLO” CAUTO:
+    [ATTACCO NEMICO] LO SGHERRO -> NINO “GRIMALDELLO” CAUTO: 2d6(4,1)=5 +Attacco(2) = 7 vs Difesa(8) -> MANCATO
+  IL CONFRATELLO attacca NINO “GRIMALDELLO” CAUTO:
+    [ATTACCO NEMICO] IL CONFRATELLO -> NINO “GRIMALDELLO” CAUTO: 2d6(2,3)=5 +Attacco(1) = 6 vs Difesa(8) -> MANCATO
+  BASTIANO FERRI si avvicina (Movimento 3): ancora 6 caselle prima di raggiungere la tessera del gruppo.
+  [OROLOGIO] Fine del 12° round: +1 segnalino Canto automatico.
+    Segnalino Canto: 6.
+--- Round 13: il gruppo raggiunge T7 (Anticamera del Coro) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    Il gruppo entra in T7 da B1.
+    QUANDO RIVELATE: le ultime guardie — 1 Adepto e 1 Sgherro.
+    [ATTACCO] MORA “SPILLA” FANTI -> ADEPTO INCAPPUCCIATO: 2d6(1,6)=7 +VIGORE(3)+arma(1) = 11 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    NINO “GRIMALDELLO” CAUTO ha 1 sola azione questo turno (insidia del round scorso).
+    NINO “GRIMALDELLO” CAUTO si muove verso ADEPTO INCAPPUCCIATO: B1 -> B3.
+    NINO “GRIMALDELLO” CAUTO si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    OTTAVIO BRERA si muove verso ADEPTO INCAPPUCCIATO: B1 -> A3.
+    OTTAVIO BRERA si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> ADEPTO INCAPPUCCIATO: 2d6(4,6)=10 +VIGORE(3)+arma(1) = 14 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+  [MINACCIA] LA MAREA CHE SALE (insidia) — L’eroe attivo prova NERVI (Media): se fallisce, 1 danno e perde 1 azione.
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(5,5)=10 +NERVI(1) = 11 vs Media(9) -> SUCCESSO
+  [MINACCIA] I FRATELLI DEL QUARANTUNO (posseduto) — Piazzate 1 Confratello sull’uscita più vicina agli eroi.
+    Piazzati 1x IL CONFRATELLO (pool residua: 0) in B1.
+  [MINACCIA] IL TERZO MOVIMENTO (crescendo) — Aggiungete 1 segnalino Canto. Alla soglia: Ferri si desta.
+    Segnalino Canto: 7.
+    Ferri recupera 1 ferita (4/4) e si attiva subito.
+  ADEPTO INCAPPUCCIATO raggiunge la tessera del gruppo, da C1.
+  ADEPTO INCAPPUCCIATO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> OTTONE “MEZZENA” MASSARI: 2d6(6,2)=8 +Attacco(1) = 9 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 7/10).
+  LO SGHERRO si muove verso MORA “SPILLA” FANTI: B1 -> A1.
+  LO SGHERRO attacca MORA “SPILLA” FANTI:
+    [ATTACCO NEMICO] LO SGHERRO -> MORA “SPILLA” FANTI: 2d6(4,1)=5 +Attacco(2) = 7 vs Difesa(8) -> MANCATO
+  IL CONFRATELLO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  IL CONFRATELLO si avvicina, non ancora a contatto.
+  BASTIANO FERRI si avvicina (Movimento 3): ancora 6 caselle prima di raggiungere la tessera del gruppo.
+--- Round 14: il gruppo attraversa T7 verso T8 ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    [ATTACCO] MORA “SPILLA” FANTI -> ADEPTO INCAPPUCCIATO: 2d6(2,3)=5 +VIGORE(3)+arma(1) = 9 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    NINO “GRIMALDELLO” CAUTO si muove verso LO SGHERRO: B3 -> D3.
+    NINO “GRIMALDELLO” CAUTO si avvicina a LO SGHERRO, non ancora a contatto.
+    OTTAVIO BRERA si muove verso LO SGHERRO: A3 -> A2.
+    [ATTACCO] OTTAVIO BRERA -> LO SGHERRO: 2d6(1,5)=6 +VIGORE(1)+arma(1) = 8 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> LO SGHERRO: 2d6(2,5)=7 +VIGORE(3)+arma(1) = 11 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+  [MINACCIA] IL PELLEGRINAGGIO (posseduto) — Piazzate 1 Adepto sull’uscita più vicina agli eroi.
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 2) in B1.
+  [MINACCIA] I FACCHINI DELL’ULTIMA NOTTE (posseduto) — Piazzate 1 Adepto sull’uscita più vicina agli eroi.
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 1) in B1.
+  [MINACCIA] LA VOCE DEL BORGO (posseduto) — Piazzate 1 Voce Cava sull’uscita più vicina agli eroi.
+    Piazzati 1x LA VOCE CAVA (pool residua: 1) in B1.
+  IL CONFRATELLO si muove verso OTTONE “MEZZENA” MASSARI: B1 -> C1.
+  IL CONFRATELLO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] IL CONFRATELLO -> OTTONE “MEZZENA” MASSARI: 2d6(1,4)=5 +Attacco(1) = 6 vs Difesa(8) -> MANCATO
+  LO SGHERRO si avvicina, non ancora a contatto.
+  IL CONFRATELLO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si muove verso OTTAVIO BRERA: B1 -> A1.
+  ADEPTO INCAPPUCCIATO attacca OTTAVIO BRERA:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> OTTAVIO BRERA: 2d6(4,3)=7 +Attacco(1) = 8 vs Difesa(8) -> COLPITO
+    OTTAVIO BRERA subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 3/8).
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  LA VOCE CAVA si avvicina, non ancora a contatto.
+  BASTIANO FERRI si avvicina (Movimento 3): ancora 6 caselle prima di raggiungere la tessera del gruppo.
+--- Round 15: il gruppo raggiunge T8 (Camera delle Tre Acque) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    Il gruppo entra in T8 da B1.
+    LA CAMERA DELLE TRE ACQUE: il Coro dei Dodici canta intorno al rito.
+    Ferri, gia’ desto, vi ha seguiti fin qui: il rito continua senza direttore.
+    [FORMULA] MORA “SPILLA” FANTI legge LA FORMULA DEL SIGILLO a voce ferma: il rito MUORE. Il Dormiente si riassopisce. Ferri crolla in ginocchio.
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> IL CONFRATELLO: 2d6(2,6)=8 +VIGORE(2)+arma(1) = 11 vs Difesa(7) -> COLPITO
+    IL CONFRATELLO: 0/1 ferite residue.
+    IL CONFRATELLO è ABBATTUTO.
+    [ATTACCO] OTTAVIO BRERA -> ADEPTO INCAPPUCCIATO: 2d6(3,1)=4 +VIGORE(1)+arma(1) = 6 vs Difesa(7) -> MANCATO
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> ADEPTO INCAPPUCCIATO: 2d6(5,1)=6 +VIGORE(3)+arma(1) = 10 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    [ABILITÀ] OTTONE “MEZZENA” MASSARI usa Colpo da macello: attacco extra su IL CORISTA.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> IL CORISTA: 2d6(4,3)=7 +VIGORE(3)+arma(1) = 11 vs Difesa(6) -> COLPITO
+    IL CORISTA: 0/1 ferite residue.
+    IL CORISTA è ABBATTUTO.
+  [MINACCIA] IL RICHIAMO (insidia) — L’eroe più avanzato prova NERVI (Media): se fallisce, 1 danno.
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(1,4)=5 +NERVI(1) = 6 vs Media(9) -> FALLITA
+    [SECONDO FIATO] MORA “SPILLA” FANTI ritenta la prova (unico ritento dell’episodio):
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(4,5)=9 +NERVI(1) = 10 vs Media(9) -> SUCCESSO
+  [MINACCIA] LE GUARDIE PAGATE (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 0) in B1.
+  [MINACCIA] LA CORRENTE AMICA (favore) — Rivelate una tessera coperta adiacente.
+    (carta senza effetto modellato in questa simulazione)
+  LO SGHERRO si muove verso NINO “GRIMALDELLO” CAUTO: D1 -> C1.
+  LO SGHERRO attacca NINO “GRIMALDELLO” CAUTO:
+    [ATTACCO NEMICO] LO SGHERRO -> NINO “GRIMALDELLO” CAUTO: 2d6(3,2)=5 +Attacco(2) = 7 vs Difesa(8) -> MANCATO
+  IL CONFRATELLO si muove verso MORA “SPILLA” FANTI: B1 -> A1.
+  IL CONFRATELLO attacca MORA “SPILLA” FANTI:
+    [ATTACCO NEMICO] IL CONFRATELLO -> MORA “SPILLA” FANTI: 2d6(1,6)=7 +Attacco(1) = 8 vs Difesa(8) -> COLPITO
+    MORA “SPILLA” FANTI subisce 1 danno da IL CONFRATELLO (Salute: 8/9).
+  ADEPTO INCAPPUCCIATO si muove verso OTTAVIO BRERA: B1 -> B2.
+  ADEPTO INCAPPUCCIATO attacca OTTAVIO BRERA:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> OTTAVIO BRERA: 2d6(6,1)=7 +Attacco(1) = 8 vs Difesa(8) -> COLPITO
+    OTTAVIO BRERA subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 2/8).
+  LA VOCE CAVA si avvicina, non ancora a contatto.
+  IL CORISTA si avvicina, non ancora a contatto.
+  IL CORISTA si avvicina, non ancora a contatto.
+  IL CORISTA si avvicina, non ancora a contatto.
+  IL CORISTA si avvicina, non ancora a contatto.
+  IL CORISTA si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  BASTIANO FERRI si avvicina (Movimento 3): ancora 6 caselle prima di raggiungere la tessera del gruppo.
+--- La Camera delle Tre Acque: Ferri, il Coro e il rito ---
+--- Round 16: il rito è in corso ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    [ATTACCO] MORA “SPILLA” FANTI -> IL CONFRATELLO: 2d6(1,3)=4 +VIGORE(3)+arma(1) = 8 vs Difesa(7) -> COLPITO
+    IL CONFRATELLO: 0/1 ferite residue.
+    IL CONFRATELLO è ABBATTUTO.
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> ADEPTO INCAPPUCCIATO: 2d6(6,3)=9 +VIGORE(2)+arma(1) = 12 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    OTTAVIO BRERA si muove verso LO SGHERRO: B1 -> C2.
+    [ATTACCO] OTTAVIO BRERA -> IL CORISTA: 2d6(4,1)=5 +VIGORE(1)+arma(1) = 7 vs Difesa(6) -> COLPITO
+    IL CORISTA: 0/1 ferite residue.
+    IL CORISTA FUGGE (è un impiegato, non un credente).
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> LO SGHERRO: 2d6(2,1)=3 +VIGORE(3)+arma(1) = 7 vs Difesa(8) -> MANCATO
+  [MINACCIA] IL BATTITO SOTTO (insidia) — L’eroe con meno NERVI prova NERVI (Media): se fallisce 1 danno.
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(3,3)=6 +NERVI(1) = 7 vs Media(9) -> FALLITA
+    MORA “SPILLA” FANTI subisce 1 danno da IL BATTITO SOTTO (Salute: 7/9).
+  [MINACCIA] IL CANTO DELLE VENE (insidia) — Ogni eroe prova NERVI (Facile): chi fallisce ha 1 sola azione al prossimo turno.
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(6,3)=9 +NERVI(1) = 10 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6(1,5)=6 +NERVI(1) = 7 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] OTTAVIO BRERA: 2d6(5,3)=8 +NERVI(2) = 10 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6(3,6)=9 +NERVI(2) = 11 vs Facile(7) -> SUCCESSO
+  [MINACCIA] LA BARCA DELLE DUE E MEZZA (posseduto) — Piazzate 1 Adepto sull’ingresso della Porta d’Acqua (T1).
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 2), a 6 caselle dalla tessera del gruppo.
+  LO SGHERRO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] LO SGHERRO -> OTTONE “MEZZENA” MASSARI: 2d6(5,2)=7 +Attacco(2) = 9 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 1 danno da LO SGHERRO (Salute: 6/10).
+  LA VOCE CAVA si muove verso NINO “GRIMALDELLO” CAUTO: B1 -> A1.
+  LA VOCE CAVA attacca NINO “GRIMALDELLO” CAUTO:
+    [ATTACCO NEMICO] LA VOCE CAVA -> NINO “GRIMALDELLO” CAUTO: 2d6(3,5)=8 +Attacco(1) = 9 vs Difesa(8) -> COLPITO
+    NINO “GRIMALDELLO” CAUTO subisce 1 danno da LA VOCE CAVA (Salute: 8/9).
+  IL CORISTA si avvicina, non ancora a contatto.
+  IL CORISTA si muove verso MORA “SPILLA” FANTI: A2 -> B2.
+  IL CORISTA attacca MORA “SPILLA” FANTI:
+    [ATTACCO NEMICO] IL CORISTA -> MORA “SPILLA” FANTI: 2d6(3,5)=8 +Attacco(1) = 9 vs Difesa(8) -> COLPITO
+    MORA “SPILLA” FANTI subisce 1 danno da IL CORISTA (Salute: 6/9).
+  IL CORISTA si avvicina, non ancora a contatto.
+  IL CORISTA si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  BASTIANO FERRI si avvicina (Movimento 3): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+  Il Coro tiene l’accordo: +1 segnalino Canto (coro >= 3).
+    Segnalino Canto: 8.
+    MORA “SPILLA” FANTI subisce 1 danno da il battito del Dormiente (soglia 6) (Salute: 5/9).
+  Il rito è morto: Ferri crolla. Si torna alla Porta d’Acqua.
+--- Ritorno alla Porta d’Acqua (3 round, la marea sale) ---
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(1,5)=6 +NERVI(1) +Lanterna di Chiusa(+1) = 8 vs Media(9) -> FALLITA
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6(3,3)=6 +NERVI(1) +Lanterna di Chiusa(+1) = 8 vs Media(9) -> FALLITA
+    [PROVA NERVI] OTTAVIO BRERA: 2d6(4,2)=6 +NERVI(2) +Lanterna di Chiusa(+1) = 9 vs Media(9) -> SUCCESSO
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6(4,3)=7 +NERVI(2) +Lanterna di Chiusa(+1) = 10 vs Media(9) -> SUCCESSO
+--- Round 17: rientro verso T1 ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    MORA “SPILLA” FANTI ha 1 sola azione questo turno (insidia del round scorso).
+    [ATTACCO] MORA “SPILLA” FANTI -> LA VOCE CAVA: 2d6(4,1)=5 +VIGORE(3)+arma(1) = 9 vs Difesa(6) -> COLPITO
+    LA VOCE CAVA: 0/1 ferite residue.
+    LA VOCE CAVA è ABBATTUTO.
+    La Voce Cava URLA nel disfarsi:
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(1,4)=5 +NERVI(1) = 6 vs Facile(7) -> FALLITA
+    MORA “SPILLA” FANTI avrà 1 sola azione al suo prossimo turno (l’urlo).
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6(2,5)=7 +NERVI(1) = 8 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6(3,2)=5 +NERVI(2) = 7 vs Facile(7) -> SUCCESSO
+    NINO “GRIMALDELLO” CAUTO ha 1 sola azione questo turno (insidia del round scorso).
+    NINO “GRIMALDELLO” CAUTO si muove verso IL CORISTA: B1 -> A2.
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> IL CORISTA: 2d6(2,6)=8 +VIGORE(2)+arma(1) = 11 vs Difesa(6) -> COLPITO
+    IL CORISTA: 0/1 ferite residue.
+    IL CORISTA FUGGE (è un impiegato, non un credente).
+    OTTAVIO BRERA si muove verso LO SGHERRO: C2 -> D1.
+    [ATTACCO] OTTAVIO BRERA -> LO SGHERRO: 2d6(4,1)=5 +VIGORE(1)+arma(1) = 7 vs Difesa(8) -> MANCATO
+    OTTONE “MEZZENA” MASSARI si muove verso LO SGHERRO: B1 -> C2.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> LO SGHERRO: 2d6(3,4)=7 +VIGORE(3)+arma(1) = 11 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+  [MINACCIA] IL PRIMO MOVIMENTO (crescendo) — Aggiungete 1 segnalino Canto. Alla soglia: Ferri si desta.
+    Segnalino Canto: 9.
+    Ferri è già stato sconfitto: nessun effetto su di lui.
+  [MINACCIA] L’ACQUA TRATTIENE (quiete) — Nessun effetto (tensione).
+    (carta senza effetto modellato in questa simulazione)
+    Mazzo Minaccia esaurito: si rimescolano gli scarti.
+  [MINACCIA] I FACCHINI DELL’ULTIMA NOTTE (posseduto) — Piazzate 1 Adepto sull’uscita più vicina agli eroi.
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 1) in B1.
+  LO SGHERRO attacca MORA “SPILLA” FANTI:
+    [ATTACCO NEMICO] LO SGHERRO -> MORA “SPILLA” FANTI: 2d6(5,6)=11 +Attacco(2) = 13 vs Difesa(8) -> COLPITO
+    MORA “SPILLA” FANTI subisce 1 danno da LO SGHERRO (Salute: 4/9).
+  IL CORISTA si avvicina, non ancora a contatto.
+  IL CORISTA si muove verso NINO “GRIMALDELLO” CAUTO: B3 -> B2.
+  IL CORISTA attacca NINO “GRIMALDELLO” CAUTO:
+    [ATTACCO NEMICO] IL CORISTA -> NINO “GRIMALDELLO” CAUTO: 2d6(3,5)=8 +Attacco(1) = 9 vs Difesa(8) -> COLPITO
+    NINO “GRIMALDELLO” CAUTO subisce 1 danno da IL CORISTA (Salute: 7/9).
+  IL CORISTA si avvicina, non ancora a contatto.
+  LO SGHERRO si muove verso NINO “GRIMALDELLO” CAUTO: B1 -> A1.
+  LO SGHERRO attacca NINO “GRIMALDELLO” CAUTO:
+    [ATTACCO NEMICO] LO SGHERRO -> NINO “GRIMALDELLO” CAUTO: 2d6(5,1)=6 +Attacco(2) = 8 vs Difesa(8) -> COLPITO
+    NINO “GRIMALDELLO” CAUTO subisce 1 danno da LO SGHERRO (Salute: 6/9).
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 1 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+--- Round 18: rientro verso T1 ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    MORA “SPILLA” FANTI ha 1 sola azione questo turno (insidia del round scorso).
+    [ATTACCO] MORA “SPILLA” FANTI -> LO SGHERRO: 2d6(3,4)=7 +VIGORE(3)+arma(1) = 11 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+    NINO “GRIMALDELLO” CAUTO si muove verso IL CORISTA: A2 -> B3.
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> IL CORISTA: 2d6(2,3)=5 +VIGORE(2)+arma(1) = 8 vs Difesa(6) -> COLPITO
+    IL CORISTA: 0/1 ferite residue.
+    IL CORISTA FUGGE (è un impiegato, non un credente).
+    OTTAVIO BRERA si muove verso IL CORISTA: D1 -> D2.
+    [ATTACCO] OTTAVIO BRERA -> IL CORISTA: 2d6(6,1)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(6) -> COLPITO
+    IL CORISTA: 0/1 ferite residue.
+    IL CORISTA FUGGE (è un impiegato, non un credente).
+    OTTONE “MEZZENA” MASSARI si muove verso ADEPTO INCAPPUCCIATO: C2 -> C1.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> ADEPTO INCAPPUCCIATO: 2d6(1,4)=5 +VIGORE(3)+arma(1) = 9 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+  [MINACCIA] IL RICHIAMO (insidia) — L’eroe più avanzato prova NERVI (Media): se fallisce, 1 danno.
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(3,4)=7 +NERVI(1) = 8 vs Media(9) -> FALLITA
+    MORA “SPILLA” FANTI subisce 1 danno da IL RICHIAMO (Salute: 3/9).
+  [MINACCIA] LA CORRENTE AMICA (favore) — Rivelate una tessera coperta adiacente.
+    (carta senza effetto modellato in questa simulazione)
+  [MINACCIA] LA SECONDA BARCA (posseduto) — Piazzate 1 Adepto sull’ingresso della Porta d’Acqua (T1).
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 1), a 6 caselle dalla tessera del gruppo.
+  IL CORISTA si muove verso OTTAVIO BRERA: C4 -> D3.
+  IL CORISTA attacca OTTAVIO BRERA:
+    [ATTACCO NEMICO] IL CORISTA -> OTTAVIO BRERA: 2d6(1,6)=7 +Attacco(1) = 8 vs Difesa(8) -> COLPITO
+    OTTAVIO BRERA subisce 1 danno da IL CORISTA (Salute: 1/8).
+  LO SGHERRO si muove verso MORA “SPILLA” FANTI: A1 -> B2.
+  LO SGHERRO attacca MORA “SPILLA” FANTI:
+    [ATTACCO NEMICO] LO SGHERRO -> MORA “SPILLA” FANTI: 2d6(5,1)=6 +Attacco(2) = 8 vs Difesa(8) -> COLPITO
+    MORA “SPILLA” FANTI subisce 1 danno da LO SGHERRO (Salute: 2/9).
+  ADEPTO INCAPPUCCIATO raggiunge la tessera del gruppo, da A1.
+  ADEPTO INCAPPUCCIATO attacca MORA “SPILLA” FANTI:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> MORA “SPILLA” FANTI: 2d6(6,2)=8 +Attacco(1) = 9 vs Difesa(8) -> COLPITO
+    MORA “SPILLA” FANTI subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 1/9).
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+  [OROLOGIO] Fine del 18° round: +1 segnalino Canto automatico.
+    Segnalino Canto: 10.
+--- Round 19: rientro verso T1 ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    [ATTACCO] MORA “SPILLA” FANTI -> ADEPTO INCAPPUCCIATO: 2d6(4,5)=9 +VIGORE(3)+arma(1) = 13 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    NINO “GRIMALDELLO” CAUTO si muove verso LO SGHERRO: B3 -> A2.
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> LO SGHERRO: 2d6(1,5)=6 +VIGORE(2)+arma(1) = 9 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    [ATTACCO] OTTAVIO BRERA -> IL CORISTA: 2d6(5,6)=11 +VIGORE(1)+arma(1) = 13 vs Difesa(6) -> COLPITO
+    IL CORISTA: 0/1 ferite residue.
+    IL CORISTA FUGGE (è un impiegato, non un credente).
+    OTTONE “MEZZENA” MASSARI si muove verso LO SGHERRO: C1 -> C2.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> LO SGHERRO: 2d6(1,1)=2 +VIGORE(3)+arma(1) = 6 vs Difesa(8) -> MANCATO
+  [MINACCIA] IL PRIMO MOVIMENTO (crescendo) — Aggiungete 1 segnalino Canto. Alla soglia: Ferri si desta.
+    Segnalino Canto: 11.
+    Ferri è già stato sconfitto: nessun effetto su di lui.
+  [MINACCIA] IL TERZO MOVIMENTO (crescendo) — Aggiungete 1 segnalino Canto. Alla soglia: Ferri si desta.
+    Segnalino Canto: 12.
+    Ferri è già stato sconfitto: nessun effetto su di lui.
+  [MINACCIA] IL SECONDO MOVIMENTO (crescendo) — Aggiungete 1 segnalino Canto. Alla soglia: Ferri si desta.
+    Segnalino Canto: 13.
+    Ferri è già stato sconfitto: nessun effetto su di lui.
+  LO SGHERRO attacca MORA “SPILLA” FANTI:
+    [ATTACCO NEMICO] LO SGHERRO -> MORA “SPILLA” FANTI: 2d6(1,3)=4 +Attacco(2) = 6 vs Difesa(8) -> MANCATO
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+
+==============================================================================
+ESITO SPEDIZIONE: VITTORIA
+Round totali: 19
+Formula Minaccia: finale_v3 | Azioni nominali/round: media 8.0, picco 8
+Mazzo Minaccia rimescolato: 2 volta/e
+Segnalini nemici esauriti nel pool (piazzamenti saltati): 4
+Ferri svegliato: in anticipo al round 6
+  MORA “SPILLA” FANTI: 1/9 Salute
+  NINO “GRIMALDELLO” CAUTO: 6/9 Salute
+  OTTAVIO BRERA: 1/8 Salute
+  OTTONE “MEZZENA” MASSARI: 6/10 Salute
+==============================================================================
+Movimenti spenti: 3/3; Formula letta: sì

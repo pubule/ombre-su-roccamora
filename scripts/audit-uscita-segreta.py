@@ -51,6 +51,16 @@ for dati in sorted(glob.glob('webapp/data/ep*.json'), key=lambda p: int(re.searc
     if not os.path.exists(fasc):
         continue
     t = testo(fasc)
+    # LA CADENZA DEL CANTO. Se l'episodio non batte ogni 4 round deve dirlo nel
+    # PROPRIO fascicolo: il Regolamento manda qui a cercarla («lo dice il
+    # fascicolo Spedizione»), e un tavolo che non la trova batte ogni 4 — cioe'
+    # gioca un episodio piu' duro di quello tarato.
+    ogni = ep.get('canto_ogni')
+    if ogni:
+        if f'{ogni}° round' not in t:
+            problemi.append(f'Ep.{n}: il Canto batte ogni {ogni}° round nei dati, ma il fascicolo non lo dice')
+        else:
+            print(f'Ep.{n}: il Canto batte ogni {ogni}° round — detto nel fascicolo')
     if u:
         # dove l'uscita esiste, l'arbitro deve avere di che condurla
         if 'APPENA' not in t.upper():

@@ -1,0 +1,488 @@
+Run: usc-ep3-4_p15_seed0  |  seed=952500  |  formula Minaccia=finale_v3  |  generato: 2026-07-22T19:02:11
+==============================================================================
+SPEDIZIONE - Le Cisterne del Borgo (sotto il Lavatoio Grande)
+==============================================================================
+Party: DOTT. ATTILIO MARN, DOTT. LAZZARO SERRA, NINO “GRIMALDELLO” CAUTO, OTTONE “MEZZENA” MASSARI
+Bonus da Indagine: PREPARATI (+1 Salute massima a testa); Campanello di Piero: no; Canna Muta: sì; Domanda 3: esatta
+NOTA: gruppo trattato come blocco unico tessera per tessera (vedi intestazione script).
+Tensione tavolo piccolo: +-1 Ferite SOLO all’Accordatore (non ai nemici di truppa).
+
+Tavolo da 4: +1 Salute massima a testa (ricalibrazione).
+Gettone Intuizione in mano (Dossier completo): un ri-tiro, una volta in Spedizione.
+--- Round 1: il gruppo raggiunge T2 (Cisterna delle Colonne) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    Il gruppo entra in T2 da B1.
+    [PROVA ACUME] DOTT. ATTILIO MARN: 2d6(1,4)=5 +ACUME(2) = 7 vs Media(9) -> FALLITA
+    DOTT. ATTILIO MARN cerca sulla tessera: niente da trovare qui, o prova fallita.
+    DOTT. LAZZARO SERRA: nessun bersaglio, avanza / assiste il gruppo.
+    NINO “GRIMALDELLO” CAUTO: nessun bersaglio, avanza / assiste il gruppo.
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] LA PIETRA RIPETE (crescendo) — Aggiungete 1 segnalino Canto. Alla soglia: l’Accordatore si desta.
+    Segnalino Canto: 1.
+  [MINACCIA] CORDE DALL’ALTO (posseduto) — Piazzate 1 Adepto sotto la corda della Confluenza (T4).
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 3), a 6 caselle dalla tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+--- Round 2: il gruppo attraversa T2 verso T3 ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    DOTT. ATTILIO MARN: nessun bersaglio, avanza / assiste il gruppo.
+    [ABILITÀ] DOTT. LAZZARO SERRA attiva Voce ferma (2 usi residui): +2 NERVI agli alleati fino al suo prossimo turno.
+    NINO “GRIMALDELLO” CAUTO: nessun bersaglio, avanza / assiste il gruppo.
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] IL BUIO D’ACQUA (insidia) — L’eroe più avanzato prova NERVI (Media): se fallisce, 1 danno.
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6(1,1)=2 +NERVI(1) = 3 vs Media(9) -> FALLITA
+    [SECONDO FIATO] NINO “GRIMALDELLO” CAUTO ritenta la prova (unico ritento dell’episodio):
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6(3,6)=9 +NERVI(1) = 10 vs Media(9) -> SUCCESSO
+  [MINACCIA] LA PIETRA IMPARA (crescendo) — Aggiungete 1 segnalino Canto. Alla soglia: l’Accordatore si desta.
+    Segnalino Canto: 2.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+--- Round 3: il gruppo raggiunge T3 (Galleria delle Eco) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    Il gruppo entra in T3 da B1.
+    [OGGETTO] LA CANNA MUTA al petto: la galleria non vi sente — nessuna prova.
+    [PROVA ACUME] DOTT. ATTILIO MARN: 2d6(1,4)=5 +ACUME(2) = 7 vs Media(9) -> FALLITA
+    DOTT. ATTILIO MARN cerca sulla tessera: niente da trovare qui, o prova fallita.
+    DOTT. LAZZARO SERRA: nessun bersaglio, avanza / assiste il gruppo.
+    NINO “GRIMALDELLO” CAUTO: nessun bersaglio, avanza / assiste il gruppo.
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] IL PASSO SUL VUOTO (insidia) — L’eroe attivo prova NERVI (Media): se fallisce, 1 danno e perde 1 azione.
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6(5,5)=10 +NERVI(1) = 11 vs Media(9) -> SUCCESSO
+  [MINACCIA] UNA CORRENTE D’ARIA BUONA (favore) — Rivelate una tessera coperta adiacente.
+    (carta senza effetto modellato in questa simulazione)
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+--- Round 4: il gruppo attraversa T3 verso T4 ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    DOTT. ATTILIO MARN: nessun bersaglio, avanza / assiste il gruppo.
+    [ABILITÀ] DOTT. LAZZARO SERRA attiva Voce ferma (1 usi residui): +2 NERVI agli alleati fino al suo prossimo turno.
+    NINO “GRIMALDELLO” CAUTO: nessun bersaglio, avanza / assiste il gruppo.
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] UN’ECO DI TROPPO (posseduto) — Piazzate 1 Voce Cava sull’uscita più vicina agli eroi.
+    Piazzati 1x LA VOCE CAVA (pool residua: 2) in B1.
+  [MINACCIA] IL CORO PROVA (posseduto) — Piazzate 1 Voce Cava. Se è già in gioco una Voce Cava, si attiva subito.
+    Piazzati 1x LA VOCE CAVA (pool residua: 1) in B1.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  LA VOCE CAVA si muove verso DOTT. LAZZARO SERRA: B1 -> C1.
+  LA VOCE CAVA attacca DOTT. LAZZARO SERRA:
+    [ATTACCO NEMICO] LA VOCE CAVA -> DOTT. LAZZARO SERRA: 2d6(3,6)=9 +Attacco(1) = 10 vs Difesa(8) -> COLPITO
+    DOTT. LAZZARO SERRA subisce 1 danno da LA VOCE CAVA (Salute: 7/8).
+  LA VOCE CAVA si muove verso DOTT. LAZZARO SERRA: B1 -> A1.
+  LA VOCE CAVA attacca DOTT. LAZZARO SERRA:
+    [ATTACCO NEMICO] LA VOCE CAVA -> DOTT. LAZZARO SERRA: 2d6(1,4)=5 +Attacco(1) = 6 vs Difesa(8) -> MANCATO
+  [OROLOGIO] Fine del 4° round: +1 segnalino Canto automatico.
+    Segnalino Canto: 3.
+    Il Canto raggiunge 3: da ora ogni Fase Minaccia pesca 1 carta in più (fino a fine spedizione, anche se il Custode è già stato abbattuto).
+    L’Accordatore si desta in anticipo (3° segnalino Canto), sulla tessera più lontana dagli eroi!
+--- Round 5: il gruppo raggiunge T4 (La Confluenza) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    Il gruppo entra in T4 da B1.
+    QUANDO RIVELATE: 1 Adepto sta calando dalla corda della Confluenza.
+    [ABILITÀ] DOTT. ATTILIO MARN usa Pronto Soccorso su DOTT. LAZZARO SERRA -> Salute 8.
+    [ATTACCO] DOTT. LAZZARO SERRA -> LA VOCE CAVA: 2d6(6,1)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(6) -> COLPITO
+    LA VOCE CAVA: 0/1 ferite residue.
+    LA VOCE CAVA è ABBATTUTO.
+    La Voce Cava URLA nel disfarsi:
+    [PROVA NERVI] DOTT. ATTILIO MARN: 2d6(1,5)=6 +NERVI(2) = 8 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] DOTT. LAZZARO SERRA: 2d6(1,4)=5 +NERVI(2) = 7 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6(1,2)=3 +NERVI(1) = 4 vs Facile(7) -> FALLITA
+    NINO “GRIMALDELLO” CAUTO avrà 1 sola azione al suo prossimo turno (l’urlo).
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6(6,6)=12 +NERVI(2) = 14 vs Facile(7) -> SUCCESSO
+    NINO “GRIMALDELLO” CAUTO ha 1 sola azione questo turno (insidia del round scorso).
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> LA VOCE CAVA: 2d6(2,4)=6 +VIGORE(2)+arma(1) = 9 vs Difesa(6) -> COLPITO
+    LA VOCE CAVA: 0/1 ferite residue.
+    LA VOCE CAVA è ABBATTUTO.
+    La Voce Cava URLA nel disfarsi:
+    [PROVA NERVI] DOTT. ATTILIO MARN: 2d6(6,6)=12 +NERVI(2) = 14 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] DOTT. LAZZARO SERRA: 2d6(4,1)=5 +NERVI(2) = 7 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6(4,6)=10 +NERVI(1) = 11 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6(3,3)=6 +NERVI(2) = 8 vs Facile(7) -> SUCCESSO
+    OTTONE “MEZZENA” MASSARI si muove verso ADEPTO INCAPPUCCIATO: B1 -> D2.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> ADEPTO INCAPPUCCIATO: 2d6(6,2)=8 +VIGORE(3)+arma(1) = 12 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+  [MINACCIA] L’ACQUA SALE (ostacolo) — Muoversi costa il doppio sulla tessera dell’eroe attivo fino a fine round.
+    (carta senza effetto modellato in questa simulazione)
+  [MINACCIA] IL TURNO DI SOTTO (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 1) in B1.
+  [MINACCIA] CHIUSINI CHE SBATTONO (posseduto) — Piazzate 1 Adepto sull’ingresso della Scala dei Chiusini (T1).
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 2), a 6 caselle dalla tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 1 caselle prima di raggiungere la tessera del gruppo.
+  LA VOCE CAVA si avvicina (Movimento 3): ancora 6 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si muove verso DOTT. LAZZARO SERRA: B1 -> C1.
+  LO SGHERRO attacca DOTT. LAZZARO SERRA:
+    [ATTACCO NEMICO] LO SGHERRO -> DOTT. LAZZARO SERRA: 2d6(4,3)=7 +Attacco(2) = 9 vs Difesa(8) -> COLPITO
+    DOTT. LAZZARO SERRA subisce 1 danno da LO SGHERRO (Salute: 7/8).
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+  L’ACCORDATORE si avvicina (Movimento 3): ancora 6 caselle prima di raggiungere la tessera del gruppo.
+--- Round 6: il gruppo attraversa T4 verso T5 ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    [ABILITÀ] DOTT. ATTILIO MARN usa Pronto Soccorso su DOTT. LAZZARO SERRA -> Salute 8.
+    [ABILITÀ] DOTT. LAZZARO SERRA attiva Voce ferma (0 usi residui): +2 NERVI agli alleati fino al suo prossimo turno.
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> LO SGHERRO: 2d6(1,5)=6 +VIGORE(2)+arma(1) = 9 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    OTTONE “MEZZENA” MASSARI si muove verso LO SGHERRO: D2 -> D1.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> LO SGHERRO: 2d6(4,5)=9 +VIGORE(3)+arma(1) = 13 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+  [MINACCIA] IL CANTO NELLE ORECCHIE (insidia) — L’eroe con meno NERVI prova NERVI (Media): se fallisce 1 danno.
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6(1,2)=3 +NERVI(1) = 4 vs Media(9) -> FALLITA
+    NINO “GRIMALDELLO” CAUTO subisce 1 danno da IL CANTO NELLE ORECCHIE (Salute: 8/9).
+  [MINACCIA] L’ECO CHE CHIAMA (insidia) — Ogni eroe prova NERVI (Facile): chi fallisce ha 1 sola azione al prossimo turno.
+    [PROVA NERVI] DOTT. ATTILIO MARN: 2d6(3,6)=9 +NERVI(2) = 11 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] DOTT. LAZZARO SERRA: 2d6(6,2)=8 +NERVI(2) = 10 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6(2,2)=4 +NERVI(1) = 5 vs Facile(7) -> FALLITA
+    NINO “GRIMALDELLO” CAUTO avrà 1 sola azione al suo prossimo turno.
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6(4,3)=7 +NERVI(2) = 9 vs Facile(7) -> SUCCESSO
+  [MINACCIA] GUARDIANI DEI CHIUSINI (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 1) in B1.
+  ADEPTO INCAPPUCCIATO raggiunge la tessera del gruppo, da C1.
+  ADEPTO INCAPPUCCIATO si muove verso DOTT. LAZZARO SERRA: C1 -> D4.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  LA VOCE CAVA si avvicina (Movimento 3): ancora 6 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si muove verso NINO “GRIMALDELLO” CAUTO: B1 -> C1.
+  LO SGHERRO attacca NINO “GRIMALDELLO” CAUTO:
+    [ATTACCO NEMICO] LO SGHERRO -> NINO “GRIMALDELLO” CAUTO: 2d6(1,2)=3 +Attacco(2) = 5 vs Difesa(8) -> MANCATO
+  L’ACCORDATORE si avvicina (Movimento 3): ancora 6 caselle prima di raggiungere la tessera del gruppo.
+--- Round 7: il gruppo raggiunge T5 (Officina delle Canne) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    Il gruppo entra in T5 da A3.
+    QUANDO RIVELATE: 1 Adepto appare tra le rastrelliere delle canne-voce.
+    [PROVA ACUME] DOTT. LAZZARO SERRA: 2d6(3,3)=6 +ACUME(3) = 9 vs Media(9) -> SUCCESSO
+    Cercando sulla rastrelliera più alta: la scatolina di legno — IL CAMPANELLO DI PIERO.
+    [ABILITÀ] DOTT. ATTILIO MARN usa Pronto Soccorso su NINO “GRIMALDELLO” CAUTO -> Salute 9.
+    [OGGETTO] DOTT. LAZZARO SERRA suona IL CAMPANELLO DI PIERO accanto all’Accordatore: la voce vera, non quella rubata — Difesa 8->5, salta la prossima attivazione.
+    NINO “GRIMALDELLO” CAUTO ha 1 sola azione questo turno (insidia del round scorso).
+    NINO “GRIMALDELLO” CAUTO si muove verso ADEPTO INCAPPUCCIATO: A3 -> B2.
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> ADEPTO INCAPPUCCIATO: 2d6(1,3)=4 +VIGORE(2)+arma(1) = 7 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    OTTONE “MEZZENA” MASSARI si muove verso ADEPTO INCAPPUCCIATO: A3 -> C4.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> ADEPTO INCAPPUCCIATO: 2d6(5,2)=7 +VIGORE(3)+arma(1) = 11 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+  [MINACCIA] PASSI NELLA GALLERIA (posseduto) — Piazzate 1 Adepto sull’ingresso della Scala dei Chiusini (T1).
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 2), a 6 caselle dalla tessera del gruppo.
+  [MINACCIA] L’ACQUA FERMA (quiete) — Nessun effetto (tensione).
+    (carta senza effetto modellato in questa simulazione)
+  [MINACCIA] IL CALARE DEI SECCHI (posseduto) — Piazzate 1 Adepto sotto la corda della Confluenza (T4).
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 1), a 6 caselle dalla tessera del gruppo.
+  LA VOCE CAVA si avvicina (Movimento 3): ancora 6 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si muove verso DOTT. ATTILIO MARN: C1 -> B3.
+  LO SGHERRO attacca DOTT. ATTILIO MARN:
+    [ATTACCO NEMICO] LO SGHERRO -> DOTT. ATTILIO MARN: 2d6(3,2)=5 +Attacco(2) = 7 vs Difesa(8) -> MANCATO
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+  L’ACCORDATORE salta l’attivazione (stonato).
+--- Round 8: il gruppo raggiunge T4 (La Confluenza - ritorno dal ramo) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    Il gruppo entra in T4 da D3.
+    DOTT. ATTILIO MARN si muove verso LO SGHERRO: D3 -> B4.
+    [ATTACCO] DOTT. ATTILIO MARN -> LO SGHERRO: 2d6(5,3)=8 +VIGORE(2)+arma(1) = 11 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    DOTT. LAZZARO SERRA si muove verso LO SGHERRO: D3 -> C1.
+    DOTT. LAZZARO SERRA si avvicina a LO SGHERRO, non ancora a contatto.
+    [PROVA ACUME] NINO “GRIMALDELLO” CAUTO: 2d6(5,5)=10 +ACUME(2) = 12 vs Media(9) -> SUCCESSO
+    NINO “GRIMALDELLO” CAUTO cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] LA VOCE CHE MANCA (posseduto) — Piazzate 1 Voce Cava sull’uscita più vicina agli eroi.
+    Piazzati 1x LA VOCE CAVA (pool residua: 1) in D3.
+  [MINACCIA] L’UOMO PAGATO IN CONTANTI (malavita) — Piazzate 1 Sicario: si attiva subito.
+    Piazzati 1x IL SICARIO (pool residua: 0) in D4.
+    IL SICARIO si attiva subito:
+  IL SICARIO attacca NINO “GRIMALDELLO” CAUTO:
+    [ATTACCO NEMICO] IL SICARIO -> NINO “GRIMALDELLO” CAUTO: 2d6(3,5)=8 +Attacco(3) = 11 vs Difesa(8) -> COLPITO
+    NINO “GRIMALDELLO” CAUTO subisce 2 danno da IL SICARIO (Salute: 7/9).
+  [MINACCIA] IL RITIRO DELLE CANNE (posseduto) — Piazzate 1 Adepto sull’ingresso dell’Officina (T5).
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 0), a 6 caselle dalla tessera del gruppo.
+  LA VOCE CAVA si avvicina (Movimento 3): ancora 6 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO attacca DOTT. ATTILIO MARN:
+    [ATTACCO NEMICO] LO SGHERRO -> DOTT. ATTILIO MARN: 2d6(1,5)=6 +Attacco(2) = 8 vs Difesa(8) -> COLPITO
+    DOTT. ATTILIO MARN subisce 1 danno da LO SGHERRO (Salute: 8/9).
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  LA VOCE CAVA si muove verso DOTT. LAZZARO SERRA: D3 -> D1.
+  LA VOCE CAVA attacca DOTT. LAZZARO SERRA:
+    [ATTACCO NEMICO] LA VOCE CAVA -> DOTT. LAZZARO SERRA: 2d6(3,4)=7 +Attacco(1) = 8 vs Difesa(8) -> COLPITO
+    DOTT. LAZZARO SERRA subisce 1 danno da LA VOCE CAVA (Salute: 7/8).
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+  L’ACCORDATORE si avvicina (Movimento 3): ancora 6 caselle prima di raggiungere la tessera del gruppo.
+  [OROLOGIO] Fine del 8° round: +1 segnalino Canto automatico.
+    Segnalino Canto: 4.
+--- Round 9: il gruppo attraversa T4 verso T6 ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    DOTT. ATTILIO MARN si muove verso LO SGHERRO: B4 -> A3.
+    [ATTACCO] DOTT. ATTILIO MARN -> LO SGHERRO: 2d6(3,1)=4 +VIGORE(2)+arma(1) = 7 vs Difesa(8) -> MANCATO
+    DOTT. LAZZARO SERRA si muove verso LA VOCE CAVA: C1 -> D2.
+    [ATTACCO] DOTT. LAZZARO SERRA -> LA VOCE CAVA: 2d6(4,2)=6 +VIGORE(1)+arma(1) = 8 vs Difesa(6) -> COLPITO
+    LA VOCE CAVA: 0/1 ferite residue.
+    LA VOCE CAVA è ABBATTUTO.
+    La Voce Cava URLA nel disfarsi:
+    [PROVA NERVI] DOTT. LAZZARO SERRA: 2d6(5,3)=8 +NERVI(2) = 10 vs Facile(7) -> SUCCESSO
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> IL SICARIO: 2d6(6,3)=9 +VIGORE(2)+arma(1) = 12 vs Difesa(7) -> COLPITO
+    IL SICARIO: 0/1 ferite residue.
+    IL SICARIO è ABBATTUTO.
+    OTTONE “MEZZENA” MASSARI si muove verso LO SGHERRO: D3 -> B4.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> LO SGHERRO: 2d6(3,6)=9 +VIGORE(3)+arma(1) = 13 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+  [MINACCIA] LA PIETRA RISPONDE (crescendo) — Aggiungete 1 segnalino Canto. Alla soglia: l’Accordatore si desta.
+    Segnalino Canto: 5.
+    L’Accordatore recupera 1 ferita (3/3) e si attiva subito.
+    Mazzo Minaccia esaurito: si rimescolano gli scarti.
+  [MINACCIA] LA PIETRA RIPETE (crescendo) — Aggiungete 1 segnalino Canto. Alla soglia: l’Accordatore si desta.
+    Segnalino Canto: 6.
+    L’Accordatore recupera 1 ferita (3/3) e si attiva subito.
+  [MINACCIA] CHIUSINI CHE SBATTONO (posseduto) — Piazzate 1 Adepto sull’ingresso della Scala dei Chiusini (T1).
+    Segnalini ADEPTO INCAPPUCCIATO esauriti: il piazzamento non ha luogo (resto della carta si applica comunque).
+  LA VOCE CAVA si avvicina (Movimento 3): ancora 6 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 1 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  L’ACCORDATORE si avvicina (Movimento 3): ancora 6 caselle prima di raggiungere la tessera del gruppo.
+--- Round 10: il gruppo raggiunge T6 (Il Pozzo Maestro) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    Il gruppo entra in T6 da B1.
+    [PROVA ACUME] DOTT. ATTILIO MARN: 2d6(1,6)=7 +ACUME(2) = 9 vs Media(9) -> SUCCESSO
+    DOTT. ATTILIO MARN cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    DOTT. LAZZARO SERRA: nessun bersaglio, avanza / assiste il gruppo.
+    NINO “GRIMALDELLO” CAUTO: nessun bersaglio, avanza / assiste il gruppo.
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] LA VOCE CHE MANCA (posseduto) — Piazzate 1 Voce Cava sull’uscita più vicina agli eroi.
+    Piazzati 1x LA VOCE CAVA (pool residua: 1) in B1.
+  [MINACCIA] LA PIETRA RISPONDE (crescendo) — Aggiungete 1 segnalino Canto. Alla soglia: l’Accordatore si desta.
+    Segnalino Canto: 7.
+    L’Accordatore recupera 1 ferita (3/3) e si attiva subito.
+  [MINACCIA] IL CORO PROVA (posseduto) — Piazzate 1 Voce Cava. Se è già in gioco una Voce Cava, si attiva subito.
+    Piazzati 1x LA VOCE CAVA (pool residua: 0) in B1.
+  LA VOCE CAVA si avvicina (Movimento 3): ancora 6 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO raggiunge la tessera del gruppo, da C1.
+  ADEPTO INCAPPUCCIATO si muove verso DOTT. LAZZARO SERRA: C1 -> B2.
+  ADEPTO INCAPPUCCIATO attacca DOTT. LAZZARO SERRA:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> DOTT. LAZZARO SERRA: 2d6(4,3)=7 +Attacco(1) = 8 vs Difesa(8) -> COLPITO
+    DOTT. LAZZARO SERRA subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 6/8).
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+  LA VOCE CAVA si muove verso DOTT. LAZZARO SERRA: B1 -> C1.
+  LA VOCE CAVA attacca DOTT. LAZZARO SERRA:
+    [ATTACCO NEMICO] LA VOCE CAVA -> DOTT. LAZZARO SERRA: 2d6(5,3)=8 +Attacco(1) = 9 vs Difesa(8) -> COLPITO
+    DOTT. LAZZARO SERRA subisce 1 danno da LA VOCE CAVA (Salute: 5/8).
+  LA VOCE CAVA si muove verso OTTONE “MEZZENA” MASSARI: B1 -> A1.
+  LA VOCE CAVA attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] LA VOCE CAVA -> OTTONE “MEZZENA” MASSARI: 2d6(4,1)=5 +Attacco(1) = 6 vs Difesa(8) -> MANCATO
+  L’ACCORDATORE si avvicina (Movimento 3): ancora 6 caselle prima di raggiungere la tessera del gruppo.
+--- Combattimento contro l’Accordatore ---
+--- Round 11: scontro nel Pozzo Maestro ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    [ATTACCO] DOTT. ATTILIO MARN -> ADEPTO INCAPPUCCIATO: 2d6(4,5)=9 +VIGORE(2)+arma(1) = 12 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    DOTT. LAZZARO SERRA si muove verso LA VOCE CAVA: B1 -> C2.
+    [ATTACCO] DOTT. LAZZARO SERRA -> LA VOCE CAVA: 2d6(5,4)=9 +VIGORE(1)+arma(1) = 11 vs Difesa(6) -> COLPITO
+    LA VOCE CAVA: 0/1 ferite residue.
+    LA VOCE CAVA è ABBATTUTO.
+    La Voce Cava URLA nel disfarsi:
+    [PROVA NERVI] DOTT. ATTILIO MARN: 2d6(5,6)=11 +NERVI(2) = 13 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] DOTT. LAZZARO SERRA: 2d6(5,1)=6 +NERVI(2) = 8 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6(4,3)=7 +NERVI(1) = 8 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6(3,1)=4 +NERVI(2) = 6 vs Facile(7) -> FALLITA
+    OTTONE “MEZZENA” MASSARI avrà 1 sola azione al suo prossimo turno (l’urlo).
+    NINO “GRIMALDELLO” CAUTO si muove verso LA VOCE CAVA: B1 -> A2.
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> LA VOCE CAVA: 2d6(5,1)=6 +VIGORE(2)+arma(1) = 9 vs Difesa(6) -> COLPITO
+    LA VOCE CAVA: 0/1 ferite residue.
+    LA VOCE CAVA è ABBATTUTO.
+    La Voce Cava URLA nel disfarsi:
+    [PROVA NERVI] DOTT. ATTILIO MARN: 2d6(5,2)=7 +NERVI(2) = 9 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6(5,2)=7 +NERVI(1) = 8 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6(1,5)=6 +NERVI(2) = 8 vs Facile(7) -> SUCCESSO
+    OTTONE “MEZZENA” MASSARI ha 1 sola azione questo turno (insidia del round scorso).
+    [PROVA ACUME] OTTONE “MEZZENA” MASSARI: 2d6(5,2)=7 +ACUME(1) = 8 vs Media(9) -> FALLITA
+    OTTONE “MEZZENA” MASSARI cerca sulla tessera: niente da trovare qui, o prova fallita.
+  [MINACCIA] IL BUIO D’ACQUA (insidia) — L’eroe più avanzato prova NERVI (Media): se fallisce, 1 danno.
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6(5,3)=8 +NERVI(1) = 9 vs Media(9) -> SUCCESSO
+  [MINACCIA] UN’ECO DI TROPPO (posseduto) — Piazzate 1 Voce Cava sull’uscita più vicina agli eroi.
+    Piazzati 1x LA VOCE CAVA (pool residua: 1) in B1.
+  [MINACCIA] L’ACQUA SALE (ostacolo) — Muoversi costa il doppio sulla tessera dell’eroe attivo fino a fine round.
+    (carta senza effetto modellato in questa simulazione)
+  LA VOCE CAVA si avvicina (Movimento 3): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO raggiunge la tessera del gruppo, da C1.
+  ADEPTO INCAPPUCCIATO si muove verso DOTT. ATTILIO MARN: C1 -> D4.
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO raggiunge la tessera del gruppo, da C1.
+  ADEPTO INCAPPUCCIATO attacca DOTT. ATTILIO MARN:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> DOTT. ATTILIO MARN: 2d6(5,2)=7 +Attacco(1) = 8 vs Difesa(8) -> COLPITO
+    DOTT. ATTILIO MARN subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 7/9).
+  ADEPTO INCAPPUCCIATO raggiunge la tessera del gruppo, da A1.
+  ADEPTO INCAPPUCCIATO attacca DOTT. ATTILIO MARN:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> DOTT. ATTILIO MARN: 2d6(5,4)=9 +Attacco(1) = 10 vs Difesa(8) -> COLPITO
+    DOTT. ATTILIO MARN subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 6/9).
+  LA VOCE CAVA si muove verso NINO “GRIMALDELLO” CAUTO: B1 -> B2.
+  LA VOCE CAVA attacca NINO “GRIMALDELLO” CAUTO:
+    [ATTACCO NEMICO] LA VOCE CAVA -> NINO “GRIMALDELLO” CAUTO: 2d6(1,6)=7 +Attacco(1) = 8 vs Difesa(8) -> COLPITO
+    NINO “GRIMALDELLO” CAUTO subisce 1 danno da LA VOCE CAVA (Salute: 6/9).
+  L’ACCORDATORE si avvicina (Movimento 3): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+--- Round 12: scontro nel Pozzo Maestro ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    [ATTACCO] DOTT. ATTILIO MARN -> ADEPTO INCAPPUCCIATO: 2d6(1,5)=6 +VIGORE(2)+arma(1) = 9 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    [ATTACCO] DOTT. LAZZARO SERRA -> LA VOCE CAVA: 2d6(2,3)=5 +VIGORE(1)+arma(1) = 7 vs Difesa(6) -> COLPITO
+    LA VOCE CAVA: 0/1 ferite residue.
+    LA VOCE CAVA è ABBATTUTO.
+    La Voce Cava URLA nel disfarsi:
+    [PROVA NERVI] DOTT. ATTILIO MARN: 2d6(4,4)=8 +NERVI(2) = 10 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] DOTT. LAZZARO SERRA: 2d6(3,1)=4 +NERVI(2) = 6 vs Facile(7) -> FALLITA
+    DOTT. LAZZARO SERRA avrà 1 sola azione al suo prossimo turno (l’urlo).
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6(1,2)=3 +NERVI(1) = 4 vs Facile(7) -> FALLITA
+    NINO “GRIMALDELLO” CAUTO avrà 1 sola azione al suo prossimo turno (l’urlo).
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6(1,2)=3 +NERVI(2) = 5 vs Facile(7) -> FALLITA
+    OTTONE “MEZZENA” MASSARI avrà 1 sola azione al suo prossimo turno (l’urlo).
+    NINO “GRIMALDELLO” CAUTO ha 1 sola azione questo turno (insidia del round scorso).
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> ADEPTO INCAPPUCCIATO: 2d6(5,5)=10 +VIGORE(2)+arma(1) = 13 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    OTTONE “MEZZENA” MASSARI ha 1 sola azione questo turno (insidia del round scorso).
+    OTTONE “MEZZENA” MASSARI si muove verso ADEPTO INCAPPUCCIATO: B1 -> B4.
+    OTTONE “MEZZENA” MASSARI (1 sola azione) si limita ad avvicinarsi a ADEPTO INCAPPUCCIATO.
+  [MINACCIA] IL RITIRO DELLE CANNE (posseduto) — Piazzate 1 Adepto sull’ingresso dell’Officina (T5).
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 2), a 6 caselle dalla tessera del gruppo.
+  [MINACCIA] IL TURNO DI SOTTO (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 1) in B1.
+  [MINACCIA] LA PIETRA IMPARA (crescendo) — Aggiungete 1 segnalino Canto. Alla soglia: l’Accordatore si desta.
+    Segnalino Canto: 8.
+    L’Accordatore recupera 1 ferita (3/3) e si attiva subito.
+  LA VOCE CAVA raggiunge la tessera del gruppo, da C1.
+  LA VOCE CAVA attacca DOTT. ATTILIO MARN:
+    [ATTACCO NEMICO] LA VOCE CAVA -> DOTT. ATTILIO MARN: 2d6(6,5)=11 +Attacco(1) = 12 vs Difesa(8) -> COLPITO
+    DOTT. ATTILIO MARN subisce 1 danno da LA VOCE CAVA (Salute: 5/9).
+  ADEPTO INCAPPUCCIATO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si muove verso NINO “GRIMALDELLO” CAUTO: B1 -> B2.
+  LO SGHERRO attacca NINO “GRIMALDELLO” CAUTO:
+    [ATTACCO NEMICO] LO SGHERRO -> NINO “GRIMALDELLO” CAUTO: 2d6(5,2)=7 +Attacco(2) = 9 vs Difesa(8) -> COLPITO
+    NINO “GRIMALDELLO” CAUTO subisce 1 danno da LO SGHERRO (Salute: 5/9).
+  L’ACCORDATORE raggiunge la tessera del gruppo, da A1.
+  L’ACCORDATORE attacca DOTT. ATTILIO MARN:
+    [ATTACCO NEMICO] L’ACCORDATORE -> DOTT. ATTILIO MARN: 2d6(2,2)=4 +Attacco(3) = 7 vs Difesa(8) -> MANCATO
+  [OROLOGIO] Fine del 12° round: +1 segnalino Canto automatico.
+    Segnalino Canto: 9.
+--- Round 13: scontro nel Pozzo Maestro ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    [ATTACCO] DOTT. ATTILIO MARN -> LA VOCE CAVA: 2d6(6,3)=9 +VIGORE(2)+arma(1) = 12 vs Difesa(6) -> COLPITO
+    LA VOCE CAVA: 0/1 ferite residue.
+    LA VOCE CAVA è ABBATTUTO.
+    La Voce Cava URLA nel disfarsi:
+    [PROVA NERVI] DOTT. ATTILIO MARN: 2d6(2,3)=5 +NERVI(2) = 7 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] DOTT. LAZZARO SERRA: 2d6(6,1)=7 +NERVI(2) = 9 vs Facile(7) -> SUCCESSO
+    DOTT. LAZZARO SERRA ha 1 sola azione questo turno (insidia del round scorso).
+    [ATTACCO] DOTT. LAZZARO SERRA -> LO SGHERRO: 2d6(1,1)=2 +VIGORE(1)+arma(1) = 4 vs Difesa(8) -> MANCATO
+    NINO “GRIMALDELLO” CAUTO si muove verso LO SGHERRO: A2 -> B3.
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> LO SGHERRO: 2d6(6,3)=9 +VIGORE(2)+arma(1) = 12 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    OTTONE “MEZZENA” MASSARI si muove verso ADEPTO INCAPPUCCIATO: B4 -> C4.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> ADEPTO INCAPPUCCIATO: 2d6(1,5)=6 +VIGORE(3)+arma(1) = 10 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+  [MINACCIA] PASSI NELLA GALLERIA (posseduto) — Piazzate 1 Adepto sull’ingresso della Scala dei Chiusini (T1).
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 2), a 6 caselle dalla tessera del gruppo.
+  [MINACCIA] L’ECO CHE CHIAMA (insidia) — Ogni eroe prova NERVI (Facile): chi fallisce ha 1 sola azione al prossimo turno.
+    [PROVA NERVI] DOTT. ATTILIO MARN: 2d6(1,1)=2 +NERVI(2) = 4 vs Facile(7) -> FALLITA
+    [SECONDO FIATO] DOTT. ATTILIO MARN ritenta la prova (unico ritento dell’episodio):
+    [PROVA NERVI] DOTT. ATTILIO MARN: 2d6(4,1)=5 +NERVI(2) = 7 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] DOTT. LAZZARO SERRA: 2d6(3,3)=6 +NERVI(2) = 8 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6(1,5)=6 +NERVI(1) = 7 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6(3,2)=5 +NERVI(2) = 7 vs Facile(7) -> SUCCESSO
+  [MINACCIA] GUARDIANI DEI CHIUSINI (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 0) in B1.
+  ADEPTO INCAPPUCCIATO raggiunge la tessera del gruppo, da C1.
+  ADEPTO INCAPPUCCIATO attacca DOTT. ATTILIO MARN:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> DOTT. ATTILIO MARN: 2d6(3,1)=4 +Attacco(1) = 5 vs Difesa(8) -> MANCATO
+  LO SGHERRO attacca DOTT. LAZZARO SERRA:
+    [ATTACCO NEMICO] LO SGHERRO -> DOTT. LAZZARO SERRA: 2d6(2,4)=6 +Attacco(2) = 8 vs Difesa(8) -> COLPITO
+    DOTT. LAZZARO SERRA subisce 1 danno da LO SGHERRO (Salute: 4/8).
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  L’ACCORDATORE si muove verso OTTONE “MEZZENA” MASSARI: A1 -> A4.
+  L’ACCORDATORE si avvicina, non ancora a contatto.
+--- Round 14: scontro nel Pozzo Maestro ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    [ATTACCO] DOTT. ATTILIO MARN -> ADEPTO INCAPPUCCIATO: 2d6(1,2)=3 +VIGORE(2)+arma(1) = 6 vs Difesa(7) -> MANCATO
+    DOTT. LAZZARO SERRA si muove verso ADEPTO INCAPPUCCIATO: C2 -> D1.
+    [ATTACCO] DOTT. LAZZARO SERRA -> ADEPTO INCAPPUCCIATO: 2d6(1,5)=6 +VIGORE(1)+arma(1) = 8 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    NINO “GRIMALDELLO” CAUTO si muove verso LO SGHERRO: B3 -> A2.
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> LO SGHERRO: 2d6(1,5)=6 +VIGORE(2)+arma(1) = 9 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+    OTTONE “MEZZENA” MASSARI si muove verso L’ACCORDATORE: C4 -> B4.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> L’ACCORDATORE: 2d6(1,4)=5 +VIGORE(3)+arma(1) = 9 vs Difesa(5) -> COLPITO
+    L’ACCORDATORE: 2/3 ferite residue.
+  [MINACCIA] UNA CORRENTE D’ARIA BUONA (favore) — Rivelate una tessera coperta adiacente.
+    (carta senza effetto modellato in questa simulazione)
+  [MINACCIA] L’ACQUA FERMA (quiete) — Nessun effetto (tensione).
+    (carta senza effetto modellato in questa simulazione)
+  [MINACCIA] IL CALARE DEI SECCHI (posseduto) — Piazzate 1 Adepto sotto la corda della Confluenza (T4).
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 2), a 6 caselle dalla tessera del gruppo.
+  ADEPTO INCAPPUCCIATO raggiunge la tessera del gruppo, da C1.
+  ADEPTO INCAPPUCCIATO si muove verso DOTT. LAZZARO SERRA: C1 -> D2.
+  ADEPTO INCAPPUCCIATO attacca DOTT. LAZZARO SERRA:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> DOTT. LAZZARO SERRA: 2d6(2,2)=4 +Attacco(1) = 5 vs Difesa(8) -> MANCATO
+  LO SGHERRO si muove verso DOTT. ATTILIO MARN: B1 -> C1.
+  LO SGHERRO attacca DOTT. ATTILIO MARN:
+    [ATTACCO NEMICO] LO SGHERRO -> DOTT. ATTILIO MARN: 2d6(5,6)=11 +Attacco(2) = 13 vs Difesa(8) -> COLPITO
+    DOTT. ATTILIO MARN subisce 1 danno da LO SGHERRO (Salute: 4/9).
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  L’ACCORDATORE attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] L’ACCORDATORE -> OTTONE “MEZZENA” MASSARI: 2d6(6,1)=7 +Attacco(3) = 10 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 2 danno da L’ACCORDATORE (Salute: 8/10).
+--- Round 15: scontro nel Pozzo Maestro ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    DOTT. ATTILIO MARN si muove verso LO SGHERRO: B1 -> C2.
+    [ATTACCO] DOTT. ATTILIO MARN -> ADEPTO INCAPPUCCIATO: 2d6(5,5)=10 +VIGORE(2)+arma(1) = 13 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    [ATTACCO] DOTT. LAZZARO SERRA -> LO SGHERRO: 2d6(1,1)=2 +VIGORE(1)+arma(1) = 4 vs Difesa(8) -> MANCATO
+    NINO “GRIMALDELLO” CAUTO si muove verso L’ACCORDATORE: A2 -> A3.
+    [ATTACCO] NINO “GRIMALDELLO” CAUTO -> L’ACCORDATORE: 2d6(4,6)=10 +VIGORE(2)+arma(1) = 13 vs Difesa(5) -> COLPITO
+    L’ACCORDATORE: 1/3 ferite residue.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> L’ACCORDATORE: 2d6(1,5)=6 +VIGORE(3)+arma(1) = 10 vs Difesa(5) -> COLPITO
+    L’ACCORDATORE: 0/3 ferite residue.
+    L’ACCORDATORE è ABBATTUTO.
+    *** L’ACCORDATORE È SCONFITTO. ***
+  [MINACCIA] IL PASSO SUL VUOTO (insidia) — L’eroe attivo prova NERVI (Media): se fallisce, 1 danno e perde 1 azione.
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6(5,1)=6 +NERVI(1) = 7 vs Media(9) -> FALLITA
+    NINO “GRIMALDELLO” CAUTO subisce 1 danno da IL PASSO SUL VUOTO (Salute: 4/9).
+    NINO “GRIMALDELLO” CAUTO avrà 1 sola azione al suo prossimo turno.
+  [MINACCIA] IL CANTO NELLE ORECCHIE (insidia) — L’eroe con meno NERVI prova NERVI (Media): se fallisce 1 danno.
+    [PROVA NERVI] NINO “GRIMALDELLO” CAUTO: 2d6(2,4)=6 +NERVI(1) = 7 vs Media(9) -> FALLITA
+    NINO “GRIMALDELLO” CAUTO subisce 1 danno da IL CANTO NELLE ORECCHIE (Salute: 3/9).
+  [MINACCIA] CORDE DALL’ALTO (posseduto) — Piazzate 1 Adepto sotto la corda della Confluenza (T4).
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 2), a 6 caselle dalla tessera del gruppo.
+  LO SGHERRO si muove verso DOTT. ATTILIO MARN: C1 -> B2.
+  LO SGHERRO attacca DOTT. ATTILIO MARN:
+    [ATTACCO NEMICO] LO SGHERRO -> DOTT. ATTILIO MARN: 2d6(4,3)=7 +Attacco(2) = 9 vs Difesa(8) -> COLPITO
+    DOTT. ATTILIO MARN subisce 1 danno da LO SGHERRO (Salute: 3/9).
+  ADEPTO INCAPPUCCIATO raggiunge la tessera del gruppo, da B1.
+  ADEPTO INCAPPUCCIATO si muove verso NINO “GRIMALDELLO” CAUTO: B1 -> A2.
+  ADEPTO INCAPPUCCIATO attacca NINO “GRIMALDELLO” CAUTO:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> NINO “GRIMALDELLO” CAUTO: 2d6(6,3)=9 +Attacco(1) = 10 vs Difesa(8) -> COLPITO
+    NINO “GRIMALDELLO” CAUTO subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 2/9).
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+    Il gruppo non ha mai raggiunto Tobia: si torna indietro a mani vuote.
+--- Uscita segreta: Tobia indica il canale sotto la sala ---
+
+==============================================================================
+ESITO SPEDIZIONE: SCONFITTA (Tobia non liberato)
+Round totali: 15
+Formula Minaccia: finale_v3 | Azioni nominali/round: media 8.0, picco 8
+Mazzo Minaccia rimescolato: 1 volta/e
+Segnalini nemici esauriti nel pool (piazzamenti saltati): 1
+Accordatore svegliato: in anticipo al round 4
+  DOTT. ATTILIO MARN: 3/9 Salute
+  DOTT. LAZZARO SERRA: 4/8 Salute
+  NINO “GRIMALDELLO” CAUTO: 2/9 Salute
+  OTTONE “MEZZENA” MASSARI: 8/10 Salute
+==============================================================================

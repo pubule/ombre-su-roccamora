@@ -1,0 +1,311 @@
+Run: tick-ep8-999_p6_seed0  |  seed=971600  |  formula Minaccia=finale_v3  |  generato: 2026-07-22T19:08:33
+==============================================================================
+SPEDIZIONE - Il Deposito dell’Ansa Morta (giovedì notte)
+==============================================================================
+Party: MORA “SPILLA” FANTI, OTTAVIO BRERA, OTTONE “MEZZENA” MASSARI, SIBILLA REVE
+Bonus da Indagine: PREPARATI (+1 Salute massima a testa); Marengo: sì; Lanterna: sì; D1: esatta; D3: esatta
+NOTA: gruppo trattato come blocco unico tessera per tessera (vedi intestazione script).
+Tensione tavolo piccolo: +-1 Ferite SOLO al Cambiavalute (non ai nemici di truppa).
+
+Tavolo da 4: +1 Salute massima a testa (ricalibrazione).
+  Il Marengo Segnato lo porta MORA “SPILLA” FANTI (il Fiuto dei Mastini lo sa).
+--- Round 1: il gruppo raggiunge T2 (La Tettoia delle Chiatte) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    Il gruppo entra in T2 da B1.
+    [PROVA ACUME] MORA “SPILLA” FANTI: 2d6(5,1)=6 +ACUME(2) = 8 vs Media(9) -> FALLITA
+    MORA “SPILLA” FANTI forza la cassa di T2: lucchetto duro, azione persa — la cassa resta (e il crogiolo corre).
+    [PROVA ACUME] OTTAVIO BRERA: 2d6(4,4)=8 +ACUME(3) = 11 vs Media(9) -> SUCCESSO
+    OTTAVIO BRERA cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] LA PAGA DEL GIOVEDÌ (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 4) in B1.
+  [MINACCIA] IL DEBITO DI BANDIERA (malavita) — Piazzate 1 Sgherro sull’ingresso del Molo (T1).
+    Piazzati 1x LO SGHERRO (pool residua: 3), a 6 caselle dalla tessera del gruppo.
+  LO SGHERRO si muove verso OTTAVIO BRERA: B1 -> C1.
+  LO SGHERRO attacca OTTAVIO BRERA:
+    [ATTACCO NEMICO] LO SGHERRO -> OTTAVIO BRERA: 2d6(3,6)=9 +Attacco(2) = 11 vs Difesa(8) -> COLPITO
+    OTTAVIO BRERA subisce 1 danno da LO SGHERRO (Salute: 7/8).
+  LO SGHERRO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+--- Round 2: ancora a T2 (La Tettoia delle Chiatte) (la cassa resiste) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    [PROVA ACUME] MORA “SPILLA” FANTI: 2d6(6,5)=11 +ACUME(2) = 13 vs Media(9) -> SUCCESSO
+    [AZIONE] MORA “SPILLA” FANTI sequestra la cassa d’oro di T2 (1/4).
+    [ABILITÀ] OTTAVIO BRERA usa Vi conosco, Malacarne su LO SGHERRO: rimosso dal tabellone.
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] I NUOVI ASSUNTI (malavita) — Piazzate 1 Sgherro sull’ingresso del Molo (T1).
+    Piazzati 1x LO SGHERRO (pool residua: 2), a 6 caselle dalla tessera del gruppo.
+  [MINACCIA] LE SENTINELLE DEL MOLO (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 1) in B1.
+  LO SGHERRO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si muove verso OTTAVIO BRERA: B1 -> C1.
+  LO SGHERRO attacca OTTAVIO BRERA:
+    [ATTACCO NEMICO] LO SGHERRO -> OTTAVIO BRERA: 2d6(1,5)=6 +Attacco(2) = 8 vs Difesa(8) -> COLPITO
+    OTTAVIO BRERA subisce 1 danno da LO SGHERRO (Salute: 6/8).
+--- Round 3: il gruppo attraversa T2 verso T3 ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    MORA “SPILLA” FANTI si muove verso LO SGHERRO: B1 -> A3.
+    MORA “SPILLA” FANTI si avvicina a LO SGHERRO, non ancora a contatto.
+    [ATTACCO] OTTAVIO BRERA -> LO SGHERRO: 2d6(2,4)=6 +VIGORE(1)+arma(1) = 8 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> LO SGHERRO: 2d6(5,4)=9 +VIGORE(3)+arma(1) = 13 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+    [ABILITÀ] MORA “SPILLA” FANTI semina un diversivo: una carta Minaccia in meno questo round (1 usi residui).
+  [MINACCIA] IL GUARDASPALLE (malavita) — Piazzate 1 Sicario sull’uscita più vicina agli eroi.
+    Piazzati 1x IL SICARIO (pool residua: 1) in B1.
+  LO SGHERRO si avvicina (Movimento 4): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  IL SICARIO si muove verso OTTAVIO BRERA: B1 -> C1.
+  IL SICARIO attacca OTTAVIO BRERA:
+    [ATTACCO NEMICO] IL SICARIO -> OTTAVIO BRERA: 2d6(5,5)=10 +Attacco(3) = 13 vs Difesa(8) -> COLPITO
+    OTTAVIO BRERA subisce 2 danno da IL SICARIO (Salute: 4/8).
+--- Round 4: il gruppo raggiunge T3 (Il Magazzino del Carbone) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    Il gruppo entra in T3 da B1.
+    [PROVA ACUME] MORA “SPILLA” FANTI: 2d6(2,1)=3 +ACUME(2) = 5 vs Media(9) -> FALLITA
+    MORA “SPILLA” FANTI forza la cassa di T3: lucchetto duro, azione persa — la cassa resta (e il crogiolo corre).
+    OTTAVIO BRERA si muove verso IL SICARIO: B1 -> C2.
+    [ATTACCO] OTTAVIO BRERA -> IL SICARIO: 2d6(5,3)=8 +VIGORE(1)+arma(1) = 10 vs Difesa(7) -> COLPITO
+    IL SICARIO: 0/1 ferite residue.
+    IL SICARIO è ABBATTUTO.
+    [PROVA ACUME] OTTONE “MEZZENA” MASSARI: 2d6(1,5)=6 +ACUME(1) = 7 vs Media(9) -> FALLITA
+    OTTONE “MEZZENA” MASSARI cerca sulla tessera: niente da trovare qui, o prova fallita.
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+    [ABILITÀ] MORA “SPILLA” FANTI semina un diversivo: una carta Minaccia in meno questo round (0 usi residui).
+  [MINACCIA] IL GIRO DI RONDA (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 1) in B1.
+  LO SGHERRO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si avvicina (Movimento 4): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si muove verso OTTAVIO BRERA: B1 -> B2.
+  LO SGHERRO attacca OTTAVIO BRERA:
+    [ATTACCO NEMICO] LO SGHERRO -> OTTAVIO BRERA: 2d6(4,4)=8 +Attacco(2) = 10 vs Difesa(8) -> COLPITO
+    OTTAVIO BRERA subisce 1 danno da LO SGHERRO (Salute: 3/8).
+--- Round 5: ancora a T3 (Il Magazzino del Carbone) (la cassa resiste) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    [PROVA ACUME] MORA “SPILLA” FANTI: 2d6(4,3)=7 +ACUME(2) = 9 vs Media(9) -> SUCCESSO
+    [AZIONE] MORA “SPILLA” FANTI sequestra la cassa d’oro di T3 (2/4).
+    OTTAVIO BRERA si muove verso LO SGHERRO: C2 -> B3.
+    [ATTACCO] OTTAVIO BRERA -> LO SGHERRO: 2d6(6,2)=8 +VIGORE(1)+arma(1) = 10 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    OTTONE “MEZZENA” MASSARI si muove verso LO SGHERRO: B1 -> C2.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> LO SGHERRO: 2d6(3,6)=9 +VIGORE(3)+arma(1) = 13 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] I CANI DELL’ANSA (malavita) — Piazzate 1 Mastino sull’uscita più vicina agli eroi.
+    Piazzati 1x IL MASTINO (pool residua: 1) in B1.
+  [MINACCIA] LE CASSE ROVESCIATE (ostacolo) — Muoversi costa il doppio sulla tessera dell’eroe attivo fino a fine round.
+    (carta senza effetto modellato in questa simulazione)
+  LO SGHERRO si avvicina (Movimento 4): ancora 1 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  IL MASTINO si muove verso MORA “SPILLA” FANTI: B1 -> C1.
+  IL MASTINO attacca MORA “SPILLA” FANTI:
+    [ATTACCO NEMICO] IL MASTINO -> MORA “SPILLA” FANTI: 2d6(4,6)=10 +Attacco(2) = 12 vs Difesa(8) -> COLPITO
+    MORA “SPILLA” FANTI subisce 2 danno da IL MASTINO (Salute: 7/9).
+--- Round 6: il gruppo attraversa T3 verso T4 ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    [ATTACCO] MORA “SPILLA” FANTI -> IL MASTINO: 2d6(4,4)=8 +VIGORE(3)+arma(1) = 12 vs Difesa(6) -> COLPITO
+    IL MASTINO: 1/2 ferite residue.
+    OTTAVIO BRERA: nessun bersaglio, avanza / assiste il gruppo.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> IL MASTINO: 2d6(6,5)=11 +VIGORE(3)+arma(1) = 15 vs Difesa(6) -> COLPITO
+    IL MASTINO: 0/2 ferite residue.
+    IL MASTINO è ABBATTUTO.
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] GLI UOMINI DEI CLAN (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 1) in B1.
+  [MINACCIA] IL TURNO DI GUARDIA (quiete) — Nessun effetto (tensione).
+    (carta senza effetto modellato in questa simulazione)
+  LO SGHERRO raggiunge la tessera del gruppo, da C1.
+  LO SGHERRO attacca MORA “SPILLA” FANTI:
+    [ATTACCO NEMICO] LO SGHERRO -> MORA “SPILLA” FANTI: 2d6(2,6)=8 +Attacco(2) = 10 vs Difesa(8) -> COLPITO
+    MORA “SPILLA” FANTI subisce 1 danno da LO SGHERRO (Salute: 6/9).
+  LO SGHERRO si avvicina (Movimento 4): ancora 1 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si muove verso SIBILLA REVE: B1 -> A1.
+  LO SGHERRO attacca SIBILLA REVE:
+    [ATTACCO NEMICO] LO SGHERRO -> SIBILLA REVE: 2d6(6,5)=11 +Attacco(2) = 13 vs Difesa(8) -> COLPITO
+    SIBILLA REVE subisce 1 danno da LO SGHERRO (Salute: 7/8).
+--- Round 7: il gruppo raggiunge T4 (La Sala del Crogiolo) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    Il gruppo entra in T4 da B1.
+    Rivelata la Sala del Crogiolo: IL CAMBIAVALUTE non alza gli occhi dal bilancino — i suoi due MASTINI sì.
+    [PROVA ACUME] MORA “SPILLA” FANTI: 2d6(6,1)=7 +ACUME(2) = 9 vs Media(9) -> SUCCESSO
+    [AZIONE] MORA “SPILLA” FANTI sequestra la cassa d’oro di T4 (3/4).
+    [ATTACCO] OTTAVIO BRERA -> LO SGHERRO: 2d6(5,5)=10 +VIGORE(1)+arma(1) = 12 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> LO SGHERRO: 2d6(2,2)=4 +VIGORE(3)+arma(1) = 8 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+    [ABILITÀ] OTTONE “MEZZENA” MASSARI usa Colpo da macello: attacco extra su LO SGHERRO.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> LO SGHERRO: 2d6(4,2)=6 +VIGORE(3)+arma(1) = 10 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    [ATTACCO] SIBILLA REVE -> LO SGHERRO: 2d6(6,2)=8 +VIGORE(1)+arma(1) = 10 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+    [ABILITÀ] SIBILLA REVE scruta il mazzo: «IL FISCHIO BASSO» finisce in fondo, «UNA CHIATTA AMICA» torna in cima (2 usi residui).
+  [MINACCIA] UNA CHIATTA AMICA (favore) — Rivelate una tessera coperta adiacente.
+    (carta senza effetto modellato in questa simulazione)
+  [MINACCIA] IL CAMBIO DI GUARDIA (malavita) — Piazzate 1 Sgherro sull’ingresso del Molo (T1).
+    Piazzati 1x LO SGHERRO (pool residua: 2), a 6 caselle dalla tessera del gruppo.
+  LO SGHERRO raggiunge la tessera del gruppo, da C1.
+  LO SGHERRO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] LO SGHERRO -> OTTONE “MEZZENA” MASSARI: 2d6(1,2)=3 +Attacco(2) = 5 vs Difesa(8) -> MANCATO
+  IL MASTINO si avvicina, non ancora a contatto.
+  IL MASTINO si muove verso MORA “SPILLA” FANTI: A2 -> A1.
+  IL MASTINO attacca MORA “SPILLA” FANTI:
+    [ATTACCO NEMICO] IL MASTINO -> MORA “SPILLA” FANTI: 2d6(3,6)=9 +Attacco(2) = 11 vs Difesa(8) -> COLPITO
+    MORA “SPILLA” FANTI subisce 2 danno da IL MASTINO (Salute: 4/9).
+  LO SGHERRO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+  IL CAMBIAVALUTE attacca OTTAVIO BRERA:
+    [ATTACCO NEMICO] IL CAMBIAVALUTE -> OTTAVIO BRERA: 2d6(1,4)=5 +Attacco(2) = 7 vs Difesa(8) -> MANCATO
+--- Round 8: il gruppo attraversa T4 verso T5 ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    [ATTACCO] MORA “SPILLA” FANTI -> LO SGHERRO: 2d6(6,1)=7 +VIGORE(3)+arma(1) = 11 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    [ATTACCO] OTTAVIO BRERA -> LO SGHERRO: 2d6(4,6)=10 +VIGORE(1)+arma(1) = 12 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+    OTTONE “MEZZENA” MASSARI si muove verso IL MASTINO: B1 -> D2.
+    OTTONE “MEZZENA” MASSARI si avvicina a IL MASTINO, non ancora a contatto.
+    [ATTACCO] SIBILLA REVE -> IL MASTINO: 2d6(1,3)=4 +VIGORE(1)+arma(1) = 6 vs Difesa(6) -> COLPITO
+    IL MASTINO: 1/2 ferite residue.
+    [ABILITÀ] SIBILLA REVE scruta il mazzo: «L’OMBRA DEL PESATORE» finisce in fondo, «LA PASSERELLA MARCIA» torna in cima (1 usi residui).
+  [MINACCIA] LA PASSERELLA MARCIA (insidia) — L’eroe più avanzato prova NERVI (Media): se fallisce, 1 danno.
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(6,3)=9 +NERVI(1) = 10 vs Media(9) -> SUCCESSO
+  [MINACCIA] GLI UOMINI DELLA TETTOIA (malavita) — Piazzate 1 Sgherro sull’ingresso del Molo (T1).
+    Piazzati 1x LO SGHERRO (pool residua: 2), a 6 caselle dalla tessera del gruppo.
+  IL MASTINO si muove verso MORA “SPILLA” FANTI: C2 -> C1.
+  IL MASTINO attacca MORA “SPILLA” FANTI:
+    [ATTACCO NEMICO] IL MASTINO -> MORA “SPILLA” FANTI: 2d6(4,5)=9 +Attacco(2) = 11 vs Difesa(8) -> COLPITO
+    MORA “SPILLA” FANTI subisce 2 danno da IL MASTINO (Salute: 2/9).
+  IL MASTINO attacca MORA “SPILLA” FANTI:
+    [ATTACCO NEMICO] IL MASTINO -> MORA “SPILLA” FANTI: 2d6(1,1)=2 +Attacco(2) = 4 vs Difesa(8) -> MANCATO
+  LO SGHERRO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+  IL CAMBIAVALUTE attacca SIBILLA REVE:
+    [ATTACCO NEMICO] IL CAMBIAVALUTE -> SIBILLA REVE: 2d6(4,2)=6 +Attacco(2) = 8 vs Difesa(8) -> COLPITO
+    SIBILLA REVE subisce 1 danno da IL CAMBIAVALUTE (Salute: 6/8).
+--- Round 9: il gruppo raggiunge T5 (L’Ufficio del Pesatore) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    Il gruppo entra in T5 da A3.
+    QUANDO RIVELATE: il guardaspalle del pesatore, dall’ombra.
+    [PROVA ACUME] MORA “SPILLA” FANTI: 2d6(4,3)=7 +ACUME(2) = 9 vs Media(9) -> SUCCESSO
+    [AZIONE] MORA “SPILLA” FANTI sequestra la cassa d’oro di T5 (4/4).
+    [ATTACCO] OTTAVIO BRERA -> IL SICARIO: 2d6(5,6)=11 +VIGORE(1)+arma(1) = 13 vs Difesa(7) -> COLPITO
+    IL SICARIO: 0/1 ferite residue.
+    IL SICARIO è ABBATTUTO.
+    OTTONE “MEZZENA” MASSARI si muove verso IL MASTINO: A3 -> A2.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> IL MASTINO: 2d6(4,3)=7 +VIGORE(3)+arma(1) = 11 vs Difesa(6) -> COLPITO
+    IL MASTINO: 0/2 ferite residue.
+    IL MASTINO è ABBATTUTO.
+    SIBILLA REVE si muove verso IL CAMBIAVALUTE: A3 -> B3.
+    [ATTACCO] SIBILLA REVE -> IL CAMBIAVALUTE: 2d6(4,2)=6 +VIGORE(1)+arma(1) = 8 vs Difesa(7) -> COLPITO
+    IL CAMBIAVALUTE: 2/3 ferite residue.
+    [ABILITÀ] SIBILLA REVE scruta il mazzo: «UN FISCHIO SULL’ACQUA» finisce in fondo, «LA POLVERE NEGLI OCCHI» torna in cima (0 usi residui).
+  [MINACCIA] LA POLVERE NEGLI OCCHI (insidia) — L’eroe attivo prova NERVI (Media): se fallisce, 1 danno e perde 1 azione.
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(5,1)=6 +NERVI(1) = 7 vs Media(9) -> FALLITA
+    [SECONDO FIATO] MORA “SPILLA” FANTI ritenta la prova (unico ritento dell’episodio):
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(4,1)=5 +NERVI(1) = 6 vs Media(9) -> FALLITA
+    MORA “SPILLA” FANTI subisce 1 danno da LA POLVERE NEGLI OCCHI (Salute: 1/9).
+    MORA “SPILLA” FANTI avrà 1 sola azione al suo prossimo turno.
+  [MINACCIA] IL MASTINO SCIOLTO (malavita) — Piazzate 1 Mastino sull’uscita più vicina agli eroi.
+    Piazzati 1x IL MASTINO (pool residua: 0) in A3.
+  IL MASTINO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina (Movimento 4): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  IL MASTINO si muove verso MORA “SPILLA” FANTI: A3 -> A4.
+  IL MASTINO attacca MORA “SPILLA” FANTI:
+    [ATTACCO NEMICO] IL MASTINO -> MORA “SPILLA” FANTI: 2d6(6,3)=9 +Attacco(2) = 11 vs Difesa(8) -> COLPITO
+    MORA “SPILLA” FANTI subisce 2 danno da IL MASTINO (Salute: 0/9).
+    *** MORA “SPILLA” FANTI è A TERRA. ***
+--- Round 10: il gruppo raggiunge T4 (Crogiolo - ritorno dal ramo) ---
+    (azioni nominali questo round: 6 — 3 eroi vivi)
+    Il gruppo entra in T4 da D3.
+    OTTAVIO BRERA si muove verso IL MASTINO: D3 -> D1.
+    [ATTACCO] OTTAVIO BRERA -> IL MASTINO: 2d6(6,2)=8 +VIGORE(1)+arma(1) = 10 vs Difesa(6) -> COLPITO
+    IL MASTINO: 1/2 ferite residue.
+    OTTONE “MEZZENA” MASSARI si muove verso IL MASTINO: D3 -> C2.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> IL MASTINO: 2d6(6,2)=8 +VIGORE(3)+arma(1) = 12 vs Difesa(6) -> COLPITO
+    IL MASTINO: 0/2 ferite residue.
+    IL MASTINO è ABBATTUTO.
+    SIBILLA REVE si muove verso IL MASTINO: D3 -> B4.
+    [ATTACCO] SIBILLA REVE -> IL MASTINO: 2d6(1,5)=6 +VIGORE(1)+arma(1) = 8 vs Difesa(6) -> COLPITO
+    IL MASTINO: 1/2 ferite residue.
+  [MINACCIA] IL GUINZAGLIO TAGLIATO (malavita) — Piazzate 1 Mastino: si attiva subito.
+    Piazzati 1x IL MASTINO (pool residua: 0) in D3.
+    IL MASTINO si attiva subito:
+  IL MASTINO si muove verso SIBILLA REVE: D3 -> C4.
+  IL MASTINO attacca SIBILLA REVE:
+    [ATTACCO NEMICO] IL MASTINO -> SIBILLA REVE: 2d6(1,6)=7 +Attacco(2) = 9 vs Difesa(8) -> COLPITO
+    SIBILLA REVE subisce 2 danno da IL MASTINO (Salute: 4/8).
+  LO SGHERRO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si avvicina (Movimento 4): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+  IL MASTINO attacca SIBILLA REVE:
+    [ATTACCO NEMICO] IL MASTINO -> SIBILLA REVE: 2d6(2,2)=4 +Attacco(2) = 6 vs Difesa(8) -> MANCATO
+  IL CAMBIAVALUTE si muove verso OTTAVIO BRERA: B2 -> C1.
+  IL CAMBIAVALUTE attacca OTTAVIO BRERA:
+    [ATTACCO NEMICO] IL CAMBIAVALUTE -> OTTAVIO BRERA: 2d6(1,5)=6 +Attacco(2) = 8 vs Difesa(8) -> COLPITO
+    OTTAVIO BRERA subisce 1 danno da IL CAMBIAVALUTE (Salute: 2/8).
+--- Round 11: il gruppo attraversa T4 verso T6 ---
+    (azioni nominali questo round: 6 — 3 eroi vivi)
+    [ATTACCO] OTTAVIO BRERA -> IL CAMBIAVALUTE: 2d6(5,6)=11 +VIGORE(1)+arma(1) = 13 vs Difesa(7) -> COLPITO
+    IL CAMBIAVALUTE: 1/3 ferite residue.
+    OTTONE “MEZZENA” MASSARI si muove verso IL CAMBIAVALUTE: C2 -> B1.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> IL CAMBIAVALUTE: 2d6(6,2)=8 +VIGORE(3)+arma(1) = 12 vs Difesa(7) -> COLPITO
+    IL CAMBIAVALUTE: 0/3 ferite residue.
+    IL CAMBIAVALUTE è ABBATTUTO.
+    *** IL CAMBIAVALUTE È ABBATTUTO: il crogiolo si spegne. ***
+    [ATTACCO] SIBILLA REVE -> IL MASTINO: 2d6(3,6)=9 +VIGORE(1)+arma(1) = 11 vs Difesa(6) -> COLPITO
+    IL MASTINO: 0/2 ferite residue.
+    IL MASTINO è ABBATTUTO.
+  [MINACCIA] I CLAN ACCORRONO (crescendo) — Aggiungete 1 segnalino Canto (la Voce che gira).
+    Segnalino Canto (la Voce che gira): 1.
+    Il Mastino si attiva subito (la Voce lo aizza):
+  IL MASTINO si muove verso SIBILLA REVE: C4 -> C2.
+  IL MASTINO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina (Movimento 4): ancora 1 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+--- Round 12: il gruppo raggiunge T6 (La Porta d’Acqua) ---
+    (azioni nominali questo round: 6 — 3 eroi vivi)
+    Il gruppo entra in T6 da B1.
+    OTTAVIO BRERA si muove verso IL MASTINO: B1 -> B2.
+    [ATTACCO] OTTAVIO BRERA -> IL MASTINO: 2d6(6,6)=12 +VIGORE(1)+arma(1) = 14 vs Difesa(6) -> COLPITO
+    IL MASTINO: 1/2 ferite residue.
+    OTTONE “MEZZENA” MASSARI si muove verso IL MASTINO: B1 -> C1.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> IL MASTINO: 2d6(6,2)=8 +VIGORE(3)+arma(1) = 12 vs Difesa(6) -> COLPITO
+    IL MASTINO: 0/2 ferite residue.
+    IL MASTINO è ABBATTUTO.
+    SIBILLA REVE si muove verso MORA “SPILLA” FANTI: B1 -> A2.
+    [AZIONE] SIBILLA REVE rianima MORA “SPILLA” FANTI: torna in piedi con 2 Salute.
+  [MINACCIA] IL FISCHIO BASSO (malavita) — Piazzate 1 Sgherro: si attiva subito.
+    Piazzati 1x LO SGHERRO (pool residua: 1) in B1.
+    LO SGHERRO si attiva subito:
+  LO SGHERRO attacca OTTAVIO BRERA:
+    [ATTACCO NEMICO] LO SGHERRO -> OTTAVIO BRERA: 2d6(5,5)=10 +Attacco(2) = 12 vs Difesa(8) -> COLPITO
+    OTTAVIO BRERA subisce 1 danno da LO SGHERRO (Salute: 1/8).
+  [MINACCIA] L’OMBRA DEL PESATORE (malavita) — Piazzate 1 Sicario: si attiva subito.
+    Piazzati 1x IL SICARIO (pool residua: 1) in B1.
+    IL SICARIO si attiva subito:
+  IL SICARIO attacca OTTAVIO BRERA:
+    [ATTACCO NEMICO] IL SICARIO -> OTTAVIO BRERA: 2d6(1,1)=2 +Attacco(3) = 5 vs Difesa(8) -> MANCATO
+  LO SGHERRO raggiunge la tessera del gruppo, da A1.
+  LO SGHERRO attacca SIBILLA REVE:
+    [ATTACCO NEMICO] LO SGHERRO -> SIBILLA REVE: 2d6(1,1)=2 +Attacco(2) = 4 vs Difesa(8) -> MANCATO
+  LO SGHERRO si avvicina (Movimento 4): ancora 1 caselle prima di raggiungere la tessera del gruppo.
+--- Alla Porta d’Acqua (T6) con 4/4 casse ---
+
+==============================================================================
+ESITO SPEDIZIONE: VITTORIA
+Round totali: 12
+Formula Minaccia: finale_v3 | Azioni nominali/round: media 7.5, picco 8
+Mazzo Minaccia rimescolato: 0 volta/e
+Segnalini nemici esauriti nel pool (piazzamenti saltati): 0
+Casse sequestrate: 4/4 | Cambiavalute: abbattuto
+  MORA “SPILLA” FANTI: 2/9 Salute
+  OTTAVIO BRERA: 1/8 Salute
+  OTTONE “MEZZENA” MASSARI: 10/10 Salute
+  SIBILLA REVE: 4/8 Salute
+==============================================================================

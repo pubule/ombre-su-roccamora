@@ -115,7 +115,7 @@ for (const [epId, ep] of Object.entries(EPISODI)) {
   // round parte da 1 come nel gioco reale (setup): fineRound valuta il round
   // appena giocato e poi avanza, quindi il tick scatta ai round ogni/2ogni/...
   const sped = { round: 1, canto: 0 };
-  const ogni = ep.marea ? ep.marea.ogni : comune.regole.tick_canto_ogni;
+  const ogni = E.cadenzaCanto(comune, ep);
   const soglia = ep.marea ? ep.marea.soglia : comune.regole.soglia_canto;
   let annunciSoglia = 0;
   const roundGiocati = ogni * soglia + 4;
@@ -233,6 +233,37 @@ for (const [etichetta, tetto] of [['episodio con tetto proprio (3)', 3], ['tetto
        `${etichetta}: supera la soglia ${comune.regole.soglia_canto} — l'Ep.4 registra al 4°, l'Ep.20 sveglia all'8°`);
   }
   ok(sped.cantoBonus, `${etichetta}: la soglia non e' mai scattata`);
+}
+
+// --- Canto: la cadenza la decide l'episodio ---------------------------------
+// Una clessidra sola non puo' servire un episodio da 7 round e uno da 34: chi
+// dichiara `canto_ogni` batte al suo passo, chi tace batte ogni 4.
+console.log('\n=== canto — la cadenza la decide l’episodio ===');
+for (const [etichetta, epFinto, atteso] of [
+  ['episodio che tace: cadenza comune', { soluzione: {} }, comune.regole.tick_canto_ogni],
+  ['episodio con cadenza propria (6)', { soluzione: {}, canto_ogni: 6 }, 6],
+  ['la Marea del Preludio ha la precedenza', { soluzione: {}, canto_ogni: 6, marea: { ogni: 2, soglia: 3, effetto: '' } }, 2],
+]) {
+  ok(E.cadenzaCanto(comune, epFinto) === atteso,
+     `${etichetta}: cadenza ${E.cadenzaCanto(comune, epFinto)}, attesa ${atteso}`);
+  const sped = { round: 1, canto: 0 };
+  const battuti = [];
+  for (let r = 1; r <= 12; r++) if (E.fineRound(comune, epFinto, sped).length) battuti.push(r);
+  const previsti = [];
+  for (let r = 1; r <= 12; r++) if (r % atteso === 0) previsti.push(r);
+  ok(JSON.stringify(battuti) === JSON.stringify(previsti),
+     `${etichetta}: il segnalino sale ai round [${battuti}], attesi [${previsti}]`);
+}
+// il caso che conta davvero: l'Ep.3 tace al 4° round, che con la vecchia
+// regola era il primo segnalino della partita
+{
+  const ep3 = EPISODI.ep3;
+  ok(ep3 && ep3.canto_ogni === 6, `l'Ep.3 dichiara canto_ogni 6 (ha ${ep3 && ep3.canto_ogni})`);
+  const sped = { round: 1, canto: 0 };
+  for (let r = 1; r <= 4; r++) E.fineRound(comune, ep3, sped);
+  ok(sped.canto === 0, `Ep.3: al 4° round il Canto e' ancora 0 (e' ${sped.canto})`);
+  for (let r = 5; r <= 6; r++) E.fineRound(comune, ep3, sped);
+  ok(sped.canto === 1, `Ep.3: al 6° round il Canto e' 1 (e' ${sped.canto})`);
 }
 
 console.log(errori ? `\n${errori} CHECK FALLITI` : '\nTUTTO OK');

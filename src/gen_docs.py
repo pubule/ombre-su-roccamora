@@ -336,7 +336,10 @@ def regolamento():
                 'dice quali).'))
     e.append(LI('<b>In pi\u00f9</b>, a prescindere dalle carte pescate: <b>ogni 4\u00b0 round</b> (4\u00b0, 8\u00b0, '
                 '12\u00b0...) aggiungete comunque 1 segnalino. \u00c8 un secondo orologio parallelo: garantisce '
-                'che il pericolo massimo arrivi comunque, anche evitando ogni carta Canto.'))
+                'che il pericolo massimo arrivi comunque, anche evitando ogni carta Canto. '
+                '<b>Alcune spedizioni sono pi\u00f9 lunghe e battono pi\u00f9 lentamente</b> \u2014 ogni 6\u00b0 round '
+                'invece che ogni 4\u00b0: lo dice il fascicolo Spedizione dell\u2019episodio, in testa alle '
+                'note dell\u2019arbitro. Se non dice nulla, sono 4.'))
     e.append(P('Il Canto si segna con <b>un segnalino</b> che avanza sulla sua traccia (0\u20138) sul '
                'tabellone degli orologi; sostituitelo con l\u2019arte del crescendo raggiunto. '
                'Ogni episodio fissa una <b>soglia</b> (l\u2019episodio dice quale \u2014 per l\u2019Episodio 1: '
@@ -835,7 +838,8 @@ def aiuto():
                 'indica, sotto un mobile della stanza dov’era tenuto. '
                 'Chi scortate si muove con voi (Mov. 3, non agisce).'))
     e.append(RL('<b>Canto:</b> al <b>3° segnalino</b> si desta il boss dell’episodio e da lì ogni fase '
-                'Minaccia pescate 1 carta in più. Ogni 4° round (4°, 8°...): +1 Canto automatico.'))
+                'Minaccia pescate 1 carta in più. Ogni 4° round (4°, 8°...): +1 Canto automatico — '
+                'ogni 6° nelle spedizioni lunghe, lo dice l’episodio.'))
     e.append(RL('<b>A 0 Salute</b> un eroe cade a terra (non agisce finché non rianimato). '
                 'Tutti a terra = episodio fallito.'))
 

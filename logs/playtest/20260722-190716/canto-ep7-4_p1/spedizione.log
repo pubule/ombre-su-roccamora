@@ -1,0 +1,530 @@
+Run: canto-ep7-4_p1_seed0  |  seed=971100  |  formula Minaccia=finale_v3  |  generato: 2026-07-22T19:07:16
+==============================================================================
+SPEDIZIONE - Il Palazzone di Sant’Orsola (al cambio delle nove)
+==============================================================================
+Party: ELENA FOSCO, FULGENZIO CARBONE, MORA “SPILLA” FANTI, OTTONE “MEZZENA” MASSARI
+Bonus da Indagine: PREPARATI (+1 Salute massima a testa); Bolla: sì; Lanterna+Tappi: sì; D1: esatta; D3: esatta
+NOTA: gruppo trattato come blocco unico tessera per tessera (vedi intestazione script).
+Tensione tavolo piccolo: +-1 Ferite SOLO al Capocantiere (non ai nemici di truppa).
+
+Tavolo da 4: +1 Salute massima a testa (ricalibrazione).
+Gettone Intuizione in mano (Dossier completo): un ri-tiro, una volta in Spedizione.
+La via scelta (media NERVI 2.0): le INTERCAPEDINI (lunga, sorda).
+--- Round 1: il gruppo raggiunge T2 (Il Piano Terra) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    Il gruppo entra in T2 da B1.
+    [PROVA ACUME] ELENA FOSCO: 2d6(5,4)=9 +ACUME(3) = 12 vs Media(9) -> SUCCESSO
+    ELENA FOSCO cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    FULGENZIO CARBONE: nessun bersaglio, avanza / assiste il gruppo.
+    MORA “SPILLA” FANTI: nessun bersaglio, avanza / assiste il gruppo.
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] IL CANTIERE È SVEGLIO (crescendo) — Aggiungete 1 segnalino Canto (l’Allarme).
+    Segnalino Canto (Allarme): 1.
+  [MINACCIA] GLI UOMINI DELL’INGEGNERE (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 4) in B1.
+  LO SGHERRO si muove verso FULGENZIO CARBONE: B1 -> C1.
+  LO SGHERRO attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] LO SGHERRO -> FULGENZIO CARBONE: 2d6(1,4)=5 +Attacco(2) = 7 vs Difesa(8) -> MANCATO
+--- Round 2: il gruppo attraversa T2 verso T3I ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    ELENA FOSCO si muove verso LO SGHERRO: B1 -> A3.
+    ELENA FOSCO si avvicina a LO SGHERRO, non ancora a contatto.
+    [ABILITÀ] FULGENZIO CARBONE usa Esca preziosa: LO SGHERRO si dirige verso l’esca invece che verso il gruppo alla prossima attivazione.
+    [ATTACCO] MORA “SPILLA” FANTI -> LO SGHERRO: 2d6(3,3)=6 +VIGORE(3)+arma(1) = 10 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> LO SGHERRO: 2d6(4,5)=9 +VIGORE(3)+arma(1) = 13 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+    [ABILITÀ] MORA “SPILLA” FANTI semina un diversivo: una carta Minaccia in meno questo round (1 usi residui).
+  [MINACCIA] LE PALE NEL BUIO (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 4) in B1.
+  LO SGHERRO si muove verso MORA “SPILLA” FANTI: B1 -> C1.
+  LO SGHERRO attacca MORA “SPILLA” FANTI:
+    [ATTACCO NEMICO] LO SGHERRO -> MORA “SPILLA” FANTI: 2d6(4,6)=10 +Attacco(2) = 12 vs Difesa(8) -> COLPITO
+    MORA “SPILLA” FANTI subisce 1 danno da LO SGHERRO (Salute: 8/9).
+--- Round 3: il gruppo raggiunge T3I (L’Intercapedine di Levante) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    Il gruppo entra in T3I da A2.
+    Tessera SORDA: ogni aiuto tra eroi richiede adiacenza (già regola base del motore); la prima carta spawn qui non piazzerà nessuno.
+    ELENA FOSCO si muove verso LO SGHERRO: A2 -> B1.
+    [ATTACCO] ELENA FOSCO -> LO SGHERRO: 2d6(2,4)=6 +VIGORE(1)+arma(1) = 8 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    [ABILITÀ] FULGENZIO CARBONE usa Esca preziosa: LO SGHERRO si dirige verso l’esca invece che verso il gruppo alla prossima attivazione.
+    MORA “SPILLA” FANTI si muove verso LO SGHERRO: A2 -> C2.
+    [ATTACCO] MORA “SPILLA” FANTI -> LO SGHERRO: 2d6(4,5)=9 +VIGORE(3)+arma(1) = 13 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+    [PROVA ACUME] OTTONE “MEZZENA” MASSARI: 2d6(5,1)=6 +ACUME(1) = 7 vs Media(9) -> FALLITA
+    OTTONE “MEZZENA” MASSARI cerca sulla tessera: niente da trovare qui, o prova fallita.
+    [ABILITÀ] MORA “SPILLA” FANTI semina un diversivo: una carta Minaccia in meno questo round (0 usi residui).
+  [MINACCIA] LA MALTA FRESCA (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    [TESSERA SORDA] Non vi hanno sentiti: il primo piazzamento qui non ha luogo.
+--- Round 4: il gruppo attraversa T3I verso T4I ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    ELENA FOSCO: nessun bersaglio, avanza / assiste il gruppo.
+    FULGENZIO CARBONE: nessun bersaglio, avanza / assiste il gruppo.
+    MORA “SPILLA” FANTI: nessun bersaglio, avanza / assiste il gruppo.
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] IL TURNO CAMBIA (quiete) — Nessun effetto (tensione).
+    (carta senza effetto modellato in questa simulazione)
+  [MINACCIA] I GESTI DEL CAPOMASTRO (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 4) in A2.
+  LO SGHERRO si muove verso ELENA FOSCO: A2 -> A1.
+  LO SGHERRO attacca ELENA FOSCO:
+    [ATTACCO NEMICO] LO SGHERRO -> ELENA FOSCO: 2d6(6,6)=12 +Attacco(2) = 14 vs Difesa(8) -> COLPITO
+    ELENA FOSCO subisce 1 danno da LO SGHERRO (Salute: 7/8).
+  [OROLOGIO] Fine del 4° round: +1 segnalino Canto automatico.
+    Segnalino Canto (Allarme): 2.
+--- Round 5: il gruppo raggiunge T4I (Il Vano delle Canne Morte) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    Il gruppo entra in T4I da B1.
+    Tessera SORDA: ogni aiuto tra eroi richiede adiacenza (già regola base del motore); la prima carta spawn qui non piazzerà nessuno.
+    ELENA FOSCO si muove verso LO SGHERRO: B1 -> C3.
+    ELENA FOSCO si avvicina a LO SGHERRO, non ancora a contatto.
+    [ATTACCO] FULGENZIO CARBONE -> LO SGHERRO: 2d6(6,4)=10 +VIGORE(1)+arma(1) = 12 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    [ATTACCO] MORA “SPILLA” FANTI -> LO SGHERRO: 2d6(6,4)=10 +VIGORE(3)+arma(1) = 14 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+    [PROVA ACUME] OTTONE “MEZZENA” MASSARI: 2d6(4,5)=9 +ACUME(1) = 10 vs Media(9) -> SUCCESSO
+    OTTONE “MEZZENA” MASSARI cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+  [MINACCIA] IL PIOMBO DAL BUIO (insidia) — L’eroe più avanzato subisce 1 danno (nessuna prova).
+    ELENA FOSCO subisce 1 danno da IL PIOMBO DAL BUIO (Salute: 6/8).
+  [MINACCIA] LA RONDA DEL CANCELLO (malavita) — Piazzate 1 Sicario: si attiva subito.
+    [TESSERA SORDA] Non vi hanno sentiti: il primo piazzamento qui non ha luogo.
+--- Round 6: il gruppo attraversa T4I verso T5I ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    ELENA FOSCO: nessun bersaglio, avanza / assiste il gruppo.
+    FULGENZIO CARBONE: nessun bersaglio, avanza / assiste il gruppo.
+    MORA “SPILLA” FANTI: nessun bersaglio, avanza / assiste il gruppo.
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] UN FISCHIO DI SOTTO (crescendo) — Aggiungete 1 segnalino Canto (l’Allarme).
+    Segnalino Canto (Allarme): 3.
+    L’Allarme raggiunge 3: il cantiere è sveglio — da ora ogni Fase Minaccia pesca 1 carta in più (fino a fine spedizione).
+  [MINACCIA] LE LANTERNE SI MUOVONO (crescendo) — Aggiungete 1 segnalino Canto (l’Allarme).
+    Segnalino Canto (Allarme): 4.
+--- Round 7: il gruppo raggiunge T5I (La Scala di Servizio) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    Il gruppo entra in T5I da B1.
+    Tessera SORDA: ogni aiuto tra eroi richiede adiacenza (già regola base del motore); la prima carta spawn qui non piazzerà nessuno.
+    QUANDO RIVELATE: un Sicario di ronda — la lanterna schermata si gira.
+    ELENA FOSCO si muove verso IL SICARIO: B1 -> B3.
+    [ATTACCO] ELENA FOSCO -> IL SICARIO: 2d6(1,6)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(7) -> COLPITO
+    IL SICARIO: 0/1 ferite residue.
+    IL SICARIO è ABBATTUTO.
+    [PROVA ACUME] FULGENZIO CARBONE: 2d6(5,2)=7 +ACUME(2) = 9 vs Media(9) -> SUCCESSO
+    FULGENZIO CARBONE cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    MORA “SPILLA” FANTI: nessun bersaglio, avanza / assiste il gruppo.
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] IL SILENZIO CHE PREME (insidia) — Ogni eroe prova NERVI (Facile): chi fallisce ha 1 sola azione al prossimo turno.
+    [PROVA NERVI] ELENA FOSCO: 2d6(4,4)=8 +NERVI(2) = 10 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] FULGENZIO CARBONE: 2d6(3,1)=4 +NERVI(3) = 7 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(5,3)=8 +NERVI(1) = 9 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6(1,1)=2 +NERVI(2) = 4 vs Facile(7) -> FALLITA
+    [SECONDO FIATO] OTTONE “MEZZENA” MASSARI ritenta la prova (unico ritento dell’episodio):
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6(1,5)=6 +NERVI(2) = 8 vs Facile(7) -> SUCCESSO
+  [MINACCIA] LA SQUADRA DEL SILENZIO (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    [TESSERA SORDA] Non vi hanno sentiti: il primo piazzamento qui non ha luogo.
+  [MINACCIA] IL GUARDIANO DI NOTTE (malavita) — Piazzate 1 Sicario sull’uscita più vicina agli eroi.
+    Piazzati 1x IL SICARIO (pool residua: 1) in B1.
+  IL SICARIO si muove verso ELENA FOSCO: B1 -> B2.
+  IL SICARIO attacca ELENA FOSCO:
+    [ATTACCO NEMICO] IL SICARIO -> ELENA FOSCO: 2d6(4,1)=5 +Attacco(3) = 8 vs Difesa(8) -> COLPITO
+    ELENA FOSCO subisce 2 danno da IL SICARIO (Salute: 4/8).
+--- Round 8: il gruppo attraversa T5I verso T6 ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    ELENA FOSCO si muove verso IL SICARIO: B3 -> C2.
+    [ATTACCO] ELENA FOSCO -> IL SICARIO: 2d6(5,6)=11 +VIGORE(1)+arma(1) = 13 vs Difesa(7) -> COLPITO
+    IL SICARIO: 0/1 ferite residue.
+    IL SICARIO è ABBATTUTO.
+    FULGENZIO CARBONE: nessun bersaglio, avanza / assiste il gruppo.
+    MORA “SPILLA” FANTI: nessun bersaglio, avanza / assiste il gruppo.
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] IL PIOMBO E LA SACCA (malavita) — Piazzate 1 Sgherro: si attiva subito.
+    Piazzati 1x LO SGHERRO (pool residua: 4) in B1.
+    LO SGHERRO si attiva subito:
+  LO SGHERRO si muove verso OTTONE “MEZZENA” MASSARI: B1 -> C1.
+  LO SGHERRO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] LO SGHERRO -> OTTONE “MEZZENA” MASSARI: 2d6(2,3)=5 +Attacco(2) = 7 vs Difesa(8) -> MANCATO
+  [MINACCIA] LA PAGA DEL SILENZIO (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 3) in B1.
+  [MINACCIA] LA TAVOLA CHE CEDE (insidia) — L’eroe più avanzato prova NERVI (Media): se fallisce, 1 danno.
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(4,3)=7 +NERVI(1) = 8 vs Media(9) -> FALLITA
+    [SECONDO FIATO] MORA “SPILLA” FANTI ritenta la prova (unico ritento dell’episodio):
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(1,5)=6 +NERVI(1) = 7 vs Media(9) -> FALLITA
+    MORA “SPILLA” FANTI subisce 1 danno da LA TAVOLA CHE CEDE (Salute: 7/9).
+  LO SGHERRO si muove verso ELENA FOSCO: B1 -> B2.
+  LO SGHERRO attacca ELENA FOSCO:
+    [ATTACCO NEMICO] LO SGHERRO -> ELENA FOSCO: 2d6(6,1)=7 +Attacco(2) = 9 vs Difesa(8) -> COLPITO
+    ELENA FOSCO subisce 1 danno da LO SGHERRO (Salute: 3/8).
+  [OROLOGIO] Fine del 8° round: +1 segnalino Canto automatico.
+    Segnalino Canto (Allarme): 5.
+--- Round 9: il gruppo raggiunge T6 (L’Intercapedine del Terzo Piano) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    Il gruppo entra in T6 da D3.
+    Rivelata l’Intercapedine del Terzo Piano: Fava legato tra i sacchi — e la Squadra del Silenzio posa le carte da gioco.
+    [SMASCHERATO — D2] «VOLTAN!» — il Capocantiere esita (salta la sua prima attivazione) e 1 Sgherro posa gli attrezzi e se ne va.
+    Fava si libera con Interagire (nessuna prova): si muove col gruppo (Mov 3).
+    [ATTACCO] ELENA FOSCO -> LO SGHERRO: 2d6(2,4)=6 +VIGORE(1)+arma(1) = 8 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    [ATTACCO] FULGENZIO CARBONE -> LO SGHERRO: 2d6(1,4)=5 +VIGORE(1)+arma(1) = 7 vs Difesa(8) -> MANCATO
+    [ATTACCO] MORA “SPILLA” FANTI -> LO SGHERRO: 2d6(3,4)=7 +VIGORE(3)+arma(1) = 11 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+    OTTONE “MEZZENA” MASSARI si muove verso IL CAPOCANTIERE: D3 -> D2.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> LO SGHERRO: 2d6(4,3)=7 +VIGORE(3)+arma(1) = 11 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+  [MINACCIA] LA CALCE NEGLI OCCHI (insidia) — L’eroe attivo prova NERVI (Media): se fallisce, 1 danno e perde 1 azione.
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(3,3)=6 +NERVI(1) = 7 vs Media(9) -> FALLITA
+    MORA “SPILLA” FANTI subisce 1 danno da LA CALCE NEGLI OCCHI (Salute: 6/9).
+    MORA “SPILLA” FANTI avrà 1 sola azione al suo prossimo turno.
+  [MINACCIA] I SACCHI FRANATI (ostacolo) — Muoversi costa il doppio sulla tessera dell’eroe attivo fino a fine round.
+    (carta senza effetto modellato in questa simulazione)
+  [MINACCIA] I MANOVALI DI NOTTE (malavita) — Piazzate 1 Sgherro sull’ingresso del Cancello (T1).
+    Piazzati 1x LO SGHERRO (pool residua: 1), a 6 caselle dalla tessera del gruppo.
+  LO SGHERRO si muove verso MORA “SPILLA” FANTI: C1 -> A3.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si muove verso FULGENZIO CARBONE: B2 -> D4.
+  LO SGHERRO attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] LO SGHERRO -> FULGENZIO CARBONE: 2d6(1,1)=2 +Attacco(2) = 4 vs Difesa(8) -> MANCATO
+  LO SGHERRO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] LO SGHERRO -> OTTONE “MEZZENA” MASSARI: 2d6(1,1)=2 +Attacco(2) = 4 vs Difesa(8) -> MANCATO
+  LO SGHERRO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+  IL CAPOCANTIERE salta l’attivazione (stonato).
+--- Ritorno a T1 per la via dell’andata (le intercapedini): la squadra insegue ---
+--- Round 10: rientro — T5I (La Scala di Servizio) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    [ATTACCO] ELENA FOSCO -> LO SGHERRO: 2d6(1,4)=5 +VIGORE(1)+arma(1) = 7 vs Difesa(8) -> MANCATO
+    [ATTACCO] FULGENZIO CARBONE -> LO SGHERRO: 2d6(2,2)=4 +VIGORE(1)+arma(1) = 6 vs Difesa(8) -> MANCATO
+    MORA “SPILLA” FANTI ha 1 sola azione questo turno (insidia del round scorso).
+    [ATTACCO] MORA “SPILLA” FANTI -> LO SGHERRO: 2d6(2,1)=3 +VIGORE(3)+arma(1) = 7 vs Difesa(8) -> MANCATO
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> LO SGHERRO: 2d6(5,1)=6 +VIGORE(3)+arma(1) = 10 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+  [MINACCIA] IL TURNO FUORI BUSTA (malavita) — Piazzate 1 Sgherro sull’ingresso del Cancello (T1).
+    Piazzati 1x LO SGHERRO (pool residua: 1), a 6 caselle dalla tessera del gruppo.
+  [MINACCIA] UN’IMPALCATURA AMICA (favore) — Rivelate una tessera coperta adiacente.
+    (carta senza effetto modellato in questa simulazione)
+    Mazzo Minaccia esaurito: si rimescolano gli scarti.
+  [MINACCIA] LA PAGA DEL SILENZIO (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 0) in D3.
+  LO SGHERRO si muove verso OTTONE “MEZZENA” MASSARI: A3 -> C1.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] LO SGHERRO -> FULGENZIO CARBONE: 2d6(3,2)=5 +Attacco(2) = 7 vs Difesa(8) -> MANCATO
+  LO SGHERRO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] LO SGHERRO -> OTTONE “MEZZENA” MASSARI: 2d6(3,5)=8 +Attacco(2) = 10 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 1 danno da LO SGHERRO (Salute: 9/10).
+  IL CAPOCANTIERE attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] IL CAPOCANTIERE -> OTTONE “MEZZENA” MASSARI: 2d6(1,1)=2 +Attacco(2) = 4 vs Difesa(8) -> MANCATO
+    La squadra vi SBARRA la strada: questo round non si avanza.
+--- Round 11: rientro — T5I (La Scala di Servizio) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    [ATTACCO] ELENA FOSCO -> LO SGHERRO: 2d6(2,6)=8 +VIGORE(1)+arma(1) = 10 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    [ATTACCO] FULGENZIO CARBONE -> LO SGHERRO: 2d6(2,6)=8 +VIGORE(1)+arma(1) = 10 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+    MORA “SPILLA” FANTI si muove verso IL CAPOCANTIERE: D3 -> B4.
+    MORA “SPILLA” FANTI si avvicina a IL CAPOCANTIERE, non ancora a contatto.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> LO SGHERRO: 2d6(2,4)=6 +VIGORE(3)+arma(1) = 10 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+  [MINACCIA] LE LANTERNE SI MUOVONO (crescendo) — Aggiungete 1 segnalino Canto (l’Allarme).
+    Segnalino Canto (Allarme): 6.
+    Il Capocantiere si attiva subito (l’allarme lo chiama).
+  IL CAPOCANTIERE attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] IL CAPOCANTIERE -> OTTONE “MEZZENA” MASSARI: 2d6(3,6)=9 +Attacco(2) = 11 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 2 danno da IL CAPOCANTIERE (Salute: 7/10).
+  [MINACCIA] LA RONDA DEL CANCELLO (malavita) — Piazzate 1 Sicario: si attiva subito.
+    Piazzati 1x IL SICARIO (pool residua: 1) in D3.
+    IL SICARIO si attiva subito:
+  IL SICARIO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] IL SICARIO -> OTTONE “MEZZENA” MASSARI: 2d6(4,1)=5 +Attacco(3) = 8 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 2 danno da IL SICARIO (Salute: 5/10).
+  [MINACCIA] IL TURNO FUORI BUSTA (malavita) — Piazzate 1 Sgherro sull’ingresso del Cancello (T1).
+    Piazzati 1x LO SGHERRO (pool residua: 0), a 6 caselle dalla tessera del gruppo.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina (Movimento 4): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si muove verso ELENA FOSCO: D3 -> D4.
+  LO SGHERRO attacca ELENA FOSCO:
+    [ATTACCO NEMICO] LO SGHERRO -> ELENA FOSCO: 2d6(2,5)=7 +Attacco(2) = 9 vs Difesa(8) -> COLPITO
+    ELENA FOSCO subisce 1 danno da LO SGHERRO (Salute: 2/8).
+  LO SGHERRO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+  IL CAPOCANTIERE attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] IL CAPOCANTIERE -> OTTONE “MEZZENA” MASSARI: 2d6(6,3)=9 +Attacco(2) = 11 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 2 danno da IL CAPOCANTIERE (Salute: 3/10).
+    La squadra vi SBARRA la strada: questo round non si avanza.
+--- Round 12: rientro — T5I (La Scala di Servizio) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    [ATTACCO] ELENA FOSCO -> LO SGHERRO: 2d6(3,1)=4 +VIGORE(1)+arma(1) = 6 vs Difesa(8) -> MANCATO
+    [ATTACCO] FULGENZIO CARBONE -> LO SGHERRO: 2d6(6,4)=10 +VIGORE(1)+arma(1) = 12 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+    MORA “SPILLA” FANTI si muove verso IL SICARIO: B4 -> D4.
+    [ATTACCO] MORA “SPILLA” FANTI -> IL SICARIO: 2d6(1,6)=7 +VIGORE(3)+arma(1) = 11 vs Difesa(7) -> COLPITO
+    IL SICARIO: 0/1 ferite residue.
+    IL SICARIO è ABBATTUTO.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> IL CAPOCANTIERE: 2d6(6,6)=12 +VIGORE(3)+arma(1) = 16 vs Difesa(8) -> COLPITO
+    IL CAPOCANTIERE: 2/3 ferite residue.
+  [MINACCIA] IL PIOMBO E LA SACCA (malavita) — Piazzate 1 Sgherro: si attiva subito.
+    Piazzati 1x LO SGHERRO (pool residua: 0) in D3.
+    LO SGHERRO si attiva subito:
+  LO SGHERRO attacca MORA “SPILLA” FANTI:
+    [ATTACCO NEMICO] LO SGHERRO -> MORA “SPILLA” FANTI: 2d6(3,1)=4 +Attacco(2) = 6 vs Difesa(8) -> MANCATO
+  [MINACCIA] LA SQUADRA DEL SILENZIO (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Segnalini LO SGHERRO esauriti: il piazzamento non ha luogo (resto della carta si applica comunque).
+  [MINACCIA] LA MALTA FRESCA (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Segnalini LO SGHERRO esauriti: il piazzamento non ha luogo (resto della carta si applica comunque).
+  LO SGHERRO si muove verso MORA “SPILLA” FANTI: C1 -> B4.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si avvicina (Movimento 4): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  IL CAPOCANTIERE attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] IL CAPOCANTIERE -> OTTONE “MEZZENA” MASSARI: 2d6(5,4)=9 +Attacco(2) = 11 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 2 danno da IL CAPOCANTIERE (Salute: 1/10).
+  [OROLOGIO] Fine del 12° round: +1 segnalino Canto automatico.
+    Segnalino Canto (Allarme): 7.
+    La squadra vi SBARRA la strada: questo round non si avanza.
+--- Round 13: rientro — T5I (La Scala di Servizio) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    [PROVA ACUME] ELENA FOSCO: 2d6(3,3)=6 +ACUME(3) = 9 vs Media(9) -> SUCCESSO
+    ELENA FOSCO cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    FULGENZIO CARBONE: nessun bersaglio, avanza / assiste il gruppo.
+    [ATTACCO] MORA “SPILLA” FANTI -> LO SGHERRO: 2d6(4,2)=6 +VIGORE(3)+arma(1) = 10 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> LO SGHERRO: 2d6(6,4)=10 +VIGORE(3)+arma(1) = 14 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+  [MINACCIA] I MANOVALI DI NOTTE (malavita) — Piazzate 1 Sgherro sull’ingresso del Cancello (T1).
+    Piazzati 1x LO SGHERRO (pool residua: 0), a 6 caselle dalla tessera del gruppo.
+  [MINACCIA] UN’IMPALCATURA AMICA (favore) — Rivelate una tessera coperta adiacente.
+    (carta senza effetto modellato in questa simulazione)
+  [MINACCIA] IL TURNO CAMBIA (quiete) — Nessun effetto (tensione).
+    (carta senza effetto modellato in questa simulazione)
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina (Movimento 4): ancora 1 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si avvicina (Movimento 4): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+  IL CAPOCANTIERE attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] IL CAPOCANTIERE -> OTTONE “MEZZENA” MASSARI: 2d6(3,2)=5 +Attacco(2) = 7 vs Difesa(8) -> MANCATO
+    La squadra vi SBARRA la strada: questo round non si avanza.
+--- Round 14: rientro — T5I (La Scala di Servizio) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    ELENA FOSCO: nessun bersaglio, avanza / assiste il gruppo.
+    FULGENZIO CARBONE: nessun bersaglio, avanza / assiste il gruppo.
+    MORA “SPILLA” FANTI si muove verso LO SGHERRO: D4 -> C4.
+    [ATTACCO] MORA “SPILLA” FANTI -> LO SGHERRO: 2d6(3,5)=8 +VIGORE(3)+arma(1) = 12 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    OTTONE “MEZZENA” MASSARI si muove verso IL CAPOCANTIERE: D2 -> C1.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> IL CAPOCANTIERE: 2d6(1,6)=7 +VIGORE(3)+arma(1) = 11 vs Difesa(8) -> COLPITO
+    IL CAPOCANTIERE: 1/3 ferite residue.
+  [MINACCIA] IL PIOMBO DAL BUIO (insidia) — L’eroe più avanzato subisce 1 danno (nessuna prova).
+    MORA “SPILLA” FANTI subisce 1 danno da IL PIOMBO DAL BUIO (Salute: 5/9).
+  [MINACCIA] LA TAVOLA CHE CEDE (insidia) — L’eroe più avanzato prova NERVI (Media): se fallisce, 1 danno.
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(2,3)=5 +NERVI(1) = 6 vs Media(9) -> FALLITA
+    MORA “SPILLA” FANTI subisce 1 danno da LA TAVOLA CHE CEDE (Salute: 4/9).
+  [MINACCIA] IL SILENZIO CHE PREME (insidia) — Ogni eroe prova NERVI (Facile): chi fallisce ha 1 sola azione al prossimo turno.
+    [PROVA NERVI] ELENA FOSCO: 2d6(3,4)=7 +NERVI(2) = 9 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] FULGENZIO CARBONE: 2d6(4,5)=9 +NERVI(3) = 12 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(1,6)=7 +NERVI(1) = 8 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6(5,3)=8 +NERVI(2) = 10 vs Facile(7) -> SUCCESSO
+  LO SGHERRO si muove verso OTTONE “MEZZENA” MASSARI: B4 -> B1.
+  LO SGHERRO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] LO SGHERRO -> OTTONE “MEZZENA” MASSARI: 2d6(3,1)=4 +Attacco(2) = 6 vs Difesa(8) -> MANCATO
+  LO SGHERRO raggiunge la tessera del gruppo, da D4.
+  LO SGHERRO attacca ELENA FOSCO:
+    [ATTACCO NEMICO] LO SGHERRO -> ELENA FOSCO: 2d6(3,3)=6 +Attacco(2) = 8 vs Difesa(8) -> COLPITO
+    ELENA FOSCO subisce 1 danno da LO SGHERRO (Salute: 1/8).
+  LO SGHERRO si avvicina (Movimento 4): ancora 1 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  IL CAPOCANTIERE si muove verso MORA “SPILLA” FANTI: C2 -> B4.
+  IL CAPOCANTIERE attacca MORA “SPILLA” FANTI:
+    [ATTACCO NEMICO] IL CAPOCANTIERE -> MORA “SPILLA” FANTI: 2d6(2,3)=5 +Attacco(2) = 7 vs Difesa(8) -> MANCATO
+    La squadra vi SBARRA la strada: questo round non si avanza.
+--- Round 15: rientro — T5I (La Scala di Servizio) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    [ATTACCO] ELENA FOSCO -> LO SGHERRO: 2d6(1,4)=5 +VIGORE(1)+arma(1) = 7 vs Difesa(8) -> MANCATO
+    [ATTACCO] FULGENZIO CARBONE -> LO SGHERRO: 2d6(6,1)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    [ATTACCO] MORA “SPILLA” FANTI -> LO SGHERRO: 2d6(1,5)=6 +VIGORE(3)+arma(1) = 10 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+    OTTONE “MEZZENA” MASSARI si muove verso LO SGHERRO: C1 -> B2.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> LO SGHERRO: 2d6(3,2)=5 +VIGORE(3)+arma(1) = 9 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+  [MINACCIA] UN FISCHIO DI SOTTO (crescendo) — Aggiungete 1 segnalino Canto (l’Allarme).
+    Segnalino Canto (Allarme): 8.
+    Il Capocantiere si attiva subito (l’allarme lo chiama).
+  IL CAPOCANTIERE si muove verso OTTONE “MEZZENA” MASSARI: B4 -> B3.
+  IL CAPOCANTIERE attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] IL CAPOCANTIERE -> OTTONE “MEZZENA” MASSARI: 2d6(3,4)=7 +Attacco(2) = 9 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 2 danno da IL CAPOCANTIERE (Salute: 0/10).
+    [INTUIZIONE] Il gruppo spende il gettone Dossier: OTTONE “MEZZENA” MASSARI resta in piedi a 1 Salute invece di cadere.
+  [MINACCIA] LA CALCE NEGLI OCCHI (insidia) — L’eroe attivo prova NERVI (Media): se fallisce, 1 danno e perde 1 azione.
+    [PROVA NERVI] MORA “SPILLA” FANTI: 2d6(5,2)=7 +NERVI(1) = 8 vs Media(9) -> FALLITA
+    MORA “SPILLA” FANTI subisce 1 danno da LA CALCE NEGLI OCCHI (Salute: 3/9).
+    MORA “SPILLA” FANTI avrà 1 sola azione al suo prossimo turno.
+  [MINACCIA] I SACCHI FRANATI (ostacolo) — Muoversi costa il doppio sulla tessera dell’eroe attivo fino a fine round.
+    (carta senza effetto modellato in questa simulazione)
+  LO SGHERRO raggiunge la tessera del gruppo, da D4.
+  LO SGHERRO attacca ELENA FOSCO:
+    [ATTACCO NEMICO] LO SGHERRO -> ELENA FOSCO: 2d6(1,2)=3 +Attacco(2) = 5 vs Difesa(8) -> MANCATO
+  LO SGHERRO si avvicina (Movimento 4): ancora 1 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si avvicina (Movimento 4): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+  IL CAPOCANTIERE si muove verso MORA “SPILLA” FANTI: B3 -> B4.
+  IL CAPOCANTIERE attacca MORA “SPILLA” FANTI:
+    [ATTACCO NEMICO] IL CAPOCANTIERE -> MORA “SPILLA” FANTI: 2d6(6,1)=7 +Attacco(2) = 9 vs Difesa(8) -> COLPITO
+    MORA “SPILLA” FANTI subisce 2 danno da IL CAPOCANTIERE (Salute: 1/9).
+    La squadra vi SBARRA la strada: questo round non si avanza.
+--- Round 16: rientro — T5I (La Scala di Servizio) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    [ATTACCO] ELENA FOSCO -> LO SGHERRO: 2d6(1,5)=6 +VIGORE(1)+arma(1) = 8 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    [ATTACCO] FULGENZIO CARBONE -> LO SGHERRO: 2d6(1,3)=4 +VIGORE(1)+arma(1) = 6 vs Difesa(8) -> MANCATO
+    MORA “SPILLA” FANTI ha 1 sola azione questo turno (insidia del round scorso).
+    [ATTACCO] MORA “SPILLA” FANTI -> LO SGHERRO: 2d6(2,6)=8 +VIGORE(3)+arma(1) = 12 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+    OTTONE “MEZZENA” MASSARI si muove verso IL CAPOCANTIERE: B2 -> B3.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> IL CAPOCANTIERE: 2d6(2,3)=5 +VIGORE(3)+arma(1) = 9 vs Difesa(8) -> COLPITO
+    IL CAPOCANTIERE: 0/3 ferite residue.
+    IL CAPOCANTIERE è ABBATTUTO.
+    *** IL CAPOCANTIERE È A TERRA: la squadra ha perso il direttore. ***
+  [MINACCIA] LE PALE NEL BUIO (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 2) in D3.
+  [MINACCIA] IL GUARDIANO DI NOTTE (malavita) — Piazzate 1 Sicario sull’uscita più vicina agli eroi.
+    Piazzati 1x IL SICARIO (pool residua: 1) in D3.
+  [MINACCIA] GLI UOMINI DELL’INGEGNERE (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 1) in D3.
+  LO SGHERRO raggiunge la tessera del gruppo, da D4.
+  LO SGHERRO attacca ELENA FOSCO:
+    [ATTACCO NEMICO] LO SGHERRO -> ELENA FOSCO: 2d6(6,6)=12 +Attacco(2) = 14 vs Difesa(8) -> COLPITO
+    ELENA FOSCO subisce 1 danno da LO SGHERRO (Salute: 0/8).
+    *** ELENA FOSCO è A TERRA. ***
+  LO SGHERRO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si muove verso OTTONE “MEZZENA” MASSARI: D3 -> B2.
+  LO SGHERRO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] LO SGHERRO -> OTTONE “MEZZENA” MASSARI: 2d6(1,2)=3 +Attacco(2) = 5 vs Difesa(8) -> MANCATO
+  IL SICARIO si muove verso FULGENZIO CARBONE: D3 -> D2.
+  IL SICARIO attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] IL SICARIO -> FULGENZIO CARBONE: 2d6(1,3)=4 +Attacco(3) = 7 vs Difesa(8) -> MANCATO
+  LO SGHERRO si avvicina, non ancora a contatto.
+  [OROLOGIO] Fine del 16° round: +1 segnalino Canto automatico.
+    Segnalino Canto (Allarme): 9.
+    La squadra vi SBARRA la strada: questo round non si avanza.
+--- Round 17: rientro — T5I (La Scala di Servizio) ---
+    (azioni nominali questo round: 6 — 3 eroi vivi)
+    [ATTACCO] FULGENZIO CARBONE -> IL SICARIO: 2d6(6,4)=10 +VIGORE(1)+arma(1) = 12 vs Difesa(7) -> COLPITO
+    IL SICARIO: 0/1 ferite residue.
+    IL SICARIO è ABBATTUTO.
+    [ATTACCO] MORA “SPILLA” FANTI -> LO SGHERRO: 2d6(4,3)=7 +VIGORE(3)+arma(1) = 11 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    OTTONE “MEZZENA” MASSARI si muove verso LO SGHERRO: B3 -> A2.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> LO SGHERRO: 2d6(3,5)=8 +VIGORE(3)+arma(1) = 12 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+  [MINACCIA] IL CANTIERE È SVEGLIO (crescendo) — Aggiungete 1 segnalino Canto (l’Allarme).
+    Segnalino Canto (Allarme): 10.
+  [MINACCIA] I GESTI DEL CAPOMASTRO (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 0) in D3.
+  LO SGHERRO attacca MORA “SPILLA” FANTI:
+    [ATTACCO NEMICO] LO SGHERRO -> MORA “SPILLA” FANTI: 2d6(3,3)=6 +Attacco(2) = 8 vs Difesa(8) -> COLPITO
+    MORA “SPILLA” FANTI subisce 1 danno da LO SGHERRO (Salute: 0/9).
+    *** MORA “SPILLA” FANTI è A TERRA. ***
+  LO SGHERRO si avvicina (Movimento 4): ancora 1 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si muove verso OTTONE “MEZZENA” MASSARI: B2 -> A3.
+  LO SGHERRO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] LO SGHERRO -> OTTONE “MEZZENA” MASSARI: 2d6(4,3)=7 +Attacco(2) = 9 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 1 danno da LO SGHERRO (Salute: 0/10).
+    *** OTTONE “MEZZENA” MASSARI è A TERRA. ***
+  LO SGHERRO si muove verso FULGENZIO CARBONE: D3 -> D2.
+  LO SGHERRO attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] LO SGHERRO -> FULGENZIO CARBONE: 2d6(2,4)=6 +Attacco(2) = 8 vs Difesa(8) -> COLPITO
+    FULGENZIO CARBONE subisce 1 danno da LO SGHERRO (Salute: 7/8).
+  LO SGHERRO si avvicina, non ancora a contatto.
+--- Round 18: rientro — T4I (Il Vano delle Canne Morte) ---
+    (azioni nominali questo round: 2 — 1 eroi vivi)
+    [ATTACCO] FULGENZIO CARBONE -> LO SGHERRO: 2d6(1,3)=4 +VIGORE(1)+arma(1) = 6 vs Difesa(8) -> MANCATO
+    Mazzo Minaccia esaurito: si rimescolano gli scarti.
+  [MINACCIA] I SACCHI FRANATI (ostacolo) — Muoversi costa il doppio sulla tessera dell’eroe attivo fino a fine round.
+    (carta senza effetto modellato in questa simulazione)
+  [MINACCIA] GLI UOMINI DELL’INGEGNERE (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Segnalini LO SGHERRO esauriti: il piazzamento non ha luogo (resto della carta si applica comunque).
+  LO SGHERRO attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] LO SGHERRO -> FULGENZIO CARBONE: 2d6(4,1)=5 +Attacco(2) = 7 vs Difesa(8) -> MANCATO
+  LO SGHERRO raggiunge la tessera del gruppo, da B3.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] LO SGHERRO -> FULGENZIO CARBONE: 2d6(4,2)=6 +Attacco(2) = 8 vs Difesa(8) -> COLPITO
+    FULGENZIO CARBONE subisce 1 danno da LO SGHERRO (Salute: 6/8).
+  LO SGHERRO si avvicina, non ancora a contatto.
+--- Round 19: rientro — T3I (L’Intercapedine di Levante) ---
+    (azioni nominali questo round: 2 — 1 eroi vivi)
+    [ATTACCO] FULGENZIO CARBONE -> LO SGHERRO: 2d6(2,3)=5 +VIGORE(1)+arma(1) = 7 vs Difesa(8) -> MANCATO
+  [MINACCIA] UN FISCHIO DI SOTTO (crescendo) — Aggiungete 1 segnalino Canto (l’Allarme).
+    Segnalino Canto (Allarme): 11.
+  [MINACCIA] IL PIOMBO E LA SACCA (malavita) — Piazzate 1 Sgherro: si attiva subito.
+    Segnalini LO SGHERRO esauriti: il piazzamento non ha luogo (resto della carta si applica comunque).
+  LO SGHERRO attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] LO SGHERRO -> FULGENZIO CARBONE: 2d6(2,2)=4 +Attacco(2) = 6 vs Difesa(8) -> MANCATO
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] LO SGHERRO -> FULGENZIO CARBONE: 2d6(1,1)=2 +Attacco(2) = 4 vs Difesa(8) -> MANCATO
+  LO SGHERRO si avvicina, non ancora a contatto.
+--- Round 20: rientro — T2 (Il Piano Terra) ---
+    (azioni nominali questo round: 2 — 1 eroi vivi)
+    [ATTACCO] FULGENZIO CARBONE -> LO SGHERRO: 2d6(4,2)=6 +VIGORE(1)+arma(1) = 8 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+  [MINACCIA] IL PIOMBO DAL BUIO (insidia) — L’eroe più avanzato subisce 1 danno (nessuna prova).
+    FULGENZIO CARBONE subisce 1 danno da IL PIOMBO DAL BUIO (Salute: 5/8).
+  [MINACCIA] IL TURNO CAMBIA (quiete) — Nessun effetto (tensione).
+    (carta senza effetto modellato in questa simulazione)
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] LO SGHERRO -> FULGENZIO CARBONE: 2d6(5,2)=7 +Attacco(2) = 9 vs Difesa(8) -> COLPITO
+    FULGENZIO CARBONE subisce 1 danno da LO SGHERRO (Salute: 4/8).
+  LO SGHERRO si muove verso FULGENZIO CARBONE: D3 -> D4.
+  LO SGHERRO attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] LO SGHERRO -> FULGENZIO CARBONE: 2d6(3,1)=4 +Attacco(2) = 6 vs Difesa(8) -> MANCATO
+  [OROLOGIO] Fine del 20° round: +1 segnalino Canto automatico.
+    Segnalino Canto (Allarme): 12.
+--- Round 21: rientro — T1 (Il Cancello) ---
+    (azioni nominali questo round: 2 — 1 eroi vivi)
+    [ATTACCO] FULGENZIO CARBONE -> LO SGHERRO: 2d6(6,5)=11 +VIGORE(1)+arma(1) = 13 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+  [MINACCIA] IL SILENZIO CHE PREME (insidia) — Ogni eroe prova NERVI (Facile): chi fallisce ha 1 sola azione al prossimo turno.
+    [PROVA NERVI] FULGENZIO CARBONE: 2d6(5,2)=7 +NERVI(3) = 10 vs Facile(7) -> SUCCESSO
+  [MINACCIA] LE PALE NEL BUIO (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 0) in D3.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  LO SGHERRO attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] LO SGHERRO -> FULGENZIO CARBONE: 2d6(6,4)=10 +Attacco(2) = 12 vs Difesa(8) -> COLPITO
+    FULGENZIO CARBONE subisce 1 danno da LO SGHERRO (Salute: 3/8).
+  LO SGHERRO attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] LO SGHERRO -> FULGENZIO CARBONE: 2d6(2,4)=6 +Attacco(2) = 8 vs Difesa(8) -> COLPITO
+    FULGENZIO CARBONE subisce 1 danno da LO SGHERRO (Salute: 2/8).
+  LO SGHERRO si avvicina, non ancora a contatto.
+
+==============================================================================
+ESITO SPEDIZIONE: VITTORIA
+Round totali: 21
+Formula Minaccia: finale_v3 | Azioni nominali/round: media 6.8, picco 8
+Mazzo Minaccia rimescolato: 2 volta/e
+Segnalini nemici esauriti nel pool (piazzamenti saltati): 4
+Via scelta: le intercapedini | Capocantiere: abbattuto
+  ELENA FOSCO: a terra
+  FULGENZIO CARBONE: 2/8 Salute
+  MORA “SPILLA” FANTI: a terra
+  OTTONE “MEZZENA” MASSARI: a terra
+==============================================================================

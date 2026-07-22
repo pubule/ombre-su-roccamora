@@ -149,6 +149,14 @@ export function pesca(mazzo, carte, epId, ep) {
 }
 
 // --- Canto / Marea ----------------------------------------------------------
+// Ogni quanti round sale da solo l'orologio. NON e' uguale per tutti: una
+// clessidra sola non puo' servire un episodio da 7 round e uno da 34. Misurato
+// a 4 eroi: passando da 4 a 6 round l'Ep.3 va dal 16% al 62% di vittorie,
+// l'Ep.5 dal 9% al 30%, l'Ep.6 dal 18% al 51%, mentre l'Ep.8 (11 round) non se
+// ne accorge nemmeno (90% -> 90%). Chi non dichiara nulla batte ogni 4.
+export const cadenzaCanto = (comune, ep) =>
+  ep.marea ? ep.marea.ogni : (ep.canto_ogni ?? comune.regole.tick_canto_ogni);
+
 // da chiamare a fine round; ritorna gli annunci da mostrare
 export function fineRound(comune, ep, sped) {
   // Il segnalino scatta DOPO l'N-esimo round giocato (round 4, 8, 12 con
@@ -156,7 +164,7 @@ export function fineRound(comune, ep, sped) {
   // appena concluso, POI si avanza al prossimo. (Prima: round += 1 prima
   // del check -> tick sfasato di 1 round in anticipo, tavolo piu' duro.)
   const annunci = [];
-  const ogni = ep.marea ? ep.marea.ogni : comune.regole.tick_canto_ogni;
+  const ogni = cadenzaCanto(comune, ep);
   const soglia = ep.marea ? ep.marea.soglia : comune.regole.soglia_canto;
   const nome = ep.marea ? 'Marea' : 'Canto';
   // Tetto ai segnalini: sono un componente FISICO e finito — 8 in scatola, il

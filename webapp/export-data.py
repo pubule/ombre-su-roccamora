@@ -825,6 +825,10 @@ episodi = dict(
                 'Tobia indica la forma da colata: — Sotto quella. La svuotano dal fondo '
                 'e il canale scende dritto ai chiusini della scala. Ci sono passato '
                 'quando mi hanno portato giù: contavo i gradini al buio.'))],
+        # IL CANTO BATTE OGNI 6 ROUND, non ogni 4: e' una spedizione lunga
+        # (17 round di media) e la clessidra comune la strangolava. Misurato a 4
+        # eroi, stessi party e stessi seed: 16% -> 62% di vittorie.
+        canto_ogni=6,
         esami_carbone=ESAMI_CARBONE_3,
         luoghi=[luogo_json(L, OGGETTI_LUOGO_3, REPERTI_LUOGO['ep3']) for L in LUOGHI_3],
         tessere=[tessera_json(T) for T in TILES_3],
@@ -874,6 +878,10 @@ episodi = dict(
         lettera=LETTERA_5,
         obiettivo='Sfregiate le 3 canne montate dell’organo (Interagire, in T6) e risalite '
                   'da T1. Secondario: le casse di ossa in T5, una ad azione (Interagire).',
+        # IL CANTO BATTE OGNI 6 ROUND, non ogni 4: e' una spedizione lunga
+        # (21 round di media) e la clessidra comune la strangolava. Misurato a 4
+        # eroi, stessi party e stessi seed: 9% -> 30% di vittorie.
+        canto_ogni=6,
         esami_carbone=ESAMI_CARBONE_5,
         luoghi=[luogo_json(L, OGGETTI_LUOGO_5, REPERTI_LUOGO['ep5']) for L in LUOGHI_5],
         tessere=[tessera_json(T) for T in TILES_5],
@@ -889,6 +897,10 @@ episodi = dict(
         obiettivo='Spegnete i 3 movimenti — BRONZO (T3, VIGORE), PIETRA (T5, ACUME), OSSA '
                   '(T6, NERVI) — poi nella Camera (T8) leggete la Formula del Sigillo: '
                   'vittoria piena. Vittoria parziale: 2+ movimenti spenti e ritirata a T1.',
+        # IL CANTO BATTE OGNI 6 ROUND, non ogni 4: e' una spedizione lunga
+        # (18 round di media) e la clessidra comune la strangolava. Misurato a 4
+        # eroi, stessi party e stessi seed: 18% -> 51% di vittorie.
+        canto_ogni=6,
         esami_carbone=ESAMI_CARBONE_6,
         luoghi=[luogo_json(L, OGGETTI_LUOGO_6, REPERTI_LUOGO['ep6']) for L in LUOGHI_6],
         tessere=[tessera_json(T) for T in TILES_6],

@@ -491,7 +491,7 @@ def spedizione():
     c.setFillColor(TEAL); c.setFont(F['i'], 12)
     c.drawCentredString(W/2, H - 40*mm, 'la cripta dei battuti, sotto il magazzino comunale')
     wave(c, W/2 - 20*mm, H - 46*mm, 40*mm, OGOLD)
-    frame_flow(c, 28*mm, H - 108*mm, W - 56*mm, 55*mm, [
+    frame_flow(c, 28*mm, H - 128*mm, W - 56*mm, 75*mm, [
         Paragraph('Le 21 carte Minaccia dell’episodio (più «I legni chiamano» SOLO se il '
                   'vostro Bivio lo dice — vedi Soluzione) e le schede Nemici sono carte a '
                   'parte (cartella <b>Episodio 5/cards/</b>). Le 6 tessere della cripta sono '
@@ -499,7 +499,11 @@ def spedizione():
                   '<b>fronte</b> si legge ad alta voce quando una tessera viene rivelata; il '
                   '<b>retro del foglio</b> è solo per chi tiene questo fascicolo — dice cosa '
                   'nasconde ogni tessera, e si consulta SOLO quando un eroe Cerca (o prova ad '
-                  'aprire qualcosa). Non giratelo prima.', BODY)])
+                  'aprire qualcosa). Non giratelo prima.', BODY),
+        Paragraph('<b>L’orologio di questa spedizione:</b> il Canto sale da solo ogni '
+                  '<b>6° round</b> (6°, 12°...) e non ogni 4° come nelle spedizioni corte — '
+                  'la cripta è lunga da percorrere. Le carte crescendo valgono come sempre.',
+                  BODY)])
     c.showPage()
     # retro di copertina (parita' fronte/retro)
     parchment_art(c, W, H)
@@ -670,7 +674,8 @@ def soluzione():
         'Salmodiante e lo sfregio).',
         '<b>Mazzo Minaccia:</b> le 21 carte dell’episodio (più «I legni chiamano» se il '
         'Bivio lo dice). Il Canto funziona come sempre: carte crescendo + 1 segnalino '
-        'automatico ogni 4° round; alla soglia (3 segnalini) il Salmodiante si desta in '
+        'automatico ogni <b>6° round</b> (6°, 12°...) — non ogni 4°: la cripta è lunga da '
+        'percorrere. Alla soglia (3 segnalini) il Salmodiante si desta in '
         'anticipo (piazzatelo sulla tessera più lontana dagli eroi, con 1 Confratello di '
         'scorta) e da quel momento ogni Fase Minaccia pesca 1 carta in più, per sempre.',
         '<b>Il Salmodiante</b> (statistiche nel Bestiario; Ferite per taglia già tabellate): '

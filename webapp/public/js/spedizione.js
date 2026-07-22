@@ -5,7 +5,7 @@
 // Ferite coi massimali giusti per taglia. Stato in partita.spedizione.
 import { salva, dati } from './store.js';
 import { rendi, norm, costruisciMazzo, carteDaPescare, pesca, fineRound,
-         cantoDaCarta, cerca, urlCarta, urlArt, cartaOggetto } from './engine.js';
+         cantoDaCarta, cerca, urlCarta, urlArt, cartaOggetto, cadenzaCanto } from './engine.js';
 import { tiraProva } from './dadi.js';
 
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) =>
@@ -30,7 +30,9 @@ const orologio = () => ctx.ep.marea ? 'Marea' : 'Canto';
 // quando arriva il prossimo segnalino automatico dell'orologio
 function prossimoTick() {
   const sp = SP();
-  const ogni = ctx.ep.marea ? ctx.ep.marea.ogni : ctx.comune.regole.tick_canto_ogni;
+  // stessa cadenza che usa fineRound: l'arbitro non puo' annunciare un round
+  // diverso da quello in cui il segnalino sale davvero
+  const ogni = cadenzaCanto(ctx.comune, ctx.ep);
   const soglia = ctx.ep.marea ? ctx.ep.marea.soglia : ctx.comune.regole.soglia_canto;
   const mancano = ogni - (sp.round % ogni || ogni) + 1;
   return `Il ${orologio()} sale da solo a fine del ${sp.round + mancano - 1}° round` +

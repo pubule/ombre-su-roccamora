@@ -1,0 +1,70 @@
+Run: canto-ep6-4_p5_seed0  |  seed=971500  |  generato: 2026-07-22T19:07:14
+==============================================================================
+INDAGINE - Episodio 6: "Il Terzo Movimento" (finale d’atto)
+==============================================================================
+Party: DOTT. ATTILIO MARN, ELENA FOSCO, OTTAVIO BRERA, OTTONE “MEZZENA” MASSARI
+Clock: 6 ore, dalle 18:00 alle 24:00.
+
+Tipi di Approfondimento coperti da questo party: Osservazione, Referto, Testimonianza
+
+[h18:00] Visita Luogo 3 — Il Catasto delle Acque  (1 ora)
+    [PROVA ACUME] ELENA FOSCO: 2d6(4,3)=7 +ACUME(3) = 10 vs Media(9) -> SUCCESSO
+    - Indizio: L’archivista vi riconosce — l’inverno dei pozzi non si dimentica — e stavolta la mappa la srotola lui: «le tre acque convergono QUI, sotto la Cattedrale. La sala non è su nessuna carta ufficiale. Ma le vene ci vanno tutte, come radici a un bulbo.»
+    - Indizio: Il registro delle consultazioni: nessuno è più venuto coi guanti — ma il fascicolo delle tre acque mostra una piega nuova e una scheda di prestito INTERNO, sigla di Curia: qualcuno l’ha fatto uscire e rientrare senza passare dal banco — la mano del Maestro dei Registri, che negli archivi entra ed esce senza lasciare firma.
+    - Indizio: Sulle tavole idrografiche, la chiusa grande regola l’acqua dolce: «se stanotte c’è la marea di sizigia», dice l’archivista, «il colmo lo decide la Chiusa Grande. Il guardiano tiene le tavole di marea aggiornate all’ora.»
+    -> Parola chiave trovata (vedi indizio sopra): LE TRE ACQUE
+    -> Fonte sulla Domanda 1 (1: bulbo/archivio dei Frammenti/pianta).
+    [APPROFONDIMENTO Referto] sbloccato da DOTT. ATTILIO MARN.
+[h19:00] Visita Luogo 4 — Il Palazzo del Lume  (1 ora)
+    [PROVA ACUME] ELENA FOSCO: 2d6(1,4)=5 +ACUME(3) = 8 vs Media(9) -> FALLITA
+    [SECONDO FIATO] ELENA FOSCO ritenta “leggere la scena” (unico ritento dell’episodio):
+    [PROVA ACUME] ELENA FOSCO: 2d6(1,3)=4 +ACUME(3) = 7 vs Media(9) -> FALLITA
+    - Indizio: M. ha fatto disporre sul tavolo grande l’archivio dei Frammenti: i vostri cinque casi, le buste dei Bivi, i cimeli. «Stanotte si spende tutto», dice. «Ogni pezzo che avete conservato è un incrocio in più. Contateli.» (La deduzione d’atto: vedi la busta della Soluzione.)
+    - Indizio: Negli appunti della Società sul caso della cripta: lo studio del «maestro dei registri» in Corte del Ragioniere risulta SVUOTATO ieri — di fretta. Un facchino ha visto portar via schedari «tranne uno, caduto dal carro».
+    - Indizio: M., davanti alla mappa: «gli atti del capitolo del Quarantuno non furono mai copiati: originale unico, Archivio Capitolare. Se esiste una formula che addormentò QUELLA cosa una volta, è scritta lì. Fatevi aprire: la parola è l’anno, il resto è coraggio.»
+    -> Parola chiave trovata (vedi indizio sopra): IL CAPITOLO DEL QUARANTUNO
+    -> Parola chiave trovata (vedi indizio sopra): IL MAESTRO DEI REGISTRI
+    -> Fonte sulla Domanda 1 (2: bulbo/archivio dei Frammenti/pianta).
+    “Leggere la scena” fallita: l’Approfondimento di questo luogo resta nascosto (si può tornare più tardi, senza ripetere il tiro).
+[h20:00] Visita Luogo 7 — L’Archivio Capitolare  (1 ora)
+    [PROVA ACUME] ELENA FOSCO: 2d6(6,1)=7 +ACUME(3) = 10 vs Media(9) -> SUCCESSO
+    - Indizio: Gli atti del Quarantuno, mai copiati: la sconsacrazione dei Battuti è solo l’APPENDICE. L’atto principale è un altro: «Del sigillo posto alla camera delle acque, e della formula con cui vi si impose il sonno». La città lo fece. La città lo scrisse. La città lo dimenticò apposta.
+    - Indizio: La Formula del Sigillo è trascritta per esteso, con la rubrica: «si legga a voce ferma, a strumenti TACIUTI, nell’ora in cui l’acqua è più alta». A strumenti taciuti: prima si spegne, poi si legge. (Oggetto: prendete la carta La Formula del Sigillo.)
+    - Indizio: Allegata agli atti, la pianta della camera: tre sale-vestibolo — il bronzo, la pietra, le ossa — e al centro la Camera delle Tre Acque. Le sale non sono stanze: sono VALVOLE. (Reperto B: consegnate la Pianta della Camera.)
+    -> Trovata: LA FORMULA DEL SIGILLO (l’arma finale).
+    -> Fonte sulla Domanda 1 (3: bulbo/archivio dei Frammenti/pianta).
+    [APPROFONDIMENTO Referto] sbloccato da OTTAVIO BRERA.
+[h21:00] Visita Luogo 6 — La Chiusa Grande  (1 ora)
+    [PROVA ACUME] ELENA FOSCO: 2d6(1,3)=4 +ACUME(3) = 7 vs Media(9) -> FALLITA
+    - Indizio: Le tavole di marea, aggiornate all’ora: il colmo della sizigia è alle TRE E UN QUARTO. «L’acqua alta delle tre e un quarto», dice il guardiano, «è quella che non perdona: mezz’ora prima e mezz’ora dopo, le gallerie basse si allagano.»
+    - Indizio: Il guardiano, a bassa voce: «la porta d’acqua sotto la Cattedrale era murata da cent’anni. Da un mese è ARIA: qualcuno l’ha riaperta dal di dentro, e la marea ci entra e ne esce come da una bocca. La chiave del cancello ce l’ho io — e a voi la do volentieri, così non tocca a me.» (Oggetti: prendete le carte La Chiave della Porta d’Acqua e La Lanterna di Chiusa.)
+    - Indizio: Sul registro delle portate, da tre notti, un ammanco d’acqua dolce alla stessa ora: qualcuno, sotto, APRE e CHIUDE. Prove generali. Stanotte è la prima.
+    -> Oggetto trovato (vedi indizio sopra): LA CHIAVE DELLA PORTA D’ACQUA
+    -> Trovata: LA LANTERNA DI CHIUSA (+1 alla marea in T2).
+    -> Fonte sulla Domanda 3 (1: tavole di marea/ora di chiamata).
+    “Leggere la scena” fallita: l’Approfondimento di questo luogo resta nascosto (si può tornare più tardi, senza ripetere il tiro).
+[h22:00] Visita Luogo 1 — La Cattedrale, la Sagrestia  (1 ora)
+    [PROVA ACUME] ELENA FOSCO: 2d6(1,6)=7 +ACUME(3) = 10 vs Media(9) -> SUCCESSO
+    - Indizio: Don Callisto non finge più niente: «il pavimento della cripta RESPIRA, signori. Lo sento sotto i piedi durante i vespri, come una nave. E stanotte l’acqua benedetta trema nelle pile senza che nessuno la tocchi.» (Oggetti: prendete le carte L’Acqua Benedetta e La Reliquia di San Teodoro.)
+    - Indizio: Il capitolo della Cattedrale custodiva gli atti del Quarantuno: «il capitolo del Quarantuno decise la sconsacrazione dei Battuti E qualcos’altro, di cui non si parla. Gli atti sono all’Archivio Capitolare. Io la chiave ce l’ho, ma la parola giusta dovete saperla voi.»
+    - Indizio: Dalla sagrestia, con l’orecchio al pavimento: un battito lento, sotto, profondissimo — sessanta colpi l’ora, come un cuore che dorme. E stanotte, dice don Callisto, «batte più forte. Come chi sogna qualcosa che sta per accadere.»
+    -> Parola chiave trovata (vedi indizio sopra): IL CAPITOLO DEL QUARANTUNO
+    [APPROFONDIMENTO Osservazione] sbloccato da ELENA FOSCO.
+    -> Questa carta conferma esplicitamente che il colpevole è Ferri (Domanda 2).
+[h23:00] Visita Luogo 2 — Il Canale Basso  (1 ora)
+    [PROVA ACUME] ELENA FOSCO: 2d6(5,3)=8 +ACUME(3) = 11 vs Media(9) -> SUCCESSO
+    - Indizio: L’acqua del canale è FERMA: né marea né corrente, come tesa. I barcaioli non escono: «l’acqua così non si è mai vista. Stanotte c’è la marea di sizigia, la grande — e l’acqua, invece di prepararsi, trattiene.»
+    - Indizio: Tre notti di chiatte cariche verso il fianco della Cattedrale: casse lunghe, un carico «da chiesa» — e gli scaricatori pagati in contanti nuovi, mai gli stessi due volte. L’ultimo viaggio è previsto stanotte: l’attracco è la vecchia porta d’acqua.
+    - Indizio: Il barcaiolo più vecchio, indicando il pelo dell’acqua: «le tre acque, signori. La dolce del monte, la salata di laguna, la morta dei pozzi: sotto la città si incontrano in un posto solo. Mio nonno diceva: dove si incontrano, la città sogna. Il Catasto sa dove.»
+    -> Parola chiave trovata (vedi indizio sopra): LA MAREA DI SIZIGIA
+    -> Parola chiave trovata (vedi indizio sopra): LE TRE ACQUE
+    [APPROFONDIMENTO Testimonianza] sbloccato da OTTONE “MEZZENA” MASSARI.
+    -> Questa carta conferma esplicitamente che il colpevole è Ferri (Domanda 2).
+    -> (nessuna consegna extra: la debolezza del boss vive in L4)
+
+Fine Indagine: 6/9 luoghi visitati, 4 Approfondimenti letti, 2 mancati.
+Ore avanzate: 0 -> PREPARATI (+1 Salute massima a testa)
+Formula del Sigillo: sì; Lanterna: sì; Domanda 1 (3 fonti): esatta; Domanda 3 (1 fonti): esatta
+Chi dirige confermato esplicitamente (Domanda 2): sì
+Dossier completo (tutte le ore spese in Indagine): 1 gettone Intuizione per la Spedizione.
+

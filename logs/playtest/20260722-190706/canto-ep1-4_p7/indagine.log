@@ -1,0 +1,58 @@
+Run: canto-ep1-4_p7_seed0  |  seed=971700  |  generato: 2026-07-22T19:07:07
+==============================================================================
+INDAGINE - Episodio 1: "Il Coro Sommerso"
+==============================================================================
+Party: ELENA FOSCO, FULGENZIO CARBONE, MORA “SPILLA” FANTI, PADRE CELSO MARANI
+Clock: 6 ore, dalle 18:00 alle 24:00.
+
+Tipi di Approfondimento coperti da questo party: Osservazione
+
+[h18:00] Visita Luogo 1 — Il Campanile di San Teodoro  (1 ora)
+    "La scala a chiocciola sale nel buio. In cima, la cella campanaria è in disordine: lo sgabello di Ruggero è rovesciato, la sua lanterna ancora appesa."
+    [PROVA ACUME] ELENA FOSCO: 2d6(2,4)=6 +ACUME(3) = 9 vs Media(9) -> SUCCESSO
+    - Indizio: Colate di cera nera sui gradini — troppo in alto perché vengano dalle candele della chiesa.
+    - Indizio: Il diario di Ruggero, con l’ultima pagina strappata. Ricalcando i solchi della penna leggete: «...alle 3 in punto, ogni notte. Tre rintocchi, poi uno, poi cinque. Non sono io a suonare.» (Reperto A: consegnate il Diario di Ruggero.)
+    - Indizio: Sul legno della balaustra, unghiate profonde intorno a una scritta quasi cancellata. Ci vuole un attimo per ricomporla: sommerso.
+    -> Parola chiave trovata (vedi indizio sopra): SOMMERSO
+    [APPROFONDIMENTO Osservazione] sbloccato da ELENA FOSCO.
+    [PROVA ACUME] ELENA FOSCO: 2d6(1,2)=3 +ACUME(3) = 6 vs Difficile(11) -> FALLITA
+    [APPROFONDIMENTO Referto] aiuto profano fallito: resta sigillato qui.
+[h19:00] Visita Luogo 2 — Casa di Ruggero  (1 ora)
+    "Bice, la sorella, vi apre con gli occhi rossi: «Negli ultimi tempi diceva di sentire musica sotto il pavimento della cripta. E aveva paura del suo stesso campanile.»"
+    [PROVA ACUME] ELENA FOSCO: 2d6(4,5)=9 +ACUME(3) = 12 vs Media(9) -> SUCCESSO
+    - Indizio: Sul tavolo, una corda di violino d’argento: «L’ha trovata in cripta», dice Bice. (Oggetto: sblocca il Luogo 5.)
+    - Indizio: Bice, esitante: «Diceva anche una cosa strana — che solo un diapason d’argento, fatto vibrare vicino a quello che canta, può farlo tacere per un momento. Diceva che Ferri ne teneva uno, in bottega.»
+    - Indizio: Una ricevuta: Ruggero aveva chiesto all’Archivio Civico i documenti antichi della cattedrale.
+    - Indizio: Bice: «L’ultima sera ripeteva una parola, come una preghiera al contrario: sommerso, sommerso.»
+    - Indizio: Un vicino, a bassa voce: «Ruggero non aveva famiglia oltre Bice — la sua piccola pensione da campanaro, ora, tocca solo a lei.» Lo dice come un sospetto, non come un fatto.
+    -> Oggetto trovato (vedi indizio sopra): CORDA DI VIOLINO
+    [PROVA ACUME] ELENA FOSCO: 2d6(1,5)=6 +ACUME(3) = 9 vs Difficile(11) -> FALLITA
+    [APPROFONDIMENTO Testimonianza] aiuto profano fallito: resta sigillato qui.
+[h20:00] Visita Luogo 8 — La Gendarmeria  (1 ora)
+    "Il brigadiere vi riceve tra pile di pratiche: «Il campanaro? Sarà scappato con qualche vedova.»"
+    [PROVA ACUME] ELENA FOSCO: 2d6(6,6)=12 +ACUME(3) = 15 vs Media(9) -> SUCCESSO
+    - Indizio: Nessuna richiesta di riscatto. Il sospettato ufficiale è Tonio il sagrestano, l’ultimo ad aver visto Ruggero.
+    - Indizio: Denunce recenti: furti di cera e canapa da tre chiese. Learco, un ramaio del Vecchio Mercato, giura d’aver venduto un quintale di bronzo a un compratore incappucciato — il brigadiere lo segna come sospetto principale.
+    - Indizio: «Se trovate qualcosa di concreto, tornate. Non perquisiamo mezza città per un campanaro con la testa fra le nuvole.»
+    -> Parola chiave trovata (vedi indizio sopra): TONIO
+    [PROVA ACUME] ELENA FOSCO: 2d6(4,1)=5 +ACUME(3) = 8 vs Difficile(11) -> FALLITA
+    [APPROFONDIMENTO Referto] aiuto profano fallito: resta sigillato qui.
+    [APPROFONDIMENTO Testimonianza] nessun eroe idoneo e occasione profana già spesa qui — non letto.
+[h21:00] Visita Luogo 5 — Bottega del Liutaio Ferri  (1 ora)
+    "Bottega chiusa da giorni; il vicino di guardia si scosta solo davanti a ciò che riportate. Dentro, polvere e violini appesi come selvaggina."
+    [PROVA ACUME] ELENA FOSCO: 2d6(5,1)=6 +ACUME(3) = 9 vs Media(9) -> SUCCESSO
+    - Indizio: Bastiano Ferri è sparito da tre giorni. Sul banco, un diapason d’argento inciso con un’onda.
+    - Indizio: Il registro consegne, ultima riga: «40 candele di cera nera — consegna al C.B., molo terzo, il vecchio deposito — pagato B.F.» (Reperto B: consegnate il Registro delle Consegne.)
+    - Indizio: Uno spartito: «Dal Profondo», riscritto per campane. In margine: «il bronzo canta, la pietra risponde, l’acqua ricorda».
+    -> Trovato: IL DIAPASON D’ARGENTO (vedi indizio sopra; servirà contro il Custode della Cera).
+    [APPROFONDIMENTO Osservazione] sbloccato da ELENA FOSCO.
+    [PROVA ACUME] ELENA FOSCO: 2d6(4,5)=9 +ACUME(3) = 12 vs Difficile(11) -> SUCCESSO
+    [APPROFONDIMENTO Referto] colto da profano da ELENA FOSCO (ACUME Difficile).
+[h22:00] Il gruppo ha già il nucleo garantito in mano: rinuncia a nuovi luoghi (il prossimo sarebbe stato il Luogo 7 — L’Archivio Civico), ma valuta ancora se tornare a cogliere un Approfondimento mancato prima di chiudere.
+
+Fine Indagine: 4/8 luoghi visitati, 3 Approfondimenti letti, 4 mancati.
+Ore avanzate: 2 -> PREPARATI (+1 Salute massima a testa)
+Diapason d’argento in mano: sì
+Chi comanda confermato esplicitamente (Domanda 2, Vantaggio Smascherato): no — risposta “vicina” da giudicare con elasticità
+Nota: Ombra fiuta (Fanti) avrebbe dato il conteggio Approfondimenti per luogo prima di ogni scelta — l’euristica sopra già sceglie con priorità di sblocco, effetto equivalente.
+

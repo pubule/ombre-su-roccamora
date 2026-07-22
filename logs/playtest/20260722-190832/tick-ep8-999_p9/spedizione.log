@@ -1,0 +1,328 @@
+Run: tick-ep8-999_p9_seed0  |  seed=971900  |  formula Minaccia=finale_v3  |  generato: 2026-07-22T19:08:33
+==============================================================================
+SPEDIZIONE - Il Deposito dell’Ansa Morta (giovedì notte)
+==============================================================================
+Party: FULGENZIO CARBONE, OTTAVIO BRERA, OTTONE “MEZZENA” MASSARI, PADRE CELSO MARANI
+Bonus da Indagine: PREPARATI (+1 Salute massima a testa); Marengo: sì; Lanterna: sì; D1: esatta; D3: esatta
+NOTA: gruppo trattato come blocco unico tessera per tessera (vedi intestazione script).
+Tensione tavolo piccolo: +-1 Ferite SOLO al Cambiavalute (non ai nemici di truppa).
+
+Tavolo da 4: +1 Salute massima a testa (ricalibrazione).
+  Il Marengo Segnato lo porta OTTONE “MEZZENA” MASSARI (il Fiuto dei Mastini lo sa).
+--- Round 1: il gruppo raggiunge T2 (La Tettoia delle Chiatte) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    Il gruppo entra in T2 da B1.
+    [PROVA ACUME] FULGENZIO CARBONE: 2d6(6,3)=9 +ACUME(2) = 11 vs Media(9) -> SUCCESSO
+    [AZIONE] FULGENZIO CARBONE sequestra la cassa d’oro di T2 (1/4).
+    [PROVA ACUME] OTTAVIO BRERA: 2d6(6,5)=11 +ACUME(3) = 14 vs Media(9) -> SUCCESSO
+    OTTAVIO BRERA cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+    PADRE CELSO MARANI: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] GLI UOMINI DELLA TETTOIA (malavita) — Piazzate 1 Sgherro sull’ingresso del Molo (T1).
+    Piazzati 1x LO SGHERRO (pool residua: 4), a 6 caselle dalla tessera del gruppo.
+  [MINACCIA] LE CASSE ROVESCIATE (ostacolo) — Muoversi costa il doppio sulla tessera dell’eroe attivo fino a fine round.
+    (carta senza effetto modellato in questa simulazione)
+  LO SGHERRO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+--- Round 2: il gruppo attraversa T2 verso T3 ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    [ABILITÀ] FULGENZIO CARBONE usa Esca preziosa: LO SGHERRO si dirige verso l’esca invece che verso il gruppo alla prossima attivazione.
+    [ABILITÀ] OTTAVIO BRERA usa Vi conosco, Malacarne su LO SGHERRO: rimosso dal tabellone.
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+    PADRE CELSO MARANI: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] LA PAGA DEL GIOVEDÌ (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 3) in B1.
+  [MINACCIA] IL CAMBIO DI GUARDIA (malavita) — Piazzate 1 Sgherro sull’ingresso del Molo (T1).
+    Piazzati 1x LO SGHERRO (pool residua: 2), a 6 caselle dalla tessera del gruppo.
+  LO SGHERRO si muove verso PADRE CELSO MARANI: B1 -> C1.
+  LO SGHERRO attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] LO SGHERRO -> PADRE CELSO MARANI: 2d6(6,4)=10 +Attacco(2) = 12 vs Difesa(8) -> COLPITO
+    PADRE CELSO MARANI subisce 1 danno da LO SGHERRO (Salute: 7/8).
+  LO SGHERRO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+--- Round 3: il gruppo raggiunge T3 (Il Magazzino del Carbone) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    Il gruppo entra in T3 da B1.
+    [ABILITÀ] FULGENZIO CARBONE usa Esca preziosa: LO SGHERRO, LO SGHERRO si dirige verso l’esca invece che verso il gruppo alla prossima attivazione.
+    [PROVA ACUME] OTTAVIO BRERA: 2d6(6,1)=7 +ACUME(3) = 10 vs Media(9) -> SUCCESSO
+    [AZIONE] OTTAVIO BRERA sequestra la cassa d’oro di T3 (2/4).
+    OTTONE “MEZZENA” MASSARI si muove verso LO SGHERRO: B1 -> C2.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> LO SGHERRO: 2d6(2,5)=7 +VIGORE(3)+arma(1) = 11 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    [ATTACCO] PADRE CELSO MARANI -> LO SGHERRO: 2d6(6,4)=10 +VIGORE(1)+arma(1) = 12 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+  [MINACCIA] IL GUARDASPALLE (malavita) — Piazzate 1 Sicario sull’uscita più vicina agli eroi.
+    Piazzati 1x IL SICARIO (pool residua: 1) in B1.
+  [MINACCIA] IL DEBITO DI BANDIERA (malavita) — Piazzate 1 Sgherro sull’ingresso del Molo (T1).
+    Piazzati 1x LO SGHERRO (pool residua: 2), a 6 caselle dalla tessera del gruppo.
+  LO SGHERRO si dirige verso l’esca (Carbone): non attacca questo round.
+  IL SICARIO si muove verso PADRE CELSO MARANI: B1 -> C1.
+  IL SICARIO attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] IL SICARIO -> PADRE CELSO MARANI: 2d6(6,3)=9 +Attacco(3) = 12 vs Difesa(8) -> COLPITO
+    PADRE CELSO MARANI subisce 2 danno da IL SICARIO (Salute: 5/8).
+  LO SGHERRO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+--- Round 4: il gruppo attraversa T3 verso T4 ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    [ATTACCO] FULGENZIO CARBONE -> IL SICARIO: 2d6(3,3)=6 +VIGORE(1)+arma(1) = 8 vs Difesa(7) -> COLPITO
+    IL SICARIO: 0/1 ferite residue.
+    IL SICARIO è ABBATTUTO.
+    [PROVA ACUME] OTTAVIO BRERA: 2d6(5,4)=9 +ACUME(3) = 12 vs Media(9) -> SUCCESSO
+    OTTAVIO BRERA cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+    PADRE CELSO MARANI: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] I CLAN ACCORRONO (crescendo) — Aggiungete 1 segnalino Canto (la Voce che gira).
+    Segnalino Canto (la Voce che gira): 1.
+  [MINACCIA] L’OMBRA DEL PESATORE (malavita) — Piazzate 1 Sicario: si attiva subito.
+    Piazzati 1x IL SICARIO (pool residua: 1) in B1.
+    IL SICARIO si attiva subito:
+  IL SICARIO si muove verso FULGENZIO CARBONE: B1 -> C1.
+  IL SICARIO attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] IL SICARIO -> FULGENZIO CARBONE: 2d6(5,5)=10 +Attacco(3) = 13 vs Difesa(8) -> COLPITO
+    FULGENZIO CARBONE subisce 2 danno da IL SICARIO (Salute: 6/8).
+  LO SGHERRO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+--- Round 5: il gruppo raggiunge T4 (La Sala del Crogiolo) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    Il gruppo entra in T4 da B1.
+    Rivelata la Sala del Crogiolo: IL CAMBIAVALUTE non alza gli occhi dal bilancino — i suoi due MASTINI sì.
+    [PROVA ACUME] FULGENZIO CARBONE: 2d6(4,2)=6 +ACUME(2) = 8 vs Media(9) -> FALLITA
+    FULGENZIO CARBONE forza la cassa di T4: lucchetto duro, azione persa — la cassa resta (e il crogiolo corre).
+    OTTAVIO BRERA si muove verso IL SICARIO: B1 -> C2.
+    [ATTACCO] OTTAVIO BRERA -> IL SICARIO: 2d6(2,5)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(7) -> COLPITO
+    IL SICARIO: 0/1 ferite residue.
+    IL SICARIO è ABBATTUTO.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> IL CAMBIAVALUTE: 2d6(4,4)=8 +VIGORE(3)+arma(1) = 12 vs Difesa(7) -> COLPITO
+    IL CAMBIAVALUTE: 2/3 ferite residue.
+    [ATTACCO] PADRE CELSO MARANI -> IL CAMBIAVALUTE: 2d6(3,6)=9 +VIGORE(1)+arma(1) = 11 vs Difesa(7) -> COLPITO
+    IL CAMBIAVALUTE: 1/3 ferite residue.
+  [MINACCIA] LA PASSERELLA MARCIA (insidia) — L’eroe più avanzato prova NERVI (Media): se fallisce, 1 danno.
+    [PROVA NERVI] OTTAVIO BRERA: 2d6(5,4)=9 +NERVI(2) = 11 vs Media(9) -> SUCCESSO
+  [MINACCIA] I CANI DELL’ANSA (malavita) — Piazzate 1 Mastino sull’uscita più vicina agli eroi.
+    Segnalini IL MASTINO esauriti: il piazzamento non ha luogo (resto della carta si applica comunque).
+  LO SGHERRO si avvicina (Movimento 4): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si avvicina (Movimento 4): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+  IL MASTINO si muove verso OTTONE “MEZZENA” MASSARI: A2 -> B2.
+  IL MASTINO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] IL MASTINO -> OTTONE “MEZZENA” MASSARI: 2d6(1,1)=2 +Attacco(2) = 4 vs Difesa(8) -> MANCATO
+  IL MASTINO si muove verso OTTONE “MEZZENA” MASSARI: B1 -> C1.
+  IL MASTINO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] IL MASTINO -> OTTONE “MEZZENA” MASSARI: 2d6(1,1)=2 +Attacco(2) = 4 vs Difesa(8) -> MANCATO
+  IL CAMBIAVALUTE attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] IL CAMBIAVALUTE -> FULGENZIO CARBONE: 2d6(6,3)=9 +Attacco(2) = 11 vs Difesa(8) -> COLPITO
+    FULGENZIO CARBONE subisce 1 danno da IL CAMBIAVALUTE (Salute: 5/8).
+--- Round 6: ancora a T4 (La Sala del Crogiolo) (la cassa resiste) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    [PROVA ACUME] FULGENZIO CARBONE: 2d6(6,4)=10 +ACUME(2) = 12 vs Media(9) -> SUCCESSO
+    [AZIONE] FULGENZIO CARBONE sequestra la cassa d’oro di T4 (3/4).
+    OTTAVIO BRERA si muove verso IL MASTINO: C2 -> D4.
+    OTTAVIO BRERA si avvicina a IL MASTINO, non ancora a contatto.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> IL CAMBIAVALUTE: 2d6(5,6)=11 +VIGORE(3)+arma(1) = 15 vs Difesa(7) -> COLPITO
+    IL CAMBIAVALUTE: 0/3 ferite residue.
+    IL CAMBIAVALUTE è ABBATTUTO.
+    *** IL CAMBIAVALUTE È ABBATTUTO: il crogiolo si spegne. ***
+    PADRE CELSO MARANI si muove verso IL MASTINO: B1 -> A2.
+    [ATTACCO] PADRE CELSO MARANI -> IL MASTINO: 2d6(1,5)=6 +VIGORE(1)+arma(1) = 8 vs Difesa(6) -> COLPITO
+    IL MASTINO: 1/2 ferite residue.
+  [MINACCIA] IL GUINZAGLIO TAGLIATO (malavita) — Piazzate 1 Mastino: si attiva subito.
+    Segnalini IL MASTINO esauriti: il piazzamento non ha luogo (resto della carta si applica comunque).
+  [MINACCIA] LA POLVERE NEGLI OCCHI (insidia) — L’eroe attivo prova NERVI (Media): se fallisce, 1 danno e perde 1 azione.
+    [PROVA NERVI] OTTAVIO BRERA: 2d6(3,1)=4 +NERVI(2) = 6 vs Media(9) -> FALLITA
+    [SECONDO FIATO] OTTAVIO BRERA ritenta la prova (unico ritento dell’episodio):
+    [PROVA NERVI] OTTAVIO BRERA: 2d6(1,2)=3 +NERVI(2) = 5 vs Media(9) -> FALLITA
+    OTTAVIO BRERA subisce 1 danno da LA POLVERE NEGLI OCCHI (Salute: 7/8).
+    OTTAVIO BRERA avrà 1 sola azione al suo prossimo turno.
+  LO SGHERRO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  IL MASTINO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] IL MASTINO -> OTTONE “MEZZENA” MASSARI: 2d6(1,6)=7 +Attacco(2) = 9 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 2 danno da IL MASTINO (Salute: 8/10).
+  IL MASTINO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] IL MASTINO -> OTTONE “MEZZENA” MASSARI: 2d6(6,4)=10 +Attacco(2) = 12 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 2 danno da IL MASTINO (Salute: 6/10).
+--- Round 7: il gruppo attraversa T4 verso T5 ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    [ATTACCO] FULGENZIO CARBONE -> IL MASTINO: 2d6(4,5)=9 +VIGORE(1)+arma(1) = 11 vs Difesa(6) -> COLPITO
+    IL MASTINO: 0/2 ferite residue.
+    IL MASTINO è ABBATTUTO.
+    OTTAVIO BRERA ha 1 sola azione questo turno (insidia del round scorso).
+    OTTAVIO BRERA si muove verso IL MASTINO: D4 -> D1.
+    OTTAVIO BRERA (1 sola azione) si limita ad avvicinarsi a IL MASTINO.
+    OTTONE “MEZZENA” MASSARI si muove verso IL MASTINO: B1 -> C2.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> IL MASTINO: 2d6(4,2)=6 +VIGORE(3)+arma(1) = 10 vs Difesa(6) -> COLPITO
+    IL MASTINO: 1/2 ferite residue.
+    [PROVA ACUME] PADRE CELSO MARANI: 2d6(3,5)=8 +ACUME(2) = 10 vs Media(9) -> SUCCESSO
+    PADRE CELSO MARANI cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+  [MINACCIA] LE SENTINELLE DEL MOLO (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 1) in B1.
+  [MINACCIA] UNA CHIATTA AMICA (favore) — Rivelate una tessera coperta adiacente.
+    (carta senza effetto modellato in questa simulazione)
+  LO SGHERRO si avvicina (Movimento 4): ancora 1 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si avvicina (Movimento 4): ancora 1 caselle prima di raggiungere la tessera del gruppo.
+  IL MASTINO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] IL MASTINO -> OTTONE “MEZZENA” MASSARI: 2d6(4,4)=8 +Attacco(2) = 10 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 2 danno da IL MASTINO (Salute: 4/10).
+  LO SGHERRO si muove verso OTTAVIO BRERA: B1 -> C4.
+  LO SGHERRO si avvicina, non ancora a contatto.
+--- Round 8: il gruppo raggiunge T5 (L’Ufficio del Pesatore) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    Il gruppo entra in T5 da A3.
+    QUANDO RIVELATE: il guardaspalle del pesatore, dall’ombra.
+    [PROVA ACUME] FULGENZIO CARBONE: 2d6(1,4)=5 +ACUME(2) = 7 vs Media(9) -> FALLITA
+    FULGENZIO CARBONE forza la cassa di T5: lucchetto duro, azione persa — la cassa resta (e il crogiolo corre).
+    OTTAVIO BRERA si muove verso IL SICARIO: A3 -> B2.
+    [ATTACCO] OTTAVIO BRERA -> IL SICARIO: 2d6(5,3)=8 +VIGORE(1)+arma(1) = 10 vs Difesa(7) -> COLPITO
+    IL SICARIO: 0/1 ferite residue.
+    IL SICARIO è ABBATTUTO.
+    OTTONE “MEZZENA” MASSARI si muove verso LO SGHERRO: A3 -> C3.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> LO SGHERRO: 2d6(6,6)=12 +VIGORE(3)+arma(1) = 16 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    PADRE CELSO MARANI si muove verso IL MASTINO: A3 -> B1.
+    [ATTACCO] PADRE CELSO MARANI -> IL MASTINO: 2d6(1,4)=5 +VIGORE(1)+arma(1) = 7 vs Difesa(6) -> COLPITO
+    IL MASTINO: 0/2 ferite residue.
+    IL MASTINO è ABBATTUTO.
+  [MINACCIA] IL MASTINO SCIOLTO (malavita) — Piazzate 1 Mastino sull’uscita più vicina agli eroi.
+    Piazzati 1x IL MASTINO (pool residua: 1) in A3.
+  [MINACCIA] IL FISCHIO BASSO (malavita) — Piazzate 1 Sgherro: si attiva subito.
+    Piazzati 1x LO SGHERRO (pool residua: 0) in A3.
+    LO SGHERRO si attiva subito:
+  LO SGHERRO si muove verso OTTAVIO BRERA: A3 -> A2.
+  LO SGHERRO attacca OTTAVIO BRERA:
+    [ATTACCO NEMICO] LO SGHERRO -> OTTAVIO BRERA: 2d6(4,5)=9 +Attacco(2) = 11 vs Difesa(8) -> COLPITO
+    OTTAVIO BRERA subisce 1 danno da LO SGHERRO (Salute: 6/8).
+  LO SGHERRO raggiunge la tessera del gruppo, da B3.
+  LO SGHERRO attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] LO SGHERRO -> FULGENZIO CARBONE: 2d6(4,2)=6 +Attacco(2) = 8 vs Difesa(8) -> COLPITO
+    FULGENZIO CARBONE subisce 1 danno da LO SGHERRO (Salute: 4/8).
+  LO SGHERRO raggiunge la tessera del gruppo, da A4.
+  LO SGHERRO attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] LO SGHERRO -> FULGENZIO CARBONE: 2d6(2,4)=6 +Attacco(2) = 8 vs Difesa(8) -> COLPITO
+    FULGENZIO CARBONE subisce 1 danno da LO SGHERRO (Salute: 3/8).
+  LO SGHERRO si muove verso OTTAVIO BRERA: C4 -> C2.
+  LO SGHERRO attacca OTTAVIO BRERA:
+    [ATTACCO NEMICO] LO SGHERRO -> OTTAVIO BRERA: 2d6(5,5)=10 +Attacco(2) = 12 vs Difesa(8) -> COLPITO
+    OTTAVIO BRERA subisce 1 danno da LO SGHERRO (Salute: 5/8).
+  IL MASTINO si avvicina, non ancora a contatto.
+--- Round 9: ancora a T5 (L’Ufficio del Pesatore) (la cassa resiste) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    [PROVA ACUME] FULGENZIO CARBONE: 2d6(5,5)=10 +ACUME(2) = 12 vs Media(9) -> SUCCESSO
+    [AZIONE] FULGENZIO CARBONE sequestra la cassa d’oro di T5 (4/4).
+    [ATTACCO] OTTAVIO BRERA -> LO SGHERRO: 2d6(3,6)=9 +VIGORE(1)+arma(1) = 11 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> LO SGHERRO: 2d6(4,5)=9 +VIGORE(3)+arma(1) = 13 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    PADRE CELSO MARANI si muove verso LO SGHERRO: B1 -> A1.
+    [ATTACCO] PADRE CELSO MARANI -> LO SGHERRO: 2d6(2,6)=8 +VIGORE(1)+arma(1) = 10 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+  [MINACCIA] I NUOVI ASSUNTI (malavita) — Piazzate 1 Sgherro sull’ingresso del Molo (T1).
+    Piazzati 1x LO SGHERRO (pool residua: 0), a 6 caselle dalla tessera del gruppo.
+  [MINACCIA] IL TURNO DI GUARDIA (quiete) — Nessun effetto (tensione).
+    (carta senza effetto modellato in questa simulazione)
+  LO SGHERRO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] LO SGHERRO -> OTTONE “MEZZENA” MASSARI: 2d6(4,2)=6 +Attacco(2) = 8 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 1 danno da LO SGHERRO (Salute: 3/10).
+  LO SGHERRO attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] LO SGHERRO -> FULGENZIO CARBONE: 2d6(6,1)=7 +Attacco(2) = 9 vs Difesa(8) -> COLPITO
+    FULGENZIO CARBONE subisce 1 danno da LO SGHERRO (Salute: 2/8).
+  IL MASTINO si avvicina, non ancora a contatto.
+  LO SGHERRO attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] LO SGHERRO -> PADRE CELSO MARANI: 2d6(2,3)=5 +Attacco(2) = 7 vs Difesa(8) -> MANCATO
+  LO SGHERRO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+--- Round 10: il gruppo raggiunge T4 (Crogiolo - ritorno dal ramo) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    Il gruppo entra in T4 da D3.
+    FULGENZIO CARBONE si muove verso LO SGHERRO: D3 -> B4.
+    [ATTACCO] FULGENZIO CARBONE -> LO SGHERRO: 2d6(3,5)=8 +VIGORE(1)+arma(1) = 10 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+    OTTAVIO BRERA si muove verso LO SGHERRO: D3 -> B2.
+    [ATTACCO] OTTAVIO BRERA -> LO SGHERRO: 2d6(6,4)=10 +VIGORE(1)+arma(1) = 12 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+    OTTONE “MEZZENA” MASSARI si muove verso IL MASTINO: D3 -> C1.
+    OTTONE “MEZZENA” MASSARI si avvicina a IL MASTINO, non ancora a contatto.
+    [PROVA ACUME] PADRE CELSO MARANI: 2d6(1,6)=7 +ACUME(2) = 9 vs Media(9) -> SUCCESSO
+    PADRE CELSO MARANI cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+  [MINACCIA] UN FISCHIO SULL’ACQUA (crescendo) — Aggiungete 1 segnalino Canto (la Voce che gira).
+    Segnalino Canto (la Voce che gira): 2.
+    Il Mastino si attiva subito (la Voce lo aizza):
+  IL MASTINO si muove verso OTTONE “MEZZENA” MASSARI: A3 -> B1.
+  IL MASTINO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] IL MASTINO -> OTTONE “MEZZENA” MASSARI: 2d6(4,2)=6 +Attacco(2) = 8 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 2 danno da IL MASTINO (Salute: 1/10).
+  [MINACCIA] GLI UOMINI DEI CLAN (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 1) in D3.
+  LO SGHERRO attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] LO SGHERRO -> FULGENZIO CARBONE: 2d6(4,3)=7 +Attacco(2) = 9 vs Difesa(8) -> COLPITO
+    FULGENZIO CARBONE subisce 1 danno da LO SGHERRO (Salute: 1/8).
+  LO SGHERRO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si muove verso OTTONE “MEZZENA” MASSARI: D3 -> D1.
+  LO SGHERRO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] LO SGHERRO -> OTTONE “MEZZENA” MASSARI: 2d6(5,3)=8 +Attacco(2) = 10 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 1 danno da LO SGHERRO (Salute: 0/10).
+    *** OTTONE “MEZZENA” MASSARI è A TERRA. ***
+--- Round 11: il gruppo attraversa T4 verso T6 ---
+    (azioni nominali questo round: 6 — 3 eroi vivi)
+    FULGENZIO CARBONE si muove verso LO SGHERRO: B4 -> A3.
+    [ATTACCO] FULGENZIO CARBONE -> LO SGHERRO: 2d6(3,5)=8 +VIGORE(1)+arma(1) = 10 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    OTTAVIO BRERA si muove verso IL MASTINO: B2 -> A1.
+    [ATTACCO] OTTAVIO BRERA -> IL MASTINO: 2d6(5,3)=8 +VIGORE(1)+arma(1) = 10 vs Difesa(6) -> COLPITO
+    IL MASTINO: 1/2 ferite residue.
+    PADRE CELSO MARANI si muove verso LO SGHERRO: D3 -> D2.
+    [ATTACCO] PADRE CELSO MARANI -> LO SGHERRO: 2d6(1,2)=3 +VIGORE(1)+arma(1) = 5 vs Difesa(8) -> MANCATO
+  [MINACCIA] IL GIRO DI RONDA (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 0) in D3.
+  LO SGHERRO si muove verso PADRE CELSO MARANI: A4 -> C2.
+  LO SGHERRO attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] LO SGHERRO -> PADRE CELSO MARANI: 2d6(5,5)=10 +Attacco(2) = 12 vs Difesa(8) -> COLPITO
+    PADRE CELSO MARANI subisce 1 danno da LO SGHERRO (Salute: 4/8).
+  IL MASTINO si muove verso OTTAVIO BRERA: B1 -> A2.
+  IL MASTINO attacca OTTAVIO BRERA:
+    [ATTACCO NEMICO] IL MASTINO -> OTTAVIO BRERA: 2d6(3,6)=9 +Attacco(2) = 11 vs Difesa(8) -> COLPITO
+    OTTAVIO BRERA subisce 2 danno da IL MASTINO (Salute: 3/8).
+  LO SGHERRO si avvicina (Movimento 4): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] LO SGHERRO -> PADRE CELSO MARANI: 2d6(4,1)=5 +Attacco(2) = 7 vs Difesa(8) -> MANCATO
+  LO SGHERRO attacca PADRE CELSO MARANI:
+    [ATTACCO NEMICO] LO SGHERRO -> PADRE CELSO MARANI: 2d6(1,6)=7 +Attacco(2) = 9 vs Difesa(8) -> COLPITO
+    PADRE CELSO MARANI subisce 1 danno da LO SGHERRO (Salute: 3/8).
+--- Round 12: il gruppo raggiunge T6 (La Porta d’Acqua) ---
+    (azioni nominali questo round: 6 — 3 eroi vivi)
+    Il gruppo entra in T6 da B1.
+    FULGENZIO CARBONE si muove verso LO SGHERRO: B1 -> B2.
+    [ATTACCO] FULGENZIO CARBONE -> LO SGHERRO: 2d6(6,1)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+    OTTAVIO BRERA si muove verso IL MASTINO: B1 -> A1.
+    [ATTACCO] OTTAVIO BRERA -> IL MASTINO: 2d6(3,3)=6 +VIGORE(1)+arma(1) = 8 vs Difesa(6) -> COLPITO
+    IL MASTINO: 0/2 ferite residue.
+    IL MASTINO è ABBATTUTO.
+    [AZIONE] PADRE CELSO MARANI rianima OTTONE “MEZZENA” MASSARI: torna in piedi con 2 Salute.
+    Mazzo Minaccia esaurito: si rimescolano gli scarti.
+  [MINACCIA] UN FISCHIO SULL’ACQUA (crescendo) — Aggiungete 1 segnalino Canto (la Voce che gira).
+    Segnalino Canto (la Voce che gira): 3.
+    La Voce raggiunge 3: i clan sono in strada — da ora ogni Fase Minaccia pesca 1 carta in più (fino a fine spedizione).
+  [MINACCIA] LE CASSE ROVESCIATE (ostacolo) — Muoversi costa il doppio sulla tessera dell’eroe attivo fino a fine round.
+    (carta senza effetto modellato in questa simulazione)
+  LO SGHERRO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] LO SGHERRO -> OTTONE “MEZZENA” MASSARI: 2d6(2,3)=5 +Attacco(2) = 7 vs Difesa(8) -> MANCATO
+  LO SGHERRO si muove verso FULGENZIO CARBONE: D3 -> C2.
+  LO SGHERRO attacca FULGENZIO CARBONE:
+    [ATTACCO NEMICO] LO SGHERRO -> FULGENZIO CARBONE: 2d6(5,2)=7 +Attacco(2) = 9 vs Difesa(8) -> COLPITO
+    FULGENZIO CARBONE subisce 1 danno da LO SGHERRO (Salute: 0/8).
+    *** FULGENZIO CARBONE è A TERRA. ***
+--- Alla Porta d’Acqua (T6) con 4/4 casse ---
+
+==============================================================================
+ESITO SPEDIZIONE: VITTORIA
+Round totali: 12
+Formula Minaccia: finale_v3 | Azioni nominali/round: media 7.7, picco 8
+Mazzo Minaccia rimescolato: 1 volta/e
+Segnalini nemici esauriti nel pool (piazzamenti saltati): 2
+Casse sequestrate: 4/4 | Cambiavalute: abbattuto
+  FULGENZIO CARBONE: a terra
+  OTTAVIO BRERA: 3/8 Salute
+  OTTONE “MEZZENA” MASSARI: 2/10 Salute
+  PADRE CELSO MARANI: 3/8 Salute
+==============================================================================

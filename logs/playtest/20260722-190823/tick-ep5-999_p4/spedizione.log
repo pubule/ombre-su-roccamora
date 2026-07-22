@@ -1,0 +1,425 @@
+Run: tick-ep5-999_p4_seed0  |  seed=971400  |  formula Minaccia=finale_v3  |  generato: 2026-07-22T19:08:26
+==============================================================================
+SPEDIZIONE - La cripta dei Battuti
+==============================================================================
+Party: CARLA DOSTI, OTTAVIO BRERA, OTTONE “MEZZENA” MASSARI, SIBILLA REVE
+Bonus da Indagine: nessun vantaggio; Acqua del Fonte: sì; Candele: sì; D1: esatta; D3: esatta
+NOTA: gruppo trattato come blocco unico tessera per tessera (vedi intestazione script).
+Tensione tavolo piccolo: +-1 Ferite SOLO al Salmodiante (non ai nemici di truppa).
+
+Tavolo da 4: +1 Salute massima a testa (ricalibrazione).
+Gettone Intuizione in mano (Dossier completo): un ri-tiro, una volta in Spedizione.
+--- Round 1: il gruppo raggiunge T2 (Navata Sepolta) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    Il gruppo entra in T2 da B1.
+    [PROVA ACUME] CARLA DOSTI: 2d6(6,4)=10 +ACUME(3) = 13 vs Media(9) -> SUCCESSO
+    CARLA DOSTI cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    OTTAVIO BRERA: nessun bersaglio, avanza / assiste il gruppo.
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] IL CAPITOLO SI ALZA (posseduto) — Piazzate 1 Confratello. Se è già in gioco un Confratello, si attiva subito.
+    Piazzati 1x IL CONFRATELLO (pool residua: 3) in B1.
+  [MINACCIA] IL PASSO DI CERA (posseduto) — Piazzate 1 Confratello sull’uscita più vicina agli eroi.
+    Piazzati 1x IL CONFRATELLO (pool residua: 2) in B1.
+  IL CONFRATELLO si muove verso OTTAVIO BRERA: B1 -> C1.
+  IL CONFRATELLO attacca OTTAVIO BRERA:
+    [ATTACCO NEMICO] IL CONFRATELLO -> OTTAVIO BRERA: 2d6(1,4)=5 +Attacco(1) = 6 vs Difesa(8) -> MANCATO
+  IL CONFRATELLO si muove verso SIBILLA REVE: B1 -> A1.
+  IL CONFRATELLO attacca SIBILLA REVE:
+    [ATTACCO NEMICO] IL CONFRATELLO -> SIBILLA REVE: 2d6(4,6)=10 +Attacco(1) = 11 vs Difesa(8) -> COLPITO
+    SIBILLA REVE subisce 1 danno da IL CONFRATELLO (Salute: 6/7).
+--- Round 2: il gruppo attraversa T2 verso T3 ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    [ATTACCO] CARLA DOSTI -> IL CONFRATELLO: 2d6(5,3)=8 +VIGORE(1)+arma(1) = 10 vs Difesa(7) -> COLPITO
+    IL CONFRATELLO: 0/1 ferite residue.
+    IL CONFRATELLO è ABBATTUTO.
+    [ABILITÀ] OTTAVIO BRERA usa Vi conosco, Malacarne su IL CONFRATELLO: rimosso dal tabellone.
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] PASSI SULLA SCALA (posseduto) — Piazzate 1 Adepto sull’ingresso della Scala del Sagrato (T1).
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 3), a 6 caselle dalla tessera del gruppo.
+  [MINACCIA] LA CALATA DELLE CASSE (posseduto) — Piazzate 1 Adepto sull’ingresso dell’Officina (T5).
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 2), a 6 caselle dalla tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+--- Round 3: il gruppo raggiunge T3 (Corridoio degli Ossari) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    Il gruppo entra in T3 da B1.
+    [HOOK INDAGINE] La salmodia sotto: tacendo e in fretta — prova declassata a Media.
+    [OGGETTO] Le Candele della Parrocchia: +1 alla prova.
+    [PROVA NERVI] CARLA DOSTI: 2d6(6,4)=10 +NERVI(2) +candele(+1) = 13 vs Media(9) -> SUCCESSO
+    [PROVA NERVI] OTTAVIO BRERA: 2d6(6,3)=9 +NERVI(2) +candele(+1) = 12 vs Media(9) -> SUCCESSO
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6(6,4)=10 +NERVI(2) +candele(+1) = 13 vs Media(9) -> SUCCESSO
+    [PROVA NERVI] SIBILLA REVE: 2d6(3,4)=7 +NERVI(3) +candele(+1) = 11 vs Media(9) -> SUCCESSO
+    [PROVA ACUME] CARLA DOSTI: 2d6(2,5)=7 +ACUME(3) = 10 vs Media(9) -> SUCCESSO
+    CARLA DOSTI cerca sulla tessera e trova qualcosa (oggetto non modellato in questa simulazione).
+    OTTAVIO BRERA: nessun bersaglio, avanza / assiste il gruppo.
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] LA SALMODIA NELLE OSSA (insidia) — Ogni eroe prova NERVI (Facile): chi fallisce ha 1 sola azione al prossimo turno.
+    [PROVA NERVI] CARLA DOSTI: 2d6(4,3)=7 +NERVI(2) = 9 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] OTTAVIO BRERA: 2d6(1,5)=6 +NERVI(2) = 8 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6(2,3)=5 +NERVI(2) = 7 vs Facile(7) -> SUCCESSO
+    [PROVA NERVI] SIBILLA REVE: 2d6(3,6)=9 +NERVI(3) = 12 vs Facile(7) -> SUCCESSO
+  [MINACCIA] LA NOTA BASSA (insidia) — L’eroe con meno NERVI prova NERVI (Media): se fallisce 1 danno.
+    [PROVA NERVI] CARLA DOSTI: 2d6(4,1)=5 +NERVI(2) = 7 vs Media(9) -> FALLITA
+    CARLA DOSTI subisce 1 danno da LA NOTA BASSA (Salute: 6/7).
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+--- Round 4: il gruppo attraversa T3 verso T4 ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    CARLA DOSTI: nessun bersaglio, avanza / assiste il gruppo.
+    OTTAVIO BRERA: nessun bersaglio, avanza / assiste il gruppo.
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] UNO SPIFFERO DI SAGRATO (favore) — Rivelate una tessera coperta adiacente.
+    (carta senza effetto modellato in questa simulazione)
+  [MINACCIA] LA SALMODIA TACE (quiete) — Nessun effetto (tensione).
+    (carta senza effetto modellato in questa simulazione)
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+--- Round 5: il gruppo raggiunge T4 (Sala del Capitolo) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    Il gruppo entra in T4 da B1.
+    QUANDO RIVELATE: 1 Adepto sta calando dalla corda della Confluenza.
+    QUANDO RIVELATE: 1 Confratello di guardia appare tra i sedili del capitolo.
+    [ATTACCO] CARLA DOSTI -> IL CONFRATELLO: 2d6(2,5)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(7) -> COLPITO
+    IL CONFRATELLO: 0/1 ferite residue.
+    IL CONFRATELLO è ABBATTUTO.
+    OTTAVIO BRERA si muove verso ADEPTO INCAPPUCCIATO: B1 -> D2.
+    [ATTACCO] OTTAVIO BRERA -> ADEPTO INCAPPUCCIATO: 2d6(1,1)=2 +VIGORE(1)+arma(1) = 4 vs Difesa(7) -> MANCATO
+    OTTONE “MEZZENA” MASSARI si muove verso ADEPTO INCAPPUCCIATO: B1 -> A3.
+    OTTONE “MEZZENA” MASSARI si avvicina a ADEPTO INCAPPUCCIATO, non ancora a contatto.
+    [PROVA ACUME] SIBILLA REVE: 2d6(1,5)=6 +ACUME(2) = 8 vs Media(9) -> FALLITA
+    SIBILLA REVE cerca sulla tessera: niente da trovare qui, o prova fallita.
+    [ABILITÀ] SIBILLA REVE scruta il mazzo: «IL SORVEGLIANTE DEL SAGRATO» finisce in fondo, «I CARRETTIERI» torna in cima (2 usi residui).
+  [MINACCIA] I CARRETTIERI (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 1) in B1.
+  [MINACCIA] IL BUIO DELLE NICCHIE (insidia) — L’eroe più avanzato prova NERVI (Media): se fallisce, 1 danno.
+    [PROVA NERVI] CARLA DOSTI: 2d6(4,5)=9 +NERVI(2) = 11 vs Media(9) -> SUCCESSO
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO attacca OTTAVIO BRERA:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> OTTAVIO BRERA: 2d6(6,5)=11 +Attacco(1) = 12 vs Difesa(8) -> COLPITO
+    OTTAVIO BRERA subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 6/7).
+  LO SGHERRO si muove verso OTTAVIO BRERA: B1 -> C2.
+  LO SGHERRO attacca OTTAVIO BRERA:
+    [ATTACCO NEMICO] LO SGHERRO -> OTTAVIO BRERA: 2d6(6,1)=7 +Attacco(2) = 9 vs Difesa(8) -> COLPITO
+    OTTAVIO BRERA subisce 1 danno da LO SGHERRO (Salute: 5/7).
+--- Round 6: il gruppo attraversa T4 verso T5 ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    CARLA DOSTI si muove verso LO SGHERRO: B1 -> C1.
+    [ATTACCO] CARLA DOSTI -> LO SGHERRO: 2d6(6,3)=9 +VIGORE(1)+arma(1) = 11 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+    [ATTACCO] OTTAVIO BRERA -> ADEPTO INCAPPUCCIATO: 2d6(5,2)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+    [ABILITÀ] SIBILLA REVE scruta il mazzo: «IL REGISTRO PIENO» finisce in fondo, «L’ACCORDATURA» torna in cima (1 usi residui).
+  [MINACCIA] L’ACCORDATURA (crescendo) — Aggiungete 1 segnalino Canto. Alla soglia: il Salmodiante si desta.
+    Segnalino Canto: 1.
+  [MINACCIA] I MANOVALI DEL CANTIERE (posseduto) — Piazzate 1 Adepto sull’ingresso della Scala del Sagrato (T1).
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 1), a 6 caselle dalla tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 1 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 1 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO attacca CARLA DOSTI:
+    [ATTACCO NEMICO] LO SGHERRO -> CARLA DOSTI: 2d6(4,4)=8 +Attacco(2) = 10 vs Difesa(8) -> COLPITO
+    CARLA DOSTI subisce 1 danno da LO SGHERRO (Salute: 5/7).
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+--- Round 7: il gruppo raggiunge T5 (Officina delle Canne d’Ossa) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    Il gruppo entra in T5 da A3.
+    QUANDO RIVELATE: l’officina delle canne — le casse contro il muro.
+    Le casse di ossa contro il muro: Interagire per salvarle (contano nell’epilogo, non simulate).
+    CARLA DOSTI si muove verso LO SGHERRO: A3 -> B2.
+    [ATTACCO] CARLA DOSTI -> LO SGHERRO: 2d6(4,3)=7 +VIGORE(1)+arma(1) = 9 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 0/2 ferite residue.
+    LO SGHERRO è ABBATTUTO.
+    [PROVA ACUME] OTTAVIO BRERA: 2d6(1,2)=3 +ACUME(3) = 6 vs Media(9) -> FALLITA
+    OTTAVIO BRERA cerca sulla tessera: niente da trovare qui, o prova fallita.
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] LA PROCESSIONE (posseduto) — Piazzate 1 Confratello sull’uscita più vicina agli eroi.
+    Piazzati 1x IL CONFRATELLO (pool residua: 2) in A3.
+  [MINACCIA] IL CARRO VUOTO (malavita) — Piazzate 1 Sgherro sull’uscita più vicina agli eroi.
+    Piazzati 1x LO SGHERRO (pool residua: 1) in A3.
+  ADEPTO INCAPPUCCIATO raggiunge la tessera del gruppo, da B3.
+  ADEPTO INCAPPUCCIATO si muove verso OTTAVIO BRERA: B3 -> B1.
+  ADEPTO INCAPPUCCIATO attacca CARLA DOSTI:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> CARLA DOSTI: 2d6(1,2)=3 +Attacco(1) = 4 vs Difesa(8) -> MANCATO
+  ADEPTO INCAPPUCCIATO raggiunge la tessera del gruppo, da B3.
+  ADEPTO INCAPPUCCIATO attacca SIBILLA REVE:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> SIBILLA REVE: 2d6(1,2)=3 +Attacco(1) = 4 vs Difesa(8) -> MANCATO
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  IL CONFRATELLO si muove verso SIBILLA REVE: A3 -> A4.
+  IL CONFRATELLO attacca SIBILLA REVE:
+    [ATTACCO NEMICO] IL CONFRATELLO -> SIBILLA REVE: 2d6(3,4)=7 +Attacco(1) = 8 vs Difesa(8) -> COLPITO
+    SIBILLA REVE subisce 1 danno da IL CONFRATELLO (Salute: 5/7).
+  LO SGHERRO si muove verso OTTONE “MEZZENA” MASSARI: A3 -> A2.
+  LO SGHERRO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] LO SGHERRO -> OTTONE “MEZZENA” MASSARI: 2d6(2,2)=4 +Attacco(2) = 6 vs Difesa(8) -> MANCATO
+--- Round 8: il gruppo raggiunge T4 (Sala del Capitolo - ritorno dal ramo) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    Il gruppo entra in T4 da D3.
+    CARLA DOSTI si muove verso ADEPTO INCAPPUCCIATO: D3 -> C1.
+    [ATTACCO] CARLA DOSTI -> ADEPTO INCAPPUCCIATO: 2d6(4,4)=8 +VIGORE(1)+arma(1) = 10 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    OTTAVIO BRERA si muove verso ADEPTO INCAPPUCCIATO: D3 -> B4.
+    [ATTACCO] OTTAVIO BRERA -> ADEPTO INCAPPUCCIATO: 2d6(3,3)=6 +VIGORE(1)+arma(1) = 8 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    [PROVA ACUME] OTTONE “MEZZENA” MASSARI: 2d6(2,3)=5 +ACUME(1) = 6 vs Media(9) -> FALLITA
+    OTTONE “MEZZENA” MASSARI cerca sulla tessera: niente da trovare qui, o prova fallita.
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+  [MINACCIA] LE IMPALCATURE (ostacolo) — Muoversi costa il doppio sulla tessera dell’eroe attivo fino a fine round.
+    (carta senza effetto modellato in questa simulazione)
+  [MINACCIA] LA POLVERE DI CRIPTA (insidia) — L’eroe attivo prova NERVI (Media): se fallisce, 1 danno e perde 1 azione.
+    [PROVA NERVI] CARLA DOSTI: 2d6(2,1)=3 +NERVI(2) = 5 vs Media(9) -> FALLITA
+    CARLA DOSTI subisce 1 danno da LA POLVERE DI CRIPTA (Salute: 4/7).
+    CARLA DOSTI avrà 1 sola azione al suo prossimo turno.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+  IL CONFRATELLO attacca OTTAVIO BRERA:
+    [ATTACCO NEMICO] IL CONFRATELLO -> OTTAVIO BRERA: 2d6(4,6)=10 +Attacco(1) = 11 vs Difesa(8) -> COLPITO
+    OTTAVIO BRERA subisce 1 danno da IL CONFRATELLO (Salute: 4/7).
+  LO SGHERRO si muove verso OTTAVIO BRERA: A2 -> B3.
+  LO SGHERRO attacca OTTAVIO BRERA:
+    [ATTACCO NEMICO] LO SGHERRO -> OTTAVIO BRERA: 2d6(4,6)=10 +Attacco(2) = 12 vs Difesa(8) -> COLPITO
+    OTTAVIO BRERA subisce 1 danno da LO SGHERRO (Salute: 3/7).
+--- Round 9: il gruppo attraversa T4 verso T6 ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    CARLA DOSTI ha 1 sola azione questo turno (insidia del round scorso).
+    CARLA DOSTI si muove verso IL CONFRATELLO: C1 -> A2.
+    CARLA DOSTI (1 sola azione) si limita ad avvicinarsi a IL CONFRATELLO.
+    [ATTACCO] OTTAVIO BRERA -> IL CONFRATELLO: 2d6(5,6)=11 +VIGORE(1)+arma(1) = 13 vs Difesa(7) -> COLPITO
+    IL CONFRATELLO: 0/1 ferite residue.
+    IL CONFRATELLO è ABBATTUTO.
+    OTTONE “MEZZENA” MASSARI: nessun bersaglio, avanza / assiste il gruppo.
+    SIBILLA REVE: nessun bersaglio, avanza / assiste il gruppo.
+    [ABILITÀ] SIBILLA REVE scruta il mazzo: «LA PRIMA CANNA» finisce in fondo, «LA BOTOLA SI APRE» torna in cima (0 usi residui).
+  [MINACCIA] LA BOTOLA SI APRE (posseduto) — Piazzate 1 Adepto sull’ingresso della Scala del Sagrato (T1).
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 2), a 6 caselle dalla tessera del gruppo.
+  [MINACCIA] IL TURNO DI NOTTE (posseduto) — Piazzate 1 Adepto sull’ingresso della Scala del Sagrato (T1).
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 1), a 6 caselle dalla tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 2 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO si muove verso CARLA DOSTI: B3 -> A3.
+  LO SGHERRO attacca CARLA DOSTI:
+    [ATTACCO NEMICO] LO SGHERRO -> CARLA DOSTI: 2d6(3,6)=9 +Attacco(2) = 11 vs Difesa(8) -> COLPITO
+    CARLA DOSTI subisce 1 danno da LO SGHERRO (Salute: 3/7).
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+--- Round 10: il gruppo raggiunge T6 (L’Organo Murato) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    Il gruppo entra in T6 da B1.
+    Rivelato l’Organo Murato: il Salmodiante con la scorta di Confratelli, in C2 — il Maestro dei Registri fugge dalla condotta.
+    [OGGETTO] CARLA DOSTI versa L’ACQUA DEL FONTE davanti al Salmodiante: l’unica voce più vecchia della sua — Difesa 8->5, salta la prossima attivazione.
+    OTTAVIO BRERA si muove verso IL SALMODIANTE: B1 -> B2.
+    [ATTACCO] OTTAVIO BRERA -> IL SALMODIANTE: 2d6(3,3)=6 +VIGORE(1)+arma(1) = 8 vs Difesa(5) -> COLPITO
+    IL SALMODIANTE: 2/3 ferite residue.
+    OTTONE “MEZZENA” MASSARI si muove verso IL SALMODIANTE: B1 -> C1.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> IL SALMODIANTE: 2d6(5,4)=9 +VIGORE(3)+arma(1) = 13 vs Difesa(5) -> COLPITO
+    IL SALMODIANTE: 1/3 ferite residue.
+    SIBILLA REVE si muove verso LO SGHERRO: B1 -> A2.
+    [ATTACCO] SIBILLA REVE -> LO SGHERRO: 2d6(5,3)=8 +VIGORE(1)+arma(1) = 10 vs Difesa(8) -> COLPITO
+    LO SGHERRO: 1/2 ferite residue.
+  [MINACCIA] IL SORVEGLIANTE DEL SAGRATO (malavita) — Piazzate 1 Sicario: si attiva subito.
+    Piazzati 1x IL SICARIO (pool residua: 0) in A1.
+    IL SICARIO si attiva subito:
+  IL SICARIO attacca CARLA DOSTI:
+    [ATTACCO NEMICO] IL SICARIO -> CARLA DOSTI: 2d6(3,3)=6 +Attacco(3) = 9 vs Difesa(8) -> COLPITO
+    CARLA DOSTI subisce 2 danno da IL SICARIO (Salute: 1/7).
+  [MINACCIA] IL REGISTRO PIENO (crescendo) — Aggiungete 1 segnalino Canto. Alla soglia: il Salmodiante si desta.
+    Segnalino Canto: 2.
+    Il Salmodiante recupera 1 ferita (2/3) e si attiva subito.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 1 caselle prima di raggiungere la tessera del gruppo.
+  LO SGHERRO attacca SIBILLA REVE:
+    [ATTACCO NEMICO] LO SGHERRO -> SIBILLA REVE: 2d6(6,4)=10 +Attacco(2) = 12 vs Difesa(8) -> COLPITO
+    SIBILLA REVE subisce 1 danno da LO SGHERRO (Salute: 4/7).
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+  IL CONFRATELLO si muove verso OTTAVIO BRERA: D2 -> D4.
+  IL CONFRATELLO si avvicina, non ancora a contatto.
+  IL SALMODIANTE attacca OTTAVIO BRERA:
+    [ATTACCO NEMICO] IL SALMODIANTE -> OTTAVIO BRERA: 2d6(1,2)=3 +Attacco(3) = 6 vs Difesa(8) -> MANCATO
+--- Combattimento contro il Salmodiante ---
+--- Round 11: scontro all’Organo Murato ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+    [ABILITÀ] CARLA DOSTI usa Flash! su IL SALMODIANTE: accecato, salta la sua prossima attivazione (1 usi residui).
+    [ATTACCO] OTTAVIO BRERA -> IL SALMODIANTE: 2d6(3,5)=8 +VIGORE(1)+arma(1) = 10 vs Difesa(5) -> COLPITO
+    IL SALMODIANTE: 1/3 ferite residue.
+    OTTONE “MEZZENA” MASSARI si muove verso IL SALMODIANTE: C1 -> D2.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> IL SALMODIANTE: 2d6(2,4)=6 +VIGORE(3)+arma(1) = 10 vs Difesa(5) -> COLPITO
+    IL SALMODIANTE: 0/3 ferite residue.
+    IL SALMODIANTE è ABBATTUTO.
+    *** IL SALMODIANTE È SCONFITTO. ***
+    [ATTACCO] SIBILLA REVE -> LO SGHERRO: 2d6(1,2)=3 +VIGORE(1)+arma(1) = 5 vs Difesa(8) -> MANCATO
+  [MINACCIA] LA PRIMA CANNA (crescendo) — Aggiungete 1 segnalino Canto. Alla soglia: il Salmodiante si desta.
+    Segnalino Canto: 3.
+    Il Canto raggiunge 3: da ora ogni Fase Minaccia pesca 1 carta in più (fino a fine spedizione, anche se il Custode è già stato abbattuto).
+    Il Salmodiante è già stato sconfitto: nessun effetto su di lui.
+    Mazzo Minaccia esaurito: si rimescolano gli scarti.
+  [MINACCIA] LA PROCESSIONE (posseduto) — Piazzate 1 Confratello sull’uscita più vicina agli eroi.
+    Piazzati 1x IL CONFRATELLO (pool residua: 1) in B1.
+  ADEPTO INCAPPUCCIATO raggiunge la tessera del gruppo, da C1.
+  ADEPTO INCAPPUCCIATO attacca CARLA DOSTI:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> CARLA DOSTI: 2d6(2,2)=4 +Attacco(1) = 5 vs Difesa(8) -> MANCATO
+  LO SGHERRO attacca SIBILLA REVE:
+    [ATTACCO NEMICO] LO SGHERRO -> SIBILLA REVE: 2d6(4,6)=10 +Attacco(2) = 12 vs Difesa(8) -> COLPITO
+    SIBILLA REVE subisce 1 danno da LO SGHERRO (Salute: 3/7).
+  ADEPTO INCAPPUCCIATO raggiunge la tessera del gruppo, da D1.
+  ADEPTO INCAPPUCCIATO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> OTTONE “MEZZENA” MASSARI: 2d6(5,2)=7 +Attacco(1) = 8 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 8/9).
+  ADEPTO INCAPPUCCIATO raggiunge la tessera del gruppo, da C2.
+  ADEPTO INCAPPUCCIATO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> OTTONE “MEZZENA” MASSARI: 2d6(4,6)=10 +Attacco(1) = 11 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 7/9).
+  IL CONFRATELLO si muove verso OTTONE “MEZZENA” MASSARI: D4 -> D3.
+  IL CONFRATELLO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] IL CONFRATELLO -> OTTONE “MEZZENA” MASSARI: 2d6(6,1)=7 +Attacco(1) = 8 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 1 danno da IL CONFRATELLO (Salute: 6/9).
+  IL SICARIO attacca CARLA DOSTI:
+    [ATTACCO NEMICO] IL SICARIO -> CARLA DOSTI: 2d6(6,3)=9 +Attacco(3) = 12 vs Difesa(8) -> COLPITO
+    CARLA DOSTI subisce 2 danno da IL SICARIO (Salute: 0/7).
+    [INTUIZIONE] Il gruppo spende il gettone Dossier: CARLA DOSTI resta in piedi a 1 Salute invece di cadere.
+  IL CONFRATELLO attacca OTTAVIO BRERA:
+    [ATTACCO NEMICO] IL CONFRATELLO -> OTTAVIO BRERA: 2d6(6,2)=8 +Attacco(1) = 9 vs Difesa(8) -> COLPITO
+    OTTAVIO BRERA subisce 1 danno da IL CONFRATELLO (Salute: 2/7).
+--- Round 12: sfregio finale dell’organo (3 canne restanti) ---
+    (azioni nominali questo round: 8 — 4 eroi vivi)
+  [MINACCIA] LA NOTA BASSA (insidia) — L’eroe con meno NERVI prova NERVI (Media): se fallisce 1 danno.
+    [PROVA NERVI] CARLA DOSTI: 2d6(2,5)=7 +NERVI(2) = 9 vs Media(9) -> SUCCESSO
+  [MINACCIA] IL PASSO DI CERA (posseduto) — Piazzate 1 Confratello sull’uscita più vicina agli eroi.
+    Piazzati 1x IL CONFRATELLO (pool residua: 0) in B1.
+  [MINACCIA] LE IMPALCATURE (ostacolo) — Muoversi costa il doppio sulla tessera dell’eroe attivo fino a fine round.
+    (carta senza effetto modellato in questa simulazione)
+  ADEPTO INCAPPUCCIATO attacca CARLA DOSTI:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> CARLA DOSTI: 2d6(4,2)=6 +Attacco(1) = 7 vs Difesa(8) -> MANCATO
+  LO SGHERRO attacca SIBILLA REVE:
+    [ATTACCO NEMICO] LO SGHERRO -> SIBILLA REVE: 2d6(6,4)=10 +Attacco(2) = 12 vs Difesa(8) -> COLPITO
+    SIBILLA REVE subisce 1 danno da LO SGHERRO (Salute: 2/7).
+  ADEPTO INCAPPUCCIATO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> OTTONE “MEZZENA” MASSARI: 2d6(5,5)=10 +Attacco(1) = 11 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 5/9).
+  ADEPTO INCAPPUCCIATO attacca OTTAVIO BRERA:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> OTTAVIO BRERA: 2d6(4,5)=9 +Attacco(1) = 10 vs Difesa(8) -> COLPITO
+    OTTAVIO BRERA subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 1/7).
+  IL CONFRATELLO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] IL CONFRATELLO -> OTTONE “MEZZENA” MASSARI: 2d6(5,2)=7 +Attacco(1) = 8 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 1 danno da IL CONFRATELLO (Salute: 4/9).
+  IL SICARIO attacca SIBILLA REVE:
+    [ATTACCO NEMICO] IL SICARIO -> SIBILLA REVE: 2d6(6,1)=7 +Attacco(3) = 10 vs Difesa(8) -> COLPITO
+    SIBILLA REVE subisce 2 danno da IL SICARIO (Salute: 0/7).
+    *** SIBILLA REVE è A TERRA. ***
+  IL CONFRATELLO attacca OTTAVIO BRERA:
+    [ATTACCO NEMICO] IL CONFRATELLO -> OTTAVIO BRERA: 2d6(5,4)=9 +Attacco(1) = 10 vs Difesa(8) -> COLPITO
+    OTTAVIO BRERA subisce 1 danno da IL CONFRATELLO (Salute: 0/7).
+    *** OTTAVIO BRERA è A TERRA. ***
+  IL CONFRATELLO si avvicina, non ancora a contatto.
+--- Ritorno a T1 (3 round di movimento, minacce ancora attive) ---
+--- Round 13: rientro verso T1 ---
+    (azioni nominali questo round: 4 — 2 eroi vivi)
+    [ABILITÀ] CARLA DOSTI usa Flash! su IL SICARIO: accecato, salta la sua prossima attivazione (0 usi residui).
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> ADEPTO INCAPPUCCIATO: 2d6(3,5)=8 +VIGORE(3)+arma(1) = 12 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    [ABILITÀ] OTTONE “MEZZENA” MASSARI usa Colpo da macello: attacco extra su ADEPTO INCAPPUCCIATO.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> ADEPTO INCAPPUCCIATO: 2d6(1,1)=2 +VIGORE(3)+arma(1) = 6 vs Difesa(7) -> MANCATO
+  [MINACCIA] LA BOTOLA SI APRE (posseduto) — Piazzate 1 Adepto sull’ingresso della Scala del Sagrato (T1).
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 1), a 6 caselle dalla tessera del gruppo.
+  [MINACCIA] IL REGISTRO PIENO (crescendo) — Aggiungete 1 segnalino Canto. Alla soglia: il Salmodiante si desta.
+    Segnalino Canto: 4.
+    Il Salmodiante è già stato sconfitto: nessun effetto su di lui.
+  ADEPTO INCAPPUCCIATO si muove verso OTTONE “MEZZENA” MASSARI: C1 -> D1.
+  ADEPTO INCAPPUCCIATO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> OTTONE “MEZZENA” MASSARI: 2d6(1,3)=4 +Attacco(1) = 5 vs Difesa(8) -> MANCATO
+  LO SGHERRO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> OTTONE “MEZZENA” MASSARI: 2d6(5,3)=8 +Attacco(1) = 9 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 1 danno da ADEPTO INCAPPUCCIATO (Salute: 3/9).
+  IL CONFRATELLO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] IL CONFRATELLO -> OTTONE “MEZZENA” MASSARI: 2d6(1,2)=3 +Attacco(1) = 4 vs Difesa(8) -> MANCATO
+  IL SICARIO salta l’attivazione (Flash! di Carla).
+  IL CONFRATELLO si muove verso CARLA DOSTI: B1 -> C1.
+  IL CONFRATELLO attacca CARLA DOSTI:
+    [ATTACCO NEMICO] IL CONFRATELLO -> CARLA DOSTI: 2d6(6,1)=7 +Attacco(1) = 8 vs Difesa(8) -> COLPITO
+    CARLA DOSTI subisce 1 danno da IL CONFRATELLO (Salute: 0/7).
+    *** CARLA DOSTI è A TERRA. ***
+  IL CONFRATELLO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+--- Round 14: rientro verso T1 ---
+    (azioni nominali questo round: 2 — 1 eroi vivi)
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> ADEPTO INCAPPUCCIATO: 2d6(2,3)=5 +VIGORE(3)+arma(1) = 9 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    [ABILITÀ] OTTONE “MEZZENA” MASSARI usa Colpo da macello: attacco extra su ADEPTO INCAPPUCCIATO.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> ADEPTO INCAPPUCCIATO: 2d6(1,1)=2 +VIGORE(3)+arma(1) = 6 vs Difesa(7) -> MANCATO
+  [MINACCIA] LA SALMODIA NELLE OSSA (insidia) — Ogni eroe prova NERVI (Facile): chi fallisce ha 1 sola azione al prossimo turno.
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6(3,5)=8 +NERVI(2) = 10 vs Facile(7) -> SUCCESSO
+  [MINACCIA] LA PRIMA CANNA (crescendo) — Aggiungete 1 segnalino Canto. Alla soglia: il Salmodiante si desta.
+    Segnalino Canto: 5.
+    Il Salmodiante è già stato sconfitto: nessun effetto su di lui.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] ADEPTO INCAPPUCCIATO -> OTTONE “MEZZENA” MASSARI: 2d6(2,4)=6 +Attacco(1) = 7 vs Difesa(8) -> MANCATO
+  IL CONFRATELLO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] IL CONFRATELLO -> OTTONE “MEZZENA” MASSARI: 2d6(4,5)=9 +Attacco(1) = 10 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 1 danno da IL CONFRATELLO (Salute: 2/9).
+  IL SICARIO si avvicina, non ancora a contatto.
+  IL CONFRATELLO si muove verso OTTONE “MEZZENA” MASSARI: C1 -> D1.
+  IL CONFRATELLO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] IL CONFRATELLO -> OTTONE “MEZZENA” MASSARI: 2d6(5,4)=9 +Attacco(1) = 10 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 1 danno da IL CONFRATELLO (Salute: 1/9).
+  IL CONFRATELLO si avvicina, non ancora a contatto.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 4 caselle prima di raggiungere la tessera del gruppo.
+--- Round 15: rientro verso T1 ---
+    (azioni nominali questo round: 2 — 1 eroi vivi)
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> ADEPTO INCAPPUCCIATO: 2d6(4,5)=9 +VIGORE(3)+arma(1) = 13 vs Difesa(7) -> COLPITO
+    ADEPTO INCAPPUCCIATO: 0/1 ferite residue.
+    ADEPTO INCAPPUCCIATO è ABBATTUTO.
+    [ABILITÀ] OTTONE “MEZZENA” MASSARI usa Colpo da macello: attacco extra su IL CONFRATELLO.
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> IL CONFRATELLO: 2d6(4,6)=10 +VIGORE(3)+arma(1) = 14 vs Difesa(7) -> COLPITO
+    IL CONFRATELLO: 0/1 ferite residue.
+    IL CONFRATELLO è ABBATTUTO.
+  [MINACCIA] UNO SPIFFERO DI SAGRATO (favore) — Rivelate una tessera coperta adiacente.
+    (carta senza effetto modellato in questa simulazione)
+  [MINACCIA] PASSI SULLA SCALA (posseduto) — Piazzate 1 Adepto sull’ingresso della Scala del Sagrato (T1).
+    Piazzati 1x ADEPTO INCAPPUCCIATO (pool residua: 2), a 6 caselle dalla tessera del gruppo.
+  LO SGHERRO si muove verso OTTONE “MEZZENA” MASSARI: A3 -> D4.
+  LO SGHERRO si avvicina, non ancora a contatto.
+  IL SICARIO si avvicina, non ancora a contatto.
+  IL CONFRATELLO si muove verso OTTONE “MEZZENA” MASSARI: D1 -> C2.
+  IL CONFRATELLO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] IL CONFRATELLO -> OTTONE “MEZZENA” MASSARI: 2d6(2,1)=3 +Attacco(1) = 4 vs Difesa(8) -> MANCATO
+  IL CONFRATELLO si muove verso OTTONE “MEZZENA” MASSARI: B1 -> D1.
+  IL CONFRATELLO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] IL CONFRATELLO -> OTTONE “MEZZENA” MASSARI: 2d6(1,3)=4 +Attacco(1) = 5 vs Difesa(8) -> MANCATO
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 3 caselle prima di raggiungere la tessera del gruppo.
+  ADEPTO INCAPPUCCIATO si avvicina (Movimento 4): ancora 5 caselle prima di raggiungere la tessera del gruppo.
+--- Round 16: rientro verso T1 ---
+    (azioni nominali questo round: 2 — 1 eroi vivi)
+    [ATTACCO] OTTONE “MEZZENA” MASSARI -> IL CONFRATELLO: 2d6(1,1)=2 +VIGORE(3)+arma(1) = 6 vs Difesa(7) -> MANCATO
+  [MINACCIA] IL BUIO DELLE NICCHIE (insidia) — L’eroe più avanzato prova NERVI (Media): se fallisce, 1 danno.
+    [PROVA NERVI] OTTONE “MEZZENA” MASSARI: 2d6(4,3)=7 +NERVI(2) = 9 vs Media(9) -> SUCCESSO
+  [MINACCIA] IL CAPITOLO SI ALZA (posseduto) — Piazzate 1 Confratello. Se è già in gioco un Confratello, si attiva subito.
+    Piazzati 1x IL CONFRATELLO (pool residua: 0) in B1.
+  LO SGHERRO si muove verso OTTONE “MEZZENA” MASSARI: D4 -> D3.
+  LO SGHERRO attacca OTTONE “MEZZENA” MASSARI:
+    [ATTACCO NEMICO] LO SGHERRO -> OTTONE “MEZZENA” MASSARI: 2d6(4,6)=10 +Attacco(2) = 12 vs Difesa(8) -> COLPITO
+    OTTONE “MEZZENA” MASSARI subisce 1 danno da LO SGHERRO (Salute: 0/9).
+    *** OTTONE “MEZZENA” MASSARI è A TERRA. ***
+
+==============================================================================
+ESITO SPEDIZIONE: SCONFITTA (party wipe durante il rientro)
+Round totali: 16
+Formula Minaccia: finale_v3 | Azioni nominali/round: media 6.6, picco 8
+Mazzo Minaccia rimescolato: 1 volta/e
+Segnalini nemici esauriti nel pool (piazzamenti saltati): 0
+Salmodiante svegliato: solo a T6 (mai in anticipo via Canto)
+  CARLA DOSTI: a terra
+  OTTAVIO BRERA: a terra
+  OTTONE “MEZZENA” MASSARI: a terra
+  SIBILLA REVE: a terra
+==============================================================================
+Canne dell’organo sfregiate: 3/3

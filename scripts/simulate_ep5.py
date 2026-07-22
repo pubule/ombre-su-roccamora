@@ -469,7 +469,10 @@ DOSSIER_ATTIVO = True
 # fedelta'). SOGLIA_CANTO = 3 e' la soglia di risveglio dell'Ep. 1
 # (stampata su carte crescendo/Regolamento/Aiuto: se la ricalibrazione la
 # cambia, vanno aggiornati anche i componenti).
-TICK_CANTO_OGNI = 4
+# Ep.5: il Canto batte ogni 6 round, non ogni 4 (dato: webapp/data/ep5.json
+# canto_ogni). E' una spedizione lunga e la clessidra comune la strangolava —
+# misurato a 4 eroi, stessi party e stessi seed: 9% -> 30% di vittorie.
+TICK_CANTO_OGNI = 6
 SOGLIA_CANTO = 3
 # +Salute massima a testa per taglia di party. DI PRODUZIONE: solo n=4
 # (67%->79% nella ricalibrazione; nullo a 8-10, dove il collo di bottiglia

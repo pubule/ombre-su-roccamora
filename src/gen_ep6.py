@@ -501,7 +501,7 @@ def spedizione():
     c.setFillColor(TEAL); c.setFont(F['i'], 12)
     c.drawCentredString(W/2, H - 40*mm, 'le tre acque, sotto la cattedrale — la notte del rito')
     wave(c, W/2 - 20*mm, H - 46*mm, 40*mm, OGOLD)
-    frame_flow(c, 28*mm, H - 112*mm, W - 56*mm, 60*mm, [
+    frame_flow(c, 28*mm, H - 134*mm, W - 56*mm, 82*mm, [
         Paragraph('FINALE D’ATTO: <b>8 tessere</b> invece di 6, e nessuno vi promette che '
                   'torniate tutti. Le 21 carte Minaccia (più «Le ossa chiamano» SOLO se il '
                   'vostro Bivio lo dice) e le schede Nemici sono in <b>Episodio 6/cards/</b>; '
@@ -510,7 +510,11 @@ def spedizione():
                   'ciascuno), poi leggete la Formula nella Camera (T8). Ogni movimento '
                   'spento toglie 1 Difesa a Ferri. Le pagine seguenti sono le note per '
                   'tessera, una per foglio: fronte ad alta voce alla rivelazione, retro solo '
-                  'per chi arbitra.', BODY)])
+                  'per chi arbitra.', BODY),
+        Paragraph('<b>L’orologio di questa spedizione:</b> il Canto sale da solo ogni '
+                  '<b>6° round</b> (6°, 12°...) e non ogni 4° — è la notte più lunga della '
+                  'campagna, e il Coro dei Dodici aggiunge già segnalini per conto suo. Le '
+                  'carte crescendo valgono come sempre.', BODY)])
     c.showPage()
     parchment_art(c, W, H)
     rule_border(c, W, H)
@@ -684,6 +688,8 @@ def soluzione():
         'movimento spento: Ferri -1 Difesa (9→8→7→6). La Mazzetta da campanaro (Cercare '
         'in T3): +1 a queste prove. A tutti e tre spenti, nella Camera: un’azione per '
         'leggere LA FORMULA — vittoria piena.',
+        '<b>Il Canto, qui, batte ogni 6° round</b> (6°, 12°...) e non ogni 4°: è la notte '
+        'più lunga della campagna, e il Coro dei Dodici aggiunge già segnalini per conto suo.',
         '<b>La marea (T2):</b> dal 6° round di partita, chi si trova in T2 prova NERVI '
         '(Media) a inizio round o ha 1 sola azione (l’acqua alla cintola).',
         '<b>Il Dormiente (ambiente, solo T8 rivelata):</b> al 4° segnalino Canto tutte le '
