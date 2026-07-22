@@ -1234,6 +1234,7 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
     # (bug preesistente, mai visibile prima perche' l'attacco "subito" non controllava la distanza).
     chiave = False
     tobia_libero = False
+    t6_rivelata = False
     tessere_cercate = set()  # luogo_label gia' perquisiti (Cercare, una volta a tessera)
     n_players_actions = len(party) * 2
 
@@ -1932,7 +1933,11 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
             log('    QUANDO RIVELATE: l’officina delle canne — le casse contro il muro.')
             log('    Le casse di ossa contro il muro: Interagire per salvarle (contano nell’epilogo, non simulate).')
             t5_rivelata = True
-        if tappa.startswith('T6') and custode is None:
+        # La stanza si rivela COMUNQUE, anche se il boss e' gia' desto per il
+        # Canto e vi ha seguiti: la vecchia guardia `custode is None` saltava
+        # tutto il blocco, e con esso il flag dell'obiettivo — partite con
+        # l'obiettivo COMPLETATO venivano chiuse come «mai raggiunto».
+        if tappa.startswith('T6') and not t6_rivelata:
             # Vicino all'altare, non sulla soglia: "un altare circondato da
             # candele nere" (testo del luogo) e' piu' fedele di piazzarlo
             # esattamente sulla porta - e lascia la cella d'ingresso libera
@@ -1941,9 +1946,10 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
             custode_spawn_pos = (2, 1) if (2, 1) not in _arredi('T6') else porta_attuale_pos
             log(f'    Rivelato l’Organo Murato: il Salmodiante con la scorta di Confratelli, '
                 f'in {chess(custode_spawn_pos)} — il Maestro dei Registri fugge dalla condotta.')
-            c_fer = CUSTODE['fer'] + fer_bonus + custode_extra_fer
-            custode = dict(CUSTODE, fer=c_fer, fer_max=c_fer, dan=CUSTODE['dan'] + dan_bonus,
-                            pos=custode_spawn_pos)
+            if custode is None:
+                c_fer = CUSTODE['fer'] + fer_bonus + custode_extra_fer
+                custode = dict(CUSTODE, fer=c_fer, fer_max=c_fer, dan=CUSTODE['dan'] + dan_bonus,
+                                pos=custode_spawn_pos)
             occupate_reveal = celle_occupate() | {custode_spawn_pos}
             for _ in range(-(-len(party) // 4)):  # 1 Confratello ogni 4 eroi, per eccesso (stampata su T6)
                 if pool['IL CONFRATELLO'] <= 0:
@@ -1958,6 +1964,7 @@ def simula_spedizione(party, indagine, log, run_seed, formula_minaccia='standard
                 enemies.append(dict(nome='IL CONFRATELLO', fer=a_fer, fer_max=a_fer,
                                      dif=base['dif'], att=base['att'], dan=base['dan'] + dan_bonus,
                                      mov=base['mov'], distanza=0, pos=a_pos))
+            t6_rivelata = True
             tobia_libero = True  # niente prigionieri in Ep.5: obiettivo = sfregio e ritorno
         campanello = {'has': indagine['libretto']}
         fase_eroi(tappa)
