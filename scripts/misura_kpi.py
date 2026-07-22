@@ -21,6 +21,10 @@ I KPI MISURABILI (il bersaglio e' a 4 eroi):
   sofferte  >= 60%   ansia: hai vinto, ma qualcuno e' andato a terra
   picco     >= 1.0   ansia: quanti eroi a terra nel momento peggiore
 
+Le ultime due NON si applicano agli episodi a tensione non letale (NON_LETALI,
+segnati con * nel verdetto): li' la posta e' un arresto, una fuga, un teste da
+non perdere, e il sangue non e' la misura giusta.
+
 Coinvolgimento e immersione NON hanno strumento: nessun numero qui li vede, e
 nessuna di queste percentuali dice se un episodio e' ancora bello. Una vittoria
 in fascia ottenuta appiattendo l'episodio ha lo stesso aspetto di una sana.
@@ -53,6 +57,19 @@ TAGLIA = 4
 
 # episodi che NON vanno tarati: la loro facilita' e' una scelta di design
 ESENTI = {'ep16': 'il respiro dell’Atto III: 100% e nessuna sofferenza, voluto'}
+
+# TENSIONE NON LETALE. In questi episodi la posta non e' la morte degli eroi, e
+# i due proxy dell'ansia — vittorie sofferte e picco di eroi a terra — misurano
+# una cosa che li' non deve succedere. Applicarli uniformemente porterebbe a
+# renderli sanguinosi, cioe' a distruggere quello per cui esistono. Per loro
+# l'ansia e' l'INCERTEZZA DELL'ESITO: la fascia della vittoria piena.
+#   ep9   la posta e' il TESTE scortato, non gli eroi (14 sconfitte su 32 sono
+#         «il teste e' caduto», col picco degli eroi a 0.3)
+#   ep14  il Primo Gatto che scavalca la cresta e sparisce
+#   ep15  il sigillo che cala e le prove cancellate
+#   ep18  «i gendarmi sono in buona fede: la posta e' l'ARRESTO, non la morte»
+#   ep19  «l'Ispettore Vidal che NON si uccide... PERSUASIONE (non morte)»
+NON_LETALI = {'ep9', 'ep14', 'ep15', 'ep18', 'ep19'}
 
 MODULO = {'ep1': 'simulate_playtest'}          # gli altri: simulate_epN
 
@@ -113,16 +130,19 @@ def verdetto(k):
             manca.append(f'il finale vero non si vede ({k["piena"]:.0f}% < {BANDA_PIENA[0]}%)')
         elif k['piena'] > BANDA_PIENA[1]:
             manca.append(f'il finale amaro non esiste ({k["piena"]:.0f}% > {BANDA_PIENA[1]}%)')
-    if (k['sofferte'] or 0) < SOFFERTE_MIN:
-        manca.append(f'poca ansia: sofferte {k["sofferte"]:.0f}% < {SOFFERTE_MIN}%')
-    if (k['picco'] or 0) < PICCO_MIN:
-        manca.append(f'poca ansia: picco a terra {k["picco"]:.1f} < {PICCO_MIN}')
+    if k['ep'] not in NON_LETALI:
+        if (k['sofferte'] or 0) < SOFFERTE_MIN:
+            manca.append(f'poca ansia: sofferte {k["sofferte"]:.0f}% < {SOFFERTE_MIN}%')
+        if (k['picco'] or 0) < PICCO_MIN:
+            manca.append(f'poca ansia: picco a terra {k["picco"]:.1f} < {PICCO_MIN}')
     return '; '.join(manca)
 
 
 def riga(k):
     v = verdetto(k)
     stato = 'ESENTE' if v == 'esente' else ('CHIUSO' if not v else 'aperto')
+    if k['ep'] in NON_LETALI:
+        stato += '*'                       # tensione non letale: il sangue non si conta
     piena = '' if k.get('piena') is None else f'piena {k["piena"]:4.0f}%  '
     return (f'{k["ep"]:>5}  {k["vittoria"]:5.0f}%  {piena}sofferte {(k["sofferte"] or 0):5.0f}%  '
             f'picco {(k["picco"] or 0):4.1f}  round {(k["round"] or 0):5.1f}  '
