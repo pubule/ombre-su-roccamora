@@ -475,10 +475,14 @@ for (let g = 0; g < N; g++) {
     await finoA(async () => !(await cnt('#salta-nemici')), 2000);
   }
   const f = await sp();
-  righe.push({ esito: f.esito || 'stallo', round: f.round, tappe, allIngresso, liberatoAl, apertaAl, vittoriaAl });
+  const compiti = COMPITI.length
+    ? ' compiti ' + [...new Set(COMPITI.map((c) => c.id))]
+        .map((id) => `${id} ${(f.compiti || {})[id] || 0}/${(COMPITI.find((c) => c.id === id) || {}).quante}`).join(' ')
+    : '';
+  righe.push({ esito: f.esito || 'stallo', round: f.round, tappe, allIngresso, liberatoAl, apertaAl, vittoriaAl, compiti });
   console.log(`${String(g + 1).padStart(2)}/${N}  ${String(f.esito || 'stallo').padEnd(10)} round ${String(f.round).padStart(2)}` +
     `  ${TILE_BOSS} ${allIngresso ? `r${allIngresso.round} eroi ${allIngresso.vivi} salute ${allIngresso.salute} nemici ${allIngresso.nemici}(${allIngresso.inT6} in T6) canto ${allIngresso.canto}` : 'mai'}` +
-    `  liberato ${liberatoAl ?? '-'} aperta ${apertaAl ?? '-'} VITTORIA ${vittoriaAl ? 'r' + vittoriaAl : 'no'}`);
+    `  liberato ${liberatoAl ?? '-'} aperta ${apertaAl ?? '-'} VITTORIA ${vittoriaAl ? 'r' + vittoriaAl : 'no'}${compiti}`);
 }
 
 console.log('\n--- validità della corsa ---');
