@@ -424,7 +424,11 @@ async function turnoScortato() {
 
 const righe = [];
 for (let g = 0; g < N; g++) {
-  const party = comune.eroi.map((e) => e.nome).sort(() => Math.random() - 0.5).slice(0, 4);
+  // PARTY=nome1,nome2,... forza una squadra fissa (per isolare la varianza del
+  // party da quella dei dadi); senza, quattro eroi a caso come al tavolo
+  const party = process.env.PARTY
+    ? process.env.PARTY.split(',').map((x) => comune.eroi.find((e) => e.nome.toUpperCase().includes(x.toUpperCase()))?.nome).filter(Boolean)
+    : comune.eroi.map((e) => e.nome).sort(() => Math.random() - 0.5).slice(0, 4);
   await pg.goto(BASE, { waitUntil: 'domcontentloaded' });
   await pg.evaluate(({ p, k, id, TIER }) => {
     localStorage.clear();
