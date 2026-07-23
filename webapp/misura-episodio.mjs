@@ -567,7 +567,9 @@ for (let g = 0; g < N; g++) {
       const nem = (s.nemici || []).filter((n) => n.pos).map((n) => breve(n.nome) + '@' + n.pos.t).join(' ');
       console.log(`      nemici: ${nem || '-'}`);
       console.log(`   r${s.round} meta=${mt} rivelate=${(s.rivelate || []).join(',')} | ${pos}` +
-        ` | PNG ${(s.scortati || [])[0]?.liberato ? 'libero@' + (s.scortati[0].pos || {}).t : 'no'}`);
+        ` | PNG ${(s.scortati || [])[0]?.liberato ? 'libero@' + (s.scortati[0].pos || {}).t : 'no'}` +
+        ` | tentati=${JSON.stringify(s.uscitaTentati || [])} uscita=${s.uscita?.aperta ? 'APERTA' : 'no'}` +
+        ` | log:${JSON.stringify((s.log || []).slice(-2))}`);
     }
     if (!liberatoAl && (s.scortati || [])[0]?.liberato) liberatoAl = s.round;
     if (!apertaAl && s.uscita?.aperta) apertaAl = s.round;
