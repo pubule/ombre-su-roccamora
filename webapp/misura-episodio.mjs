@@ -244,14 +244,19 @@ const sciogli = async () => {
   }
 };
 // la fase nemici è animata e la sua schermata non ha la striscia eroi
-async function attendiFaseEroi(maxMs = 25000) {
+async function attendiFaseEroi(maxMs = 40000) {
   const t0 = Date.now();
   while (Date.now() - t0 < maxMs) {
     await sciogli();
     const s = await sp();
     if (s.esito) return true;
     if (s.fase === 'eroi' && (await cnt('[data-turno]')) > 0) return true;
-    
+    // se la fase nemici e' finita ma la vista non ha ancora la striscia eroi,
+    // un pungolo (skip nemici / fase minaccia) la fa avanzare; con molti nemici
+    // in cella l'animazione e' la piu' lunga e il vecchio tetto di 25s scadeva
+    if (await cnt('#salta-nemici')) await clicDom('#salta-nemici');
+    if (await vis('#fase-minaccia')) await clicDom('#fase-minaccia');
+    await finoA(async () => { const x = await sp(); return x.esito || (x.fase === 'eroi'); }, 400);
   }
   return false;
 }
