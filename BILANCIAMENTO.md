@@ -132,7 +132,37 @@ incastra.
 - **Ep.10**: PROVA corretta 7→14 + Macchina + guardiano (resta 0%, limite
   strutturale: spina di 6 tessere incompatibile con la traccia 14).
 
-## Il muro dell'Atto I-II: il pilota non gioca di squadra (23/07 sera)
+## Conclusione sull'Atto I-II: difetto strutturale, non tarabile a leve (23/07 notte)
+
+Applicata **una** leva utile — lo **stop-spawn al Canto massimo** (feat 05b6cc58):
+quando il rituale è al culmine il mazzo non schiera più rinforzi, che nel finale
+prolungato entravano all'infinito dietro il gruppo (18 nemici dopo il round 14
+sull'Ep.1). Aiuta diffusamente, misurato su 24 partite: Preludio +21, Ep.4 +25,
+Ep.5 +13, Ep.8 +8, Ep.16 → 100%. Ma **nessun episodio arriva in fascia**: restano
+tutti duri (Ep.1 ~12%, Preludio ~37%, Ep.4/5/8 ~30%, Ep.7 0%).
+
+**Cinque altre leve provate e REVOCATE** (tutte bocciate dalla misura):
+salute_extra (+2/+4: sistema la marcia, T6 mai 12→5, ma non l'apertura), uscita
+a un arredo (arredo_noto: nessun effetto), coesione rozza (chi è avanti aspetta:
+3%), coesione del PNG nel ritorno (2%: aspetta chi è a terra, non chi è lento),
+soglia di rianimazione abbassata (nessun effetto).
+
+**La causa vera, vista col logging (non dedotta):** nel finale/ritorno il gruppo
+si sfalda — 2-3 eroi a terra sparpagliati su tessere diverse, uno o due
+superstiti che non bastano a scortare il PNG E rianimare. NON è navigazione né
+coesione del pilota: **gli eroi che restano indietro sono MORTI, non lenti.**
+Aspettarli non serve. E rianimarli non basta (un superstite non copre e rianima
+insieme sotto pressione).
+
+**Conclusione onesta:** l'Atto I-II ha una difficoltà STRUTTURALE — spina lunga
++ ritorno + finale sotto pressione crescente — che nessuna singola leva risolve.
+Le decisioni che restano non sono tarature di un numero ma **scelte di design**
+(accorciare le spine? uscite segrete ovunque, come Ep.1-4-16? cambiare la
+struttura andata-ritorno?), da prendere col committente. Il loop autonomo ha
+raggiunto il suo limite su questo atto: continuare a provare leve puntuali è
+inefficace.
+
+## Diario del muro (dettaglio, 23/07 sera)
 
 Imbuto dell'Ep.1 misurato su 32 partite: **12 muoiono in marcia** (picco 3,
 quasi-wipe), e degli altri **~metà non apre l'uscita segreta**. Tracciando: al
