@@ -358,7 +358,16 @@ TILES_16 = [
                  'stacca dallo Sposo, che resta senza scudo — CATTURA AUTOMATICA (vittoria pulita). '
                  'Senza il Fascicolo, dovete strapparla con la forza mentre lui si dibatte: '
                  'vittoria «amara» (ci riuscite, ma male). «Quale nome?» (D2): chiedergli quale dei '
-                 'dieci sia il vero lo confonde, salta un attacco.',
+                 'dieci sia il vero lo confonde, salta un attacco. '
+                 '— APPENA BRUNA È LIBERA, leggete ad alta voce: «Bruna non guarda il giardino '
+                 'da cui siete venuti. — Di lì si scende all’imbarcadero. Lo Sposo ci fa '
+                 'portare i bauli delle “mogli”: la porta sul retro non la chiude mai, dà '
+                 'sull’acqua.» Il gruppo sa che si esce da questa stanza, ma non da sotto '
+                 'quale mobile: scoprirlo è Interagire adiacenti a un mobile + prova VIGORE '
+                 '(Media). '
+                 '— SEGRETO: è dietro le CASSE accanto al letto (l’unico mobile della stanza). '
+                 '— QUANDO BRUNA SCENDE ALL’IMBARCADERO la spedizione è VINTA: leggete '
+                 'l’epilogo. Non serve rifare a ritroso la villa.',
          cerca_vuoto='Non c’è un tesoro: c’è una ragazza da riportare a casa e un imbroglione da '
                      'consegnare ai gendarmi. Slegatele il nastro verde e riannodateglielo voi: è '
                      'l’unica cosa vera, in questa villa di bugie.',

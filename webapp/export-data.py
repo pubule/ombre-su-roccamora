@@ -1218,13 +1218,20 @@ episodi = dict(
                   'la lettera di M. cita il nastro verde, un segreto che nessuno gli ha detto. '
                   'NUOVO: la RILETTURA — all’Archivio delle Lettere rileggete le vecchie lettere '
                   'di M.: ogni rilettura banca un incrocio per la deduzione finale (Ep.18).',
-        # NESSUNA uscita segreta: l'Ep.16 e' il respiro dell'Atto III e vince
-        # gia' nel 100% delle simulazioni. Bruna non e' rinchiusa: si stacca
-        # dallo Sposo (col Fascicolo l'inganno crolla da solo) e torna al cancello.
+        # USCITA SEGRETA (23/07/2026): il vecchio commento diceva «vince nel 100%
+        # delle simulazioni» — ma era il simulatore, cieco sullo spazio. Sulla
+        # plancia vera l'Ep.16 fa il 20% con picco 2.3: il ritorno di 6 tessere
+        # dalla villa uccide. Come Ep.1-4, Bruna indica una via piu' corta —
+        # l'imbarcadero della villa, dietro le casse della sua stanza.
         scortato=[scortato(
             'Bruna', 'T6', 'T1', 'Bruna.png',
             etichetta='Porta via Bruna (Interagire)',
-            vittoria='Bruna è fuori dal cancello: la riportate a casa.')],
+            vittoria='Bruna è al sicuro: la riportate a casa.',
+            uscita=uscita_segreta(
+                'T6', (0, 2),
+                'Bruna indica le casse accanto al letto: — Di lì si scende '
+                'all’imbarcadero. Lo Sposo ci fa portare i bauli delle «mogli»: '
+                'la porta sul retro non la chiude mai, dà sull’acqua.'))],
         esami_carbone=ESAMI_CARBONE_16,
         luoghi=[luogo_json(L, OGGETTI_LUOGO_16, REPERTI_LUOGO['ep16']) for L in LUOGHI_16],
         tessere=[tessera_json(T) for T in TILES_16],
