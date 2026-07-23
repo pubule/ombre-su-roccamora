@@ -9,7 +9,7 @@
 // ramo separato, scelto in vistaPartita (main.js) su partita.modo.
 import { salva, dati } from './store.js';
 import { rendi, norm, costruisciMazzo, carteDaPescare, pesca, fineRound,
-         cantoDaCarta, cerca, urlCarta, urlArt, cartaOggetto } from './engine.js';
+         cantoDaCarta, cerca, urlCarta, urlArt, cartaOggetto, tettoCanto } from './engine.js';
 import { tiraProva } from './dadi.js';
 
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) =>
@@ -1386,7 +1386,17 @@ async function faseMinaccia() {
         else annunci.push('A 2–3 eroi il boss non recupera ferite.');
       }
     }
-    else { const eff = carta.rules.split('{divider}').pop(); const prima = sp.nemici.length; spawnDaTesto(eff, tileAffollata()); if (sp.nemici.length > prima) annunci.push('Rinforzi sul campo.'); }
+    else {
+      // AL CANTO MASSIMO NON ARRIVANO PIU' RINFORZI: il rituale e' al culmine,
+      // il pericolo e' gia' tutto in campo. Senza questo, il mazzo continuava a
+      // schierare truppa DIETRO il gruppo (a tileAffollata()) all'infinito nel
+      // finale prolungato — 18 nemici dopo il round 14, misurato sull'Ep.1 —
+      // finendo gli eroi a terra sparsi e rendendo il finale ingiocabile.
+      const cantoMax = sp.canto >= tettoCanto(ctx.comune, ctx.ep);
+      const eff = carta.rules.split('{divider}').pop(); const prima = sp.nemici.length;
+      if (!cantoMax) { spawnDaTesto(eff, tileAffollata()); if (sp.nemici.length > prima) annunci.push('Rinforzi sul campo.'); }
+      else annunci.push('Il Canto è al culmine: nessun nuovo rinforzo, ma quelli in campo premono.');
+    }
     salvaP();
     await messaggioCarta(`minaccia ${i + 1} di ${n}`, carta, annunci);
   }
