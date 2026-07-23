@@ -52,6 +52,22 @@ function dirVerso(da, a) {
 }
 const dist = (a, b) => { let n = 0, c = a; while (c !== b && n < 12) { const d = dirVerso(c, b); if (!d) return 99; c = USCITE[c][d]; n++; } return n; };
 const verso = (d, x, y) => ({ N: 3 - y, S: y, E: 3 - x, O: x }[d] ?? 0);
+// cella-porta verso una direzione (prima libera da arredi) — replica di
+// portaCella in digitale.js. Serve come varco di fallback quando la direzione
+// dritta e' bloccata dagli arredi interni.
+function portaCellaP(tileId, dir) {
+  const t = EP.tessere.find((x) => x.id === tileId);
+  const occ = new Set((t?.arredi || []).map(([gx, gy]) => `${gx},${3 - gy}`));
+  const pref = [1, 2, 0, 3]; let idx = 1;
+  for (const i of pref) {
+    const key = (dir === 'N' || dir === 'S') ? `${i},${dir === 'N' ? 0 : 3}` : `${dir === 'O' ? 0 : 3},${i}`;
+    if (!occ.has(key)) { idx = i; break; }
+  }
+  if (dir === 'N') return [idx, 3];
+  if (dir === 'S') return [idx, 0];
+  if (dir === 'E') return [3, 3 - idx];
+  return [0, 3 - idx];
+}
 const SC = (EP.scortato || [])[0];
 const COMPITI = EP.compiti || [];
 const cellaObj = (mt) => {
@@ -363,7 +379,20 @@ async function turnoEroe(nm, mt, party) {
             ? Math.abs(c.x - preda.pos.x) + Math.abs(c.y - preda.pos.y)
             : 100 + dist(c.t, preda.pos.t) * 100)
         : versoArredi ? (c) => scoreArredi(c, s.uscitaTentati || []) : (c) => score(c, mt);
-      const r = await muoviCon(punt, pos, async () => (await sp()).eroiPos[nm]);
+      let r = await muoviCon(punt, pos, async () => (await sp()).eroiPos[nm]);
+      // MINIMO LOCALE degli arredi: se l'euristica a direzione non trova
+      // progresso e l'eroe non e' ancora sulla tessera-meta, punta la CELLA-PORTA
+      // verso il prossimo passo — un varco che esiste di sicuro, aggirando gli
+      // arredi interni (le scale di T5 nell'Ep.1) che bloccavano la direzione
+      // dritta. Fallback mirato, non sostituzione: si attiva solo da bloccati.
+      if (r !== 'mosso' && !versoArredi && !preda && !(guardia && boss) && pos.t !== mt) {
+        const dir = dirVerso(pos.t, mt);
+        if (dir) {
+          const pc = portaCellaP(pos.t, dir);
+          r = await muoviCon((c) => (c.t === pos.t ? Math.abs(c.x - pc[0]) + Math.abs(c.y - pc[1]) : 0),
+            pos, async () => (await sp()).eroiPos[nm]);
+        }
+      }
       if (r !== 'mosso') {
         tentate.add('muovere');
         const i = bersaglio(s, pos);
