@@ -244,8 +244,9 @@ const sciogli = async () => {
   }
 };
 // la fase nemici è animata e la sua schermata non ha la striscia eroi
-async function attendiFaseEroi(maxMs = 40000) {
+async function attendiFaseEroi(maxMs = 60000) {
   const t0 = Date.now();
+  let statoEroiDa = 0;
   while (Date.now() - t0 < maxMs) {
     await sciogli();
     const s = await sp();
@@ -253,9 +254,20 @@ async function attendiFaseEroi(maxMs = 40000) {
     if (s.fase === 'eroi' && (await cnt('[data-turno]')) > 0) return true;
     // se la fase nemici e' finita ma la vista non ha ancora la striscia eroi,
     // un pungolo (skip nemici / fase minaccia) la fa avanzare; con molti nemici
-    // in cella l'animazione e' la piu' lunga e il vecchio tetto di 25s scadeva
+    // in cella l'animazione e' la piu' lunga e il tetto scadeva
     if (await cnt('#salta-nemici')) await clicDom('#salta-nemici');
     if (await vis('#fase-minaccia')) await clicDom('#fase-minaccia');
+    // lo STATO e' gia' 'eroi' ma il DOM non ha la striscia: il render si e'
+    // perso. Ricarico la pagina, che rimonta la vista dallo stato salvato —
+    // era l'ultimo residuo di «fase eroi mai arrivata» sotto carico.
+    if (s.fase === 'eroi') {
+      if (!statoEroiDa) statoEroiDa = Date.now();
+      else if (Date.now() - statoEroiDa > 1500) {
+        await pg.goto(BASE, { waitUntil: 'domcontentloaded' });
+        await finoA(async () => (await cnt('[data-turno]')) > 0 || (await sp()).esito, 5000);
+        statoEroiDa = 0;
+      }
+    } else statoEroiDa = 0;
     await finoA(async () => { const x = await sp(); return x.esito || (x.fase === 'eroi'); }, 400);
   }
   return false;
