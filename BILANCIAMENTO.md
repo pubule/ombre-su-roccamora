@@ -132,13 +132,52 @@ incastra.
 - **Ep.10**: PROVA corretta 7→14 + Macchina + guardiano (resta 0%, limite
   strutturale: spina di 6 tessere incompatibile con la traccia 14).
 
-## Da qui: prima lo strumento, poi la taratura
+## Il muro dell'Atto I-II: il pilota non gioca di squadra (23/07 sera)
 
-1. **il pathfinding del pilota intorno agli arredi interni** (blocca l'Atto I-II
-   — Ep.1 e simili). Senza, gli 0% non sono affidabili;
-2. limare l'Atto III dall'alto (11-18 tutti ≥93%): rendere pericolosa la
-   cattura senza allungarla — leva delicata, tocca immersione;
-3. Ep.16 da 91% verso la fascia; Ep.5/7 (spina lunga senza uscita segreta).
+Imbuto dell'Ep.1 misurato su 32 partite: **12 muoiono in marcia** (picco 3,
+quasi-wipe), e degli altri **~metà non apre l'uscita segreta**. Tracciando: al
+finale **un solo eroe arriva in T6**, gli altri restano sparpagliati fra T4/T5 e
+muoiono isolati. **Il gruppo si divide.**
 
-Ogni passo: misura Playwright (campione ≥60, il rumore a 16 è ±15) → diagnosi →
+Due colli distinti, entrambi diagnosticati:
+- **marcia decima** → `salute_extra` +2 la risolve (T6 mai 12→5), leva pronta
+  ma non applicata;
+- **apertura uscita fallisce** → NON è letalità né navigazione: è il pilota che
+  sparpaglia, un solo eroe in T6 non basta a liberare + cercare l'arredo +
+  aprire sotto il fuoco.
+
+**Tre euristiche di coordinamento provate e REVOCATE** (tutte bocciate dalla
+misura): puntare sempre la porta, BFS reale sostitutiva, coesione (chi è avanti
+aspetta → 3%, il gruppo non arriva). Un pilota greedy per-eroe non produce gioco
+di squadra, e l'Atto I-II lo richiede.
+
+**Conseguenza per la taratura**: finché il pilota gioca a pezzi, i numeri
+dell'Atto I-II **sottostimano** la difficoltà — un tavolo umano coordinato fa
+meglio. Tarare al rialzo su questi numeri renderebbe il gioco troppo facile per
+gli umani. **Serve un pilota che coordini la squadra** prima di poter tarare
+l'Atto I-II al punto percentuale.
+
+## Applicato oggi (23/07)
+
+- **Ep.16**: uscita segreta 20%→91% (da limare dall'alto);
+- **Ep.1**: canto_ogni 6 (boss non desto in anticipo) + PNG entra nell'uscita,
+  8%→20%; il campo `salute_extra` e la leva marcia restano pronti ma inapplicati
+  finché il pilota non coordina;
+- fix del ritorno (PNG alla meta); fallback sul varco (naviga intorno agli
+  arredi).
+
+## Da qui
+
+1. **il pilota deve coordinare la squadra** (tenere il gruppo compatto SENZA
+   fermare la marcia — le tre euristiche semplici hanno fallito, serve qualcosa
+   di più fine). È il blocco dell'Atto I-II;
+2. limare l'Atto III dall'alto (11-18 tutti ≥93%): dove il pilota gioca bene
+   (episodi corti, meno coordinamento) i numeri sono affidabili — si può tarare;
+3. Ep.16 da 91% verso la fascia.
+
+Nota: l'Atto III (episodi corti) è tarabile ORA — il pilota lì gioca bene. Forse
+conviene invertire: chiudere l'Atto III facile prima dell'Atto I-II, che è
+bloccato dallo strumento.
+
+Ogni passo: misura Playwright (campione ≥32, il rumore a 16 è ±15) → diagnosi →
 proposta etichettata → conferma → applica → rimisura.
