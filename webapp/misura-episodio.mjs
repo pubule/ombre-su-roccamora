@@ -418,11 +418,31 @@ for (let g = 0; g < N; g++) {
       spedizione: { round: 0, canto: 0, cantoBonus: false, mazzo: null, esito: null },
     }));
   }, { p: party, k: CHIAVE_SALVATAGGIO, id: EPID, TIER });
-  await pg.goto(BASE, { waitUntil: 'domcontentloaded' }); 
-  await pg.getByText(EP.titolo).first().click(); 
-  await clicQuando('#continua');
-  await clicQuando('#via');
-  await sciogli();
+  // AVVIO VERIFICATO. La catena titolo->continua->via e' tre schermate che si
+  // susseguono: se un click parte prima che la successiva sia montata, l'avvio
+  // muore in silenzio e la partita resta a round 0 — erano 28 «stalli» su 168
+  // che non erano gioco, ma setup fallito. Qui si riprova finche' la spedizione
+  // e' davvero cominciata (fase eroi con pedine sul tabellone).
+  let avviata = false;
+  for (let tent = 0; tent < 4 && !avviata; tent++) {
+    if (tent) await pg.evaluate(({ p, k, id, TIER }) => {
+      localStorage.setItem(k, JSON.stringify({ v: 1, episodio: id, modo: 'digitale', party: p,
+        creata: Date.now(), fase: 'spedizione',
+        indagine: { ora: 24, lettaLettera: true, visitati: [], scoperti: [], sbloccati: [], parole: [],
+          oggetti: [], reperti: [], approfondimentiLetti: [], caricheUsate: {}, secondoFiato: {},
+          note: '', risposte: ['', '', '', ''], chiusa: true },
+        vantaggi: { tier: TIER, dossier: TIER === 'slancio', risposte: [false, false, false, false] },
+        spedizione: { round: 0, canto: 0, cantoBonus: false, mazzo: null, esito: null } }));
+    }, { p: party, k: CHIAVE_SALVATAGGIO, id: EPID, TIER });
+    await pg.goto(BASE, { waitUntil: 'domcontentloaded' });
+    await finoA(async () => (await pg.getByText(EP.titolo).count()) > 0, 4000);
+    await pg.getByText(EP.titolo).first().click().catch(() => {});
+    await clicQuando('#continua');
+    await clicQuando('#via');
+    await sciogli();
+    avviata = await finoA(async () => { const x = await sp(); return x && (x.round >= 1 || x.esito); }, 5000);
+  }
+  if (!avviata) { ko('avvio della spedizione non riuscito'); righe.push({ esito: 'stallo', round: 0, tappe: {}, allIngresso: null, liberatoAl: null, apertaAl: null, vittoriaAl: null, compiti: '' }); continue; }
 
   let vittoriaAl = null, liberatoAl = null, apertaAl = null;
   const tappe = {}; let allIngresso = null;   // fotografia all'ingresso in T6
