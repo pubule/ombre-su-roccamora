@@ -4,292 +4,111 @@ Stato del lavoro di taratura, episodio per episodio. Questo file è la memoria
 del ciclo: le conversazioni si perdono, il tabellone no. Si rilegge prima di
 decidere cosa toccare e si riscrive dopo ogni misura.
 
-## Cosa si misura, e cosa no
+## Lo strumento (deciso il 22-23/07/2026)
 
-Si misura con `python scripts/misura_kpi.py <epN|tutti> [n_party] [n_seed]`,
-sempre **a 4 eroi** — la taglia di riferimento.
+Si misura con **Playwright** — `node webapp/misura-episodio.mjs epN <partite>`,
+in parallelo — che pilota la **modalità digitale vera**: movimento, porte,
+ingombri, Canto, obiettivi. I simulatori Python restano solo come prefiltro
+veloce: davano 99% dove la plancia dà 8% (Ep.1), perché regalano una tessera a
+round e non vedono lo spazio.
+
+Il pilota è pulito su 21/21 (0 stalli, 0 corse NON VALIDE). Un audit intero —
+21 episodi × 16 partite — costa pochi minuti in parallelo.
 
 | KPI | strumento | bersaglio |
 |-----|-----------|-----------|
-| giocabilità | `pct_vittoria` | **70-80%** |
-| ansia | `pct_vittoria_sofferta` / `pct_sofferta` | **≥ 60%** |
-| ansia | `media_max_down` (picco di eroi a terra) | **≥ 1.0** |
-| coinvolgimento | *nessuno* | — |
-| immersione | *nessuno* | — |
+| giocabilità | vittoria totale (piena + parziale) | **70-80%** a 4 eroi |
+| finale vero | % vittoria **piena** (episodi a due finali) | **40-60%** |
+| ansia | picco di eroi a terra | **≥ 1.0** (tranne i non letali) |
 
-**Un episodio in fascia con l'ansia sotto soglia non è chiuso**: è diventato
-una passeggiata, e si respinge come si respinge una sconfitta.
+`*` = episodio a **tensione non letale**: la posta è un arresto, una fuga, un
+teste da non perdere, non la morte degli eroi. Lì il picco non si applica —
+misurarli col sangue porterebbe a insanguinarli. Per loro l'ansia è
+l'incertezza dell'esito (la fascia della piena).
 
-Coinvolgimento e immersione non hanno numero. Nessuna riga di questa tabella
-dice se un episodio è ancora bello — per questo ogni modifica passa da una
-domanda, e ogni leva viene etichettata:
+Coinvolgimento e immersione **non hanno numero**. Ogni modifica passa da una
+domanda, e ogni leva è etichettata *taratura* (numeri) o *struttura* (cos'è
+l'episodio). Il precedente che lo impone: il 22/07 l'uscita segreta portò l'Ep.4
+dal 4% al 97% cancellando l'inseguimento del Suggeritore — il KPI diceva
+«risolto», il gioco era peggiorato.
 
-- **taratura** — cadenza del Canto (`ep.canto_ogni`), serbatoi (`pool`),
-  soglie, composizione del mazzo, statistiche nemiche: cambiano *quanto è duro*
-  un episodio;
-- **struttura** — togliere un inseguimento, aprire una scorciatoia, accorciare
-  la spina, eliminare il ritorno: cambiano *cos'è* un episodio. Sono quelle che
-  uccidono immersione e coinvolgimento senza che nessun numero se ne accorga.
+## La prima fotografia vera (23/07/2026)
 
-Il precedente che giustifica tutta questa cautela: il 22/07/2026 l'uscita
-segreta ha portato l'Ep.4 dal 4% al 97% **cancellando l'inseguimento del
-Suggeritore**. Il KPI diceva «risolto», il gioco era peggiorato.
+4 eroi, indagine media (`preparati`), 16 partite per episodio, sul motore
+digitale completo. **Questa è la riga di partenza: tutti i numeri di prima di
+oggi erano su un gioco incompleto** — 15 episodi senza condizione di vittoria,
+10 boss inesistenti, il Preludio non montabile, tutto costruito il 22-23/07.
 
-## Avvertenze sulle misure
+| ep | vittoria | piena | picco | round |
+|----|---------:|------:|------:|------:|
+| preludio | 37% | — | 1.7 | 12 |
+| EP1 | 23% | — | 2.4 | 19 |
+| EP2 | 66% | — | 1.5 | 12 |
+| EP3 | 68% | — | 1.7 | 14 |
+| EP4 | 35% | — | 1.7 | 18 |
+| EP5 | 6% | — | 2.4 | 21 |
+| EP6 | 50% | — | 1.6 | 18 |
+| EP7 | 0% | — | 2.8 | 16 |
+| EP8 | 7% | — | 2.4 | 16 |
+| EP9* | 12% | — | 1.8 | 12 |
+| EP10 | 0% | — | 0.2 | 11 |
+| EP11 | 87% | — | 0.2 | 11 |
+| EP12 | 81% | — | 0.0 | 7 |
+| EP13 | 100% | — | 0.2 | 9 |
+| EP14* | 100% | 62% | 0.1 | 9 |
+| EP15* | 100% | 75% | 0.3 | 9 |
+| EP16 | 14% | — | 2.3 | 21 |
+| EP17 | 100% | 0% | 0.5 | 11 |
+| EP18* | 100% | 0% | 0.5 | 12 |
+| EP19* | 68% | 68% | 0.8 | 14 |
+| EP20 | 0% | — | 0.7 | 14 |
 
-- **600 partite** (`n_party=20, n_seed=30`) per decidere. Sotto, il rumore è
-  ±10 punti: lo stesso Ep.3 a 4 eroi ha dato 0%, 16% e 31% con gruppi diversi.
-- Solo confronti **appaiati** (stesso `seed_base`) valgono qualcosa.
-- I simulatori sono **ottimisti sul movimento** (regalano una tessera a round):
-  le percentuali assolute vanno lette con quel margine, i confronti no.
+**Nessun episodio è esattamente in fascia.** I più vicini: Ep.2 (66%) ed Ep.3
+(68%), a un soffio dal 70%.
 
-## Il tabellone
+## Il pattern, e cosa ne so distinguere
 
-Rimisura del **22/07/2026**, 4 eroi, 600 partite per episodio
-(`seed_base=970000`). Lo stato con l'asterisco (`aperto*`) segna gli episodi a
-**tensione non letale**, dove le soglie sul sangue non si applicano.
+Gli episodi si spaccano in due blocchi che seguono la **struttura**, non la
+taratura:
 
-| ep | vittoria | piena | sofferte | picco | round | stato | cosa manca |
-|----|---------:|------:|---------:|------:|------:|-------|------------|
-| ep1 | 99% | — | 10% | 0.2 | 10.4 | aperto | troppo facile (99% > 80%); poca ansia: sofferte 10% < 60%; poca ansia: |
-| ep2 | 69% | — | 60% | 1.6 | 23.9 | aperto | troppo duro (69% < 70%) |
-| ep3 | 99% | — | 6% | 0.1 | 13.0 | aperto | troppo facile (99% > 80%); poca ansia: sofferte 6% < 60%; poca ansia:  |
-| ep4 | 87% | — | 35% | 1.0 | 14.0 | aperto | troppo facile (87% > 80%); poca ansia: sofferte 35% < 60% |
-| ep5 | 83% | — | 82% | 1.7 | 20.2 | aperto | troppo facile (83% > 80%) |
-| ep6 | 62% | — | 66% | 0.9 | 19.1 | aperto | troppo duro (62% < 70%); poca ansia: picco a terra 0.9 < 1.0 |
-| ep7 | 73% | — | 89% | 2.4 | 17.0 | **CHIUSO** | il riferimento sano |
-| ep8 | 86% | — | 84% | 1.7 | 11.9 | aperto | troppo facile (86% > 80%) |
-| ep9 | 48% | — | 31% | 0.3 | 7.2 | aperto* | troppo duro (48% < 70%) |
-| ep10 | 0% | — | 10% | 3.6 | 12.2 | aperto | troppo duro (0% < 70%); poca ansia: sofferte 10% < 60% |
-| ep11 | 16% | — | 95% | 3.9 | 11.2 | aperto | troppo duro (16% < 70%) |
-| ep12 | 0% | — | 0% | 0.1 | 7.1 | aperto | troppo duro (0% < 70%); poca ansia: sofferte 0% < 60%; poca ansia: pic |
-| ep13 | 58% | 58% | 87% | 2.5 | 12.2 | aperto | troppo duro (58% < 70%) |
-| ep14 | 100% | 78% | 48% | 0.6 | 11.0 | aperto* | troppo facile (100% > 80%); il finale amaro non esiste (78% > 60%) |
-| ep15 | 98% | 58% | 47% | 0.7 | 11.7 | aperto* | troppo facile (98% > 80%) |
-| ep16 | 100% | 100% | 5% | 0.1 | 10.0 | **esente** | «il respiro»: facile per scelta |
-| ep17 | 83% | 71% | 75% | 1.6 | 12.1 | aperto | troppo facile (83% > 80%); il finale amaro non esiste (71% > 60%) |
-| ep18 | 86% | 46% | 68% | 0.8 | 12.4 | aperto* | troppo facile (86% > 80%) |
-| ep19 | 100% | 51% | 14% | 0.2 | 9.6 | aperto* | troppo facile (100% > 80%) |
-| ep20 | 8% | — | 45% | 0.2 | 11.3 | aperto | troppo duro (8% < 70%); poca ansia: sofferte 45% < 60%; poca ansia: pi |
+- **Atto I-II — spina lunga, boss da combattere: tutti troppo duri.**
+  Round 12-21, picco 1.5-2.8. Ep.5 al 6%, Ep.7/10/20 allo 0%. Qui c'è vera
+  tensione (il picco è alto) ma si perde troppo: la spina è più lunga del tempo
+  e della salute disponibili.
 
-**Dove siamo, dopo una giornata di correzioni.** Un episodio chiuso (Ep.7),
-uno esente per scelta (Ep.16), e il resto raggruppato per che cosa gli manca:
+- **Atto III — cattura di una miniatura: tutti troppo facili E piatti.**
+  Round 7-11, picco **0.0-0.5**: non cade quasi mai nessuno. Ep.11 87%, Ep.13
+  e 14 e 15 e 17 e 18 al 100%.
 
-- **troppo facili**: ep5 83%, ep8 86%, ep17 83%, ep18 86%, ep15 98%, ep14 100%,
-  ep19 100% — quasi tutti con l'ansia già a posto o non pertinente
-- **troppo duri**: ep6 62%, ep9 48%, ep13 58%, ep11 16%, ep20 8%
-- **non misurabili col simulatore**: ep1, ep3, ep4 (scorta e uscita segreta),
-  ep10, ep12 (la vittoria dipende dal tenere inchiodato un nemico)
+**Il picco 0.0-0.5 dell'Atto III è in parte design-legittimo**, verificato:
+l'Ep.12 vince in 6 round perché «il Corriere fugge, non combatte» (obiettivo),
+e l'Ep.13 vince prendendo i registri senza affrontare il Sorvegliante perché
+l'obiettivo dice «superate O abbattete». Non sono bug del pilota. Ma se un
+intero atto si vince senza che nessuno rischi niente, l'ansia — uno dei quattro
+KPI — è a zero per un terzo della campagna.
 
-Quasi tutto il resto è arrivato qui **senza toccare il gioco**: cinque difetti
-dello strumento valevano l'Ep.2 da 39% a 69% e l'Ep.5 da 36% a 83%. Le uniche
-modifiche di gioco applicate finora sono la cadenza del Canto per Ep.3, 5 e 6 e
-le tre soglie dell'Atto III.
+## Note sui singoli
 
-**Due lezioni che il tabellone deve ricordare.** La prima: il KPI contava le
-vittorie parziali insieme a quelle vere, e nascondeva finali che nessuno
-avrebbe mai visto. La seconda: cinque episodi non sono letali per scelta, e
-misurarli col sangue avrebbe portato a insanguinarli — nell'Ep.19, raddoppiare
-le carte che generano nemici sposta le vittorie sofferte dal 21% al 26%, perché
-lo Sgherro fa 1 danno contro 7-9 Salute. Non erano tarati male: sono fatti di
-un'altra materia.
+- **Ep.7 e Ep.20 allo 0% con picco alto**: si muore, non si arriva. Duri per
+  davvero, non per un difetto.
+- **Ep.10 allo 0% con picco 0.2**: NON si muore — la traccia Demolizione scade
+  prima. È l'orologio, non il combattimento.
+- **Ep.14/17/18 al 100% totale ma piena bassa** (62%, 0%, 0%): la vittoria vera
+  non si raggiunge, solo quella amara. Ep.17 e 18 a 0% di piena — il secondo
+  obiettivo (Notaio, arresto) non si chiude in tempo. Le soglie alzate il 22/07
+  vanno rimisurate ORA sulla plancia, non sul simulatore.
+- **Ep.19 a 68%/68%**: l'unico dell'Atto III con un picco decente (0.8) e la
+  piena in fascia. Il più vicino a «sano» del suo blocco.
 
-## L'Ep.1 sulla plancia vera: 8% (22/07/2026)
+## Da qui: il bilanciamento vero, un episodio alla volta
 
-Dodici partite col pilota Playwright, che gioca la modalità digitale con
-movimento, porte e ingombri veri:
+Ordine suggerito, dal più rotto:
+1. gli 0% dell'Atto I-II (Ep.5, 7, 20) e Preludio/Ep.1 (tutorial + primo
+   episodio, quelli che un compratore tocca per primi);
+2. il piatto dell'Atto III (Ep.11-18): rendere pericolosa la cattura senza
+   allungarla — leva delicata, tocca immersione;
+3. le soglie dell'Atto III da rimisurare sulla plancia (Ep.17, 18 a 0% di
+   piena).
 
-| | |
-|---|---|
-| vittorie | **1 su 12 (8%)** |
-| Ruggero liberato | 6/12 |
-| uscita segreta aperta | **1/12** |
-| T6 (la stanza del Custode) mai raggiunta | **6/12** |
-
-Il simulatore, per lo stesso episodio, dice **99% in 10.4 round**. Novantuno
-punti di scarto — sul **primo episodio della campagna**, quello che decide se
-qualcuno arriverà al secondo.
-
-E le sconfitte non sono stermini: durano **32, 36, 40 round**. Il gruppo non
-muore, **non arriva**. Metà delle partite non vede nemmeno la stanza del boss.
-
-Il simulatore regala una tessera a round; sulla plancia, con Mov 3, le porte
-da imboccare e i nemici che bloccano il passo, la stessa spina costa il triplo.
-
-*(una delle quattro corse è uscita NON VALIDA per 3 click a vuoto: c'è ancora
-un difetto nel pilota da isolare, ma il quadro non cambia — le altre nove
-partite valide danno zero vittorie.)*
-
-## Cosa NON è stato analizzato (22/07/2026)
-
-Il materiale è **Preludio + Ep.1-20**, e non c'è altro: `PROMPT-ESPANSIONE.md` è
-un modello per generarne di nuovi, non contenuto esistente. Dentro quello che
-c'è, però, tre cose non sono mai state misurate:
-
-1. **Le varianti Bivio.** I sorgenti lo dichiarano — «la variante Bivio NON è
-   simulata» in Ep.2, 3, 4, 7, 9. Il Bivio è la scelta di fine episodio che
-   aggiunge una carta al mazzo del successivo: è il modo in cui la campagna si
-   porta dietro le conseguenze, e nessuna misura lo include.
-2. **La campagna come catena.** Ogni episodio si misura da solo, con l'Indagine
-   rigenerata da zero. Un oggetto non trovato, un Bivio scelto male, un PNG
-   perso: il peso che si trascina nell'episodio dopo non è mai stato guardato.
-3. **I due rami dell'Ep.7.** Ponteggi (2 tessere) e intercapedini (3) danno 74%
-   e 72%, stessa ansia — ma **entrambi 17.0 round esatti**, benché uno sia più
-   lungo di una tessera. Il modello non fa pagare quel tratto: al tavolo sono
-   due round di Minaccia in più, nel simulatore zero. La scelta di percorso, lì,
-   è cosmetica.
-
-Il punto 3 è la stessa cecità che invalida Ep.1-4, 10 e 12: **il simulatore non
-vede lo spazio**.
-
-## Il Preludio non è mai stato misurato — e non può esserlo (22/07/2026)
-
-Il tutorial, la prima cosa che un tavolo tocca, **non compare in nessuna misura
-di questa giornata**: non ha un simulatore, e la modalità digitale non riesce a
-disporne la mappa. Non è colpa dell'arte — le sue tre tessere **riusano quelle
-dell'Ep.1** (`Episodio 1/board/T1 - Banchina d'Ingresso.png`), che esistono. È
-il dato a essere incompleto in `webapp/data/preludio.json`:
-
-- **`exits` vuoto** su T1, T2 e T4, mentre il fascicolo stampato descrive i
-  collegamenti a parole: «la porta verso il deposito (N) si apre con l'Anello
-  di Chiavi», «le porte E e N sono murate: contano solo S (banchina) e O
-  (stanzino)». La prosa c'è, la struttura no — e senza `exits` il motore
-  digitale non può montare la spina.
-- **`arredi` vuoto**, quindi nessun ingombro e nessun nascondiglio.
-- **`scortato` vuoto**, mentre l'obiettivo dice «Liberate Ansaldo (Interagire,
-  in T4) e riportatelo in T1, alla barca». È lo stesso buco chiuso il 22/07 per
-  Ep.3, 4, 7 e 16, saltando proprio il Preludio.
-
-La causa sta in `webapp/export-data.py`, dove le tessere del Preludio si
-esportano con `dict(id=..., nome=..., art=..., testo=...)` e basta: `TESSERE_P`
-in `src/gen_preludio.py` è una tupla di quattro campi e la connettività vive
-solo dentro il testo da leggere ad alta voce.
-
-**Finché non si struttura quel dato, il Preludio non ha numeri** — né dal
-simulatore né da Playwright.
-
-## Il KPI misurava la cosa sbagliata (22/07/2026)
-
-`pct_vittoria` conta **anche le vittorie parziali**. Negli episodi con due
-finali questo nasconde il dato che conta:
-
-| ep | a tabellone | vittoria **piena** | scarto |
-|----|------------:|-------------------:|-------:|
-| ep14 | 100% | 76% | 24 |
-| ep15 | 100% | **0%** | 100 |
-| ep17 | 82% | **2%** | 80 |
-| ep18 | 58% | 16% | 42 |
-| ep19 | 100% | 52% | 48 |
-
-L'Ep.15 non apre **mai** la Contro-busta — il finale che dice «chi ha scritto
-il dossier?» — in seicento partite. L'Ep.17 due volte su cento. Sono i finali
-che portano avanti l'Atto III, e nessun tavolo li vedrà.
-
-Causa, per l'Ep.15: la regola stampata vuole «Capo preso E 4+ tell documentati
-prima del sigillo». I tell si raccolgono in abbondanza (6 su 4 richiesti), ma
-il Capo sta in T6 e la villa si sigilla al Canto 5, cioè al round 8-9, mentre
-in T6 si arriva al round 11. **Il viaggio è più lungo dell'orologio**, come per
-Ep.10 ed Ep.12 — ma qui la soglia è un numero d'episodio, che la Soluzione già
-dichiara, e alzarla funziona:
-
-**APPLICATO il 22/07/2026.** Le tre soglie erano tarate su una marcia lunga la
-metà: la spedizione arriva al secondo obiettivo al round 11-12, e scattavano al
-round 5-8. Alzate nei simulatori e nelle Soluzioni stampate (testo verificato
-nei PDF renderizzati):
-
-| ep | soglia | prima | dopo | piena prima | piena dopo |
-|----|--------|------:|-----:|------------:|-----------:|
-| ep15 | sigillo | 5 | **8** | 0% | **58%** |
-| ep17 | decano | 3 | **6** | 1% | **71%** |
-| ep18 | arresto | 4 | **7** | 21% | **46%** |
-
-Non chiudono gli episodi: restano troppo facili sul totale (98%, 83%, 86%) e
-due su tre sono piatti (picco 0.7 e 0.8). Ma i finali che portano avanti l'Atto
-III adesso si vedono.
-
-## Il difetto che invalida la colonna «troppo duro» (22/07/2026)
-
-Cinque simulatori — **Ep.1, 2, 3, 5, 6** — contengono un ciclo
-`while boss['fer'] > 0 and vivi()`: **inchiodano il gruppo al boss finché uno
-dei due non muore**. Sono esattamente i cinque episodi «troppo duri» con
-l'orologio del Canto.
-
-Ma i fascicoli dicono il contrario. L'Ep.2: «QUANDO ILARIO ENTRA NEL CONDOTTO
-la spedizione è VINTA». L'Ep.3: «potete fuggire con Tobia senza affrontarlo».
-Il boss, in quegli episodi, **si può evitare** — e il simulatore non lo sa.
-
-Cosa succede davvero, tracciato su una partita dell'Ep.2 (party wipe al round
-30): 22 round di scontro, **51 carte Minaccia pescate, 24 nemici piazzati
-contro 19 abbattuti**. Il gruppo uccide quasi alla stessa velocità con cui la
-stanza si riempie, e intanto incassa. Non è un boss difficile: è un tapis
-roulant da cui il simulatore non lascia scendere.
-
-**Nessuna taratura di quei cinque episodi vale niente finché questo non è
-risolto**: si renderebbe il gioco più facile per compensare uno strumento che
-lo gioca male.
-
-## Due strumenti, e quando credere a quale (22/07/2026)
-
-Corretti i difetti del boss, l'Ep.1 misura **99%** di vittorie in **10.4 round**
-nel simulatore. Il pilota Playwright, che gioca la plancia vera, misura lo
-stesso episodio al **22%** in **17-25 round**.
-
-Settantasette punti di scarto non sono rumore: è il limite del simulatore.
-Regala una tessera a round e ignora blocchi, porte e ingombri. Dove la
-difficoltà è spaziale — portare fuori un PNG lento, tenere inchiodato un
-Muratore, restare addosso a un Corriere — quel modello non vede la cosa che
-decide la partita.
-
-**RETTIFICA (22/07/2026).** Avevo scritto che gli episodi senza tessere
-disegnate non erano misurabili con Playwright. **È falso, e non l'avevo mai
-verificato.** Le tessere sono `<div>` con larghezza e altezza esplicite e
-l'arte come `background-image` (`digitale.js:370`): se il PNG manca, il
-riquadro resta, le celle restano, e il pilota gioca lo stesso. Provato
-sull'Ep.3, che non ha arte: partita completa, Tobia liberato, uscita segreta
-aperta, vittoria al 9° round.
-
-Quindi **tutti gli episodi sono misurabili sulla plancia vera**. Il vincolo
-non è l'arte, è il tempo: Playwright costa 1-2 minuti a partita contro le
-centinaia al secondo del simulatore. Campioni da 12-20 partite, non da 600 —
-con un rumore attorno ai ±15 punti, che basta per una diagnosi grossolana e
-non per distinguere il 74% dal 78%.
-
-| episodi | strumento |
-|---------|-----------|
-| Ep.1-4 (scorta e uscita segreta), Ep.10, Ep.12 (la vittoria dipende dal tenere inchiodato un nemico) | **Playwright**: la loro difficoltà è nello spazio, e il simulatore lo appiattisce |
-| tutti gli altri | il simulatore, molto più veloce e per loro fedele |
-
-## Gli orologi che non si possono battere (Ep.10, 12, 20)
-
-Ep.10 ed Ep.12 misurano **0%**, e non perché il gruppo muoia: su 12 partite
-dell'Ep.12, **12 sconfitte per scadenza** della traccia FUGA, mai una per
-ferite. Le tracce salgono di 1 a round e non scendono quasi mai
-(`FUGA_BACKGROUND = 1`, `DEMO_BACKGROUND`), mentre il viaggio è lungo il doppio
-di quanto era quando quei numeri furono scelti: i simulatori regalavano una
-tessera a round finché la marcia non è stata corretta a 2 round per tessera.
-
-`FUGA_MAX = 10` con +1 a round garantisce la sconfitta entro il 10° round; la
-spedizione ne dura 11-12. È aritmetica, non difficoltà.
-
-**Provato: far battere l'orologio a round alterni non serve** — misurato su
-entrambi, zero guadagno, e la modifica è stata rimossa invece di lasciare nel
-gioco una regola cambiata senza prove. Il ritmo di fondo non è il termine che
-decide. Quello che decide, in tutti e due, è una regola che il simulatore non
-sa rappresentare:
-
-- **Ep.12**, dalla Soluzione: «alla fine di ogni round in cui **NESSUN eroe è
-  adiacente al Corriere**, +1». Il freno è stargli addosso — e nel modello il
-  Corriere non sta nemmeno sulla plancia: la FUGA sale sempre.
-- **Ep.10**, dalla Soluzione: all'intercapedine «ogni turno del Muratore in cui
-  **NESSUN eroe gli è adiacente** vale +2; **inchiodato, attacca voi e non
-  demolisce**». È da lì che arrivano i salti a +2 che riempiono la traccia,
-  non dal ritmo di fondo. Tracciata una partita: DEMOLIZIONE 13/12 contro PROVA
-  12/14 — persa per **due caselle**.
-
-In entrambi gli episodi la vittoria dipende dal **tenere il nemico inchiodato**,
-cioè da una scelta di posizione che il modello a corsa non ha. Sono nella stessa
-condizione degli episodi di scorta: numeri da non usare per tarare.
-
-Il che sposta la domanda: se anche Ep.10 e Ep.12 vanno misurati sulla plancia,
-gli episodi che il simulatore sa misurare davvero sono quelli senza inseguimento
-e senza scorta.
+Ogni passo: misura Playwright → diagnosi → proposta etichettata → conferma →
+applica a dato/motore/stampa → rimisura appaiata.
