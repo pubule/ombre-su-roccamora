@@ -200,7 +200,12 @@ function saluteMax(e) {
   // regole stampate — piu' dura del gioco vero, per tutti, sempre.
   const tier = (P().vantaggi || {}).tier;
   const bonusTier = (tier === 'slancio' || tier === 'preparati') ? 1 : 0;
-  return e.salute + bonus + bonusTier;
+  // BONUS SALUTE D'EPISODIO (`ep.salute_extra`): certi episodi concedono Salute
+  // in piu' a testa — una regola dell'episodio, stampabile, che non tocca le
+  // statistiche dei nemici (condivise). Serve dove la marcia lunga decima il
+  // gruppo prima che arrivi in fondo (Atto I-II).
+  const extra = ctx.ep.salute_extra || 0;
+  return e.salute + bonus + bonusTier + extra;
 }
 // ------------------------------------------------------------ PNG scortati
 // Dato per episodio (webapp/data/epN.json → `scortato`): pedina, prigione,
