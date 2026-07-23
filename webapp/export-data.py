@@ -994,8 +994,15 @@ episodi = dict(
         # NESSUNA uscita segreta: la via del ritorno e' quella scelta in T2
         # (ponteggi o intercapedini) ed e' il cuore dell'episodio — una
         # scorciatoia la cancellerebbe. L'Ep.7 e' gia' in fascia (75% a 4 eroi).
+        # Fava Mov 5 (non 3): un prigioniero appena liberato CORRE per la vita. La
+        # spina di 8 riquadri e' la piu' lunga della campagna e il killer e' il
+        # TEMPO di esposizione sul ritorno (~10 round a scortare un PNG lento);
+        # branco e Canto non lo muovevano (entrambi entro rumore ~15-27%). Mov 5
+        # dimezza le attivazioni del ritorno = meno round di grind. Vale solo da
+        # liberato (il PNG prigioniero non si muove). Precedente: fase di sollievo
+        # nelle scorte, l'escortato accelera una volta libero.
         scortato=[scortato(
-            'Fava', 'T6', 'T1', 'Fava.png',
+            'Fava', 'T6', 'T1', 'Fava.png', mov=5,
             etichetta='Libera Fava (Interagire)',
             vittoria='Ernesto Fava è fuori dal cantiere: siete salvi.')],
         esami_carbone=ESAMI_CARBONE_7,
