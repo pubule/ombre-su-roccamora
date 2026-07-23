@@ -350,10 +350,16 @@ async function turnoEroe(nm, mt) {
       await pg.evaluate((j) => document.querySelector(`[data-nemico="${j}"]`)?.click(), i);
       await sciogli();
     } else break;
+    // dopo un'interazione con prova (Controcanto NERVI nell'Ep.20, i movimenti
+    // dell'Ep.6) l'azione puo' non risultare ancora scritta: l'overlay del dado
+    // e' asincrono. Si aspetta il fatto prima di dichiarare KO.
+    if (tipo === 'interagire') await finoA(async () => JSON.stringify((await sp()).azioni[nm] || []) !== prima, 2500);
     const dopo = JSON.stringify((await sp()).azioni[nm] || []);
     if (dopo === prima) {
       tentate.add(tipo);
-      if (tipo === 'abilita' || tipo === 'attaccare' || tipo === 'muovere' || tipo === 'oggetto') continue;
+      // interagire fallita (prova non superata) e' un esito legittimo, non un
+      // click perso: l'azione e' comunque spesa dal gioco, si prova altro
+      if (['abilita', 'attaccare', 'muovere', 'oggetto', 'interagire'].includes(tipo)) continue;
       ko(`${tipo} non registrata per ${breve(nm)}`); break;
     }
   }
