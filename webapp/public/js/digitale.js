@@ -977,10 +977,11 @@ function obiettivoFatto() {
   const sp = SP(); const sc = specScortati(); const co = specCompiti();
   if (!sc.length && !co.length) return false;
   if (co.length && !compitiFiniti()) return false;
-  if (sc.length) {
-    if (!statoScortati().every((g) => g.liberato)) return false;
-    if (specUscita() && !(sp.uscita && sp.uscita.aperta)) return false;
-  }
+  // PNG liberato = obiettivo sostanziale: da qui e' solo estrazione (aprire
+  // l'uscita segreta O tornare alla meta). NON si richiede l'uscita gia' aperta:
+  // era un circolo vizioso — non aprivano l'uscita perche' sotto pressione, e la
+  // pressione non si fermava perche' non aprivano l'uscita (Ep.1 bloccato cosi').
+  if (sc.length && !statoScortati().every((g) => g.liberato)) return false;
   return true;
 }
 
