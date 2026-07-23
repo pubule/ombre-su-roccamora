@@ -274,7 +274,11 @@ async function attendiFaseEroi(maxMs = 60000) {
 }
 async function meta() {
   const p = await P(); const s = p.spedizione;
-  if ((s.scortati || [])[0]?.liberato) return USCITA_TILE;
+  // PNG liberato: dove portarlo? Se c'e' un'uscita segreta, li'. Altrimenti la
+  // META DI RITORNO dichiarata (SC.meta, di norma T1) — NON USCITA_TILE, che per
+  // il ritorno classico vale la tessera-prigione (l'Ep.7 mandava tutti a T6,
+  // dov'era la cella, e Fava non tornava mai a casa: tutti vivi, 0 vittorie).
+  if ((s.scortati || [])[0]?.liberato) return SC.uscita ? USCITA_TILE : (SC.meta || USCITA_TILE);
   // OBIETTIVI D'EPISODIO (ep.compiti): prima la tessera dove si lavora, poi il
   // rientro dichiarato da ep.vittoria. Senza questo il pilota andava in fondo
   // alla spina e ci restava, perche' non sapeva che si torna indietro.
