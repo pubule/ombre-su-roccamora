@@ -168,7 +168,21 @@ function adiacGlob(a, b) {
 
 // ------------------------------------------------------------- dati di gioco
 const eroe = (nm) => ctx.comune.eroi.find((e) => e.nome === nm);
-const nemStat = (nome) => ctx.comune.nemici.find((n) => n.nome === nome);
+const nemStat = (nome) => {
+  const base = ctx.comune.nemici.find((n) => n.nome === nome);
+  // TARATURA PER EPISODIO: `ep.nemici_mod` puo' ammorbidire (o indurire) i
+  // nemici di quell'episodio senza toccare le loro statistiche stampate, che
+  // sono condivise fra episodi. Es. `{ dan: -1 }` toglie 1 Danno a tutti; una
+  // chiave col nome del nemico lo colpisce solo lui. Serve dove un episodio e'
+  // troppo letale nel finale ma i nemici non si possono indebolire altrove.
+  const mod = ctx.ep && ctx.ep.nemici_mod;
+  if (!base || !mod) return base;
+  const delta = mod[nome] || mod.tutti || null;
+  if (!delta) return base;
+  const out = { ...base };
+  for (const k of ['dan', 'att', 'dif', 'fer']) if (delta[k]) out[k] = Math.max(0, (out[k] || 0) + delta[k]);
+  return out;
+};
 const movimento = (nm) => (nm.includes('NINO') ? 4 : 3);
 function fascia(taglia) {
   if (taglia === 2 || taglia === 4) return 0;
@@ -1559,6 +1573,11 @@ function faseNemiciAI() {
   statoScortati().forEach((g) => { g.mosso = false; });   // possono muoversi nel nuovo turno eroi
   sp.scortAttivo = null;
   if (!sp.esito && P().party.every((nm) => (sp.vite[nm] ?? 0) <= 0)) sp.esito = 'sconfitta';
+  // vittoria valutata anche a FINE ROUND, non solo dopo un'azione: se l'ultimo
+  // eroe vivo raggiunge la tessera-meta e poi nessuno agisce piu' (tutti fermi
+  // all'obiettivo), `segnaAzione` non la ricontrollerebbe mai e la partita
+  // restava aperta a canne fatte e gruppo gia' rientrato.
+  if (!sp.esito) controllaVittoria();
   salvaP();                                    // stato gia' finale: reload -> fase eroi coerente
   ctx.saltaNemici = false; ctx.ultimaCentrata = null;
   ctx.viteVista = { ...piano.vite0 };          // board come a inizio fase: nessuno ancora a terra

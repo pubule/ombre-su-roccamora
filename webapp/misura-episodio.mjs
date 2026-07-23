@@ -478,7 +478,14 @@ for (let g = 0; g < N; g++) {
     // il gruppo e' impantanato (di norma decimato in un episodio non letale, dove
     // la sconfitta per party-wipe non scatta): si chiude come sconfitta invece di
     // girare fino al round 80.
-    const firma = `${(s.rivelate || []).length}|${Object.values(s.compiti || {}).reduce((a, b) => a + b, 0)}`;
+    // il progresso include anche il RIENTRO: a obiettivo fatto, il gruppo che
+    // riporta il PNG/se stesso alla meta avanza eccome, ma tessere e compiti non
+    // cambiano piu' — senza la distanza dalla meta l'anti-stallo dichiarava
+    // «fermo» un ritorno perfettamente in corso (Ep.7: sconfitta a round 19 con
+    // Fava libero e tutti vivi). Si aggiunge quanti eroi/PNG sono gia' alla meta.
+    const allaMeta = Object.values(s.eroiPos || {}).filter((p) => p && p.t === (EP.vittoria?.tessera || SC?.meta)).length
+      + (s.scortati || []).filter((g) => g.pos && g.pos.t === (SC?.meta)).length;
+    const firma = `${(s.rivelate || []).length}|${Object.values(s.compiti || {}).reduce((a, b) => a + b, 0)}|${allaMeta}`;
     if (firma !== firmaProg) { firmaProg = firma; ultimoProgresso = r; }
     else if (r - ultimoProgresso >= 12) { if (await vis('#sconfitta')) await clicDom('#sconfitta'); break; }
     const mt = await meta();
