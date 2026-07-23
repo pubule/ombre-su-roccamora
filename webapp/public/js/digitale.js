@@ -1146,7 +1146,16 @@ async function azioneInteragire(nm) {
       if (r == null) return;                                  // prova annullata: nessuna azione spesa
       if (!r.ok) { log(`${primo(nm)}: ${c.fallita || 'non ci riesce'}.`); segnaAzione(nm, 'interagire'); return; }
     }
-    const st = statoCompiti(); st[c.id] = (st[c.id] || 0) + 1;
+    // un'azione puo' valere PIU' di un punto: la documentazione dell'Ep.10 vale
+    // +1, o +2 con la Macchina Fotografica in inventario (`c.per_azione` col
+    // moltiplicatore condizionato a un oggetto). Cosi' la traccia si riempie al
+    // ritmo che la Soluzione descrive, non un colpo alla volta.
+    let passo = 1;
+    if (c.per_azione) {
+      passo = c.per_azione.base || 1;
+      if (c.per_azione.oggetto && (P().indagine.oggetti || []).some((o) => new RegExp(c.per_azione.oggetto, 'i').test(o))) passo = c.per_azione.con_oggetto || passo;
+    }
+    const st = statoCompiti(); st[c.id] = (st[c.id] || 0) + passo;
     if (c.nemico) {                       // catturato: esce dal tavolo, non e' un morto
       const j = sp.nemici.findIndex((n) => n.pos && n.nome === c.nemico && adiacGlob(sp.eroiPos[nm], n.pos));
       if (j >= 0) sp.nemici.splice(j, 1);

@@ -314,7 +314,7 @@ async function muoviCon(punteggio, chiPos, leggiPos) {
   return 'mosso';
 }
 
-async function turnoEroe(nm, mt) {
+async function turnoEroe(nm, mt, party) {
   await pg.evaluate((n) => document.querySelector(`[data-turno="${CSS.escape(n)}"]`)?.click(), nm);
   
   const tentate = new Set();
@@ -343,7 +343,18 @@ async function turnoEroe(nm, mt) {
         const c = COMPITI.find((x) => x.nemico && ((s.compiti || {})[x.id] || 0) < x.quante);
         return c ? (s.nemici || []).find((n) => n.pos && n.nome === c.nemico) : null;
       })();
-      const punt = preda
+      // IL GUARDIANO: se l'episodio ha un orologio che si ferma tenendo un
+      // nemico a contatto (Ep.10, «inchiodare il Muratore mentre gli altri
+      // fotografano»), UN eroe designato lo insegue e resta adiacente, cosi'
+      // l'orologio si blocca e gli altri hanno il tempo di fare il compito.
+      const frena = EP.orologio && EP.orologio.frena_adiacente;
+      const guardia = frena && party[0] === nm;   // il primo del party fa il cane da guardia
+      const boss = frena ? (s.nemici || []).find((n) => n.pos && n.nome === frena) : null;
+      const punt = (guardia && boss)
+        ? (c) => (c.t === boss.pos.t
+            ? Math.abs(c.x - boss.pos.x) + Math.abs(c.y - boss.pos.y)
+            : 100 + dist(c.t, boss.pos.t) * 100)
+        : preda
         ? (c) => (c.t === preda.pos.t
             ? Math.abs(c.x - preda.pos.x) + Math.abs(c.y - preda.pos.y)
             : 100 + dist(c.t, preda.pos.t) * 100)
@@ -430,12 +441,12 @@ for (let g = 0; g < N; g++) {
     ? process.env.PARTY.split(',').map((x) => comune.eroi.find((e) => e.nome.toUpperCase().includes(x.toUpperCase()))?.nome).filter(Boolean)
     : comune.eroi.map((e) => e.nome).sort(() => Math.random() - 0.5).slice(0, 4);
   await pg.goto(BASE, { waitUntil: 'domcontentloaded' });
-  await pg.evaluate(({ p, k, id, TIER }) => {
+  await pg.evaluate(({ p, k, id, TIER, OGG }) => {
     localStorage.clear();
     localStorage.setItem(k, JSON.stringify({
       v: 1, episodio: id, modo: 'digitale', party: p, creata: Date.now(), fase: 'spedizione',
       indagine: { ora: 24, lettaLettera: true, visitati: [], scoperti: [], sbloccati: [], parole: [],
-        oggetti: [], reperti: [], approfondimentiLetti: [], caricheUsate: {}, secondoFiato: {},
+        oggetti: OGG, reperti: [], approfondimentiLetti: [], caricheUsate: {}, secondoFiato: {},
         note: '', risposte: ['', '', '', ''], chiusa: true },
       // IL VANTAGGIO D'INDAGINE. Senza, il pilota misura sempre il gruppo che
       // dall'Indagine non porta NIENTE: niente +1 Salute, niente slancio,
@@ -444,7 +455,7 @@ for (let g = 0; g < N; g++) {
       vantaggi: { tier: TIER, dossier: TIER === 'slancio', risposte: [false, false, false, false] },
       spedizione: { round: 0, canto: 0, cantoBonus: false, mazzo: null, esito: null },
     }));
-  }, { p: party, k: CHIAVE_SALVATAGGIO, id: EPID, TIER });
+  }, { p: party, k: CHIAVE_SALVATAGGIO, id: EPID, TIER, OGG: EP.oggetti_indagine || [] });
   // AVVIO VERIFICATO. La catena titolo->continua->via e' tre schermate che si
   // susseguono: se un click parte prima che la successiva sia montata, l'avvio
   // muore in silenzio e la partita resta a round 0 — erano 28 «stalli» su 168
@@ -452,15 +463,15 @@ for (let g = 0; g < N; g++) {
   // e' davvero cominciata (fase eroi con pedine sul tabellone).
   let avviata = false;
   for (let tent = 0; tent < 8 && !avviata; tent++) {
-    if (tent) await pg.evaluate(({ p, k, id, TIER }) => {
+    if (tent) await pg.evaluate(({ p, k, id, TIER, OGG }) => {
       localStorage.setItem(k, JSON.stringify({ v: 1, episodio: id, modo: 'digitale', party: p,
         creata: Date.now(), fase: 'spedizione',
         indagine: { ora: 24, lettaLettera: true, visitati: [], scoperti: [], sbloccati: [], parole: [],
-          oggetti: [], reperti: [], approfondimentiLetti: [], caricheUsate: {}, secondoFiato: {},
+          oggetti: OGG, reperti: [], approfondimentiLetti: [], caricheUsate: {}, secondoFiato: {},
           note: '', risposte: ['', '', '', ''], chiusa: true },
         vantaggi: { tier: TIER, dossier: TIER === 'slancio', risposte: [false, false, false, false] },
         spedizione: { round: 0, canto: 0, cantoBonus: false, mazzo: null, esito: null } }));
-    }, { p: party, k: CHIAVE_SALVATAGGIO, id: EPID, TIER });
+    }, { p: party, k: CHIAVE_SALVATAGGIO, id: EPID, TIER, OGG: EP.oggetti_indagine || [] });
     await pg.goto(BASE, { waitUntil: 'domcontentloaded' });
     await finoA(async () => (await pg.getByText(EP.titolo).count()) > 0, 8000);
     await pg.getByText(EP.titolo).first().click().catch(() => {});
@@ -525,7 +536,7 @@ for (let g = 0; g < N; g++) {
     for (const nm of ordine) {
       const st = await sp(); if (st.esito) break;
       if ((st.vite[nm] ?? 0) <= 0 || (st.eroiFatti || []).includes(nm)) continue;
-      await turnoEroe(nm, mt);
+      await turnoEroe(nm, mt, party);
     }
     const s3 = await sp();
     if (!vittoriaAl && s3.esito === 'vittoria') vittoriaAl = s3.round;

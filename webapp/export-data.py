@@ -1054,11 +1054,19 @@ episodi = dict(
                   'PROVA (documentate all’intercapedine, +2 con la Macchina Fotografica). PROVA '
                   'piena = vittoria; DEMOLIZIONE piena = il muro crolla, sconfitta. Abbattere il '
                   'Muratore ferma la demolizione (seconda via).',
-        # «Fissate la prova prima che il Muratore abbatta il muro»: due tracce che
-        # corrono. La PROVA si riempie documentando all'intercapedine; la
-        # DEMOLIZIONE sale da sola e con le carte crescendo («la casa trema»).
-        compiti=[dict(id='prova', tile='T6', quante=7, etichetta='Documenta il corpo murato',
+        # «Fissate la prova prima che il Muratore abbatta il muro»: DUE tracce che
+        # corrono, come dice la Soluzione. PROVA lunga 14, non 7 (era un mio
+        # errore di trascrizione): ogni documentazione all'intercapedine vale +1,
+        # o +2 con la Macchina Fotografica — fino a due eroi documentano insieme.
+        # La DEMOLIZIONE (12) sale a round e con le carte; inchiodare il Muratore
+        # la ferma (`frena_adiacente`).
+        compiti=[dict(id='prova', tile='T6', quante=14, etichetta='Documenta il corpo murato',
+                      per_azione=dict(base=1, oggetto='macchina fotografica', con_oggetto=2),
                       fatto='La prova è fissata: il muro può anche cadere.')],
+        # oggetti che un'Indagine riuscita porta in spedizione: il pilota li
+        # semina per misurare l'episodio come va giocato (la Macchina raddoppia
+        # ogni documentazione — senza, la traccia da 14 e' irraggiungibile).
+        oggetti_indagine=['La Macchina Fotografica'],
         vittoria=dict(testo='La prova è fissata: il corpo murato è documentato.'),
         orologio=dict(id='demolizione', nome='Demolizione', max=12, ogni=1, da_carta=1,
                       frena_adiacente='IL MURATORE',
