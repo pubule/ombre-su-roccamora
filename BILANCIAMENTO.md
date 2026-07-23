@@ -161,6 +161,32 @@ nel tempo. Completato l'obiettivo, il mazzo tace e il gruppo ha la finestra per
 estrarsi. Precedente: Pandemic (obiettivo tolto = minaccia tolta) + crescendo-
 relief di L4D/Zombicide.
 
+## CORREZIONE (23/07): la consolidazione era in parte misura di bug del pilota
+
+Attaccando l'Ep.7 (0%) ho trovato DUE bug del pilota negli episodi col PNG da
+RIPORTARE indietro e nessuna uscita segreta (fix 2af063a9):
+1. `versoArredi` (caccia all'arredo dell'uscita segreta) scattava anche dove
+   l'uscita non esiste: gli eroi puntavano la cella-prigione invece di scortare
+   verso la meta;
+2. il PNG scortato non aveva il fallback porta-cella degli eroi: `versoMeta` lo
+   spingeva in un angolo da cui la porta e' oltre gli arredi, e restava piantato
+   mentre gli eroi tornavano sani alla meta.
+
+Rimisura appaiata degli episodi impattati (PNG liberato + nessuna uscita
+segreta), 60 partite/episodio, tutte VALIDE:
+
+| ep | consolidazione (buggy) | CORRETTO | perche' |
+|----|-----------------------:|---------:|---------|
+| preludio | 55% | **33%** | il 55% era in parte gli eroi che cacciavano arredi inesistenti |
+| ep4 | 55% | 55% | invariato (Gaspare con uscita domina; fix di Rocco marginale) |
+| ep7 | 0% | **20%** | i due bug lo schiacciavano a 0; ora numero genuino |
+| ep9 | 44% | **32%** | non letale; anche qui il buggy era gonfiato |
+
+Gli episodi con PNG dotato di uscita segreta (ep1/2/3/16) NON sono toccati:
+`versoArredi` resta valido (SC.uscita vero) e il fallback e' gated da
+`!spec.uscita`. Il quadro ONESTO dell'Atto I-II e' piu' basso di stanotte:
+preludio ed ep9 erano gonfiati dai bug. Da qui in poi si tara sul corretto.
+
 **I due residui, cause DIVERSE dal ritorno:**
 - **ep7 (0%)**: la spina di **8 tessere** (la più lunga) — Fava liberato solo al
   round 12, quando il gruppo e' gia' decimato (2 eroi, salute 3). La regola
