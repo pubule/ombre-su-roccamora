@@ -424,7 +424,7 @@ for (let g = 0; g < N; g++) {
   // che non erano gioco, ma setup fallito. Qui si riprova finche' la spedizione
   // e' davvero cominciata (fase eroi con pedine sul tabellone).
   let avviata = false;
-  for (let tent = 0; tent < 4 && !avviata; tent++) {
+  for (let tent = 0; tent < 8 && !avviata; tent++) {
     if (tent) await pg.evaluate(({ p, k, id, TIER }) => {
       localStorage.setItem(k, JSON.stringify({ v: 1, episodio: id, modo: 'digitale', party: p,
         creata: Date.now(), fase: 'spedizione',
@@ -435,16 +435,17 @@ for (let g = 0; g < N; g++) {
         spedizione: { round: 0, canto: 0, cantoBonus: false, mazzo: null, esito: null } }));
     }, { p: party, k: CHIAVE_SALVATAGGIO, id: EPID, TIER });
     await pg.goto(BASE, { waitUntil: 'domcontentloaded' });
-    await finoA(async () => (await pg.getByText(EP.titolo).count()) > 0, 4000);
+    await finoA(async () => (await pg.getByText(EP.titolo).count()) > 0, 8000);
     await pg.getByText(EP.titolo).first().click().catch(() => {});
     await clicQuando('#continua');
     await clicQuando('#via');
     await sciogli();
-    avviata = await finoA(async () => { const x = await sp(); return x && (x.round >= 1 || x.esito); }, 5000);
+    avviata = await finoA(async () => { const x = await sp(); return x && (x.round >= 1 || x.esito); }, 8000);
   }
   if (!avviata) { ko('avvio della spedizione non riuscito'); righe.push({ esito: 'stallo', round: 0, tappe: {}, allIngresso: null, liberatoAl: null, apertaAl: null, vittoriaAl: null, compiti: '' }); continue; }
 
   let vittoriaAl = null, liberatoAl = null, apertaAl = null;
+  let ultimoProgresso = 0, firmaProg = '';
   const tappe = {}; let allIngresso = null;   // fotografia all'ingresso in T6
   for (let r = 0; r < 80; r++) {
     if (!(await attendiFaseEroi())) { ko('fase eroi mai arrivata (timeout)'); break; }
@@ -461,6 +462,13 @@ for (let g = 0; g < N; g++) {
         tipi: [...new Set((s.nemici || []).filter((n) => n.pos).map((n) => breve(n.nome)))].join(','),
       };
     }
+    // progresso = tessere rivelate + compiti fatti. Se non cambia per 12 round
+    // il gruppo e' impantanato (di norma decimato in un episodio non letale, dove
+    // la sconfitta per party-wipe non scatta): si chiude come sconfitta invece di
+    // girare fino al round 80.
+    const firma = `${(s.rivelate || []).length}|${Object.values(s.compiti || {}).reduce((a, b) => a + b, 0)}`;
+    if (firma !== firmaProg) { firmaProg = firma; ultimoProgresso = r; }
+    else if (r - ultimoProgresso >= 12) { if (await vis('#sconfitta')) await clicDom('#sconfitta'); break; }
     const mt = await meta();
     if (process.env.DIAG) {
       const pos = Object.entries(s.eroiPos).map(([k, v]) => `${breve(k)}@${v.t}(${v.x},${v.y})/${s.vite[k]}`).join(' ');
@@ -487,6 +495,10 @@ for (let g = 0; g < N; g++) {
     const s3 = await sp();
     if (!vittoriaAl && s3.esito === 'vittoria') vittoriaAl = s3.round;
     if (s3.esito) break;
+    // PARTY-WIPE che il motore mostra ma non chiude da solo: a tavolo l'arbitro
+    // preme «gli eroi cadono», il pilota no. Se tutti sono a terra, la partita
+    // e' persa — negli episodi non letali (Ep.19) il gruppo restava a terra per
+    // 80 round senza che la sconfitta scattasse, e contava come stallo.
     if (await vis('#fase-minaccia')) { await clicDom('#fase-minaccia'); await finoA(async () => !(await vis('#fase-minaccia')), 2000); }
     await sciogli();
     if (await cnt('#salta-nemici')) await clicDom('#salta-nemici');
