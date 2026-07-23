@@ -352,7 +352,13 @@ async function turnoEroe(nm, mt, party) {
     else if (lib('abilita') && abilitaUtile(nm, s) && await vis(`[data-abil="${nm}"]`)) { tipo = 'abilita'; await pg.evaluate((n) => document.querySelector(`[data-abil="${CSS.escape(n)}"]`)?.click(), nm); await sciogli(); }
     else if (lib('muovere')) {
       tipo = 'muovere';
-      const versoArredi = (s.scortati || []).some((g) => g.liberato) && !(s.uscita && s.uscita.aperta);
+      // «cerca l'arredo dell'uscita segreta» vale SOLO dove l'uscita esiste. Senza
+      // questo, negli episodi col PNG da RIPORTARE indietro e nessuna uscita (Ep.7),
+      // appena liberato il PNG gli eroi puntavano USCITA_TILE = la cella (T6) a
+      // caccia di un arredo inesistente, invece di scortarlo verso la meta (T1):
+      // l'ultima superstite camminava verso il boss e il PNG restava piantato. 0%
+      // artefatto del pilota. Senza uscita, si scorta verso mt (che meta() da' = SC.meta).
+      const versoArredi = SC && SC.uscita && (s.scortati || []).some((g) => g.liberato) && !(s.uscita && s.uscita.aperta);
       // niente ritirata dei feriti: provata e MISURATA PEGGIORE — 1/12 vittorie
       // con la regola (e 2 corse in stallo) contro 3/12 senza. Un eroe che
       // rifiuta ogni casella a contatto in una stanza affollata non arretra:
@@ -458,7 +464,9 @@ async function turnoScortato() {
       const x = (await sp()).scortati?.[i];
       return x?.uscito ? { t: '~uscito', x: -1, y: -1 } : x?.pos;
     };
+    if (process.env.DIAGSC) console.log(`      [SC ${i}] pos=${g.pos.t}(${g.pos.x},${g.pos.y}) celle=${JSON.stringify(c.map((x) => `${x.t}(${x.x},${x.y})`))}`);
     let esito = c.length ? await muoviCon(punteggio, g.pos, leggi) : 'bloccato';
+    if (process.env.DIAGSC) console.log(`      [SC ${i}] esito=${esito}`);
     // FALLBACK del PNG verso l'uscita: se «nessun progresso» ma il PNG non e'
     // ancora sulla cella d'uscita, muovilo comunque alla cella-mossa piu' vicina
     // alla meta (anche senza miglioramento stretto): in una T6 affollata il PNG
@@ -470,6 +478,29 @@ async function turnoScortato() {
       if (cc.length) {
         const b = cc.slice().sort((a, z) => punteggio(a) - punteggio(z))[0];
         if (await clicCella(b)) { await sciogli(); const d = await leggi(); if (d && !(d.t === g.pos.t && d.x === g.pos.x && d.y === g.pos.y)) esito = 'mosso'; }
+      }
+    }
+    // FALLBACK porta-cella per il PNG SENZA uscita segreta (Ep.7): lo stesso che
+    // hanno gli eroi. versoMeta massimizza l'allineamento alla direzione d'uscita
+    // e spinge il PNG in un angolo (Fava a T3P(3,3)) da cui la porta verso la
+    // tessera successiva e' oltre gli arredi: muoiCon non trova progresso e resta
+    // piantato per sempre. Si punta la CELLA-PORTA verso il prossimo passo (o una
+    // cella in una tessera piu' vicina alla meta), aggirando gli arredi interni.
+    if (esito !== 'mosso' && !spec.uscita && g.pos.t !== spec.meta) {
+      const dir = dirVerso(g.pos.t, spec.meta);
+      if (dir) {
+        const pc = portaCellaP(g.pos.t, dir);
+        const dcur = dist(g.pos.t, spec.meta);
+        const punt2 = (cc) => (cc.t === g.pos.t
+          ? Math.abs(cc.x - pc[0]) + Math.abs(cc.y - pc[1])
+          : (dist(cc.t, spec.meta) < dcur ? -1 : 999));
+        const scorePos = Math.abs(g.pos.x - pc[0]) + Math.abs(g.pos.y - pc[1]);
+        const cc = await celle();
+        const b = cc.length ? cc.slice().sort((a, z) => punt2(a) - punt2(z))[0] : null;
+        if (b && punt2(b) < scorePos && (await clicCella(b))) {
+          await sciogli(); const d = await leggi();
+          if (d && !(d.t === g.pos.t && d.x === g.pos.x && d.y === g.pos.y)) esito = 'mosso';
+        }
       }
     }
     if (esito !== 'mosso') await clicDom('#rug-fine');
