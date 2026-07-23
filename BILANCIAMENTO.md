@@ -100,15 +100,45 @@ KPI — è a zero per un terzo della campagna.
 - **Ep.19 a 68%/68%**: l'unico dell'Atto III con un picco decente (0.8) e la
   piena in fascia. Il più vicino a «sano» del suo blocco.
 
-## Da qui: il bilanciamento vero, un episodio alla volta
+## La diagnosi dell'Atto I-II duro (23/07/2026, sera)
 
-Ordine suggerito, dal più rotto:
-1. gli 0% dell'Atto I-II (Ep.5, 7, 20) e Preludio/Ep.1 (tutorial + primo
-   episodio, quelli che un compratore tocca per primi);
-2. il piatto dell'Atto III (Ep.11-18): rendere pericolosa la cattura senza
-   allungarla — leva delicata, tocca immersione;
-3. le soglie dell'Atto III da rimisurare sulla plancia (Ep.17, 18 a 0% di
-   piena).
+Misura stabile dopo i fix del ritorno: Atto I-II tutto duro (25-62%, picco
+1.4-2.9), Atto III tutto facile (93-100%, picco 0.0-0.5). Ma scavando gli 0%:
 
-Ogni passo: misura Playwright → diagnosi → proposta etichettata → conferma →
-applica a dato/motore/stampa → rimisura appaiata.
+**Ridurre la letalità NON porta in fascia.** Provato dan-1/dan-2 su Ep.1, 5, 7,
+10: il picco va a 0.0-0.2 (nessuno muore) e le vittorie restano 20-29%. La
+letalità **non è mai la causa della sconfitta**. Confermato su quattro episodi.
+
+**La causa vera è che il gruppo non completa in tempo.** Tutti perdono al round
+~18-20. Con nemici innocui, gli eroi sopravvivono ma:
+- **Ep.1**: si impantana a T5 e non passa a T6. T5 ha `exits {N:T6}` ma QUATTRO
+  arredi «scala» nel centro (1,1)(1,2)(2,1)(2,2): il pilota si ammassa a T5(1,0)
+  sotto le scale e non trova la colonna libera per salire alla porta N. **È il
+  pathfinding del pilota che non aggira gli arredi interni** — al tavolo un
+  umano sale dal lato. Difetto dello strumento, non del gioco.
+- **Ep.7**: il ritorno di 8 tessere non si compie (spina troppo lunga, e niente
+  uscita segreta perché la via del ritorno È l'episodio).
+
+**Quindi il prossimo blocco è STRUMENTO, non taratura**: il pilota deve
+navigare intorno agli arredi che spezzano una tessera. Finché non lo fa, gli
+0% dell'Atto I-II non sono numeri di gioco affidabili — sono il pilota che si
+incastra.
+
+## Progressi applicati (23/07)
+
+- **Ep.16**: uscita segreta, 20% → 91% (ora troppo facile, da limare).
+- **fix del ritorno**: il PNG liberato torna alla META, non alla prigione —
+  impatta tutti gli episodi con scorta a ritorno classico.
+- **Ep.10**: PROVA corretta 7→14 + Macchina + guardiano (resta 0%, limite
+  strutturale: spina di 6 tessere incompatibile con la traccia 14).
+
+## Da qui: prima lo strumento, poi la taratura
+
+1. **il pathfinding del pilota intorno agli arredi interni** (blocca l'Atto I-II
+   — Ep.1 e simili). Senza, gli 0% non sono affidabili;
+2. limare l'Atto III dall'alto (11-18 tutti ≥93%): rendere pericolosa la
+   cattura senza allungarla — leva delicata, tocca immersione;
+3. Ep.16 da 91% verso la fascia; Ep.5/7 (spina lunga senza uscita segreta).
+
+Ogni passo: misura Playwright (campione ≥60, il rumore a 16 è ±15) → diagnosi →
+proposta etichettata → conferma → applica → rimisura.
