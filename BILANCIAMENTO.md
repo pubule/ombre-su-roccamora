@@ -132,7 +132,48 @@ incastra.
 - **Ep.10**: PROVA corretta 7→14 + Macchina + guardiano (resta 0%, limite
   strutturale: spina di 6 tessere incompatibile con la traccia 14).
 
-## Conclusione sull'Atto I-II: difetto strutturale, non tarabile a leve (23/07 notte)
+## SVOLTA: la regola stop-pesca trasforma l'Atto I-II (23/07 notte, aggiornamento)
+
+La proposta del committente — **obiettivo completato → non si pesca più
+Minaccia** (feat 699d7e6a) + il fix del trigger (PNG liberato, non uscita
+aperta, feat 6d9bd211) — ha fatto ciò che sei leve mie non erano riuscite.
+Consolidamento a 18 partite/episodio:
+
+| ep | pre-regola | dopo | Δ |
+|----|-----------:|-----:|---:|
+| preludio | 37% | 55% | +18 |
+| ep1 | 12% | 44% | +32 |
+| ep4 | 8% | 55% | +47 |
+| **ep5** | 16% | **72%** | in fascia |
+| ep6 | 41% | 66% | +25 |
+| ep7 | 0% | 0% | +0 |
+| ep8 | 25% | 66% | +41 |
+| ep9 | 25% | 44% | +19 |
+| ep16 | 100% | 100% | (facile) |
+
+Media da ~24% a ~55%, **Ep.5 in fascia**, e — cosa che nessuna leva mia aveva
+ottenuto — **nessuno più allo 0% tranne l'Ep.7**. Cinque episodi a 44-66%, a un
+passo (il rumore a 18 partite è ±15).
+
+**Perché funziona dove le mie leve fallivano:** loro curavano sintomi (salute,
+coesione, navigazione); questa colpisce il MECCANISMO — la pressione illimitata
+nel tempo. Completato l'obiettivo, il mazzo tace e il gruppo ha la finestra per
+estrarsi. Precedente: Pandemic (obiettivo tolto = minaccia tolta) + crescendo-
+relief di L4D/Zombicide.
+
+**I due residui, cause DIVERSE dal ritorno:**
+- **ep7 (0%)**: la spina di **8 tessere** (la più lunga) — Fava liberato solo al
+  round 12, quando il gruppo e' gia' decimato (2 eroi, salute 3). La regola
+  scatta troppo tardi perche' la LIBERAZIONE arriva tardi. Collo = lunghezza
+  della marcia, non ritorno. E l'Ep.7 non puo' avere l'uscita segreta (la via
+  del ritorno scelta in T2 e' il suo design). Serve una leva sulla marcia.
+- **ep16 (100%)**: l'uscita segreta lo ha reso una passeggiata. Da limare
+  dall'alto.
+
+**Nota metodo:** «obiettivo completato» va STAMPATO nel Regolamento (regola
+comune, il motore la applica gia' a tavolo e digitale). TODO.
+
+## [storico] Conclusione superata: «difetto strutturale non tarabile» (23/07 sera)
 
 Applicata **una** leva utile — lo **stop-spawn al Canto massimo** (feat 05b6cc58):
 quando il rituale è al culmine il mazzo non schiera più rinforzi, che nel finale
