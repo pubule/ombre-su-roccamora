@@ -964,6 +964,26 @@ const statoCompiti = () => { const sp = SP(); sp.compiti = sp.compiti || {}; ret
 const compitoFatte = (id) => statoCompiti()[id] || 0;
 const compitiFiniti = () => specCompiti().every((c) => compitoFatte(c.id) >= c.quante);
 
+// OBIETTIVO COMPLETATO: non resta che raggiungere la meta. Da qui il mazzo
+// Minaccia non si pesca piu' (crescendo-relief: la pressione cala dopo il
+// climax, come in Left 4 Dead/Zombicide; e ogni obiettivo tolto toglie minaccia,
+// come in Pandemic). Colpisce la causa misurata dell'Atto I-II: il ritorno sotto
+// pressione infinita che decimava il gruppo sfaldato. I nemici GIA' in campo
+// premono ancora, e il Canto automatico di fine round continua a salire.
+//   scorta:        tutti i PNG liberati (+ uscita aperta, se c'e' un'uscita segreta)
+//   compiti:       tutti finiti
+// Un episodio senza ne' scorta ne' compiti (raro) non ha «relief»: torna false.
+function obiettivoFatto() {
+  const sp = SP(); const sc = specScortati(); const co = specCompiti();
+  if (!sc.length && !co.length) return false;
+  if (co.length && !compitiFiniti()) return false;
+  if (sc.length) {
+    if (!statoScortati().every((g) => g.liberato)) return false;
+    if (specUscita() && !(sp.uscita && sp.uscita.aperta)) return false;
+  }
+  return true;
+}
+
 // il compito a portata dell'eroe: giusta tessera, quante ne restano, e — se il
 // dato nomina un arredo — esserne adiacenti
 function compitoDisponibile(pos) {
@@ -1369,6 +1389,14 @@ async function faseMinaccia() {
   const sp = SP();
   if (sp.fase === 'eroi') { sp.fase = 'nemici'; sp.eroiFatti = []; sp.eroiAttivo = null; sp.azioni = {}; salvaP(); }
   let n = carteDaPescare(ctx.comune, P().party.length, sp.round, sp.cantoBonus, P().episodio);
+  // OBIETTIVO COMPLETATO: non si pesca piu' Minaccia. La pressione del mazzo
+  // (spawn, insidie, crescendo) si ferma appena l'obiettivo e' fatto: resta
+  // solo scappare da chi c'e' gia'. Toglie il ritorno sotto pressione infinita.
+  if (obiettivoFatto()) {
+    n = 0;
+    faseNemiciAI();
+    return;
+  }
   if (sp.diversivoPronto) { n = Math.max(0, n - 1); sp.diversivoPronto = false; salvaP(); log('Diversivo di Fanti: 1 carta Minaccia in meno.'); }
   for (let i = 0; i < n; i++) {
     const carta = pesca(sp.mazzo, ctx.carte, P().episodio, ctx.ep);
