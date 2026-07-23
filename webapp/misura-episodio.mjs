@@ -455,13 +455,14 @@ for (let g = 0; g < N; g++) {
   }
   if (!avviata) { ko('avvio della spedizione non riuscito'); righe.push({ esito: 'stallo', round: 0, tappe: {}, allIngresso: null, liberatoAl: null, apertaAl: null, vittoriaAl: null, compiti: '' }); continue; }
 
-  let vittoriaAl = null, liberatoAl = null, apertaAl = null;
+  let vittoriaAl = null, liberatoAl = null, apertaAl = null, piccoTerra = 0;
   let ultimoProgresso = 0, firmaProg = '';
   const tappe = {}; let allIngresso = null;   // fotografia all'ingresso in T6
   for (let r = 0; r < 80; r++) {
     if (!(await attendiFaseEroi())) { ko('fase eroi mai arrivata (timeout)'); break; }
     const s = await sp(); if (s.esito) break;
     const inPiedi = Object.values(s.vite).filter((v) => v > 0).length;
+    piccoTerra = Math.max(piccoTerra, party.length - inPiedi);   // proxy ansia: eroi a terra nel momento peggiore
     for (const t of s.rivelate || []) if (!tappe[t]) tappe[t] = { round: s.round, vivi: inPiedi };
     // LA STANZA DEL BOSS: com'è messo il gruppo quando ci mette piede
     if (!allIngresso && (s.rivelate || []).includes(TILE_BOSS)) {
@@ -525,7 +526,7 @@ for (let g = 0; g < N; g++) {
   righe.push({ esito: f.esito || 'stallo', round: f.round, tappe, allIngresso, liberatoAl, apertaAl, vittoriaAl, compiti });
   console.log(`${String(g + 1).padStart(2)}/${N}  ${String(f.esito || 'stallo').padEnd(10)} round ${String(f.round).padStart(2)}` +
     `  ${TILE_BOSS} ${allIngresso ? `r${allIngresso.round} eroi ${allIngresso.vivi} salute ${allIngresso.salute} nemici ${allIngresso.nemici}(${allIngresso.inT6} in T6) canto ${allIngresso.canto}` : 'mai'}` +
-    `  liberato ${liberatoAl ?? '-'} aperta ${apertaAl ?? '-'} VITTORIA ${vittoriaAl ? 'r' + vittoriaAl : 'no'}${compiti}`);
+    `  liberato ${liberatoAl ?? '-'} aperta ${apertaAl ?? '-'} VITTORIA ${vittoriaAl ? 'r' + vittoriaAl : 'no'} picco ${piccoTerra}${compiti}`);
 }
 
 console.log('\n--- validità della corsa ---');
