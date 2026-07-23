@@ -458,7 +458,20 @@ async function turnoScortato() {
       const x = (await sp()).scortati?.[i];
       return x?.uscito ? { t: '~uscito', x: -1, y: -1 } : x?.pos;
     };
-    const esito = c.length ? await muoviCon(punteggio, g.pos, leggi) : 'bloccato';
+    let esito = c.length ? await muoviCon(punteggio, g.pos, leggi) : 'bloccato';
+    // FALLBACK del PNG verso l'uscita: se «nessun progresso» ma il PNG non e'
+    // ancora sulla cella d'uscita, muovilo comunque alla cella-mossa piu' vicina
+    // alla meta (anche senza miglioramento stretto): in una T6 affollata il PNG
+    // lento resta indietro di una casella e muoiCon lo dichiarava fermo, cosi'
+    // l'uscita restava aperta ma inutilizzata (Ep.1: liberato e aperto al round
+    // 10, poi il PNG non ci entrava fino alla sconfitta al round 20).
+    if (esito !== 'mosso' && u && u.aperta && !(g.pos.t === u.tile && g.pos.x === u.cella[0] && g.pos.y === u.cella[1])) {
+      const cc = await celle();
+      if (cc.length) {
+        const b = cc.slice().sort((a, z) => punteggio(a) - punteggio(z))[0];
+        if (await clicCella(b)) { await sciogli(); const d = await leggi(); if (d && !(d.t === g.pos.t && d.x === g.pos.x && d.y === g.pos.y)) esito = 'mosso'; }
+      }
+    }
     if (esito !== 'mosso') await clicDom('#rug-fine');
     ultimo = { esito };
     if ((await sp()).esito) break;

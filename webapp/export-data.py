@@ -817,6 +817,13 @@ episodi = dict(
         vantaggio=dict(slancio_ore=3, preparati_ore=1, preparati_luoghi=6),
         soluzione=SOLUZIONI['ep1'],
         pool=TOKEN_POOL_BASE,
+        # IL CANTO BATTE OGNI 6 ROUND, non ogni 4 (taratura del 23/07/2026).
+        # Misurato sulla plancia: il gruppo arriva a T6 al round ~10 con meta'
+        # salute e il Custode GIA' desto (Canto a soglia 3 in 14 partite su 17),
+        # e non fa in tempo a liberare Ruggero + aprire l'uscita segreta a due
+        # altari sotto il fuoco. Rallentare il Canto da' il margine. E' il primo
+        # episodio, il piu' giocato: deve essere in fascia.
+        canto_ogni=6,
     ),
     ep2=dict(
         id='ep2', titolo='La voce del bronzo',
