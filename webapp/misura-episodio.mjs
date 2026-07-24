@@ -511,12 +511,14 @@ async function turnoScortato() {
 }
 
 const righe = [];
+let dimParty = 4;   // dimensione reale della squadra giocata (per l'intestazione)
 for (let g = 0; g < N; g++) {
   // PARTY=nome1,nome2,... forza una squadra fissa (per isolare la varianza del
   // party da quella dei dadi); senza, quattro eroi a caso come al tavolo
   const party = process.env.PARTY
     ? process.env.PARTY.split(',').map((x) => comune.eroi.find((e) => e.nome.toUpperCase().includes(x.toUpperCase()))?.nome).filter(Boolean)
     : comune.eroi.map((e) => e.nome).sort(() => Math.random() - 0.5).slice(0, 4);
+  dimParty = party.length;
   await pg.goto(BASE, { waitUntil: 'domcontentloaded' });
   await pg.evaluate(({ p, k, id, TIER, OGG }) => {
     localStorage.clear();
@@ -606,7 +608,7 @@ for (let g = 0; g < N; g++) {
     if (!apertaAl && s.uscita?.aperta) apertaAl = s.round;
     await turnoScortato();
     const s2 = await sp();
-    if (!vittoriaAl && s2.esito === 'vittoria') vittoriaAl = s2.round;
+    if (!vittoriaAl && (s2.esito === 'vittoria' || s2.esito === 'parziale')) vittoriaAl = s2.round;
     if (s2.esito) break;
     // chi apre la strada va per primo, il curatore per ultimo: così la cura
     // arriva dopo i danni del round invece che prima
@@ -618,7 +620,7 @@ for (let g = 0; g < N; g++) {
       await turnoEroe(nm, mt, party);
     }
     const s3 = await sp();
-    if (!vittoriaAl && s3.esito === 'vittoria') vittoriaAl = s3.round;
+    if (!vittoriaAl && (s3.esito === 'vittoria' || s3.esito === 'parziale')) vittoriaAl = s3.round;
     if (s3.esito) break;
     // PARTY-WIPE che il motore mostra ma non chiude da solo: a tavolo l'arbitro
     // preme «gli eroi cadono», il pilota no. Se tutti sono a terra, la partita
@@ -632,11 +634,15 @@ for (let g = 0; g < N; g++) {
     await finoA(async () => !(await cnt('#salta-nemici')), 2000);
   }
   const f = await sp();
+  // rete di sicurezza: se l'esito è scattato a FINE ROUND (controllaVittoria fuori
+  // dal turno eroi), i check a 611/623 lo mancano e vittoriaAl resta null benché
+  // l'episodio sia vinto/parziale. Qui lo si cattura sull'esito finale.
+  if (vittoriaAl == null && (f.esito === 'vittoria' || f.esito === 'parziale')) vittoriaAl = f.round;
   const compiti = COMPITI.length
     ? ' compiti ' + [...new Set(COMPITI.map((c) => c.id))]
         .map((id) => `${id} ${(f.compiti || {})[id] || 0}/${(COMPITI.find((c) => c.id === id) || {}).quante}`).join(' ')
     : '';
-  righe.push({ esito: f.esito || 'stallo', round: f.round, tappe, allIngresso, liberatoAl, apertaAl, vittoriaAl, compiti });
+  righe.push({ esito: f.esito || 'stallo', round: f.round, tappe, allIngresso, liberatoAl, apertaAl, vittoriaAl, picco: piccoTerra, compiti });
   console.log(`${String(g + 1).padStart(2)}/${N}  ${String(f.esito || 'stallo').padEnd(10)} round ${String(f.round).padStart(2)}` +
     `  ${TILE_BOSS} ${allIngresso ? `r${allIngresso.round} eroi ${allIngresso.vivi} salute ${allIngresso.salute} nemici ${allIngresso.nemici}(${allIngresso.inT6} in T6) canto ${allIngresso.canto}` : 'mai'}` +
     `  liberato ${liberatoAl ?? '-'} aperta ${apertaAl ?? '-'} VITTORIA ${vittoriaAl ? 'r' + vittoriaAl : 'no'} picco ${piccoTerra}${compiti}`);
@@ -652,8 +658,15 @@ if (stalli) problemi.push(`${stalli} partite in stallo`);
 console.log(problemi.length ? 'NON VALIDA — ' + problemi.join('; ') : 'VALIDA: nessuna azione fallita, nessun round perso, nessun errore JS');
 
 const v = righe.filter((r) => r.vittoriaAl);
-console.log(`\n===== Ep.1, 4 eroi, ${N} partite =====`);
+console.log(`\n===== ${EPID.replace(/^ep/i, 'Ep.')}, ${dimParty} eroi, ${N} partite =====`);
 console.log(`VITTORIE ${v.length}/${N} = ${(100 * v.length / N).toFixed(0)}%` + (v.length ? `, round medi ${(v.reduce((a, r) => a + r.vittoriaAl, 0) / v.length).toFixed(1)}` : ''));
+if (EP.rogo) {
+  const piena = righe.filter((r) => r.esito === 'vittoria').length;
+  const parz = righe.filter((r) => r.esito === 'parziale').length;
+  const sc = EP.rogo.scala || [];
+  console.log(`  ROGO -> PIENA ${piena}/${N} · PARZIALE ${parz}/${N} · PERSO ${N - piena - parz}/${N}` +
+    `   [soglie ${sc.map(([t, q]) => `${t}@r${q}`).join(' ')}, picco medio eroi-a-terra ${(righe.reduce((a, r) => a + (r.picco || 0), 0) / N).toFixed(1)}]`);
+}
 console.log(`PNG liberato ${righe.filter((r) => r.liberatoAl).length}/${N}, uscita aperta ${righe.filter((r) => r.apertaAl).length}/${N}`);
 for (const t of EP.tessere.map((x) => x.id).filter((x) => x !== 'T1')) {
   const c = righe.filter((r) => r.tappe[t]);
