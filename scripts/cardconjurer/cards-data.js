@@ -3641,7 +3641,7 @@ const EP15_MINACCE = [
     effect: 'Se non avete documentato tell in questa tessera, il primo tell qui è già cancellato (perso). Col Reagente: lo recuperate lo stesso.' },
   { art: 'artworks/Passi nel cortile.png', title: 'Passi nel Cortile', tipo: 'Crescendo',
     flavor: 'Passi sulla ghiaia, lanterne che si avvicinano: il cordone si muove.',
-    effect: 'Aggiungete 1 segnalino Canto (il Sigillo). Alla soglia-sigillo (Canto 8): la Gendarmeria sigilla — vedi Soluzione. Alla soglia (3): +1 carta Minaccia per Fase, per sempre.' },
+    effect: 'Aggiungete 1 segnalino Canto (il Sigillo). Alla soglia-sigillo (Canto 7): la Gendarmeria sigilla — vedi Soluzione. Alla soglia (3): +1 carta Minaccia per Fase, per sempre.' },
   { art: 'artworks/Il cordone si stringe.png', title: 'Il Cordone si Stringe', tipo: 'Crescendo',
     flavor: 'I gendarmi chiudono ogni uscita: il tempo per documentare si accorcia.',
     effect: 'Aggiungete 1 segnalino Canto (il Sigillo). Gli Apparecchiatori, sentendo la fretta, cancellano 1 tell in più questo round.' },

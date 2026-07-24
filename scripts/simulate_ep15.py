@@ -52,7 +52,10 @@ TOKEN_POOL_BASE = {'LO SGHERRO': 5}
 # round 5-8: era tarata su una marcia lunga la meta', prima che il costo di
 # attraversamento fosse corretto a 2 round per tessera. Il finale vero non si
 # apriva quasi mai — misurato su 600 partite a 4 eroi.
-SOGLIA_SIGILLO = 8        # Canto oltre cui la Gendarmeria sigilla (6 con la Chiave)
+SOGLIA_SIGILLO = 7        # Canto oltre cui la Gendarmeria sigilla. Allineato al
+# PILOTA (20260724): a 8 il Canto digitale/reale non ci arriva mai (100% piena =
+# walkover, sigillo morto); a 7 la contro-busta scende a ~63% piena / 37% parziale
+# (rischio reale). Il pilota e' l'autorevole; la curva di questo sim non lo e'.
 PROVE_PIAZZATE = 5        # tell del falso da documentare (pool iniziale, +1 col Reagente)
 SOGLIA_CONTRO = 4         # tell documentati per aprire la Contro-busta
 CANCELLA_PER_ROUND = 2    # tell cancellati dagli Apparecchiatori da T4 (Capo vivo)

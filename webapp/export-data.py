@@ -1237,13 +1237,19 @@ episodi = dict(
                   'un innocente in cella e la «vittoria» di M.',
         # «Documentare i tell del falso e prendere il Capo prima del SIGILLO»: i
         # tell sono 5 sparsi, ne servono 4; il Capo è una miniatura da catturare.
+        # SIGILLO ricalibrato 8->7 (pilota 20260724): a 8 il Canto digitale non ci
+        # arriva mai = 100% piena walkover; a 7 la contro-busta scende a ~63% piena.
+        # NOTA parità: la CANCELLAZIONE (gli Apparecchiatori cancellano 2 tell/round
+        # da T4 finché il Capo è in piedi) è meccanica-tavolo, NON nel digitale
+        # (l'engine non decrementa i compiti). Ricchezza-tavolo come il +2 di Ep.10:
+        # la tensione digitale viene dal sigillo. Un domani si potrebbe modellare.
         compiti=[dict(id='tell', tile=t, quante=4, etichetta='Documenta un tell del falso')
                  for t in ('T2', 'T3', 'T4')] + [
             dict(id='capo', nemico='IL CAPO APPARECCHIATORE', quante=1, dopo='tell',
                  etichetta='Prendi il Capo Apparecchiatore',
                  fatto='Il Capo è preso: la Contro-busta si apre.')],
         vittoria=dict(testo='Contro-busta: sapete chi ha scritto il dossier.'),
-        orologio=dict(id='sigillo', nome='Sigillo', su_canto=8,
+        orologio=dict(id='sigillo', nome='Sigillo', su_canto=7,
                       esito='parziale', testo='La Gendarmeria sigilla la villa: resta la sola Busta pubblica.'),
         esami_carbone=ESAMI_CARBONE_15,
         luoghi=[luogo_json(L, OGGETTI_LUOGO_15, REPERTI_LUOGO['ep15']) for L in LUOGHI_15],
