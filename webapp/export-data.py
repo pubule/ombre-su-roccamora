@@ -1403,12 +1403,26 @@ episodi = dict(
                   'può perdere eroi, e può finire male. NIENTE Bivio: è la fine.',
         # IL FINALE: non si vince con l'acciaio ma col CONTROCANTO — righe da
         # pronunciare, mentre il Dormiente si sveglia.
+        # IL FINALE IN DIGITALE (fix 20260724). Il Controcanto vero scala coi 20
+        # FRAMMENTI raccolti in tutta la campagna (più ne avete, più righe/round).
+        # Quei Frammenti NON sono tracciati in digitale → il bonus è astratto
+        # nell'ESITO D'INDAGINE (per_tier): slancio 4 righe/riuscita, preparati 2,
+        # nessuno 1. Senza questo il finale digitale era INGIOCABILE (rate base 1 =
+        # 0% sul pilota, e per un umano). Tarato sul pilota: preparati ~93%,
+        # slancio 100%, nessuno ~93% ma a r19 (sul filo) — dentro l'intento
+        # «85-93% win, tragico 5-15%», con l'indagine che detta la TENSIONE.
+        # NOTA parità risveglio: la carta/fascicolo/sim dicono soglia Canto 8 ed è
+        # GIUSTO per il TAVOLO (che ha i Frammenti veri = controcanto veloce). Il
+        # digitale usa 9 perché l'astrazione-tier è più grezza e il Canto digitale
+        # sale più in fretta: serve un round in più di finestra. Differenza
+        # per-modalità voluta, non un drift.
         compiti=[dict(id='controcanto', tile='T6', quante=10,
                       etichetta='Pronuncia una riga del Controcanto',
                       prova=dict(attr='nervi', diff='Media'), fallita='la voce si spezza',
+                      per_azione=dict(base=1, per_tier=dict(slancio=4, preparati=2, nessuno=1)),
                       fatto='Il Controcanto è compiuto.')],
         vittoria=dict(testo='Il Controcanto copre il Canto: la città si sveglia, il Dormiente no.'),
-        orologio=dict(id='risveglio', nome='Risveglio', su_canto=8,
+        orologio=dict(id='risveglio', nome='Risveglio', su_canto=9,
                       esito='sconfitta', testo='Il Dormiente si desta: è troppo tardi.'),
         esami_carbone=ESAMI_CARBONE_20,
         luoghi=[luogo_json(L, OGGETTI_LUOGO_20, REPERTI_LUOGO['ep20']) for L in LUOGHI_20],

@@ -1222,6 +1222,10 @@ async function azioneInteragire(nm) {
     if (c.per_azione) {
       passo = c.per_azione.base || 1;
       if (c.per_azione.oggetto && (P().indagine.oggetti || []).some((o) => new RegExp(c.per_azione.oggetto, 'i').test(o))) passo = c.per_azione.con_oggetto || passo;
+      // scala col TIER d'indagine (Ep.20: il Controcanto va più veloce con più
+      // Frammenti — astratti qui nell'esito d'indagine slancio/preparati/nessuno,
+      // perché i 20 Frammenti campagna-wide non sono tracciati in digitale).
+      if (c.per_azione.per_tier) passo = c.per_azione.per_tier[(P().vantaggi || {}).tier || 'nessuno'] || passo;
     }
     const st = statoCompiti(); st[c.id] = (st[c.id] || 0) + passo;
     // ROGO (Ep.13) — snapshot piena/parziale ALL'ATTO DELLA PRESA: se il torchio
