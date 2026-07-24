@@ -3028,9 +3028,10 @@ const EP12 = [...LUOGHI12, ...EP12_INDIZI, ...EP12_TESTIMONI, ...EP12_REFERTI,
 
 // ============================================================ EPISODIO 13
 // «Carta di pregio» — Atto III (apertura), mythology (vedi
-// DESIGN-EPISODIO-13.md). Trasferta al Molino delle Carte: salvare i registri
-// dei noli prima del rogo (soglia-Canto), mentre il Notaio sfugge. Boss: il
-// Sorvegliante. Torsione d'indagine: «il testimone che non c'è più».
+// DESIGN-EPISODIO-13.md). Trasferta al Molino delle Carte: prendere i registri
+// dei noli e FUGGIRE dal molino in fiamme (rogo doom-clock a round che scende
+// verso l'uscita), mentre il Notaio sfugge. Boss: il Sorvegliante. Torsione
+// d'indagine: «il testimone che non c'è più».
 
 const LUOGHI13 = [
   { n: 1, nome: 'La Stazione delle Carrozze', req: 'Disponibile dall’inizio',
@@ -3139,7 +3140,8 @@ const EP13_REFERTI = LUOGHI13.flatMap((L) =>
   })));
 
 // Mazzo 21: 7 spawn (uomini del molino), 6 insidie (ambiente: roggia/macine/
-// telai/polvere), 4 crescendo (FUOCO: soglia-rogo), 4 eventi.
+// telai/polvere), 4 crescendo (+1 Canto; il rogo è un doom-clock a ROUND a
+// parte, non guidato da queste carte), 4 eventi.
 const EP13_MINACCE = [
   { art: 'artworks/Gli uomini del molino.png', title: 'La Guardia al Cancello', tipo: 'Malavita',
     flavor: 'Uomini pagati per sorvegliare un molino e non fare domande. Stanotte hanno ordini.',
@@ -3179,19 +3181,19 @@ const EP13_MINACCE = [
     effect: 'L’eroe più avanzato prova VIGORE/DESTREZZA (Media): se fallisce, 1 danno.' },
   { art: 'artworks/Lo straccio in fiamme.png', title: 'Lo Straccio in Fiamme', tipo: 'Insidia',
     flavor: 'Uno straccio prende e vola, portando il fuoco dove non deve.',
-    effect: 'Se la soglia-fuoco è superata, l’eroe attivo prova NERVI (Media) o 1 danno; altrimenti nessun effetto (ancora).' },
+    effect: 'L’eroe attivo, se si trova in una tessera in fiamme, prova NERVI (Media) o subisce 1 danno; altrove, il tizzone cade a vuoto (per ora).' },
   { art: 'artworks/Odore di fumo.png', title: 'Odore di Fumo', tipo: 'Crescendo',
     flavor: 'Un filo di fumo dai magazzini: hanno cominciato. Poco, per ora.',
-    effect: 'Aggiungete 1 segnalino Canto (il Fuoco). Alla soglia-fuoco (Canto 4, 5 col Taccuino): i magazzini bruciano — vedi Soluzione. Alla soglia (3): +1 carta Minaccia per Fase, per sempre.' },
+    effect: 'Aggiungete 1 segnalino Canto. Alla soglia (Canto 3): +1 carta Minaccia per Fase, per sempre. Il rogo, intanto, corre sul suo orologio di round (vedi Soluzione).' },
   { art: 'artworks/Il primo focolaio.png', title: 'Il Primo Focolaio', tipo: 'Crescendo',
     flavor: 'Le fiamme trovano gli stracci e cominciano a correre lungo le pile.',
-    effect: 'Aggiungete 1 segnalino Canto (il Fuoco). Alla soglia-fuoco, l’Essiccatoio e il Torchio sono in fiamme (prova NERVI o 1 danno ad attraversarli).' },
+    effect: 'Aggiungete 1 segnalino Canto. Ricordate: chi termina il round in una tessera in fiamme si brucia (−1) — il rogo scende ai round segnati sulla Soluzione.' },
   { art: 'artworks/I magazzini bruciano.png', title: 'I Magazzini Bruciano', tipo: 'Crescendo',
     flavor: 'Un boato morbido: i magazzini di stracci sono una torcia sola.',
-    effect: 'Aggiungete 1 segnalino Canto (il Fuoco). Da ora ogni round al torchio senza la Cassetta Stagna DANNEGGIA i registri (vittoria parziale).' },
+    effect: 'Aggiungete 1 segnalino Canto. Il molino è un braciere: il rogo continua a scendere di piano in piano verso l’uscita (schedule nella Soluzione).' },
   { art: 'artworks/Il tetto prende.png', title: 'Il Tetto Prende', tipo: 'Crescendo',
     flavor: 'Il fuoco sale alle travi: il molino non è più un posto dove restare.',
-    effect: 'Aggiungete 1 segnalino Canto (il Fuoco). Se siete ancora dentro con i registri non salvati, il round dopo la prova è perduta: uscite o chiudete la Cassetta ORA.' },
+    effect: 'Aggiungete 1 segnalino Canto. Non c’è tempo da perdere: coi registri in mano, puntate all’uscita (T1) prima che le fiamme vi chiudano dentro.' },
   { art: 'artworks/La macina si ferma.png', title: 'La Macina si Ferma', tipo: 'Quiete',
     flavor: 'Qualcuno stacca la ruota: per un attimo, silenzio. Si sente il proprio fiato.',
     effect: 'Nessun effetto. Tirate il fiato: anche un molino che brucia, per un istante, tace.' },
@@ -3215,7 +3217,7 @@ const EP13_OGGETTI = [
   { art: 'artworks/Cassetta Stagna.png', nome: 'La Cassetta Stagna', ref: 'E13-L8',
     fonte: 'Luogo 8 — Il Deposito delle Risme (entro le 20)',
     flavor: 'Latta a doppia parete, guarnizione di sughero: tiene fuori l’acqua e regge le fiamme il tempo di attraversare una stanza che brucia.',
-    effetto: 'Al torchio (T6), i registri messi nella Cassetta sono SALVI dal fuoco: vittoria piena a prescindere dalla soglia-fuoco. Senza, se il fuoco è alto, ogni round li danneggia.' },
+    effetto: 'Al torchio (T6), i registri strappati restano SALVI dalle fiamme: vittoria PIENA anche col torchio già in fiamme. Senza la Cassetta, presi col torchio in fiamme escono anneriti (vittoria parziale).' },
   { art: 'artworks/Lasciapassare del Nolo.png', nome: 'Il Lasciapassare del Nolo', ref: 'E13-L1',
     fonte: 'Luogo 1 — La Stazione delle Carrozze',
     flavor: 'La bolla di carico del nolo: chi la mostra al cancello è «gente del trasporto», non un intruso.',
@@ -3223,7 +3225,7 @@ const EP13_OGGETTI = [
   { art: 'artworks/Taccuino del Capo-Catena.png', nome: 'Il Taccuino del Capo-Catena', ref: 'E13-L5',
     fonte: 'Luogo 5 — La Casa del Capo-Catena',
     flavor: 'I suoi conti rimessi in ordine: la deposizione che non ha fatto in tempo a rendere — l’ora del rogo e i turni della guardia.',
-    effetto: 'Alza di 1 la soglia-fuoco (arrivate col fuoco più lontano) e rende Facili le prove d’ambiente del molino (roggia, macine, telai).' },
+    effetto: 'L’arbitro fa scattare il rogo 2 round più tardi (arrivate col fuoco più lontano) e rende Facili le prove d’ambiente del molino (roggia, macine, telai).' },
   { art: 'artworks/Lettera di Raccomandazione.png', nome: 'La Lettera di Raccomandazione', ref: 'E13-L6',
     fonte: 'Luogo 6 — La Cancelleria Vescovile',
     flavor: 'Una lettera che accredita un signore presso «ambienti che contano». Cortesia di facciata, non porta a C.B.',
@@ -3639,7 +3641,7 @@ const EP15_MINACCE = [
     effect: 'Se non avete documentato tell in questa tessera, il primo tell qui è già cancellato (perso). Col Reagente: lo recuperate lo stesso.' },
   { art: 'artworks/Passi nel cortile.png', title: 'Passi nel Cortile', tipo: 'Crescendo',
     flavor: 'Passi sulla ghiaia, lanterne che si avvicinano: il cordone si muove.',
-    effect: 'Aggiungete 1 segnalino Canto (il Sigillo). Alla soglia-sigillo (Canto 5): la Gendarmeria sigilla — vedi Soluzione. Alla soglia (3): +1 carta Minaccia per Fase, per sempre.' },
+    effect: 'Aggiungete 1 segnalino Canto (il Sigillo). Alla soglia-sigillo (Canto 8): la Gendarmeria sigilla — vedi Soluzione. Alla soglia (3): +1 carta Minaccia per Fase, per sempre.' },
   { art: 'artworks/Il cordone si stringe.png', title: 'Il Cordone si Stringe', tipo: 'Crescendo',
     flavor: 'I gendarmi chiudono ogni uscita: il tempo per documentare si accorcia.',
     effect: 'Aggiungete 1 segnalino Canto (il Sigillo). Gli Apparecchiatori, sentendo la fretta, cancellano 1 tell in più questo round.' },

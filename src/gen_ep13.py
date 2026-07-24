@@ -310,9 +310,10 @@ LUOGHI_13 = [
 ]
 
 # Tessere del molino (percorso lineare a 6: un opificio, non un labirinto).
-# Obiettivo = salvare i registri (Interagire a T6, in Cassetta Stagna) prima
-# che il FUOCO (soglia-Canto) li danneggi. Boss: il Sorvegliante. Il Notaio
-# appare (T4), ordina il rogo e fugge.
+# Obiettivo = prendere i registri (Interagire a T6) e RIPORTARLI all'uscita (T1)
+# mentre il ROGO (doom-clock a round: T5@7 T6@9, poi scende T4@12 T3@14 T2@16
+# T1@18) scende a inseguirvi. Presi i registri gli sgherri fuggono. Boss: il
+# Sorvegliante (guarda il torchio). Il Notaio appare (T4), ordina il rogo e fugge.
 TILES_13 = [
     dict(id='T1', nome='IL CORTILE DEL MOLINO', exits={'N': 'T2'}, start='S',
          testo='Il cortile del Molino delle Carte, di notte: la carrozza del Notaio coi cavalli '
@@ -345,45 +346,48 @@ TILES_13 = [
          arbitro='Gli ingranaggi sono un pericolo d’ambiente oltre ai nemici: chi combatte '
                  'addosso alle macine rischia (prova NERVI Media se spinto contro gli '
                  'ingranaggi). Passare in fretta è meglio che fermarsi a combattere.',
-         cerca='In un ripostiglio, un secchio d’acqua e sabbia (utile: al torchio, spegne un '
-               'principio d’incendio — rimanda di 1 la soglia-fuoco per chi lo porta).',
+         cerca='In un ripostiglio, un secchio d’acqua e sabbia (utile in fuga: chi lo porta '
+               'rimanda di 1 round l’accensione della tessera in cui si trova).',
          arredi=[(0, 1, 'casse'), (3, 2, 'casse')]),
     dict(id='T4', nome='I MAGAZZINI DI STRACCI', exits={'S': 'T3', 'N': 'T5'},
          testo='Montagne di stracci per la pasta di carta, polvere infiammabile sospesa nell’aria. '
                'QUANDO RIVELATE QUESTA TESSERA: appare IL NOTAIO, elegante e calmo; dà l’ordine di '
-               'dar fuoco ai registri e si avvia alla carrozza. Da ora comincia il conto alla '
-               'rovescia del FUOCO.',
+               'dar fuoco ai registri e si avvia alla carrozza. Da ora l’orologio del ROGO '
+               'corre: le fiamme scatteranno ai round segnati, qualunque cosa facciate.',
          arbitro='IL NOTAIO (nemico minore) NON combatte: alla fine del round successivo alla sua '
                  'comparsa, fugge in carrozza (rimosso). Se lo inseguite invece di puntare ai '
-                 'registri, perdete il round e il fuoco avanza. Da qui, le carte crescendo '
-                 'spingono la soglia-fuoco: stracci e polvere aspettano una scintilla.',
-         hook='Il Taccuino del Capo-Catena (dalla sua casa): sapete l’ora del rogo — la '
-              'soglia-fuoco è più alta, arrivate col fuoco ancora lontano.',
+                 'registri, perdete round preziosi mentre il fuoco monta. Il rogo è un orologio di '
+                 'ROUND (schedule nella Soluzione): l’essiccatoio (T5) e il torchio (T6) prendono '
+                 'per primi, poi le fiamme SCENDONO di piano in piano verso l’uscita.',
+         hook='Il Taccuino del Capo-Catena (dalla sua casa): sapete l’ora del rogo — l’arbitro '
+              'fa scattare le fiamme 2 round più tardi, arrivate col fuoco ancora lontano.',
          cerca_vuoto='Stracci fino al soffitto e odore di petrolio. Il Notaio è già alla porta: '
                      'non guardate lui, guardate quanto manca al torchio.',
          arredi=[(1, 2, 'casse'), (2, 0, 'altare')]),
     dict(id='T5', nome='L’ESSICCATOIO', exits={'S': 'T4', 'N': 'T6'},
          testo='Un labirinto di telai coi fogli appesi ad asciugare, carta ovunque, corridoi '
                'stretti di carta pendente. QUANDO RIVELATE QUESTA TESSERA: il Sorvegliante '
-               'schiera i suoi uomini tra i telai; se il fuoco è già acceso, i fogli appesi '
+               'schiera i suoi uomini tra i telai; quando il rogo arriva qui, i fogli appesi '
                'prendono in fretta.',
-         arbitro='Ultimo diaframma prima del torchio. Se la soglia-fuoco è superata, questa '
-                 'tessera è in fiamme: attraversarla costa una prova NERVI o 1 danno. Con il '
-                 'secchio (da T3) o la Cassetta già in mano, meno rischio.',
+         arbitro='Ultimo diaframma prima del torchio. L’essiccatoio prende fuoco al ROUND 7 '
+                 '(schedule del rogo): da lì chi vi termina il round si brucia (−1 Salute). In '
+                 'fuga lo riattraverserete in fiamme — il secchio (da T3) rimanda di 1 round '
+                 'l’accensione della tessera in cui si trova.',
          cerca_vuoto='Fogli come lenzuoli nel buio, e in fondo la luce del torchio. Un fiammifero, '
                      'qui, e non c’è più niente da salvare. Correte.',
          arredi=[(1, 1, 'casse'), (2, 2, 'casse')]),
     dict(id='T6', nome='LA SALA DEL TORCHIO', exits={'S': 'T5'},
          testo='Il grande torchio e la cassaforte dei registri, attorniata di stracci pronti al '
                'rogo. IL SORVEGLIANTE è qui, tra voi e la prova. QUANDO RIVELATE QUESTA TESSERA: '
-               'si prende il registro, lo si mette nella Cassetta Stagna, si esce — prima che il '
-               'fuoco arrivi.',
-         arbitro='OBIETTIVO. Interagire alla cassaforte prende i registri; con la Cassetta '
-                 'Stagna sono SALVI (vittoria piena). Se la soglia-fuoco è superata e non avete '
-                 'la Cassetta, ogni round al torchio DANNEGGIA i registri (vittoria parziale: '
-                 'prova degradata). Il Sorvegliante va superato/abbattuto per arrivare alla '
-                 'cassaforte. «Il nome del Notaio» (D2): gridargli che Rasca è già fuggito gli fa '
-                 'saltare un attacco.',
+               'strappate i registri, e nell’istante in cui li avete il molino divampa — gli '
+               'uomini fuggono, e comincia la corsa per uscire.',
+         arbitro='OBIETTIVO. Interagire alla cassaforte prende i registri. Appena presi, TUTTI gli '
+                 'sgherri (Sorvegliante compreso) fuggono dalle fiamme: toglieteli dal campo. Poi '
+                 'i registri vanno RIPORTATI all’uscita (T1). Presi PRIMA che il torchio prenda '
+                 '(round 9), o con la Cassetta Stagna: vittoria PIENA. Presi col torchio già in '
+                 'fiamme e senza Cassetta: anneriti, vittoria PARZIALE. Il Sorvegliante va superato/'
+                 'abbattuto per arrivare alla cassaforte; «Il nome del Notaio» (D2) gli fa saltare '
+                 'un attacco.',
          cerca_vuoto='Non c’è niente da cercare: c’è un registro da chiudere in una cassetta e '
                      'una porta da raggiungere mentre il molino brucia. Prendete e uscite.',
          arredi=[(0, 2, 'casse')]),
@@ -581,15 +585,17 @@ def spedizione():
 
 
 def token_groups_13():
-    """Miniature dell'Episodio 13. I segnalini Canto sono qui i segnalini del
-    FUOCO (l'incendio dei magazzini di stracci che monta verso la soglia-rogo)."""
+    """Miniature dell'Episodio 13. I segnalini FUOCO si posano sulle TESSERE
+    man mano che il rogo scende (round schedule nella Soluzione): marcano quali
+    piani sono in fiamme durante la fuga. Il Canto si segna a parte, come sempre."""
     from deluxe_style import ARTWORKS_DIR
     groups = [
         TOKEN_EROI,
         ('UOMINI DEL MOLINO (x5, Sgherri)', [('Lo Sgherro.png', 5)]),
         ('IL SORVEGLIANTE · IL NOTAIO', [('Il Sorvegliante del Molino.png', 1),
                                          ('Il Notaio.png', 1)]),
-        ('IL FUOCO (CANTO)', [('Odore di fumo.png', 1),
+        ('SEGNALINI FUOCO — sulle tessere in fiamme (rogo che scende)',
+                             [('Odore di fumo.png', 1),
                               ('Il primo focolaio.png', 1),
                               ('I magazzini bruciano.png', 1)]),
     ]
@@ -678,7 +684,8 @@ def soluzione():
         'round 7, torchio T6 al round 9</b> (da qui i registri presi senza Cassetta escono '
         'anneriti), poi il fuoco SCENDE verso l’uscita: <b>T4 al round 12, T3 al 14, T2 al 16, '
         'T1 al 18</b>. Chi termina un round in una tessera in fiamme subisce <b>−1 Salute</b>. '
-        'Non annunciate i round ai giocatori: fate solo scattare le fiamme quando tocca.',
+        'Posate un <b>segnalino Fuoco</b> su ogni tessera man mano che prende, così i giocatori '
+        'vedono il rogo scendere. Non annunciate i round: fate solo scattare le fiamme quando tocca.',
         '<b>Pericoli d’ambiente.</b> Roggia (T2): prova VIGORE/DESTREZZA o si cade in acqua (1 '
         'round perso). Macine (T3): combattere addosso agli ingranaggi = prova NERVI o rischio. '
         'Col Taccuino del Capo-Catena queste prove sono a Facile (conoscete il molino). Il secchio '

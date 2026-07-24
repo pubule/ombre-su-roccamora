@@ -555,7 +555,7 @@ def spedizione():
                   '-1 per ogni movimento spento) e <b>il Coro dei Dodici</b> (6 miniature '
                   'Corista: finché 3+ sono in gioco, +1 Canto ogni 2 round; a 0 ferite '
                   'FUGGONO). Il Dormiente non si combatte: si legge la Formula a movimenti '
-                  'spenti. Vittoria piena: 3 movimenti + Formula + ritorno a T1. Vittoria '
+                  'spenti. Vittoria piena: 3 movimenti spenti + Formula letta (in T8). Vittoria '
                   'parziale: 2+ movimenti spenti e ritirata. Ai tavoli da 2-3 eroi Ferri '
                   '<b>non recupera mai ferite</b> dai Crescendo.', BODY)])
     c.showPage()

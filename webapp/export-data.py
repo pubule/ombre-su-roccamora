@@ -549,7 +549,7 @@ SOLUZIONI = dict(
             dict(q='COSA portate al Molino?',
                  risposta='LA CASSETTA STAGNA (il Deposito delle Risme, L8): chiusa, salva i registri dall’acqua e dal fuoco.',
                  esatta='I registri sequestrati sono immuni al rogo: la prova esce intatta — VITTORIA PIENA anche col fuoco alto.',
-                 sbagliata='Portate via i registri a mani nude: se il Canto ha superato la soglia-rogo la prova è degradata — vittoria parziale. (La Lettera di Raccomandazione è un’esca.)'),
+                 sbagliata='Portate via i registri a mani nude: se li strappate col torchio già in fiamme escono anneriti — vittoria parziale. (La Lettera di Raccomandazione è un’esca.)'),
         ],
         boss='IL SORVEGLIANTE DEL MOLINO',
     ),
@@ -699,7 +699,7 @@ SOLUZIONI = dict(
                  sbagliata='M. la costringe: il suo rito accelera il risveglio.'),
             dict(q='COME si fa dormire il Dormiente senza sogni?',
                  risposta='Il CONTROCANTO del Fascicolo del 1741, cantato coi Frammenti (metà erano il canto del sonno, che M. voleva; metà lo smascheravano). Non si uccide un dio: lo si canta a dormire.',
-                 esatta='LA DEDUZIONE FINALE. Contate i Frammenti conservati (1-19): più ne avete, più righe di controcanto/round. Completate le 6 righe prima del risveglio (Canto 8) = VITTORIA. (Esche: la Chiave del Coro e il Grimorio — cantano il risveglio, aiutano M.)',
+                 esatta='LA DEDUZIONE FINALE. Contate i Frammenti conservati (1-19): più ne avete, più righe di controcanto/round. Completate le 10 righe prima del risveglio (Canto 8) = VITTORIA. (Esche: la Chiave del Coro e il Grimorio — cantano il risveglio, aiutano M.)',
                  sbagliata='Senza il controcanto e i Frammenti, il Dormiente si desta: la campagna si chiude in tragedia.'),
         ],
         boss='LA CAMERA DEL DORMIENTE',
@@ -1297,7 +1297,7 @@ episodi = dict(
         compiti=[
             dict(id='decano', tile='T5', quante=1, etichetta='Libera il decano',
                  fatto='Il decano è libero e lucido: lo scisma è finito.'),
-            dict(id='notaio', nemico='IL NOTAIO RASCA', quante=1,
+            dict(id='notaio', nemico='IL NOTAIO', quante=1,
                  etichetta='Cattura il Notaio Rasca',
                  fatto='Il Notaio è preso: il ricorrente dell’Atto, finalmente.')],
         vittoria=dict(testo='Decano lucido e Notaio in mano: l’Ep. 18 parte armato.'),
@@ -1374,7 +1374,7 @@ episodi = dict(
                   'gola della città. Non si vince con l’acciaio: col CONTROCANTO (le righe giuste '
                   'tra i 20 Frammenti — metà erano il canto del sonno che M. voleva, metà lo '
                   'smascheravano). La camera è il boss (fasi ambientali); il coro comprato si rompe; '
-                  'M. è un uomo, fragile. Completate il controcanto (6 righe) prima che il Dormiente '
+                  'M. è un uomo, fragile. Completate il controcanto (10 righe) prima che il Dormiente '
                   'si svegli (RISVEGLIO) = il dio torna al sonno senza sogni. FUORI SCALA: il finale '
                   'può perdere eroi, e può finire male. NIENTE Bivio: è la fine.',
         # IL FINALE: non si vince con l'acciaio ma col CONTROCANTO — righe da

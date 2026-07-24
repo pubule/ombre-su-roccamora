@@ -702,7 +702,7 @@ def soluzione():
                 'eroi. Se avete il <b>diapason</b>: con un\u2019azione adiacente al Custode lo fate '
                 'vibrare: la sua Difesa scende a 5 per il resto della partita e il Custode salta la '
                 'sua prossima attivazione.'))
-    e.append(LI('<b>Il Canto avanza da solo:</b> alla fine di ogni quarto round (4\u00b0, 8\u00b0...), '
+    e.append(LI('<b>Il Canto avanza da solo:</b> alla fine di ogni sesto round (6\u00b0, 12\u00b0...), '
                 'avanzate il segnalino Canto di una casella anche senza pescare la carta.'))
     e.append(LI('<b>Canto a 3:</b> il rituale \u00e8 quasi compiuto. Da ora ogni fase '
                 'Minaccia pescate 1 carta in pi\u00f9 \u2014 <b>anche se il Custode \u00e8 gi\u00e0 stato '
