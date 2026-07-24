@@ -1297,8 +1297,13 @@ episodi = dict(
         compiti=[
             dict(id='decano', tile='T5', quante=1, etichetta='Libera il decano',
                  fatto='Il decano è libero e lucido: lo scisma è finito.'),
-            dict(id='notaio', nemico='IL NOTAIO', quante=1,
-                 etichetta='Cattura il Notaio Rasca',
+            # Il Notaio (non-combattente) non è nel pool e il motore digitale non
+            # sa evocare un nemico non-pool/non-boss (spawnUno dà disp=0): un compito
+            # `nemico=` non si sarebbe mai agganciato. Digitale = compito-TESSERA nel
+            # suo Studio (T6): raggiunto T6 e superata la Guardia (boss lì), Interagire
+            # = l'arresto. Al tavolo resta la cattura della miniatura; stesso esito.
+            dict(id='notaio', tile='T6', quante=1,
+                 etichetta='Arresta il Notaio (nello Studio, T6)',
                  fatto='Il Notaio è preso: il ricorrente dell’Atto, finalmente.')],
         vittoria=dict(testo='Decano lucido e Notaio in mano: l’Ep. 18 parte armato.'),
         orologio=dict(id='decano', nome='Trasferimento', su_canto=6,
