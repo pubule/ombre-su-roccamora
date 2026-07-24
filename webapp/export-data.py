@@ -1088,6 +1088,13 @@ episodi = dict(
         # ogni documentazione — senza, la traccia da 14 e' irraggiungibile).
         oggetti_indagine=['La Macchina Fotografica'],
         vittoria=dict(testo='La prova è fissata: il corpo murato è documentato.'),
+        # Nota parità (audit 20260724): il fascicolo/sim danno +2 alla Demolizione
+        # nel turno del Muratore NON inchiodato a T6 (DEMO_STRIKE), +1 in traversata.
+        # Il digitale semplifica a +1 uniforme (`ogni=1`): il core resta `frena_adiacente`
+        # (inchioda il Muratore = +0, la vera leva). Il +2 morde solo a Muratore
+        # NON inchiodato — un gruppo che inchioda non vede differenza. Divergenza a
+        # basso impatto, tenuta come ricchezza-tavolo (test-engine gioca Ep.10 OK;
+        # il pilota Playwright non lo naviga = non misurabile, non aggiungo alla cieca).
         orologio=dict(id='demolizione', nome='Demolizione', max=12, ogni=1, da_carta=1,
                       frena_adiacente='IL MURATORE',
                       esito='sconfitta', testo='Il muro è crollato: la prova è distrutta.'),
