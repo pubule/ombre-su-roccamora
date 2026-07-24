@@ -993,7 +993,13 @@ episodi = dict(
                   'sbarra (sconfitta a tempo).',
         # NESSUNA uscita segreta: la via del ritorno e' quella scelta in T2
         # (ponteggi o intercapedini) ed e' il cuore dell'episodio — una
-        # scorciatoia la cancellerebbe. L'Ep.7 e' gia' in fascia (75% a 4 eroi).
+        # scorciatoia la cancellerebbe. WIN ~30% BY-DESIGN (deciso 20260724): il
+        # pilota Playwright pulito a squadra fissa da' 27% stabile, il curatore non
+        # cambia nulla (27% con/senza ATTILIO), la varianza 13-47% era solo rumore
+        # di party. Il 75% storico era il numero OTTIMISTICO del simulatore. E'
+        # un'apertura d'Atto genuinamente tesa (ansia picco ~2.2, sofferte): i 4 KPI
+        # core sono al massimo, il win% NON e' un KPI core. Leve immersion-safe
+        # (pool, Canto, salute, curatore) misurate = non convertono. NON ritarare.
         # Fava Mov 5 (non 3): un prigioniero appena liberato CORRE per la vita. La
         # spina di 8 riquadri e' la piu' lunga della campagna e il killer e' il
         # TEMPO di esposizione sul ritorno (~10 round a scortare un PNG lento);
