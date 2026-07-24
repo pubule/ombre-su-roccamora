@@ -1323,10 +1323,16 @@ episodi = dict(
                   'vostra da nemico) col maggiordomo traditore (boss), portando fuori la PROVA prima '
                   'che i gendarmi vi arrestino. Con la prova forte (incroci pieni) e senza eroi '
                   'arrestati: M. è latitante, non voi. CHIUSURA dell’Atto III.',
-        # La fuga dal Palazzo del Lume: uscire con la prova prima dell'arresto.
-        compiti=[dict(id='prova', tile='T5', quante=1, etichetta='Recupera la prova',
-                      fatto='La prova è vostra: ora fuori di qui.')],
-        vittoria=dict(tessera='T1', testo='Siete fuori dal Palazzo con la prova: M. è latitante.'),
+        # La fuga dal Palazzo del Lume: la prova (Vezzo + Incroci) viene dall'INDAGINE,
+        # non si raccoglie in missione. L'obiettivo è la TRAVERSATA: da T1 (partenza)
+        # su fino all'USCITA (T6), superando il maggiordomo (boss) a T5, prima che la
+        # soglia-arresto scatti (orologio). Uscire con la prova = missione compiuta;
+        # prova forte (indagine) o arresto non scattato la fa piena, l'orologio la
+        # declassa a parziale. (Bug corretto 20260724: il dato faceva vincere a T1 =
+        # la PARTENZA, col compito «prova» mal posto a T5 = il muro del boss.)
+        compiti=[dict(id='uscita', tile='T6', quante=1, etichetta='Esci dal Palazzo con la prova',
+                      fatto='La prova è fuori dal Palazzo: M. è latitante, non voi.')],
+        vittoria=dict(tessera='T6', testo='Siete fuori dal Palazzo con la prova: M. è latitante.'),
         orologio=dict(id='arresto', nome='Arresto', su_canto=7,
                       esito='parziale', testo='I gendarmi sigillano le uscite: braccati.'),
         esami_carbone=ESAMI_CARBONE_18,
