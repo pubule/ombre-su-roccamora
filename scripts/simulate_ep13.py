@@ -1,6 +1,19 @@
 # -*- coding: utf-8 -*-
 """Simulatore di playtest - EPISODIO 13 «Carta di pregio».
 
+╔══════════════════════════════════════════════════════════════════════════╗
+║ SUPERATO — NON AUTOREVOLE (2026-07-24). Questo sim modella il VECCHIO      ║
+║ meccanismo (SOGLIA-FUOCO legata al Canto, presa=vittoria) e CONTRADDICE    ║
+║ il gioco reale: dava n=4 = 48%, il pilota Playwright pulito dà tutt'altro. ║
+║ Il meccanismo VERO ora è la FUGA DAL MOLINO IN FIAMME (rogo doom-clock a   ║
+║ ROUND: fiamme T5@7 T6@9, poi scendono T4@12 T3@14 T2@16 T1@18; presi i     ║
+║ registri gli sgherri fuggono e vanno RIPORTATI all'uscita T1; T6 in fiamme ║
+║ alla presa senza Cassetta = parziale). Misura tarata sul pilota (v4, 4     ║
+║ eroi, indagine media): PIENA 13% · PARZIALE 73% · PERSO 13%, picco 1.4.    ║
+║ Per il bilanciamento usare SOLO webapp/misura-episodio.mjs ep13. Questo    ║
+║ file resta per lo storico dell'indagine, non per le % di spedizione.       ║
+╚══════════════════════════════════════════════════════════════════════════╝
+
 Indagine generica (clone di simulate_ep11/12), con una SPEDIZIONE dungeon-boss
 al Molino delle Carte (vedi DESIGN-EPISODIO-13.md): ascesa lineare a 6 tessere
 con pericoli d'ambiente (roggia T2, macine T3, essiccatoio T5) e una

@@ -1151,16 +1151,36 @@ episodi = dict(
         sottotitolo='episodio 13 — Atto III (apertura): la cartiera di C.B., il molino fuori città',
         cartella='Episodio 13', ore_budget=6,
         lettera=LETTERA_13,
-        obiettivo='Salite il Molino delle Carte fino al torchio (T6), superate o abbattete il '
-                  'Sorvegliante e SEQUESTRATE i registri (Interagire). Con la Cassetta Stagna sono '
-                  'salvi dal rogo: prova intatta, VITTORIA PIENA. Se il Notaio ha già dato fuoco ai '
-                  'magazzini (Canto oltre la soglia-rogo) e non avete la Cassetta, li portate via '
-                  'anneriti: vittoria parziale, ma l’Atto prosegue. Il Notaio non si prende: appare '
-                  'in T4, ordina il rogo e fugge in carrozza.',
+        obiettivo='Salite il Molino delle Carte fino al torchio (T6) e SEQUESTRATE i registri '
+                  '(Interagire). Appena li strappate, il Notaio dà fuoco al Molino: sgherri e guardie '
+                  'FUGGONO dalle fiamme, e il rogo scende di piano in piano verso l’uscita. RIPORTATE '
+                  'i registri fuori (T1) prima che vi raggiunga — chi termina il round in una tessera '
+                  'in fiamme si brucia. Se li prendete col torchio già in fiamme e senza la Cassetta '
+                  'Stagna, escono anneriti: vittoria PARZIALE (l’Atto prosegue). Con la Cassetta, o '
+                  'strappandoli prima del rogo: prova intatta, VITTORIA PIENA. Il Notaio non si '
+                  'prende: ordina il rogo e fugge in carrozza.',
         # «Superate o abbattete il Sorvegliante e SEQUESTRATE i registri (T6)».
         compiti=[dict(id='registri', tile='T6', quante=1, etichetta='Sequestra i registri',
                       fatto='I registri sono vostri.')],
-        vittoria=dict(testo='I registri escono dal Molino: la prova è salva.'),
+        # FUGA DAL MOLINO IN FIAMME: preso i registri (T6) bisogna RIPORTARLI
+        # all'uscita (T1) mentre il rogo scende. La struttura di Ep.7 (sali,
+        # prendi, torna sotto pressione) col FUOCO come pressione del ritorno.
+        vittoria=dict(tessera='T1', testo='I registri sono fuori dal Molino in fiamme: la prova è salva.'),
+        # IL ROGO: doom-clock a ROUND (non al Canto — un incendio non si zittisce
+        # con la Litania). Il Notaio dà fuoco alla cima del Molino (essiccatoio
+        # T5, torchio T6) e le fiamme SCENDONO verso l'uscita, inseguendo la
+        # ritirata: T5→T6 in cima, poi T4/T3/T2/T1 giù a cadenza di 1 round.
+        # PIENA/PARZIALE si decide alla PRESA (snapshot in azioneInteragire): se
+        # il torchio (T6) brucia già quando strappate i registri e non avete la
+        # Cassetta Stagna, escono anneriti = parziale. Chi termina il round in
+        # una tessera in fiamme: −`danno`. Full wipe tra le fiamme = fuga fallita.
+        # Valori di partenza: da tarare sul pilota (%piena/%parziale + picco + perso).
+        rogo=dict(
+            nome='Il Rogo', danno=1, protetto='cassetta',
+            scala=[['T5', 7], ['T6', 9], ['T4', 12], ['T3', 14], ['T2', 16], ['T1', 18]],
+            testo_scatta='Il rogo divampa: {tile} è in fiamme.',
+            testo_parziale='I registri escono anneriti dal rogo: la prova regge a fatica. '
+                           'Vittoria parziale — ma l’Atto prosegue.'),
         esami_carbone=ESAMI_CARBONE_13,
         luoghi=[luogo_json(L, OGGETTI_LUOGO_13, REPERTI_LUOGO['ep13']) for L in LUOGHI_13],
         tessere=[tessera_json(T) for T in TILES_13],

@@ -11,9 +11,10 @@ Sorvegliante del Molino. Un solo seme: il registro dei noli (carrozza condivisa
 col Palazzo del Lume) firmato «C.B.».
 
 Varietà strutturale (regola 2026-07-18): il vero antagonista (il Notaio)
-sfugge per copione; si affronta l'esecutore e si SEQUESTRA la prova mentre il
-molino di stracci prende fuoco (soglia-Canto). Prima trasferta fuori città
-(pericoli d'ambiente: roggia, macine, fuoco). Torsione d'indagine: «il
+sfugge per copione; si SEQUESTRA la prova e poi si FUGGE dal molino di stracci
+che brucia (rogo doom-clock a round: le fiamme scendono di piano in piano verso
+l'uscita, gli sgherri fuggono, si corre coi registri fino a T1). Prima trasferta
+fuori città (pericoli d'ambiente: roggia, macine, fuoco). Torsione d'indagine: «il
 testimone che non c'è più» (il capo-catena annega: deposizione ricostruita).
 
 Genera: Indagine.pdf, Spedizione.pdf, Soluzione (non aprire).pdf,
@@ -510,12 +511,13 @@ def spedizione():
         Paragraph('Le 21 carte Minaccia dell’episodio (7 spawn, 6 insidie, 4 crescendo, 4 '
                   'eventi) e le schede Nemici sono carte a parte (cartella <b>Episodio '
                   '13/cards/</b>). Le 6 tessere del molino sono in <b>Episodio 13/board/</b>. '
-                  'Questo NON è un inseguimento né una cattura: è un <b>recupero della prova</b> '
-                  'in un opificio che vuole ucciderla. Obiettivo: raggiungere il torchio (T6), '
-                  'prendere i <b>registri dei noli</b> e metterli nella <b>Cassetta Stagna</b> '
-                  'prima che il <b>FUOCO</b> (soglia-Canto) li divori. Il vero colpevole, il '
-                  'Notaio, non si prende: appare, ordina il rogo e fugge. Le pagine seguenti sono '
-                  'le note per tessera.', BODY)])
+                  'Questo NON è un inseguimento né una cattura: è un <b>colpo e una fuga</b>. '
+                  'Salite fino al torchio (T6), strappate i <b>registri dei noli</b> — e nel '
+                  'momento stesso in cui li prendete il Notaio dà fuoco al Molino: gli uomini '
+                  'del molino FUGGONO, e il <b>ROGO scende di piano in piano</b> verso l’uscita. '
+                  'Ora è una corsa: <b>riportate i registri fuori</b> (T1) prima che le fiamme '
+                  'vi chiudano dentro. Il Notaio non si prende: ordina il rogo e fugge. Le pagine '
+                  'seguenti sono le note per tessera.', BODY)])
     c.showPage()
     parchment_art(c, W, H)
     rule_border(c, W, H)
@@ -524,22 +526,24 @@ def spedizione():
     frame_flow(c, 30*mm, H - 132*mm, W - 60*mm, 92*mm, [
         Paragraph('Lo tiene <b>una persona sola</b>. Quando il gruppo rivela una tessera, legge '
                   'ad alta voce la voce corrispondente. <b>Le regole di questo episodio:</b>', BODY),
-        Paragraph('• <b>FUOCO (soglia).</b> Il Notaio (appare in T4) ordina di bruciare i '
-                  'registri. Quando il Canto raggiunge la <b>soglia-fuoco</b> (indicata dalla '
-                  'Soluzione), i magazzini di stracci prendono: da quel round, ogni round al '
-                  'torchio (T6) SENZA i registri nella Cassetta Stagna li <b>danneggia</b> '
-                  '(vittoria parziale). Le carte crescendo spingono verso la soglia; il Taccuino '
-                  'del Capo-Catena la alza (sapete l’ora del rogo).', BODY),
-        Paragraph('• <b>OBIETTIVO.</b> Al torchio (T6), Interagire alla cassaforte prende i '
-                  'registri; con la <b>Cassetta Stagna</b> sono salvi — <b>vittoria piena</b>. '
-                  'Presi col fuoco già alto e senza cassetta: <b>vittoria parziale</b> (prova '
-                  'degradata, l’Atto prosegue). Il <b>Sorvegliante</b> (boss) guarda il torchio: '
-                  'va superato o abbattuto.', BODY),
-        Paragraph('• <b>IL NOTAIO NON SI PRENDE.</b> Appare in T4, ordina il rogo e alla fine del '
-                  'round dopo fugge in carrozza. Inseguirlo = round perso e fuoco che avanza. È '
-                  'il ricorrente dell’Atto: lo rivedrete. <b>Ambiente:</b> la roggia (T2) trascina '
-                  'chi cade, le macine (T3) mordono, l’essiccatoio (T5) brucia. Il <b>Lasciapassare '
-                  'del Nolo</b> salta lo sbarramento del cortile (T1).', BODY)])
+        Paragraph('• <b>IL ROGO (doom-clock a round).</b> Non è legato al Canto: è un orologio '
+                  'di <b>round</b> — le fiamme scattano ai round che la <b>Soluzione</b> indica, '
+                  'qualunque cosa facciate. Partono in cima (essiccatoio T5, torchio T6) e '
+                  '<b>SCENDONO di piano in piano</b> verso l’uscita (T4, T3, T2, T1). Chi termina '
+                  'il round in una tessera in fiamme <b>si brucia (−1 Salute)</b>. La fuga è una '
+                  'corsa contro il fuoco che vi insegue giù per il molino.', BODY),
+        Paragraph('• <b>OBIETTIVO: prendere E portare fuori.</b> Al torchio (T6), Interagire prende '
+                  'i <b>registri</b> — e nell’istante in cui li avete, il molino divampa e gli '
+                  'uomini del molino (Sorvegliante compreso) <b>fuggono dalle fiamme</b>. Poi '
+                  'dovete <b>riportare i registri all’uscita (T1)</b>. Vittoria quando ci arrivate '
+                  'vivi. Se li strappate <b>prima</b> che il torchio prenda, o avete la <b>Cassetta '
+                  'Stagna</b>: prova intatta, <b>vittoria PIENA</b>. Presi col torchio già in fiamme '
+                  'e senza cassetta: escono anneriti, <b>vittoria PARZIALE</b> (l’Atto prosegue).', BODY),
+        Paragraph('• <b>IL NOTAIO NON SI PRENDE.</b> Ordina il rogo e fugge in carrozza: '
+                  'inseguirlo = round perso mentre il fuoco scende. È il ricorrente dell’Atto: lo '
+                  'rivedrete. <b>Ambiente:</b> la roggia (T2) trascina chi cade, le macine (T3) '
+                  'mordono. Il <b>Lasciapassare del Nolo</b> salta lo sbarramento del cortile (T1) '
+                  '— prezioso in uscita, con le fiamme alle spalle.', BODY)])
     c.showPage()
     import gen_narrator as N
     from deluxe_style import ARTWORKS_DIR
@@ -561,12 +565,13 @@ def spedizione():
     c.drawString(16*mm, H - 22*mm, 'nemici in campo')
     frame_flow(c, 20*mm, H - 88*mm, W - 40*mm, 60*mm, [
         Paragraph('Statistiche nel <b>Bestiario dell’Episodio 13</b>. In campo: gli <b>uomini del '
-                  'molino</b> (Sgherri), <b>il Notaio</b> (nemico minore: appare in T4, ordina il '
-                  'rogo e fugge — NON si prende) e <b>il Sorvegliante del Molino</b> (il boss: '
-                  'guarda il torchio, T6, e va superato per prendere i registri). Nessun mostro: '
-                  'il pericolo è l’acqua della roggia, gli ingranaggi delle macine, il fuoco degli '
-                  'stracci. Vittoria: registri nella Cassetta Stagna prima del fuoco. Ai tavoli da '
-                  '2-3 eroi il Sorvegliante <b>non recupera mai ferite</b> (regola delle taglie).', BODY)])
+                  'molino</b> (Sgherri), <b>il Notaio</b> (nemico minore: ordina il rogo e fugge — '
+                  'NON si prende) e <b>il Sorvegliante del Molino</b> (il boss: guarda il torchio, '
+                  'T6). <b>Appena i registri sono presi, tutti fuggono dalle fiamme</b>: la fuga è '
+                  'voi contro il rogo, non contro la truppa. Nessun mostro: il pericolo è l’acqua '
+                  'della roggia, gli ingranaggi delle macine, e soprattutto il <b>fuoco</b> che '
+                  'scende. Vittoria: i registri fuori dal Molino (T1). Ai tavoli da 2-3 eroi il '
+                  'Sorvegliante <b>non recupera mai ferite</b> (regola delle taglie).', BODY)])
     c.showPage()
     token_sheet(c, token_groups_13())
     registro_ferite(c)
@@ -644,15 +649,15 @@ def soluzione():
         '<b>3. COSA SAPEVA il capo-catena annegato?</b> Che la carta di C.B. viaggia sulla '
         'carrozza del Palazzo del Lume, e a che ora parte il nolo (i suoi appunti L5 + il registro '
         'dei noli L7: serve più di una conferma). <i>Esatta (deposizione ricostruita, Taccuino):</i> '
-        'conoscete l’ora del rogo e i turni della guardia — la <b>soglia-fuoco è più alta</b> '
-        '(arrivate col fuoco lontano) e le prove d’ambiente sono più facili. <i>Sbagliata:</i> '
-        'arrivate alla cieca, il fuoco parte prima.',
+        'conoscete l’ora del rogo e i turni della guardia — l’arbitro fa scattare le fiamme '
+        '<b>2 round più tardi</b> (arrivate col fuoco lontano) e le prove d’ambiente sono più '
+        'facili. <i>Sbagliata:</i> arrivate alla cieca, il rogo parte com’è scritto.',
         '<b>4. COSA portate al Molino?</b> LA CASSETTA STAGNA (il Deposito delle Risme, entro le '
-        '20). <i>Con la Cassetta:</i> i registri presi al torchio sono SALVI dal fuoco (vittoria '
-        'piena). <i>Senza:</i> se il fuoco è alto, ogni round al torchio li danneggia (vittoria '
-        'parziale). Aiuti: il Lasciapassare del Nolo (Stazione, salta lo sbarramento T1), il '
-        'Taccuino del Capo-Catena (alza la soglia-fuoco). <i>Esche:</i> la Lettera di '
-        'Raccomandazione e il Timbro del Notaio.',
+        '20). <i>Con la Cassetta:</i> i registri strappati al torchio sono SALVI dalle fiamme — '
+        '<b>vittoria piena</b> anche col rogo già alto. <i>Senza:</i> presi col torchio in fiamme, '
+        'escono anneriti (<b>vittoria parziale</b>). Aiuti: il Lasciapassare del Nolo (Stazione, '
+        'salta lo sbarramento T1, prezioso in uscita), il Taccuino del Capo-Catena (ritarda il '
+        'rogo). <i>Esche:</i> la Lettera di Raccomandazione e il Timbro del Notaio.',
         '<b>Nota sul rivelatorio (Domanda 2):</b> lo confermano tre carte — la Testimonianza «Il '
         'capostazione» (L1), il Referto «La cortesia del Notaio» (L2) e la Testimonianza «Il '
         'doganiere» (L4). Senza nessuna, giudicate con elasticità una risposta «vicina» (es. «il '
@@ -668,25 +673,30 @@ def soluzione():
         'Macine (ingranaggi) → T4 Magazzini di Stracci (appare il Notaio, parte il fuoco) → T5 '
         'Essiccatoio → T6 Sala del Torchio (i registri). Col Lasciapassare del Nolo si salta lo '
         'sbarramento di T1.',
-        '<b>La soglia-fuoco.</b> Segnate il Canto come al solito. Alla <b>soglia-fuoco = Canto '
-        '4</b> (5 con il Taccuino del Capo-Catena), i magazzini prendono fuoco: da quel round, '
-        'l’Essiccatoio (T5) e il Torchio (T6) sono in fiamme (prova NERVI o 1 danno ad '
-        'attraversarli), e ogni round al torchio senza Cassetta Stagna danneggia i registri. Le '
-        'carte crescendo (fumo/focolaio) accelerano.',
+        '<b>Il Rogo (orologio di round).</b> Non è legato al Canto: tenete il <b>conto dei '
+        'round</b>. Le fiamme scattano così, qualunque cosa facciate — <b>essiccatoio T5 al '
+        'round 7, torchio T6 al round 9</b> (da qui i registri presi senza Cassetta escono '
+        'anneriti), poi il fuoco SCENDE verso l’uscita: <b>T4 al round 12, T3 al 14, T2 al 16, '
+        'T1 al 18</b>. Chi termina un round in una tessera in fiamme subisce <b>−1 Salute</b>. '
+        'Non annunciate i round ai giocatori: fate solo scattare le fiamme quando tocca.',
         '<b>Pericoli d’ambiente.</b> Roggia (T2): prova VIGORE/DESTREZZA o si cade in acqua (1 '
         'round perso). Macine (T3): combattere addosso agli ingranaggi = prova NERVI o rischio. '
         'Col Taccuino del Capo-Catena queste prove sono a Facile (conoscete il molino). Il secchio '
-        'da T3 rimanda di 1 la soglia-fuoco per chi lo porta.',
+        'da T3 rimanda di 1 round l’accensione della sua tessera per chi lo porta.',
         '<b>Il Notaio.</b> Appare in T4, dà l’ordine di bruciare, e alla fine del round successivo '
         'fugge in carrozza (rimosso). NON combatte e NON si prende: è il ricorrente dell’Atto III. '
         'Inseguirlo = un round perso e il fuoco che avanza. Puntate ai registri.',
         '<b>Il Sorvegliante.</b> Boss: Att +3, Dif 8, Fer 6, Mov 3, Danno 2. Guarda il torchio: '
         'superatelo o abbattetelo per la cassaforte. Nessuna debolezza-oggetto. «Il nome del '
         'Notaio» (D2 esatta): saltare un attacco. Ai tavoli da 2-3 eroi non recupera ferite.',
-        '<b>Vittoria.</b> Registri presi (Interagire alla cassaforte, T6) e messi nella Cassetta '
-        'Stagna = <b>vittoria piena</b> (prova intatta). Presi col fuoco alto e senza cassetta = '
-        '<b>vittoria parziale</b> (prova degradata: l’Atto prosegue, ma l’Ep. 18 avrà un incrocio '
-        'più fragile). <b>Il mazzo:</b> 21 carte (7 uomini del molino, 6 insidie d’ambiente, 4 '
+        '<b>Vittoria: prendere E portare fuori.</b> Presi i registri (Interagire, T6), il molino '
+        'divampa e <b>tutti gli sgherri — Sorvegliante compreso — fuggono</b>: togliete i nemici '
+        'dal campo. Poi il gruppo deve <b>riportare i registri all’uscita (T1)</b> scendendo tra '
+        'le fiamme. Vittoria quando i vivi sono a T1 coi registri. Presi <b>prima</b> del round 9, '
+        'o con la <b>Cassetta Stagna</b> = <b>vittoria piena</b> (prova intatta). Presi col torchio '
+        'già in fiamme e senza cassetta = <b>vittoria parziale</b> (prova annerita: l’Atto prosegue, '
+        'ma l’Ep. 18 avrà un incrocio più fragile). Gruppo intero a terra tra le fiamme = fuga '
+        'fallita. <b>Il mazzo:</b> 21 carte (7 uomini del molino, 6 insidie d’ambiente, 4 '
         'crescendo-fuoco, 4 eventi).',
     ])
     pagina('epilogo, frammento e bivio', [

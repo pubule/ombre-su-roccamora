@@ -1040,14 +1040,56 @@ function avanzaOrologio(quanto, motivo) {
   return ann;
 }
 
+// IL ROGO (Ep.13): un doom-clock a ROUND, non agganciato al Canto — un incendio
+// non si zittisce, quindi la Litania (che toglie Canto) non lo ritarda. Il Notaio
+// dà fuoco al Molino a cadenza fissa: le tessere si incendiano ai round dichiarati
+// in `ep.rogo.scala` ([tessera, round]). Chi vi termina il round subisce `danno`
+// (il fuoco che morde). I registri presi mentre il TORCHIO (la tessera-obiettivo)
+// brucia escono anneriti = vittoria PARZIALE — a meno che il gruppo porti dall'
+// indagine l'oggetto `protetto` (la Cassetta Stagna), che li salva: PIENA comunque.
+// È la posta che rende viva la corsa e fa CONTARE l'indagine sull'apertura d'Atto.
+const specRogo = () => ctx.ep.rogo || null;
+const rogoBrucia = (tileId) => {
+  const r = specRogo(); if (!r) return false; const sp = SP();
+  return (r.scala || []).some(([t, quando]) => t === tileId && sp.round >= quando);
+};
+const haProtezioneRogo = () => {
+  const r = specRogo(); if (!r || !r.protetto) return false;
+  return (P().indagine.oggetti || []).some((o) => new RegExp(r.protetto, 'i').test(o));
+};
+function avanzaRogo() {
+  const r = specRogo(); const sp = SP(); if (!r || sp.esito) return [];
+  const ann = []; sp.rogoAcceso = sp.rogoAcceso || {};
+  for (const [t, quando] of (r.scala || [])) {
+    if (sp.round >= quando && !sp.rogoAcceso[t]) {
+      sp.rogoAcceso[t] = true;
+      ann.push((r.testo_scatta || 'Il Rogo divampa in {tile}.').replace('{tile}', t));
+    }
+  }
+  if (r.danno) for (const nm of P().party) {
+    if ((sp.vite[nm] ?? 0) <= 0) continue;
+    const pos = sp.eroiPos[nm];
+    if (pos && rogoBrucia(pos.t)) {
+      const e = eroe(nm);
+      sp.vite[nm] = Math.max(0, (sp.vite[nm] ?? saluteMax(e)) - r.danno);
+      ann.push(`${primo(nm)} è tra le fiamme: −${r.danno} (${sp.vite[nm]}).`);
+      if (sp.vite[nm] <= 0) ann.push(`${primo(nm)} crolla nel fumo!`);
+    }
+  }
+  return ann;
+}
+
 function controllaVittoria() {
   const sp = SP(); const v = ctx.ep.vittoria;
   if (sp.esito || !v || !specCompiti().length || !compitiFiniti()) return false;
   const vivi = P().party.filter((nm) => (sp.vite[nm] ?? 0) > 0);
   if (v.tessera && !vivi.every((nm) => sp.eroiPos[nm] && sp.eroiPos[nm].t === v.tessera)) return false;
   if (v.boss && sp.nemici.some((n) => n.nome === ctx.ep.soluzione.boss && n.pos)) return false;
-  sp.esito = 'vittoria';
-  sp.log.push(v.testo || 'L’obiettivo è compiuto: siete salvi.');
+  const declassa = !!sp.registriAnneriti;   // snapshot preso all'atto della presa (ROGO)
+  sp.esito = declassa ? 'parziale' : 'vittoria';
+  sp.log.push(declassa
+    ? (specRogo().testo_parziale || 'I registri escono anneriti dal rogo: vittoria parziale.')
+    : (v.testo || 'L’obiettivo è compiuto: siete salvi.'));
   salvaP(); epilogo(); return true;
 }
 function finisciEroe(nm) {
@@ -1182,6 +1224,18 @@ async function azioneInteragire(nm) {
       if (c.per_azione.oggetto && (P().indagine.oggetti || []).some((o) => new RegExp(c.per_azione.oggetto, 'i').test(o))) passo = c.per_azione.con_oggetto || passo;
     }
     const st = statoCompiti(); st[c.id] = (st[c.id] || 0) + passo;
+    // ROGO (Ep.13) — snapshot piena/parziale ALL'ATTO DELLA PRESA: se il torchio
+    // brucia adesso e manca la Cassetta, i registri escono anneriti. Deciso qui e
+    // non a fine fuga, altrimenti al ritorno in T1 tutto sarebbe gia' bruciato.
+    if (specRogo() && st[c.id] >= c.quante && sp.registriAnneriti == null) {
+      sp.registriAnneriti = rogoBrucia(c.tile) && !haProtezioneRogo();
+      if (sp.registriAnneriti) log('Il torchio è in fiamme: i registri si anneriscono mentre li strappate.');
+      // Il Molino è ora un inferno: sgherri e guardie NON restano a battersi tra
+      // le fiamme, fuggono. La fuga è una corsa contro il FUOCO, non un grind
+      // contro la truppa — così il rogo è la vera minaccia dell'estrazione.
+      const fuggiti = sp.nemici.filter((n) => n.pos).length;
+      if (fuggiti) { sp.nemici = sp.nemici.filter((n) => !n.pos); log(`Il Molino è in fiamme: ${fuggiti} tra sgherri e guardie fuggono. Ora siete voi contro il rogo.`); }
+    }
     if (c.nemico) {                       // catturato: esce dal tavolo, non e' un morto
       const j = sp.nemici.findIndex((n) => n.pos && n.nome === c.nemico && adiacGlob(sp.eroiPos[nm], n.pos));
       if (j >= 0) sp.nemici.splice(j, 1);
@@ -1611,6 +1665,7 @@ function faseNemiciAI() {
   // fine round: tick canto, boss a soglia (annunci mostrati dopo l'animazione)
   piano.annunci.push(...fineRound(ctx.comune, ctx.ep, sp));
   if (specOrologio() && specOrologio().ogni) piano.annunci.push(...avanzaOrologio(specOrologio().ogni, 'fine round'));
+  piano.annunci.push(...avanzaRogo());   // il doom-clock del Rogo (Ep.13): incendio a round + danno
   // Cinque episodi non hanno una traccia propria: la loro soglia E' IL CANTO —
   // «prima che il Canto raggiunga la soglia-FUGA» (Ep.14), soglia-sigillo,
   // soglia-decano, soglia-arresto, risveglio. Sono i numeri che le Soluzioni
