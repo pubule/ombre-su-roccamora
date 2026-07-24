@@ -646,8 +646,8 @@ def soluzione():
         'T1 La Gronda (partenza, da Sud) → T2 Il Comignolo (quota) → T3 La Terrazza dei Panni '
         '(Gatti minori) → T4 L’Abbaino (appare il Primo Gatto, parte la FUGA) → T5 Il Lucernario '
         '(quota, vetro) → T6 L’Attico (il Primo Gatto). Coi Ramponi si salta lo strapiombo di T1.',
-        '<b>La soglia-fuga.</b> Segnate il Canto come al solito. Alla <b>soglia-fuga = Canto 4</b> '
-        '(3 senza la Parola dei Tetti), il Primo Gatto scavalca la cresta e sparisce, se non '
+        '<b>La soglia-fuga.</b> Segnate il Canto come al solito. Alla <b>soglia-fuga = Canto 5</b> '
+        '(6 con la Parola dei Tetti), il Primo Gatto scavalca la cresta e sparisce, se non '
         'l’avete già agganciato all’Attico (T6): vittoria parziale. Le carte crescendo (fischio/il '
         'Gatto si sposta) accelerano. La Parola dei Tetti alza di fatto la soglia (aggancio a 2 '
         'Ferite, niente fuga finale).',

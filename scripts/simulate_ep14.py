@@ -51,7 +51,11 @@ TOKEN_POOL_BASE = {'LO SGHERRO': 5}
 # ============================ LEVE PER-EPISODIO (la curva si tara QUI) ======
 TESSERE_QUOTA = {'T2', 'T5'}   # comignolo / lucernario (cadute)
 TESSERA_SPAWN = 'T3'           # la terrazza dei panni: i Gatti minori
-SOGLIA_FUGA = 3            # Canto oltre cui il Gatto sparisce (4 con la Parola dei Tetti)
+SOGLIA_FUGA = 5            # Canto oltre cui il Gatto sparisce (6 con la Parola dei Tetti).
+# Allineato al PILOTA (20260724): il Canto digitale/reale sale piu' in fretta del
+# modello ottimista di questo sim, quindi la soglia tarata sul gioco vero e' 5
+# (dava piena ~63% a 4 eroi), non 3. Il pilota Playwright e' l'autorevole; questo
+# numero e' tenuto in pari col resto degli artefatti, la curva del sim non lo e'.
 DANNO_QUOTA = 1            # danno a fallire una prova di quota (T5) senza Ramponi
 BOSS_INGAGGIO = 4         # eroi che accerchiano il Primo Gatto all'Attico (T6)
 BOSS_COLPI = 3            # il Primo Gatto è agile: raffica di colpi (uno saltato con D2)

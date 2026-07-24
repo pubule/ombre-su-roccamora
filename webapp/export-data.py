@@ -1206,7 +1206,7 @@ episodi = dict(
                       etichetta='Aggancia il Primo Gatto',
                       fatto='Il Primo Gatto è agganciato: parlerà della commissione.')],
         vittoria=dict(testo='Il Primo Gatto tratta: sapete chi ha commissionato il furto.'),
-        orologio=dict(id='fuga', nome='Fuga sui tetti', su_canto=6,
+        orologio=dict(id='fuga', nome='Fuga sui tetti', su_canto=5,
                       esito='parziale', testo='Il Gatto scavalca la cresta e sparisce.'),
         esami_carbone=ESAMI_CARBONE_14,
         luoghi=[luogo_json(L, OGGETTI_LUOGO_14, REPERTI_LUOGO['ep14']) for L in LUOGHI_14],
