@@ -359,8 +359,9 @@ TILES_13 = [
                  'registri, perdete round preziosi mentre il fuoco monta. Il rogo è un orologio di '
                  'ROUND (schedule nella Soluzione): l’essiccatoio (T5) e il torchio (T6) prendono '
                  'per primi, poi le fiamme SCENDONO di piano in piano verso l’uscita.',
-         hook='Il Taccuino del Capo-Catena (dalla sua casa): sapete l’ora del rogo — l’arbitro '
-              'fa scattare le fiamme 2 round più tardi, arrivate col fuoco ancora lontano.',
+         hook='Il Taccuino del Capo-Catena (dalla sua casa): sapete l’ora del rogo — tutto '
+              'l’orologio del rogo slitta di 2 round (ogni soglia; la tabella slittata è nella '
+              'Soluzione), e arrivate col fuoco ancora lontano.',
          cerca_vuoto='Stracci fino al soffitto e odore di petrolio. Il Notaio è già alla porta: '
                      'non guardate lui, guardate quanto manca al torchio.',
          arredi=[(1, 2, 'casse'), (2, 0, 'altare')]),
@@ -655,9 +656,11 @@ def soluzione():
         '<b>3. COSA SAPEVA il capo-catena annegato?</b> Che la carta di C.B. viaggia sulla '
         'carrozza del Palazzo del Lume, e a che ora parte il nolo (i suoi appunti L5 + il registro '
         'dei noli L7: serve più di una conferma). <i>Esatta (deposizione ricostruita, Taccuino):</i> '
-        'conoscete l’ora del rogo e i turni della guardia — l’arbitro fa scattare le fiamme '
-        '<b>2 round più tardi</b> (arrivate col fuoco lontano) e le prove d’ambiente sono più '
-        'facili. <i>Sbagliata:</i> arrivate alla cieca, il rogo parte com’è scritto.',
+        'conoscete l’ora del rogo e i turni della guardia — <b>tutto l’orologio del rogo slitta '
+        'di 2 round</b>, ogni soglia compresa: <b>T5 al 9, T6 al 11, T4 al 14, T3 al 16, T2 al 18, '
+        'T1 al 20</b> (arrivate col fuoco lontano, e anche la fuga ha più respiro). Le prove '
+        'd’ambiente sono più facili. <i>Sbagliata:</i> arrivate alla cieca, il rogo corre secondo '
+        'la tabella base.',
         '<b>4. COSA portate al Molino?</b> LA CASSETTA STAGNA (il Deposito delle Risme, entro le '
         '20). <i>Con la Cassetta:</i> i registri strappati al torchio sono SALVI dalle fiamme — '
         '<b>vittoria piena</b> anche col rogo già alto. <i>Senza:</i> presi col torchio in fiamme, '

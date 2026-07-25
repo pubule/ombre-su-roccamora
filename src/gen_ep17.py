@@ -622,8 +622,10 @@ def soluzione():
         'arrivate scomposti — 1 uomo del Notaio appare in T1.',
         '<b>2. CHI l’ha preso?</b> Gli uomini di C.B., per mano del Notaio Rasca — non una talpa (il '
         'confratello anziano L2 + il referto del Tribunale L3 + il praticante L4). <i>Esatta:</i> '
-        'sapete che non c’è talpa: il malus di morale della spedizione è ridotto (parte da −1 e si '
-        'cancella subito trovando il decano). <i>Sbagliata:</i> nessun effetto.',
+        'sapete che non c’è talpa, e potete dirlo al tavolo: lo scisma resta −1 ai NERVI (non '
+        'peggiora mai), e si cancella nell’istante in cui liberate il decano vivo. '
+        '<i>Sbagliata:</i> nessun effetto — il malus è lo stesso, ma ci entrate senza sapere '
+        'perché.',
         '<b>3. COSA dice il dossier cifrato?</b> La matrice delle doppie letture di tutte le lettere '
         'di M. (la Cifra del decano L5 la decifra). <i>Esatta («la matrice»):</i> allo studio del '
         'Notaio (T6), la Guardia salta un attacco (il segreto che difende è bruciato); e ogni '

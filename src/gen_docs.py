@@ -347,6 +347,16 @@ def regolamento():
                'desta immediatamente e da quel momento <b>ogni Fase Minaccia pesca 1 carta in pi\u00f9</b> '
                'del normale, per il resto della spedizione. La Soluzione vi dir\u00e0 i dettagli specifici '
                '(chi si desta, dove compare).', 'box'))
+    e.append(P('Al culmine del Canto non arrivano pi\u00f9 rinforzi', 'h2'))
+    e.append(P('Attenzione a non confonderla con la soglia qui sopra: quella \u00e8 pi\u00f9 bassa, la dice '
+               'l\u2019episodio, e <b>aggiunge</b> pericolo (desta il nemico pi\u00f9 forte, +1 carta per Fase). '
+               'Questa \u00e8 l\u2019<b>ultima casella della traccia</b> (la 8, o il massimo che l\u2019episodio '
+               'dichiara) e fa il contrario: quando il segnalino Canto arriva in fondo, il rituale \u00e8 al '
+               'culmine e <b>le carte Minaccia non schierano pi\u00f9 nuovi nemici</b>. Il resto di ogni carta '
+               'si applica come sempre (insidie, eventi, crescendo), i nemici gi\u00e0 in campo continuano a '
+               'muoversi e attaccare, e il segnalino di fine round continua a salire finch\u00e9 c\u2019\u00e8 traccia. '
+               'Serve a questo: nel finale prolungato il mazzo continuava a schierare truppa <i>dietro</i> '
+               'al gruppo all\u2019infinito, e la partita non finiva pi\u00f9.', 'box'))
     e.append(P('3. Turno dei nemici', 'h2'))
     e.append(LI('Ogni nemico si muove del suo Movimento verso l\u2019eroe pi\u00f9 vicino (a pari '
                 'distanza vale la regola d\u2019oro: contro di s\u00e9).'))
@@ -362,6 +372,19 @@ def regolamento():
                'l’uscita segreta nascosta sotto un mobile della stanza in cui l’hanno tenuto '
                '(vedi sotto). Chi scortate si muove nel turno degli eroi (fino a 3 caselle) e '
                'non compie azioni.'))
+    e.append(P('Obiettivo compiuto: il mazzo Minaccia tace', 'h2'))
+    e.append(P('<b>Appena l’obiettivo è compiuto, nella Fase Minaccia non si pesca più nessuna carta</b>, '
+               'per il resto della spedizione: niente nuovi nemici, niente insidie, niente crescendo. Il '
+               'ritorno non è una seconda spedizione: è una fuga con quello che vi siete lasciati dietro. '
+               '<b>Quello che resta in campo, però, resta</b>: i nemici già in tavola continuano a '
+               'muoversi e ad attaccare a ogni turno, e il segnalino Canto di fine round continua a '
+               'salire.'))
+    e.append(P('<b>Quando l’obiettivo conta come compiuto:</b> tutti i compiti dell’episodio sono finiti, '
+               'oppure — se c’è qualcuno da scortare — <b>il prigioniero è libero</b>. Basta averlo '
+               'liberato: <b>non</b> serve aver già trovato l’uscita segreta. (Era un circolo vizioso: il '
+               'gruppo non cercava l’uscita perché la pressione non gli lasciava un round libero, e la '
+               'pressione non si fermava perché l’uscita non era stata trovata.) Se un episodio non ha '
+               'né scorta né compiti — è raro — questo sollievo non c’è: si pesca fino alla fine.', 'box'))
     e.append(P('Ferite e sconfitta', 'h2'))
     e.append(P("A 0 Salute un eroe cade <b>a terra</b>: non agisce finch\u00e9 non viene rianimato. "
                "Se tutti gli eroi sono a terra, l\u2019episodio \u00e8 fallito: potete rigiocarlo, ma il "
@@ -681,6 +704,9 @@ def soluzione():
                'piste; l\u2019acqua benedetta di don Callisto \u00e8 un\u2019esca: sul Custode non ha alcun effetto.'))
 
     e.append(P('PREPARAZIONE DELLA SPEDIZIONE', 'h1'))
+    e.append(P('<b>Prima di cominciare, il numero che cambia:</b> in questo episodio il Canto '
+               'automatico batte <b>ogni 6\u00b0 round</b> (6\u00b0, 12\u00b0...), non ogni 4\u00b0. La <b>soglia</b> '
+               'che desta il Custode \u00e8 <b>3</b>.', 'box'))
     e.append(P('Disponete le tessere cos\u00ec (coperte, tranne T1). Le uscite sono stampate sui bordi:', 'body'))
     e.append(P('<font face="Courier" size="9">'
                '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[T6 Cripta della Cera]<br/>'
@@ -840,6 +866,10 @@ def aiuto():
     e.append(RL('<b>Canto:</b> al <b>3° segnalino</b> si desta il boss dell’episodio e da lì ogni fase '
                 'Minaccia pescate 1 carta in più. Ogni 4° round (4°, 8°...): +1 Canto automatico — '
                 'ogni 6° nelle spedizioni lunghe, lo dice l’episodio.'))
+    e.append(RL('<b>Il mazzo tace due volte:</b> a <b>obiettivo compiuto</b> (compiti finiti, o prigioniero '
+                'liberato — l’uscita non serve) non si pesca <b>più nessuna carta</b>; a <b>Canto al massimo</b> '
+                '(ultima casella) le carte non schierano <b>più nuovi nemici</b>. In entrambi i casi chi è già '
+                'in campo continua a premere.'))
     e.append(RL('<b>A 0 Salute</b> un eroe cade a terra (non agisce finché non rianimato). '
                 'Tutti a terra = episodio fallito.'))
 

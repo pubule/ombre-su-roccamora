@@ -197,7 +197,10 @@ preludio ed ep9 erano gonfiati dai bug. Da qui in poi si tara sul corretto.
   dall'alto.
 
 **Nota metodo:** «obiettivo completato» va STAMPATO nel Regolamento (regola
-comune, il motore la applica gia' a tavolo e digitale). TODO.
+comune, il motore la applica gia' a tavolo e digitale). ~~TODO~~ **FATTO
+(25/07)**: due box nuovi nel Regolamento — «Obiettivo compiuto: il mazzo
+Minaccia tace» e «Al culmine del Canto non arrivano piu' rinforzi» — piu' una
+riga di sintesi nell'Aiuto-Giocatore. Verificato sul PDF renderizzato.
 
 ## [storico] Conclusione superata: «difetto strutturale non tarabile» (23/07 sera)
 
