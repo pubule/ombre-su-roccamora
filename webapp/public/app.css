@@ -481,7 +481,11 @@ em, i { font-style: italic; }
 .immersivo .pannello { background: linear-gradient(160deg, rgba(29,16,20,.92), rgba(14,21,25,.92));
   color: var(--perg); border-color: rgba(168,131,58,.55); box-shadow: 0 6px 22px rgba(0,0,0,.55); }
 .immersivo .pannello h2 { color: var(--oro-chiaro); }
-.immersivo .pannello .nota { color: var(--seppia); }
+/* il seppia era tarato sulla pergamena: sul fondo notte da' 4:1, sotto la
+   soglia di leggibilita' — ed e' proprio il testo delle ISTRUZIONI D'AZIONE,
+   quello che si rilegge a ogni turno. Sale a ~7.5:1 restando subordinato al
+   corpo del testo, che e' crema piena. */
+.immersivo .pannello .nota { color: #b3a288; }
 .immersivo .pannello .ok-txt { color: #7fe6db; }        /* il verde scuro sparirebbe sul fondo notte */
 .immersivo .pannello .ko-txt { color: #ff8a6a; }
 /* i testi scritti col colore INCHIOSTRO erano pensati per la pergamena: sul
@@ -493,7 +497,9 @@ em, i { font-style: italic; }
   font-size: 19px; letter-spacing: .05em; }
 .immersivo .nemico-nome b { color: #ff8a6a; }
 .immersivo .chip-turno.ritratto .et { color: var(--perg-scura); }
-.immersivo .chip-turno.ritratto.fatto .et { color: var(--seppia); }
+/* chi ha finito resta piu' spento degli altri — e' l'informazione — ma non
+   sotto la soglia: da tre metri sparirebbe invece di sembrare «gia' mosso» */
+.immersivo .chip-turno.ritratto.fatto .et { color: #9d8f78; }
 
 /* leggibilita' da lontano. I token e le scritte sulla plancia NON si toccano:
    li scala gia' lo zoom, e un override qui combatterebbe contro l'adattamento. */
