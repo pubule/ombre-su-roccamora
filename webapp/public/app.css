@@ -505,6 +505,14 @@ em, i { font-style: italic; }
    li scala gia' lo zoom, e un override qui combatterebbe contro l'adattamento. */
 .immersivo { font-size: 19px; }
 .immersivo .pannello .nota { font-size: 16px; }
+/* Il ritratto dell'eroe di turno e' piu' grande degli altri, ma la chip ha
+   `width: 66px` fisso: il cerchio da 76px debordava da entrambi i lati e la
+   striscia, che scorre in orizzontale, tagliava quello di sinistra (e il suo
+   alone) contro il bordo del pannello. Qui la chip ha sempre spazio per il
+   ritratto grande. Va anche a capo invece di scorrere: nella colonna stretta
+   il quarto eroe restava fuori vista, e al tavolo devono vedersi tutti. */
+.immersivo .giro-strip { flex-wrap: wrap; overflow: visible; gap: 10px; padding: 4px 2px; }
+.immersivo .chip-turno.ritratto { min-width: 80px; }
 .immersivo .chip-turno.ritratto .rit { width: 68px; height: 68px; }
 /* la variante `.attivo` va riscritta: `.chip-turno.ritratto.attivo .rit` vale
    62px con la stessa specificita', e il chip di turno finirebbe PIU' PICCOLO */
