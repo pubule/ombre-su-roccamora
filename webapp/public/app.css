@@ -486,7 +486,11 @@ em, i { font-style: italic; }
 .immersivo .pannello .ko-txt { color: #ff8a6a; }
 /* i testi scritti col colore INCHIOSTRO erano pensati per la pergamena: sul
    fondo notte diventano illeggibili (i nomi degli eroi sparivano del tutto) */
-.immersivo .nemico-nome { color: var(--perg-scura); }
+/* i nomi stanno accanto a pallini turchesi grossi e saturi, che da lontano se
+   li mangiano: servono peso e dimensione, non una tinta nuova (l'oro e' del
+   titolo del pannello e gli competerebbe accanto) */
+.immersivo .nemico-nome { color: var(--perg); font-weight: 700;
+  font-size: 19px; letter-spacing: .05em; }
 .immersivo .nemico-nome b { color: #ff8a6a; }
 .immersivo .chip-turno.ritratto .et { color: var(--perg-scura); }
 .immersivo .chip-turno.ritratto.fatto .et { color: var(--seppia); }
