@@ -20,6 +20,18 @@ const P = () => ctx.partita;
 const SP = () => ctx.partita.spedizione;
 const salvaP = () => salva(ctx.partita);
 
+// LA PLANCIA A SCHERMO AL TAVOLO. Questa vista nasce per la modalita' digitale
+// (tutto a schermo, l'app tira i dadi), ma serve anche a chi gioca AL TAVOLO
+// senza aver stampato tessere e miniature: la plancia vive qui, tutto il resto
+// resta del tavolo. Da qui due differenze, e solo queste:
+//   - i dadi sono FISICI (`dadi.js` chiede il totale dei 2d6 e tiene comunque
+//     il ripiego «niente dadi? tira l'app» per chi non li ha sottomano);
+//   - il TESTO delle tessere non si stampa a schermo: lo legge ad alta voce chi
+//     arbitra, dal fascicolo Spedizione. Se lo mostrasse l'app, i giocatori lo
+//     leggerebbero prima che finisca la frase.
+const alTavolo = () => P().modo === 'tavolo';
+const modoDadi = () => (alTavolo() ? 'tavolo' : 'digitale');
+
 // board PNG: export-assets.py copia le tessere stampate in webapp/assets con il
 // nome normalizzato «<TileId>.png» (a monte i file sono «T1 - Nome Tessera.png»,
 // e il nome non coincide con quello del JSON — maiuscoletto, apostrofi diversi).
@@ -725,7 +737,7 @@ function messaggioCarta(titolo, carta, annunci) {
       for (const t of targets) {
         const e = eroe(t);
         const r = await tiraProva({ titolo: `${req.stat.toUpperCase()} — ${primo(t)}`, diffLabel: req.diff,
-          soglia: ctx.comune.regole.diff[req.diff], bonus: [{ label: req.stat.toUpperCase(), val: e[req.stat] }], modo: 'digitale' });
+          soglia: ctx.comune.regole.diff[req.diff], bonus: [{ label: req.stat.toUpperCase(), val: e[req.stat] }], modo: modoDadi() });
         if (r == null) { rb.disabled = false; return; }
         if (r.ok) esiti.push(`${primo(t)}: prova superata.`);
         else esiti.push(...applicaConseguenza(t, carta.rules));
@@ -754,7 +766,7 @@ function messaggioProva(titolo, corpo, provaText, nm) {
     if (pb) pb.onclick = async () => {
       pb.disabled = true; const e = eroe(nm); const sp = SP();
       const r = await tiraProva({ titolo: `${req.stat.toUpperCase()} — ${primo(nm)}`, diffLabel: req.diff,
-        soglia: ctx.comune.regole.diff[req.diff], bonus: [{ label: req.stat.toUpperCase(), val: e[req.stat] }], modo: 'digitale' });
+        soglia: ctx.comune.regole.diff[req.diff], bonus: [{ label: req.stat.toUpperCase(), val: e[req.stat] }], modo: modoDadi() });
       if (r == null) { pb.disabled = false; return; }
       let out = r.ok ? '<p class="ok-txt mt">Prova superata.</p>' : '<p class="ko-txt mt">Prova fallita.</p>';
       if (!r.ok) { out += applicaConseguenza(nm, provaText).map((x) => `<p class="nota">${esc(x)}</p>`).join(''); salvaP(); }
@@ -1113,7 +1125,12 @@ async function muoviEroe(nm, node, revealId) {
   const tnow = tileDi(node.t);
   if (provaRichiesta(tnow.testo) && !(sp.insidie && sp.insidie[node.t])) {
     sp.insidie = sp.insidie || {}; sp.insidie[node.t] = true; salvaP();
-    await messaggioProva(`${node.t} — ${tnow.nome.toLowerCase()}`, `<p><i>${rendi(tnow.testo)}</i></p>`, tnow.testo, nm);
+    // al tavolo il testo lo legge chi arbitra dal fascicolo: qui resta la sola
+    // prova da tirare, senza anticipare la scena ai giocatori
+    const corpo = alTavolo()
+      ? `<p class="nota">Chi arbitra legge <b>${esc(node.t)}</b> dal fascicolo Spedizione, poi si tira.</p>`
+      : `<p><i>${rendi(tnow.testo)}</i></p>`;
+    await messaggioProva(`${node.t} — ${tnow.nome.toLowerCase()}`, corpo, tnow.testo, nm);
   }
   segnaAzione(nm, 'muovere');
 }
@@ -1157,7 +1174,7 @@ async function attaccaNemico(nm, i) {
   if (!adiacGlob(sp.eroiPos[nm], n.pos)) { flash('Nemico non adiacente: avvicinati prima.'); return; }
   const st = nemStat(n.nome);
   const r = await tiraProva({ titolo: `${primo(nm)} → ${n.nome.toLowerCase()}`, diffLabel: 'Difesa', soglia: n.difMod ?? st.dif,
-    bonus: [{ label: 'VIGORE', val: e.vigore }, { label: 'arma', val: 1 }], modo: 'digitale' });
+    bonus: [{ label: 'VIGORE', val: e.vigore }, { label: 'arma', val: 1 }], modo: modoDadi() });
   if (r == null) return;
   const dif = n.difMod ?? st.dif;
   if (r.ok) {
@@ -1172,7 +1189,7 @@ async function azioneCercare(nm) {
   if (sp.cercate[tile.id]) { flash('Qui avete già cercato.'); return; }
   const e = eroe(nm); const bonus = [{ label: 'ACUME', val: e.acume }];
   if (nm === 'ELENA FOSCO') bonus.push({ label: 'Occhio Clinico', val: 2 });
-  const r = await tiraProva({ titolo: `cercare — ${primo(nm)}`, diffLabel: 'Media', soglia: ctx.comune.regole.diff.Media, bonus, modo: 'digitale' });
+  const r = await tiraProva({ titolo: `cercare — ${primo(nm)}`, diffLabel: 'Media', soglia: ctx.comune.regole.diff.Media, bonus, modo: modoDadi() });
   if (r == null) return;
   if (!r.ok) { log(`${primo(nm)} fruga invano.`); salvaP(); segnaAzione(nm, 'cercare'); return; }
   sp.cercate[tile.id] = true;
@@ -1210,7 +1227,7 @@ async function azioneInteragire(nm) {
       const e = eroe(nm);
       const r = await tiraProva({ titolo: `${c.prova.attr.toUpperCase()} — ${primo(nm)}`, diffLabel: c.prova.diff,
         soglia: ctx.comune.regole.diff[c.prova.diff],
-        bonus: [{ label: c.prova.attr.toUpperCase(), val: e[c.prova.attr] || 0 }], modo: 'digitale' });
+        bonus: [{ label: c.prova.attr.toUpperCase(), val: e[c.prova.attr] || 0 }], modo: modoDadi() });
       if (r == null) return;                                  // prova annullata: nessuna azione spesa
       if (!r.ok) { log(`${primo(nm)}: ${c.fallita || 'non ci riesce'}.`); segnaAzione(nm, 'interagire'); return; }
     }
@@ -1253,7 +1270,7 @@ async function azioneInteragire(nm) {
     const giusto = a[0] === u.arredo[0] && a[1] === u.arredo[1];
     const r = await tiraProva({ titolo: `spostare ${String(a[2]).toLowerCase()} — ${primo(nm)}`,
       diffLabel: u.diff || 'Media', soglia: ctx.comune.regole.diff[u.diff || 'Media'],
-      bonus: [{ label: 'VIGORE', val: e.vigore }], modo: 'digitale' });
+      bonus: [{ label: 'VIGORE', val: e.vigore }], modo: modoDadi() });
     if (r == null) return;
     if (!r.ok) { log(`${primo(nm)} non riesce a smuovere ${String(a[2]).toLowerCase()}.`); salvaP(); segnaAzione(nm, 'interagire'); return; }
     if (!giusto) {
@@ -1275,7 +1292,7 @@ async function azioneInteragire(nm) {
     const bonus = [{ label: attr.toUpperCase(), val: e[attr] || 0 }];
     for (const b of s.prova.bonus || []) { if (inv.some((o) => new RegExp(b, 'i').test(o))) bonus.push({ label: b, val: 1 }); }
     const r = await tiraProva({ titolo: `${s.prova.titolo || 'liberare ' + s.nome} — ${primo(nm)}`,
-      diffLabel: s.prova.diff, soglia: ctx.comune.regole.diff[s.prova.diff], bonus, modo: 'digitale' });
+      diffLabel: s.prova.diff, soglia: ctx.comune.regole.diff[s.prova.diff], bonus, modo: modoDadi() });
     if (r == null) return;
     if (r.ok) liberaScortato(nm, i);
     else { log(`${primo(nm)} ${s.prova.fallita || 'non riesce a liberare ' + s.nome}.`); salvaP(); segnaAzione(nm, 'interagire'); }

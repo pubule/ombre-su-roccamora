@@ -120,14 +120,29 @@ async function vistaEpisodio(epId) {
       <div class="modi mt">
         <div class="modo" data-modo="tavolo">
           <h3>al tavolo</h3>
-          <p>Carte, tessere e miniature vere. L’app fa da <b>arbitro</b>: custodisce i
-          segreti, tira gli orologi, pesca le Minacce, verifica le chiavi — e nessuno
-          al tavolo sa niente in anticipo.</p>
+          <p>Siete intorno a un tavolo, coi <b>dadi veri</b>. L’app fa da <b>arbitro</b>:
+          custodisce i segreti, tira gli orologi, pesca le Minacce, verifica le chiavi —
+          e nessuno al tavolo sa niente in anticipo.</p>
         </div>
         <div class="modo" data-modo="digitale">
           <h3>tutto a schermo</h3>
           <p>Niente componenti fisici: il board, i token e i dadi vivono qui.
           Muovete gli eroi a caselle, la notte reagisce da sola.</p>
+        </div>
+      </div>
+      <div id="scelta-plancia" style="display:none">
+        <h2 class="mt">e la plancia della spedizione?</h2>
+        <div class="modi mt">
+          <div class="plancia attivo" data-plancia="fisica">
+            <h3>tessere e miniature vere</h3>
+            <p>Le avete stampate: la mappa sta sul tavolo, l’app tiene i conti.</p>
+          </div>
+          <div class="plancia" data-plancia="schermo">
+            <h3>plancia a schermo</h3>
+            <p>Non le avete stampate: la mappa e le pedine vivono qui, un dispositivo
+            al centro del tavolo. I <b>dadi restano vostri</b> e il testo delle tessere
+            lo legge chi arbitra dal fascicolo.</p>
+          </div>
         </div>
       </div>
       <h2 class="mt">da dove cominciate?</h2>
@@ -158,20 +173,27 @@ async function vistaEpisodio(epId) {
   });
   let modo = null;
   let fase = 'indagine';
+  let plancia = 'fisica';
   app.querySelectorAll('.modo').forEach((el) => el.addEventListener('click', () => {
     app.querySelectorAll('.modo').forEach((m) => m.classList.remove('attivo'));
     el.classList.add('attivo'); modo = el.dataset.modo;
+    // la scelta della plancia ha senso solo al tavolo: a schermo e' implicita
+    document.getElementById('scelta-plancia').style.display = modo === 'tavolo' ? '' : 'none';
     document.getElementById('avanti').classList.remove('disabilitato');
+  }));
+  app.querySelectorAll('.plancia').forEach((el) => el.addEventListener('click', () => {
+    app.querySelectorAll('.plancia').forEach((m) => m.classList.remove('attivo'));
+    el.classList.add('attivo'); plancia = el.dataset.plancia;
   }));
   app.querySelectorAll('.fase').forEach((el) => el.addEventListener('click', () => {
     app.querySelectorAll('.fase').forEach((m) => m.classList.remove('attivo'));
     el.classList.add('attivo'); fase = el.dataset.fase;
   }));
-  document.getElementById('avanti').onclick = () => modo && vistaParty(epId, modo, fase);
+  document.getElementById('avanti').onclick = () => modo && vistaParty(epId, modo, fase, plancia);
 }
 
 // ------------------------------------------------------------------ PARTY
-async function vistaParty(epId, modo, fase = 'indagine') {
+async function vistaParty(epId, modo, fase = 'indagine', plancia = 'fisica') {
   const comune = await dati('comune');
   const scelti = new Set();
   h(`
@@ -219,6 +241,7 @@ async function vistaParty(epId, modo, fase = 'indagine') {
   }));
   document.getElementById('inizia').onclick = () => {
     const partita = nuovaPartita(epId, modo, [...scelti], fase);
+    partita.plancia = plancia;   // 'fisica' | 'schermo' (solo al tavolo)
     salva(partita);
     // partendo dalla sola spedizione manca l'unica cosa che l'indagine le
     // passa: com'era finita. La si dichiara, invece di darla per persa.
@@ -339,9 +362,13 @@ import { vistaSpedizione } from './spedizione.js';
 import { vistaDigitale } from './digitale.js';
 
 async function vistaPartita(partita) {
-  // ramo spedizione: TAVOLO (arbitro) o DIGITALE (board a schermo). Il tavolo
-  // resta invariato; il digitale e' un file separato.
-  const sped = partita.modo === 'digitale' ? vistaDigitale : vistaSpedizione;
+  // Ramo spedizione. La plancia a schermo (digitale.js) serve DUE casi: la
+  // modalita' digitale, e il tavolo di chi non ha stampato tessere e miniature
+  // — li' pero' i dadi restano fisici e il testo delle tessere lo legge chi
+  // arbitra (vedi `alTavolo()` in digitale.js). Il tavolo con la plancia vera
+  // resta su spedizione.js, invariato.
+  const aSchermo = partita.modo === 'digitale' || partita.plancia === 'schermo';
+  const sped = aSchermo ? vistaDigitale : vistaSpedizione;
   const vaiA = (dove) => {
     if (dove === 'menu') return vistaHome();
     if (dove === 'spedizione') return sped(app, partita, vaiA);

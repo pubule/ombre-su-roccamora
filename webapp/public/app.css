@@ -103,12 +103,12 @@ em, i { font-style: italic; }
 .modo p { font-size: 14px; color: var(--ink); opacity: .85; }
 /* stessa card della modalita', riusata per «da dove cominciate» e per il tier
    d'indagine dichiarato a mano quando si gioca la sola spedizione */
-.fase, .tier { border: 1px solid var(--teal); border-radius: 10px; padding: 16px;
+.fase, .tier, .plancia { border: 1px solid var(--teal); border-radius: 10px; padding: 16px;
   background: rgba(31, 95, 107, .08); cursor: pointer; }
-.fase.attivo, .tier.attivo { border-color: var(--oro); background: rgba(168, 131, 58, .12);
+.fase.attivo, .tier.attivo, .plancia.attivo { border-color: var(--oro); background: rgba(168, 131, 58, .12);
   box-shadow: 0 0 0 1px var(--oro) inset; }
-.fase h3, .tier h3 { color: var(--rosso); margin-bottom: 6px; font-size: 18px; }
-.fase p, .tier p { font-size: 14px; color: var(--ink); opacity: .85; }
+.fase h3, .tier h3, .plancia h3 { color: var(--rosso); margin-bottom: 6px; font-size: 18px; }
+.fase p, .tier p, .plancia p { font-size: 14px; color: var(--ink); opacity: .85; }
 .dom-tog { min-width: 44px; }          /* target tattile: si tocca al tavolo */
 .dom-tog.attiva { border-color: var(--oro); color: var(--oro); font-weight: 700; }
 .dom-testo { font-size: 14px; color: var(--ink); align-self: center; }
