@@ -264,6 +264,10 @@ export async function vistaDigitale(app, partita, vaiA) {
   const [ep, comune, carte] = await Promise.all([
     dati(partita.episodio), dati('comune'), dati('carte')]);
   ctx = { app, partita, ep, comune, carte, vaiA, layout: null };
+  // al tavolo la plancia si guarda in tanti, da lontano e di sbieco: il glide
+  // del token rallenta (vedi `.al-tavolo .tok-slot` in app.css) perche' la
+  // notte si deve poter SEGUIRE, non indovinare a cose fatte
+  app.classList.toggle('al-tavolo', alTavolo());
   if (!partita.spedizione || !partita.spedizione.digitale) return setup();
   migraScortati(partita.spedizione);
   render();
@@ -1542,7 +1546,13 @@ function setTokenPos(dataTok, node, istantaneo) {
   if (istantaneo) { el.style.transition = 'none'; el.style.left = p.l + 'px'; el.style.top = p.t + 'px'; void el.offsetWidth; el.style.transition = ''; }
   else { el.style.left = p.l + 'px'; el.style.top = p.t + 'px'; }
 }
-const muoviToken = async (dataTok, node) => { setTokenPos(dataTok, node); await pausa(650); };
+// Il RITMO della notte. Al tavolo tutto quello che riguarda i nemici va piu'
+// lento: il glide del token dura 1s invece di .6s (app.css) e le attese qui si
+// allungano in proporzione — se restassero corte, l'attesa scadrebbe a token
+// ancora in movimento e il passo successivo lo taglierebbe a meta'.
+const LENTO = 1.6;
+const ritmo = (ms) => pausa(alTavolo() ? Math.round(ms * LENTO) : ms);
+const muoviToken = async (dataTok, node) => { setTokenPos(dataTok, node); await ritmo(650); };
 
 // striscia del giro dei nemici (read-only, come giroEroiHtml ma per i nemici)
 function giroNemiciHtml(attivoIdx) {
@@ -1653,11 +1663,11 @@ async function eseguiTurnoNemici(piano) {
     if (ctx.saltaNemici) { if (piano.differito) risolviRestoNemici(piano, s); break; }
     const tokel = ctx.app.querySelector(`.tok-slot[data-tok="N:${s.i}"] .tok-board`);
     centraSuNodo(s.pos0, `nem-${s.i}-a`, true);
-    await pausa(650);
-    if (s.flash) { bannerTurno(nemArt(s.nome), `<b>${nemBreve(s.nome)}</b><br>accecato: salta`, 'nemico'); await pausa(1100); continue; }
+    await ritmo(650);
+    if (s.flash) { bannerTurno(nemArt(s.nome), `<b>${nemBreve(s.nome)}</b><br>accecato: salta`, 'nemico'); await ritmo(1100); continue; }
     bannerTurno(nemArt(s.nome), `agisce<br><b>${nemBreve(s.nome)}</b>`, 'nemico');
     if (tokel) tokel.classList.add('attivo-nem');
-    if (nk(s.pos0) !== nk(s.pos1)) { await muoviToken(`N:${s.i}`, s.pos1); centraSuNodo(s.pos1, `nem-${s.i}-b`, true); await pausa(300); }
+    if (nk(s.pos0) !== nk(s.pos1)) { await muoviToken(`N:${s.i}`, s.pos1); centraSuNodo(s.pos1, `nem-${s.i}-b`, true); await ritmo(300); }
     // AL TAVOLO i dadi del nemico li tira il tavolo, adesso: contro il PNG
     // scortato (che e' un bersaglio come gli eroi) e contro l'eroe.
     if (s.attaccoPng) {
@@ -1687,7 +1697,7 @@ async function eseguiTurnoNemici(piano) {
     if (s.attacco) {
       const a = s.attacco;
       if (tokel) { tokel.classList.add('attacca'); setTimeout(() => tokel && tokel.classList.remove('attacca'), 400); }
-      await pausa(450);
+      await ritmo(450);
       if (a.colpito) {
         // il danno entra nella vista ADESSO: prima di questo istante l'eroe e'
         // ancora in piedi sul board, anche se lo stato salvato lo sa gia' a terra
@@ -1703,8 +1713,8 @@ async function eseguiTurnoNemici(piano) {
         ? `<b>${nemBreve(s.nome)}</b> colpisce ${esc(primo(a.vitt))} ${tiro} <b class="ko-txt">−${a.dan}</b>`
         : `<b>${nemBreve(s.nome)}</b> manca ${esc(primo(a.vitt))} ${tiro}`, 'nemico');
       const sn = ctx.app.querySelector('#salute-nem'); if (sn) sn.innerHTML = saluteHtml();
-      await pausa(1050);
-    } else { await pausa(650); }
+      await ritmo(1050);
+    } else { await ritmo(650); }
     if (tokel) tokel.classList.remove('attivo-nem');
   }
   if (ctx.saltaNemici) { for (const s of piano) setTokenPos(`N:${s.i}`, s.pos1, true); }
