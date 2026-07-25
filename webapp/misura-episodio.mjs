@@ -29,6 +29,11 @@ const CHIAVE_SALVATAGGIO = `osr.partita.${EPID}`;
 // esito d'Indagine da simulare: 'slancio' (ottimo), 'preparati' (medio),
 // 'nessuno' (indagine fallita). Cambia la Salute massima e il 1o round.
 const TIER = process.env.INDAGINE || 'preparati';
+// MODO=tavolo gioca la stessa plancia a schermo ma col patto del TAVOLO: i dadi
+// sono fisici (il pilota li tira davvero e dichiara il totale) e il testo delle
+// tessere non compare. Serve a collaudare quel ramo giocandolo, non a misurare
+// il bilanciamento — le percentuali di riferimento restano quelle di 'digitale'.
+const MODO = process.env.MODO === 'tavolo' ? 'tavolo' : 'digitale';
 // la tessera dove cercare l'oggetto che apre la cella, se l'episodio ne ha uno
 const TILE_CHIAVE = (SC0 => (SC0 && SC0.chiave ? 'T4' : null))((EP.scortato || [])[0]);
 
@@ -249,6 +254,15 @@ const sciogli = async () => {
     if (await vis('.scelta-overlay')) { await scegliEroe(); continue; }
     const premuto = await pg.evaluate(() => {
       const visibile = (e) => e && e.offsetParent !== null;
+      // AL TAVOLO i dadi sono fisici: l'app non li tira, chiede il totale. Qui
+      // si tirano davvero due d6 e si dichiara la somma, com'e' al tavolo —
+      // altrimenti il pilota resta fermo davanti al pannello (nessuno dei
+      // bottoni sotto e' visibile in modalita' tavolo).
+      if (visibile(document.querySelector('#dadi-tavolo'))) {
+        const somma = 2 + Math.floor(Math.random() * 6) + Math.floor(Math.random() * 6);
+        const b = document.querySelector(`.dadi-overlay [data-tot="${somma}"]`);
+        if (b) { b.click(); return '#dadi-tavolo'; }
+      }
       for (const sel of ['#dadi-lancia', '#dadi-chiudi', '#ins-risolvi:not([disabled])', '#ok-msg']) {
         const e = document.querySelector(sel);
         if (visibile(e)) { e.click(); return sel; }
@@ -520,10 +534,10 @@ for (let g = 0; g < N; g++) {
     : comune.eroi.map((e) => e.nome).sort(() => Math.random() - 0.5).slice(0, 4);
   dimParty = party.length;
   await pg.goto(BASE, { waitUntil: 'domcontentloaded' });
-  await pg.evaluate(({ p, k, id, TIER, OGG }) => {
+  await pg.evaluate(({ p, k, id, TIER, OGG, MODO }) => {
     localStorage.clear();
     localStorage.setItem(k, JSON.stringify({
-      v: 1, episodio: id, modo: 'digitale', party: p, creata: Date.now(), fase: 'spedizione',
+      v: 1, episodio: id, modo: MODO, plancia: 'schermo', party: p, creata: Date.now(), fase: 'spedizione',
       indagine: { ora: 24, lettaLettera: true, visitati: [], scoperti: [], sbloccati: [], parole: [],
         oggetti: OGG, reperti: [], approfondimentiLetti: [], caricheUsate: {}, secondoFiato: {},
         note: '', risposte: ['', '', '', ''], chiusa: true },
@@ -534,7 +548,7 @@ for (let g = 0; g < N; g++) {
       vantaggi: { tier: TIER, dossier: TIER === 'slancio', risposte: [false, false, false, false] },
       spedizione: { round: 0, canto: 0, cantoBonus: false, mazzo: null, esito: null },
     }));
-  }, { p: party, k: CHIAVE_SALVATAGGIO, id: EPID, TIER, OGG: EP.oggetti_indagine || [] });
+  }, { p: party, k: CHIAVE_SALVATAGGIO, id: EPID, TIER, OGG: EP.oggetti_indagine || [], MODO });
   // AVVIO VERIFICATO. La catena titolo->continua->via e' tre schermate che si
   // susseguono: se un click parte prima che la successiva sia montata, l'avvio
   // muore in silenzio e la partita resta a round 0 — erano 28 «stalli» su 168
@@ -542,15 +556,15 @@ for (let g = 0; g < N; g++) {
   // e' davvero cominciata (fase eroi con pedine sul tabellone).
   let avviata = false;
   for (let tent = 0; tent < 8 && !avviata; tent++) {
-    if (tent) await pg.evaluate(({ p, k, id, TIER, OGG }) => {
-      localStorage.setItem(k, JSON.stringify({ v: 1, episodio: id, modo: 'digitale', party: p,
+    if (tent) await pg.evaluate(({ p, k, id, TIER, OGG, MODO }) => {
+      localStorage.setItem(k, JSON.stringify({ v: 1, episodio: id, modo: MODO, plancia: 'schermo', party: p,
         creata: Date.now(), fase: 'spedizione',
         indagine: { ora: 24, lettaLettera: true, visitati: [], scoperti: [], sbloccati: [], parole: [],
           oggetti: OGG, reperti: [], approfondimentiLetti: [], caricheUsate: {}, secondoFiato: {},
           note: '', risposte: ['', '', '', ''], chiusa: true },
         vantaggi: { tier: TIER, dossier: TIER === 'slancio', risposte: [false, false, false, false] },
         spedizione: { round: 0, canto: 0, cantoBonus: false, mazzo: null, esito: null } }));
-    }, { p: party, k: CHIAVE_SALVATAGGIO, id: EPID, TIER, OGG: EP.oggetti_indagine || [] });
+    }, { p: party, k: CHIAVE_SALVATAGGIO, id: EPID, TIER, OGG: EP.oggetti_indagine || [], MODO });
     await pg.goto(BASE, { waitUntil: 'domcontentloaded' });
     await finoA(async () => (await pg.getByText(EP.titolo).count()) > 0, 8000);
     await pg.getByText(EP.titolo).first().click().catch(() => {});
