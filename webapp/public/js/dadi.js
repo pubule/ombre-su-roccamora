@@ -43,9 +43,16 @@ const esc = (s) => String(s).replace(/[&<>"]/g, (c) =>
 // `modo: 'tavolo'` — al tavolo i dadi sono FISICI: l'app chiede il totale
 // dei 2d6 e applica bonus e soglia (con un ripiego "tira l'app" per chi
 // non ha dadi a portata). Senza modo (o 'digitale'): tiro animato al tocco.
-export function tiraProva({ titolo, diffLabel = '', soglia, bonus = [], modo }) {
+//
+// `ripiegoSempre: { label }` — un SECONDO ripiego che non vale solo per questo
+// tiro ma «da qui in poi»: serve ai tiri dei nemici, dove tirare a mano per
+// ognuno diventa contabilita' quando il campo si affolla. Chi lo preme ottiene
+// il tiro dell'app subito, e l'esito torna con `sempre: true` perche' il
+// chiamante possa ricordarselo per il resto della partita.
+export function tiraProva({ titolo, diffLabel = '', soglia, bonus = [], modo, ripiegoSempre }) {
   return new Promise((risolvi) => {
     const tavolo = modo === 'tavolo';
+    let sempre = false;
     const overlay = document.createElement('div');
     overlay.className = 'dadi-overlay';
     overlay.innerHTML = `
@@ -63,6 +70,7 @@ export function tiraProva({ titolo, diffLabel = '', soglia, bonus = [], modo }) 
             `<button class="btn" data-tot="${n}">${n}</button>`).join('')}
         </div>
         <button class="btn dadi-ripiego" id="dadi-app">niente dadi? tira l’app</button>
+        ${ripiegoSempre ? `<button class="btn dadi-ripiego" id="dadi-sempre">${esc(ripiegoSempre.label)}</button>` : ''}
       </div>
       <button class="btn pieno dadi-lancia" id="dadi-lancia"
               ${tavolo ? 'style="display:none"' : ''}>tocca per tirare</button>
@@ -109,7 +117,7 @@ export function tiraProva({ titolo, diffLabel = '', soglia, bonus = [], modo }) 
       }
       const btn = overlay.querySelector('#dadi-chiudi');
       btn.style.display = '';
-      btn.onclick = () => chiudi({ d1, d2, somma, tot, ok });
+      btn.onclick = () => chiudi({ d1, d2, somma, tot, ok, sempre });
     }
 
     // totale dai dadi veri: i cubi si orientano sul risultato, senza rotolo
@@ -130,10 +138,14 @@ export function tiraProva({ titolo, diffLabel = '', soglia, bonus = [], modo }) 
     });
 
     // ripiego al tavolo: nessun dado sottomano, tira l'app
-    overlay.querySelector('#dadi-app').onclick = () => {
+    const passaAllApp = () => {
       overlay.querySelector('#dadi-tavolo').style.display = 'none';
       overlay.querySelector('#dadi-lancia').style.display = '';
     };
+    overlay.querySelector('#dadi-app').onclick = passaAllApp;
+    // ...e lo stesso, ma valido da qui in avanti (lo ricorda il chiamante)
+    const btnSempre = overlay.querySelector('#dadi-sempre');
+    if (btnSempre) btnSempre.onclick = () => { sempre = true; passaAllApp(); };
 
     overlay.querySelector('#dadi-lancia').onclick = async (ev) => {
       ev.target.style.display = 'none';

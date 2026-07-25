@@ -31,6 +31,25 @@ const salvaP = () => salva(ctx.partita);
 //     leggerebbero prima che finisca la frase.
 const alTavolo = () => P().modo === 'tavolo';
 const modoDadi = () => (alTavolo() ? 'tavolo' : 'digitale');
+// I tiri dei NEMICI si possono delegare all'app anche stando al tavolo: con il
+// campo affollato, tirare a mano per ogni sgherro e' la contabilita' che la
+// modalita' tavolo voleva togliere. L'interruttore vale per la partita, si
+// accende dall'overlay del tiro (ripiegoSempre) e si spegne dalla plancia.
+const tavoloTiraNemici = () => alTavolo() && !P().nemiciApp;
+const RIPIEGO_NEMICI = { label: 'da qui i nemici li tira l’app' };
+function accendiNemiciApp() { P().nemiciApp = true; salvaP(); }
+
+// Un tiro d'attacco del nemico: lo chiede al tavolo, oppure lo tira l'app se
+// l'interruttore e' acceso. Ritorna { tot, ok } comunque, cosi' chi chiama
+// applica il danno allo stesso modo. L'interruttore puo' accendersi PROPRIO
+// QUI (ripiegoSempre) e vale dal tiro successivo in poi.
+async function tiroNemico(titolo, soglia, att) {
+  if (!tavoloTiraNemici()) { const tot = r1() + r1() + att; return { tot, ok: tot >= soglia }; }
+  const r = await tiraProva({ titolo, diffLabel: 'Difesa', soglia,
+    bonus: [{ label: 'ATTACCO', val: att }], modo: 'tavolo', ripiegoSempre: RIPIEGO_NEMICI });
+  if (r && r.sempre) accendiNemiciApp();
+  return { tot: r ? r.tot : 0, ok: !!(r && r.ok) };
+}
 
 // board PNG: export-assets.py copia le tessere stampate in webapp/assets con il
 // nome normalizzato «<TileId>.png» (a monte i file sono «T1 - Nome Tessera.png»,
@@ -1548,7 +1567,8 @@ function vistaNemici(piano) {
       <div class="board-wrap" id="board-wrap">${boardHtml()}</div>
       <div class="zoom-ctrl"><button class="zoom-btn" data-zoom="-">−</button><button class="zoom-btn" data-zoom="0">⤢</button><button class="zoom-btn" data-zoom="+">+</button></div>
     </div>
-    <div class="btn-riga"><button class="btn" id="salta-nemici">salta l’azione della notte →</button></div>
+    <div class="btn-riga"><button class="btn" id="salta-nemici">salta l’azione della notte →</button>${
+      alTavolo() ? `<button class="btn" id="tog-nemici-app">dadi dei nemici: <b>${P().nemiciApp ? 'l’app' : 'vostri'}</b></button>` : ''}</div>
     <div class="mt"></div>
     <div class="pannello giro"><h2>il giro dei nemici</h2><div id="giro-nem">${giroNemiciHtml(-1)}</div></div>
     <div class="mt"></div>
@@ -1557,6 +1577,11 @@ function vistaNemici(piano) {
     <div class="pannello"><h2>diario</h2>${logHtml()}</div>`;
   app.querySelector('#nav-esci').onclick = () => ctx.vaiA('menu');
   app.querySelector('#salta-nemici').onclick = () => { ctx.saltaNemici = true; };
+  // si spegne (e si riaccende) anche a partita in corso: vale dal tiro dopo
+  app.querySelector('#tog-nemici-app')?.addEventListener('click', (ev) => {
+    P().nemiciApp = !P().nemiciApp; salvaP();
+    ev.currentTarget.innerHTML = `dadi dei nemici: <b>${P().nemiciApp ? 'l’app' : 'vostri'}</b>`;
+  });
   agganciaMappa();
   // porta subito (prima del paint) i token che si muovono alla posizione di PARTENZA:
   // lo stato e' gia' finale (pos1), ma l'animazione parte da pos0
@@ -1625,7 +1650,7 @@ async function eseguiTurnoNemici(piano) {
     // risolti nel piano, quindi non si perde nulla; AL TAVOLO invece i tiri
     // mancano ancora, e saltarli vorrebbe dire che i nemici non attaccano
     // affatto. Li' saltare significa «tira tu il resto»: li risolve l'app.
-    if (ctx.saltaNemici) { if (alTavolo()) risolviRestoNemici(piano, s); break; }
+    if (ctx.saltaNemici) { if (piano.differito) risolviRestoNemici(piano, s); break; }
     const tokel = ctx.app.querySelector(`.tok-slot[data-tok="N:${s.i}"] .tok-board`);
     centraSuNodo(s.pos0, `nem-${s.i}-a`, true);
     await pausa(650);
@@ -1638,24 +1663,21 @@ async function eseguiTurnoNemici(piano) {
     if (s.attaccoPng) {
       const g = statoScortati()[s.attaccoPng.png]; const sc = specScort(s.attaccoPng.png);
       if (g && g.vite > 0) {
-        const r = await tiraProva({ titolo: `${nemBreve(s.nome)} → ${sc.nome.toLowerCase()}`,
-          diffLabel: 'Difesa', soglia: s.attaccoPng.dif,
-          bonus: [{ label: 'ATTACCO', val: s.attaccoPng.att }], modo: 'tavolo' });
-        if (r && r.ok) {
+        const r = await tiroNemico(`${nemBreve(s.nome)} → ${sc.nome.toLowerCase()}`,
+          s.attaccoPng.dif, s.attaccoPng.att);
+        if (r.ok) {
           g.vite = Math.max(0, g.vite - s.attaccoPng.dan);
           log(`${s.nome.toLowerCase()} colpisce ${sc.nome} (${r.tot}, −${s.attaccoPng.dan}: ${g.vite}/${sc.salute}).`);
           if (g.vite <= 0) { sp.esito = 'sconfitta'; sp.log.push(`${sc.nome} è caduto: la spedizione è fallita.`); }
-        } else if (r) log(`${s.nome.toLowerCase()} manca ${sc.nome} (${r.tot}).`);
+        } else log(`${s.nome.toLowerCase()} manca ${sc.nome} (${r.tot}).`);
         const sn0 = ctx.app.querySelector('#salute-nem'); if (sn0) sn0.innerHTML = saluteHtml();
       }
     }
     if (s.attacco && s.attacco.tot === undefined) {
       const a = s.attacco; const e = eroe(a.vitt);
-      const r = await tiraProva({ titolo: `${nemBreve(s.nome)} → ${primo(a.vitt)}`,
-        diffLabel: 'Difesa', soglia: a.dif,
-        bonus: [{ label: 'ATTACCO', val: a.att }], modo: 'tavolo' });
-      a.tot = r ? r.tot : 0;
-      a.colpito = !!(r && r.ok);
+      const r = await tiroNemico(`${nemBreve(s.nome)} → ${primo(a.vitt)}`, a.dif, a.att);
+      a.tot = r.tot;
+      a.colpito = r.ok;
       if (a.colpito) {
         sp.vite[a.vitt] = Math.max(0, (sp.vite[a.vitt] ?? saluteMax(e)) - a.dan);
         log(`${s.nome.toLowerCase()} colpisce ${primo(a.vitt)} (2d6+att ${a.tot} ≥ ${a.dif}, −${a.dan}).`);
@@ -1689,7 +1711,7 @@ async function eseguiTurnoNemici(piano) {
   piano.annunci.forEach((a) => log(a));
   ctx.viteVista = null;          // da qui in poi si mostra lo stato reale
   ctx.saltaNemici = false; ctx.ultimaCentrata = null;
-  if (alTavolo()) chiudiFaseNemici();   // ora i colpi sono risolti davvero
+  if (piano.differito) chiudiFaseNemici();   // ora i colpi sono risolti davvero
   salvaP();
   if (sp.esito) return epilogo();
   render();
@@ -1700,6 +1722,10 @@ function faseNemiciAI() {
   const sp = SP();
   const vivi = () => P().party.filter((nm) => (sp.vite[nm] ?? 0) > 0);
   const piano = []; piano.annunci = []; piano.vite0 = { ...sp.vite };
+  // se i tiri dei nemici sono DIFFERITI al tavolo, il danno arriva durante
+  // l'animazione: lo si ricorda qui perche' l'interruttore «li tira l'app» puo'
+  // accendersi a meta' fase, e i controlli di chiusura devono restare coerenti
+  piano.differito = tavoloTiraNemici();
   for (let i = 0; i < sp.nemici.length; i++) {
     const n = sp.nemici[i]; const st = nemStat(n.nome); if (!n.pos) continue;
     const pos0 = n.pos;
@@ -1736,7 +1762,7 @@ function faseNemiciAI() {
       const sc = specScort(iPng);
       // AL TAVOLO il tiro non si fa qui: il piano porta solo l'INTENZIONE, e i
       // dadi li tira il tavolo durante l'animazione (vedi eseguiTurnoNemici).
-      if (alTavolo()) {
+      if (tavoloTiraNemici()) {
         piano.push({ i, nome: n.nome, pos0, pos1, flash: false, attacco: null,
                      attaccoPng: { png: iPng, dif: sc.difesa || 7, dan: st.dan, att: st.att } });
         continue;
@@ -1754,7 +1780,7 @@ function faseNemiciAI() {
     if (adiacenti.length) {
       const vitt = adiacenti.includes(scelto) ? scelto : adiacenti[Math.floor(Math.random() * adiacenti.length)];
       const e = eroe(vitt);
-      if (alTavolo()) {
+      if (tavoloTiraNemici()) {
         // intenzione senza tiro: `tot`/`colpito` mancano apposta ed e'
         // l'animazione a chiederli al tavolo, dado alla mano
         piano.push({ i, nome: n.nome, pos0, pos1, flash: false,
@@ -1796,7 +1822,7 @@ function faseNemiciAI() {
   // ancora tirato (lo fanno i giocatori durante l'animazione), quindi `sp.vite`
   // e' ancora lo stato di inizio fase. Li rifa' eseguiTurnoNemici a colpi
   // risolti — vedi `chiudiFaseNemici`.
-  if (!alTavolo()) chiudiFaseNemici();
+  if (!piano.differito) chiudiFaseNemici();
   salvaP();                                    // stato gia' finale: reload -> fase eroi coerente
   ctx.saltaNemici = false; ctx.ultimaCentrata = null;
   ctx.viteVista = { ...piano.vite0 };          // board come a inizio fase: nessuno ancora a terra
