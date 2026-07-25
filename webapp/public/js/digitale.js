@@ -1576,10 +1576,56 @@ function evidenziaColpito(vitt) {
 }
 
 // sequenza animata: centra su ogni nemico, ne mostra spostamento e azione
+// chiusura della fase nemici: party-wipe e vittoria. Vive a parte perche' scatta
+// in due momenti diversi — a schermo appena il piano e' pronto (i tiri li ha gia'
+// fatti l'app), al tavolo solo dopo che il tavolo ha tirato per ogni nemico.
+// La vittoria si valuta anche a FINE ROUND, non solo dopo un'azione: se l'ultimo
+// eroe vivo raggiunge la tessera-meta e poi nessuno agisce piu', `segnaAzione`
+// non la ricontrollerebbe mai e la partita resterebbe aperta a obiettivo fatto.
+function chiudiFaseNemici() {
+  const sp = SP();
+  if (!sp.esito && P().party.every((nm) => (sp.vite[nm] ?? 0) <= 0)) sp.esito = 'sconfitta';
+  if (!sp.esito) controllaVittoria();
+}
+
+// I nemici che restano quando si salta l'animazione al tavolo: li tira l'app,
+// stesse regole, senza chiedere un dado per uno. `da` e' il primo non risolto.
+function risolviRestoNemici(piano, da) {
+  const sp = SP();
+  for (const s of piano.slice(piano.indexOf(da))) {
+    if (s.attaccoPng) {
+      const g = statoScortati()[s.attaccoPng.png]; const sc = specScort(s.attaccoPng.png);
+      if (g && g.vite > 0) {
+        const tot = r1() + r1() + s.attaccoPng.att;
+        if (tot >= s.attaccoPng.dif) {
+          g.vite = Math.max(0, g.vite - s.attaccoPng.dan);
+          log(`${s.nome.toLowerCase()} colpisce ${sc.nome} (${tot}, −${s.attaccoPng.dan}: ${g.vite}/${sc.salute}).`);
+          if (g.vite <= 0) { sp.esito = 'sconfitta'; sp.log.push(`${sc.nome} è caduto: la spedizione è fallita.`); }
+        } else log(`${s.nome.toLowerCase()} manca ${sc.nome} (${tot}).`);
+      }
+    }
+    const a = s.attacco;
+    if (a && a.tot === undefined) {
+      const e = eroe(a.vitt);
+      a.tot = r1() + r1() + a.att;
+      a.colpito = a.tot >= a.dif;
+      if (a.colpito) {
+        sp.vite[a.vitt] = Math.max(0, (sp.vite[a.vitt] ?? saluteMax(e)) - a.dan);
+        log(`${s.nome.toLowerCase()} colpisce ${primo(a.vitt)} (2d6+att ${a.tot} ≥ ${a.dif}, −${a.dan}).`);
+        if (sp.vite[a.vitt] <= 0) log(`${primo(a.vitt)} va a terra!`);
+      } else log(`${s.nome.toLowerCase()} manca ${primo(a.vitt)} (${a.tot} < ${a.dif}).`);
+    }
+  }
+}
+
 async function eseguiTurnoNemici(piano) {
   const sp = SP();
   for (const s of piano) {
-    if (ctx.saltaNemici) break;
+    // «salta i nemici» interrompe l'ANIMAZIONE. A schermo i colpi erano gia'
+    // risolti nel piano, quindi non si perde nulla; AL TAVOLO invece i tiri
+    // mancano ancora, e saltarli vorrebbe dire che i nemici non attaccano
+    // affatto. Li' saltare significa «tira tu il resto»: li risolve l'app.
+    if (ctx.saltaNemici) { if (alTavolo()) risolviRestoNemici(piano, s); break; }
     const tokel = ctx.app.querySelector(`.tok-slot[data-tok="N:${s.i}"] .tok-board`);
     centraSuNodo(s.pos0, `nem-${s.i}-a`, true);
     await pausa(650);
@@ -1587,6 +1633,35 @@ async function eseguiTurnoNemici(piano) {
     bannerTurno(nemArt(s.nome), `agisce<br><b>${nemBreve(s.nome)}</b>`, 'nemico');
     if (tokel) tokel.classList.add('attivo-nem');
     if (nk(s.pos0) !== nk(s.pos1)) { await muoviToken(`N:${s.i}`, s.pos1); centraSuNodo(s.pos1, `nem-${s.i}-b`, true); await pausa(300); }
+    // AL TAVOLO i dadi del nemico li tira il tavolo, adesso: contro il PNG
+    // scortato (che e' un bersaglio come gli eroi) e contro l'eroe.
+    if (s.attaccoPng) {
+      const g = statoScortati()[s.attaccoPng.png]; const sc = specScort(s.attaccoPng.png);
+      if (g && g.vite > 0) {
+        const r = await tiraProva({ titolo: `${nemBreve(s.nome)} → ${sc.nome.toLowerCase()}`,
+          diffLabel: 'Difesa', soglia: s.attaccoPng.dif,
+          bonus: [{ label: 'ATTACCO', val: s.attaccoPng.att }], modo: 'tavolo' });
+        if (r && r.ok) {
+          g.vite = Math.max(0, g.vite - s.attaccoPng.dan);
+          log(`${s.nome.toLowerCase()} colpisce ${sc.nome} (${r.tot}, −${s.attaccoPng.dan}: ${g.vite}/${sc.salute}).`);
+          if (g.vite <= 0) { sp.esito = 'sconfitta'; sp.log.push(`${sc.nome} è caduto: la spedizione è fallita.`); }
+        } else if (r) log(`${s.nome.toLowerCase()} manca ${sc.nome} (${r.tot}).`);
+        const sn0 = ctx.app.querySelector('#salute-nem'); if (sn0) sn0.innerHTML = saluteHtml();
+      }
+    }
+    if (s.attacco && s.attacco.tot === undefined) {
+      const a = s.attacco; const e = eroe(a.vitt);
+      const r = await tiraProva({ titolo: `${nemBreve(s.nome)} → ${primo(a.vitt)}`,
+        diffLabel: 'Difesa', soglia: a.dif,
+        bonus: [{ label: 'ATTACCO', val: a.att }], modo: 'tavolo' });
+      a.tot = r ? r.tot : 0;
+      a.colpito = !!(r && r.ok);
+      if (a.colpito) {
+        sp.vite[a.vitt] = Math.max(0, (sp.vite[a.vitt] ?? saluteMax(e)) - a.dan);
+        log(`${s.nome.toLowerCase()} colpisce ${primo(a.vitt)} (2d6+att ${a.tot} ≥ ${a.dif}, −${a.dan}).`);
+        if (sp.vite[a.vitt] <= 0) log(`${primo(a.vitt)} va a terra!`);
+      } else log(`${s.nome.toLowerCase()} manca ${primo(a.vitt)} (${a.tot} < ${a.dif}).`);
+    }
     if (s.attacco) {
       const a = s.attacco;
       if (tokel) { tokel.classList.add('attacca'); setTimeout(() => tokel && tokel.classList.remove('attacca'), 400); }
@@ -1614,6 +1689,7 @@ async function eseguiTurnoNemici(piano) {
   piano.annunci.forEach((a) => log(a));
   ctx.viteVista = null;          // da qui in poi si mostra lo stato reale
   ctx.saltaNemici = false; ctx.ultimaCentrata = null;
+  if (alTavolo()) chiudiFaseNemici();   // ora i colpi sono risolti davvero
   salvaP();
   if (sp.esito) return epilogo();
   render();
@@ -1657,7 +1733,15 @@ function faseNemiciAI() {
       && specScort(k).salute && adiacGlob(n.pos, g.pos));
     const adiacenti = bersagli.filter((nm) => adiacGlob(n.pos, sp.eroiPos[nm]));
     if (iPng >= 0 && (!adiacenti.length || Math.random() < 0.5)) {
-      const g = statoScortati()[iPng]; const sc = specScort(iPng);
+      const sc = specScort(iPng);
+      // AL TAVOLO il tiro non si fa qui: il piano porta solo l'INTENZIONE, e i
+      // dadi li tira il tavolo durante l'animazione (vedi eseguiTurnoNemici).
+      if (alTavolo()) {
+        piano.push({ i, nome: n.nome, pos0, pos1, flash: false, attacco: null,
+                     attaccoPng: { png: iPng, dif: sc.difesa || 7, dan: st.dan, att: st.att } });
+        continue;
+      }
+      const g = statoScortati()[iPng];
       const tot = r1() + r1() + st.att;
       if (tot >= (sc.difesa || 7)) {
         g.vite = Math.max(0, g.vite - st.dan);
@@ -1670,6 +1754,13 @@ function faseNemiciAI() {
     if (adiacenti.length) {
       const vitt = adiacenti.includes(scelto) ? scelto : adiacenti[Math.floor(Math.random() * adiacenti.length)];
       const e = eroe(vitt);
+      if (alTavolo()) {
+        // intenzione senza tiro: `tot`/`colpito` mancano apposta ed e'
+        // l'animazione a chiederli al tavolo, dado alla mano
+        piano.push({ i, nome: n.nome, pos0, pos1, flash: false,
+                     attacco: { vitt, dan: st.dan, att: st.att, dif: e.difesa } });
+        continue;
+      }
       const tot = r1() + r1() + st.att;      // 2d6 + Attacco (tiro visibile nel banner)
       const colpito = tot >= e.difesa;
       if (colpito) {
@@ -1701,12 +1792,11 @@ function faseNemiciAI() {
   sp.fase = 'eroi'; sp.eroiFatti = []; sp.eroiAttivo = null; sp.azioni = {};
   statoScortati().forEach((g) => { g.mosso = false; });   // possono muoversi nel nuovo turno eroi
   sp.scortAttivo = null;
-  if (!sp.esito && P().party.every((nm) => (sp.vite[nm] ?? 0) <= 0)) sp.esito = 'sconfitta';
-  // vittoria valutata anche a FINE ROUND, non solo dopo un'azione: se l'ultimo
-  // eroe vivo raggiunge la tessera-meta e poi nessuno agisce piu' (tutti fermi
-  // all'obiettivo), `segnaAzione` non la ricontrollerebbe mai e la partita
-  // restava aperta a canne fatte e gruppo gia' rientrato.
-  if (!sp.esito) controllaVittoria();
+  // AL TAVOLO questi due controlli NON possono stare qui: i nemici non hanno
+  // ancora tirato (lo fanno i giocatori durante l'animazione), quindi `sp.vite`
+  // e' ancora lo stato di inizio fase. Li rifa' eseguiTurnoNemici a colpi
+  // risolti — vedi `chiudiFaseNemici`.
+  if (!alTavolo()) chiudiFaseNemici();
   salvaP();                                    // stato gia' finale: reload -> fase eroi coerente
   ctx.saltaNemici = false; ctx.ultimaCentrata = null;
   ctx.viteVista = { ...piano.vite0 };          // board come a inizio fase: nessuno ancora a terra
