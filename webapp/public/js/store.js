@@ -4,14 +4,20 @@
 
 const PREFISSO = 'osr.partita.';
 
-export function nuovaPartita(episodioId, modo, party) {
+// `fase`: da dove comincia la serata. Le due meta' dell'episodio sono
+// INDIPENDENTI — si puo' giocare la sola spedizione (l'indagine e' gia' stata
+// fatta un'altra sera, o non la si vuole rifare). In quel caso l'indagine
+// nasce gia' chiusa e l'esito che avrebbe prodotto (`vantaggi`) lo si dichiara
+// a mano: e' l'unica cosa che l'indagine passa davvero alla spedizione.
+export function nuovaPartita(episodioId, modo, party, fase = 'indagine') {
+  const soloSpedizione = fase === 'spedizione';
   return {
     v: 1,
     episodio: episodioId,
     modo,                      // 'tavolo' | 'digitale'
     party,                     // [nomi eroi]
     creata: Date.now(),
-    fase: 'indagine',
+    fase: soloSpedizione ? 'spedizione' : 'indagine',
     indagine: {
       ora: 18,                 // 18..24
       lettaLettera: false,     // la lettera d'incarico si legge una volta
@@ -26,7 +32,7 @@ export function nuovaPartita(episodioId, modo, party) {
       secondoFiato: {},        // {nomeEroe: true se ancora disponibile}
       note: '',
       risposte: ['', '', '', ''],
-      chiusa: false,
+      chiusa: soloSpedizione,
     },
     spedizione: {
       round: 0,

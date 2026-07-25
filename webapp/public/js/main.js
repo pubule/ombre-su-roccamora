@@ -130,6 +130,19 @@ async function vistaEpisodio(epId) {
           Muovete gli eroi a caselle, la notte reagisce da sola.</p>
         </div>
       </div>
+      <h2 class="mt">da dove cominciate?</h2>
+      <div class="modi mt">
+        <div class="fase attivo" data-fase="indagine">
+          <h3>l’episodio intero</h3>
+          <p>Prima l’indagine per le strade, poi la spedizione: com’è scritto.</p>
+        </div>
+        <div class="fase" data-fase="spedizione">
+          <h3>solo la spedizione</h3>
+          <p>L’indagine l’avete già fatta un’altra sera (o non la rifate): si scende
+          e basta. Vi chiederemo solo <b>com’era finita</b> — è l’unica cosa che
+          l’indagine passa alla spedizione.</p>
+        </div>
+      </div>
       <div class="btn-riga">
         <button class="btn pieno disabilitato" id="avanti">scegli gli investigatori →</button>
       </div>
@@ -144,16 +157,21 @@ async function vistaEpisodio(epId) {
     }
   });
   let modo = null;
+  let fase = 'indagine';
   app.querySelectorAll('.modo').forEach((el) => el.addEventListener('click', () => {
     app.querySelectorAll('.modo').forEach((m) => m.classList.remove('attivo'));
     el.classList.add('attivo'); modo = el.dataset.modo;
     document.getElementById('avanti').classList.remove('disabilitato');
   }));
-  document.getElementById('avanti').onclick = () => modo && vistaParty(epId, modo);
+  app.querySelectorAll('.fase').forEach((el) => el.addEventListener('click', () => {
+    app.querySelectorAll('.fase').forEach((m) => m.classList.remove('attivo'));
+    el.classList.add('attivo'); fase = el.dataset.fase;
+  }));
+  document.getElementById('avanti').onclick = () => modo && vistaParty(epId, modo, fase);
 }
 
 // ------------------------------------------------------------------ PARTY
-async function vistaParty(epId, modo) {
+async function vistaParty(epId, modo, fase = 'indagine') {
   const comune = await dati('comune');
   const scelti = new Set();
   h(`
@@ -200,8 +218,11 @@ async function vistaParty(epId, modo) {
     });
   }));
   document.getElementById('inizia').onclick = () => {
-    const partita = nuovaPartita(epId, modo, [...scelti]);
+    const partita = nuovaPartita(epId, modo, [...scelti], fase);
     salva(partita);
+    // partendo dalla sola spedizione manca l'unica cosa che l'indagine le
+    // passa: com'era finita. La si dichiara, invece di darla per persa.
+    if (fase === 'spedizione') return vistaEsitoIndagine(partita);
     vistaPartita(partita);
   };
 }
@@ -239,6 +260,77 @@ function dettaglioEroe(e, giaScelto) {
     ov.querySelector('#arruola').onclick = () => { ov.remove(); risolvi('toggle'); };
     ov.querySelector('#chiudi-eroe').onclick = () => { ov.remove(); risolvi(null); };
   });
+}
+
+// ------------------------------------------------- ESITO D'INDAGINE (a mano)
+// Giocando la sola spedizione, l'indagine non c'e' stata: qui si dichiara cosa
+// avrebbe prodotto. Sono esattamente i tre campi che l'indagine scrive in
+// `partita.vantaggi` (vedi indagine.js, chiusura della busta): il TIER, quali
+// delle 4 Domande erano esatte, e il gettone Intuizione. Niente di piu': tutto
+// il resto dell'indagine (ore, luoghi, approfondimenti) muore con la serata.
+async function vistaEsitoIndagine(partita) {
+  const ep = await dati(partita.episodio);
+  const dom = (ep.soluzione && ep.soluzione.domande) || [];
+  let tier = 'preparati';
+  const giuste = dom.map(() => false);
+  let dossier = false;
+  h(`
+    <div class="barra">
+      <button class="btn" id="indietro">← indietro</button>
+      <div class="titolo">com’era finita l’indagine?</div>
+      <span></span>
+    </div>
+    <div class="pannello">
+      <p class="nota">Giocate la sola spedizione: dite all’app come si era chiusa la
+      notte d’indagine. Se non ve lo ricordate o non l’avete mai giocata, lasciate
+      <b>preparati</b> e nessuna risposta esatta: è l’esito medio.</p>
+      <h2 class="mt">il vantaggio</h2>
+      <div class="modi mt">
+        <div class="tier" data-tier="slancio"><h3>slancio</h3>
+          <p>Indagine ottima: 3 azioni a testa nel 1° round, e +1 Salute massima.</p></div>
+        <div class="tier attivo" data-tier="preparati"><h3>preparati</h3>
+          <p>Indagine discreta: +1 Salute massima a testa.</p></div>
+        <div class="tier" data-tier="nessuno"><h3>nessuno</h3>
+          <p>Arrivate col fiato corto: nessun vantaggio.</p></div>
+      </div>
+      <h2 class="mt">le 4 domande — quali avevate azzeccato?</h2>
+      <p class="nota">Ognuna cambia qualcosa in spedizione: la Soluzione dice cosa.</p>
+      ${dom.map((d, i) => `
+        <div class="btn-riga mt">
+          <button class="btn dom-tog" data-i="${i}">✗</button>
+          <span class="dom-testo">${esc(d.q || ('domanda ' + (i + 1)))}</span>
+        </div>`).join('')}
+      <div class="btn-riga mt">
+        <button class="btn dom-tog" id="tog-dossier">✗</button>
+        <span class="dom-testo">Gettone Intuizione (aveste speso tutte e sei le ore)</span>
+      </div>
+      <div class="btn-riga mt">
+        <button class="btn pieno" id="vai">si scende →</button>
+      </div>
+    </div>
+    ${RIGA_C}
+  `);
+  document.getElementById('indietro').onclick = () => vistaEpisodio(partita.episodio);
+  app.querySelectorAll('.tier').forEach((el) => el.addEventListener('click', () => {
+    app.querySelectorAll('.tier').forEach((m) => m.classList.remove('attivo'));
+    el.classList.add('attivo'); tier = el.dataset.tier;
+  }));
+  app.querySelectorAll('.dom-tog[data-i]').forEach((el) => el.addEventListener('click', () => {
+    const i = Number(el.dataset.i);
+    giuste[i] = !giuste[i];
+    el.textContent = giuste[i] ? '✓' : '✗';
+    el.classList.toggle('attiva', giuste[i]);
+  }));
+  document.getElementById('tog-dossier').onclick = (e) => {
+    dossier = !dossier;
+    e.target.textContent = dossier ? '✓' : '✗';
+    e.target.classList.toggle('attiva', dossier);
+  };
+  document.getElementById('vai').onclick = () => {
+    partita.vantaggi = { tier, dossier, risposte: giuste };
+    salva(partita);
+    vistaPartita(partita);
+  };
 }
 
 // ---------------------------------------------------------------- PARTITA
