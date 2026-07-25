@@ -525,7 +525,10 @@ function giroEroiHtml() {
   const sp = SP(); const fatti = sp.eroiFatti || []; const attivo = eroiAttivoNome();
   const chips = P().party.map((nm) => {
     const e = eroe(nm); const done = fatti.includes(nm); const giu = (sp.vite[nm] ?? 0) <= 0;
-    return `<button class="chip-turno ritratto${nm === attivo ? ' attivo' : ''}${done || giu ? ' fatto' : ''}" data-turno="${esc(nm)}">
+    // `eroe`: la striscia dei turni la usano anche i nemici, con le stesse
+    // classi — senza questo il CSS non puo' dare all'eroe di turno un colore
+    // diverso da quello del nemico di turno (vedi `.chip-turno.ritratto.eroe`)
+    return `<button class="chip-turno ritratto eroe${nm === attivo ? ' attivo' : ''}${done || giu ? ' fatto' : ''}" data-turno="${esc(nm)}">
       <span class="rit"><img src="${e && e.art ? urlArt(e.art) : ''}" alt=""></span><span class="et">${done ? '✓ ' : ''}${esc(primo(nm))}</span></button>`;
   });
   // chip dei PNG scortati: unità mosse dal giocatore (Mov 3, non agiscono)

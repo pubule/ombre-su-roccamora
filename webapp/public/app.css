@@ -387,8 +387,14 @@ em, i { font-style: italic; }
 .chip-turno.ritratto .et { font-family: 'FellSC', serif; text-transform: lowercase; font-size: 12px; color: var(--ink);
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 64px; }
 .chip-turno.ritratto.attivo { box-shadow: none; background: transparent; }
+/* rosso = di turno tocca a LORO (la striscia la usano anche i nemici) */
 .chip-turno.ritratto.attivo .rit { width: 62px; height: 62px; border-color: var(--rosso); box-shadow: 0 0 12px rgba(122,31,43,.6); }
 .chip-turno.ritratto.attivo .et { color: var(--rosso); font-weight: 700; }
+/* ...ma l'EROE di turno resta oro, acceso: stessa regola del token sulla
+   plancia. Nella striscia il rosso dell'attivo era identico a quello del boss
+   (vedi `.ritratto.boss` sotto), e i due si confondevano a colpo d'occhio. */
+.chip-turno.ritratto.eroe.attivo .rit { border-color: #f4d68a; box-shadow: 0 0 14px rgba(244,214,138,.75); }
+.chip-turno.ritratto.eroe.attivo .et { color: var(--oro-chiaro); }
 .chip-turno.ritratto.boss .rit { border-color: var(--rosso); }
 .chip-turno.ritratto.fatto { opacity: .45; }
 .chip-turno.ritratto.fatto .et { text-decoration: line-through; }
@@ -460,8 +466,14 @@ em, i { font-style: italic; }
 .tok-board img { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
 .tok-board.eroe { border-color: var(--oro-chiaro); cursor: pointer; }
 .verde { color: #7fe6db; }
-.tok-board.eroe.attivo { border-color: var(--rosso); border-width: 3px;
-  box-shadow: 0 0 14px rgba(122,31,43,.8); }
+/* L'eroe di turno NON diventa rosso: il rosso e' dei nemici (e del boss), e da
+   lontano il tavolo scambiava il proprio eroe per una minaccia. Vale la regola
+   che seguono gia' nemici e PNG scortato — il COLORE dice da che parte stai,
+   l'ALONE dice guarda qui: da attivo l'eroe resta oro, ma acceso. (Sta bene
+   anche col mondo: la Societa' del Lume porta la luce, chi agisce brucia piu'
+   forte.) */
+.tok-board.eroe.attivo { border-color: #f4d68a; border-width: 3px;
+  box-shadow: 0 0 16px rgba(244,214,138,.85); }
 .tok-board.eroe.giu { filter: grayscale(1) brightness(.5); }
 .tok-board.nemico { border-color: #7a1f2b; cursor: pointer; }
 .tok-board.nemico.boss { border-color: #d83b3b; border-width: 3px; box-shadow: 0 0 12px rgba(216,59,59,.7); }
@@ -501,8 +513,10 @@ em, i { font-style: italic; }
   border: 2px solid var(--oro); border-radius: 14px; padding: 12px 22px 12px 12px;
   box-shadow: 0 10px 30px rgba(0,0,0,.6); opacity: 0; transition: opacity .35s ease, transform .35s cubic-bezier(.2,.9,.3,1.2); }
 .turno-banner.on { opacity: 1; transform: translate(-50%, 0) scale(1); }
+/* il banner senza variante e' quello dell'EROE che entra: oro acceso, come il
+   suo token e la sua chip. Il rosso resta al nemico (`.turno-banner.nemico`) */
 .turno-banner .rit { width: 64px; height: 64px; border-radius: 50%; overflow: hidden;
-  border: 3px solid var(--rosso); background: #0f0c10; box-shadow: 0 0 16px rgba(122,31,43,.7); flex: 0 0 auto; }
+  border: 3px solid #f4d68a; background: #0f0c10; box-shadow: 0 0 16px rgba(244,214,138,.7); flex: 0 0 auto; }
 .turno-banner .rit img { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
 .turno-banner .tb-txt { font-family: 'FellSC', serif; color: var(--seppia); font-size: 15px; line-height: 1.15; }
 .turno-banner .tb-txt b { font-size: 24px; color: var(--oro-chiaro); text-transform: lowercase; }
