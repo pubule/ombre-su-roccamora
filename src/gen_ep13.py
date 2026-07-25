@@ -31,7 +31,7 @@ from reportlab.pdfgen import canvas
 from reportlab.platypus import Paragraph, Frame
 
 from deluxe_style import (register_fonts, parchment_art, pad_to_even_pages, rule_border,
-                          seal, wave, F, INK, RED, TEAL, GOLD as OGOLD, SEPIA)
+                          seal, wave, contatori_indagine, F, INK, RED, TEAL, GOLD as OGOLD, SEPIA)
 from gen_gothic import registro_ferite, token_sheet, TOKEN_EROI
 
 OUT_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'Episodio 13', 'pdf')
@@ -493,6 +493,7 @@ def indagine():
         c.drawString(16*mm, yd, d)
         c.setStrokeColor(SEPIA)
         c.line(16*mm, yd - 7*mm, W - 16*mm, yd - 7*mm)
+    contatori_indagine(c, W)
     c.showPage()
     c.save()
     pad_to_even_pages(out_path)

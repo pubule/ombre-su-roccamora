@@ -29,7 +29,7 @@ from reportlab.pdfgen import canvas
 from reportlab.platypus import Paragraph, Frame
 
 from deluxe_style import (register_fonts, parchment_art, pad_to_even_pages, rule_border,
-                          seal, wave, F, INK, RED, TEAL, GOLD as OGOLD, SEPIA)
+                          seal, wave, contatori_indagine, F, INK, RED, TEAL, GOLD as OGOLD, SEPIA)
 from gen_gothic import registro_ferite, token_sheet, TOKEN_EROI
 
 OUT_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'Episodio 15', 'pdf')
@@ -471,6 +471,7 @@ def indagine():
         c.line(16*mm, yd - 6.5*mm, W - 16*mm, yd - 6.5*mm)
     c.setFillColor(RED); c.setFont(F['sc'], 10)
     c.drawString(16*mm, yy - 9*mm - 4*13*mm, 'CONTRO-BUSTA (sigillata a parte): 5. CHI HA SCRITTO IL DOSSIER? — si apre solo dopo la spedizione.')
+    contatori_indagine(c, W)
     c.showPage()
     c.save()
     pad_to_even_pages(out_path)

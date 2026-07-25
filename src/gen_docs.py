@@ -118,9 +118,14 @@ def regolamento():
                "dorme sotto la citt\u00e0 dal 1741.")))
     e.append(P('COSA VI SERVE', 'h1'))
     e.append(LI('Questo regolamento e i PDF dell\u2019episodio, stampati (vedi \u201cCome stampare\u201d in fondo).'))
-    e.append(LI('Due dadi a sei facce (2d6), una matita ciascuno.'))
+    e.append(LI('Due dadi a sei facce (2d6), una matita ciascuno. Chi arbitra tenga anche <b>un foglio '
+                'suo</b>, fuori dalla vista degli altri: certi episodi gli chiedono di contare i round '
+                'in segreto (quando il fuoco monta, quando scatta una trappola) senza annunciarlo.'))
     e.append(LI('Forbici per ritagliare carte, tessere e segnalini.'))
     e.append(LI('Una busta in cui sigillare il PDF <b>Soluzione</b>: si apre solo a fine indagine.'))
+    e.append(LI('Il <b>Taccuino di Campagna</b> — una pagina sola, si stampa una volta e resta con voi '
+                'per tutte e venti le serate: ci segnate i Frammenti conservati e i Bivi scelti. Serve '
+                'davvero: gli ultimi due episodi vi chiedono il conto di entrambi.'))
 
     e.append(P('I PERSONAGGI', 'h1'))
     e.append(P("Il roster della Societ\u00e0 conta <b>undici eroi</b>: ne scendono in tavola tanti quanti "
@@ -527,7 +532,11 @@ def regolamento():
 
     e.append(P('LA CAMPAGNA', 'h1'))
     e.append(LI('<b>Frammenti</b> — al termine di ogni episodio riuscito ottenete un Frammento di '
-                'Campagna: conservateli, comporranno il mistero finale.'))
+                'Campagna: conservateli, comporranno il mistero finale. <b>Quanti ne avete conservati '
+                'decide come si vince l’ultimo episodio</b>, quindi non fidatevi della memoria: '
+                'segnateli sul <b>Taccuino di Campagna</b> (si stampa una volta sola e vi accompagna '
+                'per tutte e venti le serate), insieme al Bivio che avete scelto ogni volta — quei '
+                'Bivi vi verranno ripresentati.'))
     e.append(LI('<b>Crescita</b> — dopo ogni episodio riuscito, ogni eroe sceglie <b>una</b> '
                 'miglioria dall’elenco nella Soluzione e la annota sulla scheda.'))
     e.append(LI('<b>Cicatrici</b> — un eroe finito a terra durante l’episodio annota una '

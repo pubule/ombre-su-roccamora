@@ -241,6 +241,38 @@ def rule_border(c, w, h, m1=7*mm, m2=9.5*mm):
                         '(PolyForm NC 1.0.0) · github.com/pubule/ombre-su-roccamora')
     c.restoreState()
 
+def contatori_indagine(c, w, y=80*mm, nluoghi=9):
+    """I due conti d'indagine che il Taccuino non aveva e che l'arbitro teneva a
+    mente: quanti LUOGHI ha visitato il gruppo (il Vantaggio d'Indagine dipende
+    anche da quello, non solo dalle ore — e una visita col Discernimento di
+    Marani NON consuma un'ora, quindi i due conti divergono) e quante CARICHE
+    d'abilita' ha speso ogni eroe (una a episodio, due per Elena).
+
+    Si disegna in fondo alla pagina del Taccuino, nello spazio libero sotto le 4
+    Domande: e' un'aggiunta, non tocca il flusso esistente."""
+    x0 = 16*mm
+    c.setFillColor(TEAL); c.setFont(F['sc'], 9)
+    c.drawString(x0, y, 'luoghi visitati — barrate: il vantaggio d’indagine guarda anche questi, non solo le ore')
+    box = 7*mm
+    for i in range(nluoghi):
+        x = x0 + i * (box + 2.4*mm)
+        c.setStrokeColor(INK); c.setFillColor(colors.HexColor('#f7f0dd')); c.setLineWidth(0.9)
+        c.rect(x, y - 11*mm, box, box, fill=1)
+        c.setFillColor(SEPIA); c.setFont(F['r'], 6.5)
+        c.drawCentredString(x + box/2, y - 8.6*mm, str(i + 1))
+
+    y2 = y - 21*mm
+    c.setFillColor(TEAL); c.setFont(F['sc'], 9)
+    c.drawString(x0, y2, 'cariche d’abilità — un uso a episodio (Elena: due). Segnate chi c’è e barrate quando la spende')
+    for r in range(5):
+        yy = y2 - 8*mm - r * 7.5*mm
+        c.setStrokeColor(SEPIA); c.setLineWidth(0.5)
+        c.line(x0, yy, x0 + 62*mm, yy)                     # riga per il nome dell'eroe
+        for k in range(2):
+            c.setStrokeColor(INK); c.setFillColor(colors.HexColor('#f7f0dd')); c.setLineWidth(0.9)
+            c.circle(x0 + 70*mm + k * 9*mm, yy + 1.6*mm, 2.6*mm, fill=1)
+
+
 def wave(c, x, y, w, col=TEAL, lw=1.4):
     c.saveState(); c.setStrokeColor(col); c.setLineWidth(lw)
     seg = w / 4.0

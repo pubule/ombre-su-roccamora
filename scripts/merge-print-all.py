@@ -46,6 +46,9 @@ BUCKETS = [
             os.path.join('Comune', 'pdf', 'Ombre-su-Roccamora-01-Regolamento.pdf'),
             os.path.join('Comune', 'pdf', 'Ombre-su-Roccamora-02-Schede-Personaggio.pdf'),
             os.path.join('Comune', 'pdf', 'Ombre-su-Roccamora-07-Tabellone.pdf'),
+            # il registro che sopravvive alla serata (Frammenti + Bivi): sta nel
+            # Comune perche' si stampa UNA volta per tutta la campagna
+            os.path.join('Comune', 'pdf', 'Ombre-su-Roccamora-08-Taccuino-di-Campagna.pdf'),
         ],
         cards_sheet=os.path.join('Comune', 'pdf', 'Carte.pdf'),
     ),

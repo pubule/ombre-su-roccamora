@@ -28,7 +28,7 @@ from reportlab.pdfgen import canvas
 from reportlab.platypus import Paragraph, Frame
 
 from deluxe_style import (register_fonts, parchment_art, pad_to_even_pages, rule_border,
-                          seal, wave, F, INK, RED, TEAL, GOLD as OGOLD, SEPIA)
+                          seal, wave, contatori_indagine, F, INK, RED, TEAL, GOLD as OGOLD, SEPIA)
 from gen_gothic import registro_ferite, token_sheet, TOKEN_EROI
 
 OUT_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'Episodio 16', 'pdf')
@@ -467,6 +467,7 @@ def indagine():
     c.drawString(16*mm, yy - 9*mm - 4*12*mm, 'LA RILETTURA (nuovo): all’Archivio delle Lettere (6), rileggete le vecchie lettere di M.')
     c.setFillColor(INK); c.setFont(F['r'], 8.5)
     c.drawString(16*mm, yy - 9*mm - 4*12*mm - 5*mm, 'Ogni vecchia lettera riletta = 1 incrocio bancato per l’Episodio 18. Segnatelo sul Frammento.')
+    contatori_indagine(c, W)
     c.showPage()
     c.save()
     pad_to_even_pages(out_path)
