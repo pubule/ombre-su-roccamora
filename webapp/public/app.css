@@ -419,7 +419,10 @@ em, i { font-style: italic; }
    grafo delle uscite) su un piano scrollabile, token assoluti per cella globale.
    (digitale.js; la modalita' tavolo non usa nulla di qui.) */
 .board-area { position: relative; }
-.board-wrap { max-width: 100%; max-height: 68vh; overflow: auto; border-radius: 10px;
+/* `height` e non `max-height`: con max-height l'altezza del wrap E' quella del
+   contenuto gia' zoomato, e `fitZoom()` (digitale.js) non saprebbe mai quanto
+   spazio ha davvero — restituirebbe sempre lo zoom corrente senza ingrandire. */
+.board-wrap { max-width: 100%; height: 68vh; overflow: auto; border-radius: 10px;
   border: 2px solid var(--oro); box-shadow: 0 6px 20px rgba(0,0,0,.5); background: #0b090d;
   touch-action: none; cursor: grab; overscroll-behavior: contain; }
 .board-wrap:active { cursor: grabbing; }
@@ -428,6 +431,74 @@ em, i { font-style: italic; }
   border: 1px solid var(--oro); background: rgba(20,14,24,.9); color: var(--oro-chiaro); cursor: pointer; }
 .zoom-btn:active { background: rgba(122,31,43,.6); }
 .board-digitale { position: relative; margin: 0 auto; }
+
+/* --- MODO IMMERSIVO -------------------------------------------------------
+   Per chi gioca su tablet con la TV che replica: da tre metri le cornici e i
+   pannelli di riferimento sono spazio rubato alla mappa. Si accende dal ⤢ dei
+   controlli zoom (digitale.js), vale finche' resta la classe su #app.
+   `.lato` raccoglie i pannelli che SOPRAVVIVONO (turni, azioni, salute):
+   `display: contents` lo rende inerte fuori di qui, quindi il layout normale
+   non cambia di un pixel. */
+.lato { display: contents; }
+
+/* height:100% e non 100dvh: body ha il padding della safe-area, con 100dvh
+   l'app sborderebbe esattamente di quella */
+#app.immersivo { max-width: none; padding: 6px; height: 100%;
+  display: flex; flex-direction: column; gap: 8px; overflow: hidden; }
+.immersivo .secondario { display: none; }
+.immersivo div.mt:empty { display: none; }      /* niente buchi dove stavano i pannelli */
+.immersivo .barra { padding: 2px 6px; }
+/* min-height:0 e' obbligatorio: senza, il flex item non si comprime e la
+   pagina prende a scrollare invece di far crescere la plancia */
+/* In colonna singola (verticale) i pannelli si prendevano tutta l'altezza e la
+   plancia, con min-height:0, collassava a zero: sul telefono spariva. Qui la
+   plancia ha una quota garantita e sono i pannelli a scorrere. */
+.immersivo .board-area { flex: 1 1 auto; min-height: 46vh; }
+.immersivo .board-wrap { height: 100%; max-height: none; }
+.immersivo .lato { display: flex; flex-direction: column; gap: 8px;
+  flex: 1 1 auto; min-height: 0; overflow: auto; }
+/* si tocca da vicino ma si guarda da lontano: 34px sono sotto il minimo comodo */
+.immersivo .zoom-btn { width: 52px; height: 52px; font-size: 28px; border-radius: 10px; }
+.immersivo .zoom-btn[data-zoom="0"] { border-color: var(--oro-chiaro);
+  background: rgba(216,178,94,.16); box-shadow: 0 0 10px rgba(216,178,94,.3); }
+
+/* In orizzontale la plancia non riempie la larghezza (il sotterraneo e' piu'
+   alto che largo e resta centrato): i pannelli superstiti vanno a occupare
+   proprio le fasce che altrimenti restano vuote. In verticale il media query
+   non scatta, `.lato` torna `display: contents` e vale la colonna singola. */
+@media (orientation: landscape) and (min-width: 900px) {
+  #app.immersivo { display: grid; gap: 10px;
+    grid-template-columns: 1fr minmax(280px, 24%); grid-template-rows: auto 1fr; }
+  .immersivo .barra { grid-column: 1 / -1; }
+  .immersivo .board-area { grid-column: 1; grid-row: 2; min-height: 0; }
+  .immersivo .lato { display: flex; flex-direction: column; gap: 10px;
+    grid-column: 2; grid-row: 2; overflow: auto; min-height: 0; }
+}
+
+/* La colonna dei comandi si scurisce: la pergamena accesa accanto a un
+   sotterraneo nero, su una TV guardata al buio, abbaglia e spezza l'atmosfera.
+   Stessi colori del gioco, invertiti — fondo notte, bordo e titoli d'oro. */
+.immersivo .pannello { background: linear-gradient(160deg, rgba(29,16,20,.92), rgba(14,21,25,.92));
+  color: var(--perg); border-color: rgba(168,131,58,.55); box-shadow: 0 6px 22px rgba(0,0,0,.55); }
+.immersivo .pannello h2 { color: var(--oro-chiaro); }
+.immersivo .pannello .nota { color: var(--seppia); }
+.immersivo .pannello .ok-txt { color: #7fe6db; }        /* il verde scuro sparirebbe sul fondo notte */
+.immersivo .pannello .ko-txt { color: #ff8a6a; }
+/* i testi scritti col colore INCHIOSTRO erano pensati per la pergamena: sul
+   fondo notte diventano illeggibili (i nomi degli eroi sparivano del tutto) */
+.immersivo .nemico-nome { color: var(--perg-scura); }
+.immersivo .nemico-nome b { color: #ff8a6a; }
+.immersivo .chip-turno.ritratto .et { color: var(--perg-scura); }
+.immersivo .chip-turno.ritratto.fatto .et { color: var(--seppia); }
+
+/* leggibilita' da lontano. I token e le scritte sulla plancia NON si toccano:
+   li scala gia' lo zoom, e un override qui combatterebbe contro l'adattamento. */
+.immersivo { font-size: 19px; }
+.immersivo .pannello .nota { font-size: 16px; }
+.immersivo .chip-turno.ritratto .rit { width: 68px; height: 68px; }
+/* la variante `.attivo` va riscritta: `.chip-turno.ritratto.attivo .rit` vale
+   62px con la stessa specificita', e il chip di turno finirebbe PIU' PICCOLO */
+.immersivo .chip-turno.ritratto.attivo .rit { width: 76px; height: 76px; }
 .tessera-b { position: absolute; background-size: cover; background-position: center;
   border: 2px solid rgba(230,195,120,.55); box-sizing: border-box; }
 .tessera-b.coperta { background: repeating-linear-gradient(45deg, #14101a, #14101a 10px, #100c14 10px, #100c14 20px);

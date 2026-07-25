@@ -268,6 +268,10 @@ export async function vistaDigitale(app, partita, vaiA) {
   // del token rallenta (vedi `.al-tavolo .tok-slot` in app.css) perche' la
   // notte si deve poter SEGUIRE, non indovinare a cose fatte
   app.classList.toggle('al-tavolo', alTavolo());
+  // la preferenza «immersivo» sopravvive a un reload (il tablet che si
+  // riaddormenta): si riapplica il LAYOUT, non il fullscreen — quello i browser
+  // lo concedono solo su un gesto, e chiederlo qui verrebbe rifiutato
+  app.classList.toggle('immersivo', immersivo());
   if (!partita.spedizione || !partita.spedizione.digitale) return setup();
   migraScortati(partita.spedizione);
   render();
@@ -297,7 +301,7 @@ function setup() {
       si tirano sullo schermo.</p>
       <p class="mt"><b>Obiettivo:</b> ${esc(ep.obiettivo || '')}</p></div>
     <div class="btn-riga"><button class="btn pieno" id="via">si scende →</button></div>`;
-  app.querySelector('#nav-esci').onclick = () => ctx.vaiA('menu');
+  app.querySelector('#nav-esci').onclick = () => { spegniImmersivo(); ctx.vaiA('menu'); };
   app.querySelector('#via').onclick = iniziaPartita;
 }
 
@@ -355,7 +359,7 @@ function render() {
     <div class="barra"><button class="btn" id="nav-esci">← menu</button>
       <div class="titolo">tutto a schermo</div>
       <span class="sc" style="color:var(--oro-chiaro)">round ${sp.round} · canto ${sp.canto}</span></div>
-    <div class="pannello"><p><b>Obiettivo:</b> ${esc(ep.obiettivo || '')}
+    <div class="pannello secondario"><p><b>Obiettivo:</b> ${esc(ep.obiettivo || '')}
       ${statoScortati().map((g, i) => (g.liberato && SP().esito == null
         ? ` <span class="ok-txt">— ${esc(specScort(i).nome)} vi segue: riportatelo in ${esc(specScort(i).meta || '')}.</span>` : '')).join('')}</p>
       ${tpk ? '<p class="ko-txt">Tutti gli eroi sono a terra: la notte vince.</p>' : ''}</div>
@@ -368,23 +372,25 @@ function render() {
         <button class="zoom-btn" data-zoom="+">+</button>
       </div>
     </div>
-    <p class="nota" style="text-align:center">Trascina per spostare la mappa · +/− o Ctrl+rotella per lo zoom</p>
+    <p class="nota secondario" style="text-align:center">Trascina per spostare la mappa · +/− o Ctrl+rotella per lo zoom</p>
     <div class="mt"></div>
-    <div class="pannello giro"><h2>il giro degli eroi</h2>${giroEroiHtml()}</div>
+    <div class="lato">
+      <div class="pannello giro"><h2>il giro degli eroi</h2>${giroEroiHtml()}</div>
+      <div class="mt"></div>
+      <div class="pannello"><h2>azioni di ${scortAttivo() != null ? esc((specScort(scortAttivo()).nome || '').toLowerCase()) : (attivo ? esc(primo(attivo)) : '—')}</h2>${azioniHtml()}</div>
+      <div class="mt"></div>
+      <div class="pannello"><h2>la salute degli eroi</h2>${saluteHtml()}</div>
+    </div>
     <div class="mt"></div>
-    <div class="pannello"><h2>azioni di ${scortAttivo() != null ? esc((specScort(scortAttivo()).nome || '').toLowerCase()) : (attivo ? esc(primo(attivo)) : '—')}</h2>${azioniHtml()}</div>
-    <div class="mt"></div>
-    <div class="pannello"><h2>la salute degli eroi</h2>${saluteHtml()}</div>
-    <div class="mt"></div>
-    <div class="pannello"><h2>le abilità degli eroi</h2>${abilitaHtml()}
+    <div class="pannello secondario"><h2>le abilità degli eroi</h2>${abilitaHtml()}
       <p class="nota mt">«usa» spende una carica (vale come un’azione dell’eroe attivo).</p></div>
-    ${sp.nemici.length ? `<div class="mt"></div><div class="pannello"><h2>nemici in campo</h2>${nemiciHtml()}</div>` : ''}
+    ${sp.nemici.length ? `<div class="mt"></div><div class="pannello secondario"><h2>nemici in campo</h2>${nemiciHtml()}</div>` : ''}
     <div class="mt"></div>
-    <div class="pannello"><h2>oggetti del gruppo</h2>${oggettiHtml()}</div>
+    <div class="pannello secondario"><h2>oggetti del gruppo</h2>${oggettiHtml()}</div>
     <div class="mt"></div>
-    <div class="pannello"><h2>diario</h2>${logHtml()}</div>
-    <div class="btn-riga"><button class="btn" id="sconfitta">gli eroi cadono</button></div>`;
-  app.querySelector('#nav-esci').onclick = () => ctx.vaiA('menu');
+    <div class="pannello secondario"><h2>diario</h2>${logHtml()}</div>
+    <div class="btn-riga secondario"><button class="btn" id="sconfitta">gli eroi cadono</button></div>`;
+  app.querySelector('#nav-esci').onclick = () => { spegniImmersivo(); ctx.vaiA('menu'); };
   app.querySelector('#sconfitta').onclick = () => finePartita('sconfitta');
   aggancia();
 }
@@ -415,7 +421,10 @@ function boardHtml() {
   for (const id of mostrate) { const [x, y] = lay[id]; minX = Math.min(minX, x); maxX = Math.max(maxX, x); minY = Math.min(minY, y); maxY = Math.max(maxY, y); }
   const cols = (maxX - minX + 1) * 4, rows = (maxY - minY + 1) * 4;
   const cell = 104;  // tessere grandi (come la board singola); si naviga con pan + zoom
-  ctx._geo = { minX, maxY, cell };   // per centrare la finestra sulla tessera piu' affollata
+  // `minX/maxY/cell` per centrare la finestra sulla tessera piu' affollata;
+  // `w/h` sono l'ingombro del piano in pixel a zoom 1, e servono a `fitZoom()`
+  // per calcolare quanto ingrandire perche' la plancia entri nello spazio.
+  ctx._geo = { minX, maxY, cell, w: cols * cell, h: rows * cell };
   const scr = (n) => { const [TX, TY] = lay[n.t]; return { l: ((TX - minX) * 4 + n.x) * cell, t: ((maxY - TY) * 4 + (3 - n.y)) * cell }; };
   const attivo = eroiAttivoNome();
 
@@ -942,17 +951,107 @@ function centraSuAttivo() {
 
 // zoom (pulsanti + Ctrl+rotella) e pan (trascinamento mouse/touch)
 const clampZoom = (z) => Math.max(0.5, Math.min(2.6, z));
+// Tetto separato per l'ADATTAMENTO automatico: `clampZoom` arriva a 2.6, ma con
+// una sola tessera rivelata il fit ci arriverebbe davvero — bello sulla TV,
+// esagerato su un portatile. E' la manopola da girare guardando lo schermo vero.
+const MAX_FIT = 1.8;
+
+// Lo zoom che fa entrare tutta la plancia nella finestra. Serve `ctx._geo.w/h`
+// (l'ingombro del piano a zoom 1) e l'altezza VERA del contenitore: per questo
+// `.board-wrap` ha `height` e non `max-height` — con `max-height` l'altezza del
+// wrap e' quella del contenuto gia' zoomato, e il fit non ingrandirebbe mai.
+function fitZoom() {
+  const g = ctx._geo; const wrap = ctx.app.querySelector('#board-wrap');
+  // guardia: senza misure meglio lo zoom corrente che un NaN, che JSON.stringify
+  // salverebbe come null e riaprirebbe la partita senza zoom
+  if (!g || !wrap || !g.w || !g.h || !wrap.clientWidth || !wrap.clientHeight) return SP().zoom || 1;
+  return Math.min(MAX_FIT, clampZoom(Math.min((wrap.clientWidth - 4) / g.w, (wrap.clientHeight - 4) / g.h)));
+}
+
+// Applica lo zoom SENZA passare da render(). Non e' un'ottimizzazione: durante
+// la fase nemici `render()` rilancia `faseNemiciAI()` (vedi :350), che non e'
+// idempotente — ricostruisce il piano, rimuove le pedine e riapplica i danni.
+// Prima di questo, toccare +/− mentre la notte si muoveva faceva giocare ai
+// nemici un secondo turno. Qui si scrive solo lo stile, e il pan resta dov'era.
+function applicaZoom(z) {
+  const sp = SP(); const app = ctx.app;
+  const wrap = app.querySelector('#board-wrap'); const board = app.querySelector('.board-digitale');
+  const r = z / (sp.zoom || 1);
+  sp.zoom = z; salvaP();
+  if (board) board.style.zoom = z;
+  // lo scroll si riscala attorno al centro visibile: lo zoom a bottoni resta
+  // ancorato a quello che si sta guardando, non al vertice alto-sinistra
+  if (wrap && isFinite(r) && r > 0) {
+    wrap.scrollLeft = (wrap.scrollLeft + wrap.clientWidth / 2) * r - wrap.clientWidth / 2;
+    wrap.scrollTop = (wrap.scrollTop + wrap.clientHeight / 2) * r - wrap.clientHeight / 2;
+  }
+}
+
+// ------------------------------------------------------------ modo immersivo
+// La plancia diventa il tabellone: schermo intero (dove il browser lo concede)
+// e a schermo solo cio' che serve nel turno. Nasce per chi gioca su tablet con
+// la TV che replica: da lontano le cornici e i pannelli di riferimento sono
+// spazio rubato alla mappa.
+//
+// La preferenza sta in localStorage e NON dentro `partita`: e' una proprieta'
+// dello schermo, non della partita — e soprattutto i piloti seminano
+// `osr.partita.epN` da fixture, quindi un flag li' dentro renderebbe invisibili
+// abilita', oggetti e resa, falsando in silenzio le misure di bilanciamento.
+const CHIAVE_IMMERSIVO = 'osr.immersivo';
+const immersivo = () => { try { return localStorage.getItem(CHIAVE_IMMERSIVO) === '1'; } catch { return false; } };
+
+// IL FULLSCREEN VA CHIESTO SU `document.documentElement`, MAI SU `#app`:
+// `.turno-banner` e `.dadi-overlay` sono appesi a `document.body`, e con un
+// sotto-elemento a schermo intero sparirebbero — compreso il pannello dei dadi,
+// che al tavolo e' l'unico modo di dichiarare un tiro.
+function chiediSchermoIntero(on) {
+  const de = document.documentElement;
+  try {
+    if (on) { const f = de.requestFullscreen || de.webkitRequestFullscreen; f?.call(de, { navigationUI: 'hide' })?.catch?.(() => {}); }
+    else { const u = document.exitFullscreen || document.webkitExitFullscreen; u?.call(document)?.catch?.(() => {}); }
+  } catch { /* browser che non lo concede (iPhone): resta il layout, che e' il grosso */ }
+}
+const inSchermoIntero = () => !!(document.fullscreenElement || document.webkitFullscreenElement);
+
+function impostaImmersivo(on) {
+  // prima il layout, poi il fullscreen: dove l'API non c'e' il guadagno resta
+  try { localStorage.setItem(CHIAVE_IMMERSIVO, on ? '1' : '0'); } catch { /* modalita' privata */ }
+  ctx.app.classList.toggle('immersivo', on);
+  chiediSchermoIntero(on);
+  applicaZoom(fitZoom()); centraSuAttivo();
+}
+
+// uscendo verso il menu si spegne il layout ma NON si tocca la preferenza,
+// altrimenti la si perderebbe ogni volta che si passa dal menu. Serve davvero:
+// `.immersivo` ha `height:100%` e `overflow:hidden`, sopra il menu lo romperebbe.
+function spegniImmersivo() {
+  ctx.app.classList.remove('immersivo');
+  if (inSchermoIntero()) chiediSchermoIntero(false);
+}
+
 function agganciaMappa() {
   const { app } = ctx; const sp = SP(); const wrap = app.querySelector('#board-wrap'); if (!wrap) return;
+  // primo ingresso senza uno zoom salvato: si parte adattati, non a 1
+  if (sp.zoom == null) applicaZoom(fitZoom());
   app.querySelectorAll('[data-zoom]').forEach((b) => b.onclick = () => {
     const d = b.dataset.zoom;
-    sp.zoom = d === '0' ? 1 : clampZoom((sp.zoom || 1) * (d === '+' ? 1.25 : 0.8));
-    salvaP(); render();
+    if (d === '0') return impostaImmersivo(!immersivo());   // ⤢ = schermo intero
+    applicaZoom(clampZoom((sp.zoom || 1) * (d === '+' ? 1.25 : 0.8)));
   });
   wrap.addEventListener('wheel', (e) => {
     if (!e.ctrlKey) return; e.preventDefault();
-    sp.zoom = clampZoom((sp.zoom || 1) * (e.deltaY < 0 ? 1.1 : 0.9)); salvaP(); render();
+    applicaZoom(clampZoom((sp.zoom || 1) * (e.deltaY < 0 ? 1.1 : 0.9)));
   }, { passive: false });
+  // Uscita dallo schermo intero decisa dal SISTEMA (ESC, gesto del browser): il
+  // toggle deve restare sincronizzato, altrimenti il bottone mente. Assegnazione
+  // a proprieta' e non addEventListener: `agganciaMappa` gira a ogni render e
+  // accumulerebbe un listener per turno.
+  const suCambioSchermo = () => {
+    if (!inSchermoIntero() && immersivo()) { impostaImmersivo(false); return; }
+    if (immersivo()) { applicaZoom(fitZoom()); centraSuAttivo(); }
+  };
+  document.onfullscreenchange = suCambioSchermo;
+  document.onwebkitfullscreenchange = suCambioSchermo;
   // pan: trascina con il tasto sinistro o col dito
   let giu = false, sx = 0, sy = 0, sl = 0, st = 0, mosso = false;
   wrap.addEventListener('pointerdown', (e) => {
@@ -1574,21 +1673,23 @@ function vistaNemici(piano) {
     <div class="barra"><button class="btn" id="nav-esci">← menu</button>
       <div class="titolo">la notte reagisce</div>
       <span class="sc" style="color:var(--oro-chiaro)">round ${sp.round} · canto ${sp.canto}</span></div>
-    <div class="pannello"><p><b>Turno dei nemici.</b> ${esc(ep.obiettivo ? '' : '')}Ogni nemico si avvicina all’eroe più vicino e colpisce se adiacente.</p></div>
+    <div class="pannello secondario"><p><b>Turno dei nemici.</b> ${esc(ep.obiettivo ? '' : '')}Ogni nemico si avvicina all’eroe più vicino e colpisce se adiacente.</p></div>
     <div class="mt"></div>
     <div class="board-area">
       <div class="board-wrap" id="board-wrap">${boardHtml()}</div>
       <div class="zoom-ctrl"><button class="zoom-btn" data-zoom="-">−</button><button class="zoom-btn" data-zoom="0">⤢</button><button class="zoom-btn" data-zoom="+">+</button></div>
     </div>
-    <div class="btn-riga"><button class="btn" id="salta-nemici">salta l’azione della notte →</button>${
-      alTavolo() ? `<button class="btn" id="tog-nemici-app">dadi dei nemici: <b>${P().nemiciApp ? 'l’app' : 'vostri'}</b></button>` : ''}</div>
+    <div class="lato">
+      <div class="btn-riga"><button class="btn" id="salta-nemici">salta l’azione della notte →</button>${
+        alTavolo() ? `<button class="btn" id="tog-nemici-app">dadi dei nemici: <b>${P().nemiciApp ? 'l’app' : 'vostri'}</b></button>` : ''}</div>
+      <div class="mt"></div>
+      <div class="pannello giro"><h2>il giro dei nemici</h2><div id="giro-nem">${giroNemiciHtml(-1)}</div></div>
+      <div class="mt"></div>
+      <div class="pannello"><h2>la salute degli eroi</h2><div id="salute-nem">${saluteHtml()}</div></div>
+    </div>
     <div class="mt"></div>
-    <div class="pannello giro"><h2>il giro dei nemici</h2><div id="giro-nem">${giroNemiciHtml(-1)}</div></div>
-    <div class="mt"></div>
-    <div class="pannello"><h2>la salute degli eroi</h2><div id="salute-nem">${saluteHtml()}</div></div>
-    <div class="mt"></div>
-    <div class="pannello"><h2>diario</h2>${logHtml()}</div>`;
-  app.querySelector('#nav-esci').onclick = () => ctx.vaiA('menu');
+    <div class="pannello secondario"><h2>diario</h2>${logHtml()}</div>`;
+  app.querySelector('#nav-esci').onclick = () => { spegniImmersivo(); ctx.vaiA('menu'); };
   app.querySelector('#salta-nemici').onclick = () => { ctx.saltaNemici = true; };
   // si spegne (e si riaccende) anche a partita in corso: vale dal tiro dopo
   app.querySelector('#tog-nemici-app')?.addEventListener('click', (ev) => {
@@ -1873,7 +1974,7 @@ function epilogo() {
         ? `${specScortati().map((s) => s.nome).join(' e ') || 'Il gruppo'} è al sicuro. ${sp.round} round, canto ${sp.canto}. Leggete l’epilogo nel fascicolo Soluzione.`
         : 'Rialzatevi: la Soluzione dice cosa resta di questa notte.'}</p>
       <div class="btn-riga" style="justify-content:center"><button class="btn pieno" id="al-menu">alla taverna</button></div></div>`;
-  app.querySelector('#nav-esci').onclick = () => ctx.vaiA('menu');
+  app.querySelector('#nav-esci').onclick = () => { spegniImmersivo(); ctx.vaiA('menu'); };
   app.querySelector('#al-menu').onclick = () => ctx.vaiA('menu');
 }
 
