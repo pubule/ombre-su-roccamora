@@ -9,6 +9,7 @@ dopo ogni modifica ai dati (build-all lo fa).
 Le carte Minaccia (flavor+effetto+arte) vivono in cards-data.js: le esporta
 il gemello export-data.js (node), stessa cartella di output.
 """
+import importlib
 import json
 import os
 import re
@@ -107,6 +108,21 @@ def strip_tags(s):
     return re.sub(r'<[^>]+>', '', s or '')
 
 
+# Descrizione estesa del luogo: e' quella stampata sul fascicolo Luoghi, ed
+# e' l'unica che esista per gli Episodi 2-20 (i loro dict-luogo non hanno
+# `testo`, che ha solo l'Ep. 1 via story.apply). Senza questa mappa la
+# webapp apriva quei luoghi dallo stradario senza una riga di descrizione.
+# I moduli sono gia' importati sopra: importlib qui li ripesca, non li
+# ricarica.
+DESC_LUOGHI = {
+    'ep1': importlib.import_module('gen_narrator').LUOGHI_DESC,
+    'preludio': importlib.import_module('gen_preludio').LUOGHI_P_DESC,
+}
+for _i in range(2, 21):
+    DESC_LUOGHI[f'ep{_i}'] = getattr(importlib.import_module(f'gen_ep{_i}'),
+                                     f'LUOGHI{_i}_DESC')
+
+
 # carte Oggetto consegnate dai luoghi (le tessere T* restano alla
 # Spedizione): Ep.1 dalla lista OGGETTI (ref 'L<n>'), gli altri episodi dai
 # loro dizionari dedicati
@@ -190,13 +206,18 @@ REPERTI_LUOGO = {
 }
 
 
-def luogo_json(L, oggetti_map=None, reperti_map=None):
+def luogo_json(L, oggetti_map=None, reperti_map=None, desc=None):
     req = L.get('req')
     # un luogo con solo vincolo d'orario inverso (`apre`) e' APERTO: niente
     # chiave, lo tiene chiuso l'orologio (engine.luogoVisitabile)
     aperto = req in (None, 'Disponibile dall’inizio') or L.get('apre') is not None
     chiave = L.get('chiave')
-    oggetti = (oggetti_map or {}).get(L['n'], [])
+    # nel fascicolo una voce puo' essere (etichetta, nome, nota) - etichetta e
+    # nota servono a chi arbitra al tavolo. Qui arbitra l'app, e la nota di
+    # un'Esca detta al giocatore annullerebbe l'esca: passa solo il nome.
+    oggetti = [v if isinstance(v, str) else v[-2]
+               for v in (oggetti_map or {}).get(L['n'], [])]
+    oggetti = [o for o in oggetti if o]        # le righe di sola regola non sono carte
     reperti = (reperti_map or {}).get(L['n'], [])
     return dict(
         n=L['n'], nome=L['nome'],   # resa (small-caps lowercase) alla UI
@@ -207,7 +228,8 @@ def luogo_json(L, oggetti_map=None, reperti_map=None):
         chiude=L.get('chiude'),
         apre=L.get('apre'),
         art=L.get('art'),
-        testo=strip_tags(L.get('testo', '')) or None,  # testo carta (Ep.1 via story)
+        # la descrizione lunga del fascicolo; `testo` (solo Ep.1) e' il ripiego
+        testo=strip_tags((desc or {}).get(L['n']) or L.get('testo', '')) or None,
         indizi=[i for i in (L.get('indizi') or [])],   # html-lite: la webapp rende <b>/<i>
         approfondimenti=[dict(tipo=a['tipo'], soggetto=a.get('soggetto'),
                               testo=a['testo']) for a in (L.get('approfondimenti') or [])],
@@ -771,7 +793,7 @@ episodi = dict(
         sottotitolo='il preludio — la vostra prova d’ammissione',
         cartella='Preludio', ore_budget=6,
         lettera=LETTERA_P,
-        luoghi=[luogo_json(L, OGGETTI_LUOGO_P, REPERTI_LUOGO['preludio']) for L in LUOGHI_P],
+        luoghi=[luogo_json(L, OGGETTI_LUOGO_P, REPERTI_LUOGO['preludio'], DESC_LUOGHI['preludio']) for L in LUOGHI_P],
         oggetti_luogo=OGGETTI_LUOGO_P,
         # LA STRUTTURA DEL PRELUDIO (22/07/2026). Le porte esistevano solo come
         # prosa nel fascicolo — «la porta verso il deposito (N)», «le porte E e N
@@ -811,7 +833,7 @@ episodi = dict(
                 'Ruggero scosta l’altare di sinistra: sotto, un chiusino di piombo '
                 'e il rumore dell’acqua nera. È di lì che portavano dentro la cera.'))],
         esami_carbone=ESAMI_CARBONE,
-        luoghi=[luogo_json(L, OGGETTI_LUOGO_1, REPERTI_LUOGO['ep1']) for L in LUOGHI],
+        luoghi=[luogo_json(L, OGGETTI_LUOGO_1, REPERTI_LUOGO['ep1'], DESC_LUOGHI['ep1']) for L in LUOGHI],
         tessere=[tessera_json(T) for T in TILES],
         oggetti=[oggetto_json(o) for o in OGGETTI],
         vantaggio=dict(slancio_ore=3, preparati_ore=1, preparati_luoghi=6),
@@ -849,7 +871,7 @@ episodi = dict(
                 'la calano nel canale, e il condotto resta aperto finche’ il forno '
                 'tira. Ci sono sceso a pesare la cenere mille volte.'))],
         esami_carbone=ESAMI_CARBONE_2,
-        luoghi=[luogo_json(L, OGGETTI_LUOGO_2, REPERTI_LUOGO['ep2']) for L in LUOGHI_2],
+        luoghi=[luogo_json(L, OGGETTI_LUOGO_2, REPERTI_LUOGO['ep2'], DESC_LUOGHI['ep2']) for L in LUOGHI_2],
         tessere=[tessera_json(T) for T in TILES_2],
         vantaggio=dict(slancio_ore=3, preparati_ore=1, preparati_luoghi=6),
         soluzione=SOLUZIONI['ep2'],
@@ -879,7 +901,7 @@ episodi = dict(
         # eroi, stessi party e stessi seed: 16% -> 62% di vittorie.
         canto_ogni=6,
         esami_carbone=ESAMI_CARBONE_3,
-        luoghi=[luogo_json(L, OGGETTI_LUOGO_3, REPERTI_LUOGO['ep3']) for L in LUOGHI_3],
+        luoghi=[luogo_json(L, OGGETTI_LUOGO_3, REPERTI_LUOGO['ep3'], DESC_LUOGHI['ep3']) for L in LUOGHI_3],
         tessere=[tessera_json(T) for T in TILES_3],
         vantaggio=dict(slancio_ore=3, preparati_ore=1, preparati_luoghi=6),
         soluzione=SOLUZIONI['ep3'],
@@ -914,7 +936,7 @@ episodi = dict(
                      vittoria='Gaspare e Rocco sono fuori dal sottopalco: siete salvi.'),
         ],
         esami_carbone=ESAMI_CARBONE_4,
-        luoghi=[luogo_json(L, OGGETTI_LUOGO_4, REPERTI_LUOGO['ep4']) for L in LUOGHI_4],
+        luoghi=[luogo_json(L, OGGETTI_LUOGO_4, REPERTI_LUOGO['ep4'], DESC_LUOGHI['ep4']) for L in LUOGHI_4],
         tessere=[tessera_json(T) for T in TILES_4],
         vantaggio=dict(slancio_ore=3, preparati_ore=1, preparati_luoghi=6),
         soluzione=SOLUZIONI['ep4'],
@@ -942,7 +964,7 @@ episodi = dict(
         vittoria=dict(tessera='T1',
                       testo='Le canne sono sfregiate e siete risaliti: l’organo di ossa è muto.'),
         esami_carbone=ESAMI_CARBONE_5,
-        luoghi=[luogo_json(L, OGGETTI_LUOGO_5, REPERTI_LUOGO['ep5']) for L in LUOGHI_5],
+        luoghi=[luogo_json(L, OGGETTI_LUOGO_5, REPERTI_LUOGO['ep5'], DESC_LUOGHI['ep5']) for L in LUOGHI_5],
         tessere=[tessera_json(T) for T in TILES_5],
         vantaggio=dict(slancio_ore=3, preparati_ore=1, preparati_luoghi=6),
         soluzione=SOLUZIONI['ep5'],
@@ -976,7 +998,7 @@ episodi = dict(
                  fatto='Il Sigillo è pronunciato: il Terzo Movimento non si compie.')],
         vittoria=dict(testo='Il rito è spezzato: il Dormiente torna a dormire.'),
         esami_carbone=ESAMI_CARBONE_6,
-        luoghi=[luogo_json(L, OGGETTI_LUOGO_6, REPERTI_LUOGO['ep6']) for L in LUOGHI_6],
+        luoghi=[luogo_json(L, OGGETTI_LUOGO_6, REPERTI_LUOGO['ep6'], DESC_LUOGHI['ep6']) for L in LUOGHI_6],
         tessere=[tessera_json(T) for T in TILES_6],
         vantaggio=dict(slancio_ore=3, preparati_ore=1, preparati_luoghi=6),
         soluzione=SOLUZIONI['ep6'],
@@ -1012,7 +1034,7 @@ episodi = dict(
             etichetta='Libera Fava (Interagire)',
             vittoria='Ernesto Fava è fuori dal cantiere: siete salvi.')],
         esami_carbone=ESAMI_CARBONE_7,
-        luoghi=[luogo_json(L, OGGETTI_LUOGO_7, REPERTI_LUOGO['ep7']) for L in LUOGHI_7],
+        luoghi=[luogo_json(L, OGGETTI_LUOGO_7, REPERTI_LUOGO['ep7'], DESC_LUOGHI['ep7']) for L in LUOGHI_7],
         tessere=[tessera_json(T) for T in TILES_7],
         vantaggio=dict(slancio_ore=3, preparati_ore=1, preparati_luoghi=6),
         soluzione=SOLUZIONI['ep7'],
@@ -1034,7 +1056,7 @@ episodi = dict(
                  for t in ('T2', 'T3', 'T4', 'T5')],
         vittoria=dict(tessera='T6', testo='Le casse sono alla Porta d’Acqua: l’oro vecchio è vostro.'),
         esami_carbone=ESAMI_CARBONE_8,
-        luoghi=[luogo_json(L, OGGETTI_LUOGO_8, REPERTI_LUOGO['ep8']) for L in LUOGHI_8],
+        luoghi=[luogo_json(L, OGGETTI_LUOGO_8, REPERTI_LUOGO['ep8'], DESC_LUOGHI['ep8']) for L in LUOGHI_8],
         tessere=[tessera_json(T) for T in TILES_8],
         vantaggio=dict(slancio_ore=3, preparati_ore=1, preparati_luoghi=6),
         soluzione=SOLUZIONI['ep8'],
@@ -1058,7 +1080,7 @@ episodi = dict(
             etichetta='Il teste vi segue', vittoria='Anselmo Riva è a bordo: il teste deporrà.',
             parte_libero=True, salute=3, difesa=7)],
         esami_carbone=ESAMI_CARBONE_9,
-        luoghi=[luogo_json(L, OGGETTI_LUOGO_9, REPERTI_LUOGO['ep9']) for L in LUOGHI_9],
+        luoghi=[luogo_json(L, OGGETTI_LUOGO_9, REPERTI_LUOGO['ep9'], DESC_LUOGHI['ep9']) for L in LUOGHI_9],
         tessere=[tessera_json(T) for T in TILES_9],
         vantaggio=dict(slancio_ore=3, preparati_ore=1, preparati_luoghi=6),
         soluzione=SOLUZIONI['ep9'],
@@ -1099,7 +1121,7 @@ episodi = dict(
                       frena_adiacente='IL MURATORE',
                       esito='sconfitta', testo='Il muro è crollato: la prova è distrutta.'),
         esami_carbone=ESAMI_CARBONE_10,
-        luoghi=[luogo_json(L, OGGETTI_LUOGO_10, REPERTI_LUOGO['ep10']) for L in LUOGHI_10],
+        luoghi=[luogo_json(L, OGGETTI_LUOGO_10, REPERTI_LUOGO['ep10'], DESC_LUOGHI['ep10']) for L in LUOGHI_10],
         tessere=[tessera_json(T) for T in TILES_10],
         vantaggio=dict(slancio_ore=3, preparati_ore=1, preparati_luoghi=6),
         soluzione=SOLUZIONI['ep10'],
@@ -1121,7 +1143,7 @@ episodi = dict(
                       fatto='Il Caposquadra è preso vivo: il testimone parlerà.')],
         vittoria=dict(testo='Il Caposquadra è vostro, e vivo.'),
         esami_carbone=ESAMI_CARBONE_11,
-        luoghi=[luogo_json(L, OGGETTI_LUOGO_11, REPERTI_LUOGO['ep11']) for L in LUOGHI_11],
+        luoghi=[luogo_json(L, OGGETTI_LUOGO_11, REPERTI_LUOGO['ep11'], DESC_LUOGHI['ep11']) for L in LUOGHI_11],
         tessere=[tessera_json(T) for T in TILES_11],
         vantaggio=dict(slancio_ore=3, preparati_ore=1, preparati_luoghi=6),
         soluzione=SOLUZIONI['ep11'],
@@ -1147,7 +1169,7 @@ episodi = dict(
                       frena_adiacente='IL CORRIERE',
                       esito='sconfitta', testo='Il Corriere ha consegnato: le copie sono nel mondo.'),
         esami_carbone=ESAMI_CARBONE_12,
-        luoghi=[luogo_json(L, OGGETTI_LUOGO_12, REPERTI_LUOGO['ep12']) for L in LUOGHI_12],
+        luoghi=[luogo_json(L, OGGETTI_LUOGO_12, REPERTI_LUOGO['ep12'], DESC_LUOGHI['ep12']) for L in LUOGHI_12],
         tessere=[tessera_json(T) for T in TILES_12],
         vantaggio=dict(slancio_ore=3, preparati_ore=1, preparati_luoghi=6),
         soluzione=SOLUZIONI['ep12'],
@@ -1189,7 +1211,7 @@ episodi = dict(
             testo_parziale='I registri escono anneriti dal rogo: la prova regge a fatica. '
                            'Vittoria parziale — ma l’Atto prosegue.'),
         esami_carbone=ESAMI_CARBONE_13,
-        luoghi=[luogo_json(L, OGGETTI_LUOGO_13, REPERTI_LUOGO['ep13']) for L in LUOGHI_13],
+        luoghi=[luogo_json(L, OGGETTI_LUOGO_13, REPERTI_LUOGO['ep13'], DESC_LUOGHI['ep13']) for L in LUOGHI_13],
         tessere=[tessera_json(T) for T in TILES_13],
         vantaggio=dict(slancio_ore=3, preparati_ore=1, preparati_luoghi=6),
         soluzione=SOLUZIONI['ep13'],
@@ -1216,7 +1238,7 @@ episodi = dict(
         orologio=dict(id='fuga', nome='Fuga sui tetti', su_canto=5,
                       esito='parziale', testo='Il Gatto scavalca la cresta e sparisce.'),
         esami_carbone=ESAMI_CARBONE_14,
-        luoghi=[luogo_json(L, OGGETTI_LUOGO_14, REPERTI_LUOGO['ep14']) for L in LUOGHI_14],
+        luoghi=[luogo_json(L, OGGETTI_LUOGO_14, REPERTI_LUOGO['ep14'], DESC_LUOGHI['ep14']) for L in LUOGHI_14],
         tessere=[tessera_json(T) for T in TILES_14],
         vantaggio=dict(slancio_ore=3, preparati_ore=1, preparati_luoghi=6),
         soluzione=SOLUZIONI['ep14'],
@@ -1252,7 +1274,7 @@ episodi = dict(
         orologio=dict(id='sigillo', nome='Sigillo', su_canto=7,
                       esito='parziale', testo='La Gendarmeria sigilla la villa: resta la sola Busta pubblica.'),
         esami_carbone=ESAMI_CARBONE_15,
-        luoghi=[luogo_json(L, OGGETTI_LUOGO_15, REPERTI_LUOGO['ep15']) for L in LUOGHI_15],
+        luoghi=[luogo_json(L, OGGETTI_LUOGO_15, REPERTI_LUOGO['ep15'], DESC_LUOGHI['ep15']) for L in LUOGHI_15],
         tessere=[tessera_json(T) for T in TILES_15],
         vantaggio=dict(slancio_ore=3, preparati_ore=1, preparati_luoghi=6),
         soluzione=SOLUZIONI['ep15'],
@@ -1286,7 +1308,7 @@ episodi = dict(
                 'all’imbarcadero. Lo Sposo ci fa portare i bauli delle «mogli»: '
                 'la porta sul retro non la chiude mai, dà sull’acqua.'))],
         esami_carbone=ESAMI_CARBONE_16,
-        luoghi=[luogo_json(L, OGGETTI_LUOGO_16, REPERTI_LUOGO['ep16']) for L in LUOGHI_16],
+        luoghi=[luogo_json(L, OGGETTI_LUOGO_16, REPERTI_LUOGO['ep16'], DESC_LUOGHI['ep16']) for L in LUOGHI_16],
         tessere=[tessera_json(T) for T in TILES_16],
         vantaggio=dict(slancio_ore=3, preparati_ore=1, preparati_luoghi=6),
         soluzione=SOLUZIONI['ep16'],
@@ -1322,7 +1344,7 @@ episodi = dict(
         orologio=dict(id='decano', nome='Trasferimento', su_canto=6,
                       esito='parziale', testo='Il decano è già stato trasferito: lo recuperate ferito.'),
         esami_carbone=ESAMI_CARBONE_17,
-        luoghi=[luogo_json(L, OGGETTI_LUOGO_17, REPERTI_LUOGO['ep17']) for L in LUOGHI_17],
+        luoghi=[luogo_json(L, OGGETTI_LUOGO_17, REPERTI_LUOGO['ep17'], DESC_LUOGHI['ep17']) for L in LUOGHI_17],
         tessere=[tessera_json(T) for T in TILES_17],
         vantaggio=dict(slancio_ore=3, preparati_ore=1, preparati_luoghi=6),
         soluzione=SOLUZIONI['ep17'],
@@ -1354,7 +1376,7 @@ episodi = dict(
         orologio=dict(id='arresto', nome='Arresto', su_canto=7,
                       esito='parziale', testo='I gendarmi sigillano le uscite: braccati.'),
         esami_carbone=ESAMI_CARBONE_18,
-        luoghi=[luogo_json(L, OGGETTI_LUOGO_18, REPERTI_LUOGO['ep18']) for L in LUOGHI_18],
+        luoghi=[luogo_json(L, OGGETTI_LUOGO_18, REPERTI_LUOGO['ep18'], DESC_LUOGHI['ep18']) for L in LUOGHI_18],
         tessere=[tessera_json(T) for T in TILES_18],
         vantaggio=dict(slancio_ore=3, preparati_ore=1, preparati_luoghi=6),
         soluzione=SOLUZIONI['ep18'],
@@ -1382,7 +1404,7 @@ episodi = dict(
                  fatto='Vidal ascolta: da stanotte è dalla vostra parte.')],
         vittoria=dict(testo='Il Fascicolo è vostro e Vidal è con voi.'),
         esami_carbone=ESAMI_CARBONE_19,
-        luoghi=[luogo_json(L, OGGETTI_LUOGO_19, REPERTI_LUOGO['ep19']) for L in LUOGHI_19],
+        luoghi=[luogo_json(L, OGGETTI_LUOGO_19, REPERTI_LUOGO['ep19'], DESC_LUOGHI['ep19']) for L in LUOGHI_19],
         tessere=[tessera_json(T) for T in TILES_19],
         vantaggio=dict(slancio_ore=3, preparati_ore=1, preparati_luoghi=6),
         soluzione=SOLUZIONI['ep19'],
@@ -1425,7 +1447,7 @@ episodi = dict(
         orologio=dict(id='risveglio', nome='Risveglio', su_canto=9,
                       esito='sconfitta', testo='Il Dormiente si desta: è troppo tardi.'),
         esami_carbone=ESAMI_CARBONE_20,
-        luoghi=[luogo_json(L, OGGETTI_LUOGO_20, REPERTI_LUOGO['ep20']) for L in LUOGHI_20],
+        luoghi=[luogo_json(L, OGGETTI_LUOGO_20, REPERTI_LUOGO['ep20'], DESC_LUOGHI['ep20']) for L in LUOGHI_20],
         tessere=[tessera_json(T) for T in TILES_20],
         vantaggio=dict(slancio_ore=3, preparati_ore=1, preparati_luoghi=6),
         soluzione=SOLUZIONI['ep20'],
