@@ -698,42 +698,114 @@ def soluzione():
 # ================================================================== LUOGHI
 
 LUOGHI17_DESC = {
-    1: "Lo studio del decano, messo a soqquadro con metodo: cassetti aperti, "
-       "niente rotto, una perquisizione più che un furto. Murato nel camino, un "
-       "dossier cifrato — e sul tavolo, l'ultimo appunto di un uomo che sapeva "
-       "che stavano venendo a prenderlo: «non c'è nessuna talpa».",
-    2: "Il Palazzo del Lume, la sede della Società, spaccato in due: M. guida "
-       "la caccia alla talpa e metà confratelli lo seguono; l'altra metà guarda "
-       "voi. Ogni indizio interno passa dal presidente — e un vecchio confratello "
-       "si chiede come facesse M. a sapere della talpa prima di cercarla.",
-    3: "Il Tribunale e la cella di Braga: morto nel sonno, o — se protetto — "
-       "mittente di un ultimo biglietto, «guardate le penne, non le mani». Qui "
-       "sono passate visite notturne di un signore in guanti, e le carte "
-       "portano allo studio del Notaio.",
-    4: "Lo studio del Notaio Rasca, chiuso, il padrone sparito. Ma le pratiche "
-       "restano e raccontano l'ultimo lavoro: un affitto di villa fuori porta, "
-       "una carrozza notturna, una «custodia riservata per il cliente di "
-       "sempre». Non c'è talpa qui: c'è un esecutore.",
-    5: "L'aula dove il decano insegnava la crittografia della Società: tra i "
-       "suoi appunti, la chiave del suo codice, e con essa il dossier cifrato "
-       "diventa una matrice — ogni lettera di M. e, di fronte, ciò che sapeva "
-       "prima del dovuto. «Non ho cercato una talpa. Ho cercato lo specchio.»",
-    6: "La casa del confratello che la caccia alla talpa addita: un uomo mite, "
-       "terrorizzato, con indizi contro di lui spuntati dal nulla, troppo "
-       "puliti — come quelli di Braga. La stessa mano che arreda le colpe, di "
-       "nuovo. Un innocente cucito su misura per la talpa che non esiste.",
-    7: "La Dogana Vecchia, dove è passata la carrozza chiusa del Notaio tre "
-       "notti fa, verso una villa fuori porta: «custodia riservata, dazio "
-       "pagato». Il doganiere ha paura, e vi porge un salvacondotto: «le "
-       "carrozze chiuse del Notaio, di solito, tornano vuote».",
-    8: "Il rifugio in città del Notaio, dove tiene ciò che non porta allo "
-       "studio: chiavi, copie, un registro dei lavori sporchi per «il cliente "
-       "di sempre», e una piantina della villa-prigione. Nessun nome — solo "
-       "iniziali e una cifra che paga sempre.",
-    9: "La villa-prigione del Notaio, fuori le mura: un tempo casa di campagna, "
-       "ora covo di custodie riservate. Al piano di sotto, il decano vivo; in "
-       "fondo, il Notaio coi suoi incartamenti; ovunque, la sua Guardia. È qui "
-       "che la mano guantata, per la prima volta, è a portata di manette.",
+    1: "Lo studio del decano sa di cenere fredda e di carta smossa, e fa più freddo di quanto una "
+       "stanza chiusa da poche ore dovrebbe: il camino è spento da prima di ieri, e dalla sua gola "
+       "scende un filo d’aria che attraversa il tappeto per tutta la lunghezza. I cassetti sono "
+       "fuori dai loro incastri, tutti, e appoggiati in terra uno accanto all’altro con un ordine "
+       "che nessuna fretta spiega; i libri stanno rovesciati aperti sul dorso, i fermalibri "
+       "d’ottone da una parte, la scala della libreria ferma a metà della sua guida — e non c’è un "
+       "vetro rotto, non una serratura forzata, nemmeno un graffio sulla bocchetta della porta. "
+       "Sul pavimento le carte fanno un mucchio basso, e la corrente ne solleva un angolo e ce lo "
+       "riposa, sempre lo stesso angolo, con la regolarità di chi sfoglia. Il cappotto del decano "
+       "è ancora al suo chiodo dietro l’uscio, con la sciarpa infilata nella manica come la infila "
+       "chi conta di uscire ancora; sotto il chiodo, per terra, non c’è la borsa. Sulla scrivania "
+       "il calamaio è rimasto senza coperchio, e l’inchiostro dentro ha fatto la pelle.",
+    2: "Il Palazzo del Lume sa di cera d’api e di lana bagnata, e la sala grande, che una stufa "
+       "sola non scalda mai fino in fondo, stasera è piena come per un funerale a cui nessuno ha "
+       "voluto mancare. I confratelli non si sono seduti secondo l’uso: si sono seduti secondo "
+       "qualcos’altro, un lato del tavolo lungo e l’altro, e in mezzo restano tre sedie vuote che "
+       "nessuno tira via. Sono state accese tutte le candele, anche quelle dei bracci laterali che "
+       "si accendono soltanto per le adunanze solenni, e la luce di troppo mostra ciò che di "
+       "solito la penombra copre: le mani sui braccioli, chi guarda chi. Quando entrate le voci "
+       "non tacciono — calano, e cambiano di tono, come una conversazione che prosegue in un’altra "
+       "lingua. M. sta in piedi al suo posto e vi tende le braccia prima ancora di parlare, con la "
+       "faccia di un uomo che non ha dormito: «La casa deve restare unita», dice, e mentre lo dice "
+       "guarda oltre le vostre spalle, verso la porta rimasta aperta. Davanti alla sedia del "
+       "decano, sul tavolo, il calamaio è pieno e la penna è asciutta.",
+    3: "Il Tribunale di notte sa di pietra bagnata, di ceralacca e di quel disinfettante "
+       "dolciastro che si dà ai corridoi dove passano i detenuti; è più freddo dentro che fuori, e "
+       "il freddo viene dai muri, non dall’ora. Gli uffici sono chiusi e le porte hanno tutte la "
+       "stessa targhetta d’ottone lustrata dal panno; i faldoni salgono in colonne fino ai "
+       "capitelli, legati con la fettuccia rossa, e le lampade del corridoio sono accese una ogni "
+       "tre, così che si cammina passando dal buio alla luce e di nuovo al buio. Il secondino vi "
+       "accompagna tenendo le chiavi strette nel pugno perché non suonino, e risponde prima che "
+       "gli si chieda, con la voce di chi ripete una cosa già detta a qualcun altro: «da parte di "
+       "un signore in guanti, gentile, con carte in regola». Oltre due porte, da qualche parte, un "
+       "uomo tossisce a intervalli regolari, e fra un colpo e l’altro passa sempre lo stesso "
+       "numero di secondi. In fondo al corridoio delle celle il secondino rallenta il passo "
+       "davanti a una porta sola, e non guarda dentro.",
+    4: "Lo studio del Notaio Rasca è chiuso da fuori e da dentro: imposte accostate, stufa spenta "
+       "con la cenere ancora in forma, e in tutta la stanza quell’odore di ceralacca e di gomma da "
+       "cancellare che hanno gli uffici dove si scrive poco e si copia molto. Sul banco stanno il "
+       "torchio da copia con la manovella in alto, il vassoio dei timbri ciascuno nel suo "
+       "alloggiamento, la lampada col paralume verde, e allineate al muro le cassette di latta "
+       "degli atti con l’etichetta scritta a mano. Sulla porta, all’altezza degli occhi, la targa "
+       "d’ottone è stata levata di recente: restano i due fori delle viti e, attorno, il legno più "
+       "scuro nella forma esatta di un rettangolo. Un praticante di vent’anni vi apre e non si "
+       "stacca dallo stipite, le braccia strette addosso; risponde con un cenno del capo per "
+       "volta, come si risponde in una casa dove qualcuno dorme, e le sue dita non stanno ferme "
+       "sul risvolto della giacca. Nel portacenere di vetro una sigaretta è stata spenta a metà, "
+       "piegata in due.",
+    5: "L’aula del cifrario sa di gesso, di legno incerato e di quel freddo d’ateneo che d’inverno "
+       "non se ne va nemmeno a mezzogiorno; i banchi salgono in gradinata verso il fondo, tutti "
+       "uguali, e ogni ripiano porta le iniziali intagliate da generazioni di annoiati. In basso "
+       "la lavagna occupa la parete intera: quattro tabelle tracciate col righello, lettere sopra "
+       "e lettere sotto, e la mano che le ha scritte, verso destra, si fa più piccola per non "
+       "perdere la riga. La cattedra è in ordine come la lascia chi conta di tornare l’indomani — "
+       "il righello di bosso in parallelo al bordo, il portagessi chiuso, la sedia accostata — e "
+       "sul leggio il registro delle lezioni è aperto alla pagina di ieri, con la penna di "
+       "traverso a tenerlo fermo. La fiamma del becco a gas si abbassa e risale di poco, sempre "
+       "alla stessa cadenza, e a ogni respiro l’ombra delle tabelle si sposta di un dito sulla "
+       "parete. Nel canaletto sotto la lavagna la spugna è ancora umida.",
+    6: "Le scale sanno di cavolo e di petrolio da lampada, e sul pianerottolo del terzo piano "
+       "stanno tre confratelli in soprabito che non entrano e non se ne vanno: parlano piano fra "
+       "loro, si scostano per lasciarvi passare, e riprendono a parlare quando siete oltre. "
+       "Dentro, l’alloggio è di due stanze e di poche cose tenute bene: il tavolo apparecchiato "
+       "per uno, la stufetta di ghisa accesa al minimo, il baule sotto la finestra, e alla parete "
+       "il diploma della Società nella sua cornice, l’unico oggetto della casa spolverato di "
+       "fresco. L’uomo vi viene incontro prima ancora che abbiate chiuso la porta, le mani avanti, "
+       "i polsi che escono dalle maniche perché ha addosso la giacca buona da troppe ore: «Non ho "
+       "fatto niente!», dice, e lo dice a voi come lo avrà detto a tutti quelli saliti prima. Non "
+       "si siede e non vi fa sedere. Ogni volta che di sotto sbatte il portone si volta verso "
+       "l’uscio e smette di respirare per un momento. Accanto alla porta le sue scarpe sono pulite "
+       "e allacciate.",
+    7: "La Dogana Vecchia sa di braciere, di canapa bagnata e di quell’acido che il timbro lascia "
+       "sulla carta umida; è un capannone di mattoni sulla strada di levante, mezzo ufficio e "
+       "mezzo tettoia, e di notte ci si ferma solo chi deve. La barra è abbassata, la lanterna "
+       "della sbarra ha il vetro affumicato da una parte sola, e nel gabbiotto il braciere tiene "
+       "caldo un uomo e non la stanza. I registri stanno in fila sul ripiano, uno per mese, con la "
+       "costola scritta a pennello; sopra il banco pendono la stadera del dazio e il mazzo dei "
+       "bolli infilati a un anello di ferro. Il doganiere vi vede arrivare da lontano e non "
+       "aspetta che siate al banco: ha le dita macchiate d’inchiostro fino alla seconda falange, "
+       "tiene una mano aperta sul registro chiuso, e dice soltanto «Fate presto», guardando la "
+       "strada oltre di voi. Fuori, sul fango gelato del piazzale, il vento sposta la fiamma della "
+       "lanterna e con essa l’ombra della sbarra, avanti e indietro, sempre della stessa misura. "
+       "Sul banco, in un piattino, una moneta di rame sta da tanto da aver lasciato il verde sulla "
+       "porcellana.",
+    8: "Il rifugio del Notaio è al primo piano di una casa di calle, dietro una porta senza "
+       "campanello, e dentro sa di chiuso, di carta e di quel grasso da serrature che si sente "
+       "prima in gola che col naso. È una stanza sola, arredata come un ufficio da chi non ci "
+       "abita: la branda rifatta con l’angolo militare e mai disfatta, la brocca asciutta, la "
+       "stufa fredda con la carbonella intatta. Alla parete, su una tavola di legno, pendono i "
+       "mazzi ordinati per file, ciascuno al suo gancio e ciascuno con la sua targhetta di cartone "
+       "scritta a matita — e la tavola è più lunga delle file, con i ganci in fondo lasciati "
+       "liberi per quello che verrà. Sul tavolo la lampada è stata abbassata e non spenta: la "
+       "fiamma è ridotta a un filo azzurro e ronza appena, come ronza il gas quando la chiavetta è "
+       "girata quasi a fine corsa. Da ore non passa nessuno di qui, eppure la stanza è tiepida. "
+       "Sul davanzale, dalla parte di dentro, nella polvere ci sono i segni di due dita, e "
+       "nient’altro.",
+    9: "Fuori porta la città finisce di colpo e comincia una campagna che d’inverno non ha odore, "
+       "se non quello del fosso lungo la strada e del fumo basso di un camino acceso da poco; a "
+       "quest’ora si sente il proprio passo sulla ghiaia più di quanto si vorrebbe. La villa sta "
+       "indietro di un centinaio di passi, dietro un muro di cinta basso e un doppio filare di "
+       "pioppi: due piani, le persiane chiuse tutte allo stesso modo, e al livello della terra le "
+       "finestre delle cantine con l’inferriata e il vetro dipinto di bianco dalla parte di "
+       "dentro. Il cancello è accostato, non chiuso. In una sola finestra del primo piano, dietro "
+       "le persiane, la luce passa e torna indietro, avanti e indietro, alla cadenza di chi "
+       "cammina in una stanza e non riesce a fermarsi. Non abbaia un cane, in una casa di campagna "
+       "a quest’ora, e i pioppi tengono un fruscio continuo che copre tutto il resto. Sul pilastro "
+       "del cancello la catena pende dal suo anello, aperta, e il lucchetto è agganciato a un capo "
+       "solo.",
 }
 
 OGGETTI_LUOGO_17 = {
@@ -752,12 +824,12 @@ OGGETTI_LUOGO_17 = {
     ],
     7: [
         ('Oggetto', 'Il Salvacondotto', 'passate i posti di blocco della villa, arrivate al decano prima del trasferimento'),
-        ('Incrocio D1', 'con il rifugio del Notaio, sapete dov’è la villa-prigione', ''),
+        ('Incrocio D1', '', 'con il rifugio del Notaio, sapete dov’è la villa-prigione'),
     ],
     8: [
         'Le Chiavi della Villa-Prigione',
         ('Reperto C', 'l’Archivio del Notaio', ''),
-        ('Incrocio D1', 'con la Dogana, avete la villa e la sua pianta', ''),
+        ('Incrocio D1', '', 'con la Dogana, avete la villa e la sua pianta'),
     ],
     9: [
         ('Reperto B', 'la Deposizione del Decano', 'al recupero del decano'),
@@ -768,30 +840,76 @@ TILE_ART_17 = {t['id']: t['id'] + '-ep17.png' for t in TILES_17}
 LUOGHI17_CROP = {}
 
 TESSERE_DESC_17 = {
-    'T1': "Il cancello di una villa di campagna fuori le mura, di notte: un "
-          "muro di cinta basso, un viale di ghiaia buio, i campi tutt'intorno "
-          "che tacciono. Sembra una casa qualunque, e proprio per questo è il "
-          "posto giusto per far sparire un uomo.",
-    'T2': "Il cortile interno: un pozzo, una rimessa, e la carrozza chiusa del "
-          "Notaio, ancora attaccata, come se dovesse ripartire da un momento "
-          "all'altro. La Guardia del Notaio pattuglia con la calma di chi è "
-          "pagato per non aver fretta.",
-    'T3': "Le cucine della villa, fredde, il passaggio di servizio verso le "
-          "celle. Agli imbocchi dei corridoi, uomini del Notaio fanno da posti "
-          "di blocco: chiedono chi siete, e senza il salvacondotto giusto la "
-          "risposta costa tempo.",
-    'T4': "La sala degli interrogatori: una sedia al centro, una lampada bassa, "
-          "carte sparse, e il calore ancora nell'aria di chi era qui un minuto "
-          "fa. Il decano è vivo, di là — e il Notaio, sentendovi arrivare, ha "
-          "appena dato l'ordine di spostarlo.",
-    'T5': "La cella al piano di sotto, umida e buia. Sul pagliericcio, il "
-          "decano Ferrante: pesto, un occhio gonfio, ma vivo e lucido. Alla "
-          "vostra vista sorride, e il peso che vi schiacciava il petto dallo "
-          "scisma si allenta di colpo: non c'era nessuna talpa.",
-    'T6': "Lo studio in fondo alla villa, dove il Notaio Rasca raccoglie con "
-          "calma i suoi incartamenti in una borsa, pronto a sparire come al "
-          "Molino. Ma stavolta la sua Guardia è a terra, e la porta è dietro di "
-          "voi. La mano guantata vi porge i polsi, quasi sollevata.",
+    'T1': "Fuori le mura la strada si fa di terra battuta e il buio cambia di qualità: non è più "
+          "il buio delle calli, che ha sempre un lume in fondo, ma quello dei campi, che non "
+          "finisce da nessuna parte. Il muro di cinta è basso, di mattoni vecchi coperti d’edera "
+          "secca, e si scavalcherebbe senza fatica: non è fatto per tenere fuori, è fatto per non "
+          "far vedere dentro. Il cancello ha due colonne di pietra e in cima a ciascuna una palla "
+          "di granito, una intera e una scheggiata; oltre il cancello il viale di ghiaia corre "
+          "dritto verso la casa fra due file di pioppi che il vento tiene in un fruscio continuo, "
+          "sempre alla stessa altezza, come acqua che scorre in un canale che non c’è. L’aria sa "
+          "di terra bagnata e di stoppie bruciate. Non si sente un cane, non un campanaccio, "
+          "nessuna delle voci che una campagna abitata fa anche di notte. Nella nicchia della "
+          "colonna di destra, dove i contadini tengono il lume per chi arriva tardi, c’è una "
+          "lanterna spenta, e il vetro è ancora tiepido.",
+    'T2': "Dentro il muro il cortile è un quadrato d’acciottolato con l’erba nelle fughe, il pozzo "
+          "in mezzo con la carrucola e il secchio tirato su, e sul lato di ponente la rimessa "
+          "aperta. La carrozza chiusa sta ferma davanti alla rimessa, senza fanali accesi, coi "
+          "finestrini foderati dalle tendine tirate; i cavalli sono ancora attaccati e aspettano "
+          "da un pezzo, il fiato che fa la nuvola davanti al muso, e ogni tanto uno sposta il peso "
+          "da una gamba all’altra e il ferro batte una volta sola sulla pietra. Sa di cavallo "
+          "caldo, di cuoio ingrassato e d’acqua di pozzo, e sopra tutto questo c’è un odore di "
+          "petrolio che in una stalla non ci starebbe. Due uomini stanno all’ombra della rimessa "
+          "con le mani in tasca: non hanno fretta, non fumano, e la loro lanterna è coperta da un "
+          "lato con un panno. Il pozzo ha il coperchio di legno tirato a metà, e sull’orlo di "
+          "pietra il muschio è consumato di fresco, come da una corda passata sopra molte volte in "
+          "poco tempo.",
+    'T3': "Le cucine stanno mezzo piano sotto il cortile e si annunciano prima con l’odore che con "
+          "la luce: cenere spenta, grasso freddo, ranno e, sotto tutto, l’umido che sale dalle "
+          "cantine. La cucina economica è larga come un altare e non è accesa; sopra la mensola "
+          "gli stampi di rame stanno in fila per grandezza, lucidati e appesi ciascuno al suo "
+          "chiodo, e non si cucina per una casa piena qui dentro da molto tempo. Ai ferri del "
+          "soffitto, dove dovrebbero pendere i salumi, non pende niente, e il ferro è pulito. Dal "
+          "fondo, dove il corridoio di servizio scende con quattro gradini, viene una corrente "
+          "costante che porta il freddo di pietra delle cantine e fa girare piano, sempre nello "
+          "stesso verso, l’ultimo gancio della fila. Gli uomini agli imbocchi dei corridoi non "
+          "sono servitori: hanno il cappotto addosso dentro casa, e si voltano tutti insieme "
+          "quando la corrente muove una porta. Sul tavolo grande, vuoto da un capo all’altro, ci "
+          "sono due tazze accostate, tutte e due adoperate.",
+    'T4': "La sala è la vecchia sala da pranzo della villa, e si vede: il camino di marmo, il "
+          "gancio del lampadario in mezzo al soffitto, e sulla carta da parati il rettangolo più "
+          "chiaro di un quadro grande che è stato portato via. La tavola non c’è. C’è una sedia "
+          "sola, in mezzo al pavimento, girata verso la finestra murata, e attorno alla sedia il "
+          "tappeto è stato arrotolato e spinto contro la parete, così che si sta sul cotto nudo. "
+          "Fa più caldo che nel resto della casa — qualcuno ha tenuto acceso il camino per ore, e "
+          "sotto la cenere la brace manda ancora un rosso che si alza e si abbassa — e l’aria sa "
+          "di lana bagnata, di petrolio e di quel dolciastro che lascia il collodio delle "
+          "fasciature. La lampada è stata calata bassa sulla sua catenella, e la fiamma si piega "
+          "tutta verso la porta di fondo e resta piegata. Sul bracciolo della sedia, avvolto due "
+          "volte e non sciolto, c’è un nastro di tela da bende.",
+    'T5': "Il corridoio delle cantine è di pietra viva e il freddo ci sta dentro come l’acqua in "
+          "una spugna: si sente prima alle caviglie, poi alle mani, e il fiato si vede a ogni "
+          "respiro. Le porte sono cinque, tutte uguali, di quercia con la banda di ferro e lo "
+          "sportellino all’altezza degli occhi; quattro danno sul buio e una no. Dentro, sul "
+          "pagliericcio contro la parete, un uomo si tira su su un gomito prima ancora che la luce "
+          "arrivi fino a lui, come chi ha imparato a sentire i passi molto prima della lanterna. È "
+          "il decano Ferrante: la barba di tre giorni, un occhio chiuso dal gonfiore, il colletto "
+          "strappato dalla parte del bottone, e le mani che tremano non di paura ma di freddo. Vi "
+          "guarda uno per uno, e quando ha finito di contarvi lascia andare le spalle contro il "
+          "muro. Il secchio nell’angolo è vuoto e asciutto; la scodella no. Accanto al "
+          "pagliericcio, piegati e messi via con cura, stanno i suoi occhiali, con una lente "
+          "stellata da una parte sola.",
+    'T6': "L’ultima stanza in fondo alla villa è l’unica calda e l’unica in ordine, e sa di "
+          "ceralacca sciolta, di cuoio nuovo e di carta bruciata da poco. Sul tavolo, sotto una "
+          "lampada col paralume verde, stanno il calamaio da viaggio, il fascio dei bolli legato "
+          "con un elastico e una borsa di cuoio aperta a metà, riempita nell’ordine esatto in cui "
+          "le cose andranno tirate fuori. Le pareti sono di scaffali, e negli scaffali i posti "
+          "vuoti non stanno in fondo, dove si sgombra per primo: sono sparsi, uno qui e uno là, "
+          "come si vuota una libreria sapendo esattamente che cosa serve. Il Notaio è in piedi "
+          "accanto al tavolo e non si volta di scatto: finisce di piegare un foglio in tre, lo "
+          "mette dov’è il suo posto, e solo allora alza la faccia. Ha ancora i guanti, e i guanti "
+          "sono di quelli chiari, da mattina. Sul marmo del camino la ceralacca s’è sciolta nel "
+          "cucchiaino sopra la candela e nessuno l’ha spenta: continua a fumare, sottile e dritta.",
 }
 
 ESAMI_CARBONE_17 = {

@@ -697,42 +697,117 @@ def soluzione():
 # ================================================================== LUOGHI
 
 LUOGHI14_DESC = {
-    1: "La villa-museo di Braga è un tempio della criminologia positivista: "
-       "vetrine di cimeli del delitto, le lastre fonografiche coi ranghi dei "
-       "mostri celebri, e ovunque i guanti bianchi del professore, che non "
-       "tocca nulla a mani nude. Un uomo che vive per non lasciare tracce.",
-    2: "La redazione della Gazzetta di Roccamora vive di indiscrezioni e "
-       "duelli: e quello di trent'anni tra M. e Braga è il piatto forte di "
-       "Ranuzzi. Qui si sa chi cammina sui tetti, chi paga chi, e quali "
-       "storie qualcuno vuole vedere stampate.",
-    3: "Il Banco dei Pegni è il termometro della malavita: ci passa tutto ciò "
-       "che è stato rubato, prima o poi. Stavolta, però, è passata roba che "
-       "torna indietro imballata e pulita — un controsenso che al gestore, "
-       "che di refurtiva se ne intende, non torna affatto.",
-    4: "La Gendarmeria tiene la denuncia di Braga e l'inventario del furto. "
-       "Un caso quasi chiuso — refurtiva rientrata — se non fosse per quelle "
-       "tre righe in più nella colonna del restituito, che nessuno riesce a "
-       "spiegare e che qualcuno preferirebbe archiviare in fretta.",
-    5: "La bottega del ricettatore è un buco che apre solo di notte, dove la "
-       "refurtiva cambia mani. Stavolta il suo mestiere è girato al contrario: "
-       "pagato per restituire, non per comprare, e per aggiungere alle casse "
-       "del professore oggetti che qualcun altro gli ha messo in mano.",
-    6: "Lo studio del perito Coda è la tana di un rancore accademico "
-       "vecchio di trent'anni: pareti di attestati mai bastati, e l'odio "
-       "per Braga come unica passione rimasta. Movente da vendere, ma né oro "
-       "né uomini: il sospetto perfetto, e perfettamente innocente.",
-    7: "L'archivio della Gendarmeria è dove le cose diventano vere: una volta "
-       "a verbale, un oggetto esiste, anche se è falso. Qui il Sigillo «C.B.» "
-       "trovato nelle casse di Braga è ormai un fatto agli atti — la prima "
-       "pietra, involontaria e perfetta, del falso che verrà.",
-    8: "Il covo dei Gatti del Corso è un sottotetto di funi e ramponi, il "
-       "quartier generale dei ladri di grondaia. Qui hanno 'lavorato' la "
-       "refurtiva prima di renderla, e qui vive la parola dei tetti — il "
-       "segno che, al Primo Gatto, vale più di una lama alla gola.",
-    9: "L'Attico del Corso è in cima ai tetti: il bottino accatastato e "
-       "imballato per la restituzione, il cielo aperto e il vuoto della via "
-       "sotto. È da qui che i pacchi sono scesi arredati del 'di più', e qui "
-       "che il Primo Gatto vi aspetta — o vi sfugge, sulla cresta.",
+    1: "Cera da mobili, canfora e quel principio d’odore d’aceto che lascia l’ottone appena "
+        "lucidato: nella villa-museo non si accende il camino — il calore rovina la cera — e le "
+        "sale tengono un freddo da chiesa di provincia, di quelli che si sentono nei polsi. Il "
+        "delitto sta tutto sotto vetro molato, numerato e in fila: manette, un coltello col suo "
+        "cartellino, calchi di gesso di mani che non esistono più, e i cilindri di cera nei loro "
+        "astucci di cartone, ciascuno col numero scritto a inchiostro sul coperchio. Il "
+        "professore vi riceve con le mani già guantate, bianche, cucite su misura, tenute basse "
+        "davanti alla cintura come chi da quarant’anni non appoggia le dita da nessuna parte; e "
+        "prima ancora di offrirvi una sedia mette le cose in chiaro: «io non tocco nulla finché "
+        "la Gendarmeria non verbalizza. I guanti, sa: l’igiene prima di tutto.» Quando qualcuno "
+        "attraversa il fondo del salone i cilindri appoggiati sul feltro girano appena su se "
+        "stessi, tutti insieme, e continuano un poco dopo che i passi si sono fermati. Nella fila "
+        "dei numeri, fra un astuccio e l’altro, il velluto ha tenuto la forma di ciò che ci stava "
+        "sopra, e lì è più chiaro.",
+    2: "Inchiostro grasso, piombo caldo e colla d’amido: alla Gazzetta l’odore sale dal torchio "
+        "del piano di sotto e resta appiccicato ai tendaggi, e a quest’ora la redazione è più "
+        "calda della strada di quanto una stanza con due finestre sconnesse possa spiegare. Casse "
+        "di caratteri aperte, bozze infilzate al chiodo in mazzi spessi un dito, una lampada col "
+        "paralume verde per ogni scrivania e nessuna accesa tranne due; lungo la parete "
+        "l’archivio dei ritagli in buste di cartone, annata per annata, con le costole consumate "
+        "dove le mani tornano più spesso. Ranuzzi si alza a metà, si frega le mani come chi "
+        "rientra al caldo, e vi parla già camminando all’indietro verso le buste, in maniche di "
+        "camicia e mezze maniche di lustrino: «E ora il furto! I lettori impazziscono», dice, e "
+        "ride della risata di chi la prima pagina l’ha già vista. Sotto, il torchio batte a "
+        "cadenza, e a ogni battuta i calamai tremano e dagli scaffali scende un filo di polvere "
+        "di piombo, sempre negli stessi due punti. Una busta di ritagli è tornata al suo posto "
+        "con la costola dalla parte sbagliata.",
+    3: "Naftalina, spago nuovo e il ferro freddo della grata: al Banco dei Pegni si respira "
+        "l’odore delle case degli altri, chiuse in pacchi di carta e messe in fila. Dietro il "
+        "banco la lampada col paralume verde tiene illuminato soltanto il registro; più su, sugli "
+        "scaffali, i pacchi salgono fino al soffitto col cartellino allo spago, e la bilancia da "
+        "banco aspetta coi pesetti già disposti dal più grande al più piccolo. Il gestore vi "
+        "ascolta con le mani ferme sul legno, i polpastrelli lisci di chi conta denaro d’altri "
+        "tutto il giorno, e non alza la voce nemmeno per dire la cosa che non gli torna: «di "
+        "solito la roba dei gatti la vediamo a pezzi», e intanto fa scorrere il pollice sul filo "
+        "delle pagine. Ogni volta che la porta si apre i cartellini appesi si mettono in "
+        "movimento tutti insieme, piano, e continuano un poco più a lungo di quanto dovrebbero. "
+        "Sul banco è rimasto un pacco ancora legato: lo spago è di un altro colore, più chiaro, e "
+        "il nodo ha tre giri invece di due.",
+    4: "Panno bagnato, caffè d’orzo riscaldato due volte e l’inchiostro copiativo, che sa di "
+        "violette andate a male: la Gendarmeria di notte è più silenziosa di un ufficio e più "
+        "fredda di una caserma. La stufa di ghisa tira male e scalda soltanto il primo metro; "
+        "oltre, il banco alto lucido di gomiti, la rastrelliera dei moschetti col lucchetto "
+        "passato, e i registri in fila per annata, tutti dello stesso verde tranne quello aperto. "
+        "Il maresciallo vi riceve senza sedersi, le mani grosse che voltano i fogli con la punta "
+        "di un dito solo, e legge l’elenco con la voce piatta di chi legge elenchi da trent’anni; "
+        "quando arriva in fondo scrolla le spalle: «burocrazia. Qualcuno avrà fatto confusione.» "
+        "Le mantelline appese al chiodo gocciolano sul mattonato a una cadenza regolare, che non "
+        "è quella della pioggia di fuori. In fondo al banco, sotto un fermacarte d’ottone, c’è un "
+        "foglio di brutta con una colonna di numeri, e l’ultima cifra è ripassata due volte.",
+    5: "Colla d’amido, paglia nuova e sego bruciato: la bottega odora di partenze più che di "
+        "malaffare, e ci si arriva dal cortile, per una porta che non ha insegna né campanello. "
+        "Dentro c’è una lampada sola, tenuta bassa sul banco di noce sfregiato, e attorno il buio "
+        "è pieno di cose imballate: rotoli di carta grezza in piedi come colonne, ceste di paglia "
+        "pettinata, un fornellino col cucchiaio della ceralacca appoggiato di traverso, e su una "
+        "mensola i gomitoli di spago allineati per grossezza. L’uomo lavora mentre parla, le mani "
+        "che tirano il nodo e lo provano col mignolo, gli avambracci grigi di polvere di carta, e "
+        "non vi guarda in faccia se non quando gli si domanda chi lo paga: «Io non faccio domande "
+        "a chi paga in oro vecchio», dice, e riprende a tirare. Il rocchetto appeso alla trave "
+        "gira ancora piano dopo che lui ha già tagliato, e si ferma sempre un giro più tardi di "
+        "quanto dovrebbe. Sul banco, accanto alla bilancia, c’è un mucchietto di paglia già "
+        "pettinata, pronta, e nessuna cassa aperta che la aspetti.",
+    6: "Carta ammuffita, fumo di pipa vecchio di anni dentro i tendaggi e, dalle scale, cavolo "
+        "bollito: lo studio del perito Coda è al terzo piano di una casa senza portiere, e dentro "
+        "fa più freddo che sul pianerottolo. Le pareti sono coperte di attestati incorniciati fin "
+        "sopra la porta, fitti e storti come mattoni posati male, e sotto, per terra, gli atti "
+        "dei congressi si reggono in pile alte un metro; sul tavolo un microscopio d’ottone con "
+        "la vite gonfia di verderame, un quaderno di ritagli incollati e la lampada, accesa anche "
+        "di giorno perché la finestra dà su un muro. Coda vi parla senza smettere di rimestare le "
+        "carte, le dita macchiate d’inchiostro fino alla seconda falange, la vestaglia buttata "
+        "sopra la giacca; e quando nomina il collega alza la voce di colpo, come si alza coi "
+        "sordi: «Se lo hanno derubato, brindo. Se lo impiccano, offro da bere.» La lente montata "
+        "sul braccio d’ottone scende da sola di un dito ogni tanto, e lui la rialza senza "
+        "guardarla, sempre allo stesso modo. Sul davanzale c’è un bicchiere con dentro un dito di "
+        "vino, e la polvere sul vetro arriva quasi all’orlo.",
+    7: "Polvere di carta, colla animale e quel dolce di muffa che hanno i faldoni legati "
+        "stretti; e sotto tutto, il freddo di un sotterraneo che non ha mai visto una stufa. Gli "
+        "scaffali arrivano al soffitto e girano attorno alla stanza senza interrompersi mai, "
+        "faldone su faldone col nastro passato due volte e l’annata scritta sulla costola; in "
+        "mezzo una scala a rotelle sulla sua guida di ferro, e un tavolo con la lampada "
+        "dell’archivista, l’unica luce, che tiene un cerchio giallo largo quanto un registro "
+        "aperto. L’archivista si muove in ciabatte di feltro, porta il faldone contro il petto "
+        "con tutte e due le braccia, come si porta un bambino che dorme, e ve lo posa davanti "
+        "senza slegarlo: «una volta che una cosa è a verbale, esiste», dice, e resta in piedi "
+        "accanto al tavolo per tutto il tempo. Quando in strada passa un carro la scala si sposta "
+        "di mezzo palmo lungo la guida, da sola, e torna indietro più lentamente di quanto sia "
+        "andata. Sul tavolo un tampone d’inchiostro è rimasto aperto, e la sua superficie si sta "
+        "asciugando a chiazze.",
+    8: "Canapa nuova, sego e ruggine: il sottotetto sa di corda più che di uomini, e sotto i "
+        "coppi il freddo entra dalle fessure, ciascuna con la sua riga di luna. Le matasse "
+        "pendono dai travetti a decine, arrotolate tutte nello stesso verso; su un’asse "
+        "inchiodata alla parete stanno in fila i ferri da presa e i ramponi, puliti, ingrassati, "
+        "ordinati per lunghezza come attrezzi di bottega, e sotto l’asse le suole chiodate "
+        "aspettano appaiate, il cuoio ancora umido. Non c’è nessuno: un fornello spento, quattro "
+        "pagliericci contro il muro, una brocca, e i segni delle mani sulla trave di colmo, nel "
+        "punto in cui ci si tira su per uscire dall’abbaino. Sulla trave, inciso a colpi di punta "
+        "e ripassato tante volte che il taglio è nero, c’è il segno dei Gatti. Una matassa appesa "
+        "gira piano su se stessa, avanti e indietro, e non smette. Accanto al fornello, dentro "
+        "una scodella, il sego rappreso tiene l’impronta di due dita.",
+    9: "Quassù l’aria è un’altra: coppi ancora tiepidi del sole di ieri, fuliggine, guano secco, "
+        "e un vento che a ogni comignolo cambia verso e vi arriva addosso da dove non ve lo "
+        "aspettate. L’attico è un pianerottolo di tavole sotto il cielo aperto, e la città sta "
+        "tutta di sotto: i canali neri fra le case, due fanali in fondo al Corso, il resto buio. "
+        "Le casse sono accatastate contro il muro del camino, imballate strette, la paglia "
+        "pettinata che esce dai coperchi, i cartellini scritti a mano in una grafia da bottega; "
+        "accanto, corde arrotolate e un lanternino schermato, girato verso il muro perché dalla "
+        "strada non si veda. Sulla cresta del tetto, più in alto di voi, c’è un uomo seduto con "
+        "le ginocchia al mento, magrissimo, immobile: vi lascia guardare quanto volete, non dice "
+        "niente, e ogni tanto sposta un piede sull’ardesia. Un cartellino gira sul suo spago, si "
+        "ferma, riparte, sempre nello stesso verso. In cima a una cassa aperta, appoggiato sulla "
+        "paglia, sta un dischetto di ceralacca rossa con due lettere in rilievo.",
 }
 
 OGGETTI_LUOGO_14 = {
@@ -741,7 +816,7 @@ OGGETTI_LUOGO_14 = {
         ('Esca', 'Il Pegno Anonimo', 'pare tradire il mandante, è solo un gatto che ha fatto cassa per conto suo'),
     ],
     5: [
-        ('Incrocio D3', 'confrontatelo con l’Inventario Originale di Braga e vedrete il «di più»', ''),
+        ('Incrocio D3', '', 'confrontatelo con l’Inventario Originale di Braga e vedrete il «di più»'),
     ],
     6: [
         ('Esca', 'La Lettera del Perito', 'è rancore da cattedra, non prova nulla: Coda non ha né i mezzi né i gatti'),
@@ -761,30 +836,79 @@ TILE_ART_14 = {t['id']: t['id'] + '-ep14.png' for t in TILES_14}
 LUOGHI14_CROP = {}
 
 TESSERE_DESC_14 = {
-    'T1': "La gronda del Corso di notte: i tetti si stendono a perdita "
-          "d'occhio sotto la luna, la città in basso è un brusio lontano, e "
-          "il primo strapiombo separa questa falda dalla prossima. È la via "
-          "dei Gatti, e stanotte è la vostra.",
-    'T2': "Un passaggio stretto attorno a un comignolo annerito: la grondaia "
-          "scricchiola sotto i piedi, il vuoto della via si apre a picco a un "
-          "palmo dalle scarpe. Un passo sicuro e si è dall'altra parte; un "
-          "passo incerto, e la città sale a prendersi chi cade.",
-    'T3': "Una terrazza dove qualcuno ha steso il bucato: lenzuola bianche "
-          "gonfie di vento, ombre che si muovono tra i panni. Sono i Gatti "
-          "minori, che di quelle lenzuola fanno scudo e sipario, colpiscono "
-          "e spariscono. Passare in fretta è meglio che rincorrerli.",
-    'T4': "Un abbaino sporge dal tetto come una palpebra socchiusa sul buio. "
-          "E in alto, sulla cresta, immobile contro il cielo, la sagoma dello "
-          "Spillo: il Primo Gatto vi ha visti, vi studia, e comincia a "
-          "muoversi. Da questo istante è una corsa: lui conosce i tetti.",
-    'T5': "Un grande lucernario di vetro e piombo, opaco di decenni di "
-          "sporco, che geme sotto il peso. Sotto il vetro, il buio di una "
-          "soffitta e una caduta che non perdona. I Gatti ci ballano sopra; "
-          "voi dovrete attraversarlo sapendo che potrebbe cedere.",
-    'T6': "L'attico dei Gatti, sotto il cielo aperto: la refurtiva "
-          "accatastata e imballata come per una spedizione, e in mezzo il "
-          "sigillo che non dovrebbe esserci. Sulla cresta, a un passo dal "
-          "vuoto, il Primo Gatto vi aspetta. Farlo parlare, prima che salti.",
+    'T1': "Il freddo dei coppi passa attraverso le suole prima ancora che attraverso il "
+           "cappotto, e l’aria sa di fuliggine bagnata e di calce: quassù la città non si vede, "
+           "si sente — un brusio basso e continuo che sale dalla strada come da sotto un "
+           "pavimento. I tetti si stendono a perdita d’occhio sotto la luna, falda dopo falda, e "
+           "ogni comignolo è un uomo fermo finché non gli si passa accanto. La gronda è stata "
+           "rifatta di recente: coppi nuovi, malta ancora chiara nei giunti, e sotto la mano il "
+           "canale di lamiera è liscio, senza una foglia. Il primo strapiombo separa questa falda "
+           "dalla prossima. Il vento non arriva a raffiche ma a onde lunghe, sempre dallo stesso "
+           "quarto, e a ogni onda una lamiera da qualche parte dietro di voi risponde con lo "
+           "stesso rumore, alla stessa altezza. È la via dei Gatti, e stanotte è la vostra. Sul "
+           "colmo, dove i coppi sono consumati fino al chiaro, la traccia è larga una fila sola.",
+    'T2': "Il comignolo è più grande di quanto sembri da terra: un pilastro di mattoni anneriti, "
+           "largo quanto una stanza piccola, e per girarlo bisogna staccarsi dal tetto e "
+           "appoggiarsi alla grondaia. Da vicino la fuliggine non è nera, è unta, e resta sulle "
+           "dita come il grasso delle candele; l’aria che esce dalla canna è tiepida e sa di fumo "
+           "vecchio, di cucina di qualcun altro, ed è l’unica cosa calda che si trovi a "
+           "quest’altezza. Dalla parte del vento i mattoni sono consumati fino a mostrare il "
+           "cotto chiaro, e la calce fra un corso e l’altro se ne va via a scaglie se la si "
+           "tocca. La grondaia scricchiola sotto i piedi con un rumore di legno, non di ferro, e "
+           "i suoi sostegni sono chiodati nel muro a distanze diverse, alcune larghe due passi. "
+           "Un passo sicuro e si è dall’altra parte; un passo incerto, e la città sale a "
+           "prendersi chi cade. Il vuoto della via si apre a picco a un palmo dalle scarpe, e i "
+           "fanali di sotto illuminano soltanto la prima metà della caduta. Nella grondaia c’è "
+           "acqua vecchia e foglie marce, e in mezzo galleggia un bottone.",
+    'T3': "Sapone da bucato e amido, l’odore più domestico che ci sia, e a trenta piedi da terra "
+           "è fuori posto quanto una tavola apparecchiata: qualcuno stende ancora quassù, e le "
+           "lenzuola sono asciutte da ore ma nessuno è salito a ritirarle. Sono tese su tre fili "
+           "paralleli, bianche, gonfie di vento, e la luna le attraversa quel tanto che basta a "
+           "mostrare le ombre di ciò che sta dietro senza mostrarne mai la forma. Il pavimento "
+           "della terrazza è di mattoni posati a spina, con l’erba secca nei giunti, e in un paio "
+           "di punti i mattoni suonano vuoto; contro il muretto una bacinella di zinco sta "
+           "rovesciata a prendere la brina, e attorno il mattone è asciutto. Sono i Gatti minori, "
+           "che di quelle lenzuola fanno scudo e sipario, colpiscono e spariscono. Passare in "
+           "fretta è meglio che rincorrerli. Il filo di mezzo, quando il vento cala del tutto, "
+           "continua a oscillare da un capo solo. In fondo, appesa a una molletta, una fune "
+           "leggera arrotolata sta ad asciugare insieme al bucato.",
+    'T4': "L’abbaino sporge dal tetto come una palpebra socchiusa sul buio, e dalla sua fessura "
+           "esce un’aria ferma che sa di legno chiuso e di lana vecchia: un odore di stanza, e "
+           "per un momento è più strano del vuoto. Il davanzale è coperto di guano secco e di "
+           "vetri rotti da tempo, arrotondati agli spigoli dall’acqua; il telaio tiene ancora due "
+           "chiodi e un pezzo di tenda, e il vetro superstite è opaco dalla parte di dentro, come "
+           "se qualcuno ci avesse respirato contro e poi non avesse più aperto. Attorno, i coppi "
+           "si fanno più ripidi e la fila dei comignoli si dirada. E in alto, sulla cresta, "
+           "immobile contro il cielo, la sagoma dello Spillo: il Primo Gatto vi ha visti, vi "
+           "studia, e comincia a muoversi. Da questo istante è una corsa: lui conosce i tetti. Un "
+           "fischio sottile parte da qualche tetto più in là e ne riceve un altro in risposta, "
+           "più lontano. Sul davanzale, fra i vetri, la polvere è pulita in due strisce lunghe "
+           "una mano.",
+    'T5': "Il lucernario è un rettangolo d’acqua nera in mezzo al tetto: vetro e piombo, opaco "
+           "di decenni di sporco, e la luna non lo attraversa, ci resta sopra. Il telaio è "
+           "saldato dallo sporco, i piombi si sono ingrossati alle giunture, e ogni riquadro "
+           "tiene un dito di terriccio negli angoli dove l’acqua non arriva più. Passandoci "
+           "accanto si vede la propria faccia, storta, col cielo dietro; sotto non si vede "
+           "niente. Il vetro geme sotto il peso prima ancora di prenderlo tutto, un lamento lungo "
+           "che parte dal centro e finisce ai bordi, e la nota cambia da un riquadro all’altro. I "
+           "Gatti ci ballano sopra; voi dovrete attraversarlo sapendo che potrebbe cedere. "
+           "Attorno al lucernario il bordo del tetto è una fascia di coppi larga due piedi, e in "
+           "tre punti i coppi mancano. Una crepa vecchia attraversa un riquadro da parte a parte, "
+           "ricucita con una striscia di piombo e mastice, e il mastice è ancora morbido sotto "
+           "l’unghia.",
+    'T6': "L’attico è l’ultimo pianerottolo prima del cielo: tavole, un parapetto di mattoni "
+           "alto due corsi, e attorno soltanto aria e la città rovesciata di sotto, i canali neri "
+           "e i fanali che da quassù stanno tutti sulla stessa linea. Il vento gira attorno alla "
+           "cresta e porta fin lassù il freddo dell’acqua, che a quest’altezza non dovrebbe "
+           "arrivare. La refurtiva è accatastata contro il muro del camino, imballata come per "
+           "una spedizione: casse chiuse col loro giro di spago, paglia pettinata sotto i "
+           "coperchi, etichette scritte a mano in una lingua di comodo, e ogni cassa porta il "
+           "cartellino girato dalla stessa parte. Roba d’altri, tutta quanta, e troppo grossa per "
+           "portarsela sui tetti. Sulla cresta, a un passo dal vuoto, il Primo Gatto vi aspetta: "
+           "seduto, le braccia attorno alle ginocchia, che vi guarda arrivare senza spostarsi di "
+           "un dito. Oltre il parapetto una corda pende dal gancio di carico, e il suo capo "
+           "libero si muove piano, sempre nello stesso arco, anche quando il vento cade. "
+           "Sull’ultima cassa il coperchio è tenuto alzato di un dito da un cuneo di legno nuovo.",
 }
 
 ESAMI_CARBONE_14 = {

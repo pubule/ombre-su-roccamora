@@ -685,42 +685,116 @@ def soluzione():
 # ================================================================== LUOGHI
 
 LUOGHI18_DESC = {
-    1: "L'assemblea della Società riunita, nella forma scelta dall'Ep. 17: il "
-       "processo interno, o la trappola della firma. Sul tavolo, diciotto mesi "
-       "di indizi da mettere in fila. Basta il coraggio di pronunciare il nome "
-       "che avete avuto sotto gli occhi da sempre.",
-    2: "L'archivio delle penne della Società: calamai, pennini, l'inchiostro "
-       "ferro-gallico. La penna d'archivio del presidente scrive con lo stesso "
-       "inchiostro di ogni firma di C.B., e «M.» e «C.B.» hanno lo stesso vezzo. "
-       "Una mano sola, un calamaio solo.",
-    3: "La contabilità della Società: il libro mastro, l'oro d'antica fusione "
-       "che paga i lavori di C.B. e finanzia la confraternita, senza mai un "
-       "conflitto. Due imprese rivali si contendono l'oro; queste se lo "
-       "spartiscono come un uomo si sposta la borsa di tasca.",
-    4: "Il vostro fascicolo di diciotto mesi: verbali, bivi, riletture dell'Ep. "
-       "16, la matrice del decano. La vera arma stanotte — non un indizio, ma "
-       "diciotto mesi di indizi che si tengono per mano, e che presi insieme "
-       "danno il volto del presidente.",
-    5: "Lo studio privato del presidente, dove non siete mai entrati in diciotto "
-       "mesi: alle pareti, il ritratto del Machiavelli e, di fronte, uno "
-       "specchio. Le due maschere si guardano. Qui M. era C.B. e C.B. era M., "
-       "ogni notte, da solo.",
-    6: "Il richiamo alla carta di pregio (Ep. 13): il giglio spezzato, "
-       "l'inchiostro ferro-gallico. Confrontata con la penna del presidente, la "
-       "mano è la stessa. Il nascondiglio migliore è sempre stato il più "
-       "esposto: la sedia da cui vi guardava indagare.",
-    7: "Il richiamo alla matrice del decano (Ep. 17): le doppie letture "
-       "applicate a tutte le lettere, e la carrozza condivisa dei noli. Il "
-       "decano è morto per questa riga; ora la riga parla, e chiude la Domanda "
-       "sulla logistica di una mano sola.",
-    8: "Il confronto delle firme: «M.» e «C.B.» ingrandite, lo stesso allungo, "
-       "la stessa esitazione prima della maiuscola. Il Machiavelli e Camillo "
-       "Benso, le due maschere che «hanno fatto l'Italia in due». Non c'è più "
-       "niente da provare: c'è un nome da pronunciare.",
-    9: "Il Palazzo del Lume, casa vostra da diciotto mesi, che si rivolta in "
-       "labirinto: le luci si spengono, le porte si chiudono, i passaggi segreti "
-       "di M. si aprono. Il maggiordomo vi tradisce, i gendarmi vengono per voi. "
-       "Non inseguite: fuggite, con la prova.",
+    1: "Con le tende tirate, la sala dell’assemblea sa di cera, di tabacco da pipa, dell’acido "
+       "che lascia l’ottone lucidato la mattina stessa, e di lana bagnata: i cappotti dei "
+       "confratelli asciugano in fondo da un’ora e non hanno ancora finito di fumare. I banchi "
+       "stanno a semicerchio come ogni giovedì, coi calamai d’ordinanza negli incavi, gli ordini "
+       "del giorno piegati in tre, i bicchieri d’acqua lasciati a metà; al centro il tavolo delle "
+       "prove è coperto di feltro verde, e diciotto mesi di carte ci stanno sopra in pile che "
+       "nessuno si decide a toccare. Un confratello anziano legge la lettera ad alta voce e le "
+       "mani gli tremano più sulla fine che sull’inizio — «Siete arrivati lontano, amici miei. "
+       "Più di quanto immaginassi» —, poi la posa e si asciuga i palmi sulle ginocchia. Le "
+       "lampade a gas calano tutte insieme di mezzo dito, restano basse il tempo di un respiro e "
+       "poi risalgono, come se in una stanza lontana della casa qualcuno avesse aperto e "
+       "richiuso una chiave. Accanto alla busta, la ceralacca rossa è spezzata in due mezzelune, "
+       "e nessuno le ha rimesse insieme.",
+    2: "L’archivio delle penne è freddo come un ripostiglio e sa di chiodi bagnati e di vino "
+       "andato a male: è l’odore del ferro-gallico, e in questa stanza è più forte di quanto il "
+       "poco inchiostro in giro possa spiegare. Sugli scaffali stanno i calamai col tappo a "
+       "vite, i pennini nelle cassettine di velluto divisi per numero, i tamponi di carta "
+       "assorbente ancora arrotolati; la penna d’archivio del presidente riposa nel suo astuccio "
+       "sul ripiano alto, dove la polvere non arriva. Il custode vi precede tenendo la lampada "
+       "bassa e si tocca il collo mentre parla: «il presidente scrive le sue lettere qui, di "
+       "notte, da sempre», dice, e poi, più piano, che certe notti «trovavo un secondo calamaio "
+       "usato, e una seconda grafia sugli scarti». Sul leggìo la carta assorbente ha preso "
+       "l’ombra rovesciata di una riga, e quell’inchiostro, pallido come tè quando esce dalla "
+       "penna, continua ad annerire da solo per giorni — impossibile dire di che notte sia. Sul "
+       "vassoio di feltro, accanto al cerchio scuro lasciato dal calamaio, ce n’è un secondo "
+       "della stessa misura.",
+    3: "La contabilità sa di gomma arabica, di polvere di pomice e di monete tenute in mano "
+       "troppo a lungo, e ci si sta più al freddo che in corridoio: la stanza dei conti non si "
+       "scalda mai, dicono, perché la stufa asciugherebbe la carta. Il libro mastro è aperto sul "
+       "leggìo, grande come una lastra da sepoltura, le colonne tirate a riga e squadra; "
+       "attorno, i sacchetti di tela cuciti con lo spago e piombati, la bilancetta da orefice "
+       "sotto la sua campana di vetro, il calamaio col coperchio a molla. Il contabile non alza "
+       "gli occhi dalla pagina e continua a passarci sopra il dito, avanti e indietro, sempre "
+       "sulla stessa riga: «i conti tornano sempre, ma tornano troppo», dice, e la voce gli si "
+       "abbassa sull’ultima parola come se la stanza potesse sentirlo. Ogni volta che qualcuno "
+       "cammina al piano di sopra i piatti della bilancetta cominciano a oscillare sotto il "
+       "vetro, piano, e continuano un poco più a lungo di quanto dovrebbero. Sul panno, fuori "
+       "dal sacchetto, è rimasto un pezzo d’oro d’antica fusione, coi bordi consumati dai "
+       "pollici fino a togliergli la data.",
+    4: "La stanza dei vostri incarti sa di carta vecchia, di colla di pasta e di lucignolo: "
+       "diciotto mesi di lavoro chiuso qui dentro le hanno dato un odore che riconoscete come si "
+       "riconosce il proprio cappotto. Sul tavolone stanno i verbali legati con lo spago mese "
+       "per mese, le buste riaperte col tagliacarte e richiuse con lo spillo, le riletture "
+       "ricopiate in bella, la velina della matrice tenuta ferma agli angoli da quattro pesi di "
+       "piombo. Da un foglio all’altro corre il filo rosso che avete teso voi stessi, notte dopo "
+       "notte, per ricordarvi cosa tiene cosa; quando due stanze più in là si chiude una porta, "
+       "il filo prende a vibrare tutto insieme, e la vibrazione arriva prima del rumore. La "
+       "lampada tira male, la fiamma si allunga a punta e poi torna tonda, e le ombre dei mucchi "
+       "crescono e si ritirano sul soffitto come una marea lenta. In fondo alla pila, sotto "
+       "tutti gli altri, c’è il vostro primo verbale: la grafia è più larga e più ferma di "
+       "quella di adesso, e ci mettete un momento a riconoscerla per vostra.",
+    5: "Lo studio del presidente sa di cuoio, di cenere fredda e di quel principio d’aceto che "
+       "lascia l’ottone lucidato di recente; è la stanza più calda del piano, e nessuno l’ha "
+       "scaldata stasera. Alle pareti, il ritratto del Machiavelli in una cornice nera senza "
+       "targhetta e, sulla parete opposta, uno specchio della stessa misura esatta, appeso alla "
+       "stessa altezza; in mezzo, lo scrittoio, il leggìo, una poltrona di cuoio col fondo "
+       "consumato al centro e i braccioli intatti. La lampada sta fra il ritratto e lo specchio, "
+       "e i due si rimandano la fiamma avanti e indietro finché non si capisce più quale delle "
+       "luci sia quella accesa e quale la copia; quando la porta si muove, tremano tutte e tre "
+       "insieme. Il piano dello scrittoio è sgombro come una tavola apparecchiata per nessuno: "
+       "non un pennino, non un foglio, non una briciola di ceralacca. Nella cera del ripiano, "
+       "però, resta un rettangolo più lucido, delle dimensioni di una cartella, e attorno la "
+       "polvere non ha ancora avuto il tempo di rientrare.",
+    6: "L’armadio della cancelleria, aperto, manda fuori l’odore dolce della carta di pregio: "
+       "mandorla, colla di pesce e ferro da stiro, un odore da corredo di nozze più che da "
+       "ufficio. Dentro, le risme legate col nastro, il tagliacarte d’osso, la lente col manico "
+       "d’ottone; e la fascetta di una risma sta più larga del suo pacco di un buon dito. "
+       "Tenuto contro il vetro della lampada, il foglio si accende da dentro e il giglio "
+       "spezzato della filigrana compare e sparisce a seconda di come lo si gira, e non sta mai "
+       "fermo abbastanza perché lo si possa ricopiare. Un vecchio membro guarda da sopra la "
+       "vostra spalla, le dita che si aprono e si chiudono attorno alla tesa del cappello: «il "
+       "presidente ha sempre insistito per la carta di pregio “per il decoro della Società”», "
+       "dice, e non aggiunge altro. In cima alla risma, il primo foglio porta sull’angolo "
+       "un’unghiata di piega, come di qualcuno che contava e si è fermato a metà.",
+    7: "La sala delle prove è fredda e sa di velina, di gomma da cancellare e di quella polvere "
+       "di grafite che resta sui polsini di chi ricopia; la stufa è spenta e nessuno propone di "
+       "accenderla. Sul tavolo lungo, la matrice del decano è distesa per tutta la sua "
+       "lunghezza, colonna dopo colonna, ogni lettera d’incarico contro la data in cui qualcuno "
+       "ne sapeva già il contenuto; agli angoli quattro pesi di piombo la tengono ferma, e i "
+       "righelli di legno segnano il punto dove il lavoro si è interrotto. Basta respirare sopra "
+       "il tavolo e la velina si solleva agli angoli, appena, e ricade con un fruscio che nella "
+       "stanza vuota sembra più grande di quanto sia. In fondo all’ultima colonna qualcuno ha "
+       "ricopiato, con un inchiostro fresco che non ha ancora annerito, la riga di stanotte: "
+       "«chi, in questa stanza, ha sempre saputo un passo più di voi?». In capo al tavolo la "
+       "sedia sta scostata come la lascia chi conta di tornare subito, e sotto il suo peso di "
+       "piombo aspetta una velina bianca, senza una riga sopra, tenuta ferma come tutte le "
+       "altre.",
+    8: "Il gabinetto dei confronti è una stanza stretta con due lampade e poco altro che serva a "
+       "starci: sa di ottone caldo, di olio da orologiaio e di carta scaldata da troppo vicino. "
+       "Sul piano inclinato, fermate agli angoli con puntine di rame, stanno le due firme "
+       "ingrandite alla fotografia, «M.» a sinistra e «C.B.» a destra, alte una spanna l’una, "
+       "l’inchiostro che alla lente si sgrana in una polvere di puntini neri. La lente è montata "
+       "su un braccio snodato che non tiene: scende da sola di un capello ogni tanto, e ogni "
+       "tanto va rimessa a fuoco, e ogni volta che la si rimette a fuoco si vede un poco di più "
+       "di quanto si voleva vedere. Le due lampade sono regolate uguali, eppure il foglio di "
+       "sinistra resta più giallo dell’altro, e non è la luce: è la carta, che ha qualche anno "
+       "in più. Alla fine della coda della seconda firma, dove la penna si è fermata prima di "
+       "staccare, l’inchiostro è colato in una goccia tonda e si è asciugato lì.",
+    9: "Il Palazzo del Lume sa di casa: cera d’api sulle scale, tabacco freddo nel salotto "
+       "piccolo, e dalle cucine, di sotto, il grasso della cena dei domestici. È lo stesso odore "
+       "di ogni sera da diciotto mesi, e stasera ci sta dentro anche una corrente fredda che "
+       "nessuna finestra aperta giustifica, e che si sente alle caviglie prima che in faccia. "
+       "L’atrio è quello di sempre: l’attaccapanni coi cappotti, il registro delle visite aperto "
+       "sul leggìo del portiere, l’ottone della ringhiera lucidato fino a sembrare un altro "
+       "metallo, il tappeto fermato dalle bacchette a ogni gradino, il vassoio dei biglietti da "
+       "visita col suo dito di cenere. Poi le lampade calano tutte "
+       "insieme, di poco, come quando in una casa si apre una porta di troppo; una sola, in "
+       "fondo al corridoio dei ritratti, si spegne del tutto e non torna. Accanto alla porta di "
+       "servizio il cordone della campanella oscilla ancora, avanti e indietro, e la campanella "
+       "non ha suonato.",
 }
 
 OGGETTI_LUOGO_18 = {
@@ -730,11 +804,11 @@ OGGETTI_LUOGO_18 = {
     4: [('Oggetto', 'Gli Incroci di Campagna', 'più ne avete raccolti, più solida è l’accusa')],
     5: [
         ('Esca', 'Il Ritratto del Rivale', 'pare che M. tema un nemico esterno; è solo una delle sue maschere, non un altro uomo'),
-        ('Oggetto', 'il Vezzo delle Firme', 'le due firme a confronto, D4'),
+        ('Oggetto', 'Il Vezzo delle Firme', 'le due firme a confronto, D4'),
         ('Reperto A', 'la Firma Doppia', 'la prova che smaschera'),
     ],
-    6: [('Incrocio D1', 'con l’Archivio delle Penne, DOVE firma C.B. è provato', '')],
-    7: [('Incrocio D3', 'con il Vezzo delle Firme, COSA muove C.B. è provato', '')],
+    6: [('Incrocio D1', '', 'con l’Archivio delle Penne, DOVE firma C.B. è provato')],
+    7: [('Incrocio D3', '', 'con il Vezzo delle Firme, COSA muove C.B. è provato')],
     8: [
         'Il Vezzo delle Firme',
         ('Reperto C', 'le Due Firme a Confronto', ''),
@@ -750,30 +824,78 @@ TILE_ART_18 = {t['id']: t['id'] + '-ep18.png' for t in TILES_18}
 LUOGHI18_CROP = {}
 
 TESSERE_DESC_18 = {
-    'T1': "La grande sala dell'assemblea della Società, i confratelli seduti a "
-          "semicerchio, il tavolo delle prove al centro. Avete appena "
-          "pronunciato il nome. M., in piedi al suo posto d'onore, non nega: "
-          "sorride, comincia a parlare, e spegne con calma la prima lampada.",
-    'T2': "Il lungo corridoio dei ritratti dei presidenti passati, le cornici "
-          "dorate nel buio crescente: una lampada dopo l'altra si spegne alle "
-          "vostre spalle, come una mano che chiude un libro. In fondo, i primi "
-          "elmi dei gendarmi che salgono dal cortile.",
-    'T3': "La biblioteca della Società, scaffali fino al soffitto: e uno di "
-          "essi, adesso lo vedete, ruota su un cardine nascosto — un passaggio "
-          "segreto che in diciotto mesi non avete mai sospettato. È la via di "
-          "M., non la vostra. Il maggiordomo, in ombra, chiude le porte.",
-    'T4': "Lo studio privato del presidente, in cui non eravate mai entrati: il "
-          "ritratto del Machiavelli e lo specchio che si fronteggiano. M. è qui "
-          "un istante — prende dallo scrittoio una cosa sola, vi guarda con una "
-          "specie di affetto, e sparisce nel muro. Il maggiordomo si rivela.",
-    'T5': "La grande scalinata di marmo del Palazzo: i gendarmi salgono dal "
-          "basso a ondate, e in cima, che vi sbarra la strada con le lacrime "
-          "agli occhi, il maggiordomo Anselmo. «Mi dispiace, signori. Ho sempre "
-          "servito il presidente.» L'ultimo muro prima della porta.",
-    'T6': "La porta di casa vostra, che non è più casa vostra: il portone "
-          "principale sorvegliato, o l'uscita di servizio nel buio. Oltre, la "
-          "città e la notte. Uscite con la prova in mano, e voltatevi un'ultima "
-          "volta a guardare il Palazzo del Lume che si spegne.",
+    'T1': "Con le tende tirate, la sala dell’assemblea trattiene tutto quello che ci si è "
+          "respirato dentro: cera, tabacco da pipa, l’acido dell’ottone lucidato e il fiato di "
+          "trenta uomini che hanno smesso di parlare nello stesso istante. I banchi stanno a "
+          "semicerchio attorno al tavolo delle prove, il feltro verde coperto di carte, i "
+          "bicchieri d’acqua a metà, gli ordini del giorno voltati a faccia in giù; sotto i "
+          "banchi le scarpe dei confratelli si spostano tutte insieme, e nessuno si alza. Il gas "
+          "viene giù di un soffio in tutta la sala, come se la casa avesse tirato il fiato, e le "
+          "fiamme restano basse e azzurre senza tornare su. Una lampada in fondo si spegne — non "
+          "guizza, non fuma: si spegne come si chiude un rubinetto — e l’angolo che teneva "
+          "acceso adesso non c’è più; nessuno si volta a guardarlo. Sul tavolo, davanti al posto "
+          "d’onore, un bicchiere è rimasto pieno fino all’orlo, e l’acqua dentro trema a piccoli "
+          "cerchi regolari.",
+    'T2': "Il corridoio dei ritratti è lungo come una navata e di qualche grado più freddo del "
+          "resto del piano: sa di vernice a olio vecchia, di polvere nei velluti e di quell’odore "
+          "di ferro che prendono le case grandi quando fuori sta per piovere. I presidenti "
+          "passati vi guardano dalle cornici dorate, uno per campata, ciascuno con la sua "
+          "targhetta d’ottone lucidata di fresco; sotto le cornici corre la panca di velluto su "
+          "cui non si è mai seduto nessuno, e fra una campata e l’altra le lampade a braccio "
+          "escono dal muro come mani che offrano qualcosa. Si spengono in ordine, dal fondo "
+          "verso di voi, una per una, con una calma che non ha niente della pressione che manca: "
+          "il buio avanza per campate, e ogni volta l’ultimo ritratto ancora illuminato sembra "
+          "essersi girato di un grado. Dal cortile, attraverso i vetri, salgono voci che parlano "
+          "piano e con ordine. In fondo alla fila una cornice è ancora vuota, e la sua targhetta "
+          "d’ottone è lucidata come tutte le altre.",
+    'T3': "La biblioteca sa di cuoio, di pepe e di carta che si asciuga: l’odore che fanno i "
+          "libri quando la stanza è tenuta più secca del dovuto perché non ammuffiscano, e che "
+          "in gola resta come polvere. Gli scaffali salgono fino al soffitto a cassettoni, con "
+          "la scaletta a rotelle ferma a metà corsa, il tavolo di lettura coi suoi leggii "
+          "d’ottone, il mappamondo con la crepa sull’oceano, i cataloghi nei cassettini dalle "
+          "maniglie di madreperla. Uno degli scaffali, quello fra le due finestre, sta fuori "
+          "squadro di due dita rispetto ai compagni, e dalla fessura passa un filo d’aria più "
+          "fredda che muove appena i segnalibri dei volumi vicini; sul pavimento, davanti a "
+          "quello scaffale, il parquet è consumato in un arco pulito, largo come una porta, e il "
+          "resto della stanza è cerato e intatto fin sotto i battiscopa. Su un leggio sta aperto "
+          "un volume trattenuto dalla catenella "
+          "d’ottone, e mentre lo guardate la pagina si volta da sola, una volta sola.",
+    'T4': "Nello studio del presidente, al buio, l’odore arriva prima di tutto il resto: cuoio, "
+          "cenere fredda, e la traccia dolce di una lampada spenta da poco — quel filo di "
+          "petrolio che resta in aria e dice l’ora meglio di un orologio. La lanterna prende un "
+          "pezzo per volta: il ritratto del Machiavelli nella cornice nera, lo specchio di "
+          "fronte alla stessa altezza esatta, lo scrittoio, la poltrona di cuoio, il tappeto che "
+          "sotto la finestra è più chiaro di una spanna. Lo specchio vi restituisce la stanza al "
+          "contrario e, dentro la stanza al contrario, il ritratto: così che il quadro sembra "
+          "guardarsi, e voi state fra i due senza essere in nessuna delle due immagini. Nella "
+          "parete di destra, dove la boiserie fa una campata più stretta delle altre, corre una "
+          "riga d’aria fredda che un momento fa non c’era. Sul velluto dello scrittoio resta "
+          "l’impronta rettangolare di una cosa presa in fretta, coi granelli di ceralacca "
+          "ancora sparsi attorno.",
+    'T5': "La grande scalinata raccoglie tutta la luce rimasta nella casa e la tiene sul marmo: "
+          "due rampe che girano attorno al vano, la ringhiera d’ottone lucida di mani, il "
+          "tappeto rosso fermato a ogni gradino dalle bacchette, e in alto il lampadario spento, "
+          "che nel buio pesa come una cosa appesa. Dal basso sale un rumore ordinato di scarpe "
+          "ferrate e di fiati corti, e con lui l’aria fredda del cortile, che sul marmo arriva "
+          "prima degli uomini, e trova le caviglie prima delle spalle. In cima, in livrea, coi "
+          "guanti bianchi ancora infilati e le "
+          "lacrime che gli scendono senza che la faccia si muova, sta il maggiordomo Anselmo: "
+          "«Mi dispiace, signori. Ho sempre servito il presidente.» Tiene le mani lungo i "
+          "fianchi, aperte, e non ha niente in mano. Il lampadario, che nessuno ha toccato, gira "
+          "lentissimo su se stesso, prima in un verso e poi nell’altro; sul terzo gradino "
+          "dall’alto un bottone di livrea è per terra, e nessuno lo raccoglie.",
+    'T6': "L’atrio del pianterreno è l’ultima stanza calda della casa, e già non lo è più: dalla "
+          "soglia entra l’aria del canale, verde e bassa, e si porta via a folate l’odore di "
+          "cera e di cena che il Palazzo ha tenuto addosso per diciotto mesi. Il portone grande "
+          "è chiuso a doppia mandata e ha i vetri smerigliati accesi da fuori, di una luce che "
+          "non è la vostra; a sinistra, oltre il corridoio delle dispense, la porta di servizio "
+          "sta nel buio col suo battente di legno nudo e il gradino consumato nel mezzo. "
+          "Sull’attaccapanni i cappotti sono rimasti tutti dove erano, i cappelli sopra e gli "
+          "ombrelli sotto, ciascuno al suo numero, come se la gente della casa fosse soltanto "
+          "passata di là un momento. Sotto la "
+          "porta di servizio passa una lama d’aria che muove lo zerbino di mezzo dito, avanti e "
+          "indietro, come se qualcuno lo spostasse col piede. Il registro delle visite è aperto "
+          "alla pagina di stanotte, e sulla pagina non c’è scritto niente.",
 }
 
 ESAMI_CARBONE_18 = {

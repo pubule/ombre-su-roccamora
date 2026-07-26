@@ -212,12 +212,20 @@ def luogo_json(L, oggetti_map=None, reperti_map=None, desc=None):
     # chiave, lo tiene chiuso l'orologio (engine.luogoVisitabile)
     aperto = req in (None, 'Disponibile dall’inizio') or L.get('apre') is not None
     chiave = L.get('chiave')
-    # nel fascicolo una voce puo' essere (etichetta, nome, nota) - etichetta e
-    # nota servono a chi arbitra al tavolo. Qui arbitra l'app, e la nota di
-    # un'Esca detta al giocatore annullerebbe l'esca: passa solo il nome.
-    oggetti = [v if isinstance(v, str) else v[-2]
-               for v in (oggetti_map or {}).get(L['n'], [])]
-    oggetti = [o for o in oggetti if o]        # le righe di sola regola non sono carte
+    # Nel fascicolo una voce puo' essere una stringa, (nome, nota) o
+    # (etichetta, nome, nota); l'etichetta distingue una carta da una riga di
+    # sola regola (Incrocio, Nota, Vincolo d'orologio). Qui arbitra l'app: la
+    # nota di un'Esca detta a chi la prende annullerebbe l'esca, e una riga di
+    # regola non e' una carta. Si passa il solo NOME, e solo per le etichette
+    # che una carta ce l'hanno davvero.
+    oggetti = []
+    for v in (oggetti_map or {}).get(L['n'], []):
+        if isinstance(v, str):
+            oggetti.append(v)
+            continue
+        etichetta, nome = ('Oggetto', v[0]) if len(v) == 2 else (v[0], v[1])
+        if nome and etichetta.startswith(('Oggetto', 'Esca')):
+            oggetti.append(nome)
     reperti = (reperti_map or {}).get(L['n'], [])
     return dict(
         n=L['n'], nome=L['nome'],   # resa (small-caps lowercase) alla UI

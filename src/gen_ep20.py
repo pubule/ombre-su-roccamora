@@ -691,55 +691,141 @@ def soluzione():
 # ================================================================== LUOGHI
 
 LUOGHI20_DESC = {
-    1: "La Cattedrale, la bocca dell'ultima discesa: oltre la cripta dove "
-       "fermaste Ferri, la pietra dà sull'acqua e le maree di sizigia salgono "
-       "verso il picco. Non un luogo da indagare: una porta da attraversare, "
-       "coi Frammenti in pugno.",
-    2: "Gli ossari tra le barche morte, dove i vecchi leggono le maree: sanno "
-       "l'ora esatta del picco, la finestra breve in cui la gola si apre. E "
-       "ricordano il Coro dall'inizio, e la voce che insegue dal principio.",
-    3: "La Taverna della Chiatta, il rifugio, l'ultima volta: qui la Società "
-       "(e Vidal, se convinto) vi arma di tutto ciò che venti serate hanno "
-       "messo da parte — la mappa acustica, il Fascicolo, i Frammenti. Il "
-       "pay-off finale, ridotto a un canto e agli amici.",
-    4: "L'Archivio del 1741: il Fascicolo aperto sulla riga finale del "
-       "controcanto, il calendario dei Padri. Qui i venti Frammenti si "
-       "dividono in due metà — il canto del sonno che M. voleva, e la sua "
-       "firma che non ha mai saputo di avervi dato.",
-    5: "I vecchi del Coro, tra le ossa, sanno chi è l'ultima voce: la candidata "
-       "che il Coro insegue dall'Ep. 3, l'unica che M. non può comprare. "
-       "Salvarla gli lascia un coro senza anima — un rumore, non un risveglio.",
-    6: "Ciò che resta dell'organo di ossa nella chiesa dei Battuti: le "
-       "canne-voce, la melodia, il campanello — secondo i vostri Bivi. Lo "
-       "strumento con cui il Coro chiamava la voce: cantano il risveglio o il "
-       "sonno, secondo la mano che li suona.",
-    7: "La camera dove il Coro provava il Quarto Movimento: sul leggìo, una "
-       "chiave che pare aprire la camera del Dormiente. È l'ultima esca di M.: "
-       "apre l'estasi, non il sonno. Non c'è una scorciatoia per cantare un "
-       "dio a dormire.",
-    8: "Lo scriptorium col grimorio del Quarto Movimento: lo spartito del rito, "
-       "affascinante e mortale. È la partitura del risveglio, non del sonno: "
-       "chi lo canta, canta per M. Il vostro controcanto non è in un libro — "
-       "è nei Frammenti di venti serate.",
-    9: "La gola della città, oltre il punto dove fermaste Ferri: la pietra dà "
-       "sull'acqua, l'acqua sul buio, e nel buio un dio sogna piano. Non un "
-       "mostro da colpire: un dio da cantare a dormire, col controcanto e i "
-       "Frammenti, più giusto di M.",
+    1: "La Cattedrale, stanotte, sa di cera fredda e di acqua che non dovrebbe esserci: un "
+       "fiato salmastro sale dalle fughe del pavimento e si mescola all’incenso vecchio, e "
+       "più ci si avvicina all’altare più il primo odore vince sul secondo. Le panche sono "
+       "state spinte contro le colonne in fretta, di traverso; i candelabri d’ottone stanno "
+       "accesi lungo la navata di sinistra soltanto, e dall’altra parte il buio arriva fino "
+       "alle volte. Sotto le lastre lavora qualcosa di grande e di lento — non un rumore, un "
+       "livello: l’acqua appoggia contro la pietra da sotto, sale di un dito, si ritira, e "
+       "ogni volta che lo fa le fiammelle delle candele si piegano tutte insieme dalla stessa "
+       "parte, come per una porta aperta chissà dove. Il sagrestano vi aspetta in fondo con le "
+       "mani infilate nelle maniche, i polsi magri, la faccia di chi non dorme da tre notti; "
+       "vi lascia passare e poi dice, piano, alla vostra schiena: «ci risiamo, come nel Terzo "
+       "Movimento.» Sul gradino dell’altare, nel velo di sale asciutto che ha lasciato l’ultima "
+       "marea, c’è un segno tracciato con un dito, fresco.",
+    2: "Nell’ansa dove le barche vengono a morire l’aria sa di fango scoperto e di alghe "
+       "secche, e stanotte anche di sale: un sale forte, da mare aperto, che in un canale "
+       "interno non si sente mai. Gli scafi stanno riversi sul fianco con le costole all’aria, "
+       "e nella pancia dei relitti i vecchi hanno costruito i loro ossari — cassette di legno "
+       "impilate, ciascuna col cartellino e lo spago, e davanti a ognuna un lumino a olio che "
+       "nessuno lascia spegnere. Sui montanti delle chiglie, dal fango in su, i segni delle "
+       "maree stanno incisi a coltello uno sopra l’altro, decine, con l’anno accanto; gli "
+       "ultimi tre sono più alti di tutti, e l’acqua di adesso è già sopra il penultimo. I "
+       "vecchi non guardano l’acqua mentre parlano di lei: guardano i segni, e ogni tanto uno "
+       "allunga la mano, la posa sul legno bagnato, la ritira, la asciuga sulla giacca. Un "
+       "barcaiolo con gli avambracci pieni di cicatrici vecchie vi tiene per la manica più a "
+       "lungo del necessario: «Un minuto prima o dopo, e o vi annega la marea, o vi trova M. "
+       "già cantando.» Ai suoi piedi, in una scodella di legno, l’acqua raccolta dal fondo "
+       "della stiva trema di continuo, in cerchi piccolissimi.",
+    3: "La chiatta è ormeggiata sull’acqua bassa e la taverna ci sta sopra come una casa "
+       "costruita per sbaglio: sa di legno bagnato, di sego e di zuppa tenuta al caldo troppo "
+       "a lungo, e sotto le assi del pavimento l’acqua batte piano, sempre alla stessa "
+       "cadenza, così che il tavolo grande oscilla di un niente e i bicchieri lo raccontano. "
+       "Alle pareti il manifesto di taglia con le vostre facce, tolto e riappeso tante volte "
+       "che gli angoli sono morbidi; una fila di chiodi coi cappotti degli assenti; e in un "
+       "angolo, sotto un telo, quello che era il banco della Società, ridotto a due assi e un "
+       "cassetto. Stasera hanno apparecchiato per tutti, anche per i posti che restano vuoti: "
+       "le scodelle capovolte, il pane già tagliato, il vino versato e non toccato. Nessuno fa "
+       "discorsi lunghi. Uno appoggia gli avambracci sul tavolo, guarda la porta invece che "
+       "voi e dice: «qualunque cosa accada là sotto, avete già vinto una cosa — non siete "
+       "diventati come lui.» Poi la lampada cala e risale da sola, come fa quando qualcuno "
+       "cammina sul ponte di sopra, e nessuno alza gli occhi. Sul tavolo, tenuta ferma agli "
+       "angoli da quattro bicchieri, sta aperta una carta della discesa segnata a matita.",
+    4: "L’Archivio sa di ferro-gallico e di carta tenuta al freddo: quell’odore di acqua "
+       "ferruginosa e di chiodo che l’inchiostro da registro lascia nelle stanze dove si "
+       "scrive da un secolo, e che d’inverno prende alla gola. Scaffali fino al soffitto, "
+       "faldoni legati con la fettuccia, i calamai in fila sul ripiano coi tappi d’ottone, i "
+       "pennini nuovi ancora nella carta velina; e sul leggio grande, aperto e non richiuso da "
+       "nessuno, il fascicolo del 1741, la carta ondulata dall’umidità come una pagina che ha "
+       "preso pioggia molti anni fa. Accanto sta il calendario dei Padri, disegnato a mano su "
+       "un foglio unico: cerchi e mezzelune per ogni mese di centocinquant’anni, e in fondo "
+       "alla colonna di questo autunno una data cerchiata due volte, con la matita ripassata "
+       "tante volte da lucidare la carta. Le finestre sono chiuse, eppure ogni tanto i fogli "
+       "appesi ad asciugare sul filo si muovono tutti insieme per un istante e poi tornano "
+       "fermi. Sul tavolo lungo qualcuno ha messo in fila i fogli che avete conservato di "
+       "serata in serata, uno accanto all’altro, e in fondo alla fila ha lasciato un posto "
+       "vuoto.",
+    5: "L’Ossario Comunale è una biblioteca di morti: corridoi di scaffali fino al soffitto, e "
+       "su ogni ripiano cassette di legno grandi come una scatola da cappelli, ciascuna col "
+       "cartellino scritto a mano — tre generazioni di grafie, dalla corsiva grassa dei nonni "
+       "allo stampatello d’ufficio. Sa di calce, di legno vecchio e di quel niente asciutto "
+       "che hanno le stanze dove non entra mai acqua: è l’unico posto della città, stanotte, "
+       "dove la marea non si sente. I vecchi del Coro stanno seduti nel corridoio di mezzo su "
+       "sedie portate da casa, le coperte sulle ginocchia, e tengono la lanterna bassa fra i "
+       "piedi perché la luce non arrivi ai cartellini; parlano uno alla volta, e mentre uno "
+       "parla gli altri chiudono gli occhi. «M. crede che una voce si possa costringere a "
+       "credere», dice il più vecchio, e si ferma tanto da farvi pensare che abbia finito. "
+       "«Non è vero.» Nella polvere del ripiano dietro le loro teste restano ventidue "
+       "rettangoli puliti, e in uno di quei vuoti qualcuno ha posato una candela accesa.",
+    6: "La chiesa dei Battuti serve da magazzino comunale da anni e ne ha preso l’odore: iuta, "
+       "cera da pavimenti, cassette d’inventario, e sotto, immobile, il chiuso dolciastro "
+       "delle chiese sconsacrate. Le casse riempiono la navata fino a metà colonna, ciascuna "
+       "col cartellino inchiodato al pilastro; in fondo, dove il muro era stato sfondato, i "
+       "mattoni nuovi arrivano all’altezza di un uomo e poi si fermano, con la cazzuola ancora "
+       "appoggiata sopra e la malta ormai secca. Dietro quel mezzo muro sta ciò che resta "
+       "dell’organo di ossa: le canne allineate per lunghezza sul cavalletto, la conchiglia "
+       "legata al suo supporto, un campanello d’ottone piccolissimo appeso a parte. Non le "
+       "tocca nessuno, eppure le canne più corte tengono una nota sottile ogni volta che "
+       "qualcuno apre il portone in fondo, e la tengono un poco più a lungo di quanto una "
+       "canna spenta dovrebbe. Un vecchio Battuto vi guarda armeggiare senza avvicinarsi, le "
+       "mani nelle tasche del grembiule: «l’organo di ossa non è male in sé. È uno strumento. "
+       "Dipende chi lo suona, e cosa gli fa cantare.» Nella fila delle canne ne manca una, e "
+       "il feltro sotto ne ha conservato l’impronta.",
+    7: "La sala delle prove sa di cera bruciata e di fiato di molte persone andate via da "
+       "poco: l’aria è ancora tiepida e i vetri sono appannati dalla parte di dentro. Le sedie "
+       "intagliate stanno in semicerchio attorno al leggìo, tutte voltate verso di esso e "
+       "tutte scostate all’indietro dello stesso mezzo passo, come si alza un coro che ha "
+       "finito insieme; sul tappeto, davanti a ciascuna, la lana è consumata in una macchia "
+       "grande come due piedi. Nessuno ha spento le candele: sono arrivate al collo dei "
+       "candelieri e continuano a colare sul legno. Quando di sopra sbatte una porta, le sedie "
+       "del semicerchio scricchiolano una dopo l’altra, in ordine, da sinistra a destra, e poi "
+       "tacciono tutte insieme. Sul leggìo, aperto e girato verso l’uscio invece che verso le "
+       "sedie, è rimasto un foglio solo, con quattro righe di note e sotto una riga di parole "
+       "in una lingua che non è italiano; e sopra il foglio, posata al centro come un "
+       "fermacarte, sta una chiave di ferro nuovo, lunga come una mano, con l’ingegno tagliato "
+       "di fresco e ancora lucido di limatura.",
+    8: "Lo scriptorium si sente col naso prima che con gli occhi: colla di pelle scaldata, "
+       "gomma arabica, e la punta acida dell’inchiostro fresco che alla lunga fa lacrimare. I "
+       "leggii inclinati stanno in due file sotto le finestre alte, ciascuno con la sua "
+       "lampada schermata di verde, il calamaio e il raschietto; su uno solo ci sono due "
+       "volumi affiancati, l’originale e la copia, aperti alla stessa pagina, e le due pagine "
+       "si somigliano fino al tremito delle aste. Il grimorio del Quarto Movimento sta "
+       "sull’ultimo leggio in fondo, legato in pelle scura, con una fettuccia rossa fra le "
+       "pagine e i quattro angoli protetti d’ottone: è l’unica cosa nella sala che non abbia "
+       "polvere sopra. Il copista che l’ha ricopiato non si è più seduto — sta in piedi contro "
+       "lo scaffale, lo straccio in mano, il pollice destro macchiato fino all’unghia — e "
+       "mentre parla del libro non lo guarda: «quel grimorio l’ha voluto M.» Al suo posto la "
+       "sedia è stata spinta indietro e lasciata di traverso, e la lampada verde è rimasta "
+       "accesa.",
+    9: "Oltre il punto dove fermaste Ferri la pietra finisce e comincia l’acqua, e l’odore "
+       "cambia tutto insieme: non più cripta e salnitro, ma salso freddo, fango di fondale e "
+       "una dolcezza guasta che sta sotto le altre due e non se ne va. Il fiato che sale dal "
+       "basso è più tiepido dell’aria, e la lanterna tenuta in avanti non trova pareti: la "
+       "luce esce e non torna. Le pareti però ci sono, e si toccano — pietra bagnata, tiepida "
+       "come il fianco di un animale, con le fughe che sudano; chi ci appoggia la mano la "
+       "ritira, e poi ce la rimette. Il rumore dell’acqua arriva da tre parti diverse e non si "
+       "raccoglie mai in uno solo. Ogni parola detta a mezza voce torna indietro dopo un tempo "
+       "troppo lungo, e non sempre dalla parte in cui l’avete mandata. Sotto tutto questo, "
+       "così basso che lo sentite nello sterno prima che nelle orecchie, qualcosa di grande "
+       "respira piano, e a ogni fiato tirato l’acqua contro i gradini si ritira di un dito. "
+       "Sull’ultimo gradino asciutto qualcuno ha lasciato una lanterna accesa, girata verso il "
+       "basso.",
 }
 
 OGGETTI_LUOGO_20 = {
-    2: [('Incrocio D1', 'con il calendario dei Padri, QUANDO scendere è provato', '')],
+    2: [('Incrocio D1', '', 'con il calendario dei Padri, QUANDO scendere è provato')],
     3: ['La Mappa Acustica Attiva'],
     4: [
         ('Oggetto', 'I Frammenti del Controcanto', 'le righe giuste tra i venti'),
         ('Referto', '', 'la riga finale del controcanto è la deduzione finale'),
-        ('Incrocio D1', 'con gli ossari, QUANDO scendere è provato', ''),
+        ('Incrocio D1', '', 'con gli ossari, QUANDO scendere è provato'),
     ],
     5: [
         'La Candidata Salvata',
-        ('Incrocio D3', 'con l’organo di ossa, CHI è la voce è provato', ''),
+        ('Incrocio D3', '', 'con l’organo di ossa, CHI è la voce è provato'),
     ],
-    6: [('Reperto B', 'la Voce che Crede', ''), ('Incrocio D3', 'CHI è la voce è provato', '')],
+    6: [('Reperto B', 'la Voce che Crede', ''), ('Incrocio D3', '', 'CHI è la voce è provato')],
     7: [
         ('Esca', 'La Chiave del Coro', 'apre l’estasi di M., non il sonno; usarla accelera il risveglio'),
     ],
@@ -756,28 +842,86 @@ TILE_ART_20 = {t['id']: t['id'] + '-ep20.png' for t in TILES_20}
 LUOGHI20_CROP = {}
 
 TESSERE_DESC_20 = {
-    'T1': "Oltre la cripta dove fermaste Ferri, una scala scende nel buio verso "
-          "l'acqua che sale gradino dopo gradino. In basso, un respiro lento e "
-          "immenso che non è il vostro: il Dormiente. La finestra delle maree è "
-          "breve — scendete.",
-    'T2': "Il punto dove tre correnti si incontrano nel buio della gola: una "
-          "dolce, una salata, una morta. Solo un passaggio è quello giusto; le "
-          "altre due vi rubano il tempo o vi trascinano. L'eco, qui, mente.",
-    'T3': "Il cuore della gola: la pietra stessa pulsa piano, viva, al respiro "
-          "del dio, e un canto immenso e sordo comincia a filtrare fra le "
-          "giunture della roccia. Reggetevi la mente: oltre, c'è la camera.",
-    'T4': "L'antecamera, dove il coro a pagamento canta lo spartito senza "
-          "crederci, gli occhi impauriti, le voci prezzolate e stonate. Non "
-          "credono a una nota — e per questo si spezzano. Cercate, tra loro, "
-          "l'unica che invece crede.",
-    'T5': "La soglia della camera del Dormiente: il coro fa l'ultima resistenza, "
-          "e oltre, nel chiarore che non è luce, la candidata e M. È l'ultima "
-          "occasione di salvarla, prima che lui la costringa a cantare il "
-          "quarto rigo.",
-    'T6': "La camera, oltre ogni mappa: il Dormiente respira nel buio come un "
-          "mare capovolto, M. canta il quarto rigo con la disperazione di chi "
-          "ha giocato tutto, e voi alzate la voce contro di lui. Non una lama: "
-          "una canzone. L'ultima riga, roca e umana, contro il canto di un dio.",
+    'T1': "Oltre la cripta la scala continua dove le mappe della Cattedrale finiscono: gradini "
+          "tagliati nella roccia viva, senza corrimano, larghi in cima e sempre più stretti "
+          "mano a mano che si scende, consumati al centro da un passaggio che nessuno ricorda. "
+          "L’aria si fa pesante in due giri di scala soltanto — prima muffa e cera, poi "
+          "salnitro, poi il salso pieno del mare aperto, che sotto una città non ha nessun "
+          "diritto di esserci. Agli anelli di ferro dove un tempo stavano le torce non è "
+          "rimasto niente se non la ruggine, colata in basso in righe lunghe e rossastre. "
+          "L’acqua nera aspetta più giù e non sta ferma: sale un gradino, si ritira di mezzo, "
+          "risale, e ogni volta che tocca la pietra asciutta lascia una riga di schiuma "
+          "sottile che non fa in tempo a seccare. Dal fondo, sotto il rumore dell’acqua e in "
+          "un tempo tutto suo, arriva un respiro lento e immenso, e a ogni respiro le fiamme "
+          "delle lanterne si allungano e si accorciano insieme, tutte quante. Sul quinto "
+          "gradino sopra l’acqua, appoggiata al muro, sta una scarpa sola, gonfia, con la "
+          "stringa ancora annodata.",
+    'T2': "Il passaggio si allarga in una camera bassa dove tre correnti arrivano da tre bocche "
+          "diverse e si incontrano senza mescolarsi: una dolce e veloce, che sa di pozzo e di "
+          "pietra pulita; una salata e pesante, che tira in basso e sa di mare aperto; e una "
+          "terza che non sa di niente e non fa rumore, ferma in mezzo alle altre due come una "
+          "macchia d’olio. Dove si toccano, l’acqua si torce in trecce lente che si disfano e "
+          "si rifanno, sempre nello stesso punto. Il freddo, qui, non è nell’aria: è "
+          "nell’acqua, e arriva alle gambe prima che ve ne accorgiate. Le pareti sono lisce "
+          "fino all’altezza del petto e ruvide sopra, come in un canale che qualcuno ha "
+          "scavato e poi ha smesso di scavare. E c’è l’eco: parlate, e la vostra voce torna "
+          "dalla bocca sbagliata, con un ritardo che cambia ogni volta; chi resta indietro "
+          "sente i passi di chi lo precede arrivargli da dietro le spalle. Sul bordo di "
+          "pietra, all’imbocco della terza bocca, sta un mucchietto di ossa piccole e pulite, "
+          "accatastate in piramide.",
+    'T3': "Qui il condotto si stringe fino a costringervi in fila indiana, e la roccia cambia "
+          "sotto le mani: non più fredda e asciutta, ma tiepida e umida, con una grana che "
+          "cede appena sotto il pollice e poi torna, come cuoio bagnato. Le fughe fra i blocchi "
+          "— se sono blocchi, perché in certi punti il taglio non si vede più — si aprono e si "
+          "chiudono di un capello, piano, sempre alla stessa cadenza, e da quelle fessure esce "
+          "un’aria tiepida che sa di ferro e di sale. La polvere che avete addosso resta "
+          "attaccata al muro e vi disegna il posto delle mani. E dalla pietra, non da "
+          "un’apertura ma da tutta la pietra insieme, comincia a filtrare un canto: bassissimo, "
+          "senza parole, così lento che una nota sola dura più di un vostro respiro, e non "
+          "viene da davanti né da dietro — viene da dentro le orecchie, e chi tiene la "
+          "mascella serrata se lo sente nei denti. Le lanterne diventano inutili prima di "
+          "spegnersi: la luce non muore, smette soltanto di dire dove sono le cose. In una "
+          "nicchia asciutta, all’altezza del ginocchio, sta una fila di conchiglie disposte in "
+          "cerchio, con l’apertura tutte verso il centro.",
+    'T4': "L’antecamera è la prima stanza fatta da mani d’uomo che incontrate là sotto: volta a "
+          "botte, pavimento in piano, e lungo le pareti i leggii da orchestra portati giù "
+          "pezzo per pezzo, con gli spartiti fermati alle aste dalle mollette da bucato perché "
+          "l’umidità li fa arricciare. In terra, in fila contro il muro, le borracce d’acqua "
+          "per la gola, i cappotti piegati, una cassetta di lumini di scorta: attrezzatura da "
+          "giornata di lavoro, in un posto dove il lavoro è questo. Cantano in trenta, in tre "
+          "file, e si vede subito che leggono — gli occhi non lasciano la carta, le bocche "
+          "fanno le vocali giuste e nient’altro, e a ogni respiro qualcuno perde il tempo e lo "
+          "riprende un mezzo secondo dopo gli altri. Sono impiegati, con le scarpe buone "
+          "rovinate dall’acqua salata; la paura si sente prima nella voce che nelle facce, "
+          "perché le note lunghe tremano tutte allo stesso modo. Fra la seconda e la terza "
+          "fila, in mezzo a bocche che vanno a tempo, ce n’è una che canta guardando avanti, "
+          "senza carta.",
+    'T5': "Da qui in avanti la roccia è nuda: nessuna nicchia, nessun anello, nessun segno di "
+          "scalpello, e la pietra della soglia è liscia e leggermente incavata al centro, come "
+          "i gradini delle chiese dove è passata troppa gente — solo che qui non passa nessuno "
+          "da secoli. Fa più caldo che nell’antecamera, di parecchio, e l’aria è ferma al "
+          "punto che il fumo delle lanterne sale dritto e resta appeso a mezz’altezza. Oltre "
+          "l’arco non c’è buio: c’è un chiarore, e non è luce — non illumina niente, non fa "
+          "ombre, non si posa sulle cose; somiglia piuttosto al colore che si vede a occhi "
+          "chiusi premendo le palpebre, e chi lo guarda troppo a lungo si accorge di aver "
+          "smesso di respirare. Gli ultimi del coro si sono messi di traverso davanti "
+          "all’arco, spalla contro spalla, e cantano voltati verso di voi invece che verso il "
+          "leggìo. Più indietro, dentro il chiarore, due sagome: una in piedi, ferma; l’altra "
+          "tenuta per il gomito. Sulla pietra della soglia, a metà, qualcuno ha appoggiato uno "
+          "scialle piegato, e lo scialle è asciutto.",
+    'T6': "La camera non ha pareti che la lanterna possa trovare, e il suono ci mette troppo a "
+          "tornare: quando uno di voi parla, la sua voce si allontana e riappare dopo un tempo "
+          "che non appartiene a nessuna stanza. Il pavimento è acqua nera fino al ginocchio, "
+          "tiepida come acqua di bagno lasciata raffreddare a metà, e sotto la superficie "
+          "qualcosa si alza e si abbassa piano — non onde: un livello, la stessa cosa che fa "
+          "il petto di chi dorme. L’aria è densa e pesa sul torace; l’odore è di sale, di "
+          "pietra bagnata e di quel dolciastro che hanno le stanze dei malati. Al centro, dove "
+          "l’acqua è più alta, sta in piedi un vecchio con la palandrana fradicia fino alla "
+          "cintura, e canta: la voce gli si rompe, riparte, si rompe di nuovo, e ogni volta la "
+          "ricomincia dalla stessa nota, più forte. Dietro di lui il chiarore che non è luce "
+          "si allarga e si stringe al ritmo del respiro, e a ogni respiro l’acqua vi sale di "
+          "un dito. Sulla superficie, a un braccio da voi, galleggia un foglio di spartito, "
+          "asciutto.",
 }
 
 ESAMI_CARBONE_20 = {

@@ -678,46 +678,119 @@ def soluzione():
 # ================================================================== LUOGHI
 
 LUOGHI12_DESC = {
-    1: "Il Palazzo del Lume è la sede della Società: sala delle riunioni, "
-       "archivio dei Frammenti, ritratti di presidenti morti. Stanotte è una "
-       "scena del delitto senza delitto — nulla forzato, tutto copiato — e per "
-       "la prima volta la vostra stessa casa è il luogo da indagare.",
-    2: "La casa dell'archivista è modesta e ordinata come chi ha passato la "
-       "vita a mettere carte in fila. Anselmo Godi, mezzo cieco e tremante, ci "
-       "vive con la sua obbedienza: ha copiato i Frammenti per ordine, e "
-       "l'ordine, giura, era autentico.",
-    3: "L'Ufficio del Fermo-Posta tiene la corrispondenza di chi non vuole un "
-       "indirizzo: caselle numerate, ritiri notturni, nomi che non sono nomi. "
-       "Qui una casella intestata a «B. Camillo» riceve, da mesi, le copie "
-       "della vostra casa.",
-    4: "Il Banco dei Pegni di Fossa compra e vende tutto ciò che la città "
-       "impegna: qui è passata la campanella nuova col segno del Coro, e qui i "
-       "confratelli, già in sospetto l'uno dell'altro, cominciano a contarsi "
-       "le colpe.",
-    5: "La Loggia dei Confratelli è la sala riservata dei soci della Società: "
-       "stanotte è un nido di veleni, perché sigilli intatti vogliono dire che "
-       "uno di loro ha aperto. Si cerca un traditore per non dover pensare "
-       "l'impensabile.",
-    6: "Lo Scriptorium è la stanza dove Godi copiava: leggii, calamai, i "
-       "Frammenti e le loro copie affiancati. Qui la mano che ricalca non "
-       "trema — perché non ricalca: scrive la propria — e gli ordini "
-       "protocollati fanno da alibi a chi li ha firmati.",
-    7: "Il Deposito dei Sigilli custodisce i punzoni di ceralacca della "
-       "Società: tutti al loro posto, tutti autentici. È la prova muta che "
-       "non c'è stato scasso — e, lasciato lì bene in vista, un grimaldello "
-       "che vorrebbe farvi credere il contrario.",
-    8: "Il Corpo di Guardia dei gendarmi amici conosce i canali di notte come "
-       "le proprie tasche: sanno dove un fuggitivo si incanala e dove chiudere "
-       "il passo. Il loro fischietto, al ponte giusto, vale più di ogni corsa.",
-    9: "Il Cimitero delle Barche è l'ansa morta del canale, dove le chiatte "
-       "vengono a marcire nella nebbia. È l'approdo dello scambio: qui il "
-       "corriere consegna e il compratore anonimo ritira, senza mai mostrare "
-       "un volto all'acqua nera.",
+    1: "La vostra casa, stanotte, sa di ceralacca fredda e di cera da mobili passata ieri: due "
+       "odori d’ordine, e per questo si nota subito che l’ordine c’è ancora. Le sedie stanno al "
+       "loro posto sotto i ritratti dei presidenti morti, il tappeto non ha una piega, e la fila "
+       "delle serrature dell’archivio non porta un graffio — nemmeno quel poco che lascia una "
+       "chiave girata di fretta. Sul pavimento, davanti agli scaffali svuotati, i dischi di "
+       "ceralacca sono rimasti tondi e interi, col punzone ancora leggibile, come monete di un "
+       "conio che nessuno spende. Il custode vi precede tenendo il candeliere con due mani, e le "
+       "due mani non bastano: la fiamma trema abbastanza da far muovere le ombre dei ritratti, una "
+       "dopo l’altra, per tutta la lunghezza della parete. «Non è entrato nessuno», ripete, e lo "
+       "ripete anche dopo che avete smesso di chiedere, con la voce di chi ha già perso la "
+       "discussione con sé stesso. Sul tavolo grande, in mezzo al panno verde, sta una campanella "
+       "di bronzo nuova, comprata al mercato e non ancora lucidata dalle mani.",
+    2: "La casa dell’archivista sa d’inchiostro di noce di galla, di sego bruciato e di pane tenuto "
+       "in credenza troppo a lungo: odori di una vita sola, ripetuta uguale per quarant’anni. Tutto "
+       "è in fila oltre il necessario — le carte in mazzi legati con la fettuccia, i calamai "
+       "chiusi, la lente col manico d’osso posata sempre nello stesso quadrato di legno più chiaro "
+       "— e alla parete i cartoni pendono per taglia, dal più piccolo al più grande, con un chiodo "
+       "di troppo alla fine della fila. Anselmo Godi vi riceve senza cercarvi il viso: gli occhi "
+       "vanno un palmo a lato del vostro, e le mani, che sul tavolo trovano ogni cosa da sole, in "
+       "aria non sanno dove stare. «Io ho solo obbedito, signori», dice, e mentre lo dice si "
+       "pulisce il pollice sul grembiule, un gesto che ripete tre volte, sempre dallo stesso lato. "
+       "La lampada è tenuta bassa perché a lui non serve; in quel poco che illumina, la vernice del "
+       "piano è consumata in due mezzelune, una per gomito. Sullo scrittoio, sotto il tagliacarte, "
+       "un biglietto piegato in quattro aspetta con l’angolo alzato.",
+    3: "Lo sportello del fermo-posta sa di colla d’amido, di gommalacca e di quel freddo che entra "
+       "da una porta aperta sulla calle e non se ne va più: qui dentro il cappotto si tiene anche "
+       "da seduti. Dietro il bancone la parete è tutta caselle numerate, ottone e legno scuro, e in "
+       "ciascuna le lettere stanno in piedi di taglio come i libri di una biblioteca che nessuno "
+       "legge; una casella, all’altezza della spalla, è aperta e vuota, e il suo numero è più "
+       "lucido degli altri per il passaggio dei pollici. L’impiegato non alza la penna dal registro "
+       "mentre risponde — bagna, scrive, asciuga col tampone, ricomincia — e parla con la testa "
+       "piegata sul rigo: «Non l’ho mai visto in faccia. Manda un corriere.» Quando in calle passa "
+       "una barca, tutta la parete delle caselle risponde con un tintinnio minuto di ottoni, e il "
+       "tintinnio dura un poco più a lungo dell’onda che l’ha fatto. Sul bancone, accanto al "
+       "calamaio, sta un pacchetto di tela cerata legato con lo spago, senza indirizzo.",
+    4: "Dal banco di Fossa viene sempre lo stesso odore di canfora, tela cerata e monete tenute in "
+       "tasca troppo a lungo, e d’inverno ci si sta più volentieri che in chiesa: la stufa è accesa "
+       "per la merce, non per i clienti, ma scalda lo stesso. Dietro la grata di ferro battuto la "
+       "lampada col paralume verde fa a tutti le mani da annegato; sugli scaffali mezza Roccamora "
+       "sta impegnata in pacchi di carta legati con lo spago, un cartellino per ciascuno, e fra i "
+       "pacchi la fede nuziale di qualcuno riposa in un piattino di peltro. Fossa parla senza "
+       "smettere di contare, e conta con le dita di una mano sola, tenendo l’altra appoggiata sul "
+       "registro come si tiene fermo un cane: «Paga bene, paga prima, e non lascia mai la faccia», "
+       "dice del suo cliente migliore, e lo dice come si dice una lode. In fondo, contro la parete, "
+       "due confratelli della Società parlano fitto e a voce bassa, e ogni volta che la porta si "
+       "apre si voltano tutti e due insieme. Sul piano del banco, fra i segni delle monete, resta "
+       "il cerchio chiaro di una cosa tonda posata lì a lungo, e non è largo come un bicchiere.",
+    5: "La loggia sa di cera d’api, di lana bagnata che asciuga addosso e di quel dolciastro di "
+       "vino lasciato in caraffa dal pomeriggio; è la stanza più calda della casa, e nessuno si è "
+       "tolto il soprabito. Attorno al tavolo lungo le sedie intagliate sono più delle spalle che "
+       "le occupano, e gli uomini siedono distanti l’uno dall’altro come in una chiesa mezza vuota: "
+       "davanti a ciascuno un bicchiere, e nessuno beve. Le candele sono state accese tutte, cosa "
+       "che qui non si fa se non nei giorni di festa, e la luce arriva lo stesso corta. Il più "
+       "anziano dei soci tiene le mani sotto il tavolo e la mascella ferma, e quando si decide a "
+       "parlare non guarda in faccia nessuno: «Chi? Da quanto? Per chi?», e le tre domande restano "
+       "appese, perché chi risponde per primo si nomina. Ogni volta che una porta sbatte in "
+       "un’altra ala della casa le teste si alzano tutte insieme e tornano giù una alla volta, mai "
+       "nello stesso ordine. Sotto il piede di una candela, in fondo al tavolo, un foglio piegato "
+       "aspetta che qualcuno si decida a prenderlo.",
+    6: "Nello scriptorium non si accende il fuoco — il fumo mangia la carta — e il freddo che ci si "
+       "trova dentro è quello di una dispensa: si sente nelle dita prima che nella schiena, e "
+       "l’inchiostro, a smuoverlo, è più lento di quanto dovrebbe. Sa di gomma arabica, di pomice e "
+       "di quel poco d’aceto con cui si puliscono i pennini. I leggii inclinati stanno in fila "
+       "sotto le finestre alte, ciascuno col suo calamaio, il suo raschietto, il suo lume spento; "
+       "su uno solo, l’ultimo, il piano è consumato fino al legno chiaro nel punto dove si appoggia "
+       "il polso destro. Là sopra due fogli sono rimasti affiancati, il vecchio e il nuovo, tenuti "
+       "fermi dalle stesse quattro monete d’ottone, e la scrittura corre uguale dall’uno all’altro "
+       "come l’acqua in due canali gemelli. Il cuscino di crine dello sgabello tiene ancora la "
+       "conca di chi ci si è seduto per anni, e la conca è tutta da un lato. Quando la porta si "
+       "muove, dai palchetti scende un filo di polvere dritto e sottile che, prima di arrivare a "
+       "terra, si piega tutto verso l’uscio, come tirato. Sul leggio in fondo, appoggiato al bordo, "
+       "un pennino nuovo aspetta ancora di essere intinto.",
+    7: "Il deposito sa di ceralacca fredda, di ottone lucidato con lo straccio e di spirito di "
+       "vino: l’odore che hanno le stanze dove si tiene in ordine roba che serve di rado. I punzoni "
+       "stanno negli incavi del panno verde, uno per incavo, i manici d’osso girati tutti dalla "
+       "stessa parte; accanto, i bastoncini di cera in fascio per colore, e la lampada a spirito "
+       "col suo cucchiaio annerito. Il custode dei sigilli non vi lascia toccare niente e lo fa "
+       "senza dirlo: cammina un passo avanti a voi e tiene la lanterna dalla parte della merce, non "
+       "della strada. Del suo mestiere parla come si parla di un mestiere: «se qualcuno avesse "
+       "forzato, la ceralacca lo mostrerebbe: scaldata due volte, colata storta, punzone "
+       "sbagliato», e mentre elenca conta sulle dita, sempre le stesse tre. La lanterna, portata "
+       "lungo la rastrelliera, accende un punzone dopo l’altro e li spegne alle spalle, e ogni "
+       "ottone tiene la luce un momento più a lungo del precedente. In un cassetto rimasto aperto, "
+       "sopra un panno piegato, sta un grimaldello d’acciaio chiaro, posato di traverso.",
+    8: "Il corpo di guardia sa di caffè d’orzo tenuto sul fornello da troppe ore, di cuoio bagnato "
+       "e di quel ferro dolciastro delle armi pulite di fresco; dalla porta che dà sull’acqua entra "
+       "un filo d’aria che fa muovere le carte appese e non riesce a portare via il fumo. Alla "
+       "parete grande sta la mappa delle acque, ingiallita e ripassata a matita in più mani, coi "
+       "ponti segnati uno per uno e certe crocette dove la carta è stata bucata e rappezzata tante "
+       "volte da farsi morbida come panno. Sotto la mappa, ai ganci, i fischietti d’ottone pendono "
+       "in fila per lunghezza, e all’ultimo gancio non c’è niente. Il sergente vi ascolta seduto al "
+       "contrario sulla sedia, i gomiti sullo schienale, e mentre parla guarda fuori, verso il "
+       "punto in cui il canale gira: «stanotte sale fitta dall’ansa morta», dice, e non aggiunge "
+       "altro perché per lui la frase è finita. Ogni tanto la lampada sopra la mappa fa un sobbalzo "
+       "e le ombre dei ponti si spostano tutte insieme di un dito. Sul davanzale, di fuori, un paio "
+       "di guanti da voga sta ad asciugare, e uno solo dei due è nero d’acqua.",
+    9: "All’ansa morta l’acqua non va da nessuna parte e l’aria nemmeno: sa di fango scoperto, di "
+       "canapa marcita e di quel dolce di legno bagnato che hanno le cose grandi lasciate a "
+       "disfarsi con comodo. La nebbia sta bassa e ferma, alta come un uomo seduto, e le chiatte "
+       "rovesciate ne escono a metà — costole all’aria, alberi spezzati, un timone che tocca il "
+       "fondo — mentre le cime lasciate agli anelli si tendono e si allentano da sole, piano, senza "
+       "che passi nulla. I suoni arrivano tutti dalla parte sbagliata: un tonfo di remo che "
+       "dovrebbe essere lontano vi si posa accanto, e la vostra voce, a due passi, torna smorzata "
+       "come da sotto una coperta. Un vecchio barcaiolo siede sulla chiglia di uno scafo con le "
+       "mani ferme sulle ginocchia e non si alza per parlarvi: «il compratore non scende mai a "
+       "terra. Riceve dalla barca, paga dalla barca, sparisce nella nebbia», dice, e guarda "
+       "l’acqua, non voi. Al gancio della sua prua, spenta, pende una lanterna cieca, col vetro da "
+       "una parte sola e l’ottone consumato dal pollice sullo sportello.",
 }
 
 OGGETTI_LUOGO_12 = {
     1: [('Reperto A', 'la Perizia dei Sigilli', '')],
-    2: [('Incrocio D1', 'dove avviene lo scambio', '')],
+    2: [('Incrocio D1', '', 'dove avviene lo scambio')],
     3: [
         'Il Registro dei Ritiri',
         ('Reperto C', 'la Ricevuta del Fermo-Posta', 'il SEME'),
@@ -731,7 +804,7 @@ OGGETTI_LUOGO_12 = {
     8: ['Il Fischietto della Ronda'],
     9: [
         'La Lanterna Sorda dei Canali',
-        ('Incrocio D1', 'il luogo dello scambio, il traguardo dell’inseguimento', ''),
+        ('Incrocio D1', '', 'il luogo dello scambio, il traguardo dell’inseguimento'),
     ],
 }
 
@@ -739,35 +812,76 @@ TILE_ART_12 = {t['id']: t['id'] + '-ep12.png' for t in TILES_12}
 LUOGHI12_CROP = {}
 
 TESSERE_DESC_12 = {
-    'T1': "La sala dell'archivio della Società, aperta e svuotata di copie ma "
-          "intatta: i sigilli di ceralacca a terra come gusci, le serrature "
-          "senza un graffio. Da una finestra sull'acqua, una barca che si "
-          "stacca dalla riva col favore del buio. La caccia comincia dentro "
-          "casa vostra.",
-    'T2': "Il Ponte dei Sospiri scavalca il canale coperto, un budello di "
-          "pietra dove chi fugge si incanala per forza. Sotto gli archi, "
-          "l'acqua nera; agli imbocchi, le sagome della scorta comprata che "
-          "aspettano di rubarvi un round. Un fischio, al momento giusto, e il "
-          "varco si chiude.",
-    'T3': "La fondamenta stretta corre a filo del canale, l'acqua che lecca il "
-          "selciato. Reti da pesca stese ad asciugare sbarrano il passo come "
-          "una ragnatela. Il corriere è passato di qui: l'acqua è ancora mossa "
-          "dal suo remo, e la via buona la conosce solo chi ha letto il "
-          "registro.",
-    'T4': "Il canale si allarga in uno specchio nero e la nebbia sale fitta "
-          "dall'ansa morta, ingoiando le sponde. Da qualche parte, davanti, un "
-          "remo affonda e riemerge. Senza una lanterna sorda che buchi la "
-          "foschia, il corriere è già un ricordo, e la scorta ne approfitta "
-          "per stringervi.",
-    'T5': "Il sottoportico è l'ultimo ponte coperto prima dell'approdo: "
-          "l'ultima strettoia dove chiudere il passo. Oltre l'arco si sente "
-          "già la campanella del compratore che chiama la barca. Se c'è un "
-          "muro da sfondare, è qui e adesso — o il corriere passa e consegna.",
-    'T6': "L'ansa morta del canale: chiatte rovesciate, alberi spezzati, la "
-          "nebbia distesa sull'acqua come un lenzuolo. Dalla foschia, immobile, "
-          "la barca del compratore anonimo attende lo scambio. Un uomo con un "
-          "sacco da fermare, e una barca da mandare via vuota. Non c'è un "
-          "secondo tiro.",
+    'T1': "La sala dell’archivio è più fredda del corridoio da cui si entra, e sa di carta vecchia, "
+          "di ceralacca e del catrame che sale dal canale sotto la finestra: tre odori che non "
+          "hanno mai avuto motivo di stare insieme. Gli scaffali sono aperti e in ordine come una "
+          "bocca a cui abbiano tolto i denti uno sì e uno no; dove mancano i fasci, il legno è più "
+          "chiaro, e il rettangolo che ne resta ha gli angoli netti. Nessun cassetto è rovesciato, "
+          "nessun foglio è caduto: a terra ci sono soltanto i dischi di ceralacca, tondi e interi, "
+          "con la pancia in su come gusci d’uovo bevuti dal buco, e ce n’è uno per ogni vuoto sullo "
+          "scaffale. La finestra bassa sull’acqua è accostata, non chiusa, e il battente si muove "
+          "quanto basta a far entrare il freddo a intervalli, come un respiro. Fuori, sul canale, "
+          "una barca si stacca dalla riva: prima il fanale, poi il rumore del remo — e il rumore "
+          "arriva quando il fanale è già sparito dietro l’angolo. Sul leggio accanto alla finestra "
+          "il tampone dell’inchiostro è rimasto scoperto, e la spugna è secca.",
+    'T2': "Sotto il ponte coperto l’aria cambia di colpo: si smette di sentire la città e si "
+          "comincia a sentire l’acqua, che qui batte contro i pilastri con un colpo cavo, sempre lo "
+          "stesso, come una porta che nessuno si decide a chiudere. Sa di pietra bagnata, di calce "
+          "nuova — il rappezzo sulla volta è di quest’anno — e di quel dolciastro che i sottopassi "
+          "prendono dagli uomini. È un budello: due imbocchi, nessuna finestra, e in mezzo una "
+          "lunghezza di buio in cui la lanterna, portata avanti, illumina il muro a un braccio e "
+          "non un dito di più. All’altezza della spalla il salnitro ha disegnato macchie che si "
+          "somigliano tutte, e le suole di generazioni hanno consumato la pietra al centro come i "
+          "gradini di una chiesa. All’imbocco di là due uomini stanno fermi con le mani in tasca e "
+          "non parlano fra loro; non fumano, e chi aspetta per mestiere di solito fuma. Il "
+          "riverbero di una lanterna che corre sull’acqua nera attraversa la volta da una parte "
+          "all’altra, e lo rifà una seconda volta, più debole, un momento dopo.",
+    'T3': "La fondamenta è larga quanto due uomini che si incrociano male, e l’acqua sta a filo del "
+          "selciato: a ogni onda di ritorno sale sopra la pietra e si ritira, e le suole trovano un "
+          "dito d’acqua dove un momento prima non c’era. Sa di alga scoperta, di pesce vecchio e di "
+          "corda bagnata; contro il muro delle case stanno secchi capovolti, ceste da nasse, un "
+          "mucchio di sughero da galleggianti legato con lo spago. Le reti sono state stese ad "
+          "asciugare da una parte all’altra, alte come un uomo, e nel buio non si vedono: si vedono "
+          "i piombi che le tengono giù, allineati sul selciato come una punteggiatura. Un lume "
+          "dietro una persiana si accende mentre passate, e si spegne, e non torna. L’acqua contro "
+          "i gradini è ancora mossa, e non del moto lungo della marea ma di quello corto e "
+          "disordinato che lascia un remo: le onde tornano a battere sul terzo gradino, sempre sul "
+          "terzo, e si vanno spegnendo. Dove le reti si aprono, in mezzo al passaggio, un sughero è "
+          "rimasto a terra, staccato di fresco dalla sua lenza.",
+    'T4': "Qui il canale si allarga e la nebbia lo prende tutto: viene su dall’acqua a bioccoli, "
+          "non dal cielo, ed è più tiepida dell’aria che sostituisce — la faccia se ne accorge "
+          "prima delle mani. Le sponde durano ancora per qualche braccio, un anello d’ormeggio, un "
+          "gradino verde di alga, un palo storto col cencio legato in cima; poi finiscono, e non "
+          "resta da guardare che il bianco. I suoni invece aumentano: una campana lontana suona "
+          "vicina, una voce da una finestra sembra alle spalle, e ogni tonfo di remo arriva da un "
+          "punto che non è quello dove l’orecchio l’aveva messo un istante prima. Sull’acqua è "
+          "rimasto un solco lungo, uno solo, che si apre in due dietro qualcosa che è già passato; "
+          "i bracci si allargano piano fino alla sponda e ci arrivano molto dopo, uno alla volta. "
+          "Il fiato vi torna in faccia. Contro la fiancata, portato dalla corrente, batte piano un "
+          "remo spezzato a metà del giro, con l’anima del legno ancora chiara.",
+    'T5': "L’ultimo sottoportico prima dell’approdo è basso al punto che la volta si sente con i "
+          "capelli, e l’aria dentro è ferma e più calda: la pietra ha tenuto il sole di ieri come "
+          "lo tiene un forno spento da poco. Sa di muffa dolce, di gatto e di cordame, e da "
+          "un’inferriata a mezz’altezza arriva l’odore del canale grande, che è un odore ancora "
+          "diverso. Le pareti portano la riga nera dell’acqua alta di due inverni fa, e sopra la "
+          "riga qualcuno ha inciso una croce e una data; a terra, contro il muro, stanno un mucchio "
+          "di reti fradice e un cerchio di botte senza doghe. Oltre l’arco il buio è meno buio: si "
+          "vede il chiarore della nebbia, come una porta socchiusa su una stanza illuminata male. "
+          "Di là arriva una campanella, tre tocchi e una pausa, tre tocchi e una pausa, e la pausa "
+          "è sempre della stessa lunghezza; ogni volta, sotto la volta, il terzo tocco torna "
+          "indietro una seconda volta. Sull’ultimo gradino dell’arco, appoggiata al muro, sta una "
+          "gaffa da barcaiolo con la punta lucida.",
+    'T6': "L’ansa morta non ha corrente e non ha eco: i rumori ci entrano e non ne escono, e la "
+          "nebbia sta distesa sull’acqua come un lenzuolo tirato sopra una cosa che ha già la sua "
+          "forma. Sa di fango, di pece vecchia e di ferro bagnato; fa più freddo che sul canale "
+          "grande, e di quel freddo che viene dal basso e prende prima le caviglie. Le chiatte "
+          "morte sono arenate a spina di pesce, mezze dentro e mezze fuori, e il legno, dove il "
+          "catrame è saltato, è grigio come osso lasciato al sole; fra una carena e l’altra restano "
+          "canali stretti d’acqua nera, larghi per una barca sola. Al largo, dove il bianco si fa "
+          "più fitto, c’è una macchia di luce che non si sposta: un fanale schermato, fermo, e la "
+          "macchia si allarga e si stringe secondo la nebbia, mai secondo l’acqua. Nessuno di là "
+          "chiama, e nessuno risponde. Sul fango scoperto della riva, dove la marea si è ritirata, "
+          "l’impronta di una prua è rimasta profonda e netta, e il suo orlo non è ancora franato.",
 }
 
 ESAMI_CARBONE_12 = {

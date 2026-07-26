@@ -667,42 +667,118 @@ def soluzione():
 # ================================================================== LUOGHI
 
 LUOGHI19_DESC = {
-    1: "La Taverna della Chiatta, sull'acqua bassa: il rifugio della Società in "
-       "esilio, dove si sono raccolti quelli che vi restano fedeli sotto le "
-       "taglie. Qui si pianifica l'ultima discesa, e qui si comincia a fare il "
-       "conto di chi vi apre ancora la porta.",
-    2: "Il Banco dei Pegni di Fossa: Fossa vi deve la vita dal Preludio e non "
-       "l'ha dimenticato. Con la Società braccata, lui la porta la tiene aperta, "
-       "e vi passa la mappa dei sigilli dell'Archivio. Chi avete salvato torna "
-       "a salvarvi: il conto, stavolta, a favore.",
-    3: "La Gazzetta di Roccamora: Ranuzzi è l'unico che non ha bevuto il "
-       "manifesto. Ha capito il metodo — un dossier perfetto messo in mano a un "
-       "Ispettore onesto, come con Braga — e vi aiuta a smontarlo, se il conto "
-       "dei bivi glielo permette.",
-    4: "La Gendarmeria: non tutti credono al manifesto. Un gendarme che vi ha "
-       "visti lavorare vi apre la via all'Archivio e vi passa le prove che "
-       "potrebbero convincere l'Ispettore Vidal — se arrivate a parlargli "
-       "invece di combatterlo.",
-    5: "Il professor Braga (la sua villa): apre SOLO se l'avete protetto (Ep. "
-       "15). Allora vi consegna trent'anni di studio del rivale M., la prova "
-       "vivente della sua doppiezza. Se l'avete lasciato cadere, la porta è "
-       "chiusa: il conto, qui, a vostro sfavore.",
-    6: "Lo studio del decano Ferrante: apre lucido SOLO se l'avete salvato in "
-       "tempo (Ep. 17). Allora vi dà la matrice completa e la crepa del coro — "
-       "M. ha comprato i cantori, non li ha convertiti. Se è ferito grave, la "
-       "sua metà di verità è confusa.",
-    7: "Un debito antico (la casa di una vecchia conoscenza): sotto le taglie, "
-       "ogni conto in sospeso torna a bussare. Chi avete trattato bene vi "
-       "nasconde; chi avete usato è tentato dalla taglia in oro vecchio. "
-       "Economia della fiducia, non morale.",
-    8: "I vecchi testimoni del Coro, tra le barche morte: chi ricorda il Coro "
-       "dall'Ep. 3 vi dà la mappa acustica, la via delle tre acque sotto la "
-       "città. Senza, sotto la Cattedrale sareste sordi. La voce che il Coro "
-       "cerca è ancora là sotto — o ciò che ne resta.",
-    9: "L'Archivio Civico, sotto sigillo dei gendarmi, dove è ammassata tutta "
-       "la roba della Società: la vostra vita impacchettata da mani estranee. "
-       "Dentro, il Fascicolo del 1741 — e l'Ispettore Vidal, che vi aspetta e "
-       "va convinto, non ucciso.",
+    1: "Sa di acqua bassa e di vinaccio, la Taverna della Chiatta, e di panni messi ad asciugare "
+       "troppo vicino al fuoco: l’odore di una casa che non è casa di nessuno. Il pavimento "
+       "segue lo scafo e pende di un dito verso il canale — i bicchieri lo sanno, e si radunano "
+       "tutti dalla stessa parte del tavolo. Sul tavolo grande, sotto la lampada, stanno aperti "
+       "una carta della città con tre segni a matita, una brocca, un mozzicone di candela e un "
+       "foglio staccato da un muro, ripiegato in quattro con la stampa all’interno; alle pareti "
+       "i chiodi sono più dei quadri. L’oste vi versa senza chiedere, con quelle mani grosse da "
+       "barcaiolo che tremano appena nel posare la brocca, e non abbassa la voce come si fa "
+       "quando non c’è nessun altro: «le taglie sulle vostre teste sono alte, signori. C’è chi "
+       "vi venderebbe.» Fuori, contro la fiancata, l’acqua batte a intervalli regolari; ogni "
+       "tanto salta un colpo, e nel vuoto tutti quelli alla panca alzano la testa insieme, poi "
+       "la riabbassano. Sulla porta, dalla parte di dentro, qualcuno ha inchiodato una spranga "
+       "nuova: il legno attorno è ancora bianco.",
+    2: "Canfora, tela cerata e monete tenute in tasca troppo a lungo: dal banco di Fossa l’odore "
+       "non è cambiato, ed è l’unica cosa in città che stanotte vi accolga com’è sempre stata. "
+       "La grata di ferro battuto, la lampada col paralume verde che tinge le mani di chi paga, "
+       "e dietro, sugli scaffali, mezza Roccamora impegnata in pacchi di carta legati con lo "
+       "spago, un cartellino per ciascuno. La saracinesca è abbassata per tre quarti, la porta "
+       "di servizio socchiusa da prima che arrivaste. Fossa non vi guarda in faccia subito: si "
+       "asciuga le mani nel grembiule, due volte, tira la tenda sulla vetrina, e solo allora "
+       "alza gli occhi. «Con la Società braccata, gli altri hanno chiuso; io no. Vi devo "
+       "troppo», dice, e lo dice come si dice una cifra, senza tono. Il paralume verde oscilla "
+       "piano sopra il banco per tutto il tempo che restate, e non c’è una finestra aperta in "
+       "tutta la stanza. Sul ripiano, fra i registri, c’è un foglio piegato che non è una "
+       "polizza: la carta è più ruvida, e le pieghe sono state passate con l’unghia.",
+    3: "Inchiostro grasso, piombo e carta umida: alla Gazzetta l’odore resta in gola, e i banchi "
+       "delle casse tipografiche sono tiepidi anche a quest’ora, che è l’ora in cui una "
+       "redazione dovrebbe essere fredda. La macchina piana sta ferma a metà tiratura, con un "
+       "foglio ancora sotto il rullo; sul filo, appese come panni, asciugano le prove di stampa "
+       "della prima pagina, tutte uguali, tutte con lo stesso ritratto ripetuto quaranta volte. "
+       "Sul tavolo di Ranuzzi: forbici, un pennello da colla, una risma di manifesti che "
+       "qualcuno ha portato dentro invece di lasciarli fuori. Lui vi apre dalla porta dei rulli "
+       "con le maniche rimboccate e le dita nere fino al secondo nodo, e comincia a parlare "
+       "prima ancora di richiudere: «io non stampo quello che mi danno già pronto. L’ho imparato "
+       "con voi.» I fogli sul filo si muovono tutti nello stesso istante, un respiro, e poi "
+       "tornano fermi; la porta è chiusa. Sul cavalletto delle notizie del giorno la lavagnetta "
+       "è stata cancellata di fresco, e nell’angolo in basso resta il gesso di una data.",
+    4: "La Gendarmeria di notte sa di cera da pavimenti e di caffè riscaldato tre volte, e ci fa "
+       "più caldo che nelle case: le stufe, qui, non le spegne nessuno. Nell’atrio, sotto la "
+       "lampada a gas, il tabellone dei ricercati è stato rifatto oggi — le puntine vecchie sono "
+       "rimaste nel sughero, in file che non corrispondono più ai fogli — e la colla sull’ultimo "
+       "manifesto non ha finito di asciugare, tanto che il bordo si arriccia da solo. Dal "
+       "corridoio arriva una macchina da scrivere che batte lenta: tre tasti e una pausa, tre "
+       "tasti e una pausa. Il gendarme che vi aspetta non sta in piedi al banco ma seduto di "
+       "lato, il berretto sulle ginocchia, e vi parla guardando l’imbocco del corridoio invece "
+       "che voi: «chi si è comportato bene con noi, in questi mesi, stanotte trova una porta "
+       "socchiusa.» Poi si alza troppo in fretta, come chi i minuti li ha contati. "
+       "Sull’attaccapanni a muro, in fondo alla fila dei pastrani grigio-blu, un gancio è "
+       "libero, e sotto, sul pavimento, c’è ancora l’acqua sgocciolata da una mantella.",
+    5: "La villa-museo sta dietro il suo cancello come una casa in lutto: le imposte del piano "
+       "nobile chiuse tutte tranne una, la ghiaia del viale rastrellata di fresco in un senso "
+       "solo, e nell’aria quell’odore di canfora e di gommalacca che hanno le collezioni tenute "
+       "bene. Sotto il portico le casse da imballaggio aspettano con la paglia già dentro e i "
+       "coperchi appoggiati sopra senza un chiodo, come se qualcuno avesse cominciato e si fosse "
+       "fermato a metà. Dalla vetrata del vestibolo si vedono le vetrine coperte da teli "
+       "bianchi, in fila, e su un piedistallo il velluto conserva l’impronta tonda di ciò che ci "
+       "stava. Il campanello d’ottone è tirato lucido dalle dita; quando suona, dentro, la corda "
+       "continua a battere contro il muro molto dopo che il suono si è spento. Vi torna in mente "
+       "com’era la sua voce quando insegnava, quel gusto di aver ragione con calma: «guardate le "
+       "penne, non le mani», diceva, e lo diceva a chiunque. Sullo scalino, contro lo stipite, "
+       "sta una bottiglia del latte piena, con la panna già salita.",
+    6: "Lo studio del decano è la stanza di un uomo che ha sempre lavorato di notte: tabacco "
+       "vecchio, colla da rilegatore e quel principio d’odore d’aceto dei locali dove si tiene "
+       "la carta. Il fuoco è acceso ma tenuto basso, e nel camino, sopra la brace, restano fogli "
+       "bruciati che hanno conservato la forma: righe intere si leggono ancora, bianche sul "
+       "nero, finché non le si tocca. La scrivania porta il calamaio, la lente, le forbicine da "
+       "erbario e tre matite temperate tutte alla stessa lunghezza; sulla parete, fra i ritratti "
+       "dei presidenti, un chiodo è rimasto solo. Il decano non si alza per accogliervi — le "
+       "mani appoggiate ai braccioli, i polsi che escono dalle maniche più magri di come li "
+       "ricordate — e aspetta che siate voi a sedervi. «Non avete tempo per l’orgoglio, "
+       "ragazzi», dice, e la voce gli scende di mezzo tono sull’ultima parola. Nel corridoio la "
+       "pendola batte i quarti; batte anche mentre parla, e ogni volta lui si ferma un istante, "
+       "poi riprende. Accanto alla poltrona, sul tappeto, c’è un bicchiere d’acqua pieno che "
+       "nessuno ha bevuto.",
+    7: "Al secondo piano, dietro una porta come tutte le altre, la casa sa di sapone di "
+       "Marsiglia e di ferro da stiro appena posato: un odore da domenica, in una notte che "
+       "domenica non è. Sul pianerottolo il becco a gas è abbassato al minimo, e sotto la porta "
+       "la luce c’è, ferma, di quelle che non si muovono perché dentro nessuno cammina. Bussate, "
+       "e passa più tempo di quanto ce ne voglia ad attraversare una stanza. Dentro: la macchina "
+       "da cucire chiusa nel suo mobile, un cesto di rammendi, due tazze sul vassoio e lo "
+       "zucchero in una sola. Le mani che vi aprono restano sulla maniglia anche dopo, e non "
+       "finiscono di aprire: «Vi ho aiutato una volta. Stanotte dipende da come mi avete "
+       "trattato dopo.» Sul tavolo, accanto alla lucerna, un giornale è piegato in modo da "
+       "lasciar fuori una colonna sola, e la piega è stata ripassata più volte con il dorso "
+       "dell’unghia. La finestra sul cortile è accostata, non chiusa, e la tenda si gonfia e "
+       "ricade a intervalli regolari, come se di sotto qualcuno continuasse ad aprire e chiudere "
+       "un portone.",
+    8: "Il cimitero delle barche si annuncia prima con l’odore — fango scoperto, alghe secche, "
+       "catrame vecchio — e poi con il rumore: gli scafi rovesciati fanno da cassa, e ogni passo "
+       "sulla melma torna indietro più grande di com’è partito. Le carene stanno in fila sul "
+       "fianco con le costole all’aria, mezze dentro e mezze fuori dall’acqua, e fra le ordinate "
+       "vuote il vento tiene una nota sola, lunga e bassa, che cala di tono quando cala la "
+       "marea. I vecchi si radunano attorno a un braciere ricavato da mezzo bidone, tre o "
+       "quattro, le coperte sulle spalle e i remi piantati nel fango come bastoni; uno di loro "
+       "ha le mani troppo ferme per l’età, e prima di parlare batte il palmo due volte sulla "
+       "chiglia accanto, come si bussa a una porta. «È ancora là sotto», dice, «o ciò che ne "
+       "resta.» Nessuno gli chiede di che cosa parli, e nessuno guarda l’acqua. La brace si "
+       "abbassa e si rialza da sola, sempre alla stessa cadenza, e il vento non c’entra. Sul "
+       "fianco della barca più grande, dove il fasciame è saltato, qualcuno ha inchiodato una "
+       "tavola nuova all’altezza di un uomo.",
+    9: "L’Archivio Civico di notte è un edificio che non dorme e non è sveglio: dalle finestre "
+       "alte del primo piano esce una luce ferma, verdina, e nel vicolo di servizio l’aria sa di "
+       "ceralacca calda — un odore d’ufficio, dolciastro, che a quest’ora non dovrebbe esserci "
+       "più. Sotto il portico, ammassate contro il muro e coperte da un telo che non basta, "
+       "stanno le casse: iuta, spago, cartellini scritti a mano, e su ognuna il bollo dei "
+       "gendarmi. Da sotto il telo spunta l’angolo di un mobile che conoscete, e riconoscerlo "
+       "qui costa più di quanto sia ragionevole. Il piantone al portone non passeggia: sta fermo "
+       "con la lanterna appesa al braccio e la testa un poco piegata, come chi ascolta dentro "
+       "invece che fuori. Sulla facciata il manifesto è stato affisso anche qui, e qualcuno l’ha "
+       "già strappato all’altezza delle mani, lasciando su il resto. Sul gradino del portone di "
+       "servizio, fuori dal telo, è rimasto un cavalletto da imballatore con sopra un rotolo di "
+       "spago e un coltellino aperto.",
 }
 
 OGGETTI_LUOGO_19 = {
@@ -712,13 +788,13 @@ OGGETTI_LUOGO_19 = {
     5: [
         ('Esca', 'La Via Facile', 'un passaggio che pare comodo all’Archivio, è un’imboscata dei gendarmi'),
     ],
-    6: [('Incrocio D3', 'con i vecchi testimoni, COSA manca a M. è provato', '')],
+    6: [('Incrocio D3', '', 'con i vecchi testimoni, COSA manca a M. è provato')],
     7: [
         ('Esca', 'La Taglia da Riscuotere', 'pare fruttare, è la trappola di M.: chi vi consegna finisce usato e scartato'),
     ],
     8: [
         ('Reperto B', 'La Mappa Acustica', ''),
-        ('Incrocio D3', 'COSA manca a M. è provato', ''),
+        ('Incrocio D3', '', 'COSA manca a M. è provato'),
     ],
     9: [('Reperto A', 'il Fascicolo del 1741', 'al recupero')],
 }
@@ -727,30 +803,78 @@ TILE_ART_19 = {t['id']: t['id'] + '-ep19.png' for t in TILES_19}
 LUOGHI19_CROP = {}
 
 TESSERE_DESC_19 = {
-    'T1': "L'ingresso dell'Archivio Civico sotto sigillo, di notte: nastri di "
-          "ceralacca sulle porte, un lucchetto nuovo, la vostra casa di "
-          "Società trasformata in deposito di prove contro di voi. Un sigillo, "
-          "però, è più debole degli altri: Fossa lo sapeva.",
-    'T2': "L'atrio dove monta la guardia notturna: pochi gendarmi annoiati, "
-          "convinti di sorvegliare la roba di criminali. Non sanno di custodire "
-          "la vostra vita, e di dare la caccia agli unici innocenti della "
-          "storia. In buona fede, e proprio per questo tristi da abbattere.",
-    'T3': "Le sale di catalogazione: montagne di faldoni, cimeli etichettati, "
-          "la storia della Società smistata e numerata da mani estranee. Da "
-          "qualche parte, tra migliaia di scatole, il Fascicolo del 1741 — e "
-          "mille faldoni sbagliati che vi farebbero perdere la notte.",
-    'T4': "Il corridoio dei depositi sigillati, lungo e silenzioso. E in fondo, "
-          "che si avvicina coi suoi passi misurati, la sagoma dell'Ispettore "
-          "Vidal: vi ha aspettati, sapeva che sareste tornati per il Fascicolo. "
-          "Il migliore che la Gendarmeria abbia, e crede in ciò che fa.",
-    'T5': "La grande sala di lettura, tavoli lunghi e lampade dal paralume "
-          "verde. Qui Vidal vi affronta, tra voi e il deposito. Non è una "
-          "trappola: è un esame. Riducetelo, sì, ma tenete pronte le parole "
-          "giuste — perché è con quelle, non con le lame, che si vince stanotte.",
-    'T6': "Il deposito reperti, sigilli freschi ovunque. E lì, catalogato come "
-          "prova numero tante, il Fascicolo del 1741: l'antico dossier della "
-          "confraternita, il controcanto che fa dormire un dio senza sogni. "
-          "Prendetelo. Da qui si scende.",
+    'T1': "La ceralacca, di notte e al freddo, non sa di niente finché non ci si avvicina: "
+           "allora ha quell’odore dolce di gommalacca e di lampada spenta, e lo si sente prima di "
+           "vedere i nastri. Attraversano le due ante in croce, tesi, sigillati alle estremità, e "
+           "sotto la mano corre la grana di un portone che avete varcato cento volte da ospiti. "
+           "Il lucchetto invece è nuovo — acciaio chiaro, ancora oliato, senza un graffio attorno "
+           "al buco della chiave — e sul ferro nero stona come un dente rifatto. Sui gradini la "
+           "pioggia della sera ha lasciato una pozza che arriva fino allo stipite, e la soglia "
+           "sotto la porta è asciutta. Nel silenzio si sente il canale dietro l’angolo e, di "
+           "quando in quando, la ceralacca che schiocca piano raffreddandosi: un colpetto secco, "
+           "sempre da un punto diverso della fila. A terra, contro il primo gradino, c’è un "
+           "pennello da colla indurito, e la sua traccia sale sul muro fino al bordo di un "
+           "manifesto affisso di fresco.",
+    'T2': "L’atrio è di marmo, e il marmo restituisce tutto: i passi, la sedia che si sposta, il "
+           "respiro. Ci fa freddo come in chiesa, e l’unico calore viene dal fornello a spirito "
+           "sul banco della guardia, dove una caffettiera dimenticata sul fuoco basso continua a "
+           "borbottare per conto suo. Il posto di guardia è tre sedie, un tavolo e un registro "
+           "delle consegne aperto alla pagina di stanotte, con l’ultima riga scritta e non ancora "
+           "asciugata; accanto, un mazzo di carte diviso in due mucchi e una giacca d’uniforme "
+           "appesa allo schienale invece che al gancio. Lungo la parete, in due file, le casse "
+           "sequestrate arrivano all’altezza del petto, ognuna col suo bollo e il suo numero, e "
+           "l’ultima è aperta con la paglia rovesciata fuori. Le fiamme delle lanterne appese si "
+           "piegano tutte insieme verso il corridoio a settentrione, si raddrizzano, si piegano "
+           "ancora: da laggiù tira aria, e nessuno ha aperto una porta. Sul banco, sotto il "
+           "registro, spunta l’angolo di un foglio con una fotografia incollata.",
+    'T3': "Qui l’aria è secca e sa di polvere di carta e di matita copiativa, quel sapore di "
+           "violetta e di metallo che resta sulla lingua a chi passa le giornate a bagnare la "
+           "punta. I faldoni salgono in colonne sui tavoli lunghi, legati con lo spago a tre "
+           "giri, e sopra ognuno un cartellino di cartoncino giallo scritto da una mano sempre "
+           "uguale, ordinata, senza fretta. Fra un tavolo e l’altro si riconoscono le cose per "
+           "quello che sono state: una cassetta di vetrini, un teodolite senza treppiede, una "
+           "cassa di libri con le costole voltate al muro perché nessuno ha guardato i titoli. Il "
+           "lavoro è a un terzo, e si vede dove si è fermato — una fila etichettata, una fila no, "
+           "e in mezzo un cartellino compilato a metà. Le fiammelle delle lampade da tavolo "
+           "tremano quando qualcuno cammina due sale più in là, tutte insieme, e continuano a "
+           "tremare un poco più a lungo di quanto il passo giustifichi. In cima a una colonna, "
+           "sul tavolo di mezzo, c’è un orologio da tasca senza catena, fermo, col cartellino "
+           "ancora vuoto.",
+    'T4': "Il corridoio è lungo abbastanza che la lanterna non ne veda la fine, e le porte dei "
+           "depositi si ripetono a destra e a sinistra sempre alla stessa distanza, ognuna con la "
+           "sua ceralacca fresca e il suo numero a stampino. L’odore è di cera e di calce, e a "
+           "metà corridoio l’aria diventa più fredda di quanto un piano interno possa spiegare. "
+           "Sotto i piedi il cotto è consumato al centro in un solco lucido, e le suole ci "
+           "scivolano appena. Non un sigillo già rotto, non una porta accostata, non una crepa: "
+           "la fila è così regolare che gli occhi si mettono a cercare l’errore per conto loro. "
+           "Poi, dal fondo, arrivano dei passi — passi normali, senza fretta, uno ogni battito e "
+           "mezzo — e non cambiano ritmo quando la vostra lanterna si abbassa; si fermano una "
+           "volta sola, il tempo di guardare qualcosa, e ripartono con la stessa misura. Contro "
+           "la parete, all’altezza del ginocchio, una porta porta un graffio nuovo nel legno, "
+           "lungo un palmo, e sotto la polvere è raccolta in una riga chiara.",
+    'T5': "La sala di lettura è la stanza più grande dell’edificio e la più silenziosa: il "
+           "soffitto si perde nel buio, e in basso le lampade dal paralume verde, accese tutte, "
+           "posano sui tavoli lunghi una fila di cerchi di luce che non si toccano. Il verde fa "
+           "alle mani quello che fa sempre — le rende di un colore che non hanno — e il resto "
+           "della sala resta ai bordi, dove le scaffalature salgono in ballatoi. Sui piani non è "
+           "rimasto un foglio di brutta: le sedie sono state rimesse a posto una per una, tutte "
+           "alla stessa distanza dal tavolo, e i leggii inclinati sono vuoti. Sa di polvere calda "
+           "di lampada e di cuoio vecchio, e sotto, appena, di tabacco spento da poco. Una delle "
+           "lampade in fondo ronza — un ronzio da insetto chiuso in una stanza — e ogni tanto "
+           "smette per due o tre secondi, poi riprende. All’ultimo tavolo, un posto solo è stato "
+           "usato: la sedia scostata di traverso, e sul piano un bicchiere d’acqua bevuto a metà.",
+    'T6': "Il deposito è una stanza senza finestre, e l’aria ci sta ferma da tanto tempo che la "
+           "fiamma della lanterna non si piega di un capello. Ceralacca dappertutto: sui nodi "
+           "dello spago, sulle ante degli armadi, sugli angoli delle scatole, e ogni sigillo "
+           "porta lo stemma della città schiacciato di fresco, ancora lucido. Gli scaffali "
+           "corrono dal pavimento al soffitto in file numerate, e su ogni ripiano i reperti "
+           "stanno in ordine di entrata e non di che cosa siano: un coltello accanto a un "
+           "servizio da tè, una scarpa spaiata accanto a un mazzo di lettere legato con un "
+           "nastro. Sa di cera, di spago nuovo e di quella polvere fine che fa la carta quando è "
+           "tanta. Ogni tanto, fra gli scaffali, si sente un fruscio breve, sempre nella stessa "
+           "fila, come di carta che si assesta sotto il proprio peso. Fra tutti quei sigilli "
+           "rossi, su un ripiano all’altezza degli occhi, uno solo è scuro e vecchio, e la "
+           "cartella che chiude ha il dorso di pelle e gli angoli consumati fino alla tela.",
 }
 
 ESAMI_CARBONE_19 = {
