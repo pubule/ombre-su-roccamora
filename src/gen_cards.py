@@ -169,7 +169,7 @@ LUOGHI = [
          testo='Bice, la sorella, vi apre con gli occhi rossi: «Negli ultimi tempi diceva di sentire '
                'musica sotto il pavimento della cripta. E aveva paura del suo stesso campanile.»',
          indizi=['Sul tavolo, una corda di violino d’argento: «L’ha trovata in cripta», dice Bice. '
-                 '<i>(Oggetto: sblocca il Luogo 5.)</i>',
+                 'La prende in mano con due dita, come si tocca la roba di un altro.',
                  'Bice, esitante: «Diceva anche una cosa strana — che solo un diapason d’argento, fatto '
                  'vibrare vicino a <i>quello che canta</i>, può farlo tacere per un momento. Diceva che '
                  'Ferri ne teneva uno, in bottega.»',
@@ -188,7 +188,7 @@ LUOGHI = [
          testo='Fumo, vino cattivo e barcaioli. Qui le lingue si sciolgono con poco.',
          indizi=['Ugo il barcaiolo: «Tre notti fa una chiatta senza lanterne ha scaricato casse al '
                  'Canale Basso. Alle 3, proprio mentre le campane suonavano da sole.» '
-                 '<i>(Parola chiave: sblocca il Luogo 6.)</i>',
+                 'Abbassa la voce sulla parola «chiatta», come se pesasse più delle altre.',
                  'Un avventore ubriaco: «Vicino ai vecchi magazzini c’è puzza di cera bruciata da settimane.»',
                  'L’oste conferma: Tonio il sagrestano era qui a giocare a carte fino all’alba, '
                  'la notte della scomparsa.',

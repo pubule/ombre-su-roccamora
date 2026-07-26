@@ -131,7 +131,7 @@ LUOGHI_P = [
                'sono una storia.',
          indizi=['L’oste: «Tre uomini da molo, tre sere di fila, sempre quel tavolo: guardavano il '
                  'vostro portone. Uno ha detto una parola che qui non si usa: la dogana vecchia.» '
-                 '<i>(Parola chiave: sblocca il Luogo P4.)</i>',
+                 'E la ripete piano, come per farvela imparare: «la dogana».',
                  'Il nipote di Ansaldo ha litigato col vecchio la settimana scorsa, per soldi: metà '
                  'taverna li ha sentiti. Da allora il ragazzo non si è più visto.',
                  'Dopo le 21:00 arriva il barcaiolo della Chiatta: prima di quell’ora è in acqua. '
