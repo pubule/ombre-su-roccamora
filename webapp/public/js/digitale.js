@@ -11,6 +11,7 @@ import { salva, dati } from './store.js';
 import { rendi, norm, costruisciMazzo, carteDaPescare, pesca, fineRound,
          cantoDaCarta, cerca, urlCarta, urlArt, cartaOggetto, tettoCanto } from './engine.js';
 import { tiraProva } from './dadi.js';
+import { abilitaSchede } from './scheda-eroe.js';
 
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) =>
   ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -264,6 +265,7 @@ export async function vistaDigitale(app, partita, vaiA) {
   const [ep, comune, carte] = await Promise.all([
     dati(partita.episodio), dati('comune'), dati('carte')]);
   ctx = { app, partita, ep, comune, carte, vaiA, layout: null };
+  abilitaSchede((nm) => comune.eroi.find((x) => x.nome === nm));
   // al tavolo la plancia si guarda in tanti, da lontano e di sbieco: il glide
   // del token rallenta (vedi `.al-tavolo .tok-slot` in app.css) perche' la
   // notte si deve poter SEGUIRE, non indovinare a cose fatte
@@ -505,7 +507,8 @@ const viteVista = (nm) => (ctx.viteVista ? ctx.viteVista[nm] : SP().vite[nm]);
 function saluteHtml() {
   return P().party.map((nm) => {
     const e = eroe(nm); const max = saluteMax(e); const v = viteVista(nm) ?? max;
-    return `<div class="nemico-riga"><span class="nemico-nome">${esc(primo(nm))}${v <= 0 ? ' <b>a terra</b>' : ''}</span>
+    return `<div class="nemico-riga"><span class="nemico-nome"><button class="lnk-eroe" data-scheda="${esc(nm)}"
+      title="scheda di ${esc(nm.toLowerCase())}">${esc(primo(nm))}</button>${v <= 0 ? ' <b>a terra</b>' : ''}</span>
       <span class="nemico-pips">${Array.from({ length: max }, (_, k) => `<span class="pip-vita ${k < v ? 'piena' : ''}"></span>`).join('')}</span></div>`;
   }).join('');
 }

@@ -8,6 +8,7 @@ import { rendi, norm, bussa, dichiaraVoce, vociMappa, luogoVisitabile,
          idoneiPerTipo, usaCarica, tierIndagine, verificaRisposte,
          urlArt, cartaLuogo, cartaApprofondimento, cartaOggetto,
          urlCarta as urlCartaSafe } from './engine.js';
+import { schedaEroe, abilitaSchede } from './scheda-eroe.js';
 
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) =>
   ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -57,6 +58,7 @@ export async function vistaIndagine(app, partita, vaiA) {
   const [ep, comune, carte] = await Promise.all([
     dati(partita.episodio), dati('comune'), dati('carte')]);
   ctx = { app, partita, ep, comune, carte, vaiA };
+  abilitaSchede((nm) => comune.eroi.find((x) => x.nome === nm));
   if (!partita.indagine.lettaLettera && ep.lettera) return lettera();
   // visita interrotta dalla navigazione (menu e ritorno): l'ora e' gia'
   // stata spesa, si riprende dentro il luogo - non si ripaga
@@ -139,9 +141,12 @@ function home() {
           Array.from({ length: c.tot }, (_, k) =>
             `<i class="${k < c.rest ? 'piena' : ''}"></i>`).join('')}</span>`).join('');
         const finito = car.length > 0 && car.every((c) => c.rest <= 0);
-        return `<div class="chip-turno ritratto${finito ? ' fatto' : ''}"><span class="rit"><img src="${e && e.art ? urlArt(e.art) : ''}" alt="" loading="lazy"></span>
+        // qui il ritratto e' libero (in spedizione lo stesso clic sceglie chi
+        // agisce), quindi apre la scheda del personaggio
+        return `<button class="chip-turno ritratto${finito ? ' fatto' : ''}" data-scheda="${esc(nm)}"
+          title="scheda di ${esc(nm.toLowerCase())}"><span class="rit"><img src="${e && e.art ? urlArt(e.art) : ''}" alt="" loading="lazy"></span>
           <span class="et">${breve(nm)}</span>
-          ${car.length ? `<span class="cariche">${pips}</span>` : ''}</div>`;
+          ${car.length ? `<span class="cariche">${pips}</span>` : ''}</button>`;
       }).join('')}</div>
       <p class="nota">Sotto ogni ritratto, le sue <b>cariche</b>: un pallino per uso,
       pieno se è ancora disponibile. Ogni eroe legge un tipo di Approfondimento

@@ -7,6 +7,7 @@ import { salva, dati } from './store.js';
 import { rendi, norm, costruisciMazzo, carteDaPescare, pesca, fineRound,
          cantoDaCarta, cerca, urlCarta, urlArt, cartaOggetto, cadenzaCanto } from './engine.js';
 import { tiraProva } from './dadi.js';
+import { abilitaSchede } from './scheda-eroe.js';
 
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) =>
   ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -17,6 +18,7 @@ export async function vistaSpedizione(app, partita, vaiA) {
   const [ep, comune, carte] = await Promise.all([
     dati(partita.episodio), dati('comune'), dati('carte')]);
   ctx = { app, partita, ep, comune, carte, vaiA };
+  abilitaSchede((nm) => comune.eroi.find((x) => x.nome === nm));
   // lo store crea un segnaposto con mazzo null: il setup vero e' qui
   if (!partita.spedizione || !partita.spedizione.mazzo) return setup();
   plancia();
@@ -486,7 +488,9 @@ function eroiHtml() {
     const vita = sp.vite[nm] ?? max;
     return `
     <div class="nemico-riga">
-      <span class="nemico-nome"><span class="rit-row">${ritEroe(nm)}</span>${esc(nm.toLowerCase())}${vita === 0 ? ' <b>a terra</b>' : ''}</span>
+      <span class="nemico-nome"><button class="lnk-eroe" data-scheda="${esc(nm)}"
+        title="scheda di ${esc(nm.toLowerCase())}"><span class="rit-row">${ritEroe(nm)}</span>${
+        esc(nm.toLowerCase())}</button>${vita === 0 ? ' <b>a terra</b>' : ''}</span>
       <span class="nemico-comandi">
         <button class="btn attacca" data-vita="${esc(nm)}" data-delta="-1">−</button>
         <span class="nemico-pips">

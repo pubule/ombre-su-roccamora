@@ -2,6 +2,7 @@
 // W-A: navigazione e stato; le viste Indagine/Spedizione arrivano in W-B
 // (motore arbitro) e qui hanno un segnaposto onesto.
 import { dati, nuovaPartita, salva, carica, cancella } from './store.js';
+import { schedaEroe } from './scheda-eroe.js';
 
 const app = document.getElementById('app');
 const h = (html) => { app.innerHTML = html; window.scrollTo(0, 0); };
@@ -250,40 +251,9 @@ async function vistaParty(epId, modo, fase = 'indagine', plancia = 'fisica') {
   };
 }
 
-// la scheda dell'eroe: art, statistiche, abilità, equipaggiamento e bio —
-// gli stessi dati della Scheda Personaggio stampata
-function dettaglioEroe(e, giaScelto) {
-  return new Promise((risolvi) => {
-    const ov = document.createElement('div');
-    ov.className = 'scelta-overlay';
-    ov.innerHTML = `
-      <div class="scelta-box eroe-dettaglio">
-        <div class="eroe-testata">
-          <img src="${encodeURI('/assets/artworks/' + e.art)}" alt="">
-          <div>
-            <h3>${esc(e.nome.toLowerCase())}</h3>
-            <p class="eroe-ruolo">${esc(e.ruolo)} — Società del Lume</p>
-          </div>
-        </div>
-        <div class="eroe-stats">
-          ${[['acume', e.acume], ['vigore', e.vigore], ['nervi', e.nervi],
-             ['difesa', e.difesa], ['salute', e.salute]].map(([l, v]) =>
-            `<div class="stat"><span>${l}</span><b>${v}</b></div>`).join('')}
-        </div>
-        ${e.bio ? `<div class="eroe-sezione"><h4>chi sei</h4>
-          <p class="eroe-blocco eroe-bio"><i>${esc(e.bio)}</i></p></div>` : ''}
-        <div class="eroe-sezione"><h4>abilità</h4>
-          <p class="eroe-blocco">${e.abil}</p></div>
-        ${e.equip ? `<div class="eroe-sezione"><h4>in tasca</h4>
-          <p class="eroe-blocco">${esc(e.equip)}</p></div>` : ''}
-        <button class="btn pieno" id="arruola">${giaScelto ? 'congeda eroe' : 'arruola eroe'}</button>
-        <button class="btn scelta-btn annulla" id="chiudi-eroe">chiudete la scheda</button>
-      </div>`;
-    document.body.appendChild(ov);
-    ov.querySelector('#arruola').onclick = () => { ov.remove(); risolvi('toggle'); };
-    ov.querySelector('#chiudi-eroe').onclick = () => { ov.remove(); risolvi(null); };
-  });
-}
+// la scheda dell'eroe sta in scheda-eroe.js: la aprono anche l'indagine e la
+// spedizione, che non possono importare main.js (sarebbe circolare)
+const dettaglioEroe = (e, giaScelto) => schedaEroe(e, { giaScelto });
 
 // ------------------------------------------------- ESITO D'INDAGINE (a mano)
 // Giocando la sola spedizione, l'indagine non c'e' stata: qui si dichiara cosa
