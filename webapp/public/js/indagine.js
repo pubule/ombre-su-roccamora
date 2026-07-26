@@ -465,8 +465,8 @@ async function aiutoProfano(l, tipo) {
   if (!a || gia) {
     salvaP();
     return pannelloMsg('aiuto profano', `<p><i>${esc(eroe.nome.split(' ')[0])} osserva, ascolta,
-      fruga — e stavolta con fortuna. ${gia ? 'Ma quello che c’era da cogliere qui, l’avete già colto.'
-      : 'Ma qui non c’è nulla che parli quel linguaggio.'}</i></p>`, () => schedaLuogo(l));
+      fruga — e stavolta con metodo. ${gia ? 'Ma quello che c’era da cogliere qui, l’avete già colto.'
+      : 'Ma questo luogo non ha niente da dire in quel linguaggio.'}</i></p>`, () => schedaLuogo(l));
   }
   ind.approfondimentiLetti.push({ n: l.n, tipo, soggetto: a.soggetto });
   salvaP();

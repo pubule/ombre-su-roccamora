@@ -311,8 +311,8 @@ TILES_4 = [
                'cominciata. QUANDO RIVELATE QUESTA TESSERA: applicate l’esito della Domanda 1 '
                '(vedi la busta della Soluzione). Qui dovete riportare Gaspare e Rocco per '
                'vincere.',
-         cerca_vuoto='Casse di scena vuote e cime arrotolate. Sopra, un applauso lontano copre '
-                     'ogni rumore — il vostro compreso.',
+         cerca_vuoto='Casse di scena vuote e cime arrotolate. Sopra, l’orchestra e un '
+                     'applauso lontano; quaggiù, polvere di gesso e segatura.',
          arredi=[(0, 3, 'casse'), (3, 0, 'casse')]),
     dict(id='T2', nome='IL MAGAZZINO DELLE SCENE', exits={'S': 'T1', 'N': 'T3'},
          testo='Fondali arrotolati come vele ammainate: città finte, boschi finti, un cielo '
@@ -370,8 +370,9 @@ TILES_4 = [
                  'pannelli della Conchiglia sono già disaccordati. Se non lo sono, chi imbocca '
                  'il vano si mette al sicuro (esce dal tabellone e non può più essere colpito) '
                  'ma la partita continua: la Conchiglia registra lo stesso.',
-         cerca_vuoto='Nella fossa: coperte, una cesta di cibo ripiegata, e i segni di due '
-                     'uomini che hanno contato i giorni sul legno. Niente altro.',
+         cerca_vuoto='Nella fossa: coperte ripiegate, una cesta di cibo quasi intatta, '
+                     'e i segni di due uomini che hanno contato i giorni sul legno. '
+                     'Niente altro.',
          arredi=[(1, 3, 'scrivania'), (3, 0, 'casse')]),
     dict(id='T6', nome='LA CONCHIGLIA', exits={'S': 'T4'},
          testo='Il ventre di legno del proscenio: i pannelli del 1741 curvano sopra di voi '

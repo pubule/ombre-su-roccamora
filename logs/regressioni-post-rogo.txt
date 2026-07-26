@@ -1,0 +1,38 @@
+
+(D) i nemici non si fermano sulla casella del PNG scortato
+   OK   parte un solo nemico (trovati 1)
+   OK   la fase nemici e' stata giocata (round 1 -> 2)
+   OK   il nemico si e' mosso dalla partenza (3,0) — posizioni: ["LO@0,1"]
+   OK   nessun nemico sulla casella del PNG (1,0) — posizioni: ["LO@0,1"]
+
+(A) chi rianima tiene il turno (non se lo fa rubare dal rianimato)
+   OK   Attilio precede Sibilla nell'ordine del party: ["ELENA FOSCO","DOTT. ATTILIO MARN","SIBILLA REVE"]
+   OK   prima della rianimazione tocca a Sibilla — azioni di sibilla
+   OK   il bottone Rianimare e' disponibile
+   OK   dopo la rianimazione tocca ANCORA a Sibilla — azioni di sibilla
+   OK   Sibilla ha speso 1 azione su 2: {"SIBILLA REVE":["rianimare"]}
+
+(B) tutti gli eroi hanno finito, Ruggero libero e non mosso
+   OK   il pannello nomina Ruggero: "azioni di —"
+   OK   c'e' il bottone «muovi ruggero»
+   OK   il click apre il turno di Ruggero
+   OK   ci sono celle verdi per muoverlo
+
+(C) animazione nemici: chi cade non e' gia' a terra a inizio animazione
+   tentativo 1: in-piedi× giu×  <- e' caduto
+   OK   a inizio animazione l'eroe e' ancora in piedi (non gia' a terra)
+   OK   diventa «a terra» durante l'animazione, quando lo colpiscono
+   OK   a fine animazione il token riflette lo stato reale
+
+(F) uscita segreta: arredo giusto apre, sbagliato costa l'azione
+   OK   il dato dell'uscita esiste: {"arredo":[1,2],"diff":"Media","testo":"Ruggero scosta l’altare di sinistra: sotto, un chiusino di piombo e il rumore dell’acqua nera. È di lì che portavano dentro la cera.","tile":"T6"}
+   OK   compare l'azione per frugare sotto l'arredo
+   OK   l'etichetta dice di spostare l'arredo: "Sposta altare — l'uscita che indica Ruggero (Interagire)"
+   OK   l'arredo sbagliato NON apre l'uscita (uscita=null)
+      [diag] azioni={"ELENA FOSCO":["interagire"]} tentati=[] log=["elena va a terra!","elena non riesce a smuovere altare."]
+   OK   il tentativo e' costato l'azione o e' stato registrato
+   OK   l'arredo giusto (1,2) apre l'uscita: {"aperta":true,"tile":"T6","cella":[1,2]}
+   OK   la casella d'uscita e' quella dell'arredo dichiarato
+   OK   il PNG che entra nell'uscita vince (esito=vittoria)
+
+TUTTO OK

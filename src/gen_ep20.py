@@ -306,8 +306,9 @@ TILES_20 = [
                  'lo avvicina alla veglia.',
          hook='La Mappa Acustica (dall’Ep. 19): la via delle tre acque è segnata — niente round '
               'persi nel buio della gola.',
-         cerca_vuoto='Acqua nera che sale gradino dopo gradino, e in basso un respiro lento che non '
-                     'è il vostro. Scendete: la finestra delle maree è breve.',
+         cerca_vuoto='Acqua nera che sale gradino dopo gradino, e in basso un respiro '
+                     'lento che non è il vostro. Sulla pietra bagnata non regge niente: '
+                     'quel che si posa, scivola via.',
          arredi=[(0, 3, 'casse'), (3, 0, 'casse')]),
     dict(id='T2', nome='LE TRE ACQUE', exits={'S': 'T1', 'N': 'T3'},
          testo='Il punto dove tre correnti si incontrano nel buio: dolce, salata, morta. QUANDO '
@@ -315,8 +316,9 @@ TILES_20 = [
                'La Mappa Acustica dice quale acqua seguire.',
          arbitro='Pericolo d’ambiente (le tre acque): prova VIGORE/NERVI o 1 round perso / 1 danno. '
                  'La Mappa Acustica annulla la confusione. La città può suonare a favore (evento).',
-         cerca_vuoto='Tre correnti, un solo passaggio giusto. Sbagliare non uccide subito, ma vi '
-                     'ruba il tempo che non avete: le maree salgono, il dio si muove.',
+         cerca_vuoto='Tre correnti che si torcono senza mescolarsi, e l’eco che vi '
+                     'rimanda passi da dove non li avete fatti. Qui non galleggia '
+                     'niente e non resta niente.',
          arredi=[(1, 1, 'casse'), (2, 2, 'casse')]),
     dict(id='T3', nome='LA PIETRA VIVA', exits={'S': 'T2', 'N': 'T4'},
          testo='Il cuore della gola: la pietra stessa sembra viva, pulsa piano al respiro del dio. '
@@ -336,9 +338,8 @@ TILES_20 = [
                  'Spezzare il coro libera il controcanto.',
          hook='La Candidata Salvata (dai Vecchi del Coro): qui la sottraete a M. — il suo coro resta '
               'senza la voce che crede, un rumore, e il risveglio rallenta.',
-         cerca_vuoto='Voci prezzolate che cantano male, con gli occhi impauriti: non credono a una '
-                     'nota di ciò che cantano. Spezzatele — e cercate, tra loro, la voce che invece '
-                     'crede: è lei che dovete salvare.',
+         cerca_vuoto='Leggii da orchestra, spartiti fermati con le mollette, borracce '
+                     'd’acqua per la gola. Attrezzatura da lavoro, e nient’altro.',
          arredi=[(1, 2, 'casse'), (2, 0, 'altare')]),
     dict(id='T5', nome='LA SOGLIA DELLA CAMERA', exits={'S': 'T4', 'N': 'T6'},
          testo='La soglia della camera del Dormiente: qui il coro fa l’ultima resistenza, e la '
@@ -347,8 +348,9 @@ TILES_20 = [
          arbitro='Ultimo muro del coro. Se la Candidata non è salvata, M. la costringe (il '
                  'risveglio accelera). Salvatela qui, o subite la sua voce nella camera. Oltre, '
                  'la fase finale.',
-         cerca_vuoto='Oltre la soglia, una luce che non è luce e un canto che non è canto: la '
-                     'camera del dio. E in mezzo, M., che vi ha preceduti, e vi aspetta.',
+         cerca_vuoto='Sulla soglia la pietra è liscia come se fosse stata calpestata '
+                     'per secoli. Nessuna nicchia, nessun arredo: da qui in avanti la '
+                     'roccia è nuda.',
          arredi=[(1, 1, 'casse'), (2, 2, 'casse')]),
     dict(id='T6', nome='LA CAMERA DEL DORMIENTE', exits={'S': 'T5'},
          testo='La camera, oltre ogni mappa: il Dormiente respira nel buio, M. canta il quarto rigo, '
@@ -361,9 +363,9 @@ TILES_20 = [
                  'aiuta. Controcanto completo PRIMA del risveglio = VITTORIA (il Dormiente torna al '
                  'sonno senza sogni). Risveglio prima = SCONFITTA (vedi Soluzione). FUORI SCALA: si '
                  'possono perdere eroi.',
-         cerca_vuoto='Non c’è niente da cercare, e tutto da cantare. L’ultima riga sale dalle vostre '
-                     'gole roche e umane, e per un istante impossibile fa a gara col canto del dio. '
-                     'Poi il dio, cullato, richiude l’occhio. Avete vinto — cantando.',
+         cerca_vuoto='Non c’è niente da raccogliere qui: solo pietra, acqua e buio, e '
+                     'un’aria così densa da pesare sul petto. Quel che conta, in questa '
+                     'camera, non si prende con le mani.',
          arredi=[(0, 2, 'casse')]),
 ]
 

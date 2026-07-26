@@ -325,8 +325,9 @@ TILES_13 = [
                  'poi il pericolo non sono solo gli uomini: è l’acqua, gli ingranaggi, il fuoco.',
          hook='Il Lasciapassare del Nolo (dalla Stazione): entrate come gente del trasporto, '
               'niente sbarramento.',
-         cerca_vuoto='Solo la carrozza che aspetta e il fiato dei cavalli. Chi la userà tra poco '
-                     'non lo prenderete: puntate ai registri, non ai cavalli.',
+         cerca_vuoto='Solo la carrozza che aspetta e il fiato dei cavalli nel freddo. '
+                     'Finimenti lucidi, cassetta chiusa a chiave: niente lasciato in '
+                     'vista.',
          arredi=[(0, 3, 'casse'), (3, 0, 'casse')]),
     dict(id='T2', nome='LA ROGGIA', exits={'S': 'T1', 'N': 'T3'},
          testo='Il canale di adduzione che muove la macina: acqua nera e veloce, passerelle di '
@@ -336,8 +337,9 @@ TILES_13 = [
          arbitro='PERICOLO D’AMBIENTE (roggia): non ci sono nemici stanziali, c’è l’acqua. Prova '
                  'VIGORE/DESTREZZA per la passerella. Con il Taccuino del Capo-Catena sapete dove '
                  'l’asse regge: prova a Facile.',
-         cerca_vuoto='Assi bagnate e il rombo della macina più avanti. Niente da raccogliere: '
-                     'solo da passare senza finire sotto la ruota.',
+         cerca_vuoto='Assi bagnate e il rombo della macina più avanti. La corrente ha '
+                     'lavato la passerella fino al legno vivo: non ci si è fermato '
+                     'niente.',
          arredi=[(1, 1, 'casse'), (2, 2, 'casse')]),
     dict(id='T3', nome='LA SALA DELLE MACINE', exits={'S': 'T2', 'N': 'T4'},
          testo='La grande ruota e le macine che pestano gli stracci, in moto: ingranaggi, cinghie, '
@@ -362,8 +364,9 @@ TILES_13 = [
          hook='Il Taccuino del Capo-Catena (dalla sua casa): sapete l’ora del rogo — tutto '
               'l’orologio del rogo slitta di 2 round (ogni soglia; la tabella slittata è nella '
               'Soluzione), e arrivate col fuoco ancora lontano.',
-         cerca_vuoto='Stracci fino al soffitto e odore di petrolio. Il Notaio è già alla porta: '
-                     'non guardate lui, guardate quanto manca al torchio.',
+         cerca_vuoto='Stracci fino al soffitto, odore di petrolio, polvere che vi resta '
+                     'in gola. Fra le balle non si distingue una cosa dall’altra, e '
+                     'nessuna vale il tempo che costa.',
          arredi=[(1, 2, 'casse'), (2, 0, 'altare')]),
     dict(id='T5', nome='L’ESSICCATOIO', exits={'S': 'T4', 'N': 'T6'},
          testo='Un labirinto di telai coi fogli appesi ad asciugare, carta ovunque, corridoi '
@@ -374,8 +377,9 @@ TILES_13 = [
                  '(schedule del rogo): da lì chi vi termina il round si brucia (−1 Salute). In '
                  'fuga lo riattraverserete in fiamme — il secchio (da T3) rimanda di 1 round '
                  'l’accensione della tessera in cui si trova.',
-         cerca_vuoto='Fogli come lenzuoli nel buio, e in fondo la luce del torchio. Un fiammifero, '
-                     'qui, e non c’è più niente da salvare. Correte.',
+         cerca_vuoto='Fogli come lenzuoli nel buio, ancora umidi di colla. Tutto quello '
+                     'che pende da questi telai è carta bianca: non una riga scritta, '
+                     'da nessuna parte.',
          arredi=[(1, 1, 'casse'), (2, 2, 'casse')]),
     dict(id='T6', nome='LA SALA DEL TORCHIO', exits={'S': 'T5'},
          testo='Il grande torchio e la cassaforte dei registri, attorniata di stracci pronti al '
@@ -389,8 +393,9 @@ TILES_13 = [
                  'fiamme e senza Cassetta: anneriti, vittoria PARZIALE. Il Sorvegliante va superato/'
                  'abbattuto per arrivare alla cassaforte; «Il nome del Notaio» (D2) gli fa saltare '
                  'un attacco.',
-         cerca_vuoto='Non c’è niente da cercare: c’è un registro da chiudere in una cassetta e '
-                     'una porta da raggiungere mentre il molino brucia. Prendete e uscite.',
+         cerca_vuoto='Attorno al torchio, solo stracci accatastati e barattoli '
+                     'd’inchiostro. Il resto della sala è già stato svuotato di tutto '
+                     'ciò che si poteva portare via.',
          arredi=[(0, 2, 'casse')]),
 ]
 

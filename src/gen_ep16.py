@@ -308,8 +308,9 @@ TILES_16 = [
                  'episodio non ha soglie di catastrofe: solo lo Sposo da prendere prima della barca.',
          hook='L’Indirizzo della Villa (dal Registro degli Affitti): entrate dal punto giusto, '
               'niente round perso a orientarvi.',
-         cerca_vuoto='Solo ghiaia e il profumo delle rose bianche. Chi cercate è dentro, a recitare '
-                     'una parte: entrate piano.',
+         cerca_vuoto='Solo ghiaia e il profumo delle rose bianche. Il viale è '
+                     'rastrellato da poco, le siepi tosate a squadra: qui non si passa '
+                     'senza lasciare un’impronta.',
          arredi=[(0, 3, 'casse'), (3, 0, 'casse')]),
     dict(id='T2', nome='IL GIARDINO', exits={'S': 'T1', 'N': 'T3'},
          testo='Il giardino all’italiana: aiuole, statue, un pergolato. QUANDO RIVELATE QUESTA '
@@ -325,8 +326,9 @@ TILES_16 = [
                'il secondo complice (il tuttofare) è qui a curare le rose bianche dell’inganno.',
          arbitro='Il secondo complice (Sgherro). Ambiente innocuo: al più i vetri, che non feriscono '
                  'ma fanno rumore (se combattete qui, la prossima carta Minaccia si pesca subito).',
-         cerca_vuoto='Rose bianche a decine, tagliate per un matrimonio che non ci sarà. Un '
-                     'dettaglio triste, niente di utile: proseguite verso il salone.',
+         cerca_vuoto='Rose bianche a decine, tagliate e in secchi d’acqua, sotto un '
+                     'vetro che gocciola. Fra i vasi non c’è che terriccio, forbici e '
+                     'gomitoli di spago.',
          arredi=[(0, 1, 'casse'), (3, 2, 'casse')]),
     dict(id='T4', nome='IL SALONE', exits={'S': 'T3', 'N': 'T5'},
          testo='Il salone illuminato a festa: lo Sposo, elegante, recita la parte del fidanzato '
@@ -337,8 +339,9 @@ TILES_16 = [
                  'mostrarlo a Bruna: l’incantesimo si incrina, lei rallenta i suoi piani.',
          hook='Il Fascicolo delle Vittime (dalla ex fidanzata): mostrato a Bruna, spezza la bugia '
               '— lo Sposo perde lo scudo e la cattura diventa automatica alla stanza (T6).',
-         cerca_vuoto='Tavoli imbanditi per un banchetto di nozze. Lo Sposo indietreggia verso il '
-                     'lago, la mano sul braccio di Bruna: non lasciatelo arrivare alla barca.',
+         cerca_vuoto='Tavoli imbanditi per un banchetto: argenteria a nolo, e i '
+                     'cartellini dei posti scritti tutti dalla stessa mano. Nessuna '
+                     'carta, nessuna lettera, niente da prendere.',
          arredi=[(1, 2, 'casse'), (2, 0, 'altare')]),
     dict(id='T5', nome='L’IMBARCADERO', exits={'S': 'T4', 'N': 'T6'},
          testo='L’imbarcadero sul lago, la barca legata e pronta. QUANDO RIVELATE QUESTA TESSERA: '
@@ -347,8 +350,9 @@ TILES_16 = [
          arbitro='Punto di fuga. Se Bruna è ancora sotto l’inganno (niente Fascicolo), lo Sposo la '
                  'trascina alla barca: fermarlo richiede una prova rischiosa (rischia di cadere in '
                  'acqua con lei). Col Fascicolo, Bruna non lo segue: niente fuga, niente rischio.',
-         cerca_vuoto='Acqua nera e una barca che dondola. Se lo Sposo è arrivato fin qui con lei, '
-                     'ogni secondo conta: tagliate la cima o fermatelo, ma non fatelo salpare.',
+         cerca_vuoto='Acqua nera e una barca che dondola contro i respingenti di corda. '
+                     'Sull’imbarcadero, un bidone di petrolio e una lampada spenta: '
+                     'nient’altro.',
          arredi=[(1, 1, 'casse'), (2, 2, 'casse')]),
     dict(id='T6', nome='LA STANZA DI BRUNA', exits={'S': 'T5'},
          testo='La stanza preparata per la «prima notte di nozze», dove Bruna aspetta. QUANDO '
@@ -368,9 +372,9 @@ TILES_16 = [
                  '— SEGRETO: è dietro le CASSE accanto al letto (l’unico mobile della stanza). '
                  '— QUANDO BRUNA SCENDE ALL’IMBARCADERO la spedizione è VINTA: leggete '
                  'l’epilogo. Non serve rifare a ritroso la villa.',
-         cerca_vuoto='Non c’è un tesoro: c’è una ragazza da riportare a casa e un imbroglione da '
-                     'consegnare ai gendarmi. Slegatele il nastro verde e riannodateglielo voi: è '
-                     'l’unica cosa vera, in questa villa di bugie.',
+         cerca_vuoto='La stanza è preparata come una scena: lenzuola nuove, candele '
+                     'accese, un vestito appeso che nessuno ha mai indossato. Niente, '
+                     'qui, è davvero di qualcuno.',
          arredi=[(0, 2, 'casse')]),
 ]
 

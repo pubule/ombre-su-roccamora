@@ -343,8 +343,8 @@ TILES_9 = [
                  'Non ha debolezza-oggetto. «Il nome sbagliato» (Domanda 2 esatta): '
                  'gridategli che il suo mandante lo brucerà come ha bruciato Ferri — '
                  'salta la sua PRIMA attivazione.',
-         cerca_vuoto='Solo catene rugginose e vuoto sotto le assi. Sul ponte non ci si '
-                     'nasconde: si passa, in fretta.',
+         cerca_vuoto='Ruggine a scaglie sulle catene, e sotto le assi l’acqua nera che '
+                     'porta via tutto. Sul parapetto non è rimasto nemmeno un graffio.',
          arredi=[(2, 2, 'altare')]),
     dict(id='T4', nome='IL MERCATO COPERTO DI NOTTE', exits={'S': 'T3', 'N': 'T5'},
          testo='Banchi vuoti a perdita d’occhio sotto la tettoia, teli abbassati, sagome '
@@ -365,8 +365,9 @@ TILES_9 = [
                'altrimenti, 2 Sgherri di retroguardia dal basso.',
          arbitro='Al buio, le prove NERVI di questa tessera sono a Difficile (Media con '
                  'una lanterna). Il Sicario, se qui, continua a cacciare Riva.',
-         cerca_vuoto='Gradini viscidi, muri ciechi, un lampione spento che dondola. In '
-                     'cima, l’odore del fiume: il molo è vicino.',
+         cerca_vuoto='Gradini viscidi, muri ciechi, un lampione spento che dondola '
+                     'senza dare luce. Fra i due muri non c’è una porta, una nicchia, '
+                     'un davanzale: niente.',
          arredi=[(1, 1, 'casse'), (2, 2, 'casse')]),
     dict(id='T6', nome='IL MOLO DEL LUME', exits={'S': 'T5'},
          testo='L’approdo segreto: il battello basso, i due rematori con i remi già in '
@@ -377,8 +378,9 @@ TILES_9 = [
                  'Sicario Gentile vi ha inseguiti fin qui, i due rematori entrano nella '
                  'mischia (contano come 2 alleati di truppa, Att +1, per coprire '
                  'l’imbarco).',
-         cerca_vuoto='La barca dondola, l’acqua sciaborda. Non c’è niente da cercare qui: '
-                     'c’è solo da partire, con Riva a bordo.',
+         cerca_vuoto='Assi bagnate, un rotolo di gomena, l’acqua che sciaborda contro '
+                     'il legno. L’approdo è stato ripulito di tutto quello che poteva '
+                     'dire chi ci passa.',
          arredi=[(0, 2, 'casse')]),
 ]
 

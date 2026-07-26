@@ -321,8 +321,9 @@ TILES_15 = [
                  'sigillo) e la scena che si cancella.',
          hook='La Chiave di Servizio (dall’incisore): entrate dal retro, niente cordone, un round '
               'di margine in più sul sigillo.',
-         cerca_vuoto='Solo il muro e le lanterne dei gendarmi che si avvicinano. Non c’è niente da '
-                     'prendere qui: c’è una scena da smontare, dentro, prima che la chiudano.',
+         cerca_vuoto='Solo il muro di cinta e le lanterne dei gendarmi che si allungano '
+                     'sulla ghiaia. Sul cancello, catene nuove e nemmeno un lucchetto '
+                     'forzato.',
          arredi=[(0, 3, 'casse'), (3, 0, 'casse')]),
     dict(id='T2', nome='L’ATRIO', exits={'S': 'T1', 'N': 'T3'},
          testo='L’atrio della villa: tutto in ordine perfetto, ogni cimelio al suo posto, e '
@@ -353,8 +354,9 @@ TILES_15 = [
                  'vogliono finire il lavoro e dileguarsi prima del sigillo.',
          hook='Il Manuale Indiziario (dall’archivio): riconoscete i tell al volo — ne documentate '
               'uno in più per round, tenendo il passo della cancellazione.',
-         cerca_vuoto='Gli Apparecchiatori lucidano via le tracce sotto i vostri occhi. Ogni round '
-                     'perso è un tell in meno: non fermatevi a frugare, documentate ciò che vedete.',
+         cerca_vuoto='Vetrine di lastre fonografiche, custodie allineate, cartellini '
+                     'scritti a macchina. Tutto è già catalogato e tutto è già stato '
+                     'lucidato: sul vetro non c’è un’impronta.',
          arredi=[(1, 2, 'casse'), (2, 0, 'altare')]),
     dict(id='T5', nome='LE SCALE DI SERVIZIO', exits={'S': 'T4', 'N': 'T6'},
          testo='Le scale di servizio, la via per cui gli Apparecchiatori entrano ed escono. '
@@ -363,8 +365,9 @@ TILES_15 = [
          arbitro='Ultimo diaframma prima dello studio segreto. I Sicari (Sgherri) sbarrano le '
                  'scale. Se il sigillo è vicino, ogni round qui è un round in meno per prendere il '
                  'Capo prima che la Gendarmeria entri.',
-         cerca_vuoto='Scalini di servizio e l’eco di passi che salgono di fretta: sono i vostri, o '
-                     'sono i gendarmi al cancello? Salite: il Capo è in cima, e sta finendo.',
+         cerca_vuoto='Scalini consumati al centro e un corrimano di ferro freddo. Nella '
+                     'tromba delle scale non c’è che eco: nessuno lascia niente su una '
+                     'scala che serve ad andarsene.',
          arredi=[(1, 1, 'casse'), (2, 2, 'casse')]),
     dict(id='T6', nome='LO STUDIO SEGRETO', exits={'S': 'T5'},
          testo='Lo studio segreto in fondo alla villa: il Capo Apparecchiatore posa l’ultima prova '
@@ -376,8 +379,9 @@ TILES_15 = [
                  '(vittoria piena). Se il sigillo scatta prima, o i tell sono troppo pochi, resta '
                  'solo la Busta pubblica (vittoria parziale). «Il metodo della società» (D3): dirgli '
                  'che avete riconosciuto il vostro metodo lo fa esitare (salta un attacco).',
-         cerca_vuoto='Non c’è un tesoro: c’è un uomo da fermare prima che finisca, e delle '
-                     'istruzioni da togliergli di tasca. Prendetelo, e uscite prima del sigillo.',
+         cerca_vuoto='Uno studio in ordine da fotografia: nessun cassetto aperto, '
+                     'nessun foglio storto, la carta assorbente pulita. Chi lavora qui '
+                     'non si lascia niente alle spalle.',
          arredi=[(0, 2, 'casse')]),
 ]
 

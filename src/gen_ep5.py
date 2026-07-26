@@ -336,8 +336,9 @@ TILES_5 = [
                'giro, e sul tavolo di pietra — nuovi, ordinati, ALTRUI — i registri di '
                'cantiere: conti, misure, un calendario di maree. QUANDO RIVELATE QUESTA '
                'TESSERA: 1 Confratello di guardia appare tra i sedili.',
-         cerca_vuoto='I registri di cantiere sono copie di lavoro: numeri, non nomi. Chi li '
-                     'tiene sa che qualcuno potrebbe arrivare fin qui.',
+         cerca_vuoto='I registri di cantiere sono copie di lavoro: numeri e misure, '
+                     'nessun nome. Carta comune, inchiostro comune, niente che valga la '
+                     'pena portarsi via.',
          arredi=[(1, 1, 'scrivania'), (2, 2, 'casse')]),
     dict(id='T5', nome='L’OFFICINA DELLE CANNE D’OSSA', exits={'O': 'T4'},
          testo='Banchi da liutaio in una cripta: seghe fini, colla d’ossa che bolle piano su '
@@ -368,9 +369,9 @@ TILES_5 = [
                  'Crocifisso Spezzato e l’Olio dei Morti non fanno nulla: esche. Finché il '
                  'Salmodiante è vivo, i Confratelli a lui adiacenti hanno +1 Difesa (la '
                  'salmodia li tiene insieme).',
-         cerca_vuoto='Qui non c’è niente da trovare che non vi stia già guardando. Le canne '
-                     'montate luccicano di cera fresca: qualcuna, contro luce, ha ancora il '
-                     'nome del suo proprietario inciso sull’osso.',
+         cerca_vuoto='Qui non c’è niente da trovare che non vi stia già guardando. Le '
+                     'canne montate luccicano di cera fresca, e il cuoio dei mantici '
+                     'odora ancora di conceria.',
          arredi=[(2, 2, 'altare')]),
 ]
 

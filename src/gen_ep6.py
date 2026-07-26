@@ -303,8 +303,8 @@ TILES_6 = [
                'l’acqua è a un palmo dalle volte, ferma, tesa. QUANDO RIVELATE QUESTA '
                'TESSERA: applicate l’esito della Domanda 1 (vedi la busta della Soluzione). '
                'Qui dovete tornare per vincere — prima che l’acqua alta chiuda l’arco.',
-         cerca_vuoto='Solo l’anello d’ormeggio e la sentina dell’altra barca: cera nera e '
-                     'trucioli di bronzo. L’inventario dei vostri cinque casi.',
+         cerca_vuoto='Solo l’anello d’ormeggio e la sentina dell’altra barca: cera nera '
+                     'e trucioli di bronzo, sul fondo, sotto un dito d’acqua.',
          arredi=[(0, 3, 'molo'), (3, 0, 'casse')]),
     dict(id='T2', nome='LA GALLERIA DI MAREA', exits={'S': 'T1', 'N': 'T3'},
          testo='La galleria corre bassa lungo la vena salmastra: i muri portano i segni '
@@ -342,8 +342,9 @@ TILES_6 = [
          arbitro='SPEGNERE LA PIETRA (2° movimento): un’azione Interagire al cuneo + prova '
                  'ACUME (Media) — si disaccorda il cuneo maestro. Riuscita: movimento '
                  'spento (Ferri -1 Difesa). Fallita: si ritenta. La mazzetta di T3: +1.',
-         cerca_vuoto='La gola risponde ai vostri passi con mezzi toni sbagliati. Non c’è '
-                     'niente da prendere: c’è solo da non restare.',
+         cerca_vuoto='La gola risponde ai vostri passi con mezzi toni sbagliati. La '
+                     'roccia è liscia da secoli d’acqua: non c’è una sporgenza, una '
+                     'fessura, un appiglio.',
          arredi=[(1, 3, 'scrivania'), (3, 0, 'casse')]),
     dict(id='T6', nome='LA SALA DELLA TERZA ACQUA — LE OSSA', exits={'S': 'T4', 'N': 'T7'},
          testo='L’organo superstite, ricostruito in fretta: metà canne d’ossa, metà tubi '
@@ -354,8 +355,9 @@ TILES_6 = [
                  'NERVI (Media) — si strappa il somiere con le mani dentro lo strumento '
                  'che suona. Riuscita: movimento spento (Ferri -1 Difesa). Fallita: si '
                  'ritenta. La mazzetta di T3: +1.',
-         cerca_vuoto='Trucioli d’osso e stagno. Le canne montate hanno ancora i nomi '
-                     'incisi: non leggeteli ad alta voce.',
+         cerca_vuoto='Trucioli d’osso e riccioli di stagno, calpestati nella fretta di '
+                     'montare. Niente di intero, niente che si stacchi senza far '
+                     'cantare tutto il resto.',
          arredi=[(2, 2, 'altare')]),
     dict(id='T7', nome='L’ANTICAMERA DEL CORO', exits={'S': 'T6', 'N': 'T8'},
          testo='Dodici scranni, dodici mantelli appesi, dodici paia di scarpe buone '
@@ -383,7 +385,9 @@ TILES_6 = [
                  'segnalino Canto tutte le prove -1; al 6°: ogni round l’eroe con meno '
                  'NERVI subisce 1 danno; al 9°: il rituale si compie — fuga forzata '
                  '(epilogo peggiore, non sconfitta).',
-         cerca_vuoto='Qui non si cerca. Qui si finisce quello per cui siete venuti.',
+         cerca_vuoto='Le tre vene si torcono al centro senza mescolarsi, e la pietra '
+                     'intorno è nuda: nessun arredo, nessuna nicchia, niente che '
+                     'qualcuno abbia lasciato indietro.',
          arredi=[(2, 2, 'altare')]),
 ]
 

@@ -303,8 +303,9 @@ TILES_19 = [
                  'l’allarme (1 gendarme subito). Con la mappa, entrate silenziosi. Ricorda: qui non '
                  'si uccide l’Ispettore — si arriva al Fascicolo e lo si convince.',
          hook='La mappa dei sigilli (dal Banco di Fossa): entrate senza allarme dal sigillo debole.',
-         cerca_vuoto='Sale buie piene della vostra stessa roba sequestrata: fascicoli, cimeli, la '
-                     'vostra vita di Società impacchettata. Da qualche parte, il Fascicolo del 1741.',
+         cerca_vuoto='Sale buie piene della vostra stessa roba sequestrata: fascicoli, '
+                     'cimeli, la vostra vita di Società impacchettata da mani estranee. '
+                     'Tutto chiuso, tutto numerato.',
          arredi=[(0, 3, 'casse'), (3, 0, 'casse')]),
     dict(id='T2', nome='L’ATRIO DEI GENDARMI', exits={'S': 'T1', 'N': 'T3'},
          testo='L’atrio dove monta la guardia notturna dell’Archivio. QUANDO RIVELATE QUESTA '
@@ -323,8 +324,9 @@ TILES_19 = [
          arbitro='Ambiente d’archivio: cercare il faldone giusto tra migliaia costa tempo (insidie '
                  '"faldone sbagliato"). Un alleato archivista del conto, se l’avete, indica la '
                  'sala giusta (salta un’insidia).',
-         cerca_vuoto='Faldoni su faldoni, e da qualche parte il Fascicolo del 1741. Ma prima '
-                     'dovrete passare dall’uomo che vi aspetta più avanti.',
+         cerca_vuoto='Faldoni su faldoni, cataloghi aperti a metà, matite copiative '
+                     'lasciate sui tavoli. Il lavoro è a un terzo: qui dentro, per ora, '
+                     'non si trova niente per caso.',
          arredi=[(0, 1, 'casse'), (3, 2, 'casse')]),
     dict(id='T4', nome='IL CORRIDOIO DEI SIGILLI', exits={'S': 'T3', 'N': 'T5'},
          testo='Il corridoio dei depositi sigillati. QUANDO RIVELATE QUESTA TESSERA: l’Ispettore '
@@ -333,8 +335,9 @@ TILES_19 = [
          arbitro='Da ora l’Ispettore è sulle vostre tracce (le carte crescendo lo avvicinano). '
                  'Preparate le Prove per l’Ispettore: alla Sala di Lettura (T5) dovrete fermarlo e '
                  'parlargli, non abbatterlo.',
-         cerca_vuoto='Porte sigillate a decine, e i passi misurati di Vidal che si avvicinano. Non '
-                     'correte: pensate a cosa gli direte quando vi troverà.',
+         cerca_vuoto='Porte sigillate a decine, ceralacca fresca su ognuna, e un '
+                     'corridoio che non finisce mai. Non un solo sigillo già rotto, non '
+                     'una porta accostata.',
          arredi=[(1, 2, 'casse'), (2, 0, 'altare')]),
     dict(id='T5', nome='LA SALA DI LETTURA', exits={'S': 'T4', 'N': 'T6'},
          testo='La grande sala di lettura dell’Archivio, tavoli lunghi e lampade verdi. QUANDO '
@@ -345,8 +348,9 @@ TILES_19 = [
                  'CONVINCETE (dalla vostra parte); senza, si ferma comunque ma resta contro.',
          hook='Le Prove per l’Ispettore (dalla Gendarmeria + l’archivio di Braga): la matrice del '
               'decano e il metodo di M. — convincono Vidal di essere stato manipolato.',
-         cerca_vuoto='Vidal abbassa lentamente l’arma, in attesa. «Parlate,» dice. «Ma parlate '
-                     'bene: è l’ultima cosa che sentirò da voi prima di decidere.»',
+         cerca_vuoto='Tavoli lunghi, lampade verdi spente, sedie rimesse a posto una '
+                     'per una. La sala di lettura è stata sgomberata: sui piani non è '
+                     'rimasto un foglio di brutta.',
          arredi=[(1, 1, 'casse'), (2, 2, 'casse')]),
     dict(id='T6', nome='IL DEPOSITO REPERTI', exits={'S': 'T5'},
          testo='Il deposito reperti, dove il Fascicolo del 1741 giace sotto sigillo fresco. QUANDO '
@@ -356,9 +360,9 @@ TILES_19 = [
                  'Con l’Ispettore convinto = vittoria piena (i gendarmi coprono la ritirata nel '
                  'finale). Solo fermato = vittoria parziale. Senza il Fascicolo = spedizione '
                  'fallita (raro).',
-         cerca_vuoto='Il Fascicolo del 1741, l’antico dossier della confraternita, finalmente in '
-                     'mano. Dentro c’è il controcanto: come si fa dormire un dio senza sogni. '
-                     'Prendetelo, e scendete.',
+         cerca_vuoto='Scaffali di reperti in file numerate, cartellini, spago, '
+                     'ceralacca. Tutto quello che è impilato qui appartiene ai casi di '
+                     'qualcun altro.',
          arredi=[(0, 2, 'casse')]),
 ]
 

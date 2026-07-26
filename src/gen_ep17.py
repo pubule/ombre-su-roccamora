@@ -311,8 +311,8 @@ TILES_17 = [
                  'ora, e resta finché non trovate il decano vivo (T5).',
          hook='Le Chiavi della Villa-Prigione (dal Rifugio): entrate senza sfondare, niente Guardia '
               'al cancello.',
-         cerca_vuoto='Solo il muro e il buio della campagna. Il decano è dentro, vivo: trovarlo è '
-                     'l’unica cosa che vi toglierà il peso dallo stomaco.',
+         cerca_vuoto='Solo il muro e il buio della campagna. Sul viale, i solchi larghi '
+                     'di un carro pesante entrato da poco: la ghiaia è ancora smossa.',
          arredi=[(0, 3, 'casse'), (3, 0, 'casse')]),
     dict(id='T2', nome='IL CORTILE', exits={'S': 'T1', 'N': 'T3'},
          testo='Il cortile interno della villa-prigione: un pozzo, una rimessa, la carrozza chiusa '
@@ -333,8 +333,9 @@ TILES_17 = [
                  'del Notaio.',
          hook='Il Salvacondotto (dalla Dogana): passate i posti di blocco senza fermarvi — arrivate '
               'al decano prima del trasferimento.',
-         cerca_vuoto='Pentole fredde e l’odore di una casa che finge normalità. Di là, un corridoio '
-                     'di celle: il decano è vicino.',
+         cerca_vuoto='Pentole fredde, un tavolo strofinato di fresco, la dispensa '
+                     'chiusa a chiave. Una cucina che finge normalità e non lascia in '
+                     'giro nemmeno un coltello.',
          arredi=[(0, 1, 'casse'), (3, 2, 'casse')]),
     dict(id='T4', nome='LA SALA DEGLI INTERROGATORI', exits={'S': 'T3', 'N': 'T5'},
          testo='La sala dove il decano è interrogato «con garbo»: una sedia, una lampada, carte. '
@@ -343,8 +344,9 @@ TILES_17 = [
          arbitro='Da ora le carte crescendo spingono la soglia-decano: se il Canto la raggiunge '
                  'prima che liberiate il decano (T5), lui viene «trasferito» — lo recuperate ferito '
                  'gravemente (vittoria parziale). Il Salvacondotto ha già alzato la soglia.',
-         cerca_vuoto='La sedia è ancora calda, la lampada accesa: il decano era qui un minuto fa. '
-                     'Lo stanno spostando. Correte alla cella.',
+         cerca_vuoto='Una sedia, una lampada accesa, un tavolo. Sul piano solo un '
+                     'cerchio d’acqua e la cenere di una sigaretta: le carte se le sono '
+                     'già portate via.',
          arredi=[(1, 2, 'casse'), (2, 0, 'altare')]),
     dict(id='T5', nome='LA CELLA DEL DECANO', exits={'S': 'T4', 'N': 'T6'},
          testo='La cella al piano di sotto, dove tengono il decano. QUANDO RIVELATE QUESTA TESSERA: '
@@ -353,9 +355,9 @@ TILES_17 = [
          arbitro='OBIETTIVO 1. Liberare il decano vivo: da questo momento il MORALE si rialza (−1 '
                  'NERVI RIMOSSO per il resto della spedizione). Se la soglia-decano era già passata, '
                  'il decano è ferito grave (vittoria parziale sul fronte deposizione).',
-         cerca_vuoto='Il decano vi guarda con un occhio solo aperto e sorride: «lo sapevo che '
-                     'sareste venuti. Non c’è nessuna talpa, ragazzi. Ora prendetelo, il Notaio: è '
-                     'di là.»',
+         cerca_vuoto='Una branda, un secchio, una finestrella alta come una feritoia. '
+                     'Sull’intonaco, i graffi di chi ha contato i giorni — e '
+                     'nient’altro.',
          arredi=[(1, 1, 'casse'), (2, 2, 'casse')]),
     dict(id='T6', nome='LO STUDIO DEL NOTAIO', exits={'S': 'T5'},
          testo='Lo studio in fondo alla villa, dove il Notaio Rasca raccoglie i suoi incartamenti '
@@ -366,9 +368,9 @@ TILES_17 = [
                  'tenta di sparire (come al Molino) — ma con la Guardia a terra è cattura quasi '
                  'automatica. «La matrice» (D3): sapere che avete decifrato tutto fa saltare un '
                  'attacco alla Guardia.',
-         cerca_vuoto='Rasca vi porge i polsi guantati quasi con sollievo: «il mio cliente firma '
-                     'poco, signori. Ma paga sempre.» Prendete lui, e la matrice: domani parla la '
-                     'penna, non la mano.',
+         cerca_vuoto='Cassetti tirati fuori e rovesciati, cartelle legate con lo spago '
+                     'pronte a partire, il camino ancora caldo. Quel che restava è già '
+                     'cenere o è già in valigia.',
          arredi=[(0, 2, 'casse')]),
 ]
 

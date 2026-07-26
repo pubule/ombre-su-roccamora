@@ -1,0 +1,17 @@
+### ep11 ###
+VALIDA: nessuna azione fallita, nessun round perso, nessun errore JS
+===== Ep.11, 4 eroi, 20 partite =====
+VITTORIE 19/20 = 95%, round medi 8.7
+### ep12 ###
+VALIDA: nessuna azione fallita, nessun round perso, nessun errore JS
+===== Ep.12, 4 eroi, 20 partite =====
+VITTORIE 6/20 = 30%, round medi 6.2
+### ep15 ###
+VALIDA: nessuna azione fallita, nessun round perso, nessun errore JS
+===== Ep.15, 4 eroi, 20 partite =====
+VITTORIE 20/20 = 100%, round medi 8.4
+### ep16 ###
+VALIDA: nessuna azione fallita, nessun round perso, nessun errore JS
+===== Ep.16, 4 eroi, 20 partite =====
+VITTORIE 20/20 = 100%, round medi 12.4
+=== G3 COMPLETO ===

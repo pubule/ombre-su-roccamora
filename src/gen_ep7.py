@@ -320,8 +320,9 @@ TILES_7 = [
                'attutiti, come sott’acqua. QUANDO RIVELATE QUESTA TESSERA: applicate l’esito '
                'delle Domande 4 e 1 (vedi la busta della Soluzione). Qui dovete riportare '
                'Fava per vincere.',
-         cerca_vuoto='Sacchi, badili, una garitta vuota con la stufa ancora tiepida. Il '
-                     'guardiano nuovo è al cancello e ci resta.',
+         cerca_vuoto='Sacchi di calce accatastati, badili, una garitta con la stufa '
+                     'ancora tiepida e una sedia scostata in fretta. Niente altro: qui '
+                     'si lavora e basta.',
          arredi=[(0, 3, 'casse'), (3, 0, 'casse')]),
     dict(id='T2', nome='IL PIANO TERRA', exits={'S': 'T1', 'O': 'T3P', 'E': 'T3I'},
          testo='Il piano terra è una selva di puntelli: calcinaie aperte come pozze, la '
@@ -399,8 +400,9 @@ TILES_7 = [
                '1 nemico in meno. A Ovest, in cima, la porta bassa: l’intercapedine del '
                'terzo piano. QUANDO RIVELATE QUESTA TESSERA: appare 1 Sicario di ronda — '
                'il guardiano dei piedi di feltro fa le scale ogni ora.',
-         cerca_vuoto='Feltro, polvere di calce, e i segni di gesso del muratore che '
-                     'arrivano fin qui: «III», e una freccia verso la porta bassa.',
+         cerca_vuoto='Feltro inchiodato gradino per gradino, e sotto, polvere di calce '
+                     'che non conserva impronte. La tromba delle scale è nuda: nessuna '
+                     'nicchia, nessun ripostiglio.',
          arredi=[(0, 1, 'casse')]),
     dict(id='T6', nome='L’INTERCAPEDINE DEL TERZO PIANO', exits={'O': 'T4P', 'E': 'T5I'},
          testo='La stanza che non esiste: un vano lungo e basso tra due muri, foderato '
@@ -416,8 +418,9 @@ TILES_7 = [
                  'tutto — salta la sua PRIMA attivazione e 1 Sgherro se ne va («io non '
                  'vado in galera per l’ingegnere»). Vittoria: Fava fuori da T1, per la '
                  'via dell’andata.',
-         cerca_vuoto='Sacchi di scorie, una branda, un piatto di latta. E sotto la sedia '
-                     'di Fava, righe di gesso: settantatré. Una per giorno.',
+         cerca_vuoto='Sacchi di scorie messi a far da mobili, una branda, un piatto di '
+                     'latta. Chi ha allestito l’intercapedine ha portato dentro il '
+                     'minimo e nient’altro.',
          arredi=[(2, 2, 'casse')]),
 ]
 
@@ -871,7 +874,7 @@ TESSERE_DESC_7 = {
           "lato, sacchi di scorie a far da mobili, una branda, un piatto di "
           "latta. Il silenzio qui è così pieno che i pensieri fanno rumore. Al "
           "centro, legato a una sedia, Ernesto Fava alza la testa — e negli "
-          "occhi, dopo settantatré righe di gesso, c'è ancora l'accordatore: "
+          "occhi, dopo tre notti dentro il muro, c'è ancora l'accordatore: "
           "vi guarda le mani, per capire se siete gente che costruisce o gente "
           "che demolisce. Dalle ombre, la squadra posa le carte da gioco.",
 }

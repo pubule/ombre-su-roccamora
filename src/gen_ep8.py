@@ -309,8 +309,9 @@ TILES_8 = [
                'secca, bitte arrugginite, e in fondo la tettoia grande col suo bagliore '
                'basso. QUANDO RIVELATE QUESTA TESSERA: applicate l’esito delle Domande 4 e '
                '1 (vedi la busta della Soluzione).',
-         cerca_vuoto='Cordame, pece secca, un gatto che vi giudica. Il molo è morto '
-                     'davvero — è quello che c’è sotto la tettoia a essere vivo.',
+         cerca_vuoto='Cordame marcio, pece secca, un gatto che vi giudica da una bitta. '
+                     'Gli scafi in secca sono stati svuotati anni fa: non resta un '
+                     'chiodo che valga chinarsi.',
          arredi=[(0, 3, 'casse'), (3, 0, 'casse')]),
     dict(id='T2', nome='LA TETTOIA DELLE CHIATTE', exits={'S': 'T1', 'N': 'T3'},
          testo='Chiatte in secca in fila come balene spiaggiate, reti stese che fanno '
@@ -333,8 +334,9 @@ TILES_8 = [
                'SECONDA CASSA D’ORO su questa tessera (Interagire per sequestrarla).',
          arbitro='Chi Cerca o Interagisce qui esce nero di carbone: +1 alle prove NERVI '
                  'fino a fine round (nel buio del deposito, il nero è un vantaggio).',
-         cerca_vuoto='Carbone, carbone, carbone. Da forgia, di prima scelta — il triplo '
-                     'di quanto un porto senza fonderie potrà mai bruciare.',
+         cerca_vuoto='Carbone, carbone, carbone. Sacchi fino alle travi e polvere nera '
+                     'che vi si attacca addosso: qualunque cosa ci sia in mezzo, non la '
+                     'trovate adesso.',
          arredi=[(0, 1, 'casse'), (3, 1, 'casse'), (0, 2, 'casse')]),
     dict(id='T4', nome='LA SALA DEL CROGIOLO', exits={'S': 'T3', 'E': 'T5', 'N': 'T6'},
          testo='Il cuore dell’ansa morta: il crogiolo acceso che non si spegne mai, le '
@@ -348,8 +350,9 @@ TILES_8 = [
                  'al 3° segnalino sulla stessa cassa, quella cassa è PERSA (moneta '
                  'anonima). I Mastini invece INSEGUONO: il Fiuto li porta sempre, se '
                  'possono, su chi porta il Marengo Segnato o una cassa.',
-         cerca_vuoto='Lingotti anonimi ancora caldi, in fila. Nessun conio, nessuna '
-                     'data: oro senza memoria, pronto a qualunque storia.',
+         cerca_vuoto='Il calore vi respinge di un passo. Banco pulito, lingottiere in '
+                     'fila, bilancino coperto: qui è tutto in ordine e tutto in uso, '
+                     'niente lasciato in giro da prendere.',
          arredi=[(2, 2, 'casse')]),
     dict(id='T5', nome='L’UFFICIO DEL PESATORE', exits={'O': 'T4'},
          testo='Registri di colata rilegati come messali, il libro dei corrieri, una '
@@ -372,8 +375,9 @@ TILES_8 = [
                  'moneta anonima circolerà: epilogo peggiore, non sconfitta). Con meno '
                  'di 3: il colpo è fallito (sconfitta — il deposito trasloca e la pista '
                  'muore).',
-         cerca_vuoto='La chiatta è carica a metà: lingotti sotto il carbone. Il carico '
-                     'del giovedì non aspetta nessuno.',
+         cerca_vuoto='Acqua nera contro la banchina, gomene tese, il freddo del fiume '
+                     'che sale dalle assi. Sulla pietra non è rimasto nulla: quello che '
+                     'conta è già a bordo.',
          arredi=[(0, 2, 'casse')]),
 ]
 

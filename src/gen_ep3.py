@@ -322,8 +322,8 @@ TILES_3 = [
                'direzione: gira, piano, come rimestata. Dall’alto pende una corda nuova, unta di '
                'sego — e la corda LAVORA. QUANDO RIVELATE QUESTA TESSERA: 1 Adepto sta calando — '
                'appare sotto la corda.',
-         cerca_vuoto='Solo l’acqua che gira e la corda che pende. Quello che scendeva da qui è '
-                     'già arrivato dove doveva.',
+         cerca_vuoto='Solo l’acqua che gira, piano, e la corda che pende unta di sego. '
+                     'Sulla pietra bagnata non resta niente che si possa raccogliere.',
          arredi=[(1, 1, 'forma'), (2, 2, 'crogiolo')]),
     dict(id='T5', nome='L’OFFICINA DELLE CANNE', exits={'O': 'T4'},
          testo='Una cella asciutta, rialzata sull’acqua: rastrelliere da cantina, e in fila, '

@@ -343,8 +343,9 @@ TILES_11 = [
                  'combattimento: qui non si piazzano lealisti.',
          hook='La Corda del Campanaro (dalla Bottega del Cordaio): assicurati, la tegola non vi '
               'ferisce.',
-         cerca_vuoto='Tegole viscide e il vuoto. Non c’è niente da cercare quassù: c’è solo da '
-                     'passare, e da non guardare giù.',
+         cerca_vuoto='Tegole viscide e il vuoto. Il vento ha spazzato via perfino la '
+                     'polvere: quassù non resta appoggiato niente che non sia '
+                     'inchiodato.',
          arredi=[(1, 1, 'casse'), (2, 2, 'casse')]),
     dict(id='T3', nome='LA LOGGIA DELLE CAMPANE', exits={'S': 'T2', 'N': 'T4'}, esposta=False,
          testo='Una loggia riparata tra i bronzi enormi di una cella campanaria: qui il vento '
@@ -379,8 +380,9 @@ TILES_11 = [
                  'il Taccuino Ordinato, una volta per round salta a una tessera non adiacente '
                  '(conosce i tetti). Con il Taccuino Ordinato, sapete dove va: niente '
                  'scorciatoia.',
-         cerca_vuoto='Il ballatoio gira nel vuoto. Nessun appiglio, nessun riparo: solo il vento '
-                     'e la sagoma del caposquadra che sale davanti a voi, verso la guglia.',
+         cerca_vuoto='Il ballatoio gira nel vuoto: pietra levigata dal vento, nessun '
+                     'appiglio, nessun riparo. Su questo anello di pietra non si posa '
+                     'nulla e non resta nulla.',
          arredi=[(1, 1, 'casse'), (2, 2, 'casse')]),
     dict(id='T6', nome='LA GUGLIA', exits={'S': 'T5'}, esposta=True,
          testo='La guglia della Torre, il punto più alto e più esposto della città: il vento '
@@ -393,9 +395,9 @@ TILES_11 = [
                  'senza, prova VIGORE Media). Un attacco che lo porterebbe a 0 lo fa CADERE: filo '
                  'perso. Se resta sull’esposto a 1 Ferita e si pesca una raffica, cade da solo: '
                  'tenetelo sul lato riparato della guglia.',
-         cerca_vuoto='Non c’è niente da raccogliere quassù: c’è solo un uomo aggrappato al vuoto '
-                     'e una mappa che il vento vuole strappargli di mano. Prendeteli entrambi, '
-                     'in fretta.',
+         cerca_vuoto='Non c’è niente da raccogliere quassù: solo pietra liscia di '
+                     'ghiaccio e un vento che strappa di mano qualunque cosa non sia '
+                     'stretta forte.',
          arredi=[(0, 2, 'casse')]),
 ]
 

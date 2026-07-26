@@ -317,8 +317,8 @@ TILES_14 = [
                  'fallisce perde un round aggrappato e la FUGA avanza. Coi Ramponi passate senza '
                  'prova. Da qui il pericolo non sono solo i Gatti: è la quota, il vuoto, il vetro.',
          hook='I Ramponi (dal Covo): sui tetti le cadute non vi feriscono, saltate lo strapiombo.',
-         cerca_vuoto='Solo tegole e il respiro della città sotto. Chi cercate è più in alto: non '
-                     'guardate giù, guardate la cresta.',
+         cerca_vuoto='Solo tegole e il respiro della città sotto. La gronda è stata '
+                     'rifatta di recente: coppi nuovi, malta fresca, nemmeno un nido.',
          arredi=[(0, 3, 'casse'), (3, 0, 'casse')]),
     dict(id='T2', nome='IL COMIGNOLO', exits={'S': 'T1', 'N': 'T3'},
          testo='Un passaggio esposto attorno a un comignolo annerito, la grondaia che scricchiola, '
@@ -328,8 +328,9 @@ TILES_14 = [
          arbitro='PERICOLO DI QUOTA (comignolo): non ci sono nemici stanziali, c’è il vuoto. Prova '
                  'DESTREZZA/NERVI per il passaggio. Coi Ramponi la caduta non vi ferisce e non '
                  'perdete il round.',
-         cerca_vuoto='Fuliggine e il vento che tira. Niente da raccogliere: solo da passare senza '
-                     'guardare sotto.',
+         cerca_vuoto='Fuliggine e il vento che tira. Il comignolo è liscio di '
+                     'intemperie e nella grondaia non c’è che acqua vecchia e foglie '
+                     'marce.',
          arredi=[(1, 1, 'casse'), (2, 2, 'casse')]),
     dict(id='T3', nome='LA TERRAZZA DEI PANNI', exits={'S': 'T2', 'N': 'T4'},
          testo='Una terrazza con lenzuola stese ad asciugare, ombre che si muovono tra i panni. '
@@ -351,8 +352,9 @@ TILES_14 = [
                  'abbassa la soglia d’ingaggio (vi lascia avvicinare).',
          hook='La Parola dei Tetti (dal Covo): il Primo Gatto vi riconosce come gente di codice — '
               'tratta già a 2 Ferite e non tenta la fuga finale.',
-         cerca_vuoto='L’abbaino dà su una soffitta buia, e in alto la sagoma dello Spillo che non '
-                     'si muove. Non salite dall’abbaino: è la sua trappola. Restate sui tetti.',
+         cerca_vuoto='L’abbaino dà su una soffitta buia che sa di legno chiuso. Sul '
+                     'davanzale, guano e vetri rotti da tempo: questa finestra non la '
+                     'apre più nessuno.',
          arredi=[(1, 2, 'casse'), (2, 0, 'altare')]),
     dict(id='T5', nome='IL LUCERNARIO', exits={'S': 'T4', 'N': 'T6'},
          testo='Un grande lucernario di vetro e piombo, opaco di sporco, che cede sotto il peso. '
@@ -361,8 +363,9 @@ TILES_14 = [
          arbitro='PERICOLO DI QUOTA (lucernario): attraversarlo è una prova VIGORE/DESTREZZA '
                  '(Media); chi fallisce sfonda un vetro — 1 danno e la FUGA avanza. Coi Ramponi (o '
                  'la fune da T3) niente danno. Aggirarlo sul bordo costa un round.',
-         cerca_vuoto='Vetro e piombo sotto i piedi, e la propria faccia riflessa nel buio. Un passo '
-                     'pesante e si va di sotto. In fondo, l’Attico.',
+         cerca_vuoto='Vetro e piombo sotto i piedi, e la propria faccia riflessa nel '
+                     'buio. Il telaio è saldato dallo sporco di decenni: non si apre, e '
+                     'sotto non si vede niente.',
          arredi=[(1, 1, 'casse'), (2, 2, 'casse')]),
     dict(id='T6', nome='L’ATTICO DEL CORSO', exits={'S': 'T5'},
          testo='L’attico dei Gatti, la refurtiva accatastata e imballata, il cielo aperto sulla '
@@ -373,9 +376,9 @@ TILES_14 = [
                  'riga d’oro — che gli hanno ordinato di LASCIARE roba (vittoria piena). Ucciderlo '
                  '(0 Ferite senza la Parola) o lasciarlo fuggire = vittoria parziale. «La '
                  'commissione era cieca» (D2): gli salta un attacco.',
-         cerca_vuoto='Non c’è un tesoro da prendere: c’è un ladro da far parlare e un sigillo '
-                     'aggiunto da repertare. La refurtiva torna da sé — la verità no. Prendetevi '
-                     'quella.',
+         cerca_vuoto='Casse imballate, corde, etichette scritte a mano in una lingua di '
+                     'comodo. Roba d’altri, tutta quanta, e troppo grossa per '
+                     'portarsela sui tetti.',
          arredi=[(0, 2, 'casse')]),
 ]
 

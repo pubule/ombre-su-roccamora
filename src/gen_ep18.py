@@ -312,8 +312,9 @@ TILES_18 = [
                  'garantito. Da qui in poi non inseguite M.: fuggite.',
          hook='Gli Incroci di Campagna (dal Fascicolo): la prova è pubblica — la Società vi crede e '
               'i confratelli coprono la vostra ritirata.',
-         cerca_vuoto='M. parla ancora, la voce calma, mentre le luci si spengono. Non ascoltatelo: '
-                     'guardate le uscite, perché tra poco saranno chiuse.',
+         cerca_vuoto='La sala si spegne lampada dopo lampada. Sui banchi, ordini del '
+                     'giorno, calamai, bicchieri d’acqua a metà: la solita assemblea, e '
+                     'niente che non ci sia sempre stato.',
          arredi=[(0, 3, 'casse'), (3, 0, 'casse')]),
     dict(id='T2', nome='IL CORRIDOIO DEI RITRATTI', exits={'S': 'T1', 'N': 'T3'},
          testo='Il corridoio dei ritratti dei presidenti passati: le luci si spengono una a una '
@@ -322,8 +323,9 @@ TILES_18 = [
          arbitro='I gendarmi (Sgherri) sono in buona fede: non vogliono uccidervi, vogliono '
                  'catturarvi. Superateli o evitateli. Da qui le carte crescendo spingono la soglia-'
                  'arresto: quando i gendarmi sigillano, ogni round rischia la cattura di un eroe.',
-         cerca_vuoto='I ritratti dei presidenti vi guardano dal buio: e l’ultimo, quello di M., '
-                     'sorride come non avevate mai notato. Proseguite.',
+         cerca_vuoto='I ritratti dei presidenti vi guardano dal buio, ognuno con la '
+                     'targhetta d’ottone lucidata. Sotto le cornici, solo parete: '
+                     'nessun vano, nessuna cassaforte.',
          arredi=[(1, 1, 'casse'), (2, 2, 'casse')]),
     dict(id='T3', nome='LA BIBLIOTECA', exits={'S': 'T2', 'N': 'T4'},
          testo='La biblioteca della Società, dove un intero scaffale ruota su un passaggio segreto '
@@ -344,8 +346,9 @@ TILES_18 = [
                  'perso, soglia-arresto avanza). Da qui il maggiordomo (boss) è in mischia aperta.',
          hook='Il Vezzo delle Firme / la Firma Doppia: mostrarla al maggiordomo gli ricorda chi ha '
               'servito davvero — «una mano sola» (D4): salta un attacco.',
-         cerca_vuoto='Il ritratto del Machiavelli e lo specchio si fronteggiano nel buio. M. non '
-                     'c’è più: c’è solo il posto vuoto da cui vi ha guardati per diciotto mesi.',
+         cerca_vuoto='Il ritratto del Machiavelli e lo specchio si fronteggiano nel '
+                     'buio. La scrivania è sgombra come se nessuno ci avesse mai '
+                     'lavorato: nemmeno un pennino fuori posto.',
          arredi=[(1, 2, 'casse'), (2, 0, 'altare')]),
     dict(id='T5', nome='LA SCALINATA', exits={'S': 'T4', 'N': 'T6'},
          testo='La grande scalinata del Palazzo: i gendarmi salgono dal basso, il maggiordomo fa '
@@ -354,9 +357,9 @@ TILES_18 = [
          arbitro='La Guardia del Presidente (il maggiordomo, boss) fa muro sulla scalinata: va '
                  'superata/abbattuta per raggiungere l’uscita. I gendarmi premono dal basso. Se la '
                  'soglia-arresto è superata, un eroe per round rischia la cattura.',
-         cerca_vuoto='In cima alla scalinata, il maggiordomo Anselmo vi sbarra la strada con le '
-                     'lacrime agli occhi: «mi dispiace, signori. Ho sempre servito il presidente.» '
-                     'E anche lui, in fondo, è stato ingannato.',
+         cerca_vuoto='Marmo, tappeto fermato dalle bacchette d’ottone, una ringhiera '
+                     'lucida di mani. Su una scalinata non si nasconde niente e non si '
+                     'dimentica niente.',
          arredi=[(1, 1, 'casse'), (2, 2, 'casse')]),
     dict(id='T6', nome='L’USCITA', exits={'S': 'T5'},
          testo='La porta di casa vostra, che non è più casa vostra: il portone principale, o '
@@ -366,9 +369,9 @@ TILES_18 = [
                  'Con la prova FORTE (incroci pieni) = il mondo saprà, M. è latitante (vittoria '
                  'piena). Con la prova debole, o con eroi arrestati = ve la cavate, ma braccati '
                  '(vittoria parziale). L’Uscita di Servizio salta l’ultimo giro dei gendarmi.',
-         cerca_vuoto='Sulla soglia, vi voltate a guardare la vostra casa che si spegne finestra '
-                     'dopo finestra. Da qualche parte, nel buio, il presidente si ritira. Non '
-                     'l’avete preso. L’avete smascherato. Uscite: comincia la caccia vera.',
+         cerca_vuoto='Il portone e l’uscita di servizio, l’aria fredda che entra da '
+                     'sotto la soglia. Sull’attaccapanni, cappotti che nessuno è '
+                     'tornato a riprendere.',
          arredi=[(0, 2, 'casse')]),
 ]
 

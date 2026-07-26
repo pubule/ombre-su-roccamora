@@ -1,0 +1,48 @@
+ 1/30  parziale   round 19  T6 r10 eroi 3 salute 14 nemici 6(0 in T6) canto 7  liberato - aperta - VITTORIA r19 picco 1 compiti registri 1/1
+ 2/30  parziale   round 16  T6 r10 eroi 4 salute 16 nemici 0(0 in T6) canto 5  liberato - aperta - VITTORIA r16 picco 0 compiti registri 1/1
+ 3/30  parziale   round 18  T6 r10 eroi 3 salute 11 nemici 6(0 in T6) canto 6  liberato - aperta - VITTORIA r18 picco 3 compiti registri 1/1
+ 4/30  parziale   round 14  T6 r10 eroi 3 salute 12 nemici 0(0 in T6) canto 6  liberato - aperta - VITTORIA r14 picco 1 compiti registri 1/1
+ 5/30  parziale   round 17  T6 r10 eroi 4 salute 15 nemici 0(0 in T6) canto 4  liberato - aperta - VITTORIA r17 picco 1 compiti registri 1/1
+ 6/30  sconfitta  round 18  T6 mai  liberato - aperta - VITTORIA no picco 3 compiti registri 0/1
+ 7/30  parziale   round 16  T6 r11 eroi 3 salute 10 nemici 0(0 in T6) canto 6  liberato - aperta - VITTORIA r16 picco 1 compiti registri 1/1
+ 8/30  parziale   round 19  T6 r10 eroi 4 salute 21 nemici 0(0 in T6) canto 3  liberato - aperta - VITTORIA r19 picco 0 compiti registri 1/1
+ 9/30  parziale   round 14  T6 r10 eroi 4 salute 20 nemici 0(0 in T6) canto 5  liberato - aperta - VITTORIA r14 picco 0 compiti registri 1/1
+10/30  parziale   round 16  T6 r10 eroi 3 salute 13 nemici 0(0 in T6) canto 4  liberato - aperta - VITTORIA r16 picco 3 compiti registri 1/1
+11/30  sconfitta  round 16  T6 mai  liberato - aperta - VITTORIA no picco 2 compiti registri 0/1
+12/30  vittoria   round 15  T6 r9 eroi 4 salute 25 nemici 0(0 in T6) canto 5  liberato - aperta - VITTORIA r15 picco 0 compiti registri 1/1
+13/30  vittoria   round 16  T6 r9 eroi 4 salute 22 nemici 0(0 in T6) canto 4  liberato - aperta - VITTORIA r16 picco 0 compiti registri 1/1
+14/30  sconfitta  round 17  T6 mai  liberato - aperta - VITTORIA no picco 2 compiti registri 0/1
+15/30  parziale   round 18  T6 r10 eroi 4 salute 15 nemici 0(0 in T6) canto 5  liberato - aperta - VITTORIA r18 picco 2 compiti registri 1/1
+16/30  sconfitta  round 15  T6 r11 eroi 2 salute 7 nemici 0(0 in T6) canto 6  liberato - aperta - VITTORIA no picco 3 compiti registri 1/1
+17/30  parziale   round 19  T6 r10 eroi 4 salute 22 nemici 0(0 in T6) canto 3  liberato - aperta - VITTORIA r19 picco 0 compiti registri 1/1
+18/30  parziale   round 22  T6 r10 eroi 4 salute 18 nemici 0(0 in T6) canto 6  liberato - aperta - VITTORIA r22 picco 2 compiti registri 1/1
+19/30  parziale   round 13  T6 r9 eroi 3 salute 11 nemici 5(0 in T6) canto 6  liberato - aperta - VITTORIA r13 picco 1 compiti registri 1/1
+20/30  parziale   round 16  T6 r10 eroi 4 salute 16 nemici 0(0 in T6) canto 6  liberato - aperta - VITTORIA r16 picco 2 compiti registri 1/1
+21/30  parziale   round 19  T6 r10 eroi 4 salute 20 nemici 0(0 in T6) canto 6  liberato - aperta - VITTORIA r19 picco 0 compiti registri 1/1
+22/30  parziale   round 14  T6 r10 eroi 4 salute 14 nemici 0(0 in T6) canto 4  liberato - aperta - VITTORIA r14 picco 2 compiti registri 1/1
+23/30  parziale   round 17  T6 r10 eroi 3 salute 13 nemici 0(0 in T6) canto 5  liberato - aperta - VITTORIA r17 picco 2 compiti registri 1/1
+24/30  parziale   round 15  T6 r10 eroi 4 salute 13 nemici 0(0 in T6) canto 5  liberato - aperta - VITTORIA r15 picco 2 compiti registri 1/1
+25/30  parziale   round 16  T6 r10 eroi 3 salute 16 nemici 6(0 in T6) canto 7  liberato - aperta - VITTORIA r16 picco 2 compiti registri 1/1
+26/30  parziale   round 17  T6 r10 eroi 4 salute 21 nemici 0(0 in T6) canto 5  liberato - aperta - VITTORIA r17 picco 1 compiti registri 1/1
+27/30  parziale   round 15  T6 r10 eroi 4 salute 12 nemici 6(0 in T6) canto 4  liberato - aperta - VITTORIA r15 picco 3 compiti registri 1/1
+28/30  vittoria   round 16  T6 r9 eroi 4 salute 21 nemici 0(0 in T6) canto 5  liberato - aperta - VITTORIA r16 picco 0 compiti registri 1/1
+29/30  parziale   round 19  T6 r10 eroi 4 salute 18 nemici 0(0 in T6) canto 4  liberato - aperta - VITTORIA r19 picco 1 compiti registri 1/1
+30/30  vittoria   round 15  T6 r9 eroi 3 salute 9 nemici 0(0 in T6) canto 6  liberato - aperta - VITTORIA r15 picco 1 compiti registri 1/1
+
+--- validità della corsa ---
+VALIDA: nessuna azione fallita, nessun round perso, nessun errore JS
+
+===== Ep.13, 4 eroi, 30 partite =====
+VITTORIE 26/30 = 87%, round medi 16.6
+  ROGO -> PIENA 4/30 · PARZIALE 22/30 · PERSO 4/30   [soglie T5@r7 T6@r9 T4@r12 T3@r14 T2@r16 T1@r18, picco medio eroi-a-terra 1.4]
+PNG liberato 0/30, uscita aperta 0/30
+T2: 30/30 partite, round 2.0, eroi 4.0/4
+T3: 30/30 partite, round 4.1, eroi 4.0/4
+T4: 30/30 partite, round 5.9, eroi 4.0/4
+T5: 28/30 partite, round 8.0, eroi 3.9/4
+T6: 27/30 partite, round 9.9, eroi 3.6/4
+
+--- all'ingresso in T6 (la stanza del boss), 27 partite ---
+round 9.9  eroi in piedi 3.6/4  salute totale 15.7
+nemici in campo 1.1 (di cui in T6 0.0)  canto 5.1  con bonus Canto attivo in 27/27
+tipi presenti: LO, IL, 

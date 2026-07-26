@@ -311,8 +311,9 @@ TILES_2 = [
                'Dossena. QUANDO RIVELATE QUESTA TESSERA: il Sicario appare accanto alla porta. '
                'Ilario si libera con Interagire (nessuna prova); si muove con voi: 3 caselle, '
                'nessuna azione.',
-         cerca_vuoto='Nella stufa, registri bruciati fino alla rilegatura: qualcuno ha già fatto '
-                     'pulizia. Non resta niente.',
+         cerca_vuoto='Nella stufa, carta arsa fino alla rilegatura: si sfalda al tocco '
+                     'e non tiene più una riga. Sulla scrivania, polvere di carbone e i '
+                     'cerchi lasciati da un bicchiere.',
          arredi=[(1, 3, 'scrivania'), (3, 0, 'stufa')]),
     dict(id='T6', nome='LA SALA DEI FORNI', exits={'O': 'T5'},
          testo='Il forno grande è riacceso e la sala trema di calore. Sulla rastrelliera, '
@@ -335,8 +336,9 @@ TILES_2 = [
                  '«solo scoria fredda», stesso tono, e l’azione è spesa lo stesso. '
                  '— QUANDO ILARIO ENTRA NEL CONDOTTO la spedizione è VINTA: leggete l’epilogo. '
                  'Le campanelle prese fino a quel momento contano.',
-         cerca_vuoto='Solo scorie e calore. Ciò che vale, qui, è in fila sulla rastrelliera — e '
-                     'non si trova Cercando.',
+         cerca_vuoto='Solo scorie e un calore che fa tremare l’aria. Il metallo, qui, è '
+                     'già colato tutto in qualcosa: niente che si stacchi e stia in una '
+                     'mano.',
          arredi=[(1, 2, 'crogiolo'), (2, 2, 'forma'), (3, 3, 'forma')]),
 ]
 

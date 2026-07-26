@@ -339,8 +339,9 @@ TILES_10 = [
                  'non di combattimento: qui non si piazzano garzoni.',
          hook='La Pianta del Restauro (dal Deposito): «l’indagine vi ha avvertiti» — niente '
               'prova sul gradino marcio.',
-         cerca_vuoto='Gradini che scricchiolano parole. Non c’è niente da cercare: c’è solo da '
-                     'salire, e da non ascoltare troppo.',
+         cerca_vuoto='Gradini che scricchiolano parole. Il corrimano è liscio di anni '
+                     'di passaggi e sui pianerottoli non resta nulla: la casa è stata '
+                     'sgomberata mesi fa.',
          arredi=[(1, 1, 'casse'), (2, 2, 'casse')]),
     dict(id='T3', nome='IL CORRIDOIO DEI NOMI', exits={'S': 'T2', 'N': 'T4'},
          testo='Un corridoio lungo, le porte delle stanze tutte chiuse. Dai muri, sottovoce, i '
@@ -376,8 +377,9 @@ TILES_10 = [
          arbitro='Ultimo diaframma prima dell’intercapedine. I garzoni non sono cattivi: sono '
                  'ragazzi pagati che non sanno cosa c’è nel muro. Abbatterli o passarli è uguale: '
                  'l’importante è arrivare in tempo di sopra.',
-         cerca_vuoto='Sacchi di calce, secchi, e i calcinacci freschi di chi ha già cominciato a '
-                     'buttare giù. Il tempo stringe: sentite la mazza, vicinissima ora.',
+         cerca_vuoto='Sacchi di calce, secchi, calcinacci ancora umidi ammucchiati '
+                     'contro la parete. Attrezzi da lavoro, tutti uguali, nessuno con '
+                     'un nome inciso sopra.',
          arredi=[(1, 1, 'casse'), (2, 2, 'casse')]),
     dict(id='T6', nome='L’INTERCAPEDINE', exits={'S': 'T5'},
          testo='La camera, di nuovo, dal lato del vano: la parete doppia è già scrostata, e IL '
@@ -391,8 +393,9 @@ TILES_10 = [
                  'Macchina Fotografica). VITTORIA: traccia PROVA piena prima della DEMOLIZIONE. '
                  'Abbattere il Muratore ferma del tutto la demolizione (seconda via, non '
                  'obbligatoria).',
-         cerca_vuoto='Non c’è niente da cercare qui: c’è solo da fotografare, in fretta, prima '
-                     'che il muro finisca di cadere. Un lampo, e Ada torna alla luce.',
+         cerca_vuoto='Intonaco a terra, polvere di calce sospesa nell’aria, il chiarore '
+                     'della lanterna che non arriva agli angoli. Fra i calcinacci non '
+                     'c’è niente da raccogliere.',
          arredi=[(0, 2, 'casse')]),
 ]
 

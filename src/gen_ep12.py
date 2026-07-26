@@ -301,8 +301,9 @@ TILES_12 = [
                'sull’acqua, la sagoma di una barca che si stacca: è Vela, col sacco delle copie. '
                'QUANDO RIVELATE QUESTA TESSERA: applicate gli esiti delle Domande 3 e 4; parte '
                'l’INSEGUIMENTO. Il Corriere ha già un vantaggio (traccia FUGA iniziale).',
-         cerca_vuoto='Solo sigilli vuoti e il rumore di un remo che si allontana. La caccia è '
-                     'già cominciata: ogni istante qui è terreno che il corriere guadagna.',
+         cerca_vuoto='Sigilli a terra come gusci vuoti, scaffali svuotati con ordine, '
+                     'nemmeno un foglio caduto. Sul pavimento resta solo polvere di '
+                     'ceralacca.',
          arredi=[(0, 3, 'casse'), (3, 0, 'casse')]),
     dict(id='T2', nome='IL PONTE DEI SOSPIRI', exits={'S': 'T1', 'N': 'T3'},
          testo='Un ponte coperto scavalca il canale: un imbuto di pietra dove un fuggitivo si '

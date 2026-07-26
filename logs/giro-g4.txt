@@ -1,0 +1,9 @@
+### ep19 ###
+VALIDA: nessuna azione fallita, nessun round perso, nessun errore JS
+===== Ep.19, 4 eroi, 20 partite =====
+VITTORIE 11/20 = 55%, round medi 12.3
+### ep20 ###
+VALIDA: nessuna azione fallita, nessun round perso, nessun errore JS
+===== Ep.20, 4 eroi, 20 partite =====
+VITTORIE 0/20 = 0%
+=== G4 COMPLETO ===
