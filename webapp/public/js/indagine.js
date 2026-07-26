@@ -19,6 +19,38 @@ const breve = (nome) => {
   return ((t[0] === 'DOTT.' || t[0] === 'PADRE') ? (t[1] || t[0]) : t[0]).replace(/["“”]/g, '').toLowerCase();
 };
 
+// Le abilita' d'indagine a uso singolo. Il numero di usi esiste SOLO come
+// prosa italiana nel campo `abil` di gen_cards.HEROES, quindi non c'e' un
+// dato da leggere: la tabella e' qui, ed e' la stessa che decide sia i
+// bottoni sia i pallini del contatore (prima le due cose erano scritte due
+// volte). `dove` dice in che schermata sta il bottone, `null` = altrove.
+const UNA_TANTUM = [
+  { eroe: 'PADRE CELSO MARANI', flag: 'discernimentoUsato', et: 'Discernimento',
+    dove: 'home', id: 'discernimento', label: 'Discernimento di Marani' },
+  { eroe: 'CARLA DOSTI', flag: 'fontiRiservateUsate', et: 'Fonti riservate',
+    dove: 'home', id: 'fonti-riservate', label: 'Fonti riservate di Carla' },
+  { eroe: 'MORA “SPILLA” FANTI', flag: 'ombraUsata', et: 'Ombra',
+    dove: 'home', id: 'ombra', label: 'Ombra in avanscoperta' },
+  { eroe: 'NINO “GRIMALDELLO” CAUTO', flag: 'grimaldelloUsato', et: 'Grimaldello', dove: null },
+  { eroe: 'FULGENZIO CARBONE', flag: 'carboneUsato', et: 'Esame di Carbone',
+    dove: null, inPartita: true },   // unico flag su `partita`, non su `indagine`
+];
+
+const speso = (u) => !!(u.inPartita ? P()[u.flag] : IND()[u.flag]);
+
+// Cariche residue di un eroe: gli Approfondimenti (dato vero, comune.json)
+// piu' le una-tantum qui sopra. Serve al contatore della home.
+function caricheEroe(nm) {
+  const e = ctx.comune.eroi.find((x) => x.nome === nm);
+  const usate = IND().caricheUsate[nm] || {};
+  const righe = Object.entries((e && e.cariche) || {}).map(([tipo, tot]) => ({
+    et: tipo === 'jolly' ? 'jolly' : tipo, tot, rest: tot - (usate[tipo] || 0),
+  }));
+  UNA_TANTUM.filter((u) => u.eroe === nm)
+    .forEach((u) => righe.push({ et: u.et, tot: 1, rest: speso(u) ? 0 : 1 }));
+  return righe;
+}
+
 let ctx = null;   // { app, partita, ep, comune, carte, vaiA }
 
 export async function vistaIndagine(app, partita, vaiA) {
@@ -99,10 +131,22 @@ function home() {
       <h2>il gruppo sul caso</h2>
       <div class="giro-strip">${P().party.map((nm) => {
         const e = ctx.comune.eroi.find((x) => x.nome === nm);
-        return `<div class="chip-turno ritratto"><span class="rit"><img src="${e && e.art ? urlArt(e.art) : ''}" alt="" loading="lazy"></span>
-          <span class="et">${breve(nm)}</span></div>`;
+        // il contatore delle cariche: un pallino per uso, pieno = ancora
+        // disponibile. Stessa lettura dei cerchietti del Taccuino stampato
+        // (deluxe_style.contatori_indagine) e dei pips della Spedizione.
+        const car = caricheEroe(nm);
+        const pips = car.map((c) => `<span class="pip-carica" title="${esc(c.et)}: ${c.rest} di ${c.tot}">${
+          Array.from({ length: c.tot }, (_, k) =>
+            `<i class="${k < c.rest ? 'piena' : ''}"></i>`).join('')}</span>`).join('');
+        const finito = car.length > 0 && car.every((c) => c.rest <= 0);
+        return `<div class="chip-turno ritratto${finito ? ' fatto' : ''}"><span class="rit"><img src="${e && e.art ? urlArt(e.art) : ''}" alt="" loading="lazy"></span>
+          <span class="et">${breve(nm)}</span>
+          ${car.length ? `<span class="cariche">${pips}</span>` : ''}</div>`;
       }).join('')}</div>
-      <p class="nota">Ogni eroe legge un tipo di Approfondimento (Elena le Osservazioni, Serra i Presagi…) — se è nel party, l'app ve lo propone al momento giusto.</p>
+      <p class="nota">Sotto ogni ritratto, le sue <b>cariche</b>: un pallino per uso,
+      pieno se è ancora disponibile. Ogni eroe legge un tipo di Approfondimento
+      (Elena le Osservazioni, Serra i Presagi…) — se è nel party, l'app ve lo propone
+      al momento giusto.</p>
     </div>
     <div class="mt"></div>
     <div class="pannello">
@@ -120,12 +164,20 @@ function home() {
     </div>
     <div class="btn-riga">
       ${ep.lettera ? '<button class="btn" id="rileggi">la lettera</button>' : ''}
-      ${P().party.includes('PADRE CELSO MARANI') && !ind.discernimentoUsato
-        ? '<button class="btn" id="discernimento">Discernimento di Marani (1 volta)</button>' : ''}
-      ${P().party.includes('CARLA DOSTI') && !ind.fontiRiservateUsate && !ind.fontiRiservateAttive
-        ? '<button class="btn" id="fonti-riservate">Fonti riservate di Carla (1 volta)</button>' : ''}
-      ${P().party.includes('MORA “SPILLA” FANTI') && !ind.ombraUsata
-        ? '<button class="btn" id="ombra">Ombra in avanscoperta (1 volta)</button>' : ''}
+      ${/* Il bottone non sparisce piu' quando la carica e' spesa: resta
+            disabilitato e barrato. Sparendo non si distingueva «gia' usata»
+            da «l'eroe non e' nel party», e quello ERA il contatore mancante. */
+        UNA_TANTUM.filter((u) => u.dove === 'home' && P().party.includes(u.eroe)).map((u) => {
+          // «pronta» non e' «usata»: il bonus di Carla e' armato e scatta alla
+          // prossima visita. Disabilitato si', barrato no — barrarlo direbbe
+          // al tavolo che quella carica non c'e' piu'.
+          const attiva = u.flag === 'fontiRiservateUsate' && ind.fontiRiservateAttive;
+          const giu = speso(u) || attiva;
+          const coda = attiva ? ' — pronta, alla prossima visita'
+            : (speso(u) ? ' — usata' : ' (1 volta)');
+          return `<button class="btn${speso(u) && !attiva ? ' spesa' : ''}" id="${u.id}"${
+            giu ? ' disabled' : ''}>${esc(u.label)}${coda}</button>`;
+        }).join('')}
       <button class="btn" id="taccuino">taccuino e domande</button>
       <button class="btn" id="inventario">oggetti e carte (${ind.oggetti.length + ind.approfondimentiLetti.length + (ind.reperti || []).length})</button>
       <button class="btn pieno" id="chiudi-indagine">chiudete l’indagine</button>
@@ -363,8 +415,13 @@ async function approfondisci(l, tipo, tipiQui) {
   const c = idoneiPerTipo(ctx.comune, P(), tipo);
   if (!c.length) return aiutoProfano(l, tipo);
   // scelta di chi spende la carica (jolly incluso)
+  // il residuo lo si sapeva gia' (x.proprie) e si buttava via: con due eroi
+  // idonei, sapere chi ne ha ancora due e chi una e' la scelta
   const chi = await scegliDaLista('chi spende la carica?', c.map((x) => ({
-    id: x.nome, label: `${x.nome}${x.proprie > 0 ? '' : ' (jolly di Sibilla)'}`,
+    id: x.nome,
+    label: x.proprie > 0
+      ? `${x.nome} — ${x.proprie} ${x.proprie === 1 ? 'carica' : 'cariche'}`
+      : `${x.nome} (jolly di Sibilla: ${x.jolly})`,
   })));
   if (!chi) return schedaLuogo(l);
   const scelto = c.find((x) => x.nome === chi);
