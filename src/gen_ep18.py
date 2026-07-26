@@ -85,9 +85,8 @@ LUOGHI_18 = [
              'Il libro mastro della Società, aperto: l’oro vecchio che paga C.B. e l’oro che finanzia '
              'la confraternita escono dalla stessa cassa. «L’oro vecchio è la firma contabile: chi '
              'paga C.B. paga da dove paghiamo noi. Non è un nemico esterno. È in bilancio.»',
-             'Su un vassoio, pronte, delle prove che accusano VOI: pagamenti, lettere, un testimone. '
-             '<i>(Esca: l’Accusa Pronta contro di Voi — le prove che M. ha arredato per farvi '
-             'cadere; toccarle è entrare nella trappola prima del tempo.)</i>'],
+             'Su un vassoio, pronte, delle prove che accusano VOI: pagamenti, lettere, un '
+             'testimone.'],
          approfondimenti=[
              dict(tipo='Testimonianza', soggetto='La Società riunita',
                   testo='Messi in fila davanti all’assemblea, i diciotto mesi non raccontano diciotto '
@@ -151,9 +150,8 @@ LUOGHI_18 = [
          req='Disponibile dall’inizio', art='Il Fascicolo di Campagna.png',
          chiude=None,
          indizi=[
-             'Il vostro fascicolo di diciotto mesi: i verbali, i bivi, le riletture dell’Ep. 16, la '
-             'matrice del decano. <i>(Oggetto: prendete gli Incroci di Campagna — più ne avete '
-             'raccolti, più solida è l’accusa.)</i> Messi in fila, non è una caccia: è un uomo che vi '
+             'Il vostro fascicolo di diciotto mesi: i verbali, i bivi, le riletture dell’Ep. '
+             '16, la matrice del decano. Messi in fila, non è una caccia: è un uomo che vi '
              'mandava a caccia di sé.',
              'Ogni volta che M. «sapeva troppo» (il nastro verde, il nome prima delle prove), non era '
              'genio: era memoria. Sapeva perché era lui a muovere le cose. La carrozza condivisa, '
@@ -180,12 +178,10 @@ LUOGHI_18 = [
              'Lo studio privato del presidente, in cui non siete mai entrati in diciotto mesi: alle '
              'pareti, il ritratto del Machiavelli e, di fronte, uno specchio. Le due maschere si '
              'guardano. Qui M. era C.B. e C.B. era M., ogni notte, da solo.',
-             'Sul leggìo, un documento firmato due volte: una «M.», una «C.B.», la stessa mano. '
-             '<i>(Reperto A: la Firma Doppia — la prova che smaschera.)</i> <i>(Oggetto: prendete il '
-             'Vezzo delle Firme — le due firme a confronto, D4.)</i>',
-             'Su un cavalletto, il ritratto di un rivale immaginario. <i>(Esca: il Ritratto del '
-             'Rivale — pare che M. tema un nemico esterno; è solo una delle sue maschere, non un '
-             'altro uomo.)</i> M. non ha rivali: è rivale di se stesso.'],
+             'Sul leggìo, un documento firmato due volte: una «M.», una «C.B.», la stessa '
+             'mano.',
+             'Su un cavalletto, il ritratto di un rivale immaginario. M. non ha rivali: è '
+             'rivale di se stesso.'],
          approfondimenti=[
              dict(tipo='Presagio', soggetto='Le due maschere allo specchio',
                   testo='Nello studio privato del presidente, il ritratto del Machiavelli e lo '
@@ -202,9 +198,9 @@ LUOGHI_18 = [
          chiave=('parola', 'L’INCHIOSTRO DEL PRESIDENTE'), art='La Carta di Pregio.png',
          chiude=None,
          indizi=[
-             'Il richiamo all’Ep. 13: la carta col giglio spezzato, l’inchiostro ferro-gallico. '
-             'Confrontata con la penna d’archivio del presidente, la mano è la stessa. '
-             '<i>(incrocio D1: con l’Archivio delle Penne, DOVE firma C.B. è provato.)</i>',
+             'Il richiamo all’Ep. 13: la carta col giglio spezzato, l’inchiostro ferro- '
+             'gallico. Confrontata con la penna d’archivio del presidente, la mano è la '
+             'stessa.',
              'La filigrana col giglio, tagliata su misura per una penna sola, esce dalla stessa '
              'carrozza che serve il Palazzo. Il filo dell’Ep. 13 si chiude qui: la carta di C.B. e '
              'la carta della Società sono la stessa risma.',
@@ -226,9 +222,9 @@ LUOGHI_18 = [
          chiave=('parola', 'LA CARROZZA CONDIVISA'), art='La Matrice del Decano.png',
          chiude=None,
          indizi=[
-             'Il richiamo all’Ep. 17: la matrice delle doppie letture, applicata a tutte le lettere. '
-             'Ogni volta che M. sapeva troppo, la matrice segna la data e la fonte: sempre lui. '
-             '<i>(incrocio D3: con il Vezzo delle Firme, COSA muove C.B. è provato.)</i>',
+             'Il richiamo all’Ep. 17: la matrice delle doppie letture, applicata a tutte le '
+             'lettere. Ogni volta che M. sapeva troppo, la matrice segna la data e la fonte: '
+             'sempre lui.',
              'La matrice incrocia la carrozza dei noli: la stessa che porta la carta di C.B. e serve '
              'il Palazzo del Lume, alla stessa ora, dallo stesso cortile. Una sola logistica per due '
              'maschere. Il decano è morto per questa riga; ora la riga parla.',
@@ -250,13 +246,12 @@ LUOGHI_18 = [
          chiave=('parola', 'LA CARROZZA CONDIVISA'), art='Il Vezzo delle Firme.png',
          chiude=None,
          indizi=[
-             'Le due firme a confronto, ingrandite: «M.» e «C.B.». Lo stesso allungo, la stessa '
-             'esitazione, lo stesso tremito impercettibile prima della maiuscola. '
-             '<i>(Reperto C: le Due Firme a Confronto.)</i> Il vezzo morelliano non mente: una mano '
-             'sola.',
-             '«M.» sta per Machiavelli — «il Machiavelli italiano», il soprannome che si è dato. '
-             '«C.B.» sta per Camillo Benso. Il cospiratore e il contabile, le due maschere che «hanno '
-             'fatto l’Italia». <i>(incrocio D3.)</i> Un uomo che si crede l’Italia intera.',
+             'Le due firme a confronto, ingrandite: «M.» e «C.B.». Lo stesso allungo, la '
+             'stessa esitazione, lo stesso tremito impercettibile prima della maiuscola. Il '
+             'vezzo morelliano non mente: una mano sola.',
+             '«M.» sta per Machiavelli — «il Machiavelli italiano», il soprannome che si è '
+             'dato. «C.B.» sta per Camillo Benso. Il cospiratore e il contabile, le due '
+             'maschere che «hanno fatto l’Italia». Un uomo che si crede l’Italia intera.',
              'Non c’è più niente da provare: c’è solo un nome da pronunciare. E quando lo pronuncerete '
              'in assemblea, l’uomo che vi ha guidati per diciotto mesi non negherà. Vi guarderà con '
              'orgoglio, e spegnerà la prima lampada.'],
@@ -276,10 +271,9 @@ LUOGHI_18 = [
          chiave=('parola', 'UNA MANO SOLA'), art='Il Palazzo del Lume (fuga).png',
          chiude=None,
          indizi=[
-             'Il Palazzo del Lume, la vostra sede da diciotto mesi, diventa un labirinto ostile: M. '
-             'fugge spegnendo le luci stanza per stanza, porte che si chiudono da sole, passaggi che '
-             'non sapevate esistessero. <i>(Reperto B: la Piantina del Palazzo — i passaggi segreti '
-             'di M.)</i>',
+             'Il Palazzo del Lume, la vostra sede da diciotto mesi, diventa un labirinto '
+             'ostile: M. fugge spegnendo le luci stanza per stanza, porte che si chiudono da '
+             'sole, passaggi che non sapevate esistessero.',
              'Il maggiordomo Anselmo — l’uomo che vi ha aperto la porta, servito il tè, annunciato le '
              'lettere per diciotto mesi — vi si rivolta contro: era la Guardia del Presidente da '
              'sempre. Il tradimento più personale.',
@@ -730,11 +724,26 @@ LUOGHI18_DESC = {
 }
 
 OGGETTI_LUOGO_18 = {
-    8: ['Il Vezzo delle Firme'],
-    4: ['Gli Incroci di Campagna'],
-    9: ['L’Uscita di Servizio'],
-    1: ['L’Accusa Pronta contro di Voi'],
-    5: ['Il Ritratto del Rivale'],
+    1: [
+        ('Esca', 'L’Accusa Pronta contro di Voi', 'le prove che M. ha arredato per farvi cadere; toccarle è entrare nella trappola prima del tempo'),
+    ],
+    4: [('Oggetto', 'Gli Incroci di Campagna', 'più ne avete raccolti, più solida è l’accusa')],
+    5: [
+        ('Esca', 'Il Ritratto del Rivale', 'pare che M. tema un nemico esterno; è solo una delle sue maschere, non un altro uomo'),
+        ('Oggetto', 'il Vezzo delle Firme', 'le due firme a confronto, D4'),
+        ('Reperto A', 'la Firma Doppia', 'la prova che smaschera'),
+    ],
+    6: [('Incrocio D1', 'con l’Archivio delle Penne, DOVE firma C.B. è provato', '')],
+    7: [('Incrocio D3', 'con il Vezzo delle Firme, COSA muove C.B. è provato', '')],
+    8: [
+        'Il Vezzo delle Firme',
+        ('Reperto C', 'le Due Firme a Confronto', ''),
+        ('Incrocio D3', '', ''),
+    ],
+    9: [
+        'L’Uscita di Servizio',
+        ('Reperto B', 'la Piantina del Palazzo', 'i passaggi segreti di M.'),
+    ],
 }
 
 TILE_ART_18 = {t['id']: t['id'] + '-ep18.png' for t in TILES_18}
@@ -796,7 +805,7 @@ def luoghi():
     N.pagina_indice_citta(c, LUOGHI_18, 'Episodio 18')
 
     def oggetto_righe(n):
-        return ['<b>Oggetto</b> — carta “' + t + '”' for t in OGGETTI_LUOGO_18.get(n, [])]
+        return N.oggetto_righe(OGGETTI_LUOGO_18.get(n, []))
 
     for L in LUOGHI_18:
         art_file = L['art']

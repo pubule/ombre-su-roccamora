@@ -79,13 +79,13 @@ LUOGHI_3 = [
              'della corte, in ginocchio, con le mani ancora nell’acqua. Cantava sempre, ai '
              'mastelli — «era lei che dava il tempo a tutte» — ed era debole, dicono le altre: '
              'il giorno prima s’era fatta fare un salasso, come mezzo Borgo.',
-             'Il registro dei livelli del lavatoio: ogni mattina si segna quanta acqua danno i '
-             'pozzi. Da un mese una colonna «beve» — il terzo pozzo della corte cala di notte, '
-             'quando nessuno attinge. <i>(Reperto A: consegnate il Registro dei Livelli.)</i>',
-             'Le lavandaie lo chiamano «il pozzo dell’acqua morta»: non gela mai, non fa schiuma, '
-             'e il Catasto delle Acque — dicono — ha una stanza intera per le acque morte del '
-             'Borgo. Nella loggia, appese a un chiodo, le chiavi dei chiusini della corte. '
-             '<i>(Oggetto: prendete la carta Le Chiavi dei Chiusini.)</i>'],
+             'Il registro dei livelli del lavatoio: ogni mattina si segna quanta acqua danno '
+             'i pozzi. Da un mese una colonna «beve» — il terzo pozzo della corte cala di '
+             'notte, quando nessuno attinge.',
+             'Le lavandaie lo chiamano «il pozzo dell’acqua morta»: non gela mai, non fa '
+             'schiuma, e il Catasto delle Acque — dicono — ha una stanza intera per le acque '
+             'morte del Borgo. Nella loggia, appese a un chiodo, le chiavi dei chiusini della '
+             'corte.'],
          approfondimenti=[
              dict(tipo='Testimonianza', soggetto='Le lavandaie',
                   testo='«Il barbiere passa all’alba, col suo borsone dei salassi. Anche nelle '
@@ -119,11 +119,10 @@ LUOGHI_3 = [
                         'polvere chiara che non è talco: polvere di pietra, e cera da sigillo. '
                         'Mani che di notte fanno un altro lavoro.'),
              dict(tipo='Testimonianza', soggetto='Silvano, su Piero',
-                  testo='Quando parlate di Piero, la cortesia si incrina. Dal collo tira fuori un '
-                        'campanellino d’argento, consumato: «lo suonavo io, piano, quando aveva '
-                        'le febbri. Tenetelo voi, per la processione di San Rocco — a me, ormai, '
-                        'canta troppo.» <i>(Oggetto: prendete la carta Il Campanello di '
-                        'Piero.)</i>'),
+                  testo='Quando parlate di Piero, la cortesia si incrina. Dal collo tira '
+                        'fuori un campanellino d’argento, consumato: «lo suonavo io, piano, '
+                        'quando aveva le febbri. Tenetelo voi, per la processione di San '
+                        'Rocco — a me, ormai, canta troppo.»'),
          ]),
     dict(n=3, nome='LA GAZZETTA DI ROCCAMORA', voce_mappa='La Gazzetta di Roccamora',
          req='Disponibile dall’inizio', art='Gazzetta di Roccamora.png',
@@ -155,18 +154,16 @@ LUOGHI_3 = [
              'La moglie di Tobia ha denunciato la scomparsa mercoledì: «manca da mercoledì '
              'all’alba, è uscito coi ferri e non è tornato». Sul tavolo, la copia della denuncia '
              'porta la stessa data. Nessuno, in casa, ha parlato di martedì.',
-             'Il quaderno dei pozzi di Tobia è sul banco, sfogliato da mani estranee: manca una '
-             'pagina, strappata di netto. Un lembo è rimasto nel filo della rilegatura — e '
-             'un’altra copia della pagina, ricalcata a matita, è scivolata dietro il cassetto: '
-             '<i>«il terzo pozzo non gela mai. Non è l’acqua a scaldarlo.»</i> <i>(Reperto C: '
-             'consegnate la Pagina del Quaderno.)</i>',
-             'I ferri del mestiere mancano, ma non tutti: restano i tappi di cera che Tobia si '
-             'faceva per scendere — «il pozzo parla», diceva, «e chi ascolta troppo resta giù» — '
-             'e la sua lanterna a specchio, quella buona. Al muro, il santino del funerale di '
-             'Piero Alcesti: Tobia c’era — «al requiem per Piero mai cantato», diceva, «il Borgo '
-             'ha perso due voci». Della moglie: «dell’acqua morta non voleva più parlare. Diceva '
-             'che al Catasto sanno, e che è meglio così.» '
-             '<i>(Oggetti: prendete le carte I Tappi di Cera e La Lanterna a Specchio.)</i>'],
+             'Il quaderno dei pozzi di Tobia è sul banco, sfogliato da mani estranee: manca '
+             'una pagina, strappata di netto. Un lembo è rimasto nel filo della rilegatura — '
+             'e un’altra copia della pagina, ricalcata a matita, è scivolata dietro il '
+             'cassetto: <i>«il terzo pozzo non gela mai. Non è l’acqua a scaldarlo.»</i>',
+             'I ferri del mestiere mancano, ma non tutti: restano i tappi di cera che Tobia '
+             'si faceva per scendere — «il pozzo parla», diceva, «e chi ascolta troppo resta '
+             'giù» — e la sua lanterna a specchio, quella buona. Al muro, il santino del '
+             'funerale di Piero Alcesti: Tobia c’era — «al requiem per Piero mai cantato», '
+             'diceva, «il Borgo ha perso due voci». Della moglie: «dell’acqua morta non '
+             'voleva più parlare. Diceva che al Catasto sanno, e che è meglio così.»'],
          approfondimenti=[
              dict(tipo='Testimonianza', soggetto='La moglie di Tobia',
                   testo='«Un mese fa qualcuno lo ha pagato per sapere dei pozzi murati. Tanto. '
@@ -200,16 +197,15 @@ LUOGHI_3 = [
              'clienti che sanno di che lavoro si parla — e voi, per ora, non lo sapete.',
          chiave=('parola', 'CANNE D’ORGANO'), art='Lattoniere Bo.png', chiude=None,
          indizi=[
-             'La commissione delle canne, appesa alla lesina come una ricevuta qualsiasi: carta '
-             'di pregio, mano elegante, una sigla in calce — <b>«C.B.»</b>. Ritiro a mezzo '
-             'garzone, pagamento anticipato, in contanti. <i>(Reperto B: consegnate la '
-             'Commissione di C.B.)</i>',
+             'La commissione delle canne, appesa alla lesina come una ricevuta qualsiasi: '
+             'carta di pregio, mano elegante, una sigla in calce — <b>«C.B.»</b>. Ritiro a '
+             'mezzo garzone, pagamento anticipato, in contanti.',
              'Il conto di bottega: <b>dodici</b> canne di piombo consegnate, «da organo, sigillo '
              'a cera». Bo non se n’è mai chiesto il perché — ma i pozzi murati del Borgo sono '
              'undici. Una canna è per qualcosa che pozzo non è.',
              'Sul ripiano dei resi, una canna tornata indietro per difetto di fusione: vuota, '
              'sigillata, mai ritirata. Bo ve la cede volentieri — «a me i lavori muti non '
-             'piacciono». <i>(Oggetto: prendete la carta La Canna Muta.)</i>'],
+             'piacciono».'],
          approfondimenti=[
              dict(tipo='Testimonianza', soggetto='Bo, sul committente',
                   testo='«Il committente mai visto: solo il garzone, uno svelto, di quelli che '
@@ -253,11 +249,10 @@ LUOGHI_3 = [
              'canne, per cambiarne la voce. Chi l’ha fatto sapeva dove fermarsi: qui non c’è '
              'rabbia. C’è metodo.»',
              'I registri d’accettazione: nelle settimane prima, tutti e quattro erano stati '
-             'salassati — visite regolari, mai pagate per intero. La bottega non è segnata: nel '
-             'Borgo di botteghe da salasso ce n’è una sola, e ci passa mezza città. Tra gli '
-             'effetti del primo ammutolito, in guardiola, un rasoio d’argento trovato accanto al '
-             'corpo — sequestrato e mai reclamato. <i>(Oggetto: prendete la carta Il Rasoio '
-             'd’Argento.)</i>'],
+             'salassati — visite regolari, mai pagate per intero. La bottega non è segnata: '
+             'nel Borgo di botteghe da salasso ce n’è una sola, e ci passa mezza città. Tra '
+             'gli effetti del primo ammutolito, in guardiola, un rasoio d’argento trovato '
+             'accanto al corpo — sequestrato e mai reclamato.'],
          approfondimenti=[
              dict(tipo='Referto', soggetto='L’accordatura',
                   testo='Sotto la lente, il taglio non recide: TENDE. La lama è entrata a metà e '
@@ -774,10 +769,25 @@ LUOGHI3_DESC = {
 # Il Campanello di Piero NON e' qui: si prende SOLO con la Testimonianza
 # di L2 (o Cercando in T5) - vedi DESIGN-EPISODIO-3.md.
 OGGETTI_LUOGO_3 = {
-    1: ['Le Chiavi dei Chiusini'],
-    4: ['I Tappi di Cera', 'La Lanterna a Specchio'],
-    6: ['La Canna Muta'],
-    8: ['Il Rasoio d’Argento'],
+    1: [
+        'Le Chiavi dei Chiusini',
+        ('Reperto A', 'il Registro dei Livelli', ''),
+    ],
+    2: [
+        ('Oggetto', 'Il Campanello di Piero', 'dall’approfondimento su Piero'),
+    ],
+    4: [
+        'I Tappi di Cera',
+        'La Lanterna a Specchio',
+        ('Reperto C', 'la Pagina del Quaderno', ''),
+    ],
+    6: [
+        'La Canna Muta',
+        ('Reperto B', 'la Commissione di C.B.', ''),
+    ],
+    8: [
+        'Il Rasoio d’Argento',
+    ],
 }
 
 # arte tessere del fascicolo (le stesse dei board)
@@ -866,7 +876,7 @@ def luoghi():
     N.pagina_indice_citta(c, LUOGHI_3, 'Episodio 3')
 
     def oggetto_righe(n):
-        return ['<b>Oggetto</b> — carta “' + t + '”' for t in OGGETTI_LUOGO_3.get(n, [])]
+        return N.oggetto_righe(OGGETTI_LUOGO_3.get(n, []))
 
     for L in LUOGHI_3:
         art_file = L['art']

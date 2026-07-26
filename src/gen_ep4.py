@@ -108,12 +108,10 @@ LUOGHI_4 = [
              'Gli spartiti anonimi sono impilati sul tavolino da trucco: dodici, identici, '
              'senza mittente. La Vetri li chiama «lo spartito che canta»: «lo leggi una volta '
              'e ti resta in testa per giorni. Lo canticchio nel sonno, dice la mia cameriera. '
-             'Io nel sonno non canto mai.» <i>(Reperto C: consegnate lo Spartito '
-             'Annotato.)</i>',
+             'Io nel sonno non canto mai.»',
              'Appeso tra i costumi, il passe-partout di scena della prima donna: apre ogni '
              'porta del teatro, ridotto compreso. «La direzione me lo diede per capriccio. '
-             'Prendetelo voi: io di porte, in questo teatro, comincio ad averne paura.» '
-             '<i>(Oggetto: prendete la carta Il Passe-partout di Scena.)</i>',
+             'Prendetelo voi: io di porte, in questo teatro, comincio ad averne paura.»',
              'Il programma di studio è una sola pagina, ricopiata a mano: «il maestro Alboni '
              'mi fa provare l’aria del terzo atto. Solo quella. Da tre settimane. Dice che '
              'sabato deve essere PERFETTA — e quando la sbaglio, non si arrabbia: soffre.»'],
@@ -176,14 +174,12 @@ LUOGHI_4 = [
              'le cose col loro nome, di là dentro, passa.',
          chiave=('parola', 'CONTRAPPESO MORTO'), art='Sottopalco delle Macchine.png', chiude=None,
          indizi=[
-             'Il registro delle macchine sceniche: il contrappeso morto — fuori uso dal 1870 — '
-             'risulta «movimentato» ogni notte da due settimane, sempre tra le due e le '
-             'quattro. Firma di servizio: nessuna. <i>(Reperto A: consegnate il Registro '
-             'delle Macchine.)</i>',
-             'Appesa al quadro delle funi, la pianta delle macchine del Comunale: ogni argano, '
-             'ogni leva, ogni botola. Manca un dettaglio solo: la fossa del contrappeso morto '
-             'è disegnata... e poi cancellata a matita. <i>(Oggetti: prendete le carte La '
-             'Pianta delle Macchine e La Chiave del Tagliafuoco.)</i>',
+             'Il registro delle macchine sceniche: il contrappeso morto — fuori uso dal 1870 '
+             '— risulta «movimentato» ogni notte da due settimane, sempre tra le due e le '
+             'quattro. Firma di servizio: nessuna.',
+             'Appesa al quadro delle funi, la pianta delle macchine del Comunale: ogni '
+             'argano, ogni leva, ogni botola. Manca un dettaglio solo: la fossa del '
+             'contrappeso morto è disegnata... e poi cancellata a matita.',
              'I pannelli smontati della conchiglia sono qui, in fila contro il muro, numerati '
              'a gesso: accordati uno a uno, richiusi, pronti. Manca il centrale — «si monta '
              'la mattina della gala», dice il cartellino. Dopo, la conchiglia sarà intera.'],
@@ -212,8 +208,7 @@ LUOGHI_4 = [
              'Da allora, nessun nuovo pegno. E nessuna nuova entrata dichiarata.',
              'Sotto il fermacarte, una commissione su carta di pregio, siglata dal notaio '
              'Grillanda per conto di «un benefattore che ama la lirica»: il restauro '
-             'dell’accordatura della conchiglia, «da compiersi entro la gala». '
-             '<i>(Reperto B: consegnate la Commissione del Notaio.)</i>'],
+             'dell’accordatura della conchiglia, «da compiersi entro la gala».'],
          approfondimenti=[
              dict(tipo='Osservazione', soggetto='I conti di Alboni',
                   testo='I debiti saldati fanno una cifra tonda spaventosa — e le ricevute '
@@ -234,10 +229,7 @@ LUOGHI_4 = [
              'fa delle prove.»',
              'Nel fondo Gaspare — quarant’anni di servizio — il suo libretto personale non '
              'c’è: risulta RITIRATO due settimane fa, «per rilegatura», da una firma che '
-             'l’archivista non riconosce. Ma la rilegatoria non l’ha mai visto. '
-             '<i>(Oggetto: prendete la carta Il Libretto di Gaspare — è ancora qui, '
-             'nascosto tra i registri: qualcuno voleva farlo sparire e non ha finito il '
-             'lavoro.)</i>',
+             'l’archivista non riconosce. Ma la rilegatoria non l’ha mai visto.',
              'Il registro dei prestiti: il maestro Alboni ha ritirato i rilievi acustici '
              'della conchiglia — le carte del restauro di vent’anni fa — e non li ha mai '
              'resi. «Un direttore che studia i muri invece delle partiture», sospira '
@@ -257,8 +249,7 @@ LUOGHI_4 = [
          indizi=[
              'Il palco 13 è pagato da vent’anni, mai occupato: «il benefattore ama la lirica '
              'ma non le folle», recita il contratto. Dentro, polvere intatta — e sul '
-             'davanzale di velluto, un binocolo da signora in madreperla, mai usato. '
-             '<i>(Oggetto: prendete la carta Il Binocolo della Contessa.)</i>',
+             'davanzale di velluto, un binocolo da signora in madreperla, mai usato.',
              'I libri contabili del restauro di vent’anni fa: la conchiglia fu pagata «da '
              'privato munifico» tramite il notaio Grillanda — lo stesso della commissione ad '
              'Alboni. Vent’anni, due lavori, un notaio solo: il benefattore non è un '
@@ -290,8 +281,7 @@ LUOGHI_4 = [
              'scenografi. «I legni venivano da lì. Dalla chiesa sconsacrata.»',
              'Tra i materiali di scena, una maschera dorata della prima stagione del teatro, '
              'bellissima e inquietante: il capo scenografo la scaccia con la mano — «quella '
-             'porta male, la teniamo per scaramanzia. Prendetevela, se vi piace il genere.» '
-             '<i>(Oggetto: prendete la carta La Maschera della Prima Stagione.)</i>'],
+             'porta male, la teniamo per scaramanzia. Prendetevela, se vi piace il genere.»'],
          approfondimenti=[
              dict(tipo='Presagio', soggetto='I legni marchiati',
                   testo='Toccare le assi basta: si vede una chiesa spogliata, un organo murato '
@@ -803,9 +793,16 @@ LUOGHI4_DESC = {
 
 # Carte Oggetto per luogo (sotto-sezione "carte da prendere" degli indizi).
 OGGETTI_LUOGO_4 = {
-    2: ['Il Passe-partout di Scena'],
-    5: ['La Pianta delle Macchine', 'La Chiave del Tagliafuoco'],
-    7: ['Il Libretto di Gaspare'],
+    2: ['Il Passe-partout di Scena', ('Reperto C', 'lo Spartito Annotato', '')],
+    5: [
+        'La Pianta delle Macchine',
+        'La Chiave del Tagliafuoco',
+        ('Reperto A', 'il Registro delle Macchine', ''),
+    ],
+    6: [('Reperto B', 'la Commissione del Notaio', '')],
+    7: [
+        ('Oggetto', 'Il Libretto di Gaspare', 'è ancora qui, nascosto tra i registri: qualcuno voleva farlo sparire e non ha finito il lavoro'),
+    ],
     8: ['Il Binocolo della Contessa'],
     9: ['La Maschera della Prima Stagione'],
 }
@@ -884,7 +881,7 @@ def luoghi():
     N.pagina_indice_citta(c, LUOGHI_4, 'Episodio 4')
 
     def oggetto_righe(n):
-        return ['<b>Oggetto</b> — carta “' + t + '”' for t in OGGETTI_LUOGO_4.get(n, [])]
+        return N.oggetto_righe(OGGETTI_LUOGO_4.get(n, []))
 
     for L in LUOGHI_4:
         art_file = L['art']

@@ -159,9 +159,7 @@ LUOGHI_15 = [
              'visto io, il professore, quella notte. Ne sono certo.» Il testimone oculare recita '
              'più che ricordare: nessuna esitazione, nessun «forse», ogni dettaglio al posto '
              'giusto. Chi ricorda davvero dubita; chi è stato istruito, no.',
-             'Sul tavolo, la sua deposizione battuta a macchina, pronta per il verbale. <i>(Esca: '
-             'potete prendere la Deposizione del Testimone — pare la prova regina, è costruita a '
-             'tavolino.)</i>',
+             'Sul tavolo, la sua deposizione battuta a macchina, pronta per il verbale.',
              'Quando gli chiedete dettagli fuori copione, il testimone si irrigidisce: «me l’hanno '
              'fatta imparare… cioè, l’ho vista così. La scena non ancora sigillata? Non so di cosa '
              'parliate. Io ho solo visto il professore. Punto.» Un teste vero divaga; questo torna '
@@ -181,10 +179,9 @@ LUOGHI_15 = [
          chiave=('parola', 'IL METODO DELLA SOCIETÀ'), art='L’Archivio dei Manuali.png',
          chiude=None,
          indizi=[
-             'Lo scaffale delle dodici copie del manuale indiziario, tutte numerate e censite. '
-             '<i>(Oggetto: prendete il Manuale Indiziario.)</i> Col metodo in mano riconoscerete '
-             'nel dossier ogni riga «disposta» invece che raccolta: il falso parla la vostra '
-             'grammatica.',
+             'Lo scaffale delle dodici copie del manuale indiziario, tutte numerate e '
+             'censite. Col metodo in mano riconoscerete nel dossier ogni riga «disposta» '
+             'invece che raccolta: il falso parla la vostra grammatica.',
              'Il registro delle consultazioni segna una firma recente su una delle copie: «copia '
              'n. 7, consultata il mese scorso.» Il nome è abraso, illeggibile — cancellato con la '
              'stessa cura con cui si cancella una scena. Ma la data resta: qualcuno ha ripassato il '
@@ -211,9 +208,7 @@ LUOGHI_15 = [
              'Il perito Coda si dice pronto a «confermare» la deposizione del testimone oculare '
              'contro Braga: «finalmente qualcuno lo inchioda, quel ciarlatano! Testimonio anch’io, '
              'se serve.» Ma non ha visto nulla: vuole solo unirsi alla curée. Astio, non prova.',
-             'Tra le sue carte, il Sigillo «C.B.» che circola come prova regina. <i>(Esca: potete '
-             'prendere il Sigillo «C.B.» — è la pietra piantata nelle casse di Braga due mesi fa, '
-             'non lo tocca: è un intruso, non una firma.)</i>',
+             'Tra le sue carte, il Sigillo «C.B.» che circola come prova regina.',
              'Coda, quando gli fate notare che non c’entra nulla: «e va bene, non ho visto niente! '
              'Ma se cade Braga, festeggio comunque. Solo… un momento: chi mi ha *chiesto* di '
              'confermare, ieri, non era della Gendarmeria. Non so chi fosse. Sapeva del testimone '
@@ -233,13 +228,12 @@ LUOGHI_15 = [
          chiave=('parola', 'IL DOSSIER CHE COMBACIA'), art='Il Deposito Reperti.png',
          chiude=21,
          indizi=[
-             'Il dossier fisico è qui, repertato: carta, inchiostro, sigilli. <i>(Reperto C: '
-             'consegnate il Dossier Originale.)</i> Alla lente, l’inchiostro delle lettere «di '
-             'trent’anni fa» è fresco di settimane, e la carta è tagliata tutta dallo stesso '
-             'foglio. Trent’anni di crimini scritti in pochi giorni.',
-             'La scientifica ha un reagente che rivela gli inchiostri recenti. <i>(Oggetto: '
-             'prendete il Reagente per gli Inchiostri.)</i> Alla villa, sui documenti piazzati, '
-             'tradirà i tell freschi che l’occhio nudo non coglie.',
+             'Il dossier fisico è qui, repertato: carta, inchiostro, sigilli. Alla lente, '
+             'l’inchiostro delle lettere «di trent’anni fa» è fresco di settimane, e la carta '
+             'è tagliata tutta dallo stesso foglio. Trent’anni di crimini scritti in pochi '
+             'giorni.',
+             'La scientifica ha un reagente che rivela gli inchiostri recenti. Alla villa, '
+             'sui documenti piazzati, tradirà i tell freschi che l’occhio nudo non coglie.',
              'L’archivista dei reperti, sottovoce: «il dossier è arrivato già repertato, capisce? '
              'Con i numeri, le buste, tutto. Nessuno lo ha raccolto: è nato archiviato. Come una '
              'messinscena che si porta dietro anche la propria catalogazione.»'],
@@ -258,14 +252,13 @@ LUOGHI_15 = [
          chiave=('parola', 'IL DOSSIER CHE COMBACIA'), art='La Bottega dell’Incisore.png',
          chiude=None,
          indizi=[
-             'Nel retro della bottega, gli strumenti di un incisore che lavora su commissione muta: '
-             'bulini, ceralacca, lastre. <i>(Reperto B: consegnate la Lastra dell’Incisore.)</i> '
-             'Una sola matrice ha battuto il sigillo «C.B.» e mezze lettere del dossier: le prove '
-             'sono state stampate, non raccolte.',
-             'Su un gancio, un mazzo di chiavi copiate di fresco, tra cui quelle di servizio della '
-             'villa di Braga. <i>(Oggetto: prendete la Chiave di Servizio.)</i> «Chi apparecchia '
-             'una scena,» dice l’incisore terrorizzato, «ha bisogno di entrare e uscire quando '
-             'vuole. Le ho copiate io, che Dio mi perdoni.»',
+             'Nel retro della bottega, gli strumenti di un incisore che lavora su commissione '
+             'muta: bulini, ceralacca, lastre. Una sola matrice ha battuto il sigillo «C.B.» '
+             'e mezze lettere del dossier: le prove sono state stampate, non raccolte.',
+             'Su un gancio, un mazzo di chiavi copiate di fresco, tra cui quelle di servizio '
+             'della villa di Braga. «Chi apparecchia una scena,» dice l’incisore '
+             'terrorizzato, «ha bisogno di entrare e uscire quando vuole. Le ho copiate io, '
+             'che Dio mi perdoni.»',
              'L’incisore, con le mani che tremano: «un signore mai visto, paga in oro vecchio, '
              'carta di pregio. Mi ha dato un modello di grafia da riprodurre — perfetta, di uno '
              'che scrive svelto e sicuro — e mi ha detto: "falla sembrare del professore". Io ho '
@@ -292,9 +285,9 @@ LUOGHI_15 = [
              'sono asciugati, tagli di carta identici, il sigillo ribattuto. Documentarli è '
              'l’unico modo di provare che la scena è stata *scritta* — ma gli Apparecchiatori li '
              'stanno cancellando uno a uno.',
-             'Nello studio segreto in fondo, il Capo Apparecchiatore posa l’ultima prova con la '
-             'calma di un regista. In tasca, le istruzioni di lavoro: grafia di Braga, perfetta. '
-             '<i>(Reperto A: se lo prendete, ottenete le Istruzioni con la Grafia di Braga.)</i>'],
+             'Nello studio segreto in fondo, il Capo Apparecchiatore posa l’ultima prova con '
+             'la calma di un regista. In tasca, le istruzioni di lavoro: grafia di Braga, '
+             'perfetta.'],
          approfondimenti=[
              dict(tipo='Presagio', soggetto='La scena da smontare',
                   testo='Nella villa silenziosa, ogni cosa è al suo posto — ed è proprio questa '
@@ -744,11 +737,16 @@ LUOGHI15_DESC = {
 }
 
 OGGETTI_LUOGO_15 = {
+    4: [
+        ('Esca', 'La Deposizione del Testimone', 'pare la prova regina, è costruita a tavolino'),
+    ],
     5: ['Il Manuale Indiziario'],
-    7: ['Il Reagente per gli Inchiostri'],
-    8: ['La Chiave di Servizio'],
-    4: ['La Deposizione del Testimone'],
-    6: ['Il Sigillo «C.B.»'],
+    6: [
+        ('Esca', 'Il Sigillo «C.B.»', 'è la pietra piantata nelle casse di Braga due mesi fa, non lo tocca: è un intruso, non una firma'),
+    ],
+    7: ['Il Reagente per gli Inchiostri', ('Reperto C', 'il Dossier Originale', '')],
+    8: ['La Chiave di Servizio', ('Reperto B', 'la Lastra dell’Incisore', '')],
+    9: [('Reperto A', 'le Istruzioni con la Grafia di Braga', 'solo se lo prendete')],
 }
 
 TILE_ART_15 = {t['id']: t['id'] + '-ep15.png' for t in TILES_15}
@@ -811,7 +809,7 @@ def luoghi():
     N.pagina_indice_citta(c, LUOGHI_15, 'Episodio 15')
 
     def oggetto_righe(n):
-        return ['<b>Oggetto</b> — carta “' + t + '”' for t in OGGETTI_LUOGO_15.get(n, [])]
+        return N.oggetto_righe(OGGETTI_LUOGO_15.get(n, []))
 
     for L in LUOGHI_15:
         art_file = L['art']

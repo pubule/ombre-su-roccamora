@@ -85,10 +85,10 @@ LUOGHI_11 = [
          chiude=None,
          indizi=[
              'Ai piedi della torre, il corpo di Emilio Ratti è ancora coperto da un telo. Il '
-             'custode indica in alto: «cadde dalla cella delle campane, ieri sera. Uno di quei '
-             'signori del rilievo. Diceva che qui c’era “l’ultima misura buona”. Aveva un '
-             'taccuino sempre in mano, e le misure che non tornano gli facevano una rabbia.» '
-             '<i>(Reperto A: raccogliete il Taccuino delle Misure.)</i>',
+             'custode indica in alto: «cadde dalla cella delle campane, ieri sera. Uno di '
+             'quei signori del rilievo. Diceva che qui c’era “l’ultima misura buona”. Aveva '
+             'un taccuino sempre in mano, e le misure che non tornano gli facevano una '
+             'rabbia.»',
              'Il taccuino è un disastro ordinato: pagine sciolte, ognuna una misura — angoli, '
              'distanze, tempi — ma nessuna datata, e prese così non chiudono. «Segnava e '
              'strappava, segnava e strappava», dice il custode. Rimesse in fila, forse, '
@@ -119,9 +119,8 @@ LUOGHI_11 = [
              'col caposquadra.»',
              'In un cassetto della camera di Ratti, una minuta mai spedita, di suo pugno: «Ho '
              'capito dove va tutto. Non è uno studio. È una PENNA. So quanto vale, e a chi '
-             'venderlo.» <i>(Aggancio: conservatela per l’Episodio 12.)</i> Le misure che non '
-             'tornano tornano eccome, se sai che cosa cercavano: fra tutte, le funi delle '
-             'campane di ogni torre, misurate a una a una.'],
+             'venderlo.» Le misure che non tornano tornano eccome, se sai che cosa cercavano: '
+             'fra tutte, le funi delle campane di ogni torre, misurate a una a una.'],
          approfondimenti=[
              dict(tipo='Testimonianza', soggetto='Il topografo più giovane',
                   testo='«Ve lo dico perché ho paura, non per denaro. Ratti aveva rimesso in '
@@ -142,8 +141,8 @@ LUOGHI_11 = [
              'le abbiamo. Sotto la Cattedrale, ufficialmente, non c’è niente.»',
              'Sovrapponendo le misure del taccuino alla pianta ufficiale, le linee convergono '
              'tutte in un punto — e quel punto, sulla carta, è vuoto: un punto che non c’è, '
-             'sotto la navata della Cattedrale. <i>(Reperto B: raccogliete la Mappa Parziale.)</i> '
-             'Qualcuno sta misurando qualcosa che le mappe non ammettono esista.',
+             'sotto la navata della Cattedrale. Qualcuno sta misurando qualcosa che le mappe '
+             'non ammettono esista.',
              'L’archivista abbassa la voce: «la squadra di Milano ha lasciato un recapito in '
              'città, uno studio corrispondente. Ci sono andato a portare una copia: chiuso, '
              'buio, una targa nuova e nessuno dentro. Una scatola vuota, signori. Eppure paga.»'],
@@ -169,9 +168,8 @@ LUOGHI_11 = [
              'pagine sciolte trovano il loro ordine — e l’ordine dice quale fu l’ultima. «Le '
              'funi delle campane e la marea: due orologi, e lui li usava entrambi.»',
              'Rimesse in fila, le misure raccontano un percorso: partì dalle fontane, salì ai '
-             'campanili, e finì alla Torre — dove segnò l’ultima, quella verso la Cattedrale, e '
-             'capì tutto. È dopo quell’ultima misura che è morto. <i>(Con il Taccuino ordinato '
-             'qui, prendete la carta Il Taccuino Ordinato.)</i>'],
+             'campanili, e finì alla Torre — dove segnò l’ultima, quella verso la Cattedrale, '
+             'e capì tutto. È dopo quell’ultima misura che è morto.'],
          approfondimenti=[
              dict(tipo='Referto', soggetto='L’ordine delle misure',
                   testo='Datando ogni pagina con la marea e l’accordatura, la sequenza si '
@@ -194,8 +192,7 @@ LUOGHI_11 = [
              'un’altra scatola, altrove.',
              'Nel cassetto a chiave forzato, la commessa del rilievo: incarico allo studio '
              '«per censimento fonico», pagato in anticipo, su carta di pregio, filigranata, '
-             'firmato con un ricciolo solo. Non una ditta: una penna. <i>(Reperto C: consegnate '
-             'la Commessa del Rilievo.)</i>',
+             'firmato con un ricciolo solo. Non una ditta: una penna.',
              'Sul retro della commessa, di altra mano, un elenco di consegne: dove mandare i '
              'rilievi finiti. Non a Milano. A un fermo-posta cittadino, intestato a un nome '
              'd’archivio così anonimo che nessuno ci farebbe caso. Chi paga non è lontano: è '
@@ -269,10 +266,10 @@ LUOGHI_11 = [
          chiave=('parola', 'LE FUNI DELLE CAMPANE'), art='La Bottega del Cordaio.png',
          chiude=None,
          indizi=[
-             'Il cordaio arma le campane di mezza città: «le mie funi tengono un uomo meglio di '
-             'un bronzo. Volete salire per i tetti stanotte? Senza una corda buona, il primo '
-             'colpo di vento vi porta via. Ve ne do una da campanaro: assicuratevi, e la guglia '
-             'non vi fa paura.» <i>(Oggetto: prendete la carta La Corda del Campanaro.)</i>',
+             'Il cordaio arma le campane di mezza città: «le mie funi tengono un uomo meglio '
+             'di un bronzo. Volete salire per i tetti stanotte? Senza una corda buona, il '
+             'primo colpo di vento vi porta via. Ve ne do una da campanaro: assicuratevi, e '
+             'la guglia non vi fa paura.»',
              'Il cordaio conosce la via alta: «tegole viscide, grondaie marce, camminamenti '
              'senza ringhiera. Ma il pericolo vero non è cadere voi: è che caschi chi inseguite. '
              'Se volete quel caposquadra vivo, sul cornicione dovrete trattenerlo — e senza una '
@@ -300,10 +297,9 @@ LUOGHI_11 = [
              'senza passare dalle scale interne. Il guardiano notturno: «i signori del rilievo '
              'salgono di qui. Ieri sera sono saliti in due, il magro e il caposquadra. È tornato '
              'giù solo il caposquadra, e aveva le mani che gli tremavano.»',
-             'Appeso a un chiodo, dimenticato nella fretta, un tesserino: identico a quelli veri, '
-             'timbri ministeriali perfetti, ma intestato a un ispettore che non esiste. Sembra la '
-             'prova d’un mandante ufficiale. <i>(Esca: potete prendere la carta Il Tesserino '
-             'Perfetto — un falso fatto per depistare, non prova nulla.)</i>',
+             'Appeso a un chiodo, dimenticato nella fretta, un tesserino: identico a quelli '
+             'veri, timbri ministeriali perfetti, ma intestato a un ispettore che non esiste. '
+             'Sembra la prova d’un mandante ufficiale.',
              'Da qui parte la via delle guglie: un dedalo di camminamenti in quota fino alla '
              'Torre. Il guardiano scuote la testa: «col vento di stanotte, lassù, non ci salirei '
              'per tutto l’oro del mondo. Ma se ci andate, sappiate che il caposquadra quei tetti '
@@ -803,11 +799,34 @@ LUOGHI11_DESC = {
 }
 
 OGGETTI_LUOGO_11 = {
-    1: ['Il Taccuino Ordinato'],
-    6: ['La Lanterna Cieca'],
-    7: ['La Colpa del Morto'],
-    8: ['La Corda del Campanaro'],
-    9: ['Il Tesserino Perfetto'],
+    1: [
+        'Il Taccuino Ordinato',
+        ('Reperto A', 'il Taccuino delle Misure', ''),
+    ],
+    2: [
+        ('Aggancio', '', 'la minuta di Ratti si conserva per l’Episodio 12'),
+    ],
+    3: [
+        ('Reperto B', 'la Mappa Parziale', ''),
+    ],
+    4: [
+        ('Oggetto', 'Il Taccuino Ordinato', 'solo se il Taccuino è stato ordinato qui'),
+    ],
+    5: [
+        ('Reperto C', 'la Commessa del Rilievo', ''),
+    ],
+    6: [
+        'La Lanterna Cieca',
+    ],
+    7: [
+        'La Colpa del Morto',
+    ],
+    8: [
+        'La Corda del Campanaro',
+    ],
+    9: [
+        ('Esca', 'Il Tesserino Perfetto', 'un falso fatto per depistare, non prova nulla'),
+    ],
 }
 
 TILE_ART_11 = {t['id']: t['id'] + '-ep11.png' for t in TILES_11}
@@ -880,7 +899,7 @@ def luoghi():
     N.pagina_indice_citta(c, LUOGHI_11, 'Episodio 11')
 
     def oggetto_righe(n):
-        return ['<b>Oggetto</b> — carta “' + t + '”' for t in OGGETTI_LUOGO_11.get(n, [])]
+        return N.oggetto_righe(OGGETTI_LUOGO_11.get(n, []))
 
     for L in LUOGHI_11:
         art_file = L['art']

@@ -90,8 +90,7 @@ LUOGHI_13 = [
              'fuori porta e ripartono col nolo. La carta col giglio la riconosco a occhi chiusi.»',
              'Sul quadro dei noli, uno parte sempre alla stessa ora, pagato in anticipo, '
              'puntualissimo: «il nolo puntuale, lo chiamiamo. Non salta mai. Il capo-catena '
-             'diceva che quel nolo valeva più di tutti gli altri messi insieme.» '
-             '<i>(Oggetto: prendete il Lasciapassare del Nolo.)</i>',
+             'diceva che quel nolo valeva più di tutti gli altri messi insieme.»',
              'Il capostazione, sottovoce: «il capo-catena l’hanno tirato su dal canale stamattina. '
              'Annegato, dicono. Ma sapeva nuotare come un pesce, e la notte prima aveva chiesto '
              'di parlare a qualcuno di importante. Il capo-catena annegato non è un incidente, '
@@ -114,9 +113,7 @@ LUOGHI_13 = [
              'cliente riservato. La riservatezza è il mio mestiere. Il nolo puntuale è solo buona '
              'amministrazione.» Sorride, e non dice un nome.',
              'Sulla scrivania, il suo timbro di studio, quello che finisce su ogni bolla. '
-             '<i>(Esca: potete prendere il Timbro del Notaio — è un timbro di routine, non '
-             'inchioda Rasca.)</i> Rasca lo lascia prendere senza battere ciglio: sa che non '
-             'prova nulla.',
+             'Rasca lo lascia prendere senza battere ciglio: sa che non prova nulla.',
              'Un praticante, quando Rasca esce, bisbiglia: «il capo-catena annegato era venuto '
              'qui, tre giorni fa. Ha litigato col Notaio a porte chiuse. Il giorno dopo era '
              'morto. Io non ho visto niente, chiaro? Ma quell’uomo sapeva qualcosa, e il Notaio '
@@ -184,10 +181,9 @@ LUOGHI_13 = [
          chiave=('parola', 'IL CAPO-CATENA ANNEGATO'), art='La Casa del Capo-Catena.png',
          chiude=None,
          indizi=[
-             'La stanza di un uomo che aveva cominciato a contare: fogli ovunque, colonne di date '
-             'e di noli, un mezzo diario. Nessuna confessione — un calcolo. <i>(Oggetto: prendete '
-             'il Taccuino del Capo-Catena.)</i> Ricostruire ciò che sapeva è come farlo deporre da '
-             'morto.',
+             'La stanza di un uomo che aveva cominciato a contare: fogli ovunque, colonne di '
+             'date e di noli, un mezzo diario. Nessuna confessione — un calcolo. Ricostruire '
+             'ciò che sapeva è come farlo deporre da morto.',
              'In fondo al taccuino, una riga sola sottolineata due volte: l’ora in cui, ogni '
              'settimana, «la carta di C.B. e la carta della Società prendono la stessa strada». '
              'Sapeva di valere quella riga. È annegato per quella riga.',
@@ -214,9 +210,8 @@ LUOGHI_13 = [
              'Il cancelliere conferma l’acquisto della carta col giglio «per gli atti solenni '
              'della diocesi»: legittimo, tracciato, innocente. È uno dei tre compratori di '
              'facciata — quello che rende normale un acquisto altrimenti sospetto.',
-             'Tra le pratiche, una lettera di raccomandazione mai spedita, che accredita un certo '
-             'signore presso «ambienti che contano». <i>(Esca: potete prendere la Lettera di '
-             'Raccomandazione — è cortesia di facciata, non porta a C.B.)</i>',
+             'Tra le pratiche, una lettera di raccomandazione mai spedita, che accredita un '
+             'certo signore presso «ambienti che contano».',
              'Il cancelliere, prudente: «se cercate chi compra quella carta per ragioni meno '
              'sante, non guardate noi. Guardate chi la compra <i>senza averne bisogno</i>. Noi '
              'ne abbiamo bisogno per forza: siamo la Chiesa. Gli altri no.»'],
@@ -235,9 +230,8 @@ LUOGHI_13 = [
          chiude=None,
          indizi=[
              'L’archivio dei noli della Prefettura tiene i registri di tutti i trasporti '
-             'autorizzati: il nolo della carta col giglio c’è, puntuale da anni. <i>(Reperto C: '
-             'consegnate il Registro dei Noli.)</i> È qui che il calcolo del capo-catena trova '
-             'conferma.',
+             'autorizzati: il nolo della carta col giglio c’è, puntuale da anni. È qui che il '
+             'calcolo del capo-catena trova conferma.',
              'Incrociando il registro con gli appunti del morto, la riga sottolineata si legge '
              'per intero: sessant’anni di forniture allo stesso cliente storico, un professore '
              'collezionista, iniziali C.B. — e la carrozza condivisa col Palazzo del Lume. Il '
@@ -262,13 +256,11 @@ LUOGHI_13 = [
          chiude=20,
          indizi=[
              'Il deposito in città riceve le risme dal molino fuori porta e le smista ai tre '
-             'compratori. <i>(Reperto B: consegnate la Bolla di Transito.)</i> Le bolle dicono '
-             'tutto: quantità, date, nolo prepagato. Il molino fuori porta è il collo di '
-             'bottiglia della filiera.',
+             'compratori. Le bolle dicono tutto: quantità, date, nolo prepagato. Il molino '
+             'fuori porta è il collo di bottiglia della filiera.',
              'In un armadio, una cassetta di latta stagna, di quelle che i notai usano per i '
-             'documenti che devono sopravvivere a tutto. <i>(Oggetto: prendete la Cassetta '
-             'Stagna.)</i> «Al molino ci sono acqua e stracci: se volete portar via delle carte '
-             'sane, mettetele lì dentro.»',
+             'documenti che devono sopravvivere a tutto. «Al molino ci sono acqua e stracci: '
+             'se volete portar via delle carte sane, mettetele lì dentro.»',
              'Il magazziniere avverte: «stanotte al molino c’è aria strana. È passato un signore '
              'in carrozza, elegante, ha parlato col Sorvegliante e se n’è andato. Poco dopo hanno '
              'cominciato a portare stracci verso la sala del torchio. Stracci vicino ai '
@@ -291,9 +283,8 @@ LUOGHI_13 = [
              'magazzini di stracci per la pasta di carta. È qui che si fa la filigrana col '
              'giglio, e qui finiranno i registri dei noli — se non li salvate prima del fuoco.',
              'Contro la luce di una lanterna, un foglio della filigrana: il giglio spezzato, '
-             'identico alla carta di ogni caso della campagna. <i>(Reperto A: consegnate la '
-             'Filigrana.)</i> Non una cartiera che vende a tanti: un’unica risma tagliata per una '
-             'penna sola.',
+             'identico alla carta di ogni caso della campagna. Non una cartiera che vende a '
+             'tanti: un’unica risma tagliata per una penna sola.',
              'Nel cortile, la carrozza del Notaio con i cavalli già pronti alla fuga, e il '
              'Sorvegliante che dà ordini agli uomini del molino. Dentro, verso il torchio, la '
              'cassaforte dei registri — e attorno, stracci ammonticchiati come per un rogo.'],
@@ -789,10 +780,12 @@ LUOGHI13_DESC = {
 
 OGGETTI_LUOGO_13 = {
     1: ['Il Lasciapassare del Nolo'],
-    2: ['Il Timbro del Notaio'],
+    2: [('Esca', 'Il Timbro del Notaio', 'è un timbro di routine, non inchioda Rasca')],
     5: ['Il Taccuino del Capo-Catena'],
-    6: ['La Lettera di Raccomandazione'],
-    8: ['La Cassetta Stagna'],
+    6: [('Esca', 'La Lettera di Raccomandazione', 'è cortesia di facciata, non porta a C.B.')],
+    7: [('Reperto C', 'il Registro dei Noli', '')],
+    8: ['La Cassetta Stagna', ('Reperto B', 'la Bolla di Transito', '')],
+    9: [('Reperto A', 'la Filigrana', '')],
 }
 
 TILE_ART_13 = {t['id']: t['id'] + '-ep13.png' for t in TILES_13}
@@ -860,7 +853,7 @@ def luoghi():
     N.pagina_indice_citta(c, LUOGHI_13, 'Episodio 13')
 
     def oggetto_righe(n):
-        return ['<b>Oggetto</b> — carta “' + t + '”' for t in OGGETTI_LUOGO_13.get(n, [])]
+        return N.oggetto_righe(OGGETTI_LUOGO_13.get(n, []))
 
     for L in LUOGHI_13:
         art_file = L['art']

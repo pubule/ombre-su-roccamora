@@ -78,9 +78,9 @@ LUOGHI_19 = [
          req='Disponibile dall’inizio', art='La Taverna della Chiatta.png',
          chiude=None,
          indizi=[
-             'La Taverna della Chiatta, sull’acqua bassa: il rifugio della Società in esilio. Qui '
-             'si sono raccolti quelli che vi restano fedeli, sotto le taglie sulle vostre teste. '
-             '<i>(Reperto C: prendete il Manifesto dei Ricercati — il vostro volto sui muri.)</i>',
+             'La Taverna della Chiatta, sull’acqua bassa: il rifugio della Società in esilio. '
+             'Qui si sono raccolti quelli che vi restano fedeli, sotto le taglie sulle vostre '
+             'teste.',
              'Sul tavolo, il piano dell’ultima discesa: la Cattedrale, la gola della città, il '
              'punto oltre Ferri. «L’ultima discesa è stanotte, con le maree di sizigia. Serve il '
              'Fascicolo del 1741, la mappa acustica, e ogni amico che vi resta.»',
@@ -151,9 +151,9 @@ LUOGHI_19 = [
              'e non vi crede colpevoli. «Il conto dei bivi conta anche in divisa: chi si è '
              'comportato bene con noi, in questi mesi, stanotte trova una porta socchiusa.» Vi '
              'indica la via all’Archivio.',
-             'Vi passa di nascosto le prove che smontano il dossier di Vidal: la matrice del decano, '
-             'il confronto col metodo di M. <i>(Oggetto: prendete le Prove per l’Ispettore.)</i> '
-             '«Se riuscite a parlargli prima che spari, questo lo ferma.»',
+             'Vi passa di nascosto le prove che smontano il dossier di Vidal: la matrice del '
+             'decano, il confronto col metodo di M. «Se riuscite a parlargli prima che spari, '
+             'questo lo ferma.»',
              'Il gendarme, sottovoce: «Vidal è già all’Archivio, vi aspetta. Sa che tornerete per '
              'il Fascicolo del 1741, per l’ultima discesa: è troppo bravo per non averlo capito. '
             'Andateci sapendo che '
@@ -176,9 +176,8 @@ LUOGHI_19 = [
              'Se avete PROTETTO Braga (Bivio Ep. 15), il professore vi apre e vi consegna il suo '
              'archivio su M.: trent’anni di studio del rivale. «Ve l’avevo detto: guardate le '
              'penne, non le mani. Adesso sapete di che penna si tratta. Prendete, e usatelo.»',
-             'Se lo avete AVALLATO, la villa è vuota: Braga è morto, o sparito, e la porta resta '
-             'chiusa. <i>(Esca: la Via Facile — un passaggio che pare comodo all’Archivio, è '
-             'un’imboscata dei gendarmi.)</i> Il conto, stanotte, è a vostro sfavore.',
+             'Se lo avete AVALLATO, la villa è vuota: Braga è morto, o sparito, e la porta '
+             'resta chiusa. Il conto, stanotte, è a vostro sfavore.',
              'L’archivio di Braga, se lo avete, rafforza le Prove per l’Ispettore: il rivale che ha '
              'studiato M. per trent’anni è il testimone perfetto della sua doppiezza.'],
          approfondimenti=[
@@ -199,9 +198,8 @@ LUOGHI_19 = [
              'Se avete salvato il decano LUCIDO (Ep. 17), è qui, provato ma vivo, e vi consegna la '
              'matrice completa e la crepa del coro: «M. ha comprato i cantori, non li ha convertiti. '
              'Un coro comprato canta con la bocca. Al Quarto Movimento gli manca una voce che creda.»',
-             'La matrice del decano applicata all’ultimo movimento dice cosa manca a M.: '
-             '<i>(incrocio D3: con i vecchi testimoni, COSA manca a M. è provato.)</i> La voce che '
-             'il Coro insegue dall’Ep. 3.',
+             'La matrice del decano applicata all’ultimo movimento dice cosa manca a M.: La '
+             'voce che il Coro insegue dall’Ep. 3.',
              'Se il decano è ferito grave, parla a fatica e la sua metà di verità è confusa: '
              'l’incrocio D3 è più fragile. Il conto dell’Ep. 17 pesa qui.'],
          approfondimenti=[
@@ -223,9 +221,7 @@ LUOGHI_19 = [
              'Un PNG a cui dovete qualcosa dai casi passati: se il conto è a favore, vi nasconde e '
              'vi rifornisce; se è a sfavore, è tentato dalla taglia. «Vi ho aiutato una volta. '
              'Stanotte dipende da come mi avete trattato dopo.»',
-             'C’è chi, disperato, valuta di consegnarvi per la taglia in oro vecchio. <i>(Esca: la '
-             'Taglia da Riscuotere — pare fruttare, è la trappola di M.: chi vi consegna finisce '
-             'usato e scartato.)</i>',
+             'C’è chi, disperato, valuta di consegnarvi per la taglia in oro vecchio.',
              'Il debito, se onorato, aggiunge un alleato al conto per l’Archivio: una mano in più, '
              'una porta di servizio, un avvertimento al momento giusto.'],
          approfondimenti=[
@@ -244,11 +240,10 @@ LUOGHI_19 = [
          chiude=None,
          indizi=[
              'Chi ricorda il Coro dall’Ep. 3, i vecchi barcaioli e ossari: vi danno la mappa '
-             'acustica, la via delle tre acque sotto la città. <i>(Oggetto: prendete la Mappa '
-             'Acustica.)</i> <i>(Reperto B: consegnate la Mappa Acustica.)</i>',
-             'La mappa incrocia il sapere del decano: quali campane, organi e fontane far tacere e '
-             'quali suonare per il controcanto. <i>(incrocio D3: COSA manca a M. è provato.)</i> '
-             'Senza la mappa, sotto la Cattedrale sareste sordi.',
+             'acustica, la via delle tre acque sotto la città.',
+             'La mappa incrocia il sapere del decano: quali campane, organi e fontane far '
+             'tacere e quali suonare per il controcanto. Senza la mappa, sotto la Cattedrale '
+             'sareste sordi.',
              'Un vecchio ossario: «la voce che il Coro cerca dall’inizio è ancora là sotto, o ciò '
              'che ne resta — dipende da come avete chiuso i casi del Coro. M. la cerca stanotte. '
              'Arrivateci prima.»'],
@@ -272,9 +267,9 @@ LUOGHI_19 = [
              'L’Archivio Civico sotto sigillo dei gendarmi, dove hanno portato tutto ciò che era '
              'della Società. Dentro, nel deposito reperti, il Fascicolo del 1741. Ad aspettarvi, '
              'l’Ispettore Vidal.',
-             'Il Fascicolo del 1741 è l’antico dossier della confraternita: come i Padri fecero '
-             'tacere il Dormiente la prima volta, il controcanto. <i>(Reperto A: al recupero, il '
-             'Fascicolo del 1741.)</i> Senza, l’Ep. 20 non ha il controcanto.',
+             'Il Fascicolo del 1741 è l’antico dossier della confraternita: come i Padri '
+             'fecero tacere il Dormiente la prima volta, il controcanto. Senza, l’Ep. 20 non '
+             'ha il controcanto.',
              'Vidal non spara subito: vi studia. È un uomo onesto ingannato, non un sicario. Se lo '
              'riducete e gli mostrate le Prove — e il vostro conto di alleati regge — capisce di '
              'essere stato usato, e la caccia cambia bersaglio.'],
@@ -711,11 +706,21 @@ LUOGHI19_DESC = {
 }
 
 OGGETTI_LUOGO_19 = {
+    1: [('Reperto C', 'il Manifesto dei Ricercati', 'il vostro volto sui muri')],
     2: ['La Mappa dei Sigilli'],
-    8: ['La Mappa Acustica'],
     4: ['Le Prove per l’Ispettore'],
-    7: ['La Taglia da Riscuotere'],
-    5: ['La Via Facile'],
+    5: [
+        ('Esca', 'La Via Facile', 'un passaggio che pare comodo all’Archivio, è un’imboscata dei gendarmi'),
+    ],
+    6: [('Incrocio D3', 'con i vecchi testimoni, COSA manca a M. è provato', '')],
+    7: [
+        ('Esca', 'La Taglia da Riscuotere', 'pare fruttare, è la trappola di M.: chi vi consegna finisce usato e scartato'),
+    ],
+    8: [
+        ('Reperto B', 'La Mappa Acustica', ''),
+        ('Incrocio D3', 'COSA manca a M. è provato', ''),
+    ],
+    9: [('Reperto A', 'il Fascicolo del 1741', 'al recupero')],
 }
 
 TILE_ART_19 = {t['id']: t['id'] + '-ep19.png' for t in TILES_19}
@@ -778,7 +783,7 @@ def luoghi():
     N.pagina_indice_citta(c, LUOGHI_19, 'Episodio 19')
 
     def oggetto_righe(n):
-        return ['<b>Oggetto</b> — carta “' + t + '”' for t in OGGETTI_LUOGO_19.get(n, [])]
+        return N.oggetto_righe(OGGETTI_LUOGO_19.get(n, []))
 
     for L in LUOGHI_19:
         art_file = L['art']

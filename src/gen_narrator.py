@@ -273,6 +273,39 @@ def oggetto_riga(ref):
     tag = ' ⚠ rischioso' if ogg.get('rischio') else ''
     return [f"<b>Oggetto</b> — carta “{ogg['nome'].title()}”{tag}"]
 
+# I tre reperti stampati dell'Ep. 1: la consegna la sa chi arbitra, non il
+# tavolo (prima stava dentro l'indizio letto ad alta voce).
+REPERTI_1 = {
+    1: [('Reperto A', 'il Diario di Ruggero', '')],
+    5: [('Reperto B', 'il Registro delle Consegne', '')],
+    7: [('Reperto C', 'il Fascicolo del 1741', '')],
+}
+
+def oggetto_righe(voci):
+    """Righe 'carte da prendere' per gli Episodi 2-20 (l'Ep. 1 usa
+    oggetto_riga, che pesca dalla lista OGGETTI). Ogni voce e' il nome
+    della carta, oppure (nome, nota), oppure (etichetta, nome, nota).
+
+    Nota ed etichetta stanno QUI e non fra gli indizi per due ragioni
+    diverse. L'effetto di un Oggetto e' una regola, e le regole non si
+    leggono ad alta voce insieme alla scena. Un'ESCA, poi, non puo'
+    proprio essere annunciata: se l'indizio dice «questa pista e' falsa»
+    l'esca non esiste piu' - chi arbitra deve saperlo, il tavolo no."""
+    righe = []
+    for v in voci:
+        if isinstance(v, (tuple, list)):
+            et, nome, nota = v if len(v) == 3 else ('Oggetto',) + tuple(v)
+        else:
+            et, nome, nota = 'Oggetto', v, ''
+        coda = f' — {nota}' if nota else ''
+        if not nome:                      # riga di sola regola, senza carta
+            righe.append(f'<b>{et}</b>{coda}')
+        elif et.startswith(('Oggetto', 'Esca')):
+            righe.append(f'<b>{et}</b> — carta “{nome}”{coda}')
+        else:                             # i Reperti sono stampati, non carte
+            righe.append(f'<b>{et}</b> — {nome}{coda}')
+    return righe
+
 def approfondimenti_righe(approfondimenti):
     """Carte Approfondimento del luogo - SOLO queste, mai l'Oggetto (vedi
     oggetto_riga): vanno nella sezione Approfondimenti, sempre sul retro
@@ -382,7 +415,11 @@ def indizi_block(c, indizi, oggetto_rows, y_top):
         c.line(MX, y, W - MX, y)
         y -= 6*mm
         c.setFillColor(TEAL); c.setFont(F['sc'], 8)
-        c.drawString(MX, y, 'carte da prendere — solo per chi arbitra')
+        # il blocco ospita anche righe che non sono carte (incroci, vincoli
+        # d'orologio): in quel caso il titolo storico mentirebbe
+        solo_carte = all(' carta “' in r for r in oggetto_rows)
+        c.drawString(MX, y, 'carte da prendere — solo per chi arbitra' if solo_carte
+                     else 'per chi arbitra — non si legge ad alta voce')
         y -= 5*mm
         for r in oggetto_rows:
             p = Paragraph(f'— {r}', ROW)
@@ -602,7 +639,9 @@ def narratore():
                           else f'l’oggetto “{valore}”')
             entrata = f'si entra con {chiave_txt} — solo per chi arbitra'
         header(c, f"luogo {L['n']}", L['nome'], LUOGHI_DESC[L['n']], entrata=entrata)
-        indizi_block(c, L.get('indizi', []), oggetto_riga(f"L{L['n']}"), ART_BOTTOM - 10*mm)
+        indizi_block(c, L.get('indizi', []),
+                     oggetto_riga(f"L{L['n']}") + oggetto_righe(REPERTI_1.get(L['n'], [])),
+                     ART_BOTTOM - 10*mm)
         c.showPage()
         pagina_retro_luogo(c, L)
         c.showPage()

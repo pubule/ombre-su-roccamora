@@ -147,9 +147,9 @@ LUOGHI = [
          testo='La scala a chiocciola sale nel buio. In cima, la cella campanaria è in disordine: '
                'lo sgabello di Ruggero è rovesciato, la sua lanterna ancora appesa.',
          indizi=['Colate di cera nera sui gradini — troppo in alto perché vengano dalle candele della chiesa.',
-                 'Il diario di Ruggero, con l’ultima pagina strappata. Ricalcando i solchi della penna leggete: '
-                 '«...alle 3 in punto, ogni notte. Tre rintocchi, poi uno, poi cinque. Non sono io a suonare.» '
-                 '<i>(Reperto A: consegnate il Diario di Ruggero.)</i>',
+                 'Il diario di Ruggero, con l’ultima pagina strappata. Ricalcando i solchi '
+                 'della penna leggete: «...alle 3 in punto, ogni notte. Tre rintocchi, poi '
+                 'uno, poi cinque. Non sono io a suonare.»',
                  'Sul legno della balaustra, unghiate profonde intorno a una scritta quasi '
                  'cancellata. Ci vuole un attimo per ricomporla: sommerso.'],
          approfondimenti=[
@@ -239,9 +239,8 @@ LUOGHI = [
                'violini appesi come selvaggina.',
          indizi=['Bastiano Ferri è sparito da tre giorni. Sul banco, un diapason d’argento inciso '
                  'con un’onda.',
-                 'Il registro consegne, ultima riga: «40 candele di cera nera — consegna al C.B., '
-                 'molo terzo, il vecchio deposito — pagato B.F.» '
-                 '<i>(Reperto B: consegnate il Registro delle Consegne.)</i>',
+                 'Il registro consegne, ultima riga: «40 candele di cera nera — consegna al '
+                 'C.B., molo terzo, il vecchio deposito — pagato B.F.»',
                  'Uno spartito: «Dal Profondo», riscritto per campane. In margine: «il bronzo canta, '
                  'la pietra risponde, l’acqua ricorda».'],
          approfondimenti=[
@@ -289,10 +288,9 @@ LUOGHI = [
          chiave=('parola', 'sommerso'),
          testo='L’archivista, sentendo la parola giusta, vi guida a uno scaffale che nessuno tocca '
                'da decenni.',
-         indizi=['Fascicolo del 1741: la confraternita del Coro Sommerso, bandita per «pratiche '
-                 'contrarie a Dio e alla quiete delle acque». Si riuniva in cavità sotto la cattedrale, '
-                 '«dove l’acqua canta». Il suo sigillo: un’onda. '
-                 '<i>(Reperto C: consegnate il Fascicolo del 1741.)</i>',
+         indizi=['Fascicolo del 1741: la confraternita del Coro Sommerso, bandita per '
+                 '«pratiche contrarie a Dio e alla quiete delle acque». Si riuniva in cavità '
+                 'sotto la cattedrale, «dove l’acqua canta». Il suo sigillo: un’onda.',
                  'Una mappa antica: dalla cripta, condotti scendono verso il Canale Basso.',
                  'Registro consultazioni, due mesi fa: «B. Ferri, liutaio» ha richiesto questo '
                  'stesso fascicolo.'],

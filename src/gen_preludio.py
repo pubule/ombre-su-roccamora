@@ -109,14 +109,13 @@ LUOGHI_P = [
                'attorno a un tavolo, dieci ritratti alle pareti e un gancio vuoto dove l’undicesimo è '
                'stato tolto. La stanza di Ansaldo è in fondo al corridoio, ordinata come una cella '
                'di monaco. M. vi osserva dalla soglia, e non tocca nulla.',
-         indizi=['Il letto è intatto da tre notti, ma pipa e scialle sono ancora al chiodo: chi esce '
-                 'per sempre non lascia la pipa. <i>(Oggetto: prendete la carta La Pipa di Ansaldo.)</i>',
-                 'Nel registro delle consultazioni dell’archivio manca una pagina, strappata di netto. '
-                 'L’ultima riga rimasta: «1741 — fascicolo della confraternita…» '
-                 '<i>(Reperto A: consegnate il Registro delle Consultazioni.)</i>',
-                 'Sul pavimento dell’archivio, graffi di stivali chiodati: uomini pesanti, almeno due, '
-                 'e nessuno dei due era il vecchio Ansaldo. Sul tavolo, il suo anello di chiavi. '
-                 '<i>(Oggetto: prendete la carta L’Anello di Chiavi.)</i>'],
+         indizi=['Il letto è intatto da tre notti, ma pipa e scialle sono ancora al chiodo: '
+                 'chi esce per sempre non lascia la pipa.',
+                 'Nel registro delle consultazioni dell’archivio manca una pagina, strappata '
+                 'di netto. L’ultima riga rimasta: «1741 — fascicolo della confraternita…»',
+                 'Sul pavimento dell’archivio, graffi di stivali chiodati: uomini pesanti, '
+                 'almeno due, e nessuno dei due era il vecchio Ansaldo. Sul tavolo, il suo '
+                 'anello di chiavi.'],
          approfondimenti=[
              dict(tipo='Osservazione', soggetto='La polvere smossa a metà',
                   testo='La polvere sullo scaffale del 1741 è smossa solo a metà: chi ha preso il '
@@ -134,9 +133,8 @@ LUOGHI_P = [
                  'E la ripete piano, come per farvela imparare: «la dogana».',
                  'Il nipote di Ansaldo ha litigato col vecchio la settimana scorsa, per soldi: metà '
                  'taverna li ha sentiti. Da allora il ragazzo non si è più visto.',
-                 'Dopo le 21:00 arriva il barcaiolo della Chiatta: prima di quell’ora è in acqua. '
-                 '<i>(Vincolo d’orologio: l’indizio del barcaiolo si legge solo visitando P2 '
-                 'dalle 21 in poi.)</i>'],
+                 'Dopo le 21:00 arriva il barcaiolo della Chiatta: prima di quell’ora è in '
+                 'acqua.'],
          approfondimenti=[
              dict(tipo='Testimonianza', soggetto='Il barcaiolo della Chiatta',
                   testo='Con un bicchiere davanti, il barcaiolo ricorda: due notti, un passeggero fino '
@@ -152,9 +150,8 @@ LUOGHI_P = [
                  'stivali chiodati». Ansaldo era sparito da due giorni: qualcuno gli ha svuotato le '
                  'tasche, e quel qualcuno gira ancora per la città.',
                  'Sempre nel registro, la settimana scorsa: il NIPOTE di Ansaldo ha impegnato '
-                 'l’argenteria di famiglia e saldato un debito di gioco. La notte della sparizione '
-                 'era qui a ritirarla: il prestatore lo giura. <i>(Il nipote è innocente: il litigio '
-                 'era per questo.)</i>',
+                 'l’argenteria di famiglia e saldato un debito di gioco. La notte della '
+                 'sparizione era qui a ritirarla: il prestatore lo giura.',
                  'Il prestatore, sottovoce: «Gli stivali chiodati puzzavano di sego e di corda '
                  'bagnata. Roba da molo, non da città.»'],
          approfondimenti=[
@@ -562,7 +559,17 @@ ESAMI_CARBONE_P = {
 }
 
 OGGETTI_LUOGO_P = {
-    'P1': ['L’Anello di Chiavi', 'La Pipa di Ansaldo'],
+    'P1': [
+        'L’Anello di Chiavi',
+        'La Pipa di Ansaldo',
+        ('Reperto A', 'il Registro delle Consultazioni', ''),
+    ],
+    'P2': [
+        ('Vincolo d’orologio', '', 'l’indizio del barcaiolo si legge solo visitando P2 dalle 21 in poi'),
+    ],
+    'P3': [
+        ('Nota', '', 'il nipote è innocente: il litigio era per l’argenteria impegnata'),
+    ],
 }
 
 def luoghi():
@@ -678,9 +685,8 @@ def luoghi():
         c.line(MX, ART_BOTTOM - 4*mm, W - MX, ART_BOTTOM - 4*mm)
         # blocco indizi condiviso (auto-dimensionante, vedi gen_narrator)
         import gen_narrator as N
-        oggetti = OGGETTI_LUOGO_P.get(L['n'], [])
         N.indizi_block(c, L.get('indizi', []),
-                       [f'<b>Oggetto</b> — carta “{nome}”' for nome in oggetti],
+                       N.oggetto_righe(OGGETTI_LUOGO_P.get(L['n'], [])),
                        ART_BOTTOM - 10*mm)
         c.showPage()
 

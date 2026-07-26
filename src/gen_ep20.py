@@ -82,8 +82,8 @@ LUOGHI_20 = [
              'Il vecchio sagrestano, tremante: «ci risiamo, come nel Terzo Movimento. Ma stavolta è '
              'l’ultimo rigo, il quarto. Se M. trova la voce che crede, il Dormiente si sveglia in '
              'estasi. Se voi cantate prima il controcanto, si riaddormenta senza sogni.»',
-             'Sull’altare, un segno del Coro fresco: M. è già sceso, o sta per farlo. '
-             '<i>(Presagio.)</i> Non c’è margine: stanotte si chiude, in un modo o nell’altro.'],
+             'Sull’altare, un segno del Coro fresco: M. è già sceso, o sta per farlo. Non c’è '
+             'margine: stanotte si chiude, in un modo o nell’altro.'],
          approfondimenti=[
              dict(tipo='Presagio', soggetto='La bocca della discesa',
                   testo='La Cattedrale è la soglia dell’ultima notte. Sotto, oltre il punto dove '
@@ -104,9 +104,8 @@ LUOGHI_20 = [
              'Gli ossari ricordano il Coro dall’inizio: «la voce che crede, quella che il Coro '
              'insegue dal principio, è ancora là — o ciò che ne resta, dipende da come avete chiuso '
              'i loro casi. M. la cerca stanotte. Arrivateci prima.»',
-             'Un vecchio barcaiolo vi dà l’ora esatta del picco: <i>(incrocio D1: con il calendario '
-             'dei Padri, QUANDO scendere è provato.)</i> «Un minuto prima o dopo, e o vi annega la '
-             'marea, o vi trova M. già cantando.»'],
+             'Un vecchio barcaiolo vi dà l’ora esatta del picco: «Un minuto prima o dopo, e o '
+             'vi annega la marea, o vi trova M. già cantando.»'],
          approfondimenti=[
              dict(tipo='Osservazione', soggetto='L’ora del picco',
                   testo='I vecchi delle maree conoscono l’ora esatta in cui la sizigia apre la gola '
@@ -143,17 +142,14 @@ LUOGHI_20 = [
          req='Disponibile dall’inizio', art='L’Archivio delle Penne.png',
          chiude=None,
          indizi=[
-             'Il Fascicolo del 1741 aperto sulla riga finale del controcanto, e il calendario dei '
-             'Padri che fissa l’ora delle sizigie. <i>(Oggetto: prendete i Frammenti del '
-             'Controcanto — le righe giuste tra i venti.)</i> <i>(incrocio D1: con gli ossari, '
-             'QUANDO scendere è provato.)</i>',
+             'Il Fascicolo del 1741 aperto sulla riga finale del controcanto, e il calendario '
+             'dei Padri che fissa l’ora delle sizigie.',
              'Messi in fila, i venti Frammenti si dividono in due: metà sono il controcanto (M. li '
              'voleva per il Quarto Movimento, e ve li ha fatti cercare); metà smascheravano lui, e '
              'non l’ha mai saputo. «Cantate le prime. Le seconde ve le siete già cantate, '
              'smascherandolo.»',
-             'La riga finale del controcanto — il Frammento 20 — si compone solo con tutti gli altri '
-             'diciannove davanti. <i>(Referto: la deduzione finale.)</i> È la chiave del sonno senza '
-             'sogni.'],
+             'La riga finale del controcanto — il Frammento 20 — si compone solo con tutti '
+             'gli altri diciannove davanti. È la chiave del sonno senza sogni.'],
          approfondimenti=[
              dict(tipo='Referto', soggetto='Le due metà dei Frammenti',
                   testo='La deduzione finale non è un nome né un come: è un canto. Messi in fila '
@@ -175,8 +171,7 @@ LUOGHI_20 = [
              'che M. non può comprare. «È viva, o quel che ne resta, secondo come avete chiuso i '
              'casi del Coro. Se la salvate, M. resta con un coro senza anima: un rumore.»',
              'La candidata è tenuta da M. o dai suoi, in attesa del Quarto Movimento. '
-             '<i>(incrocio D3: con l’organo di ossa, CHI è la voce è provato.)</i> Raggiungerla nella '
-             'discesa (fase del coro) la sottrae a M.',
+             'Raggiungerla nella discesa (fase del coro) la sottrae a M.',
              'Un vecchio: «M. crede che una voce si possa costringere a credere. Non è vero. Per '
              'questo la sua unica speranza è la paura — e per questo va salvata, non solo trovata.»'],
          approfondimenti=[
@@ -196,12 +191,12 @@ LUOGHI_20 = [
          chiave=('parola', 'LA VOCE CHE CREDE'), art='Chiesa dei Battuti.png',
          chiude=None,
          indizi=[
-             'Ciò che resta dell’organo di ossa (Ep. 5): le canne-voce, la melodia della conchiglia, '
-             'il campanello di Piero — dipende dai vostri Bivi. <i>(Reperto B: la Voce che Crede.)</i> '
-             'È lo strumento con cui il Coro chiamava la voce, e con cui voi la riconoscerete.',
-             'La melodia dell’organo di ossa incrocia il controcanto: alcune canne-voce cantano il '
-             'risveglio, altre il sonno. <i>(incrocio D3: CHI è la voce è provato.)</i> Sapere quali '
-             'è metà della battaglia acustica.',
+             'Ciò che resta dell’organo di ossa (Ep. 5): le canne-voce, la melodia della '
+             'conchiglia, il campanello di Piero — dipende dai vostri Bivi. È lo strumento '
+             'con cui il Coro chiamava la voce, e con cui voi la riconoscerete.',
+             'La melodia dell’organo di ossa incrocia il controcanto: alcune canne-voce '
+             'cantano il risveglio, altre il sonno. Sapere quali è metà della battaglia '
+             'acustica.',
              'Un ultimo Battuto sopravvissuto: «l’organo di ossa non è male in sé. È uno strumento. '
              'Dipende chi lo suona, e cosa gli fa cantare. M. gli fa cantare il risveglio. Voi '
              'fategli cantare il sonno.»'],
@@ -221,9 +216,8 @@ LUOGHI_20 = [
          chiave=('parola', 'IL CONTROCANTO'), art='La Loggia dei Confratelli.png',
          chiude=None,
          indizi=[
-             'La camera dove il Coro provava il Quarto Movimento: sul leggìo, una chiave che pare '
-             'aprire la camera del Dormiente. <i>(Esca: la Chiave del Coro — apre l’estasi di M., '
-             'non il sonno; usarla accelera il risveglio.)</i>',
+             'La camera dove il Coro provava il Quarto Movimento: sul leggìo, una chiave che '
+             'pare aprire la camera del Dormiente.',
              'Chi crede che la scorciatoia esista si inganna: non c’è un modo facile di cantare un '
              'dio a dormire. C’è solo il controcanto, riga per riga, coi Frammenti veri.',
              'La Chiave del Coro è la tentazione finale di M.: sembra darvi il controllo della '
@@ -245,9 +239,8 @@ LUOGHI_20 = [
          chiave=('parola', 'IL CONTROCANTO'), art='Lo Scriptorium.png',
          chiude=None,
          indizi=[
-             'Lo scriptorium custodisce il grimorio del Quarto Movimento: lo spartito del rito. '
-             '<i>(Esca: il Grimorio del Rito — è la partitura del RISVEGLIO, non del sonno; leggerlo '
-             'aiuta M., non voi.)</i>',
+             'Lo scriptorium custodisce il grimorio del Quarto Movimento: lo spartito del '
+             'rito.',
              'Il grimorio è affascinante e mortale: sembra darvi il canto completo, e invece è il '
              'canto di M. Il controcanto vero non è scritto in un libro solo: è nei vostri Frammenti, '
              'sparso in venti serate.',
@@ -270,12 +263,10 @@ LUOGHI_20 = [
          chiave=('parola', 'LA VIA DELLE TRE ACQUE'), art='La Gola della Città.png',
          chiude=None,
          indizi=[
-             'La gola della città, oltre il punto dove fermaste Ferri: la pietra dà sull’acqua, '
-             'l’acqua dà sul buio, e nel buio qualcosa di grande respira piano. '
-             '<i>(Reperto C: la Gola della Città — la camera che nessuna mappa registra.)</i>',
-             'Non è un mostro da colpire: è un dio che sogna. M. e il suo coro comprato sono già '
-             'qui, e cantano il quarto rigo. <i>(Reperto A: la Partitura del Controcanto — il '
-             'Fascicolo aperto sulla riga finale, coi Frammenti.)</i>',
+             'La gola della città, oltre il punto dove fermaste Ferri: la pietra dà '
+             'sull’acqua, l’acqua dà sul buio, e nel buio qualcosa di grande respira piano.',
+             'Non è un mostro da colpire: è un dio che sogna. M. e il suo coro comprato sono '
+             'già qui, e cantano il quarto rigo.',
              'Il Dormiente ascolta. Ogni rigo giusto lo culla; ogni rigo sbagliato lo desta. Non '
              'abbassate la lama. Alzate la voce. È l’ultima cosa che vi resta da fare, e la più '
              'difficile: cantare più giusto di un uomo che si crede l’Italia intera.'],
@@ -737,11 +728,28 @@ LUOGHI20_DESC = {
 }
 
 OGGETTI_LUOGO_20 = {
-    4: ['I Frammenti del Controcanto'],
-    5: ['La Candidata Salvata'],
+    2: [('Incrocio D1', 'con il calendario dei Padri, QUANDO scendere è provato', '')],
     3: ['La Mappa Acustica Attiva'],
-    7: ['La Chiave del Coro'],
-    8: ['Il Grimorio del Rito'],
+    4: [
+        ('Oggetto', 'I Frammenti del Controcanto', 'le righe giuste tra i venti'),
+        ('Referto', '', 'la riga finale del controcanto è la deduzione finale'),
+        ('Incrocio D1', 'con gli ossari, QUANDO scendere è provato', ''),
+    ],
+    5: [
+        'La Candidata Salvata',
+        ('Incrocio D3', 'con l’organo di ossa, CHI è la voce è provato', ''),
+    ],
+    6: [('Reperto B', 'la Voce che Crede', ''), ('Incrocio D3', 'CHI è la voce è provato', '')],
+    7: [
+        ('Esca', 'La Chiave del Coro', 'apre l’estasi di M., non il sonno; usarla accelera il risveglio'),
+    ],
+    8: [
+        ('Esca', 'Il Grimorio del Rito', 'è la partitura del RISVEGLIO, non del sonno; leggerlo aiuta M., non voi'),
+    ],
+    9: [
+        ('Reperto C', 'la Gola della Città', 'la camera che nessuna mappa registra'),
+        ('Reperto A', 'la Partitura del Controcanto', 'il Fascicolo aperto sulla riga finale, coi Frammenti'),
+    ],
 }
 
 TILE_ART_20 = {t['id']: t['id'] + '-ep20.png' for t in TILES_20}
@@ -800,7 +808,7 @@ def luoghi():
     N.pagina_indice_citta(c, LUOGHI_20, 'Episodio 20')
 
     def oggetto_righe(n):
-        return ['<b>Oggetto</b> — carta “' + t + '”' for t in OGGETTI_LUOGO_20.get(n, [])]
+        return N.oggetto_righe(OGGETTI_LUOGO_20.get(n, []))
 
     for L in LUOGHI_20:
         art_file = L['art']

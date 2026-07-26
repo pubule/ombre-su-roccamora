@@ -82,10 +82,10 @@ LUOGHI_16 = [
              'non è scappata per amore, signori. Lo dicono tutti, la fuga d’amore, ma io la '
              'conosco. Un bel giovane le girava intorno, promesse di nozze… e poi il nulla. Non '
              'una riga. Una fuga d’amore lascia almeno un biglietto.»',
-             'Sul comò, la fotografia di Bruna. Il padre indica il polso: «vede? Non c’è, nella '
-             'foto, ma glielo avevo legato io, un nastro verde, il giorno che ha compiuto '
-             'vent’anni. Un segno nostro, tra me e lei. Non l’ho mai detto a nessuno. Se la trovate '
-             'col nastro verde al polso, è la mia Bruna.» <i>(Il nastro verde: ricordatelo.)</i>',
+             'Sul comò, la fotografia di Bruna. Il padre indica il polso: «vede? Non c’è, '
+             'nella foto, ma glielo avevo legato io, un nastro verde, il giorno che ha '
+             'compiuto vent’anni. Un segno nostro, tra me e lei. Non l’ho mai detto a '
+             'nessuno. Se la trovate col nastro verde al polso, è la mia Bruna.»',
              'Il padre, sottovoce: «è strano, però. Ieri è passato un signore della vostra Società '
              'a portarmi coraggio, gentile. Ha detto "la ritroveremo, la piccola col nastro '
              'verde". Ma io il nastro verde non l’avevo detto a nessuno. A nessuno. Come faceva a '
@@ -107,9 +107,7 @@ LUOGHI_16 = [
              'sposo perfetto: «un giovanotto distinto, sempre elegante, faceva la corte alle '
              'ragazze coi begli annunci. Lo sposo perfetto, dicevano. Troppo perfetto: spariva '
              'appena firmata la promessa di dote.»',
-             'Sul tavolino d’angolo, un biglietto d’amore dimenticato, firma illeggibile. '
-             '<i>(Esca: potete prendere il Biglietto d’Amore — alimenta la voce della fuga '
-             'd’amore, ma depista dal rapimento.)</i>',
+             'Sul tavolino d’angolo, un biglietto d’amore dimenticato, firma illeggibile.',
              'La cameriera ricorda Bruna: «veniva qui con lui, raggiante. Poi un giorno lui le ha '
              'detto che partivano per sposarsi in una villa sul lago, lontano dalle chiacchiere. '
              'Lei era felice. Non sapeva. Ho provato ad avvertirla, ma l’amore è sordo.»'],
@@ -175,13 +173,13 @@ LUOGHI_16 = [
              'Una donna rovinata anni fa dallo stesso uomo, la voce piatta di chi non si stupisce '
              'più: «lo sposo perfetto. Sì. Anche a me. Villa sul lago, promesse, la mia dote. Poi '
              'il nulla e la vergogna. Non ho denunciato: chi mi avrebbe creduto?»',
-             'Tiene un fascicolo che si è costruita da sola negli anni, per rabbia: nomi, date, le '
-             'altre vittime che è riuscita a rintracciare. <i>(Oggetto: prendete il Fascicolo '
-             'delle Vittime.)</i> «Se salvate quella ragazza, mettetele questo davanti. È l’unica '
-             'cosa che scioglie l’incantesimo: vedere che non sei l’unica.»',
+             'Tiene un fascicolo che si è costruita da sola negli anni, per rabbia: nomi, '
+             'date, le altre vittime che è riuscita a rintracciare. «Se salvate quella '
+             'ragazza, mettetele questo davanti. È l’unica cosa che scioglie l’incantesimo: '
+             'vedere che non sei l’unica.»',
              'Sul retro del fascicolo, un elenco di dieci nomi diversi dello stesso uomo. '
-             '<i>(Reperto C: consegnate il Libro delle Promesse dello Sposo.)</i> «Dieci nomi. '
-             'Nessuno è il vero. Chiedetegli quale, e lo vedrete perdere la faccia.»'],
+             '«Dieci nomi. Nessuno è il vero. Chiedetegli quale, e lo vedrete perdere la '
+             'faccia.»'],
          approfondimenti=[
              dict(tipo='Presagio', soggetto='Il male con una misura',
                   testo='Nella casa di questa donna il male ha una faccia piccola e un nome — anzi '
@@ -197,18 +195,14 @@ LUOGHI_16 = [
          chiave=('parola', 'IL NASTRO VERDE'), art='L’Archivio delle Lettere.png',
          chiude=18,
          indizi=[
-             'Il Taccuino e le vecchie lettere d’incarico di M., conservate una a una. '
-             '<i>(Oggetto: prendete la Lettera di M. — quella di stanotte, col nastro verde nero '
-             'su bianco.)</i> È qui che debutta la RILETTURA: rileggere le lettere passate, con '
-             'occhi nuovi.',
-             'La lettera di stanotte nomina «la piccola col nastro verde al polso». '
-             '<i>(Reperto A: consegnate la Lettera d’Incarico di M.)</i> Un dettaglio che la '
-             'famiglia non ha mai confidato, di pugno del presidente, scritto prima che voi lo '
-             'scopriste. Impossibile — eppure eccolo.',
-             'Rilette in fila, le vecchie lettere hanno tutte, ognuna, un dettaglio di troppo: una '
-             'cosa saputa un giorno prima del dovuto, un nome anticipato, una data. Prese una a '
-             'una, coincidenze. Prese insieme, una firma. <i>(RILETTURA: ogni lettera vecchia '
-             'riletta banca un incrocio per l’Episodio 18.)</i>'],
+             'Il Taccuino e le vecchie lettere d’incarico di M., conservate una a una. È qui '
+             'che debutta la RILETTURA: rileggere le lettere passate, con occhi nuovi.',
+             'La lettera di stanotte nomina «la piccola col nastro verde al polso». Un '
+             'dettaglio che la famiglia non ha mai confidato, di pugno del presidente, '
+             'scritto prima che voi lo scopriste. Impossibile — eppure eccolo.',
+             'Rilette in fila, le vecchie lettere hanno tutte, ognuna, un dettaglio di '
+             'troppo: una cosa saputa un giorno prima del dovuto, un nome anticipato, una '
+             'data. Prese una a una, coincidenze. Prese insieme, una firma.'],
          approfondimenti=[
              dict(tipo='Referto', soggetto='La firma nelle lettere',
                   testo='Il nastro verde non è un caso isolato. Rileggete le lettere d’incarico di '
@@ -228,8 +222,7 @@ LUOGHI_16 = [
              'Il fioraio conosce bene il cliente: «lo sposo perfetto, sì, compra sempre le stesse '
              'rose bianche, ogni volta per una ragazza diversa. Paga bene, sorride. Mai capito che '
              'faccia avesse davvero: cambia baffi, cambia nome.»',
-             'Un mazzo pronto, ordinato e non ritirato. <i>(Esca: potete prendere il Mazzo di '
-             'Fiori dello Sposo — è il suo metodo d’adescamento, non porta oltre la villa.)</i>',
+             'Un mazzo pronto, ordinato e non ritirato.',
              'Il fioraio, indicando un registro: «l’ultima consegna l’ho fatta io stesso, tre '
              'giorni fa, alla villa sul lago. Rose bianche e un biglietto: "presto sposi". Povera '
              'figliola. Le rose, a quella, gliele ho portate io senza saperlo alla sua prigione.»'],
@@ -248,12 +241,10 @@ LUOGHI_16 = [
          chiave=('parola', 'LA CARROZZA PER IL LAGO'), art='Il Registro degli Affitti.png',
          chiude=None,
          indizi=[
-             'Il registro degli affitti trova la villa dei Càrpine: affittata un mese fa con nome '
-             'falso, pagamento anticipato, sponda di ponente. <i>(Oggetto: prendete l’Indirizzo '
-             'della Villa.)</i> Sapete dove sbarcare.',
-             'Le condizioni d’affitto: «trimestrale, riservata, con imbarcadero e barca». '
-             '<i>(Reperto B: consegnate il Registro degli Affitti.)</i> Una barca all’imbarcadero: '
-             'la via di fuga dello Sposo, se lo mettete alle strette.',
+             'Il registro degli affitti trova la villa dei Càrpine: affittata un mese fa con '
+             'nome falso, pagamento anticipato, sponda di ponente. Sapete dove sbarcare.',
+             'Le condizioni d’affitto: «trimestrale, riservata, con imbarcadero e barca». Una '
+             'barca all’imbarcadero: la via di fuga dello Sposo, se lo mettete alle strette.',
              'L’impiegato ricorda: «il signore che l’ha affittata era gentile, sbrigativo. Ha '
              'firmato con un nome, ma ne ha detto un altro all’uscita, per sbaglio. Uno di quei '
              'tipi con troppi nomi. Non mi è tornato, ma l’affitto era in regola.»'],
@@ -737,11 +728,19 @@ LUOGHI16_DESC = {
 }
 
 OGGETTI_LUOGO_16 = {
-    5: ['Il Fascicolo delle Vittime'],
-    6: ['La Lettera di M.'],
-    8: ['L’Indirizzo della Villa'],
-    7: ['Il Mazzo di Fiori dello Sposo'],
-    2: ['Un Biglietto d’Amore'],
+    2: [
+        ('Esca', 'Un Biglietto d’Amore', 'alimenta la voce della fuga d’amore, ma depista dal rapimento'),
+    ],
+    5: ['Il Fascicolo delle Vittime', ('Reperto C', 'il Libro delle Promesse dello Sposo', '')],
+    6: [
+        ('Oggetto', 'La Lettera di M.', 'quella di stanotte, col nastro verde nero su bianco'),
+        ('Rilettura', '', 'ogni lettera vecchia riletta banca un incrocio per l’Episodio 18'),
+        ('Reperto A', 'la Lettera d’Incarico di M.', ''),
+    ],
+    7: [
+        ('Esca', 'Il Mazzo di Fiori dello Sposo', 'è il suo metodo d’adescamento, non porta oltre la villa'),
+    ],
+    8: ['L’Indirizzo della Villa', ('Reperto B', 'il Registro degli Affitti', '')],
 }
 
 TILE_ART_16 = {t['id']: t['id'] + '-ep16.png' for t in TILES_16}
@@ -804,7 +803,7 @@ def luoghi():
     N.pagina_indice_citta(c, LUOGHI_16, 'Episodio 16')
 
     def oggetto_righe(n):
-        return ['<b>Oggetto</b> — carta “' + t + '”' for t in OGGETTI_LUOGO_16.get(n, [])]
+        return N.oggetto_righe(OGGETTI_LUOGO_16.get(n, []))
 
     for L in LUOGHI_16:
         art_file = L['art']

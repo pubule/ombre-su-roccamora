@@ -80,10 +80,9 @@ LUOGHI_9 = [
              'fatti dell’inverno — deposizione del teste Anselmo Riva DOMANI, prima '
              'chiamata». Riva è la chiave: senza di lui, la storia dell’accusa è aria.',
              'Il cancelliere, di malumore, tende una carta col sigillo del giudice: «un '
-             'Salvacondotto per le vostre… incombenze notturne. Apre i posti di blocco '
-             'senza spiegazioni. Ordine del presidente: il teste arrivi vivo. Ma lo '
-             'firmo entro le venti, poi chiudo — dopo, arrangiatevi.» <i>(Oggetto: '
-             'prendete la carta Il Salvacondotto del Giudice — solo entro le 20:00.)</i>',
+             'Salvacondotto per le vostre… incombenze notturne. Apre i posti di blocco senza '
+             'spiegazioni. Ordine del presidente: il teste arrivi vivo. Ma lo firmo entro le '
+             'venti, poi chiudo — dopo, arrangiatevi.»',
              'Nell’aula vuota, il banco della difesa è già apparecchiato per domani: '
              'faldoni nuovi, calamai pieni, e un fazzoletto di lino con le iniziali '
              'ricamate «T.G.» — profumato. L’avvocato Grassi cura le apparenze come chi '
@@ -108,8 +107,7 @@ LUOGHI_9 = [
              'Sulla scrivania di Ranuzzi, una parcella intravista al volo e mai avuta in '
              'mano: «marenghi d’oro, vecchi, in una busta piegata coi guanti. Come le '
              'ricevute del porto di cui mi parlaste. Stesso oro, stessa piega. Ma provatelo '
-             'voi, in tribunale.» <i>(Esca: potete prendere la carta La Lettera di '
-             'Ranuzzi.)</i>',
+             'voi, in tribunale.»',
              'Ranuzzi ha una scorciatoia per voi, non una prova: «il giurato Bo, quello che '
              'non vi guarda, alloggia alla Pensione Serena. Beve, e ha paura. Se qualcuno '
              'crolla in questa storia, crolla lui. Andateci prima che ci vada il fondo '
@@ -156,10 +154,8 @@ LUOGHI_9 = [
              'l’aula. Un solo uomo di guardia: me. Ma io stanotte smonto, e chi monta dopo '
              'di me… non lo conosco. Portatelo via prima del cambio.»',
              'Sul banco degli oggetti smarriti, un tesserino della Gendarmeria «trovato»: '
-             'utile a un agente in servizio, non a una scorta clandestina di notte. '
-             '<i>(Esca: potete prendere la carta Il Tesserino della Gendarmeria.)</i> '
-             'Accanto, un fischietto d’ordinanza vero. <i>(Oggetto: prendete la carta Il '
-             'Fischietto d’Allarme.)</i>',
+             'utile a un agente in servizio, non a una scorta clandestina di notte. Accanto, '
+             'un fischietto d’ordinanza vero.',
              'Il brigadiere, sottovoce e a disagio: «è arrivato in città un forestiero — «il '
              'forestiero coi guanti», lo chiamano i miei — alla Locanda del Forestiero. '
              'Documenti in regola, troppo in '
@@ -182,13 +178,12 @@ LUOGHI_9 = [
          chiude=19,
          indizi=[
              'Il registro delle «spese vive» dell’avvocato: voci innocue, tranne una '
-             'ricorrente — «cortesie alle ronde, zona porto e centro, notturne». '
-             'L’avvocato non paga solo giurati e testimoni: paga il BUIO. Le ronde di '
-             'stanotte, tra l’una e le tre, sono già comprate. <i>(Reperto: consegnate il '
-             'Registro delle Ronde.)</i>',
-             'La parcella dell’avvocato, ancora nella busta: marenghi d’oro vecchio — la '
-             'lega dell’ansa morta — e la busta è piegata in tre, senza un’ombra di dita, '
-             'coi guanti. <i>(Reperto B: consegnate la Parcella dell’Avvocato.)</i>',
+             'ricorrente — «cortesie alle ronde, zona porto e centro, notturne». L’avvocato '
+             'non paga solo giurati e testimoni: paga il BUIO. Le ronde di stanotte, tra '
+             'l’una e le tre, sono già comprate.',
+             'La parcella dell’avvocato, ancora nella busta: marenghi d’oro vecchio — la lega '
+             'dell’ansa morta — e la busta è piegata in tre, senza un’ombra di dita, coi '
+             'guanti.',
              'Tra le carte, un promemoria dell’avvocato: «coordinarsi con “il forestiero '
              'coi guanti” per la faccenda del teste — non per iscritto, mai per iscritto».',
              'Appunti per l’arringa: «ridurre il tutto a una SETTA di truffatori — la '
@@ -213,14 +208,12 @@ LUOGHI_9 = [
              'sacrestano: «ho visto le chiatte, signori. Cariche, sotto la Cattedrale, la '
              'notte del rituale. Se lo dico, domani, muoio. Se non lo dico, muoio dentro. '
              'Portatemi voi, allora — ma sappiate che LORO sanno che venite.»',
-             'Sul tavolo, il verbale della ritrattazione GIÀ SCRITTO, con la data di '
-             'domani e uno spazio bianco per la firma di Riva: la bugia è pronta prima '
-             'della verità. Manca solo una firma — o un’assenza. <i>(Reperto A: '
-             'consegnate il Verbale della Ritrattazione.)</i>',
-             'La mantella da sacrestano di Riva, grigia e anonima come cento altre in '
-             'città: nella folla, di notte, chi cerca «il teste» cercherà un uomo, non un '
-             'sacrestano tra i sacrestani. <i>(Oggetto: prendete la carta La Mantella da '
-             'Sacrestano.)</i>'],
+             'Sul tavolo, il verbale della ritrattazione GIÀ SCRITTO, con la data di domani e '
+             'uno spazio bianco per la firma di Riva: la bugia è pronta prima della verità. '
+             'Manca solo una firma — o un’assenza.',
+             'La mantella da sacrestano di Riva, grigia e anonima come cento altre in città: '
+             'nella folla, di notte, chi cerca «il teste» cercherà un uomo, non un sacrestano '
+             'tra i sacrestani.'],
          approfondimenti=[
              dict(tipo='Osservazione', soggetto='Il verbale già scritto',
                   testo='La ritrattazione è battuta a macchina PRIMA che Riva l’abbia '
@@ -241,9 +234,8 @@ LUOGHI_9 = [
              'data è DOMANI. Chi minaccia così non vuole spaventare per tacere: vuole '
              'spaventare per far RITRATTARE, e se non basta, procedere.',
              'La data sul disegno è aggiunta a inchiostro, mano diversa da quella della '
-             'matita: chi ha disegnato la tomba non sapeva il giorno; chi l’ha datata sì. '
-             'Due persone, due ruoli — uno che spaventa, uno che DECIDE. <i>(Esame di '
-             'Carbone disponibile: la minaccia sul cuscino.)</i>',
+             'matita: chi ha disegnato la tomba non sapeva il giorno; chi l’ha datata sì. Due '
+             'persone, due ruoli — uno che spaventa, uno che DECIDE.',
              'Sotto il letto, la valigia di Riva pronta da giorni: non ha mai pensato di '
              'scappare da solo. Aspettava qualcuno di cui fidarsi. Aspettava voi — o '
              'chiunque arrivasse prima dell’uomo coi guanti.'],
@@ -266,10 +258,9 @@ LUOGHI_9 = [
              'paia di guanti chiari identici piegati a ventaglio, e nessun effetto '
              'personale — nessuna lettera, nessun ritratto, nessun nome. Un uomo che non '
              'lascia tracce perché è ADDESTRATO a non lasciarne.',
-             'Nel cestino, un biglietto appallottolato e non bruciato — l’unico errore: '
-             'carta di pregio, poche righe, firma «M.». «Che sia PULITO. Il teste non '
-             'deve avere un volto sui giornali di domani, solo un’assenza.» <i>(Reperto C: '
-             'consegnate il Biglietto di C.B.)</i>',
+             'Nel cestino, un biglietto appallottolato e non bruciato — l’unico errore: carta '
+             'di pregio, poche righe, firma «M.». «Che sia PULITO. Il teste non deve avere un '
+             'volto sui giornali di domani, solo un’assenza.»',
              'L’oste, terrorizzato: «paga in oro, è cortese, non alza mai la voce. Ma ieri '
              'un ladruncolo gli ha frugato la stanza, e il forestiero l’ha… convinto a '
              'restituire. Il ragazzo adesso non parla più: sorride e trema. Non l’ha '
@@ -750,10 +741,30 @@ LUOGHI9_DESC = {
 }
 
 OGGETTI_LUOGO_9 = {
-    1: ['Il Salvacondotto del Giudice'],
-    4: ['Il Tesserino della Gendarmeria', 'Il Fischietto d’Allarme'],
-    6: ['La Mantella da Sacrestano'],
-    2: ['La Lettera di Ranuzzi'],
+    1: [
+        ('Oggetto', 'Il Salvacondotto del Giudice', 'solo entro le 20:00'),
+    ],
+    2: [
+        ('Esca', 'La Lettera di Ranuzzi', ''),
+    ],
+    4: [
+        ('Esca', 'Il Tesserino della Gendarmeria', ''),
+        'Il Fischietto d’Allarme',
+    ],
+    5: [
+        ('Reperto', 'il Registro delle Ronde', ''),
+        ('Reperto B', 'la Parcella dell’Avvocato', ''),
+    ],
+    6: [
+        'La Mantella da Sacrestano',
+        ('Reperto A', 'il Verbale della Ritrattazione', ''),
+    ],
+    7: [
+        ('Esame di Carbone', '', 'disponibile sulla minaccia lasciata sul cuscino'),
+    ],
+    8: [
+        ('Reperto C', 'il Biglietto di C.B.', ''),
+    ],
 }
 
 TILE_ART_9 = {t['id']: t['id'] + '-ep9.png' for t in TILES_9}
@@ -824,7 +835,7 @@ def luoghi():
     N.pagina_indice_citta(c, LUOGHI_9, 'Episodio 9')
 
     def oggetto_righe(n):
-        return ['<b>Oggetto</b> — carta “' + t + '”' for t in OGGETTI_LUOGO_9.get(n, [])]
+        return N.oggetto_righe(OGGETTI_LUOGO_9.get(n, []))
 
     for L in LUOGHI_9:
         art_file = L['art']

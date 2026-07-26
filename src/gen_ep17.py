@@ -82,9 +82,9 @@ LUOGHI_17 = [
              'rotto. «Non un furto, signori: una perquisizione. Chi è venuto cercava una cosa sola, '
              'e l’ha cercata sapendo dove guardare. Lo studio a soqquadro è la firma di chi non ha '
              'fretta perché ha le chiavi.»',
-             'Murato nel camino, dietro un mattone smosso, un dossier cifrato: pagine su pagine di '
-             'confronti tra le lettere d’incarico di M., dal 1885, annotate in una cifra tutta del '
-             'decano. <i>(Il dossier cifrato: serve la Cifra del decano per leggerlo.)</i>',
+             'Murato nel camino, dietro un mattone smosso, un dossier cifrato: pagine su '
+             'pagine di confronti tra le lettere d’incarico di M., dal 1885, annotate in una '
+             'cifra tutta del decano.',
              'Sul tavolo, l’ultimo appunto del decano prima di sparire: «se mi succede qualcosa, non '
              'è la talpa. Non c’è nessuna talpa. Guardate chi vi dirà che c’è.» La grafia trema: '
              'sapeva che stavano venendo a prenderlo.'],
@@ -127,9 +127,8 @@ LUOGHI_17 = [
          chiude=None,
          indizi=[
              'Al Tribunale, la cella di Braga. Se lo avete protetto (Ep. 15), vi manda il suo '
-             'archivio con un biglietto: «Vincete voi. Guardate le penne, non le mani.» '
-             '<i>(Esca-lore: il Biglietto di Braga — vero e prezioso per la fine, ma nessun '
-             'vantaggio ora.)</i> Se lo avete avallato, la cella è vuota: Braga è morto nel sonno.',
+             'archivio con un biglietto: «Vincete voi. Guardate le penne, non le mani.» Se lo '
+             'avete avallato, la cella è vuota: Braga è morto nel sonno.',
              'I secondini ricordano visite notturne «da parte di un signore in guanti, gentile, con '
              'carte in regola». La caccia alla talpa passa anche di qui: qualcuno ha voluto Braga '
              'zitto prima che parlasse. Il dossier cifrato spiegherà perché.',
@@ -174,13 +173,12 @@ LUOGHI_17 = [
          chiave=('parola', 'LO STUDIO A SOQQUADRO'), art='L’Aula del Cifrario.png',
          chiude=20,
          indizi=[
-             'L’aula del cifrario, dove il decano insegnava la crittografia della Società. Tra i '
-             'suoi appunti, la chiave del suo codice personale. <i>(Oggetto: prendete la Cifra del '
-             'Decano.)</i> Con questa, il dossier cifrato si apre come un libro.',
-             'Decifrato, il dossier è una matrice: ogni lettera d’incarico di M. dal 1885 in colonna, '
-             'e di fronte ciò che M. sapeva prima del dovuto. <i>(Reperto A: consegnate il Dossier '
-             'Cifrato del Decano — la matrice delle doppie letture.)</i> Il seme della deduzione '
-             'finale.',
+             'L’aula del cifrario, dove il decano insegnava la crittografia della Società. '
+             'Tra i suoi appunti, la chiave del suo codice personale. Con questa, il dossier '
+             'cifrato si apre come un libro.',
+             'Decifrato, il dossier è una matrice: ogni lettera d’incarico di M. dal 1885 in '
+             'colonna, e di fronte ciò che M. sapeva prima del dovuto. Il seme della '
+             'deduzione finale.',
              'In fondo, una riga del decano: «non ho cercato una talpa. Ho cercato lo specchio. E '
              'ogni volta che ho confrontato una lettera con ciò che seguì, lo specchio mi ha '
              'restituito la stessa faccia. La nostra.»'],
@@ -200,9 +198,8 @@ LUOGHI_17 = [
          chiave=('parola', 'LA CACCIA ALLA TALPA'), art='Il Membro Interno.png',
          chiude=None,
          indizi=[
-             'Il confratello che la caccia alla talpa addita: un uomo mite, terrorizzato, con indizi '
-             'che lo incastrano spuntati dal nulla. <i>(Esca: la Talpa Fittizia — un innocente '
-             'costruito come colpevole; seguirla è fare il gioco di M.)</i>',
+             'Il confratello che la caccia alla talpa addita: un uomo mite, terrorizzato, con '
+             'indizi che lo incastrano spuntati dal nulla.',
              '«Non ho fatto niente!» piange. «Ieri ho trovato in tasca una lettera che non ho mai '
              'scritto, che mi accusa. Qualcuno me l’ha messa. Chi vuole una talpa, se la fabbrica: '
              'ho visto come si arreda una colpa, con Braga. Adesso tocca a me. O a voi.»',
@@ -228,13 +225,11 @@ LUOGHI_17 = [
              'Alla Dogana Vecchia, il transito notturno di una carrozza chiusa del Notaio, tre notti '
              'fa, verso la campagna. «Carte in regola, custodia riservata. Dazio pagato. Il solito '
              'nolo del signor Rasca.» Il decano era là dentro.',
-             'Il doganiere, sottovoce, vi porge un lasciapassare del Notaio: <i>(Oggetto: prendete '
-             'il Salvacondotto — passate i posti di blocco della villa, arrivate al decano prima del '
-             'trasferimento.)</i> «Con questo non vi fermano ai cancelli. Fate presto: le carrozze '
-             'chiuse del Notaio, di solito, tornano vuote.»',
-             'Sul registro, la meta: villa fuori porta, sponda di levante. La stessa via dei noli '
-             'della carta di pregio. <i>(incrocio D1: con il rifugio del Notaio, sapete dov’è la '
-             'villa-prigione.)</i>'],
+             'Il doganiere, sottovoce, vi porge un lasciapassare del Notaio: «Con questo non '
+             'vi fermano ai cancelli. Fate presto: le carrozze chiuse del Notaio, di solito, '
+             'tornano vuote.»',
+             'Sul registro, la meta: villa fuori porta, sponda di levante. La stessa via dei '
+             'noli della carta di pregio.'],
          approfondimenti=[
              dict(tipo='Referto', soggetto='La carrozza che torna vuota',
                   testo='La carrozza chiusa del Notaio è passata alla Dogana tre notti fa, diretta a '
@@ -251,15 +246,15 @@ LUOGHI_17 = [
          chiave=('parola', 'IL DOSSIER CIFRATO'), art='Il Rifugio del Notaio.png',
          chiude=None,
          indizi=[
-             'Il rifugio in città dove Rasca tiene ciò che non porta allo studio: chiavi, mazzi di '
-             'copie, i «lavori in corso». <i>(Oggetto: prendete le Chiavi della Villa-Prigione.)</i> '
-             'Con queste entrate senza sfondare, e senza svegliare la Guardia.',
+             'Il rifugio in città dove Rasca tiene ciò che non porta allo studio: chiavi, '
+             'mazzi di copie, i «lavori in corso». Con queste entrate senza sfondare, e senza '
+             'svegliare la Guardia.',
              'Un registro nascosto dei «lavori sporchi» del Notaio: sparizioni, custodie, '
-             'interrogatori, tutti per «il cliente di sempre». <i>(Reperto C: consegnate l’Archivio '
-             'del Notaio.)</i> Nessun nome — solo iniziali, e una cifra che paga sempre.',
-             'Una piantina della villa-prigione, con la cella e lo studio segnati. <i>(incrocio D1: '
-             'con la Dogana, avete la villa e la sua pianta.)</i> «La cella è al piano di sotto. Lo '
-             'studio, dove il Notaio tiene le carte, è in fondo. Il decano è tra i due.»'],
+             'interrogatori, tutti per «il cliente di sempre». Nessun nome — solo iniziali, e '
+             'una cifra che paga sempre.',
+             'Una piantina della villa-prigione, con la cella e lo studio segnati. «La cella '
+             'è al piano di sotto. Lo studio, dove il Notaio tiene le carte, è in fondo. Il '
+             'decano è tra i due.»'],
          approfondimenti=[
              dict(tipo='Osservazione', soggetto='Il cliente di sempre',
                   testo='Il registro sporco del Notaio è un capolavoro di reticenza: pagine di '
@@ -282,9 +277,9 @@ LUOGHI_17 = [
              'Il decano è interrogato «con garbo»: pesto ma lucido, tenuto in vita perché serve '
              'sapere quanto sa la Società. Trovarlo vivo è la prova che non c’è nessuna talpa — e '
              'cancella lo scisma che vi pesa addosso.',
-             'Il Notaio Rasca, che vi è sfuggito al Molino e ha tirato i fili di tre episodi, è qui, '
-             'a sovrintendere l’ultimo lavoro. Stavolta, con la Guardia a terra, non scapperà. '
-             '<i>(Reperto B: al recupero, la Deposizione del Decano.)</i>'],
+             'Il Notaio Rasca, che vi è sfuggito al Molino e ha tirato i fili di tre episodi, '
+             'è qui, a sovrintendere l’ultimo lavoro. Stavolta, con la Guardia a terra, non '
+             'scapperà.'],
          approfondimenti=[
              dict(tipo='Presagio', soggetto='La mano che si lascia prendere',
                   testo='Nella villa-prigione, per la prima volta, il ricorrente dell’Atto è a '
@@ -742,11 +737,31 @@ LUOGHI17_DESC = {
 }
 
 OGGETTI_LUOGO_17 = {
-    5: ['La Cifra del Decano'],
-    8: ['Le Chiavi della Villa-Prigione'],
-    7: ['Il Salvacondotto'],
-    6: ['La Talpa Fittizia'],
-    3: ['Il Biglietto di Braga'],
+    1: [
+        ('Nota', '', 'il dossier è cifrato: serve la Cifra del decano per leggerlo'),
+    ],
+    3: [
+        ('Esca', 'Il Biglietto di Braga', 'vero e prezioso per la fine, ma nessun vantaggio ora'),
+    ],
+    5: [
+        'La Cifra del Decano',
+        ('Reperto A', 'il Dossier Cifrato del Decano', 'la matrice delle doppie letture'),
+    ],
+    6: [
+        ('Esca', 'La Talpa Fittizia', 'un innocente costruito come colpevole; seguirla è fare il gioco di M.'),
+    ],
+    7: [
+        ('Oggetto', 'Il Salvacondotto', 'passate i posti di blocco della villa, arrivate al decano prima del trasferimento'),
+        ('Incrocio D1', 'con il rifugio del Notaio, sapete dov’è la villa-prigione', ''),
+    ],
+    8: [
+        'Le Chiavi della Villa-Prigione',
+        ('Reperto C', 'l’Archivio del Notaio', ''),
+        ('Incrocio D1', 'con la Dogana, avete la villa e la sua pianta', ''),
+    ],
+    9: [
+        ('Reperto B', 'la Deposizione del Decano', 'al recupero del decano'),
+    ],
 }
 
 TILE_ART_17 = {t['id']: t['id'] + '-ep17.png' for t in TILES_17}
@@ -808,7 +823,7 @@ def luoghi():
     N.pagina_indice_citta(c, LUOGHI_17, 'Episodio 17')
 
     def oggetto_righe(n):
-        return ['<b>Oggetto</b> — carta “' + t + '”' for t in OGGETTI_LUOGO_17.get(n, [])]
+        return N.oggetto_righe(OGGETTI_LUOGO_17.get(n, []))
 
     for L in LUOGHI_17:
         art_file = L['art']

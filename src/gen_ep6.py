@@ -71,9 +71,7 @@ LUOGHI_6 = [
          indizi=[
              'Don Callisto non finge più niente: «il pavimento della cripta RESPIRA, signori. '
              'Lo sento sotto i piedi durante i vespri, come una nave. E stanotte l’acqua '
-             'benedetta trema nelle pile senza che nessuno la tocchi.» '
-             '<i>(Oggetti: prendete le carte L’Acqua Benedetta e La Reliquia di San '
-             'Teodoro.)</i>',
+             'benedetta trema nelle pile senza che nessuno la tocchi.»',
              'Il capitolo della Cattedrale custodiva gli atti del Quarantuno: «il capitolo '
              'del Quarantuno decise la sconsacrazione dei Battuti E qualcos’altro, di cui '
              'non si parla. Gli atti sono all’Archivio Capitolare. Io la chiave ce l’ho, ma '
@@ -144,8 +142,7 @@ LUOGHI_6 = [
          indizi=[
              'M. ha fatto disporre sul tavolo grande l’archivio dei Frammenti: i vostri '
              'cinque casi, le buste dei Bivi, i cimeli. «Stanotte si spende tutto», dice. '
-             '«Ogni pezzo che avete conservato è un incrocio in più. Contateli.» '
-             '<i>(La deduzione d’atto: vedi la busta della Soluzione.)</i>',
+             '«Ogni pezzo che avete conservato è un incrocio in più. Contateli.»',
              'Negli appunti della Società sul caso della cripta: lo studio del «maestro dei '
              'registri» in Corte del Ragioniere risulta SVUOTATO ieri — di fretta. Un '
              'facchino ha visto portar via schedari «tranne uno, caduto dal carro».',
@@ -171,10 +168,9 @@ LUOGHI_6 = [
              'La bottega sigillata dal vostro primo caso è stata riaperta da dentro: polvere '
              'smossa a isole, e i vuoti sugli attrezzi raccontano cosa è partito — i ferri '
              'da accordatura grossa, il banco portatile, la campana piccola di prova.',
-             'Sul banco, dimenticato o lasciato, il diario di lavorazione di Ferri: '
-             'l’ultima pagina è di ieri. «La solista non serve: DODICI gole in accordo la '
-             'valgono. Devono valerla.» <i>(Reperto A: consegnate il Diario di '
-             'Ferri.)</i>',
+             'Sul banco, dimenticato o lasciato, il diario di lavorazione di Ferri: l’ultima '
+             'pagina è di ieri. «La solista non serve: DODICI gole in accordo la valgono. '
+             'Devono valerla.»',
              'Nel retro, il calco in gesso di una campana GEMELLA a quella di San Teodoro — '
              'e trucioli di bronzo recente. Il bronzo scampato alla Fonderia, cinque casi '
              'fa, non era sparito: stava maturando.'],
@@ -196,12 +192,10 @@ LUOGHI_6 = [
              'UN QUARTO. «L’acqua alta delle tre e un quarto», dice il guardiano, «è quella '
              'che non perdona: mezz’ora prima e mezz’ora dopo, le gallerie basse si '
              'allagano.»',
-             'Il guardiano, a bassa voce: «la porta d’acqua sotto la Cattedrale era murata '
-             'da cent’anni. Da un mese è ARIA: qualcuno l’ha riaperta dal di dentro, e la '
-             'marea ci entra e ne esce come da una bocca. La chiave del cancello ce l’ho '
-             'io — e a voi la do volentieri, così non tocca a me.» '
-             '<i>(Oggetti: prendete le carte La Chiave della Porta d’Acqua e La Lanterna '
-             'di Chiusa.)</i>',
+             'Il guardiano, a bassa voce: «la porta d’acqua sotto la Cattedrale era murata da '
+             'cent’anni. Da un mese è ARIA: qualcuno l’ha riaperta dal di dentro, e la marea '
+             'ci entra e ne esce come da una bocca. La chiave del cancello ce l’ho io — e a '
+             'voi la do volentieri, così non tocca a me.»',
              'Sul registro delle portate, da tre notti, un ammanco d’acqua dolce alla '
              'stessa ora: qualcuno, sotto, APRE e CHIUDE. Prove generali. Stanotte è la '
              'prima.'],
@@ -225,12 +219,10 @@ LUOGHI_6 = [
              'fece. La città lo scrisse. La città lo dimenticò apposta.',
              'La Formula del Sigillo è trascritta per esteso, con la rubrica: «si legga a '
              'voce ferma, a strumenti TACIUTI, nell’ora in cui l’acqua è più alta». A '
-             'strumenti taciuti: prima si spegne, poi si legge. '
-             '<i>(Oggetto: prendete la carta La Formula del Sigillo.)</i>',
-             'Allegata agli atti, la pianta della camera: tre sale-vestibolo — il bronzo, '
-             'la pietra, le ossa — e al centro la Camera delle Tre Acque. Le sale non sono '
-             'stanze: sono VALVOLE. <i>(Reperto B: consegnate la Pianta della '
-             'Camera.)</i>'],
+             'strumenti taciuti: prima si spegne, poi si legge.',
+             'Allegata agli atti, la pianta della camera: tre sale-vestibolo — il bronzo, la '
+             'pietra, le ossa — e al centro la Camera delle Tre Acque. Le sale non sono '
+             'stanze: sono VALVOLE.'],
          approfondimenti=[
              dict(tipo='Referto', soggetto='La rubrica della Formula',
                   testo='La pergamena è del Quarantuno, ma la PIEGA è recente, e c’è una '
@@ -252,8 +244,7 @@ LUOGHI_6 = [
              'e non fugge dai gendarmi: fugge da un LAVORO FINITO.',
              'Dal carro del trasloco è caduto uno schedario: «cripta». Dentro, i conti del '
              'cantiere finale — e una riga che gela: «onorario del direttore: nulla. Il '
-             'direttore non lavora per denaro.» <i>(Reperto C: consegnate lo Schedario '
-             'della Cripta.)</i>',
+             'direttore non lavora per denaro.»',
              'L’ultima pagina dei conti: «coristi: dodici, saldati anticipati, vestiario '
              'compreso. Rimborso barca: porta d’acqua. Ora di chiamata: le due e mezza.» '
              'Il coro entra alle due e mezza. Il colmo è alle tre e un quarto. La finestra '
@@ -788,9 +779,27 @@ LUOGHI6_DESC = {
 }
 
 OGGETTI_LUOGO_6 = {
-    1: ['L’Acqua Benedetta', 'La Reliquia di San Teodoro'],
-    6: ['La Chiave della Porta d’Acqua', 'La Lanterna di Chiusa'],
-    7: ['La Formula del Sigillo'],
+    1: [
+        'L’Acqua Benedetta',
+        'La Reliquia di San Teodoro',
+    ],
+    4: [
+        ('Nota', '', 'deduzione d’atto: vedi la busta della Soluzione'),
+    ],
+    5: [
+        ('Reperto A', 'il Diario di Ferri', ''),
+    ],
+    6: [
+        'La Chiave della Porta d’Acqua',
+        'La Lanterna di Chiusa',
+    ],
+    7: [
+        'La Formula del Sigillo',
+        ('Reperto B', 'la Pianta della Camera', ''),
+    ],
+    8: [
+        ('Reperto C', 'lo Schedario della Cripta', ''),
+    ],
 }
 
 TILE_ART_6 = {t['id']: t['id'] + '-ep6.png' for t in TILES_6}
@@ -878,7 +887,7 @@ def luoghi():
     N.pagina_indice_citta(c, LUOGHI_6, 'Episodio 6')
 
     def oggetto_righe(n):
-        return ['<b>Oggetto</b> — carta “' + t + '”' for t in OGGETTI_LUOGO_6.get(n, [])]
+        return N.oggetto_righe(OGGETTI_LUOGO_6.get(n, []))
 
     for L in LUOGHI_6:
         art_file = L['art']

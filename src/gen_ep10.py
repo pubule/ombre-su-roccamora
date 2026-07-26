@@ -132,9 +132,8 @@ LUOGHI_10 = [
          chiude=None,
          indizi=[
              'Il fascicolo del 1879: la denuncia di «abbandono del tetto coniugale» a firma '
-             'Corrado Malfanti. Datata quattro giorni dopo la scomparsa di Ada. <i>(Reperto A: '
-             'consegnate la Denuncia di Abbandono.)</i> Quattro giorni: nessuno denuncia così in '
-             'fretta un abbandono che spera passeggero.',
+             'Corrado Malfanti. Datata quattro giorni dopo la scomparsa di Ada. Quattro '
+             'giorni: nessuno denuncia così in fretta un abbandono che spera passeggero.',
              'Nelle vecchie piante catastali dell’edificio, la camera al primo piano risulta con '
              'una parete «di tramezzo» aggiunta DOPO la costruzione — l’anno stesso della '
              'scomparsa. Il muro che ricorda non c’era: fu tirato su nel 1879. Chi murò cosa, in '
@@ -188,14 +187,13 @@ LUOGHI_10 = [
              'Dieci anni fa Malfanti mi pagò per chiudere un vano e non fare domande. Adesso mi '
              'paga — mi COSTRINGE — a riaprirlo e portar via quello che c’è dentro, prima che il '
              'giudice senta la casa. Stanotte torno a demolire. Non voglio, ma ho tre figli.»',
-             'Sul banco, il libro mastro della muratura: la partita di dieci anni fa («chiudere '
-             'il vano piccolo, primo piano — pagato in contanti, non registrare») e sotto, '
-             'recente, l’appunto del ricatto («tornare ad aprire — Malfanti insiste, prima '
-             'dell’alba»). <i>(Reperto B: consegnate il Libro Mastro della Muratura.)</i>',
+             'Sul banco, il libro mastro della muratura: la partita di dieci anni fa '
+             '(«chiudere il vano piccolo, primo piano — pagato in contanti, non registrare») '
+             'e sotto, recente, l’appunto del ricatto («tornare ad aprire — Malfanti insiste, '
+             'prima dell’alba»).',
              'Arrotolata in un angolo, la pianta del restauro con la parete doppia segnata a '
-             'matita rossa: sa esattamente quale muro nasconde il vano. <i>(Oggetto: prendete '
-             'la carta La Pianta del Restauro.)</i> Accanto, un ferro da muratore arrugginito. '
-             '<i>(Esca: potete prendere la carta Il Ferro del Muratore.)</i>'],
+             'matita rossa: sa esattamente quale muro nasconde il vano. Accanto, un ferro da '
+             'muratore arrugginito.'],
          approfondimenti=[
              dict(tipo='Referto', soggetto='Gli ordini di Malfanti',
                   testo='Il biglietto del ricatto fissa l’ora: «prima dell’alba, nell’intervallo '
@@ -217,9 +215,8 @@ LUOGHI_10 = [
              'ne hanno conservato. È QUI che la casa detta. È QUI che finirà la notte, in un modo '
              'o nell’altro.',
              'Sul davanzale della camera, dimenticato dai Neri nella fuga, un dagherrotipo di '
-             'Ada da giovane, sorridente nella corte. <i>(Oggetto: prendete la carta Il Ritratto '
-             'di Ada.)</i> Guardarla in faccia cambia il terrore in pietà: si ascolta la casa '
-             'senza impazzire.',
+             'Ada da giovane, sorridente nella corte. Guardarla in faccia cambia il terrore '
+             'in pietà: si ascolta la casa senza impazzire.',
              'La calce dell’intercapedine è impastata con sabbia del Borgo delle Cisterne — la '
              'stessa che tiene le voci nei pozzi. Un muro fatto così non dimentica: registra. Il '
              'soprannaturale, in questa casa, è soltanto memoria che non ha potuto tacere.'],
@@ -243,10 +240,9 @@ LUOGHI_10 = [
              'sbianca. Rosa, la seconda moglie, non capisce: «di che parlate? Ada se n’è andata '
              'prima che io conoscessi Corrado. Lui ha sofferto tanto.» Rosa non sa nulla: è la '
              'prima ingannata di tutte.',
-             'Sul comò, la fede nuziale di Ada — quella che una donna che «abbandona» il tetto '
-             'si sarebbe portata via, e che invece è qui, lucidata, in mostra come un trofeo. '
-             '<i>(Esca: potete prendere la carta La Fede di Rosa — è la fede di Ada, ma non prova '
-             'nulla in tribunale.)</i>',
+             'Sul comò, la fede nuziale di Ada — quella che una donna che «abbandona» il '
+             'tetto si sarebbe portata via, e che invece è qui, lucidata, in mostra come un '
+             'trofeo.',
              'Corrado, messo alle strette, non confessa: minaccia. «Quella casa è mia, e stanotte '
              'la faccio rimettere a posto una volta per tutte. Domani non ci sarà più niente da '
              'sentire. Andate a casa, signori: certe pareti è meglio non aprirle.»'],
@@ -269,10 +265,9 @@ LUOGHI_10 = [
              'venduta ai restauri della corte, in quantità, a un privato. «Roba fine, cara. La '
              'compra chi vuole muri che durano. O muri che… tengono le cose, come dicono al '
              'Borgo.»',
-             'La commessa è pagata IN ANTICIPO, su carta di pregio, filigranata, e firmata con '
-             'una sola sigla: «C.B.» — non Malfanti. Chi fornisce la sabbia buona non lavora per '
-             'il vedovo: lavora per qualcuno di più grande. <i>(Reperto C: consegnate la '
-             'Commessa del Fornitore.)</i>',
+             'La commessa è pagata IN ANTICIPO, su carta di pregio, filigranata, e firmata '
+             'con una sola sigla: «C.B.» — non Malfanti. Chi fornisce la sabbia buona non '
+             'lavora per il vedovo: lavora per qualcuno di più grande.',
              'Il magazziniere, a disagio: «il signor C.B. non l’ho mai visto. Ordini per '
              'lettera, denaro prima, consegne dove dico io. Vuole la sabbia del Borgo per mezza '
              'città, dice. Per rifare i muri vecchi coi materiali giusti. Che vorrà dire, non '
@@ -294,9 +289,9 @@ LUOGHI_10 = [
          chiude=21,
          indizi=[
              'Il fotografo capisce al volo: «una voce svanisce all’alba, un muro cade, un '
-             'testimone ritratta. Ma una lastra impressa resta. Vi presto la macchina e il lampo '
-             'al magnesio: fotografate quel che trovate, e nessun avvocato ve lo cancella.» '
-             '<i>(Oggetto: prendete la carta La Macchina Fotografica.)</i>',
+             'testimone ritratta. Ma una lastra impressa resta. Vi presto la macchina e il '
+             'lampo al magnesio: fotografate quel che trovate, e nessun avvocato ve lo '
+             'cancella.»',
              'Spiega la fretta necessaria: «il magnesio fa una luce sola, accecante, e la lastra '
              'va cambiata. Ogni scatto è prezioso. Se là dentro qualcuno sta buttando giù il '
              'muro, avrete pochi lampi prima che non ci sia più niente da fotografare.»',
@@ -779,9 +774,15 @@ LUOGHI10_DESC = {
 }
 
 OGGETTI_LUOGO_10 = {
-    5: ['La Pianta del Restauro', 'Il Ferro del Muratore'],
+    3: [('Reperto A', 'la Denuncia di Abbandono', '')],
+    5: [
+        'La Pianta del Restauro',
+        ('Esca', 'Il Ferro del Muratore', ''),
+        ('Reperto B', 'il Libro Mastro della Muratura', ''),
+    ],
     6: ['Il Ritratto di Ada'],
-    7: ['La Fede di Rosa'],
+    7: [('Esca', 'La Fede di Rosa', 'è la fede di Ada, ma non prova nulla in tribunale')],
+    8: [('Reperto C', 'la Commessa del Fornitore', '')],
     9: ['La Macchina Fotografica'],
 }
 
@@ -853,7 +854,7 @@ def luoghi():
     N.pagina_indice_citta(c, LUOGHI_10, 'Episodio 10')
 
     def oggetto_righe(n):
-        return ['<b>Oggetto</b> — carta “' + t + '”' for t in OGGETTI_LUOGO_10.get(n, [])]
+        return N.oggetto_righe(OGGETTI_LUOGO_10.get(n, []))
 
     for L in LUOGHI_10:
         art_file = L['art']

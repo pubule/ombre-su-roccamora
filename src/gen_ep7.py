@@ -109,8 +109,7 @@ LUOGHI_7 = [
              'Sul banco, la copia di una lettera all’impresa Voltan & Figli: «il vostro '
              'intonaco brevettato altera l’acustica delle abitazioni ed è impastato con '
              'materiale che non avete dichiarato. O mi ricevete, o deposito tutto in '
-             'Questura.» Spedita lunedì. Fava è sparito mercoledì. <i>(Esca: potete '
-             'prendere la carta La Lettera di Minaccia.)</i>',
+             'Questura.» Spedita lunedì. Fava è sparito mercoledì.',
              'Il diapason da lavoro di Fava non c’è — l’ha portato con sé. C’è la sua '
              'agenda: mercoledì sera, un’unica riga — «cantiere, ore nove, il capoturno '
              'stacca e si beve tutto: si entra».'],
@@ -187,8 +186,7 @@ LUOGHI_7 = [
              'settimana.',
              'La domanda di deposito non è intestata all’impresa: la paga una società '
              'anonima, «La Quiete S.A.», sede presso uno studio notarile. Il foglio di '
-             'accompagnamento è carta di pregio, piegata in tre SENZA un’ombra di dita. '
-             '<i>(Reperto B: consegnate il Deposito del Brevetto.)</i>',
+             'accompagnamento è carta di pregio, piegata in tre SENZA un’ombra di dita.',
              'L’archivista, sottovoce, sfogliando: «è la terza pratica quest’anno che passa '
              'su questa carta. Le altre due? Una cartiera in concordato e una parcella '
              'notarile. Chi scrive su questa roba non lascia MAI il nome. Solo la carta.»'],
@@ -211,16 +209,15 @@ LUOGHI_7 = [
              'Le bolle di consegna, infilzate su un chiodo: calce, calce, calce — il TRIPLO '
              'del fabbisogno di un cantiere onesto, e metà delle consegne «al terzo piano, '
              'ore notturne». Un muratore che non sa di parlare: «il terzo piano è finito da '
-             'mesi. Murato prima del secondo. Boh.» <i>(Reperto C: consegnate le Bolle '
-             'della Calce.)</i>',
+             'mesi. Murato prima del secondo. Boh.»',
              'Il registro dei turni, appeso in baracca: il turno di notte stacca alle NOVE '
              'in punto; il capoturno firma il rientro «alle nove e un quarto» — un quarto '
              'd’ora di cancello a metà, ogni sera, da mesi. Qualcuno l’ha già notato: '
              'accanto, una crocetta a matita che nessuno del cantiere sa spiegare.',
-             'Nella baracca, il timbro delle forniture e una bolla in bianco già firmata: '
-             'col carro giusto e questa carta, il cancello del palazzone si apre da solo. '
-             '<i>(Oggetto: prendete la carta La Bolla della Calce.)</i> Il furiere borbotta '
-             'del capoturno: «il capoturno beve, e quando beve, il cantiere è di chiunque.»'],
+             'Nella baracca, il timbro delle forniture e una bolla in bianco già firmata: col '
+             'carro giusto e questa carta, il cancello del palazzone si apre da solo. Il '
+             'furiere borbotta del capoturno: «il capoturno beve, e quando beve, il cantiere '
+             'è di chiunque.»'],
          approfondimenti=[
              dict(tipo='Osservazione', soggetto='La baracca del furiere',
                   testo='Sotto il piano del tavolo, incollata col nastro, una seconda '
@@ -242,8 +239,7 @@ LUOGHI_7 = [
              'In portineria, sotto chiave e sotto un nome falso, il taccuino sequestrato di '
              'Fava: il portiere lo consegna pur di non sentire più la parola «Questura». '
              'Ultima pagina strappata; sulla precedente: «le note muoiono a tre passi dalla '
-             'parete di ponente. La parete BEVE.» <i>(Reperto A: consegnate il Taccuino di '
-             'Fava.)</i>',
+             'parete di ponente. La parete BEVE.»',
              'La bacheca degli ordini di servizio: «il capoturno del cantiere risponde SOLO '
              'al Capocantiere; il Capocantiere risponde SOLO all’ingegnere». In fondo, '
              'firmato Voltan: «la squadra di notte è pagata a parte. Fuori busta, fuori '
@@ -266,14 +262,11 @@ LUOGHI_7 = [
              'I sacchi di «calcina speciale» hanno tutti il marchio a fuoco con l’onda '
              'della Fonderia: dentro, calce e bronzo macinato. Un intero magazzino di '
              'silenzio pronto da stendere — abbastanza per TRE quartieri come Sant’Orsola.',
-             'Il capoturno in persona dorme la sbornia tra i sacchi: nel gilet, il '
-             'fischietto d’ordinanza e le chiavi del cancello. Si sveglia quel tanto che '
-             'basta: «alle nove stacco. Sempre. Chiedete pure in cantiere.» <i>(Esca: '
-             'potete prendere la carta Il Fischietto del Capoturno.)</i>',
-             'Dietro i sacchi, casse di lanterne da cantiere a sportello schermato — '
-             'comprate a dozzine, «per i lavori di notte al terzo piano». Una è ancora '
-             'nella paglia. <i>(Oggetti: prendete le carte La Lanterna Schermata e I '
-             'Tappi di Cera.)</i>'],
+             'Il capoturno in persona dorme la sbornia tra i sacchi: nel gilet, il fischietto '
+             'd’ordinanza e le chiavi del cancello. Si sveglia quel tanto che basta: «alle '
+             'nove stacco. Sempre. Chiedete pure in cantiere.»',
+             'Dietro i sacchi, casse di lanterne da cantiere a sportello schermato — comprate '
+             'a dozzine, «per i lavori di notte al terzo piano». Una è ancora nella paglia.'],
          approfondimenti=[
              dict(tipo='Referto', soggetto='La calcina speciale',
                   testo='Un sacco su dieci porta un secondo marchio, piccolo, sotto '
@@ -816,9 +809,15 @@ LUOGHI7_DESC = {
 
 # Carte Oggetto per luogo (sotto-sezione "carte da prendere" degli indizi).
 OGGETTI_LUOGO_7 = {
-    2: ['La Lettera di Minaccia'],
-    6: ['La Bolla della Calce'],
-    8: ['Il Fischietto del Capoturno', 'La Lanterna Schermata', 'I Tappi di Cera'],
+    2: [('Esca', 'La Lettera di Minaccia', '')],
+    5: [('Reperto B', 'il Deposito del Brevetto', '')],
+    6: ['La Bolla della Calce', ('Reperto C', 'le Bolle della Calce', '')],
+    7: [('Reperto A', 'il Taccuino di Fava', '')],
+    8: [
+        ('Esca', 'Il Fischietto del Capoturno', ''),
+        'La Lanterna Schermata',
+        'I Tappi di Cera',
+    ],
 }
 
 # arte tessere del fascicolo (le stesse dei board)
@@ -911,7 +910,7 @@ def luoghi():
     N.pagina_indice_citta(c, LUOGHI_7, 'Episodio 7')
 
     def oggetto_righe(n):
-        return ['<b>Oggetto</b> — carta “' + t + '”' for t in OGGETTI_LUOGO_7.get(n, [])]
+        return N.oggetto_righe(OGGETTI_LUOGO_7.get(n, []))
 
     for L in LUOGHI_7:
         art_file = L['art']

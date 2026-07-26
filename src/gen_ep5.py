@@ -78,8 +78,7 @@ LUOGHI_5 = [
          indizi=[
              'Fedele è dove l’hanno trovato, tra le scaffalature del magazzino: la faccia di '
              'chi ha visto, le mani piene di calcina fresca. Ai piedi della parete di fondo, '
-             'una breccia rimurata a metà — da FUORI. Stava chiudendo qualcosa dentro. '
-             '<i>(Oggetto: prendete la carta Il Crocifisso Spezzato.)</i>',
+             'una breccia rimurata a metà — da FUORI. Stava chiudendo qualcosa dentro.',
              'Gli inservienti del magazzino, a bassa voce: Fedele negli ultimi giorni parlava '
              'di un «maestro dei registri» che veniva a misurare le navate di notte, con due '
              'uomini e una lanterna schermata. «Diceva: quello non conta le casse. Conta i '
@@ -159,13 +158,10 @@ LUOGHI_5 = [
              'in Curia, di solito, la fretta non abita.»',
              'Nel ripostiglio della sacrestia, sotto un telo: il fonte battesimale dei '
              'Battuti, salvato nel Quarantuno da un parroco testardo. Dentro il piede cavo, '
-             'un’ampolla sigillata a cera: l’acqua dell’ultimo battesimo. '
-             '<i>(Oggetti: prendete le carte L’Acqua del Fonte e Le Candele della '
-             'Parrocchia.)</i>',
+             'un’ampolla sigillata a cera: l’acqua dell’ultimo battesimo.',
              'Il sagrestano custodisce anche un anello di chiavi «che non aprono più niente»: '
              'una è marcata coi flagelli incrociati dei Battuti — la chiave del sagrato e '
-             'della sagrestia vecchia. «Se la prendete, non ditemi per cosa.» '
-             '<i>(Oggetto: prendete la carta La Chiave del Sagrato.)</i>'],
+             'della sagrestia vecchia. «Se la prendete, non ditemi per cosa.»'],
          approfondimenti=[
              dict(tipo='Presagio', soggetto='Il fonte che trattiene',
                   testo='L’acqua nell’ampolla è ferma da centocinquant’anni, eppure — contro '
@@ -186,12 +182,10 @@ LUOGHI_5 = [
              'Da allora non dorme.»',
              'Sotto il pagliericcio, il registro privato di Mola: date, casse, fosse — e '
              'accanto a ogni riga, le iniziali «M.d.R.». L’ultima pagina è un conto: ventidue '
-             'casse consegnate, DUE ancora da consegnare. <i>(Reperto A: consegnate il '
-             'Registro di Mola.)</i>',
-             'Nel ripostiglio, un’ampolla d’olio dei morti e una pala nuova mai usata: '
-             'regalo «del committente, per il lavoro fino». Mola non l’ha mai toccata: «le '
-             'pale nuove», dice la moglie, «portano male ai vivi». '
-             '<i>(Oggetto: prendete la carta L’Olio dei Morti.)</i>'],
+             'casse consegnate, DUE ancora da consegnare.',
+             'Nel ripostiglio, un’ampolla d’olio dei morti e una pala nuova mai usata: regalo '
+             '«del committente, per il lavoro fino». Mola non l’ha mai toccata: «le pale '
+             'nuove», dice la moglie, «portano male ai vivi».'],
          approfondimenti=[
              dict(tipo='Testimonianza', soggetto='Mola, alla fine',
                   testo='Rintracciato al cancello di servizio, Mola non nega niente: «io le '
@@ -215,8 +209,7 @@ LUOGHI_5 = [
              'manca. La carta è di pregio.',
              'Sulla scrivania, dimenticata sotto il tampone, un’autorizzazione alle '
              'riesumazioni pronta per l’uso: firma di un funzionario di Curia... che non '
-             'risulta in nessun annuario. Il timbro, però, è autentico. '
-             '<i>(Reperto B: consegnate l’Autorizzazione Timbrata.)</i>'],
+             'risulta in nessun annuario. Il timbro, però, è autentico.'],
          approfondimenti=[
              dict(tipo='Osservazione', soggetto='Lo studio-scenografia',
                   testo='I registri finti hanno i dorsi scoloriti DAL LATO SBAGLIATO: comprati '
@@ -287,8 +280,7 @@ LUOGHI_5 = [
              'lato, il pavimento mostra una botola col flagello inciso.',
              'Nel cassetto dell’inginocchiatoio, il diario di Fedele — portato QUI, al '
              'sicuro, dove dormiva la sua paura: «stanotte l’ho sentito accordarsi. Domani '
-             'chiudo il muro e non lo dico a nessuno: certe porte, a denunciarle, si '
-             'aprono.» <i>(Reperto C: consegnate il Diario di Fedele.)</i>',
+             'chiudo il muro e non lo dico a nessuno: certe porte, a denunciarle, si aprono.»',
              'La botola è unta di fresco sui cardini, e dal buio sotto sale — piano, senza '
              'parole, senza fermarsi mai — una salmodia. Da qui si scende. Da qui, ogni '
              'notte, scendono LORO.'],
@@ -772,7 +764,9 @@ LUOGHI5_DESC = {
 OGGETTI_LUOGO_5 = {
     1: ['Il Crocifisso Spezzato'],
     4: ['L’Acqua del Fonte', 'Le Candele della Parrocchia', 'La Chiave del Sagrato'],
-    5: ['L’Olio dei Morti'],
+    5: ['L’Olio dei Morti', ('Reperto A', 'il Registro di Mola', '')],
+    6: [('Reperto B', 'l’Autorizzazione Timbrata', '')],
+    9: [('Reperto C', 'il Diario di Fedele', '')],
 }
 
 TILE_ART_5 = {t['id']: t['id'] + '-ep5.png' for t in TILES_5}
@@ -848,7 +842,7 @@ def luoghi():
     N.pagina_indice_citta(c, LUOGHI_5, 'Episodio 5')
 
     def oggetto_righe(n):
-        return ['<b>Oggetto</b> — carta “' + t + '”' for t in OGGETTI_LUOGO_5.get(n, [])]
+        return N.oggetto_righe(OGGETTI_LUOGO_5.get(n, []))
 
     for L in LUOGHI_5:
         art_file = L['art']

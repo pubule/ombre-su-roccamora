@@ -80,12 +80,11 @@ LUOGHI_2 = [
          req='Disponibile dall’inizio', art='Fonderia Dossena.png',
          chiude=None,
          indizi=[
-             'Il taccuino di collaudo di Ilario si interrompe al provino delle 20:00, con una sola '
-             'nota, ripassata due volte: «suono sbagliato — questa lega non è la mia». '
-             '<i>(Reperto A: consegnate il Taccuino di Collaudo.)</i>',
-             'Nella sala delle staffe: uno sgabello rovesciato, segni di trascinamento, e sotto un '
-             'banco il martello di collaudo di Ilario — lui non lo avrebbe mai lasciato a '
-             'terra. <i>(Oggetto: prendete la carta Il Martello di Collaudo.)</i>',
+             'Il taccuino di collaudo di Ilario si interrompe al provino delle 20:00, con una '
+             'sola nota, ripassata due volte: «suono sbagliato — questa lega non è la mia».',
+             'Nella sala delle staffe: uno sgabello rovesciato, segni di trascinamento, e '
+             'sotto un banco il martello di collaudo di Ilario — lui non lo avrebbe mai '
+             'lasciato a terra.',
              'I pani consegnati dal dazio, ancora nei casseri, non sono bronzo: ghisa da '
              'scafo, piena di sabbia di mare — roba da demolitori di barche. E il libro paga '
              'dice che il capomastro Sartorio ha anticipato la paga a tutti: con quali soldi?'],
@@ -108,8 +107,7 @@ LUOGHI_2 = [
              'bianco. “Questo non è il MIO bronzo”, ha detto. Un fonditore la sua lega la '
              'riconosce come una voce di famiglia.»',
              'Lo smorzo di feltro — il cuscino che tace le campane — è ancora appeso alla '
-             'trave, dimenticato dal provino. <i>(Oggetto: prendete la carta Lo Smorzo di '
-             'Feltro.)</i>',
+             'trave, dimenticato dal provino.',
              'Dal parapetto si vedono i moli daziari. Ruggero, la notte del furto, ha visto '
              'chiatte senza lanterne scivolare verso ponente: «è così che i barcaioli '
              'chiamano quelle corse: le senza-lanterne. Nessuno ne parla volentieri.»'],
@@ -177,8 +175,8 @@ LUOGHI_2 = [
          indizi=[
              'Sul tavolo, sotto la candela, ricevute di gioco per una cifra da far paura — '
              'saldate tutte lo stesso giorno, un mese fa, in contanti.',
-             'Una lettera elegante, senza firma: «Al collaudo penserà il vostro mastro. Il resto '
-             'a consegna. — C.B.» <i>(Reperto C: consegnate la Lettera di C.B.)</i>',
+             'Una lettera elegante, senza firma: «Al collaudo penserà il vostro mastro. Il '
+             'resto a consegna. — C.B.»',
              'L’armadio è pieno di vestiti nuovi coi cartellini attaccati, e dietro la porta c’è '
              'una valigia pronta: il capomastro stava per lasciare Roccamora — dopo qualcosa.'],
          approfondimenti=[
@@ -194,9 +192,8 @@ LUOGHI_2 = [
          indizi=[
              'Il registro di Fossa non mente: il capomastro Sartorio ha riscattato TUTTI i pegni '
              'di famiglia in un giorno solo, un mese fa, in contanti nuovi.',
-             'Tra le carte del banco, dimenticata, la polizza del Monte intestata a '
-             'Sartorio: riscattata, timbrata — la fretta lascia ricevute. <i>(Oggetto: prendete '
-             'la carta La Polizza del Monte.)</i>',
+             'Tra le carte del banco, dimenticata, la polizza del Monte intestata a Sartorio: '
+             'riscattata, timbrata — la fretta lascia ricevute.',
              'Fossa, gratis per una volta: «Coi facchini del dazio ci lavoro da trent’anni: al '
              'piantone basta dire “pari peso”, come al cambio turno. Ma non ditegli chi ve '
              'l’ha insegnato.»'],
@@ -215,9 +212,9 @@ LUOGHI_2 = [
          indizi=[
              'Il capobarca, a voce bassa: le corse senza lanterne partono dal molo daziario e '
              'tornano LEGGERE. «Chi porta, torna vuoto. Il carico resta là dove va.»',
-             'Da un chiattaiolo ubriaco ha sequestrato un contrassegno di piombo: una '
-             'moneta senza re, con mezza onda al posto della faccia. «Tenetevelo. Io non l’ho '
-             'mai visto.» <i>(Oggetto: prendete la carta Il Contrassegno di Piombo.)</i>',
+             'Da un chiattaiolo ubriaco ha sequestrato un contrassegno di piombo: una moneta '
+             'senza re, con mezza onda al posto della faccia. «Tenetevelo. Io non l’ho mai '
+             'visto.»',
              'La rotta delle senza-lanterne: Punta delle Scorie, poi il canale morto dell’Isola. '
              '«Là c’è solo la fonderia vecchia. Spenta da vent’anni. Be’: fino a poco fa.»'],
          approfondimenti=[
@@ -235,8 +232,7 @@ LUOGHI_2 = [
              'Il registro delle pese notturne: la firma del pesatore compare in nottate in cui '
              'NON era di turno. Qualcuno firmava per lui — o lui firmava per qualcuno.',
              'Il registro delle chiatte: due corse «di zavorra» verso l’Isola delle Scorie, '
-             'pagate in contanti, senza mittente. <i>(Reperto B: consegnate il Registro delle '
-             'Chiatte.)</i>',
+             'pagate in contanti, senza mittente.',
              'Il pesatore notturno non si presenta da tre giorni: l’indirizzo è una stanza '
              'd’affitto già vuota. Scappato — con più paura che soldi, a giudicare da cosa ha '
              'lasciato.'],
@@ -259,9 +255,8 @@ LUOGHI_2 = [
              'Learco il ramaio compra qui, con regolare bolla — e il campanaro civico della '
              'Torre ha comprato una campanella di rimpiazzo, odiando i Dossena a voce alta. Ma '
              'il registro del suo turno di guardia lo scagiona: era in Torre, tutta la notte.',
-             'Tra i relitti, una medaglia votiva del santo con la campana in mano, '
-             'consumata dai pollici. <i>(Oggetto: prendete la carta La Medaglia del '
-             'Fonditore.)</i>'],
+             'Tra i relitti, una medaglia votiva del santo con la campana in mano, consumata '
+             'dai pollici.'],
          approfondimenti=[
              dict(tipo='Osservazione', soggetto='La bolla di Learco',
                   testo='Il ramaio del Vecchio Mercato compra qui, con regolare bolla: date e '
@@ -725,10 +720,12 @@ LUOGHI2_DESC = {
 # Carte Oggetto per luogo (sotto-sezione "carte da prendere" degli indizi -
 # stesso pattern di OGGETTI_LUOGO_P nel Preludio).
 OGGETTI_LUOGO_2 = {
-    1: ['Il Martello di Collaudo'],
+    1: ['Il Martello di Collaudo', ('Reperto A', 'il Taccuino di Collaudo', '')],
     2: ['Lo Smorzo di Feltro'],
+    5: [('Reperto C', 'la Lettera di C.B.', '')],
     6: ['La Polizza del Monte'],
     7: ['Il Contrassegno di Piombo'],
+    8: [('Reperto B', 'il Registro delle Chiatte', '')],
     9: ['La Medaglia del Fonditore'],
 }
 
@@ -820,7 +817,7 @@ def luoghi():
     N.pagina_indice_citta(c, LUOGHI_2, 'Episodio 2')
 
     def oggetto_righe(n):
-        return ['<b>Oggetto</b> \u2014 carta \u201c' + t + '\u201d' for t in OGGETTI_LUOGO_2.get(n, [])]
+        return N.oggetto_righe(OGGETTI_LUOGO_2.get(n, []))
 
     for L in LUOGHI_2:
         art_file = L['art']

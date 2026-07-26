@@ -81,10 +81,10 @@ LUOGHI_12 = [
          chiude=None,
          indizi=[
              'La vostra sede, stanotte, è una scena del delitto. L’archivio dei Frammenti è '
-             'aperto, ma nulla è forzato: i sigilli di ceralacca sono intatti, le serrature senza '
-             'un graffio. «Non è entrato nessuno», ripete il custode, sbiancato. «Eppure li hanno '
-             'copiati tutti. I sigilli intatti sono la cosa più terribile che abbia mai visto.» '
-             '<i>(Reperto A: raccogliete la Perizia dei Sigilli.)</i>',
+             'aperto, ma nulla è forzato: i sigilli di ceralacca sono intatti, le serrature '
+             'senza un graffio. «Non è entrato nessuno», ripete il custode, sbiancato. '
+             '«Eppure li hanno copiati tutti. I sigilli intatti sono la cosa più terribile '
+             'che abbia mai visto.»',
              'Sul tavolo dell’archivio, la campanella nuova comprata al mercato: reca inciso il '
              'segno del Coro, quello vero dell’Atto I. Qualcuno ha usato le copie dei Frammenti — '
              'e le usa già. Il segno sulla campanella è fresco di conio.',
@@ -109,9 +109,8 @@ LUOGHI_12 = [
              'chiesto. A un presidente non si chiede.» I sigilli intatti li spiega lui: aveva le '
              'chiavi.',
              'Sul suo scrittoio, un biglietto di consegna per stanotte: un corriere ritirerà '
-             'l’ultima infornata di copie e le porterà «al solito approdo». <i>(Incrocio D1: '
-             'dove avviene lo scambio.)</i> E accanto, la pila degli ordini protocollati che gli '
-             'hanno fatto copiare tutto.',
+             'l’ultima infornata di copie e le porterà «al solito approdo». E accanto, la '
+             'pila degli ordini protocollati che gli hanno fatto copiare tutto.',
              'Godi vi mostra gli ordini protocollati, uno per uno: carta della Società, timbro '
              'della Società, firma del presidente. «Vedete? Tutto in regola. Se c’è una colpa, '
              'non è mia: io ho eseguito ordini autentici. Chi li ha scritti lo sa meglio di me.»'],
@@ -128,17 +127,17 @@ LUOGHI_12 = [
          req='Disponibile dall’inizio', art='L’Ufficio del Fermo-Posta.png',
          chiude=20,
          indizi=[
-             'Lo sportello del fermo-posta tiene la corrispondenza di chi non vuole un indirizzo. '
-             'Il registro segna una casella intestata a «B. Camillo»: ritiri regolari, sempre di '
-             'notte, sempre pagati in anticipo. «Il fermo-posta di Camillo? Non l’ho mai visto in '
-             'faccia. Manda un corriere.» <i>(Reperto C: la Ricevuta del Fermo-Posta — il SEME.)</i>',
-             'L’impiegato ricorda il corriere: «Tullio Vela, un ragazzo dei traghetti. Ritira per '
-             'conto di Camillo e porta al Cimitero delle Barche, all’approdo delle chiatte morte. '
-             '<i>(Incrocio D1.)</i> Stanotte ha un ritiro grosso: un sacco di tela cerata.»',
+             'Lo sportello del fermo-posta tiene la corrispondenza di chi non vuole un '
+             'indirizzo. Il registro segna una casella intestata a «B. Camillo»: ritiri '
+             'regolari, sempre di notte, sempre pagati in anticipo. «Il fermo-posta di '
+             'Camillo? Non l’ho mai visto in faccia. Manda un corriere.»',
+             'L’impiegato ricorda il corriere: «Tullio Vela, un ragazzo dei traghetti. Ritira '
+             'per conto di Camillo e porta al Cimitero delle Barche, all’approdo delle '
+             'chiatte morte. Stanotte ha un ritiro grosso: un sacco di tela cerata.»',
              'Accanto al registro, gli ordini protocollati fanno capolino da una pratica: le '
-             'copie della Società passano dallo stesso sportello, spedite con la stessa mano che '
-             'firma gli ordini. Chi copia e chi compra usano gli ordini protocollati come binari. '
-             '<i>(Oggetto: prendete il Registro dei Ritiri.)</i>'],
+             'copie della Società passano dallo stesso sportello, spedite con la stessa mano '
+             'che firma gli ordini. Chi copia e chi compra usano gli ordini protocollati come '
+             'binari.'],
          approfondimenti=[
              dict(tipo='Osservazione', soggetto='La casella di Camillo',
                   testo='«B. Camillo» non è una persona: è un’etichetta d’archivio, un nome così '
@@ -178,9 +177,8 @@ LUOGHI_12 = [
              'I confratelli, riuniti, si guardano in cagnesco. «Sigilli intatti significa che uno '
              'di noi ha aperto. Chi? Da quanto? Per chi?» La Società, unita contro il Dormiente, '
              'si sfalda alla prima ombra di tradimento interno.',
-             'Qualcuno ha lasciato, sotto una candela, una lettera anonima che accusa un socio a '
-             'caso di essere la talpa. <i>(Esca: potete prendere la carta La Lettera Anonima — '
-             'accusa a caso, semina paranoia, non prova nulla.)</i>',
+             'Qualcuno ha lasciato, sotto una candela, una lettera anonima che accusa un '
+             'socio a caso di essere la talpa.',
              'Il più anziano dei soci scuote il capo: «cerchiamo un falsario perfetto, un traditore '
              'geniale. E se non ci fosse? Se la mano che ha firmato gli ordini fosse davvero quella '
              'che sembra? No. È impensabile. Meglio un traditore che quel pensiero.»'],
@@ -198,9 +196,9 @@ LUOGHI_12 = [
          chiave=('parola', 'GLI ORDINI PROTOCOLLATI'), art='Lo Scriptorium.png',
          chiude=None,
          indizi=[
-             'Il tavolo di Godi è ancora carico di lavoro: i Frammenti originali e, accanto, le '
-             'loro copie, mano identica. <i>(Reperto B: raccogliete la Pagina Ricopiata.)</i> '
-             'Non c’è tremore di falsario: la copia è sicura come l’originale.',
+             'Il tavolo di Godi è ancora carico di lavoro: i Frammenti originali e, accanto, '
+             'le loro copie, mano identica. Non c’è tremore di falsario: la copia è sicura '
+             'come l’originale.',
              'Gli ordini protocollati sono impilati per data: mesi di «si copino i Frammenti», '
              'ognuno timbrato e controfirmato. Un archivio dell’obbedienza, tenuto in ordine '
              'maniacale da chi voleva poter dire «ho solo eseguito».',
@@ -226,10 +224,8 @@ LUOGHI_12 = [
              'I punzoni di ceralacca della Società, tutti al loro posto, tutti autentici. Nessuno '
              'è stato rubato o duplicato: i sigilli sui Frammenti li ha rifatti chi aveva diritto '
              'di rifarli, dopo aver copiato.',
-             'In un cassetto, un grimaldello lasciato lì bene in vista, quasi apposta. <i>(Esca: '
-             'potete prendere la carta Il Grimaldello Trovato — pare la prova dello scasso, ma '
-             'nessuna serratura è stata forzata.)</i> Un depistaggio grossolano per chi vuole '
-             'credere all’effrazione.',
+             'In un cassetto, un grimaldello lasciato lì bene in vista, quasi apposta. Un '
+             'depistaggio grossolano per chi vuole credere all’effrazione.',
              'Il custode dei sigilli è sicuro: «se qualcuno avesse forzato, la ceralacca lo '
              'mostrerebbe: scaldata due volte, colata storta, punzone sbagliato. Niente di tutto '
              'questo. Chi ha richiuso sapeva richiudere: uno di noi.»'],
@@ -250,8 +246,7 @@ LUOGHI_12 = [
          indizi=[
              'I gendarmi amici della Società conoscono i canali di notte: «se inseguite un '
              'corriere fino al Cimitero delle Barche, i ponti coperti sono i vostri alleati: '
-             'fischiate, e vi chiudiamo un varco in faccia al fuggitivo.» <i>(Oggetto: prendete '
-             'il Fischietto della Ronda.)</i>',
+             'fischiate, e vi chiudiamo un varco in faccia al fuggitivo.»',
              'Il sergente traccia la rotta di Vela: «partirà dall’archivio e scenderà per il '
              'canale fino all’approdo. Se sapete da dove parte e a che ora, gli siete addosso '
              'subito; se no, vi guadagna mezza città.»',
@@ -271,12 +266,10 @@ LUOGHI_12 = [
          chiave=('parola', 'IL SEGNO SULLA CAMPANELLA'), art='Cimitero delle Barche.png',
          chiude=None,
          indizi=[
-             'L’ansa morta del canale, dove le chiatte vengono a marcire: è qui che Vela consegna '
-             'e «B. Camillo» ritira, nella nebbia, senza mai mostrarsi. <i>(D1: il luogo dello '
-             'scambio, il traguardo dell’inseguimento.)</i>',
+             'L’ansa morta del canale, dove le chiatte vengono a marcire: è qui che Vela '
+             'consegna e «B. Camillo» ritira, nella nebbia, senza mai mostrarsi.',
              'Tra le barche morte, la lanterna sorda di un barcaiolo, buona per la nebbia. '
-             '<i>(Oggetto: prendete la Lanterna Sorda dei Canali.)</i> Senza, l’ultimo tratto '
-             'dello scambio è cieco.',
+             'Senza, l’ultimo tratto dello scambio è cieco.',
              'Un vecchio barcaiolo mormora: «il compratore non scende mai a terra. Riceve dalla '
              'barca, paga dalla barca, sparisce nella nebbia. Come uno che ha imparato a non '
              'lasciare orme in tutta la sua vita.»'],
@@ -723,11 +716,23 @@ LUOGHI12_DESC = {
 }
 
 OGGETTI_LUOGO_12 = {
-    3: ['Il Registro dei Ritiri'],
-    5: ['La Lettera Anonima'],
-    7: ['Il Grimaldello Trovato'],
+    1: [('Reperto A', 'la Perizia dei Sigilli', '')],
+    2: [('Incrocio D1', 'dove avviene lo scambio', '')],
+    3: [
+        'Il Registro dei Ritiri',
+        ('Reperto C', 'la Ricevuta del Fermo-Posta', 'il SEME'),
+        ('Incrocio D1', '', ''),
+    ],
+    5: [('Esca', 'La Lettera Anonima', 'accusa a caso, semina paranoia, non prova nulla')],
+    6: [('Reperto B', 'la Pagina Ricopiata', '')],
+    7: [
+        ('Esca', 'Il Grimaldello Trovato', 'pare la prova dello scasso, ma nessuna serratura è stata forzata'),
+    ],
     8: ['Il Fischietto della Ronda'],
-    9: ['La Lanterna Sorda dei Canali'],
+    9: [
+        'La Lanterna Sorda dei Canali',
+        ('Incrocio D1', 'il luogo dello scambio, il traguardo dell’inseguimento', ''),
+    ],
 }
 
 TILE_ART_12 = {t['id']: t['id'] + '-ep12.png' for t in TILES_12}
@@ -798,7 +803,7 @@ def luoghi():
     N.pagina_indice_citta(c, LUOGHI_12, 'Episodio 12')
 
     def oggetto_righe(n):
-        return ['<b>Oggetto</b> — carta “' + t + '”' for t in OGGETTI_LUOGO_12.get(n, [])]
+        return N.oggetto_righe(OGGETTI_LUOGO_12.get(n, []))
 
     for L in LUOGHI_12:
         art_file = L['art']

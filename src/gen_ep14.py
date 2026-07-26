@@ -90,10 +90,10 @@ LUOGHI_14 = [
              'incise. Un furto sui tetti, mano di professionisti. Che il vostro presidente e io ci '
              'detestiamo da trent’anni non c’entra: un gentiluomo derubato è un gentiluomo '
              'derubato.»',
-             'La collezione ha un catalogo firmato, meticoloso, di suo pugno: ogni lastra, ogni '
-             'cimelio, numerato. <i>(Oggetto: prendete l’Inventario Originale.)</i> «Confrontate '
-             'pure con ciò che è tornato: io non tocco nulla finché la Gendarmeria non verbalizza. '
-             'I guanti, sa: l’igiene prima di tutto.»',
+             'La collezione ha un catalogo firmato, meticoloso, di suo pugno: ogni lastra, '
+             'ogni cimelio, numerato. «Confrontate pure con ciò che è tornato: io non tocco '
+             'nulla finché la Gendarmeria non verbalizza. I guanti, sa: l’igiene prima di '
+             'tutto.»',
              'Nel salone, tra i cimeli, il duello di trent’anni con M. è ovunque: ritagli, lettere '
              'al vetriolo, due scuole del delitto che si odiano. «Il duello di trent’anni ci ha '
              'reso famosi entrambi. Ma io non rubo a lui, e lui — spero — non ruba a me.»'],
@@ -138,9 +138,7 @@ LUOGHI_14 = [
              'sola, impegnata e poi ritirata da uno dei gatti sui tetti. Il resto no — il resto è '
              'tornato tutto al professore, intero. Strano: di solito la roba dei gatti la vediamo '
              'a pezzi.»',
-             'Il registro dei pegni segna quella lastra e chi l’ha impegnata. <i>(Esca: potete '
-             'prendere il Pegno Anonimo — pare tradire il mandante, è solo un gatto che ha fatto '
-             'cassa per conto suo.)</i>',
+             'Il registro dei pegni segna quella lastra e chi l’ha impegnata.',
              'Il gestore, prudente: «la refurtiva tornata è tornata pulita, imballata con cura. '
              'Non è roba impegnata e riscattata: è roba <i>preparata</i>. Chi l’ha resa voleva che '
              'arrivasse in ordine, come un regalo. Coi gatti, un regalo si paga caro.»'],
@@ -186,9 +184,8 @@ LUOGHI_14 = [
              'questo e questo, lascia sotto il portone del professore. Roba non sua, capisce? Me '
              'l’hanno data loro, da mettere dentro.»',
              'Tiene copia del verbale di restituzione, l’elenco di ciò che è uscito dalle sue '
-             'mani: <i>(incrocio D3: confrontatelo con l’Inventario Originale di Braga e vedrete '
-             'il «di più»)</i>. «Il sigillo con le iniziali C.B. l’ho aggiunto io, sì. Non l’ho '
-             'fatto io: me l’hanno dato già fatto.»',
+             'mani:. «Il sigillo con le iniziali C.B. l’ho aggiunto io, sì. Non l’ho fatto '
+             'io: me l’hanno dato già fatto.»',
              'Chi l’ha pagato? «Un intermediario. Mai visto in faccia. Oro d’antica fusione e '
              'ricevute su carta di pregio, di quella col giglio. Gente che sa quello che fa. Io '
              'non faccio domande a chi paga in oro vecchio.»'],
@@ -211,8 +208,7 @@ LUOGHI_14 = [
              'coi guanti! Il duello di trent’anni l’ho perso io, e lo sanno tutti. Se lo hanno '
              'derubato, brindo. Se lo impiccano, offro da bere.» Astio puro, non commissione.',
              'Tra le sue carte, una lettera livorosa in cui minaccia Braga di «smascherarlo '
-             'pubblicamente». <i>(Esca: potete prendere la Lettera del Perito — è rancore da '
-             'cattedra, non prova nulla: Coda non ha né i mezzi né i gatti.)</i>',
+             'pubblicamente».',
              'Coda, sbottando: «pensate che sia stato io? Magari! Ma io scrivo velenoso, non pago '
              'ladri. Chi ha orchestrato questa storia ha oro e uomini sui tetti. Io ho solo bile e '
              'una cattedra di provincia. Cercate qualcuno che possa <i>permettersi</i> Braga.»'],
@@ -231,13 +227,12 @@ LUOGHI_14 = [
          chiave=('parola', 'LE LASTRE SPARITE'), art='L’Archivio della Gendarmeria.png',
          chiude=None,
          indizi=[
-             'Nel faldone, il verbale d’inventario definitivo: le lastre sparite, la refurtiva '
-             'restituita, e le tre righe in più. <i>(Reperto C: consegnate il Verbale '
-             'd’Inventario.)</i> È qui che il Sigillo «C.B.» finisce agli atti — il SEME, la prima '
-             'pietra del falso.',
-             'Il Sigillo con le iniziali di Braga è repertato e fotografato: <i>(Reperto? no — è '
-             'all’Attico)</i> qui c’è solo la sua scheda. «Trovato nelle casse restituite. Il '
-             'professore ne disconosce la proprietà.» Un disconoscimento che, agli atti, pesa poco.',
+             'Nel faldone, il verbale d’inventario definitivo: le lastre sparite, la '
+             'refurtiva restituita, e le tre righe in più. È qui che il Sigillo «C.B.» '
+             'finisce agli atti — il SEME, la prima pietra del falso.',
+             'Il Sigillo con le iniziali di Braga è repertato e fotografato: qui c’è solo la '
+             'sua scheda. «Trovato nelle casse restituite. Il professore ne disconosce la '
+             'proprietà.» Un disconoscimento che, agli atti, pesa poco.',
              'L’archivista, a disagio: «una volta che una cosa è a verbale, esiste. Anche se è '
              'falsa. Se domani qualcuno vuol provare che Braga possedeva quel sigillo, gli basta '
              'questo faldone. Chi ha messo il sigillo nelle casse sapeva che sarebbe finito qui. '
@@ -259,14 +254,13 @@ LUOGHI_14 = [
          chiude=None,
          indizi=[
              'Il covo dei Gatti del Corso, un sottotetto pieno di funi, ramponi, attrezzi da '
-             'quota. <i>(Oggetto: prendete i Ramponi — sui tetti le cadute non vi feriranno.)</i> '
-             'Qui preparano i colpi; qui hanno «lavorato» la refurtiva prima di renderla.',
-             'Sul muro, inciso, il segno dei Gatti: la loro parola di riconoscimento, quella che '
-             'ci si scambia sui tetti per non spararsi al buio. <i>(Oggetto: prendete la Parola '
-             'dei Tetti — al Primo Gatto, lo dispone a trattare.)</i>',
-             'In un angolo, una delle lastre fonografiche, dimenticata o tenuta da parte: '
-             '<i>(Reperto B: consegnate la Lastra Fonografica.)</i> Sul bordo, un graffio fresco, '
-             'di chi l’ha maneggiata con guanti che non erano di Braga.'],
+             'quota. Qui preparano i colpi; qui hanno «lavorato» la refurtiva prima di '
+             'renderla.',
+             'Sul muro, inciso, il segno dei Gatti: la loro parola di riconoscimento, quella '
+             'che ci si scambia sui tetti per non spararsi al buio.',
+             'In un angolo, una delle lastre fonografiche, dimenticata o tenuta da parte: Sul '
+             'bordo, un graffio fresco, di chi l’ha maneggiata con guanti che non erano di '
+             'Braga.'],
          approfondimenti=[
              dict(tipo='Presagio', soggetto='La parola dei tetti',
                   testo='I Gatti del Corso hanno un codice più vecchio di loro: chi conosce la '
@@ -286,9 +280,9 @@ LUOGHI_14 = [
              'L’Attico del Corso, in cima ai tetti: la refurtiva accatastata e pronta, imballata '
              'con cura per la restituzione. È da qui che i pacchi sono scesi in strada, arredati '
              'del «di più». Qui vi aspetta, o vi sfugge, il Primo Gatto.',
-             'Tra la refurtiva, il pezzo che non torna: un sigillo di ceralacca con le iniziali '
-             '«C.B.», identico per foggia ai sigilli di ogni scatola vuota della campagna. '
-             '<i>(Reperto A: consegnate il Sigillo «C.B.».)</i> Non è di Braga: è stato aggiunto.',
+             'Tra la refurtiva, il pezzo che non torna: un sigillo di ceralacca con le '
+             'iniziali «C.B.», identico per foggia ai sigilli di ogni scatola vuota della '
+             'campagna. Non è di Braga: è stato aggiunto.',
              'Il Primo Gatto, Berto detto lo Spillo, vi studia dalla cresta del tetto: agile, '
              'ironico, pronto a sparire nel vuoto. Non è un assassino — è un ladro d’onore a cui '
              'stanotte hanno fatto fare un lavoro che non gli è piaciuto.'],
@@ -743,9 +737,24 @@ LUOGHI14_DESC = {
 
 OGGETTI_LUOGO_14 = {
     1: ['L’Inventario Originale'],
-    3: ['Il Pegno Anonimo'],
-    6: ['La Lettera del Perito'],
-    8: ['La Parola dei Tetti', 'I Ramponi'],
+    3: [
+        ('Esca', 'Il Pegno Anonimo', 'pare tradire il mandante, è solo un gatto che ha fatto cassa per conto suo'),
+    ],
+    5: [
+        ('Incrocio D3', 'confrontatelo con l’Inventario Originale di Braga e vedrete il «di più»', ''),
+    ],
+    6: [
+        ('Esca', 'La Lettera del Perito', 'è rancore da cattedra, non prova nulla: Coda non ha né i mezzi né i gatti'),
+    ],
+    7: [('Reperto C', 'il Verbale d’Inventario', ''),
+        ('Nota', '', 'il Sigillo non è un reperto: qui c’è solo la sua scheda, '
+                     'l’originale è all’Attico')],
+    8: [
+        ('Oggetto', 'La Parola dei Tetti', 'al Primo Gatto, lo dispone a trattare'),
+        ('Oggetto', 'I Ramponi', 'sui tetti le cadute non vi feriranno'),
+        ('Reperto B', 'la Lastra Fonografica', ''),
+    ],
+    9: [('Reperto A', 'il Sigillo «C.B.»', '')],
 }
 
 TILE_ART_14 = {t['id']: t['id'] + '-ep14.png' for t in TILES_14}
@@ -809,7 +818,7 @@ def luoghi():
     N.pagina_indice_citta(c, LUOGHI_14, 'Episodio 14')
 
     def oggetto_righe(n):
-        return ['<b>Oggetto</b> — carta “' + t + '”' for t in OGGETTI_LUOGO_14.get(n, [])]
+        return N.oggetto_righe(OGGETTI_LUOGO_14.get(n, []))
 
     for L in LUOGHI_14:
         art_file = L['art']

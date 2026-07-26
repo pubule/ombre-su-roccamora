@@ -107,8 +107,7 @@ LUOGHI_8 = [
              'che si vergogna della propria data ha sempre una bella storia dietro.»',
              'Fossa sceglie il marengo migliore e vi incide una tacca da banco, quasi '
              'invisibile: «un corriere che porta un marengo così non lo ferma nessuno, '
-             'all’ansa morta. Riportatemelo, se potete. E se non potete, spendetelo '
-             'BENE.» <i>(Oggetto: prendete la carta Il Marengo Segnato.)</i>'],
+             'all’ansa morta. Riportatemelo, se potete. E se non potete, spendetelo BENE.»'],
          approfondimenti=[
              dict(tipo='Osservazione', soggetto='La lente di Fossa',
                   testo='Sotto la lente, tra le molature, un residuo nero nelle zigrinature: '
@@ -174,14 +173,12 @@ LUOGHI_8 = [
          indizi=[
              'Le bolle del carbone, infilzate sul chiodo: carbone da FORGIA, il triplo del '
              'fabbisogno di un porto senza fonderie. Destinazione: «molo in disarmo, ansa '
-             'morta, consegna giovedì notte». <i>(Reperto C: consegnate le Bolle del '
-             'Carbone.)</i>',
+             'morta, consegna giovedì notte».',
              'Il carbonaio, a voce bassa: «il giovedì il carro torna SCARICO ma pesante — '
              'le assi del fondo piegate come sotto il ferro. Io il carbone lo conosco: il '
              'carbone non piega le assi. L’oro sì.»',
-             'In un angolo, casse di lanterne da sentina a vetro basso, «per il '
-             'deposito»: luce da contrabbando, che non si vede dal fiume. Una è ancora '
-             'imballata. <i>(Oggetto: prendete la carta La Lanterna da Sentina.)</i>'],
+             'In un angolo, casse di lanterne da sentina a vetro basso, «per il deposito»: '
+             'luce da contrabbando, che non si vede dal fiume. Una è ancora imballata.'],
          approfondimenti=[
              dict(tipo='Referto', soggetto='Le bolle del carbone',
                   testo='Le firme di ricevuta sulle bolle del giovedì sono tutte della '
@@ -199,9 +196,8 @@ LUOGHI_8 = [
          indizi=[
              'L’esattore tira fuori da sotto il letto la sua copia dell’inventario del '
              'sequestro: «casse ventidue, once quattromila, sigilli demaniali dall’uno al '
-             'ventidue. Io le ho CONTATE, da praticante. Poi il deposito giudiziario '
-             'bruciò, e le casse risultarono “disperse”. Disperse un corno: TRASLOCATE.» '
-             '<i>(Reperto A: consegnate l’Inventario del Tesoro.)</i>',
+             'ventidue. Io le ho CONTATE, da praticante. Poi il deposito giudiziario bruciò, '
+             'e le casse risultarono “disperse”. Disperse un corno: TRASLOCATE.»',
              'Il vecchio ricorda i sigilli: «la matrice demaniale del Quarantuno non fu '
              'mai distrutta. Passò d’ufficio, con l’archivio, di scrivania in scrivania. '
              'Chi la tiene oggi può sigillare — e DISSIGILLARE — qualunque cosa lo Stato '
@@ -227,8 +223,7 @@ LUOGHI_8 = [
          indizi=[
              'Il fascicolo del sequestro 1741 c’è tutto: verbali, inventario, e i SIGILLI '
              'demaniali in ceralacca sul faldone. Sigilli scaduti da un secolo — e la '
-             'ceralacca di due di essi è FRESCA: lucida, elastica, di quest’anno. '
-             '<i>(Reperto B: consegnate il Fascicolo del Sequestro.)</i>',
+             'ceralacca di due di essi è FRESCA: lucida, elastica, di quest’anno.',
              'Il registro delle consultazioni del faldone: NESSUNA consultazione '
              'registrata da quarant’anni. Eppure la polvere sul faldone è smossa, e la '
              'ceralacca è nuova. Chi entra qui non passa dal registro — e non passa dal '
@@ -263,9 +258,8 @@ LUOGHI_8 = [
              'quaderno di conti che lei non nasconde nemmeno: sa che non potete leggerlo '
              'da qui. E sorride.',
              'Il servizio da caffè è di porcellana buona ma SPAIATO: tazze comprate in '
-             'fretta, una per volta, per ricevere gente che prima non riceveva. La '
-             'Vedova non è la figura di comodo di nessuno: è un’impresa in espansione. '
-             '<i>(Esame di Carbone disponibile: la tazza del caffè.)</i>'],
+             'fretta, una per volta, per ricevere gente che prima non riceveva. La Vedova non '
+             'è la figura di comodo di nessuno: è un’impresa in espansione.'],
          approfondimenti=[
              dict(tipo='Osservazione', soggetto='Le mani della Vedova',
                   testo='Versa il caffè con la grazia di una padrona di casa — ma tiene la '
@@ -323,9 +317,8 @@ TILES_8 = [
                  'passare tra eroi adiacenti, un’azione gratuita per turno come gli '
                  'oggetti). Le casse NON si perdono se l’eroe cade: restano sulla sua '
                  'casella.',
-         cerca='Sotto una cerata, un gancio da carico col manico consumato: +1 alle '
-               'prove Interagire con casse e paranchi. <i>(Oggetto: Il Gancio da '
-               'Carico.)</i>',
+         cerca='Sotto una cerata, un gancio da carico col manico consumato: +1 alle prove '
+               'Interagire con casse e paranchi.',
          arredi=[(1, 1, 'casse'), (2, 2, 'casse')]),
     dict(id='T3', nome='IL MAGAZZINO DEL CARBONE', exits={'S': 'T2', 'N': 'T4'},
          testo='Montagne di sacchi fino alle travi, polvere nera che beve la luce delle '
@@ -752,10 +745,28 @@ LUOGHI8_DESC = {
 }
 
 OGGETTI_LUOGO_8 = {
-    2: ['Il Marengo Segnato'],
-    3: ['La Tessera della Chiatta'],
-    4: ['Il Sigillo di Piombo del Monte'],
-    5: ['La Lanterna da Sentina'],
+    2: [
+        'Il Marengo Segnato',
+    ],
+    3: [
+        'La Tessera della Chiatta',
+    ],
+    4: [
+        'Il Sigillo di Piombo del Monte',
+    ],
+    5: [
+        'La Lanterna da Sentina',
+        ('Reperto C', 'le Bolle del Carbone', ''),
+    ],
+    6: [
+        ('Reperto A', 'l’Inventario del Tesoro', ''),
+    ],
+    7: [
+        ('Reperto B', 'il Fascicolo del Sequestro', ''),
+    ],
+    8: [
+        ('Esame di Carbone', '', 'disponibile sulla tazza del caffè'),
+    ],
 }
 
 TILE_ART_8 = {t['id']: t['id'] + '-ep8.png' for t in TILES_8}
@@ -822,7 +833,7 @@ def luoghi():
     N.pagina_indice_citta(c, LUOGHI_8, 'Episodio 8')
 
     def oggetto_righe(n):
-        return ['<b>Oggetto</b> — carta “' + t + '”' for t in OGGETTI_LUOGO_8.get(n, [])]
+        return N.oggetto_righe(OGGETTI_LUOGO_8.get(n, []))
 
     for L in LUOGHI_8:
         art_file = L['art']
