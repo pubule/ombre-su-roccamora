@@ -193,7 +193,12 @@ LUOGHI_16 = [
          req='L’archivio delle lettere della Società apre solo a chi ha notato la crepa: il nastro '
              'verde che il presidente sapeva prima di tutti.',
          chiave=('parola', 'IL NASTRO VERDE'), art='L’Archivio delle Lettere.png',
-         chiude=18,
+         # NON rimettere 18: l'indagine COMINCIA alle 18:00 e luogoVisitabile
+         # chiude a `ora >= chiude`, quindi il luogo era irraggiungibile dal
+         # primo istante — e con esso la Lettera di M., il Reperto A e la
+         # RILETTURA. Il controllo dell'orologio precede la serratura
+         # (indagine.js), quindi nemmeno il Grimaldello di Nino entrava.
+         chiude=21,
          indizi=[
              'Il Taccuino e le vecchie lettere d’incarico di M., conservate una a una. È qui '
              'che debutta la RILETTURA: rileggere le lettere passate, con occhi nuovi.',
@@ -434,7 +439,7 @@ def indagine():
         c.setFillColor(SEPIA); c.setFont(F['r'], 8)
         c.drawCentredString(xx + 5*mm, H - 42*mm, hh)
     c.setFillColor(RED); c.setFont(F['i'], 8)
-    c.drawString(16*mm + 6*17*mm + 2*mm, H - 41.5*mm, '! Archivio Lettere (6) chiude 18')
+    c.drawString(16*mm + 6*17*mm + 2*mm, H - 41.5*mm, '! Archivio Lettere (6) chiude 21')
 
     def sect(ytop, label, nlines):
         c.setFillColor(TEAL); c.setFont(F['sc'], 10)
