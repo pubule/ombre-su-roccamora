@@ -837,6 +837,11 @@ function interazioneDisponibile(nm) {
   // compito d'episodio: le canne da sfregiare, i movimenti da spegnere, le
   // casse da sequestrare — l'obiettivo vero di quindici episodi su ventuno
   const c = compitoDisponibile(pos);
+  // il compito bloccato si MOSTRA lo stesso, con la ragione: un bottone che
+  // sparisce senza spiegazioni e' il modo migliore per far credere che il
+  // gioco sia rotto proprio quando invece sta applicando la regola stampata
+  if (c && c.bloccato) return { tipo: 'compito', c, bloccato: true,
+    label: `${c.etichetta} — prima all’ultima Ferita (${c.bloccato.ferite}/${c.bloccato.max})` };
   if (c) return { tipo: 'compito', c, label: `${c.etichetta} (${compitoFatte(c.id)}/${c.quante})` };
   return null;
 }
@@ -1143,8 +1148,16 @@ function compitoDisponibile(pos) {
     // compito su un NEMICO: agganciare il corriere, prendere vivo il Caposquadra,
     // catturare il Notaio — adiacenza a quella miniatura, non una stanza
     if (c.nemico) {
-      const q = sp.nemici.some((n) => n.pos && n.nome === c.nemico && adiacGlob(pos, n.pos));
-      if (!q) continue;
+      const n = sp.nemici.find((x) => x.pos && x.nome === c.nemico && adiacGlob(pos, x.pos));
+      if (!n) continue;
+      // «va preso VIVO»: dove il fascicolo lo chiede (Ep.11 «ridotto a 1
+      // Ferita», Ep.14 «ridotto all'ultima Ferita TRATTA», Ep.15
+      // «ridotto/abbattuto», Ep.19 «si ferma all'ultima Ferita, poi
+      // persuasione») il negoziato non si apre finche' il nemico e' in forze.
+      // Senza questa guardia bastava un Interagire a salute piena. L'Ep.12
+      // NON la vuole: li' il fascicolo dice «agganciarlo prima (adiacenza +
+      // Interagire)», ed e' una corsa, non uno scontro.
+      if (c.ridotto && !n.abbattuto && n.ferite < n.max - 1) return { ...c, bloccato: n };
       return c;
     }
     if (c.tile !== pos.t) continue;
@@ -1379,6 +1392,10 @@ async function azioneInteragire(nm) {
   if (disp.tipo === 'grata') { sp.grate.push(`${sp.eroiPos[nm].t}-${disp.dir}`); log('La grata è aperta.'); segnaAzione(nm, 'interagire'); return; }
   if (disp.tipo === 'compito') {
     const c = disp.c;
+    if (disp.bloccato) {
+      flash(`${c.nemico.toLowerCase()} non tratta finché è in forze: riducetelo all’ultima Ferita (${disp.c.bloccato.ferite}/${disp.c.bloccato.max}), poi Interagite.`);
+      return;                                   // nessuna azione spesa
+    }
     if (c.prova) {
       const e = eroe(nm);
       const r = await tiraProva({ titolo: `${c.prova.attr.toUpperCase()} — ${primo(nm)}`, diffLabel: c.prova.diff,

@@ -143,8 +143,20 @@ const vicino = (a, b, d = 1) => !!a && !!b && a.t === b.t && Math.abs(a.x - b.x)
 // nomi dei nemici che un compito chiede di PRENDERE, non di abbattere: il
 // Corriere, il Primo Gatto, il Caposquadra, il Notaio, Vidal. Ucciderli e' il
 // modo piu' rapido di perdere l'episodio, e il pilota lo faceva.
+// Ma «prendere» non vuol dire «non toccare»: dove il fascicolo chiede il
+// bersaglio RIDOTTO (Ep.11 «preso vivo, ridotto a 1 Ferita», Ep.14 «ridotto
+// all'ultima Ferita TRATTA», Ep.15 «ridotto/abbattuto», Ep.19 «si ferma
+// all'ultima Ferita, poi persuasione») il negoziato non si apre finche' quello
+// e' in forze. Quindi si colpisce fino alla penultima Ferita e li' ci si
+// ferma: da quel momento torna protetto, e `peso` — che manda per primi i
+// nemici a una Ferita dalla fine — non lo finisce.
 const daCatturare = (s) => new Set(COMPITI
   .filter((c) => c.nemico && ((s.compiti || {})[c.id] || 0) < c.quante)
+  .filter((c) => {
+    if (!c.ridotto) return true;              // Ep.12: si aggancia, non si mena
+    const n = s.nemici.find((x) => x.nome === c.nemico);
+    return !n || n.ferite >= n.max - 1;       // gia' ridotto: da qui si protegge
+  })
   .map((c) => c.nemico));
 
 function bersaglio(s, pos) {
