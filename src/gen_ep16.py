@@ -371,7 +371,11 @@ TILES_16 = [
          cerca_vuoto='La stanza è preparata come una scena: lenzuola nuove, candele '
                      'accese, un vestito appeso che nessuno ha mai indossato. Niente, '
                      'qui, è davvero di qualcuno.',
-         arredi=[(0, 2, 'casse')]),
+         # La stanza aveva UN SOLO mobile, mentre il testo promette «non sapete
+         # da sotto quale»: la ricerca aveva un candidato solo, cioe' nessuna.
+         # Una camera nuziale allestita ne ha piu' d'uno, e il motore gia'
+         # tiene il conto dei tentativi andati a vuoto (`uscitaTentati`).
+         arredi=[(0, 2, 'casse'), (3, 2, 'armadio'), (2, 3, 'toeletta')]),
 ]
 
 # Nemici (statistiche - fonte per Bestiario e simulatore). Il boss piu' debole.
