@@ -227,8 +227,50 @@ def _ha_chiave(path, n):
     return _luoghi_del_file(path).get(n, (None, None))[0] is not None
 
 
+def prova_soglie_carte():
+    """Le carte fisiche stampano le soglie di Canto, ma `cards-data.js` e' una
+    seconda fonte scritta a mano: quando un episodio viene ritarato, la carta
+    resta indietro e al tavolo si gioca col numero sbagliato. E' gia' successo
+    a due episodi insieme (Ep.17 diceva 3 invece di 6, Ep.18 quattro invece di
+    7 — tre in meno in tutti e quattro i numeri, il residuo di una riscalatura
+    mai propagata), e nessuno se n'era accorto perche' il fascicolo e la webapp
+    erano d'accordo fra loro.
+    """
+    import json
+    radice = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    carte = os.path.join(radice, 'scripts', 'cardconjurer', 'cards-data.js')
+    if not os.path.exists(carte):                # repo senza il printer: si salta
+        return
+    with open(carte, encoding='utf-8') as f:
+        testo = f.read()
+    confini = [(m.start(), int(m.group(1)))
+               for m in re.finditer(r'^const EP(\d+)\w*', testo, re.M)]
+    confini.append((len(testo), None))
+    blocchi = {}
+    for (a, n), (b, _) in zip(confini, confini[1:]):
+        if n:
+            blocchi.setdefault(n, []).append(testo[a:b])
+
+    guasti, viste = [], 0
+    for n, pezzi in sorted(blocchi.items()):
+        dati = os.path.join(radice, 'webapp', 'data', f'ep{n}.json')
+        if not os.path.exists(dati):
+            continue
+        with open(dati, encoding='utf-8') as f:
+            orologio = json.load(f).get('orologio') or {}
+        atteso = orologio.get('su_canto')
+        for m in re.finditer(r'soglia-(\w+)\s*\(Canto (\d+)', ''.join(pezzi)):
+            viste += 1
+            if int(m.group(2)) != atteso:
+                guasti.append(f'Ep.{n}: la carta stampa soglia-{m.group(1)} = '
+                              f'{m.group(2)}, il gioco dice {atteso}')
+    assert viste, 'nessuna soglia trovata sulle carte: il controllo e\' vacuo'
+    assert not guasti, 'soglie divergenti fra carte e gioco:\n  ' + '\n  '.join(guasti)
+
+
 if __name__ == '__main__':
     prova_forme()
     prova_indizi_puliti()
     prova_descrizioni(pavimento='--pavimento' in sys.argv)
-    print('OK oggetto_righe + indizi puliti + descrizioni')
+    prova_soglie_carte()
+    print('OK oggetto_righe + indizi puliti + descrizioni + soglie carte')
