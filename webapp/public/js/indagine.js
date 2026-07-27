@@ -657,6 +657,15 @@ function busta() {
   const inBusta = esiti.filter((e) => !e.dopo_spedizione);
   const t = tierIndagine(ep, ind, inBusta.map((e) => e.ok));
   P().vantaggi = { tier: t.tier, dossier: t.dossier, risposte: esiti.map((e) => e.ok) };
+  // Le penalita' da Domanda sbagliata erano SOLO stampate: `sbagliata` compare
+  // in due punti dell'app, entrambi di sola lettura. Al tavolo le applica chi
+  // arbitra; in digitale l'arbitro e' l'app, e non le applicava nessuno — meta'
+  // della posta dell'Indagine spariva. Qui si applica la piu' comune, «la
+  // spedizione parte con 1 segnalino Canto in piu'» (undici Domande su venti
+  // episodi), che ora ha un campo suo invece di vivere solo nella prosa.
+  // Le altre penalita' restano al testo: sono una diversa per episodio.
+  const cantoIniziale = esiti.reduce((n, e) => n + (e.ok ? 0 : ((e.penalita || {}).canto || 0)), 0);
+  P().spedizione = { ...(P().spedizione || {}), canto: cantoIniziale };
   salvaP();
   app.innerHTML = `
     ${barra('la busta è aperta')}
@@ -680,6 +689,8 @@ function busta() {
         : 'nessuno: siete arrivati col fiato corto.'}
         (${t.oreAvanzate} ore avanzate, ${t.luoghi} luoghi visitati)</p>
       ${t.dossier ? '<p><b>Dossier completo:</b> 1 gettone Intuizione — un solo ri-tiro, una volta, in spedizione.</p>' : ''}
+      ${cantoIniziale ? `<p class="mt"><b class="ko-txt">Partite in ritardo:</b> la spedizione comincia
+        con <b>${cantoIniziale} segnalino${cantoIniziale > 1 ? 'i' : ''} Canto</b> già sulla traccia.</p>` : ''}
       ${controBusta(ep) ? `<hr class="divisore">
         <p class="nota"><b>Resta una busta sigillata.</b> ${esc(controBusta(ep).q.replace(/^CONTRO-BUSTA — /, ''))}
         Non si apre stanotte: si apre quando tornate dalla villa.</p>` : ''}

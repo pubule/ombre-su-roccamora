@@ -24,9 +24,6 @@ import fs from 'fs';
 const BASE = 'http://localhost:8017';
 const EPID = (process.argv[2] || 'ep1').replace(/[^a-z0-9]/gi, '');
 const N = Number(process.argv[3]) || 10;
-// Canto iniziale: i Bivi di campagna possono far partire il finale con il
-// Dormiente gia' piu' vicino. CANTO0=2 misura il caso peggiore.
-const CANTO0 = Number(process.env.CANTO0) || 0;
 const EP = JSON.parse(fs.readFileSync(`webapp/data/${EPID}.json`, 'utf8'));
 const CHIAVE_SALVATAGGIO = `osr.partita.${EPID}`;
 // esito d'Indagine da simulare: 'slancio' (ottimo), 'preparati' (medio),
@@ -37,7 +34,19 @@ const TIER = process.env.INDAGINE || 'preparati';
 // tessere non compare. Serve a collaudare quel ramo giocandolo, non a misurare
 // il bilanciamento — le percentuali di riferimento restano quelle di 'digitale'.
 const MODO = process.env.MODO === 'tavolo' ? 'tavolo' : 'digitale';
-// la tessera dove cercare l'oggetto che apre la cella, se l'episodio ne ha uno
+
+// Le Domande sbagliate ora costano davvero: undici di esse dicono «la
+// spedizione parte con 1 segnalino Canto in piu'», e da oggi l'app le applica
+// invece di limitarsi a stamparle. Il pilota pero' NON modella le risposte:
+// semina `tier` (la preparazione) e lascia le risposte tutte sbagliate, che e'
+// come ha sempre misurato — cambiarlo qui ri-baserebbe in silenzio la mappa di
+// tutti e 21 gli episodi. La penalita' resta una dimensione ESPLICITA: si
+// misura con CANTO0. Impatto gia' rilevato (N=20): Ep.2 con 1 segnalino 80%
+// (invariato), Ep.6 con 2 segnalini 40% contro 60%, Ep.20 con 1 segnalino 10%
+// contro 35% — il finale e' l'unico dove la penalita' e' decisiva.
+// Uno schema «meta' giuste» e' stato provato e scartato: alternando le
+// risposte le penalita' cadevano tutte sulle Domande indovinate e sparivano.
+const CANTO0 = Number(process.env.CANTO0) || 0;
 const TILE_CHIAVE = (SC0 => (SC0 && SC0.chiave ? 'T4' : null))((EP.scortato || [])[0]);
 
 const USCITE = {};
