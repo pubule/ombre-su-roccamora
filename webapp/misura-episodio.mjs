@@ -24,6 +24,9 @@ import fs from 'fs';
 const BASE = 'http://localhost:8017';
 const EPID = (process.argv[2] || 'ep1').replace(/[^a-z0-9]/gi, '');
 const N = Number(process.argv[3]) || 10;
+// Canto iniziale: i Bivi di campagna possono far partire il finale con il
+// Dormiente gia' piu' vicino. CANTO0=2 misura il caso peggiore.
+const CANTO0 = Number(process.env.CANTO0) || 0;
 const EP = JSON.parse(fs.readFileSync(`webapp/data/${EPID}.json`, 'utf8'));
 const CHIAVE_SALVATAGGIO = `osr.partita.${EPID}`;
 // esito d'Indagine da simulare: 'slancio' (ottimo), 'preparati' (medio),
@@ -534,7 +537,7 @@ for (let g = 0; g < N; g++) {
     : comune.eroi.map((e) => e.nome).sort(() => Math.random() - 0.5).slice(0, 4);
   dimParty = party.length;
   await pg.goto(BASE, { waitUntil: 'domcontentloaded' });
-  await pg.evaluate(({ p, k, id, TIER, OGG, MODO }) => {
+  await pg.evaluate(({ p, k, id, TIER, OGG, MODO, C0 }) => {
     localStorage.clear();
     localStorage.setItem(k, JSON.stringify({
       v: 1, episodio: id, modo: MODO, plancia: 'schermo', party: p, creata: Date.now(), fase: 'spedizione',
@@ -546,9 +549,9 @@ for (let g = 0; g < N; g++) {
       // niente oggetti — cioe' il pavimento, non l'episodio. Si sceglie con
       // INDAGINE=slancio|preparati|nessuno (default: preparati, l'esito medio).
       vantaggi: { tier: TIER, dossier: TIER === 'slancio', risposte: [false, false, false, false] },
-      spedizione: { round: 0, canto: 0, cantoBonus: false, mazzo: null, esito: null },
+      spedizione: { round: 0, canto: C0, cantoBonus: false, mazzo: null, esito: null },
     }));
-  }, { p: party, k: CHIAVE_SALVATAGGIO, id: EPID, TIER, OGG: EP.oggetti_indagine || [], MODO });
+  }, { p: party, k: CHIAVE_SALVATAGGIO, id: EPID, TIER, OGG: EP.oggetti_indagine || [], MODO, C0: CANTO0 });
   // AVVIO VERIFICATO. La catena titolo->continua->via e' tre schermate che si
   // susseguono: se un click parte prima che la successiva sia montata, l'avvio
   // muore in silenzio e la partita resta a round 0 — erano 28 «stalli» su 168
@@ -556,15 +559,15 @@ for (let g = 0; g < N; g++) {
   // e' davvero cominciata (fase eroi con pedine sul tabellone).
   let avviata = false;
   for (let tent = 0; tent < 8 && !avviata; tent++) {
-    if (tent) await pg.evaluate(({ p, k, id, TIER, OGG, MODO }) => {
+    if (tent) await pg.evaluate(({ p, k, id, TIER, OGG, MODO, C0 }) => {
       localStorage.setItem(k, JSON.stringify({ v: 1, episodio: id, modo: MODO, plancia: 'schermo', party: p,
         creata: Date.now(), fase: 'spedizione',
         indagine: { ora: 24, lettaLettera: true, visitati: [], scoperti: [], sbloccati: [], parole: [],
           oggetti: OGG, reperti: [], approfondimentiLetti: [], caricheUsate: {}, secondoFiato: {},
           note: '', risposte: ['', '', '', ''], chiusa: true },
         vantaggi: { tier: TIER, dossier: TIER === 'slancio', risposte: [false, false, false, false] },
-        spedizione: { round: 0, canto: 0, cantoBonus: false, mazzo: null, esito: null } }));
-    }, { p: party, k: CHIAVE_SALVATAGGIO, id: EPID, TIER, OGG: EP.oggetti_indagine || [], MODO });
+        spedizione: { round: 0, canto: C0, cantoBonus: false, mazzo: null, esito: null } }));
+    }, { p: party, k: CHIAVE_SALVATAGGIO, id: EPID, TIER, OGG: EP.oggetti_indagine || [], MODO, C0: CANTO0 });
     await pg.goto(BASE, { waitUntil: 'domcontentloaded' });
     await finoA(async () => (await pg.getByText(EP.titolo).count()) > 0, 8000);
     await pg.getByText(EP.titolo).first().click().catch(() => {});

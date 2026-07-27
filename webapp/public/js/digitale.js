@@ -316,7 +316,13 @@ function iniziaPartita() {
   const eroiPos = {};
   partita.party.forEach((nm, i) => { eroiPos[nm] = { t: t0.id, x: (celle[i] || entrata)[0], y: (celle[i] || entrata)[1] }; });
   partita.spedizione = {
-    digitale: true, round: 1, fase: 'eroi', canto: 0, cantoBonus: false, esito: null,
+    // Il Canto non riparte sempre da zero: tre Bivi di campagna (11, 18, 19)
+    // promettono un finale che «parte col Dormiente piu' vicino a svegliarsi»,
+    // e la Domanda 1 sbagliata dell'Ep.20 lo fa partire da 1. Qui si legge il
+    // valore gia' nello stato invece di azzerarlo. Partita nuova = 0 (store.js),
+    // e `#via` e' l'unico chiamante, quindi nessuna ripresa puo' ereditarlo.
+    digitale: true, round: 1, fase: 'eroi', canto: partita.spedizione?.canto || 0,
+    cantoBonus: false, esito: null,
     rivelate: [t0.id], eroiPos, nemici: [],
     // `parte_libero`: certi PNG non vanno liberati, partono col gruppo — il teste
     // dell'Ep.9 esce dalla sacrestia con voi e va portato al Molo. `salute`: e'

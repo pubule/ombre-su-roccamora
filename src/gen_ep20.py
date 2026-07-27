@@ -425,6 +425,7 @@ def indagine():
                 Paragraph(lett, st('let', fontName=F['i'], fontSize=11, leading=16, alignment=4))])
     seal(c, W - mx - 12*mm, H - 211*mm, r=13*mm, angle=-10)
     c.setFillColor(TEAL); c.setFont(F['i'], 9.5)
+    c.drawCentredString(W/2, 24*mm, 'PRIMA DI TUTTO: aprite le buste dei Bivi degli Episodi 19, 18 e 11 e applicate i vostri rami.')
     c.drawCentredString(W/2, 18*mm, 'Indagine breve e feroce: l’ORA, la VIA, la VOCE, il CONTROCANTO. Poi la discesa.')
     c.drawCentredString(W/2, 12*mm, 'Aperti dall’inizio: la Cattedrale, gli ossari, la Taverna della Chiatta, l’Archivio del 1741.')
     c.showPage()
@@ -601,6 +602,41 @@ def soluzione():
     pagina('soluzione — non aprire (il finale)', [
         '<b>Stampate questo fascicolo senza leggerlo e sigillatelo in una busta.</b> Apritelo '
         'solo dopo aver risposto per iscritto alle 4 Domande.',
+
+        '<b>APERTURA — il Bivio dell’Episodio 19</b> (applicare PRIMA della lettera): se avete '
+        'scelto <b>CONVINCERE L’ISPETTORE CON LE PROVE</b> — i gendarmi sigillano le uscite della '
+        'cripta, e alle spalle avete una ritirata: vale la regola normale, <b>un eroe a terra può '
+        'essere rianimato</b> da un compagno adiacente. Ma le prove sono passate per troppe mani e '
+        'l’ora si è spostata: <b>il Canto (risveglio) sale ogni 5° round invece che ogni 6°</b> '
+        '(5°, 10°, 15°…). Se avete scelto <b>ENTRARE DA SOLI</b> — nessuno sa dove siete, e la '
+        'prima ondata vi cerca altrove: <b>nel primo giro del mazzo Minaccia pescate 1 carta in '
+        'meno</b>. Ma non c’è nessuno fuori ad aspettarvi: <b>Rianimare non è disponibile</b> — un '
+        'eroe che cade resta a terra fino alla fine. Chi ha sigillato la busta senza decidere ha '
+        'lasciato che l’Ispettore si muovesse da sé: primo ramo.',
+
+        '<b>CODA — il Bivio dell’Episodio 18</b> (retro del Frammento n. 18): se avete <b>RESO '
+        'PUBBLICA LA PROVA SUBITO</b> — il vantaggio l’avete già incassato nell’Episodio 19 (la '
+        'città schierata), e qui si paga: messo all’angolo, il Quarto Movimento è stato anticipato '
+        'e il Dormiente è più vicino alla veglia. <b>Mescolate 1 carta crescendo in più nel mazzo '
+        'Minaccia</b> — 5 crescendo invece di 4, 22 carte invece di 21. Se avete <b>TENUTO LA '
+        'PROVA</b> — quel Bivio si è già chiuso nell’Episodio 19, in bene e in male: <b>qui non '
+        'applicate nulla</b>.',
+
+        '<b>CODA — il Bivio dell’Episodio 11</b> (retro del Frammento n. 11): quel Bivio nominava '
+        'proprio questa notte. Se avete scelto <b>INFILTRARE LA SQUADRA</b> — il vostro uomo dentro '
+        'vi ha fruttato due episodi di vantaggio, ma la mappatura della gola si è completata lo '
+        'stesso, e il rituale non comincia da fermo: <b>il Canto (risveglio) parte da 1</b>. Se '
+        'avete scelto <b>PUBBLICARE LO SCANDALO</b> — quel prezzo l’avete pagato nell’Atto III: '
+        '<b>qui non applicate nulla</b>.',
+
+        '<b>Per chi arbitra: quanto pesano.</b> Un solo segnalino Canto di partenza è il colpo più '
+        'duro dei tre — la corsa del Controcanto è lunga e il risveglio non aspetta. Non '
+        'compensatelo di vostra iniziativa: il contrappeso è già nel gioco, ed è il <b>ritmo del '
+        'canto</b>. Un gruppo che canta 2 righe per round e uno che ne canta 4 non giocano la '
+        'stessa partita: il secondo si riprende il segnalino perduto e avanza. Quel ritmo lo '
+        'decidono i <b>Frammenti conservati</b> (1 riga + 1 ogni 6) e la Mappa Acustica, cioè '
+        'venti episodi di scelte, non questa notte. Un gruppo che arriva qui con un Bivio duro e '
+        'pochi Frammenti deve perdere: è il conto della campagna che si chiude.',
         '<b>Il caso.</b> Le maree di sizigia sono tornate. Una notte sola: l’ora, la via delle tre '
         'acque, la voce che M. cerca, il controcanto. Poi la discesa nella gola della città.',
         '<b>La verità.</b> M. ha un coro comprato (canta senza fede); gli manca una voce che creda '
@@ -628,7 +664,8 @@ def soluzione():
         '<b>IL CONTROCANTO E I FRAMMENTI:</b> servono <b>10 righe</b> di controcanto per vincere. Ogni '
         'round nella camera (T6) cantate <b>1 riga + 1 ogni 6 Frammenti conservati</b> (Mappa '
         'Acustica: +1). Ogni impiegato del coro in campo: −1 riga/round. Il Canto (risveglio) sale '
-        'come sempre; alla <b>soglia-risveglio = Canto 8</b> il Dormiente si desta.',
+        'alla fine di <b>ogni 6° round</b> (6°, 12°, 18°…) — è una spedizione lunga, non ogni 4° — '
+        'più ogni crescendo pescato; alla <b>soglia-risveglio = Canto 8</b> il Dormiente si desta.',
     ])
     pagina('spedizione — la discesa, in tre fasi', [
         '<b>Montaggio</b> (tessere in Episodio 20/board/, coperte tranne T1):<br/>'
