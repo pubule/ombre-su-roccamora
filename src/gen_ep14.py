@@ -424,6 +424,7 @@ def indagine():
                 Paragraph(lett, st('let', fontName=F['i'], fontSize=11, leading=16, alignment=4))])
     seal(c, W - mx - 12*mm, H - 211*mm, r=13*mm, angle=-10)
     c.setFillColor(TEAL); c.setFont(F['i'], 9.5)
+    c.drawCentredString(W/2, 24*mm, 'PRIMA DI TUTTO: aprite la busta del Bivio dell’Episodio 13 e applicate il vostro ramo.')
     c.drawCentredString(W/2, 18*mm, 'Chi tiene il fascicolo Luoghi ordina le 9 carte per numero (è nel titolo): aperte scoperte, le altre coperte.')
     c.drawCentredString(W/2, 12*mm, 'Aperti dall’inizio: la Villa-Museo di Braga, la Gazzetta di Roccamora, il Banco dei Pegni, la Gendarmeria.')
     c.showPage()
@@ -602,6 +603,22 @@ def soluzione():
     pagina('soluzione — non aprire', [
         '<b>Stampate questo fascicolo senza leggerlo e sigillatelo in una busta.</b> Apritelo '
         'solo dopo aver risposto per iscritto alle 4 Domande.',
+        '<b>APERTURA — il Bivio dell’Episodio 13</b> (applicare PRIMA della lettera): se avete '
+        'scelto <b>PUNTARE ALL’ARRESTO DEL NOTAIO</b> — prima che i soldi lo facciano '
+        'scarcerare, Rasca ha fatto quel nome, e il nome è il professor Braga: arrivate alla '
+        'Villa-Museo con un sospetto già in mano e lo mettete alle strette sulla soglia, così la '
+        'Testimonianza «Il professor Braga» (Luogo 1) parte GIÀ RIVELATA. Il prezzo promesso si '
+        'paga qui: il fermo ha chiuso la filiera e messo i registri del Notaio sotto sequestro, '
+        'e l’archivio della Gendarmeria ha altro da protocollare — <b>un incrocio in meno alla '
+        'Domanda 3</b>: rimuovete il Referto «La prima pietra del falso» (Luogo 7) dal mazzo '
+        'Approfondimenti. La Domanda 3 resta raggiungibile con le altre due conferme (Luogo 1 e '
+        'Luogo 5). Se avete scelto <b>PEDINARLO</b> — dietro a Rasca avete visto come si paga un '
+        'lavoro senza mai incontrare in faccia chi lo esegue: <b>un incrocio in più alla Domanda '
+        '2</b> (la commissione era cieca). Il prezzo non si paga qui: avete seguito la strada che '
+        'lui voleva farvi fare, e il nome del rivale vi è arrivato in tasca già pronto — segnate '
+        'sul Taccuino <b>un incrocio in meno all’Episodio 15</b>. In entrambi i rami il Notaio '
+        'resta fuori da stanotte: non compare in nessun Luogo e non si nomina, lo riprenderete '
+        'molto più avanti.',
         '<b>Il caso.</b> Il professor Braga (rivale di M., iniziali C.B.) denuncia il furto delle '
         'sue lastre fonografiche, opera dei Gatti del Corso. Ma la refurtiva rientra con oggetti '
         'IN PIÙ — un sigillo «C.B.», ricevute, appunti — che Braga disconosce.',

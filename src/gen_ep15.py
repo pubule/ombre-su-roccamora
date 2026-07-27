@@ -424,6 +424,7 @@ def indagine():
                 Paragraph(lett, st('let', fontName=F['i'], fontSize=11, leading=16, alignment=4))])
     seal(c, W - mx - 12*mm, H - 211*mm, r=13*mm, angle=-10)
     c.setFillColor(TEAL); c.setFont(F['i'], 9.5)
+    c.drawCentredString(W/2, 24*mm, 'PRIMA DI TUTTO: aprite la busta del Bivio dell’Episodio 14 e applicate il vostro ramo.')
     c.drawCentredString(W/2, 18*mm, 'Chi tiene il fascicolo Luoghi ordina le 9 carte per numero (è nel titolo): aperte scoperte, le altre coperte.')
     c.drawCentredString(W/2, 12*mm, 'Aperti dall’inizio: la Gendarmeria, il Tribunale, la Gazzetta di Roccamora, la Stanza del Testimone.')
     c.showPage()
@@ -604,6 +605,22 @@ def soluzione():
     pagina('soluzione — non aprire', [
         '<b>Stampate questo fascicolo senza leggerlo e sigillatelo in una busta.</b> Apritelo '
         'solo dopo aver risposto per iscritto alle 4 Domande della Busta pubblica.',
+        '<b>APERTURA — il Bivio dell’Episodio 14</b> (applicare PRIMA della lettera): se avete '
+        'scelto <b>RESTITUIRE TUTTO A BRAGA SENZA INVENTARIO</b> — il professore, trattato da '
+        'gentiluomo e non da imputato, ricambia la cortesia: vi riceve prima della Gendarmeria e '
+        'vi accompagna lui stesso fra le sue carte, invece di lasciarvi leggere solo quelle che vi '
+        'hanno messo in mano. <b>Un incrocio in più alla Domanda 1</b> (DOVE sono le prove contro '
+        'Braga). Il prezzo non si paga qui: senza verbale il Sigillo «C.B.» non è mai entrato agli '
+        'atti — segnate sul Taccuino, alla riga «Episodio 18», <b>un incrocio in meno</b>. Se '
+        'avete scelto <b>INVENTARIO GIUDIZIARIO COMPLETO</b> — Braga, esposto al ridicolo davanti '
+        'a tutta la città, non muove un dito per voi: non risponde, non riceve, e il suo avvocato '
+        'chiede che la villa sia sigillata subito, per sottrarla ad altre mani. <b>Il Canto parte '
+        'a 1</b> (in questo episodio il Canto è il sigillo: il cordone si stringe con un round di '
+        'margine in meno). Il vantaggio l’avete già incassato altrove: segnate sul Taccuino, alla '
+        'riga «Episodio 18», <b>un incrocio in più</b> — il Sigillo «C.B.» resta agli atti. <b>In '
+        'entrambi i rami</b> la disponibilità di Braga vale solo di giorno, alla verifica: di '
+        'notte il professore non è in casa, e nessuno dei due rami tocca tessere, nemici o carte '
+        'del mazzo.',
         '<b>Il caso.</b> Un dossier anonimo incastra il professor Braga come C.B.: tutto combacia. '
         'La città esulta, il Tribunale prepara l’arresto, la Società è chiamata a verificare.',
         '<b>La verità.</b> Il dossier è fabbricato da M. col metodo indiziario della Società (una '
