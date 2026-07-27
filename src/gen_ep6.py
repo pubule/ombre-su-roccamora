@@ -374,7 +374,7 @@ TILES_6 = [
                  'leggerla a voce ferma: il rito muore, il Dormiente si riassopisce '
                  '(vittoria piena; Ferri crolla: Bivio). IL DORMIENTE (ambiente): al 4° '
                  'segnalino Canto tutte le prove -1; al 6°: ogni round l’eroe con meno '
-                 'NERVI subisce 1 danno; al 9°: il rituale si compie — fuga forzata '
+                 'NERVI subisce 1 danno; al 7°: il rituale si compie — fuga forzata '
                  '(epilogo peggiore, non sconfitta).',
          cerca_vuoto='Le tre vene si torcono al centro senza mescolarsi, e la pietra '
                      'intorno è nuda: nessun arredo, nessuna nicchia, niente che '
@@ -666,8 +666,8 @@ def soluzione():
         'l’ordine con cui il capitolo del ’41 le chiuse: <b>bronzo, poi pietra, poi '
         'ossa</b>. Chi ha entrambi i reperti affronta la Camera SAPENDO — e il Dormiente '
         'gli concede più margine: tutte le sue soglie ambiente salgono di 1 '
-        '(<b>4/6/9→5/7/10</b>, cioè prove -1 al 5° segnalino, battito al 7°, rituale '
-        'compiuto al 10° invece che a 4/6/9). Un solo reperto non basta: servono '
+        '(<b>4/6/7→5/7/8</b>, cioè prove -1 al 5° segnalino, battito al 7°, rituale '
+        'compiuto all’8° invece che al 7°). Un solo reperto non basta: servono '
         'entrambi.',
         '<b>Vantaggio d’Indagine:</b> Slancio SOLO con tutte e 4 le risposte esatte E 3+ '
         'ore avanzate (lo slancio è di chi SA dove andare); Preparati con 1+ ore avanzate '
@@ -690,7 +690,7 @@ def soluzione():
         '(Media) a inizio round o ha 1 sola azione (l’acqua alla cintola).',
         '<b>Il Dormiente (ambiente, solo T8 rivelata):</b> al 4° segnalino Canto tutte le '
         'prove hanno -1; al 6°: ogni round l’eroe con meno NERVI subisce 1 danno (il '
-        'battito); al 9°: il rituale si compie — fuga forzata: epilogo peggiore, NON '
+        'battito); al 7°: il rituale si compie — fuga forzata: epilogo peggiore, NON '
         'sconfitta a tavolino.',
         '<b>Ferri e il Coro:</b> Ferri si desta in T8 (o al 3° segnalino: piazzatelo '
         'sulla tessera più lontana, con 1 Adepto di scorta — e da quel momento ogni Fase '

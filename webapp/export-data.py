@@ -1020,7 +1020,7 @@ episodi = dict(
         lettera=LETTERA_7,
         obiettivo='Liberate Fava (Interagire, in T6) e riportatelo in T1 per la via '
                   'dell’andata (scelta in T2: ponteggi O intercapedini). Il Capocantiere '
-                  'non va abbattuto per forza; al 12° segnalino Allarme il cantiere si '
+                  'non va abbattuto per forza; al 7° segnalino Allarme il cantiere si '
                   'sbarra (sconfitta a tempo).',
         # NESSUNA uscita segreta: la via del ritorno e' quella scelta in T2
         # (ponteggi o intercapedini) ed e' il cuore dell'episodio — una
