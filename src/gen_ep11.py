@@ -210,7 +210,13 @@ LUOGHI_11 = [
          req='Al campanile si sale, e a quest’ora la salita è chiusa: apre solo a chi sa che la '
              'misura buona si prende con la marea, quando l’acqua del molo è al suo segno.',
          chiave=('parola', 'LA MAREA DEL MOLO'), art='Cella campanaria.png',
-         chiude=19,
+         # Era 19, e l'Indagine comincia alle 18: con `ora >= chiude`
+         # (engine.luogoVisitabile) restava una sola visita — ma la parola che
+         # apre qui si impara ALTROVE, e impararla consuma proprio quello slot.
+         # Finestra zero, salvabile solo col Grimaldello. Stessa medicina
+         # dell'Ep.16 L6 (I1 dell'audit): si sposta l'ora, non si toglie il
+         # vincolo — restano 18-20 per arrivarci.
+         chiude=21,
          indizi=[
              'Il campanaro, vecchio e sordo di un orecchio, ricorda i topografi: «salivano '
              'all’ora d’accordatura, quando batto le campane per il vespro. Dicevano che serviva '

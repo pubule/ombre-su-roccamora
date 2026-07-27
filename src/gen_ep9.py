@@ -179,7 +179,13 @@ LUOGHI_9 = [
              'deposizione». Ma chi nomina il fondo giusto — quello che lo paga — trova un '
              'praticante spaventato e una porta socchiusa.',
          chiave=('parola', 'IL FONDO CARITATEVOLE'), art='Studio Grassi.png',
-         chiude=19,
+         # Era 19, e l'Indagine comincia alle 18: con `ora >= chiude`
+         # (engine.luogoVisitabile) restava una sola visita — ma la parola che
+         # apre qui si impara ALTROVE, e impararla consuma proprio quello slot.
+         # Finestra zero, salvabile solo col Grimaldello. Stessa medicina
+         # dell'Ep.16 L6 (I1 dell'audit): si sposta l'ora, non si toglie il
+         # vincolo — restano 18-20 per arrivarci.
+         chiude=21,
          indizi=[
              'Il registro delle «spese vive» dell’avvocato: voci innocue, tranne una '
              'ricorrente — «cortesie alle ronde, zona porto e centro, notturne». L’avvocato '

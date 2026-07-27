@@ -333,6 +333,35 @@ def prova_esche_non_annunciate():
     assert not guasti, 'esche annunciate negli indizi:\n  ' + '\n  '.join(guasti)
 
 
+# L'Indagine comincia alle 18 (store.js:22) e ogni visita costa un'ora;
+# `engine.luogoVisitabile` chiude a `ora >= chiude`. Un luogo con la PAROLA
+# d'ordine ne richiede DUE, di visite: una dove la parola si impara, una per
+# entrarci. Quindi `chiude` sotto le 20 e' una finestra di larghezza zero, non
+# una stretta. E' gia' costato tre luoghi: l'Ep.16 L6 (che conteneva la Lettera
+# di M., il Reperto A e il debutto della RILETTURA), l'Ep.9 L5 (il registro
+# delle ronde e la parcella: le prove di DUE Domande) e l'Ep.11 L6.
+ORA_INIZIO = 18
+CHIUDE_MINIMO = ORA_INIZIO + 2
+
+
+def prova_finestre_luoghi():
+    import json
+    radice = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    dati = glob.glob(os.path.join(radice, 'webapp', 'data', 'ep*.json'))
+    assert dati, 'nessun episodio esportato: il controllo e\' vacuo'
+    guasti = []
+    for path in sorted(dati):
+        with open(path, encoding='utf-8') as f:
+            ep = json.load(f)
+        for L in ep.get('luoghi') or []:
+            chiude = L.get('chiude')
+            if L.get('chiave') and chiude is not None and chiude < CHIUDE_MINIMO:
+                guasti.append(f'{os.path.basename(path)[:-5]} L{L["n"]} «{L["nome"]}»: '
+                              f'chiuso a chiave e chiude alle {chiude} — servono due '
+                              f'visite, ne resta {max(0, chiude - ORA_INIZIO)}')
+    assert not guasti, 'luoghi irraggiungibili:\n  ' + '\n  '.join(guasti)
+
+
 def prova_bestiari():
     """Ogni nemico che un episodio mette in campo deve avere la sua scheda nel
     Bestiario di quell'episodio. `gen_bestiario` saltava la scheda quando
@@ -380,5 +409,6 @@ if __name__ == '__main__':
     prova_soglie_carte()
     prova_sottotitoli()
     prova_esche_non_annunciate()
+    prova_finestre_luoghi()
     prova_bestiari()
-    print("OK righe + indizi + descrizioni + soglie + sottotitoli + esche + bestiari")
+    print("OK righe + indizi + desc + soglie + sottotitoli + esche + finestre + bestiari")
