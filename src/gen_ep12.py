@@ -224,8 +224,8 @@ LUOGHI_12 = [
              'I punzoni di ceralacca della Società, tutti al loro posto, tutti autentici. Nessuno '
              'è stato rubato o duplicato: i sigilli sui Frammenti li ha rifatti chi aveva diritto '
              'di rifarli, dopo aver copiato.',
-             'In un cassetto, un grimaldello lasciato lì bene in vista, quasi apposta. Un '
-             'depistaggio grossolano per chi vuole credere all’effrazione.',
+             'In un cassetto, un grimaldello. Non in fondo, sotto le altre cose: sopra, al '
+             'centro, con la punta verso chi apre. È nuovo, e non ha un graffio.',
              'Il custode dei sigilli è sicuro: «se qualcuno avesse forzato, la ceralacca lo '
              'mostrerebbe: scaldata due volte, colata storta, punzone sbagliato. Niente di tutto '
              'questo. Chi ha richiuso sapeva richiudere: uno di noi.»'],

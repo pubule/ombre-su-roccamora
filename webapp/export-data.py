@@ -708,7 +708,7 @@ SOLUZIONI = dict(
                  esatta='Conoscete la crepa del coro: la chiave tattica dell’Ep.20 (gli impiegati si rompono e fuggono).',
                  sbagliata='Entrerete nel finale senza sapere la debolezza di M.'),
             dict(q='COSA portate alla discesa?',
-                 risposta='La Mappa Acustica (L8), il Fascicolo del 1741 (L9, in spedizione) e i Frammenti-bis. È l’economia dell’Ep.20: ciò che manca qui, manca là.',
+                 risposta='La Mappa Acustica (L8), il Fascicolo del 1741 (L9, in spedizione) e i Frammenti conservati (n. 1-19). È l’economia dell’Ep.20: ciò che manca qui, manca là.',
                  esatta='Aiuti: la mappa dei sigilli (Fossa), le Prove per l’Ispettore (L4 + l’archivio di Braga se protetto). (Esche: la Taglia da Riscuotere, la Via Facile.)',
                  sbagliata='Scendete nell’Ep.20 senza il controcanto o la mappa: quasi impossibile.'),
         ],

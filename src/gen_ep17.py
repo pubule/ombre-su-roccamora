@@ -222,8 +222,8 @@ LUOGHI_17 = [
          chiave=('parola', 'IL DOSSIER CIFRATO'), art='La Dogana Vecchia.png',
          chiude=None,
          indizi=[
-             'Alla Dogana Vecchia, il transito notturno di una carrozza chiusa del Notaio, tre notti '
-             'fa, verso la campagna. «Carte in regola, custodia riservata. Dazio pagato. Il solito '
+             'Alla Dogana Vecchia, il transito notturno di una carrozza chiusa del Notaio, la notte '
+             'scorsa, verso la campagna. «Carte in regola, custodia riservata. Dazio pagato. Il solito '
              'nolo del signor Rasca.» Il decano era là dentro.',
              'Il doganiere, sottovoce, vi porge un lasciapassare del Notaio: «Con questo non '
              'vi fermano ai cancelli. Fate presto: le carrozze chiuse del Notaio, di solito, '
@@ -232,7 +232,7 @@ LUOGHI_17 = [
              'noli della carta di pregio.'],
          approfondimenti=[
              dict(tipo='Referto', soggetto='La carrozza che torna vuota',
-                  testo='La carrozza chiusa del Notaio è passata alla Dogana tre notti fa, diretta a '
+                  testo='La carrozza chiusa del Notaio è passata alla Dogana la notte scorsa, diretta a '
                         'una villa fuori porta, con un «trasferimento riservato» a bordo: il decano. '
                         'Le carte erano in regola, come sempre con Rasca — perché il suo mestiere è '
                         'far sembrare legale ciò che non lo è. Il doganiere lo sa, e ha paura: dice '

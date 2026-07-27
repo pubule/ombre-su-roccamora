@@ -616,7 +616,8 @@ def soluzione():
         '(la chiave tattica dell’Ep. 20: gli impiegati si rompono e fuggono). <i>Sbagliata:</i> '
         'entrerete nel finale senza sapere la debolezza di M.',
         '<b>4. COSA portate alla discesa?</b> La Mappa Acustica (L8), il Fascicolo del 1741 (L9, in '
-        'spedizione) e i Frammenti-bis. <i>È l’economia dell’Ep. 20:</i> ciò che manca qui, manca '
+        'spedizione) e i <b>Frammenti conservati</b> (n. 1-19, quelli che avete tenuto serata '
+        'dopo serata: sono le righe del controcanto). <i>È l’economia dell’Ep. 20:</i> ciò che manca qui, manca '
         'là. Aiuti: la mappa dei sigilli (Fossa), le Prove per l’Ispettore (L4 + Braga L5). '
         '<i>Esche:</i> la Taglia da Riscuotere, la Via Facile.',
         '<b>IL CONTO DEI BIVI:</b> contate i Bivi a favore (Braga protetto Ep. 15, decano lucido '
@@ -644,7 +645,7 @@ def soluzione():
         'evitarli è meglio.',
         '<b>Il Fascicolo.</b> Al deposito (T6), Interagire prende il Fascicolo del 1741 — '
         'indispensabile per il controcanto dell’Ep. 20. Non prenderlo è l’unico vero fallimento '
-        '(raro). La Mappa Acustica (dall’Indagine, L8) e i Frammenti-bis completano l’economia del '
+        '(raro). La Mappa Acustica (dall’Indagine, L8) e i Frammenti conservati (n. 1-19) completano l’economia del '
         'finale.',
         '<b>Vittoria.</b> Fascicolo preso e Ispettore CONVINTO = <b>vittoria piena</b> (nell’Ep. 20 '
         'Vidal tiene aperte le uscite: ritirata sicura). Fascicolo preso e Ispettore solo fermato = '

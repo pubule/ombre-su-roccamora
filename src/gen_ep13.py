@@ -115,7 +115,7 @@ LUOGHI_13 = [
              'Sulla scrivania, il suo timbro di studio, quello che finisce su ogni bolla. '
              'Rasca lo lascia prendere senza battere ciglio: sa che non prova nulla.',
              'Un praticante, quando Rasca esce, bisbiglia: «il capo-catena annegato era venuto '
-             'qui, tre giorni fa. Ha litigato col Notaio a porte chiuse. Il giorno dopo era '
+             'qui ieri. Ha litigato col Notaio a porte chiuse. Stanotte era '
              'morto. Io non ho visto niente, chiaro? Ma quell’uomo sapeva qualcosa, e il Notaio '
              'lo sapeva sapere.»'],
          approfondimenti=[

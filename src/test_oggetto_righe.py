@@ -297,6 +297,42 @@ def prova_sottotitoli():
                         + '\n  '.join(guasti))
 
 
+# Parole con cui l'autore, non il mondo, dichiara che una pista e' falsa. Negli
+# indizi — l'unico testo letto ad alta voce — equivalgono a dire al tavolo «non
+# guardate li'», cioe' a risolvere l'indagine al posto loro. Vale la regola di
+# PROMPT-ESPANSIONE: l'atmosfera si mostra, la deduzione sta al giocatore.
+# NON si vieta «non c'entra nulla»: e' modo di dire, e in bocca a un personaggio
+# («quando gli fate notare che non c'entra nulla», gen_ep15.py) e' una battuta.
+ESCHE_DETTE = re.compile(r'\bdepistagg\w+|\be[’\']\s*un[’\']?\s*esca\b|\bfalsa pista\b'
+                         r'|\baccusa a caso\b|\bper depistare\b', re.I)
+
+
+def prova_esche_non_annunciate():
+    """Nessun indizio puo' dichiarare che una pista e' un'esca."""
+    guasti = []
+    radice = os.path.dirname(os.path.abspath(__file__))
+    for path in sorted(glob.glob(os.path.join(radice, 'gen_ep*.py'))) + \
+            [os.path.join(radice, f) for f in ('gen_cards.py', 'gen_preludio.py')]:
+        if not os.path.exists(path):
+            continue
+        for nodo in ast.walk(ast.parse(open(path, encoding='utf-8').read())):
+            if not (isinstance(nodo, ast.Call) and getattr(nodo.func, 'id', None) == 'dict'):
+                continue
+            for kw in nodo.keywords:
+                if kw.arg != 'indizi':
+                    continue
+                try:
+                    voci = ast.literal_eval(kw.value)
+                except Exception:
+                    continue
+                for v in voci:
+                    m = ESCHE_DETTE.search(v)
+                    if m:
+                        guasti.append(f'{os.path.basename(path)}:{kw.value.lineno} '
+                                      f'«{m.group(0)}»')
+    assert not guasti, 'esche annunciate negli indizi:\n  ' + '\n  '.join(guasti)
+
+
 def prova_bestiari():
     """Ogni nemico che un episodio mette in campo deve avere la sua scheda nel
     Bestiario di quell'episodio. `gen_bestiario` saltava la scheda quando
@@ -343,5 +379,6 @@ if __name__ == '__main__':
     prova_descrizioni(pavimento='--pavimento' in sys.argv)
     prova_soglie_carte()
     prova_sottotitoli()
+    prova_esche_non_annunciate()
     prova_bestiari()
-    print("OK righe + indizi + descrizioni + soglie + sottotitoli + bestiari")
+    print("OK righe + indizi + descrizioni + soglie + sottotitoli + esche + bestiari")
