@@ -1241,8 +1241,15 @@ episodi = dict(
         # «AGGANCIATE il Primo Gatto prima che il Canto raggiunga la soglia-FUGA e
         # lo faccia sparire oltre la cresta».
         compiti=[dict(id='gatto', nemico='IL PRIMO GATTO', quante=1, ridotto=True,
+                      # «mostrandogli il segno dei Gatti tratta gia' a 2
+                      # Ferite e non tenta la fuga finale» (gen_ep14.py:347)
+                      ridotto_oggetto='parola dei tetti', ridotto_con_oggetto=2,
                       etichetta='Aggancia il Primo Gatto',
                       fatto='Il Primo Gatto è agganciato: parlerà della commissione.')],
+        # seme di misura, come la Macchina Fotografica dell'Ep.10: la Parola
+        # dei Tetti si prende al Covo (L8) e cambia la regola del boss —
+        # senza seminarla il pilota misura un episodio che nessuno gioca
+        oggetti_indagine=['La Parola dei Tetti'],
         vittoria=dict(testo='Il Primo Gatto tratta: sapete chi ha commissionato il furto.'),
         orologio=dict(id='fuga', nome='Fuga sui tetti', su_canto=5,
                       esito='parziale', testo='Il Gatto scavalca la cresta e sparisce.'),

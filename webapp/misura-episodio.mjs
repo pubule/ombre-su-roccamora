@@ -377,6 +377,12 @@ async function turnoEroe(nm, mt, party) {
     if (lib('interagire') && await vis('#az-interagire')) { tipo = 'interagire'; await clicDom('#az-interagire'); await sciogli(); }
     else if (lib('cercare') && TILE_CHIAVE && pos.t === TILE_CHIAVE && !s.cercate?.[TILE_CHIAVE] && await vis('#az-cercare')) { tipo = 'cercare'; await clicDom('#az-cercare'); await sciogli(); }
     else if (lib('rianimare') && (s.vite[nm] ?? 0) >= 3 && await vis('#az-rianimare')) { tipo = 'rianimare'; await clicDom('#az-rianimare'); await sciogli(); }
+    // «Usa oggetto» resta l'azione meno esercitata: fino al 27/07 il pilota
+    // partiva a mani vuote in tutti gli episodi tranne il 10, quindi il
+    // bottone non compariva quasi mai. Appena l'Ep.14 ha seminato la Parola
+    // dei Tetti sono uscite 20 corse su 20 con «fase eroi mai arrivata»: non
+    // era il pilota, era `usaOggetto` che dopo il messaggio non ridisegnava
+    // il tabellone. `sciogli()` chiude da se' sia la scelta sia il messaggio.
     else if (lib('oggetto') && bersaglio(s, pos) >= 0 && await vis('#az-oggetto')) { tipo = 'oggetto'; await clicDom('#az-oggetto'); await sciogli(); }
     else if (lib('abilita') && abilitaUtile(nm, s) && await vis(`[data-abil="${nm}"]`)) { tipo = 'abilita'; await pg.evaluate((n) => document.querySelector(`[data-abil="${CSS.escape(n)}"]`)?.click(), nm); await sciogli(); }
     else if (lib('muovere')) {

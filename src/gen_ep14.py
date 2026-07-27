@@ -343,7 +343,8 @@ TILES_14 = [
          arbitro='IL PRIMO GATTO appare (non ancora ingaggiabile): da qui le carte crescendo '
                  'spingono la traccia FUGA. Se la FUGA raggiunge la soglia prima che lo agganciate '
                  'all’Attico (T6), sparisce oltre i tetti (vittoria parziale). La Parola dei Tetti '
-                 'abbassa la soglia d’ingaggio (vi lascia avvicinare).',
+                 'lo fa trattare gia’ a 2 Ferite invece che all’ultima, e porta la '
+                 'soglia-fuga da 5 a 6.',
          hook='La Parola dei Tetti (dal Covo): il Primo Gatto vi riconosce come gente di codice — '
               'tratta già a 2 Ferite e non tenta la fuga finale.',
          cerca_vuoto='L’abbaino dà su una soffitta buia che sa di legno chiuso. Sul '
@@ -509,8 +510,9 @@ def spedizione():
                   'voi. Quando il Canto raggiunge la <b>soglia-fuga</b> (indicata dalla Soluzione) '
                   'prima che l’abbiate agganciato all’Attico (T6), <b>sparisce</b> oltre i tetti: '
                   'la spedizione si chiude senza la sua parola (vittoria parziale). Le carte '
-                  'crescendo spingono verso la soglia; la <b>Parola dei Tetti</b> abbassa la soglia '
-                  'd’ingaggio (vi lascia avvicinare).', BODY),
+                  'crescendo spingono verso la soglia-fuga; la <b>Parola dei Tetti</b> lo fa trattare '
+                  'gia’ a <b>2 Ferite</b> invece che all’ultima, e porta la soglia-fuga '
+                  'da 5 a 6.', BODY),
         Paragraph('• <b>OBIETTIVO.</b> All’Attico (T6), agganciate il Primo Gatto (adiacenza + '
                   'Interagire, o la Parola dei Tetti). Ridotto all’ultima Ferita <b>TRATTA</b> e '
                   'dice la verità sulla commissione — <b>vittoria piena</b>. <b>Ucciderlo</b> (a 0 '
@@ -664,8 +666,8 @@ def soluzione():
         '<b>La soglia-fuga.</b> Segnate il Canto come al solito. Alla <b>soglia-fuga = Canto 5</b> '
         '(6 con la Parola dei Tetti), il Primo Gatto scavalca la cresta e sparisce, se non '
         'l’avete già agganciato all’Attico (T6): vittoria parziale. Le carte crescendo (fischio/il '
-        'Gatto si sposta) accelerano. La Parola dei Tetti alza di fatto la soglia (aggancio a 2 '
-        'Ferite, niente fuga finale).',
+        'Gatto si sposta) accelerano. La Parola dei Tetti anticipa l’aggancio (tratta a 2 '
+        'Ferite invece che all’ultima) e gli toglie la fuga finale.',
         '<b>Pericoli di quota.</b> Comignolo (T2): prova DESTREZZA/NERVI o si resta un round '
         'aggrappati (la FUGA avanza). Lucernario (T5): prova VIGORE/DESTREZZA o si sfonda un vetro '
         '(1 danno + FUGA). Coi Ramponi (o la fune da T3) niente cadute. I Gatti minori (T3) '

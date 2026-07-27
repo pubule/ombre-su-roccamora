@@ -841,7 +841,7 @@ function interazioneDisponibile(nm) {
   // sparisce senza spiegazioni e' il modo migliore per far credere che il
   // gioco sia rotto proprio quando invece sta applicando la regola stampata
   if (c && c.bloccato) return { tipo: 'compito', c, bloccato: true,
-    label: `${c.etichetta} — prima all’ultima Ferita (${c.bloccato.ferite}/${c.bloccato.max})` };
+    label: `${c.etichetta} — prima a ${c.soglia} Ferite (${c.bloccato.ferite}/${c.bloccato.max})` };
   if (c) return { tipo: 'compito', c, label: `${c.etichetta} (${compitoFatte(c.id)}/${c.quante})` };
   return null;
 }
@@ -1157,7 +1157,16 @@ function compitoDisponibile(pos) {
       // Senza questa guardia bastava un Interagire a salute piena. L'Ep.12
       // NON la vuole: li' il fascicolo dice «agganciarlo prima (adiacenza +
       // Interagire)», ed e' una corsa, non uno scontro.
-      if (c.ridotto && !n.abbattuto && n.ferite < n.max - 1) return { ...c, bloccato: n };
+      // …ma un oggetto puo' anticipare il momento in cui tratta: la Parola dei
+      // Tetti dell'Ep.14 fa sedere il Primo Gatto gia' a 2 Ferite («mostrandogli
+      // il segno dei Gatti tratta gia' a 2 Ferite e non tenta la fuga finale»),
+      // stesso schema di `per_azione.oggetto` per la Macchina Fotografica.
+      let soglia = n.max - 1;
+      if (c.ridotto_oggetto && (P().indagine.oggetti || [])
+          .some((o) => new RegExp(c.ridotto_oggetto, 'i').test(o))) {
+        soglia = Math.min(soglia, c.ridotto_con_oggetto || soglia);
+      }
+      if (c.ridotto && !n.abbattuto && n.ferite < soglia) return { ...c, bloccato: n, soglia };
       return c;
     }
     if (c.tile !== pos.t) continue;
@@ -1393,7 +1402,7 @@ async function azioneInteragire(nm) {
   if (disp.tipo === 'compito') {
     const c = disp.c;
     if (disp.bloccato) {
-      flash(`${c.nemico.toLowerCase()} non tratta finché è in forze: riducetelo all’ultima Ferita (${disp.c.bloccato.ferite}/${disp.c.bloccato.max}), poi Interagite.`);
+      flash(`${c.nemico.toLowerCase()} non tratta finché è in forze: portatelo a ${c.soglia} Ferite (ora ${c.bloccato.ferite}/${c.bloccato.max}), poi Interagite.`);
       return;                                   // nessuna azione spesa
     }
     if (c.prova) {
@@ -1529,6 +1538,12 @@ async function usaOggetto(nm) {
   const o = (ctx.ep.oggetti || []).find((x) => norm(x.nome) === norm(scelto));
   await messaggio(scelto.toLowerCase(), `${o && o.effetto ? `<p>${rendi(o.effetto)}</p>` : '<p class="nota">Nessun effetto attivo qui.</p>'}
     <p class="nota mt">Effetto passivo o narrativo: nessuna azione spesa.</p>`);
+  // `messaggio` sostituisce l'INTERA pagina, e qui non si spende un'azione:
+  // senza questo render il tabellone non torna piu' e la partita sembra
+  // morta. Succedeva con qualunque oggetto passivo — i Ramponi, la Macchina
+  // Fotografica, la Parola dei Tetti — cioe' quasi tutti. Il ramo del
+  // diapason non ne soffriva perche' `segnaAzione` ridisegna.
+  render();
 }
 
 // --------------------------------------------------------- spawn nemici
@@ -1601,6 +1616,21 @@ function destaBossSeSoglia() {
   const sp = SP(); const boss = ctx.ep.soluzione.boss; const soglia = ctx.comune.regole.soglia_canto;
   if (!boss || sp.canto < soglia) return [];
   if (sp.bossDestato || sp.nemici.some((x) => x.nome === boss)) return [];
+  // Un boss che NON si muove non puo' destarsi «nella stanza piu' lontana»: la
+  // Camera del Dormiente (Ep.20) ha mov 0 perche' E' la camera, cioe' la
+  // tessera finale. Piazzata a caso al Canto 3, e poi bloccata da `bossDestato`
+  // dal ricomparire dove le spetta, restava in un angolo del tabellone senza
+  // toccare nessuno — sono i «4 eroi su 4 in piedi» misurati nel finale. Se la
+  // sua tessera non e' ancora scoperta non si desta affatto: ci pensera'
+  // `spawnDaTesto` quando il gruppo aprira' la camera.
+  const st = nemStat(boss) || {};
+  const suo = (ctx.ep.soluzione || {}).boss_tile
+    || (ctx.ep.tessere[ctx.ep.tessere.length - 1] || {}).id;
+  if (!st.mov) {
+    if (!sp.rivelate.includes(suo)) return [];
+    if (!spawnUno(boss, suo)) return [];
+    return [`${boss.toLowerCase()} si desta: è la stanza stessa (${suo}).`];
+  }
   const tile = tessLontana();
   if (!spawnUno(boss, tile)) return [];
   return [`${boss.toLowerCase()} si desta nella stanza rivelata più lontana (${tile}).`];
