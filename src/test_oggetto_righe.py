@@ -268,9 +268,39 @@ def prova_soglie_carte():
     assert not guasti, 'soglie divergenti fra carte e gioco:\n  ' + '\n  '.join(guasti)
 
 
+SPOILER_INDICE = re.compile(
+    r'C\.B\.|\bfalso finale\b|episodio-esca|\brivelazione\b|\bspaccata\b'
+    r'|\bcolpa di\b|\btalpa\b|\bsmascherament', re.I)
+
+
+def prova_sottotitoli():
+    """L'indice della webapp (`main.js:88`) stampa il sottotitolo di TUTTI gli
+    episodi, sbloccati o no: e' la prima schermata che si vede. Ci si era
+    infilata la rivelazione che regge venti serate («Atto III (la rivelazione):
+    C.B. e' M.»), piu' «il falso finale» dell'Ep.15 e «l'episodio-esca»
+    dell'Ep.14 — vocabolario di progetto, per giunta. Il registro giusto e'
+    quello degli Ep. 1-7: si nomina l'aggancio, mai la risposta.
+    """
+    import json
+    radice = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    dati = glob.glob(os.path.join(radice, 'webapp', 'data', 'ep*.json'))
+    assert dati, 'nessun episodio esportato: il controllo e\' vacuo'
+    guasti = []
+    for path in sorted(dati):
+        with open(path, encoding='utf-8') as f:
+            sotto = json.load(f).get('sottotitolo', '')
+        trovato = SPOILER_INDICE.search(sotto)
+        if trovato:
+            guasti.append(f'{os.path.basename(path)}: «{sotto}» '
+                          f'(rivela: {trovato.group(0)})')
+    assert not guasti, ('sottotitoli che rivelano la trama nell\'indice:\n  '
+                        + '\n  '.join(guasti))
+
+
 if __name__ == '__main__':
     prova_forme()
     prova_indizi_puliti()
     prova_descrizioni(pavimento='--pavimento' in sys.argv)
     prova_soglie_carte()
-    print('OK oggetto_righe + indizi puliti + descrizioni + soglie carte')
+    prova_sottotitoli()
+    print('OK oggetto_righe + indizi + descrizioni + soglie carte + sottotitoli')

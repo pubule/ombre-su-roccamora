@@ -1073,7 +1073,7 @@ episodi = dict(
     ),
     ep9=dict(
         id='ep9', titolo='Il processo',
-        sottotitolo='episodio 9 — Atto II: la scorta del teste, e il primo volto di C.B.',
+        sottotitolo='episodio 9 — Atto II: un teste da portare vivo al Tribunale',
         cartella='Episodio 9', ore_budget=6,
         lettera=LETTERA_9,
         obiettivo='Portate vivo il teste Anselmo Riva (3 Salute, si muove col gruppo, non '
@@ -1186,7 +1186,7 @@ episodi = dict(
     ),
     ep13=dict(
         id='ep13', titolo='Carta di pregio',
-        sottotitolo='episodio 13 — Atto III (apertura): la cartiera di C.B., il molino fuori città',
+        sottotitolo='episodio 13 — Atto III (apertura): il molino fuori città',
         cartella='Episodio 13', ore_budget=6,
         lettera=LETTERA_13,
         obiettivo='Salite il Molino delle Carte fino al torchio (T6) e SEQUESTRATE i registri '
@@ -1228,7 +1228,7 @@ episodi = dict(
     ),
     ep14=dict(
         id='ep14', titolo='Il rivale',
-        sottotitolo='episodio 14 — Atto III: l’episodio-esca, arredare la colpa di Braga',
+        sottotitolo='episodio 14 — Atto III: il rivale, e le prove che lo inchiodano',
         cartella='Episodio 14', ore_budget=6,
         lettera=LETTERA_14,
         obiettivo='Salite i tetti del Corso fino all’Attico (T6) e AGGANCIATE il Primo Gatto '
@@ -1255,7 +1255,7 @@ episodi = dict(
     ),
     ep15=dict(
         id='ep15', titolo='Lo smascheramento',
-        sottotitolo='episodio 15 — Atto III: il falso finale, la doppia busta',
+        sottotitolo='episodio 15 — Atto III: la sera in cui tutto torna',
         cartella='Episodio 15', ore_budget=6,
         lettera=LETTERA_15,
         obiettivo='Un dossier anonimo incastra Braga come C.B.: tutto combacia troppo. Rispondete '
@@ -1325,7 +1325,7 @@ episodi = dict(
     ),
     ep17=dict(
         id='ep17', titolo='Lo scisma',
-        sottotitolo='episodio 17 — Atto III (il picco): la Società spaccata, il Notaio preso',
+        sottotitolo='episodio 17 — Atto III (il picco): lo scisma, e il decano che non risponde',
         cartella='Episodio 17', ore_budget=6,
         lettera=LETTERA_17,
         obiettivo='Il decano è sparito, la Società spaccata da una «caccia alla talpa» che è '
@@ -1361,7 +1361,7 @@ episodi = dict(
     ),
     ep18=dict(
         id='ep18', titolo='La mano sola',
-        sottotitolo='episodio 18 — Atto III (la rivelazione): C.B. è M., e la fuga da casa vostra',
+        sottotitolo='episodio 18 — Atto III (la chiusura): l’ultima assemblea',
         cartella='Episodio 18', ore_budget=6,
         lettera=LETTERA_18,
         obiettivo='Non c’è un nuovo delitto: c’è la DEDUZIONE finale. Le 4 Domande sono una sola — '
@@ -1421,7 +1421,7 @@ episodi = dict(
     ),
     ep20=dict(
         id='ep20', titolo='Il Quarto Movimento',
-        sottotitolo='episodio 20 — il finale: la gola della città, e il controcanto',
+        sottotitolo='episodio 20 — il finale: la gola della città, l’ultima notte',
         cartella='Episodio 20', ore_budget=6,
         lettera=LETTERA_20,
         obiettivo='IL FINALE. Un’indagine breve (l’ora, la via delle tre acque, la voce, il '
