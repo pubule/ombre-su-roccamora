@@ -370,7 +370,7 @@ NEMICI_19 = [
               'sufficiente lo CONVINCONO (passa dalla vostra parte: piena). Senza, si ferma comunque '
               '(non vi arresta stanotte) ma resta contro (parziale). Ai tavoli da 2-3 eroi non '
               'recupera mai Ferite (regola delle taglie).',
-         bio_bestiario='L’Ispettore Cesare Vidal è il migliore che la Gendarmeria abbia: onesto '
+         bio_bestiario='L’Ispettore Achille Vidal è il migliore che la Gendarmeria abbia: onesto '
               'fino all’osso, metodico, incorruttibile — e proprio per questo l’arma perfetta nelle '
               'mani di M., che non l’ha comprato (non si può) ma l’ha ingannato con un dossier '
               'costruito come quello di Braga. Vi dà la caccia perché crede, in buona fede, di '
