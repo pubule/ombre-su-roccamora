@@ -450,6 +450,7 @@ def indagine():
                 Paragraph(lett, st('let', fontName=F['i'], fontSize=11.5, leading=17, alignment=4))])
     seal(c, W - mx - 12*mm, H - 207*mm, r=13*mm, angle=-10)
     c.setFillColor(TEAL); c.setFont(F['i'], 9.5)
+    c.drawCentredString(W/2, 24*mm, 'PRIMA DI TUTTO: aprite la busta del Bivio dell’Episodio 9 e applicate il vostro ramo.')
     c.drawCentredString(W/2, 18*mm, 'Chi tiene il fascicolo Luoghi ordina le 9 carte per numero (è nel titolo): aperte scoperte, le altre coperte.')
     c.drawCentredString(W/2, 12*mm, 'Aperti dall’inizio: la casa che ricorda, la Corte della Faenza, l’Archivio Civico, la Gendarmeria.')
     c.showPage()
@@ -628,6 +629,15 @@ def soluzione():
     pagina('soluzione — non aprire', [
         '<b>Stampate questo fascicolo senza leggerlo e sigillatelo in una busta.</b> Apritelo '
         'solo dopo aver risposto per iscritto alle 4 Domande.',
+        '<b>APERTURA — il Bivio dell’Episodio 9</b> (applicare PRIMA della lettera): se avete '
+        'scelto <b>FAR DEPORRE IL TESTE</b> — la deposizione di Riva è a verbale e non si tocca: '
+        'nessun effetto in questo episodio, l’incrocio in più si spende alla deduzione d’atto '
+        'dell’Episodio 18. Ricordate solo di segnare sul Taccuino il PNG-alleato perso: Riva è '
+        'in protezione e per la campagna non c’è più. Se lo avete <b>NASCOSTO, PERDENDO LA '
+        'CAUSA</b> — la sentenza-beffa ha bollato la Società come «setta di truffatori», e chi '
+        'porta una divisa non parla più con voi fuori dai denti: rimuovete la Testimonianza '
+        '«Il brigadiere» (Luogo 4) dal mazzo Approfondimenti. La stessa perdita vale per gli '
+        'Episodi 11 e 12 (un Testimone in meno, indicato nel loro fascicolo).',
         '<b>Il caso.</b> Nella Corte della Faenza una casa d’affitto ristrutturata «parla»: la '
         'calce del restauro fu impastata con sabbia del Borgo delle Cisterne (Ep. 3), e i muri '
         'hanno registrato. Una voce detta un delitto di dieci anni fa: un uxoricidio archiviato '
