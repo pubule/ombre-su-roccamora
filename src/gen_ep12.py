@@ -404,6 +404,7 @@ def indagine():
                 Paragraph(lett, st('let', fontName=F['i'], fontSize=11, leading=16, alignment=4))])
     seal(c, W - mx - 12*mm, H - 211*mm, r=13*mm, angle=-10)
     c.setFillColor(TEAL); c.setFont(F['i'], 9.5)
+    c.drawCentredString(W/2, 24*mm, 'PRIMA DI TUTTO: aprite la busta del Bivio dell’Episodio 11 e applicate il vostro ramo.')
     c.drawCentredString(W/2, 18*mm, 'Chi tiene il fascicolo Luoghi ordina le 9 carte per numero (è nel titolo): aperte scoperte, le altre coperte.')
     c.drawCentredString(W/2, 12*mm, 'Aperti dall’inizio: il Palazzo del Lume, la casa dell’archivista, l’Ufficio del Fermo-Posta, il Banco dei Pegni.')
     c.showPage()
@@ -583,6 +584,25 @@ def soluzione():
     pagina('soluzione — non aprire', [
         '<b>Stampate questo fascicolo senza leggerlo e sigillatelo in una busta.</b> Apritelo '
         'solo dopo aver risposto per iscritto alle 4 Domande.',
+        '<b>APERTURA — il Bivio dell’Episodio 11</b> (applicare PRIMA della lettera): se avete '
+        'scelto <b>PUBBLICARE LO SCANDALO</b> — i lavori sono fermi e la città guarda: togliete '
+        '1 carta crescendo FUGA dal mazzo (restano 20 carte, 4 crescendo), stanotte la corrente '
+        'non è dalla parte del Corriere. Il prezzo non si paga qui: segnate sul Taccuino che le '
+        'scatole vuote hanno bruciato la pista — <b>un filo in meno nell’Atto III</b>. Se avete '
+        'scelto <b>INFILTRARE LA SQUADRA</b> — il vostro uomo dentro sa dove finisce ciò che i '
+        'topografi consegnano: <b>un incrocio in più alla Domanda 1</b> (DOVE avviene lo '
+        'scambio). Anche qui il prezzo è rimandato: segnate sul Taccuino che la mappatura si è '
+        'completata — <b>all’Episodio 20 il rituale parte con 1 segnalino Canto in più</b>. '
+        '<b>Strascichi.</b> Dal Bivio dell’Episodio 9, se allora avete <b>NASCOSTO IL TESTE, '
+        'PERDENDO LA CAUSA</b>: la Società è ancora la «setta di truffatori» della sentenza e '
+        'chi porta una divisa non parla: rimuovete la Testimonianza «Il sergente dei canali» '
+        '(Luogo 8) dal mazzo Approfondimenti — è il Testimone in meno annunciato nell’Episodio '
+        '10. Il Fischietto della Ronda resta prendibile al Corpo di Guardia: perdete la voce, '
+        'non l’oggetto. Dal Bivio dell’Episodio 10, se avete <b>USATO LA CASA COME ORECCHIO</b>: '
+        'una casa che ha sentito dettare sa che nessuna porta è stata forzata — <b>un incrocio '
+        'in più alla Domanda 3</b> (COME sono uscite dall’archivio). Se invece avete '
+        '<b>CONSEGNATO IL VEDOVO</b>, quel ramo si è già speso nell’Episodio 11: qui non cambia '
+        'nulla.',
         '<b>Il caso.</b> L’archivio della Società è stato copiato senza scasso (sigilli intatti). '
         'Tutti concludono che esista una talpa capace d’imitare la mano del presidente. Stanotte '
         'un corriere porta l’ultima infornata di copie allo scambio.',

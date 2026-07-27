@@ -446,6 +446,7 @@ def indagine():
                 Paragraph(lett, st('let', fontName=F['i'], fontSize=11, leading=16, alignment=4))])
     seal(c, W - mx - 12*mm, H - 211*mm, r=13*mm, angle=-10)
     c.setFillColor(TEAL); c.setFont(F['i'], 9.5)
+    c.drawCentredString(W/2, 24*mm, 'PRIMA DI TUTTO: aprite la busta del Bivio dell’Episodio 12 e applicate il vostro ramo.')
     c.drawCentredString(W/2, 18*mm, 'Chi tiene il fascicolo Luoghi ordina le 9 carte per numero (è nel titolo): aperte scoperte, le altre coperte.')
     c.drawCentredString(W/2, 12*mm, 'Aperti dall’inizio: la Stazione delle Carrozze, lo studio del Notaio, l’Ufficio del Fermo-Posta, la Dogana Vecchia.')
     c.showPage()
@@ -632,6 +633,23 @@ def soluzione():
     pagina('soluzione — non aprire', [
         '<b>Stampate questo fascicolo senza leggerlo e sigillatelo in una busta.</b> Apritelo '
         'solo dopo aver risposto per iscritto alle 4 Domande.',
+        '<b>APERTURA — il Bivio dell’Episodio 12</b> (applicare PRIMA della lettera): il Bivio '
+        'della talpa <b>non tocca questa serata</b> — non cambiate nulla al montaggio. Entrambi '
+        'i rami si pagano più avanti, e vanno solo segnati sul Taccuino. Se avete scelto <b>DIRE '
+        'A M. DELLA TALPA</b> — i PNG della Società restano uniti per tutto l’Atto III, ma la sua '
+        'indagine interna «ripulisce»: un incrocio in meno alla deduzione d’atto dell’Episodio '
+        '18. Se avete scelto <b>TACERE ANCHE A M.</b> — un incrocio in più all’Episodio 18, ma '
+        'lo scisma dell’Episodio 17 costerà un PNG in più. Alla riga «Episodio 18» del Taccuino '
+        'sommate anche l’esito di stanotte (vittoria parziale = un incrocio in meno).<br/>'
+        '<b>CODA — il Bivio dell’Episodio 11</b> (retro del Frammento n. 11): quello sì che si '
+        'applica stanotte, perché prometteva gli Episodi 12-13. Se avete <b>INFILTRATO LA '
+        'SQUADRA</b> — il vostro uomo fra i topografi ha battuto la provincia palmo a palmo e sa '
+        'dov’è l’unico opificio sull’acqua fuori le mura: <b>un incrocio in più alla Domanda '
+        '1</b> (il prezzo è già scritto e si paga all’Episodio 20). Se avete <b>PUBBLICATO LO '
+        'SCANDALO</b> — il «filo in meno nell’Atto III» si spende qui, all’apertura dell’Atto, '
+        'una volta sola: dopo i giornali nessun uomo in divisa mette più niente a verbale con '
+        'voi. Rimuovete la Testimonianza «Il doganiere» (Luogo 4) dal mazzo Approfondimenti; la '
+        'Domanda 2 resta raggiungibile con le altre due conferme (L1 e L2).',
         '<b>Il caso.</b> La caccia a C.B. comincia dalla carta di pregio: filigrana rara, un solo '
         'Molino delle Carte fuori città. La filiera è amministrata dal Notaio Rasca. Il '
         'capo-catena dei ritiri, che sapeva troppo, è stato annegato la notte prima di parlare.',

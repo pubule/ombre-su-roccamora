@@ -301,9 +301,10 @@ TILES_18 = [
                'piedi al suo posto, non nega — spiega, con orgoglio, e spegne la prima lampada. '
                'QUANDO RIVELATE QUESTA TESSERA: applicate l’esito delle Domande 3 e 4. Con gli '
                'Incroci di Campagna forti, alcuni confratelli vi credono e coprono la fuga.',
-         arbitro='Nessun combattimento ancora: qui M. parla e comincia lo spegnimento. Se avete gli '
-                 'Incroci forti (prova pubblica), la Società è dalla vostra parte: 1 evento-favore '
-                 'garantito. Da qui in poi non inseguite M.: fuggite.',
+         arbitro='Nessun combattimento ancora: qui M. parla e comincia lo spegnimento. Con 3 o '
+                 'più Incroci di Campagna (prova pubblica) la Società è dalla vostra parte: 1 '
+                 'evento-favore garantito. Con 0-2 nessuno si espone: niente favore. Da qui in poi '
+                 'non inseguite M.: fuggite.',
          hook='Gli Incroci di Campagna (dal Fascicolo): la prova è pubblica — la Società vi crede e '
               'i confratelli coprono la vostra ritirata.',
          cerca_vuoto='La sala si spegne lampada dopo lampada. Sui banchi, ordini del '
@@ -360,8 +361,9 @@ TILES_18 = [
                'l’uscita di servizio che il maggiordomo non ha bloccato. QUANDO RIVELATE QUESTA '
                'TESSERA: uscite con la PROVA prima che la rete si chiuda del tutto.',
          arbitro='OBIETTIVO. Uscire dal Palazzo con la prova (il Vezzo delle Firme + gli Incroci). '
-                 'Con la prova FORTE (incroci pieni) = il mondo saprà, M. è latitante (vittoria '
-                 'piena). Con la prova debole, o con eroi arrestati = ve la cavate, ma braccati '
+                 'Con la prova FORTE (5 o più Incroci di Campagna: la scala è nella Soluzione) = il '
+                 'mondo saprà, M. è latitante (vittoria '
+                 'piena). Con la prova debole (0-2), o con eroi arrestati = ve la cavate, ma braccati '
                  '(vittoria parziale). L’Uscita di Servizio salta l’ultimo giro dei gendarmi.',
          cerca_vuoto='Il portone e l’uscita di servizio, l’aria fredda che entra da '
                      'sotto la soglia. Sull’attaccapanni, cappotti che nessuno è '
@@ -428,6 +430,7 @@ def indagine():
                 Paragraph(lett, st('let', fontName=F['i'], fontSize=11, leading=16, alignment=4))])
     seal(c, W - mx - 12*mm, H - 211*mm, r=13*mm, angle=-10)
     c.setFillColor(TEAL); c.setFont(F['i'], 9.5)
+    c.drawCentredString(W/2, 24*mm, 'PRIMA DI TUTTO: aprite la busta del Bivio dell’Episodio 17 e applicate il vostro ramo.')
     c.drawCentredString(W/2, 18*mm, 'Stanotte non ci sono luoghi nuovi: ci sono i fili da chiudere. Le 4 Domande sono una sola — CHI È C.B.?')
     c.drawCentredString(W/2, 12*mm, 'Aperti dall’inizio: l’Assemblea, l’Archivio delle Penne, la Contabilità, il Fascicolo di Campagna.')
     c.showPage()
@@ -509,8 +512,9 @@ def spedizione():
                   'L’<b>Uscita di Servizio</b> alza la soglia (una via che non sorvegliano).', BODY),
         Paragraph('• <b>LA PROVA (la piena).</b> Dovete uscire (T6) con la prova che C.B. è M. Più '
                   '<b>Incroci di Campagna</b> avete (bivi, verbali, riletture, matrice), più la prova '
-                  'è pubblica: uscirne con la <b>prova forte</b> = il mondo saprà, M. è latitante '
-                  '(vittoria piena). Prova debole = ve la cavate, ma braccati (parziale).', BODY),
+                  'è pubblica. La scala è nella Soluzione: <b>5+</b> = prova forte (il mondo saprà, '
+                  'M. è latitante: vittoria piena); <b>3-4</b> = sufficiente; <b>0-2</b> = prova '
+                  'debole (ve la cavate, ma braccati: parziale).', BODY),
         Paragraph('• <b>M. NON SI PRENDE.</b> Appare in T4, prende una cosa e sparisce nel muro: è '
                   'l’Atto IV. Inseguirlo = perdersi mentre la rete si chiude. Il boss è il '
                   '<b>maggiordomo</b> (la Guardia del Presidente, Danno 2), l’ultimo muro prima della '
@@ -599,6 +603,21 @@ def soluzione():
     pagina('soluzione — non aprire', [
         '<b>Stampate questo fascicolo senza leggerlo e sigillatelo in una busta.</b> Apritelo '
         'solo dopo aver risposto per iscritto alle 4 Domande.',
+        '<b>APERTURA — il Bivio dell’Episodio 17</b> (applicare PRIMA della lettera): se avete '
+        'scelto <b>PROCESSARE M. DAVANTI ALLA SOCIETÀ RIUNITA</b> — l’assemblea è convocata, i '
+        'banchi sono pieni e diciotto mesi di carte stanno già sul feltro verde: la Testimonianza '
+        '«La Società riunita» (Luogo 1) parte GIÀ RIVELATA, e coi registri dei noli aperti davanti '
+        'a tutti avete <b>un incrocio in più alla Domanda 3</b>. Ma una deduzione pubblica si fa in '
+        'pubblico, e in pubblico vi si risponde: qualcuno è uscito dalla sala prima della fine, e i '
+        'fischietti erano già nel cortile mentre parlavate — <b>il Canto parte a 1</b>. Se avete '
+        'scelto <b>TENDERGLI LA TRAPPOLA DELLA FIRMA</b> — la trappola era tesa al calamaio, e ha '
+        'funzionato: il Referto «L’inchiostro del presidente» (Luogo 2) parte GIÀ RIVELATO, e '
+        'avendolo colto con la penna in mano avete <b>un incrocio in più alla Domanda 1</b> (il '
+        'DOVE non si discute più). Ma un’occasione sola si gioca in silenzio, e nessuna assemblea '
+        'vi ha visti: <b>rimuovete la Testimonianza «La Società riunita» (Luogo 1) dal mazzo '
+        'Approfondimenti</b> — quella deposizione collettiva non esiste, e stanotte i confratelli '
+        'sanno soltanto ciò che riuscirete a dirgli voi. Chi non ha scritto la scelta sul retro del '
+        'Frammento n. 17 ha lasciato che l’assemblea si convocasse da sé: primo ramo.',
         '<b>Il caso.</b> Non c’è un nuovo delitto: c’è la deduzione finale. Le 4 Domande sono una '
         'sola — CHI È C.B.? — e si rispondono con gli incroci di tutta la campagna.',
         '<b>La verità.</b> C.B. è M.: «C.B.» = Camillo Benso, «M.» = il Machiavelli. Due maschere '
@@ -626,9 +645,37 @@ def soluzione():
         '<b>Nota sul rivelatorio (Domanda 2):</b> lo confermano tre carte — la Testimonianza «La '
         'Società riunita» (L1), il Referto «L’oro d’una cassa sola» (L3) e l’Osservazione «Gli '
         'incroci di diciotto mesi» (L4). La Domanda 2 non ha complicazione se sbagliata.',
-        '<b>Gli INCROCI DI CAMPAGNA:</b> la vera arma. Contate gli incroci raccolti in diciotto mesi '
-        '(bivi decisi, verbali sigillati, riletture dell’Ep. 16, matrice dell’Ep. 17). Più ne avete, '
-        'più la prova è forte in spedizione (la piena). <b>Vantaggio d’Indagine:</b> come sempre.',
+        '<b>Vantaggio d’Indagine:</b> come sempre.',
+    ])
+    pagina('gli incroci di campagna — la scala', [
+        '<b>Il conto.</b> Gli Incroci di Campagna sono la vera arma di questo episodio, e si '
+        'contano una volta sola, all’apertura, sul Taccuino di Campagna. <b>+1 per ciascuna di '
+        'queste voci:</b> <b>Bivio 9</b> — «far deporre il teste» (l’altro ramo non dà nulla qui); '
+        '<b>Bivio 12</b> — «tacere anche a M.»; <b>Bivio 14</b> — «inventario giudiziario '
+        'completo»; <b>Bivio 16</b> — «affrontare M. in privato» (l’altro ramo non dà nulla qui); '
+        'e <b>+1 per ogni vecchia lettera d’incarico riletta</b> all’Archivio delle Lettere '
+        'dell’Ep. 16 (una sessione piena ne vale <b>3</b>).',
+        '<b>Le sottrazioni (−1 ciascuna):</b> Bivio 12 sul ramo «dire a M. della talpa» (la sua '
+        'indagine interna ripulisce); Bivio 14 sul ramo «restituire tutto a Braga senza inventario» '
+        '(il Sigillo non è mai finito agli atti); vittoria parziale nell’Ep. 13 (registri anneriti); '
+        'soglia-decano superata nell’Ep. 17 (il decano non ha deposto); vittoria parziale nell’Ep. '
+        '17. <b>Il filtro della matrice:</b> le riletture dell’Ep. 16 contano SOLO se avete '
+        'decifrato la matrice del decano (Ep. 17, Domanda 3 esatta); senza matrice valgono 0, per '
+        'quante ne abbiate fatte. <b>Il massimo che la campagna può produrre è 7</b>; un totale '
+        'negativo si legge come 0.',
+        '<b>LA SCALA.</b> Con <b>5 o più incroci</b> = <b>prova FORTE</b> (è questo che i fascicoli '
+        'chiamano «incroci pieni»): la Società vi crede, l’evento-favore di T1 è garantito, e '
+        'uscire dal Palazzo con la prova è <b>vittoria piena</b> — il mondo saprà, M. è latitante. '
+        'Con <b>3-4</b> = <b>prova sufficiente</b>: l’evento-favore di T1 resta garantito, ma la '
+        'deduzione è contestabile — vittoria piena solo se nessun eroe è stato arrestato, altrimenti '
+        'parziale. Con <b>0-2</b> = <b>prova debole</b>: in assemblea nessuno si espone (nessun '
+        'evento-favore garantito a T1) e la vittoria è al massimo <b>parziale</b> — ve la cavate, '
+        'ma braccati, e l’Atto IV comincia più soli.',
+        '<b>Nota per chi arbitra.</b> Un tavolo che ha giocato bene i quattro Bivi e ha riletto le '
+        'lettere arriva a 5-7: la prova forte è il premio di diciotto mesi, non un tiro di dado. Un '
+        'tavolo che ha scelto ogni volta la via prudente, o che ha saltato l’Archivio delle Lettere '
+        'dell’Ep. 16, sta fra 0 e 2 — e va bene così: la fuga funziona lo stesso, ma esce dal '
+        'Palazzo senza il mondo alle spalle.',
     ])
     pagina('spedizione — la fuga da casa vostra', [
         '<b>Montaggio</b> (tessere in Episodio 18/board/, coperte tranne T1):<br/>'
@@ -643,9 +690,10 @@ def soluzione():
         'passaggio segreto (Atto IV). Inseguirlo = round perso, soglia avanza. La Guardia del '
         'Presidente (il maggiordomo, boss): Att +3, Dif 8, Fer 7, Danno 2, sulla scalinata (T5). «Una '
         'mano sola» (D4): salta un attacco. I gendarmi (Sgherri) vogliono catturarvi, non uccidervi.',
-        '<b>Vittoria.</b> Uscire dal Palazzo (T6) con la prova: con la <b>prova forte</b> (incroci '
-        'pieni, tutti gli eroi liberi) = il mondo saprà, M. è latitante (<b>vittoria piena</b>). Con '
-        'la prova debole, o con eroi arrestati = ve la cavate ma braccati (<b>vittoria parziale</b>: '
+        '<b>Vittoria.</b> Uscire dal Palazzo (T6) con la prova: con la <b>prova forte</b> (5 o più '
+        'incroci — vedi la scala — e tutti gli eroi liberi) = il mondo saprà, M. è latitante '
+        '(<b>vittoria piena</b>). Con '
+        'la prova debole (0-2), o con eroi arrestati = ve la cavate ma braccati (<b>vittoria parziale</b>: '
         'l’Atto IV comincia più soli). <b>Il mazzo:</b> 21 carte (7 gendarmi, 6 insidie casa-ostile, '
         '4 crescendo-arresto, 4 eventi).',
     ])

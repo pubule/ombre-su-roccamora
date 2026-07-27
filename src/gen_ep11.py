@@ -457,6 +457,7 @@ def indagine():
                 Paragraph(lett, st('let', fontName=F['i'], fontSize=11, leading=16, alignment=4))])
     seal(c, W - mx - 12*mm, H - 215*mm, r=13*mm, angle=-10)
     c.setFillColor(TEAL); c.setFont(F['i'], 9.5)
+    c.drawCentredString(W/2, 24*mm, 'PRIMA DI TUTTO: aprite la busta del Bivio dell’Episodio 10 e applicate il vostro ramo.')
     c.drawCentredString(W/2, 18*mm, 'Chi tiene il fascicolo Luoghi ordina le 9 carte per numero (è nel titolo): aperte scoperte, le altre coperte.')
     c.drawCentredString(W/2, 12*mm, 'Aperti dall’inizio: la Torre Civica, la pensione dei topografi, l’Archivio Civico, la Camera dei Pesi.')
     c.showPage()
@@ -640,6 +641,23 @@ def soluzione():
     pagina('soluzione — non aprire', [
         '<b>Stampate questo fascicolo senza leggerlo e sigillatelo in una busta.</b> Apritelo '
         'solo dopo aver risposto per iscritto alle 4 Domande.',
+        '<b>APERTURA — il Bivio dell’Episodio 10</b> (applicare PRIMA della lettera): se avete '
+        '<b>CONSEGNATO IL VEDOVO</b> — il quartiere vi è tornato amico e vi manda avanti chi ha '
+        'paura di parlare: la Testimonianza «Il topografo più giovane» (Luogo 2) parte GIÀ '
+        'RIVELATA. Il prezzo non si paga qui: la casa che ricorda, placata dalla verità detta, '
+        'tace per sempre — segnatelo sul Taccuino, quelle voci non sono più una fonte per il '
+        'resto della campagna. Se avete <b>USATO LA CASA COME ORECCHIO</b> — fra le voci vecchie '
+        'dei muri ce n’era una recente, un uomo che dettava misure («dalla fontana al portico, '
+        'quaranta passi»): è un pezzo della sequenza di Ratti, e vale un incrocio in più alla '
+        'Domanda 3. Ma il processo a Corrado è saltato per vizio di prova e la Gendarmeria vi ha '
+        'chiuso una porta: senza nessuno in divisa che vi confronti timbri e sigilli veri, '
+        'rimuovete l’Osservazione «Il falso troppo perfetto» (Luogo 9) dal mazzo Approfondimenti '
+        '— il tesserino resta un’esca, e morde. <b>Strascico dell’Episodio 9:</b> se là avevate '
+        '<b>NASCOSTO IL TESTE, PERDENDO LA CAUSA</b>, qui si paga il Testimone in meno '
+        'annunciato — rimuovete la Testimonianza «Il topografo più giovane» (Luogo 2) dal mazzo '
+        'Approfondimenti (un ragazzo che parla per paura non si confida con una «setta di '
+        'truffatori» per sentenza). Se questo e il ramo del vedovo si incrociano si annullano: '
+        'la carta resta nel mazzo, coperta, e si rivela come le altre.',
         '<b>Il caso.</b> Funzionari-fantasma censiscono campane, organi e fontane «per '
         'disposizione ministeriale». Nessun ministero li ha mandati. Uno di loro, Emilio Ratti, '
         'cade dalla Torre Civica; le sue ultime misure, pagine sciolte e non datate, non '

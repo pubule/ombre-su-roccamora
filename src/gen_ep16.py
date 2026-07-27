@@ -421,6 +421,7 @@ def indagine():
                 Paragraph(lett, st('let', fontName=F['i'], fontSize=11, leading=16, alignment=4))])
     seal(c, W - mx - 12*mm, H - 211*mm, r=13*mm, angle=-10)
     c.setFillColor(TEAL); c.setFont(F['i'], 9.5)
+    c.drawCentredString(W/2, 24*mm, 'PRIMA DI TUTTO: aprite la busta del Bivio dell’Episodio 15 e applicate il vostro ramo.')
     c.drawCentredString(W/2, 18*mm, 'Chi tiene il fascicolo Luoghi ordina le 9 carte per numero (è nel titolo): aperte scoperte, le altre coperte.')
     c.drawCentredString(W/2, 12*mm, 'Aperti dall’inizio: la Casa del Lampionaio, il Caffè degli Annunci, la Gazzetta di Roccamora, la Stazione delle Carrozze.')
     c.showPage()
@@ -599,6 +600,19 @@ def soluzione():
     pagina('soluzione — non aprire', [
         '<b>Stampate questo fascicolo senza leggerlo e sigillatelo in una busta.</b> Apritelo '
         'solo dopo aver risposto per iscritto alle 4 Domande.',
+        '<b>APERTURA — il Bivio dell’Episodio 15</b> (applicare PRIMA della lettera): se avete '
+        'scelto <b>AVALLARE L’ARRESTO DI BRAGA</b> — la città festeggia, il caso è chiuso in '
+        'gloria e chi porta una divisa o un berretto d’ordinanza vi deve un favore: è la serata '
+        'tranquilla che vi era stata promessa, e il testimone in più è alla Stazione delle '
+        'Carrozze — la Testimonianza «Il capostazione» (Luogo 4) parte GIÀ RIVELATA. Il prezzo '
+        'non si paga qui: l’incrocio in meno è dell’Episodio 17, segnatelo ora sul Taccuino '
+        'perché non ve ne dimentichiate. Se avete <b>DICHIARATO PUBBLICAMENTE IL DUBBIO</b> — la '
+        'stampa vi ha sbranati, e al Caffè degli Annunci i giornali pendono ancora dalle stecche '
+        'aperti sulla vostra vergogna: nessuno vuole essere visto parlare con voi a quei tavolini. '
+        'Rimuovete la Testimonianza «La cameriera del caffè» (Luogo 2) dal mazzo Approfondimenti. '
+        'La stessa perdita vale per l’Episodio 17 (un Testimone in meno, indicato nel suo '
+        'fascicolo), e là arriva anche il compenso: l’archivio privato di Braga. Chi ha chiuso '
+        'solo la Busta pubblica ha avallato senza saperlo: primo ramo.',
         '<b>Il caso.</b> Bruna, la figlia del lampionaio, è nelle mani dello Sposo, un truffatore '
         'matrimoniale che la tiene in una villa sul lago col miraggio delle nozze. Caso piccolo, '
         'zero culto: il respiro dell’atto.',
