@@ -153,6 +153,10 @@ LUOGHI_9 = [
              'voce: «il teste Riva l’ho nascosto io, nella sacrestia del Tribunale, dietro '
              'l’aula. Un solo uomo di guardia: me. Ma io stanotte smonto, e chi monta dopo '
              'di me… non lo conosco. Portatelo via prima del cambio.»',
+             'L’usciere vi trattiene per la manica e abbassa ancora la voce: «e non prima '
+             'delle tre, mi raccomando. Prima è pieno di ronde, vi fermano a ogni angolo. '
+             'Dopo le tre il Vicolo dei Tintori è sgombro: di là passate senza vedere '
+             'nessuno.» Lo dice guardando la porta, non voi.',
              'Sul banco degli oggetti smarriti, un tesserino della Gendarmeria «trovato»: '
              'utile a un agente in servizio, non a una scorta clandestina di notte. Accanto, '
              'un fischietto d’ordinanza vero.',
@@ -637,9 +641,9 @@ def soluzione():
         'la Testimonianza «Ranuzzi» (L2), la Testimonianza «Amilcare Bo» (L3) e la '
         'Testimonianza «L’usciere del Tribunale» (L4). Senza nessuna delle tre, giudicate '
         'con elasticità una risposta «vicina» (es. «chi pagava i clan, l’oro vecchio»).',
-        '<b>CHI MENTE? (deduzione bonus).</b> È un processo: uno dei tre testimoni è stato '
+        '<b>CHI MENTE? (deduzione bonus).</b> Il bugiardo è <b>l’usciere del Tribunale</b> (Luogo 4): è l’unico che sa dov’è Riva, ed è stato '
         'girato e dà una versione falsa (una «via sicura» per il teste che è invece una '
-        'trappola — l’ora del colpo secondo chi mente non combacia col registro delle '
+        'trappola: vi manda al Vicolo dei Tintori «dopo le tre», mentre il giurato Bo (L3) e il registro delle ronde comprate (L5) dicono entrambi «tra l’una e le tre». Due contro uno, e l’unico a discostarsi è l’unico che ha la chiave della sacrestia. L’ora del colpo secondo chi mente non combacia col registro delle '
         'ronde comprate). Il gruppo lo smaschera CONFRONTANDO le versioni: se hanno '
         'incrociato il vero colpevole (un rivelatorio D2) e sentito almeno DUE dei tre '
         'testimoni, individuano il bugiardo — e nella scorta non si fidano della falsa via '
