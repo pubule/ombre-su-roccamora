@@ -185,6 +185,11 @@ def pagina_nemico(c, nemico):
     c.showPage()
 
 
+# il dorso della carta Nemico: quello che il gioco gia' usa per dire «un
+# nemico, di cui non vedete ancora la faccia»
+PLACEHOLDER_NEMICO = 'Dorso Nemico.png'
+
+
 def bestiario(nomi_nemici, out_path, titolo):
     per_nome = {n['nome']: n for n in NEMICI}
     c = canvas.Canvas(out_path, pagesize=A4)
@@ -194,9 +199,18 @@ def bestiario(nomi_nemici, out_path, titolo):
             print(f'AVVISO: {nome} non trovato in NEMICI, saltato.')
             continue
         n = per_nome[nome]
+        # Artwork che non c'e' ancora: la scheda si stampa LO STESSO, col dorso
+        # della carta Nemico al posto del ritratto — la stessa scelta che
+        # tessere e luoghi fanno da sempre col loro PLACEHOLDER. Prima qui
+        # c'era un `continue`, e con la scheda spariva l'unica fonte di
+        # statistiche: gli Episodi 10-20 stampavano il solo SGHERRO e nessun
+        # boss, cosi' chi arbitrava l'Ep.20 non aveva i numeri ne' della Camera
+        # del Dormiente ne' di M. All'arbitro servono Ferite, Difesa e Danno;
+        # il ritratto e' decorazione, e arrivera'.
         if not os.path.exists(os.path.join(ARTWORKS_DIR, n['art'])):
-            print(f"SALTO {nome}: manca artworks/{n['art']}.")
-            continue
+            print(f"  AVVISO: manca artworks/{n['art']} - segnaposto sulla scheda "
+                  f"{nome} (rigenerare quando arriva)")
+            n = {**n, 'art': PLACEHOLDER_NEMICO}
         pagina_nemico(c, n)
     c.save()
     pad_to_even_pages(out_path)

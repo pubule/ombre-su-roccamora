@@ -297,10 +297,51 @@ def prova_sottotitoli():
                         + '\n  '.join(guasti))
 
 
+def prova_bestiari():
+    """Ogni nemico che un episodio mette in campo deve avere la sua scheda nel
+    Bestiario di quell'episodio. `gen_bestiario` saltava la scheda quando
+    mancava l'artwork, e con essa spariva l'unica fonte di Ferite/Difesa/Danno:
+    gli Episodi 10-20 stampavano il solo SGHERRO e NESSUN boss — undici serate
+    che un arbitro non poteva condurre. Nessuno se n'era accorto perche' il
+    file c'era ed era spesso due pagine.
+    """
+    import json
+    try:
+        import fitz
+    except ImportError:                          # senza PyMuPDF non si controlla
+        return
+    radice = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    guasti, visti = [], 0
+    for path in sorted(glob.glob(os.path.join(radice, 'webapp', 'data', 'ep*.json'))):
+        n = re.search(r'ep(\d+)', os.path.basename(path)).group(1)
+        pdf = os.path.join(radice, f'Episodio {n}', 'pdf', 'Bestiario.pdf')
+        if not os.path.exists(pdf):
+            continue
+        with open(path, encoding='utf-8') as f:
+            ep = json.load(f)
+        attesi = set(ep.get('pool') or {})
+        boss = (ep.get('soluzione') or {}).get('boss')
+        if boss:
+            attesi.add(boss)
+        if not attesi:
+            continue
+        doc = fitz.open(pdf)
+        testo = ''.join(p.get_text() for p in doc).upper()
+        doc.close()
+        for nome in sorted(attesi):
+            visti += 1
+            # confronto sul prefisso: il titolo puo' portare un'aggiunta
+            if nome.upper()[:14] not in testo:
+                guasti.append(f'Ep.{n}: «{nome}» non ha la scheda nel Bestiario')
+    assert visti, 'nessun bestiario confrontato: il controllo e\' vacuo'
+    assert not guasti, 'nemici senza scheda:\n  ' + '\n  '.join(guasti)
+
+
 if __name__ == '__main__':
     prova_forme()
     prova_indizi_puliti()
     prova_descrizioni(pavimento='--pavimento' in sys.argv)
     prova_soglie_carte()
     prova_sottotitoli()
-    print('OK oggetto_righe + indizi + descrizioni + soglie carte + sottotitoli')
+    prova_bestiari()
+    print("OK righe + indizi + descrizioni + soglie + sottotitoli + bestiari")
