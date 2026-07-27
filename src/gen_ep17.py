@@ -428,6 +428,7 @@ def indagine():
                 Paragraph(lett, st('let', fontName=F['i'], fontSize=11, leading=16, alignment=4))])
     seal(c, W - mx - 12*mm, H - 211*mm, r=13*mm, angle=-10)
     c.setFillColor(TEAL); c.setFont(F['i'], 9.5)
+    c.drawCentredString(W/2, 24*mm, 'PRIMA DI TUTTO: aprite la busta del Bivio dell’Episodio 16 e applicate il vostro ramo.')
     c.drawCentredString(W/2, 18*mm, 'Chi tiene il fascicolo Luoghi ordina le 9 carte per numero (è nel titolo): aperte scoperte, le altre coperte.')
     c.drawCentredString(W/2, 12*mm, 'Aperti dall’inizio: lo Studio del Decano, l’Assemblea (Palazzo del Lume), il Tribunale, lo Studio del Notaio.')
     c.showPage()
@@ -605,6 +606,47 @@ def soluzione():
     pagina('soluzione — non aprire', [
         '<b>Stampate questo fascicolo senza leggerlo e sigillatelo in una busta.</b> Apritelo '
         'solo dopo aver risposto per iscritto alle 4 Domande.',
+        '<b>APERTURA — il Bivio dell’Episodio 16</b> (applicare PRIMA della lettera): se avete '
+        'scelto <b>AFFRONTARE M. IN PRIVATO</b> — da quella sera il presidente vi guarda come si '
+        'guarda una serratura da cambiare, e stanotte la villa fuori porta vi aspetta: le vostre '
+        'mosse sono anticipate, <b>aggiungete 1 carta «Gli uomini del Notaio» al mazzo Minaccia</b> '
+        '(22 carte). Il vantaggio non si incassa qui: la contraddizione databile che gli avete '
+        'strappato è materia d’assemblea — segnate sul Taccuino, alla riga «Episodio 18», <b>un '
+        'incrocio in più</b>. Se avete scelto <b>TACERE E COMINCIARE A MENTIRGLI</b> — M. vi crede '
+        'suoi, e mentre tutta la Società guarda dentro casa voi siete gli unici che possono '
+        'guardare fuori: <b>un incrocio in più alla Domanda 1</b> (DOVE è il decano). Ma mentire al '
+        'maestro si paga in casa: il confratello additato dalla caccia vi vede entrare come vede '
+        'entrare la mano di M., e non si apre — <b>rimuovete l’Osservazione «La talpa fabbricata» '
+        '(Luogo 6) dal mazzo Approfondimenti</b>. L’esca del Luogo 6 resta, e morde.<br/>'
+        '<b>CODA — il Bivio dell’Episodio 15</b> (retro del Frammento n. 15): l’Episodio 16 ha '
+        'pagato la sua metà, questa è la vostra. Se avete <b>AVALLATO L’ARRESTO DI BRAGA</b> — la '
+        'cella al Tribunale è vuota, Braga è morto nel sonno e non c’è nessun biglietto ad '
+        'aspettarvi: è l’<b>incrocio in meno</b> annunciato, <b>rimuovete il Referto «Le penne, non '
+        'le mani» (Luogo 3) dal mazzo Approfondimenti</b> e <b>l’esame di Carbone su «L’ARCHIVIO DI '
+        'BRAGA» NON è disponibile</b>. La Domanda 2 resta raggiungibile con le altre due conferme '
+        '(Luogo 2 e Luogo 4). Nessun vantaggio in questo ramo: l’avete già incassato nell’Episodio '
+        '16 (il testimone in più). Se avete <b>DICHIARATO PUBBLICAMENTE IL DUBBIO</b> — Braga, '
+        'protetto, mantiene la promessa e vi manda il suo archivio privato su M.: <b>il Referto «Le '
+        'penne, non le mani» (Luogo 3) parte GIÀ RIVELATO</b>, e con esso è disponibile l’esame di '
+        'Carbone su «L’ARCHIVIO DI BRAGA». Il prezzo è il <b>testimone in meno</b> promesso per gli '
+        'Episodi 16-17: dopo i giornali, un praticante di vent’anni terrorizzato non parla con chi '
+        'finisce sui giornali — <b>rimuovete la Testimonianza «Il praticante del Notaio» (Luogo 4) '
+        'dal mazzo Approfondimenti</b>. La Domanda 2 resta a due conferme (Luogo 2, e il Luogo 3 '
+        'già scoperto).<br/>'
+        '<b>CODA — il Bivio dell’Episodio 12</b> (retro del Frammento n. 12): quel Bivio nominava '
+        'proprio questa serata. Se avete scelto <b>DIRE A M. DELLA TALPA</b> — i confratelli '
+        'restano uniti come promesso: <b>lo scisma non vi costa nessun PNG in più, non applicate '
+        'nulla</b> (il prezzo di quel ramo è l’incrocio in meno dell’Episodio 18, già sul '
+        'Taccuino). Se avete scelto <b>TACERE ANCHE A M.</b> — la casa è incrinata da allora, e '
+        'stanotte l’incrinatura si vede anche da fuori: il doganiere della Dogana Vecchia non vuole '
+        'fare da testimone in una guerra fra signori, e vi passa le carte senza metterci la voce. È '
+        'il <b>PNG in più</b> che lo scisma vi costa: <b>rimuovete il Referto «La carrozza che '
+        'torna vuota» (Luogo 7) dal mazzo Approfondimenti</b>. Il Salvacondotto resta prendibile '
+        'alla Dogana, e con esso l’incrocio della Domanda 1: perdete la voce, non l’oggetto. Il '
+        'vantaggio è dell’assemblea — alla riga «Episodio 18» del Taccuino tenete <b>l’incrocio in '
+        'più</b>.<br/>'
+        '<b>Nessun ramo</b> tocca lo SCISMA (−1 NERVI fino al decano vivo), la soglia-decano (Canto '
+        '6, 7 col Salvacondotto), le tessere o i nemici.',
         '<b>Il caso.</b> Il decano è sparito, il suo studio a soqquadro, un dossier cifrato nel '
         'camino. M. annuncia una talpa e apre la caccia, spaccando la Società. Voi siete tra i '
         'sospettati.',

@@ -406,6 +406,7 @@ def indagine():
                 Paragraph(lett, st('let', fontName=F['i'], fontSize=11, leading=16, alignment=4))])
     seal(c, W - mx - 12*mm, H - 211*mm, r=13*mm, angle=-10)
     c.setFillColor(TEAL); c.setFont(F['i'], 9.5)
+    c.drawCentredString(W/2, 24*mm, 'PRIMA DI TUTTO: aprite la busta del Bivio dell’Episodio 18 e applicate il vostro ramo.')
     c.drawCentredString(W/2, 18*mm, 'I nove «luoghi» sono PNG del passato: aprono pieni o monchi secondo i BIVI che avete scelto.')
     c.drawCentredString(W/2, 12*mm, 'Aperti dall’inizio: la Taverna della Chiatta, il Banco di Fossa, la Gazzetta, la Gendarmeria.')
     c.showPage()
@@ -577,6 +578,22 @@ def soluzione():
     pagina('soluzione — non aprire', [
         '<b>Stampate questo fascicolo senza leggerlo e sigillatelo in una busta.</b> Apritelo '
         'solo dopo aver risposto per iscritto alle 4 Domande.',
+        '<b>APERTURA — il Bivio dell’Episodio 18</b> (applicare PRIMA della lettera): se avete scelto '
+        '<b>RENDERE PUBBLICA LA PROVA SUBITO</b> — la città sa, M. è latitante, e i PNG amici sono '
+        'schierati: è la voce <b>«prova pubblica Ep. 18»</b> già elencata nel CONTO DEI BIVI (pagina '
+        'seguente), e vale <b>+1 alleato</b>. Contatela una volta sola: è quella, non una in più. Il '
+        'prezzo non si paga qui — M. all’angolo accelera il Quarto Movimento, e l’Episodio 20 parte '
+        'col Dormiente più vicino a svegliarsi: segnatelo ora sul Taccuino di Campagna perché non ve '
+        'ne dimentichiate. Se avete scelto <b>TENERE LA PROVA E COLPIRE NELL’OMBRA</b> — senza '
+        'clamore quella voce nel conto non ce l’avete, e il PNG amico in meno ha un nome: Ranuzzi, '
+        'che senza la prova pubblica non ha niente da stampare e resta solo (lo dice lui stesso alla '
+        'Gazzetta). <b>Rimuovete la Testimonianza «Il cronista Ranuzzi» (Luogo 3) dal mazzo '
+        'Approfondimenti.</b> In cambio avete il margine di manovra di chi si muove come M., di '
+        'nascosto: il rifugio vi aspetta già pronto, e la Testimonianza <b>«L’oste del rifugio» '
+        '(Luogo 1) parte GIÀ RIVELATA</b>. La soglia resta quella: <b>conto ≥ 3 alleati</b>, in '
+        'entrambi i rami. La Domanda 2 regge comunque — le restano due conferme su tre (l’oste, già '
+        'in tavola, e la mappa dei sigilli di Fossa). Chi ha sigillato la busta senza decidere ha '
+        'lasciato uscire la prova: primo ramo.',
         '<b>Il caso.</b> Braccati, la sede sigillata. L’indagine è la vostra campagna: ogni luogo è '
         'un PNG del passato che apre o chiude secondo i Bivi. Obiettivo: rimettere insieme i pezzi '
         'per l’ultima discesa e riprendere il Fascicolo del 1741.',
