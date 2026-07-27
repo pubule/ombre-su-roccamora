@@ -1442,18 +1442,29 @@ episodi = dict(
         # 0% sul pilota, e per un umano). Tarato sul pilota: preparati ~93%,
         # slancio 100%, nessuno ~93% ma a r19 (sul filo) — dentro l'intento
         # «85-93% win, tragico 5-15%», con l'indagine che detta la TENSIONE.
-        # NOTA parità risveglio: la carta/fascicolo/sim dicono soglia Canto 8 ed è
-        # GIUSTO per il TAVOLO (che ha i Frammenti veri = controcanto veloce). Il
-        # digitale usa 9 perché l'astrazione-tier è più grezza e il Canto digitale
-        # sale più in fretta: serve un round in più di finestra. Differenza
-        # per-modalità voluta, non un drift.
+        # NOTA parità risveglio: la carta/fascicolo/sim dicono soglia Canto 8.
+        # Qui c'era 9, motivato come «al digitale serve un round in più di
+        # finestra». L'intento era giusto, l'attuazione no: la traccia del Canto
+        # è FISICAMENTE 0-8 (gen_board.py stampa «il canto (0–8)», export
+        # `canto_max=8`, engine.tettoCanto lo applica e nessun episodio dichiara
+        # un tetto proprio), quindi 9 non era «più lento»: era IRRAGGIUNGIBILE.
+        # Misurato col pilota il 26/07: 6 vittorie su 6, Canto massimo osservato
+        # 8, il Risveglio mai scattato — il finale della campagna senza fondo.
+        # Riportato a 8. Se serve davvero più finestra la leva è `canto_ogni`
+        # (già usata da Ep.1/3/5/6), non una soglia fuori scala.
         compiti=[dict(id='controcanto', tile='T6', quante=10,
                       etichetta='Pronuncia una riga del Controcanto',
                       prova=dict(attr='nervi', diff='Media'), fallita='la voce si spezza',
                       per_azione=dict(base=1, per_tier=dict(slancio=4, preparati=2, nessuno=1)),
                       fatto='Il Controcanto è compiuto.')],
         vittoria=dict(testo='Il Controcanto copre il Canto: la città si sveglia, il Dormiente no.'),
-        orologio=dict(id='risveglio', nome='Risveglio', su_canto=9,
+        # la finestra in piu' che il digitale chiede: il Canto sale ogni 6
+        # round invece che ogni 4, come gia' fanno Ep.1/3/5/6 per le
+        # spedizioni lunghe — e l'Ep.20 e' la piu' lunga della campagna
+        # (14 round medi). Con la sola soglia a 8 e cadenza 4: 0 vittorie
+        # su 10, il Risveglio arrivava col Controcanto a 0-8 righe su 10.
+        canto_ogni=6,
+        orologio=dict(id='risveglio', nome='Risveglio', su_canto=8,
                       esito='sconfitta', testo='Il Dormiente si desta: è troppo tardi.'),
         esami_carbone=ESAMI_CARBONE_20,
         luoghi=[luogo_json(L, OGGETTI_LUOGO_20, REPERTI_LUOGO['ep20'], DESC_LUOGHI['ep20']) for L in LUOGHI_20],
