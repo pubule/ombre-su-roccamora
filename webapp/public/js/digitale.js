@@ -1224,12 +1224,17 @@ function controllaVittoria() {
   if (sp.esito || !v || !specCompiti().length || !compitiFiniti()) return false;
   const vivi = P().party.filter((nm) => (sp.vite[nm] ?? 0) > 0);
   if (v.tessera && !vivi.every((nm) => sp.eroiPos[nm] && sp.eroiPos[nm].t === v.tessera)) return false;
-  if (v.boss && sp.nemici.some((n) => n.nome === ctx.ep.soluzione.boss && n.pos)) return false;
-  const declassa = !!sp.registriAnneriti;   // snapshot preso all'atto della presa (ROGO)
+  // un boss gia' a terra in attesa d'essere preso non sbarra piu' la vittoria
+  if (v.boss && sp.nemici.some((n) => n.nome === ctx.ep.soluzione.boss && n.pos && !n.abbattuto)) return false;
+  // due modi di arrivare secondi: il ROGO (snapshot all'atto della presa) e
+  // l'orologio dell'episodio superato (soglia-decano, soglia-arresto, sigillo)
+  const declassa = !!sp.registriAnneriti || !!sp.declassato;
   sp.esito = declassa ? 'parziale' : 'vittoria';
-  sp.log.push(declassa
+  sp.log.push(sp.registriAnneriti
     ? (specRogo().testo_parziale || 'I registri escono anneriti dal rogo: vittoria parziale.')
-    : (v.testo || 'L’obiettivo è compiuto: siete salvi.'));
+    : declassa
+      ? `${sp.declassato} L’obiettivo è compiuto lo stesso: vittoria parziale.`
+      : (v.testo || 'L’obiettivo è compiuto: siete salvi.'));
   salvaP(); epilogo(); return true;
 }
 function finisciEroe(nm) {
@@ -1300,6 +1305,7 @@ async function attaccaNemico(nm, i) {
   if (azioneSpesa(nm, 'attaccare')) { flash(`${primo(nm)} ha già attaccato: le 2 azioni sono di tipo diverso.`); return; }
   if (!azioniRestano(nm)) { flash(`${primo(nm)} non ha più azioni.`); return; }
   if (!adiacGlob(sp.eroiPos[nm], n.pos)) { flash('Nemico non adiacente: avvicinati prima.'); return; }
+  if (n.abbattuto) { flash(`${n.nome.toLowerCase()} è già a terra: ora va preso (Interagire).`); return; }
   const st = nemStat(n.nome);
   const r = await tiraProva({ titolo: `${primo(nm)} → ${n.nome.toLowerCase()}`, diffLabel: 'Difesa', soglia: n.difMod ?? st.dif,
     bonus: [{ label: 'VIGORE', val: e.vigore }, { label: 'arma', val: 1 }], modo: modoDadi() });
@@ -1307,7 +1313,22 @@ async function attaccaNemico(nm, i) {
   const dif = n.difMod ?? st.dif;
   if (r.ok) {
     n.ferite += 1; log(`${primo(nm)} colpisce ${n.nome.toLowerCase()} (2d6+VIG ${r.tot} ≥ Dif ${dif} → ${n.ferite}/${n.max}).`);
-    if (n.ferite >= n.max) { log(`${n.nome.toLowerCase()} è abbattuto!`); sp.nemici.splice(i, 1); }
+    if (n.ferite >= n.max) {
+      // Il bersaglio di un compito non si toglie dal campo: il fascicolo dice
+      // «va ridotto/abbattuto E POI preso» (gen_ep15.py:658), ma il compito
+      // esige il nemico adiacente — toglierlo lo rendeva impossibile per
+      // sempre, e la partita restava appesa senza spiegazione. Resta a terra
+      // finche' non lo si prende; a quel punto Interagire lo rimuove.
+      const obiettivo = specCompiti().some((c) => c.nemico === n.nome)
+        && !compitiFiniti();
+      if (obiettivo) {
+        n.abbattuto = true;
+        log(`${n.nome.toLowerCase()} è a terra: ora si può prendere (Interagire).`);
+      } else {
+        log(`${n.nome.toLowerCase()} è abbattuto!`);
+        sp.nemici.splice(i, 1);
+      }
+    }
   } else log(`${primo(nm)} manca ${n.nome.toLowerCase()} (${r.tot} < Dif ${dif}).`);
   salvaP(); segnaAzione(nm, 'attaccare');
 }
@@ -1844,7 +1865,7 @@ function faseNemiciAI() {
   // accendersi a meta' fase, e i controlli di chiusura devono restare coerenti
   piano.differito = tavoloTiraNemici();
   for (let i = 0; i < sp.nemici.length; i++) {
-    const n = sp.nemici[i]; const st = nemStat(n.nome); if (!n.pos) continue;
+    const n = sp.nemici[i]; const st = nemStat(n.nome); if (!n.pos || n.abbattuto) continue;
     const pos0 = n.pos;
     if (n.flash) { n.flash = false; log(`${n.nome.toLowerCase()} è accecato: salta il turno.`); piano.push({ i, nome: n.nome, pos0, pos1: pos0, flash: true, attacco: null }); continue; }
     const bersagli = vivi(); if (!bersagli.length) break;
@@ -1927,9 +1948,24 @@ function faseNemiciAI() {
   // dichiarano episodio per episodio, e qui diventano reali anche in digitale.
   const oc = specOrologio();
   if (oc && oc.su_canto && !sp.esito && sp.canto >= oc.su_canto) {
-    sp.esito = oc.esito === 'parziale' ? 'parziale' : 'sconfitta';
-    sp.log.push(oc.testo || `${oc.nome}: troppo tardi.`);
-    piano.annunci.push(oc.testo || `${oc.nome}: troppo tardi.`);
+    const testo = oc.testo || `${oc.nome}: troppo tardi.`;
+    if (oc.esito === 'parziale') {
+      // DECLASSA, NON CHIUDE. I fascicoli dicono «peggiora e si continua»
+      // (Ep.17: «il decano lo recuperate comunque, ma ferito»; Ep.18: «un
+      // eroe per round rischia la cattura»), e il gruppo deve poter finire
+      // il lavoro. Chiudendo qui la vittoria PIENA diventava irraggiungibile:
+      // BILANCIAMENTO registrava Ep.17 e Ep.18 al 100% vinti e 0% piena.
+      // Il flag lo legge controllaVittoria, come gia' fa per il ROGO.
+      if (!sp.declassato) {
+        sp.declassato = testo;
+        sp.log.push(testo);
+        piano.annunci.push(testo);
+      }
+    } else {
+      sp.esito = 'sconfitta';
+      sp.log.push(testo);
+      piano.annunci.push(testo);
+    }
   }
   piano.annunci.push(...destaBossSeSoglia());
   sp.fase = 'eroi'; sp.eroiFatti = []; sp.eroiAttivo = null; sp.azioni = {};
