@@ -8,6 +8,7 @@ import { rendi, norm, costruisciMazzo, carteDaPescare, pesca, fineRound,
          cantoDaCarta, cerca, urlCarta, urlArt, cartaOggetto, cadenzaCanto } from './engine.js';
 import { tiraProva } from './dadi.js';
 import { abilitaSchede } from './scheda-eroe.js';
+import { controBusta } from './engine.js';
 
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) =>
   ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -1046,6 +1047,14 @@ function epilogo() {
         ? `${sp.round} round, ${orologio()} a ${sp.canto}. Leggete l’<b>epilogo</b> nel fascicolo
            Soluzione — e il <b>Bivio</b>, se l’episodio ne ha uno: la scelta conta per il prossimo.`
         : 'Rialzatevi: la Soluzione dice cosa resta di questa notte. Roccamora non dimentica — e nemmeno voi.'}</p>
+      ${(() => { const cb = controBusta(ep); return cb ? `
+        <hr class="divisore">
+        <div style="text-align:left">
+          <p class="nota">— si apre ora, al ritorno —</p>
+          <p><b>${esc(cb.q.replace(/^CONTRO-BUSTA — /, ''))}</b></p>
+          <p class="nota">La verità: ${esc(cb.risposta)}</p>
+          <p>${esc(cb.esatta)}</p>
+        </div>` : ''; })()}
       <div class="btn-riga" style="justify-content:center">
         <button class="btn pieno" id="al-menu">alla taverna</button>
       </div>

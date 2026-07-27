@@ -6,6 +6,7 @@ import { salva, dati } from './store.js';
 import { tiraProva } from './dadi.js';
 import { rendi, norm, bussa, dichiaraVoce, vociMappa, luogoVisitabile,
          idoneiPerTipo, usaCarica, tierIndagine, verificaRisposte,
+         controBusta, domandeBusta,
          urlArt, cartaLuogo, cartaApprofondimento, cartaOggetto,
          urlCarta as urlCartaSafe } from './engine.js';
 import { schedaEroe, abilitaSchede } from './scheda-eroe.js';
@@ -606,9 +607,9 @@ function taccuino() {
   app.innerHTML = `
     ${barra('il taccuino della società')}
     <div class="pannello">
-      <h2>le ${ep.soluzione.domande.length} domande</h2>
+      <h2>le ${domandeBusta(ep).length} domande</h2>
       <p class="nota">Rispondete per iscritto, poi aprite la busta. Non si torna indietro.</p>
-      ${ep.soluzione.domande.map((d, i) => `
+      ${domandeBusta(ep).map((d, i) => `
         <p class="mt"><b>${i + 1}. ${esc(d.q)}</b></p>
         <input class="campo" data-risposta="${i}" value="${esc(ind.risposte[i] || '')}"
                placeholder="la vostra risposta…">`).join('')}
@@ -641,14 +642,18 @@ function busta() {
   const ind = IND();
   ind.chiusa = true;
   const esiti = verificaRisposte(ep, ind.risposte);
-  const t = tierIndagine(ep, ind, esiti.map((e) => e.ok));
+  // la CONTRO-BUSTA resta sigillata: non si mostra qui e non pesa sul tier,
+  // o lo Slancio sarebbe irraggiungibile (chiede TUTTE le risposte esatte, e
+  // quella non e' ancora conoscibile). Si apre nell'epilogo di spedizione.
+  const inBusta = esiti.filter((e) => !e.dopo_spedizione);
+  const t = tierIndagine(ep, ind, inBusta.map((e) => e.ok));
   P().vantaggi = { tier: t.tier, dossier: t.dossier, risposte: esiti.map((e) => e.ok) };
   salvaP();
   app.innerHTML = `
     ${barra('la busta è aperta')}
     <div class="pannello">
       <h2>le risposte</h2>
-      ${esiti.map((e, i) => `
+      ${inBusta.map((e, i) => `
         <div class="mt">
           <p><b>${i + 1}. ${esc(e.q)}</b> — ${e.ok ? '<span class="ok-txt">esatta</span>' : '<span class="ko-txt">sbagliata</span>'}</p>
           <p class="nota">La verità: ${esc(e.risposta)}</p>
@@ -661,6 +666,9 @@ function busta() {
         : 'nessuno: siete arrivati col fiato corto.'}
         (${t.oreAvanzate} ore avanzate, ${t.luoghi} luoghi visitati)</p>
       ${t.dossier ? '<p><b>Dossier completo:</b> 1 gettone Intuizione — un solo ri-tiro, una volta, in spedizione.</p>' : ''}
+      ${controBusta(ep) ? `<hr class="divisore">
+        <p class="nota"><b>Resta una busta sigillata.</b> ${esc(controBusta(ep).q.replace(/^CONTRO-BUSTA — /, ''))}
+        Non si apre stanotte: si apre quando tornate dalla villa.</p>` : ''}
       <div class="btn-riga">
         <button class="btn pieno" id="alla-spedizione">alla spedizione</button>
       </div>

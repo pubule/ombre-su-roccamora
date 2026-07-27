@@ -218,6 +218,15 @@ export function cerca(ep, partita, tileId) {
   return out;
 }
 
+// La CONTRO-BUSTA (Ep.15): una Domanda che il fascicolo tiene sigillata a
+// parte e apre solo DOPO la spedizione — la sua risposta e' la torsione
+// dell'atto. Va tenuta fuori dal taccuino, dalla busta e dal calcolo del
+// tier, e mostrata nell'epilogo.
+export const controBusta = (ep) =>
+  (ep.soluzione.domande || []).find((d) => d.dopo_spedizione) || null;
+export const domandeBusta = (ep) =>
+  (ep.soluzione.domande || []).filter((d) => !d.dopo_spedizione);
+
 // --- verifica risposte (la busta) --------------------------------------------
 export function verificaRisposte(ep, risposte) {
   return ep.soluzione.domande.map((d, i) => {

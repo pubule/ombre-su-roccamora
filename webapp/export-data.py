@@ -623,6 +623,7 @@ SOLUZIONI = dict(
                  esatta='ATTENZIONE: rispondere SOLO alle 4 Domande = «vittoria pubblica», ma è la soluzione che vi ha scritto M. La vittoria vera è la Contro-busta. (Aiuti spedizione: la Chiave di Servizio L8, il Manuale L5, il Reagente L7. Esche: la Deposizione, il Sigillo «C.B.».)',
                  sbagliata='Senza il fascicolo non chiudete nemmeno la cornice pubblica.'),
             dict(q='CONTRO-BUSTA — CHI HA SCRITTO IL DOSSIER? (si apre solo dopo la spedizione)',
+                 dopo_spedizione=True,
                  risposta='Una MANO INTERNA alla Società: il metodo è quello del manuale (12 copie, una consultata), le istruzioni agli Apparecchiatori sono di grafia di Braga ma troppo perfette. Non un nome, ancora: «uno di noi». Il seme verso M.',
                  esatta='Presa col Capo Apparecchiatore + 3-4 tell documentati alla villa: rispondere = VITTORIA PIENA — avete rifiutato la soluzione perfetta.',
                  sbagliata='Chi ha chiuso solo la Busta pubblica ha già scelto, senza saperlo, di avallare l’arresto di un innocente: ha fatto il lavoro di M.'),

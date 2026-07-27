@@ -12,6 +12,7 @@ import { rendi, norm, costruisciMazzo, carteDaPescare, pesca, fineRound,
          cantoDaCarta, cerca, urlCarta, urlArt, cartaOggetto, tettoCanto } from './engine.js';
 import { tiraProva } from './dadi.js';
 import { abilitaSchede } from './scheda-eroe.js';
+import { controBusta } from './engine.js';
 
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) =>
   ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -2012,6 +2013,14 @@ function epilogo() {
       <p class="mt">${sp.esito === 'vittoria'
         ? `${specScortati().map((s) => s.nome).join(' e ') || 'Il gruppo'} è al sicuro. ${sp.round} round, canto ${sp.canto}. Leggete l’epilogo nel fascicolo Soluzione.`
         : 'Rialzatevi: la Soluzione dice cosa resta di questa notte.'}</p>
+      ${(() => { const cb = controBusta(ep); return cb ? `
+        <hr class="divisore">
+        <div style="text-align:left">
+          <p class="nota">— si apre ora, al ritorno —</p>
+          <p><b>${esc(cb.q.replace(/^CONTRO-BUSTA — /, ''))}</b></p>
+          <p class="nota">La verità: ${esc(cb.risposta)}</p>
+          <p>${esc(cb.esatta)}</p>
+        </div>` : ''; })()}
       <div class="btn-riga" style="justify-content:center"><button class="btn pieno" id="al-menu">alla taverna</button></div></div>`;
   app.querySelector('#nav-esci').onclick = () => { spegniImmersivo(); ctx.vaiA('menu'); };
   app.querySelector('#al-menu').onclick = () => ctx.vaiA('menu');
