@@ -412,6 +412,9 @@ em, i { font-style: italic; }
 .chip-turno.ritratto.fatto .cariche { opacity: 1; }
 /* abilita' una-tantum gia' spesa: il bottone resta, barrato */
 .btn.spesa { opacity: .5; text-decoration: line-through; }
+/* correzione manuale del verdetto sulle Domande: e' un ripensamento,
+   non un'azione di gioco — deve stare in disparte */
+.btn.correggi { font-size: 13px; padding: 5px 12px; margin-top: 6px; opacity: .75; }
 
 /* nome dell'eroe che apre la sua scheda (righe salute di Spedizione). Deve
    sembrare cliccabile senza diventare un bottone: nella riga c'e' gia' il

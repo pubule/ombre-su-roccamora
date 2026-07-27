@@ -641,7 +641,16 @@ function busta() {
   const { app, ep } = ctx;
   const ind = IND();
   ind.chiusa = true;
-  const esiti = verificaRisposte(ep, ind.risposte);
+  // Il giudizio automatico confronta parole, e su risposte scritte a mano
+  // sbaglia sempre nello stesso verso: boccia chi ha indovinato ma e' stato
+  // sintetico (16 domande su 81 danno «sbagliata» a una risposta corretta —
+  // «Il professor Cesare Braga» contro una verita' lunga tre righe). Al tavolo
+  // l'ultima parola ce l'ha chi arbitra; qui ce l'ha il gruppo, che la verita'
+  // ce l'ha gia' sotto gli occhi due righe piu' sotto.
+  const corr = ind.correzioni || (ind.correzioni = {});
+  const esiti = verificaRisposte(ep, ind.risposte).map((e, i) => ({
+    ...e, i, corretto: i in corr, ok: (i in corr) ? corr[i] : e.ok,
+  }));
   // la CONTRO-BUSTA resta sigillata: non si mostra qui e non pesa sul tier,
   // o lo Slancio sarebbe irraggiungibile (chiede TUTTE le risposte esatte, e
   // quella non e' ancora conoscibile). Si apre nell'epilogo di spedizione.
@@ -655,10 +664,15 @@ function busta() {
       <h2>le risposte</h2>
       ${inBusta.map((e, i) => `
         <div class="mt">
-          <p><b>${i + 1}. ${esc(e.q)}</b> — ${e.ok ? '<span class="ok-txt">esatta</span>' : '<span class="ko-txt">sbagliata</span>'}</p>
+          <p><b>${i + 1}. ${esc(e.q)}</b> — ${e.ok ? '<span class="ok-txt">esatta</span>' : '<span class="ko-txt">sbagliata</span>'}${
+            e.corretto ? ' <span class="nota">(deciso da voi)</span>' : ''}</p>
           <p class="nota">La verità: ${esc(e.risposta)}</p>
           <p>${esc(e.ok ? e.esatta : e.sbagliata)}</p>
+          <button class="btn correggi" data-correggi="${e.i}">${e.ok
+            ? 'no, l’avevamo sbagliata' : 'l’avevamo indovinata'}</button>
         </div>`).join('')}
+      <p class="nota mt">Confrontate quello che avete scritto con la verità: se il
+        giudizio dell’app non vi convince, correggetelo — decide il gruppo.</p>
       <hr class="divisore">
       <p class="mt"><b>Vantaggio d’indagine:</b> ${t.tier === 'slancio'
         ? 'SLANCIO — 3 azioni a testa nel 1° round di spedizione, e +1 Salute massima a testa.'
@@ -674,6 +688,14 @@ function busta() {
       </div>
     </div>`;
   dopoBarra();
+  app.querySelectorAll('[data-correggi]').forEach((b) => {
+    b.onclick = () => {
+      const k = Number(b.dataset.correggi);
+      corr[k] = !esiti.find((e) => e.i === k).ok;
+      salvaP();
+      busta();                       // ricalcola tier e vantaggi col nuovo esito
+    };
+  });
   app.querySelector('#alla-spedizione').onclick = () => {
     P().fase = 'spedizione';
     salvaP();
