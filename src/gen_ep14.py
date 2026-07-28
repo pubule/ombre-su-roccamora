@@ -344,7 +344,7 @@ TILES_14 = [
                  'spingono la traccia FUGA. Se la FUGA raggiunge la soglia prima che lo agganciate '
                  'all’Attico (T6), sparisce oltre i tetti (vittoria parziale). La Parola dei Tetti '
                  'lo fa trattare gia’ a 2 Ferite invece che all’ultima, e porta la '
-                 'soglia-fuga da 5 a 6.',
+                 'soglia-fuga da 7 a 8.',
          hook='La Parola dei Tetti (dal Covo): il Primo Gatto vi riconosce come gente di codice — '
               'tratta già a 2 Ferite e non tenta la fuga finale.',
          cerca_vuoto='L’abbaino dà su una soffitta buia che sa di legno chiuso. Sul '
@@ -512,7 +512,7 @@ def spedizione():
                   'la spedizione si chiude senza la sua parola (vittoria parziale). Le carte '
                   'crescendo spingono verso la soglia-fuga; la <b>Parola dei Tetti</b> lo fa trattare '
                   'gia’ a <b>2 Ferite</b> invece che all’ultima, e porta la soglia-fuga '
-                  'da 5 a 6.', BODY),
+                  'da 7 a 8.', BODY),
         Paragraph('• <b>OBIETTIVO.</b> All’Attico (T6), agganciate il Primo Gatto (adiacenza + '
                   'Interagire, o la Parola dei Tetti). Ridotto all’ultima Ferita <b>TRATTA</b> e '
                   'dice la verità sulla commissione — <b>vittoria piena</b>. <b>Ucciderlo</b> (a 0 '
@@ -663,7 +663,7 @@ def soluzione():
         'T1 La Gronda (partenza, da Sud) → T2 Il Comignolo (quota) → T3 La Terrazza dei Panni '
         '(Gatti minori) → T4 L’Abbaino (appare il Primo Gatto, parte la FUGA) → T5 Il Lucernario '
         '(quota, vetro) → T6 L’Attico (il Primo Gatto). Coi Ramponi si salta lo strapiombo di T1.',
-        '<b>La soglia-fuga.</b> Segnate il Canto come al solito. Alla <b>soglia-fuga = Canto 5</b> '
+        '<b>La soglia-fuga.</b> Segnate il Canto come al solito. Alla <b>soglia-fuga = Canto 7</b> '
         '(6 con la Parola dei Tetti), il Primo Gatto scavalca la cresta e sparisce, se non '
         'l’avete già agganciato all’Attico (T6): vittoria parziale. Le carte crescendo (fischio/il '
         'Gatto si sposta) accelerano. La Parola dei Tetti anticipa l’aggancio (tratta a 2 '

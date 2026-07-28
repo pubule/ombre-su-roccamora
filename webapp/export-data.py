@@ -1251,7 +1251,7 @@ episodi = dict(
                   'vittoria parziale. Il mandante (M.) non è qui: sta preparando il falso dell’Ep.15.',
         # «AGGANCIATE il Primo Gatto prima che il Canto raggiunga la soglia-FUGA e
         # lo faccia sparire oltre la cresta».
-        compiti=[dict(id='gatto', nemico='IL PRIMO GATTO', quante=1, ridotto=True,
+        compiti=[dict(id='gatto', nemico='IL PRIMO GATTO', quante=1, ridotto=True, tile='T6',
                       # «mostrandogli il segno dei Gatti tratta gia' a 2
                       # Ferite e non tenta la fuga finale» (gen_ep14.py:347)
                       ridotto_oggetto='parola dei tetti', ridotto_con_oggetto=2,
@@ -1262,7 +1262,8 @@ episodi = dict(
         # senza seminarla il pilota misura un episodio che nessuno gioca
         oggetti_indagine=['La Parola dei Tetti'],
         vittoria=dict(testo='Il Primo Gatto tratta: sapete chi ha commissionato il furto.'),
-        orologio=dict(id='fuga', nome='Fuga sui tetti', su_canto=5,
+        orologio=dict(id='fuga', nome='Fuga sui tetti', su_canto=7,
+                      su_canto_oggetto='parola dei tetti', su_canto_con_oggetto=8,
                       esito='parziale', testo='Il Gatto scavalca la cresta e sparisce.'),
         esami_carbone=ESAMI_CARBONE_14,
         luoghi=[luogo_json(L, OGGETTI_LUOGO_14, REPERTI_LUOGO['ep14'], DESC_LUOGHI['ep14']) for L in LUOGHI_14],
@@ -1369,6 +1370,7 @@ episodi = dict(
                  fatto='Il Notaio è preso: il ricorrente dell’Atto, finalmente.')],
         vittoria=dict(testo='Decano lucido e Notaio in mano: l’Ep. 18 parte armato.'),
         orologio=dict(id='decano', nome='Trasferimento', su_canto=6,
+                      su_canto_oggetto='salvacondotto', su_canto_con_oggetto=7,
                       esito='parziale', testo='Il decano è già stato trasferito: lo recuperate ferito.'),
         esami_carbone=ESAMI_CARBONE_17,
         luoghi=[luogo_json(L, OGGETTI_LUOGO_17, REPERTI_LUOGO['ep17'], DESC_LUOGHI['ep17']) for L in LUOGHI_17],
@@ -1401,6 +1403,7 @@ episodi = dict(
                       fatto='La prova è fuori dal Palazzo: M. è latitante, non voi.')],
         vittoria=dict(tessera='T6', testo='Siete fuori dal Palazzo con la prova: M. è latitante.'),
         orologio=dict(id='arresto', nome='Arresto', su_canto=7,
+                      su_canto_oggetto='uscita di servizio', su_canto_con_oggetto=8,
                       esito='parziale', testo='I gendarmi sigillano le uscite: braccati.'),
         esami_carbone=ESAMI_CARBONE_18,
         luoghi=[luogo_json(L, OGGETTI_LUOGO_18, REPERTI_LUOGO['ep18'], DESC_LUOGHI['ep18']) for L in LUOGHI_18],

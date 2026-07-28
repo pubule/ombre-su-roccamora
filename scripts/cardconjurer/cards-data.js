@@ -3413,7 +3413,7 @@ const EP14_MINACCE = [
     effect: 'Ogni eroe prova NERVI (Facile): chi fallisce indietreggia di un passo — se sul bordo, prova DESTREZZA o cade di un livello (rientra al turno dopo).' },
   { art: 'artworks/Un fischio sui tetti.png', title: 'Un Fischio sui Tetti', tipo: 'Crescendo',
     flavor: 'Un fischio lontano risponde a un altro: lo Spillo ha chiamato, e si muove.',
-    effect: 'Aggiungete 1 segnalino Canto (la Fuga). Alla soglia-fuga (Canto 5, 6 con la Parola dei Tetti) il Primo Gatto sparisce se non agganciato. Alla soglia (3): +1 carta Minaccia per Fase, per sempre.' },
+    effect: 'Aggiungete 1 segnalino Canto (la Fuga). Alla soglia-fuga (Canto 7, 8 con la Parola dei Tetti) il Primo Gatto sparisce se non agganciato. Alla soglia (3): +1 carta Minaccia per Fase, per sempre.' },
   { art: 'artworks/Il Gatto si sposta.png', title: 'Il Gatto si Sposta', tipo: 'Crescendo',
     flavor: 'La sagoma sulla cresta cambia posto: guadagna un tetto, poi un altro.',
     effect: 'Aggiungete 1 segnalino Canto (la Fuga). Il Primo Gatto arretra di una tessera verso l’uscita alta: agganciarlo costa ora un passo in più.' },

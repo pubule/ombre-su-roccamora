@@ -840,6 +840,8 @@ function interazioneDisponibile(nm) {
   // il compito bloccato si MOSTRA lo stesso, con la ragione: un bottone che
   // sparisce senza spiegazioni e' il modo migliore per far credere che il
   // gioco sia rotto proprio quando invece sta applicando la regola stampata
+  if (c && c.fuoriPosto) return { tipo: 'compito', c, bloccato: true,
+    label: `${c.etichetta} — non qui: si fa in ${c.fuoriPosto}` };
   if (c && c.bloccato) return { tipo: 'compito', c, bloccato: true,
     label: `${c.etichetta} — prima a ${c.soglia} Ferite (${c.bloccato.ferite}/${c.bloccato.max})` };
   if (c) return { tipo: 'compito', c, label: `${c.etichetta} (${compitoFatte(c.id)}/${c.quante})` };
@@ -1150,6 +1152,15 @@ function compitoDisponibile(pos) {
     if (c.nemico) {
       const n = sp.nemici.find((x) => x.pos && x.nome === c.nemico && adiacGlob(pos, x.pos));
       if (!n) continue;
+      // …e dove il fascicolo dice IN QUALE STANZA, quella conta. L'Ep.14 lo
+      // scrive due volte: a T4 «il Primo Gatto appare (NON ANCORA
+      // INGAGGIABILE)», a T6 «all'Attico, agganciate il Primo Gatto». Senza
+      // questo il ramo `nemico` usciva prima del controllo su `tile` piu' sotto,
+      // e il Gatto si agganciava dove capitava: 12 vittorie su 20 SENZA MAI
+      // salire all'Attico, cioe' saltando la caccia sui tetti che e' l'episodio.
+      // L'Ep.12 non porta `tile` apposta: li' il Corriere si intercetta dove
+      // lo si trova, e se arriva a T6 e' una sconfitta.
+      if (c.tile && c.tile !== pos.t) return { ...c, fuoriPosto: c.tile };
       // «va preso VIVO»: dove il fascicolo lo chiede (Ep.11 «ridotto a 1
       // Ferita», Ep.14 «ridotto all'ultima Ferita TRATTA», Ep.15
       // «ridotto/abbattuto», Ep.19 «si ferma all'ultima Ferita, poi
@@ -1401,6 +1412,10 @@ async function azioneInteragire(nm) {
   if (disp.tipo === 'grata') { sp.grate.push(`${sp.eroiPos[nm].t}-${disp.dir}`); log('La grata è aperta.'); segnaAzione(nm, 'interagire'); return; }
   if (disp.tipo === 'compito') {
     const c = disp.c;
+    if (disp.bloccato && c.fuoriPosto) {
+      flash(`${c.nemico.toLowerCase()} non si lascia agganciare qui: vi aspetta in ${c.fuoriPosto}.`);
+      return;                                   // nessuna azione spesa
+    }
     if (disp.bloccato) {
       flash(`${c.nemico.toLowerCase()} non tratta finché è in forze: portatelo a ${c.soglia} Ferite (ora ${c.bloccato.ferite}/${c.bloccato.max}), poi Interagite.`);
       return;                                   // nessuna azione spesa
@@ -1626,6 +1641,20 @@ function destaBossSeSoglia() {
   const st = nemStat(boss) || {};
   const suo = (ctx.ep.soluzione || {}).boss_tile
     || (ctx.ep.tessere[ctx.ep.tessere.length - 1] || {}).id;
+  // Un boss che si aggancia SOLO in una stanza precisa e' un boss che ASPETTA
+  // in quella stanza: il Primo Gatto «appare in cresta, piu' in alto, e vi
+  // studia in silenzio» (Ep.14, T4), non scende a menare le mani. Svegliarlo
+  // sulla tessera piu' lontana lo mandava addosso al gruppo, che non poteva
+  // agganciarlo (regola giusta) e quindi combatteva e moriva senza avanzare:
+  // 4 sconfitte su 4, l'Attico mai raggiunto. `compito.tile` dice gia' dov'e'
+  // il suo posto — non serve un campo nuovo. L'Ep.12 non ne ha apposta: li' il
+  // Corriere e' una preda in corsa e deve stare sul tabellone presto.
+  const casa = (specCompiti().find((c) => c.nemico === boss && c.tile) || {}).tile;
+  if (casa) {
+    if (!sp.rivelate.includes(casa)) return [];
+    if (!spawnUno(boss, casa)) return [];
+    return [`${boss.toLowerCase()} vi aspetta in ${casa}.`];
+  }
   if (!st.mov) {
     if (!sp.rivelate.includes(suo)) return [];
     if (!spawnUno(boss, suo)) return [];
@@ -2001,7 +2030,18 @@ function faseNemiciAI() {
   // soglia-decano, soglia-arresto, risveglio. Sono i numeri che le Soluzioni
   // dichiarano episodio per episodio, e qui diventano reali anche in digitale.
   const oc = specOrologio();
-  if (oc && oc.su_canto && !sp.esito && sp.canto >= oc.su_canto) {
+  // …e un OGGETTO puo' alzare quella soglia, dove il fascicolo lo dice: la
+  // Parola dei Tetti «porta la soglia-fuga da 5 a 6» (Ep.14), il Salvacondotto
+  // la soglia-decano «da 6 a 7» (Ep.17), l'Uscita di Servizio la soglia-arresto
+  // «da 7 a 8» (Ep.18). Erano tre regole SOLO STAMPATE: l'orologio non aveva
+  // alcun campo per leggerle, quindi chi si guadagnava l'oggetto non ne
+  // ricavava nulla. Stesso schema di `compito.ridotto_oggetto`.
+  const sogliaOrologio = oc && oc.su_canto != null
+    ? (oc.su_canto_oggetto && (P().indagine.oggetti || [])
+        .some((o) => new RegExp(oc.su_canto_oggetto, 'i').test(o))
+        ? (oc.su_canto_con_oggetto || oc.su_canto) : oc.su_canto)
+    : null;
+  if (oc && sogliaOrologio && !sp.esito && sp.canto >= sogliaOrologio) {
     const testo = oc.testo || `${oc.nome}: troppo tardi.`;
     if (oc.esito === 'parziale') {
       // DECLASSA, NON CHIUDE. I fascicoli dicono «peggiora e si continua»
