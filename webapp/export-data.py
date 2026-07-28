@@ -1158,7 +1158,7 @@ episodi = dict(
                   'lo uccide, o una raffica che lo fa cadere dall’esposto, perde il filo.',
         # «Prendete VIVO il Caposquadra»: un compito su una MINIATURA, non su una
         # stanza — adiacenza e Interagire.
-        compiti=[dict(id='caposquadra', nemico='IL CAPOSQUADRA', quante=1, ridotto=True,
+        compiti=[dict(id='caposquadra', nemico='IL CAPOSQUADRA', quante=1, ridotto=True, tile='T6',
                       etichetta='Cattura il Caposquadra',
                       fatto='Il Caposquadra è preso vivo: il testimone parlerà.')],
         vittoria=dict(testo='Il Caposquadra è vostro, e vivo.'),
@@ -1295,7 +1295,7 @@ episodi = dict(
         # la tensione digitale viene dal sigillo. Un domani si potrebbe modellare.
         compiti=[dict(id='tell', tile=t, quante=4, etichetta='Documenta un tell del falso')
                  for t in ('T2', 'T3', 'T4')] + [
-            dict(id='capo', nemico='IL CAPO APPARECCHIATORE', quante=1, dopo='tell', ridotto=True,
+            dict(id='capo', nemico='IL CAPO APPARECCHIATORE', quante=1, dopo='tell', ridotto=True, tile='T6',
                  etichetta='Prendi il Capo Apparecchiatore',
                  fatto='Il Capo è preso: la Contro-busta si apre.')],
         vittoria=dict(testo='Contro-busta: sapete chi ha scritto il dossier.'),
@@ -1429,7 +1429,7 @@ episodi = dict(
         compiti=[
             dict(id='fascicolo', tile='T6', quante=1, etichetta='Prendi il Fascicolo del 1741',
                  fatto='Il Fascicolo del 1741 è vostro.'),
-            dict(id='vidal', nemico='L’ISPETTORE VIDAL', quante=1, ridotto=True,
+            dict(id='vidal', nemico='L’ISPETTORE VIDAL', quante=1, ridotto=True, tile='T5',
                  etichetta='Convinci l’Ispettore Vidal',
                  fatto='Vidal ascolta: da stanotte è dalla vostra parte.')],
         vittoria=dict(testo='Il Fascicolo è vostro e Vidal è con voi.'),
