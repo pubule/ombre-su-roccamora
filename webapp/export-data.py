@@ -937,6 +937,22 @@ episodi = dict(
                   'riportate tutti in T1 — col Suggeritore alle calcagna da T4: abbatterlo '
                   'NON è necessario. Secondario: le lastre di cera incise, una ad azione '
                   '(Interagire).',
+        # META' DELLA VITTORIA STAMPATA MANCAVA. La Soluzione dice «Vittoria:
+        # liberate Gaspare e Rocco (Interagire in T5), DISACCORDATE I 3 PANNELLI
+        # della Conchiglia (Interagire in T6) e portate fuori tutti», e T5
+        # ribadisce in maiuscolo «QUI L'USCITA NON BASTA: la spedizione e' VINTA
+        # solo se i TRE pannelli sono gia' disaccordati». Nei dati c'era solo la
+        # scorta: il gruppo scappava e l'app dichiarava vittoria. Trovato col
+        # setaccio strutturale (T6 raggiunta 0 volte su 10).
+        compiti=[dict(id='pannelli', tile='T6', quante=3,
+                      etichetta='Disaccorda un pannello',
+                      fatto='I tre pannelli sono disaccordati: la Conchiglia non registrerà.')],
+        # «prima del 4o segnalino Canto — al 4o l'aria del terzo atto comincia di
+        # sopra e la conchiglia REGISTRA (non e' una sconfitta, e' l'epilogo
+        # peggiore)»: declassamento, non chiusura, come sigillo/arresto/decano.
+        orologio=dict(id='conchiglia', nome='La Conchiglia registra', su_canto=4,
+                      esito='parziale',
+                      testo='L’aria del terzo atto comincia di sopra: la Conchiglia registra.'),
         # DUE prigionieri nella stessa fossa: il testo d'arbitro dice «un'azione
         # per entrambi», quindi liberarne uno libera anche l'altro. La vittoria
         # richiede che escano TUTTI E DUE (nessuno resta nel sottopalco).

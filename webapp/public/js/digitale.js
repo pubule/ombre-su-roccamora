@@ -1321,23 +1321,37 @@ function muoviScortato(i, node) {
     g.uscito = true; g.pos = null;             // sparisce dal board: libera il chiusino per l'altro
     // anche dal condotto devono passare TUTTI: con due prigionieri (Ep.4) il
     // primo che ci mette il piede non chiude la partita da solo
-    if (sp.scortati.every((x) => x.uscito)) {
-      sp.esito = 'vittoria';
+    if (sp.scortati.every((x) => x.uscito) && scortaPuoVincere()) {
+      sp.esito = sp.declassato ? 'parziale' : 'vittoria';
       sp.log.push(s.vittoria || `${s.nome} è fuori: siete salvi.`);
       salvaP(); return epilogo();
     }
-    log(`${s.nome} sparisce nel passaggio: manca ancora qualcuno.`);
+    log(sp.scortati.every((x) => x.uscito)
+      ? `${s.nome} e' al sicuro, ma il lavoro non e' finito: ${specCompiti()[0].etichetta.toLowerCase()}.`
+      : `${s.nome} sparisce nel passaggio: manca ancora qualcuno.`);
     salvaP(); return render();
   }
   // chi e' gia' passato dal condotto conta come arrivato: i due dell'Ep.4
   // possono uscire uno per la via segreta e uno dalla porta d'ingresso
   const arrivati = sp.scortati.every((x, k) => x.uscito || (x.liberato && x.pos && x.pos.t === specScort(k).meta));
-  if (node.t === s.meta && arrivati) {
-    sp.esito = 'vittoria';
+  if (node.t === s.meta && arrivati && scortaPuoVincere()) {
+    sp.esito = sp.declassato ? 'parziale' : 'vittoria';
     sp.log.push(s.vittoria || `${s.nome} è al sicuro: siete salvi.`);
     salvaP(); return epilogo();
   }
   salvaP(); render();
+}
+
+// «QUI L'USCITA NON BASTA» (Ep.4, T5): dove l'episodio ha ANCHE dei compiti, la
+// scorta portata in salvo non chiude da sola. Il fascicolo lo dice due volte —
+// «la spedizione e' VINTA solo se i TRE pannelli della Conchiglia sono gia'
+// disaccordati. Se non lo sono, chi imbocca il vano si mette al sicuro (esce
+// dal tabellone e non puo' piu' essere colpito) MA LA PARTITA CONTINUA». Prima
+// il gruppo scappava e l'app dichiarava vittoria: meta' dell'obiettivo stampato
+// non esisteva nei dati. Inerte negli altri episodi-scorta, che di compiti non
+// ne hanno.
+function scortaPuoVincere() {
+  return !specCompiti().length || compitiFiniti();
 }
 
 async function attaccaNemico(nm, i) {
@@ -2041,7 +2055,15 @@ function faseNemiciAI() {
         .some((o) => new RegExp(oc.su_canto_oggetto, 'i').test(o))
         ? (oc.su_canto_con_oggetto || oc.su_canto) : oc.su_canto)
     : null;
-  if (oc && sogliaOrologio && !sp.esito && sp.canto >= sogliaOrologio) {
+  // …e NON declassa un lavoro gia' finito. Le Soluzioni legano la scadenza
+  // all'OBIETTIVO, non alla fine della partita: «i tre pannelli disaccordati
+  // PRIMA del 4o segnalino» (Ep.4), «prima del sigillo» (Ep.15), «il decano
+  // lucido PRIMA della soglia» (Ep.17). Un Gatto gia' agganciato non scavalca
+  // piu' la cresta. Senza questa condizione l'Ep.4 sabotava la Conchiglia al
+  // round 8 e veniva declassato al 10 mentre riportava i prigionieri a casa:
+  // 0 vittorie piene su 15, tutte per un lavoro fatto in tempo.
+  const lavoroFatto = specCompiti().length > 0 && compitiFiniti();
+  if (oc && sogliaOrologio && !sp.esito && !lavoroFatto && sp.canto >= sogliaOrologio) {
     const testo = oc.testo || `${oc.nome}: troppo tardi.`;
     if (oc.esito === 'parziale') {
       // DECLASSA, NON CHIUDE. I fascicoli dicono «peggiora e si continua»
