@@ -612,7 +612,61 @@ N-106 ha tolto la chiave dalla lettera d'incarico dell'Ep. 16, ma e' il caso par
 N-93 ha stabilito che il rogo e' un orologio assoluto (parte dal 1o round, `rogoBrucia()` confronta il round e non le tessere rivelate) e ha riscritto T4 come constatazione. Resta un terzo punto che racconta una partenza diversa: «nell'istante in cui li avete, il molino divampa». Le due cose possono convivere — l'incendio e' gia' in corso, e strappare i registri e' la vampata che fa fuggire gli sgherri — ma sono tre formulazioni della stessa partenza scritte in tre momenti, ed e' la specie di divergenza che a due riscritture di distanza diventa una regola inventata al tavolo. Va deciso se e' la stessa fiammata o un evento suo, e detto una volta sola.
 
 ### N-110 · Sei correzioni di regola hanno spostato i numeri: tutta la mappa pilota e' da rimisurare
-**stato: aperta** · riferimenti: project_mappa_pilota, scripts/simulate_ep15.py, scripts/simulate_ep20.py, webapp/public/js/indagine.js
+**stato: chiusa** — rimisurata (09/08) con `webapp/mappa-pilota.mjs`, strumento nuovo: rifa' la mappa di tutta la
+campagna in mezz'ora invece che in un pomeriggio, lanciando gli episodi a gruppi (non si contendono
+niente, ognuno ha la sua chiave di salvataggio). E' il motivo per cui finora la mappa veniva ritoccata
+a pezzi e letta come se fosse coerente.
+
+**Restringimento che ha risparmiato meta' del lavoro:** il pilota non gioca l'Indagine, la simula come
+esito. Quindi la trasferta da 2 ore ([[N-87]]) e le 36 serrature che si aprivano da sole ([[N-108]])
+**non** toccano queste percentuali, che sono tutte di Spedizione.
+
+**La mappa e' scesa quasi ovunque, ed era prevedibile.** La correzione della soglia del Canto
+(`=== soglia` -> `>= soglia`) fa scattare il boss anche quando il Canto la supera con un salto: prima,
+in quei casi, il boss **non si destava mai**. Gli episodi non sono diventati piu' duri — hanno smesso
+di essere piu' facili di quanto dichiaravano.
+
+| | 09/08 | 24/07 | |
+|---|---|---|---|
+| Preludio | 33% | — | mai misurato |
+| Ep.1 | **45%** (N=20) | 65% | −20 |
+| Ep.2 | 83% | 75% | +8 |
+| Ep.3 | 83% | 75% | +8 |
+| Ep.4 | **20%** (N=20) | 60% | −40 |
+| Ep.5 | 42% | 55% | −13 |
+| Ep.6 | 50% | 60% | −10 |
+| Ep.7 | 25% | 30% | −5 (by-design) |
+| Ep.8 | 67% | 60% | +7 |
+| Ep.9 | **10%** (N=20) | — | mai misurato |
+| Ep.10 | **0%** (N=20) | — | vedi [[N-114]] |
+| Ep.11 | 20-33%, corsa inaffidabile | 95% | vedi [[N-115]] |
+| Ep.12 | 58% | — | mai misurato |
+| Ep.13 | 83% | 87% | −4 |
+| Ep.14 | 100% | 100% | 0 |
+| Ep.15 | **15%** (N=20) | 60% | −45 |
+| Ep.16 | 100% | — | mai misurato |
+| Ep.17 | 92% | 100% | −8 |
+| Ep.18 | 100% | 100% | 0 |
+| Ep.19 | **65%** (N=20) | 95% | dentro la sua oscillazione nota (55-95) |
+| Ep.20 | 25% | — | riscritto, vedi [[N-112]] |
+
+I sospetti sono stati **ri-verificati a N=20 prima di dire qualcosa**, come la lezione dell'Ep. 19
+impone: a N=12 dava 42%, a N=20 da' 65%, cioe' era varianza e non un difetto.
+
+**Cosa resta, classificato.** Fuori dalla banda sana (55-75%) e non per scelta dichiarata:
+
+- **strutturali, aperti a parte:** Ep. 10 (0%, obiettivo irraggiungibile — [[N-114]]) e Ep. 11
+  (partite perse che non finiscono mai — [[N-115]]). Nessuno dei due e' una regressione: sono i
+  primi due «outlier da classificare» di luglio, misurati per la prima volta.
+- **da tarare:** Ep. 4 (20%), Ep. 9 (10%), Ep. 15 (15%), Ep. 1 (45%), Ep. 5 (42%), Ep. 6 (50%).
+  L'Ep. 15 e' spiegato — la CANCELLAZIONE non esisteva in digitale e ora esiste ([[N-88]]); gli altri
+  sono la soglia del Canto che ora scatta.
+- **sopra la banda:** Ep. 14, 16, 18 al 100% e Ep. 17 al 92%. Il 100% include la vittoria parziale
+  (stakes-split), quindi non e' un walkover — ma nessuno l'ha verificato dopo le correzioni.
+
+**Non ho ritarato niente.** Sei episodi da tarare piu' due difetti strutturali sono una sessione di
+bilanciamento, non una coda di questa: e la prima domanda da farsi non e' «quale numero alzo», e'
+**se la banda 55-75% valga ancora** ora che il boss si desta davvero. · riferimenti: project_mappa_pilota, scripts/simulate_ep15.py, scripts/simulate_ep20.py, webapp/public/js/indagine.js
 
 La tornata dell'08-09/08 ha cambiato il comportamento misurato, non solo il testo. (1) N-87: la trasferta fuori citta' costa 2 ore anche in digitale — l'Ep. 13 e l'Ep. 17 erano misurati con un'ora di troppo in mano. (2) La falla del requisito: 36 serrature su 90 si aprivano leggendo la porta, quindi il pilota entrava gratis in cinque episodi. (3) N-72: il ritmo del controcanto ha un pavimento a 1 — l'Ep. 20 era misurato piu' duro del vero. (4) N-73: il rito continua col coro anche a M. abbattuto — l'Ep. 20 era misurato piu' facile del vero. (5) N-89: `CANCELLA_PER_ROUND` dell'Ep. 15 da 2 a 1. (6) N-04 e N-41, gia' segnalate. Le prime due tirano in una direzione e le altre in quella opposta, quindi non si puo' nemmeno stimare il segno: **le percentuali di vittoria di tutti gli episodi vanno rifatte col pilota Playwright**, non col prefiltro. E' la conseguenza aperta piu' pesante del lavoro fatto.
 
@@ -938,3 +992,13 @@ obiettivo raggiunto: se la banda voluta e' quella, va ritarato con una leva vera
 sono nel corpo di [[N-112]]. · riferimenti: scripts/simulate_ep20.py contro webapp/misura-episodio.mjs (18 partite, 4 eroi)
 
 Chiuse le due leve del finale, il pilota misura 56% di vittorie a quattro eroi e il simulatore Python 17%. Lo scarto e' di quaranta punti, ed e' nella direzione opposta a quella nota: di regola i simulatori sono ottimisti perche' astraggono il movimento e regalano una tessera per round (vedi la voce sulla taratura), qui invece il simulatore e' molto piu' severo del gioco vero. A due e tre eroi concordano meglio (45-59% contro il 56% del pilota a quattro), quindi la divergenza cresce con la taglia del gruppo. Due sospetti da verificare, in ordine di costo: (1) `MARCIA_TESSERA = 2` nel simulatore impone due round per tessera anche dove il pilota ne usa meno, e su una discesa di cinque tessere sono round di Fase Minaccia in piu'; (2) il simulatore salva la Candidata solo se il gruppo ha la Domanda 3, mentre nel pilota l'oggetto e' seminato da `oggetti_indagine` — cioe' i due strumenti misurano due gruppi diversi, uno che la Candidata ce l'ha sempre e uno che ce l'ha un terzo delle volte. Il secondo sospetto da solo spiegherebbe quasi tutto lo scarto, e se e' cosi' non e' un difetto: e' che le due misure rispondono a domande diverse. Ma va deciso quale delle due e' la domanda di bilanciamento, perche' oggi la mappa pilota e i riepiloghi del simulatore vengono letti come se fossero la stessa cosa.
+
+### N-114 · Ep. 10 non si vince in digitale: l'obiettivo chiede 14 e il gruppo arriva a 2
+**stato: aperta** · riferimenti: webapp/data/ep10.json (compiti.prova quante=14, orologio demolizione max=12 ogni=1)
+
+Misurato col pilota: 0 vittorie su 20, e non e' varianza. L'obiettivo e' un compito «Documenta il corpo murato» da 14, con 2 per azione se il gruppo ha la Macchina Fotografica (che il pilota semina). Il gruppo entra nella camera al round 9 e l'orologio della Demolizione (`ogni: 1`, `max: 12`) chiude al round 12: restano tre round. Quattro eroi che documentano fanno 8 per round in teoria, ma nella pratica misurata arrivano a 2, 6 e 0 — perche' nella camera c'e' anche da combattere. Servirebbero circa sette round e ce ne sono tre. Non e' una regressione di questa sessione: l'Ep. 10 non era nella mappa pilota del 24 luglio, sta nella lista «outlier da classificare» insieme a Ep. 9, Ep. 12, Ep. 16 e al Preludio. E' la prima volta che qualcuno lo misura, ed esce a zero. Le due leve ovvie, non applicate: la Demolizione parte troppo presto rispetto a quando si arriva alla camera (nove round per arrivarci, tre per lavorare), oppure il 14 e' tarato su un gruppo che documenta senza essere disturbato. La prima e' la stessa forma del difetto dell'Ep. 20 (il budget lo mangia il tragitto), e vale la pena guardarle insieme.
+
+### N-115 · Ep. 11 non ha un orologio che chiuda le partite perse: proseguono finche' il pilota si arrende
+**stato: aperta** · riferimenti: webapp/data/ep11.json (compiti.caposquadra), webapp/misura-episodio.mjs
+
+Su venti partite, tre finiscono in stallo e la corsa si dichiara NON VALIDA («fase eroi mai arrivata (timeout)»). Non e' contesa fra browser paralleli — succede anche lanciando l'episodio da solo — ed e' il pilota che si arrende, non un errore JS. La causa: l'obiettivo e' prendere il Caposquadra (`caposquadra 1/1`), e nelle partite che vanno male non lo si prende mai. Non c'e' nessun orologio che dichiari la sconfitta: le partite arrivano a round 20, 22, 23 e continuano. Le partite vinte chiudono al round 14-15, quindi la coda lunga e' tutta di partite gia' perse che nessuno dichiara tali. Al tavolo la cosa si risolve da sola — l'arbitro chiude la serata — ma in digitale, e nel pilota, una partita che non finisce e' una misura che non esiste: e' il motivo per cui l'Ep. 11 e' l'unico episodio la cui percentuale non e' credibile (20% a N=20 con tre stalli, 33% a N=6 senza). Da decidere: un tetto di round che dichiari la sconfitta (come fanno gli orologi degli altri episodi), oppure una condizione di fuga. La prima e' una riga di dati e renderebbe l'episodio misurabile.
