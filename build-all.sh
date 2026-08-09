@@ -41,7 +41,11 @@ echo "== PDF (pdf/) =="
 (cd src && python gen_narrator.py)
 (cd src && python gen_cover.py)
 (cd src && python gen_preludio.py)
-(cd src && python gen_ep2.py)
+# Tutti gli episodi, non solo il secondo: fino a qui la build ne rigenerava
+# due su ventuno, e i PDF degli altri diciotto restavano indietro rispetto ai
+# sorgenti a ogni correzione. `scripts/audit.py` (controllo A4) verifica che
+# questo elenco resti completo.
+for n in $(seq 2 20); do (cd src && python "gen_ep$n.py"); done
 (cd src && python gen_board.py)
 (cd src && python gen_taccuino_campagna.py)
 
