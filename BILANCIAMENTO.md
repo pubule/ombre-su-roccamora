@@ -281,3 +281,80 @@ bloccato dallo strumento.
 
 Ogni passo: misura Playwright (campione ≥32, il rumore a 16 è ±15) → diagnosi →
 proposta etichettata → conferma → applica → rimisura.
+
+---
+
+# 09/08/2026 — la mappa rifatta, e la decisione sul metodo
+
+Rimisurata **tutta** la campagna con `webapp/mappa-pilota.mjs` (nuovo: rifà i 21
+episodi in ~30 min, a gruppi di 4 in parallelo — non si contendono niente,
+ognuno ha la sua chiave di salvataggio). Prima si ritoccava a pezzi e si leggeva
+come se fosse coerente.
+
+## La decisione (09/08)
+
+**La banda resta il riferimento, ma non è più il giudice.** Il pilota filtra: dice
+dove guardare, e lo dice bene. Non dice se l'episodio è bello, se l'ansia c'è, se
+il tavolo ha capito la scena — e questa campagna ha quattro KPI, di cui uno solo
+ha un numero. **Le decisioni di taratura si prendono su partite vere.**
+
+Motivo pratico, non di principio: su **tre** episodi aperti sospettando uno
+sbilanciamento — Ep. 10, Ep. 11, Ep. 20 — **tre volte** il motore stava giocando
+qualcosa di diverso da quello stampato. Nessuno dei tre era un problema di
+numeri. Se il pilota avesse avuto l'ultima parola, avrei tarato tre episodi sani
+per compensare tre bug.
+
+**Regola operativa, prima di toccare qualunque numero:** verificare che il motore
+stia giocando l'episodio del fascicolo. Le tre infedeltà trovate erano tutte
+della stessa specie — una regola stampata che il digitale non applicava, o una
+che applicava a modo suo.
+
+## Cosa ha spostato la mappa, e non è il gioco
+
+La correzione `=== soglia` → `>= soglia` fa scattare il boss anche quando il
+Canto la supera con un salto. **Prima, in quei casi, il boss non si destava mai.**
+Gli episodi non sono diventati più duri: hanno smesso di essere più facili di
+quanto dichiaravano. Metà campagna è scesa per questo, e i numeri di prima erano
+gonfiati.
+
+| ep | 09/08 | 24/07 | | ep | 09/08 | 24/07 |
+|---|---|---|---|---|---|---|
+| preludio | 33% | — | | 11 | **35%** | 95% |
+| 1 | 45% | 65% | | 12 | 58% | — |
+| 2 | 83% | 75% | | 13 | 83% | 87% |
+| 3 | 83% | 75% | | 14 | 100% | 100% |
+| 4 | 20% | 60% | | 15 | 15% | 60% |
+| 5 | 42% | 55% | | 16 | 100% | — |
+| 6 | 50% | 60% | | 17 | 92% | 100% |
+| 7 | 25% | 30% (voluto) | | 18 | 100% | 100% |
+| 8 | 67% | 60% | | 19 | 65% | 95% |
+| 9 | 10% | — | | 20 | 25% | riscritto |
+| 10 | **25%** | — | | | | |
+
+I tre riparati oggi (10, 11, 20) sono in grassetto o riscritti: nessuno per
+taratura, tutti per fedeltà al fascicolo.
+
+## Le partite vere: cosa devono rispondere
+
+Il pilota **non gioca l'Indagine**, la simula come esito. Quindi tutta la metà
+investigativa della serata — le sei ore, le serrature, gli Approfondimenti, le
+quattro Domande — non è mai stata misurata da nessuno. È lì che va guardato per
+primo.
+
+Ordine consigliato, per quanto è incerto ciò che si scoprirebbe:
+
+1. **Ep. 13 → 15, alla cieca** (già [[N-02]] nel registro). L'Ep. 15 è un falso
+   finale: il gruppo deve arrivare a incolpare un innocente e crederci. È
+   l'unica cosa che nessuno strumento può misurare — o il tavolo ci casca, o il
+   depistaggio non esiste. Il depistaggio è stato rimontato il 09/08 e non l'ha
+   mai provato nessuno.
+2. **Ep. 20**, il finale. Sta a 25% e la domanda non è la percentuale: è se la
+   corsa fra controcanto e risveglio si *senta*, e se spezzare il coro venga in
+   mente al tavolo prima che sia tardi.
+3. **Un episodio dell'Atto I** (Ep. 4 o Ep. 5, ora al 20-42%): lì il pilota gioca
+   peggio — non sa coordinare la squadra — quindi i suoi numeri bassi possono
+   essere un limite dello strumento e non del gioco.
+
+Per ogni sessione, riportare qui: quante ore restavano a fine Indagine, quante
+Domande esatte, dove il tavolo si è fermato a discutere, dove si è annoiato, e
+se qualcuno ha detto ad alta voce la cosa che l'episodio voleva far dire.
