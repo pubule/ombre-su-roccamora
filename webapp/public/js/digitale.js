@@ -1371,6 +1371,20 @@ function avanzaPressione() {
       || !((P().indagine || {}).oggetti || []).some((o) => new RegExp(salva, 'i').test(o));
     if (voce) sale(p.rito.per_round || 1, p.rito.testo || 'Il rito ha una voce');
   }
+  // «Le fasi ambientali della camera fanno danno inevitabile a soglie di Canto»
+  // e' stampato sul fascicolo e non esisteva qui (N-113): la camera e' il boss
+  // dell'episodio e in digitale non faceva un graffio. Inevitabile vuol dire
+  // senza prova: non c'e' niente da colpire, e' la stanza.
+  if (p.danno) {
+    const soglie = Object.keys(p.danno).map(Number).filter((s) => sp.canto >= s);
+    const dan = soglie.length ? Math.max(...soglie.map((s) => p.danno[s])) : 0;
+    for (const nm of P().party) {
+      if (!dan || (sp.vite[nm] ?? 0) <= 0) continue;
+      sp.vite[nm] = Math.max(0, sp.vite[nm] - dan);
+      ann.push(`La camera respira: ${primo(nm)} −${dan} (${sp.vite[nm]}).`);
+      if (sp.vite[nm] <= 0) ann.push(`${primo(nm)} va a terra.`);
+    }
+  }
   return ann;
 }
 

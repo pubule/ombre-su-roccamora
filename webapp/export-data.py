@@ -1541,7 +1541,11 @@ episodi = dict(
         oggetti_indagine=['La Mappa Acustica Attiva', 'La Candidata Salvata'],
         pressione=dict(tile='T6', per_round=1, testo='Il Dormiente si desta',
                        rito=dict(per_round=1, finche_manca_oggetto='Candidata Salvata',
-                                 testo='Il rito ha una voce che crede: la Candidata è nelle sue mani')),
+                                 testo='Il rito ha una voce che crede: la Candidata è nelle sue mani'),
+                       # le fasi ambientali: danno inevitabile per round a soglie di
+                       # Canto, come stampato. Mancava del tutto in digitale, ed e' il
+                       # boss dell'episodio — la camera, non un nemico da colpire.
+                       danno={'4': 1, '6': 2, '7': 3}),
         vittoria=dict(testo='Il Controcanto copre il Canto: la città si sveglia, il Dormiente no.'),
         # la finestra in piu' che il digitale chiede: il Canto sale ogni 6
         # round invece che ogni 4, come gia' fanno Ep.1/3/5/6 per le

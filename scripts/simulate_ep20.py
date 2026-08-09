@@ -531,21 +531,21 @@ def simula_spedizione(party, indagine, log, formula_minaccia='finale_v3'):
             if not vivi():
                 esito = 'SCONFITTA (party wipe nella camera)'
                 break
-            # gli eroi: alcuni cantano il controcanto, altri spezzano il coro / M.
+            # IL CANTO NON COSTA AZIONI (N-113). Il simulatore mandava meta'
+            # gruppo a cantare e meta' a combattere, e con quattro eroi restavano
+            # due a spezzare un coro che il mazzo rimette dentro a ~1 per round:
+            # il coro sopravviveva, toglieva la sua riga, e il finale crollava.
+            # E' una regola che non esiste: il controcanto avanza a fine round
+            # col suo ritmo, e TUTTI combattono — e' il motivo per cui la scena
+            # dice «va spezzato il coro». Era lo scarto di quaranta punti fra
+            # questo simulatore (17%) e il pilota (56%) a quattro eroi.
             vivi_ora = list(vivi())
-            # meta' canta, meta' combatte (almeno 1 canta se c'e' qualcuno)
-            n_cantori = max(1, len(vivi_ora) // 2)
-            cantori = vivi_ora[:n_cantori]
-            combattenti = vivi_ora[n_cantori:]
-            eroi_ripuliscono(combattenti, anche_m=True)
-            # avanza il controcanto
-            righe = len(cantori) and controcanto_rate  # se c'e' almeno un cantore
-            righe = controcanto_rate if cantori else 0
+            eroi_ripuliscono(vivi_ora, anche_m=True)
             # Pavimento a 1: per quanti siano nel coro, una riga la cantate
             # sempre. Senza, tre impiegati in campo azzeravano il canto e la
             # scena diventava un muro invece di una difficolta'.
-            righe = righe - coro_in_campo() + citta_bonus[0] - eco_penalita[0]
-            righe = max(1, righe) if cantori else 0
+            righe = controcanto_rate - coro_in_campo() + citta_bonus[0] - eco_penalita[0]
+            righe = max(1, righe) if vivi_ora else 0
             citta_bonus[0] = 0
             eco_penalita[0] = 0
             controcanto[0] += righe

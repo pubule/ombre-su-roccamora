@@ -908,6 +908,33 @@ Prima di aggiungere, **cercare** se l'anomalia c'è già: il registro si sporca
 in fretta se ogni giro riscrive le stesse voci con parole diverse.
 
 ### N-113 · Sull'Ep. 20 il simulatore da tavolo e il pilota divergono di quaranta punti, e stavolta e' il simulatore a essere severo
-**stato: aperta** · riferimenti: scripts/simulate_ep20.py contro webapp/misura-episodio.mjs (18 partite, 4 eroi)
+**stato: chiusa** — risolta (09/08): non era nessuno dei due sospetti che avevo annotato, ed erano **due** cause.
+
+**La Candidata non c'entrava.** Il riepilogo del simulatore riporta «% Candidata 100%» a ogni taglia:
+la salva sempre. Sospetto morto in una riga di tabella.
+
+**Causa 1 — il simulatore modellava una regola che non esiste.** Mandava *meta' gruppo a cantare e
+meta' a combattere* (`n_cantori = max(1, len(vivi) // 2)`). Ma il controcanto **non costa azioni**: e'
+proprio il motivo per cui la scena dice «va spezzato il coro», ed e' l'exploit che [[N-73]] ha dovuto
+chiudere. Con quattro eroi restavano due a spezzare un coro che il mazzo rimette dentro a circa uno
+per round: il coro sopravviveva, si prendeva la sua riga, e il finale crollava. Tolta la divisione,
+il simulatore passa da **17% a 29%** a quattro eroi (e da 59% a 69% a tre).
+
+**Causa 2 — il digitale non faceva il danno della camera.** «Le fasi ambientali della camera fanno
+danno inevitabile a soglie di Canto» e' stampato sul fascicolo (1 a Canto 4, 2 a 6, 3 a 7) e in
+digitale non esisteva: la camera, che e' *il boss dell'episodio*, non faceva un graffio. Aggiunto
+(`pressione.danno`), il pilota scende da **56% a 17%**.
+
+I due strumenti ora concordano: **17% il pilota, 29% il simulatore**, dodici punti invece di quaranta,
+e il residuo si spiega col resto di cio' che il simulatore astrae. La divergenza era in entrambe le
+direzioni contemporaneamente — uno inventava una regola, l'altro ne dimenticava una — e i due errori
+si sommavano.
+
+**Conseguenza da decidere, e non e' tecnica.** Con tutto allineato il finale sta a 17-29%. Puo'
+essere giusto: la docstring del simulatore dice da sempre «NON puntare a win-rate alta uniforme — e'
+il finale, deve poter finire male», e la campagna ha gia' un episodio a ~30% per scelta ([[N-112]] e
+la voce sull'Ep. 7). Ma il 56% di ieri era il numero di un finale a cui mancava una regola, non un
+obiettivo raggiunto: se la banda voluta e' quella, va ritarato con una leva vera — e le leve misurate
+sono nel corpo di [[N-112]]. · riferimenti: scripts/simulate_ep20.py contro webapp/misura-episodio.mjs (18 partite, 4 eroi)
 
 Chiuse le due leve del finale, il pilota misura 56% di vittorie a quattro eroi e il simulatore Python 17%. Lo scarto e' di quaranta punti, ed e' nella direzione opposta a quella nota: di regola i simulatori sono ottimisti perche' astraggono il movimento e regalano una tessera per round (vedi la voce sulla taratura), qui invece il simulatore e' molto piu' severo del gioco vero. A due e tre eroi concordano meglio (45-59% contro il 56% del pilota a quattro), quindi la divergenza cresce con la taglia del gruppo. Due sospetti da verificare, in ordine di costo: (1) `MARCIA_TESSERA = 2` nel simulatore impone due round per tessera anche dove il pilota ne usa meno, e su una discesa di cinque tessere sono round di Fase Minaccia in piu'; (2) il simulatore salva la Candidata solo se il gruppo ha la Domanda 3, mentre nel pilota l'oggetto e' seminato da `oggetti_indagine` — cioe' i due strumenti misurano due gruppi diversi, uno che la Candidata ce l'ha sempre e uno che ce l'ha un terzo delle volte. Il secondo sospetto da solo spiegherebbe quasi tutto lo scarto, e se e' cosi' non e' un difetto: e' che le due misure rispondono a domande diverse. Ma va deciso quale delle due e' la domanda di bilanciamento, perche' oggi la mappa pilota e i riepiloghi del simulatore vengono letti come se fossero la stessa cosa.
