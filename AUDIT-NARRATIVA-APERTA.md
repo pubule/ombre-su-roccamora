@@ -639,6 +639,45 @@ Ne segue che le tre leve elencate sopra vanno riordinate: la (1) e' l'unica viva
 in cui l'avevo scritta — non «la discesa costa troppo Canto» in astratto, bensi' **la discesa e'
 troppo lunga, oppure il mazzo restituisce i Crescendo troppe volte**. La (2) e la (3) restano quello
 che erano: un vincolo fisico e una resa.
+
+**Dove si perdono i dieci round (09/08, `webapp/misura-cammino-ep20.mjs`).** Non in combattimento: in
+geometria. Un eroe solo, campo sgombro, mai una sosta, che scende scegliendo sempre la mossa che
+avvicina, entra nella camera al **round 9** — due round esatti per tessera, cinque tessere. Il pilota
+ne misura 9,8: **l'attrito di una partita vera vale 0,8 round su dieci.**
+
+La causa e' una regola del motore, non una scelta dell'episodio: `esploraMosse` non espande oltre una
+casella che rivela una tessera coperta, quindi **entrare in una tessera nuova chiude il movimento del
+round**. Un round per entrare, uno per attraversare, per ciascuna delle cinque tessere. Alleggerire il
+mazzo o evitare i combattimenti non accorcia la discesa di un round.
+
+**Cosa sposta davvero il conto** (9 round di discesa, 4 eroi, 4000 repliche):
+
+| variante | Canto all'ingresso | margine | round di canto disponibili |
+|---|---|---|---|
+| come e' adesso | 5,0 | 3,0 | **1,5** |
+| 3 Crescendo invece di 4 | 3,8 | 4,2 | 2,1 |
+| **2 Crescendo invece di 4** | **2,7** | 5,3 | **2,6** |
+| i Crescendo non tornano (niente rimescolo) | 4,9 | 3,1 | 1,6 |
+| la soglia non accelera la pesca | 4,4 | 3,6 | 1,8 |
+
+Il rimescolo non c'entra (4,9 contro 5,0): a contare e' la densita'. L'accelerazione della soglia vale
+0,6. **La sola leva grossa e' quanti Crescendo stanno nel mazzo.**
+
+**Ma non basta, e va detto.** Il controcanto chiede 10 righe. Il ritmo di un gruppo tipico (12
+Frammenti, Mappa Acustica, un solo del coro rimasto in camera) e' 3 righe per round: servono 4 round.
+Anche dimezzando i Crescendo il margine ne concede 2,6. Il conto torna solo se **si somma una seconda
+cosa**, e le candidate misurate sono due:
+
+- **sgomberare la camera.** Senza nemici dentro, il rito perde la voce: la pressione scende da +2 a +1
+  per round e i round disponibili raddoppiano. E' la vittoria che l'episodio descrive («va spezzato il
+  coro, non l'uomo»), e il canto non costa azioni proprio per lasciarle tutte al coro. Nelle dieci
+  partite del pilota il gruppo non ci e' mai riuscito: c'e' sempre stato «1 in T6». Da capire se e'
+  incapacita' del pilota o se quattro eroi contro cinque Sgherri non ce la fanno in due round.
+- **accorciare la discesa.** Cinque tessere a due round l'una sono dieci round. Con tre tessere sono
+  sei, e il Canto all'ingresso scende a ~3,3 (misurato). Costa una riscrittura della plancia.
+
+Quello che **non** e' una leva, e va tolto dall'elenco: `canto_ogni` (vale 1 su 5), il rimescolo del
+mazzo (0,1), e la soglia-risveglio a 8 (vincolo fisico: 8 sono i segnalini in scatola).
 ## Chiuse in questa tornata
 
 | id | cosa | come |
