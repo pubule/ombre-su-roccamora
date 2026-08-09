@@ -1,8 +1,10 @@
 // Shell della webapp: home -> episodio -> modalita' -> party -> partita.
 // W-A: navigazione e stato; le viste Indagine/Spedizione arrivano in W-B
 // (motore arbitro) e qui hanno un segnaposto onesto.
-import { dati, nuovaPartita, salva, carica, cancella } from './store.js';
+import { dati, nuovaPartita, salva, carica, cancella, tavoloCorrente } from './store.js';
 import { schedaEroe } from './scheda-eroe.js';
+import { vistaTavoli } from './tavoli.js';
+import { decidi, avviaCoda, stato as statoSync } from './sync.js';
 
 const app = document.getElementById('app');
 const h = (html) => { app.innerHTML = html; window.scrollTo(0, 0); };
@@ -74,6 +76,10 @@ async function vistaHome() {
       <h1>ombre su roccamora</h1>
       <div class="sotto">società del lume · roccamora, 1889</div>
       <div class="filetto"></div>
+      ${tavoloCorrente() ? `<div class="riga-tavolo">
+        <span class="spia" id="spia">${esc(statoSync())}</span>
+        <button class="btn piccolo" id="cambia-tavolo">cambia tavolo</button>
+      </div>` : ''}
     </header>
     <div class="griglia-episodi">
       ${info.map((ep) => {
@@ -94,6 +100,8 @@ async function vistaHome() {
   `);
   app.querySelectorAll('.tessera-episodio').forEach((el) =>
     el.addEventListener('click', () => vistaEpisodio(el.dataset.ep)));
+  document.getElementById('cambia-tavolo')?.addEventListener('click',
+    () => vistaTavoli(app, () => vistaHome()));
 }
 
 // -------------------------------------------------------------- EPISODIO
@@ -166,7 +174,7 @@ async function vistaEpisodio(epId) {
     ${RIGA_C}
   `);
   document.getElementById('indietro').onclick = vistaHome;
-  document.getElementById('continua')?.addEventListener('click', () => vistaPartita(carica(epId)));
+  document.getElementById('continua')?.addEventListener('click', () => continua(epId));
   document.getElementById('ricomincia')?.addEventListener('click', () => {
     if (confirm('Cancellare la partita in corso di questo episodio?')) {
       cancella(epId); vistaEpisodio(epId);
@@ -191,6 +199,58 @@ async function vistaEpisodio(epId) {
     el.classList.add('attivo'); fase = el.dataset.fase;
   }));
   document.getElementById('avanti').onclick = () => modo && vistaParty(epId, modo, fase, plancia);
+}
+
+// ------------------------------------------- CONTINUARE UNA PARTITA IN CORSO
+// Prima di riprendere si guarda anche il server: la stessa partita puo' essere
+// andata avanti su un altro dispositivo.
+async function continua(epId) {
+  const locale = carica(epId);
+  let remoto = null;
+  if (tavoloCorrente()) {
+    try {
+      const r = await fetch(`/api/salvataggio?tavolo=${tavoloCorrente()}&episodio=${epId}`);
+      if (r.ok) remoto = await r.json();
+    } catch { /* senza rete si gioca il locale, come sempre */ }
+  }
+
+  const d = decidi(locale, remoto);
+  if (d.azione === 'scarica') {
+    const p = JSON.parse(remoto.dati);
+    p.sincronizzato = remoto.aggiornato;
+    salva(p);
+    return vistaPartita(p);
+  }
+  if (d.azione !== 'chiedi') return vistaPartita(locale);
+
+  // Due versioni divergenti: qui NON si sceglie. Si mostrano, e decide chi ha
+  // giocato — sovrascrivere di nascosto una serata e' l'unica cosa vietata.
+  const r = JSON.parse(remoto.dati);
+  const quando = (ms) => new Date(ms).toLocaleString('it-IT');
+  const riga = (p, q) => `Indagine alle ${p.indagine?.ora ?? '—'},
+    round ${p.spedizione?.round ?? 0}. Salvata il ${esc(quando(q))}.`;
+  h(`
+    <div class="barra">
+      <button class="btn" id="indietro">← indietro</button>
+      <div class="titolo">due versioni di questa partita</div>
+      <span></span>
+    </div>
+    <div class="pannello">
+      <p class="nota">Questa partita è andata avanti in due posti diversi.
+      Quale tenete? L’altra si perde.</p>
+      <div class="modi mt">
+        <div class="modo" id="tieni-locale"><h3>questo dispositivo</h3>
+          <p>${riga(locale, locale.aggiornato)}</p></div>
+        <div class="modo" id="tieni-remoto"><h3>l’altro dispositivo</h3>
+          <p>${riga(r, remoto.aggiornato)}</p></div>
+      </div>
+    </div>
+    ${RIGA_C}
+  `);
+  document.getElementById('indietro').onclick = () => vistaEpisodio(epId);
+  const tieni = (p) => { p.sincronizzato = 0; salva(p); vistaPartita(p); };
+  document.getElementById('tieni-locale').onclick = () => tieni(locale);
+  document.getElementById('tieni-remoto').onclick = () => tieni(r);
 }
 
 // ------------------------------------------------------------------ PARTY
@@ -352,11 +412,26 @@ async function vistaPartita(partita) {
 
 // ------------------------------------------------------------------ avvio
 tieniSveglio();
-vistaHome().catch((e) => h(`
+avviaCoda();
+
+const errore = (e) => h(`
   <div class="pannello centrato" style="margin-top:20vh">
     <h2>manca qualcosa</h2>
     <p>${esc(e.message)}</p>
     <p class="nota mt">Sul PC: <code>python webapp/export-data.py</code>,
     <code>node webapp/export-data.js</code>, <code>python webapp/export-assets.py</code>
     e ricarica.</p>
-  </div>`));
+  </div>`);
+
+// La scelta del tavolo compare solo dove i tavoli esistono, cioe' dove
+// risponde /api/stato. Sul PC (webapp/server.js serve solo file) e in tutti i
+// banchi di prova headless quell'endpoint non c'e', e si entra come sempre:
+// nessuno dei banchi va toccato, e nessuno di essi puo' inciampare in una
+// schermata che non sa cos'e'.
+async function avvio() {
+  if (tavoloCorrente()) return vistaHome();
+  let conAccount = false;
+  try { conAccount = (await fetch('/api/stato')).ok; } catch { /* nessun server */ }
+  return conAccount ? vistaTavoli(app, () => vistaHome().catch(errore)) : vistaHome();
+}
+avvio().catch(errore);

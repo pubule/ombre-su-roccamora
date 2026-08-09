@@ -18,9 +18,20 @@ const page = await browser.newPage({ viewport: { width: 1024, height: 768 } });
 
 const jsErrors = [];
 const failed = [];
+// Il 404 su /api/stato non e' un difetto: e' la sonda con cui l'app capisce se
+// esiste un server dei salvataggi. Qui davanti c'e' webapp/server.js, che
+// serve solo file, quindi la risposta giusta e' proprio 404 — e l'app entra
+// come ha sempre fatto, senza chiedere nessun tavolo.
+const attesa = (url) => url.includes('/api/');
 page.on('pageerror', (e) => jsErrors.push(e.message));
-page.on('console', (m) => { if (m.type() === 'error') jsErrors.push(m.text()); });
-page.on('response', (r) => { if (r.status() >= 400) failed.push(`${r.status()} ${r.url()}`); });
+page.on('console', (m) => {
+  if (m.type() !== 'error') return;
+  if (attesa(m.location()?.url || '')) return;   // per URL, non per testo: i 404
+  jsErrors.push(m.text());                       // degli asset devono restare visibili
+});
+page.on('response', (r) => {
+  if (r.status() >= 400 && !attesa(r.url())) failed.push(`${r.status()} ${r.url()}`);
+});
 
 try {
   // --- home ------------------------------------------------------------

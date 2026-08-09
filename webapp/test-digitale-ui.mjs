@@ -9,7 +9,13 @@ const browser = await chromium.launch();
 const page = await browser.newPage({ viewport: { width: 390, height: 844 } });
 const errs = [];
 page.on('pageerror', (e) => errs.push('pageerror: ' + e.message));
-page.on('console', (m) => { if (m.type() === 'error') errs.push('console.error: ' + m.text().slice(0, 200)); });
+// Il 404 su /api/stato e' voluto: e' la sonda con cui l'app capisce se esiste
+// un server dei salvataggi, e webapp/server.js serve solo file.
+page.on('console', (m) => {
+  if (m.type() !== 'error') return;
+  if ((m.location()?.url || '').includes('/api/')) return;
+  errs.push('console.error: ' + m.text().slice(0, 200));
+});
 page.on('response', (r) => { if (r.status() >= 500) errs.push('HTTP ' + r.status() + ' ' + r.url()); });
 await page.addInitScript(() => { window.confirm = () => true; window.alert = () => {}; });
 
