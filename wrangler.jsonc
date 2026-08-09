@@ -1,9 +1,11 @@
 {
-  // Worker di soli asset statici: la webapp non ha backend (webapp/server.js
-  // serve solo file), quindi niente "main" — Cloudflare serve webapp/dist.
-  // La cartella la assembla webapp/build-dist.sh (i mount /data /assets
-  // /fonts stanno fuori da public/).
+  // La webapp e' fatta di file statici (webapp/server.js serve solo file), piu'
+  // gli endpoint /api/ dei salvataggi per account. La cartella la assembla
+  // webapp/build-dist.sh: i mount /data /assets /fonts stanno fuori da public/.
   "name": "ombre-su-roccamora",
   "compatibility_date": "2026-08-09",
-  "assets": { "directory": "./webapp/dist" }
+  "assets": { "directory": "./webapp/dist", "binding": "ASSETS" },
+  "d1_databases": [
+    { "binding": "DB", "database_name": "ombre-salvataggi", "database_id": "b0a85d9c-e7a6-4c3b-8940-1a50ad87fee2" }
+  ]
 }
