@@ -18,7 +18,7 @@ Spec `DESIGN-ACCOUNT-E-SALVATAGGI.md` · piano `PIANO-ACCOUNT-E-SALVATAGGI.md`
 | ✅ | 2. Verifica del JWT di Access | `webapp/worker/access.js`, 9 asserzioni, provato non vacuo su 3 guasti |
 | ✅ | 3. I cinque endpoint | `worker/api.js`, `worker/index.js`, 18 asserzioni, provato non vacuo su 3 guasti |
 | ✅ | 4. Regola dei conflitti (`sync.js`) | 10 asserzioni, provata non vacua su 2 guasti (4 e 6 cadute) |
-| ⬜ | 5. Coda e `store.js` per tavolo | |
+| ✅ | 5. Coda e `store.js` per tavolo | coda provata non vacua; i banchi di misura Playwright girano identici (ricaduta sulla chiave piatta senza tavolo) |
 | ⬜ | 6. Schermata tavoli e spia | |
 | ⬜ | 7. Access, dominio, prova sull'iPad | **ha passi manuali nel dashboard** |
 
@@ -36,8 +36,7 @@ Servono due server perché l'isolamento fra account non si può provare con un
 utente solo. Condividono lo stesso D1 locale, quindi il secondo vede davvero i
 tavoli del primo — e deve rifiutarli.
 
-Prossimo passo concreto: Task 5, la coda in `sync.js` e `store.js` con il
-tavolo nella chiave.
+Prossimo passo concreto: Task 6, `tavoli.js` e l'aggancio in `main.js`.
 
 ## Cose sapute che il codice non dice
 

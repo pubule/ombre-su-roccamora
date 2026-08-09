@@ -1,8 +1,26 @@
-// Stato di gioco: un salvataggio per episodio in localStorage.
+// Stato di gioco: un salvataggio per episodio E PER TAVOLO in localStorage,
+// piu' una copia sul server (vedi DESIGN-ACCOUNT-E-SALVATAGGI.md).
 // La partita e' un oggetto semplice, serializzabile, mutato SOLO via salva():
-// niente framework, il dispositivo e' uno e lo stato e' locale (vedi piano).
+// niente framework, e localStorage resta la verita' durante la serata.
+import { _coda } from './sync.js';
 
 const PREFISSO = 'osr.partita.';
+const CHIAVE_TAVOLO = 'osr.tavolo';
+
+// Il tavolo sta nella chiave: e' la riga che impedisce al Gruppo del sabato di
+// cancellare la serata del Gruppo del giovedi'.
+//
+// Senza tavolo si torna alla chiave piatta di prima. Non e' una gentilezza
+// verso i vecchi salvataggi (quelli sono fuori scopo, vedi la spec): e' che i
+// banchi di prova headless — misura-*.mjs, test-digitale-*.mjs, il pilota del
+// bilanciamento — seminano `osr.partita.epN` e non passano da nessuna
+// schermata di scelta. Sono lo strumento con cui si tara il gioco: devono
+// continuare a funzionare identici.
+const chiaveDi = (tavolo, episodio) =>
+  tavolo ? `${PREFISSO}${tavolo}.${episodio}` : `${PREFISSO}${episodio}`;
+
+export const tavoloCorrente = () => localStorage.getItem(CHIAVE_TAVOLO);
+export const impostaTavolo = (id) => localStorage.setItem(CHIAVE_TAVOLO, id);
 
 // `fase`: da dove comincia la serata. Le due meta' dell'episodio sono
 // INDIPENDENTI — si puo' giocare la sola spedizione (l'indagine e' gia' stata
@@ -47,17 +65,32 @@ export function nuovaPartita(episodioId, modo, party, fase = 'indagine') {
 }
 
 export function salva(partita) {
-  localStorage.setItem(PREFISSO + partita.episodio, JSON.stringify(partita));
+  const tavolo = tavoloCorrente();
+  partita.aggiornato = Date.now();
+  localStorage.setItem(chiaveDi(tavolo, partita.episodio), JSON.stringify(partita));
+  if (!tavolo) return;                 // banco di prova: non c'e' niente da sincronizzare
+  // Accoda e basta: `salva()` NON aspetta la rete. Se qui comparisse un
+  // `await`, il tavolo aspetterebbe un router per poter giocare.
+  _coda.accoda(`${tavolo}/${partita.episodio}`, {
+    tavolo,
+    episodio: partita.episodio,
+    aggiornato: partita.aggiornato,
+    dati: JSON.stringify(partita),
+  });
 }
 
-export function carica(episodioId) {
-  const raw = localStorage.getItem(PREFISSO + episodioId);
+export function carica(episodioId, tavolo = tavoloCorrente()) {
+  const raw = localStorage.getItem(chiaveDi(tavolo, episodioId));
   if (!raw) return null;
   try { return JSON.parse(raw); } catch { return null; }
 }
 
-export function cancella(episodioId) {
-  localStorage.removeItem(PREFISSO + episodioId);
+export function cancella(episodioId, tavolo = tavoloCorrente()) {
+  localStorage.removeItem(chiaveDi(tavolo, episodioId));
+  if (!tavolo) return;
+  _coda.togli(`${tavolo}/${episodioId}`);      // non rimandare cio' che si cancella
+  fetch(`/api/salvataggio?tavolo=${tavolo}&episodio=${episodioId}`, { method: 'DELETE' })
+    .catch(() => { /* senza rete si cancella solo qui: si ripulira' al prossimo giro */ });
 }
 
 // --- dati statici (JSON esportati dal repo) ---

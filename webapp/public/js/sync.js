@@ -24,3 +24,62 @@ export function decidi(locale, remoto) {
   if (localeCambiato) return { azione: 'manda' };
   return { azione: 'niente' };
 }
+
+// --- la coda ---------------------------------------------------------------
+// Vive in localStorage: se l'app si chiude a meta' serata, alla riapertura
+// riparte da dove era. La chiave e' `tavolo/episodio`, quindi accodare due
+// volte la stessa partita SOSTITUISCE invece di accumulare — al server
+// interessa solo l'ultimo stato, non la storia delle mosse.
+const CHIAVE_CODA = 'osr.dasincronizzare';
+
+const leggi = () => {
+  try { return JSON.parse(localStorage.getItem(CHIAVE_CODA)) || []; } catch { return []; }
+};
+const scrivi = (v) => localStorage.setItem(CHIAVE_CODA, JSON.stringify(v));
+
+function accoda(chiave, corpo) {
+  const v = leggi().filter((x) => x.chiave !== chiave);
+  v.push({ chiave, corpo });
+  scrivi(v);
+}
+function togli(chiave) { scrivi(leggi().filter((x) => x.chiave !== chiave)); }
+
+export const _coda = { leggi, accoda, togli };
+
+let ultimoStato = 'allineato';
+export const stato = () => ultimoStato;
+
+// Spedisce quello che c'e'. Non lancia MAI: senza rete la coda resta e si
+// riprova dopo — la serata non si ferma per un router.
+export async function svuota() {
+  for (const { chiave, corpo } of leggi()) {
+    try {
+      const r = await fetch('/api/salvataggio', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(corpo),
+      });
+      // Access scaduto risponde con un redirect al login: la richiesta finisce
+      // altrove e non e' piu' la nostra. La coda NON si tocca: nessuna
+      // scrittura si perde, si ricarica e riparte.
+      if (r.status === 403 || r.redirected) { ultimoStato = 'sessione scaduta'; return; }
+      if (!r.ok) { ultimoStato = 'da mandare'; return; }
+      togli(chiave);
+    } catch { ultimoStato = 'da mandare'; return; }
+  }
+  ultimoStato = leggi().length ? 'da mandare' : 'allineato';
+}
+
+export function avviaCoda() {
+  setInterval(svuota, 3000);
+  // L'app che va in secondo piano (o l'iPad che si blocca) manda l'ultimo
+  // stato mentre la pagina muore: sendBeacon sa fare solo POST, ed e' il
+  // motivo per cui l'endpoint e' POST e non PUT.
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState !== 'hidden') return;
+    for (const { corpo } of leggi()) {
+      navigator.sendBeacon('/api/salvataggio',
+        new Blob([JSON.stringify(corpo)], { type: 'application/json' }));
+    }
+  });
+}
