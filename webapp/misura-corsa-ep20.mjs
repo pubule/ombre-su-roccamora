@@ -88,7 +88,8 @@ function corsa(v) {
     // pressione della camera: il Dormiente si desta, e il rito canta se ha voce
     if (inCamera) {
       const p = (v.pressione != null ? v.pressione : 1)
-        + ((v.impiegatoDaVoce === false ? false : coro > 0) ? (v.rito != null ? v.rito : 1) : 0);
+        + ((v.ritoSempre ? true : (v.impiegatoDaVoce === false ? false : coro > 0))
+            ? (v.rito != null ? v.rito : 1) : 0);
       // frazionaria: 0,5 = «si desta a round alterni». L'accumulatore evita di
       // arrotondare per difetto a zero e di regalare la meta' della pressione.
       resto += p;
@@ -146,3 +147,10 @@ prova('...il primo, con 6 Frammenti', { impiegatoDaVoce: false, frammenti: 6 });
 console.log('');
 console.log('ALTERNATIVA: le carte non piazzano dentro la camera');
 prova('gli impiegati arrivano, ma non nella camera', { spawnFuori: true });
+console.log('');
+console.log("LA REGOLA NUOVA: la voce del rito e' M. o la Candidata, non il coro comprato");
+console.log("  ramo A — la Candidata e' stata salvata (T4-T5): il rito tace");
+for (const f of [6, 12, 18]) prova(`    ${f} Frammenti`, { impiegatoDaVoce: false, frammenti: f });
+console.log("  ramo B — la Candidata NON e' salvata: il rito canta comunque");
+for (const f of [6, 12, 18]) prova(`    ${f} Frammenti`, { ritoSempre: true, frammenti: f });
+console.log("  (e abbattere M. da solo non spegne piu' niente: N-73 resta chiusa)");

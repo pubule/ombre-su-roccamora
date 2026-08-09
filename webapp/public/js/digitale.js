@@ -1359,7 +1359,16 @@ function avanzaPressione() {
   };
   if (p.per_round) sale(p.per_round, p.testo || 'Il Dormiente si desta');
   if (p.rito) {
-    const voce = sp.nemici.some((n) => n.pos && n.pos.t === p.tile);
+    // La voce del rito NON e' il coro comprato (N-112). Un impiegato faceva due
+    // mestieri opposti sui due contatori — toglieva una riga al controcanto e
+    // dava +1 Canto al rito — e siccome sette carte su ventuno lo rimettono
+    // dentro, e il ritmo si controlla DOPO la fase Minaccia, la sua presenza
+    // era di fatto permanente e valeva l'intera partita. Ora la voce e' M., o
+    // la Candidata ancora nelle sue mani: la si toglie salvandola, non
+    // abbattendo lui (che e' la tesi della scena, ed e' come N-73 resta chiusa).
+    const salva = p.rito.finche_manca_oggetto;
+    const voce = !salva
+      || !((P().indagine || {}).oggetti || []).some((o) => new RegExp(salva, 'i').test(o));
     if (voce) sale(p.rito.per_round || 1, p.rito.testo || 'Il rito ha una voce');
   }
   return ann;

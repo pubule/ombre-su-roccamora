@@ -159,17 +159,39 @@ ok(!path.some((n) => TESS.find((t) => t.id === n.t).arredi.some(([x, y]) => x ==
   corri(fuori);
   ok(fuori.canto === 0, 'fuori dalla camera il Dormiente non si desta');
 
+  // senza una condizione dichiarata il rito ha sempre voce: e' la pressione
+  // piena, +1 Dormiente +1 rito. Chi vuole una leva la dichiara nei dati.
   const sgombra = dentro();
   corri(sgombra);
-  ok(sgombra.canto === 1, `camera sgombra: +1 Canto (visto ${sgombra.canto})`);
+  ok(sgombra.canto === 2, `rito senza condizione: +2 Canto (visto ${sgombra.canto})`);
 
   const conVoce = dentro({ nemici: [{ pos: { t: 'T6', x: 0, y: 0 } }] });
   corri(conVoce);
   ok(conVoce.canto === 2, `col rito che ha una voce: +2 Canto (visto ${conVoce.canto})`);
 
+  // N-112: la voce del rito non e' il coro comprato ma la Candidata. Un
+  // impiegato in camera rallenta il controcanto e basta; salvare la Candidata
+  // e' cio' che zittisce il rito. Se questo controllo cade, l'impiegato e'
+  // tornato a fare due mestieri opposti e il finale ridiventa binario.
+  const epC = { tessere: TESS, canto_max: 8,
+                pressione: { tile: 'T6', per_round: 1, testo: 'desta',
+                             rito: { per_round: 1, finche_manca_oggetto: 'Candidata Salvata',
+                                     testo: 'voce' } } };
+  const conOggetto = (sp, ogg) => { _setup(epC, sp, { indagine: { oggetti: ogg } }); return avanzaPressione(); };
+
+  const candidataInMano = dentro({ nemici: [] });
+  conOggetto(candidataInMano, []);
+  ok(candidataInMano.canto === 2,
+     `camera vuota ma Candidata in mano a M.: il rito canta lo stesso (+2, visto ${candidataInMano.canto})`);
+
+  const candidataSalva = dentro({ nemici: [{ pos: { t: 'T6', x: 0, y: 0 } }] });
+  conOggetto(candidataSalva, ['La Candidata Salvata']);
+  ok(candidataSalva.canto === 1,
+     `Candidata salva: il coro in camera non canta il rito (+1, visto ${candidataSalva.canto})`);
+
   const altrove = dentro({ nemici: [{ pos: { t: 'T5', x: 0, y: 0 } }] });
   corri(altrove);
-  ok(altrove.canto === 1, 'un nemico fuori dalla camera non canta il rito');
+  ok(altrove.canto === 2, 'senza la Candidata il rito canta anche a camera sgombra');
 
   const alTetto = dentro({ canto: 8, nemici: [{ pos: { t: 'T6', x: 0, y: 0 } }] });
   corri(alTetto);

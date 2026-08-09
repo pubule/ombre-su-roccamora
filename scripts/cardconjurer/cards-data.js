@@ -4790,7 +4790,7 @@ const EP20_MINACCE = [
     effect: 'Aggiungete 1 segnalino Canto (il risveglio). Le fasi ambientali della camera si intensificano: al prossimo giro, 1 danno inevitabile a un eroe.' },
   { art: 'artworks/Il quarto rigo sale.png', title: 'Il Quarto Rigo Sale', tipo: 'Crescendo',
     flavor: 'Il canto di M. e del suo coro guadagna una riga: il rito avanza.',
-    effect: 'Aggiungete 1 segnalino Canto (il risveglio). Se il rito ha ancora una voce — M. in piedi, oppure un impiegato del coro che canta al posto suo — avanza: +1 Canto extra.' },
+    effect: 'Aggiungete 1 segnalino Canto (il risveglio). Se il rito ha ancora una voce che creda — la Candidata nelle mani di M. — avanza: +1 Canto extra.' },
   { art: 'artworks/Il dio apre un occhio.png', title: 'Il Dio Apre un Occhio', tipo: 'Crescendo',
     flavor: 'Nel buio, qualcosa di immenso comincia ad aprirsi. Poco. Troppo.',
     effect: 'Aggiungete 1 segnalino Canto (il risveglio). Se non completate il controcanto entro pochi round, il Dormiente si desta. Cantate ORA le righe che avete.' },

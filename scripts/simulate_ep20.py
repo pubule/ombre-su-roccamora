@@ -555,13 +555,15 @@ def simula_spedizione(party, indagine, log, formula_minaccia='finale_v3'):
                 aggiungi_canto(1, 'il Dormiente si desta (camera)')
             if round_n % TICK_CANTO_OGNI == 0 and vivi():
                 aggiungi_canto(1, 'orologio')
-            # Il rito accelera finche' HA UNA VOCE: M. in piedi con la sua,
-            # oppure un impiegato del coro che canta al posto suo. Abbattere
-            # l'uomo non spegneva l'orologio della camera: va spezzato il coro.
-            m_canta = m_nemico[0] and not m_a_terra[0] and not candidata_salvata[0]
-            if (m_canta or coro_in_campo()) and vivi():
-                aggiungi_canto(1, 'il rito ha una voce'
-                               + (' (M.)' if m_canta else ' (il coro canta al posto suo)'))
+            # La voce che serve al rito non e' quella di M.: e' la Candidata, il
+            # cuore che crede (Frammento 19). Finche' e' nelle sue mani il rito
+            # canta, che lui sia in piedi o a terra — cosi' abbatterlo continua
+            # a non spegnere niente (N-73 resta chiusa) e la leva e' salvarla,
+            # che e' un obiettivo della fase del coro. Il coro comprato non
+            # canta il rito: rallenta il controcanto, e basta (N-112) — prima
+            # faceva due mestieri opposti e la sua presenza valeva la partita.
+            if not candidata_salvata[0] and vivi():
+                aggiungi_canto(1, 'il rito ha una voce che crede (la Candidata e\' sua)')
             if controcanto[0] >= SOGLIA_CONTROCANTO and vivi():
                 esito = 'VITTORIA'
                 log('    *** Il controcanto è completo: il Dormiente torna al sonno senza sogni. '

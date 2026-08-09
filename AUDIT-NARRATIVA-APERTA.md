@@ -775,6 +775,44 @@ lasciano il finale indifferente a come e' andata la campagna.
 vanno a terra, e per questo e' generoso — da' 6% dove il pilota ne misura 0. Ci si puo' fidare
 dell'**ordine** delle leve, non dei valori assoluti. Qualunque variante si scelga va poi rimisurata
 col pilota, che il combattimento lo gioca davvero.
+
+**APPLICATA (09/08).** La voce del rito non e' piu' il coro comprato: e' **la Candidata**. Finche' e'
+nelle mani di M. il rito canta (+1 Canto/round), che lui sia in piedi o a terra; salvarla lo zittisce.
+Il coro comprato rallenta il controcanto (−1 riga per impiegato) e **basta**: non fa piu' due mestieri
+opposti sui due contatori.
+
+Perche' questa forma e non «togliere la voce al coro» e basta: quella riapriva [[N-73]] — abbattere
+M. sarebbe tornato a spegnere l'orologio in un finale che ripete cinque volte di non alzare la lama.
+Cosi' invece abbatterlo **non serve**, ed e' l'unica cosa che non serve; la leva e' un obiettivo della
+fase del coro. Ed e' la fiction migliore: la voce che a M. serve e' «un cuore che crede», ed e' lei —
+lo dice gia' il Frammento 19.
+
+Toccate cinque superfici: `gen_ep20.py` (nota del nemico e pagina Spedizione), `simulate_ep20.py`,
+la carta Minaccia del risveglio, `export-data.py` e `avanzaPressione()` in `digitale.js`
+(`rito.finche_manca_oggetto`). Tre asserzioni nuove in `test-digitale.mjs`, **provate non vacue** su
+due guasti finti.
+
+**Trovato mentre misuravo: il pilota giocava l'Ep. 20 senza oggetti d'Indagine.** Semina
+`oggetti_indagine` dai dati, e l'Ep. 20 non lo dichiarava — quindi misurava sempre il gruppo che
+dall'Indagine non porta niente, cioe' senza Mappa Acustica (+1 riga) e senza Candidata (che zittisce
+il rito): esattamente i due oggetti da cui dipende il finale. **Tutte le misure dell'Ep. 20 fatte
+prima di oggi erano quel pavimento.** Dichiarati, come gia' fanno Ep. 10 e Ep. 14.
+
+**Risultato misurato.**
+
+| strumento | prima | dopo |
+|---|---|---|
+| pilota Playwright, 4 eroi | 0% (10 partite) | **17%** (3 su 18) |
+| simulatore da tavolo, 4 eroi | 1% | **7%** |
+| simulatore, 2-3 eroi | 17-23% | **31-35%** |
+
+I due modelli concordano fra loro e col modello analitico: il simulatore salva la Candidata in circa
+un terzo delle partite, e 0,33 x 22% ~ 7%. Le sconfitte del pilota sono di misura — due partite su
+cinque chiuse a **9 righe su 10**.
+
+**Non basta da sola, e va detto.** 17% e' meglio di 0 ma resta sotto la banda sana. La leva seguente
+gia' misurata e' la densita' del mazzo: 2 Crescendo invece di 4 vale 37% da solo nel modello. Non
+l'ho applicata: e' una seconda decisione.
 ## Chiuse in questa tornata
 
 | id | cosa | come |

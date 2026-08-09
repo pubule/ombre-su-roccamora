@@ -435,10 +435,11 @@ NEMICI_20 = [
          tipo='C.B. — l’uomo, l’ultima maschera che cade', art='Il Presidente M.png',
          note='Umano e fragile (Att 2, Fer 5, Danno 1), feroce. NON è l’obiettivo (la vittoria è il '
               'controcanto): finché è in piedi e ha la sua voce, forza il Quarto Movimento (+1 '
-              'Canto/round). Neutralizzarlo (a terra) o aver salvato la Candidata gli toglie la '
-              'voce — ma non ferma il rito: finché in campo resta un impiegato del coro, quello '
-              'canta al posto suo e il risveglio accelera lo stesso. Va spezzato il coro, non '
-              'l’uomo. Quando il controcanto giusto sale, capisce di aver perso — e per la prima '
+              'Canto/round). Ma la voce che gli serve non è la sua: è quella della Candidata, il '
+              'cuore che crede. Finché lei è nelle sue mani il rito canta, che lui sia in piedi '
+              'o a terra; salvarla lo zittisce. Abbatterlo non serve — è l’unica cosa che non '
+              'serve. Il coro comprato non canta il rito: rallenta il vostro controcanto, e '
+              'quello sì. Quando il controcanto giusto sale, capisce di aver perso — e per la prima '
               'volta ha paura.',
          bio_bestiario='M. — il presidente, C.B., il Machiavelli — qui, per la prima e ultima '
               'volta, senza maschere: un uomo solo nell’acqua bassa della gola, che canta il quarto '
@@ -573,11 +574,13 @@ def spedizione():
                   'una riga per round la cantate sempre:</b> il ritmo non scende sotto 1. '
                   'Controcanto completo PRIMA del risveglio = <b>VITTORIA</b>.', BODY),
         Paragraph('• <b>M. E LA CANDIDATA (la signora Vetri).</b> M. (umano, Att 2/Fer 5/Danno 1) '
-                  'non è l’obiettivo. Il rito accelera il risveglio finché <b>ha una voce</b>: M. in '
-                  'piedi con la sua, <b>oppure</b> un impiegato del coro che canta al posto suo. '
-                  'Neutralizzarlo, o aver <b>salvato la Candidata</b> (fase del coro, T4-T5), gli '
-                  'toglie la voce — ma sopra un uomo caduto il coro comprato legge lo spartito lo '
-                  'stesso: <b>va spezzato il coro, non l’uomo.</b> <b>Esche:</b> la Chiave del Coro '
+                  'non è l’obiettivo. Il rito accelera il risveglio (+1 Canto/round) finché <b>ha una '
+                  'voce che creda</b>, e quella voce è <b>la Candidata</b>: finché è nelle sue mani '
+                  'il rito canta, che M. sia in piedi o a terra. <b>Salvarla</b> (fase del coro, '
+                  'T4-T5) lo zittisce. <b>Abbattere M. non serve</b>: è l’unica cosa che non serve, '
+                  'ed è quella che vi verrà voglia di fare. Il coro comprato non canta il rito: '
+                  '<b>rallenta il vostro controcanto</b> (−1 riga per impiegato in campo), ed è per '
+                  'quello che va spezzato. <b>Esche:</b> la Chiave del Coro '
                   'e il Grimorio del Rito cantano il risveglio — aiutano M.', BODY)])
     c.showPage()
     import gen_narrator as N

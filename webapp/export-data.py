@@ -1529,8 +1529,19 @@ episodi = dict(
         # ogni round, e il rito accelera finche' ha una voce (M. in piedi oppure un
         # impiegato del coro che canta al posto suo — qui: un nemico qualunque nella
         # camera). Senza, il ritmo del controcanto correva senza avversario.
+        # La voce del rito e' M. o la Candidata, NON il coro comprato (N-112):
+        # l'impiegato faceva due mestieri opposti — -1 riga al controcanto e +1
+        # Canto al rito — e la sua sola presenza valeva la partita, con sette
+        # carte su ventuno a rimetterlo dentro. Ora rallenta e basta.
+        # Il pilota semina questi oggetti (come Ep.10 e Ep.14, dove l'oggetto e'
+        # essenziale alla meccanica). Senza, misurava il gruppo che dall'Indagine
+        # non porta NIENTE — e sono proprio i due oggetti da cui dipende il ritmo
+        # del finale: la Mappa vale +1 riga, la Candidata zittisce il rito. Tutte
+        # le misure dell'Ep. 20 fatte prima del 09/08 erano quel pavimento.
+        oggetti_indagine=['La Mappa Acustica Attiva', 'La Candidata Salvata'],
         pressione=dict(tile='T6', per_round=1, testo='Il Dormiente si desta',
-                       rito=dict(per_round=1, testo='Il rito ha ancora una voce')),
+                       rito=dict(per_round=1, finche_manca_oggetto='Candidata Salvata',
+                                 testo='Il rito ha una voce che crede: la Candidata è nelle sue mani')),
         vittoria=dict(testo='Il Controcanto copre il Canto: la città si sveglia, il Dormiente no.'),
         # la finestra in piu' che il digitale chiede: il Canto sale ogni 6
         # round invece che ogni 4, come gia' fanno Ep.1/3/5/6 per le
