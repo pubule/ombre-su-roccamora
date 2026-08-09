@@ -1501,8 +1501,14 @@ episodi = dict(
         # un tetto proprio), quindi 9 non era «più lento»: era IRRAGGIUNGIBILE.
         # Misurato col pilota il 26/07: 6 vittorie su 6, Canto massimo osservato
         # 8, il Risveglio mai scattato — il finale della campagna senza fondo.
-        # Riportato a 8. Se serve davvero più finestra la leva è `canto_ogni`
-        # (già usata da Ep.1/3/5/6), non una soglia fuori scala.
+        # Riportato a 8, ed e' un vincolo fisico: 8 sono i segnalini in scatola.
+        # CORREZIONE (09/08, misurato): questo commento indicava `canto_ogni` come
+        # la leva per allargare la finestra. E' la leva sbagliata. Su 10 round di
+        # discesa il gruppo arriva alla camera con 5,6 Canto su 8, e di quei 5,6
+        # solo 1,0 viene dal tick: gli altri 4,6 sono Crescendo pescati (4 carte su
+        # 21, ma in 10 round se ne pescano 24 e il mazzo si rimescola). Portare
+        # `canto_ogni` da 6 a 12 recupera un solo segnalino. Vedi N-112 e
+        # `webapp/misura-discesa-ep20.mjs`.
         # IL RITMO (N-111, 09/08/2026). Il controcanto era un compito da 10 con
         # una prova di NERVI per azione, scalata sul tier d'Indagine: i Frammenti
         # di venti serate non pesavano nulla e il coro non rallentava il canto,

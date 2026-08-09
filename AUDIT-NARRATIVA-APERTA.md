@@ -599,6 +599,46 @@ Chiusa N-111 (il digitale ora gioca il finale stampato: ritmo del controcanto da
 
 ---
 
+
+**Misurata la discesa (09/08, `webapp/misura-discesa-ep20.mjs`, 3000 repliche).** La domanda era: il
+finale ha un budget di Canto? No, e si sa esattamente dove finisce.
+
+In 10 round di discesa — il round medio in cui il pilota entra in T6 e' 9,8 — il gruppo arriva alla
+camera con **5,6 Canto su 8**. Il modello combacia col gioco vero (il pilota ne misura 5,5), quindi la
+scomposizione e' attendibile:
+
+| voce | Canto |
+|---|---|
+| Crescendo pescati | **4,6** |
+| tick di fine round (`canto_ogni` = 6) | 1,0 |
+
+**Il tick vale 1 su 5,6.** La leva indicata dal commento in `export-data.py` — «se serve davvero piu'
+finestra la leva e' `canto_ogni`» — non puo' risolvere niente: portarla da 6 a 12 recupera **un solo
+segnalino**. E' la leva sbagliata, e va corretto quel commento.
+
+La causa vera e' la lunghezza della discesa combinata con la densita' del mazzo. Quattro Crescendo su
+21 carte, ma in 10 round se ne pescano **24,2**: il mazzo si rimescola e i quattro Crescendo tornano
+piu' di una volta a testa. E il meccanismo si autoalimenta — superata la soglia 3 si pesca una carta
+in piu' per round, quindi piu' Crescendo, quindi la soglia arriva prima.
+
+La curva sulla lunghezza della discesa e' netta:
+
+| round per raggiungere la camera | Canto all'ingresso | arriva con 2 o meno di margine | gia' al risveglio |
+|---|---|---|---|
+| 6 | 3,3 | 0% | 0% |
+| 8 | 4,3 | 0% | 0% |
+| **10 (quello vero)** | **5,6** | **49%** | 1% |
+| 12 | 7,5 | 100% | 60% |
+
+A 8 round il finale ha respiro; a 10 meta' dei tavoli entra con due segnalini in mano; a 12 e' gia'
+finito. **La domanda di progetto non e' quanto costa la camera, e' perche' servono dieci round per
+attraversare cinque tessere.** E' materia di geometria e movimento, cioe' l'unica cosa su cui i
+simulatori Python sono ciechi e il pilota no.
+
+Ne segue che le tre leve elencate sopra vanno riordinate: la (1) e' l'unica viva, ma non nella forma
+in cui l'avevo scritta — non «la discesa costa troppo Canto» in astratto, bensi' **la discesa e'
+troppo lunga, oppure il mazzo restituisce i Crescendo troppe volte**. La (2) e la (3) restano quello
+che erano: un vincolo fisico e una resa.
 ## Chiuse in questa tornata
 
 | id | cosa | come |
