@@ -123,7 +123,7 @@ LUOGHI_DESC = {
        'vi passa sopra il pollice mentre parla.',
     4: 'Odore d’incenso stantio e di chiuso, cera vecchia colata su decenni di funzioni '
        'e legno umido che nessuna stufa riesce davvero a scaldare. Don Callisto vi '
-       'riceve tra i paramenti appesi come sudari lungo le pareti della sagrestia, '
+       'riceve tra i paramenti appesi come sudari lungo le pareti della sacrestia, '
        'nervoso, nascondendo dietro la schiena mani sporche di cera che si affretta a '
        'strofinare sulla tonaca non appena se ne accorge. Alle sue spalle, la porta '
        'della cripta è sbarrata con assi nuove inchiodate su pietra antica, il legno '
@@ -296,7 +296,7 @@ def oggetto_riga(ref):
     ogg = oggetto_di(ref)
     if not ogg:
         return []
-    tag = ' ⚠ rischioso' if ogg.get('rischio') else ''
+    tag = ' — rischioso' if ogg.get('rischio') else ''
     return [f"<b>Oggetto</b> — carta “{ogg['nome'].title()}”{tag}"]
 
 # I tre reperti stampati dell'Ep. 1: la consegna la sa chi arbitra, non il

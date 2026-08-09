@@ -73,7 +73,7 @@ VOCI_MAPPA = [
     ('Il Campanile di San Teodoro', 'piazza di San Teodoro', 'ep1'),
     ('Vicolo dei Fonditori', 'al civico 7, dietro le fonderie', 'ep1'),
     ('Taverna del Ponte Rotto', 'sotto il Ponte Rotto, riva dei barcaioli', 'ep1'),
-    ('La Cattedrale', 'piazza della Cattedrale, sagrestia sul fianco nord', 'ep1'),
+    ('La Cattedrale', 'piazza della Cattedrale, sacrestia sul fianco nord', 'ep1'),
     ('Bottega del Liutaio Ferri', 'via degli Archetti 11, quartiere della Cattedrale', 'ep1'),
     ('Il Canale Basso', 'banchina di Dellacqua, moli di ponente', 'ep1'),
     ('L’Archivio Civico', 'palazzo del Comune, scalone secondo', 'ep1'),
@@ -171,7 +171,7 @@ VOCI_MAPPA = [
     # Episodio 12 — la seconda copia. Riusi: Il Palazzo del Lume ('preludio',
     # la sede: ora luogo d'indagine), Il Banco dei Pegni di Fossa ('preludio'),
     # Il Cimitero delle Barche ('citta').
-    ('La Casa dell’Archivista', 'calle degli Amanuensi 2, casa di Anselmo Godi', 'ep12'),
+    ('La Casa dell’Archivista', 'calle degli Amanuensi 2, casa di Prospero Godi', 'ep12'),
     ('L’Ufficio del Fermo-Posta', 'contrada delle Poste 6, sportello del fermo-posta', 'ep12'),
     ('La Loggia dei Confratelli', 'campo del Lume, loggia riservata dei soci', 'ep12'),
     ('Lo Scriptorium', 'campo del Lume, sala dei copisti', 'ep12'),

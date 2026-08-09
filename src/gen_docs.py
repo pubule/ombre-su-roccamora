@@ -124,7 +124,7 @@ def regolamento():
     e.append(LI('Forbici per ritagliare carte, tessere e segnalini.'))
     e.append(LI('Una busta in cui sigillare il PDF <b>Soluzione</b>: si apre solo a fine indagine.'))
     e.append(LI('Il <b>Taccuino di Campagna</b> — una pagina sola, si stampa una volta e resta con voi '
-                'per tutte e venti le serate: ci segnate i Frammenti conservati e i Bivi scelti. Serve '
+                'per tutte e venti le serate: ci segnate i Frammenti conservati, quali sono incrinati, e i Bivi scelti. Serve '
                 'davvero: gli ultimi due episodi vi chiedono il conto di entrambi.'))
 
     e.append(P('I PERSONAGGI', 'h1'))
@@ -165,7 +165,7 @@ def regolamento():
                 '<b>coperte</b> \u2014 luoghi di cui per ora conoscete solo l\u2019esistenza, non il volto: '
                 'il dorso \u00e8 uguale per tutte, \u00e8 la <b>posizione nella fila</b> a dirvi il numero.'))
     e.append(LI('Avete <b>6 ore</b>, dalle 18:00 alle 24:00: segnatele sul Taccuino. '
-                '<b>Ogni visita a un luogo costa 1 ora</b> (anche rivisitarlo) \u2014 gli 8 luoghi di un '
+                '<b>Ogni visita a un luogo costa 1 ora</b> (anche rivisitarlo) \u2014 gli 8 o 9 luoghi di un '
                 'episodio non entrano tutti in 6 ore: <b>dovrete scegliere cosa saltare</b>. Ogni ora '
                 'conta: alcuni luoghi vanno prima sbloccati, altri chiudono a un\u2019ora precisa \u2014 '
                 'pianificate l\u2019ordine delle visite e non sprecate ore su vicoli ciechi. '
@@ -260,6 +260,12 @@ def regolamento():
                "Poi aprite la busta della <b>Soluzione</b>: per ogni risposta esatta otterrete un "
                "<b>Vantaggio</b> per la Spedizione; per certe risposte sbagliate, una complicazione. "
                "La Soluzione vi dir\u00e0 anche come preparare la mappa."))
+    e.append(P("<b>La Contro-busta.</b> Le Domande sono quattro in ogni episodio, tranne dove il "
+               "fascicolo dice altrimenti: qualche serata dell\u2019Atto III ne tiene una <b>quinta</b>, "
+               "sigillata a parte, che <b>non</b> si apre con la Soluzione e <b>non</b> conta per il "
+               "Vantaggio. Si apre solo <b>dopo la Spedizione</b>, e solo se in Spedizione avete "
+               "trovato di che aprirla: \u00e8 la torsione dell\u2019episodio, e chi si accontenta della "
+               "prima risposta non la legge mai. Se un episodio ne ha una, ve lo dice.", 'box'))
     e.append(LI('<b>Il Vantaggio extra</b> \u2014 lo <b>Slancio</b> \u00e8 di chi SA dove andare: scatta '
                 'solo se rispondete esattamente a <b>tutte</b> le Domande E vi avanzano <b>ore sul '
                 'Taccuino</b>. <b>Preparati</b> premia invece la fatica o un buon anticipo: '
@@ -424,7 +430,9 @@ def regolamento():
     e.append(P('PRECISAZIONI (per i dubbi al tavolo)', 'h1'))
     e.append(LI('<b>Il PNG che scortate</b> \u2014 non \u00e8 un eroe: i nemici lo <b>ignorano</b> (i motivi sono '
                 'nella Soluzione dell\u2019episodio). Si muove nel turno degli eroi, fino a 3 caselle, e non '
-                'compie azioni.'))
+                'compie azioni. <b>Salvo quando la Soluzione dice il contrario:</b> in qualche episodio '
+                'il PNG \u00e8 il bersaglio e non un ingombro \u2014 allora la Soluzione gli d\u00e0 Salute e '
+                'Movimento propri, e quello che c\u2019\u00e8 scritto l\u00ec vince su questa riga.'))
     e.append(LI('<b>La via che conosce</b> \u2014 in alcuni episodi (la Soluzione lo dice) il PNG, '
                 'appena libero, indica una <b>uscita segreta</b>: conosce il posto e sa dov\u2019\u00e8 '
                 'una via che non rif\u00e0 la strada. In quale stanza sia lo dice la <b>Soluzione</b> '
@@ -537,10 +545,51 @@ def regolamento():
                 'segnateli sul <b>Taccuino di Campagna</b> (si stampa una volta sola e vi accompagna '
                 'per tutte e venti le serate), insieme al Bivio che avete scelto ogni volta — quei '
                 'Bivi vi verranno ripresentati.'))
-    e.append(LI('<b>Crescita</b> — dopo ogni episodio riuscito, ogni eroe sceglie <b>una</b> '
-                'miglioria dall’elenco nella Soluzione e la annota sulla scheda.'))
+    e.append(LI('<b>Crescita</b> — dopo ogni episodio riuscito, ogni eroe <b>spunta una casella</b> '
+                'nell’elenco delle Migliorie (sotto) e la annota sulla scheda. Ogni casella si spunta '
+                '<b>una volta sola</b>: la crescita di venti serate è una lista che si consuma, non '
+                'una voce da ripetere. Chi le ha spuntate tutte non prende altro — a quel punto ha '
+                'quanto il gioco gli concede.'))
     e.append(LI('<b>Cicatrici</b> — un eroe finito a terra durante l’episodio annota una '
                 'cicatrice (descrivetela!): alla terza, −1 permanente a una caratteristica a scelta.'))
+    e.append(LI('<b>Frammenti incrinati</b> — un episodio chiuso con <b>vittoria parziale</b> frutta '
+                'il Frammento lo stesso, ma <b>incrinato</b>: segnatelo con una crocetta sul '
+                'Taccuino. Si conserva e si legge come gli altri, ma <b>non conta</b> nel computo '
+                'dell’ultimo episodio. È l’unico modo in cui il conto dei Frammenti può scendere, e '
+                'serve a questo: senza, ogni tavolo del mondo arriverebbe al finale con lo stesso '
+                'numero, e il ritmo del controcanto non varierebbe mai.'))
+
+    e.append(P('LE MIGLIORIE', 'h2'))
+    e.append(P('Una casella a testa dopo ogni episodio riuscito, <b>ciascuna una volta sola</b>. '
+               'Le prime cinque erano l’elenco originario; le altre sono nate per non lasciare, '
+               'dalla sesta serata in poi, una scelta sola.', 'body'))
+    e.append(LI('<b>Tempra</b> — +1 permanente a una caratteristica a scelta (massimo 4). '
+                '<i>Quattro caselle: si può spuntare fino a quattro volte, mai due sulla stessa '
+                'caratteristica nella stessa serata.</i>'))
+    e.append(LI('<b>Fibra</b> — +1 Salute massima. <i>Tre caselle.</i>'))
+    e.append(LI('<b>Revolver</b> — una volta per round, attacco a distanza (fino a 3 caselle): 2d6+2.'))
+    e.append(LI('<b>Lanterna schermata</b> — le trappole delle tessere non si attivano sull’eroe che la porta.'))
+    e.append(LI('<b>Borsa di garze</b> — 2 usi per spedizione: azione, cura 2 Salute a un eroe adiacente.'))
+    e.append(LI('<b>Occhio esercitato</b> — una volta per Indagine, ripetete una prova fallita di '
+                '«leggere la scena».'))
+    e.append(LI('<b>Passo felpato</b> — una volta per spedizione, muovetevi senza che i nemici '
+                'adiacenti vi attacchino di reazione: uscite da un ingaggio e basta.'))
+    e.append(LI('<b>Mano ferma</b> — +1 a tutte le prove di NERVI imposte dalle trappole e '
+                'dall’ambiente (non ai combattimenti).'))
+    e.append(LI('<b>Taccuino fitto</b> — una volta per campagna, rileggete una lettera d’incarico '
+                'già archiviata e bancate un incrocio in più (vale come una RILETTURA).'))
+    e.append(LI('<b>Fiato lungo</b> — il vostro «Secondo fiato» si ricarica una seconda volta '
+                'nella stessa spedizione, la prima volta che scendete a 2 Salute o meno.'))
+    e.append(LI('<b>Spalle coperte</b> — un eroe adiacente a voi ha +1 Difesa. Non cumulabile con '
+                'sé stesso: due eroi con questa miglioria, adiacenti, danno +1 ciascuno, non +2.'))
+    e.append(LI('<b>Voce che regge</b> — nell’ultimo episodio, contate come <b>un Frammento in '
+                'più</b> per il ritmo del controcanto. <i>Una sola casella per l’intero gruppo:</i> '
+                'decidete insieme chi la spunta.'))
+    e.append(P('<i>Nota per chi ritara.</i> Questo elenco sostituisce quello a cinque voci, dove '
+               'dalla sesta serata l’unica scelta viva era Fibra e un eroe arrivava al finale con '
+               '+13 Salute. Nessun simulatore modella le Migliorie: <b>le percentuali di vittoria '
+               'misurate finora valgono per eroi al primo episodio</b>, e vanno rifatte con un '
+               'gruppo cresciuto prima di considerarle valide per l’Atto III e IV.', 'box'))
 
     e.append(P('COME STAMPARE', 'h1'))
     e.append(LI('<b>Regolamento</b> (questo fascicolo) e <b>Soluzione</b> (in <i>Episodio 1/</i>): '
@@ -594,11 +643,34 @@ def soluzione():
                             title='Ombre su Roccamora - Soluzione Episodio 1')
     e = []
     e.append(Spacer(1, 200))
-    e.append(P('\u26a0 ALT \u26a0', 'warn'))
+    # Non \u26a0: il triangolo d'avviso non esiste in nessuno dei font del
+    # progetto (OldStd, IMFellSC, BelleAurore) e stampava VUOTO \u2014 la copertina
+    # della busta sigillata diceva \u00ab  ALT  \u00bb. Verificato estraendo il testo dal
+    # PDF reso, non con stringWidth, che restituisce una larghezza anche per il
+    # .notdef. La doppia croce c'e' ed e' d'epoca.
+    e.append(P('\u2021 ALT \u2021', 'warn'))
     e.append(P('SOLUZIONE DELL\u2019EPISODIO 1', 'title'))
     e.append(P('Stampate questo fascicolo senza leggerlo, sigillatelo in una busta.<br/>'
                'Apritelo solo dopo aver risposto per iscritto alle 4 Domande.', 'subtitle'))
     e.append(PageBreak())
+
+    # Il Preludio sigilla un Bivio che promette due conseguenze precise
+    # nell'Episodio 1, e l'Ep. 1 era l'unico fascicolo della campagna senza il
+    # banner d'apertura: la catena dei Bivi partiva a vuoto dal primo anello.
+    e.append(P('APERTURA \u2014 IL BIVIO DEL PRELUDIO', 'h1'))
+    e.append(P('<b>Da applicare PRIMA di leggere la lettera d\u2019incarico.</b> Se avete giocato la '
+               'Prova d\u2019Ammissione, aprite la busta del Bivio del Preludio (retro del Frammento '
+               'n. 0) e applicate il ramo che avete scelto:<br/>'
+               '<b>Se avete CONSEGNATO la pagina strappata alla gendarmeria</b> \u2014 il brigadiere vi '
+               'ha registrati come \u00abinvestigatori privati\u00bb e vi riconosce: alla <b>Gendarmeria '
+               '(Luogo 8)</b> il fascicolo che continua a spostare sulla scrivania si ottiene '
+               '<b>senza doverlo convincere</b> \u2014 la Testimonianza \u00abIl fascicolo nascosto\u00bb si legge '
+               'anche senza un eroe idoneo e senza spendere una carica (la prova di \u00ableggere la '
+               'scena\u00bb si tira come sempre).<br/>'
+               '<b>Se l\u2019avete TENUTA nell\u2019archivio della Societ\u00e0</b> \u2014 M. l\u2019ha studiata e vi ha '
+               'anticipato il lavoro: cominciate l\u2019Indagine con <b>1 ora in pi\u00f9</b> sul Taccuino '
+               '(7 ore invece di 6: segnate anche le 17:00).<br/>'
+               '<i>Se non avete giocato il Preludio, saltate questo riquadro.</i>', 'box'))
 
     e.append(P('LA VERIT\u00c0', 'h1'))
     e.append(P(dropcap("Il liutaio <b>Bastiano Ferri</b> ha riportato in vita la confraternita del "
@@ -763,16 +835,18 @@ def soluzione():
     e.append(P('Scrivete la scelta sul retro del Frammento n. 1 e non parlatene pi\u00f9 fino '
                'all\u2019Episodio 2: l\u00ec ne risponderete, nel bene e nel male.', 'box'))
     e.append(P('FRAMMENTO DI CAMPAGNA N. 1', 'h2'))
-    e.append(P('<i>Il Coro Sommerso non evoca: <b>accorda</b>. Ogni episodio il culto \u201caccorda\u201d '
-               'un luogo della citt\u00e0. Segnate sulla mappa mentale di Roccamora: la Cattedrale \u00e8 '
-               'gi\u00e0 accordata.</i> Conservate questo frammento per il finale di campagna.'))
-    e.append(P('MIGLIORIE (una a testa dopo la vittoria)', 'h2'))
-    e.append(LI('<b>Tempra</b> \u2014 +1 permanente a una caratteristica a scelta (massimo 4).'))
-    e.append(LI('<b>Fibra</b> \u2014 +1 Salute massima.'))
-    e.append(LI('<b>Revolver</b> \u2014 una volta per round, attacco a distanza (fino a 3 caselle): 2d6+2.'))
-    e.append(LI('<b>Lanterna schermata</b> \u2014 le trappole delle tessere non si attivano sull\u2019eroe che la porta.'))
-    e.append(LI('<b>Borsa di garze</b> \u2014 2 usi per spedizione: azione, cura 2 Salute a un eroe adiacente.'))
-    e.append(P('Prossimo episodio: <b>Le voci del pozzo</b>. (Quando lo vorrete, tornate da chi vi '
+    e.append(P('<i>Il Coro Sommerso non evoca: il Coro <b>accorda</b>. E accorda un luogo a ogni '
+               'caso: la Cattedrale \u00e8 gi\u00e0 accordata.</i> Tenete il conto dei luoghi accordati '
+               'sulla mappa di Roccamora. Conservate questo frammento per il finale di campagna.'))
+    # L'elenco NON si ripete qui: sta nel Regolamento, sezione LE MIGLIORIE, ed
+    # e' una lista a caselle che si consuma in venti serate. Duplicarlo qui
+    # significava tenerne due versioni, e infatti questa era rimasta alle
+    # cinque voci ripetibili mentre l'altra era gia' a dodici.
+    e.append(P('MIGLIORIE (una casella a testa dopo la vittoria)', 'h2'))
+    e.append(P('Le solite: l\u2019elenco completo \u00e8 nel <b>Regolamento</b>, sezione '
+               '<i>Le Migliorie</i>. Ogni casella si spunta una volta sola \u2014 segnatela '
+               'sulla scheda.'))
+    e.append(P('Prossimo episodio: <b>La voce del bronzo</b>. (Quando lo vorrete, tornate da chi vi '
                'ha costruito questo gioco e chiedete l\u2019Episodio 2.)'))
     doc.build(e, onFirstPage=bg_cover, onLaterPages=bg)
     pad_to_even_pages(doc.filename)

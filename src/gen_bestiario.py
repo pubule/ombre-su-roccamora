@@ -48,8 +48,21 @@ SMB = st('smb', fontName=F['sc'], fontSize=8.5, textColor=TEAL, spaceBefore=4, s
 
 
 def frame_flow(c, x, y, w, h, flow):
+    # addFromList CONSUMA la lista e lascia dentro cio' che non e' entrato:
+    # un Paragraph piu' alto del frame sparisce dalla pagina SENZA errori
+    # (e' successo alla lettera del Preludio, vista solo aprendo il PDF).
+    # Qui non si stampa a vuoto: si urla.
     Frame(x, y, w, h, leftPadding=0, rightPadding=0, topPadding=0,
           bottomPadding=0, showBoundary=0).addFromList(flow, c)
+    if flow:
+        import os as _os, sys as _sys
+        _testo = ' '.join(str(getattr(f, 'text', f))[:90] for f in flow[:2])
+        _msg = ('FRAME TROPPO PICCOLO in %s: %d elementi non entrano in %.1fx%.1fmm '
+                'e NON verranno stampati -> %s'
+                % (_os.path.basename(__file__), len(flow), w / 2.83465, h / 2.83465, _testo))
+        print('!! ' + _msg, file=_sys.stderr)
+        if _os.environ.get('ROCCAMORA_FRAME_STRICT'):
+            raise RuntimeError(_msg)
 
 
 def stat_box(c, x, y, w, h, label, value, value_color=None):

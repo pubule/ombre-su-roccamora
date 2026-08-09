@@ -31,8 +31,21 @@ SMB  = st('smb', fontName=F['sc'], fontSize=8.5, textColor=TEAL, spaceBefore=4, 
 SUB  = st('sub', fontName=F['i'], fontSize=9, textColor=TEAL)
 
 def frame_flow(c, x, y, w, h, flow):
+    # addFromList CONSUMA la lista e lascia dentro cio' che non e' entrato:
+    # un Paragraph piu' alto del frame sparisce dalla pagina SENZA errori
+    # (e' successo alla lettera del Preludio, vista solo aprendo il PDF).
+    # Qui non si stampa a vuoto: si urla.
     Frame(x, y, w, h, leftPadding=0, rightPadding=0, topPadding=0,
           bottomPadding=0, showBoundary=0).addFromList(flow, c)
+    if flow:
+        import os as _os, sys as _sys
+        _testo = ' '.join(str(getattr(f, 'text', f))[:90] for f in flow[:2])
+        _msg = ('FRAME TROPPO PICCOLO in %s: %d elementi non entrano in %.1fx%.1fmm '
+                'e NON verranno stampati -> %s'
+                % (_os.path.basename(__file__), len(flow), w / 2.83465, h / 2.83465, _testo))
+        print('!! ' + _msg, file=_sys.stderr)
+        if _os.environ.get('ROCCAMORA_FRAME_STRICT'):
+            raise RuntimeError(_msg)
 
 def stat_box(c, x, y, w, label, value):
     c.saveState()
@@ -110,13 +123,17 @@ def schede():
         # ci finiva sopra (illeggibile, es. l'equip di Ottone sotto la mannaia). Frame
         # più alto (64mm) perché a colonna stretta il testo va a capo più volte; il
         # blocco sotto scende di conseguenza (margine in fondo ancora ~25mm).
-        frame_flow(c, mx, y2 - 64*mm, CUT_X - mx, 64*mm, [
+        # 70mm e non 64: a colonna stretta le abilita' piu' lunghe (Ottone,
+        # Sibilla, Brera) sforavano, e reportlab NON lo dice — buttava via
+        # l'ultimo Paragraph, cosi' tre schede su undici uscivano senza la
+        # riga sulle armi. Trovato dalla guardia in frame_flow.
+        frame_flow(c, mx, y2 - 70*mm, CUT_X - mx, 70*mm, [
             Paragraph('abilità unica', SMB), Paragraph(hro['abil'], BODY),
             Spacer(1, 6),
             Paragraph('equipaggiamento iniziale', SMB), Paragraph(hro['equip'], BODY),
             Spacer(1, 4),
             Paragraph('Le armi (+1) aggiungono +1 ai tiri di Attacco.', SUB)])
-        y3 = y2 - 72*mm
+        y3 = y2 - 78*mm
         c.setFillColor(TEAL); c.setFont(F['sc'], 10)
         c.drawString(mx, y3, 'migliorie e oggetti di campagna')
         c.setStrokeColor(SEPIA); c.setLineWidth(0.5)

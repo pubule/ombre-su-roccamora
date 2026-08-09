@@ -65,7 +65,12 @@ def taccuino_campagna():
     y = H - 38*mm
     c.setFillColor(TEAL); c.setFont(F['sc'], 9)
     c.drawString(x_ep, y, 'episodio')
-    c.drawCentredString(x_fr + 3*mm, y, 'frammento')
+    # due caselle: conservato, e — se la vittoria fu parziale — incrinato. Un
+    # Frammento incrinato si legge come gli altri ma non conta nel finale: e'
+    # l'unico modo in cui il conto puo' scendere, e senza di esso ogni tavolo
+    # arriverebbe all'ultimo episodio con lo stesso numero.
+    c.drawCentredString(x_fr + 3*mm, y, 'framm.')
+    c.drawCentredString(x_fr + 12*mm, y, 'incrin.')
     c.drawString(x_bv, y, 'bivio scelto — e a chi è costato')
     c.setStrokeColor(SEPIA); c.setLineWidth(0.9)
     c.line(16*mm, y - 2.5*mm, W - 16*mm, y - 2.5*mm)
@@ -80,6 +85,9 @@ def taccuino_campagna():
         # casella del Frammento: si barra quando lo si conserva
         c.setStrokeColor(INK); c.setFillColor(colors.HexColor('#f7f0dd')); c.setLineWidth(0.9)
         c.circle(x_fr + 3*mm, y + 1.2*mm, 3.1*mm, fill=1)
+        # casella «incrinato»: si barra se l'episodio si e' chiuso con vittoria
+        # parziale — il Frammento resta, ma non conta per il controcanto finale
+        c.circle(x_fr + 12*mm, y + 1.2*mm, 2.4*mm, fill=1)
         # riga per il Bivio (l'Ep. 20 non ne ha)
         c.setStrokeColor(SEPIA); c.setLineWidth(0.5)
         if n == 20:
@@ -97,11 +105,78 @@ def taccuino_campagna():
     c.drawString(20*mm, y - 7*mm, 'il conto che vi servirà')
     c.setFillColor(INK); c.setFont(F['r'], 8.5)
     c.drawString(20*mm, y - 13.5*mm,
-                 'FRAMMENTI CONSERVATI:  ............ / 20   → all’Episodio 20 il Controcanto si canta più in fretta quante')
+                 'CONSERVATI: ......... / 19      INCRINATI: ......... (vittorie parziali)      CHE CONTANO: ......... ')
     c.drawString(20*mm, y - 18.5*mm,
-                 'più righe avete: è lì che questo foglio si ripaga. I BIVI serviranno all’Episodio 19, che vi presenta il conto')
+                 '→ all’Episodio 20 il Controcanto si canta più in fretta quante più righe avete, e gli incrinati non contano:')
     c.drawString(20*mm, y - 23.5*mm,
-                 'di quello che avete scelto: rileggeteli tutti insieme prima di cominciarlo.')
+                 'è lì che questo foglio si ripaga. I BIVI serviranno all’Episodio 19: rileggeteli tutti insieme prima.')
+
+    c.setFillColor(TEAL); c.setFont(F['i'], 8)
+    c.drawCentredString(W/2, 13*mm,
+                        'ombre su roccamora · società del lume — il registro che sopravvive alla serata')
+    c.showPage()
+
+    # --- pagina 2: le cose che gli episodi mandano a segnare QUI ------------
+    # Nove episodi dicono «segnatelo sul Taccuino di Campagna» — gli incroci
+    # bancati verso l'assemblea, gli alleati che possono schierarsi nell'ultima
+    # notte — e il foglio non aveva una casella per nessuna delle due. Questa
+    # pagina esisteva gia' ed era BIANCA: era solo il padding fronte/retro.
+    parchment_art(c, W, H)
+    rule_border(c, W, H)
+    c.setFillColor(RED); c.setFont(F['sc'], 18)
+    c.drawString(16*mm, H - 21*mm, 'il conto che si porta all’assemblea')
+    wave(c, W - 74*mm, H - 19*mm, 40*mm, OGOLD)
+    c.setFillColor(TEAL); c.setFont(F['i'], 9)
+    c.drawString(16*mm, H - 27.5*mm,
+                 'Da riempire strada facendo: gli episodi vi diranno quando. Serve tutto nelle ultime tre serate.')
+
+    def riquadro(y, titolo, sottotitolo, voci, alt):
+        c.setStrokeColor(SEPIA); c.setLineWidth(0.9)
+        c.rect(16*mm, y - alt, W - 32*mm, alt, fill=0)
+        c.setFillColor(RED); c.setFont(F['sc'], 11)
+        c.drawString(20*mm, y - 8*mm, titolo)
+        c.setFillColor(SEPIA); c.setFont(F['i'], 8)
+        c.drawString(20*mm, y - 13.5*mm, sottotitolo)
+        yy = y - 22*mm
+        for testo in voci:
+            c.setStrokeColor(INK); c.setFillColor(colors.HexColor('#f7f0dd')); c.setLineWidth(0.9)
+            c.circle(23*mm, yy + 1.1*mm, 2.6*mm, fill=1)
+            c.setFillColor(INK); c.setFont(F['r'], 9)
+            c.drawString(29*mm, yy, testo)
+            yy -= 8.5*mm
+        return yy
+
+    riquadro(H - 36*mm, 'incroci di campagna',
+             'Ogni incrocio bancato vale nella deduzione dell’ultima assemblea. Massimo 7.',
+             ['rilettura di una vecchia lettera d’incarico  (massimo 3)',
+              'rilettura di una vecchia lettera d’incarico',
+              'rilettura di una vecchia lettera d’incarico',
+              'la matrice delle doppie letture',
+              'un verbale sigillato  ......................................................',
+              'un verbale sigillato  ......................................................',
+              'un verbale sigillato  ......................................................'],
+             86*mm)
+
+    riquadro(H - 132*mm, 'il conto dei bivi — chi può schierarsi l’ultima notte',
+             'Spuntate solo chi il vostro conto vi lascia. Ne servono tre.',
+             ['il professor Braga  —  se avete dichiarato pubblicamente il dubbio',
+              'il decano Ferrante  —  se lo avete riportato a casa lucido',
+              'il cronista Ranuzzi  —  se avete reso pubblica la prova',
+              'i vecchi testimoni del Coro  —  se restituiste le voci del Borgo',
+              'un debito antico  —  se consegnaste il vedovo'],
+             68*mm)
+
+    y = H - 208*mm
+    c.setStrokeColor(SEPIA); c.setLineWidth(0.9)
+    c.rect(16*mm, y - 34*mm, W - 32*mm, 34*mm, fill=0)
+    c.setFillColor(RED); c.setFont(F['sc'], 11)
+    c.drawString(20*mm, y - 8*mm, 'note che valgono più tardi')
+    c.setFillColor(SEPIA); c.setFont(F['i'], 8)
+    c.drawString(20*mm, y - 13.5*mm,
+                 'Quando un episodio dice «segnatelo sul Taccuino» e non è né un Frammento né un Bivio, va qui.')
+    c.setStrokeColor(SEPIA); c.setLineWidth(0.5)
+    for i in range(3):
+        c.line(20*mm, y - 20*mm - i*6*mm, W - 20*mm, y - 20*mm - i*6*mm)
 
     c.setFillColor(TEAL); c.setFont(F['i'], 8)
     c.drawCentredString(W/2, 13*mm,

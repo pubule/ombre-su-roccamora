@@ -208,7 +208,7 @@ LUOGHI = [
                         'quello che fu di Dellacqua — e tra le candele, una figura con le mani da liutaio. '
                         'Il canale, stanotte, ha fame.'),
          ]),
-    dict(n=4, nome='LA SAGRESTIA DELLA CATTEDRALE', voce_mappa='La Cattedrale', req='Don Callisto socchiude appena la porta e non fa entrare nessuno: si fida solo di chi gli porta notizie del suo sagrestano — quello di cui, in città, tutti fanno il nome.',
+    dict(n=4, nome='LA SACRESTIA DELLA CATTEDRALE', voce_mappa='La Cattedrale', req='Don Callisto socchiude appena la porta e non fa entrare nessuno: si fida solo di chi gli porta notizie del suo sagrestano — quello di cui, in città, tutti fanno il nome.',
          chiave=('parola', 'Tonio'),
          testo='Don Callisto vi riceve nervoso, le mani sporche di cera. Dietro di lui, la porta della '
                'cripta è sbarrata: «Chiusa per lavori», taglia corto.',
@@ -364,7 +364,7 @@ OGGETTI = [
     dict(nome='CORDA DI VIOLINO D’ARGENTO', ref='L2', fonte='Luogo 2 — Casa di Ruggero',
          flavor='Ancora tesa, come se qualcuno l’avesse suonata ieri.',
          effetto='A Roccamora una corda così la vende una sola bottega — e qualcuno, lì, potrebbe volerla indietro.'),
-    dict(nome='AMPOLLA DI ACQUA BENEDETTA', ref='L4', fonte='Luogo 4 — La Sagrestia della Cattedrale',
+    dict(nome='AMPOLLA DI ACQUA BENEDETTA', ref='L4', fonte='Luogo 4 — La Sacrestia della Cattedrale',
          flavor='«Se là sotto c’è il demonio, portate questa», vi dice, e non vi guarda negli occhi.',
          effetto='Effetto: nessuno finora scoperto.'),
     dict(nome='IL DIAPASON D’ARGENTO', ref='L5', fonte='Luogo 5 — Bottega del Liutaio Ferri',
