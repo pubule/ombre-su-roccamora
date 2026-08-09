@@ -678,6 +678,56 @@ cosa**, e le candidate misurate sono due:
 
 Quello che **non** e' una leva, e va tolto dall'elenco: `canto_ogni` (vale 1 su 5), il rimescolo del
 mazzo (0,1), e la soglia-risveglio a 8 (vincolo fisico: 8 sono i segnalini in scatola).
+
+**Rallentare il Canto dentro la camera: la leva che non avevo provato, ed era quella giusta**
+(09/08, `webapp/misura-corsa-ep20.mjs`, modello dell'intera corsa discesa+camera, 8000 repliche,
+validato sul pilota — coi valori di oggi da' 0%, come le dieci partite vere).
+
+Le due misure precedenti guardavano solo il lato discesa. Dentro la camera si spendono **+2 Canto per
+round su un budget di 8**, e li avevo trattati come intoccabili perche' stampati. Provati, cambiano
+tutto — e si scopre che il gioco quella leva **ce l'ha gia'**, ed e' sgomberare la camera: senza
+nemici dentro il rito perde la voce e la pressione scende da +2 a +1.
+
+Vittorie in funzione di quanti impiegati del coro restano nella camera:
+
+| Frammenti | 0 dentro | 1 | 2 | 3 |
+|---|---|---|---|---|
+| 0 | 0% | 0% | 0% | 0% |
+| 6 | 0% | 0% | 0% | 0% |
+| 12 | **52%** | **0%** | 0% | 0% |
+| 18 | **99%** | **0%** | 0% | 0% |
+
+**Un solo impiegato in piedi nella camera porta il finale da 52% a 0%**, e nessuna quantita' di
+Frammenti lo compensa. Il motivo e' che quella miniatura fa due mestieri opposti sui due contatori:
+toglie **una riga per round** al controcanto *e* da' **+1 Canto per round** al rito. Su un ritmo tipico
+di 3 righe e un budget di 3 round, vale uno scarto di due righe per round: e' l'intera partita.
+
+Questo riscrive la diagnosi che avevo dato ieri. **Non e' un finale rotto: e' un finale che si gioca
+su una condizione sola, e in modo binario.** L'episodio dice la cosa giusta — «va spezzato il coro,
+non l'uomo» — e il canto non costa azioni proprio per lasciarle tutte al coro. Ma non c'e' una via di
+mezzo: sgomberato = si vince, un rimasto = si perde.
+
+Le altre leve, misurate nello stesso modello, e nessuna basta da sola:
+
+| leva | vittorie |
+|---|---|
+| come e' adesso (12 Frammenti, 1 impiegato) | 0% |
+| il Dormiente si desta a round alterni | 0% |
+| 2 Crescendo nel mazzo invece di 4 | 0% |
+| 3 tessere di discesa invece di 5 | 0% |
+| 4 tessere invece di 5 | 0% |
+| 2 Crescendo **+** Dormiente a round alterni | 63% |
+| 2 Crescendo **+** camera sgomberata | 100% |
+
+Da notare che **accorciare la discesa da solo non serve**, e non e' intuitivo: i round guadagnati se li
+mangia la pressione della camera, che continua a costare +2. Era la mia raccomandazione di ieri, ed
+era sbagliata.
+
+**La domanda di progetto, adesso.** Quattro eroi contro cinque Sgherri: riescono a sgomberare la camera
+nei due round che hanno? Il pilota non ci e' mai riuscito in dieci partite. Se la risposta e' no, la
+scelta non e' fra le leve qui sopra ma piu' a monte: o il coro nella camera e' meno numeroso, o
+l'impiegato non fa due mestieri contemporaneamente (toglie una riga **oppure** da' voce al rito, non
+entrambe). La seconda e' la correzione piu' piccola e toglie il gradino.
 ## Chiuse in questa tornata
 
 | id | cosa | come |
