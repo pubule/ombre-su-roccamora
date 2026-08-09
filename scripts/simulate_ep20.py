@@ -539,7 +539,11 @@ def simula_spedizione(party, indagine, log, formula_minaccia='finale_v3'):
             # avanza il controcanto
             righe = len(cantori) and controcanto_rate  # se c'e' almeno un cantore
             righe = controcanto_rate if cantori else 0
-            righe = max(0, righe - coro_in_campo() + citta_bonus[0] - eco_penalita[0])
+            # Pavimento a 1: per quanti siano nel coro, una riga la cantate
+            # sempre. Senza, tre impiegati in campo azzeravano il canto e la
+            # scena diventava un muro invece di una difficolta'.
+            righe = righe - coro_in_campo() + citta_bonus[0] - eco_penalita[0]
+            righe = max(1, righe) if cantori else 0
             citta_bonus[0] = 0
             eco_penalita[0] = 0
             controcanto[0] += righe
@@ -551,9 +555,13 @@ def simula_spedizione(party, indagine, log, formula_minaccia='finale_v3'):
                 aggiungi_canto(1, 'il Dormiente si desta (camera)')
             if round_n % TICK_CANTO_OGNI == 0 and vivi():
                 aggiungi_canto(1, 'orologio')
-            # M. in piedi con la sua voce accelera il risveglio
-            if m_nemico[0] and not m_a_terra[0] and not candidata_salvata[0] and vivi():
-                aggiungi_canto(1, 'il rito di M. (voce che crede)')
+            # Il rito accelera finche' HA UNA VOCE: M. in piedi con la sua,
+            # oppure un impiegato del coro che canta al posto suo. Abbattere
+            # l'uomo non spegneva l'orologio della camera: va spezzato il coro.
+            m_canta = m_nemico[0] and not m_a_terra[0] and not candidata_salvata[0]
+            if (m_canta or coro_in_campo()) and vivi():
+                aggiungi_canto(1, 'il rito ha una voce'
+                               + (' (M.)' if m_canta else ' (il coro canta al posto suo)'))
             if controcanto[0] >= SOGLIA_CONTROCANTO and vivi():
                 esito = 'VITTORIA'
                 log('    *** Il controcanto è completo: il Dormiente torna al sonno senza sogni. '

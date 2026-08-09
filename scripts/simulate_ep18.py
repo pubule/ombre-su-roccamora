@@ -50,7 +50,7 @@ TOKEN_POOL_BASE = {'LO SGHERRO': 5}
 # round 5-8: era tarata su una marcia lunga la meta', prima che il costo di
 # attraversamento fosse corretto a 2 round per tessera. Il finale vero non si
 # apriva quasi mai — misurato su 600 partite a 4 eroi.
-SOGLIA_ARRESTO = 7       # Canto oltre cui i gendarmi sigillano (5 con l'Uscita di Servizio)
+SOGLIA_ARRESTO = 7       # Canto oltre cui i gendarmi sigillano (8 con l'Uscita di Servizio)
 BOSS_INGAGGIO = 4        # eroi che ingaggiano il maggiordomo (T5)
 BOSS_COLPI = 1           # il maggiordomo, Danno 2 ma riluttante: un colpo (saltato con D4)
 ARRESTO_DIFF = 'Media'   # prova NERVI per non essere «catturati» dopo la soglia
@@ -149,11 +149,11 @@ LUOGHI_SIM = [
     dict(n=5, nome='Lo Studio Privato di M.', req=('parola', 'UNA MANO SOLA'),
          chiude=None, approf=['Presagio']),
     dict(n=6, nome='La Carta di Pregio', req=('parola', 'L’INCHIOSTRO DEL PRESIDENTE'),
-         chiude=None, approf=['Referto'], incrocio_d1=True),
+         chiude=None, approf=['Testimonianza'], incrocio_d1=True),
     dict(n=7, nome='La Matrice del Decano', req=('parola', 'LA CARROZZA CONDIVISA'),
          chiude=None, approf=['Referto'], incrocio_d3=True),
     dict(n=8, nome='Il Vezzo delle Firme', req=('parola', 'LA CARROZZA CONDIVISA'),
-         chiude=None, approf=['Presagio'], vezzo=True, incrocio_d3=True),
+         chiude=None, approf=['Osservazione'], vezzo=True, incrocio_d3=True),
     dict(n=9, nome='Il Palazzo del Lume (la fuga)', req=('parola', 'UNA MANO SOLA'),
          chiude=None, approf=['Presagio'], uscita=True),
 ]

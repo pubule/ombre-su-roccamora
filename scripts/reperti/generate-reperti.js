@@ -345,7 +345,7 @@ Chi canterà al di sotto, non si lamenti di ciò che al di sotto risponde.`;
       <div class="hand" style="font-size:60px; line-height:90px;">
         <p style="margin-bottom:40px;">Al maestro concertatore. L’accordatura della conchiglia si compia entro la gala, pannello per pannello, a teatro chiuso.</p>
         <p style="margin-bottom:40px;">Il mio assistito ama la lirica e detesta i ritardi. I saldi dei suoi debiti restino il nostro comune segreto.</p>
-        <p style="text-align:right; margin-top:80px;">— not. Grillanda, per conto del benefattore</p>
+        <p style="text-align:right; margin-top:80px;">— not. Rasca, per conto del benefattore</p>
       </div>
       <div class="serif" style="font-style:italic; margin-top:100px; font-size:36px; color:#4a4a4e; mix-blend-mode:multiply;">
         Carta di pregio, piegata coi guanti: la terza volta che questa risma
@@ -646,9 +646,9 @@ Chi canterà al di sotto, non si lamenti di ciò che al di sotto risponde.`;
         <p style="text-align:right; margin-top:70px;">— M.</p>
       </div>
       <div class="serif" style="font-style:italic; margin-top:90px; font-size:34px; color:#4a4a4e; mix-blend-mode:multiply;">
-        Carta di pregio, filigrana della cartiera dei casi passati; la «M.»
-        ha il ricciolo del Tessitore. La stessa mano che scrive le vostre
-        lettere d’incarico scrive gli ordini a chi vi dà la caccia.
+        Carta di pregio, filigrana della cartiera già vista nei casi passati;
+        la firma è una lettera sola, «M.». Una lettera sola non è un nome —
+        ma la carta è questa, e si ripete di caso in caso.
       </div>
     </div></div>
   `);
@@ -849,8 +849,8 @@ Chi canterà al di sotto, non si lamenti di ciò che al di sotto risponde.`;
         <p>— C.B.</p>
       </div>
       <div class="serif" style="font-style:italic; margin-top:56px; font-size:34px; color:#4a4a4e; mix-blend-mode:multiply;">
-        I vetturini non sanno di esserlo. Chi paga la carta di C.B. paga da dove
-        pagate voi: è in casa, e da sessant’anni.
+        I vetturini non sanno di esserlo. Sessant’anni di forniture alla stessa
+        penna, e un giro che certe notti allunga di una fermata.
       </div>
     </div></div>
   `);
@@ -913,7 +913,7 @@ Chi canterà al di sotto, non si lamenti di ciò che al di sotto risponde.`;
       </div>
       <div class="serif" style="font-style:italic; margin-top:70px; font-size:34px; color:#4a4a4e; mix-blend-mode:multiply;">
         Un falsario che imita col metodo morelliano scrive così. Chi ha steso
-        questo conosce Braga e il metodo meglio di Braga: è dentro casa nostra.
+        questo conosce Braga e il metodo meglio di Braga stesso.
       </div>
     </div></div>
   `);
@@ -1208,7 +1208,7 @@ Chi canterà al di sotto, non si lamenti di ciò che al di sotto risponde.`;
     ['Episodio 8', 'Reperto C - Bolle del Carbone', repertoC8],
     ['Episodio 9', 'Reperto A - Verbale della Ritrattazione', repertoA9],
     ['Episodio 9', 'Reperto B - Parcella dell’Avvocato', repertoB9],
-    ['Episodio 9', 'Reperto C - Biglietto di C.B.', repertoC9],
+    ['Episodio 9', 'Reperto C - Biglietto nel Cestino', repertoC9],
     ['Episodio 10', 'Reperto A - Denuncia di Abbandono', repertoA10],
     ['Episodio 10', 'Reperto B - Libro Mastro della Muratura', repertoB10],
     ['Episodio 10', 'Reperto C - Commessa del Fornitore', repertoC10],

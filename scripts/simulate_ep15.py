@@ -58,7 +58,7 @@ SOGLIA_SIGILLO = 7        # Canto oltre cui la Gendarmeria sigilla. Allineato al
 # (rischio reale). Il pilota e' l'autorevole; la curva di questo sim non lo e'.
 PROVE_PIAZZATE = 5        # tell del falso da documentare (pool iniziale, +1 col Reagente)
 SOGLIA_CONTRO = 4         # tell documentati per aprire la Contro-busta
-CANCELLA_PER_ROUND = 2    # tell cancellati dagli Apparecchiatori da T4 (Capo vivo)
+CANCELLA_PER_ROUND = 1    # tell cancellati dagli Apparecchiatori da T4 (Capo vivo)
 BOSS_INGAGGIO = 4         # eroi che ingaggiano il Capo Apparecchiatore (T6)
 BOSS_COLPI = 2            # il Capo difende il suo lavoro: due colpi (uno saltato con D3)
 
