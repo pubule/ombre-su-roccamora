@@ -155,9 +155,11 @@ rende impossibile.
   sessione scaduta.
 - **Nessuna schermata di login da costruire**: Access chiede Google prima che
   l'app venga caricata. L'app legge l'email da `/api/stato`.
-- **Le partite già sul dispositivo non si perdono**: al primo avvio, se
-  esistono chiavi `osr.partita.<episodio>` vecchio stile, l'app chiede in quale
-  tavolo metterle e le migra.
+- **Le partite già sul dispositivo non si migrano** (deciso dall'autore il
+  09/08/2026): sono partite di collaudo, non serate vere. Le vecchie chiavi
+  `osr.partita.<episodio>` restano dove sono, inerti — il nuovo formato ha un
+  tavolo nella chiave e non le incrocia mai. Chi vuole ripartire pulito svuota
+  i dati del sito.
 - **La modalità tavolo non cambia di una virgola.** La sincronizzazione sta
   sotto `store.js`, dove le due modalità sono già identiche, e nessuna regola di
   gioco la attraversa.
@@ -214,4 +216,5 @@ sincronizzazione non è mai sul percorso critico della serata.
 
 Niente più dispositivi sulla stessa partita in tempo reale; niente tavoli
 condivisi fra account diversi; niente tabella dello stato di campagna; niente
-registrazione (chi entra si decide aggiungendo un'email in Access).
+registrazione (chi entra si decide aggiungendo un'email in Access); niente
+migrazione delle partite già in `localStorage`.
