@@ -165,7 +165,7 @@ export function fineRound(comune, ep, sped) {
   // del check -> tick sfasato di 1 round in anticipo, tavolo piu' duro.)
   const annunci = [];
   const ogni = cadenzaCanto(comune, ep);
-  const soglia = ep.marea ? ep.marea.soglia : comune.regole.soglia_canto;
+  const soglia = ep.marea ? ep.marea.soglia : sogliaCanto(comune, ep);
   const nome = ep.marea ? 'Marea' : 'Canto';
   // Tetto ai segnalini: sono un componente FISICO e finito — 8 in scatola, il
   // massimo che un episodio richieda (il risveglio del Dormiente, Ep.20). Il
@@ -175,7 +175,12 @@ export function fineRound(comune, ep, sped) {
   if (sped.round % ogni === 0 && sped.canto < tettoCanto(comune, ep)) {
     sped.canto += 1;
     annunci.push(`Fine del ${sped.round}° round: +1 segnalino ${nome} (${sped.canto}).`);
-    if (sped.canto === soglia) {
+    // `>=` e non `===`: il Canto puo' PARTIRE gia' alla soglia o oltre (un
+    // Bivio che regala segnalini iniziali, l'Ep.20 col Bivio 11), e con
+    // l'uguaglianza secca il bonus non scattava mai piu'. `sogliaVista` tiene
+    // l'annuncio una volta sola, che `cantoBonus` non copre il ramo marea.
+    if (sped.canto >= soglia && !sped.sogliaVista) {
+      sped.sogliaVista = true;
       if (ep.marea) annunci.push(ep.marea.effetto + ' Da ora in poi.');
       else {
         sped.cantoBonus = true;
@@ -191,16 +196,24 @@ export function fineRound(comune, ep, sped) {
 export const tettoCanto = (comune, ep) =>
   (ep && ep.canto_max != null ? ep.canto_max : (comune.regole.canto_max ?? Infinity));
 
+// La soglia a cui il boss si desta NON e' una costante di gioco: il
+// Regolamento dice «ogni episodio fissa una soglia», e due Bivi la spostano
+// (Ep.2 -> Ep.3 «a 4 invece di 3», Ep.4 «sale di 1»). L'episodio la dichiara
+// in `soglia_canto`; chi non la dichiara usa il 3 di `comune.regole`.
+export const sogliaCanto = (comune, ep) =>
+  (ep && ep.soglia_canto != null ? ep.soglia_canto : comune.regole.soglia_canto);
+
 export function cantoDaCarta(comune, ep, sped) {
-  const soglia = comune.regole.soglia_canto;
+  const soglia = sogliaCanto(comune, ep);
   const tetto = tettoCanto(comune, ep);
   if (sped.canto >= tetto) {                                  // segnalini finiti
     return [`Il Canto è già al massimo (${tetto}).`];
   }
   sped.canto += 1;
   const annunci = [`Segnalino Canto: ${sped.canto}.`];
-  if (sped.canto === soglia && !sped.cantoBonus) {
+  if (sped.canto >= soglia && !sped.cantoBonus) {
     sped.cantoBonus = true;
+    sped.sogliaVista = true;
     annunci.push(`Il Canto raggiunge ${soglia}: il boss si desta in anticipo, e da ora ogni Fase Minaccia pesca 1 carta in più.`);
   }
   return annunci;

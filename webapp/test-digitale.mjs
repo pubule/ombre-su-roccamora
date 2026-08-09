@@ -1,7 +1,8 @@
 // Self-check del motore multi-tessera della modalita' digitale (digitale.js).
 // node webapp/test-digitale.mjs
 import { _motore } from './public/js/digitale.js';
-const { esploraMosse, camminoGlob, adiacGlob, portaCella, layout, nk, _setup } = _motore;
+const { esploraMosse, camminoGlob, adiacGlob, portaCella, layout, nk, _setup,
+        avanzaCancellazione } = _motore;
 
 let ko = 0;
 const ok = (c, m) => { if (!c) { console.error('FAIL:', m); ko++; } };
@@ -64,6 +65,42 @@ _setup(ep, mkSp({ rivelate: ['T1', 'T2', 'T3'] }));
 const path = camminoGlob({ t: 'T1', x: 1, y: 0 }, { t: 'T3', x: 1, y: 1 }, new Set());
 ok(path.length > 0 && path[path.length - 1].t === 'T3', 'cammino globale T1->T3 arriva in T3');
 ok(!path.some((n) => TESS.find((t) => t.id === n.t).arredi.some(([x, y]) => x === n.x && y === n.y)), 'cammino non passa dagli arredi');
+
+// --- la CANCELLAZIONE dell'Ep.15: il pool dei tell si svuota davvero
+// Era la meccanica che da' il nome all'episodio e in digitale non esisteva:
+// il pilota misurava una serata senza clessidra. Questo controllo fallisce se
+// la clessidra torna a fermarsi.
+{
+  const ep15 = {
+    tessere: TESS,
+    cancellazione: { compito: 'tell', da_tessera: 'T4', per_round: 1,
+                     finche_compito: 'capo', testo: 'Un tell sparisce.',
+                     esaurito: 'Non trovano nulla da cancellare.' },
+    compiti: [{ id: 'tell', quante: 4, tile: 'T2', etichetta: 'tell' },
+              { id: 'capo', quante: 1, tile: 'T6', etichetta: 'capo' }],
+  };
+  const gioca = (sp) => { _setup(ep15, sp); return avanzaCancellazione(); };
+
+  const primaDiT4 = { rivelate: ['T1', 'T2'], compiti: { tell: 3 }, round: 5 };
+  ok(gioca(primaDiT4).length === 0 && primaDiT4.compiti.tell === 3,
+     'prima che T4 sia rivelata non si cancella nulla');
+
+  const inCorso = { rivelate: ['T1', 'T2', 'T4'], compiti: { tell: 3 }, round: 5 };
+  ok(gioca(inCorso).length === 1 && inCorso.compiti.tell === 2,
+     'da T4 gli Apparecchiatori cancellano un tell per round');
+
+  const capoPreso = { rivelate: ['T1', 'T4'], compiti: { tell: 3, capo: 1 }, round: 6 };
+  ok(gioca(capoPreso).length === 0 && capoPreso.compiti.tell === 3,
+     'preso il Capo, la cancellazione si ferma');
+
+  const aSecco = { rivelate: ['T1', 'T4'], compiti: { tell: 0 }, round: 7 };
+  ok(gioca(aSecco)[0] === 'Non trovano nulla da cancellare.' && aSecco.compiti.tell === 0,
+     'il pool non va sotto zero');
+
+  const finito = { rivelate: ['T1', 'T4'], compiti: { tell: 4 }, round: 8 };
+  gioca(finito); gioca(finito); gioca(finito); gioca(finito);
+  ok(finito.compiti.tell === 0, 'quattro round di cancellazione svuotano il pool pieno');
+}
 
 console.log(ko === 0 ? 'TUTTO OK (motore multi-tessera)' : `${ko} FAIL`);
 process.exit(ko ? 1 : 0);

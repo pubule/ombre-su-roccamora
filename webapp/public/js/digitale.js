@@ -9,7 +9,8 @@
 // ramo separato, scelto in vistaPartita (main.js) su partita.modo.
 import { salva, dati } from './store.js';
 import { rendi, norm, costruisciMazzo, carteDaPescare, pesca, fineRound,
-         cantoDaCarta, cerca, urlCarta, urlArt, cartaOggetto, tettoCanto } from './engine.js';
+         cantoDaCarta, cerca, urlCarta, urlArt, cartaOggetto, tettoCanto,
+         sogliaCanto } from './engine.js';
 import { tiraProva } from './dadi.js';
 import { abilitaSchede } from './scheda-eroe.js';
 import { controBusta } from './engine.js';
@@ -1144,7 +1145,11 @@ function obiettivoFatto() {
 function compitoDisponibile(pos) {
   const sp = SP();
   for (const c of specCompiti()) {
-    if (compitoFatte(c.id) >= c.quante) continue;
+    // `quante` e' quanti ne SERVONO; `massimo` quanti ne ESISTONO. Coincidono
+    // ovunque tranne dove qualcosa li cancella (i tell dell'Ep.15: cinque alla
+    // villa, quattro bastano). Senza il margine, una clessidra da 1/round e' un
+    // muro: misurato 0/6 con pool 4, 50% senza clessidra.
+    if (compitoFatte(c.id) >= (c.massimo || c.quante)) continue;
     // dipendenza: la Formula si legge solo a movimenti spenti (Ep.6)
     if (c.dopo && compitoFatte(c.dopo) < (specCompiti().find((x) => x.id === c.dopo) || {}).quante) continue;
     // compito su un NEMICO: agganciare il corriere, prendere vivo il Caposquadra,
@@ -1257,6 +1262,32 @@ function avanzaRogo() {
     }
   }
   return ann;
+}
+
+// --- la CANCELLAZIONE (Ep.15) ----------------------------------------------
+// La meccanica che da' il nome all'episodio non esisteva in digitale: i tell
+// erano quattro Interagire e non spariva niente, quindi la serata era una gara
+// col Canto invece che con la squadra che cancella. Il pool si svuota — «da T4
+// gli Apparecchiatori cancellano un tell per round finche' il Capo e' in
+// piedi» — e questo e' il generico che lo esegue, guidato dai dati.
+//   cancellazione: { compito, da_tessera, per_round, finche_compito, testo }
+const specCancellazione = () => ctx.ep.cancellazione || null;
+
+function avanzaCancellazione() {
+  const k = specCancellazione(); const sp = SP();
+  if (!k || sp.esito) return [];
+  if (k.da_tessera && !sp.rivelate.includes(k.da_tessera)) return [];
+  // finche' il Capo e' in piedi: il compito che lo prende non e' ancora chiuso
+  if (k.finche_compito) {
+    const c = specCompiti().find((x) => x.id === k.finche_compito);
+    if (c && compitoFatte(c.id) >= c.quante) return [];
+  }
+  const st = statoCompiti(); const avuti = st[k.compito] || 0;
+  if (avuti <= 0) return k.esaurito ? [k.esaurito] : [];
+  const quanti = Math.min(k.per_round || 1, avuti);
+  st[k.compito] = avuti - quanti;
+  const spec = specCompiti().find((x) => x.id === k.compito);
+  return [`${k.testo} (${st[k.compito]}/${spec ? spec.quante : '?'})`];
 }
 
 function controllaVittoria() {
@@ -1642,7 +1673,7 @@ function tessLontana() {
 // al raggiungimento della soglia del Canto il boss si desta (tessera rivelata
 // piu' lontana), se non e' gia' in campo o gia' stato abbattuto. Ritorna annunci.
 function destaBossSeSoglia() {
-  const sp = SP(); const boss = ctx.ep.soluzione.boss; const soglia = ctx.comune.regole.soglia_canto;
+  const sp = SP(); const boss = ctx.ep.soluzione.boss; const soglia = sogliaCanto(ctx.comune, ctx.ep);
   if (!boss || sp.canto < soglia) return [];
   if (sp.bossDestato || sp.nemici.some((x) => x.nome === boss)) return [];
   // Un boss che NON si muove non puo' destarsi «nella stanza piu' lontana»: la
@@ -2039,6 +2070,7 @@ function faseNemiciAI() {
   piano.annunci.push(...fineRound(ctx.comune, ctx.ep, sp));
   if (specOrologio() && specOrologio().ogni) piano.annunci.push(...avanzaOrologio(specOrologio().ogni, 'fine round'));
   piano.annunci.push(...avanzaRogo());   // il doom-clock del Rogo (Ep.13): incendio a round + danno
+  piano.annunci.push(...avanzaCancellazione());   // la clessidra dell'Ep.15: i tell si cancellano
   // Cinque episodi non hanno una traccia propria: la loro soglia E' IL CANTO —
   // «prima che il Canto raggiunga la soglia-FUGA» (Ep.14), soglia-sigillo,
   // soglia-decano, soglia-arresto, risveglio. Sono i numeri che le Soluzioni
@@ -2144,5 +2176,6 @@ function epilogo() {
 // export del motore per i test (node): _setup inietta un ctx finto (ep + sp)
 export const _motore = {
   esploraMosse, camminoGlob, adiacGlob, viciniGlob, portaCella, arrediSet, layout, nk, tileDi,
+  avanzaCancellazione,
   _setup: (ep, sp) => { ctx = { ep, partita: { spedizione: sp, party: [] }, layout: null }; },
 };

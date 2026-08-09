@@ -209,7 +209,11 @@ function dichiara(nomeVoce) {
   }
   const l = esito.luogo;
   const ind = IND();
+  const costo = l.ore || 1;
   if (IND().ora >= 24) return pannelloMsg('è mezzanotte', '<p>Il tempo è finito: chiudete l’indagine.</p>', home);
+  if (IND().ora + costo > 24) return pannelloMsg('troppo lontano', `<p><i>${esc(l.nome.toLowerCase())} è
+    fuori città: la trasferta vuole ${costo} ore, e non le avete.</i></p>
+    <p class="nota mt">Nessuna ora spesa: con un'ora sola non si dichiara.</p>`, home);
   if (!luogoVisitabile(l, ind.ora)) {
     return pannelloMsg(l.nome.toLowerCase(), `<p><i>Troppo tardi: qui hanno chiuso alle ${l.chiude}:00. Il portone resta muto.</i></p>
       <p class="nota mt">Nessuna ora spesa: lo sapevate arrivando.</p>`, home);
@@ -221,6 +225,25 @@ function dichiara(nomeVoce) {
   visita(l);
 }
 
+// Il `requisito` e' prosa d'arbitro, e in 36 serrature su 90 contiene la
+// parola d'ordine alla lettera («…apre solo a chi ha notato la crepa: IL
+// NASTRO VERDE che il presidente sapeva prima di tutti»). Al tavolo l'arbitro
+// la legge e non la dice; qui il pannello la serviva a chi bussa, e quelle
+// serrature erano aperte dal minuto zero.
+function requisitoSenzaChiave(l) {
+  const chiave = l.chiave && l.chiave[0] === 'parola' ? l.chiave[1] : null;
+  if (!chiave || !l.requisito) return l.requisito;
+  const rx = new RegExp(chiave.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
+  return l.requisito.replace(rx, '…')
+    // l'articolo rimasto orfano davanti al buco («la faccenda del….») lo
+    // riempie mezzo: se la parola comincia per articolo, se ne va con lei.
+    // Le preposizioni articolate lo lasciano fuso («delle misure» - «le
+    // misure» = «del»), quindi il moncone va tolto a parte.
+    .replace(/\b(?:de|ne|su|da|co|a)l…/gi, '…')
+    .replace(/\s+\b(?:il|lo|la|i|gli|le|l’|un|uno|una|del|dello|della|dei|degli|delle)\s+…/gi, ' …')
+    .replace(/…\s*\./g, '…');
+}
+
 // ---------------------------------------------------------------- bussare
 function bussare(l) {
   const { app } = ctx;
@@ -229,7 +252,7 @@ function bussare(l) {
     ${bannerLuogo(l)}
     <div class="pannello">
       <h2>${esc(l.nome.toLowerCase())}</h2>
-      <p class="mt"><i>${rendi(l.requisito)}</i></p>
+      <p class="mt"><i>${rendi(requisitoSenzaChiave(l))}</i></p>
       <p class="nota mt">Potete dichiarare UNA parola d’ordine o UN oggetto per questa
       visita. Giusta: si entra subito. Sbagliata: l’ora è comunque spesa.</p>
       <input class="campo mt" id="dichiarazione" placeholder="una parola, o il nome di un oggetto…"
@@ -246,7 +269,7 @@ function bussare(l) {
   app.querySelector('#grimaldello')?.addEventListener('click', () => {
     const ind = IND();
     ind.grimaldelloUsato = true;
-    ind.ora += 1;                       // la visita costa l'ora, come sempre
+    ind.ora += (l.ore || 1);            // fuori citta' costa 2 ore, non 1
     if (!ind.scoperti.includes(l.n)) ind.scoperti.push(l.n);
     salvaP();
     // bypassa SOLO l'ingresso di questa visita: la chiave resta da scoprire
@@ -258,7 +281,7 @@ function bussare(l) {
     const d = app.querySelector('#dichiarazione').value;
     if (!norm(d)) return;
     const ind = IND();
-    ind.ora += 1;                       // l'ora si spende comunque
+    ind.ora += (l.ore || 1);            // si spendono comunque, giuste o sbagliate
     const r = bussa(l, d);
     if (!ind.scoperti.includes(l.n)) ind.scoperti.push(l.n);   // carta girata
     if (r.entra) {
@@ -286,7 +309,7 @@ async function visita(l, oraGiaSpesa = false) {
   const gratis = ind.visitaGratis === l.n || ind.fontiRiservateAttive;
   if (ind.visitaGratis === l.n) delete ind.visitaGratis;
   if (ind.fontiRiservateAttive) delete ind.fontiRiservateAttive;
-  if (!oraGiaSpesa && !gratis) ind.ora += 1;
+  if (!oraGiaSpesa && !gratis) ind.ora += (l.ore || 1);
   if (prima) ind.visitati.push(l.n);
   ind.luogoAperto = l.n;
   salvaP();

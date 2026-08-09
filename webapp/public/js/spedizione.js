@@ -5,7 +5,8 @@
 // Ferite coi massimali giusti per taglia. Stato in partita.spedizione.
 import { salva, dati } from './store.js';
 import { rendi, norm, costruisciMazzo, carteDaPescare, pesca, fineRound,
-         cantoDaCarta, cerca, urlCarta, urlArt, cartaOggetto, cadenzaCanto } from './engine.js';
+         cantoDaCarta, cerca, urlCarta, urlArt, cartaOggetto, cadenzaCanto,
+         sogliaCanto } from './engine.js';
 import { tiraProva } from './dadi.js';
 import { abilitaSchede } from './scheda-eroe.js';
 import { controBusta } from './engine.js';
@@ -36,7 +37,7 @@ function prossimoTick() {
   // stessa cadenza che usa fineRound: l'arbitro non puo' annunciare un round
   // diverso da quello in cui il segnalino sale davvero
   const ogni = cadenzaCanto(ctx.comune, ctx.ep);
-  const soglia = ctx.ep.marea ? ctx.ep.marea.soglia : ctx.comune.regole.soglia_canto;
+  const soglia = ctx.ep.marea ? ctx.ep.marea.soglia : sogliaCanto(ctx.comune, ctx.ep);
   const mancano = ogni - (sp.round % ogni || ogni) + 1;
   return `Il ${orologio()} sale da solo a fine del ${sp.round + mancano - 1}° round` +
          ` (e con le carte Crescendo); al ${soglia}° segnalino cambia tutto.`;
@@ -105,7 +106,7 @@ const SPAWN_REGEX = [
 function destaBossSeSoglia() {
   const sp = SP();
   const boss = ctx.ep.soluzione.boss;
-  const soglia = ctx.comune.regole.soglia_canto;
+  const soglia = sogliaCanto(ctx.comune, ctx.ep);
   if (!boss || ctx.ep.marea || sp.canto < soglia) return [];
   if (sp.nemici.some((x) => x.nome === boss) || sp.bossDestato) return [];
   sp.bossDestato = true;

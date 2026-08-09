@@ -170,7 +170,7 @@ REPERTI_LUOGO = {
             7: ['Reperto B - Fascicolo del Sequestro']},
     'ep9': {6: ['Reperto A - Verbale della Ritrattazione'],
             5: ['Reperto B - Parcella dell’Avvocato'],
-            8: ['Reperto C - Biglietto di C.B.']},
+            8: ['Reperto C - Biglietto nel Cestino']},
     'ep10': {3: ['Reperto A - Denuncia di Abbandono'],
              5: ['Reperto B - Libro Mastro della Muratura'],
              8: ['Reperto C - Commessa del Fornitore']},
@@ -235,6 +235,10 @@ def luogo_json(L, oggetti_map=None, reperti_map=None, desc=None):
         chiave=list(chiave) if chiave else None,      # ('parola'|'oggetto', valore)
         chiude=L.get('chiude'),
         apre=L.get('apre'),
+        # fuori citta' = 2 ore (Molino dell'Ep. 13, Villa-Prigione dell'Ep. 17).
+        # La chiave esisteva nei generatori e nei simulatori Python, ma non
+        # arrivava qui: in digitale la trasferta costava un'ora come tutti.
+        ore=2 if L.get('fuori_citta') else 1,
         art=L.get('art'),
         # la descrizione lunga del fascicolo; `testo` (solo Ep.1) e' il ripiego
         testo=strip_tags((desc or {}).get(L['n']) or L.get('testo', '')) or None,
@@ -558,7 +562,7 @@ SOLUZIONI = dict(
                  esatta='Sapete dov’è il traguardo: nel 1° round non si pesca nessuna carta Minaccia.',
                  sbagliata='Inseguite alla cieca: 1 bravo della scorta appare in T1.'),
             dict(q='CHI ha copiato i Frammenti?',
-                 risposta='Anselmo Godi, il vecchio copista della Società, su ordine autentico.',
+                 risposta='Prospero Godi, il vecchio copista della Società, su ordine autentico.',
                  esatta='Sapete di recuperare una prova, non d’inseguire un ladro: al Cimitero l’aggancio riesce senza contendere il round alla scorta.',
                  sbagliata='Nessun effetto.'),
             dict(q='COME sono uscite dall’archivio?',
@@ -575,19 +579,19 @@ SOLUZIONI = dict(
     ep13=dict(
         domande=[
             dict(q='DOVE si produce la carta di pregio?',
-                 risposta='Al Molino delle Carte, due ore fuori città: un solo opificio ha quella filigrana.',
-                 esatta='Sapete dove finisce la corsa: col Lasciapassare del Nolo saltate lo sbarramento del Cortile (T1) e la sua guardia.',
-                 sbagliata='Arrivate al cancello alla cieca: la guardia del Cortile (T1) vi ingaggia.'),
+                 risposta='Al Molino delle Carte, due ore fuori città: un solo opificio ha quella filigrana (il registro dei ritiri al Fermo-Posta L3 + le bolle alla Dogana L4 — due luoghi aperti dall’inizio. Il Deposito delle Risme NON conta come conferma: si apre pronunciando questa stessa risposta).',
+                 esatta='Arrivate preparati: nel 1° round della spedizione non si pesca nessuna carta Minaccia.',
+                 sbagliata='Perdete tempo a cercare il molino: 1 uomo del molino appare in T1.'),
             dict(q='CHI amministra la filiera?',
-                 risposta='Il Notaio Rasca, che intesta e paga i noli — appare al Molino e fugge in carrozza.',
-                 esatta='Sapete il nome che comanda: al torchio il Sorvegliante esita un round (salta il suo primo attacco).',
+                 risposta='Il Notaio Ludovico Rasca, che intesta e paga i noli — appare al Molino e fugge in carrozza (il capostazione L1 + il referto dello studio L2 + il doganiere L4).',
+                 esatta='Al torchio potete gridare al Sorvegliante che Rasca è già fuggito e lo scarica: gli fa saltare un attacco.',
                  sbagliata='Nessun effetto. (Il Timbro del Notaio è un’esca: timbro di routine, non lo inchioda.)'),
             dict(q='COSA SAPEVA il capo-catena annegato?',
-                 risposta='Che le risme di C.B. viaggiano sulla carrozza del Palazzo del Lume — la deposizione mai resa, ricostruita dai suoi appunti e dal registro dei noli.',
-                 esatta='La deposizione è ricostruita (incroci L5+L7): il seme dell’Atto III è saldo, la prova regge in tribunale.',
+                 risposta='L’ora del nolo e i turni della guardia al Molino: a che ora parte la carrozza della carta e quando i magazzini restano scoperti — la deposizione mai resa, ricostruita dai suoi appunti e dal registro dei noli.',
+                 esatta='Deposizione ricostruita (incroci L5+L7): conoscete l’ora del rogo e i turni della guardia — tutto l’orologio del rogo slitta di 2 round (T5 al 9, T6 al 11, T4 al 14, T3 al 16, T2 al 18, T1 al 20) e le prove d’ambiente sono a Facile. NON si cumula col Taccuino del Capo-Catena (stesso identico vantaggio): con tutt’e due slittate di 2 round in tutto, mai di 4.',
                  sbagliata='Il filo resta monco: senza la deposizione la prova al torchio vale meno (verso la vittoria parziale).'),
-            dict(q='COSA portate al Molino?',
-                 risposta='LA CASSETTA STAGNA (il Deposito delle Risme, L8): chiusa, salva i registri dall’acqua e dal fuoco.',
+            dict(q='COSA portate alla Spedizione?',
+                 risposta='LA CASSETTA STAGNA (il Deposito delle Risme, L8, entro le 20): chiusa, salva i registri dall’acqua e dal fuoco.',
                  esatta='I registri sequestrati sono immuni al rogo: la prova esce intatta — VITTORIA PIENA anche col fuoco alto.',
                  sbagliata='Portate via i registri a mani nude: se li strappate col torchio già in fiamme escono anneriti — vittoria parziale. (La Lettera di Raccomandazione è un’esca.)'),
         ],
@@ -616,7 +620,7 @@ SOLUZIONI = dict(
     ),
     ep15=dict(
         domande=[
-            dict(q='DOVE sono le prove contro Braga?',
+            dict(q='DOVE sono le prove contro l’accusato?',
                  risposta='Nel dossier anonimo (la Gendarmeria) e nella villa (la perquisizione): il dossier fisico L7 + la scena L9.',
                  esatta='Sapete dove guardare: nel 1° round della spedizione non si pesca nessuna carta Minaccia.',
                  sbagliata='Entrate scomposti: 1 gendarme (Sgherro) appare in T1.'),
@@ -634,15 +638,15 @@ SOLUZIONI = dict(
                  sbagliata='Senza il fascicolo non chiudete nemmeno la cornice pubblica.'),
             dict(q='CONTRO-BUSTA — CHI HA SCRITTO IL DOSSIER? (si apre solo dopo la spedizione)',
                  dopo_spedizione=True,
-                 risposta='Una MANO INTERNA alla Società: il metodo è quello del manuale (12 copie, una consultata), le istruzioni agli Apparecchiatori sono di grafia di Braga ma troppo perfette. Non un nome, ancora: «uno di noi». Il seme verso M.',
-                 esatta='Presa col Capo Apparecchiatore + 3-4 tell documentati alla villa: rispondere = VITTORIA PIENA — avete rifiutato la soluzione perfetta.',
+                 risposta='Qualcuno che a quel libro poteva accedere PER STATUTO. Le dodici copie del manuale ci sono tutte: nessuna rubata, nessuno scasso. La n. 7 è stata consultata il mese scorso, e il registro si firma soltanto se se ne ha diritto. La firma è abrasa; il diritto no. Non «chi conosce il metodo»: la lista brevissima di chi può chiedere quella copia e ottenerla. Il seme verso M.',
+                 esatta='Presa col Capo Apparecchiatore + 4 o più tell documentati alla villa: rispondere = VITTORIA PIENA — avete rifiutato la soluzione perfetta.',
                  sbagliata='Chi ha chiuso solo la Busta pubblica ha già scelto, senza saperlo, di avallare l’arresto di un innocente: ha fatto il lavoro di M.'),
         ],
         boss='IL CAPO APPARECCHIATORE',
     ),
     ep16=dict(
         domande=[
-            dict(q='DOVE è Bruna?',
+            dict(q='DOVE è Nina?',
                  risposta='Nella villa dei Càrpine sul lago, poco fuori città (registro affitti L8 + carrozza vista alla Stazione L4).',
                  esatta='Sapete dove sbarcare: nel 1° round non si pesca nessuna carta Minaccia.',
                  sbagliata='Perdete il 1° round a orientarvi nel giardino (nessun danno: è un respiro).'),
@@ -652,11 +656,11 @@ SOLUZIONI = dict(
                  sbagliata='Nessun effetto.'),
             dict(q='COSA la tiene lì?',
                  risposta='Non catene: la BUGIA delle nozze. Si libera mostrandole le altre vittime (il Fascicolo, L5).',
-                 esatta='Col Fascicolo delle Vittime mostrato a Bruna, l’inganno crolla: cattura AUTOMATICA dello Sposo (VITTORIA PULITA), niente fuga in barca.',
-                 sbagliata='Senza il Fascicolo, strappate Bruna con la forza e lo Sposo tenta la barca (vittoria amara).'),
+                 esatta='Col Fascicolo delle Vittime mostrato a Nina, l’inganno crolla: cattura AUTOMATICA dello Sposo (VITTORIA PULITA), niente fuga in barca.',
+                 sbagliata='Senza il Fascicolo, strappate Nina con la forza e lo Sposo tenta la barca (vittoria amara).'),
             dict(q='COSA SAPEVA M.? (il dettaglio impossibile)',
-                 risposta='Il NASTRO VERDE al polso di Bruna — un segreto tra padre e figlia, mai confidato, eppure di pugno del presidente nella lettera d’incarico (L6).',
-                 esatta='La CREPA. Nessun vantaggio meccanico: dà il seme più pesante della campagna e abilita la RILETTURA (rileggere le vecchie lettere di M. banca incroci per l’Ep.18). Come faceva M. a saperlo?',
+                 risposta='Il NASTRO VERDE al polso di Nina — un segreto tra padre e figlia, mai confidato, eppure di pugno del presidente nella lettera d’incarico (L6).',
+                 esatta='La CREPA. Nessun vantaggio meccanico: dà il seme più pesante della campagna e abilita la RILETTURA (rileggere le vecchie lettere di M. banca un incrocio ciascuna, al massimo 3, per l’Ep.18). Come faceva M. a saperlo?',
                  sbagliata='Se non aprite l’Archivio delle Lettere, non vedete la crepa — e non caricate il finale.'),
         ],
         boss='LO SPOSO',
@@ -698,8 +702,8 @@ SOLUZIONI = dict(
                  sbagliata='Nessun effetto.'),
             dict(q='CHI È C.B.?',
                  risposta='M. — Camillo Benso («C.B.») e il Machiavelli («M.»): due maschere di un uomo solo, che si è dato la caccia da sé per anni. Il vezzo delle firme lo prova. UNA MANO SOLA.',
-                 esatta='LA RIVELAZIONE. Non un vantaggio meccanico: il volto del mostro. Con gli INCROCI DI CAMPAGNA pieni (bivi, verbali, riletture, matrice) uscite col la prova FORTE — M. è latitante, non voi. M. NON si cattura: è l’Atto IV.',
-                 sbagliata='Senza la deduzione, non c’è caso: è la soluzione che vi ha scritto M.'),
+                 esatta='NON UNA RIVELAZIONE: UNA FIRMA. La Domanda non chiede di trovarlo — lo avete davanti — chiede di poterlo dire ad alta voce e reggere. A contare sono gli INCROCI DI CAMPAGNA: 4 dai Bivi (9, 12, 14, 16) più 3 dalle riletture dell’Ep.16, massimo 7, e non c’è altra fonte. Con 5+ = prova FORTE, vittoria piena: M. è latitante, non voi. Con 3-4 = sufficiente: piena solo se nessun eroe è stato arrestato. Con 0-2 = debole: al massimo parziale. M. NON si cattura: è l’Atto IV.',
+                 sbagliata='Senza gli incroci la deduzione è vera e indifendibile: la dite, e in assemblea regge la versione che vi ha scritto M.'),
         ],
         boss='LA GUARDIA DEL PRESIDENTE',
     ),
@@ -718,7 +722,7 @@ SOLUZIONI = dict(
                  esatta='Conoscete la crepa del coro: la chiave tattica dell’Ep.20 (gli impiegati si rompono e fuggono).',
                  sbagliata='Entrerete nel finale senza sapere la debolezza di M.'),
             dict(q='COSA portate alla discesa?',
-                 risposta='La Mappa Acustica (L8), il Fascicolo del 1741 (L9, in spedizione) e i Frammenti conservati (n. 1-19). È l’economia dell’Ep.20: ciò che manca qui, manca là.',
+                 risposta='La Mappa Acustica (L8), il Fascicolo del 1741 (L9, in spedizione) e i Frammenti conservati e non incrinati (n. 1-19). È l’economia dell’Ep.20: ciò che manca qui, manca là.',
                  esatta='Aiuti: la mappa dei sigilli (Fossa), le Prove per l’Ispettore (L4 + l’archivio di Braga se protetto). (Esche: la Taglia da Riscuotere, la Via Facile.)',
                  sbagliata='Scendete nell’Ep.20 senza il controcanto o la mappa: quasi impossibile.'),
         ],
@@ -729,19 +733,19 @@ SOLUZIONI = dict(
             dict(q='QUANDO?',
                  risposta='All’ora del picco delle maree di sizigia, quando la gola della città si apre (gli ossari L2 + il calendario dei Padri L4).',
                  esatta='Scendete all’ora giusta: nel 1° round della discesa non si pesca nessuna carta Minaccia.',
-                 sbagliata='Arrivate scomposti: il Canto (risveglio) parte da 1.',
+                 sbagliata='Arrivate scomposti: +1 segnalino Canto di partenza, che si somma a quello del Bivio dell’Ep. 11 (infiltrare la squadra) — chi ha fatto entrambe scende col Canto già a 2.',
                  penalita=dict(canto=1)),
             dict(q='DOVE? (la via delle tre acque)',
                  risposta='La via delle tre acque sotto la Cattedrale, dalla Mappa Acustica (la Cattedrale L1 + la Taverna L3 + l’Archivio L4).',
                  esatta='La Mappa guida la discesa (niente round persi nel buio; la città può suonare a favore: +1 riga di controcanto).',
                  sbagliata='La gola vi confonde (round persi, l’eco che mente vi ruba righe).'),
             dict(q='CHI è l’ultima voce?',
-                 risposta='La candidata che il Coro insegue dall’Ep.3, l’unica che M. non può comprare (i vecchi del Coro L5 + l’organo di ossa L6).',
+                 risposta='La signora Vetri, la prima donna del Teatro Comunale: la solista mai catturata, l’unica che M. non può comprare (i vecchi del Coro L5 + l’organo di ossa L6).',
                  esatta='Sapete chi cercare: salvatela nella fase del coro — togliete a M. la voce che crede, il risveglio rallenta.',
                  sbagliata='M. la costringe: il suo rito accelera il risveglio.'),
             dict(q='COME si fa dormire il Dormiente senza sogni?',
-                 risposta='Il CONTROCANTO del Fascicolo del 1741, cantato coi Frammenti (metà erano il canto del sonno, che M. voleva; metà lo smascheravano). Non si uccide un dio: lo si canta a dormire.',
-                 esatta='LA DEDUZIONE FINALE. Contate i Frammenti conservati (1-19): più ne avete, più righe di controcanto/round. Completate le 10 righe prima del risveglio (Canto 8) = VITTORIA. (Esche: la Chiave del Coro e il Grimorio — cantano il risveglio, aiutano M.)',
+                 risposta='Il CONTROCANTO del Fascicolo del 1741, cantato coi Frammenti (nove erano il canto del sonno, che M. voleva; gli altri undici lo smascheravano). Non si uccide un dio: lo si canta a dormire.',
+                 esatta='LA DEDUZIONE FINALE. Contate i Frammenti conservati e non incrinati (1-19): più ne avete, più righe di controcanto/round. Completate le 10 righe prima del risveglio (Canto 8) = VITTORIA. (Esche: la Chiave del Coro e il Grimorio — cantano il risveglio, aiutano M.)',
                  sbagliata='Senza il controcanto e i Frammenti, il Dormiente si desta: la campagna si chiude in tragedia.'),
         ],
         boss='LA CAMERA DEL DORMIENTE',
@@ -1305,11 +1309,21 @@ episodi = dict(
         # tell sono 5 sparsi, ne servono 4; il Capo è una miniatura da catturare.
         # SIGILLO ricalibrato 8->7 (pilota 20260724): a 8 il Canto digitale non ci
         # arriva mai = 100% piena walkover; a 7 la contro-busta scende a ~63% piena.
-        # NOTA parità: la CANCELLAZIONE (gli Apparecchiatori cancellano 2 tell/round
-        # da T4 finché il Capo è in piedi) è meccanica-tavolo, NON nel digitale
-        # (l'engine non decrementa i compiti). Ricchezza-tavolo come il +2 di Ep.10:
-        # la tensione digitale viene dal sigillo. Un domani si potrebbe modellare.
-        compiti=[dict(id='tell', tile=t, quante=4, etichetta='Documenta un tell del falso')
+        # CANCELLAZIONE modellata (N-88, 09/08/2026): «un domani» è arrivato. Era
+        # l'unica meccanica che dà il nome a un episodio a non esistere in digitale,
+        # e senza di lei il pilota misurava una serata senza clessidra — prendi 4
+        # tell e poi il Capo entro il Canto 7, una gara col tempo invece che con la
+        # squadra che cancella. `avanzaCancellazione()` in digitale.js decrementa il
+        # pool a fine round. UN tell per round, non due: il 2 era isolato (N-89).
+        # ATTENZIONE: il sigillo a 7 era tarato SENZA la cancellazione — l'Ep. 15 va
+        # rimisurato col pilota prima di fidarsi della sua percentuale (N-110).
+        cancellazione=dict(compito='tell', da_tessera='T4', per_round=1,
+                           finche_compito='capo',
+                           testo='Gli Apparecchiatori rimettono a posto: un tell documentato sparisce.',
+                           esaurito='Gli Apparecchiatori cercano cosa cancellare, e non trovano nulla: siete indietro.'),
+        # cinque tell esistono alla villa, quattro bastano per la Contro-busta:
+        # e' il margine su cui la CANCELLAZIONE morde senza diventare un muro.
+        compiti=[dict(id='tell', tile=t, quante=4, massimo=5, etichetta='Documenta un tell del falso')
                  for t in ('T2', 'T3', 'T4')] + [
             dict(id='capo', nemico='IL CAPO APPARECCHIATORE', quante=1, dopo='tell', ridotto=True, tile='T6',
                  etichetta='Prendi il Capo Apparecchiatore',
@@ -1329,26 +1343,26 @@ episodi = dict(
         sottotitolo='episodio 16 — Atto III: il respiro, e la crepa nella lettera di M.',
         cartella='Episodio 16', ore_budget=6,
         lettera=LETTERA_16,
-        obiettivo='Il caso più piccolo della campagna: riportate a casa Bruna, la figlia del '
+        obiettivo='Il caso più piccolo della campagna: riportate a casa Nina, la figlia del '
                   'lampionaio, dallo Sposo (un truffatore matrimoniale) nella villa sul lago. '
-                  'Col Fascicolo delle Vittime mostrato a Bruna, l’inganno crolla e lo Sposo è '
+                  'Col Fascicolo delle Vittime mostrato a Nina, l’inganno crolla e lo Sposo è '
                   'preso senza combattere (vittoria pulita); senza, lo strappate con la forza '
                   '(amara). Nessuna soglia, nessun mostro: è il respiro. Il vero peso è la CREPA — '
                   'la lettera di M. cita il nastro verde, un segreto che nessuno gli ha detto. '
                   'NUOVO: la RILETTURA — all’Archivio delle Lettere rileggete le vecchie lettere '
-                  'di M.: ogni rilettura banca un incrocio per la deduzione finale (Ep.18).',
+                  'di M.: ogni rilettura banca un incrocio per la deduzione finale, al massimo 3 (Ep.18).',
         # USCITA SEGRETA (23/07/2026): il vecchio commento diceva «vince nel 100%
         # delle simulazioni» — ma era il simulatore, cieco sullo spazio. Sulla
         # plancia vera l'Ep.16 fa il 20% con picco 2.3: il ritorno di 6 tessere
-        # dalla villa uccide. Come Ep.1-4, Bruna indica una via piu' corta —
+        # dalla villa uccide. Come Ep.1-4, Nina indica una via piu' corta —
         # l'imbarcadero della villa, dietro le casse della sua stanza.
         scortato=[scortato(
-            'Bruna', 'T6', 'T1', 'Bruna.png',
-            etichetta='Porta via Bruna (Interagire)',
-            vittoria='Bruna è al sicuro: la riportate a casa.',
+            'Nina', 'T6', 'T1', 'Nina.png',
+            etichetta='Porta via Nina (Interagire)',
+            vittoria='Nina è al sicuro: la riportate a casa.',
             uscita=uscita_segreta(
                 'T6', (0, 2),
-                'Bruna indica le casse accanto al letto: — Di lì si scende '
+                'Nina indica le casse accanto al letto: — Di lì si scende '
                 'all’imbarcadero. Lo Sposo ci fa portare i bauli delle «mogli»: '
                 'la porta sul retro non la chiude mai, dà sull’acqua.'))],
         esami_carbone=ESAMI_CARBONE_16,
@@ -1464,11 +1478,11 @@ episodi = dict(
         obiettivo='IL FINALE. Un’indagine breve (l’ora, la via delle tre acque, la voce, il '
                   'controcanto), poi la discesa più lunga: sotto la Cattedrale, oltre Ferri, nella '
                   'gola della città. Non si vince con l’acciaio: col CONTROCANTO (le righe giuste '
-                  'tra i 20 Frammenti — metà erano il canto del sonno che M. voleva, metà lo '
+                  'tra i 20 Frammenti — nove erano il canto del sonno che M. voleva, undici lo '
                   'smascheravano). La camera è il boss (fasi ambientali); il coro comprato si rompe; '
                   'M. è un uomo, fragile. Completate il controcanto (10 righe) prima che il Dormiente '
-                  'si svegli (RISVEGLIO) = il dio torna al sonno senza sogni. FUORI SCALA: il finale '
-                  'può perdere eroi, e può finire male. NIENTE Bivio: è la fine.',
+                  'si svegli (RISVEGLIO) = il dio torna al sonno senza sogni. FUORI SCALA: gli eroi '
+                  'cadono, e quaggiù rialzarli può non essere possibile. NIENTE Bivio: è la fine.',
         # IL FINALE: non si vince con l'acciaio ma col CONTROCANTO — righe da
         # pronunciare, mentre il Dormiente si sveglia.
         # IL FINALE IN DIGITALE (fix 20260724). Il Controcanto vero scala coi 20
