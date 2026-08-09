@@ -106,7 +106,38 @@ Serve almeno una comparsa — l'Ep. 11 (il censimento delle campane) e l'Ep. 16
 (il respiro) sono i due innesti naturali.
 
 ### N-09 · La deriva fra carte fisiche e fascicoli: 76 voci residue
-**stato: aperta** · riferimenti: `08`D1
+**stato: chiusa** — decisa e chiusa (09/08) separando i tre casi invece di trattarli come un blocco. Cento diff non
+sono una decisione; `scripts/classifica-deriva.py` li divide in **A regola / B fatto / C forma** e
+pesa le B contro le risposte alle Domande — perche' quello che conta non e' se la carta e' piu' corta,
+ma se al tavolo perde qualcosa che serve.
+
+**A · regola (0 rimaste).** Non erano editoriali, erano difetti, e uno era di specie nota: la carta
+stampava «il percorso dell'Ep. 20», «(Ep. 3-6)», «Il richiamo all'Ep. 13» dentro testi letti ad alta
+voce. Nella finzione gli episodi non esistono, i fascicoli erano stati bonificati e le carte no,
+perche' `c_numeri_episodio_in_scena` guarda solo i generatori. Corrette **13 occorrenze** su 11 carte
+(sei flavour e sette Approfondimenti), usando il nome dell'episodio richiamato invece del numero —
+«la carta di pregio», «la caccia alla talpa», «l'inverno degli ammutoliti», «la cripta dei Battuti».
+Le occorrenze dopo il `{divider}` restano: quello e' testo d'arbitro, e li' il numero serve.
+Aggiunta la barriera `c_numeri_episodio_su_carta`, **provata non vacua**.
+
+**B · fatto (11 rimaste, nessuna che pesi).** Delle sedici iniziali, cinque erano falsi positivi del
+mio criterio — scartava le maiuscole a inizio frase, e siccome le due versioni spezzano le frasi in
+punti diversi «Ada» e «Braga» risultavano perduti pur essendo li'; e non guardava il **fronte** della
+carta, dove il soggetto e' stampato («Testimone — Mola, alla fine»), quindi contava come persi i nomi
+che la carta mostra senza ripeterli. Corretto il criterio. Delle restanti, tre erano perdite vere e
+sono chiuse: l'Ep. 15 diceva «il metodo indiziario» invece di «della Societa'», l'Ep. 17 perdeva «e
+il Notaio copre le tracce», l'Ep. 20 non diceva **chi** parla («Il piu' vecchio del Coro tiene la
+lanterna bassa e ve lo dice lui»). Le altre dieci sono colore che una carta corta puo' permettersi.
+
+**C · forma (88).** Accettate, e adesso dichiarate: **le carte sono un registro piu' breve dei
+fascicoli, e va bene cosi'.** Mediana 225 caratteri contro paragrafi interi; il fascicolo e' per
+l'arbitro che prepara, la carta e' per il tavolo che legge. Non e' deriva: e' la stessa cosa detta a
+due lunghezze. Quello che non e' ammesso — e ora ha un controllo — e' che le due lunghezze dicano due
+regole diverse, o che la piu' corta perda un nome che chiude una Domanda.
+
+**La causa di fondo resta**, ed e' quella scritta sopra: `cards-data.js` e' una copia a mano. Finche'
+lo e', la deriva torna. Ma ora torna **classificata**: `python scripts/classifica-deriva.py` dice in
+tre righe se e' un difetto o una scelta, e l'audit blocca da solo la specie peggiore. · riferimenti: `08`D1
 
 `scripts/sync-cards-data.py` conta le divergenze fra `cards-data.js` e i
 fascicoli. Delle 92 iniziali ne sono state riallineate 16 (quelle che

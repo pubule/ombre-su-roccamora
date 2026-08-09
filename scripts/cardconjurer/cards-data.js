@@ -3510,7 +3510,7 @@ const LUOGHI15 = [
     testo: 'Ha già il titolo — «IL MOSTRO HA UN VOLTO» — ma Ranuzzi fiuta la scena montata. Qui si sa chi, a Roccamora, padroneggia il metodo indiziario: una manciata di nomi, tutti attorno alla confraternita.',
     approfondimenti: [
       { tipo: 'Osservazione', soggetto: 'I pochi che sanno il metodo',
-        testo: 'Il metodo indiziario non è roba da strada: lo padroneggiano in pochi, tutti dentro o attorno alla confraternita. Un falso costruito con quel metodo restringe i sospetti a una manciata di persone — e nessuna è Braga, che il metodo lo combatte da trent’anni. Chi ha scritto il dossier non odia Braga: lo usa. Odia, o teme, qualcos’altro.' },
+        testo: 'Il metodo indiziario della Società non è roba da strada: lo padroneggiano in pochi, tutti dentro o attorno alla confraternita. Un falso costruito con quel metodo restringe i sospetti a una manciata di persone — e nessuna è Braga, che il metodo lo combatte da trent’anni. Chi ha scritto il dossier non odia Braga: lo usa. Odia, o teme, qualcos’altro.' },
     ] },
   { n: 4, nome: 'La Stanza del Testimone', req: 'Disponibile dall’inizio',
     art: 'artworks/La Stanza del Testimone.png',
@@ -3993,7 +3993,7 @@ const LUOGHI17 = [
     testo: 'Il confratello che la caccia alla talpa addita: un uomo mite, terrorizzato, con indizi contro di lui spuntati dal nulla, troppo puliti — come quelli di Braga. Un innocente cucito su misura per la talpa che non esiste.',
     approfondimenti: [
       { tipo: 'Osservazione', soggetto: 'La talpa fabbricata',
-        testo: 'La talpa è un capolavoro di scena, come il caso Braga: indizi troppo puliti, spuntati al momento giusto, contro un innocente incapace di difendersi. Serve a due cose: dare alla Società un colpevole da odiare (così nessuno cerca più in alto), e tenervi occupati a processare un confratello mentre il decano viene interrogato. Seguire la talpa fittizia è perdere. La domanda non è chi sia la talpa. È perché a qualcuno serva tanto che ce ne sia una.' },
+        testo: 'La talpa è un capolavoro di scena, come il caso Braga: indizi troppo puliti, spuntati al momento giusto, contro un innocente incapace di difendersi. Serve a due cose: dare alla Società un colpevole da odiare (così nessuno cerca più in alto), e tenervi occupati a processare un confratello mentre il decano viene interrogato e il Notaio copre le tracce. Seguire la talpa fittizia è perdere. La domanda non è chi sia la talpa. È perché a qualcuno serva tanto che ce ne sia una.' },
     ] },
   { n: 7, nome: 'La Dogana Vecchia',
     req: 'La Dogana Vecchia apre i suoi registri a chi legge tra le righe del decano: il dossier cifrato e la carrozza che porta fuori porta.',
@@ -4165,7 +4165,7 @@ const EP17_NEMICI = [
     rules: '{i}Non la solita ciurma: gli uomini di fiducia di Rasca, addestrati a custodire, trasferire e far sparire con la freddezza di chi tratta le persone come pratiche. Fanno muro tra voi e il padrone.{/i}{divider}Statistiche nel Bestiario. Nessuna debolezza-oggetto. «La matrice» (D3): sapere che avete già decifrato tutto toglie senso alla difesa del segreto — saltano un attacco. Va superata per catturare il Notaio.' },
   { art: 'artworks/Il Notaio.png', title: 'Il Notaio',
     type: 'Il Ricorrente dell’Atto (stavolta si prende) — Episodio 17',
-    rules: '{i}Ludovico Rasca, la mano guantata che vi sfugge dall’Ep. 13: l’uomo che fa sparire le persone con le carte in regola. Al Molino scappò; qui, raggiunto, si lascia prendere quasi con sollievo.{/i}{divider}NON combatte. Al T6 tenta di sparire coi suoi incartamenti: se non lo agganciate (Interagire) entro un round, fugge — ma con la Guardia a terra è cattura quasi automatica. Preso, tace: «Il mio cliente firma poco, ma paga sempre.»' },
+    rules: '{i}Ludovico Rasca, la mano guantata che vi sfugge dalla notte del Molino: l’uomo che fa sparire le persone con le carte in regola. Allora scappò in carrozza; qui, raggiunto, si lascia prendere quasi con sollievo.{/i}{divider}NON combatte. Al T6 tenta di sparire coi suoi incartamenti: se non lo agganciate (Interagire) entro un round, fugge — ma con la Guardia a terra è cattura quasi automatica. Preso, tace: «Il mio cliente firma poco, ma paga sempre.»' },
 ].map((n) => ({ ...n, file: `Episodio 17/Nemici/${n.title}` }));
 
 const EP17 = [...LUOGHI17, ...EP17_INDIZI, ...EP17_TESTIMONI, ...EP17_REFERTI,
@@ -4182,7 +4182,7 @@ const EP17 = [...LUOGHI17, ...EP17_INDIZI, ...EP17_TESTIMONI, ...EP17_REFERTI,
 const LUOGHI18 = [
   { n: 1, nome: 'L’Assemblea della Società', req: 'Disponibile dall’inizio',
     art: 'artworks/Palazzo del Lume.png',
-    testo: 'La Società riunita, nella forma scelta dall’Ep. 17. Sul tavolo, diciotto mesi di indizi da mettere in fila. Basta il coraggio di pronunciare il nome che avete avuto sotto gli occhi da sempre: una mano sola muove entrambe le maschere.',
+    testo: 'La Società riunita, nella forma in cui l’avete lasciata dopo la caccia alla talpa. Sul tavolo, diciotto mesi di indizi da mettere in fila. Basta il coraggio di pronunciare il nome che avete avuto sotto gli occhi da sempre: una mano sola muove entrambe le maschere.',
     approfondimenti: [
       { tipo: 'Testimonianza', soggetto: 'La Società riunita',
         testo: 'Messi in fila davanti all’assemblea, i diciotto mesi non raccontano diciotto casi: raccontano un uomo solo che, da presidente, vi mandava a caccia di se stesso da C.B., restando sempre un passo avanti perché il passo lo dettava lui. La carta di pregio, la carrozza dei noli, il nastro verde, il sigillo, la matrice del decano: ogni seme converge su una sola mano. Serve solo il coraggio di dire il nome.' },
@@ -4203,7 +4203,7 @@ const LUOGHI18 = [
     ] },
   { n: 4, nome: 'Il Fascicolo di Campagna', req: 'Disponibile dall’inizio',
     art: 'artworks/Il Fascicolo di Campagna.png',
-    testo: 'Il vostro fascicolo di diciotto mesi: verbali, bivi, riletture dell’Ep. 16, la matrice del decano. La vera arma stanotte — non un indizio, ma diciotto mesi di indizi che si tengono per mano, e che presi insieme danno il volto del presidente.',
+    testo: 'Il vostro fascicolo di diciotto mesi: verbali, bivi, le vecchie lettere rilette, la matrice del decano. La vera arma stanotte — non un indizio, ma diciotto mesi di indizi che si tengono per mano, e che presi insieme danno il volto del presidente.',
     approfondimenti: [
       { tipo: 'Osservazione', soggetto: 'Gli incroci di diciotto mesi',
         testo: 'Il fascicolo di campagna è la vostra vera arma: non un indizio, ma diciotto mesi di indizi che si tengono per mano. Ogni bivio deciso, ogni verbale sigillato, ogni lettera riletta, la matrice del decano: presi uno a uno, coincidenze; presi insieme, un ritratto. E il ritratto ha il volto del presidente. Più fili avete chiuso, più la mano che li tiene è innegabile — davanti alla Società, e davanti a voi stessi, che non avete mai osato guardarlo.' },
@@ -4219,7 +4219,7 @@ const LUOGHI18 = [
   { n: 6, nome: 'La Carta di Pregio',
     req: 'Il richiamo alla carta di pregio si apre a chi ricollega la firma di C.B. alla penna del presidente: l’inchiostro del presidente sul giglio spezzato.',
     art: 'artworks/La Carta di Pregio.png',
-    testo: 'Il richiamo all’Ep. 13: la carta col giglio spezzato, l’inchiostro ferro-gallico. Confrontata con la penna d’archivio del presidente, la mano è la stessa. Il nascondiglio migliore è sempre stato il più esposto: la sedia da cui vi guardava indagare.',
+    testo: 'Il richiamo alla carta di pregio: il giglio spezzato, l’inchiostro ferro-gallico. Confrontata con la penna d’archivio del presidente, la mano è la stessa. Il nascondiglio migliore è sempre stato il più esposto: la sedia da cui vi guardava indagare.',
     approfondimenti: [
       { tipo: 'Testimonianza', soggetto: 'Il vecchio membro della Società',
         testo: '«Sono in questa casa da prima di lui, e la carta la ordino io: è lui che ha voluto quella del molino, col giglio spezzato, per decoro della Società. Poi ho tenuto controluce i vostri fogli sequestrati accanto ai nostri: stessa filigrana, stesso inchiostro della penna d’archivio. C.B. non firma da nessun luogo segreto: firma di sopra, sulla nostra carta. Il nascondiglio migliore è il più esposto: la sedia da cui vi guardava indagare.»' },
@@ -4227,7 +4227,7 @@ const LUOGHI18 = [
   { n: 7, nome: 'La Matrice del Decano',
     req: 'La matrice del decano si applica solo a chi porta gli incroci: la carrozza condivisa dei due mondi di M.',
     art: 'artworks/La Matrice del Decano.png',
-    testo: 'Il richiamo all’Ep. 17: le doppie letture applicate a tutte le lettere, e la carrozza condivisa dei noli. Il decano ha rischiato la pelle per questa riga; ora la riga parla, e chiude la Domanda sulla logistica di una mano sola.',
+    testo: 'Il richiamo alla notte in cui il decano sparì: le doppie letture applicate a tutte le lettere, e la carrozza condivisa dei noli. Il decano ha rischiato la pelle per questa riga; ora la riga parla, e chiude la Domanda sulla logistica di una mano sola.',
     approfondimenti: [
       { tipo: 'Referto', soggetto: 'La logistica di una mano sola',
         testo: 'La matrice del decano, incrociata con la carrozza dei noli, chiude la Domanda 3: una sola carrozza, una sola ora, un solo cortile — quello del Palazzo — servono due maschere che fingono di non conoscersi. C.B. non ha una logistica sua: usa quella della Società, perché sono la stessa impresa. Il decano l’aveva capito, e per questo se lo sono portato via: l’ha pagata di persona, e ne è uscito vivo per un soffio. La sua matrice fa di diciotto mesi di riletture una deduzione sola.' },
@@ -4438,17 +4438,17 @@ const LUOGHI19 = [
         testo: 'Un gendarme che vi crede è una crepa nel muro che M. vi ha tirato addosso. Vi apre la via all’Archivio sequestrato e vi consegna le prove che potrebbero convincere Vidal — se arrivate a mostrargliele invece di combatterlo. È il nodo dell’episodio: l’Ispettore non è il nemico, è la vittima più utile del metodo di M., e riportarlo dalla parte giusta vale più di dieci gendarmi abbattuti. La caccia può cambiare bersaglio, stanotte. Da voi a M.' },
     ] },
   { n: 5, nome: 'Il Professor Braga',
-    req: 'La villa di Braga apre a chi ricorda il conto dei bivi: il professore che avete salvato — o lasciato cadere — nell’Ep. 15.',
+    req: 'La villa di Braga apre a chi ricorda il conto dei bivi: il professore che avete salvato — o lasciato cadere — la notte del dossier che combaciava.',
     art: 'artworks/La Villa-Museo di Braga.png',
-    testo: 'Apre SOLO se l’avete protetto (Ep. 15): allora vi consegna trent’anni di studio del rivale M., la prova vivente della sua doppiezza. Se l’avete avallato, la villa è vuota, la porta chiusa: il conto, qui, a vostro sfavore.',
+    testo: 'Apre SOLO se l’avete protetto la sera del dossier che combaciava: allora vi consegna trent’anni di studio del rivale M., la prova vivente della sua doppiezza. Se l’avete avallato, la villa è vuota, la porta chiusa: il conto, qui, a vostro sfavore.',
     approfondimenti: [
       { tipo: 'Osservazione', soggetto: 'Il debito di Braga',
         testo: 'Braga è il conto più caro della campagna: se l’avete protetto quando la città voleva la sua testa, stanotte vi ripaga con l’unica cosa che ha — trent’anni di studio del suo rivale, la prova vivente che M. ha due facce. Se l’avete lasciato cadere per comodità, la sua porta è chiusa, e con essa una delle prove migliori per Vidal. Ogni scelta pesa: è il pay-off. La campagna non dimentica, e stanotte ve lo dice in faccia.' },
     ] },
   { n: 6, nome: 'Il Decano Ferrante',
-    req: 'Lo studio del decano apre a chi ha pagato il conto dell’Ep. 17: il decano che avete salvato lucido — o ferito grave — nella villa-prigione.',
+    req: 'Lo studio del decano apre a chi ha pagato il conto della caccia alla talpa: il decano che avete salvato lucido — o ferito grave — nella villa-prigione.',
     art: 'artworks/Lo Studio del Decano.png',
-    testo: 'Apre lucido SOLO se l’avete salvato in tempo (Ep. 17): allora vi dà la matrice completa e la crepa del coro — M. ha comprato i cantori, non li ha convertiti. Se è ferito grave, la sua metà di verità è confusa.',
+    testo: 'Apre lucido SOLO se l’avete salvato in tempo dalla caccia alla talpa: allora vi dà la matrice completa e la crepa del coro — M. ha comprato i cantori, non li ha convertiti. Se è ferito grave, la sua metà di verità è confusa.',
     approfondimenti: [
       { tipo: 'Presagio', soggetto: 'La crepa del coro',
         testo: 'Il decano, se lucido, vi dà la chiave tattica del finale: Ferri, ai suoi dodici, offriva almeno una fede in cambio delle braccia; M. paga e non ha nulla da offrire, e un uomo pagato per cantare uno spartito che non capisce, alla prima crepa, scappa. È la debolezza del Quarto Movimento. Ma la crepa è più profonda: a M. manca la voce che CREDA, e senza quella il rito non si compie. Impedite che una sola persona canti con l’anima. Cercatela prima di lui.' },
@@ -4464,10 +4464,10 @@ const LUOGHI19 = [
   { n: 8, nome: 'I Vecchi Testimoni del Coro',
     req: 'I vecchi testimoni si aprono a chi si prepara all’ultima discesa: chi ricorda il Coro dall’inizio, e la via delle tre acque.',
     art: 'artworks/Cimitero delle Barche.png',
-    testo: 'Chi ricorda il Coro dall’Ep. 3, i vecchi barcaioli e ossari: vi danno la mappa acustica, la via delle tre acque sotto la città. Senza, sotto la Cattedrale sareste sordi. La voce che il Coro cerca è ancora là sotto — o ciò che ne resta.',
+    testo: 'Chi ricorda il Coro dall’inverno degli ammutoliti, i vecchi barcaioli e ossari: vi danno la mappa acustica, la via delle tre acque sotto la città. Senza, sotto la Cattedrale sareste sordi. La voce che il Coro cerca è ancora là sotto — o ciò che ne resta.',
     approfondimenti: [
       { tipo: 'Referto', soggetto: 'La via delle tre acque',
-        testo: 'I vecchi testimoni del Coro custodiscono la mappa acustica: la città è uno strumento accordato dai Padri, e la mappa dice come suonarlo per il controcanto che riporta il Dormiente al sonno senza sogni. È la via delle tre acque sotto la Cattedrale, il percorso dell’Ep. 20. Ciò che avete fatto nei casi del Coro (Ep. 3-6) decide quanto della voce che M. cerca è ancora recuperabile. Il conto, di nuovo: la campagna presenta il suo saldo anche qui, sotto forma di eco.' },
+        testo: 'I vecchi testimoni del Coro custodiscono la mappa acustica: la città è uno strumento accordato dai Padri, e la mappa dice come suonarlo per il controcanto che riporta il Dormiente al sonno senza sogni. È la via delle tre acque sotto la Cattedrale, il percorso dell’ultima discesa. Ciò che avete fatto nei casi del Coro, dall’inverno degli ammutoliti in poi, decide quanto della voce che M. cerca è ancora recuperabile. Il conto, di nuovo: la campagna presenta il suo saldo anche qui, sotto forma di eco.' },
     ] },
   { n: 9, nome: 'L’Archivio Sequestrato',
     req: 'L’Archivio sequestrato, dove è ammassata la roba della Società, apre a chi ha la mappa dei sigilli e sa che è lì che finisce la caccia: la Società braccata torna a casa propria da ladra.',
@@ -4666,15 +4666,15 @@ const LUOGHI20 = [
   { n: 5, nome: 'I Vecchi del Coro',
     req: 'I vecchi del Coro si aprono a chi cerca l’ultima voce: la candidata che il Coro insegue dall’inizio, la voce che crede.',
     art: 'artworks/Ossario Comunale.png',
-    testo: 'Chi ricorda il Coro dall’Ep. 3 sa chi è l’ultima candidata: la voce che crede, l’unica che M. non può comprare. È viva, o quel che ne resta, secondo come avete chiuso i casi del Coro. Salvarla lascia a M. un coro senza anima.',
+    testo: 'Chi ricorda il Coro dall’inverno degli ammutoliti sa chi è l’ultima candidata: la voce che crede, l’unica che M. non può comprare. È viva, o quel che ne resta, secondo come avete chiuso i casi del Coro. Salvarla lascia a M. un coro senza anima.',
     approfondimenti: [
       { tipo: 'Testimonianza', soggetto: 'La voce che non si compra',
-        testo: '«La voce che crede ha un nome: la signora Vetri, prima donna del Comunale, la solista che inseguiamo dall’inverno degli ammutoliti e non abbiamo mai avuto. Crede perché è la sola viva che ha sentito la conchiglia del teatro risponderle, e una voce che ha avuto risposta non si compra: per questo lui la tiene con la paura. In che stato la ritroverete lo dicono due vostre sere — intera se apriste le canne-voce, a metà se salvaste la conchiglia, muta di quel ricordo se la spezzaste. Salvatela, e a lui resterà un coro che canta con la bocca e non con l’anima.»' },
+        testo: 'Il piu’ vecchio del Coro tiene la lanterna bassa e ve lo dice lui, il nome. «La voce che crede: la signora Vetri, prima donna del Comunale, la solista che inseguiamo dall’inverno degli ammutoliti e non abbiamo mai avuto. Crede perché è la sola viva che ha sentito la conchiglia del teatro risponderle, e una voce che ha avuto risposta non si compra: per questo lui la tiene con la paura. In che stato la ritroverete lo dicono due vostre sere — intera se apriste le canne-voce, a metà se salvaste la conchiglia, muta di quel ricordo se la spezzaste. Salvatela, e a lui resterà un coro che canta con la bocca e non con l’anima.»' },
     ] },
   { n: 6, nome: 'L’Organo di Ossa',
     req: 'La chiesa dei Battuti apre a chi cerca la voce che crede: ciò che resta dell’organo di ossa e delle sue canne-voce.',
     art: 'artworks/Chiesa dei Battuti.png',
-    testo: 'Ciò che resta dell’organo di ossa (Ep. 5): le canne-voce, la melodia della conchiglia, il campanello di Piero — dipende dai vostri Bivi. Lo strumento con cui il Coro chiamava la voce, e con cui voi la riconoscerete.',
+    testo: 'Ciò che resta dell’organo di ossa della cripta dei Battuti: le canne-voce, la melodia della conchiglia, il campanello di Piero — dipende dai vostri Bivi. Lo strumento con cui il Coro chiamava la voce, e con cui voi la riconoscerete.',
     approfondimenti: [
       { tipo: 'Osservazione', soggetto: 'Lo strumento e la mano',
         testo: 'L’organo di ossa della cripta dei Battuti torna, un’ultima volta, come chiave della voce che crede: le sue canne cantano il risveglio o il sonno secondo chi le suona. Non è il male: è uno strumento, come la città intera è uno strumento. M. gli fa cantare il Quarto Movimento; voi, con la mappa acustica e il controcanto, potete fargli cantare il contrario. È il tema di tutta la campagna, ridotto all’osso: gli stessi strumenti, le stesse mani, due canzoni opposte. Scegliete quale far suonare.' },

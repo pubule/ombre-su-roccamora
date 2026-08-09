@@ -332,6 +332,31 @@ def c_numeri_episodio_in_scena(src, dt):
     return out
 
 
+def c_numeri_episodio_su_carta(src, dt):
+    """Lo stesso divieto, sulle carte fisiche — che sono cio' che al tavolo si
+    legge davvero. `c_numeri_episodio_in_scena` guarda solo i generatori, e sei
+    flavour ci sono sopravvissuti dicendo «l'Ep. 13», «l'Ep. 17», «l'Ep. 20».
+
+    Il testo di una carta e' `{i}flavour{/i}{divider}effetto`: solo la prima
+    meta' si legge ad alta voce. Dopo il divider c'e' la regola per l'arbitro,
+    e li' il numero d'episodio serve — «banca un incrocio per l'Ep. 18» va
+    bene cosi'."""
+    out = []
+    p = os.path.join(ROOT, 'scripts', 'cardconjurer', 'cards-data.js')
+    if not os.path.exists(p):
+        return out
+    testo = io.open(p, encoding='utf-8').read()
+    rx_campo = re.compile(r"(rules|testo|flavor):\s*'((?:[^'\\]|\\.)*)'")
+    rx_ep = re.compile(r'\bEp\.?\s?\d{1,2}\b|\bEpisodio\s+\d{1,2}\b')
+    for m in rx_campo.finditer(testo):
+        voce = m.group(2).split('{divider}')[0]
+        for n in rx_ep.finditer(voce):
+            riga = testo.count('\n', 0, m.start()) + 1
+            out.append(F('P3', 'cards-data.js:%d' % riga,
+                         "numero d'episodio in un testo letto ad alta voce: «%s»" % n.group(0)))
+    return out
+
+
 # I nomi propri della campagna che devono restare univoci. Un bigramma
 # Maiuscola+Maiuscola non basta a riconoscere una persona («Archivio Civico»,
 # «San Teodoro», «Mappa Acustica» finivano tutti nel conto): serve una lista.
@@ -499,7 +524,8 @@ CONTROLLI = [
                 c_scortato, c_migliorie, c_domande, c_finestre]),
     ('ARTEFATTI', [c_import, c_data_allineati, c_carte_stantie, c_build_completa,
                   c_nomi_luogo, c_registro_narrativo]),
-    ('PONTI', [c_bivi, c_frammenti, c_numeri_episodio_in_scena, c_omonimi, c_cronologia]),
+    ('PONTI', [c_bivi, c_frammenti, c_numeri_episodio_in_scena,
+               c_numeri_episodio_su_carta, c_omonimi, c_cronologia]),
     ('LESSICO', [c_reveal_anticipato]),
 ]
 

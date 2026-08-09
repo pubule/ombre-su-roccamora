@@ -239,8 +239,9 @@ LUOGHI_16 = [
                         'sapere per vie oneste: il nome di un colpevole prima delle prove, un '
                         'luogo prima della scoperta, un morto prima del ritrovamento. Uno alla '
                         'volta, li avete letti come genio deduttivo. Tutti insieme, sono altro: '
-                        'sono un uomo che sa perché è lui a muovere le cose. Rileggete tutto. '
-                        'Ogni lettera è un mattone per il giorno in cui lo chiederete a lui.'),
+                        'sono un uomo che sa perché è lui a muovere le cose. Rileggete tutto: '
+                        'ogni lettera riletta è un mattone per il giorno in cui lo chiederete a '
+                        'lui, al massimo 3 per sessione.'),
          ]),
     dict(n=7, nome='IL FIORAIO', voce_mappa='Il Fioraio',
          req='La bottega del fioraio apre a chi segue il metodo d’adescamento dello sposo perfetto: '
