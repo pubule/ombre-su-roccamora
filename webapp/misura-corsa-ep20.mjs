@@ -25,6 +25,15 @@ const ep = JSON.parse(fs.readFileSync('webapp/data/ep20.json', 'utf8'));
 const MAZZO = carte.minacce.ep20.filter((c) => !c.title.startsWith('Bivio'));
 const CRES = MAZZO.map((c) => /aggiungete\s+1\s+segnalino/i.test(c.rules || ''));
 const N_CRES = CRES.filter(Boolean).length;
+// Sette carte su ventuno piazzano un impiegato del coro, e lo piazzano
+// «sull'ingresso della tessera» o «sull'uscita piu' vicina»: se il gruppo e'
+// nella camera, dentro la camera. L'ordine del round e' eroi -> Minaccia ->
+// nemici -> controllo del ritmo, quindi il mazzo riempie DOPO che gli eroi
+// hanno sgomberato e PRIMA che si conti chi c'e'.
+const SPAWN = MAZZO.map((c) => /piazzate\s+\d*\s*sgherr/i.test(c.rules || ''));
+// Lo Sgherro ha Dif 8 e 2 Ferite, e «si rompe a meta' Ferite»: un colpo a
+// segno lo toglie di scena. 2d6+VIGORE 2 contro 8 = 72%.
+const P_ROMPE = 0.72;
 const OGNI = ep.canto_ogni || 4;
 const SOGLIA = ep.soglia_canto != null ? ep.soglia_canto : comune.regole.soglia_canto;
 const TETTO = ep.canto_max != null ? ep.canto_max : comune.regole.canto_max;
@@ -42,9 +51,14 @@ function corsa(v) {
     [ord[i], ord[j]] = [ord[j], ord[i]];
   }
   let idx = 0; let canto = 0; let bonus = false; let righe = 0; let resto = 0;
+  let coro = v.coro != null ? v.coro : 0;   // impiegati nella camera, dinamici
   const arrivo = v.tessere != null ? (v.tessere * 2 - 1) : ARRIVO;
   for (let round = 1; round <= 60; round += 1) {
     const inCamera = round >= arrivo;
+    // fase eroi: il canto non costa azioni, quindi tutte e quattro vanno al coro
+    if (inCamera && !v.coroFisso) {
+      for (let e = 0; e < TAGLIA && coro > 0; e += 1) if (Math.random() < P_ROMPE) coro -= 1;
+    }
     // pesca
     let q = BASE + ((ALT && round % 2 === 0) ? 1 : 0) + (bonus ? 1 : 0);
     while (q > 0) {
@@ -56,16 +70,16 @@ function corsa(v) {
         idx = 0;
       }
       if (cres[ord[idx]] && canto < TETTO) canto += 1;
+      if (SPAWN[ord[idx]] && inCamera && !v.spawnFuori) coro += 1;
       idx += 1; q -= 1;
       if (canto >= SOGLIA) bonus = true;
     }
     // il canto degli eroi, che non costa azioni
     if (inCamera) {
-      const coro = v.coro != null ? v.coro : 1;
       const grezzo = (RITMO.base || 1)
         + Math.floor((v.frammenti != null ? v.frammenti : RITMO.frammenti_default) / (RITMO.per_frammenti || 6))
         + (v.mappa === false ? 0 : (RITMO.con_oggetto || 0))
-        - coro;
+        - (v.impiegatoRallenta === false ? 0 : coro);
       righe += Math.max(RITMO.minimo != null ? RITMO.minimo : 1, grezzo);
       if (righe >= RIGHE) return { esito: 'vittoria', round, canto };
     }
@@ -74,7 +88,7 @@ function corsa(v) {
     // pressione della camera: il Dormiente si desta, e il rito canta se ha voce
     if (inCamera) {
       const p = (v.pressione != null ? v.pressione : 1)
-        + ((v.coro != null ? v.coro : 1) > 0 ? (v.rito != null ? v.rito : 1) : 0);
+        + ((v.impiegatoDaVoce === false ? false : coro > 0) ? (v.rito != null ? v.rito : 1) : 0);
       // frazionaria: 0,5 = «si desta a round alterni». L'accumulatore evita di
       // arrotondare per difetto a zero e di regalare la meta' della pressione.
       resto += p;
@@ -119,3 +133,16 @@ prova('2 Crescendo + Dormiente a round alterni', { crescendo: 2, pressione: 0.5 
 prova('2 Crescendo + camera sgomberata', { crescendo: 2, coro: 0 });
 prova('4 tessere + Dormiente a round alterni', { tessere: 4, pressione: 0.5 });
 prova('solo: Dormiente a round alterni, 18 Frammenti', { pressione: 0.5, frammenti: 18 });
+console.log('');
+console.log('COL CORO CHE SI RIEMPIE DAVVERO (7 carte su 21 lo rimettono in camera)');
+prova("come e' adesso, coro dinamico", { coroFisso: false });
+prova('...con 18 Frammenti', { frammenti: 18 });
+console.log('');
+console.log('LA CORREZIONE PROPOSTA: un mestiere solo per impiegato');
+prova("rallenta il canto, ma NON da' voce al rito", { impiegatoDaVoce: false });
+prova("da' voce al rito, ma NON rallenta il canto", { impiegatoRallenta: false });
+prova('...il primo, con 18 Frammenti', { impiegatoDaVoce: false, frammenti: 18 });
+prova('...il primo, con 6 Frammenti', { impiegatoDaVoce: false, frammenti: 6 });
+console.log('');
+console.log('ALTERNATIVA: le carte non piazzano dentro la camera');
+prova('gli impiegati arrivano, ma non nella camera', { spawnFuori: true });

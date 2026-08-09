@@ -728,6 +728,53 @@ nei due round che hanno? Il pilota non ci e' mai riuscito in dieci partite. Se l
 scelta non e' fra le leve qui sopra ma piu' a monte: o il coro nella camera e' meno numeroso, o
 l'impiegato non fa due mestieri contemporaneamente (toglie una riga **oppure** da' voce al rito, non
 entrambe). La seconda e' la correzione piu' piccola e toglie il gradino.
+
+**Il coro si riempie da solo: la misura precedente era ottimista** (09/08, modello esteso, 8000
+repliche). Sette carte su ventuno **piazzano** un impiegato, «sull'ingresso della tessera» o
+«sull'uscita piu' vicina»: se il gruppo e' nella camera, dentro la camera. E l'ordine del round e'
+**eroi -> Minaccia -> nemici -> controllo del ritmo**: gli eroi sgomberano, il mazzo riempie, e *poi*
+si conta chi c'e'. La camera vuota al momento del controllo e' un'eventualita', non uno stato che si
+possa tenere.
+
+Corretta l'assunzione (il coro entra ed esce davvero; lo Sgherro ha Dif 8 e «si rompe a meta' Ferite»,
+quindi un colpo a segno lo toglie: 72% per eroe), la tabella cambia e il finale smette di essere
+binario:
+
+| variante | vittorie |
+|---|---|
+| **come e' adesso** | **6%** |
+| il Dormiente si desta a round alterni | 20% |
+| il rito non accelera (solo il Dormiente) | 20% |
+| il Dormiente non si desta (solo il rito) | 34% |
+| 3 Crescendo invece di 4 | 22% |
+| 2 Crescendo invece di 4 | 37% |
+| 4 tessere di discesa invece di 5 | 12% |
+| 3 tessere invece di 5 | 39% |
+| **l'impiegato rallenta il canto ma non da' voce al rito** | **22%** |
+| l'impiegato da' voce al rito ma non rallenta il canto | 6% |
+| gli impiegati non vengono piazzati dentro la camera | 50% |
+
+**Va corretto anche cio' che avevo scritto sopra:** «camera sgomberata = 52%» valeva col coro
+congelato a zero, che non e' uno stato raggiungibile. Col mazzo che riempie, quella riga vale 6%.
+
+**La correzione consigliata resta la stessa, e ora si vede perche'.** Togliere all'impiegato uno dei
+due mestieri — resta il −1 riga, sparisce la voce al rito — porta il finale da 6% a 22%, ma soprattutto
+**restituisce una curva dove c'era un gradino**:
+
+| Frammenti conservati e non incrinati | vittorie |
+|---|---|
+| 6 | 0% |
+| 12 | 22% |
+| 18 | 50% |
+
+E' l'unica variante provata in cui venti serate di raccolta si vedono nel risultato in modo graduale,
+che e' esattamente cio' che i Frammenti dovrebbero fare. Le altre leve alzano la percentuale ma
+lasciano il finale indifferente a come e' andata la campagna.
+
+**Limiti del modello, dichiarati.** Muove solo i due contatori: ignora ferite, movimento e eroi che
+vanno a terra, e per questo e' generoso — da' 6% dove il pilota ne misura 0. Ci si puo' fidare
+dell'**ordine** delle leve, non dei valori assoluti. Qualunque variante si scelga va poi rimisurata
+col pilota, che il combattimento lo gioca davvero.
 ## Chiuse in questa tornata
 
 | id | cosa | come |
