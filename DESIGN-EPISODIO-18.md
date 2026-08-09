@@ -193,7 +193,7 @@ ha aizzato vi arrestino al posto suo.**
 - **T6 — L'Uscita** (la porta di servizio o il portone principale; uscire con la
   prova prima che si chiuda la rete).
 
-**Boss — LA GUARDIA DEL PRESIDENTE (il maggiordomo Anselmo, il tradimento più
+**Boss — LA GUARDIA DEL PRESIDENTE (il maggiordomo Amedeo, il tradimento più
 personale):** l'uomo che vi ha aperto la porta del Palazzo per diciotto mesi,
 servito il tè, annunciato le lettere di M. Att +3, Dif 8, Fer 7, Mov 3, Danno 2.
 **Nessuna debolezza-oggetto** (lo conoscete, ma non basta). «Una mano sola» (D4

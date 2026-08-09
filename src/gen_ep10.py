@@ -49,8 +49,21 @@ SMB = st('smb', fontName=F['sc'], fontSize=8.5, textColor=TEAL, spaceBefore=4, s
 
 
 def frame_flow(c, x, y, w, h, flow):
+    # addFromList CONSUMA la lista e lascia dentro cio' che non e' entrato:
+    # un Paragraph piu' alto del frame sparisce dalla pagina SENZA errori
+    # (e' successo alla lettera del Preludio, vista solo aprendo il PDF).
+    # Qui non si stampa a vuoto: si urla.
     Frame(x, y, w, h, leftPadding=0, rightPadding=0, topPadding=0,
           bottomPadding=0, showBoundary=0).addFromList(flow, c)
+    if flow:
+        import os as _os, sys as _sys
+        _testo = ' '.join(str(getattr(f, 'text', f))[:90] for f in flow[:2])
+        _msg = ('FRAME TROPPO PICCOLO in %s: %d elementi non entrano in %.1fx%.1fmm '
+                'e NON verranno stampati -> %s'
+                % (_os.path.basename(__file__), len(flow), w / 2.83465, h / 2.83465, _testo))
+        print('!! ' + _msg, file=_sys.stderr)
+        if _os.environ.get('ROCCAMORA_FRAME_STRICT'):
+            raise RuntimeError(_msg)
 
 
 # ================================================================= DATI
@@ -61,8 +74,10 @@ LETTERA_10 = (
     "I nuovi inquilini — i coniugi <b>Neri</b> — sono fuggiti dopo tre notti: dicono che i muri "
     "sussurrano le voci di chi ci abitava prima. L’ultima notte una voce avrebbe dettato, parola "
     "per parola, come un uomo strangolò la moglie e la murò — un delitto di dieci anni fa, che i "
-    "registri chiudono come «abbandono del tetto coniugale». Il vedovo, <b>Corrado Malfanti</b>, "
-    "risposato, abita ancora nella corte. E qualcuno, stanotte, ha cominciato a demolire un "
+    "registri chiudono come «abbandono del tetto coniugale»: la pratica fu chiusa sulla parola "
+    "del marito, e la donna nessuno la cercò. Chi fosse quel marito, e se sia ancora vivo, dalla "
+    "mia scrivania non si vede: sta in un fascicolo del ’79, e i fascicoli stanno all’Archivio, "
+    "non qui. E qualcuno, stanotte, ha cominciato a demolire un "
     "muro.<br/><br/>"
     "Una casa che ricorda è un testimone che non si può corrompere né spaventare — finché sta in "
     "piedi. Andate, ascoltate cosa dice, e portatemi ogni carta sui materiali del restauro: da "
@@ -86,7 +101,7 @@ LUOGHI_10 = [
              'prima notte, sussurri. La terza, una voce d’uomo che ripeteva sempre le stesse '
              'parole, come chi detta a uno scrivano: “ferma di battere le mani, Ada”. Poi il '
              'nome, e come è morta. Non siamo pazzi. È la casa.»',
-             'La ristrutturazione è recente, l’intonaco ancora chiaro. Tobia Neri, muratore lui '
+             'La ristrutturazione è recente, l’intonaco ancora chiaro. Egidio Neri, muratore lui '
              'stesso di mestiere, tocca la parete: «l’hanno rifatta con calce buona, sabbia '
              'fine, non quella del fiume. Un lavoro caro per una casa d’affitto. La calce del '
              'restauro è meglio di quella di casa mia — e casa mia non parla.»',
@@ -155,10 +170,12 @@ LUOGHI_10 = [
          req='Disponibile dall’inizio', art='La Gendarmeria.png',
          chiude=None,
          indizi=[
-             'Il brigadiere tira fuori il vecchio caso, controvoglia: «Malfanti? Abbandono, caso '
-             'chiuso da dieci anni. Perché lo riaprite? Perché una casa parla? Andate a raccontarlo '
-             'al giudice.» Ma abbassa la voce: «tra noi: quel caso l’abbiamo chiuso troppo in '
-             'fretta. Come tanti, ai tempi.»',
+             'Il brigadiere vi riconosce, e non gli fa piacere: «Malfanti? Abbandono, caso chiuso '
+             'da dieci anni. Perché lo riaprite? Perché una casa parla?» Poi posa la penna. '
+             '«L’altra notte gli orari delle ronde ve li ho passati io, e non erano i miei: me li '
+             'avevano dettati da sopra, e per poco al vostro teste ci restava la pelle. Non ho '
+             'ancora smesso di pensarci. Perciò chiedetemi pure di quel fascicolo vecchio: '
+             'stanotte non me ne sto zitto un’altra volta.»',
              'Sul registro, la nuova licenza edilizia della casa che parla: materiali «sabbia buona '
              'del Borgo», fornitore non nominato, pagamento anticipato. «Roba strana. Chi anticipa '
              'per rifare una topaia in affitto? A meno che rifarla non sia il punto. Se volete la '
@@ -673,9 +690,14 @@ def soluzione():
         'abbassa a Facile le prove NERVI dei muri.',
         '<b>Nota sul rivelatorio (Domanda 2):</b> lo confermano apertamente tre carte — la '
         'Testimonianza «La vicina di Ada» (L2), il Referto «La denuncia del 1879» (L3) e la '
-        'Testimonianza «Il brigadiere» (L4). Senza nessuna delle tre, giudicate con elasticità '
-        'una risposta «vicina» (es. «il vedovo, quello che denunciò l’abbandono»). La Domanda 2 '
-        'non ha complicazione se sbagliata: si perde solo il vantaggio.',
+        'Testimonianza «Il brigadiere» (L4). Il nome del vedovo NON è nella lettera d’incarico: '
+        'esce dai vicini (L2), dal fascicolo del 1879 (L3) e dalla Gendarmeria (L4). Senza '
+        'nessuna delle tre carte, giudicate con elasticità una risposta «vicina» che venga '
+        'dall’Indagine (es. «il marito che denunciò l’abbandono e fece murare la parete»), non '
+        'dal briefing. Il brigadiere è lo stesso che l’altra notte passò al Tribunale l’ora '
+        'falsa delle ronde: qui parla proprio per quello — non è una svista, è un uomo che ha un '
+        'conto aperto con sé stesso. La Domanda 2 non ha complicazione se sbagliata: si perde '
+        'solo il vantaggio.',
         '<b>Vantaggio d’Indagine:</b> Slancio SOLO con tutte e 4 le risposte esatte E 3+ ore '
         'avanzate; Preparati con 1+ ore avanzate O 6+ luoghi visitati. Dossier completo (0 ore '
         'avanzate): 1 gettone Intuizione, come sempre.',
@@ -744,7 +766,7 @@ LUOGHI10_DESC = {
        "all’indietro da chi è uscito di corsa, il lume che nessuno è tornato a spegnere e che "
        "continua a fumare. I coniugi Neri stanno sul ballatoio e non rientrano: lei tiene lo "
        "scialle stretto con tutt’e due le mani, lui il cappello, e nessuno dei due guarda dentro "
-       "la porta aperta. «Non siamo pazzi. È la casa», dice Tobia, e lo dice piano, come si dice "
+       "la porta aperta. «Non siamo pazzi. È la casa», dice Egidio, e lo dice piano, come si dice "
        "una cosa di cui ci si vergogna. Ogni parola che pronunciate torna indietro un istante "
        "dopo, smorzata e un poco cambiata, e torna sempre dalla stessa parte — dalla scala, dal "
        "primo piano —, anche quando parlate rivolti alla corte. Sul tavolo la cena è apparecchiata "

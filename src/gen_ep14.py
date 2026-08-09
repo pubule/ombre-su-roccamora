@@ -52,8 +52,21 @@ SMB = st('smb', fontName=F['sc'], fontSize=8.5, textColor=TEAL, spaceBefore=4, s
 
 
 def frame_flow(c, x, y, w, h, flow):
+    # addFromList CONSUMA la lista e lascia dentro cio' che non e' entrato:
+    # un Paragraph piu' alto del frame sparisce dalla pagina SENZA errori
+    # (e' successo alla lettera del Preludio, vista solo aprendo il PDF).
+    # Qui non si stampa a vuoto: si urla.
     Frame(x, y, w, h, leftPadding=0, rightPadding=0, topPadding=0,
           bottomPadding=0, showBoundary=0).addFromList(flow, c)
+    if flow:
+        import os as _os, sys as _sys
+        _testo = ' '.join(str(getattr(f, 'text', f))[:90] for f in flow[:2])
+        _msg = ('FRAME TROPPO PICCOLO in %s: %d elementi non entrano in %.1fx%.1fmm '
+                'e NON verranno stampati -> %s'
+                % (_os.path.basename(__file__), len(flow), w / 2.83465, h / 2.83465, _testo))
+        print('!! ' + _msg, file=_sys.stderr)
+        if _os.environ.get('ROCCAMORA_FRAME_STRICT'):
+            raise RuntimeError(_msg)
 
 
 # ================================================================= DATI
@@ -62,15 +75,16 @@ LETTERA_14 = (
     "Alla Società del Lume, riservata.<br/><br/>"
     "«Il professor Cesare Braga — il nostro rivale di trent’anni, i guanti bianchi, le iniziali "
     "<b>C.B.</b> — ha denunciato un furto: sparite le sue <b>lastre fonografiche</b>, le voci dei "
-    "criminali celebri. Rifiutare il caso sarebbe confessare che lo temiamo. Accettatelo. Ma "
-    "mentre indagate, la refurtiva <b>rientra</b> quasi tutta, lasciata sotto un portone: e qui "
-    "comincia il vero caso.<br/><br/>"
-    "Andate da Braga, e <b>contate</b>. Non ciò che manca: ciò che c’è. Un ladro porta via; chi "
-    "vuole ingannarvi <b>lascia</b>. Guardate cosa è tornato <i>in più</i> nelle sue casse — un "
-    "sigillo, delle ricevute, dei mezzi appunti che lui giura di non aver mai posseduto — e "
-    "chiedetevi a chi conviene che Braga possieda proprio quello. Poi salite ai tetti e "
-    "prendetemi il <b>Primo Gatto</b>: non per la refurtiva, per fargli dire cosa gli hanno "
-    "ordinato di <b>lasciare</b>. Avete <b>6 ore</b>, dalle 18:00 alle 24:00.<br/>"
+    "criminali celebri. Ha chiesto che se ne occupi la Società, e la richiesta è insieme una "
+    "cortesia e una sfida: rifiutare sarebbe confessare che lo temiamo. Accettate, e con la "
+    "faccia serena.<br/><br/>"
+    "Vi mando a fare il nostro mestiere e nient’altro: stabilite chi è salito in casa sua e dove "
+    "è finita la roba. Siate <b>scrupolosi</b> come non lo siete mai stati, perché di questa "
+    "storia parleranno i giornali, e ogni riga che verbalizzate stanotte domani la legge un "
+    "magistrato. Voglio che il verbale porti la nostra firma e non quella di un gendarme "
+    "frettoloso: quanto trovate in quella casa va <b>agli atti</b>, tutto, senza eccezione e "
+    "senza giudizio vostro. Al professore non un’insolenza: stanotte è un derubato, ed è nostro "
+    "cliente. Avete <b>6 ore</b>, dalle 18:00 alle 24:00.<br/>"
     "— M., presidente della Società»<br/><br/>"
     "<i>Luoghi disponibili dall’inizio: la Villa-Museo di Braga, la Gazzetta di Roccamora, il "
     "Banco dei Pegni e la Gendarmeria. Gli altri andranno sbloccati; l’Attico e il Covo dei Gatti "
@@ -204,7 +218,7 @@ LUOGHI_14 = [
          chiave=('parola', 'IL DUELLO DI TRENT’ANNI'), art='Lo Studio del Perito.png',
          chiude=None,
          indizi=[
-             'Il perito Anselmo Coda odia Braga da una vita di congressi persi: «quel ciarlatano '
+             'Il perito Casimiro Coda odia Braga da una vita di congressi persi: «quel ciarlatano '
              'coi guanti! Il duello di trent’anni l’ho perso io, e lo sanno tutti. Se lo hanno '
              'derubato, brindo. Se lo impiccano, offro da bere.» Astio puro, non commissione.',
              'Tra le sue carte, una lettera livorosa in cui minaccia Braga di «smascherarlo '
@@ -317,10 +331,10 @@ TILES_14 = [
     dict(id='T2', nome='IL COMIGNOLO', exits={'S': 'T1', 'N': 'T3'},
          testo='Un passaggio esposto attorno a un comignolo annerito, la grondaia che scricchiola, '
                'il vuoto della via a picco. QUANDO RIVELATE QUESTA TESSERA: pericolo di quota — chi '
-               'passa prova DESTREZZA o NERVI (Media); chi fallisce resta un round aggrappato e la '
+               'passa prova NERVI (Media); chi fallisce resta un round aggrappato e la '
                'FUGA avanza.',
          arbitro='PERICOLO DI QUOTA (comignolo): non ci sono nemici stanziali, c’è il vuoto. Prova '
-                 'DESTREZZA/NERVI per il passaggio. Coi Ramponi la caduta non vi ferisce e non '
+                 'NERVI (Media) per il passaggio. Coi Ramponi la caduta non vi ferisce e non '
                  'perdete il round.',
          cerca_vuoto='Fuliggine e il vento che tira. Il comignolo è liscio di '
                      'intemperie e nella grondaia non c’è che acqua vecchia e foglie '
@@ -615,12 +629,30 @@ def soluzione():
         'Domanda 3</b>: rimuovete il Referto «La prima pietra del falso» (Luogo 7) dal mazzo '
         'Approfondimenti. La Domanda 3 resta raggiungibile con le altre due conferme (Luogo 1 e '
         'Luogo 5). Se avete scelto <b>PEDINARLO</b> — dietro a Rasca avete visto come si paga un '
-        'lavoro senza mai incontrare in faccia chi lo esegue: <b>un incrocio in più alla Domanda '
+        'lavoro senza mai incontrare in faccia chi lo esegue: <b>una conferma in più alla Domanda '
         '2</b> (la commissione era cieca). Il prezzo non si paga qui: avete seguito la strada che '
         'lui voleva farvi fare, e il nome del rivale vi è arrivato in tasca già pronto — segnate '
         'sul Taccuino <b>un incrocio in meno all’Episodio 15</b>. In entrambi i rami il Notaio '
         'resta fuori da stanotte: non compare in nessun Luogo e non si nomina, lo riprenderete '
-        'molto più avanti.',
+        'molto più avanti.<br/>'
+        '<b>CODA — il Bivio dell’Episodio 8</b> (retro del Frammento n. 8): l’intermediario che '
+        'ha pagato i Gatti e il Ricettatore paga in oro d’antica fusione, e in questa città '
+        'l’oro vecchio ha una sola provenienza. Se avete scelto <b>SEQUESTRARE L’ORO</b> — la '
+        'Vedova Bruna vi ha segnati, e chi campa di merce rubata sa da mesi con chi non conviene '
+        'essere generosi: il Ricettatore vi apre lo stesso (la parola è la parola) e vi vende '
+        'quello che ha visto, ma non quello che ha capito. <b>Rimuovete il Presagio «Il furto al '
+        'contrario» (Luogo 5) dal mazzo Approfondimenti</b>: i tre indizi del Luogo 5 restano e '
+        'nessuna delle 4 Domande cambia — perdete la lettura, non la deposizione. <i>Da leggere '
+        'a voce alta a chi bussa alla bottega:</i> «Il ricettatore vi fa entrare, vi versa da '
+        'bere e non si siede. Sul banco, accanto alla bilancia, c’è una tazzina da caffè ancora '
+        'sporca, e non è sua: porcellana buona, il filo d’oro sul bordo consumato dall’uso. "Qui '
+        'passa gente di ogni sorta, signori," dice, e con un dito la spinge fuori dalla vostra '
+        'vista. "Certa gente passa prima."» Se avete scelto <b>LASCIARLO CIRCOLARE E '
+        'TRACCIARLO</b> — quelle monete le avete marcate voi, una per una, prima di lasciarle '
+        'andare, e la rete dei traccianti lavora ancora: alla bottega ci arrivate dietro all’oro, '
+        'non dietro a una voce. <b>Il Luogo 5 (Il Ricettatore) si apre anche SENZA la parola '
+        'chiave «LA REFURTIVA TORNATA»</b>; la finestra resta quella (solo di notte, chiude alle '
+        '22) e nessun altro Luogo cambia.',
         '<b>Il caso.</b> Il professor Braga (rivale di M., iniziali C.B.) denuncia il furto delle '
         'sue lastre fonografiche, opera dei Gatti del Corso. Ma la refurtiva rientra con oggetti '
         'IN PIÙ — un sigillo «C.B.», ricevute, appunti — che Braga disconosce.',
@@ -668,7 +700,7 @@ def soluzione():
         'l’avete già agganciato all’Attico (T6): vittoria parziale. Le carte crescendo (fischio/il '
         'Gatto si sposta) accelerano. La Parola dei Tetti anticipa l’aggancio (tratta a 2 '
         'Ferite invece che all’ultima) e gli toglie la fuga finale.',
-        '<b>Pericoli di quota.</b> Comignolo (T2): prova DESTREZZA/NERVI o si resta un round '
+        '<b>Pericoli di quota.</b> Comignolo (T2): prova NERVI (Media) o si resta un round '
         'aggrappati (la FUGA avanza). Lucernario (T5): prova VIGORE/DESTREZZA o si sfonda un vetro '
         '(1 danno + FUGA). Coi Ramponi (o la fune da T3) niente cadute. I Gatti minori (T3) '
         'colpiscono e scappano: inseguirli fa avanzare la FUGA.',
@@ -691,8 +723,9 @@ def soluzione():
         'ricevute. Ma adesso lo sapete voi: qualcuno non vuole derubare Braga. Qualcuno lo vuole '
         '<b>colpevole</b>. E per arredargli addosso una vita di crimini, bisogna conoscerlo da una '
         'vita.»',
-        '<b>FRAMMENTO DI CAMPAGNA N. 14:</b> <i>«Il professor Braga firma C.B. da sessant’anni. '
-        'Qualcuno lo sa da sessant’anni.»</i> Conservatelo.',
+        '<b>FRAMMENTO DI CAMPAGNA N. 14:</b> <i>«Nessuno ha derubato il professor Braga: gli hanno '
+        'lasciato in casa il sigillo C.B. — chi arreda a un uomo una colpa di trent’anni, '
+        'quell’uomo lo conosce da trent’anni.»</i> Conservatelo.',
         '<b>IL BIVIO — decidete insieme, poi sigillate.</b><br/>'
         '<b>Restituire tutto a Braga senza inventario</b> (cortesia tra gentiluomini). Braga, non '
         'umiliato, collaborerà nell’Episodio 15; ma senza verbale l’Episodio 18 perde un incrocio '

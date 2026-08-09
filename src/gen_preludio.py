@@ -63,8 +63,21 @@ SMB = st('smb', fontName=F['sc'], fontSize=8.5, textColor=TEAL, spaceBefore=4, s
 
 def frame_flow(c, x, y, w, h, flow):
     from reportlab.platypus import Frame
+    # addFromList CONSUMA la lista e lascia dentro cio' che non e' entrato:
+    # un Paragraph piu' alto del frame sparisce dalla pagina SENZA errori
+    # (e' successo alla lettera del Preludio, vista solo aprendo il PDF).
+    # Qui non si stampa a vuoto: si urla.
     Frame(x, y, w, h, leftPadding=0, rightPadding=0, topPadding=0,
           bottomPadding=0, showBoundary=0).addFromList(flow, c)
+    if flow:
+        import os as _os, sys as _sys
+        _testo = ' '.join(str(getattr(f, 'text', f))[:90] for f in flow[:2])
+        _msg = ('FRAME TROPPO PICCOLO in %s: %d elementi non entrano in %.1fx%.1fmm '
+                'e NON verranno stampati -> %s'
+                % (_os.path.basename(__file__), len(flow), w / 2.83465, h / 2.83465, _testo))
+        print('!! ' + _msg, file=_sys.stderr)
+        if _os.environ.get('ROCCAMORA_FRAME_STRICT'):
+            raise RuntimeError(_msg)
 
 def scuola(c, x, y, w, testo):
     """Box tutorial "Scuola del Lume": insegna una regola nel punto in cui
@@ -94,7 +107,9 @@ LETTERA_P = (
     "lettera ne porta uno, fresco quanto l’inchiostro con cui è scritta. <b>Ansaldo</b>, "
     "custode del nostro palazzo da vent’anni, è scomparso da tre notti. Nessuna "
     "richiesta di riscatto. Nessun biglietto. Solo la sua sedia vuota, e undici "
-    "poltrone nel salone che aspettano ancora undici nomi.<br/><br/>"
+    "poltrone nel salone che aspettano ancora undici nomi. Porta con sé un orologio "
+    "da tasca d’argento, la corona consumata da un pollice solo: se dovesse saltar "
+    "fuori, non sarà in una tasca sua.<br/><br/>"
     "Bruciate questa lettera appena l’avrete letta: le altre dieci dicono la stessa "
     "cosa, ma nessuna è stata scritta perché qualcuno la conservi. Avete <b>6 ore</b>, "
     "dalle 18:00 alle 24:00. Segnate ogni ora sul Taccuino, ogni parola che conta."
@@ -289,11 +304,14 @@ def indagine():
     wave(c, W/2 - 20*mm, H - 53*mm, 40*mm, OGOLD)
     lett = LETTERA_P.replace('«Non vi conoscete',
                              '«<font name="%s" size="15" color="#7a1f2b">N</font>on vi conoscete' % F['sc'])
-    frame_flow(c, mx, H - 188*mm, W - 2*mx, 122*mm,
+    # Il frame non spezza il Paragraph: se la lettera non ci sta, sparisce
+    # tutta dalla pagina (silenziosamente). Serve ~131mm: 132 + i 10mm liberi
+    # in fondo pagina presi da sigillo e box.
+    frame_flow(c, mx, H - 198*mm, W - 2*mx, 132*mm,
                [Paragraph('undici lettere identiche, undici destinatari — leggere ad alta voce', SMB),
                 Paragraph(lett, st('let', fontName=F['i'], fontSize=11, leading=16, alignment=4))])
-    seal(c, W - mx - 12*mm, H - 198*mm, r=13*mm, angle=-10)
-    y = scuola(c, mx, H - 218*mm, W - 2*mx,
+    seal(c, W - mx - 12*mm, H - 208*mm, r=13*mm, angle=-10)
+    y = scuola(c, mx, H - 228*mm, W - 2*mx,
                'Questo Preludio insegna il gioco giocando: quando compare un box come questo, '
                'leggetelo ad alta voce. Chi tiene il fascicolo Luoghi ordina le 4 carte Luogo del '
                'Preludio per sigla (è nel titolo: P1-P4) e le dispone in fila, da sinistra a '

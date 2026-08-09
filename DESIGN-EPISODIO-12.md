@@ -58,7 +58,7 @@ casa. Ho più paura di questa risposta che del Dormiente. — M.»
 ## 2. La verità (solo per chi progetta)
 
 Le copie escono da mesi per mano del **copista della Società**, il vecchio
-archivista mezzo cieco **Anselmo Godi**, che ha ricopiato i Frammenti **su
+archivista mezzo cieco **Prospero Godi**, che ha ricopiato i Frammenti **su
 ordine scritto di M.**: ordini autentici, protocollati, controfirmati «per
 sicurezza della Società, se ne conservi copia in luogo diverso». Godi ha
 obbedito senza capire, come si obbedisce a un presidente. La conclusione a cui
@@ -84,7 +84,7 @@ della campagna sono la stessa penna. Punta all'Atto III.
    chiatte morte: lì Vela consegna e «B. Camillo» ritira. (Incroci: il
    biglietto di consegna nella casa dell'archivista [L2] + il registro del
    fermo-posta [L3]; ne servono 2 — anti-fortuna.)
-2. **CHI ha copiato i Frammenti?** — Anselmo Godi, il vecchio archivista
+2. **CHI ha copiato i Frammenti?** — Prospero Godi, il vecchio archivista
    copista della Società — non un intruso: uno di casa. (Rivelatorio su 3
    carte in aperti: L1, L2, L4.)
 3. **COME sono uscite dall'archivio?** — *(torsione)* Non per effrazione (i
@@ -103,7 +103,7 @@ della campagna sono la stessa penna. Punta all'Atto III.
 | n | Luogo | Voce mappa | Stato | Note |
 |---|---|---|---|---|
 | 1 | Il Palazzo del Lume | Il Palazzo del Lume (nuova) | APERTO — àncora | la vostra sede, per la prima volta LUOGO d'indagine; l'archivio violato, i sigilli intatti; chiavi «i sigilli intatti», «il segno sulla campanella»; **rivelatoria** (Referto); incrocio D3 (la perizia) |
-| 2 | La Casa dell'Archivista | La Casa dell'Archivista (nuova) | APERTO | Anselmo Godi, mezzo cieco; il biglietto di consegna, gli ordini protocollati; chiavi «i sigilli intatti», «gli ordini protocollati»; **rivelatoria** (Testimonianza); incrocio D1 e D3 |
+| 2 | La Casa dell'Archivista | La Casa dell'Archivista (nuova) | APERTO | Prospero Godi, mezzo cieco; il biglietto di consegna, gli ordini protocollati; chiavi «i sigilli intatti», «gli ordini protocollati»; **rivelatoria** (Testimonianza); incrocio D1 e D3 |
 | 3 | L'Ufficio Postale | L'Ufficio del Fermo-Posta (nuova) | APERTO | il fermo-posta «B. Camillo»; il registro dei ritiri (D1); chiavi «gli ordini protocollati», «il fermo-posta di Camillo»; **rivelatoria**? no; incrocio D1; Reperto C (il SEME) |
 | 4 | Il Banco dei Pegni | Il Banco dei Pegni (riuso Ep. 7) | APERTO | la campanella nuova col segno del Coro comprata qui; chi l'ha portata; chiavi «il segno sulla campanella», «il fermo-posta di Camillo»; **rivelatoria** (Testimonianza) |
 | 5 | La Loggia dei Confratelli | La Loggia dei Confratelli (nuova) | BLOCCATO — «i sigilli intatti» (da L1, e L2 la ripete) | i soci della Società; il sospetto che entra in casa; la Lettera Anonima (esca); Osservazione (la paranoia) |

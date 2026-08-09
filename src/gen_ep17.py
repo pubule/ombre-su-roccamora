@@ -49,8 +49,21 @@ SMB = st('smb', fontName=F['sc'], fontSize=8.5, textColor=TEAL, spaceBefore=4, s
 
 
 def frame_flow(c, x, y, w, h, flow):
+    # addFromList CONSUMA la lista e lascia dentro cio' che non e' entrato:
+    # un Paragraph piu' alto del frame sparisce dalla pagina SENZA errori
+    # (e' successo alla lettera del Preludio, vista solo aprendo il PDF).
+    # Qui non si stampa a vuoto: si urla.
     Frame(x, y, w, h, leftPadding=0, rightPadding=0, topPadding=0,
           bottomPadding=0, showBoundary=0).addFromList(flow, c)
+    if flow:
+        import os as _os, sys as _sys
+        _testo = ' '.join(str(getattr(f, 'text', f))[:90] for f in flow[:2])
+        _msg = ('FRAME TROPPO PICCOLO in %s: %d elementi non entrano in %.1fx%.1fmm '
+                'e NON verranno stampati -> %s'
+                % (_os.path.basename(__file__), len(flow), w / 2.83465, h / 2.83465, _testo))
+        print('!! ' + _msg, file=_sys.stderr)
+        if _os.environ.get('ROCCAMORA_FRAME_STRICT'):
+            raise RuntimeError(_msg)
 
 
 # ================================================================= DATI
@@ -126,23 +139,40 @@ LUOGHI_17 = [
          req='Disponibile dall’inizio', art='Il Tribunale.png',
          chiude=None,
          indizi=[
-             'Al Tribunale, la cella di Braga. Se lo avete protetto (Ep. 15), vi manda il suo '
-             'archivio con un biglietto: «Vincete voi. Guardate le penne, non le mani.» Se lo '
-             'avete avallato, la cella è vuota: Braga è morto nel sonno.',
+             'Al Tribunale, la cella di Braga. Se lo avete protetto dal dossier anonimo, il '
+             'professore vi manda un biglietto e non altro: «Vincete voi. Guardate le penne, '
+             'non le mani. Il resto è in casa mia, e aspetta.» Se lo avete avallato, la cella '
+             'è vuota, e nessuno qui dentro sa dire se il professore sia stato portato via o '
+             'non si sia più svegliato.',
              'I secondini ricordano visite notturne «da parte di un signore in guanti, gentile, con '
-             'carte in regola». La caccia alla talpa passa anche di qui: qualcuno ha voluto Braga '
-             'zitto prima che parlasse. Il dossier cifrato spiegherà perché.',
+             'carte in regola»; e se il sacrestano Anselmo Riva è rimasto in città e non sotto '
+             'scorta, quelle visite qualcuno le ha contate una per una. La caccia alla talpa passa '
+             'anche di qui: qualcuno ha voluto Braga zitto prima che parlasse. Il dossier cifrato '
+             'spiegherà perché.',
              'Tra gli atti, la firma ricorrente di uno studio notarile su ogni pratica di C.B. '
              'trattata dal Tribunale: il Notaio Rasca. «La caccia alla talpa guarda dentro la '
              'Società; ma le carte guardano fuori, allo studio del Notaio.»'],
          approfondimenti=[
              dict(tipo='Referto', soggetto='Le penne, non le mani',
-                  testo='Il biglietto di Braga è un lascito da criminologo: «guardate le penne, non '
-                        'le mani». Le mani che hanno preso il decano sono quelle del Notaio e dei '
-                        'suoi; ma la penna che ha scritto l’ordine è un’altra. Braga, che ha studiato '
-                        'M. per trent’anni, sa che il presidente non sporca mai le proprie mani: '
-                        'firma, e paga. La caccia alla talpa è un teatro di mani; la verità è in una '
-                        'penna sola. Tenete il biglietto: alla fine, saprà di che penna si tratta.'),
+                  testo='Il biglietto di Braga non è un archivio: è la regola per leggerne uno. '
+                        '«Guardate le penne, non le mani.» Le mani che hanno preso il decano sono '
+                        'quelle del Notaio e dei suoi; ma la penna che ha scritto l’ordine è '
+                        'un’altra. Braga, che ha studiato M. per trent’anni, sa che il presidente '
+                        'non sporca mai le proprie mani: firma, e paga. La caccia alla talpa è un '
+                        'teatro di mani; la verità è in una penna sola. Le carte che lo dimostrano '
+                        'non stanno in una cella: aspettano in casa sua, e non sono per stanotte. '
+                        'Stanotte vi serve la regola.'),
+             dict(tipo='Testimonianza', soggetto='Il sacrestano del Tribunale',
+                  testo='«Le porte del Tribunale le apro io alle cinque e le chiudo a mezzanotte, e '
+                        'in mezzo passa la città intera: mi si guarda come si guarda un cardine. Il '
+                        'signore in guanti chiari viene di notte e non chiede mai dov’è una stanza; '
+                        'la carrozza chiusa lo aspetta nel cortile di dietro, col fanale spento, e '
+                        'esce dalla parte di levante, dove si paga il dazio. La notte in cui il '
+                        'decano sparì è passata di lì poco dopo le due, ed era carica; prima '
+                        'dell’alba è tornata leggera. E una cosa la so meglio dei vostri signori: a '
+                        'casa del decano non hanno forzato niente. Chi è entrato ha aperto con la '
+                        'chiave, e ha richiuso dietro di sé. Io a voi devo la vita, e queste sono '
+                        'le uniche due cose che ho da darvi.»'),
          ]),
     dict(n=4, nome='LO STUDIO DEL NOTAIO', voce_mappa='Lo Studio del Notaio',
          req='Disponibile dall’inizio', art='Lo Studio del Notaio.png',
@@ -395,9 +425,9 @@ NEMICI_17 = [
               'sempre.»',
          bio_bestiario='Il Notaio Ludovico Rasca è la mano guantata che vi sfugge dall’Ep. 13: '
               'l’uomo che fa sparire le persone con le carte in regola, l’esecutore legale di ogni '
-              'lavoro sporco di C.B. Al Molino vi è scappato in carrozza; ha ordito il rapimento di '
-              'Braga (Ep. 14) e vegliato sul falso (Ep. 15); ha preso il decano perché sapeva '
-              'troppo. Stavolta, però, la fuga è finita: raggiunto nella sua villa-prigione, con la '
+              'lavoro sporco di C.B. È lui che intesta e paga il nolo della carta di pregio; al '
+              'Molino vi è scappato in carrozza lasciando i registri alle fiamme; ha '
+              'preso il decano perché sapeva troppo. Stavolta, però, la fuga è finita: raggiunto nella sua villa-prigione, con la '
               'Guardia a terra, si lascia prendere quasi con sollievo — perché sa di non poter '
               'parlare (un notaio muore col segreto professionale) e sa che prenderlo non chiude '
               'nulla. «Il mio cliente firma poco, signori. Ma paga sempre.» Non è il nemico: è '
@@ -601,6 +631,12 @@ def soluzione():
             pw, ph = p.wrapOn(c, W - 32*mm, 200*mm)
             p.drawOn(c, 16*mm, y - ph)
             y -= ph + 6*mm
+        # ponytail: avviso, non impaginazione automatica. Le pagine della
+        # Soluzione sono scritte per stare in una: se una cresce troppo si
+        # accorcia il testo, non si spezza la busta.
+        if y < 14*mm:
+            print('  AVVISO: la pagina «%s» della Soluzione sfonda il fondo (%.0f mm)'
+                  % (titolo, y/mm))
         c.showPage()
 
     pagina('soluzione — non aprire', [
@@ -614,21 +650,24 @@ def soluzione():
         'strappato è materia d’assemblea — segnate sul Taccuino, alla riga «Episodio 18», <b>un '
         'incrocio in più</b>. Se avete scelto <b>TACERE E COMINCIARE A MENTIRGLI</b> — M. vi crede '
         'suoi, e mentre tutta la Società guarda dentro casa voi siete gli unici che possono '
-        'guardare fuori: <b>un incrocio in più alla Domanda 1</b> (DOVE è il decano). Ma mentire al '
+        'guardare fuori: <b>una conferma in più alla Domanda 1</b> (DOVE è il decano). Ma mentire al '
         'maestro si paga in casa: il confratello additato dalla caccia vi vede entrare come vede '
         'entrare la mano di M., e non si apre — <b>rimuovete l’Osservazione «La talpa fabbricata» '
         '(Luogo 6) dal mazzo Approfondimenti</b>. L’esca del Luogo 6 resta, e morde.<br/>'
         '<b>CODA — il Bivio dell’Episodio 15</b> (retro del Frammento n. 15): l’Episodio 16 ha '
         'pagato la sua metà, questa è la vostra. Se avete <b>AVALLATO L’ARRESTO DI BRAGA</b> — la '
-        'cella al Tribunale è vuota, Braga è morto nel sonno e non c’è nessun biglietto ad '
+        'cella al Tribunale è vuota (portato via o morto nella notte: al Tribunale non lo sa dire '
+        'nessuno, e il registro dei decessi non lo nomina) e non c’è nessun biglietto ad '
         'aspettarvi: è l’<b>incrocio in meno</b> annunciato, <b>rimuovete il Referto «Le penne, non '
-        'le mani» (Luogo 3) dal mazzo Approfondimenti</b> e <b>l’esame di Carbone su «L’ARCHIVIO DI '
-        'BRAGA» NON è disponibile</b>. La Domanda 2 resta raggiungibile con le altre due conferme '
+        'le mani» (Luogo 3) dal mazzo Approfondimenti</b> e <b>l’esame di Carbone su «IL BIGLIETTO '
+        'DI BRAGA» NON è disponibile</b>. La Domanda 2 resta raggiungibile con le altre due conferme '
         '(Luogo 2 e Luogo 4). Nessun vantaggio in questo ramo: l’avete già incassato nell’Episodio '
         '16 (il testimone in più). Se avete <b>DICHIARATO PUBBLICAMENTE IL DUBBIO</b> — Braga, '
-        'protetto, mantiene la promessa e vi manda il suo archivio privato su M.: <b>il Referto «Le '
-        'penne, non le mani» (Luogo 3) parte GIÀ RIVELATO</b>, e con esso è disponibile l’esame di '
-        'Carbone su «L’ARCHIVIO DI BRAGA». Il prezzo è il <b>testimone in meno</b> promesso per gli '
+        'protetto, mantiene la promessa per la parte che si può mandare fuori da una cella: non '
+        'l’archivio (trent’anni di carte non escono in tasca a un secondino — restano in casa sua, '
+        'e le riprenderete quando sarà lui a riaprire quella porta) ma la chiave per leggerlo: '
+        '<b>il Referto «Le penne, non le mani» (Luogo 3) parte GIÀ RIVELATO</b>, e con esso è disponibile l’esame di '
+        'Carbone su «IL BIGLIETTO DI BRAGA». Il prezzo è il <b>testimone in meno</b> promesso per gli '
         'Episodi 16-17: dopo i giornali, un praticante di vent’anni terrorizzato non parla con chi '
         'finisce sui giornali — <b>rimuovete la Testimonianza «Il praticante del Notaio» (Luogo 4) '
         'dal mazzo Approfondimenti</b>. La Domanda 2 resta a due conferme (Luogo 2, e il Luogo 3 '
@@ -645,6 +684,18 @@ def soluzione():
         'alla Dogana, e con esso l’incrocio della Domanda 1: perdete la voce, non l’oggetto. Il '
         'vantaggio è dell’assemblea — alla riga «Episodio 18» del Taccuino tenete <b>l’incrocio in '
         'più</b>.<br/>'
+        '<b>CODA — il Bivio dell’Episodio 9</b> (retro del Frammento n. 9): quel Bivio prometteva '
+        'una fonte segreta per questa serata, ed eccola. Se avete scelto <b>NASCONDERLO E PERDERE '
+        'LA CAUSA</b> — Anselmo Riva è vivo, libero e in debito, e fa ancora il sacrestano al '
+        'Tribunale: <b>la Testimonianza «Il sacrestano del Tribunale» (Luogo 3) parte GIÀ '
+        'RIVELATA</b>. È ciò che avete comprato con la sentenza-beffa: la notte del rapimento '
+        'raccontata dall’uomo che apre e chiude quelle porte. Non è un incrocio nuovo — le 4 '
+        'Domande restano quelle, e la Domanda 2 resta a tre conferme: Riva racconta la notte, non '
+        'il mandante. Se avete scelto <b>FAR DEPORRE IL TESTE</b> — Riva ha deposto e vive sotto '
+        'scorta lontano da qui: la sacrestia è chiusa e non c’è nessuno a cui bussare, '
+        '<b>rimuovete la Testimonianza «Il sacrestano del Tribunale» (Luogo 3) dal mazzo '
+        'Approfondimenti</b>. È il PNG-alleato che quel ramo aveva messo in conto; il vantaggio '
+        'l’avete già a verbale, alla riga «Episodio 18» del Taccuino.<br/>'
         '<b>Nessun ramo</b> tocca lo SCISMA (−1 NERVI fino al decano vivo), la soglia-decano (Canto '
         '6, 7 col Salvacondotto), le tessere o i nemici.',
         '<b>Il caso.</b> Il decano è sparito, il suo studio a soqquadro, un dossier cifrato nel '
@@ -963,10 +1014,13 @@ ESAMI_CARBONE_17 = {
                 'prendere lui, per non farmi parlare. Il rapitore lavora per il presidente — l’ha '
                 'detto ridendo, poi ha detto che scherzava. Non scherzava." È il seme più vicino al '
                 'volto che abbiate mai avuto.»',
-    'L’ARCHIVIO DI BRAGA': '«Trent’anni di lettere tra i due rivali, e in fondo la prova che l’uno '
-                'studiava l’altro come uno specchio. Braga combatteva M. perché era l’unico che '
-                'l’aveva capito: per questo M. lo ha scelto come capro. Chi meglio del rivale che ti '
-                'conosce, per nascondere che il mostro sei tu?»',
+    'IL BIGLIETTO DI BRAGA': '«Carta da cella e matita copiativa, e una riga sola che vale un '
+                'archivio: guardate le penne, non le mani. Braga ha studiato il rivale per '
+                'trent’anni e vi manda prima la regola delle prove — le mani che eseguono si '
+                'comprano e si cambiano, la penna che ordina è sempre la stessa. Le carte che lo '
+                'dimostrano non stanno in una cella: aspettano in casa sua. Braga combatteva M. '
+                'perché era l’unico che l’aveva capito, e per questo M. lo ha scelto come capro: '
+                'chi meglio del rivale che ti conosce, per nascondere che il mostro sei tu?»',
 }
 
 OGGETTI_TESSERA_17 = {'T2': ['Una Lanterna Cieca']}

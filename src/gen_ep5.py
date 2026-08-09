@@ -42,21 +42,34 @@ SMB = st('smb', fontName=F['sc'], fontSize=8.5, textColor=TEAL, spaceBefore=4, s
 
 
 def frame_flow(c, x, y, w, h, flow):
+    # addFromList CONSUMA la lista e lascia dentro cio' che non e' entrato:
+    # un Paragraph piu' alto del frame sparisce dalla pagina SENZA errori
+    # (e' successo alla lettera del Preludio, vista solo aprendo il PDF).
+    # Qui non si stampa a vuoto: si urla.
     Frame(x, y, w, h, leftPadding=0, rightPadding=0, topPadding=0,
           bottomPadding=0, showBoundary=0).addFromList(flow, c)
+    if flow:
+        import os as _os, sys as _sys
+        _testo = ' '.join(str(getattr(f, 'text', f))[:90] for f in flow[:2])
+        _msg = ('FRAME TROPPO PICCOLO in %s: %d elementi non entrano in %.1fx%.1fmm '
+                'e NON verranno stampati -> %s'
+                % (_os.path.basename(__file__), len(flow), w / 2.83465, h / 2.83465, _testo))
+        print('!! ' + _msg, file=_sys.stderr)
+        if _os.environ.get('ROCCAMORA_FRAME_STRICT'):
+            raise RuntimeError(_msg)
 
 
 # ================================================================= DATI
 
 LETTERA_5 = (
     "Alla Società del Lume, riservata.<br/><br/>"
-    "«La chiesa sconsacrata dei <b>Battuti</b> — il magazzino comunale — di notte suona. "
-    "L’organo fu murato nel Quarantuno e le canne fuse in grondaie: eppure mezza contrada lo "
-    "sente, «basso, come sotto i piedi». Stamattina il custode <b>Fedele</b> è stato trovato "
+    "«La chiesa sconsacrata dei <b>Battuti</b> di notte suona. L’organo fu smontato nel "
+    "Quarantuno e le canne fuse in grondaie: eppure mezza contrada lo sente, «basso, e "
+    "nessuno sa dire da che parte». Stamattina il custode <b>Fedele</b> è stato trovato "
     "morto tra le scaffalature: il medico dice cuore, la faccia dice altro, e le mani — "
-    "piene di calcina fresca — dicono che stava murando qualcosa che qualcun altro aveva "
-    "aperto. All’ossario comunale, intanto, mancano casse: non a caso, non a peso. Solo "
-    "certe casse.<br/><br/>"
+    "piene di calcina fresca — dicono che l’ultima cosa che fece, quella notte, fu un "
+    "lavoro di cui non aveva parlato con nessuno. All’ossario comunale, intanto, mancano "
+    "casse: non a caso, non a peso. Solo certe casse.<br/><br/>"
     "Scoprite chi suona, e con che cosa. Avete <b>6 ore</b>, dalle 18:00 alle 24:00. Una "
     "cortesia: <b>non allarmate la Curia</b> — i timbri sono cosa delicata.<br/>"
     "— M., presidente della Società»<br/><br/>"
@@ -161,7 +174,7 @@ LUOGHI_5 = [
              'un’ampolla sigillata a cera: l’acqua dell’ultimo battesimo.',
              'Il sagrestano custodisce anche un anello di chiavi «che non aprono più niente»: '
              'una è marcata coi flagelli incrociati dei Battuti — la chiave del sagrato e '
-             'della sagrestia vecchia. «Se la prendete, non ditemi per cosa.»'],
+             'della sacrestia vecchia. «Se la prendete, non ditemi per cosa.»'],
          approfondimenti=[
              dict(tipo='Presagio', soggetto='Il fonte che trattiene',
                   testo='L’acqua nell’ampolla è ferma da centocinquant’anni, eppure — contro '
@@ -267,14 +280,14 @@ LUOGHI_5 = [
                         'ritirarle — o manderà il garzone — dopodomani. Un appuntamento, '
                         'scolpito nel marmo da chi non sa di averlo dato.'),
          ]),
-    dict(n=9, nome='LA SAGRESTIA DEI BATTUTI', voce_mappa='Il Sagrato dei Battuti',
-         req='La porticina della sagrestia vecchia è serrata da una toppa nera di flagelli '
+    dict(n=9, nome='LA SACRESTIA DEI BATTUTI', voce_mappa='Il Sagrato dei Battuti',
+         req='La porticina della sacrestia vecchia è serrata da una toppa nera di flagelli '
              'incrociati: senza la chiave giusta resta un muro — e il sagrato, di notte, non '
              'gradisce chi forza le porte dei morti.',
          chiave=('oggetto', 'LA CHIAVE DEL SAGRATO'), art='Sagrestia dei Battuti.png',
          chiude=None,
          indizi=[
-             'La sagrestia vecchia è rimasta al Quarantuno: paramenti neri appesi, un '
+             'La sacrestia vecchia è rimasta al Quarantuno: paramenti neri appesi, un '
              'inginocchiatoio, la polvere come neve. Sul tavolo, però, IMPRONTE fresche: '
              'qualcuno ci passa, e da poco. Sotto l’armadio dei paramenti, trascinato di '
              'lato, il pavimento mostra una botola col flagello inciso.',
@@ -688,8 +701,8 @@ def soluzione():
         'fonderia, pozzi, teatro. Qualcuno tiene la contabilità della vostra città da molto '
         'prima che voi arrivaste.» — Se avete salvato casse di ossa: annotate quante sul '
         'Frammento. Se ne mancano: il registro dell’organo, da qualche parte, non è vuoto.',
-        '<b>FRAMMENTO DI CAMPAGNA N. 5:</b> <i>«Il Dormiente non dorme sotto la città. Il '
-        'Dormiente È la città: canali per vene, campane per denti — e il coro gli fa da '
+        '<b>FRAMMENTO DI CAMPAGNA N. 5:</b> <i>«Il Dormiente non dorme sotto la città: il '
+        'Dormiente È la città. E ha canali per vene, campane per denti: il coro gli fa da '
         'respiro.»</i> Conservatelo per il finale di campagna.',
         '<b>IL BIVIO — decidete insieme, poi sigillate.</b> Le ossa salvate:<br/>'
         '<b>Riconsacrarle e seppellirle.</b> Il requiem che il Quarantuno non ebbe: '
@@ -834,7 +847,7 @@ LUOGHI5_DESC = {
        "la macchia scura dove la pioggia scendeva attorno a qualcosa. Il silenzio è quello "
        "speciale dei luoghi che nessuno attraversa — e in mezzo a quel silenzio l’erba resta "
        "piegata in una striscia sola, larga una spalla, che va dal cancelletto alla porticina della "
-       "sagrestia vecchia; la rugiada della notte la rialza, e il mattino dopo è piegata di nuovo. "
+       "sacrestia vecchia; la rugiada della notte la rialza, e il mattino dopo è piegata di nuovo. "
        "Da sotto la porta esce un filo d’aria che sa di cera. Sulla toppa nera, incisa di flagelli "
        "incrociati, il ferro è lucido in un punto solo, all’altezza della mano.",
 }

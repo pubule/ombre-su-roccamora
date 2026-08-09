@@ -46,8 +46,21 @@ SMB = st('smb', fontName=F['sc'], fontSize=8.5, textColor=TEAL, spaceBefore=4, s
 
 
 def frame_flow(c, x, y, w, h, flow):
+    # addFromList CONSUMA la lista e lascia dentro cio' che non e' entrato:
+    # un Paragraph piu' alto del frame sparisce dalla pagina SENZA errori
+    # (e' successo alla lettera del Preludio, vista solo aprendo il PDF).
+    # Qui non si stampa a vuoto: si urla.
     Frame(x, y, w, h, leftPadding=0, rightPadding=0, topPadding=0,
           bottomPadding=0, showBoundary=0).addFromList(flow, c)
+    if flow:
+        import os as _os, sys as _sys
+        _testo = ' '.join(str(getattr(f, 'text', f))[:90] for f in flow[:2])
+        _msg = ('FRAME TROPPO PICCOLO in %s: %d elementi non entrano in %.1fx%.1fmm '
+                'e NON verranno stampati -> %s'
+                % (_os.path.basename(__file__), len(flow), w / 2.83465, h / 2.83465, _testo))
+        print('!! ' + _msg, file=_sys.stderr)
+        if _os.environ.get('ROCCAMORA_FRAME_STRICT'):
+            raise RuntimeError(_msg)
 
 
 # ================================================================= DATI
@@ -62,7 +75,9 @@ LETTERA_2 = (
     "pani pesavano giusto — ma non erano più bronzo.<br/><br/>"
     "Qualcuno ha preferito che quella campana cantasse per qualcun altro. C’è dell’altro, "
     "e non lo scrivo: lo sentirete da soli, se salite abbastanza in alto.<br/><br/>"
-    "Trovate Ilario. Avete <b>6 ore</b>, dalle 18:00 alle 24:00. Segnate ogni ora sul "
+    "Trovate Ilario. È uomo che quando una cosa non lo convince la scrive, e poi ci "
+    "ripassa sopra due volte: fidatevi di ciò che ha lasciato scritto. "
+    "Avete <b>6 ore</b>, dalle 18:00 alle 24:00. Segnate ogni ora sul "
     "Taccuino e annotate tutto: nomi, orari, e le parole che tornano.<br/>"
     "— M., presidente della Società»<br/><br/>"
     "<i>Luoghi disponibili dall’inizio: la Fonderia Dossena alle Fonderie, la Cella "
@@ -387,10 +402,13 @@ def indagine():
     lett = LETTERA_2.replace(
         'Alla Società del Lume, riservata.',
         '<font name="%s" size="15" color="#7a1f2b">A</font>lla Società del Lume, riservata.' % F['sc'])
-    frame_flow(c, mx, H - 190*mm, W - 2*mx, 130*mm,
+    # 138mm, non 130: con 130 la lettera serviva 130.3mm e spariva TUTTA dalla
+    # pagina (il Frame non spezza il Paragraph). Sotto c'e' mezza pagina vuota:
+    # il frame scende di 8mm e il sigillo con lui.
+    frame_flow(c, mx, H - 198*mm, W - 2*mx, 138*mm,
                [Paragraph('lettera d’incarico — leggere ad alta voce', SMB),
                 Paragraph(lett, st('let', fontName=F['i'], fontSize=11.5, leading=17, alignment=4))])
-    seal(c, W - mx - 12*mm, H - 205*mm, r=13*mm, angle=-10)
+    seal(c, W - mx - 12*mm, H - 213*mm, r=13*mm, angle=-10)
     c.setFillColor(TEAL); c.setFont(F['i'], 9.5)
     c.drawCentredString(W/2, 22*mm, 'PRIMA DI TUTTO: aprite la busta del Bivio dell’Episodio 1 e applicate il vostro ramo.')
     c.drawCentredString(W/2, 15*mm, 'Poi chi tiene il fascicolo Luoghi ordina le 9 carte per numero (è nel titolo): aperte scoperte, le altre coperte.')
@@ -642,8 +660,8 @@ def soluzione():
         'voci del pozzo.”» — Se avete recuperato tutte le campanelle: il Coro ha perso la voce '
         'nuova, per ora. Se ne mancano (due erano già partite prima del vostro arrivo): '
         'annotatelo sul Frammento — quelle campanelle canteranno da qualche parte.',
-        '<b>FRAMMENTO DI CAMPAGNA N. 2:</b> <i>«Il Coro non costruisce strumenti nuovi: '
-        'ricompra i SUOI. Il bronzo del 1741 ricorda il canto. Segnate: ciò che fu del Coro '
+        '<b>FRAMMENTO DI CAMPAGNA N. 2:</b> <i>«Il Coro non fa strumenti nuovi: il Coro '
+        'ricompra i SUOI. E il bronzo del 1741 ricorda il canto: ciò che fu del Coro '
         'vuole tornare al Coro.»</i> Conservatelo per il finale di campagna.',
         '<b>IL BIVIO — decidete insieme, poi sigillate.</b> Ilario può rifondere la campana di '
         'San Teodoro col bronzo recuperato — o «stonarla» di proposito, come un vaccino:<br/>'
@@ -882,7 +900,7 @@ ESAMI_CARBONE_2 = {
 
 # Carte Oggetto nascoste nelle tessere (retro delle pagine tessera).
 OGGETTI_TESSERA_2 = {'T2': ['Un Badile del Formatore'],
-                     'T3': ['Una Latta d’Olio di Colata ⚠ rischioso']}
+                     'T3': ['Una Latta d’Olio di Colata — rischioso']}
 
 
 def luoghi():

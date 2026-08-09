@@ -28,7 +28,7 @@ from reportlab.pdfgen import canvas
 from reportlab.platypus import Paragraph, Frame
 
 from deluxe_style import (register_fonts, parchment_art, pad_to_even_pages, rule_border,
-                          seal, wave, F, INK, RED, TEAL, GOLD as OGOLD, SEPIA)
+                          seal, wave, contatori_indagine, F, INK, RED, TEAL, GOLD as OGOLD, SEPIA)
 from gen_gothic import registro_ferite, token_sheet, TOKEN_EROI
 
 OUT_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'Episodio 19', 'pdf')
@@ -49,8 +49,21 @@ SMB = st('smb', fontName=F['sc'], fontSize=8.5, textColor=TEAL, spaceBefore=4, s
 
 
 def frame_flow(c, x, y, w, h, flow):
+    # addFromList CONSUMA la lista e lascia dentro cio' che non e' entrato:
+    # un Paragraph piu' alto del frame sparisce dalla pagina SENZA errori
+    # (e' successo alla lettera del Preludio, vista solo aprendo il PDF).
+    # Qui non si stampa a vuoto: si urla.
     Frame(x, y, w, h, leftPadding=0, rightPadding=0, topPadding=0,
           bottomPadding=0, showBoundary=0).addFromList(flow, c)
+    if flow:
+        import os as _os, sys as _sys
+        _testo = ' '.join(str(getattr(f, 'text', f))[:90] for f in flow[:2])
+        _msg = ('FRAME TROPPO PICCOLO in %s: %d elementi non entrano in %.1fx%.1fmm '
+                'e NON verranno stampati -> %s'
+                % (_os.path.basename(__file__), len(flow), w / 2.83465, h / 2.83465, _testo))
+        print('!! ' + _msg, file=_sys.stderr)
+        if _os.environ.get('ROCCAMORA_FRAME_STRICT'):
+            raise RuntimeError(_msg)
 
 
 # ================================================================= DATI
@@ -91,9 +104,12 @@ LUOGHI_19 = [
              dict(tipo='Testimonianza', soggetto='L’oste del rifugio',
                   testo='«Ve lo dico da amico: stanotte non contano le prove, contano le persone. '
                         'Ogni porta a cui bussate vi risponderà secondo ciò che avete fatto per '
-                        'loro, o a loro, in diciotto mesi. Braga vivo se l’avete protetto; il decano '
-                        'lucido se l’avete salvato in tempo; la città con voi se avete reso pubblica '
-                        'la verità. È il conto della campagna, e stanotte lo pagate o lo incassate. '
+                        'loro, o a loro, in diciotto mesi. Cinque porte, non una di più: Braga vivo '
+                        'se l’avete protetto; il decano lucido se l’avete salvato in tempo; la '
+                        'città con voi se avete reso pubblica la verità; i muti del Borgo se '
+                        'restituiste loro la voce; il quartiere della casa che ricordava se gli '
+                        'deste giustizia invece di ascoltarne i muri. '
+                        'È il conto della campagna, e stanotte lo pagate o lo incassate. '
                         'M. ha comprato il suo coro; voi dovete <i>meritarvi</i> il vostro. È questa '
                         'la differenza, e forse è tutto.»'),
          ]),
@@ -101,8 +117,12 @@ LUOGHI_19 = [
          req='Disponibile dall’inizio', art='Banco dei Pegni.png',
          chiude=None,
          indizi=[
-             'Fossa vi deve la vita dal Preludio, e non l’ha dimenticato: «con la Società braccata, '
-             'gli altri hanno chiuso; io no. Vi devo troppo.» Vi passa la mappa dei sigilli '
+             'Fossa non vi deve la vita: vi deve una cosa più piccola e più vera, e non l’ha '
+             'dimenticata. Ogni volta che gli avete chiesto il registro l’ha aperto senza farsi '
+             'pagare — la prima volta scagionò un innocente — e voi non avete mai messo il suo '
+             'nome in un verbale: un prestapegni che finisce agli atti, in questa città, chiude '
+             'bottega. «Con la Società braccata gli altri hanno chiuso; io no. Siamo pari, e i '
+             'conti pari mi piacciono.» Vi passa la mappa dei sigilli '
              'dell’Archivio: «i gendarmi hanno ammassato lì la vostra roba. So dove sono i sigilli '
              'deboli.»',
              'Sul retro, i canali dell’usura conoscono chi paga le taglie sulle vostre teste: '
@@ -113,8 +133,10 @@ LUOGHI_19 = [
              'è il conto.»'],
          approfondimenti=[
              dict(tipo='Osservazione', soggetto='La mappa dei sigilli',
-                  testo='Fossa, che vi deve la vita, è la prova che il conto della campagna non è '
-                        'solo un peso: è anche un tesoro. Chi avete salvato torna a salvarvi. La sua '
+                  testo='Fossa, che non vi deve la vita ma un pugno di piccoli favori mai '
+                        'riscossi, è la prova che il conto della campagna non è '
+                        'solo un peso: è anche un tesoro. Non serve aver salvato un uomo perché '
+                        'torni a salvarvi: basta non averlo mai venduto. La sua '
                         'mappa dei sigilli dell’Archivio è la vostra via dentro senza allarme; e la '
                         'sua rete d’usura vi dice che le taglie le paga M. in oro vecchio — la stessa '
                         'cassa di sempre. Braccati, ma non ciechi: ogni vecchio amico che apre è un '
@@ -173,19 +195,29 @@ LUOGHI_19 = [
          chiave=('parola', 'IL CONTO DEI BIVI'), art='La Villa-Museo di Braga.png',
          chiude=None,
          indizi=[
-             'Se avete PROTETTO Braga (Bivio Ep. 15), il professore vi apre e vi consegna il suo '
-             'archivio su M.: trent’anni di studio del rivale. «Ve l’avevo detto: guardate le '
-             'penne, non le mani. Adesso sapete di che penna si tratta. Prendete, e usatelo.»',
-             'Se lo avete AVALLATO, la villa è vuota: Braga è morto, o sparito, e la porta '
-             'resta chiusa. Il conto, stanotte, è a vostro sfavore.',
+             'Se avete PROTETTO Braga dal dossier anonimo che lo incastrava, il professore vi apre '
+             'di persona: il dubbio che dichiaraste in pubblico ha lavorato per mesi '
+             'nell’istruttoria finché l’accusa non ha retto più, e tre settimane fa è uscito dal '
+             'Tribunale prosciolto. Dalla cella era riuscito a mandarvi solo un biglietto; adesso '
+             'vi mette in mano il resto — l’archivio intero, trent’anni di studio del rivale, '
+             'rimasto murato qui ad aspettarlo. «Ve l’avevo detto: guardate le '
+             'penne, non le mani. Questa è la penna. Prendete, e usatelo: non è mai uscito da '
+             'questa stanza.»',
+             'Se lo avete AVALLATO, la villa è chiusa e la ceralacca è sulle imposte: Braga è '
+             'morto in cella, nel sonno, senza processo, e l’archivio è sotto sequestro con tutto '
+             'il resto. Il conto, stanotte, è a vostro sfavore.',
              'L’archivio di Braga, se lo avete, rafforza le Prove per l’Ispettore: il rivale che ha '
              'studiato M. per trent’anni è il testimone perfetto della sua doppiezza.'],
          approfondimenti=[
              dict(tipo='Osservazione', soggetto='Il debito di Braga',
                   testo='Braga è il conto più caro della campagna: se l’avete protetto quando la '
-                        'città voleva la sua testa, stanotte vi ripaga con l’unica cosa che ha — '
+                        'città voleva la sua testa, il dubbio che dichiaraste in pubblico l’ha '
+                        'tirato fuori di cella, e stanotte vi ripaga con l’unica cosa che ha — '
                         'trent’anni di studio del suo rivale, la prova vivente che M. ha due facce. '
-                        'Se l’avete lasciato cadere per comodità, la sua porta è chiusa, e con essa '
+                        'È la prima volta che quell’archivio cambia mano: dalla cella era passato '
+                        'solo un biglietto, e un biglietto non è una prova. '
+                        'Se l’avete lasciato cadere per comodità, Braga è morto in cella nel sonno, '
+                        'la villa è sotto sigillo e con essa '
                         'una delle prove migliori per Vidal. Ogni scelta pesa: è questo il pay-off. '
                         'La campagna non dimentica, e stanotte ve lo dice in faccia.'),
          ]),
@@ -195,20 +227,22 @@ LUOGHI_19 = [
          chiave=('parola', 'LA SOCIETÀ BRACCATA'), art='Lo Studio del Decano.png',
          chiude=None,
          indizi=[
-             'Se avete salvato il decano LUCIDO (Ep. 17), è qui, provato ma vivo, e vi consegna la '
-             'matrice completa e la crepa del coro: «M. ha comprato i cantori, non li ha convertiti. '
-             'Un coro comprato canta con la bocca. Al Quarto Movimento gli manca una voce che creda.»',
+             'Se avete salvato il decano LUCIDO dalla notte in cui sparì, è qui, provato ma vivo, '
+             'e vi consegna la matrice completa e la crepa del coro: «Ferri, ai suoi, dava una fede in cambio delle '
+             'braccia. M. paga e non ha nulla da dare: un coro comprato canta con la bocca. Al '
+             'Quarto Movimento gli manca una voce che creda.»',
              'La matrice del decano applicata all’ultimo movimento dice cosa manca a M.: La '
-             'voce che il Coro insegue dall’Ep. 3.',
+             'voce che il Coro insegue dall’inverno degli ammutoliti del Borgo.',
              'Se il decano è ferito grave, parla a fatica e la sua metà di verità è confusa: '
-             'l’incrocio D3 è più fragile. Il conto dell’Ep. 17 pesa qui.'],
+             'l’incrocio D3 è più fragile. Il conto della caccia alla talpa pesa qui.'],
          approfondimenti=[
              dict(tipo='Presagio', soggetto='La crepa del coro',
-                  testo='Il decano, se lucido, vi dà la chiave tattica del finale: il coro di M. è '
-                        'comprato, non convertito, e un uomo pagato per cantare uno spartito che non '
+                  testo='Il decano, se lucido, vi dà la chiave tattica del finale: Ferri, ai suoi '
+                        'dodici, offriva almeno una fede; M. paga e non ha nulla da offrire, e un '
+                        'uomo pagato per cantare uno spartito che non '
                         'capisce, alla prima crepa, scappa. È la debolezza del Quarto Movimento, e '
-                        'sarà la vostra arma nell’Ep. 20. Ma la crepa è anche più profonda: a M. '
-                        'manca la voce che CREDA, e senza quella il rito non si compie. Voi non '
+                        'sarà la vostra arma nell’ultima discesa. Ma la crepa è anche più '
+                        'profonda: a M. manca la voce che CREDA, e senza quella il rito non si compie. Voi non '
                         'dovete vincere una battaglia: dovete impedire che una sola persona canti '
                         'con l’anima. Cercatela prima di lui.'),
          ]),
@@ -222,8 +256,11 @@ LUOGHI_19 = [
              'vi rifornisce; se è a sfavore, è tentato dalla taglia. «Vi ho aiutato una volta. '
              'Stanotte dipende da come mi avete trattato dopo.»',
              'C’è chi, disperato, valuta di consegnarvi per la taglia in oro vecchio.',
-             'Il debito, se onorato, aggiunge un alleato al conto per l’Archivio: una mano in più, '
-             'una porta di servizio, un avvertimento al momento giusto.'],
+             'Il debito si è deciso nel quartiere della casa che ricordava: se allora consegnaste '
+             'il vedovo alla giustizia invece di servirvi dei muri, quella strada vi è tornata '
+             'amica e questa porta si apre — un alleato in più nel conto per l’Archivio: una mano, '
+             'una porta di servizio, un avvertimento al momento giusto. Se invece la casa la '
+             'usaste e basta, la porta resta socchiusa e non si apre oltre.'],
          approfondimenti=[
              dict(tipo='Osservazione', soggetto='Il conto in sospeso',
                   testo='Ogni debito lasciato aperto in diciotto mesi, stanotte, torna a presentarsi '
@@ -239,22 +276,25 @@ LUOGHI_19 = [
          chiave=('parola', 'L’ULTIMA DISCESA'), art='Cimitero delle Barche.png',
          chiude=None,
          indizi=[
-             'Chi ricorda il Coro dall’Ep. 3, i vecchi barcaioli e ossari: vi danno la mappa '
-             'acustica, la via delle tre acque sotto la città.',
+             'Chi ricorda il Coro dall’inverno degli ammutoliti del Borgo, i vecchi barcaioli e '
+             'ossari: vi danno la mappa acustica, la via delle tre acque sotto la città.',
              'La mappa incrocia il sapere del decano: quali campane, organi e fontane far '
              'tacere e quali suonare per il controcanto. Senza la mappa, sotto la Cattedrale '
              'sareste sordi.',
              'Un vecchio ossario: «la voce che il Coro cerca dall’inizio è ancora là sotto, o ciò '
              'che ne resta — dipende da come avete chiuso i casi del Coro. M. la cerca stanotte. '
-             'Arrivateci prima.»'],
+             'Arrivateci prima.» E se allora restituiste le voci agli ammutoliti del Borgo, i '
+             'guariti sono qui stanotte, e i barcaioli con loro: vengono con voi, e sono un '
+             'alleato in più nel conto. Se le canne le conservaste sigillate, la mappa ve la danno '
+             'lo stesso, ma nessuno esce da questo fango.'],
          approfondimenti=[
              dict(tipo='Referto', soggetto='La via delle tre acque',
                   testo='I vecchi testimoni del Coro custodiscono la mappa acustica: la città è uno '
                         'strumento accordato dai Padri, e la mappa dice come suonarlo per il '
                         'controcanto che riporta il Dormiente al sonno senza sogni. È la via delle '
-                        'tre acque sotto la Cattedrale, il percorso dell’Ep. 20. Ciò che avete fatto '
-                        'nei casi del Coro (Ep. 3-6) decide quanto della voce che M. cerca è ancora '
-                        'recuperabile. Il conto, di nuovo: la campagna presenta il suo saldo anche '
+                        'tre acque sotto la Cattedrale, il percorso dell’ultima discesa. Ciò che '
+                        'avete fatto nei casi del Coro, dall’inverno degli ammutoliti in poi, '
+                        'decide quanto della voce che M. cerca è ancora recuperabile. Il conto, di nuovo: la campagna presenta il suo saldo anche '
                         'qui, sotto forma di eco.'),
          ]),
     dict(n=9, nome='L’ARCHIVIO SEQUESTRATO', voce_mappa='L’Archivio Civico',
@@ -268,8 +308,8 @@ LUOGHI_19 = [
              'della Società. Dentro, nel deposito reperti, il Fascicolo del 1741. Ad aspettarvi, '
              'l’Ispettore Vidal.',
              'Il Fascicolo del 1741 è l’antico dossier della confraternita: come i Padri '
-             'fecero tacere il Dormiente la prima volta, il controcanto. Senza, l’Ep. 20 non '
-             'ha il controcanto.',
+             'fecero tacere il Dormiente la prima volta, il controcanto. Senza, sotto la '
+             'Cattedrale scenderete muti.',
              'Vidal non spara subito: vi studia. È un uomo onesto ingannato, non un sicario. Se lo '
              'riducete e gli mostrate le Prove — e il vostro conto di alleati regge — capisce di '
              'essere stato usato, e la caccia cambia bersaglio.'],
@@ -349,8 +389,8 @@ TILES_19 = [
          arredi=[(1, 1, 'casse'), (2, 2, 'casse')]),
     dict(id='T6', nome='IL DEPOSITO REPERTI', exits={'S': 'T5'},
          testo='Il deposito reperti, dove il Fascicolo del 1741 giace sotto sigillo fresco. QUANDO '
-               'RIVELATE QUESTA TESSERA: prendete il Fascicolo — il controcanto per l’Ep. 20 — e '
-               'uscite, con l’Ispettore convinto (o almeno fermato) alle spalle.',
+               'RIVELATE QUESTA TESSERA: prendete il Fascicolo — il controcanto per l’ultima '
+               'discesa — e uscite, con l’Ispettore convinto (o almeno fermato) alle spalle.',
          arbitro='OBIETTIVO. Interagire prende il Fascicolo del 1741 (indispensabile per l’Ep. 20). '
                  'Con l’Ispettore convinto = vittoria piena (i gendarmi coprono la ritirata nel '
                  'finale). Solo fermato = vittoria parziale. Senza il Fascicolo = spedizione '
@@ -446,6 +486,9 @@ def indagine():
         c.drawString(16*mm, yd, d)
         c.setStrokeColor(SEPIA)
         c.line(16*mm, yd - 7*mm, W - 16*mm, yd - 7*mm)
+    # I due conti che l'arbitro teneva a mente: gli Ep. 18-20 erano gli
+    # unici a non stamparli, e la loro Soluzione ne chiede il conto.
+    contatori_indagine(c, W)
     c.showPage()
     c.save()
     pad_to_even_pages(out_path)
@@ -482,15 +525,17 @@ def spedizione():
     frame_flow(c, 30*mm, H - 132*mm, W - 60*mm, 92*mm, [
         Paragraph('Lo tiene <b>una persona sola</b>. Quando il gruppo rivela una tessera, legge '
                   'ad alta voce la voce corrispondente. <b>Le regole di questo episodio:</b>', BODY),
-        Paragraph('• <b>IL CONTO DEI BIVI (setup).</b> Prima di cominciare, contate i vostri Bivi '
-                  'di campagna a favore (Braga protetto Ep. 15, decano salvato Ep. 17, prova '
-                  'pubblica Ep. 18, e i minori). Ogni Bivio a favore = <b>+1 alleato</b> (una carta '
-                  'evento-favore in più nel mazzo, o una spawn scartata); ogni Bivio a sfavore = un '
-                  'PNG che vi volta le spalle (un aiuto in meno). Il conto totale decide se '
-                  'l’Ispettore è <b>convincibile</b>.', BODY),
+        Paragraph('• <b>IL CONTO DEI BIVI (setup).</b> Prima di cominciare, contate gli alleati '
+                  'dell’<b>elenco chiuso</b> — cinque nomi e cinque soli, nella Soluzione, pagina '
+                  '«il conto dei bivi»: Braga (Bivio 15), il decano lucido (esito 17), Ranuzzi '
+                  '(Bivio 18), i vecchi testimoni del Coro (Bivio 3), il debito antico (Bivio 10). '
+                  'Ogni alleato = <b>+1</b> (una carta '
+                  'evento-favore in più nel mazzo, o una spawn scartata); ogni PNG che vi volta le '
+                  'spalle = un aiuto in meno. Servono <b>≥ 3 alleati</b> perché '
+                  'l’Ispettore sia <b>convincibile</b>.', BODY),
         Paragraph('• <b>L’ISPETTORE NON SI UCCIDE.</b> Alla Sala di Lettura (T5), Vidal (boss) fa '
                   'muro. Riducetelo all’ultima Ferita: si <b>ferma</b> ad ascoltare. Con le <b>Prove '
-                  'per l’Ispettore</b> (matrice del decano + metodo di M.) e un conto ≥ soglia, lo '
+                  'per l’Ispettore</b> (matrice del decano + metodo di M.) e un conto ≥ 3, lo '
                   '<b>convincete</b> (dalla vostra parte: piena, e nell’Ep. 20 tiene aperte le '
                   'uscite). Senza, si ferma ma resta contro (parziale).', BODY),
         Paragraph('• <b>IL FASCICOLO.</b> Al deposito (T6), prendete il <b>Fascicolo del 1741</b>: '
@@ -580,8 +625,9 @@ def soluzione():
         'solo dopo aver risposto per iscritto alle 4 Domande.',
         '<b>APERTURA — il Bivio dell’Episodio 18</b> (applicare PRIMA della lettera): se avete scelto '
         '<b>RENDERE PUBBLICA LA PROVA SUBITO</b> — la città sa, M. è latitante, e i PNG amici sono '
-        'schierati: è la voce <b>«prova pubblica Ep. 18»</b> già elencata nel CONTO DEI BIVI (pagina '
-        'seguente), e vale <b>+1 alleato</b>. Contatela una volta sola: è quella, non una in più. Il '
+        'schierati: è la voce <b>n. 3 del CONTO DEI BIVI</b> — il cronista Ranuzzi — nell’elenco '
+        'chiuso della pagina seguente, e vale <b>+1 alleato</b>. Contatela una volta sola: è '
+        'quella, non una in più. Il '
         'prezzo non si paga qui — M. all’angolo accelera il Quarto Movimento, e l’Episodio 20 parte '
         'col Dormiente più vicino a svegliarsi: segnatelo ora sul Taccuino di Campagna perché non ve '
         'ne dimentichiate. Se avete scelto <b>TENERE LA PROVA E COLPIRE NELL’OMBRA</b> — senza '
@@ -591,7 +637,8 @@ def soluzione():
         'Approfondimenti.</b> In cambio avete il margine di manovra di chi si muove come M., di '
         'nascosto: il rifugio vi aspetta già pronto, e la Testimonianza <b>«L’oste del rifugio» '
         '(Luogo 1) parte GIÀ RIVELATA</b>. La soglia resta quella: <b>conto ≥ 3 alleati</b>, in '
-        'entrambi i rami. La Domanda 2 regge comunque — le restano due conferme su tre (l’oste, già '
+        'entrambi i rami — su cinque alleati possibili nel primo, su quattro nel secondo, e '
+        'l’elenco chiuso è alla pagina seguente. La Domanda 2 regge comunque — le restano due conferme su tre (l’oste, già '
         'in tavola, e la mappa dei sigilli di Fossa). Chi ha sigillato la busta senza decidere ha '
         'lasciato uscire la prova: primo ramo.',
         '<b>Il caso.</b> Braccati, la sede sigillata. L’indagine è la vostra campagna: ogni luogo è '
@@ -601,6 +648,34 @@ def soluzione():
         'manca una voce che creda per il Quarto Movimento, e la cerca stanotte. L’Ispettore Vidal '
         'che vi bracca è onesto, ingannato dal metodo di M. (come Braga). Sventare = raccogliere '
         'gli alleati, prendere il Fascicolo e CONVINCERE Vidal.',
+    ])
+    pagina('il conto dei bivi — l’elenco chiuso', [
+        '<b>Cinque PNG del passato possono schierarsi stanotte, e solo questi cinque.</b> '
+        'Spuntateli sul Taccuino di Campagna prima di cominciare; '
+        'se un nome non è qui sotto, non è un alleato e non entra nel conto.',
+        '<b>1 · Il professor Braga</b> (Luogo 5) — Bivio dell’Ep. 15, ramo <i>«Dichiarare '
+        'pubblicamente il dubbio»</i>. Sull’altro ramo è morto in cella: nessun alleato.',
+        '<b>2 · Il decano Ferrante</b> (Luogo 6) — <b>non è un Bivio</b>: è l’<i>esito</i> della '
+        'spedizione dell’Ep. 17, il decano riportato a casa <b>lucido</b>. Se è ferito grave parla '
+        'a fatica e non conta come alleato.',
+        '<b>3 · Il cronista Ranuzzi</b> (Luogo 3) — Bivio dell’Ep. 18, ramo <i>«Rendere pubblica '
+        'la prova subito»</i>. Sull’altro ramo non ha nulla da stampare, resta solo e la sua '
+        'Testimonianza esce dal mazzo.',
+        '<b>4 · I vecchi testimoni del Coro</b> (Luogo 8) — Bivio dell’Ep. 3, ramo <i>«Restituire '
+        'le voci»</i>: gli ammutoliti guariti parlano per voi, e i barcaioli con loro. Se '
+        'conservaste le canne sigillate vi danno lo stesso la Mappa Acustica, ma non si espongono.',
+        '<b>5 · Il debito antico</b> (Luogo 7) — Bivio dell’Ep. 10, ramo <i>«Consegnare il '
+        'vedovo»</i>: il quartiere vi è tornato amico e quella porta si apre. Se usaste la casa '
+        'come orecchio, dietro quella porta c’è solo la tentazione della taglia.',
+        '<b>LA SOGLIA RESTA 3</b>, e adesso è un numero verificabile: 3 su 5 sul ramo della prova '
+        'pubblica, 3 su 4 sul ramo dell’ombra (Ranuzzi fuori dal conto). Ogni alleato vale <b>+1</b> '
+        '(un evento-favore in più nel mazzo, oppure una spawn scartata); ogni PNG che vi volta le '
+        'spalle è un aiuto in meno. Il conto decide se l’Ispettore è convincibile (serve <b>conto '
+        '≥ 3</b>) e quanto è morbido il mazzo. I luoghi che vi sono dovuti — l’oste della '
+        'Chiatta (L1), Fossa (L2), il gendarme amico (L4) — vi aiutano comunque, ma <b>non</b> si '
+        'contano: il conto misura ciò che vi siete meritati, non ciò che vi è dovuto. La Gazzetta '
+        '(L3) è aperta dall’inizio come loro, ma la porta non è la voce n. 3: nel conto entra '
+        '<b>Ranuzzi che si schiera</b>, e quello ve lo siete meritato al Bivio dell’Ep. 18.',
     ])
     pagina('le 4 domande — risposte e vantaggi', [
         '<b>1. DOVE è il Fascicolo del 1741?</b> Nell’Archivio sequestrato (il gendarme amico L4 + '
@@ -616,14 +691,13 @@ def soluzione():
         '(la chiave tattica dell’Ep. 20: gli impiegati si rompono e fuggono). <i>Sbagliata:</i> '
         'entrerete nel finale senza sapere la debolezza di M.',
         '<b>4. COSA portate alla discesa?</b> La Mappa Acustica (L8), il Fascicolo del 1741 (L9, in '
-        'spedizione) e i <b>Frammenti conservati</b> (n. 1-19, quelli che avete tenuto serata '
-        'dopo serata: sono le righe del controcanto). <i>È l’economia dell’Ep. 20:</i> ciò che manca qui, manca '
+        'spedizione) e i <b>Frammenti conservati e non incrinati</b> (n. 1-19, quelli che avete '
+        'tenuto serata dopo serata vincendo pieno: sono le righe del controcanto). '
+        '<i>È l’economia dell’Ep. 20:</i> ciò che manca qui, manca '
         'là. Aiuti: la mappa dei sigilli (Fossa), le Prove per l’Ispettore (L4 + Braga L5). '
         '<i>Esche:</i> la Taglia da Riscuotere, la Via Facile.',
-        '<b>IL CONTO DEI BIVI:</b> contate i Bivi a favore (Braga protetto Ep. 15, decano lucido '
-        'Ep. 17, prova pubblica Ep. 18, e minori). Ogni favore = +1 alleato (evento-favore in più o '
-        'spawn scartata); ogni sfavore = un PNG in meno. Il conto decide se Vidal è convincibile '
-        '(serve conto ≥ 3 alleati) e quanto è morbido il mazzo.',
+        '<b>IL CONTO DEI BIVI:</b> l’elenco chiuso dei cinque alleati possibili e la soglia sono '
+        'nella pagina «il conto dei bivi — l’elenco chiuso». Applicatelo al setup, non qui.',
         '<b>Nota sul rivelatorio (Domanda 2):</b> lo confermano tre carte — la Testimonianza «L’oste '
         'del rifugio» (L1), l’Osservazione «La mappa dei sigilli» (L2) e la Testimonianza «Il '
         'cronista Ranuzzi» (L3). La Domanda 2 non ha complicazione se sbagliata.',
@@ -645,7 +719,7 @@ def soluzione():
         'evitarli è meglio.',
         '<b>Il Fascicolo.</b> Al deposito (T6), Interagire prende il Fascicolo del 1741 — '
         'indispensabile per il controcanto dell’Ep. 20. Non prenderlo è l’unico vero fallimento '
-        '(raro). La Mappa Acustica (dall’Indagine, L8) e i Frammenti conservati (n. 1-19) completano l’economia del '
+        '(raro). La Mappa Acustica (dall’Indagine, L8) e i Frammenti conservati e non incrinati (n. 1-19) completano l’economia del '
         'finale.',
         '<b>Vittoria.</b> Fascicolo preso e Ispettore CONVINTO = <b>vittoria piena</b> (nell’Ep. 20 '
         'Vidal tiene aperte le uscite: ritirata sicura). Fascicolo preso e Ispettore solo fermato = '
@@ -660,8 +734,14 @@ def soluzione():
         'del 1741 sotto il braccio, e mentre uscite nella notte vi dice l’ultima cosa: "Le maree di '
         'sizigia sono tornate. Se scendete stanotte, scendo con voi — o almeno tengo aperte le '
         'uscite." Non siete più soli.»',
+        # La premessa («il Quarto Movimento ha bisogno di un coro che creda») era
+        # sparita nella riscrittura che ha aggiunto il contrasto con Ferri: e' la
+        # ragione per cui nel finale conta salvare la voce che crede, e senza di
+        # essa il Frammento non conteneva piu' la chiave che dichiara di essere.
         '<b>FRAMMENTO DI CAMPAGNA N. 19:</b> <i>«Il Quarto Movimento ha bisogno di un coro che '
-        'creda. M. non ha mai avuto un coro: ha sempre avuto impiegati. Questa è la sua crepa.»</i> '
+        'creda. Ferri comprava le braccia, ma una fede aveva da darla in cambio; M. compra tutto '
+        'e non ha niente da dare — un coro pagato canta con la bocca, e la bocca si chiude per '
+        'molto meno.»</i> '
         'Conservatelo: è la chiave tattica del finale.',
         '<b>IL BIVIO — l’ultimo prima del finale; decidete insieme, poi sigillate.</b><br/>'
         '<b>Convincere l’Ispettore con le prove.</b> Nell’Ep. 20 i gendarmi sigillano le uscite '
@@ -705,8 +785,8 @@ LUOGHI19_DESC = {
        "spago, un cartellino per ciascuno. La saracinesca è abbassata per tre quarti, la porta "
        "di servizio socchiusa da prima che arrivaste. Fossa non vi guarda in faccia subito: si "
        "asciuga le mani nel grembiule, due volte, tira la tenda sulla vetrina, e solo allora "
-       "alza gli occhi. «Con la Società braccata, gli altri hanno chiuso; io no. Vi devo "
-       "troppo», dice, e lo dice come si dice una cifra, senza tono. Il paralume verde oscilla "
+       "alza gli occhi. «Con la Società braccata, gli altri hanno chiuso; io no. Siamo pari, "
+       "noi due», dice, e lo dice come si dice una cifra, senza tono. Il paralume verde oscilla "
        "piano sopra il banco per tutto il tempo che restate, e non c’è una finestra aperta in "
        "tutta la stanza. Sul ripiano, fra i registri, c’è un foglio piegato che non è una "
        "polizza: la carta è più ruvida, e le pieghe sono state passate con l’unghia.",

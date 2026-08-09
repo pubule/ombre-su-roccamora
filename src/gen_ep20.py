@@ -4,10 +4,11 @@
 Fase B del piano (vedi DESIGN-EPISODIO-20.md e CAMPAGNA-EPISODI.md). IL FINALE:
 la discesa sotto la Cattedrale, il coro a pagamento, M. umano, e il Dormiente
 che ascolta. Non si vince con l'acciaio: col CONTROCANTO (la deduzione con TUTTI
-i Frammenti — metà erano il canto del sonno che M. voleva, metà lo smascheravano).
-La camera è il boss (fasi ambientali legate al Canto). Fuori scala: si possono
-perdere eroi. NIENTE Bivio: è la fine. Finale aperto per una prossima campagna
-(un nuovo C.B.).
+i Frammenti — nove erano il canto del sonno che M. voleva, undici lo smascheravano).
+La camera è il boss (fasi ambientali legate al Canto). Fuori scala: gli eroi
+cadono a terra e quaggiù rialzarli può non essere possibile (sul ramo «entrare
+da soli» Rianimare non c'è). NIENTE Bivio: è la fine. Finale aperto per una
+prossima campagna (un nuovo C.B.).
 
 Varietà strutturale (regola 2026-07-18): fuori scala — la camera come boss, si
 vince cantando; multi-fase (discesa / coro che si rompe / camera). Torsione
@@ -27,7 +28,7 @@ from reportlab.pdfgen import canvas
 from reportlab.platypus import Paragraph, Frame
 
 from deluxe_style import (register_fonts, parchment_art, pad_to_even_pages, rule_border,
-                          seal, wave, F, INK, RED, TEAL, GOLD as OGOLD, SEPIA)
+                          seal, wave, contatori_indagine, F, INK, RED, TEAL, GOLD as OGOLD, SEPIA)
 from gen_gothic import registro_ferite, token_sheet, TOKEN_EROI
 
 OUT_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'Episodio 20', 'pdf')
@@ -48,8 +49,21 @@ SMB = st('smb', fontName=F['sc'], fontSize=8.5, textColor=TEAL, spaceBefore=4, s
 
 
 def frame_flow(c, x, y, w, h, flow):
+    # addFromList CONSUMA la lista e lascia dentro cio' che non e' entrato:
+    # un Paragraph piu' alto del frame sparisce dalla pagina SENZA errori
+    # (e' successo alla lettera del Preludio, vista solo aprendo il PDF).
+    # Qui non si stampa a vuoto: si urla.
     Frame(x, y, w, h, leftPadding=0, rightPadding=0, topPadding=0,
           bottomPadding=0, showBoundary=0).addFromList(flow, c)
+    if flow:
+        import os as _os, sys as _sys
+        _testo = ' '.join(str(getattr(f, 'text', f))[:90] for f in flow[:2])
+        _msg = ('FRAME TROPPO PICCOLO in %s: %d elementi non entrano in %.1fx%.1fmm '
+                'e NON verranno stampati -> %s'
+                % (_os.path.basename(__file__), len(flow), w / 2.83465, h / 2.83465, _testo))
+        print('!! ' + _msg, file=_sys.stderr)
+        if _os.environ.get('ROCCAMORA_FRAME_STRICT'):
+            raise RuntimeError(_msg)
 
 
 # ================================================================= DATI
@@ -60,13 +74,14 @@ LETTERA_20 = (
     "indagare: c’è una notte sola, e tre cose da sapere prima di scendere. <b>Quando</b> "
     "esattamente — l’ora del picco. <b>Dove</b> passa la via delle tre acque. E <b>chi</b> è "
     "l’ultima voce che M. cerca, da salvare prima di lui.<br/><br/>"
-    "Poi scendete, coi <b>Frammenti</b> di venti serate stretti in pugno: erano due metà di una "
-    "cosa sola, e adesso lo capirete. Non abbassate la lama là sotto. <b>Alzate la voce.</b> "
+    "Poi scendete, coi <b>Frammenti</b> di venti serate stretti in pugno: <b>nove</b> sono righe "
+    "del canto del sonno, gli altri <b>undici</b> erano la firma di M., e adesso lo capirete. "
+    "Non abbassate la lama là sotto. <b>Alzate la voce.</b> "
     "Cantate giusto, e riportatelo a dormire. È tutto qui.<br/>"
     "— il decano (o Vidal, o chi vi resta)»<br/><br/>"
     "<i>Aperti dall’inizio: la Cattedrale, gli ossari (Cimitero delle Barche), la Taverna della "
     "Chiatta, l’Archivio del 1741. Portate con voi la Mappa Acustica e il Fascicolo del 1741 "
-    "dall’Ep. 19, e TUTTI i Frammenti conservati: sono il controcanto.</i>")
+    "dall’Ep. 19, e TUTTI i Frammenti conservati e non incrinati: sono il controcanto.</i>")
 
 # Chiavi LETTERALI negli indizi, tutte da luoghi APERTI (L1-L4), doppia via:
 # «le maree di sizigia» (L1+L2), «la via delle tre acque» (L1+L3),
@@ -122,9 +137,9 @@ LUOGHI_20 = [
              'Il rifugio, l’ultima volta: la Società (e Vidal, se l’avete convinto) vi prepara alla '
              'discesa. Sul tavolo, la mappa acustica e il Fascicolo del 1741. «La via delle tre '
              'acque è segnata: quali suoni portare, quali spegnere. Senza, la gola vi confonde.»',
-             'Si conta il controcanto: quanti Frammenti avete conservato in venti serate. «Metà sono '
-             'righe del canto del sonno, metà erano la firma di M. Cantate le prime, ricordate le '
-             'seconde. Più ne avete, più il controcanto è completo.»',
+             'Si conta il controcanto: quanti Frammenti avete conservato in venti serate. «Nove sono '
+             'righe del canto del sonno, gli altri undici erano la firma di M. Cantate i nove, '
+             'ricordate gli undici. Più ne avete, più il controcanto è completo.»',
              'Chi vi resta vi guarda in faccia, l’ultima volta prima dell’acqua: «qualunque cosa '
              'accada là sotto, avete già vinto una cosa — non siete diventati come lui. Adesso '
              'andate a cantare.»'],
@@ -132,7 +147,7 @@ LUOGHI_20 = [
              dict(tipo='Testimonianza', soggetto='Chi vi resta',
                   testo='Alla Taverna della Chiatta, l’ultima notte, si tira la somma di tutto: la '
                         'mappa acustica (la via delle tre acque), il Fascicolo del 1741 (il '
-                        'controcanto), e i Frammenti conservati (le righe da cantare). Chi vi resta — '
+                        'controcanto), e i Frammenti conservati e non incrinati (le righe da cantare). Chi vi resta — '
                         'il decano, Fossa, Ranuzzi, Vidal se convinto, i PNG del conto — non scende '
                         'con voi, ma vi arma di tutto ciò che venti serate hanno messo da parte. È il '
                         'pay-off finale: la campagna intera, ridotta a un canto e a una manciata di '
@@ -144,46 +159,74 @@ LUOGHI_20 = [
          indizi=[
              'Il Fascicolo del 1741 aperto sulla riga finale del controcanto, e il calendario '
              'dei Padri che fissa l’ora delle sizigie.',
-             'Messi in fila, i venti Frammenti si dividono in due: metà sono il controcanto (M. li '
-             'voleva per il Quarto Movimento, e ve li ha fatti cercare); metà smascheravano lui, e '
-             'non l’ha mai saputo. «Cantate le prime. Le seconde ve le siete già cantate, '
-             'smascherandolo.»',
+             'Messi in fila, i venti Frammenti si dividono in due parti disuguali: nove sono il '
+             'controcanto (M. li voleva per il Quarto Movimento, e ve li ha fatti cercare); gli '
+             'altri undici smascheravano lui, e non l’ha mai saputo. «Cantate i nove. Gli undici '
+             've li siete già cantati, smascherandolo.»',
              'La riga finale del controcanto — il Frammento 20 — si compone solo con tutti '
              'gli altri diciannove davanti. È la chiave del sonno senza sogni.'],
          approfondimenti=[
              dict(tipo='Referto', soggetto='Le due metà dei Frammenti',
                   testo='La deduzione finale non è un nome né un come: è un canto. Messi in fila '
-                        'tutti e venti, i Frammenti si dividono in due metà. La prima — i dispari — '
-                        'sono le righe del controcanto che riporta il Dormiente al sonno senza sogni: '
-                        'M. le voleva per il Quarto Movimento, e vi ha usati per raccoglierle. La '
-                        'seconda — i pari — erano la sua firma, la traccia che lo smascherava, e non '
-                        'ha mai saputo che raccoglievate anche quelle. Ora la partita è semplice e '
-                        'terribile: cantate le prime più in fretta di quanto lui canti il suo rito. '
-                        'Chi ha conservato più Frammenti canta più giusto. Contateli, e scendete.'),
+                        'tutti e venti, i Frammenti si dividono in due — ma non a metà. La '
+                        'prima è di nove: sono le righe del controcanto che riporta il Dormiente al '
+                        'sonno senza sogni, e M. le voleva per il Quarto Movimento — vi ha usati per '
+                        'raccoglierle. La seconda è di undici: erano la sua firma, la traccia che lo '
+                        'smascherava, e non ha mai saputo che raccoglievate anche quelle. Non '
+                        'fidatevi dell’orecchio per separarle. La città e l’uomo qui si somigliano '
+                        'troppo: più d’una riga parla di lui con la voce del bronzo, e più d’una '
+                        'parla della città per dire di lui. Il Fascicolo non le descrive: le conta. '
+                        'I nove sono i Frammenti <b>1, 2, 3, 4, 5, 6, 7</b> e <b>11</b> — e '
+                        'l’ultimo, il <b>20</b>, che si compone solo '
+                        'davanti agli altri diciannove. Tutti gli altri sono firma. Il lembo di '
+                        'carta con la mezza onda, il primo che vi fu messo in mano, non è riga di '
+                        'canto né firma: è il vostro giuramento, e resta fuori dal conto. Ora la '
+                        'partita è semplice e terribile: cantate i nove '
+                        'più in fretta di quanto lui canti il suo rito. Chi ha conservato più '
+                        'Frammenti canta più giusto. Contateli, e scendete.'),
          ]),
     dict(n=5, nome='I VECCHI DEL CORO', voce_mappa='L’Ossario Comunale',
-         req='I vecchi del Coro si aprono a chi cerca l’ultima voce: la candidata che il Coro '
-             'insegue dall’inizio, la voce che crede.',
+         req='I vecchi del Coro si aprono a chi cerca l’ultima voce: la signora Vetri, la prima '
+             'donna del Comunale, la voce che crede.',
          chiave=('parola', 'LA VOCE CHE CREDE'), art='Ossario Comunale.png',
          chiude=None,
          indizi=[
-             'Chi ricorda il Coro dall’Ep. 3 sa chi è l’ultima candidata: la voce che crede, l’unica '
-             'che M. non può comprare. «È viva, o quel che ne resta, secondo come avete chiuso i '
-             'casi del Coro. Se la salvate, M. resta con un coro senza anima: un rumore.»',
-             'La candidata è tenuta da M. o dai suoi, in attesa del Quarto Movimento. '
+             'Chi ricorda il Coro dall’inverno degli ammutoliti del Borgo sa chi è l’ultima voce: '
+             'la <b>signora Vetri</b>, la prima donna del Comunale. La misurarono quell’inverno e '
+             'la mancarono — la voce non gliel’hanno mai presa, solo il ricordo di quella notte — '
+             'e la inseguono da allora. «È viva, o quel che ne resta, secondo come avete chiuso '
+             'i casi del Coro. Se la salvate, M. resta con un coro senza anima: un rumore.»',
+             'La Vetri non crede per devozione: crede perché è l’unica persona viva che ha sentito '
+             'la conchiglia del teatro risponderle. È questo a farne la voce che M. non può '
+             'comprare — e la Vetri è tenuta da lui o dai suoi, in attesa del Quarto Movimento. '
              'Raggiungerla nella discesa (fase del coro) la sottrae a M.',
              'Un vecchio: «M. crede che una voce si possa costringere a credere. Non è vero. Per '
-             'questo la sua unica speranza è la paura — e per questo va salvata, non solo trovata.»'],
+             'questo tiene la Vetri con la paura e non con la fede — e per questo va salvata, non '
+             'solo trovata.»'],
          approfondimenti=[
-             dict(tipo='Presagio', soggetto='La voce che non si compra',
-                  testo='La voce che crede è l’ultima cosa che il denaro di M. non ha potuto '
-                        'comprare, e la sua unica speranza per il Quarto Movimento: un cuore che '
-                        'canti il quarto rigo con l’anima e svegli il Dormiente in un’estasi che lui '
-                        'crede di poter cavalcare. Ma la fede non si costringe, e M. lo sa: la sua '
-                        'candidata la tiene con la paura, non con la devozione. Salvatela nella '
-                        'discesa, e M. resterà con un coro comprato che canta con la bocca e non con '
-                        'l’anima — un rumore, non un risveglio. È metà della vittoria: l’altra metà '
-                        'è il vostro controcanto.'),
+             dict(tipo='Testimonianza', soggetto='La voce che non si compra',
+                  testo='Il più vecchio del Coro tiene la lanterna bassa e ve lo dice lui, il nome: '
+                        'la signora Vetri, la prima donna del '
+                        'Comunale, la solista che il Coro insegue dall’inverno degli ammutoliti e '
+                        'non ha mai preso — la mancarono quell’inverno, e di nuovo alla gala. «È l’ultima cosa che il denaro di quell’uomo non ha potuto '
+                        'comprare, e la sua sola speranza per il Quarto Movimento: un cuore che '
+                        'canti il quarto rigo con l’anima e desti il Dormiente in un’estasi che lui '
+                        'crede di poter cavalcare. Non crede per devozione: crede perché è l’unica '
+                        'persona viva che ha sentito la conchiglia del teatro risponderle — e una '
+                        'voce che ha avuto risposta non si compra. Ma la fede non si costringe, e '
+                        'lui lo sa: la tiene con la paura.» Poi il vecchio conta sulle dita, e sono '
+                        'due sere vostre a decidere in che stato ve la ritroverete. Se apriste le '
+                        'canne-voce e rendeste il maltolto agli ammutoliti, tornò a lei anche la '
+                        'memoria di chi l’aveva misurata: arriva <b>intera</b>, e sa contro chi '
+                        'canta. Se le canne le teneste sigillate ma la conchiglia la conservaste '
+                        'sotto sigillo, arriva <b>a metà</b>: canta, e da qualche parte, nei legni '
+                        'che sono vostri e non suoi, un pannello canta con lei. Se le canne '
+                        'restarono chiuse e la conchiglia la spezzaste, arriva <b>muta di quel '
+                        'ricordo</b> — non sa più di essere stata ascoltata una volta, e crede lo '
+                        'stesso. «Salvatela nella discesa», chiude il vecchio, «e a lui resterà un '
+                        'coro comprato che canta con la bocca e non con l’anima: un rumore, non un '
+                        'risveglio.» È metà della '
+                        'vittoria: l’altra metà è il vostro controcanto.'),
          ]),
     dict(n=6, nome='L’ORGANO DI OSSA', voce_mappa='La Chiesa dei Battuti',
          req='La chiesa dei Battuti apre a chi cerca la voce che crede: ciò che resta dell’organo '
@@ -191,8 +234,8 @@ LUOGHI_20 = [
          chiave=('parola', 'LA VOCE CHE CREDE'), art='Chiesa dei Battuti.png',
          chiude=None,
          indizi=[
-             'Ciò che resta dell’organo di ossa (Ep. 5): le canne-voce, la melodia della '
-             'conchiglia, il campanello di Piero — dipende dai vostri Bivi. È lo strumento '
+             'Ciò che resta dell’organo di ossa della cripta dei Battuti: le canne-voce, la '
+             'melodia della conchiglia, il campanello di Piero — dipende dai vostri Bivi. È lo strumento '
              'con cui il Coro chiamava la voce, e con cui voi la riconoscerete.',
              'La melodia dell’organo di ossa incrocia il controcanto: alcune canne-voce '
              'cantano il risveglio, altre il sonno. Sapere quali è metà della battaglia '
@@ -202,8 +245,8 @@ LUOGHI_20 = [
              'fategli cantare il sonno.»'],
          approfondimenti=[
              dict(tipo='Osservazione', soggetto='Lo strumento e la mano',
-                  testo='L’organo di ossa dell’Ep. 5 torna, un’ultima volta, come chiave della voce '
-                        'che crede: le sue canne cantano il risveglio o il sonno secondo chi le '
+                  testo='L’organo di ossa della cripta dei Battuti torna, un’ultima volta, come '
+                        'chiave della voce che crede: le sue canne cantano il risveglio o il sonno secondo chi le '
                         'suona. Non è il male: è uno strumento, come la città intera è uno strumento. '
                         'M. gli fa cantare il Quarto Movimento; voi, con la mappa acustica e il '
                         'controcanto, potete fargli cantare il contrario. È il tema di tutta la '
@@ -247,10 +290,14 @@ LUOGHI_20 = [
              'Un copista terrorizzato: «quel grimorio l’ha voluto M. Chi lo canta, canta per lui. Il '
              'vostro canto non è là dentro: è nelle cose che avete conservato senza capire perché.»'],
          approfondimenti=[
-             dict(tipo='Presagio', soggetto='Il libro che canta per lui',
-                  testo='Il Grimorio del Rito è l’altra faccia della tentazione: un libro solo, '
+             dict(tipo='Referto', soggetto='Il libro che canta per lui',
+                  testo='Collazionato foglio per foglio con la copia rimasta sul leggio, il Grimorio '
+                        'del Rito si lascia leggere per quello che è: un libro solo, '
                         'completo, che pare contenere tutto il canto — e invece contiene il canto '
-                        'sbagliato, la partitura del risveglio che M. vuole. Il controcanto vero non '
+                        'sbagliato. Le note del quarto rigo salgono dove dovrebbero calare: la '
+                        'legatura, la carta e la mano sono di pregio, ma la partitura è quella del '
+                        'risveglio che M. vuole, rilegata come si rilega una preghiera. Il '
+                        'controcanto vero non '
                         'sta in un grimorio: sta sparso nei venti Frammenti che avete raccolto una '
                         'serata alla volta, senza sapere che stavate imparando a spegnere un dio. La '
                         'differenza tra il grimorio e i Frammenti è la differenza tra M. e voi: lui '
@@ -305,7 +352,8 @@ TILES_20 = [
          testo='Il punto dove tre correnti si incontrano nel buio: dolce, salata, morta. QUANDO '
                'RIVELATE QUESTA TESSERA: pericolo d’ambiente — la corrente fredda, l’eco che mente. '
                'La Mappa Acustica dice quale acqua seguire.',
-         arbitro='Pericolo d’ambiente (le tre acque): prova VIGORE/NERVI o 1 round perso / 1 danno. '
+         arbitro='Pericolo d’ambiente (le tre acque): la corrente fredda che trascina — prova '
+                 'VIGORE (Media) o 1 round perso / 1 danno. '
                  'La Mappa Acustica annulla la confusione. La città può suonare a favore (evento).',
          cerca_vuoto='Tre correnti che si torcono senza mescolarsi, e l’eco che vi '
                      'rimanda passi da dove non li avete fatti. Qui non galleggia '
@@ -327,14 +375,15 @@ TILES_20 = [
          arbitro='FASE 2 — IL CORO. Ogni impiegato (Sgherro) in campo rallenta il controcanto di 1 '
                  'riga/round. MA si ROMPE: ridotto a metà Ferite fugge (la crepa del Frammento 19). '
                  'Spezzare il coro libera il controcanto.',
-         hook='La Candidata Salvata (dai Vecchi del Coro): qui la sottraete a M. — il suo coro resta '
+         hook='La Candidata Salvata (la signora Vetri, dai Vecchi del Coro): qui la sottraete a M. '
+              '— il suo coro resta '
               'senza la voce che crede, un rumore, e il risveglio rallenta.',
          cerca_vuoto='Leggii da orchestra, spartiti fermati con le mollette, borracce '
                      'd’acqua per la gola. Attrezzatura da lavoro, e nient’altro.',
          arredi=[(1, 2, 'casse'), (2, 0, 'altare')]),
     dict(id='T5', nome='LA SOGLIA DELLA CAMERA', exits={'S': 'T4', 'N': 'T6'},
          testo='La soglia della camera del Dormiente: qui il coro fa l’ultima resistenza, e la '
-               'candidata è vicina. QUANDO RIVELATE QUESTA TESSERA: se non l’avete già salvata, è '
+               'signora Vetri è vicina. QUANDO RIVELATE QUESTA TESSERA: se non l’avete già salvata, è '
                'ora — oltre questa soglia, M. la costringerà a cantare.',
          arbitro='Ultimo muro del coro. Se la Candidata non è salvata, M. la costringe (il '
                  'risveglio accelera). Salvatela qui, o subite la sua voce nella camera. Oltre, '
@@ -348,12 +397,13 @@ TILES_20 = [
                'e voi opponete il controcanto. QUANDO RIVELATE QUESTA TESSERA: comincia la FASE '
                'FINALE — completate il controcanto prima che il Dormiente si svegli.',
          arbitro='FASE 3 — LA CAMERA (il boss). Non si colpisce: si CANTA. Ogni round completate '
-                 'righe di controcanto (ritmo = Frammenti + Mappa; il coro residuo rallenta). Le '
-                 'fasi ambientali della camera fanno danno inevitabile a soglie di Canto. M. (umano) '
-                 'in piedi con la sua voce accelera il risveglio: neutralizzarlo o averla salvata '
-                 'aiuta. Controcanto completo PRIMA del risveglio = VITTORIA (il Dormiente torna al '
-                 'sonno senza sogni). Risveglio prima = SCONFITTA (vedi Soluzione). FUORI SCALA: si '
-                 'possono perdere eroi.',
+                 'righe di controcanto (ritmo = Frammenti + Mappa; il coro residuo rallenta, ma una '
+                 'riga la cantate sempre). Le fasi ambientali della camera fanno danno inevitabile a '
+                 'soglie di Canto. Il rito accelera il risveglio (+1 Canto/round) finché ha una '
+                 'voce: M. in piedi con la sua, OPPURE un impiegato del coro che canta al posto suo. '
+                 'Abbattere l’uomo non basta: va spezzato il coro. Controcanto completo PRIMA del '
+                 'risveglio = VITTORIA. Risveglio prima = SCONFITTA (vedi Soluzione). FUORI SCALA: '
+                 'gli eroi cadono, e quaggiù rialzarli può non essere possibile.',
          cerca_vuoto='Non c’è niente da raccogliere qui: solo pietra, acqua e buio, e '
                      'un’aria così densa da pesare sul petto. Quel che conta, in questa '
                      'camera, non si prende con le mani.',
@@ -379,14 +429,16 @@ NEMICI_20 = [
               'che, se si apre del tutto (il Canto alla soglia del risveglio), cambia la città per '
               'sempre. La si sconfigge in un modo solo — completando il controcanto del Fascicolo '
               'del 1741, riga per riga, coi Frammenti di venti serate, più in fretta di quanto M. '
-              'canti il suo. È il finale: fuori scala, si possono perdere eroi. Ma la posta non è '
-              'sopravvivere. È cantare giusto.'),
+              'canti il suo. È il finale: fuori scala, e chi cade quaggiù può non rialzarsi prima '
+              'dell’ultima riga. Ma la posta non è sopravvivere. È cantare giusto.'),
     dict(nome='M. (SENZA MASCHERA)', att=2, dif=8, fer=5, mov=4, dan=1, boss=False,
          tipo='C.B. — l’uomo, l’ultima maschera che cade', art='Il Presidente M.png',
          note='Umano e fragile (Att 2, Fer 5, Danno 1), feroce. NON è l’obiettivo (la vittoria è il '
-              'controcanto): finché è in piedi e ha la sua voce, forza il Quarto Movimento (accelera '
-              'il risveglio). Neutralizzarlo (a terra) o aver salvato la Candidata rallenta il '
-              'risveglio. Quando il controcanto giusto sale, capisce di aver perso — e per la prima '
+              'controcanto): finché è in piedi e ha la sua voce, forza il Quarto Movimento (+1 '
+              'Canto/round). Neutralizzarlo (a terra) o aver salvato la Candidata gli toglie la '
+              'voce — ma non ferma il rito: finché in campo resta un impiegato del coro, quello '
+              'canta al posto suo e il risveglio accelera lo stesso. Va spezzato il coro, non '
+              'l’uomo. Quando il controcanto giusto sale, capisce di aver perso — e per la prima '
               'volta ha paura.',
          bio_bestiario='M. — il presidente, C.B., il Machiavelli — qui, per la prima e ultima '
               'volta, senza maschere: un uomo solo nell’acqua bassa della gola, che canta il quarto '
@@ -395,7 +447,9 @@ NEMICI_20 = [
               'intera e sta per scoprire di essere solo un uomo. Non è l’obiettivo dello scontro — '
               'la vittoria non è ucciderlo, è cantare più giusto di lui — ma finché è in piedi e ha '
               'la voce che crede, spinge il Dormiente verso l’estasi del risveglio. Neutralizzarlo, '
-              'o avergli sottratto la sua voce, gli toglie il rito dalle mani. E quando il vostro '
+              'o avergli sottratto la sua voce, gli toglie il rito dalle mani — ma non lo spegne: '
+              'gli impiegati continuano a leggere lo spartito anche sopra un uomo caduto, ed è il '
+              'coro che va spezzato, non l’uomo. E quando il vostro '
               'controcanto roco e umano prevale, l’ultima maschera cade davvero: non l’estasi che '
               'sognava, ma il silenzio; non la storia che voleva rifare, ma un dio che si '
               'riaddormenta ignorandolo. Per la prima volta in vita sua, M. ha paura. È la sua vera '
@@ -436,7 +490,7 @@ def indagine():
     c.drawString(16*mm, H - 22*mm, 'taccuino della società — episodio 20 (il finale)')
     wave(c, W - 58*mm, H - 20*mm, 40*mm, OGOLD)
     c.setFillColor(TEAL); c.setFont(F['b'], 9)
-    c.drawString(16*mm, H - 31*mm, 'IL CONTROCANTO: contate TUTTI i Frammenti conservati (1-19). Più ne avete, più il canto è completo.')
+    c.drawString(16*mm, H - 31*mm, 'IL CONTROCANTO: contate i Frammenti conservati e non incrinati (1-19), più 1 se avete la Miglioria «Voce che regge».')
     for i, hh in enumerate(['18', '19', '20', '21', '22', '23']):
         xx = 16*mm + i * 17*mm
         c.setStrokeColor(INK); c.setFillColor(colors.HexColor('#f7f0dd')); c.setLineWidth(1)
@@ -452,7 +506,7 @@ def indagine():
             c.line(16*mm, ytop - 7*mm - i*7*mm, W - 16*mm, ytop - 7*mm - i*7*mm)
         return ytop - 7*mm - (nlines-1)*7*mm - 12*mm
 
-    yy = sect(H - 52*mm, 'i frammenti conservati (1-19) — il controcanto', 4)
+    yy = sect(H - 52*mm, 'i frammenti conservati e non incrinati (1-19) — il controcanto', 4)
     c.setFillColor(RED); c.setFont(F['sc'], 11)
     c.drawString(16*mm, yy, 'le 4 domande — breve e feroce, poi si scende')
     doms = ['1. QUANDO? (l’ora del picco delle maree — serve più di una conferma)',
@@ -465,6 +519,9 @@ def indagine():
         c.drawString(16*mm, yd, d)
         c.setStrokeColor(SEPIA)
         c.line(16*mm, yd - 7*mm, W - 16*mm, yd - 7*mm)
+    # I due conti che l'arbitro teneva a mente: gli Ep. 18-20 erano gli
+    # unici a non stamparli, e la loro Soluzione ne chiede il conto.
+    contatori_indagine(c, W)
     c.showPage()
     c.save()
     pad_to_even_pages(out_path)
@@ -493,7 +550,8 @@ def spedizione():
                   '<b>camera</b> (T6). Non c’è un boss da abbattere: la <b>camera è il boss</b>, con '
                   'fasi ambientali legate al Canto (il RISVEGLIO del Dormiente). Si vince '
                   'completando il <b>CONTROCANTO</b> (righe dai Frammenti) prima del risveglio. '
-                  '<b>FUORI SCALA: si possono perdere eroi.</b> NIENTE Bivio: è la fine.', BODY)])
+                  '<b>FUORI SCALA: quaggiù un eroe che cade può restare a terra fino all’ultima '
+                  'riga.</b> NIENTE Bivio: è la fine.', BODY)])
     c.showPage()
     parchment_art(c, W, H)
     rule_border(c, W, H)
@@ -511,14 +569,16 @@ def spedizione():
                   'dalla Soluzione). Nella camera (T6), ogni round «cantate» righe: il ritmo dipende '
                   'dai <b>Frammenti del Controcanto</b> conservati (più ne avete, più righe/round) e '
                   'dalla <b>Mappa Acustica</b>. Il <b>coro</b> rallenta (−1 riga/round per impiegato '
-                  'in campo); spezzarlo (a metà Ferite fugge) libera il canto. Controcanto completo '
-                  'PRIMA del risveglio = <b>VITTORIA</b>.', BODY),
-        Paragraph('• <b>M. E LA CANDIDATA.</b> M. (umano, Att 2/Fer 5/Danno 1) non è l’obiettivo: '
-                  'finché è in piedi con la sua voce, accelera il risveglio. Neutralizzarlo, o aver '
-                  '<b>salvato la Candidata</b> (fase del coro, T4-T5) togliendogli la voce che crede, '
-                  'rallenta il risveglio. Ma la vittoria resta il <b>controcanto</b>, non la sua '
-                  'morte. <b>Esche:</b> la Chiave del Coro e il Grimorio del Rito cantano il '
-                  'risveglio — aiutano M.', BODY)])
+                  'in campo); spezzarlo (a metà Ferite fugge) libera il canto. <b>Comunque vada, '
+                  'una riga per round la cantate sempre:</b> il ritmo non scende sotto 1. '
+                  'Controcanto completo PRIMA del risveglio = <b>VITTORIA</b>.', BODY),
+        Paragraph('• <b>M. E LA CANDIDATA (la signora Vetri).</b> M. (umano, Att 2/Fer 5/Danno 1) '
+                  'non è l’obiettivo. Il rito accelera il risveglio finché <b>ha una voce</b>: M. in '
+                  'piedi con la sua, <b>oppure</b> un impiegato del coro che canta al posto suo. '
+                  'Neutralizzarlo, o aver <b>salvato la Candidata</b> (fase del coro, T4-T5), gli '
+                  'toglie la voce — ma sopra un uomo caduto il coro comprato legge lo spartito lo '
+                  'stesso: <b>va spezzato il coro, non l’uomo.</b> <b>Esche:</b> la Chiave del Coro '
+                  'e il Grimorio del Rito cantano il risveglio — aiutano M.', BODY)])
     c.showPage()
     import gen_narrator as N
     from deluxe_style import ARTWORKS_DIR
@@ -544,8 +604,9 @@ def spedizione():
                   'Att 2, Fer 5, Danno 1 — non è l’obiettivo, ma accelera il risveglio) e <b>la '
                   'Camera del Dormiente</b> (il boss finale: NON si colpisce, fasi ambientali legate '
                   'al Canto). Vittoria: completare il controcanto prima del risveglio. Non c’è una '
-                  'regola delle taglie sul boss: la camera non ha Ferite. FUORI SCALA: il finale può '
-                  'perdere eroi, e può finire male (il risveglio).', BODY)])
+                  'regola delle taglie sul boss: la camera non ha Ferite. FUORI SCALA: gli eroi '
+                  'cadono e rialzarli può non essere possibile, e la notte può finire male (il '
+                  'risveglio).', BODY)])
     c.showPage()
     token_sheet(c, token_groups_20())
     registro_ferite(c)
@@ -597,22 +658,35 @@ def soluzione():
             pw, ph = p.wrapOn(c, W - 32*mm, 200*mm)
             p.drawOn(c, 16*mm, y - ph)
             y -= ph + 6*mm
+        # stessa guardia di frame_flow: qui si disegna a mano e il testo che
+        # sfora il piede di pagina uscirebbe dal foglio senza un errore.
+        if y < 12*mm:
+            import sys as _sys
+            print('!! FRAME TROPPO PICCOLO in gen_ep20.py: la pagina Soluzione «%s» sfora il '
+                  'piede di %.1fmm e il testo in fondo NON verra stampato' % (titolo, 12 - y/mm),
+                  file=_sys.stderr)
         c.showPage()
 
     pagina('soluzione — non aprire (il finale)', [
         '<b>Stampate questo fascicolo senza leggerlo e sigillatelo in una busta.</b> Apritelo '
         'solo dopo aver risposto per iscritto alle 4 Domande.',
 
-        '<b>APERTURA — il Bivio dell’Episodio 19</b> (applicare PRIMA della lettera): se avete '
-        'scelto <b>CONVINCERE L’ISPETTORE CON LE PROVE</b> — i gendarmi sigillano le uscite della '
+        '<b>APERTURA — l’Episodio 19: prima l’esito, poi il Bivio</b> (applicare PRIMA della '
+        'lettera). <b>Il Bivio vale solo per chi ha CONVINTO l’Ispettore Vidal</b> (vittoria '
+        'piena). La rete è sua: nessuno può sigillarla in una busta se lui non ve l’ha promessa.',
+        '<b>Se avete convinto Vidal</b> e avete scelto <b>CONVINCERE L’ISPETTORE CON LE PROVE</b> — '
+        'i gendarmi sigillano le uscite della '
         'cripta, e alle spalle avete una ritirata: vale la regola normale, <b>un eroe a terra può '
         'essere rianimato</b> da un compagno adiacente. Ma le prove sono passate per troppe mani e '
         'l’ora si è spostata: <b>il Canto (risveglio) sale ogni 5° round invece che ogni 6°</b> '
-        '(5°, 10°, 15°…). Se avete scelto <b>ENTRARE DA SOLI</b> — nessuno sa dove siete, e la '
+        '(5°, 10°, 15°…). Chi ha convinto Vidal e ha sigillato la busta senza decidere ha lasciato '
+        'che l’Ispettore si muovesse da sé: questo ramo.',
+        '<b>Se avete scelto ENTRARE DA SOLI, o se l’Ispettore l’avete solo fermato senza '
+        'convincerlo</b> (vittoria parziale dell’Episodio 19) — nessuno sa dove siete, e la '
         'prima ondata vi cerca altrove: <b>nel primo giro del mazzo Minaccia pescate 1 carta in '
         'meno</b>. Ma non c’è nessuno fuori ad aspettarvi: <b>Rianimare non è disponibile</b> — un '
-        'eroe che cade resta a terra fino alla fine. Chi ha sigillato la busta senza decidere ha '
-        'lasciato che l’Ispettore si muovesse da sé: primo ramo.',
+        'eroe che cade resta a terra fino alla fine. Chi non ha convinto Vidal scende da solo '
+        'qualunque cosa dica la busta: <b>ignoratela</b>, e non leggete l’altro ramo.',
 
         '<b>CODA — il Bivio dell’Episodio 18</b> (retro del Frammento n. 18): se avete <b>RESO '
         'PUBBLICA LA PROVA SUBITO</b> — il vantaggio l’avete già incassato nell’Episodio 19 (la '
@@ -625,24 +699,32 @@ def soluzione():
         '<b>CODA — il Bivio dell’Episodio 11</b> (retro del Frammento n. 11): quel Bivio nominava '
         'proprio questa notte. Se avete scelto <b>INFILTRARE LA SQUADRA</b> — il vostro uomo dentro '
         'vi ha fruttato due episodi di vantaggio, ma la mappatura della gola si è completata lo '
-        'stesso, e il rituale non comincia da fermo: <b>il Canto (risveglio) parte da 1</b>. Se '
+        'stesso, e il rituale non comincia da fermo: <b>+1 segnalino Canto di partenza</b>, che si '
+        '<b>somma</b> a quello della Domanda 1 sbagliata — chi ha infiltrato la squadra <i>e</i> ha '
+        'sbagliato l’ora scende con il <b>Canto già a 2</b>. Due è il massimo: non c’è una terza '
+        'leva di partenza. Se '
         'avete scelto <b>PUBBLICARE LO SCANDALO</b> — quel prezzo l’avete pagato nell’Atto III: '
         '<b>qui non applicate nulla</b>.',
 
         '<b>Per chi arbitra: quanto pesano.</b> Un solo segnalino Canto di partenza è il colpo più '
-        'duro dei tre — la corsa del Controcanto è lunga e il risveglio non aspetta. Non '
-        'compensatelo di vostra iniziativa: il contrappeso è già nel gioco, ed è il <b>ritmo del '
+        'duro dei tre — la corsa del Controcanto è lunga e il risveglio non aspetta; due segnalini '
+        'sono la partita più dura che questo finale sappia dare, e restano giocabili. Non '
+        'compensateli di vostra iniziativa: il contrappeso è già nel gioco, ed è il <b>ritmo del '
         'canto</b>. Un gruppo che canta 2 righe per round e uno che ne canta 4 non giocano la '
         'stessa partita: il secondo si riprende il segnalino perduto e avanza. Quel ritmo lo '
-        'decidono i <b>Frammenti conservati</b> (1 riga + 1 ogni 6) e la Mappa Acustica, cioè '
+        'decidono i <b>Frammenti conservati e non incrinati</b> (1 riga + 1 ogni 6; la Miglioria '
+        '«Voce che regge» vale un Frammento in più) e la Mappa Acustica, cioè '
         'venti episodi di scelte, non questa notte. Un gruppo che arriva qui con un Bivio duro e '
         'pochi Frammenti deve perdere: è il conto della campagna che si chiude.',
         '<b>Il caso.</b> Le maree di sizigia sono tornate. Una notte sola: l’ora, la via delle tre '
         'acque, la voce che M. cerca, il controcanto. Poi la discesa nella gola della città.',
         '<b>La verità.</b> M. ha un coro comprato (canta senza fede); gli manca una voce che creda '
         'per il Quarto Movimento, e la cerca. Il Dormiente è inquieto: va rimesso a dormire col '
-        'CONTROCANTO del Fascicolo del 1741, cantato coi Frammenti (metà erano il canto del sonno, '
-        'metà smascheravano M.). Non si vince uccidendo: cantando giusto prima del risveglio.',
+        'CONTROCANTO del Fascicolo del 1741, cantato coi Frammenti (nove erano il canto del sonno, '
+        'gli altri undici smascheravano M.). La voce che gli manca è <b>la signora Vetri</b>, la '
+        'prima donna del Comunale — la solista che inseguono dall’inverno degli ammutoliti e '
+        'non hanno mai preso. Non si vince '
+        'uccidendo: cantando giusto prima del risveglio.',
     ])
     pagina('le 4 domande — risposte e vantaggi', [
         '<b>1. QUANDO?</b> All’ora del picco delle maree di sizigia (gli ossari L2 + il calendario '
@@ -652,18 +734,42 @@ def soluzione():
         '<b>2. DOVE?</b> La via delle tre acque, dalla Mappa Acustica (la Cattedrale L1 + la Taverna '
         'L3 + l’Archivio L4). <i>Esatta:</i> la Mappa guida la discesa (niente round persi nel buio; '
         'la città può suonare a favore). <i>Sbagliata:</i> la gola vi confonde (round persi).',
-        '<b>3. CHI è l’ultima voce?</b> La candidata che il Coro insegue dall’Ep. 3 (i vecchi del '
-        'Coro L5 + l’organo di ossa L6: serve più di una conferma). <i>Esatta:</i> sapete chi '
-        'cercare nella fase del coro — salvatela e togliete a M. la sua voce (il risveglio '
-        'rallenta). <i>Sbagliata:</i> M. la costringe, il risveglio accelera.',
+        '<b>3. CHI è l’ultima voce?</b> <b>La signora Vetri</b>, la prima donna del Teatro '
+        'Comunale: la solista che il Coro insegue dall’Ep. 3 — la misurarono quell’inverno e la '
+        'mancarono — e che ha mancato di nuovo alla gala dell’Ep. 4 (i vecchi '
+        'del Coro L5 + l’organo di ossa L6: serve più di una conferma). Non crede per devozione: '
+        'crede perché è l’unica persona viva che ha sentito la conchiglia del teatro risponderle — '
+        'per questo M. non può comprarla, e la tiene con la paura. <b>In che stato arrivi</b> '
+        'dipende da due Bivi, non dalla spedizione: le canne-voce (Ep. 3) e la conchiglia (Ep. 4). '
+        '<b>Voci restituite</b> (Ep. 3) = <b>intera</b>, qualunque cosa faceste della conchiglia. '
+        '<b>Canne sigillate + conchiglia sigillata e conservata</b> (Ep. 4) = <b>a metà</b>. '
+        '<b>Canne sigillate + conchiglia distrutta</b> = <b>muta di quel ricordo</b>. Lo stato non '
+        'cambia le regole della fase del coro: cambia il suo commiato nell’epilogo. '
+        '<i>Esatta:</i> sapete chi cercare nella fase del coro — salvatela e togliete '
+        'a M. la sua voce (il risveglio rallenta). <i>Sbagliata:</i> M. la costringe, il risveglio '
+        'accelera. <i>Accettate come esatta:</i> «la Vetri», «la prima donna del Comunale», «la '
+        'solista della gala», «la solista dell’inverno».',
         '<b>4. COME si fa dormire il Dormiente senza sogni?</b> Il CONTROCANTO del Fascicolo del '
-        '1741, cantato coi Frammenti (metà erano il canto del sonno). <i>La deduzione finale:</i> '
-        'contate i Frammenti conservati (1-19) — più ne avete, più righe di controcanto cantate per '
-        'round. Aiuti: la Mappa Acustica, la Candidata Salvata. <i>Esche:</i> la Chiave del Coro e '
+        '1741, cantato coi Frammenti: <b>nove</b> sono il canto del sonno (Frammenti <b>1, 2, 3, '
+        '4, 5, 6, 7, 11, 20</b>), gli altri <b>undici</b> erano la firma di M. (<b>8, 9, 10, 12, '
+        '13, 14, 15, 16, 17, 18, 19</b>). Il <b>Frammento n. 0</b> del Preludio — il lembo con la '
+        'mezza onda — non è né canto né firma: è il giuramento della Società, e non entra in '
+        'nessuno dei due conti né nel ritmo. <b>Non offrite al tavolo una chiave per distinguerli '
+        'a orecchio:</b> non ne esiste una che tenga (mezza dozzina di righe parlano di lui col '
+        'bronzo, o della città per accusare lui). L’elenco qui sopra è la risposta, e il Referto '
+        '«Le due metà dei Frammenti» (L4) lo stampa già per esteso. <i>La deduzione finale:</i> '
+        'contate i Frammenti conservati e <b>non incrinati</b> (1-19) — tutti quelli che contano, non solo i nove: le righe della '
+        'firma sono ciò che vi ha insegnato a riconoscere le altre. Più ne avete, più righe di '
+        'controcanto cantate per '
+        'round. Aiuti: la Mappa Acustica, la Candidata Salvata (la signora Vetri). <i>Esche:</i> la Chiave del Coro e '
         'il Grimorio del Rito (cantano il RISVEGLIO — aiutano M.).',
         '<b>IL CONTROCANTO E I FRAMMENTI:</b> servono <b>10 righe</b> di controcanto per vincere. Ogni '
-        'round nella camera (T6) cantate <b>1 riga + 1 ogni 6 Frammenti conservati</b> (Mappa '
-        'Acustica: +1). Ogni impiegato del coro in campo: −1 riga/round. Il Canto (risveglio) sale '
+        'round nella camera (T6) cantate <b>1 riga + 1 ogni 6 Frammenti conservati e non '
+        'incrinati</b> (Mappa '
+        'Acustica: +1; la Miglioria <b>«Voce che regge»</b>, se qualcuno l’ha spuntata, conta come '
+        'un Frammento in più — una sola per gruppo). Ogni impiegato del coro in campo: −1 '
+        'riga/round, <b>ma il ritmo non scende mai sotto 1: per quanti siano, una riga la cantate '
+        'sempre.</b> Il Canto (risveglio) sale '
         'alla fine di <b>ogni 6° round</b> (6°, 12°, 18°…) — è una spedizione lunga, non ogni 4° — '
         'più ogni crescendo pescato; alla <b>soglia-risveglio = Canto 8</b> il Dormiente si desta.',
     ])
@@ -676,13 +782,19 @@ def soluzione():
         'salire coi crescendo.',
         '<b>Fase 2 — il coro (T4-T5).</b> Gli impiegati (Sgherri) sbarrano la camera e rallentano il '
         'controcanto (−1 riga/round ciascuno), ma si ROMPONO a metà Ferite (fuggono: la crepa del '
-        'Frammento 19). Qui salvate la Candidata (se avete la D3): toglie a M. la voce che crede, il '
+        'Frammento 19). Qui salvate la Candidata, la signora Vetri (se avete la D3): toglie a M. '
+        'la voce che crede, il '
         'risveglio rallenta.',
         '<b>Fase 3 — la camera (T6, il boss).</b> Non si colpisce: si canta. Ogni round completate '
-        'righe di controcanto (ritmo = Frammenti + Mappa − coro residuo). Le fasi ambientali della '
-        'camera fanno danno inevitabile a soglie di Canto (Canto 4: 1 danno a un eroe; Canto 6: 1 '
-        'danno a due; Canto 7: prova NERVI a tutti o 1 danno). M. (umano) in piedi con la voce '
-        'accelera il risveglio (+1 Canto/round); a terra, o senza la Candidata, no.',
+        'righe di controcanto (ritmo = Frammenti + Mappa − coro residuo, minimo 1). Le fasi '
+        'ambientali della camera fanno danno inevitabile a soglie di Canto (Canto 4: 1 danno a un '
+        'eroe; Canto 6: 1 danno a due; Canto 7: prova NERVI a tutti o 1 danno). <b>Il rito accelera '
+        'il risveglio (+1 Canto/round) finché ha una voce che lo canti:</b> M. in piedi con la sua '
+        '(cioè senza la Candidata salvata), <b>oppure</b> — anche con M. a terra o senza voce — '
+        'almeno un impiegato del coro ancora in campo, che tiene lo spartito sopra l’uomo caduto. '
+        'Abbattere M. non chiude la notte: spezzare il coro <i>e</i> togliergli la voce sì. È la '
+        'ragione per cui «non abbassate la lama» non è solo una frase: la lama, da sola, non ferma '
+        'l’orologio.',
         '<b>Vittoria e sconfitta.</b> Controcanto (10 righe) completo PRIMA del risveglio (Canto 8) = '
         '<b>VITTORIA</b> (il Dormiente torna al sonno senza sogni). Risveglio (Canto 8) prima = '
         '<b>SCONFITTA</b> (il dio si desta — vedi epilogo). FUORI SCALA: le fasi ambientali possono '
@@ -703,10 +815,45 @@ def soluzione():
         'posto, le campane suonano a ore sbagliate, la gente ricorda cose mai vissute. Chi resta '
         'della Società non ha perso: ha rimandato. Ci vorrà un’altra generazione, e un altro '
         'controcanto.',
-        '<b>FRAMMENTO DI CAMPAGNA N. 20:</b> l’<i>ultima riga del controcanto</i>, che si compone '
-        'solo con tutti gli altri diciannove — metà erano il canto del sonno (M. li voleva), metà la '
-        'sua firma (non l’ha mai saputo). <b>Migliorie finali</b> e <b>commiato dei PNG</b> secondo '
-        'i Bivi. <b>NIENTE Bivio: è la fine.</b> L’ultima riga del Taccuino resta <b>bianca</b>.',
+        '<b>IL COMMIATO — dopo la vittoria, leggere solo le righe che vi spettano.</b> «All’alba, '
+        'sul molo, non siete in molti e nessuno ha voglia di parlare per primo.»<br/>'
+        '<b>La signora Vetri</b> (se l’avete sottratta a M. nella fase del coro): «La portano su '
+        'avvolta in un cappotto d’uomo, e la prima cosa che chiede è dell’acqua. — <i>Intera:</i> '
+        'in inverno riapre il Comunale, e canta l’aria del terzo atto a teatro pieno; dicono che '
+        'sia la sera più bella della sua carriera. — <i>A metà:</i> non torna in scena, ma insegna, '
+        'e le sue allieve prendono il fiato dove lo prendeva lei. — <i>Muta di quel ricordo:</i> '
+        'canta ancora, e non saprà mai perché una conchiglia le rispose una volta: la lasciate '
+        'così, ed è una gentilezza.» Se non l’avete salvata: «di lei restano lo scialle piegato '
+        'sulla soglia e una fila di sedie vuote. Il Comunale non riapre.»<br/>'
+        '<b>L’Ispettore Vidal</b> — <i>se lo convinceste:</i> «vi restituisce le taglie strappate '
+        'una per una, in silenzio, e chiede di essere trasferito: non vuole più comandare uomini '
+        'che obbediscono e basta.» <i>Se lo fermaste soltanto:</i> «non è venuto. Ha mandato un '
+        'biglietto di tre parole — <i>“Non vi arresto”</i> — e nient’altro, mai più.»<br/>'
+        '<b>Il decano Ferrante</b> «rimette la matrice delle doppie letture nell’archivio della '
+        'Società, e sul registro scrive una riga sola: <i>caso chiuso, e la città non lo saprà</i>. '
+        'Poi torna a dormire per due giorni interi.» <b>Fossa</b> «riapre il Banco alle sette in '
+        'punto, come ogni mattina, e non fa domande: ma quel giorno non registra nessun pegno.» '
+        '<b>Ranuzzi</b> «non scrive l’articolo della sua vita, e se ne vanta.»<br/>'
+        '<b>Il professor Braga</b> — <i>se dichiaraste in pubblico il dubbio sul dossier:</i> «viene '
+        'al molo col cappotto buono, vi stringe la mano troppo a lungo e non dice niente di sensato; '
+        'in primavera riapre la villa-museo, e all’ingresso non fa pagare nessuno.» <i>Se lo '
+        'avallaste:</i> «non c’è nessuno da salutare. È morto in cella nel sonno, senza processo, e '
+        'la ceralacca sulle imposte della villa non l’ha ancora tolta nessuno: quel conto resta '
+        'vostro.»<br/>'
+        '<b>Gli eroi rimasti a terra nella camera</b> (se ce n’è qualcuno): «li tirano fuori '
+        'dall’acqua nera per ultimi, e respirano. Non hanno sentito l’ultima riga: se la faranno '
+        'raccontare per anni, e non sarà la stessa cosa. Rimetteteli in piedi all’alba, i vostri '
+        'compagni: la loro parte di gloria è intera, e la tosse durerà loro l’inverno.»<br/>'
+        'Se avete <b>reso pubblica la prova</b>: «la città li conosce tutti per nome, adesso, e '
+        'nessuno di loro lo trova comodo.» Se l’avete <b>tenuta</b>: «nessuno saprà mai chi siete '
+        'stati, e vi tocca il congedo più difficile: quello senza applausi.»',
+        '<b>FRAMMENTO DI CAMPAGNA N. 20:</b> l’<i>ultima riga del canto del sonno</i>, la nona — '
+        '<i>«L’ultima riga non si legge: si compone. E si compone solo con gli altri diciannove '
+        'davanti. Poi la città dorme.»</i> Nove erano il canto del sonno con '
+        'lei (Frammenti 1-7 e 11: M. li voleva), undici la sua firma (8, 9, 10, 12-19: non l’ha mai '
+        'saputo). <b>Migliorie finali.</b> Il <b>commiato dei PNG</b> è quello qui sopra: leggete '
+        'solo le righe che i vostri Bivi vi hanno guadagnato. '
+        '<b>NIENTE Bivio: è la fine.</b> L’ultima riga del Taccuino resta <b>bianca</b>.',
         '<b>IL FINALE APERTO — leggere solo dopo la vittoria, all’alba.</b> «Mentre le campane '
         'suonano e la città rinasce, sul banco della Società qualcuno ha lasciato un biglietto: '
         'carta di pregio col giglio spezzato, una sola riga in una grafia che <i>non è di M.</i> — '
@@ -962,14 +1109,21 @@ TESSERE_DESC_20 = {
 }
 
 ESAMI_CARBONE_20 = {
-    'I FRAMMENTI DEL CONTROCANTO': '«Messi in fila tutti e venti, i Frammenti si dividono in due: '
-                'metà sono righe di un canto che spegne, metà erano la firma di chi vi ha ingannati. '
-                'M. voleva le prime e vi ha usati per raccoglierle; non ha mai saputo che '
-                'raccoglievate anche le seconde. Ora cantate le prime, e ricordate le seconde.»',
+    'I FRAMMENTI DEL CONTROCANTO': '«Messi in fila tutti e venti, i Frammenti si dividono in due '
+                'parti disuguali: nove sono righe di un canto che spegne, gli altri undici erano la '
+                'firma di chi vi ha ingannati. Non si distinguono a orecchio — di lui si parla anche '
+                'col bronzo, e della città anche per accusarlo: il Fascicolo li conta invece di '
+                'descriverli, e i nove sono i Frammenti 1, 2, 3, 4, 5, 6, 7 e 11, più il 20 che si '
+                'compone davanti a tutti gli altri. Il lembo con la mezza onda non è dell’uno né '
+                'dell’altro conto: quello è il giuramento. '
+                'M. voleva i nove e vi ha usati per raccoglierli; non ha mai saputo che '
+                'raccoglievate anche gli undici. Ora cantate i nove, e ricordate gli undici.»',
     'LA VOCE CHE CREDE': '«Il Quarto Movimento non lo canta un coro comprato: lo canta un cuore che '
-                'crede. È l’unica cosa che il denaro di M. non ha potuto comprare, e la sua unica '
-                'speranza è costringerla. Salvatela, e M. avrà un coro senza anima: un rumore, non '
-                'un risveglio.»',
+                'crede. È la signora Vetri, la prima donna del Comunale — e non crede per devozione: '
+                'crede perché è l’unica persona viva che ha sentito la conchiglia del teatro '
+                'risponderle. È l’unica cosa che il denaro di M. non ha potuto comprare, e la sua '
+                'unica speranza è costringerla con la paura. Salvatela, e M. avrà un coro senza '
+                'anima: un rumore, non un risveglio.»',
     'LA GOLA DELLA CITTÀ': '«Oltre il punto dove fermaste Ferri, la pietra dà sull’acqua e l’acqua '
                 'dà sul buio, e nel buio qualcosa di grande respira piano. Non è un mostro da '
                 'colpire: è un dio che sogna. Non abbassate la lama. Alzate la voce.»',

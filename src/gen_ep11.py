@@ -51,8 +51,21 @@ SMB = st('smb', fontName=F['sc'], fontSize=8.5, textColor=TEAL, spaceBefore=4, s
 
 
 def frame_flow(c, x, y, w, h, flow):
+    # addFromList CONSUMA la lista e lascia dentro cio' che non e' entrato:
+    # un Paragraph piu' alto del frame sparisce dalla pagina SENZA errori
+    # (e' successo alla lettera del Preludio, vista solo aprendo il PDF).
+    # Qui non si stampa a vuoto: si urla.
     Frame(x, y, w, h, leftPadding=0, rightPadding=0, topPadding=0,
           bottomPadding=0, showBoundary=0).addFromList(flow, c)
+    if flow:
+        import os as _os, sys as _sys
+        _testo = ' '.join(str(getattr(f, 'text', f))[:90] for f in flow[:2])
+        _msg = ('FRAME TROPPO PICCOLO in %s: %d elementi non entrano in %.1fx%.1fmm '
+                'e NON verranno stampati -> %s'
+                % (_os.path.basename(__file__), len(flow), w / 2.83465, h / 2.83465, _testo))
+        print('!! ' + _msg, file=_sys.stderr)
+        if _os.environ.get('ROCCAMORA_FRAME_STRICT'):
+            raise RuntimeError(_msg)
 
 
 # ================================================================= DATI
@@ -70,7 +83,7 @@ LETTERA_11 = (
     "ordine</b> ciò che ha scritto, e ditemi verso cosa puntavano quelle misure. E badate bene: "
     "il caposquadra di quegli uomini sa a chi manda i rilievi, e chi sa parlare non lo si "
     "prende morto. Avete <b>6 ore</b>, dalle 18:00 alle 24:00; poi cala il buio sui tetti, e "
-    "col buio non si sale.<br/>"
+    "lassù, al buio, lui è a casa sua e voi no.<br/>"
     "— M., presidente della Società»<br/><br/>"
     "<i>Luoghi disponibili dall’inizio: la Torre Civica, la pensione dei topografi, l’Archivio "
     "Civico e la Camera dei Pesi. Gli altri andranno sbloccati.</i>")
@@ -116,7 +129,9 @@ LUOGHI_11 = [
              'Gli altri topografi, a bassa voce quando Speranza esce: «lavoriamo per uno studio '
              'di Milano, la squadra di Milano ci chiamano. Paga bene, paga prima. Misuriamo e '
              'basta, non chiediamo per chi. Ratti invece chiedeva. E ieri aveva litigato forte '
-             'col caposquadra.»',
+             'col caposquadra.» Sopra il lavabo, l’elenco di ciò che hanno già preso: campane, '
+             'organi, fontane, tutti spuntati a matita. L’ultima riga non è spuntata, e non è '
+             'di bronzo: «la voce della signora Vetri, prima donna del Comunale».',
              'In un cassetto della camera di Ratti, una minuta mai spedita, di suo pugno: «Ho '
              'capito dove va tutto. Non è uno studio. È una PENNA. So quanto vale, e a chi '
              'venderlo.» Le misure che non tornano tornano eccome, se sai che cosa cercavano: '
@@ -654,7 +669,7 @@ def soluzione():
         'tace per sempre — segnatelo sul Taccuino, quelle voci non sono più una fonte per il '
         'resto della campagna. Se avete <b>USATO LA CASA COME ORECCHIO</b> — fra le voci vecchie '
         'dei muri ce n’era una recente, un uomo che dettava misure («dalla fontana al portico, '
-        'quaranta passi»): è un pezzo della sequenza di Ratti, e vale un incrocio in più alla '
+        'quaranta passi»): è un pezzo della sequenza di Ratti, e vale una conferma in più alla '
         'Domanda 3. Ma il processo a Corrado è saltato per vizio di prova e la Gendarmeria vi ha '
         'chiuso una porta: senza nessuno in divisa che vi confronti timbri e sigilli veri, '
         'rimuovete l’Osservazione «Il falso troppo perfetto» (Luogo 9) dal mazzo Approfondimenti '
@@ -670,9 +685,10 @@ def soluzione():
         'tornano.',
         '<b>La verità.</b> È la mappatura acustica di Roccamora, eseguita da topografi veri '
         'ingaggiati da uno studio-scatola di Milano che non esiste. Le misure convergono in un '
-        'punto sotto la Cattedrale che le mappe non riconoscono: è il puntamento per il Terzo '
-        'Movimento. Ratti aveva capito e voleva vendersi il rilievo; il caposquadra Ivo '
-        'Speranza, per non perdere la commessa, lo ha spinto dalla cella. Sventare = prendere '
+        'punto sotto la Cattedrale che le mappe non riconoscono: è il puntamento per un '
+        'Movimento che deve ancora suonare. Ratti aveva capito e voleva vendersi il rilievo; '
+        'il caposquadra Ivo Speranza, per non perdere la commessa, lo ha spinto dalla cella. '
+        'Sventare = prendere '
         'Speranza VIVO, l’unico che sa a chi vanno i rilievi.',
     ])
     pagina('le 4 domande — risposte e vantaggi', [
@@ -723,7 +739,7 @@ def soluzione():
         'al +1 Canto. Il Taccuino Ordinato dà +1 a queste prove; alla guglia (T6) il vento è a '
         '+1 di base.',
         '<b>Le trappole (T2, T4).</b> Una tegola e una grondaia che cedono: senza la Corda del '
-        'Campanaro, prova (VIGORE/NERVI Media) o 1 danno e un round perso a risalire; con la '
+        'Campanaro, prova VIGORE (Media) o 1 danno e un round perso a risalire; con la '
         'Corda, siete assicurati e non c’è prova. La Lanterna Cieca annulla il −1 alle prove di '
         'vento sulle tessere esposte al buio.',
         '<b>Il Caposquadra.</b> Boss agile: Att +2, Dif 8, Fer 5, Mov 4, Danno 2. Conosce i '
@@ -751,8 +767,9 @@ def soluzione():
         'altro da vendere. “Non è uno studio,” dice, “lo studio è vuoto. È una penna. Ho visto '
         'la firma sulla commessa una volta sola.” E vi mostra, dall’ordine che avete rimesso, il '
         'punto verso cui puntava tutto: sotto la Cattedrale, dove sulle mappe non c’è niente.»',
-        '<b>FRAMMENTO DI CAMPAGNA N. 11:</b> <i>«Qualcuno sta misurando la gola della città. Non '
-        'si misura ciò che non si vuole far suonare.»</i> Conservatelo.',
+        '<b>FRAMMENTO DI CAMPAGNA N. 11:</b> <i>«Qualcuno misura la gola della città: la misura '
+        'come si misura una gola. E ciò che non si vuole far suonare non si misura.»</i> '
+        'Conservatelo.',
         '<b>IL BIVIO — decidete insieme, poi sigillate.</b><br/>'
         '<b>Pubblicare lo scandalo.</b> I lavori si fermano: l’Episodio 12 parte con <b>1 '
         'crescendo in meno</b> nel mazzo. Ma le scatole vuote bruciano tutto — <b>un filo in '

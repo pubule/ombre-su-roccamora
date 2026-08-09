@@ -7,7 +7,7 @@ riassopisce; C.B. resta un'ombra. Chi si ferma qui ha una campagna completa.
 
 Vincoli (bibbia + bozza): seme C.B./M. periferico (l'uomo coi guanti che
 prende appunti — il primo avvistamento fisico); lettera di M. a doppia
-lettura; **fuori scala dichiarata** (il finale può perdere eroi); spedizione
+lettura; **fuori scala dichiarata** (gli eroi cadono, e quaggiù rialzarli può non essere possibile); spedizione
 a **8 tessere** con obiettivo a fasi; deduzione d'atto coi Frammenti 1-5 e
 gli incroci dei Bivi. Bivio Ep. 5 da applicare all'apertura (entrambi i rami,
 vedi §8).

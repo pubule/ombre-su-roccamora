@@ -43,8 +43,21 @@ SMB = st('smb', fontName=F['sc'], fontSize=8.5, textColor=TEAL, spaceBefore=4, s
 
 
 def frame_flow(c, x, y, w, h, flow):
+    # addFromList CONSUMA la lista e lascia dentro cio' che non e' entrato:
+    # un Paragraph piu' alto del frame sparisce dalla pagina SENZA errori
+    # (e' successo alla lettera del Preludio, vista solo aprendo il PDF).
+    # Qui non si stampa a vuoto: si urla.
     Frame(x, y, w, h, leftPadding=0, rightPadding=0, topPadding=0,
           bottomPadding=0, showBoundary=0).addFromList(flow, c)
+    if flow:
+        import os as _os, sys as _sys
+        _testo = ' '.join(str(getattr(f, 'text', f))[:90] for f in flow[:2])
+        _msg = ('FRAME TROPPO PICCOLO in %s: %d elementi non entrano in %.1fx%.1fmm '
+                'e NON verranno stampati -> %s'
+                % (_os.path.basename(__file__), len(flow), w / 2.83465, h / 2.83465, _testo))
+        print('!! ' + _msg, file=_sys.stderr)
+        if _os.environ.get('ROCCAMORA_FRAME_STRICT'):
+            raise RuntimeError(_msg)
 
 
 # ================================================================= DATI
@@ -133,8 +146,8 @@ LUOGHI_3 = [
              'livoroso, e con le mani in gola ai ragazzini da vent’anni, si fa per dire.» Ci '
              'crede davvero — ed è il suo mestiere, far credere.',
              'L’archivio della Gazzetta, a pagamento: un trafiletto di tre mesi fa deride una '
-             '«commissione curiosa» al lattoniere Bo — dodici canne d’organo per un organo che '
-             'nessuna chiesa del circondario ha mai ordinato.',
+             '«commissione curiosa» al lattoniere Zanchetta — dodici canne d’organo per un '
+             'organo che nessuna chiesa del circondario ha mai ordinato.',
              'Il tipografo, gratis: gli ammutoliti non hanno niente in comune — età, mestiere, '
              'rione. Niente, tranne una cosa che il giornale non ha scritto: «cantavano tutti. '
              'La lavandaia ai mastelli, il garzone che fischiava, la vedova del rosario. Il '
@@ -147,7 +160,7 @@ LUOGHI_3 = [
                         'poi il mostro col rasoio vende di più di un uomo in ginocchio che '
                         'ascolta un buco.»'),
          ]),
-    dict(n=4, nome='LA CASA DI TOBIA', voce_mappa='Corte dei Pozzaioli',
+    dict(n=4, nome='LA CASA DI TOBIA — CORTE DEI POZZAIOLI', voce_mappa='Corte dei Pozzaioli',
          req='Disponibile dall’inizio', art='Casa di Tobia.png',
          sblocca_parola=('ACQUA MORTA', 'REQUIEM PER PIERO'), chiude=None,
          indizi=[
@@ -192,22 +205,22 @@ LUOGHI_3 = [
                         'andare altrove. Chi parla in quella gola di pietra, parla in tutte le '
                         'acque di Roccamora.'),
          ]),
-    dict(n=6, nome='LA BOTTEGA DEL LATTONIERE BO', voce_mappa='Calle degli Stagnini',
-         req='Bo salda e non ascolta: mezzo Borgo gli deve grondaie. Alza la testa solo per i '
-             'clienti che sanno di che lavoro si parla — e voi, per ora, non lo sapete.',
+    dict(n=6, nome='LA BOTTEGA DEL LATTONIERE ZANCHETTA', voce_mappa='Calle degli Stagnini',
+         req='Zanchetta salda e non ascolta: mezzo Borgo gli deve grondaie. Alza la testa solo '
+             'per i clienti che sanno di che lavoro si parla — e voi, per ora, non lo sapete.',
          chiave=('parola', 'CANNE D’ORGANO'), art='Lattoniere Bo.png', chiude=None,
          indizi=[
              'La commissione delle canne, appesa alla lesina come una ricevuta qualsiasi: '
              'carta di pregio, mano elegante, una sigla in calce — <b>«C.B.»</b>. Ritiro a '
              'mezzo garzone, pagamento anticipato, in contanti.',
              'Il conto di bottega: <b>dodici</b> canne di piombo consegnate, «da organo, sigillo '
-             'a cera». Bo non se n’è mai chiesto il perché — ma i pozzi murati del Borgo sono '
-             'undici. Una canna è per qualcosa che pozzo non è.',
+             'a cera». Zanchetta non se n’è mai chiesto il perché — ma i pozzi murati del Borgo '
+             'sono undici. Una canna è per qualcosa che pozzo non è.',
              'Sul ripiano dei resi, una canna tornata indietro per difetto di fusione: vuota, '
-             'sigillata, mai ritirata. Bo ve la cede volentieri — «a me i lavori muti non '
-             'piacciono».'],
+             'sigillata, mai ritirata. Zanchetta ve la cede volentieri — «a me i lavori muti '
+             'non piacciono».'],
          approfondimenti=[
-             dict(tipo='Testimonianza', soggetto='Bo, sul committente',
+             dict(tipo='Testimonianza', soggetto='Zanchetta, sul committente',
                   testo='«Il committente mai visto: solo il garzone, uno svelto, di quelli che '
                         'non guardano in faccia. La carta però la riconosco: è carta da registro, '
                         'di quella che usano negli uffici buoni. E chi scrive così non ha mai '
@@ -330,7 +343,11 @@ TILES_3 = [
                  'suonarlo qui sotto sveglia gli echi: 1 Voce Cava appare.',
          cerca='Sulla rastrelliera più alta, una scatolina di legno da bambino: dentro, IL '
                'CAMPANELLO DI PIERO (prendete la carta, se non l’avete già — e leggete la nota '
-               'per chi arbitra). Se lo avete già: la scatolina è vuota, e odora di lavanda.',
+               'per chi arbitra). Se lo avete già: la scatolina è vuota, e odora di lavanda. '
+               'Accanto alla scatolina, appesa a un gancio suo e tenuta lontana dalle altre, '
+               'una canna di piombo senza sigillo: vuota, lucidata a mano come si lucida una '
+               'cosa che si aspetta, e nel piombo un nome graffiato con un ferro sottile — '
+               'PIERO.',
          arredi=[(1, 3, 'scrivania'), (3, 0, 'casse')]),
     dict(id='T6', nome='IL POZZO MAESTRO', exits={'S': 'T4'},
          testo='La gola di pietra sale a perdita d’occhio: il terzo pozzo, visto da dentro. '
@@ -610,7 +627,7 @@ def soluzione():
         'sente all’alba), e per fissarla nella pietra servono altre voci — raccolte col taglio '
         'che il culto gli ha insegnato: un’accordatura di lama che non uccide, SCORDA.',
         'Le voci rubate stanno in canne di piombo sigillate a cera, commissionate al lattoniere '
-        'Bo da un committente senza volto (sigla <b>«C.B.»</b> — la stessa mano elegante '
+        'Zanchetta da un committente senza volto (sigla <b>«C.B.»</b> — la stessa mano elegante '
         'dell’Episodio 2) e calate nel <b>Pozzo Maestro</b>: la gola di pietra sotto il terzo '
         'pozzo della corte del Lavatoio, dove tutte le falde del Borgo convergono. Con le canne, '
         'le due campanelle grezze mai recuperate alla Fonderia: al Coro serviva un metronomo. '
@@ -630,8 +647,12 @@ def soluzione():
         'sbagliato: la spedizione parte con <b>1 segnalino Canto in più</b>. (Altre risposte '
         '«vicine» ma non incrociate: nessun effetto.)',
         '<b>3. QUALE pozzo è il Pozzo Maestro?</b> Il terzo della corte del Lavatoio — «il '
-        'pozzo che non gela mai» (lo confermano il registro dei livelli, il ventaglio delle '
-        'falde e il conto delle canne: dodici canne, undici pozzi). <i>Esatta:</i> scendete dal '
+        'pozzo che non gela mai» (lo confermano il registro dei livelli e il ventaglio delle '
+        'falde: bastano loro, e si incrociano). <i>Il conto delle canne NON è un riscontro:</i> '
+        'dodici canne per undici pozzi dice che una canna non serve a un pozzo, non QUALE pozzo '
+        '— e quella canna, si scoprirà là sotto, non è per un luogo ma per un nome (l’epilogo). '
+        'Se il tavolo la porta come prova, fatevela incrociare con uno degli altri due. '
+        '<i>Esatta:</i> scendete dal '
         'chiusino giusto — T1 è tranquilla. <i>Sbagliata:</i> scendete dal pozzo sbagliato e '
         'attraversate i cunicoli facendo rumore: 1 Voce Cava appare in T1 alla rivelazione.',
         '<b>4. COSA portate con voi?</b> LA CANNA MUTA (il reso del lattoniere): portata al '
@@ -676,20 +697,28 @@ def soluzione():
         'non rivede il cielo dal fondo della scala. Poi dice: “Non volevano l’acqua. Volevano '
         'la gola. La pietra, se la accordi, non smette più: adesso, sotto il rione, qualcosa '
         'RIPETE.” E dopo un po’, più piano: “Il barbiere non contava per loro. Contava la '
-        'dodicesima canna. Chiedetevi per CHI era.”» — Se avete recuperato le campanelle '
+        'dodicesima canna. L’ho vista, là sotto, tenuta in disparte dalle altre: vuota, '
+        'senza sigillo, col nome del bambino graffiato nel piombo. Le altre le ha riempite '
+        'lui, col rasoio. Quella la riempiono loro — quando la pietra terrà. Un padre si '
+        'compra così.”» — Se avete recuperato le campanelle '
         'dell’Episodio 2: segnatelo sul Frammento n. 2 — il metronomo del Coro tace. Se avete '
         'lasciato canne-voce là sotto: annotate quante — quelle voci, il Coro le ha ancora.',
-        '<b>FRAMMENTO DI CAMPAGNA N. 3:</b> <i>«Il rituale non è a tre movimenti: lo spartito '
-        'ha QUATTRO righi. Il quarto rigo non è scritto per uno strumento.»</i> Conservatelo '
+        '<b>FRAMMENTO DI CAMPAGNA N. 3:</b> <i>«Il rituale non ha tre movimenti: lo spartito '
+        'ha QUATTRO righi. E il quarto rigo non è scritto per uno strumento.»</i> Conservatelo '
         'per il finale di campagna.',
         '<b>IL BIVIO — decidete insieme, poi sigillate.</b> Le canne-voce recuperate si possono '
         'aprire — o no:<br/>'
-        '<b>Restituire le voci.</b> Gli ammutoliti guariscono, e una di loro — la prima donna '
-        'del Teatro Comunale, che era sulla lista — ricorda TUTTO di chi l’ha «misurata» per '
-        'l’accordatura: un testimone in più vi aspetta nell’Episodio 4. Ma le voci restituite '
+        '<b>Restituire le voci.</b> Gli ammutoliti guariscono, e la cosa si sente più lontano '
+        'di quanto crediate: la prima donna del Teatro Comunale era sulla lista, ma la sua '
+        'notte andò storta — la «misurarono» per l’accordatura e la MANCARONO, e da allora di '
+        'quella notte non le restava niente. Rotta l’accordatura, il ricordo le torna intero: '
+        'sa chi l’ha misurata, e ha una voce per dirlo — un testimone in più vi aspetta '
+        'nell’Episodio 4. Ma le voci restituite '
         'hanno imparato la melodia, e la canticchiano nel sonno: il mazzo dell’Episodio 4 '
         'aggiunge 1 carta crescendo.<br/>'
-        '<b>Conservarle sigillate.</b> I muti restano muti — e la Gazzetta ve lo farà pagare: '
+        '<b>Conservarle sigillate.</b> I muti restano muti, e la prima donna resta senza quella '
+        'notte: canta lo stesso — la voce non gliel’hanno mai presa — ma non sa chi l’ha '
+        'misurata. E la Gazzetta ve lo farà pagare: '
         'un testimone in meno vi parlerà, nell’Episodio 4. Ma una canna, contro luce, mostra '
         'inciso lo spartito del rituale: segnate sul retro del Frammento n. 3 che LA MELODIA È '
         'VOSTRA — al finale di campagna, varrà.<br/>'
@@ -783,8 +812,8 @@ LUOGHI3_DESC = {
        "mazzi di piombo legati con lo spago; a ogni corrente d’aria ciascun pezzo dà la sua "
        "nota e la tiene un poco più a lungo di quanto la latta dovrebbe. Sa di stagno fuso, "
        "d’acido da saldare e di quel bruciaticcio dolciastro che la fiamma lascia sul grasso "
-       "vecchio. Bo lavora col cannello e gli occhiali neri calati, le maniche legate sopra il "
-       "gomito, e ai clienti concede la testa, non lo sguardo; parla ai metalli più "
+       "vecchio. Zanchetta lavora col cannello e gli occhiali neri calati, le maniche legate "
+       "sopra il gomito, e ai clienti concede la testa, non lo sguardo; parla ai metalli più "
        "volentieri che alle persone, e quando gli chiedete del lavoro si stringe nelle "
        "spalle: «a me i lavori muti non piacciono». Sul banco la lesina tiene infilzate le "
        "commissioni una sull’altra, spesse un dito. Sul ripiano dei resi, in mezzo alla "
@@ -965,7 +994,7 @@ ESAMI_CARBONE_3 = {
 
 # Carte Oggetto nascoste nelle tessere (retro delle pagine tessera).
 OGGETTI_TESSERA_3 = {'T2': ['Una Lanterna da Minatore'],
-                     'T5': ['Il Campanello di Piero ⚠ suonarlo qui ha un prezzo']}
+                     'T5': ['Il Campanello di Piero — suonarlo qui ha un prezzo']}
 
 
 def luoghi():

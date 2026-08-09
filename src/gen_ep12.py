@@ -4,7 +4,9 @@
 Fase B del piano (vedi DESIGN-EPISODIO-12.md e CAMPAGNA-EPISODI.md). Chiusura
 Atto II, mythology: l'archivio della Societa' del Lume e' stato copiato senza
 scasso (sigilli intatti) su ordine autentico di M. — ma tutti concludono che
-esista una talpa capace d'imitare la mano del presidente. La spedizione e' un
+esista una talpa che dispone del protocollo e della penna del presidente
+(gli ordini sono protocollati in ore in cui M. era in assemblea, a verbale:
+la copertura regge, e il vero sospetto resta indicibile). La spedizione e' un
 INSEGUIMENTO: raggiungere il corriere delle copie (Tullio Vela) prima che le
 consegni allo scambio al Cimitero delle Barche. Boss: il Corriere (fugge, non
 combatte). Un solo seme: il fermo-posta «B. Camillo».
@@ -49,8 +51,21 @@ SMB = st('smb', fontName=F['sc'], fontSize=8.5, textColor=TEAL, spaceBefore=4, s
 
 
 def frame_flow(c, x, y, w, h, flow):
+    # addFromList CONSUMA la lista e lascia dentro cio' che non e' entrato:
+    # un Paragraph piu' alto del frame sparisce dalla pagina SENZA errori
+    # (e' successo alla lettera del Preludio, vista solo aprendo il PDF).
+    # Qui non si stampa a vuoto: si urla.
     Frame(x, y, w, h, leftPadding=0, rightPadding=0, topPadding=0,
           bottomPadding=0, showBoundary=0).addFromList(flow, c)
+    if flow:
+        import os as _os, sys as _sys
+        _testo = ' '.join(str(getattr(f, 'text', f))[:90] for f in flow[:2])
+        _msg = ('FRAME TROPPO PICCOLO in %s: %d elementi non entrano in %.1fx%.1fmm '
+                'e NON verranno stampati -> %s'
+                % (_os.path.basename(__file__), len(flow), w / 2.83465, h / 2.83465, _testo))
+        print('!! ' + _msg, file=_sys.stderr)
+        if _os.environ.get('ROCCAMORA_FRAME_STRICT'):
+            raise RuntimeError(_msg)
 
 
 # ================================================================= DATI
@@ -103,7 +118,7 @@ LUOGHI_12 = [
          req='Disponibile dall’inizio', art='La Casa dell’Archivista.png',
          chiude=None,
          indizi=[
-             'Anselmo Godi, il vecchio copista della Società, è mezzo cieco e tremante: «io ho '
+             'Prospero Godi, il vecchio copista della Società, è mezzo cieco e tremante: «io ho '
              'solo obbedito, signori. Ordini in regola, timbrati, controfirmati. “Si copino i '
              'Frammenti per sicurezza, se ne conservi copia in luogo diverso.” Ho copiato. Non ho '
              'chiesto. A un presidente non si chiede.» I sigilli intatti li spiega lui: aveva le '
@@ -113,11 +128,14 @@ LUOGHI_12 = [
              'pila degli ordini protocollati che gli hanno fatto copiare tutto.',
              'Godi vi mostra gli ordini protocollati, uno per uno: carta della Società, timbro '
              'della Società, firma del presidente. «Vedete? Tutto in regola. Se c’è una colpa, '
-             'non è mia: io ho eseguito ordini autentici. Chi li ha scritti lo sa meglio di me.»'],
+             'non è mia: io ho eseguito ordini autentici. Chi li ha scritti lo sa meglio di me.» '
+             'In margine, il protocollo segna giorno e ora: e più d’uno porta un’ora in cui il '
+             'presidente sedeva in assemblea, a verbale, davanti a venti confratelli.'],
          approfondimenti=[
              dict(tipo='Testimonianza', soggetto='Il copista Godi',
                   testo='«Copio per la Società da quarant’anni, e conosco la mano del presidente '
-                        'come la mia. Questi ordini sono suoi: non imitati, suoi. Li ho eseguiti '
+                        'come la mia. Questa è quella mano — o una che ne ha la penna e il '
+                        'protocollo: più in là di così non so dire, e non voglio. Li ho eseguiti '
                         'senza pensarci, come si esegue chi comanda in casa. Il colpevole, se '
                         'volete un nome, sono io: ho copiato i Frammenti. Ma li ho copiati per '
                         'ordine, e l’ordine era vero. Cercate un ladro e non lo troverete: non '
@@ -153,7 +171,7 @@ LUOGHI_12 = [
              'Al banco dei pegni la campanella nuova col segno del Coro è passata di mano ieri: '
              '«l’ha portata un ragazzo dei traghetti, per venderla. Roba nuova, ben fatta, col '
              'quel disegno strano. Il segno sulla campanella l’ho riconosciuto: è quello delle '
-             'voci del pozzo, di due inverni fa.»',
+             'voci del pozzo, dell’inverno scorso.»',
              'Il prestapegni collega: «lo stesso ragazzo, Vela, ritira e consegna per un tale '
              'Camillo. Il fermo-posta di Camillo lo conoscono tutti al canale, e nessuno l’ha '
              'visto. Paga bene, paga prima, e non lascia mai la faccia.»',
@@ -166,7 +184,9 @@ LUOGHI_12 = [
                         'danno, senza leggere. Il vecchio della Società gli ha dato le copie con '
                         'un biglietto timbrato, e lui le porta a Camillo come porterebbe pesce. '
                         'Il colpevole non è il corriere e non è il ragazzo: è chi firma i '
-                        'biglietti timbrati. E quello, signori, firma con la vostra stessa penna.»'),
+                        'biglietti timbrati. E quello, signori, o firma con la vostra stessa '
+                        'penna, o se l’è presa in casa vostra. Scegliete voi quale delle due vi '
+                        'lascia dormire.»'),
          ]),
     dict(n=5, nome='LA LOGGIA DEI CONFRATELLI', voce_mappa='La Loggia dei Confratelli',
          req='La loggia dei soci è riservata, e si apre solo a chi porta la notizia che nessuno '
@@ -185,10 +205,11 @@ LUOGHI_12 = [
          approfondimenti=[
              dict(tipo='Osservazione', soggetto='La paranoia in casa',
                   testo='La ricerca del falsario perfetto è così avvincente che nessuno considera '
-                        'l’alternativa più semplice: che la mano vera non abbia bisogno di '
-                        'imitarsi. Il sospetto reciproco è la vera vittoria di chi ha firmato: '
-                        'mentre i confratelli si contano le colpe, la penna resta al sicuro, '
-                        'perché il posto più nascosto per una firma è in cima all’ordine.'),
+                        'l’alternativa più comoda: che non ci sia nessuna mano da imitare, perché '
+                        'a chi dispone del protocollo bastano un timbro e un’ora. Il sospetto '
+                        'reciproco è la vera vittoria di chi ha firmato: mentre i confratelli si '
+                        'contano le colpe l’uno addosso all’altro, nessuno va a leggere il '
+                        'registro delle ore, e la penna resta al sicuro.'),
          ]),
     dict(n=6, nome='LO SCRIPTORIUM', voce_mappa='Lo Scriptorium',
          req='Lo scriptorium dove si copiava è chiuso a chiave, e cede solo a chi sa nominare '
@@ -210,10 +231,12 @@ LUOGHI_12 = [
                   testo='La mano della copia non IMITA quella dei Frammenti: è quella mano. '
                         'Sicura, senza le micro-esitazioni di chi ricalca un modello. O il '
                         'falsario è il più grande mai visto — capace di scrivere la mano altrui '
-                        'con più naturalezza del proprietario — o non è un falsario, e la mano è '
-                        'la sua. Gli ordini protocollati confermano il secondo: nessuno protocolla '
-                        'un tradimento; si protocolla un ordine che si vuole poter negare come '
-                        '«di routine».'),
+                        'con più naturalezza del proprietario — o non c’è falsario, e qualcuno '
+                        'scrive con la penna del presidente perché ne ha l’uso. Il registro non '
+                        'aiuta a scegliere: gli ordini sono veri e protocollati, e protocollati in '
+                        'ore in cui il presidente sedeva in assemblea, a verbale, davanti a venti '
+                        'confratelli. Resta che nessuno protocolla un tradimento: si protocolla un '
+                        'ordine che si vuole poter negare come «di routine».'),
          ]),
     dict(n=7, nome='IL DEPOSITO DEI SIGILLI', voce_mappa='Il Deposito dei Sigilli',
          req='Il deposito dei punzoni è sbarrato, e si apre solo a chi torna a dire la cosa che '
@@ -590,23 +613,33 @@ def soluzione():
         'non è dalla parte del Corriere. Il prezzo non si paga qui: segnate sul Taccuino che le '
         'scatole vuote hanno bruciato la pista — <b>un filo in meno nell’Atto III</b>. Se avete '
         'scelto <b>INFILTRARE LA SQUADRA</b> — il vostro uomo dentro sa dove finisce ciò che i '
-        'topografi consegnano: <b>un incrocio in più alla Domanda 1</b> (DOVE avviene lo '
+        'topografi consegnano: <b>una conferma in più alla Domanda 1</b> (DOVE avviene lo '
         'scambio). Anche qui il prezzo è rimandato: segnate sul Taccuino che la mappatura si è '
         'completata — <b>all’Episodio 20 il rituale parte con 1 segnalino Canto in più</b>. '
-        '<b>Strascichi.</b> Dal Bivio dell’Episodio 9, se allora avete <b>NASCOSTO IL TESTE, '
+        '<b>Strascichi.</b> Dal Bivio dell’Episodio 8, se allora avete <b>SEQUESTRATO L’ORO</b>: '
+        'i clan senza paga non hanno braccia da affittare e la scorta di stanotte è quel che si '
+        'è trovato — <b>il Sicario Gentile non è della partita</b>, nemmeno se è sopravvissuto '
+        '(è la carta Malavita in meno annunciata allora). Se invece l’avete <b>LASCIATO '
+        'CIRCOLARE E TRACCIATO</b>: una delle casse marcate è passata di mano al fermo-posta e i '
+        'vostri traccianti la seguono — è la conferma annunciata allora: <b>una conferma in più '
+        'alla Domanda 1</b> (DOVE avviene lo scambio); e la scorta comprata è al completo, '
+        'Sicario incluso. '
+        'Dal Bivio dell’Episodio 9, se allora avete <b>NASCOSTO IL TESTE, '
         'PERDENDO LA CAUSA</b>: la Società è ancora la «setta di truffatori» della sentenza e '
         'chi porta una divisa non parla: rimuovete la Testimonianza «Il sergente dei canali» '
         '(Luogo 8) dal mazzo Approfondimenti — è il Testimone in meno annunciato nell’Episodio '
         '10. Il Fischietto della Ronda resta prendibile al Corpo di Guardia: perdete la voce, '
         'non l’oggetto. Dal Bivio dell’Episodio 10, se avete <b>USATO LA CASA COME ORECCHIO</b>: '
-        'una casa che ha sentito dettare sa che nessuna porta è stata forzata — <b>un incrocio '
+        'una casa che ha sentito dettare sa che nessuna porta è stata forzata — <b>una conferma '
         'in più alla Domanda 3</b> (COME sono uscite dall’archivio). Se invece avete '
         '<b>CONSEGNATO IL VEDOVO</b>, quel ramo si è già speso nell’Episodio 11: qui non cambia '
         'nulla.',
         '<b>Il caso.</b> L’archivio della Società è stato copiato senza scasso (sigilli intatti). '
-        'Tutti concludono che esista una talpa capace d’imitare la mano del presidente. Stanotte '
-        'un corriere porta l’ultima infornata di copie allo scambio.',
-        '<b>La verità.</b> Le copie escono da mesi per mano del copista Anselmo Godi, che ha '
+        'Tutti concludono che esista una talpa che dispone del protocollo e della penna del '
+        'presidente: gli ordini sono autentici, ma protocollati in ore in cui il presidente era '
+        'in assemblea, a verbale, davanti a venti confratelli. Stanotte un corriere porta '
+        'l’ultima infornata di copie allo scambio.',
+        '<b>La verità.</b> Le copie escono da mesi per mano del copista Prospero Godi, che ha '
         'copiato SU ORDINE SCRITTO e autentico di M. — ordini protocollati «per sicurezza». Non '
         'c’è nessuna talpa e nessun falsario: la mano vera non ha bisogno d’imitarsi. Il corriere '
         'Tullio Vela porta le copie a «B. Camillo» al Cimitero delle Barche. Sventare = '
@@ -617,7 +650,7 @@ def soluzione():
         'casa dell’archivista + il registro del fermo-posta: serve più di una conferma). '
         '<i>Esatta:</i> sapete dov’è il traguardo — nel 1° round non si pesca nessuna carta '
         'Minaccia. <i>Sbagliata:</i> inseguite alla cieca: 1 sgherro della scorta appare in T1.',
-        '<b>2. CHI ha copiato i Frammenti?</b> Anselmo Godi, il vecchio copista della Società, su '
+        '<b>2. CHI ha copiato i Frammenti?</b> Prospero Godi, il vecchio copista della Società, su '
         'ordine (la Perizia dei Sigilli L1 + la testimonianza di Godi L2 + il prestapegni L4). '
         '<i>Esatta:</i> sapete che non inseguite un ladro ma recuperate una prova — al Cimitero, '
         'l’aggancio del Corriere riesce anche senza Fischietto (adiacenza + Interagire, senza '
@@ -715,7 +748,7 @@ LUOGHI12_DESC = {
        "è in fila oltre il necessario — le carte in mazzi legati con la fettuccia, i calamai "
        "chiusi, la lente col manico d’osso posata sempre nello stesso quadrato di legno più chiaro "
        "— e alla parete i cartoni pendono per taglia, dal più piccolo al più grande, con un chiodo "
-       "di troppo alla fine della fila. Anselmo Godi vi riceve senza cercarvi il viso: gli occhi "
+       "di troppo alla fine della fila. Prospero Godi vi riceve senza cercarvi il viso: gli occhi "
        "vanno un palmo a lato del vostro, e le mani, che sul tavolo trovano ogni cosa da sole, in "
        "aria non sanno dove stare. «Io ho solo obbedito, signori», dice, e mentre lo dice si "
        "pulisce il pollice sul grembiule, un gesto che ripete tre volte, sempre dallo stesso lato. "
@@ -913,8 +946,10 @@ ESAMI_CARBONE_12 = {
     'LA PAGINA RICOPIATA': '«La mano della copia non imita quella dei Frammenti: è quella mano, '
                 'sicura, senza le esitazioni di chi ricalca. O il falsario è il più grande mai '
                 'visto — capace di scrivere l’altrui con più naturalezza del proprietario — o non '
-                'è un falsario. Gli ordini protocollati sciolgono il dubbio: nessuno protocolla un '
-                'tradimento; si protocolla ciò che si vuol poter chiamare “routine”.»',
+                'c’è falsario, e qualcuno adopera la penna del presidente perché ne ha l’uso. Gli '
+                'ordini protocollati non sciolgono il dubbio: sono veri, e portano ore in cui il '
+                'presidente era in assemblea. Resta che nessuno protocolla un tradimento; si '
+                'protocolla ciò che si vuol poter chiamare “routine”.»',
     'LA RICEVUTA DEL FERMO-POSTA': '«Carta di pregio, filigrana della cartiera dei casi passati; '
                 'il ritiro pagato prima della consegna, intestato a un nome che non è un nome — '
                 '“B. Camillo”, un’etichetta d’archivio. Chi compra le copie della Società paga '

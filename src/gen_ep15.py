@@ -50,23 +50,37 @@ SMB = st('smb', fontName=F['sc'], fontSize=8.5, textColor=TEAL, spaceBefore=4, s
 
 
 def frame_flow(c, x, y, w, h, flow):
+    # addFromList CONSUMA la lista e lascia dentro cio' che non e' entrato:
+    # un Paragraph piu' alto del frame sparisce dalla pagina SENZA errori
+    # (e' successo alla lettera del Preludio, vista solo aprendo il PDF).
+    # Qui non si stampa a vuoto: si urla.
     Frame(x, y, w, h, leftPadding=0, rightPadding=0, topPadding=0,
           bottomPadding=0, showBoundary=0).addFromList(flow, c)
+    if flow:
+        import os as _os, sys as _sys
+        _testo = ' '.join(str(getattr(f, 'text', f))[:90] for f in flow[:2])
+        _msg = ('FRAME TROPPO PICCOLO in %s: %d elementi non entrano in %.1fx%.1fmm '
+                'e NON verranno stampati -> %s'
+                % (_os.path.basename(__file__), len(flow), w / 2.83465, h / 2.83465, _testo))
+        print('!! ' + _msg, file=_sys.stderr)
+        if _os.environ.get('ROCCAMORA_FRAME_STRICT'):
+            raise RuntimeError(_msg)
 
 
 # ================================================================= DATI
 
 LETTERA_15 = (
     "Alla Società del Lume, riservata.<br/><br/>"
-    "«Un plico anonimo è arrivato alla Gendarmeria: dentro, il caso contro il professor "
-    "<b>Cesare Braga</b> — pagamenti, lettere, il sigillo «C.B.», un testimone oculare. Dice che "
-    "il nostro rivale è C.B. La città esulta, il Tribunale prepara il processo, e ci chiamano a "
-    "<b>verificare</b>.<br/><br/>"
-    "Verificate il dossier come vi ho insegnato. E se ogni prova regge — se il caso si chiude da "
-    "sé, pulito come un teorema — allora fermatevi un istante e chiedetevi una cosa sola: chi ha "
-    "avuto la mano tanto ferma da renderlo così <i>perfetto</i>. Un delitto vero è sporco. Solo un "
-    "delitto <b>scritto</b> è pulito. Se sospettate la messinscena, entrate nella villa di Braga "
-    "<b>prima che la Gendarmeria la sigilli</b>, e cogliete sul fatto chi la sta apparecchiando. "
+    "«Un plico anonimo è comparso stanotte, e non fra le nostre mani: dentro, un caso già "
+    "fatto — pagamenti, lettere, il sigillo «C.B.», un testimone oculare. Dice di aver trovato "
+    "<b>C.B.</b>, e lo dice con un nome in cima che non vi scrivo: leggetelo dal dossier, come si "
+    "legge una prova e non come si legge un manifesto. La città esulta, il Tribunale prepara il "
+    "processo, e ci chiamano a <b>verificare</b>.<br/><br/>"
+    "Verificate il dossier come vi ho insegnato, prova per prova, senza riguardo per il nome che "
+    "porta in cima. <b>Verificate e chiudete</b> entro stanotte: all’alba i sigilli calano dove "
+    "l’accusa li indica, e ciò che non sarà accertato prima non lo accerterà più nessuno. Dove "
+    "convenga guardare stanotte, decidetelo voi: io ho letto le stesse carte che leggerete, e non "
+    "una di più. "
     "Avete <b>6 ore</b>, dalle 18:00 alle 24:00.<br/>"
     "— M., presidente della Società»<br/><br/>"
     "<i>Luoghi disponibili dall’inizio: la Gendarmeria, il Tribunale, la Gazzetta di Roccamora e "
@@ -87,13 +101,12 @@ LUOGHI_15 = [
              'un testimone oculare. Il professor Braga è C.B., non c’è un buco. Firmiamo l’arresto '
              'e chiudiamo.»',
              'La grafia delle lettere è quella di Braga — perfetta. «Il testimone oculare l’ha '
-             'riconosciuto senza esitare, e la sua deposizione è precisa al minuto. Troppo precisa, '
-             'per uno che dice di averlo visto una notte sola, di sfuggita. Ma chi sono io per '
-             'guardare in bocca a un caso regalato?»',
-             'Il maresciallo, quasi a disagio per la sua stessa fortuna: «di solito le prove le '
-             'sudiamo. Questo dossier è arrivato in un plico, ordinato come una pratica già chiusa. '
-             'Chi lo ha compilato ci ha fatto il lavoro. E a me, la roba gratis, ha sempre '
-             'insegnato a diffidare.»'],
+             'riconosciuto senza esitare, e la deposizione regge al minuto. E i pagamenti li '
+             'abbiamo verificati noi, non il plico: date e cifre escono dai conti del professore, '
+             'sportello per sportello, una per una. Quella parte non ce l’ha regalata nessuno.»',
+             'Il maresciallo tiene la mano aperta sul mandato d’arresto, già battuto a macchina: '
+             '«manca la vostra firma, e la firma di chi verifica pesa più della mia. Fuori c’è '
+             'mezza città che aspetta un nome. Datemelo, e stanotte Roccamora dorme.»'],
          approfondimenti=[
              dict(tipo='Referto', soggetto='Il dossier troppo pulito',
                   testo='Ogni prova del dossier regge alla verifica: ed è proprio questo il '
@@ -111,10 +124,11 @@ LUOGHI_15 = [
              'l’accusa lo tratta come oro colato. «Un caso da manuale,» dice il cancelliere, e non '
              'sa quanto ha ragione: segue il metodo della società punto per punto, come se '
              'l’accusatore avesse studiato sul nostro stesso libro.',
-             'Un vecchio giudice, in disparte, storce il naso: «il metodo della società lo conosco '
-             'anch’io, di riflesso, a furia di sentirvi deporre. E questo dossier lo applica meglio '
-             'di voi. Meglio di chiunque. Un dilettante non scrive così: solo chi *insegna* il '
-             'metodo lo maneggia con questa freddezza.»',
+             'Agli atti c’è la guerra di trent’anni fra Braga e la Società: querele, repliche a '
+             'stampa, una seduta di dodici anni fa in cui il professore promise a verbale «vi '
+             'smonterò uno per uno, con le vostre stesse carte». Il metodo della società lo '
+             'combatte da una vita, e lo conosce da una vita. È scritto, è datato, e non lo ha '
+             'fabbricato nessuno la settimana scorsa.',
              'Sul ruolo d’udienza, l’arresto di Braga è dato per fatto: manca solo la vostra '
              'conferma. «Confermate e si chiude in gloria,» dice l’usciere. «La città vuole il suo '
              'mostro, e stavolta ha pure il volto giusto: il rivale del vostro presidente.»'],
@@ -156,14 +170,17 @@ LUOGHI_15 = [
          chiude=None,
          indizi=[
              'Il testimone oculare vi riceve sicuro di sé, la deposizione già a memoria: «l’ho '
-             'visto io, il professore, quella notte. Ne sono certo.» Il testimone oculare recita '
-             'più che ricordare: nessuna esitazione, nessun «forse», ogni dettaglio al posto '
-             'giusto. Chi ricorda davvero dubita; chi è stato istruito, no.',
-             'Sul tavolo, la sua deposizione battuta a macchina, pronta per il verbale.',
-             'Quando gli chiedete dettagli fuori copione, il testimone si irrigidisce: «me l’hanno '
-             'fatta imparare… cioè, l’ho vista così. La scena non ancora sigillata? Non so di cosa '
-             'parliate. Io ho solo visto il professore. Punto.» Un teste vero divaga; questo torna '
-             'sempre al binario.'],
+             'visto io, il professore, quella notte. Ne sono certo.» Non esita, non dice mai '
+             '«forse», e ogni cosa sta al suo posto: l’ora, il portone, la mano che chiudeva la '
+             'giacca.',
+             'Poi vi dà una cosa che nessuno avrebbe potuto suggerirgli: prima di prendere in mano '
+             'una carta, dice, il professore si asciugava due dita nel risvolto della manica. Lo '
+             'fa vedere, e lo fa bene. È un gesto suo, minuto, e non sta scritto in nessun foglio '
+             'del dossier.',
+             'Quando gli chiedete cosa abbia fatto dopo, il testimone torna al binario: «la scena '
+             'non ancora sigillata? Non so di cosa parliate. Io ho visto il professore, e questo '
+             'ho detto.» Fuori dal foglio battuto a macchina che tiene sul tavolo non aggiunge una '
+             'parola.'],
          approfondimenti=[
              dict(tipo='Testimonianza', soggetto='Il testimone istruito',
                   testo='«Me l’hanno fatta imparare» gli scappa, e poi si corregge. È tutto lì. Il '
@@ -187,17 +204,19 @@ LUOGHI_15 = [
              'stessa cura con cui si cancella una scena. Ma la data resta: qualcuno ha ripassato il '
              'metodo poco prima che il dossier nascesse.',
              'Il custode dell’archivio, pallido: «le copie sono dodici, le conto ogni mese. Ci '
-             'sono tutte. Ma una è tornata al suo posto… diversa. Riletta, sottolineata, con un '
-             'orecchio a una pagina sola: quella su come si legge una grafia. Chi l’ha presa non '
-             'voleva imparare a leggere. Voleva imparare a *scrivere* un falso leggibile.»'],
+             'sono tutte, signori: nessuno me ne ha portata via una, e nessuno ha forzato lo '
+             'scaffale. Ma la n. 7 è tornata al suo posto… diversa. Riletta, sottolineata, con un '
+             'orecchio a una pagina sola: quella su come si legge una grafia. Io segno chi '
+             'consulta, e basta. Cosa se ne faccia, poi, non me lo dice nessuno.»'],
          approfondimenti=[
              dict(tipo='Presagio', soggetto='La copia consultata',
-                  testo='Dodici copie, tutte presenti, tutte censite — e una, la n. 7, riletta di '
-                        'recente da una mano che ha poi cancellato la propria firma. Non un ladro: '
-                        'un confratello. Chi ha scritto il dossier non ha rubato il metodo, lo '
-                        '*aveva*: è dentro la Società, ha diritto a quella copia, e l’ha usata per '
-                        'costruire un colpevole a tavolino. Il cerchio dei sospetti si stringe fino '
-                        'a diventare un ritratto — e il ritratto vi somiglia.'),
+                  testo='Dodici copie, tutte presenti, tutte censite, e lo scaffale intatto. Ma la '
+                        'n. 7 non è tornata come ne era uscita: riletta fino alla piega, '
+                        'sottolineata a matita leggera su un capitolo solo — quello sulla grafia. '
+                        'Sul registro, alla sua riga, la data del mese scorso e una firma raschiata '
+                        'via con la punta di un temperino; sotto, l’impronta della penna sul foglio '
+                        'seguente, che non dice niente. Qualcuno ha ripassato la lezione poco prima '
+                        'che il dossier nascesse, e ha voluto che non risultasse.'),
          ]),
     dict(n=6, nome='LO STUDIO DEL PERITO', voce_mappa='Lo Studio del Perito',
          req='Lo studio del vecchio perito rivale apre a chi insegue la falsa conferma: il '
@@ -205,22 +224,25 @@ LUOGHI_15 = [
          chiave=('parola', 'IL TESTIMONE OCULARE'), art='Lo Studio del Perito.png',
          chiude=None,
          indizi=[
-             'Il perito Coda si dice pronto a «confermare» la deposizione del testimone oculare '
-             'contro Braga: «finalmente qualcuno lo inchioda, quel ciarlatano! Testimonio anch’io, '
-             'se serve.» Ma non ha visto nulla: vuole solo unirsi alla curée. Astio, non prova.',
+             'Il perito Coda si offre di «confermare» la deposizione del testimone oculare: '
+             '«finalmente qualcuno lo inchioda, quel ciarlatano! Testimonio anch’io, se serve.» '
+             'Poi però mette la lente sul tavolo e parla da perito: le lettere del dossier le ha '
+             'già esaminate, e la mano è quella di Braga. Non per la forma — per i segni che '
+             'nessuno copia: la pressione in discesa, la «e» lasciata aperta, il taglio della «t» '
+             'sempre un dito più in là. «La perizia la firmo domattina.»',
              'Tra le sue carte, il Sigillo «C.B.» che circola come prova regina.',
-             'Coda, quando gli fate notare che non c’entra nulla: «e va bene, non ho visto niente! '
-             'Ma se cade Braga, festeggio comunque. Solo… un momento: chi mi ha *chiesto* di '
-             'confermare, ieri, non era della Gendarmeria. Non so chi fosse. Sapeva del testimone '
-             'prima che lo sapessi io.»'],
+             'Coda, quando gli fate notare che quella notte non c’era: «e va bene, non ho visto '
+             'niente! Ma la scrittura non ha bisogno che io ci fossi. Solo… un momento: chi mi ha '
+             '*chiesto* di confermare, ieri, non era della Gendarmeria. Non so chi fosse. Sapeva '
+             'del testimone prima che lo sapessi io.»'],
          approfondimenti=[
              dict(tipo='Osservazione', soggetto='La falsa conferma',
-                  testo='Coda è l’esca perfetta della scena montata: un rivale astioso pronto a '
-                        'giurare il falso per rancore, così che l’accusa a Braga sembri avere più '
-                        'voci. Ma Coda non ha visto niente e non prova niente; serve solo a fare '
-                        'volume. Il dettaglio che conta è un altro: qualcuno, non la Gendarmeria, '
-                        'lo ha *sollecitato* a confermare — qualcuno che orchestra il coro. La stessa '
-                        'mano, di nuovo, che dispone le voci.'),
+                  testo='Di Coda si butta via tutto tranne la cosa che pesa. La deposizione che si '
+                        'offre di dare non vale niente: quella notte non c’era, e giurerebbe il '
+                        'falso per rancore, così che l’accusa abbia più voci. La perizia è un’altra '
+                        'cosa: è fatta a regola d’arte, e dice che quella è la mano di Braga. Resta '
+                        'un dettaglio che nessuno gli ha chiesto: a sollecitarlo, ieri, non è stata '
+                        'la Gendarmeria — qualcuno, fuori dalle carte, dispone anche le voci.'),
          ]),
     dict(n=7, nome='IL DEPOSITO REPERTI', voce_mappa='Il Deposito Reperti',
          req='Il deposito reperti della Gendarmeria apre solo a chi vuole toccare con mano il '
@@ -279,8 +301,9 @@ LUOGHI_15 = [
          chiude=None, in_quota=False,
          indizi=[
              'La villa di Braga sotto il cordone che si stringe: dentro, ombre che lavorano in '
-             'silenzio, spostano, lucidano, cancellano. Sono gli Apparecchiatori, la squadra di '
-             'scena di C.B., che posano gli ultimi tocchi del falso prima del sigillo.',
+             'silenzio, spostano, lucidano, cancellano. Sono gli Apparecchiatori: una squadra di '
+             'scena senza nome e senza padrone dichiarato, che posa gli ultimi tocchi prima del '
+             'sigillo.',
              'Sul pavimento dello studio, i tell del falso ancora freschi: inchiostri che non si '
              'sono asciugati, tagli di carta identici, il sigillo ribattuto. Documentarli è '
              'l’unico modo di provare che la scena è stata *scritta* — ma gli Apparecchiatori li '
@@ -295,7 +318,8 @@ LUOGHI_15 = [
                         'uccidono: *scrivono*, con oggetti invece che con parole, la colpevolezza di '
                         'un innocente. Salvarne i tell prima che li cancellino, e prima che il '
                         'sigillo cali, è l’unico modo di riavvolgere la scena e leggere, sotto, la '
-                        'mano che l’ha diretta. Non è la mano di Braga. È una delle nostre.'),
+                        'mano che l’ha diretta. Chiunque sia, stanotte è ancora qui, e ha fretta '
+                        'quanto voi.'),
          ]),
 ]
 
@@ -387,7 +411,7 @@ NEMICI_15 = [
               'avete riconosciuto il vostro stesso metodo nel suo falso lo fa esitare — salta un '
               'attacco. Prenderlo (Interagire) ottiene le Istruzioni con la Grafia di Braga. Ai '
               'tavoli da 2-3 eroi non recupera mai Ferite (regola delle taglie).',
-         bio_bestiario='Il Capo Apparecchiatore è il regista di scena di C.B.: non un sicario, un '
+         bio_bestiario='Il Capo Apparecchiatore è il regista della scena: non un sicario, un '
               'artigiano dell’inganno. Dirige la squadra che piazza le prove e cancella le tracce, '
               'e lo fa con la freddezza di chi ha studiato come si legge un uomo — per poterlo '
               'scrivere. Stanotte apparecchia l’ultima scena contro Braga, e ogni round che passa '
@@ -457,7 +481,7 @@ def indagine():
     yy = sect(yy, 'indizi e parole che tornano', 4)
     c.setFillColor(RED); c.setFont(F['sc'], 11)
     c.drawString(16*mm, yy, 'la busta pubblica — le 4 domande (poi aprite la busta della soluzione)')
-    doms = ['1. DOVE sono le prove contro Braga? (attenzione: serve più di una conferma)',
+    doms = ['1. DOVE sono le prove contro l’accusato? (attenzione: serve più di una conferma)',
             '2. CHI accusa il dossier?',
             '3. COSA regge alla verifica? (e perché è un problema)',
             '4. COSA consegnate alla Gendarmeria?']
@@ -600,6 +624,13 @@ def soluzione():
             pw, ph = p.wrapOn(c, W - 32*mm, 200*mm)
             p.drawOn(c, 16*mm, y - ph)
             y -= ph + 6*mm
+        # drawOn non urla se esce dalla pagina: disegna sotto il margine, dove
+        # la stampa taglia. Stessa guardia di frame_flow, stesso marcatore.
+        if y < 14*mm:
+            import sys as _sys
+            print('!! FRAME TROPPO PICCOLO in gen_ep15.py: la pagina «%s» sfora di %.1fmm '
+                  'e la coda NON verra stampata' % (titolo, (14*mm - y) / 2.83465),
+                  file=_sys.stderr)
         c.showPage()
 
     pagina('soluzione — non aprire', [
@@ -609,12 +640,13 @@ def soluzione():
         'scelto <b>RESTITUIRE TUTTO A BRAGA SENZA INVENTARIO</b> — il professore, trattato da '
         'gentiluomo e non da imputato, ricambia la cortesia: vi riceve prima della Gendarmeria e '
         'vi accompagna lui stesso fra le sue carte, invece di lasciarvi leggere solo quelle che vi '
-        'hanno messo in mano. <b>Un incrocio in più alla Domanda 1</b> (DOVE sono le prove contro '
+        'hanno messo in mano. <b>Una conferma in più alla Domanda 1</b> (DOVE sono le prove contro '
         'Braga). Il prezzo non si paga qui: senza verbale il Sigillo «C.B.» non è mai entrato agli '
         'atti — segnate sul Taccuino, alla riga «Episodio 18», <b>un incrocio in meno</b>. Se '
         'avete scelto <b>INVENTARIO GIUDIZIARIO COMPLETO</b> — Braga, esposto al ridicolo davanti '
         'a tutta la città, non muove un dito per voi: non risponde, non riceve, e il suo avvocato '
-        'chiede che la villa sia sigillata subito, per sottrarla ad altre mani. <b>Il Canto parte '
+        'pretende il sigillo immediato su tutto ciò che porta il suo nome, per sottrarlo ad altre '
+        'mani. <b>Il Canto parte '
         'a 1</b> (in questo episodio il Canto è il sigillo: il cordone si stringe con un round di '
         'margine in meno). Il vantaggio l’avete già incassato altrove: segnate sul Taccuino, alla '
         'riga «Episodio 18», <b>un incrocio in più</b> — il Sigillo «C.B.» resta agli atti. <b>In '
@@ -628,9 +660,15 @@ def soluzione():
         'apparecchiato; stanotte cancellano i tell nella villa prima del sigillo. Braga è '
         'innocente: chi lo incastra è dentro la Società. Sventare = smontare la scena, prendere il '
         'Capo, aprire la <b>Contro-busta</b> («chi ha scritto il dossier?»).',
+        '<b>Come si gioca il depistaggio.</b> Quattro prove <i>a carico</i> reggono davvero, e '
+        'vanno lette dritte, senza ironia: i pagamenti verificati dalla Gendarmeria (L1), il '
+        'movente a verbale (L2), il gesto privato che il teste non poteva aver imparato (L4), la '
+        'perizia calligrafica firmata (L6). I dubbi stanno negli <b>Approfondimenti</b>, che si '
+        'guadagnano. Se il tavolo arriva alla Contro-busta senza aver mai pensato «forse è stato '
+        'davvero lui», il falso finale non è avvenuto.',
     ])
     pagina('la busta pubblica — 4 domande (risposte e vantaggi)', [
-        '<b>1. DOVE sono le prove contro Braga?</b> Nel dossier alla Gendarmeria e nella villa (la '
+        '<b>1. DOVE sono le prove contro l’accusato?</b> Nel dossier alla Gendarmeria e nella villa (la '
         'perquisizione: il dossier fisico L7 + la scena L9 — serve più di una conferma). '
         '<i>Esatta:</i> sapete dove guardare — nel 1° round della spedizione non si pesca nessuna '
         'carta Minaccia. <i>Sbagliata:</i> entrate scomposti — 1 gendarme (Sgherro) appare in T1.',
@@ -667,8 +705,8 @@ def soluzione():
         'da quel round niente più documentazione, gli Apparecchiatori spariscono, resta la sola '
         'Busta pubblica. Le carte crescendo (passi/cordone) accelerano.',
         '<b>La cancellazione e i tell.</b> Ci sono <b>5 tell</b> del falso da documentare '
-        '(Interagire, a T2/T3 soprattutto). Da T4 gli Apparecchiatori ne cancellano <b>2 per '
-        'round</b> (finché il Capo è in piedi). Servono <b>4 tell documentati</b> per la '
+        '(Interagire, a T2/T3 soprattutto). Da T4 gli Apparecchiatori ne cancellano <b>un tell '
+        'per round</b> (finché il Capo è in piedi). Servono <b>4 tell documentati</b> per la '
         'Contro-busta. Il Manuale Indiziario: +1 documentato/round. Il Reagente: +1 tell iniziale.',
         '<b>Il Capo Apparecchiatore.</b> Boss: Att +3, Dif 8, Fer 6, Mov 3, Danno 2. Va '
         'ridotto/abbattuto e poi preso (Interagire) per le Istruzioni con la Grafia di Braga. '
@@ -680,12 +718,35 @@ def soluzione():
         '17 parte più fragile). <b>Il mazzo:</b> 21 carte (7 Apparecchiatori/Sicari, 6 insidie di '
         'scena, 4 crescendo-sigillo, 4 eventi).',
     ])
-    pagina('contro-busta, epilogo, frammento e bivio', [
+    pagina('contro-busta — chi ha scritto il dossier', [
         '<b>CONTRO-BUSTA — apritela SOLO se avete preso il Capo e documentato 4+ tell.</b><br/>'
-        '<b>5. CHI HA SCRITTO IL DOSSIER?</b> Una mano interna alla Società: il metodo è quello del '
-        'manuale (12 copie, la n. 7 consultata di recente), le istruzioni agli Apparecchiatori sono '
-        'di grafia di Braga ma troppo perfette. Non un nome, ancora: «uno di noi». È il seme verso '
-        'M. Rispondere = <b>vittoria piena</b>: avete rifiutato la soluzione perfetta.',
+        '<b>5. CHI HA SCRITTO IL DOSSIER?</b> <b>Qualcuno che a quel libro poteva accedere per '
+        'statuto.</b> Le dodici copie del manuale ci sono tutte: nessuna rubata, nessuna smarrita, '
+        'nessuno scasso. La n. 7 è stata <i>consultata</i>, il mese scorso, e il registro delle '
+        'consultazioni si firma soltanto se se ne ha diritto — un custode non lo porge a un '
+        'estraneo. La firma è abrasa; il diritto no. Chi ha scritto il dossier non ha rubato il '
+        'nostro metodo di nascosto: se l’è fatto prestare alla luce del giorno, come gli spettava, '
+        'e ha riletto il solo capitolo che gli serviva, quello sulla grafia. Il cerchio non è '
+        '«chi conosce il metodo» (quello, il vecchio giudice l’ha imparato deponendo): è la lista '
+        'brevissima di chi può chiedere quella copia e ottenerla. È il seme verso M. Rispondere = '
+        '<b>vittoria piena</b>: avete rifiutato la soluzione perfetta.',
+        '<b>E LE QUATTRO PROVE CHE REGGEVANO.</b> Nessuna era falsa: erano <i>vere e scelte</i>. '
+        '<b>I pagamenti</b> (L1) escono davvero dai conti di Braga: un uomo che compra libri, '
+        'lastre e cornici preleva ogni settimana, e a chi ha le date bastava scrivere le proprie '
+        'ricevute sopra quelle date. <b>Il movente</b> (L2) è a verbale e datato, ma un movente non '
+        'è una mano: quel ruolo d’udienza è il catalogo su cui il falso è stato ordinato — '
+        'l’archivio del Tribunale ha <i>nominato</i> Braga, il dossier non lo ha scoperto. <b>Il '
+        'gesto</b> che il teste non poteva aver imparato (L4) è autentico, e per questo inutile: '
+        'la villa-museo apre ai visitatori due volte al mese, e chiunque abbia pagato la lira ha '
+        'visto il professore asciugarsi le dita nel risvolto prima di toccare una carta. <b>La '
+        'perizia</b> di Coda (L6) ha ragione sulla scrittura e torto sull’uomo: cerca i segni '
+        'personali, ed è esattamente per quei segni che il falso è stato fabbricato (il modello di '
+        'grafia consegnato all’incisore, L8; il capitolo sulla grafia della copia n. 7, L5). Un '
+        'uomo non scrive mai due volte identico: le lettere del dossier, fra loro, lo sono. Il filo '
+        'è uno: sono state scelte le abitudini di un uomo che le tiene esposte, ed è per questo che '
+        'è toccato a lui — non perché fosse il più colpevole, perché era il più facile da scrivere.',
+    ])
+    pagina('epilogo, frammento e bivio', [
         '<b>EPILOGO — da leggere se aprite la Contro-busta.</b> «Il Capo Apparecchiatore non si '
         'scompone quando gli togliete le istruzioni di tasca: le guarda, poi guarda voi, quasi '
         'sollevato. "Bel lavoro," dice, "riconoscere il proprio metodo. Non tutti ne sono capaci." '
@@ -699,13 +760,16 @@ def soluzione():
         'testimone in più), ma un innocente è in cella e C.B. ha vinto un giro: l’Ep. 17 parte con '
         'un incrocio in meno.<br/>'
         '<b>Dichiarare pubblicamente il dubbio.</b> La stampa vi sbrana e la Società si spacca (Ep. '
-        '16-17: un testimone in meno ovunque), ma Braga, protetto, vi consegnerà nell’Ep. 17 il suo '
-        'archivio privato su M.: trent’anni di rivalità.<br/>'
+        '16-17: un testimone in meno ovunque), ma Braga, protetto, vi manderà dalla cella ciò che '
+        'passa per le mani di un secondino: un biglietto, e con esso la chiave per leggere il '
+        'resto — «guardate le penne, non le mani». L’archivio privato su M., trent’anni di '
+        'rivalità, resta in casa sua: lo riavrete quando sarà lui a riaprire quella porta.<br/>'
         'Chi ha chiuso solo la Busta pubblica ha già scelto, senza saperlo, di avallare. Scrivete '
         'la scelta sul retro del Frammento n. 15.',
         '<b>AGGANCIO.</b> A verbale chiuso, M. vi convoca in persona: «Ottimo lavoro. Archiviate '
         'tutto e riposatevi: vi ho trovato io il prossimo caso. Una cosa semplice.» È la prima '
         'volta che è lui a darvi un caso.',
+        '<b>MIGLIORIE</b> (una a testa dopo la vittoria): le solite (vedi Regolamento).',
     ])
     c.save()
     pad_to_even_pages(out_path)
@@ -917,8 +981,10 @@ TESSERE_DESC_15 = {
 ESAMI_CARBONE_15 = {
     'IL MANUALE INDIZIARIO': '«Il dossier segue riga per riga il metodo di lettura che la Società '
                 'insegna: non un falsario qualunque, ma uno che ha studiato sul <i>nostro</i> '
-                'manuale. E delle dodici copie, la n. 7 è stata consultata il mese scorso, la firma '
-                'cancellata. Chi ha scritto il falso non ha rubato il metodo: lo aveva.»',
+                'manuale. Le dodici copie sono tutte al loro posto. La n. 7 ha il dorso allentato e '
+                'si apre da sé al capitolo sulla grafia consumata, l’unico con le cocche piegate; e '
+                'sul registro delle consultazioni, alla riga del mese scorso, la firma è stata '
+                'raschiata via — resta il solco della penna e il pelo della carta sollevato.»',
     'LA LASTRA DELL’INCISORE': '«Una sola matrice ha battuto il sigillo "C.B." e mezze lettere del '
                 'dossier: le prove non sono state raccolte, sono state <i>stampate</i>, tutte dalla '
                 'stessa mano, in pochi giorni, su commissione anonima pagata in oro vecchio e carta '
@@ -926,7 +992,8 @@ ESAMI_CARBONE_15 = {
     'LE ISTRUZIONI CON LA GRAFIA DI BRAGA': '«La calligrafia è di Braga, perfetta — troppo. Un uomo '
                 'non scrive mai due volte identico; un falsario che lo <i>imita</i> col metodo '
                 'morelliano, sì. Chi ha scritto questo conosce Braga e il metodo meglio di Braga '
-                'stesso: è dentro casa nostra. Il mostro ha il nostro volto.»',
+                'stesso — e per riuscirci ha avuto sotto gli occhi, a lungo, il nostro '
+                'manuale.»',
 }
 
 OGGETTI_TESSERA_15 = {'T3': ['Un Ritaglio del Dossier']}

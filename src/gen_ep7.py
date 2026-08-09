@@ -46,8 +46,21 @@ SMB = st('smb', fontName=F['sc'], fontSize=8.5, textColor=TEAL, spaceBefore=4, s
 
 
 def frame_flow(c, x, y, w, h, flow):
+    # addFromList CONSUMA la lista e lascia dentro cio' che non e' entrato:
+    # un Paragraph piu' alto del frame sparisce dalla pagina SENZA errori
+    # (e' successo alla lettera del Preludio, vista solo aprendo il PDF).
+    # Qui non si stampa a vuoto: si urla.
     Frame(x, y, w, h, leftPadding=0, rightPadding=0, topPadding=0,
           bottomPadding=0, showBoundary=0).addFromList(flow, c)
+    if flow:
+        import os as _os, sys as _sys
+        _testo = ' '.join(str(getattr(f, 'text', f))[:90] for f in flow[:2])
+        _msg = ('FRAME TROPPO PICCOLO in %s: %d elementi non entrano in %.1fx%.1fmm '
+                'e NON verranno stampati -> %s'
+                % (_os.path.basename(__file__), len(flow), w / 2.83465, h / 2.83465, _testo))
+        print('!! ' + _msg, file=_sys.stderr)
+        if _os.environ.get('ROCCAMORA_FRAME_STRICT'):
+            raise RuntimeError(_msg)
 
 
 # ================================================================= DATI
@@ -405,7 +418,10 @@ TILES_7 = [
                'RIVELATE QUESTA TESSERA: appare IL CAPOCANTIERE con la Squadra del '
                'Silenzio — 2 Sgherri, più 1 ogni 4 eroi.',
          arbitro='Liberare Fava: Interagire, nessuna prova; si muove col gruppo (Movimento '
-                 '5 — appena liberato CORRE per la vita, non agisce). Il Capocantiere NON parla mai durante lo scontro: nel '
+                 '5 — appena liberato CORRE per la vita, non agisce). <b>Deroga '
+                 'dichiarata:</b> il Regolamento assegna 3 caselle al PNG scortato; qui sono '
+                 '5, ed è voluto — un uomo appena sciolto dalla corda corre per la vita. '
+                 'Il Capocantiere NON parla mai durante lo scontro: nel '
                  'silenzio che ha costruito, non serve. «Smascherato» (Domanda 2 esatta): '
                  'gridando il nome di VOLTAN, il Capocantiere capisce chi pagherà per '
                  'tutto — salta la sua PRIMA attivazione e 1 Sgherro se ne va («io non '
@@ -521,10 +537,16 @@ def spedizione():
     c.setFillColor(RED); c.setFont(F['sc'], 20)
     c.drawCentredString(W/2, H - 32*mm, 'episodio 7 — spedizione')
     c.setFillColor(TEAL); c.setFont(F['i'], 12)
-    c.drawCentredString(W/2, H - 40*mm, 'il palazzone di sant’orsola, al cambio delle nove')
+    c.drawCentredString(W/2, H - 40*mm, 'il palazzone di sant’orsola, al cambio delle nove — la sera dopo')
     wave(c, W/2 - 20*mm, H - 46*mm, 40*mm, OGOLD)
     frame_flow(c, 28*mm, H - 112*mm, W - 56*mm, 60*mm, [
-        Paragraph('Le 21 carte Minaccia dell’episodio (più o meno una, secondo il vostro '
+        Paragraph('<i>Il cancello si scopre al cambio del guardiano, e il cambio è alle nove '
+                  'di sera: quando l’Indagine si chiude, quello di stasera è passato da un '
+                  'pezzo — e un carro della calce, col carrettiere e la bolla, non si mette '
+                  'insieme a mezzanotte. Si entra al cambio della sera dopo. Fava è murato, ma '
+                  'nutrito: chi lo tiene non ha fretta, e questo è l’unico vantaggio che vi '
+                  'lascia.</i><br/><br/>'
+                  'Le 21 carte Minaccia dell’episodio (più o meno una, secondo il vostro '
                   'Bivio dell’Episodio 6 — vedi Soluzione) e le schede Nemici sono carte a '
                   'parte (cartella <b>Episodio 7/cards/</b>). Le 8 tessere del palazzone sono '
                   'in <b>Episodio 7/board/</b> — ma se ne giocano al massimo 6: dopo il piano '
@@ -692,6 +714,14 @@ def soluzione():
         'come sempre.',
     ])
     pagina('spedizione — montaggio, la scelta e il boss', [
+        '<b>Quando si entra.</b> Il varco del cambio si apre ogni sera alle nove (registro '
+        'dei turni, L6), e quello di stasera passa mentre il gruppo raccoglie le prove: la '
+        'Spedizione si gioca al cambio della sera SUCCESSIVA all’Indagine. Il vantaggio '
+        'della Domanda 3 vale per quel cambio lì, non per uno che è già andato — e la '
+        'giornata serve comunque a procurarsi carro, carrettiere e bolla. Fava è murato ma '
+        'nutrito: l’attesa non lo uccide e non costa niente al tavolo. <i>Se qualcuno '
+        'chiede perché non si corre subito: perché alle undici di sera al cancello c’è il '
+        'guardiano nuovo, sveglio, e nessuna consegna in arrivo.</i>',
         '<b>Montaggio</b> (tessere in Episodio 7/board/, coperte tranne T1):<br/>'
         'T1 Cancello e Carro (ingresso, da Sud) → T2 Piano Terra. Da qui DUE vie verso '
         'T6, a scelta del gruppo (annunciata ad alta voce, vincolante — l’altra via '
@@ -731,8 +761,8 @@ def soluzione():
         'Nessuno, in aula, fa l’unica domanda che conta: CHI comprava tutto quel '
         'silenzio?»',
         '<b>FRAMMENTO DI CAMPAGNA N. 7:</b> <i>«Le scorie del bronzo del ’41 bevono il '
-        'suono. Qualcuno compra il silenzio — a carrettate.»</i> Conservatelo per il '
-        'finale di campagna.',
+        'suono: al suono succede il silenzio. E il silenzio qualcuno lo compra a '
+        'carrettate.»</i> Conservatelo per il finale di campagna.',
         '<b>IL BIVIO — decidete insieme, poi sigillate.</b> Il fascicolo del brevetto è '
         'in mano vostra:<br/>'
         '<b>Denunciare il brevetto.</b> Sant’Orsola è salva e riconoscente: le demolizioni '
@@ -741,7 +771,7 @@ def soluzione():
         'l’intonaco brucia i registri: nell’Episodio 8 l’esame di Carbone sull’oro NON sarà '
         'disponibile.<br/>'
         '<b>Tacere e tracciare gli acquirenti.</b> Partite con la lista dei compratori: '
-        'nell’Episodio 8, un incrocio in più alla Domanda 1. Ma Sant’Orsola resta sorda: '
+        'nell’Episodio 8, una conferma in più alla Domanda 1. Ma Sant’Orsola resta sorda: '
         'la Testimonianza «Il sensale dei banchi» (Luogo 1) esce dal mazzo Approfondimenti '
         'dell’Episodio 8.<br/>'
         'Scrivete la scelta sul retro del Frammento n. 7 e non parlatene più fino '

@@ -44,8 +44,21 @@ SMB = st('smb', fontName=F['sc'], fontSize=8.5, textColor=TEAL, spaceBefore=4, s
 
 
 def frame_flow(c, x, y, w, h, flow):
+    # addFromList CONSUMA la lista e lascia dentro cio' che non e' entrato:
+    # un Paragraph piu' alto del frame sparisce dalla pagina SENZA errori
+    # (e' successo alla lettera del Preludio, vista solo aprendo il PDF).
+    # Qui non si stampa a vuoto: si urla.
     Frame(x, y, w, h, leftPadding=0, rightPadding=0, topPadding=0,
           bottomPadding=0, showBoundary=0).addFromList(flow, c)
+    if flow:
+        import os as _os, sys as _sys
+        _testo = ' '.join(str(getattr(f, 'text', f))[:90] for f in flow[:2])
+        _msg = ('FRAME TROPPO PICCOLO in %s: %d elementi non entrano in %.1fx%.1fmm '
+                'e NON verranno stampati -> %s'
+                % (_os.path.basename(__file__), len(flow), w / 2.83465, h / 2.83465, _testo))
+        print('!! ' + _msg, file=_sys.stderr)
+        if _os.environ.get('ROCCAMORA_FRAME_STRICT'):
+            raise RuntimeError(_msg)
 
 
 # ================================================================= DATI
@@ -153,10 +166,12 @@ LUOGHI_9 = [
              'voce: «il teste Riva l’ho nascosto io, nella sacrestia del Tribunale, dietro '
              'l’aula. Un solo uomo di guardia: me. Ma io stanotte smonto, e chi monta dopo '
              'di me… non lo conosco. Portatelo via prima del cambio.»',
-             'L’usciere vi trattiene per la manica e abbassa ancora la voce: «e non prima '
-             'delle tre, mi raccomando. Prima è pieno di ronde, vi fermano a ogni angolo. '
-             'Dopo le tre il Vicolo dei Tintori è sgombro: di là passate senza vedere '
-             'nessuno.» Lo dice guardando la porta, non voi.',
+             'L’usciere vi trattiene per la manica: «e non prima delle tre, mi raccomando — '
+             'me l’ha appena dato il brigadiere, qui al banco: prima è pieno di ronde, vi '
+             'fermano a ogni angolo; dopo le tre il Vicolo dei Tintori è sgombro, di là '
+             'passate senza vedere nessuno. Io di strade non m’intendo, ma gli orari li '
+             'tiene lui.» Il brigadiere, dal banco, conferma con un cenno senza alzare la '
+             'testa dal registro.',
              'Sul banco degli oggetti smarriti, un tesserino della Gendarmeria «trovato»: '
              'utile a un agente in servizio, non a una scorta clandestina di notte. Accanto, '
              'un fischietto d’ordinanza vero.',
@@ -165,7 +180,8 @@ LUOGHI_9 = [
              'Documenti in regola, troppo in '
              'regola. Non ha fatto niente. Ma da quando è arrivato, i miei uomini “non '
              'sono disponibili” proprio nelle ore in cui servirebbero. Qualcuno, sopra di '
-             'me, ha dato ordini.»'],
+             'me, ha dato ordini.» Poi si riprende, e torna al registro: gli orari delle '
+             'ronde al Tribunale li passa lui, e stanotte li ha già passati.'],
          approfondimenti=[
              dict(tipo='Testimonianza', soggetto='L’usciere del Tribunale',
                   testo='«La deposizione di domani terrorizza gente importante, signori: da '
@@ -276,13 +292,14 @@ LUOGHI_9 = [
              'restituire. Il ragazzo adesso non parla più: sorride e trema. Non l’ha '
              'toccato. Gli ha solo PARLATO.»'],
          approfondimenti=[
-             dict(tipo='Referto', soggetto='Il biglietto di C.B.',
-                  testo='Carta di pregio, filigrana della cartiera dei casi passati; e la '
-                        '«M.» della firma ha lo stesso ricciolo del Tessitore delle lettere '
-                        'd’incarico. La mano che vi ha assunti scrive gli ordini a chi vi '
-                        'dà la caccia. «Che sia pulito» a doppia lettura: uccidere senza '
-                        'scandalo, o far sparire senza sangue? Perfino l’ordine è ambiguo, '
-                        'come chi lo firma.'),
+             dict(tipo='Referto', soggetto='Il biglietto nel cestino',
+                  testo='Carta di pregio, filigrana della cartiera già vista nei casi '
+                        'passati; la firma è una sola iniziale, «M.». Un’iniziale non è un '
+                        'nome, e in città di gente che si firma con una lettera sola ce '
+                        'n’è più d’una — ma la carta è questa, e si ripete di caso in '
+                        'caso. «Che sia pulito» a doppia lettura: uccidere senza scandalo, '
+                        'o far sparire senza sangue? Perfino l’ordine è ambiguo, come chi '
+                        'lo firma.'),
          ]),
     dict(n=9, nome='L’APPRODO DELLA SOCIETÀ', voce_mappa='Il Molo del Lume',
          req='L’approdo segreto della Società è protetto dall’oscurità e dal Salvacondotto: '
@@ -500,7 +517,11 @@ def spedizione():
                   'una SCORTA. La miniatura del teste <b>Anselmo Riva</b> parte con voi in '
                   'T1 e deve arrivare viva alla barca in T6. Riva ha <b>3 Salute</b>, '
                   'Movimento 3, non combatte e non agisce: tenetelo in mezzo. Se Riva cade, '
-                  'la scorta è fallita. Le pagine seguenti sono le note per tessera.', BODY)])
+                  'la scorta è fallita. <b>Deroga dichiarata</b> (leggetela prima del primo '
+                  'colpo): il Regolamento vuole che i nemici <i>ignorino</i> il PNG '
+                  'scortato. Qui no, ed è il punto dell’episodio: Riva è il bersaglio, ha '
+                  'Salute propria e cade come un uomo. Vale quanto è scritto in questo '
+                  'fascicolo. Le pagine seguenti sono le note per tessera.', BODY)])
     c.showPage()
     parchment_art(c, W, H)
     rule_border(c, W, H)
@@ -610,7 +631,7 @@ def soluzione():
         'carte).',
     ])
     pagina('la verità', [
-        'C.B./M. usa il processo per riscrivere la storia ufficiale: la sentenza deve dire '
+        'C.B. usa il processo per riscrivere la storia ufficiale: la sentenza deve dire '
         '«una setta di truffatori, caso chiuso», e bruciare per sempre la pista che porta '
         'oltre Ferri fino a lui. Gli strumenti sono tre uomini: l’<b>avvocato Grassi</b> '
         '(pagato da un fondo fittizio, in oro vecchio dell’ansa morta — la stessa mano '
@@ -647,10 +668,18 @@ def soluzione():
         'la Testimonianza «Ranuzzi» (L2), la Testimonianza «Amilcare Bo» (L3) e la '
         'Testimonianza «L’usciere del Tribunale» (L4). Senza nessuna delle tre, giudicate '
         'con elasticità una risposta «vicina» (es. «chi pagava i clan, l’oro vecchio»).',
-        '<b>CHI MENTE? (deduzione bonus).</b> Il bugiardo è <b>l’usciere del Tribunale</b> (Luogo 4): è l’unico che sa dov’è Riva, ed è stato '
-        'girato e dà una versione falsa (una «via sicura» per il teste che è invece una '
-        'trappola: vi manda al Vicolo dei Tintori «dopo le tre», mentre il giurato Bo (L3) e il registro delle ronde comprate (L5) dicono entrambi «tra l’una e le tre». Due contro uno, e l’unico a discostarsi è l’unico che ha la chiave della sacrestia. L’ora del colpo secondo chi mente non combacia col registro delle '
-        'ronde comprate). Il gruppo lo smaschera CONFRONTANDO le versioni: se hanno '
+        '<b>CHI MENTE? (deduzione bonus).</b> Il bugiardo è <b>il brigadiere della '
+        'Gendarmeria</b> (Luogo 4): è lui che tiene e passa al Tribunale gli orari delle '
+        'ronde, ed è stato girato — «qualcuno, sopra di me, ha dato ordini» — e la sua '
+        'versione falsa gliela ripete l’usciere in perfetta buona fede, dicendo da chi '
+        'l’ha avuta (una «via sicura» per il teste che è invece una trappola: il Vicolo '
+        'dei Tintori «dopo le tre», mentre il giurato Bo (L3) e il registro delle ronde '
+        'comprate (L5) dicono entrambi «tra l’una e le tre». Due contro uno, e l’unico a '
+        'discostarsi è l’unico che quegli orari li scrive di suo pugno. L’ora del colpo '
+        'secondo chi mente non combacia col registro delle '
+        'ronde comprate). <i>L’usciere resta pulito:</i> ha nascosto Riva, ha rifiutato '
+        'l’oro, e su di lui si può contare — è il brigadiere che ha messo l’ora sbagliata '
+        'nella sua bocca. Il gruppo lo smaschera CONFRONTANDO le versioni: se hanno '
         'incrociato il vero colpevole (un rivelatorio D2) e sentito almeno DUE dei tre '
         'testimoni, individuano il bugiardo — e nella scorta non si fidano della falsa via '
         'sicura: l’imboscata del Vicolo dei Tintori (T2) è alleggerita di 1 Sgherro '
@@ -669,6 +698,10 @@ def soluzione():
         'agisce. Si muove nel turno degli eroi. Se cade, la scorta è FALLITA. Un eroe '
         'adiacente può Proteggerlo (azione di reazione, una volta per round: intercetta un '
         'attacco a Riva e lo subisce).',
+        '<b>Deroga dichiarata</b> — annunciatela al tavolo prima che il primo nemico '
+        'attacchi. Il Regolamento dice che i nemici ignorano il PNG scortato: qui no, ed è '
+        'voluto, perché è tutto l’episodio. Riva è il bersaglio, ha Salute propria e cade '
+        'come un uomo. Quello che è scritto qui vince su quella riga.',
         '<b>La regola della scorta:</b> nella Fase Nemici, ogni aggressore che può '
         'raggiungere Riva attacca LUI invece di un eroe. Tenetelo in mezzo, sempre.',
         '<b>Il Sicario Gentile:</b> appare in T3, CACCIA Riva (Mov 4, va sempre al teste '
@@ -849,7 +882,7 @@ OGGETTI_LUOGO_9 = {
         ('Esame di Carbone', '', 'disponibile sulla minaccia lasciata sul cuscino'),
     ],
     8: [
-        ('Reperto C', 'il Biglietto di C.B.', ''),
+        ('Reperto C', 'il Biglietto nel Cestino', ''),
     ],
 }
 
@@ -940,14 +973,15 @@ ESAMI_CARBONE_9 = {
                 'sicario e il mandante, nella stessa stanza.»',
     'LA PARCELLA DELL’AVVOCATO': '«L’oro è la lega dell’ansa morta, la piega della busta '
                 'è quella di sempre: chi paga l’avvocato paga anche i clan, ed è la stessa '
-                'mano che vi ha assunti. Un solo portafoglio muove il processo, la '
-                'Malavita e — sospettatelo — la Società. Contro chi indagate, se firma le '
-                'vostre buste paga?»',
-    'IL BIGLIETTO DI C.B.': '«Carta di pregio, filigrana della cartiera dei casi passati; '
-                'la “M.” ha il ricciolo del Tessitore. La stessa mano che scrive le vostre '
-                'lettere d’incarico scrive gli ordini a chi vi dà la caccia. “Che sia '
-                'pulito” non dice se uccidere o far sparire: perfino l’ordine è a doppia '
-                'lettura, come chi lo firma.»',
+                'mano dell’ansa morta. Un solo portafoglio muove il processo e la Malavita '
+                '— e non è un portafoglio da vicolo: è di chi tiene conti, notai e un nome '
+                'rispettabile. Quanti, in questa città, possono permetterselo?»',
+    'IL BIGLIETTO NEL CESTINO': '«Carta di pregio, filigrana della cartiera dei casi passati: '
+                'non è la prima volta che questa carta mi passa sotto gli occhi, ed è la '
+                'cosa che mi inquieta di più. La firma è una lettera sola, “M.”, e una '
+                'lettera sola non è un nome: di gente che si firma così, in città, ce n’è '
+                'più d’una. “Che sia pulito” non dice se uccidere o far sparire: perfino '
+                'l’ordine è a doppia lettura, come chi lo firma.»',
 }
 
 OGGETTI_TESSERA_9 = {'T2': ['Una Pertica da Tintore'], 'T4': ['Una Lanterna Cieca']}

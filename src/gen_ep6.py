@@ -39,8 +39,21 @@ SMB = st('smb', fontName=F['sc'], fontSize=8.5, textColor=TEAL, spaceBefore=4, s
 
 
 def frame_flow(c, x, y, w, h, flow):
+    # addFromList CONSUMA la lista e lascia dentro cio' che non e' entrato:
+    # un Paragraph piu' alto del frame sparisce dalla pagina SENZA errori
+    # (e' successo alla lettera del Preludio, vista solo aprendo il PDF).
+    # Qui non si stampa a vuoto: si urla.
     Frame(x, y, w, h, leftPadding=0, rightPadding=0, topPadding=0,
           bottomPadding=0, showBoundary=0).addFromList(flow, c)
+    if flow:
+        import os as _os, sys as _sys
+        _testo = ' '.join(str(getattr(f, 'text', f))[:90] for f in flow[:2])
+        _msg = ('FRAME TROPPO PICCOLO in %s: %d elementi non entrano in %.1fx%.1fmm '
+                'e NON verranno stampati -> %s'
+                % (_os.path.basename(__file__), len(flow), w / 2.83465, h / 2.83465, _testo))
+        print('!! ' + _msg, file=_sys.stderr)
+        if _os.environ.get('ROCCAMORA_FRAME_STRICT'):
+            raise RuntimeError(_msg)
 
 
 # ================================================================= DATI
@@ -56,7 +69,7 @@ LETTERA_6 = (
     "scende, con quello che avrete. E qualunque cosa recuperiate là sotto, portatela <b>a "
     "me</b>, non alla Gendarmeria: certe prove, in mani sbagliate, diventano armi.<br/>"
     "— M., presidente della Società»<br/><br/>"
-    "<i>Luoghi disponibili dall’inizio: la sagrestia della Cattedrale, il Canale Basso, il "
+    "<i>Luoghi disponibili dall’inizio: la sacrestia della Cattedrale, il Canale Basso, il "
     "Catasto delle Acque e il Palazzo del Lume — dove M. ha aperto per voi l’archivio dei "
     "Frammenti. Gli altri andranno sbloccati. L’Archivio Capitolare chiude alle 22:00.</i>")
 
@@ -65,7 +78,7 @@ LETTERA_6 = (
 # dei registri» (L4+L3), Chiave della Porta d'Acqua (L6). Rivelatorio (D2) su
 # L1, L2, L4.
 LUOGHI_6 = [
-    dict(n=1, nome='LA CATTEDRALE, LA SAGRESTIA', voce_mappa='La Cattedrale',
+    dict(n=1, nome='LA CATTEDRALE, LA SACRESTIA', voce_mappa='La Cattedrale',
          req='Disponibile dall’inizio', art='nervous priest in a candlelit sacristy.png',
          chiude=None,
          indizi=[
@@ -76,7 +89,7 @@ LUOGHI_6 = [
              'del Quarantuno decise la sconsacrazione dei Battuti E qualcos’altro, di cui '
              'non si parla. Gli atti sono all’Archivio Capitolare. Io la chiave ce l’ho, ma '
              'la parola giusta dovete saperla voi.»',
-             'Dalla sagrestia, con l’orecchio al pavimento: un battito lento, sotto, '
+             'Dalla sacrestia, con l’orecchio al pavimento: un battito lento, sotto, '
              'profondissimo — sessanta colpi l’ora, come un cuore che dorme. E stanotte, '
              'dice don Callisto, «batte più forte. Come chi sogna qualcosa che sta per '
              'accadere.»'],
@@ -152,9 +165,11 @@ LUOGHI_6 = [
              'l’anno, il resto è coraggio.»'],
          approfondimenti=[
              dict(tipo='Testimonianza', soggetto='M., a porte chiuse',
-                  testo='«Ferri è vivo. L’ho sempre saputo — un uomo così non annega in un '
-                        'canale: si CONSERVA, come i suoi strumenti. Stanotte lo troverete '
-                        'al centro della sala, e vi sembrerà stanco e gentile. Non '
+                  testo='«Ferri è vivo. L’ho sempre saputo — dal magazzino non tornò '
+                        'nessun corpo, solo uno spartito lasciato a metà, e chi lascia il '
+                        'lavoro a metà non muore: si CONSERVA, come i suoi strumenti. '
+                        'Stanotte lo troverete al centro della sala, e vi sembrerà '
+                        'stanco e gentile. Non '
                         'esitate per questo. Gli uomini stanchi e gentili sono quelli che '
                         'hanno già deciso tutto.»'),
          ]),
@@ -167,12 +182,14 @@ LUOGHI_6 = [
          indizi=[
              'La bottega sigillata dal vostro primo caso è stata riaperta da dentro: polvere '
              'smossa a isole, e i vuoti sugli attrezzi raccontano cosa è partito — i ferri '
-             'da accordatura grossa, il banco portatile, la campana piccola di prova.',
+             'da accordatura grossa, il banco portatile, la campana piccola di prova. E il '
+             'diapason d’argento: a caso chiuso era rientrato qui coi reperti della bottega, '
+             'sotto i sigilli della Gendarmeria — e i sigilli li ha tagliati lui, da dentro.',
              'Sul banco, dimenticato o lasciato, il diario di lavorazione di Ferri: l’ultima '
              'pagina è di ieri. «La solista non serve: DODICI gole in accordo la valgono. '
              'Devono valerla.»',
              'Nel retro, il calco in gesso di una campana GEMELLA a quella di San Teodoro — '
-             'e trucioli di bronzo recente. Il bronzo scampato alla Fonderia, cinque casi '
+             'e trucioli di bronzo recente. Il bronzo scampato alla Fonderia, quattro casi '
              'fa, non era sparito: stava maturando.'],
          approfondimenti=[
              dict(tipo='Osservazione', soggetto='Il banco del liutaio',
@@ -363,7 +380,8 @@ TILES_6 = [
          testo='La sala che non esiste sulle mappe: rotonda, perfetta, con le tre vene che '
                'entrano da tre bocche e si torcono al centro SENZA mescolarsi. Intorno, il '
                'coro dei dodici canta dagli spartiti. Al centro, con la bacchetta di '
-               'liutaio e il vostro diapason d’argento al collo, Bastiano Ferri. Alza gli '
+               'liutaio e al collo il diapason d’argento del vostro primo caso, Bastiano '
+               'Ferri. Alza gli '
                'occhi. Sorride, stanco e gentile. QUANDO RIVELATE QUESTA TESSERA: appare '
                'BASTIANO FERRI col Coro dei Dodici (vedi il retro e il Bestiario).',
          arbitro='FERRI: Difesa 9, MENO 1 per ogni movimento spento (8/7/6). Il CORO DEI '
@@ -706,8 +724,8 @@ def soluzione():
         'esce di scena per sempre. E sulla riva opposta del canale, un uomo coi guanti '
         'chiude un taccuino, si alza senza fretta, e se ne va. La lettera di M. arriva '
         'prima di pranzo: “Portatemi tutto. Ottimo lavoro. — M.”»',
-        '<b>FRAMMENTO DI CAMPAGNA N. 6:</b> <i>«Ferri contava i movimenti su quattro '
-        'dita. Poi chiudeva il pugno.»</i> Conservatelo per il finale di campagna.',
+        '<b>FRAMMENTO DI CAMPAGNA N. 6:</b> <i>«Ferri contava i movimenti: li contava su '
+        'quattro dita. E poi chiudeva il pugno.»</i> Conservatelo per il finale di campagna.',
         '<b>IL BIVIO — decidete insieme, poi sigillate (conseguenze a LUNGO raggio).</b><br/>'
         '<b>Ferri catturato vivo.</b> Un giorno ci sarà un processo, e sarà il processo '
         'all’uomo GIUSTO (vantaggio investigativo quando accadrà). Ma il culto sa '
@@ -730,7 +748,7 @@ def soluzione():
 # ================================================================== LUOGHI
 
 LUOGHI6_DESC = {
-    1: "La sagrestia sa di cera vecchia e di lino inamidato, la stessa aria di chiuso del "
+    1: "La sacrestia sa di cera vecchia e di lino inamidato, la stessa aria di chiuso del "
        "vostro primo caso; ma è più fredda di quanto una stanza attaccata alla navata abbia "
        "diritto di essere, e il freddo viene dal basso. L’armadio dei paramenti è aperto a "
        "metà, le stole appese per colore, il turibolo spento sul ripiano con la catena "
@@ -785,7 +803,7 @@ LUOGHI6_DESC = {
        "carica è appoggiata sul quadrante.",
     5: "Via degli Archetti a quest’ora è un budello di persiane chiuse, e la bottega in fondo "
        "sa ancora di colofonia e di vernice a spirito — un odore da laboratorio, caldo, che "
-       "due anni di sigilli non hanno tolto e che nessuna stanza abbandonata dovrebbe avere "
+       "cinque mesi di sigilli non hanno tolto e che nessuna stanza abbandonata dovrebbe avere "
        "così vivo. Dentro, la polvere non è un velo uniforme: è smossa a isole, con sentieri "
        "da un banco all’altro e cerchi puliti dove delle cose sono state posate e riprese. "
        "Alla parete la rastrelliera dei ferri è ancora piena per tre quarti, e i vuoti non "

@@ -4,10 +4,10 @@
 Fase B del piano (vedi DESIGN-EPISODIO-16.md e CAMPAGNA-EPISODI.md). Atto III,
 standalone di RESPIRO: la figlia del lampionaio rapita dallo Sposo, un
 truffatore matrimoniale. Caso piccolo e umano, zero culto — il boss più debole
-della campagna, apposta. Ma la lettera d'incarico di M. cita il «nastro verde
-al polso», un segreto che nessuno gli ha detto: la crepa. Debutta la meccanica
+della campagna, apposta. Ma la lettera d'incarico di M. cita il «nastro al
+polso», un segreto che nessuno gli ha detto: la crepa. Debutta la meccanica
 di campagna della RILETTURA (rileggere le vecchie lettere di M. banca incroci
-per l'Ep. 18). Un solo seme: il nastro verde nella lettera di M.
+per l'Ep. 18). Un solo seme: il nastro nella lettera di M.
 
 Varietà strutturale (regola 2026-07-18): il respiro (manopole al minimo, verso
 il basso); finale = liberare una persona smontando un inganno, non un boss.
@@ -49,50 +49,69 @@ SMB = st('smb', fontName=F['sc'], fontSize=8.5, textColor=TEAL, spaceBefore=4, s
 
 
 def frame_flow(c, x, y, w, h, flow):
+    # addFromList CONSUMA la lista e lascia dentro cio' che non e' entrato:
+    # un Paragraph piu' alto del frame sparisce dalla pagina SENZA errori
+    # (e' successo alla lettera del Preludio, vista solo aprendo il PDF).
+    # Qui non si stampa a vuoto: si urla.
     Frame(x, y, w, h, leftPadding=0, rightPadding=0, topPadding=0,
           bottomPadding=0, showBoundary=0).addFromList(flow, c)
+    if flow:
+        import os as _os, sys as _sys
+        _testo = ' '.join(str(getattr(f, 'text', f))[:90] for f in flow[:2])
+        _msg = ('FRAME TROPPO PICCOLO in %s: %d elementi non entrano in %.1fx%.1fmm '
+                'e NON verranno stampati -> %s'
+                % (_os.path.basename(__file__), len(flow), w / 2.83465, h / 2.83465, _testo))
+        print('!! ' + _msg, file=_sys.stderr)
+        if _os.environ.get('ROCCAMORA_FRAME_STRICT'):
+            raise RuntimeError(_msg)
 
 
 # ================================================================= DATI
 
 LETTERA_16 = (
     "Alla Società del Lume, riservata.<br/><br/>"
-    "«Un caso da nulla, per riposarvi la mente dopo tanto veleno: <b>Bruna</b>, la figlia del "
+    "«Un caso da nulla, per riposarvi la mente dopo tanto veleno: <b>Nina</b>, la figlia del "
     "lampionaio di riva, è sparita da tre giorni. Dicono fuga d’amore. Riportatemela a casa — la "
-    "piccola col <b>nastro verde al polso</b>. Il padre accende ancora i lampioni ogni sera, come "
+    "piccola col <b>nastro al polso</b>. Il padre accende ancora i lampioni ogni sera, come "
     "se lei potesse tornare a vederli.<br/><br/>"
     "E già che rileggete il fascicolo, fatemi un favore: <b>rileggete anche i miei</b>. Le vecchie "
     "lettere d’incarico, quelle che conservate. Con calma, una per una. A volte un uomo scrive più "
-    "di quanto sappia di scrivere. Avete <b>6 ore</b>, dalle 18:00 alle 24:00; la villa sul lago è "
-    "poco fuori porta.<br/>"
+    "di quanto sappia di scrivere. Avete <b>6 ore</b>, dalle 18:00 alle 24:00; e dovunque l’abbia "
+    "portata, non può essere lontano.<br/>"
     "— M., presidente della Società»<br/><br/>"
     "<i>Luoghi disponibili dall’inizio: la Casa del Lampionaio, il Caffè degli Annunci, la Gazzetta "
     "di Roccamora e la Stazione delle Carrozze. Gli altri andranno sbloccati. NUOVO — la RILETTURA: "
-    "rileggere una vecchia lettera di M. al Taccuino banca un incrocio per l’Episodio 18.</i>")
+    "rileggere le vecchie lettere di M. al Taccuino banca incroci per l’Episodio 18, "
+    "al massimo 3.</i>")
 
 # Chiavi LETTERALI negli indizi, tutte da luoghi APERTI (L1-L4), doppia via:
-# «il nastro verde» (L1+L4), «la fuga d'amore» (L1+L2), «lo sposo perfetto»
-# (L2+L3), «la carrozza per il lago» (L3+L4). Rivelatorio (D2) su L1, L2, L3.
+# «il nastro verde» (SOLO L1, tre volte: la lettera d'incarico dice «il nastro
+# al polso» senza il colore, altrimenti la serratura del Luogo 6 — «apre solo a
+# chi ha notato la crepa» — si apriva alle 18:00 leggendo la busta; e il
+# capostazione NON lo nomina piu' — se un estraneo lo ha visto non e' un
+# segreto, e la crepa della D4 crolla),
+# «la fuga d'amore» (L1+L2), «lo sposo perfetto» (L2+L3),
+# «la carrozza per il lago» (L3+L4). Rivelatorio (D2) su L1, L2, L3.
 LUOGHI_16 = [
     dict(n=1, nome='LA CASA DEL LAMPIONAIO', voce_mappa='La Casa del Lampionaio',
          req='Disponibile dall’inizio', art='La Casa del Lampionaio.png',
          chiude=None,
          indizi=[
-             'Il lampionaio è un uomo spezzato che accende ancora i lumi ogni sera: «la mia Bruna '
+             'Il lampionaio è un uomo spezzato che accende ancora i lumi ogni sera: «la mia Nina '
              'non è scappata per amore, signori. Lo dicono tutti, la fuga d’amore, ma io la '
              'conosco. Un bel giovane le girava intorno, promesse di nozze… e poi il nulla. Non '
              'una riga. Una fuga d’amore lascia almeno un biglietto.»',
-             'Sul comò, la fotografia di Bruna. Il padre indica il polso: «vede? Non c’è, '
+             'Sul comò, la fotografia di Nina. Il padre indica il polso: «vede? Non c’è, '
              'nella foto, ma glielo avevo legato io, un nastro verde, il giorno che ha '
              'compiuto vent’anni. Un segno nostro, tra me e lei. Non l’ho mai detto a '
-             'nessuno. Se la trovate col nastro verde al polso, è la mia Bruna.»',
+             'nessuno. Se la trovate col nastro verde al polso, è la mia Nina.»',
              'Il padre, sottovoce: «è strano, però. Ieri è passato un signore della vostra Società '
              'a portarmi coraggio, gentile. Ha detto "la ritroveremo, la piccola col nastro '
              'verde". Ma io il nastro verde non l’avevo detto a nessuno. A nessuno. Come faceva a '
              'saperlo?»'],
          approfondimenti=[
              dict(tipo='Testimonianza', soggetto='Il lampionaio',
-                  testo='«Ve lo dico perché mi pesa sul cuore: il nastro verde al polso di Bruna '
+                  testo='«Ve lo dico perché mi pesa sul cuore: il nastro verde al polso di Nina '
                         'era un segreto tra me e lei, un pegno di compleanno, mai detto ad anima '
                         'viva. Eppure il signore della vostra Società lo sapeva, ieri, prima ancora '
                         'che voi arrivaste. Io non capisco queste cose. Ma voi che indagate — '
@@ -108,7 +127,7 @@ LUOGHI_16 = [
              'ragazze coi begli annunci. Lo sposo perfetto, dicevano. Troppo perfetto: spariva '
              'appena firmata la promessa di dote.»',
              'Sul tavolino d’angolo, un biglietto d’amore dimenticato, firma illeggibile.',
-             'La cameriera ricorda Bruna: «veniva qui con lui, raggiante. Poi un giorno lui le ha '
+             'La cameriera ricorda Nina: «veniva qui con lui, raggiante. Poi un giorno lui le ha '
              'detto che partivano per sposarsi in una villa sul lago, lontano dalle chiacchiere. '
              'Lei era felice. Non sapeva. Ho provato ad avvertirla, ma l’amore è sordo.»'],
          approfondimenti=[
@@ -130,26 +149,27 @@ LUOGHI_16 = [
              'Ranuzzi incrocia le date: «e c’è sempre una carrozza per il lago, negli ultimi '
              'colpi. Affitta una villa fuori porta, ci porta la ragazza col miraggio delle nozze, '
              'la spenna e sparisce dall’altra sponda. La carrozza per il lago è la sua firma.»',
-             'Il cronista, curioso: «strano però che la vostra Società prenda un caso così '
-             'piccolo. Di solito cacciate mostri. Questo è un truffatore da caffè. A meno che '
-             'qualcuno, in alto, non abbia un motivo per tenervi occupati con le sciocchezze.»'],
+             'Il cronista, con dispiacere di mestiere: «di solito cacciate mostri. Questo è un '
+             'truffatore da caffè, non gli darei mezza colonna. Eppure le ragazze che si porta '
+             'via non tornano più quelle di prima, e di quelle non scrive nessuno.»'],
          approfondimenti=[
              dict(tipo='Osservazione', soggetto='La scia dello Sposo',
                   testo='Incrociate gli annunci e le sparizioni: lo Sposo è un seriale prevedibile, '
                         'quasi noioso nella sua meccanica. Villa affittata sul lago, promessa di '
                         'nozze, dote firmata, fuga dall’altra sponda. Nessun mistero, nessuna '
-                        'ombra. È proprio la sua piccolezza a stonare col vostro incarico: perché '
-                        'M. vi manda a caccia di un topo, quando cacciate lupi da quindici mesi? O '
-                        'per farvi respirare, o per tenervi lontani da qualcos’altro.'),
+                        'ombra: un mestiere ripetuto tante volte da diventare prevedibile — e la '
+                        'prevedibilità è l’unica cosa di lui che potete usare. Sapete dove porta '
+                        'le ragazze e sapete cosa aspetta per sparire: la firma sulla dote. '
+                        'Finché quella carta non è firmata, Nina gli serve viva e contenta.'),
          ]),
     dict(n=4, nome='LA STAZIONE DELLE CARROZZE', voce_mappa='La Stazione delle Carrozze',
          req='Disponibile dall’inizio', art='La Stazione delle Carrozze.png',
          chiude=None,
          indizi=[
              'Alla Stazione, il capostazione ricorda la partenza: «tre giorni fa, una ragazza e un '
-             'signore distinto, carrozza per il lago. Lei rideva. Aveva un nastro verde al polso, '
-             'me lo ricordo perché mano nella mano con lui giocherellava con quel nastro. Il nastro '
-             'verde, sì. Sono partiti verso ponente.»',
+             'signore distinto, carrozza per il lago. Lei rideva — quella risata l’ho sentita '
+             'prima di vederla. Vestito buono della domenica, una valigia sola, e i guanti lunghi '
+             'della festa: delle mani, di lei, non ho visto niente. Sono partiti verso ponente.»',
              'Il registro dei noli segna la carrozza per il lago: «villa dei Càrpine, sponda di '
              'ponente, affitto trimestrale. Poco fuori porta, un’ora scarsa. È lì che vanno tutti '
              'quelli che vogliono sparire senza andare troppo lontano.»',
@@ -158,8 +178,11 @@ LUOGHI_16 = [
              'lì non sposa nessuno: quello lì tiene qualcuno.»'],
          approfondimenti=[
              dict(tipo='Testimonianza', soggetto='Il capostazione',
-                  testo='«Il nastro verde al polso della ragazza me lo ricordo bene: ci giocava '
-                        'nervosa mentre saliva. E la carrozza per il lago era quella di sempre, la '
+                  testo='«La ragazza me la ricordo bene, ma non per la faccia: rideva come chi non '
+                        'ha mai preso una vettura per andare lontano, e lui la teneva per il gomito '
+                        'con la cortesia che si usa coi bauli. Le facce non le tengo a mente, '
+                        'signori, tengo a mente gli orari. E la carrozza per il lago era quella di '
+                        'sempre, la '
                         'villa dei Càrpine sulla sponda di ponente. Un’ora scarsa da qui. Se '
                         'cercate la piccola del lampionaio, è là che l’hanno portata: non a nozze, '
                         'ma a marcire finché lui non ha in mano la dote.»'),
@@ -185,9 +208,9 @@ LUOGHI_16 = [
                   testo='Nella casa di questa donna il male ha una faccia piccola e un nome — anzi '
                         'dieci nomi, tutti falsi. Dopo mesi di ombre senza volto, di C.B. che non '
                         'si lascia toccare, fa quasi tenerezza un cattivo così: prevedibile, '
-                        'meschino, umano. Ed è proprio questo il tarlo. Perché mentre inseguite '
-                        'questo topo, il vero lupo — quello che sapeva del nastro verde — vi guarda '
-                        'da casa vostra, e sorride del vostro riposo.'),
+                        'meschino, umano. Un male con una misura si prende in una sera, e stasera '
+                        'basterà. Eppure, scendendo quelle scale, vi resta addosso il freddo di '
+                        'una cosa piccola che non torna — e non riguarda quest’uomo.'),
          ]),
     dict(n=6, nome='L’ARCHIVIO DELLE LETTERE', voce_mappa='L’Archivio delle Lettere',
          req='L’archivio delle lettere della Società apre solo a chi ha notato la crepa: il nastro '
@@ -200,11 +223,12 @@ LUOGHI_16 = [
          # (indagine.js), quindi nemmeno il Grimaldello di Nino entrava.
          chiude=21,
          indizi=[
-             'Il Taccuino e le vecchie lettere d’incarico di M., conservate una a una. È qui '
-             'che debutta la RILETTURA: rileggere le lettere passate, con occhi nuovi.',
-             'La lettera di stanotte nomina «la piccola col nastro verde al polso». Un '
-             'dettaglio che la famiglia non ha mai confidato, di pugno del presidente, '
-             'scritto prima che voi lo scopriste. Impossibile — eppure eccolo.',
+             'Il Taccuino e le vecchie lettere d’incarico di M.: non le vostre copie, le sue '
+             'minute — compresa la prima, quella che vi ordinò di bruciare. È qui che debutta '
+             'la RILETTURA: rileggere le lettere passate, con occhi nuovi.',
+             'La lettera di stanotte nomina «la piccola col nastro al polso». Quel nastro è '
+             'un dettaglio che la famiglia non ha mai confidato a nessuno, ed è qui di pugno '
+             'del presidente, scritto prima che voi lo scopriste. Impossibile — eppure eccolo.',
              'Rilette in fila, le vecchie lettere hanno tutte, ognuna, un dettaglio di '
              'troppo: una cosa saputa un giorno prima del dovuto, un nome anticipato, una '
              'data. Prese una a una, coincidenze. Prese insieme, una firma.'],
@@ -236,9 +260,10 @@ LUOGHI_16 = [
                   testo='Le rose bianche sono lo strumento del mestiere: fanno credere all’amore '
                         'chi ha voglia di crederci. Il fioraio è l’unico che ha visto lo Sposo da '
                         'vicino, ma non serve a nulla — dieci nomi, dieci facce. La pista dei '
-                        'fiori porta solo alla villa, che già conoscete. È un vicolo cieco '
-                        'profumato: bello, inutile, e un altro modo per non guardare la vera '
-                        'domanda, che non riguarda lo Sposo ma chi vi ha mandato a prenderlo.'),
+                        'fiori porta solo alla villa, che già conoscete: un vicolo cieco '
+                        'profumato. Serve però a misurare l’uomo: paga in contanti, ordina sempre '
+                        'lo stesso mazzo, non lascia mai un indirizzo. Non è audacia, è '
+                        'abitudine — e l’abitudine è la sola cosa per cui lo si aspetta al varco.'),
          ]),
     dict(n=8, nome='IL REGISTRO DEGLI AFFITTI', voce_mappa='Il Registro degli Affitti',
          req='L’ufficio degli affitti apre a chi sa dove cercare: la villa presa in affitto per '
@@ -271,8 +296,8 @@ LUOGHI_16 = [
          indizi=[
              'La villa dei Càrpine sulla sponda di ponente, di sera: giardino, serra, un '
              'imbarcadero con la barca pronta. Dentro, lo Sposo recita la parte del fidanzato '
-             'premuroso davanti a Bruna, che ancora non sa.',
-             'Nel salone, Bruna col nastro verde al polso, felice, in attesa di nozze che non '
+             'premuroso davanti a Nina, che ancora non sa.',
+             'Nel salone, Nina col nastro verde al polso, felice, in attesa di nozze che non '
              'verranno. Liberarla non è questione di forza: è questione di verità. Mostratele il '
              'Fascicolo delle Vittime e l’incantesimo crolla.',
              'I due complici — un cocchiere e un tuttofare — fanno la ronda annoiati. Nessuna '
@@ -290,7 +315,7 @@ LUOGHI_16 = [
          ]),
 ]
 
-# Tessere della villa (percorso lineare a 6). Obiettivo = liberare Bruna (T6) e
+# Tessere della villa (percorso lineare a 6). Obiettivo = liberare Nina (T6) e
 # catturare lo Sposo. NIENTE soglia-catastrofe: col Fascicolo la cattura è
 # automatica; senza, lo Sposo tenta la barca (T5). Boss: lo Sposo (debole).
 TILES_16 = [
@@ -328,12 +353,12 @@ TILES_16 = [
          arredi=[(0, 1, 'casse'), (3, 2, 'casse')]),
     dict(id='T4', nome='IL SALONE', exits={'S': 'T3', 'N': 'T5'},
          testo='Il salone illuminato a festa: lo Sposo, elegante, recita la parte del fidanzato '
-               'premuroso davanti a Bruna col nastro verde al polso. QUANDO RIVELATE QUESTA '
+               'premuroso davanti a Nina col nastro verde al polso. QUANDO RIVELATE QUESTA '
                'TESSERA: lo Sposo vi vede, e capisce che è finita.',
-         arbitro='Lo Sposo comincia a manovrare per portare Bruna verso l’imbarcadero (T5) e usarla '
+         arbitro='Lo Sposo comincia a manovrare per portare Nina verso l’imbarcadero (T5) e usarla '
                  'come scudo per la barca. Se avete il Fascicolo delle Vittime, potete già qui '
-                 'mostrarlo a Bruna: l’incantesimo si incrina, lei rallenta i suoi piani.',
-         hook='Il Fascicolo delle Vittime (dalla ex fidanzata): mostrato a Bruna, spezza la bugia '
+                 'mostrarlo a Nina: l’incantesimo si incrina, lei rallenta i suoi piani.',
+         hook='Il Fascicolo delle Vittime (dalla ex fidanzata): mostrato a Nina, spezza la bugia '
               '— lo Sposo perde lo scudo e la cattura diventa automatica alla stanza (T6).',
          cerca_vuoto='Tavoli imbanditi per un banchetto: argenteria a nolo, e i '
                      'cartellini dei posti scritti tutti dalla stessa mano. Nessuna '
@@ -341,32 +366,32 @@ TILES_16 = [
          arredi=[(1, 2, 'casse'), (2, 0, 'altare')]),
     dict(id='T5', nome='L’IMBARCADERO', exits={'S': 'T4', 'N': 'T6'},
          testo='L’imbarcadero sul lago, la barca legata e pronta. QUANDO RIVELATE QUESTA TESSERA: '
-               'se lo Sposo arriva qui con Bruna ancora incantata, tenta la fuga sull’acqua '
+               'se lo Sposo arriva qui con Nina ancora incantata, tenta la fuga sull’acqua '
                'usandola come scudo.',
-         arbitro='Punto di fuga. Se Bruna è ancora sotto l’inganno (niente Fascicolo), lo Sposo la '
+         arbitro='Punto di fuga. Se Nina è ancora sotto l’inganno (niente Fascicolo), lo Sposo la '
                  'trascina alla barca: fermarlo richiede una prova rischiosa (rischia di cadere in '
-                 'acqua con lei). Col Fascicolo, Bruna non lo segue: niente fuga, niente rischio.',
+                 'acqua con lei). Col Fascicolo, Nina non lo segue: niente fuga, niente rischio.',
          cerca_vuoto='Acqua nera e una barca che dondola contro i respingenti di corda. '
                      'Sull’imbarcadero, un bidone di petrolio e una lampada spenta: '
                      'nient’altro.',
          arredi=[(1, 1, 'casse'), (2, 2, 'casse')]),
-    dict(id='T6', nome='LA STANZA DI BRUNA', exits={'S': 'T5'},
-         testo='La stanza preparata per la «prima notte di nozze», dove Bruna aspetta. QUANDO '
-               'RIVELATE QUESTA TESSERA: qui si chiude il caso — si libera Bruna e si prende lo '
+    dict(id='T6', nome='LA STANZA DI NINA', exits={'S': 'T5'},
+         testo='La stanza preparata per la «prima notte di nozze», dove Nina aspetta. QUANDO '
+               'RIVELATE QUESTA TESSERA: qui si chiude il caso — si libera Nina e si prende lo '
                'Sposo, con la verità o con la forza.',
-         arbitro='OBIETTIVO. Col Fascicolo delle Vittime mostrato a Bruna, l’inganno crolla: lei si '
+         arbitro='OBIETTIVO. Col Fascicolo delle Vittime mostrato a Nina, l’inganno crolla: lei si '
                  'stacca dallo Sposo, che resta senza scudo — CATTURA AUTOMATICA (vittoria pulita). '
                  'Senza il Fascicolo, dovete strapparla con la forza mentre lui si dibatte: '
                  'vittoria «amara» (ci riuscite, ma male). «Quale nome?» (D2): chiedergli quale dei '
                  'dieci sia il vero lo confonde, salta un attacco. '
-                 '— APPENA BRUNA È LIBERA, leggete ad alta voce: «Bruna non guarda il giardino '
+                 '— APPENA NINA È LIBERA, leggete ad alta voce: «Nina non guarda il giardino '
                  'da cui siete venuti. — Di lì si scende all’imbarcadero. Lo Sposo ci fa '
                  'portare i bauli delle “mogli”: la porta sul retro non la chiude mai, dà '
                  'sull’acqua.» Il gruppo sa che si esce da questa stanza, ma non da sotto '
                  'quale mobile: scoprirlo è Interagire adiacenti a un mobile + prova VIGORE '
                  '(Media). '
-                 '— SEGRETO: è dietro le CASSE accanto al letto (l’unico mobile della stanza). '
-                 '— QUANDO BRUNA SCENDE ALL’IMBARCADERO la spedizione è VINTA: leggete '
+                 '— SEGRETO: è dietro le CASSE accanto al letto (uno dei tre mobili). '
+                 '— QUANDO NINA SCENDE ALL’IMBARCADERO la spedizione è VINTA: leggete '
                  'l’epilogo. Non serve rifare a ritroso la villa.',
          cerca_vuoto='La stanza è preparata come una scena: lenzuola nuove, candele '
                      'accese, un vestito appeso che nessuno ha mai indossato. Niente, '
@@ -383,18 +408,18 @@ NEMICI_16 = [
     dict(nome='LO SPOSO', att=2, dif=7, fer=4, mov=3, dan=1, boss=True,
          tipo='Il Truffatore Matrimoniale (Boss)', art='Lo Sposo.png',
          note='Il boss più debole della campagna, apposta. DEBOLEZZA: il Fascicolo delle Vittime '
-              '(D3) — mostrato a Bruna, gli toglie l’ostaggio e la cattura è automatica. «Quale '
+              '(D3) — mostrato a Nina, gli toglie l’ostaggio e la cattura è automatica. «Quale '
               'nome?» (D2 esatta): chiedergli quale dei dieci nomi sia il vero lo confonde, salta '
-              'un attacco. Se arriva all’imbarcadero (T5) con Bruna sotto l’inganno, tenta la fuga '
+              'un attacco. Se arriva all’imbarcadero (T5) con Nina sotto l’inganno, tenta la fuga '
               'in barca. Ai tavoli da 2-3 eroi non recupera mai Ferite (regola delle taglie).',
          bio_bestiario='Lo Sposo — Aldo Sereni, o Marco Vela, o uno dei dieci nomi che indossa '
               'come cravatte — è un truffatore matrimoniale, non un mostro. Colleziona cuori e '
               'doti: promette nozze alle ragazze di buona famiglia, si fa firmare la dote, e '
               'sparisce dall’altra sponda del lago lasciandole rovinate e mute per la vergogna. È '
               'vile, viscido, quasi patetico (Att 2, Fer 4, Danno 1): il contrario di tutto ciò che '
-              'la Società caccia da quindici mesi. Non ha scorta armata, solo due complici da '
+              'la Società caccia da sedici mesi. Non ha scorta armata, solo due complici da '
               'quattro soldi; non ha un culto, solo l’avidità; non ha un piano, solo un metodo '
-              'ripetuto. La sua unica arma è la bugia con cui tiene Bruna prigioniera senza '
+              'ripetuto. La sua unica arma è la bugia con cui tiene Nina prigioniera senza '
               'catene — e quella bugia crolla nel momento in cui la ragazza vede il Fascicolo '
               'delle altre vittime. Messo alle strette, non combatte: scappa, e userebbe una '
               'ragazza come scudo senza batter ciglio. Ai tavoli da 2-3 eroi non recupera mai '
@@ -458,7 +483,7 @@ def indagine():
     yy = sect(yy, 'indizi e parole che tornano', 3)
     c.setFillColor(RED); c.setFont(F['sc'], 11)
     c.drawString(16*mm, yy, 'le 4 domande — rispondete per iscritto, poi aprite la busta della soluzione')
-    doms = ['1. DOVE è Bruna? (attenzione: serve più di una conferma)',
+    doms = ['1. DOVE è Nina? (attenzione: serve più di una conferma)',
             '2. CHI l’ha presa?',
             '3. COSA la tiene lì?',
             '4. COSA SAPEVA M.? (il dettaglio impossibile)']
@@ -471,7 +496,7 @@ def indagine():
     c.setFillColor(TEAL); c.setFont(F['sc'], 9.5)
     c.drawString(16*mm, yy - 9*mm - 4*12*mm, 'LA RILETTURA (nuovo): all’Archivio delle Lettere (6), rileggete le vecchie lettere di M.')
     c.setFillColor(INK); c.setFont(F['r'], 8.5)
-    c.drawString(16*mm, yy - 9*mm - 4*12*mm - 5*mm, 'Ogni vecchia lettera riletta = 1 incrocio bancato per l’Episodio 18. Segnatelo sul Frammento.')
+    c.drawString(16*mm, yy - 9*mm - 4*12*mm - 5*mm, 'Ogni lettera riletta = 1 incrocio per l’Episodio 18, MASSIMO 3 in tutto. Segnateli sul Frammento.')
     contatori_indagine(c, W)
     c.showPage()
     c.save()
@@ -497,9 +522,9 @@ def spedizione():
                   'eventi) e le schede Nemici sono carte a parte (cartella <b>Episodio '
                   '16/cards/</b>). Le 6 tessere della villa sono in <b>Episodio 16/board/</b>. '
                   'Questo è lo scontro <b>più piccolo</b> della campagna, apposta: nessuna soglia, '
-                  'nessuna catastrofe a termine. Obiettivo: raggiungere la stanza di Bruna (T6), '
+                  'nessuna catastrofe a termine. Obiettivo: raggiungere la stanza di Nina (T6), '
                   '<b>liberarla</b> e <b>catturare lo Sposo</b>. Col <b>Fascicolo delle Vittime</b> '
-                  'mostrate a Bruna la verità e l’inganno crolla: cattura automatica (vittoria '
+                  'mostrate a Nina la verità e l’inganno crolla: cattura automatica (vittoria '
                   'pulita). Senza, la strappate con la forza mentre lui tenta la barca (vittoria '
                   'amara). Le pagine seguenti sono le note per tessera.', BODY)])
     c.showPage()
@@ -515,11 +540,11 @@ def spedizione():
                   'sempre (l’allarme della villa), ma non innesca nulla di irreparabile. È un '
                   'respiro.', BODY),
         Paragraph('• <b>LA FUGA IN BARCA.</b> L’unica pressione: se lo Sposo raggiunge '
-                  'l’imbarcadero (T5) con Bruna ancora sotto l’inganno, tenta di scappare sul lago '
+                  'l’imbarcadero (T5) con Nina ancora sotto l’inganno, tenta di scappare sul lago '
                   'usandola come scudo (fermarlo lì è rischioso). Col <b>Fascicolo delle Vittime</b> '
-                  'mostrato a Bruna, lei non lo segue: niente fuga.', BODY),
+                  'mostrato a Nina, lei non lo segue: niente fuga.', BODY),
         Paragraph('• <b>VITTORIA PULITA vs AMARA.</b> Alla stanza (T6): col Fascicolo, l’inganno '
-                  'crolla e lo Sposo è preso <b>automaticamente</b> (pulita). Senza, strappate Bruna '
+                  'crolla e lo Sposo è preso <b>automaticamente</b> (pulita). Senza, strappate Nina '
                   'con la forza e lo Sposo si dibatte (amara: ci riuscite, ma lei si porta a casa '
                   'anche lo spavento). «Quale nome?» (D2): il boss salta un attacco. Il vero peso '
                   'dell’episodio non è qui: è nella <b>crepa</b> — M. sapeva del nastro verde.', BODY)])
@@ -615,18 +640,30 @@ def soluzione():
         'aperti sulla vostra vergogna: nessuno vuole essere visto parlare con voi a quei tavolini. '
         'Rimuovete la Testimonianza «La cameriera del caffè» (Luogo 2) dal mazzo Approfondimenti. '
         'La stessa perdita vale per l’Episodio 17 (un Testimone in meno, indicato nel suo '
-        'fascicolo), e là arriva anche il compenso: l’archivio privato di Braga. Chi ha chiuso '
-        'solo la Busta pubblica ha avallato senza saperlo: primo ramo.',
-        '<b>Il caso.</b> Bruna, la figlia del lampionaio, è nelle mani dello Sposo, un truffatore '
+        'fascicolo), e là arriva il primo pezzo del compenso: dalla cella Braga manda un biglietto '
+        'e la chiave per leggere le sue carte — l’archivio resta in casa sua, e tornerà quando '
+        'sarà lui a riaprire quella porta. Chi ha chiuso '
+        'solo la Busta pubblica ha avallato senza saperlo: primo ramo.<br/>'
+        '<b>CODA — il Bivio dell’Episodio 8</b> (retro del Frammento n. 8): lo Sposo affitta la '
+        'villa, affitta la carrozza e affitta anche gli uomini — di suoi non ne ha. Se avete '
+        'scelto <b>SEQUESTRARE L’ORO</b> — la Vedova Bruna non fa una guerra per un truffatore '
+        'da dote, ma quando le chiedono un braccio e sotto c’è il vostro nome lo presta '
+        'volentieri, e senza farselo pagare: <b>un terzo complice (Sgherro) è in campo dall’inizio, '
+        'in T1</b>. Resta la serata più leggera dell’Atto — nessuna soglia, nessuna catastrofe a '
+        'termine, lo Sposo è quello che è: è un uomo in più al cancello, non una guerra. Se '
+        'avete scelto <b>LASCIARLO CIRCOLARE E TRACCIARLO</b> — <b>non applicate nulla</b>: i due '
+        'complici sono quelli che lo Sposo si è pagato da solo, e nessuno in città ha interesse '
+        'a regalargliene un altro.',
+        '<b>Il caso.</b> Nina, la figlia del lampionaio, è nelle mani dello Sposo, un truffatore '
         'matrimoniale che la tiene in una villa sul lago col miraggio delle nozze. Caso piccolo, '
         'zero culto: il respiro dell’atto.',
         '<b>La verità.</b> Del caso: lo Sposo (dieci nomi) e due complici, villa affittata, la '
-        'dote come bottino. Della campagna: la lettera di M. nomina il nastro verde al polso di '
-        'Bruna — un segreto che nessuno gli ha detto. La crepa. Sventare il caso = liberare Bruna '
+        'dote come bottino. Della campagna: la lettera di M. nomina il nastro al polso di '
+        'Nina — un segreto che nessuno gli ha detto. La crepa. Sventare il caso = liberare Nina '
         '(col Fascicolo, senza forza) e prendere lo Sposo. Il vero episodio è la RILETTURA.',
     ])
     pagina('le 4 domande — risposte e vantaggi', [
-        '<b>1. DOVE è Bruna?</b> Nella villa dei Càrpine sul lago (il registro affitti L8 + la '
+        '<b>1. DOVE è Nina?</b> Nella villa dei Càrpine sul lago (il registro affitti L8 + la '
         'carrozza vista alla Stazione L4: serve più di una conferma). <i>Esatta:</i> sapete dove '
         'sbarcare — nel 1° round non si pesca nessuna carta Minaccia. <i>Sbagliata:</i> perdete il '
         '1° round a orientarvi nel giardino (nessun danno: è un respiro).',
@@ -635,17 +672,19 @@ def soluzione():
         'villa, chiedergli quale dei dieci nomi sia il vero lo confonde — salta un attacco. '
         '<i>Sbagliata:</i> nessun effetto.',
         '<b>3. COSA la tiene lì?</b> Non catene: la bugia delle nozze (il Fascicolo delle Vittime '
-        'L5). <i>Esatta (Fascicolo):</i> mostrato a Bruna alla stanza, l’inganno crolla e la '
+        'L5). <i>Esatta (Fascicolo):</i> mostrato a Nina alla stanza, l’inganno crolla e la '
         'cattura dello Sposo è AUTOMATICA (vittoria pulita). <i>Sbagliata (senza Fascicolo):</i> '
-        'strappate Bruna con la forza, lo Sposo tenta la barca (vittoria amara).',
-        '<b>4. COSA SAPEVA M.?</b> Il nastro verde al polso, un segreto mai confidato (la Lettera '
+        'strappate Nina con la forza, lo Sposo tenta la barca (vittoria amara).',
+        '<b>4. COSA SAPEVA M.?</b> Il nastro al polso di Nina, un segreto mai confidato (la Lettera '
         'di M. all’Archivio L6). <i>La crepa:</i> non dà un vantaggio meccanico in questo episodio '
         '— dà il seme più pesante della campagna. E abilita la RILETTURA. Aiuti spedizione: '
         'l’Indirizzo della Villa (L8). <i>Esche:</i> il Mazzo di Fiori, il Biglietto d’Amore.',
         '<b>LA RILETTURA (meccanica di campagna — debutto):</b> all’Archivio delle Lettere (L6, '
-        'entro le 18), come azione al Taccuino, rileggete le vecchie lettere d’incarico di M. (una '
+        'entro le 21), come azione al Taccuino, rileggete le vecchie lettere d’incarico di M. (una '
         'per ogni episodio conservato). Ogni rilettura banca un <b>incrocio di campagna</b>: '
-        'segnatelo sul Frammento. Nell’Ep. 18, ogni incrocio di rilettura è una risposta già in '
+        'segnatelo sul Frammento. <b>La sessione di rilettura banca al massimo 3 incroci</b>, per '
+        'quante lettere ne rileggiate: oltre il terzo si ripetono le stesse tre coincidenze. '
+        'Nell’Ep. 18, ogni incrocio di rilettura è una risposta già in '
         'mano alla domanda «chi è C.B.». Non aggiunge difficoltà a questo episodio: carica il '
         'finale.',
         '<b>Nota sul rivelatorio (Domanda 2):</b> lo confermano tre carte — la Testimonianza «Il '
@@ -658,12 +697,12 @@ def soluzione():
     pagina('spedizione — lo scontro più piccolo', [
         '<b>Montaggio</b> (tessere in Episodio 16/board/, coperte tranne T1):<br/>'
         'T1 Il Cancello del Giardino (partenza, da Sud) → T2 Il Giardino → T3 La Serra → T4 Il '
-        'Salone (lo Sposo vi vede) → T5 L’Imbarcadero (la barca) → T6 La Stanza di Bruna. Con '
+        'Salone (lo Sposo vi vede) → T5 L’Imbarcadero (la barca) → T6 La Stanza di Nina. Con '
         'l’Indirizzo della Villa non si perde il 1° round.',
         '<b>Niente soglia.</b> Questo episodio non ha catastrofi a termine. Segnate il Canto come '
         'al solito (l’allarme della villa), ma non innesca nulla di irreparabile: alla soglia '
         '(Canto 3) solo +1 carta Minaccia per Fase, come sempre. È il respiro dell’atto.',
-        '<b>La fuga in barca.</b> Se lo Sposo raggiunge l’imbarcadero (T5) con Bruna ancora sotto '
+        '<b>La fuga in barca.</b> Se lo Sposo raggiunge l’imbarcadero (T5) con Nina ancora sotto '
         'l’inganno (niente Fascicolo mostrato), la trascina alla barca: fermarlo richiede una prova '
         'VIGORE rischiosa (fallita = lui salpa con lei, e la spedizione si chiude in vittoria '
         'amara comunque, ma con la ragazza traumatizzata). Col Fascicolo, non c’è fuga.',
@@ -671,14 +710,14 @@ def soluzione():
         'campagna. Debolezza: il Fascicolo delle Vittime (cattura automatica). «Quale nome?» (D2 '
         'esatta): salta un attacco. Due complici (Sgherri), nessuna scorta. Ai tavoli da 2-3 eroi '
         'non recupera ferite.',
-        '<b>Vittoria.</b> Bruna liberata e lo Sposo preso: col Fascicolo = <b>vittoria pulita</b> '
+        '<b>Vittoria.</b> Nina liberata e lo Sposo preso: col Fascicolo = <b>vittoria pulita</b> '
         '(cattura automatica, la ragazza torna serena); senza = <b>vittoria amara</b> (ci riuscite, '
         'ma con la forza). Non c’è una vera sconfitta se non il party wipe (improbabile). <b>Il '
         'mazzo:</b> 21 carte (7 complici, 6 insidie morbide, 4 crescendo-allarme, 4 eventi).',
     ])
     pagina('epilogo, frammento, rilettura e bivio', [
-        '<b>EPILOGO — da leggere se liberate Bruna col Fascicolo.</b> «Quando le mettete davanti i '
-        'nomi delle altre — dieci ragazze, dieci doti sparite — Bruna non piange. Guarda lo Sposo, '
+        '<b>EPILOGO — da leggere se liberate Nina col Fascicolo.</b> «Quando le mettete davanti i '
+        'nomi delle altre — dieci ragazze, dieci doti sparite — Nina non piange. Guarda lo Sposo, '
         'che per la prima volta non sa che faccia fare, e gli sfila la mano di dosso da sola. "Il '
         'nastro verde," dice piano, "me l’aveva legato mio padre. Non l’ho detto a nessuno." E voi '
         'vi gelate: perché quel segreto tra un padre e una figlia l’avete già letto stasera — nella '
@@ -686,7 +725,7 @@ def soluzione():
         'accadano?»',
         '<b>FRAMMENTO DI CAMPAGNA N. 16:</b> <i>«M. sa le cose prima che accadano — o le cose '
         'accadono perché M. le sa. Rileggete ogni lettera.»</i> Conservatelo, e segnate qui accanto '
-        'gli incroci di RILETTURA bancati.',
+        'gli incroci di RILETTURA bancati (mai più di 3).',
         '<b>IL BIVIO — decidete insieme, poi sigillate.</b><br/>'
         '<b>Affrontare M. in privato.</b> La sua spiegazione è elegante, perfetta, e contiene una '
         'contraddizione databile (un incrocio in più per l’Ep. 18), ma da domani M. vi osserva: '
@@ -695,11 +734,12 @@ def soluzione():
         'nell’Ep. 17), ma mentire al maestro logora: un membro interno vi si allontana (un PNG '
         'amico in meno).<br/>'
         'Scrivete la scelta sul retro del Frammento n. 16.',
-        '<b>AGGANCIO.</b> La sera stessa, il decano della Società vi ferma sotto un lampione, la '
+        '<b>AGGANCIO.</b> La sera stessa, il decano Ferrante — il vecchio dell’archivio, quello dei '
+        'mazzi legati con la fettuccia — vi ferma sotto un lampione, la '
         'voce bassa: «Anch’io ho un nastro verde. Il mio è del 1885. Venite a trovarmi domani — '
         'c’è una cosa che devo mostrarvi prima che sia tardi.» Domani il decano non ci sarà più.',
         '<b>MIGLIORIE</b> (una a testa dopo la vittoria): le solite (vedi Regolamento). Se avete '
-        'ottenuto la vittoria amara (senza Fascicolo), nessuna penalità meccanica: solo Bruna '
+        'ottenuto la vittoria amara (senza Fascicolo), nessuna penalità meccanica: solo Nina '
         'torna a casa con una cicatrice in più. Ricordatelo.',
     ])
     c.save()
@@ -714,7 +754,7 @@ LUOGHI16_DESC = {
        "più che nell’aria, e sotto ci passa sempre il fiato dell’acqua a due passi dalla porta. È "
        "povera e lindissima: il cotto lavato di fresco, la scala di legno appoggiata al muro come si "
        "appoggia un attrezzo che si riprenderà fra un’ora, la latta dell’olio col beccuccio pulito, e "
-       "sul comò la fotografia di Bruna in una cornice di latta lucidata fino a mangiarne il fregio. "
+       "sul comò la fotografia di Nina in una cornice di latta lucidata fino a mangiarne il fregio. "
        "Il vecchio vi apre con le mani ancora nere del suo mestiere e se le strofina sui calzoni per "
        "tutto il tempo che parla, come se restasse sempre qualcosa da togliere; guarda la fotografia, "
        "non voi, quando dice: «una fuga d’amore lascia almeno un biglietto». Fuori, oltre il vetro, i "
@@ -782,7 +822,10 @@ LUOGHI16_DESC = {
        "nello stesso verso, come se la stanza respirasse dalla parte del corridoio. In fondo, aperto "
        "sul suo leggio piccolo, il Taccuino di Campagna. E sopra il mazzo, ancora nelle sue tre "
        "pieghe, l’ultima lettera arrivata: la ceralacca è aperta di netto, con una lama, non spezzata "
-       "con l’unghia.",
+       "con l’unghia. Al leggio c’è già qualcuno: il decano Ferrante, il più vecchio della Società, "
+       "che rimette a posto un mazzo di stagioni andate con la fettuccia arrotolata a un dito. Non "
+       "chiede cosa cercate: «Il nostro mestiere è conservare e rileggere», dice, «una carta sola "
+       "non ha mai detto niente a nessuno», e vi lascia la lampada.",
     7: "La bottega è più fredda della strada, apposta, e l’odore ci sta dentro come in una cantina: "
        "rose bianche a decine, acqua ferma dei secchi di zinco, e sotto il verde tagliato quel "
        "principio di dolce che i fiori prendono il secondo giorno. Il pavimento è bagnato fino alla "
@@ -808,7 +851,7 @@ LUOGHI16_DESC = {
        "l’affitto era in regola.» Sulla carta assorbente del bancone resta, rovesciata, l’impronta di "
        "una firma lunga, ripassata due volte.",
     9: "Il lago ha un odore che a Roccamora non si sente: acqua dolce, pietra bagnata, legno di barca "
-       "— e nessuna traccia di quel verde di canale che avete nel naso da quindici mesi, sicché la "
+       "— e nessuna traccia di quel verde di canale che avete nel naso da sedici mesi, sicché la "
        "mancanza si sente più dell’odore. La villa dei Càrpine sta sulla sponda di ponente con tutte "
        "le finestre accese, e la luce arriva sull’acqua prima che sulla ghiaia: due file di riquadri "
        "gialli che tremano appena, si spezzano quando l’onda torna dal largo, e si rimettono insieme "
@@ -826,8 +869,12 @@ OGGETTI_LUOGO_16 = {
     ],
     5: ['Il Fascicolo delle Vittime', ('Reperto C', 'il Libro delle Promesse dello Sposo', '')],
     6: [
-        ('Oggetto', 'La Lettera di M.', 'quella di stanotte, col nastro verde nero su bianco'),
-        ('Rilettura', '', 'ogni lettera vecchia riletta banca un incrocio per l’Episodio 18'),
+        ('Oggetto', 'La Lettera di M.', 'quella di stanotte, col nastro al polso nero su bianco'),
+        # N-98: la RILETTURA era una riga di sola regola (nome vuoto), e il suo
+        # Esame di Carbone restava orfano — nessun pezzo da portare al banco, in
+        # digitale irraggiungibile per costruzione. Ora la riga consegna la carta.
+        ('Oggetto', 'Il Mazzo delle Minute', 'la RILETTURA: ogni lettera riletta banca un '
+                                             'incrocio per l’Episodio 18, al massimo 3'),
         ('Reperto A', 'la Lettera d’Incarico di M.', ''),
     ],
     7: [
@@ -883,7 +930,7 @@ TESSERE_DESC_16 = {
           "candelabri il punzone di un noleggiatore non è stato lucidato via. Il lampadario è basso e "
           "carico, e le fiamme si piegano tutte insieme verso le portefinestre ogni volta che "
           "qualcuno attraversa il fondo della sala, poi tornano dritte con comodo, una dopo l’altra. "
-          "Lo Sposo tiene una mano sulla spalliera della sedia di Bruna e la sposta di un dito per "
+          "Lo Sposo tiene una mano sulla spalliera della sedia di Nina e la sposta di un dito per "
           "volta, senza guardarla, mentre parla; lei ride, e la sua risata è l’unica cosa in questa "
           "stanza che non sia stata preparata. In fondo, il tavolo dei regali è apparecchiato con la "
           "stessa cura, e non ha sopra niente.",
@@ -912,7 +959,7 @@ TESSERE_DESC_16 = {
 }
 
 ESAMI_CARBONE_16 = {
-    'LA LETTERA D’INCARICO DI M.': '«Il nastro verde al polso: un pegno segreto tra un padre e una '
+    'LA LETTERA D’INCARICO DI M.': '«Il nastro al polso: un pegno segreto tra un padre e una '
                 'figlia, che nessuno fuori casa conosceva. Eppure è qui, di pugno del presidente, '
                 'scritto prima che voi lo scopriste. Un uomo che sa un segreto che non gli è stato '
                 'detto o l’ha rubato, o l’ha ordinato, o guarda da più lontano di quanto crediate.»',
@@ -920,7 +967,7 @@ ESAMI_CARBONE_16 = {
                 'mestiere, non un mostro. Piccolo, umano, prevedibile — il contrario di ciò che '
                 'cacciate da quindici episodi. Ed è per questo che fa così male: perché qui, per '
                 'una volta, il male ha una misura.»',
-    'LA RILETTURA DELLE VECCHIE LETTERE': '«Rilette in fila, le lettere d’incarico di M. hanno '
+    'IL MAZZO DELLE MINUTE': '«Rilette in fila, le lettere d’incarico di M. hanno '
                 'tutte, ognuna, un dettaglio di troppo: una cosa saputa un giorno prima del dovuto, '
                 'un nome anticipato, una data. Prese una a una, coincidenze. Prese insieme, una '
                 'firma. Rileggetele tutte: ogni lettera è un mattone per il giorno in cui lo '

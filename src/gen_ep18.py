@@ -28,7 +28,7 @@ from reportlab.pdfgen import canvas
 from reportlab.platypus import Paragraph, Frame
 
 from deluxe_style import (register_fonts, parchment_art, pad_to_even_pages, rule_border,
-                          seal, wave, F, INK, RED, TEAL, GOLD as OGOLD, SEPIA)
+                          seal, wave, contatori_indagine, F, INK, RED, TEAL, GOLD as OGOLD, SEPIA)
 from gen_gothic import registro_ferite, token_sheet, TOKEN_EROI
 
 OUT_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'Episodio 18', 'pdf')
@@ -49,8 +49,21 @@ SMB = st('smb', fontName=F['sc'], fontSize=8.5, textColor=TEAL, spaceBefore=4, s
 
 
 def frame_flow(c, x, y, w, h, flow):
+    # addFromList CONSUMA la lista e lascia dentro cio' che non e' entrato:
+    # un Paragraph piu' alto del frame sparisce dalla pagina SENZA errori
+    # (e' successo alla lettera del Preludio, vista solo aprendo il PDF).
+    # Qui non si stampa a vuoto: si urla.
     Frame(x, y, w, h, leftPadding=0, rightPadding=0, topPadding=0,
           bottomPadding=0, showBoundary=0).addFromList(flow, c)
+    if flow:
+        import os as _os, sys as _sys
+        _testo = ' '.join(str(getattr(f, 'text', f))[:90] for f in flow[:2])
+        _msg = ('FRAME TROPPO PICCOLO in %s: %d elementi non entrano in %.1fx%.1fmm '
+                'e NON verranno stampati -> %s'
+                % (_os.path.basename(__file__), len(flow), w / 2.83465, h / 2.83465, _testo))
+        print('!! ' + _msg, file=_sys.stderr)
+        if _os.environ.get('ROCCAMORA_FRAME_STRICT'):
+            raise RuntimeError(_msg)
 
 
 # ================================================================= DATI
@@ -59,15 +72,18 @@ LETTERA_18 = (
     "Alla Società del Lume, riservata.<br/><br/>"
     "«Siete arrivati lontano, amici miei. Più di quanto immaginassi. Stasera chiudiamo il caso di "
     "C.B., finalmente — <i>insieme</i>. Portate tutto ciò che avete raccolto: i verbali, i bivi, le "
-    "riletture, la matrice del povero decano. Mettetelo sul tavolo, davanti alla Società riunita.<br/><br/>"
+    "riletture, la matrice strappata al decano. Mettetelo sul tavolo, davanti alla Società riunita.<br/><br/>"
     "E poi guardatevi in faccia, e ditemi: chi, in questa stanza, ha sempre saputo un passo più di "
     "voi? Chi vi ha mandati a caccia, e ogni volta sapeva dove sareste andati? La risposta è più "
-    "semplice, e più terribile, di quanto crediate. È stata davanti a voi per diciotto mesi. Avete "
-    "<b>6 ore</b> per pronunciare un nome. Poi tocca a me.<br/>"
+    "semplice, e più terribile, di quanto crediate — e sospetto che l’abbiate già, in gola, da "
+    "settimane: la scrivete nei margini e non nei verbali. Un sospetto, però, non è una prova, e "
+    "un’assemblea non condanna il proprio presidente su un’intuizione. Avete <b>6 ore</b> per "
+    "reggere quel nome con le carte, e per dirlo qui, in piedi, davanti a tutti. Poi tocca a me.<br/>"
     "— M., presidente della Società»<br/><br/>"
-    "<i>Non ci sono luoghi nuovi da sbloccare stanotte: ci sono i FILI da chiudere. Le 4 Domande "
-    "sono una sola — CHI È C.B.? — e si rispondono con gli INCROCI DI CAMPAGNA che avete raccolto "
-    "(bivi, verbali, riletture dell’Ep. 16, matrice dell’Ep. 17). Aperti dall’inizio: l’Assemblea, "
+    "<i>Non ci sono luoghi nuovi da sbloccare stanotte: ci sono i FILI da chiudere. Le 4 Domande non "
+    "chiedono di indovinare un nome — quello il tavolo ce l’ha già: chiedono di PROVARLO. Sono una "
+    "sola — COME SI PROVA CHI È C.B.? — e si rispondono con gli INCROCI DI CAMPAGNA che avete raccolto "
+    "(i quattro Bivi decisi e le riletture delle vecchie lettere). Aperti dall’inizio: l’Assemblea, "
     "l’Archivio delle Penne, la Contabilità, il Fascicolo di Campagna.</i>")
 
 # Chiavi LETTERALI negli indizi, tutte da luoghi APERTI (L1-L4), doppia via:
@@ -78,10 +94,10 @@ LUOGHI_18 = [
          req='Disponibile dall’inizio', art='Palazzo del Lume.png',
          chiude=None,
          indizi=[
-             'La Società riunita, nella forma scelta dall’Ep. 17: il processo interno o la trappola '
-             'della firma. Sul tavolo, diciotto mesi di indizi. «È tutto qui, confratelli: basta '
-             'metterlo in fila. Ogni volta che C.B. sapeva troppo, e ogni volta che il presidente '
-             'sapeva un passo più di noi. Una mano sola muove entrambi.»',
+             'La Società riunita, nella forma scelta dopo la caccia alla talpa: il processo interno '
+             'o la trappola della firma. Sul tavolo, diciotto mesi di indizi. «È tutto qui, '
+             'confratelli: basta metterlo in fila. Ogni volta che C.B. sapeva troppo, e ogni '
+             'volta che il presidente sapeva un passo più di noi. Una mano sola muove entrambi.»',
              'Il libro mastro della Società, aperto: l’oro vecchio che paga C.B. e l’oro che finanzia '
              'la confraternita escono dalla stessa cassa. «L’oro vecchio è la firma contabile: chi '
              'paga C.B. paga da dove paghiamo noi. Non è un nemico esterno. È in bilancio.»',
@@ -110,9 +126,11 @@ LUOGHI_18 = [
              'firma; nessuno imita due firme rivali con lo stesso identico tic — se non chi le scrive '
              'entrambe. Una mano sola.',
              'Il custode delle penne, sbiancando: «il presidente scrive le sue lettere qui, di notte, '
-             'da sempre. E certe notti, dopo che se n’è andato, trovavo un secondo calamaio usato, e '
-             'una seconda grafia sugli scarti. Credevo avesse un segretario. Non aveva un segretario. '
-             'Aveva un’altra maschera.»'],
+             'da sempre; e la mattina dopo le porto giù io al protocollo, che le timbra all’ora in cui '
+             'le riceve. In questa casa non c’è mai stato modo di sapere a che ora una carta è stata '
+             'scritta: si sa a che ora è stata timbrata, e a timbrare non è lui. E certe notti, dopo '
+             'che se n’era andato, trovavo un secondo calamaio usato, e una seconda grafia sugli '
+             'scarti. Credevo avesse un segretario. Non aveva un segretario. Aveva un’altra maschera.»'],
          approfondimenti=[
              dict(tipo='Referto', soggetto='L’inchiostro del presidente',
                   testo='L’inchiostro ferro-gallico della penna d’archivio del presidente è identico, '
@@ -121,7 +139,16 @@ LUOGHI_18 = [
                         'l’esitazione prima della maiuscola — è lo stesso in «M.» e in «C.B.». '
                         'Diciotto mesi a cercare due uomini, e c’era una penna sola, in una stanza '
                         'sola, in mano a un uomo solo. Il presidente firma da entrambi i lati del '
-                        'tavolo, e da entrambi vi ha guardati cadere nella caccia.'),
+                        'tavolo, e da entrambi vi ha guardati cadere nella caccia. Resta l’ora, e '
+                        'l’ora è l’obiezione che vi aspetta in assemblea: gli ordini che fecero '
+                        'copiare i Frammenti, ai tempi della caccia alla talpa, portano in margine ore '
+                        'in cui il presidente sedeva a verbale davanti a venti confratelli. Quell’ora '
+                        'non è sua. Il protocollo lo tiene un impiegato, che al mattino timbra la '
+                        'corrispondenza trovata sul banco: il registro data il timbro, non la penna — '
+                        'e la penna, qui dentro, lavora di notte, in una stanza in cui nessuno entra. '
+                        'L’alibi delle ore non è falso: è stato letto male. Prova soltanto che il '
+                        'presidente era in assemblea mentre un impiegato timbrava, non che non avesse '
+                        'scritto la notte prima, a sei passi da questo scaffale.'),
          ]),
     dict(n=3, nome='LA CONTABILITÀ DELLA SOCIETÀ', voce_mappa='La Contabilità',
          req='Disponibile dall’inizio', art='La Contabilità.png',
@@ -150,8 +177,8 @@ LUOGHI_18 = [
          req='Disponibile dall’inizio', art='Il Fascicolo di Campagna.png',
          chiude=None,
          indizi=[
-             'Il vostro fascicolo di diciotto mesi: i verbali, i bivi, le riletture dell’Ep. '
-             '16, la matrice del decano. Messi in fila, non è una caccia: è un uomo che vi '
+             'Il vostro fascicolo di diciotto mesi: i verbali, i bivi, le riletture del nastro '
+             'verde, la matrice del decano. Messi in fila, non è una caccia: è un uomo che vi '
              'mandava a caccia di sé.',
              'Ogni volta che M. «sapeva troppo» (il nastro verde, il nome prima delle prove), non era '
              'genio: era memoria. Sapeva perché era lui a muovere le cose. La carrozza condivisa, '
@@ -198,23 +225,26 @@ LUOGHI_18 = [
          chiave=('parola', 'L’INCHIOSTRO DEL PRESIDENTE'), art='La Carta di Pregio.png',
          chiude=None,
          indizi=[
-             'Il richiamo all’Ep. 13: la carta col giglio spezzato, l’inchiostro ferro- '
-             'gallico. Confrontata con la penna d’archivio del presidente, la mano è la '
+             'Il richiamo al molino fuori porta: la carta col giglio spezzato, l’inchiostro '
+             'ferro-gallico. Confrontata con la penna d’archivio del presidente, la mano è la '
              'stessa.',
              'La filigrana col giglio, tagliata su misura per una penna sola, esce dalla stessa '
-             'carrozza che serve il Palazzo. Il filo dell’Ep. 13 si chiude qui: la carta di C.B. e '
+             'carrozza che serve il Palazzo. Il filo del molino si chiude qui: la carta di C.B. e '
              'la carta della Società sono la stessa risma.',
              'Un vecchio membro ricorda: «il presidente ha sempre insistito per la carta di pregio '
              '"per il decoro della Società". Nessuno ha mai chiesto perché il decoro avesse bisogno '
              'della stessa identica carta di C.B. Nessuno osava.»'],
          approfondimenti=[
-             dict(tipo='Referto', soggetto='Il giglio del presidente',
-                  testo='La carta col giglio spezzato dell’Ep. 13, l’inchiostro ferro-gallico, la '
-                        'penna d’archivio del presidente: tre fili che, incrociati, danno una sola '
-                        'risposta alla Domanda 1. C.B. non firma da nessun luogo segreto: firma dal '
-                        'Palazzo del Lume, con la penna del presidente, sulla carta della Società. '
-                        'Il nascondiglio migliore è sempre stato il più esposto: la sedia da cui vi '
-                        'guardava indagare.'),
+             dict(tipo='Testimonianza', soggetto='Il vecchio membro della Società',
+                  testo='«Sono in questa casa da prima di lui, e la carta la ordino io. È lui che ha '
+                        'voluto quella del molino, col giglio spezzato, "per il decoro della '
+                        'Società": due risme al mese, sempre la stessa fattura. Poi vi ho visti '
+                        'tornare dalle vostre indagini con dei fogli sequestrati, e li ho tenuti '
+                        'controluce accanto ai nostri — stessa filigrana, stessa mano, stesso '
+                        'inchiostro della penna d’archivio che sta sul ripiano alto. Non c’è nessun '
+                        'luogo segreto da cui il vostro C.B. firma, signori. Firma di sopra, con la '
+                        'nostra penna, sulla nostra carta. Il nascondiglio migliore è sempre stato il '
+                        'più esposto: la sedia da cui vi guardava indagare.»'),
          ]),
     dict(n=7, nome='LA MATRICE DEL DECANO', voce_mappa='La Matrice del Decano',
          req='La matrice del decano si applica solo a chi porta gli incroci: la carrozza condivisa '
@@ -222,12 +252,12 @@ LUOGHI_18 = [
          chiave=('parola', 'LA CARROZZA CONDIVISA'), art='La Matrice del Decano.png',
          chiude=None,
          indizi=[
-             'Il richiamo all’Ep. 17: la matrice delle doppie letture, applicata a tutte le '
-             'lettere. Ogni volta che M. sapeva troppo, la matrice segna la data e la fonte: '
-             'sempre lui.',
+             'Il richiamo alla notte in cui il decano sparì: la matrice delle doppie letture, '
+             'applicata a tutte le lettere. Ogni volta che M. sapeva troppo, la matrice segna '
+             'la data e la fonte: sempre lui.',
              'La matrice incrocia la carrozza dei noli: la stessa che porta la carta di C.B. e serve '
              'il Palazzo del Lume, alla stessa ora, dallo stesso cortile. Una sola logistica per due '
-             'maschere. Il decano è morto per questa riga; ora la riga parla.',
+             'maschere. Il decano ha rischiato la pelle per questa riga; ora la riga parla.',
              'Applicata all’ultima lettera — quella di stanotte — la matrice restituisce la firma '
              'più chiara di tutte: «chi ha sempre saputo un passo più di voi?» Non era una domanda. '
              'Era una confessione travestita da sfida.'],
@@ -237,7 +267,8 @@ LUOGHI_18 = [
                         'Domanda 3: una sola carrozza, una sola ora, un solo cortile — quello del '
                         'Palazzo — servono due maschere che fingono di non conoscersi. C.B. non ha '
                         'una logistica sua: usa quella della Società, perché sono la stessa impresa. '
-                        'Il decano l’aveva capito, e per questo è stato preso. La sua matrice, ora, '
+                        'Il decano l’aveva capito, e per questo se lo sono portato via: l’ha pagata '
+                        'di persona, e ne è uscito vivo per un soffio. La sua matrice, ora, '
                         'trasforma diciotto mesi di riletture in una sola, incontestabile deduzione.'),
          ]),
     dict(n=8, nome='IL VEZZO DELLE FIRME', voce_mappa='Il Vezzo delle Firme',
@@ -252,18 +283,22 @@ LUOGHI_18 = [
              '«M.» sta per Machiavelli — «il Machiavelli italiano», il soprannome che si è '
              'dato. «C.B.» sta per Camillo Benso. Il cospiratore e il contabile, le due '
              'maschere che «hanno fatto l’Italia». Un uomo che si crede l’Italia intera.',
-             'Non c’è più niente da provare: c’è solo un nome da pronunciare. E quando lo pronuncerete '
-             'in assemblea, l’uomo che vi ha guidati per diciotto mesi non negherà. Vi guarderà con '
-             'orgoglio, e spegnerà la prima lampada.'],
+             'Non c’è più niente da scoprire: c’è un nome che sapete già, e adesso avete di che '
+             'reggerlo. E quando lo pronuncerete in assemblea, l’uomo che vi ha guidati per diciotto '
+             'mesi non negherà. Vi guarderà con orgoglio, e spegnerà la prima lampada.'],
          approfondimenti=[
-             dict(tipo='Presagio', soggetto='Il Machiavelli e il contabile',
-                  testo='«M.» e «C.B.» non sono due uomini: sono le due maschere di uno solo — il '
-                        'Machiavelli e Camillo Benso, il cospiratore e il contabile, «quelli che '
-                        'hanno fatto l’Italia in due». M. non si crede un criminale: si crede un padre '
-                        'della patria, che rifà la storia con le stesse mani della prima volta. Ed è '
-                        'questo a renderlo imprendibile stanotte: un uomo che si crede l’Italia intera '
-                        'non fugge per paura. Si ritira, con calma, per continuare l’opera. Voi avete '
-                        'il suo volto; lui ha ancora il suo Dormiente.'),
+             dict(tipo='Osservazione', soggetto='Il Machiavelli e il contabile',
+                  testo='Guardate i due nomi per esteso, prima ancora delle firme ingrandite. «M.» '
+                        'sta per il Machiavelli — il soprannome che si è dato lui, e che si fa '
+                        'ripetere ai confratelli come un titolo; «C.B.» sta per Camillo Benso. Il '
+                        'cospiratore e il contabile, «quelli che hanno fatto l’Italia in due». '
+                        'Nessuno si battezza due volte per caso: la scelta dei nomi dice, prima di '
+                        'ogni perizia, che non sono due uomini ma le due maschere di uno solo, e che '
+                        'quest’uomo non si crede un criminale — si crede un padre della patria che '
+                        'rifà la storia con le stesse mani della prima volta. Da qui si ricava anche '
+                        'che cosa aspettarsi stanotte: chi si crede l’Italia intera non fugge per '
+                        'paura. Si ritira, con calma, per continuare l’opera. Voi avete il suo volto; '
+                        'lui ha ancora il suo Dormiente.'),
          ]),
     dict(n=9, nome='IL PALAZZO DEL LUME (LA FUGA)', voce_mappa='Il Palazzo del Lume (la fuga)',
          req='Il Palazzo del Lume, casa vostra, si rivolta in dungeon solo quando avete pronunciato '
@@ -274,7 +309,7 @@ LUOGHI_18 = [
              'Il Palazzo del Lume, la vostra sede da diciotto mesi, diventa un labirinto '
              'ostile: M. fugge spegnendo le luci stanza per stanza, porte che si chiudono da '
              'sole, passaggi che non sapevate esistessero.',
-             'Il maggiordomo Anselmo — l’uomo che vi ha aperto la porta, servito il tè, annunciato le '
+             'Il maggiordomo Amedeo — l’uomo che vi ha aperto la porta, servito il tè, annunciato le '
              'lettere per diciotto mesi — vi si rivolta contro: era la Guardia del Presidente da '
              'sempre. Il tradimento più personale.',
              'Fuori, i fischietti dei gendarmi: M. ha girato le accuse su di voi, e la rete si chiude. '
@@ -313,18 +348,25 @@ TILES_18 = [
          arredi=[(0, 3, 'casse'), (3, 0, 'casse')]),
     dict(id='T2', nome='IL CORRIDOIO DEI RITRATTI', exits={'S': 'T1', 'N': 'T3'},
          testo='Il corridoio dei ritratti dei presidenti passati: le luci si spengono una a una '
-               'alle vostre spalle. QUANDO RIVELATE QUESTA TESSERA: i primi gendarmi entrano dal '
+               'alle vostre spalle. In fuga passate davanti alla cornice vuota in fondo alla fila — '
+               'l’undicesimo posto, la targhetta d’ottone lucidata anche stasera e ancora senza un '
+               'nome, perché il nome si incide quando un presidente è passato — e capite finalmente '
+               'anche il gancio spoglio nella sala del consiglio. I posti vuoti sono due e l’uomo è '
+               'uno solo, ed è quello ancora in carica: il suo ritratto l’ha tolto lui dal '
+               'consiglio, e qui non è mai arrivato. È nello studio, in una cornice nera senza '
+               'targhetta, davanti a uno specchio: il volto di M. che si guarda in faccia, ogni '
+               'notte, da solo. QUANDO RIVELATE QUESTA TESSERA: i primi gendarmi entrano dal '
                'cortile, convinti di arrestare dei colpevoli — voi.',
          arbitro='I gendarmi (Sgherri) sono in buona fede: non vogliono uccidervi, vogliono '
                  'catturarvi. Superateli o evitateli. Da qui le carte crescendo spingono la soglia-'
                  'arresto: quando i gendarmi sigillano, ogni round rischia la cattura di un eroe.',
          cerca_vuoto='I ritratti dei presidenti vi guardano dal buio, ognuno con la '
-                     'targhetta d’ottone lucidata. Sotto le cornici, solo parete: '
-                     'nessun vano, nessuna cassaforte.',
+                     'targhetta d’ottone lucidata. Sotto le cornici, e dietro quella '
+                     'vuota in fondo, solo parete: nessun vano, nessuna cassaforte.',
          arredi=[(1, 1, 'casse'), (2, 2, 'casse')]),
     dict(id='T3', nome='LA BIBLIOTECA', exits={'S': 'T2', 'N': 'T4'},
          testo='La biblioteca della Società, dove un intero scaffale ruota su un passaggio segreto '
-               'che non conoscevate. QUANDO RIVELATE QUESTA TESSERA: il maggiordomo Anselmo comincia '
+               'che non conoscevate. QUANDO RIVELATE QUESTA TESSERA: il maggiordomo Amedeo comincia '
                'a ostacolarvi, chiudendo porte e indicando ai gendarmi dove siete.',
          arbitro='Il maggiordomo (boss) comincia a manifestarsi: non ancora in mischia, ma vi toglie '
                  'le scorciatoie (le carte "il maggiordomo sa dove siete" hanno più morso). Il '
@@ -334,9 +376,13 @@ TILES_18 = [
          arredi=[(0, 1, 'casse'), (3, 2, 'casse')]),
     dict(id='T4', nome='LO STUDIO PRIVATO DI M.', exits={'S': 'T3', 'N': 'T5'},
          testo='Lo studio privato del presidente, dove non eravate mai entrati. QUANDO RIVELATE '
-               'QUESTA TESSERA: M. è qui un istante — prende una cosa sola (che rivedrete nell’Atto '
-               'IV), vi guarda, e sparisce nel muro. Il maggiordomo vi si rivolta contro apertamente.',
-         arbitro='M. NON si affronta e NON si cattura: appare, prende una cosa, sparisce nel '
+               'QUESTA TESSERA: M. è qui un istante — prende una cosa sola, un volume nero legato in '
+               'pelle e sigillato, il grimorio del Quarto Movimento, e se lo stringe al petto come si '
+               'stringe un figlio —, vi guarda, e sparisce nel muro. Il maggiordomo vi si rivolta '
+               'contro apertamente.',
+         arbitro='M. NON si affronta e NON si cattura: appare, prende il grimorio del Quarto '
+                 'Movimento (lo ritroverete nell’Atto IV, allo scriptorium: è lo spartito del '
+                 'risveglio), sparisce nel '
                  'passaggio. Inseguirlo = perdersi nel Palazzo mentre la rete si chiude (round '
                  'perso, soglia-arresto avanza). Da qui il maggiordomo (boss) è in mischia aperta.',
          hook='Il Vezzo delle Firme / la Firma Doppia: mostrarla al maggiordomo gli ricorda chi ha '
@@ -361,10 +407,11 @@ TILES_18 = [
                'l’uscita di servizio che il maggiordomo non ha bloccato. QUANDO RIVELATE QUESTA '
                'TESSERA: uscite con la PROVA prima che la rete si chiuda del tutto.',
          arbitro='OBIETTIVO. Uscire dal Palazzo con la prova (il Vezzo delle Firme + gli Incroci). '
-                 'Con la prova FORTE (5 o più Incroci di Campagna: la scala è nella Soluzione) = il '
-                 'mondo saprà, M. è latitante (vittoria '
-                 'piena). Con la prova debole (0-2), o con eroi arrestati = ve la cavate, ma braccati '
-                 '(vittoria parziale). L’Uscita di Servizio salta l’ultimo giro dei gendarmi.',
+                 'La scala, identica a quella della Soluzione: 5 o più Incroci di Campagna = prova '
+                 'FORTE, il mondo saprà, M. è latitante (VITTORIA PIENA). 3-4 = prova sufficiente, '
+                 'la deduzione è contestabile: piena solo se nessun eroe è stato arrestato, '
+                 'altrimenti parziale. 0-2 = prova debole, al massimo PARZIALE — ve la cavate, ma '
+                 'braccati. L’Uscita di Servizio salta l’ultimo giro dei gendarmi.',
          cerca_vuoto='Il portone e l’uscita di servizio, l’aria fredda che entra da '
                      'sotto la soglia. Sull’attaccapanni, cappotti che nessuno è '
                      'tornato a riprendere.',
@@ -375,11 +422,11 @@ TILES_18 = [
 NEMICI_18 = [
     dict(nome='LA GUARDIA DEL PRESIDENTE', att=3, dif=8, fer=7, mov=3, dan=2, boss=True,
          tipo='Il Maggiordomo Traditore (Boss)', art='La Guardia del Presidente.png',
-         note='Il maggiordomo Anselmo, che vi ha aperto la porta per diciotto mesi. Nessuna '
+         note='Il maggiordomo Amedeo, che vi ha aperto la porta per diciotto mesi. Nessuna '
               'debolezza-oggetto. «Una mano sola» (D4 esatta): dirgli che ha servito un uomo che si '
               'dava la caccia da sé lo fa vacillare — salta un attacco. È l’ultimo muro tra voi e la '
               'porta. Ai tavoli da 2-3 eroi non recupera mai Ferite (regola delle taglie).',
-         bio_bestiario='Anselmo, il maggiordomo della Società del Lume, è l’uomo che per diciotto '
+         bio_bestiario='Amedeo, il maggiordomo della Società del Lume, è l’uomo che per diciotto '
               'mesi vi ha aperto la porta, servito il tè, annunciato le lettere del presidente con un '
               'inchino. Era la Guardia del Presidente da sempre: non un sicario, un servitore fedele '
               'fino al tradimento, che stanotte vi sbarra la strada con le lacrime agli occhi perché '
@@ -391,7 +438,8 @@ NEMICI_18 = [
               'triste conferma che nella casa del Lume nessuno era ciò che sembrava — tranne voi.'),
     dict(nome='M. (IL PRESIDENTE)', att=1, dif=9, fer=99, mov=5, dan=0, boss=False,
          tipo='C.B. — la mano sola (non si affronta, non si cattura)', art='Il Presidente M.png',
-         note='NON si affronta e NON si cattura. Appare in T4, prende una cosa sola (Atto IV), '
+         note='NON si affronta e NON si cattura. Appare in T4, prende una cosa sola — il grimorio '
+              'del Quarto Movimento, che porterà con sé nell’Atto IV —, '
               'spiega e sparisce nel passaggio segreto. Inseguirlo = perdersi nel Palazzo mentre la '
               'rete si chiude (round perso). È l’Atto IV: stanotte lo smascherate, non lo prendete.',
          bio_bestiario='M. — il presidente della Società del Lume, e C.B.: Camillo Benso e il '
@@ -431,7 +479,7 @@ def indagine():
     seal(c, W - mx - 12*mm, H - 211*mm, r=13*mm, angle=-10)
     c.setFillColor(TEAL); c.setFont(F['i'], 9.5)
     c.drawCentredString(W/2, 24*mm, 'PRIMA DI TUTTO: aprite la busta del Bivio dell’Episodio 17 e applicate il vostro ramo.')
-    c.drawCentredString(W/2, 18*mm, 'Stanotte non ci sono luoghi nuovi: ci sono i fili da chiudere. Le 4 Domande sono una sola — CHI È C.B.?')
+    c.drawCentredString(W/2, 18*mm, 'Stanotte non ci sono luoghi nuovi: ci sono i fili da chiudere. Le 4 Domande sono una sola — COME SI PROVA CHI È C.B.?')
     c.drawCentredString(W/2, 12*mm, 'Aperti dall’inizio: l’Assemblea, l’Archivio delle Penne, la Contabilità, il Fascicolo di Campagna.')
     c.showPage()
     # taccuino
@@ -441,7 +489,7 @@ def indagine():
     c.drawString(16*mm, H - 22*mm, 'taccuino della società — episodio 18')
     wave(c, W - 58*mm, H - 20*mm, 40*mm, OGOLD)
     c.setFillColor(TEAL); c.setFont(F['b'], 9)
-    c.drawString(16*mm, H - 31*mm, 'OROLOGIO — 6 ore. Portate gli INCROCI DI CAMPAGNA (bivi, verbali, riletture Ep.16, matrice Ep.17).')
+    c.drawString(16*mm, H - 31*mm, 'OROLOGIO — 6 ore. INCROCI DI CAMPAGNA: 4 dai Bivi + fino a 3 dalle riletture — al più 7.')
     for i, hh in enumerate(['18', '19', '20', '21', '22', '23']):
         xx = 16*mm + i * 17*mm
         c.setStrokeColor(INK); c.setFillColor(colors.HexColor('#f7f0dd')); c.setLineWidth(1)
@@ -457,19 +505,22 @@ def indagine():
             c.line(16*mm, ytop - 7*mm - i*7*mm, W - 16*mm, ytop - 7*mm - i*7*mm)
         return ytop - 7*mm - (nlines-1)*7*mm - 12*mm
 
-    yy = sect(H - 52*mm, 'gli incroci di campagna raccolti (bivi, verbali, riletture, matrice)', 4)
+    yy = sect(H - 52*mm, 'gli incroci di campagna raccolti (i quattro bivi e le riletture)', 4)
     c.setFillColor(RED); c.setFont(F['sc'], 11)
-    c.drawString(16*mm, yy, 'le 4 domande — un volto da quattro lati: CHI È C.B.?')
+    c.drawString(16*mm, yy, 'le 4 domande — il nome non si indovina: si prova. CHI È C.B.?')
     doms = ['1. DOVE firma C.B.? (l’inchiostro del presidente — serve più di una conferma)',
             '2. CHI paga C.B.? (l’oro d’una cassa sola)',
             '3. COSA muove C.B.? (la carrozza condivisa — serve più di una conferma)',
-            '4. CHI È C.B.? (il vezzo delle firme: la rivelazione)']
+            '4. CHI È C.B.? (scrivete il nome, e accanto la prova che lo regge in assemblea)']
     for i, d in enumerate(doms):
         yd = yy - 10*mm - i*15*mm
         c.setFillColor(INK); c.setFont(F['b'], 10.5)
         c.drawString(16*mm, yd, d)
         c.setStrokeColor(SEPIA)
         c.line(16*mm, yd - 7*mm, W - 16*mm, yd - 7*mm)
+    # I due conti che l'arbitro teneva a mente: gli Ep. 18-20 erano gli
+    # unici a non stamparli, e la loro Soluzione ne chiede il conto.
+    contatori_indagine(c, W)
     c.showPage()
     c.save()
     pad_to_even_pages(out_path)
@@ -511,12 +562,13 @@ def spedizione():
                   'round, ogni round nel Palazzo un eroe rischia l’<b>arresto</b> (fuori scena). '
                   'L’<b>Uscita di Servizio</b> alza la soglia (una via che non sorvegliano).', BODY),
         Paragraph('• <b>LA PROVA (la piena).</b> Dovete uscire (T6) con la prova che C.B. è M. Più '
-                  '<b>Incroci di Campagna</b> avete (bivi, verbali, riletture, matrice), più la prova '
-                  'è pubblica. La scala è nella Soluzione: <b>5+</b> = prova forte (il mondo saprà, '
+                  '<b>Incroci di Campagna</b> avete (i quattro Bivi e le riletture: al più 7), più la '
+                  'prova è pubblica. La scala è nella Soluzione: <b>5+</b> = prova forte (il mondo saprà, '
                   'M. è latitante: vittoria piena); <b>3-4</b> = sufficiente; <b>0-2</b> = prova '
                   'debole (ve la cavate, ma braccati: parziale).', BODY),
-        Paragraph('• <b>M. NON SI PRENDE.</b> Appare in T4, prende una cosa e sparisce nel muro: è '
-                  'l’Atto IV. Inseguirlo = perdersi mentre la rete si chiude. Il boss è il '
+        Paragraph('• <b>M. NON SI PRENDE.</b> Appare in T4, prende il <b>grimorio del Quarto '
+                  'Movimento</b> e sparisce nel muro: quel libro, e lui, vi aspettano nell’Atto IV. '
+                  'Inseguirlo = perdersi mentre la rete si chiude. Il boss è il '
                   '<b>maggiordomo</b> (la Guardia del Presidente, Danno 2), l’ultimo muro prima della '
                   'porta. «Una mano sola» (D4): gli fa saltare un attacco. I gendarmi sono in buona '
                   'fede (vi vogliono in cella, non morti): la posta è l’<b>arresto</b>, non la morte.', BODY)])
@@ -607,30 +659,49 @@ def soluzione():
         'scelto <b>PROCESSARE M. DAVANTI ALLA SOCIETÀ RIUNITA</b> — l’assemblea è convocata, i '
         'banchi sono pieni e diciotto mesi di carte stanno già sul feltro verde: la Testimonianza '
         '«La Società riunita» (Luogo 1) parte GIÀ RIVELATA, e coi registri dei noli aperti davanti '
-        'a tutti avete <b>un incrocio in più alla Domanda 3</b>. Ma una deduzione pubblica si fa in '
+        'a tutti avete <b>una conferma in più alla Domanda 3</b>. Ma una deduzione pubblica si fa in '
         'pubblico, e in pubblico vi si risponde: qualcuno è uscito dalla sala prima della fine, e i '
         'fischietti erano già nel cortile mentre parlavate — <b>il Canto parte a 1</b>. Se avete '
         'scelto <b>TENDERGLI LA TRAPPOLA DELLA FIRMA</b> — la trappola era tesa al calamaio, e ha '
         'funzionato: il Referto «L’inchiostro del presidente» (Luogo 2) parte GIÀ RIVELATO, e '
-        'avendolo colto con la penna in mano avete <b>un incrocio in più alla Domanda 1</b> (il '
+        'avendolo colto con la penna in mano avete <b>una conferma in più alla Domanda 1</b> (il '
         'DOVE non si discute più). Ma un’occasione sola si gioca in silenzio, e nessuna assemblea '
         'vi ha visti: <b>rimuovete la Testimonianza «La Società riunita» (Luogo 1) dal mazzo '
         'Approfondimenti</b> — quella deposizione collettiva non esiste, e stanotte i confratelli '
         'sanno soltanto ciò che riuscirete a dirgli voi. Chi non ha scritto la scelta sul retro del '
         'Frammento n. 17 ha lasciato che l’assemblea si convocasse da sé: primo ramo.',
-        '<b>Il caso.</b> Non c’è un nuovo delitto: c’è la deduzione finale. Le 4 Domande sono una '
-        'sola — CHI È C.B.? — e si rispondono con gli incroci di tutta la campagna.',
+        '<b>Il caso.</b> Non c’è un nuovo delitto, e non c’è più un nome da indovinare: dopo la '
+        'caccia alla talpa il sospetto sul presidente il tavolo ce l’ha già, e stanotte deve reggerlo '
+        'in piedi. Le 4 Domande sono una sola — COME SI PROVA CHI È C.B.? — e si rispondono con gli '
+        'incroci di tutta la campagna.',
         '<b>La verità.</b> C.B. è M.: «C.B.» = Camillo Benso, «M.» = il Machiavelli. Due maschere '
         'rivali, una mano sola. Il presidente si è dato la caccia da sé per anni, muovendo entrambi '
         'i lati del tavolo. Smascherato, non nega: spiega, rovescia il tavolo (accusa VOI), e sfugge '
         'per il Palazzo. Sventare = provare che C.B. è M. e fuggire dal Palazzo con la prova prima '
         'dell’arresto. M. NON si cattura: è l’Atto IV.',
     ])
-    pagina('le 4 domande — un volto da quattro lati', [
+    pagina('le 4 domande — provare il nome, non indovinarlo', [
+        '<b>Come si conduce stanotte (per chi arbitra).</b> Non giocate la sorpresa: il nome, al '
+        'tavolo, è già stato detto a mezza voce fra una serata e l’altra, e fingere che sia un enigma '
+        'sgonfia l’episodio. Giocate il peso. Quando qualcuno esita, non chiedete «e allora chi è?»: '
+        'chiedete «e con che cosa lo provate, davanti a trenta confratelli che lo hanno eletto?». Il '
+        'momento drammatico non è la scoperta — è il nome pronunciato in assemblea, in piedi, con le '
+        'carte in mano, sapendo che accusare il presidente significa accusare l’uomo che vi ha fatti: '
+        'che vi ha reclutati uno per uno, istruiti, e mandati a caccia per diciotto mesi. Lasciate parlare i giocatori '
+        'prima di leggere qualunque cosa: se il nome lo dicono loro, per primi, l’episodio ha già '
+        'funzionato.',
         '<b>1. DOVE firma C.B.?</b> Sulla carta di pregio, con l’inchiostro ferro-gallico della '
         'penna d’archivio del presidente (l’Archivio delle Penne L2 + la Carta di Pregio L6: serve '
         'più di una conferma). <i>Esatta:</i> la prova materiale regge — nel 1° round della '
         'spedizione non si pesca nessuna carta Minaccia. <i>Sbagliata:</i> 1 gendarme appare in T1.',
+        '<b>Se il tavolo tira fuori l’alibi delle ore</b> (gli ordini che fecero copiare i Frammenti, '
+        'protocollati mentre il presidente sedeva in assemblea a verbale, davanti a venti '
+        'confratelli): è l’obiezione giusta, ed è un merito — accoglietela, non aggiratela. La '
+        'risposta sta al Luogo 2, in bocca al custode e nel Referto «L’inchiostro del presidente»: il '
+        'protocollo lo tiene un impiegato, che al mattino timbra ciò che trova sul banco, e l’ora in '
+        'margine è quella del timbro, non della penna — che qui dentro lavora di notte. L’alibi non '
+        'era falso, era letto male: smontarlo è ciò che rende incontestabile il DOVE. Nessun effetto '
+        'meccanico, ma senza questo pezzo l’assemblea ha di che rimandarvi a casa.',
         '<b>2. CHI paga C.B.?</b> Con l’oro d’antica fusione, dalla stessa cassa della Società (la '
         'Società riunita L1 + la Contabilità L3 + il Fascicolo L4). <i>Esatta:</i> la prova '
         'contabile è pubblica: la Società vi crede. <i>Sbagliata:</i> nessun effetto meccanico.',
@@ -639,13 +710,19 @@ def soluzione():
         '<i>Esatta («una mano sola»):</i> al maggiordomo (T4/T5), dirgli che ha servito un uomo che '
         'si dava la caccia da sé gli fa saltare un attacco. <i>Sbagliata:</i> nessun effetto.',
         '<b>4. CHI È C.B.?</b> M. Il vezzo delle firme lo prova: «M.» = il Machiavelli, «C.B.» = '
-        'Camillo Benso, due maschere di un uomo solo. <i>La rivelazione:</i> non dà un vantaggio '
-        'meccanico — dà il volto del mostro. Aiuti spedizione: gli Incroci di Campagna (prova forte), '
+        'Camillo Benso, due maschere di un uomo solo. <i>Non è una rivelazione: è una firma.</i> Il '
+        'nome il tavolo lo sospetta da due serate; questa Domanda non chiede di trovarlo, chiede di '
+        'poterlo dire ad alta voce senza essere smentiti. Non dà un vantaggio meccanico — dà il '
+        'diritto di pronunciarlo in assemblea. Aiuti spedizione: gli Incroci di Campagna (prova forte), '
         'l’Uscita di Servizio (L9). <i>Esche:</i> l’Accusa contro di Voi, il Ritratto del Rivale.',
         '<b>Nota sul rivelatorio (Domanda 2):</b> lo confermano tre carte — la Testimonianza «La '
         'Società riunita» (L1), il Referto «L’oro d’una cassa sola» (L3) e l’Osservazione «Gli '
         'incroci di diciotto mesi» (L4). La Domanda 2 non ha complicazione se sbagliata.',
-        '<b>Vantaggio d’Indagine:</b> come sempre.',
+        '<b>Vantaggio d’Indagine:</b> Slancio SOLO con tutte e 4 le risposte esatte E 3+ ore '
+        'avanzate; Preparati con 1+ ore avanzate O 6+ luoghi visitati. Dossier completo (0 ore '
+        'avanzate): 1 gettone Intuizione. I due conti si tengono sulle caselle in fondo al '
+        'Taccuino: le ore e i luoghi divergono, perché una visita col Discernimento non '
+        'spende un’ora.',
     ])
     pagina('gli incroci di campagna — la scala', [
         '<b>Il conto.</b> Gli Incroci di Campagna sono la vera arma di questo episodio, e si '
@@ -654,15 +731,19 @@ def soluzione():
         '<b>Bivio 12</b> — «tacere anche a M.»; <b>Bivio 14</b> — «inventario giudiziario '
         'completo»; <b>Bivio 16</b> — «affrontare M. in privato» (l’altro ramo non dà nulla qui); '
         'e <b>+1 per ogni vecchia lettera d’incarico riletta</b> all’Archivio delle Lettere '
-        'dell’Ep. 16 (una sessione piena ne vale <b>3</b>).',
+        'dell’Ep. 16, <b>fino a un massimo di 3</b>, per quante ne abbiate rilette.',
         '<b>Le sottrazioni (−1 ciascuna):</b> Bivio 12 sul ramo «dire a M. della talpa» (la sua '
         'indagine interna ripulisce); Bivio 14 sul ramo «restituire tutto a Braga senza inventario» '
         '(il Sigillo non è mai finito agli atti); vittoria parziale nell’Ep. 13 (registri anneriti); '
         'soglia-decano superata nell’Ep. 17 (il decano non ha deposto); vittoria parziale nell’Ep. '
         '17. <b>Il filtro della matrice:</b> le riletture dell’Ep. 16 contano SOLO se avete '
         'decifrato la matrice del decano (Ep. 17, Domanda 3 esatta); senza matrice valgono 0, per '
-        'quante ne abbiate fatte. <b>Il massimo che la campagna può produrre è 7</b>; un totale '
-        'negativo si legge come 0.',
+        'quante ne abbiate rilette. <b>Il massimo che la campagna può produrre è 7</b>: <b>4</b> dai '
+        'Bivi (uno ciascuno: 9, 12, 14, 16) più <b>3</b> dalle riletture, e non c’è altra fonte — i '
+        'verbali e la matrice servono le Domande, non il conto. Un totale negativo si legge come 0. '
+        '<b>Due parole da non confondere:</b> un <b>incrocio</b> è la moneta di campagna che si '
+        'somma in questa scala; una <b>conferma</b> è il vantaggio che un Bivio o un luogo dà su una '
+        'singola Domanda — aiuta a rispondere, e nel conto qui sopra <b>non entra</b>.',
         '<b>LA SCALA.</b> Con <b>5 o più incroci</b> = <b>prova FORTE</b> (è questo che i fascicoli '
         'chiamano «incroci pieni»): la Società vi crede, l’evento-favore di T1 è garantito, e '
         'uscire dal Palazzo con la prova è <b>vittoria piena</b> — il mondo saprà, M. è latitante. '
@@ -684,18 +765,21 @@ def soluzione():
         '→ T6 L’Uscita. Con l’Uscita di Servizio si salta l’ultimo giro dei gendarmi.',
         '<b>La soglia-arresto.</b> Segnate il Canto come al solito. Alla <b>soglia-arresto = Canto '
         '7</b> (8 con l’Uscita di Servizio), i gendarmi sigillano le uscite: da quel round, ogni '
-        'round un eroe rischia l’arresto (prova NERVI o «catturato», fuori scena fino a fine '
-        'spedizione). Le carte crescendo (fischietti/gendarmi ai piani) accelerano.',
-        '<b>M. e il maggiordomo.</b> M. NON si affronta: appare in T4, prende una cosa, sparisce nel '
+        'round un eroe rischia l’arresto — prova NERVI (Media) o «catturato», fuori scena fino a fine '
+        'spedizione. Le carte crescendo (fischietti/gendarmi ai piani) accelerano.',
+        '<b>M. e il maggiordomo.</b> M. NON si affronta: appare in T4, prende il <b>grimorio del '
+        'Quarto Movimento</b> (è la cosa che ricomparirà nell’Atto IV, allo scriptorium: lo spartito '
+        'del risveglio, quello che «l’ha voluto M.»), sparisce nel '
         'passaggio segreto (Atto IV). Inseguirlo = round perso, soglia avanza. La Guardia del '
         'Presidente (il maggiordomo, boss): Att +3, Dif 8, Fer 7, Danno 2, sulla scalinata (T5). «Una '
         'mano sola» (D4): salta un attacco. I gendarmi (Sgherri) vogliono catturarvi, non uccidervi.',
-        '<b>Vittoria.</b> Uscire dal Palazzo (T6) con la prova: con la <b>prova forte</b> (5 o più '
-        'incroci — vedi la scala — e tutti gli eroi liberi) = il mondo saprà, M. è latitante '
-        '(<b>vittoria piena</b>). Con '
-        'la prova debole (0-2), o con eroi arrestati = ve la cavate ma braccati (<b>vittoria parziale</b>: '
-        'l’Atto IV comincia più soli). <b>Il mazzo:</b> 21 carte (7 gendarmi, 6 insidie casa-ostile, '
-        '4 crescendo-arresto, 4 eventi).',
+        '<b>Vittoria.</b> Uscire dal Palazzo (T6) con la prova. La scala, identica a quella della '
+        'pagina degli Incroci: <b>5 o più</b> = <b>prova forte</b>, il mondo saprà, M. è latitante '
+        '(<b>vittoria piena</b>). <b>3-4</b> = <b>prova sufficiente</b>, la deduzione è '
+        'contestabile: piena solo se nessun eroe è stato arrestato, altrimenti parziale. '
+        '<b>0-2</b> = <b>prova debole</b>: al massimo <b>parziale</b> — ve la cavate ma braccati, '
+        'e l’Atto IV comincia più soli. <b>Il mazzo:</b> 21 carte (7 gendarmi, 6 insidie '
+        'casa-ostile, 4 crescendo-arresto, 4 eventi).',
     ])
     pagina('epilogo, frammento e bivio (l’ultimo dell’atto)', [
         '<b>EPILOGO — da leggere se fuggite con la prova forte.</b> «Sulla soglia del Palazzo del '
@@ -724,6 +808,7 @@ def soluzione():
         '<b>CHECKPOINT D’ATTO:</b> qui si chiude l’Atto III. Prima di aprire l’Atto IV (Ep. 19-20, '
         '«Il Quarto Movimento»), fermatevi: rileggete i vostri Frammenti 1-18, contate gli incroci, '
         'e preparatevi. La caccia, finalmente, è vostra.',
+        '<b>MIGLIORIE</b> (una a testa dopo la vittoria): le solite (vedi Regolamento).',
     ])
     c.save()
     pad_to_even_pages(out_path)
@@ -794,7 +879,7 @@ LUOGHI18_DESC = {
        "luci sia quella accesa e quale la copia; quando la porta si muove, tremano tutte e tre "
        "insieme. Il piano dello scrittoio è sgombro come una tavola apparecchiata per nessuno: "
        "non un pennino, non un foglio, non una briciola di ceralacca. Nella cera del ripiano, "
-       "però, resta un rettangolo più lucido, delle dimensioni di una cartella, e attorno la "
+       "però, resta un rettangolo più lucido, delle dimensioni di un grosso volume, e attorno la "
        "polvere non ha ancora avuto il tempo di rientrare.",
     6: "L’armadio della cancelleria, aperto, manda fuori l’odore dolce della carta di pregio: "
        "mandorla, colla di pesce e ferro da stiro, un odore da corredo di nozze più che da "
@@ -918,7 +1003,7 @@ TESSERE_DESC_18 = {
           "guardarsi, e voi state fra i due senza essere in nessuna delle due immagini. Nella "
           "parete di destra, dove la boiserie fa una campata più stretta delle altre, corre una "
           "riga d’aria fredda che un momento fa non c’era. Sul velluto dello scrittoio resta "
-          "l’impronta rettangolare di una cosa presa in fretta, coi granelli di ceralacca "
+          "l’impronta rettangolare di un grosso volume preso in fretta, coi granelli di ceralacca "
           "ancora sparsi attorno.",
     'T5': "La grande scalinata raccoglie tutta la luce rimasta nella casa e la tiene sul marmo: "
           "due rampe che girano attorno al vano, la ringhiera d’ottone lucida di mani, il "
@@ -927,7 +1012,7 @@ TESSERE_DESC_18 = {
           "ferrate e di fiati corti, e con lui l’aria fredda del cortile, che sul marmo arriva "
           "prima degli uomini, e trova le caviglie prima delle spalle. In cima, in livrea, coi "
           "guanti bianchi ancora infilati e le "
-          "lacrime che gli scendono senza che la faccia si muova, sta il maggiordomo Anselmo: "
+          "lacrime che gli scendono senza che la faccia si muova, sta il maggiordomo Amedeo: "
           "«Mi dispiace, signori. Ho sempre servito il presidente.» Tiene le mani lungo i "
           "fianchi, aperte, e non ha niente in mano. Il lampadario, che nessuno ha toccato, gira "
           "lentissimo su se stesso, prima in un verso e poi nell’altro; sul terzo gradino "
@@ -954,7 +1039,11 @@ ESAMI_CARBONE_18 = {
     'GLI INCROCI DI CAMPAGNA': '«Messi in fila, diciotto mesi di indizi non raccontano diciotto '
                 'casi: raccontano un uomo solo che, da presidente, vi mandava a caccia di se stesso '
                 'da C.B., restando sempre un passo avanti perché il passo lo dettava lui. Ogni volta '
-                'che M. sapeva troppo, non era genio: era memoria.»',
+                'che M. sapeva troppo, non era genio: era memoria. E l’unica ora che gli fa da scudo '
+                '— quella in margine agli ordini che fecero copiare i Frammenti, timbrati mentre lui '
+                'sedeva in assemblea — non è un’ora sua: il protocollo lo tiene un impiegato, e timbra '
+                'al mattino ciò che è stato scritto la notte. Per accusarlo non serve toglierlo '
+                'dall’assemblea: basta spostare l’orologio di mezza giornata.»',
     'IL VEZZO DELLE FIRME': '«Il Machiavelli e il contabile, le due maschere che "hanno fatto '
                 'l’Italia": M. non si crede un criminale, si crede un padre della patria. Ed è '
                 'questo a renderlo imprendibile stanotte — un uomo che si crede l’Italia intera non '

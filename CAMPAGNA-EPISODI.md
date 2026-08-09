@@ -756,7 +756,7 @@ Taccuino lasciata bianca: per la prossima campagna.
 
 **Niente Bivio.** È la fine.
 
-**Scala.** Fuori scala, dichiarata: il finale può perdere eroi. Le vittorie
+**Scala.** Fuori scala, dichiarata: gli eroi cadono, e quaggiù rialzarli può non essere possibile. Le vittorie
 delle venti serate — Frammenti, alleati, oggetti-bis — SONO la differenza tra
 l'alba e il silenzio.
 

@@ -52,8 +52,21 @@ SMB = st('smb', fontName=F['sc'], fontSize=8.5, textColor=TEAL, spaceBefore=4, s
 
 
 def frame_flow(c, x, y, w, h, flow):
+    # addFromList CONSUMA la lista e lascia dentro cio' che non e' entrato:
+    # un Paragraph piu' alto del frame sparisce dalla pagina SENZA errori
+    # (e' successo alla lettera del Preludio, vista solo aprendo il PDF).
+    # Qui non si stampa a vuoto: si urla.
     Frame(x, y, w, h, leftPadding=0, rightPadding=0, topPadding=0,
           bottomPadding=0, showBoundary=0).addFromList(flow, c)
+    if flow:
+        import os as _os, sys as _sys
+        _testo = ' '.join(str(getattr(f, 'text', f))[:90] for f in flow[:2])
+        _msg = ('FRAME TROPPO PICCOLO in %s: %d elementi non entrano in %.1fx%.1fmm '
+                'e NON verranno stampati -> %s'
+                % (_os.path.basename(__file__), len(flow), w / 2.83465, h / 2.83465, _testo))
+        print('!! ' + _msg, file=_sys.stderr)
+        if _os.environ.get('ROCCAMORA_FRAME_STRICT'):
+            raise RuntimeError(_msg)
 
 
 # ================================================================= DATI
@@ -61,19 +74,21 @@ def frame_flow(c, x, y, w, h, flow):
 LETTERA_13 = (
     "Alla Società del Lume, riservata.<br/><br/>"
     "«Di C.B. non ci resta un volto né una firma per esteso: ci resta la <i>carta</i>. "
-    "Filigrana rara, che un solo opificio produce — il <b>Molino delle Carte</b>, due ore di "
-    "carrozza fuori città. A Roccamora quella carta la comprano in tre; il garzone dei ritiri "
+    "Filigrana rara — un giglio spezzato, in controluce — che nessuna cartiera comune sa fare: "
+    "in tutta la provincia la produce un <b>opificio solo</b>, e quale sia non ve lo so dire. "
+    "Scopritelo voi. A Roccamora quella carta la comprano in tre; il garzone dei ritiri "
     "non ha mai visto un volto, «solo scatole». E il suo capo-catena — l’unico che sapeva a chi "
     "andavano le risme — è stato ripescato dal canale stamattina, annegato, la notte prima di "
     "parlarci.<br/><br/>"
-    "Chi non lascia un nome lascia una carta. Andate al Molino e portatemi i <b>registri dei "
-    "noli</b>: chi paga il trasporto, e quando. E badate al capo-catena: i morti non depongono, "
-    "ma lasciano il <b>calco</b> di ciò che sapevano — ricostruitelo. Avete <b>6 ore</b>, dalle "
-    "18:00 alle 24:00; il Molino è fuori porta, e stanotte qualcuno vuole che bruci.<br/>"
+    "Chi non lascia un nome lascia una carta. Risalite le risme fino a chi le fabbrica e "
+    "portatemi i <b>registri dei noli</b>: chi paga il trasporto, e quando. E badate al "
+    "capo-catena: i morti non depongono, ma lasciano il <b>calco</b> di ciò che sapevano — "
+    "ricostruitelo. Avete <b>6 ore</b>, dalle 18:00 alle 24:00, e non una di più: stanotte, là "
+    "dove quella carta nasce, qualcuno la vuole in cenere.<br/>"
     "— M., presidente della Società»<br/><br/>"
     "<i>Luoghi disponibili dall’inizio: la Stazione delle Carrozze, lo studio del Notaio, "
-    "l’Ufficio del Fermo-Posta e la Dogana Vecchia. Gli altri andranno sbloccati; il Molino è "
-    "fuori città (dichiararlo costa 2 ore).</i>")
+    "l’Ufficio del Fermo-Posta e la Dogana Vecchia. Gli altri andranno sbloccati; uno di essi, "
+    "il Luogo 9, è fuori città: dichiararlo costa 2 ore.</i>")
 
 # Chiavi LETTERALI negli indizi, tutte da luoghi APERTI (L1-L4), doppia via:
 # «la carta col giglio» (L1+L3), «il nolo puntuale» (L1+L2),
@@ -99,10 +114,11 @@ LUOGHI_13 = [
              dict(tipo='Testimonianza', soggetto='Il capostazione',
                   testo='«Ve lo dico perché ho paura anch’io: quel nolo puntuale lo intesta '
                         'sempre lo stesso studio, quello del Notaio Rasca. Carta in regola, '
-                        'bolli a posto, paga prima. E il capo-catena, buon’anima, aveva '
-                        'cominciato a farsi domande su una cosa sola: che la carrozza del nolo, '
-                        'certe notti, faceva una fermata in più. Al Palazzo del Lume. La vostra '
-                        'sede, no? Ecco. Poi è annegato.»'),
+                        'bolli a posto, paga prima. E il capo-catena, buon’anima, s’era messo a '
+                        'cronometrare quella carrozza come si cronometra un treno: l’ora di '
+                        'partenza, le soste, il ritorno. Diceva che certe notti fa una fermata in '
+                        'più, al Palazzo del Lume. I vetturini alzano le spalle — comodità del '
+                        'giro, dicono, si è sempre fatta così. Lui però continuava a segnarla.»'),
          ]),
     dict(n=2, nome='LO STUDIO DEL NOTAIO', voce_mappa='Lo Studio del Notaio',
          req='Disponibile dall’inizio', art='Lo Studio del Notaio.png',
@@ -123,9 +139,14 @@ LUOGHI_13 = [
                   testo='Rasca non commette errori: ogni carta è in regola, ogni bollo al suo '
                         'posto, ogni pagamento tracciato e puntuale. È proprio la perfezione a '
                         'tradirlo — nessun cliente onesto è così invisibile. È l’uomo del '
-                        '«benefattore che ama la lirica» di due inverni fa: il legale che dà un '
-                        'indirizzo di carta a chi non vuole un volto. Non lo prenderete stanotte; '
-                        'ma sapere che è lui a tenere la penna del nolo è metà della caccia.'),
+                        '«benefattore che ama la lirica» dell’inverno scorso: il legale che dà un '
+                        'indirizzo di carta a chi non vuole un volto. E non è la prima maschera '
+                        'di carta che vi passa davanti: la società anonima del quartiere sordo — '
+                        '«La Quiete S.A.» — nessun dipendente, sede presso uno studio '
+                        'notarile — era tagliata così. Chi intestava allora e chi intesta '
+                        'adesso esce dalla stessa specie di mano. '
+                        'Non lo prenderete stanotte; ma sapere che è lui a tenere la penna '
+                        'del nolo è metà della caccia.'),
          ]),
     dict(n=3, nome='L’UFFICIO DEL FERMO-POSTA', voce_mappa='L’Ufficio del Fermo-Posta',
          req='Disponibile dall’inizio', art='L’Ufficio del Fermo-Posta.png',
@@ -168,12 +189,13 @@ LUOGHI_13 = [
          approfondimenti=[
              dict(tipo='Testimonianza', soggetto='Il doganiere',
                   testo='«Ve lo metto a verbale perché ormai è morto lui e non io: il capo-catena '
-                        'aveva capito che la carrozza del nolo della carta, nelle notti giuste, '
-                        'fa una fermata in più prima di lasciare la città. Al Palazzo del Lume. '
-                        'La stessa carrozza che porta la carta di quel signore riservato porta '
-                        'anche la carta della vostra Società. Lui lo sapeva. Ed è per questo che '
-                        'è annegato: non per quello che aveva rubato, per quello che aveva '
-                        'contato.»'),
+                        'aveva preso a contare il nolo della carta ora per ora, notte per notte, '
+                        'e sapeva a memoria quando parte e quando torna. Diceva anche che nelle '
+                        'notti giuste la carrozza fa una fermata in più prima di lasciare la '
+                        'città, al Palazzo del Lume. Che cosa ci vada a fare non me l’ha spiegato '
+                        'e io non gliel’ho chiesto; il vetturino giura che di là la strada è più '
+                        'corta. So soltanto che è annegato per quello che aveva contato, non per '
+                        'quello che aveva rubato.»'),
          ]),
     dict(n=5, nome='LA CASA DEL CAPO-CATENA', voce_mappa='La Casa del Capo-Catena',
          req='La casa del morto è sigillata dai gendarmi, e si apre solo a chi sa perché è morto '
@@ -184,9 +206,11 @@ LUOGHI_13 = [
              'La stanza di un uomo che aveva cominciato a contare: fogli ovunque, colonne di '
              'date e di noli, un mezzo diario. Nessuna confessione — un calcolo. Ricostruire '
              'ciò che sapeva è come farlo deporre da morto.',
-             'In fondo al taccuino, una riga sola sottolineata due volte: l’ora in cui, ogni '
-             'settimana, «la carta di C.B. e la carta della Società prendono la stessa strada». '
-             'Sapeva di valere quella riga. È annegato per quella riga.',
+             'In fondo al taccuino, una riga sola sottolineata due volte: l’ora esatta in cui, '
+             'ogni settimana, parte il nolo della carta — e accanto, in una sigla che non '
+             'appartiene a nessun registro, l’appunto di una seconda fermata. Sapeva di valere '
+             'quella riga. È annegato per quella riga, e nessuno di voi, stanotte, riesce a '
+             'leggerla per intero.',
              'Tra le carte, gli orari del molino annotati di suo pugno: i turni della guardia, '
              'l’ora in cui il Sorvegliante fa il giro, quando i magazzini restano scoperti. '
              'Voleva entrarci, o voleva vendere il modo di entrarci. Adesso quegli orari valgono '
@@ -195,11 +219,12 @@ LUOGHI_13 = [
              dict(tipo='Presagio', soggetto='La deposizione mai resa',
                   testo='A leggere i suoi fogli nell’ordine giusto, la voce del capo-catena torna '
                         'come da sotto l’acqua: non un fantasma, il calco di una testimonianza '
-                        'che nessuno ha raccolto in tempo. Vi dice tre cose — che la carta di '
-                        'C.B. viaggia sulla carrozza della vostra sede; a che ora, stanotte, '
-                        'daranno fuoco ai registri; e per dove passa la guardia. È tutto quello '
-                        'che sarebbe morto in tribunale, se fosse arrivato vivo. Fatelo arrivare '
-                        'voi.'),
+                        'che nessuno ha raccolto in tempo. Vi dice tre cose — a che ora parte il '
+                        'nolo della carta; a che ora, stanotte, daranno fuoco ai registri; e per '
+                        'dove passa la guardia. È tutto quello che sarebbe morto in tribunale, se '
+                        'fosse arrivato vivo. Fatelo arrivare voi. Una quarta cosa l’ha scritta e '
+                        'non l’ha spiegata — quella fermata in più, segnata e mai sciolta: resta '
+                        'sulla pagina come un chiodo, e stanotte non vi serve.'),
          ]),
     dict(n=6, nome='LA CANCELLERIA VESCOVILE', voce_mappa='La Cancelleria Vescovile',
          req='La cancelleria del vescovado riceve solo chi sa nominare la merce che vi si compra '
@@ -231,23 +256,40 @@ LUOGHI_13 = [
          indizi=[
              'L’archivio dei noli della Prefettura tiene i registri di tutti i trasporti '
              'autorizzati: il nolo della carta col giglio c’è, puntuale da anni. È qui che il '
-             'calcolo del capo-catena trova conferma.',
+             'calcolo del capo-catena trova conferma. Ad aprirvi i cassettoni è il decano '
+             'Ferrante, il più anziano della Società, che ne tiene i libri da trent’anni e ha '
+             'la firma buona per farsi dare un faldone: siede, si bagna il pollice e comincia a '
+             'spuntare colonne come se fossero le sue.',
              'Incrociando il registro con gli appunti del morto, la riga sottolineata si legge '
-             'per intero: sessant’anni di forniture allo stesso cliente storico, un professore '
-             'collezionista, iniziali C.B. — e la carrozza condivisa col Palazzo del Lume. Il '
-             'SEME della caccia.',
+             'per intero: sessant’anni di forniture allo stesso conto, intestato a un professore '
+             'collezionista, iniziali C.B. — sessant’anni, cioè più di quanti un uomo possa averne '
+             'passati a comprar carta — e, in coda alla colonna, quella fermata in più che '
+             'nessuno ha mai spiegato. Il SEME della caccia.',
              'Un funzionario, a disagio: «quel nolo lo abbiamo sempre autorizzato senza fiatare: '
              'carte perfette, cliente d’antica famiglia. Nessuno ha mai chiesto perché un '
-             'professore di lettere avesse bisogno di tanta carta di pregio. Nessuno tranne un '
+             'professore di lettere avesse bisogno di tanta carta di pregio, né chi si presenti a '
+             'firmare per lui: al banco viene sempre uno studio, mai lui. Nessuno tranne un '
              'capo-catena, e guardate com’è finito.»'],
          approfondimenti=[
              dict(tipo='Referto', soggetto='Il registro dei noli',
-                  testo='Sessant’anni di forniture allo stesso cliente storico, pagate al '
-                        'centesimo e sempre in orario, intestate con due iniziali: «C.B.». E il '
+                  testo='Sessant’anni di forniture allo stesso conto, pagate al '
+                        'centesimo e sempre in orario, intestate con due iniziali: «C.B.». '
+                        'Sessant’anni, però, sono più di una vita di acquisti: chi ha aperto quel '
+                        'conto non può essere lo stesso che lo paga stanotte. Un’intestazione che '
+                        'sopravvive a chi la porta non è un cliente, è una casella — la stessa '
+                        'specie di maschera del «benefattore che ama la lirica» e della «Quiete '
+                        'S.A.». Il professore collezionista può benissimo essere il nome scritto '
+                        'sulla casella e non la mano che paga; il registro non distingue le due '
+                        'cose, e non è tenuto a farlo. E il '
                         'nolo parte con la carrozza che, certe notti, serve anche il Palazzo del '
-                        'Lume. Liquidatelo pure come coincidenza dei vetturini — ma i vetturini '
-                        'non sanno di esserlo. Chi paga la carta di C.B. paga da dove pagate voi: '
-                        'è dentro casa, e da sessant’anni.'),
+                        'Lume. Perché lo faccia, il registro non lo dice: segna l’ora, il '
+                        'vetturino, il prezzo, e nient’altro; e i vetturini giurano che di là il '
+                        'giro è più corto. Copiate piuttosto l’ora di partenza — è la stessa riga '
+                        'che il capo-catena aveva sottolineato, e stanotte vi serve. Il decano '
+                        'Ferrante non commenta: ricopia l’ora sul suo taccuino e, sotto, la '
+                        'fermata che non torna. «Una comodità del giro che si ripete sempre nelle '
+                        'stesse notti non è più una comodità», dice, e si rimette il taccuino in '
+                        'tasca.'),
          ]),
     dict(n=8, nome='IL DEPOSITO DELLE RISME', voce_mappa='Il Deposito delle Risme',
          req='Il deposito dove arrivano le risme è chiuso a quest’ora, e apre solo a chi sa da '
@@ -335,7 +377,7 @@ TILES_13 = [
     dict(id='T3', nome='LA SALA DELLE MACINE', exits={'S': 'T2', 'N': 'T4'},
          testo='La grande ruota e le macine che pestano gli stracci, in moto: ingranaggi, cinghie, '
                'un frastuono che copre le voci. QUANDO RIVELATE QUESTA TESSERA: gli uomini del '
-               'molino sono qui, e le macine mordono chi si distrae (insidia NERVI/VIGORE).',
+               'molino sono qui, e le macine mordono chi si distrae (insidia NERVI Media).',
          arbitro='Gli ingranaggi sono un pericolo d’ambiente oltre ai nemici: chi combatte '
                  'addosso alle macine rischia (prova NERVI Media se spinto contro gli '
                  'ingranaggi). Passare in fretta è meglio che fermarsi a combattere.',
@@ -344,17 +386,22 @@ TILES_13 = [
          arredi=[(0, 1, 'casse'), (3, 2, 'casse')]),
     dict(id='T4', nome='I MAGAZZINI DI STRACCI', exits={'S': 'T3', 'N': 'T5'},
          testo='Montagne di stracci per la pasta di carta, polvere infiammabile sospesa nell’aria. '
-               'QUANDO RIVELATE QUESTA TESSERA: appare IL NOTAIO, elegante e calmo; dà l’ordine di '
-               'dar fuoco ai registri e si avvia alla carrozza. Da ora l’orologio del ROGO '
-               'corre: le fiamme scatteranno ai round segnati, qualunque cosa facciate.',
+               'QUANDO RIVELATE QUESTA TESSERA: appare IL NOTAIO, elegante e calmo: l’ordine di '
+               'dar fuoco ai registri l’ha già dato — dal fondo del molino sale il fumo — e si '
+               'avvia alla carrozza. L’orologio del ROGO corre da quando siete entrati: le fiamme '
+               'scattano ai round segnati, qualunque cosa facciate.',
          arbitro='IL NOTAIO (nemico minore) NON combatte: alla fine del round successivo alla sua '
                  'comparsa, fugge in carrozza (rimosso). Se lo inseguite invece di puntare ai '
                  'registri, perdete round preziosi mentre il fuoco monta. Il rogo è un orologio di '
-                 'ROUND (schedule nella Soluzione): l’essiccatoio (T5) e il torchio (T6) prendono '
-                 'per primi, poi le fiamme SCENDONO di piano in piano verso l’uscita.',
+                 'ROUND che corre dal 1° round della Spedizione, che questa tessera sia stata '
+                 'rivelata o no (schedule nella Soluzione): l’essiccatoio (T5) e il torchio (T6) '
+                 'prendono per primi, poi le fiamme SCENDONO di piano in piano verso l’uscita. Se '
+                 'il gruppo arriva qui a fuoco già acceso, il Notaio se ne sta andando: non dà '
+                 'l’ordine, l’ha dato prima.',
          hook='Il Taccuino del Capo-Catena (dalla sua casa): sapete l’ora del rogo — tutto '
               'l’orologio del rogo slitta di 2 round (ogni soglia; la tabella slittata è nella '
-              'Soluzione), e arrivate col fuoco ancora lontano.',
+              'Soluzione), e arrivate col fuoco ancora lontano. NON si somma alla Domanda 3 '
+              'esatta: è lo stesso vantaggio, 2 round in tutto, mai 4.',
          cerca_vuoto='Stracci fino al soffitto, odore di petrolio, polvere che vi resta '
                      'in gola. Fra le balle non si distingue una cosa dall’altra, e '
                      'nessuna vale il tempo che costa.',
@@ -375,8 +422,8 @@ TILES_13 = [
     dict(id='T6', nome='LA SALA DEL TORCHIO', exits={'S': 'T5'},
          testo='Il grande torchio e la cassaforte dei registri, attorniata di stracci pronti al '
                'rogo. IL SORVEGLIANTE è qui, tra voi e la prova. QUANDO RIVELATE QUESTA TESSERA: '
-               'strappate i registri, e nell’istante in cui li avete il molino divampa — gli '
-               'uomini fuggono, e comincia la corsa per uscire.',
+               'strappate i registri, e nell’istante in cui li avete il fuoco che già corre '
+               'trova gli stracci: la vampata caccia gli uomini, e comincia la corsa per uscire.',
          arbitro='OBIETTIVO. Interagire alla cassaforte prende i registri. Appena presi, TUTTI gli '
                  'sgherri (Sorvegliante compreso) fuggono dalle fiamme: toglieteli dal campo. Poi '
                  'i registri vanno RIPORTATI all’uscita (T1). Presi PRIMA che il torchio prenda '
@@ -457,7 +504,7 @@ def indagine():
     c.drawString(16*mm, H - 22*mm, 'taccuino della società — episodio 13')
     wave(c, W - 58*mm, H - 20*mm, 40*mm, OGOLD)
     c.setFillColor(TEAL); c.setFont(F['b'], 9)
-    c.drawString(16*mm, H - 31*mm, 'OROLOGIO — barrate un’ora per ogni visita (6 ore). Il Molino (9) è FUORI CITTÀ: dichiararlo costa 2 ore.')
+    c.drawString(16*mm, H - 31*mm, 'OROLOGIO — barrate un’ora per ogni visita (6 ore). Il Luogo 9 è FUORI CITTÀ: dichiararlo costa 2 ore.')
     for i, hh in enumerate(['18', '19', '20', '21', '22', '23']):
         xx = 16*mm + i * 17*mm
         c.setStrokeColor(INK); c.setFillColor(colors.HexColor('#f7f0dd')); c.setLineWidth(1)
@@ -466,7 +513,7 @@ def indagine():
         c.drawCentredString(xx + 5*mm, H - 42*mm, hh)
     c.setFillColor(RED); c.setFont(F['i'], 8)
     c.drawString(16*mm + 6*17*mm + 2*mm, H - 39.5*mm, '! Deposito Risme (8) chiude 20')
-    c.drawString(16*mm + 6*17*mm + 2*mm, H - 44.5*mm, '! Molino (9) fuori città: 2 ore')
+    c.drawString(16*mm + 6*17*mm + 2*mm, H - 44.5*mm, '! Luogo 9 fuori città: 2 ore')
 
     def sect(ytop, label, nlines):
         c.setFillColor(TEAL); c.setFont(F['sc'], 10)
@@ -483,7 +530,7 @@ def indagine():
     doms = ['1. DOVE si produce la carta di pregio? (attenzione: serve più di una conferma)',
             '2. CHI amministra la filiera?',
             '3. COSA SAPEVA il capo-catena annegato? (attenzione: serve più di una conferma)',
-            '4. COSA portate al Molino?']
+            '4. COSA portate alla Spedizione?']
     for i, d in enumerate(doms):
         yd = yy - 10*mm - i*15*mm
         c.setFillColor(INK); c.setFont(F['b'], 10.5)
@@ -536,7 +583,8 @@ def spedizione():
                   'il round in una tessera in fiamme <b>si brucia (−1 Salute)</b>. La fuga è una '
                   'corsa contro il fuoco che vi insegue giù per il molino.', BODY),
         Paragraph('• <b>OBIETTIVO: prendere E portare fuori.</b> Al torchio (T6), Interagire prende '
-                  'i <b>registri</b> — e nell’istante in cui li avete, il molino divampa e gli '
+                  'i <b>registri</b> — e nell’istante in cui li avete, gli stracci pronti al rogo '
+                  'prendono (il fuoco correva già: non comincia qui, qui divampa) e gli '
                   'uomini del molino (Sorvegliante compreso) <b>fuggono dalle fiamme</b>. Poi '
                   'dovete <b>riportare i registri all’uscita (T1)</b>. Vittoria quando ci arrivate '
                   'vivi. Se li strappate <b>prima</b> che il torchio prenda, o avete la <b>Cassetta '
@@ -644,39 +692,59 @@ def soluzione():
         '<b>CODA — il Bivio dell’Episodio 11</b> (retro del Frammento n. 11): quello sì che si '
         'applica stanotte, perché prometteva gli Episodi 12-13. Se avete <b>INFILTRATO LA '
         'SQUADRA</b> — il vostro uomo fra i topografi ha battuto la provincia palmo a palmo e sa '
-        'dov’è l’unico opificio sull’acqua fuori le mura: <b>un incrocio in più alla Domanda '
+        'dov’è l’unico opificio sull’acqua fuori le mura: <b>una conferma in più alla Domanda '
         '1</b> (il prezzo è già scritto e si paga all’Episodio 20). Se avete <b>PUBBLICATO LO '
         'SCANDALO</b> — il «filo in meno nell’Atto III» si spende qui, all’apertura dell’Atto, '
         'una volta sola: dopo i giornali nessun uomo in divisa mette più niente a verbale con '
         'voi. Rimuovete la Testimonianza «Il doganiere» (Luogo 4) dal mazzo Approfondimenti; la '
-        'Domanda 2 resta raggiungibile con le altre due conferme (L1 e L2).',
+        'Domanda 2 resta raggiungibile con le altre due conferme (L1 e L2).<br/>'
+        '<b>CODA — il Bivio dell’Episodio 8</b> (retro del Frammento n. 8): quel Bivio non '
+        'nominava una serata, nominava un Atto — e l’Atto III comincia stanotte. Se avete '
+        'scelto <b>SEQUESTRARE L’ORO</b> — la Vedova Bruna vi ha segnati, e da allora in città '
+        'le braccia si affittano anche contro di voi: per la notte del rogo il Notaio ne ha '
+        'comprato uno in più, e non gli è costato caro. <b>1 uomo del molino in più appare in '
+        'T1</b> a inizio Spedizione (si somma, se c’è, a quello della Domanda 1 sbagliata). Non '
+        'è gente del molino: è gente presa a giornata, e si vede da come tiene il bastone. Se '
+        'avete scelto <b>LASCIARLO CIRCOLARE E TRACCIARLO</b> — le casse sono tornate a lei, '
+        'marcate, e per lei il conto di quella notte è chiuso: <b>non applicate nulla</b>, '
+        'stanotte i clan guardano da un’altra parte. In entrambi i rami il montaggio, l’orologio '
+        'del rogo e le 4 Domande restano quelli.',
         '<b>Il caso.</b> La caccia a C.B. comincia dalla carta di pregio: filigrana rara, un solo '
         'Molino delle Carte fuori città. La filiera è amministrata dal Notaio Rasca. Il '
         'capo-catena dei ritiri, che sapeva troppo, è stato annegato la notte prima di parlare.',
         '<b>La verità.</b> Rasca intesta e paga i noli per conto di C.B.; il capo-catena aveva '
         'scoperto che la carta di C.B. viaggia sulla stessa carrozza che serve il Palazzo del '
-        'Lume, e per questo è stato ucciso. Stanotte Rasca va al Molino a far bruciare i registri '
+        'Lume, e per questo è stato ucciso. <b>Questo lo sapete voi che arbitrate, non loro:</b> '
+        'stanotte il gruppo ricostruisce solo la metà operativa della sua deposizione (ore e '
+        'turni); la fermata in più resta un appunto non sciolto, e si scioglierà all’Episodio 18. '
+        'Non anticipatela. Stanotte Rasca va al Molino a far bruciare i registri '
         'e fugge in carrozza. Sventare = SALVARE i registri dei noli prima del fuoco (Rasca non '
         'si prende: è il ricorrente dell’Atto).',
     ])
     pagina('le 4 domande — risposte e vantaggi', [
         '<b>1. DOVE si produce la carta di pregio?</b> Al Molino delle Carte, due ore fuori città '
-        '(le bolle alla Dogana + il deposito risme: serve più di una conferma). <i>Esatta:</i> '
+        '(il registro dei ritiri al Fermo-Posta L3 + le bolle alla Dogana L4: serve più di una '
+        'conferma, e sono due luoghi aperti dall’inizio. Il Deposito delle Risme NON conta come '
+        'conferma: si apre pronunciando questa stessa risposta). <i>Esatta:</i> '
         'arrivate preparati — nel 1° round della spedizione non si pesca nessuna carta Minaccia. '
         '<i>Sbagliata:</i> perdete tempo a cercare il molino — 1 uomo del molino appare in T1.',
         '<b>2. CHI amministra la filiera?</b> Il Notaio Ludovico Rasca (la testimonianza del '
         'capostazione L1 + il referto dello studio L2 + il doganiere L4). <i>Esatta:</i> «Il nome '
         'del Notaio» — al torchio potete gridare al Sorvegliante che Rasca è già fuggito e lo '
         'scarica: gli fa saltare un attacco. <i>Sbagliata:</i> nessun effetto.',
-        '<b>3. COSA SAPEVA il capo-catena annegato?</b> Che la carta di C.B. viaggia sulla '
-        'carrozza del Palazzo del Lume, e a che ora parte il nolo (i suoi appunti L5 + il registro '
-        'dei noli L7: serve più di una conferma). <i>Esatta (deposizione ricostruita, Taccuino):</i> '
+        '<b>3. COSA SAPEVA il capo-catena annegato?</b> L’ora del nolo e i turni della guardia al '
+        'Molino: a che ora parte la carrozza della carta, e in quali ore i magazzini restano '
+        'scoperti (i suoi appunti L5 + il registro dei noli L7, che si incrociano sulla stessa ora '
+        'di partenza: serve più di una conferma). <i>Esatta (deposizione ricostruita, Taccuino):</i> '
         'conoscete l’ora del rogo e i turni della guardia — <b>tutto l’orologio del rogo slitta '
         'di 2 round</b>, ogni soglia compresa: <b>T5 al 9, T6 al 11, T4 al 14, T3 al 16, T2 al 18, '
         'T1 al 20</b> (arrivate col fuoco lontano, e anche la fuga ha più respiro). Le prove '
-        'd’ambiente sono più facili. <i>Sbagliata:</i> arrivate alla cieca, il rogo corre secondo '
+        'd’ambiente sono a Facile. <b>NON si cumula col Taccuino del Capo-Catena</b> (l’oggetto di '
+        'L5 dà lo stesso identico vantaggio): chi ha tutt’e due slitta di <b>2 round in tutto, non '
+        'di 4</b>, e le prove d’ambiente restano a Facile — quella qui sopra è l’unica tabella '
+        'slittata che esista. <i>Sbagliata:</i> arrivate alla cieca, il rogo corre secondo '
         'la tabella base.',
-        '<b>4. COSA portate al Molino?</b> LA CASSETTA STAGNA (il Deposito delle Risme, entro le '
+        '<b>4. COSA portate alla Spedizione?</b> LA CASSETTA STAGNA (il Deposito delle Risme, entro le '
         '20). <i>Con la Cassetta:</i> i registri strappati al torchio sono SALVI dalle fiamme — '
         '<b>vittoria piena</b> anche col rogo già alto. <i>Senza:</i> presi col torchio in fiamme, '
         'escono anneriti (<b>vittoria parziale</b>). Aiuti: il Lasciapassare del Nolo (Stazione, '
@@ -688,8 +756,12 @@ def soluzione():
         'notaio che intesta i noli»). La Domanda 2 non ha complicazione se sbagliata.',
         '<b>Vantaggio d’Indagine:</b> Slancio SOLO con tutte e 4 le risposte esatte E 3+ ore '
         'avanzate; Preparati con 1+ ore avanzate O 6+ luoghi visitati. Dossier completo (0 ore '
-        'avanzate): 1 gettone Intuizione, come sempre. <b>NB trasferta:</b> il Molino (L9) costa '
-        '2 ore in Indagine: molti tavoli lo lasciano alla Spedizione.',
+        'avanzate): 1 gettone Intuizione, come sempre. <b>NB trasferta (regola, non colore):</b> '
+        'il Molino (L9) è FUORI CITTÀ e costa <b>2 ore</b>, non una — barrate <b>due</b> cerchi '
+        'dell’orologio nel momento in cui il gruppo lo dichiara, che la dichiarazione sia giusta o '
+        'sbagliata. Con una sola ora rimasta la trasferta non è dichiarabile. Le due ore contano '
+        'come tali per lo Slancio e per i «6+ luoghi visitati»: molti tavoli lo lasciano alla '
+        'Spedizione, ed è una scelta legittima.',
     ])
     pagina('spedizione — il molino che brucia', [
         '<b>Montaggio</b> (tessere in Episodio 13/board/, coperte tranne T1):<br/>'
@@ -697,16 +769,20 @@ def soluzione():
         'Macine (ingranaggi) → T4 Magazzini di Stracci (appare il Notaio, parte il fuoco) → T5 '
         'Essiccatoio → T6 Sala del Torchio (i registri). Col Lasciapassare del Nolo si salta lo '
         'sbarramento di T1.',
-        '<b>Il Rogo (orologio di round).</b> Non è legato al Canto: tenete il <b>conto dei '
-        'round</b>. Le fiamme scattano così, qualunque cosa facciate — <b>essiccatoio T5 al '
+        '<b>Il Rogo (orologio di round).</b> Non è legato al Canto e non è legato alla comparsa '
+        'del Notaio: si contano i <b>round dal 1° della Spedizione</b>, rivelata o no la tessera '
+        'T4. Le fiamme scattano così, qualunque cosa facciate — <b>essiccatoio T5 al '
         'round 7, torchio T6 al round 9</b> (da qui i registri presi senza Cassetta escono '
         'anneriti), poi il fuoco SCENDE verso l’uscita: <b>T4 al round 12, T3 al 14, T2 al 16, '
-        'T1 al 18</b>. Chi termina un round in una tessera in fiamme subisce <b>−1 Salute</b>. '
+        'T1 al 18</b>. Con la Domanda 3 esatta <i>oppure</i> col Taccuino (non con tutt’e due: è '
+        'lo stesso vantaggio) vale la tabella slittata di 2 round della pagina precedente. '
+        'Chi termina un round in una tessera in fiamme subisce <b>−1 Salute</b>. '
         'Posate un <b>segnalino Fuoco</b> su ogni tessera man mano che prende, così i giocatori '
         'vedono il rogo scendere. Non annunciate i round: fate solo scattare le fiamme quando tocca.',
         '<b>Pericoli d’ambiente.</b> Roggia (T2): prova VIGORE/DESTREZZA o si cade in acqua (1 '
         'round perso). Macine (T3): combattere addosso agli ingranaggi = prova NERVI o rischio. '
-        'Col Taccuino del Capo-Catena queste prove sono a Facile (conoscete il molino). Il secchio '
+        'Col Taccuino del Capo-Catena <i>o</i> con la Domanda 3 esatta queste prove sono a Facile '
+        '(conoscete il molino); averli entrambi non le rende più facili di così. Il secchio '
         'da T3 rimanda di 1 round l’accensione della sua tessera per chi lo porta.',
         '<b>Il Notaio.</b> Appare in T4, dà l’ordine di bruciare, e alla fine del round successivo '
         'fugge in carrozza (rimosso). NON combatte e NON si prende: è il ricorrente dell’Atto III. '
@@ -714,8 +790,10 @@ def soluzione():
         '<b>Il Sorvegliante.</b> Boss: Att +3, Dif 8, Fer 6, Mov 3, Danno 2. Guarda il torchio: '
         'superatelo o abbattetelo per la cassaforte. Nessuna debolezza-oggetto. «Il nome del '
         'Notaio» (D2 esatta): saltare un attacco. Ai tavoli da 2-3 eroi non recupera ferite.',
-        '<b>Vittoria: prendere E portare fuori.</b> Presi i registri (Interagire, T6), il molino '
-        'divampa e <b>tutti gli sgherri — Sorvegliante compreso — fuggono</b>: togliete i nemici '
+        '<b>Vittoria: prendere E portare fuori.</b> Presi i registri (Interagire, T6), gli stracci '
+        'attorno alla cassaforte prendono — <i>vampata, non accensione: l’orologio del rogo '
+        'corre dal 1° round comunque</i> — e <b>tutti gli sgherri, Sorvegliante compreso, '
+        'fuggono</b>: togliete i nemici '
         'dal campo. Poi il gruppo deve <b>riportare i registri all’uscita (T1)</b> scendendo tra '
         'le fiamme. Vittoria quando i vivi sono a T1 coi registri. Presi <b>prima</b> del round 9, '
         'o con la <b>Cassetta Stagna</b> = <b>vittoria piena</b> (prova intatta). Presi col torchio '
@@ -729,9 +807,11 @@ def soluzione():
         'chiude con uno scatto mentre alle vostre spalle i magazzini di stracci si accendono come '
         'una torcia. Fuori, la carrozza del Notaio è già una lanterna che rimpicciolisce sulla '
         'strada di città: Rasca non l’avete preso, e lo sapevate. Ma nella cassetta avete i noli, '
-        'e i noli dicono una cosa incredibile: la carta di C.B. e la carta della vostra Società '
-        'prendono la stessa carrozza, alla stessa ora, da sessant’anni. Non è una coincidenza dei '
-        'vetturini. È che C.B. paga da dove pagate voi.»',
+        'e i noli dicono quello che sanno dire: sessant’anni di carta pagata al centesimo da due '
+        'sole iniziali, sempre alla stessa ora, e un giro di consegne che certe notti allunga di '
+        'una fermata — al Palazzo del Lume. Il vetturino, svegliato all’alba, sbadiglia: di là la '
+        'strada è più corta, dice, si è sempre fatta così. Sarà comodità del giro. Intanto quella '
+        'riga resta in colonna, in mezzo alle altre, e nessuno di voi sa ancora leggerla.»',
         '<b>FRAMMENTO DI CAMPAGNA N. 13:</b> <i>«C.B. non compra la carta: compra il silenzio di '
         'chi la vende. Il prezzo è sempre esatto. Conosce i bilanci di tutti.»</i> Conservatelo.',
         '<b>IL BIVIO — decidete insieme, poi sigillate.</b><br/>'
@@ -743,9 +823,14 @@ def soluzione():
         '<b>Pedinarlo.</b> Un incrocio in più nell’Episodio 14, ma è lui che vi porta dove vuole: '
         'la falsa pista su Braga nasce qui, più credibile.<br/>'
         'Scrivete la scelta sul retro del Frammento n. 13.',
-        '<b>AGGANCIO.</b> Sul registro del molino, tra i clienti storici, sessant’anni di '
-        'forniture a un professore collezionista. Iniziali C.B. Un nome che in città conoscono '
-        'tutti: il rivale storico del vostro presidente.',
+        '<b>AGGANCIO.</b> Sul registro del molino, tra i conti storici, sessant’anni di '
+        'forniture intestate a un professore collezionista. Iniziali C.B. Un nome che in città '
+        'conoscono tutti: il rivale storico del vostro presidente. <b>Per chi arbitra:</b> quel '
+        'conto è più vecchio di chiunque possa averlo aperto, e l’intestazione a una persona è '
+        'una maschera di carta come le altre — il nome sul registro non è per forza la mano che '
+        'paga. Il Referto del Luogo 7 lo dice già: se il tavolo ci arriva da solo, non '
+        'confermate e non smentite. Stanotte il registro è una prova vera che punta a un nome, e '
+        'tanto basta.',
         '<b>MIGLIORIE</b> (una a testa dopo la vittoria): le solite (vedi Regolamento). Se avete '
         'ottenuto solo la vittoria parziale (registri degradati), l’Ep. 18 partirà con un '
         'incrocio in meno: la prova salvata a metà pesa a metà.',
@@ -964,14 +1049,15 @@ ESAMI_CARBONE_13 = {
                 'sia riconoscibile e irripetibile — la firma di chi non firma.»',
     'IL REGISTRO DEI NOLI': '«Sessant’anni di forniture allo stesso cliente storico, "C.B.", '
                 'pagate al centesimo e sempre in orario; e il nolo parte con la carrozza che, '
-                'certe notti, serve anche il Palazzo del Lume. I vetturini non sanno di esserlo, '
-                'ma chi paga la carta di C.B. paga da dove pagate voi: è in casa, e da '
-                'sessant’anni.»',
+                'certe notti, serve anche il Palazzo del Lume. Perché lo faccia, la carta non lo '
+                'dice, e i vetturini giurano che di là il giro è più corto. Quel che si legge con '
+                'certezza è l’ora: sempre quella, da anni, al minuto.»',
     'IL TACCUINO DEL CAPO-CATENA': '«Non una confessione: un uomo che aveva cominciato a contare. '
-                'Colonne di date e di noli, e in fondo una riga sottolineata due volte — l’ora in '
-                'cui, ogni settimana, la carta di C.B. e la carta della Società prendono la stessa '
-                'strada. Sapeva di valere quella riga. È annegato per quella riga: la sua '
-                'deposizione, ricostruita, arriva viva dove lui non è arrivato.»',
+                'Colonne di date, di ore e di noli, e in fondo una riga sottolineata due volte — '
+                'l’ora di partenza del nolo della carta, e accanto, in una sigla sua, una seconda '
+                'fermata che nessuno sa sciogliere. Sapeva di valere quella riga. È annegato per '
+                'quella riga: la sua deposizione, ricostruita, arriva viva dove lui non è '
+                'arrivato — e con lei gli orari del Molino, turno per turno.»',
 }
 
 OGGETTI_TESSERA_13 = {'T3': ['Un Secchio d’Acqua e Sabbia']}

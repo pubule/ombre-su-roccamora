@@ -8,7 +8,7 @@ Cattedrale, oltre il punto dove fermaste Ferri, fino alla **gola della città**.
 Là, M. e il suo coro a pagamento aspettano l'ultima voce per il Quarto
 Movimento — e il **Dormiente ascolta**. Non si vince con l'acciaio: si vince col
 **controcanto**, la deduzione finale che usa **tutti i Frammenti** di venti
-serate. È la fine. **Fuori scala, dichiarata: il finale può perdere eroi.**
+serate. È la fine. **Fuori scala, dichiarata: gli eroi cadono, e quaggiù rialzarli può non essere possibile.**
 
 **Varietà strutturale (regola 2026-07-18, dichiarazione di Fase A):**
 elemento variato = **(a) FUORI SCALA — la camera come boss, si vince col
@@ -155,7 +155,7 @@ Città); il resto riuso — la campagna intera converge qui.
 La più lunga della campagna, in **tre fasi**, sotto la Cattedrale, con le maree
 di sizigia che salgono. **NON c'è un boss da abbattere: c'è un dio da rimettere
 a dormire col controcanto, un coro comprato da spezzare, e un uomo da superare.
-Fuori scala: si possono perdere eroi.**
+Fuori scala: gli eroi cadono, e rialzarli può non essere possibile.**
 
 - **IL RISVEGLIO (il Dormiente):** il Canto è qui il **risveglio del Dormiente**.
   Ogni round e ogni carta crescendo lo avvicinano alla veglia; le fasi ambientali
@@ -254,7 +254,7 @@ voleva rifare, e che ora qualcuno rifarà davvero.)*
 
 ## 9. Scala (fuori scala — il finale)
 
-Dichiaratamente **fuori scala**: il finale può **perdere eroi** (le fasi
+Dichiaratamente **fuori scala**: il finale può **far cadere eroi senza poterli rialzare** (le fasi
 ambientali della camera fanno danno inevitabile a soglia; il risveglio è una
 sconfitta possibile e reale). Ma la letalità non è il punto: il punto è che si
 vince **cantando**, non colpendo — la deduzione (i Frammenti) pesa più dei dadi,

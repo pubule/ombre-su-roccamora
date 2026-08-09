@@ -42,8 +42,21 @@ SMB = st('smb', fontName=F['sc'], fontSize=8.5, textColor=TEAL, spaceBefore=4, s
 
 
 def frame_flow(c, x, y, w, h, flow):
+    # addFromList CONSUMA la lista e lascia dentro cio' che non e' entrato:
+    # un Paragraph piu' alto del frame sparisce dalla pagina SENZA errori
+    # (e' successo alla lettera del Preludio, vista solo aprendo il PDF).
+    # Qui non si stampa a vuoto: si urla.
     Frame(x, y, w, h, leftPadding=0, rightPadding=0, topPadding=0,
           bottomPadding=0, showBoundary=0).addFromList(flow, c)
+    if flow:
+        import os as _os, sys as _sys
+        _testo = ' '.join(str(getattr(f, 'text', f))[:90] for f in flow[:2])
+        _msg = ('FRAME TROPPO PICCOLO in %s: %d elementi non entrano in %.1fx%.1fmm '
+                'e NON verranno stampati -> %s'
+                % (_os.path.basename(__file__), len(flow), w / 2.83465, h / 2.83465, _testo))
+        print('!! ' + _msg, file=_sys.stderr)
+        if _os.environ.get('ROCCAMORA_FRAME_STRICT'):
+            raise RuntimeError(_msg)
 
 
 # ================================================================= DATI
@@ -55,8 +68,9 @@ LETTERA_4 = (
     "della claque, che andava dicendo d’aver sentito il teatro <b>provare da solo</b>, a "
     "sipario chiuso. La direzione parla di fughe e debiti. Io non credo alle fughe di chi "
     "lascia la giacca sulla sedia.<br/><br/>"
-    "Sabato c’è la gala di beneficenza e la signora Vetri canterà per metà città. Trovate i "
-    "due scomparsi prima che il sipario si alzi. Avete <b>6 ore</b>, dalle 18:00 alle 24:00. "
+    "Stasera, sabato, c’è la gala di beneficenza e la signora Vetri canterà per metà "
+    "città. Trovate i due scomparsi prima che il sipario si alzi. Avete <b>6 ore</b>, "
+    "dalle 18:00 alle 24:00. "
     "Una cortesia: <b>non disturbate il benefattore del teatro</b> — è un amico della "
     "Società.<br/>"
     "— M., presidente della Società»<br/><br/>"
@@ -86,8 +100,8 @@ LUOGHI_4 = [
              'signori miei, non tirano.»',
              'I pannelli della conchiglia acustica sono lucidi di cera nuova, tranne uno: il '
              'centrale manca, e nelle giunture c’è cera NERA. Un attrezzista: «lo rimontano '
-             'la mattina della gala. Ordine del maestro concertatore: l’accordatura si '
-             'finisce all’ultimo.»'],
+             'stasera, poco prima del sipario. Ordine del maestro concertatore: '
+             'l’accordatura si finisce all’ultimo.»'],
          approfondimenti=[
              dict(tipo='Osservazione', soggetto='Le mani del concertatore',
                   testo='Il maestro Alboni prova l’orchestra guardando il SOFFITTO: dirige i '
@@ -182,7 +196,7 @@ LUOGHI_4 = [
              'contrappeso morto è disegnata... e poi cancellata a matita.',
              'I pannelli smontati della conchiglia sono qui, in fila contro il muro, numerati '
              'a gesso: accordati uno a uno, richiusi, pronti. Manca il centrale — «si monta '
-             'la mattina della gala», dice il cartellino. Dopo, la conchiglia sarà intera.'],
+             'stasera, all’ultimo», dice il cartellino. Dopo, la conchiglia sarà intera.'],
          approfondimenti=[
              dict(tipo='Referto', soggetto='Il registro delle macchine',
                   testo='Le movimentazioni notturne del contrappeso morto sollevano sempre lo '
@@ -207,7 +221,7 @@ LUOGHI_4 = [
              'strozzini, il Monte — tutte saldate lo stesso giorno, tre mesi fa, in contanti. '
              'Da allora, nessun nuovo pegno. E nessuna nuova entrata dichiarata.',
              'Sotto il fermacarte, una commissione su carta di pregio, siglata dal notaio '
-             'Grillanda per conto di «un benefattore che ama la lirica»: il restauro '
+             'Rasca per conto di «un benefattore che ama la lirica»: il restauro '
              'dell’accordatura della conchiglia, «da compiersi entro la gala».'],
          approfondimenti=[
              dict(tipo='Osservazione', soggetto='I conti di Alboni',
@@ -251,12 +265,12 @@ LUOGHI_4 = [
              'ma non le folle», recita il contratto. Dentro, polvere intatta — e sul '
              'davanzale di velluto, un binocolo da signora in madreperla, mai usato.',
              'I libri contabili del restauro di vent’anni fa: la conchiglia fu pagata «da '
-             'privato munifico» tramite il notaio Grillanda — lo stesso della commissione ad '
+             'privato munifico» tramite il notaio Rasca — lo stesso della commissione ad '
              'Alboni. Vent’anni, due lavori, un notaio solo: il benefattore non è un '
              'ammiratore. È un PROPRIETARIO.',
              'Il libro dei palchi della gala di sabato: tutto esaurito da settimane — tranne '
              'il 13, «riservato». Il segretario, a voce bassissima: «stavolta ha chiesto le '
-             'candele. Per la prima volta in vent’anni, sabato, il benefattore viene a '
+             'candele. Per la prima volta in vent’anni, stasera, il benefattore viene a '
              'sentire.»'],
          approfondimenti=[
              dict(tipo='Osservazione', soggetto='Il palco tredici',
@@ -267,7 +281,7 @@ LUOGHI_4 = [
          ]),
     dict(n=9, nome='IL LABORATORIO DEGLI SCENOGRAFI', voce_mappa='Il Laboratorio degli Scenografi',
          req='Il capo scenografo difende il suo capannone come un forte: «qui si lavora per '
-             'sabato, fuori i curiosi». Solo chi nomina il materiale giusto — quello che non '
+             'stasera, fuori i curiosi». Solo chi nomina il materiale giusto — quello che non '
              'dovrebbe esserci — lo fa impallidire e aprire.',
          chiave=('parola', 'CERA NERA'), art='Laboratorio degli Scenografi.png', chiude=None,
          indizi=[
@@ -336,7 +350,7 @@ TILES_4 = [
                  'eco — si lascia senza spartito, non si uccide. Vi seguirà fino alla fine: '
                  'la sua debolezza (Domanda 4) serve a scrollarselo di dosso.',
          cerca='Dietro uno specchio coperto, una maschera dorata identica a quella del '
-               'laboratorio — o è la stessa? ⚠ (vedi la nota per chi arbitra).',
+               'laboratorio — o è la stessa? (vedi la nota per chi arbitra).',
          arredi=[(1, 1, 'scrivania'), (2, 2, 'casse')]),
     dict(id='T5', nome='LA FOSSA DEL CONTRAPPESO MORTO', exits={'O': 'T4'},
          testo='Una fossa di legno sotto il piano del palco, e dentro — legati, imbavagliati, '
@@ -629,9 +643,10 @@ def soluzione():
         'non amplifica: <b>ricorda</b>. Imprime nei legni ciò che vi si canta dentro. Il '
         'maestro concertatore <b>Ermete Alboni</b>, rovinato dal gioco e ricomprato da un '
         '«benefattore» mai visto (commissione su carta di pregio, tramite il notaio '
-        'Grillanda), la sta riaccordando pannello per pannello: alla gala di sabato, quando '
+        'Rasca), la sta riaccordando pannello per pannello: alla gala di stasera, quando '
         'la Vetri canterà l’aria del terzo atto, la conchiglia TERRÀ la sua voce — la '
-        'solista che il Coro insegue dall’episodio dei pozzi.',
+        'solista che il Coro ha misurato e MANCATO nell’episodio dei pozzi, e che stanotte '
+        'conta di prendersi senza lama: non le taglia niente, se la fa cantare addosso.',
         '<b>Gaspare e Rocco</b> hanno visto il lavoro notturno, e Alboni li tiene VIVI nella '
         'fossa del contrappeso morto: non è un assassino — è un uomo che ha venduto una cosa '
         'sola e ha scoperto che il prezzo sale a ogni consegna. Nella buca del suggeritore, '
@@ -646,11 +661,12 @@ def soluzione():
         'nessuna carta Minaccia. <i>Sbagliata:</i> girate nel sottopalco facendo rumore: 1 '
         'Claque appare in T1 alla rivelazione.',
         '<b>2. CHI dirige il lavoro notturno?</b> Il maestro concertatore Ermete Alboni. '
-        '<i>Esatta:</i> lo fate fermare nel suo camerino prima della gala — senza il suo '
+        '<i>Esatta:</i> lo fate fermare nel suo camerino prima che salga al podio — senza il suo '
         'segnale, la Claque di scorta in T6 NON appare. <i>Sbagliata:</i> nessun effetto.',
-        '<b>3. QUANDO scatta la registrazione?</b> Alla gala di sabato, sull’aria del terzo '
+        '<b>3. QUANDO scatta la registrazione?</b> Stasera, alla gala, sull’aria del terzo '
         'atto (lo confermano il calendario delle prove, le candele di cera nera e il '
-        'pannello centrale che si monta la mattina della gala). <i>Esatta:</i> entrate col '
+        'pannello centrale che si monta all’ultimo, poco prima del sipario). '
+        '<i>Esatta:</i> entrate col '
         'giusto anticipo — il Canto parte da 0. <i>Sbagliata:</i> arrivate a spettacolo '
         'iniziato — la spedizione parte con 1 segnalino Canto in più.',
         '<b>4. COSA portate là sotto?</b> IL LIBRETTO DI GASPARE (l’Archivio, tra i registri): '
@@ -710,12 +726,17 @@ def soluzione():
         'sua buca la sera dopo, “perché il teatro senza gobbo cade”. La Vetri canta l’aria — '
         'a conchiglia spenta — e la città applaude senza sapere niente. In questura, Alboni '
         'ripete una cosa sola: “Non ho mai visto il suo volto. Ho visto la parcella del '
-        'notaio. E la carta era così bella.”» — Se avete recuperato le lastre di cera: le '
+        'notaio. E la carta era così bella.” Risalendo dal sottopalco, il corridoio dei '
+        'palchi è deserto e la porta del 13 è socchiusa. Dentro non c’è nessuno: le candele '
+        'sono consumate a metà e fumano ancora, il velluto della poltrona, sotto la mano, è '
+        'tiepido. Sul bracciolo un programma di sala piegato in quattro; per terra, un guanto '
+        'chiaro da uomo, di quelli che si sfilano in fretta. La maschera del piano giura di '
+        'non aver aperto quel palco a nessuno.» — Se avete recuperato le lastre di cera: le '
         'voci di prova rubate tornano mute. Se ne mancano: annotatelo sul Frammento — '
         'qualcuno, da qualche parte, ha dei provini.',
-        '<b>FRAMMENTO DI CAMPAGNA N. 4:</b> <i>«La conchiglia non amplifica: ricorda. Ciò '
-        'che fu cantato nei legni del ’41 si può ricantare.»</i> Conservatelo per il finale '
-        'di campagna.',
+        '<b>FRAMMENTO DI CAMPAGNA N. 4:</b> <i>«La conchiglia non amplifica: la conchiglia '
+        'ricorda. E ciò che fu cantato nei legni del ’41 si può ricantare.»</i> Conservatelo '
+        'per il finale di campagna.',
         '<b>IL BIVIO — decidete insieme, poi sigillate.</b> La conchiglia è vostra, per una '
         'notte:<br/>'
         '<b>Distruggerla.</b> Il Coro perde lo strumento: l’Episodio 5 parte col Canto a 0. '
@@ -750,9 +771,10 @@ LUOGHI4_DESC = {
        "sola da quarant’anni. Sopra il proscenio la conchiglia si curva come l’interno di un "
        "liuto, e in mezzo alla fila dei pannelli ce n’è uno che non c’è: un dente tolto, e i "
        "bordi dei due vicini più lucidi del resto. L’attrezzista attraversa il palco con due "
-       "morsetti in mano e non si ferma nemmeno per rispondere — «lo rimontano la mattina "
-       "della gala», dice alle sue spalle, e continua. Dalla buca, ogni tanto, un fruscio di "
-       "pagine. Sul bordo di quella buca, dove la mano si appoggia per scendere, il velluto è "
+       "morsetti in mano e non si ferma nemmeno per rispondere — «lo rimontano stasera, poco "
+       "prima del sipario», dice alle sue spalle, e continua. Dalla buca, ogni tanto, un "
+       "fruscio di pagine. Sul bordo di quella buca, dove la mano si appoggia per scendere, "
+       "il velluto è "
        "consumato fino alla trama.",
     2: "Il camerino sa di cipria, di gelsomino e di gas caldo: le lampadine attorno allo "
        "specchio scaldano l’aria fino a renderla dolce, e chi arriva dal corridoio degli "
@@ -856,7 +878,7 @@ LUOGHI4_DESC = {
        "canapa in alto; per terra i secchi dell’oro e della porpora in fila, i pennelli a "
        "testa in giù nei barattoli, i sacchi di gesso accatastati contro la porta. Il capo "
        "scenografo scende dal ponteggio con la mano ancora sul montante e vi parla "
-       "dall’ultimo piolo, senza toccare terra: «qui si lavora per sabato, fuori i curiosi», "
+       "dall’ultimo piolo, senza toccare terra: «qui si lavora per stasera, fuori i curiosi», "
        "dice, e la scala continua a oscillare sotto di lui. Nel fondo, dove le lampade da "
        "lavoro non arrivano, i teli coprono una catasta di assi scure, e sotto i teli l’aria "
        "è più fresca che nel resto del capannone. Su un’asse che sporge il legno è scavato "
@@ -975,13 +997,13 @@ ESAMI_CARBONE_4 = {
                 'a fuoco in vent’anni. Non è uno strumento d’osservazione: è un oggetto di '
                 'scena. Qualcuno arreda quel palco come si arreda un alibi.»',
     'COMMISSIONE DEL NOTAIO': '«La stessa carta di pregio, per la terza volta in tre casi: '
-                'stessa risma, stessa piega coi guanti. Il notaio Grillanda firma per conto '
+                'stessa risma, stessa piega coi guanti. Il notaio Rasca firma per conto '
                 'di qualcuno che non firma mai — e che compra carta come un ministero.»',
 }
 
 # Carte Oggetto nascoste nelle tessere (retro delle pagine tessera).
 OGGETTI_TESSERA_4 = {'T2': ['Una Lanterna Cieca'],
-                     'T4': ['La Maschera della Prima Stagione ⚠ è un’esca, anche qui']}
+                     'T4': ['La Maschera della Prima Stagione — è un’esca, anche qui']}
 
 
 def luoghi():
