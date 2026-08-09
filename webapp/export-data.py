@@ -1142,7 +1142,10 @@ episodi = dict(
         # o +2 con la Macchina Fotografica — fino a due eroi documentano insieme.
         # La DEMOLIZIONE (12) sale a round e con le carte; inchiodare il Muratore
         # la ferma (`frena_adiacente`).
-        compiti=[dict(id='prova', tile='T6', quante=14, etichetta='Documenta il corpo murato',
+        # «Fino a DUE eroi all'intercapedine possono Interagire per documentare
+        # (+1 ciascuno; +2 con la Macchina Fotografica)»: il tetto e' stampato e
+        # il motore lasciava lavorare tutti e quattro.
+        compiti=[dict(id='prova', tile='T6', quante=14, per_round_max=2, etichetta='Documenta il corpo murato',
                       per_azione=dict(base=1, oggetto='macchina fotografica', con_oggetto=2),
                       fatto='La prova è fissata: il muro può anche cadere.')],
         # oggetti che un'Indagine riuscita porta in spedizione: il pilota li
@@ -1157,7 +1160,14 @@ episodi = dict(
         # NON inchiodato — un gruppo che inchioda non vede differenza. Divergenza a
         # basso impatto, tenuta come ricchezza-tavolo (test-engine gioca Ep.10 OK;
         # il pilota Playwright non lo naviga = non misurabile, non aggiungo alla cieca).
-        orologio=dict(id='demolizione', nome='Demolizione', max=12, ogni=1, da_carta=1,
+        orologio=dict(id='demolizione',
+                      # «Ogni turno del MURATORE in cui nessun eroe gli e'
+                      # adiacente, +2»: due cose che il digitale sbagliava. Il
+                      # passo era 1 invece di 2, e soprattutto la traccia partiva
+                      # dal round 1 — nove round prima che il Muratore, che sta in
+                      # T6, entrasse in scena. Si arrivava alla stanza al 9,5 e il
+                      # muro cadeva al 12: 1 vittoria su 43 (N-114).
+                      da_tessera='T6', nome='Demolizione', max=12, ogni=2, da_carta=1,
                       frena_adiacente='IL MURATORE',
                       # «Abbattere il Muratore ferma del tutto la demolizione: e' la
                       # seconda via» (fascicolo). Il digitale conosceva solo il freno

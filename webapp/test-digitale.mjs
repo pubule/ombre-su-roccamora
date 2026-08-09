@@ -266,5 +266,24 @@ ok(!path.some((n) => TESS.find((t) => t.id === n.t).arredi.some(([x, y]) => x ==
      `abbattuto il bersaglio l'orologio si ferma (visto ${abbattuto.traccia})`);
 }
 
+// --- l'orologio legato a un personaggio non gira prima che entri in scena
+// La Demolizione e' «ogni turno del MURATORE», e il Muratore sta in T6: la
+// traccia partiva dal round 1 e correva nove round a vuoto. Questo controllo
+// fallisce se ci ritorna.
+{
+  const epT = { tessere: TESS,
+                orologio: { id: 'demolizione', nome: 'Demolizione', max: 12, ogni: 2,
+                            esito: 'sconfitta', da_tessera: 'T6' } };
+  const gira = (sp) => { _setup(epT, sp, {}); return avanzaOrologio(2, 'prova'); };
+
+  const fuori = { rivelate: ['T1', 'T5'], nemici: [], eroiPos: {}, vite: {}, log: [], traccia: 0, round: 4 };
+  gira(fuori); gira(fuori); gira(fuori);
+  ok(!fuori.traccia, `fuori dalla stanza la traccia non parte (vista ${fuori.traccia})`);
+
+  const dentro = { rivelate: ['T1', 'T6'], nemici: [], eroiPos: {}, vite: {}, log: [], traccia: 0, round: 9 };
+  gira(dentro); gira(dentro);
+  ok(dentro.traccia === 4, `nella stanza sale di 2 per round (vista ${dentro.traccia})`);
+}
+
 console.log(ko === 0 ? 'TUTTO OK (motore multi-tessera)' : `${ko} FAIL`);
 process.exit(ko ? 1 : 0);

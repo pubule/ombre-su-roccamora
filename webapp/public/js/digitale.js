@@ -1151,6 +1151,8 @@ function compitoDisponibile(pos) {
     // muro: misurato 0/6 con pool 4, 50% senza clessidra.
     if (compitoFatte(c.id) >= (c.massimo || c.quante)) continue;
     if (c.ritmo) continue;   // avanza da solo a fine round, non e' un'azione
+    if (c.per_round_max && sp.compitiRound && sp.compitiRound.round === sp.round
+        && (sp.compitiRound[c.id] || 0) >= c.per_round_max) continue;
     // dipendenza: la Formula si legge solo a movimenti spenti (Ep.6)
     if (c.dopo && compitoFatte(c.dopo) < (specCompiti().find((x) => x.id === c.dopo) || {}).quante) continue;
     // compito su un NEMICO: agganciare il corriere, prendere vivo il Caposquadra,
@@ -1232,6 +1234,12 @@ function avanzaOrologio(quanto, motivo) {
       return [`${o.nome}: ferma — ${o.ferma_se_abbattuto.toLowerCase()} è a terra.`];
     }
   }
+  // «Ogni turno del MURATORE in cui nessun eroe gli e' adiacente, +2» — e il
+  // Muratore sta in T6. La traccia partiva invece dal round 1 e correva per
+  // nove round prima che il personaggio esistesse: la stanza si raggiungeva
+  // al 9,5 e il muro cadeva al 12. Un orologio legato a qualcuno non gira
+  // finche' quel qualcuno non e' in scena (N-114).
+  if (o.da_tessera && !sp.rivelate.includes(o.da_tessera)) return [];
   sp.traccia = (sp.traccia || 0) + quanto;
   const ann = [`${o.nome}: ${Math.min(sp.traccia, o.max)}/${o.max}${motivo ? ' — ' + motivo : ''}.`];
   if (sp.traccia >= o.max) {
@@ -1626,7 +1634,16 @@ async function azioneInteragire(nm) {
       // perché i 20 Frammenti campagna-wide non sono tracciati in digitale).
       if (c.per_azione.per_tier) passo = c.per_azione.per_tier[(P().vantaggi || {}).tier || 'nessuno'] || passo;
     }
-    const st = statoCompiti(); st[c.id] = (st[c.id] || 0) + passo;
+    // «Fino a DUE eroi all'intercapedine possono Interagire per documentare»:
+    // il fascicolo mette un tetto per round e il motore lasciava lavorare
+    // tutti. Il conto per round si azzera da solo al cambio di round.
+    const st = statoCompiti();
+    if (c.per_round_max) {
+      sp.compitiRound = (sp.compitiRound && sp.compitiRound.round === sp.round)
+        ? sp.compitiRound : { round: sp.round };
+      sp.compitiRound[c.id] = (sp.compitiRound[c.id] || 0) + 1;
+    }
+    st[c.id] = (st[c.id] || 0) + passo;
     // ROGO (Ep.13) — snapshot piena/parziale ALL'ATTO DELLA PRESA: se il torchio
     // brucia adesso e manca la Cassetta, i registri escono anneriti. Deciso qui e
     // non a fine fuga, altrimenti al ritorno in T1 tutto sarebbe gia' bruciato.

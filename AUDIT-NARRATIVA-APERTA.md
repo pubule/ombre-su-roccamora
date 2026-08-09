@@ -994,7 +994,7 @@ sono nel corpo di [[N-112]]. · riferimenti: scripts/simulate_ep20.py contro web
 Chiuse le due leve del finale, il pilota misura 56% di vittorie a quattro eroi e il simulatore Python 17%. Lo scarto e' di quaranta punti, ed e' nella direzione opposta a quella nota: di regola i simulatori sono ottimisti perche' astraggono il movimento e regalano una tessera per round (vedi la voce sulla taratura), qui invece il simulatore e' molto piu' severo del gioco vero. A due e tre eroi concordano meglio (45-59% contro il 56% del pilota a quattro), quindi la divergenza cresce con la taglia del gruppo. Due sospetti da verificare, in ordine di costo: (1) `MARCIA_TESSERA = 2` nel simulatore impone due round per tessera anche dove il pilota ne usa meno, e su una discesa di cinque tessere sono round di Fase Minaccia in piu'; (2) il simulatore salva la Candidata solo se il gruppo ha la Domanda 3, mentre nel pilota l'oggetto e' seminato da `oggetti_indagine` — cioe' i due strumenti misurano due gruppi diversi, uno che la Candidata ce l'ha sempre e uno che ce l'ha un terzo delle volte. Il secondo sospetto da solo spiegherebbe quasi tutto lo scarto, e se e' cosi' non e' un difetto: e' che le due misure rispondono a domande diverse. Ma va deciso quale delle due e' la domanda di bilanciamento, perche' oggi la mappa pilota e i riepiloghi del simulatore vengono letti come se fossero la stessa cosa.
 
 ### N-114 · Ep. 10 non si vince in digitale: l'obiettivo chiede 14 e il gruppo arriva a 2
-**stato: decisa** — meta' chiusa (09/08): l'episodio non e' piu' impossibile, ma resta durissimo. Il fascicolo ha una **seconda via** che il digitale non conosceva — «abbattere il Muratore ferma del tutto la demolizione» — mentre il motore modellava solo il freno per adiacenza. Aggiunta (`orologio.ferma_se_abbattuto`), e con essa una vittoria a 14/14 esiste: prima era aritmeticamente irraggiungibile.
+**stato: chiusa** — meta' chiusa (09/08): l'episodio non e' piu' impossibile, ma resta durissimo. Il fascicolo ha una **seconda via** che il digitale non conosceva — «abbattere il Muratore ferma del tutto la demolizione» — mentre il motore modellava solo il freno per adiacenza. Aggiunta (`orologio.ferma_se_abbattuto`), e con essa una vittoria a 14/14 esiste: prima era aritmeticamente irraggiungibile.
 
 **Attenzione a come si scrive quella guardia:** «il nemico non e' in campo» e' vero anche PRIMA che compaia — il Muratore sta in T6 — e presa alla lettera fermerebbe l'orologio dal primo round, cioe' regalerebbe l'episodio invece di ripararlo. La guardia distingue «mai comparso» da «caduto», e c'e' un'asserzione apposta per quel ramo.
 
@@ -1016,6 +1016,31 @@ lo mangia il tragitto, non la scena. Le due leve, entrambe da decidere: la Demol
 presto rispetto a quando si arriva (nove round di cammino, tre di lavoro), oppure il 14 e' tarato su
 un gruppo che documenta indisturbato. Vale la pena guardare i due episodi insieme, perche' e' lo
 stesso problema.
+
+**CHIUSA (09/08), e senza tarare niente.** Rileggendo la pagina invece di alzare un numero, l'orologio
+non era tarato male: era **infedele in tre punti**, e uno era grosso.
+
+| | fascicolo | digitale |
+|---|---|---|
+| quando parte | al turno del **Muratore**, che sta in T6 | **dal round 1** |
+| passo | +2 se nessun eroe gli e' adiacente | +1 |
+| chi documenta | **fino a due** eroi (+1, +2 con la Macchina) | tutti e quattro |
+
+Il primo spiega tutto: la Demolizione consumava nove giri prima che il personaggio a cui e' legata
+entrasse in scena. I tre round di lavoro non erano una scelta di design, erano il residuo di un
+orologio partito troppo presto. Un orologio legato a qualcuno non gira finche' quel qualcuno non e'
+in scena (`orologio.da_tessera`), e c'e' un'asserzione per quel ramo, **provata non vacua**.
+
+Applicate **tutte e tre**, comprese le due che rendono l'episodio *piu' duro* — il passo raddoppiato e
+il tetto di due documentatori. Prendere solo la correzione che aiuta sarebbe stato tarare spacciandolo
+per una riparazione.
+
+**Misurato: da 1 vittoria su 43 (~2%) a 5 su 20 (25%),** corsa valida, e la stanza si raggiunge **18
+volte su 20** invece di 11. Le sconfitte sono di misura: 12/14, 10/14, 10/14. L'episodio e' tornato
+una corsa a due tracce, che e' quello che la pagina descrive.
+
+Resta sotto la banda 55-75%, come mezza campagna dopo la correzione della soglia del Canto: e' la
+domanda di bilanciamento di [[N-110]], non piu' un difetto.
 ### N-115 · Ep. 11 non ha un orologio che chiuda le partite perse: proseguono finche' il pilota si arrende
 **stato: chiusa** — chiusa (09/08). Il fascicolo aveva gia' la fine che mancava: «un colpo che lo porterebbe a 0 lo fa CADERE: filo perso — l'Atto III perde l'aggancio, la campagna prosegue depotenziata, non e' wipe». Il digitale non la applicava, quindi la partita in cui il Caposquadra moriva restava senza obiettivo possibile e senza nessuno che la dichiarasse persa. Ora `compiti[].perso_se_abbattuto` la chiude in parziale. **Misurato: corsa VALIDA, nessuno stallo, 35% su 20 partite** — l'Ep. 11 e' di nuovo misurabile. Il 35% contro il 95% di luglio e' materia di bilanciamento, non piu' di strumento. · riferimenti: webapp/data/ep11.json (compiti.caposquadra), webapp/misura-episodio.mjs
 
