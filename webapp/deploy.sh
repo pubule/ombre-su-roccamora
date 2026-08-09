@@ -10,4 +10,10 @@ set -e
 cd "$(dirname "${BASH_SOURCE[0]}")/.."
 
 ./webapp/build-dist.sh
-npx wrangler@latest deploy
+
+# wrangler e' bloccato in package.json (versione esatta, con l'hash nel
+# lockfile) e non "@latest": questo comando riceve il token OAuth del tuo
+# account Cloudflare — scrittura su Workers, zone, DNS, email — quindi non
+# deve poter eseguire codice di una release nuova che nessuno ha visto.
+# Per aggiornarlo: npm install --save-dev --save-exact wrangler@<versione>
+npx --no-install wrangler deploy

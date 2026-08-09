@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/pubule/ombre-su-roccamora#readme",
   "devDependencies": {
-    "playwright": "^1.61.1"
+    "playwright": "^1.61.1",
+    "wrangler": "4.120.0"
   }
 }
