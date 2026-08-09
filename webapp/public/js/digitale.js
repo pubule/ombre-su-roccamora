@@ -1216,6 +1216,22 @@ function avanzaOrologio(quanto, motivo) {
       && P().party.some((nm) => (sp.vite[nm] ?? 0) > 0 && adiacGlob(sp.eroiPos[nm], n.pos)));
     if (vicino) return [`${o.nome}: fermo — ${o.frena_adiacente.toLowerCase()} è inchiodato.`];
   }
+  // LA SECONDA VIA. Inchiodare il nemico ferma l'orologio finche' lo tieni a
+  // contatto; ABBATTERLO lo ferma per sempre — «abbattere il Muratore ferma del
+  // tutto la demolizione: e' la seconda via» (Ep.10). Il digitale conosceva
+  // solo il freno, e senza la seconda via l'Ep. 10 era matematicamente perso:
+  // si entra nella camera al round 9 e la Demolizione chiude al 12, tre round
+  // per un obiettivo da quattordici (N-114, misurato 0 vittorie su 20).
+  // «Non c'e' in campo» e' vero anche PRIMA che compaia — il Muratore sta in
+  // T6 — e fermerebbe l'orologio dal primo round. Ferma solo chi c'era ed e'
+  // stato abbattuto, quindi si segna che e' comparso.
+  if (o.ferma_se_abbattuto) {
+    const inCampo = sp.nemici.some((n) => n.pos && n.nome === o.ferma_se_abbattuto);
+    if (inCampo) sp.orologioVistoBersaglio = true;
+    else if (sp.orologioVistoBersaglio) {
+      return [`${o.nome}: ferma — ${o.ferma_se_abbattuto.toLowerCase()} è a terra.`];
+    }
+  }
   sp.traccia = (sp.traccia || 0) + quanto;
   const ann = [`${o.nome}: ${Math.min(sp.traccia, o.max)}/${o.max}${motivo ? ' — ' + motivo : ''}.`];
   if (sp.traccia >= o.max) {
@@ -1386,6 +1402,32 @@ function avanzaPressione() {
     }
   }
   return ann;
+}
+
+// --- il filo perso (Ep.11) --------------------------------------------------
+// «Un colpo che lo porterebbe a 0 lo fa CADERE: filo perso — l'Atto III perde
+// l'aggancio, la campagna prosegue depotenziata, non e' wipe.» E' stampato, e
+// il digitale non lo applicava: se il Caposquadra moriva invece di essere preso
+// vivo, il compito diventava impossibile e la partita non finiva piu'. Sul
+// pilota, tre partite su venti arrivavano a round 20-23 e morivano in timeout,
+// e l'Ep. 11 era l'unico episodio la cui percentuale non fosse credibile
+// (N-115). Al tavolo la serata la chiude l'arbitro; qui non la chiudeva nessuno.
+function controllaFiloPerso() {
+  const sp = SP();
+  if (sp.esito) return [];
+  for (const c of specCompiti()) {
+    if (!c.perso_se_abbattuto || !c.nemico) continue;
+    if (compitoFatte(c.id) >= c.quante) continue;          // gia' preso: nessun filo perso
+    const inCampo = sp.nemici.some((n) => n.pos && n.nome === c.nemico);
+    sp.bersagliVisti = sp.bersagliVisti || {};
+    if (inCampo) { sp.bersagliVisti[c.id] = true; continue; }
+    if (!sp.bersagliVisti[c.id]) continue;                 // non e' ancora comparso
+    sp.esito = c.perso_se_abbattuto.esito || 'parziale';
+    const t = c.perso_se_abbattuto.testo || 'Il filo è perso: la spedizione si chiude a metà.';
+    sp.log.push(t); salvaP();
+    return [t];
+  }
+  return [];
 }
 
 function controllaVittoria() {
@@ -2171,6 +2213,7 @@ function faseNemiciAI() {
   piano.annunci.push(...avanzaCancellazione());   // la clessidra dell'Ep.15: i tell si cancellano
   piano.annunci.push(...avanzaRitmo());           // il ritmo del controcanto (Ep.20)
   piano.annunci.push(...avanzaPressione());       // ...e cio' che gli corre contro
+  piano.annunci.push(...controllaFiloPerso());    // il bersaglio da prendere vivo e' caduto?
   // Cinque episodi non hanno una traccia propria: la loro soglia E' IL CANTO —
   // «prima che il Canto raggiunga la soglia-FUGA» (Ep.14), soglia-sigillo,
   // soglia-decano, soglia-arresto, risveglio. Sono i numeri che le Soluzioni
@@ -2276,7 +2319,7 @@ function epilogo() {
 // export del motore per i test (node): _setup inietta un ctx finto (ep + sp)
 export const _motore = {
   esploraMosse, camminoGlob, adiacGlob, viciniGlob, portaCella, arrediSet, layout, nk, tileDi,
-  avanzaCancellazione, avanzaRitmo, avanzaPressione,
+  avanzaCancellazione, avanzaRitmo, avanzaPressione, controllaFiloPerso, avanzaOrologio,
   _setup: (ep, sp, extra) => {
     const { comune, ...resto } = extra || {};
     ctx = { ep, comune: comune || { regole: {} },

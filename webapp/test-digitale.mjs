@@ -2,7 +2,12 @@
 // node webapp/test-digitale.mjs
 import { _motore } from './public/js/digitale.js';
 const { esploraMosse, camminoGlob, adiacGlob, portaCella, layout, nk, _setup,
-        avanzaCancellazione, avanzaRitmo, avanzaPressione } = _motore;
+        avanzaCancellazione, avanzaRitmo, avanzaPressione, controllaFiloPerso,
+        avanzaOrologio } = _motore;
+
+// `salvaP()` scrive su localStorage, che in node non esiste: qui la partita
+// non va salvata, va solo ispezionata in memoria.
+globalThis.localStorage = { setItem() {}, getItem() { return null; }, removeItem() {} };
 
 let ko = 0;
 const ok = (c, m) => { if (!c) { console.error('FAIL:', m); ko++; } };
@@ -196,6 +201,69 @@ ok(!path.some((n) => TESS.find((t) => t.id === n.t).arredi.some(([x, y]) => x ==
   const alTetto = dentro({ canto: 8, nemici: [{ pos: { t: 'T6', x: 0, y: 0 } }] });
   corri(alTetto);
   ok(alTetto.canto === 8, 'il Canto non supera il tetto dei segnalini in scatola');
+}
+
+// --- il filo perso: il bersaglio da prendere vivo e' caduto (Ep.11)
+// Senza, la partita in cui muore non finisce piu': il compito resta
+// impossibile e si va avanti a vuoto fino al timeout.
+{
+  const epF = { tessere: TESS,
+                compiti: [{ id: 'capo', nemico: 'IL CAPOSQUADRA', quante: 1, tile: 'T6',
+                            perso_se_abbattuto: { esito: 'parziale', testo: 'Il filo è perso.' } }] };
+  const gira = (sp) => { _setup(epF, sp, {}); return controllaFiloPerso(); };
+  const base = (o = {}) => ({ rivelate: ['T1', 'T6'], compiti: {}, nemici: [], log: [], round: 5, ...o });
+
+  const nonAncoraApparso = base();
+  gira(nonAncoraApparso);
+  ok(!nonAncoraApparso.esito, 'prima che il bersaglio compaia non si perde niente');
+
+  const inCampo = base({ nemici: [{ pos: { t: 'T6', x: 0, y: 0 }, nome: 'IL CAPOSQUADRA' }] });
+  gira(inCampo);
+  ok(!inCampo.esito, 'col bersaglio in piedi la spedizione continua');
+
+  const caduto = base({ nemici: [{ pos: { t: 'T6', x: 0, y: 0 }, nome: 'IL CAPOSQUADRA' }] });
+  gira(caduto);                       // lo vede
+  caduto.nemici = [];                 // e poi cade
+  const ann = gira(caduto);
+  ok(caduto.esito === 'parziale', `bersaglio caduto: parziale (visto ${caduto.esito})`);
+  ok(ann.length === 1, 'e lo dice una volta sola');
+
+  const giaPreso = base({ compiti: { capo: 1 },
+                          nemici: [{ pos: { t: 'T6', x: 0, y: 0 }, nome: 'IL CAPOSQUADRA' }] });
+  gira(giaPreso); giaPreso.nemici = []; gira(giaPreso);
+  ok(!giaPreso.esito, 'se era gia' + "'" + ' stato preso, sparire dal campo non e' + "'" + ' un filo perso');
+}
+
+// --- la seconda via: abbattere il bersaglio ferma l'orologio (Ep.10)
+// Il freno per adiacenza c'era; questa no, e senza l'episodio era perso per
+// aritmetica (0 vittorie su 20 misurate).
+{
+  const epO = { tessere: TESS,
+                orologio: { id: 'demolizione', nome: 'Demolizione', max: 12, ogni: 1,
+                            esito: 'sconfitta', testo: 'Il muro e caduto.',
+                            ferma_se_abbattuto: 'IL MURATORE' } };
+  const gira = (sp) => { _setup(epO, sp, {}); return avanzaOrologio(1, 'prova'); };
+  const base = (o = {}) => ({ rivelate: ['T1'], nemici: [], eroiPos: {}, vite: {},
+                              log: [], traccia: 0, round: 3, ...o });
+
+  // «non c'e' in campo» e' vero anche PRIMA che compaia — il Muratore sta in
+  // T6 — e una guardia scritta male fermerebbe l'orologio dal primo round,
+  // cioe' regalerebbe l'episodio invece di ripararlo.
+  const primaCheCompaia = base();
+  gira(primaCheCompaia); gira(primaCheCompaia); gira(primaCheCompaia);
+  ok(primaCheCompaia.traccia === 3,
+     `prima che il bersaglio compaia l'orologio corre sempre (visto ${primaCheCompaia.traccia})`);
+
+  const conLui = base({ nemici: [{ pos: { t: 'T6', x: 0, y: 0 }, nome: 'IL MURATORE' }] });
+  gira(conLui);
+  ok(conLui.traccia === 1, 'col bersaglio in piedi corre');
+
+  const abbattuto = base({ nemici: [{ pos: { t: 'T6', x: 0, y: 0 }, nome: 'IL MURATORE' }] });
+  gira(abbattuto);              // lo vede
+  abbattuto.nemici = [];        // e poi cade
+  gira(abbattuto); gira(abbattuto);
+  ok(abbattuto.traccia === 1,
+     `abbattuto il bersaglio l'orologio si ferma (visto ${abbattuto.traccia})`);
 }
 
 console.log(ko === 0 ? 'TUTTO OK (motore multi-tessera)' : `${ko} FAIL`);

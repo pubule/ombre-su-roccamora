@@ -1159,6 +1159,11 @@ episodi = dict(
         # il pilota Playwright non lo naviga = non misurabile, non aggiungo alla cieca).
         orologio=dict(id='demolizione', nome='Demolizione', max=12, ogni=1, da_carta=1,
                       frena_adiacente='IL MURATORE',
+                      # «Abbattere il Muratore ferma del tutto la demolizione: e' la
+                      # seconda via» (fascicolo). Il digitale conosceva solo il freno
+                      # per adiacenza, e senza la seconda via l'episodio era perso per
+                      # aritmetica: 0 vittorie su 20 misurate (N-114).
+                      ferma_se_abbattuto='IL MURATORE',
                       esito='sconfitta', testo='Il muro è crollato: la prova è distrutta.'),
         esami_carbone=ESAMI_CARBONE_10,
         luoghi=[luogo_json(L, OGGETTI_LUOGO_10, REPERTI_LUOGO['ep10'], DESC_LUOGHI['ep10']) for L in LUOGHI_10],
@@ -1178,8 +1183,17 @@ episodi = dict(
                   'lo uccide, o una raffica che lo fa cadere dall’esposto, perde il filo.',
         # «Prendete VIVO il Caposquadra»: un compito su una MINIATURA, non su una
         # stanza — adiacenza e Interagire.
+        # «Un colpo che lo porterebbe a 0 lo fa CADERE: filo perso — l'Atto III
+        # perde l'aggancio, la campagna prosegue depotenziata, non e' wipe.» E'
+        # stampato sul fascicolo e il digitale non lo applicava: se moriva
+        # invece di essere preso vivo, il compito diventava impossibile e la
+        # partita non finiva piu' (round 20-23 fino al timeout del pilota).
         compiti=[dict(id='caposquadra', nemico='IL CAPOSQUADRA', quante=1, ridotto=True, tile='T6',
                       etichetta='Cattura il Caposquadra',
+                      perso_se_abbattuto=dict(
+                          esito='parziale',
+                          testo='Il caposquadra precipita dal cornicione: il filo è perso. '
+                                'L’Atto III perde l’aggancio — la campagna prosegue depotenziata.'),
                       fatto='Il Caposquadra è preso vivo: il testimone parlerà.')],
         vittoria=dict(testo='Il Caposquadra è vostro, e vivo.'),
         esami_carbone=ESAMI_CARBONE_11,
