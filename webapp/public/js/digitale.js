@@ -1150,6 +1150,7 @@ function compitoDisponibile(pos) {
     // villa, quattro bastano). Senza il margine, una clessidra da 1/round e' un
     // muro: misurato 0/6 con pool 4, 50% senza clessidra.
     if (compitoFatte(c.id) >= (c.massimo || c.quante)) continue;
+    if (c.ritmo) continue;   // avanza da solo a fine round, non e' un'azione
     // dipendenza: la Formula si legge solo a movimenti spenti (Ep.6)
     if (c.dopo && compitoFatte(c.dopo) < (specCompiti().find((x) => x.id === c.dopo) || {}).quante) continue;
     // compito su un NEMICO: agganciare il corriere, prendere vivo il Caposquadra,
@@ -1288,6 +1289,80 @@ function avanzaCancellazione() {
   st[k.compito] = avuti - quanti;
   const spec = specCompiti().find((x) => x.id === k.compito);
   return [`${k.testo} (${st[k.compito]}/${spec ? spec.quante : '?'})`];
+}
+
+// --- il RITMO del controcanto (Ep.20) ---------------------------------------
+// Il finale era due giochi diversi: al tavolo il controcanto e' un ritmo per
+// round che dipende dai Frammenti di venti serate e dal coro in campo, qui era
+// un compito da 10 con una prova di NERVI per azione, dove i Frammenti non
+// pesavano nulla. Ora e' il ritmo stampato:
+//
+//   righe = base + 1 ogni `per_frammenti` Frammenti conservati e non incrinati
+//                + `con_oggetto` se il gruppo ha la Mappa Acustica
+//                − 1 per ogni nemico sulla tessera della camera
+//   e comunque mai sotto `minimo` (il pavimento: per quanti siano nel coro,
+//   una riga la cantate sempre).
+//
+// Non costa azioni, come al tavolo: gli eroi le spendono a spezzare il coro,
+// che e' il punto della scena.
+const specRitmo = () => specCompiti().find((c) => c.ritmo) || null;
+
+// Quanti Frammenti porta il gruppo. La webapp gioca un episodio per volta e non
+// ha lo stato di campagna: il valore si dichiara sulla partita (`frammenti`) e
+// altrimenti vale il `default` dei dati. E' l'unico ingresso di campagna del
+// finale, e va tenuto esplicito invece di essere dedotto dal tier d'Indagine —
+// il tier dice com'e' andata stasera, non come sono andate venti serate.
+const frammentiPortati = () => {
+  const r = specRitmo(); const p = P();
+  return p.frammenti != null ? p.frammenti : ((r && r.ritmo.frammenti_default) || 0);
+};
+
+function avanzaRitmo() {
+  const c = specRitmo(); const sp = SP();
+  if (!c || sp.esito) return [];
+  const r = c.ritmo;
+  if (r.tile && !sp.rivelate.includes(r.tile)) return [];      // non si canta prima della camera
+  if (compitoFatte(c.id) >= c.quante) return [];
+  const coro = r.tile ? sp.nemici.filter((n) => n.pos && n.pos.t === r.tile).length : 0;
+  const oggetto = r.oggetto
+    && ((P().indagine || {}).oggetti || []).some((o) => new RegExp(r.oggetto, 'i').test(o));
+  const grezzo = (r.base || 1)
+    + (r.per_frammenti ? Math.floor(frammentiPortati() / r.per_frammenti) : 0)
+    + (oggetto ? (r.con_oggetto || 0) : 0)
+    - coro;
+  const righe = Math.max(r.minimo != null ? r.minimo : 1, grezzo);
+  const st = statoCompiti();
+  st[c.id] = Math.min(c.quante, (st[c.id] || 0) + righe);
+  const ann = [`${r.testo || 'Cantate'} ${righe} ${righe === 1 ? 'riga' : 'righe'}`
+    + `${coro ? ` (il coro ne toglie ${coro})` : ''}: ${st[c.id]}/${c.quante}.`];
+  if (st[c.id] >= c.quante && c.fatto) ann.push(c.fatto);
+  return ann;
+}
+
+// --- la PRESSIONE della camera (Ep.20) --------------------------------------
+// L'altra meta' del finale stampato. Nella camera il Dormiente si desta a ogni
+// round, e il rito accelera il risveglio finche' HA UNA VOCE: M. in piedi con
+// la sua, oppure un impiegato del coro che canta al posto suo. Qui c'era solo
+// il tick ogni 6 round: senza questa pressione il ritmo del controcanto corre
+// senza avversario, e la corsa che regge tutto il finale non esiste.
+// «Voce» = un nemico qualunque nella camera: e' cosi' che il digitale
+// rappresenta il coro e M., che non ha una miniatura sua.
+function avanzaPressione() {
+  const p = ctx.ep.pressione; const sp = SP();
+  if (!p || sp.esito) return [];
+  if (p.tile && !sp.rivelate.includes(p.tile)) return [];
+  const tetto = tettoCanto(ctx.comune, ctx.ep);
+  const ann = [];
+  const sale = (quanto, perche) => {
+    for (let i = 0; i < quanto && sp.canto < tetto; i += 1) sp.canto += 1;
+    if (sp.canto < tetto || quanto) ann.push(`${perche} (Canto ${sp.canto}).`);
+  };
+  if (p.per_round) sale(p.per_round, p.testo || 'Il Dormiente si desta');
+  if (p.rito) {
+    const voce = sp.nemici.some((n) => n.pos && n.pos.t === p.tile);
+    if (voce) sale(p.rito.per_round || 1, p.rito.testo || 'Il rito ha una voce');
+  }
+  return ann;
 }
 
 function controllaVittoria() {
@@ -2071,6 +2146,8 @@ function faseNemiciAI() {
   if (specOrologio() && specOrologio().ogni) piano.annunci.push(...avanzaOrologio(specOrologio().ogni, 'fine round'));
   piano.annunci.push(...avanzaRogo());   // il doom-clock del Rogo (Ep.13): incendio a round + danno
   piano.annunci.push(...avanzaCancellazione());   // la clessidra dell'Ep.15: i tell si cancellano
+  piano.annunci.push(...avanzaRitmo());           // il ritmo del controcanto (Ep.20)
+  piano.annunci.push(...avanzaPressione());       // ...e cio' che gli corre contro
   // Cinque episodi non hanno una traccia propria: la loro soglia E' IL CANTO —
   // «prima che il Canto raggiunga la soglia-FUGA» (Ep.14), soglia-sigillo,
   // soglia-decano, soglia-arresto, risveglio. Sono i numeri che le Soluzioni
@@ -2176,6 +2253,10 @@ function epilogo() {
 // export del motore per i test (node): _setup inietta un ctx finto (ep + sp)
 export const _motore = {
   esploraMosse, camminoGlob, adiacGlob, viciniGlob, portaCella, arrediSet, layout, nk, tileDi,
-  avanzaCancellazione,
-  _setup: (ep, sp) => { ctx = { ep, partita: { spedizione: sp, party: [] }, layout: null }; },
+  avanzaCancellazione, avanzaRitmo, avanzaPressione,
+  _setup: (ep, sp, extra) => {
+    const { comune, ...resto } = extra || {};
+    ctx = { ep, comune: comune || { regole: {} },
+            partita: { spedizione: sp, party: [], ...resto }, layout: null };
+  },
 };

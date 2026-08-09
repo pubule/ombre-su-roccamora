@@ -2,7 +2,7 @@
 // node webapp/test-digitale.mjs
 import { _motore } from './public/js/digitale.js';
 const { esploraMosse, camminoGlob, adiacGlob, portaCella, layout, nk, _setup,
-        avanzaCancellazione } = _motore;
+        avanzaCancellazione, avanzaRitmo, avanzaPressione } = _motore;
 
 let ko = 0;
 const ok = (c, m) => { if (!c) { console.error('FAIL:', m); ko++; } };
@@ -100,6 +100,80 @@ ok(!path.some((n) => TESS.find((t) => t.id === n.t).arredi.some(([x, y]) => x ==
   const finito = { rivelate: ['T1', 'T4'], compiti: { tell: 4 }, round: 8 };
   gioca(finito); gioca(finito); gioca(finito); gioca(finito);
   ok(finito.compiti.tell === 0, 'quattro round di cancellazione svuotano il pool pieno');
+}
+
+// --- il RITMO del controcanto (Ep.20): i Frammenti pesano, il coro rallenta
+// Il finale digitale era un compito da 10 con una prova per azione, dove venti
+// serate di Frammenti non cambiavano nulla. Questo controllo fallisce se ci
+// ritorna.
+{
+  const RITMO = { tile: 'T6', base: 1, per_frammenti: 6, minimo: 1,
+                  oggetto: 'Mappa Acustica', con_oggetto: 1,
+                  frammenti_default: 12, testo: 'canta' };
+  const ep20 = { tessere: TESS,
+                 compiti: [{ id: 'controcanto', tile: 'T6', quante: 10,
+                             fatto: 'Il Controcanto è compiuto.', ritmo: RITMO }] };
+  const gioca = (sp, extra) => { _setup(ep20, sp, extra); return avanzaRitmo(); };
+  const camera = (o = {}) => ({ rivelate: ['T1', 'T6'], compiti: {}, nemici: [], round: 3, ...o });
+
+  const fuori = { rivelate: ['T1'], compiti: {}, nemici: [], round: 3 };
+  gioca(fuori, {});
+  ok(!(fuori.compiti.controcanto > 0), 'fuori dalla camera non si canta');
+
+  const base = camera();
+  gioca(base, { frammenti: 12, indagine: { oggetti: [] } });
+  ok(base.compiti.controcanto === 3, `12 Frammenti = 1+2 righe (viste ${base.compiti.controcanto})`);
+
+  const conMappa = camera();
+  gioca(conMappa, { frammenti: 12, indagine: { oggetti: ['La Mappa Acustica Attiva'] } });
+  ok(conMappa.compiti.controcanto === 4, 'la Mappa Acustica vale una riga in più');
+
+  const pochi = camera();
+  gioca(pochi, { frammenti: 0, indagine: { oggetti: [] } });
+  ok(pochi.compiti.controcanto === 1, 'senza Frammenti si canta la sola riga di base');
+
+  const soffocati = camera({ nemici: [1, 2, 3, 4, 5].map(() => ({ pos: { t: 'T6', x: 0, y: 0 } })) });
+  gioca(soffocati, { frammenti: 12, indagine: { oggetti: [] } });
+  ok(soffocati.compiti.controcanto === 1,
+     `cinque del coro non azzerano il canto: pavimento 1 (viste ${soffocati.compiti.controcanto})`);
+
+  const senzaDichiarazione = camera();
+  gioca(senzaDichiarazione, { indagine: { oggetti: [] } });
+  ok(senzaDichiarazione.compiti.controcanto === 3, 'senza dichiarazione vale il default dei dati');
+
+  const quasi = camera({ compiti: { controcanto: 9 } });
+  const ann = gioca(quasi, { frammenti: 12, indagine: { oggetti: [] } });
+  ok(quasi.compiti.controcanto === 10, 'il contatore non supera le 10 righe');
+  ok(ann.some((a) => a.includes('Controcanto è compiuto')), 'alle 10 righe il finale si dichiara');
+}
+
+// --- la PRESSIONE della camera: cio' che corre contro il controcanto
+{
+  const epP = { tessere: TESS, canto_max: 8,
+                pressione: { tile: 'T6', per_round: 1, testo: 'desta',
+                             rito: { per_round: 1, testo: 'voce' } } };
+  const corri = (sp) => { _setup(epP, sp, {}); return avanzaPressione(); };
+  const dentro = (o = {}) => ({ rivelate: ['T1', 'T6'], canto: 0, nemici: [], round: 3, ...o });
+
+  const fuori = { rivelate: ['T1'], canto: 0, nemici: [], round: 3 };
+  corri(fuori);
+  ok(fuori.canto === 0, 'fuori dalla camera il Dormiente non si desta');
+
+  const sgombra = dentro();
+  corri(sgombra);
+  ok(sgombra.canto === 1, `camera sgombra: +1 Canto (visto ${sgombra.canto})`);
+
+  const conVoce = dentro({ nemici: [{ pos: { t: 'T6', x: 0, y: 0 } }] });
+  corri(conVoce);
+  ok(conVoce.canto === 2, `col rito che ha una voce: +2 Canto (visto ${conVoce.canto})`);
+
+  const altrove = dentro({ nemici: [{ pos: { t: 'T5', x: 0, y: 0 } }] });
+  corri(altrove);
+  ok(altrove.canto === 1, 'un nemico fuori dalla camera non canta il rito');
+
+  const alTetto = dentro({ canto: 8, nemici: [{ pos: { t: 'T6', x: 0, y: 0 } }] });
+  corri(alTetto);
+  ok(alTetto.canto === 8, 'il Canto non supera il tetto dei segnalini in scatola');
 }
 
 console.log(ko === 0 ? 'TUTTO OK (motore multi-tessera)' : `${ko} FAIL`);

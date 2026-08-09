@@ -1503,11 +1503,28 @@ episodi = dict(
         # 8, il Risveglio mai scattato — il finale della campagna senza fondo.
         # Riportato a 8. Se serve davvero più finestra la leva è `canto_ogni`
         # (già usata da Ep.1/3/5/6), non una soglia fuori scala.
+        # IL RITMO (N-111, 09/08/2026). Il controcanto era un compito da 10 con
+        # una prova di NERVI per azione, scalata sul tier d'Indagine: i Frammenti
+        # di venti serate non pesavano nulla e il coro non rallentava il canto,
+        # cioe' il digitale giocava un altro finale. Ora e' il ritmo stampato:
+        # 1 riga + 1 ogni 6 Frammenti conservati e non incrinati, +1 con la Mappa
+        # Acustica, -1 per ogni nemico nella camera, mai sotto 1. Non costa
+        # azioni, come al tavolo: si spendono a spezzare il coro.
+        # `frammenti_default` e' l'unico ingresso di campagna che la webapp non ha
+        # (gioca un episodio per volta): 12 = un gruppo che ha vinto pieno la
+        # maggioranza delle serate ma non tutte. Si sovrascrive con `partita.frammenti`.
         compiti=[dict(id='controcanto', tile='T6', quante=10,
-                      etichetta='Pronuncia una riga del Controcanto',
-                      prova=dict(attr='nervi', diff='Media'), fallita='la voce si spezza',
-                      per_azione=dict(base=1, per_tier=dict(slancio=4, preparati=2, nessuno=1)),
+                      etichetta='Il Controcanto (avanza da solo a fine round)',
+                      ritmo=dict(tile='T6', base=1, per_frammenti=6, minimo=1,
+                                 oggetto='Mappa Acustica', con_oggetto=1,
+                                 frammenti_default=12, testo='Il coro degli eroi canta'),
                       fatto='Il Controcanto è compiuto.')],
+        # L'altra meta' del finale stampato: nella camera il Dormiente si desta a
+        # ogni round, e il rito accelera finche' ha una voce (M. in piedi oppure un
+        # impiegato del coro che canta al posto suo — qui: un nemico qualunque nella
+        # camera). Senza, il ritmo del controcanto correva senza avversario.
+        pressione=dict(tile='T6', per_round=1, testo='Il Dormiente si desta',
+                       rito=dict(per_round=1, testo='Il rito ha ancora una voce')),
         vittoria=dict(testo='Il Controcanto copre il Canto: la città si sveglia, il Dormiente no.'),
         # la finestra in piu' che il digitale chiede: il Canto sale ogni 6
         # round invece che ogni 4, come gia' fanno Ep.1/3/5/6 per le
