@@ -180,6 +180,22 @@ si spegne da solo durante la partita (wake-lock). I salvataggi sono sul
 dispositivo (una partita in corso per episodio, si riprende da dove si era
 rimasti); il server serve solo file statici, niente accessi esterni.
 
+### Online (Cloudflare)
+
+La stessa app sta anche su Cloudflare, così il PC non deve restare acceso:
+<https://ombre-su-roccamora.fabio-stocco85.workers.dev>. Siccome `webapp/data/`,
+`webapp/assets/` e `fonts/` sono derivati (in `.gitignore`), la pubblicazione
+parte sempre dal punto 1 qui sopra: rigenera, poi
+
+```bash
+./webapp/deploy.sh               # assembla webapp/dist e la carica (da Git Bash)
+```
+
+`webapp/build-dist.sh` appiattisce in `webapp/dist` quello che `server.js`
+monta da cartelle diverse (`/data`, `/assets`, `/fonts`) — un Worker di soli
+asset statici vuole una cartella sola, vedi `wrangler.jsonc`. Wrangler carica
+solo i file cambiati.
+
 ## Come si gioca (in breve)
 
 Ogni episodio è una serata: prima l'**Indagine** (6 ore di tempo, luoghi da sbloccare
