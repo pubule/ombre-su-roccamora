@@ -17,7 +17,7 @@ Spec `DESIGN-ACCOUNT-E-SALVATAGGI.md` · piano `PIANO-ACCOUNT-E-SALVATAGGI.md`
 | ✅ | 1. Schema e database D1 | `ombre-salvataggi` creato (regione EEUR), schema applicato in locale e in remoto, cascata provata |
 | ✅ | 2. Verifica del JWT di Access | `webapp/worker/access.js`, 9 asserzioni, provato non vacuo su 3 guasti |
 | ✅ | 3. I cinque endpoint | `worker/api.js`, `worker/index.js`, 18 asserzioni, provato non vacuo su 3 guasti |
-| ⬜ | 4. Regola dei conflitti (`sync.js`) | |
+| ✅ | 4. Regola dei conflitti (`sync.js`) | 10 asserzioni, provata non vacua su 2 guasti (4 e 6 cadute) |
 | ⬜ | 5. Coda e `store.js` per tavolo | |
 | ⬜ | 6. Schermata tavoli e spia | |
 | ⬜ | 7. Access, dominio, prova sull'iPad | **ha passi manuali nel dashboard** |
@@ -36,8 +36,8 @@ Servono due server perché l'isolamento fra account non si può provare con un
 utente solo. Condividono lo stesso D1 locale, quindi il secondo vede davvero i
 tavoli del primo — e deve rifiutarli.
 
-Prossimo passo concreto: Task 4, `webapp/public/js/sync.js` e
-`webapp/test-sync.mjs`.
+Prossimo passo concreto: Task 5, la coda in `sync.js` e `store.js` con il
+tavolo nella chiave.
 
 ## Cose sapute che il codice non dice
 
