@@ -1002,6 +1002,20 @@ Chiuse le due leve del finale, il pilota misura 56% di vittorie a quattro eroi e
 
 Misurato col pilota: 0 vittorie su 20, e non e' varianza. L'obiettivo e' un compito «Documenta il corpo murato» da 14, con 2 per azione se il gruppo ha la Macchina Fotografica (che il pilota semina). Il gruppo entra nella camera al round 9 e l'orologio della Demolizione (`ogni: 1`, `max: 12`) chiude al round 12: restano tre round. Quattro eroi che documentano fanno 8 per round in teoria, ma nella pratica misurata arrivano a 2, 6 e 0 — perche' nella camera c'e' anche da combattere. Servirebbero circa sette round e ce ne sono tre. Non e' una regressione di questa sessione: l'Ep. 10 non era nella mappa pilota del 24 luglio, sta nella lista «outlier da classificare» insieme a Ep. 9, Ep. 12, Ep. 16 e al Preludio. E' la prima volta che qualcuno lo misura, ed esce a zero. Le due leve ovvie, non applicate: la Demolizione parte troppo presto rispetto a quando si arriva alla camera (nove round per arrivarci, tre per lavorare), oppure il 14 e' tarato su un gruppo che documenta senza essere disturbato. La prima e' la stessa forma del difetto dell'Ep. 20 (il budget lo mangia il tragitto), e vale la pena guardarle insieme.
 
+
+**Misura finale, e ridimensiona quanto sopra: 1 vittoria su 43 partite (~2%).** Due corse da 20 a
+zero piu' una da 3 con una vittoria. La seconda via **esiste** — il 14/14 e' stato raggiunto, e prima
+era aritmeticamente impossibile — ma nella pratica non si percorre: bisognerebbe abbattere un boss da
+5 Ferite nei due o tre round che l'orologio concede. E il dato che spiega tutto il resto: **in 9
+partite su 20 il gruppo non arriva nemmeno alla stanza** (T6 raggiunta 11 volte su 20, al round 9,5,
+con la Demolizione che chiude al 12).
+
+Quindi la correzione ha tolto un'impossibilita' matematica e **non ha reso l'episodio giocabile**: e'
+onesto dirlo cosi'. L'Ep. 10 va tarato, e il difetto e' identico a quello dell'Ep. 20 — il budget se
+lo mangia il tragitto, non la scena. Le due leve, entrambe da decidere: la Demolizione parte troppo
+presto rispetto a quando si arriva (nove round di cammino, tre di lavoro), oppure il 14 e' tarato su
+un gruppo che documenta indisturbato. Vale la pena guardare i due episodi insieme, perche' e' lo
+stesso problema.
 ### N-115 · Ep. 11 non ha un orologio che chiuda le partite perse: proseguono finche' il pilota si arrende
 **stato: chiusa** — chiusa (09/08). Il fascicolo aveva gia' la fine che mancava: «un colpo che lo porterebbe a 0 lo fa CADERE: filo perso — l'Atto III perde l'aggancio, la campagna prosegue depotenziata, non e' wipe». Il digitale non la applicava, quindi la partita in cui il Caposquadra moriva restava senza obiettivo possibile e senza nessuno che la dichiarasse persa. Ora `compiti[].perso_se_abbattuto` la chiude in parziale. **Misurato: corsa VALIDA, nessuno stallo, 35% su 20 partite** — l'Ep. 11 e' di nuovo misurabile. Il 35% contro il 95% di luglio e' materia di bilanciamento, non piu' di strumento. · riferimenti: webapp/data/ep11.json (compiti.caposquadra), webapp/misura-episodio.mjs
 
