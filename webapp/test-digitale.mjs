@@ -1,6 +1,7 @@
 // Self-check del motore multi-tessera della modalita' digitale (digitale.js).
 // node webapp/test-digitale.mjs
 import { _motore } from './public/js/digitale.js';
+import { bussa, nocciolo } from './public/js/engine.js';
 const { esploraMosse, camminoGlob, adiacGlob, portaCella, layout, nk, _setup,
         avanzaCancellazione, avanzaRitmo, avanzaPressione, controllaFiloPerso,
         avanzaOrologio } = _motore;
@@ -283,6 +284,35 @@ ok(!path.some((n) => TESS.find((t) => t.id === n.t).arredi.some(([x, y]) => x ==
   const dentro = { rivelate: ['T1', 'T6'], nemici: [], eroiPos: {}, vite: {}, log: [], traccia: 0, round: 9 };
   gira(dentro); gira(dentro);
   ok(dentro.traccia === 4, `nella stanza sale di 2 per round (vista ${dentro.traccia})`);
+}
+
+// --- la parola d'ordine alla porta: nessun falso errore
+// Al tavolo la parola si dice, non si digita, e nessuno la dice nuda. La
+// chiave e' DOGANA e il gruppo scrive «la dogana»: prima era un errore, e un
+// errore falso insegna che l'app non e' affidabile proprio quando la
+// deduzione era giusta.
+{
+  const porta = { chiave: ['parola', 'LA DOGANA VECCHIA'] };
+  const apre = (d) => bussa(porta, d).entra;
+
+  ok(apre('LA DOGANA VECCHIA'), 'la parola esatta apre');
+  ok(apre('la dogana vecchia'), 'minuscolo apre');
+  ok(apre('dogana vecchia'), 'senza articolo apre');
+  ok(apre('LA DOGANA'), 'una parte significativa apre');
+  ok(apre('dogana'), 'la parola nuda apre');
+  ok(apre('  la   DOGANA,  vecchia '), 'spazi e punteggiatura non contano');
+  ok(!apre('la cattedrale'), 'una parola sbagliata resta fuori');
+  ok(!apre(''), 'il vuoto resta fuori');
+  ok(!apre('la'), 'un articolo da solo resta fuori');
+
+  // il verso opposto, che era quello rotto: la chiave nuda, il gruppo prolisso
+  const nuda = { chiave: ['parola', 'DOGANA'] };
+  ok(bussa(nuda, 'LA DOGANA').entra, 'chiave nuda, dichiarazione con articolo: apre');
+  ok(bussa(nuda, 'della dogana').entra, 'preposizione articolata: apre');
+  ok(!bussa(nuda, 'la darsena').entra, 'e non apre a caso');
+
+  ok(nocciolo('  Le  Mísure   che non Tornano ') === 'MISURE CHE NON TORNANO',
+     'nocciolo toglie articolo, accenti, spazi e maiuscole');
 }
 
 console.log(ko === 0 ? 'TUTTO OK (motore multi-tessera)' : `${ko} FAIL`);

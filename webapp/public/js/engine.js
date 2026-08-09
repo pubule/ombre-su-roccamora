@@ -21,11 +21,30 @@ export function rendi(testo) {
 // --- oracolo Bussare ---------------------------------------------------
 // Il gruppo dichiara UNA parola o UN oggetto: l'ora si spende comunque
 // (regola 1-sexies), l'oracolo risponde solo si'/no.
+// Articoli e preposizioni articolate: al tavolo la parola si dice, non si
+// digita, e nessuno la dice nuda. La chiave e' DOGANA e il gruppo scrive «la
+// dogana»: era un errore, e un errore falso e' peggio di nessun controllo —
+// insegna che l'app non e' affidabile proprio nel momento in cui la deduzione
+// era giusta.
+const ARTICOLO = /^(?:il|lo|la|i|gli|le|l|un|uno|una|del|dello|della|dei|degli|delle|dal|dalla|nel|nella|sul|sulla|al|allo|alla|ai|agli|alle|di|a|da|in|su|con|per|d)\s+/i;
+export const nocciolo = (s) => {
+  let x = norm(s); let prima;
+  do { prima = x; x = x.replace(ARTICOLO, ''); } while (x !== prima);
+  return x;
+};
+
 export function bussa(luogo, dichiarazione) {
   if (!luogo.chiave) return { entra: true, motivo: 'aperto' };
   const [tipo, valore] = luogo.chiave;
-  const ok = norm(dichiarazione) === norm(valore) ||
-             norm(valore).includes(norm(dichiarazione)) && norm(dichiarazione).length >= 4;
+  const detto = nocciolo(dichiarazione);
+  const atteso = nocciolo(valore);
+  // Vale in tutt'e due i versi: chi dice MENO della chiave («il nastro» per
+  // «il nastro verde») ha comunque capito, e chi dice DI PIU' pure. Prima
+  // passava solo il primo verso, quindi bastava un articolo per essere
+  // respinti con la risposta giusta in bocca.
+  const ok = !!detto && (detto === atteso
+    || (detto.length >= 4 && atteso.includes(detto))
+    || (atteso.length >= 4 && detto.includes(atteso)));
   return { entra: ok, tipo };
 }
 
