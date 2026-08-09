@@ -73,16 +73,16 @@ Servono due server perché l'isolamento fra account non si può provare con un
 utente solo. Condividono lo stesso D1 locale, quindi il secondo vede davvero i
 tavoli del primo — e deve rifiutarli.
 
-Prossimo passo concreto: Task 7 — i passi nel dashboard Cloudflare li deve
-fare l'autore (applicazione Access, Google, lista email, sessione un mese),
-poi il dominio in wrangler.jsonc e la prova sull'iPad.
+Prossimo passo concreto: la prova col browser descritta sopra — entrare col
+codice via email e vedere se compare «chi gioca stasera?». Da lì in poi il
+lavoro è finito, salvo la prova sull'iPad.
 
 ## Cose sapute che il codice non dice
 
 - **Il sito non è più pubblico** (dal 09/08/2026): Access chiede il codice via
-  email prima di ogni cosa,  con le soluzioni incluso. Access intercetta
+  email prima di ogni cosa, `/data` con le soluzioni incluso. Access intercetta
   PRIMA del Worker, quindi in produzione un token storto non arriva nemmeno a
-  : quella verifica serve contro i token validi ma emessi per
+  `emailDaJwt()`: quella verifica serve contro i token validi ma emessi per
   un'altra applicazione dello stesso team.
 - **`OSR_DEV_EMAIL` non deve mai entrare in `wrangler.jsonc`**: salta la
   verifica del token. Esiste solo come `--var` di `wrangler dev`, e c'è un
