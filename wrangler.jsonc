@@ -8,10 +8,14 @@
   "compatibility_date": "2026-08-08",
   "main": "./webapp/worker/index.js",
   "assets": { "directory": "./webapp/dist", "binding": "ASSETS" },
-  // ACCESS_TEAM e ACCESS_AUD si riempiono quando l'applicazione Access esiste
-  // (Task 7 del piano). Vuoti, emailDaJwt() rifiuta tutto: il sito e' ancora
-  // pubblico ma gli endpoint dei salvataggi no.
-  "vars": { "ACCESS_TEAM": "", "ACCESS_AUD": "" },
+  // L'applicazione Access che sta davanti a questo Worker. ACCESS_AUD e' il suo
+  // Application Audience tag: il Worker rifiuta i token emessi per un'ALTRA
+  // applicazione dello stesso team, che altrimenti sarebbero firme valide.
+  // Non sono segreti (stanno nel redirect di login), quindi vars e non secret.
+  "vars": {
+    "ACCESS_TEAM": "smartcores",
+    "ACCESS_AUD": "a88f2f39cac5993fe0c75acfec3aece7a19d67d2a97a861a45d84777103e1128"
+  },
   "d1_databases": [
     { "binding": "DB", "database_name": "ombre-salvataggi", "database_id": "b0a85d9c-e7a6-4c3b-8940-1a50ad87fee2" }
   ]

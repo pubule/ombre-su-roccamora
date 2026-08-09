@@ -20,35 +20,44 @@ Spec `DESIGN-ACCOUNT-E-SALVATAGGI.md` · piano `PIANO-ACCOUNT-E-SALVATAGGI.md`
 | ✅ | 4. Regola dei conflitti (`sync.js`) | 10 asserzioni, provata non vacua su 2 guasti (4 e 6 cadute) |
 | ✅ | 5. Coda e `store.js` per tavolo | coda provata non vacua; i banchi di misura Playwright girano identici (ricaduta sulla chiave piatta senza tavolo) |
 | ✅ | 6. Schermata tavoli e spia | 12 asserzioni end-to-end, provate non vacue su 2 guasti |
-| 🔨 | 7. Access, dominio, prova sull'iPad | codice e deploy fatti; **restano i passi manuali dell'autore** |
+| 🔨 | 7. Access, dominio, prova sull'iPad | Access attivo e configurato; **manca la prova col browser** |
 
-## Task 7 — quello che deve fare l'autore
+## Task 7 — dov'è arrivato
 
-Fatto: il Worker con `/api/` è pubblicato, la suite è verde, il sito si
-comporta come prima (`/api/` risponde 403 a tutti, quindi nessuna schermata di
-tavolo compare). Manca la parte che si fa col browser.
+**Fatto.** L'applicazione Access esiste, con destinazione di tipo *Workers*
+(copre URL di produzione e di anteprima), metodo di accesso **One-time PIN**
+(codice via email — non Google: deciso il 09/08/2026, la barriera è comunque la
+lista di email, e Google avrebbe richiesto un client OAuth su Google Cloud).
+`ACCESS_TEAM=smartcores` e `ACCESS_AUD` sono in `wrangler.jsonc` e il Worker è
+pubblicato (versione `c0ebac23`).
 
-1. **Zero Trust → Access → Applications → Add → Self-hosted**
-   - nome: `Ombre su Roccamora`, dominio: `roccamora.smartcores.org`
-   - **Session Duration: 1 month** (non 24 ore: nessuno deve rifare il login a
-     metà serata)
-   - Login methods: Google
-   - Policy: Allow → Include → Emails → la propria e quelle dei giocatori
-   - segnare **team domain** (`<team>.cloudflareaccess.com`) e **AUD tag**
-2. Metterli in `wrangler.jsonc` (`ACCESS_TEAM`, `ACCESS_AUD`), aggiungere
-   `"workers_dev": false` e
-   `"routes": [{ "pattern": "roccamora.smartcores.org", "custom_domain": true }]`
-3. `./webapp/deploy.sh`
-4. Verificare che la porta di servizio sia chiusa:
-   `curl -s -o /dev/null -w "%{http_code}\n" https://ombre-su-roccamora.fabio-stocco85.workers.dev/`
-   → deve **non** essere 200 (usare un `?x=123` per evitare la cache)
-5. `curl -s -o /dev/null -w "%{http_code}\n" https://roccamora.smartcores.org/api/stato -H "Cf-Access-Authenticated-User-Email: ladro@esempio.it"`
-   → deve **non** essere 200: l'email in un'intestazione non vale niente
-6. **La prova sull'iPad**, che nessun test sostituisce: login in Safari,
+Verificato dal vivo: home, `/data/comune.json` e `/api/stato` rispondono tutti
+302 verso `smartcores.cloudflareaccess.com`, anche presentando un JWT inventato.
+Access intercetta prima del Worker, quindi la verifica nel Worker è la seconda
+linea e non l'unica.
+
+**Resta da fare, e richiede un browser:**
+
+1. Aprire <https://ombre-su-roccamora.fabio-stocco85.workers.dev>, entrare col
+   codice via email, e controllare che compaia **«chi gioca stasera?»** invece
+   della lista episodi. È la prova che l'anello si chiude: cookie di Access →
+   JWT al Worker → `/api/stato` 200 → schermata dei tavoli.
+2. Creare un tavolo, aprire un episodio, e verificare che la spia in home dica
+   *allineato*.
+3. **Durata sessione a 1 month**, sull'applicazione **e sul criterio** (quella
+   del criterio prevale): col default di 24 ore si rifà il login a metà serata.
+4. **La prova sull'iPad**, che nessun test sostituisce: login in Safari,
    «Aggiungi alla schermata Home», aprire **dall'icona**, creare un tavolo,
    chiudere e riaprire. Se dall'icona ricompare il login e il giro passa da
    Safari lasciando fuori l'app, è il rischio previsto nella spec: annotarlo
    lì sotto «Rischi» e fermarsi a decidere insieme.
+
+**Il dominio `roccamora.smartcores.org` NON è stato aggiunto, apposta.** La
+destinazione Access è di tipo *Workers* e copre gli URL `workers.dev`, non un
+dominio personalizzato: aggiungerlo adesso aprirebbe una seconda porta *senza*
+Access davanti. Prima va aggiunta in Access una destinazione «nome host
+pubblico» per quel nome, poi si mette la route in `wrangler.jsonc`. Finché non
+serve, l'indirizzo `workers.dev` è protetto e va benissimo.
 
 ## Come si riprende
 
@@ -70,10 +79,11 @@ poi il dominio in wrangler.jsonc e la prova sull'iPad.
 
 ## Cose sapute che il codice non dice
 
-- **Il sito in produzione è ancora pubblico** (fino al Task 7 passo 1). Access non esiste ancora
-  (Task 7): chiunque conosca l'URL entra e legge `/data` con le soluzioni.
-  Gli endpoint `/api/` invece sono chiusi: con `ACCESS_TEAM`/`ACCESS_AUD`
-  vuoti, `emailDaJwt()` rifiuta tutto e si prende un 403.
+- **Il sito non è più pubblico** (dal 09/08/2026): Access chiede il codice via
+  email prima di ogni cosa,  con le soluzioni incluso. Access intercetta
+  PRIMA del Worker, quindi in produzione un token storto non arriva nemmeno a
+  : quella verifica serve contro i token validi ma emessi per
+  un'altra applicazione dello stesso team.
 - **`OSR_DEV_EMAIL` non deve mai entrare in `wrangler.jsonc`**: salta la
   verifica del token. Esiste solo come `--var` di `wrangler dev`, e c'è un
   test che controlla che non sia finito in configurazione.
