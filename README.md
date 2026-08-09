@@ -192,9 +192,35 @@ parte sempre dal punto 1 qui sopra: rigenera, poi
 ```
 
 `webapp/build-dist.sh` appiattisce in `webapp/dist` quello che `server.js`
-monta da cartelle diverse (`/data`, `/assets`, `/fonts`) — un Worker di soli
-asset statici vuole una cartella sola, vedi `wrangler.jsonc`. Wrangler carica
-solo i file cambiati.
+monta da cartelle diverse (`/data`, `/assets`, `/fonts`) — un Worker vuole una
+cartella sola, vedi `wrangler.jsonc`. Wrangler carica solo i file cambiati.
+
+### Account e salvataggi (in corso)
+
+Il Worker serve anche `/api/`: i salvataggi per **tavolo** su D1, con login
+Google tramite Cloudflare Access. Spec e piano stanno in
+`DESIGN-ACCOUNT-E-SALVATAGGI.md` e `PIANO-ACCOUNT-E-SALVATAGGI.md`, lo stato
+in `HANDOFF.md`.
+
+Finché l'applicazione Access non esiste (`ACCESS_TEAM` e `ACCESS_AUD` vuoti in
+`wrangler.jsonc`), `/api/` rifiuta tutto con 403 e l'app entra come ha sempre
+fatto: nessun tavolo da scegliere. La schermata dei tavoli compare solo dove
+`/api/stato` risponde, quindi in locale e nei banchi di prova non si vede.
+
+Per lavorarci, con un D1 vero e senza toccare la produzione:
+
+```bash
+./webapp/build-dist.sh
+npx --no-install wrangler dev --var OSR_DEV_EMAIL:uno@esempio.it --port 8787
+npx --no-install wrangler dev --var OSR_DEV_EMAIL:due@esempio.it --port 8788   # per test-api
+node webapp/test-access.mjs        # verifica del JWT (nessun server)
+node webapp/test-sync.mjs          # regola dei conflitti e coda (nessun server)
+node webapp/test-api.mjs           # i cinque endpoint (servono TUTTI E DUE i server)
+node webapp/test-account-ui.mjs    # tavoli, offline, divergenza (basta il primo)
+```
+
+`OSR_DEV_EMAIL` salta la verifica del token e vale solo lì: non va **mai** in
+`wrangler.jsonc`, e c'è un test che lo controlla.
 
 ## Come si gioca (in breve)
 
