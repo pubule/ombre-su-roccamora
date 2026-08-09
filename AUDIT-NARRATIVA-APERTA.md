@@ -813,6 +813,37 @@ cinque chiuse a **9 righe su 10**.
 **Non basta da sola, e va detto.** 17% e' meglio di 0 ma resta sotto la banda sana. La leva seguente
 gia' misurata e' la densita' del mazzo: 2 Crescendo invece di 4 vale 37% da solo nel modello. Non
 l'ho applicata: e' una seconda decisione.
+
+**SECONDA LEVA APPLICATA (09/08): tre Crescendo invece di quattro.** «Le Maree al Picco» smette di
+essere un Crescendo e diventa un'Insidia: porta il danno ambientale e **non** il segnalino Canto — la
+marea bagna gli eroi, non il sonno del dio. Il mazzo resta di 21 carte: la pressione non cala, cambia
+bersaglio. Restano Crescendo le tre che portano una regola (le due soglie, il rito e la Candidata,
+l'avvertimento a cantare subito).
+
+Scelto tre e non due sulla base della curva misurata col modello (Candidata salva):
+
+| Frammenti | 6 | 12 | 18 |
+|---|---|---|---|
+| 4 Crescendo (com'era) | 0% | 22% | 49% |
+| **3 Crescendo** | **8%** | **51%** | **94%** |
+| 2 Crescendo | 14% | 92% | 100% |
+
+Due appiattiva il finale (92% per un gruppo medio). Tre lascia la campagna a decidere.
+
+**Misura finale, pilota Playwright (lo strumento di riferimento), 4 eroi, 18 partite: 56%.** Camera
+raggiunta 18 volte su 18, round medi 12,8. Il percorso completo della serata:
+
+| | pilota, 4 eroi |
+|---|---|
+| prima di tutto (modello digitale sbagliato) | 25% — misurava un altro finale |
+| allineato al fascicolo | 0% |
+| voce del rito = la Candidata | 17% |
+| **+ tre Crescendo invece di quattro** | **56%** |
+
+Il simulatore da tavolo sale da 1% a **17%** a quattro eroi e a 45-59% a due-tre. **Resta uno scarto
+grosso fra pilota e simulatore a quattro eroi (56 contro 17)**, nella direzione opposta al solito — di
+regola il simulatore e' generoso perche' regala una tessera per round, qui e' severo. Vale la pena
+capire da dove viene prima di fidarsi di lui su altri episodi: voce a parte.
 ## Chiuse in questa tornata
 
 | id | cosa | come |
@@ -844,3 +875,8 @@ Se c'è una proposta, dirla; se costa una decisione, dire quale.
 
 Prima di aggiungere, **cercare** se l'anomalia c'è già: il registro si sporca
 in fretta se ogni giro riscrive le stesse voci con parole diverse.
+
+### N-113 · Sull'Ep. 20 il simulatore da tavolo e il pilota divergono di quaranta punti, e stavolta e' il simulatore a essere severo
+**stato: aperta** · riferimenti: scripts/simulate_ep20.py contro webapp/misura-episodio.mjs (18 partite, 4 eroi)
+
+Chiuse le due leve del finale, il pilota misura 56% di vittorie a quattro eroi e il simulatore Python 17%. Lo scarto e' di quaranta punti, ed e' nella direzione opposta a quella nota: di regola i simulatori sono ottimisti perche' astraggono il movimento e regalano una tessera per round (vedi la voce sulla taratura), qui invece il simulatore e' molto piu' severo del gioco vero. A due e tre eroi concordano meglio (45-59% contro il 56% del pilota a quattro), quindi la divergenza cresce con la taglia del gruppo. Due sospetti da verificare, in ordine di costo: (1) `MARCIA_TESSERA = 2` nel simulatore impone due round per tessera anche dove il pilota ne usa meno, e su una discesa di cinque tessere sono round di Fase Minaccia in piu'; (2) il simulatore salva la Candidata solo se il gruppo ha la Domanda 3, mentre nel pilota l'oggetto e' seminato da `oggetti_indagine` — cioe' i due strumenti misurano due gruppi diversi, uno che la Candidata ce l'ha sempre e uno che ce l'ha un terzo delle volte. Il secondo sospetto da solo spiegherebbe quasi tutto lo scarto, e se e' cosi' non e' un difetto: e' che le due misure rispondono a domande diverse. Ma va deciso quale delle due e' la domanda di bilanciamento, perche' oggi la mappa pilota e i riepiloghi del simulatore vengono letti come se fossero la stessa cosa.

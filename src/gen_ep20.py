@@ -543,7 +543,7 @@ def spedizione():
     c.drawCentredString(W/2, H - 40*mm, 'la gola della città, e un dio da cantare a dormire')
     wave(c, W/2 - 20*mm, H - 46*mm, 40*mm, OGOLD)
     frame_flow(c, 28*mm, H - 124*mm, W - 56*mm, 72*mm, [
-        Paragraph('Le 21 carte Minaccia dell’episodio (7 spawn, 6 insidie, 4 crescendo, 4 '
+        Paragraph('Le 21 carte Minaccia dell’episodio (7 spawn, 7 insidie, 3 crescendo, 4 '
                   'eventi) e le schede Nemici sono carte a parte (cartella <b>Episodio '
                   '20/cards/</b>). Le 6 tessere della discesa sono in <b>Episodio 20/board/</b>. È '
                   'il FINALE, in tre fasi: la <b>discesa</b> (T1-T3, la gola della città), il '
@@ -801,8 +801,9 @@ def soluzione():
         '<b>Vittoria e sconfitta.</b> Controcanto (10 righe) completo PRIMA del risveglio (Canto 8) = '
         '<b>VITTORIA</b> (il Dormiente torna al sonno senza sogni). Risveglio (Canto 8) prima = '
         '<b>SCONFITTA</b> (il dio si desta — vedi epilogo). FUORI SCALA: le fasi ambientali possono '
-        'far cadere eroi, e il finale può finire male. <b>Il mazzo:</b> 21 carte (7 coro, 6 insidie '
-        'di discesa/camera, 4 crescendo-risveglio, 4 eventi).',
+        'far cadere eroi, e il finale può finire male. <b>Il mazzo:</b> 21 carte (7 coro, 7 insidie '
+        'di discesa/camera, <b>3</b> crescendo-risveglio, 4 eventi). <i>Tre e non quattro:</i> '
+        'la marea non sveglia il dio, bagna voi — la pressione non cala, cambia bersaglio.',
     ])
     pagina('epilogo di campagna — e il finale aperto', [
         '<b>EPILOGO — VITTORIA (controcanto completo).</b> «L’ultima riga sale dalle vostre gole '

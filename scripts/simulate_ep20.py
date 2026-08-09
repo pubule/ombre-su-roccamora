@@ -10,9 +10,11 @@ DESIGN-EPISODIO-20.md).
     controcanto avanza col ritmo dei Frammenti + Mappa − coro in campo. Il
     Canto sale; alla SOGLIA_RISVEGLIO il Dormiente si desta = SCONFITTA.
   - LA CAMERA È IL BOSS: non si colpisce, fasi ambientali (danno inevitabile a
-    soglie di Canto). M. (umano) in piedi con la sua voce accelera il risveglio;
-    neutralizzarlo o salvare la Candidata lo rallenta. Il coro si ROMPE.
-  - FUORI SCALA: si possono perdere eroi, e può finire male (il risveglio).
+    soglie di Canto). Il rito accelera il risveglio finché ha una voce che
+    creda, e quella voce è LA CANDIDATA: salvarla lo zittisce, abbattere M.
+    no. Il coro comprato rallenta il controcanto e basta. Il coro si ROMPE.
+  - FUORI SCALA: gli eroi cadono e rialzarli può non essere possibile, e può
+    finire male (il risveglio).
 
 PONYTAIL: NON puntare a win-rate alta uniforme — è il finale, deve poter finire
 male. Config di produzione condivisa importata da simulate_playtest: INTOCCABILE.
@@ -51,7 +53,7 @@ CORO_ROMPE_META = True    # gli impiegati fuggono a meta' Ferite
 # danno inevitabile della camera OGNI round della fase 3, a soglie di Canto
 CAMERA_DANNO_SOGLIA = {4: 1, 6: 2, 7: 3}   # danni/round nella camera a soglie di Canto
 
-# ============================ MAZZO MINACCIA (21: 7/6/4/4) ==================
+# ============================ MAZZO MINACCIA (21: 7/7/3/4) ==================
 MINACCE = [
     ('LE VOCI PREZZOLATE', 'spawn', False),
     ('IL RINFORZO DEL CORO', 'spawn', False),
@@ -67,7 +69,7 @@ MINACCE = [
     ('LA CORRENTE FREDDA', 'insidiaV', False),
     ('L’ECO CHE MENTE', 'eco', False),          # -1 riga di controcanto (Mappa annulla)
     ('IL DORMIENTE SI MUOVE', 'crescendo', False),
-    ('LE MAREE AL PICCO', 'crescendo', False),
+    ('LE MAREE AL PICCO', 'danno', False),
     ('IL QUARTO RIGO SALE', 'crescendo', False),
     ('IL DIO APRE UN OCCHIO', 'crescendo', False),
     ('UN RESPIRO DEL DIO', 'quiete', False),
