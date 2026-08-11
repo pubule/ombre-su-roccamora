@@ -1,104 +1,106 @@
 # Handoff — dove siamo
 
 > A cosa serve: se la sessione muore, questo file basta a riprendere senza
-> ricostruire niente. Si aggiorna a ogni commit. Il **cosa** fare sta nel
-> piano (`PIANO-ACCOUNT-E-SALVATAGGI.md`, con le caselle da spuntare); qui c'è
-> solo dove siamo arrivati, cosa gira, e il prossimo comando esatto.
+> ricostruire niente. Si aggiorna a ogni commit. Qui c'è **dove siamo**, cosa
+> gira e il prossimo comando; il *cosa fare* di un lavoro in corso sta nel suo
+> piano.
 
-**Lavoro in corso:** account, tavoli e salvataggi sul server.
-Spec `DESIGN-ACCOUNT-E-SALVATAGGI.md` · piano `PIANO-ACCOUNT-E-SALVATAGGI.md`
+**Aggiornato:** 11/08/2026 · ramo `main` · in produzione la versione `dcb58b9e`
+su <https://roccamora.smartcores.org>
 
-**Aggiornato:** 09/08/2026 · ramo `main`
+## Cos'è successo, in ordine
 
-## Stato dei task
+Tre lavori chiusi uno dopo l'altro, tutti online.
 
-| | Task | Esito |
-|---|---|---|
-| ✅ | 1. Schema e database D1 | `ombre-salvataggi` creato (regione EEUR), schema applicato in locale e in remoto, cascata provata |
-| ✅ | 2. Verifica del JWT di Access | `webapp/worker/access.js`, 9 asserzioni, provato non vacuo su 3 guasti |
-| ✅ | 3. I cinque endpoint | `worker/api.js`, `worker/index.js`, 18 asserzioni, provato non vacuo su 3 guasti |
-| ✅ | 4. Regola dei conflitti (`sync.js`) | 10 asserzioni, provata non vacua su 2 guasti (4 e 6 cadute) |
-| ✅ | 5. Coda e `store.js` per tavolo | coda provata non vacua; i banchi di misura Playwright girano identici (ricaduta sulla chiave piatta senza tavolo) |
-| ✅ | 6. Schermata tavoli e spia | 12 asserzioni end-to-end, provate non vacue su 2 guasti |
-| ✅ | 7. Access, dominio, login | provato dal vivo l'11/08/2026: si entra col codice e compare la scelta del tavolo |
+**1. Account, tavoli e salvataggi** (spec `DESIGN-ACCOUNT-E-SALVATAGGI.md`).
+Il sito è chiuso da Cloudflare Access: si entra con un **codice via email**
+(One-time PIN, non Google — la barriera è la lista di indirizzi, e Google
+avrebbe richiesto un client OAuth). I salvataggi stanno su D1 per **tavolo**,
+si gioca anche senza rete e una coda sincronizza quando torna la linea; se la
+stessa partita è andata avanti in due posti l'app non sceglie, mostra le due e
+decide chi gioca. Si può creare ed eliminare un tavolo dall'elenco.
 
-## Task 7 — com'è finito
+**2. Il fascicolo** — lo stile (mockup in `webapp/public/mockups/stile/`, otto
+schermate, sono la specifica). Tutto ardesia scura tranne ciò che nella
+finzione è carta: lettera d'incarico sulla texture del manuale e scritta a
+mano, reperti, carte, stampe dei ritratti, i campi dove scrive il gruppo, le
+facce dei dadi. Home come schedario, ore come registro barrato, sigillo di
+ceralacca sulla busta della soluzione. **La mappa della plancia è l'eccezione
+dichiarata**: turchese «puoi andare», oro «rivela», rosso «nemico» restano
+segnali imparati al tavolo.
 
-Il lavoro è in piedi su **<https://roccamora.smartcores.org>**. Si entra con un
-**codice via email** (One-time PIN, non Google: deciso il 09/08/2026 — la
-barriera è comunque la lista di indirizzi, e Google avrebbe richiesto un client
-OAuth su Google Cloud). L'applicazione Access ha due destinazioni: il Worker
-(URL di produzione e anteprima) e il nome host pubblico.
-
-`ACCESS_TEAM=smartcores` e `ACCESS_AUD` in `wrangler.jsonc`. Verificato dal
-vivo: home, `/data/comune.json` e `/api/stato` rispondono 302 verso
-`smartcores.cloudflareaccess.com` anche presentando un JWT inventato.
-
-**`ombre-su-roccamora.fabio-stocco85.workers.dev` è spento** (404): aggiungendo
-la route del dominio, wrangler ha disattivato da sé `workers.dev` — e con esso
-gli URL di anteprima. Per riaccenderlo servirebbe `"workers_dev": true`, ma
-allora andrebbe verificato che la destinazione Workers dell'applicazione Access
-lo copra ancora.
-
-### Quello che resta
-
-1. **Durata sessione a 1 month**, sull'applicazione **e sul criterio**: quella
-   del criterio prevale, e col default di 24 ore si rifà il login ogni giorno.
-2. **La prova sull'iPad**, che nessun test sostituisce: login in Safari,
-   «Aggiungi alla schermata Home», aprire **dall'icona**, creare un tavolo,
-   chiudere e riaprire. Se dall'icona ricompare il login e il giro passa da
-   Safari lasciando fuori l'app, è il rischio previsto nella spec: annotarlo lì
-   sotto «Rischi» e fermarsi a decidere insieme.
-3. Da provare quando capita: una serata vera, e la partita ripresa da un altro
-   dispositivo.
-
-### Aggiunto l'11/08/2026
-
-Gestione dei tavoli: si elimina un tavolo dalla sua voce nell'elenco (con le
-sue partite, per cascata), e la home mostra il nome del tavolo corrente
-accanto alla spia — «cambia tavolo» era gia' li' ma non si trovava, e sembrava
-che un tavolo nuovo si potesse creare solo quando non ce n'erano.
+**3. Si installa come un'applicazione** (piano in
+`~/.claude/plans/andiamo-con-il-fascicolo-cheeky-fern.md`). Icona col sigillo,
+dodici immagini di avvio, nessuna barra del browser, comportamenti al tocco da
+app. **Niente service worker**: serve la rete per aprirla. Lo zoom a pizzico
+resta, e lo scorrimento pure — c'è un test che lo misura.
 
 ## Come si riprende
 
 ```bash
-./webapp/build-dist.sh                                                    # wrangler dev serve dist, non public
-npx --no-install wrangler dev --var OSR_DEV_EMAIL:uno@esempio.it --port 8787   # terminale a parte
-npx --no-install wrangler dev --var OSR_DEV_EMAIL:due@esempio.it --port 8788   # terminale a parte
-node webapp/test-access.mjs      # non ha bisogno di server
-node webapp/test-api.mjs         # ha bisogno di TUTTI E DUE i server
+node webapp/server.js                 # l'app in locale, porta 8017
+python webapp/export-data.py && node webapp/export-data.js   # dopo modifiche ai dati
+python webapp/export-assets.py        # dopo carte/tessere/arte nuove; fa anche le icone
+./webapp/deploy.sh                    # pubblica (da Git Bash)
 ```
 
-Servono due server perché l'isolamento fra account non si può provare con un
-utente solo. Condividono lo stesso D1 locale, quindi il secondo vede davvero i
-tavoli del primo — e deve rifiutarli.
+Per gli endpoint dei salvataggi servono due `wrangler dev` (l'isolamento fra
+account non si prova con un utente solo):
 
-Prossimo passo concreto: nessuno in codice. Restano i due punti qui sopra —
-durata sessione e prova sull'iPad — che si fanno col browser.
+```bash
+npx --no-install wrangler dev --var OSR_DEV_EMAIL:uno@esempio.it --port 8787
+npx --no-install wrangler dev --var OSR_DEV_EMAIL:due@esempio.it --port 8788
+```
+
+**I controlli**, tutti verdi tranne dove detto:
+
+| | cosa guarda |
+|---|---|
+| `test-stile` | il tema vecchio non sopravvive (ori, pergamena fuori posto, angoli tondi) e ogni testo sta sopra 4.5:1 — 7 schermate, 232 testi |
+| `test-nativa` | ogni icona dichiarata **esiste ed è della misura promessa**, e le pagine lunghe **scorrono** |
+| `test-conferma` | le domande irreversibili si chiedono dentro il gioco: è l'unico che NON sostituisce `window.confirm` |
+| `test-api`, `test-sync`, `test-access`, `test-account-ui` | salvataggi, coda, JWT, tavoli |
+| `test-ui`, `test-digitale*`, `test-engine` | il gioco (i banchi di misura del bilanciamento) |
+
+## Quello che resta
+
+1. **Durata sessione Access a 1 month**, sull'applicazione **e sul criterio**
+   (quella del criterio prevale). È ancora a 24 ore: ogni browser richiede il
+   codice ogni giorno. È l'unica cosa che pesa davvero, e si fa in un minuto.
+2. **`test-engine`: 536 controlli falliti**, e non è una regressione — sono
+   **buchi di contenuto** che erano nascosti. Il test salta un episodio quando
+   la sua cartella esportata non esiste: creandola, l'export ha smesso di
+   saltare. Mancano ~52 arti di luogo e le carte che le usano.
+3. **Tessere di Spedizione**: ci sono per Ep. 1, 2 e 10-15. Mancano a
+   **Preludio, Ep. 3-9 ed Ep. 16-20** — sulla plancia a schermo quelle caselle
+   restano vuote.
+4. Da provare quando capita: una **serata vera**, e la partita **ripresa da un
+   altro dispositivo**.
 
 ## Cose sapute che il codice non dice
 
-- **Il sito non è più pubblico** (dal 09/08/2026): Access chiede il codice via
-  email prima di ogni cosa, `/data` con le soluzioni incluso. Access intercetta
-  PRIMA del Worker, quindi in produzione un token storto non arriva nemmeno a
-  `emailDaJwt()`: quella verifica serve contro i token validi ma emessi per
-  un'altra applicazione dello stesso team.
+- **`test-engine` misura l'EXPORT, non il repo**, ma scrive «jpg mancante».
+  Sono due cose diverse — «non è stata fatta» contro «non è stata copiata nel
+  web» — e la confusione mi ha fatto proporre un lavoro già fatto: di 16 carte
+  «mancanti» solo 4 lo erano davvero, le altre 12 volevano solo l'export.
+- **Le icone dell'app sono derivate e gitignorate**: chi pubblica senza aver
+  lanciato `export-assets.py` manda online un manifest che punta a file
+  inesistenti. `test-nativa` lo prende.
 - **`OSR_DEV_EMAIL` non deve mai entrare in `wrangler.jsonc`**: salta la
-  verifica del token. Esiste solo come `--var` di `wrangler dev`, e c'è un
-  test che controlla che non sia finito in configurazione.
-- **Il `PRAGMA foreign_keys` del piano non è stato scritto**: è di connessione,
-  non di database, quindi in cima a uno schema non fa niente. D1 applica i
-  vincoli di suo — verificato cancellando un tavolo senza PRAGMA nel lotto.
-- **`wrangler dev` ricarica a caldo, ma non all'istante.** Provando un test con
-  un guasto deliberato, il test parte contro il codice VECCHIO e sembra che il
-  guasto non venga rilevato — falso negativo che fa credere vacuo un test buono.
-  Prima di lanciarlo, aspettare che il comportamento sia davvero cambiato (una
-  chiamata di sonda in ciclo), non che il server risponda.
-- **`compatibility_date` sta a `2026-08-08`**: il workerd che wrangler 4.120.0
-  si porta dietro non conosce date più recenti e `wrangler dev` non parte.
-- **Il binding `ASSETS` pretende un `main`**: non esiste uno stato intermedio
-  in cui si dichiara il binding senza il Worker. Se `wrangler dev` dice
-  «Cannot use assets with a binding in an assets-only Worker», è quello.
+  verifica del token. Esiste solo come `--var` di `wrangler dev`, e c'è un test
+  che controlla che non sia finito in configurazione.
+- **`chiedi.js` obbedisce a un `window.confirm` sostituito.** Serve ai banchi
+  headless, che altrimenti resterebbero appesi a un bottone che non sanno di
+  dover premere — ed è il motivo per cui `test-conferma` esiste: senza, la
+  finestra del gioco potrebbe non comparire a nessuno e i banchi resterebbero
+  tutti verdi.
+- **`compatibility_date` sta a `2026-08-08`**: il workerd di wrangler 4.120.0
+  non conosce date più recenti e `wrangler dev` non parte.
+- **Il ricaricamento a caldo di `wrangler dev` non è istantaneo**: provando un
+  guasto deliberato, il test parte contro il codice vecchio e sembra vacuo un
+  test buono. Aspettare che il comportamento cambi, non che il server risponda.
+- **Il deploy può fallire con `ECONNRESET` a metà upload** senza che nulla sia
+  rotto: è la rete (sospetto la VPN). Si rilancia e basta. Con molti file nuovi
+  l'upload arriva a dieci minuti.
 - Database D1: `ombre-salvataggi`, id `b0a85d9c-e7a6-4c3b-8940-1a50ad87fee2`.
-- Dominio deciso per il Task 7: `roccamora.smartcores.org` (zona
-  `smartcores.org`, l'unica sull'account).
+  Access: team `smartcores`, destinazioni Worker + nome host pubblico.
