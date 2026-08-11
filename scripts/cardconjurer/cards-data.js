@@ -4410,7 +4410,7 @@ const EP18 = [...LUOGHI18, ...EP18_INDIZI, ...EP18_TESTIMONI, ...EP18_REFERTI,
 
 const LUOGHI19 = [
   { n: 1, nome: 'La Taverna della Chiatta', req: 'Disponibile dall’inizio',
-    art: 'artworks/La Taverna della Chiatta.png',
+    art: 'artworks/Taverna della Chiatta.png',
     testo: 'Sull’acqua bassa: il rifugio della Società in esilio, dove si sono raccolti quelli che vi restano fedeli sotto le taglie. Qui si pianifica l’ultima discesa, e si comincia a fare il conto di chi vi apre ancora la porta.',
     approfondimenti: [
       { tipo: 'Testimonianza', soggetto: 'L’oste del rifugio',
@@ -4650,7 +4650,7 @@ const LUOGHI20 = [
         testo: 'I vecchi delle maree conoscono l’ora esatta in cui la sizigia apre la gola della città: il momento in cui il salato risale nel dolce, e la pietra sotto la Cattedrale si fa porta. È una finestra sola, breve. Scendere prima è impossibile; scendere dopo è tardi (M. avrà cantato). Sapere l’ora è la prima riga di questa notte: tutto il resto — la via, la voce, il controcanto — si gioca dentro quella finestra d’acqua.' },
     ] },
   { n: 3, nome: 'La Taverna della Chiatta', req: 'Disponibile dall’inizio',
-    art: 'artworks/La Taverna della Chiatta.png',
+    art: 'artworks/Taverna della Chiatta.png',
     testo: 'Il rifugio, l’ultima volta: la Società (e Vidal, se convinto) vi arma di tutto ciò che venti serate hanno messo da parte — la mappa acustica, il Fascicolo del 1741, i Frammenti. Il pay-off finale, ridotto a un canto e agli amici.',
     approfondimenti: [
       { tipo: 'Testimonianza', soggetto: 'Chi vi resta',

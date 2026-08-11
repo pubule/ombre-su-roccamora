@@ -88,7 +88,7 @@ LETTERA_19 = (
 # «il conto dei bivi» (L3+L4), «l'ultima discesa» (L1+L4). Riv. (D2) su L1,L2,L3.
 LUOGHI_19 = [
     dict(n=1, nome='LA TAVERNA DELLA CHIATTA', voce_mappa='La Taverna della Chiatta',
-         req='Disponibile dall’inizio', art='La Taverna della Chiatta.png',
+         req='Disponibile dall’inizio', art='Taverna della Chiatta.png',
          chiude=None,
          indizi=[
              'La Taverna della Chiatta, sull’acqua bassa: il rifugio della Società in esilio. '

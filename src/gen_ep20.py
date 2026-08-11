@@ -131,7 +131,7 @@ LUOGHI_20 = [
                         'voce, il controcanto — si gioca dentro quella finestra d’acqua.'),
          ]),
     dict(n=3, nome='LA TAVERNA DELLA CHIATTA', voce_mappa='La Taverna della Chiatta',
-         req='Disponibile dall’inizio', art='La Taverna della Chiatta.png',
+         req='Disponibile dall’inizio', art='Taverna della Chiatta.png',
          chiude=None,
          indizi=[
              'Il rifugio, l’ultima volta: la Società (e Vidal, se l’avete convinto) vi prepara alla '
