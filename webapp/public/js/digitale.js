@@ -276,7 +276,11 @@ export async function vistaDigitale(app, partita, vaiA) {
   // la preferenza «immersivo» sopravvive a un reload (il tablet che si
   // riaddormenta): si riapplica il LAYOUT, non il fullscreen — quello i browser
   // lo concedono solo su un gesto, e chiederlo qui verrebbe rifiutato
-  app.classList.toggle('immersivo', immersivo());
+  // Il layout immersivo lo accende `render()`, cioe' solo dove c'e' una PLANCIA:
+  // non scorre (height:100% e overflow:hidden), e sulla schermata d'ingresso o
+  // sull'epilogo — che sono testo — taglierebbe le righe di sotto senza modo di
+  // raggiungerle. Qui si spegne, che e' lo stato giusto per l'ingresso.
+  app.classList.remove('immersivo');
   if (!partita.spedizione || !partita.spedizione.digitale) return setup();
   migraScortati(partita.spedizione);
   render();
@@ -307,7 +311,12 @@ function setup() {
       <p class="mt"><b>Obiettivo:</b> ${esc(ep.obiettivo || '')}</p></div>
     <div class="btn-riga"><button class="btn pieno" id="via">si scende →</button></div>`;
   app.querySelector('#nav-esci').onclick = () => { spegniImmersivo(); ctx.vaiA('menu'); };
-  app.querySelector('#via').onclick = iniziaPartita;
+  // «si scende» e' un gesto vero: qui lo schermo intero si puo' chiedere subito,
+  // e la plancia nasce gia' a tabellone invece di aspettare il primo tocco.
+  app.querySelector('#via').onclick = () => {
+    if (immersivo()) chiediSchermoIntero(true);
+    iniziaPartita();
+  };
 }
 
 function iniziaPartita() {
@@ -361,6 +370,8 @@ function celleLibereTile(tile, start, n, occ) {
 // --------------------------------------------------------------- rendering
 function render() {
   const sp = SP();
+  // la plancia c'e': si gioca a tabellone, salvo che il ⤢ non l'abbia spento
+  ctx.app.classList.toggle('immersivo', immersivo());
   if (sp.esito) return epilogo();
   if (sp.fase === 'nemici') return faseNemiciAI();
   const { app, ep } = ctx;
@@ -1035,8 +1046,11 @@ function applicaZoom(z) {
 // dello schermo, non della partita — e soprattutto i piloti seminano
 // `osr.partita.epN` da fixture, quindi un flag li' dentro renderebbe invisibili
 // abilita', oggetti e resa, falsando in silenzio le misure di bilanciamento.
+// Acceso di default: la Spedizione E' il tabellone, e chi entra qui vuole la
+// mappa, non le cornici. Si spegne dal ⤢, e allora la scelta resta scritta —
+// per questo il confronto e' con '0' e non con '1': l'assenza vale «acceso».
 const CHIAVE_IMMERSIVO = 'osr.immersivo';
-const immersivo = () => { try { return localStorage.getItem(CHIAVE_IMMERSIVO) === '1'; } catch { return false; } };
+const immersivo = () => { try { return localStorage.getItem(CHIAVE_IMMERSIVO) !== '0'; } catch { return true; } };
 
 // IL FULLSCREEN VA CHIESTO SU `document.documentElement`, MAI SU `#app`:
 // `.turno-banner` e `.dadi-overlay` sono appesi a `document.body`, e con un
@@ -1071,6 +1085,13 @@ function agganciaMappa() {
   const { app } = ctx; const sp = SP(); const wrap = app.querySelector('#board-wrap'); if (!wrap) return;
   // primo ingresso senza uno zoom salvato: si parte adattati, non a 1
   if (sp.zoom == null) applicaZoom(fitZoom());
+  // Lo schermo intero i browser lo concedono solo su un gesto, e entrando non
+  // ce n'e' uno (vedi vistaDigitale: li' si applica solo il layout). Il primo
+  // tocco sulla mappa e' il gesto piu' vicino, e nel primo turno arriva sempre.
+  // Il wrap e' un nodo nuovo a ogni render, quindi `once` non si accumula.
+  if (immersivo() && !inSchermoIntero()) {
+    wrap.addEventListener('pointerdown', () => chiediSchermoIntero(true), { once: true });
+  }
   app.querySelectorAll('[data-zoom]').forEach((b) => b.onclick = () => {
     const d = b.dataset.zoom;
     if (d === '0') return impostaImmersivo(!immersivo());   // ⤢ = schermo intero
@@ -2353,6 +2374,7 @@ async function finePartita(esito) {
 }
 function epilogo() {
   const { app, ep } = ctx; const sp = SP();
+  app.classList.remove('immersivo');   // e' testo, e va letto tutto: deve scorrere
   app.innerHTML = `<div class="barra"><button class="btn" id="nav-esci">← menu</button>
       <div class="titolo">${esc(ep.titolo)}</div><span></span></div>
     <div class="pannello centrato">

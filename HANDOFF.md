@@ -67,7 +67,10 @@ prova «leggere la scena» **non si tira più entrando** in un luogo: si tira so
 se il gruppo vuole un Approfondimento, la tira chi può cavarlo (scelto fra gli
 idonei), e fallendo **la carica non si spende** ma lì si è chiuso — si esce e si
 rientra, un'altra ora. Regolamento e Aiuto Giocatore riscritti di conseguenza
-(`src/gen_docs.py`, PDF rigenerati).
+(`src/gen_docs.py`, PDF rigenerati). La **Spedizione nasce a schermo pieno**: il
+modo immersivo e' il default (si spegne dal ⤢ e la scelta resta scritta), e il
+layout vale solo dove c'e' la plancia — ingresso ed epilogo sono testo e devono
+scorrere.
 
 ## Come si riprende
 

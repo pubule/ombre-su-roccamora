@@ -51,10 +51,15 @@ if (await ep.count()) { await ep.click(); } else fail('tessera episodio non trov
 await page.waitForTimeout(200);
 await clickIf('#continua');                 // -> setup digitale
 await page.waitForTimeout(150);
+// La schermata d'ingresso e' testo, e il layout immersivo non scorre: qui la
+// classe NON deve esserci, o su un telefono le righe di sotto sparirebbero.
+if (await has('#app.immersivo')) fail('la schermata d’ingresso e’ immersiva (non scorre)');
 await clickIf('#via');                       // -> board
 await page.waitForTimeout(200);
 
 if (!(await has('.board-digitale'))) fail('board non renderizzato');
+// la Spedizione nasce a tabellone: e' il default, non una scelta da rifare
+if (!(await has('#app.immersivo'))) fail('la plancia non parte a schermo pieno');
 const nTok = await page.locator('.tok-board.eroe').count();
 if (nTok < 3) fail(`token eroe attesi 3, trovati ${nTok}`);
 
@@ -109,6 +114,8 @@ for (let d = 0; d < 8; d++) {
 // stato finale coerente: board o epilogo, mai schermo vuoto
 const finale = (await has('.board-digitale')) || (await has('#al-menu'));
 if (!finale) fail('stato finale non valido (ne board ne epilogo)');
+// l'epilogo e' testo lungo (c'e' anche la contro-busta): deve tornare a scorrere
+if (await has('#al-menu') && await has('#app.immersivo')) fail('l’epilogo e’ immersivo (non scorre)');
 
 // recuperabilita': ricarica e verifica che riprenda
 await page.goto(BASE, { waitUntil: 'networkidle' });

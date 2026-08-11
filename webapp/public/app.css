@@ -631,8 +631,9 @@ em, i { font-style: italic; }
   flex: 1 1 auto; min-height: 0; overflow: auto; }
 /* si tocca da vicino ma si guarda da lontano: 34px sono sotto il minimo comodo */
 .immersivo .zoom-btn { width: 52px; height: 52px; font-size: 28px; border-radius: 2px; }
-.immersivo .zoom-btn[data-zoom="0"] { border-color: var(--segnale-rivela);
-  background: rgba(216,178,94,.16); box-shadow: 0 0 10px rgba(216,178,94,.3); }
+/* Il ⤢ era acceso d'oro per dire «sei in immersivo». Ora l'immersivo e' lo
+   stato normale della Spedizione: un segnale sempre acceso non segnala niente,
+   e l'oro fuori dalla mappa e' proprio la cosa che test-stile vieta. */
 
 /* In orizzontale la plancia non riempie la larghezza (il sotterraneo e' piu'
    alto che largo e resta centrato): i pannelli superstiti vanno a occupare
