@@ -146,5 +146,11 @@ npx --no-install wrangler dev --var OSR_DEV_EMAIL:due@esempio.it --port 8788
 - **Il deploy può fallire con `ECONNRESET` a metà upload** senza che nulla sia
   rotto: è la rete (sospetto la VPN). Si rilancia e basta. Con molti file nuovi
   l'upload arriva a dieci minuti.
+- **I sorgenti scrivono per ReportLab, la webapp legge HTML.** `rendi()` in
+  `engine.js` accetta solo `b|i|br` e il resto lo mostra scritto: quando le
+  lettere sono passate a `<font name="OldStd-Italic">`, il tag è finito a
+  schermo sull'iPad. La traduzione sta in `dump()` di `export-data.py`, unico
+  punto da cui passano tutti i JSON; `test-engine` controlla che nei dati non
+  resti nessun tag fuori dalla lista.
 - Database D1: `ombre-salvataggi`, id `b0a85d9c-e7a6-4c3b-8940-1a50ad87fee2`.
   Access: team `smartcores`, destinazioni Worker + nome host pubblico.
