@@ -5,9 +5,9 @@
 > gira e il prossimo comando; il *cosa fare* di un lavoro in corso sta nel suo
 > piano.
 
-**Aggiornato:** 11/08/2026 · ramo `main` · in produzione la versione `ce6390c8`
-su <https://roccamora.smartcores.org> (le tre correzioni dal tavolo, più la
-marcatura dei PDF che non si legge più a schermo)
+**Aggiornato:** 11/08/2026 · ramo `main` · in produzione la versione `77079dc4`
+su <https://roccamora.smartcores.org> (le tre correzioni dal tavolo, la
+marcatura dei PDF che non si legge più a schermo, e l'audit dei testi applicato)
 
 ## Cos'è successo, in ordine
 
@@ -72,6 +72,20 @@ modo immersivo e' il default (si spegne dal ⤢ e la scelta resta scritta), e il
 layout vale solo dove c'e' la plancia — ingresso ed epilogo sono testo e devono
 scorrere.
 
+**6. Audit dei testi** (referto in `AUDIT-TESTI.md`, commit `e592766c`). Lette
+tutte le 972 carte e tutta la prosa dei 21 episodi. Corretto: **DESTREZZA** e
+**FORZA**, che caratteristiche non sono (10 carte, più la nota che il
+Regolamento doveva fare per smentirle); «verso Nord» in cinque episodi che il
+Nord non lo dichiarano; 67 accenti scritti con l'apostrofo in **tutte e 11 le
+biografie degli eroi**, che l'app stampa nel riquadro «chi sei»; la sigla
+d'arbitro «PNG» in dieci testi dei giocatori; il corsivo rovesciato su sei
+carte nemico dell'Ep. 1, con tre regole finite nel blocco della finzione. E la
+frase segnalata dall'autore — «un freddo d'acqua nera risale i condotti» — che
+aveva perso il sostantivo: il testo d'origine dice «una **corrente** più fredda
+delle altre», ed è anche il titolo della carta. **153 fascicoli rigenerati.**
+Barriera: `webapp/test-testi.mjs`, 13 sonde. Restano all'autore due cose (§7 del
+referto): i due oggetti omonimi e le 99 divergenze fra fascicoli e carte.
+
 ## Come si riprende
 
 ```bash
@@ -95,6 +109,7 @@ npx --no-install wrangler dev --var OSR_DEV_EMAIL:due@esempio.it --port 8788
 |---|---|
 | `test-stile` | il tema vecchio non sopravvive (ori, pergamena fuori posto, angoli tondi) e ogni testo sta sopra 4.5:1 — 7 schermate, 232 testi |
 | `test-nativa` | ogni icona dichiarata **esiste ed è della misura promessa**, e le pagine lunghe **scorrono** |
+| `test-testi` | i refusi che l'audit ha già visto una volta non tornano: accenti con apostrofo, «quale è», articoli davanti a s impura, sigle d'arbitro nella finzione, statistiche inesistenti, carte mozze |
 | `test-conferma` | le domande irreversibili si chiedono dentro il gioco: è l'unico che NON sostituisce `window.confirm` |
 | `test-api`, `test-sync`, `test-access`, `test-account-ui` | salvataggi, coda, JWT, tavoli |
 | `test-ui`, `test-digitale*`, `test-engine` | il gioco (i banchi di misura del bilanciamento) |

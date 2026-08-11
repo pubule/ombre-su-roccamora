@@ -1,5 +1,11 @@
 # Audit dei testi degli artefatti
 
+> **STATO: applicato il 11/08/2026** (commit `e592766c`, in produzione
+> `77079dc4`). Tutto ciò che segue è stato corretto, salvo le due voci del §7
+> lasciate all'autore. Il referto resta come registro di ciò che c'era e
+> perché era un difetto; la barriera che impedisce il ritorno di queste
+> famiglie è `webapp/test-testi.mjs`.
+
 **11/08/2026.** Corpus: `webapp/data/*.json` — 5.090 testi, 161.638 parole, di
 cui **972 carte distinte** (429 minaccia, 197 approfondimento, 183 luogo, 115
 oggetto, 37 nemico, 11 eroe). Cosa è stato letto e cosa solo passato al setaccio
@@ -370,3 +376,29 @@ riscritto a mano.
 
 Tutte le correzioni vanno fatte nei **sorgenti** (`src/gen_*.py`,
 `scripts/cardconjurer/cards-data.js`), non in `webapp/data/`, che è generato.
+
+---
+
+## 7. Quello che resta all'autore
+
+Due cose non le ho toccate, ed è una scelta, non una dimenticanza.
+
+**7.1 I due oggetti omonimi** (§1.5). Rinominare *I Tappi di Cera* o
+*Lanterna Cieca* non è un'edizione di testo: tocca il titolo della carta, il
+nome del file su disco e l'arte già renderizzata, e il nome nuovo lo sceglie
+chi ha scritto la campagna. Il difetto è vero — due oggetti con lo stesso nome
+e regole diverse, in una campagna dove gli oggetti si portano avanti — ma il
+rimedio è tuo.
+
+**7.2 Le 99 divergenze fra fascicoli e carte.** `scripts/sync-cards-data.py`
+segnala che 99 testi di Luogo e Approfondimento in `cards-data.js` non
+combaciano più con i `src/gen_ep*.py` da cui sono stati copiati a mano.
+Alcuni crescerebbero di 500-900 caratteri, e lo script stesso avvisa: «GUARDA
+IL RENDER». Applicarle è un passaggio a parte, con i fogli stampati sotto gli
+occhi.
+
+**Una cosa che nessuna sonda prende.** «Un freddo d'acqua nera risale i
+condotti» non lo trova nessun programma: manca un sostantivo, e la frase è
+grammaticalmente perfetta. Le 78.000 parole di prosa degli Ep. 2-20 le ho
+lette riga per riga per questo, e ne sono uscite due sole cose. Ma ogni testo
+NUOVO va letto ad alta voce: è l'unico strumento che funziona.
