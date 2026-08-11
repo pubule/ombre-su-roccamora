@@ -46,7 +46,7 @@ console.log(`testi esaminati: ${TUTTI.length}\n`);
 const SONDE = [
   // l'accento scritto con l'apostrofo: «citta'», «perche'», «e'»
   ['accento reso con apostrofo',
-   /\b(piu|perche|poiche|purche|gia|citta|puo|liberta|verita|meta|sara|cosi|pero|percio|eta|pieta|se|ne|li|cio)['’](?![A-Za-zà-ù])/g, true],
+   /\b(piu|perche|poiche|purche|gia|citta|puo|liberta|verita|meta|sara|cosi|pero|percio|eta|pieta|se|ne|li|cio|e)['’](?![A-Za-zà-ù])/g, true],
   ['«quale è» al posto di «qual è»', /\bquale è\b/g, true],
   ['elisione mancata', /\b(la|una) ha\b/g, true],
   // s impura, z, gn, ps, x vogliono lo/gli/uno: «coi stivali» no
