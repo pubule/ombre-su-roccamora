@@ -11,25 +11,34 @@
 //   node scripts/cardconjurer/generate-batch.js testimoni   (solo carte Testimone)
 //   node scripts/cardconjurer/generate-batch.js referti     (solo carte Referto)
 //   node scripts/cardconjurer/generate-batch.js oggetti     (solo carte Oggetto)
+//   node scripts/cardconjurer/generate-batch.js all --solo-mancanti  (salta le carte il cui .jpg esiste gia')
 
 const { chromium } = require('playwright');
-const { generateOne } = require('./lib');
+const { generateOne, cardOutputPath } = require('./lib');
 const { startServer } = require('./serve');
 const { HEROES, NEMICI, MINACCE, LUOGHI, INDIZI, TESTIMONI, REFERTI, OGGETTI, PRELUDIO, EP2, ALL } = require('./cards-data');
+const fs = require('fs');
 
 const GROUPS = { heroes: HEROES, nemici: NEMICI, minacce: MINACCE, luoghi: LUOGHI,
                  indizi: INDIZI, testimoni: TESTIMONI, referti: REFERTI, oggetti: OGGETTI,
                  preludio: PRELUDIO, ep2: EP2, all: ALL };
 
 (async () => {
-  const which = (process.argv[2] || 'all').toLowerCase();
+  const argv = process.argv.slice(2).filter((a) => a !== '--solo-mancanti');
+  const soloMancanti = process.argv.includes('--solo-mancanti');
+  const which = (argv[0] || 'all').toLowerCase();
   let cards = GROUPS[which];
   // filtro opzionale per titolo: node generate-batch.js ep2 'Camera dei Pesi'
-  const filtro = process.argv[3];
+  const filtro = argv[1];
   if (cards && filtro) cards = cards.filter((c) => c.title.toLowerCase().includes(filtro.toLowerCase()));
   if (!cards) {
     console.error(`Gruppo sconosciuto "${which}". Usa: heroes | nemici | minacce | all`);
     process.exit(1);
+  }
+  if (soloMancanti) {
+    const prima = cards.length;
+    cards = cards.filter((c) => !fs.existsSync(cardOutputPath(c)));
+    console.log(`--solo-mancanti: ${cards.length}/${prima} carte da generare (le altre hanno gia' il .jpg)`);
   }
 
   const { url, close } = await startServer();

@@ -80,10 +80,10 @@ LETTERA_2 = (
     "Avete <b>6 ore</b>, dalle 18:00 alle 24:00. Segnate ogni ora sul "
     "Taccuino e annotate tutto: nomi, orari, e le parole che tornano.<br/>"
     "— M., presidente della Società»<br/><br/>"
-    "<i>Luoghi disponibili dall’inizio: la Fonderia Dossena alle Fonderie, la Cella "
+    "<font name=\"OldStd-Italic\"><i>Luoghi disponibili dall’inizio: la Fonderia Dossena alle Fonderie, la Cella "
     "Campanaria di San Teodoro, l’Osteria della Bilancia e il Banco dei Pegni di Fossa. "
     "Gli altri andranno sbloccati. Il capobarca del Molo delle Chiatte smonta alle 21:00, "
-    "la Camera dei Pesi e delle Misure chiude alle 22:00.</i>")
+    "la Camera dei Pesi e delle Misure chiude alle 22:00.</i></font>")
 
 # Luoghi: fonte autoritativa py (indizi core GARANTITI - le chiavi vivono
 # qui, mai solo negli Approfondimenti: regola 1-ter). Le chiavi nascono
@@ -402,13 +402,21 @@ def indagine():
     lett = LETTERA_2.replace(
         'Alla Società del Lume, riservata.',
         '<font name="%s" size="15" color="#7a1f2b">A</font>lla Società del Lume, riservata.' % F['sc'])
-    # 138mm, non 130: con 130 la lettera serviva 130.3mm e spariva TUTTA dalla
-    # pagina (il Frame non spezza il Paragraph). Sotto c'e' mezza pagina vuota:
-    # il frame scende di 8mm e il sigillo con lui.
-    frame_flow(c, mx, H - 198*mm, W - 2*mx, 138*mm,
-               [Paragraph('lettera d’incarico — leggere ad alta voce', SMB),
-                Paragraph(lett, st('let', fontName=F['i'], fontSize=11.5, leading=17, alignment=4))])
-    seal(c, W - mx - 12*mm, H - 213*mm, r=13*mm, angle=-10)
+    # Il frame non spezza il Paragraph: se la lettera non ci sta, sparisce
+    # tutta dalla pagina (silenziosamente) - vedi l'urla in frame_flow. La
+    # grafia manoscritta (F['hand']) e' meno compatta del corsivo tipografico
+    # a parita' di corpo: l'altezza del frame si MISURA con wrapOn invece di
+    # indovinarla a mano, il top del frame resta fisso (non risale sotto il
+    # titolo) e il sigillo scende della stessa differenza.
+    cap_p = Paragraph('lettera d’incarico — leggere ad alta voce', SMB)
+    let_p = Paragraph(lett, st('let', fontName=F['hand'], fontSize=12.5, leading=17, alignment=4))
+    avail_w = W - 2*mx
+    lett_h = cap_p.wrapOn(c, avail_w, 400*mm)[1] + 2 + let_p.wrapOn(c, avail_w, 400*mm)[1] + 4*mm
+    frame_top = H - (198 - 138)*mm
+    frame_y = frame_top - lett_h
+    delta = (H - 198*mm) - frame_y
+    frame_flow(c, mx, frame_y, avail_w, lett_h, [cap_p, let_p])
+    seal(c, W - mx - 12*mm, H - 213*mm - delta, r=13*mm, angle=-10)
     c.setFillColor(TEAL); c.setFont(F['i'], 9.5)
     c.drawCentredString(W/2, 22*mm, 'PRIMA DI TUTTO: aprite la busta del Bivio dell’Episodio 1 e applicate il vostro ramo.')
     c.drawCentredString(W/2, 15*mm, 'Poi chi tiene il fascicolo Luoghi ordina le 9 carte per numero (è nel titolo): aperte scoperte, le altre coperte.')

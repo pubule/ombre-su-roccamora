@@ -79,9 +79,9 @@ LETTERA_20 = (
     "Non abbassate la lama là sotto. <b>Alzate la voce.</b> "
     "Cantate giusto, e riportatelo a dormire. È tutto qui.<br/>"
     "— il decano (o Vidal, o chi vi resta)»<br/><br/>"
-    "<i>Aperti dall’inizio: la Cattedrale, gli ossari (Cimitero delle Barche), la Taverna della "
+    "<font name=\"OldStd-Italic\"><i>Aperti dall’inizio: la Cattedrale, gli ossari (Cimitero delle Barche), la Taverna della "
     "Chiatta, l’Archivio del 1741. Portate con voi la Mappa Acustica e il Fascicolo del 1741 "
-    "dall’Ep. 19, e TUTTI i Frammenti conservati e non incrinati: sono il controcanto.</i>")
+    "dall’Ep. 19, e TUTTI i Frammenti conservati e non incrinati: sono il controcanto.</i></font>")
 
 # Chiavi LETTERALI negli indizi, tutte da luoghi APERTI (L1-L4), doppia via:
 # «le maree di sizigia» (L1+L2), «la via delle tre acque» (L1+L3),
@@ -475,10 +475,21 @@ def indagine():
     lett = LETTERA_20.replace(
         'Alla Società del Lume — l’ultima notte.',
         '<font name="%s" size="15" color="#7a1f2b">A</font>lla Società del Lume — l’ultima notte.' % F['sc'])
-    frame_flow(c, mx, H - 196*mm, W - 2*mx, 136*mm,
-               [Paragraph('lettera d’incarico — leggere ad alta voce', SMB),
-                Paragraph(lett, st('let', fontName=F['i'], fontSize=11, leading=16, alignment=4))])
-    seal(c, W - mx - 12*mm, H - 211*mm, r=13*mm, angle=-10)
+    # Il frame non spezza il Paragraph: se la lettera non ci sta, sparisce
+    # tutta dalla pagina (silenziosamente) - vedi l'urla in frame_flow. La
+    # grafia manoscritta (F['hand']) e' meno compatta del corsivo tipografico
+    # a parita' di corpo: l'altezza del frame si MISURA con wrapOn invece di
+    # indovinarla a mano, il top del frame resta fisso (non risale sotto il
+    # titolo) e il sigillo scende della stessa differenza.
+    cap_p = Paragraph('lettera d’incarico — leggere ad alta voce', SMB)
+    let_p = Paragraph(lett, st('let', fontName=F['hand'], fontSize=12.5, leading=17, alignment=4))
+    avail_w = W - 2*mx
+    lett_h = cap_p.wrapOn(c, avail_w, 400*mm)[1] + 2 + let_p.wrapOn(c, avail_w, 400*mm)[1] + 4*mm
+    frame_top = H - (196 - 136)*mm
+    frame_y = frame_top - lett_h
+    delta = (H - 196*mm) - frame_y
+    frame_flow(c, mx, frame_y, avail_w, lett_h, [cap_p, let_p])
+    seal(c, W - mx - 12*mm, H - 211*mm - delta, r=13*mm, angle=-10)
     c.setFillColor(TEAL); c.setFont(F['i'], 9.5)
     c.drawCentredString(W/2, 24*mm, 'PRIMA DI TUTTO: aprite le buste dei Bivi degli Episodi 19, 18 e 11 e applicate i vostri rami.')
     c.drawCentredString(W/2, 18*mm, 'Indagine breve e feroce: l’ORA, la VIA, la VOCE, il CONTROCANTO. Poi la discesa.')

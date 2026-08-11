@@ -80,11 +80,11 @@ LETTERA_18 = (
     "un’assemblea non condanna il proprio presidente su un’intuizione. Avete <b>6 ore</b> per "
     "reggere quel nome con le carte, e per dirlo qui, in piedi, davanti a tutti. Poi tocca a me.<br/>"
     "— M., presidente della Società»<br/><br/>"
-    "<i>Non ci sono luoghi nuovi da sbloccare stanotte: ci sono i FILI da chiudere. Le 4 Domande non "
+    "<font name=\"OldStd-Italic\"><i>Non ci sono luoghi nuovi da sbloccare stanotte: ci sono i FILI da chiudere. Le 4 Domande non "
     "chiedono di indovinare un nome — quello il tavolo ce l’ha già: chiedono di PROVARLO. Sono una "
     "sola — COME SI PROVA CHI È C.B.? — e si rispondono con gli INCROCI DI CAMPAGNA che avete raccolto "
     "(i quattro Bivi decisi e le riletture delle vecchie lettere). Aperti dall’inizio: l’Assemblea, "
-    "l’Archivio delle Penne, la Contabilità, il Fascicolo di Campagna.</i>")
+    "l’Archivio delle Penne, la Contabilità, il Fascicolo di Campagna.</i></font>")
 
 # Chiavi LETTERALI negli indizi, tutte da luoghi APERTI (L1-L4), doppia via:
 # «una mano sola» (L1+L2), «l'oro vecchio» (L1+L3), «la carrozza condivisa»
@@ -473,10 +473,21 @@ def indagine():
     lett = LETTERA_18.replace(
         'Alla Società del Lume, riservata.',
         '<font name="%s" size="15" color="#7a1f2b">A</font>lla Società del Lume, riservata.' % F['sc'])
-    frame_flow(c, mx, H - 196*mm, W - 2*mx, 136*mm,
-               [Paragraph('lettera d’incarico — leggere ad alta voce', SMB),
-                Paragraph(lett, st('let', fontName=F['i'], fontSize=11, leading=16, alignment=4))])
-    seal(c, W - mx - 12*mm, H - 211*mm, r=13*mm, angle=-10)
+    # Il frame non spezza il Paragraph: se la lettera non ci sta, sparisce
+    # tutta dalla pagina (silenziosamente) - vedi l'urla in frame_flow. La
+    # grafia manoscritta (F['hand']) e' meno compatta del corsivo tipografico
+    # a parita' di corpo: l'altezza del frame si MISURA con wrapOn invece di
+    # indovinarla a mano, il top del frame resta fisso (non risale sotto il
+    # titolo) e il sigillo scende della stessa differenza.
+    cap_p = Paragraph('lettera d’incarico — leggere ad alta voce', SMB)
+    let_p = Paragraph(lett, st('let', fontName=F['hand'], fontSize=12.5, leading=17, alignment=4))
+    avail_w = W - 2*mx
+    lett_h = cap_p.wrapOn(c, avail_w, 400*mm)[1] + 2 + let_p.wrapOn(c, avail_w, 400*mm)[1] + 4*mm
+    frame_top = H - (196 - 136)*mm
+    frame_y = frame_top - lett_h
+    delta = (H - 196*mm) - frame_y
+    frame_flow(c, mx, frame_y, avail_w, lett_h, [cap_p, let_p])
+    seal(c, W - mx - 12*mm, H - 211*mm - delta, r=13*mm, angle=-10)
     c.setFillColor(TEAL); c.setFont(F['i'], 9.5)
     c.drawCentredString(W/2, 24*mm, 'PRIMA DI TUTTO: aprite la busta del Bivio dell’Episodio 17 e applicate il vostro ramo.')
     c.drawCentredString(W/2, 18*mm, 'Stanotte non ci sono luoghi nuovi: ci sono i fili da chiudere. Le 4 Domande sono una sola — COME SI PROVA CHI È C.B.?')

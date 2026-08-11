@@ -15,10 +15,10 @@ LETTERA2 = (
     "Trovatelo. Avete <b>6 ore</b>, dalle 18:00 alle 24:00: dopo, temo, sar\u00e0 tardi. "
     "Segnate ogni ora sul Taccuino e annotate tutto: nomi, orari, e le parole che "
     "tornano.<br/>\u2014 M., presidente della Societ\u00e0\u00bb<br/><br/>"
-    "<i>Luoghi disponibili dall\u2019inizio: il Campanile di San Teodoro, la Casa di "
+    "<font name=\"OldStd-Italic\"><i>Luoghi disponibili dall\u2019inizio: il Campanile di San Teodoro, la Casa di "
     "Ruggero al Vicolo dei Fonditori, la Taverna del Ponte Rotto e la Gendarmeria. "
     "Gli altri andranno sbloccati. L\u2019Archivio Civico e il Canale Basso chiudono "
-    "alle 23:00, la Gendarmeria alle 21:00.</i>")
+    "alle 23:00, la Gendarmeria alle 21:00.</i></font>")
 
 TESTI_LUOGHI = {
     1: "La scala a chiocciola sale nel buio, ottanta gradini che Ruggero conosceva a memoria. "

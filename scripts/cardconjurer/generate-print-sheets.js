@@ -46,11 +46,13 @@
 // COME STAMPARE nel Regolamento), una per foglio A4 (troppo grandi per
 // affiancarne due), fronte e retro su pagine consecutive.
 //
-// Uso: node scripts/cardconjurer/generate-print-sheets.js
+// Uso: node scripts/cardconjurer/generate-print-sheets.js [--solo-mancanti]
 // Richiede le carte gia' generate (generate-batch.js, tutti i gruppi che vuoi
 // includere), le tessere (scripts/tiles/generate-tiles.js) e i dorsi in
 // artworks/. Non salva/committa nulla da solo oltre al pdf di output:
 // rilancialo quando servono carte/tessere aggiornate.
+// --solo-mancanti: salta il PDF di un bucket se esiste gia' (non guarda se le
+// carte sorgente sono cambiate, solo se il file di output c'e').
 
 const fs = require('fs');
 const path = require('path');
@@ -252,9 +254,15 @@ async function tileSheets(browser) {
 }
 
 (async () => {
+  const SOLO_MANCANTI = process.argv.includes('--solo-mancanti');
   const browser = await chromium.launch({ headless: true });
 
   for (const output of OUTPUTS) {
+    const outAbs = path.join(ROOT, output.out);
+    if (SOLO_MANCANTI && fs.existsSync(outAbs)) {
+      console.log(`\n== ${output.label} == salto (esiste gia') -> ${outAbs}`);
+      continue;
+    }
     console.log(`\n== ${output.label} ==`);
     let sheets = '';
     let bgRules = '';

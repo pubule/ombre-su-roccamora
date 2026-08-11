@@ -5,7 +5,8 @@
 //
 // Dati (exits/arredi) presi 1:1 da TILES in src/gen_cards.py.
 //
-// Uso: node scripts/tiles/generate-tiles.js
+// Uso: node scripts/tiles/generate-tiles.js [ep1|ep2] [--solo-mancanti]
+// --solo-mancanti: salta le tessere il cui PNG esiste gia' in <Episodio>/board/.
 
 const { chromium } = require('playwright');
 const path = require('path');
@@ -13,8 +14,10 @@ const fs = require('fs');
 const { pathToFileURL } = require('url');
 
 const ROOT = path.resolve(__dirname, '..', '..');
+const argv = process.argv.slice(2).filter((a) => a !== '--solo-mancanti');
+const SOLO_MANCANTI = process.argv.includes('--solo-mancanti');
 // set per episodio: node scripts/tiles/generate-tiles.js [ep1|ep2]
-const SET = (process.argv[2] || 'ep1').toLowerCase();
+const SET = (argv[0] || 'ep1').toLowerCase();
 const EP_DIR = { ep1: 'Episodio 1', ep2: 'Episodio 2' }[SET];
 if (!EP_DIR) { console.error('set sconosciuto (ep1|ep2)'); process.exit(1); }
 const OUT_DIR = path.join(ROOT, EP_DIR, 'board');
@@ -252,13 +255,17 @@ function html(tile) {
   const page = await browser.newPage({ viewport: { width: S, height: S } });
 
   for (const tile of TILES) {
+    const outPath = path.join(OUT_DIR, `${tile.id} - ${tile.nome}.png`);
+    if (SOLO_MANCANTI && fs.existsSync(outPath)) {
+      console.log("salto (esiste gia') ->", outPath);
+      continue;
+    }
     const tmpHtml = path.join(OUT_DIR, `.tmp-${tile.id}.html`);
     fs.writeFileSync(tmpHtml, html(tile), 'utf8');
     await page.goto(pathToFileURL(tmpHtml).href, { waitUntil: 'networkidle' });
     await page.evaluate(() => document.fonts.ready);
     await page.waitForTimeout(200);
 
-    const outPath = path.join(OUT_DIR, `${tile.id} - ${tile.nome}.png`);
     await page.screenshot({ path: outPath });
     fs.unlinkSync(tmpHtml);
     console.log('ok ->', outPath);

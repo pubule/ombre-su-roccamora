@@ -7,13 +7,15 @@
 // e si scatta esattamente quella dimensione — cosi' niente testo tagliato o
 // spazi vuoti enormi quando cambiano font-size/testi.
 //
-// Uso: node scripts/reperti/generate-reperti.js
+// Uso: node scripts/reperti/generate-reperti.js [--solo-mancanti]
+// --solo-mancanti: salta un reperto se fronte E retro esistono gia'.
 
 const { chromium } = require('playwright');
 const path = require('path');
 const fs = require('fs');
 const { pathToFileURL } = require('url');
 
+const SOLO_MANCANTI = process.argv.includes('--solo-mancanti');
 const ROOT = path.resolve(__dirname, '..', '..');
 const BG = pathToFileURL(path.join(ROOT, 'artworks', 'Sfondo pergamena per i Reperti.png')).href;
 // Sigillo.png (non il .jpg): gia' mascherato con alpha reale attorno alla
@@ -1247,6 +1249,12 @@ Chi canterà al di sotto, non si lamenti di ciò che al di sotto risponde.`;
   for (const [episodio, name, html] of items) {
     const episodioDir = path.join(OUT_DIR, episodio, 'reperti');
     fs.mkdirSync(episodioDir, { recursive: true });
+    const outPath = path.join(episodioDir, `${name}.png`);
+    const backOutPath = path.join(episodioDir, `${name} (retro).png`);
+    if (SOLO_MANCANTI && fs.existsSync(outPath) && fs.existsSync(backOutPath)) {
+      console.log("salto (esiste gia') ->", outPath);
+      continue;
+    }
     // page.setContent() gira su origin about:blank, che Chromium non lascia
     // caricare risorse file:// (sfondo/sigillo restavano bianchi). Scrivendo
     // l'HTML su disco e navigandoci, l'origin diventa file:// e le immagini
@@ -1263,7 +1271,6 @@ Chi canterà al di sotto, non si lamenti di ciò che al di sotto risponde.`;
     const contentHeight = await page_.evaluate(() => document.body.scrollHeight);
     await page_.setViewportSize({ width: W, height: contentHeight });
     await page_.waitForTimeout(100);
-    const outPath = path.join(episodioDir, `${name}.png`);
     await page_.screenshot({ path: outPath });
     fs.unlinkSync(tmpHtml);
     console.log('ok ->', outPath, `(${contentHeight}px)`);
@@ -1273,7 +1280,6 @@ Chi canterà al di sotto, non si lamenti di ciò che al di sotto risponde.`;
     fs.writeFileSync(tmpBackHtml, backPage(), 'utf8');
     await page_.goto(pathToFileURL(tmpBackHtml).href, { waitUntil: 'networkidle' });
     await page_.waitForTimeout(100);
-    const backOutPath = path.join(episodioDir, `${name} (retro).png`);
     await page_.screenshot({ path: backOutPath });
     fs.unlinkSync(tmpBackHtml);
     console.log('ok ->', backOutPath, `(${contentHeight}px)`);

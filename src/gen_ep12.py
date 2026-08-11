@@ -82,9 +82,9 @@ LETTERA_12 = (
     "<i>come</i> sono uscite dalla mia stessa casa. Ho più paura di questa risposta che del "
     "Dormiente. Avete <b>6 ore</b>, dalle 18:00 alle 24:00; poi il corriere sarà allo scambio.<br/>"
     "— M., presidente della Società»<br/><br/>"
-    "<i>Luoghi disponibili dall’inizio: il Palazzo del Lume (la nostra sede), la casa "
+    "<font name=\"OldStd-Italic\"><i>Luoghi disponibili dall’inizio: il Palazzo del Lume (la nostra sede), la casa "
     "dell’archivista, l’Ufficio del Fermo-Posta e il Banco dei Pegni. Gli altri andranno "
-    "sbloccati.</i>")
+    "sbloccati.</i></font>")
 
 # Chiavi LETTERALI negli indizi, tutte da luoghi APERTI (L1-L4), doppia via:
 # «i sigilli intatti» (L1+L2), «gli ordini protocollati» (L2+L3),
@@ -422,10 +422,21 @@ def indagine():
     lett = LETTERA_12.replace(
         'Alla Società del Lume, riservata.',
         '<font name="%s" size="15" color="#7a1f2b">A</font>lla Società del Lume, riservata.' % F['sc'])
-    frame_flow(c, mx, H - 196*mm, W - 2*mx, 136*mm,
-               [Paragraph('lettera d’incarico — leggere ad alta voce', SMB),
-                Paragraph(lett, st('let', fontName=F['i'], fontSize=11, leading=16, alignment=4))])
-    seal(c, W - mx - 12*mm, H - 211*mm, r=13*mm, angle=-10)
+    # Il frame non spezza il Paragraph: se la lettera non ci sta, sparisce
+    # tutta dalla pagina (silenziosamente) - vedi l'urla in frame_flow. La
+    # grafia manoscritta (F['hand']) e' meno compatta del corsivo tipografico
+    # a parita' di corpo: l'altezza del frame si MISURA con wrapOn invece di
+    # indovinarla a mano, il top del frame resta fisso (non risale sotto il
+    # titolo) e il sigillo scende della stessa differenza.
+    cap_p = Paragraph('lettera d’incarico — leggere ad alta voce', SMB)
+    let_p = Paragraph(lett, st('let', fontName=F['hand'], fontSize=12.5, leading=17, alignment=4))
+    avail_w = W - 2*mx
+    lett_h = cap_p.wrapOn(c, avail_w, 400*mm)[1] + 2 + let_p.wrapOn(c, avail_w, 400*mm)[1] + 4*mm
+    frame_top = H - (196 - 136)*mm
+    frame_y = frame_top - lett_h
+    delta = (H - 196*mm) - frame_y
+    frame_flow(c, mx, frame_y, avail_w, lett_h, [cap_p, let_p])
+    seal(c, W - mx - 12*mm, H - 211*mm - delta, r=13*mm, angle=-10)
     c.setFillColor(TEAL); c.setFont(F['i'], 9.5)
     c.drawCentredString(W/2, 24*mm, 'PRIMA DI TUTTO: aprite la busta del Bivio dell’Episodio 11 e applicate il vostro ramo.')
     c.drawCentredString(W/2, 18*mm, 'Chi tiene il fascicolo Luoghi ordina le 9 carte per numero (è nel titolo): aperte scoperte, le altre coperte.')

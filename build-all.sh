@@ -12,25 +12,32 @@
 # procedurale (stesso pattern in tutto il progetto, es. dorsi carta mancanti,
 # sfondo Tabellone mancante).
 #
-# Uso: ./build-all.sh
+# Uso: ./build-all.sh [--solo-mancanti]
+# --solo-mancanti: rigenera solo gli artefatti (tessere/carte/fogli/reperti)
+# che ancora non esistono su disco, invece di rifare tutto da capo. I PDF
+# (Python) restano sempre rigenerati per intero: sono veloci, e i generatori
+# saltano da soli l'arte ancora mancante senza bisogno del flag.
 
 set -e
 cd "$(dirname "${BASH_SOURCE[0]}")"
 
+FLAG=""
+[ "$1" = "--solo-mancanti" ] && FLAG="--solo-mancanti"
+
 echo "== Tessere (Episodio 1/board/) =="
-node scripts/tiles/generate-tiles.js
+node scripts/tiles/generate-tiles.js ep1 $FLAG
 
 echo "== Carte (cards/) =="
 # generate-batch.js risolve card.art (es. 'artworks/Elena.png') relativo alla
 # cwd: va lanciato dalla radice del repo, MAI da dentro scripts/cardconjurer
 # (li' 'artworks/...' punterebbe a scripts/cardconjurer/artworks, che non esiste).
-node scripts/cardconjurer/generate-batch.js
+node scripts/cardconjurer/generate-batch.js all $FLAG
 
 echo "== Fogli fronte/retro carte + tessere (non committato) =="
-node scripts/cardconjurer/generate-print-sheets.js
+node scripts/cardconjurer/generate-print-sheets.js $FLAG
 
 echo "== Reperti (reperti/Episodio 1/) =="
-node scripts/reperti/generate-reperti.js
+node scripts/reperti/generate-reperti.js $FLAG
 
 echo "== PDF (pdf/) =="
 (cd src && python gen_docs.py)

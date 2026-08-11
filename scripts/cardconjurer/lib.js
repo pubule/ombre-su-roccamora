@@ -9,6 +9,17 @@ const fs = require('fs');
 
 const COLOR_CODES = { W: 'W', U: 'U', B: 'B', R: 'R', G: 'G', M: 'M', A: 'A', L: 'L' };
 
+// Nome file su disco per una carta, prima di conoscere il path completo
+// (serve anche a generate-batch.js per il controllo --solo-mancanti, senza
+// dover aprire il browser).
+function cardOutputPath(card, cwd = process.cwd()) {
+  const title = card.title;
+  // Windows non accetta " < > : | ? * nei nomi file (es. Nino "Grimaldello" Cauto).
+  // "/" e' permesso perche' separa la sottocartella (es. "Nemici/Adepto Incappucciato").
+  const outName = (card.file || title).replace(/["<>:|?*]/g, '');
+  return cardDiskPath(cwd, outName);
+}
+
 async function generateOne(page, card, { cwd = process.cwd(), artist = 'Fabietto' } = {}) {
   const artPath = path.resolve(cwd, card.art);
   const title = card.title;
@@ -18,9 +29,6 @@ async function generateOne(page, card, { cwd = process.cwd(), artist = 'Fabietto
   const group = card.group || 'Tokens';
   const pack = card.pack || 'Marker Card';
   const frameImgMatch = card['frame-img'] || (pack === 'Marker Card' ? 'markerThumb.png' : `Frame${color}Thumb.png`);
-  // Windows non accetta " < > : | ? * nei nomi file (es. Nino "Grimaldello" Cauto).
-  // "/" e' permesso perche' separa la sottocartella (es. "Nemici/Adepto Incappucciato").
-  const outName = (card.file || title).replace(/["<>:|?*]/g, '');
 
   // --- FRAME ---
   await page.locator('select').nth(1).selectOption({ label: group });
@@ -85,7 +93,7 @@ async function generateOne(page, card, { cwd = process.cwd(), artist = 'Fabietto
   await page.waitForTimeout(300);
 
   // --- DOWNLOAD ---
-  const outPath = cardDiskPath(cwd, outName);
+  const outPath = cardOutputPath(card, cwd);
   fs.mkdirSync(path.dirname(outPath), { recursive: true });
   const [download] = await Promise.all([
     page.waitForEvent('download', { timeout: 15000 }),
@@ -108,4 +116,4 @@ function cardDiskPath(root, file) {
   return path.resolve(root, 'Comune', 'cards', `${file}.jpg`);
 }
 
-module.exports = { generateOne, cardDiskPath };
+module.exports = { generateOne, cardDiskPath, cardOutputPath };

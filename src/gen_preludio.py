@@ -114,8 +114,8 @@ LETTERA_P = (
     "cosa, ma nessuna è stata scritta perché qualcuno la conservi. Avete <b>6 ore</b>, "
     "dalle 18:00 alle 24:00. Segnate ogni ora sul Taccuino, ogni parola che conta."
     "<br/>— M.»<br/><br/>"
-    "<i>Luoghi disponibili dall’inizio: il Palazzo del Lume, la Taverna della "
-    "Chiatta e il Banco dei Pegni di Fossa. Il quarto va sbloccato.</i>")
+    "<font name=\"OldStd-Italic\"><i>Luoghi disponibili dall’inizio: il Palazzo del Lume, la Taverna della "
+    "Chiatta e il Banco dei Pegni di Fossa. Il quarto va sbloccato.</i></font>")
 
 LUOGHI_P = [
     dict(n='P1', nome='IL PALAZZO DEL LUME', voce_mappa='Il Palazzo del Lume', req='Disponibile dall’inizio',
@@ -305,13 +305,22 @@ def indagine():
     lett = LETTERA_P.replace('«Non vi conoscete',
                              '«<font name="%s" size="15" color="#7a1f2b">N</font>on vi conoscete' % F['sc'])
     # Il frame non spezza il Paragraph: se la lettera non ci sta, sparisce
-    # tutta dalla pagina (silenziosamente). Serve ~131mm: 132 + i 10mm liberi
-    # in fondo pagina presi da sigillo e box.
-    frame_flow(c, mx, H - 198*mm, W - 2*mx, 132*mm,
-               [Paragraph('undici lettere identiche, undici destinatari — leggere ad alta voce', SMB),
-                Paragraph(lett, st('let', fontName=F['i'], fontSize=11, leading=16, alignment=4))])
-    seal(c, W - mx - 12*mm, H - 208*mm, r=13*mm, angle=-10)
-    y = scuola(c, mx, H - 228*mm, W - 2*mx,
+    # tutta dalla pagina (silenziosamente) - vedi l'urla in frame_flow. La
+    # grafia manoscritta (F['hand']) e' meno compatta del corsivo tipografico
+    # a parita' di corpo: l'altezza del frame si MISURA con wrapOn invece di
+    # indovinarla a mano (stesso identico bug gia' visto qui una volta), il
+    # top del frame resta fisso (non risale sotto il titolo) e tutto cio' che
+    # sta sotto (sigillo, box tutorial) scende della stessa differenza.
+    cap_p = Paragraph('undici lettere identiche, undici destinatari — leggere ad alta voce', SMB)
+    let_p = Paragraph(lett, st('let', fontName=F['hand'], fontSize=12.5, leading=17, alignment=4))
+    avail_w = W - 2*mx
+    lett_h = cap_p.wrapOn(c, avail_w, 400*mm)[1] + 2 + let_p.wrapOn(c, avail_w, 400*mm)[1] + 4*mm  # +4mm di margine di sicurezza
+    frame_top = H - 66*mm  # invariata: e' il top storico (132mm sopra il vecchio bottom H-198mm)
+    frame_y = frame_top - lett_h
+    delta = (H - 198*mm) - frame_y  # quanto e' sceso il fondo del frame rispetto a prima
+    frame_flow(c, mx, frame_y, avail_w, lett_h, [cap_p, let_p])
+    seal(c, W - mx - 12*mm, H - 208*mm - delta, r=13*mm, angle=-10)
+    y = scuola(c, mx, H - 228*mm - delta, W - 2*mx,
                'Questo Preludio insegna il gioco giocando: quando compare un box come questo, '
                'leggetelo ad alta voce. Chi tiene il fascicolo Luoghi ordina le 4 carte Luogo del '
                'Preludio per sigla (è nel titolo: P1-P4) e le dispone in fila, da sinistra a '

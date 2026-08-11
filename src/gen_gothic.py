@@ -74,13 +74,21 @@ def indagine():
     lett = LETTERA.replace(
         'Alla Societ\u00e0 del Lume, riservata.',
         '<font name="%s" size="15" color="#7a1f2b">A</font>lla Societ\u00e0 del Lume, riservata.' % F['sc'])
-    # 130mm (era 112): la chiusa ora elenca i luoghi aperti PER NOME, non
-    # per numero - il testo e' piu' lungo e un Frame troppo basso scarta
-    # l'intero Paragraph in silenzio (lettera sparita, successo davvero).
-    frame_flow(c, mx, H - 190*mm, W - 2*mx, 130*mm,
-               [Paragraph('lettera d\u2019incarico \u2014 leggere ad alta voce', SMB),
-                Paragraph(lett, st('let', fontName=F['i'], fontSize=11.5, leading=17, alignment=4))])
-    seal(c, W - mx - 12*mm, H - 205*mm, r=13*mm, angle=-10)
+    # Il frame non spezza il Paragraph: se la lettera non ci sta, sparisce
+    # tutta dalla pagina (silenziosamente) - vedi l'urla in frame_flow. La
+    # grafia manoscritta (F['hand']) e' meno compatta del corsivo tipografico
+    # a parita' di corpo: l'altezza del frame si MISURA con wrapOn invece di
+    # indovinarla a mano, il top del frame resta fisso (non risale sotto il
+    # titolo) e il sigillo scende della stessa differenza.
+    cap_p = Paragraph('lettera d\u2019incarico \u2014 leggere ad alta voce', SMB)
+    let_p = Paragraph(lett, st('let', fontName=F['hand'], fontSize=12.5, leading=17, alignment=4))
+    avail_w = W - 2*mx
+    lett_h = cap_p.wrapOn(c, avail_w, 400*mm)[1] + 2 + let_p.wrapOn(c, avail_w, 400*mm)[1] + 4*mm
+    frame_top = H - (190 - 130)*mm
+    frame_y = frame_top - lett_h
+    delta = (H - 190*mm) - frame_y
+    frame_flow(c, mx, frame_y, avail_w, lett_h, [cap_p, let_p])
+    seal(c, W - mx - 12*mm, H - 205*mm - delta, r=13*mm, angle=-10)
     c.setFillColor(TEAL); c.setFont(F['i'], 9.5)
     c.drawCentredString(W/2, 22*mm, 'Chi tiene il fascicolo Luoghi ordina le 8 carte per numero (è nel titolo) e le dispone in fila:')
     c.drawCentredString(W/2, 15*mm, 'le “Disponibile dall’inizio” scoperte, le altre coperte — da lì in poi la posizione vi dice il numero.')
