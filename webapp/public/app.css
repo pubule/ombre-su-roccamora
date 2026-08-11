@@ -342,21 +342,26 @@ em, i { font-style: italic; }
 /* --- arruolamento: ritratti veri + scheda personaggio --- */
 .griglia-arruolo { display: grid; gap: 10px; margin-top: 14px;
   grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
-.eroe-tile { position: relative; aspect-ratio: 3 / 4; border-radius: 2px;
-  overflow: hidden; border: 2px solid var(--osso-fioco); cursor: pointer;
-  background: var(--ardesia-alta); animation: apparizione .4s ease both; }
-.eroe-tile img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
-.eroe-velo { position: absolute; inset: 0;
-  background: linear-gradient(180deg, transparent 45%, rgba(14, 16, 20, .88) 88%); }
-.eroe-nome { position: absolute; left: 0; right: 0; bottom: 0; padding: 8px 10px; }
+.eroe-tile { position: relative; aspect-ratio: 3 / 4; border-radius: 1px;
+  overflow: visible; border: 0; cursor: pointer; padding: 5px 5px 20px;
+  background: var(--carta); box-shadow: 0 10px 18px -12px #000;
+  transform: rotate(-1.1deg); animation: apparizione .4s ease both; }
+.griglia-arruolo > :nth-child(even) .eroe-tile,
+.griglia-arruolo > .eroe-tile:nth-child(even) { transform: rotate(.9deg); }
+/* la fotografia in archivio e' spenta; chi e' arruolato torna a colori */
+.eroe-tile img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block;
+  filter: grayscale(.85) sepia(.25) contrast(1.05); }
+.eroe-tile.scelto img { filter: none; }
+.eroe-velo { display: none; }   /* sulla stampa il nome sta sotto, non sopra */
+.eroe-nome { position: absolute; left: 0; right: 0; bottom: 2px; padding: 0 6px; text-align: center; }
 .eroe-nome b { display: block; font-family: 'FellSC', serif; font-weight: normal;
-  color: var(--osso); font-size: 15px; line-height: 1.15; text-shadow: 0 1px 6px #000; }
-.eroe-nome i { color: var(--osso-fioco); font-size: 12px; }
-.eroe-tile .spunta { position: absolute; top: 8px; right: 8px; width: 26px; height: 26px;
-  border-radius: 50%; background: var(--ceralacca); color: var(--osso); display: none;
-  align-items: center; justify-content: center; font-size: 15px; border: 1px solid var(--osso); }
-.eroe-tile.scelto { border-color: var(--osso);
-  box-shadow: 0 0 18px rgba(216, 178, 94, .35); }
+  color: var(--carta-ink); font-size: 13px; line-height: 1.15; text-shadow: none; }
+.eroe-nome i { color: #6b6353; font-size: 11px; }
+.eroe-tile .spunta { position: absolute; top: -7px; right: -7px; width: 24px; height: 24px;
+  border-radius: 50%; color: transparent; display: none; border: 0;
+  background: radial-gradient(circle at 38% 32%, #c8384c, var(--ceralacca) 60%, #6d1522);
+  box-shadow: 0 3px 7px -2px #000; }
+.eroe-tile.scelto { transform: rotate(0deg) translateY(-3px); box-shadow: 0 14px 22px -12px #000; }
 .eroe-tile.scelto .spunta { display: flex; }
 
 .eroe-dettaglio { max-width: 560px; }
@@ -578,31 +583,18 @@ em, i { font-style: italic; }
     grid-column: 2; grid-row: 2; overflow: auto; min-height: 0; }
 }
 
-/* La colonna dei comandi si scurisce: la pergamena accesa accanto a un
-   sotterraneo nero, su una TV guardata al buio, abbaglia e spezza l'atmosfera.
-   Stessi colori del gioco, invertiti — fondo notte, bordo e titoli d'oro. */
-.immersivo .pannello { background: linear-gradient(160deg, rgba(29,16,20,.92), rgba(14,21,25,.92));
-  color: var(--osso); border-color: rgba(168,131,58,.55); box-shadow: 0 6px 22px rgba(0,0,0,.55); }
-.immersivo .pannello h2 { color: var(--osso); }
-/* il seppia era tarato sulla pergamena: sul fondo notte da' 4:1, sotto la
-   soglia di leggibilita' — ed e' proprio il testo delle ISTRUZIONI D'AZIONE,
-   quello che si rilegge a ogni turno. Sale a ~7.5:1 restando subordinato al
-   corpo del testo, che e' crema piena. */
-.immersivo .pannello .nota { color: #b3a288; }
-.immersivo .pannello .ok-txt { color: #7fe6db; }        /* il verde scuro sparirebbe sul fondo notte */
-.immersivo .pannello .ko-txt { color: #ff8a6a; }
-/* i testi scritti col colore INCHIOSTRO erano pensati per la pergamena: sul
-   fondo notte diventano illeggibili (i nomi degli eroi sparivano del tutto) */
-/* i nomi stanno accanto a pallini turchesi grossi e saturi, che da lontano se
-   li mangiano: servono peso e dimensione, non una tinta nuova (l'oro e' del
-   titolo del pannello e gli competerebbe accanto) */
-.immersivo .nemico-nome { color: var(--osso); font-weight: 700;
-  font-size: 19px; letter-spacing: .05em; }
-.immersivo .nemico-nome b { color: #ff8a6a; }
-.immersivo .chip-turno.ritratto .et { color: var(--osso-fioco); }
-/* chi ha finito resta piu' spento degli altri — e' l'informazione — ma non
-   sotto la soglia: da tre metri sparirebbe invece di sembrare «gia' mosso» */
-.immersivo .chip-turno.ritratto.fatto .et { color: #9d8f78; }
+/* Qui stavano dieci righe che scurivano i pannelli e ritaravano ogni colore
+   che sulla pergamena funzionava e sul fondo notte no: il seppia delle
+   istruzioni d'azione (4:1, sotto soglia), l'inchiostro dei nomi degli eroi
+   (spariva del tutto), il verde e il rosso degli esiti.
+   SONO SPARITE PERCHE' NON SERVONO PIU': col fascicolo i pannelli sono gia'
+   scuri ovunque, e quei colori sono gia' quelli giusti nel tema base. Quel che
+   resta dell'immersivo riguarda solo la DISTANZA — corpi piu' grandi, ritratti
+   piu' grandi, pannelli che spariscono per far posto alla mappa.
+   L'unica cosa che il fascicolo eredita da quel lavoro e' la lezione, non i
+   valori: il contrasto su fondo scuro va misurato, e ora lo misura
+   test-stile.mjs a ogni giro. */
+.immersivo .nemico-nome { font-weight: 700; font-size: 19px; letter-spacing: .05em; }
 
 /* leggibilita' da lontano. I token e le scritte sulla plancia NON si toccano:
    li scala gia' lo zoom, e un override qui combatterebbe contro l'adattamento. */
