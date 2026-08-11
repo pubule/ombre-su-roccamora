@@ -183,7 +183,7 @@ rimasti); il server serve solo file statici, niente accessi esterni.
 ### Online (Cloudflare)
 
 La stessa app sta anche su Cloudflare, così il PC non deve restare acceso:
-<https://ombre-su-roccamora.fabio-stocco85.workers.dev>. Siccome `webapp/data/`,
+<https://roccamora.smartcores.org>. Siccome `webapp/data/`,
 `webapp/assets/` e `fonts/` sono derivati (in `.gitignore`), la pubblicazione
 parte sempre dal punto 1 qui sopra: rigenera, poi
 
@@ -195,17 +195,24 @@ parte sempre dal punto 1 qui sopra: rigenera, poi
 monta da cartelle diverse (`/data`, `/assets`, `/fonts`) — un Worker vuole una
 cartella sola, vedi `wrangler.jsonc`. Wrangler carica solo i file cambiati.
 
-### Account e salvataggi (in corso)
+### Account e salvataggi
 
-Il Worker serve anche `/api/`: i salvataggi per **tavolo** su D1, con login
-Google tramite Cloudflare Access. Spec e piano stanno in
-`DESIGN-ACCOUNT-E-SALVATAGGI.md` e `PIANO-ACCOUNT-E-SALVATAGGI.md`, lo stato
-in `HANDOFF.md`.
+**Il sito è chiuso**: si entra con un codice via email (Cloudflare Access, lista
+di indirizzi decisa a mano in Zero Trust → Access → Applications). Vale per
+tutto, `/data` con le soluzioni degli episodi incluso.
 
-Finché l'applicazione Access non esiste (`ACCESS_TEAM` e `ACCESS_AUD` vuoti in
-`wrangler.jsonc`), `/api/` rifiuta tutto con 403 e l'app entra come ha sempre
-fatto: nessun tavolo da scegliere. La schermata dei tavoli compare solo dove
-`/api/stato` risponde, quindi in locale e nei banchi di prova non si vede.
+Dentro, i salvataggi sono per **tavolo** — un gruppo che gioca la sua campagna —
+e stanno su D1 oltre che sul dispositivo. Si gioca anche senza rete: la partita
+va in `localStorage` e una coda la manda al server quando la linea torna. Se la
+stessa partita è andata avanti in due posti, l'app non sceglie: mostra le due e
+decide chi gioca.
+
+Spec in `DESIGN-ACCOUNT-E-SALVATAGGI.md`, piano in
+`PIANO-ACCOUNT-E-SALVATAGGI.md`, stato in `HANDOFF.md`.
+
+La schermata dei tavoli compare solo dove risponde `/api/stato`: in locale
+`webapp/server.js` serve soli file, quindi lì — e in tutti i banchi di prova —
+si entra dalla home come sempre.
 
 Per lavorarci, con un D1 vero e senza toccare la produzione:
 

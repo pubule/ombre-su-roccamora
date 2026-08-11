@@ -20,44 +20,37 @@ Spec `DESIGN-ACCOUNT-E-SALVATAGGI.md` · piano `PIANO-ACCOUNT-E-SALVATAGGI.md`
 | ✅ | 4. Regola dei conflitti (`sync.js`) | 10 asserzioni, provata non vacua su 2 guasti (4 e 6 cadute) |
 | ✅ | 5. Coda e `store.js` per tavolo | coda provata non vacua; i banchi di misura Playwright girano identici (ricaduta sulla chiave piatta senza tavolo) |
 | ✅ | 6. Schermata tavoli e spia | 12 asserzioni end-to-end, provate non vacue su 2 guasti |
-| 🔨 | 7. Access, dominio, prova sull'iPad | Access attivo e configurato; **manca la prova col browser** |
+| ✅ | 7. Access, dominio, login | provato dal vivo l'11/08/2026: si entra col codice e compare la scelta del tavolo |
 
-## Task 7 — dov'è arrivato
+## Task 7 — com'è finito
 
-**Fatto.** L'applicazione Access esiste, con destinazione di tipo *Workers*
-(copre URL di produzione e di anteprima), metodo di accesso **One-time PIN**
-(codice via email — non Google: deciso il 09/08/2026, la barriera è comunque la
-lista di email, e Google avrebbe richiesto un client OAuth su Google Cloud).
-`ACCESS_TEAM=smartcores` e `ACCESS_AUD` sono in `wrangler.jsonc` e il Worker è
-pubblicato (versione `c0ebac23`).
+Il lavoro è in piedi su **<https://roccamora.smartcores.org>**. Si entra con un
+**codice via email** (One-time PIN, non Google: deciso il 09/08/2026 — la
+barriera è comunque la lista di indirizzi, e Google avrebbe richiesto un client
+OAuth su Google Cloud). L'applicazione Access ha due destinazioni: il Worker
+(URL di produzione e anteprima) e il nome host pubblico.
 
-Verificato dal vivo: home, `/data/comune.json` e `/api/stato` rispondono tutti
-302 verso `smartcores.cloudflareaccess.com`, anche presentando un JWT inventato.
-Access intercetta prima del Worker, quindi la verifica nel Worker è la seconda
-linea e non l'unica.
+`ACCESS_TEAM=smartcores` e `ACCESS_AUD` in `wrangler.jsonc`. Verificato dal
+vivo: home, `/data/comune.json` e `/api/stato` rispondono 302 verso
+`smartcores.cloudflareaccess.com` anche presentando un JWT inventato.
 
-**Resta da fare, e richiede un browser:**
+**`ombre-su-roccamora.fabio-stocco85.workers.dev` è spento** (404): aggiungendo
+la route del dominio, wrangler ha disattivato da sé `workers.dev` — e con esso
+gli URL di anteprima. Per riaccenderlo servirebbe `"workers_dev": true`, ma
+allora andrebbe verificato che la destinazione Workers dell'applicazione Access
+lo copra ancora.
 
-1. Aprire <https://ombre-su-roccamora.fabio-stocco85.workers.dev>, entrare col
-   codice via email, e controllare che compaia **«chi gioca stasera?»** invece
-   della lista episodi. È la prova che l'anello si chiude: cookie di Access →
-   JWT al Worker → `/api/stato` 200 → schermata dei tavoli.
-2. Creare un tavolo, aprire un episodio, e verificare che la spia in home dica
-   *allineato*.
-3. **Durata sessione a 1 month**, sull'applicazione **e sul criterio** (quella
-   del criterio prevale): col default di 24 ore si rifà il login a metà serata.
-4. **La prova sull'iPad**, che nessun test sostituisce: login in Safari,
+### Quello che resta
+
+1. **Durata sessione a 1 month**, sull'applicazione **e sul criterio**: quella
+   del criterio prevale, e col default di 24 ore si rifà il login ogni giorno.
+2. **La prova sull'iPad**, che nessun test sostituisce: login in Safari,
    «Aggiungi alla schermata Home», aprire **dall'icona**, creare un tavolo,
    chiudere e riaprire. Se dall'icona ricompare il login e il giro passa da
-   Safari lasciando fuori l'app, è il rischio previsto nella spec: annotarlo
-   lì sotto «Rischi» e fermarsi a decidere insieme.
-
-**Il dominio `roccamora.smartcores.org` NON è stato aggiunto, apposta.** La
-destinazione Access è di tipo *Workers* e copre gli URL `workers.dev`, non un
-dominio personalizzato: aggiungerlo adesso aprirebbe una seconda porta *senza*
-Access davanti. Prima va aggiunta in Access una destinazione «nome host
-pubblico» per quel nome, poi si mette la route in `wrangler.jsonc`. Finché non
-serve, l'indirizzo `workers.dev` è protetto e va benissimo.
+   Safari lasciando fuori l'app, è il rischio previsto nella spec: annotarlo lì
+   sotto «Rischi» e fermarsi a decidere insieme.
+3. Da provare quando capita: una serata vera, e la partita ripresa da un altro
+   dispositivo.
 
 ## Come si riprende
 
@@ -73,9 +66,8 @@ Servono due server perché l'isolamento fra account non si può provare con un
 utente solo. Condividono lo stesso D1 locale, quindi il secondo vede davvero i
 tavoli del primo — e deve rifiutarli.
 
-Prossimo passo concreto: la prova col browser descritta sopra — entrare col
-codice via email e vedere se compare «chi gioca stasera?». Da lì in poi il
-lavoro è finito, salvo la prova sull'iPad.
+Prossimo passo concreto: nessuno in codice. Restano i due punti qui sopra —
+durata sessione e prova sull'iPad — che si fanno col browser.
 
 ## Cose sapute che il codice non dice
 

@@ -16,6 +16,13 @@
     "ACCESS_TEAM": "smartcores",
     "ACCESS_AUD": "a88f2f39cac5993fe0c75acfec3aece7a19d67d2a97a861a45d84777103e1128"
   },
+  // Questo nome e' anche una destinazione dell'applicazione Access (tipo «nome
+  // host pubblico»), quindi nasce protetto: Access ci rimanda dopo il login, ed
+  // e' il motivo per cui deve esistere. L'indirizzo workers.dev resta acceso e
+  // protetto anche lui dalla destinazione di tipo Workers.
+  "routes": [
+    { "pattern": "roccamora.smartcores.org", "custom_domain": true }
+  ],
   "d1_databases": [
     { "binding": "DB", "database_name": "ombre-salvataggi", "database_id": "b0a85d9c-e7a6-4c3b-8940-1a50ad87fee2" }
   ]
