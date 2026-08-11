@@ -82,7 +82,18 @@ const RACCOGLI = (esenti) => {
         // peggiore per un testo chiaro. Prima passavano tutti per «immagine» e
         // il controllo li saltava in silenzio — la lettera d'incarico e' stata
         // illeggibile per giorni proprio cosi'.
-        if (/url\(/.test(bi)) return { immagine: true };
+        if (/url\(/.test(bi)) {
+          // Una TEXTURE (immagine + colore di ripiego sotto) resta misurabile
+          // sul colore: la carta del manuale e' piu' chiara di --carta, quindi
+          // per l'inchiostro la stima e' prudente, mai ottimistica. Se un
+          // giorno si mettesse testo CHIARO su una texture, questa scorciatoia
+          // mentirebbe — ed e' il motivo per cui il fascicolo non lo fa.
+          const c = st.backgroundColor.match(/[\d.]+/g);
+          if (c && (c.length < 4 || Number(c[3]) > .85)) {
+            return { colore: st.backgroundColor, texture: true };
+          }
+          return { immagine: true };
+        }
         const stop = (bi.match(/rgba?\([^)]+\)/g) || []);
         if (!stop.length) return { immagine: true };
         const lumi = (s) => { const [r, g, b] = (s.match(/\d+/g) || []).slice(0, 3).map(Number);
@@ -186,7 +197,9 @@ for (const t of scarsi.slice(0, 14)) {
   console.log(`        ${t.dove}/${t.sel} ${t.r.toFixed(2)}:1 — «${t.testo}»`);
 }
 // niente tagli silenziosi: quel che non si e' potuto misurare si dichiara
-console.log(`   (${suImmagine.length} testi su immagine: non misurabili, vanno guardati)`);
+const suTexture = misurabili.filter((t) => t.fondo.texture).length;
+console.log(`   (${suImmagine.length} testi su fotografia: non misurabili, vanno guardati` +
+  `${suTexture ? ` · ${suTexture} su texture, misurati sul colore di ripiego` : ''})`);
 
 console.log(ko ? `\n${ko} FALLITI` : '\ntest-stile: tutto a posto');
 process.exit(ko ? 1 : 0);

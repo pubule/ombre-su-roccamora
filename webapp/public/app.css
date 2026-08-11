@@ -37,6 +37,9 @@
   /* La Belle Aurore rende molto piccola al nominale. Sta in un token perche'
      se al tavolo non si legge si torna indietro in una riga. */
   --mano-size: 22px;
+  /* la lettera e' scritta a mano da M.: piu' grande della grafia dei campi,
+     perche' qui si legge AD ALTA VOCE e sono duecento parole di fila */
+  --mano-lettera: 26px;
 
   /* segnali della mappa: non sono decorazione, vedi la board in fondo */
   --segnale-mossa: #7fe6db; --segnale-rivela: #d8b25e; --segnale-nemico: #a3253a;
@@ -181,7 +184,12 @@ em, i { font-style: italic; }
 .ora-riga.ora { color: var(--carta); border-color: var(--ceralacca); background: #23191c; }
 
 /* --- carta vera: l'eccezione che parla --- */
-.carta { background: linear-gradient(175deg, var(--carta), var(--carta-scura));
+/* La texture e' quella del manuale stampato (artworks/background manuale.png):
+   il foglio a schermo e quello che avete in mano sono lo stesso foglio.
+   Misurata: pixel medio 240,235,212 — piu' CHIARA di --carta, che resta sotto
+   come ripiego. Per l'inchiostro fa 14.2:1; misurare il contrasto sul colore
+   di ripiego e' quindi una stima prudente, mai ottimistica. */
+.carta { background: url('/assets/artworks/background%20manuale.png') center / cover, var(--carta);
   color: var(--carta-ink); border-radius: 1px; padding: 14px 16px;
   box-shadow: 0 12px 24px -14px #000, 0 1px 0 rgba(255, 255, 255, .5) inset; }
 .carta h3 { color: #6d1c26; font-size: 18px; }
@@ -383,12 +391,13 @@ em, i { font-style: italic; }
    inchiostro sopra. Tutto quello che ci sta dentro va scritto scuro — la
    conversione al fascicolo aveva mandato l'inchiostro a osso anche qui, e la
    lettera e' rimasta illeggibile (1.16:1) finche' non l'ha vista l'autore. */
-.lettera-panel { background: linear-gradient(175deg, var(--carta), var(--carta-scura));
+.lettera-panel { background: url('/assets/artworks/background%20manuale.png') center / cover, var(--carta);
   border-color: #3a3730; color: var(--carta-ink); }
 .lettera-panel h2, .lettera-panel p, .lettera-panel i, .lettera-panel .centrato { color: var(--carta-ink); }
-.lettera-testo { font-style: italic; font-size: 17px; line-height: 1.65;
-  color: var(--carta-ink); margin-top: 12px; }
-.lettera-testo b { color: #6d1c26; }
+.lettera-testo { font-family: 'Mano', cursive; font-style: normal;
+  font-size: var(--mano-lettera); line-height: 1.5;
+  color: #2a2318; margin-top: 12px; }
+.lettera-testo b { color: #6d1c26; font-weight: 400; }
 .lettera-panel .nota { letter-spacing: .08em; color: #5f5849; }
 
 /* sezioni della scheda eroe: titoletto + filetto, come la scheda stampata */
