@@ -69,12 +69,34 @@ def blocchi_episodio(src):
             for i, (n, pos) in enumerate(puliti)]
 
 
+# Il fascicolo scrive per ReportLab (<i>, <b>); Card Conjurer vuole i suoi
+# Text Codes ({i}, {b}) e i tag li stampa alla lettera sulla carta. La
+# traduzione sta qui, nell'unico punto da cui i testi passano.
+MARCATURA = [('<i>', '{i}'), ('</i>', '{/i}'), ('<b>', '{b}'), ('</b>', '{/b}'),
+             ('<br/>', ' '), ('<br>', ' ')]
+
+
+def per_la_carta(t):
+    for v, n in MARCATURA:
+        t = t.replace(v, n)
+    return ' '.join(t.split())
+
+
 def js_literal(s):
     """Testo python -> literal JS single-quoted, come lo scrive cards-data."""
     return s.replace('\\', '\\\\').replace("'", "\\'").replace('\n', ' ')
 
 
-def sync(scrivi=False, solo=None):
+# Quanto testo ci sta su una carta. La piu' lunga gia' RESA e guardata a
+# schermo (Ep.1, «Le note a margine») e' di 443 caratteri e riempie sei righe
+# lasciandone libere due o tre: 700 e' il tetto con margine. Sopra, il testo
+# del fascicolo non e' una correzione da riportare, e' semplicemente piu'
+# lungo di quanto la carta possa contenere - e la carta e' per costruzione la
+# versione condensata. Quelle divergenze si segnalano e non si scrivono.
+STA_SULLA_CARTA = 700
+
+
+def sync(scrivi=False, solo=None, tetto=STA_SULLA_CARTA):
     """`solo`: elenco di soggetti da toccare. Senza, riporta tutto e scrive
     tutto — sconsigliato in blocco: parte delle divergenze storiche sono
     accorciature volute per far stare il testo sulla carta, e vanno guardate
@@ -82,7 +104,7 @@ def sync(scrivi=False, solo=None):
     src = io.open(CARDS, encoding='utf-8').read()
     fasce = blocchi_episodio(src)
     dati = luoghi_per_episodio()
-    diff, orfani = [], []
+    diff, orfani, troppo_lunghe = [], [], []
 
     for n_ep, luoghi in sorted(dati.items()):
         fascia = [f for f in fasce if f[0] == n_ep]
@@ -92,7 +114,7 @@ def sync(scrivi=False, solo=None):
         for L in luoghi:
             for a in L.get('approfondimenti', []) or []:
                 sogg = a.get('soggetto')
-                atteso = ' '.join((a.get('testo') or '').split())
+                atteso = per_la_carta(a.get('testo') or '')
                 if not sogg or not atteso:
                     continue
                 if solo is not None and sogg not in solo:
@@ -107,6 +129,9 @@ def sync(scrivi=False, solo=None):
                     continue
                 attuale = ' '.join(m.group(2).replace("\\'", "'").split())
                 if attuale != atteso:
+                    if tetto and len(atteso) > tetto:
+                        troppo_lunghe.append((n_ep, sogg, len(attuale), len(atteso)))
+                        continue
                     diff.append((n_ep, sogg, attuale, atteso))
                     if scrivi:
                         src = src[:m.start(2)] + js_literal(atteso) + src[m.end(2):]
@@ -123,6 +148,11 @@ def sync(scrivi=False, solo=None):
         print('EP%-3d %s  (%d -> %d)%s' % (n_ep, sogg, len(prima), len(dopo), cresce))
         print('   - %s' % prima[:150])
         print('   + %s' % dopo[:150])
+    if troppo_lunghe:
+        print('\nNON scritte - il testo del fascicolo non sta sulla carta '
+              '(tetto %d caratteri, vedi STA_SULLA_CARTA):' % tetto)
+        for n_ep, sogg, a, b in troppo_lunghe:
+            print('   EP%-3d %s  (%d -> %d)' % (n_ep, sogg, a, b))
     if orfani:
         print('\nApprofondimenti non trovati in cards-data.js (soggetto rinominato o carta assente):')
         for n_ep, s in orfani:
@@ -141,5 +171,7 @@ if __name__ == '__main__':
     ap = argparse.ArgumentParser()
     ap.add_argument('--scrivi', action='store_true')
     ap.add_argument('--solo', help='soggetti separati da ; (solo questi)')
+    ap.add_argument('--tetto', type=int, default=STA_SULLA_CARTA,
+                    help='caratteri massimi che stanno sulla carta (0 = nessun tetto)')
     a = ap.parse_args()
-    sys.exit(0 if sync(a.scrivi, a.solo.split(';') if a.solo else None) >= 0 else 1)
+    sys.exit(0 if sync(a.scrivi, a.solo.split(';') if a.solo else None, a.tetto) >= 0 else 1)

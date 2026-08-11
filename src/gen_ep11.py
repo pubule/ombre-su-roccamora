@@ -386,7 +386,7 @@ TILES_11 = [
                  'uomo ingannato.',
          hook='La Corda del Campanaro: la grondaia che cede non vi ferisce.',
          cerca='Incastrato tra due tegole, un treppiede da geometra abbandonato: dentro la '
-               'sacca, una fiala d’olio da lanterna (utile a chi ha la Lanterna Cieca).',
+               'sacca, una fiala d’olio da lanterna (utile a chi ha la Lanterna da Guglia).',
          arredi=[(1, 2, 'casse'), (2, 0, 'altare')]),
     dict(id='T5', nome='IL BALLATOIO DELLA TORRE', exits={'S': 'T4', 'N': 'T6'}, esposta=True,
          testo='Il ballatoio che gira attorno alla Torre, appena sotto la cella: di qui si vede '
@@ -585,7 +585,7 @@ def spedizione():
         Paragraph('• <b>CONOSCE I TETTI.</b> Il boss ignora il vento e, una volta per round, '
                   'salta a una tessera non adiacente. Con il Taccuino Ordinato (Domanda 3) '
                   'sapete dove va: perde la scorciatoia. La Corda annulla le due trappole di '
-                  'caduta (T2, T4) e abilita la cattura; la Lanterna Cieca leva il malus del '
+                  'caduta (T2, T4) e abilita la cattura; la Lanterna da Guglia leva il malus del '
                   'buio.', BODY)])
     c.showPage()
     import gen_narrator as N
@@ -725,7 +725,7 @@ def soluzione():
         'feriscono) e potete TRATTENERE Speranza sul cornicione — la cattura a 1 Ferita è '
         'automatica. <i>Senza:</i> le trappole feriscono e la cattura richiede una prova VIGORE '
         'rischiosa (fallita = lo perdete nel vuoto). Aiuti: il Taccuino Ordinato (Camera dei '
-        'Pesi, spegne la scorciatoia e +1 NERVI), la Lanterna Cieca (Campanile, leva il malus '
+        'Pesi, spegne la scorciatoia e +1 NERVI), la Lanterna da Guglia (Campanile, leva il malus '
         'del buio). <i>Esche:</i> il Tesserino Perfetto (un falso, non un mandante) e la Colpa '
         'del Morto (Ratti è la vittima, non il regista).',
         '<b>Nota sul rivelatorio (Domanda 2):</b> lo confermano apertamente tre carte — la '
@@ -751,7 +751,7 @@ def soluzione():
         '+1 di base.',
         '<b>Le trappole (T2, T4).</b> Una tegola e una grondaia che cedono: senza la Corda del '
         'Campanaro, prova VIGORE (Media) o 1 danno e un round perso a risalire; con la '
-        'Corda, siete assicurati e non c’è prova. La Lanterna Cieca annulla il −1 alle prove di '
+        'Corda, siete assicurati e non c’è prova. La Lanterna da Guglia annulla il −1 alle prove di '
         'vento sulle tessere esposte al buio.',
         '<b>Il Caposquadra.</b> Boss agile: Att +2, Dif 8, Fer 5, Mov 4, Danno 2. Conosce i '
         'tetti: ignora il vento e, 1 volta per round, salta a una tessera non adiacente. Col '
@@ -932,7 +932,7 @@ OGGETTI_LUOGO_11 = {
         ('Reperto C', 'la Commessa del Rilievo', ''),
     ],
     6: [
-        'La Lanterna Cieca',
+        'La Lanterna da Guglia',
     ],
     7: [
         'La Colpa del Morto',

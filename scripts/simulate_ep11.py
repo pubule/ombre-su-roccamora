@@ -9,7 +9,7 @@ con una REGOLA D'AMBIENTE (vento/vertigine) e obiettivo CATTURA VIVA del boss.
     turno una prova NERVI a ogni eroe; il livello del vento sale di 1 a ogni
     carta crescendo (raffica). Fallire costa lo scatto e, se il vento e' forte
     o l'eroe e' allo stremo, 1 danno da vertigine. Il Taccuino Ordinato (D3)
-    da' +1; la Lanterna Cieca leva il malus del buio.
+    da' +1; la Lanterna da Guglia leva il malus del buio.
   - CATTURA VIVA: il Caposquadra va ridotto a CATTURA_SOGLIA Ferite, non a 0;
     poi si cattura (Corda del Campanaro = automatico; senza = prova FORZA,
     fallita = lui sfugge e una raffica sull'esposto lo fa CADERE, filo perso).
@@ -270,7 +270,7 @@ def simula_indagine(party, log, esplora_a_fondo=False):
             log('    -> Trovata: LA CORDA DEL CAMPANARO (assicura le trappole e la cattura — Domanda 4).')
         if l.get('lanterna'):
             lanterna = True
-            log('    -> Trovata: LA LANTERNA CIECA (leva il malus del buio in quota).')
+            log('    -> Trovata: LA LANTERNA DA GUGLIA (leva il malus del buio in quota).')
         if l.get('incrocio_d1'):
             incroci_d1 += 1
         if l.get('incrocio_d3'):

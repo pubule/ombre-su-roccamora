@@ -115,5 +115,32 @@ for (const [nome, pat, ancheArbitro] of SONDE) {
   ok(monche.length === 0, `nessuna carta-luogo o -approfondimento monca${monche.length ? ' — ' + monche.join(', ') : ''}`);
 }
 
+// --- le carte da stampare vogliono i Text Codes, non il markup dei PDF -----
+// Card Conjurer interpreta {i}/{b}; un <i> se lo stampa alla lettera in mezzo
+// alla frase. La traduzione la fa sync-cards-data.py; questa è la rete.
+{
+  const { createRequire } = await import('module');
+  const d = createRequire(import.meta.url)('../scripts/cardconjurer/cards-data.js');
+  const male = new Map();
+  for (const g of Object.keys(d)) {
+    if (!Array.isArray(d[g])) continue;
+    for (const c of d[g]) {
+      if (!c?.rules) continue;
+      const tag = c.rules.match(/<\/?[a-zA-Z][^>]*>/g);
+      if (tag) male.set(c.title, tag.join(' '));
+    }
+  }
+  ok(male.size === 0, `nessun tag HTML nelle carte da stampare${male.size
+    ? ' — ' + [...male].slice(0, 3).map(([t, x]) => `${t} (${x})`).join(' | ') : ''}`);
+  // e nessuna carta più lunga di quanto il riquadro possa reggere in leggibilità
+  const OLTRE = [];
+  for (const g of Object.keys(d)) {
+    if (!Array.isArray(d[g])) continue;
+    for (const c of d[g]) if (c?.rules && c.rules.length > 800) OLTRE.push(`${c.title} (${c.rules.length})`);
+  }
+  ok(OLTRE.length === 0, `nessuna carta oltre 800 caratteri (a 1546 il corpo scende sotto il leggibile)${
+    OLTRE.length ? ' — ' + [...new Set(OLTRE)].join(', ') : ''}`);
+}
+
 console.log(errori ? `\n${errori} SONDE SCATTATE` : '\ntest-testi: tutto a posto');
 process.exit(errori ? 1 : 0);

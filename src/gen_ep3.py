@@ -321,7 +321,7 @@ TILES_3 = [
                'turno. Se il gruppo porta LA CANNA MUTA, nessuna prova: la galleria non vi sente.',
          hook='Se il gruppo ha letto il Presagio «La voce nel pozzo» (Luogo 7): sanno che chi '
               'tace e stringe qualcosa al petto passa — la prova è Media invece che Difficile. '
-              'I TAPPI DI CERA danno il loro +1 qui, come da carta.',
+              'I TAPPI DI TOBIA danno il loro +1 qui, come da carta.',
          cerca_vuoto='Nella galleria non c’è niente da trovare: solo la vostra voce, che ci '
                      'mette troppo a tornare — e quando torna, non è più vostra.',
          arredi=[(0, 1, 'molo'), (3, 1, 'molo'), (0, 2, 'molo'), (3, 2, 'molo')]),
@@ -670,7 +670,7 @@ def soluzione():
         'petto, il coro là sotto non vi «sente» — nella Galleria delle Eco (T3) nessuna prova. '
         '<i>Nota per chi arbitra:</i> la Lanterna a Specchio e il Rasoio d’Argento sono esche — '
         'nessun effetto là sotto (la luce non è il problema, e il rasoio non è mai stato '
-        'dell’Accordatore). I Tappi di Cera sono onesti: +1 NERVI in T3, come da carta.',
+        'dell’Accordatore). I Tappi di Tobia sono onesti: +1 NERVI in T3, come da carta.',
         '<b>Testimone inaffidabile (Domanda 2):</b> il cronista Ranuzzi (Gazzetta, L3) accusa con '
         'sicurezza «il maestro del coro della Parrocchia» — è un DEPISTAGGIO: Ranuzzi vende '
         'storie, e il maestro del coro (L7) trema di rabbia, non di colpa. Lo smaschera '
@@ -882,7 +882,7 @@ OGGETTI_LUOGO_3 = {
         ('Oggetto', 'Il Campanello di Piero', 'dall’approfondimento su Piero'),
     ],
     4: [
-        'I Tappi di Cera',
+        'I Tappi di Tobia',
         'La Lanterna a Specchio',
         ('Reperto C', 'la Pagina del Quaderno', ''),
     ],

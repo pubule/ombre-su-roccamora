@@ -16,7 +16,7 @@ di Piero (dal barbiere con la Testimonianza L2, altrimenti Cercando in T5),
 la Voce Cava in T1 se la Domanda 3 e' sbagliata (modellata come <2 incroci
 tra L1/L5/L6/L9 visitati). Non simulati e dichiarati: il Bivio Ep.2
 (Litania x2 / soglia Canto 4 / carta «La campana nuova» / tipografo
-rimosso), i Tappi di Cera (+1 NERVI in T3, a favore degli eroi), la
+rimosso), i Tappi di Tobia (+1 NERVI in T3, a favore degli eroi), la
 lanterna da minatore (Cercare T2), il vantaggio Domanda 1 (niente pesca al
 1° round) e il rischio "suonare il campanello in T5".
 

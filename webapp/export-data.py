@@ -551,7 +551,7 @@ SOLUZIONI = dict(
             dict(q='COSA portate per la via delle guglie?',
                  risposta='LA CORDA DEL CAMPANARO (la Bottega del Cordaio).',
                  esatta='Assicurati (le trappole di caduta T2/T4 non feriscono) e la cattura del Caposquadra a 1 Ferita è automatica.',
-                 sbagliata='Trappole feriscono e la cattura richiede una prova VIGORE rischiosa (fallita = lo perdete nel vuoto). (Tesserino Perfetto e Colpa del Morto sono esche; Taccuino Ordinato spegne la scorciatoia, Lanterna Cieca leva il buio.)'),
+                 sbagliata='Trappole feriscono e la cattura richiede una prova VIGORE rischiosa (fallita = lo perdete nel vuoto). (Tesserino Perfetto e Colpa del Morto sono esche; Taccuino Ordinato spegne la scorciatoia, Lanterna da Guglia leva il buio.)'),
         ],
         boss='IL CAPOSQUADRA',
     ),
