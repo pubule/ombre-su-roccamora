@@ -7,6 +7,13 @@
   // non conosce ancora date piu' recenti, e `wrangler dev` non parte.
   "compatibility_date": "2026-08-08",
   "main": "./webapp/worker/index.js",
+  // dist e' una COPIA: senza questo, un `wrangler deploy` lanciato a mano —
+  // saltando deploy.sh — pubblica la copia vecchia e la correzione resta a
+  // terra, con tutti i banchi verdi. E' successo l'11/08/2026 col tag <font>
+  // delle lettere. Cosi' la cartella si riassembla comunque, sempre.
+  // «bash ...» e non «./...»: su Windows il comando lo lancia cmd.exe, che di
+  // uno script sh non sa cosa fare.
+  "build": { "command": "bash ./webapp/build-dist.sh" },
   "assets": { "directory": "./webapp/dist", "binding": "ASSETS" },
   // L'applicazione Access che sta davanti a questo Worker. ACCESS_AUD e' il suo
   // Application Audience tag: il Worker rifiuta i token emessi per un'ALTRA

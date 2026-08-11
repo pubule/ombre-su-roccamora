@@ -152,5 +152,10 @@ npx --no-install wrangler dev --var OSR_DEV_EMAIL:due@esempio.it --port 8788
   schermo sull'iPad. La traduzione sta in `dump()` di `export-data.py`, unico
   punto da cui passano tutti i JSON; `test-engine` controlla che nei dati non
   resti nessun tag fuori dalla lista.
+- **`webapp/dist` e' una copia, e una copia si scorda.** Pubblicando con
+  `wrangler deploy` a mano invece di `deploy.sh` e' andata online la dist
+  vecchia: correzione committata, banchi verdi, e sull'iPad il difetto ancora
+  li'. Ora `wrangler.jsonc` ha `build.command`, quindi la cartella si
+  riassembla da sola a ogni deploy, anche saltando lo script.
 - Database D1: `ombre-salvataggi`, id `b0a85d9c-e7a6-4c3b-8940-1a50ad87fee2`.
   Access: team `smartcores`, destinazioni Worker + nome host pubblico.
