@@ -2,6 +2,7 @@
 // Un tavolo e' un gruppo di persone che gioca la sua campagna: le partite di
 // due gruppi non si incrociano mai, nemmeno sullo stesso episodio.
 import { impostaTavolo, tavoloCorrente, dimenticaTavolo } from './store.js';
+import { conferma } from './chiedi.js';
 
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) =>
   ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -64,9 +65,11 @@ export async function vistaTavoli(app, quandoScelto) {
     // Qui si butta via una campagna intera, non una partita: la domanda dice
     // quanto costa, con il numero davanti.
     const avviso = quante
-      ? `Eliminare «${nome}» e le sue ${quante} ${quante === 1 ? 'partita' : 'partite'}? Non si torna indietro.`
-      : `Eliminare «${nome}»? Non ha partite salvate.`;
-    if (!confirm(avviso)) return;
+      ? `Se ne vanno anche le sue ${quante} ${quante === 1 ? 'partita' : 'partite'}. Non si torna indietro.`
+      : 'Non ha partite salvate.';
+    if (!await conferma(`Eliminare «${nome}»?`, {
+      dettaglio: avviso, si: 'eliminate il tavolo', no: 'lasciate stare',
+    })) return;
     try {
       const r = await fetch(`/api/tavolo?id=${encodeURIComponent(id)}`, { method: 'DELETE' });
       if (!r.ok) throw new Error(r.status);

@@ -5,6 +5,7 @@ import { dati, nuovaPartita, salva, carica, cancella, tavoloCorrente, nomeTavolo
 import { schedaEroe } from './scheda-eroe.js';
 import { vistaTavoli } from './tavoli.js';
 import { decidi, avviaCoda, stato as statoSync } from './sync.js';
+import { conferma } from './chiedi.js';
 
 const app = document.getElementById('app');
 const h = (html) => { app.innerHTML = html; window.scrollTo(0, 0); };
@@ -177,10 +178,11 @@ async function vistaEpisodio(epId) {
   `);
   document.getElementById('indietro').onclick = vistaHome;
   document.getElementById('continua')?.addEventListener('click', () => continua(epId));
-  document.getElementById('ricomincia')?.addEventListener('click', () => {
-    if (confirm('Cancellare la partita in corso di questo episodio?')) {
-      cancella(epId); vistaEpisodio(epId);
-    }
+  document.getElementById('ricomincia')?.addEventListener('click', async () => {
+    if (await conferma('Ricominciare da capo?', {
+      dettaglio: 'La partita in corso di questo episodio si cancella. Non si torna indietro.',
+      si: 'cancellate la partita', no: 'lasciate stare',
+    })) { cancella(epId); vistaEpisodio(epId); }
   });
   let modo = null;
   let fase = 'indagine';

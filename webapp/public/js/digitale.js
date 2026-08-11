@@ -14,6 +14,7 @@ import { rendi, norm, costruisciMazzo, carteDaPescare, pesca, fineRound,
 import { tiraProva } from './dadi.js';
 import { abilitaSchede } from './scheda-eroe.js';
 import { controBusta } from './engine.js';
+import { conferma } from './chiedi.js';
 
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) =>
   ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -2307,8 +2308,11 @@ function messaggio(titolo, corpo) {
     app.querySelector('#ok-msg').onclick = ok;
   });
 }
-function finePartita(esito) {
-  if (!confirm(esito === 'vittoria' ? 'Vittoria?' : 'Tutti gli eroi a terra?')) return;
+async function finePartita(esito) {
+  if (!await conferma(esito === 'vittoria' ? 'Vittoria?' : 'Tutti gli eroi a terra?', {
+    dettaglio: esito === 'vittoria' ? 'Si chiude qui.' : 'La notte vince.',
+    si: 'sì, si chiude', no: 'non ancora',
+  })) return;
   SP().esito = esito; salvaP(); epilogo();
 }
 function epilogo() {

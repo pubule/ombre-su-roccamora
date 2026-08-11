@@ -10,6 +10,7 @@ import { rendi, norm, costruisciMazzo, carteDaPescare, pesca, fineRound,
 import { tiraProva } from './dadi.js';
 import { abilitaSchede } from './scheda-eroe.js';
 import { controBusta } from './engine.js';
+import { conferma } from './chiedi.js';
 
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) =>
   ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -1032,11 +1033,13 @@ function faseNemici() {
 }
 
 // ------------------------------------------------------------------ fine
-function fine(esito) {
+async function fine(esito) {
   const sp = SP();
-  if (!confirm(esito === 'vittoria'
-    ? 'La spedizione è compiuta? Si chiude qui.'
-    : 'Tutti gli eroi sono a terra? La notte vince.')) return;
+  if (!await conferma(esito === 'vittoria'
+    ? 'La spedizione è compiuta?' : 'Tutti gli eroi sono a terra?', {
+    dettaglio: esito === 'vittoria' ? 'Si chiude qui.' : 'La notte vince.',
+    si: 'sì, si chiude', no: 'non ancora',
+  })) return;
   sp.esito = esito;
   salvaP();
   epilogo();

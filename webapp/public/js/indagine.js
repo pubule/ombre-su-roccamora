@@ -10,6 +10,7 @@ import { rendi, norm, bussa, dichiaraVoce, vociMappa, luogoVisitabile,
          urlArt, cartaLuogo, cartaApprofondimento, cartaOggetto,
          urlCarta as urlCartaSafe } from './engine.js';
 import { schedaEroe, abilitaSchede } from './scheda-eroe.js';
+import { conferma } from './chiedi.js';
 
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) =>
   ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -696,9 +697,12 @@ function taccuino() {
     salvaP();
   };
   app.querySelector('#salva-risposte').onclick = () => { leggi(); home(); };
-  app.querySelector('#apri-busta').onclick = () => {
+  app.querySelector('#apri-busta').onclick = async () => {
     leggi();
-    if (!confirm('Aprire la busta chiude l’indagine per sempre. Siete pronti?')) return;
+    if (!await conferma('Rompete il sigillo?', {
+      dettaglio: 'La busta si apre una volta sola: l’indagine si chiude per sempre.',
+      si: 'rompete il sigillo', no: 'non ancora', sigillo: 'L',
+    })) return;
     busta();
   };
 }
