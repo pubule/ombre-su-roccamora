@@ -37,6 +37,17 @@ export async function api(request, env, email) {
     return jsonRisposta({ id });
   }
 
+  if (p === '/api/tavolo' && metodo === 'DELETE') {
+    const id = url.searchParams.get('id');
+    if (!(await mioTavolo(env, email, id))) return jsonRisposta({ errore: 'non trovato' }, 404);
+    // I salvataggi se ne vanno con lui: ON DELETE CASCADE, che in D1 morde
+    // davvero (provato). Cancellare un tavolo cancella una campagna intera —
+    // la domanda «sei sicuro» la fa la schermata, qui si esegue.
+    await env.DB.prepare('DELETE FROM tavoli WHERE id = ? AND proprietario = ?')
+      .bind(id, email).run();
+    return jsonRisposta({ ok: true });
+  }
+
   if (p === '/api/salvataggio' && metodo === 'GET') {
     const tavolo = url.searchParams.get('tavolo');
     if (!(await mioTavolo(env, email, tavolo))) return jsonRisposta({ errore: 'non trovato' }, 404);

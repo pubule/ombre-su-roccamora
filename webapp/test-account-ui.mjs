@@ -108,6 +108,49 @@ ok(await p2.getByText(/due versioni di questa partita/i).count() > 0,
 ok(await p2.getByText(/round 9/).count() > 0 && await p2.getByText(/round 3/).count() > 0,
   'la schermata mostra a che punto sono tutt\'e due');
 
+// --- 7. con dei tavoli già esistenti si può comunque crearne un altro
+const p3 = await nuovaScheda();
+await p3.goto(BASE, { waitUntil: 'networkidle' });
+await p3.evaluate(() => { localStorage.removeItem('osr.tavolo'); });
+await p3.reload({ waitUntil: 'networkidle' });
+await p3.waitForTimeout(500);
+ok(await p3.getByText(/nuovo tavolo/i).count() > 0,
+  'il pulsante «nuovo tavolo» c\'è anche quando i tavoli esistono già');
+const primaDi = (await (await fetch(BASE + '/api/stato')).json()).tavoli.length;
+await p3.getByText(/nuovo tavolo/i).first().click();
+await p3.fill('#nome-tavolo', 'Terzo gruppo');
+await p3.click('#crea-tavolo');
+await p3.waitForTimeout(900);
+const dopoCrea = (await (await fetch(BASE + '/api/stato')).json()).tavoli;
+ok(dopoCrea.length === primaDi + 1 && dopoCrea.some((t) => t.nome === 'Terzo gruppo'),
+  'il tavolo in più viene creato');
+
+// --- 8. e si può eliminare, portandosi via le sue partite
+const daButtare = dopoCrea.find((t) => t.nome === 'Terzo gruppo');
+await p3.evaluate(async (t) => {
+  const { impostaTavolo, salva } = await import('/js/store.js');
+  impostaTavolo(t.id, t.nome);
+  salva({ v: 1, episodio: 'ep3', modo: 'tavolo', party: ['CARLA DOSTI'], fase: 'indagine',
+          indagine: { ora: 20, chiusa: false }, spedizione: { round: 1 } });
+}, daButtare);
+await p3.waitForTimeout(4000);
+ok((await (await fetch(BASE + '/api/stato')).json()).salvataggi.some((s) => s.tavolo === daButtare.id),
+  'il tavolo da buttare ha una partita sul server');
+
+await p3.goto(BASE, { waitUntil: 'networkidle' });
+await p3.evaluate(() => { localStorage.removeItem('osr.tavolo'); });
+await p3.reload({ waitUntil: 'networkidle' });
+await p3.waitForTimeout(500);
+await p3.locator(`.elimina-tavolo[data-id="${daButtare.id}"]`).click();
+await p3.waitForTimeout(1500);
+const finale = await (await fetch(BASE + '/api/stato')).json();
+ok(!finale.tavoli.some((t) => t.id === daButtare.id), 'il tavolo eliminato sparisce');
+ok(!finale.salvataggi.some((s) => s.tavolo === daButtare.id),
+  'le partite se ne vanno col tavolo');
+ok(finale.tavoli.some((t) => t.id === idTavolo), 'gli altri tavoli restano');
+ok(await p3.evaluate((id) => !Object.keys(localStorage).some((k) => k.includes(id)), daButtare.id),
+  'del tavolo eliminato non resta traccia sul dispositivo');
+
 await browser.close();
 console.log(ko ? `\n${ko} FALLITI` : '\ntest-account-ui: tutto a posto');
 process.exit(ko ? 1 : 0);

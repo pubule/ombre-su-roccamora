@@ -1,7 +1,7 @@
 // Prima schermata: si sceglie il tavolo, poi si entra negli episodi.
 // Un tavolo e' un gruppo di persone che gioca la sua campagna: le partite di
 // due gruppi non si incrociano mai, nemmeno sullo stesso episodio.
-import { impostaTavolo, tavoloCorrente } from './store.js';
+import { impostaTavolo, tavoloCorrente, dimenticaTavolo } from './store.js';
 
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) =>
   ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -18,10 +18,12 @@ export async function vistaTavoli(app, quandoScelto) {
 
   if (offline && tavoloCorrente()) return quandoScelto(tavoloCorrente());
 
+  const quante = (id) => stato.salvataggi.filter((s) => s.tavolo === id).length;
   const ultima = (id) => {
     const suoi = stato.salvataggi.filter((s) => s.tavolo === id);
     if (!suoi.length) return 'nessuna serata giocata';
-    return `ultima serata: ${new Date(Math.max(...suoi.map((s) => s.aggiornato))).toLocaleDateString('it-IT')}`;
+    const q = new Date(Math.max(...suoi.map((s) => s.aggiornato))).toLocaleDateString('it-IT');
+    return `${suoi.length} ${suoi.length === 1 ? 'partita' : 'partite'} · ultima serata: ${q}`;
   };
 
   app.innerHTML = `
@@ -33,9 +35,12 @@ export async function vistaTavoli(app, quandoScelto) {
     <div class="pannello">
       <h2>chi gioca stasera?</h2>
       ${stato.tavoli.map((t) => `
-        <div class="modo tavolo-voce" data-id="${esc(t.id)}">
+        <div class="modo tavolo-voce${t.id === tavoloCorrente() ? ' attivo' : ''}"
+             data-id="${esc(t.id)}" data-nome="${esc(t.nome)}">
           <h3>${esc(t.nome)}</h3>
           <p>${ultima(t.id)}</p>
+          <button class="btn piccolo elimina-tavolo" data-id="${esc(t.id)}"
+                  data-nome="${esc(t.nome)}" data-partite="${quante(t.id)}">elimina</button>
         </div>`).join('')
       || '<p class="nota mt">Nessun tavolo ancora. Un tavolo è un gruppo che gioca la sua campagna.</p>'}
       <div class="btn-riga mt">
@@ -48,8 +53,32 @@ export async function vistaTavoli(app, quandoScelto) {
     </div>`;
 
   app.querySelectorAll('.tavolo-voce').forEach((el) => el.addEventListener('click', () => {
-    impostaTavolo(el.dataset.id);
+    impostaTavolo(el.dataset.id, el.dataset.nome);
     quandoScelto(el.dataset.id);
+  }));
+
+  app.querySelectorAll('.elimina-tavolo').forEach((el) => el.addEventListener('click', async (e) => {
+    e.stopPropagation();            // il click non deve anche ENTRARE nel tavolo
+    const { id, nome, partite } = el.dataset;
+    const quante = Number(partite);
+    // Qui si butta via una campagna intera, non una partita: la domanda dice
+    // quanto costa, con il numero davanti.
+    const avviso = quante
+      ? `Eliminare «${nome}» e le sue ${quante} ${quante === 1 ? 'partita' : 'partite'}? Non si torna indietro.`
+      : `Eliminare «${nome}»? Non ha partite salvate.`;
+    if (!confirm(avviso)) return;
+    try {
+      const r = await fetch(`/api/tavolo?id=${encodeURIComponent(id)}`, { method: 'DELETE' });
+      if (!r.ok) throw new Error(r.status);
+    } catch {
+      const p = document.createElement('p');
+      p.className = 'nota mt';
+      p.textContent = 'Non riesco a eliminare il tavolo: manca la rete. Riprova.';
+      el.closest('.pannello').append(p);
+      return;
+    }
+    dimenticaTavolo(id);            // senza questo risorgerebbe alla prima sincronizzazione
+    vistaTavoli(app, quandoScelto);
   }));
   document.getElementById('nuovo-tavolo').onclick = () => {
     document.getElementById('modulo-tavolo').style.display = '';
@@ -73,7 +102,7 @@ export async function vistaTavoli(app, quandoScelto) {
       document.getElementById('modulo-tavolo').append(p);
       return;
     }
-    impostaTavolo(id);
+    impostaTavolo(id, nome);
     quandoScelto(id);
   };
 }

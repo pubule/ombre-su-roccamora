@@ -89,6 +89,26 @@ ok((await (await chiama('GET', `/api/salvataggio?tavolo=${idT}&episodio=ep1`)).j
 await chiama('DELETE', `/api/salvataggio?tavolo=${idT}&episodio=ep1`);
 ok((await chiama('GET', `/api/salvataggio?tavolo=${idT}&episodio=ep1`)).status === 404, 'cancella');
 
+// --- eliminare un tavolo si porta via le sue partite
+const idT3 = crypto.randomUUID();
+await chiama('POST', '/api/tavolo', { id: idT3, nome: 'Da buttare' });
+await chiama('POST', '/api/salvataggio', { tavolo: idT3, episodio: 'ep5', aggiornato: 10, dati: '{"a":1}' });
+await chiama('POST', '/api/salvataggio', { tavolo: idT3, episodio: 'ep6', aggiornato: 20, dati: '{"b":2}' });
+ok((await chiama('DELETE', `/api/tavolo?id=${idT3}`)).ok, 'elimina il tavolo');
+const dopoElim = await (await chiama('GET', '/api/stato')).json();
+ok(!dopoElim.tavoli.some((t) => t.id === idT3), 'il tavolo eliminato sparisce dall\'elenco');
+ok(!dopoElim.salvataggi.some((s) => s.tavolo === idT3),
+  'le partite del tavolo eliminato spariscono con lui (cascata)');
+ok(dopoElim.tavoli.some((t) => t.id === idT2), 'gli altri tavoli restano');
+
+// e non si elimina il tavolo di un altro account
+const idT4 = crypto.randomUUID();
+await chiama('POST', '/api/tavolo', { id: idT4, nome: 'Non toccarlo' });
+ok((await altro('DELETE', `/api/tavolo?id=${idT4}`)).status === 404,
+  "non si elimina il tavolo di un altro account");
+ok((await (await chiama('GET', '/api/stato')).json()).tavoli.some((t) => t.id === idT4),
+  'dopo il tentativo altrui il tavolo e\' ancora li\'');
+
 // il varco di sviluppo non deve finire in produzione
 const cfg = fs.readFileSync(new URL('../wrangler.jsonc', import.meta.url), 'utf8');
 ok(!cfg.includes('OSR_DEV_EMAIL'), 'OSR_DEV_EMAIL non compare in wrangler.jsonc');

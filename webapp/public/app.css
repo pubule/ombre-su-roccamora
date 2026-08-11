@@ -643,3 +643,7 @@ em, i { font-style: italic; }
 .btn.piccolo { font-size: .72rem; padding: .25rem .6rem; }
 .campo { width: 100%; padding: .7rem; font-family: inherit; font-size: 1rem;
   background: #0e0c11; color: inherit; border: 1px solid #3a3340; border-radius: 3px; }
+/* elenco tavoli: il pulsante elimina sta in un angolo della voce, non in mezzo */
+.tavolo-voce { position: relative; }
+.tavolo-voce .elimina-tavolo { position: absolute; top: .6rem; right: .6rem; opacity: .5; }
+.tavolo-voce .elimina-tavolo:hover { opacity: 1; }

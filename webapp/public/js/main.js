@@ -1,7 +1,7 @@
 // Shell della webapp: home -> episodio -> modalita' -> party -> partita.
 // W-A: navigazione e stato; le viste Indagine/Spedizione arrivano in W-B
 // (motore arbitro) e qui hanno un segnaposto onesto.
-import { dati, nuovaPartita, salva, carica, cancella, tavoloCorrente } from './store.js';
+import { dati, nuovaPartita, salva, carica, cancella, tavoloCorrente, nomeTavoloCorrente } from './store.js';
 import { schedaEroe } from './scheda-eroe.js';
 import { vistaTavoli } from './tavoli.js';
 import { decidi, avviaCoda, stato as statoSync } from './sync.js';
@@ -77,7 +77,8 @@ async function vistaHome() {
       <div class="sotto">società del lume · roccamora, 1889</div>
       <div class="filetto"></div>
       ${tavoloCorrente() ? `<div class="riga-tavolo">
-        <span class="spia" id="spia">${esc(statoSync())}</span>
+        <span class="spia">${esc(nomeTavoloCorrente() || 'tavolo senza nome')} ·
+          <span id="spia">${esc(statoSync())}</span></span>
         <button class="btn piccolo" id="cambia-tavolo">cambia tavolo</button>
       </div>` : ''}
     </header>

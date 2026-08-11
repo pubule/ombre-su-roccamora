@@ -52,6 +52,13 @@ lo copra ancora.
 3. Da provare quando capita: una serata vera, e la partita ripresa da un altro
    dispositivo.
 
+### Aggiunto l'11/08/2026
+
+Gestione dei tavoli: si elimina un tavolo dalla sua voce nell'elenco (con le
+sue partite, per cascata), e la home mostra il nome del tavolo corrente
+accanto alla spia — «cambia tavolo» era gia' li' ma non si trovava, e sembrava
+che un tavolo nuovo si potesse creare solo quando non ce n'erano.
+
 ## Come si riprende
 
 ```bash

@@ -20,7 +20,13 @@ const chiaveDi = (tavolo, episodio) =>
   tavolo ? `${PREFISSO}${tavolo}.${episodio}` : `${PREFISSO}${episodio}`;
 
 export const tavoloCorrente = () => localStorage.getItem(CHIAVE_TAVOLO);
-export const impostaTavolo = (id) => localStorage.setItem(CHIAVE_TAVOLO, id);
+// Il nome si tiene accanto all'id solo per poterlo scrivere in testa alla home:
+// senza, per sapere con chi stai giocando dovresti chiederlo al server.
+export const nomeTavoloCorrente = () => localStorage.getItem(`${CHIAVE_TAVOLO}.nome`) || '';
+export const impostaTavolo = (id, nome = '') => {
+  localStorage.setItem(CHIAVE_TAVOLO, id);
+  if (nome) localStorage.setItem(`${CHIAVE_TAVOLO}.nome`, nome);
+};
 
 // `fase`: da dove comincia la serata. Le due meta' dell'episodio sono
 // INDIPENDENTI — si puo' giocare la sola spedizione (l'indagine e' gia' stata
@@ -77,6 +83,23 @@ export function salva(partita) {
     aggiornato: partita.aggiornato,
     dati: JSON.stringify(partita),
   });
+}
+
+// Toglie dal dispositivo ogni traccia di un tavolo: le partite, quello che era
+// in coda per il server, e la scelta corrente se era lui. Il server lo cancella
+// vistaTavoli con DELETE /api/tavolo — qui si ripulisce solo questo schermo,
+// perche' un salvataggio orfano risorgerebbe alla prima sincronizzazione.
+export function dimenticaTavolo(id) {
+  for (const k of Object.keys(localStorage)) {
+    if (k.startsWith(`${PREFISSO}${id}.`)) localStorage.removeItem(k);
+  }
+  for (const { chiave } of _coda.leggi()) {
+    if (chiave.startsWith(`${id}/`)) _coda.togli(chiave);
+  }
+  if (tavoloCorrente() === id) {
+    localStorage.removeItem(CHIAVE_TAVOLO);
+    localStorage.removeItem(`${CHIAVE_TAVOLO}.nome`);
+  }
 }
 
 export function carica(episodioId, tavolo = tavoloCorrente()) {
