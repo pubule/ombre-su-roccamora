@@ -62,7 +62,7 @@ em, i { font-style: italic; }
 
 /* l'etichetta battuta a macchina: dice quale fascicolo hai in mano */
 .etichetta { display: inline-block; font-family: 'FellSC', serif; font-size: 11px;
-  letter-spacing: .22em; text-transform: lowercase; color: var(--nastro);
+  letter-spacing: .22em; text-transform: lowercase; color: #7ba0c4;
   border: 1px solid #2a3a48; padding: 3px 9px; }
 
 /* --- caricamento --- */
@@ -93,7 +93,7 @@ em, i { font-style: italic; }
 .tessera-episodio:active { transform: scale(.995); }
 /* l'arte esce dall'assoluto e diventa la miniatura d'archivio a sinistra */
 .tessera-episodio .arte { position: static; flex: 0 0 92px; background-size: cover;
-  background-position: center 25%; filter: grayscale(.8) brightness(.6); opacity: 1; }
+  background-position: center 25%; filter: brightness(.82); opacity: 1; }
 .tessera-episodio .velo { display: none; }
 .tessera-episodio .testi { position: relative; padding: 11px 13px; }
 .tessera-episodio h2 { color: var(--osso); font-size: 19px; border: 0; padding: 0; }
@@ -177,7 +177,7 @@ em, i { font-style: italic; }
 .registro { display: flex; gap: 6px; flex-wrap: wrap; }
 .ora-riga { font-family: 'FellSC', serif; font-size: 13px; letter-spacing: .05em;
   color: var(--osso-fioco); padding: 3px 7px; border: 1px solid var(--bordo); }
-.ora-riga.spesa { color: #6a6c72; text-decoration: line-through; border-color: #202228; }
+.ora-riga.spesa { color: #8a8d93; text-decoration: line-through; border-color: #202228; }
 .ora-riga.ora { color: var(--carta); border-color: var(--ceralacca); background: #23191c; }
 
 /* --- carta vera: l'eccezione che parla --- */
@@ -285,7 +285,7 @@ em, i { font-style: italic; }
 /* --- arte nelle schermate: fotografie d'archivio --- */
 .banner-luogo { position: relative; height: 172px; border-radius: 2px; overflow: hidden;
   border: 1px solid var(--bordo); background-size: cover; background-position: center 30%;
-  margin-bottom: 14px; filter: grayscale(.55) sepia(.15) brightness(.8); }
+  margin-bottom: 14px; }
 .banner-velo { position: absolute; inset: 0;
   background: linear-gradient(180deg, transparent 40%, rgba(11, 11, 13, .9)); }
 /* le carte SONO carta: restano com'erano stampate, senza cornici d'oro */
@@ -348,10 +348,9 @@ em, i { font-style: italic; }
   transform: rotate(-1.1deg); animation: apparizione .4s ease both; }
 .griglia-arruolo > :nth-child(even) .eroe-tile,
 .griglia-arruolo > .eroe-tile:nth-child(even) { transform: rotate(.9deg); }
-/* la fotografia in archivio e' spenta; chi e' arruolato torna a colori */
-.eroe-tile img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block;
-  filter: grayscale(.85) sepia(.25) contrast(1.05); }
-.eroe-tile.scelto img { filter: none; }
+/* le artwork restano coi loro colori: il fascicolo lo fanno la carta e la
+   cornice, non lo scolorimento (deciso dall'autore l'11/08/2026) */
+.eroe-tile img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
 .eroe-velo { display: none; }   /* sulla stampa il nome sta sotto, non sopra */
 .eroe-nome { position: absolute; left: 0; right: 0; bottom: 2px; padding: 0 6px; text-align: center; }
 .eroe-nome b { display: block; font-family: 'FellSC', serif; font-weight: normal;
@@ -380,12 +379,17 @@ em, i { font-style: italic; }
 .eroe-bio { color: var(--osso-fioco); }
 
 /* --- la lettera d'incarico --- */
-.lettera-panel { background: linear-gradient(165deg, #f4ebd4, var(--osso-fioco));
-  border-color: var(--bordo-alto); }
+/* La lettera d'incarico e' un foglio che si legge ad alta voce: carta, e
+   inchiostro sopra. Tutto quello che ci sta dentro va scritto scuro — la
+   conversione al fascicolo aveva mandato l'inchiostro a osso anche qui, e la
+   lettera e' rimasta illeggibile (1.16:1) finche' non l'ha vista l'autore. */
+.lettera-panel { background: linear-gradient(175deg, var(--carta), var(--carta-scura));
+  border-color: #3a3730; color: var(--carta-ink); }
+.lettera-panel h2, .lettera-panel p, .lettera-panel i, .lettera-panel .centrato { color: var(--carta-ink); }
 .lettera-testo { font-style: italic; font-size: 17px; line-height: 1.65;
-  color: var(--osso); margin-top: 12px; }
-.lettera-testo b { color: var(--ceralacca); }
-.lettera-panel .nota { letter-spacing: .08em; }
+  color: var(--carta-ink); margin-top: 12px; }
+.lettera-testo b { color: #6d1c26; }
+.lettera-panel .nota { letter-spacing: .08em; color: #5f5849; }
 
 /* sezioni della scheda eroe: titoletto + filetto, come la scheda stampata */
 .eroe-sezione { border-top: 1px solid rgba(216, 178, 94, .35); padding-top: 8px; }
@@ -475,7 +479,7 @@ em, i { font-style: italic; }
   border: 0; background: var(--carta); padding: 4px 4px 2px;
   box-shadow: 0 10px 18px -12px #000; transform: rotate(-1.2deg); }
 .stampe .chip-turno.ritratto:nth-child(even) .rit { transform: rotate(1deg); }
-.stampe .chip-turno.ritratto .rit img { filter: grayscale(.75) sepia(.3); }
+
 .stampe .chip-turno.ritratto .et { color: var(--osso-fioco); }
 .stampe .chip-turno.ritratto.fatto { opacity: .55; }
 .chip-turno.ritratto.fatto { opacity: .45; }

@@ -75,7 +75,20 @@ const RACCOGLI = (esenti) => {
   const fondoVero = (el) => {
     for (let n = el; n; n = n.parentElement) {
       const st = getComputedStyle(n);
-      if (st.backgroundImage && st.backgroundImage !== 'none') return { immagine: true };
+      const bi = st.backgroundImage;
+      if (bi && bi !== 'none') {
+        // Solo una FOTOGRAFIA e' davvero non misurabile. Un gradiente ha i suoi
+        // colori scritti dentro: si prende il piu' chiaro, che e' il caso
+        // peggiore per un testo chiaro. Prima passavano tutti per «immagine» e
+        // il controllo li saltava in silenzio — la lettera d'incarico e' stata
+        // illeggibile per giorni proprio cosi'.
+        if (/url\(/.test(bi)) return { immagine: true };
+        const stop = (bi.match(/rgba?\([^)]+\)/g) || []);
+        if (!stop.length) return { immagine: true };
+        const lumi = (s) => { const [r, g, b] = (s.match(/\d+/g) || []).slice(0, 3).map(Number);
+          return .2126 * r + .7152 * g + .0722 * b; };
+        return { colore: stop.reduce((a, b) => (lumi(b) > lumi(a) ? b : a)) };
+      }
       const m = st.backgroundColor.match(/[\d.]+/g);
       if (m && (m.length < 4 || Number(m[3]) > .85)) return { colore: st.backgroundColor };
     }
@@ -125,6 +138,12 @@ await page.getByText('Il Coro Sommerso').first().click();
 await guarda('episodio');
 await page.locator('#continua').click();
 await guarda('indagine');
+if (await page.locator('#rileggi').count()) {   // la lettera d'incarico: e' carta
+  await page.locator('#rileggi').click();
+  await guarda('lettera');
+  await page.locator('#in-strada').click();
+  await page.waitForTimeout(300);
+}
 if (await page.locator('#taccuino').count()) {
   await page.locator('#taccuino').click();
   await guarda('taccuino');
@@ -132,7 +151,7 @@ if (await page.locator('#taccuino').count()) {
 await browser.close();
 
 console.log(`schermate lette: ${schermate.map((s) => s.nome).join(', ')}\n`);
-ok(schermate.length >= 4, 'tutte le schermate raggiunte');
+ok(schermate.length >= 5, `tutte le schermate raggiunte (${schermate.length})`);
 
 // --- 1. conformità: il tema vecchio non deve sopravvivere -------------------
 const superfici = schermate.flatMap((s) => s.superfici.map((x) => ({ ...x, dove: s.nome })));
@@ -158,11 +177,12 @@ const testi = schermate.flatMap((s) => s.testi.map((x) => ({ ...x, dove: s.nome 
 const suImmagine = testi.filter((t) => t.fondo.immagine);
 const misurabili = testi.filter((t) => !t.fondo.immagine);
 const scarsi = misurabili.map((t) => ({ ...t, r: contrasto(rgb(t.colore), rgb(t.fondo.colore)) }))
-  .filter((t) => t.r < (t.dim >= 24 || (t.dim >= 18.66 && t.grassetto) ? 3 : 4.5));
+  .filter((t) => t.r < (t.dim >= 24 || (t.dim >= 18.66 && t.grassetto) ? 3 : 4.5))
+  .sort((a, b) => a.r - b.r);   // dal peggiore: e' quello che si nota per primo al tavolo
 
 ok(scarsi.length === 0,
   `ogni testo sopra la soglia (${misurabili.length} misurati, ${scarsi.length} sotto)`);
-for (const t of scarsi.slice(0, 8)) {
+for (const t of scarsi.slice(0, 14)) {
   console.log(`        ${t.dove}/${t.sel} ${t.r.toFixed(2)}:1 — «${t.testo}»`);
 }
 // niente tagli silenziosi: quel che non si e' potuto misurare si dichiara

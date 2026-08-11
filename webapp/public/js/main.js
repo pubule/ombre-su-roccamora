@@ -90,10 +90,10 @@ async function vistaHome() {
         <div class="tessera-episodio" data-ep="${ep.id}">
           <div class="arte" style="background-image:url('${COPERTINE[ep.id]}')"></div>
           <div class="velo"></div>
-          ${salvata ? `<div class="stato">partita in corso</div>` : ''}
           <div class="testi">
             <h2>${esc(ep.titolo)}</h2>
             <div class="sotto">${esc(ep.sottotitolo)}</div>
+            ${salvata ? `<div class="stato">partita in corso</div>` : ''}
           </div>
         </div>`;
       }).join('')}
