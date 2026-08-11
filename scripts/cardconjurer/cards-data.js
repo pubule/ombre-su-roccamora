@@ -2853,7 +2853,7 @@ const LUOGHI12 = [
     testo: 'La stanza dove Godi copiava: leggii, calamai, i Frammenti e le loro copie affiancati. Qui la mano che ricalca non trema — perché non ricalca: scrive la propria — e gli ordini protocollati fanno da alibi a chi li ha firmati.',
     approfondimenti: [
       { tipo: 'Referto', soggetto: 'La mano che non imita',
-        testo: 'La mano della copia non IMITA quella dei Frammenti: è quella mano. Sicura, senza le micro-esitazioni di chi ricalca un modello. O il falsario è il più grande mai visto — capace di scrivere la mano altrui con più naturalezza del proprietario — o non c’è falsario, e qualcuno scrive con la penna del presidente perché ne ha l’uso. Il registro non aiuta a scegliere: gli ordini sono veri e protocollati, e protocollati in ore in cui il presidente sedeva in assemblea, a verbale, davanti a venti confratelli. Resta che nessuno protocolla un tradimento: si protocolla un ordine che si vuole poter negare come «di routine».' },
+        testo: 'La mano della copia non IMITA quella dei Frammenti: è quella mano. Sicura, senza le esitazioni di chi ricalca. O il falsario è il più grande mai visto, o non c’è falsario e qualcuno adopera la penna del presidente perché ne ha l’uso. Il registro non scioglie il dubbio: gli ordini sono veri, protocollati in ore in cui il presidente sedeva in assemblea davanti a venti confratelli. Resta che nessuno protocolla un tradimento: si protocolla ciò che si vuol poter chiamare «di routine».' },
     ] },
   { n: 7, nome: 'Il Deposito dei Sigilli',
     req: 'Il deposito dei punzoni è sbarrato, e si apre solo a chi torna a dire la cosa che inchioda il caso: che i sigilli sono intatti, non violati.',
@@ -3049,7 +3049,7 @@ const LUOGHI13 = [
     testo: 'Ordine e cortesia: scaffali di pratiche, bolli, ceralacca. Ogni carta è in regola, ogni pagamento tracciato. È il posto più pulito della città — ed è proprio la sua pulizia impeccabile a puzzare di bruciato.',
     approfondimenti: [
       { tipo: 'Referto', soggetto: 'La cortesia del Notaio',
-        testo: 'Rasca non commette errori: ogni carta è in regola, ogni bollo al suo posto, ogni pagamento tracciato e puntuale. È proprio la perfezione a tradirlo — nessun cliente onesto è così invisibile. È l’uomo del «benefattore che ama la lirica» dell’inverno scorso: il legale che dà un indirizzo di carta a chi non vuole un volto. E non è la prima maschera di carta che vi passa davanti: la società anonima del quartiere sordo — «La Quiete S.A.» — nessun dipendente, sede presso uno studio notarile — era tagliata così. Chi intestava allora e chi intesta adesso esce dalla stessa specie di mano. Non lo prenderete stanotte; ma sapere che è lui a tenere la penna del nolo è metà della caccia.' },
+        testo: 'Rasca non commette errori: ogni carta in regola, ogni bollo al suo posto, ogni pagamento tracciato. È la perfezione a tradirlo — nessun cliente onesto è così invisibile. È l’uomo del «benefattore che ama la lirica»: il legale che dà un indirizzo di carta a chi non vuole un volto. E non è la prima maschera: «La Quiete S.A.» del quartiere sordo, nessun dipendente e sede presso uno studio notarile, era tagliata così. Non lo prenderete stanotte; ma sapere che è lui a tenere la penna del nolo è metà della caccia.' },
     ] },
   { n: 3, nome: 'L’Ufficio del Fermo-Posta', req: 'Disponibile dall’inizio',
     art: 'artworks/L’Ufficio del Fermo-Posta.png',
@@ -3087,7 +3087,7 @@ const LUOGHI13 = [
     testo: 'Custodisce i registri di ogni nolo autorizzato: è qui che il calcolo del capo-catena trova conferma nero su bianco. Sessant’anni di forniture allo stesso conto intestato «C.B.», e una carrozza che, certe notti, fa una fermata di troppo.',
     approfondimenti: [
       { tipo: 'Referto', soggetto: 'Il registro dei noli',
-        testo: 'Sessant’anni di forniture allo stesso cliente storico, pagate al centesimo e sempre in orario, intestate con due iniziali: «C.B.». Sessant’anni, però, sono più di una vita di acquisti: chi ha aperto quel conto non può essere lo stesso che lo paga stanotte. Un’intestazione che sopravvive a chi la porta non è un cliente, è una casella. Il professore collezionista può benissimo essere il nome scritto sulla casella e non la mano che paga. E il nolo parte con la carrozza che, certe notti, allunga di una fermata fino al Palazzo del Lume; i vetturini giurano che di là il giro è più corto. Copiate l’ora di partenza: è la riga che il capo-catena aveva sottolineato. Il decano Ferrante non commenta: la ricopia sul taccuino e, sotto, la fermata che non torna.' },
+        testo: 'Sessant’anni di forniture allo stesso cliente, pagate al centesimo e sempre in orario, intestate a due iniziali: «C.B.». Ma sessant’anni sono più di una vita di acquisti: chi ha aperto quel conto non è chi lo paga stanotte. Un’intestazione che sopravvive a chi la porta è una casella — e il professore collezionista può esserne il nome, non la mano. Il nolo parte con la carrozza che, certe notti, allunga di una fermata fino al Palazzo del Lume. Copiate l’ora di partenza: è la riga che il capo-catena aveva sottolineato.' },
     ] },
   { n: 8, nome: 'Il Deposito delle Risme',
     req: 'Il deposito dove arrivano le risme è chiuso a quest’ora, e apre solo a chi sa da dove vengono: l’opificio fuori le mura che fa la filigrana.',
@@ -3973,7 +3973,7 @@ const LUOGHI17 = [
       { tipo: 'Referto', soggetto: 'Le penne, non le mani',
         testo: 'Il biglietto di Braga non è un archivio: è la regola per leggerne uno. «Guardate le penne, non le mani.» Le mani che hanno preso il decano sono quelle del Notaio e dei suoi; ma la penna che ha scritto l’ordine è un’altra. Braga, che ha studiato M. per trent’anni, sa che il presidente non sporca mai le proprie mani: firma, e paga. La caccia alla talpa è un teatro di mani; la verità è in una penna sola. Le carte che lo dimostrano non stanno in una cella: aspettano in casa sua, e non sono per stanotte. Stanotte vi serve la regola.' },
       { tipo: 'Testimonianza', soggetto: 'Il sacrestano del Tribunale',
-        testo: '«Le porte del Tribunale le apro io alle cinque e le chiudo a mezzanotte, e in mezzo passa la città intera: mi si guarda come si guarda un cardine. Il signore in guanti chiari viene di notte e non chiede mai dov’è una stanza; la carrozza chiusa lo aspetta nel cortile di dietro, col fanale spento, e esce dalla parte di levante, dove si paga il dazio. La notte in cui il decano sparì è passata di lì poco dopo le due, ed era carica; prima dell’alba è tornata leggera. E una cosa la so meglio dei vostri signori: a casa del decano non hanno forzato niente. Chi è entrato ha aperto con la chiave, e ha richiuso dietro di sé. Io a voi devo la vita, e queste sono le uniche due cose che ho da darvi.»' },
+        testo: '«Le porte del Tribunale le apro io alle cinque e le chiudo a mezzanotte. Il signore in guanti chiari viene di notte e non chiede mai dov’è una stanza; la carrozza chiusa lo aspetta nel cortile di dietro, col fanale spento, ed esce da levante. La notte in cui il decano sparì è passata di lì poco dopo le due, ed era carica; prima dell’alba è tornata leggera. E una cosa la so meglio dei vostri signori: a casa del decano non hanno forzato niente. Chi è entrato ha aperto con la chiave, e ha richiuso dietro di sé.»' },
     ] },
   { n: 4, nome: 'Lo Studio del Notaio', req: 'Disponibile dall’inizio',
     art: 'artworks/Lo Studio del Notaio.png',
@@ -4225,7 +4225,7 @@ const LUOGHI18 = [
     testo: 'Il richiamo alla carta di pregio: il giglio spezzato, l’inchiostro ferro-gallico. Confrontata con la penna d’archivio del presidente, la mano è la stessa. Il nascondiglio migliore è sempre stato il più esposto: la sedia da cui vi guardava indagare.',
     approfondimenti: [
       { tipo: 'Testimonianza', soggetto: 'Il vecchio membro della Società',
-        testo: '«Sono in questa casa da prima di lui, e la carta la ordino io. È lui che ha voluto quella del molino, col giglio spezzato, “per il decoro della Società”: due risme al mese, sempre la stessa fattura. Poi vi ho visti tornare dalle vostre indagini con dei fogli sequestrati, e li ho tenuti controluce accanto ai nostri — stessa filigrana, stessa mano, stesso inchiostro della penna d’archivio che sta sul ripiano alto. Non c’è nessun luogo segreto da cui il vostro C.B. firma, signori. Firma di sopra, con la nostra penna, sulla nostra carta. Il nascondiglio migliore è sempre stato il più esposto: la sedia da cui vi guardava indagare.»' },
+        testo: '«Sono in questa casa da prima di lui, e la carta la ordino io. È lui che ha voluto quella del molino, col giglio spezzato, “per il decoro della Società”: due risme al mese. Poi ho tenuto controluce i vostri fogli sequestrati accanto ai nostri: stessa filigrana, stesso inchiostro della penna d’archivio sul ripiano alto. Non c’è nessun luogo segreto da cui il vostro C.B. firma: firma di sopra, con la nostra penna, sulla nostra carta. Il nascondiglio migliore è il più esposto: la sedia da cui vi guardava indagare.»' },
     ] },
   { n: 7, nome: 'La Matrice del Decano',
     req: 'La matrice del decano si applica solo a chi porta gli incroci: la carrozza condivisa dei due mondi di M.',
@@ -4417,7 +4417,7 @@ const LUOGHI19 = [
     testo: 'Sull’acqua bassa: il rifugio della Società in esilio, dove si sono raccolti quelli che vi restano fedeli sotto le taglie. Qui si pianifica l’ultima discesa, e si comincia a fare il conto di chi vi apre ancora la porta.',
     approfondimenti: [
       { tipo: 'Testimonianza', soggetto: 'L’oste del rifugio',
-        testo: '«Ve lo dico da amico: stanotte non contano le prove, contano le persone. Ogni porta a cui bussate vi risponderà secondo ciò che avete fatto per loro, o a loro, in diciotto mesi. Cinque porte, non una di più: Braga vivo se l’avete protetto; il decano lucido se l’avete salvato in tempo; la città con voi se avete reso pubblica la verità; i muti del Borgo se restituiste loro la voce; il quartiere della casa che ricordava se gli deste giustizia invece di ascoltarne i muri. È il conto della campagna, e stanotte lo pagate o lo incassate. M. ha comprato il suo coro; voi dovete {i}meritarvi{/i} il vostro. È questa la differenza, e forse è tutto.»' },
+        testo: '«Stanotte non contano le prove, contano le persone. Ogni porta a cui bussate risponde secondo ciò che avete fatto per loro, o a loro, in diciotto mesi. Cinque porte, non una di più: Braga vivo se l’avete protetto; il decano lucido se l’avete salvato in tempo; la città con voi se rendeste pubblica la verità; i muti del Borgo se restituiste loro la voce; il quartiere della casa che ricordava se gli deste giustizia. M. ha comprato il suo coro; voi il vostro dovete {i}meritarvelo{/i}. È questa la differenza, e forse è tutto.»' },
     ] },
   { n: 2, nome: 'Il Banco dei Pegni di Fossa', req: 'Disponibile dall’inizio',
     art: 'artworks/Banco dei Pegni.png',
@@ -4446,7 +4446,7 @@ const LUOGHI19 = [
     testo: 'Apre SOLO se l’avete protetto la sera del dossier che combaciava: allora vi consegna trent’anni di studio del rivale M., la prova vivente della sua doppiezza. Se l’avete avallato, la villa è vuota, la porta chiusa: il conto, qui, a vostro sfavore.',
     approfondimenti: [
       { tipo: 'Osservazione', soggetto: 'Il debito di Braga',
-        testo: 'Braga è il conto più caro della campagna: se l’avete protetto quando la città voleva la sua testa, il dubbio che dichiaraste in pubblico l’ha tirato fuori di cella, e stanotte vi ripaga con l’unica cosa che ha — trent’anni di studio del suo rivale, la prova vivente che M. ha due facce. È la prima volta che quell’archivio cambia mano: dalla cella era passato solo un biglietto, e un biglietto non è una prova. Se l’avete lasciato cadere per comodità, Braga è morto in cella nel sonno, la villa è sotto sigillo e con essa una delle prove migliori per Vidal. Ogni scelta pesa: è questo il pay-off. La campagna non dimentica, e stanotte ve lo dice in faccia.' },
+        testo: 'Braga è il conto più caro della campagna. Se lo avete protetto quando la città voleva la sua testa, il dubbio che dichiaraste in pubblico l’ha tirato fuori di cella, e vi ripaga con l’unica cosa che ha: trent’anni di studio del rivale, la prova che M. ha due facce. Dalla cella era passato solo un biglietto, e un biglietto non è una prova. Se lo avete lasciato cadere per comodità, Braga è morto in cella nel sonno e la villa è sotto sigillo, con dentro una delle prove migliori per Vidal. La campagna non dimentica.' },
     ] },
   { n: 6, nome: 'Il Decano Ferrante',
     req: 'Lo studio del decano apre a chi ha pagato il conto della caccia alla talpa: il decano che avete salvato lucido — o ferito grave — nella villa-prigione.',
@@ -4664,7 +4664,7 @@ const LUOGHI20 = [
     testo: 'Il Fascicolo del 1741 aperto sulla riga finale del controcanto, e il calendario dei Padri. Qui i venti Frammenti si dividono in due parti disuguali — nove sono il canto del sonno che M. voleva, undici la sua firma che non ha mai saputo di avervi dato.',
     approfondimenti: [
       { tipo: 'Referto', soggetto: 'Le due metà dei Frammenti',
-        testo: 'La deduzione finale non è un nome né un come: è un canto. Messi in fila tutti e venti, i Frammenti si dividono in due — ma non a metà. Nove sono le righe del controcanto che riporta il Dormiente al sonno senza sogni, e M. le voleva: vi ha usati per raccoglierle. Gli altri undici erano la sua firma, e non ha mai saputo che raccoglievate anche quelle. Non fidatevi dell’orecchio: il Fascicolo non le descrive, le conta. I nove sono i Frammenti {b}1, 2, 3, 4, 5, 6, 7{/b} e {b}11{/b} — e il {b}20{/b}, che si compone solo davanti agli altri diciannove. Cantateli più in fretta del suo rito: chi ne ha conservati di più canta più giusto.' },
+        testo: 'La deduzione finale non è un nome né un come: è un canto. Messi in fila tutti e venti, i Frammenti si dividono in due — ma non a metà. Nove sono le righe del controcanto che riporta il Dormiente al sonno senza sogni, e M. vi ha usati per raccoglierle; gli altri undici erano la sua firma, e non l’ha mai saputo. Non fidatevi dell’orecchio: il Fascicolo non li descrive, li conta. I nove sono i Frammenti {b}1, 2, 3, 4, 5, 6, 7{/b} e {b}11{/b} — e il {b}20{/b}, che si compone solo davanti agli altri diciannove.' },
     ] },
   { n: 5, nome: 'I Vecchi del Coro',
     req: 'I vecchi del Coro si aprono a chi cerca l’ultima voce: la candidata che il Coro insegue dall’inizio, la voce che crede.',
@@ -4672,7 +4672,7 @@ const LUOGHI20 = [
     testo: 'Chi ricorda il Coro dall’inverno degli ammutoliti sa chi è l’ultima candidata: la voce che crede, l’unica che M. non può comprare. È viva, o quel che ne resta, secondo come avete chiuso i casi del Coro. Salvarla lascia a M. un coro senza anima.',
     approfondimenti: [
       { tipo: 'Testimonianza', soggetto: 'La voce che non si compra',
-        testo: 'Il più vecchio del Coro tiene la lanterna bassa e ve lo dice lui, il nome. «La voce che crede: la signora Vetri, prima donna del Comunale, la solista che inseguiamo dall’inverno degli ammutoliti e non abbiamo mai avuto. Crede perché è la sola viva che ha sentito la conchiglia del teatro risponderle, e una voce che ha avuto risposta non si compra: per questo lui la tiene con la paura. In che stato la ritroverete lo dicono due vostre sere — intera se apriste le canne-voce, a metà se salvaste la conchiglia, muta di quel ricordo se la spezzaste. Salvatela, e a lui resterà un coro che canta con la bocca e non con l’anima.»' },
+        testo: 'Il più vecchio del Coro tiene la lanterna bassa e ve lo dice lui, il nome. «La voce che crede è la signora Vetri, prima donna del Comunale: la inseguiamo dall’inverno degli ammutoliti e non l’abbiamo mai avuta. Crede perché è la sola viva che ha sentito la conchiglia risponderle, e una voce che ha avuto risposta non si compra: per questo lui la tiene con la paura. In che stato la ritroverete lo dicono due vostre sere — intera se apriste le canne-voce, a metà se salvaste la conchiglia, muta se la spezzaste. Salvatela.»' },
     ] },
   { n: 6, nome: 'L’Organo di Ossa',
     req: 'La chiesa dei Battuti apre a chi cerca la voce che crede: ciò che resta dell’organo di ossa e delle sue canne-voce.',
@@ -4696,7 +4696,7 @@ const LUOGHI20 = [
     testo: 'Lo scriptorium col grimorio del Quarto Movimento: lo spartito del rito, affascinante e mortale. È la partitura del RISVEGLIO, non del sonno: chi lo canta, canta per M. Il vostro controcanto non è in un libro — è nei Frammenti di venti serate.',
     approfondimenti: [
       { tipo: 'Referto', soggetto: 'Il libro che canta per lui',
-        testo: 'Collazionato foglio per foglio con la copia rimasta sul leggio, il Grimorio del Rito si lascia leggere per quello che è: un libro solo, completo, che pare contenere tutto il canto — e invece contiene il canto sbagliato. Le note del quarto rigo salgono dove dovrebbero calare: legatura, carta e mano sono di pregio, ma la partitura è quella del risveglio che M. vuole. Il controcanto vero non sta in un grimorio: sta sparso nei venti Frammenti raccolti una serata alla volta, senza sapere che stavate imparando a spegnere un dio. Lui cerca il canto in un libro; voi lo avete costruito coi pezzi di una città.' },
+        testo: 'Collazionato foglio per foglio con la copia rimasta sul leggio, il Grimorio del Rito si lascia leggere per quello che è: un libro solo, completo, che pare contenere tutto il canto — e invece contiene il canto sbagliato. Le note del quarto rigo salgono dove dovrebbero calare. Il controcanto vero non sta in un grimorio: sta sparso nei venti Frammenti raccolti una serata alla volta, senza sapere che stavate imparando a spegnere un dio. Lui cerca il canto in un libro; voi lo avete costruito coi pezzi di una città.' },
     ] },
   { n: 9, nome: 'La Gola della Città',
     req: 'La gola della città si apre solo al picco delle maree, a chi conosce la via delle tre acque: è lì che finisce tutto.',
@@ -4704,7 +4704,7 @@ const LUOGHI20 = [
     testo: 'Oltre il punto dove fermaste Ferri: la pietra dà sull’acqua, l’acqua sul buio, e nel buio un dio sogna piano. Non un mostro da colpire: un dio da cantare a dormire, col controcanto e i Frammenti, più giusto di M.',
     approfondimenti: [
       { tipo: 'Presagio', soggetto: 'Il dio che sogna',
-        testo: 'Nella gola della città, oltre ogni mappa, il Dormiente respira nel buio, e non è un mostro: è un dio che sogna, e i suoi sogni sono la storia segreta di Roccamora. M. vuole svegliarlo per cavalcarne l’estasi e rifare l’Italia; voi volete rimetterlo a dormire senza sogni, col controcanto dei Padri e i Frammenti di venti serate. Non c’è un boss da abbattere: c’è un canto da finire prima che il dio apra l’occhio del tutto. I dadi contano; la deduzione — quali righe, quanti Frammenti — di più. E quando l’ultima riga salirà, roca e umana, e il dio richiuderà l’occhio, avrete fatto la cosa più gentile e più difficile: non ucciso, ma cantato a dormire.' },
+        testo: 'Nella gola della città, oltre ogni mappa, il Dormiente respira nel buio: non è un mostro, è un dio che sogna, e i suoi sogni sono la storia segreta di Roccamora. M. vuole svegliarlo per cavalcarne l’estasi; voi rimetterlo a dormire senza sogni, col controcanto dei Padri e i Frammenti di venti serate. Non c’è un boss da abbattere: c’è un canto da finire prima che il dio apra l’occhio. E quando l’ultima riga salirà, roca e umana, avrete fatto la cosa più difficile: non ucciso, ma cantato a dormire.' },
     ] },
 ].map((L) => ({
   art: L.art,

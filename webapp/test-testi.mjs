@@ -136,9 +136,9 @@ for (const [nome, pat, ancheArbitro] of SONDE) {
   const OLTRE = [];
   for (const g of Object.keys(d)) {
     if (!Array.isArray(d[g])) continue;
-    for (const c of d[g]) if (c?.rules && c.rules.length > 800) OLTRE.push(`${c.title} (${c.rules.length})`);
+    for (const c of d[g]) if (c?.rules && c.rules.replace(/\{[^}]*\}/g, '').length > 600) OLTRE.push(`${c.title} (${c.rules.length})`);
   }
-  ok(OLTRE.length === 0, `nessuna carta oltre 800 caratteri (a 1546 il corpo scende sotto il leggibile)${
+  ok(OLTRE.length === 0, `nessuna carta oltre 600 caratteri (misurato: 600 = 4,7 pt sulla carta stampata, 1546 = 2,5 pt)${
     OLTRE.length ? ' — ' + [...new Set(OLTRE)].join(', ') : ''}`);
 }
 

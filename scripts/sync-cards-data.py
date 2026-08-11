@@ -87,13 +87,19 @@ def js_literal(s):
     return s.replace('\\', '\\\\').replace("'", "\\'").replace('\n', ' ')
 
 
-# Quanto testo ci sta su una carta. La piu' lunga gia' RESA e guardata a
-# schermo (Ep.1, «Le note a margine») e' di 443 caratteri e riempie sei righe
-# lasciandone libere due o tre: 700 e' il tetto con margine. Sopra, il testo
-# del fascicolo non e' una correzione da riportare, e' semplicemente piu'
-# lungo di quanto la carta possa contenere - e la carta e' per costruzione la
-# versione condensata. Quelle divergenze si segnalano e non si scrivono.
-STA_SULLA_CARTA = 700
+# Quanto testo ci sta su una carta, MISURATO sul render (11/08/2026): il
+# riquadro e' alto 392 px su un'immagine di 2010 px per 68 mm di carta, e il
+# testo non viene tagliato ma RIMPICCIOLITO, per cui il difetto non si vede
+# mai come testo mancante. Le corrispondenze:
+#     6 righe (~450 caratteri) = 6,2 pt
+#     7 righe (~530 caratteri) = 5,4 pt   <- il limite comodo
+#     8 righe (~600 caratteri) = 4,7 pt
+#    15 righe (~1550 caratteri) = 2,5 pt, illeggibile
+# Sopra il tetto, il testo del fascicolo non e' una correzione da riportare:
+# e' semplicemente piu' lungo di quanto la carta regga, e la carta e' per
+# costruzione la versione condensata. Quelle divergenze si segnalano e non si
+# scrivono.
+STA_SULLA_CARTA = 600
 
 
 def sync(scrivi=False, solo=None, tetto=STA_SULLA_CARTA):
