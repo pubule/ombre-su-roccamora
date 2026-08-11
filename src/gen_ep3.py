@@ -513,7 +513,7 @@ def spedizione():
                   'nasconde ogni tessera, e si consulta SOLO quando un eroe Cerca (o prova ad '
                   'aprire qualcosa). Non giratelo prima.', BODY),
         Paragraph('<b>L’orologio di questa spedizione:</b> il Canto sale da solo ogni '
-                  '<b>6° round</b> (6°, 12°...) e non ogni 4° come nelle spedizioni corte — '
+                  '<b>6° round</b> (6°, 12°…) e non ogni 4° come nelle spedizioni corte — '
                   'le cisterne sono lunghe da attraversare. Le carte crescendo valgono come '
                   'sempre.', BODY)])
     c.showPage()
@@ -692,7 +692,7 @@ def soluzione():
         '(ramo opzionale: le canne-voce) → a Nord T6 Pozzo Maestro (Tobia e l’Accordatore).',
         '<b>Mazzo Minaccia:</b> le 21 carte dell’episodio (più «La campana nuova» se il Bivio '
         'lo dice). Il Canto: carte crescendo + 1 segnalino automatico ogni <b>6° round</b> '
-        '(6°, 12°...) — non ogni 4°: le cisterne sono lunghe da attraversare. Alla soglia '
+        '(6°, 12°…) — non ogni 4°: le cisterne sono lunghe da attraversare. Alla soglia '
         '(3 segnalini — o 4, col Bivio «stonata») l’Accordatore si desta '
         'in anticipo (piazzatelo sulla tessera più lontana dagli eroi, con 1 Voce Cava di '
         'scorta) e da quel momento ogni Fase Minaccia pesca 1 carta in più, per sempre.',

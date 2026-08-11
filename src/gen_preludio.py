@@ -161,7 +161,7 @@ LUOGHI_P = [
          testo='Mezza Roccamora è passata da Fossa a impegnare l’altra metà. Dietro la grata, il '
                'vecchio prestatore vi squadra come si squadra un anello: cercando il difetto. Il suo '
                'registro è la vera cronaca del quartiere — basta saperlo leggere, o pagare la tariffa.',
-         indizi=['Nel registro: l’orologio da tasca di Ansaldo, impegnato IERI da «un signore coi '
+         indizi=['Nel registro: l’orologio da tasca di Ansaldo, impegnato IERI da «un signore con gli '
                  'stivali chiodati». Ansaldo era sparito da due giorni: qualcuno gli ha svuotato le '
                  'tasche, e quel qualcuno gira ancora per la città.',
                  'Sempre nel registro, la settimana scorsa: il NIPOTE di Ansaldo ha impegnato '
@@ -410,7 +410,7 @@ def spedizione():
                'della carta, se ne ha.')
     y = scuola(c, 24*mm, y, W - 48*mm,
                'LA MAREA — l’orologio della spedizione. Alla fine di ogni 2° round (2°, 4°, '
-               '6°...) mettete 1 segnalino Marea (usate i segnalini Canto). Al 3° segnalino '
+               '6°…) mettete 1 segnalino Marea (usate i segnalini Canto). Al 3° segnalino '
                'l’acqua invade la dogana: da quel momento ogni eroe ha Movimento -1 (minimo 1). '
                'Negli episodi veri l’orologio fa cose peggiori: imparate a non perdere tempo. '
                'La Marea è acqua, non è il Coro del culto: la Litania di Padre Marani non la '

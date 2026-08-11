@@ -68,7 +68,7 @@ def prova_indizi_puliti():
 # 1400 il corpo scende sotto i 9pt (piu' piccolo dell'Ep. 1, si nota). Il
 # limite fisico oltre cui fit_desc sfonda il blocco indizi e' ~2500.
 TETTO = 1400
-TETTO_CHIAVE = 1350  # i luoghi bloccati perdono 6mm per la riga «si entra con…»
+TETTO_CHIAVE = 1350  # i luoghi bloccati perdono 6mm per la riga «si entra con...»
 PAVIMENTO = 700      # sotto, e' una descrizione non ancora riscritta
 
 # Lessico da design doc: non deve mai arrivare al tavolo.
@@ -76,7 +76,7 @@ VIETATE = re.compile(r'\bpay[- ]?off\b|\bincroci\w*\s+D\d|\bDomanda\s+\d'
                      r'|\bReperto\s+[A-Z]\b|\brivelatori\w+\b', re.I)
 # Regole di gioco: vietate nei LUOGHI, ammesse VERBATIM nelle TESSERE (dove il
 # pericolo d'ambiente e' parte della scena — PROMPT-ESPANSIONE.md:990-1008).
-REGOLE = re.compile(r'\bprov[ae]\s+(NERVI|VIGORE|DESTREZZA|ACUME)\b', re.I)
+REGOLE = re.compile(r'\bprov[ae]\s+(NERVI|VIGORE|ACUME)\b', re.I)
 
 
 _VUOTE = {'il', 'lo', 'la', 'i', 'le', 'gli', 'l', 'un', 'uno', 'una',
@@ -356,7 +356,7 @@ def prova_finestre_luoghi():
         for L in ep.get('luoghi') or []:
             chiude = L.get('chiude')
             if L.get('chiave') and chiude is not None and chiude < CHIUDE_MINIMO:
-                guasti.append(f'{os.path.basename(path)[:-5]} L{L["n"]} «{L["nome"]}»: '
+                guasti.append(f'{os.path.basename(path)[:-5]} L{L["n“]} «{L[”nome"]}»: '
                               f'chiuso a chiave e chiude alle {chiude} — servono due '
                               f'visite, ne resta {max(0, chiude - ORA_INIZIO)}')
     assert not guasti, 'luoghi irraggiungibili:\n  ' + '\n  '.join(guasti)

@@ -80,7 +80,7 @@ LETTERA_19 = (
     "tornano stanotte: è ora.<br/>"
     "— il decano Ferrante (o chi vi resta fedele)»<br/><br/>"
     "<font name=\"OldStd-Italic\"><i>Aperti dall’inizio: la Taverna della Chiatta (il rifugio in esilio), il Banco dei Pegni di "
-    "Fossa, la Gazzetta di Roccamora, la Gendarmeria. Gli altri PNG del passato aprono — pieni o "
+    "Fossa, la Gazzetta di Roccamora, la Gendarmeria. Gli altri volti del passato aprono — pieni o "
     "monchi — secondo i BIVI che avete scelto in diciotto serate.</i></font>")
 
 # Chiavi LETTERALI negli indizi, tutte da luoghi APERTI (L1-L4), doppia via:
@@ -252,7 +252,7 @@ LUOGHI_19 = [
          chiave=('parola', 'LE TAGLIE SULLE VOSTRE TESTE'), art='La Casa dell’Ex Fidanzata.png',
          chiude=None,
          indizi=[
-             'Un PNG a cui dovete qualcosa dai casi passati: se il conto è a favore, vi nasconde e '
+             'Qualcuno a cui dovete qualcosa dai casi passati: se il conto è a favore, vi nasconde e '
              'vi rifornisce; se è a sfavore, è tentato dalla taglia. «Vi ho aiutato una volta. '
              'Stanotte dipende da come mi avete trattato dopo.»',
              'C’è chi, disperato, valuta di consegnarvi per la taglia in oro vecchio.',
@@ -264,7 +264,7 @@ LUOGHI_19 = [
          approfondimenti=[
              dict(tipo='Osservazione', soggetto='Il conto in sospeso',
                   testo='Ogni debito lasciato aperto in diciotto mesi, stanotte, torna a presentarsi '
-                        'con gli interessi. Un PNG che avete trattato bene vi nasconde dai gendarmi; '
+                        'con gli interessi. Chi avete trattato bene vi nasconde dai gendarmi; '
                         'uno che avete usato e scaricato è tentato dalle taglie. Non è punizione né '
                         'premio morale: è economia della fiducia. M. compra la lealtà con l’oro '
                         'vecchio, e l’oro finisce; voi l’avete guadagnata (o sprecata) un caso alla '
@@ -357,7 +357,7 @@ TILES_19 = [
                'faldoni, la vostra storia messa in ordine da mani estranee. QUANDO RIVELATE QUESTA '
                'TESSERA: qui è facile perdersi tra i faldoni giusti e quelli sbagliati.',
          arbitro='Ambiente d’archivio: cercare il faldone giusto tra migliaia costa tempo (insidie '
-                 '"faldone sbagliato"). Un alleato archivista del conto, se l’avete, indica la '
+                 '“faldone sbagliato”). Un alleato archivista del conto, se l’avete, indica la '
                  'sala giusta (salta un’insidia).',
          cerca_vuoto='Faldoni su faldoni, cataloghi aperti a metà, matite copiative '
                      'lasciate sui tavoli. Il lavoro è a un terzo: qui dentro, per ora, '
@@ -458,7 +458,7 @@ def indagine():
     seal(c, W - mx - 12*mm, H - 211*mm - delta, r=13*mm, angle=-10)
     c.setFillColor(TEAL); c.setFont(F['i'], 9.5)
     c.drawCentredString(W/2, 24*mm, 'PRIMA DI TUTTO: aprite la busta del Bivio dell’Episodio 18 e applicate il vostro ramo.')
-    c.drawCentredString(W/2, 18*mm, 'I nove «luoghi» sono PNG del passato: aprono pieni o monchi secondo i BIVI che avete scelto.')
+    c.drawCentredString(W/2, 18*mm, 'I nove «luoghi» sono volti del passato: aprono pieni o monchi secondo i BIVI che avete scelto.')
     c.drawCentredString(W/2, 12*mm, 'Aperti dall’inizio: la Taverna della Chiatta, il Banco di Fossa, la Gazzetta, la Gendarmeria.')
     c.showPage()
     # taccuino
@@ -468,7 +468,7 @@ def indagine():
     c.drawString(16*mm, H - 22*mm, 'taccuino della società — episodio 19')
     wave(c, W - 58*mm, H - 20*mm, 40*mm, OGOLD)
     c.setFillColor(TEAL); c.setFont(F['b'], 9)
-    c.drawString(16*mm, H - 31*mm, 'OROLOGIO — 6 ore. IL CONTO DEI BIVI: segnate quali PNG vi aprono (a favore) o vi voltano le spalle.')
+    c.drawString(16*mm, H - 31*mm, 'OROLOGIO — 6 ore. IL CONTO DEI BIVI: segnate chi vi apre (a favore) o vi voltano le spalle.')
     for i, hh in enumerate(['18', '19', '20', '21', '22', '23']):
         xx = 16*mm + i * 17*mm
         c.setStrokeColor(INK); c.setFillColor(colors.HexColor('#f7f0dd')); c.setLineWidth(1)
@@ -740,7 +740,7 @@ def soluzione():
     pagina('epilogo, frammento e bivio (l’ultimo prima del finale)', [
         '<b>EPILOGO — da leggere se convincete l’Ispettore.</b> «Vidal vi guarda a lungo, la matrice '
         'del decano in mano, il fiato corto della lotta ancora nel petto. Poi abbassa la pistola. '
-        '"Mi hanno usato come usano tutti," dice piano. "Come hanno usato voi per diciotto mesi." '
+        '“Mi hanno usato come usano tutti,” dice piano. “Come hanno usato voi per diciotto mesi.” '
         'Fuori, i suoi uomini aspettano un ordine che non arriva. Vi lascia passare col Fascicolo '
         'del 1741 sotto il braccio, e mentre uscite nella notte vi dice l’ultima cosa: "Le maree di '
         'sizigia sono tornate. Se scendete stanotte, scendo con voi — o almeno tengo aperte le '
@@ -996,7 +996,7 @@ ESAMI_CARBONE_19 = {
                 'accordato dai Padri per portare o spegnere la voce del Dormiente. La mappa dice '
                 'quali tacere e quali far suonare per il controcanto. Senza, sotto la Cattedrale '
                 'sareste sordi.»',
-    'IL MANIFESTO DEI RICERCATI': '«Il vostro volto sui muri, "per i crimini di C.B.". È la misura '
+    'IL MANIFESTO DEI RICERCATI': '«Il vostro volto sui muri, “per i crimini di C.B.”. È la misura '
                 'esatta della disperazione di M.: per fermarvi ha dovuto bruciare la sua stessa '
                 'maschera pubblica, il presidente rispettabile. Un uomo che rovescia il tavolo ha '
                 'finito le carte buone. Braccati sì, ma non più ingannati.»',

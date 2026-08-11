@@ -179,8 +179,8 @@ LUOGHI_13 = [
              'spedisce qui, noi timbriamo, il nolo prosegue in città. Roba pulita. Troppo '
              'pulita, se mi chiedete.»',
              'Il doganiere ha conosciuto il morto: «il capo-catena annegato veniva a confrontare '
-             'le bolle. Ne aveva copiata una, l’ultima, e se l’era messa in tasca. Diceva: "se '
-             'mi succede qualcosa, guardate il nolo delle notti di luna nuova". Poi è successo '
+             'le bolle. Ne aveva copiata una, l’ultima, e se l’era messa in tasca. Diceva: “se '
+             'mi succede qualcosa, guardate il nolo delle notti di luna nuova”. Poi è successo '
              'qualcosa.»',
              'Sul registro doganale, il nolo della carta e un altro nolo si sovrappongono certe '
              'notti: stessa carrozza, stessa ora. L’altro nolo è intestato a una sede nota. Il '
@@ -365,10 +365,10 @@ TILES_13 = [
     dict(id='T2', nome='LA ROGGIA', exits={'S': 'T1', 'N': 'T3'},
          testo='Il canale di adduzione che muove la macina: acqua nera e veloce, passerelle di '
                'assi scivolose sopra la corrente. QUANDO RIVELATE QUESTA TESSERA: pericolo '
-               'd’ambiente — chi attraversa prova VIGORE o DESTREZZA (Media); chi fallisce '
+               'd’ambiente — chi attraversa prova VIGORE (Media); chi fallisce '
                'scivola in acqua e la corrente lo trascina (1 round perso a risalire).',
          arbitro='PERICOLO D’AMBIENTE (roggia): non ci sono nemici stanziali, c’è l’acqua. Prova '
-                 'VIGORE/DESTREZZA per la passerella. Con il Taccuino del Capo-Catena sapete dove '
+                 'VIGORE per la passerella. Con il Taccuino del Capo-Catena sapete dove '
                  'l’asse regge: prova a Facile.',
          cerca_vuoto='Assi bagnate e il rombo della macina più avanti. La corrente ha '
                      'lavato la passerella fino al legno vivo: non ci si è fermato '
@@ -790,7 +790,7 @@ def soluzione():
         'Chi termina un round in una tessera in fiamme subisce <b>−1 Salute</b>. '
         'Posate un <b>segnalino Fuoco</b> su ogni tessera man mano che prende, così i giocatori '
         'vedono il rogo scendere. Non annunciate i round: fate solo scattare le fiamme quando tocca.',
-        '<b>Pericoli d’ambiente.</b> Roggia (T2): prova VIGORE/DESTREZZA o si cade in acqua (1 '
+        '<b>Pericoli d’ambiente.</b> Roggia (T2): prova VIGORE o si cade in acqua (1 '
         'round perso). Macine (T3): combattere addosso agli ingranaggi = prova NERVI o rischio. '
         'Col Taccuino del Capo-Catena <i>o</i> con la Domanda 3 esatta queste prove sono a Facile '
         '(conoscete il molino); averli entrambi non le rende più facili di così. Il secchio '
@@ -1058,7 +1058,7 @@ ESAMI_CARBONE_13 = {
                 'della campagna: non una cartiera che vende a tanti, ma un’unica risma tagliata su '
                 'misura per una penna sola. Chi scrive su questa carta vuole che ogni suo foglio '
                 'sia riconoscibile e irripetibile — la firma di chi non firma.»',
-    'IL REGISTRO DEI NOLI': '«Sessant’anni di forniture allo stesso cliente storico, "C.B.", '
+    'IL REGISTRO DEI NOLI': '«Sessant’anni di forniture allo stesso cliente storico, “C.B.”, '
                 'pagate al centesimo e sempre in orario; e il nolo parte con la carrozza che, '
                 'certe notti, serve anche il Palazzo del Lume. Perché lo faccia, la carta non lo '
                 'dice, e i vetturini giurano che di là il giro è più corto. Quel che si legge con '

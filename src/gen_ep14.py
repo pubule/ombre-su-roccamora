@@ -321,7 +321,7 @@ TILES_14 = [
                'dei Gatti che sale di tetto in tetto. QUANDO RIVELATE QUESTA TESSERA: applicate '
                'l’esito delle Domande 3 e 4. Coi Ramponi saltate lo strapiombo di partenza (e la '
                'sua caduta).',
-         arbitro='STRAPIOMBO: senza i Ramponi, il primo salto è una prova VIGORE/DESTREZZA (Media); chi '
+         arbitro='STRAPIOMBO: senza i Ramponi, il primo salto è una prova VIGORE (Media); chi '
                  'fallisce perde un round aggrappato e la FUGA avanza. Coi Ramponi passate senza '
                  'prova. Da qui il pericolo non sono solo i Gatti: è la quota, il vuoto, il vetro.',
          hook='I Ramponi (dal Covo): sui tetti le cadute non vi feriscono, saltate lo strapiombo.',
@@ -357,7 +357,7 @@ TILES_14 = [
          arbitro='IL PRIMO GATTO appare (non ancora ingaggiabile): da qui le carte crescendo '
                  'spingono la traccia FUGA. Se la FUGA raggiunge la soglia prima che lo agganciate '
                  'all’Attico (T6), sparisce oltre i tetti (vittoria parziale). La Parola dei Tetti '
-                 'lo fa trattare gia’ a 2 Ferite invece che all’ultima, e porta la '
+                 'lo fa trattare già a 2 Ferite invece che all’ultima, e porta la '
                  'soglia-fuga da 7 a 8.',
          hook='La Parola dei Tetti (dal Covo): il Primo Gatto vi riconosce come gente di codice — '
               'tratta già a 2 Ferite e non tenta la fuga finale.',
@@ -369,7 +369,7 @@ TILES_14 = [
          testo='Un grande lucernario di vetro e piombo, opaco di sporco, che cede sotto il peso. '
                'QUANDO RIVELATE QUESTA TESSERA: ultimo diaframma prima dell’Attico; il vetro è una '
                'trappola, e i Gatti lo sanno bene.',
-         arbitro='PERICOLO DI QUOTA (lucernario): attraversarlo è una prova VIGORE/DESTREZZA '
+         arbitro='PERICOLO DI QUOTA (lucernario): attraversarlo è una prova VIGORE '
                  '(Media); chi fallisce sfonda un vetro — 1 danno e la FUGA avanza. Coi Ramponi (o '
                  'la fune da T3) niente danno. Aggirarlo sul bordo costa un round.',
          cerca_vuoto='Vetro e piombo sotto i piedi, e la propria faccia riflessa nel '
@@ -536,7 +536,7 @@ def spedizione():
                   'prima che l’abbiate agganciato all’Attico (T6), <b>sparisce</b> oltre i tetti: '
                   'la spedizione si chiude senza la sua parola (vittoria parziale). Le carte '
                   'crescendo spingono verso la soglia-fuga; la <b>Parola dei Tetti</b> lo fa trattare '
-                  'gia’ a <b>2 Ferite</b> invece che all’ultima, e porta la soglia-fuga '
+                  'già a <b>2 Ferite</b> invece che all’ultima, e porta la soglia-fuga '
                   'da 7 a 8.', BODY),
         Paragraph('• <b>OBIETTIVO.</b> All’Attico (T6), agganciate il Primo Gatto (adiacenza + '
                   'Interagire, o la Parola dei Tetti). Ridotto all’ultima Ferita <b>TRATTA</b> e '
@@ -544,7 +544,7 @@ def spedizione():
                   'Ferite, senza la Parola) o lasciarlo <b>fuggire</b>: <b>vittoria parziale</b> '
                   '(l’Atto prosegue, ma con un incrocio in meno).', BODY),
         Paragraph('• <b>QUOTA.</b> I tetti sono il pericolo: il comignolo (T2) e il lucernario (T5) '
-                  'si superano con prove DESTREZZA/VIGORE; chi fallisce resta aggrappato (la FUGA '
+                  'si superano con prove VIGORE; chi fallisce resta aggrappato (la FUGA '
                   'avanza) o sfonda un vetro (1 danno). I <b>Ramponi</b> (dal Covo) tolgono le '
                   'cadute: niente danni, niente round persi. I <b>Gatti minori</b> colpiscono e '
                   'scappano tra i panni (T3): inseguirli fa avanzare la FUGA.', BODY)])
@@ -658,7 +658,7 @@ def soluzione():
         'bere e non si siede. Sul banco, accanto alla bilancia, c’è una tazzina da caffè ancora '
         'sporca, e non è sua: porcellana buona, il filo d’oro sul bordo consumato dall’uso. "Qui '
         'passa gente di ogni sorta, signori," dice, e con un dito la spinge fuori dalla vostra '
-        'vista. "Certa gente passa prima."» Se avete scelto <b>LASCIARLO CIRCOLARE E '
+        'vista. “Certa gente passa prima.”» Se avete scelto <b>LASCIARLO CIRCOLARE E '
         'TRACCIARLO</b> — quelle monete le avete marcate voi, una per una, prima di lasciarle '
         'andare, e la rete dei traccianti lavora ancora: alla bottega ci arrivate dietro all’oro, '
         'non dietro a una voce. <b>Il Luogo 5 (Il Ricettatore) si apre anche SENZA la parola '
@@ -712,7 +712,7 @@ def soluzione():
         'Gatto si sposta) accelerano. La Parola dei Tetti anticipa l’aggancio (tratta a 2 '
         'Ferite invece che all’ultima) e gli toglie la fuga finale.',
         '<b>Pericoli di quota.</b> Comignolo (T2): prova NERVI (Media) o si resta un round '
-        'aggrappati (la FUGA avanza). Lucernario (T5): prova VIGORE/DESTREZZA o si sfonda un vetro '
+        'aggrappati (la FUGA avanza). Lucernario (T5): prova VIGORE o si sfonda un vetro '
         '(1 danno + FUGA). Coi Ramponi (o la fune da T3) niente cadute. I Gatti minori (T3) '
         'colpiscono e scappano: inseguirli fa avanzare la FUGA.',
         '<b>Il Primo Gatto.</b> Boss: Att +3, Dif 8, Fer 6, Mov 4, Danno 1. Agilissimo, cerca la '
@@ -727,7 +727,7 @@ def soluzione():
     ])
     pagina('epilogo, frammento e bivio', [
         '<b>EPILOGO — da leggere a voce alta se il Primo Gatto tratta.</b> «Lo Spillo si siede sul '
-        'comignolo come su un trono, i piedi nel vuoto, e ride piano. "Il lavoro era strano," dice. '
+        'comignolo come su un trono, i piedi nel vuoto, e ride piano. “Il lavoro era strano,” dice. '
         '"Di solito ci pagano per portar via. Stavolta metà oro era per <i>lasciare</i>: roba che '
         'non era sua, del professore, da mettere giù con cura dove i gendarmi l’avrebbero trovata." '
         'Non sa chi paga: oro vecchio, un intermediario mai visto, la carta di pregio delle '
@@ -984,7 +984,7 @@ ESAMI_CARBONE_14 = {
                 'guanti bianchi di Braga: un’altra mano, che lavora pulito. Non si ruba una '
                 'collezione per riportarla intera: si ruba per avere il pretesto di <i>rimetterci '
                 'dentro</i> qualcosa.»',
-    'IL VERBALE D’INVENTARIO': '«La colonna del "restituito" è più lunga di quella del "sottratto": '
+    'IL VERBALE D’INVENTARIO': '«La colonna del “restituito” è più lunga di quella del “sottratto”: '
                 'tre righe in più. Nessun ladro al mondo rende più di quanto ha preso. Quelle tre '
                 'righe — un sigillo, due ricevute — non sono refurtiva: sono un impianto, e a '
                 'verbale diventano verità. Chi ha ordinato questo furto non voleva la refurtiva. '

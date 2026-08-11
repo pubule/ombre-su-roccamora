@@ -337,7 +337,7 @@ TILES_12 = [
          testo='Una calle stretta lungo il canale, l’acqua a filo del selciato. QUANDO RIVELATE '
                'QUESTA TESSERA: reti da pesca stese sbarrano il passo. Con il Registro dei Ritiri '
                'conoscete la via buona e le saltate; senza, perdete terreno a scavalcarle.',
-         arbitro='TRAPPOLA: reti stese (DESTREZZA/VIGORE Media o un round perso, il Corriere '
+         arbitro='TRAPPOLA: reti stese (VIGORE Media o un round perso, il Corriere '
                  'guadagna FUGA +1). CON IL REGISTRO DEI RITIRI: sapete la via, nessuna prova. '
                  'Tessera di corsa, non di combattimento: qui non si piazza scorta.',
          hook='Il Registro dei Ritiri (dal Fermo-Posta): conoscete la via, saltate le reti.',

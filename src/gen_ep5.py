@@ -217,11 +217,11 @@ LUOGHI_5 = [
              'calamai. Ma nel retro, tre schedari VERI: la contabilità di tre cantieri — '
              '«fonderia», «pozzi», «teatro» — chiusi, saldati, archiviati. Il quarto '
              'schedario, «cripta», è vuoto: portato via da poco.',
-             'Nel cestino, bruciata a metà, una minuta d’ordine: «...le ultime due casse '
+             'Nel cestino, bruciata a metà, una minuta d’ordine: «…le ultime due casse '
              'entro la marea. Il registro dev’essere PIENO per la prova d’organo.» La firma '
              'manca. La carta è di pregio.',
              'Sulla scrivania, dimenticata sotto il tampone, un’autorizzazione alle '
-             'riesumazioni pronta per l’uso: firma di un funzionario di Curia... che non '
+             'riesumazioni pronta per l’uso: firma di un funzionario di Curia… che non '
              'risulta in nessun annuario. Il timbro, però, è autentico.'],
          approfondimenti=[
              dict(tipo='Osservazione', soggetto='Lo studio-scenografia',
@@ -275,7 +275,7 @@ LUOGHI_5 = [
              'risultano ANCORA al loro posto. Le ultime due. Il lavoro non è finito.'],
          approfondimenti=[
              dict(tipo='Osservazione', soggetto='Le ultime due lapidi',
-                  testo='Le due lapidi pronte hanno le date di consegna incise a matita sul '
+                  testo='Le due lapidi pronte hanno le date di consegna segnate a matita sul '
                         'retro, come usa il marmista: dopodomani. Chiunque paghi, verrà a '
                         'ritirarle — o manderà il garzone — dopodomani. Un appuntamento, '
                         'scolpito nel marmo da chi non sa di averlo dato.'),
@@ -519,7 +519,7 @@ def spedizione():
                   'nasconde ogni tessera, e si consulta SOLO quando un eroe Cerca (o prova ad '
                   'aprire qualcosa). Non giratelo prima.', BODY),
         Paragraph('<b>L’orologio di questa spedizione:</b> il Canto sale da solo ogni '
-                  '<b>6° round</b> (6°, 12°...) e non ogni 4° come nelle spedizioni corte — '
+                  '<b>6° round</b> (6°, 12°…) e non ogni 4° come nelle spedizioni corte — '
                   'la cripta è lunga da percorrere. Le carte crescendo valgono come sempre.',
                   BODY)])
     c.showPage()
@@ -692,7 +692,7 @@ def soluzione():
         'Salmodiante e lo sfregio).',
         '<b>Mazzo Minaccia:</b> le 21 carte dell’episodio (più «I legni chiamano» se il '
         'Bivio lo dice). Il Canto funziona come sempre: carte crescendo + 1 segnalino '
-        'automatico ogni <b>6° round</b> (6°, 12°...) — non ogni 4°: la cripta è lunga da '
+        'automatico ogni <b>6° round</b> (6°, 12°…) — non ogni 4°: la cripta è lunga da '
         'percorrere. Alla soglia (3 segnalini) il Salmodiante si desta in '
         'anticipo (piazzatelo sulla tessera più lontana dagli eroi, con 1 Confratello di '
         'scorta) e da quel momento ogni Fase Minaccia pesca 1 carta in più, per sempre.',

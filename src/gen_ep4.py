@@ -137,7 +137,7 @@ LUOGHI_4 = [
                         'dei MIEI errori sta rispondendo a qualcuno dei suoi.»'),
          ]),
     dict(n=3, nome='IL LOGGIONE', voce_mappa='La Scala del Loggione',
-         req='Apre col pubblico, alle 20:00', art='Il Loggione.png',
+         req='La scala del loggione è sbarrata finché non entra il pubblico: si sale alle 20:00, col primo scampanellio, e non un minuto prima.', art='Il Loggione.png',
          apre=20, chiude=None,
          sblocca_parola=('L’ARIA DEL TERZO ATTO', 'CERA NERA'),
          indizi=[
@@ -193,7 +193,7 @@ LUOGHI_4 = [
              'quattro. Firma di servizio: nessuna.',
              'Appesa al quadro delle funi, la pianta delle macchine del Comunale: ogni '
              'argano, ogni leva, ogni botola. Manca un dettaglio solo: la fossa del '
-             'contrappeso morto è disegnata... e poi cancellata a matita.',
+             'contrappeso morto è disegnata… e poi cancellata a matita.',
              'I pannelli smontati della conchiglia sono qui, in fila contro il muro, numerati '
              'a gesso: accordati uno a uno, richiusi, pronti. Manca il centrale — «si monta '
              'stasera, all’ultimo», dice il cartellino. Dopo, la conchiglia sarà intera.'],

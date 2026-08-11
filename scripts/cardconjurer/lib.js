@@ -16,7 +16,7 @@ function cardOutputPath(card, cwd = process.cwd()) {
   const title = card.title;
   // Windows non accetta " < > : | ? * nei nomi file (es. Nino "Grimaldello" Cauto).
   // "/" e' permesso perche' separa la sottocartella (es. "Nemici/Adepto Incappucciato").
-  const outName = (card.file || title).replace(/["<>:|?*]/g, '');
+  const outName = (card.file || title).replace(/["<>:|?*“”]/g, '');
   return cardDiskPath(cwd, outName);
 }
 

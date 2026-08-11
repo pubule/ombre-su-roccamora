@@ -148,7 +148,7 @@ LUOGHI_20 = [
                   testo='Alla Taverna della Chiatta, l’ultima notte, si tira la somma di tutto: la '
                         'mappa acustica (la via delle tre acque), il Fascicolo del 1741 (il '
                         'controcanto), e i Frammenti conservati e non incrinati (le righe da cantare). Chi vi resta — '
-                        'il decano, Fossa, Ranuzzi, Vidal se convinto, i PNG del conto — non scende '
+                        'il decano, Fossa, Ranuzzi, Vidal se convinto, gli alleati del conto — non scende '
                         'con voi, ma vi arma di tutto ciò che venti serate hanno messo da parte. È il '
                         'pay-off finale: la campagna intera, ridotta a un canto e a una manciata di '
                         'amici. Portateli con voi, almeno nel cuore. Poi scendete.'),
@@ -259,7 +259,7 @@ LUOGHI_20 = [
          chiave=('parola', 'IL CONTROCANTO'), art='La Loggia dei Confratelli.png',
          chiude=None,
          indizi=[
-             'La camera dove il Coro provava il Quarto Movimento: sul leggìo, una chiave che '
+             'La camera dove il Coro provava il Quarto Movimento: sul leggio, una chiave che '
              'pare aprire la camera del Dormiente.',
              'Chi crede che la scorciatoia esista si inganna: non c’è un modo facile di cantare un '
              'dio a dormire. C’è solo il controcanto, riga per riga, coi Frammenti veri.',
@@ -973,13 +973,13 @@ LUOGHI20_DESC = {
        "il feltro sotto ne ha conservato l’impronta.",
     7: "La sala delle prove sa di cera bruciata e di fiato di molte persone andate via da "
        "poco: l’aria è ancora tiepida e i vetri sono appannati dalla parte di dentro. Le sedie "
-       "intagliate stanno in semicerchio attorno al leggìo, tutte voltate verso di esso e "
+       "intagliate stanno in semicerchio attorno al leggio, tutte voltate verso di esso e "
        "tutte scostate all’indietro dello stesso mezzo passo, come si alza un coro che ha "
        "finito insieme; sul tappeto, davanti a ciascuna, la lana è consumata in una macchia "
        "grande come due piedi. Nessuno ha spento le candele: sono arrivate al collo dei "
        "candelieri e continuano a colare sul legno. Quando di sopra sbatte una porta, le sedie "
        "del semicerchio scricchiolano una dopo l’altra, in ordine, da sinistra a destra, e poi "
-       "tacciono tutte insieme. Sul leggìo, aperto e girato verso l’uscio invece che verso le "
+       "tacciono tutte insieme. Sul leggio, aperto e girato verso l’uscio invece che verso le "
        "sedie, è rimasto un foglio solo, con quattro righe di note e sotto una riga di parole "
        "in una lingua che non è italiano; e sopra il foglio, posata al centro come un "
        "fermacarte, sta una chiave di ferro nuovo, lunga come una mano, con l’ingegno tagliato "
@@ -1105,7 +1105,7 @@ TESSERE_DESC_20 = {
           "chiusi premendo le palpebre, e chi lo guarda troppo a lungo si accorge di aver "
           "smesso di respirare. Gli ultimi del coro si sono messi di traverso davanti "
           "all’arco, spalla contro spalla, e cantano voltati verso di voi invece che verso il "
-          "leggìo. Più indietro, dentro il chiarore, due sagome: una in piedi, ferma; l’altra "
+          "leggio. Più indietro, dentro il chiarore, due sagome: una in piedi, ferma; l’altra "
           "tenuta per il gomito. Sulla pietra della soglia, a metà, qualcuno ha appoggiato uno "
           "scialle piegato, e lo scialle è asciutto.",
     'T6': "La camera non ha pareti che la lanterna possa trovare, e il suono ci mette troppo a "

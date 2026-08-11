@@ -1,7 +1,7 @@
 // Dataset delle carte verticali rimanenti (eroi, nemici, minacce), testi presi
 // da src/story.py e src/gen_cards.py (fonte autoritativa del gioco).
 // `file` e' opzionale: nome file di output se diverso dal titolo mostrato in carta
-// (serve a evitare collisioni, es. "Il Fonditore" esiste sia come nemico che come minaccia).
+// (serve a evitare collisioni, es. “Il Fonditore” esiste sia come nemico che come minaccia).
 
 const HEROES = [
   {
@@ -24,13 +24,13 @@ const HEROES = [
   },
   {
     art: 'artworks/Nino.png',
-    title: 'Nino "Grimaldello" Cauto',
+    title: 'Nino “Grimaldello” Cauto',
     type: 'Eroe — Il Ladro',
     rules: '{i}Il Ladro{/i}{divider}Cresciuto sui tetti e nelle intercapedini di Roccamora, conosce la città come un ladro conosce le tasche altrui: al buio. Un lavoro finito male gli ha lasciato un debito con la persona sbagliata e un motivo per stare dalla parte giusta, almeno per ora. Le serrature, dice, sono domande: basta fare quella giusta.',
   },
   {
     art: 'artworks/Ottone.png',
-    title: 'Ottone "Mezzena" Massari',
+    title: 'Ottone “Mezzena” Massari',
     type: 'Eroe — Il Macellaio',
     rules: '{i}Il Macellaio{/i}{divider}Il banco dei Massari sta al Vecchio Mercato da tre generazioni, e Ottone conosce Roccamora dalla pancia: sa chi mangia, chi digiuna e chi da qualche tempo non ha più fame. Ci pensa da quando il suo garzone sparì durante la festa di San Teodoro e tornò tre giorni dopo, senza appetito e senza voce. Dice che la città si legge a tavola: dove si smette di mangiare e di ridere, lì c’è il male.',
   },
@@ -81,46 +81,46 @@ const NEMICI = [
     art: 'artworks/Adepto Incappucciato.png',
     title: 'Adepto Incappucciato',
     type: 'Creatura — Cultista Incappucciato',
-    rules: 'Palandrana grigia da becchino, maschera di cera liscia e senza tratti. Sotto, gente comune di Roccamora — fornai, barcaioli, sagrestani — che alle 3 di notte smette di essere gente comune. Combattono con falcetti da fonditore, in perfetto silenzio: la voce la conservano per il canto.{divider}{i}Statistiche nel Bestiario dell’episodio.{/i}',
+    rules: '{i}Palandrana grigia da becchino, maschera di cera liscia e senza tratti. Sotto, gente comune di Roccamora — fornai, barcaioli, sagrestani — che alle 3 di notte smette di essere gente comune. Combattono con falcetti da fonditore, in perfetto silenzio: la voce la conservano per il canto.{/i}{divider}Statistiche nel Bestiario dell’episodio.',
   },
   {
     art: 'artworks/Cani dei Moli.png',
     title: 'Cane dei Moli',
     type: 'Creatura — Cane dei Moli',
-    rules: 'Bestie da guardia dei magazzini, il muso incrostato di cera nera: il culto li nutre e li accorda come strumenti. Arrivano prima del loro ringhio. Fragili, ma il colpo va messo a segno mentre saltano.{divider}{i}Statistiche nel Bestiario dell’episodio.{/i}',
+    rules: '{i}Bestie da guardia dei magazzini, il muso incrostato di cera nera: il culto li nutre e li accorda come strumenti. Arrivano prima del loro ringhio. Fragili, ma il colpo va messo a segno mentre saltano.{/i}{divider}Statistiche nel Bestiario dell’episodio.',
   },
   {
     art: 'artworks/Il Fonditore.png',
     title: 'Il Fonditore',
     type: 'Creatura — Fonditore',
-    rules: 'Gli artigiani del culto: grembiule di cuoio, mestolo colmo di cera fusa, la pazienza di chi ha versato mille candele. Non corrono mai: non ne hanno bisogno. La cera bollente che schizza dal mestolo resta addosso per giorni.{divider}{i}Statistiche nel Bestiario dell’episodio.{/i}',
+    rules: '{i}Gli artigiani del culto: grembiule di cuoio, mestolo colmo di cera fusa, la pazienza di chi ha versato mille candele. Non corrono mai: non ne hanno bisogno. La cera bollente che schizza dal mestolo resta addosso per giorni.{/i}{divider}Statistiche nel Bestiario dell’episodio.',
   },
   {
     art: 'artworks/Il Custode della Cera (boss).png',
     title: 'Il Custode della Cera',
     type: 'Creatura — Custode (Boss)',
-    rules: 'Un gigante ricoperto di strati di cera colata, il volto un moncone liscio in cui affiorano, a tratti, i lineamenti di qualcun altro. Avanza lento e senza fretta: nulla, nel suo magazzino, gli è mai sfuggito. Se il diapason d’argento viene fatto vibrare a lui adiacente (azione): Difesa 5 per il resto della partita e salta la sua prossima attivazione.{divider}{i}Statistiche nel Bestiario dell’episodio.{/i}',
+    rules: '{i}Un gigante ricoperto di strati di cera colata, il volto un moncone liscio in cui affiorano, a tratti, i lineamenti di qualcun altro. Avanza lento e senza fretta: nulla, nel suo magazzino, gli è mai sfuggito.{/i}{divider}Statistiche nel Bestiario dell’episodio. Se il diapason d’argento viene fatto vibrare a lui adiacente (azione): Difesa 9→5 per il resto della partita e salta la sua prossima attivazione.',
   },
   // Malavita di Roccamora: nemici secolari riusabili in ogni episodio.
   {
     art: 'artworks/Lo Sgherro.png',
     title: 'Lo Sgherro',
     type: 'Creatura — Malavita',
-    rules: 'Muscolo a pagamento dei bassifondi: bastone, coltellaccio e nessuna fede se non la moneta. Tattica del branco: se è adiacente a un altro Sgherro, ha +1 Attacco. Non vengono quasi mai da soli.{divider}{i}Statistiche nel Bestiario dell’episodio.{/i}',
+    rules: '{i}Muscolo a pagamento dei bassifondi: bastone, coltellaccio e nessuna fede se non la moneta. Non vengono quasi mai da soli.{/i}{divider}Statistiche nel Bestiario dell’episodio. Tattica del branco: se è adiacente a un altro Sgherro, ha +1 Attacco.',
   },
   {
     art: 'artworks/Il Sicario.png',
     title: 'Il Sicario',
     type: 'Creatura — Malavita',
-    rules: 'Una lama assoldata, silenziosa e rapida. Sceglie sempre il bersaglio più debole. Colpo a tradimento: +2 all’Attacco contro un eroe isolato (nessun altro eroe adiacente) o già ferito. Fragile: chi lo raggiunge, lo abbatte.{divider}{i}Statistiche nel Bestiario dell’episodio.{/i}',
+    rules: '{i}Una lama assoldata, silenziosa e rapida. Sceglie sempre il bersaglio più debole. Fragile: chi lo raggiunge, lo abbatte.{/i}{divider}Statistiche nel Bestiario dell’episodio. Colpo a tradimento: +2 all’Attacco contro un eroe isolato (nessun altro eroe adiacente) o già ferito.',
   },
 ];
 
 // tipo: stessa idea del `tipo` degli Approfondimenti (LUOGHI), formalizza
 // pattern meccanici reali (vedi analisi in plans/wondrous-foraging-raven.md),
-// non i nomi delle creature - "Adepto/Cane/Fonditore" separati non
+// non i nomi delle creature - “Adepto/Cane/Fonditore” separati non
 // abiliterebbero nessuna interazione che il testo non dia gia'. Diventa
-// anche la riga "Tipo" nel titolo carta (il campo "type" nativo di Card
+// anche la riga “Tipo” nel titolo carta (il campo “type” nativo di Card
 // Conjurer non si vede su nessuna carta di questo progetto, bug
 // preesistente in lib.js). subito: true sulle creature che si attivano
 // immediatamente al piazzamento (rischio immediato vs differito) - asse
@@ -166,45 +166,45 @@ const MINACCE = [
     flavor: 'Il pavimento luccica. Capite troppo tardi perché.',
     effect: 'L’eroe più avanzato prova NERVI (Media): se fallisce, cera bollente: 1 danno e perde 1 azione al prossimo turno.' },
   { art: 'artworks/Cera sotto i piedi.png', title: 'Cera sotto i Piedi', tipo: 'Insidia',
-    flavor: 'Il pavimento cede morbido sotto lo stivale. Era ancora calda.',
+    flavor: 'Il pavimento cede morbido sotto lo stivale: la cera era ancora calda.',
     effect: 'L’eroe attivo prova NERVI (Media): se fallisce, 1 danno e perde 1 azione al prossimo turno.' },
   { art: 'artworks/Fumi soporiferi.png', title: 'Fumi Soporiferi', tipo: 'Insidia',
-    flavor: 'Un dolciastro di sego e papavero vi riempie i polmoni.',
+    flavor: 'Un odore dolciastro di sego e papavero vi riempie i polmoni.',
     effect: 'Ogni eroe prova NERVI (Facile): chi fallisce ha 1 sola azione al prossimo turno.' },
   { art: 'artworks/Il canto sale.png', title: 'Il Canto Sale', tipo: 'Crescendo',
     flavor: 'Una voce sola, sottile, cerca il tono giusto. Lo trova.',
-    effect: 'Aggiungete 1 segnalino Canto. Al terzo: il Custode si desta e da lì ogni Fase Minaccia pesca 1 carta in più. Se è già in gioco: cancellate 1 sua ferita dal Registro e si attiva subito.' },
+    effect: 'Aggiungete 1 segnalino Canto. Alla soglia: il Custode si desta e da lì ogni Fase Minaccia pesca 1 carta in più. Se è già in gioco: cancellate 1 sua ferita dal Registro e si attiva subito.' },
   { art: 'artworks/Il coro risponde.png', title: 'Il Coro Risponde', tipo: 'Crescendo',
     flavor: 'Dieci voci. Poi cento. La pietra le beve tutte.',
-    effect: 'Aggiungete 1 segnalino Canto. Al terzo: il Custode si desta e da lì ogni Fase Minaccia pesca 1 carta in più. Se è già in gioco: cancellate 1 sua ferita dal Registro e si attiva subito.' },
+    effect: 'Aggiungete 1 segnalino Canto. Alla soglia: il Custode si desta e da lì ogni Fase Minaccia pesca 1 carta in più. Se è già in gioco: cancellate 1 sua ferita dal Registro e si attiva subito.' },
   { art: 'artworks/Il canto cresce.png', title: 'Il Canto Cresce', tipo: 'Crescendo',
     flavor: 'Le voci salgono di un tono. Sotto i piedi, la pietra vibra.',
-    effect: 'Aggiungete 1 segnalino Canto. Al terzo: il Custode si desta e da lì ogni Fase Minaccia pesca 1 carta in più. Se è già in gioco: cancellate 1 sua ferita dal Registro e si attiva subito.' },
+    effect: 'Aggiungete 1 segnalino Canto. Alla soglia: il Custode si desta e da lì ogni Fase Minaccia pesca 1 carta in più. Se è già in gioco: cancellate 1 sua ferita dal Registro e si attiva subito.' },
   { art: 'artworks/Presagio.png', title: 'Presagio', tipo: 'Quiete',
     flavor: 'Una candela si spegne da sola. Nessuno ha fiatato.',
-    effect: 'Un brivido corre lungo la schiena. Non accade nulla... per ora.' },
+    effect: 'Nessun effetto. Un brivido corre lungo la schiena: non accade nulla… per ora.' },
   { art: 'artworks/Eco amica.png', title: 'Eco Amica', tipo: 'Favore',
     flavor: 'Tre colpi sordi, ostinati: qualcuno, là sotto, è ancora vivo.',
-    effect: 'Ruggero è vivo. Rivelate una tessera coperta adiacente a una già rivelata.' },
+    effect: 'Ruggero è vivo. Rivelate una tessera coperta adiacente a quella di un eroe (la scelgono i giocatori).' },
   { art: 'artworks/Cera che cola.png', title: 'Cera che Cola', tipo: 'Ostacolo',
     flavor: 'Dalle travi piove cera bollente, filo dopo filo.',
     effect: 'Fino a fine round, sulla tessera dell’eroe attivo muoversi costa il doppio.' },
   { art: 'artworks/Corrente gelida.png', title: 'Corrente Gelida', tipo: 'Ostacolo',
-    flavor: 'Un freddo d’acqua nera risale i condotti e vi entra nelle ossa.',
-    effect: 'Fino all’inizio del vostro prossimo turno ogni eroe ha -1 al Movimento (minimo 1).' },
+    flavor: 'Una corrente d’acqua nera risale i condotti e vi entra nelle ossa.',
+    effect: 'Fino a fine round ogni eroe ha −1 al Movimento (minimo 1).' },
   { art: 'artworks/Sussurri.png', title: 'Sussurri', tipo: 'Insidia',
     flavor: 'Qualcuno pronuncia il vostro nome. Con la vostra voce.',
     effect: 'L’eroe con meno NERVI (a pari merito: sceglie il gruppo) prova NERVI (Media): se fallisce subisce 1 danno dal terrore.' },
 ].map((m) => ({
   art: m.art,
-  // Il campo "type" di Card Conjurer non e' mai apparso su nessuna carta di
+  // Il campo “type” di Card Conjurer non e' mai apparso su nessuna carta di
   // questo progetto (nemmeno sui Nemici, che pure lo valorizzano da tempo:
   // fillTextArea('Type', ...) in lib.js non trova il relativo pulsante sul
-  // frame "Marker Card" e fallisce in silenzio) - il tipo va nel titolo
+  // frame “Marker Card” e fallisce in silenzio) - il tipo va nel titolo
   // stesso, che quello slot funziona di sicuro.
   title: `${m.tipo} — ${m.title}`,
   // Malavita (Sgherro/Sicario): riusabile in ogni episodio come i Nemici Malavita
-  // sotto (vedi n.file piu' in basso) - fuori da "Episodio 1/", stesso criterio.
+  // sotto (vedi n.file piu' in basso) - fuori da “Episodio 1/”, stesso criterio.
   file: (m.tipo === 'Malavita' ? 'Minacce/' : 'Episodio 1/Minacce/') + m.title,
   rules: `{i}${m.flavor}{/i}{divider}${m.effect}`,
 }));
@@ -251,7 +251,7 @@ const LUOGHI = [
   { n: 5, nome: 'Bottega del Liutaio Ferri', req: 'Un vicino sorveglia la bottega da quando Ferri è sparito: si allontana solo se vi vede portare con voi qualcosa che sembra suo, come per restituirlo.',
     testo: 'La bottega è chiusa da giorni, la polvere ha già preso possesso delle vetrine; il vicino di guardia si scosta solo davanti a ciò che riportate. Dentro, violini appesi come selvaggina e un silenzio sbagliato per un luogo nato per fare musica. Il banco da lavoro è in ordine perfetto: chi è partito, sapeva di partire.',
     approfondimenti: [
-      { tipo: 'Osservazione', soggetto: 'La cenere nel camino', testo: 'Nel camino, cenere di carta ancora tiepida. Un lembo si salva, grafia febbrile: «...il Coro canta anche senza di me, ormai, anche laggiù al magazzino delle cere di Dellacqua, sul Canale Basso. Che Dio perdoni ciò che ho svegliato. — B.» La grafia è la stessa del registro consegne sul banco: quella del liutaio Ferri.' },
+      { tipo: 'Osservazione', soggetto: 'La cenere nel camino', testo: 'Nel camino, cenere di carta ancora tiepida. Un lembo si salva, grafia febbrile: «…il Coro canta anche senza di me, ormai, anche laggiù al magazzino delle cere di Dellacqua, sul Canale Basso. Che Dio perdoni ciò che ho svegliato. — B.» La grafia è la stessa del registro consegne sul banco: quella del liutaio Ferri.' },
       { tipo: 'Referto', soggetto: 'Residui sulle lime', testo: 'Su lime e sgorbie, incrostazioni di cera nera — non la pece da liutaio. Qui Ferri lavorava le candele del culto: la sua bottega è l’unica officina della città attrezzata per fonderle in quantità. Sul registro, l’ultima consegna è diretta al vecchio magazzino delle cere di Dellacqua, sul Canale Basso — non un grammo di bronzo in vista: qualunque cosa venda Learco il ramaio, non passa da qui.' },
     ] },
   { n: 6, nome: 'Il Canale Basso', req: 'Il guardiano del molo non vi lascia avvicinare: aspetta che gli diciate la parola giusta, quella sentita altrove, tra un bicchiere e l’altro.',
@@ -277,14 +277,14 @@ const LUOGHI = [
   // campo `type` sotto NON viene disegnato dal frame Tokens/Marker Card usato
   // (vedi vendor/cardconjurer/js/frames/packTokenMarker.js) - senza il numero
   // qui, la carta Luogo non mostra mai il suo numero da nessuna parte, e non
-  // si puo' abbinare al dorso Approfondimenti corrispondente ("Luogo N").
+  // si puo' abbinare al dorso Approfondimenti corrispondente (“Luogo N”).
   title: `${L.n} · ${L.nome}`,
   file: `Episodio 1/Luoghi/${L.n} - ${L.nome}`,
   type: `Luogo ${L.n} — ${L.req}`,
   // Luoghi bloccati: la descrizione d'apertura lascia il posto a un tocco
   // narrativo (un guardiano, un vicino diffidente...) che giustifica perche'
   // serva qualcosa per entrare - MAI il nome dell'oggetto/la parola e MAI un
-  // puntatore "(Luogo N)" - il collegamento lo fa chi gioca da solo,
+  // puntatore “(Luogo N)” - il collegamento lo fa chi gioca da solo,
   // riconoscendo cosa ha gia' trovato/sentito (vedi PROMPT-ESPANSIONE.md).
   // Luoghi aperti dall'inizio: descrizione normale, invariata.
   rules: `{i}${L.req === 'Disponibile dall’inizio' ? L.testo : L.req}{/i}`,
@@ -294,7 +294,7 @@ const LUOGHI = [
 }));
 
 // Approfondimenti gated derivati dai luoghi. Osservazione+Presagio -> carta
-// "Indizio Nascosto" del luogo (una per luogo che ne ha, righe taggate per eroe).
+// “Indizio Nascosto” del luogo (una per luogo che ne ha, righe taggate per eroe).
 // Testimonianza -> mazzo Testimoni; Referto -> mazzo Referti. Tutte riusano l'arte
 // del luogo. Il dorso mostra SOLO il tipo, inciso direttamente nell'arte generata
 // (dorso dedicato per tipo, vedi PROMPT-MIDJOURNEY.md: "Dorso carte Indizio
@@ -352,13 +352,13 @@ const REFERTI = LUOGHI.flatMap((L) =>
 const OGGETTI = [
   { art: 'artworks/Corda di Violino.png', nome: 'Corda di Violino d’Argento', ref: 'L2', fonte: 'Luogo 2 — Casa di Ruggero',
     flavor: 'Ancora tesa, come se qualcuno l’avesse suonata ieri.',
-    effetto: 'A Roccamora una corda così la vende una sola bottega — e qualcuno, lì, potrebbe volerla indietro.' },
+    effetto: 'In indagine: mostrata al vicino, apre la Bottega del Liutaio Ferri (Luogo 5) — a Roccamora una corda così la vende una bottega sola.' },
   { art: 'artworks/Ampolla Benedetta.png', nome: 'Ampolla di Acqua Benedetta', ref: 'L4', fonte: 'Luogo 4 — La Sagrestia della Cattedrale',
     flavor: '«Se là sotto c’è il demonio, portate questa», vi dice, e non vi guarda negli occhi.',
     effetto: 'Effetto: nessuno finora scoperto.' },
   { art: 'artworks/Diapason.png', nome: 'Il Diapason d’Argento', ref: 'L5', fonte: 'Luogo 5 — Bottega del Liutaio Ferri',
     flavor: 'Inciso con un’onda. Vibra anche senza essere toccato.',
-    effetto: 'In spedizione: un’azione adiacente al Custode della Cera lo fa vibrare — Difesa 5 per il resto della partita, e il Custode salta la sua prossima attivazione.' },
+    effetto: 'In spedizione: un’azione adiacente al Custode della Cera lo fa vibrare — Difesa 9→5 per il resto della partita, e il Custode salta la sua prossima attivazione.' },
   { art: 'artworks/Piede di Porco.png', nome: 'Un Piede di Porco', ref: 'T2', fonte: 'Si trova cercando in T2 — Sala delle Casse',
     flavor: 'Freddo, pesante, già piegato da altre porte.',
     effetto: '+1 alle prove per forzare e scassinare.' },
@@ -443,15 +443,18 @@ const PRELUDIO_OGGETTI = [
 
 // Sottocartella per tipo, cosi' e' chiaro a colpo d'occhio se una carta e' la
 // scheda nemico (combattimento) o la carta minaccia (evento dal mazzo), anche
-// quando condividono soggetto/art (es. "Il Fonditore" esiste in entrambe).
+// quando condividono soggetto/art (es. “Il Fonditore” esiste in entrambe).
 // I nemici del culto sono legati alla trama dell'Episodio 1; la Malavita
 // (Sgherro/Sicario) e' dichiaratamente riusabile in ogni episodio (vedi
-// PROMPT-ESPANSIONE.md) e resta percio' comune, fuori da "Episodio 1/".
+// PROMPT-ESPANSIONE.md) e resta percio' comune, fuori da “Episodio 1/”.
 // Windows non accetta " < > : | ? * nei nomi file (es. Nino "Grimaldello"
 // Cauto): lib.js li toglie dal nome salvato su disco (outName), quindi
 // vanno tolti anche qui - altrimenti generate-print-sheets.js cerca un file
 // con le virgolette che non esiste, e salta il fronte della carta.
-const sanitizeFile = (s) => s.replace(/["<>:|?*]/g, '');
+// Anche le virgolette CURVE vanno tolte: i nomi degli eroi le portano
+// (Nino “Grimaldello” Cauto), ma le carte gia' rese su disco hanno il
+// nome senza — e lib.js usa questo stesso `file` per ritrovarle.
+const sanitizeFile = (s) => s.replace(/["<>:|?*“”]/g, '');
 NEMICI.forEach((n) => {
   n.file = sanitizeFile((n.type.includes('Malavita') ? 'Nemici/' : 'Episodio 1/Nemici/') + n.title);
 });
@@ -624,13 +627,13 @@ const EP2_MINACCE = [
     effect: 'Ogni eroe prova NERVI (Facile): chi fallisce ha 1 sola azione al prossimo turno.' },
   { art: 'artworks/Il primo rintocco.png', title: 'Il Primo Rintocco', tipo: 'Crescendo',
     flavor: 'Una campanella grezza rintocca da sola. Una volta.',
-    effect: 'Aggiungete 1 segnalino Canto. Al terzo: lo Scoriatore si desta e da quel momento ogni Fase Minaccia pesca 1 carta in più (vedi Soluzione). Se è già in gioco: cancellate 1 sua ferita dal Registro e si attiva subito.' },
+    effect: 'Aggiungete 1 segnalino Canto. Alla soglia: lo Scoriatore si desta e da quel momento ogni Fase Minaccia pesca 1 carta in più (vedi Soluzione). Se è già in gioco: cancellate 1 sua ferita dal Registro e si attiva subito.' },
   { art: 'artworks/Il bronzo risponde.png', title: 'Il Bronzo Risponde', tipo: 'Crescendo',
     flavor: 'Le campanelle in fila si inclinano insieme, in ascolto.',
-    effect: 'Aggiungete 1 segnalino Canto. Al terzo: lo Scoriatore si desta e da quel momento ogni Fase Minaccia pesca 1 carta in più (vedi Soluzione). Se è già in gioco: cancellate 1 sua ferita dal Registro e si attiva subito.' },
+    effect: 'Aggiungete 1 segnalino Canto. Alla soglia: lo Scoriatore si desta e da quel momento ogni Fase Minaccia pesca 1 carta in più (vedi Soluzione). Se è già in gioco: cancellate 1 sua ferita dal Registro e si attiva subito.' },
   { art: 'artworks/La lega canta.png', title: 'La Lega Canta', tipo: 'Crescendo',
     flavor: 'Il metallo fuso vibra a onde ferme, come una gola.',
-    effect: 'Aggiungete 1 segnalino Canto. Al terzo: lo Scoriatore si desta e da quel momento ogni Fase Minaccia pesca 1 carta in più (vedi Soluzione). Se è già in gioco: cancellate 1 sua ferita dal Registro e si attiva subito.' },
+    effect: 'Aggiungete 1 segnalino Canto. Alla soglia: lo Scoriatore si desta e da quel momento ogni Fase Minaccia pesca 1 carta in più (vedi Soluzione). Se è già in gioco: cancellate 1 sua ferita dal Registro e si attiva subito.' },
   { art: 'artworks/Polvere di bronzo.png', title: 'Polvere di Bronzo', tipo: 'Quiete',
     flavor: 'Oro finto sospeso nell’aria ferma. Nessun rumore, da nessuna parte.',
     effect: 'Nessun effetto. Tirate il fiato — qualcosa, là fuori, lo sta trattenendo.' },
@@ -672,7 +675,7 @@ const EP2_OGGETTI = [
   { art: 'artworks/Polizza del Monte.png', nome: 'La Polizza del Monte', ref: 'E2-L6',
     fonte: 'Luogo 6 — Il Banco dei Pegni di Fossa',
     flavor: 'Riscattata, timbrata, dimenticata. La fretta lascia ricevute.',
-    effetto: 'A Roccamora una polizza riscattata si riporta al proprietario — e certe porte, davanti a chi restituisce, si aprono da sole.' },
+    effetto: 'In indagine: apre la Corte della Faenza (Luogo 5) — una polizza riscattata si riporta al proprietario, e certe porte, davanti a chi restituisce, si aprono da sole.' },
   { art: 'artworks/Badile del Formatore.png', nome: 'Un Badile del Formatore', ref: 'E2-T2',
     fonte: 'Si trova cercando in T2 — Il Piazzale delle Forme',
     flavor: 'Corto, pesante, con la pala consumata a mezzaluna.',
@@ -825,7 +828,7 @@ const EP3_REFERTI = LUOGHI3.flatMap((L) =>
   })));
 
 // Mazzo Minaccia dell'episodio: 21 carte + 1 del Bivio («La campana nuova»,
-// solo ramo "rifusa"). Mix: 11 spawn, 3 insidie, 3 crescendo, 4 eventi.
+// solo ramo “rifusa”). Mix: 11 spawn, 3 insidie, 3 crescendo, 4 eventi.
 const EP3_MINACCE = [
   { art: 'artworks/Il calare dei secchi.png', title: 'Il Calare dei Secchi', tipo: 'Posseduto',
     flavor: 'Dall’occhio della volta, una corda si tende. Il secchio non porta acqua.',
@@ -904,7 +907,7 @@ const EP3_OGGETTI = [
   { art: 'artworks/Chiavi dei Chiusini.png', nome: 'Le Chiavi dei Chiusini', ref: 'E3-L1',
     fonte: 'Luogo 1 — Il Lavatoio Grande',
     flavor: 'Un anello di ferro con undici chiavi, e una dodicesima aggiunta dopo, più nuova.',
-    effetto: 'Aprono i lucchetti daziari della corte dei pozzi murati — e certe porte si aprono solo per chi può aprire anche i coperchi.' },
+    effetto: 'In indagine: aprono i lucchetti daziari della Corte dei Pozzi Murati (Luogo 9) — certe porte si aprono solo per chi può aprire anche i coperchi.' },
   { art: 'artworks/Tappi di Cera.png', nome: 'I Tappi di Cera', ref: 'E3-L4',
     fonte: 'Luogo 4 — La Casa di Tobia',
     flavor: 'Modellati sulle orecchie di Tobia. «Il pozzo parla», diceva, «e chi ascolta troppo resta giù.»',
@@ -928,7 +931,7 @@ const EP3_OGGETTI = [
   { art: 'artworks/Lanterna da Minatore.png', nome: 'Una Lanterna da Minatore', ref: 'E3-T2',
     fonte: 'Si trova cercando in T2 — La Cisterna delle Colonne',
     flavor: 'Il vetro è integro e la fiamma sta dritta: laggiù è già qualcosa.',
-    effetto: '+1 alle prove NERVI finché la porta chi l’ha trovata.' },
+    effetto: '+1 alle prove NERVI finché la porta chi l’ha presa.' },
 ].map((o) => ({
   art: o.art,
   title: o.nome,
@@ -971,7 +974,7 @@ const LUOGHI4 = [
       { tipo: 'Testimonianza', soggetto: 'La Vetri',
         testo: '«Alboni mi corregge il respiro come si accorda un mobile: mezzo grado di petto in qua, il mento in là. L’altra sera ho steccato l’acuto e l’ho visto piangere — non di rabbia: di paura. Un uomo che ha paura dei MIEI errori sta rispondendo a qualcuno dei suoi.»' },
     ] },
-  { n: 3, nome: 'Il Loggione', req: 'Apre col pubblico, alle 20:00',
+  { n: 3, nome: 'Il Loggione', req: 'La scala del loggione è sbarrata finché non entra il pubblico: si sale alle 20:00, col primo scampanellio, e non un minuto prima.',
     art: 'artworks/Il Loggione.png',
     testo: 'Panche lucide, ringhiera di ferro e l’acustica migliore della sala: i soldi stanno sotto, le orecchie stanno sopra. La claque senza Rocco è un’orchestra senza direttore — battibecchi, lutto e vino. E da quassù, da settimane, qualcuno guarda giù molto più di quanto applauda.',
     approfondimenti: [
@@ -1065,7 +1068,7 @@ const EP4_REFERTI = LUOGHI4.flatMap((L) =>
   })));
 
 // Mazzo Minaccia dell'episodio: 21 carte + 1 del Bivio («La melodia
-// impressa», solo ramo "restituite" dell'Ep. 3). Mix: 11 spawn, 3 insidie,
+// impressa», solo ramo “restituite” dell'Ep. 3). Mix: 11 spawn, 3 insidie,
 // 3 crescendo, 4 eventi.
 const EP4_MINACCE = [
   { art: 'artworks/La Claque.png', title: 'Il Battimani', tipo: 'Posseduto',
@@ -1169,7 +1172,7 @@ const EP4_OGGETTI = [
   { art: 'artworks/Lanterna Cieca.png', nome: 'Una Lanterna Cieca', ref: 'E4-T2',
     fonte: 'Si trova cercando in T2 — Il Magazzino delle Scene',
     flavor: 'Lo sportello schermato del trovarobe: la luce solo dove serve.',
-    effetto: '+1 alle prove NERVI finché la porta chi l’ha trovata.' },
+    effetto: '+1 alle prove NERVI finché la porta chi l’ha presa.' },
 ].map((o) => ({
   art: o.art,
   title: o.nome,
@@ -1304,7 +1307,7 @@ const EP5_REFERTI = LUOGHI5.flatMap((L) =>
   })));
 
 // Mazzo Minaccia: 21 carte + 1 del Bivio («I legni chiamano», ramo
-// "sigillata" dell'Ep. 4). Mix: 11 spawn, 3 insidie, 3 crescendo, 4 eventi.
+// “sigillata” dell'Ep. 4). Mix: 11 spawn, 3 insidie, 3 crescendo, 4 eventi.
 const EP5_MINACCE = [
   { art: 'artworks/Il passo di cera.png', title: 'Il Passo di Cera', tipo: 'Posseduto',
     flavor: 'Due passi, mai di corsa. La cera non ricorda la paura.',
@@ -1403,7 +1406,7 @@ const EP5_OGGETTI = [
   { art: 'artworks/Lanterna d’Altare.png', nome: 'Una Lanterna d’Altare', ref: 'E5-T2',
     fonte: 'Si trova cercando in T2 — La Navata Sepolta',
     flavor: 'Ottone e vetro rubino: la luce giusta per una chiesa in apnea.',
-    effetto: '+1 alle prove NERVI finché la porta chi l’ha trovata.' },
+    effetto: '+1 alle prove NERVI finché la porta chi l’ha presa.' },
   { art: 'artworks/Scalpello da Liutaio.png', nome: 'Uno Scalpello da Liutaio', ref: 'E5-T5',
     fonte: 'Si trova cercando in T5 — L’Officina delle Canne d’Ossa',
     flavor: 'Manico d’osso, filo perfetto. Lo strumento del sacrilegio, restituito al mittente.',
@@ -1776,7 +1779,7 @@ const EP7_REFERTI = LUOGHI7.flatMap((L) =>
   })));
 
 // Mazzo Minaccia: 21 carte + 1 del Bivio («Gli occhi del culto», ramo
-// "Ferri vivo" dell'Ep. 6). Mix: 11 spawn, 3 insidie, 3 crescendo, 4 eventi.
+// “Ferri vivo” dell'Ep. 6). Mix: 11 spawn, 3 insidie, 3 crescendo, 4 eventi.
 const EP7_MINACCE = [
   { art: 'artworks/La squadra del silenzio.png', title: 'La Squadra del Silenzio', tipo: 'Malavita',
     flavor: 'Arrivano senza un ordine detto ad alta voce. Non gli serve.',
@@ -2055,7 +2058,7 @@ const EP8_MINACCE = [
     flavor: 'Il carbone non perdona chi respira nel momento sbagliato.',
     effect: 'L’eroe attivo prova NERVI (Media): se fallisce, 1 danno e perde 1 azione al prossimo turno.' },
   { art: 'artworks/La passerella marcia.png', title: 'La Passerella Marcia', tipo: 'Insidia',
-    flavor: 'Il molo in disarmo è in disarmo davvero, dove serve a lui.',
+    flavor: 'Il molo in disarmo è in disarmo davvero proprio dove servirebbe reggere.',
     effect: 'L’eroe più avanzato prova NERVI (Media): se fallisce, 1 danno.' },
   { art: 'artworks/Un fischio sull’acqua.png', title: 'Un Fischio sull’Acqua', tipo: 'Crescendo',
     flavor: 'La voce gira: c’è gente all’ansa che non doveva entrarci.',
@@ -2276,7 +2279,7 @@ const EP9_MINACCE = [
     effect: 'L’eroe più avanzato prova NERVI (Media): se fallisce, 1 danno.' },
   { art: 'artworks/La folla che spinge.png', title: 'La Folla che Spinge', tipo: 'Insidia',
     flavor: 'Un capannello che si stringe: qualcuno cerca di separarvi da Riva.',
-    effect: 'L’eroe adiacente a Riva prova NERVI (Media): se fallisce, Riva è spinto di 2 caselle a caso (chi arbitra sceglie).' },
+    effect: 'L’eroe adiacente a Riva prova NERVI (Media): se fallisce, Riva è spinto di 2 caselle, scelte da chi arbitra.' },
   { art: 'artworks/La prima ronda passa.png', title: 'La Prima Ronda Passa', tipo: 'Crescendo',
     flavor: 'Le lanterne dei gendarmi si allontanano. Puntuali, come pagate.',
     effect: 'Aggiungete 1 segnalino Canto (l’Ora che stringe). Alla soglia: l’intervallo delle ronde è al colmo — ogni Fase Minaccia pesca 1 carta in più, per sempre. Se il Sicario Gentile è in gioco: si attiva subito.' },
@@ -2492,7 +2495,7 @@ const EP10_MINACCE = [
     effect: 'Ogni eroe prova NERVI (Facile): chi fallisce ha 1 sola azione al prossimo turno.' },
   { art: 'artworks/La ninnananna di ada.png', title: 'La Ninnananna di Ada', tipo: 'Insidia',
     flavor: 'Una nenia dolcissima dalla parete. È peggio dell’urlo: vi vuole restare.',
-    effect: 'L’eroe con meno NERVI prova NERVI (Media): se fallisce, 1 danno.' },
+    effect: 'L’eroe con meno NERVI (a pari merito: sceglie il gruppo) prova NERVI (Media): se fallisce, 1 danno.' },
   { art: 'artworks/La parete che suda calce.png', title: 'Il Respiro nel Muro', tipo: 'Insidia',
     flavor: 'Dietro l’intonaco, qualcosa respira piano. Aspetta di essere trovato.',
     effect: 'L’eroe più avanzato prova NERVI (Media): se fallisce, 1 danno.' },
@@ -2714,13 +2717,13 @@ const EP11_MINACCE = [
     effect: 'L’eroe più avanzato prova NERVI (Media): se fallisce, 1 danno.' },
   { art: 'artworks/La tegola che scivola.png', title: 'La Tegola che Scivola', tipo: 'Insidia',
     flavor: 'Un coppo si stacca sotto il piede e vola giù, contando i secondi fino a terra.',
-    effect: 'L’eroe attivo prova VIGORE (Media): se fallisce, scivola — 1 danno e perde lo scatto. Con la Corda del Campanaro: nessuna prova.' },
+    effect: 'L’eroe attivo prova VIGORE (Media): se fallisce, scivola — 1 danno e perde il movimento extra. Con la Corda del Campanaro: nessuna prova.' },
   { art: 'artworks/Le mani sudate.png', title: 'Le Mani Sudate', tipo: 'Insidia',
     flavor: 'La presa si fa incerta proprio quando serve salda. Il vuoto lo sa.',
     effect: 'Ogni eroe su tessera ESPOSTA prova NERVI (Facile): chi fallisce ha 1 sola azione al prossimo turno.' },
   { art: 'artworks/Lo sguardo in giu.png', title: 'Lo Sguardo in Giù', tipo: 'Insidia',
     flavor: 'Basta un attimo a guardare sotto, e la città gira come un gorgo.',
-    effect: 'L’eroe con meno NERVI prova NERVI (Media): se fallisce, 1 danno.' },
+    effect: 'L’eroe con meno NERVI (a pari merito: sceglie il gruppo) prova NERVI (Media): se fallisce, 1 danno.' },
   { art: 'artworks/Il rintocco improvviso.png', title: 'Il Rintocco Improvviso', tipo: 'Insidia',
     flavor: 'Le campane suonano l’ora senza avviso, e il fragore vi stacca dal muro.',
     effect: 'Ogni eroe prova NERVI (Facile): chi fallisce ha 1 sola azione al prossimo turno.' },
@@ -2729,16 +2732,16 @@ const EP11_MINACCE = [
     effect: 'L’eroe più avanzato su tessera ESPOSTA prova NERVI (Media): se fallisce, 1 danno.' },
   { art: 'artworks/Il primo refolo.png', title: 'Il Primo Refolo', tipo: 'Crescendo',
     flavor: 'Il vento cambia e comincia a spingere. È solo l’inizio: monterà.',
-    effect: 'Aggiungete 1 segnalino Canto (la Bora) E alzate di 1 la difficoltà delle prove di vento, per sempre. Alla soglia: ogni Fase Minaccia pesca 1 carta in più.' },
+    effect: 'Aggiungete 1 segnalino Canto (la Bora) E alzate di 1 la difficoltà delle prove di vento, per sempre (i Crescendo si sommano). Alla soglia: ogni Fase Minaccia pesca 1 carta in più, per sempre.' },
   { art: 'artworks/Il vento gira.png', title: 'Il Vento Gira', tipo: 'Crescendo',
     flavor: 'Cambia lato senza avvisare: quello che vi teneva, ora vi spinge giù.',
-    effect: 'Aggiungete 1 segnalino Canto (la Bora) E alzate di 1 la difficoltà delle prove di vento, per sempre. Alla soglia: ogni Fase Minaccia pesca 1 carta in più.' },
+    effect: 'Aggiungete 1 segnalino Canto (la Bora) E alzate di 1 la difficoltà delle prove di vento, per sempre (i Crescendo si sommano). Alla soglia: ogni Fase Minaccia pesca 1 carta in più, per sempre.' },
   { art: 'artworks/La bora dal mare.png', title: 'La Bora dal Mare', tipo: 'Crescendo',
     flavor: 'Dal mare arriva la bora, dura e fredda, che sui tetti non perdona.',
-    effect: 'Aggiungete 1 segnalino Canto (la Bora) E alzate di 1 la difficoltà delle prove di vento, per sempre. Alla soglia: ogni Fase Minaccia pesca 1 carta in più.' },
+    effect: 'Aggiungete 1 segnalino Canto (la Bora) E alzate di 1 la difficoltà delle prove di vento, per sempre (i Crescendo si sommano). Alla soglia: ogni Fase Minaccia pesca 1 carta in più, per sempre.' },
   { art: 'artworks/La raffica sulla guglia.png', title: 'La Raffica sulla Guglia', tipo: 'Crescendo',
     flavor: 'La raffica investe la cima: chi è in bilico sul cornicione, adesso, rischia di volare.',
-    effect: 'Aggiungete 1 segnalino Canto (la Bora) E alzate di 1 la difficoltà delle prove di vento. Se il Caposquadra è a 1 Ferita su tessera ESPOSTA, CADE nel vuoto (filo perso): tenetelo al riparo prima!' },
+    effect: 'Aggiungete 1 segnalino Canto (la Bora) E alzate di 1 la difficoltà delle prove di vento, per sempre (i Crescendo si sommano). Se il Caposquadra è a 1 Ferita su tessera ESPOSTA, CADE nel vuoto (filo perso): tenetelo al riparo prima!' },
   { art: 'artworks/Il vento cade.png', title: 'Il Vento Cade', tipo: 'Quiete',
     flavor: 'Per un istante, l’aria si ferma. La città, sotto, sembra a portata di mano.',
     effect: 'Nessun effetto. Tirate il fiato: anche la bora, ogni tanto, riprende lena.' },
@@ -2941,7 +2944,7 @@ const EP12_MINACCE = [
     flavor: 'Una barca messa di traverso vi taglia la via d’acqua: aggiratela.',
     effect: 'Piazzate 1 Sgherro sull’uscita più vicina agli eroi: si attiva subito.' },
   { art: 'artworks/La corrente contraria.png', title: 'La Corrente Contraria', tipo: 'Insidia',
-    flavor: 'La marea vi rema contro proprio mentre lui la ha a favore.',
+    flavor: 'La marea vi rema contro proprio mentre lui l’ha a favore.',
     effect: 'L’eroe più avanzato prova VIGORE (Media): se fallisce, il Corriere guadagna terreno (FUGA +1).' },
   { art: 'artworks/La nebbia che inganna.png', title: 'La Nebbia che Inganna', tipo: 'Insidia',
     flavor: 'La foschia fa vedere il corriere dove non è: si insegue un fantasma.',
@@ -2957,13 +2960,13 @@ const EP12_MINACCE = [
     effect: 'Aggiungete 1 segnalino Canto (la sede violata) E fate avanzare la FUGA di 1. Alla soglia: ogni Fase Minaccia pesca 1 carta in più, per sempre.' },
   { art: 'artworks/Il corriere accelera.png', title: 'Il Corriere Accelera', tipo: 'Crescendo',
     flavor: 'Vi ha visti: piega sui remi e allunga il passo verso l’approdo.',
-    effect: 'Aggiungete 1 segnalino Canto E fate avanzare la FUGA di 1. Alla soglia: ogni Fase Minaccia pesca 1 carta in più.' },
+    effect: 'Aggiungete 1 segnalino Canto E fate avanzare la FUGA di 1. Alla soglia: ogni Fase Minaccia pesca 1 carta in più, per sempre.' },
   { art: 'artworks/Un varco si apre.png', title: 'Un Varco si Apre', tipo: 'Crescendo',
     flavor: 'Un ramo laterale del canale gli offre una scorciatoia.',
-    effect: 'Aggiungete 1 segnalino Canto E fate avanzare la FUGA di 1. Alla soglia: ogni Fase Minaccia pesca 1 carta in più.' },
+    effect: 'Aggiungete 1 segnalino Canto E fate avanzare la FUGA di 1. Alla soglia: ogni Fase Minaccia pesca 1 carta in più, per sempre.' },
   { art: 'artworks/La marea sale.png', title: 'La Marea Sale', tipo: 'Crescendo',
     flavor: 'L’acqua monta e spinge: chi va con la corrente vola, chi la rema contro annaspa.',
-    effect: 'Aggiungete 1 segnalino Canto E fate avanzare la FUGA di 1. Alla soglia: ogni Fase Minaccia pesca 1 carta in più.' },
+    effect: 'Aggiungete 1 segnalino Canto E fate avanzare la FUGA di 1. Alla soglia: ogni Fase Minaccia pesca 1 carta in più, per sempre.' },
   { art: 'artworks/Le campane coprono i passi.png', title: 'Le Campane Coprono i Passi', tipo: 'Crescendo',
     flavor: 'I rintocchi della notte coprono il tonfo del remo: lo perdete d’orecchio.',
     effect: 'Aggiungete 1 segnalino Canto E fate avanzare la FUGA di 1. Se il Corriere raggiunge l’approdo (T6) con la FUGA piena, consegna: sconfitta.' },
@@ -3166,19 +3169,19 @@ const EP13_MINACCE = [
     effect: 'Piazzate 1 Sgherro sull’ingresso della tessera (dal lato da cui siete entrati).' },
   { art: 'artworks/La corrente della roggia.png', title: 'La Corrente della Roggia', tipo: 'Insidia',
     flavor: 'L’acqua nera precipita verso la ruota e vuole prendersi chi scivola.',
-    effect: 'L’eroe attivo prova VIGORE/DESTREZZA (Media): se fallisce, cade in acqua — 1 round perso a risalire. Con il Taccuino del Capo-Catena: a Facile.' },
+    effect: 'L’eroe attivo prova VIGORE (Media): se fallisce, cade in acqua — perde il turno a risalire. Con il Taccuino del Capo-Catena: a Facile.' },
   { art: 'artworks/Lingranaggio delle macine.png', title: 'L’Ingranaggio delle Macine', tipo: 'Insidia',
     flavor: 'La macchina non distingue amici da nemici: un lembo di giacca, e ti tira.',
     effect: 'L’eroe più avanzato prova NERVI (Media): se fallisce, 1 danno (spinto contro gli ingranaggi).' },
   { art: 'artworks/La passerella scivolosa.png', title: 'La Passerella Scivolosa', tipo: 'Insidia',
     flavor: 'Assi viscide sopra la corrente: un passo troppo lungo e sei sotto.',
-    effect: 'L’eroe attivo prova VIGORE/DESTREZZA (Media): se fallisce, perde il movimento extra questo turno.' },
+    effect: 'L’eroe attivo prova VIGORE (Media): se fallisce, perde il movimento extra questo turno.' },
   { art: 'artworks/La polvere che soffoca.png', title: 'La Polvere che Soffoca', tipo: 'Insidia',
     flavor: 'La polvere di stracci riempie i polmoni: si tossisce, si vede meno.',
     effect: 'Ogni eroe prova NERVI (Facile): chi fallisce ha 1 sola azione al prossimo turno.' },
   { art: 'artworks/Il telaio che cade.png', title: 'Il Telaio che Cade', tipo: 'Insidia',
     flavor: 'Un telaio carico di fogli si stacca dall’alto e piomba giù.',
-    effect: 'L’eroe più avanzato prova VIGORE/DESTREZZA (Media): se fallisce, 1 danno.' },
+    effect: 'L’eroe più avanzato prova VIGORE (Media): se fallisce, 1 danno.' },
   { art: 'artworks/Lo straccio in fiamme.png', title: 'Lo Straccio in Fiamme', tipo: 'Insidia',
     flavor: 'Uno straccio prende e vola, portando il fuoco dove non deve.',
     effect: 'L’eroe attivo, se si trova in una tessera in fiamme, prova NERVI (Media) o subisce 1 danno; altrove, il tizzone cade a vuoto (per ora).' },
@@ -3395,7 +3398,7 @@ const EP14_MINACCE = [
     effect: 'Piazzate 1 Sgherro (Gatto minore) sull’uscita più vicina agli eroi: si attiva subito.' },
   { art: 'artworks/Il coppo che frana.png', title: 'Il Coppo che Frana', tipo: 'Insidia',
     flavor: 'Una tegola si stacca sotto il piede e scivola verso il vuoto, trascinando l’appoggio.',
-    effect: 'L’eroe attivo prova VIGORE/DESTREZZA (Media): se fallisce, resta un round aggrappato — perde il turno e la FUGA avanza. Coi Ramponi: nessun effetto.' },
+    effect: 'L’eroe attivo prova VIGORE (Media): se fallisce, resta un round aggrappato — perde il turno e la FUGA avanza. Coi Ramponi: nessun effetto.' },
   { art: 'artworks/La grondaia marcia.png', title: 'La Grondaia Marcia', tipo: 'Insidia',
     flavor: 'Il ferro arrugginito cede con un gemito proprio mentre ci si appoggia.',
     effect: 'L’eroe più avanzato prova VIGORE (Media): se fallisce, 1 danno (uno strappo, un volo breve). Coi Ramponi: nessun danno.' },
@@ -3404,13 +3407,13 @@ const EP14_MINACCE = [
     effect: 'L’eroe attivo prova NERVI (Media): se fallisce, ha 1 sola azione al prossimo turno (la vertigine).' },
   { art: 'artworks/Il vetro del lucernario.png', title: 'Il Vetro del Lucernario', tipo: 'Insidia',
     flavor: 'Il vetro sporco geme, si incrina a ragnatela: un attimo prima di cedere.',
-    effect: 'L’eroe attivo prova VIGORE/DESTREZZA (Media): se fallisce, 1 danno (sfonda il vetro) e la FUGA avanza. Coi Ramponi o la fune (T3): nessun danno.' },
+    effect: 'L’eroe attivo prova VIGORE (Media): se fallisce, 1 danno (sfonda il vetro) e la FUGA avanza. Coi Ramponi o la fune (T3): nessun danno.' },
   { art: 'artworks/La fune tesa.png', title: 'La Fune Tesa', tipo: 'Insidia',
     flavor: 'Una fune da bucato tesa all’altezza del collo, invisibile nel buio.',
-    effect: 'L’eroe più avanzato prova VIGORE/DESTREZZA (Media): se fallisce, perde il movimento extra questo turno.' },
+    effect: 'L’eroe più avanzato prova VIGORE (Media): se fallisce, perde il movimento extra questo turno.' },
   { art: 'artworks/Il colombo in volo.png', title: 'Il Colombo in Volo', tipo: 'Insidia',
     flavor: 'Uno stormo esplode in volo da un comignolo, all’improvviso, in faccia.',
-    effect: 'Ogni eroe prova NERVI (Facile): chi fallisce indietreggia di un passo — se sul bordo, prova VIGORE/DESTREZZA (Media) o cade di un livello (rientra al turno dopo).' },
+    effect: 'Ogni eroe prova NERVI (Facile): chi fallisce indietreggia di un passo — se sul bordo, prova VIGORE (Media) o cade di un livello (rientra al turno dopo).' },
   { art: 'artworks/Un fischio sui tetti.png', title: 'Un Fischio sui Tetti', tipo: 'Crescendo',
     flavor: 'Un fischio lontano risponde a un altro: lo Spillo ha chiamato, e si muove.',
     effect: 'Aggiungete 1 segnalino Canto (la Fuga). Alla soglia-fuga (Canto 7, 8 con la Parola dei Tetti) il Primo Gatto sparisce se non agganciato. Alla soglia (3): +1 carta Minaccia per Fase, per sempre.' },
@@ -3520,7 +3523,7 @@ const LUOGHI15 = [
         testo: '«Me l’hanno fatta imparare» gli scappa, e poi si corregge. È tutto lì. Il testimone non mente su ciò che ha visto: mente sull’aver visto. È stato istruito, e recita una parte scritta da altri — la stessa mano che ha scritto il dossier. Un testimone vero è la crepa di un caso; questo ne è il cemento. Chi lo ha preparato sapeva quale tassello mancava, e l’ha fabbricato.' },
     ] },
   { n: 5, nome: 'L’Archivio dei Manuali',
-    req: 'L’archivio dei manuali della Società apre solo a chi sospetta la mano dietro il falso: qualcuno che scrive col metodo della società, il nostro stesso ago.',
+    req: 'L’archivio dei manuali della Società apre solo a chi sospetta la mano dietro il falso: qualcuno che scrive col metodo della Società, il nostro stesso ago.',
     art: 'artworks/L’Archivio dei Manuali.png',
     testo: 'Dodici copie numerate del metodo indiziario, tutte presenti — e una, la n. 7, riletta di recente da una mano che ha cancellato la propria firma. Chi ha ripassato il metodo, poco prima che il dossier nascesse?',
     approfondimenti: [
@@ -3632,7 +3635,7 @@ const EP15_MINACCE = [
     effect: 'L’eroe più avanzato prova VIGORE (Media): se fallisce, perde il movimento extra questo turno.' },
   { art: 'artworks/La porta che si chiude.png', title: 'La Porta che si Chiude', tipo: 'Insidia',
     flavor: 'Una porta si chiude piano alle vostre spalle: siete dove vogliono loro.',
-    effect: 'Fino a fine round, sulla tessera dell’eroe attivo muoversi verso Nord costa il doppio.' },
+    effect: 'Fino a fine round, sulla tessera dell’eroe attivo muoversi costa il doppio.' },
   { art: 'artworks/Il faro della ronda.png', title: 'Il Faro della Ronda', tipo: 'Insidia',
     flavor: 'Un fascio di luce spazza la stanza dal cortile: la ronda della Gendarmeria.',
     effect: 'Aggiungete 1 segnalino Canto (il Sigillo si avvicina). Ogni eroe prova NERVI (Facile) o si acquatta: 1 sola azione al prossimo turno.' },
@@ -3703,7 +3706,7 @@ const EP15_OGGETTI = [
 const EP15_NEMICI = [
   { art: 'artworks/Il Capo Apparecchiatore.png', title: 'Il Capo Apparecchiatore',
     type: 'Il Regista della Scena (Boss) — Episodio 15',
-    rules: '{i}Il regista della scena: non un sicario, un artigiano dell’inganno. Dirige la squadra che piazza le prove e cancella le tracce, con la freddezza di chi ha studiato come si legge un uomo — per poterlo scrivere.{/i}{divider}Statistiche nel Bestiario. Nessuna debolezza-oggetto. Finché è in piedi, i suoi cancellano 1 tell/round. Prenderlo (Interagire) dà le Istruzioni con la Grafia di Braga. «Il metodo della società» (D3): mostrargli che avete riconosciuto il vostro metodo gli fa saltare un attacco.' },
+    rules: '{i}Il regista della scena: non un sicario, un artigiano dell’inganno. Dirige la squadra che piazza le prove e cancella le tracce, con la freddezza di chi ha studiato come si legge un uomo — per poterlo scrivere.{/i}{divider}Statistiche nel Bestiario. Nessuna debolezza-oggetto. Finché è in piedi, i suoi cancellano 1 tell/round. Prenderlo (Interagire) dà le Istruzioni con la Grafia di Braga. «Il metodo della Società» (D3): mostrargli che avete riconosciuto il vostro metodo gli fa saltare un attacco.' },
 ].map((n) => ({ ...n, file: `Episodio 15/Nemici/${n.title}` }));
 
 const EP15 = [...LUOGHI15, ...EP15_INDIZI, ...EP15_TESTIMONI, ...EP15_REFERTI,
@@ -3855,10 +3858,10 @@ const EP16_MINACCE = [
     effect: 'L’eroe più avanzato prova VIGORE (Facile): se fallisce, perde il movimento extra questo turno.' },
   { art: 'artworks/Il lampadario che oscilla.png', title: 'Il Lampadario che Oscilla', tipo: 'Insidia',
     flavor: 'Nella colluttazione un grande lampadario si stacca e oscilla pericoloso.',
-    effect: 'L’eroe attivo prova DESTREZZA/VIGORE (Media): se fallisce, 1 danno (una scheggia).' },
+    effect: 'L’eroe attivo prova VIGORE (Media): se fallisce, 1 danno (una scheggia).' },
   { art: 'artworks/La porta a vetri.png', title: 'La Porta a Vetri', tipo: 'Insidia',
     flavor: 'Una porta-finestra a vetri: attraversarla di corsa è un rischio.',
-    effect: 'Fino a fine round, sulla tessera dell’eroe attivo muoversi verso Nord costa il doppio.' },
+    effect: 'Fino a fine round, sulla tessera dell’eroe attivo muoversi costa il doppio.' },
   { art: 'artworks/Il buio del giardino.png', title: 'Il Buio del Giardino', tipo: 'Insidia',
     flavor: 'Fuori dalle finestre illuminate, il giardino è nero come pece.',
     effect: 'Ogni eroe prova NERVI (Facile): chi fallisce non può documentare né aiutare questo round (cerca la strada).' },
@@ -3977,7 +3980,7 @@ const LUOGHI17 = [
     testo: 'Chiuso, il padrone sparito. Ma le pratiche restano e raccontano l’ultimo lavoro: un affitto di villa fuori porta, una carrozza notturna, una «custodia riservata per il cliente di sempre». Non c’è talpa qui: c’è un esecutore.',
     approfondimenti: [
       { tipo: 'Testimonianza', soggetto: 'Il praticante del Notaio',
-        testo: '«Il Notaio Rasca è l’uomo che fa sparire le persone con le carte in regola: un affitto, un nolo, una custodia "riservata", e nessuno può dire che sia un rapimento. L’ultimo lavoro è il decano: preso, portato alla villa fuori porta, interrogato per sapere quanto sa la Società. Non c’è talpa, signori. C’è un notaio che esegue e un cliente che paga. E il cliente, giuro, non è fuori dalla vostra Società. È in cima.»' },
+        testo: '«Il Notaio Rasca è l’uomo che fa sparire le persone con le carte in regola: un affitto, un nolo, una custodia “riservata”, e nessuno può dire che sia un rapimento. L’ultimo lavoro è il decano: preso, portato alla villa fuori porta, interrogato per sapere quanto sa la Società. Non c’è talpa, signori. C’è un notaio che esegue e un cliente che paga. E il cliente, giuro, non è fuori dalla vostra Società. È in cima.»' },
     ] },
   { n: 5, nome: 'L’Aula del Cifrario',
     req: 'L’aula dove il decano insegnava apre solo a chi ha trovato la sua opera nascosta: lo studio a soqquadro e ciò che vi era murato.',
@@ -4088,9 +4091,9 @@ const EP17_MINACCE = [
     effect: 'Ogni eroe prova NERVI (Facile), −1 morale: chi fallisce non può aiutare gli altri questo round.' },
   { art: 'artworks/La porta blindata.png', title: 'La Porta Blindata', tipo: 'Insidia',
     flavor: 'Una porta di ferro sbarra il corridoio delle celle.',
-    effect: 'Fino a fine round, sulla tessera dell’eroe attivo muoversi verso Nord costa il doppio.' },
+    effect: 'Fino a fine round, sulla tessera dell’eroe attivo muoversi costa il doppio.' },
   { art: 'artworks/Il corridoio delle celle.png', title: 'Il Corridoio delle Celle', tipo: 'Insidia',
-    flavor: 'Grida soffocate dietro le porte: quale è il decano? Quale una trappola?',
+    flavor: 'Grida soffocate dietro le porte: qual è il decano? Quale una trappola?',
     effect: 'L’eroe più avanzato prova NERVI (Media), −1 morale: se fallisce, 1 danno (una trappola).' },
   { art: 'artworks/Lo sguardo della Guardia.png', title: 'Lo Sguardo della Guardia', tipo: 'Insidia',
     flavor: 'La Guardia del Notaio vi studia senza fretta, cercando il vostro punto debole.',
@@ -4295,7 +4298,7 @@ const EP18_MINACCE = [
     flavor: 'Salgono le scale a ondate, convinti della vostra colpa.',
     effect: 'Piazzate 1 Sgherro (gendarme) sull’ingresso della tessera (dal lato da cui siete entrati).' },
   { art: 'artworks/I Gendarmi.png', title: 'Chi Vi Riconosce', tipo: 'Malavita',
-    flavor: 'Un brigadiere vi indica: «sono loro, quelli che accusa il presidente!»',
+    flavor: 'Un brigadiere vi indica: «sono loro, quelli che il presidente accusa!»',
     effect: 'Piazzate 1 Sgherro (gendarme) sull’uscita più vicina agli eroi: si attiva subito.' },
   { art: 'artworks/I Gendarmi.png', title: 'Il Cordone alle Porte', tipo: 'Malavita',
     flavor: 'Piazzano uomini alle uscite: la rete comincia a chiudersi.',
@@ -4314,7 +4317,7 @@ const EP18_MINACCE = [
     effect: 'L’eroe attivo prova NERVI (Media): se fallisce, 1 sola azione al prossimo turno (perde l’orientamento nel buio).' },
   { art: 'artworks/La porta che si chiude.png', title: 'La Porta che si Chiude', tipo: 'Insidia',
     flavor: 'Una porta si serra da sola davanti a voi: il Palazzo obbedisce al suo padrone.',
-    effect: 'Fino a fine round, sulla tessera dell’eroe attivo muoversi verso Nord costa il doppio.' },
+    effect: 'Fino a fine round, sulla tessera dell’eroe attivo muoversi costa il doppio.' },
   { art: 'artworks/Il passaggio che non c’è più.png', title: 'Il Passaggio che Non C’è Più', tipo: 'Insidia',
     flavor: 'La scorciatoia che credevate di conoscere è murata, o non è mai esistita.',
     effect: 'L’eroe più avanzato prova NERVI (Media): se fallisce, torna indietro di una tessera (si è perso).' },
@@ -4326,7 +4329,7 @@ const EP18_MINACCE = [
     effect: 'L’eroe con meno Salute è preso di mira: il prossimo gendarme piazzato appare adiacente a lui.' },
   { art: 'artworks/Il buio che conoscete male.png', title: 'Il Buio che Conoscete Male', tipo: 'Insidia',
     flavor: 'Diciotto mesi in questa casa, e nel buio non riconoscete più nulla.',
-    effect: 'L’eroe attivo prova DESTREZZA/VIGORE (Media): se fallisce, perde il movimento extra questo turno.' },
+    effect: 'L’eroe attivo prova VIGORE (Media): se fallisce, perde il movimento extra questo turno.' },
   { art: 'artworks/Fischietti nel cortile.png', title: 'Fischietti nel Cortile', tipo: 'Crescendo',
     flavor: 'Fischietti e lanterne nel cortile: la rete comincia a stringersi.',
     effect: 'Aggiungete 1 segnalino Canto (la Rete). Alla soglia-arresto (Canto 7, 8 con l’Uscita di Servizio): i gendarmi sigillano — vedi Soluzione. Alla soglia-Canto (3): +1 carta Minaccia per Fase, per sempre.' },
@@ -4340,7 +4343,7 @@ const EP18_MINACCE = [
     flavor: 'Il cerchio è quasi completo: fuori resta solo l’uscita di servizio.',
     effect: 'Aggiungete 1 segnalino Canto (la Rete). Se non siete già all’uscita (T6), correte: al prossimo crescendo il Palazzo è sigillato del tutto.' },
   { art: 'artworks/Il Palazzo che trattiene il fiato.png', title: 'Il Palazzo che Trattiene il Fiato', tipo: 'Quiete',
-    flavor: 'Per un attimo, solo il vostro respiro e lo scricchiolìo del parquet.',
+    flavor: 'Per un attimo, solo il vostro respiro e lo scricchiolio del parquet.',
     effect: 'Nessun effetto. Tirate il fiato: perfino una casa che vi tradisce, per un istante, tace.' },
   { art: 'artworks/Un confratello vi copre.png', title: 'Un Confratello vi Copre', tipo: 'Favore',
     flavor: 'Un membro della Società che vi crede sbarra la strada ai gendarmi.',
@@ -4456,10 +4459,10 @@ const LUOGHI19 = [
   { n: 7, nome: 'Un Debito Antico',
     req: 'La porta di un vecchio debito si apre a chi ricorda cosa deve: sotto le taglie sulle vostre teste, ogni conto in sospeso torna a bussare.',
     art: 'artworks/La Casa dell’Ex Fidanzata.png',
-    testo: 'Un PNG a cui dovete qualcosa dai casi passati: se il conto è a favore, vi nasconde e vi rifornisce; se è a sfavore, è tentato dalla taglia in oro vecchio. «Vi ho aiutato una volta. Stanotte dipende da come mi avete trattato dopo.»',
+    testo: 'Qualcuno a cui dovete qualcosa dai casi passati: se il conto è a favore, vi nasconde e vi rifornisce; se è a sfavore, è tentato dalla taglia in oro vecchio. «Vi ho aiutato una volta. Stanotte dipende da come mi avete trattato dopo.»',
     approfondimenti: [
       { tipo: 'Osservazione', soggetto: 'Il conto in sospeso',
-        testo: 'Ogni debito lasciato aperto in diciotto mesi, stanotte, torna a presentarsi con gli interessi. Un PNG che avete trattato bene vi nasconde dai gendarmi; uno che avete usato e scaricato è tentato dalle taglie. Non è punizione né premio morale: è economia della fiducia. M. compra la lealtà con l’oro vecchio, e l’oro finisce; voi l’avete guadagnata (o sprecata) un caso alla volta, e stanotte scoprite quanto ne resta in cassa.' },
+        testo: 'Ogni debito lasciato aperto in diciotto mesi, stanotte, torna a presentarsi con gli interessi. Chi avete trattato bene vi nasconde dai gendarmi; uno che avete usato e scaricato è tentato dalle taglie. Non è punizione né premio morale: è economia della fiducia. M. compra la lealtà con l’oro vecchio, e l’oro finisce; voi l’avete guadagnata (o sprecata) un caso alla volta, e stanotte scoprite quanto ne resta in cassa.' },
     ] },
   { n: 8, nome: 'I Vecchi Testimoni del Coro',
     req: 'I vecchi testimoni si aprono a chi si prepara all’ultima discesa: chi ricorda il Coro dall’inizio, e la via delle tre acque.',
@@ -4543,9 +4546,9 @@ const EP19_MINACCE = [
     effect: 'L’eroe più avanzato prova VIGORE (Media): se fallisce, 1 danno (sepolto di carte).' },
   { art: 'artworks/La porta a tempo.png', title: 'La Porta a Tempo', tipo: 'Insidia',
     flavor: 'Una porta di sicurezza si chiude con un ticchettio: pochi secondi.',
-    effect: 'Fino a fine round, sulla tessera dell’eroe attivo muoversi verso Nord costa il doppio.' },
+    effect: 'Fino a fine round, sulla tessera dell’eroe attivo muoversi costa il doppio.' },
   { art: 'artworks/Il faldone sbagliato.png', title: 'Il Faldone Sbagliato', tipo: 'Insidia',
-    flavor: 'Migliaia di faldoni identici: quale è il Fascicolo del 1741?',
+    flavor: 'Migliaia di faldoni identici: qual è il Fascicolo del 1741?',
     effect: 'L’eroe attivo prova NERVI (Media): se fallisce, 1 sola azione al prossimo turno (perde tempo tra le carte).' },
   { art: 'artworks/L’allarme silenzioso.png', title: 'L’Allarme Silenzioso', tipo: 'Insidia',
     flavor: 'Un filo teso fa scattare una spia in guardiola, senza un suono.',
@@ -4572,7 +4575,7 @@ const EP19_MINACCE = [
     flavor: 'Per un attimo, solo il fruscio della carta e le vostre scarpe sul marmo.',
     effect: 'Nessun effetto. Tirate il fiato: anche la casa che vi ha sequestrato, per un istante, tace.' },
   { art: 'artworks/Un alleato del conto.png', title: 'Un Alleato del Conto', tipo: 'Favore',
-    flavor: 'Un PNG che vi dovete apre una porta di servizio: il conto a favore.',
+    flavor: 'Qualcuno che vi deve un favore apre una porta di servizio: il conto a favore.',
     effect: 'Rivelate una tessera coperta adiacente a quella di un eroe (la scelgono i giocatori).' },
   { art: 'artworks/Casse sequestrate.png', title: 'Casse Sequestrate', tipo: 'Ostacolo',
     flavor: 'Le vostre casse, ammassate e sigillate, ingombrano il passaggio.',
@@ -4654,7 +4657,7 @@ const LUOGHI20 = [
     testo: 'Il rifugio, l’ultima volta: la Società (e Vidal, se convinto) vi arma di tutto ciò che venti serate hanno messo da parte — la mappa acustica, il Fascicolo del 1741, i Frammenti. Il pay-off finale, ridotto a un canto e agli amici.',
     approfondimenti: [
       { tipo: 'Testimonianza', soggetto: 'Chi vi resta',
-        testo: 'Alla Taverna della Chiatta, l’ultima notte, si tira la somma di tutto: la mappa acustica (la via delle tre acque), il Fascicolo del 1741 (il controcanto), e i Frammenti non incrinati (le righe da cantare). Chi vi resta — il decano, Fossa, Ranuzzi, Vidal se convinto, i PNG del conto — non scende con voi, ma vi arma di tutto ciò che venti serate hanno messo da parte. È il pay-off finale: la campagna intera, ridotta a un canto e a una manciata di amici. Portateli con voi, almeno nel cuore. Poi scendete.' },
+        testo: 'Alla Taverna della Chiatta, l’ultima notte, si tira la somma di tutto: la mappa acustica (la via delle tre acque), il Fascicolo del 1741 (il controcanto), e i Frammenti non incrinati (le righe da cantare). Chi vi resta — il decano, Fossa, Ranuzzi, Vidal se convinto, gli alleati del conto — non scende con voi, ma vi arma di tutto ciò che venti serate hanno messo da parte. È il pay-off finale: la campagna intera, ridotta a un canto e a una manciata di amici. Portateli con voi, almeno nel cuore. Poi scendete.' },
     ] },
   { n: 4, nome: 'L’Archivio del 1741', req: 'Disponibile dall’inizio',
     art: 'artworks/L’Archivio delle Penne.png',
@@ -4669,7 +4672,7 @@ const LUOGHI20 = [
     testo: 'Chi ricorda il Coro dall’inverno degli ammutoliti sa chi è l’ultima candidata: la voce che crede, l’unica che M. non può comprare. È viva, o quel che ne resta, secondo come avete chiuso i casi del Coro. Salvarla lascia a M. un coro senza anima.',
     approfondimenti: [
       { tipo: 'Testimonianza', soggetto: 'La voce che non si compra',
-        testo: 'Il piu’ vecchio del Coro tiene la lanterna bassa e ve lo dice lui, il nome. «La voce che crede: la signora Vetri, prima donna del Comunale, la solista che inseguiamo dall’inverno degli ammutoliti e non abbiamo mai avuto. Crede perché è la sola viva che ha sentito la conchiglia del teatro risponderle, e una voce che ha avuto risposta non si compra: per questo lui la tiene con la paura. In che stato la ritroverete lo dicono due vostre sere — intera se apriste le canne-voce, a metà se salvaste la conchiglia, muta di quel ricordo se la spezzaste. Salvatela, e a lui resterà un coro che canta con la bocca e non con l’anima.»' },
+        testo: 'Il più vecchio del Coro tiene la lanterna bassa e ve lo dice lui, il nome. «La voce che crede: la signora Vetri, prima donna del Comunale, la solista che inseguiamo dall’inverno degli ammutoliti e non abbiamo mai avuto. Crede perché è la sola viva che ha sentito la conchiglia del teatro risponderle, e una voce che ha avuto risposta non si compra: per questo lui la tiene con la paura. In che stato la ritroverete lo dicono due vostre sere — intera se apriste le canne-voce, a metà se salvaste la conchiglia, muta di quel ricordo se la spezzaste. Salvatela, e a lui resterà un coro che canta con la bocca e non con l’anima.»' },
     ] },
   { n: 6, nome: 'L’Organo di Ossa',
     req: 'La chiesa dei Battuti apre a chi cerca la voce che crede: ciò che resta dell’organo di ossa e delle sue canne-voce.',
@@ -4682,7 +4685,7 @@ const LUOGHI20 = [
   { n: 7, nome: 'La Camera del Coro',
     req: 'La camera del Coro apre a chi crede di aver trovato la scorciatoia: la chiave che pare aprire la camera del Dormiente, il controcanto facile.',
     art: 'artworks/La Loggia dei Confratelli.png',
-    testo: 'La camera dove il Coro provava il Quarto Movimento: sul leggìo, una chiave che pare aprire la camera del Dormiente. È l’ultima esca di M.: apre l’estasi, non il sonno. Non c’è una scorciatoia per cantare un dio a dormire.',
+    testo: 'La camera dove il Coro provava il Quarto Movimento: sul leggio, una chiave che pare aprire la camera del Dormiente. È l’ultima esca di M.: apre l’estasi, non il sonno. Non c’è una scorciatoia per cantare un dio a dormire.',
     approfondimenti: [
       { tipo: 'Osservazione', soggetto: 'La scorciatoia che uccide',
         testo: 'La Chiave del Coro è l’ultima esca di M.: pare la via facile alla camera, e invece è la sua trappola più elegante. Non esiste una scorciatoia per cantare un dio a dormire; esiste solo il controcanto lungo, difficile, stonato e umano, riga per riga. Chi cerca la via facile canta, senza saperlo, il rito del risveglio. È il tema di M. fino all’ultimo: offrire una soluzione perfetta che è la sua vittoria travestita. L’avete imparato con Braga. Non cascateci ora, a un passo dalla fine.' },
@@ -4745,7 +4748,7 @@ const EP20_REFERTI = LUOGHI20.flatMap((L) =>
 const EP20_MINACCE = [
   { art: 'artworks/Il Coro a Pagamento.png', title: 'Le Voci Prezzolate', tipo: 'Malavita',
     flavor: 'Impiegati che cantano lo spartito senza crederci, gli occhi impauriti.',
-    effect: 'Piazzate 1 Sgherro (impiegato del coro) sull’uscita più vicina. Rallenta il controcanto di 1 riga/round; a metà Ferite fugge.' },
+    effect: 'Piazzate 1 Sgherro (impiegato del coro) sull’uscita più vicina agli eroi. Rallenta il controcanto di 1 riga/round; a metà Ferite fugge.' },
   { art: 'artworks/Il Coro a Pagamento.png', title: 'Il Rinforzo del Coro', tipo: 'Malavita',
     flavor: 'M. ha pagato bene: altre voci salgono dall’antecamera.',
     effect: 'Piazzate 1 Sgherro (impiegato) sull’ingresso della tessera (dal lato da cui siete entrati). Si rompe a metà Ferite.' },
@@ -4754,13 +4757,13 @@ const EP20_MINACCE = [
     effect: 'Piazzate 1 Sgherro (impiegato) sull’uscita più vicina agli eroi: si attiva subito. Si rompe a metà Ferite.' },
   { art: 'artworks/Il Coro a Pagamento.png', title: 'Il Coro Stonato', tipo: 'Malavita',
     flavor: 'Cantano male, contro il vostro controcanto, ma cantano forte.',
-    effect: 'Piazzate 1 Sgherro (impiegato) sull’ingresso della tessera. Ogni impiegato in campo: −1 riga di controcanto/round.' },
+    effect: 'Piazzate 1 Sgherro (impiegato) sull’ingresso della tessera (dal lato da cui siete entrati). Ogni impiegato in campo: −1 riga di controcanto/round.' },
   { art: 'artworks/Il Coro a Pagamento.png', title: 'La Sezione dei Bassi', tipo: 'Malavita',
     flavor: 'Le voci gravi del coro comprato risuonano nella pietra.',
     effect: 'Piazzate 1 Sgherro (impiegato) sull’uscita più vicina agli eroi. Si rompe a metà Ferite.' },
   { art: 'artworks/Il Coro a Pagamento.png', title: 'Chi Trattiene la Candidata', tipo: 'Malavita',
     flavor: 'Due tengono la voce che crede, in attesa che M. la costringa.',
-    effect: 'Piazzate 1 Sgherro (impiegato). Finché sono in campo e la Candidata non è salvata, M. è più vicino a costringerla.' },
+    effect: 'Piazzate 1 Sgherro (impiegato) sull’uscita più vicina agli eroi. Finché sono in campo e la Candidata non è salvata, M. è più vicino a costringerla.' },
   { art: 'artworks/Il Coro a Pagamento.png', title: 'L’Ultima Voce Comprata', tipo: 'Malavita',
     flavor: 'Anche i più fedeli a M. sono qui per denaro, non per fede.',
     effect: 'Piazzate 1 Sgherro (impiegato) sull’ingresso della tessera: si attiva subito. Si rompe a metà Ferite.' },
@@ -4778,13 +4781,13 @@ const EP20_MINACCE = [
     effect: 'Ogni eroe prova NERVI (Facile): chi fallisce non può cantare né aiutare questo round.' },
   { art: 'artworks/La corrente fredda.png', title: 'La Corrente Fredda', tipo: 'Insidia',
     flavor: 'Una delle tre acque è gelida e morta, e trascina in basso.',
-    effect: 'L’eroe più avanzato prova VIGORE (Media): se fallisce, 1 round perso a risalire.' },
+    effect: 'L’eroe più avanzato prova VIGORE (Media): se fallisce, perde il turno a risalire.' },
   { art: 'artworks/L’eco che mente.png', title: 'L’Eco che Mente', tipo: 'Insidia',
     flavor: 'L’eco della gola ripete le vostre voci sbagliate, per confondere il controcanto.',
     effect: 'Nella camera: il controcanto avanza di 1 riga in meno questo round (l’eco disturba). Con la Mappa Acustica: nessun effetto.' },
   { art: 'artworks/Il Dormiente si muove.png', title: 'Il Dormiente si Muove', tipo: 'Crescendo',
     flavor: 'Qualcosa di grande si rigira nel sonno, e la gola trema.',
-    effect: 'Aggiungete 1 segnalino Canto (il RISVEGLIO). Alla soglia-risveglio (Canto 8): il Dormiente si desta — SCONFITTA. Alla soglia (3): +1 carta Minaccia per Fase.' },
+    effect: 'Aggiungete 1 segnalino Canto (il RISVEGLIO). Alla soglia-risveglio (Canto 8): il Dormiente si desta — SCONFITTA. Alla soglia (3): +1 carta Minaccia per Fase, per sempre.' },
   { art: 'artworks/Le maree al picco.png', title: 'Le Maree al Picco', tipo: 'Insidia',
     flavor: 'Le sizigie toccano il colmo: l’acqua sale, e la gola si stringe.',
     effect: 'L’acqua monta e le fasi ambientali si intensificano: 1 danno inevitabile a un eroe a scelta dell’arbitro, e al prossimo giro un altro. Nessun segnalino Canto: la marea bagna voi, non il sonno del dio.' },

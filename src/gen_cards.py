@@ -148,7 +148,7 @@ LUOGHI = [
                'lo sgabello di Ruggero è rovesciato, la sua lanterna ancora appesa.',
          indizi=['Colate di cera nera sui gradini — troppo in alto perché vengano dalle candele della chiesa.',
                  'Il diario di Ruggero, con l’ultima pagina strappata. Ricalcando i solchi '
-                 'della penna leggete: «...alle 3 in punto, ogni notte. Tre rintocchi, poi '
+                 'della penna leggete: «…alle 3 in punto, ogni notte. Tre rintocchi, poi '
                  'uno, poi cinque. Non sono io a suonare.»',
                  'Sul legno della balaustra, unghiate profonde intorno a una scritta quasi '
                  'cancellata. Ci vuole un attimo per ricomporla: sommerso.'],
@@ -246,7 +246,7 @@ LUOGHI = [
          approfondimenti=[
              dict(tipo='Osservazione', soggetto='La cenere nel camino',
                   testo='Nel camino, cenere di carta ancora tiepida. Un lembo si salva, grafia febbrile: '
-                        '«...il Coro canta anche senza di me, ormai, anche laggiù al magazzino delle cere di '
+                        '«…il Coro canta anche senza di me, ormai, anche laggiù al magazzino delle cere di '
                         'Dellacqua, sul Canale Basso. Che Dio perdoni ciò che ho svegliato. — B.» La grafia è la '
                         'stessa del registro consegne sul banco: quella del liutaio Ferri.'),
              dict(tipo='Referto', soggetto='Residui sulle lime',
@@ -263,7 +263,7 @@ LUOGHI = [
          indizi=['«Le casse erano marchiate a fuoco con un’onda. Le hanno portate in un vecchio '
                  'magazzino sul canale, chiuso da vent’anni — ce ne sono tre o quattro uguali, al buio '
                  'non saprei dirvi quale.»',
-                 '«Alle 3 di notte, da là dentro, viene un canto sommesso. Di molte voci. Una volta... '
+                 '«Alle 3 di notte, da là dentro, viene un canto sommesso. Di molte voci. Una volta… '
                  'ho sentito un urlo.»',
                  'Sul molo: gocce di cera nera e un lucchetto nuovo di zecca sulla porta della banchina, '
                  'di quelli a tre cifre.'],
@@ -443,7 +443,7 @@ MINACCE = (
     [('IL CANTO SALE', 'Aggiungete 1 segnalino Canto. Al terzo: il Custode della Cera si desta e da quel momento ogni Fase Minaccia pesca 1 carta in più (vedi Soluzione). Se è già in gioco: cancellate 1 sua ferita dal Registro e si attiva subito.', 'crescendo', False),
      ('IL CORO RISPONDE', 'Aggiungete 1 segnalino Canto. Al terzo: il Custode della Cera si desta e da quel momento ogni Fase Minaccia pesca 1 carta in più (vedi Soluzione). Se è già in gioco: cancellate 1 sua ferita dal Registro e si attiva subito.', 'crescendo', False),
      ('IL CANTO CRESCE', 'Aggiungete 1 segnalino Canto. Al terzo: il Custode della Cera si desta e da quel momento ogni Fase Minaccia pesca 1 carta in più (vedi Soluzione). Se è già in gioco: cancellate 1 sua ferita dal Registro e si attiva subito.', 'crescendo', False)] +
-    [('PRESAGIO', 'Un brivido corre lungo la schiena. Non accade nulla... per ora.', 'quiete', False)] +
+    [('PRESAGIO', 'Un brivido corre lungo la schiena. Non accade nulla… per ora.', 'quiete', False)] +
     [('ECO AMICA', 'Ruggero è vivo. Rivelate una tessera coperta adiacente a una già rivelata.', 'favore', False)] +
     [('CERA CHE COLA', 'Fino a fine round, sulla tessera dell’eroe attivo muoversi costa il doppio.', 'ostacolo', False)] +
     [('CORRENTE GELIDA', 'Fino all’inizio del vostro prossimo turno ogni eroe ha -1 al Movimento (minimo 1).', 'ostacolo', False)] +

@@ -106,8 +106,8 @@ LUOGHI_16 = [
              'compiuto vent’anni. Un segno nostro, tra me e lei. Non l’ho mai detto a '
              'nessuno. Se la trovate col nastro verde al polso, è la mia Nina.»',
              'Il padre, sottovoce: «è strano, però. Ieri è passato un signore della vostra Società '
-             'a portarmi coraggio, gentile. Ha detto "la ritroveremo, la piccola col nastro '
-             'verde". Ma io il nastro verde non l’avevo detto a nessuno. A nessuno. Come faceva a '
+             'a portarmi coraggio, gentile. Ha detto “la ritroveremo, la piccola col nastro '
+             'verde”. Ma io il nastro verde non l’avevo detto a nessuno. A nessuno. Come faceva a '
              'saperlo?»'],
          approfondimenti=[
              dict(tipo='Testimonianza', soggetto='Il lampionaio',
@@ -254,7 +254,7 @@ LUOGHI_16 = [
              'faccia avesse davvero: cambia baffi, cambia nome.»',
              'Un mazzo pronto, ordinato e non ritirato.',
              'Il fioraio, indicando un registro: «l’ultima consegna l’ho fatta io stesso, tre '
-             'giorni fa, alla villa sul lago. Rose bianche e un biglietto: "presto sposi". Povera '
+             'giorni fa, alla villa sul lago. Rose bianche e un biglietto: “presto sposi”. Povera '
              'figliola. Le rose, a quella, gliele ho portate io senza saperlo alla sua prigione.»'],
          approfondimenti=[
              dict(tipo='Osservazione', soggetto='Le rose dell’inganno',
@@ -730,8 +730,8 @@ def soluzione():
     pagina('epilogo, frammento, rilettura e bivio', [
         '<b>EPILOGO — da leggere se liberate Nina col Fascicolo.</b> «Quando le mettete davanti i '
         'nomi delle altre — dieci ragazze, dieci doti sparite — Nina non piange. Guarda lo Sposo, '
-        'che per la prima volta non sa che faccia fare, e gli sfila la mano di dosso da sola. "Il '
-        'nastro verde," dice piano, "me l’aveva legato mio padre. Non l’ho detto a nessuno." E voi '
+        'che per la prima volta non sa che faccia fare, e gli sfila la mano di dosso da sola. “Il '
+        'nastro verde,” dice piano, “me l’aveva legato mio padre. Non l’ho detto a nessuno.” E voi '
         'vi gelate: perché quel segreto tra un padre e una figlia l’avete già letto stasera — nella '
         'lettera del vostro presidente. M. lo sapeva. Da quanto tempo M. sa le cose prima che '
         'accadano?»',

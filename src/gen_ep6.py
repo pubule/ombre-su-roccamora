@@ -537,7 +537,7 @@ def spedizione():
                   'tessera, una per foglio: fronte ad alta voce alla rivelazione, retro solo '
                   'per chi arbitra.', BODY),
         Paragraph('<b>L’orologio di questa spedizione:</b> il Canto sale da solo ogni '
-                  '<b>6° round</b> (6°, 12°...) e non ogni 4° — è la notte più lunga della '
+                  '<b>6° round</b> (6°, 12°…) e non ogni 4° — è la notte più lunga della '
                   'campagna, e il Coro dei Dodici aggiunge già segnalini per conto suo. Le '
                   'carte crescendo valgono come sempre.', BODY)])
     c.showPage()
@@ -648,7 +648,7 @@ def soluzione():
         '<b>LA DEDUZIONE D’ATTO (Domanda 1):</b> contate gli incroci — 1 per ogni Frammento '
         'da 1 a 5 posseduto; 1 per ogni cimelio di Bivio conservato (Frammento 1-bis, la '
         'melodia impressa 4-bis, le ossa tenute, le canne-voce sigillate, il verbale del '
-        'sigillo...). Con <b>5 o più incroci</b>: la Domanda 1 è esatta garantita e si '
+        'sigillo…). Con <b>5 o più incroci</b>: la Domanda 1 è esatta garantita e si '
         'scende SAPENDO (T1 tranquilla, nessuna pesca al 1° round). Con 3-4: rispondete '
         'normalmente. Con 0-2: si scende per tentativi — 1 segnalino Canto in più.',
     ])
@@ -713,7 +713,7 @@ def soluzione():
         'movimento spento: Ferri -1 Difesa (9→8→7→6). La Mazzetta da campanaro (Cercare '
         'in T3): +1 a queste prove. A tutti e tre spenti, nella Camera: un’azione per '
         'leggere LA FORMULA — vittoria piena.',
-        '<b>Il Canto, qui, batte ogni 6° round</b> (6°, 12°...) e non ogni 4°: è la notte '
+        '<b>Il Canto, qui, batte ogni 6° round</b> (6°, 12°…) e non ogni 4°: è la notte '
         'più lunga della campagna, e il Coro dei Dodici aggiunge già segnalini per conto suo.',
         '<b>La marea (T2):</b> dal 6° round di partita, chi si trova in T2 prova NERVI '
         '(Media) a inizio round o ha 1 sola azione (l’acqua alla cintola).',

@@ -105,7 +105,7 @@ def taccuino_campagna():
     c.drawString(20*mm, y - 7*mm, 'il conto che vi servirà')
     c.setFillColor(INK); c.setFont(F['r'], 8.5)
     c.drawString(20*mm, y - 13.5*mm,
-                 'CONSERVATI: ......... / 19      INCRINATI: ......... (vittorie parziali)      CHE CONTANO: ......... ')
+                 'CONSERVATI: ……… / 19      INCRINATI: ……… (vittorie parziali)      CHE CONTANO: ……… ')
     c.drawString(20*mm, y - 18.5*mm,
                  '→ all’Episodio 20 il Controcanto si canta più in fretta quante più righe avete, e gli incrinati non contano:')
     c.drawString(20*mm, y - 23.5*mm,
@@ -152,9 +152,9 @@ def taccuino_campagna():
               'rilettura di una vecchia lettera d’incarico',
               'rilettura di una vecchia lettera d’incarico',
               'la matrice delle doppie letture',
-              'un verbale sigillato  ......................................................',
-              'un verbale sigillato  ......................................................',
-              'un verbale sigillato  ......................................................'],
+              'un verbale sigillato  ………………………………………………',
+              'un verbale sigillato  ………………………………………………',
+              'un verbale sigillato  ………………………………………………'],
              86*mm)
 
     riquadro(H - 132*mm, 'il conto dei bivi — chi può schierarsi l’ultima notte',

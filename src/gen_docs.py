@@ -143,9 +143,9 @@ def regolamento():
     e.append(LI('<b>NERVI</b> \u2014 sangue freddo davanti a trappole, buio e orrori.'))
     e.append(P("Inoltre: <b>Salute</b> (i danni che potete subire), <b>Difesa</b> (quanto \u00e8 difficile "
                "colpirvi) e un\u2019<b>Abilit\u00e0 unica</b>. Tutto \u00e8 sulla scheda personaggio."))
-    e.append(P("<i>Nota: qualche prova d\u2019episodio cita DESTREZZA (l\u2019agilit\u00e0) accanto a VIGORE \u2014 "
-               "\u00e8 solo colore, si tira sempre <b>VIGORE</b> (lo sforzo fisico e l\u2019agilit\u00e0 "
-               "ricadono l\u00ec).</i>"))
+    # La nota che spiegava DESTREZZA e' sparita con la parola: le nove carte che
+    # la citavano accanto a VIGORE ora dicono VIGORE e basta. Una caratteristica
+    # che il regolamento deve smentire e' un'eccezione, non un colore.
     e.append(P('Le prove', 'h2'))
     e.append(P('<b>Tirate 2d6 e sommate la caratteristica richiesta.</b> Dovete raggiungere la '
                'difficolt\u00e0: <b>Facile 7 \u2022 Media 9 \u2022 Difficile 11</b>. '
@@ -161,7 +161,7 @@ def regolamento():
     e.append(LI('Chi tiene il fascicolo <b>Luoghi</b> ordina le <b>carte Luogo</b> per numero (\u00e8 nel '
                 'titolo) e le dispone in fila al centro del tavolo: quelle che riportano '
                 '\u201cDisponibile dall\u2019inizio\u201d <b>scoperte</b> (sono le piste che qualunque investigatore '
-                'batterebbe: la casa dello scomparso, la taverna, la gendarmeria...), le altre '
+                'batterebbe: la casa dello scomparso, la taverna, la gendarmeria…), le altre '
                 '<b>coperte</b> \u2014 luoghi di cui per ora conoscete solo l\u2019esistenza, non il volto: '
                 'il dorso \u00e8 uguale per tutte, \u00e8 la <b>posizione nella fila</b> a dirvi il numero.'))
     e.append(LI('Avete <b>6 ore</b>, dalle 18:00 alle 24:00: segnatele sul Taccuino. '
@@ -249,7 +249,7 @@ def regolamento():
                'quel tipo, semplicemente non c’è nulla da trovare lì: nessun tiro, nessuna carica.', 'box'))
     e.append(LI('<b>Reperti</b> \u2014 nessuna azione o prova in pi\u00f9: si ottengono semplicemente '
                 'visitando il luogo, come qualsiasi indizio core. Quando un indizio, sulla carta '
-                'stessa, riporta tra parentesi <i>(Reperto X: consegnate...)</i>, non limitatevi a '
+                'stessa, riporta tra parentesi <i>(Reperto X: consegnate…)</i>, non limitatevi a '
                 'leggerlo \u2014 consegnate al gruppo il foglio stampato indicato e lasciate che lo '
                 'leggano loro. Sono solo un modo pi\u00f9 tangibile di leggere lo stesso indizio: non '
                 'contengono nulla in pi\u00f9 rispetto alla carta.'))
@@ -345,7 +345,7 @@ def regolamento():
     e.append(LI('Alcune carte Minaccia aggiungono <b>1 segnalino</b> quando le pescate (l\u2019episodio '
                 'dice quali).'))
     e.append(LI('<b>In pi\u00f9</b>, a prescindere dalle carte pescate: <b>ogni 4\u00b0 round</b> (4\u00b0, 8\u00b0, '
-                '12\u00b0...) aggiungete comunque 1 segnalino. \u00c8 un secondo orologio parallelo: garantisce '
+                '12\u00b0…) aggiungete comunque 1 segnalino. \u00c8 un secondo orologio parallelo: garantisce '
                 'che il pericolo massimo arrivi comunque, anche evitando ogni carta Canto. '
                 '<b>Alcune spedizioni sono pi\u00f9 lunghe e battono pi\u00f9 lentamente</b> \u2014 ogni 6\u00b0 round '
                 'invece che ogni 4\u00b0: lo dice il fascicolo Spedizione dell\u2019episodio, in testa alle '
@@ -518,7 +518,7 @@ def regolamento():
                 '<b>Niente calcoli al tavolo:</b> il <b>Bestiario</b> riporta le Ferite già '
                 'tabellate per numero di eroi — leggete la colonna del vostro tavolo e basta.'))
     e.append(LI('<b>7–10 eroi</b> — Fase Minaccia: 2 carte, più una terza SOLO nei round pari '
-                '(2°, 4°, 6°...) — vedi la tabella in Fase 2. Nei test, 3 carte fisse ogni round '
+                '(2°, 4°, 6°…) — vedi la tabella in Fase 2. Nei test, 3 carte fisse ogni round '
                 'schiacciavano il tavolo: la terza a metà ritmo lo tiene in sfida.'))
     e.append(P('Consigli per i gruppi numerosi (giocatori)', 'h2'))
     e.append(P("Nell’Indagine, fate girare il fascicolo <b>Luoghi</b>: a ogni visita lo legge ad "
@@ -785,7 +785,7 @@ def soluzione():
 
     e.append(P('PREPARAZIONE DELLA SPEDIZIONE', 'h1'))
     e.append(P('<b>Prima di cominciare, il numero che cambia:</b> in questo episodio il Canto '
-               'automatico batte <b>ogni 6\u00b0 round</b> (6\u00b0, 12\u00b0...), non ogni 4\u00b0. La <b>soglia</b> '
+               'automatico batte <b>ogni 6\u00b0 round</b> (6\u00b0, 12\u00b0…), non ogni 4\u00b0. La <b>soglia</b> '
                'che desta il Custode \u00e8 <b>3</b>.', 'box'))
     e.append(P('Disponete le tessere cos\u00ec (coperte, tranne T1). Le uscite sono stampate sui bordi:', 'body'))
     e.append(P('<font face="Courier" size="9">'
@@ -808,7 +808,7 @@ def soluzione():
                 'eroi. Se avete il <b>diapason</b>: con un\u2019azione adiacente al Custode lo fate '
                 'vibrare: la sua Difesa scende a 5 per il resto della partita e il Custode salta la '
                 'sua prossima attivazione.'))
-    e.append(LI('<b>Il Canto avanza da solo:</b> alla fine di ogni sesto round (6\u00b0, 12\u00b0...), '
+    e.append(LI('<b>Il Canto avanza da solo:</b> alla fine di ogni sesto round (6\u00b0, 12\u00b0…), '
                 'avanzate il segnalino Canto di una casella anche senza pescare la carta.'))
     e.append(LI('<b>Canto a 3:</b> il rituale \u00e8 quasi compiuto. Da ora ogni fase '
                 'Minaccia pescate 1 carta in pi\u00f9 \u2014 <b>anche se il Custode \u00e8 gi\u00e0 stato '
@@ -819,7 +819,7 @@ def soluzione():
     e.append(P('EPILOGO \u2014 da leggere ad alta voce a vittoria ottenuta', 'h1'))
     e.append(P('\u00abRuggero trema mentre la chiatta vi riporta a casa. \u201cCantavano all\u2019acqua\u201d, '
                'dice. \u201cE l\u2019acqua rispondeva. Ferri diceva che le campane servono a svegliare '
-               'qualcosa che dorme sotto Roccamora dal 1741. Diceva che ormai... ha aperto gli '
+               'qualcosa che dorme sotto Roccamora dal 1741. Diceva che ormai… ha aperto gli '
                'occhi.\u201d Del liutaio, al magazzino, nessuna traccia: solo uno spartito incompiuto '
                'e una riga in margine: \u201cSecondo movimento: le voci del pozzo\u201d.\u00bb', 'box'))
     e.append(P('IL BIVIO \u2014 decidete insieme, poi sigillate', 'h1'))
@@ -919,7 +919,7 @@ def aiuto():
     ]))
     e.append(minaccia_t)
     e.append(RP('Leggete la carta ad alta voce ed eseguite. Mazzo esaurito: rimescolate gli scarti. '
-                'A 7–10 eroi la terza carta si pesca solo nei round pari (2°, 4°, 6°...) — non è un '
+                'A 7–10 eroi la terza carta si pesca solo nei round pari (2°, 4°, 6°…) — non è un '
                 'errore di stampa, vedi Regolamento.'))
 
     e.append(P('TURNO DEI NEMICI', 'h2'))
@@ -947,7 +947,7 @@ def aiuto():
                 'indica, sotto un mobile della stanza dov’era tenuto. '
                 'Chi scortate si muove con voi (Mov. 3, non agisce).'))
     e.append(RL('<b>Canto:</b> al <b>3° segnalino</b> si desta il boss dell’episodio e da lì ogni fase '
-                'Minaccia pescate 1 carta in più. Ogni 4° round (4°, 8°...): +1 Canto automatico — '
+                'Minaccia pescate 1 carta in più. Ogni 4° round (4°, 8°…): +1 Canto automatico — '
                 'ogni 6° nelle spedizioni lunghe, lo dice l’episodio.'))
     e.append(RL('<b>Il mazzo tace due volte:</b> a <b>obiettivo compiuto</b> (compiti finiti, o prigioniero '
                 'liberato — l’uscita non serve) non si pesca <b>più nessuna carta</b>; a <b>Canto al massimo</b> '

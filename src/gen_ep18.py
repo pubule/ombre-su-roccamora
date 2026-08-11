@@ -205,7 +205,7 @@ LUOGHI_18 = [
              'Lo studio privato del presidente, in cui non siete mai entrati in diciotto mesi: alle '
              'pareti, il ritratto del Machiavelli e, di fronte, uno specchio. Le due maschere si '
              'guardano. Qui M. era C.B. e C.B. era M., ogni notte, da solo.',
-             'Sul leggìo, un documento firmato due volte: una «M.», una «C.B.», la stessa '
+             'Sul leggio, un documento firmato due volte: una «M.», una «C.B.», la stessa '
              'mano.',
              'Su un cavalletto, il ritratto di un rivale immaginario. M. non ha rivali: è '
              'rivale di se stesso.'],
@@ -232,13 +232,13 @@ LUOGHI_18 = [
              'carrozza che serve il Palazzo. Il filo del molino si chiude qui: la carta di C.B. e '
              'la carta della Società sono la stessa risma.',
              'Un vecchio membro ricorda: «il presidente ha sempre insistito per la carta di pregio '
-             '"per il decoro della Società". Nessuno ha mai chiesto perché il decoro avesse bisogno '
+             '“per il decoro della Società”. Nessuno ha mai chiesto perché il decoro avesse bisogno '
              'della stessa identica carta di C.B. Nessuno osava.»'],
          approfondimenti=[
              dict(tipo='Testimonianza', soggetto='Il vecchio membro della Società',
                   testo='«Sono in questa casa da prima di lui, e la carta la ordino io. È lui che ha '
-                        'voluto quella del molino, col giglio spezzato, "per il decoro della '
-                        'Società": due risme al mese, sempre la stessa fattura. Poi vi ho visti '
+                        'voluto quella del molino, col giglio spezzato, “per il decoro della '
+                        'Società”: due risme al mese, sempre la stessa fattura. Poi vi ho visti '
                         'tornare dalle vostre indagini con dei fogli sequestrati, e li ho tenuti '
                         'controluce accanto ai nostri — stessa filigrana, stessa mano, stesso '
                         'inchiostro della penna d’archivio che sta sul ripiano alto. Non c’è nessun '
@@ -369,7 +369,7 @@ TILES_18 = [
                'che non conoscevate. QUANDO RIVELATE QUESTA TESSERA: il maggiordomo Amedeo comincia '
                'a ostacolarvi, chiudendo porte e indicando ai gendarmi dove siete.',
          arbitro='Il maggiordomo (boss) comincia a manifestarsi: non ancora in mischia, ma vi toglie '
-                 'le scorciatoie (le carte "il maggiordomo sa dove siete" hanno più morso). Il '
+                 'le scorciatoie (le carte “il maggiordomo sa dove siete” hanno più morso). Il '
                  'passaggio segreto è la via di M., non la vostra: non seguitelo.',
          cerca='In un cassetto della biblioteca, una lanterna cieca (utile: al buio del Palazzo, '
                'chi la porta non è indicato dal maggiordomo per un round).',
@@ -797,7 +797,7 @@ def soluzione():
         'Lume, mentre i fischietti dei gendarmi riempiono il cortile alle vostre spalle, vi fermate '
         'a guardare la vostra casa che si spegne finestra dopo finestra. Da qualche parte là dentro, '
         'nel buio dei suoi passaggi segreti, il vostro presidente si allontana — non in fuga, ma in '
-        'ritirata. In mano avete la sua firma doppia: "M." e "C.B.", la stessa esitazione prima della '
+        'ritirata. In mano avete la sua firma doppia: “M.” e “C.B.”, la stessa esitazione prima della '
         'maiuscola, la stessa mano. Il Machiavelli e il contabile. Diciotto mesi a dargli la caccia, '
         'e la caccia ve la dava lui. Ma ora la Società sa: il mostro ha un volto, ed è quello di chi '
         'ci ha guidati. Non l’avete preso. L’avete smascherato. E un uomo smascherato, per la prima '
@@ -850,7 +850,7 @@ LUOGHI18_DESC = {
        "sul ripiano alto, dove la polvere non arriva. Il custode vi precede tenendo la lampada "
        "bassa e si tocca il collo mentre parla: «il presidente scrive le sue lettere qui, di "
        "notte, da sempre», dice, e poi, più piano, che certe notti «trovavo un secondo calamaio "
-       "usato, e una seconda grafia sugli scarti». Sul leggìo la carta assorbente ha preso "
+       "usato, e una seconda grafia sugli scarti». Sul leggio la carta assorbente ha preso "
        "l’ombra rovesciata di una riga, e quell’inchiostro, pallido come tè quando esce dalla "
        "penna, continua ad annerire da solo per giorni — impossibile dire di che notte sia. Sul "
        "vassoio di feltro, accanto al cerchio scuro lasciato dal calamaio, ce n’è un secondo "
@@ -858,7 +858,7 @@ LUOGHI18_DESC = {
     3: "La contabilità sa di gomma arabica, di polvere di pomice e di monete tenute in mano "
        "troppo a lungo, e ci si sta più al freddo che in corridoio: la stanza dei conti non si "
        "scalda mai, dicono, perché la stufa asciugherebbe la carta. Il libro mastro è aperto sul "
-       "leggìo, grande come una lastra da sepoltura, le colonne tirate a riga e squadra; "
+       "leggio, grande come una lastra da sepoltura, le colonne tirate a riga e squadra; "
        "attorno, i sacchetti di tela cuciti con lo spago e piombati, la bilancetta da orefice "
        "sotto la sua campana di vetro, il calamaio col coperchio a molla. Il contabile non alza "
        "gli occhi dalla pagina e continua a passarci sopra il dito, avanti e indietro, sempre "
@@ -884,7 +884,7 @@ LUOGHI18_DESC = {
        "lascia l’ottone lucidato di recente; è la stanza più calda del piano, e nessuno l’ha "
        "scaldata stasera. Alle pareti, il ritratto del Machiavelli in una cornice nera senza "
        "targhetta e, sulla parete opposta, uno specchio della stessa misura esatta, appeso alla "
-       "stessa altezza; in mezzo, lo scrittoio, il leggìo, una poltrona di cuoio col fondo "
+       "stessa altezza; in mezzo, lo scrittoio, il leggio, una poltrona di cuoio col fondo "
        "consumato al centro e i braccioli intatti. La lampada sta fra il ritratto e lo specchio, "
        "e i due si rimandano la fiamma avanti e indietro finché non si capisce più quale delle "
        "luci sia quella accesa e quale la copia; quando la porta si muove, tremano tutte e tre "
@@ -932,7 +932,7 @@ LUOGHI18_DESC = {
        "di ogni sera da diciotto mesi, e stasera ci sta dentro anche una corrente fredda che "
        "nessuna finestra aperta giustifica, e che si sente alle caviglie prima che in faccia. "
        "L’atrio è quello di sempre: l’attaccapanni coi cappotti, il registro delle visite aperto "
-       "sul leggìo del portiere, l’ottone della ringhiera lucidato fino a sembrare un altro "
+       "sul leggio del portiere, l’ottone della ringhiera lucidato fino a sembrare un altro "
        "metallo, il tappeto fermato dalle bacchette a ogni gradino, il vassoio dei biglietti da "
        "visita col suo dito di cenere. Poi le lampade calano tutte "
        "insieme, di poco, come quando in una casa si apre una porta di troppo; una sola, in "
@@ -1043,7 +1043,7 @@ TESSERE_DESC_18 = {
 }
 
 ESAMI_CARBONE_18 = {
-    'LA FIRMA DOPPIA': '«"M." e "C.B.", scritte ad anni di distanza da mani che si fingono nemiche, '
+    'LA FIRMA DOPPIA': '«“M.” e “C.B.”, scritte ad anni di distanza da mani che si fingono nemiche, '
                 'hanno lo stesso vezzo: lo stesso allungo sulla coda, la stessa esitazione prima '
                 'della maiuscola. Un falsario imita una firma; nessuno imita <i>due</i> firme rivali '
                 'con lo stesso identico tic, se non l’unico uomo che le scrive entrambe.»',
@@ -1055,8 +1055,8 @@ ESAMI_CARBONE_18 = {
                 'sedeva in assemblea — non è un’ora sua: il protocollo lo tiene un impiegato, e timbra '
                 'al mattino ciò che è stato scritto la notte. Per accusarlo non serve toglierlo '
                 'dall’assemblea: basta spostare l’orologio di mezza giornata.»',
-    'IL VEZZO DELLE FIRME': '«Il Machiavelli e il contabile, le due maschere che "hanno fatto '
-                'l’Italia": M. non si crede un criminale, si crede un padre della patria. Ed è '
+    'IL VEZZO DELLE FIRME': '«Il Machiavelli e il contabile, le due maschere che “hanno fatto '
+                'l’Italia”: M. non si crede un criminale, si crede un padre della patria. Ed è '
                 'questo a renderlo imprendibile stanotte — un uomo che si crede l’Italia intera non '
                 'fugge per paura, si ritira per continuare l’opera.»',
 }

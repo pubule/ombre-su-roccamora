@@ -191,7 +191,7 @@ LUOGHI_17 = [
          approfondimenti=[
              dict(tipo='Testimonianza', soggetto='Il praticante del Notaio',
                   testo='«Il Notaio Rasca è l’uomo che fa sparire le persone con le carte in regola: '
-                        'un affitto, un nolo, una custodia "riservata", e nessuno può dire che sia un '
+                        'un affitto, un nolo, una custodia “riservata”, e nessuno può dire che sia un '
                         'rapimento. L’ultimo lavoro è il decano: preso, portato alla villa fuori '
                         'porta, interrogato con garbo per sapere quanto sa la Società. Non c’è talpa, '
                         'signori. C’è un notaio che esegue e un cliente che paga. E il cliente, giuro '
@@ -347,7 +347,7 @@ TILES_17 = [
                  'le prove NERVI sono più dure: la casa divisa pesa. Passate in fretta verso le '
                  'cucine.',
          cerca='Nella rimessa, una lanterna cieca (utile: alla sala degli interrogatori, illumina '
-               'senza farsi vedere — la prossima carta insidia "sospetto" non ha effetto).',
+               'senza farsi vedere — la prossima carta insidia “sospetto” non ha effetto).',
          arredi=[(1, 1, 'casse'), (2, 2, 'casse')]),
     dict(id='T3', nome='LE CUCINE', exits={'S': 'T2', 'N': 'T4'},
          testo='Le cucine della villa, il passaggio di servizio verso le celle. QUANDO RIVELATE '
@@ -771,7 +771,7 @@ def soluzione():
     pagina('epilogo, frammento e bivio', [
         '<b>EPILOGO — da leggere se salvate il decano e prendete il Notaio.</b> «Il decano Ferrante '
         'è vivo, pesto ma lucido, e la prima cosa che dice, mentre lo tirate fuori dalla cella, vi '
-        'gela: "Non c’è nessuna talpa, ragazzi. Ve l’ha fatto credere lui." Nell’altra stanza, il '
+        'gela: “Non c’è nessuna talpa, ragazzi. Ve l’ha fatto credere lui.” Nell’altra stanza, il '
         'Notaio Rasca vi lascia mettergli le manette ai polsi guantati senza resistere, quasi '
         'divertito. Gli chiedete per chi lavora. Sorride: "Il mio cliente firma poco, signori. Ma '
         'paga sempre." E voi, con la matrice del decano in tasca, sapete finalmente leggere quella '
@@ -1021,9 +1021,9 @@ ESAMI_CARBONE_17 = {
                 'colonna ogni lettera d’incarico di M. e, di fronte, ciò che M. sapeva prima del '
                 'dovuto — un nome, un luogo, un morto, un nastro verde. Dal 1885, nessuna eccezione. '
                 'Il decano non cercava una talpa: dimostrava che il traditore firma le lettere.»',
-    'LA DEPOSIZIONE DEL DECANO': '«Ferito ma lucido: "non c’è nessuna talpa, ragazzi. Mi ha fatto '
+    'LA DEPOSIZIONE DEL DECANO': '«Ferito ma lucido: “non c’è nessuna talpa, ragazzi. Mi ha fatto '
                 'prendere lui, per non farmi parlare. Il rapitore lavora per il presidente — l’ha '
-                'detto ridendo, poi ha detto che scherzava. Non scherzava." È il seme più vicino al '
+                'detto ridendo, poi ha detto che scherzava. Non scherzava.” È il seme più vicino al '
                 'volto che abbiate mai avuto.»',
     'IL BIGLIETTO DI BRAGA': '«Carta da cella e matita copiativa, e una riga sola che vale un '
                 'archivio: guardate le penne, non le mani. Braga ha studiato il rivale per '

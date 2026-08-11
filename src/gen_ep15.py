@@ -89,7 +89,7 @@ LETTERA_15 = (
 
 # Chiavi LETTERALI negli indizi, tutte da luoghi APERTI (L1-L4), doppia via:
 # «il dossier che combacia» (L1+L2), «il testimone oculare» (L1+L4),
-# «il metodo della società» (L2+L3), «la scena non ancora sigillata» (L3+L4).
+# «il metodo della Società» (L2+L3), «la scena non ancora sigillata» (L3+L4).
 # Rivelatorio (D2) su L1, L2, L4.
 LUOGHI_15 = [
     dict(n=1, nome='LA GENDARMERIA', voce_mappa='La Gendarmeria',
@@ -122,11 +122,11 @@ LUOGHI_15 = [
          indizi=[
              'Al Tribunale si prepara già il processo: il dossier che combacia è agli atti, e '
              'l’accusa lo tratta come oro colato. «Un caso da manuale,» dice il cancelliere, e non '
-             'sa quanto ha ragione: segue il metodo della società punto per punto, come se '
+             'sa quanto ha ragione: segue il metodo della Società punto per punto, come se '
              'l’accusatore avesse studiato sul nostro stesso libro.',
              'Agli atti c’è la guerra di trent’anni fra Braga e la Società: querele, repliche a '
              'stampa, una seduta di dodici anni fa in cui il professore promise a verbale «vi '
-             'smonterò uno per uno, con le vostre stesse carte». Il metodo della società lo '
+             'smonterò uno per uno, con le vostre stesse carte». Il metodo della Società lo '
              'combatte da una vita, e lo conosce da una vita. È scritto, è datato, e non lo ha '
              'fabbricato nessuno la settimana scorsa.',
              'Sul ruolo d’udienza, l’arresto di Braga è dato per fatto: manca solo la vostra '
@@ -146,7 +146,7 @@ LUOGHI_15 = [
          chiude=None,
          indizi=[
              'Ranuzzi ha già pronto il titolo — «IL MOSTRO HA UN VOLTO» — ma non è convinto: «la '
-             'città esulta, il metodo della società ha inchiodato il rivale del vostro presidente, '
+             'città esulta, il metodo della Società ha inchiodato il rivale del vostro presidente, '
              'fine della storia. Solo che io le storie le fiuto, e questa sa di scena montata. '
              'Troppo lieto fine.»',
              'Negli archivi, i pochi che a Roccamora padroneggiano il metodo indiziario: «una '
@@ -192,7 +192,7 @@ LUOGHI_15 = [
          ]),
     dict(n=5, nome='L’ARCHIVIO DEI MANUALI', voce_mappa='L’Archivio dei Manuali',
          req='L’archivio dei manuali della Società apre solo a chi sospetta la mano dietro il '
-             'falso: qualcuno che scrive col metodo della società, il nostro stesso ago.',
+             'falso: qualcuno che scrive col metodo della Società, il nostro stesso ago.',
          chiave=('parola', 'IL METODO DELLA SOCIETÀ'), art='L’Archivio dei Manuali.png',
          chiude=None,
          indizi=[
@@ -283,7 +283,7 @@ LUOGHI_15 = [
              'che Dio mi perdoni.»',
              'L’incisore, con le mani che tremano: «un signore mai visto, paga in oro vecchio, '
              'carta di pregio. Mi ha dato un modello di grafia da riprodurre — perfetta, di uno '
-             'che scrive svelto e sicuro — e mi ha detto: "falla sembrare del professore". Io ho '
+             'che scrive svelto e sicuro — e mi ha detto: “falla sembrare del professore”. Io ho '
              'inciso. Non ho chiesto. Chi paga in oro vecchio non lo chiedi.»'],
          approfondimenti=[
              dict(tipo='Osservazione', soggetto='Le prove stampate',
@@ -394,7 +394,7 @@ TILES_15 = [
          arbitro='OBIETTIVO. Interagire col Capo Apparecchiatore (ridotto/abbattuto) ottiene le '
                  'Istruzioni con la Grafia di Braga. Con abbastanza tell documentati = Contro-busta '
                  '(vittoria piena). Se il sigillo scatta prima, o i tell sono troppo pochi, resta '
-                 'solo la Busta pubblica (vittoria parziale). «Il metodo della società» (D3): dirgli '
+                 'solo la Busta pubblica (vittoria parziale). «Il metodo della Società» (D3): dirgli '
                  'che avete riconosciuto il vostro metodo lo fa esitare (salta un attacco).',
          cerca_vuoto='Uno studio in ordine da fotografia: nessun cassetto aperto, '
                      'nessun foglio storto, la carta assorbente pulita. Chi lavora qui '
@@ -407,7 +407,7 @@ NEMICI_15 = [
     dict(nome='IL CAPO APPARECCHIATORE', att=3, dif=8, fer=6, mov=3, dan=2, boss=True,
          tipo='Il Regista della Scena (Boss)', art='Il Capo Apparecchiatore.png',
          note='Nessuna debolezza-oggetto (è un uomo). Finché è in piedi, i suoi Apparecchiatori '
-              'cancellano un tell per round. «Il metodo della società» (D3 esatta): mostrargli che '
+              'cancellano un tell per round. «Il metodo della Società» (D3 esatta): mostrargli che '
               'avete riconosciuto il vostro stesso metodo nel suo falso lo fa esitare — salta un '
               'attacco. Prenderlo (Interagire) ottiene le Istruzioni con la Grafia di Braga. Ai '
               'tavoli da 2-3 eroi non recupera mai Ferite (regola delle taglie).',
@@ -557,7 +557,7 @@ def spedizione():
                   'apre la <b>Contro-busta</b> («chi ha scritto il dossier?») = <b>vittoria '
                   'piena</b>. Pochi tell, o sigillo già scattato: solo la Busta pubblica = '
                   '<b>vittoria parziale</b>. Chiudere il caso senza mai entrare qui è la «vittoria» '
-                  'di M. «Il metodo della società» (D3): il Capo salta un attacco.', BODY)])
+                  'di M. «Il metodo della Società» (D3): il Capo salta un attacco.', BODY)])
     c.showPage()
     import gen_narrator as N
     from deluxe_style import ARTWORKS_DIR
@@ -689,7 +689,7 @@ def soluzione():
         'effetto meccanico, ma senza questa non avete nemmeno la cornice.',
         '<b>3. COSA regge alla verifica? (e perché è un problema)</b> Tutto — perché il dossier '
         'segue il metodo della Società (l’archivio dei manuali L5, la copia consultata). <i>Esatta '
-        '(«il metodo della società»):</i> al Capo Apparecchiatore potete gridare che avete '
+        '(«il metodo della Società»):</i> al Capo Apparecchiatore potete gridare che avete '
         'riconosciuto il vostro metodo nel suo falso: gli fa saltare un attacco. <i>Sbagliata:</i> '
         'non aprite la strada alla Contro-busta con la stessa facilità.',
         '<b>4. COSA consegnate alla Gendarmeria?</b> Il fascicolo che chiude il caso pubblico. '
@@ -721,7 +721,7 @@ def soluzione():
         'Contro-busta. Il Manuale Indiziario: +1 documentato/round. Il Reagente: +1 tell iniziale.',
         '<b>Il Capo Apparecchiatore.</b> Boss: Att +3, Dif 8, Fer 6, Mov 3, Danno 2. Va '
         'ridotto/abbattuto e poi preso (Interagire) per le Istruzioni con la Grafia di Braga. '
-        'Nessuna debolezza-oggetto. «Il metodo della società» (D3 esatta): saltare un attacco. Ai '
+        'Nessuna debolezza-oggetto. «Il metodo della Società» (D3 esatta): saltare un attacco. Ai '
         'tavoli da 2-3 eroi non recupera ferite.',
         '<b>Vittoria.</b> Capo preso E 4+ tell documentati prima del sigillo = <b>vittoria '
         'piena</b> (si apre la Contro-busta se avete 4+ tell). Capo preso ma pochi '
@@ -760,7 +760,7 @@ def soluzione():
     pagina('epilogo, frammento e bivio', [
         '<b>EPILOGO — da leggere se aprite la Contro-busta.</b> «Il Capo Apparecchiatore non si '
         'scompone quando gli togliete le istruzioni di tasca: le guarda, poi guarda voi, quasi '
-        'sollevato. "Bel lavoro," dice, "riconoscere il proprio metodo. Non tutti ne sono capaci." '
+        'sollevato. “Bel lavoro,” dice, “riconoscere il proprio metodo. Non tutti ne sono capaci.” '
         'Fuori, la città festeggia l’arresto di un innocente. Voi tenete la prova che il caso è '
         'stato <i>scritto</i> — da chi ha il nostro manuale, il nostro metodo, e un vecchio conto '
         'con Braga. Il mostro non ha il volto del rivale. Ha il nostro.»',
@@ -996,7 +996,7 @@ ESAMI_CARBONE_15 = {
                 'si apre da sé al capitolo sulla grafia consumata, l’unico con le cocche piegate; e '
                 'sul registro delle consultazioni, alla riga del mese scorso, la firma è stata '
                 'raschiata via — resta il solco della penna e il pelo della carta sollevato.»',
-    'LA LASTRA DELL’INCISORE': '«Una sola matrice ha battuto il sigillo "C.B." e mezze lettere del '
+    'LA LASTRA DELL’INCISORE': '«Una sola matrice ha battuto il sigillo “C.B.” e mezze lettere del '
                 'dossier: le prove non sono state raccolte, sono state <i>stampate</i>, tutte dalla '
                 'stessa mano, in pochi giorni, su commissione anonima pagata in oro vecchio e carta '
                 'col giglio. La firma di sempre.»',
