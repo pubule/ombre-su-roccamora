@@ -5,7 +5,7 @@
 > gira e il prossimo comando; il *cosa fare* di un lavoro in corso sta nel suo
 > piano.
 
-**Aggiornato:** 11/08/2026 · ramo `main` · in produzione la versione `77079dc4`
+**Aggiornato:** 11/08/2026 · ramo `main` · in produzione la versione `5086f02b`
 su <https://roccamora.smartcores.org> (le tre correzioni dal tavolo, la
 marcatura dei PDF che non si legge più a schermo, e l'audit dei testi applicato)
 
@@ -175,5 +175,15 @@ npx --no-install wrangler dev --var OSR_DEV_EMAIL:due@esempio.it --port 8788
   vecchia: correzione committata, banchi verdi, e sull'iPad il difetto ancora
   li'. Ora `wrangler.jsonc` ha `build.command`, quindi la cartella si
   riassembla da sola a ogni deploy, anche saltando lo script.
+- **Il riquadro della carta non taglia: rimpicciolisce.** Per questo un testo
+  troppo lungo non si vede mai come testo mancante — si vede al tavolo, di
+  sera, come testo che non si legge. Misure sul render (riquadro 392 px su
+  2010 px per 68 mm): 6 righe/~450 caratteri = 6,2 pt · 7 righe/~530 = 5,4 pt
+  (il limite comodo) · 8 righe/~600 = 4,7 pt · 15 righe/~1550 = 2,5 pt. Il
+  tetto sta in `STA_SULLA_CARTA` (sync-cards-data.py) e in test-testi.
+- **Il fascicolo e la carta non devono coincidere.** `sync-cards-data.py`
+  riporta sulla carta le correzioni del fascicolo, ma sopra il tetto le
+  dichiara e non le scrive: la carta è per costruzione la versione condensata.
+  Dodici divergenze restano aperte per questo, ed è lo stato giusto.
 - Database D1: `ombre-salvataggi`, id `b0a85d9c-e7a6-4c3b-8940-1a50ad87fee2`.
   Access: team `smartcores`, destinazioni Worker + nome host pubblico.
