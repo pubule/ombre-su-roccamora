@@ -71,15 +71,29 @@ export async function vistaIndagine(app, partita, vaiA) {
 
 // La lettera d'incarico: apre l'episodio come al tavolo — si legge ad alta
 // voce, e dice quali porte sono aperte dall'inizio. Poi la città.
+// L'ultima riga in corsivo di ogni lettera («Luoghi disponibili dall'inizio…»)
+// non e' la mano di M.: e' l'app che dice quali porte sono aperte. Va staccata
+// e scritta col carattere del gioco — a mano sarebbe una bugia sul chi parla.
+// Tutte e 21 le lettere hanno questa coda, e cinque usano il corsivo anche nel
+// corpo: si taglia SOLO su quella finale, ancorata alla fine del testo.
+const CODA_ARBITRO = /<br\s*\/?><br\s*\/?>\s*<i>([\s\S]*)<\/i>\s*$/;
+function spezzaLettera(testo) {
+  const m = CODA_ARBITRO.exec(String(testo || '').trim());
+  return m ? { corpo: String(testo).trim().slice(0, m.index), coda: m[1] }
+           : { corpo: testo, coda: '' };
+}
+
 function lettera() {
   const { app, ep } = ctx;
   const rilettura = IND().lettaLettera;
+  const { corpo, coda } = spezzaLettera(ep.lettera);
   app.innerHTML = `
     ${barra(ep.titolo)}
     <div class="pannello lettera-panel">
       <p class="nota centrato">${rilettura ? '— la lettera d’incarico, dal Taccuino —'
                                            : '— da leggere ad alta voce —'}</p>
-      <div class="lettera-testo">${rendi(ep.lettera)}</div>
+      <div class="lettera-testo">${rendi(corpo)}</div>
+      ${coda ? `<p class="nota-arbitro">${rendi(coda)}</p>` : ''}
     </div>
     <div class="btn-riga">
       <button class="btn pieno" id="in-strada">${rilettura ? 'torna in strada →'

@@ -399,6 +399,11 @@ em, i { font-style: italic; }
   color: #2a2318; margin-top: 12px; }
 .lettera-testo b { color: #6d1c26; font-weight: 400; }
 .lettera-panel .nota { letter-spacing: .08em; color: #5f5849; }
+/* la coda della lettera: non l'ha scritta M., la dice l'app. Carattere del
+   gioco, non la grafia — e un filetto la stacca dal foglio scritto a mano. */
+.nota-arbitro { font-family: 'OldStd', Georgia, serif; font-style: italic;
+  font-size: 16px; line-height: 1.55; color: #4a4436; margin-top: 16px;
+  padding-top: 12px; border-top: 1px solid rgba(74, 68, 54, .3); }
 
 /* sezioni della scheda eroe: titoletto + filetto, come la scheda stampata */
 .eroe-sezione { border-top: 1px solid rgba(216, 178, 94, .35); padding-top: 8px; }
