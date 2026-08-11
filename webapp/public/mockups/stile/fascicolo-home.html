@@ -1,0 +1,40 @@
+<!doctype html><html lang="it"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Il Fascicolo · home</title>
+<link rel="stylesheet" href="base.css"><link rel="stylesheet" href="fascicolo.css">
+</head><body>
+<div class="wrap">
+  <a class="torna" href="index.html">← le tre direzioni</a>
+
+  <div class="testata">
+    <span class="etichetta">società del lume · archivio dei casi</span>
+    <h1>ombre su roccamora</h1>
+    <div class="sotto">roccamora, 1889 — quattordici casi, uno per sera</div>
+  </div>
+
+  <div class="lastra" style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+    <div>
+      <span class="etichetta" style="margin:0">al tavolo stasera</span>
+      <div class="mano">Gruppo del giovedì</div>
+    </div>
+    <button class="btn">cambia tavolo</button>
+  </div>
+
+  <div class="griglia" id="griglia"></div>
+</div>
+
+<script src="episodi.js"></script>
+<script>
+  const A = (p) => '/assets/artworks/' + encodeURI(p);
+  const classe = (s) => s === 'in corso' ? 'in-corso' : s === 'conclusa' ? 'conclusa' : '';
+  document.getElementById('griglia').innerHTML = EPISODI.map((e) => `
+    <a class="ep ${classe(e.stato)}" href="fascicolo-indagine.html">
+      <img src="${A(e.cover)}" alt="" loading="lazy">
+      <div class="testi">
+        <h3>${e.titolo}</h3>
+        <div class="sotto">${e.sotto}</div>
+        <span class="stato">${e.stato || 'mai aperto'}</span>
+      </div>
+    </a>`).join('');
+</script>
+</body></html>

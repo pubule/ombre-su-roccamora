@@ -1,0 +1,32 @@
+/* Fondamenta comuni alle tre direzioni di stile: solo font, azzeramenti e
+   struttura. Ogni direzione porta i propri colori e il proprio carattere —
+   se una regola qui dentro decide un colore, e' nel posto sbagliato. */
+@font-face { font-family: 'OldStd'; src: url('/fonts/OldStandard-Regular.ttf'); font-weight: 400; font-display: swap; }
+@font-face { font-family: 'OldStd'; src: url('/fonts/OldStandard-Bold.ttf'); font-weight: 700; font-display: swap; }
+@font-face { font-family: 'OldStd'; src: url('/fonts/OldStandard-Italic.ttf'); font-style: italic; font-display: swap; }
+@font-face { font-family: 'FellSC'; src: url('/fonts/IMFellEnglishSC.ttf'); font-display: swap; }
+@font-face { font-family: 'Mano'; src: url('/fonts/LaBelleAurore.ttf'); font-display: swap; }
+
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  font-family: 'OldStd', Georgia, serif;
+  font-size: 18px; line-height: 1.62;
+  min-height: 100vh; -webkit-text-size-adjust: 100%;
+}
+.wrap { max-width: 680px; margin: 0 auto; padding: 14px 14px 60px; }
+h1, h2, h3, .sc { font-family: 'FellSC', serif; text-transform: lowercase;
+  letter-spacing: .05em; font-weight: 400; margin: 0; }
+img { max-width: 100%; display: block; }
+a { text-decoration: none; }
+
+/* barra di ritorno all'indice dei mockup, uguale ovunque per non confondersi */
+.torna { display: inline-block; font-family: 'FellSC', serif; text-transform: lowercase;
+  font-size: 13px; letter-spacing: .06em; padding: 5px 10px; border-radius: 3px;
+  margin-bottom: 14px; opacity: .65; }
+.torna:hover, .torna:focus-visible { opacity: 1; }
+
+:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}

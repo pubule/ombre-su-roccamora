@@ -1,0 +1,96 @@
+<!doctype html><html lang="it"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Il Fascicolo · indagine</title>
+<link rel="stylesheet" href="base.css"><link rel="stylesheet" href="fascicolo.css">
+</head><body>
+<div class="wrap">
+  <a class="torna" href="index.html">← le tre direzioni</a>
+
+  <div class="testata">
+    <span class="etichetta">fascicolo 1 · indagine</span>
+    <h1>il coro sommerso</h1>
+    <div class="sotto">il caso del campanaro scomparso</div>
+  </div>
+
+  <div class="lastra" style="text-align:center">
+    <div class="registro" id="registro"></div>
+    <p class="nota" id="restano" style="margin-top:8px"></p>
+  </div>
+
+  <div class="lastra">
+    <h2>chi indaga</h2>
+    <div class="eroi" id="eroi"></div>
+  </div>
+
+  <div class="lastra">
+    <h2>stradario</h2>
+    <p class="nota">Dichiarate una destinazione: se la pista è fredda non costa nulla, ma se
+    lì c’è qualcosa… l’ora si spende.</p>
+    <div id="luoghi" style="margin-top:10px"></div>
+  </div>
+
+  <div class="lastra">
+    <h2>reperto B — la pagina strappata</h2>
+    <p class="nota">Questo al tavolo ce l’avete in mano, stampato. Sullo schermo ha lo stesso
+    aspetto: è l’unica cosa qui dentro fatta di carta.</p>
+    <div class="carta" style="margin-top:12px">
+      <h3>Registro delle consultazioni</h3>
+      <p style="margin:6px 0">…il <b>14 marzo</b> il campanaro Ruggero ritira la chiave della cella
+      campanaria e non la riconsegna. Firma illeggibile del custode.</p>
+      <p class="riga-mano" style="margin:0">chi ha aperto dopo di lui?</p>
+    </div>
+  </div>
+
+  <div class="lastra sigillata">
+    <div class="sigillo">L</div>
+    <div class="che">le quattro domande · sigillate fino alla fine</div>
+    <div class="riga" style="justify-content:center">
+      <button class="btn pieno">rompete il sigillo</button>
+    </div>
+  </div>
+
+  <div class="prova-ora">
+    <span>l'ora della notte</span>
+    <input type="range" min="18" max="24" value="21" id="cur" aria-label="ora della notte">
+    <span id="et">21:00</span>
+  </div>
+</div>
+
+<script src="../dati.js"></script>
+<script>
+  const { S, esc } = MOCK;
+  const A = (p) => '/assets/artworks/' + encodeURI(p);
+
+  document.getElementById('eroi').innerHTML = S.party.slice(0, 3).map((e) => `
+    <div class="eroe">
+      <div class="stampa">
+        <img src="${A(e.art)}" alt="" loading="lazy">
+        <span class="n">${esc(e.breve)}</span>
+      </div>
+      <span class="pips">${Array.from({ length: e.carMax || 0 },
+        (_, i) => `<span class="pip ${i < (e.car || 0) ? 'on' : ''}"></span>`).join('')}</span>
+    </div>`).join('');
+
+  const segno = { visitato: 'già battuto', aperto: 'da battere', attivo: 'siete qui', bloccato: 'serve una parola' };
+  document.getElementById('luoghi').innerHTML = S.luoghi.map((l) => `
+    <div class="voce ${l.stato}" tabindex="0">
+      <span><span class="nome">${esc(l.nome)}</span>
+        ${l.voce && l.voce !== l.nome ? `<span class="indirizzo">${esc(l.voce)}</span>` : ''}</span>
+      <span class="segno">${segno[l.stato] || ''}</span>
+    </div>`).join('');
+
+  // le ore sono righe di registro: quelle spese si barrano e non tornano
+  const cur = document.getElementById('cur'), et = document.getElementById('et');
+  const aggiorna = () => {
+    const ora = Number(cur.value), spese = ora - 18;
+    et.textContent = ora + ':00';
+    document.getElementById('registro').innerHTML = Array.from({ length: 6 }, (_, i) =>
+      `<span class="ora-riga ${i < spese ? 'spesa' : ''} ${i === spese ? 'ora' : ''}">${18 + i}</span>`).join('');
+    const restano = 24 - ora;
+    document.getElementById('restano').textContent = restano
+      ? `${restano} ${restano === 1 ? 'ora' : 'ore'} prima di mezzanotte.`
+      : 'Mezzanotte. Si chiude il fascicolo.';
+  };
+  cur.addEventListener('input', aggiorna); aggiorna();
+</script>
+</body></html>

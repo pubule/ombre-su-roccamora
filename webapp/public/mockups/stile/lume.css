@@ -1,0 +1,111 @@
+/* DIREZIONE 1 — IL LUME
+   Tesi: lo schermo e' una lampada posata sul tavolo. Non ci sono «pannelli»
+   chiari su fondo scuro: c'e' il buio, e cose che la luce raggiunge.
+   Firma: --ora (0 = le 18, 1 = le 24) stringe e raffredda l'alone. Il testo
+   NON perde contrasto: cala la stanza, non la leggibilita'. */
+:root {
+  --pece: #0a0908;        /* il buio della stanza */
+  --fumo: #14110f;        /* superficie appena illuminata */
+  --bronzo: #3a2c1d;      /* bordo di ottone, solo dove si tocca */
+  --osso: #e9dfc9;        /* testo */
+  --osso-fioco: #a89e8b;  /* testo secondario */
+  --ambra: #e3a84c;       /* la fiamma */
+  --sangue: #a02a38;      /* la minaccia */
+  --ora: 0;               /* 0 → 1 nel corso della notte */
+}
+
+body {
+  background:
+    radial-gradient(ellipse calc(140% - var(--ora) * 75%) calc(90% - var(--ora) * 50%) at 50% -5%,
+      rgba(227, 168, 76, calc(.20 - var(--ora) * .15)) 0%,
+      rgba(120, 80, 40, calc(.09 - var(--ora) * .07)) 38%,
+      transparent 72%),
+    var(--pece);
+  background-attachment: fixed;
+  color: var(--osso);
+  transition: background 1.2s ease;
+}
+.torna { color: var(--ambra); border: 1px solid var(--bronzo); }
+
+/* la testata e' la fiamma: il titolo sta dentro l'alone, non sopra un blocco */
+.testata { text-align: center; padding: 26px 0 18px; }
+.testata h1 { font-size: clamp(28px, 8vw, 40px); color: var(--osso);
+  text-shadow: 0 0 26px rgba(227, 168, 76, calc(.55 - var(--ora) * .4)); }
+.testata .sotto { color: var(--osso-fioco); font-style: italic; font-size: 15px; }
+.filo { width: 120px; height: 1px; margin: 12px auto 0;
+  background: linear-gradient(90deg, transparent, var(--bronzo), transparent); }
+
+/* niente lastre: superfici che la luce sfiora dall'alto */
+.lastra { background: linear-gradient(180deg, var(--fumo), var(--pece) 85%);
+  border-top: 1px solid rgba(227, 168, 76, .13);
+  border-radius: 2px; padding: 18px 16px; margin-top: 16px;
+  box-shadow: 0 -1px 0 rgba(255, 240, 210, .04) inset, 0 16px 30px -22px #000; }
+.lastra h2 { color: var(--ambra); font-size: 21px; margin-bottom: 10px; }
+.lastra p { margin: 0 0 10px; }
+.nota { color: var(--osso-fioco); font-style: italic; font-size: 15px; }
+
+/* l'orologio: sei tacche, e la fiamma sull'ora corrente */
+.orologio { display: flex; align-items: baseline; gap: 10px; justify-content: center;
+  font-family: 'FellSC', serif; letter-spacing: .12em; }
+.orologio .num { font-size: 30px; color: var(--ambra); }
+.tacche { display: flex; gap: 6px; }
+.tacca { width: 20px; height: 3px; background: #2a241d; border-radius: 2px; }
+.tacca.spesa { background: var(--sangue); }
+.tacca.ora { background: var(--ambra); box-shadow: 0 0 10px var(--ambra); }
+
+/* voci dello stradario: righe, non schede — la luce le prende di taglio */
+.voce { display: flex; justify-content: space-between; align-items: baseline; gap: 10px;
+  padding: 13px 4px; border-bottom: 1px solid rgba(233, 223, 201, .07); cursor: pointer; }
+.voce:hover, .voce:focus-visible { background: linear-gradient(90deg, rgba(227,168,76,.09), transparent); }
+.voce .nome { font-size: 18px; }
+.voce .indirizzo { color: var(--osso-fioco); font-style: italic; font-size: 14px; display: block; }
+.voce .segno { font-family: 'FellSC', serif; font-size: 13px; letter-spacing: .08em; white-space: nowrap; }
+.voce.visitato .nome, .voce.visitato .indirizzo { color: #6f695c; }
+.voce.visitato .segno { color: #6f695c; }
+.voce.bloccato .nome { color: var(--osso-fioco); }
+.voce.bloccato .segno { color: var(--sangue); }
+.voce.attivo { background: linear-gradient(90deg, rgba(227,168,76,.16), transparent); }
+
+/* eroi: il ritratto e' una moneta illuminata dall'alto */
+.eroi { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
+.eroe { text-align: center; width: 84px; }
+.eroe img { width: 74px; height: 74px; border-radius: 50%; object-fit: cover; margin: 0 auto;
+  border: 1px solid var(--bronzo);
+  box-shadow: 0 -6px 14px -6px rgba(227,168,76,.6), 0 6px 14px -8px #000; }
+.eroe .n { font-family: 'FellSC', serif; font-size: 13px; letter-spacing: .06em;
+  color: var(--osso-fioco); margin-top: 6px; display: block; }
+.pips { display: flex; gap: 4px; justify-content: center; margin-top: 4px; }
+.pip { width: 7px; height: 7px; border-radius: 50%; border: 1px solid var(--bronzo); }
+.pip.on { background: var(--ambra); border-color: var(--ambra); }
+
+/* episodi: la copertina e' una finestra nel buio, senza cornice */
+.griglia { display: grid; grid-template-columns: 1fr; gap: 14px; margin-top: 18px; }
+@media (min-width: 560px) { .griglia { grid-template-columns: 1fr 1fr; } }
+.ep { position: relative; border-radius: 3px; overflow: hidden; min-height: 168px;
+  display: flex; align-items: flex-end; background: var(--fumo); }
+.ep img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+  opacity: .62; transition: opacity .4s ease, transform .8s ease; }
+.ep:hover img, .ep:focus-within img { opacity: .82; transform: scale(1.03); }
+.ep .velo { position: absolute; inset: 0;
+  background: linear-gradient(180deg, transparent 28%, rgba(10,9,8,.93) 88%); }
+.ep .testi { position: relative; padding: 14px; width: 100%; }
+.ep h3 { font-size: 22px; color: var(--osso); }
+.ep .sotto { color: var(--osso-fioco); font-style: italic; font-size: 14px; }
+.ep .stato { position: absolute; top: 10px; right: 12px; font-family: 'FellSC', serif;
+  font-size: 12px; letter-spacing: .08em; color: var(--ambra); }
+
+.btn { display: inline-block; font-family: 'FellSC', serif; text-transform: lowercase;
+  letter-spacing: .06em; font-size: 16px; padding: 11px 18px; border-radius: 2px;
+  border: 1px solid var(--bronzo); background: transparent; color: var(--osso);
+  cursor: pointer; transition: box-shadow .2s ease, border-color .2s ease; }
+.btn:hover, .btn:focus-visible { border-color: var(--ambra); box-shadow: 0 0 18px -6px var(--ambra); }
+.btn.pieno { border-color: var(--ambra); color: #1a1206;
+  background: linear-gradient(180deg, var(--ambra), #b7802f); }
+.riga { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+
+/* il cursore dell'ora: sta nei mockup, non nell'app — serve a vedere la firma */
+.prova-ora { position: fixed; left: 0; right: 0; bottom: 0; z-index: 5; padding: 10px 14px;
+  background: rgba(10,9,8,.92); border-top: 1px solid var(--bronzo);
+  display: flex; align-items: center; gap: 12px; font-family: 'FellSC', serif;
+  font-size: 13px; letter-spacing: .06em; color: var(--osso-fioco); }
+.prova-ora input { flex: 1; accent-color: var(--ambra); }

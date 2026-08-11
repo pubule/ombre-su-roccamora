@@ -1,0 +1,92 @@
+<!doctype html><html lang="it"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Il Bronzo · spedizione</title>
+<link rel="stylesheet" href="base.css"><link rel="stylesheet" href="bronzo.css">
+<style>
+  /* sotto terra la lampada e' l'unica cosa che avete: il fondo parte gia' cupo */
+  .tessere { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 6px; }
+  .tess { flex: 0 0 auto; width: 104px; border-radius: 2px; overflow: hidden;
+    border: 1px solid var(--bronzo); position: relative; background: var(--fumo); }
+  .tess img { width: 100%; height: 82px; object-fit: cover; }
+  .tess .et { font-family: 'FellSC', serif; font-size: 11px; letter-spacing: .05em;
+    color: var(--osso-fioco); padding: 4px 6px; display: block; }
+  .tess.buia img { filter: brightness(.18) grayscale(1); }
+  .tess.buia .et { color: #5b544a; }
+  .tess.qui { border-color: var(--ambra); box-shadow: 0 0 20px -6px var(--ambra); }
+  .canto { display: flex; align-items: center; gap: 10px; justify-content: center;
+    font-family: 'FellSC', serif; letter-spacing: .1em; color: var(--osso-fioco); }
+  .gemma { width: 13px; height: 13px; transform: rotate(45deg); border: 1px solid var(--bronzo); }
+  .gemma.on { background: var(--sangue); border-color: var(--sangue);
+    box-shadow: 0 0 12px -2px var(--sangue); }
+  .fila { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+  .tok { width: 58px; height: 58px; border-radius: 50%; object-fit: cover; border: 1px solid var(--bronzo); }
+  .tok.attivo { border-color: var(--ambra); box-shadow: 0 0 20px -5px var(--ambra); }
+  .tok.nemico { border-color: var(--sangue); }
+  .vita { font-family: 'FellSC', serif; font-size: 13px; letter-spacing: .06em; }
+</style>
+</head><body>
+<div class="wrap">
+  <a class="torna" href="index.html">← le tre direzioni</a>
+
+  <div class="arco">
+    <span class="scritta" id="scritta-arco"></span>
+    <span class="rintocchi" id="rintocchi"></span>
+  </div>
+  <div class="testata" style="padding-bottom:6px">
+    <h1 style="font-size:clamp(22px,6vw,28px)">la spedizione</h1>
+    <div class="sotto">round 3 · il magazzino sul canale</div>
+  </div>
+
+  <div class="lastra">
+    <h2>dove siete</h2>
+    <div class="tessere" id="tessere"></div>
+  </div>
+
+  <div class="lastra">
+    <h2>tocca a</h2>
+    <div class="fila" id="turno"></div>
+    <div class="riga">
+      <button class="btn pieno">muovi</button>
+      <button class="btn">cerca</button>
+      <button class="btn">attacca</button>
+      <button class="btn">finisci</button>
+    </div>
+  </div>
+
+  <div class="lastra">
+    <h2>contro di voi</h2>
+    <div class="fila" id="nemici"></div>
+  </div>
+</div>
+
+<script src="../dati.js"></script>
+<script>
+  const { S, esc, urlTessera } = MOCK;
+  const A = (p) => '/assets/artworks/' + encodeURI(p);
+
+  document.getElementById('scritta-arco').textContent =
+    `il canto · ${S.canto} di ${S.soglia}`;
+  document.getElementById('rintocchi').innerHTML = Array.from({ length: S.soglia }, (_, i) =>
+    `<span class="rintocco ${i < S.canto ? 'suonato' : ''} ${i === S.canto ? 'ora' : ''}"></span>`).join('');
+
+  document.getElementById('tessere').innerHTML = S.tessere.map((t, i) => `
+    <div class="tess ${t.rivelata ? '' : 'buia'} ${i === 1 ? 'qui' : ''}">
+      <img src="${urlTessera(t)}" alt="" loading="lazy">
+      <span class="et">${t.rivelata ? esc(t.nome) : 'ancora al buio'}</span>
+    </div>`).join('');
+
+  const attivo = S.party.find((e) => e.attivo) || S.party[0];
+  document.getElementById('turno').innerHTML = `
+    <img class="tok attivo" src="${A(attivo.art)}" alt="">
+    <span><span class="sc" style="color:var(--ambra);font-size:18px">${esc(attivo.breve)}</span>
+      <span class="vita" style="display:block;color:var(--osso-fioco)">salute ${attivo.sal}/${attivo.salMax}
+      · 2 azioni rimaste</span></span>`;
+
+  document.getElementById('nemici').innerHTML = S.nemici.map((n) => `
+    <div style="text-align:center;width:70px">
+      <img class="tok nemico" src="${A(n.art)}" alt="" loading="lazy">
+      <span class="vita" style="display:block;color:var(--osso-fioco);margin-top:4px">
+        ${esc(n.breve)}</span>
+    </div>`).join('');
+</script>
+</body></html>

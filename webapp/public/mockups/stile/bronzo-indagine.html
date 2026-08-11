@@ -1,0 +1,81 @@
+<!doctype html><html lang="it"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Il Bronzo · indagine</title>
+<link rel="stylesheet" href="base.css"><link rel="stylesheet" href="bronzo.css">
+</head><body>
+<div class="wrap">
+  <a class="torna" href="index.html">← le tre direzioni</a>
+
+  <div class="arco">
+    <span class="scritta" id="scritta-arco"></span>
+    <span class="rintocchi" id="tacche"></span>
+  </div>
+  <div class="testata" style="padding-bottom:10px">
+    <h1 style="font-size:clamp(24px,7vw,32px)">il coro sommerso</h1>
+    <div class="sotto">episodio 1 · l’indagine</div>
+  </div>
+
+  <div class="lastra">
+    <h2>il gruppo sul caso</h2>
+    <div class="eroi" id="eroi"></div>
+    <p class="nota" style="margin-top:14px">Sotto ogni ritratto, le sue cariche: un pallino
+    per uso, pieno se è ancora disponibile.</p>
+  </div>
+
+  <div class="lastra">
+    <h2>lo stradario</h2>
+    <p class="nota">Dichiarate una destinazione: se la pista è fredda non costa nulla, ma se
+    lì c’è qualcosa… l’ora si spende. Dichiarare è impegnarsi.</p>
+    <div id="luoghi" style="margin-top:6px"></div>
+  </div>
+
+  <div class="lastra">
+    <h2>le quattro domande</h2>
+    <p class="nota">Si rispondono alla fine, insieme. L’app non le mostra prima: le custodisce.</p>
+    <div class="riga"><button class="btn pieno">chiudi l’indagine</button></div>
+  </div>
+
+  <div class="prova-ora">
+    <span>l'ora della notte</span>
+    <input type="range" min="18" max="24" value="21" id="cur" aria-label="ora della notte">
+    <span id="et">21:00</span>
+  </div>
+</div>
+
+<script src="../dati.js"></script>
+<script>
+  const { S, esc } = MOCK;
+  const A = (p) => '/assets/artworks/' + encodeURI(p);
+
+  document.getElementById('eroi').innerHTML = S.party.slice(0, 3).map((e) => `
+    <div class="eroe">
+      <img src="${A(e.art)}" alt="" loading="lazy">
+      <span class="n">${esc(e.breve)}</span>
+      <span class="pips">${Array.from({ length: e.carMax || 0 },
+        (_, i) => `<span class="pip ${i < (e.car || 0) ? 'on' : ''}"></span>`).join('')}</span>
+    </div>`).join('');
+
+  const segno = { visitato: 'già stati', aperto: '', attivo: 'siete qui', bloccato: 'serve una parola' };
+  document.getElementById('luoghi').innerHTML = S.luoghi.map((l) => `
+    <div class="voce ${l.stato}" tabindex="0">
+      <span><span class="nome">${esc(l.nome)}</span>
+        ${l.voce && l.voce !== l.nome ? `<span class="indirizzo">${esc(l.voce)}</span>` : ''}</span>
+      <span class="segno">${segno[l.stato] || ''}</span>
+    </div>`).join('');
+
+  // la firma: l'ora comanda la luce, e le tacche spese non tornano
+  const cur = document.getElementById('cur'), et = document.getElementById('et');
+  const aggiorna = () => {
+    const ora = Number(cur.value), spese = ora - 18;
+    document.documentElement.style.setProperty('--ora', spese / 6);
+    et.textContent = ora + ':00';
+    document.getElementById('tacche').innerHTML = Array.from({ length: 6 }, (_, i) =>
+      `<span class="rintocco ${i < spese ? 'suonato' : ''} ${i === spese ? 'ora' : ''}"></span>`).join('');
+    const restano = 24 - ora;
+    document.getElementById('scritta-arco').textContent = restano
+      ? `${ora}:00 · ${restano} ${restano === 1 ? 'rintocco' : 'rintocchi'} a mezzanotte`
+      : 'mezzanotte · l’indagine è finita';
+  };
+  cur.addEventListener('input', aggiorna); aggiorna();
+</script>
+</body></html>

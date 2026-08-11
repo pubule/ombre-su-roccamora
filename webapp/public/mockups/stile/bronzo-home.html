@@ -1,0 +1,41 @@
+<!doctype html><html lang="it"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Il Bronzo · home</title>
+<link rel="stylesheet" href="base.css"><link rel="stylesheet" href="bronzo.css">
+</head><body>
+<div class="wrap">
+  <a class="torna" href="index.html">← le tre direzioni</a>
+
+  <div class="arco"><span class="scritta">società del lume · mdccclxxxix</span></div>
+  <div class="testata">
+    <h1>ombre su roccamora</h1>
+    <div class="sotto">roccamora, città di canali e campanili</div>
+  </div>
+
+  <div class="lastra" style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+    <div>
+      <div class="sc" style="font-size:13px;letter-spacing:.1em;color:var(--osso-fioco)">al tavolo stasera</div>
+      <div style="font-size:19px">Gruppo del giovedì</div>
+    </div>
+    <button class="btn">cambia tavolo</button>
+  </div>
+
+  <div class="griglia" id="griglia"></div>
+
+</div>
+
+<script src="episodi.js"></script>
+<script>
+  const A = (p) => '/assets/artworks/' + encodeURI(p);
+  document.getElementById('griglia').innerHTML = EPISODI.map((e) => `
+    <a class="ep" href="bronzo-indagine.html">
+      <img src="${A(e.cover)}" alt="" loading="lazy">
+      <div class="testi">
+        <h3>${e.titolo}</h3>
+        <div class="sotto">${e.sotto}</div>
+        ${e.stato ? `<span class="stato">${e.stato}</span>` : ''}
+      </div>
+    </a>`).join('');
+
+</script>
+</body></html>

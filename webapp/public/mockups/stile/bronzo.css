@@ -1,0 +1,122 @@
+/* DIREZIONE 2 — IL BRONZO
+   Tesi: l'interfaccia e' fusa, non stampata. Lastre di bronzo ossidato, testo
+   inciso (scavato, non appoggiato), verderame dove il metallo ha ceduto.
+   Firma: l'arco di campana in cima allo schermo. In Indagine e' il quadrante
+   delle ore, in Spedizione e' il Canto che sale: stessa forma, due letture. */
+:root {
+  --notte: #070d0c;       /* il fondo, verde-nero */
+  --patina: #142320;      /* la lastra */
+  --patina-alta: #1d302b;
+  --incisione: #050a09;   /* il solco */
+  --verderame: #5fa392;   /* dove l'ossido affiora */
+  --ottone: #c9a227;      /* il metallo pulito */
+  --osso: #e4e0d2;
+  --osso-fioco: #9aa39c;
+  --ruggine: #a04a30;
+}
+
+body {
+  background:
+    repeating-linear-gradient(0deg, rgba(255,255,255,.012) 0 1px, transparent 1px 3px),
+    radial-gradient(120% 70% at 50% 0%, #0f1c1a 0%, var(--notte) 70%);
+  background-attachment: fixed;
+  color: var(--osso);
+}
+.torna { color: var(--verderame); border: 1px solid #24403a; }
+
+/* l'arco: un bordo di campana, non una linea */
+.arco { position: relative; height: 84px; margin: 6px 0 2px;
+  border-radius: 0 0 50% 50% / 0 0 100% 100%;
+  border: 2px solid #2c4a43; border-top: none;
+  background: linear-gradient(180deg, rgba(95,163,146,.10), transparent 70%);
+  display: flex; align-items: flex-start; justify-content: center; }
+.arco .scritta { font-family: 'FellSC', serif; letter-spacing: .18em; font-size: 13px;
+  color: var(--verderame); padding-top: 6px; }
+.arco .rintocchi { position: absolute; bottom: -7px; left: 0; right: 0;
+  display: flex; justify-content: center; gap: 12px; }
+.rintocco { width: 13px; height: 13px; border-radius: 50%;
+  background: var(--incisione); border: 2px solid #2c4a43; }
+.rintocco.suonato { background: var(--ruggine); border-color: var(--ruggine); }
+.rintocco.ora { background: var(--ottone); border-color: var(--ottone);
+  box-shadow: 0 0 14px -2px var(--ottone); }
+
+.testata { text-align: center; padding: 12px 0 16px; }
+.testata h1 { font-size: clamp(26px, 7.5vw, 38px); color: var(--osso);
+  text-shadow: 0 1px 0 #000, 0 -1px 0 rgba(255,255,255,.07); }
+.testata .sotto { color: var(--osso-fioco); font-style: italic; font-size: 15px; }
+
+/* lastra di bronzo: bordo alto chiaro, bordo basso scuro — sembra spessa */
+.lastra { background: linear-gradient(180deg, var(--patina-alta), var(--patina));
+  border: 1px solid #24403a; border-top-color: #2f524a; border-bottom-color: #0b1614;
+  border-radius: 4px; padding: 16px; margin-top: 14px; position: relative;
+  box-shadow: 0 1px 0 rgba(255,255,255,.05) inset, 0 10px 22px -18px #000; }
+/* i rivetti dicono «questa lastra e' avvitata al tavolo» */
+.lastra::before, .lastra::after { content: ''; position: absolute; top: 7px;
+  width: 5px; height: 5px; border-radius: 50%; background: #0d1917;
+  box-shadow: 0 1px 0 rgba(255,255,255,.09); }
+.lastra::before { left: 7px; } .lastra::after { right: 7px; }
+.lastra h2 { color: var(--ottone); font-size: 20px; margin-bottom: 8px;
+  text-shadow: 0 -1px 0 #000; }
+.nota { color: var(--osso-fioco); font-style: italic; font-size: 15px; }
+
+/* testo inciso: scavato nel metallo */
+.inciso { color: #b9c3bb; text-shadow: 0 1px 0 rgba(255,255,255,.07); }
+
+.voce { display: flex; justify-content: space-between; align-items: baseline; gap: 10px;
+  padding: 12px 6px; border-bottom: 1px solid #0e1a18;
+  box-shadow: 0 1px 0 rgba(255,255,255,.03); cursor: pointer; }
+.voce:hover, .voce:focus-visible { background: rgba(95,163,146,.07); }
+.voce .nome { font-size: 18px; }
+.voce .indirizzo { color: var(--osso-fioco); font-style: italic; font-size: 14px; display: block; }
+.voce .segno { font-family: 'FellSC', serif; font-size: 13px; letter-spacing: .08em;
+  color: var(--verderame); white-space: nowrap; }
+.voce.visitato { opacity: .45; }
+.voce.bloccato .segno { color: var(--ruggine); }
+.voce.attivo { background: rgba(201,162,39,.10); border-left: 2px solid var(--ottone); }
+
+/* eroi: medaglioni di bronzo */
+.eroi { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
+.eroe { text-align: center; width: 84px; }
+.eroe img { width: 74px; height: 74px; border-radius: 50%; object-fit: cover; margin: 0 auto;
+  border: 2px solid #2c4a43; filter: sepia(.25) saturate(.85);
+  box-shadow: 0 2px 0 #0a1413, 0 -1px 0 rgba(255,255,255,.09); }
+.eroe .n { font-family: 'FellSC', serif; font-size: 13px; letter-spacing: .06em;
+  color: var(--osso-fioco); margin-top: 6px; display: block; }
+.pips { display: flex; gap: 4px; justify-content: center; margin-top: 4px; }
+.pip { width: 8px; height: 8px; border-radius: 50%; background: var(--incisione);
+  border: 1px solid #2c4a43; }
+.pip.on { background: var(--verderame); border-color: var(--verderame); }
+
+/* episodi: targhe, non finestre — l'immagine e' incassata nel metallo */
+.griglia { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 16px; }
+@media (min-width: 560px) { .griglia { grid-template-columns: 1fr 1fr; } }
+.ep { display: flex; gap: 12px; align-items: stretch; text-decoration: none;
+  background: linear-gradient(180deg, var(--patina-alta), var(--patina));
+  border: 1px solid #24403a; border-top-color: #2f524a; border-radius: 4px;
+  overflow: hidden; box-shadow: 0 1px 0 rgba(255,255,255,.05) inset; }
+.ep img { width: 108px; height: 100%; min-height: 104px; object-fit: cover;
+  filter: sepia(.3) saturate(.8) brightness(.78); flex: 0 0 auto;
+  border-right: 1px solid #0b1614; }
+.ep .testi { padding: 10px 12px 12px 0; }
+.ep h3 { font-size: 19px; color: var(--osso); text-shadow: 0 -1px 0 #000; }
+.ep .sotto { color: var(--osso-fioco); font-style: italic; font-size: 13px; }
+.ep .stato { font-family: 'FellSC', serif; font-size: 11px; letter-spacing: .1em;
+  color: var(--ottone); display: block; margin-top: 4px; }
+
+.btn { display: inline-block; font-family: 'FellSC', serif; text-transform: lowercase;
+  letter-spacing: .06em; font-size: 16px; padding: 10px 18px; border-radius: 3px;
+  color: var(--osso); cursor: pointer;
+  background: linear-gradient(180deg, #233b35, #16251f);
+  border: 1px solid #2f524a; border-bottom-color: #0a1413;
+  box-shadow: 0 1px 0 rgba(255,255,255,.07) inset; }
+.btn:hover, .btn:focus-visible { border-color: var(--verderame); color: #fff; }
+.btn:active { box-shadow: 0 2px 6px #000 inset; transform: translateY(1px); }
+.btn.pieno { background: linear-gradient(180deg, #cfa62c, #8a6c14); color: #17140a;
+  border-color: #e0bb45; text-shadow: 0 1px 0 rgba(255,255,255,.25); }
+.riga { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
+
+.prova-ora { position: fixed; left: 0; right: 0; bottom: 0; z-index: 5; padding: 10px 14px;
+  background: rgba(7,13,12,.94); border-top: 1px solid #24403a;
+  display: flex; align-items: center; gap: 12px; font-family: 'FellSC', serif;
+  font-size: 13px; letter-spacing: .06em; color: var(--osso-fioco); }
+.prova-ora input { flex: 1; accent-color: var(--ottone); }

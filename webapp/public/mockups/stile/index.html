@@ -1,0 +1,118 @@
+<!doctype html><html lang="it"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tre direzioni di stile · Ombre su Roccamora</title>
+<link rel="stylesheet" href="base.css">
+<style>
+  body { background: #0a0a0c; color: #ddd8cd; }
+  .testata { text-align: center; padding: 26px 0 8px; }
+  .testata h1 { font-size: clamp(26px, 7vw, 36px); color: #e3a84c; }
+  .testata .sotto { color: #8d8b86; font-style: italic; }
+  .dir { border: 1px solid #26272c; border-radius: 3px; padding: 18px 16px; margin-top: 18px; }
+  .dir h2 { font-size: 24px; margin-bottom: 4px; }
+  .dir .tesi { font-style: italic; color: #a5a09a; margin: 0 0 10px; }
+  .dir p { margin: 0 0 10px; }
+  .dir .firma { border-left: 2px solid currentColor; padding-left: 12px; margin: 12px 0; }
+  .campioni { display: flex; gap: 6px; margin: 10px 0 14px; }
+  .campioni span { width: 34px; height: 34px; border-radius: 2px; border: 1px solid #26272c; }
+  .link { display: flex; gap: 10px; flex-wrap: wrap; }
+  .link a { font-family: 'FellSC', serif; text-transform: lowercase; letter-spacing: .06em;
+    font-size: 15px; padding: 9px 15px; border: 1px solid #33363e; border-radius: 2px;
+    color: inherit; }
+  .link a:hover, .link a:focus-visible { border-color: currentColor; }
+  .link a.primo { background: currentColor; }
+  .link a.primo span { filter: invert(1) grayscale(1) contrast(3); }
+  .d1 { color: #e3a84c; } .d2 { color: #5fa392; } .d3 { color: #cf4a5e; }
+  .coda { border: 1px solid #26272c; border-radius: 3px; padding: 18px 16px; margin-top: 22px;
+    color: #a5a09a; }
+  .coda b { color: #ddd8cd; }
+</style>
+</head><body>
+<div class="wrap">
+  <div class="testata">
+    <h1>tre direzioni di stile</h1>
+    <div class="sotto">più scuro, e più dentro il gioco · mockup statici, nessuna logica</div>
+  </div>
+
+  <div class="coda" style="margin-top:16px">
+    <p style="margin-top:0">Il problema di adesso non è che l’app sia chiara: il guscio è già nero.
+    È che <b>il contenuto sta su lastre di pergamena color crema</b>, e in una stanza buia quelle
+    sono lampade in faccia. Tutte e tre le direzioni partono da lì.</p>
+    <p style="margin-bottom:0">Guardatele <b>sul dispositivo con cui giocate</b> e con la luce
+    della stanza che avrete davvero. In Indagine c’è un cursore in basso: trascinatelo per far
+    passare le ore.</p>
+  </div>
+
+  <div class="dir d1">
+    <h2>1 · il lume</h2>
+    <p class="tesi">Lo schermo è una lampada posata sul tavolo.</p>
+    <div class="campioni">
+      <span style="background:#0a0908"></span><span style="background:#14110f"></span>
+      <span style="background:#e9dfc9"></span><span style="background:#e3a84c"></span>
+      <span style="background:#a02a38"></span>
+    </div>
+    <p>Non ci sono pannelli: c’è il buio, e cose che la luce raggiunge. Le superfici sono
+    sfumature calde appena più chiare del fondo, l’ottone compare solo dove si tocca qualcosa.</p>
+    <p class="firma"><b>La firma: la luce cala con le ore.</b> Dalle 18 a mezzanotte l’alone si
+    stringe e si raffredda, finché resta solo il testo. Il contrasto della scrittura non cambia
+    mai — cala la stanza, non la leggibilità.</p>
+    <div class="link">
+      <a href="lume-home.html">home</a>
+      <a href="lume-indagine.html">indagine</a>
+      <a href="lume-spedizione.html">spedizione</a>
+    </div>
+  </div>
+
+  <div class="dir d2">
+    <h2>2 · il bronzo</h2>
+    <p class="tesi">L’interfaccia è fusa, non stampata.</p>
+    <div class="campioni">
+      <span style="background:#070d0c"></span><span style="background:#142320"></span>
+      <span style="background:#e4e0d2"></span><span style="background:#5fa392"></span>
+      <span style="background:#c9a227"></span>
+    </div>
+    <p>Lastre di bronzo ossidato avvitate al tavolo, testo inciso nel metallo, verderame dove
+    l’ossido ha ceduto. È la direzione più fredda delle tre, e quella che sta più vicina alle
+    campane da cui parte tutta la storia.</p>
+    <p class="firma"><b>La firma: l’arco di campana in cima allo schermo.</b> In Indagine è il
+    quadrante delle ore, in Spedizione è il Canto che sale. Stessa forma, due letture: quello che
+    ti sovrasta è sempre il tempo che stringe.</p>
+    <div class="link">
+      <a href="bronzo-home.html">home</a>
+      <a href="bronzo-indagine.html">indagine</a>
+      <a href="bronzo-spedizione.html">spedizione</a>
+    </div>
+  </div>
+
+  <div class="dir d3">
+    <h2>3 · il fascicolo</h2>
+    <p class="tesi">La scrivania al buio, e la carta solo dove c’è carta vera.</p>
+    <div class="campioni">
+      <span style="background:#0b0b0d"></span><span style="background:#17181c"></span>
+      <span style="background:#dedbd4"></span><span style="background:#a3253a"></span>
+      <span style="background:#e8dfc6"></span>
+    </div>
+    <p>Tutto è ardesia scura <b>tranne</b> reperti, carte e ritratti, che restano di pergamena.
+    Oggi la pergamena è ovunque e quindi non dice niente; qui torna a essere un segnale: «questo
+    è un oggetto che al tavolo esiste davvero». Gli appunti del gruppo sono scritti a mano.</p>
+    <p class="firma"><b>La firma: il sigillo di ceralacca.</b> Ciò che l’app custodisce — le
+    quattro Domande, la Soluzione — è sigillato, e si rompe solo quando il gruppo decide. Il
+    ruolo di arbitro diventa visibile invece di essere solo una promessa.</p>
+    <div class="link">
+      <a href="fascicolo-home.html">home</a>
+      <a href="fascicolo-indagine.html">indagine</a>
+      <a href="fascicolo-spedizione.html">spedizione</a>
+    </div>
+  </div>
+
+  <div class="coda">
+    <p style="margin-top:0"><b>Se dovessi scegliere io:</b> il fascicolo. È l’unica delle tre che
+    risolve un problema oltre al colore — restituisce senso alla pergamena invece di toglierla — e
+    il sigillo rende visibile la cosa che l’app fa e nessun altro può fare al tavolo.</p>
+    <p><b>Il lume</b> è il più bello da guardare e il più rischioso: se la stanza si spegne troppo,
+    a mezzanotte non si legge più niente. L’ho tenuto sotto controllo lasciando fisso il contrasto
+    del testo, ma va provato su un iPad vero, di sera.</p>
+    <p style="margin-bottom:0"><b>Il bronzo</b> è il più coerente col mondo di gioco e il più
+    faticoso da mantenere: ogni componente nuovo va disegnato come pezzo di metallo, o stona.</p>
+  </div>
+</div>
+</body></html>

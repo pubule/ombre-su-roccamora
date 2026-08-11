@@ -1,0 +1,124 @@
+/* DIREZIONE 3 — IL FASCICOLO
+   Tesi: la scrivania al buio. Tutto e' ardesia scura TRANNE le cose che nella
+   finzione sono davvero di carta — reperti, carte, ritratti. Oggi la pergamena
+   e' ovunque e quindi non dice niente; qui torna a essere un segnale: «questo
+   e' un oggetto che al tavolo esiste».
+   Firma: il sigillo di ceralacca. Cio' che l'app custodisce e' sigillato, e si
+   rompe solo quando il gruppo decide. */
+:root {
+  --tavolo: #0b0b0d;      /* il piano della scrivania */
+  --ardesia: #17181c;     /* la cartellina */
+  --ardesia-alta: #202228;
+  --osso: #dedbd4;
+  --osso-fioco: #8d8b86;
+  --ceralacca: #a3253a;   /* il sigillo */
+  --nastro: #4b6b8a;      /* il nastro blu della macchina da scrivere */
+  --carta: #e8dfc6;       /* la carta vera, usata con parsimonia */
+  --carta-ink: #2b2418;
+}
+
+body {
+  background:
+    radial-gradient(90% 55% at 50% -10%, #16171b 0%, var(--tavolo) 70%),
+    var(--tavolo);
+  background-attachment: fixed;
+  color: var(--osso);
+}
+.torna { color: var(--nastro); border: 1px solid #2a2c33; }
+
+.testata { padding: 18px 0 14px; border-bottom: 1px solid #24262c; margin-bottom: 4px; }
+.testata h1 { font-size: clamp(24px, 7vw, 34px); color: var(--osso); }
+.testata .sotto { color: var(--osso-fioco); font-size: 14px; font-style: italic; }
+/* l'etichetta battuta a macchina: dice cos'e' il fascicolo che hai in mano */
+.etichetta { display: inline-block; font-family: 'FellSC', serif; font-size: 11px;
+  letter-spacing: .22em; color: var(--nastro); border: 1px solid #2a3a48;
+  padding: 3px 9px; margin-bottom: 8px; }
+
+.lastra { background: var(--ardesia); border: 1px solid #24262c; border-radius: 2px;
+  padding: 16px; margin-top: 14px; }
+.lastra h2 { color: var(--osso); font-size: 19px; margin-bottom: 8px;
+  border-bottom: 1px solid #2a2c33; padding-bottom: 6px; }
+.nota { color: var(--osso-fioco); font-style: italic; font-size: 15px; }
+/* la mano di chi indaga: appunti, non testo di sistema */
+.mano { font-family: 'Mano', cursive; font-size: 21px; color: #b9c8d6;
+  transform: rotate(-.6deg); }
+
+/* la carta vera: solo dove al tavolo c'e' un oggetto */
+.carta { background: linear-gradient(175deg, var(--carta), #dbcfae);
+  color: var(--carta-ink); border-radius: 1px; padding: 14px 16px;
+  box-shadow: 0 12px 24px -14px #000, 0 1px 0 rgba(255,255,255,.5) inset;
+  transform: rotate(-.4deg); }
+.carta h3 { color: #6d1c26; font-size: 18px; }
+.carta .riga-mano { font-family: 'Mano', cursive; font-size: 20px; color: #3a4a5c; }
+
+/* il sigillo: cio' che l'app custodisce */
+.sigillata { position: relative; text-align: center; padding: 26px 16px 20px; }
+.sigillo { width: 62px; height: 62px; border-radius: 50%; margin: 0 auto 10px;
+  background: radial-gradient(circle at 38% 32%, #c8384c, var(--ceralacca) 55%, #6d1522);
+  box-shadow: 0 6px 14px -6px #000, 0 1px 0 rgba(255,255,255,.18) inset;
+  display: grid; place-items: center;
+  font-family: 'FellSC', serif; font-size: 20px; color: #f0d6da; }
+.sigillata .che { font-family: 'FellSC', serif; letter-spacing: .12em;
+  font-size: 14px; color: var(--osso-fioco); }
+
+.voce { display: flex; justify-content: space-between; align-items: baseline; gap: 10px;
+  padding: 11px 8px; border-left: 2px solid #2a2c33; margin-bottom: 6px;
+  background: var(--ardesia-alta); cursor: pointer; }
+.voce:hover, .voce:focus-visible { border-left-color: var(--nastro); }
+.voce .nome { font-size: 17px; }
+.voce .indirizzo { color: var(--osso-fioco); font-style: italic; font-size: 14px; display: block; }
+.voce .segno { font-family: 'FellSC', serif; font-size: 12px; letter-spacing: .1em;
+  color: var(--osso-fioco); white-space: nowrap; }
+.voce.visitato { opacity: .5; border-left-color: #2a2c33; }
+.voce.visitato .segno { text-decoration: line-through; }
+.voce.bloccato .segno { color: var(--ceralacca); }
+.voce.attivo { border-left-color: var(--ceralacca); background: #23191c; }
+
+/* ritratti: stampe all'albumina incollate al fascicolo */
+.eroi { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
+.eroe { width: 88px; text-align: center; }
+.eroe .stampa { background: var(--carta); padding: 5px 5px 20px; transform: rotate(-1.2deg);
+  box-shadow: 0 10px 18px -12px #000; }
+.eroe:nth-child(even) .stampa { transform: rotate(1deg); }
+.eroe .stampa img { width: 100%; height: 78px; object-fit: cover; filter: grayscale(.75) sepia(.3); }
+.eroe .n { font-family: 'FellSC', serif; font-size: 12px; letter-spacing: .06em;
+  color: var(--carta-ink); display: block; margin-top: 4px; }
+.pips { display: flex; gap: 4px; justify-content: center; margin-top: 6px; }
+.pip { width: 7px; height: 7px; border-radius: 50%; border: 1px solid #3a3d45; }
+.pip.on { background: var(--nastro); border-color: var(--nastro); }
+
+/* episodi: fascicoli in uno schedario, con la costa etichettata */
+.griglia { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 16px; }
+@media (min-width: 560px) { .griglia { grid-template-columns: 1fr 1fr; } }
+.ep { display: flex; align-items: stretch; background: var(--ardesia);
+  border: 1px solid #24262c; border-left: 6px solid var(--nastro); border-radius: 2px;
+  overflow: hidden; }
+.ep.conclusa { border-left-color: #3a3d45; }
+.ep.in-corso { border-left-color: var(--ceralacca); }
+.ep img { width: 92px; object-fit: cover; filter: grayscale(.8) brightness(.6); flex: 0 0 auto; }
+.ep .testi { padding: 11px 12px; }
+.ep h3 { font-size: 18px; color: var(--osso); }
+.ep .sotto { color: var(--osso-fioco); font-style: italic; font-size: 13px; }
+.ep .stato { font-family: 'FellSC', serif; font-size: 11px; letter-spacing: .16em;
+  color: var(--nastro); display: block; margin-top: 5px; }
+.ep.in-corso .stato { color: var(--ceralacca); }
+
+.btn { display: inline-block; font-family: 'FellSC', serif; text-transform: lowercase;
+  letter-spacing: .06em; font-size: 15px; padding: 10px 16px; border-radius: 2px;
+  border: 1px solid #33363e; background: var(--ardesia-alta); color: var(--osso); cursor: pointer; }
+.btn:hover, .btn:focus-visible { border-color: var(--nastro); }
+.btn.pieno { background: var(--ceralacca); border-color: #c03249; color: #fff; }
+.riga { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
+
+/* le ore: righe di registro barrate, non un orologio */
+.registro { display: flex; gap: 6px; justify-content: center; margin-top: 6px; }
+.ora-riga { font-family: 'FellSC', serif; font-size: 13px; letter-spacing: .05em;
+  color: var(--osso-fioco); padding: 3px 7px; border: 1px solid #2a2c33; }
+.ora-riga.spesa { color: #55575c; text-decoration: line-through; border-color: #202228; }
+.ora-riga.ora { color: var(--carta); border-color: var(--ceralacca); background: #23191c; }
+
+.prova-ora { position: fixed; left: 0; right: 0; bottom: 0; z-index: 5; padding: 10px 14px;
+  background: rgba(11,11,13,.94); border-top: 1px solid #24262c;
+  display: flex; align-items: center; gap: 12px; font-family: 'FellSC', serif;
+  font-size: 13px; letter-spacing: .06em; color: var(--osso-fioco); }
+.prova-ora input { flex: 1; accent-color: var(--ceralacca); }

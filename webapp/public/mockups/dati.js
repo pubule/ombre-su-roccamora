@@ -41,7 +41,9 @@
     { id: 'T5', nome: 'Scala al Piano Interrato', file: 'T5 - Scala al Piano Interrato.png', rivelata: false },
     { id: 'T6', nome: 'Cripta della Cera', file: 'T6 - Cripta della Cera.png', rivelata: false },
   ];
-  const urlTessera = (t) => A('Episodio 1/board/' + t.file);
+  // export-assets.py salva le tessere col solo id (T1.png), non col nome lungo:
+  // costruirlo da `file` dava 404 e i mockup mostravano tessere rotte.
+  const urlTessera = (t) => A('Episodio 1/board/' + t.id + '.png');
 
   // ---- luoghi (per l'Indagine) ----
   const luoghi = [

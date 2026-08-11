@@ -1,0 +1,55 @@
+<!doctype html><html lang="it"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Il Lume · home</title>
+<link rel="stylesheet" href="base.css"><link rel="stylesheet" href="lume.css">
+</head><body>
+<div class="wrap">
+  <a class="torna" href="index.html">← le tre direzioni</a>
+
+  <div class="testata">
+    <h1>ombre su roccamora</h1>
+    <div class="sotto">società del lume · roccamora, 1889</div>
+    <div class="filo"></div>
+  </div>
+
+  <div class="lastra" style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+    <div>
+      <div class="sc" style="font-size:13px;letter-spacing:.1em;color:var(--osso-fioco)">al tavolo stasera</div>
+      <div style="font-size:19px">Gruppo del giovedì</div>
+    </div>
+    <button class="btn">cambia tavolo</button>
+  </div>
+
+  <div class="griglia" id="griglia"></div>
+
+  <div class="prova-ora">
+    <span>l'ora della notte</span>
+    <input type="range" min="18" max="24" value="18" id="cur" aria-label="ora della notte">
+    <span id="et">18:00</span>
+  </div>
+</div>
+
+<script src="episodi.js"></script>
+<script>
+  const A = (p) => '/assets/artworks/' + encodeURI(p);
+  document.getElementById('griglia').innerHTML = EPISODI.map((e) => `
+    <a class="ep" href="lume-indagine.html">
+      <img src="${A(e.cover)}" alt="" loading="lazy">
+      <div class="velo"></div>
+      ${e.stato ? `<span class="stato">${e.stato}</span>` : ''}
+      <div class="testi">
+        <h3>${e.titolo}</h3>
+        <div class="sotto">${e.sotto}</div>
+      </div>
+    </a>`).join('');
+
+  // la firma: la stanza si spegne col passare delle ore
+  const cur = document.getElementById('cur'), et = document.getElementById('et');
+  const aggiorna = () => {
+    const ora = Number(cur.value);
+    document.documentElement.style.setProperty('--ora', (ora - 18) / 6);
+    et.textContent = ora + ':00';
+  };
+  cur.addEventListener('input', aggiorna); aggiorna();
+</script>
+</body></html>
