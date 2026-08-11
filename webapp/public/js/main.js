@@ -6,6 +6,7 @@ import { schedaEroe } from './scheda-eroe.js';
 import { vistaTavoli } from './tavoli.js';
 import { decidi, avviaCoda, stato as statoSync } from './sync.js';
 import { conferma } from './chiedi.js';
+import './zoom.js';   // un tocco sulla carta la apre a tutto schermo
 
 const app = document.getElementById('app');
 const h = (html) => { app.innerHTML = html; window.scrollTo(0, 0); };
