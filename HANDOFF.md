@@ -5,9 +5,9 @@
 > gira e il prossimo comando; il *cosa fare* di un lavoro in corso sta nel suo
 > piano.
 
-**Aggiornato:** 11/08/2026 · ramo `main` · in produzione la versione `dcb58b9e`
-su <https://roccamora.smartcores.org> — **le tre correzioni di stasera non sono
-ancora deployate**
+**Aggiornato:** 11/08/2026 · ramo `main` · in produzione la versione `6301e939`
+su <https://roccamora.smartcores.org> (versione `6301e939`, con le tre
+correzioni dal tavolo)
 
 ## Cos'è successo, in ordine
 
