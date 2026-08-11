@@ -10,7 +10,8 @@ su <https://roccamora.smartcores.org>
 
 ## Cos'è successo, in ordine
 
-Tre lavori chiusi uno dopo l'altro, tutti online.
+Quattro lavori chiusi uno dopo l'altro. I primi tre sono online; il quarto è
+arte/stampa/contenuto, non tocca il sito.
 
 **1. Account, tavoli e salvataggi** (spec `DESIGN-ACCOUNT-E-SALVATAGGI.md`).
 Il sito è chiuso da Cloudflare Access: si entra con un **codice via email**
@@ -34,6 +35,28 @@ segnali imparati al tavolo.
 dodici immagini di avvio, nessuna barra del browser, comportamenti al tocco da
 app. **Niente service worker**: serve la rete per aprirla. Lo zoom a pizzico
 resta, e lo scorrimento pure — c'è un test che lo misura.
+
+**4. Arte, stampa e tessere** (commit `cc41ee21`, `bd42c102`, `61caecbc`).
+Generazione Midjourney autonoma di `scripts/midjourney-artwork.mjs`: da 604 a
+388 artwork mancanti, **poi ferma** — Fast Hours esaurite, tornano il
+09/09/2026 (l'account segnala l'esaurimento con un submit che non restituisce
+job_id, non un errore di rete: vedi il commento in cima allo script).
+Corretto un bug reale nello script (`--raccogli` controllava solo
+`0_0.png`: se quella singola variante andava 404 il job restava «in attesa»
+per sempre anche se le altre 3 erano pronte da tempo). Aggiunto
+`--solo-mancanti` a tutta la pipeline (`generate-batch.js`,
+`generate-tiles.js`, `generate-print-sheets.js`, `generate-reperti.js`,
+`build-all.sh`): build incrementale invece di rifare tutto ogni volta.
+Grafia manoscritta (`La Belle Aurore`, gia' scaricata, mai usata) sul corpo
+delle 21 lettere d'incarico (Preludio + Ep.1-20); la chiusa pratica resta nel
+corsivo tipografico. **Tessere di Spedizione composte per Ep.10-15**
+(`generate-tiles.js` sapeva fare solo Ep.1/2, dati hardcoded): arredi
+personalizzati per ambientazione (letto in camera, moli sui canali, stufa al
+comignolo, scrivanie negli studi...), tutti dai 12 arredi gia' disponibili —
+nessuna arte nuova generata per questo. Aggiunte le chiavi `armadio`/
+`toeletta` alla libreria arredi (servono a Ep.16, arte non ancora fatta).
+`webapp/assets/` gia' esportato in locale con le tessere nuove, **non
+deployato**: chi riprende decide se e quando pubblicare.
 
 ## Come si riprende
 
@@ -73,8 +96,18 @@ npx --no-install wrangler dev --var OSR_DEV_EMAIL:due@esempio.it --port 8788
    saltare. Mancano ~52 arti di luogo e le carte che le usano.
 3. **Tessere di Spedizione**: ci sono per Ep. 1, 2 e 10-15. Mancano a
    **Preludio, Ep. 3-9 ed Ep. 16-20** — sulla plancia a schermo quelle caselle
-   restano vuote.
-4. Da provare quando capita: una **serata vera**, e la partita **ripresa da un
+   restano vuote. L'arte di sfondo (T1-T6 per episodio) manca ancora, non lo
+   script: appena l'arte c'è, basta lanciare
+   `node scripts/tiles/generate-tiles.js epN` (serve prima aggiungere
+   `TILES_EP<N>` in `scripts/tiles/generate-tiles.js`, stesso schema di
+   Ep.10-15 se la disposizione e' una catena lineare T1..T6).
+4. **Generazione Midjourney**: riprende da sola il 09/09/2026 (Fast Hours) con
+   `node scripts/midjourney-artwork.mjs --vai --limite 6`, poi si scelgono le
+   varianti a occhio con `--scegli`. 388 artwork ancora mancanti.
+5. **Arredo `armadio`/`toeletta`**: chiavi gia' in `ARREDO_KEYS` e nel prompt
+   condiviso, arte non generata — senza, le tessere di Ep.16 (quando arriverà
+   la loro arte) avranno un'icona mancante su quei due arredi.
+6. Da provare quando capita: una **serata vera**, e la partita **ripresa da un
    altro dispositivo**.
 
 ## Cose sapute che il codice non dice
