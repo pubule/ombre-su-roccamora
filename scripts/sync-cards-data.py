@@ -75,9 +75,16 @@ def blocchi_episodio(src):
 MARCATURA = [('<i>', '{i}'), ('</i>', '{/i}'), ('<b>', '{b}'), ('</b>', '{/b}'),
              ('<br/>', ' '), ('<br>', ' ')]
 
+# Il font di Card Conjurer non ha questi quattro glifi e li rende come un
+# BUCO: sulla carta «(T1 → T2)» si legge «(T1  T2)», e nessuno se ne
+# accorge finche' non la stampa. Nei PDF dei fascicoli invece ci sono tutti,
+# quindi la sostituzione vale solo di qua. Provato rendendo una carta con
+# tutti e quattro (11/08/2026).
+GLIFI_CHE_MANCANO = [('→', ' a '), ('−', '-'), ('≥', 'almeno '), ('°', '')]
+
 
 def per_la_carta(t):
-    for v, n in MARCATURA:
+    for v, n in MARCATURA + GLIFI_CHE_MANCANO:
         t = t.replace(v, n)
     return ' '.join(t.split())
 

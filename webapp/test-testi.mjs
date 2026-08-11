@@ -140,6 +140,20 @@ for (const [nome, pat, ancheArbitro] of SONDE) {
   }
   ok(OLTRE.length === 0, `nessuna carta oltre 600 caratteri (misurato: 600 = 4,7 pt sulla carta stampata, 1546 = 2,5 pt)${
     OLTRE.length ? ' — ' + [...new Set(OLTRE)].join(', ') : ''}`);
+  // Il font di Card Conjurer non ha questi quattro glifi e li rende come un
+  // BUCO: «(T1 → T2)» sulla carta si legge «(T1  T2)». Nei PDF ci sono tutti,
+  // quindi il divieto vale solo qui. Provato rendendo una carta coi quattro.
+  const BUCHI = [['→', 'freccia'], ['−', 'meno tipografico'], ['≥', 'maggiore o uguale'], ['°', 'grado']];
+  const cieche = [];
+  for (const g of Object.keys(d)) {
+    if (!Array.isArray(d[g])) continue;
+    for (const c of d[g]) {
+      if (!c?.rules) continue;
+      for (const [ch, nome] of BUCHI) if (c.rules.includes(ch)) cieche.push(`${c.title} (${nome})`);
+    }
+  }
+  ok(cieche.length === 0, `nessun glifo che il font della carta non ha${
+    cieche.length ? ' — ' + [...new Set(cieche)].slice(0, 4).join(', ') : ''}`);
 }
 
 console.log(errori ? `\n${errori} SONDE SCATTATE` : '\ntest-testi: tutto a posto');
