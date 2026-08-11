@@ -73,8 +73,9 @@ async function vistaHome() {
   const info = await Promise.all(episodi.map((e) => dati(e)));
   h(`
     <header class="home-testata">
+      <span class="etichetta">società del lume · archivio dei casi</span>
       <h1>ombre su roccamora</h1>
-      <div class="sotto">società del lume · roccamora, 1889</div>
+      <div class="sotto">roccamora, 1889 — ventun casi, uno per sera</div>
       <div class="filetto"></div>
       ${tavoloCorrente() ? `<div class="riga-tavolo">
         <span class="spia">${esc(nomeTavoloCorrente() || 'tavolo senza nome')} ·

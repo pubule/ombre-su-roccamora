@@ -97,13 +97,31 @@ const P = () => ctx.partita;
 const IND = () => ctx.partita.indagine;
 const salvaP = () => salva(ctx.partita);
 
-function barra(titolo) {
-  const ore = 24 - IND().ora;
+// Le ore non stanno in un angolo della barra come un orologio: sono il
+// REGISTRO delle sei ore della notte, e quelle spese si barrano. Si vede in
+// colpo d'occhio quanta notte resta, che e' la cosa che tiene in ansia.
+function registroOre() {
+  const ora = IND().ora;
+  return `<span class="registro" title="dalle 18 a mezzanotte">${
+    Array.from({ length: 6 }, (_, i) => {
+      const h = 18 + i;
+      const cl = h < ora ? 'spesa' : h === ora ? 'ora' : '';
+      return `<span class="ora-riga ${cl}">${h}</span>`;
+    }).join('')}</span>`;
+}
+
+function barra(titolo, etichetta = 'indagine') {
   return `
   <div class="barra">
     <button class="btn" id="nav-esci">← menu</button>
-    <div class="titolo">${esc(titolo)}</div>
-    <span class="sc" style="color:var(--oro-chiaro)">h ${IND().ora}:00 · ${ore} ${ore === 1 ? 'ora' : 'ore'}</span>
+    <div class="titolo">
+      <span class="etichetta">${esc(ctx.ep.titolo)} · ${esc(etichetta)}</span>
+      <span class="tit-testo">${esc(titolo)}</span>
+    </div>
+  </div>
+  <div class="riga-registro">${registroOre()}
+    <span class="sc resta">${(() => { const o = 24 - IND().ora;
+      return o ? `${o} ${o === 1 ? 'ora' : 'ore'} a mezzanotte` : 'mezzanotte'; })()}</span>
   </div>`;
 }
 
@@ -132,7 +150,7 @@ function home() {
     ${barra(ep.titolo)}
     <div class="pannello">
       <h2>il gruppo sul caso</h2>
-      <div class="giro-strip">${P().party.map((nm) => {
+      <div class="giro-strip stampe">${P().party.map((nm) => {
         const e = ctx.comune.eroi.find((x) => x.nome === nm);
         // il contatore delle cariche: un pallino per uso, pieno = ancora
         // disponibile. Stessa lettura dei cerchietti del Taccuino stampato
@@ -162,7 +180,10 @@ function home() {
       <div class="stradario mt">
         ${voci.map((v) => {
           const l = luoghiPerVoce[norm(v.nome)];
-          const stato = l && visitati.has(l.n) ? '<span class="visitato">✓</span>' : '';
+          // SOLO «gia' battuto»: quello il gruppo lo sa gia'. Qualunque altra
+          // etichetta di stato (pista calda, serve una parola) direbbe dove
+          // andare, e l'app e' l'arbitro che custodisce proprio quello.
+          const stato = l && visitati.has(l.n) ? '<span class="visitato">già battuto</span>' : '';
           return `<button class="voce" data-voce="${esc(v.nome)}">
             <b>${esc(v.nome)}</b> <i>${esc(v.indirizzo)}</i>${stato}</button>`;
         }).join('')}
@@ -641,7 +662,15 @@ function taccuino() {
         placeholder="quel che la notte non deve farvi dimenticare…">${esc(ind.note || '')}</textarea>
       <div class="btn-riga">
         <button class="btn" id="salva-risposte">salvate e tornate in strada</button>
-        <button class="btn pieno" id="apri-busta">aprite la busta della soluzione</button>
+      </div>
+    </div>
+    <div class="mt"></div>
+    <div class="pannello sigillata">
+      <div class="sigillo" aria-hidden="true">L</div>
+      <span class="che">la soluzione · sigillata fino alla fine</span>
+      <p class="nota mt">Rompere il sigillo chiude l’indagine per sempre.</p>
+      <div class="btn-riga" style="justify-content:center">
+        <button class="btn pieno" id="apri-busta">rompete il sigillo</button>
       </div>
     </div>`;
   dopoBarra();

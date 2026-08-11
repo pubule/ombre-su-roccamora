@@ -22,3 +22,7 @@ logs/playtest/
 .midjourney-profilo/
 .wrangler/
 logs/candidati/
+
+# confronti di stile: immagini di lavoro, si rigenerano con confronta-stile.mjs
+webapp/_mock-*.png
+webapp/_app-*.png

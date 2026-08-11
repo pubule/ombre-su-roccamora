@@ -71,7 +71,11 @@
         (_, i) => `<span class="pip ${i < (e.car || 0) ? 'on' : ''}"></span>`).join('')}</span>
     </div>`).join('');
 
-  const segno = { visitato: 'già battuto', aperto: 'da battere', attivo: 'siete qui', bloccato: 'serve una parola' };
+  // Solo «gia' battuto». «Da battere» e «serve una parola» erano un mio errore
+  // di mockup: direbbero al gruppo quali piste sono calde, e l'app e' l'arbitro
+  // che custodisce esattamente quello — «dichiarare e' impegnarsi» non varrebbe
+  // piu' niente.
+  const segno = { visitato: 'già battuto', aperto: '', attivo: '', bloccato: '' };
   document.getElementById('luoghi').innerHTML = S.luoghi.map((l) => `
     <div class="voce ${l.stato}" tabindex="0">
       <span><span class="nome">${esc(l.nome)}</span>

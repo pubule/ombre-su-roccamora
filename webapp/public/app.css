@@ -1,24 +1,52 @@
-/* Ombre su Roccamora - webapp. Palette e font del repo (bibbia visiva):
-   notte #17141a, pergamena #f0e6cc, inchiostro #33291f, rosso #7a1f2b,
-   teal #1f5f6b, oro #a8833a / #d8b25e, seppia #8a7150. */
+/* Ombre su Roccamora — webapp. IL FASCICOLO: la scrivania al buio.
+   Specifica visiva: webapp/public/mockups/stile/ (direzione scelta 11/08/2026).
+
+   La regola che tiene insieme tutto: tutto e' ardesia scura TRANNE le cose che
+   nella finzione sono davvero di carta — la lettera d'incarico, i reperti, le
+   carte, le stampe dei ritratti, le facce dei dadi, e i campi dove scrive il
+   gruppo. Prima la pergamena era ovunque e quindi non diceva niente; qui torna
+   a essere un segnale: «questo e' un oggetto che al tavolo esiste».
+
+   L'eccezione dichiarata e' la MAPPA della plancia: li' turchese, oro e rosso
+   sono segnali imparati al tavolo (dove puoi andare / cosa rivela / nemico) e
+   restano quelli. Vedi la sezione della board, in fondo. */
 
 @font-face { font-family: 'OldStd'; src: url('/fonts/OldStandard-Regular.ttf'); }
 @font-face { font-family: 'OldStd'; src: url('/fonts/OldStandard-Bold.ttf'); font-weight: bold; }
 @font-face { font-family: 'OldStd'; src: url('/fonts/OldStandard-Italic.ttf'); font-style: italic; }
 @font-face { font-family: 'FellSC'; src: url('/fonts/IMFellEnglishSC.ttf'); }
+/* la grafia del gruppo: appunti e risposte, non testo di sistema */
+@font-face { font-family: 'Mano'; src: url('/fonts/LaBelleAurore.ttf'); }
 
 :root {
-  --notte: #17141a; --notte2: #1d1014; --abisso: #0e1519;
-  --perg: #f0e6cc; --perg-scura: #e2d3ac; --ink: #33291f;
-  --rosso: #7a1f2b; --rosso-scuro: #571420; --teal: #1f5f6b;
-  --oro: #a8833a; --oro-chiaro: #d8b25e; --seppia: #8a7150;
+  --tavolo: #0b0b0d;       /* il piano della scrivania */
+  --ardesia: #17181c;      /* la cartellina */
+  --ardesia-alta: #202228; /* voci, campi, chip */
+  --bordo: #24262c;
+  --bordo-alto: #33363e;
+  --osso: #dedbd4;         /* il testo */
+  --osso-fioco: #8d8b86;   /* le note */
+  --ceralacca: #a3253a;    /* il sigillo, le ferite, il pericolo */
+  --nastro: #4b6b8a;       /* il nastro blu della macchina da scrivere */
+  --nastro-chiaro: #cfe0ee;
+
+  /* CARTA VERA — si usano solo dove nella finzione c'e' un foglio. Se
+     compaiono altrove il fascicolo e' rotto, e lo dice test-stile.mjs. */
+  --carta: #e8dfc6; --carta-scura: #dbcfae; --carta-ink: #2b2418;
+
+  /* La Belle Aurore rende molto piccola al nominale. Sta in un token perche'
+     se al tavolo non si legge si torna indietro in una riga. */
+  --mano-size: 22px;
+
+  /* segnali della mappa: non sono decorazione, vedi la board in fondo */
+  --segnale-mossa: #7fe6db; --segnale-rivela: #d8b25e; --segnale-nemico: #a3253a;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 html, body { height: 100%; }
 body {
-  background: radial-gradient(ellipse at 50% 0%, #221a20 0%, var(--notte) 55%, var(--abisso) 100%);
-  color: var(--perg); font-family: 'OldStd', Georgia, serif; font-size: 17px;
+  background: radial-gradient(90% 55% at 50% -10%, #16171b 0%, var(--tavolo) 70%), var(--tavolo);
+  color: var(--osso); font-family: 'OldStd', Georgia, serif; font-size: 17px;
   overflow-x: hidden; min-height: 100dvh;
   padding: env(safe-area-inset-top) env(safe-area-inset-right)
            env(safe-area-inset-bottom) env(safe-area-inset-left);
@@ -26,145 +54,176 @@ body {
 
 h1, h2, h3, .sc { font-family: 'FellSC', 'OldStd', serif; font-weight: normal;
   letter-spacing: 0.04em; text-transform: lowercase; }
-h1 { color: var(--oro-chiaro); }
-h2 { color: var(--rosso); }
+h1 { color: var(--osso); }
+h2 { color: var(--osso); }
 em, i { font-style: italic; }
 
 .schermo { max-width: 1080px; margin: 0 auto; padding: 20px 16px 40px; }
 
+/* l'etichetta battuta a macchina: dice quale fascicolo hai in mano */
+.etichetta { display: inline-block; font-family: 'FellSC', serif; font-size: 11px;
+  letter-spacing: .22em; text-transform: lowercase; color: var(--nastro);
+  border: 1px solid #2a3a48; padding: 3px 9px; }
+
 /* --- caricamento --- */
 .caricamento { display: flex; flex-direction: column; align-items: center;
-  justify-content: center; min-height: 80dvh; gap: 18px; color: var(--seppia); font-style: italic; }
+  justify-content: center; min-height: 80dvh; gap: 18px; color: var(--osso-fioco); font-style: italic; }
 .sigillo-pulse { width: 74px; height: 74px; border-radius: 50%;
-  background: radial-gradient(circle at 35% 30%, #9b2635, var(--rosso-scuro) 70%);
-  box-shadow: 0 0 26px rgba(122, 31, 43, .55); animation: pulse 1.6s ease-in-out infinite; }
-@keyframes pulse { 50% { transform: scale(.92); box-shadow: 0 0 12px rgba(122,31,43,.3); } }
+  background: radial-gradient(circle at 38% 32%, #c8384c, var(--ceralacca) 55%, #6d1522);
+  box-shadow: 0 6px 16px -6px #000; animation: pulse 1.6s ease-in-out infinite; }
+@keyframes pulse { 50% { transform: scale(.94); } }
 
-/* --- home --- */
-.home-testata { text-align: center; margin: 4vh 0 26px; }
-.home-testata h1 { font-size: clamp(34px, 7vw, 56px); text-shadow: 0 2px 14px #000; }
-.home-testata .sotto { color: var(--teal); font-style: italic; margin-top: 4px; }
-.home-testata .filetto { width: 120px; height: 2px; margin: 14px auto 0;
-  background: linear-gradient(90deg, transparent, var(--oro), transparent); }
+/* --- home: lo schedario --- */
+.home-testata { margin: 3vh 0 18px; padding-bottom: 14px; border-bottom: 1px solid var(--bordo); }
+.home-testata h1 { font-size: clamp(28px, 6.5vw, 44px); }
+.home-testata .sotto { color: var(--osso-fioco); font-style: italic; margin-top: 4px; font-size: 14px; }
+.home-testata .filetto { display: none; }   /* il filetto e' il bordo della testata */
 
-/* Home «carte a scorrimento»: su telefono un carosello snap di copertine, su
-   schermo largo la griglia (21 episodi restano scannabili). */
-.griglia-episodi { display: flex; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory;
-  padding: 4px 2px 18px; margin-bottom: 10px; }
-.griglia-episodi::-webkit-scrollbar { height: 8px; }
-.griglia-episodi::-webkit-scrollbar-thumb { background: var(--oro); border-radius: 4px; }
-.tessera-episodio { position: relative; border: 1px solid var(--oro);
-  border-radius: 10px; overflow: hidden; background: var(--notte2); cursor: pointer;
-  flex: 0 0 82%; max-width: 360px; scroll-snap-align: center;
-  min-height: 230px; display: flex; flex-direction: column; justify-content: flex-end;
-  transition: transform .15s, box-shadow .15s; }
-@media (min-width: 820px) {
-  .griglia-episodi { display: grid; gap: 14px; overflow: visible;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
-  .tessera-episodio { flex: none; max-width: none; min-height: 180px; }
-}
-.tessera-episodio:active { transform: scale(.985); }
-.tessera-episodio .arte { position: absolute; inset: 0; background-size: cover;
-  background-position: center 20%; opacity: .55; }
-.tessera-episodio .velo { position: absolute; inset: 0;
-  background: linear-gradient(180deg, transparent 20%, rgba(14, 21, 25, .92) 85%); }
-.tessera-episodio .testi { position: relative; padding: 14px 16px; }
-.tessera-episodio h2 { color: var(--oro-chiaro); font-size: 24px; }
-.tessera-episodio .sotto { color: var(--perg-scura); font-style: italic; font-size: 14px; opacity: .85; }
-.tessera-episodio .stato { position: absolute; top: 10px; right: 12px; font-size: 12px;
-  color: var(--oro-chiaro); background: rgba(23, 20, 26, .8); border: 1px solid var(--oro);
-  border-radius: 20px; padding: 3px 10px; }
+/* I casi sono fascicoli in uno schedario: costa colorata, miniatura d'archivio,
+   etichetta. Non copertine da sfogliare — un caso e' un incarico, non un film. */
+.griglia-episodi { display: grid; gap: 10px; grid-template-columns: 1fr;
+  padding: 0; margin-bottom: 10px; overflow: visible; }
+@media (min-width: 560px) { .griglia-episodi { grid-template-columns: 1fr 1fr; } }
+.tessera-episodio { position: relative; display: flex; align-items: stretch; cursor: pointer;
+  background: var(--ardesia); border: 1px solid var(--bordo);
+  border-left: 6px solid var(--nastro); border-radius: 2px; overflow: hidden;
+  min-height: 96px; flex: none; max-width: none;
+  transition: border-color .15s ease, transform .12s ease; }
+.tessera-episodio:hover, .tessera-episodio:focus-visible { border-left-color: var(--nastro-chiaro); }
+.tessera-episodio:active { transform: scale(.995); }
+/* l'arte esce dall'assoluto e diventa la miniatura d'archivio a sinistra */
+.tessera-episodio .arte { position: static; flex: 0 0 92px; background-size: cover;
+  background-position: center 25%; filter: grayscale(.8) brightness(.6); opacity: 1; }
+.tessera-episodio .velo { display: none; }
+.tessera-episodio .testi { position: relative; padding: 11px 13px; }
+.tessera-episodio h2 { color: var(--osso); font-size: 19px; border: 0; padding: 0; }
+.tessera-episodio .sotto { color: var(--osso-fioco); font-style: italic; font-size: 13px; opacity: 1; }
+/* «partita in corso» non e' un bollino tondo appiccicato in un angolo: e' lo
+   stato del fascicolo, e tinge la costa */
+.tessera-episodio .stato { position: static; display: block; margin-top: 5px;
+  font-family: 'FellSC', serif; font-size: 11px; letter-spacing: .16em;
+  color: #dd7383; background: none; border: 0; border-radius: 0; padding: 0; }
+.tessera-episodio:has(.stato) { border-left-color: var(--ceralacca); }
 
-/* --- pannelli pergamena --- */
-.pannello { background: linear-gradient(160deg, var(--perg), var(--perg-scura));
-  color: var(--ink); border: 1px solid var(--oro); border-radius: 10px;
-  padding: 18px; box-shadow: 0 8px 30px rgba(0, 0, 0, .5); }
-.pannello h2 { color: var(--rosso); margin-bottom: 8px; }
-.pannello .nota { color: var(--seppia); font-style: italic; font-size: 14px; }
+/* --- la cartellina --- */
+.pannello { background: var(--ardesia); color: var(--osso);
+  border: 1px solid var(--bordo); border-radius: 2px; padding: 16px; box-shadow: none; }
+.pannello h2 { color: var(--osso); font-size: 19px; margin-bottom: 8px;
+  border-bottom: 1px solid #2a2c33; padding-bottom: 6px; }
+.pannello .nota { color: var(--osso-fioco); font-style: italic; font-size: 15px; }
 
 /* --- bottoni --- */
 .btn { display: inline-block; font-family: 'FellSC', serif; text-transform: lowercase;
-  letter-spacing: .05em; font-size: 18px; padding: 12px 22px; border-radius: 8px;
-  border: 1px solid var(--oro); background: linear-gradient(180deg, #241c22, var(--notte2));
-  color: var(--oro-chiaro); cursor: pointer; user-select: none; }
-.btn:active { transform: scale(.97); }
-.btn.pieno { background: linear-gradient(180deg, #8d2433, var(--rosso-scuro));
-  color: var(--perg); border-color: var(--rosso); }
+  letter-spacing: .06em; font-size: 16px; padding: 11px 18px; border-radius: 2px;
+  border: 1px solid var(--bordo-alto); background: var(--ardesia-alta);
+  color: var(--osso); cursor: pointer; user-select: none; }
+.btn:hover, .btn:focus-visible { border-color: var(--nastro); }
+.btn:active { transform: scale(.98); }
+.btn.pieno { background: var(--ceralacca); border-color: #c03249; color: #fff; }
 .btn.disabilitato { opacity: .35; pointer-events: none; }
 .btn-riga { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
 
-/* --- scelta modalita' --- */
-.modi { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
-.modo { border: 1px solid var(--teal); border-radius: 10px; padding: 16px;
-  background: rgba(31, 95, 107, .08); cursor: pointer; }
-.modo.attivo { border-color: var(--oro); background: rgba(168, 131, 58, .12);
-  box-shadow: 0 0 0 1px var(--oro) inset; }
-.modo h3 { color: var(--rosso); margin-bottom: 6px; font-size: 20px; }
-.modo p { font-size: 14px; color: var(--ink); opacity: .85; }
-/* stessa card della modalita', riusata per «da dove cominciate» e per il tier
-   d'indagine dichiarato a mano quando si gioca la sola spedizione */
-.fase, .tier, .plancia { border: 1px solid var(--teal); border-radius: 10px; padding: 16px;
-  background: rgba(31, 95, 107, .08); cursor: pointer; }
-.fase.attivo, .tier.attivo, .plancia.attivo { border-color: var(--oro); background: rgba(168, 131, 58, .12);
-  box-shadow: 0 0 0 1px var(--oro) inset; }
-.fase h3, .tier h3, .plancia h3 { color: var(--rosso); margin-bottom: 6px; font-size: 18px; }
-.fase p, .tier p, .plancia p { font-size: 14px; color: var(--ink); opacity: .85; }
+/* --- scelte: linguette infilate nel fascicolo --- */
+.modi { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+.modo, .fase, .tier, .plancia { border: 1px solid var(--bordo);
+  border-left: 3px solid var(--bordo); border-radius: 2px; padding: 13px 14px;
+  background: var(--ardesia-alta); cursor: pointer; }
+.modo.attivo, .fase.attivo, .tier.attivo, .plancia.attivo {
+  border-left-color: var(--nastro); background: #1c2229; box-shadow: none; }
+.modo h3, .fase h3, .tier h3, .plancia h3 { color: var(--osso); margin-bottom: 4px; font-size: 17px; }
+.modo.attivo h3, .fase.attivo h3, .tier.attivo h3, .plancia.attivo h3 { color: var(--nastro-chiaro); }
+.modo p, .fase p, .tier p, .plancia p { font-size: 14px; color: var(--osso-fioco); opacity: 1; }
 .dom-tog { min-width: 44px; }          /* target tattile: si tocca al tavolo */
-.dom-tog.attiva { border-color: var(--oro); color: var(--oro); font-weight: 700; }
-.dom-testo { font-size: 14px; color: var(--ink); align-self: center; }
+.dom-tog.attiva { border-color: var(--ceralacca); color: var(--ceralacca); font-weight: 700; }
+.dom-testo { font-size: 15px; color: var(--osso); align-self: center; }
 
 /* --- party picker --- */
 .griglia-eroi { display: grid; gap: 10px;
   grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); }
-.carta-eroe { position: relative; border-radius: 8px; overflow: hidden;
-  border: 2px solid transparent; cursor: pointer; aspect-ratio: 5/7; background: var(--notte2); }
+.carta-eroe { position: relative; border-radius: 1px; overflow: hidden;
+  border: 2px solid transparent; cursor: pointer; aspect-ratio: 5/7; background: var(--ardesia-alta); }
 .carta-eroe img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.carta-eroe.scelto { border-color: var(--oro-chiaro);
-  box-shadow: 0 0 14px rgba(216, 178, 94, .5); }
+.carta-eroe.scelto { border-color: var(--nastro); box-shadow: none; }
 .carta-eroe .spunta { position: absolute; top: 6px; right: 6px; width: 26px; height: 26px;
-  border-radius: 50%; background: var(--rosso); color: var(--perg); display: none;
+  border-radius: 50%; background: var(--ceralacca); color: #fff; display: none;
   align-items: center; justify-content: center; font-weight: bold; }
 .carta-eroe.scelto .spunta { display: flex; }
-.contatore-party { font-family: 'FellSC', serif; color: var(--rosso);
-  font-size: 22px; margin: 12px 0 4px; }
+.contatore-party { font-family: 'FellSC', serif; color: var(--osso-fioco);
+  font-size: 15px; letter-spacing: .1em; margin: 12px 0 4px; }
 
-/* --- barra superiore in partita (segnaposto W-B) --- */
+/* --- barra superiore in partita --- */
 .barra { display: flex; align-items: center; justify-content: space-between;
-  gap: 10px; padding: 10px 4px 16px; }
-.barra .titolo { font-family: 'FellSC', serif; color: var(--oro-chiaro); font-size: 20px; }
-.barra .btn { font-size: 14px; padding: 8px 14px; }
+  gap: 10px; padding: 10px 4px 14px; border-bottom: 1px solid var(--bordo); margin-bottom: 14px; }
+.barra .titolo { font-family: 'FellSC', serif; color: var(--osso); font-size: 20px; }
+.barra .btn { font-size: 13px; padding: 7px 12px; }
+.barra .stato { font-family: 'FellSC', serif; font-size: 13px; letter-spacing: .08em;
+  color: var(--osso-fioco); }
 
 .centrato { text-align: center; }
-.mt { margin-top: 18px; }
-.copyright { text-align: center; color: var(--seppia); font-size: 11px;
+.mt { margin-top: 14px; }
+.copyright { text-align: center; color: var(--osso-fioco); font-size: 11px;
   font-style: italic; margin-top: 34px; opacity: .8; }
 
-/* --- tiro dadi da palcoscenico (stile BG3) --- */
+/* la barra: etichetta battuta a macchina sopra il titolo, come la costa di un
+   fascicolo, e sotto il registro delle ore */
+.barra .titolo { display: flex; flex-direction: column; align-items: flex-start; gap: 3px; }
+.barra .tit-testo { font-family: 'FellSC', serif; font-size: 20px; color: var(--osso); }
+.riga-registro { display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; flex-wrap: wrap; margin: -6px 0 14px; }
+.riga-registro .resta { font-family: 'FellSC', serif; font-size: 12px;
+  letter-spacing: .08em; color: var(--osso-fioco); }
+
+/* --- il registro delle ore: quelle spese si barrano e non tornano --- */
+.registro { display: flex; gap: 6px; flex-wrap: wrap; }
+.ora-riga { font-family: 'FellSC', serif; font-size: 13px; letter-spacing: .05em;
+  color: var(--osso-fioco); padding: 3px 7px; border: 1px solid var(--bordo); }
+.ora-riga.spesa { color: #6a6c72; text-decoration: line-through; border-color: #202228; }
+.ora-riga.ora { color: var(--carta); border-color: var(--ceralacca); background: #23191c; }
+
+/* --- carta vera: l'eccezione che parla --- */
+.carta { background: linear-gradient(175deg, var(--carta), var(--carta-scura));
+  color: var(--carta-ink); border-radius: 1px; padding: 14px 16px;
+  box-shadow: 0 12px 24px -14px #000, 0 1px 0 rgba(255, 255, 255, .5) inset; }
+.carta h3 { color: #6d1c26; font-size: 18px; }
+.carta .nota, .carta i { color: #6b6353; }
+.mano { font-family: 'Mano', cursive; font-size: var(--mano-size); color: #b9c8d6; }
+
+/* --- il sigillo: cio' che l'app custodisce --- */
+.sigillata { text-align: center; }
+.sigillo { width: 62px; height: 62px; border-radius: 50%; margin: 0 auto 10px;
+  background: radial-gradient(circle at 38% 32%, #c8384c, var(--ceralacca) 55%, #6d1522);
+  box-shadow: 0 6px 14px -6px #000, 0 1px 0 rgba(255, 255, 255, .18) inset;
+  display: grid; place-items: center;
+  font-family: 'FellSC', serif; font-size: 20px; color: #f0d6da; }
+.sigillata .che { font-family: 'FellSC', serif; letter-spacing: .12em;
+  font-size: 14px; color: var(--osso-fioco); display: block; }
+
+/* --- tiro dadi: i dadi sono d'OSSO, al tavolo li tirate voi --- */
 .dadi-overlay { position: fixed; inset: 0; z-index: 100; display: flex;
   flex-direction: column; align-items: center; justify-content: center; gap: 22px;
-  background: radial-gradient(ellipse at 50% 40%, rgba(35, 26, 32, .97), rgba(10, 8, 12, .99));
-  opacity: 0; transition: opacity .3s; padding: 24px; }
+  background: rgba(6, 6, 8, .93); opacity: 0; transition: opacity .3s; padding: 24px; }
 .dadi-overlay.aperto { opacity: 1; }
-.dadi-overlay.esito-ok { animation: flash-oro .6s; }
+.dadi-overlay.esito-ok { animation: flash-esito .6s; }
 .dadi-overlay.esito-ko { animation: scossa .45s; }
-@keyframes flash-oro { 20% { box-shadow: inset 0 0 160px rgba(216, 178, 94, .45); } }
+@keyframes flash-esito { 20% { box-shadow: inset 0 0 160px rgba(207, 224, 238, .18); } }
 @keyframes scossa { 20% { transform: translateX(-8px); } 40% { transform: translateX(7px); }
   60% { transform: translateX(-5px); } 80% { transform: translateX(3px); } }
 
 .dadi-testata { text-align: center; }
-.dadi-titolo { font-size: clamp(22px, 5vw, 34px); color: var(--oro-chiaro); }
-.dadi-soglia { color: var(--teal); font-size: 18px; margin-top: 4px; }
+.dadi-titolo { font-size: clamp(22px, 5vw, 34px); color: var(--osso); }
+.dadi-soglia { color: var(--osso-fioco); font-size: 16px; margin-top: 4px;
+  font-family: 'FellSC', serif; letter-spacing: .1em; }
 .dadi-soglia::before { content: '— '; } .dadi-soglia::after { content: ' —'; }
 
 .dadi-coppia { display: flex; gap: 46px; padding: 26px 0; }
 .dado-scena { width: 92px; height: 92px; perspective: 560px; }
 .dado { position: relative; width: 100%; height: 100%; transform-style: preserve-3d;
   transform: rotateX(-24deg) rotateY(32deg); }
-.dado-faccia { position: absolute; inset: 0; border-radius: 14px;
-  background: linear-gradient(145deg, #f6eeda, var(--perg-scura));
-  border: 1px solid var(--oro); box-shadow: inset 0 0 12px rgba(138, 113, 80, .45); }
+.dado-faccia { position: absolute; inset: 0; border-radius: 10px;
+  background: linear-gradient(150deg, #efe7d2, var(--carta-scura));
+  border: 1px solid #c3b48c; box-shadow: inset 0 -4px 10px rgba(120, 100, 60, .35); }
 .pip { position: absolute; width: 15%; height: 15%; border-radius: 50%;
-  background: radial-gradient(circle at 35% 30%, #5a2028, var(--rosso-scuro));
+  background: radial-gradient(circle at 35% 30%, #6d1c26, #3f1017);
   transform: translate(-50%, -50%); }
 .f1 { transform: translateZ(46px); }
 .f6 { transform: rotateY(180deg) translateZ(46px); }
@@ -174,64 +233,68 @@ em, i { font-style: italic; }
 .f4 { transform: rotateX(-90deg) translateZ(46px); }
 
 .dadi-conto { min-height: 34px; display: flex; flex-wrap: wrap; gap: 10px;
-  align-items: center; justify-content: center; font-size: 19px; color: var(--perg); }
+  align-items: center; justify-content: center; font-size: 19px; color: var(--osso); }
 .dadi-conto .pezzo { animation: sale .35s; }
-.dadi-conto .pezzo.tot { color: var(--oro-chiaro); font-size: 24px; margin-left: 6px; }
-.dadi-conto i { color: var(--seppia); font-size: 15px; }
+.dadi-conto .pezzo.tot { color: var(--nastro-chiaro); font-size: 24px; margin-left: 6px; }
+.dadi-conto i { color: var(--osso-fioco); font-size: 15px; }
 @keyframes sale { from { opacity: 0; transform: translateY(10px); } }
 
-.dadi-verdetto { font-size: clamp(34px, 9vw, 60px); min-height: 1.2em;
-  letter-spacing: .08em; }
-.dadi-verdetto.ok { color: var(--oro-chiaro); text-shadow: 0 0 26px rgba(216, 178, 94, .6);
-  animation: sale .4s; }
-.dadi-verdetto.ko { color: var(--rosso); text-shadow: 0 0 22px rgba(122, 31, 43, .8);
-  animation: sale .4s; }
+.dadi-verdetto { font-size: clamp(34px, 9vw, 60px); min-height: 1.2em; letter-spacing: .08em; }
+.dadi-verdetto.ok { color: var(--nastro-chiaro); animation: sale .4s; }
+.dadi-verdetto.ko { color: #e0596b; animation: sale .4s; }
 
-.dadi-lancia { font-size: 22px; padding: 16px 34px; }
+.dadi-lancia { font-size: 20px; padding: 15px 32px; }
 .dadi-chiudi { min-width: 180px; }
 .dadi-annulla { position: absolute; top: 18px; right: 20px; background: none;
-  border: none; color: var(--seppia); font-size: 30px; cursor: pointer; }
+  border: none; color: var(--osso-fioco); font-size: 30px; cursor: pointer; }
 
 /* --- indagine: stradario, campi, scelte --- */
-.stradario { display: grid; gap: 8px; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); }
-.voce { text-align: left; font-family: 'OldStd', serif; font-size: 15px; padding: 10px 12px;
-  border: 1px solid var(--seppia); border-radius: 8px; background: rgba(255, 252, 240, .5);
-  color: var(--ink); cursor: pointer; }
-.voce:active { background: rgba(168, 131, 58, .25); }
-.voce b { display: block; } .voce i { color: var(--seppia); font-size: 13px; }
-.voce .visitato { float: right; color: var(--teal); font-weight: bold; }
+.stradario { display: grid; gap: 6px; grid-template-columns: 1fr; }
+@media (min-width: 700px) { .stradario { grid-template-columns: 1fr 1fr; } }
+/* voci di registro, non schede: la linguetta a sinistra dice lo stato */
+.voce { text-align: left; font-family: 'OldStd', serif; font-size: 17px; padding: 11px 12px;
+  border: 1px solid var(--bordo); border-left: 2px solid #2a2c33; border-radius: 2px;
+  background: var(--ardesia-alta); color: var(--osso); cursor: pointer; }
+.voce:hover, .voce:focus-visible { border-left-color: var(--nastro); }
+.voce:active { background: #23252c; }
+.voce b { display: block; font-weight: 400; }
+.voce i { color: var(--osso-fioco); font-size: 14px; }
+.voce .visitato { float: right; font-family: 'FellSC', serif; font-size: 12px;
+  letter-spacing: .1em; color: var(--osso-fioco); font-weight: normal; }
 
-.campo { width: 100%; padding: 12px 14px; font-family: 'OldStd', serif; font-size: 17px;
-  border: 1px solid var(--seppia); border-radius: 8px; background: #fffcf0;
-  color: var(--ink); margin-top: 6px; }
-.campo:focus { outline: 2px solid var(--oro); }
+/* i campi sono l'unico posto dove scrive il gruppo: si scrive a mano, su carta */
+.campo { width: 100%; padding: 10px 13px; font-family: 'Mano', cursive;
+  font-size: var(--mano-size); line-height: 1.45;
+  border: 0; border-radius: 1px; background: var(--carta);
+  color: var(--carta-ink); margin-top: 6px; box-shadow: 0 8px 16px -12px #000; }
+.campo::placeholder { color: #9b917c; font-style: italic; }
+.campo:focus { outline: 2px solid var(--nastro); outline-offset: 1px; }
 
-.divisore { border: none; height: 1px; margin: 14px 0;
-  background: linear-gradient(90deg, transparent, var(--seppia), transparent); }
-.ok-txt { color: #2e6b45; font-weight: bold; } .ko-txt { color: var(--rosso); font-weight: bold; }
+.divisore { border: none; height: 1px; margin: 14px 0; background: var(--bordo); }
+.ok-txt { color: #7fd0b4; font-weight: bold; } .ko-txt { color: #e0596b; font-weight: bold; }
 
 .scelta-overlay { position: fixed; inset: 0; z-index: 90; display: flex; align-items: center;
-  justify-content: center; background: rgba(10, 8, 12, .8); padding: 20px; }
-.scelta-box { background: linear-gradient(160deg, var(--notte2), #241c22);
-  border: 1px solid var(--oro); border-radius: 12px; padding: 22px; max-width: 480px;
-  width: 100%; display: flex; flex-direction: column; gap: 10px; max-height: 80dvh; overflow: auto; }
-.scelta-box h3 { color: var(--oro-chiaro); text-align: center; margin-bottom: 6px; }
+  justify-content: center; background: rgba(6, 6, 8, .86); padding: 20px; }
+.scelta-box { background: var(--ardesia); border: 1px solid var(--bordo); border-radius: 2px;
+  padding: 20px; max-width: 480px; width: 100%; display: flex; flex-direction: column;
+  gap: 10px; max-height: 80dvh; overflow: auto; }
+.scelta-box h3 { color: var(--osso); text-align: center; margin-bottom: 6px; }
 .scelta-btn { width: 100%; text-align: center; }
 .scelta-btn.annulla { opacity: .6; font-size: 14px; }
 
-/* --- arte nelle schermate --- */
-.banner-luogo { position: relative; height: 190px; border-radius: 10px; overflow: hidden;
-  border: 1px solid var(--oro); background-size: cover; background-position: center 30%;
-  margin-bottom: 14px; box-shadow: 0 8px 26px rgba(0, 0, 0, .55); }
+/* --- arte nelle schermate: fotografie d'archivio --- */
+.banner-luogo { position: relative; height: 172px; border-radius: 2px; overflow: hidden;
+  border: 1px solid var(--bordo); background-size: cover; background-position: center 30%;
+  margin-bottom: 14px; filter: grayscale(.55) sepia(.15) brightness(.8); }
 .banner-velo { position: absolute; inset: 0;
-  background: linear-gradient(180deg, rgba(14, 21, 25, .1) 40%, rgba(14, 21, 25, .65)); }
+  background: linear-gradient(180deg, transparent 40%, rgba(11, 11, 13, .9)); }
+/* le carte SONO carta: restano com'erano stampate, senza cornici d'oro */
 .carta-grande { display: flex; justify-content: center; }
-.carta-grande img { max-width: min(320px, 78vw); border-radius: 10px;
-  box-shadow: 0 10px 34px rgba(0, 0, 0, .6); border: 1px solid var(--oro); }
+.carta-grande img { max-width: min(320px, 78vw); border-radius: 1px;
+  box-shadow: 0 14px 30px -16px #000; border: 1px solid #3a3730; }
 .galleria-carte { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
   gap: 10px; margin-top: 8px; }
-.galleria-carte img { width: 100%; border-radius: 8px; border: 1px solid var(--seppia); }
-
+.galleria-carte img { width: 100%; border-radius: 1px; border: 1px solid #3a3730; }
 /* --- animazioni (le schermate entrano, le carte si rivelano) --- */
 @keyframes apparizione { from { opacity: 0; transform: translateY(14px); } }
 @keyframes solo-fade { from { opacity: 0; } }
@@ -279,59 +342,59 @@ em, i { font-style: italic; }
 /* --- arruolamento: ritratti veri + scheda personaggio --- */
 .griglia-arruolo { display: grid; gap: 10px; margin-top: 14px;
   grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
-.eroe-tile { position: relative; aspect-ratio: 3 / 4; border-radius: 10px;
-  overflow: hidden; border: 2px solid var(--seppia); cursor: pointer;
-  background: var(--notte2); animation: apparizione .4s ease both; }
+.eroe-tile { position: relative; aspect-ratio: 3 / 4; border-radius: 2px;
+  overflow: hidden; border: 2px solid var(--osso-fioco); cursor: pointer;
+  background: var(--ardesia-alta); animation: apparizione .4s ease both; }
 .eroe-tile img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
 .eroe-velo { position: absolute; inset: 0;
   background: linear-gradient(180deg, transparent 45%, rgba(14, 16, 20, .88) 88%); }
 .eroe-nome { position: absolute; left: 0; right: 0; bottom: 0; padding: 8px 10px; }
 .eroe-nome b { display: block; font-family: 'FellSC', serif; font-weight: normal;
-  color: var(--oro-chiaro); font-size: 15px; line-height: 1.15; text-shadow: 0 1px 6px #000; }
-.eroe-nome i { color: var(--perg-scura); font-size: 12px; }
+  color: var(--osso); font-size: 15px; line-height: 1.15; text-shadow: 0 1px 6px #000; }
+.eroe-nome i { color: var(--osso-fioco); font-size: 12px; }
 .eroe-tile .spunta { position: absolute; top: 8px; right: 8px; width: 26px; height: 26px;
-  border-radius: 50%; background: var(--rosso); color: var(--perg); display: none;
-  align-items: center; justify-content: center; font-size: 15px; border: 1px solid var(--oro-chiaro); }
-.eroe-tile.scelto { border-color: var(--oro-chiaro);
+  border-radius: 50%; background: var(--ceralacca); color: var(--osso); display: none;
+  align-items: center; justify-content: center; font-size: 15px; border: 1px solid var(--osso); }
+.eroe-tile.scelto { border-color: var(--osso);
   box-shadow: 0 0 18px rgba(216, 178, 94, .35); }
 .eroe-tile.scelto .spunta { display: flex; }
 
 .eroe-dettaglio { max-width: 560px; }
 .eroe-testata { display: flex; gap: 14px; align-items: center; }
 .eroe-testata img { width: 88px; height: 110px; object-fit: cover; object-position: top;
-  border-radius: 8px; border: 1px solid var(--oro); }
+  border-radius: 2px; border: 1px solid var(--bordo-alto); }
 .eroe-testata h3 { text-align: left; margin: 0; font-size: 24px; }
-.eroe-ruolo { color: var(--teal); font-style: italic; font-size: 14px; }
+.eroe-ruolo { color: var(--nastro); font-style: italic; font-size: 14px; }
 .eroe-stats { display: flex; gap: 8px; }
-.eroe-stats .stat { flex: 1; text-align: center; border: 1px solid var(--seppia);
-  border-radius: 8px; padding: 6px 2px; background: rgba(240, 230, 204, .06); }
+.eroe-stats .stat { flex: 1; text-align: center; border: 1px solid var(--osso-fioco);
+  border-radius: 2px; padding: 6px 2px; background: rgba(240, 230, 204, .06); }
 .eroe-stats .stat span { display: block; font-family: 'FellSC', serif; font-size: 11px;
-  color: var(--oro-chiaro); }
-.eroe-stats .stat b { font-size: 19px; color: var(--perg); }
-.eroe-blocco { font-size: 14.5px; line-height: 1.45; color: var(--perg); opacity: .92; }
-.eroe-bio { color: var(--perg-scura); }
+  color: var(--osso); }
+.eroe-stats .stat b { font-size: 19px; color: var(--osso); }
+.eroe-blocco { font-size: 14.5px; line-height: 1.45; color: var(--osso); opacity: .92; }
+.eroe-bio { color: var(--osso-fioco); }
 
 /* --- la lettera d'incarico --- */
-.lettera-panel { background: linear-gradient(165deg, #f4ebd4, var(--perg-scura));
-  border-color: var(--oro); }
+.lettera-panel { background: linear-gradient(165deg, #f4ebd4, var(--osso-fioco));
+  border-color: var(--bordo-alto); }
 .lettera-testo { font-style: italic; font-size: 17px; line-height: 1.65;
-  color: var(--ink); margin-top: 12px; }
-.lettera-testo b { color: var(--rosso); }
+  color: var(--osso); margin-top: 12px; }
+.lettera-testo b { color: var(--ceralacca); }
 .lettera-panel .nota { letter-spacing: .08em; }
 
 /* sezioni della scheda eroe: titoletto + filetto, come la scheda stampata */
 .eroe-sezione { border-top: 1px solid rgba(216, 178, 94, .35); padding-top: 8px; }
 .eroe-sezione h4 { font-family: 'FellSC', serif; font-weight: normal; font-size: 13px;
-  letter-spacing: .1em; color: var(--oro-chiaro); margin-bottom: 4px; }
+  letter-spacing: .1em; color: var(--osso); margin-bottom: 4px; }
 
 /* reperti: documenti a piena larghezza, da leggere */
-.reperto-img { width: 100%; border-radius: 8px; border: 1px solid var(--oro);
+.reperto-img { width: 100%; border-radius: 2px; border: 1px solid var(--bordo-alto);
   box-shadow: 0 8px 26px rgba(0, 0, 0, .45); display: block;
   animation: apparizione .5s ease both; }
 
 /* al tavolo: il totale dei dadi veri si inserisce, non si tira */
 .dadi-tavolo { display: flex; flex-direction: column; align-items: center; gap: 14px; }
-.dadi-istruzione { color: var(--perg); font-size: 18px; }
+.dadi-istruzione { color: var(--osso); font-size: 18px; }
 .dadi-grid { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center;
   max-width: 460px; }
 .dadi-grid .btn { min-width: 58px; padding: 12px 0; font-size: 22px; text-align: center; }
@@ -340,19 +403,19 @@ em, i { font-style: italic; }
 /* --- spedizione: registro ferite e tessere --- */
 .nemico-riga { display: flex; align-items: center; justify-content: space-between;
   gap: 10px; padding: 8px 0; border-bottom: 1px solid rgba(138, 113, 80, .4); }
-.nemico-nome { font-family: 'FellSC', serif; font-size: 17px; color: var(--ink); }
-.nemico-nome b { color: var(--rosso); }
+.nemico-nome { font-family: 'FellSC', serif; font-size: 17px; color: var(--osso); }
+.nemico-nome b { color: var(--ceralacca); }
 .nemico-pips { display: flex; gap: 6px; cursor: pointer; padding: 6px; }
 .pip-ferita { width: 20px; height: 20px; border-radius: 50%;
-  border: 2px solid var(--rosso); background: transparent; }
-.pip-ferita.piena { background: var(--rosso); }
+  border: 2px solid var(--ceralacca); background: transparent; }
+.pip-ferita.piena { background: var(--ceralacca); }
 .btn.coperta { opacity: .55; border-style: dashed; }
 
 /* promemoria azioni in spedizione: ripiegato, si apre al tocco */
 .azioni-promemoria summary { cursor: pointer; list-style: none; }
 .azioni-promemoria summary::-webkit-details-marker { display: none; }
 .azioni-promemoria summary h2 { display: inline; font-size: 19px; }
-.azioni-promemoria summary::after { content: ' ▾'; color: var(--seppia); }
+.azioni-promemoria summary::after { content: ' ▾'; color: var(--osso-fioco); }
 .azioni-promemoria[open] summary::after { content: ' ▴'; }
 .azioni-promemoria p { font-size: 15px; }
 
@@ -360,17 +423,17 @@ em, i { font-style: italic; }
 .btn.attacca { font-size: 13px; padding: 6px 12px; }
 
 .pip-vita { width: 20px; height: 20px; border-radius: 50%;
-  border: 2px solid var(--teal); background: transparent; }
-.pip-vita.piena { background: var(--teal); }
+  border: 2px solid var(--nastro); background: transparent; }
+.pip-vita.piena { background: var(--nastro); }
 
 /* il giro (turn tracker): striscia di segnaposti eroi/nemici */
 .giro-strip { display: flex; flex-wrap: wrap; gap: 6px; }
 .chip-turno { font-family: 'FellSC', serif; text-transform: lowercase; font-size: 15px;
   padding: 8px 12px; min-height: 40px; cursor: pointer; opacity: .72;
-  border: 1px solid var(--oro); border-radius: 6px;
-  background: rgba(23, 20, 26, .06); color: var(--ink); }
-.chip-turno.attivo { opacity: 1; font-weight: 700; color: var(--rosso);
-  border-color: var(--rosso); box-shadow: 0 0 0 2px var(--rosso) inset;
+  border: 1px solid var(--bordo-alto); border-radius: 2px;
+  background: rgba(23, 20, 26, .06); color: var(--osso); }
+.chip-turno.attivo { opacity: 1; font-weight: 700; color: var(--ceralacca);
+  border-color: var(--ceralacca); box-shadow: 0 0 0 2px var(--ceralacca) inset;
   background: rgba(122, 31, 43, .10); }
 .chip-turno.fatto { opacity: .45; text-decoration: line-through; }
 .chip-turno:active { transform: scale(.97); }
@@ -378,24 +441,38 @@ em, i { font-style: italic; }
 /* --- ritratti eroe / token nemico in Spedizione (direzione «Carte») --- */
 .giro-strip { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 6px; }
 .giro-strip::-webkit-scrollbar { height: 6px; }
-.giro-strip::-webkit-scrollbar-thumb { background: var(--oro); border-radius: 3px; }
+.giro-strip::-webkit-scrollbar-thumb { background: var(--bordo-alto); border-radius: 3px; }
 .chip-turno.ritratto { display: flex; flex-direction: column; align-items: center; gap: 4px;
   min-height: 0; padding: 4px; border: 0; background: transparent; width: 66px; flex: 0 0 auto; }
 .chip-turno.ritratto .rit { width: 54px; height: 54px; border-radius: 50%; overflow: hidden;
-  border: 2px solid var(--oro); background: #0f0c10; transition: width .15s, height .15s; }
+  border: 2px solid var(--bordo-alto); background: #0f0c10; transition: width .15s, height .15s; }
 .chip-turno.ritratto .rit img { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
-.chip-turno.ritratto .et { font-family: 'FellSC', serif; text-transform: lowercase; font-size: 12px; color: var(--ink);
+.chip-turno.ritratto .et { font-family: 'FellSC', serif; text-transform: lowercase; font-size: 12px; color: var(--osso);
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 64px; }
 .chip-turno.ritratto.attivo { box-shadow: none; background: transparent; }
 /* rosso = di turno tocca a LORO (la striscia la usano anche i nemici) */
-.chip-turno.ritratto.attivo .rit { width: 62px; height: 62px; border-color: var(--rosso); box-shadow: 0 0 12px rgba(122,31,43,.6); }
-.chip-turno.ritratto.attivo .et { color: var(--rosso); font-weight: 700; }
+.chip-turno.ritratto.attivo .rit { width: 62px; height: 62px; border-color: var(--ceralacca); box-shadow: 0 0 12px rgba(122,31,43,.6); }
+.chip-turno.ritratto.attivo .et { color: var(--ceralacca); font-weight: 700; }
 /* ...ma l'EROE di turno resta oro, acceso: stessa regola del token sulla
    plancia. Nella striscia il rosso dell'attivo era identico a quello del boss
    (vedi `.ritratto.boss` sotto), e i due si confondevano a colpo d'occhio. */
 .chip-turno.ritratto.eroe.attivo .rit { border-color: #f4d68a; box-shadow: 0 0 14px rgba(244,214,138,.75); }
-.chip-turno.ritratto.eroe.attivo .et { color: var(--oro-chiaro); }
-.chip-turno.ritratto.boss .rit { border-color: var(--rosso); }
+.chip-turno.ritratto.eroe.attivo .et { color: var(--osso); }
+.chip-turno.ritratto.boss .rit { border-color: var(--ceralacca); }
+
+/* In INDAGINE i ritratti sono stampe all'albumina incollate al fascicolo: carta,
+   angoli vivi, un filo di rotazione. In SPEDIZIONE la stessa striscia e' il
+   turno, e li' gli anelli colorati sono segnale (chi agisce, chi e' nemico):
+   restano tondi. Stesso componente, due mestieri — la classe `.stampe` dice
+   quale dei due. */
+.stampe .chip-turno.ritratto { width: 84px; }
+.stampe .chip-turno.ritratto .rit { width: 74px; height: 74px; border-radius: 1px;
+  border: 0; background: var(--carta); padding: 4px 4px 2px;
+  box-shadow: 0 10px 18px -12px #000; transform: rotate(-1.2deg); }
+.stampe .chip-turno.ritratto:nth-child(even) .rit { transform: rotate(1deg); }
+.stampe .chip-turno.ritratto .rit img { filter: grayscale(.75) sepia(.3); }
+.stampe .chip-turno.ritratto .et { color: var(--osso-fioco); }
+.stampe .chip-turno.ritratto.fatto { opacity: .55; }
 .chip-turno.ritratto.fatto { opacity: .45; }
 .chip-turno.ritratto.fatto .et { text-decoration: line-through; }
 /* Contatore cariche sotto il ritratto (Indagine). I `.pip-vita` della
@@ -405,8 +482,8 @@ em, i { font-style: italic; }
   flex-wrap: wrap; max-width: 64px; }
 .pip-carica { display: flex; gap: 2px; }
 .pip-carica i { width: 7px; height: 7px; border-radius: 50%;
-  border: 1px solid var(--teal); background: transparent; }
-.pip-carica i.piena { background: var(--teal); }
+  border: 1px solid var(--nastro); background: transparent; }
+.pip-carica i.piena { background: var(--nastro); }
 /* l'eroe senza piu' cariche resta leggibile: i pallini vuoti non si sbiadiscono
    con la chip, o non si distinguerebbero dallo sfondo */
 .chip-turno.ritratto.fatto .cariche { opacity: 1; }
@@ -421,24 +498,24 @@ em, i { font-style: italic; }
    comando +/- della vita, e due bottoni veri si confonderebbero. */
 .lnk-eroe { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   cursor: pointer; display: inline-flex; align-items: center;
-  text-decoration: underline dotted var(--seppia); text-underline-offset: 3px; }
-.lnk-eroe:hover, .lnk-eroe:focus-visible { color: var(--rosso); text-decoration-style: solid; }
+  text-decoration: underline dotted var(--osso-fioco); text-underline-offset: 3px; }
+.lnk-eroe:hover, .lnk-eroe:focus-visible { color: var(--ceralacca); text-decoration-style: solid; }
 
 .rit-row { display: inline-block; width: 26px; height: 26px; border-radius: 50%; overflow: hidden;
-  border: 1px solid var(--oro); vertical-align: middle; margin-right: 8px; background: #0f0c10; }
+  border: 1px solid var(--bordo-alto); vertical-align: middle; margin-right: 8px; background: #0f0c10; }
 .rit-row img { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
-.rit-row.boss { border-color: var(--rosso); }
+.rit-row.boss { border-color: var(--ceralacca); }
 
 /* selettore eroe coi ritratti (Indagine: «chi legge la scena?») */
 .eroe-picker { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 10px 0 14px; }
 .eroe-pick { display: flex; flex-direction: column; align-items: center; gap: 4px; width: 86px;
-  background: transparent; border: 0; cursor: pointer; color: var(--perg); padding: 4px; }
-.eroe-pick .rit { width: 66px; height: 66px; border-radius: 50%; overflow: hidden; border: 2px solid var(--oro); background: #0f0c10; }
+  background: transparent; border: 0; cursor: pointer; color: var(--osso); padding: 4px; }
+.eroe-pick .rit { width: 66px; height: 66px; border-radius: 50%; overflow: hidden; border: 2px solid var(--bordo-alto); background: #0f0c10; }
 .eroe-pick .rit img { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
 .eroe-pick:active .rit { transform: scale(.96); }
-.eroe-pick:hover .rit, .eroe-pick:focus-visible .rit { border-color: var(--oro-chiaro); box-shadow: 0 0 12px rgba(216,178,94,.5); }
-.eroe-pick .np { font-family: 'FellSC', serif; text-transform: lowercase; font-size: 14px; color: var(--oro-chiaro); }
-.eroe-pick .sv { font-size: 12px; color: var(--seppia); }
+.eroe-pick:hover .rit, .eroe-pick:focus-visible .rit { border-color: var(--osso); box-shadow: 0 0 12px rgba(216,178,94,.5); }
+.eroe-pick .np { font-family: 'FellSC', serif; text-transform: lowercase; font-size: 14px; color: var(--osso); }
+.eroe-pick .sv { font-size: 12px; color: var(--osso-fioco); }
 
 /* ============================================================ board digitale
    Modalita' «tutto a schermo»: l'intero dungeon (tessere rivelate disposte dal
@@ -449,12 +526,12 @@ em, i { font-style: italic; }
    contenuto gia' zoomato, e `fitZoom()` (digitale.js) non saprebbe mai quanto
    spazio ha davvero — restituirebbe sempre lo zoom corrente senza ingrandire. */
 .board-wrap { max-width: 100%; height: 68vh; overflow: auto; border-radius: 10px;
-  border: 2px solid var(--oro); box-shadow: 0 6px 20px rgba(0,0,0,.5); background: #0b090d;
+  border: 2px solid var(--segnale-rivela); box-shadow: 0 6px 20px rgba(0,0,0,.5); background: #0b090d;
   touch-action: none; cursor: grab; overscroll-behavior: contain; }
 .board-wrap:active { cursor: grabbing; }
 .zoom-ctrl { position: absolute; top: 8px; right: 8px; display: flex; flex-direction: column; gap: 4px; z-index: 5; }
-.zoom-btn { width: 34px; height: 34px; font-size: 20px; line-height: 1; border-radius: 8px;
-  border: 1px solid var(--oro); background: rgba(20,14,24,.9); color: var(--oro-chiaro); cursor: pointer; }
+.zoom-btn { width: 34px; height: 34px; font-size: 20px; line-height: 1; border-radius: 2px;
+  border: 1px solid var(--segnale-rivela); background: rgba(20,14,24,.9); color: var(--segnale-rivela); cursor: pointer; }
 .zoom-btn:active { background: rgba(122,31,43,.6); }
 .board-digitale { position: relative; margin: 0 auto; }
 
@@ -484,8 +561,8 @@ em, i { font-style: italic; }
 .immersivo .lato { display: flex; flex-direction: column; gap: 8px;
   flex: 1 1 auto; min-height: 0; overflow: auto; }
 /* si tocca da vicino ma si guarda da lontano: 34px sono sotto il minimo comodo */
-.immersivo .zoom-btn { width: 52px; height: 52px; font-size: 28px; border-radius: 10px; }
-.immersivo .zoom-btn[data-zoom="0"] { border-color: var(--oro-chiaro);
+.immersivo .zoom-btn { width: 52px; height: 52px; font-size: 28px; border-radius: 2px; }
+.immersivo .zoom-btn[data-zoom="0"] { border-color: var(--segnale-rivela);
   background: rgba(216,178,94,.16); box-shadow: 0 0 10px rgba(216,178,94,.3); }
 
 /* In orizzontale la plancia non riempie la larghezza (il sotterraneo e' piu'
@@ -505,8 +582,8 @@ em, i { font-style: italic; }
    sotterraneo nero, su una TV guardata al buio, abbaglia e spezza l'atmosfera.
    Stessi colori del gioco, invertiti — fondo notte, bordo e titoli d'oro. */
 .immersivo .pannello { background: linear-gradient(160deg, rgba(29,16,20,.92), rgba(14,21,25,.92));
-  color: var(--perg); border-color: rgba(168,131,58,.55); box-shadow: 0 6px 22px rgba(0,0,0,.55); }
-.immersivo .pannello h2 { color: var(--oro-chiaro); }
+  color: var(--osso); border-color: rgba(168,131,58,.55); box-shadow: 0 6px 22px rgba(0,0,0,.55); }
+.immersivo .pannello h2 { color: var(--osso); }
 /* il seppia era tarato sulla pergamena: sul fondo notte da' 4:1, sotto la
    soglia di leggibilita' — ed e' proprio il testo delle ISTRUZIONI D'AZIONE,
    quello che si rilegge a ogni turno. Sale a ~7.5:1 restando subordinato al
@@ -519,10 +596,10 @@ em, i { font-style: italic; }
 /* i nomi stanno accanto a pallini turchesi grossi e saturi, che da lontano se
    li mangiano: servono peso e dimensione, non una tinta nuova (l'oro e' del
    titolo del pannello e gli competerebbe accanto) */
-.immersivo .nemico-nome { color: var(--perg); font-weight: 700;
+.immersivo .nemico-nome { color: var(--osso); font-weight: 700;
   font-size: 19px; letter-spacing: .05em; }
 .immersivo .nemico-nome b { color: #ff8a6a; }
-.immersivo .chip-turno.ritratto .et { color: var(--perg-scura); }
+.immersivo .chip-turno.ritratto .et { color: var(--osso-fioco); }
 /* chi ha finito resta piu' spento degli altri — e' l'informazione — ma non
    sotto la soglia: da tre metri sparirebbe invece di sembrare «gia' mosso» */
 .immersivo .chip-turno.ritratto.fatto .et { color: #9d8f78; }
@@ -547,12 +624,12 @@ em, i { font-style: italic; }
   border: 2px solid rgba(230,195,120,.55); box-sizing: border-box; }
 .tessera-b.coperta { background: repeating-linear-gradient(45deg, #14101a, #14101a 10px, #100c14 10px, #100c14 20px);
   border-style: dashed; border-color: rgba(230,195,120,.3); }
-.tessera-b.coperta .tess-tag { color: var(--seppia); }
+.tessera-b.coperta .tess-tag { color: var(--osso-fioco); }
 .tess-tag { position: absolute; left: 3px; top: 2px; font: 11px 'FellSC', serif;
-  color: var(--oro-chiaro); background: rgba(10,8,12,.7); padding: 0 5px; border-radius: 4px; }
+  color: var(--segnale-rivela); background: rgba(10,8,12,.7); padding: 0 5px; border-radius: 2px; }
 .porta-lbl { position: absolute; transform: translate(-50%,-50%); pointer-events: none; z-index: 3;
   font-family: 'FellSC', serif; color: #f2c14e; white-space: nowrap; line-height: 1;
-  background: rgba(10,10,12,.78); padding: 2px 7px; border-radius: 5px;
+  background: rgba(10,10,12,.78); padding: 2px 7px; border-radius: 2px;
   text-shadow: 0 0 4px #000; box-shadow: 0 0 0 1px rgba(242,193,78,.4); }
 .porta-lbl.ingresso { color: #8fe0d6; box-shadow: 0 0 0 1px rgba(95,184,176,.5); }
 .cella-b { position: absolute; box-sizing: border-box; border: 1px solid rgba(230,195,120,.28); }
@@ -564,11 +641,11 @@ em, i { font-style: italic; }
   background: #7fe6db; box-shadow: 0 0 10px 2px rgba(127,230,219,.9);
   animation: ragg-pulse 1.1s ease-in-out infinite; }
 .cella-mossa:hover { background: rgba(127,230,219,.6); }
-.cella-mossa.reveal { background: rgba(216,178,94,.4); border-color: var(--oro-chiaro); box-shadow: inset 0 0 16px rgba(216,178,94,.6); }
-.cella-mossa.reveal::after { background: var(--oro-chiaro); box-shadow: 0 0 10px 2px rgba(216,178,94,.9); }
+.cella-mossa.reveal { background: rgba(216,178,94,.4); border-color: var(--segnale-rivela); box-shadow: inset 0 0 16px rgba(216,178,94,.6); }
+.cella-mossa.reveal::after { background: var(--segnale-rivela); box-shadow: 0 0 10px 2px rgba(216,178,94,.9); }
 @keyframes ragg-pulse { 0%,100% { opacity: .5; transform: translate(-50%,-50%) scale(.8); }
   50% { opacity: 1; transform: translate(-50%,-50%) scale(1.15); } }
-.oro { color: var(--oro-chiaro); }
+.oro { color: var(--segnale-rivela); }
 .tok-slot { position: absolute; display: flex; align-items: center; justify-content: center; pointer-events: none;
   transition: left .6s ease, top .6s ease; }   /* glide del token nel turno nemici */
 /* AL TAVOLO si guarda in tanti, da lontano: il nemico scivola piu' piano, cosi'
@@ -576,10 +653,10 @@ em, i { font-style: italic; }
    con la plancia a schermo in modalita' tavolo (classe messa da digitale.js). */
 .al-tavolo .tok-slot { transition: left 1s ease, top 1s ease; }
 .tok-board { width: 78%; height: 78%; border-radius: 50%; overflow: hidden;
-  border: 2px solid var(--oro); background: #0f0c10; pointer-events: auto;
+  border: 2px solid var(--segnale-rivela); background: #0f0c10; pointer-events: auto;
   box-shadow: 0 2px 6px rgba(0,0,0,.6); display: block; }
 .tok-board img { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
-.tok-board.eroe { border-color: var(--oro-chiaro); cursor: pointer; }
+.tok-board.eroe { border-color: var(--segnale-rivela); cursor: pointer; }
 .verde { color: #7fe6db; }
 /* L'eroe di turno NON diventa rosso: il rosso e' dei nemici (e del boss), e da
    lontano il tavolo scambiava il proprio eroe per una minaccia. Vale la regola
@@ -592,11 +669,11 @@ em, i { font-style: italic; }
 .tok-board.eroe.giu { filter: grayscale(1) brightness(.5); }
 .tok-board.nemico { border-color: #7a1f2b; cursor: pointer; }
 .tok-board.nemico.boss { border-color: #d83b3b; border-width: 3px; box-shadow: 0 0 12px rgba(216,59,59,.7); }
-.tok-board.scortato { border-color: var(--teal); cursor: pointer; }
+.tok-board.scortato { border-color: var(--segnale-mossa); cursor: pointer; }
 .tok-board.scortato.attivo { border-width: 3px; box-shadow: 0 0 14px rgba(31,95,107,.9); }
-.chip-turno.ritratto.scortato .rit { border-color: var(--teal); }
-.chip-turno.ritratto.scortato.attivo .rit { width: 62px; height: 62px; border-color: var(--teal); box-shadow: 0 0 12px rgba(31,95,107,.7); }
-.chip-turno.ritratto.scortato.attivo .et { color: var(--teal); font-weight: 700; }
+.chip-turno.ritratto.scortato .rit { border-color: var(--nastro); }
+.chip-turno.ritratto.scortato.attivo .rit { width: 62px; height: 62px; border-color: var(--nastro); box-shadow: 0 0 12px rgba(31,95,107,.7); }
+.chip-turno.ritratto.scortato.attivo .et { color: var(--nastro); font-weight: 700; }
 /* turno nemici animato: nemico attivo, scatto d'attacco, bersaglio colpito, danno */
 .tok-board.attivo-nem { border-color: #d83b3b; border-width: 3px; box-shadow: 0 0 16px rgba(216,59,59,.85); z-index: 3; }
 .tok-board.attacca { animation: tok-attacca .4s ease; }
@@ -609,23 +686,23 @@ em, i { font-style: italic; }
   font-family: 'FellSC', serif; font-size: 22px; font-weight: 700; color: #ff5a5a; text-shadow: 0 0 5px #000, 0 1px 2px #000;
   opacity: 0; transition: opacity .3s ease, transform .9s ease; }
 .dmg-pop.on { opacity: 1; transform: translate(-50%, -140%); }
-.turno-banner.nemico { border-color: var(--rosso); background: linear-gradient(180deg, rgba(40,12,16,.97), rgba(20,10,12,.97)); }
+.turno-banner.nemico { border-color: var(--ceralacca); background: linear-gradient(180deg, rgba(40,12,16,.97), rgba(20,10,12,.97)); }
 .turno-banner.nemico .rit { border-color: #d83b3b; box-shadow: 0 0 16px rgba(216,59,59,.7); }
 .turno-banner.nemico .tb-txt b { color: #ff8a6a; }
-.tb-roll { display: inline-block; font-family: 'OldStd', serif; font-size: 12px; color: var(--oro-chiaro);
-  background: rgba(0,0,0,.35); border: 1px solid rgba(216,178,94,.4); border-radius: 5px; padding: 0 5px; margin: 0 3px; }
+.tb-roll { display: inline-block; font-family: 'OldStd', serif; font-size: 12px; color: var(--osso);
+  background: rgba(0,0,0,.35); border: 1px solid rgba(216,178,94,.4); border-radius: 2px; padding: 0 5px; margin: 0 3px; }
 .diario { max-height: 140px; overflow-y: auto; }
 .diario p { margin: 2px 0; }
 .flash-msg { position: fixed; left: 50%; bottom: 20%; transform: translateX(-50%) translateY(10px);
-  background: rgba(20,14,24,.95); color: var(--perg); border: 1px solid var(--oro);
-  border-radius: 8px; padding: 10px 18px; z-index: 200; opacity: 0; transition: opacity .3s, transform .3s;
+  background: rgba(20,14,24,.95); color: var(--osso); border: 1px solid var(--bordo-alto);
+  border-radius: 2px; padding: 10px 18px; z-index: 200; opacity: 0; transition: opacity .3s, transform .3s;
   font-family: 'FellSC', serif; }
 .flash-msg.on { opacity: 1; transform: translateX(-50%) translateY(0); }
 /* transizione passaggio turno: banner col ritratto dell'eroe che entra */
 .turno-banner { position: fixed; left: 50%; top: 22%; transform: translate(-50%, -12px) scale(.92);
   display: flex; align-items: center; gap: 14px; z-index: 250; pointer-events: none;
   background: linear-gradient(180deg, rgba(29,16,20,.96), rgba(14,21,25,.96));
-  border: 2px solid var(--oro); border-radius: 14px; padding: 12px 22px 12px 12px;
+  border: 2px solid var(--bordo-alto); border-radius: 2px; padding: 12px 22px 12px 12px;
   box-shadow: 0 10px 30px rgba(0,0,0,.6); opacity: 0; transition: opacity .35s ease, transform .35s cubic-bezier(.2,.9,.3,1.2); }
 .turno-banner.on { opacity: 1; transform: translate(-50%, 0) scale(1); }
 /* il banner senza variante e' quello dell'EROE che entra: oro acceso, come il
@@ -633,16 +710,21 @@ em, i { font-style: italic; }
 .turno-banner .rit { width: 64px; height: 64px; border-radius: 50%; overflow: hidden;
   border: 3px solid #f4d68a; background: #0f0c10; box-shadow: 0 0 16px rgba(244,214,138,.7); flex: 0 0 auto; }
 .turno-banner .rit img { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
-.turno-banner .tb-txt { font-family: 'FellSC', serif; color: var(--seppia); font-size: 15px; line-height: 1.15; }
-.turno-banner .tb-txt b { font-size: 24px; color: var(--oro-chiaro); text-transform: lowercase; }
+.turno-banner .tb-txt { font-family: 'FellSC', serif; color: var(--osso-fioco); font-size: 15px; line-height: 1.15; }
+.turno-banner .tb-txt b { font-size: 24px; color: var(--osso); text-transform: lowercase; }
 
-/* account: spia di sincronizzazione, cambio tavolo, campo del nome */
+/* account: spia di sincronizzazione, cambio tavolo, nome del tavolo.
+   Qui c'era un secondo `.campo` (fondo scuro, `color: inherit`) che scavalcava
+   quello vero: dentro un pannello `inherit` era l'inchiostro scuro, e nel
+   taccuino si scriveva scuro su scuro — 1.37:1, praticamente invisibile.
+   Il campo e' uno solo, ed e' di carta. */
 .riga-tavolo { display: flex; align-items: center; justify-content: center;
   gap: .8rem; margin-top: .5rem; }
-.spia { font-size: .72rem; letter-spacing: .08em; opacity: .55; }
-.btn.piccolo { font-size: .72rem; padding: .25rem .6rem; }
-.campo { width: 100%; padding: .7rem; font-family: inherit; font-size: 1rem;
-  background: #0e0c11; color: inherit; border: 1px solid #3a3340; border-radius: 3px; }
+.spia { font-family: 'FellSC', serif; font-size: 12px; letter-spacing: .1em;
+  color: var(--osso-fioco); }
+.btn.piccolo { font-size: 12px; padding: 5px 10px; }
+/* il nome del tavolo si scrive a mano: e' il gruppo che si da' un nome */
+#nome-tavolo { font-family: 'Mano', cursive; font-size: var(--mano-size); }
 /* elenco tavoli: il pulsante elimina sta in un angolo della voce, non in mezzo */
 .tavolo-voce { position: relative; }
 .tavolo-voce .elimina-tavolo { position: absolute; top: .6rem; right: .6rem; opacity: .5; }
