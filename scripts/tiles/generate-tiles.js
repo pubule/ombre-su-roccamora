@@ -5,7 +5,7 @@
 //
 // Dati (exits/arredi) presi 1:1 da TILES in src/gen_cards.py.
 //
-// Uso: node scripts/tiles/generate-tiles.js [ep1|ep2] [--solo-mancanti]
+// Uso: node scripts/tiles/generate-tiles.js [ep1|ep2|...|ep15] [--solo-mancanti]
 // --solo-mancanti: salta le tessere il cui PNG esiste gia' in <Episodio>/board/.
 
 const { chromium } = require('playwright');
@@ -16,10 +16,11 @@ const { pathToFileURL } = require('url');
 const ROOT = path.resolve(__dirname, '..', '..');
 const argv = process.argv.slice(2).filter((a) => a !== '--solo-mancanti');
 const SOLO_MANCANTI = process.argv.includes('--solo-mancanti');
-// set per episodio: node scripts/tiles/generate-tiles.js [ep1|ep2]
+// set per episodio: node scripts/tiles/generate-tiles.js [ep1|ep2|...|ep15]
 const SET = (argv[0] || 'ep1').toLowerCase();
-const EP_DIR = { ep1: 'Episodio 1', ep2: 'Episodio 2' }[SET];
-if (!EP_DIR) { console.error('set sconosciuto (ep1|ep2)'); process.exit(1); }
+const EP_DIR = { ep1: 'Episodio 1', ep2: 'Episodio 2', ep10: 'Episodio 10', ep11: 'Episodio 11',
+                 ep12: 'Episodio 12', ep13: 'Episodio 13', ep14: 'Episodio 14', ep15: 'Episodio 15' }[SET];
+if (!EP_DIR) { console.error('set sconosciuto (ep1|ep2|ep10..ep15)'); process.exit(1); }
 const OUT_DIR = path.join(ROOT, EP_DIR, 'board');
 fs.mkdirSync(OUT_DIR, { recursive: true });
 
@@ -59,7 +60,45 @@ const TILES_EP1 = [
   { id: 'T6', nome: 'Cripta della Cera', exits: { S: 'T5' },
     arredi: [[1, 2, 'altare'], [2, 2, 'altare'], [3, 3, 'cella']] },
 ];
-const TILES = SET === 'ep2' ? TILES_EP2 : TILES_EP1;
+// Episodi 10-15: stessa disposizione di tessere (catena lineare T1..T6, solo
+// uscite N/S, arredi 'casse'/'altare' generici) - 1:1 da TILES_N in ogni
+// src/gen_epN.py, nomi presi dai rispettivi PROMPT-MIDJOURNEY-Episodio-N.md.
+// Arte di sfondo: artworks/<id>-ep<N>.png (campo art), stesso pattern di Ep.2.
+function catenaLineare(epNum, nomi) {
+  const ids = ['T1', 'T2', 'T3', 'T4', 'T5', 'T6'];
+  const arrediPerTessera = [
+    [[0, 3, 'casse'], [3, 0, 'casse']],
+    [[1, 1, 'casse'], [2, 2, 'casse']],
+    [[0, 1, 'casse'], [3, 2, 'casse']],
+    [[1, 2, 'casse'], [2, 0, 'altare']],
+    [[1, 1, 'casse'], [2, 2, 'casse']],
+    [[0, 2, 'casse']],
+  ];
+  return ids.map((id, i) => ({
+    id, nome: nomi[i], art: `${id}-ep${epNum}.png`,
+    exits: i === 0 ? { N: ids[1] } : i === ids.length - 1 ? { S: ids[i - 1] } : { S: ids[i - 1], N: ids[i + 1] },
+    ...(i === 0 ? { start: 'S' } : {}),
+    arredi: arrediPerTessera[i],
+  }));
+}
+
+const TILES_BY_SET = {
+  ep1: TILES_EP1,
+  ep2: TILES_EP2,
+  ep10: catenaLineare(10, ['L’Ingresso (il tinello)', 'La Scala che Ripete', 'Il Corridoio dei Nomi',
+                           'La Camera che Detta', 'Il Sottoscala', 'L’Intercapedine']),
+  ep11: catenaLineare(11, ['L’Abbaino', 'Il Camminamento Ovest', 'La Loggia delle Campane',
+                           'Il Tetto a Schiena d’Asino', 'Il Ballatoio della Torre', 'La Guglia']),
+  ep12: catenaLineare(12, ['L’Archivio Violato', 'Il Ponte dei Sospiri', 'La Fondamenta Stretta',
+                           'Il Canale della Nebbia', 'Il Sottoportico', 'Il Cimitero delle Barche']),
+  ep13: catenaLineare(13, ['Il Cortile del Molino', 'La Roggia', 'La Sala delle Macine',
+                           'I Magazzini di Stracci', 'L’Essiccatoio', 'La Sala del Torchio']),
+  ep14: catenaLineare(14, ['La Gronda', 'Il Comignolo', 'La Terrazza dei Panni',
+                           'L’Abbaino', 'Il Lucernario', 'L’Attico del Corso']),
+  ep15: catenaLineare(15, ['Il Cancello', 'L’Atrio', 'Lo Studio di Braga',
+                           'La Galleria dei Cimeli', 'Le Scale di Servizio', 'Lo Studio Segreto']),
+};
+const TILES = TILES_BY_SET[SET];
 
 // Arte vera per arredo (prompt in PROMPT-MIDJOURNEY.md, sezione "Arredi delle
 // tessere"): un file artworks/<chiave>.png per chiave di ARREDO_STYLE.
