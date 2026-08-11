@@ -1600,10 +1600,33 @@ comune = dict(
 )
 
 
+# I sorgenti scrivono per reportlab, che ha i suoi tag: <font name="..."> per
+# cambiare carattere dentro un paragrafo. La webapp non li conosce e li mostra
+# com'e' — la coda della lettera d'incarico e' comparsa sull'iPad col tag in
+# chiaro, in tutti e 21 gli episodi, appena le lettere sono passate alla grafia
+# manoscritta. Qui si traducono una volta sola, all'uscita: cosi' la webapp non
+# deve sapere niente di reportlab, e vale per qualunque campo, non solo per la
+# lettera. Il corsivo diventa <i>, gli altri font spariscono lasciando il testo.
+FONT_CORSIVO = re.compile(r'<font[^>]*?(?:Italic|italic)[^>]*>(.*?)</font>', re.S)
+FONT_QUALSIASI = re.compile(r'</?font[^>]*>', re.S)
+
+
+def senza_reportlab(v):
+    if isinstance(v, str):
+        v = FONT_QUALSIASI.sub('', FONT_CORSIVO.sub(lambda m: f'<i>{m.group(1)}</i>', v))
+        v = re.sub(r'<i>\s*<i>', '<i>', v)
+        return re.sub(r'</i>\s*</i>', '</i>', v)
+    if isinstance(v, list):
+        return [senza_reportlab(x) for x in v]
+    if isinstance(v, dict):
+        return {k: senza_reportlab(x) for k, x in v.items()}
+    return v
+
+
 def dump(name, obj):
     p = os.path.join(OUT, name)
     with open(p, 'w', encoding='utf-8') as f:
-        json.dump(obj, f, ensure_ascii=False, indent=1, sort_keys=True)
+        json.dump(senza_reportlab(obj), f, ensure_ascii=False, indent=1, sort_keys=True)
     print('ok ->', p)
 
 

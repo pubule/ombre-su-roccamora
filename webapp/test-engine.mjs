@@ -266,5 +266,26 @@ for (const [etichetta, epFinto, atteso] of [
   ok(sped.canto === 1, `Ep.3: al 6° round il Canto e' 1 (e' ${sped.canto})`);
 }
 
+// --- nessun marcatore ReportLab nei dati della webapp --------------------
+// I sorgenti scrivono per i PDF (<font name="OldStd-Italic">, <para>, ...),
+// ma rendi() in engine.js conosce solo b|i|br: qualunque altro tag l'utente
+// se lo ritrova scritto a schermo, tag compreso. La conversione sta in
+// export-data.py (senza_reportlab); qui si guarda che non ne sfugga nessuno.
+{
+  console.log('\n=== marcatura dei testi ===');
+  const AMMESSI = /^\/?(b|i|br)$/i;             // la stessa lista di engine.js
+  const intrusi = new Set();
+  const frusta = (v) => {
+    if (typeof v === 'string') {
+      for (const m of v.matchAll(/<\s*([a-zA-Z/][^\s>/]*)/g)) {
+        if (!AMMESSI.test(m[1])) intrusi.add(m[1]);
+      }
+    } else if (Array.isArray(v)) v.forEach(frusta);
+    else if (v && typeof v === 'object') Object.values(v).forEach(frusta);
+  };
+  [comune, carte, ...Object.values(EPISODI)].forEach(frusta);
+  ok(intrusi.size === 0, `tag non renderizzabili nei dati: ${[...intrusi].join(', ')}`);
+}
+
 console.log(errori ? `\n${errori} CHECK FALLITI` : '\nTUTTO OK');
 process.exit(errori ? 1 : 0);

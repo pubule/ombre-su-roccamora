@@ -68,7 +68,13 @@ try {
   // --- lettera d'incarico ----------------------------------------------------
   console.log('lettera');
   await page.locator('.lettera-testo').waitFor();
-  ok((await page.locator('.lettera-testo').innerText()).length > 200, 'lettera con testo pieno');
+  const testoLettera = await page.locator('.lettera-testo').innerText();
+  ok(testoLettera.length > 200, 'lettera con testo pieno');
+  ok(!/<\w/.test(testoLettera), `nessun tag scritto a schermo nella lettera${/<\w/.test(testoLettera) ? ' — ' + testoLettera.match(/<\w[^>]*>/)[0] : ''}`);
+  // la coda dell'arbitro va staccata nel font vecchio, non impastata a mano
+  ok(await page.locator('.nota-arbitro').count() === 1, 'la coda è staccata in .nota-arbitro');
+  ok((await page.locator('.nota-arbitro').innerText()).includes('Luoghi disponibili'),
+    'e contiene i luoghi di partenza');
   await page.locator('#in-strada').click();
 
   // --- stradario -----------------------------------------------------------
