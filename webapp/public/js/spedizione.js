@@ -147,8 +147,13 @@ function barra(titolo) {
   return `
   <div class="barra">
     <button class="btn" id="nav-esci">← menu</button>
-    <div class="titolo">${esc(titolo)}</div>
-    <span class="sc" style="color:var(--oro-chiaro)">round ${sp ? sp.round : 1} · ${fase} ·
+    <div class="titolo">
+      <span class="etichetta">${esc(ctx.ep.titolo)} · spedizione</span>
+      <span class="tit-testo">${esc(titolo)}</span>
+    </div>
+  </div>
+  <div class="riga-registro">
+    <span class="sc resta">round ${sp ? sp.round : 1} · ${fase} ·
       ${orologio().toLowerCase()} ${sp ? sp.canto : 0}</span>
   </div>`;
 }

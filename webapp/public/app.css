@@ -548,14 +548,17 @@ em, i { font-style: italic; }
 /* `height` e non `max-height`: con max-height l'altezza del wrap E' quella del
    contenuto gia' zoomato, e `fitZoom()` (digitale.js) non saprebbe mai quanto
    spazio ha davvero — restituirebbe sempre lo zoom corrente senza ingrandire. */
-.board-wrap { max-width: 100%; height: 68vh; overflow: auto; border-radius: 10px;
-  border: 2px solid var(--segnale-rivela); box-shadow: 0 6px 20px rgba(0,0,0,.5); background: #0b090d;
-  touch-action: none; cursor: grab; overscroll-behavior: contain; }
+/* Il TELAIO e' cornice, non mappa: va al fascicolo, con la stessa costa dei
+   fascicoli in home. Dentro, i colori restano segnali. */
+.board-wrap { max-width: 100%; height: 68vh; overflow: auto; border-radius: 2px;
+  border: 1px solid var(--bordo); border-left: 4px solid var(--nastro);
+  background: #0a0a0c; touch-action: none; cursor: grab; overscroll-behavior: contain; }
 .board-wrap:active { cursor: grabbing; }
 .zoom-ctrl { position: absolute; top: 8px; right: 8px; display: flex; flex-direction: column; gap: 4px; z-index: 5; }
-.zoom-btn { width: 34px; height: 34px; font-size: 20px; line-height: 1; border-radius: 2px;
-  border: 1px solid var(--segnale-rivela); background: rgba(20,14,24,.9); color: var(--segnale-rivela); cursor: pointer; }
-.zoom-btn:active { background: rgba(122,31,43,.6); }
+.zoom-btn { width: 34px; height: 34px; font-size: 18px; line-height: 1; border-radius: 2px;
+  border: 1px solid var(--bordo-alto); background: rgba(11,11,13,.9); color: var(--osso); cursor: pointer; }
+.zoom-btn:hover, .zoom-btn:focus-visible { border-color: var(--nastro); }
+.zoom-btn:active { background: var(--ardesia-alta); }
 .board-digitale { position: relative; margin: 0 auto; }
 
 /* --- MODO IMMERSIVO -------------------------------------------------------

@@ -51,22 +51,24 @@ page.on('pageerror', (e) => { console.log('   !! pageerror:', e.message); ko++; 
 await page.addInitScript(() => { window.confirm = () => true; window.alert = () => {}; });
 
 // seme: una partita in indagine, per arrivare alle schermate che contano
-const semina = async () => {
+const semina = async (over = {}) => {
   await page.goto(BASE, { waitUntil: 'networkidle' });
-  await page.evaluate(() => {
+  await page.evaluate((o) => {
     localStorage.clear();
     return fetch('/data/comune.json').then((r) => r.json()).then((c) => {
       const party = c.eroi.slice(0, 3).map((e) => e.nome);
       localStorage.setItem('osr.partita.ep1', JSON.stringify({
-        v: 1, episodio: 'ep1', modo: 'tavolo', plancia: 'fisica', party, creata: Date.now(),
-        fase: 'indagine',
+        v: 1, episodio: 'ep1', modo: o.modo || 'tavolo', plancia: o.plancia || 'fisica',
+        party, creata: Date.now(), fase: o.fase || 'indagine',
+        vantaggi: { tier: 'preparati', dossier: false, risposte: [true, false, false, false] },
         indagine: { ora: 21, lettaLettera: true, visitati: [1], scoperti: [], sbloccati: [],
           parole: [], oggetti: [], reperti: [], approfondimentiLetti: [], caricheUsate: {},
-          secondoFiato: {}, note: 'la chiave non torna', risposte: ['', '', '', ''], chiusa: false },
+          secondoFiato: {}, note: 'la chiave non torna', risposte: ['', '', '', ''],
+          chiusa: o.fase === 'spedizione' },
         spedizione: { round: 0, canto: 0, cantoBonus: false, ferite: [], mazzo: null, scarti: [], esito: null },
       }));
     });
-  });
+  }, over);
 };
 
 // --- raccolta: ogni elemento visibile, col suo colore e il suo fondo vero ----
@@ -159,10 +161,29 @@ if (await page.locator('#taccuino').count()) {
   await page.locator('#taccuino').click();
   await guarda('taccuino');
 }
+
+// --- spedizione e plancia: la seconda meta' della serata
+await semina({ fase: 'spedizione', plancia: 'fisica' });
+await page.goto(BASE, { waitUntil: 'networkidle' });
+await page.getByText('Il Coro Sommerso').first().click();
+await page.waitForTimeout(300);
+await page.locator('#continua').click();
+await page.waitForTimeout(600);
+if (await page.locator('#via').count()) { await page.locator('#via').click(); await page.waitForTimeout(600); }
+await guarda('spedizione');
+
+await semina({ fase: 'spedizione', plancia: 'schermo', modo: 'digitale' });
+await page.goto(BASE, { waitUntil: 'networkidle' });
+await page.getByText('Il Coro Sommerso').first().click();
+await page.waitForTimeout(300);
+await page.locator('#continua').click();
+await page.waitForTimeout(600);
+if (await page.locator('#via').count()) { await page.locator('#via').click(); await page.waitForTimeout(900); }
+await guarda('plancia');
 await browser.close();
 
 console.log(`schermate lette: ${schermate.map((s) => s.nome).join(', ')}\n`);
-ok(schermate.length >= 5, `tutte le schermate raggiunte (${schermate.length})`);
+ok(schermate.length >= 7, `tutte le schermate raggiunte (${schermate.length}: ${schermate.map((s) => s.nome).join(', ')})`);
 
 // --- 1. conformità: il tema vecchio non deve sopravvivere -------------------
 const superfici = schermate.flatMap((s) => s.superfici.map((x) => ({ ...x, dove: s.nome })));
