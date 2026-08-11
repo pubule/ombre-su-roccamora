@@ -3,11 +3,45 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#17141a">
+  <meta name="theme-color" content="#0b0b0d">
+  <!-- installata: niente barre del browser. `mobile-web-app-capable` e' quello
+       buono oggi, l'`apple-` resta perche' iOS guarda ancora quello. -->
+  <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Roccamora">
   <title>Ombre su Roccamora</title>
   <link rel="manifest" href="manifest.webmanifest">
+  <!-- l'icona in schermata Home: senza questa iOS ci mette uno screenshot -->
+  <link rel="apple-touch-icon" href="/assets/icone/apple-touch-icon-180.png">
+  <link rel="icon" href="/assets/icone/icona-192.png" type="image/png">
+  <!-- immagini di avvio: senza, all'apertura c'e' un lampo bianco. Gli schermi
+       non elencati ricadono sul background_color del manifest, che e' il
+       fondo giusto — quindi niente splash, ma nemmeno il lampo. -->
+  <link rel="apple-touch-startup-image" media="(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
+        href="/assets/icone/avvio-390x844@3x-portrait.png">
+  <link rel="apple-touch-startup-image" media="(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"
+        href="/assets/icone/avvio-390x844@3x-landscape.png">
+  <link rel="apple-touch-startup-image" media="(device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
+        href="/assets/icone/avvio-393x852@3x-portrait.png">
+  <link rel="apple-touch-startup-image" media="(device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"
+        href="/assets/icone/avvio-393x852@3x-landscape.png">
+  <link rel="apple-touch-startup-image" media="(device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
+        href="/assets/icone/avvio-430x932@3x-portrait.png">
+  <link rel="apple-touch-startup-image" media="(device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"
+        href="/assets/icone/avvio-430x932@3x-landscape.png">
+  <link rel="apple-touch-startup-image" media="(device-width: 810px) and (device-height: 1080px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
+        href="/assets/icone/avvio-810x1080@2x-portrait.png">
+  <link rel="apple-touch-startup-image" media="(device-width: 810px) and (device-height: 1080px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"
+        href="/assets/icone/avvio-810x1080@2x-landscape.png">
+  <link rel="apple-touch-startup-image" media="(device-width: 820px) and (device-height: 1180px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
+        href="/assets/icone/avvio-820x1180@2x-portrait.png">
+  <link rel="apple-touch-startup-image" media="(device-width: 820px) and (device-height: 1180px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"
+        href="/assets/icone/avvio-820x1180@2x-landscape.png">
+  <link rel="apple-touch-startup-image" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
+        href="/assets/icone/avvio-1024x1366@2x-portrait.png">
+  <link rel="apple-touch-startup-image" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"
+        href="/assets/icone/avvio-1024x1366@2x-landscape.png">
   <link rel="stylesheet" href="app.css">
 </head>
 <body>

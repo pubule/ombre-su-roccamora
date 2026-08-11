@@ -90,6 +90,77 @@ def converti(src, dst, max_px):
     return True
 
 
+# --------------------------------------------------------- icone e avvio PWA
+# Le icone dell'app e le immagini di lancio, tutte dal sigillo della Societa'
+# (artworks/Sigillo.png). Prima il manifest dichiarava «512x512» puntando al
+# sigillo cosi' com'e', che 512x512 non lo e' mai stato: Android lo scartava.
+TAVOLO = (11, 11, 13)          # --tavolo del fascicolo
+SIGILLO = 'artworks/Sigillo.png'
+
+# schermi coperti dallo splash di iOS: (larghezza, altezza, densita').
+# Chi non e' in elenco ricade sul background_color, che e' quello giusto.
+SCHERMI = [
+    (390, 844, 3),    # iPhone 12/13/14
+    (393, 852, 3),    # iPhone 14/15 Pro
+    (430, 932, 3),    # iPhone Pro Max
+    (810, 1080, 2),   # iPad 10.2
+    (820, 1180, 2),   # iPad Air / Pro 11
+    (1024, 1366, 2),  # iPad Pro 12.9
+]
+
+
+def _sigillo():
+    return Image.open(os.path.join(ROOT, SIGILLO)).convert('RGBA')
+
+
+def _quadrata(img, lato, margine=0.0, fondo=None):
+    """Il sigillo centrato in un quadrato. `margine` e' la quota di lato
+    lasciata libera attorno (serve alle maskable, che Android ritaglia)."""
+    tela = Image.new('RGBA', (lato, lato), (fondo or (0, 0, 0, 0)))
+    utile = int(lato * (1 - 2 * margine))
+    s = img.copy()
+    s.thumbnail((utile, utile), Image.LANCZOS)
+    tela.paste(s, ((lato - s.width) // 2, (lato - s.height) // 2), s)
+    return tela
+
+
+def icone():
+    """Icone dell'app e immagini di avvio. Sempre riscritte: sono poche e
+    piccole, e un'icona vecchia rimasta indietro non si nota finche' non e'
+    sullo schermo di casa di qualcuno."""
+    src = _sigillo()
+    out = os.path.join(OUT, 'icone')
+    os.makedirs(out, exist_ok=True)
+    fatti = 0
+
+    # trasparenti: le usa Chrome/Android come icona «any»
+    for lato in (192, 512):
+        _quadrata(src, lato).save(os.path.join(out, f'icona-{lato}.png'))
+        fatti += 1
+    # maskable: Android ritaglia a cerchio o a quadratino, e senza margine di
+    # sicurezza mangerebbe il bordo di ceralacca
+    _quadrata(src, 512, margine=0.20, fondo=TAVOLO + (255,))         .save(os.path.join(out, 'icona-maskable-512.png'))
+    fatti += 1
+    # iOS ignora la trasparenza e ci mette il nero sotto: componiamo noi, cosi'
+    # il bordo resta pulito. Niente alpha nel file finale.
+    _quadrata(src, 180, margine=0.08, fondo=TAVOLO + (255,))         .convert('RGB').save(os.path.join(out, 'apple-touch-icon-180.png'))
+    fatti += 1
+
+    # avvio: il sigillo al centro del buio, come la schermata di caricamento
+    for (w, h, d) in SCHERMI:
+        for larga in (False, True):
+            px = (h * d, w * d) if larga else (w * d, h * d)
+            tela = Image.new('RGB', px, TAVOLO)
+            s = src.copy()
+            lato = int(min(px) * 0.28)
+            s.thumbnail((lato, lato), Image.LANCZOS)
+            tela.paste(s, ((px[0] - s.width) // 2, (px[1] - s.height) // 2), s)
+            verso = 'landscape' if larga else 'portrait'
+            tela.save(os.path.join(out, f'avvio-{w}x{h}@{d}x-{verso}.png'))
+            fatti += 1
+    print(f'OK icone e immagini di avvio ({fatti} file)')
+
+
 def main():
     fatti = 0
     for rel, mx in SORGENTI:
@@ -122,6 +193,7 @@ def main():
         if converti(os.path.join(art_dir, f), os.path.join(OUT, 'artworks', f), 900):
             fatti += 1
     print(f'OK assets webapp ({fatti} convertiti/aggiornati)')
+    icone()
 
 
 if __name__ == '__main__':

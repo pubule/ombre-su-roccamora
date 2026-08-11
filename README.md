@@ -195,6 +195,15 @@ parte sempre dal punto 1 qui sopra: rigenera, poi
 monta da cartelle diverse (`/data`, `/assets`, `/fonts`) — un Worker vuole una
 cartella sola, vedi `wrangler.jsonc`. Wrangler carica solo i file cambiati.
 
+**Si installa come un'applicazione**, su iPad («Condividi → Aggiungi alla
+schermata Home») e su PC (menu di Chrome → «Installa»): icona col sigillo
+della Società, avvio senza lampo bianco, nessuna barra del browser. Le icone e
+le immagini di avvio le genera `webapp/export-assets.py` dal Sigillo in
+`artworks/` — sono derivate come il resto di `webapp/assets/`, quindi chi
+pubblica senza aver lanciato l'export si ritrova un manifest che punta a file
+inesistenti. `node webapp/test-nativa.mjs` lo verifica, e verifica anche che le
+pagine lunghe continuino a scorrere.
+
 ### Account e salvataggi
 
 **Il sito è chiuso**: si entra con un codice via email (Cloudflare Access, lista

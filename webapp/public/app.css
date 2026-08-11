@@ -53,6 +53,41 @@ body {
   overflow-x: hidden; min-height: 100dvh;
   padding: env(safe-area-inset-top) env(safe-area-inset-right)
            env(safe-area-inset-bottom) env(safe-area-inset-left);
+
+  /* --- COMPORTAMENTI DA APPLICAZIONE -------------------------------------
+     Via il rimbalzo elastico e il «tira per aggiornare»: in mezzo a una
+     partita e' un modo di perdere il segno. `overscroll-behavior` agisce solo
+     AL CAPOLINEA — dice cosa succede quando sei gia' in fondo, non se puoi
+     scorrere: le pagine lunghe (21 episodi, biografie, lettera, stradario,
+     taccuino) scorrono esattamente come prima, e c'e' un test che lo misura.
+
+     VIETATO qui dentro, perche' e' la ricetta che gira ovunque: `position:
+     fixed` sul body, `height: 100%` con `overflow: hidden`, blocco di
+     `touchmove`. Sono i tre modi di ottenere «sembra un'app» perdendo la
+     lettura, e questa app e' fatta di pagine da leggere. */
+  overscroll-behavior-y: none;
+  /* iOS in orizzontale ingrandisce i caratteri per conto suo e scompagina la
+     plancia */
+  -webkit-text-size-adjust: 100%;
+  /* il tocco prolungato non apre il menu di sistema, e il testo non si
+     seleziona per sbaglio mentre si trascina */
+  -webkit-touch-callout: none;
+  user-select: none; -webkit-user-select: none;
+}
+
+/* ...ma dove si legge, il testo resta testo: la lettera si legge ad alta voce
+   e a volte se ne copia una riga, e nei campi si scrive. */
+.lettera-panel, .carta, .lettera-testo, .nota-arbitro, .reperto-img,
+.campo, input, textarea {
+  user-select: text; -webkit-user-select: text; -webkit-touch-callout: default;
+}
+
+/* niente ritardo di 300ms e niente doppio-tocco che zooma SUI COMANDI. Sulla
+   pagina il pizzico resta: al tavolo si gioca in penombra e allargare un
+   reperto e' un'ancora di sicurezza (deciso l'11/08/2026). */
+.btn, .voce, .modo, .fase, .tier, .plancia, .tessera-episodio, .carta-eroe,
+.eroe-tile, .chip-turno, .dom-tog, .zoom-btn, .scelta-btn, button {
+  touch-action: manipulation;
 }
 
 h1, h2, h3, .sc { font-family: 'FellSC', 'OldStd', serif; font-weight: normal;

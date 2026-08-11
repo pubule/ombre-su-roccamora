@@ -1,13 +1,18 @@
 {
+  "id": "/",
   "name": "Ombre su Roccamora",
   "short_name": "Roccamora",
   "description": "Compagno di gioco della Società del Lume — arbitro digitale e tavolo virtuale.",
+  "lang": "it",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
   "orientation": "any",
-  "background_color": "#17141a",
-  "theme_color": "#17141a",
+  "background_color": "#0b0b0d",
+  "theme_color": "#0b0b0d",
   "icons": [
-    { "src": "/assets/artworks/Sigillo.png", "sizes": "512x512", "type": "image/png" }
+    { "src": "/assets/icone/icona-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/assets/icone/icona-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/assets/icone/icona-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
   ]
 }
