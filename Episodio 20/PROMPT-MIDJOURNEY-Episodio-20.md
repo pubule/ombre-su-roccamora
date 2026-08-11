@@ -129,32 +129,32 @@ full bleed dark fantasy still life, a grimoire of the Fourth Movement open on th
 
 **T1 — La Discesa (la cripta)** → `artworks/T1-ep20.png`
 ```
-top-down tabletop game tile of a stair descending past a crypt into rising black water, beyond the point where Ferri was stopped, 1889 gaslamp gothic, oil painting texture, cold glow on wet steps, deep teal and sepia palette --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, a stair descending past a crypt into rising black water, beyond the point where Ferri was stopped, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark, figures
 ```
 
 **T2 — Le Tre Acque** → `artworks/T2-ep20.png`
 ```
-top-down tabletop game tile of a place where three currents meet in darkness, fresh salt and dead water, one right passage, 1889 gaslamp gothic, oil painting texture, cold glow on converging waters, deep teal palette --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, a place where three currents meet in darkness, fresh salt and dead water, one right passage, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark, figures
 ```
 
 **T3 — La Pietra Viva** → `artworks/T3-ep20.png`
 ```
-top-down tabletop game tile of the heart of the throat, living pulsing stone, a god's song seeping through the rock joints, 1889 gaslamp gothic, oil painting texture, faint glow in living stone, grey and teal palette --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, the heart of the throat, living pulsing stone, a god's song seeping through the rock joints, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark, figures
 ```
 
 **T4 — Il Coro a Pagamento** → `artworks/T4-ep20.png`
 ```
-top-down tabletop game tile of an underground antechamber where hired choristers stand singing, music stands and cold water, 1889 gaslamp gothic, oil painting texture, cold glow on a bought choir, teal and sepia palette --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, an underground antechamber where hired choristers stand singing, music stands and cold water, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark, figures
 ```
 
 **T5 — La Soglia della Camera** → `artworks/T5-ep20.png`
 ```
-top-down tabletop game tile of the threshold of the god's chamber, a glow that is not light beyond, the choir's last stand, 1889 gaslamp gothic, oil painting texture, a strange glow at the far edge, deep teal and silver palette --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, the threshold of the god's chamber, a glow that is not light beyond, the choir's last stand, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark, figures
 ```
 
 **T6 — La Camera del Dormiente** → `artworks/T6-ep20.png`
 ```
-top-down tabletop game tile of the vast chamber of the sleeping god, black water like an inverted sea, an immense slow breath, a lone figure singing at the brink, 1889 gaslamp gothic, oil painting texture, cold inner glow in immense dark, deep teal and silver palette --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, the vast chamber of the sleeping god, black water like an inverted sea, an immense slow breath, a lone figure singing at the brink, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark, figures
 ```
 
 ## Copertina (--ar 3:4)

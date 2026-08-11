@@ -159,32 +159,32 @@ full bleed dark fantasy still life, a dead man's scattered notes that seem to ac
 
 **T1 — L'Abbaino** → `artworks/T1-ep11.png`
 ```
-top-down tabletop game tile of a tower attic dormer at night, an open hatch onto the dark, a guttering candle, wind hissing through cracks, the last shelter before the roofs, 1889 gaslamp gothic, oil painting texture, one candle, grey and sepia palette with teal shadows --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, a tower attic dormer at night, an open hatch onto the dark, a guttering candle, wind hissing through cracks, the last shelter before the roofs, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark, figures
 ```
 
 **T2 — Il Camminamento Ovest** → `artworks/T2-ep11.png`
 ```
-top-down tabletop game tile of a narrow railless rooftop walkway along a tower flank, void on one side and the tiny square far below, one loose slate, crosswind, 1889 gaslamp gothic, oil painting texture, moonlight on stone, cold grey and teal palette --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, a narrow railless rooftop walkway along a tower flank, void on one side and the tiny square far below, one loose slate, crosswind, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark, figures
 ```
 
 **T3 — La Loggia delle Campane** → `artworks/T3-ep11.png`
 ```
-top-down tabletop game tile of a sheltered belfry loggia among huge bronze bells, wind hushed here, clappers grazing metal into a low drone, a moment's shelter, 1889 gaslamp gothic, oil painting texture, faint lantern, bronze and grey palette with teal shadows --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, a sheltered belfry loggia among huge bronze bells, wind hushed here, clappers grazing metal into a low drone, a moment's shelter, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark, figures
 ```
 
 **T4 — Il Tetto a Schiena d'Asino** → `artworks/T4-ep11.png`
 ```
-top-down tabletop game tile of a steep double-pitched roof with a ridge like a blade of tiles, a rotten gutter at the eaves, shifting wind, dizzying pitch, 1889 gaslamp gothic, oil painting texture, moonlight on slate, grey and teal palette --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, a steep double-pitched roof with a ridge like a blade of tiles, a rotten gutter at the eaves, shifting wind, dizzying pitch, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark, figures
 ```
 
 **T5 — Il Ballatoio della Torre** → `artworks/T5-ep11.png`
 ```
-top-down tabletop game tile of a narrow gallery ringing a tower just below the belfry, a low balustrade, the whole city wheeling far below, wind-lashed and exposed, 1889 gaslamp gothic, oil painting texture, moonlight on the drop, cold grey and teal palette --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, a narrow gallery ringing a tower just below the belfry, a low balustrade, the whole city wheeling far below, wind-lashed and exposed, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark, figures
 ```
 
 **T6 — La Guglia** → `artworks/T6-ep11.png`
 ```
-top-down tabletop game tile of the topmost stone spire of a tower, ice-glazed and railless, the most exposed point in the city, a cornice over the void, screaming wind, 1889 gaslamp gothic, oil painting texture, pale moonlight on ice, iron grey and teal palette with one pale flare --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, the topmost stone spire of a tower, ice-glazed and railless, the most exposed point in the city, a cornice over the void, screaming wind, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark, figures
 ```
 
 ## Copertina (--ar 3:4)

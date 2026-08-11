@@ -149,32 +149,32 @@ full bleed dark fantasy still life, a journalist's hastily written letter on a n
 
 **T1 — La Sacrestia (uscita di servizio)** → `artworks/T1-ep9.png`
 ```
-top-down tabletop game tile of a small stone service courtyard behind a courthouse at night, a well, an overturned wheelbarrow, a blind wall on one side, an archway to the dark city, 1889 gaslamp gothic, oil painting texture, moonlight, cold stone grey and teal palette --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, a small stone service courtyard behind a courthouse at night, a well, an overturned wheelbarrow, a blind wall on one side, an archway to the dark city, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark, figures
 ```
 
 **T2 — Il Vicolo dei Tintori** → `artworks/T2-ep9.png`
 ```
-top-down tabletop game tile of a narrow dyers' alley at night, vats of dye with sickly reflections, dripping cloth hung overhead, two choke-point exits, 1889 gaslamp gothic, oil painting texture, low lantern light, murky teal and sepia palette --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, a narrow dyers' alley at night, vats of dye with sickly reflections, dripping cloth hung overhead, two choke-point exits, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark, figures
 ```
 
 **T3 — Il Ponte delle Catene** → `artworks/T3-ep9.png`
 ```
-top-down tabletop game tile of a single-arch stone bridge over black water at night, great rusted chains hanging at the sides, exposed and open like a stage, 1889 gaslamp gothic, oil painting texture, moonlight and mist, cold stone grey and teal palette --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, a single-arch stone bridge over black water at night, great rusted chains hanging at the sides, exposed and open like a stage, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark, figures
 ```
 
 **T4 — Il Mercato Coperto di Notte** → `artworks/T4-ep9.png`
 ```
-top-down tabletop game tile of a covered market at night, endless empty stalls, lowered awnings, shapes of mannequins and baskets that look like people, blind corners everywhere, 1889 gaslamp gothic, oil painting texture, faint lantern light, soot and sepia palette with teal shadows --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, a covered market at night, endless empty stalls, lowered awnings, shapes of mannequins and baskets that look like people, blind corners everywhere, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark, figures
 ```
 
 **T5 — La Salita dei Lampionai** → `artworks/T5-ep9.png`
 ```
-top-down tabletop game tile of a narrow stone staircase climbing between two blind walls at night, all the lamps unlit, wet slick steps, the smell of the river at the top, 1889 gaslamp gothic, oil painting texture, moonlight only, soot and teal palette --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, a narrow stone staircase climbing between two blind walls at night, all the lamps unlit, wet slick steps, the smell of the river at the top, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark, figures
 ```
 
 **T6 — Il Molo del Lume** → `artworks/T6-ep9.png`
 ```
-top-down tabletop game tile of a secret stone landing on a black canal, a low boat with two oarsmen and oars in the water, a shielded lantern, stone steps down to the water, 1889 gaslamp gothic, oil painting texture, one shielded lantern on black water, teal and soot palette with a gold glint --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, a secret stone landing on a black canal, a low boat with two oarsmen and oars in the water, a shielded lantern, stone steps down to the water, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark, figures
 ```
 
 ## Copertina (--ar 3:4)

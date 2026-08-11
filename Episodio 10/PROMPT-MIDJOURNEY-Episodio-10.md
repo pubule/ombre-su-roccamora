@@ -139,32 +139,32 @@ full bleed dark fantasy still life, a single polished gold wedding ring displaye
 
 **T1 — L'Ingresso (il tinello)** → `artworks/T1-ep10.png`
 ```
-top-down tabletop game tile of a small tenement kitchen-parlour abandoned mid-supper at night, two overturned chairs, a full cold plate, a smoking lamp, fresh pale plaster on the walls, 1889 gaslamp gothic, oil painting texture, one lamp, pale plaster and sepia palette with teal shadows --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, a small tenement kitchen-parlour abandoned mid-supper, two overturned chairs round a table with a full cold plate, a smoking lamp, fresh pale plaster on the walls, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark
 ```
 
 **T2 — La Scala che Ripete** → `artworks/T2-ep10.png`
 ```
-top-down tabletop game tile of a narrow steep staircase, new wood over an old frame, one darker rotten step, dim and oppressive, the walls seeming to murmur, 1889 gaslamp gothic, oil painting texture, faint lamp light, sepia and grey palette with teal shadows --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, a narrow steep staircase of new wood laid over an old frame, one darker rotten step, a cramped landing at each end, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark
 ```
 
 **T3 — Il Corridoio dei Nomi** → `artworks/T3-ep10.png`
 ```
-top-down tabletop game tile of a long blind corridor of closed doors at night, faint ghostly names drifting from the walls, one door ajar, oppressive length, 1889 gaslamp gothic, oil painting texture, moonlight down the hall, grey and teal palette --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, a long blind corridor lined with closed doors, one door ajar, no window at either end, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark
 ```
 
 **T4 — La Camera che Detta** → `artworks/T4-ep10.png`
 ```
-top-down tabletop game tile of a first-floor bedroom, an unmade bed, a shuttered window, one blind wall toward the courtyard weeping lime, a weakened ceiling beam, 1889 gaslamp gothic, oil painting texture, candlelight, pale plaster and sepia palette with teal shadows --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, a first-floor bedroom with an unmade bed and a shuttered window, one blind wall toward the courtyard weeping lime, a cracked ceiling beam, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark
 ```
 
 **T5 — Il Sottoscala** → `artworks/T5-ep10.png`
 ```
-top-down tabletop game tile of a cramped understairs passage descending to a damp brick cellar, sacks of lime, buckets, fresh rubble, a door to a rear yard, 1889 gaslamp gothic, oil painting texture, lantern light on lime dust, chalk white and soot palette with teal shadows --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, a cramped understairs passage descending to a damp brick cellar, sacks of lime, buckets and fresh rubble, a door to a rear yard, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark
 ```
 
 **T6 — L'Intercapedine** → `artworks/T6-ep10.png`
 ```
-top-down tabletop game tile of a bedroom seen from the cavity side, a broken double wall with plaster fallen away, the pale hint of what lime preserved, a fallen sledgehammer, dust everywhere, no explicit gore, 1889 gaslamp gothic, oil painting texture, one lantern in the dust, chalk white and grey palette with teal shadows --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid, monster
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, a bedroom opened from the cavity side, a broken double wall with plaster fallen away, a fallen sledgehammer and dust over everything, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark
 ```
 
 ## Copertina (--ar 3:4)

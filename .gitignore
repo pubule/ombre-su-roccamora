@@ -17,3 +17,8 @@ webapp/dist/
 
 # log di playtest: rigenerabili a comando, non vanno versionati
 logs/playtest/
+
+# midjourney-artwork.mjs: sessione del browser e le 3 varianti scartate
+.midjourney-profilo/
+.wrangler/
+logs/candidati/

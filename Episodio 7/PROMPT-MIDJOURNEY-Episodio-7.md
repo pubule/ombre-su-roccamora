@@ -164,42 +164,42 @@ full bleed dark fantasy still life, a coiled service rope with an iron hook tied
 
 **T1 — Il Cancello e il Carro** → `artworks/T1-ep7.png`
 ```
-top-down tabletop game tile of a construction site entrance yard at night, a lime cart by the gate, a guard hut, sacks and shovels, scaffolding shadows falling across packed earth, muffled atmosphere, 1889 gaslamp gothic, oil painting texture, shaded lantern light, bone-white lime and deep teal palette with gold accents --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, a construction site entrance yard at night, a lime cart by the gate, a guard hut, sacks and shovels, scaffolding shadows falling across packed earth, muffled atmosphere, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark, figures
 ```
 
 **T2 — Il Piano Terra** → `artworks/T2-ep7.png`
 ```
-top-down tabletop game tile of the ground floor of an unfinished building, forest of timber props, open lime pits glowing pale, a still cement mixer, a freshly walled-up staircase on the west side, fresh mortar badly smoothed, 1889 gaslamp gothic, oil painting texture, lantern light, raw timber and bone-white palette with teal shadows --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, the ground floor of an unfinished building, forest of timber props, open lime pits glowing pale, a still cement mixer, a freshly walled-up staircase on the west side, fresh mortar badly smoothed, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark, figures
 ```
 
 **T3P — I Ponteggi di Ponente** → `artworks/T3P-ep7.png`
 ```
-top-down tabletop game tile of wooden scaffolding ramps climbing a building facade at night, loose planks, thick rope knots, torn canvas flapping, dizzying gap to the courtyard below in one corner, 1889 gaslamp gothic, oil painting texture, moonlight and wind, raw timber and deep teal palette --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, wooden scaffolding ramps climbing a building facade at night, loose planks, thick rope knots, torn canvas flapping, dizzying gap to the courtyard below in one corner, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark, figures
 ```
 
 **T4P — Il Castello di Tavole** → `artworks/T4P-ep7.png`
 ```
-top-down tabletop game tile of a narrow cantilevered scaffolding platform at the top floor, planks overhanging a black void, a torn tarpaulin, a low breach in the fresh wall leading inside the building, 1889 gaslamp gothic, oil painting texture, moonlight, raw timber and deep teal palette with one dark opening --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, a narrow cantilevered scaffolding platform at the top floor, planks overhanging a black void, a torn tarpaulin, a low breach in the fresh wall leading inside the building, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark, figures
 ```
 
 **T3I — L'Intercapedine di Levante** → `artworks/T3I-ep7.png`
 ```
-top-down tabletop game tile of a crawl space between two parallel brick walls, fresh plaster on both sides, a passage two shoulders wide rising gently, chalk marks every few steps, oppressive muffled darkness, 1889 gaslamp gothic, oil painting texture, single lantern glow, bone-white and deep teal palette --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, a crawl space between two parallel brick walls, fresh plaster on both sides, a passage two shoulders wide rising gently, chalk marks every few steps, oppressive muffled darkness, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark, figures
 ```
 
 **T4I — Il Vano delle Canne Morte** → `artworks/T4I-ep7.png`
 ```
-top-down tabletop game tile of a shaft where a bundle of dead chimney flues rises inside a wall, iron rungs, a greased pulley with buckets smelling of bread and candle wax, a hidden dumbwaiter for feeding someone above, 1889 gaslamp gothic, oil painting texture, candlelight from above, sepia and teal palette --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, a shaft where a bundle of dead chimney flues rises inside a wall, iron rungs, a greased pulley with buckets smelling of bread and candle wax, a hidden dumbwaiter for feeding someone above, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark, figures
 ```
 
 **T5I — La Scala di Servizio** → `artworks/T5I-ep7.png`
 ```
-top-down tabletop game tile of a narrow spiral iron service staircase in a wall cavity, steps lined with felt for silent climbing, chalk marks with an arrow pointing to a low door at the top, lime dust like snow, 1889 gaslamp gothic, oil painting texture, shaded lantern light, iron grey and bone-white palette with teal shadows --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, a narrow spiral iron service staircase in a wall cavity, steps lined with felt for silent climbing, chalk marks with an arrow pointing to a low door at the top, lime dust like snow, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark, figures
 ```
 
 **T6 — L'Intercapedine del Terzo Piano** → `artworks/T6-ep7.png`
 ```
-top-down tabletop game tile of a long low hidden room between double walls, grey plaster on every side, slag sacks used as furniture, a cot and a tin plate, a chair with cut ropes at the center, tally marks chalked on the wall, total muffled silence, 1889 gaslamp gothic, oil painting texture, single candle light, bone-white lime and deep teal palette --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, a long low hidden room between double walls, grey plaster on every side, slag sacks used as furniture, a cot and a tin plate, a chair with cut ropes at the center, tally marks chalked on the wall, total muffled silence, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark, figures
 ```
 
 ## Copertina (--ar 3:4)

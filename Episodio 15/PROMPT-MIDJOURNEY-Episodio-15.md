@@ -40,57 +40,57 @@ full bleed dark fantasy painting, two silent scene-setters in a mansion at night
 
 **«La prova che svanisce»** (insidia) → `artworks/La prova che svanisce.png`
 ```
-full bleed dark fantasy painting, a rag wiping across a surface and a fresh clue disappearing under it, evidence erased mid-glance, 1889 gaslamp gothic, oil painting, lamplight on a vanishing ink stain, sepia and teal palette --ar 3:4 --style raw --no frame, border, card, text, letters, watermark, figures
+full bleed dark fantasy painting, still life close-up of a writing desk, a pale rag lying across half of an ink-stained letter, the visible half of the clue smeared to a blank grey stain, empty room, nobody present, 1889 gaslamp gothic, oil painting, lamplight on a vanishing ink stain, sepia and teal palette --ar 3:4 --style raw --no frame, border, card, text, letters, watermark, figures, person, hand, hands
 ```
 
 **«Lo specchio della scena»** (insidia) → `artworks/Lo specchio della scena.png`
 ```
-full bleed dark fantasy painting, a large mirror multiplying a perfectly staged room, disorientation of what is real and what reflected, 1889 gaslamp gothic, oil painting, lamplight doubled in glass, sepia and teal palette --ar 3:4 --style raw --no frame, border, card, text, letters, watermark, figures
+full bleed dark fantasy painting, an ornate empty parlor with a tall gilt mirror on the far wall, the mirror's reflection showing the same furniture rearranged slightly wrong, chairs and candlesticks doubled at odd angles, nobody in the room, 1889 gaslamp gothic, oil painting, lamplight doubled in glass, sepia and teal palette --ar 3:4 --style raw --no frame, border, card, text, letters, watermark, figures, person, people, face, faces
 ```
 
 **«Il pavimento lucidato»** (insidia) → `artworks/Il pavimento lucidato.png`
 ```
-full bleed dark fantasy painting, a freshly waxed parquet floor gleaming like a mirror, a foot slipping across the polished hall, 1889 gaslamp gothic, oil painting, lamplight sliding on wax, sepia and teal palette --ar 3:4 --style raw --no frame, border, card, text, letters, watermark, figures
+full bleed dark fantasy painting, a freshly waxed parquet floor gleaming like a mirror in an empty hallway, a single skid mark smeared across the polish, nobody present, 1889 gaslamp gothic, oil painting, lamplight sliding on wax, sepia and teal palette --ar 3:4 --style raw --no frame, border, card, text, letters, watermark, figures, person, people, foot, feet
 ```
 
 **«La porta che si chiude»** (insidia) → `artworks/La porta che si chiude.png`
 ```
-full bleed dark fantasy painting, a heavy door swinging softly shut behind you in a dim mansion, the sense of being exactly where they want you, 1889 gaslamp gothic, oil painting, a sliver of lamplight narrowing, sepia and teal palette --ar 3:4 --style raw --no frame, border, card, text, letters, watermark, figures
+full bleed dark fantasy painting, a heavy carved door swinging softly shut in an empty dim mansion hallway, a narrowing sliver of lamplight from the next room, nobody present, 1889 gaslamp gothic, oil painting, sepia and teal palette --ar 3:4 --style raw --no frame, border, card, text, letters, watermark, figures, person, people
 ```
 
 **«Il faro della ronda»** (insidia) → `artworks/Il faro della ronda.png`
 ```
-full bleed dark fantasy painting, a beam of lantern light from the courtyard sweeping through a mansion window, the gendarmerie patrol outside, 1889 gaslamp gothic, oil painting, a hard sweeping shaft of light in the dark, teal and sepia palette --ar 3:4 --style raw --no frame, border, card, text, letters, watermark, figures
+full bleed dark fantasy painting, an empty mansion window at night, a hard beam of lantern light sweeping across the room from outside, tiny distant silhouettes of a patrol crossing far below in the courtyard, nobody inside the room, 1889 gaslamp gothic, oil painting, a hard sweeping shaft of light in the dark, teal and sepia palette --ar 3:4 --style raw --no frame, border, card, text, letters, watermark, figures, person, people, close-up portrait
 ```
 
 **«La stanza rifatta»** (insidia) → `artworks/La stanza rifatta.png`
 ```
-full bleed dark fantasy painting, a room you already crossed now subtly rearranged and unfamiliar, furniture and clues moved, 1889 gaslamp gothic, oil painting, lamplight on a changed room, sepia and teal palette --ar 3:4 --style raw --no frame, border, card, text, letters, watermark, figures
+full bleed dark fantasy painting, an empty mansion parlor, chairs and a small table facing the wrong way, a portrait hung crooked, papers moved to the wrong side of the desk, subtly wrong and unfamiliar, nobody present, 1889 gaslamp gothic, oil painting, lamplight on a changed room, sepia and teal palette --ar 3:4 --style raw --no frame, border, card, text, letters, watermark, figures, person, people, skull, skeleton, bones
 ```
 
 **«Passi nel cortile»** (crescendo 1) → `artworks/Passi nel cortile.png`
 ```
-full bleed dark fantasy painting, footsteps on gravel and approaching lanterns seen from a mansion window at night, the cordon beginning to move, 1889 gaslamp gothic, oil painting, distant lantern glow on gravel, sepia and teal palette --ar 3:4 --style raw --no frame, border, card, text, letters, watermark, figures
+full bleed dark fantasy painting, a view down through a tall mansion window onto an empty gravel courtyard at night, tiny distant lantern lights scattered across the gravel far below, no one inside the room, 1889 gaslamp gothic, oil painting, distant lantern glow on gravel, sepia and teal palette --ar 3:4 --style raw --no frame, border, card, text, letters, watermark, figures, person, people, portrait, close-up
 ```
 
 **«Il cordone si stringe»** (crescendo 2) → `artworks/Il cordone si stringe.png`
 ```
-full bleed dark fantasy painting, gendarmes closing every exit around a mansion at night, a tightening ring of lanterns, less and less time, 1889 gaslamp gothic, oil painting, a ring of cold lights closing in, teal and sepia palette --ar 3:4 --style raw --no frame, border, card, text, letters, watermark, figures
+full bleed dark fantasy painting, an aerial view of a mansion at night surrounded by a tightening ring of distant lantern lights in the fog, every exit blocked, less and less time, no one in the foreground, 1889 gaslamp gothic, oil painting, a ring of cold lights closing in, teal and sepia palette --ar 3:4 --style raw --no frame, border, card, text, letters, watermark, figures, person, people, close-up portrait
 ```
 
 **«La Gendarmeria alla porta»** (crescendo 3) → `artworks/La Gendarmeria alla porta.png`
 ```
-full bleed dark fantasy painting, a fist knocking at a grand mansion door at night, gendarmes about to enter, moments left, 1889 gaslamp gothic, oil painting, lantern light on the great door, sepia and teal palette --ar 3:4 --style raw --no frame, border, card, text, letters, watermark, figures
+full bleed dark fantasy painting, extreme close-up of a gloved fist knocking hard against a grand carved mansion door at night, only the fist and door visible, no face, no body, moments left, 1889 gaslamp gothic, oil painting, lantern light on the great door, sepia and teal palette --ar 3:4 --style raw --no frame, border, card, text, letters, watermark, face, body, full figure
 ```
 
 **«Il sigillo di ceralacca»** (crescendo 4) → `artworks/Il sigillo di ceralacca.png`
 ```
-full bleed dark fantasy painting, red sealing wax dripping onto an official record closing a case, the scene sealed shut, untouchable, official, 1889 gaslamp gothic, oil painting, red wax glowing against dark paper, red and sepia palette with teal shadows --ar 3:4 --style raw --no frame, border, card, text, letters, watermark, figures
+full bleed dark fantasy painting, extreme macro close-up of a puddle of red sealing wax cooling on a rolled parchment, a brass stamp lying on its side next to it, tabletop fills the whole frame, sealed shut, untouchable, 1889 gaslamp gothic, oil painting, red wax glowing against dark paper, red and sepia palette with teal shadows --ar 3:4 --style raw --no frame, border, card, text, letters, watermark, figures, person, people, hand, hands, face, body, cloak, robe
 ```
 
 **«La casa che tace»** (quiete) → `artworks/La casa che tace.png`
 ```
-full bleed dark fantasy painting, a still mansion interior, only a ticking clock and the rustle of rags, a held breath in the staged silence, 1889 gaslamp gothic, oil painting, calm lamplight, silver-grey and teal palette --ar 3:4 --style raw --no frame, border, card, text, letters, watermark, figures
+full bleed dark fantasy painting, an empty still mansion parlor at night, a tall grandfather clock, empty armchairs facing each other, a folded newspaper on a side table, calm and undisturbed, no cloth draped on any furniture, 1889 gaslamp gothic, oil painting, calm lamplight, silver-grey and teal palette --ar 3:4 --style raw --no frame, border, card, text, letters, watermark, figures, person, people, portrait, shroud, ghost, cloak, draped cloth, seated figure
 ```
 
 **«Una finestra sul retro»** (favore) → `artworks/Una finestra sul retro.png`
@@ -105,7 +105,7 @@ full bleed dark fantasy painting, furniture recently rearranged cluttering a man
 
 **«Un colpo al buio»** (danno) → `artworks/Un colpo al buio.png`
 ```
-full bleed dark fantasy painting, a scene-setter caught in the act lashing out with a desperate blow in the dark, 1889 gaslamp gothic, oil painting, a sudden strike in lamplit gloom, sepia and teal palette --ar 3:4 --style raw --no frame, border, card, text, letters, watermark, figures
+full bleed dark fantasy painting, one ordinary mansion servant caught in the act, swinging a heavy candlestick in a desperate blow in the dark, startled human face, no mask, no fangs, 1889 gaslamp gothic, oil painting, a sudden strike in lamplit gloom, sepia and teal palette --ar 3:4 --style raw --no frame, border, card, text, letters, watermark, monster, vampire, fangs, glowing eyes, claws
 ```
 
 ## Soggetti — Oggetti (--ar 3:4, nature morte)
@@ -132,39 +132,39 @@ full bleed dark fantasy still life, a typed witness deposition ready for the rec
 
 **Il Sigillo «C.B.»** → `artworks/Il Sigillo intruso.png`
 ```
-full bleed dark fantasy still life, a red wax seal stamped "C.B.", a planted intruder among a man's belongings, not a signature but an accusation, 1889 gaslamp gothic, oil painting, lamp on red wax, red and sepia palette with teal shadows --ar 3:4 --style raw --no frame, border, card, text, letters, watermark, figures
+full bleed dark fantasy still life, a red wax seal stamped "C.B." resting on top of an ordinary man's letters and personal effects, out of place among them, nobody present, empty room, 1889 gaslamp gothic, oil painting, lamp on red wax, red and sepia palette with teal shadows --ar 3:4 --style raw --no frame, border, card, watermark, figures, person, people, skull, blood, dagger, weapon
 ```
 
 ## Tessere della spedizione (--ar 1:1, viste dall'alto)
 
 **T1 — Il Cancello** → `artworks/T1-ep15.png`
 ```
-top-down tabletop game tile of a mansion gate and gravel drive at night, a boundary wall, a tightening cordon of gendarme lanterns approaching, one lit window, 1889 gaslamp gothic, oil painting texture, cold lantern light, sepia and teal palette --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, a mansion gate and gravel drive at night, a boundary wall, a tightening cordon of gendarme lanterns approaching, one lit window, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark, figures
 ```
 
 **T2 — L'Atrio** → `artworks/T2-ep15.png`
 ```
-top-down tabletop game tile of a perfect mansion entrance hall, every object precisely in place, too perfect, faint fresh clues glinting, 1889 gaslamp gothic, oil painting texture, lamplight on polished floor, sepia and teal palette --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, a perfect mansion entrance hall, every object precisely in place, too perfect, faint fresh clues glinting, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark, figures
 ```
 
 **T3 — Lo Studio di Braga** → `artworks/T3-ep15.png`
 ```
-top-down tabletop game tile of a professor's study staged as a crime scene, a drawer left open on purpose, papers arranged to be read in order, fresh ink on old letters, 1889 gaslamp gothic, oil painting texture, one lamp on the desk, sepia and teal palette --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, a professor's study staged as a crime scene, a drawer left open on purpose, papers arranged to be read in order, fresh ink on old letters, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark, figures
 ```
 
 **T4 — La Galleria dei Cimeli** → `artworks/T4-ep15.png`
 ```
-top-down tabletop game tile of a mansion gallery lined with phonograph records and relics, scene-setters at work erasing traces among the displays, 1889 gaslamp gothic, oil painting texture, lamplight down the gallery, sepia and teal palette --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, a mansion gallery lined with phonograph records and relics, scene-setters at work erasing traces among the displays, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark, figures
 ```
 
 **T5 — Le Scale di Servizio** → `artworks/T5-ep15.png`
 ```
-top-down tabletop game tile of a narrow dark servants' staircase, the scene-setters' way in and out, a choke point on the steps, 1889 gaslamp gothic, oil painting texture, dim lantern on the stairs, grey and teal palette --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, a narrow dark servants' staircase, the scene-setters' way in and out, a choke point on the steps, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark, figures
 ```
 
 **T6 — Lo Studio Segreto** → `artworks/T6-ep15.png`
 ```
-top-down tabletop game tile of a hidden study no inventory records, a table where a last false piece of evidence is being placed, papers and sealing wax, 1889 gaslamp gothic, oil painting texture, one cold lamp on the table, sepia and teal palette --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, a hidden study no inventory records, a table where a last false piece of evidence is being placed, papers and sealing wax, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark, figures
 ```
 
 ## Copertina (--ar 3:4)

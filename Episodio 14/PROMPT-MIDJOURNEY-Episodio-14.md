@@ -122,7 +122,7 @@ full bleed dark fantasy painting, a length of cornice breaking away under a grou
 
 **La Parola dei Tetti** → `artworks/Parola dei Tetti.png`
 ```
-full bleed dark fantasy still life, a thieves' recognition token, a carved sign of the rooftop gang, a safe-conduct worth more than a blade, 1889 gaslamp gothic, oil painting, one lamp on carved wood and metal, sepia and teal palette --ar 3:4 --style raw --no frame, border, card, text, letters, watermark, figures
+full bleed dark fantasy still life, a small round wooden coin-sized token with a rooftop-gang mark carved into it, resting on a stone ledge, a safe-conduct worth more than a blade, 1889 gaslamp gothic, oil painting, moonlight and one ember glow, sepia and teal palette --ar 3:4 --style raw --no frame, border, card, text, letters, watermark, figures, lantern, lamp
 ```
 
 **I Ramponi** → `artworks/I Ramponi.png`
@@ -149,32 +149,32 @@ full bleed dark fantasy still life, a venomous letter threatening to "unmask" a 
 
 **T1 — La Gronda** → `artworks/T1-ep14.png`
 ```
-top-down tabletop game tile of a rooftop gutter path at night, roofs stretching under the moon, the city a distant murmur below, a first sheer gap to the next slope, 1889 gaslamp gothic, oil painting texture, cold moonlight, slate-grey and teal palette --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, a rooftop gutter path at night, roofs stretching under the moon, the city a distant murmur below, a first sheer gap to the next slope, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark, figures
 ```
 
 **T2 — Il Comignolo** → `artworks/T2-ep14.png`
 ```
-top-down tabletop game tile of a narrow exposed passage around a blackened chimney, a creaking gutter, the void of the street at the edge, 1889 gaslamp gothic, oil painting texture, moonlight on tiles and brick, slate-grey and teal palette --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, a narrow exposed passage around a blackened chimney, a creaking gutter, the void of the street at the edge, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark, figures
 ```
 
 **T3 — La Terrazza dei Panni** → `artworks/T3-ep14.png`
 ```
-top-down tabletop game tile of a rooftop terrace hung with drying white sheets, moving shadows between the laundry, cover and concealment, 1889 gaslamp gothic, oil painting texture, moonlight through white cloth, silver-grey and teal palette --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, a rooftop terrace hung with drying white sheets, moving shadows between the laundry, cover and concealment, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark, figures
 ```
 
 **T4 — L'Abbaino** → `artworks/T4-ep14.png`
 ```
-top-down tabletop game tile of a jutting dormer half-open on the dark of an attic, a ridge above where a watching figure would stand, 1889 gaslamp gothic, oil painting texture, faint glow from the dormer, slate-grey and teal palette --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, a jutting dormer half-open on the dark of an attic, a ridge above where a watching figure would stand, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark, figures
 ```
 
 **T5 — Il Lucernario** → `artworks/T5-ep14.png`
 ```
-top-down tabletop game tile of a large grimy leaded skylight set in a rooftop, dark of a loft below the glass, a trap of vitreous panes, 1889 gaslamp gothic, oil painting texture, weak light through dirty glass, grey and teal palette --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, a large grimy leaded skylight set in a rooftop, dark of a loft below the glass, a trap of vitreous panes, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark, figures
 ```
 
 **T6 — L'Attico del Corso** → `artworks/T6-ep14.png`
 ```
-top-down tabletop game tile of a high rooftop attic under open sky, stolen goods stacked and packed, a chimney ridge at the brink of the void, 1889 gaslamp gothic, oil painting texture, cold moonlight and one lantern, slate-grey and teal palette --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, a high rooftop attic under open sky, stolen goods stacked and packed, a chimney ridge at the brink of the void, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark, figures
 ```
 
 ## Copertina (--ar 3:4)

@@ -149,32 +149,32 @@ full bleed dark fantasy still life, an unsigned letter accusing a brother of the
 
 **T1 — L'Archivio Violato** → `artworks/T1-ep12.png`
 ```
-top-down tabletop game tile of a society's archive hall at night, an open cabinet emptied of copies, intact wax seals scattered like empty shells on the floor, a window onto black canal water, 1889 gaslamp gothic, oil painting texture, one lamp, sepia and teal palette --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, a society's archive hall at night, an open cabinet emptied of copies, intact wax seals scattered like empty shells on the floor, a window onto black canal water, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark, figures
 ```
 
 **T2 — Il Ponte dei Sospiri** → `artworks/T2-ep12.png`
 ```
-top-down tabletop game tile of a covered stone canal bridge at night, a funnel of masonry over black water, lantern glow at each mouth, an ambush spot, 1889 gaslamp gothic, oil painting texture, low lantern light, sepia and teal palette --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, a covered stone canal bridge at night, a funnel of masonry over black water, lantern glow at each mouth, an ambush spot, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark, figures
 ```
 
 **T3 — La Fondamenta Stretta** → `artworks/T3-ep12.png`
 ```
-top-down tabletop game tile of a narrow canal-side fondamenta, water at the edge of the pavement, fishing nets strung across as a snare, 1889 gaslamp gothic, oil painting texture, moonlight on wet stone, grey and teal palette --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, a narrow canal-side fondamenta, water at the edge of the pavement, fishing nets strung across as a snare, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark, figures
 ```
 
 **T4 — Il Canale della Nebbia** → `artworks/T4-ep12.png`
 ```
-top-down tabletop game tile of a wide canal swallowed by thick fog, banks vanishing, a single oar-ripple in the white, black water, 1889 gaslamp gothic, oil painting texture, diffuse moonlight in mist, grey and teal palette --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, a wide canal swallowed by thick fog, banks vanishing, a single oar-ripple in the white, black water, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark, figures
 ```
 
 **T5 — Il Sottoportico** → `artworks/T5-ep12.png`
 ```
-top-down tabletop game tile of a last covered passage before a canal landing, an archway over dark water, the final chokepoint, 1889 gaslamp gothic, oil painting texture, lantern glow under the arch, sepia and teal palette --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, a last covered passage before a canal landing, an archway over dark water, the final chokepoint, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark, figures
 ```
 
 **T6 — Il Cimitero delle Barche** → `artworks/T6-ep12.png`
 ```
-top-down tabletop game tile of a dead canal bend where barges rot in the fog, capsized hulls, an anonymous boat waiting in the mist for an exchange, black water like a shroud, 1889 gaslamp gothic, oil painting texture, faint lantern in fog, grey and teal palette --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, a dead canal bend where barges rot in the fog, capsized hulls, an anonymous boat waiting in the mist for an exchange, black water like a shroud, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark, figures
 ```
 
 ## Copertina (--ar 3:4)

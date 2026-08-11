@@ -124,32 +124,32 @@ full bleed dark fantasy still life, a note marking an easy way into the archive,
 
 **T1 — L'Ingresso Sigillato** → `artworks/T1-ep19.png`
 ```
-top-down tabletop game tile of a civic archive entrance under wax seals and a new padlock at night, ribbons across the doors, one weak seal, 1889 gaslamp gothic, oil painting texture, cold lantern light on wax, grey and teal palette --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, a civic archive entrance under wax seals and a new padlock at night, ribbons across the doors, one weak seal, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark, figures
 ```
 
 **T2 — L'Atrio dei Gendarmi** → `artworks/T2-ep19.png`
 ```
-top-down tabletop game tile of an archive entrance hall with a night guard post, a few lanterns, sealed crates, 1889 gaslamp gothic, oil painting texture, cold lamplight on marble, grey-blue and teal palette --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, an archive entrance hall with a night guard post, a few lanterns, sealed crates, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark, figures
 ```
 
 **T3 — Le Sale di Catalogazione** → `artworks/T3-ep19.png`
 ```
-top-down tabletop game tile of cataloguing rooms piled with case-folders and labelled relics, a society's life sorted by strangers, 1889 gaslamp gothic, oil painting texture, lantern light over stacks, sepia and teal palette --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, cataloguing rooms piled with case-folders and labelled relics, a society's life sorted by strangers, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark, figures
 ```
 
 **T4 — Il Corridoio dei Sigilli** → `artworks/T4-ep19.png`
 ```
-top-down tabletop game tile of a long corridor of sealed deposit doors, a lone measured figure approaching at the far end, 1889 gaslamp gothic, oil painting texture, dim lamplight down the corridor, grey and teal palette --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, a long corridor of sealed deposit doors, a lone measured figure approaching at the far end, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark, figures
 ```
 
 **T5 — La Sala di Lettura** → `artworks/T5-ep19.png`
 ```
-top-down tabletop game tile of a grand reading room, long tables and green-shaded lamps, a place for a confrontation of words, 1889 gaslamp gothic, oil painting texture, green reading-lamp glow, sepia and teal palette --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, a grand reading room, long tables and green-shaded lamps, a place for a confrontation of words, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark, figures
 ```
 
 **T6 — Il Deposito Reperti** → `artworks/T6-ep19.png`
 ```
-top-down tabletop game tile of an evidence deposit with fresh wax seals everywhere, one old dossier catalogued among them, 1889 gaslamp gothic, oil painting texture, one lamp on the sealed shelves, sepia and teal palette --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, an evidence deposit with fresh wax seals everywhere, one old dossier catalogued among them, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark, figures
 ```
 
 ## Copertina (--ar 3:4)

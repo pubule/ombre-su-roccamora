@@ -164,32 +164,32 @@ full bleed dark fantasy still life, a notary's office rubber stamp and inkpad on
 
 **T1 — Il Cortile del Molino** → `artworks/T1-ep13.png`
 ```
-top-down tabletop game tile of a paper mill courtyard at night, the great waterwheel still on black water, a waiting carriage with harnessed horses, guards at the gate, 1889 gaslamp gothic, oil painting texture, lantern light, sepia and teal palette --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, a paper mill courtyard at night, the great waterwheel still on black water, a waiting carriage with harnessed horses, guards at the gate, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark, figures
 ```
 
 **T2 — La Roggia** → `artworks/T2-ep13.png`
 ```
-top-down tabletop game tile of a fast black mill-race cutting through a paper mill, slick plank walkways across the current toward the wheel, 1889 gaslamp gothic, oil painting texture, moonlight on black water, grey and teal palette --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, a fast black mill-race cutting through a paper mill, slick plank walkways across the current toward the wheel, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark, figures
 ```
 
 **T3 — La Sala delle Macine** → `artworks/T3-ep13.png`
 ```
-top-down tabletop game tile of a paper mill's grinding hall, great gears and stones pounding rags, belts and shafts, deafening machinery, 1889 gaslamp gothic, oil painting texture, faint lantern in the din, iron grey and sepia palette with teal shadows --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, a paper mill's grinding hall, great gears and stones pounding rags, belts and shafts, deafening machinery, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark, figures
 ```
 
 **T4 — I Magazzini di Stracci** → `artworks/T4-ep13.png`
 ```
-top-down tabletop game tile of a rag storeroom in a paper mill, mountains of rags to the ceiling, dust-thick air, oil smell, the first threat of fire, 1889 gaslamp gothic, oil painting texture, one lantern in the dust, sepia and teal palette --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, a rag storeroom in a paper mill, mountains of rags to the ceiling, dust-thick air, oil smell, the first threat of fire, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark, figures
 ```
 
 **T5 — L'Essiccatoio** → `artworks/T5-ep13.png`
 ```
-top-down tabletop game tile of a paper drying loft, a maze of frames and hanging sheets, narrow corridors of pendant paper, beautiful and flammable, red glow of the press room beyond, 1889 gaslamp gothic, oil painting texture, faint firelight, sepia and ember-red palette with teal shadows --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, a paper drying loft, a maze of frames and hanging sheets, narrow corridors of pendant paper, beautiful and flammable, red glow of the press room beyond, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark, figures
 ```
 
 **T6 — La Sala del Torchio** → `artworks/T6-ep13.png`
 ```
-top-down tabletop game tile of a paper mill press room, a great iron-and-wood press and a strongbox of registers ringed with heaped rags ready to burn, firelight creeping in, 1889 gaslamp gothic, oil painting texture, red fire glow and lantern, ember-red and sepia palette with teal shadows --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, a paper mill press room, a great iron-and-wood press and a strongbox of registers ringed with heaped rags ready to burn, firelight creeping in, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark, figures
 ```
 
 ## Copertina (--ar 3:4)

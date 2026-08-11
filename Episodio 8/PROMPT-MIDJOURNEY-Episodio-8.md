@@ -144,32 +144,32 @@ full bleed dark fantasy still life, a small reinforced strongbox with new padloc
 
 **T1 — Il Molo in Disarmo** → `artworks/T1-ep8.png`
 ```
-top-down tabletop game tile of a decommissioned pier at night, beached barge hulls, rusted bollards, a chain across the entrance, a sentry hut, black still water on one side, 1889 gaslamp gothic, oil painting texture, moonlight, soot black and teal palette --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, a decommissioned pier at night, beached barge hulls, rusted bollards, a chain across the entrance, a sentry hut, black still water on one side, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark, figures
 ```
 
 **T2 — La Tettoia delle Chiatte** → `artworks/T2-ep8.png`
 ```
-top-down tabletop game tile of a great open shed over beached barges, nets stretched like walls, stacks of fish crates with one reinforced pile with new padlocks, tar and rope, 1889 gaslamp gothic, oil painting texture, lantern light, raw timber and soot palette with teal shadows --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, a great open shed over beached barges, nets stretched like walls, stacks of fish crates with one reinforced pile with new padlocks, tar and rope, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark, figures
 ```
 
 **T3 — Il Magazzino del Carbone** → `artworks/T3-ep8.png`
 ```
-top-down tabletop game tile of a coal warehouse interior, mountains of sacks up to the beams, black dust swallowing lantern light, new floorboards in one corner sounding hollow, 1889 gaslamp gothic, oil painting texture, single lantern glow, soot black palette with one gold flame --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, a coal warehouse interior, mountains of sacks up to the beams, black dust swallowing lantern light, new floorboards in one corner sounding hollow, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark, figures
 ```
 
 **T4 — La Sala del Crogiolo** → `artworks/T4-ep8.png`
 ```
-top-down tabletop game tile of a clandestine smelting room, a glowing crucible at center, ingot molds in rows, an apothecary balance on a spotless bench, an open strongbox beside the casting bench, 1889 gaslamp gothic, oil painting texture, forge glow, antique gold and soot black palette --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, a clandestine smelting room, a glowing crucible at center, ingot molds in rows, an apothecary balance on a spotless bench, an open strongbox beside the casting bench, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark, figures
 ```
 
 **T5 — L'Ufficio del Pesatore** → `artworks/T5-ep8.png`
 ```
-top-down tabletop game tile of a weigher's office, ledgers bound like missals, a courier logbook open on a desk, a bone abacus, a nailed-down carpet hiding a floor cache, a cold stove, 1889 gaslamp gothic, oil painting texture, green lamp light, sepia and soot palette with teal shadows --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, a weigher's office, ledgers bound like missals, a courier logbook open on a desk, a bone abacus, a nailed-down carpet hiding a floor cache, a cold stove, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark, figures
 ```
 
 **T6 — La Porta d'Acqua del Deposito** → `artworks/T6-ep8.png`
 ```
-top-down tabletop game tile of an internal dock gate on a black river, a half-loaded barge under a tarp, a loading crane, ingots hidden under coal sacks, the water gate open to the night, 1889 gaslamp gothic, oil painting texture, moonlight on black water, teal and soot palette with gold glints --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, an internal dock gate on a black river, a half-loaded barge under a tarp, a loading crane, ingots hidden under coal sacks, the water gate open to the night, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark, figures
 ```
 
 ## Copertina (--ar 3:4)

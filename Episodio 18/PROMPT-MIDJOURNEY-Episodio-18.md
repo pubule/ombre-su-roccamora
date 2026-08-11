@@ -159,32 +159,32 @@ full bleed dark fantasy still life, a portrait of an imaginary rival on an easel
 
 **T1 — La Sala dell'Assemblea** → `artworks/T1-ep18.png`
 ```
-top-down tabletop game tile of a society assembly hall, brothers seated in a semicircle, a table of evidence at center, the president standing at his place, one lamp just going out, 1889 gaslamp gothic, oil painting texture, warm light beginning to fail, sepia and gold palette with teal shadows --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, a society assembly hall, brothers seated in a semicircle, a table of evidence at center, the president standing at his place, one lamp just going out, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark, figures
 ```
 
 **T2 — Il Corridoio dei Ritratti** → `artworks/T2-ep18.png`
 ```
-top-down tabletop game tile of a long portrait corridor, gilded frames, lamps going out one after another down its length, 1889 gaslamp gothic, oil painting texture, receding warm-to-dark light, sepia and gold fading to teal --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, a long portrait corridor, gilded frames, lamps going out one after another down its length, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark, figures
 ```
 
 **T3 — La Biblioteca** → `artworks/T3-ep18.png`
 ```
-top-down tabletop game tile of a grand library, shelves to the ceiling, one bookcase rotated open on a hidden passage, 1889 gaslamp gothic, oil painting texture, one lamp on the secret door, sepia and teal palette --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, a grand library, shelves to the ceiling, one bookcase rotated open on a hidden passage, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark, figures
 ```
 
 **T4 — Lo Studio Privato di M.** → `artworks/T4-ep18.png`
 ```
-top-down tabletop game tile of the president's private study, a portrait facing a mirror, a writing desk, a gap in the wall where a passage opens, 1889 gaslamp gothic, oil painting texture, one lamp between mirror and portrait, sepia and teal palette with red wax --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, the president's private study, a portrait facing a mirror, a writing desk, a gap in the wall where a passage opens, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark, figures
 ```
 
 **T5 — La Scalinata** → `artworks/T5-ep18.png`
 ```
-top-down tabletop game tile of a grand marble staircase, gendarmes rising from below, a lone butler barring the top, 1889 gaslamp gothic, oil painting texture, cold and warm light meeting on marble, grey-blue and gold palette with teal shadows --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, a grand marble staircase, gendarmes rising from below, a lone butler barring the top, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark, figures
 ```
 
 **T6 — L'Uscita** → `artworks/T6-ep18.png`
 ```
-top-down tabletop game tile of a palace's front portal and a dark service door, the city and night beyond, escape at hand, 1889 gaslamp gothic, oil painting texture, moonlight at the threshold against fading interior gold, teal and sepia palette --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, a palace's front portal and a dark service door, the city and night beyond, escape at hand, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark, figures
 ```
 
 ## Copertina (--ar 3:4)

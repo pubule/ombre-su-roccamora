@@ -6,7 +6,7 @@
 
 **Lo Sposo** (Aldo Sereni, dieci nomi, boss) → `artworks/Lo Sposo.png`
 ```
-full bleed dark fantasy painting, a smooth elegant conman in evening dress at a fake wedding villa, a practiced charming smile just beginning to falter, ten names and no face of his own, no weapon, pathetic more than dangerous, 1889 gaslamp gothic, oil painting, warm candlelight, sepia and warm gold palette with teal shadows --ar 3:4 --style raw --no frame, border, card, text, letters, watermark, monster
+full bleed dark fantasy painting, portrait of an ordinary middle-aged conman in a slightly too-fine evening suit at a wedding villa, an ordinary human face, normal human eyes, sweat on his brow, his practiced charming smile now nervous and cracking, a small pathetic man caught out, not a villain, no weapon, 1889 gaslamp gothic, oil painting, warm candlelight, sepia and warm gold palette with teal shadows --ar 3:4 --style raw --no frame, border, card, text, letters, watermark, monster, glowing eyes, red eyes, fangs, demon, vampire, supernatural
 ```
 
 ## Soggetti — Luoghi (--ar 3:4)
@@ -18,7 +18,7 @@ full bleed dark fantasy painting, a poor tidy lamplighter's home by the water at
 
 **Luogo 2 — Il Caffè degli Annunci** → `artworks/Il Caffè degli Annunci.png`
 ```
-full bleed dark fantasy painting, a provincial café where matrimonial adverts are read at night, marble tables, a rack of newspapers, the hunting ground of a marriage swindler, 1889 gaslamp gothic, oil painting, warm café lamplight, sepia and teal palette --ar 3:4 --style raw --no frame, border, card, text, letters, watermark, figures
+full bleed dark fantasy painting, an empty provincial café at night after closing, marble tables, a rack of newspapers with matrimonial adverts, an unfinished coffee cup, ordinary and quiet, nobody present, no monster, no ghost, 1889 gaslamp gothic, oil painting, warm café lamplight, sepia and teal palette --ar 3:4 --style raw --no frame, border, card, text, letters, watermark, figures, person, people, monster, ghost, vampire, witch, bats, glowing eyes
 ```
 
 **Luogo 5 — La Casa dell'Ex Fidanzata** → `artworks/La Casa dell’Ex Fidanzata.png`
@@ -33,12 +33,12 @@ full bleed dark fantasy painting, the Society's archive of the president's old c
 
 **Luogo 7 — Il Fioraio** → `artworks/Il Fioraio.png`
 ```
-full bleed dark fantasy painting, a florist's shop at night full of white roses, buckets of blooms, the swindler's tool of seduction, a perfumed dead end, 1889 gaslamp gothic, oil painting, warm lamp on white petals, sepia and teal palette --ar 3:4 --style raw --no frame, border, card, text, letters, watermark, figures
+full bleed dark fantasy painting, an empty florist's shop at night full of white roses, buckets of blooms lining the floor, closed for the night, nobody present, no monster, no skeleton, 1889 gaslamp gothic, oil painting, warm lamp on white petals, sepia and teal palette --ar 3:4 --style raw --no frame, border, card, text, letters, watermark, figures, person, people, monster, skeleton, skull, ghost
 ```
 
 **Luogo 8 — Il Registro degli Affitti** → `artworks/Il Registro degli Affitti.png`
 ```
-full bleed dark fantasy painting, a property rentals office at night, ledgers of leases, a lake villa let under a false name, 1889 gaslamp gothic, oil painting, one lamp on the register, sepia and grey palette with teal shadows --ar 3:4 --style raw --no frame, border, card, text, letters, watermark, figures
+full bleed dark fantasy still life, an empty property rentals office desk at night, an open ledger of leases, a folded map of the lake shore beside it, closed for the night, nobody present, no monster, no skull, 1889 gaslamp gothic, oil painting, one lamp on the register, sepia and grey palette with teal shadows --ar 3:4 --style raw --no frame, border, card, text, letters, watermark, figures, person, people, monster, skull, skeleton, ghost
 ```
 
 **Luogo 9 — La Villa sul Lago** → `artworks/La Villa sul Lago.png`
@@ -154,32 +154,32 @@ full bleed dark fantasy still life, a forgotten love note with an illegible sign
 
 **T1 — Il Cancello del Giardino** → `artworks/T1-ep16.png`
 ```
-top-down tabletop game tile of a lakeside villa garden gate at night, hedges, a gravel drive, lit festive windows beyond, white roses, 1889 gaslamp gothic, oil painting texture, warm window glow, sepia and teal palette --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, a lakeside villa garden gate at night, hedges, a gravel drive, lit festive windows beyond, white roses, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark, figures
 ```
 
 **T2 — Il Giardino** → `artworks/T2-ep16.png`
 ```
-top-down tabletop game tile of a formal italian garden at night, geometric flowerbeds, plaster statues, a pergola, 1889 gaslamp gothic, oil painting texture, lantern light on gravel paths, sepia and teal palette --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, a formal italian garden at night, geometric flowerbeds, plaster statues, a pergola, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark, figures
 ```
 
 **T3 — La Serra** → `artworks/T3-ep16.png`
 ```
-top-down tabletop game tile of a glass conservatory, rows of white roses and potted plants, fogged panes, a damp floor, 1889 gaslamp gothic, oil painting texture, soft light through glass, green and teal palette --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, a glass conservatory, rows of white roses and potted plants, fogged panes, a damp floor, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark, figures
 ```
 
 **T4 — Il Salone** → `artworks/T4-ep16.png`
 ```
-top-down tabletop game tile of a villa ballroom laid for a wedding banquet, long tables, a chandelier, candlelight, 1889 gaslamp gothic, oil painting texture, warm candle glow on white linen, sepia and gold palette with teal shadows --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, a villa ballroom laid for a wedding banquet, long tables, a chandelier, candlelight, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark, figures
 ```
 
 **T5 — L'Imbarcadero** → `artworks/T5-ep16.png`
 ```
-top-down tabletop game tile of a wooden jetty on a black lake, a moored rowboat ready, dark water, an escape route, 1889 gaslamp gothic, oil painting texture, moonlight on water and planks, grey and teal palette --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, a wooden jetty on a black lake, a moored rowboat ready, dark water, an escape route, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark, figures
 ```
 
 **T6 — La Stanza di Bruna** → `artworks/T6-ep16.png`
 ```
-top-down tabletop game tile of a bridal chamber prepared for a wedding night, flowers, candles, a waiting room heavy with false hope, 1889 gaslamp gothic, oil painting texture, warm candlelight, sepia and gold palette with a hint of green --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, a bridal chamber prepared for a wedding night, flowers, candles, a waiting room heavy with false hope, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark, figures
 ```
 
 ## Copertina (--ar 3:4)

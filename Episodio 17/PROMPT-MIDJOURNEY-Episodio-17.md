@@ -144,32 +144,32 @@ full bleed dark fantasy still life, a prisoner's last note, "watch the pens, not
 
 **T1 — Il Cancello di Campagna** → `artworks/T1-ep17.png`
 ```
-top-down tabletop game tile of a country villa gate outside the walls at night, a low boundary wall, a dark gravel drive, silent fields, 1889 gaslamp gothic, oil painting texture, cold moonlight, grey and teal palette --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, a country villa gate outside the walls at night, a low boundary wall, a dark gravel drive, silent fields, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark, figures
 ```
 
 **T2 — Il Cortile** → `artworks/T2-ep17.png`
 ```
-top-down tabletop game tile of an inner courtyard with a well, a coach house, and a closed black carriage still harnessed, 1889 gaslamp gothic, oil painting texture, lantern light on cobbles, grey and teal palette with sepia --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, an inner courtyard with a well, a coach house, and a closed black carriage still harnessed, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark, figures
 ```
 
 **T3 — Le Cucine** → `artworks/T3-ep17.png`
 ```
-top-down tabletop game tile of cold villa kitchens, a service passage toward the cells, checkpoints at the corridor mouths, 1889 gaslamp gothic, oil painting texture, dim lamplight on stone, grey and teal palette --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, cold villa kitchens, a service passage toward the cells, checkpoints at the corridor mouths, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark, figures
 ```
 
 **T4 — La Sala degli Interrogatori** → `artworks/T4-ep17.png`
 ```
-top-down tabletop game tile of an interrogation room, a single chair, a low lamp, scattered papers, the warmth of someone just removed, 1889 gaslamp gothic, oil painting texture, one hard lamp on a chair, sepia and teal palette --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, an interrogation room, a single chair, a low lamp, scattered papers, the warmth of someone just removed, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark, figures
 ```
 
 **T5 — La Cella del Decano** → `artworks/T5-ep17.png`
 ```
-top-down tabletop game tile of a damp underground cell, a straw pallet, barred door, cold stone, a prisoner held alive, 1889 gaslamp gothic, oil painting texture, cold blue lantern in a cell, teal and grey palette --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, a damp underground cell, a straw pallet, barred door, cold stone, a prisoner held alive, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark, figures
 ```
 
 **T6 — Lo Studio del Notaio** → `artworks/T6-ep17.png`
 ```
-top-down tabletop game tile of the notary's study at the back of the villa, a desk, a leather bag being packed with papers, ready to vanish, 1889 gaslamp gothic, oil painting texture, one lamp on the desk, sepia and teal palette --ar 1:1 --style raw --no frame, border, card, text, letters, watermark, figures, grid
+top-down hand-drawn dungeon map tile on aged parchment, ink linework with crosshatched thick stone walls, the notary's study at the back of the villa, a desk, a leather bag being packed with papers, ready to vanish, faint 4x4 square grid over the floor, torn parchment edges, antique cartography style, warm sepia with teal water accents --ar 1:1 --style raw --no text, letters, words, watermark, figures
 ```
 
 ## Copertina (--ar 3:4)
