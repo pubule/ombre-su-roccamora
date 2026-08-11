@@ -420,7 +420,12 @@ function raggEroe(nm) {
   return out;
 }
 
-function boardHtml() {
+// `senzaMosse`: la plancia disegnata mentre agisce la notte non accende le
+// caselle dell'eroe. NON si puo' dedurre da `SP().fase`, e il test lo ha
+// dimostrato: la fase nemici COMMITTA lo stato prima di animare, quindi
+// mentre i token dei nemici scorrono la partita risulta gia' tornata agli
+// eroi. Lo sa solo chi sta disegnando, e infatti glielo si chiede.
+function boardHtml(senzaMosse) {
   const sp = SP(); const lay = layout(); const rev = sp.rivelate;
   // tessere di frontiera (coperte, vicine a una rivelata): si disegnano come
   // segnaposto scuro cosi' la porta e la sua cella-reveal cadono DENTRO il
@@ -439,7 +444,11 @@ function boardHtml() {
   const scr = (n) => { const [TX, TY] = lay[n.t]; return { l: ((TX - minX) * 4 + n.x) * cell, t: ((maxY - TY) * 4 + (3 - n.y)) * cell }; };
   const attivo = eroiAttivoNome();
 
-  const ragg = attivo ? raggEroe(attivo) : (scortAttivo() != null ? raggScortato(scortAttivo()) : {});
+  // Mentre agisce la notte NON si accende niente: le caselle turchesi
+  // dell'eroe attivo restavano accese durante il turno dei nemici, e sembrava
+  // di poter giocare mentre invece si aspetta.
+  const ragg = senzaMosse ? {}
+    : attivo ? raggEroe(attivo) : (scortAttivo() != null ? raggScortato(scortAttivo()) : {});
 
   // blocchi tessera: rivelate (sfondo + griglia) e frontiera (coperte, scure)
   const tiles = mostrate.map((id) => {
@@ -879,11 +888,21 @@ function scortLiberabile(pos) {
 
 function aggancia() {
   const { app } = ctx; const sp = SP(); const attivo = eroiAttivoNome();
-  app.querySelectorAll('.cella-mossa').forEach((c) => c.onclick = () => {
+  app.querySelectorAll('.cella-mossa').forEach((c) => c.onclick = async () => {
+    if (scivolando) return;                     // gia' in cammino
     const node = { t: c.dataset.t, x: +c.dataset.x, y: +c.dataset.y };
-    if (scortAttivo() != null) return muoviScortato(scortAttivo(), node);
-    if (!attivo) return;
-    muoviEroe(attivo, node, c.dataset.reveal || null);
+    const scort = scortAttivo();
+    if (scort == null && !attivo) return;
+    scivolando = true;
+    try {
+      // prima il passo, poi lo stato: `muoviEroe` finisce con un ridisegno, e
+      // se arrivasse per primo il token sarebbe gia' a destinazione. Anche la
+      // prova d'ingresso di una tessera insidiosa deve partire a passo finito,
+      // o il dado comparirebbe col token ancora per strada.
+      await scivolaEroe(scort != null ? `S:${scort}` : `E:${attivo}`, node);
+      if (scort != null) muoviScortato(scort, node);
+      else await muoviEroe(attivo, node, c.dataset.reveal || null);
+    } finally { scivolando = false; }
   });
   app.querySelectorAll('[data-nemico]').forEach((el) => el.onclick = () => { if (attivo) attaccaNemico(attivo, Number(el.dataset.nemico)); });
   app.querySelectorAll('[data-eroe]').forEach((el) => el.onclick = () => {
@@ -1966,6 +1985,23 @@ const LENTO = 1.6;
 const ritmo = (ms) => pausa(alTavolo() ? Math.round(ms * LENTO) : ms);
 const muoviToken = async (dataTok, node) => { setTokenPos(dataTok, node); await ritmo(650); };
 
+// Il passo di CHI GIOCA. I nemici scivolano lenti apposta — al tavolo serve
+// vedere da dove arrivano — mentre la mossa dell'eroe l'ha appena decisa chi
+// guarda: aspettare mezzo secondo il proprio token e' tempo morto. Qui il
+// token si sposta con la sua transizione breve e si aspetta solo quella.
+// Il chiavistello serve al doppio tocco: due clic durante lo scivolamento
+// spenderebbero una azione sola per due spostamenti.
+const PASSO_EROE = 340;
+let scivolando = false;
+async function scivolaEroe(dataTok, node) {
+  const el = ctx.app.querySelector(`.tok-slot[data-tok="${dataTok}"]`);
+  const fermo = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!el || fermo) return;
+  el.classList.add('passo');
+  setTokenPos(dataTok, node);
+  await pausa(PASSO_EROE);
+}
+
 // striscia del giro dei nemici (read-only, come giroEroiHtml ma per i nemici)
 function giroNemiciHtml(attivoIdx) {
   return `<div class="giro-strip">${SP().nemici.map((n, i) => {
@@ -1986,7 +2022,7 @@ function vistaNemici(piano) {
     <div class="pannello secondario"><p><b>Turno dei nemici.</b> ${esc(ep.obiettivo ? '' : '')}Ogni nemico si avvicina all’eroe più vicino e colpisce se adiacente.</p></div>
     <div class="mt"></div>
     <div class="board-area">
-      <div class="board-wrap" id="board-wrap">${boardHtml()}</div>
+      <div class="board-wrap" id="board-wrap">${boardHtml(true)}</div>
       <div class="zoom-ctrl"><button class="zoom-btn" data-zoom="-">−</button><button class="zoom-btn" data-zoom="0">⤢</button><button class="zoom-btn" data-zoom="+">+</button></div>
     </div>
     <div class="lato">

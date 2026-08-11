@@ -54,7 +54,9 @@ try {
   const rotte = await page.$$eval('.eroe-tile img',
     (imgs) => imgs.filter((i) => i.complete && i.naturalWidth === 0).map((i) => i.src));
   ok(rotte.length === 0, `ritratti eroe tutti caricati${rotte.length ? ' — rotti: ' + rotte.join(', ') : ''}`);
-  for (const n of [0, 1]) {
+  // Elena (Osservazione) e Carla (Testimonianza): servono idonei veri, o alla
+  // Taverna partirebbe l'«aiuto profano» invece del tiro dell'Approfondimento
+  for (const n of [0, 5]) {
     await page.locator('.eroe-tile').nth(n).click();
     await page.locator('.eroe-dettaglio').waitFor();
     ok(await page.locator('.eroe-stats .stat').count() === 5, 'scheda con 5 statistiche');
@@ -92,17 +94,45 @@ try {
     await page.locator('#ok-msg').click();
   }
 
-  // --- visita a un luogo aperto (Taverna): eroe + tiro dado -----------------
-  console.log('visita luogo aperto (con tiro di dado)');
+  // --- visita a un luogo aperto (Taverna): SENZA tiro ----------------------
+  // Regola cambiata l'11/08/2026: entrando non si tira niente. Il dado esce
+  // solo se il gruppo chiede un Approfondimento, e lo tira chi fruga.
+  console.log('visita luogo aperto (nessun tiro entrando)');
   await page.locator('.voce[data-voce="Taverna del Ponte Rotto"]').click();
-  await page.locator('.scelta-box button').first().waitFor();   // chi legge la scena?
-  await page.locator('.scelta-box button').first().click();
-  // modalità tavolo: si inserisce il totale dei dadi veri
-  await page.locator('[data-tot="9"]').click();
-  await page.locator('#dadi-chiudi').waitFor({ state: 'visible' });
-  await page.locator('#dadi-chiudi').click();
   await page.locator('.banner-luogo').waitFor();
+  ok(await page.locator('.dadi-overlay').count() === 0, 'entrando NON si tira nessun dado');
+  ok(await page.locator('.scelta-box').count() === 0, 'e non si sceglie nessun eroe');
   ok(await page.getByText('indizi', { exact: false }).count() > 0, 'scheda luogo con indizi');
+
+  // --- l'Approfondimento: si tira li', e fallendo la carica resta ----------
+  const cariche = () => page.evaluate(() =>
+    JSON.parse(JSON.stringify(JSON.parse(localStorage.getItem('osr.partita.ep1')).indagine.caricheUsate || {})));
+  const primaDelTiro = await cariche();
+  const tipoBtn = page.locator('[data-tipo="Testimonianza"]');
+  if (await tipoBtn.count()) {
+    await tipoBtn.click();
+    const sceltaChi = page.locator('.scelta-box button').first();
+    await sceltaChi.waitFor();
+    ok(true, 'chiedendo un Approfondimento si sceglie chi prova');
+    await sceltaChi.click();
+    await page.locator('.dadi-overlay').waitFor({ state: 'visible' });
+    ok(true, 'e allora si tira');
+    await page.locator('[data-tot="2"]').click();          // fallimento certo
+    await page.locator('#dadi-chiudi').waitFor({ state: 'visible' });
+    await page.locator('#dadi-chiudi').click();
+    // fallendo, il Regolamento offre il Secondo Fiato: qui si accetta il
+    // fallimento, che e' proprio il caso da provare
+    const accetta = page.getByText('accettate il fallimento');
+    await accetta.waitFor();
+    await accetta.click();
+    await page.locator('#ok-msg').waitFor();
+    await page.locator('#ok-msg').click();
+    await page.locator('#fine-visita').waitFor();      // scheda luogo ridisegnata
+    ok(JSON.stringify(await cariche()) === JSON.stringify(primaDelTiro),
+      'fallendo la carica NON si spende');
+    ok(await page.locator('[data-tipo]').count() === 0,
+      'e in questa visita non si tenta piu: bisogna uscire e rientrare');
+  }
 
   // uscire al menu a meta' visita e riprendere: si torna DENTRO il luogo,
   // senza pagare un'altra ora
@@ -133,9 +163,10 @@ try {
     await page.locator('#prova').click();
     ok(await page.getByText('la porta si apre').count() > 0, 'chiave giusta apre');
     await page.locator('#ok-msg').click();
-    await page.locator('.scelta-box button').first().waitFor();
-    await page.locator('.scelta-box .annulla').click();          // nessun tiro
+    // entrando non si tira piu' niente: si e' subito dentro il luogo
     await page.locator('.banner-luogo').waitFor();
+    ok(await page.locator('.dadi-overlay').count() === 0,
+      'anche entrando con la chiave giusta non si tira nulla');
     await page.locator('#fine-visita').click();
   }
 

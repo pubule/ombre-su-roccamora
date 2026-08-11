@@ -181,13 +181,10 @@ def regolamento():
     e.append(LI('<b>Visitare un luogo</b> — girate la carta (mostra solo l’ambientazione): chi tiene '
                 'il fascicolo <b>Luoghi</b> legge ad alta voce testo e indizi da lì. Prendete appunti '
                 'sul Taccuino: nomi, orari, parole chiave.'))
-    e.append(LI('<b>Alla prima visita, “leggere la scena”</b> — prima di leggere testo e indizi, il '
-                'gruppo indica un eroe che prova ACUME Media. <b>Testo, indizi, l’eventuale parola '
-                'chiave e l’eventuale oggetto si leggono comunque</b>, che la prova riesca o no: non '
-                'si perde mai un’informazione necessaria a un tiro sbagliato. Se la prova fallisce, '
-                'però, l’eventuale <b>Approfondimento</b> di quel luogo (sotto) resta nascosto per '
-                'questa visita: tornateci un’altra volta (di nuovo 1 ora, come ogni visita, ma senza '
-                'ripetere la prova) per coglierlo.'))
+    e.append(LI('<b>Entrare non costa nessun tiro</b> — girate la carta, leggete testo, indizi, '
+                'l’eventuale parola chiave e l’eventuale oggetto: <b>sempre, a chiunque</b>. Non si '
+                'perde mai un’informazione per un dado. Il tiro esiste solo per gli '
+                '<b>Approfondimenti</b> (sotto), e si tira soltanto se decidete di cercarli.'))
     e.append(LI('<b>Bussare a una porta chiusa</b> — se la destinazione è un luogo bloccato (carta '
                 'coperta), chi tiene il fascicolo gira la carta e leggete che cosa vi sbarra la '
                 'strada. Se credete di avere la chiave, dichiaratela — <b>UNA parola o UN oggetto '
@@ -197,7 +194,11 @@ def regolamento():
                 'prezzo salato.'))
     e.append(LI('<b>Approfondimenti</b> — alcuni luoghi nascondono indizi <i>extra</i> '
                 '(oltre a quelli sopra, mai al posto loro) che emergono solo se un eroe presente sa '
-                'come cavarli <b>e</b> se avete superato la prova di “leggere la scena” a quella visita. '
+                'come cavarli. Dichiarate il tipo che volete cercare, poi scegliete <b>chi ci prova '
+                'fra gli eroi che possono cavarlo</b>: quell’eroe tira “leggere la scena”, ACUME '
+                'Media. <b>Riuscita</b>: spende la sua carica e l’Approfondimento emerge. '
+                '<b>Fallita</b>: la carica <b>non</b> si spende, ma qui avete finito — per ritentare '
+                'dovete lasciare il luogo e tornarci, e il ritorno costa un’ora come ogni visita. '
                 '<b>Almeno un dettaglio decisivo per le 4 Domande emerge solo così</b> — qualsiasi '
                 'Approfondimento va bene, non importa quale o di chi: se l’indagine finisce senza '
                 'averne consultato nemmeno uno, alcune risposte resteranno solo probabili, non certe.'))
@@ -227,27 +228,25 @@ def regolamento():
                 'episodio) indica un luogo e chi tiene il fascicolo Luoghi risponde solo '
                 '<b>s\u00ec o no</b>: \u201cl\u00ec si nasconde ancora qualcosa?\u201d \u2014 mai cosa, mai di che tipo. '
                 'Se la risposta \u00e8 s\u00ec, quella visita non costa l\u2019ora (non conta come ora avanzata) '
-                '\u2014 ma tira comunque \u201cleggere la scena\u201d come ogni prima visita.'))
+                '\u2014 ma per cavare quel che nasconde si tira come ovunque.'))
     e.append(LI('<b>Nino</b> non sblocca carte: la sua abilit\u00e0 (<b>Grimaldello</b>) entra in un luogo '
                 'bloccato senza parola chiave n\u00e9 oggetto, 1 volta a episodio \u2014 bypassa solo il '
-                'requisito d\u2019ingresso: una volta dentro si tira \u201cleggere la scena\u201d come sempre.'))
+                'requisito d\u2019ingresso: una volta dentro vale tutto come sempre.'))
     e.append(LI('<b>Aiuto profano</b> \u2014 se <b>nessun</b> eroe al tavolo pu\u00f2 pi\u00f9 sbloccare un tipo '
                 '(abilit\u00e0 assente o cariche esaurite, jolly di Sibilla compreso), un eroe qualsiasi '
                 'pu\u00f2 tentare da dilettante: prova <b>ACUME (Difficile)</b>, una sola volta per luogo. '
                 'Riuscita: l\u2019Approfondimento emerge come se fosse stato sbloccato. Fallita: in quel '
                 'luogo resta sigillato per il resto dell\u2019indagine. Il dilettante fruga senza metodo: '
                 'una sola occasione, e solo dove gli specialisti non arrivano.'))
-    e.append(P('<b>Esempio:</b> il gruppo visita il Luogo 1 (Campanile) con Elena presente. Prima di '
-               'tutto, un eroe a scelta legge la scena: 2d6+ACUME (3) = 10, raggiunge la Media (9) \u2014 '
-               'via libera. Girate la carta, leggete testo e i 3 indizi core \u2014 sempre, a chiunque, '
-               'tiro riuscito o no. Poich\u00e9 la prova \u00e8 riuscita ed Elena c\u2019\u00e8, chi tiene il fascicolo '
-               'Luoghi controlla la voce \u201cLuogo 1\u201d: c\u2019\u00e8 un Indizio Nascosto, prende dal mazzo coperto '
-               'la carta di quel tipo e la legge ad alta voce. Pi\u00f9 tardi il gruppo visita il Luogo 2 '
-               '(Bice) con Ottone: la prova di leggere la scena questa volta fallisce (7 contro Media '
-               '9) \u2014 gli indizi core si leggono comunque, ma il Testimone di Bice resta per ora '
-               'nascosto: dovranno tornarci un\u2019altra ora, senza ripetere la prova, per convincerla. '
-               'Se un luogo non \u00e8 in elenco per quel tipo, semplicemente non c\u2019\u00e8 nulla da trovare l\u00ec '
-               'per quell\u2019eroe, tiro o non tiro.', 'box'))
+    e.append(P('<b>Esempio:</b> il gruppo visita il Luogo 1 (Campanile) con Elena presente. '
+               'Girano la carta e leggono testo e i 3 indizi core — sempre, a chiunque, senza '
+               'tirare nulla. Poi decidono di cercare un <b>Indizio Nascosto</b>: può cavarlo solo '
+               'Elena, che ci prova — 2d6+ACUME (3) = 10, raggiunge la Media (9). Elena spende una '
+               'carica e chi tiene il fascicolo Luoghi legge la carta ad alta voce. Più tardi, al '
+               'Luogo 2 (Bice), il gruppo cerca il <b>Testimone</b>: ci prova Ottone, e fallisce '
+               '(7 contro 9). La sua carica resta intatta, ma lì, stanotte, hanno chiuso: per '
+               'riprovare dovranno uscire e tornarci, un’altra ora. Se un luogo non è in elenco per '
+               'quel tipo, semplicemente non c’è nulla da trovare lì: nessun tiro, nessuna carica.', 'box'))
     e.append(LI('<b>Reperti</b> \u2014 nessuna azione o prova in pi\u00f9: si ottengono semplicemente '
                 'visitando il luogo, come qualsiasi indizio core. Quando un indizio, sulla carta '
                 'stessa, riporta tra parentesi <i>(Reperto X: consegnate...)</i>, non limitatevi a '
@@ -884,9 +883,10 @@ def aiuto():
                 'se c’è, la visita parte e l’ora si spende.'))
     e.append(RL('<b>Porta chiusa</b> — dichiarate <b>UNA parola o UN oggetto per visita</b> a chi '
                 'tiene il fascicolo Luoghi: giusta si entra subito, sbagliata l’ora è persa comunque.'))
-    e.append(RL('<b>Prima visita</b> — un eroe prova ACUME Media (“leggere la scena”): indizi, parola '
-                'chiave e oggetto si leggono comunque; se fallisce, l’Approfondimento aspetta una '
-                'seconda visita (senza ripetere la prova).'))
+    e.append(RL('<b>Visita</b> — entrare non costa tiri: indizi, parola chiave e oggetto si leggono '
+                'sempre. Per un <b>Approfondimento</b> sceglietene il tipo e chi ci prova fra gli '
+                'idonei: ACUME Media. Riuscita, spende la carica; fallita, la carica resta ma qui '
+                'avete chiuso — si esce e si torna (un’altra ora).'))
     e.append(RL('<b>Chiusura</b> — 4 Domande per iscritto, poi la busta Soluzione. Vantaggio extra: '
                 'ore avanzate <b>O</b> molti luoghi visitati. Con <b>0 ore avanzate</b>: gettone '
                 '<b>Intuizione</b> — una volta in Spedizione ripetete un tiro appena fallito.'))

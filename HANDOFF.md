@@ -6,7 +6,8 @@
 > piano.
 
 **Aggiornato:** 11/08/2026 · ramo `main` · in produzione la versione `dcb58b9e`
-su <https://roccamora.smartcores.org>
+su <https://roccamora.smartcores.org> — **le tre correzioni di stasera non sono
+ancora deployate**
 
 ## Cos'è successo, in ordine
 
@@ -57,6 +58,16 @@ nessuna arte nuova generata per questo. Aggiunte le chiavi `armadio`/
 `toeletta` alla libreria arredi (servono a Ep.16, arte non ancora fatta).
 `webapp/assets/` gia' esportato in locale con le tessere nuove, **non
 deployato**: chi riprende decide se e quando pubblicare.
+
+**5. Tre correzioni dal tavolo** (11/08/2026). L'eroe **scivola** da una casella
+all'altra come i nemici, con un passo più svelto (340ms contro 600, e 1s al
+tavolo: la lentezza del nemico serve a far vedere da dove arriva). Durante il
+turno dei nemici **non si accendono più** le caselle turchesi dell'eroe. E la
+prova «leggere la scena» **non si tira più entrando** in un luogo: si tira solo
+se il gruppo vuole un Approfondimento, la tira chi può cavarlo (scelto fra gli
+idonei), e fallendo **la carica non si spende** ma lì si è chiuso — si esce e si
+rientra, un'altra ora. Regolamento e Aiuto Giocatore riscritti di conseguenza
+(`src/gen_docs.py`, PDF rigenerati).
 
 ## Come si riprende
 

@@ -255,6 +255,75 @@ console.log('\n(F) uscita segreta: arredo giusto apre, sbagliato costa l\'azione
   }
 }
 
+// (E) mentre agisce la notte NON si accendono le caselle dell'eroe: si vedevano
+//     le mosse turchesi durante il turno dei nemici, e sembrava di poter
+//     giocare mentre invece si aspetta. `vistaNemici` disegna con lo stesso
+//     boardHtml della fase eroi, ed era li' che nasceva.
+console.log('(E) niente celle accese durante il turno dei nemici');
+{
+  await patch(`(p) => { const sp = p.spedizione;
+    sp.esito = null; sp.fase = 'nemici'; sp.eroiAttivo = p.party[0]; sp.eroiFatti = []; sp.azioni = {};
+    p.party.forEach((nm) => { sp.vite[nm] = 3; });
+    sp.nemici = [
+      { nome: 'LO SGHERRO', num: 1, ferite: 0, max: 2, pos: { t: 'T1', x: 3, y: 0 } },
+      { nome: 'LO SGHERRO', num: 1, ferite: 0, max: 2, pos: { t: 'T1', x: 3, y: 1 } },
+      { nome: 'LO SGHERRO', num: 1, ferite: 0, max: 2, pos: { t: 'T1', x: 3, y: 2 } }];
+    localStorage.setItem('osr.partita.ep1', JSON.stringify(p)); }`);
+  await entra();
+  // NON si guarda il salvataggio: la fase committa lo stato PRIMA di animare
+  // (vedi il caso C), quindi `fase` e' gia' 'eroi' mentre i token scorrono. Il
+  // segno che la notte e' a schermo e' il pannello con «salta l'azione».
+  let acceseMentreNotte = 0, visto = 0;
+  for (let t = 0; t < 60; t++) {
+    if (!(await page.locator('#salta-nemici').count())) { if (visto) break; await page.waitForTimeout(60); continue; }
+    visto++;
+    acceseMentreNotte += await page.locator('.cella-mossa').count();
+    await page.waitForTimeout(60);
+  }
+  check(visto > 0, `la fase nemici e' stata osservata davvero (${visto} istanti)`);
+  check(acceseMentreNotte === 0,
+    `nessuna cella accesa mentre agisce la notte (viste ${acceseMentreNotte})`);
+}
+
+// (F) l'eroe SCIVOLA come i nemici invece di teletrasportarsi: il token si
+//     sposta prima che la plancia si ridisegni, e la posizione cambia con la
+//     sua transizione. Prima `muoviEroe` cambiava lo stato e basta.
+console.log('(F) l’eroe scivola invece di saltare');
+{
+  await patch(`(p) => { const sp = p.spedizione;
+    sp.esito = null; sp.fase = 'eroi'; sp.eroiAttivo = p.party[0]; sp.eroiFatti = []; sp.azioni = {};
+    p.party.forEach((nm, k) => { sp.vite[nm] = 3; sp.eroiPos[nm] = { t: 'T1', x: k, y: 3 }; });
+    sp.nemici = [];
+    localStorage.setItem('osr.partita.ep1', JSON.stringify(p)); }`);
+  await entra();
+  const eroe = (await page.evaluate(() => JSON.parse(localStorage.getItem('osr.partita.ep1')).party))[0];
+  const tok = `.tok-slot[data-tok="E:${eroe}"]`;
+  const dove = () => page.locator(tok).evaluate((el) => el.style.left + '/' + el.style.top).catch(() => null);
+  const celle = await page.locator('.cella-mossa').count();
+  check(celle > 0, `ci sono caselle dove andare (${celle})`);
+  if (celle > 0) {
+    const prima = await dove();
+    // Il segno che c'e' davvero uno SCIVOLAMENTO non e' «la posizione e'
+    // cambiata» — dopo 120ms la plancia si e' comunque ridisegnata, e quella
+    // prova passava anche col teletrasporto (provata vacua, e corretta).
+    // Il segno vero e' che si muove LO STESSO NODO: si marchia il token prima
+    // del clic, e se a meta' passo il marchio c'e' ancora vuol dire che nessun
+    // ridisegno l'ha sostituito.
+    await page.locator(tok).evaluate((el) => { el.dataset.marchio = 'x'; });
+    await page.locator('.cella-mossa').first().click({ force: true });
+    await page.waitForTimeout(120);            // meno del passo (340ms)
+    const durante = await dove();
+    const stesso = await page.locator(tok).evaluate((el) => el.dataset.marchio === 'x').catch(() => false);
+    const transizione = await page.locator(tok).evaluate((el) => getComputedStyle(el).transitionProperty).catch(() => '');
+    check(stesso, 'a metà passo il token è ancora lo stesso nodo: sta scivolando, non è stato ridisegnato');
+    check(durante !== prima, `e intanto si e' gia' spostato (${prima} -> ${durante})`);
+    check(/left/.test(transizione), `con la transizione, non a scatto (transition: ${transizione})`);
+    await page.waitForTimeout(600);
+    const sp = await stato();
+    check(sp.eroiPos[eroe] && sp.eroiPos[eroe].t === 'T1', 'a passo finito l’eroe è sulla casella scelta');
+  }
+}
+
 await browser.close();
 console.log(ko ? `\n${ko} FALLITI` : '\nTUTTO OK');
 process.exit(ko ? 1 : 0);

@@ -350,27 +350,13 @@ async function visita(l, oraGiaSpesa = false) {
   ind.luogoAperto = l.n;
   salvaP();
 
-  // leggere la scena: solo alla prima visita, un eroe a scelta
-  let scena = ind['scena_' + l.n];
-  if (prima && scena == null) {
-    const eroe = await scegliEroe('chi legge la scena?', 'acume');
-    if (eroe) {
-      const r = await provaConFiato({
-        titolo: `leggere la scena — ${eroe.nome.split(' ')[0]}`,
-        diffLabel: 'Media', soglia: ctx.comune.regole.diff.Media,
-        bonus: [{ label: 'ACUME', val: eroe.acume }],
-      }, eroe.nome);
-      scena = r ? r.ok : false;
-    } else scena = false;
-    ind['scena_' + l.n] = scena;
-    salvaP();
-  } else if (!prima && scena === false) {
-    // regola: tornare al luogo (1 ora) coglie l'Approfondimento SENZA
-    // ripetere la prova - la porta si riapre da sola alla rivisita
-    scena = true;
-    ind['scena_' + l.n] = true;
-    salvaP();
-  }
+  // Entrando non si tira NIENTE (regola cambiata l'11/08/2026): il dado si
+  // tirava prima ancora di sapere se al gruppo interessava frugare. Ora
+  // «leggere la scena» si tira quando qualcuno chiede un Approfondimento, e
+  // sta in `approfondisci()`. Entrare in un luogo azzera il chiavistello: un
+  // fallimento vale per la visita, e uscire e rientrare (un'ora) fa ritentare.
+  delete ind.scenaChiusa;
+  salvaP();
   schedaLuogo(l);
 }
 
@@ -396,7 +382,6 @@ async function provaConFiato(prova, nomeEroe) {
 function schedaLuogo(l) {
   const { app, ep } = ctx;
   const ind = IND();
-  const scena = ind['scena_' + l.n];
   const tipiQui = [...new Set(l.approfondimenti.map((a) => a.tipo))];
   const letti = ind.approfondimentiLetti.filter((x) => x.n === l.n);
   app.innerHTML = `
@@ -421,12 +406,13 @@ function schedaLuogo(l) {
     <div class="mt"></div>
     <div class="pannello">
       <h2>approfondire</h2>
-      ${scena === false ? `<p class="nota">“Leggere la scena” è fallita qui: gli
-        Approfondimenti restano nascosti per questa visita — tornate più tardi
-        (1 ora), senza ripetere la prova.</p>` : `
-      <p class="nota">La scena è letta: nessun altro tiro. Qui si <b>spende una carica</b> —
-      ogni tipo lo sblocca l’eroe con l’abilità giusta (Elena le Osservazioni, Attilio o
-      Brera i Referti…). Scegliete il tipo, poi chi spende la sua.</p>
+      ${ind.scenaChiusa ? `<p class="nota">Qui avete già guardato meglio, e non
+        è venuto fuori niente: per questa visita gli Approfondimenti restano
+        nascosti. Lasciate il luogo e tornateci (1 ora) per ritentare.</p>` : `
+      <p class="nota">Ogni tipo lo sblocca l’eroe con l’abilità giusta (Elena le
+      Osservazioni, Attilio o Brera i Referti…). Scegliete il tipo, poi <b>chi prova a
+      guardare meglio</b>: tira ACUME, e solo se riesce spende la sua carica.
+      Fallendo non si spende nulla, ma qui non si tenta più: si esce e si torna.</p>
       <div class="btn-riga">
         ${['Osservazione', 'Testimonianza', 'Referto', 'Presagio'].map((t) =>
           `<button class="btn" data-tipo="${t}">${t}</button>`).join('')}
@@ -463,7 +449,7 @@ function schedaLuogo(l) {
        — o leggetelo da qui, facendolo girare.</p>`,
       () => schedaLuogo(l));
   });
-  if (scena !== false) {
+  if (!ind.scenaChiusa) {
     app.querySelectorAll('[data-tipo]').forEach((b) =>
       b.onclick = () => approfondisci(l, b.dataset.tipo, tipiQui));
   }
@@ -482,11 +468,14 @@ async function approfondisci(l, tipo, tipiQui) {
   // scelta di chi spende la carica (jolly incluso)
   // il residuo lo si sapeva gia' (x.proprie) e si buttava via: con due eroi
   // idonei, sapere chi ne ha ancora due e chi una e' la scelta
-  const chi = await scegliDaLista('chi spende la carica?', c.map((x) => ({
+  // Ora la scelta pesa su DUE cose — la carica e l'ACUME di chi tira — quindi
+  // l'etichetta le mostra entrambe: prima si sapeva solo il residuo.
+  const acume = (nm) => (ctx.comune.eroi.find((e) => e.nome === nm) || {}).acume ?? 0;
+  const chi = await scegliDaLista('chi prova a guardare meglio?', c.map((x) => ({
     id: x.nome,
-    label: x.proprie > 0
+    label: (x.proprie > 0
       ? `${x.nome} — ${x.proprie} ${x.proprie === 1 ? 'carica' : 'cariche'}`
-      : `${x.nome} (jolly di Sibilla: ${x.jolly})`,
+      : `${x.nome} (jolly di Sibilla: ${x.jolly})`) + ` · ACUME ${acume(x.nome)}`,
   })));
   if (!chi) return schedaLuogo(l);
   const scelto = c.find((x) => x.nome === chi);
@@ -502,6 +491,25 @@ async function approfondisci(l, tipo, tipiQui) {
     return pannelloMsg(tipo.toLowerCase(), `<p><i>${esc(chi.split(' ')[0])} osserva, ascolta,
       fruga. ${gia ? 'Quello che c’era da cogliere qui, l’avete già colto.' :
       'Ma qui non c’è nulla che parli il suo linguaggio.'}</i></p>`, () => schedaLuogo(l));
+  }
+  // «LEGGERE LA SCENA», e qui e' il suo posto (regola cambiata l'11/08/2026):
+  // si tira solo quando il gruppo vuole davvero frugare, e tira chi fruga —
+  // scelto fra gli idonei a questo tipo. Prima si tirava entrando nel luogo,
+  // senza sapere se a qualcuno interessasse.
+  const r = await provaConFiato({
+    titolo: `guardare meglio — ${chi.split(' ')[0].toLowerCase()}`,
+    diffLabel: 'Media', soglia: ctx.comune.regole.diff.Media,
+    bonus: [{ label: 'ACUME', val: acume(chi) }],
+  }, chi);
+  if (!r || !r.ok) {
+    // La carica NON si spende: si paga l'ora, non la risorsa. Ma qui e' finita
+    // per questa visita — si esce e si rientra per ritentare.
+    ind.scenaChiusa = true;
+    salvaP();
+    return pannelloMsg('niente, per ora', `<p><i>${esc(chi.split(' ')[0])} cerca, e non
+      trova la presa. Quello che c’è qui non si lascia prendere adesso.</i></p>
+      <p class="nota mt">La carica resta. Per ritentare bisogna lasciare il luogo e
+      tornarci: un’altra ora.</p>`, () => schedaLuogo(l));
   }
   usaCarica(P(), chi, tipo, conJolly);
   ind.approfondimentiLetti.push({ n: l.n, tipo, soggetto: a.soggetto });
@@ -603,7 +611,8 @@ async function aiutoProfano(l, tipo) {
 
 // Discernimento di Padre Marani: indica un luogo, la risposta e' solo
 // si'/no ("li' si nasconde ancora qualcosa?"). Se si', quella visita non
-// costa l'ora - ma "leggere la scena" si tira come sempre.
+// costa l'ora — il tiro per cogliere l'Approfondimento resta comunque da fare
+// sul posto, come ovunque.
 async function discernimento() {
   const { ep, comune } = ctx;
   const ind = IND();
@@ -620,7 +629,7 @@ async function discernimento() {
   pannelloMsg('discernimento', ancora
     ? `<p><i>Marani chiude gli occhi un istante, poi annuisce: <b>sì</b> — lì si nasconde
        ancora qualcosa.</i></p><p class="nota mt">La prossima visita a quel luogo non
-       costa l’ora (ma «leggere la scena» si tira come sempre).</p>`
+       costa l’ora. Per cogliere quel che nasconde, lì, si tira come ovunque.</p>`
     : `<p><i>Marani scuote il capo, piano: <b>no</b>. Qualunque cosa ci fosse da vedere lì,
        o l’avete già colta, o non c’è mai stata.</i></p>`, home);
 }
