@@ -1,0 +1,130 @@
+<!doctype html><html lang="it"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Il Fascicolo · plancia a schermo</title>
+<link rel="stylesheet" href="base.css"><link rel="stylesheet" href="fascicolo.css">
+<style>
+  /* LA MAPPA E' UN'ECCEZIONE, ED E' VOLUTA.
+     Sul board il turchese vuol dire «qui puoi andare», l'oro «questa cella
+     rivela», il rosso «nemico»: sono SEGNALI, imparati al tavolo — in app.css
+     c'e' perfino la regola che l'eroe di turno non diventa mai rosso, perche'
+     da lontano il tavolo lo scambiava per una minaccia. Il fascicolo cambia la
+     CORNICE (telaio, comandi, pannelli); la mappa tiene i suoi colori. */
+  .telaio { position: relative; border: 1px solid #24262c; border-radius: 2px;
+    background: #0a0a0c; padding: 6px; }
+  .telaio .costa { position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
+    background: var(--nastro); }
+  .mappa { position: relative; height: 158px; overflow: hidden; margin-left: 4px;
+    background: #08080a; }
+  .tessera { position: absolute; width: 132px; height: 132px; background-size: cover;
+    border: 1px solid rgba(120,130,145,.35); }
+  .tessera.coperta { background: repeating-linear-gradient(45deg,
+    #121317, #121317 9px, #0d0e11 9px, #0d0e11 18px); border-style: dashed; }
+  .tess-tag { position: absolute; left: 3px; top: 2px; font: 11px 'FellSC', serif;
+    color: #c3cbd4; background: rgba(8,8,10,.8); padding: 0 5px; }
+  .cella { position: absolute; width: 33px; height: 33px; box-sizing: border-box; }
+  .cella.mossa { background: rgba(95,184,176,.42); border: 2px solid #7fe6db; }
+  .cella.reveal { background: rgba(216,178,94,.38); border: 2px solid #d8b25e; }
+  .tok { position: absolute; width: 30px; height: 30px; border-radius: 50%;
+    overflow: hidden; border: 2px solid #c3cbd4; background: #0f0c10; }
+  .tok img { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+  .tok.nemico { border-color: #a3253a; }
+  .comandi { position: absolute; top: 12px; right: 12px; display: flex;
+    flex-direction: column; gap: 4px; z-index: 5; }
+  .cmd { width: 32px; height: 32px; font-size: 18px; line-height: 1; border-radius: 2px;
+    border: 1px solid #33363e; background: rgba(11,11,13,.9); color: var(--osso); cursor: pointer; }
+  .giro { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px; }
+  .chip { display: flex; align-items: center; gap: 7px; padding: 5px 9px;
+    border: 1px solid #2a2c33; background: var(--ardesia-alta); cursor: pointer; }
+  .chip img { width: 34px; height: 34px; border-radius: 50%; object-fit: cover;
+    object-position: top center; filter: grayscale(.6) sepia(.15); }
+  .chip .et { font-family: 'FellSC', serif; font-size: 13px; color: var(--osso-fioco); }
+  .chip.turno { border-color: var(--nastro); background: #1c2229; }
+  .chip.turno img { filter: none; }
+  .chip.turno .et { color: #cfe0ee; }
+  .chip.fatto { opacity: .45; }
+  .chip.fatto .et { text-decoration: line-through; }
+  .vita { display: flex; gap: 5px; }
+  .goccia { width: 15px; height: 15px; border-radius: 50%; border: 2px solid var(--ceralacca); }
+  .goccia.piena { background: var(--ceralacca); }
+</style>
+</head><body>
+<div class="wrap">
+  <a class="torna" href="index.html">← le tre direzioni</a>
+
+  <div class="testata">
+    <span class="etichetta">fascicolo 1 · spedizione · round 3</span>
+    <h1>il magazzino sul canale</h1>
+    <div class="sotto">liberate Ruggero e riportatelo alla banchina</div>
+  </div>
+
+  <div class="telaio">
+    <span class="costa"></span>
+    <div class="mappa" id="mappa"></div>
+    <div class="comandi">
+      <button class="cmd">+</button><button class="cmd">−</button><button class="cmd">⤢</button>
+    </div>
+  </div>
+
+  <div class="lastra">
+    <h2>il giro</h2>
+    <div class="giro" id="giro"></div>
+  </div>
+
+  <div class="lastra">
+    <h2>attilio · 2 azioni</h2>
+    <div class="vita" id="vita"></div>
+    <div class="riga">
+      <button class="btn pieno">muovi</button>
+      <button class="btn">cerca</button>
+      <button class="btn">attacca</button>
+      <button class="btn">finisci</button>
+    </div>
+  </div>
+
+  <div class="lastra">
+    <h2>contro di voi</h2>
+    <div id="nemici"></div>
+  </div>
+</div>
+
+<script src="../dati.js"></script>
+<script>
+  const { S, esc, urlTessera, urlArt } = MOCK;
+
+  // due tessere scoperte, una coperta: quel che si vede a inizio round 3
+  const mappa = document.getElementById('mappa');
+  mappa.innerHTML = `
+    <div class="tessera" style="left:8px;top:8px;background-image:url('${urlTessera(S.tessere[0])}')">
+      <span class="tess-tag">T1 · banchina</span></div>
+    <div class="tessera" style="left:148px;top:8px;background-image:url('${urlTessera(S.tessere[1])}')">
+      <span class="tess-tag">T2 · casse</span></div>
+    <div class="tessera coperta" style="left:288px;top:8px"><span class="tess-tag">?</span></div>
+    <div class="cella mossa" style="left:180px;top:74px"></div>
+    <div class="cella mossa" style="left:214px;top:74px"></div>
+    <div class="cella reveal" style="left:248px;top:74px"></div>
+    <div class="tok" style="left:44px;top:74px">
+      <img src="${urlArt(S.party[1].art)}" alt=""></div>
+    <div class="tok" style="left:78px;top:74px">
+      <img src="${urlArt(S.party[0].art)}" alt=""></div>
+    <div class="tok nemico" style="left:214px;top:40px">
+      <img src="${urlArt(S.nemici[0].art)}" alt=""></div>`;
+
+  document.getElementById('giro').innerHTML = S.party.map((e) => `
+    <div class="chip ${e.attivo ? 'turno' : ''} ${e.fatto ? 'fatto' : ''}">
+      <img src="${urlArt(e.art)}" alt="">
+      <span class="et">${esc(e.breve)}</span>
+    </div>`).join('');
+
+  const a = S.party[1];
+  document.getElementById('vita').innerHTML = Array.from({ length: a.salMax },
+    (_, i) => `<span class="goccia ${i < a.sal ? 'piena' : ''}"></span>`).join('');
+
+  document.getElementById('nemici').innerHTML = S.nemici.map((n) => `
+    <div class="voce">
+      <span><span class="nome">${esc(n.breve)}</span>
+        <span class="indirizzo">att +${n.att} · dif ${n.dif} · danno ${n.dan}</span></span>
+      <span class="vita">${Array.from({ length: n.max },
+        (_, i) => `<span class="goccia ${i < n.fer ? 'piena' : ''}"></span>`).join('')}</span>
+    </div>`).join('');
+</script>
+</body></html>

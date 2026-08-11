@@ -1,0 +1,70 @@
+<!doctype html><html lang="it"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Il Fascicolo · taccuino e busta</title>
+<link rel="stylesheet" href="base.css"><link rel="stylesheet" href="fascicolo.css">
+<style>
+  /* Il taccuino e' l'unico posto dove scrive il gruppo: si scrive a mano, su
+     carta. Il resto della schermata resta ardesia. */
+  .domanda { margin-top: 16px; }
+  .domanda .q { display: flex; gap: 8px; align-items: baseline; }
+  .domanda .n { font-family: 'FellSC', serif; color: var(--ceralacca); font-size: 15px; }
+  .domanda .testo { font-size: 17px; }
+  .campo-mano { width: 100%; margin-top: 6px; padding: 9px 12px;
+    background: var(--carta); color: var(--carta-ink); border: 0; border-radius: 1px;
+    font-family: 'Mano', cursive; font-size: var(--mano-size);
+    box-shadow: 0 8px 16px -12px #000; }
+  .campo-mano::placeholder { color: #9b917c; font-style: italic; }
+  textarea.campo-mano { line-height: 1.5; resize: vertical; }
+</style>
+</head><body>
+<div class="wrap">
+  <a class="torna" href="index.html">← le tre direzioni</a>
+
+  <div class="testata">
+    <span class="etichetta">fascicolo 1 · taccuino della società</span>
+    <h1>le quattro domande</h1>
+    <div class="sotto">rispondete per iscritto, poi rompete il sigillo</div>
+  </div>
+
+  <div class="lastra">
+    <div class="domanda">
+      <div class="q"><span class="n">1.</span>
+        <span class="testo">Chi ha tagliato la corda della campana mezzana?</span></div>
+      <input class="campo-mano" value="il custode, Fossa" aria-label="risposta 1">
+    </div>
+    <div class="domanda">
+      <div class="q"><span class="n">2.</span>
+        <span class="testo">Dove è finito Ruggero dopo il 14 marzo?</span></div>
+      <input class="campo-mano" placeholder="la vostra risposta…" aria-label="risposta 2">
+    </div>
+    <div class="domanda">
+      <div class="q"><span class="n">3.</span>
+        <span class="testo">A che cosa serviva la cera?</span></div>
+      <input class="campo-mano" placeholder="la vostra risposta…" aria-label="risposta 3">
+    </div>
+    <div class="domanda">
+      <div class="q"><span class="n">4.</span>
+        <span class="testo">Chi paga il silenzio della Gendarmeria?</span></div>
+      <input class="campo-mano" placeholder="la vostra risposta…" aria-label="risposta 4">
+    </div>
+  </div>
+
+  <div class="lastra">
+    <h2>appunti</h2>
+    <p class="nota">Nomi, orari, parole che tornano.</p>
+    <textarea class="campo-mano" rows="5" aria-label="appunti">14 marzo — la chiave non torna
+cera fresca, nessuna candela
+«il coro» lo dicono in tre, mai lo stesso modo</textarea>
+  </div>
+
+  <div class="lastra sigillata">
+    <div class="sigillo">L</div>
+    <div class="che">la soluzione · sigillata fino alla fine</div>
+    <p class="nota" style="margin-top:10px">Rompere il sigillo chiude l’indagine per sempre.</p>
+    <div class="riga" style="justify-content:center">
+      <button class="btn">salvate e tornate in strada</button>
+      <button class="btn pieno">rompete il sigillo</button>
+    </div>
+  </div>
+</div>
+</body></html>

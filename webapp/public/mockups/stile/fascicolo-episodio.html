@@ -1,0 +1,83 @@
+<!doctype html><html lang="it"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Il Fascicolo · apertura del caso</title>
+<link rel="stylesheet" href="base.css"><link rel="stylesheet" href="fascicolo.css">
+<style>
+  /* le schede di scelta: niente teal, niente oro — la scelta fatta si segna
+     col nastro, come una linguetta infilata nel fascicolo */
+  .scelte { display: grid; gap: 10px; grid-template-columns: 1fr; margin-top: 10px; }
+  @media (min-width: 520px) { .scelte { grid-template-columns: 1fr 1fr; } }
+  .scelta { border: 1px solid #2a2c33; border-left: 3px solid #2a2c33;
+    background: var(--ardesia-alta); padding: 13px 14px; cursor: pointer; }
+  .scelta h3 { font-size: 17px; color: var(--osso); margin-bottom: 4px; }
+  .scelta p { margin: 0; font-size: 14px; color: var(--osso-fioco); }
+  .scelta.attiva { border-left-color: var(--nastro); background: #1c2229; }
+  .scelta.attiva h3 { color: #cfe0ee; }
+  .in-corso-riga { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+</style>
+</head><body>
+<div class="wrap">
+  <a class="torna" href="index.html">← le tre direzioni</a>
+
+  <div class="testata">
+    <span class="etichetta">fascicolo 1 · apertura</span>
+    <h1>il coro sommerso</h1>
+    <div class="sotto">il caso del campanaro scomparso</div>
+  </div>
+
+  <div class="lastra">
+    <h2>partita in corso</h2>
+    <p class="in-corso-riga">
+      <span class="mano">Elena, Attilio, Nino</span>
+      <span class="etichetta" style="margin:0">indagine · al tavolo</span>
+    </p>
+    <div class="riga">
+      <button class="btn pieno">riprendete</button>
+      <button class="btn">ricominciate da capo</button>
+    </div>
+  </div>
+
+  <div class="lastra">
+    <h2>come giocate stasera</h2>
+    <div class="scelte">
+      <div class="scelta attiva">
+        <h3>al tavolo</h3>
+        <p>Coi dadi veri. L’app fa da arbitro: custodisce i segreti, tira gli orologi,
+        pesca le Minacce — e nessuno al tavolo sa niente in anticipo.</p>
+      </div>
+      <div class="scelta">
+        <h3>tutto a schermo</h3>
+        <p>Niente componenti fisici: board, token e dadi vivono qui. La notte reagisce da sola.</p>
+      </div>
+    </div>
+
+    <h2 style="margin-top:18px">e la plancia della spedizione</h2>
+    <div class="scelte">
+      <div class="scelta attiva">
+        <h3>tessere e miniature vere</h3>
+        <p>Le avete stampate: la mappa sta sul tavolo, l’app tiene i conti.</p>
+      </div>
+      <div class="scelta">
+        <h3>plancia a schermo</h3>
+        <p>Non le avete stampate: mappa e pedine vivono qui. I dadi restano vostri.</p>
+      </div>
+    </div>
+
+    <h2 style="margin-top:18px">da dove cominciate</h2>
+    <div class="scelte">
+      <div class="scelta attiva">
+        <h3>l’episodio intero</h3>
+        <p>Prima l’indagine per le strade, poi la spedizione: com’è scritto.</p>
+      </div>
+      <div class="scelta">
+        <h3>solo la spedizione</h3>
+        <p>L’indagine l’avete già fatta un’altra sera. Vi chiederemo solo com’era finita.</p>
+      </div>
+    </div>
+
+    <div class="riga">
+      <button class="btn pieno">scegliete gli investigatori</button>
+    </div>
+  </div>
+</div>
+</body></html>

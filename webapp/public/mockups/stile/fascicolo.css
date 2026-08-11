@@ -15,6 +15,9 @@
   --nastro: #4b6b8a;      /* il nastro blu della macchina da scrivere */
   --carta: #e8dfc6;       /* la carta vera, usata con parsimonia */
   --carta-ink: #2b2418;
+  /* La Belle Aurore rende molto piccola al nominale: la dimensione sta in un
+     token perche' se al tavolo non si legge si torna indietro in una riga. */
+  --mano-size: 22px;
 }
 
 body {
@@ -40,7 +43,7 @@ body {
   border-bottom: 1px solid #2a2c33; padding-bottom: 6px; }
 .nota { color: var(--osso-fioco); font-style: italic; font-size: 15px; }
 /* la mano di chi indaga: appunti, non testo di sistema */
-.mano { font-family: 'Mano', cursive; font-size: 21px; color: #b9c8d6;
+.mano { font-family: 'Mano', cursive; font-size: var(--mano-size); color: #b9c8d6;
   transform: rotate(-.6deg); }
 
 /* la carta vera: solo dove al tavolo c'e' un oggetto */
