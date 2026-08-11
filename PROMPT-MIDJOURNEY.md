@@ -187,7 +187,9 @@ etichetta testuale come segnaposto; ora `scripts/tiles/generate-tiles.js`
 disegna l'arte vera generata da questi prompt (`ARREDO_ART` nello script).
 Salva come `artworks/<chiave>.png`, minuscolo, senza prefisso "Arredo"
 (chiavi: `molo`, `casse`, `candele`, `scrivania`, `branda`, `scala`,
-`altare`, `cella`) — deve combaciare col nome atteso dallo script.
+`altare`, `cella`, `armadio`, `toeletta`) — deve combaciare col nome
+atteso dallo script. `armadio`/`toeletta` servono per l'Episodio 16
+(TILES_16 in src/gen_ep16.py li usa gia', arte non ancora generata).
 
 **Tentativo 1 fallito** ("bird's eye view" + "orthographic top-down"): Midjourney
 ha comunque disegnato un render 3D isometrico stile icona di videogioco (le
@@ -215,7 +217,9 @@ cluttered writing desk with sheet music and a quill · **branda** a narrow
 straw pallet bed with a folded blanket · **scala** a stone spiral staircase
 seen from above, descending into shadow · **altare** a stone altar ringed
 with candle stubs and old bloodstains · **cella** a barred prison cell door
-set in a stone archway
+set in a stone archway · **armadio** a tall wooden wardrobe with one door
+ajar and a coat hanging inside · **toeletta** a lady's dressing table with
+an oval mirror, hairbrush and scattered hairpins
 
 **Mappa di campagna di Roccamora (poster)**
 ```

@@ -60,20 +60,15 @@ const TILES_EP1 = [
   { id: 'T6', nome: 'Cripta della Cera', exits: { S: 'T5' },
     arredi: [[1, 2, 'altare'], [2, 2, 'altare'], [3, 3, 'cella']] },
 ];
-// Episodi 10-15: stessa disposizione di tessere (catena lineare T1..T6, solo
-// uscite N/S, arredi 'casse'/'altare' generici) - 1:1 da TILES_N in ogni
-// src/gen_epN.py, nomi presi dai rispettivi PROMPT-MIDJOURNEY-Episodio-N.md.
-// Arte di sfondo: artworks/<id>-ep<N>.png (campo art), stesso pattern di Ep.2.
-function catenaLineare(epNum, nomi) {
+// Episodi 10-15: stessa topologia di tessere (catena lineare T1..T6, solo
+// uscite N/S) - 1:1 da TILES_N in ogni src/gen_epN.py, nomi presi dai
+// rispettivi PROMPT-MIDJOURNEY-Episodio-N.md. Arte di sfondo:
+// artworks/<id>-ep<N>.png (campo art), stesso pattern di Ep.2. Gli arredi
+// sono scelti per ambientazione (nessuna arte nuova: solo i 12 tipi gia'
+// in ARREDO_KEYS) - coordinate a coppie per cella gia' validate contro le
+// porte, cambia solo l'etichetta.
+function catenaLineare(epNum, nomi, arrediPerTessera) {
   const ids = ['T1', 'T2', 'T3', 'T4', 'T5', 'T6'];
-  const arrediPerTessera = [
-    [[0, 3, 'casse'], [3, 0, 'casse']],
-    [[1, 1, 'casse'], [2, 2, 'casse']],
-    [[0, 1, 'casse'], [3, 2, 'casse']],
-    [[1, 2, 'casse'], [2, 0, 'altare']],
-    [[1, 1, 'casse'], [2, 2, 'casse']],
-    [[0, 2, 'casse']],
-  ];
   return ids.map((id, i) => ({
     id, nome: nomi[i], art: `${id}-ep${epNum}.png`,
     exits: i === 0 ? { N: ids[1] } : i === ids.length - 1 ? { S: ids[i - 1] } : { S: ids[i - 1], N: ids[i + 1] },
@@ -85,25 +80,74 @@ function catenaLineare(epNum, nomi) {
 const TILES_BY_SET = {
   ep1: TILES_EP1,
   ep2: TILES_EP2,
+  // Ep.10 - Casa Malfanti, demolizione: tinello sgomberato, scala vera,
+  // corridoio illuminato a candele, camera col letto disfatto, sottoscala
+  // di stoccaggio, l'intercapedine murata (cella).
   ep10: catenaLineare(10, ['L’Ingresso (il tinello)', 'La Scala che Ripete', 'Il Corridoio dei Nomi',
-                           'La Camera che Detta', 'Il Sottoscala', 'L’Intercapedine']),
+                           'La Camera che Detta', 'Il Sottoscala', 'L’Intercapedine'],
+    [[[0, 3, 'casse'], [3, 0, 'casse']],
+     [[1, 1, 'scala'], [2, 2, 'scala']],
+     [[0, 1, 'candele'], [3, 2, 'candele']],
+     [[1, 2, 'branda'], [2, 0, 'casse']],
+     [[1, 1, 'casse'], [2, 2, 'casse']],
+     [[0, 2, 'cella']]]),
+  // Ep.11 - Torre Civica, topografi: attrezzatura di rilievo (casse) e
+  // scale/ballatoi di accesso alla torre, campane a lume di candela.
   ep11: catenaLineare(11, ['L’Abbaino', 'Il Camminamento Ovest', 'La Loggia delle Campane',
-                           'Il Tetto a Schiena d’Asino', 'Il Ballatoio della Torre', 'La Guglia']),
+                           'Il Tetto a Schiena d’Asino', 'Il Ballatoio della Torre', 'La Guglia'],
+    [[[0, 3, 'casse'], [3, 0, 'casse']],
+     [[1, 1, 'scala'], [2, 2, 'casse']],
+     [[0, 1, 'candele'], [3, 2, 'candele']],
+     [[1, 2, 'casse'], [2, 0, 'casse']],
+     [[1, 1, 'scala'], [2, 2, 'casse']],
+     [[0, 2, 'casse']]]),
+  // Ep.12 - Roccamora sui canali, il Corriere: moli e pontili lungo tutto
+  // il tragitto, l'archivio con una scrivania.
   ep12: catenaLineare(12, ['L’Archivio Violato', 'Il Ponte dei Sospiri', 'La Fondamenta Stretta',
-                           'Il Canale della Nebbia', 'Il Sottoportico', 'Il Cimitero delle Barche']),
+                           'Il Canale della Nebbia', 'Il Sottoportico', 'Il Cimitero delle Barche'],
+    [[[0, 3, 'scrivania'], [3, 0, 'casse']],
+     [[1, 1, 'molo'], [2, 2, 'molo']],
+     [[0, 1, 'molo'], [3, 2, 'casse']],
+     [[1, 2, 'molo'], [2, 0, 'casse']],
+     [[1, 1, 'casse'], [2, 2, 'casse']],
+     [[0, 2, 'molo']]]),
+  // Ep.13 - Molino delle Carte: moli sulla roggia, magazzini e sale di
+  // lavorazione a casse (nessun arredo "macina/torchio" dedicato).
   ep13: catenaLineare(13, ['Il Cortile del Molino', 'La Roggia', 'La Sala delle Macine',
-                           'I Magazzini di Stracci', 'L’Essiccatoio', 'La Sala del Torchio']),
+                           'I Magazzini di Stracci', 'L’Essiccatoio', 'La Sala del Torchio'],
+    [[[0, 3, 'casse'], [3, 0, 'casse']],
+     [[1, 1, 'molo'], [2, 2, 'molo']],
+     [[0, 1, 'casse'], [3, 2, 'casse']],
+     [[1, 2, 'casse'], [2, 0, 'casse']],
+     [[1, 1, 'casse'], [2, 2, 'candele']],
+     [[0, 2, 'casse']]]),
+  // Ep.14 - tetti di Roccamora, il Ricettatore: comignolo come stufa/fumaiolo,
+  // candele nei punti di passaggio (lucernario, panni), refurtiva in casse.
   ep14: catenaLineare(14, ['La Gronda', 'Il Comignolo', 'La Terrazza dei Panni',
-                           'L’Abbaino', 'Il Lucernario', 'L’Attico del Corso']),
+                           'L’Abbaino', 'Il Lucernario', 'L’Attico del Corso'],
+    [[[0, 3, 'casse'], [3, 0, 'casse']],
+     [[1, 1, 'stufa'], [2, 2, 'stufa']],
+     [[0, 1, 'casse'], [3, 2, 'candele']],
+     [[1, 2, 'casse'], [2, 0, 'candele']],
+     [[1, 1, 'candele'], [2, 2, 'casse']],
+     [[0, 2, 'casse']]]),
+  // Ep.15 - Villa-Museo di Braga: scrivanie nei due studi (Braga e quello
+  // segreto), teche/altare nella galleria dei cimeli, scale di servizio vere.
   ep15: catenaLineare(15, ['Il Cancello', 'L’Atrio', 'Lo Studio di Braga',
-                           'La Galleria dei Cimeli', 'Le Scale di Servizio', 'Lo Studio Segreto']),
+                           'La Galleria dei Cimeli', 'Le Scale di Servizio', 'Lo Studio Segreto'],
+    [[[0, 3, 'casse'], [3, 0, 'casse']],
+     [[1, 1, 'candele'], [2, 2, 'casse']],
+     [[0, 1, 'scrivania'], [3, 2, 'scrivania']],
+     [[1, 2, 'casse'], [2, 0, 'altare']],
+     [[1, 1, 'scala'], [2, 2, 'scala']],
+     [[0, 2, 'scrivania']]]),
 };
 const TILES = TILES_BY_SET[SET];
 
 // Arte vera per arredo (prompt in PROMPT-MIDJOURNEY.md, sezione "Arredi delle
 // tessere"): un file artworks/<chiave>.png per chiave di ARREDO_STYLE.
 const ARREDO_KEYS = ['molo', 'casse', 'candele', 'scrivania', 'branda', 'scala', 'altare', 'cella',
-                     'forma', 'scorie', 'crogiolo', 'stufa'];
+                     'forma', 'scorie', 'crogiolo', 'stufa', 'armadio', 'toeletta'];
 const ARREDO_ART = Object.fromEntries(ARREDO_KEYS.map((k) =>
   [k, pathToFileURL(path.join(ROOT, 'artworks', `${k}.png`)).href]));
 // zoom oltre il "cover" di base per chi ha l'oggetto piccolo al centro di una
