@@ -155,7 +155,8 @@ regole di Spedizione da `digitale.js` in `webapp/public/motore/`, pure e
 isomorfe, perché le stesse girino nel browser dell'arbitro, sul telefono di un
 giocatore e domani in un Durable Object. **A schermo non cambia niente.**
 
-**`digitale.js`: da 2495 a 1994 righe.** Tutto collegato e verde.
+**`digitale.js`: da 2495 a 1674 righe, e non contiene più nessuna regola di
+Spedizione.** Otto moduli fuori, tutti collegati, tutti verdi.
 
 | modulo | rete |
 |---|---|
@@ -163,21 +164,68 @@ giocatore e domani in un Durable Object. **A schermo non cambia niente.**
 | `motore/griglia.js` | differenziale, 30000 confronti |
 | `motore/stat.js` | differenziale, 26400 confronti |
 | `motore/regole.js` | comportamento sui dati veri dei 21 episodi |
-| `motore/obiettivi.js` | differenziale, 15600 confronti — **ritorno E stato** |
+| `motore/obiettivi.js` | differenziale, 15600 confronti — ritorno **e** stato |
+| `motore/vittoria.js` | comportamento; 5 sabotaggi catturati |
+| `motore/minaccia.js` | differenziale, 5040 confronti sui 21 episodi |
+| `motore/nemici.js` | differenziale, 525 turni; esca 113, flash 241, PNG 103 |
 
 `engine.js` è passato da 315 a 92 righe: tiene solo l'html-lite, le frasi delle
 piste fredde e i percorsi dei jpg, e ri-esporta il resto, così `indagine.js`,
 `spedizione.js` e `digitale.js` non cambiano una riga.
 
-**Ancora da fare:** `vittoria`, `minaccia`, `nemici`, poi il contratto
-`applica()` con `eventi[]` e `stato.pendenza` (è il pezzo di design vero), le
-tre funzioni miste grosse (`usaAbilita`, `azioneInteragire`, `attaccaNemico`),
-`replay.js`, il pilota headless e il cancello finale.
+**Il danno era scritto tre volte** — nel piano quando tira l'app, dentro
+l'animazione quando tira il tavolo, e una terza copia per chi salta
+l'animazione. Ora è uno solo, in `nemici.js`.
 
-**I differenziali che mutano lo stato confrontano due cose**, il valore di
-ritorno *e* la partita che lasciano dietro. Una funzione che torna gli annunci
-giusti sporcando `compiti` o `canto` in modo diverso passerebbe un confronto
-sul solo ritorno, e sposterebbe il bilanciamento in silenzio.
+**Il caso arriva da fuori**, come `caso.scegli(n)` e `caso.tira2d6()`. Oggi
+`digitale.js` passa `Math.random` (il `CASO` in cima al file), cioè esattamente
+com'era; col contratto `applica()` basterà passarne un altro perché una serata
+si rigiochi identica.
+
+**Ancora da fare:** il contratto `applica()` con `eventi[]` e `stato.pendenza`
+(è il pezzo di design vero, non altra estrazione), le tre funzioni miste grosse
+(`usaAbilita`, `azioneInteragire`, `attaccaNemico`), `replay.js`, il pilota
+headless e il cancello finale.
+
+### Come si prova un'estrazione
+
+1. **Differenziale contro l'oracolo** (`bash webapp/rigenera-oracolo.sh`), su
+   stati generati. Dove le funzioni mutano, si confronta il valore di ritorno
+   **e** la partita che lasciano dietro: una che torna gli annunci giusti
+   sporcando `compiti` o `canto` in modo diverso passerebbe il confronto sul
+   solo ritorno e sposterebbe il bilanciamento in silenzio.
+2. **Il differenziale va poi rotto apposta.** Ogni volta ha pescato qualcosa: due
+   test miei che passavano a vuoto (il tick del Canto provato al 4° round quando
+   l'Ep.1 batte ogni 6; il filtro delle carte Bivio provato sull'unico episodio
+   che Bivi non ne ha) e un ramo morto vero (`spawnRegex` costruisce
+   un'espressione per il boss ma itera su `ep.pool`, dove il boss non c'è in
+   nessuno dei 21 episodi).
+3. **Dove il caso decide** — il turno nemici — si fa consumare a vecchio e nuovo
+   **la stessa lista di numeri**: `Math.random` dirottato da una parte, il `caso`
+   iniettato dall'altra. Funziona perché l'ordine dei consumi è identico.
+
+### Quanta varianza ha il pilota
+
+Molta più di quanto la mappa lasci credere. Misurato facendo girare **lo stesso
+identico commit** (`3aac1e51`) due volte:
+
+| episodio | prima lettura | seconda lettura |
+|---|---|---|
+| Ep.1 | 55% | 50% |
+| **Ep.19** | **15%** | **35%** |
+
+Venti punti di scarto a N=20, senza che una riga sia cambiata. L'Ep.1 oscilla
+fra 0% e 55% su campioni piccoli, e l'Ep.12 ha dato 63% a N=8 e 90% a N=20.
+
+**Conseguenze pratiche.** Un allarme a N<20 non è un dato. Un singolo episodio
+che si muove di 20 punti non è una regressione. Per stabilire se qualcosa è
+davvero cambiato serve un A/B a N=20 **sullo stesso momento**, in un
+`git worktree` col server su un'altra porta (`node webapp/server.js 8018`) —
+ricordando che il worktree non ha `webapp/data` né `node_modules`: vanno
+copiati o linkati. E il cancello di fine fase non può essere «nessun episodio
+si muove di 20 punti»: quella soglia la sfonda il rumore da solo. Va letta la
+**media degli scarti su tutti e ventuno**, che il rumore per episodio tende a
+compensare.
 
 **Il motore sta sotto `public/`** e non accanto a `webapp/`: l'import relativo
 deve risolvere sia per node (filesystem) sia per il browser (HTTP, root del
