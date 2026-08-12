@@ -44,6 +44,13 @@ const salvaP = () => salva(ctx.partita);
 //     arbitra, dal fascicolo Spedizione. Se lo mostrasse l'app, i giocatori lo
 //     leggerebbero prima che finisca la frase.
 const alTavolo = () => P().modo === 'tavolo';
+// IL POSTO. Chi arbitra muove chiunque — e' lui che tiene in mano gli eroi non
+// reclamati. Chi gioca muove il suo, e i comandi del tavolo (la notte, la
+// pesca, la chiusura) non li ha.
+const mioPosto = () => (ctx && ctx.posto) || { ruolo: 'arbitro' };
+const arbitro = () => mioPosto().ruolo === 'arbitro';
+const mioEroe = () => mioPosto().eroe || null;
+const posso = (nm) => arbitro() || nm === mioEroe();
 const modoDadi = () => (alTavolo() ? 'tavolo' : 'digitale');
 // I tiri dei NEMICI si possono delegare all'app anche stando al tavolo: con il
 // campo affollato, tirare a mano per ogni sgherro e' la contabilita' che la
@@ -117,10 +124,18 @@ const occupati = (exclKey, soloNemici, senzaScortati) =>
   griglia.occupati(G(), exclKey, soloNemici, senzaScortati);
 
 // ---------------------------------------------------------------- ingresso
-export async function vistaDigitale(app, partita, vaiA) {
+// `posto` — chi sta guardando. Assente o `{ruolo:'arbitro'}`: e' la plancia di
+// chi conduce, come sempre. `{ruolo:'giocatore', eroe}`: e' il telefono di chi
+// gioca QUEL personaggio.
+//
+// La plancia e' LA STESSA. Non si duplica in una vista-eroe: sarebbe ricreare
+// la divergenza fra due copie della stessa cosa, che e' il guaio da cui questa
+// fase e' partita. Cambia CHI PUO' TOCCARE COSA — e il motore lo rifiuta
+// comunque, se qualcuno prova.
+export async function vistaDigitale(app, partita, vaiA, posto) {
   const [ep, comune, carte] = await Promise.all([
     dati(partita.episodio), dati('comune'), dati('carte')]);
-  ctx = { app, partita, ep, comune, carte, vaiA, layout: null };
+  ctx = { app, partita, ep, comune, carte, vaiA, layout: null, posto: posto || null };
   abilitaSchede((nm) => comune.eroi.find((x) => x.nome === nm));
   // al tavolo la plancia si guarda in tanti, da lontano e di sbieco: il glide
   // del token rallenta (vedi `.al-tavolo .tok-slot` in app.css) perche' la
@@ -252,9 +267,10 @@ function render() {
     <div class="pannello secondario"><h2>oggetti del gruppo</h2>${oggettiHtml()}</div>
     <div class="mt"></div>
     <div class="pannello secondario"><h2>diario</h2>${logHtml()}</div>
-    <div class="btn-riga secondario"><button class="btn" id="sconfitta">gli eroi cadono</button></div>`;
+    ${arbitro() ? '<div class="btn-riga secondario"><button class="btn" id="sconfitta">gli eroi cadono</button></div>' : ''}`;
   app.querySelector('#nav-esci').onclick = () => { spegniImmersivo(); ctx.vaiA('menu'); };
-  app.querySelector('#sconfitta').onclick = () => finePartita('sconfitta');
+  const btnSconfitta = app.querySelector('#sconfitta');
+  if (btnSconfitta) btnSconfitta.onclick = () => finePartita('sconfitta');
   aggancia();
 }
 
@@ -295,9 +311,12 @@ function boardHtml(senzaMosse) {
   // Mentre agisce la notte NON si accende niente: le caselle turchesi
   // dell'eroe attivo restavano accese durante il turno dei nemici, e sembrava
   // di poter giocare mentre invece si aspetta.
+  // Le caselle si accendono solo per chi le puo' davvero toccare: sul telefono
+  // di chi gioca Elena non ha senso illuminare il cammino di Ottone.
   const ragg = senzaMosse ? {}
-    : sp.escaModo ? celleEsca(sp.escaModo)
-    : attivo ? raggEroe(attivo) : (scortAttivo() != null ? raggScortato(scortAttivo()) : {});
+    : sp.escaModo ? (posso(sp.escaModo) ? celleEsca(sp.escaModo) : {})
+    : attivo ? (posso(attivo) ? raggEroe(attivo) : {})
+    : (scortAttivo() != null && arbitro() ? raggScortato(scortAttivo()) : {});
 
   // blocchi tessera: rivelate (sfondo + griglia) e frontiera (coperte, scure)
   const tiles = mostrate.map((id) => {
@@ -467,7 +486,8 @@ function azioniHtml() {
       ${giuVicino && azioniRestano(attivo) && !azioneSpesa(attivo, 'rianimare') ? '<button class="btn" id="az-rianimare">Rianimare</button>' : ''}
       ${azioniRestano(attivo) && !azioneSpesa(attivo, 'cercare') ? '<button class="btn" id="az-cercare">Cercare</button>' : ''}
       ${azioniRestano(attivo) && (P().indagine.oggetti || []).length ? '<button class="btn" id="az-oggetto">Usa oggetto</button>' : ''}
-      <button class="btn pieno" id="az-fine">«${esc(primo(attivo))}» ha finito →</button>
+      ${posso(attivo) ? `<button class="btn pieno" id="az-fine">«${esc(primo(attivo))}» ha finito →</button>`
+        : `<p class="nota">Tocca a ${esc(primo(attivo))}. Aspetta il suo turno.</p>`}
     </div>`;
 }
 

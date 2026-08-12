@@ -396,6 +396,27 @@ import { vistaIndagine } from './indagine.js';
 import { vistaSpedizione } from './spedizione.js';
 import { vistaDigitale } from './digitale.js';
 
+// IL POSTO A CUI SI SIEDE. Lo dice /api/stato insieme ai tavoli: chi ha creato
+// il tavolo arbitra, chi e' stato invitato gioca il suo eroe.
+//
+// `null` = si arbitra, ed e' il caso di sempre: senza server (il `server.js`
+// locale, tutti i banchi di misura) e senza tavolo scelto non c'e' nessun
+// posto da rispettare, e la plancia e' quella di chi conduce.
+async function postoDiQuestoTavolo() {
+  const id = tavoloCorrente();
+  if (!id) return null;
+  try {
+    const r = await fetch('/api/stato');
+    if (!r.ok) return null;
+    const s = await r.json();
+    const t = (s.tavoli || []).find((x) => x.id === id);
+    if (!t || t.ruolo === 'arbitro') return null;
+    return { ruolo: 'giocatore', eroe: t.eroe || null };
+  } catch {
+    return null;                       // nessun server: si arbitra, com'era
+  }
+}
+
 async function vistaPartita(partita) {
   // Ramo spedizione. La plancia a schermo (digitale.js) serve DUE casi: la
   // modalita' digitale, e il tavolo di chi non ha stampato tessere e miniature
@@ -404,15 +425,16 @@ async function vistaPartita(partita) {
   // resta su spedizione.js, invariato.
   const aSchermo = partita.modo === 'digitale' || partita.plancia === 'schermo';
   const sped = aSchermo ? vistaDigitale : vistaSpedizione;
+  const posto = await postoDiQuestoTavolo();
   const vaiA = (dove) => {
     if (dove === 'menu') return vistaHome();
-    if (dove === 'spedizione') return sped(app, partita, vaiA);
+    if (dove === 'spedizione') return sped(app, partita, vaiA, posto);
     vistaPartita(partita);
   };
   if (partita.fase === 'indagine' && !partita.indagine.chiusa) {
     return vistaIndagine(app, partita, vaiA);
   }
-  return sped(app, partita, vaiA);
+  return sped(app, partita, vaiA, posto);
 }
 
 // ------------------------------------------------------------------ avvio
