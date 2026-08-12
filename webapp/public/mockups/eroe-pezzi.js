@@ -55,7 +55,7 @@
   const IO_POS = { t: 'T3', x: 1, y: 1 };
   const TOK = [
     { cls: 'io', art: IO.art, ...IO_POS },
-    { cls: '', art: ALTRO.art, t: 'T3', x: 2, y: 0 },
+    { cls: 'lui', art: ALTRO.art, t: 'T3', x: 2, y: 0 },
     { cls: '', art: 'Ottone.png', t: 'T2', x: 1, y: 2 },
     { cls: 'nem', art: 'Adepto Incappucciato.png', t: 'T3', x: 3, y: 1 },
     { cls: 'nem boss', art: 'Il Custode della Cera (boss).png', t: 'T2', x: 0, y: 3 },

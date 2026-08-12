@@ -55,25 +55,53 @@
    col pollice: e' il motivo per cui si scorre invece di rimpicciolire. */
 .campo { position: relative; width: 200%; aspect-ratio: 2 / 1; }
 .tessere { position: absolute; inset: 0; display: grid; grid-template-columns: 1fr 1fr; }
-.tess { position: relative; background: #0a0d10; }
+.tess { position: relative; background: #0a0d10; box-sizing: border-box;
+  border: 2px solid rgba(230,195,120,.55); }
 .tess img { width: 100%; height: 100%; object-fit: cover; opacity: .85; display: block; }
+.tess.coperta { border-style: dashed; border-color: rgba(230,195,120,.3); }
 .tess.coperta img { filter: grayscale(1) brightness(.25); }
 .tess .et { position: absolute; left: 4px; bottom: 3px; font-size: 10px; color: var(--seppia);
   font-family: 'FellSC', serif; text-shadow: 0 1px 3px #000; }
 .griglia { position: absolute; inset: 0; display: grid; pointer-events: none; }
-.cel { border: 1px solid rgba(240,230,204,.055); }
-.cel.mossa { border-color: rgba(216,178,94,.85); background: rgba(216,178,94,.16);
-  box-shadow: inset 0 0 10px rgba(216,178,94,.28); border-radius: 3px; }
-.attesa .cel.mossa { border-color: rgba(240,230,204,.055); background: none; box-shadow: none; }
-.tk { position: absolute; border-radius: 50%; overflow: hidden; border: 2px solid var(--seppia);
-  background: #12171b; box-shadow: 0 2px 8px rgba(0,0,0,.7); }
-.tk img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.tk.io { border-color: var(--oro-chiaro); box-shadow: 0 0 0 2px rgba(216,178,94,.35), 0 2px 10px #000; }
-.mio .tk.io { animation: respiro 2.4s ease-in-out infinite; }
-.tk.nem { border-color: var(--rosso); }
-.tk.boss { border-color: #d24; width: 15%; }
-@keyframes respiro { 0%,100% { box-shadow: 0 0 0 2px rgba(216,178,94,.35), 0 2px 10px #000; }
-  50% { box-shadow: 0 0 0 5px rgba(216,178,94,.18), 0 2px 14px #000; } }
+
+/* DA app.css, PAROLA PER PAROLA (`.cella-b`, `.cella-mossa`, `.tok-board`).
+   Copiate e non reinterpretate: un mockup che colora le caselle in modo diverso
+   dalla webapp fa giudicare un layout che non esiste. I segnali sono tre e
+   ognuno vuol dire una cosa sola:
+     turchese  = ci puoi arrivare        (--segnale-mossa  #7fe6db)
+     oro       = di la' si rivela        (--segnale-rivela #d8b25e)
+     rosso     = di li' viene il male    (--segnale-nemico #a3253a) */
+.cel { box-sizing: border-box; border: 1px solid rgba(230,195,120,.28); }
+.cel.mossa { cursor: pointer; position: relative;
+  background: rgba(95,184,176,.42); border: 2px solid #7fe6db;
+  box-shadow: inset 0 0 16px rgba(127,230,219,.6); }
+/* il pallino che pulsa al centro: da lontano e' quello che si vede, prima
+   ancora del riquadro */
+.cel.mossa::after { content: ''; position: absolute; left: 50%; top: 50%;
+  width: 26%; height: 26%; transform: translate(-50%,-50%); border-radius: 50%;
+  background: #7fe6db; box-shadow: 0 0 10px 2px rgba(127,230,219,.9);
+  animation: ragg-pulse 1.1s ease-in-out infinite; }
+.cel.mossa.reveal { background: rgba(216,178,94,.4); border-color: #d8b25e;
+  box-shadow: inset 0 0 16px rgba(216,178,94,.6); }
+.cel.mossa.reveal::after { background: #d8b25e; box-shadow: 0 0 10px 2px rgba(216,178,94,.9); }
+@keyframes ragg-pulse { 0%,100% { opacity: .5; transform: translate(-50%,-50%) scale(.8); }
+  50% { opacity: 1; transform: translate(-50%,-50%) scale(1.15); } }
+/* quando non tocca a me le caselle si spengono: restano la griglia e basta */
+.attesa .cel.mossa { border: 1px solid rgba(230,195,120,.28); background: none;
+  box-shadow: none; cursor: default; }
+.attesa .cel.mossa::after { display: none; }
+
+.tk { position: absolute; border-radius: 50%; overflow: hidden;
+  border: 2px solid #d8b25e; background: #0f0c10; box-shadow: 0 2px 6px rgba(0,0,0,.6); }
+.tk img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; }
+/* L'alone e' di CHI GIOCA ORA, non di chi guarda: da attivo l'eroe resta oro ma
+   si accende (il rosso e' dei nemici, e da lontano il tavolo scambiava il
+   proprio eroe per una minaccia). Quindi in attesa a brillare e' l'altro —
+   ed e' anche il modo piu' rapido di vedere chi si sta muovendo. */
+.mio .tk.io, .attesa .tk.lui { border-color: #f4d68a; border-width: 3px;
+  box-shadow: 0 0 16px rgba(244,214,138,.85); }
+.tk.nem { border-color: #7a1f2b; }
+.tk.nem.boss { border-color: #d83b3b; border-width: 3px; box-shadow: 0 0 12px rgba(216,59,59,.7); }
 
 /* ---- la scheda del mio eroe ---- */
 .io-card { flex: none; display: flex; gap: 10px; align-items: center; padding: 10px 12px;
