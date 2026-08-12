@@ -1,0 +1,55 @@
+<!doctype html><html lang="it"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Vista eroe · fase Minaccia</title>
+<link rel="stylesheet" href="../comune.css"><link rel="stylesheet" href="../stile-eroe.css">
+</head><body>
+<div class="wrap" style="padding:6px">
+  <div class="leve">
+    <button class="btn sel" data-fase="carta">la carta</button>
+    <button class="btn" data-fase="dopo">cos'è cambiato</button>
+    <a class="btn" href="pollice.html">← il mio turno</a>
+  </div>
+  <div class="telefono dir-pollice notte fase-carta" id="tel"></div>
+  <p class="nota center" style="max-width:420px;margin:10px auto">
+    <b>Fase Minaccia, sul telefono.</b> La pesca è di chi arbitra: qui non c'è nessun bottone, e non
+    deve essercene. Il telefono mostra la stessa carta, e in più dice <i>cosa cambia</i> — il Canto che
+    sale è la cosa che al tavolo si sente pronunciare, e sullo schermo di chi gioca deve arrivare.<br>
+    <b>Da decidere:</b> la carta a tutta pagina ferma il telefono per tutti; il secondo stato la
+    riduce a una striscia e rimette la plancia sotto, portandola <i>su quel che è cambiato</i> — qui il
+    Custode che si desta, che senza questo resterebbe fuori campo e nessuno lo vedrebbe.
+  </p>
+</div>
+<script src="../dati.js"></script>
+<script src="../eroe-pezzi.js"></script>
+<script>
+const E = window.EROE;
+const tel = document.getElementById('tel');
+
+// I DUE ISTANTI DELLA PESCA, che sono due schermate diverse e non una sola:
+//   1. la carta — tutti la guardano, nessuno tocca niente;
+//   2. dopo — la carta si ritira e quel che ha lasciato sul campo si vede.
+const carta = () => E.testa(3) + E.turnoNotte('minaccia · 1 di 2') + E.cartaMinaccia();
+const dopo = () => E.testa(3) + E.turnoNotte('minaccia · il Custode si desta')
+  + `<div class="striscia-carta">
+       <img src="${MOCK.S.A('Episodio 1/cards/Minacce/Il Canto Cresce.jpg')}" alt="">
+       <div><b>Il Canto è a 3 su 3.</b><br><span class="ko-txt">Il Custode della Cera si desta.</span></div>
+     </div>`
+  + E.plancia() + E.ioCard() + E.altri();
+
+function mostra(f) {
+  tel.className = 'telefono dir-pollice notte fase-' + f;
+  tel.innerHTML = f === 'carta' ? carta() : dopo();
+  // dopo la carta la plancia si porta SU QUEL CHE E' CAMBIATO — qui il boss che
+  // si desta — invece di restare dov'era: la webapp fa lo stesso con
+  // `centraSuNodo()`, e su un telefono e' l'unico modo di accorgersene
+  E.centra(f === 'dopo' ? '.tk.boss' : null);
+}
+document.querySelectorAll('[data-fase]').forEach((b) => {
+  b.onclick = () => {
+    document.querySelectorAll('[data-fase]').forEach((x) => x.classList.toggle('sel', x === b));
+    mostra(b.dataset.fase);
+  };
+});
+mostra('carta');
+</script>
+</body></html>

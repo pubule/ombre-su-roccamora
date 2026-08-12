@@ -86,10 +86,13 @@
 .cel.mossa.reveal::after { background: #d8b25e; box-shadow: 0 0 10px 2px rgba(216,178,94,.9); }
 @keyframes ragg-pulse { 0%,100% { opacity: .5; transform: translate(-50%,-50%) scale(.8); }
   50% { opacity: 1; transform: translate(-50%,-50%) scale(1.15); } }
-/* quando non tocca a me le caselle si spengono: restano la griglia e basta */
-.attesa .cel.mossa { border: 1px solid rgba(230,195,120,.28); background: none;
+/* Le caselle si spengono quando non tocca a me E MENTRE AGISCE LA NOTTE.
+   La seconda meta' non e' un dettaglio: nella webapp restavano accese durante
+   il turno dei nemici e sembrava di poter giocare mentre invece si aspetta —
+   e' il motivo per cui `boardHtml()` prende `senzaMosse` (digitale.js:321-325). */
+.attesa .cel.mossa, .notte .cel.mossa { border: 1px solid rgba(230,195,120,.28); background: none;
   box-shadow: none; cursor: default; }
-.attesa .cel.mossa::after { display: none; }
+.attesa .cel.mossa::after, .notte .cel.mossa::after { display: none; }
 
 .tk { position: absolute; border-radius: 50%; overflow: hidden;
   border: 2px solid #d8b25e; background: #0f0c10; box-shadow: 0 2px 6px rgba(0,0,0,.6); }
@@ -206,3 +209,74 @@
 .dir-schede .ling.on { color: var(--oro-chiaro); box-shadow: inset 0 2px 0 var(--oro-chiaro); }
 .dir-schede .ling .pallino { display: inline-block; width: 7px; height: 7px; border-radius: 50%;
   background: var(--rosso); margin-left: 4px; vertical-align: middle; }
+
+/* =========================================================================
+   LA NOTTE: fase Minaccia e fase Nemici.
+   In tutte e due chi gioca NON agisce — pesca e nemici sono di chi arbitra —
+   ma sono i due minuti piu' tesi della serata, e un telefono che li passa in
+   silenzio li spegne. Stili presi da app.css (`.turno-banner`, `.dmg-pop`,
+   `.tok-board.attivo-nem`, `.colpito`).
+   ========================================================================= */
+.turno.notte { background: linear-gradient(180deg, rgba(40,12,16,.97), rgba(20,10,12,.97));
+  color: #ff8a6a; border-bottom: 1px solid #7a1f2b; }
+
+/* la carta della pesca, come la vede l'arbitro — ma senza «continua»: quel
+   bottone non e' di chi gioca, e mostrarlo spento sarebbe peggio che non averlo */
+.carta-fase { flex: 1; min-height: 0; overflow-y: auto; padding: 10px 12px 16px; text-align: center; }
+.carta-fase .carta-grande img { width: 100%; max-width: 320px; border-radius: 6px;
+  border: 1px solid var(--oro); box-shadow: 0 10px 34px rgba(0,0,0,.75); }
+.carta-fase .annunci { margin-top: 12px; }
+.carta-fase .annunci p { margin: 6px 0; font-size: 15px; }
+.carta-fase .annunci b { color: var(--oro-chiaro); }
+.carta-fase .chi { color: var(--seppia); font-style: italic; font-size: 13px; }
+
+/* la stessa carta ridotta a striscia, per rimettere sotto la plancia: cosi' si
+   vede DOVE sono comparsi i rinforzi, che e' l'informazione che serve dopo */
+.striscia-carta { flex: none; display: flex; gap: 10px; align-items: center; padding: 8px 12px;
+  background: rgba(40,12,16,.55); border-bottom: 1px solid #7a1f2b; font-size: 13px; }
+.striscia-carta img { width: 44px; border-radius: 3px; border: 1px solid var(--oro); flex: none; }
+.striscia-carta b { color: var(--oro-chiaro); }
+.ko-txt { color: #ff8a6a; }
+
+/* il banner di chi agisce: `bannerTurno(art, testo, 'nemico')` */
+.banner-nem { flex: none; display: flex; align-items: center; gap: 10px; padding: 8px 12px;
+  background: linear-gradient(180deg, rgba(40,12,16,.97), rgba(20,10,12,.97));
+  border-bottom: 1px solid #7a1f2b; }
+.banner-nem .rit { width: 46px; height: 46px; border-radius: 50%; overflow: hidden; flex: none;
+  border: 2px solid #d83b3b; box-shadow: 0 0 16px rgba(216,59,59,.7); background: #12171b; }
+.banner-nem .rit img { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+.banner-nem .txt { font-family: 'FellSC', serif; font-size: 15px; color: var(--perg); line-height: 1.2; }
+.banner-nem .txt b { color: #ff8a6a; font-size: 18px; }
+
+/* il nemico che agisce si accende, come sulla plancia grande */
+.notte .tk.nem { border-color: #d83b3b; border-width: 3px; box-shadow: 0 0 16px rgba(216,59,59,.85); }
+.notte .tk.io, .notte .tk.lui { border-color: #d8b25e; border-width: 2px; box-shadow: 0 2px 6px rgba(0,0,0,.6); }
+
+/* IL COLPO. `dmg-pop` nella webapp: il numero sale dal segnalino colpito. */
+.dmg { position: absolute; z-index: 6; transform: translateX(-50%); pointer-events: none; font-family: 'FellSC', serif;
+  font-size: 30px; font-weight: 700; color: #ff5a5a; text-shadow: 0 0 6px #000, 0 1px 3px #000;
+  animation: sale 1.6s ease-in-out infinite; }
+@keyframes sale { 0% { opacity: .85; transform: translateY(6px); } 40% { opacity: 1; transform: translateY(-14px); }
+  100% { opacity: .85; transform: translateY(-26px); } }
+
+/* QUANDO IL BERSAGLIO SEI TU. Su un tabellone il colpo lo vedono tutti; su un
+   telefono tenuto in mano si guarda altrove, e senza un segnale forte si
+   scopre di essere a terra due turni dopo. */
+.att-io .tk.io { border-color: #ff5a5a !important; border-width: 3px !important;
+  animation: colpito 1s ease-in-out infinite; }
+@keyframes colpito { 0%,100% { box-shadow: 0 0 10px rgba(255,90,90,.7); }
+  50% { box-shadow: 0 0 26px 8px rgba(255,90,90,.95); } }
+.att-io .turno.notte { animation: allarme 1.1s ease-in-out infinite; }
+@keyframes allarme { 0%,100% { background: linear-gradient(180deg, rgba(40,12,16,.97), rgba(20,10,12,.97)); }
+  50% { background: linear-gradient(180deg, #7a1f2b, #571420); } }
+.att-io .io-card { box-shadow: inset 0 0 0 2px #ff5a5a; }
+/* il Canto al culmine non e' un numero come gli altri: da li' il Custode si
+   desta e ogni Minaccia pesca una carta in piu' */
+.canto.culmine i.on { box-shadow: 0 0 10px 2px rgba(216,59,59,.9); }
+.canto.culmine .lab { color: #ff8a6a; }
+/* quel che la carta ha appena svegliato o schierato: si accende finche' non lo
+   si e' visto, perche' su un telefono la novita' entra in campo fuori dalla
+   porzione visibile e nessuno se ne accorge */
+.fase-dopo .tk.boss { animation: si-desta 1.3s ease-in-out infinite; }
+@keyframes si-desta { 0%,100% { box-shadow: 0 0 12px rgba(216,59,59,.7); }
+  50% { box-shadow: 0 0 30px 10px rgba(216,59,59,1); } }

@@ -1,0 +1,56 @@
+<!doctype html><html lang="it"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Vista eroe · fase Nemici</title>
+<link rel="stylesheet" href="../comune.css"><link rel="stylesheet" href="../stile-eroe.css">
+</head><body>
+<div class="wrap" style="padding:6px">
+  <div class="leve">
+    <button class="btn sel" data-att="muove">si muove</button>
+    <button class="btn" data-att="altro">colpisce un altro</button>
+    <button class="btn" data-att="io">colpisce TE</button>
+  </div>
+  <div class="telefono dir-pollice notte" id="tel"></div>
+  <p class="nota center" style="max-width:420px;margin:10px auto">
+    <b>Fase Nemici, sul telefono.</b> Agisce la notte, e non c'è niente da toccare: si resta sulla
+    plancia, che è dove succede, col banner di chi si muove — lo stesso <code>bannerTurno()</code>
+    della webapp.<br>
+    <b>Il punto è il terzo stato.</b> Su un tabellone grande il colpo lo vedono tutti; su un telefono
+    tenuto in mano si guarda altrove. Quando il bersaglio sei tu, lo schermo deve fermarti: il colpo
+    sale dal tuo segnalino, il bordo lampeggia, la salute scende sotto gli occhi. Senza questo, chi
+    gioca scopre di essere a terra due turni dopo.
+  </p>
+</div>
+<script src="../dati.js"></script>
+<script src="../eroe-pezzi.js"></script>
+<script>
+const E = window.EROE;
+const tel = document.getElementById('tel');
+
+const TESTI = {
+  muove: { fascia: 'agisce la notte · 1 di 3', ban: 'agisce', pop: null, sal: 5, vite: {} },
+  altro: { fascia: 'agisce la notte · 2 di 3', ban: 'colpisce attilio', pop: 'altro',
+           sal: 5, vite: { attilio: 6 } },
+  io:    { fascia: 'agisce la notte · 3 di 3', ban: 'colpisce TE', pop: 'io',
+           sal: 3, vite: { attilio: 6, tu: 3 } },
+};
+
+function mostra(k) {
+  const t = TESTI[k];
+  tel.className = 'termina telefono dir-pollice notte att-' + k;
+  tel.innerHTML = E.testa() + E.turnoNotte(t.fascia)
+    + E.bannerNemico('adepto incappucciato', 'Adepto Incappucciato.png', t.ban)
+    // il numero che salta su dal segnalino colpito: `dmgPop()` nella webapp
+    + E.plancia('', t.pop === 'io' ? { t: 'T3', x: 1, y: 1, val: 2 }
+      : t.pop === 'altro' ? { t: 'T3', x: 2, y: 0, val: 1 } : null)
+    + E.ioCard(t.sal) + E.altri(t.vite);
+  E.centra();
+}
+document.querySelectorAll('[data-att]').forEach((b) => {
+  b.onclick = () => {
+    document.querySelectorAll('[data-att]').forEach((x) => x.classList.toggle('sel', x === b));
+    mostra(b.dataset.att);
+  };
+});
+mostra('muove');
+</script>
+</body></html>

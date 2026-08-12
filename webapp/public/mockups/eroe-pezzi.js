@@ -14,13 +14,19 @@
     Array.from({ length: max }, (_, i) => `<i class="${i < on ? 'on' : ''}"></i>`).join('')}</span>`;
 
   // ---- la testa: episodio, round, Canto ----
-  const testa = () => `
+  // `canto` si puo' forzare: nella fase Minaccia la carta lo alza, e la testa
+  // deve dire lo stesso numero dell'annuncio — leggerne due diversi sulla stessa
+  // schermata e' il genere di incoerenza che fa perdere fiducia allo strumento.
+  const testa = (canto) => {
+    const c = canto == null ? S.canto : canto;
+    return `
 <div class="testa">
   <div class="ep">${esc(S.ep.titolo.toLowerCase())}
     <small>round ${S.round} · ore ${S.ora}:00</small></div>
-  <div class="canto"><span class="lab">canto</span>
-    ${Array.from({ length: S.soglia }, (_, i) => `<i class="${i < S.canto ? 'on' : ''}"></i>`).join('')}</div>
+  <div class="canto ${c >= S.soglia ? 'culmine' : ''}"><span class="lab">canto</span>
+    ${Array.from({ length: S.soglia }, (_, i) => `<i class="${i < c ? 'on' : ''}"></i>`).join('')}</div>
 </div>`;
+  };
 
   // ---- LA FASCIA DEL TURNO ----
   // Su un telefono tenuto in mano fra una chiacchiera e l'altra, «tocca a me?»
@@ -67,7 +73,7 @@
     { t: 'T3', x: 2, y: 3 }, { t: 'T2', x: 3, y: 2 },
   ];
 
-  const plancia = (extra) => {
+  const plancia = (extra, colpo) => {
     const perc = (v, tot) => (v * 100 / tot);
     const tessere = TESS.map((id) => {
       const t = S.tessere.find((x) => x.id === id) || { id, nome: id, rivelata: true };
@@ -94,25 +100,37 @@
         <img src="${urlArt(k.art)}" alt=""></span>`;
     }).join('');
 
+    // IL NUMERO DEL DANNO sta DENTRO il campo, agganciato alla cella colpita:
+    // messo fuori, resterebbe fermo mentre la plancia scorre e finirebbe a
+    // fluttuare sopra un pezzo di mappa qualunque.
+    const pop = colpo ? (() => {
+      const p = cel(colpo.t, colpo.x, colpo.y);
+      return `<span class="dmg" style="left:${perc(p.c, COL) + 100 / COL / 2}%;top:${perc(p.r, RIG)}%">−${colpo.val}</span>`;
+    })() : '';
+
     return `
 <div class="plancia">
   <div class="campo">
     <div class="tessere">${tessere}</div>
     <div class="griglia" style="grid-template-columns:repeat(${COL},1fr);grid-template-rows:repeat(${RIG},1fr)">${celle}</div>
-    ${token}
+    ${token}${pop}
   </div>
   ${extra || ''}
 </div>`;
   };
 
   // ---- la mia scheda, compatta ----
-  const ioCard = () => `
+  // `sal` si puo' forzare perche' IL DANNO ENTRA NELLA VISTA SUBITO: nella
+  // webapp la salute scende nello stesso istante in cui il numero salta su dal
+  // segnalino (digitale.js, `ctx.viteVista`). Mostrare il colpo e lasciare i
+  // pallini pieni farebbe dubitare di aver capito male.
+  const ioCard = (sal) => `
 <div class="io-card">
   <div class="rit"><img src="${urlArt(IO.art)}" alt=""></div>
   <div style="flex:1">
     <div class="nm">${esc(IO.breve)}</div>
     <div class="righe">
-      <div class="lin"><span class="lab">salute</span>${pips(IO.sal, IO.salMax)}</div>
+      <div class="lin"><span class="lab">salute</span>${pips(sal == null ? IO.sal : sal, IO.salMax)}</div>
       <div class="lin"><span class="lab">${esc(IO.ab.toLowerCase())}</span>${pips(IO.car, IO.carMax, 'car')}</div>
     </div>
   </div>
@@ -136,7 +154,7 @@
 <div class="restano solo-attesa">niente da fare: guarda il tavolo</div>`;
 
   // ---- gli altri al tavolo ----
-  const altri = () => `
+  const altri = (vite) => `
 <div class="altri">
   <h3>al tavolo</h3>
   <div class="riga-altri">
@@ -146,7 +164,7 @@
     return `<div class="mini ${e.fatto ? 'fatto' : ''} ${ora ? 'ora' : ''}">
       <div class="rit"><img src="${urlArt(e.art)}" alt=""></div>
       <div class="n">${io ? 'tu' : esc(e.breve)}</div>
-      <div class="s">${e.fatto ? 'ha finito' : `${e.sal}/${e.salMax}`}</div>
+      <div class="s">${e.fatto ? 'ha finito' : `${(vite && vite[io ? 'tu' : e.breve]) != null ? vite[io ? 'tu' : e.breve] : e.sal}/${e.salMax}`}</div>
     </div>`;
   }).join('')}
   </div>
@@ -175,13 +193,52 @@
   // La plancia si apre CENTRATA SU DI ME. Aperta in un angolo, la prima cosa da
   // fare sarebbe scorrere per trovarsi — e su un telefono, in mezzo a una
   // partita, quello e' esattamente il gesto che fa perdere il filo.
-  const centra = () => {
+  //
+  // Con un selettore si centra su ALTRO, ed e' quel che serve quando succede
+  // qualcosa fuori dalla porzione visibile: la webapp lo fa gia' con
+  // `centraSuNodo()` durante la notte. Su un telefono conta il doppio, perche'
+  // la finestra e' piccola e quasi tutto e' sempre fuori campo.
+  const centra = (sel) => {
     for (const pl of document.querySelectorAll('.plancia')) {
-      const io = pl.querySelector('.tk.io'); if (!io) continue;
+      const io = pl.querySelector(sel || '.tk.io'); if (!io) continue;
       pl.scrollLeft = io.offsetLeft - pl.clientWidth / 2 + io.clientWidth / 2;
       pl.scrollTop = io.offsetTop - pl.clientHeight / 2 + io.clientHeight / 2;
     }
   };
 
-  window.EROE = { IO, ALTRO, pips, testa, turno, plancia, ioCard, azioni, altri, obiettivo, leve, centra };
+  // ------------------------------------------------------ la notte: due fasi
+  // In tutte e due il giocatore NON agisce: pesca e nemici sono di chi arbitra
+  // (`COMANDI_DI_ARBITRO` nel Durable Object). Ma sono i due momenti piu' tesi
+  // della serata, e un telefono che in quei minuti non dice niente li spegne.
+  // Quel che c'e' da giudicare qui e' COME si racconta la notte su 400 px.
+
+  // La fascia del turno, versione notte: non «aspetta», ma «sta succedendo».
+  const turnoNotte = (testo) => `<div class="turno notte">${testo}</div>`;
+
+  // FASE MINACCIA. L'arbitro vede la carta a tutta pagina e preme «continua»;
+  // il telefono la vede uguale ma senza bottone — non e' suo. La differenza che
+  // conta e' quel che la carta CAMBIA, e sul telefono va detto in chiaro:
+  // il Canto che sale e' la cosa che al tavolo si sente pronunciare.
+  const cartaMinaccia = () => `
+<div class="carta-fase">
+  <div class="carta-grande"><img src="${MOCK.S.A('Episodio 1/cards/Minacce/Il Canto Cresce.jpg')}" alt=""></div>
+  <div class="annunci">
+    <p><b>Il Canto sale a 3 su 3.</b> Il rituale è al culmine.</p>
+    <p><b>Il Custode della Cera si desta.</b></p>
+    <p class="chi">la sta leggendo chi arbitra…</p>
+  </div>
+</div>`;
+
+  // FASE NEMICI. Si resta sulla PLANCIA — e' li' che succede — col banner di chi
+  // agisce, come fa `bannerTurno()` nella webapp. Il telefono aggiunge la sola
+  // cosa che il tabellone grande non puo' dare: dire a TE che stanno venendo
+  // addosso a te, mentre guardi altrove.
+  const bannerNemico = (nome, art, cosa) => `
+<div class="banner-nem">
+  <div class="rit"><img src="${urlArt(art)}" alt=""></div>
+  <div class="txt">${cosa}<br><b>${esc(nome)}</b></div>
+</div>`;
+
+  window.EROE = { IO, ALTRO, pips, testa, turno, turnoNotte, plancia, ioCard, azioni, altri,
+                  obiettivo, leve, centra, cartaMinaccia, bannerNemico };
 })();
