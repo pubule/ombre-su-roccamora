@@ -53,17 +53,69 @@ export function applicaConseguenza(g, nm, testo) {
   return out;
 }
 
-// Il tiro di una prova. `comando.tiri` — i dadi di legno del tavolo — ha la
-// precedenza sul caso: e' cosi' che la stessa regola serve le due modalita'
-// senza saperlo.
-function tira(g, caso, nm, stat, diff, bonusExtra = []) {
+// QUALE PROVA SERVIRA', senza tirarla.
+//
+// Esiste per la modalita' TAVOLO, dove i dadi sono di legno: li' il tiro deve
+// arrivare PRIMA del comando, ma l'overlay che lo chiede vuole mostrare soglia
+// e bonus — che finora li sapeva solo il motore, e solo mentre eseguiva. Uovo e
+// gallina: il client ha bisogno prima di una cosa che il motore decide durante.
+//
+// La chiave perche' questo non diventi una seconda copia delle regole: **la
+// usano anche i risolutori**. `cercare` e `attacca` non ricalcolano soglia e
+// bonus, li chiedono qui. Chi dichiara e chi risolve leggono la stessa riga,
+// quindi non possono divergere.
+//
+// Restituisce null quando non c'e' niente da tirare. Restituisce la PRIMA prova
+// del comando: se poi il motore ne chiede un'altra (il secondo colpo di Ottone,
+// che si sa solo dopo aver visto cadere il primo nemico) rifiuta con «i tiri
+// dichiarati non bastano», e il client ne chiede un altro.
+export function provaDi(g, comando) {
+  const nm = comando.eroe;
+  if (comando.tipo === 'cerca') {
+    const extra = nm === 'ELENA FOSCO' ? [{ label: 'Occhio Clinico', val: 2 }] : [];
+    return prova(g, nm, 'acume', 'Media', extra, `cercare — ${primo(nm)}`);
+  }
+  if (comando.tipo === 'attacca' || comando.tipo === 'rispondi') {
+    const i = comando.tipo === 'attacca' ? comando.bersaglio : Number(comando.scelta);
+    const chi = comando.tipo === 'attacca' ? nm : (g.sp.pendenza || {}).a;
+    const n = g.sp.nemici[i]; if (!n || !chi) return null;
+    const e = eroe(g, chi); const st = nemStat(g, n.nome);
+    return {
+      titolo: `${primo(chi)} → ${n.nome.toLowerCase()}`,
+      diffLabel: 'Difesa', diff: null, stat: null, chi,
+      soglia: n.difMod ?? st.dif,
+      bonus: [{ label: 'VIGORE', val: e.vigore }, { label: 'arma', val: 1 }],
+    };
+  }
+  if (comando.tipo === 'muovi') {
+    // l'insidia d'ingresso: solo la PRIMA volta che si entra in quella tessera
+    const t = tileDi(g, comando.nodo.t);
+    const req = provaRichiesta(t && t.testo);
+    if (!req || (g.sp.insidie && g.sp.insidie[comando.nodo.t])) return null;
+    return prova(g, nm, req.stat, req.diff, [],
+                 `${comando.nodo.t} — ${(t.nome || '').toLowerCase()}`);
+  }
+  return null;
+}
+
+function prova(g, nm, stat, diff, bonusExtra, titolo) {
   const e = eroe(g, nm);
-  const soglia = g.comune.regole.diff[diff];
-  const bonus = [{ label: String(stat).toUpperCase(), val: e[stat] || 0 },
-                 ...bonusVoce(g, nm, stat), ...bonusExtra];
+  return {
+    titolo, stat, diff, diffLabel: diff, chi: nm,
+    soglia: g.comune.regole.diff[diff],
+    bonus: [{ label: String(stat).toUpperCase(), val: e[stat] || 0 },
+            ...bonusVoce(g, nm, stat), ...bonusExtra],
+  };
+}
+
+// Il tiro di una prova gia' dichiarata. `comando.tiri` — i dadi di legno del
+// tavolo — ha la precedenza sul caso: e' cosi' che la stessa regola serve le
+// due modalita' senza saperlo.
+function tiraLa(caso, p) {
   const t = caso.tira2d6();
-  const somma = t.tot + bonus.reduce((a, b) => a + b.val, 0);
-  return { d: t.d, somma, soglia, bonus, ok: somma >= soglia, stat, diff, chi: nm };
+  const somma = t.tot + p.bonus.reduce((a, b) => a + b.val, 0);
+  return { d: t.d, somma, soglia: p.soglia, bonus: p.bonus,
+           ok: somma >= p.soglia, stat: p.stat, diff: p.diff, chi: p.chi };
 }
 
 // Segnare l'azione e' anche il momento in cui la partita puo' chiudersi: se
@@ -107,13 +159,13 @@ export function muovi(g, caso, nm, node, revealId) {
   // insidia d'ingresso: la PRIMA volta che si entra in una tessera il cui testo
   // richiede una prova (es. T3 NERVI Media, T5 NERVI Facile), il tiro scatta qui
   const tnow = tileDi(g, node.t);
-  const req = provaRichiesta(tnow.testo);
-  if (req && !(sp.insidie && sp.insidie[node.t])) {
+  const p = provaDi(g, { tipo: 'muovi', eroe: nm, nodo: node });
+  if (p) {
     sp.insidie = sp.insidie || {};
     sp.insidie[node.t] = true;
-    const t = tira(g, caso, nm, req.stat, req.diff);
+    const t = tiraLa(caso, p);
     eventi.push({ tipo: 'tiro', causa: 'insidia-ingresso', tessera: node.t,
-                  testo: tnow.testo, ...t });
+                  testo: tnow.testo, titolo: p.titolo, ...t });
     if (!t.ok) {
       const righe = applicaConseguenza(g, nm, tnow.testo);
       righe.forEach((r) => log(g, r));
@@ -127,9 +179,9 @@ export function muovi(g, caso, nm, node, revealId) {
 export function cercare(g, caso, nm) {
   const sp = g.sp; const tile = tileDi(g, sp.eroiPos[nm].t);
   if (sp.cercate[tile.id]) return rifiuta('Qui avete già cercato.');
-  const bonus = nm === 'ELENA FOSCO' ? [{ label: 'Occhio Clinico', val: 2 }] : [];
-  const t = tira(g, caso, nm, 'acume', 'Media', bonus);
-  const eventi = [{ tipo: 'tiro', causa: 'cercare', tessera: tile.id, ...t }];
+  const p = provaDi(g, { tipo: 'cerca', eroe: nm });
+  const t = tiraLa(caso, p);
+  const eventi = [{ tipo: 'tiro', causa: 'cercare', tessera: tile.id, titolo: p.titolo, ...t }];
   if (!t.ok) {
     log(g, `${primo(nm)} fruga invano.`);
     return { eventi, azione: 'cercare' };
@@ -150,8 +202,9 @@ export function cercare(g, caso, nm) {
   // se il testo dell'oggetto richiede una prova (es. presa rischiosa NERVI)
   const req = provaRichiesta(esito.esito);
   if (req) {
-    const t2 = tira(g, caso, nm, req.stat, req.diff);
-    eventi.push({ tipo: 'tiro', causa: 'oggetto', testo: esito.esito, ...t2 });
+    const p2 = prova(g, nm, req.stat, req.diff, [], `${tile.id} — cercare`);
+    const t2 = tiraLa(caso, p2);
+    eventi.push({ tipo: 'tiro', causa: 'oggetto', testo: esito.esito, titolo: p2.titolo, ...t2 });
     if (!t2.ok) {
       const righe = applicaConseguenza(g, nm, esito.esito);
       righe.forEach((r) => log(g, r));
@@ -186,14 +239,11 @@ export function attacca(g, caso, nm, i, gratis) {
   if (!adiacGlob(g, sp.eroiPos[nm], n.pos)) return rifiuta('Nemico non adiacente: avvicinati prima.');
   if (n.abbattuto) return rifiuta(`${n.nome.toLowerCase()} è già a terra: ora va preso (Interagire).`);
 
-  const e = eroe(g, nm); const st = nemStat(g, n.nome);
-  const dif = n.difMod ?? st.dif;
-  const t = caso.tira2d6();
-  const somma = t.tot + e.vigore + 1;                     // VIGORE + arma
-  const colpito = somma >= dif;
+  const p = provaDi(g, { tipo: 'attacca', eroe: nm, bersaglio: i });
+  const t = tiraLa(caso, p);
+  const dif = p.soglia; const somma = t.somma; const colpito = t.ok;
   const eventi = [{ tipo: 'tiro', causa: 'attacco', chi: nm, bersaglio: i,
-                    d: t.d, somma, soglia: dif, ok: colpito,
-                    bonus: [{ label: 'VIGORE', val: e.vigore }, { label: 'arma', val: 1 }] }];
+                    titolo: p.titolo, ...t }];
 
   if (!colpito) {
     log(g, `${primo(nm)} manca ${n.nome.toLowerCase()} (${somma} < Dif ${dif}).`);

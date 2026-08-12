@@ -21,6 +21,8 @@ import * as obiettivi from '../motore/obiettivi.js';
 import * as vittoria from '../motore/vittoria.js';
 import * as minaccia from '../motore/minaccia.js';
 import * as nemici from '../motore/nemici.js';
+import * as azioni from '../motore/azioni.js';
+import { applica } from '../motore/comandi.js';
 
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) =>
   ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -743,16 +745,16 @@ function aggancia() {
     if (scort == null && !attivo) return;
     scivolando = true;
     try {
-      // prima il passo, poi lo stato: `muoviEroe` finisce con un ridisegno, e
+      // prima il passo, poi lo stato: il comando finisce con un ridisegno, e
       // se arrivasse per primo il token sarebbe gia' a destinazione. Anche la
       // prova d'ingresso di una tessera insidiosa deve partire a passo finito,
       // o il dado comparirebbe col token ancora per strada.
       await scivolaEroe(scort != null ? `S:${scort}` : `E:${attivo}`, node);
       if (scort != null) muoviScortato(scort, node);
-      else await muoviEroe(attivo, node, c.dataset.reveal || null);
+      else await esegui({ tipo: 'muovi', eroe: attivo, nodo: node, rivela: c.dataset.reveal || null });
     } finally { scivolando = false; }
   });
-  app.querySelectorAll('[data-nemico]').forEach((el) => el.onclick = () => { if (attivo) attaccaNemico(attivo, Number(el.dataset.nemico)); });
+  app.querySelectorAll('[data-nemico]').forEach((el) => el.onclick = () => { if (attivo) esegui({ tipo: 'attacca', eroe: attivo, bersaglio: Number(el.dataset.nemico) }); });
   app.querySelectorAll('[data-eroe]').forEach((el) => el.onclick = () => {
     const nm = el.dataset.eroe; if ((sp.vite[nm] ?? 0) <= 0) return;
     sp.scortAttivo = null;
@@ -782,11 +784,11 @@ function aggancia() {
       ${o && o.effetto ? `<p class="mt">${rendi(o.effetto)}</p>` : ''}${o && o.flavor ? `<p class="nota mt"><i>${rendi(o.flavor)}</i></p>` : ''}`).then(render);
   });
   app.querySelectorAll('[data-abil]').forEach((btn) => btn.onclick = () => usaAbilita(btn.dataset.abil));
-  app.querySelector('#az-cercare') && (app.querySelector('#az-cercare').onclick = () => azioneCercare(attivo));
+  app.querySelector('#az-cercare') && (app.querySelector('#az-cercare').onclick = () => esegui({ tipo: 'cerca', eroe: attivo }));
   app.querySelector('#az-oggetto') && (app.querySelector('#az-oggetto').onclick = () => usaOggetto(attivo));
   app.querySelector('#az-interagire') && (app.querySelector('#az-interagire').onclick = () => azioneInteragire(attivo));
-  app.querySelector('#az-rianimare') && (app.querySelector('#az-rianimare').onclick = () => azioneRianima(attivo));
-  app.querySelector('#az-fine') && (app.querySelector('#az-fine').onclick = () => finisciEroe(attivo));
+  app.querySelector('#az-rianimare') && (app.querySelector('#az-rianimare').onclick = () => esegui({ tipo: 'rianima', eroe: attivo }));
+  app.querySelector('#az-fine') && (app.querySelector('#az-fine').onclick = () => esegui({ tipo: 'finisci-eroe', eroe: attivo }));
   app.querySelector('#fase-minaccia') && (app.querySelector('#fase-minaccia').onclick = faseMinaccia);
   agganciaMappa();
   centraSuAttivo();
@@ -966,6 +968,101 @@ function agganciaMappa() {
   wrap.addEventListener('click', (e) => { if (mosso) { e.stopPropagation(); e.preventDefault(); mosso = false; } }, true);
 }
 
+// ---------------------------------------------------- il ponte col contratto
+// Da qui in giu' la vista non applica piu' regole: manda un comando al motore,
+// prende lo stato nuovo e METTE IN SCENA gli eventi che le tornano. Il dado lo
+// tira il motore col generatore seminato della partita; qui lo si anima e basta.
+//
+// AL TAVOLO il dado e' di legno, quindi il giro e' rovesciato: prima si chiede
+// il tiro (l'overlay mostra soglia e bonus, che `provaDi` dichiara senza
+// tirare), poi si manda il comando con `tiri`. Se il motore ne vuole un altro
+// — il secondo colpo di Ottone, che si sa solo dopo aver visto cadere il primo
+// nemico — rifiuta con «i tiri dichiarati non bastano» e se ne chiede uno.
+async function chiediTiro(prova) {
+  const r = await tiraProva({
+    titolo: prova ? prova.titolo : 'tira 2d6',
+    diffLabel: prova ? (prova.diffLabel || '') : '',
+    soglia: prova ? prova.soglia : null,
+    bonus: prova ? prova.bonus : [],
+    modo: 'tavolo',
+  });
+  return r ? [r.d1, r.d2] : null;
+}
+
+async function esegui(comando) {
+  const dati = { ep: ctx.ep, comune: ctx.comune, carte: ctx.carte };
+  const tiri = alTavolo() ? [] : null;
+  if (alTavolo()) {
+    const p = azioni.provaDi(G(), comando);
+    if (p) { const d = await chiediTiro(p); if (!d) return false; tiri.push(d); }
+  }
+  // il tetto e' una rete, non una regola: nessuna azione chiede piu' di due o
+  // tre dadi, e un ciclo senza fondo davanti a un giocatore e' peggio di un no
+  for (let giro = 0; giro < 5; giro++) {
+    const out = applica(ctx.partita, tiri ? { ...comando, tiri } : comando, dati);
+    if (out.rifiuto) {
+      if (tiri && /non bastano/i.test(out.rifiuto.motivo)) {
+        const d = await chiediTiro(azioni.provaDi(G(), comando));
+        if (!d) return false;
+        tiri.push(d);
+        continue;
+      }
+      flash(out.rifiuto.motivo);
+      return false;
+    }
+    // SI TRAVASA, non si sostituisce. `applica()` lavora su una copia e
+    // restituisce uno stato nuovo — ma la vista tiene riferimenti a questi
+    // oggetti: `aggancia()` cattura `const sp = SP()` e li usa nei suoi
+    // gestori. Sostituendoli, quei gestori scriverebbero su un oggetto
+    // scartato, e il click andrebbe perso senza un errore.
+    const sped = SP();
+    Object.assign(sped, out.stato.spedizione);
+    Object.assign(ctx.partita, out.stato, { spedizione: sped });
+    salvaP();
+    await riproduci(out.eventi);
+    if (SP().esito) { epilogo(); return true; }
+    if (out.pendenza) { await sciogliPendenza(out.pendenza); return true; }
+    render();
+    return true;
+  }
+  flash('Troppi tiri richiesti: qualcosa non torna.');
+  return false;
+}
+
+// Mettere in scena cio' che il motore ha gia' deciso. Nessun evento cambia lo
+// stato: se qualcosa qui non venisse riprodotto, la partita sarebbe comunque
+// giusta — solo muta.
+async function riproduci(eventi) {
+  for (const ev of eventi) {
+    if (ev.tipo === 'tiro') {
+      // a schermo il dado ha gia' un risultato: l'overlay lo mette in scena
+      if (!alTavolo()) {
+        await tiraProva({ titolo: ev.titolo || '', diffLabel: ev.diff || ev.diffLabel || '',
+                          soglia: ev.soglia, bonus: ev.bonus, facce: ev.d });
+      }
+    } else if (ev.tipo === 'cercato') {
+      const extra = ev.trovato
+        ? `<hr class="divisore"><p class="mt"><b>Trovato:</b> ${esc(ev.trovato.nome.toLowerCase())} — nell'inventario del gruppo.</p>
+           ${ev.trovato.effetto ? `<p class="nota mt">${rendi(ev.trovato.effetto)}</p>` : ''}`
+        : '';
+      await messaggio(`${ev.tessera} — cercare`, `<p><i>${rendi(ev.esito)}</i></p>${extra}`);
+    } else if (ev.tipo === 'conseguenza') {
+      await messaggio('la prova è fallita', ev.righe.map((r) => `<p>${esc(r)}</p>`).join(''));
+    } else if (ev.tipo === 'abbattuto' || ev.tipo === 'a-terra') {
+      flash(ev.tipo === 'abbattuto' ? `${ev.nome.toLowerCase()} è abbattuto!` : 'a terra: ora si può prendere.');
+    } else if (ev.tipo === 'rivelata') {
+      ctx.layout = null;                       // la mappa cresce: si ridisegna
+    }
+  }
+}
+
+// La pendenza a schermo: la domanda che il motore ha lasciato nello stato.
+async function sciogliPendenza(pend) {
+  const scelta = await scegli(pend.testo || 'scegli',
+    pend.opzioni.map((o) => ({ id: String(o.id), label: o.label })));
+  await esegui({ tipo: 'rispondi', scelta: scelta == null ? null : Number(scelta), a: pend.a });
+}
+
 function segnaAzione(nm, tipo) {
   const sp = SP(); if (!sp.azioni[nm]) sp.azioni[nm] = [];
   // Chi ha iniziato il turno lo TIENE finche' non dichiara di aver finito.
@@ -1043,32 +1140,6 @@ function finisciEroe(nm) {
   sp.eroiAttivo = null; salvaP(); render();
 }
 
-async function muoviEroe(nm, node, revealId) {
-  const sp = SP();
-  sp.eroiPos[nm] = node;
-  if (revealId && !sp.rivelate.includes(revealId)) {
-    sp.rivelate.push(revealId);
-    const dest = tileDi(revealId);
-    log(`${primo(nm)} apre la via verso ${revealId}: ${dest.nome.toLowerCase()}.`);
-    if (/quando rivelate/i.test(dest.testo || '')) spawnDaTesto(dest.testo, revealId);
-  } else {
-    log(`${primo(nm)} si sposta in ${node.t}.`);
-  }
-  // insidia d'ingresso: la PRIMA volta che si entra in una tessera il cui testo
-  // richiede una prova (es. T3 NERVI Media, T5 NERVI Facile), il tiro compare qui
-  const tnow = tileDi(node.t);
-  if (provaRichiesta(tnow.testo) && !(sp.insidie && sp.insidie[node.t])) {
-    sp.insidie = sp.insidie || {}; sp.insidie[node.t] = true; salvaP();
-    // al tavolo il testo lo legge chi arbitra dal fascicolo: qui resta la sola
-    // prova da tirare, senza anticipare la scena ai giocatori
-    const corpo = alTavolo()
-      ? `<p class="nota">Chi arbitra legge <b>${esc(node.t)}</b> dal fascicolo Spedizione, poi si tira.</p>`
-      : `<p><i>${rendi(tnow.testo)}</i></p>`;
-    await messaggioProva(`${node.t} — ${tnow.nome.toLowerCase()}`, corpo, tnow.testo, nm);
-  }
-  segnaAzione(nm, 'muovere');
-}
-
 // PNG scortato mosso dal giocatore (Mov 3, non agisce): sulla tessera-meta e'
 // vittoria — ma solo quando TUTTI i PNG dell'episodio ci sono arrivati (Ep.4
 // ne ha due, Gaspare e Rocco: vanno portati fuori entrambi).
@@ -1089,79 +1160,8 @@ function muoviScortato(i, node) {
 // ne hanno.
 const scortaPuoVincere = () => vittoria.scortaPuoVincere(G());
 
-async function attaccaNemico(nm, i, gratis) {
-  const sp = SP(); const e = eroe(nm); const n = sp.nemici[i]; if (!n) return;
-  if (!gratis && azioneSpesa(nm, 'attaccare')) { flash(`${primo(nm)} ha già attaccato: le 2 azioni sono di tipo diverso.`); return; }
-  if (!gratis && !azioniRestano(nm)) { flash(`${primo(nm)} non ha più azioni.`); return; }
-  if (!adiacGlob(sp.eroiPos[nm], n.pos)) { flash('Nemico non adiacente: avvicinati prima.'); return; }
-  if (n.abbattuto) { flash(`${n.nome.toLowerCase()} è già a terra: ora va preso (Interagire).`); return; }
-  const st = nemStat(n.nome);
-  const r = await tiraProva({ titolo: `${primo(nm)} → ${n.nome.toLowerCase()}`, diffLabel: 'Difesa', soglia: n.difMod ?? st.dif,
-    bonus: [{ label: 'VIGORE', val: e.vigore }, { label: 'arma', val: 1 }], modo: modoDadi() });
-  if (r == null) return;
-  const dif = n.difMod ?? st.dif;
-  if (r.ok) {
-    n.ferite += 1; log(`${primo(nm)} colpisce ${n.nome.toLowerCase()} (2d6+VIG ${r.tot} ≥ Dif ${dif} → ${n.ferite}/${n.max}).`);
-    if (n.ferite >= n.max) {
-      // Il bersaglio di un compito non si toglie dal campo: il fascicolo dice
-      // «va ridotto/abbattuto E POI preso» (gen_ep15.py:658), ma il compito
-      // esige il nemico adiacente — toglierlo lo rendeva impossibile per
-      // sempre, e la partita restava appesa senza spiegazione. Resta a terra
-      // finche' non lo si prende; a quel punto Interagire lo rimuove.
-      const obiettivo = specCompiti().some((c) => c.nemico === n.nome)
-        && !compitiFiniti();
-      if (obiettivo) {
-        n.abbattuto = true;
-        log(`${n.nome.toLowerCase()} è a terra: ora si può prendere (Interagire).`);
-      } else {
-        log(`${n.nome.toLowerCase()} è abbattuto!`);
-        sp.nemici.splice(i, 1);
-        // COLPO DA MACELLO di Ottone: abbattuto un nemico in mischia, il
-        // secondo colpo parte subito e non costa l'azione. Una volta per suo
-        // turno — `sp.macello` tiene il round in cui l'ha gia' fatto.
-        if (nm.includes('OTTONE') && sp.macello !== sp.round) {
-          const vicini = sp.nemici.map((x, j) => ({ x, j }))
-            .filter(({ x }) => x.pos && !x.abbattuto && adiacGlob(sp.eroiPos[nm], x.pos));
-          if (vicini.length) {
-            const j = vicini.length === 1 ? String(vicini[0].j)
-              : await scegli('Colpo da macello: chi cade adesso?',
-                  vicini.map(({ x, j }) => ({ id: String(j), label: `${x.nome.toLowerCase()} (${x.ferite}/${x.max})` })));
-            // il colpo si consuma solo se parte: chi annulla la scelta lo tiene
-            if (j != null) { sp.macello = sp.round; salvaP(); await attaccaNemico(nm, Number(j), true); }
-          }
-        }
-      }
-    }
-  } else log(`${primo(nm)} manca ${n.nome.toLowerCase()} (${r.tot} < Dif ${dif}).`);
-  if (gratis) { salvaP(); render(); return; }   // colpo gratuito: nessuna azione da segnare
-  salvaP(); segnaAzione(nm, 'attaccare');
-}
-
-async function azioneCercare(nm) {
-  const sp = SP(); const tile = tileDi(sp.eroiPos[nm].t);
-  if (sp.cercate[tile.id]) { flash('Qui avete già cercato.'); return; }
-  const e = eroe(nm); const bonus = [{ label: 'ACUME', val: e.acume }];
-  if (nm === 'ELENA FOSCO') bonus.push({ label: 'Occhio Clinico', val: 2 });
-  const r = await tiraProva({ titolo: `cercare — ${primo(nm)}`, diffLabel: 'Media', soglia: ctx.comune.regole.diff.Media, bonus, modo: modoDadi() });
-  if (r == null) return;
-  if (!r.ok) { log(`${primo(nm)} fruga invano.`); salvaP(); segnaAzione(nm, 'cercare'); return; }
-  sp.cercate[tile.id] = true;
-  const esito = cerca(ctx.ep, P(), tile.id);
-  // registra l'oggetto della tessera (ep.oggetti con ref = id tessera) nell'inventario del gruppo
-  let extra = '';
-  const obj = (ctx.ep.oggetti || []).find((o) => o.ref === tile.id);
-  if (obj) {
-    P().indagine.oggetti = P().indagine.oggetti || [];
-    if (!P().indagine.oggetti.some((nm2) => norm(nm2) === norm(obj.nome))) {
-      P().indagine.oggetti.push(obj.nome);
-      extra = `<hr class="divisore"><p class="mt"><b>Trovato:</b> ${esc(obj.nome.toLowerCase())} — nell'inventario del gruppo.</p>
-        ${obj.effetto ? `<p class="nota mt">${rendi(obj.effetto)}</p>` : ''}`;
-    }
-  }
-  // se il testo dell'oggetto richiede una prova (es. presa rischiosa NERVI), compare il tiro
-  await messaggioProva(`${tile.id} — cercare`, `<p><i>${rendi(esito.esito)}</i></p>${extra}`, esito.esito, nm);
-  segnaAzione(nm, 'cercare');
-}
+// attaccare, cercare e rianimare sono passate in motore/azioni.js: la vista
+// le chiede col comando e mette in scena gli eventi che tornano.
 
 // pannello «oggetti del gruppo»: nomi tappabili per leggere carta ed effetto
 function oggettiHtml() {
@@ -1285,15 +1285,6 @@ function liberaScortato(nm, i) {
     log(`${x.nome} è libero! Riportatelo in ${x.meta}.`);
   });
   segnaAzione(nm, 'interagire');
-}
-
-function azioneRianima(nm) {
-  const sp = SP(); const pos = sp.eroiPos[nm];
-  const giu = P().party.find((x) => x !== nm && (sp.vite[x] ?? 1) <= 0 && adiacGlob(pos, sp.eroiPos[x]));
-  if (!giu) return;
-  sp.vite[giu] = nm.includes('ATTILIO') ? 3 : 2;
-  log(`${primo(nm)} rianima ${primo(giu)} (${sp.vite[giu]} salute).`);
-  segnaAzione(nm, 'rianimare');
 }
 
 // azione «Usare un oggetto»: sceglie dall'inventario e ne applica l'effetto di

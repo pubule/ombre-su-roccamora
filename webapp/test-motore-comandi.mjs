@@ -208,5 +208,87 @@ const sgherro = (x, y, ferite = 0) => ({ nome: SGH, num: 1, pos: { t: T0, x, y }
   ok(applica(s, { tipo: 'cerca', eroe: ELENA }, DATI).rifiuto, 'a spedizione chiusa ogni comando e\' rifiutato');
 }
 
+// --- provaDi DICHIARA la stessa prova che il motore poi RISOLVE.
+//
+// E' il controllo che tiene in piedi la modalita' tavolo. Li' l'overlay chiede
+// il dado PRIMA del comando, e per mostrare soglia e bonus li prende da
+// provaDi(); se quella dichiarasse numeri diversi da quelli che poi decidono
+// l'esito, al tavolo si vedrebbe «11 ≥ 9, riuscita» e il motore direbbe fallita.
+// Non puo' succedere finche' i risolutori chiamano provaDi invece di
+// ricalcolare — e questo test e' cio' che lo impedisce di tornare a succedere.
+{
+  const { provaDi } = await import('./public/motore/azioni.js');
+  const G = (s) => ({ ep: DATI.ep, comune: DATI.comune, carte: DATI.carte,
+                      sp: s.spedizione, partita: s, _layout: null });
+
+  // cercare: Elena ha ACUME + Occhio Clinico, Ottone il solo ACUME
+  for (const chi of [ELENA, OTTONE]) {
+    const s = partita();
+    const p = provaDi(G(s), { tipo: 'cerca', eroe: chi });
+    ok(p && p.soglia > 0, `${chi}: provaDi dichiara una soglia`);
+    const out = applica(s, { tipo: 'cerca', eroe: chi, tiri: [[3, 4]] }, DATI);
+    const tiro = out.eventi.find((e) => e.tipo === 'tiro');
+    ok(tiro.soglia === p.soglia,
+       `${chi}: la soglia dichiarata e' quella applicata (${p.soglia} contro ${tiro.soglia})`);
+    ok(JSON.stringify(tiro.bonus) === JSON.stringify(p.bonus),
+       `${chi}: i bonus dichiarati sono quelli applicati`);
+    // e il conto che il tavolo farebbe a mano torna
+    const aMano = 7 + p.bonus.reduce((a, b) => a + b.val, 0);
+    ok(tiro.somma === aMano, `${chi}: 3+4 piu' i bonus fa ${aMano} (visto ${tiro.somma})`);
+    ok(tiro.ok === (aMano >= p.soglia), `${chi}: e l'esito segue il conto`);
+  }
+  ok(provaDi(G(partita()), { tipo: 'cerca', eroe: ELENA }).bonus.length
+     > provaDi(G(partita()), { tipo: 'cerca', eroe: OTTONE }).bonus.length,
+     'l\'Occhio Clinico di Elena si vede nella dichiarazione');
+
+  // Il VALORE, non solo la presenza. I due controlli sopra provano che
+  // dichiarazione e risoluzione concordano — ma concorderebbero anche se
+  // l'Occhio Clinico valesse 5, perche' leggono la stessa riga. Quanto vale lo
+  // dice la carta stampata, e questo e' il chiodo che lo tiene fermo.
+  {
+    const b = provaDi(G(partita()), { tipo: 'cerca', eroe: ELENA }).bonus;
+    const occhio = b.find((x) => /occhio/i.test(x.label));
+    ok(occhio && occhio.val === 2, `l'Occhio Clinico vale +2 (visto ${occhio && occhio.val})`);
+    const acume = b.find((x) => x.label === 'ACUME');
+    const e = DATI.comune.eroi.find((x) => x.nome === ELENA);
+    ok(acume && acume.val === e.acume,
+       `e l'ACUME e' quello della carta (${e.acume}, visto ${acume && acume.val})`);
+    ok(provaDi(G(partita()), { tipo: 'cerca', eroe: ELENA }).soglia
+       === DATI.comune.regole.diff.Media, 'la soglia Media viene da comune.json');
+  }
+
+  // attaccare: la soglia e' la Difesa del nemico, i bonus VIGORE + arma
+  {
+    const s = conNemici([sgherro(1, 2)]);
+    const p = provaDi(G(s), { tipo: 'attacca', eroe: ELENA, bersaglio: 0 });
+    const out = applica(s, { tipo: 'attacca', eroe: ELENA, bersaglio: 0, tiri: [[3, 4]] }, DATI);
+    const tiro = out.eventi.find((e) => e.tipo === 'tiro');
+    ok(tiro.soglia === p.soglia, 'attacco: la Difesa dichiarata e\' quella applicata');
+    ok(JSON.stringify(tiro.bonus) === JSON.stringify(p.bonus), 'attacco: e i bonus pure');
+  }
+
+  // dove non si tira, provaDi tace: l'overlay non deve comparire
+  ok(provaDi(G(partita()), { tipo: 'rianima', eroe: ELENA }) === null,
+     'rianimare non chiede dadi');
+  ok(provaDi(G(partita()), { tipo: 'finisci-eroe', eroe: ELENA }) === null,
+     'finire il turno non chiede dadi');
+
+  // muovere: solo se la tessera d'arrivo ha un'insidia non ancora scattata
+  {
+    const conInsidia = DATI.ep.tessere.find((t) => /(NERVI|ACUME|VIGORE)\s*\(/i.test(t.testo || ''));
+    if (conInsidia) {
+      const s = partita({ rivelate: [T0, conInsidia.id] });
+      const dove = { t: conInsidia.id, x: 1, y: 1 };
+      ok(provaDi(G(s), { tipo: 'muovi', eroe: ELENA, nodo: dove }),
+         `entrare in ${conInsidia.id} la prima volta chiede una prova`);
+      const s2 = partita({ rivelate: [T0, conInsidia.id], insidie: { [conInsidia.id]: true } });
+      ok(provaDi(G(s2), { tipo: 'muovi', eroe: ELENA, nodo: dove }) === null,
+         'ma la seconda volta no: l\'insidia e\' gia\' scattata');
+    } else {
+      console.log('  (nessuna tessera con insidia nell\'Ep.1: controllo saltato)');
+    }
+  }
+}
+
 console.log(ko === 0 ? 'TUTTO OK (contratto)' : `${ko} FAIL`);
 process.exit(ko ? 1 : 0);
