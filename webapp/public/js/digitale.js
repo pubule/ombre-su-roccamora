@@ -18,6 +18,7 @@ import { conferma } from './chiedi.js';
 import * as griglia from '../motore/griglia.js';
 import * as stat from '../motore/stat.js';
 import * as obiettivi from '../motore/obiettivi.js';
+import * as vittoria from '../motore/vittoria.js';
 
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) =>
   ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -592,11 +593,7 @@ function applicaConseguenza(nm, testo) {
   return out;
 }
 // eroe piu' avanzato = sulla tessera rivelata piu' lontana da T1 (origine layout)
-function eroePiuAvanzato(vivi) {
-  const lay = layout(); let best = vivi[0], bd = -1;
-  for (const nm of vivi) { const [x, y] = lay[SP().eroiPos[nm].t] || [0, 0]; const d = Math.abs(x) + Math.abs(y); if (d > bd) { bd = d; best = nm; } }
-  return best;
-}
+const eroePiuAvanzato = (vivi) => vittoria.eroePiuAvanzato(G(), vivi);
 // chi subisce l'insidia di una carta Minaccia, dal testo
 async function bersagliInsidia(rules) {
   const vivi = P().party.filter((nm) => (SP().vite[nm] ?? 0) > 0);
@@ -1031,23 +1028,18 @@ function controllaFiloPerso() {
   return ann;
 }
 
-function controllaVittoria() {
-  const sp = SP(); const v = ctx.ep.vittoria;
-  if (sp.esito || !v || !specCompiti().length || !compitiFiniti()) return false;
-  const vivi = P().party.filter((nm) => (sp.vite[nm] ?? 0) > 0);
-  if (v.tessera && !vivi.every((nm) => sp.eroiPos[nm] && sp.eroiPos[nm].t === v.tessera)) return false;
-  // un boss gia' a terra in attesa d'essere preso non sbarra piu' la vittoria
-  if (v.boss && sp.nemici.some((n) => n.nome === ctx.ep.soluzione.boss && n.pos && !n.abbattuto)) return false;
-  // due modi di arrivare secondi: il ROGO (snapshot all'atto della presa) e
-  // l'orologio dell'episodio superato (soglia-decano, soglia-arresto, sigillo)
-  const declassa = !!sp.registriAnneriti || !!sp.declassato;
-  sp.esito = declassa ? 'parziale' : 'vittoria';
-  sp.log.push(sp.registriAnneriti
-    ? (specRogo().testo_parziale || 'I registri escono anneriti dal rogo: vittoria parziale.')
-    : declassa
-      ? `${sp.declassato} L’obiettivo è compiuto lo stesso: vittoria parziale.`
-      : (v.testo || 'L’obiettivo è compiuto: siete salvi.'));
+// Le condizioni di chiusura sono uscite di qui: stanno in motore/vittoria.js.
+// Dicono COM'E' finita e non disegnano piu' l'epilogo, cosi' le stesse righe
+// valgono anche dove uno schermo non c'e'. Qui resta la coda — scrivere
+// l'esito, salvare, mostrare — che e' l'unica parte che riguarda questa vista.
+function chiudiPartita(out) {
+  const sp = SP(); sp.esito = out.esito;
+  if (out.riga) sp.log.push(out.riga);
   salvaP(); epilogo(); return true;
+}
+function controllaVittoria() {
+  const out = vittoria.controllaVittoria(G());
+  return out ? chiudiPartita(out) : false;
 }
 function finisciEroe(nm) {
   const sp = SP(); if (nm && !sp.eroiFatti.includes(nm)) sp.eroiFatti.push(nm);
@@ -1084,33 +1076,9 @@ async function muoviEroe(nm, node, revealId) {
 // vittoria — ma solo quando TUTTI i PNG dell'episodio ci sono arrivati (Ep.4
 // ne ha due, Gaspare e Rocco: vanno portati fuori entrambi).
 function muoviScortato(i, node) {
-  const sp = SP(); const g = sp.scortati[i]; const s = specScort(i);
-  g.pos = node; g.mosso = true; sp.scortAttivo = null;
-  log(`${s.nome} avanza in ${node.t}.`);
-  // vittoria alternativa: l'uscita segreta aperta nella tessera della prigionia
-  const u = sp.uscita;
-  if (u && u.aperta && node.t === u.tile && node.x === u.cella[0] && node.y === u.cella[1]) {
-    g.uscito = true; g.pos = null;             // sparisce dal board: libera il chiusino per l'altro
-    // anche dal condotto devono passare TUTTI: con due prigionieri (Ep.4) il
-    // primo che ci mette il piede non chiude la partita da solo
-    if (sp.scortati.every((x) => x.uscito) && scortaPuoVincere()) {
-      sp.esito = sp.declassato ? 'parziale' : 'vittoria';
-      sp.log.push(s.vittoria || `${s.nome} è fuori: siete salvi.`);
-      salvaP(); return epilogo();
-    }
-    log(sp.scortati.every((x) => x.uscito)
-      ? `${s.nome} e' al sicuro, ma il lavoro non e' finito: ${specCompiti()[0].etichetta.toLowerCase()}.`
-      : `${s.nome} sparisce nel passaggio: manca ancora qualcuno.`);
-    salvaP(); return render();
-  }
-  // chi e' gia' passato dal condotto conta come arrivato: i due dell'Ep.4
-  // possono uscire uno per la via segreta e uno dalla porta d'ingresso
-  const arrivati = sp.scortati.every((x, k) => x.uscito || (x.liberato && x.pos && x.pos.t === specScort(k).meta));
-  if (node.t === s.meta && arrivati && scortaPuoVincere()) {
-    sp.esito = sp.declassato ? 'parziale' : 'vittoria';
-    sp.log.push(s.vittoria || `${s.nome} è al sicuro: siete salvi.`);
-    salvaP(); return epilogo();
-  }
+  const out = vittoria.esitoScorta(G(), i, node);
+  out.righe.forEach(log);
+  if (out.esito) return chiudiPartita(out);
   salvaP(); render();
 }
 
@@ -1122,9 +1090,7 @@ function muoviScortato(i, node) {
 // il gruppo scappava e l'app dichiarava vittoria: meta' dell'obiettivo stampato
 // non esisteva nei dati. Inerte negli altri episodi-scorta, che di compiti non
 // ne hanno.
-function scortaPuoVincere() {
-  return !specCompiti().length || compitiFiniti();
-}
+const scortaPuoVincere = () => vittoria.scortaPuoVincere(G());
 
 async function attaccaNemico(nm, i, gratis) {
   const sp = SP(); const e = eroe(nm); const n = sp.nemici[i]; if (!n) return;
@@ -1659,9 +1625,16 @@ function evidenziaColpito(vitt) {
 // eroe vivo raggiunge la tessera-meta e poi nessuno agisce piu', `segnaAzione`
 // non la ricontrollerebbe mai e la partita resterebbe aperta a obiettivo fatto.
 function chiudiFaseNemici() {
-  const sp = SP();
-  if (!sp.esito && P().party.every((nm) => (sp.vite[nm] ?? 0) <= 0)) sp.esito = 'sconfitta';
-  if (!sp.esito) controllaVittoria();
+  const out = vittoria.chiudiFaseNemici(G());
+  if (!out) return;
+  // NON si chiama `epilogo()` da qui, ed e' voluto: questa chiusura scatta in
+  // mezzo alla fase nemici, che sta ancora animando. L'esito si scrive e basta;
+  // a mostrarlo ci pensa il `render()` di fine fase, che lo vede e va
+  // all'epilogo da se'. Chiamarlo qui significa disegnare sopra un'animazione
+  // in corso.
+  const sp = SP(); sp.esito = out.esito;
+  if (out.riga) sp.log.push(out.riga);
+  salvaP();
 }
 
 // I nemici che restano quando si salta l'animazione al tavolo: li tira l'app,

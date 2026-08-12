@@ -53,7 +53,12 @@ export const _diff = {
   specRitmo, avanzaRitmo, frammentiPortati, avanzaPressione,
   controllaFiloPerso, scortaPuoVincere, eroePiuAvanzato, provaRichiesta,
   applicaConseguenza, interazioneDisponibile, arredoUscita, scortLiberabile,
-  caricaDi, CARICHE_SPED, spawnRegex, tessLontana, tileAffollata,
+  caricaDi, CARICHE_SPED,
+  // spawn e minaccia
+  spawnRegex, spawnUno, tessLontana, destaBossSeSoglia, spawnDaTesto,
+  tileAffollata,
+  // chiusura e turno nemici
+  controllaVittoria, chiudiFaseNemici, risolviRestoNemici,
 };
 EOF
 
