@@ -1,0 +1,174 @@
+/* LA VISTA EROE SUL TELEFONO — tre direzioni.
+   Base comune qui sopra, le differenze in fondo sotto `.dir-*`. Un file solo
+   perche' le tre direzioni condividono quasi tutto (plancia, pips, azioni) e
+   le differenze si giudicano meglio se stanno una accanto all'altra.
+   Il look e' quello di comune.css (replica di app.css): qui non si inventano
+   colori nuovi, si decide COSA STA A SCHERMO INSIEME. */
+
+/* Su telefono riempie; su schermo largo si mette in una cornice, per poterlo
+   giudicare da scrivania senza sbagliare le proporzioni. */
+/* ALTEZZA FISSA, non minima: e' quel che rende la plancia comprimibile. Con
+   `min-height` il telefono cresce e la plancia si tiene tutta la sua altezza,
+   spingendo azioni e scheda fuori dallo schermo — che e' esattamente cio' che
+   un telefono non puo' permettersi. */
+.telefono { width: 100%; max-width: 420px; margin: 0 auto; position: relative;
+  height: calc(100dvh - 52px); overflow: hidden; display: flex; flex-direction: column; }
+@media (min-width: 700px) {
+  .telefono { height: min(820px, 88vh); border: 10px solid #0b0a0c;
+    border-radius: 34px; box-shadow: 0 20px 60px rgba(0,0,0,.7), 0 0 0 1px var(--oro);
+    overflow: hidden; margin-top: 12px; }
+}
+
+/* ---- la testa: dove sono, che round, il Canto ---- */
+.testa { flex: none; display: flex; align-items: center; gap: 8px; padding: 8px 10px;
+  border-bottom: 1px solid rgba(168,131,58,.35); background: rgba(14,21,25,.55); }
+.testa .ep { font-family: 'FellSC', serif; color: var(--oro-chiaro); font-size: 15px;
+  line-height: 1.1; flex: 1; }
+.testa .ep small { display: block; color: var(--seppia); font-size: 12px; font-style: italic; }
+.canto { display: flex; align-items: center; gap: 4px; }
+.canto .lab { font-size: 11px; color: var(--seppia); text-transform: lowercase; }
+.canto i { width: 9px; height: 9px; border-radius: 50%; border: 1px solid var(--rosso);
+  display: inline-block; }
+.canto i.on { background: var(--rosso); box-shadow: 0 0 6px var(--rosso); }
+
+/* ---- IL TURNO: la cosa piu' importante su un telefono ----
+   Chi guarda un telefono in mano deve capire in mezzo secondo se tocca a lui.
+   Per questo e' una fascia larga e colorata, non una scritta. */
+.turno { flex: none; padding: 7px 12px; font-family: 'FellSC', serif; font-size: 16px;
+  text-align: center; letter-spacing: .04em; }
+.mio .turno { background: linear-gradient(180deg, #8d2433, var(--rosso-scuro));
+  color: var(--perg); box-shadow: 0 2px 14px rgba(141,36,51,.55); }
+.attesa .turno { background: rgba(31,95,107,.28); color: #9fc6ce;
+  border-bottom: 1px solid rgba(31,95,107,.5); }
+.mio .solo-attesa, .attesa .solo-mio { display: none !important; }
+
+/* ---- la plancia ---- */
+/* I segnalini sono posizionati in percentuale RISPETTO ALLA PLANCIA, quindi le
+   tessere devono riempirla esattamente: se restano piu' corte, i token cadono
+   nel vuoto sotto. Per questo `.tessere` e' assoluta a filo. */
+.plancia { position: relative; background: var(--abisso); overflow-y: auto;
+  border-bottom: 1px solid rgba(168,131,58,.3); -webkit-overflow-scrolling: touch; }
+/* Il CAMPO e' alto due tessere quadrate e SCORRE dentro la plancia. Schiacciarlo
+   per farlo entrare renderebbe le caselle rettangolari, e una griglia di
+   rettangoli non si legge piu' come una griglia di caselle. */
+.campo { position: relative; width: 100%; aspect-ratio: 1 / 2; }
+.tessere { position: absolute; inset: 0; display: grid; grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr; }
+.tess { position: relative; background: #0a0d10; }
+.tess img { width: 100%; height: 100%; object-fit: cover; opacity: .85; display: block; }
+.tess.coperta img { filter: grayscale(1) brightness(.25); }
+.tess .et { position: absolute; left: 4px; bottom: 3px; font-size: 10px; color: var(--seppia);
+  font-family: 'FellSC', serif; text-shadow: 0 1px 3px #000; }
+.griglia { position: absolute; inset: 0; display: grid; pointer-events: none; }
+.cel { border: 1px solid rgba(240,230,204,.055); }
+.cel.mossa { border-color: rgba(216,178,94,.85); background: rgba(216,178,94,.16);
+  box-shadow: inset 0 0 10px rgba(216,178,94,.28); border-radius: 3px; }
+.attesa .cel.mossa { border-color: rgba(240,230,204,.055); background: none; box-shadow: none; }
+.tk { position: absolute; border-radius: 50%; overflow: hidden; border: 2px solid var(--seppia);
+  background: #12171b; box-shadow: 0 2px 8px rgba(0,0,0,.7); }
+.tk img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.tk.io { border-color: var(--oro-chiaro); box-shadow: 0 0 0 2px rgba(216,178,94,.35), 0 2px 10px #000; }
+.mio .tk.io { animation: respiro 2.4s ease-in-out infinite; }
+.tk.nem { border-color: var(--rosso); }
+.tk.boss { border-color: #d24; width: 15%; }
+@keyframes respiro { 0%,100% { box-shadow: 0 0 0 2px rgba(216,178,94,.35), 0 2px 10px #000; }
+  50% { box-shadow: 0 0 0 5px rgba(216,178,94,.18), 0 2px 14px #000; } }
+
+/* ---- la scheda del mio eroe ---- */
+.io-card { flex: none; display: flex; gap: 10px; align-items: center; padding: 10px 12px;
+  background: rgba(29,16,20,.6); border-bottom: 1px solid rgba(168,131,58,.25); }
+.io-card .rit { width: 54px; height: 54px; border-radius: 50%; overflow: hidden;
+  border: 2px solid var(--oro); flex: none; background: #12171b; }
+.io-card .rit img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.io-card .nm { font-family: 'FellSC', serif; color: var(--oro-chiaro); font-size: 18px; }
+.io-card .ru { color: var(--seppia); font-size: 12px; font-style: italic; }
+.pips { display: inline-flex; gap: 3px; vertical-align: middle; }
+.pips i { width: 10px; height: 10px; border-radius: 50%; display: inline-block;
+  border: 1px solid var(--seppia); }
+.pips i.on { background: var(--rosso); border-color: var(--rosso); }
+.pips.car i.on { background: var(--teal); border-color: var(--teal); }
+.lin { display: flex; align-items: center; gap: 7px; margin-top: 3px; }
+.lin .lab { font-size: 11px; color: var(--seppia); width: 52px; text-transform: lowercase; }
+
+/* ---- le azioni ---- */
+.azioni { flex: none; display: grid; grid-template-columns: 1fr 1fr; gap: 7px; padding: 10px 12px; }
+.azioni .btn { width: 100%; min-height: 50px; font-size: 16px; }
+.azioni .btn[disabled] { opacity: .3; }
+/* QUANDO NON TOCCA A ME i bottoni si spengono. Lasciarli accesi sarebbe
+   offrire una mossa che il tavolo rifiuterebbe: il rifiuto arriverebbe mezzo
+   secondo dopo il tocco, e da quella parte dello schermo sembrerebbe un guasto. */
+.attesa .azioni .btn { opacity: .3; filter: grayscale(.7); pointer-events: none; }
+.attesa .azioni .btn.pieno { background: linear-gradient(180deg, #241c22, var(--notte2));
+  color: var(--oro-chiaro); border-color: var(--oro); }
+.azioni .btn .co { font-size: 11px; color: var(--seppia); }
+.restano { text-align: center; font-size: 12px; color: var(--seppia); font-style: italic;
+  padding: 2px 0 0; }
+
+/* ---- il tavolo: gli altri ---- */
+.altri { padding: 8px 12px 14px; }
+.altri h3 { font-size: 14px; margin: 0 0 6px; color: var(--seppia); }
+.riga-altri { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; }
+.mini { flex: none; width: 62px; text-align: center; opacity: .85; }
+.mini .rit { width: 46px; height: 46px; border-radius: 50%; overflow: hidden; margin: 0 auto;
+  border: 2px solid var(--seppia); background: #12171b; }
+.mini.ora .rit { border-color: var(--oro-chiaro); box-shadow: 0 0 10px rgba(216,178,94,.5); }
+.mini.fatto { opacity: .4; }
+.mini .rit img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.mini .n { font-size: 11px; color: var(--perg); margin-top: 2px; font-family: 'FellSC', serif; }
+.mini .s { font-size: 10px; color: var(--seppia); }
+
+.scorre { overflow-y: auto; flex: 1; min-height: 0; -webkit-overflow-scrolling: touch; }
+.obiett { padding: 8px 12px; font-size: 13px; color: var(--perg); background: rgba(31,95,107,.13);
+  border-top: 1px solid rgba(31,95,107,.3); }
+.obiett b { color: var(--oro-chiaro); font-family: 'FellSC', serif; font-weight: 400; }
+
+/* La barra per confrontare i due stati NON fa parte del disegno: sta fuori dal
+   flusso, altrimenti spinge il telefono in basso e taglia proprio le azioni,
+   che sono la cosa da giudicare. */
+.leve { display: flex; gap: 6px; justify-content: center; padding: 6px 0; height: 46px; }
+.leve .btn { min-height: 34px; padding: 4px 12px; font-size: 14px; }
+.leve .btn.sel { background: linear-gradient(180deg, #8d2433, var(--rosso-scuro)); color: var(--perg); }
+
+/* =========================================================================
+   1 · POLLICE — la plancia comanda, le azioni stanno dove arriva il pollice
+   ========================================================================= */
+.dir-pollice .plancia { flex: 1; min-height: 0; }   /* min-height:0 = puo' comprimersi */
+.dir-pollice .io-card { padding: 7px 12px; }
+.dir-pollice .io-card .rit { width: 44px; height: 44px; }
+.dir-pollice .io-card .righe { display: flex; gap: 14px; align-items: center; }
+.dir-pollice .io-card .lin { margin-top: 0; }
+.dir-pollice .io-card .lab { width: auto; }
+.dir-pollice .azioni { background: rgba(14,21,25,.94);
+  border-top: 1px solid rgba(168,131,58,.4); padding-bottom: 14px; }
+
+/* =========================================================================
+   2 · IL MIO EROE — sono questa persona; la plancia e' una finestra
+   ========================================================================= */
+.dir-mio .plancia { flex: none; height: 200px; }
+.dir-mio .plancia .apri { position: absolute; right: 8px; bottom: 8px; z-index: 3;
+  min-height: 32px; padding: 4px 12px; font-size: 13px; }
+.dir-mio .ritratto-grande { position: relative; text-align: center; padding: 12px 12px 8px; }
+.dir-mio .ritratto-grande img { width: 132px; height: 132px; border-radius: 50%;
+  object-fit: cover; border: 3px solid var(--oro); box-shadow: 0 6px 26px rgba(0,0,0,.7); }
+.dir-mio .ritratto-grande .nm { font-family: 'FellSC', serif; font-size: 26px;
+  color: var(--oro-chiaro); margin-top: 6px; }
+.dir-mio .ritratto-grande .ru { color: var(--seppia); font-style: italic; font-size: 13px; }
+.dir-mio .barre { display: flex; justify-content: center; gap: 18px; margin-top: 8px; }
+.dir-mio .barre .v { text-align: center; }
+.dir-mio .barre .k { font-size: 11px; color: var(--seppia); text-transform: lowercase; }
+.dir-mio .azioni { grid-template-columns: 1fr 1fr; }
+.dir-mio .azioni .btn { min-height: 62px; flex-direction: column; gap: 2px; }
+
+/* =========================================================================
+   3 · SCHEDE — una cosa per volta, a tutto schermo
+   ========================================================================= */
+.dir-schede .foglio { display: none; flex: 1; min-height: 0; overflow-y: auto; }
+.dir-schede .foglio.on { display: block; }
+.dir-schede .plancia { height: 100%; }
+.dir-schede .linguette { display: grid; grid-template-columns: 1fr 1fr 1fr;
+  border-top: 1px solid rgba(168,131,58,.4); background: rgba(14,21,25,.94); }
+.dir-schede .ling { padding: 11px 4px 15px; text-align: center; font-family: 'FellSC', serif;
+  font-size: 15px; color: var(--seppia); cursor: pointer; border: none; background: none; }
+.dir-schede .ling.on { color: var(--oro-chiaro); box-shadow: inset 0 2px 0 var(--oro-chiaro); }
+.dir-schede .ling .pallino { display: inline-block; width: 7px; height: 7px; border-radius: 50%;
+  background: var(--rosso); margin-left: 4px; vertical-align: middle; }

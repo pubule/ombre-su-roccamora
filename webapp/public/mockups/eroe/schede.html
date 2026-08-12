@@ -1,0 +1,56 @@
+<!doctype html><html lang="it"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Vista eroe · 3 · Schede</title>
+<link rel="stylesheet" href="../comune.css"><link rel="stylesheet" href="../stile-eroe.css">
+</head><body>
+<div class="wrap" style="padding:6px">
+  <div id="leve"></div>
+  <div class="telefono dir-schede mio" id="tel"></div>
+  <p class="nota center" style="max-width:420px;margin:10px auto">
+    <b>3 · Schede.</b> Una cosa per volta, a tutto schermo: <i>plancia</i>, <i>io</i>, <i>tavolo</i>.
+    Ognuna ha tutto lo spazio, ma per vedere due cose insieme serve un tocco — e il pallino sulla
+    linguetta è l'unico modo di accorgersi di quello che succede sulla scheda che non stai guardando.<br>
+    <b>Il rischio:</b> mentre guardi «io», sulla plancia si muove la notte e non te ne accorgi — a meno di
+    tornare indietro ogni volta. Il pallino avvisa, ma avvisare non è vedere.
+  </p>
+</div>
+<script src="../dati.js"></script>
+<script src="../eroe-pezzi.js"></script>
+<script>
+const E = window.EROE;
+const { esc, urlArt } = MOCK;
+document.getElementById('leve').innerHTML = E.leve();
+
+const schedaIo = `
+<div class="ritratto-grande" style="text-align:center;padding:14px">
+  <img src="${urlArt(E.IO.art)}" alt="" style="width:120px;height:120px;border-radius:50%;object-fit:cover;border:3px solid var(--oro)">
+  <div style="font-family:'FellSC',serif;font-size:24px;color:var(--oro-chiaro);margin-top:6px">${esc(E.IO.breve)}</div>
+  <div style="color:var(--seppia);font-style:italic;font-size:13px">${esc(E.IO.ruolo.toLowerCase())}</div>
+</div>
+<div style="padding:0 14px">
+  <div class="lin"><span class="lab">salute</span>${E.pips(E.IO.sal, E.IO.salMax)}</div>
+  <div class="lin"><span class="lab">occhio clinico</span>${E.pips(E.IO.car, E.IO.carMax, 'car')}</div>
+  <div class="lin"><span class="lab">acume</span><b>${E.IO.ac}</b>
+    <span class="lab">vigore</span><b>${E.IO.vi}</b>
+    <span class="lab">nervi</span><b>${E.IO.ne}</b></div>
+</div>` + E.azioni();
+
+document.getElementById('tel').innerHTML =
+  E.testa() + E.turno()
+  + `<div class="foglio on" data-f="plancia">${E.plancia()}${E.obiettivo()}</div>`
+  + `<div class="foglio" data-f="io">${schedaIo}</div>`
+  + `<div class="foglio" data-f="tavolo">${E.altri()}${E.obiettivo()}</div>`
+  + `<div class="linguette">
+      <button class="ling on" data-f="plancia">plancia</button>
+      <button class="ling" data-f="io">io</button>
+      <button class="ling" data-f="tavolo">tavolo<span class="pallino"></span></button>
+    </div>`;
+
+document.querySelectorAll('.ling').forEach((b) => {
+  b.onclick = () => {
+    document.querySelectorAll('.ling').forEach((x) => x.classList.toggle('on', x === b));
+    document.querySelectorAll('.foglio').forEach((f) => f.classList.toggle('on', f.dataset.f === b.dataset.f));
+  };
+});
+</script>
+</body></html>

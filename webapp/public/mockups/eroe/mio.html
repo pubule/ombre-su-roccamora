@@ -1,0 +1,47 @@
+<!doctype html><html lang="it"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Vista eroe · 2 · Il mio eroe</title>
+<link rel="stylesheet" href="../comune.css"><link rel="stylesheet" href="../stile-eroe.css">
+</head><body>
+<div class="wrap" style="padding:6px">
+  <div id="leve"></div>
+  <div class="telefono dir-mio mio" id="tel"></div>
+  <p class="nota center" style="max-width:420px;margin:10px auto">
+    <b>2 · Il mio eroe.</b> Il ritratto grande dice <i>sono questa persona</i>: il telefono è la
+    tua scheda, non un secondo tabellone. La plancia resta in cima come finestra, e si apre a
+    tutto schermo quando serve guardare il campo.<br>
+    <b>Da guardare in «gioca un altro»:</b> il ritratto regge anche da fermi — ma la plancia è piccola,
+    e seguire la notte dei nemici da quella finestra è scomodo proprio quando è più teso.
+  </p>
+</div>
+<script src="../dati.js"></script>
+<script src="../eroe-pezzi.js"></script>
+<script>
+const E = window.EROE;
+const { S, esc, urlArt } = MOCK;
+document.getElementById('leve').innerHTML = E.leve();
+
+const ritratto = `
+<div class="ritratto-grande">
+  <img src="${urlArt(E.IO.art)}" alt="">
+  <div class="nm">${esc(E.IO.breve)}</div>
+  <div class="ru">${esc(E.IO.ruolo.toLowerCase())}</div>
+  <div class="barre">
+    <div class="v"><div class="k">salute</div>${E.pips(E.IO.sal, E.IO.salMax)}</div>
+    <div class="v"><div class="k">occhio clinico</div>${E.pips(E.IO.car, E.IO.carMax, 'car')}</div>
+  </div>
+</div>`;
+
+document.getElementById('tel').innerHTML =
+  E.testa() + E.turno()
+  + E.plancia('<button class="btn apri">apri la plancia</button>')
+  + '<div class="scorre">' + ritratto + E.azioni() + E.altri() + E.obiettivo() + '</div>';
+
+// La finestra si apre CENTRATA SU DI ME: aperta in cima mostrerebbe un angolo
+// di mappa che non e' dove sto giocando, e la prima cosa da fare sarebbe
+// scorrere.
+const pl = document.querySelector('.plancia');
+const io = document.querySelector('.tk.io');
+if (pl && io) pl.scrollTop = io.offsetTop - pl.clientHeight / 2 + io.clientHeight / 2;
+</script>
+</body></html>
