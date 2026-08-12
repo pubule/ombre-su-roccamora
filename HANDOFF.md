@@ -196,26 +196,29 @@ interrotta perdeva il turno.
 `dadi.js` accetta `facce: [d1, d2]`: l'overlay mette in scena un tiro già
 deciso invece di deciderlo.
 
-**Il nodo da sciogliere prima di collegarlo — la modalità tavolo.** A schermo il
-flusso è pulito: il motore tira col seme, l'evento porta le facce, l'overlay le
-anima. Al tavolo i dadi sono di legno e il tiro deve arrivare *prima* del
-comando (`comando.tiri`), ma per mostrare soglia e bonus nell'overlay il client
-deve sapere in anticipo quale prova sarà. Tre strade:
+**Il nodo del tavolo, sciolto.** A schermo il motore tira col seme e l'overlay
+anima le facce. Al tavolo i dadi sono di legno: il tiro deve arrivare *prima*
+del comando, ma l'overlay vuole mostrare soglia e bonus, che il motore decide
+mentre esegue. `provaDi(g, comando)` li dichiara **senza tirare** — e perché non
+diventi una seconda copia delle regole, **la usano anche i risolutori**:
+`cercare` e `attacca` non ricalcolano soglia e bonus, li chiedono a lei. Chi
+dichiara e chi risolve leggono la stessa riga.
 
-1. **`provaDi(g, comando)`** nel motore: dichiara la prova (stat, difficoltà,
-   soglia, bonus) senza tirarla, e il client la usa per l'overlay. È la più
-   pulita; costa un po' di duplicazione fra chi dichiara e chi risolve.
-2. **Loop di richiesta**: si manda il comando, il motore rifiuta con «i tiri
-   dichiarati non bastano», il client chiede un dado e rimanda. Funziona già —
-   il rifiuto esiste ed è provato — ma l'overlay non può mostrare la soglia al
-   primo giro.
-3. **Overlay generico al tavolo**: si chiede solo il totale dei 2d6 e l'esito
-   si mostra dopo, dall'evento `tiro`. Il meno lavoro, la peggiore esperienza.
+**Collegati:** muovere, cercare, rianimare, attaccare, finire il turno. La vista
+manda un comando e mette in scena gli eventi; la pendenza di Ottone si scioglie
+con un overlay e un `rispondi`. Misurato A/B al tavolo (N=10): 30% prima, 30%
+dopo, con metà degli stalli.
 
-**Ancora da fare, oltre a questo:** portare `usaAbilita`, `azioneInteragire` e
-`usaOggetto` dentro il contratto (le loro `scegli` sono tutte pre-dichiarabili:
-i candidati si calcolano dallo stato), `replay.js`, il pilota headless e il
-cancello finale.
+**Una trappola da ricordare:** `applica()` restituisce uno stato *nuovo*, ma
+`aggancia()` cattura `const sp = SP()` e lo usa nei gestori. Sostituire gli
+oggetti farebbe scrivere quei gestori su uno stato scartato, e il click
+andrebbe perso **senza errore**. Perciò `esegui()` *travasa* con `Object.assign`
+invece di sostituire. Chi collegherà le prossime azioni deve fare lo stesso.
+
+**Ancora da fare:** portare `usaAbilita`, `azioneInteragire` e `usaOggetto`
+dentro il contratto (le loro `scegli` sono tutte pre-dichiarabili: i candidati
+si calcolano dallo stato), spostare `riproduci()` in `replay.js`, il pilota
+headless e il cancello finale.
 
 ### Come si prova un'estrazione
 
