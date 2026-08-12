@@ -431,6 +431,19 @@ function raggEroe(nm) {
   return out;
 }
 
+// ESCA PREZIOSA di Carbone: le caselle dove il monile puo' arrivare — entro 3,
+// libere, in stanze gia' rivelate. Stessa esplorazione del movimento, budget 3:
+// un monile lanciato non passa i muri piu' di quanto ci passi un uomo.
+function celleEsca(nm) {
+  const sp = SP(); const start = sp.eroiPos[nm];
+  if (!start) return {};
+  const info = esploraMosse(start, 3, occupati(`E:${nm}`, true, true));
+  const occ = occupati(`E:${nm}`, false);
+  const out = {};
+  for (const [k, v] of Object.entries(info)) { if (v.dist === 0 || v.reveal || occ.has(k)) continue; out[k] = v; }
+  return out;
+}
+
 // `senzaMosse`: la plancia disegnata mentre agisce la notte non accende le
 // caselle dell'eroe. NON si puo' dedurre da `SP().fase`, e il test lo ha
 // dimostrato: la fase nemici COMMITTA lo stato prima di animare, quindi
@@ -459,6 +472,7 @@ function boardHtml(senzaMosse) {
   // dell'eroe attivo restavano accese durante il turno dei nemici, e sembrava
   // di poter giocare mentre invece si aspetta.
   const ragg = senzaMosse ? {}
+    : sp.escaModo ? celleEsca(sp.escaModo)
     : attivo ? raggEroe(attivo) : (scortAttivo() != null ? raggScortato(scortAttivo()) : {});
 
   // blocchi tessera: rivelate (sfondo + griglia) e frontiera (coperte, scure)
@@ -518,6 +532,7 @@ function boardHtml(senzaMosse) {
     tok(g.pos, `<span class="tok-board scortato${scortAttivo() === i ? ' attivo' : ''}" data-scortato="${i}" title="${esc(s.nome || '')}">
       ${s.art ? `<img src="${urlArt(s.art)}" alt="">` : ''}</span>`, `S:${i}`);
   });
+  if (sp.esca) tok(sp.esca, '<span class="tok-board esca" title="l’esca di Carbone">◆</span>', 'ESCA');
 
   return `<div class="board-digitale" style="width:${cols * cell}px;height:${rows * cell}px;zoom:${SP().zoom || 1}">
     ${tiles}${etichette}${raggHtml}${toks.join('')}</div>`;
@@ -659,9 +674,9 @@ function azioniHtml() {
 const CARICHE_SPED = [
   { key: 'ATTILIO', ab: 'Pronto Soccorso', usi: 3, eff: 'cura', nota: 'Cura 2 Salute a sé o a un eroe adiacente.' },
   { key: 'SIBILLA', ab: 'Sesto Senso', usi: 3, eff: 'scruta', nota: 'Guarda le prossime 2 carte Minaccia e mettine una in fondo al mazzo.' },
-  { key: 'SERRA', ab: 'Voce ferma', usi: 3, nota: 'Fino al tuo prossimo turno gli eroi adiacenti tirano NERVI con +2.' },
+  { key: 'SERRA', ab: 'Voce ferma', usi: 3, eff: 'voce', nota: 'Fino al tuo prossimo turno gli eroi adiacenti tirano NERVI con +2.' },
   { key: 'CARLA', ab: 'Flash!', usi: 2, eff: 'flash', nota: 'Un nemico entro 2 caselle salta la sua prossima attivazione.' },
-  { key: 'CARBONE', ab: 'Esca preziosa', usi: 2, nota: 'I nemici entro 2 caselle dall’esca vanno verso di essa nel loro turno.' },
+  { key: 'CARBONE', ab: 'Esca preziosa', usi: 2, eff: 'esca', nota: 'I nemici entro 2 caselle dall’esca vanno verso di essa nel loro turno.' },
   { key: 'FANTI', ab: 'Diversivo', usi: 2, eff: 'diversivo', nota: 'La prossima Fase Minaccia pesca 1 carta in meno.' },
   { key: 'MARANI', ab: 'Litania', usi: 1, eff: 'litania', nota: 'Rimuove 1 segnalino Canto.' },
   { key: 'BRERA', ab: 'Vi conosco, Malacarne', usi: 1, eff: 'malacarne', nota: 'Rimuove un nemico di truppa (Malavita/Adepto/Cane) in campo.' },
@@ -739,11 +754,36 @@ async function usaAbilita(nm) {
     if (scelta === '0') { const [x] = m.ordine.splice(m.indice, 1); m.ordine.push(x); log(`Sibilla manda in fondo «${t0.toLowerCase()}».`); }
     else if (scelta === '1') { const [x] = m.ordine.splice(m.indice + 1, 1); m.ordine.push(x); log(`Sibilla manda in fondo «${t1.toLowerCase()}».`); }
     else log('Sibilla scruta il mazzo e lascia l’ordine.');
+  } else if (c.eff === 'voce') {
+    // «fino al suo prossimo turno»: copre il resto di questo round (Minaccia e
+    // notte comprese) e l'inizio del prossimo finche' Serra non agisce.
+    sp.voceFerma = { da: nm, round: sp.round };
+    log(`${primo(nm)} tiene la voce ferma: gli eroi adiacenti tirano NERVI con +2 fino al suo prossimo turno.`);
+  } else if (c.eff === 'esca') {
+    // Il monile si lancia su una casella: il tabellone accende i bersagli
+    // entro 3 e la carica si spende quando la casella e' scelta, non prima.
+    sp.escaModo = nm; salvaP(); render();
+    flash('Tocca la casella dove lanciare l’esca (entro 3).');
+    return;
   } else {
-    // Voce ferma / Esca preziosa: carica spesa, effetto narrato
     log(`${primo(nm)} usa ${c.ab.toLowerCase()} (${c.nota})`);
   }
   if (fatto) { sp.abilita = sp.abilita || {}; sp.abilita[nm] = usate + 1; salvaP(); segnaAzione(nm, 'abilita'); }
+}
+
+// VOCE FERMA di Serra: +2 alle prove NERVI degli eroi a lui adiacenti. Vale
+// «fino al suo prossimo turno» — cioe' per tutto il round in cui la usa, e nel
+// round dopo finche' Serra non ha ancora speso un'azione. L'adiacenza si
+// guarda al momento del tiro, non a quello dell'abilita': e' la sua voce che
+// arriva, e se ti allontani non ti arriva piu'.
+function bonusVoce(nm, stat) {
+  const sp = SP(); const v = sp.voceFerma;
+  if (!v || String(stat).toLowerCase() !== 'nervi' || v.da === nm) return [];
+  const ancora = sp.round === v.round
+    || (sp.round === v.round + 1 && !(sp.azioni[v.da] || []).length);
+  if (!ancora || (sp.vite[v.da] ?? 0) <= 0) return [];
+  if (!sp.eroiPos[nm] || !sp.eroiPos[v.da] || !adiacGlob(sp.eroiPos[nm], sp.eroiPos[v.da])) return [];
+  return [{ label: `Voce ferma di ${primo(v.da)}`, val: 2 }];
 }
 
 // una prova richiesta da un testo (oggetto/tessera/carta): "... NERVI (Media) ..."
@@ -804,7 +844,8 @@ function messaggioCarta(titolo, carta, annunci) {
       for (const t of targets) {
         const e = eroe(t);
         const r = await tiraProva({ titolo: `${req.stat.toUpperCase()} — ${primo(t)}`, diffLabel: req.diff,
-          soglia: ctx.comune.regole.diff[req.diff], bonus: [{ label: req.stat.toUpperCase(), val: e[req.stat] }], modo: modoDadi() });
+          soglia: ctx.comune.regole.diff[req.diff],
+          bonus: [{ label: req.stat.toUpperCase(), val: e[req.stat] }, ...bonusVoce(t, req.stat)], modo: modoDadi() });
         if (r == null) { rb.disabled = false; return; }
         if (r.ok) esiti.push(`${primo(t)}: prova superata.`);
         else esiti.push(...applicaConseguenza(t, carta.rules));
@@ -833,7 +874,8 @@ function messaggioProva(titolo, corpo, provaText, nm) {
     if (pb) pb.onclick = async () => {
       pb.disabled = true; const e = eroe(nm); const sp = SP();
       const r = await tiraProva({ titolo: `${req.stat.toUpperCase()} — ${primo(nm)}`, diffLabel: req.diff,
-        soglia: ctx.comune.regole.diff[req.diff], bonus: [{ label: req.stat.toUpperCase(), val: e[req.stat] }], modo: modoDadi() });
+        soglia: ctx.comune.regole.diff[req.diff],
+        bonus: [{ label: req.stat.toUpperCase(), val: e[req.stat] }, ...bonusVoce(nm, req.stat)], modo: modoDadi() });
       if (r == null) { pb.disabled = false; return; }
       let out = r.ok ? '<p class="ok-txt mt">Prova superata.</p>' : '<p class="ko-txt mt">Prova fallita.</p>';
       if (!r.ok) { out += applicaConseguenza(nm, provaText).map((x) => `<p class="nota">${esc(x)}</p>`).join(''); salvaP(); }
@@ -902,6 +944,16 @@ function aggancia() {
   app.querySelectorAll('.cella-mossa').forEach((c) => c.onclick = async () => {
     if (scivolando) return;                     // gia' in cammino
     const node = { t: c.dataset.t, x: +c.dataset.x, y: +c.dataset.y };
+    // l'esca si posa e basta: nessuno scivola, e la carica si spende ORA —
+    // fino a qui il giocatore poteva ancora cambiare idea
+    if (sp.escaModo) {
+      const nm = sp.escaModo; const usate = (sp.abilita && sp.abilita[nm]) || 0;
+      sp.esca = node; sp.escaModo = null;
+      sp.abilita = sp.abilita || {}; sp.abilita[nm] = usate + 1;
+      log(`${primo(nm)} lancia il monile in ${node.t}: i nemici entro 2 caselle andranno lì.`);
+      salvaP(); segnaAzione(nm, 'abilita');
+      return;
+    }
     const scort = scortAttivo();
     if (scort == null && !attivo) return;
     scivolando = true;
@@ -919,6 +971,7 @@ function aggancia() {
   app.querySelectorAll('[data-eroe]').forEach((el) => el.onclick = () => {
     const nm = el.dataset.eroe; if ((sp.vite[nm] ?? 0) <= 0) return;
     sp.scortAttivo = null;
+    sp.escaModo = null;              // via d'uscita: chi ci ripensa tocca un eroe
     const i = sp.eroiFatti.indexOf(nm); if (i >= 0) sp.eroiFatti.splice(i, 1);
     sp.eroiAttivo = nm; salvaP(); render();
   });
@@ -1574,10 +1627,10 @@ function scortaPuoVincere() {
   return !specCompiti().length || compitiFiniti();
 }
 
-async function attaccaNemico(nm, i) {
+async function attaccaNemico(nm, i, gratis) {
   const sp = SP(); const e = eroe(nm); const n = sp.nemici[i]; if (!n) return;
-  if (azioneSpesa(nm, 'attaccare')) { flash(`${primo(nm)} ha già attaccato: le 2 azioni sono di tipo diverso.`); return; }
-  if (!azioniRestano(nm)) { flash(`${primo(nm)} non ha più azioni.`); return; }
+  if (!gratis && azioneSpesa(nm, 'attaccare')) { flash(`${primo(nm)} ha già attaccato: le 2 azioni sono di tipo diverso.`); return; }
+  if (!gratis && !azioniRestano(nm)) { flash(`${primo(nm)} non ha più azioni.`); return; }
   if (!adiacGlob(sp.eroiPos[nm], n.pos)) { flash('Nemico non adiacente: avvicinati prima.'); return; }
   if (n.abbattuto) { flash(`${n.nome.toLowerCase()} è già a terra: ora va preso (Interagire).`); return; }
   const st = nemStat(n.nome);
@@ -1601,9 +1654,24 @@ async function attaccaNemico(nm, i) {
       } else {
         log(`${n.nome.toLowerCase()} è abbattuto!`);
         sp.nemici.splice(i, 1);
+        // COLPO DA MACELLO di Ottone: abbattuto un nemico in mischia, il
+        // secondo colpo parte subito e non costa l'azione. Una volta per suo
+        // turno — `sp.macello` tiene il round in cui l'ha gia' fatto.
+        if (nm.includes('OTTONE') && sp.macello !== sp.round) {
+          const vicini = sp.nemici.map((x, j) => ({ x, j }))
+            .filter(({ x }) => x.pos && !x.abbattuto && adiacGlob(sp.eroiPos[nm], x.pos));
+          if (vicini.length) {
+            const j = vicini.length === 1 ? String(vicini[0].j)
+              : await scegli('Colpo da macello: chi cade adesso?',
+                  vicini.map(({ x, j }) => ({ id: String(j), label: `${x.nome.toLowerCase()} (${x.ferite}/${x.max})` })));
+            // il colpo si consuma solo se parte: chi annulla la scelta lo tiene
+            if (j != null) { sp.macello = sp.round; salvaP(); await attaccaNemico(nm, Number(j), true); }
+          }
+        }
       }
     }
   } else log(`${primo(nm)} manca ${n.nome.toLowerCase()} (${r.tot} < Dif ${dif}).`);
+  if (gratis) { salvaP(); render(); return; }   // colpo gratuito: nessuna azione da segnare
   salvaP(); segnaAzione(nm, 'attaccare');
 }
 
@@ -1938,6 +2006,9 @@ function tileAffollata() {
 // --------------------------------------------------------- fase minaccia
 async function faseMinaccia() {
   const sp = SP();
+  // un lancio d'esca lasciato a meta' non deve sopravvivere al turno: la
+  // plancia resterebbe accesa sulle caselle sbagliate nel round dopo
+  sp.escaModo = null;
   if (sp.fase === 'eroi') { sp.fase = 'nemici'; sp.eroiFatti = []; sp.eroiAttivo = null; sp.azioni = {}; salvaP(); }
   let n = carteDaPescare(ctx.comune, P().party.length, sp.round, sp.cantoBonus, P().episodio);
   // OBIETTIVO COMPLETATO: non si pesca piu' Minaccia. La pressione del mazzo
@@ -2212,6 +2283,21 @@ function faseNemiciAI() {
     const pos0 = n.pos;
     if (n.flash) { n.flash = false; log(`${n.nome.toLowerCase()} è accecato: salta il turno.`); piano.push({ i, nome: n.nome, pos0, pos1: pos0, flash: true, attacco: null }); continue; }
     const bersagli = vivi(); if (!bersagli.length) break;
+    // ESCA PREZIOSA: chi e' entro 2 caselle dal monile ci va, e per questa
+    // attivazione non attacca nessuno. Vale una volta sola — l'esca si
+    // consuma a fine fase, come dice la carta («la loro prossima attivazione»).
+    if (sp.esca && distGlob(n.pos, sp.esca) <= 2) {
+      const cam = camminoGlob(n.pos, sp.esca, occupati(`N:${i}`, false, true));
+      if (cam.length) {
+        const bloccoArrivo = occupati(`N:${i}`, false);
+        let k = Math.min(st.mov, cam.length) - 1;
+        while (k >= 0 && bloccoArrivo.has(nk(cam[k]))) k -= 1;
+        if (k >= 0) n.pos = cam[k];
+      }
+      log(`${n.nome.toLowerCase()} segue il luccichio del monile.`);
+      piano.push({ i, nome: n.nome, pos0, pos1: n.pos, flash: false, attacco: null });
+      continue;
+    }
     const scelto = bersagli[Math.floor(Math.random() * bersagli.length)];
     if (!bersagli.some((nm) => adiacGlob(n.pos, sp.eroiPos[nm]))) {
       // Due insiemi diversi, come per gli eroi: il PNG scortato si ATTRAVERSA
@@ -2334,6 +2420,7 @@ function faseNemiciAI() {
     }
   }
   piano.annunci.push(...destaBossSeSoglia());
+  sp.esca = null;                    // il monile ha fatto il suo giro: si raccoglie
   sp.fase = 'eroi'; sp.eroiFatti = []; sp.eroiAttivo = null; sp.azioni = {};
   statoScortati().forEach((g) => { g.mosso = false; });   // possono muoversi nel nuovo turno eroi
   sp.scortAttivo = null;
@@ -2399,6 +2486,7 @@ function epilogo() {
 export const _motore = {
   esploraMosse, camminoGlob, adiacGlob, viciniGlob, portaCella, arrediSet, layout, nk, tileDi,
   avanzaCancellazione, avanzaRitmo, avanzaPressione, controllaFiloPerso, avanzaOrologio,
+  bonusVoce, celleEsca,
   _setup: (ep, sp, extra) => {
     const { comune, ...resto } = extra || {};
     ctx = { ep, comune: comune || { regole: {} },

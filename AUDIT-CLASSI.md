@@ -21,10 +21,17 @@ metà usano statistiche diverse e premiano eroi diversi.
    19, dove la squadra di vetro sta fra 0% e 20% e quella di ferro fra 35% e
    65%. L'**11%** delle 330 squadre non ha nemmeno un eroe con VIGORE ≥ 2.
 
-E il difetto che rende tutto questo peggiore di quanto debba essere: **in
-modalità digitale tre abilità di Spedizione e nove oggetti personali sono
-stampati e non fanno niente** (§5) — e appartengono in maggioranza proprio
-agli eroi fragili. Prima di ritarare un solo numero, vanno accesi.
+E il difetto che rendeva tutto questo peggiore di quanto dovesse essere: **in
+modalità digitale tre abilità di Spedizione e nove oggetti personali erano
+stampati e non facevano niente** (§5) — e appartengono in maggioranza proprio
+agli eroi fragili.
+
+> **Aggiornamento della sera del 12/08.** Le tre abilità sono state accese
+> (Voce ferma, Esca preziosa, Colpo da macello) e le due porte dell'Ep. 9 sono
+> state riaperte agli indizi core. Rimisurato: **il divario fra la squadra di
+> vetro e quella di ferro passa da 21 punti a 7**, e l'Ep. 19 esce dalla lista
+> degli episodi chiusi. I dettagli nel §7 — e le sezioni 2-4 restano scritte
+> com'erano, che è la fotografia di prima.
 
 ---
 
@@ -134,25 +141,37 @@ stessa carica, il divario collassa da 1,9–4,8 a **3,2–4,8**, e quel che rest
 è solo ACUME più le due visite gratuite. Cioè: il ×2,6 lo produce
 l'asimmetria delle cariche, non il modello.
 
-### 2.2 Le tre porte dietro un'abilità
+### 2.2 Le due porte dietro un'abilità — **corrette il 12/08**
 
-La parola che apre un luogo chiuso viene, in **93 casi su 100**, da un indizio
-core — cioè da qualcosa che si legge visitando, senza abilità. Le eccezioni
-sono tre, e vanno guardate:
+Cento luoghi chiusi in campagna, novantasei aperti da una parola. Controllata
+una per una: da dove viene, e se quella fonte è un indizio core (si legge
+visitando) o un Approfondimento (serve l'abilità giusta).
 
-| episodio | luogo | parola | sta solo in |
+Due porte erano dietro un'abilità, tutte e due nell'Ep. 9:
+
+| luogo | parola | stava solo in | ora |
 |---|---|---|---|
-| **Ep. 9** | L7 · La casa del teste | «l'oro della parcella» | **una** Testimonianza (L3) |
-| **Ep. 9** | L6 · La sacrestia del tribunale | «la deposizione di domani» | un'Osservazione (L1) o una Testimonianza (L4) |
-| **Ep. 6** | L8 · Il rifugio del Maestro dei registri | «il maestro dei registri» | un'Osservazione (L9), più una dentro L8 stesso — quindi inutile |
+| L7 · La casa del teste | «l'oro della parcella» | **una** Testimonianza (L3) | nominata negli indizi core di L2 (la Gazzetta) e L5 (lo studio) |
+| L6 · La sacrestia del tribunale | «la deposizione di domani» | un'Osservazione (L1) o una Testimonianza (L4) | nominata nel ruolo d'udienza, indizio core di L1 |
 
-L'Ep. 9 L7 è il caso stretto: **fonte unica**, e il 21% delle squadre non ha
-nessun lettore di Testimonianze. Restano l'aiuto profano su L3 (una sola
-occasione, ≤42%) e il Grimaldello di Nino, che apre una porta a episodio.
+In tutt'e due i casi il fatto **era già** negli indizi core: la parcella d'oro
+vecchio è descritta due volte, la deposizione di domani è scritta sul ruolo
+d'udienza. Mancava solo che il testo la chiamasse **col nome che apre la
+porta** — il commento in cima a `gen_ep9.py` dichiarava già l'intenzione
+(«l'oro della parcella da L3 e L2»), e la prosa non la rispettava. Corretto
+riscrivendo tre righe, senza aggiungere informazione.
 
-Sull'Ep. 6 la parola è quella che nell'Ep. 5 apriva la porta L6: chi ha
-giocato l'episodio prima la sa già. È continuità di campagna, non una svista —
-ma vale solo per chi ha giocato di fila e se l'è segnata.
+Le quattro porte che restano senza fonte testuale (Ep. 6 L9, Ep. 7 L9, Ep. 8
+L9, Ep. 9 L9) si aprono con un **oggetto**, non con una parola: l'oggetto sta
+in un luogo raggiungibile, verificato.
+
+> **Nota sul metodo, perché non si ripeta.** La prima lettura di questa
+> sezione dava *tre* porte, e la terza (Ep. 6 L8, «il maestro dei registri»)
+> non era vera: il mio strumento cercava la parola **con l'articolo**, mentre
+> `bussa()` in `engine.js` lo toglie da tutt'e due i lati. Un indizio core del
+> Palazzo del Lume la nomina eccome. Il difetto poteva solo inventare porte
+> chiuse, mai dichiararne aperte una davvero chiusa — ma è stato trovato
+> leggendo il testo, non rileggendo il codice.
 
 ### 2.3 Le 4 Domande: nessuna è dietro una classe
 
@@ -313,25 +332,28 @@ cose stampate sulle carte degli eroi che il motore digitale non applica, e
 appartengono in maggioranza agli eroi che risultano deboli. Finché sono spente,
 il 33% della squadra di vetro è una misura del gioco **incompleto**.
 
-1. **Accendere le tre abilità morte** (Serra, Carbone, Ottone). Voce ferma
-   (+2 NERVI agli adiacenti) colpisce esattamente la statistica più richiesta
-   del gioco; l'Esca sposta i nemici, che è quello che manca a chi non li
-   uccide. Non tocca la modalità tavolo.
+1. ~~**Accendere le tre abilità morte**~~ — **fatto il 12/08**: Voce ferma,
+   Esca preziosa e Colpo da macello ora esistono nel motore digitale. Vedi §7
+   per cosa è cambiato nei numeri, e `webapp/test-abilita.mjs` per la barriera
+   che impedisce che tornino prosa. La modalità tavolo non è stata toccata.
 2. **Accendere i nove oggetti personali**, o toglierli dalla scheda digitale.
    Cinque su nove sono difensivi (laudano, stola, fiasco, toga, sali) e stanno
    quasi tutti in mano agli eroi fragili: sono l'assicurazione che il progetto
-   aveva previsto e il codice non ha mai stipulato.
-3. **Rimisurare** con `webapp/misura-classi.mjs` dopo 1 e 2. È il momento in
-   cui si scopre se il divario di 21 punti era il gioco o il motore.
+   aveva previsto e il codice non ha mai stipulato. **Non fatto**: quattro dei
+   nove sono *reazioni* (la stola di Marani annulla una prova NERVI già
+   fallita, il laudano di Serra toglie 1 al danno che sta arrivando, la toga di
+   Brera devia un attacco durante il turno dei nemici) e vanno offerte al
+   giocatore nel mezzo di un tiro altrui. Come si chiedono senza spezzare la
+   scena è una scelta di regia, non di codice, e la decide l'autore.
+3. ~~**Rimisurare**~~ — **fatto**, §7.
 4. Se il divario resta, la leva **strutturale** è sui quattro episodi del
    §4.1, non sulle statistiche degli eroi: Ep. 9, 11, 15, 19 chiedono tutti la
    stessa cosa (fermare qualcuno in fretta) e nessuno dei quattro offre una
    strada che non sia la mischia. Una via alternativa in ciascuno — bloccare
    invece di abbattere, un percorso che si può chiudere, un'azione che compra
    un round — vale più di +1 VIGORE distribuito a caso.
-5. **Ep. 9 L7**: dare alla parola «l'oro della parcella» una **seconda fonte
-   core**, una riga in un indizio di L3. È l'unica porta della campagna con
-   fonte unica dietro un'abilità.
+5. ~~**Ep. 9**, le due parole dietro un Approfondimento~~ — **fatto**: vedi
+   §2.2. Nessuna porta della campagna è più chiusa dietro un'abilità.
 6. **Presagio ha un lettore solo** per 34 carte, e Osservazione un solo
    lettore per 59. Il rimedio economico non è una carica in più a chi ce l'ha:
    è che **Carbone e Mora, che non leggono niente, leggano qualcosa** —
@@ -342,3 +364,51 @@ il 33% della squadra di vetro è una misura del gioco **incompleto**.
 Da **non** fare: livellare le statistiche degli eroi. Il disegno
 VIGORE↔NERVI — chi mena prende, chi regge non sfonda — è giusto; quello che
 non funziona è il cambio, non la moneta.
+
+---
+
+## 7. Cosa è cambiato accendendo le tre abilità (12/08, sera)
+
+Applicati i punti 1 e 5 del §6, la misura è stata rifatta sui due estremi —
+quelli fra cui stava il divario — sugli stessi 12 episodi, 20 partite per
+casella, **480 partite**.
+
+| | vetro (VIGORE 4) | ferro (VIGORE 10) | divario |
+|---|--:|--:|--:|
+| prima (abilità morte) | 33% | 54% | **21 punti** |
+| dopo | **40%** | **47%** | **7 punti** |
+
+**Il divario si chiude di due terzi.** Con l'avvertenza d'obbligo: fra le due
+misure c'è anche il rumore (±3 punti a squadra), e il calo di «ferro» — che
+dalle abilità nuove poteva solo guadagnare, col Colpo da macello — è per
+forza in parte rumore. Il numero solido non è il singolo 40 o 47: è che due
+misure indipendenti dopo la correzione danno 7 e 11 punti di divario, dove
+prima ne davano 21.
+
+E la mappa dei quattro episodi chiusi si accorcia a tre:
+
+| episodio | vetro | ferro | |
+|---|--:|--:|---|
+| ep9 | 0% | 25% | ancora chiuso |
+| ep11 | 5% | 35% | ancora chiuso |
+| ep15 | 5% | 25% | ancora chiuso |
+| **ep19** | **40%** | **50%** | **aperto** (era 20% contro 65%) |
+
+L'Ep. 19 era il caso in cui il divario veniva dalle abilità mancanti, non
+dalla struttura: è pieno di truppa (Malavita e Adepti) sparsa in stanze
+larghe, e l'Esca di Carbone più la Voce ferma cambiano la serata. Gli altri
+tre no: lì il problema è che l'obiettivo si raggiunge solo picchiando in
+fretta, e nessuna abilità lo aggira. Restano il punto 4 del §6.
+
+L'ansia non peggiora: picco medio 1,9 per «vetro» e 1,5 per «ferro» —
+la squadra fragile continua a rischiare di più, e ora vince quasi quanto
+l'altra. È esattamente lo stato che si voleva.
+
+> **Un difetto dello strumento, trovato e corretto anche questo.** La prima
+> rimisura dava Ep. 19 ed Ep. 20 allo **0% per tutte e cinque le squadre**, e
+> sembrava una regressione grave del motore. Era il server locale
+> (`webapp/server.js`) morto a metà corsa per `EMFILE: too many open files`
+> dopo ~1200 partite: senza un gestore sull'evento `error` di
+> `createReadStream`, il processo si spegne e le ultime caselle risultano zero.
+> Ora l'errore si gestisce e il server resta in piedi. Vale la regola di
+> sempre: prima di credere a un crollo, guardare se lo strumento è vivo.

@@ -99,6 +99,16 @@ pilota: l'ordine del party contava (il motore piazza gli eroi in quell'ordine),
 e ora si rimescola a ogni partita. Due strumenti nuovi:
 `webapp/misura-classi.mjs` e `webapp/misura-indagine-classi.py`.
 
+**8. Le tre abilità accese** (stessa giornata, referto `AUDIT-CLASSI.md` §7).
+Voce ferma di Serra, Esca preziosa di Carbone e Colpo da macello di Ottone
+ora il motore digitale le **applica**: prima spendevano carica e azione e non
+facevano niente. Riaperte agli indizi core anche le due parole dell'Ep. 9 che
+stavano dietro un Approfondimento. Rimisurato: **il divario fra la squadra
+senza VIGORE e quella tutta VIGORE scende da 21 punti a 7**, e l'Ep. 19 esce
+dalla lista degli episodi chiusi. Barriera: `webapp/test-abilita.mjs`.
+Corretto anche `webapp/server.js`, che sotto i banchi moriva per `EMFILE` e
+faceva risultare 0% gli ultimi episodi di una corsa lunga.
+
 ## Come si riprende
 
 ```bash
@@ -125,6 +135,7 @@ npx --no-install wrangler dev --var OSR_DEV_EMAIL:due@esempio.it --port 8788
 | `test-testi` | i refusi che l'audit ha già visto una volta non tornano: accenti con apostrofo, «quale è», articoli davanti a s impura, sigle d'arbitro nella finzione, statistiche inesistenti, carte mozze |
 | `test-zoom` | la carta si apre a tutto schermo e si richiude: misura che l'immagine sia DAVVERO più grande, non che l'overlay esista |
 | `test-conferma` | le domande irreversibili si chiedono dentro il gioco: è l'unico che NON sostituisce `window.confirm` |
+| `test-abilita` | le abilità di Spedizione **agiscono** invece di essere narrate (esca, colpo da macello); vuole il server acceso |
 | `test-api`, `test-sync`, `test-access`, `test-account-ui` | salvataggi, coda, JWT, tavoli |
 | `test-ui`, `test-digitale*`, `test-engine` | il gioco (i banchi di misura del bilanciamento) |
 
@@ -161,13 +172,19 @@ npx --no-install wrangler dev --var OSR_DEV_EMAIL:due@esempio.it --port 8788
    la loro arte) avranno un'icona mancante su quei due arredi.
 6. Da provare quando capita: una **serata vera**, e la partita **ripresa da un
    altro dispositivo**.
-7. **Le abilità morte del digitale** (referto `AUDIT-CLASSI.md`, 12/08): Voce
-   ferma di Serra, Esca preziosa di Carbone e Colpo da macello di Ottone hanno
-   il bottone, spendono carica e azione e **non fanno niente**; i nove oggetti
-   personali degli eroi sono mostrati nella scheda e mai applicati. È la prima
-   cosa da fare prima di ritarare qualunque numero di bilanciamento, perché
-   riguarda proprio gli eroi che oggi risultano deboli. La modalità tavolo non
-   c'entra: lì li applica chi gioca, ed è dichiarato nel codice.
+7. **I nove oggetti personali degli eroi** (la lente di Elena, i sali di Marn,
+   i gessetti di Sibilla, il rampino di Nino, il fiasco di Ottone, la macchina
+   fotografica di Carla, il laudano di Serra, la stola di Marani, la toga di
+   Brera) sono mostrati nella scheda e **mai applicati** in modalità digitale.
+   Le tre *abilità* morte sono state accese il 12/08 (`AUDIT-CLASSI.md` §7);
+   gli oggetti no, perché quattro dei nove sono **reazioni** — vanno offerte
+   nel mezzo di un tiro altrui, e come chiederle senza spezzare la scena è una
+   scelta di regia da prendere col committente. La modalità tavolo non c'entra:
+   lì li applica chi gioca, ed è dichiarato nel codice.
+8. **Ep. 9, 11 e 15 restano chiusi a chi non picchia** (0-5% con VIGORE 4,
+   25-35% con VIGORE 10). Chiedono tutti la stessa cosa — fermare qualcuno in
+   fretta — e nessuno offre una strada che non sia la mischia. È una leva di
+   struttura, non di taratura: `AUDIT-CLASSI.md` §6.4.
 
 ## Cose sapute che il codice non dice
 

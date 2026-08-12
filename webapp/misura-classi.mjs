@@ -20,13 +20,14 @@ const PAR = Number(process.argv[3]) || 5;
 const EPISODI = (process.argv[4] || 'ep1,ep5,ep7,ep11,ep13,ep20').split(',').filter(Boolean);
 
 // I nomi sono frammenti: misura-episodio.mjs li cerca con `includes`.
+const SOLO = (process.argv[5] || '').split(',').filter(Boolean);   // solo queste squadre
 const SQUADRE = [
   { id: 'vetro',   party: 'ELENA,CARLA,SERRA,BRERA',      nota: 'ACUME 3×4 · VIGORE 1×4 · 24 salute' },
   { id: 'ferro',   party: 'OTTONE,FANTI,NINO,ATTILIO',    nota: 'VIGORE 3,3,2,2 · 29 salute' },
   { id: 'occulto', party: 'SIBILLA,MARANI,CARBONE,SERRA', nota: 'NERVI 3,3,3,2 · VIGORE 1×4 · 24 salute' },
   { id: 'muti',    party: 'NINO,MARANI,CARBONE,FANTI',    nota: 'l’unica squadra con 0 cariche d’Indagine' },
   { id: 'misto',   party: 'ELENA,OTTONE,ATTILIO,SIBILLA', nota: 'una per mestiere — il party da manuale' },
-];
+].filter((s) => !SOLO.length || SOLO.includes(s.id));
 
 function corri(ep, sq) {
   return new Promise((risolvi) => {

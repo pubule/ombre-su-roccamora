@@ -4,7 +4,7 @@ import { _motore } from './public/js/digitale.js';
 import { bussa, nocciolo } from './public/js/engine.js';
 const { esploraMosse, camminoGlob, adiacGlob, portaCella, layout, nk, _setup,
         avanzaCancellazione, avanzaRitmo, avanzaPressione, controllaFiloPerso,
-        avanzaOrologio } = _motore;
+        avanzaOrologio, bonusVoce, celleEsca } = _motore;
 
 // `salvaP()` scrive su localStorage, che in node non esiste: qui la partita
 // non va salvata, va solo ispezionata in memoria.
@@ -313,6 +313,49 @@ ok(!path.some((n) => TESS.find((t) => t.id === n.t).arredi.some(([x, y]) => x ==
 
   ok(nocciolo('  Le  Mísure   che non Tornano ') === 'MISURE CHE NON TORNANO',
      'nocciolo toglie articolo, accenti, spazi e maiuscole');
+}
+
+// --- VOCE FERMA di Serra e ESCA di Carbone -------------------------------
+// Le due abilita' sono state per mesi «carica spesa, effetto narrato»: il
+// bottone c'era, l'azione si consumava e il gioco non se ne accorgeva
+// (AUDIT-CLASSI.md, 12/08/2026). Questi controlli esistono perche' non
+// tornino a essere prosa.
+{
+  const SERRA = 'DOTT. LAZZARO SERRA', ELENA = 'ELENA FOSCO', CARBONE = 'FULGENZIO CARBONE';
+  const base = () => ({
+    round: 3, azioni: {}, vite: { [SERRA]: 6, [ELENA]: 6, [CARBONE]: 6 },
+    eroiPos: { [SERRA]: { t: 'T1', x: 1, y: 1 }, [ELENA]: { t: 'T1', x: 1, y: 2 },
+               [CARBONE]: { t: 'T1', x: 3, y: 0 } },
+    voceFerma: { da: SERRA, round: 3 },
+  });
+  const val = (sp, chi = ELENA, stat = 'nervi') => {
+    _setup(ep, mkSp(sp), { party: [SERRA, ELENA, CARBONE] });
+    return bonusVoce(chi, stat).reduce((a, b) => a + b.val, 0);
+  };
+
+  ok(val(base()) === 2, 'voce ferma: +2 NERVI a un eroe adiacente');
+  ok(val(base(), ELENA, 'vigore') === 0, 'voce ferma: NON tocca il VIGORE');
+  ok(val(base(), SERRA) === 0, 'voce ferma: non vale su Serra stesso («gli eroi a lui adiacenti»)');
+  ok(val(base(), CARBONE) === 0, 'voce ferma: chi è lontano non la sente');
+  ok(val({ ...base(), round: 4 }) === 2, 'voce ferma: dura nel round dopo finché Serra non agisce');
+  ok(val({ ...base(), round: 4, azioni: { [SERRA]: ['muovere'] } }) === 0,
+     'voce ferma: finisce quando Serra riprende il turno');
+  ok(val({ ...base(), round: 5 }) === 0, 'voce ferma: non dura due round');
+  ok(val({ ...base(), vite: { [SERRA]: 0, [ELENA]: 6, [CARBONE]: 6 } }) === 0,
+     'voce ferma: chi è a terra non tiene ferma nessuna voce');
+  ok(val({ ...base(), voceFerma: null }) === 0, 'senza abilità usata, nessun bonus');
+
+  // l'esca vola entro 3 caselle, e non sopra chi c'è già
+  _setup(ep, mkSp({ rivelate: ['T1'], eroiPos: { [CARBONE]: { t: 'T1', x: 0, y: 0 } },
+                    nemici: [{ nome: 'x', pos: { t: 'T1', x: 2, y: 1 } }] }),
+         { party: [CARBONE] });
+  const bersagli = Object.values(celleEsca(CARBONE)).map((v) => v.node);
+  const dist = (n) => Math.abs(n.x - 0) + Math.abs(n.y - 0);
+  ok(bersagli.length > 0, 'esca: ci sono caselle dove lanciarla');
+  ok(bersagli.every((n) => n.t !== 'T1' || dist(n) <= 3), 'esca: nessuna casella oltre 3');
+  ok(bersagli.some((n) => dist(n) === 3), 'esca: le caselle a 3 ci sono (il tiro è pieno)');
+  ok(!bersagli.some((n) => n.t === 'T1' && n.x === 2 && n.y === 1), 'esca: non si lancia addosso a un nemico');
+  ok(!bersagli.some((n) => n.t === 'T1' && n.x === 0 && n.y === 0), 'esca: non si lancia sotto i propri piedi');
 }
 
 console.log(ko === 0 ? 'TUTTO OK (motore multi-tessera)' : `${ko} FAIL`);

@@ -141,8 +141,8 @@ const SOGLIA_CANTO = comune.regole.soglia_canto;
 // le abilità a cariche, con la sola informazione che serve al pilota per
 // giudicare quando valgono (specchio di CARICHE_SPED in digitale.js)
 const CARICHE = [
-  { key: 'ATTILIO', eff: 'cura' }, { key: 'SIBILLA', eff: 'scruta' }, { key: 'SERRA', eff: 'presenza' },
-  { key: 'CARLA', eff: 'flash' }, { key: 'CARBONE', eff: 'presenza' }, { key: 'FANTI', eff: 'diversivo' },
+  { key: 'ATTILIO', eff: 'cura' }, { key: 'SIBILLA', eff: 'scruta' }, { key: 'SERRA', eff: 'voce' },
+  { key: 'CARLA', eff: 'flash' }, { key: 'CARBONE', eff: 'esca' }, { key: 'FANTI', eff: 'diversivo' },
   { key: 'MARANI', eff: 'litania' }, { key: 'BRERA', eff: 'malacarne' },
 ];
 const vicino = (a, b, d = 1) => !!a && !!b && a.t === b.t && Math.abs(a.x - b.x) + Math.abs(a.y - b.y) <= d;
@@ -192,7 +192,14 @@ function abilitaUtile(nm, s) {
   if (c.eff === 'malacarne') return s.nemici.some((n) => n.pos && /malavita|cultista|cane/i.test(statNem(n.nome).tipo || ''));
   if (c.eff === 'diversivo') return s.round >= 3;
   if (c.eff === 'scruta') return true;
-  return entro2.length > 0;                      // Voce ferma / Esca: solo col nemico addosso
+  // Voce ferma: serve quando il colpo sta per arrivare, cioe' col nemico
+  // addosso — le prove NERVI dell'insidia si tirano allora.
+  if (c.eff === 'voce') return s.nemici.some((n) => vicino(n.pos, pos, 1))
+    && Object.entries(s.eroiPos).some(([x, p]) => x !== nm && (s.vite[x] ?? 0) > 0 && vicino(p, pos, 1));
+  // Esca: ha senso con almeno due nemici vicini, altrimenti si spreca il monile
+  // per spostare uno sgherro di una casella.
+  if (c.eff === 'esca') return entro2.length >= 2;
+  return entro2.length > 0;
 }
 
 const br = await chromium.launch();
@@ -361,6 +368,24 @@ const clicCella = (b) => pg.evaluate(({ t, x, y }) => {
   const el = document.querySelector(`.cella-mossa[data-t="${t}"][data-x="${x}"][data-y="${y}"]`);
   if (!el) return false; el.click(); return true;
 }, b);
+// L'ESCA DI CARBONE si compie in due tempi: «usa» accende le caselle entro 3,
+// e finche' non se ne tocca una la plancia resta in quel modo — il pilota
+// resterebbe piantato a fissare caselle che non sono mosse. Sceglie la casella
+// che tira via piu' nemici: quanti ne ha entro 2, meno quanti eroi ha vicini
+// (l'esca serve ad allontanarli, non a portarli in braccio a qualcuno).
+async function lanciaEsca() {
+  const s = await sp(); const c = await celle();
+  if (!c.length) return false;
+  const conta = (cel, elenco, d) => elenco.filter((p) => vicino(p, cel, d)).length;
+  const nemPos = (s.nemici || []).map((n) => n.pos).filter(Boolean);
+  const eroPos = Object.values(s.eroiPos || {});
+  const b = c.slice().sort((a, z) =>
+    (conta(z, nemPos, 2) - conta(z, eroPos, 2)) - (conta(a, nemPos, 2) - conta(a, eroPos, 2)))[0];
+  if (!(await clicCella(b))) { ko('esca: click sulla cella non riuscito'); return false; }
+  await sciogli();
+  return true;
+}
+
 async function muoviCon(punteggio, chiPos, leggiPos) {
   const c = await celle(); if (!c.length) return 'nessuna-cella';
   const b = c.slice().sort((a, z) => punteggio(a) - punteggio(z))[0];
@@ -393,7 +418,12 @@ async function turnoEroe(nm, mt, party) {
     // era il pilota, era `usaOggetto` che dopo il messaggio non ridisegnava
     // il tabellone. `sciogli()` chiude da se' sia la scelta sia il messaggio.
     else if (lib('oggetto') && bersaglio(s, pos) >= 0 && await vis('#az-oggetto')) { tipo = 'oggetto'; await clicDom('#az-oggetto'); await sciogli(); }
-    else if (lib('abilita') && abilitaUtile(nm, s) && await vis(`[data-abil="${nm}"]`)) { tipo = 'abilita'; await pg.evaluate((n) => document.querySelector(`[data-abil="${CSS.escape(n)}"]`)?.click(), nm); await sciogli(); }
+    else if (lib('abilita') && abilitaUtile(nm, s) && await vis(`[data-abil="${nm}"]`)) {
+      tipo = 'abilita';
+      await pg.evaluate((n) => document.querySelector(`[data-abil="${CSS.escape(n)}"]`)?.click(), nm);
+      await sciogli();
+      if ((await sp()).escaModo) await lanciaEsca();
+    }
     else if (lib('muovere')) {
       tipo = 'muovere';
       // «cerca l'arredo dell'uscita segreta» vale SOLO dove l'uscita esiste. Senza

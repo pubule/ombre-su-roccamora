@@ -90,8 +90,8 @@ LUOGHI_9 = [
          chiude=20,
          indizi=[
              'Il ruolo d’udienza, affisso nell’atrio: «Il Popolo contro l’imputato dei '
-             'fatti dell’inverno — deposizione del teste Anselmo Riva DOMANI, prima '
-             'chiamata». Riva è la chiave: senza di lui, la storia dell’accusa è aria.',
+             'fatti dell’inverno — la deposizione di domani, prima chiamata: il teste '
+             'Anselmo Riva». Riva è la chiave: senza di lui, la storia dell’accusa è aria.',
              'Il cancelliere, di malumore, tende una carta col sigillo del giudice: «un '
              'Salvacondotto per le vostre… incombenze notturne. Apre i posti di blocco senza '
              'spiegazioni. Ordine del presidente: il teste arrivi vivo. Ma lo firmo entro le '
@@ -118,7 +118,8 @@ LUOGHI_9 = [
              'guanti che l’ha accolto alla stazione, e un “fondo caritatevole” che non ho '
              'trovato da nessuna parte.»',
              'Sulla scrivania di Ranuzzi, una parcella intravista al volo e mai avuta in '
-             'mano: «marenghi d’oro, vecchi, in una busta piegata coi guanti. Come le '
+             'mano — è l’oro della parcella a non tornargli: «marenghi d’oro, vecchi, in '
+             'una busta piegata coi guanti. Come le '
              'ricevute del porto di cui mi parlaste. Stesso oro, stessa piega. Ma provatelo '
              'voi, in tribunale.»',
              'Ranuzzi ha una scorciatoia per voi, non una prova: «il giurato Bo, quello che '
@@ -207,7 +208,7 @@ LUOGHI_9 = [
              'ricorrente — «cortesie alle ronde, zona porto e centro, notturne». L’avvocato '
              'non paga solo giurati e testimoni: paga il BUIO. Le ronde di stanotte, tra '
              'l’una e le tre, sono già comprate.',
-             'La parcella dell’avvocato, ancora nella busta: marenghi d’oro vecchio — la lega '
+             'L’oro della parcella, ancora nella busta: marenghi vecchi — la lega '
              'dell’ansa morta — e la busta è piegata in tre, senza un’ombra di dita, coi '
              'guanti.',
              'Tra le carte, un promemoria dell’avvocato: «coordinarsi con “il forestiero '

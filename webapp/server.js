@@ -46,7 +46,18 @@ http.createServer((req, res) => {
       'Content-Type': MIME[path.extname(file).toLowerCase()] || 'application/octet-stream',
       'Cache-Control': url.startsWith('/assets/') ? 'max-age=86400' : 'no-cache',
     });
-    fs.createReadStream(file).pipe(res);
+    // `error` va ascoltato o il processo MUORE. Sotto i banchi di misura (sei
+    // pilota Playwright in parallelo, migliaia di partite) il server e' finito
+    // in EMFILE — «too many open files» — ed e' caduto a meta' corsa: gli
+    // ultimi due episodi risultavano 0% per tutte le squadre, e sembrava una
+    // regressione del gioco. Un errore su un file non deve spegnere il server.
+    const s = fs.createReadStream(file);
+    s.on('error', (e) => {
+      console.error(`errore leggendo ${file}: ${e.code}`);
+      if (!res.headersSent) res.writeHead(500);
+      res.end();
+    });
+    s.pipe(res);
     return;
   }
   res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });

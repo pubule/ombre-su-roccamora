@@ -418,3 +418,44 @@ Carbone spendono carica e azione per niente. Cinque dei nove oggetti sono
 difensivi e stanno in mano agli eroi fragili. Il 33% della squadra di vetro è
 quindi la misura del gioco **incompleto**: prima si accende, poi si rimisura,
 e solo dopo si decide se c'è un numero da toccare.
+
+## 12/08, sera — accese le tre abilità morte, e cosa è cambiato
+
+Applicato quello che il referto chiedeva per primo. Nel motore digitale ora
+esistono davvero:
+
+- **Voce ferma** di Serra: +2 alle prove NERVI degli eroi a lui adiacenti,
+  fino al suo prossimo turno (l'adiacenza si guarda al momento del tiro);
+- **Esca preziosa** di Carbone: il monile si lancia su una casella entro 3 —
+  la plancia le accende come fossero mosse — e i nemici entro 2 ci vanno
+  invece di attaccare, per una sola attivazione;
+- **Colpo da macello** di Ottone: abbattuto un nemico in mischia, il secondo
+  colpo parte subito e non costa l'azione. Una volta per suo turno.
+
+Riaperte anche le due porte dell'Ep. 9 che stavano dietro un Approfondimento
+(«l'oro della parcella», «la deposizione di domani»): ora la parola sta anche
+negli indizi core, senza aggiungere informazione — era prosa che non chiamava
+le cose col nome che apre.
+
+Rimisura sui due estremi, 12 episodi × 20 partite = 480 partite:
+
+| | vetro (VIGORE 4) | ferro (VIGORE 10) | divario |
+|---|--:|--:|--:|
+| prima | 33% | 54% | 21 punti |
+| dopo | 40% | 47% | **7 punti** |
+
+L'Ep. 19 esce dalla lista degli episodi chiusi a chi non picchia (40% contro
+50%, era 20% contro 65%). Restano Ep. 9, 11 e 15: lì l'obiettivo si raggiunge
+solo picchiando in fretta, e nessuna abilità lo aggira — è una leva di
+struttura, non di taratura.
+
+Barriera nuova: `webapp/test-abilita.mjs`, provata non vacua spegnendo le due
+abilità e vedendo cadere sette asserzioni.
+
+**Due difetti di STRUMENTO trovati per strada, tutti e due corretti.** Il
+primo: `webapp/server.js` moriva per `EMFILE: too many open files` dopo ~1200
+partite (nessun gestore sull'evento `error` di `createReadStream`), e le
+ultime caselle della corsa risultavano 0% per tutte le squadre — sembrava una
+regressione del gioco. Il secondo: lo script d'audit delle porte cercava la
+parola-chiave **con l'articolo**, mentre `bussa()` lo toglie da tutt'e due i
+lati, e dichiarava chiusa una porta dell'Ep. 6 che è aperta.
