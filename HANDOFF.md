@@ -246,9 +246,42 @@ Due cose sono cadute per strada, ed erano fra gli ostacoli elencati nel piano:
   italiano quel che permette. Ora torna il solo fatto, e la frase la compone
   `etichettaInterazione` nella vista.
 
-**Ancora da fare:** spostare `riproduci()` in `replay.js` (cosmetico), il pilota
-headless, e la Fase 2 — `spedizione.js` sullo stesso motore, che è dove stanno
-le ~350 righe di regole duplicate e già divergenti.
+## La Fase 2, e cosa si sa già
+
+**`test-partite.mjs` è tornato a funzionare.** Falliva su tutti e 42 gli
+scenari, e da prima della Fase 1: aspettava `window.confirm` per aprire la
+busta, mentre le domande irreversibili sono passate dentro la finzione
+(`chiedi.js`, il sì è su `[data-si]`). Si piantava lì, prima ancora di entrare
+in Spedizione — cioè **la modalità tavolo era senza copertura end-to-end**, ed
+è l'unico test che gioca `spedizione.js` dal primo click all'ultimo. Adesso è a
+9 falliti su 42, e la Fase 2 ha una rete.
+
+**I 9 restanti sono un difetto del test**, non del gioco: conta tutti i
+`.ko-txt` della pagina per sapere quante risposte sono state bocciate, e il
+riepilogo del vantaggio ne aggiunge uno oltre alle quattro delle Domande.
+Vanno contati quelli dentro il riquadro delle risposte.
+
+**La Fase 2 non è quello che il piano diceva.** `spedizione.js` tiene i nemici
+come **registro senza coordinate** (`{nome, num, ferite, max}`): il motore
+posizionale — griglia, pathfinding, `nemici.js` — non ci si applica. Quel che
+si unifica sono le regole non-posizionali: `fascia`, `feriteMax`, `saluteMax`,
+`primo`, `tettoCanto`, `CARICHE_SPED`, e il riconoscimento dei nomi nello spawn.
+
+**Il difetto che vale la pena correggere, misurato sui dati:** la modalità
+tavolo non piazza **cinque famiglie di nemici**. La sua lista è di otto nomi
+scritti a mano; gli episodi 3, 4, 5, 6 e 8 usano anche Voce Cava, Claque,
+Confratello, Corista, Mastino. Ci sono **24 punti** fra carte Minaccia e testi
+di tessera che dicono testualmente «Piazzate 1 Voce Cava», «Piazzate 1 Mastino»,
+e l'app resta muta. Il digitale li piazza tutti, perché deriva la lista da
+`ep.pool` (`minaccia.spawnRegex`). Più un caso dove sbaglia il numero: «due
+MASTINI» (Ep.8, T4) — la regex del tavolo cattura solo cifre, non le parole.
+
+**Una divergenza è invece inerte:** `salute_extra` non è usato da nessun
+episodio. Unificare `saluteMax` protegge dal futuro, oggi non cambia niente.
+
+**Ancora da fare, oltre alla Fase 2:** spostare `riproduci()` in `replay.js`
+(cosmetico, e sconsigliato: userebbe sei dipendenze della vista per muovere
+venticinque righe).
 
 ### Come è stata provata (e come provare la Fase 2)
 
