@@ -148,6 +148,53 @@ npx --no-install wrangler dev --var OSR_DEV_EMAIL:due@esempio.it --port 8788
 | `misura-classi.mjs` | 5 squadre estreme × N episodi: **quanto pesa la composizione** |
 | `misura-indagine-classi.py` | l'Indagine su tutte e 330 le squadre — il pilota l'Indagine non la gioca |
 
+## In corso: il motore puro (Fase 1 della vista eroe)
+
+Spec `DESIGN-VISTA-EROE.md`, piano `PIANO-MOTORE-PURO.md`. Si estraggono le
+regole di Spedizione da `digitale.js` in `webapp/public/motore/`, pure e
+isomorfe, perché le stesse girino nel browser dell'arbitro, sul telefono di un
+giocatore e domani in un Durable Object. **A schermo non cambia niente.**
+
+Fatto finora:
+
+| modulo | stato | rete |
+|---|---|---|
+| `motore/rng.js` | ✅ collegato | test di comportamento, provato non vacuo |
+| `motore/griglia.js` | ✅ collegato | differenziale, 30000 confronti |
+| `motore/stat.js` | scritto, **non collegato** | differenziale, 26400 confronti |
+| `motore/regole.js` | scritto, **non collegato** | comportamento, sui dati veri |
+
+Gli ultimi due aspettano che finisca la baseline: **il codice sotto una misura
+non si tocca** (vedi sotto). Poi si collegano e si verifica col pilota.
+
+**Il motore sta sotto `public/`** e non accanto a `webapp/`: l'import relativo
+deve risolvere sia per node (filesystem) sia per il browser (HTTP, root del
+server su `public`). Con la cartella fuori i test node passano e la pagina
+muore in silenzio. Effetto gradito: `build-dist.sh` non va toccato.
+
+**La barriera:** `test-motore-purezza.mjs` scandaglia tutta la cartella e
+rifiuta DOM, timer, storage, rete e `Math.random`. Vale anche per i moduli che
+verranno, senza doverselo ricordare.
+
+**L'oracolo dei differenziali:** `bash webapp/rigenera-oracolo.sh` — copia
+`digitale.js` com'era prima dell'estrazione e gli appende l'export `_diff` con
+le 65 funzioni interne da confrontare. Gitignorato, impalcatura: si cancella a
+fine Fase 1.
+
+**Due avvertenze pagate care, il 12/08:**
+
+1. **Una misura lunga non gira mentre si tocca il codice che misura.** Due
+   baseline da 420 partite buttate; la seconda aveva l'import rotto a metà
+   corsa e ha prodotto 17 corse NON VALIDE su 21 con scarti fino a −85 punti.
+   Sembravano crolli del bilanciamento, erano una pagina che non caricava.
+   Prima di `mappa-pilota.mjs`: `git status` pulito, e nulla si tocca finché
+   non finisce.
+2. **Gli stalli del pilota sono preesistenti.** Misurato su commit anteriori a
+   questo lavoro: l'Ep.1 dà già 3 partite in stallo su 8, quindi la corsa
+   risulta NON VALIDA. Lo stallo è il pilota che non trova come proseguire, non
+   il gioco che si rompe. Il cancello della fase non è «zero stalli» ma «non più
+   stalli della baseline».
+
 ## Quello che resta
 
 1. **Durata sessione Access a 1 month**, sull'applicazione **e sul criterio**
