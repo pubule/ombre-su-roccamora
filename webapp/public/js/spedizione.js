@@ -11,6 +11,8 @@ import { tiraProva } from './dadi.js';
 import { abilitaSchede } from './scheda-eroe.js';
 import { controBusta } from './engine.js';
 import { conferma } from './chiedi.js';
+import * as stat from '../motore/stat.js';
+import * as minaccia from '../motore/minaccia.js';
 
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) =>
   ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -29,6 +31,11 @@ export async function vistaSpedizione(app, partita, vaiA) {
 
 const P = () => ctx.partita;
 const SP = () => ctx.partita.spedizione;
+// Il contesto che il motore si aspetta. Qui la plancia e' FISICA e i nemici
+// sono un registro senza coordinate, quindi del motore si usa solo cio' che
+// non parla di posizioni: le statistiche derivate e il riconoscimento dei nomi
+// nello spawn.
+const G = () => ({ ep: ctx.ep, comune: ctx.comune, sp: SP(), partita: P(), _layout: null });
 const salvaP = () => salva(ctx.partita);
 const orologio = () => ctx.ep.marea ? 'Marea' : 'Canto';
 
@@ -44,13 +51,7 @@ function prossimoTick() {
          ` (e con le carte Crescendo); al ${soglia}° segnalino cambia tutto.`;
 }
 
-function fascia(taglia) {
-  if (taglia === 2 || taglia === 4) return 0;
-  if (taglia === 3 || taglia === 5) return 1;
-  if (taglia === 6) return 2;
-  if (taglia <= 8) return 3;
-  return 4;
-}
+const fascia = (taglia) => stat.fascia(G(), taglia);
 
 // nemici schierabili in questo episodio: pool tessere/carte + boss
 function nemiciEpisodio() {
@@ -60,16 +61,12 @@ function nemiciEpisodio() {
   return nomi.map((n) => ctx.comune.nemici.find((x) => x.nome === n)).filter(Boolean);
 }
 
-function feriteMax(nemico) {
-  return nemico.ferite_per_fascia[fascia(P().party.length)];
-}
+const feriteMax = (nemico) => stat.feriteMaxNem(G(), nemico);
 
-function saluteMax(eroe) {
-  const bonusTaglia = ctx.comune.regole.salute_bonus_per_taglia[String(P().party.length)] || 0;
-  const tier = (P().vantaggi || {}).tier;
-  const bonusTier = (tier === 'slancio' || tier === 'preparati') ? 1 : 0;
-  return eroe.salute + bonusTaglia + bonusTier;
-}
+// Dal motore, che aggiunge anche `ep.salute_extra`: qui mancava. Oggi nessun
+// episodio lo dichiara, quindi il numero non cambia — ma il giorno che uno lo
+// dichiarera', il tavolo non giochera' con un punto in meno del digitale.
+const saluteMax = (eroe) => stat.saluteMax(G(), eroe);
 
 // piazza una copia: numero piu' basso libero (riusa quelli dei caduti),
 // rispettando i segnalini fisici del pool ("se non ne restano, il
@@ -92,16 +89,12 @@ function spawnNemico(nome) {
 
 // legge un testo di gioco (carta Minaccia o QUANDO RIVELATE) e piazza da
 // solo i nemici che nomina; ritorna gli annunci per il tavolo
-const SPAWN_REGEX = [
-  ['LO SGHERRO', /(\d+)?\s*sgherr[oi]/i],
-  ['IL SICARIO', /(\d+)?\s*sicari[oi]/i],
-  ['ADEPTO INCAPPUCCIATO', /(\d+)?\s*adept[oi]/i],
-  ['IL CROGIOLANTE', /(\d+)?\s*crogiolant[ei]/i],
-  ['CANE DEI MOLI', /(\d+)?\s*can[ei] dei moli/i],
-  ['IL FONDITORE', /(\d+)?\s*fonditor[ei]/i],
-  ['IL CUSTODE DELLA CERA', /custode della cera/i],
-  ['LO SCORIATORE', /scoriatore/i],
-];
+// I nomi da riconoscere NON sono piu' una lista scritta a mano: si derivano da
+// `ep.pool`, come fa il digitale. Erano otto, e gli episodi 3, 4, 5, 6 e 8 ne
+// usano altri cinque — la Voce Cava, la Claque, il Confratello, il Corista, il
+// Mastino. Ventiquattro fra carte Minaccia e testi di tessera dicono «Piazzate
+// 1 Voce Cava», «Piazzate 1 Mastino», e qui non succedeva niente.
+const spawnRegex = () => minaccia.spawnRegex(G());
 // al 3° segnalino il boss si desta (sulla tessera piu' lontana dagli eroi):
 // se non e' gia' in campo, entra nel registro da solo
 function destaBossSeSoglia() {
@@ -115,6 +108,7 @@ function destaBossSeSoglia() {
   return [`${boss} entra nel registro: piazzatelo sulla tessera rivelata più lontana dagli eroi.`];
 }
 
+const NUM_PAROLA = { un: 1, due: 2, tre: 3 };
 function spawnDaTesto(testo) {
   const annunci = [];
   const attivo = /piazzate|appare|appaiono|si desta|arriva/i.test(testo);
@@ -125,10 +119,12 @@ function spawnDaTesto(testo) {
     annunci.push('Avete il Contrassegno di Piombo: lo sbarco è silenzioso, nessuno appare.');
     return annunci;
   }
-  for (const [nome, re] of SPAWN_REGEX) {
+  for (const [nome, re] of spawnRegex()) {
     const m = testo.match(re);
     if (!m) continue;
-    const quanti = m[1] ? Number(m[1]) : 1;
+    // «due mastini» e non solo «2 mastini»: la vecchia espressione catturava
+    // le sole cifre, e Number('due') e' NaN — il ciclo non partiva affatto.
+    const quanti = m[1] ? (NUM_PAROLA[m[1].toLowerCase()] || Number(m[1]) || 1) : 1;
     for (let k = 0; k < quanti; k++) {
       const r = spawnNemico(nome);
       if (!r) continue;
