@@ -49,7 +49,13 @@ const esc = (s) => String(s).replace(/[&<>"]/g, (c) =>
 // ognuno diventa contabilita' quando il campo si affolla. Chi lo preme ottiene
 // il tiro dell'app subito, e l'esito torna con `sempre: true` perche' il
 // chiamante possa ricordarselo per il resto della partita.
-export function tiraProva({ titolo, diffLabel = '', soglia, bonus = [], modo, ripiegoSempre }) {
+//
+// `facce: [d1, d2]` — IL TIRO E' GIA' DECISO e questo overlay lo mette in
+// scena, non lo decide. Serve da quando le regole stanno nel motore: e' il
+// motore a tirare, col generatore seminato della partita, e questa e' la
+// differenza fra una serata che si puo' rigiocare e una che no. Senza `facce`
+// l'overlay tira da se', com'era.
+export function tiraProva({ titolo, diffLabel = '', soglia, bonus = [], modo, ripiegoSempre, facce }) {
   return new Promise((risolvi) => {
     const tavolo = modo === 'tavolo';
     let sempre = false;
@@ -149,8 +155,8 @@ export function tiraProva({ titolo, diffLabel = '', soglia, bonus = [], modo, ri
 
     overlay.querySelector('#dadi-lancia').onclick = async (ev) => {
       ev.target.style.display = 'none';
-      const d1 = 1 + Math.floor(Math.random() * 6);
-      const d2 = 1 + Math.floor(Math.random() * 6);
+      const d1 = facce ? facce[0] : 1 + Math.floor(Math.random() * 6);
+      const d2 = facce ? facce[1] : 1 + Math.floor(Math.random() * 6);
       // rotolo: giri extra casuali + atterraggio sulla faccia giusta,
       // il secondo dado si ferma un attimo dopo (drammaturgia)
       for (const [id, val, dur] of [['dado-a', d1, 1.5], ['dado-b', d2, 2.0]]) {

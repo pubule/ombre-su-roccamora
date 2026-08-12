@@ -182,10 +182,40 @@ l'animazione. Ora è uno solo, in `nemici.js`.
 com'era; col contratto `applica()` basterà passarne un altro perché una serata
 si rigiochi identica.
 
-**Ancora da fare:** il contratto `applica()` con `eventi[]` e `stato.pendenza`
-(è il pezzo di design vero, non altra estrazione), le tre funzioni miste grosse
-(`usaAbilita`, `azioneInteragire`, `attaccaNemico`), `replay.js`, il pilota
-headless e il cancello finale.
+### Il contratto c'è, ma non è ancora collegato
+
+`motore/comandi.js` — `applica(stato, comando, dati) → { stato, eventi,
+pendenza, rifiuto }` — con `motore/azioni.js` sotto. Fa già `muovi`, `cerca`,
+`rianima`, `attacca`, `finisci-eroe`, `rispondi`. Tre garanzie provate:
+`applica()` non muta l'ingresso, un comando illegale ha la ragione in chiaro
+(niente `flash`), ogni evento sopravvive a un giro di JSON perché dovrà passare
+da un WebSocket. **La pendenza** — oggi il solo Colpo da macello di Ottone —
+vive in `stato.pendenza`: chi ricarica la ritrova, mentre una promise
+interrotta perdeva il turno.
+
+`dadi.js` accetta `facce: [d1, d2]`: l'overlay mette in scena un tiro già
+deciso invece di deciderlo.
+
+**Il nodo da sciogliere prima di collegarlo — la modalità tavolo.** A schermo il
+flusso è pulito: il motore tira col seme, l'evento porta le facce, l'overlay le
+anima. Al tavolo i dadi sono di legno e il tiro deve arrivare *prima* del
+comando (`comando.tiri`), ma per mostrare soglia e bonus nell'overlay il client
+deve sapere in anticipo quale prova sarà. Tre strade:
+
+1. **`provaDi(g, comando)`** nel motore: dichiara la prova (stat, difficoltà,
+   soglia, bonus) senza tirarla, e il client la usa per l'overlay. È la più
+   pulita; costa un po' di duplicazione fra chi dichiara e chi risolve.
+2. **Loop di richiesta**: si manda il comando, il motore rifiuta con «i tiri
+   dichiarati non bastano», il client chiede un dado e rimanda. Funziona già —
+   il rifiuto esiste ed è provato — ma l'overlay non può mostrare la soglia al
+   primo giro.
+3. **Overlay generico al tavolo**: si chiede solo il totale dei 2d6 e l'esito
+   si mostra dopo, dall'evento `tiro`. Il meno lavoro, la peggiore esperienza.
+
+**Ancora da fare, oltre a questo:** portare `usaAbilita`, `azioneInteragire` e
+`usaOggetto` dentro il contratto (le loro `scegli` sono tutte pre-dichiarabili:
+i candidati si calcolano dallo stato), `replay.js`, il pilota headless e il
+cancello finale.
 
 ### Come si prova un'estrazione
 
