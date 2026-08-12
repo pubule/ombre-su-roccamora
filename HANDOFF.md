@@ -246,7 +246,7 @@ Due cose sono cadute per strada, ed erano fra gli ostacoli elencati nel piano:
   italiano quel che permette. Ora torna il solo fatto, e la frase la compone
   `etichettaInterazione` nella vista.
 
-## La Fase 2, e cosa si sa già
+## Fase 2 fatta: il tavolo smette di divergere
 
 **`test-partite.mjs` è tornato a funzionare.** Falliva su tutti e 42 gli
 scenari, e da prima della Fase 1: aspettava `window.confirm` per aprire la
@@ -261,27 +261,39 @@ in Spedizione — cioè **la modalità tavolo era senza copertura end-to-end**, 
 riepilogo del vantaggio ne aggiunge uno oltre alle quattro delle Domande.
 Vanno contati quelli dentro il riquadro delle risposte.
 
-**La Fase 2 non è quello che il piano diceva.** `spedizione.js` tiene i nemici
+**La Fase 2 non era quello che il piano diceva.** `spedizione.js` tiene i nemici
 come **registro senza coordinate** (`{nome, num, ferite, max}`): il motore
-posizionale — griglia, pathfinding, `nemici.js` — non ci si applica. Quel che
-si unifica sono le regole non-posizionali: `fascia`, `feriteMax`, `saluteMax`,
-`primo`, `tettoCanto`, `CARICHE_SPED`, e il riconoscimento dei nomi nello spawn.
+posizionale — griglia, pathfinding, `nemici.js` — non ci si applica. Si
+unificano le regole non-posizionali, ed è fatto.
 
-**Il difetto che vale la pena correggere, misurato sui dati:** la modalità
-tavolo non piazza **cinque famiglie di nemici**. La sua lista è di otto nomi
-scritti a mano; gli episodi 3, 4, 5, 6 e 8 usano anche Voce Cava, Claque,
-Confratello, Corista, Mastino. Ci sono **24 punti** fra carte Minaccia e testi
-di tessera che dicono testualmente «Piazzate 1 Voce Cava», «Piazzate 1 Mastino»,
-e l'app resta muta. Il digitale li piazza tutti, perché deriva la lista da
-`ep.pool` (`minaccia.spawnRegex`). Più un caso dove sbaglia il numero: «due
-MASTINI» (Ep.8, T4) — la regex del tavolo cattura solo cifre, non le parole.
+**Corretto un difetto vero del tavolo:** non piazzava **cinque famiglie di
+nemici**. La lista dei nomi era scritta a mano e si fermava a otto; gli episodi
+3, 4, 5, 6 e 8 usano anche Voce Cava, Claque, Confratello, Corista, Mastino, e
+**24 punti** fra carte Minaccia e testi di tessera dicevano «Piazzate 1 Voce
+Cava», «Piazzate 1 Mastino» senza effetto. Ora la lista si deriva da `ep.pool`
+come nel digitale: riconoscimenti da 185 a 209, contati sui dati veri. Insieme
+se n'è andato un secondo difetto — «due mastini» piazzava **zero**, perché la
+vecchia espressione catturava solo cifre e `Number('due')` è `NaN`.
 
-**Una divergenza è invece inerte:** `salute_extra` non è usato da nessun
-episodio. Unificare `saluteMax` protegge dal futuro, oggi non cambia niente.
+Unificate anche `fascia`, `feriteMax` (identiche) e `saluteMax` (che dal motore
+prende `ep.salute_extra`: inerte oggi, nessun episodio lo dichiara).
 
-**Ancora da fare, oltre alla Fase 2:** spostare `riproduci()` in `replay.js`
-(cosmetico, e sconsigliato: userebbe sei dipendenze della vista per muovere
-venticinque righe).
+**Tre cose NON unificate, e ognuna con la sua ragione:**
+
+- **`tettoCanto`** — il tavolo usa `marea.soglia`, il motore `canto_max`. Tocca
+  un episodio solo, il **preludio**, dove il tavolo ferma il Canto a 3 e il
+  motore lo porterebbe a 8. È una scelta di design, non una duplicazione: va
+  decisa, non dedotta.
+- **`CARICHE_SPED`** — struttura diversa (`effetto` invece di `eff`, niente
+  `nota`). Unificarla significa toccare `abilitaHtml`: rischio sulla vista in
+  cambio di niente.
+- **`primo`** — quella del tavolo fa `esc()`, quella del motore no. Unificarla
+  senza aggiungere l'escape ai chiamanti aprirebbe un buco.
+
+**Ancora da fare:** i 9 falliti di `test-partite` (difetto del test, vedi
+sopra), e la decisione sul `tettoCanto` del preludio. `riproduci()` in
+`replay.js` resta sconsigliato: userebbe sei dipendenze della vista per muovere
+venticinque righe.
 
 ### Come è stata provata (e come provare la Fase 2)
 
