@@ -25,6 +25,7 @@ import { cerca, norm } from './regole.js';
 import { controllaVittoria } from './vittoria.js';
 import { specCompiti, compitiFiniti } from './obiettivi.js';
 import { spawnDaTesto } from './minaccia.js';
+import { provaInterazione } from './interazioni.js';
 
 const log = (g, t) => { g.sp.log = g.sp.log || []; g.sp.log.push(t); };
 const rifiuta = (motivo) => ({ rifiuto: motivo });
@@ -86,6 +87,11 @@ export function provaDi(g, comando) {
       soglia: n.difMod ?? st.dif,
       bonus: [{ label: 'VIGORE', val: e.vigore }, { label: 'arma', val: 1 }],
     };
+  }
+  if (comando.tipo === 'interagisci') {
+    // la delega a interazioni.js: quale prova serva dipende da COSA c'e' da
+    // fare qui, e quello lo sa lei
+    return provaInterazione(g, nm);
   }
   if (comando.tipo === 'muovi') {
     // l'insidia d'ingresso: solo la PRIMA volta che si entra in quella tessera

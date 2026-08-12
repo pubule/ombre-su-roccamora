@@ -24,6 +24,7 @@ import * as nemici from '../motore/nemici.js';
 import * as azioni from '../motore/azioni.js';
 import { applica } from '../motore/comandi.js';
 import * as abilita from '../motore/abilita.js';
+import * as interazioni from '../motore/interazioni.js';
 
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) =>
   ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -462,7 +463,7 @@ function azioniHtml() {
     ▸ Tocca un <b>nemico adiacente</b> per attaccarlo.<br>
     ▸ Tocca un'altra <b>pedina</b> sul board per farla agire.</p>
     <div class="btn-riga mt">
-      ${inter && azioniRestano(attivo) && !azioneSpesa(attivo, 'interagire') ? `<button class="btn" id="az-interagire">${esc(inter.label)}</button>` : ''}
+      ${inter && azioniRestano(attivo) && !azioneSpesa(attivo, 'interagire') ? `<button class="btn" id="az-interagire">${esc(etichettaInterazione(inter))}</button>` : ''}
       ${giuVicino && azioniRestano(attivo) && !azioneSpesa(attivo, 'rianimare') ? '<button class="btn" id="az-rianimare">Rianimare</button>' : ''}
       ${azioniRestano(attivo) && !azioneSpesa(attivo, 'cercare') ? '<button class="btn" id="az-cercare">Cercare</button>' : ''}
       ${azioniRestano(attivo) && (P().indagine.oggetti || []).length ? '<button class="btn" id="az-oggetto">Usa oggetto</button>' : ''}
@@ -637,59 +638,35 @@ function messaggioProva(titolo, corpo, provaText, nm) {
   });
 }
 
-// interazione a portata dell'eroe: grata da aprire, o PNG scortato da liberare
-function interazioneDisponibile(nm) {
-  const sp = SP(); const pos = sp.eroiPos[nm]; const tile = tileDi(pos.t);
-  // grata: l'eroe e' sulla cella-porta con grata chiusa
-  for (const [dir, raw] of Object.entries(tile.exits || {})) {
-    if (grataChiusa(pos.t, dir, raw)) { const dc = portaCella(tile, dir); if (dc[0] === pos.x && dc[1] === pos.y) return { tipo: 'grata', dir, label: `Apri la grata → ${dirExit(raw)}` }; }
+// Interagire e usare-oggetto sono passate in motore/interazioni.js. Qui resta
+// LA DIDASCALIA, che e' l'unica parte davvero di questa vista: prima la regola
+// restituiva anche la `label` del bottone, cioe' sapeva come si scrive in
+// italiano quel che permette.
+const interazioneDisponibile = (nm) => interazioni.interazioneDisponibile(G(), nm);
+const specUscita = () => interazioni.specUscita(G());
+const nomeScortato = () => interazioni.nomeScortato(G());
+
+function etichettaInterazione(d) {
+  if (!d) return '';
+  if (d.tipo === 'grata') return `Apri la grata → ${d.verso}`;
+  if (d.tipo === 'scortato') return specScort(d.i).etichetta || `Libera ${specScort(d.i).nome} (Interagire)`;
+  if (d.tipo === 'uscita') return `Sposta ${String(d.arredo[2]).toLowerCase()} — l'uscita che indica ${nomeScortato()} (Interagire)`;
+  if (d.tipo === 'compito') {
+    const c = d.c;
+    if (d.bloccato === 'fuori-posto') return `${c.etichetta} — non qui: si fa in ${c.fuoriPosto}`;
+    if (d.bloccato === 'in-forze') return `${c.etichetta} — prima a ${c.soglia} Ferite (${c.bloccato.ferite}/${c.bloccato.max})`;
+    return `${c.etichetta} (${d.fatte}/${c.quante})`;
   }
-  const i = scortLiberabile(pos);
-  if (i != null) return { tipo: 'scortato', i, label: specScort(i).etichetta || `Libera ${specScort(i).nome} (Interagire)` };
-  // uscita segreta: il PNG liberato la indica, ma dice solo la STANZA. Quale
-  // arredo la nasconda lo sa solo chi tiene il fascicolo: frugare sotto quello
-  // sbagliato costa comunque l'azione.
-  const a = arredoUscita(pos);
-  if (a) return { tipo: 'uscita', arredo: a, label: `Sposta ${String(a[2]).toLowerCase()} — l'uscita che indica ${nomeScortato()} (Interagire)` };
-  // compito d'episodio: le canne da sfregiare, i movimenti da spegnere, le
-  // casse da sequestrare — l'obiettivo vero di quindici episodi su ventuno
-  const c = compitoDisponibile(pos);
-  // il compito bloccato si MOSTRA lo stesso, con la ragione: un bottone che
-  // sparisce senza spiegazioni e' il modo migliore per far credere che il
-  // gioco sia rotto proprio quando invece sta applicando la regola stampata
-  if (c && c.fuoriPosto) return { tipo: 'compito', c, bloccato: true,
-    label: `${c.etichetta} — non qui: si fa in ${c.fuoriPosto}` };
-  if (c && c.bloccato) return { tipo: 'compito', c, bloccato: true,
-    label: `${c.etichetta} — prima a ${c.soglia} Ferite (${c.bloccato.ferite}/${c.bloccato.max})` };
-  if (c) return { tipo: 'compito', c, label: `${c.etichetta} (${compitoFatte(c.id)}/${c.quante})` };
-  return null;
+  return 'Interagire';
 }
-const specUscita = () => (specScortati()[0] || {}).uscita || null;
-const nomeScortato = () => (specScortati()[0] || {}).nome || 'il prigioniero';
-// arredo adiacente sotto cui si puo' cercare l'uscita: serve il PNG gia' libero,
-// l'uscita non ancora aperta, e non aver gia' provato sotto quell'arredo
-function arredoUscita(pos) {
-  const sp = SP(); const u = specUscita();
-  if (!u || u.tile !== pos.t) return null;
-  if (!statoScortati().some((g) => g.liberato)) return null;
-  if (sp.uscita && sp.uscita.aperta) return null;
-  const tile = tileDi(pos.t);
-  return (tile.arredi || []).find((a) => String(a[2]).toUpperCase() !== 'CELLA'
-    && !(sp.uscitaTentati || []).includes(chiave([a[0], a[1]]))
-    && (adiacGlob(pos, { t: pos.t, x: a[0], y: a[1] }) || (pos.x === a[0] && pos.y === a[1]))) || null;
-}
-// indice del PNG scortato liberabile dalla posizione `pos`: dev'essere la sua
-// tessera-prigione e, se l'episodio nomina un arredo (`cella`), esserne adiacenti
-function scortLiberabile(pos) {
-  const st = statoScortati();
-  for (let i = 0; i < st.length; i++) {
-    const s = specScort(i); if (st[i].liberato || pos.t !== s.tile) continue;
-    if (!s.cella) return i;
-    const c = (tileDi(pos.t).arredi || []).find((a) => String(a[2]).toUpperCase() === String(s.cella).toUpperCase());
-    if (!c) return i;                       // arredo non stampato: basta la tessera
-    if (adiacGlob(pos, { t: pos.t, x: c[0], y: c[1] }) || (pos.x === c[0] && pos.y === c[1])) return i;
-  }
-  return null;
+
+// Il ponte per «usa oggetto»: la lista la sa l'inventario, il resto il motore.
+async function usaOggetto(nm) {
+  const inv = P().indagine.oggetti || [];
+  if (!inv.length) { flash('Inventario del gruppo vuoto.'); return; }
+  const scelto = await scegli('usa quale oggetto?', inv.map((o) => ({ id: o, label: o.toLowerCase() })));
+  if (!scelto) return;
+  await esegui({ tipo: 'oggetto', eroe: nm, quale: scelto });
 }
 
 function aggancia() {
@@ -750,7 +727,7 @@ function aggancia() {
   // (usaAbilita e' un ponte: chiede i candidati al motore, poi manda `abilita`)
   app.querySelector('#az-cercare') && (app.querySelector('#az-cercare').onclick = () => esegui({ tipo: 'cerca', eroe: attivo }));
   app.querySelector('#az-oggetto') && (app.querySelector('#az-oggetto').onclick = () => usaOggetto(attivo));
-  app.querySelector('#az-interagire') && (app.querySelector('#az-interagire').onclick = () => azioneInteragire(attivo));
+  app.querySelector('#az-interagire') && (app.querySelector('#az-interagire').onclick = () => esegui({ tipo: 'interagisci', eroe: attivo }));
   app.querySelector('#az-rianimare') && (app.querySelector('#az-rianimare').onclick = () => esegui({ tipo: 'rianima', eroe: attivo }));
   app.querySelector('#az-fine') && (app.querySelector('#az-fine').onclick = () => esegui({ tipo: 'finisci-eroe', eroe: attivo }));
   app.querySelector('#fase-minaccia') && (app.querySelector('#fase-minaccia').onclick = faseMinaccia);
@@ -1133,160 +1110,6 @@ function oggettiHtml() {
   if (!list.length) return '<p class="nota">Ancora niente. Cercate nelle stanze.</p>';
   return `<div class="btn-riga">${list.map((nm, i) =>
     `<button class="btn" data-obj="${i}">${esc(nm.toLowerCase())}</button>`).join('')}</div>`;
-}
-
-async function azioneInteragire(nm) {
-  const sp = SP(); const disp = interazioneDisponibile(nm); if (!disp) return;
-  if (disp.tipo === 'grata') { sp.grate.push(`${sp.eroiPos[nm].t}-${disp.dir}`); log('La grata è aperta.'); segnaAzione(nm, 'interagire'); return; }
-  if (disp.tipo === 'compito') {
-    const c = disp.c;
-    if (disp.bloccato && c.fuoriPosto) {
-      flash(`${c.nemico.toLowerCase()} non si lascia agganciare qui: vi aspetta in ${c.fuoriPosto}.`);
-      return;                                   // nessuna azione spesa
-    }
-    if (disp.bloccato) {
-      flash(`${c.nemico.toLowerCase()} non tratta finché è in forze: portatelo a ${c.soglia} Ferite (ora ${c.bloccato.ferite}/${c.bloccato.max}), poi Interagite.`);
-      return;                                   // nessuna azione spesa
-    }
-    if (c.prova) {
-      const e = eroe(nm);
-      const r = await tiraProva({ titolo: `${c.prova.attr.toUpperCase()} — ${primo(nm)}`, diffLabel: c.prova.diff,
-        soglia: ctx.comune.regole.diff[c.prova.diff],
-        bonus: [{ label: c.prova.attr.toUpperCase(), val: e[c.prova.attr] || 0 }], modo: modoDadi() });
-      if (r == null) return;                                  // prova annullata: nessuna azione spesa
-      if (!r.ok) { log(`${primo(nm)}: ${c.fallita || 'non ci riesce'}.`); segnaAzione(nm, 'interagire'); return; }
-    }
-    // un'azione puo' valere PIU' di un punto: la documentazione dell'Ep.10 vale
-    // +1, o +2 con la Macchina Fotografica in inventario (`c.per_azione` col
-    // moltiplicatore condizionato a un oggetto). Cosi' la traccia si riempie al
-    // ritmo che la Soluzione descrive, non un colpo alla volta.
-    let passo = 1;
-    if (c.per_azione) {
-      passo = c.per_azione.base || 1;
-      if (c.per_azione.oggetto && (P().indagine.oggetti || []).some((o) => new RegExp(c.per_azione.oggetto, 'i').test(o))) passo = c.per_azione.con_oggetto || passo;
-      // scala col TIER d'indagine (Ep.20: il Controcanto va più veloce con più
-      // Frammenti — astratti qui nell'esito d'indagine slancio/preparati/nessuno,
-      // perché i 20 Frammenti campagna-wide non sono tracciati in digitale).
-      if (c.per_azione.per_tier) passo = c.per_azione.per_tier[(P().vantaggi || {}).tier || 'nessuno'] || passo;
-    }
-    // «Fino a DUE eroi all'intercapedine possono Interagire per documentare»:
-    // il fascicolo mette un tetto per round e il motore lasciava lavorare
-    // tutti. Il conto per round si azzera da solo al cambio di round.
-    const st = statoCompiti();
-    if (c.per_round_max) {
-      sp.compitiRound = (sp.compitiRound && sp.compitiRound.round === sp.round)
-        ? sp.compitiRound : { round: sp.round };
-      sp.compitiRound[c.id] = (sp.compitiRound[c.id] || 0) + 1;
-    }
-    st[c.id] = (st[c.id] || 0) + passo;
-    // ROGO (Ep.13) — snapshot piena/parziale ALL'ATTO DELLA PRESA: se il torchio
-    // brucia adesso e manca la Cassetta, i registri escono anneriti. Deciso qui e
-    // non a fine fuga, altrimenti al ritorno in T1 tutto sarebbe gia' bruciato.
-    if (specRogo() && st[c.id] >= c.quante && sp.registriAnneriti == null) {
-      sp.registriAnneriti = rogoBrucia(c.tile) && !haProtezioneRogo();
-      if (sp.registriAnneriti) log('Il torchio è in fiamme: i registri si anneriscono mentre li strappate.');
-      // Il Molino è ora un inferno: sgherri e guardie NON restano a battersi tra
-      // le fiamme, fuggono. La fuga è una corsa contro il FUOCO, non un grind
-      // contro la truppa — così il rogo è la vera minaccia dell'estrazione.
-      const fuggiti = sp.nemici.filter((n) => n.pos).length;
-      if (fuggiti) { sp.nemici = sp.nemici.filter((n) => !n.pos); log(`Il Molino è in fiamme: ${fuggiti} tra sgherri e guardie fuggono. Ora siete voi contro il rogo.`); }
-    }
-    if (c.nemico) {                       // catturato: esce dal tavolo, non e' un morto
-      const j = sp.nemici.findIndex((n) => n.pos && n.nome === c.nemico && adiacGlob(sp.eroiPos[nm], n.pos));
-      if (j >= 0) sp.nemici.splice(j, 1);
-    }
-    log(`${primo(nm)}: ${c.etichetta.toLowerCase()} (${st[c.id]}/${c.quante}).`);
-    if (st[c.id] >= c.quante && c.fatto) log(c.fatto);
-    segnaAzione(nm, 'interagire'); return;
-  }
-  if (disp.tipo === 'uscita') {
-    const u = specUscita(); const a = disp.arredo; const e = eroe(nm);
-    const giusto = a[0] === u.arredo[0] && a[1] === u.arredo[1];
-    const r = await tiraProva({ titolo: `spostare ${String(a[2]).toLowerCase()} — ${primo(nm)}`,
-      diffLabel: u.diff || 'Media', soglia: ctx.comune.regole.diff[u.diff || 'Media'],
-      bonus: [{ label: 'VIGORE', val: e.vigore }], modo: modoDadi() });
-    if (r == null) return;
-    if (!r.ok) { log(`${primo(nm)} non riesce a smuovere ${String(a[2]).toLowerCase()}.`); salvaP(); segnaAzione(nm, 'interagire'); return; }
-    if (!giusto) {
-      // arredo sbagliato: l'azione e' spesa, e quell'arredo non si ritenta piu'
-      sp.uscitaTentati = (sp.uscitaTentati || []).concat(chiave([a[0], a[1]]));
-      log(`Sotto ${String(a[2].toLowerCase())} non c'è nulla: solo pietra.`);
-      salvaP(); segnaAzione(nm, 'interagire'); return;
-    }
-    sp.uscita = { aperta: true, tile: u.tile, cella: [u.arredo[0], u.arredo[1]] };
-    log(`${u.testo || 'Sotto l’arredo si apre un passaggio.'} Portateci ${nomeScortato()}.`);
-    ctx.layout = null; segnaAzione(nm, 'interagire'); return;
-  }
-  if (disp.tipo === 'scortato') {
-    const i = disp.i; const s = specScort(i); const inv = P().indagine.oggetti || [];
-    // la chiave dell'episodio apre senza prova; senza prova dichiarata basta Interagire
-    if (s.chiave && inv.some((o) => new RegExp(s.chiave, 'i').test(o))) { liberaScortato(nm, i); return; }
-    if (!s.prova) { liberaScortato(nm, i); return; }
-    const e = eroe(nm); const attr = s.prova.attr || 'acume';
-    const bonus = [{ label: attr.toUpperCase(), val: e[attr] || 0 }];
-    for (const b of s.prova.bonus || []) { if (inv.some((o) => new RegExp(b, 'i').test(o))) bonus.push({ label: b, val: 1 }); }
-    const r = await tiraProva({ titolo: `${s.prova.titolo || 'liberare ' + s.nome} — ${primo(nm)}`,
-      diffLabel: s.prova.diff, soglia: ctx.comune.regole.diff[s.prova.diff], bonus, modo: modoDadi() });
-    if (r == null) return;
-    if (r.ok) liberaScortato(nm, i);
-    else { log(`${primo(nm)} ${s.prova.fallita || 'non riesce a liberare ' + s.nome}.`); salvaP(); segnaAzione(nm, 'interagire'); }
-  }
-}
-function liberaScortato(nm, i) {
-  const sp = SP(); const pos = sp.eroiPos[nm]; const tile = tileDi(pos.t); const s = specScort(i);
-  // Un'azione libera TUTTI i prigionieri tenuti nello stesso punto: e' quanto
-  // dice il testo d'arbitro dell'Ep.4 («un'azione per entrambi»), dove Gaspare
-  // e Rocco sono legati insieme nella stessa fossa.
-  const insieme = specScortati()
-    .map((x, k) => ({ x, k }))
-    .filter(({ x, k }) => !sp.scortati[k].liberato && x.tile === s.tile && x.cella === s.cella);
-  const occ = new Set(); occupati(null, false).forEach((k) => { const [t, x, y] = k.split(','); if (t === pos.t) occ.add(`${x},${y}`); });
-  const libere = celleLibereTile(tile, [pos.x, pos.y], insieme.length, occ);
-  insieme.forEach(({ x, k }, n) => {
-    sp.scortati[k].liberato = true;
-    const cella = libere[n] || [pos.x, pos.y];
-    sp.scortati[k].pos = { t: pos.t, x: cella[0], y: cella[1] };
-    log(`${x.nome} è libero! Riportatelo in ${x.meta}.`);
-  });
-  segnaAzione(nm, 'interagire');
-}
-
-// azione «Usare un oggetto»: sceglie dall'inventario e ne applica l'effetto di
-// spedizione. Diapason: Ep.1, Custode Difesa 5 + salta attivazione. La chiave
-// che libera il PNG scortato viene dal dato (ep.scortato[].chiave). Passivi e
-// oggetti-quest: si leggono soltanto (nessuna azione spesa).
-async function usaOggetto(nm) {
-  const sp = SP(); const inv = P().indagine.oggetti || [];
-  if (!inv.length) { flash('Inventario del gruppo vuoto.'); return; }
-  if (!azioniRestano(nm)) { flash('Nessuna azione rimasta.'); return; }
-  const scelto = await scegli('usa quale oggetto?', inv.map((o) => ({ id: o, label: o.toLowerCase() })));
-  if (!scelto) return;
-  const pos = sp.eroiPos[nm];
-  if (/diapason/i.test(scelto)) {
-    const boss = ctx.ep.soluzione.boss;
-    const i = sp.nemici.findIndex((n) => n.nome === boss && n.pos && adiacGlob(pos, n.pos));
-    if (i < 0) { flash(`Devi essere adiacente al ${boss.toLowerCase()}.`); return; }
-    sp.nemici[i].difMod = 5; sp.nemici[i].flash = true;
-    log(`${primo(nm)} fa vibrare il diapason: ${boss.toLowerCase()} Difesa 5 e salta la prossima attivazione.`);
-    await messaggio('il diapason d’argento', `<p><i>La cera del Custode si incrina come ghiaccio: <b>Difesa 5</b> per il resto della partita, e <b>salta la prossima attivazione</b>.</i></p>`);
-    segnaAzione(nm, 'oggetto'); return;
-  }
-  // chiave di liberazione dell'episodio (dato: ep.scortato[].chiave)
-  const iChiave = specScortati().findIndex((s) => s.chiave && new RegExp(s.chiave, 'i').test(scelto));
-  if (iChiave >= 0) {
-    const s = specScort(iChiave);
-    if (scortLiberabile(pos) === iChiave) { liberaScortato(nm, iChiave); return; }
-    flash(`${scelto} apre la cella in ${s.tile} (vacci adiacente).`); return;
-  }
-  const o = (ctx.ep.oggetti || []).find((x) => norm(x.nome) === norm(scelto));
-  await messaggio(scelto.toLowerCase(), `${o && o.effetto ? `<p>${rendi(o.effetto)}</p>` : '<p class="nota">Nessun effetto attivo qui.</p>'}
-    <p class="nota mt">Effetto passivo o narrativo: nessuna azione spesa.</p>`);
-  // `messaggio` sostituisce l'INTERA pagina, e qui non si spende un'azione:
-  // senza questo render il tabellone non torna piu' e la partita sembra
-  // morta. Succedeva con qualunque oggetto passivo — i Ramponi, la Macchina
-  // Fotografica, la Parola dei Tetti — cioe' quasi tutti. Il ramo del
-  // diapason non ne soffriva perche' `segnaAzione` ridisegna.
-  render();
 }
 
 // --------------------------------------------------------- spawn nemici

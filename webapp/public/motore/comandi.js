@@ -20,6 +20,7 @@
 import { creaRng, tira2d6 as tiraSeme, interoFino } from './rng.js';
 import * as azioni from './azioni.js';
 import * as abilita from './abilita.js';
+import * as interazioni from './interazioni.js';
 
 const clona = (x) => JSON.parse(JSON.stringify(x));
 
@@ -50,6 +51,8 @@ const GESTORI = {
   attacca: (g, c, caso) => azioni.attacca(g, caso, c.eroe, c.bersaglio, false),
   'finisci-eroe': (g, c) => { azioni.finisciEroe(g, c.eroe); return { eventi: [] }; },
   abilita: (g, c) => abilita.usa(g, c.eroe, c.scelta, c.cella),
+  interagisci: (g, c, caso) => interazioni.interagisci(g, caso, c.eroe),
+  oggetto: (g, c) => interazioni.usaOggetto(g, c.eroe, c.quale),
   rispondi: (g, c, caso) => azioni.rispondi(g, caso, c.scelta),
 };
 
