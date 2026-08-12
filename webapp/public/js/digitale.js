@@ -23,6 +23,7 @@ import * as minaccia from '../motore/minaccia.js';
 import * as nemici from '../motore/nemici.js';
 import * as azioni from '../motore/azioni.js';
 import { applica } from '../motore/comandi.js';
+import * as abilita from '../motore/abilita.js';
 
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) =>
   ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -470,18 +471,10 @@ function azioniHtml() {
 }
 
 // ------------------------------------------- abilità di spedizione (cariche)
-const CARICHE_SPED = [
-  { key: 'ATTILIO', ab: 'Pronto Soccorso', usi: 3, eff: 'cura', nota: 'Cura 2 Salute a sé o a un eroe adiacente.' },
-  { key: 'SIBILLA', ab: 'Sesto Senso', usi: 3, eff: 'scruta', nota: 'Guarda le prossime 2 carte Minaccia e mettine una in fondo al mazzo.' },
-  { key: 'SERRA', ab: 'Voce ferma', usi: 3, eff: 'voce', nota: 'Fino al tuo prossimo turno gli eroi adiacenti tirano NERVI con +2.' },
-  { key: 'CARLA', ab: 'Flash!', usi: 2, eff: 'flash', nota: 'Un nemico entro 2 caselle salta la sua prossima attivazione.' },
-  { key: 'CARBONE', ab: 'Esca preziosa', usi: 2, eff: 'esca', nota: 'I nemici entro 2 caselle dall’esca vanno verso di essa nel loro turno.' },
-  { key: 'FANTI', ab: 'Diversivo', usi: 2, eff: 'diversivo', nota: 'La prossima Fase Minaccia pesca 1 carta in meno.' },
-  { key: 'MARANI', ab: 'Litania', usi: 1, eff: 'litania', nota: 'Rimuove 1 segnalino Canto.' },
-  { key: 'BRERA', ab: 'Vi conosco, Malacarne', usi: 1, eff: 'malacarne', nota: 'Rimuove un nemico di truppa (Malavita/Adepto/Cane) in campo.' },
-  { key: 'OTTONE', ab: 'Colpo da macello', usi: null, nota: '1 per turno: se abbatte un nemico in mischia, attacca subito un altro adiacente.' },
-];
-const caricaDi = (nome) => CARICHE_SPED.find((c) => nome.includes(c.key));
+// La tabella sta in motore/abilita.js e da li' viene: tenerne una copia qui
+// vorrebbe dire due elenchi di cariche che divergono al primo ritocco — che e'
+// esattamente il guaio da cui questa fase e' partita.
+const { CARICHE_SPED, caricaDi } = abilita;
 
 function abilitaHtml() {
   const sp = SP(); const attivo = eroiAttivoNome();
@@ -518,56 +511,29 @@ function scegli(titolo, opzioni) {
 // distanza (in caselle-cammino) tra due nodi, ignorando i blocchi (per gittate/raggi)
 const distGlob = (a, b) => griglia.distGlob(G(), a, b);
 
+// Le abilita' a cariche sono passate in motore/abilita.js. Qui resta il ponte:
+// si chiede al motore COSA serve (`candidati`, che i candidati li calcola dallo
+// stato), lo si domanda al giocatore, e si manda un comando gia' completo.
+// Niente piu' `await scegli()` in mezzo a una regola.
 async function usaAbilita(nm) {
-  const sp = SP(); const c = caricaDi(nm); if (!c || c.usi === null) return;
-  const usate = (sp.abilita && sp.abilita[nm]) || 0; if (usate >= c.usi) return;
-  if (!azioniRestano(nm)) { flash('Nessuna azione rimasta.'); return; }
-  let fatto = true;
-  if (c.eff === 'litania') { sp.canto = Math.max(0, sp.canto - 1); log(`${primo(nm)} intona la Litania: −1 Canto (${sp.canto}).`); }
-  else if (c.eff === 'diversivo') { sp.diversivoPronto = true; log(`${primo(nm)}: la prossima Minaccia pesca 1 carta in meno.`); }
-  else if (c.eff === 'cura') {
-    const cand = [nm, ...P().party.filter((x) => x !== nm && (sp.vite[x] ?? 0) > 0 && adiacGlob(sp.eroiPos[nm], sp.eroiPos[x]))];
-    const chi = await scegli('curare chi? (+2 Salute)', cand.map((x) => ({ id: x, label: `${primo(x)} (${sp.vite[x]})` })));
-    if (!chi) return; const e = eroe(chi); sp.vite[chi] = Math.min(saluteMax(e), (sp.vite[chi] ?? 0) + 2);
-    log(`${primo(nm)} cura ${primo(chi)} (+2 → ${sp.vite[chi]}).`);
-  } else if (c.eff === 'flash') {
-    const cand = sp.nemici.map((n, i) => ({ n, i })).filter(({ n }) => n.pos && distGlob(sp.eroiPos[nm], n.pos) <= 2 && distGlob(sp.eroiPos[nm], n.pos) > 0);
-    if (!cand.length) { flash('Nessun nemico entro 2 caselle.'); return; }
-    const idx = await scegli('Flash! su quale nemico?', cand.map(({ n, i }) => ({ id: String(i), label: `${n.nome.toLowerCase()} (${n.pos.t})` })));
-    if (idx == null) return; sp.nemici[Number(idx)].flash = true; log(`${primo(nm)} acceca ${sp.nemici[Number(idx)].nome.toLowerCase()}: salta la prossima attivazione.`);
-  } else if (c.eff === 'malacarne') {
-    const truppa = sp.nemici.map((n, i) => ({ n, i })).filter(({ n }) => /malavita|cultista|cane/i.test(nemStat(n.nome).tipo || ''));
-    if (!truppa.length) { flash('Nessun nemico di truppa in campo.'); return; }
-    const idx = await scegli('Malacarne: chi allontani?', truppa.map(({ n, i }) => ({ id: String(i), label: `${n.nome.toLowerCase()} (${n.pos ? n.pos.t : '?'})` })));
-    if (idx == null) return; const via = sp.nemici.splice(Number(idx), 1)[0]; log(`${primo(nm)} chiama per nome ${via.nome.toLowerCase()}: se ne va.`);
-  } else if (c.eff === 'scruta') {
-    const m = sp.mazzo; const rem = m.ordine.length - m.indice;
-    if (rem <= 0) { flash('Mazzo Minaccia esaurito.'); return; }
-    const t0 = m.pool[m.ordine[m.indice]];
-    const t1 = rem >= 2 ? m.pool[m.ordine[m.indice + 1]] : null;
-    const opz = [{ id: '0', label: `↓ in fondo: ${t0}` }];
-    if (t1) opz.push({ id: '1', label: `↓ in fondo: ${t1}` });
-    opz.push({ id: 'skip', label: 'lascia l’ordine com’è' });
-    const scelta = await scegli('Sesto Senso — quale mandi in fondo?', opz);
-    if (scelta == null) return;
-    if (scelta === '0') { const [x] = m.ordine.splice(m.indice, 1); m.ordine.push(x); log(`Sibilla manda in fondo «${t0.toLowerCase()}».`); }
-    else if (scelta === '1') { const [x] = m.ordine.splice(m.indice + 1, 1); m.ordine.push(x); log(`Sibilla manda in fondo «${t1.toLowerCase()}».`); }
-    else log('Sibilla scruta il mazzo e lascia l’ordine.');
-  } else if (c.eff === 'voce') {
-    // «fino al suo prossimo turno»: copre il resto di questo round (Minaccia e
-    // notte comprese) e l'inizio del prossimo finche' Serra non agisce.
-    sp.voceFerma = { da: nm, round: sp.round };
-    log(`${primo(nm)} tiene la voce ferma: gli eroi adiacenti tirano NERVI con +2 fino al suo prossimo turno.`);
-  } else if (c.eff === 'esca') {
-    // Il monile si lancia su una casella: il tabellone accende i bersagli
-    // entro 3 e la carica si spende quando la casella e' scelta, non prima.
-    sp.escaModo = nm; salvaP(); render();
-    flash('Tocca la casella dove lanciare l’esca (entro 3).');
+  const chiede = abilita.candidati(G(), nm);
+  if (chiede && chiede.vuoto) { flash(chiede.vuoto); return; }
+
+  // L'ESCA si posa toccando la plancia, non scegliendo da una lista: si accende
+  // il modo di mira e il comando parte dal click sulla casella (piu' sotto).
+  // `escaModo` da qui in poi e' stato di VISTA, non piu' un mezzo turno salvato.
+  if (chiede && chiede.celle) {
+    SP().escaModo = nm; salvaP(); render();
+    flash(chiede.tocca);
     return;
-  } else {
-    log(`${primo(nm)} usa ${c.ab.toLowerCase()} (${c.nota})`);
   }
-  if (fatto) { sp.abilita = sp.abilita || {}; sp.abilita[nm] = usate + 1; salvaP(); segnaAzione(nm, 'abilita'); }
+
+  let scelta = null;
+  if (chiede && chiede.opzioni) {
+    scelta = await scegli(chiede.titolo, chiede.opzioni);
+    if (scelta == null) return;                 // chi annulla non spende niente
+  }
+  await esegui({ tipo: 'abilita', eroe: nm, scelta });
 }
 
 // VOCE FERMA di Serra: +2 alle prove NERVI degli eroi a lui adiacenti. Vale
@@ -734,11 +700,8 @@ function aggancia() {
     // l'esca si posa e basta: nessuno scivola, e la carica si spende ORA —
     // fino a qui il giocatore poteva ancora cambiare idea
     if (sp.escaModo) {
-      const nm = sp.escaModo; const usate = (sp.abilita && sp.abilita[nm]) || 0;
-      sp.esca = node; sp.escaModo = null;
-      sp.abilita = sp.abilita || {}; sp.abilita[nm] = usate + 1;
-      log(`${primo(nm)} lancia il monile in ${node.t}: i nemici entro 2 caselle andranno lì.`);
-      salvaP(); segnaAzione(nm, 'abilita');
+      const nm = sp.escaModo; sp.escaModo = null;
+      await esegui({ tipo: 'abilita', eroe: nm, cella: node });
       return;
     }
     const scort = scortAttivo();
@@ -784,6 +747,7 @@ function aggancia() {
       ${o && o.effetto ? `<p class="mt">${rendi(o.effetto)}</p>` : ''}${o && o.flavor ? `<p class="nota mt"><i>${rendi(o.flavor)}</i></p>` : ''}`).then(render);
   });
   app.querySelectorAll('[data-abil]').forEach((btn) => btn.onclick = () => usaAbilita(btn.dataset.abil));
+  // (usaAbilita e' un ponte: chiede i candidati al motore, poi manda `abilita`)
   app.querySelector('#az-cercare') && (app.querySelector('#az-cercare').onclick = () => esegui({ tipo: 'cerca', eroe: attivo }));
   app.querySelector('#az-oggetto') && (app.querySelector('#az-oggetto').onclick = () => usaOggetto(attivo));
   app.querySelector('#az-interagire') && (app.querySelector('#az-interagire').onclick = () => azioneInteragire(attivo));

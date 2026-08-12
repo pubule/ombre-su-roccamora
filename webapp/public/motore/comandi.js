@@ -19,6 +19,7 @@
 //   3. gli eventi sono serializzabili: passeranno da un WebSocket.
 import { creaRng, tira2d6 as tiraSeme, interoFino } from './rng.js';
 import * as azioni from './azioni.js';
+import * as abilita from './abilita.js';
 
 const clona = (x) => JSON.parse(JSON.stringify(x));
 
@@ -48,6 +49,7 @@ const GESTORI = {
   rianima: (g, c) => azioni.rianima(g, c.eroe),
   attacca: (g, c, caso) => azioni.attacca(g, caso, c.eroe, c.bersaglio, false),
   'finisci-eroe': (g, c) => { azioni.finisciEroe(g, c.eroe); return { eventi: [] }; },
+  abilita: (g, c) => abilita.usa(g, c.eroe, c.scelta, c.cella),
   rispondi: (g, c, caso) => azioni.rispondi(g, caso, c.scelta),
 };
 
