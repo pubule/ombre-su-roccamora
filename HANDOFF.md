@@ -118,13 +118,22 @@ python webapp/export-assets.py        # dopo carte/tessere/arte nuove; fa anche 
 ./webapp/deploy.sh                    # pubblica (da Git Bash)
 ```
 
-Per gli endpoint dei salvataggi servono due `wrangler dev` (l'isolamento fra
-account non si prova con un utente solo):
+Per gli endpoint dei salvataggi e per i **membri** servono due `wrangler dev`
+(l'isolamento fra account non si prova con un utente solo):
 
 ```bash
+./webapp/build-dist.sh
 npx --no-install wrangler dev --var OSR_DEV_EMAIL:uno@esempio.it --port 8787
 npx --no-install wrangler dev --var OSR_DEV_EMAIL:due@esempio.it --port 8788
+node webapp/test-api.mjs && node webapp/test-membri.mjs
 ```
+
+**Due cose che costano un'ora se non si sanno.** `build-dist.sh` svuotava
+`dist` cancellandola: il primo `wrangler dev` la tiene aperta e il secondo
+moriva sul proprio build — la procedura qui sopra non poteva funzionare, ed è
+stata corretta. E **`wrangler dev` non ricarica il Worker** quando cambia
+`webapp/worker/*.js`: per provare una modifica all'API va riavviato, altrimenti
+si misura il codice di prima e si crede di aver verificato qualcosa.
 
 **I controlli**, tutti verdi tranne dove detto:
 
@@ -137,6 +146,8 @@ npx --no-install wrangler dev --var OSR_DEV_EMAIL:due@esempio.it --port 8788
 | `test-conferma` | le domande irreversibili si chiedono dentro il gioco: è l'unico che NON sostituisce `window.confirm` |
 | `test-abilita` | le abilità di Spedizione **agiscono** invece di essere narrate (esca, colpo da macello); vuole il server acceso |
 | `test-api`, `test-sync`, `test-access`, `test-account-ui` | salvataggi, coda, JWT, tavoli |
+| `test-membri` | **l'ACL dei membri**: chi entra al tavolo di un altro, chi cancella cosa. Provato non vacuo: aprendo il buco su `DELETE /api/tavolo` il test lo dice |
+| `test-partite` | 42 giocate intere in modalità **tavolo**, dall'ingresso alla vittoria — l'unico che copre `spedizione.js` end-to-end |
 | `test-ui`, `test-digitale*`, `test-engine` | il gioco (i banchi di misura del bilanciamento) |
 
 **Gli strumenti di misura** (non sono test: non danno OK/KO, danno numeri):
