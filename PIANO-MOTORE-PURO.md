@@ -21,19 +21,32 @@ come `webapp/test-digitale.mjs`.
 
 ## Vincoli globali
 
+- **Il motore sta in `webapp/public/motore/`**, non accanto a `webapp/`.
+  Verificato all'esecuzione del Task 2: l'import relativo deve risolvere sia
+  per node (filesystem) sia per il browser (HTTP, con la root del server su
+  `webapp/public`). Con la cartella fuori, `../../motore/…` risolve in node e
+  **esce dalla root via HTTP**: i test unitari passano e la pagina muore in
+  silenzio. Effetto collaterale gradito: `build-dist.sh` copia già `public/`,
+  quindi non va toccato.
 - **Nessun DOM nel motore.** Niente `document`, `window`, `localStorage`,
-  `setTimeout`, `requestAnimationFrame`, `fetch`, `Math.random`. Un test
-  meccanico lo verifica (Task 2, passo 5) e vale per ogni file aggiunto dopo.
-- **Nessun build step.** I file di `webapp/motore/` sono ESM caricati sia da
+  `setTimeout`, `requestAnimationFrame`, `fetch`, `Math.random`. Lo verifica
+  `webapp/test-motore-purezza.mjs`, **uno solo per tutta la cartella**: chi
+  aggiunge un modulo non deve ricordarsi di aggiungere anche il controllo.
+  Guarda il codice e non i commenti, che di `Math.random` parlano apposta.
+- **Nessun build step.** I file del motore sono ESM caricati sia da
   `<script type="module">` sia da `node`. Nessun transpile, nessun bundler.
 - **Italiano nei nomi**, come tutto il resto del repo: `applica`, `eventi`,
   `pendenza`, `stato`. Non `apply`, non `events`.
-- **`webapp/build-dist.sh` deve copiare `motore/`** o in produzione la pagina
-  non carica (Task 2, passo 6).
 - **Le stringhe di gioco restano parola per parola.** Un `log()` che cambia
   testo è una regressione: i test le confrontano.
 - **La modalità tavolo (`spedizione.js`) non si tocca in questa fase.** È la
   Fase 2.
+- **Una misura lunga non gira mentre si tocca il codice che misura.** Imparato
+  due volte in questa fase: due baseline da 420 partite buttate perché il
+  `digitale.js` sotto cambiava — la seconda con l'import rotto a metà corsa, che
+  ha prodotto 17 corse NON VALIDE su 21 e scarti fino a -85 punti. Sembravano
+  dati sul gioco, erano dati sul cantiere. Prima di lanciare `mappa-pilota.mjs`:
+  `git status` pulito, e nessuna modifica finché non ha finito.
 
 ## Il cancello, corretto
 
@@ -49,8 +62,16 @@ tre reti, tutte e tre necessarie:
 2. **Test di regressione esistenti** verdi a ogni task: `test-digitale.mjs`,
    `test-digitale-regressioni.mjs`, `test-abilita.mjs`, `test-engine.mjs`.
 3. **Mappa pilota invariata** (Task 16): `mappa-pilota.mjs` con N alto prima e
-   dopo. Non «identica» — **dentro la banda di rumore**, e ogni corsa VALIDA.
-   È l'unica rete per le ~450 righe miste, che oracolo automatico non hanno.
+   dopo. Non «identica» — **dentro la banda di rumore**. È l'unica rete per le
+   ~450 righe miste, che oracolo automatico non hanno.
+
+**Sugli stalli.** Il cancello qui sotto diceva «ogni corsa VALIDA». Misurato il
+12/08/2026: **non è vero già oggi**, e non per colpa dell'estrazione. Sul
+commit precedente a tutto questo lavoro, l'Ep.1 dà 3 partite in stallo su 8 e
+la corsa risulta NON VALIDA. Lo stallo è il pilota che non trova come
+proseguire, non il gioco che si rompe. Quindi il cancello non è «zero stalli»
+ma **«non più stalli della baseline»**, e la baseline li registra episodio per
+episodio.
 
 ---
 
@@ -58,20 +79,33 @@ tre reti, tutte e tre necessarie:
 
 ### Nuovi
 
-| file | responsabilità |
-|---|---|
-| `webapp/motore/rng.js` | generatore seminato, `tira2d6`, `mescola` |
-| `webapp/motore/griglia.js` | grafo tessere, BFS, cammino, raggiungibilità |
-| `webapp/motore/stat.js` | statistiche derivate di eroi e nemici, economia azioni |
-| `webapp/motore/regole.js` | ex `engine.js` senza le stringhe di presentazione |
-| `webapp/motore/obiettivi.js` | compiti, orologio, rogo, cancellazione, ritmo, pressione, filo |
-| `webapp/motore/vittoria.js` | condizioni di vittoria, sconfitta, scorta |
-| `webapp/motore/minaccia.js` | spawn, risveglio boss, pesca, fase Minaccia |
-| `webapp/motore/nemici.js` | piano e risoluzione del turno nemici |
-| `webapp/motore/comandi.js` | `applica()`, la porta d'ingresso |
-| `webapp/public/js/replay.js` | riproduce `eventi[]` come animazioni |
-| `webapp/test-motore-*.mjs` | un test per modulo estratto |
-| `webapp/pilota-motore.mjs` | il pilota headless, senza browser |
+Tutti sotto `webapp/public/motore/` — vedi il vincolo globale sul perché.
+
+| file | responsabilità | stato |
+|---|---|---|
+| `rng.js` | generatore seminato, `tira2d6`, `mescola` | ✅ Task 1 |
+| `griglia.js` | grafo tessere, BFS, cammino, adiacenza, occupazione | ✅ Task 2 |
+| `stat.js` | statistiche derivate, economia azioni, `raggEroe`/`celleEsca` | Task 3 |
+| `regole.js` | ex `engine.js` senza le stringhe di presentazione | Task 4 |
+| `obiettivi.js` | compiti, orologio, rogo, cancellazione, ritmo, pressione, filo | Task 5 |
+| `vittoria.js` | condizioni di vittoria, sconfitta, scorta | Task 6 |
+| `minaccia.js` | spawn, risveglio boss, pesca, fase Minaccia | Task 7 |
+| `nemici.js` | piano e risoluzione del turno nemici | Task 8 |
+| `comandi.js` | `applica()`, la porta d'ingresso | Task 9 |
+
+Fuori dal motore:
+
+| file | responsabilità | stato |
+|---|---|---|
+| `webapp/public/js/replay.js` | riproduce `eventi[]` come animazioni | Task 13 |
+| `webapp/test-motore-purezza.mjs` | la barriera: niente ambiente nel motore | ✅ Task 1 |
+| `webapp/rigenera-oracolo.sh` | prepara l'oracolo dei differenziali | ✅ Task 2 |
+| `webapp/test-motore-*.mjs` | un test per modulo estratto | in corso |
+| `webapp/pilota-motore.mjs` | il pilota headless, senza browser | Task 14 |
+
+**`raggEroe`, `celleEsca` e `raggScortato` non stanno in `griglia.js`**: leggono
+`azioniRestano` e `movimento`, che sono statistiche derivate. Vanno in `stat.js`
+col Task 3. Il piano li dava alla griglia, ed era sbagliato.
 
 ### Modificati
 
@@ -85,17 +119,24 @@ tre reti, tutte e tre necessarie:
 ### L'oracolo del test differenziale
 
 I test differenziali confrontano il codice nuovo con quello **di partenza**,
-estratto da git a un SHA fisso e scritto accanto agli originali perché i suoi
-`import` relativi risolvano:
+preparato da uno script:
 
 ```bash
-git show 11cabc8e:webapp/public/js/digitale.js > webapp/public/js/_oracolo.js
+bash webapp/rigenera-oracolo.sh          # dal commit 588825bd, il default
+bash webapp/rigenera-oracolo.sh DISCO    # dal file su disco, per un confronto al volo
 ```
 
-`11cabc8e` è il commit che ha introdotto `DESIGN-VISTA-EROE.md`, cioè lo stato
-prima di questa fase. Il file è gitignorato e si rigenera a comando. **A fine
-Fase 1 i test differenziali e l'oracolo si cancellano** (Task 16): sono
-un'impalcatura, non una suite.
+Lo script fa tre cose, e tutte e tre servono: estrae `digitale.js` dal commit
+di partenza, lo scrive in `webapp/public/js/_oracolo.js` (**accanto** agli
+originali, perché i suoi import relativi risolvano), e gli **appende un export
+`_diff`** con le 65 funzioni interne da confrontare — `digitale.js` ne esporta
+solo una manciata, e senza quell'aggiunta metà dei differenziali passerebbe a
+vuoto. Infine prova a importarlo: un oracolo che non si carica fa passare a
+vuoto ogni confronto, ed è peggio di non averlo.
+
+`588825bd` è l'ultimo commit prima che l'estrazione tocchi `digitale.js`. Il
+file è gitignorato. **A fine Fase 1 i differenziali e l'oracolo si cancellano**
+(Task 15): sono un'impalcatura, non una suite.
 
 ---
 
