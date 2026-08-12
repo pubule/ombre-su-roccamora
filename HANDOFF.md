@@ -5,10 +5,10 @@
 > gira e il prossimo comando; il *cosa fare* di un lavoro in corso sta nel suo
 > piano.
 
-**Aggiornato:** 12/08/2026 · ramo `main` · in produzione la versione `eec039a3`
-su <https://roccamora.smartcores.org> (le tre correzioni dal tavolo, l'audit
-dei testi e le biografie riscritte). L'ultimo lavoro — l'**audit delle classi**
-(`AUDIT-CLASSI.md`) — è misura e documenti: non tocca il sito.
+**Aggiornato:** 12/08/2026 · ramo `main` · in produzione la versione `fde3b495`
+su <https://roccamora.smartcores.org> — l'**audit delle classi**
+(`AUDIT-CLASSI.md`) e le **tre abilità di Spedizione** che il motore digitale
+stampava e non applicava.
 
 ## Cos'è successo, in ordine
 
