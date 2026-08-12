@@ -112,6 +112,18 @@ async function tiraSeServe(page) {
   return dove;
 }
 
+// Le domande irreversibili — aprire la busta, dichiarare la vittoria — non
+// passano piu' da `window.confirm`: dal commit «le domande irreversibili si
+// chiedono dentro il gioco» sono un overlay in finzione (chiedi.js), col «si'»
+// su `[data-si]`. Questo test aveva ancora il commento «confirm() accettato dal
+// handler» e aspettava una finestra di sistema che non arriva piu': si piantava
+// li', su tutti e quarantadue gli scenari.
+async function premiSi(page) {
+  const si = page.locator('.scelta-box.chiesta [data-si]');
+  await si.waitFor({ state: 'visible', timeout: 5000 });
+  await si.click();
+}
+
 async function stato(page, epId) {
   return page.evaluate((k) => JSON.parse(localStorage.getItem('osr.partita.' + k)), epId);
 }
@@ -232,7 +244,8 @@ for (const sc of SCELTI) {
     for (let i = 0; i < risposte.length; i++) {
       await page.locator(`[data-risposta="${i}"]`).fill(risposte[i]);
     }
-    await page.locator('#apri-busta').click();     // confirm() accettato dal handler
+    await page.locator('#apri-busta').click();
+    await premiSi(page);                          // la busta si apre dentro la finzione
     await page.locator('#alla-spedizione').waitFor();
     const esatte = await page.locator('.ok-txt').count();
     const sbagliate = await page.locator('.ko-txt').count();
@@ -345,7 +358,8 @@ for (const sc of SCELTI) {
        `${ep.marea ? 'marea' : 'canto'} fuori misura (${st3.spedizione.canto}, tick minimi ${tickMinimi})`);
 
     // vittoria
-    await page.locator('#vittoria').click();                  // confirm() accettato
+    await page.locator('#vittoria').click();
+    await premiSi(page);                                      // «si', si chiude»
     await page.getByText('alla taverna').waitFor();
     ok((await stato(page, sc.ep)).spedizione.esito === 'vittoria', 'esito non salvato');
     console.log(`    busta: ${esatte} esatte, ${sbagliate} sbagliate — spedizione: ` +
