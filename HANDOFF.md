@@ -397,6 +397,59 @@ fine Fase 1.
    il gioco che si rompe. Il cancello della fase non è «zero stalli» ma «non più
    stalli della baseline».
 
+## Fase 5: la vista eroe, e il filo collegato
+
+Due dispositivi sulla stessa serata funzionano. Chi entra dal proprio telefono
+vede la **stessa plancia** dell'arbitro — non una copia: duplicare `boardHtml`
+avrebbe ricreato la divergenza fra due versioni della stessa regola che le Fasi
+1 e 2 hanno appena finito di togliere. Cambia **chi può toccare cosa**.
+
+- `canale.js` — il WebSocket verso il Durable Object: si ricollega da solo (un
+  telefono che entra in tasca chiude il socket) e tiene in coda i comandi
+  mandati mentre era giù.
+- `digitale.js` — `esegui()` è il punto unico da cui passa ogni mossa, ed è lì
+  che si dirama: **tavolo vivo** → il comando ci va e lo stato torna di là;
+  **niente tavolo** → il motore resta nel browser e non cambia nulla. Nessun
+  server, tavolo mai aperto, filo caduto: si gioca da soli, com'era. È una
+  degradazione voluta.
+- `incassa()` — il travaso dello stato, estratto perché ora lo stato arriva da
+  due parti mentre la cosa delicata è una sola (travasare **senza sostituire**,
+  o i gestori di `aggancia()` scrivono su un oggetto scartato, e il click si
+  perde senza errore).
+
+**Il `rif`, e perché esiste.** Chi manda una mossa riceve la risposta **due
+volte** — una come risposta HTTP e una come spinta sul filo. Senza
+contrassegno, gli stessi dadi verrebbero messi in scena due volte. Si
+contrassegna il **comando** e non la sessione perché la stessa persona può
+avere due schede aperte: filtrando per email, l'altra scheda non si
+aggiornerebbe.
+
+### Come si prova
+
+`webapp/test-eroe.mjs` è il cancello. Vuole **un solo** `wrangler dev`: due
+processi hanno due Durable Object separati (condividono il D1, non i DO) e la
+partita sarebbe due partite. Chi è chi lo decide da che parte si bussa — il
+browser non manda header, quindi è `OSR_DEV_EMAIL`, cioè il giocatore; l'arbitro
+bussa da node con `X-Osr-Dev-Email`.
+
+```
+./webapp/build-dist.sh
+npx --no-install wrangler dev --var OSR_DEV_EMAIL:giocatore@esempio.it --port 8787
+node webapp/test-eroe.mjs           # oppure OSR_BASE=http://127.0.0.1:8791 …
+```
+
+`webapp/test-posto-eroe.mjs` prova invece la sola **vista** (server non
+necessario): le caselle si accendono solo per il proprio eroe, il bottone di
+fine turno solo nel proprio turno, «gli eroi cadono» resta a chi conduce.
+Entrambi sono stati provati **sabotandoli**, e cadono.
+
+**Trappola d'ambiente, costata mezz'ora.** Più `wrangler dev` avviati e non
+chiusi restano in ascolto sulla *stessa* porta, e allora **nessuno** risponde
+più: `curl` va in timeout mentre il log dice `Ready`. Si vede con
+`netstat -ano | grep :8787`; se ci sono più righe `LISTENING`, si uccidono
+tutte o si cambia porta. E `wrangler` **non ricarica** gli asset aggiunti dopo
+l'avvio: un file nuovo in `public/js/` dà 404 finché non si riavvia.
+
 ## Quello che resta
 
 1. **Durata sessione Access a 1 month**, sull'applicazione **e sul criterio**
