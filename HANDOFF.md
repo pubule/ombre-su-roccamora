@@ -5,9 +5,10 @@
 > gira e il prossimo comando; il *cosa fare* di un lavoro in corso sta nel suo
 > piano.
 
-**Aggiornato:** 11/08/2026 · ramo `main` · in produzione la versione `5086f02b`
-su <https://roccamora.smartcores.org> (le tre correzioni dal tavolo, la
-marcatura dei PDF che non si legge più a schermo, e l'audit dei testi applicato)
+**Aggiornato:** 12/08/2026 · ramo `main` · in produzione la versione `eec039a3`
+su <https://roccamora.smartcores.org> (le tre correzioni dal tavolo, l'audit
+dei testi e le biografie riscritte). L'ultimo lavoro — l'**audit delle classi**
+(`AUDIT-CLASSI.md`) — è misura e documenti: non tocca il sito.
 
 ## Cos'è successo, in ordine
 
@@ -86,6 +87,18 @@ delle altre», ed è anche il titolo della carta. **153 fascicoli rigenerati.**
 Barriera: `webapp/test-testi.mjs`, 13 sonde. Restano all'autore due cose (§7 del
 referto): i due oggetti omonimi e le 99 divergenze fra fascicoli e carte.
 
+**7. Audit del bilanciamento fra le classi** (referto `AUDIT-CLASSI.md`,
+12/08). *Il gioco è giocabile con ogni combinazione di eroi?* In **Indagine
+sì**: nessuna delle 330 squadre è chiusa fuori da un contenuto — le 4 Domande
+hanno tutte una fonte core, verificata episodio per episodio — ma la ricchezza
+va da 1,9 a 4,8 Approfondimenti a episodio (×2,6). In **Spedizione no**: 1200
+partite misurate dicono 54% per la squadra di ferro contro 33% per quella di
+vetro, monotòno nel VIGORE e senza inversioni, con quattro episodi (9, 11, 15,
+19) di fatto chiusi a chi non picchia. Trovato e corretto un difetto del
+pilota: l'ordine del party contava (il motore piazza gli eroi in quell'ordine),
+e ora si rimescola a ogni partita. Due strumenti nuovi:
+`webapp/misura-classi.mjs` e `webapp/misura-indagine-classi.py`.
+
 ## Come si riprende
 
 ```bash
@@ -115,6 +128,15 @@ npx --no-install wrangler dev --var OSR_DEV_EMAIL:due@esempio.it --port 8788
 | `test-api`, `test-sync`, `test-access`, `test-account-ui` | salvataggi, coda, JWT, tavoli |
 | `test-ui`, `test-digitale*`, `test-engine` | il gioco (i banchi di misura del bilanciamento) |
 
+**Gli strumenti di misura** (non sono test: non danno OK/KO, danno numeri):
+
+| | cosa misura |
+|---|---|
+| `misura-episodio.mjs epN N` | un episodio giocato davvero. `PARTY=` fissa la squadra; l'**ordine** si rimescola comunque a ogni partita, ed è voluto (vedi BILANCIAMENTO 12/08) |
+| `mappa-pilota.mjs` | tutti i 21 episodi, in parallelo — quando si tocca il MOTORE |
+| `misura-classi.mjs` | 5 squadre estreme × N episodi: **quanto pesa la composizione** |
+| `misura-indagine-classi.py` | l'Indagine su tutte e 330 le squadre — il pilota l'Indagine non la gioca |
+
 ## Quello che resta
 
 1. **Durata sessione Access a 1 month**, sull'applicazione **e sul criterio**
@@ -139,6 +161,13 @@ npx --no-install wrangler dev --var OSR_DEV_EMAIL:due@esempio.it --port 8788
    la loro arte) avranno un'icona mancante su quei due arredi.
 6. Da provare quando capita: una **serata vera**, e la partita **ripresa da un
    altro dispositivo**.
+7. **Le abilità morte del digitale** (referto `AUDIT-CLASSI.md`, 12/08): Voce
+   ferma di Serra, Esca preziosa di Carbone e Colpo da macello di Ottone hanno
+   il bottone, spendono carica e azione e **non fanno niente**; i nove oggetti
+   personali degli eroi sono mostrati nella scheda e mai applicati. È la prima
+   cosa da fare prima di ritarare qualunque numero di bilanciamento, perché
+   riguarda proprio gli eroi che oggi risultano deboli. La modalità tavolo non
+   c'entra: lì li applica chi gioca, ed è dichiarato nel codice.
 
 ## Cose sapute che il codice non dice
 

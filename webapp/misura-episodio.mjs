@@ -558,10 +558,18 @@ const righe = [];
 let dimParty = 4;   // dimensione reale della squadra giocata (per l'intestazione)
 for (let g = 0; g < N; g++) {
   // PARTY=nome1,nome2,... forza una squadra fissa (per isolare la varianza del
-  // party da quella dei dadi); senza, quattro eroi a caso come al tavolo
-  const party = process.env.PARTY
+  // party da quella dei dadi); senza, quattro eroi a caso come al tavolo.
+  //
+  // L'ORDINE si rimescola comunque a ogni partita, anche con PARTY fisso: non
+  // e' una proprieta' della squadra, e' dove si siedono. Il motore piazza gli
+  // eroi sulla tessera d'ingresso *nell'ordine del party* (digitale.js:328),
+  // quindi tenerlo fisso misurava la sedia insieme alla squadra — sull'Ep.9,
+  // gli stessi quattro eroi davano 60% o 10% a seconda di chi era scritto per
+  // primo. Misurato il 12/08/2026, ed e' il motivo per cui questa riga esiste.
+  const party = (process.env.PARTY
     ? process.env.PARTY.split(',').map((x) => comune.eroi.find((e) => e.nome.toUpperCase().includes(x.toUpperCase()))?.nome).filter(Boolean)
-    : comune.eroi.map((e) => e.nome).sort(() => Math.random() - 0.5).slice(0, 4);
+    : comune.eroi.map((e) => e.nome).sort(() => Math.random() - 0.5).slice(0, 4)
+  ).sort(() => Math.random() - 0.5);
   dimParty = party.length;
   await pg.goto(BASE, { waitUntil: 'domcontentloaded' });
   await pg.evaluate(({ p, k, id, TIER, OGG, MODO, C0 }) => {

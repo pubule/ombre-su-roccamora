@@ -358,3 +358,63 @@ Ordine consigliato, per quanto è incerto ciò che si scoprirebbe:
 Per ogni sessione, riportare qui: quante ore restavano a fine Indagine, quante
 Domande esatte, dove il tavolo si è fermato a discutere, dove si è annoiato, e
 se qualcuno ha detto ad alta voce la cosa che l'episodio voleva far dire.
+
+---
+
+# 12/08/2026 — il bilanciamento fra le CLASSI (referto: AUDIT-CLASSI.md)
+
+Domanda nuova, che la mappa per episodio non poteva porre: **con quali quattro
+eroi si può giocare?** Undici eroi, squadre da quattro: 330 combinazioni.
+
+Due strumenti nuovi, perché non ce n'erano:
+
+- `webapp/misura-classi.mjs` — il pilota con `PARTY=` fisso, 5 squadre estreme
+  × 12 episodi × 20 partite. **1200 partite.**
+- `webapp/misura-indagine-classi.py` — l'Indagine, che il pilota non gioca:
+  il conto esatto delle regole di `indagine.js` con dadi veri, su tutte e 330
+  le squadre × 21 episodi. Non è un pilota ed è dichiarato tale.
+
+## Il difetto dello strumento trovato prima del risultato
+
+La prima tornata dava sull'Ep. 9 uno 0% contro 90%, riproducibile. Non era la
+squadra: erano **gli stessi quattro eroi in ordine diverso** (60% contro 10%).
+`iniziaPartita()` piazza gli eroi sulla tessera d'ingresso nell'ordine del
+party (`digitale.js:328`); per un tavolo umano è irrilevante, per un pilota
+che punta la meta e va decide chi tira il gruppo. Ora `misura-episodio.mjs`
+**rimescola l'ordine a ogni partita** anche con `PARTY=` fisso.
+
+Misurato di conseguenza il **rumore reale**: quattro corse identiche della
+stessa squadra sullo stesso episodio danno 20-25-30-40%. **A 20 partite la
+singola casella non significa niente**; conta la media su dodici episodi.
+
+## Il risultato
+
+| squadra | VIGORE | Salute | NERVI | vittorie (240 partite) |
+|---|--:|--:|--:|--:|
+| ferro (ottone, mora, nino, marn) | 10 | 29 | 6 | **54%** |
+| misto (elena, ottone, marn, sibilla) | 7 | 27 | 9 | 45% |
+| muti (nino, marani, carbone, mora) | 7 | 26 | 8 | 44% |
+| occulto (sibilla, marani, carbone, serra) | 4 | 24 | 11 | 38% |
+| vetro (elena, carla, serra, brera) | 4 | 24 | 8 | **33%** |
+
+**Monotòna nel VIGORE, senza inversioni.** 21 punti fra gli estremi, con
+incertezza ~3: sei volte il rumore. Il NERVI **non compensa** — «occulto» ha
+il NERVI massimo della campagna ed è la seconda peggiore — benché il gioco
+chieda 92 prove di NERVI contro 29 di VIGORE. Il contrappeso è progettato e
+non funziona: +21% di colpi a segno si applica due volte per round per eroe,
+la penalità NERVI solo quando esce la carta, e la Salute sta dalla stessa
+parte del VIGORE invece che dall'altra.
+
+**Quattro episodi si chiudono a chi non picchia**: Ep. 9, 11, 15, 19 — vetro
+fra 0% e 20%, ferro fra 35% e 65%. Chiedono tutti la stessa cosa (fermare
+qualcuno in fretta) e nessuno offre una strada che non sia la mischia.
+
+## Perché NON si tara adesso
+
+In modalità digitale **tre abilità di Spedizione** (Voce ferma di Serra, Esca
+preziosa di Carbone, Colpo da macello di Ottone) e **nove oggetti personali**
+sono stampati sulla carta dell'eroe e il motore non li applica. Serra e
+Carbone spendono carica e azione per niente. Cinque dei nove oggetti sono
+difensivi e stanno in mano agli eroi fragili. Il 33% della squadra di vetro è
+quindi la misura del gioco **incompleto**: prima si accende, poi si rimisura,
+e solo dopo si decide se c'è un numero da toccare.
