@@ -15,8 +15,15 @@ for d in public data assets ../fonts; do
   [ -d "$d" ] || { echo "manca $d — lancia export-data.py/js, export-assets.py, ./fetch_fonts.sh"; exit 1; }
 done
 
-rm -rf dist
-cp -r public dist
+# Si svuota il CONTENUTO, non si cancella la cartella. La differenza conta
+# quando due `wrangler dev` girano insieme — ed e' la procedura documentata per
+# provare l'isolamento fra account, che con un utente solo non si prova: il
+# primo tiene `dist` aperta, e su Windows una directory aperta non si cancella.
+# Il secondo moriva li', sul suo build custom, prima ancora di partire.
+mkdir -p dist
+find dist -mindepth 1 -delete 2>/dev/null || true
+
+cp -r public/. dist/
 cp -r data dist/data
 cp -r assets dist/assets
 cp -r ../fonts dist/fonts
