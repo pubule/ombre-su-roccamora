@@ -16,6 +16,7 @@ import { abilitaSchede } from './scheda-eroe.js';
 import { controBusta } from './engine.js';
 import { conferma } from './chiedi.js';
 import * as griglia from '../motore/griglia.js';
+import * as stat from '../motore/stat.js';
 
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) =>
   ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -71,7 +72,7 @@ const urlBoard = (tileId) => `/assets/${encodeURI(ctx.ep.cartella)}/board/${tile
 // `_layout` e' un getter/setter su ctx.layout, cosi' la memoizzazione resta
 // dov'era e si azzera insieme al resto quando si cambia partita.
 const G = () => ({
-  ep: ctx.ep, sp: SP(), partita: P(),
+  ep: ctx.ep, comune: ctx.comune, sp: SP(), partita: P(),
   get _layout() { return ctx.layout; },
   set _layout(v) { ctx.layout = v; },
 });
@@ -87,54 +88,20 @@ const celleAdiacLibere = (node, blocco) => griglia.celleAdiacLibere(G(), node, b
 const adiacGlob = (a, b) => griglia.adiacGlob(G(), a, b);
 
 // ------------------------------------------------------------- dati di gioco
-const eroe = (nm) => ctx.comune.eroi.find((e) => e.nome === nm);
-const nemStat = (nome) => {
-  const base = ctx.comune.nemici.find((n) => n.nome === nome);
-  // TARATURA PER EPISODIO: `ep.nemici_mod` puo' ammorbidire (o indurire) i
-  // nemici di quell'episodio senza toccare le loro statistiche stampate, che
-  // sono condivise fra episodi. Es. `{ dan: -1 }` toglie 1 Danno a tutti; una
-  // chiave col nome del nemico lo colpisce solo lui. Serve dove un episodio e'
-  // troppo letale nel finale ma i nemici non si possono indebolire altrove.
-  const mod = ctx.ep && ctx.ep.nemici_mod;
-  if (!base || !mod) return base;
-  const delta = mod[nome] || mod.tutti || null;
-  if (!delta) return base;
-  const out = { ...base };
-  for (const k of ['dan', 'att', 'dif', 'fer']) if (delta[k]) out[k] = Math.max(0, (out[k] || 0) + delta[k]);
-  return out;
-};
-const movimento = (nm) => (nm.includes('NINO') ? 4 : 3);
-function fascia(taglia) {
-  if (taglia === 2 || taglia === 4) return 0;
-  if (taglia === 3 || taglia === 5) return 1;
-  if (taglia === 6) return 2;
-  if (taglia <= 8) return 3;
-  return 4;
-}
-const feriteMaxNem = (st) => st.ferite_per_fascia[fascia(P().party.length)];
-function saluteMax(e) {
-  const bonus = ctx.comune.regole.salute_bonus_per_taglia[String(P().party.length)] || 0;
-  // IL VANTAGGIO D'INDAGINE (stessa formula del tavolo, spedizione.js:62): chi
-  // e' arrivato in anticipo o preparato ha +1 Salute massima. Mancava, e la
-  // modalita' digitale giocava con un punto in meno a testa rispetto alle
-  // regole stampate — piu' dura del gioco vero, per tutti, sempre.
-  const tier = (P().vantaggi || {}).tier;
-  const bonusTier = (tier === 'slancio' || tier === 'preparati') ? 1 : 0;
-  // BONUS SALUTE D'EPISODIO (`ep.salute_extra`): certi episodi concedono Salute
-  // in piu' a testa — una regola dell'episodio, stampabile, che non tocca le
-  // statistiche dei nemici (condivise). Serve dove la marcia lunga decima il
-  // gruppo prima che arrivi in fondo (Atto I-II).
-  const extra = ctx.ep.salute_extra || 0;
-  return e.salute + bonus + bonusTier + extra;
-}
-// ------------------------------------------------------------ PNG scortati
-// Dato per episodio (webapp/data/epN.json → `scortato`): pedina, prigione,
-// tessera-vittoria, prova di liberazione. Regolamento: il PNG non e' un eroe,
-// i nemici lo ignorano, si muove nel turno degli eroi (Mov 3) e non agisce.
-const specScortati = () => (ctx.ep.scortato || []);
-const specScort = (i) => specScortati()[i] || {};
-const statoScortati = () => (SP().scortati || []);
-const scortAttivo = () => { const v = SP().scortAttivo; return (v === 0 || v > 0) ? v : null; };
+// Anche queste sono uscite di qui: stanno in motore/stat.js. Non sono dati ma
+// calcoli — la stessa carta Eroe vale 6 di Salute in due e 8 in dieci, e la
+// stessa carta Nemico e' piu' morbida in un episodio tarato — quindi vanno
+// dove vanno le regole.
+const eroe = (nm) => stat.eroe(G(), nm);
+const nemStat = (nome) => stat.nemStat(G(), nome);
+const movimento = (nm) => stat.movimento(G(), nm);
+const fascia = (taglia) => stat.fascia(G(), taglia);
+const feriteMaxNem = (st) => stat.feriteMaxNem(G(), st);
+const saluteMax = (e) => stat.saluteMax(G(), e);
+const specScortati = () => stat.specScortati(G());
+const specScort = (i) => stat.specScort(G(), i);
+const statoScortati = () => stat.statoScortati(G());
+const scortAttivo = () => stat.scortAttivo(G());
 
 // nodi occupati (eroi + nemici + PNG scortati), tranne exclKey. `soloNemici`:
 // escludi gli eroi (cammino eroi: gli alleati si attraversano). `senzaScortati`:
@@ -288,29 +255,12 @@ function render() {
 // celle di arrivo raggiungibili dall'eroe (alleati attraversabili, ci si ferma
 // solo su celle libere; le porte verso stanze coperte sono bersagli reveal).
 // {} se ha gia' mosso o non e' la fase eroi.
-function raggEroe(nm) {
-  const sp = SP();
-  if (sp.fase !== 'eroi' || azioneSpesa(nm, 'muovere') || !azioniRestano(nm)) return {};
-  const start = sp.eroiPos[nm];
-  const info = esploraMosse(start, movimento(nm), occupati(`E:${nm}`, true, true));  // solo nemici murano (alleati e PNG scortati attraversabili)
-  const tuttiOcc = occupati(`E:${nm}`, false);
-  const out = {};
-  for (const [k, v] of Object.entries(info)) { if (v.dist === 0 || tuttiOcc.has(k)) continue; out[k] = v; }
-  return out;
-}
+const raggEroe = (nm) => stat.raggEroe(G(), nm);
 
 // ESCA PREZIOSA di Carbone: le caselle dove il monile puo' arrivare — entro 3,
 // libere, in stanze gia' rivelate. Stessa esplorazione del movimento, budget 3:
 // un monile lanciato non passa i muri piu' di quanto ci passi un uomo.
-function celleEsca(nm) {
-  const sp = SP(); const start = sp.eroiPos[nm];
-  if (!start) return {};
-  const info = esploraMosse(start, 3, occupati(`E:${nm}`, true, true));
-  const occ = occupati(`E:${nm}`, false);
-  const out = {};
-  for (const [k, v] of Object.entries(info)) { if (v.dist === 0 || v.reveal || occ.has(k)) continue; out[k] = v; }
-  return out;
-}
+const celleEsca = (nm) => stat.celleEsca(G(), nm);
 
 // `senzaMosse`: la plancia disegnata mentre agisce la notte non accende le
 // caselle dell'eroe. NON si puo' dedurre da `SP().fase`, e il test lo ha
@@ -433,18 +383,8 @@ function nemiciHtml() {
       <span class="nemico-pips">${Array.from({ length: n.max }, (_, k) => `<span class="pip-ferita ${k < n.ferite ? 'piena' : ''}"></span>`).join('')}</span></div>`;
   }).join('');
 }
-const primo = (nome) => {
-  const toks = String(nome).split(' ').filter(Boolean);
-  const t = (toks[0] === 'DOTT.' || toks[0] === 'PADRE') ? (toks[1] || toks[0]) : toks[0];
-  return t.replace(/["“”]/g, '').toLowerCase();
-};
-function eroiAttivoNome() {
-  const sp = SP(); const fatti = sp.eroiFatti || [];
-  if (scortAttivo() != null) return null;        // PNG scortato selezionato: nessun eroe attivo
-  const vivi = P().party.filter((nm) => (sp.vite[nm] ?? 0) > 0);
-  if (sp.eroiAttivo && vivi.includes(sp.eroiAttivo) && !fatti.includes(sp.eroiAttivo)) return sp.eroiAttivo;
-  return vivi.find((nm) => !fatti.includes(nm)) || null;
-}
+const primo = stat.primo;
+const eroiAttivoNome = () => stat.eroiAttivoNome(G());
 function giroEroiHtml() {
   const sp = SP(); const fatti = sp.eroiFatti || []; const attivo = eroiAttivoNome();
   const chips = P().party.map((nm) => {
@@ -465,28 +405,15 @@ function giroEroiHtml() {
 }
 // celle raggiungibili da un PNG scortato (Mov 3): passa per eroi/porte, blocca
 // sui nemici, non rivela tessere, non si ferma su celle occupate
-function raggScortato(i) {
-  const g = statoScortati()[i];
-  if (scortAttivo() !== i || !g || !g.liberato || !g.pos) return {};
-  const info = esploraMosse(g.pos, specScort(i).mov || 3, occupati(`S:${i}`, true, true));  // solo nemici murano
-  const tuttiOcc = occupati(`S:${i}`, false);
-  const out = {};
-  for (const [k, v] of Object.entries(info)) { if (v.dist === 0 || v.reveal || tuttiOcc.has(k)) continue; out[k] = v; }
-  return out;
-}
+const raggScortato = (i) => stat.raggScortato(G(), i);
 
 // ------------------------------------------------------------------ azioni
 const tipiAzione = { muovere: 'Muovere', attaccare: 'Attaccare', cercare: 'Cercare', interagire: 'Interagire', rianimare: 'Rianimare', abilita: 'Abilità', oggetto: 'Oggetto' };
-const azioniOf = (nm) => (SP().azioni[nm] || []);
-const azioneSpesa = (nm, tipo) => azioniOf(nm).includes(tipo);
-// un eroe stordito (insidia/fumi) ha 1 sola azione nel round indicato
-const stordito = (nm) => (SP().storditi && SP().storditi[nm] === SP().round);
-// SLANCIO: nel primo round ogni eroe ha 3 azioni invece di 2 (sempre di tipo
-// diverso). Il tavolo lo annuncia da sempre (spedizione.js:236); il digitale
-// non lo applicava, quindi il vantaggio piu' alto dell'Indagine valeva zero.
-const azioniMax = (nm) => (stordito(nm) ? 1
-  : (SP().round === 1 && (P().vantaggi || {}).tier === 'slancio') ? 3 : 2);
-const azioniRestano = (nm) => azioniOf(nm).length < azioniMax(nm);
+const azioniOf = (nm) => stat.azioniOf(G(), nm);
+const azioneSpesa = (nm, tipo) => stat.azioneSpesa(G(), nm, tipo);
+const stordito = (nm) => stat.stordito(G(), nm);
+const azioniMax = (nm) => stat.azioniMax(G(), nm);
+const azioniRestano = (nm) => stat.azioniRestano(G(), nm);
 
 function azioniHtml() {
   const sp = SP();
@@ -644,15 +571,7 @@ async function usaAbilita(nm) {
 // round dopo finche' Serra non ha ancora speso un'azione. L'adiacenza si
 // guarda al momento del tiro, non a quello dell'abilita': e' la sua voce che
 // arriva, e se ti allontani non ti arriva piu'.
-function bonusVoce(nm, stat) {
-  const sp = SP(); const v = sp.voceFerma;
-  if (!v || String(stat).toLowerCase() !== 'nervi' || v.da === nm) return [];
-  const ancora = sp.round === v.round
-    || (sp.round === v.round + 1 && !(sp.azioni[v.da] || []).length);
-  if (!ancora || (sp.vite[v.da] ?? 0) <= 0) return [];
-  if (!sp.eroiPos[nm] || !sp.eroiPos[v.da] || !adiacGlob(sp.eroiPos[nm], sp.eroiPos[v.da])) return [];
-  return [{ label: `Voce ferma di ${primo(v.da)}`, val: 2 }];
-}
+const bonusVoce = (nm, quale) => stat.bonusVoce(G(), nm, quale);
 
 // una prova richiesta da un testo (oggetto/tessera/carta): "... NERVI (Media) ..."
 function provaRichiesta(text) {
