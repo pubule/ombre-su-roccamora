@@ -155,17 +155,29 @@ regole di Spedizione da `digitale.js` in `webapp/public/motore/`, pure e
 isomorfe, perché le stesse girino nel browser dell'arbitro, sul telefono di un
 giocatore e domani in un Durable Object. **A schermo non cambia niente.**
 
-Fatto finora:
+**`digitale.js`: da 2495 a 1994 righe.** Tutto collegato e verde.
 
-| modulo | stato | rete |
-|---|---|---|
-| `motore/rng.js` | ✅ collegato | test di comportamento, provato non vacuo |
-| `motore/griglia.js` | ✅ collegato | differenziale, 30000 confronti |
-| `motore/stat.js` | scritto, **non collegato** | differenziale, 26400 confronti |
-| `motore/regole.js` | scritto, **non collegato** | comportamento, sui dati veri |
+| modulo | rete |
+|---|---|
+| `motore/rng.js` | comportamento; 4 sabotaggi catturati |
+| `motore/griglia.js` | differenziale, 30000 confronti |
+| `motore/stat.js` | differenziale, 26400 confronti |
+| `motore/regole.js` | comportamento sui dati veri dei 21 episodi |
+| `motore/obiettivi.js` | differenziale, 15600 confronti — **ritorno E stato** |
 
-Gli ultimi due aspettano che finisca la baseline: **il codice sotto una misura
-non si tocca** (vedi sotto). Poi si collegano e si verifica col pilota.
+`engine.js` è passato da 315 a 92 righe: tiene solo l'html-lite, le frasi delle
+piste fredde e i percorsi dei jpg, e ri-esporta il resto, così `indagine.js`,
+`spedizione.js` e `digitale.js` non cambiano una riga.
+
+**Ancora da fare:** `vittoria`, `minaccia`, `nemici`, poi il contratto
+`applica()` con `eventi[]` e `stato.pendenza` (è il pezzo di design vero), le
+tre funzioni miste grosse (`usaAbilita`, `azioneInteragire`, `attaccaNemico`),
+`replay.js`, il pilota headless e il cancello finale.
+
+**I differenziali che mutano lo stato confrontano due cose**, il valore di
+ritorno *e* la partita che lasciano dietro. Una funzione che torna gli annunci
+giusti sporcando `compiti` o `canto` in modo diverso passerebbe un confronto
+sul solo ritorno, e sposterebbe il bilanciamento in silenzio.
 
 **Il motore sta sotto `public/`** e non accanto a `webapp/`: l'import relativo
 deve risolvere sia per node (filesystem) sia per il browser (HTTP, root del
