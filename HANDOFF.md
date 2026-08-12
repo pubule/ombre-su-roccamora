@@ -128,6 +128,12 @@ npx --no-install wrangler dev --var OSR_DEV_EMAIL:due@esempio.it --port 8788
 node webapp/test-api.mjs && node webapp/test-membri.mjs
 ```
 
+**`test-tavolo-do` vuole un server solo**, non due: due `wrangler dev` hanno
+**due Durable Object separati** — condividono il D1 locale, non i DO — quindi
+la partita viva sarebbe due partite diverse. Chi sia chi lo dice l'header
+`X-Osr-Dev-Email`, che vale solo dove `OSR_DEV_EMAIL` è già impostata, cioè
+solo in `wrangler dev`.
+
 **Due cose che costano un'ora se non si sanno.** `build-dist.sh` svuotava
 `dist` cancellandola: il primo `wrangler dev` la tiene aperta e il secondo
 moriva sul proprio build — la procedura qui sopra non poteva funzionare, ed è
@@ -147,6 +153,8 @@ si misura il codice di prima e si crede di aver verificato qualcosa.
 | `test-abilita` | le abilità di Spedizione **agiscono** invece di essere narrate (esca, colpo da macello); vuole il server acceso |
 | `test-api`, `test-sync`, `test-access`, `test-account-ui` | salvataggi, coda, JWT, tavoli |
 | `test-membri` | **l'ACL dei membri**: chi entra al tavolo di un altro, chi cancella cosa. Provato non vacuo: aprendo il buco su `DELETE /api/tavolo` il test lo dice |
+| `test-motore-proiezione` | **cosa NON arriva al giocatore**, su tutti i 21 episodi: la busta, i luoghi non visitati, le tessere coperte, l'ordine del mazzo. Assert negativi |
+| `test-tavolo-do` | **la partita viva**: il giocatore muove solo il suo eroe, la notte è di chi conduce, a ognuno la sua proiezione. Vuole UN SOLO `wrangler dev` (vedi sotto) |
 | `test-partite` | 42 giocate intere in modalità **tavolo**, dall'ingresso alla vittoria — l'unico che copre `spedizione.js` end-to-end |
 | `test-ui`, `test-digitale*`, `test-engine` | il gioco (i banchi di misura del bilanciamento) |
 
