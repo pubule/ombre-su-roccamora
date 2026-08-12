@@ -42,7 +42,7 @@ const VIETATI = [
   ['require(', 'CommonJS: il motore e\' ESM'],
 ];
 
-const dir = 'webapp/motore';
+const dir = 'webapp/public/motore';
 let file;
 try { file = readdirSync(dir).filter((f) => f.endsWith('.js')); }
 catch { console.error(`FAIL: la cartella ${dir} non esiste`); process.exit(1); }

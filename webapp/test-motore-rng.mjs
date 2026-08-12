@@ -7,7 +7,7 @@
 // si ripete identica — e una regressione si distingue dalla varianza.
 //
 // node webapp/test-motore-rng.mjs
-import { creaRng, prossimo, interoFino, tira2d6, mescola } from './motore/rng.js';
+import { creaRng, prossimo, interoFino, tira2d6, mescola } from './public/motore/rng.js';
 
 let ko = 0;
 const ok = (c, m) => { if (!c) { console.error('FAIL:', m); ko++; } };
