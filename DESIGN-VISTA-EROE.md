@@ -228,9 +228,21 @@ convertire le diciannove sospensioni in comandi completi più `pendenza`,
 introdurre `eventi[]` e `replay.js`. Il motore **gira ancora nel client**: a
 schermo non cambia niente.
 
-**Cancello:** pilota Playwright verde 21/21 **e** un confronto a seme fissato — si
-registrano i `Math.random()` del codice attuale su ventuno episodi, si riproduce
-la stessa sequenza nel motore nuovo, gli esiti devono coincidere esattamente.
+**Cancello — corretto il 12/08/2026, dopo aver letto il pilota.** Qui c'era
+scritto «gli esiti devono coincidere esattamente, a seme fissato». **Non è
+realizzabile**: il pilota è un bot che clicca, e la sua sequenza di
+`Math.random()` dipende dal timing dell'animazione, quindi «stessa sequenza di
+random» non è una condizione riproducibile. Al suo posto, tre reti:
+
+1. **Test differenziale** sulle ~700 righe pure: ogni funzione estratta viene
+   confrontata con l'originale (preso da git a SHA fisso) su migliaia di stati
+   generati. Deterministico e automatico — è la rete forte.
+2. **Test di regressione esistenti** verdi a ogni task.
+3. **Mappa pilota dentro la banda di rumore**, N=20 prima e dopo, ogni corsa
+   VALIDA. È l'unica rete per le ~450 righe miste, che oracolo automatico non
+   hanno.
+
+Il dettaglio sta in `PIANO-MOTORE-PURO.md`.
 
 Vale da sola anche senza il resto: un motore solo, misure riproducibili.
 
