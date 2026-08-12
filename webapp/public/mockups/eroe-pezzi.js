@@ -33,44 +33,73 @@
 </div>`;
 
   // ---- la plancia ----
-  // Due tessere affiancate, la griglia sopra, i segnalini alle loro celle.
-  // Le caselle raggiungibili si accendono SOLO quando tocca a me: illuminare
-  // il cammino di un altro confonde e basta.
+  // COME QUELLA DELL'ARBITRO, non un disegno somigliante. Tre cose sono prese
+  // dal motore vero, perche' sbagliarle rende il mockup inutile per decidere:
+  //
+  //   - la tessera e' 4x4 (`griglia.dentro`), non 5x5;
+  //   - `y` cresce verso l'ALTO nel modello e verso il basso a schermo, quindi
+  //     a video la riga e' `3 - y` — la stessa formula di `scr()` in digitale.js;
+  //   - le tessere stanno una accanto all'altra secondo `griglia.layout()`: per
+  //     l'Ep.1 T2 e' a OVEST di T3, non sotto.
+  //
+  // Le celle accese sono quelle VERE, calcolate con `stat.raggEroe()` per Elena
+  // ferma in T3(1,1) — sono 11, dieci dentro T3 e una in T2 oltre la porta O.
+  // Erano inventate, e si vedeva: caselle gialle sparse attorno all'eroe che non
+  // corrispondevano a nessun cammino. Per rigenerarle:
+  //   node -e "import('./webapp/public/motore/stat.js')…raggEroe(g, ELENA)"
+  const TESS = ['T2', 'T3'];                       // ordine da layout(): T2 [0,1], T3 [1,1]
+  const COL = TESS.length * 4;                     // 8 colonne di celle
+  const RIG = 4;
+  const cel = (t, x, y) => ({ c: TESS.indexOf(t) * 4 + x, r: 3 - y });   // come scr()
+
+  const IO_POS = { t: 'T3', x: 1, y: 1 };
   const TOK = [
-    { cls: 'io', art: IO.art, t: 0, x: 1, y: 2 },
-    { cls: '', art: ALTRO.art, t: 0, x: 2, y: 3 },
-    { cls: '', art: 'Ottone.png', t: 1, x: 1, y: 1 },
-    { cls: 'nem', art: 'Adepto Incappucciato.png', t: 1, x: 3, y: 2 },
-    { cls: 'nem boss', art: 'Il Custode della Cera (boss).png', t: 1, x: 2, y: 4 },
+    { cls: 'io', art: IO.art, ...IO_POS },
+    { cls: '', art: ALTRO.art, t: 'T3', x: 2, y: 0 },
+    { cls: '', art: 'Ottone.png', t: 'T2', x: 1, y: 2 },
+    { cls: 'nem', art: 'Adepto Incappucciato.png', t: 'T3', x: 3, y: 1 },
+    { cls: 'nem boss', art: 'Il Custode della Cera (boss).png', t: 'T2', x: 0, y: 3 },
   ];
-  const MOSSE = ['1,1', '0,2', '2,2', '1,3', '1,0'];   // celle raggiungibili da Elena, tessera 0
+  const MOSSE = [
+    { t: 'T3', x: 2, y: 1 }, { t: 'T3', x: 0, y: 1 }, { t: 'T3', x: 1, y: 2 },
+    { t: 'T3', x: 1, y: 0 }, { t: 'T3', x: 3, y: 1 }, { t: 'T3', x: 2, y: 2 },
+    { t: 'T3', x: 0, y: 2 }, { t: 'T3', x: 1, y: 3 }, { t: 'T3', x: 3, y: 2 },
+    { t: 'T3', x: 2, y: 3 }, { t: 'T2', x: 3, y: 2 },
+  ];
 
   const plancia = (extra) => {
-    const tess = [S.tessere[2], S.tessere[3]];          // T3 rivelata, T4 ancora coperta
-    const celle = (i) => Array.from({ length: 25 }, (_, k) => {
-      const x = k % 5; const y = (k / 5) | 0;
-      const acc = i === 0 && MOSSE.includes(`${x},${y}`);
+    const perc = (v, tot) => (v * 100 / tot);
+    const tessere = TESS.map((id) => {
+      const t = S.tessere.find((x) => x.id === id) || { id, nome: id, rivelata: true };
+      return `<div class="tess ${t.rivelata ? '' : 'coperta'}">
+        <img src="${urlTessera(t)}" alt="">
+        <span class="et">${t.id} · ${t.rivelata ? esc((t.nome || '').toLowerCase()) : 'coperta'}</span>
+      </div>`;
+    }).join('');
+
+    // la griglia sta SOPRA le tessere ed e' unica: le celle non si fermano al
+    // bordo di una tessera, e nemmeno il movimento
+    const celle = Array.from({ length: COL * RIG }, (_, k) => {
+      const c = k % COL; const r = (k / COL) | 0;
+      const acc = MOSSE.some((m) => { const p = cel(m.t, m.x, m.y); return p.c === c && p.r === r; });
       return `<div class="cel ${acc ? 'mossa' : ''}"></div>`;
     }).join('');
+
+    const token = TOK.map((k) => {
+      const p = cel(k.t, k.x, k.y);
+      const w = k.cls.includes('boss') ? 13 : 11;
+      const l = perc(p.c, COL) + (100 / COL - w) / 2;
+      const t = perc(p.r, RIG) + (100 / RIG - w * COL / RIG) / 2;
+      return `<span class="tk ${k.cls}" style="left:${l}%;top:${t}%;width:${w}%;aspect-ratio:1">
+        <img src="${urlArt(k.art)}" alt=""></span>`;
+    }).join('');
+
     return `
 <div class="plancia">
   <div class="campo">
-  <div class="tessere">
-    ${tess.map((t, i) => `
-    <div class="tess ${t.rivelata ? '' : 'coperta'}">
-      <img src="${urlTessera(t)}" alt="">
-      <div class="griglia" style="grid-template-columns:repeat(5,1fr);grid-template-rows:repeat(5,1fr)">${celle(i)}</div>
-      <span class="et">${t.id} · ${t.rivelata ? esc(t.nome.toLowerCase()) : 'coperta'}</span>
-    </div>`).join('')}
-  </div>
-  ${TOK.map((k) => {
-    // le tessere sono impilate: la seconda comincia a meta' del campo
-    const l = k.x * 20 + 2.4;
-    const t = k.t * 50 + k.y * 10 + 1.2;
-    const w = k.cls.includes('boss') ? 17 : 15;
-    return `<span class="tk ${k.cls}" style="left:${l}%;top:${t}%;width:${w}%;aspect-ratio:1">
-      <img src="${urlArt(k.art)}" alt=""></span>`;
-  }).join('')}
+    <div class="tessere">${tessere}</div>
+    <div class="griglia" style="grid-template-columns:repeat(${COL},1fr);grid-template-rows:repeat(${RIG},1fr)">${celle}</div>
+    ${token}
   </div>
   ${extra || ''}
 </div>`;
@@ -143,5 +172,16 @@
       <a class="btn" href="../index.html">← mockup</a></div>`;
   };
 
-  window.EROE = { IO, ALTRO, pips, testa, turno, plancia, ioCard, azioni, altri, obiettivo, leve };
+  // La plancia si apre CENTRATA SU DI ME. Aperta in un angolo, la prima cosa da
+  // fare sarebbe scorrere per trovarsi — e su un telefono, in mezzo a una
+  // partita, quello e' esattamente il gesto che fa perdere il filo.
+  const centra = () => {
+    for (const pl of document.querySelectorAll('.plancia')) {
+      const io = pl.querySelector('.tk.io'); if (!io) continue;
+      pl.scrollLeft = io.offsetLeft - pl.clientWidth / 2 + io.clientWidth / 2;
+      pl.scrollTop = io.offsetTop - pl.clientHeight / 2 + io.clientHeight / 2;
+    }
+  };
+
+  window.EROE = { IO, ALTRO, pips, testa, turno, plancia, ioCard, azioni, altri, obiettivo, leve, centra };
 })();

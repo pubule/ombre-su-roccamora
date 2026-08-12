@@ -37,11 +37,6 @@ document.getElementById('tel').innerHTML =
   + E.plancia('<button class="btn apri">apri la plancia</button>')
   + '<div class="scorre">' + ritratto + E.azioni() + E.altri() + E.obiettivo() + '</div>';
 
-// La finestra si apre CENTRATA SU DI ME: aperta in cima mostrerebbe un angolo
-// di mappa che non e' dove sto giocando, e la prima cosa da fare sarebbe
-// scorrere.
-const pl = document.querySelector('.plancia');
-const io = document.querySelector('.tk.io');
-if (pl && io) pl.scrollTop = io.offsetTop - pl.clientHeight / 2 + io.clientHeight / 2;
+E.centra();
 </script>
 </body></html>

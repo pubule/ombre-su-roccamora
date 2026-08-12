@@ -46,14 +46,15 @@
 /* I segnalini sono posizionati in percentuale RISPETTO ALLA PLANCIA, quindi le
    tessere devono riempirla esattamente: se restano piu' corte, i token cadono
    nel vuoto sotto. Per questo `.tessere` e' assoluta a filo. */
-.plancia { position: relative; background: var(--abisso); overflow-y: auto;
+.plancia { position: relative; background: var(--abisso); overflow: auto;
   border-bottom: 1px solid rgba(168,131,58,.3); -webkit-overflow-scrolling: touch; }
-/* Il CAMPO e' alto due tessere quadrate e SCORRE dentro la plancia. Schiacciarlo
-   per farlo entrare renderebbe le caselle rettangolari, e una griglia di
-   rettangoli non si legge piu' come una griglia di caselle. */
-.campo { position: relative; width: 100%; aspect-ratio: 1 / 2; }
-.tessere { position: absolute; inset: 0; display: grid; grid-template-columns: 1fr;
-  grid-template-rows: 1fr 1fr; }
+/* Il CAMPO e' largo DUE TESSERE affiancate (8 celle x 4) e scorre dentro la
+   plancia. Schiacciarlo per farlo entrare renderebbe le caselle rettangolari, e
+   una griglia di rettangoli non si legge piu' come una griglia di caselle.
+   La larghezza al 200% tiene le celle quadrate e grandi abbastanza da colpirle
+   col pollice: e' il motivo per cui si scorre invece di rimpicciolire. */
+.campo { position: relative; width: 200%; aspect-ratio: 2 / 1; }
+.tessere { position: absolute; inset: 0; display: grid; grid-template-columns: 1fr 1fr; }
 .tess { position: relative; background: #0a0d10; }
 .tess img { width: 100%; height: 100%; object-fit: cover; opacity: .85; display: block; }
 .tess.coperta img { filter: grayscale(1) brightness(.25); }
@@ -132,7 +133,12 @@
 /* =========================================================================
    1 · POLLICE — la plancia comanda, le azioni stanno dove arriva il pollice
    ========================================================================= */
-.dir-pollice .plancia { flex: 1; min-height: 0; }   /* min-height:0 = puo' comprimersi */
+/* La plancia e' ALTA QUANTO IL CAMPO: il campo e' largo due tessere (8 celle x 4,
+   rapporto 2:1) e a larghezza doppia dello schermo ogni cella viene ~100 px —
+   grande abbastanza per il pollice. Darle piu' altezza lascerebbe solo una banda
+   nera sotto le tessere. Lo spazio che avanza va al tavolo, che serve davvero. */
+.dir-pollice .plancia { flex: none; aspect-ratio: 1 / 1; }
+.dir-pollice .altri { flex: 1; min-height: 0; overflow: hidden; }
 .dir-pollice .io-card { padding: 7px 12px; }
 .dir-pollice .io-card .rit { width: 44px; height: 44px; }
 .dir-pollice .io-card .righe { display: flex; gap: 14px; align-items: center; }

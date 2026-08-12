@@ -9,7 +9,8 @@
   <p class="nota center" style="max-width:420px;margin:10px auto">
     <b>1 · Pollice.</b> La plancia prende quasi tutto e le azioni stanno in fondo, dove il pollice
     arriva senza cambiare presa. La mia scheda è una striscia sottile: quel che serve sapere di me
-    (salute, cariche) sta in una riga, il resto è tavolo.<br>
+    (salute, cariche) sta in una riga. La plancia scorre col dito: le caselle restano grandi
+    abbastanza da colpirle, invece di rimpicciolire per far entrare tutto.<br>
     <b>Da guardare in «gioca un altro»:</b> metà schermo diventa bottoni spenti. È il prezzo di
     tenere le azioni sempre in vista, e a quattro giocatori è lo stato in cui si passano tre turni su quattro.
   </p>
@@ -20,6 +21,7 @@
 const E = window.EROE;
 document.getElementById('leve').innerHTML = E.leve();
 document.getElementById('tel').innerHTML =
-  E.testa() + E.turno() + E.plancia() + E.ioCard() + E.azioni();
+  E.testa() + E.turno() + E.plancia() + E.ioCard() + E.azioni() + E.altri();
+E.centra();
 </script>
 </body></html>
