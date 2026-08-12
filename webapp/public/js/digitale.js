@@ -15,6 +15,7 @@ import { tiraProva } from './dadi.js';
 import { abilitaSchede } from './scheda-eroe.js';
 import { controBusta } from './engine.js';
 import { conferma } from './chiedi.js';
+import { apriCanale } from './canale.js';
 import * as griglia from '../motore/griglia.js';
 import * as stat from '../motore/stat.js';
 import * as obiettivi from '../motore/obiettivi.js';
@@ -135,7 +136,9 @@ const occupati = (exclKey, soloNemici, senzaScortati) =>
 export async function vistaDigitale(app, partita, vaiA, posto) {
   const [ep, comune, carte] = await Promise.all([
     dati(partita.episodio), dati('comune'), dati('carte')]);
-  ctx = { app, partita, ep, comune, carte, vaiA, layout: null, posto: posto || null };
+  ctx = { app, partita, ep, comune, carte, vaiA, layout: null, posto: posto || null,
+          canale: null, tavoloVivo: false, rifMiei: new Set() };
+  collegaAlTavolo();
   abilitaSchede((nm) => comune.eroi.find((x) => x.nome === nm));
   // al tavolo la plancia si guarda in tanti, da lontano e di sbieco: il glide
   // del token rallenta (vedi `.al-tavolo .tok-slot` in app.css) perche' la
@@ -152,6 +155,37 @@ export async function vistaDigitale(app, partita, vaiA, posto) {
   if (!partita.spedizione || !partita.spedizione.digitale) return setup();
   migraScortati(partita.spedizione);
   render();
+}
+
+// IL FILO COL TAVOLO, se c'e' un tavolo.
+//
+// `tavoloVivo` si alza solo quando il tavolo ha davvero mandato una partita.
+// Finche' non l'ha fatto — nessun server, tavolo mai aperto, filo caduto — il
+// motore resta qui e non cambia niente: e' la stessa app di prima. E' una
+// degradazione voluta, non una svista: meglio una partita da soli che una
+// plancia che non risponde ai tocchi.
+function collegaAlTavolo() {
+  if (!ctx.posto || !ctx.posto.tavolo || typeof WebSocket === 'undefined') return;
+  ctx.canale = apriCanale({
+    tavolo: ctx.posto.tavolo,
+    onVista: async (stato, datiVisti, rif, eventi) => {
+      // la propria mossa torna anche come spinta: gli eventi li si e' gia'
+      // messi in scena rispondendo, e rifarlo tirerebbe i dadi due volte
+      if (rif && ctx.rifMiei.has(rif)) { ctx.rifMiei.delete(rif); return; }
+      ctx.tavoloVivo = true;
+      // i dati arrivano POTATI PER IL POSTO: chi gioca un eroe non ha mai
+      // avuto la soluzione, e non deve prendersela da `/data/epN.json`
+      if (datiVisti) {
+        if (datiVisti.ep) ctx.ep = datiVisti.ep;
+        if (datiVisti.comune) ctx.comune = datiVisti.comune;
+        if (datiVisti.carte) ctx.carte = datiVisti.carte;
+      }
+      if (await incassa(stato, eventi)) return;   // la partita e' finita: epilogo
+      render();
+    },
+    onRifiuto: (r) => flash(r.motivo || 'Il tavolo ha rifiutato la mossa.'),
+    onStato: (collegato) => { if (!collegato) ctx.tavoloVivo = false; },
+  });
 }
 
 // salvataggi precedenti al dato per episodio: il singolo `sp.ruggero` diventa
@@ -950,7 +984,55 @@ async function chiediTiro(prova) {
   return r ? [r.d1, r.d2] : null;
 }
 
+// INCASSARE UNO STATO NUOVO, da qualunque parte arrivi: dal motore qui dentro
+// o dal tavolo. E' un punto solo perche' la cosa delicata e' una sola, ed e'
+// bene che stia scritta una volta.
+//
+// SI TRAVASA, non si sostituisce. `applica()` lavora su una copia e restituisce
+// uno stato nuovo — ma la vista tiene riferimenti a questi oggetti:
+// `aggancia()` cattura `const sp = SP()` e li usa nei suoi gestori.
+// Sostituendoli, quei gestori scriverebbero su un oggetto scartato, e il click
+// andrebbe perso senza un errore.
+async function incassa(stato, eventi) {
+  const sped = SP();
+  Object.assign(sped, stato.spedizione);
+  Object.assign(ctx.partita, stato, { spedizione: sped });
+  salvaP();
+  await riproduci(eventi || []);
+  if (SP().esito) { epilogo(); return true; }
+  return false;
+}
+
+// La partita e' viva sul tavolo, non qui: si manda il comando e si aspetta.
+// Il `rif` torna indietro con la spinta, cosi' la si riconosce come propria e
+// non si riproducono gli eventi due volte.
+let contatoreRif = 0;
+async function eseguiSulTavolo(comando) {
+  const rif = `${ctx.posto.ruolo}-${contatoreRif += 1}`;
+  ctx.rifMiei.add(rif);
+  try {
+    const r = await fetch(`/api/tavolo/${encodeURIComponent(ctx.posto.tavolo)}/comando`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ ...comando, rif }),
+    });
+    const out = await r.json();
+    if (!r.ok || out.rifiuto) { flash((out.rifiuto || {}).motivo || 'Il tavolo ha rifiutato la mossa.'); return false; }
+    if (await incassa(out.stato, out.eventi)) return true;
+    if (out.stato.pendenza) { await sciogliPendenza(out.stato.pendenza); return true; }
+    render();
+    return true;
+  } catch {
+    // il filo e' caduto a meta' mossa: non si applica niente in locale, perche'
+    // uno stato inventato qui divergerebbe da quello del tavolo e non ci
+    // sarebbe modo di accorgersene
+    flash('Il tavolo non risponde. La mossa non è stata fatta.');
+    return false;
+  }
+}
+
 async function esegui(comando) {
+  if (ctx.posto && ctx.posto.tavolo && ctx.tavoloVivo) return eseguiSulTavolo(comando);
   const dati = { ep: ctx.ep, comune: ctx.comune, carte: ctx.carte };
   const tiri = alTavolo() ? [] : null;
   if (alTavolo()) {
@@ -971,17 +1053,7 @@ async function esegui(comando) {
       flash(out.rifiuto.motivo);
       return false;
     }
-    // SI TRAVASA, non si sostituisce. `applica()` lavora su una copia e
-    // restituisce uno stato nuovo — ma la vista tiene riferimenti a questi
-    // oggetti: `aggancia()` cattura `const sp = SP()` e li usa nei suoi
-    // gestori. Sostituendoli, quei gestori scriverebbero su un oggetto
-    // scartato, e il click andrebbe perso senza un errore.
-    const sped = SP();
-    Object.assign(sped, out.stato.spedizione);
-    Object.assign(ctx.partita, out.stato, { spedizione: sped });
-    salvaP();
-    await riproduci(out.eventi);
-    if (SP().esito) { epilogo(); return true; }
+    if (await incassa(out.stato, out.eventi)) return true;
     if (out.pendenza) { await sciogliPendenza(out.pendenza); return true; }
     render();
     return true;

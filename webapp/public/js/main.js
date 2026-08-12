@@ -410,10 +410,13 @@ async function postoDiQuestoTavolo() {
     if (!r.ok) return null;
     const s = await r.json();
     const t = (s.tavoli || []).find((x) => x.id === id);
-    if (!t || t.ruolo === 'arbitro') return null;
-    return { ruolo: 'giocatore', eroe: t.eroe || null };
+    if (!t) return null;
+    // Anche chi arbitra ha un posto, e serve: e' collegandosi che vede
+    // comparire le mosse fatte dai telefoni. Senza, resterebbe l'unico al
+    // tavolo a non sapere cos'e' successo.
+    return { tavolo: id, ruolo: t.ruolo === 'arbitro' ? 'arbitro' : 'giocatore', eroe: t.eroe || null };
   } catch {
-    return null;                       // nessun server: si arbitra, com'era
+    return null;                       // nessun server: si arbitra da soli, com'era
   }
 }
 

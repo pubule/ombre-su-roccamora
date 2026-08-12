@@ -136,17 +136,24 @@ export class Partita extends DurableObject {
 
     out.stato.aggiornato = Date.now();
     await this.scrivi(out.stato, { subito: !!out.stato.spedizione.esito });
-    this.spargi(out, dati);
-    return Response.json({ ...vista(out.stato, dati, posto), eventi: out.eventi });
+    this.spargi(out, dati, cmd.rif);
+    return Response.json({ ...vista(out.stato, dati, posto), eventi: out.eventi, rif: cmd.rif });
   }
 
   // Manda a ogni sessione la SUA vista. Non si spedisce lo stato intero e poi
   // si filtra sul client: quello sarebbe averlo gia' mandato.
-  spargi(out, dati) {
+  //
+  // `rif` e' il contrassegno di chi ha mandato il comando, e torna indietro con
+  // la spinta. Serve perche' chi comanda riceve la risposta DUE volte — una
+  // come risposta e una come spinta — e riprodurre due volte gli eventi
+  // farebbe tirare i dadi due volte a schermo. Si contrassegna il comando e non
+  // la sessione perche' la stessa persona puo' avere due schede aperte: l'altra
+  // deve aggiornarsi, e con un filtro per email non lo farebbe.
+  spargi(out, dati, rif) {
     for (const ws of this.ctx.getWebSockets()) {
       try {
         const posto = ws.deserializeAttachment() || { ruolo: 'giocatore' };
-        ws.send(JSON.stringify({ ...vista(out.stato, dati, posto), eventi: out.eventi }));
+        ws.send(JSON.stringify({ ...vista(out.stato, dati, posto), eventi: out.eventi, rif }));
       } catch { /* una sessione morta non ferma le altre */ }
     }
   }

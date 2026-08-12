@@ -16,7 +16,7 @@
 //     voce, e il tavolo aspetta che compaia.
 //   - DIRE COM'E' MESSO. `onStato(collegato)` serve a mostrarlo: un'app che
 //     tace mentre e' scollegata fa credere che il gioco sia rotto.
-export function apriCanale({ tavolo, onVista, onEventi, onRifiuto, onStato }) {
+export function apriCanale({ tavolo, onVista, onRifiuto, onStato }) {
   let ws = null;
   let chiuso = false;
   let tentativi = 0;
@@ -39,8 +39,10 @@ export function apriCanale({ tavolo, onVista, onEventi, onRifiuto, onStato }) {
     ws.onmessage = (ev) => {
       let m; try { m = JSON.parse(ev.data); } catch { return; }
       if (m.rifiuto) { onRifiuto && onRifiuto(m.rifiuto); return; }
-      if (m.stato) onVista && onVista(m.stato, m.dati);
-      if (m.eventi && m.eventi.length) onEventi && onEventi(m.eventi);
+      // stato ed eventi arrivano INSIEME e vanno insieme: gli eventi sono il
+      // copione di come si e' arrivati a quello stato, e metterli in scena dopo
+      // averlo gia' incassato mostrerebbe la conseguenza prima della causa
+      if (m.stato) onVista && onVista(m.stato, m.dati, m.rif, m.eventi || []);
     };
 
     ws.onclose = () => {
