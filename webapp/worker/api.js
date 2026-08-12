@@ -5,11 +5,31 @@
 // account non e' raggiungibile nemmeno conoscendone l'id.
 const jsonRisposta = (o, stato = 200) => Response.json(o, { status: stato });
 
+// PROPRIETARIO oppure MEMBRO. E' il confine di fiducia dell'intera faccenda: se
+// qui passa qualcuno che non dovrebbe, legge e sovrascrive le partite di un
+// altro. `email` arriva verificata da index.js e non e' mai un parametro della
+// richiesta.
 async function mioTavolo(env, email, id) {
   if (!id) return false;
-  return (await env.DB.prepare('SELECT 1 FROM tavoli WHERE id = ? AND proprietario = ?')
-    .bind(id, email).first()) != null;
+  return (await env.DB.prepare(
+    `SELECT 1 FROM tavoli WHERE id = ? AND proprietario = ?
+     UNION ALL
+     SELECT 1 FROM membri WHERE tavolo = ? AND email = ?`)
+    .bind(id, email, id, email).first()) != null;
 }
+
+// Alcune cose restano dell'ARBITRO e basta: invitare, cacciare, cancellare il
+// tavolo. Un giocatore che siede a un tavolo non puo' invitarne altri.
+async function arbitroDi(env, email, id) {
+  if (!id) return false;
+  return (await env.DB.prepare(
+    `SELECT 1 FROM tavoli WHERE id = ? AND proprietario = ?
+     UNION ALL
+     SELECT 1 FROM membri WHERE tavolo = ? AND email = ? AND ruolo = 'arbitro'`)
+    .bind(id, email, id, email).first()) != null;
+}
+
+const emailValida = (x) => typeof x === 'string' && /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(x) && x.length <= 190;
 
 export async function api(request, env, email) {
   const url = new URL(request.url);
@@ -17,16 +37,73 @@ export async function api(request, env, email) {
   const metodo = request.method;
 
   if (p === '/api/stato' && metodo === 'GET') {
+    // I tavoli MIEI e quelli dove sono stato invitato, con dentro che ruolo ho
+    // e quale eroe ho preso: e' cio' che serve alla schermata d'ingresso per
+    // sapere se mandarmi alla plancia dell'arbitro o alla vista del mio eroe.
     const tavoli = await env.DB.prepare(
-      'SELECT id, nome, creato FROM tavoli WHERE proprietario = ? ORDER BY creato')
-      .bind(email).all();
+      `SELECT id, nome, creato, 'arbitro' AS ruolo, NULL AS eroe
+         FROM tavoli WHERE proprietario = ?
+       UNION ALL
+       SELECT t.id, t.nome, t.creato, m.ruolo, m.eroe
+         FROM membri m JOIN tavoli t ON t.id = m.tavolo
+        WHERE m.email = ? AND t.proprietario <> ?
+       ORDER BY creato`).bind(email, email, email).all();
     // senza `dati`: questa risposta serve a decidere cosa scaricare, non a
     // trascinarsi dietro tutte le partite a ogni apertura
     const salvataggi = await env.DB.prepare(
       `SELECT s.tavolo, s.episodio, s.aggiornato FROM salvataggi s
-         JOIN tavoli t ON t.id = s.tavolo
-        WHERE t.proprietario = ?`).bind(email).all();
+        WHERE s.tavolo IN (
+          SELECT id FROM tavoli WHERE proprietario = ?
+          UNION SELECT tavolo FROM membri WHERE email = ?)`)
+      .bind(email, email).all();
     return jsonRisposta({ email, tavoli: tavoli.results, salvataggi: salvataggi.results });
+  }
+
+  // --------------------------------------------------------------- membri
+  if (p === '/api/membri' && metodo === 'GET') {
+    const tavolo = url.searchParams.get('tavolo');
+    if (!(await mioTavolo(env, email, tavolo))) return jsonRisposta({ errore: 'non trovato' }, 404);
+    // chi siede a questo tavolo lo vedono tutti quelli che ci siedono: sapere
+    // con chi si gioca non e' un segreto
+    const r = await env.DB.prepare(
+      'SELECT email, eroe, ruolo, invitato FROM membri WHERE tavolo = ? ORDER BY invitato')
+      .bind(tavolo).all();
+    return jsonRisposta({ membri: r.results });
+  }
+
+  if (p === '/api/membri' && metodo === 'POST') {
+    const { tavolo, email: invitato, eroe, ruolo } = await request.json();
+    // INVITARE E' DELL'ARBITRO. Un giocatore seduto a un tavolo non puo'
+    // portarci altri: sarebbe un tavolo che si allarga da solo.
+    if (!(await arbitroDi(env, email, tavolo))) return jsonRisposta({ errore: 'non trovato' }, 404);
+    if (!emailValida(invitato)) return jsonRisposta({ errore: 'email non valida' }, 400);
+    if (ruolo && ruolo !== 'arbitro' && ruolo !== 'giocatore') {
+      return jsonRisposta({ errore: 'ruolo sconosciuto' }, 400);
+    }
+    try {
+      await env.DB.prepare(
+        `INSERT INTO membri (tavolo, email, eroe, ruolo, invitato) VALUES (?, ?, ?, ?, ?)
+         ON CONFLICT(tavolo, email) DO UPDATE SET eroe = excluded.eroe, ruolo = excluded.ruolo`)
+        .bind(tavolo, invitato, eroe || null, ruolo || 'giocatore', Date.now()).run();
+    } catch (e) {
+      // l'indice unico su (tavolo, eroe) morde qui: due giocatori non possono
+      // prendere lo stesso eroe, ed e' il database a dirlo, non un controllo
+      // che qualcuno un giorno dimentichera' di fare
+      return jsonRisposta({ errore: 'quell’eroe è già di qualcun altro a questo tavolo' }, 409);
+    }
+    return jsonRisposta({ ok: true });
+  }
+
+  if (p === '/api/membri' && metodo === 'DELETE') {
+    const tavolo = url.searchParams.get('tavolo');
+    const chi = url.searchParams.get('email');
+    // l'arbitro caccia chiunque; un giocatore puo' togliere solo se stesso
+    const suo = chi === email;
+    if (!suo && !(await arbitroDi(env, email, tavolo))) return jsonRisposta({ errore: 'non trovato' }, 404);
+    if (suo && !(await mioTavolo(env, email, tavolo))) return jsonRisposta({ errore: 'non trovato' }, 404);
+    await env.DB.prepare('DELETE FROM membri WHERE tavolo = ? AND email = ?')
+      .bind(tavolo, chi).run();
+    return jsonRisposta({ ok: true });
   }
 
   if (p === '/api/tavolo' && metodo === 'POST') {
@@ -39,7 +116,12 @@ export async function api(request, env, email) {
 
   if (p === '/api/tavolo' && metodo === 'DELETE') {
     const id = url.searchParams.get('id');
-    if (!(await mioTavolo(env, email, id))) return jsonRisposta({ errore: 'non trovato' }, 404);
+    // NON `mioTavolo`: quello include i membri, e un giocatore invitato
+    // cancellerebbe la campagna di chi lo ha invitato. Cancellare un tavolo e'
+    // del solo PROPRIETARIO — nemmeno di un membro con ruolo arbitro.
+    const mio = (await env.DB.prepare('SELECT 1 FROM tavoli WHERE id = ? AND proprietario = ?')
+      .bind(id, email).first()) != null;
+    if (!mio) return jsonRisposta({ errore: 'non trovato' }, 404);
     // I salvataggi se ne vanno con lui: ON DELETE CASCADE, che in D1 morde
     // davvero (provato). Cancellare un tavolo cancella una campagna intera —
     // la domanda «sei sicuro» la fa la schermata, qui si esegue.
@@ -76,7 +158,9 @@ export async function api(request, env, email) {
 
   if (p === '/api/salvataggio' && metodo === 'DELETE') {
     const tavolo = url.searchParams.get('tavolo');
-    if (!(await mioTavolo(env, email, tavolo))) return jsonRisposta({ errore: 'non trovato' }, 404);
+    // buttare via una partita e' dell'arbitro: un giocatore che si sbaglia non
+    // deve poter cancellare la serata di tutti
+    if (!(await arbitroDi(env, email, tavolo))) return jsonRisposta({ errore: 'non trovato' }, 404);
     await env.DB.prepare('DELETE FROM salvataggi WHERE tavolo = ? AND episodio = ?')
       .bind(tavolo, url.searchParams.get('episodio')).run();
     return jsonRisposta({ ok: true });

@@ -21,3 +21,34 @@ CREATE TABLE IF NOT EXISTS salvataggi (
   dati          TEXT NOT NULL,
   PRIMARY KEY (tavolo, episodio)
 );
+
+-- CHI SIEDE AL TAVOLO (vedi DESIGN-VISTA-EROE.md).
+--
+-- Finora un tavolo aveva un solo `proprietario`, e l'autorizzazione era quella
+-- riga: chi non era lui non esisteva. Qui ci sono gli altri — i giocatori che
+-- entrano col proprio dispositivo e prendono in mano un eroe.
+--
+-- L'autorizzazione VERA sta qui e non in Cloudflare Access. Access dice solo
+-- «questa email e' davvero di chi la usa» (OTP verificato); a decidere chi puo'
+-- vedere un tavolo e' questa tabella. Cosi' invitare un giocatore non richiede
+-- di aprire la dashboard di Cloudflare a ogni serata, e togliere qualcuno e'
+-- una DELETE invece di una modifica alla policy.
+--
+-- `eroe` e' NULL finche' il giocatore non sceglie: gli eroi non reclamati
+-- restano all'arbitro. `ruolo` distingue chi arbitra da chi gioca — l'arbitro
+-- vede tutto, il giocatore vede la sua proiezione.
+CREATE TABLE IF NOT EXISTS membri (
+  tavolo        TEXT NOT NULL REFERENCES tavoli(id) ON DELETE CASCADE,
+  email         TEXT NOT NULL,
+  eroe          TEXT,
+  ruolo         TEXT NOT NULL DEFAULT 'giocatore',
+  invitato      INTEGER NOT NULL,
+  PRIMARY KEY (tavolo, email)
+);
+-- «quali tavoli posso vedere?» e' la domanda che si fa a ogni apertura
+CREATE INDEX IF NOT EXISTS idx_membri_email ON membri(email);
+-- due giocatori non possono prendere lo stesso eroe allo stesso tavolo: e' una
+-- regola, e le regole che si possono mettere nel database ci vanno messe —
+-- l'indice parziale lascia liberi i NULL (chi non ha ancora scelto)
+CREATE UNIQUE INDEX IF NOT EXISTS idx_membri_eroe
+  ON membri(tavolo, eroe) WHERE eroe IS NOT NULL;
