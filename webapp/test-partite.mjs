@@ -240,17 +240,26 @@ for (const sc of SCELTI) {
 
     // taccuino: risposte e busta
     await page.locator('#chiudi-indagine').click();
-    const risposte = ep.soluzione.domande.map((d) => sc.giuste ? d.risposta : 'nebbia fitta');
+    // La CONTRO-BUSTA (Ep.15) non sta nel taccuino: e' una Domanda che il
+    // fascicolo apre DOPO la spedizione, quindi a schermo il suo campo non
+    // c'e'. Iterare su tutte le domande cercava un `[data-risposta]` che non
+    // esiste, e la giocata moriva li'.
+    const domande = ep.soluzione.domande.filter((d) => !d.dopo_spedizione);
+    const risposte = domande.map((d) => sc.giuste ? d.risposta : 'nebbia fitta');
     for (let i = 0; i < risposte.length; i++) {
       await page.locator(`[data-risposta="${i}"]`).fill(risposte[i]);
     }
     await page.locator('#apri-busta').click();
     await premiSi(page);                          // la busta si apre dentro la finzione
     await page.locator('#alla-spedizione').waitFor();
-    const esatte = await page.locator('.ok-txt').count();
-    const sbagliate = await page.locator('.ko-txt').count();
-    if (sc.giuste) ok(esatte === ep.soluzione.domande.length, `risposte giuste bocciate (${esatte}/${ep.soluzione.domande.length})`);
-    else ok(sbagliate === ep.soluzione.domande.length, `risposte a caso promosse (${sbagliate} bocciate attese ${ep.soluzione.domande.length})`);
+    // `span.ko-txt` e non `.ko-txt`: l'esito di ogni Domanda e' uno <span>,
+    // ma il riepilogo del vantaggio usa un <b class="ko-txt"> per «Partite in
+    // ritardo» — e contandolo insieme alle risposte ne risultava sempre una
+    // di troppo.
+    const esatte = await page.locator('span.ok-txt').count();
+    const sbagliate = await page.locator('span.ko-txt').count();
+    if (sc.giuste) ok(esatte === domande.length, `risposte giuste bocciate (${esatte}/${domande.length})`);
+    else ok(sbagliate === domande.length, `risposte a caso promosse (${sbagliate} bocciate attese ${domande.length})`);
     const bustaTxt = await page.locator('.pannello').innerText();
     ok(/vantaggio d’indagine/i.test(bustaTxt), 'riepilogo vantaggio assente');
     ok(bustaTxt.includes(`${24 - st.indagine.ora} ore avanzate`), 'ore avanzate nel riepilogo non tornano');
