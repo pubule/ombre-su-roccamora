@@ -21,6 +21,8 @@ import { creaRng, tira2d6 as tiraSeme, interoFino } from './rng.js';
 import * as azioni from './azioni.js';
 import * as abilita from './abilita.js';
 import * as interazioni from './interazioni.js';
+import * as nemici from './nemici.js';
+import { chiudiFaseNemici } from './vittoria.js';
 
 const clona = (x) => JSON.parse(JSON.stringify(x));
 
@@ -54,6 +56,21 @@ const GESTORI = {
   interagisci: (g, c, caso) => interazioni.interagisci(g, caso, c.eroe),
   oggetto: (g, c) => interazioni.usaOggetto(g, c.eroe, c.quale),
   rispondi: (g, c, caso) => azioni.rispondi(g, caso, c.scelta),
+  // La notte, tutta in un comando: piano, risoluzione, coda di fine round e
+  // chiusura. Gli eventi sono il copione che la vista anima — e senza vista
+  // funziona lo stesso, che e' il punto di questa fase.
+  'fase-nemici': (g, c, caso) => {
+    const piano = nemici.pianoNemici(g, caso, !!c.differito);
+    nemici.fineRoundNemici(g, piano);
+    if (!c.differito) {
+      const fine = chiudiFaseNemici(g);
+      if (fine) {
+        g.sp.esito = fine.esito;
+        if (fine.riga) g.sp.log.push(fine.riga);
+      }
+    }
+    return { eventi: [{ tipo: 'turno-nemici', piano: [...piano], annunci: piano.annunci }] };
+  },
 };
 
 export function applica(statoIn, comando, dati) {

@@ -148,7 +148,22 @@ npx --no-install wrangler dev --var OSR_DEV_EMAIL:due@esempio.it --port 8788
 | `misura-classi.mjs` | 5 squadre estreme × N episodi: **quanto pesa la composizione** |
 | `misura-indagine-classi.py` | l'Indagine su tutte e 330 le squadre — il pilota l'Indagine non la gioca |
 
-## In corso: il motore puro (Fase 1 della vista eroe)
+## Fase 1 chiusa: il motore puro
+
+**Il cancello è passato.** `webapp/MAPPA-DOPO-MOTORE.md`: bias medio −3.3 punti
+su 21 episodi (0.9 σ, non significativo), 14 episodi su 21 entro 10 punti. I
+tre che si muovevano di oltre 25 in giù sono stati rimisurati sul commit della
+baseline con una lettura fresca, e lo scarto vero è −5, −10, −10: il salto era
+della baseline, non del motore.
+
+**`webapp/test-motore-partita.mjs` è la prova che tutto questo serviva a
+ottenere:** una spedizione intera che comincia, avanza e finisce **senza un
+browser, senza un DOM, senza `digitale.js`** — solo `applica()`. Gira su tutti e
+ventuno gli episodi. È lo stesso ambiente di un Durable Object, quindi la Fase 4
+è possibile. E due partite con lo stesso seme sono identiche fino all'ultimo
+byte, compreso il diario riga per riga.
+
+
 
 Spec `DESIGN-VISTA-EROE.md`, piano `PIANO-MOTORE-PURO.md`. Si estraggono le
 regole di Spedizione da `digitale.js` in `webapp/public/motore/`, pure e
@@ -215,27 +230,51 @@ oggetti farebbe scrivere quei gestori su uno stato scartato, e il click
 andrebbe perso **senza errore**. Perciò `esegui()` *travasa* con `Object.assign`
 invece di sostituire. Chi collegherà le prossime azioni deve fare lo stesso.
 
-**Ancora da fare:** portare `usaAbilita`, `azioneInteragire` e `usaOggetto`
-dentro il contratto (le loro `scegli` sono tutte pre-dichiarabili: i candidati
-si calcolano dallo stato), spostare `riproduci()` in `replay.js`, il pilota
-headless e il cancello finale.
+**Tutte le azioni dell'eroe sono dentro il contratto.** Muovere, cercare,
+rianimare, attaccare, finire il turno, usare un'abilità, interagire, usare un
+oggetto. `digitale.js` è a **1453 righe** (2495 all'inizio della fase) e non
+contiene più nessuna regola di Spedizione.
 
-### Come si prova un'estrazione
+Due cose sono cadute per strada, ed erano fra gli ostacoli elencati nel piano:
 
-1. **Differenziale contro l'oracolo** (`bash webapp/rigenera-oracolo.sh`), su
-   stati generati. Dove le funzioni mutano, si confronta il valore di ritorno
-   **e** la partita che lasciano dietro: una che torna gli annunci giusti
-   sporcando `compiti` o `canto` in modo diverso passerebbe il confronto sul
-   solo ritorno e sposterebbe il bilanciamento in silenzio.
-2. **Il differenziale va poi rotto apposta.** Ogni volta ha pescato qualcosa: due
-   test miei che passavano a vuoto (il tick del Canto provato al 4° round quando
-   l'Ep.1 batte ogni 6; il filtro delle carte Bivio provato sull'unico episodio
-   che Bivi non ne ha) e un ramo morto vero (`spawnRegex` costruisce
-   un'espressione per il boss ma itera su `ep.pool`, dove il boss non c'è in
-   nessuno dei 21 episodi).
+- **`escaModo` non è più un mezzo turno salvato.** L'Esca era a due tempi: «usa»
+  accendeva le caselle e la carica si spendeva toccandone una, con lo stato
+  intermedio *dentro il salvataggio* — chi chiudeva la pagina lì riapriva una
+  partita a metà gesto. Ora la casella si sceglie prima e il comando è uno solo.
+- **Legalità e didascalia si sono separate.** `interazioneDisponibile`
+  restituiva anche la `label` del bottone: la regola sapeva come si scrive in
+  italiano quel che permette. Ora torna il solo fatto, e la frase la compone
+  `etichettaInterazione` nella vista.
+
+**Ancora da fare:** spostare `riproduci()` in `replay.js` (cosmetico), il pilota
+headless, e la Fase 2 — `spedizione.js` sullo stesso motore, che è dove stanno
+le ~350 righe di regole duplicate e già divergenti.
+
+### Come è stata provata (e come provare la Fase 2)
+
+I differenziali contro l'oracolo hanno fatto il loro lavoro e sono stati
+**rimossi a fase chiusa** — erano impalcatura, non una suite. Il metodo però
+serve identico per la Fase 2, e vale la pena averlo scritto:
+
+1. **Differenziale contro l'oracolo**: si estrae il file *com'era* da git in
+   `webapp/public/js/_oracolo.js` (accanto agli originali, o i suoi import non
+   risolvono) e gli si appende un export con le funzioni interne da confrontare
+   — senza quello metà dei confronti passa a vuoto. Poi si confrontano le due
+   versioni su migliaia di stati generati.
+2. **Dove le funzioni mutano, si confronta il ritorno *e* lo stato che
+   lasciano.** Una che torna gli annunci giusti sporcando `compiti` o `canto`
+   in modo diverso passerebbe un confronto sul solo ritorno, e sposterebbe il
+   bilanciamento in silenzio.
 3. **Dove il caso decide** — il turno nemici — si fa consumare a vecchio e nuovo
    **la stessa lista di numeri**: `Math.random` dirottato da una parte, il `caso`
    iniettato dall'altra. Funziona perché l'ordine dei consumi è identico.
+4. **Il test va poi rotto apposta.** È il passo che ha reso di più. Ogni volta
+   ha pescato qualcosa: due test che passavano a vuoto (il tick del Canto
+   provato al 4° round quando l'Ep.1 batte ogni 6; il filtro delle carte Bivio
+   provato sull'unico episodio che Bivi non ne ha), un ramo morto vero
+   (`spawnRegex` costruisce un'espressione per il boss ma itera su `ep.pool`,
+   dove il boss non c'è in nessuno dei 21 episodi), e due difetti introdotti da
+   me che nessun test verde avrebbe mostrato.
 
 ### Quanta varianza ha il pilota
 
@@ -246,9 +285,15 @@ identico commit** (`3aac1e51`) due volte:
 |---|---|---|
 | Ep.1 | 55% | 50% |
 | **Ep.19** | **15%** | **35%** |
+| **Ep.4** | **30%** | **17%** |
 
 Venti punti di scarto a N=20, senza che una riga sia cambiata. L'Ep.1 oscilla
 fra 0% e 55% su campioni piccoli, e l'Ep.12 ha dato 63% a N=8 e 90% a N=20.
+
+Tre volte in questa fase un numero basso ha fatto sospettare una regressione —
+Ep.12 al 63%, Ep.19 al 55%, Ep.4 a 0/6 — e tutte e tre le volte l'A/B ha
+mostrato che era rumore. **Nessun allarme di questa fase si è rivelato vero.**
+Il che non vuol dire ignorarli: vuol dire misurarli prima di crederci.
 
 **Conseguenze pratiche.** Un allarme a N<20 non è un dato. Un singolo episodio
 che si muove di 20 punti non è una regressione. Per stabilire se qualcosa è
