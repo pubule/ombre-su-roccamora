@@ -47,9 +47,11 @@ export const _diff = {
   primo, eroiAttivoNome, azioniOf, azioneSpesa, stordito, azioniMax,
   azioniRestano, bonusVoce, raggEroe, celleEsca, raggScortato,
   // regole d'episodio
-  specCompiti, compitiFiniti, obiettivoFatto, compitoDisponibile,
-  specOrologio, specRogo, rogoBrucia, haProtezioneRogo, specRitmo,
-  frammentiPortati, scortaPuoVincere, eroePiuAvanzato, provaRichiesta,
+  specCompiti, statoCompiti, compitoFatte, compitiFiniti, obiettivoFatto,
+  compitoDisponibile, specOrologio, avanzaOrologio, specRogo, rogoBrucia,
+  haProtezioneRogo, avanzaRogo, specCancellazione, avanzaCancellazione,
+  specRitmo, avanzaRitmo, frammentiPortati, avanzaPressione,
+  controllaFiloPerso, scortaPuoVincere, eroePiuAvanzato, provaRichiesta,
   applicaConseguenza, interazioneDisponibile, arredoUscita, scortLiberabile,
   caricaDi, CARICHE_SPED, spawnRegex, tessLontana, tileAffollata,
 };
