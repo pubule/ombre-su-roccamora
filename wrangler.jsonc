@@ -30,6 +30,16 @@
   "routes": [
     { "pattern": "roccamora.smartcores.org", "custom_domain": true }
   ],
+  // LA PARTITA VIVA (DESIGN-VISTA-EROE.md): un Durable Object per tavolo, che
+  // fa da arbitro quando piu' dispositivi giocano la stessa serata. Backend
+  // SQLite — l'unico che si possa creare oggi, ed e' quello disponibile anche
+  // sul piano gratuito.
+  "durable_objects": {
+    "bindings": [{ "name": "PARTITA", "class_name": "Partita" }]
+  },
+  "migrations": [
+    { "tag": "v1", "new_sqlite_classes": ["Partita"] }
+  ],
   "d1_databases": [
     { "binding": "DB", "database_name": "ombre-salvataggi", "database_id": "b0a85d9c-e7a6-4c3b-8940-1a50ad87fee2" }
   ]
