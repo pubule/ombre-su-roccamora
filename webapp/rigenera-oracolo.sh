@@ -58,7 +58,7 @@ export const _diff = {
   spawnRegex, spawnUno, tessLontana, destaBossSeSoglia, spawnDaTesto,
   tileAffollata,
   // chiusura e turno nemici
-  controllaVittoria, chiudiFaseNemici, risolviRestoNemici,
+  controllaVittoria, chiudiFaseNemici, risolviRestoNemici, faseNemiciAI,
 };
 EOF
 

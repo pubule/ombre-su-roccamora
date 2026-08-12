@@ -19,6 +19,8 @@ import * as griglia from '../motore/griglia.js';
 import * as stat from '../motore/stat.js';
 import * as obiettivi from '../motore/obiettivi.js';
 import * as vittoria from '../motore/vittoria.js';
+import * as minaccia from '../motore/minaccia.js';
+import * as nemici from '../motore/nemici.js';
 
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) =>
   ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -78,7 +80,7 @@ const G = () => ({
   get _layout() { return ctx.layout; },
   set _layout(v) { ctx.layout = v; },
 });
-const { dentro, chiave, eq, dirExit, OPP, DELTA, vicini, portaCella, dirVerso, nk } = griglia;
+const { dentro, chiave, dirExit, vicini, portaCella, nk } = griglia;
 const arrediSet = (tile) => griglia.arrediSet(G(), tile);
 const tileDi = (id) => griglia.tileDi(G(), id);
 const layout = () => griglia.layout(G());
@@ -86,7 +88,6 @@ const grataChiusa = (tileId, dir, raw) => griglia.grataChiusa(G(), tileId, dir, 
 const viciniGlob = (n, allowReveal) => griglia.viciniGlob(G(), n, allowReveal);
 const esploraMosse = (start, budget, blocco) => griglia.esploraMosse(G(), start, budget, blocco);
 const camminoGlob = (start, goal, blocco) => griglia.camminoGlob(G(), start, goal, blocco);
-const celleAdiacLibere = (node, blocco) => griglia.celleAdiacLibere(G(), node, blocco);
 const adiacGlob = (a, b) => griglia.adiacGlob(G(), a, b);
 
 // ------------------------------------------------------------- dati di gioco
@@ -98,7 +99,6 @@ const eroe = (nm) => stat.eroe(G(), nm);
 const nemStat = (nome) => stat.nemStat(G(), nome);
 const movimento = (nm) => stat.movimento(G(), nm);
 const fascia = (taglia) => stat.fascia(G(), taglia);
-const feriteMaxNem = (st) => stat.feriteMaxNem(G(), st);
 const saluteMax = (e) => stat.saluteMax(G(), e);
 const specScortati = () => stat.specScortati(G());
 const specScort = (i) => stat.specScort(G(), i);
@@ -1010,10 +1010,7 @@ const specRogo = () => obiettivi.specRogo(G());
 const rogoBrucia = (tileId) => obiettivi.rogoBrucia(G(), tileId);
 const haProtezioneRogo = () => obiettivi.haProtezioneRogo(G());
 const avanzaRogo = () => obiettivi.avanzaRogo(G());
-const specCancellazione = () => obiettivi.specCancellazione(G());
 const avanzaCancellazione = () => obiettivi.avanzaCancellazione(G());
-const specRitmo = () => obiettivi.specRitmo(G());
-const frammentiPortati = () => obiettivi.frammentiPortati(G());
 const avanzaRitmo = () => obiettivi.avanzaRitmo(G());
 const avanzaPressione = () => obiettivi.avanzaPressione(G());
 
@@ -1342,131 +1339,13 @@ async function usaOggetto(nm) {
 // una lista cablata: ogni episodio nuovo funziona senza toccare il codice.
 // Truppa: prima parola piena, senza la vocale finale («LO SGHERRO» → /sgherr/).
 // Boss: nome intero, cosi' una citazione parziale non lo desta per sbaglio.
-const SPAWN_OVERRIDE = {
-  'CANE DEI MOLI': /(\d+)?\s*can[ei] dei moli/i,   // «can» da solo pescherebbe «canto»
-};
-const senzaArticolo = (n) => String(n).replace(/^(il|lo|la|i|gli|le|l’|l')\s*/i, '');
-const tronca = (w) => w.replace(/[aeio]+$/i, '');
-function spawnRegex() {
-  // IL BOSS NON SI PESCA DAL TESTO. Da quando le sue statistiche esistono, la
-  // regola generica lo faceva apparire in qualunque tessera che lo nominasse di
-  // sfuggita: nell'Ep.12 il Corriere spuntava nella prima stanza e la caccia
-  // finiva al secondo round. Il boss compare dove dice `soluzione.boss_tile`,
-  // e basta.
-  const nomi = Object.keys(ctx.ep.pool || {});
-  const boss = (ctx.ep.soluzione || {}).boss;
-  return nomi.map((n) => {
-    if (SPAWN_OVERRIDE[n]) return [n, SPAWN_OVERRIDE[n]];
-    const parole = senzaArticolo(n).split(/\s+/);
-    const corpo = n === boss
-      ? [...parole.slice(0, -1), tronca(parole[parole.length - 1])].join('\\s+')
-      : tronca(parole[0]);
-    return [n, new RegExp(`(\\d+|un|due|tre)?\\s*${corpo}`, 'i')];
-  });
-}
-const NUM_PAROLA = { un: 1, due: 2, tre: 3 };
-function spawnUno(nome, tileId) {
-  const sp = SP(); const st = nemStat(nome); if (!st) return false;
-  const boss = st.boss;
-  if (boss && sp.bossDestato) return false;   // un boss gia' destato/abbattuto non (ri)compare
-  const inCampo = sp.nemici.filter((x) => x.nome === nome).length;
-  const disp = boss ? 1 : (ctx.ep.pool || {})[nome] || 0;
-  if (inCampo >= disp) return false;
-  const tile = tileDi(tileId);
-  const occ = new Set(); occupati(null, false).forEach((k) => { const [t, x, y] = k.split(','); if (t === tileId) occ.add(`${x},${y}`); });
-  // piazza lontano dagli eroi presenti nella tessera (se nessuno, dal centro)
-  const eroiQui = Object.values(sp.eroiPos).filter((p) => p.t === tileId).map((p) => [p.x, p.y]);
-  let best = null, bestD = -1;
-  for (let x = 0; x < 4; x++) for (let y = 0; y < 4; y++) {
-    if (arrediSet(tile).has(chiave([x, y])) || occ.has(chiave([x, y]))) continue;
-    const d = eroiQui.length ? Math.min(...eroiQui.map((p) => Math.abs(p[0] - x) + Math.abs(p[1] - y))) : (Math.abs(x - 1.5) + Math.abs(y - 1.5));
-    if (d > bestD) { bestD = d; best = [x, y]; }
-  }
-  if (!best) return false;
-  let num = 1; while (sp.nemici.some((x) => x.nome === nome && x.num === num)) num += 1;
-  sp.nemici.push({ nome, num, ferite: 0, max: feriteMaxNem(st), pos: { t: tileId, x: best[0], y: best[1] } });
-  if (boss) sp.bossDestato = true;   // un boss abbattuto non torna, nemmeno a soglia
-  return true;
-}
-
-// tessera rivelata piu' lontana dagli eroi (distanza sul grafo delle tessere)
-function tessLontana() {
-  const sp = SP(); const lay = layout();
-  const heroT = [...new Set(Object.values(sp.eroiPos).map((p) => p.t))];
-  let best = sp.rivelate[0], bd = -1;
-  for (const id of sp.rivelate) {
-    const [x, y] = lay[id];
-    const d = heroT.length ? Math.min(...heroT.map((h) => { const [a, b] = lay[h]; return Math.abs(a - x) + Math.abs(b - y); })) : 0;
-    if (d > bd) { bd = d; best = id; }
-  }
-  return best;
-}
-// al raggiungimento della soglia del Canto il boss si desta (tessera rivelata
-// piu' lontana), se non e' gia' in campo o gia' stato abbattuto. Ritorna annunci.
-function destaBossSeSoglia() {
-  const sp = SP(); const boss = ctx.ep.soluzione.boss; const soglia = sogliaCanto(ctx.comune, ctx.ep);
-  if (!boss || sp.canto < soglia) return [];
-  if (sp.bossDestato || sp.nemici.some((x) => x.nome === boss)) return [];
-  // Un boss che NON si muove non puo' destarsi «nella stanza piu' lontana»: la
-  // Camera del Dormiente (Ep.20) ha mov 0 perche' E' la camera, cioe' la
-  // tessera finale. Piazzata a caso al Canto 3, e poi bloccata da `bossDestato`
-  // dal ricomparire dove le spetta, restava in un angolo del tabellone senza
-  // toccare nessuno — sono i «4 eroi su 4 in piedi» misurati nel finale. Se la
-  // sua tessera non e' ancora scoperta non si desta affatto: ci pensera'
-  // `spawnDaTesto` quando il gruppo aprira' la camera.
-  const st = nemStat(boss) || {};
-  const suo = (ctx.ep.soluzione || {}).boss_tile
-    || (ctx.ep.tessere[ctx.ep.tessere.length - 1] || {}).id;
-  // Un boss che si aggancia SOLO in una stanza precisa e' un boss che ASPETTA
-  // in quella stanza: il Primo Gatto «appare in cresta, piu' in alto, e vi
-  // studia in silenzio» (Ep.14, T4), non scende a menare le mani. Svegliarlo
-  // sulla tessera piu' lontana lo mandava addosso al gruppo, che non poteva
-  // agganciarlo (regola giusta) e quindi combatteva e moriva senza avanzare:
-  // 4 sconfitte su 4, l'Attico mai raggiunto. `compito.tile` dice gia' dov'e'
-  // il suo posto — non serve un campo nuovo. L'Ep.12 non ne ha apposta: li' il
-  // Corriere e' una preda in corsa e deve stare sul tabellone presto.
-  const casa = (specCompiti().find((c) => c.nemico === boss && c.tile) || {}).tile;
-  if (casa) {
-    if (!sp.rivelate.includes(casa)) return [];
-    if (!spawnUno(boss, casa)) return [];
-    return [`${boss.toLowerCase()} vi aspetta in ${casa}.`];
-  }
-  if (!st.mov) {
-    if (!sp.rivelate.includes(suo)) return [];
-    if (!spawnUno(boss, suo)) return [];
-    return [`${boss.toLowerCase()} si desta: è la stanza stessa (${suo}).`];
-  }
-  const tile = tessLontana();
-  if (!spawnUno(boss, tile)) return [];
-  return [`${boss.toLowerCase()} si desta nella stanza rivelata più lontana (${tile}).`];
-}
-function spawnDaTesto(testo, tileId) {
-  // IL BOSS E' UN DATO, non un incidente di lettura. Finora appariva solo se il
-  // testo della tessera lo nominava in una forma che l'espressione regolare
-  // riconosceva: nell'Ep.19 il testo dice «con l'Ispettore convinto alle
-  // spalle» e Vidal non entrava MAI in partita — l'obiettivo «convincilo» era
-  // irraggiungibile per una questione di prosa. `ep.soluzione.boss_tile` (di
-  // norma l'ultima tessera della spina) lo fa comparire di sicuro.
-  const bossNome = (ctx.ep.soluzione || {}).boss;
-  const bossTile = (ctx.ep.soluzione || {}).boss_tile
-    || (ctx.ep.tessere[ctx.ep.tessere.length - 1] || {}).id;
-  if (bossNome && tileId === bossTile && !SP().nemici.some((n) => n.nome === bossNome)) {
-    if (spawnUno(bossNome, tileId)) log(`Appare ${bossNome.toLowerCase()} in ${tileId}.`);
-  }
-  for (const [nome, re] of spawnRegex()) {
-    const m = testo.match(re); if (!m) continue;
-    let q = 1; if (m[1]) q = NUM_PAROLA[m[1].toLowerCase()] || Number(m[1]) || 1;
-    for (let k = 0; k < q; k++) if (spawnUno(nome, tileId)) log(`Appare ${nome.toLowerCase()} in ${tileId}.`);
-  }
-}
-// tessera con piu' eroi (per i rinforzi Minaccia)
-function tileAffollata() {
-  const sp = SP(); const conta = {};
-  for (const p of Object.values(sp.eroiPos)) conta[p.t] = (conta[p.t] || 0) + 1;
-  let best = sp.rivelate[0], bestN = -1;
-  for (const [t, n] of Object.entries(conta)) if (n > bestN) { bestN = n; best = t; }
-  return best;
-}
+// Lo spawn e' uscito di qui: sta in motore/minaccia.js. Guidato dai dati
+// (`ep.pool` + `soluzione.boss_tile`), cosi' un episodio nuovo funziona senza
+// toccare il codice — ed e' la differenza con spedizione.js, che ha ancora
+// otto nomi scritti a mano e per questo e' rimasto indietro.
+const destaBossSeSoglia = () => minaccia.destaBossSeSoglia(G());
+const spawnDaTesto = (testo, tileId) => minaccia.spawnDaTesto(G(), testo, tileId);
+const tileAffollata = () => minaccia.tileAffollata(G());
 
 // --------------------------------------------------------- fase minaccia
 async function faseMinaccia() {
@@ -1520,6 +1399,15 @@ async function faseMinaccia() {
 
 // --------------------------------------------------------- fase nemici (IA)
 const r1 = () => 1 + Math.floor(Math.random() * 6);
+// IL CASO che il motore consuma. Oggi e' Math.random, cioe' esattamente com'era:
+// il seme della partita arrivera' col contratto `applica()` (Task 9 del
+// PIANO-MOTORE-PURO.md), e da quel giorno bastera' passare un CASO diverso
+// perche' una serata si rigiochi identica. Il motore non sa quale dei due sta
+// usando, ed e' il punto.
+const CASO = {
+  scegli: (n) => Math.floor(Math.random() * n),
+  tira2d6: () => { const a = r1(), b = r1(); return { d: [a, b], tot: a + b }; },
+};
 const pausa = (ms) => new Promise((r) => setTimeout(r, ms));
 const nemArt = (nome) => { const st = nemStat(nome); return st && st.art ? urlArt(st.art) : ''; };
 const nemBreve = (nome) => esc(nome.toLowerCase());   // i nemici mostrano il nome intero (primo() darebbe l'articolo)
@@ -1639,33 +1527,7 @@ function chiudiFaseNemici() {
 
 // I nemici che restano quando si salta l'animazione al tavolo: li tira l'app,
 // stesse regole, senza chiedere un dado per uno. `da` e' il primo non risolto.
-function risolviRestoNemici(piano, da) {
-  const sp = SP();
-  for (const s of piano.slice(piano.indexOf(da))) {
-    if (s.attaccoPng) {
-      const g = statoScortati()[s.attaccoPng.png]; const sc = specScort(s.attaccoPng.png);
-      if (g && g.vite > 0) {
-        const tot = r1() + r1() + s.attaccoPng.att;
-        if (tot >= s.attaccoPng.dif) {
-          g.vite = Math.max(0, g.vite - s.attaccoPng.dan);
-          log(`${s.nome.toLowerCase()} colpisce ${sc.nome} (${tot}, −${s.attaccoPng.dan}: ${g.vite}/${sc.salute}).`);
-          if (g.vite <= 0) { sp.esito = 'sconfitta'; sp.log.push(`${sc.nome} è caduto: la spedizione è fallita.`); }
-        } else log(`${s.nome.toLowerCase()} manca ${sc.nome} (${tot}).`);
-      }
-    }
-    const a = s.attacco;
-    if (a && a.tot === undefined) {
-      const e = eroe(a.vitt);
-      a.tot = r1() + r1() + a.att;
-      a.colpito = a.tot >= a.dif;
-      if (a.colpito) {
-        sp.vite[a.vitt] = Math.max(0, (sp.vite[a.vitt] ?? saluteMax(e)) - a.dan);
-        log(`${s.nome.toLowerCase()} colpisce ${primo(a.vitt)} (2d6+att ${a.tot} ≥ ${a.dif}, −${a.dan}).`);
-        if (sp.vite[a.vitt] <= 0) log(`${primo(a.vitt)} va a terra!`);
-      } else log(`${s.nome.toLowerCase()} manca ${primo(a.vitt)} (${a.tot} < ${a.dif}).`);
-    }
-  }
-}
+const risolviRestoNemici = (piano, da) => nemici.risolviResto(G(), CASO, piano, da);
 
 async function eseguiTurnoNemici(piano) {
   const sp = SP();
@@ -1684,29 +1546,24 @@ async function eseguiTurnoNemici(piano) {
     if (nk(s.pos0) !== nk(s.pos1)) { await muoviToken(`N:${s.i}`, s.pos1); centraSuNodo(s.pos1, `nem-${s.i}-b`, true); await ritmo(300); }
     // AL TAVOLO i dadi del nemico li tira il tavolo, adesso: contro il PNG
     // scortato (che e' un bersaglio come gli eroi) e contro l'eroe.
+    // AL TAVOLO i dadi del nemico li tira il tavolo, adesso: contro il PNG
+    // scortato (che e' un bersaglio come gli eroi) e contro l'eroe. Il tiro si
+    // chiede qui perche' e' un gesto della serata; ad APPLICARLO e' il motore,
+    // con la stessa funzione che usa quando tira l'app. Prima erano due copie
+    // della stessa regola, piu' una terza per chi salta l'animazione.
     if (s.attaccoPng) {
-      const g = statoScortati()[s.attaccoPng.png]; const sc = specScort(s.attaccoPng.png);
-      if (g && g.vite > 0) {
+      const png = statoScortati()[s.attaccoPng.png]; const sc = specScort(s.attaccoPng.png);
+      if (png && png.vite > 0) {
         const r = await tiroNemico(`${nemBreve(s.nome)} → ${sc.nome.toLowerCase()}`,
           s.attaccoPng.dif, s.attaccoPng.att);
-        if (r.ok) {
-          g.vite = Math.max(0, g.vite - s.attaccoPng.dan);
-          log(`${s.nome.toLowerCase()} colpisce ${sc.nome} (${r.tot}, −${s.attaccoPng.dan}: ${g.vite}/${sc.salute}).`);
-          if (g.vite <= 0) { sp.esito = 'sconfitta'; sp.log.push(`${sc.nome} è caduto: la spedizione è fallita.`); }
-        } else log(`${s.nome.toLowerCase()} manca ${sc.nome} (${r.tot}).`);
+        nemici.risolviColpo(G(), s, r.tot);
         const sn0 = ctx.app.querySelector('#salute-nem'); if (sn0) sn0.innerHTML = saluteHtml();
       }
     }
     if (s.attacco && s.attacco.tot === undefined) {
-      const a = s.attacco; const e = eroe(a.vitt);
+      const a = s.attacco;
       const r = await tiroNemico(`${nemBreve(s.nome)} → ${primo(a.vitt)}`, a.dif, a.att);
-      a.tot = r.tot;
-      a.colpito = r.ok;
-      if (a.colpito) {
-        sp.vite[a.vitt] = Math.max(0, (sp.vite[a.vitt] ?? saluteMax(e)) - a.dan);
-        log(`${s.nome.toLowerCase()} colpisce ${primo(a.vitt)} (2d6+att ${a.tot} ≥ ${a.dif}, −${a.dan}).`);
-        if (sp.vite[a.vitt] <= 0) log(`${primo(a.vitt)} va a terra!`);
-      } else log(`${s.nome.toLowerCase()} manca ${primo(a.vitt)} (${a.tot} < ${a.dif}).`);
+      nemici.risolviColpo(G(), s, r.tot);
     }
     if (s.attacco) {
       const a = s.attacco;
@@ -1744,158 +1601,8 @@ async function eseguiTurnoNemici(piano) {
 // entry: pianifica (logica IA invariata), applica lo stato, poi anima
 function faseNemiciAI() {
   const sp = SP();
-  const vivi = () => P().party.filter((nm) => (sp.vite[nm] ?? 0) > 0);
-  const piano = []; piano.annunci = []; piano.vite0 = { ...sp.vite };
-  // se i tiri dei nemici sono DIFFERITI al tavolo, il danno arriva durante
-  // l'animazione: lo si ricorda qui perche' l'interruttore «li tira l'app» puo'
-  // accendersi a meta' fase, e i controlli di chiusura devono restare coerenti
-  piano.differito = tavoloTiraNemici();
-  for (let i = 0; i < sp.nemici.length; i++) {
-    const n = sp.nemici[i]; const st = nemStat(n.nome); if (!n.pos || n.abbattuto) continue;
-    const pos0 = n.pos;
-    if (n.flash) { n.flash = false; log(`${n.nome.toLowerCase()} è accecato: salta il turno.`); piano.push({ i, nome: n.nome, pos0, pos1: pos0, flash: true, attacco: null }); continue; }
-    const bersagli = vivi(); if (!bersagli.length) break;
-    // ESCA PREZIOSA: chi e' entro 2 caselle dal monile ci va, e per questa
-    // attivazione non attacca nessuno. Vale una volta sola — l'esca si
-    // consuma a fine fase, come dice la carta («la loro prossima attivazione»).
-    if (sp.esca && distGlob(n.pos, sp.esca) <= 2) {
-      const cam = camminoGlob(n.pos, sp.esca, occupati(`N:${i}`, false, true));
-      if (cam.length) {
-        const bloccoArrivo = occupati(`N:${i}`, false);
-        let k = Math.min(st.mov, cam.length) - 1;
-        while (k >= 0 && bloccoArrivo.has(nk(cam[k]))) k -= 1;
-        if (k >= 0) n.pos = cam[k];
-      }
-      log(`${n.nome.toLowerCase()} segue il luccichio del monile.`);
-      piano.push({ i, nome: n.nome, pos0, pos1: n.pos, flash: false, attacco: null });
-      continue;
-    }
-    const scelto = bersagli[Math.floor(Math.random() * bersagli.length)];
-    if (!bersagli.some((nm) => adiacGlob(n.pos, sp.eroiPos[nm]))) {
-      // Due insiemi diversi, come per gli eroi: il PNG scortato si ATTRAVERSA
-      // ma non ci si FERMA sopra (regolamento: gli alleati e il PNG si passano,
-      // non si sostano). Usare il solo set di cammino anche per l'arrivo faceva
-      // fermare i nemici sulla sua casella, sovrapposti alla pedina.
-      const blocco = occupati(`N:${i}`, false, true);     // cammino: il PNG si attraversa
-      const bloccoArrivo = occupati(`N:${i}`, false);     // arrivo: sul PNG non ci si ferma
-      let best = null, bestLen = Infinity;
-      for (const nm of bersagli) for (const g of celleAdiacLibere(sp.eroiPos[nm], bloccoArrivo)) {
-        const p = camminoGlob(n.pos, g, blocco);
-        if (p.length && p.length < bestLen) { bestLen = p.length; best = p; }
-      }
-      if (best) {
-        let k = Math.min(st.mov, best.length) - 1;
-        while (k >= 0 && bloccoArrivo.has(nk(best[k]))) k -= 1;   // arretra fino a una casella libera
-        if (k >= 0) n.pos = best[k];                              // muta live: blocco del prossimo lo vede
-      }
-    }
-    const pos1 = n.pos;
-    let attacco = null;
-    // il PNG vulnerabile e' un bersaglio come gli eroi (Ep.9: 3 Salute, non
-    // combatte). Gli altri PNG scortati restano invisibili ai nemici, come dice
-    // il Regolamento.
-    const iPng = statoScortati().findIndex((g, k) => g.liberato && g.pos && g.vite > 0
-      && specScort(k).salute && adiacGlob(n.pos, g.pos));
-    const adiacenti = bersagli.filter((nm) => adiacGlob(n.pos, sp.eroiPos[nm]));
-    if (iPng >= 0 && (!adiacenti.length || Math.random() < 0.5)) {
-      const sc = specScort(iPng);
-      // AL TAVOLO il tiro non si fa qui: il piano porta solo l'INTENZIONE, e i
-      // dadi li tira il tavolo durante l'animazione (vedi eseguiTurnoNemici).
-      if (tavoloTiraNemici()) {
-        piano.push({ i, nome: n.nome, pos0, pos1, flash: false, attacco: null,
-                     attaccoPng: { png: iPng, dif: sc.difesa || 7, dan: st.dan, att: st.att } });
-        continue;
-      }
-      const g = statoScortati()[iPng];
-      const tot = r1() + r1() + st.att;
-      if (tot >= (sc.difesa || 7)) {
-        g.vite = Math.max(0, g.vite - st.dan);
-        log(`${n.nome.toLowerCase()} colpisce ${sc.nome} (${tot}, −${st.dan}: ${g.vite}/${sc.salute}).`);
-        if (g.vite <= 0) { sp.esito = 'sconfitta'; sp.log.push(`${sc.nome} è caduto: la spedizione è fallita.`); }
-      } else log(`${n.nome.toLowerCase()} manca ${sc.nome} (${tot}).`);
-      piano.push({ i, nome: n.nome, pos0, pos1, flash: false, attacco: null });
-      continue;
-    }
-    if (adiacenti.length) {
-      const vitt = adiacenti.includes(scelto) ? scelto : adiacenti[Math.floor(Math.random() * adiacenti.length)];
-      const e = eroe(vitt);
-      if (tavoloTiraNemici()) {
-        // intenzione senza tiro: `tot`/`colpito` mancano apposta ed e'
-        // l'animazione a chiederli al tavolo, dado alla mano
-        piano.push({ i, nome: n.nome, pos0, pos1, flash: false,
-                     attacco: { vitt, dan: st.dan, att: st.att, dif: e.difesa } });
-        continue;
-      }
-      const tot = r1() + r1() + st.att;      // 2d6 + Attacco (tiro visibile nel banner)
-      const colpito = tot >= e.difesa;
-      if (colpito) {
-        sp.vite[vitt] = Math.max(0, (sp.vite[vitt] ?? saluteMax(e)) - st.dan);
-        log(`${n.nome.toLowerCase()} colpisce ${primo(vitt)} (2d6+att ${tot} ≥ ${e.difesa}, −${st.dan}).`);
-        if (sp.vite[vitt] <= 0) log(`${primo(vitt)} va a terra!`);
-      } else log(`${n.nome.toLowerCase()} manca ${primo(vitt)} (${tot} < ${e.difesa}).`);
-      attacco = { vitt, colpito, dan: st.dan, tot, dif: e.difesa };
-    }
-    piano.push({ i, nome: n.nome, pos0, pos1, flash: false, attacco });
-  }
-  // NB: i PNG scortati NON si muovono nella notte — li muove il giocatore nel
-  // turno eroi (regolamento: «si muove nel turno degli eroi, non compie azioni»).
-  // fine round: tick canto, boss a soglia (annunci mostrati dopo l'animazione)
-  piano.annunci.push(...fineRound(ctx.comune, ctx.ep, sp));
-  if (specOrologio() && specOrologio().ogni) piano.annunci.push(...avanzaOrologio(specOrologio().ogni, 'fine round'));
-  piano.annunci.push(...avanzaRogo());   // il doom-clock del Rogo (Ep.13): incendio a round + danno
-  piano.annunci.push(...avanzaCancellazione());   // la clessidra dell'Ep.15: i tell si cancellano
-  piano.annunci.push(...avanzaRitmo());           // il ritmo del controcanto (Ep.20)
-  piano.annunci.push(...avanzaPressione());       // ...e cio' che gli corre contro
-  piano.annunci.push(...controllaFiloPerso());    // il bersaglio da prendere vivo e' caduto?
-  // Cinque episodi non hanno una traccia propria: la loro soglia E' IL CANTO —
-  // «prima che il Canto raggiunga la soglia-FUGA» (Ep.14), soglia-sigillo,
-  // soglia-decano, soglia-arresto, risveglio. Sono i numeri che le Soluzioni
-  // dichiarano episodio per episodio, e qui diventano reali anche in digitale.
-  const oc = specOrologio();
-  // …e un OGGETTO puo' alzare quella soglia, dove il fascicolo lo dice: la
-  // Parola dei Tetti «porta la soglia-fuga da 5 a 6» (Ep.14), il Salvacondotto
-  // la soglia-decano «da 6 a 7» (Ep.17), l'Uscita di Servizio la soglia-arresto
-  // «da 7 a 8» (Ep.18). Erano tre regole SOLO STAMPATE: l'orologio non aveva
-  // alcun campo per leggerle, quindi chi si guadagnava l'oggetto non ne
-  // ricavava nulla. Stesso schema di `compito.ridotto_oggetto`.
-  const sogliaOrologio = oc && oc.su_canto != null
-    ? (oc.su_canto_oggetto && (P().indagine.oggetti || [])
-        .some((o) => new RegExp(oc.su_canto_oggetto, 'i').test(o))
-        ? (oc.su_canto_con_oggetto || oc.su_canto) : oc.su_canto)
-    : null;
-  // …e NON declassa un lavoro gia' finito. Le Soluzioni legano la scadenza
-  // all'OBIETTIVO, non alla fine della partita: «i tre pannelli disaccordati
-  // PRIMA del 4o segnalino» (Ep.4), «prima del sigillo» (Ep.15), «il decano
-  // lucido PRIMA della soglia» (Ep.17). Un Gatto gia' agganciato non scavalca
-  // piu' la cresta. Senza questa condizione l'Ep.4 sabotava la Conchiglia al
-  // round 8 e veniva declassato al 10 mentre riportava i prigionieri a casa:
-  // 0 vittorie piene su 15, tutte per un lavoro fatto in tempo.
-  const lavoroFatto = specCompiti().length > 0 && compitiFiniti();
-  if (oc && sogliaOrologio && !sp.esito && !lavoroFatto && sp.canto >= sogliaOrologio) {
-    const testo = oc.testo || `${oc.nome}: troppo tardi.`;
-    if (oc.esito === 'parziale') {
-      // DECLASSA, NON CHIUDE. I fascicoli dicono «peggiora e si continua»
-      // (Ep.17: «il decano lo recuperate comunque, ma ferito»; Ep.18: «un
-      // eroe per round rischia la cattura»), e il gruppo deve poter finire
-      // il lavoro. Chiudendo qui la vittoria PIENA diventava irraggiungibile:
-      // BILANCIAMENTO registrava Ep.17 e Ep.18 al 100% vinti e 0% piena.
-      // Il flag lo legge controllaVittoria, come gia' fa per il ROGO.
-      if (!sp.declassato) {
-        sp.declassato = testo;
-        sp.log.push(testo);
-        piano.annunci.push(testo);
-      }
-    } else {
-      sp.esito = 'sconfitta';
-      sp.log.push(testo);
-      piano.annunci.push(testo);
-    }
-  }
-  piano.annunci.push(...destaBossSeSoglia());
-  sp.esca = null;                    // il monile ha fatto il suo giro: si raccoglie
-  sp.fase = 'eroi'; sp.eroiFatti = []; sp.eroiAttivo = null; sp.azioni = {};
-  statoScortati().forEach((g) => { g.mosso = false; });   // possono muoversi nel nuovo turno eroi
-  sp.scortAttivo = null;
+  const piano = nemici.pianoNemici(G(), CASO, tavoloTiraNemici());
+  nemici.fineRoundNemici(G(), piano);
   // AL TAVOLO questi due controlli NON possono stare qui: i nemici non hanno
   // ancora tirato (lo fanno i giocatori durante l'animazione), quindi `sp.vite`
   // e' ancora lo stato di inizio fase. Li rifa' eseguiTurnoNemici a colpi
