@@ -218,3 +218,10 @@ Niente più dispositivi sulla stessa partita in tempo reale; niente tavoli
 condivisi fra account diversi; niente tabella dello stato di campagna; niente
 registrazione (chi entra si decide aggiungendo un'email in Access); niente
 migrazione delle partite già in `localStorage`.
+
+> **Superato il 12/08/2026 sui primi due punti.** `DESIGN-VISTA-EROE.md` porta
+> più dispositivi sulla stessa partita in tempo reale (Durable Object come
+> motore) e i giocatori dentro il tavolo di un altro (tabella `membri`). Quel
+> che resta di questa spec — Access, D1, il formato dei salvataggi, `sync.js` —
+> non si tocca: `salvataggi` diventa il backup ai checkpoint invece che la
+> verità viva.
