@@ -531,11 +531,23 @@ async function postoDiQuestoTavolo() {
     const s = await r.json();
     const t = (s.tavoli || []).find((x) => x.id === id);
     if (!t) return null;
+    // si ricorda il ruolo: se la prossima volta /api/stato non risponde, un
+    // telefono NON deve ritrovarsi arbitro per un errore di rete
+    try { localStorage.setItem(`osr.ruolo.${id}`, t.ruolo || 'giocatore'); } catch { /* niente */ }
     // Anche chi arbitra ha un posto, e serve: e' collegandosi che vede
     // comparire le mosse fatte dai telefoni. Senza, resterebbe l'unico al
     // tavolo a non sapere cos'e' successo.
     return { tavolo: id, ruolo: t.ruolo === 'arbitro' ? 'arbitro' : 'giocatore', eroe: t.eroe || null };
   } catch {
+    // SENZA RISPOSTA si usa l'ultimo ruolo conosciuto. Il ripiego «nessun
+    // posto» vuol dire «si arbitra», ed e' giusto sul PC di chi gioca da solo:
+    // su un telefono voleva dire ritrovarsi i poteri di chi conduce — il
+    // «continua» delle schermate da leggere, i turni del PNG — per un errore di
+    // rete di un istante.
+    try {
+      const r = localStorage.getItem(`osr.ruolo.${id}`);
+      if (r && r !== 'arbitro') return { tavolo: id, ruolo: 'giocatore', eroe: null };
+    } catch { /* niente */ }
     return null;                       // nessun server: si arbitra da soli, com'era
   }
 }

@@ -547,7 +547,9 @@ function giroEroiHtml() {
   });
   // chip dei PNG scortati: unità mosse dal giocatore (Mov 3, non agiscono)
   statoScortati().forEach((g, i) => {
-    if (!g.liberato) return; const s = specScort(i);
+    // il PNG lo conduce chi arbitra: sul telefono il suo chip non compare
+    // affatto, o si preme un turno che non si puo' giocare
+    if (!g.liberato || !arbitro()) return; const s = specScort(i);
     chips.push(`<button class="chip-turno ritratto scortato${scortAttivo() === i ? ' attivo' : ''}${g.mosso ? ' fatto' : ''}" data-scortato-chip="${i}">
       <span class="rit"><img src="${s.art ? urlArt(s.art) : ''}" alt=""></span><span class="et">${g.mosso ? '✓ ' : ''}${esc((s.nome || '').toLowerCase())}</span></button>`);
   });

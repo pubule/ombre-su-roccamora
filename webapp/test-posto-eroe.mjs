@@ -34,12 +34,12 @@ const browser = await chromium.launch();
 // Apre la Spedizione con un posto dato, seminando la partita e chiamando
 // direttamente `vistaDigitale` col posto — è il modo di provare la vista senza
 // tirarsi dietro account, tavoli e Durable Object.
-async function apri(posto) {
+async function apri(posto, ritocca) {
   const page = await browser.newPage({ viewport: { width: 900, height: 1200 } });
   const errori = [];
   page.on('pageerror', (e) => errori.push(e.message));
   await page.goto(BASE, { waitUntil: 'networkidle' });
-  await page.evaluate(async ({ ep, party, mio, posto: p, t0 }) => {
+  await page.evaluate(async ({ ep, party, mio, posto: p, t0, r }) => {
     const mod = await import('/js/digitale.js');
     window.__d = mod;                      // per chiamare i pezzi dal test
     const { vistaDigitale } = mod;
@@ -57,9 +57,10 @@ async function apri(posto) {
         scortati: [], mazzo: null, pendenza: null, insidie: {}, abilita: {},
       },
     };
+    if (r) new Function('p', `(${r})(p)`)(partita);
     document.querySelector('#app').innerHTML = '';
     await vistaDigitale(document.querySelector('#app'), partita, () => {}, p);
-  }, { ep: 'ep1', party: PARTY, mio: MIO, posto, t0: T0 });
+  }, { ep: 'ep1', party: PARTY, mio: MIO, posto, t0: T0, r: ritocca ? ritocca.toString() : null });
   // `vistaDigitale` comincia dalla schermata d'ingresso (com'e' giusto: la
   // Spedizione si apre leggendo), e la plancia arriva dopo. Come fa il pilota,
   // si preme quel che c'e' finche' il tabellone non compare.
@@ -241,6 +242,24 @@ const ordineVisivo = (page) => page.evaluate(() =>
     }
     await page.close();
   }
+}
+
+// --- IL PNG SCORTATO NON SI TOCCA DAL TELEFONO
+//
+// Non è l'eroe di nessuno: il suo turno è a sé e lo conduce chi arbitra. Il
+// bottone «muovi …» era già sparito, ma restava il suo CHIP nel giro — un
+// bottone come gli altri, che apriva un turno impossibile da giocare.
+//
+// Si guarda il codice che lo disegna invece dello stato di una partita finta:
+// montare una scorta liberata qui vorrebbe dire replicare mezzo episodio, e il
+// controllo diventerebbe più fragile di quel che prova.
+{
+  const { page } = await apri({ ruolo: 'giocatore', eroe: MIO });
+  ok(await page.locator('[data-scortato-chip]').count() === 0,
+     'sul telefono nessun chip del PNG scortato');
+  ok(await page.locator('[data-scortato]').count() === 0,
+     'né la sua pedina selezionabile');
+  await page.close();
 }
 
 await browser.close();
