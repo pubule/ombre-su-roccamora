@@ -1,12 +1,12 @@
 <!doctype html><html lang="it"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Oggetti e reperti come elenco · mockup</title>
+<title>Il telefono di chi gioca: sezioni che si aprono · mockup</title>
 <!-- L'APP.CSS VERO, non una copia. Un mockup che reinterpreta lo stile mostra un
      layout che non esiste, e si sceglie su una cosa falsa: qui la fedelta' e'
      garantita per costruzione, perche' e' lo stesso foglio che gira in gioco. -->
 <link rel="stylesheet" href="/app.css">
 <style>
-  /* SOLO l'impalcatura del mockup: due telefoni affiancati e le didascalie.
+  /* SOLO l'impalcatura del mockup: i telefoni affiancati e le didascalie.
      Niente che tocchi i componenti — quelli devono venire da app.css. */
   body { padding: 18px; }
   .banco { display: flex; gap: 26px; flex-wrap: wrap; align-items: flex-start;
@@ -22,40 +22,38 @@
   .prima-dopo { color: var(--osso-fioco); font-style: italic; font-size: 15px;
                 margin: 10px auto 0; max-width: 390px; }
 
-  /* --- LA PROPOSTA: l'elenco a bottoni.
-     Riusa `.voce` dello stradario, che e' gia' la riga-bottone del fascicolo:
-     stesso fondo, stesso bordo, stessa altezza del tocco. Non un componente
-     nuovo — uno che il tavolo ha gia' imparato. */
-  /* UNA RIGA PER PEZZO. `.stradario` passa a due colonne oltre i 700px — giusto
-     per lo stradario, che sono nomi corti — ma qui spezza i titoli in tre righe
-     e la miniatura resta orfana. L'elenco di quel che si ha in mano si legge
-     dall'alto in basso: `.in-mano` e' `.stradario` a una colonna sola. */
+  /* --- LE RIGHE. Riusano `.voce` dello stradario, che e' gia' la riga-bottone
+     del fascicolo: stesso fondo, stesso bordo, stessa altezza del tocco. Non un
+     componente nuovo — uno che il tavolo ha gia' imparato.
+
+     SENZA MINIATURA: la riga e' un nome, e in corsa un nome si legge piu' in
+     fretta di un'immagine da riconoscere.
+
+     E a UNA COLONNA: `.stradario` passa a due oltre i 700px — giusto per lo
+     stradario, che sono nomi corti — ma qui spezzerebbe i titoli in tre righe. */
   .in-mano { display: grid; gap: 6px; grid-template-columns: 1fr; }
   .riga-pezzo { display: flex; align-items: center; gap: 10px; width: 100%; }
-  .riga-pezzo .mini { width: 34px; height: 46px; flex: 0 0 34px; border-radius: 1px;
-                      object-fit: cover; border: 1px solid var(--bordo-alto); background: #000; }
   .riga-pezzo .tit { flex: 1; text-align: left; }
   .riga-pezzo .freccia { color: var(--osso-fioco); font-size: 18px; }
 </style>
 </head><body>
 
 <div class="did pannello">
-  <h1>oggetti e reperti: elenco, e il dettaglio si apre</h1>
-  <p class="mt">Con le anteprime, quattro oggetti e tre reperti riempiono uno schermo e mezzo:
-  quel che avete in mano diventa la parte più lunga della pagina, e l’orologio — che è la cosa
-  che tiene in ansia — finisce fuori dallo scorrimento.</p>
-  <p class="mt"><b>La proposta:</b> una riga per pezzo, con una miniatura piccola per
-  riconoscerlo a colpo d’occhio; si tocca e la carta si apre grande. Stessa riga dello
-  <b>stradario</b> (<code>.voce</code>), che al tavolo si è già imparata.</p>
-  <p class="nota mt">Vale in tutt’e due le metà della serata: nell’Indagine (telefono e arbitro)
-  e nella Spedizione, dove l’inventario è lo stesso elenco.</p>
+  <h1>il telefono di chi gioca: sezioni che si aprono</h1>
+  <p class="mt">Con le anteprime, quel che avete in mano diventa la parte più lunga della
+  pagina, e l’orologio — la cosa che tiene in ansia — finisce fuori dallo scorrimento.</p>
+  <p class="mt"><b>La proposta:</b> ogni sezione è <b>un bottone</b> che dice quanto contiene;
+  si tocca e si apre l’elenco; si tocca una riga e si apre il pezzo. Nessuna miniatura: la riga
+  è un nome, e si legge in corsa.</p>
+  <p class="nota mt">Vale in tutt’e due le metà della serata: nell’Indagine (telefono e
+  arbitro) e nella Spedizione, dove l’inventario è lo stesso elenco.</p>
 </div>
 
 <div class="banco">
 
-  <!-- ============================================= COM'E' ORA -->
+  <!-- ============================================= 1 · COM'E' ORA -->
   <div class="col">
-    <h3>com’è ora</h3>
+    <h3>1 · com’è ora</h3>
     <div class="telefono"><div class="dentro">
       <div class="pannello">
         <h2>quel che avete in mano</h2>
@@ -68,100 +66,173 @@
         <img class="reperto-img mt" src="/assets/Episodio%201/reperti/Reperto%20A%20-%20Diario%20di%20Ruggero.png" alt="">
       </div>
     </div></div>
-    <p class="prima-dopo">Due oggetti e un reperto occupano già tutto lo schermo. Con quattro
-    oggetti e tre reperti — la fine di una serata normale — si scorre a lungo per arrivare
-    in fondo.</p>
+    <p class="prima-dopo">Due oggetti e un reperto riempiono lo schermo. Con sette pezzi — la
+    fine di una serata normale — si scorre a lungo per arrivare in fondo.</p>
   </div>
 
-  <!-- ============================================= LA PROPOSTA: L'ELENCO -->
+  <!-- ============================================= 2 · LA HOME PROPOSTA -->
   <div class="col">
-    <h3>la proposta · l’elenco</h3>
+    <h3>2 · la proposta · la home</h3>
     <div class="telefono"><div class="dentro">
       <div class="pannello">
-        <h2>quel che avete in mano <span class="nota">(7)</span></h2>
+        <h2>siete dentro</h2>
+        <p class="nota">Quel che c’è da cogliere qui lo cogliete voi: guardate meglio, sotto.</p>
+      </div>
+      <div class="mt"></div>
+      <div class="pannello">
+        <h2>il vostro eroe</h2>
+        <p class="nota">mora “spilla” fanti</p>
+        <p class="nota">Testimonianza: <b>1</b> di 2</p>
+      </div>
+      <div class="mt"></div>
+      <div class="pannello">
+        <h2>guardare meglio</h2>
+        <div class="btn-riga">
+          <button class="btn pieno">testimonianza</button>
+          <button class="btn">aiuto profano (1 volta qui)</button>
+        </div>
+      </div>
+      <div class="mt"></div>
+      <div class="pannello">
+        <h2>il vostro taccuino</h2>
+        <div class="in-mano mt">
+          <button class="voce" onclick="apri('mano')"><span class="riga-pezzo">
+            <span class="tit"><b>quel che avete in mano</b><br>
+              <i class="nota">3 oggetti · 1 approfondimento · 3 reperti</i></span>
+            <span class="freccia">›</span></span></button>
+          <button class="voce" onclick="apri('taccuino')"><span class="riga-pezzo">
+            <span class="tit"><b>taccuino e domande</b><br>
+              <i class="nota">1 risposta scritta su 4</i></span>
+            <span class="freccia">›</span></span></button>
+          <button class="voce" onclick="apri('ombra')"><span class="riga-pezzo">
+            <span class="tit"><b>ombra in avanscoperta</b><br>
+              <i class="nota">la vostra, 1 volta per serata</i></span>
+            <span class="freccia">›</span></span></button>
+          <button class="voce" onclick="apri('lettera')"><span class="riga-pezzo">
+            <span class="tit"><b>la lettera d’incarico</b></span>
+            <span class="freccia">›</span></span></button>
+        </div>
+      </div>
+    </div></div>
+    <p class="prima-dopo">Tutto in uno schermo: l’orologio in cima (qui tagliato), quel che
+    potete fare qui, e le sezioni che dicono <i>quanto</i> contengono senza aprirsi.</p>
+  </div>
 
+  <!-- ============================================= 3 · L'ELENCO APERTO -->
+  <div class="col">
+    <h3>3 · l’elenco aperto</h3>
+    <div class="telefono"><div class="dentro">
+      <div class="barra">
+        <button class="btn">← indietro</button>
+        <div class="titolo"><span class="tit-testo">quel che avete in mano</span></div>
+      </div>
+      <div class="pannello">
         <p class="nota">Oggetti</p>
         <div class="in-mano mt">
           <button class="voce" onclick="apri('ogg1')"><span class="riga-pezzo">
-            <img class="mini" src="/assets/Episodio%201/cards/Oggetti/Corda%20di%20Violino%20d%E2%80%99Argento.jpg" alt="">
             <span class="tit"><b>Corda di Violino d’Argento</b></span>
             <span class="freccia">›</span></span></button>
           <button class="voce" onclick="apri('ogg2')"><span class="riga-pezzo">
-            <img class="mini" src="/assets/Episodio%201/cards/Oggetti/Il%20Diapason%20d%E2%80%99Argento.jpg" alt="">
             <span class="tit"><b>Il Diapason d’Argento</b></span>
             <span class="freccia">›</span></span></button>
           <button class="voce" onclick="apri('ogg3')"><span class="riga-pezzo">
-            <img class="mini" src="/assets/Episodio%201/cards/Oggetti/Ampolla%20di%20Acqua%20Benedetta.jpg" alt="">
             <span class="tit"><b>Ampolla di Acqua Benedetta</b></span>
             <span class="freccia">›</span></span></button>
         </div>
-
         <p class="nota mt">Approfondimenti</p>
         <div class="in-mano mt">
           <button class="voce" onclick="apri('app1')"><span class="riga-pezzo">
-            <img class="mini" src="/assets/Episodio%201/cards/Indizi/Lo%20spartito%20tra%20le%20assi.jpg" alt="">
             <span class="tit"><b>Lo spartito tra le assi</b><br>
               <i class="nota">Indizio Nascosto</i></span>
             <span class="freccia">›</span></span></button>
         </div>
-
         <p class="nota mt">Reperti</p>
         <div class="in-mano mt">
           <button class="voce" onclick="apri('rep1')"><span class="riga-pezzo">
-            <img class="mini" src="/assets/Episodio%201/reperti/Reperto%20A%20-%20Diario%20di%20Ruggero.png" alt="">
             <span class="tit"><b>Diario di Ruggero</b><br><i class="nota">Reperto A</i></span>
             <span class="freccia">›</span></span></button>
           <button class="voce" onclick="apri('rep2')"><span class="riga-pezzo">
-            <img class="mini" src="/assets/Episodio%201/reperti/Reperto%20B%20-%20Registro%20delle%20Consegne.png" alt="">
             <span class="tit"><b>Registro delle Consegne</b><br><i class="nota">Reperto B</i></span>
             <span class="freccia">›</span></span></button>
           <button class="voce" onclick="apri('rep3')"><span class="riga-pezzo">
-            <img class="mini" src="/assets/Episodio%201/reperti/Reperto%20C%20-%20Fascicolo%20del%201741.png" alt="">
             <span class="tit"><b>Fascicolo del 1741</b><br><i class="nota">Reperto C</i></span>
             <span class="freccia">›</span></span></button>
         </div>
       </div>
     </div></div>
-    <p class="prima-dopo">Sette pezzi in mezzo schermo, e la miniatura basta a riconoscerli.
-    Sotto restano visibili gli appunti del gruppo e l’orologio.</p>
+    <p class="prima-dopo">Senza miniature ci stanno tutti e sette. Toccandone una, la carta si
+    apre grande — col pizzico per ingrandire, come oggi.</p>
   </div>
 
-  <!-- ============================================= IL DETTAGLIO -->
+  <!-- ============================================= 4 · IL TACCUINO -->
   <div class="col">
-    <h3>la proposta · il dettaglio</h3>
+    <h3>4 · taccuino e domande</h3>
     <div class="telefono"><div class="dentro">
       <div class="barra">
-        <button class="btn">← in mano</button>
-        <div class="titolo"><span class="tit-testo">diario di ruggero</span></div>
+        <button class="btn">← indietro</button>
+        <div class="titolo"><span class="tit-testo">taccuino e domande</span></div>
       </div>
       <div class="pannello">
-        <p class="nota">Reperto A · si legge, si passa di mano</p>
-        <img class="reperto-img mt" src="/assets/Episodio%201/reperti/Reperto%20A%20-%20Diario%20di%20Ruggero.png" alt="">
+        <p class="nota">Gli appunti del gruppo</p>
+        <p class="mt">la chiave non torna · il liutaio esce di notte</p>
+      </div>
+      <div class="mt"></div>
+      <div class="pannello">
+        <p class="nota">Le quattro domande</p>
+        <p class="mt"><b>1 · DOVE portavano la cera?</b><br>
+          <i>al magazzino di Dellacqua</i></p>
+        <p class="mt"><b>2 · CHI comanda il Coro?</b><br>
+          <i class="nota">— ancora nessuna risposta —</i></p>
+        <p class="nota mt">Le risposte le scrive chi arbitra: qui si leggono, per ragionarci
+        sopra fra una porta e l’altra.</p>
       </div>
     </div></div>
-    <p class="prima-dopo">Toccando la riga, la carta si apre come si apre oggi: a piena
-    larghezza, e il pizzico per ingrandire continua a funzionare (<code>zoom.js</code>).
-    Si torna con la barra, che è la stessa di ogni schermata.</p>
+    <p class="prima-dopo"><b>Da decidere:</b> di sola lettura (come qui), oppure ognuno può
+    scrivere dal suo telefono? Scrivere in quattro sullo stesso campo si pesta, ma il
+    Taccuino è del gruppo.</p>
+  </div>
+
+  <!-- ============================================= 5 · L'ABILITA' -->
+  <div class="col">
+    <h3>5 · ombra in avanscoperta</h3>
+    <div class="telefono"><div class="dentro">
+      <div class="barra">
+        <button class="btn">← indietro</button>
+        <div class="titolo"><span class="tit-testo">ombra in avanscoperta</span></div>
+      </div>
+      <div class="pannello">
+        <p class="nota">La vostra, una volta per serata</p>
+        <p class="mt"><i>Mora sparisce nel vicolo e torna a dire cosa c’è, prima che il gruppo
+        ci metta piede.</i></p>
+        <p class="nota mt">Dichiarate una voce dello stradario: vi si dirà se lì c’è qualcosa,
+        senza spendere l’ora.</p>
+        <div class="btn-riga">
+          <button class="btn pieno">usate l’ombra →</button>
+        </div>
+      </div>
+    </div></div>
+    <p class="prima-dopo">Una schermata per abilità, sul telefono di chi ce l’ha: Ombra di
+    Mora, Discernimento di Marani, Fonti riservate di Carla, Esame di Carbone. La spesa la
+    esegue chi arbitra, come per gli Approfondimenti — e l’esito lo legge il tavolo.</p>
   </div>
 
 </div>
 
-<div class="did pannello mt" style="margin-top:26px">
+<div class="did pannello" style="margin-top:26px">
   <h2>tre cose da guardare</h2>
   <ul>
-    <li><b>La miniatura serve?</b> Senza, la riga è solo un nome e si legge più in fretta; con,
-      si riconosce il pezzo senza leggere. Al tavolo, di sbieco, la seconda vince — ma è la
-      cosa da decidere per prima.</li>
-    <li><b>Il conteggio in testa</b> («quel che avete in mano <i>(7)</i>»): dice quanto avete
-      raccolto senza aprire niente. Nella Spedizione è già così sul bottone.</li>
-    <li><b>Il reperto è un foglio, non una carta.</b> Nell’elenco sta accanto agli oggetti, ma
-      aperto va largo: è un documento che al tavolo si stampa e si passa di mano.</li>
+    <li><b>Il conteggio nella riga</b> («3 oggetti · 1 approfondimento · 3 reperti»): dice
+      quanto c’è senza aprire. Se non serve, la riga si accorcia a un nome.</li>
+    <li><b>Il taccuino si scrive o si legge?</b> È l’unica domanda vera del mockup: scrivere in
+      quattro sullo stesso campo si pesta, ma il Taccuino è del gruppo.</li>
+    <li><b>Le abilità una-tantum non le ha ogni eroe.</b> Sul telefono di chi non ne ha, quella
+      riga semplicemente non c’è — come i pallini delle cariche.</li>
   </ul>
 </div>
 
 <div id="overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.86);z-index:50;overflow:auto;padding:16px">
   <div style="max-width:420px;margin:0 auto">
-    <div class="barra"><button class="btn" onclick="chiudi()">← in mano</button>
+    <div class="barra"><button class="btn" onclick="chiudi()">← indietro</button>
       <div class="titolo"><span class="tit-testo" id="ov-tit"></span></div></div>
     <div class="pannello"><div id="ov-corpo"></div></div>
   </div>
@@ -185,13 +256,24 @@
     rep3: ['fascicolo del 1741', 'Reperto C · si legge, si passa di mano',
       '/assets/Episodio%201/reperti/Reperto%20C%20-%20Fascicolo%20del%201741.png', 'reperto'],
   };
+  const TESTI = {
+    mano: ['quel che avete in mano', 'Guardate la colonna 3: è l’elenco aperto.'],
+    taccuino: ['taccuino e domande', 'Guardate la colonna 4.'],
+    ombra: ['ombra in avanscoperta', 'Guardate la colonna 5.'],
+    lettera: ['la lettera d’incarico', 'Si apre la lettera, senza la coda d’arbitro.'],
+  };
   function apri(id) {
-    const [tit, nota, src, forma] = PEZZI[id];
-    document.getElementById('ov-tit').textContent = tit;
-    document.getElementById('ov-corpo').innerHTML =
-      '<p class="nota">' + nota + '</p>' + (forma === 'reperto'
-        ? '<img class="reperto-img mt" src="' + src + '" alt="">'
-        : '<div class="carta-grande mt"><img src="' + src + '" alt=""></div>');
+    if (TESTI[id]) {
+      document.getElementById('ov-tit').textContent = TESTI[id][0];
+      document.getElementById('ov-corpo').innerHTML = '<p class="nota">' + TESTI[id][1] + '</p>';
+    } else {
+      const [tit, nota, src, forma] = PEZZI[id];
+      document.getElementById('ov-tit').textContent = tit;
+      document.getElementById('ov-corpo').innerHTML =
+        '<p class="nota">' + nota + '</p>' + (forma === 'reperto'
+          ? '<img class="reperto-img mt" src="' + src + '" alt="">'
+          : '<div class="carta-grande mt"><img src="' + src + '" alt=""></div>');
+    }
     document.getElementById('overlay').style.display = '';
   }
   function chiudi() { document.getElementById('overlay').style.display = 'none'; }
