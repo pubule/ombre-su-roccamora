@@ -85,6 +85,21 @@ Audio: an oar dipping in still water, lapping water against stone, then complete
 No text, no titles, no captions, no watermark.
 
 
+## La finestra da scegliere
+
+Le clip si generano a **5 secondi** e in montaggio se ne tengono 3,7-4: quel
+secondo di troppo non e' spreco, e' la possibilita' di SCEGLIERE. Questi
+modelli hanno spesso mezzo secondo di immobilita' in testa e il gesto puo'
+cadere tardi: se Ottone alza gli occhi al terzo secondo e la clip ne dura
+esattamente quattro, il montaggio possibile e' uno solo.
+
+Si sposta la finestra nella scaletta di `monta-trailer.sh`, con la chiocciola:
+
+    "04-ottone:3.7@0.9"     prende 3,7 secondi a partire dal secondo 0,9
+
+Senza chiocciola parte da zero. Se l'inizio spostato sfora la fine della clip
+lo script si ferma e lo dice, invece di accorciare il film in silenzio.
+
 ## Dopo
 
 Le clip vanno in `video/clip/` coi nomi `01-citta` `02-elena` `03-nino`

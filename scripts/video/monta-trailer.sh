@@ -43,12 +43,18 @@ FONT_TIT=fonts/IMFellEnglishSC.ttf
 # lo prende l'incrocio. Sbagliarlo non si vede nel file — la durata dichiarata
 # resta giusta perche' la tiene su l'audio — si vede solo contando i
 # fotogrammi, ed e' successo davvero: 650 invece di 750.
+# Formato: nome:visibile[@inizio]. `inizio` e' DA DOVE prendere la clip, ed e'
+# il motivo per cui conviene generare piu' lungo di quanto serve: questi
+# modelli hanno spesso mezzo secondo di immobilita' in testa, e il gesto puo'
+# cadere tardi. Con clip da 5 s e 3,7 visibili restano ~1,3 s di finestra da
+# scegliere: si guarda dove il gesto e' venuto bene e si sposta l'inizio.
+#   "04-ottone:3.7@0.9"  ->  prende 3,7 s a partire dal secondo 0,9
 SCALETTA=(
   "01-citta:3.85"
   "02-elena:3.7"  "03-nino:3.7"  "04-ottone:3.7"  "05-sibilla:3.7"
   "06-adepto:3.85"
   "07-mora:4.0"
-)   # ognuna sta dentro i 4,0 s generati; in tutto 26,5 s
+)   # in tutto 26,5 s; con clip da 5 s ognuna ha ~1 s di margine
 
 # la durata totale NON si scrive a mano: si somma. Era gia' scritta in quattro
 # posti diversi (taglio, audio, controllo fotogrammi, cartelli) e bastava
@@ -80,18 +86,21 @@ dissolvenza_dopo() {
 # tutto: scala, taglio, fps, SAR.
 ingressi=(); filtri=(); n=0
 for voce in "${SCALETTA[@]}"; do
-  nome="${voce%%:*}"; visibile="${voce##*:}"
+  nome="${voce%%:*}"; resto="${voce##*:}"
+  visibile="${resto%%@*}"
+  inizio=0; [ "$resto" != "${resto#*@}" ] && inizio="${resto#*@}"
   d=$(dissolvenza_dopo "$n")
   presa=$(awk -v v="$visibile" -v d="$d" 'BEGIN{printf "%.3f", v + d}')
   # una clip piu' corta di quanto le si chiede non da' errore: fa saltare
   # l'incrocio e accorcia il film in silenzio. Meglio fermarsi qui.
   vera=$(ffprobe -v error -show_entries format=duration -of csv=p=0 "$CLIP/$nome.mp4")
-  if awk -v a="$vera" -v b="$presa" 'BEGIN{exit !(a < b - 0.02)}'; then
-    echo "«$nome.mp4» dura ${vera}s ma ne servono $presa (${visibile} visibili + $d di dissolvenza)."
-    echo "Rigenerala piu' lunga, o accorcia la sua riga nella SCALETTA."
+  serve=$(awk -v p="$presa" -v i="$inizio" 'BEGIN{printf "%.3f", p + i}')
+  if awk -v a="$vera" -v b="$serve" 'BEGIN{exit !(a < b - 0.02)}'; then
+    echo "«$nome.mp4» dura ${vera}s ma ne servono $serve (dal secondo $inizio: ${visibile} visibili + $d di dissolvenza)."
+    echo "Rigenerala piu' lunga, sposta l'inizio indietro, o accorcia la sua riga nella SCALETTA."
     exit 1
   fi
-  ingressi+=(-t "$presa" -i "$CLIP/$nome.mp4")
+  ingressi+=(-ss "$inizio" -t "$presa" -i "$CLIP/$nome.mp4")
   filtri+=("[$n:v]scale=$LARGO:$ALTO:force_original_aspect_ratio=increase,crop=$LARGO:$ALTO,fps=$FPS,setsar=1,format=yuv420p[v$n];")
   n=$((n + 1))
 done
@@ -102,7 +111,7 @@ done
 # ingerite.
 catena=""; off=0; prec="v0"
 for ((i = 1; i < n; i++)); do
-  visibile="${SCALETTA[$((i - 1))]##*:}"
+  prec_voce="${SCALETTA[$((i - 1))]##*:}"; visibile="${prec_voce%%@*}"
   off=$(awk -v o="$off" -v v="$visibile" 'BEGIN{printf "%.3f", o + v}')
   d=$(dissolvenza_dopo $((i - 1)))
   catena+="[$prec][v$i]xfade=transition=fade:duration=$d:offset=$off[x$i];"
