@@ -1293,6 +1293,8 @@ async function riproduci(eventi) {
       flash(ev.tipo === 'abbattuto' ? `${ev.nome.toLowerCase()} è abbattuto!` : 'a terra: ora si può prendere.');
     } else if (ev.tipo === 'rivelata') {
       ctx.layout = null;                       // la mappa cresce: si ridisegna
+    } else if (ev.tipo === 'annuncio') {
+      flash(ev.testo);
     } else if (ev.tipo === 'turno-nemici') {
       // IL COPIONE DELLA NOTTE, gia' risolto dal motore: qui si mette solo in
       // scena. Vale per chi arbitra e per chi guarda dal telefono — e' lo

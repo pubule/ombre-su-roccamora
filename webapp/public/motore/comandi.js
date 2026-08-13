@@ -108,7 +108,15 @@ const GESTORI = {
     // OBIETTIVO COMPLETATO: non si pesca piu'. La pressione del mazzo (spawn,
     // insidie, crescendo) si ferma appena l'obiettivo e' fatto: resta solo
     // scappare da chi c'e' gia'. Toglie il ritorno sotto pressione infinita.
-    if (obiettivi.obiettivoFatto(g)) return { eventi };
+    if (obiettivi.obiettivoFatto(g)) {
+      // LO SI DICE. Il mazzo che smette di pescare e' una regola — la pressione
+      // cala dopo il climax — ma a schermo si vedeva solo la notte partire
+      // subito dopo il bottone, e sembrava che la pesca fosse saltata per
+      // sbaglio. Una riga sola, e la regola si vede invece di essere subita.
+      const riga = 'Obiettivo compiuto: il mazzo Minaccia non pesca più. Restano quelli già in campo.';
+      if (sp.log[sp.log.length - 1] !== riga) sp.log.push(riga);
+      return { eventi: [{ tipo: 'annuncio', testo: riga }] };
+    }
 
     let n = carteDaPescare(g.comune, g.partita.party.length, sp.round, sp.cantoBonus, g.partita.episodio);
     if (sp.diversivoPronto) {
