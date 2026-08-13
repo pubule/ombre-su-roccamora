@@ -95,7 +95,13 @@ async function vistaHome() {
           <div class="testi">
             <h2>${esc(ep.titolo)}</h2>
             <div class="sotto">${esc(ep.sottotitolo)}</div>
-            ${salvata ? `<div class="stato">partita in corso</div>` : ''}
+            ${salvata ? `<div class="stato${(salvata.spedizione || {}).esito ? ' finita' : ''}">${
+              // una serata conclusa resta salvata — serve alla campagna — ma non
+              // e' «in corso»: si torna alla taverna e la si ritrova li', come se
+              // non fosse finita niente
+              (salvata.spedizione || {}).esito === 'vittoria' ? 'serata vinta'
+              : (salvata.spedizione || {}).esito ? 'serata perduta'
+              : 'partita in corso'}</div>` : ''}
           </div>
         </div>`;
       }).join('')}
@@ -138,12 +144,14 @@ async function vistaEpisodio(epId) {
     </div>
     ${salvata ? `
       <div class="pannello">
-        <h2>partita in corso</h2>
+        <h2>${(salvata.spedizione || {}).esito ? 'serata conclusa' : 'partita in corso'}</h2>
         <p>Party: ${salvata.party.map((n) => esc(n.split(' ')[0])).join(', ')} ·
            fase: ${salvata.fase} · modalità: ${salvata.modo}</p>
         <div class="btn-riga">
-          <button class="btn pieno" id="continua">continua</button>
-          <button class="btn" id="ricomincia">ricomincia da capo</button>
+          <button class="btn pieno" id="continua">${
+            (salvata.spedizione || {}).esito ? 'rivedi l’epilogo' : 'continua'}</button>
+          <button class="btn" id="ricomincia">${
+            (salvata.spedizione || {}).esito ? 'rigiocate l’episodio' : 'ricomincia da capo'}</button>
         </div>
       </div><div class="mt"></div>` : ''}
     <div class="pannello">
