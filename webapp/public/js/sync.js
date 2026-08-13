@@ -19,6 +19,15 @@ export function decidi(locale, remoto) {
   const localeCambiato = locale.aggiornato > base;
   const remotoCambiato = remoto.aggiornato > base;
 
+  // STESSO ISTANTE = STESSO STATO, non un conflitto. Da quando la partita vive
+  // sul tavolo, lo stato torna dal Durable Object e si salva in locale COL SUO
+  // `aggiornato`: le due copie sono la stessa cosa, ma `sincronizzato` e'
+  // rimasto indietro e le faceva risultare entrambe «cambiate». Si finiva
+  // davanti a «due versioni di questa partita» con due righe identiche, stessa
+  // data e stesso secondo, e una delle due da buttare per forza.
+  if (localeCambiato && remotoCambiato && locale.aggiornato === remoto.aggiornato) {
+    return { azione: 'niente' };
+  }
   if (localeCambiato && remotoCambiato) return { azione: 'chiedi', locale, remoto };
   if (remotoCambiato) return { azione: 'scarica' };
   if (localeCambiato) return { azione: 'manda' };

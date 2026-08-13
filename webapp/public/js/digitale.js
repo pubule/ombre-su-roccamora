@@ -1172,6 +1172,17 @@ async function incassa(stato, eventi) {
 // non si riproducono gli eventi due volte.
 let contatoreRif = 0;
 async function eseguiSulTavolo(comando) {
+  // QUANDO IL TAVOLO CHIEDE UN ALTRO DADO. Certe azioni ne vogliono piu' di
+  // uno, e quanti non si sa prima: il secondo colpo di Ottone si sa solo dopo
+  // aver visto cadere il primo nemico. Il motore rifiuta con «i tiri dichiarati
+  // non bastano», si chiede il dado mancante e si rimanda.
+  //
+  // Il ramo locale lo faceva gia'; questo no, e da stamattina — da quando i
+  // dadi si chiedono prima di diramare — l'azione si fermava li' con quel
+  // messaggio in faccia e niente da fare. Il tetto e' una rete, non una regola:
+  // nessuna azione chiede piu' di due o tre dadi, e un ciclo senza fondo
+  // davanti a un giocatore e' peggio di un no.
+  for (let giro = 0; giro < 5; giro++) {
   const rif = `${ctx.posto.ruolo}-${contatoreRif += 1}`;
   ctx.rifMiei.add(rif);
   try {
@@ -1181,7 +1192,16 @@ async function eseguiSulTavolo(comando) {
       body: JSON.stringify({ ...comando, rif }),
     });
     const out = await r.json();
-    if (!r.ok || out.rifiuto) { flash((out.rifiuto || {}).motivo || 'Il tavolo ha rifiutato la mossa.'); return false; }
+    if (!r.ok || out.rifiuto) {
+      const motivo = (out.rifiuto || {}).motivo || '';
+      if (comando.tiri && /non bastano/i.test(motivo)) {
+        const d = await chiediTiro(azioni.provaDi(G(), comando));
+        if (!d) return false;
+        comando = { ...comando, tiri: [...comando.tiri, d] };
+        continue;
+      }
+      flash(motivo || 'Il tavolo ha rifiutato la mossa.'); return false;
+    }
     if (await incassa(out.stato, out.eventi)) return true;
     if (out.stato.pendenza) { await sciogliPendenza(out.stato.pendenza); return true; }
     render();
@@ -1193,6 +1213,9 @@ async function eseguiSulTavolo(comando) {
     flash('Il tavolo non risponde. La mossa non è stata fatta.');
     return false;
   }
+  }
+  flash('Troppi tiri richiesti: qualcosa non torna.');
+  return false;
 }
 
 async function esegui(comando) {

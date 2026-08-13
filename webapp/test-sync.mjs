@@ -56,5 +56,15 @@ if (_coda.leggi().length !== 1 || _coda.leggi()[0].chiave !== 't/ep2') {
   console.error('FAIL: togli() ha tolto la cosa sbagliata'); ko++;
 }
 
+// STESSO ISTANTE = STESSO STATO. Con la partita sul tavolo lo stato torna dal
+// Durable Object e si salva in locale col SUO `aggiornato`: le due copie sono
+// la stessa cosa. `sincronizzato` resta indietro e le faceva risultare entrambe
+// cambiate — si finiva davanti a «due versioni di questa partita» con due righe
+// identiche, stessa data e stesso secondo, e una da buttare per forza.
+ok('niente', { aggiornato: 30, sincronizzato: 10 }, { aggiornato: 30 },
+   'stesso istante: e’ lo stesso stato, non un conflitto');
+ok('chiedi', { aggiornato: 30, sincronizzato: 10 }, { aggiornato: 25 },
+   'istanti diversi: il conflitto resta un conflitto');
+
 console.log(ko ? `${ko} FALLITI` : 'test-sync: tutto a posto');
 process.exit(ko ? 1 : 0);
