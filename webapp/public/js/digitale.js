@@ -323,6 +323,23 @@ function render() {
   // ricarica la pagina a meta' lettura. Prima la carta viveva solo nella catena
   // di animazione di chi arbitra: sul telefono ne arrivava una sola, e un
   // refresh saltava direttamente a notte inoltrata.
+  // LA PRIMA STANZA si apre come tutte le altre. Quella d'ingresso e' gia'
+  // rivelata quando la spedizione comincia, quindi nessun `muovi` la annuncia:
+  // senza questo, l'unica stanza che non si legge sarebbe proprio quella da cui
+  // si entra. Si segna come letta perche' non torni a ogni ridisegno.
+  if (!sp.carta && arbitro() && sp.fase === 'eroi') {
+    const t0 = sp.rivelate && sp.rivelate[0];
+    sp.stanzeLette = sp.stanzeLette || [];
+    if (t0 && !sp.stanzeLette.includes(t0)) {
+      const tile = tileDi(t0);
+      sp.stanzeLette.push(t0);
+      if (tile && tile.testo) {
+        sp.carta = { titolo: `${tile.id} · ${(tile.nome || '').toLowerCase()}`,
+                     tessera: tile.id, testo: tile.testo, annunci: [] };
+        salvaP();
+      }
+    }
+  }
   if (sp.carta) return schermataCarta(sp.carta);
   // LA NOTTE LA FA AGIRE CHI ARBITRA, e nessun altro. `render()` la faceva
   // partire a chiunque disegnasse con la fase a «nemici»: bastava ricaricare la
@@ -716,8 +733,16 @@ function schermataCarta(aperta) {
   app.classList.remove('immersivo');
   app.innerHTML = `<div class="barra"><span></span><div class="titolo">${esc(aperta.titolo || 'minaccia')}</div><span></span></div>
     <div class="pannello">
-      <div class="carta-grande"><img src="${urlCarta(aperta.carta.file)}" alt=""></div>
-      <p class="mt">${rendi(aperta.carta.rules)}</p>
+      ${aperta.carta
+        // una carta Minaccia: l'immagine E' la carta, testo compreso
+        ? `<div class="carta-grande"><img src="${urlCarta(aperta.carta.file)}" alt=""></div>
+           <p class="mt">${rendi(aperta.carta.rules)}</p>`
+        // una stanza che si apre: l'arte se c'e', e il testo sempre. L'arte di
+        // molte tessere non e' ancora stata generata, e un'immagine rotta e'
+        // peggio di nessuna immagine: se manca sparisce da sola (vedi il
+        // gestore `error` in main.js) e resta il testo, che c'e' sempre.
+        : `${aperta.tessera ? `<div class="carta-grande stanza"><img src="${urlBoard(aperta.tessera)}" alt=""></div>` : ''}
+           <p class="mt">${rendi(aperta.testo || '')}</p>`}
       ${(aperta.annunci || []).map((a) => `<p class="mt"><b>${esc(a)}</b></p>`).join('')}
     </div>
     ${arbitro()

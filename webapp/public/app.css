@@ -924,3 +924,10 @@ em, i { font-style: italic; }
    sotto il pannello della salute, come una seconda striscia di mappa. */
 #app.vista-eroe .board-area { overflow: hidden; position: relative; }
 #app.vista-eroe .board-wrap { height: 100%; max-height: 100%; overflow: auto; }
+
+/* la stanza che si apre: l'arte della tessera è quadrata, non una carta */
+/* l'arte della tessera e' quadrata e larga: senza un tetto in percentuale
+   sbordava dal pannello, uscendo dai due lati sullo schermo del telefono */
+.carta-grande.stanza { display: flex; justify-content: center; }
+.carta-grande.stanza img { width: 100%; max-width: min(420px, 100%); height: auto;
+  border-radius: 6px; border: 1px solid var(--bordo-alto, rgba(230,195,120,.45)); }

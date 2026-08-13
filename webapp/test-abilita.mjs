@@ -68,6 +68,9 @@ async function semina(sp) {
   await page.locator('.tessera-episodio[data-ep="ep1"]').click();
   // la partita salvata passa dalla schermata «riprendi»
   if (await page.locator('#continua').count()) await page.locator('#continua').click();
+  // la stanza d'ingresso si legge come tutte le altre: chi arbitra la chiude
+  await page.waitForTimeout(250);
+  if (await page.locator('#ok-msg').count()) await page.locator('#ok-msg').click();
   await page.locator('.board-digitale').waitFor({ timeout: 8000 });
 }
 

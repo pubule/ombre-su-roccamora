@@ -158,6 +158,15 @@ export function muovi(g, caso, nm, node, revealId) {
     const dest = tileDi(g, revealId);
     log(g, `${primo(nm)} apre la via verso ${revealId}: ${dest.nome.toLowerCase()}.`);
     eventi.push({ tipo: 'rivelata', tessera: revealId });
+    // LA STANZA SI LEGGE QUANDO SI APRE. Il testo della tessera e' scritto per
+    // essere detto ad alta voce entrando, ed e' quel che trasforma una casella
+    // in un luogo: finiva solo nel fascicolo di chi arbitra, e a schermo non lo
+    // vedeva nessuno. Sta nello stato come la carta Minaccia — cosi' la leggono
+    // tutti gli schermi, e chi ricarica la ritrova.
+    if (dest.testo) {
+      sp.carta = { titolo: `${dest.id} · ${(dest.nome || '').toLowerCase()}`,
+                   tessera: dest.id, testo: dest.testo, annunci: [] };
+    }
     if (/quando rivelate/i.test(dest.testo || '')) spawnDaTesto(g, dest.testo, revealId);
   } else {
     log(g, `${primo(nm)} si sposta in ${node.t}.`);

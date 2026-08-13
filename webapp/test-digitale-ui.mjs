@@ -55,6 +55,8 @@ await page.waitForTimeout(150);
 // classe NON deve esserci, o su un telefono le righe di sotto sparirebbero.
 if (await has('#app.immersivo')) fail('la schermata d’ingresso e’ immersiva (non scorre)');
 await clickIf('#via');                       // -> board
+// la stanza d'ingresso si legge come tutte le altre: chi arbitra la chiude
+await clickIf('#ok-msg');
 await page.waitForTimeout(200);
 
 if (!(await has('.board-digitale'))) fail('board non renderizzato');
