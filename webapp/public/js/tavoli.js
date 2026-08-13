@@ -3,6 +3,7 @@
 // due gruppi non si incrociano mai, nemmeno sullo stesso episodio.
 import { impostaTavolo, tavoloCorrente, dimenticaTavolo } from './store.js';
 import { conferma } from './chiedi.js';
+import { vistaMembri } from './membri.js';
 
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) =>
   ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -40,6 +41,8 @@ export async function vistaTavoli(app, quandoScelto) {
              data-id="${esc(t.id)}" data-nome="${esc(t.nome)}">
           <h3>${esc(t.nome)}</h3>
           <p>${ultima(t.id)}</p>
+          ${t.ruolo === 'arbitro' ? `<button class="btn piccolo membri-tavolo" data-id="${esc(t.id)}"
+                  data-nome="${esc(t.nome)}">chi gioca</button>` : ''}
           <button class="btn piccolo elimina-tavolo" data-id="${esc(t.id)}"
                   data-nome="${esc(t.nome)}" data-partite="${quante(t.id)}">elimina</button>
         </div>`).join('')
@@ -83,6 +86,14 @@ export async function vistaTavoli(app, quandoScelto) {
     dimenticaTavolo(id);            // senza questo risorgerebbe alla prima sincronizzazione
     vistaTavoli(app, quandoScelto);
   }));
+  // «chi gioca» sta solo sui tavoli che arbitro: invitare e' dell'arbitro, e il
+  // Worker lo impone comunque — un bottone che verra' rifiutato e' peggio che
+  // nessun bottone
+  app.querySelectorAll('.membri-tavolo').forEach((el) => el.addEventListener('click', (e) => {
+    e.stopPropagation();            // il click non deve anche ENTRARE nel tavolo
+    vistaMembri(app, el.dataset.id, el.dataset.nome, () => vistaTavoli(app, quandoScelto));
+  }));
+
   document.getElementById('nuovo-tavolo').onclick = () => {
     document.getElementById('modulo-tavolo').style.display = '';
     document.getElementById('nome-tavolo').focus();
