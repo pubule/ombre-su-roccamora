@@ -55,9 +55,17 @@ const esc = (s) => String(s).replace(/[&<>"]/g, (c) =>
 // motore a tirare, col generatore seminato della partita, e questa e' la
 // differenza fra una serata che si puo' rigiocare e una che no. Senza `facce`
 // l'overlay tira da se', com'era.
-export function tiraProva({ titolo, diffLabel = '', soglia, bonus = [], modo, ripiegoSempre, facce }) {
+export function tiraProva({ titolo, diffLabel = '', soglia, bonus = [], modo, ripiegoSempre,
+                            facce, sceltaOgniVolta }) {
   return new Promise((risolvi) => {
-    const tavolo = modo === 'tavolo';
+    // `sceltaOgniVolta` — TUTT'E DUE LE STRADE, e si sceglie a ogni tiro.
+    // Serve alle prove d'Indagine, che le tira chi ha l'eroe dal suo telefono:
+    // al tavolo si tirano dadi veri finche' li si ha in mano, e si passa all'app
+    // quando sono rotolati sotto la sedia — deciderlo una volta per tutta la
+    // serata con `modo` era una scelta presa nel momento sbagliato.
+    // I due pezzi c'erano gia' entrambi: uno era `display:none`.
+    const tavolo = sceltaOgniVolta || modo === 'tavolo';
+    const virtuale = sceltaOgniVolta || modo !== 'tavolo';
     let sempre = false;
     const overlay = document.createElement('div');
     overlay.className = 'dadi-overlay';
@@ -70,16 +78,19 @@ export function tiraProva({ titolo, diffLabel = '', soglia, bonus = [], modo, ri
       <div class="dadi-conto" id="dadi-conto"></div>
       <div class="dadi-verdetto sc" id="dadi-verdetto"></div>
       <div class="dadi-tavolo" id="dadi-tavolo" ${tavolo ? '' : 'style="display:none"'}>
-        <p class="dadi-istruzione sc">tirate i 2d6 veri — quanto fanno, senza bonus?</p>
+        <p class="dadi-istruzione sc">${sceltaOgniVolta
+          ? 'avete tirato dadi veri? dite quanto fanno, senza bonus'
+          : 'tirate i 2d6 veri — quanto fanno, senza bonus?'}</p>
         <div class="dadi-grid">
           ${[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((n) =>
             `<button class="btn" data-tot="${n}">${n}</button>`).join('')}
         </div>
-        <button class="btn dadi-ripiego" id="dadi-app">niente dadi? tira l’app</button>
+        ${sceltaOgniVolta ? '' :
+          '<button class="btn dadi-ripiego" id="dadi-app">niente dadi? tira l’app</button>'}
         ${ripiegoSempre ? `<button class="btn dadi-ripiego" id="dadi-sempre">${esc(ripiegoSempre.label)}</button>` : ''}
       </div>
       <button class="btn pieno dadi-lancia" id="dadi-lancia"
-              ${tavolo ? 'style="display:none"' : ''}>tocca per tirare</button>
+              ${virtuale ? '' : 'style="display:none"'}>tocca per tirare</button>
       <button class="btn dadi-chiudi" id="dadi-chiudi" style="display:none">continua</button>
       <button class="dadi-annulla" id="dadi-annulla">×</button>`;
     document.body.appendChild(overlay);
@@ -129,6 +140,9 @@ export function tiraProva({ titolo, diffLabel = '', soglia, bonus = [], modo, ri
     // totale dai dadi veri: i cubi si orientano sul risultato, senza rotolo
     overlay.querySelectorAll('[data-tot]').forEach((b) => b.onclick = async () => {
       const t = Number(b.dataset.tot);
+      // dichiarato il totale, il bottone del tiro virtuale sparisce: due strade
+      // ancora aperte a tiro gia' fatto sono due esiti per la stessa prova
+      overlay.querySelector('#dadi-lancia').style.display = 'none';
       const d1 = Math.max(1, t - 6) + Math.floor(Math.random() *
         (Math.min(6, t - 1) - Math.max(1, t - 6) + 1));
       const d2 = t - d1;
@@ -148,13 +162,15 @@ export function tiraProva({ titolo, diffLabel = '', soglia, bonus = [], modo, ri
       overlay.querySelector('#dadi-tavolo').style.display = 'none';
       overlay.querySelector('#dadi-lancia').style.display = '';
     };
-    overlay.querySelector('#dadi-app').onclick = passaAllApp;
+    const btnApp = overlay.querySelector('#dadi-app');
+    if (btnApp) btnApp.onclick = passaAllApp;
     // ...e lo stesso, ma valido da qui in avanti (lo ricorda il chiamante)
     const btnSempre = overlay.querySelector('#dadi-sempre');
     if (btnSempre) btnSempre.onclick = () => { sempre = true; passaAllApp(); };
 
     overlay.querySelector('#dadi-lancia').onclick = async (ev) => {
       ev.target.style.display = 'none';
+      overlay.querySelector('#dadi-tavolo').style.display = 'none';
       const d1 = facce ? facce[0] : 1 + Math.floor(Math.random() * 6);
       const d2 = facce ? facce[1] : 1 + Math.floor(Math.random() * 6);
       // rotolo: giri extra casuali + atterraggio sulla faccia giusta,

@@ -671,13 +671,23 @@ async function vistaPartita(partita) {
   const aSchermo = partita.modo === 'digitale' || partita.plancia === 'schermo';
   const sped = aSchermo ? vistaDigitale : vistaSpedizione;
   const posto = await postoDiQuestoTavolo();
+  // La serata puo' essere andata avanti ALTROVE mentre questa vista era aperta:
+  // chi arbitra chiude l'Indagine dal suo schermo e il telefono deve passare
+  // alla Spedizione con lo stato NUOVO. Tenendo l'oggetto della chiusura si
+  // ripartiva da quello di quando la vista si era aperta — e un giocatore
+  // sarebbe finito sulla schermata d'ingresso della plancia, che e' di chi
+  // conduce. Si rilegge dal salvataggio, che e' dove l'ultimo stato e' appena
+  // stato scritto.
   const vaiA = (dove) => {
     if (dove === 'menu') return vistaHome();
-    if (dove === 'spedizione') return sped(app, partita, vaiA, posto);
-    vistaPartita(partita);
+    const p = carica(partita.episodio) || partita;
+    if (dove === 'spedizione') return sped(app, p, vaiA, posto);
+    vistaPartita(p);
   };
   if (partita.fase === 'indagine' && !partita.indagine.chiusa) {
-    return vistaIndagine(app, partita, vaiA);
+    // il posto vale anche qui: fin qui l'Indagine era una schermata sola per
+    // tutti, e su un telefono mostrava le chiavi delle porte
+    return vistaIndagine(app, partita, vaiA, posto);
   }
   return sped(app, partita, vaiA, posto);
 }

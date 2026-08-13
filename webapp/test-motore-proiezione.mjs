@@ -44,6 +44,63 @@ function partita(ep, over = {}) {
   };
 }
 
+// ============================================ l'INDAGINE IN CORSO
+// Il caso che mancava, ed e' quello che si gioca davvero: serata aperta, il
+// gruppo ha gia' battuto qualche porta, e uno guarda dal telefono. Fin qui
+// `vistaIndagine` non riceveva nemmeno il posto e mostrava a tutti la
+// scrivania di chi arbitra — chiavi delle porte comprese.
+//
+// Si semina il caso PEGGIORE: un luogo visitato (cosi' la potatura deve
+// distinguere, non cancellare tutto) e uno aperto sotto gli occhi del gruppo.
+{
+  let controllati = 0;
+  for (const [id, ep] of EPISODI) {
+    const primo = (ep.luoghi || [])[0];
+    if (!primo) continue;
+    const s = partita(ep);
+    s.fase = 'indagine';
+    s.indagine = { ...s.indagine, chiusa: false, ora: 21, visitati: [primo.n],
+                   luogoAperto: primo.n, note: 'la chiave non torna',
+                   risposte: ['il liutaio', '', '', ''], risposteEsatte: [true, false, false, false] };
+    const dati = { ep, comune: COMUNE, carte: CARTE };
+    const g = vista(s, dati, GIOCATORE);
+
+    // IL SETACCIO SI PASSA A PORTE CHIUSE, e non e' una scorciatoia: entrare in
+    // un luogo E' il modo in cui si impara una risposta, e quel che il gruppo
+    // ha sentito leggere ad alta voce deve arrivare a tutti. Col luogo aperto
+    // il setaccio suonerebbe sul funzionamento del gioco (visto sull'Ep.20:
+    // «La via delle tre acque» e' insieme la risposta e l'indizio del rifugio).
+    // Quel che si prova qui e' che a serata appena cominciata non trapeli
+    // niente; la forma della potatura la provano i controlli sotto.
+    const s0 = partita(ep);
+    s0.fase = 'indagine';
+    s0.indagine = { ...s0.indagine, chiusa: false, ora: 18, visitati: [], luogoAperto: null };
+    const trovati = cercaSegreti(vista(s0, dati, GIOCATORE), ep);
+    ok(trovati.length === 0, `${id}: a indagine appena aperta trapela qualcosa — ${trovati.join(', ')}`);
+
+    // le chiavi delle porte NON battute: sono la deduzione, e dirle e' dire
+    // la soluzione un pezzo alla volta
+    const chiusi = (g.dati.ep.luoghi || []).filter((l) => l.n !== primo.n);
+    ok(chiusi.every((l) => l.chiave === undefined),
+       `${id}: le chiavi dei luoghi non visitati restano di chi arbitra`);
+    ok(chiusi.every((l) => l.indizi === undefined && l.approfondimenti === undefined),
+       `${id}: e nemmeno gli indizi o gli Approfondimenti di quelle porte`);
+    // il luogo dove il gruppo E' ENTRATO invece si vede tutto: l'hanno sentito
+    // leggere ad alta voce, e nasconderlo sarebbe una bugia
+    const dentro = (g.dati.ep.luoghi || []).find((l) => l.n === primo.n);
+    ok(dentro && (primo.indizi === undefined || dentro.indizi !== undefined),
+       `${id}: il luogo visitato si vede per intero`);
+    // la verifica delle risposte no: le risposte che il gruppo ha scritto
+    // restano, sapere QUALI sono giuste e' la busta
+    ok(g.stato.indagine.risposteEsatte === undefined,
+       `${id}: dal telefono non si sa quali risposte sono giuste`);
+    ok(g.stato.indagine.ora === 21 && (g.stato.indagine.visitati || []).length === 1,
+       `${id}: l'orologio e le porte gia' battute invece si vedono`);
+    controllati++;
+  }
+  ok(controllati === EPISODI.length, `indagine in corso setacciata su tutti (${controllati}/${EPISODI.length})`);
+}
+
 // ============================================================ i segreti
 // Su TUTTI gli episodi: quel che arriva al giocatore non contiene la busta.
 {

@@ -88,13 +88,29 @@ export class Partita extends DurableObject {
     if (url.pathname.endsWith('/ws')) return this.apriWebSocket(request, posto);
     if (url.pathname.endsWith('/comando')) return this.comando(request, posto);
     if (url.pathname.endsWith('/stato')) return this.statoPerChi(posto);
-    if (url.pathname.endsWith('/apri')) return this.apri(request);
+    if (url.pathname.endsWith('/apri')) return this.apri(request, posto);
     return Response.json({ errore: 'endpoint sconosciuto nel tavolo' }, { status: 404 });
   }
 
-  // Comincia (o riprende) una partita. `dati` sono i JSON dell'episodio, che
-  // il Worker legge dagli asset: il motore non va a prenderseli da solo.
-  async apri(request) {
+  // Comincia (o riprende) una partita, E LA AGGIORNA.
+  //
+  // Nell'Indagine agisce una mano sola — quella di chi arbitra — quindi non
+  // serve un vocabolario di comandi: serve che lo stato nuovo arrivi ai
+  // telefoni POTATO PER IL LORO POSTO. Questa e' la via, ed e' per questo che
+  // ora SPARGE: prima scriveva e taceva, e chi era collegato non vedeva
+  // muoversi niente finche' non arrivava un comando di Spedizione.
+  //
+  // La SECONDA serratura sul ruolo. La prima e' nel Worker
+  // (`tavolo.js`: `if (cosa === 'apri' && posto.ruolo !== 'arbitro')`, che
+  // risponde 404 — a chi non siede al tavolo non si dice nemmeno che esiste).
+  // Questa e' qui perche' `apri` non e' piu' l'apertura della plancia: e' la
+  // via con cui la serata AVANZA, e un giro solo di guardia su una porta del
+  // genere e' un giro solo da dimenticare il giorno che si aggiunge una
+  // scorciatoia.
+  async apri(request, posto) {
+    if (posto && posto.ruolo !== 'arbitro') {
+      return Response.json({ rifiuto: { motivo: 'La serata la apre chi arbitra.' } }, { status: 403 });
+    }
     const { stato, tavolo } = await request.json();
     await this.ctx.storage.put('tavolo', tavolo);
     const esistente = await this.leggi();
@@ -104,6 +120,9 @@ export class Partita extends DurableObject {
       return Response.json({ ok: true, ripresa: true });
     }
     await this.scrivi(stato, { subito: true });
+    // niente `eventi`: qui non c'e' un copione da mettere in scena, c'e' uno
+    // stato nuovo da guardare. Chi lo riceve ridisegna e basta.
+    this.spargi({ stato, eventi: [] }, await this.dati(stato.episodio, stato.bivi), null);
     return Response.json({ ok: true, ripresa: false });
   }
 
@@ -118,6 +137,15 @@ export class Partita extends DurableObject {
     const stato = await this.leggi();
     if (!stato) return Response.json({ errore: 'nessuna partita aperta' }, { status: 404 });
     const cmd = await request.json();
+
+    // IL TIRO D'INDAGINE non passa da `comandi.applica`: l'Indagine non ha un
+    // motore a comandi, e non le serve — agisce una mano sola. Qui arriva una
+    // cosa sola, l'esito di una prova che il tavolo aspettava da un telefono, e
+    // si scrive dove chi arbitra la sta guardando.
+    //
+    // Lo manda SOLO chi ha quell'eroe: e' il tiro del suo personaggio, e un
+    // altro che lo mandasse tirerebbe al posto suo.
+    if (cmd.tipo === 'prova-indagine') return this.provaIndagine(stato, cmd, posto);
 
     // CHI PUO' MUOVERE COSA. Un giocatore comanda il SUO eroe e nessun altro:
     // e' la regola che rende sensato dare a ognuno un dispositivo. L'arbitro
@@ -139,6 +167,23 @@ export class Partita extends DurableObject {
     await this.scrivi(out.stato, { subito: !!out.stato.spedizione.esito });
     this.spargi(out, dati, cmd.rif);
     return Response.json({ ...vista(out.stato, dati, posto), eventi: out.eventi, rif: cmd.rif });
+  }
+
+  async provaIndagine(stato, cmd, posto) {
+    const pend = (stato.indagine || {}).pendenza;
+    if (!pend || pend.id !== cmd.id) {
+      // gia' risolta: chi arbitra ha tirato lui, o due tocchi sono partiti
+      // insieme. Non e' un errore da mostrare — e' una corsa persa.
+      return Response.json({ ok: true, tardi: true });
+    }
+    if (posto.ruolo !== 'arbitro' && pend.a !== posto.eroe) {
+      return Response.json({ rifiuto: { motivo: `${pend.a} non è il tuo eroe.` } }, { status: 403 });
+    }
+    stato.indagine.pendenza = { ...pend, esito: cmd.esito };
+    stato.aggiornato = Date.now();
+    await this.scrivi(stato);
+    this.spargi({ stato, eventi: [] }, await this.dati(stato.episodio, stato.bivi), null);
+    return Response.json({ ok: true });
   }
 
   // Manda a ogni sessione la SUA vista. Non si spedisce lo stato intero e poi

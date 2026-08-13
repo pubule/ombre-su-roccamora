@@ -18,6 +18,7 @@ import * as suoni from './suoni.js';
 import { controBusta } from './engine.js';
 import { conferma } from './chiedi.js';
 import { apriCanale } from './canale.js';
+import { mettiSulTavolo } from './tavolo-vivo.js';
 import { episodioColBivio } from '../motore/bivi.js';
 import * as griglia from '../motore/griglia.js';
 import * as stat from '../motore/stat.js';
@@ -148,7 +149,7 @@ export async function vistaDigitale(app, partita, vaiA, posto) {
   const ep = episodioColBivio(ep0, partita.bivi);
   ctx = { app, partita, ep, comune, carte, vaiA, layout: null, posto: posto || null,
           canale: null, tavoloVivo: false, rifMiei: new Set() };
-  await mettiSulTavolo();
+  ctx.tavoloVivo = await mettiSulTavolo(ctx.posto, ctx.partita);
   collegaAlTavolo();
   abilitaSchede((nm) => comune.eroi.find((x) => x.nome === nm));
   // al tavolo la plancia si guarda in tanti, da lontano e di sbieco: il glide
@@ -166,30 +167,6 @@ export async function vistaDigitale(app, partita, vaiA, posto) {
   if (!partita.spedizione || !partita.spedizione.digitale) return setup();
   migraScortati(partita.spedizione);
   render();
-}
-
-// METTERE LA PARTITA SUL TAVOLO. Lo fa CHI ARBITRA, aprendo la Spedizione: da
-// quel momento la partita viva sta nel Durable Object e i telefoni possono
-// vederla. Senza questo passo il tavolo resta vuoto — i giocatori si collegano
-// a un oggetto che non ha nessuna partita, e sui loro schermi non arriva
-// niente: e' un silenzio, non un errore, ed e' il modo peggiore di rompersi.
-//
-// Non sovrascrive una partita piu' avanti: al DO si manda quel che si ha, e se
-// lui ne ha una piu' recente (`aggiornato`) tiene la sua e risponde `ripresa`.
-// E' il caso di chi riapre la pagina a meta' serata.
-async function mettiSulTavolo() {
-  const p = ctx.posto;
-  if (!p || !p.tavolo || p.ruolo !== 'arbitro') return;
-  try {
-    const r = await fetch(`/api/tavolo/${encodeURIComponent(p.tavolo)}/apri`, {
-      method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ tavolo: p.tavolo, stato: ctx.partita }),
-    });
-    if (r.ok) ctx.tavoloVivo = true;
-  } catch {
-    // nessun tavolo raggiungibile: si gioca da soli, com'era. La partita non
-    // si perde — resta il salvataggio di sempre.
-  }
 }
 
 // IL FILO COL TAVOLO, se c'e' un tavolo.

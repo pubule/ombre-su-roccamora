@@ -202,10 +202,30 @@ await page.waitForTimeout(300);
 await page.locator('#continua').click();
 await page.waitForTimeout(900);
 await guarda('epilogo');
+
+// --- l'Indagine di CHI GIOCA: una schermata nuova, e le schermate nuove sono
+// quelle che nessun banco visita. L'epilogo e' andato online nero su nero
+// proprio cosi': il contrasto si misurava da mesi, ma non su quello schermo.
+// Si chiama la vista direttamente col posto di un giocatore — senza server
+// `/api/stato` non risponde e l'app direbbe giustamente «si arbitra da soli».
+await semina({ modo: 'digitale' });
+await page.goto(BASE, { waitUntil: 'networkidle' });
+await page.evaluate(async () => {
+  const { vistaIndagine } = await import('/js/indagine.js');
+  const c = await (await fetch('/data/comune.json')).json();
+  const party = c.eroi.slice(0, 3).map((e) => e.nome);
+  const p = JSON.parse(localStorage.getItem('osr.partita.ep1'));
+  p.party = party;
+  p.indagine.oggetti = [];
+  document.querySelector('#app').innerHTML = '';
+  await vistaIndagine(document.querySelector('#app'), p, () => {},
+                      { ruolo: 'giocatore', eroe: party[0] });
+});
+await guarda('indagine-eroe');
 await browser.close();
 
 console.log(`schermate lette: ${schermate.map((s) => s.nome).join(', ')}\n`);
-ok(schermate.length >= 8, `tutte le schermate raggiunte (${schermate.length}: ${schermate.map((s) => s.nome).join(', ')})`);
+ok(schermate.length >= 9, `tutte le schermate raggiunte (${schermate.length}: ${schermate.map((s) => s.nome).join(', ')})`);
 
 // --- 1. conformità: il tema vecchio non deve sopravvivere -------------------
 const superfici = schermate.flatMap((s) => s.superfici.map((x) => ({ ...x, dove: s.nome })));

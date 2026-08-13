@@ -5,7 +5,7 @@
 > gira e il prossimo comando; il *cosa fare* di un lavoro in corso sta nel suo
 > piano.
 
-**Aggiornato:** 13/08/2026 · ramo `main` · in produzione la versione `979db892`
+**Aggiornato:** 13/08/2026 · ramo `main` · in produzione la versione `036d6f92`
 su <https://roccamora.smartcores.org> — **i Bivi di campagna** (venti scelte che
 cambiano davvero le regole degli episodi seguenti), il **Taccuino di Campagna**
 e l'**epilogo per esteso**. Tabella `scelte_campagna` applicata al remoto.
@@ -505,6 +505,68 @@ la soluzione in prosa. Ora epilogo, Frammento e Bivio passano solo a `esito`
 scritto: a metà serata no, a serata finita sì, perché lì sono la ricompensa e la
 ricompensa è di tutti. Il cancello è l'esito, lo stesso che apre l'epilogo:
 nessun secondo stato da tenere allineato.
+
+## L'Indagine sui telefoni
+
+La Fase 5 aveva portato **la Spedizione** su più dispositivi; l'Indagine era
+rimasta indietro, e la conseguenza non era piccola: `main.js` chiamava
+`vistaIndagine` **senza il posto**, quindi chi entrava al tavolo dal proprio
+telefono a serata in corso si trovava davanti la **scrivania di chi arbitra** —
+le chiavi delle porte, gli indizi dei luoghi mai battuti, il testo degli
+Approfondimenti non letti, la busta. E `mettiSulTavolo`/`collegaAlTavolo`
+vivevano dentro `digitale.js`: durante l'Indagine il tavolo non era **mai** vivo,
+e ogni dispositivo scriveva sul proprio salvataggio.
+
+**Due decisioni, prese col committente.** Nell'Indagine **agisce solo chi
+arbitra** — al tavolo è conversazione, si decide insieme e una mano sola scrive.
+Ma **i dadi li tira chi ha quell'eroe**, scegliendo *a ogni tiro* se far tirare
+l'app o dichiarare due dadi veri.
+
+- **`vistaIndagine(app, partita, vaiA, posto)`** e la potatura di
+  `proiezione.js` — che l'Indagine la potava già, e non è stata estesa: è stata
+  *usata*. Senza posto `eArbitro(null)` è vero e non cambia niente.
+- **`vistaDiChiGioca()`**: non è la stessa schermata con meno bottoni. Chi
+  conduce guida la notte; chi gioca ha tre domande — che ora è, dove siamo
+  stati, cosa abbiamo in mano — e sono quelle, in quell'ordine.
+- **`js/tavolo-vivo.js`**: `mettiSulTavolo` esce da `digitale.js` perché ora
+  serve a tutt'e due le metà della serata. Il filo resta da ciascuna parte: le
+  due viste hanno da fare due mestieri diversi con quel che arriva.
+- **`apri` nel Durable Object ora SPARGE**: prima scriveva e taceva, e chi era
+  collegato non vedeva muoversi niente. È la via con cui la serata avanza —
+  `salvaP()` è il punto unico da cui passa ogni cambiamento dell'Indagine, ed è
+  lì che si è agganciata la spinta.
+- **La pendenza della prova**: chi arbitra la apre e aspetta, il telefono di
+  quell'eroe la tira, l'esito torna come comando `prova-indagine`. **Due
+  ripieghi obbligatori**: se l'eroe non è di nessuno tira chi arbitra (è il caso
+  normale, non l'eccezione), e se il telefono non risponde chi arbitra ha sempre
+  un «tiro io». Una scelta che può bloccare la serata e non ha via d'uscita è un
+  difetto, non una regola.
+- **`dadi.js`**: i due pezzi c'erano già entrambi, uno era `display:none`.
+
+**Un difetto latente trovato strada facendo**: `salva()` timbrava
+`aggiornato = Date.now()`, e il Durable Object rifiuta uno stato non più recente
+di quello che ha. Due `salvaP()` nello stesso millisecondo — nell'Indagine
+capita — avevano lo stesso timbro e il secondo veniva **scartato in silenzio**.
+Ora il timbro è strettamente crescente.
+
+**Le prove.** `test-indagine-eroe.mjs` (un solo `wrangler dev`): i segreti non
+arrivano né allo schermo né al dispositivo, l'orologio di chi arbitra si muove
+da solo sul telefono, il tiro si apre **solo** su chi ha quell'eroe e l'esito
+torna al tavolo. `test-motore-proiezione` ha un caso nuovo — **l'Indagine in
+corso**, che è quella che si gioca davvero. `test-stile` visita ora anche la
+schermata di chi gioca (9 schermate).
+
+**Tre trappole d'ambiente, e sono costate più del codice.** `wrangler dev` serve
+`dist/`, che è una **copia**: senza `./deploy/build-dist.sh` si prova il codice
+di prima. I moduli importati dal **Worker** (`proiezione.js`, `partita-do.js`)
+non si ricaricano affatto: va **riavviato**. E più `wrangler dev` sulla stessa
+porta restano in ascolto tutti, e allora non risponde nessuno — `taskkill` su
+`workerd.exe` non basta, il padre lo rigenera: si uccide l'albero.
+
+**Il setaccio dei segreti va passato a porte chiuse.** Entrare in un luogo **è**
+il modo in cui si impara una risposta: col luogo aperto `cercaSegreti` suona sul
+funzionamento del gioco (visto sull'Ep.20, dove «La via delle tre acque» è
+insieme la risposta e l'indizio del rifugio).
 
 ## Fase 5: la vista eroe, e il filo collegato
 

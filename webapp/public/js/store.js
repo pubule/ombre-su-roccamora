@@ -151,7 +151,13 @@ export function nuovaPartita(episodioId, modo, party, fase = 'indagine') {
 
 export function salva(partita) {
   const tavolo = tavoloCorrente();
-  partita.aggiornato = Date.now();
+  // SEMPRE PIU' AVANTI DI PRIMA, anche a parita' di millisecondo. Il Durable
+  // Object rifiuta uno stato che non sia piu' recente di quello che ha (e' cosi'
+  // che chi si ricollega non sovrascrive la serata con quel che aveva in tasca);
+  // due `salvaP()` nello stesso millisecondo — nell'Indagine capita, una carica
+  // spesa e subito l'esito — avrebbero lo stesso timbro, e il secondo sarebbe
+  // scartato senza che nessuno se ne accorga.
+  partita.aggiornato = Math.max(Date.now(), (partita.aggiornato || 0) + 1);
   localStorage.setItem(chiaveDi(tavolo, partita.episodio), JSON.stringify(partita));
   if (!tavolo) return;                 // banco di prova: non c'e' niente da sincronizzare
   // Accoda e basta: `salva()` NON aspetta la rete. Se qui comparisse un
