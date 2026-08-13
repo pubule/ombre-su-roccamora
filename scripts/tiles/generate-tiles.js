@@ -18,9 +18,9 @@ const argv = process.argv.slice(2).filter((a) => a !== '--solo-mancanti');
 const SOLO_MANCANTI = process.argv.includes('--solo-mancanti');
 // set per episodio: node scripts/tiles/generate-tiles.js [ep1|ep2|...|ep15]
 const SET = (argv[0] || 'ep1').toLowerCase();
-const EP_DIR = { ep1: 'Episodio 1', ep2: 'Episodio 2', ep10: 'Episodio 10', ep11: 'Episodio 11',
-                 ep12: 'Episodio 12', ep13: 'Episodio 13', ep14: 'Episodio 14', ep15: 'Episodio 15' }[SET];
-if (!EP_DIR) { console.error('set sconosciuto (ep1|ep2|ep10..ep15)'); process.exit(1); }
+const EP_NUM = /^ep(\d{1,2})$/.exec(SET)?.[1];
+if (!EP_NUM || +EP_NUM < 1 || +EP_NUM > 20) { console.error('set sconosciuto (ep1..ep20)'); process.exit(1); }
+const EP_DIR = `Episodio ${EP_NUM}`;
 const OUT_DIR = path.join(ROOT, EP_DIR, 'board');
 fs.mkdirSync(OUT_DIR, { recursive: true });
 
@@ -142,14 +142,48 @@ const TILES_BY_SET = {
      [[1, 1, 'scala'], [2, 2, 'scala']],
      [[0, 2, 'scrivania']]]),
 };
-const TILES = TILES_BY_SET[SET];
+// Gli episodi senza una voce qui sopra (3-9 e 16-20) prendono le tessere da
+// `webapp/data/ep<N>.json`, che le esporta gia' tutte — id, nome, uscite e
+// arredi — da src/gen_ep<N>.py. Prima erano semplicemente assenti: lo script
+// conosceva ep1/ep2/ep10..ep15 e per gli altri usciva con «set sconosciuto»,
+// quindi dodici episodi non hanno mai avuto le tessere di Spedizione.
+// Ep.1 e Ep.2 restano scritti a mano: hanno nomi e nomi-file d'arte propri
+// (Ep.1 usa artworks/<id>.png) che cambiare vorrebbe dire rigenerare tessere
+// gia' stampate.
+function dallaWebapp(epNum) {
+  const file = path.join(ROOT, 'webapp', 'data', `ep${epNum}.json`);
+  if (!fs.existsSync(file)) return null;
+  const tessere = JSON.parse(fs.readFileSync(file, 'utf8')).tessere || [];
+  return tessere.map((t, i) => ({
+    id: t.id,
+    nome: t.nome,
+    art: `${t.id}-ep${epNum}.png`,
+    exits: t.exits || {},
+    arredi: t.arredi || [],
+    ...(i === 0 ? { start: 'S' } : {}),   // la prima tessera e' l'ingresso
+  }));
+}
+
+const TILES = TILES_BY_SET[SET] || dallaWebapp(EP_NUM);
+if (!TILES || !TILES.length) {
+  console.error(`nessuna tessera per ${SET}: manca webapp/data/${SET}.json (o non ha tessere)`);
+  process.exit(1);
+}
 
 // Arte vera per arredo (prompt in PROMPT-MIDJOURNEY.md, sezione "Arredi delle
 // tessere"): un file artworks/<chiave>.png per chiave di ARREDO_STYLE.
 const ARREDO_KEYS = ['molo', 'casse', 'candele', 'scrivania', 'branda', 'scala', 'altare', 'cella',
                      'forma', 'scorie', 'crogiolo', 'stufa', 'armadio', 'toeletta'];
-const ARREDO_ART = Object.fromEntries(ARREDO_KEYS.map((k) =>
-  [k, pathToFileURL(path.join(ROOT, 'artworks', `${k}.png`)).href]));
+// Solo gli arredi che l'arte ce l'hanno davvero: una chiave senza PNG
+// disegnava un riquadro vuoto sulla tessera, indistinguibile da una scelta.
+const ARREDO_ART = Object.fromEntries(ARREDO_KEYS
+  .filter((k) => {
+    const p = path.join(ROOT, 'artworks', `${k}.png`);
+    if (fs.existsSync(p)) return true;
+    console.log(`arredo senza arte, non disegnato: artworks/${k}.png`);
+    return false;
+  })
+  .map((k) => [k, pathToFileURL(path.join(ROOT, 'artworks', `${k}.png`)).href]));
 // zoom oltre il "cover" di base per chi ha l'oggetto piccolo al centro di una
 // cornice propria (vedi commento sotto, dove si usa)
 const ARREDO_ZOOM = { altare: 1.8 };
@@ -210,6 +244,7 @@ function html(tile) {
   const occupied = new Set(tile.arredi.map(([gx, gy]) => `${gx},${3 - gy}`));
   const arredoHtml = groupArredi(tile.arredi).map((g) => {
     const art = ARREDO_ART[g.label.toLowerCase()];
+    if (!art) return '';   // arte mancante: casella libera, non un riquadro vuoto
     const boxW = g.cols * cell - 12, boxH = g.rows * cell - 12;
     // le art arredo sono quadrate (2048x2048) con l'oggetto piccolo al centro
     // di una cornice decorativa propria: un semplice "cover" lo lascia minuscolo
@@ -341,6 +376,14 @@ function html(tile) {
     const outPath = path.join(OUT_DIR, `${tile.id} - ${tile.nome}.png`);
     if (SOLO_MANCANTI && fs.existsSync(outPath)) {
       console.log("salto (esiste gia') ->", outPath);
+      continue;
+    }
+    // Senza il suo sfondo la tessera esce come un rettangolo vuoto con sopra la
+    // griglia: un PNG che sembra fatto e che --solo-mancanti non rifara' mai
+    // piu'. Meglio saltarla e dirlo (stesso patto di generate-batch.js).
+    const artFile = path.join(ROOT, 'artworks', tile.art || `${tile.id}.png`);
+    if (!fs.existsSync(artFile)) {
+      console.log(`salto ${tile.id}: manca artworks/${path.basename(artFile)}`);
       continue;
     }
     const tmpHtml = path.join(OUT_DIR, `.tmp-${tile.id}.html`);

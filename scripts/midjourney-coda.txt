@@ -32,3 +32,13 @@
 # tabellone. Il profilo da solo tiene lo stile senza imporre il punto di vista.
 [tessere]
 --profile au5judt --v 8.1
+
+# Soggetti che vietano le figure (i «--no ... figures»): niente ancora, per lo
+# stesso motivo delle tessere. L'ancora e' una scena abitata e su un soggetto
+# gia' deserto — una parete che risuona, uno spiffero nella nebbia — riempiva
+# tutte e 4 le varianti di gente con la lanterna: nessuna era usabile
+# (verificato su «La pietra impara» e «Una corrente d'aria buona», Ep. 3).
+# Resta valida la nota qui sopra: dove l'ATTIVITA' umana e' implicita nel
+# soggetto, la presenza si accetta comunque, non si bruciano job per inseguirla.
+[luoghi]
+--profile au5judt --v 8.1

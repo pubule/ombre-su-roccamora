@@ -18,6 +18,7 @@ const { generateOne, cardOutputPath } = require('./lib');
 const { startServer } = require('./serve');
 const { HEROES, NEMICI, MINACCE, LUOGHI, INDIZI, TESTIMONI, REFERTI, OGGETTI, PRELUDIO, EP2, ALL } = require('./cards-data');
 const fs = require('fs');
+const path = require('path');
 
 const GROUPS = { heroes: HEROES, nemici: NEMICI, minacce: MINACCE, luoghi: LUOGHI,
                  indizi: INDIZI, testimoni: TESTIMONI, referti: REFERTI, oggetti: OGGETTI,
@@ -39,6 +40,16 @@ const GROUPS = { heroes: HEROES, nemici: NEMICI, minacce: MINACCE, luoghi: LUOGH
     const prima = cards.length;
     cards = cards.filter((c) => !fs.existsSync(cardOutputPath(c)));
     console.log(`--solo-mancanti: ${cards.length}/${prima} carte da generare (le altre hanno gia' il .jpg)`);
+  }
+
+  // Senza la sua artwork la carta esce con un buco al posto del ritratto: un
+  // .jpg che sembra fatto e non lo e', e che --solo-mancanti considera fatto
+  // per sempre. Meglio saltarla e dirlo: torna da sola quando l'arte arriva.
+  const senzArte = cards.filter((c) => !fs.existsSync(path.resolve(process.cwd(), c.art)));
+  if (senzArte.length) {
+    cards = cards.filter((c) => !senzArte.includes(c));
+    console.log(`Saltate ${senzArte.length} carte: manca la loro artwork in artworks/.`);
+    for (const c of senzArte) console.log(`  ${c.title}  <-  ${c.art}`);
   }
 
   const { url, close } = await startServer();

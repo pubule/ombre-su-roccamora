@@ -221,6 +221,22 @@ set in a stone archway · **armadio** a tall wooden wardrobe with one door
 ajar and a coat hanging inside · **toeletta** a lady's dressing table with
 an oval mirror, hairbrush and scattered hairpins
 
+I due arredi che ancora mancano hanno qui il prompt gia' montato, col nome file
+dichiarato: cosi' `scripts/midjourney-artwork.mjs` li vede e li genera da solo
+con tutti gli altri (con la sola descrizione nell'elenco qui sopra restavano
+«orfani» e andavano lanciati a mano). Servono all'Episodio 16: senza,
+`generate-tiles.js` lascia libere le loro caselle.
+
+**Arredo armadio** → `artworks/armadio.png`
+```
+flat map legend symbol for an antique hand-drawn dungeon map, a tall wooden wardrobe with one door ajar and a coat hanging inside drawn as a simple flat ink glyph exactly like a mapmaker's legend icon, plan view blueprint style, zero perspective and zero shading, aged parchment, sepia ink linework, antique cartography style --ar 1:1 --no text, letters, words, watermark, 3D, isometric, render, photorealistic, painting, shading, gradient, drop shadow, perspective, depth, side view, angled view
+```
+
+**Arredo toeletta** → `artworks/toeletta.png`
+```
+flat map legend symbol for an antique hand-drawn dungeon map, a lady's dressing table with an oval mirror, hairbrush and scattered hairpins drawn as a simple flat ink glyph exactly like a mapmaker's legend icon, plan view blueprint style, zero perspective and zero shading, aged parchment, sepia ink linework, antique cartography style --ar 1:1 --no text, letters, words, watermark, 3D, isometric, render, photorealistic, painting, shading, gradient, drop shadow, perspective, depth, side view, angled view
+```
+
 **Mappa di campagna di Roccamora (poster)**
 ```
 antique hand-drawn city map of a gothic canal city, bird's eye view, ink and watercolor on aged parchment, a great cathedral with bell tower at the center, winding canals dividing eight distinct districts, small warehouses along a dark lower canal, tiny rooftops, bridges and mooring posts, decorative compass rose and sea-serpent flourish in the corners, 1889 cartography style, muted teal water and sepia buildings with crimson accents --ar 3:4 --style raw --no text, letters, words, watermark

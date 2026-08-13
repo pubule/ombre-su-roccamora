@@ -120,9 +120,13 @@ non restituisce `job_id`.
 Trovato e scritto ciò che nessun `.md` aveva: **Ansaldo**, il PNG scortato del
 Preludio, dichiarato in `webapp/data/preludio.json` e senza prompt da nessuna
 parte (per questo il conteggio via prompt dava il Preludio completo). Stessa
-situazione per **Nina** (Ep. 16, prompt ancora da scrivere) e disallineamento
-di nome per **Fava** (Ep. 7: i dati vogliono `Fava.png`, il prompt produce
-`Ernesto Fava.png`).
+situazione per **Nina** (Ep. 16) e disallineamento di nome per **Fava** (Ep. 7:
+i dati chiedevano `Fava.png`, prompt e miniatura producono `Ernesto Fava.png`).
+Sistemati entrambi: il prompt di Nina è scritto, `webapp/export-data.py` punta
+al nome giusto e il foglio token dell'Ep. 7 ora stampa la pedina di Fava (prima
+la saltava in silenzio). Nella coda di generazione sono entrati anche i due
+arredi mancanti, `armadio` e `toeletta` (servono alle tessere dell'Ep. 16):
+avevano la descrizione ma non il nome file, quindi restavano «orfani».
 
 Tre difetti veri nei generatori, tutti dello stesso tipo — *artefatto prodotto
 senza la sua arte, e `--solo-mancanti` che poi lo dà per fatto per sempre*:
@@ -136,6 +140,17 @@ risultava vuoto e il PDF veniva «saltato» senza che nulla sembrasse rotto.
 Il Preludio in app mostrava la mini-spedizione **senza tessere**: riusa T1/T2/T4
 dell'Ep. 1 (scelta di `gen_preludio.py`), ma `/assets/Preludio/board/` non
 esisteva. `webapp/export-assets.py` ora le copia.
+
+**Tessere per tutti e 20 gli episodi.** `generate-tiles.js` conosceva solo
+ep1/ep2/ep10-15 (dati scritti a mano) e sugli altri usciva con «set
+sconosciuto»: dodici episodi non hanno mai avuto le tessere di Spedizione. Ora
+chi non ha una voce a mano legge id, nomi, uscite e arredi da
+`webapp/data/ep<N>.json`, che li esporta già da `src/gen_ep<N>.py` — nessun
+dato duplicato da tenere allineato. Ep.1/Ep.2 restano scritti a mano (nomi e
+nomi-file d'arte propri, cambiarli vorrebbe dire rigenerare tessere già
+stampate). **Fatte le 26 tessere di Ep.3, 4, 5 e 6**; Ep.7-9 e 16-20 aspettano
+solo lo sfondo d'arte e lo dicono tessera per tessera. `build-all.sh` ora gira
+su tutti e 20.
 
 Aggiunta una sezione `[luoghi]` in `scripts/midjourney-coda.txt` (niente
 `--sref`): sui soggetti che vietano le figure l'ancora — che è una scena

@@ -9,6 +9,11 @@
 full bleed dark fantasy painting, portrait of an ordinary middle-aged conman in a slightly too-fine evening suit at a wedding villa, an ordinary human face, normal human eyes, sweat on his brow, his practiced charming smile now nervous and cracking, a small pathetic man caught out, not a villain, no weapon, 1889 gaslamp gothic, oil painting, warm candlelight, sepia and warm gold palette with teal shadows --ar 3:4 --style raw --no frame, border, card, text, letters, watermark, monster, glowing eyes, red eyes, fangs, demon, vampire, supernatural
 ```
 
+**Nina** (la figlia del lampionaio: pedina scortata, `scortato` in `webapp/data/ep16.json`, come Ansaldo nel Preludio e Ruggero in Ep. 1) → `artworks/Nina.png`
+```
+full bleed dark fantasy painting, portrait of a young woman in her early twenties in a modest wedding-eve dress, a green ribbon tied at her wrist, an ordinary kind human face lit by candlelight, happy and trusting, not yet knowing, a villa salon dressed for a wedding behind her, 1889 gaslamp gothic, oil painting, warm candlelight, sepia and warm gold palette with teal shadows --ar 3:4 --style raw --no frame, border, card, text, letters, watermark, monster, glowing eyes, red eyes, fangs, demon, vampire, supernatural
+```
+
 ## Soggetti — Luoghi (--ar 3:4)
 
 **Luogo 1 — La Casa del Lampionaio** → `artworks/La Casa del Lampionaio.png`

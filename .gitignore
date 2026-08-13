@@ -27,3 +27,9 @@ logs/candidati/
 webapp/_mock-*.png
 webapp/_app-*.png
 webapp/public/js/_oracolo.js
+
+# I fogli di stampa di OGNI episodio (generate-print-sheets.js): 11-13 MB
+# l'uno, ~160 MB di derivati in tutto. Stessa ragione delle tre righe qui
+# sopra, che coprivano solo Comune/Preludio/Ep.1 perché per gli altri episodi
+# i fogli non venivano proprio generati.
+*/pdf/Carte.pdf

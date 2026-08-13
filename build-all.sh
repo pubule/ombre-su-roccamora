@@ -24,8 +24,11 @@ cd "$(dirname "${BASH_SOURCE[0]}")"
 FLAG=""
 [ "$1" = "--solo-mancanti" ] && FLAG="--solo-mancanti"
 
-echo "== Tessere (Episodio 1/board/) =="
-node scripts/tiles/generate-tiles.js ep1 $FLAG
+# Tutti e 20 gli episodi: quelli senza dati scritti a mano nello script leggono
+# le tessere da webapp/data/ep<N>.json, e chi non ha ancora lo sfondo d'arte
+# salta la sua tessera dicendolo (non ne produce una vuota).
+echo "== Tessere (Episodio N/board/) =="
+for n in $(seq 1 20); do node scripts/tiles/generate-tiles.js "ep$n" $FLAG; done
 
 echo "== Carte (cards/) =="
 # generate-batch.js risolve card.art (es. 'artworks/Elena.png') relativo alla

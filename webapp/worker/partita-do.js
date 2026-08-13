@@ -207,7 +207,15 @@ export class Partita extends DurableObject {
       return Response.json({ rifiuto: { motivo: `${pend.a} non è il tuo eroe.` } }, { status: 403 });
     }
     stato.indagine.pendenza = { ...pend, esito: cmd.esito };
-    stato.aggiornato = Date.now();
+    // NON SI TIMBRA. Nell'Indagine l'autore e' il browser di chi arbitra, e
+    // `aggiornato` e' la SUA lineage: mettendoci il clock del server, la spinta
+    // successiva di chi conduce — col clock del suo PC — verrebbe rifiutata da
+    // `apri` se il server e' anche solo qualche secondo avanti. Il risultato,
+    // visto al tavolo: la richiesta arriva, e non la esegue nessuno.
+    //
+    // Qui si scrive e si sparge, e basta: il timbro lo mette chi comanda
+    // davvero. La Spedizione e' l'altro caso — li' l'autore e' il Durable
+    // Object e il timbro e' giustamente suo.
     await this.scrivi(stato);
     this.spargi({ stato, eventi: [] }, await this.dati(stato.episodio, stato.bivi), null);
     return Response.json({ ok: true });

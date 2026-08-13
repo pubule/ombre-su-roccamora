@@ -1143,7 +1143,11 @@ episodi = dict(
         # liberato (il PNG prigioniero non si muove). Precedente: fase di sollievo
         # nelle scorte, l'escortato accelera una volta libero.
         scortato=[scortato(
-            'Fava', 'T6', 'T1', 'Fava.png', mov=5,
+            # 'Ernesto Fava.png', non 'Fava.png': e' il nome che dichiara il
+            # prompt (PROMPT-MIDJOURNEY-Episodio-7.md) ed e' quello che usa la
+            # miniatura in gen_ep7.token_groups_7. Con due nomi diversi l'arte
+            # sarebbe arrivata e la pedina sarebbe rimasta muta lo stesso.
+            'Fava', 'T6', 'T1', 'Ernesto Fava.png', mov=5,
             etichetta='Libera Fava (Interagire)',
             vittoria='Ernesto Fava è fuori dal cantiere: siete salvi.')],
         esami_carbone=ESAMI_CARBONE_7,

@@ -560,6 +560,51 @@ ${schermo.slice(0, 160)}`);
   ok(!dopo, 'e la mano alzata si abbassa: servita una volta sola');
 }
 
+// --- 11. LO SCARTO D'OROLOGIO NON DEVE BLOCCARE LA SERATA
+//
+// Visto al tavolo: con Mora dentro un luogo, l'aiuto profano non faceva niente.
+// Il telefono mandava, il tavolo riceveva — e nessuno eseguiva. Il motivo:
+// scrivendo la richiesta il Durable Object timbrava `aggiornato` COL CLOCK DEL
+// SERVER, e la spinta successiva di chi arbitra — col clock del suo PC, magari
+// qualche secondo indietro — veniva rifiutata da `apri` in silenzio.
+//
+// Nell'Indagine l'autore e' il browser di chi conduce, e `aggiornato` e' la sua
+// lineage: il Durable Object scrive e sparge, ma non timbra.
+{
+  const base = serata({ ora: 20 });
+  base.creata = 77_000;
+  base.aggiornato = 1_000;                    // un PC molto indietro
+  await chiama(ARBITRO, 'POST', `/api/tavolo/${idT}/apri`, { tavolo: idT, stato: base });
+
+  // il telefono alza la mano: il tavolo scrive la richiesta
+  const primaDelloScarto = (await (await chiama(ARBITRO, 'GET', `/api/tavolo/${idT}/stato`)).json())
+    .stato.aggiornato;
+  await page.evaluate(async (t) => {
+    await fetch(`/api/tavolo/${t}/comando`, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ tipo: 'chiedi-indagine',
+        richiesta: { azione: 'profano', luogo: 1, tipoApp: 'Osservazione', id: 'rq-clock' } }),
+    });
+  }, idT);
+  await page.waitForTimeout(600);
+
+  const dopoRichiesta = await (await chiama(ARBITRO, 'GET', `/api/tavolo/${idT}/stato`)).json();
+  ok(dopoRichiesta.stato.indagine.richiesta, 'la mano alzata arriva al tavolo');
+  ok(dopoRichiesta.stato.aggiornato === primaDelloScarto,
+     `e il tavolo NON ci mette il proprio orologio (era ${primaDelloScarto}, ora ${dopoRichiesta.stato.aggiornato})`);
+
+  // ...cosi' la mossa di chi arbitra, che viene subito dopo col SUO timbro,
+  // non trova un tavolo piu' avanti di lei e passa
+  const eseguita = { ...base, aggiornato: 1_001 };
+  eseguita.indagine = { ...base.indagine, richiesta: null, ora: 19 };
+  ok((await chiama(ARBITRO, 'POST', `/api/tavolo/${idT}/apri`,
+    { tavolo: idT, stato: eseguita })).ok, 'chi arbitra esegue e rimanda al tavolo');
+  const fine = await (await chiama(ARBITRO, 'GET', `/api/tavolo/${idT}/stato`)).json();
+  ok(!fine.stato.indagine.richiesta && fine.stato.indagine.ora === 19,
+     `e la sua mossa passa (ora ${fine.stato.indagine.ora}, richiesta ${
+       fine.stato.indagine.richiesta ? 'ancora li’' : 'servita'})`);
+}
+
 await browser.close();
 console.log(ko === 0
   ? 'test-indagine-eroe: l\'Indagine si gioca in due, senza che i segreti passino'

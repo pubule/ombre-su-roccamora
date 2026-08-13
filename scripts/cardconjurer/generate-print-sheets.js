@@ -76,17 +76,30 @@ const PER_PAGE = 9;
 // famiglia visiva, vedi commento in testa al file): non serve un mazzo a
 // parte, il bucket per episodio si separa da solo al momento di stampare
 // (vedi bucketOf() piu' sotto), leggendo il campo `file` di ogni carta.
+// I mazzi di OGNI episodio, non solo dei primi due: cards-data.js esporta
+// EP<n>_NEMICI, EP<n>_MINACCE... e LUOGHI<n>, quindi si raccolgono per nome
+// invece di elencarli a mano. Elencarli a mano e' costato i fogli di stampa
+// degli episodi 3-20: le carte c'erano su disco, il bucket restava vuoto e il
+// PDF veniva «saltato» senza che nulla sembrasse rotto.
+const DATA = require('./cards-data');
+const mazziEp = (tipo) => Object.keys(DATA)
+  .filter((k) => new RegExp(`^EP\\d+_${tipo}$`).test(k))
+  .flatMap((k) => DATA[k]);
+const luoghiEp = Object.keys(DATA)
+  .filter((k) => /^LUOGHI\d+$/.test(k))
+  .flatMap((k) => DATA[k]);
+
 const SIMPLE_DECKS = [
   { name: 'Eroi', cards: HEROES, dorso: 'Dorso Eroe.png' },
-  { name: 'Nemici', cards: [...NEMICI, ...EP2_NEMICI], dorso: 'Dorso Nemico.png' },
-  { name: 'Minacce', cards: [...MINACCE, ...EP2_MINACCE], dorso: 'Dorso Minaccia.png' },
-  { name: 'Luoghi', cards: [...LUOGHI, ...PRELUDIO_LUOGHI, ...LUOGHI2], dorso: 'Dorso Luogo.png' },
-  { name: 'Oggetti', cards: [...OGGETTI, ...PRELUDIO_OGGETTI, ...EP2_OGGETTI], dorso: 'Dorso Oggetto.png' },
-  { name: 'Indizi Nascosti', cards: [...INDIZI, ...PRELUDIO_APPROFONDIMENTI.filter((c) => c.kind === 'Indizio'), ...EP2_INDIZI],
+  { name: 'Nemici', cards: [...NEMICI, ...mazziEp('NEMICI')], dorso: 'Dorso Nemico.png' },
+  { name: 'Minacce', cards: [...MINACCE, ...mazziEp('MINACCE')], dorso: 'Dorso Minaccia.png' },
+  { name: 'Luoghi', cards: [...LUOGHI, ...PRELUDIO_LUOGHI, ...luoghiEp], dorso: 'Dorso Luogo.png' },
+  { name: 'Oggetti', cards: [...OGGETTI, ...PRELUDIO_OGGETTI, ...mazziEp('OGGETTI')], dorso: 'Dorso Oggetto.png' },
+  { name: 'Indizi Nascosti', cards: [...INDIZI, ...PRELUDIO_APPROFONDIMENTI.filter((c) => c.kind === 'Indizio'), ...mazziEp('INDIZI')],
     dorso: 'Dorso Indizio Nascosto.png' },
-  { name: 'Testimoni', cards: [...TESTIMONI, ...PRELUDIO_APPROFONDIMENTI.filter((c) => c.kind === 'Testimone'), ...EP2_TESTIMONI],
+  { name: 'Testimoni', cards: [...TESTIMONI, ...PRELUDIO_APPROFONDIMENTI.filter((c) => c.kind === 'Testimone'), ...mazziEp('TESTIMONI')],
     dorso: 'Dorso Testimone.png' },
-  { name: 'Referti', cards: [...REFERTI, ...PRELUDIO_APPROFONDIMENTI.filter((c) => c.kind === 'Referto'), ...EP2_REFERTI],
+  { name: 'Referti', cards: [...REFERTI, ...PRELUDIO_APPROFONDIMENTI.filter((c) => c.kind === 'Referto'), ...mazziEp('REFERTI')],
     dorso: 'Dorso Referto.png' },
 ];
 
@@ -281,7 +294,11 @@ async function tileSheets(browser) {
     }
 
     for (const deck of SIMPLE_DECKS) {
-      const cards = deck.cards.filter((c) => bucketOf(c.file) === output.key);
+      // Solo le carte gia' renderizzate: una carta senza .jpg lasciava una
+      // casella vuota nel foglio (e un mazzo a meta' e' peggio di un mazzo che
+      // aspetta). Gli episodi con l'arte parziale stampano quello che hanno.
+      const cards = deck.cards.filter((c) => bucketOf(c.file) === output.key
+        && fs.existsSync(cardDiskPath(ROOT, c.file)));
       if (!cards.length) continue;
       const cls = await registerDorso(deck);
       if (!cls) continue;
