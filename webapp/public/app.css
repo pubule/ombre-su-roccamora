@@ -894,3 +894,17 @@ em, i { font-style: italic; }
 /* un eroe che ha già preso qualcun altro: si vede che c'è, e che non è per te */
 .eroe-tile.preso { opacity: .45; filter: grayscale(.7); cursor: not-allowed; }
 .eroe-tile.preso .eroe-nome i { color: var(--segnale-rivela); font-style: normal; }
+
+/* LE AZIONI DEVONO STARE NELLO SCHERMO.
+   L'immersivo non scorre — `overflow: hidden`, ed è giusto per un tablet fermo
+   al centro del tavolo: la plancia riempie e non si tocca. Su un telefono in
+   mano quella regola tagliava via il pannello delle azioni: era nel DOM, era
+   «visibile», e cominciava 700 px sotto l'inizio di uno schermo che finiva
+   prima — irraggiungibile, perché la pagina non scorreva.
+   Nella vista eroe si scorre, e la plancia lascia spazio invece di prendersi
+   tutto: le azioni sono la ragione per cui quello schermo esiste. */
+#app.vista-eroe.immersivo { overflow-y: auto; height: auto; min-height: 100%; }
+/* la plancia si prende poco meno di meta' schermo: quel che avanza basta alla
+   scheda e alle azioni, che cosi' si vedono senza scorrere. Sotto, si scorre. */
+#app.vista-eroe .board-area { flex: 0 0 auto; min-height: 34vh; max-height: 42vh; }
+#app.vista-eroe #p-azioni, #app.vista-eroe #p-salute, #app.vista-eroe #p-giro { flex: none; }

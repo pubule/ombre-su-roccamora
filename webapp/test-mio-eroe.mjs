@@ -155,7 +155,19 @@ ok(errori.length === 0, `la schermata apre senza errori JS: ${errori.slice(0, 2)
   ok(await p2.locator('.tessera-episodio').count() === 0, 'nemmeno la scelta dell’episodio');
   ok(/non è ancora cominciata|prenditi|il tuo eroe/i.test(testo),
      `si finisce dove serve (visto: ${testo.slice(0, 70).replace(/\s+/g, ' ')})`);
+
+  // E NEMMENO TORNANDO INDIETRO. Premere «menu» e rientrare in un episodio
+  // riportava alla schermata di chi conduce — modalità, plancia, da dove si
+  // comincia, e perfino «ricomincia da capo».
+  await p2.goto(BASE, { waitUntil: 'networkidle' });
+  await p2.waitForTimeout(1000);
+  const tessera = p2.locator('.tessera-episodio').first();
+  if (await tessera.count()) { await tessera.click(); await p2.waitForTimeout(1200); }
+  const t2 = await p2.locator('#app').innerText();
+  ok(!/come giocate stasera/i.test(t2), 'rientrando in un episodio: niente scelta della modalità');
+  ok(!/ricomincia da capo/i.test(t2), 'né «ricomincia da capo», che è di chi conduce');
   await p2.close();
+
 }
 
 ok(errori.length === 0, `nessun errore JS in tutta la sessione: ${errori.slice(0, 2).join(' | ')}`);

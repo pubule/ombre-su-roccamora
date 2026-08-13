@@ -110,6 +110,11 @@ async function vistaHome() {
 
 // -------------------------------------------------------------- EPISODIO
 async function vistaEpisodio(epId) {
+  // CHI GIOCA NON PASSA DI QUI. Come si gioca stasera, con che plancia, da dove
+  // si comincia e se ricominciare da capo sono decisioni di chi conduce: dal
+  // telefono si torna dentro la serata, che e' l'unico posto dove chi gioca ha
+  // qualcosa da fare. Ci si arrivava premendo «menu» e rientrando.
+  if (await sonoGiocatore()) return entraNelTavolo(tavoloCorrente());
   const ep = await dati(epId);
   const salvata = carica(epId);
   // il bottone deve dire quel che fa: con la compagnia gia' sul tavolo la
@@ -445,6 +450,24 @@ async function vistaEsitoIndagine(partita) {
 // Quindi si va DOVE E' L'ARBITRO: si cerca la serata aperta sul tavolo e ci si
 // entra dentro. Se non ce n'e' ancora una, lo si dice e si aspetta — che e'
 // esattamente quel che si fa a un tavolo vero mentre chi conduce prepara.
+// Sto giocando un eroe a questo tavolo? Serve in piu' punti, e la risposta e'
+// sempre la stessa per tutta la sessione: si tiene, invece di chiederla a ogni
+// schermata. `false` anche senza server e senza tavolo — cioe' ovunque si
+// arbitri, che e' il caso di sempre.
+let _giocatore = null;
+async function sonoGiocatore() {
+  if (_giocatore !== null) return _giocatore;
+  const id = tavoloCorrente();
+  if (!id) { _giocatore = false; return false; }
+  try {
+    const r = await fetch('/api/stato');
+    if (!r.ok) { _giocatore = false; return false; }
+    const t = ((await r.json()).tavoli || []).find((x) => x.id === id);
+    _giocatore = !!(t && t.ruolo !== 'arbitro');
+  } catch { _giocatore = false; }
+  return _giocatore;
+}
+
 async function entraNelTavolo(id) {
   let stato = null;
   try {
