@@ -13,6 +13,7 @@ import { rendi, norm, costruisciMazzo, carteDaPescare, pesca, fineRound,
          sogliaCanto } from './engine.js';
 import { tiraProva } from './dadi.js';
 import { abilitaSchede } from './scheda-eroe.js';
+import * as suoni from './suoni.js';
 import { controBusta } from './engine.js';
 import { conferma } from './chiedi.js';
 import { apriCanale } from './canale.js';
@@ -308,6 +309,24 @@ function fasciaTurno() {
     ? `sta giocando ${esc(primo(attivo))}…` : 'il tavolo sta giocando…'}</div>`;
 }
 
+// Lo stato che decide l'ambiente sonoro. A schermo l'app sa dove sta ognuno,
+// quindi «contatto» e' l'adiacenza vera e non «ci sono nemici in campo»: la
+// differenza si sente, ed e' la meta' del lavoro sull'ansia.
+function statoSuoni() {
+  const sp = SP() || {};
+  const vivi = (P().party || []).filter((nm) => (sp.vite || {})[nm] > 0);
+  const contatto = (sp.nemici || []).some((n) => n.pos && !n.abbattuto
+    && vivi.some((nm) => sp.eroiPos[nm] && adiacGlob(sp.eroiPos[nm], n.pos)));
+  return {
+    fase: 'spedizione',
+    canto: sp.canto || 0,
+    bossDesto: !!sp.cantoBonus,
+    nemiciVicini: contatto,
+    obiettivoFatto: obiettivoFatto(),
+    esito: sp.esito || null,
+  };
+}
+
 function render() {
   const sp = SP();
   // la plancia c'e': si gioca a tabellone, salvo che il ⤢ non l'abbia spento
@@ -318,6 +337,7 @@ function render() {
   // modifica — ed e' esattamente la divergenza che questo lavoro ha appena
   // finito di togliere fra tavolo e schermo.
   ctx.app.classList.toggle('vista-eroe', !arbitro());
+  suoni.aggiorna(statoSuoni());
   if (sp.esito) return epilogo();
   // LA CARTA APERTA sta nello stato, quindi la vede chiunque guardi — anche chi
   // ricarica la pagina a meta' lettura. Prima la carta viveva solo nella catena
@@ -359,7 +379,8 @@ function render() {
     ${fasciaTurno()}
     <div class="barra"><button class="btn" id="nav-esci">← menu</button>
       <div class="titolo">tutto a schermo</div>
-      <span class="sc" style="color:var(--oro-chiaro)">round ${sp.round} · canto ${sp.canto}</span></div>
+      <span class="sc" style="color:var(--oro-chiaro)">round ${sp.round} · canto ${sp.canto}</span>
+      ${suoni.bottoneHtml()}</div>
     <div class="pannello secondario"><p><b>Obiettivo:</b> ${esc(ep.obiettivo || '')}
       ${statoScortati().map((g, i) => (g.liberato && SP().esito == null
         ? ` <span class="ok-txt">— ${esc(specScort(i).nome)} vi segue: riportatelo in ${esc(specScort(i).meta || '')}.</span>` : '')).join('')}</p>
@@ -590,7 +611,11 @@ function azioniHtml() {
       : ' La notte reagisce.'}</p>
       <div class="btn-riga">
         ${arbitro() ? daMuovere.map(({ i }) => `<button class="btn" data-scortato-chip="${i}">muovi ${esc((specScort(i).nome || '').toLowerCase())} →</button>`).join('') : ''}
-        ${arbitro() ? `<button class="btn${daMuovere.length ? '' : ' pieno'}" id="fase-minaccia">fase minaccia →</button>`
+        ${arbitro() ? `<button class="btn${daMuovere.length ? '' : ' pieno'}" id="fase-minaccia">${
+          // A OBIETTIVO COMPIUTO IL MAZZO NON PESCA PIU', ma la notte agisce
+          // eccome: il bottone e' lo stesso e continuava a promettere una pesca
+          // che non ci sarebbe stata. Dice quel che fa davvero.
+          obiettivoFatto() ? 'la notte reagisce →' : 'fase minaccia →'}</button>`
           // la notte la chiama chi conduce: il Durable Object rifiuta il comando
           // a chiunque altro, e offrire un bottone che verra' rifiutato e' peggio
           // che non offrirlo
