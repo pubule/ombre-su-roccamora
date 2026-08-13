@@ -1239,6 +1239,13 @@ async function riproduci(eventi) {
       const piano = ev.piano.slice();
       piano.vite0 = ev.vite0; piano.differito = ev.differito; piano.annunci = ev.annunci;
       await animaNotte(piano);
+      // CHI GUARDA RIDISEGNA SUBITO. L'animazione lascia a schermo la plancia
+      // della notte, e la fascia in cima resta quella di allora: si leggeva
+      // «agisce la notte» col pannello sotto che diceva gia' «azioni di
+      // lazzaro». Lo stato era giusto — era la vista vecchia di un istante.
+      // Chi arbitra no: ha la sua coda (vistaNemici -> animazione -> chiusura)
+      // e un render in mezzo la scavalcherebbe.
+      if (!arbitro()) render();
     } else if (ev.tipo === 'carta') {
       // NIENTE: la carta aperta la disegna `render()` leggendola dallo stato
       // (`sp.carta`). Metterla in scena anche qui la mostrerebbe due volte, e
