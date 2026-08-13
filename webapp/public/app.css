@@ -874,3 +874,19 @@ em, i { font-style: italic; }
    intestazione sono due righe tolte alla plancia */
 #app.vista-eroe .barra .titolo { display: none; }
 #app.vista-eroe .barra { padding: 4px 0 8px; }
+
+/* IL COLPO CHE ARRIVA A TE (vista eroe). Il numero che sale dal segnalino e lo
+   scossone del token ci sono gia' per tutti: qui si aggiunge quel che serve a
+   uno schermo tenuto in mano, cioe' fermare chi sta guardando altrove. Dura
+   1,5s e poi sparisce — un allarme che resta smette di essere un allarme. */
+#app.colpo-mio .fascia-turno { animation: colpo-allarme 1.5s ease-in-out; }
+@keyframes colpo-allarme {
+  0%, 100% { box-shadow: none; }
+  20%, 60% { background: linear-gradient(180deg, #b02b3c, #7a1f2b); color: #fff;
+             box-shadow: 0 0 26px 6px rgba(216,59,59,.85); }
+}
+#app.colpo-mio #p-salute .nemico-riga.mia { animation: colpo-scheda 1.5s ease-in-out; }
+@keyframes colpo-scheda {
+  0%, 100% { box-shadow: none; }
+  25%, 65% { box-shadow: inset 0 0 0 2px #ff5a5a, 0 0 18px rgba(255,90,90,.5); }
+}

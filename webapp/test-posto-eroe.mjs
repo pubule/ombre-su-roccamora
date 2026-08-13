@@ -40,7 +40,9 @@ async function apri(posto) {
   page.on('pageerror', (e) => errori.push(e.message));
   await page.goto(BASE, { waitUntil: 'networkidle' });
   await page.evaluate(async ({ ep, party, mio, posto: p, t0 }) => {
-    const [{ vistaDigitale }] = await Promise.all([import('/js/digitale.js')]);
+    const mod = await import('/js/digitale.js');
+    window.__d = mod;                      // per chiamare i pezzi dal test
+    const { vistaDigitale } = mod;
     const eroiPos = {}; const vite = {};
     party.forEach((n, i) => { eroiPos[n] = { t: t0, x: i, y: 0 }; vite[n] = 6; });
     const partita = {
@@ -175,6 +177,44 @@ const ordineVisivo = (page) => page.evaluate(() =>
     }
     await page.close();
   }
+}
+
+// --- IL COLPO CHE ARRIVA A TE
+//
+// Il numero che sale dal segnalino e lo scossone del token ci sono per tutti.
+// Quel che si prova qui e' il segnale in piu' che serve a uno schermo tenuto in
+// mano: su un tabellone grande il colpo lo vedono tutti perche' tutti guardano
+// li'; su un telefono si guarda altrove, e senza qualcosa che fermi lo schermo
+// si scopre di essere a terra due turni dopo.
+{
+  const { page } = await apri({ ruolo: 'giocatore', eroe: MIO });
+  const allarme = () => page.evaluate(() => document.querySelector('#app').classList.contains('colpo-mio'));
+
+  ok(!(await allarme()), 'a riposo nessun allarme');
+
+  await page.evaluate((nm) => window.__d._motore.evidenziaColpito(nm), ALTRUI);
+  await page.waitForTimeout(120);
+  ok(!(await allarme()), 'un colpo a un ALTRO eroe non fa allarme sul mio telefono');
+
+  await page.evaluate((nm) => window.__d._motore.evidenziaColpito(nm), MIO);
+  await page.waitForTimeout(120);
+  ok(await allarme(), 'il colpo che arriva a ME sì');
+
+  // e passa da solo: un allarme che resta smette di essere un allarme
+  await page.waitForTimeout(1700);
+  ok(!(await allarme()), 'e si spegne da solo');
+  await page.close();
+}
+
+// --- E CHI ARBITRA non prende l'allarme: ha il tabellone davanti, e nessun
+// eroe è «suo» più degli altri
+{
+  const { page } = await apri(null);
+  await page.evaluate((nm) => window.__d._motore.evidenziaColpito(nm), MIO);
+  await page.waitForTimeout(120);
+  ok(!(await page.evaluate(() => document.querySelector('#app').classList.contains('colpo-mio'))),
+     'chi arbitra non riceve nessun allarme del colpo');
+  await page.close();
 }
 
 await browser.close();

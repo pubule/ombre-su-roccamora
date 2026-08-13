@@ -1393,8 +1393,22 @@ function dmgPop(dataTok, testo) {
   setTimeout(() => d.remove(), 1100);
 }
 function evidenziaColpito(vitt) {
-  const el = ctx.app.querySelector(`[data-eroe="${vitt}"]`); if (!el) return;
-  el.classList.add('colpito'); setTimeout(() => el.classList.remove('colpito'), 600);
+  // `.tok-board[data-eroe]` e non `[data-eroe]` e basta: da quando la riga
+  // della salute porta lo stesso attributo, il selettore generico prendeva il
+  // primo dei due nell'ordine del DOM. Funzionava per combinazione — la plancia
+  // viene prima del pannello — ed e' il genere di cosa che smette di funzionare
+  // il giorno in cui si sposta un blocco.
+  const el = ctx.app.querySelector(`.tok-board[data-eroe="${vitt}"]`);
+  if (el) { el.classList.add('colpito'); setTimeout(() => el.classList.remove('colpito'), 600); }
+
+  // IL COLPO CHE ARRIVA A TE. Su un tabellone grande il colpo lo vedono tutti,
+  // perche' tutti stanno guardando li'. Su un telefono tenuto in mano si guarda
+  // altrove — e senza un segnale che fermi lo schermo si scopre di essere a
+  // terra due turni dopo, che e' il modo peggiore di scoprirlo.
+  if (vitt && vitt === mioEroe()) {
+    ctx.app.classList.add('colpo-mio');
+    setTimeout(() => ctx.app.classList.remove('colpo-mio'), 1500);
+  }
 }
 
 // sequenza animata: centra su ogni nemico, ne mostra spostamento e azione
@@ -1557,6 +1571,7 @@ function epilogo() {
 export const _motore = {
   esploraMosse, camminoGlob, adiacGlob, viciniGlob, portaCella, arrediSet, layout, nk, tileDi,
   messaggioCarta,                 // per provare la carta senza tirarsi dietro una pesca vera
+  evidenziaColpito,               // per provare il colpo senza aspettare che un nemico colpisca
   avanzaCancellazione, avanzaRitmo, avanzaPressione, controllaFiloPerso, avanzaOrologio,
   bonusVoce, celleEsca,
   _setup: (ep, sp, extra) => {
