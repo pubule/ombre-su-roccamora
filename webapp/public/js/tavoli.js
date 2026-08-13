@@ -125,6 +125,9 @@ export async function vistaTavoli(app, quandoScelto) {
       return;
     }
     impostaTavolo(id, nome);
-    quandoScelto(id);
+    // APPENA CREATO, si compone: la compagnia e chi gioca sono le due cose che
+    // servono prima di qualunque episodio. Mandare agli episodi e poi far
+    // tornare indietro con «cambia tavolo» era un giro a vuoto, ogni volta.
+    vistaMembri(app, id, nome, () => vistaTavoli(app, quandoScelto), () => quandoScelto(id));
   };
 }

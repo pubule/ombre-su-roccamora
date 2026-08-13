@@ -168,6 +168,41 @@ ok(errori.length === 0, `la schermata apre senza errori JS: ${errori.slice(0, 2)
   ok(r.status === 400, `una compagnia di un eroe solo è rifiutata (visto ${r.status})`);
 }
 
+// --- CREARE UN TAVOLO PORTA DRITTI A COMPORLO
+//
+// Prima si finiva sugli episodi, e per assegnare eroi e posti bisognava tornare
+// indietro con «cambia tavolo»: un giro a vuoto, ogni volta. La compagnia e chi
+// gioca sono le due cose che servono PRIMA di qualunque episodio.
+{
+  const p2 = await browser.newPage({ viewport: { width: 420, height: 900 } });
+  await p2.goto(BASE, { waitUntil: 'networkidle' });
+  await p2.evaluate(async () => {
+    const { vistaTavoli } = await import('/js/tavoli.js');
+    document.querySelector('#app').innerHTML = '';
+    await vistaTavoli(document.querySelector('#app'), () => {
+      document.querySelector('#app').dataset.episodi = '1';   // dove si andava prima
+    });
+  });
+  await p2.waitForTimeout(600);
+  await p2.click('#nuovo-tavolo');
+  await p2.fill('#nome-tavolo', 'Tavolo appena nato');
+  await p2.click('#crea-tavolo');
+  await p2.waitForTimeout(1200);
+
+  ok(await p2.locator('.eroe-tile').count() > 0,
+     'appena creato il tavolo si è già a comporre la compagnia');
+  ok(await p2.locator('#email-invito').count() === 1, 'e a invitare');
+  ok(!(await p2.evaluate(() => document.querySelector('#app').dataset.episodi)),
+     'e NON si è passati per gli episodi');
+  ok(await p2.locator('#avanti').count() === 1, 'con il bottone per proseguire quando si è pronti');
+
+  await p2.click('#avanti');
+  await p2.waitForTimeout(400);
+  ok(await p2.evaluate(() => document.querySelector('#app').dataset.episodi) === '1',
+     'e quel bottone porta agli episodi');
+  await p2.close();
+}
+
 ok(errori.length === 0, `nessun errore JS in tutta la sessione: ${errori.slice(0, 2).join(' | ')}`);
 await browser.close();
 await fetch(`${BASE}/api/tavolo?id=${idT}`, { method: 'DELETE' });

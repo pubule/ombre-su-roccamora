@@ -17,7 +17,11 @@ const esc = (s) => String(s == null ? '' : s).replace(/[&<>"]/g, (c) =>
 
 const primo = (nome) => String(nome).split(' ')[0].toLowerCase();
 
-export async function vistaMembri(app, tavolo, nome, torna) {
+// `avanti`, se c'e', mette in fondo il bottone per proseguire: serve a chi ha
+// appena creato il tavolo e arriva qui prima ancora di vedere gli episodi —
+// comporre la compagnia e invitare e' quel che si fa subito dopo aver creato un
+// tavolo, e mandarlo prima agli episodi era un giro a vuoto.
+export async function vistaMembri(app, tavolo, nome, torna, avanti) {
   const comune = await dati('comune');
   const eroi = comune.eroi.map((e) => e.nome);
 
@@ -122,9 +126,14 @@ export async function vistaMembri(app, tavolo, nome, torna) {
             presi.has(n) ? ' (già preso)' : ''}</option>`).join('')}
         </select>
         <div class="btn-riga mt"><button class="btn pieno" id="invita">dagli un posto</button></div>
-      </div>`;
+      </div>
+      ${avanti ? `<div class="mt"></div>
+        <div class="btn-riga"><button class="btn pieno" id="avanti">si comincia — scegli l’episodio</button></div>`
+      : ''}`;
 
     document.getElementById('indietro').onclick = torna;
+    const btnAvanti = document.getElementById('avanti');
+    if (btnAvanti) btnAvanti.onclick = () => avanti();
 
     // La compagnia si compone toccando i ritratti, e si salva a parte: toccare
     // un eroe non deve far partire una scrittura per ogni tocco.
