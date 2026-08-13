@@ -23,6 +23,7 @@ OUT = os.path.join(ROOT, 'webapp', 'data')
 os.makedirs(OUT, exist_ok=True)
 
 from gen_cards import HEROES, LUOGHI, TILES, NEMICI, OGGETTI, ESAMI_CARBONE  # noqa: E402
+from bivi import BIVI  # noqa: E402
 import story  # noqa: E402
 story.apply(LUOGHI, TILES, NEMICI, HEROES, [])
 from gen_preludio import (LUOGHI_P, TESSERE_P, MAZZO_P, OGGETTI_LUOGO_P, LETTERA_P,  # noqa: E402
@@ -1701,6 +1702,29 @@ def dump(name, obj):
         json.dump(senza_reportlab(obj), f, ensure_ascii=False, indent=1, sort_keys=True)
     print('ok ->', p)
 
+
+# I BIVI DI CAMPAGNA. La scelta di fine episodio cambia le regole di uno o piu'
+# episodi successivi: `src/bivi.py` la traduce in effetti tipizzati, e qui
+# ciascun episodio si porta dietro DUE cose diverse.
+#
+#   `bivio`      il proprio, da proporre a fine serata
+#   `bivi_qui`   gli effetti che gli cadono addosso, da qualunque episodio
+#                arrivino — e non arrivano solo da quello prima: il Bivio
+#                dell'Ep.8 si applica in Ep.13, 14 e 16, quello dell'Ep.11
+#                arriva fino all'Ep.20.
+#
+# `bivi_qui` si costruisce QUI, una volta, invece di farlo cercare al motore fra
+# venti episodi a ogni avvio: l'indice inverso e' un dato, non un calcolo.
+for _k, _b in BIVI.items():
+    if _k in episodi:
+        episodi[_k]['bivio'] = _b
+    for _o in _b['opzioni']:
+        for _e in _o['effetti']:
+            for _dove in ([_e['ep']] if isinstance(_e['ep'], str) else _e['ep']):
+                if _dove not in episodi:
+                    continue
+                episodi[_dove].setdefault('bivi_qui', []).append(
+                    {'da': _k, 'opzione': _o['id'], **{x: y for x, y in _e.items() if x != 'ep'}})
 
 dump('comune.json', comune)
 for k, ep in episodi.items():
