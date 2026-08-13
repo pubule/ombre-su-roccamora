@@ -4,6 +4,7 @@
 import { dati, nuovaPartita, salva, carica, cancella, tavoloCorrente, nomeTavoloCorrente,
          sincronizzaScelte, scelteCampagna } from './store.js';
 import { biviDi, applicaAllaPartita } from '../motore/bivi.js';
+import { rendi } from './engine.js';   // i Frammenti sono prosa con <i>/<b>
 import { schedaEroe } from './scheda-eroe.js';
 import { vistaTavoli } from './tavoli.js';
 import { decidi, avviaCoda, stato as statoSync } from './sync.js';
@@ -160,7 +161,9 @@ function vistaTaccuino(info) {
         <div class="nemico-riga">
           <span class="nemico-nome">${esc(ep.titolo)}
             ${opz ? `<br><span class="nota">bivio: ${esc(opz.titolo)}</span>`
-                  : (esito && ep.bivio ? '<br><span class="nota">bivio non ancora sigillato</span>' : '')}</span>
+                  : (esito && ep.bivio ? '<br><span class="nota">bivio non ancora sigillato</span>' : '')}
+            ${FRAMMENTO[esito] && ep.frammento
+              ? `<br><span class="nota">${rendi(ep.frammento)}</span>` : ''}</span>
           <span class="nota">${FRAMMENTO[esito] || (esito ? '—' : '')}</span>
         </div>`).join('')}
     </div>

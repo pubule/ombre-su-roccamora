@@ -108,6 +108,9 @@ const vaiAllEpilogo = async (page) => {
   const tac = await page.locator('#app').innerText();
   if (!/1 frammento/i.test(tac)) fail(`il Taccuino non conta il Frammento della serata vinta:\n${tac.slice(0, 300)}`);
   if (!/bruciarlo|bruciare|rogo|fuoco/i.test(tac)) fail('il Taccuino non riporta la scelta sigillata');
+  // il Frammento e' il TESTO, non una spunta: e' quel che comporra' il mistero
+  // finale, e un elenco di crocette non lo comporrebbe
+  if (!/accorda/i.test(tac)) fail('il Taccuino non riporta il testo del Frammento');
   await page.close();
 }
 
