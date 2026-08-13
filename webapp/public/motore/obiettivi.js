@@ -254,11 +254,15 @@ export function avanzaCancellazione(g) {
 // che e' il punto della scena.
 export const specRitmo = (g) => specCompiti(g).find((c) => c.ritmo) || null;
 
-// Quanti Frammenti porta il gruppo. La webapp gioca un episodio per volta e non
-// ha lo stato di campagna: il valore si dichiara sulla partita (`frammenti`) e
-// altrimenti vale il `default` dei dati. E' l'unico ingresso di campagna del
-// finale, e va tenuto esplicito invece di essere dedotto dal tier d'Indagine —
-// il tier dice com'e' andata stasera, non come sono andate venti serate.
+// Quanti Frammenti porta il gruppo. E' l'unico ingresso di campagna del finale,
+// e resta esplicito invece di essere dedotto dal tier d'Indagine — il tier dice
+// com'e' andata stasera, non come sono andate venti serate.
+//
+// `partita.frammenti` lo scrive `main.comincia()` contando i salvataggi
+// (`store.frammentiConservati`). Non c'e' quando di serate alle spalle non ce
+// n'e' NESSUNA — l'Ep.20 aperto per provarlo, i banchi di misura che giocano un
+// episodio alla volta — e allora vale il `default` dei dati: dire 0 li' sarebbe
+// una misura di un finale che nessun tavolo vero incontra.
 export const frammentiPortati = (g) => {
   const r = specRitmo(g); const p = g.partita;
   return p.frammenti != null ? p.frammenti : ((r && r.ritmo.frammenti_default) || 0);
