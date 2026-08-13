@@ -15,6 +15,7 @@
 //   node webapp/test-telefono-azioni.mjs      (o OSR_BASE=… )
 import { chromium } from 'playwright';
 import { readFileSync } from 'fs';
+import { costruisciMazzo } from './public/motore/regole.js';
 const BASE = process.env.OSR_BASE || 'http://127.0.0.1:8787';
 const C = JSON.parse(readFileSync('webapp/data/comune.json','utf8'));
 const EP = JSON.parse(readFileSync('webapp/data/ep1.json','utf8'));
@@ -34,6 +35,9 @@ const partita = { v:1, episodio:'ep1', modo:'digitale', party:[ELENA,OTTONE], fa
     eroiPos:{[ELENA]:{t:T0,x:1,y:1},[OTTONE]:{t:T0,x:2,y:1}}, vite:{[ELENA]:6,[OTTONE]:7},
     azioni:{}, storditi:{}, eroiFatti:[], eroiAttivo:ELENA, scortati:[], mazzo:null,
     pendenza:null, insidie:{}, abilita:{} } };
+// il mazzo Minaccia: nella partita vera lo costruisce l'avvio della spedizione
+const CARTE = JSON.parse(readFileSync('webapp/data/carte.json','utf8'));
+partita.spedizione.mazzo = costruisciMazzo({ seme: 3, passo: 0 }, CARTE, EP, 'ep1');
 await chiama('arbitro@esempio.it','POST',`/api/tavolo/${id}/apri`,{tavolo:id,stato:partita});
 const b = await chromium.launch();
 // UNO SCHERMO DA TELEFONO VERO, barra del browser compresa. Con un viewport
@@ -72,6 +76,44 @@ if (m) {
   ok(m.top < m.viewport - 40,
      `e cominciano dentro lo schermo (top ${m.top}, schermo ${m.viewport})`);
 }
+// --- LA MINACCIA: la carta la vedono tutti, e una per volta
+//
+// Prima la pesca si risolveva tutta in un comando e la metteva in scena solo il
+// client di chi arbitra: sul telefono compariva la PRIMA carta e basta, e chi
+// ricaricava si ritrovava a notte inoltrata mentre l'arbitro leggeva ancora.
+{
+  // niente bottone «fase minaccia» sul telefono: la notte la chiama chi conduce
+  ok(await p.locator('#fase-minaccia').count() === 0,
+     'il telefono non offre il bottone della fase Minaccia');
+
+  // l'arbitro fa partire la pesca dal suo dispositivo
+  const r = await chiama('arbitro@esempio.it', 'POST', `/api/tavolo/${id}/comando`, { tipo: 'fase-minaccia' });
+  ok(r.ok, `la pesca parte (visto ${r.status})`);
+  await p.waitForTimeout(1500);
+
+  // si cerca LA CARTA, non la parola: il titolo sta nella barra e `innerText`
+  // restituisce il testo di regole, che non contiene «minaccia»
+  ok(await p.locator('.carta-grande').count() === 1, 'la carta arriva sul telefono');
+  ok(await p.locator('#ok-msg').count() === 0, 'senza «continua»: la pesca non è sua');
+
+  // LA CARTA E' NELLO STATO: chi ricarica la ritrova, invece di saltare avanti
+  const v = await (await chiama('arbitro@esempio.it', 'GET', `/api/tavolo/${id}/stato`)).json();
+  ok(v.stato.spedizione.carta, 'la carta aperta sta nello stato, non solo a schermo');
+  await p.reload({ waitUntil: 'networkidle' });
+  await p.waitForTimeout(2000);
+  ok(await p.locator('.carta-grande').count() === 1,
+     'e dopo un refresh è ancora lì — non si salta alla notte');
+
+  // la SECONDA carta arriva quando l'arbitro prosegue
+  if ((v.stato.spedizione.minacceDaPescare || 0) > 0) {
+    await chiama('arbitro@esempio.it', 'POST', `/api/tavolo/${id}/comando`, { tipo: 'carta-vista' });
+    await p.waitForTimeout(1500);
+    const v2 = await (await chiama('arbitro@esempio.it', 'GET', `/api/tavolo/${id}/stato`)).json();
+    ok(v2.stato.spedizione.carta && v2.stato.spedizione.carta.titolo !== v.stato.spedizione.carta.titolo,
+       'la seconda carta arriva quando chi arbitra prosegue');
+  }
+}
+
 ok(err.length === 0, `senza errori JS: ${err.slice(0, 2).join(' | ')}`);
 
 await b.close();

@@ -57,7 +57,12 @@ const modoDadi = () => (alTavolo() ? 'tavolo' : 'digitale');
 // campo affollato, tirare a mano per ogni sgherro e' la contabilita' che la
 // modalita' tavolo voleva togliere. L'interruttore vale per la partita, si
 // accende dall'overlay del tiro (ripiegoSempre) e si spegne dalla plancia.
-const tavoloTiraNemici = () => alTavolo() && !P().nemiciApp;
+// I DADI DEI NEMICI LI TIRA CHI ARBITRA. Al tavolo i dadi sono di legno e li
+// tira il tavolo, ma la richiesta va fatta a UNO schermo solo: chiederla anche
+// ai telefoni farebbe comparire l'overlay dei dadi a tutti, e ognuno tirerebbe
+// per lo stesso nemico. Sul telefono il tiro non si chiede — arriva gia' fatto
+// col resto dello stato.
+const tavoloTiraNemici = () => alTavolo() && !P().nemiciApp && arbitro();
 const RIPIEGO_NEMICI = { label: 'da qui i nemici li tira l’app' };
 function accendiNemiciApp() { P().nemiciApp = true; salvaP(); }
 
@@ -314,7 +319,17 @@ function render() {
   // finito di togliere fra tavolo e schermo.
   ctx.app.classList.toggle('vista-eroe', !arbitro());
   if (sp.esito) return epilogo();
-  if (sp.fase === 'nemici') return faseNemiciAI();
+  // LA CARTA APERTA sta nello stato, quindi la vede chiunque guardi — anche chi
+  // ricarica la pagina a meta' lettura. Prima la carta viveva solo nella catena
+  // di animazione di chi arbitra: sul telefono ne arrivava una sola, e un
+  // refresh saltava direttamente a notte inoltrata.
+  if (sp.carta) return schermataCarta(sp.carta);
+  // LA NOTTE LA FA AGIRE CHI ARBITRA, e nessun altro. `render()` la faceva
+  // partire a chiunque disegnasse con la fase a «nemici»: bastava ricaricare la
+  // pagina sul telefono per far muovere i nemici — in LOCALE, perche' al
+  // risveglio il filo col tavolo non e' ancora aperto e il motore gira qui.
+  // L'arbitro non vedeva niente, e le due partite divergevano in silenzio.
+  if (sp.fase === 'nemici') return arbitro() ? faseNemiciAI() : attesaNotte();
   const { app, ep } = ctx;
   const attivo = eroiAttivoNome();
   const tpk = P().party.every((nm) => (sp.vite[nm] ?? 0) <= 0);
@@ -549,7 +564,11 @@ function azioniHtml() {
       : ' La notte reagisce.'}</p>
       <div class="btn-riga">
         ${daMuovere.map(({ i }) => `<button class="btn" data-scortato-chip="${i}">muovi ${esc((specScort(i).nome || '').toLowerCase())} →</button>`).join('')}
-        <button class="btn${daMuovere.length ? '' : ' pieno'}" id="fase-minaccia">fase minaccia →</button>
+        ${arbitro() ? `<button class="btn${daMuovere.length ? '' : ' pieno'}" id="fase-minaccia">fase minaccia →</button>`
+          // la notte la chiama chi conduce: il Durable Object rifiuta il comando
+          // a chiunque altro, e offrire un bottone che verra' rifiutato e' peggio
+          // che non offrirlo
+          : '<span class="nota">quando tutti hanno finito, la notte la chiama chi arbitra.</span>'}
       </div>`;
   }
   const fatte = azioniOf(attivo);
@@ -680,6 +699,40 @@ async function bersagliInsidia(rules) {
   const chi = await scegli('Quale eroe affronta l’insidia?', vivi.map((nm) => ({ id: nm, label: primo(nm) })));
   return chi ? [chi] : [];
 }
+// La notte sta agendo altrove: qui si guarda. Non e' una schermata vuota per
+// pigrizia — e' l'unica cosa onesta da mostrare a chi non ha nulla da toccare.
+function attesaNotte() {
+  const { app } = ctx;
+  app.innerHTML = `${fasciaTurno()}
+    <div class="barra"><span></span><div class="titolo">la notte</div><span></span></div>
+    <div class="pannello">
+      <p>I nemici si muovono. Chi arbitra li sta facendo agire — appena finito,
+         la plancia torna e il round riprende.</p>
+    </div>`;
+}
+
+// LA CARTA APERTA, disegnata dallo stato. Chi conduce la chiude e passa alla
+// prossima; chi gioca la guarda e basta — la pesca non e' sua, e un «continua»
+// che non fa continuare niente sarebbe una bugia.
+function schermataCarta(aperta) {
+  const { app } = ctx;
+  app.classList.remove('immersivo');
+  app.innerHTML = `<div class="barra"><span></span><div class="titolo">${esc(aperta.titolo || 'minaccia')}</div><span></span></div>
+    <div class="pannello">
+      <div class="carta-grande"><img src="${urlCarta(aperta.carta.file)}" alt=""></div>
+      <p class="mt">${rendi(aperta.carta.rules)}</p>
+      ${(aperta.annunci || []).map((a) => `<p class="mt"><b>${esc(a)}</b></p>`).join('')}
+    </div>
+    ${arbitro()
+      ? '<div class="btn-riga"><button class="btn pieno" id="ok-msg">continua</button></div>'
+      : '<p class="nota mt center">la sta leggendo chi arbitra…</p>'}`;
+  const b = app.querySelector('#ok-msg');
+  if (b) b.onclick = async () => {
+    b.disabled = true;
+    await esegui({ tipo: 'carta-vista' });
+  };
+}
+
 // carta Minaccia con eventuale prova d'insidia (nessun eroe attivo in questa fase)
 function messaggioCarta(titolo, carta, annunci) {
   return new Promise((ok) => {
@@ -1101,6 +1154,16 @@ async function eseguiSulTavolo(comando) {
 
 async function esegui(comando) {
   if (ctx.posto && ctx.posto.tavolo && ctx.tavoloVivo) return eseguiSulTavolo(comando);
+
+  // CHI GIOCA NON APPLICA MAI IN LOCALE. Il motore qui dentro c'e' per chi
+  // arbitra da solo; per chi siede a un tavolo la partita vera sta sul tavolo,
+  // e applicare qui vorrebbe dire farsi una partita propria che nessun altro
+  // vede — due stati che divergono senza un errore. Se il filo non e' ancora
+  // aperto (succede subito dopo un refresh) si aspetta, non si gioca.
+  if (ctx.posto && ctx.posto.tavolo && ctx.posto.ruolo !== 'arbitro') {
+    flash('Un momento: mi sto ricollegando al tavolo.');
+    return false;
+  }
   const dati = { ep: ctx.ep, comune: ctx.comune, carte: ctx.carte };
   const tiri = alTavolo() ? [] : null;
   if (alTavolo()) {
@@ -1154,12 +1217,11 @@ async function riproduci(eventi) {
     } else if (ev.tipo === 'rivelata') {
       ctx.layout = null;                       // la mappa cresce: si ridisegna
     } else if (ev.tipo === 'carta') {
-      // LA CARTA MINACCIA, a tutta pagina. Chi arbitra la chiude col bottone;
-      // sul telefono di chi gioca il bottone non c'e' — la pesca non e' sua — e
-      // la carta resta finche' il tavolo non va avanti. Scelto cosi' il
-      // 13/08/2026: il telefono si ferma insieme al tavolo, e la pesca resta un
-      // momento di scena invece di una notifica.
-      await messaggioCarta(ev.titolo || 'minaccia', ev.carta, ev.annunci || []);
+      // NIENTE: la carta aperta la disegna `render()` leggendola dallo stato
+      // (`sp.carta`). Metterla in scena anche qui la mostrerebbe due volte, e
+      // soprattutto la legherebbe di nuovo alla catena di animazione di chi
+      // arbitra — che e' esattamente il motivo per cui sugli altri schermi ne
+      // arrivava una sola.
     }
   }
 }

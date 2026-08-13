@@ -69,6 +69,18 @@ const GESTORI = {
   //
   // Chi puo' mandarlo e' scritto altrove: `COMANDI_DI_ARBITRO` nel Durable
   // Object. La pesca resta un gesto di chi conduce.
+  // UNA CARTA PER VOLTA, e lo stato dice quale e' aperta (`sp.carta`).
+  //
+  // Prima la pesca si risolveva TUTTA in un comando: il server arrivava in
+  // fondo, il client dell'arbitro metteva in scena le carte una per una, e gli
+  // altri schermi ricevevano tutto insieme. Tre conseguenze, tutte viste al
+  // tavolo: sul telefono compariva solo la prima carta; ricaricando la pagina
+  // ci si ritrovava a notte gia' inoltrata mentre l'arbitro leggeva ancora; e
+  // non c'era modo di sapere, guardando lo stato, che una carta fosse aperta.
+  //
+  // Ora ogni carta e' un passo: si pesca, si applica, e si LASCIA APERTA. Chi
+  // conduce manda `carta-vista` per passare alla prossima. Cosi' lo stato e'
+  // sempre la verita' — chi ricarica ritrova la carta, e chi guarda la vede.
   'fase-minaccia': (g) => {
     const sp = g.sp; const eventi = [];
     // un lancio d'esca lasciato a meta' non deve sopravvivere al turno: la
@@ -87,9 +99,46 @@ const GESTORI = {
       sp.log.push('Diversivo di Fanti: 1 carta Minaccia in meno.');
     }
 
-    for (let i = 0; i < n; i++) {
+    sp.minacceDaPescare = n;
+    sp.minacceTotali = n;      // per dire «1 di 2» anche alla seconda
+    return pescaUna(g);
+  },
+
+  // La carta successiva: la manda chi conduce dopo aver letto quella aperta.
+  'carta-vista': (g) => {
+    g.sp.carta = null;
+    return pescaUna(g);
+  },
+
+  // La notte, tutta in un comando: piano, risoluzione, coda di fine round e
+  // chiusura. Gli eventi sono il copione che la vista anima — e senza vista
+  // funziona lo stesso, che e' il punto di questa fase.
+  'fase-nemici': (g, c, caso) => {
+    const piano = nemici.pianoNemici(g, caso, !!c.differito);
+    nemici.fineRoundNemici(g, piano);
+    if (!c.differito) {
+      const fine = chiudiFaseNemici(g);
+      if (fine) {
+        g.sp.esito = fine.esito;
+        if (fine.riga) g.sp.log.push(fine.riga);
+      }
+    }
+    return { eventi: [{ tipo: 'turno-nemici', piano: [...piano], annunci: piano.annunci }] };
+  },
+};
+
+// PESCA UNA CARTA e la lascia aperta in `sp.carta`, se ne restano da pescare.
+// Quando non ne restano piu', `sp.carta` resta nullo e la fase puo' proseguire.
+function pescaUna(g) {
+  const sp = g.sp; const eventi = [];
+  const restano = sp.minacceDaPescare || 0;
+  if (restano <= 0) { sp.minacceDaPescare = 0; return { eventi }; }
+  const totale = sp.minacceTotali || restano;
+  {
+      const i = totale - restano;
+      const n = totale;
       const carta = pesca(g.partita.rng, sp.mazzo, g.carte, g.partita.episodio, g.ep);
-      if (!carta) break;                     // mazzo vuoto: non e' un errore da far esplodere
+      if (!carta) { sp.minacceDaPescare = 0; return { eventi }; }
       const crescendo = carta.title.startsWith('Crescendo');
       const annunci = [];
       if (crescendo) {
@@ -123,27 +172,17 @@ const GESTORI = {
       // La carta viaggia INTERA: il telefono di chi gioca non ha i dati
       // dell'episodio (la proiezione glieli pota), quindi non potrebbe
       // ricostruirsela da un titolo.
-      eventi.push({ tipo: 'carta', titolo: `minaccia ${i + 1} di ${n}`, carta, annunci });
-    }
-    return { eventi };
-  },
-
-  // La notte, tutta in un comando: piano, risoluzione, coda di fine round e
-  // chiusura. Gli eventi sono il copione che la vista anima — e senza vista
-  // funziona lo stesso, che e' il punto di questa fase.
-  'fase-nemici': (g, c, caso) => {
-    const piano = nemici.pianoNemici(g, caso, !!c.differito);
-    nemici.fineRoundNemici(g, piano);
-    if (!c.differito) {
-      const fine = chiudiFaseNemici(g);
-      if (fine) {
-        g.sp.esito = fine.esito;
-        if (fine.riga) g.sp.log.push(fine.riga);
-      }
-    }
-    return { eventi: [{ tipo: 'turno-nemici', piano: [...piano], annunci: piano.annunci }] };
-  },
-};
+      // LA CARTA RESTA APERTA NELLO STATO: e' quel che la rende visibile a tutti
+      // gli schermi e ritrovabile da chi ricarica. Viaggia INTERA perche' il
+      // telefono ha i dati potati dalla proiezione e da un titolo non potrebbe
+      // ricostruirsela.
+      const aperta = { titolo: `minaccia ${i + 1} di ${n}`, carta, annunci };
+      sp.carta = aperta;
+      sp.minacceDaPescare = restano - 1;
+      eventi.push({ tipo: 'carta', ...aperta });
+  }
+  return { eventi };
+}
 
 export function applica(statoIn, comando, dati) {
   const stato = clona(statoIn);
