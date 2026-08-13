@@ -23,6 +23,8 @@ const entra = async () => {
   await page.waitForTimeout(250);
   if (await page.locator('#continua').count()) { await page.locator('#continua').click(); await page.waitForTimeout(200); }
   if (await page.locator('#via').count()) { await page.locator('#via').click(); await page.waitForTimeout(350); }
+  // la stanza d'ingresso si legge come tutte le altre: chi arbitra la chiude
+  if (await page.locator('#ok-msg').count()) { await page.locator('#ok-msg').click(); await page.waitForTimeout(300); }
 };
 const patch = (fn) => page.evaluate(`(${fn})(JSON.parse(localStorage.getItem('osr.partita.ep1')))`);
 const stato = () => page.evaluate(() => JSON.parse(localStorage.getItem('osr.partita.ep1')).spedizione);

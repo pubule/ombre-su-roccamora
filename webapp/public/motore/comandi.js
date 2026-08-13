@@ -25,6 +25,7 @@ import * as nemici from './nemici.js';
 import * as minaccia from './minaccia.js';
 import * as obiettivi from './obiettivi.js';
 import { chiudiFaseNemici } from './vittoria.js';
+import * as vittoria from './vittoria.js';
 import { carteDaPescare, pesca, cantoDaCarta, tettoCanto } from './regole.js';
 
 const clona = (x) => JSON.parse(JSON.stringify(x));
@@ -59,6 +60,22 @@ const GESTORI = {
   interagisci: (g, c, caso) => interazioni.interagisci(g, caso, c.eroe),
   oggetto: (g, c) => interazioni.usaOggetto(g, c.eroe, c.quale),
   rispondi: (g, c, caso) => azioni.rispondi(g, caso, c.scelta),
+  // IL PNG LIBERATO. Il suo movimento e' un turno a se', che si aggiunge a
+  // quello degli eroi: non e' l'eroe di nessuno, e lo conduce chi arbitra (il
+  // Durable Object lo impone in `COMANDI_DI_ARBITRO`). Passava solo dal client
+  // di chi arbitrava, quindi il tavolo non lo vedeva muoversi — lo stesso
+  // difetto che aveva la notte.
+  'muovi-scortato': (g, c) => {
+    const png = (g.sp.scortati || [])[c.png];
+    if (!png || !png.liberato) return { rifiuto: 'Quel PNG non è ancora libero.' };
+    const out = vittoria.esitoScorta(g, c.png, c.nodo);
+    (out.righe || []).forEach((r) => g.sp.log.push(r));
+    if (out.esito) {
+      g.sp.esito = out.esito;
+      return { eventi: [{ tipo: 'fine', esito: out.esito, riga: (out.righe || []).slice(-1)[0] || '' }] };
+    }
+    return { eventi: [] };
+  },
   // LA PESCA DELLA MINACCIA, tutta in un comando.
   //
   // Stava in `digitale.js` e si fermava a ogni carta ad aspettare che qualcuno

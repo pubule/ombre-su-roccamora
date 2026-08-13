@@ -573,7 +573,9 @@ function azioniHtml() {
     const n = Object.keys(raggScortato(iS)).length;
     return `<p class="nota">Tocca a <b>${esc(nome)}</b> — si muove con voi (Mov ${mov}), <b>non compie azioni</b>.</p>
       <p class="nota mt">${n ? `▸ Tocca una <b class="verde">casella verde</b> per muovere ${esc(nome)} (fino a ${mov} caselle). Portalo in <b>${esc(s.meta || '')}</b> per vincere.` : `▸ ${esc(nome)} non ha caselle libere raggiungibili (nemici o arredi intorno).`}</p>
-      <div class="btn-riga mt"><button class="btn pieno" id="rug-fine">${esc(nome)} ha finito →</button></div>`;
+      ${arbitro()
+        ? `<div class="btn-riga mt"><button class="btn pieno" id="rug-fine">${esc(nome)} ha finito →</button></div>`
+        : `<p class="nota mt">Lo conduce chi arbitra: ${esc(nome)} non è l’eroe di nessuno.</p>`}`;
   }
   const attivo = eroiAttivoNome();
   if (!attivo) {
@@ -585,7 +587,7 @@ function azioniHtml() {
       ? ` Prima che la notte reagisca, ${daMuovere.map(({ i }) => `<b>${esc(specScort(i).nome)}</b>`).join(' e ')} può ancora seguirvi.`
       : ' La notte reagisce.'}</p>
       <div class="btn-riga">
-        ${daMuovere.map(({ i }) => `<button class="btn" data-scortato-chip="${i}">muovi ${esc((specScort(i).nome || '').toLowerCase())} →</button>`).join('')}
+        ${arbitro() ? daMuovere.map(({ i }) => `<button class="btn" data-scortato-chip="${i}">muovi ${esc((specScort(i).nome || '').toLowerCase())} →</button>`).join('') : ''}
         ${arbitro() ? `<button class="btn${daMuovere.length ? '' : ' pieno'}" id="fase-minaccia">fase minaccia →</button>`
           // la notte la chiama chi conduce: il Durable Object rifiuta il comando
           // a chiunque altro, e offrire un bottone che verra' rifiutato e' peggio
@@ -901,7 +903,12 @@ function aggancia() {
     sp.eroiAttivo = nm; salvaP(); render();
   });
   // selezione di un PNG scortato (pedina sul board o chip nel giro)
+  // IL PNG LIBERATO LO MUOVE CHI ARBITRA. Non e' l'eroe di nessuno: non ha un
+  // posto al tavolo, e se lo potesse prendere in mano chiunque due telefoni se
+  // lo contenderebbero nello stesso turno. Il suo movimento e' un turno a se',
+  // che si aggiunge a quello degli eroi — e lo conduce chi conduce.
   const selScort = (el, attr) => el.onclick = () => {
+    if (!arbitro()) return;
     const i = Number(el.dataset[attr]);
     if (!(statoScortati()[i] || {}).liberato) return;
     sp.scortAttivo = i; salvaP(); render();
@@ -1372,11 +1379,10 @@ function finisciEroe(nm) {
 // PNG scortato mosso dal giocatore (Mov 3, non agisce): sulla tessera-meta e'
 // vittoria — ma solo quando TUTTI i PNG dell'episodio ci sono arrivati (Ep.4
 // ne ha due, Gaspare e Rocco: vanno portati fuori entrambi).
-function muoviScortato(i, node) {
-  const out = vittoria.esitoScorta(G(), i, node);
-  out.righe.forEach(log);
-  if (out.esito) return chiudiPartita(out);
-  salvaP(); render();
+// Il PNG passa dal motore come tutto il resto: cosi' il tavolo lo vede
+// muoversi invece di ritrovarselo altrove al ridisegno dopo.
+async function muoviScortato(i, node) {
+  await esegui({ tipo: 'muovi-scortato', png: i, nodo: node });
 }
 
 // «QUI L'USCITA NON BASTA» (Ep.4, T5): dove l'episodio ha ANCHE dei compiti, la

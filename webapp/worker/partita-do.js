@@ -210,4 +210,7 @@ export class Partita extends DurableObject {
 }
 
 // Cose che restano di chi conduce: la notte, la pesca, e chiudere la serata.
-const COMANDI_DI_ARBITRO = new Set(['fase-nemici', 'fase-minaccia', 'inizia', 'chiudi']);
+// Cose che restano di chi conduce: la notte, la pesca, chiudere la serata — e i
+// PNG liberati, che non sono l'eroe di nessuno e non hanno un posto al tavolo.
+const COMANDI_DI_ARBITRO = new Set(['fase-nemici', 'fase-minaccia', 'inizia', 'chiudi',
+                                    'carta-vista', 'muovi-scortato']);
