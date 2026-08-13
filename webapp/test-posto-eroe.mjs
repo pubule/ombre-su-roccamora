@@ -217,6 +217,32 @@ const ordineVisivo = (page) => page.evaluate(() =>
   await page.close();
 }
 
+// --- LE SCHERMATE DA LEGGERE INSIEME: il «continua» è di chi conduce
+//
+// L'esito di una ricerca senza nulla, la conseguenza di una prova: al tavolo si
+// leggono ad alta voce una volta sola. Sul telefono il «continua» era un
+// bottone come gli altri, e chi giocava poteva chiudere per conto suo — la sua
+// vista andava avanti mentre il tavolo era ancora fermo lì.
+{
+  for (const [chi, posto, bottoni] of [
+    ['chi arbitra', null, 1],
+    ['chi gioca', { ruolo: 'giocatore', eroe: MIO }, 0],
+  ]) {
+    const { page } = await apri(posto);
+    await page.evaluate(() => {
+      window.__d._motore.messaggio('cercare', '<p>Non c’è nulla, qui.</p>');
+    });
+    await page.waitForTimeout(300);
+    ok(await page.locator('#ok-msg').count() === bottoni,
+       `${chi}: «continua» attesi ${bottoni}, visti ${await page.locator('#ok-msg').count()}`);
+    if (!bottoni) {
+      const t = (await page.locator('.nota').allInnerTexts()).join(' ');
+      ok(/chi arbitra/i.test(t), 'e il telefono dice chi la sta leggendo');
+    }
+    await page.close();
+  }
+}
+
 await browser.close();
 console.log(ko === 0 ? 'test-posto-eroe: la plancia rispetta il posto' : `${ko} FAIL`);
 process.exit(ko ? 1 : 0);

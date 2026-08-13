@@ -788,10 +788,14 @@ function messaggioProva(titolo, corpo, provaText, nm) {
     const req = provaRichiesta(provaText); const { app } = ctx;
     app.innerHTML = `<div class="barra"><span></span><div class="titolo">${esc(titolo)}</div><span></span></div>
       <div class="pannello">${corpo}<div id="prova-esito"></div></div>
-      <div class="btn-riga">
+      ${arbitro() ? `<div class="btn-riga">
         ${req && nm ? `<button class="btn" id="msg-prova">🎲 tira la prova (${req.stat.toUpperCase()} ${req.diff})</button>` : ''}
         <button class="btn pieno" id="ok-msg">continua</button>
-      </div>`;
+      </div>`
+      // stessa regola della schermata di lettura: il «continua» e il dado sono
+      // di chi conduce. Un tiro chiesto a ogni schermo verrebbe fatto da tutti
+      : '<p class="nota mt center">la sta leggendo chi arbitra…</p>'}`;
+    if (!arbitro()) { ctx.chiudiCarta = ok; return; }
     app.querySelector('#ok-msg').onclick = ok;
     const pb = app.querySelector('#msg-prova');
     if (pb) pb.onclick = async () => {
@@ -1664,12 +1668,26 @@ function flash(t) {
   document.body.appendChild(d); requestAnimationFrame(() => d.classList.add('on'));
   setTimeout(() => { d.classList.remove('on'); setTimeout(() => d.remove(), 300); }, 1600);
 }
+// UNA SCHERMATA DA LEGGERE INSIEME. L'esito di una ricerca, la conseguenza di
+// una prova: cose che al tavolo si leggono ad alta voce una volta sola.
+//
+// Il «continua» e' di chi conduce. Sul telefono era un bottone come gli altri, e
+// chi giocava poteva chiudere la schermata per conto suo: la propria vista
+// andava avanti mentre il tavolo era ancora fermo li'. Non e' un disallineamento
+// dello stato — il motore non c'entra — ma e' lo stesso genere di errore: due
+// schermi che raccontano due momenti diversi della stessa serata.
+//
+// Chi guarda la vede e basta, e la schermata si scioglie da sola quando il
+// tavolo va avanti (vedi `incassa()`).
 function messaggio(titolo, corpo) {
   return new Promise((ok) => {
     const { app } = ctx;
     app.innerHTML = `<div class="barra"><span></span><div class="titolo">${esc(titolo)}</div><span></span></div>
       <div class="pannello">${corpo}</div>
-      <div class="btn-riga"><button class="btn pieno" id="ok-msg">continua</button></div>`;
+      ${arbitro()
+        ? '<div class="btn-riga"><button class="btn pieno" id="ok-msg">continua</button></div>'
+        : '<p class="nota mt center">la sta leggendo chi arbitra…</p>'}`;
+    if (!arbitro()) { ctx.chiudiCarta = ok; return; }
     app.querySelector('#ok-msg').onclick = ok;
   });
 }
@@ -1707,6 +1725,7 @@ function epilogo() {
 export const _motore = {
   esploraMosse, camminoGlob, adiacGlob, viciniGlob, portaCella, arrediSet, layout, nk, tileDi,
   messaggioCarta,                 // per provare la carta senza tirarsi dietro una pesca vera
+  messaggio,                      // e la schermata da leggere insieme
   evidenziaColpito,               // per provare il colpo senza aspettare che un nemico colpisca
   avanzaCancellazione, avanzaRitmo, avanzaPressione, controllaFiloPerso, avanzaOrologio,
   bonusVoce, celleEsca,
