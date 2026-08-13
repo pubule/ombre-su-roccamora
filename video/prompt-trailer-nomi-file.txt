@@ -1,0 +1,72 @@
+PROMPT DEL TRAILER — ripresa unica da 30 secondi, riferimenti PER NOME DI FILE
+
+Per un sito che accetta piu' immagini e le richiama col loro nome di file,
+invece che con un indice tipo @Image4. E' la forma piu' robusta: se cambia
+l'ordine di caricamento non cambia niente, perche' il legame e' il nome.
+
+CARICA questi dieci file, da video/sorgenti/:
+  Citta.png  Elena.png  Nino.png  Ottone.png  Sibilla.png
+  Celso.png  Attilio.png  Lazzaro.png  Adepto.png  Mora.png
+
+Sono gia' rinominati apposta: niente spazi, niente accenti, un nome che dice
+chi e'. Se il sito li rinomina in fase di caricamento, il prompt va rifatto
+coi nomi che assegna lui — e' il primo controllo da fare.
+
+Immagine iniziale (se il sito la chiede a parte): Citta.png.
+
+
+=== IL PROMPT =============================================================
+
+LOOK: a 19th-century city of black canals at night. Thick fog, gas lanterns, wet stone, teal and amber, candlelight, film grain, painterly, gaslight gothic. Calm and melancholic, never bright, never modern.
+
+CHARACTERS — each name below is one of the uploaded reference images. Use that image for that person's face and clothing, and only at the moment that person is named:
+Elena.png is ELENA, a woman with dark curly hair in a long high-collared coat, carrying a candle.
+Nino.png is NINO, a young man in a flat cap with lockpicks.
+Ottone.png is OTTONE, a heavy man in a leather apron.
+Sibilla.png is SIBILLA, a woman in a shawl with a dark stone pendulum.
+Celso.png is CELSO, an old priest with a worn stole.
+Attilio.png is ATTILIO, a doctor with a medical bag.
+Lazzaro.png is LAZZARO, a man with a notebook and pen.
+Adepto.png is THE CLOAKED FIGURE, a still figure in a long grey cloak.
+Mora.png is MORA, a young woman with cropped hair who poles a narrow boat.
+Citta.png is the city itself, seen from above.
+
+CAMERA: ONE CONTINUOUS TAKE, 30 SECONDS, NO CUTS. Open on Citta.png, high above the rooftops looking down, then descend smoothly into a narrow alley until the lens is at chest height. From there a steady forward travel that NEVER stops: the camera glides down the alley, turns left around a corner, keeps going, turns right into another alley, keeps going. Constant slow speed, smooth steadicam, no shake, no whip pans, no zoom snaps. Each person is discovered in passing, held about three seconds, then left behind as the camera moves on. At the end the alley opens onto open water; the camera moves out over the canal toward a boat and pushes slowly in on a face until the frame is a macro of a single eye. The eye closes, the image goes to black, and stays black.
+
+BEATS, in this exact order:
+0-4s the descent from the rooftops of Citta.png down into the alley.
+4-7s ELENA (Elena.png) kneels on the wet stones, lifts a lit candle, and turns her face up to the lens as the camera passes.
+7-10s NINO (Nino.png) stands at a closed door, listening with his ear near the wood, and glances back over his shoulder.
+10-13s OTTONE (Ottone.png) stands behind a market counter under an awning, both hands resting on the wood, and looks up as the camera passes.
+13-16s SIBILLA (Sibilla.png) stands in a doorway, a dark stone pendulum swinging over a map and slowing to a stop.
+16-19s CELSO (Celso.png) waits before a closed church door, a worn stole held in both hands.
+19-21s ATTILIO (Attilio.png) kneels beside a sleeping man on a pallet, closing his medical bag by candlelight.
+21-23s LAZZARO (Lazzaro.png) writes fast in a notebook while listening to someone unseen.
+23-25s THE CLOAKED FIGURE (Adepto.png) stands motionless at the end of the alley and slowly turns to follow the camera as it passes. Nothing sudden.
+25-27s the alley opens onto a stone quay and black canal water under the fog.
+27-30s MORA (Mora.png) poles a narrow boat through the fog and turns toward the lens; the camera pushes in to her eye, the eye closes, black.
+
+AUDIO: diegetic sound only. No music, no score, no singing, no dialogue, no voice-over. Dripping water and lapping canal water, boots on wet stone, a distant church bell tolling once, a door creaking, wind in a narrow alley, an oar dipping in still water. Everything low and muffled, as if heard through fog. When the eye closes, complete silence.
+
+No text, no titles, no captions, no subtitles, no watermark.
+
+=== FINE PROMPT ===========================================================
+
+
+## Cose gia' pagate con crediti veri, che valgono su qualunque sito
+
+- **Il filtro contenuti.** Una generazione e' tornata «Moderated · Image
+  blocked by provider». Da allora: niente lame che colpiscono (Ottone sta
+  dietro il banco), niente ferite (Attilio chiude la borsa accanto a un uomo
+  che dorme), niente «cultista mascherato» (e' «una figura in un lungo
+  mantello grigio»). Se blocca lo stesso, il sospetto sono le IMMAGINI: prima
+  l'Adepto (volto coperto), poi i ritratti in corsetto.
+- **Le riprese lunghe corrono.** A 30 secondi con dieci battute il video
+  saltava troppo in fretta da una cosa all'altra. Se anche qui succede, la
+  strada che ha funzionato e' l'opposta: una clip corta per personaggio, con
+  l'artwork come fotogramma zero — vedi `video/prompt-trailer-30s.txt`.
+- **Troppi riferimenti si ignorano.** Con nove attaccati insieme il modello li
+  spalmava e non ne rispettava nessuno. Se questo sito fa lo stesso, se ne
+  tolgono e si tiene il legame forte: l'immagine iniziale.
+- **Il titolo non si chiede al generatore**: lo disegna ffmpeg coi font veri
+  del progetto (`scripts/video/monta-trailer.sh`), e viene meglio.
