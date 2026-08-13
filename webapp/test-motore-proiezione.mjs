@@ -57,6 +57,16 @@ function partita(ep, over = {}) {
     ok(trovati.length === 0, `${id}: al giocatore arrivano segreti — ${trovati.join(', ')}`);
 
     ok(vistaG.dati.ep.soluzione === undefined, `${id}: la soluzione non parte`);
+    // L'epilogo, il Frammento e il Bivio sono la soluzione in prosa: a meta'
+    // serata non partono, e a serata FINITA partono — quello e' il momento in
+    // cui sono la ricompensa, e chi ha giocato dal telefono deve leggerli sul
+    // suo schermo invece che sentirseli riassumere.
+    ok(vistaG.dati.ep.epilogo === undefined, `${id}: l'epilogo non parte a partita aperta`);
+    ok(vistaG.dati.ep.frammento === undefined, `${id}: il Frammento non parte a partita aperta`);
+    ok(vistaG.dati.ep.bivio === undefined, `${id}: il Bivio non parte a partita aperta`);
+    const finita = vista(partita(ep, { esito: 'vittoria' }), dati, GIOCATORE);
+    ok(!ep.epilogo || finita.dati.ep.epilogo, `${id}: a serata finita l'epilogo arriva anche al telefono`);
+    ok(!ep.bivio || finita.dati.ep.bivio, `${id}: e il Bivio, che si decide insieme`);
     controllati++;
 
     // …e all'arbitro invece arriva tutto: la proiezione non deve mutilare CHI

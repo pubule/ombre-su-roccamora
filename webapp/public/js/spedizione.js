@@ -1071,6 +1071,31 @@ async function fine(esito) {
   epilogo();
 }
 
+
+// L'EPILOGO E IL FRAMMENTO, per esteso.
+//
+// «Leggete l'epilogo nel fascicolo Soluzione» era un rimando a un foglio che
+// chi gioca a schermo non ha in mano. L'epilogo e' la ricompensa della serata —
+// la frase che dice cosa avete scoperto e cosa vi aspetta — e chiuderla con un
+// rimando bibliografico e' il modo peggiore di chiuderla. La prosa e' la stessa
+// dei fascicoli: `export-data.py` la legge dai generatori, cosi' non ne
+// esistono due copie che divergono al primo ritocco.
+const epilogoTesto = (ep, esito) => {
+  const e = ep.epilogo || {};
+  // l'Ep.20 e' l'unico che ha anche l'epilogo della sconfitta: il Dormiente
+  // che si desta e' un finale, non un fallimento da rileggere in silenzio
+  const t = esito === 'sconfitta' ? (e.sconfitta || '') : (e.vittoria || '');
+  return t ? `<div class="lettera-testo mt">${rendi(t)}</div>` : '';
+};
+
+// Il Frammento si mostra solo a serata VINTA: e' quel che si porta a casa. Una
+// vittoria parziale lo frutta lo stesso, ma incrinato — e la differenza la dice
+// il testo sopra, non un Frammento diverso.
+const frammentoTesto = (ep, esito) =>
+  (ep.frammento && esito !== 'sconfitta'
+    ? `<hr class="divisore"><p class="nota">— il frammento di stanotte, da conservare —</p>
+       <div class="lettera-testo">${rendi(ep.frammento)}</div>` : '');
+
 function epilogo() {
   const { app, ep } = ctx;
   const sp = SP();
@@ -1081,11 +1106,12 @@ function epilogo() {
             : sp.esito === 'parziale' ? 'l’alba vi trova in piedi, a metà'
             : 'la notte ha vinto'}</h2>
       <p class="mt">${sp.esito === 'vittoria'
-        ? `${sp.round} round, ${orologio()} a ${sp.canto}. Leggete l’<b>epilogo</b> nel fascicolo
-           Soluzione.`
+        ? `${sp.round} round, ${orologio()} a ${sp.canto}.`
         : sp.esito === 'parziale'
         ? `L’obiettivo è compiuto, ma non intero: ${sp.round} round, ${orologio()} a ${sp.canto}. Il Frammento di stanotte è <b>incrinato</b> — si conserva, ma nell’ultimo episodio non conta.`
-        : 'Rialzatevi: la Soluzione dice cosa resta di questa notte. Roccamora non dimentica — e nemmeno voi.'}</p>
+        : 'Rialzatevi: ecco cosa resta di questa notte. Roccamora non dimentica — e nemmeno voi.'}</p>
+      ${epilogoTesto(ep, sp.esito)}
+      ${frammentoTesto(ep, sp.esito)}
       ${(() => { const cb = controBusta(ep); return cb ? `
         <hr class="divisore">
         <div style="text-align:left">

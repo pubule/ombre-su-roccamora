@@ -109,6 +109,28 @@ for (const [k, ep] of Object.entries(dati)) {
      'consegnandola alla gendarmeria, il brigadiere vi riconosce');
 }
 
+// --- L'EPILOGO E IL FRAMMENTO CI SONO, per tutti
+// Sono presi dai generatori dei fascicoli con `ast` (export-data.py): il giorno
+// in cui qualcuno riscrive un epilogo con un'altra intestazione, l'estrazione
+// smette di trovarlo e la serata si chiude su una schermata muta. Non e' un
+// errore: e' un silenzio, e questo controllo e' l'unico che lo sente.
+{
+  const senza = Object.entries(dati).filter(([, e]) => !(e.epilogo || {}).vittoria).map(([k]) => k);
+  ok(senza.length === 0, `ogni episodio ha il suo epilogo (mancano: ${senza.join(', ') || '—'})`);
+  const corti = Object.entries(dati)
+    .filter(([, e]) => ((e.epilogo || {}).vittoria || '').length < 200).map(([k]) => k);
+  ok(corti.length === 0, `e l'epilogo e' il TESTO, non il titolo che lo precede (corti: ${corti.join(', ')})`);
+  ok(((dati.ep20.epilogo || {}).sconfitta || '').length > 200,
+     'l’Ep.20 ha anche l’epilogo della sconfitta: il Dormiente che si desta e’ un finale, non un silenzio');
+
+  // il Frammento del Preludio (n. 0) e' scritto DENTRO il suo epilogo, non in
+  // un paragrafo suo: e' l'unica eccezione, e va detta invece che subita
+  const senzaFr = Object.entries(dati).filter(([k, e]) => k !== 'preludio' && !e.frammento).map(([k]) => k);
+  ok(senzaFr.length === 0, `ogni episodio ha il suo Frammento (mancano: ${senzaFr.join(', ') || '—'})`);
+  ok(/Frammento di Campagna n. 0/i.test(dati.preludio.epilogo.vittoria),
+     'il Frammento n. 0 sta dentro l’epilogo del Preludio, ed e’ l’unica eccezione');
+}
+
 console.log(ko === 0
   ? `test-bivi: ${Object.values(dati).filter((e) => e.bivio).length} Bivi tradotti, nessun effetto perso`
   : `${ko} FAIL`);

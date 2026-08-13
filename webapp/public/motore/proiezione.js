@@ -36,6 +36,15 @@ export function datiPerPosto(dati, stato, posto) {
       // LA BUSTA NON SI APRE DAL TELEFONO. Nemmeno le domande senza risposta:
       // il taccuino le stampa gia', e mandarle qui non serve a niente.
       soluzione: undefined,
+      // L'EPILOGO, IL FRAMMENTO E IL BIVIO SONO LA SOLUZIONE, in prosa: dicono
+      // chi era, cosa c'era sotto e cosa avete trovato sull'altare. Mandarli a
+      // meta' partita e' l'esatto contrario del gioco.
+      //
+      // Ma A SERATA FINITA sono la ricompensa, e la ricompensa e' di tutti: chi
+      // ha giocato dal telefono deve poterli leggere sul suo schermo, non
+      // sentirseli riassumere. Il cancello e' l'esito — lo stesso che apre
+      // l'epilogo — quindi non c'e' un secondo stato da tenere allineato.
+      ...(sp.esito ? {} : { epilogo: undefined, frammento: undefined, bivio: undefined }),
       // I LUOGHI non visitati sono nomi sulla mappa e basta. Il testo, la
       // chiave della porta, gli indizi e gli Approfondimenti arrivano quando
       // il gruppo ci e' entrato — cioe' quando li ha sentiti leggere.

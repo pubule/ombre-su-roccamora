@@ -5,10 +5,10 @@
 > gira e il prossimo comando; il *cosa fare* di un lavoro in corso sta nel suo
 > piano.
 
-**Aggiornato:** 12/08/2026 · ramo `main` · in produzione la versione `fde3b495`
-su <https://roccamora.smartcores.org> — l'**audit delle classi**
-(`AUDIT-CLASSI.md`) e le **tre abilità di Spedizione** che il motore digitale
-stampava e non applicava.
+**Aggiornato:** 13/08/2026 · ramo `main` · in produzione la versione `fde3b495`
+su <https://roccamora.smartcores.org>. In locale, non ancora pubblicati: **i
+Bivi di campagna** (venti scelte che cambiano davvero le regole degli episodi
+seguenti), il **Taccuino di Campagna** e l'**epilogo per esteso**.
 
 ## Cos'è successo, in ordine
 
@@ -462,6 +462,23 @@ portano davvero in due posti diversi — e senza scelte la partita nasce com'era
 `test-bivi-ui.mjs` (il Bivio si legge, si sigilla una volta sola, resta scritto,
 e dal telefono non si tocca). Tutti e tre provati **al contrario**, rompendo il
 codice apposta: 5, 5 e 4 rossi.
+
+**L'epilogo si legge sullo schermo.** «Leggete l'epilogo nel fascicolo
+Soluzione» era un rimando a un foglio che chi gioca a schermo non ha in mano —
+e l'epilogo è la ricompensa della serata. Ora c'è per esteso, col **Frammento**
+sotto. La prosa resta una sola, dentro i generatori dei fascicoli:
+`export-data.py` la estrae con **`ast`** e non a espressioni regolari — Python
+unisce già i letterali spezzati su più righe, che è esattamente come questi
+testi sono scritti. 21 epiloghi su 21, 20 Frammenti su 21 (quello n. 0 del
+Preludio è scritto dentro il suo epilogo, e il test lo dichiara). L'Ep.20 ha
+anche l'epilogo della **sconfitta**: il Dormiente che si desta è un finale.
+
+**Il test della proiezione ha morso.** Aggiungere `epilogo` ai dati d'episodio
+li mandava ai telefoni **a partita aperta** — l'epilogo nomina il colpevole, è
+la soluzione in prosa. Ora epilogo, Frammento e Bivio passano solo a `esito`
+scritto: a metà serata no, a serata finita sì, perché lì sono la ricompensa e la
+ricompensa è di tutti. Il cancello è l'esito, lo stesso che apre l'epilogo:
+nessun secondo stato da tenere allineato.
 
 ## Fase 5: la vista eroe, e il filo collegato
 

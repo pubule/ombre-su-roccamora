@@ -1726,6 +1726,82 @@ for _k, _b in BIVI.items():
                 episodi[_dove].setdefault('bivi_qui', []).append(
                     {'da': _k, 'opzione': _o['id'], **{x: y for x, y in _e.items() if x != 'ep'}})
 
+# --- L'EPILOGO E IL FRAMMENTO, presi dai fascicoli ------------------------
+#
+# «Leggete l'epilogo nel fascicolo Soluzione» era un rimando a un foglio che chi
+# gioca a schermo non ha in mano. L'epilogo e' la ricompensa della serata — la
+# frase che dice cosa avete scoperto e cosa vi aspetta — e dirlo a serata finita
+# davanti a un rimando bibliografico e' il modo peggiore di chiudere.
+#
+# La prosa vive UNA volta sola, dentro i generatori dei fascicoli, e li' deve
+# restare: e' la stessa che va in stampa, e due copie diverge al primo ritocco.
+# Qui si legge il sorgente con `ast` invece che a espressioni regolari — Python
+# sa gia' unire i letterali spezzati su piu' righe, che e' esattamente il modo
+# in cui questi testi sono scritti, e una regex su quello si romperebbe alla
+# prima riga spostata.
+_MOD_EP = {'preludio': 'gen_preludio.py', 'ep1': 'gen_docs.py'}
+for _i in range(2, 21):
+    _MOD_EP['ep%d' % _i] = 'gen_ep%d.py' % _i
+
+
+def _stringhe(percorso):
+    """Tutti i letterali di testo del file, in ordine di riga."""
+    import ast
+    with open(percorso, encoding='utf-8') as fh:
+        albero = ast.parse(fh.read())
+    fuori = [(n.lineno, n.value) for n in ast.walk(albero)
+             if isinstance(n, ast.Constant) and isinstance(n.value, str)]
+    return [v for _, v in sorted(fuori, key=lambda x: x[0])]
+
+
+def _epiloghi(percorso):
+    """{'vittoria': ..., 'sconfitta': ...} — l'Ep.20 e' l'unico ad avere il secondo."""
+    ss = _stringhe(percorso)
+    out = {}
+    for i, s in enumerate(ss):
+        t = s.strip()
+        testa = t.upper().startswith('EPILOGO') or t.upper().startswith('<B>EPILOGO')
+        if not testa:
+            continue
+        # il marcatore puo' essere il TESTO stesso o solo il titolo che lo
+        # precede: se e' corto e' un titolo, e l'epilogo e' la riga dopo
+        testo = t if len(t) > 200 else next((x for x in ss[i + 1:] if len(x.strip()) > 200), '')
+        if not testo:
+            continue
+        chiave = 'sconfitta' if 'SCONFITTA' in t[:60].upper() else 'vittoria'
+        out.setdefault(chiave, testo)
+    return out
+
+
+def _frammento(percorso):
+    # come per l'epilogo, il marcatore puo' essere il testo o il titolo che lo
+    # precede (l'Ep.1 sta in `gen_docs.py`, che titola e poi scrive)
+    ss = _stringhe(percorso)
+    for i, s in enumerate(ss):
+        t = s.strip().upper()
+        if not (t.startswith('<B>FRAMMENTO DI CAMPAGNA') or t.startswith('FRAMMENTO DI CAMPAGNA')):
+            continue
+        if len(s.strip()) > 80:
+            return s.strip()
+        seg = next((x for x in ss[i + 1:] if len(x.strip()) > 80), '')
+        if seg:
+            return seg.strip()
+    return None
+
+
+for _k, _f in _MOD_EP.items():
+    if _k not in episodi:
+        continue
+    _p = os.path.join(ROOT, 'src', _f)
+    if not os.path.exists(_p):
+        continue
+    _e = _epiloghi(_p)
+    if _e:
+        episodi[_k]['epilogo'] = _e
+    _fr = _frammento(_p)
+    if _fr:
+        episodi[_k]['frammento'] = _fr
+
 dump('comune.json', comune)
 for k, ep in episodi.items():
     dump(f'{k}.json', ep)
