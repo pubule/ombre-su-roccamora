@@ -1,5 +1,18 @@
 # PROMPT SEEDANCE — il trailer di trenta secondi
 
+> **SUPERATO dal 13/08/2026.** L'impianto qui sotto (quattordici clip corte,
+> gli eroi a 1,6 s, i riferimenti-volto) è stato provato sul campo e bocciato:
+> una ripresa unica da 30 s **saltava troppo in fretta** da una cosa all'altra,
+> e nove riferimenti attaccati insieme **venivano ignorati quasi del tutto**.
+> I prompt buoni stanno ora in **`video/prompt-trailer-30s.txt`**: sette clip
+> da 4 secondi, una per personaggio, **senza riferimenti** — l'artwork
+> dell'eroe si mette come **Start Image**, e lì il volto è quello giusto per
+> costruzione invece che per persuasione.
+>
+> Questo file resta per due cose che valgono ancora: la sezione «Cosa offre
+> davvero lo strumento» (durate, risoluzioni, campo file condiviso, prezzo) e
+> il ragionamento sul formato 16:9.
+
 Le quattordici clip del trailer, una per blocco: immagine di partenza, prompt
 da incollare, negative, durata. Stessa logica di `suoni/PROMPT-SUNO.md` — qui
 stanno i prompt, i file generati vanno accanto in `video/clip/`.
@@ -10,6 +23,31 @@ sigillo. Non è un giro d'atmosfera: undici volti in diciotto secondi sono la
 scelta, e il resto del trailer ci gira intorno.
 
 ---
+
+## Cosa offre davvero lo strumento (guardato il 13/08/2026)
+
+Non a memoria: aperta la pagina e letta l'interfaccia.
+
+- **Durate da 4 a 30 secondi**, un secondo alla volta. La clip da 1,6 s non
+  esiste: si genera il minimo e si taglia.
+- **Risoluzione 480p o 720p soltanto.** Niente 1080p — il trailer nasce a
+  1280×720, e il montaggio locale (che parte dagli artwork a 1904×2544) resta
+  l'unica strada per il Full HD.
+- **Start Image e End Image**: si può dare il primo *e* l'ultimo fotogramma.
+- **Add References: immagine, volto, indumento.** Il riferimento-volto è ciò
+  che tiene l'identità di un eroe dentro una scena generata da zero — senza,
+  si è incatenati allo sfondo dipinto dietro il suo ritratto.
+- L'audio si genera; per noi va **spento** (la traccia è quella di Suno).
+- **Un solo campo file, condiviso**: caricando una volta si riempiono Start
+  *e* End insieme, e la seconda va svuotata a mano (la × compare passandoci
+  sopra).
+- **Non è gratis.** Generate apre «Unlock all models with Pro»: 1,99 $ per
+  sette giorni, poi 29,99 $ al mese.
+
+Il prompt del tentativo lungo — undici eroi in una ripresa sola, ognuno legato
+al proprio riferimento — sta in `video/prompt-trailer-30s.txt`, e le art
+numerate nell'ordine in cui il prompt le cita stanno in `video/sorgenti/`
+(`R01-Elena.png` … `R11-Mora.png`): selezionandole tutte salgono già in ordine.
 
 ## Come si generano
 

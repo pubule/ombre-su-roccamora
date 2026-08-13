@@ -31,7 +31,10 @@ SORGENTI = [
     ('01-citta.png', 'copertina spedizione.png', 0.50),
     # il cappuccio sta in alto: centrare la banda a mezza immagine lo decapita
     ('13-adepto.png', 'Adepto Incappucciato.png', 0.34),
-    ('14-sigillo.png', 'Dorso Eroe.png', 0.50),
+    # la chiusa e' la citta' vista dall'alto, che nasce da una mappa vecchia:
+    # la citta' sta nei primi due terzi, il compasso in basso. Si tiene la
+    # citta' e un'unghia di mappa, non il contrario.
+    ('14-citta-alta.png', 'Mappa della città di Roccamora.png', 0.32),
 ]
 
 

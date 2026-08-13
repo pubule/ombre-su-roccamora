@@ -1,0 +1,110 @@
+PROMPT DEL TRAILER — sette clip da 4 secondi, una per personaggio
+
+## Perche' cosi'
+
+Provate e bocciate, in ordine, il 13/08/2026:
+  - UNA ripresa da 30s con dieci battute: il video saltava troppo in fretta da
+    una cosa all'altra. Tre secondi a battuta, e il modello corre.
+  - NOVE riferimenti attaccati insieme: ignorati quasi del tutto. Con tanti
+    riferimenti l'attenzione si spalma e non ne rispetta nessuno.
+
+La correzione non e' insistere sui riferimenti: e' **non usarli**. L'artwork
+dell'eroe si mette come **START IMAGE**, cioe' come fotogramma zero — e li' il
+volto e' quello giusto per costruzione. Quattro secondi e' anche la finestra
+prima che la faccia cominci a derivare.
+
+Una clip = un personaggio = un gesto. Il montaggio le cuce
+(`scripts/video/monta-trailer.sh`), ed e' li' che nascono ritmo e dissolvenze:
+non e' compito del generatore.
+
+## Le impostazioni
+
+Quelle che hai gia' impostato. Una sola osservazione, poi non insisto:
+**1:1 e' quadrato**. Un trailer in 16:9 da una sorgente quadrata perde i lati
+o resta con le bande. Se la si puo' portare a 16:9 senza altri costi, conviene;
+altrimenti si monta quadrato e va bene lo stesso.
+
+## Le sette clip
+
+Per ognuna: Start Image, riferimenti (nessuno), prompt. End Image sempre VUOTA.
+
+--- 1 · LA CITTA' -----------------------------------------------------------
+Start Image: video/sorgenti/14-citta-alta.png
+Riferimenti: nessuno
+
+Slow descent over a 19th-century city of black canals at night, moving down toward the wet slate rooftops. Thick fog drifting, gas lanterns trembling on the water, a few lit windows. Nothing else moves. Smooth steadicam, constant slow speed, no shake, no zoom snaps. Teal and amber, candlelight, film grain, painterly, gaslight gothic.
+Audio: dripping water, distant lapping canal water, wind, one far church bell. Low and muffled. No music, no voices.
+No text, no titles, no captions, no watermark.
+
+--- 2 · ELENA ---------------------------------------------------------------
+Start Image: artworks/Elena.png
+Riferimenti: nessuno
+
+A woman kneels on the wet stones of a foggy alley at night, lifting a lit candle in her hand. She turns her face up toward the lens and holds. The camera drifts slowly forward past her. Only the woman and the candle flame move; the background stays still. Smooth steadicam, no shake. Teal and amber, candlelight, film grain, painterly, gaslight gothic.
+Audio: boots on wet stone, a candle guttering, distant dripping water. Low and muffled. No music, no voices.
+No text, no titles, no captions, no watermark.
+
+--- 3 · NINO ----------------------------------------------------------------
+Start Image: artworks/Nino.png
+Riferimenti: nessuno
+
+A young man in a flat cap stands at a closed door in a foggy alley at night, listening with his ear near the wood, picks in his hand. He glances back over his shoulder toward the lens. The camera drifts slowly forward past him. Smooth steadicam, no shake. Teal and amber, gaslight gothic, film grain, painterly.
+Audio: a lock ticking, a door creaking, wind in a narrow alley. Low and muffled. No music, no voices.
+No text, no titles, no captions, no watermark.
+
+--- 4 · OTTONE --------------------------------------------------------------
+Start Image: artworks/Ottone.png
+Riferimenti: nessuno
+
+A heavy man in a leather apron stands behind a market counter under an awning at night, both hands resting on the wood. He looks up toward the lens as the camera drifts slowly past. Smooth steadicam, no shake. Lantern light, teal and amber, fog, film grain, painterly, gaslight gothic.
+Audio: a lantern creaking in the wind, distant footsteps, low market noise. Low and muffled. No music, no voices.
+No text, no titles, no captions, no watermark.
+
+--- 5 · SIBILLA -------------------------------------------------------------
+Start Image: artworks/Sibilla.png
+Riferimenti: nessuno
+
+A woman in a shawl stands in a lit doorway at night, holding a dark stone pendulum on a chain. The pendulum swings slowly over a map and comes to a stop. She raises her eyes to the lens. The camera drifts slowly forward past her. Smooth steadicam, no shake. Teal and amber, candlelight, fog, film grain, painterly, gaslight gothic.
+Audio: a chain ticking, a candle guttering, distant water. Low and muffled. No music, no voices.
+No text, no titles, no captions, no watermark.
+
+--- 6 · L'ADEPTO -----------------------------------------------------------
+Start Image: artworks/Adepto Incappucciato.png
+Riferimenti: nessuno
+
+A still figure in a long grey cloak stands at the end of a foggy alley at night, perfectly motionless. After two seconds it slowly turns to follow the camera as the camera drifts past. Nothing sudden. Smooth steadicam, no shake, no jump scare. Teal and amber, gaslight gothic, fog, film grain, painterly.
+Audio: wind in a narrow alley, a distant bell, silence underneath. Low and muffled. No music, no voices.
+No text, no titles, no captions, no watermark.
+
+--- 7 · MORA, E IL NERO ----------------------------------------------------
+Start Image: artworks/Mora.png
+Riferimenti: nessuno
+
+A young woman with cropped hair poles a narrow boat through the fog on black canal water at night. She turns toward the lens. The camera moves in close to her face until the frame is a macro of a single eye. The eye closes and the image goes to black and stays black. Smooth steadicam, constant slow speed, no shake. Teal and amber, fog, film grain, painterly, gaslight gothic.
+Audio: an oar dipping in still water, lapping water against stone, then complete silence on the black.
+No text, no titles, no captions, no watermark.
+
+
+## Dopo
+
+Le clip vanno in `video/clip/` coi nomi `01-citta` `02-elena` `03-nino`
+`04-ottone` `05-sibilla` `06-adepto` `07-mora`, poi
+`./scripts/video/monta-trailer.sh` le cuce, mette le dissolvenze, i cartelli
+coi font del gioco e la traccia audio. La scaletta del montaggio va allineata
+a queste sette (oggi ne elenca quattordici).
+
+Il titolo NON si chiede al generatore: lo disegna ffmpeg coi font veri del
+progetto, e viene meglio.
+
+## Cose imparate a spese dei crediti
+
+- Il filtro contenuti ha bloccato una generazione: «Moderated · Image blocked
+  by provider», credito rimborsato. Da allora niente lame che colpiscono,
+  niente ferite, niente «cultista mascherato» — l'Adepto e' «una figura in un
+  lungo mantello grigio». Se blocca ancora il sospetto sono le IMMAGINI:
+  prima l'Adepto (volto coperto), poi i ritratti in corsetto.
+- Cambiando modello l'app RESETTA formato, durata, risoluzione, e CANCELLA le
+  menzioni @Image dal testo. Dopo ogni cambio, ricontrollare tutto.
+- Restano fuori Carla, Attilio (Marn), Lazzaro (Serra), Fulgenzio (Carbone) e
+  Ottavio (Brera). Ognuno e' una clip da 4 secondi in piu': se li vuoi tutti,
+  il trailer diventa da 45-50 secondi, e a quel punto respira pure meglio.
