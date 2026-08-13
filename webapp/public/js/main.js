@@ -262,6 +262,26 @@ async function continua(epId) {
 async function vistaParty(epId, modo, fase = 'indagine', plancia = 'fisica') {
   const comune = await dati('comune');
   const scelti = new Set();
+
+  // LA COMPAGNIA DEL TAVOLO, se c'e'. Gli eroi di una campagna si scelgono una
+  // volta e restano quelli: qui non si rifa' la scelta a ogni episodio, la si
+  // mostra gia' fatta. Si cambia da «chi gioca», che e' dove si decide chi
+  // siede al tavolo — ed e' anche l'unico posto in cui cambiarla libera i posti
+  // di chi teneva un eroe che non c'e' piu'.
+  //
+  // Senza tavolo (partita locale, o senza rete) non cambia niente: si sceglie
+  // come si e' sempre fatto.
+  let dalTavolo = null;
+  if (tavoloCorrente()) {
+    try {
+      const r = await fetch('/api/stato');
+      if (r.ok) {
+        const t = ((await r.json()).tavoli || []).find((x) => x.id === tavoloCorrente());
+        if (t && t.party) { const p = JSON.parse(t.party); if (p.length) dalTavolo = p; }
+      }
+    } catch { /* nessuna rete: si sceglie a mano, com'era */ }
+  }
+  if (dalTavolo) dalTavolo.forEach((n) => scelti.add(n));
   h(`
     <div class="barra">
       <button class="btn" id="indietro">← indietro</button>
@@ -269,12 +289,13 @@ async function vistaParty(epId, modo, fase = 'indagine', plancia = 'fisica') {
       <span></span>
     </div>
     <div class="pannello">
-      <p class="nota">Da 2 a 10 investigatori: le regole scalano da sole sulla taglia
-      del party. Toccate un ritratto per leggere chi è — e decidere se arruolarlo.</p>
+      <p class="nota">${dalTavolo
+        ? 'La compagnia di questo tavolo, decisa una volta per tutta la campagna. Si cambia da «chi gioca», nella schermata dei tavoli.'
+        : 'Da 2 a 10 investigatori: le regole scalano da sole sulla taglia del party. Toccate un ritratto per leggere chi è — e decidere se arruolarlo.'}</p>
       <div class="contatore-party" id="contatore">0 scelti</div>
       <div class="griglia-arruolo">
         ${comune.eroi.map((e) => `
-          <div class="eroe-tile" data-nome="${esc(e.nome)}">
+          <div class="eroe-tile${scelti.has(e.nome) ? ' scelto' : ''}" data-nome="${esc(e.nome)}">
             <img loading="lazy" src="${encodeURI('/assets/artworks/' + e.art)}" alt="">
             <div class="eroe-velo"></div>
             <div class="eroe-nome"><b>${esc(e.nome.toLowerCase())}</b>
