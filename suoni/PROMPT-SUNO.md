@@ -170,7 +170,7 @@ vocals, choir, lyrics, drums, percussion, beat, melody, chord progression, cresc
 
 ---
 
-## Le due tracce di STATO
+## Le tracce di STATO
 
 Non sono luoghi: sono la clessidra e lo scontro. Valgono più di cinque
 ambienti sui KPI **ansia** e **immersione** (vedi la memoria dei KPI core).
@@ -203,6 +203,98 @@ tense sustained low strings, cold room tone, irregular distant knocks, held diss
 vocals, choir, lyrics, drums, percussion, beat, action music, melody, chord progression, crescendo, riser, cinematic trailer, orchestral hit, fade out ending
 ```
 
+### 13 · Contatto — i nemici addosso
+Quando almeno un nemico e' adiacente a un eroe. Non e' musica d'azione: e' il
+respiro che si stringe. Il gioco non ha combattimenti eroici, ha gente che
+prova a non morire in una cantina.
+Titolo: `Ombre — Contatto`
+
+**Styles**
+```
+tight low string tremolo held without release, a heartbeat felt through stone, breath held, metal scraping far away, claustrophobic room tone, tense and static, no rhythm section, low-mid focused, no bright transients
+```
+**Exclude styles**
+```
+vocals, choir, lyrics, drums, drum kit, percussion, beat, action music, heroic, melody, chord progression, crescendo, riser, cinematic trailer, orchestral hit, fade out ending
+```
+
+### 14 · Il Dormiente si desta
+Quando il Canto raggiunge la soglia e il boss entra in campo. E' il momento in
+cui la citta' smette di essere un posto e diventa una cosa viva.
+Titolo: `Ombre — Il Dormiente`
+
+**Styles**
+```
+enormous subsonic breath under the floor, stone resonating at a frequency that hurts, a choir of many voices humming one note through metres of rock, awe and dread, immense scale, static and unending, low-mid focused
+```
+**Exclude styles**
+```
+lyrics, words, drums, percussion, beat, melody, chord progression, crescendo, riser, climax, resolution, cinematic trailer, orchestral hit, fade out ending, jump scare sting
+```
+
+### 15 · Il mazzo tace — obiettivo compiuto
+La traccia piu' importante di tutte, e la piu' facile da sbagliare. Quando
+l'obiettivo e' compiuto la Minaccia smette di pescare: e' il **crescendo-
+relief** su cui e' tarata mezza campagna. Non e' vittoria — si e' ancora sotto
+terra e bisogna uscire — e' **la pressione che smette**. Sollievo sporco, non
+trionfo.
+Titolo: `Ombre — Il mazzo tace`
+
+**Styles**
+```
+the pressure lifting, a held dissonance finally resolving down into a single low sustained note, air moving again, distant water, exhausted calm, still dark, quiet relief with no triumph, low-mid focused, no bright transients
+```
+**Exclude styles**
+```
+vocals, choir, lyrics, drums, percussion, beat, triumphant, heroic, fanfare, major key uplifting, victory music, cinematic trailer, orchestral hit, crescendo, riser
+```
+
+### 16 · L'ultima ora — l'orologio dell'Indagine
+Le sei ore dell'Indagine sono una clessidra che oggi nessuno **sente**. Questa
+traccia entra alle 23, sopra l'ambiente del luogo, e non lo sostituisce: si
+sovrappone piano.
+Titolo: `Ombre — L'ultima ora`
+
+**Styles**
+```
+a single clock ticking slightly too slow, far away, a room emptying of sound, one low string note that will not stop, the sense of a door about to close, sparse, patient, almost nothing, low-mid focused, no bright transients
+```
+**Exclude styles**
+```
+vocals, choir, lyrics, drums, percussion, beat, melody, chord progression, crescendo, riser, alarm, ticking clock in the foreground, cinematic trailer, fade out ending
+```
+
+---
+
+## Le due CODE (non sono loop)
+
+Queste due sole non vanno in ciclo: durano quanto durano e finiscono. Per loro
+le regole del loop si rovesciano — un finale ci vuole.
+
+### 17 · Epilogo — se ne esce
+Titolo: `Ombre — Si esce`
+
+**Styles**
+```
+dawn coming up over cold water, a single low cello line finding its way to rest, church bells very far off, worn out and alive, melancholic not triumphant, sparse, ending properly with a fade
+```
+**Exclude styles**
+```
+vocals, choir, lyrics, drums, percussion, beat, fanfare, triumphant, heroic, uplifting major key, epic, cinematic trailer, orchestral hit
+```
+
+### 18 · Epilogo — non se ne esce
+Titolo: `Ombre — Non si esce`
+
+**Styles**
+```
+sound draining out of the room, the last resonance of stone dying away, one bell struck once and left to decay to nothing, cold, final, no comfort, ending in silence
+```
+**Exclude styles**
+```
+vocals, choir, lyrics, drums, percussion, beat, melody, horror sting, jump scare, cinematic trailer, orchestral hit, crescendo, riser
+```
+
 ---
 
 ## Nomi dei file
@@ -212,18 +304,39 @@ suoni/
   archivio-uffici.mp3     casa-interni.mp3      taverna-pubblico.mp3
   chiesa-cripta.mp3       acqua-canali.mp3      bottega-officina.mp3
   deposito-magazzino.mp3  legge-prigione.mp3    quota-tetti.mp3
-  sotterraneo.mp3         canto-1/2/3.mp3       spedizione.mp3
+  sotterraneo.mp3         canto-1.mp3 canto-2.mp3 canto-3.mp3
+  spedizione.mp3          contatto.mp3          dormiente.mp3
+  mazzo-tace.mp3          ultima-ora.mp3        si-esce.mp3
+  non-si-esce.mp3
   PROMPT-SUNO.md
 ```
 
-## Da fare, se un giorno si aggancia alla webapp
+Diciotto tracce, venti file (il Canto ne ha tre). **I nomi non sono liberi:**
+`webapp/public/js/suoni.js` li cerca esattamente cosi', e un file che manca
+non e' un errore — quella situazione resta semplicemente muta.
 
-`indagine.js:schedaLuogo()` sa già quale luogo si sta aprendo, quindi serve
-una mappa `luogo → tipologia` e un elemento audio con crossfade. La mappa non
-esiste ancora: oggi la tipologia si ricava dal nome del luogo per parole
-chiave (canale/molo/chiatta → acqua; cattedrale/cripta/campanile → chiesa…).
-Meglio renderla un dato esplicito — un campo `ambiente=` sul dict del luogo —
-che continuare a indovinarla da una regex.
+## L'aggancio alla webapp — **fatto il 13/08/2026**
+
+`webapp/public/js/suoni.js` sceglie la traccia dallo **stato** del gioco e ci
+passa in dissolvenza. Suona in tutte e due le modalità, col tasto ♪ nella riga
+del registro.
+
+- **La tipologia è un dato, non una regex a runtime.** `webapp/export-data.py`
+  la calcola una volta e la scrive nel JSON come `ambiente`; 177 luoghi su 183
+  li riconosce dal nome, e i sei che restano **li dichiara in console** invece
+  di farli cadere in silenzio nel ripiego. Un luogo può sempre imporsi la sua
+  con `ambiente=` sul dict, e allora la parola chiave non conta.
+- **La scala di priorità è il significato**, ed è provata in
+  `webapp/test-suoni.mjs`: obiettivo compiuto > Dormiente desto > contatto >
+  Canto > esplorazione. «Il mazzo tace» batte tutto perché quando la Minaccia
+  smette di pescare la minaccia ha smesso di contare, e il tavolo lo deve
+  sentire prima di capirlo.
+- **Non parte da sola** e la scelta resta scritta: al tavolo l'app arbitra
+  davanti a delle persone, e un drone che parte da sé è una prepotenza.
+- **Un file che manca non è un errore.** Oggi in `suoni/` non c'è nessun mp3:
+  l'app resta muta e va avanti. Chi genera le tracce le mette lì e le trova.
+- Il volume è basso di proposito (0.30, e 0.18 per la traccia sovrapposta):
+  sta **sotto** la voce di chi legge ad alta voce, non insieme.
 
 **Un episodio nuovo** aggiunge i suoi luoghi a una delle dieci tipologie; una
 tipologia nuova si aggiunge qui con lo stesso schema Styles/Exclude.

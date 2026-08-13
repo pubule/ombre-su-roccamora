@@ -11,6 +11,7 @@ import { tiraProva } from './dadi.js';
 import { abilitaSchede } from './scheda-eroe.js';
 import { controBusta } from './engine.js';
 import { conferma } from './chiedi.js';
+import * as suoni from './suoni.js';
 import * as stat from '../motore/stat.js';
 import * as minaccia from '../motore/minaccia.js';
 
@@ -152,11 +153,33 @@ function barra(titolo) {
   <div class="riga-registro">
     <span class="sc resta">round ${sp ? sp.round : 1} · ${fase} ·
       ${orologio().toLowerCase()} ${sp ? sp.canto : 0}</span>
+    ${suoni.bottoneHtml()}
   </div>`;
+}
+
+// Lo stato che decide l'ambiente sonoro. Al tavolo la plancia e' FISICA:
+// l'app non sa dove stanno le pedine, quindi «nemici addosso» non si puo'
+// leggere dalle distanze. Si legge da quanti nemici sono in campo e non
+// ancora abbattuti — il registro delle ferite, l'unica cosa che l'app
+// possiede davvero. E' un segnale piu' grosso, e va bene: la traccia del
+// contatto dice «c'e' qualcuno qui sotto con voi», non «e' adiacente».
+function statoSuoni() {
+  const sp = SP() || {};
+  const vivi = (sp.nemici || []).filter((n) => (n.ferite || 0) < (n.max || 1));
+  return {
+    fase: 'spedizione',
+    canto: sp.canto || 0,
+    bossDesto: !!sp.cantoBonus || !!sp.bossDestato,
+    nemiciVicini: vivi.length > 0,
+    obiettivoFatto: false,   // al tavolo l'obiettivo lo dichiara chi arbitra
+    esito: sp.esito || null,
+  };
 }
 
 function dopoBarra() {
   ctx.app.querySelector('#nav-esci').onclick = () => ctx.vaiA('menu');
+  suoni.agganciaBottone(ctx.app, statoSuoni);
+  suoni.aggiorna(statoSuoni());
 }
 
 function pannelloMsg(titolo, corpoHtml, dopo) {

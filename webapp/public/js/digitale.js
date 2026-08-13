@@ -898,6 +898,7 @@ async function usaOggetto(nm) {
 
 function aggancia() {
   const { app } = ctx; const sp = SP(); const attivo = eroiAttivoNome();
+  suoni.agganciaBottone(app, statoSuoni);
   app.querySelectorAll('.cella-mossa').forEach((c) => c.onclick = async () => {
     if (scivolando) return;                     // gia' in cammino
     const node = { t: c.dataset.t, x: +c.dataset.x, y: +c.dataset.y };

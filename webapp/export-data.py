@@ -13,6 +13,7 @@ import importlib
 import json
 import os
 import re
+import unicodedata
 import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -206,6 +207,73 @@ REPERTI_LUOGO = {
 }
 
 
+# --- l'ambiente sonoro di un luogo ----------------------------------------
+# Le dieci tipologie di suoni/PROMPT-SUNO.md, ricavate classificando i 183
+# luoghi della campagna. Qui la classificazione si CALCOLA una volta e finisce
+# nel JSON: l'alternativa era indovinarla a runtime da una regex sul nome, e
+# il documento stesso dice di non farlo.
+#
+# L'ordine conta: si prende la PRIMA che aggancia. «La sacrestia del
+# Tribunale» e' chiesa, non tribunale, perche' chiesa viene prima — ed e'
+# giusto, e' li' che si sta.
+AMBIENTI = [
+    ('chiesa-cripta',      ('cattedrale', 'sacrestia', 'sagrato', 'cripta', 'campanil',
+                            'curia', 'ossari', 'chiesa', 'parrocchia', 'battuti',
+                            'capitolare', 'vescovil', 'cancelleria', 'organo', 'cimitero')),
+    ('sotterraneo',        ('cisterna', 'galleria', 'pozzo', 'pozzi', 'cunicol',
+                            'intercapedine', 'sottosuolo', 'gola della', 'tre acque',
+                            'dormiente', 'sotterran')),
+    ('quota-tetti',        ('tetto', 'tetti', 'ponteggio', 'guglia', 'torre', 'attico',
+                            'cornicion', 'comignol', 'covo')),
+    ('acqua-canali',       ('canale', 'canal', 'molo', 'chiatta', 'banchina', 'chiusa',
+                            'approdo', 'darsena', 'barche', 'porto', 'acqua', 'imbocco',
+                            'sandolo', 'moli', 'lavatoio')),
+    ('legge-prigione',     ('tribunale', 'gendarmeria', 'prigion', 'carcere', 'cella',
+                            'corpo di guardia', 'prefettura', 'dogana', 'sequestr',
+                            'magistrat', 'aula')),
+    ('archivio-uffici',    ('archivio', 'catasto', 'ufficio', 'uffici', 'studio',
+                            'notaio', 'registri', 'fermo-posta', 'sigilli', 'brevett',
+                            'scriptorium', 'faldone', 'inventario', 'scrivania',
+                            'amministrazione', 'anagrafe', 'camera dei pesi',
+                            'impresa', 'registro', 'affitti', 'contabilit',
+                            'fascicolo', 'carta di pregio', 'matrice', 'firme',
+                            'grimorio')),
+    ('deposito-magazzino', ('deposito', 'magazzino', 'fornitura', 'carbonaia',
+                            'risme', 'stracci', 'molino', 'cantiere', 'baracca',
+                            'capannone', 'laboratorio', 'sottopalco', 'palazzone')),
+    ('bottega-officina',   ('bottega', 'officina', 'liutaio', 'lattoniere', 'marmista',
+                            'fonder', 'incisore', 'fotograf', 'cordaio', 'fioraio',
+                            'ricettatore', 'banco dei pegni', 'antiquari',
+                            'monte di pieta')),
+    ('taverna-pubblico',   ('taverna', 'osteria', 'locanda', 'pensione', 'caffe',
+                            'mercato', 'gazzetta', 'stazione', 'teatro', 'comunale',
+                            'foyer', 'loggione', 'palco', 'ridotto', 'camerino',
+                            'loggia', 'ospedale', 'carita', 'contrada', 'assemblea')),
+    ('casa-interni',       ('casa', 'corte', 'villa', 'appartamento', 'stanza',
+                            'rifugio', 'camera', 'dimora', 'abitazione', 'palazzo')),
+]
+# Il ripiego: un interno qualsiasi, il meno sbagliato. Ci cadono anche una
+# manciata di «luoghi» che luoghi non sono — «Un debito antico», «Il membro
+# interno», «Il decano Ferrante»: sono piste da seguire, non stanze da
+# ascoltare, e per loro un interno silenzioso e' la cosa giusta.
+AMBIENTE_DEFAULT = 'casa-interni'
+_ambienti_indovinati = []
+
+
+def ambiente_di(nome):
+    """Tipologia sonora di un luogo, dal suo nome.
+
+    Gli accenti si tolgono prima di confrontare: «IL CAFFE' DEI CANTANTI» non
+    agganciava `caffe` e finiva nel ripiego."""
+    n = unicodedata.normalize('NFD', (nome or '').lower())
+    n = ''.join(c for c in n if unicodedata.category(c) != 'Mn')
+    for tipo, chiavi in AMBIENTI:
+        if any(k in n for k in chiavi):
+            return tipo
+    _ambienti_indovinati.append(nome)
+    return AMBIENTE_DEFAULT
+
+
 def luogo_json(L, oggetti_map=None, reperti_map=None, desc=None):
     req = L.get('req')
     # un luogo con solo vincolo d'orario inverso (`apre`) e' APERTO: niente
@@ -230,6 +298,10 @@ def luogo_json(L, oggetti_map=None, reperti_map=None, desc=None):
     return dict(
         n=L['n'], nome=L['nome'],   # resa (small-caps lowercase) alla UI
         voce_mappa=L.get('voce_mappa'),
+        # tipologia sonora (suoni/PROMPT-SUNO.md). `ambiente=` sul dict del
+        # luogo vince sempre: la parola chiave sbaglia, e quando sbaglia si
+        # corregge li' invece di allargare la tabella.
+        ambiente=L.get('ambiente') or ambiente_di(L.get('nome')),
         aperto=aperto,
         requisito=None if aperto else req,
         chiave=list(chiave) if chiave else None,      # ('parola'|'oggetto', valore)
@@ -1633,4 +1705,9 @@ def dump(name, obj):
 dump('comune.json', comune)
 for k, ep in episodi.items():
     dump(f'{k}.json', ep)
+if _ambienti_indovinati:
+    print(f'  {len(_ambienti_indovinati)} luoghi senza ambiente riconosciuto '
+          f'(ripiego «{AMBIENTE_DEFAULT}»): ' + ', '.join(_ambienti_indovinati[:6])
+          + (' ...' if len(_ambienti_indovinati) > 6 else ''))
+    print('  si correggono con ambiente=... sul dict del luogo, o allargando AMBIENTI')
 print('OK export dati webapp')

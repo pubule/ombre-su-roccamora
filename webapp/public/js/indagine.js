@@ -11,6 +11,7 @@ import { rendi, norm, bussa, dichiaraVoce, vociMappa, luogoVisitabile,
          urlCarta as urlCartaSafe } from './engine.js';
 import { schedaEroe, abilitaSchede } from './scheda-eroe.js';
 import { conferma } from './chiedi.js';
+import * as suoni from './suoni.js';
 
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) =>
   ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -137,11 +138,23 @@ function barra(titolo, etichetta = 'indagine') {
   <div class="riga-registro">${registroOre()}
     <span class="sc resta">${(() => { const o = 24 - IND().ora;
       return o ? `${o} ${o === 1 ? 'ora' : 'ore'} a mezzanotte` : 'mezzanotte'; })()}</span>
+    ${suoni.bottoneHtml()}
   </div>`;
+}
+
+// Lo stato che decide l'ambiente sonoro: il luogo in cui si sta (se si sta in
+// un luogo) e l'ora. In strada non c'e' ambiente — e sta bene: fra una visita
+// e l'altra il silenzio e' il posto dove si ragiona.
+function statoSuoni() {
+  const aperto = IND().luogoAperto;
+  const l = aperto != null && ctx.ep.luoghi.find((x) => x.n === aperto);
+  return { fase: 'indagine', ambiente: l ? l.ambiente : null, ora: IND().ora };
 }
 
 function dopoBarra() {
   ctx.app.querySelector('#nav-esci').onclick = () => ctx.vaiA('menu');
+  suoni.agganciaBottone(ctx.app, statoSuoni);
+  suoni.aggiorna(statoSuoni());
 }
 
 // banner con l'arte del luogo (dalle carte renderizzate o dal campo art)
