@@ -433,6 +433,133 @@ ${testo.slice(0, 180)}`);
      `chi si ricollega con una copia vecchia della STESSA serata non la sovrascrive (ora ${dopo.stato.indagine.ora})`);
 }
 
+// --- 9. APPROFONDIRE E' DELL'EROE, e l'esito e' del tavolo
+//
+// Il tiro era gia' suo; l'azione che lo innesca no, e la distanza fra le due
+// cose si sentiva: chi conduce premeva per te un bottone col nome della TUA
+// abilita'. Ora il bottone sta dove sta l'abilita', chi arbitra resta il motore,
+// e quel che si coglie — o non si coglie — si legge su OGNI schermo.
+{
+  const LUOGO = EP1.luoghi.find((l) => (l.approfondimenti || []).length);
+  const TIPO = LUOGO.approfondimenti[0].tipo;
+  const IDONEO = COMUNE.eroi.find((e) => ((e.cariche || {})[TIPO] || 0) > 0);
+
+  // il tavolo: il gruppo E' DENTRO quel luogo, e l'eroe del telefono e' idoneo
+  const dentro = {
+    v: 1, episodio: 'ep1', modo: 'digitale', party: [IDONEO.nome, OTTONE],
+    fase: 'indagine', creata: 5_000, aggiornato: Date.now(),
+    indagine: { ora: 21, lettaLettera: true, visitati: [LUOGO.n], luogoAperto: LUOGO.n,
+                scoperti: [], sbloccati: [], parole: [], oggetti: [], reperti: [],
+                approfondimentiLetti: [], caricheUsate: {}, secondoFiato: {}, note: '',
+                risposte: ['', '', '', ''], chiusa: false, pendenza: null, carta: null },
+    spedizione: { round: 0, canto: 0, mazzo: null, esito: null },
+  };
+  // il telefono ha QUELL'eroe
+  ok((await chiama(ARBITRO, 'PUT', '/api/party', { tavolo: idT, party: dentro.party })).ok,
+     'la compagnia e’ quella giusta');
+  await chiama(ARBITRO, 'DELETE', `/api/membri?tavolo=${idT}&email=${encodeURIComponent(GIOCATORE)}`);
+  await chiama(ARBITRO, 'POST', '/api/membri', { tavolo: idT, email: GIOCATORE, eroe: IDONEO.nome });
+  ok((await chiama(ARBITRO, 'POST', `/api/tavolo/${idT}/apri`, { tavolo: idT, stato: dentro })).ok,
+     'e il gruppo e’ dentro il luogo');
+
+  await apriIndagine(dentro);
+  await page.waitForTimeout(1200);
+
+  // IL BOTTONE C'E', ed e' quello della sua abilita'
+  const bott = page.locator(`[data-appr="approfondisci"][data-tipo="${TIPO}"]`);
+  ok((await bott.count()) === 1,
+     `chi ha l’eroe vede il bottone della SUA abilita’ (${TIPO})`);
+  ok((await page.locator('[data-appr="profano"]').count()) === 1,
+     'e l’aiuto profano, che e’ l’occasione una di questo luogo');
+
+  // lo preme: al tavolo arriva la mano alzata
+  await bott.click();
+  await page.waitForTimeout(1200);
+  const st = await (await chiama(ARBITRO, 'GET', `/api/tavolo/${idT}/stato`)).json();
+  const r = st.stato.indagine.richiesta;
+  ok(r && r.azione === 'approfondisci' && r.tipoApp === TIPO && r.eroe === IDONEO.nome,
+     `la richiesta arriva al tavolo (${r ? `${r.azione}/${r.tipoApp}/${r.eroe}` : '—'})`);
+
+  // ...e la si puo' fare solo COL PROPRIO EROE
+  const rubata = await page.evaluate(async ({ t, altro }) => {
+    const res = await fetch(`/api/tavolo/${t}/comando`, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ tipo: 'chiedi-indagine',
+        richiesta: { azione: 'approfondisci', luogo: 1, tipoApp: 'Referto', eroe: altro, id: 'x' } }),
+    });
+    return res.status;
+  }, { t: idT, altro: OTTONE });
+  ok(rubata === 403, `e non si spende la carica di un altro (visto ${rubata})`);
+
+  // L'ESITO SI LEGGE SU OGNI SCHERMO. Lo scrive chi conduce (`indagine.carta`),
+  // e chi guarda non ha un «continuate»: si va avanti quando chiude lui.
+  const conCarta = { ...dentro, aggiornato: Date.now() + 1 };
+  conCarta.indagine = { ...dentro.indagine, richiesta: null,
+    carta: { titolo: 'osservazione — la prova', corpo: '<p>Quel che avete colto.</p>' } };
+  await chiama(ARBITRO, 'POST', `/api/tavolo/${idT}/apri`, { tavolo: idT, stato: conCarta });
+  await page.waitForTimeout(1400);
+  const schermo = await page.locator('#app').innerText();
+  ok(/quel che avete colto/i.test(schermo), `l’esito compare sul telefono:
+${schermo.slice(0, 160)}`);
+  ok((await page.locator('#ok-msg').count()) === 0,
+     'e chi guarda non ha un «continuate»: chiude chi conduce');
+}
+
+// --- 10. E CHI CONDUCE LA ESEGUE DAVVERO
+//
+// I controlli sopra provano che la mano alzata ARRIVA. Questo prova l'anello in
+// cui il lavoro puo' morire in silenzio: che chi arbitra la raccolga e la porti
+// dentro il motore. Serve un tavolo di cui il BROWSER sia l'arbitro — chi
+// conduce lo decide il server dall'email, non il `posto` passato alla vista.
+{
+  const LUOGO = EP1.luoghi.find((l) => (l.approfondimenti || []).length);
+  const TIPO = LUOGO.approfondimenti[0].tipo;
+  const IDONEO = COMUNE.eroi.find((e) => ((e.cariche || {})[TIPO] || 0) > 0);
+
+  const idB = await page.evaluate(async () => {
+    const id = crypto.randomUUID();
+    await fetch('/api/tavolo', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+                                 body: JSON.stringify({ id, nome: 'Chi conduce esegue' }) });
+    return id;
+  });
+
+  const conRichiesta = {
+    v: 1, episodio: 'ep1', modo: 'digitale', party: [IDONEO.nome, OTTONE],
+    fase: 'indagine', creata: 9_000, aggiornato: Date.now(),
+    indagine: { ora: 21, lettaLettera: true, visitati: [LUOGO.n], luogoAperto: LUOGO.n,
+                scoperti: [], sbloccati: [], parole: [], oggetti: [], reperti: [],
+                approfondimentiLetti: [], caricheUsate: {}, secondoFiato: {}, note: '',
+                risposte: ['', '', '', ''], chiusa: false, pendenza: null, carta: null,
+                richiesta: { azione: 'approfondisci', luogo: LUOGO.n, tipoApp: TIPO,
+                             eroe: IDONEO.nome, da: IDONEO.nome, id: 'rq-prova' } },
+    spedizione: { round: 0, canto: 0, mazzo: null, esito: null },
+  };
+  await page.evaluate(async ({ t, st }) => {
+    await fetch(`/api/tavolo/${t}/apri`, { method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ tavolo: t, stato: st }) });
+    const { vistaIndagine } = await import('/js/indagine.js');
+    document.querySelector('#app').innerHTML = '';
+    await vistaIndagine(document.querySelector('#app'), st, () => {},
+                        { tavolo: t, ruolo: 'arbitro', eroe: null });
+  }, { t: idB, st: conRichiesta });
+  await page.waitForTimeout(2000);
+
+  // la richiesta e' entrata nel motore: «guardare meglio» chiede una prova, e
+  // in questo tavolo quell'eroe non e' di nessuno, quindi la tira chi conduce
+  const schermoArb = (await page.locator('#app').innerText()).slice(0, 90).replace(/\s+/g, ' ');
+  ok((await page.locator('.dadi-overlay').count()) === 1,
+     `la richiesta finisce nel motore e apre la prova (schermo: ${schermoArb})`);
+  const titolo = await page.locator('.dadi-titolo').innerText().catch(() => '');
+  ok(/guardare meglio/i.test(titolo) && titolo.toLowerCase().includes(IDONEO.nome.split(' ')[0].toLowerCase()),
+     `e la tira l'eroe che l'ha chiesta (visto «${titolo}»)`);
+
+  // e la richiesta non resta appesa: servita due volte sarebbero due cariche
+  const dopo = await page.evaluate(async (t) =>
+    (await (await fetch(`/api/tavolo/${t}/stato`)).json()).stato.indagine.richiesta, idB);
+  ok(!dopo, 'e la mano alzata si abbassa: servita una volta sola');
+}
+
 await browser.close();
 console.log(ko === 0
   ? 'test-indagine-eroe: l\'Indagine si gioca in due, senza che i segreti passino'

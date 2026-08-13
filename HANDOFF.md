@@ -109,6 +109,38 @@ dalla lista degli episodi chiusi. Barriera: `webapp/test-abilita.mjs`.
 Corretto anche `webapp/server.js`, che sotto i banchi moriva per `EMFILE` e
 faceva risultare 0% gli ultimi episodi di una corsa lunga.
 
+**9. Arte degli episodi 2-7** (13-14/08). Comprate Fast hours e generati **156
+artwork**: mancanti da 388 a 232. Chiusi Preludio, Ep.2, 3, 4, 5, 6 e quasi
+tutto l'Ep.7. Carte, fogli di stampa, PDF e `webapp/assets` rigenerati per
+tutti. **Le Fast hours sono di nuovo finite** (rinnovo 09/09/2026): dell'Ep. 7
+restano fuori 11 soggetti — le 8 tessere, la copertina, `Lettera di Minaccia` e
+`Fune di Servizio`. Il sintomo dell'esaurimento è sempre lo stesso: il submit
+non restituisce `job_id`.
+
+Trovato e scritto ciò che nessun `.md` aveva: **Ansaldo**, il PNG scortato del
+Preludio, dichiarato in `webapp/data/preludio.json` e senza prompt da nessuna
+parte (per questo il conteggio via prompt dava il Preludio completo). Stessa
+situazione per **Nina** (Ep. 16, prompt ancora da scrivere) e disallineamento
+di nome per **Fava** (Ep. 7: i dati vogliono `Fava.png`, il prompt produce
+`Ernesto Fava.png`).
+
+Tre difetti veri nei generatori, tutti dello stesso tipo — *artefatto prodotto
+senza la sua arte, e `--solo-mancanti` che poi lo dà per fatto per sempre*:
+`generate-batch.js` faceva carte col buco al posto del ritratto,
+`generate-tiles.js` tessere vuote con solo la griglia (e riquadri vuoti per gli
+arredi senza arte), `generate-print-sheets.js` lasciava caselle vuote nei
+fogli. Ora saltano e lo dicono. E **i fogli di stampa non esistevano per gli
+episodi 3-20**: i mazzi erano elencati a mano fino a `EP2_*`, quindi il bucket
+risultava vuoto e il PDF veniva «saltato» senza che nulla sembrasse rotto.
+
+Il Preludio in app mostrava la mini-spedizione **senza tessere**: riusa T1/T2/T4
+dell'Ep. 1 (scelta di `gen_preludio.py`), ma `/assets/Preludio/board/` non
+esisteva. `webapp/export-assets.py` ora le copia.
+
+Aggiunta una sezione `[luoghi]` in `scripts/midjourney-coda.txt` (niente
+`--sref`): sui soggetti che vietano le figure l'ancora — che è una scena
+abitata — riempiva tutte e 4 le varianti di gente con la lanterna.
+
 ## Come si riprende
 
 ```bash
@@ -599,6 +631,27 @@ che è regia e direbbe quali porte esistono.
 `String(x)` li rendeva tutti «[object Object]». Nessuna carta Approfondimento
 arrivava mai al telefono — nemmeno quelle lette ad alta voce davanti a tutti. Non
 un errore: una sezione perennemente vuota. Rimettendo il difetto, 21 rossi.
+
+**Approfondire è dell'eroe.** Il tiro era già suo; l'azione che lo innesca no,
+e la distanza fra le due cose si sentiva al tavolo — chi conduce premeva per te
+un bottone col nome della *tua* abilità. Ora i bottoni stanno dove sta
+l'abilità: dentro un luogo, sul telefono di chi ha quell'eroe, uno per tipo di
+Approfondimento che sa leggere, più l'**aiuto profano** (l'occasione una del
+luogo, e la tenta chi vuole — il bottone è su tutti i telefoni presenti).
+
+Il telefono **chiede** e basta: `chiedi-indagine` scrive `indagine.richiesta`,
+chi arbitra la raccoglie e la esegue **col motore che ha già** — stessa carica,
+stessa prova, stesso testo. Le regole restano in un posto solo. La richiesta si
+toglie dallo stato *prima* di eseguire, e l'id servito si ricorda: servita due
+volte sarebbero due cariche.
+
+**L'esito è del tavolo.** `pannelloMsg(…, { atutti: true })` scrive
+`indagine.carta` nello stato: la schermata si apre su **ogni** schermo — quel
+che si è colto e anche il «niente, per ora» — e la chiude chi conduce, così
+nessuno va avanti mentre gli altri leggono. Chi guarda non ha un «continuate».
+Agganciarlo a `pannelloMsg` invece che a mano copre tutti e sette gli esiti
+dell'Approfondimento in una volta; inventario e Taccuino restano scrivania di
+chi arbitra e non si spingono a nessuno.
 
 **Le prove.** `test-indagine-eroe.mjs` (un solo `wrangler dev`): i segreti non
 arrivano né allo schermo né al dispositivo, l'orologio di chi arbitra si muove

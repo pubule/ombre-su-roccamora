@@ -169,6 +169,11 @@ export class Partita extends DurableObject {
     // altro che lo mandasse tirerebbe al posto suo.
     if (cmd.tipo === 'prova-indagine') return this.provaIndagine(stato, cmd, posto);
 
+    // LA MANO ALZATA. Chi gioca chiede di approfondire dal suo telefono;
+    // eseguire lo fa chi arbitra, che nell'Indagine e' il motore. Qui la
+    // richiesta si scrive nello stato e si sparge — non si applica niente.
+    if (cmd.tipo === 'chiedi-indagine') return this.chiediIndagine(stato, cmd, posto);
+
     // CHI PUO' MUOVERE COSA. Un giocatore comanda il SUO eroe e nessun altro:
     // e' la regola che rende sensato dare a ognuno un dispositivo. L'arbitro
     // muove chiunque — e' lui che tiene in mano gli eroi non reclamati.
@@ -202,6 +207,20 @@ export class Partita extends DurableObject {
       return Response.json({ rifiuto: { motivo: `${pend.a} non è il tuo eroe.` } }, { status: 403 });
     }
     stato.indagine.pendenza = { ...pend, esito: cmd.esito };
+    stato.aggiornato = Date.now();
+    await this.scrivi(stato);
+    this.spargi({ stato, eventi: [] }, await this.dati(stato.episodio, stato.bivi), null);
+    return Response.json({ ok: true });
+  }
+
+  async chiediIndagine(stato, cmd, posto) {
+    const r = cmd.richiesta || {};
+    // si chiede COL PROPRIO EROE e con nessun altro: e' la sua abilita', e
+    // spenderla al posto suo e' esattamente cio' che si voleva togliere
+    if (posto.ruolo !== 'arbitro' && r.eroe && r.eroe !== posto.eroe) {
+      return Response.json({ rifiuto: { motivo: `${r.eroe} non è il tuo eroe.` } }, { status: 403 });
+    }
+    stato.indagine = { ...(stato.indagine || {}), richiesta: { ...r, da: posto.eroe || null } };
     stato.aggiornato = Date.now();
     await this.scrivi(stato);
     this.spargi({ stato, eventi: [] }, await this.dati(stato.episodio, stato.bivi), null);

@@ -316,6 +316,24 @@ function home() {
   app.querySelector('#chiudi-indagine').onclick = taccuino;
 }
 
+// QUEL CHE UN TELEFONO HA CHIESTO, eseguito da chi conduce.
+//
+// Il motore dell'Indagine e' questo browser, e resta questo: la richiesta
+// entra nelle STESSE funzioni che chi arbitra usa da sempre — stessa carica,
+// stessa prova, stesso testo. Se le regole vivessero in due posti divergerebbero
+// al primo ritocco, ed e' la divergenza che tutto questo lavoro ha tolto.
+async function eseguiRichiesta(r) {
+  const l = (ctx.ep.luoghi || []).find((x) => x.n === r.luogo);
+  if (!l) return;
+  // la richiesta si toglie dallo stato PRIMA di eseguire: quel che segue
+  // spinge altri stati, e una richiesta rimasta li' verrebbe servita di nuovo
+  IND().richiesta = null;
+  salvaP();
+  const tipiQui = [...new Set((l.approfondimenti || []).map((a) => a.tipo))];
+  if (r.azione === 'profano') return aiutoProfano(l, r.tipoApp, r.eroe || r.da);
+  return approfondisci(l, r.tipoApp, tipiQui, r.eroe || r.da);
+}
+
 // La prova che il tavolo aspetta da questo telefono. L'overlay e' lo stesso di
 // sempre, con tutt'e due le strade aperte: si tocca per far tirare l'app, o si
 // dichiara il totale dei due dadi veri. La scelta e' a OGNI tiro — al tavolo si
@@ -368,6 +386,15 @@ function collegaAlTavolo() {
         const p = (stato.indagine || {}).pendenza;
         const att = ctx.attesaProva;
         if (att && p && p.id === att.id && p.esito) att.arrivato(p.esito);
+        // LA MANO ALZATA DA UN TELEFONO. Chi conduce e' il motore: esegue la
+        // richiesta col codice di sempre e ne annuncia l'esito a tutti. Si
+        // segna l'id gia' servito perche' la stessa spinta arriva anche di
+        // rimbalzo, e servirla due volte vorrebbe dire spendere due cariche.
+        const r = (stato.indagine || {}).richiesta;
+        if (r && r.id && r.id !== ctx.ultimaRichiesta && !ctx.attesaProva) {
+          ctx.ultimaRichiesta = r.id;
+          eseguiRichiesta(r);
+        }
         return;
       }
       // LA SERATA E' PASSATA ALLA SPEDIZIONE mentre guardavamo: non si ridisegna
@@ -417,6 +444,17 @@ function vistaDiChiGioca() {
   if (pend && pend.tipo === 'prova' && !pend.esito && pend.a && pend.a === mioEroe()) {
     return tiraPerIlTavolo(pend);
   }
+  // LA SCHERMATA CHE IL TAVOLO STA LEGGENDO. Quel che il gruppo ha colto — o
+  // non colto — si legge insieme: compare su ogni schermo e la chiude chi
+  // conduce, cosi' nessuno va avanti mentre gli altri leggono. Qui non c'e'
+  // «continuate»: non e' una decisione di chi guarda.
+  if (ind.carta) {
+    app.innerHTML = `
+      ${barra(ind.carta.titolo)}
+      <div class="pannello">${ind.carta.corpo}</div>
+      <p class="nota centrato mt">— si va avanti quando chi arbitra chiude —</p>`;
+    return dopoBarra();
+  }
   const epId = P().episodio;
   const mio = mioEroe();
   const visitati = (ep.luoghi || []).filter((l) => (ind.visitati || []).includes(l.n));
@@ -436,7 +474,7 @@ function vistaDiChiGioca() {
     <div class="pannello">
       <h2>${aperto ? 'siete dentro' : 'siete per le strade'}</h2>
       <p class="nota">${aperto
-        ? 'Chi arbitra sta leggendo. Le decisioni si prendono a voce, insieme.'
+        ? 'Quel che c’è da cogliere qui lo cogliete voi: guardate meglio, sotto.'
         : 'Si decide insieme dove andare; a dichiararlo e a bussare e’ chi arbitra.'}</p>
     </div>
     ${mio ? `<div class="mt"></div>
@@ -492,6 +530,7 @@ function vistaDiChiGioca() {
       <h2>gli appunti del gruppo</h2>
       <p>${esc(ind.note)}</p>
     </div>` : ''}
+    ${aperto ? approfondireHtml(aperto) : ''}
     ${ep.lettera ? `<div class="btn-riga">
       <button class="btn" id="lettera-eroe">rileggete la lettera</button></div>` : ''}`;
   dopoBarra();
@@ -499,6 +538,58 @@ function vistaDiChiGioca() {
     el.addEventListener('click', () => schedaEroe(
       ctx.comune.eroi.find((x) => x.nome === el.dataset.scheda), {})));
   app.querySelector('#lettera-eroe')?.addEventListener('click', letteraDiChiGioca);
+  app.querySelectorAll('[data-appr]').forEach((el) => el.addEventListener('click', () => {
+    el.disabled = true;
+    chiediAlTavolo({ azione: el.dataset.appr, luogo: Number(el.dataset.luogo),
+                     tipoApp: el.dataset.tipo, eroe: mioEroe() });
+  }));
+}
+
+// APPROFONDIRE E' DELL'EROE, non di chi arbitra.
+//
+// Il tiro era gia' suo; l'azione che lo innesca no, e la distanza fra le due
+// cose si sentiva al tavolo — chi conduce premeva per te un bottone che porta
+// il nome della TUA abilita'. Qui i bottoni stanno dove sta l'abilita'.
+//
+// Chi arbitra resta il motore: il telefono CHIEDE, e l'esito lo esegue e lo
+// annuncia lui. Non e' un compromesso tecnico — nell'Indagine agisce una mano
+// sola per scelta, e quella mano tiene anche il filo del racconto.
+function approfondireHtml(l) {
+  const ind = IND();
+  const mio = mioEroe();
+  if (!mio) return '';
+  const tipiQui = [...new Set((l.approfondimenti || []).map((a) => a.tipo))];
+  if (!tipiQui.length) return '';
+  const letto = (tipo) => ind.approfondimentiLetti.some((x) => x.n === l.n && x.tipo === tipo);
+  // idoneo = ha una carica di quel tipo (o il jolly di Sibilla). E' la stessa
+  // regola di `idoneiPerTipo`, guardata dal proprio posto invece che da quello
+  // di chi conduce.
+  const puo = (tipo) => idoneiPerTipo(ctx.comune, P(), tipo).some((x) => x.nome === mio);
+  const aperti = tipiQui.filter((t) => !letto(t));
+  if (!aperti.length) return '';
+  const miei = aperti.filter(puo);
+  // l'aiuto profano e' l'occasione UNA di questo luogo, e la tenta chi vuole:
+  // qui il bottone c'e' su tutti i telefoni presenti
+  const profanoFatto = !!(ind.profano || {})[l.n];
+  return `<div class="mt"></div>
+    <div class="pannello">
+      <h2>guardare meglio</h2>
+      <p class="nota">Siete dentro. Quel che cogliete lo legge tutto il tavolo.</p>
+      <div class="btn-riga">
+        ${miei.map((t) => `<button class="btn pieno" data-appr="approfondisci"
+          data-luogo="${l.n}" data-tipo="${esc(t)}">${esc(t.toLowerCase())}</button>`).join('')}
+        ${profanoFatto ? '' : `<button class="btn" data-appr="profano"
+          data-luogo="${l.n}" data-tipo="${esc(aperti[0])}">aiuto profano (1 volta qui)</button>`}
+      </div>
+      ${miei.length ? '' : '<p class="nota">Qui non c’è niente che parli il vostro linguaggio: resta l’occhio del dilettante.</p>'}
+    </div>`;
+}
+
+// La richiesta al tavolo. Il telefono non applica niente: alza la mano, e chi
+// conduce esegue col motore che ha gia' — nessuna regola scritta due volte.
+function chiediAlTavolo(richiesta) {
+  if (!ctx.canale) return;
+  ctx.canale.manda({ tipo: 'chiedi-indagine', richiesta: { ...richiesta, id: `rq${Date.now()}` } });
 }
 
 // LA LETTERA D'INCARICO, dal telefono.
@@ -826,23 +917,27 @@ const nomeReperto = (file) => file.replace(/^Reperto [A-Z] - /, '');
 const urlReperto = (file) =>
   encodeURI(`/assets/${ctx.ep.cartella}/reperti/${file}.png`);
 
-async function approfondisci(l, tipo, tipiQui) {
+// `giaScelto` — l'eroe l'ha chiesto lui, dal suo telefono, e non c'e' niente da
+// domandare: e' la sua abilita' e ha gia' deciso di spenderla. Senza, si chiede
+// come sempre — al tavolo con un solo schermo quella scelta e' del gruppo.
+async function approfondisci(l, tipo, tipiQui, giaScelto) {
   const ind = IND();
   const gia = ind.approfondimentiLetti.some((x) => x.n === l.n && x.tipo === tipo);
   const c = idoneiPerTipo(ctx.comune, P(), tipo);
-  if (!c.length) return aiutoProfano(l, tipo);
+  if (!c.length) return aiutoProfano(l, tipo, giaScelto);
   // scelta di chi spende la carica (jolly incluso)
   // il residuo lo si sapeva gia' (x.proprie) e si buttava via: con due eroi
   // idonei, sapere chi ne ha ancora due e chi una e' la scelta
   // Ora la scelta pesa su DUE cose — la carica e l'ACUME di chi tira — quindi
   // l'etichetta le mostra entrambe: prima si sapeva solo il residuo.
   const acume = (nm) => (ctx.comune.eroi.find((e) => e.nome === nm) || {}).acume ?? 0;
-  const chi = await scegliDaLista('chi prova a guardare meglio?', c.map((x) => ({
+  const chi = (giaScelto && c.some((x) => x.nome === giaScelto)) ? giaScelto
+    : await scegliDaLista('chi prova a guardare meglio?', c.map((x) => ({
     id: x.nome,
     label: (x.proprie > 0
       ? `${x.nome} — ${x.proprie} ${x.proprie === 1 ? 'carica' : 'cariche'}`
       : `${x.nome} (jolly di Sibilla: ${x.jolly})`) + ` · ACUME ${acume(x.nome)}`,
-  })));
+    })));
   if (!chi) return schedaLuogo(l);
   const scelto = c.find((x) => x.nome === chi);
   const conJolly = scelto.proprie <= 0;
@@ -856,7 +951,8 @@ async function approfondisci(l, tipo, tipiQui) {
     // arbitro vero - "non c'e' nulla per te", il costo vero e' l'ora.
     return pannelloMsg(tipo.toLowerCase(), `<p><i>${esc(chi.split(' ')[0])} osserva, ascolta,
       fruga. ${gia ? 'Quello che c’era da cogliere qui, l’avete già colto.' :
-      'Ma qui non c’è nulla che parli il suo linguaggio.'}</i></p>`, () => schedaLuogo(l));
+      'Ma qui non c’è nulla che parli il suo linguaggio.'}</i></p>`,
+      () => schedaLuogo(l), { atutti: true });
   }
   // «LEGGERE LA SCENA», e qui e' il suo posto (regola cambiata l'11/08/2026):
   // si tira solo quando il gruppo vuole davvero frugare, e tira chi fruga —
@@ -875,7 +971,7 @@ async function approfondisci(l, tipo, tipiQui) {
     return pannelloMsg('niente, per ora', `<p><i>${esc(chi.split(' ')[0])} cerca, e non
       trova la presa. Quello che c’è qui non si lascia prendere adesso.</i></p>
       <p class="nota mt">La carica resta. Per ritentare bisogna lasciare il luogo e
-      tornarci: un’altra ora.</p>`, () => schedaLuogo(l));
+      tornarci: un’altra ora.</p>`, () => schedaLuogo(l), { atutti: true });
   }
   usaCarica(P(), chi, tipo, conJolly);
   ind.approfondimentiLetti.push({ n: l.n, tipo, soggetto: a.soggetto });
@@ -890,7 +986,7 @@ function consegnaApprofondimento(l, a, tipo, prefisso = '') {
      ${cardA ? `<div class="carta-grande"><img src="${urlCartaSafe(cardA.file)}" alt=""></div>` : ''}
      <p class="mt"><i>${rendi(a.testo)}</i></p>
      <p class="nota mt">Prendete la carta “${esc(a.soggetto)}” dal mazzo Approfondimenti.</p>`,
-    () => schedaLuogo(l));
+    () => schedaLuogo(l), { atutti: true });
 }
 
 // Il pendolo di Sibilla, la parte che il tavolo dimentica: se il luogo non
@@ -933,15 +1029,17 @@ function pendolo(l, chi) {
 // ACUME (Difficile), una sola occasione per luogo. Riuscita: l'Approfondimento
 // emerge come sbloccato. Fallita: in questo luogo resta sigillato.
 // (Precedente D&D: prova senza competenza - possibile, ma in salita.)
-async function aiutoProfano(l, tipo) {
+async function aiutoProfano(l, tipo, giaScelto) {
   const ind = IND();
   ind.profano = ind.profano || {};
   if (ind.profano[l.n]) {
     return pannelloMsg('aiuto profano', `<p class="nota">Nessun eroe può più sbloccare
       una ${esc(tipo)} — e l’occhio del dilettante, qui, ha già avuto la sua
-      occasione stanotte.</p>`, () => schedaLuogo(l));
+      occasione stanotte.</p>`, () => schedaLuogo(l), { atutti: true });
   }
-  const eroe = await scegliEroe(`aiuto profano — chi tenta? (ACUME, Difficile)`, 'acume');
+  const eroe = (giaScelto && P().party.includes(giaScelto))
+    ? ctx.comune.eroi.find((e) => e.nome === giaScelto)
+    : await scegliEroe(`aiuto profano — chi tenta? (ACUME, Difficile)`, 'acume');
   if (!eroe) return schedaLuogo(l);
   const r = await provaConFiato({
     titolo: `aiuto profano — ${eroe.nome.split(' ')[0]}`,
@@ -956,13 +1054,15 @@ async function aiutoProfano(l, tipo) {
     salvaP();
     return pannelloMsg('aiuto profano', `<p><i>${esc(eroe.nome.split(' ')[0])} fruga senza
       metodo, e il luogo se ne accorge. Qualunque cosa ci fosse da cogliere qui,
-      resta sigillata — servirebbe l’occhio giusto.</i></p>`, () => schedaLuogo(l));
+      resta sigillata — servirebbe l’occhio giusto.</i></p>`,
+      () => schedaLuogo(l), { atutti: true });
   }
   if (!a || gia) {
     salvaP();
     return pannelloMsg('aiuto profano', `<p><i>${esc(eroe.nome.split(' ')[0])} osserva, ascolta,
       fruga — e stavolta con metodo. ${gia ? 'Ma quello che c’era da cogliere qui, l’avete già colto.'
-      : 'Ma questo luogo non ha niente da dire in quel linguaggio.'}</i></p>`, () => schedaLuogo(l));
+      : 'Ma questo luogo non ha niente da dire in quel linguaggio.'}</i></p>`,
+      () => schedaLuogo(l), { atutti: true });
   }
   ind.approfondimentiLetti.push({ n: l.n, tipo, soggetto: a.soggetto });
   salvaP();
@@ -972,7 +1072,7 @@ async function aiutoProfano(l, tipo) {
      <p class="mt"><i>${rendi(a.testo)}</i></p>
      <p class="nota mt">Colto da profano, ma colto: prendete la carta “${esc(a.soggetto)}”
      dal mazzo Approfondimenti.</p>`,
-    () => schedaLuogo(l));
+    () => schedaLuogo(l), { atutti: true });
 }
 
 // Discernimento di Padre Marani: indica un luogo, la risposta e' solo
@@ -1207,14 +1307,33 @@ async function esameCarbone(dopo) {
 }
 
 
-function pannelloMsg(titolo, corpoHtml, dopo) {
+// `atutti: true` — LA SCHERMATA SI APRE SU OGNI SCHERMO.
+//
+// E' il meccanismo delle schermate da leggere insieme della Spedizione, portato
+// qui: l'esito di un Approfondimento — sia quel che si e' colto, sia il «niente,
+// per ora» — e' del GRUPPO, non di chi ha premuto. Va nello stato
+// (`indagine.carta`), quindi arriva a tutti dal filo, sopravvive a un refresh, e
+// si chiude quando la chiude chi conduce: cosi' nessuno va avanti mentre gli
+// altri stanno ancora leggendo.
+//
+// Non tutte le schermate ci vanno: l'inventario e il Taccuino sono scrivania di
+// chi arbitra, e spingerli sui telefoni sarebbe rumore. Si marca quel che il
+// tavolo deve vedere, invece di spedire tutto.
+function pannelloMsg(titolo, corpoHtml, dopo, { atutti = false } = {}) {
   const { app } = ctx;
+  if (atutti && ctx.posto && ctx.posto.tavolo) {
+    IND().carta = { titolo, corpo: corpoHtml };
+    salvaP();
+  }
   app.innerHTML = `
     ${barra(titolo)}
     <div class="pannello">${corpoHtml}</div>
     <div class="btn-riga"><button class="btn pieno" id="ok-msg">continuate</button></div>`;
   dopoBarra();
-  app.querySelector('#ok-msg').onclick = dopo;
+  app.querySelector('#ok-msg').onclick = () => {
+    if (IND().carta) { IND().carta = null; salvaP(); }
+    if (dopo) dopo();
+  };
 }
 
 function scegliEroe(titolo, statKey) {
