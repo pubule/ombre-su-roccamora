@@ -114,9 +114,17 @@ export class Partita extends DurableObject {
     const { stato, tavolo } = await request.json();
     await this.ctx.storage.put('tavolo', tavolo);
     const esistente = await this.leggi();
-    // non si sovrascrive una partita in corso con una piu' vecchia: chi si
-    // ricollega manda quel che aveva, e quel che aveva puo' essere indietro
-    if (esistente && (esistente.aggiornato || 0) >= (stato.aggiornato || 0)) {
+    // NON SI SOVRASCRIVE UNA PARTITA IN CORSO CON UNA PIU' VECCHIA: chi si
+    // ricollega manda quel che aveva, e quel che aveva puo' essere indietro.
+    //
+    // Ma il confronto vale SOLO FRA LO STESSO EPISODIO. Se chi arbitra apre
+    // un'altra serata, quella e' la serata — anche se e' una vecchia che si
+    // riprende, col suo timbro di settimane fa. Confrontando i timbri senza
+    // guardare l'episodio, il tavolo sarebbe rimasto sulla serata di prima e i
+    // telefoni con lei: chi conduce avrebbe cambiato episodio e nessuno lo
+    // avrebbe seguito.
+    if (esistente && esistente.episodio === stato.episodio
+        && (esistente.aggiornato || 0) >= (stato.aggiornato || 0)) {
       return Response.json({ ok: true, ripresa: true });
     }
     await this.scrivi(stato, { subito: true });

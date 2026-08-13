@@ -567,6 +567,19 @@ Due correzioni, e sono di natura diversa:
   fuori — il download, lo stato dal filo, l'`incassa()` col tavolo vivo. Una
   copia non è una mossa: non si timbra e non si rimanda indietro.
 
+**E la serata ricominciata non arrivava.** Chi arbitra riapriva il Preludio ed
+era fermo **alla lettera** — dove non si è ancora salvato niente — mentre il
+Durable Object aveva ancora la serata finita della volta prima: i telefoni
+entravano lì e ci restavano finché qualcuno non spendeva un'ora. La Spedizione
+si mette sul tavolo appena si apre (`vistaDigitale`); l'Indagine no. Ora sì.
+
+Nello stesso punto un secondo buco: `apri` confrontava i timbri **senza
+guardare quale episodio**. Chi arbitra che riprende una serata vecchia — col
+suo timbro di settimane fa — sarebbe stato rifiutato, e il tavolo sarebbe
+rimasto sulla serata di prima con tutti i telefoni appresso. Il confronto vale
+solo **fra lo stesso episodio**: cambiare serata è una decisione, non un
+salvataggio in ritardo.
+
 **Le prove.** `test-indagine-eroe.mjs` (un solo `wrangler dev`): i segreti non
 arrivano né allo schermo né al dispositivo, l'orologio di chi arbitra si muove
 da solo sul telefono, il tiro si apre **solo** su chi ha quell'eroe e l'esito

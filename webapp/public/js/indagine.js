@@ -91,6 +91,19 @@ export async function vistaIndagine(app, partita, vaiA, posto) {
   ctx = { app, partita: vistoDa.stato, ep, comune, carte, vaiA, posto: posto || null, canale: null };
   abilitaSchede((nm) => comune.eroi.find((x) => x.nome === nm));
   collegaAlTavolo();
+  // LA SERATA SI METTE SUL TAVOLO APPENA SI APRE, non alla prima mossa.
+  //
+  // La Spedizione lo fa da sempre (`vistaDigitale`); l'Indagine no, e la
+  // conseguenza si vedeva al tavolo: chi arbitra ricominciava il Preludio ed
+  // era fermo alla lettera — dove non si e' ancora salvato niente — mentre il
+  // Durable Object aveva ancora la serata FINITA della volta prima. I telefoni
+  // entravano li', e ci restavano finche' qualcuno non spendeva un'ora.
+  //
+  // Non si aspetta: se il tavolo non risponde si gioca lo stesso, e la spinta
+  // riparte al primo `salvaP()`.
+  if (arbitro() && posto && posto.tavolo) {
+    mettiSulTavolo(posto, partita).catch(() => { /* si gioca lo stesso */ });
+  }
   if (!arbitro()) return vistaDiChiGioca();
   // Chi gioca ha una schermata sua: non e' la stessa con meno bottoni, perche'
   // le due cose servono a due mestieri diversi. Chi conduce guida la notte;

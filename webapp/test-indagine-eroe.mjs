@@ -292,6 +292,77 @@ ${testo.slice(0, 180)}`);
      'e non nell’epilogo di una serata chiusa un’altra sera');
 }
 
+// --- 6. LA SERATA RICOMINCIATA ARRIVA SUBITO, non alla prima mossa
+//
+// Visto al tavolo: chi arbitra ricomincia il Preludio ed e' fermo ALLA LETTERA
+// — dove non si e' ancora salvato niente — e il telefono resta nell'epilogo
+// della serata di prima. La Spedizione si mette sul tavolo appena si apre;
+// l'Indagine no, e cosi' il tavolo aveva ancora la partita finita.
+//
+// SERVE UN TAVOLO DI CUI IL BROWSER SIA L'ARBITRO: chi conduce lo decide il
+// server dall'email, non il `posto` che si passa alla vista. Il browser non
+// manda header, quindi e' `OSR_DEV_EMAIL` — e un tavolo aperto DA LUI ce l'ha
+// come proprietario.
+{
+  const idA = await page.evaluate(async () => {
+    const id = crypto.randomUUID();
+    await fetch('/api/tavolo', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+                                 body: JSON.stringify({ id, nome: 'Tavolo di chi arbitra' }) });
+    return id;
+  });
+
+  // sul tavolo c'e' una serata FINITA
+  const finita = serata({ chiusa: true });
+  finita.fase = 'spedizione';
+  finita.spedizione = { round: 6, canto: 2, esito: 'vittoria', mazzo: null, digitale: true,
+                        fase: 'eroi', log: [], nemici: [], scortati: [], rivelate: [],
+                        eroiPos: {}, vite: {}, azioni: {}, eroiFatti: [], abilita: {} };
+  const messa = await page.evaluate(async ({ t, st }) => {
+    const r = await fetch(`/api/tavolo/${t}/apri`, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ tavolo: t, stato: st }) });
+    return r.status;
+  }, { t: idA, st: finita });
+  ok(messa === 200, `sul tavolo c'e' una serata finita (visto ${messa})`);
+
+  // chi arbitra la RICOMINCIA e apre l'Indagine: e' fermo alla lettera, e non
+  // ha ancora salvato niente. `vistaIndagine` deve metterla sul tavolo da se'.
+  const daccapo = serata({ lettaLettera: false, ora: 18, visitati: [] });
+  await page.evaluate(async ({ t, st }) => {
+    const { vistaIndagine } = await import('/js/indagine.js');
+    document.querySelector('#app').innerHTML = '';
+    await vistaIndagine(document.querySelector('#app'), st, () => {},
+                        { tavolo: t, ruolo: 'arbitro', eroe: null });
+  }, { t: idA, st: daccapo });
+  await page.waitForTimeout(1500);
+
+  const viva = await page.evaluate(async (t) =>
+    (await (await fetch(`/api/tavolo/${t}/stato`)).json()).stato, idA);
+  ok(viva && viva.fase === 'indagine' && !viva.spedizione.esito,
+     `aprendo l'Indagine la serata nuova arriva sul tavolo subito (fase ${viva && viva.fase}, esito ${viva && viva.spedizione.esito})`);
+}
+
+// --- 7. CAMBIARE SERATA VINCE SUL TIMBRO
+// I timbri si confrontano solo FRA LO STESSO EPISODIO. Chi arbitra puo'
+// riprendere una serata vecchia, col suo timbro di settimane fa: e' comunque la
+// serata di stasera, e i telefoni devono seguirla.
+{
+  const vecchissima = {
+    v: 1, episodio: 'preludio', modo: 'digitale', party: [ELENA], fase: 'indagine',
+    aggiornato: 1_000,                                  // un timbro antico
+    indagine: { ora: 19, lettaLettera: true, visitati: [], scoperti: [], sbloccati: [],
+                parole: [], oggetti: [], reperti: [], approfondimentiLetti: [],
+                caricheUsate: {}, secondoFiato: {}, note: '', risposte: ['', '', '', ''],
+                chiusa: false, pendenza: null },
+    spedizione: { round: 0, canto: 0, mazzo: null, esito: null },
+  };
+  ok((await chiama(ARBITRO, 'POST', `/api/tavolo/${idT}/apri`,
+    { tavolo: idT, stato: vecchissima })).ok, 'chi arbitra riprende una serata vecchia');
+  const viva = await (await chiama(ARBITRO, 'GET', `/api/tavolo/${idT}/stato`)).json();
+  ok(viva.stato && viva.stato.episodio === 'preludio',
+     `il tavolo la segue anche se il timbro e’ antico (visto ${viva.stato && viva.stato.episodio})`);
+}
+
 await browser.close();
 console.log(ko === 0
   ? 'test-indagine-eroe: l\'Indagine si gioca in due, senza che i segreti passino'
