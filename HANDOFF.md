@@ -450,6 +450,27 @@ più: `curl` va in timeout mentre il log dice `Ready`. Si vede con
 tutte o si cambia porta. E `wrangler` **non ricarica** gli asset aggiunti dopo
 l'avvio: un file nuovo in `public/js/` dà 404 finché non si riavvia.
 
+### Due difetti che il tavolo ha fatto uscire, e che il diff non conteneva
+
+Portare la pesca nel motore ne ha scoperti due che erano già lì, e vale la pena
+ricordarli perché sono di due specie che tornano.
+
+1. **I nemici agivano due volte per round.** `esegui()` finisce con `render()`,
+   e `render()` con la fase a «nemici» fa già partire la notte da solo:
+   chiamando anche `faseNemiciAI()` esplicitamente, il turno si ripeteva. Non
+   c'era nessun errore — solo eroi che cadevano il doppio. Il test delle
+   regressioni l'ha visto come *un eroe già a terra all'inizio dell'animazione*,
+   che è il modo in cui un doppio turno si manifesta a schermo. **Lezione:
+   `render()` non è solo disegno, ha un effetto; chi lo chiama deve saperlo.**
+2. **`obiettivoFatto()` chiedeva `every` su `scortati`**, e su una lista vuota
+   `every` risponde di sì. Finché il motore girava solo nel browser non
+   capitava, perché `migraScortati()` popola la lista all'apertura — ma nel
+   Durable Object arrivano stati che quella funzione non ha mai toccato, e il
+   difetto sarebbe stato **silenzioso**: nessun errore, solo il mazzo Minaccia
+   che non pesca più per il resto della partita, cioè una serata molto più
+   facile senza che nessuno capisca perché. **Lezione: quel che il client
+   normalizzava all'apertura, il server lo riceve grezzo.**
+
 ### La vista eroe: cosa è stato deciso guardando i mockup
 
 I mockup stanno sotto `/mockups/eroe/` e usano i dati veri dell'Ep.1. Il look non
