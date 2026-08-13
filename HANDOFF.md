@@ -580,6 +580,26 @@ rimasto sulla serata di prima con tutti i telefoni appresso. Il confronto vale
 solo **fra lo stesso episodio**: cambiare serata è una decisione, non un
 salvataggio in ritardo.
 
+**Il timbro non viene da un orologio solo**, e questa è la trappola che il
+locale non mostra mai: `aggiornato` lo scrive il Durable Object quando applica
+un comando (clock del server) *e* il browser di chi arbitra quando salva (clock
+del PC). Sulla stessa macchina i due coincidono; in produzione bastano pochi
+secondi di scarto, e una serata **ricominciata** veniva rifiutata da un tavolo
+che aveva il timbro più avanti — senza un errore da nessuna parte. Il confronto
+ora è fra la stessa **partita** (`episodio` + `creata`, che non cambia mai), non
+fra timbri: ricominciare fa una serata nuova, e quella vince comunque.
+
+**Nella vista del telefono** ci sono anche il **contatore delle cariche**
+d'Indagine del proprio eroe (stessi pallini di chi arbitra e del Taccuino
+stampato) e la **lettera d'incarico** da rileggere — senza la coda in corsivo,
+che è regia e direbbe quali porte esistono.
+
+**Un difetto silenzioso nella proiezione**, trovato guardando lo schermo:
+`approfondimentiLetti` è una lista di **oggetti** `{n, tipo, soggetto}`, e
+`String(x)` li rendeva tutti «[object Object]». Nessuna carta Approfondimento
+arrivava mai al telefono — nemmeno quelle lette ad alta voce davanti a tutti. Non
+un errore: una sezione perennemente vuota. Rimettendo il difetto, 21 rossi.
+
 **Le prove.** `test-indagine-eroe.mjs` (un solo `wrangler dev`): i segreti non
 arrivano né allo schermo né al dispositivo, l'orologio di chi arbitra si muove
 da solo sul telefono, il tiro si apre **solo** su chi ha quell'eroe e l'esito

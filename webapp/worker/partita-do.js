@@ -123,8 +123,22 @@ export class Partita extends DurableObject {
     // guardare l'episodio, il tavolo sarebbe rimasto sulla serata di prima e i
     // telefoni con lei: chi conduce avrebbe cambiato episodio e nessuno lo
     // avrebbe seguito.
-    if (esistente && esistente.episodio === stato.episodio
-        && (esistente.aggiornato || 0) >= (stato.aggiornato || 0)) {
+    //
+    // E vale solo FRA LA STESSA PARTITA, non fra lo stesso episodio: `creata` e'
+    // il momento in cui quella serata e' nata (`store.nuovaPartita`) e non
+    // cambia mai. Ricominciare da capo fa una serata NUOVA, con un `creata`
+    // nuovo, ed e' quella che conta anche se il timbro dicesse il contrario.
+    //
+    // Il timbro non puo' decidere da solo perche' NON VIENE DA UN OROLOGIO
+    // SOLO: qui lo mette il server (`comando`), di la' il browser di chi
+    // arbitra. In locale i due clock sono lo stesso e non si vede niente; in
+    // produzione bastano pochi secondi di scarto e una serata ricominciata
+    // veniva rifiutata in silenzio — chi arbitra ripartiva dall'Indagine e i
+    // telefoni restavano nella Spedizione di prima.
+    const stessaPartita = esistente
+      && esistente.episodio === stato.episodio
+      && (esistente.creata || 0) === (stato.creata || 0);
+    if (stessaPartita && (esistente.aggiornato || 0) >= (stato.aggiornato || 0)) {
       return Response.json({ ok: true, ripresa: true });
     }
     await this.scrivi(stato, { subito: true });

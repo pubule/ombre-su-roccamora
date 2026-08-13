@@ -96,6 +96,30 @@ function partita(ep, over = {}) {
        `${id}: dal telefono non si sa quali risposte sono giuste`);
     ok(g.stato.indagine.ora === 21 && (g.stato.indagine.visitati || []).length === 1,
        `${id}: l'orologio e le porte gia' battute invece si vedono`);
+
+    // QUEL CHE IL GRUPPO HA GIA' SENTITO deve arrivare: e' stato letto ad alta
+    // voce, e nasconderlo a chi era nella stanza non protegge niente. Qui
+    // `approfondimentiLetti` e' una lista di OGGETTI, e confrontarli come
+    // stringhe li rendeva tutti «[object Object]»: la sezione restava vuota per
+    // sempre, senza un errore.
+    const app0 = ((ep.luoghi || [])[0] || {}).approfondimenti || [];
+    if (app0.length && (CARTE.approfondimenti_carte[id] || []).length) {
+      const s2 = partita(ep);
+      s2.fase = 'indagine';
+      s2.indagine = { ...s2.indagine, chiusa: false, visitati: [primo.n],
+                      approfondimentiLetti: [{ n: primo.n, tipo: app0[0].tipo,
+                                               soggetto: app0[0].soggetto }] };
+      const gl = vista(s2, dati, GIOCATORE);
+      const arrivate = (gl.dati.carte.approfondimenti_carte[id] || [])
+        .filter((c) => String(c.title).includes(app0[0].soggetto));
+      const esiste = (CARTE.approfondimenti_carte[id] || [])
+        .some((c) => String(c.title).includes(app0[0].soggetto));
+      ok(!esiste || arrivate.length === 1,
+         `${id}: la carta di un Approfondimento GIA' LETTO arriva al telefono («${app0[0].soggetto}»)`);
+      // e quelle non lette restano di la'
+      ok((gl.dati.carte.approfondimenti_carte[id] || []).length <= 1,
+         `${id}: e solo quella, non tutto il mazzo degli Approfondimenti`);
+    }
     controllati++;
   }
   ok(controllati === EPISODI.length, `indagine in corso setacciata su tutti (${controllati}/${EPISODI.length})`);

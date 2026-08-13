@@ -139,6 +139,31 @@ ok(errori.length === 0, `il telefono apre l'Indagine senza errori JS: ${errori.s
   for (const sel of ['#taccuino', '#chiudi-indagine', '.voce[data-voce]', '#rileggi']) {
     ok((await page.locator(sel).count()) === 0, `dal telefono non c'e' ${sel}`);
   }
+
+  // ...ma quel che e' SUO ce l'ha. Le cariche d'Indagine sono la risorsa di chi
+  // gioca: «l'ho gia' usata la mia Testimonianza?» e' una domanda sua, e
+  // doverla fare ad alta voce e' farla rispondere a chi conduce.
+  ok((await page.locator('.pip-carica').count()) > 0,
+     'il telefono conta le cariche d’Indagine del proprio eroe');
+
+  // e la carta di un Approfondimento GIA' LETTO ad alta voce: il gruppo era
+  // nella stanza quando si e' letta, nasconderla non protegge niente
+  ok(/quel che avete in mano/i.test(testo), 'e ha la sezione di quel che avete in mano');
+
+  // e la lettera d'incarico si rilegge: a meta' serata «cosa ci aveva chiesto
+  // M.?» e' la domanda che torna piu' spesso
+  ok((await page.locator('#lettera-eroe').count()) === 1, 'e puo’ rileggere la lettera');
+  await page.locator('#lettera-eroe').click();
+  await page.waitForTimeout(400);
+  const lettera = await page.locator('#app').innerText();
+  ok(/lettera d’incarico/i.test(lettera), 'la lettera si apre');
+  // la coda in corsivo e' regia: dice quali porte esistono prima che il gruppo
+  // le abbia trovate, e sul telefono non ci va
+  ok(!/luoghi disponibili/i.test(lettera),
+     'senza la coda d’arbitro, che direbbe quali porte esistono');
+  await page.locator('#torna-strada').click();
+  await page.waitForTimeout(400);
+  ok(/dove siete stati/i.test(await page.locator('#app').innerText()), 'e si torna in strada');
 }
 
 // --- 1-bis. E NEMMENO IL SERVER LI MANDA
@@ -361,6 +386,51 @@ ${testo.slice(0, 180)}`);
   const viva = await (await chiama(ARBITRO, 'GET', `/api/tavolo/${idT}/stato`)).json();
   ok(viva.stato && viva.stato.episodio === 'preludio',
      `il tavolo la segue anche se il timbro e’ antico (visto ${viva.stato && viva.stato.episodio})`);
+}
+
+// --- 8. LA SERATA RICOMINCIATA VINCE SUL TIMBRO DEL SERVER
+//
+// Il timbro `aggiornato` NON viene da un orologio solo: lo mette il Durable
+// Object quando applica un comando, e il browser di chi arbitra quando salva.
+// In locale i due clock sono lo stesso e non si vede niente; in produzione
+// bastano pochi secondi di scarto — e allora una serata RICOMINCIATA, col
+// timbro del PC, veniva rifiutata da un tavolo che aveva il timbro del server
+// piu' avanti. Chi arbitra ripartiva dall'Indagine e i telefoni restavano nella
+// Spedizione di prima, senza un errore da nessuna parte.
+//
+// Si simula lo scarto mettendo sul tavolo una Spedizione col timbro nel futuro.
+{
+  const conOrologioAvanti = serata({ chiusa: true });
+  conOrologioAvanti.fase = 'spedizione';
+  conOrologioAvanti.creata = 1_000;                    // la serata di prima
+  conOrologioAvanti.aggiornato = Date.now() + 300_000; // il clock del server, avanti
+  conOrologioAvanti.spedizione = { round: 3, canto: 1, esito: null, digitale: true,
+    mazzo: { pool: [], ordine: [], indice: 0, scarti: [] }, fase: 'eroi', log: [],
+    nemici: [], scortati: [], rivelate: ['T1'], eroiPos: {}, vite: {}, azioni: {},
+    eroiFatti: [], abilita: {} };
+  ok((await chiama(ARBITRO, 'POST', `/api/tavolo/${idT}/apri`,
+    { tavolo: idT, stato: conOrologioAvanti })).ok, 'sul tavolo c’e’ una Spedizione col timbro avanti');
+
+  // chi arbitra RICOMINCIA lo stesso episodio: serata nuova, `creata` nuovo,
+  // timbro normale — indietro rispetto a quello del tavolo
+  const daccapo = serata({ lettaLettera: false, ora: 18, visitati: [] });
+  daccapo.creata = 2_000;                              // un'altra serata
+  daccapo.aggiornato = Date.now();
+  ok((await chiama(ARBITRO, 'POST', `/api/tavolo/${idT}/apri`,
+    { tavolo: idT, stato: daccapo })).ok, 'e chi arbitra la ricomincia dall’Indagine');
+
+  const viva = await (await chiama(ARBITRO, 'GET', `/api/tavolo/${idT}/stato`)).json();
+  ok(viva.stato && viva.stato.fase === 'indagine' && viva.stato.creata === 2_000,
+     `il tavolo segue la serata nuova (fase ${viva.stato && viva.stato.fase}, creata ${viva.stato && viva.stato.creata})`);
+
+  // ...e la guardia contro chi si ricollega con roba vecchia resta in piedi:
+  // STESSA partita, timbro indietro -> non si sovrascrive
+  const vecchioDiTasca = { ...daccapo, aggiornato: daccapo.aggiornato - 10_000,
+                           indagine: { ...daccapo.indagine, ora: 22 } };
+  await chiama(ARBITRO, 'POST', `/api/tavolo/${idT}/apri`, { tavolo: idT, stato: vecchioDiTasca });
+  const dopo = await (await chiama(ARBITRO, 'GET', `/api/tavolo/${idT}/stato`)).json();
+  ok(dopo.stato.indagine.ora === 18,
+     `chi si ricollega con una copia vecchia della STESSA serata non la sovrascrive (ora ${dopo.stato.indagine.ora})`);
 }
 
 await browser.close();

@@ -222,10 +222,16 @@ await page.evaluate(async () => {
                       { ruolo: 'giocatore', eroe: party[0] });
 });
 await guarda('indagine-eroe');
+// e la lettera come la vede chi gioca: e' carta dentro una vista che carta non
+// e', ed e' esattamente il punto in cui l'epilogo si era rotto
+if (await page.locator('#lettera-eroe').count()) {
+  await page.locator('#lettera-eroe').click();
+  await guarda('lettera-eroe');
+}
 await browser.close();
 
 console.log(`schermate lette: ${schermate.map((s) => s.nome).join(', ')}\n`);
-ok(schermate.length >= 9, `tutte le schermate raggiunte (${schermate.length}: ${schermate.map((s) => s.nome).join(', ')})`);
+ok(schermate.length >= 10, `tutte le schermate raggiunte (${schermate.length}: ${schermate.map((s) => s.nome).join(', ')})`);
 
 // --- 1. conformità: il tema vecchio non deve sopravvivere -------------------
 const superfici = schermate.flatMap((s) => s.superfici.map((x) => ({ ...x, dove: s.nome })));

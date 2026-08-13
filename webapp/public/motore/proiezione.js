@@ -90,7 +90,13 @@ function comunePerPosto(comune, sp) {
 function cartePerPosto(carte, stato, visitati) {
   if (!carte) return carte;
   const inMano = new Set(((stato.indagine || {}).oggetti || []).map((o) => String(o).toUpperCase()));
-  const letti = new Set(((stato.indagine || {}).approfondimentiLetti || []).map(String));
+  // `approfondimentiLetti` e' una lista di OGGETTI `{n, tipo, soggetto}`: con
+  // `String(x)` diventavano tutti «[object Object]» e non combaciavano con
+  // nessun titolo. Il risultato non era un errore — era una sezione «quel che
+  // avete gia' sentito» perennemente vuota sul telefono, anche per gli
+  // Approfondimenti letti ad alta voce davanti a tutti.
+  const letti = new Set(((stato.indagine || {}).approfondimentiLetti || [])
+    .map((x) => (x && typeof x === 'object' ? x.soggetto : x)).filter(Boolean));
   const perEp = (mappa, tieni) => Object.fromEntries(
     Object.entries(mappa || {}).map(([ep, lista]) => [ep, (lista || []).filter(tieni)]));
 

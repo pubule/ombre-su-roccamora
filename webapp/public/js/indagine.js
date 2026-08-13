@@ -444,11 +444,30 @@ function vistaDiChiGioca() {
       <h2>il vostro eroe</h2>
       <div class="giro-strip stampe">${(() => {
         const e = ctx.comune.eroi.find((x) => x.nome === mio);
-        return `<button class="chip-turno ritratto" data-scheda="${esc(mio)}"
+        // LE CARICHE, con gli stessi pallini della schermata di chi arbitra e
+        // del Taccuino stampato: un pallino per uso, pieno se e' ancora
+        // disponibile. Sono la risorsa che chi gioca deve poter contare da se'
+        // — «l'ho gia' usata la mia Testimonianza?» e' una domanda sua, e
+        // chiederla ad alta voce a chi conduce e' chiederle di rispondere per
+        // tutti. Il markup e' copiato da `home()` parola per parola: due
+        // versioni degli stessi pallini divergono al primo ritocco.
+        const car = caricheEroe(mio);
+        const pips = car.map((c) => `<span class="pip-carica" title="${esc(c.et)}: ${c.rest} di ${c.tot}">${
+          Array.from({ length: c.tot }, (_, k) =>
+            `<i class="${k < c.rest ? 'piena' : ''}"></i>`).join('')}</span>`).join('');
+        const finito = car.length > 0 && car.every((c) => c.rest <= 0);
+        return `<button class="chip-turno ritratto${finito ? ' fatto' : ''}" data-scheda="${esc(mio)}"
           title="scheda di ${esc(mio.toLowerCase())}"><span class="rit"><img src="${
             e && e.art ? urlArt(e.art) : ''}" alt="" loading="lazy"></span>
-          <span class="et">${breve(mio)}</span></button>`;
+          <span class="et">${breve(mio)}</span>
+          ${car.length ? `<span class="cariche">${pips}</span>` : ''}</button>`;
       })()}</div>
+      ${(() => {
+        const car = caricheEroe(mio);
+        if (!car.length) return '';
+        return `<p class="nota">${car.map((c) =>
+          `${esc(c.et)}: <b>${c.rest}</b> di ${c.tot}`).join(' · ')}</p>`;
+      })()}
     </div>` : ''}
     <div class="mt"></div>
     <div class="pannello">
@@ -472,11 +491,40 @@ function vistaDiChiGioca() {
     <div class="pannello">
       <h2>gli appunti del gruppo</h2>
       <p>${esc(ind.note)}</p>
-    </div>` : ''}`;
+    </div>` : ''}
+    ${ep.lettera ? `<div class="btn-riga">
+      <button class="btn" id="lettera-eroe">rileggete la lettera</button></div>` : ''}`;
   dopoBarra();
   app.querySelectorAll('[data-scheda]').forEach((el) =>
     el.addEventListener('click', () => schedaEroe(
       ctx.comune.eroi.find((x) => x.nome === el.dataset.scheda), {})));
+  app.querySelector('#lettera-eroe')?.addEventListener('click', letteraDiChiGioca);
+}
+
+// LA LETTERA D'INCARICO, dal telefono.
+//
+// E' la cosa che apre l'episodio e si legge ad alta voce: l'hanno sentita
+// tutti, e a meta' serata «cosa ci aveva chiesto M.?» e' la domanda che torna
+// piu' spesso. Averla in tasca vale piu' di rifarsela raccontare.
+//
+// SI LEGGE SOLO IL CORPO. La coda in corsivo («Luoghi disponibili
+// dall'inizio…») non e' la mano di M.: e' l'app che parla a chi conduce, ed e'
+// regia — sul telefono direbbe quali porte esistono prima che il gruppo le
+// abbia trovate.
+function letteraDiChiGioca() {
+  const { app, ep } = ctx;
+  const { corpo } = spezzaLettera(ep.lettera);
+  app.innerHTML = `
+    ${barra('la lettera d’incarico')}
+    <div class="pannello lettera-panel">
+      <p class="nota centrato">— la lettera d’incarico, dal Taccuino —</p>
+      <div class="lettera-testo">${rendi(corpo)}</div>
+    </div>
+    <div class="btn-riga">
+      <button class="btn pieno" id="torna-strada">torna in strada →</button>
+    </div>`;
+  dopoBarra();
+  app.querySelector('#torna-strada').onclick = vistaDiChiGioca;
 }
 
 // -------------------------------------------------------------- dichiara
