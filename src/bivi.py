@@ -19,23 +19,45 @@ LA FORMA. Ogni Bivio ha due opzioni; ognuna porta una lista di EFFETTI TIPIZZATI
 cade, perche' un Bivio non colpisce solo quello dopo: quello dell'Ep.8 si applica
 in Ep.13, 14 e 16, e quello dell'Ep.11 arriva fino all'Ep.20.
 
-I TIPI DI EFFETTO, e cosa fanno:
+I TIPI DI EFFETTO — ventisei, emersi dalla traduzione e non decisi prima:
 
-    canto-iniziale   {val}                 il Canto parte da li'
-    soglia-canto     {val}                 quanti segnalini prima che il rituale monti
-    ore              {val}                 ore d'Indagine in piu' (o in meno, se negativo)
-    mazzo-aggiungi   {carta, quante?}      una carta Minaccia entra nel mazzo
-    mazzo-togli      {carta}               una carta Minaccia esce dal mazzo
-    approfondimento-togli {carta}          un Testimone/Approfondimento non e' piu' disponibile
-    carica           {chi, val}            cariche di un'abilita' (Litania 2 invece di 1)
-    luogo-aperto     {luogo}               un luogo si ottiene senza superare la prova
-    testimone-muto   {luogo}               un testimone non parla piu'
-    conferma         {domanda}             una conferma in piu' su una Domanda
-    nota             {testo}               niente di meccanico: va detto e basta
+  la Spedizione
+    canto-iniziale   {val}            il Canto parte da li'
+    canto-iniziale-piu {val}          ... o parte piu' avanti di quanto sarebbe
+    soglia-canto     {val}            quanti segnalini prima che il rituale monti
+    mazzo-aggiungi   {carta?|crescendo?, quante?}   una carta entra nel mazzo Minaccia
+    mazzo-togli      {carta?|crescendo?, primo_giro?}   ... o ne esce
+    pool-nemici      {chi, val}       il pool di spawn guadagna (o perde) un nemico
+    carica           {chi, val}       cariche di un'abilita' (Litania 2 invece di 1)
+    boss-vicino      {val}            il Dormiente parte piu' vicino a svegliarsi
+    round-meno       {val}            un round di margine in meno
+    ritirata-sicura  —                gli eroi a terra si recuperano
+    niente-rialzo    —                ... oppure restano a terra per sempre
+
+  l'Indagine
+    ore              {val}            ore in piu' (o in meno) sul Taccuino
+    incrocio         {val}            un incrocio in piu'/meno alla deduzione d'atto
+    conferma         {domanda}        una conferma in piu' su una Domanda
+    approfondimento-togli {carta?}    un Testimone esce dal mazzo Approfondimenti
+    testimone-muto   —                un testimone non parla piu'
+    testimone-in-piu —                ... o uno in piu' vi aspetta
+    luogo-aperto     {luogo}          un luogo si ottiene senza superare la prova
+    luogo-chiuso     {luogo}          ... o si chiude del tutto
+    luogo-rivelato   {luogo}          ... o parte gia' rivelato
+    esame-negato     {esame}          un esame di Carbone non e' disponibile
+    fonte-segreta    {chi}            un PNG diventa la fonte segreta della serata
+    sospetto         {chi}            si parte con un nome gia' in mano
+    alleato-meno     —                un PNG amico in meno
+
+  la forma della serata
+    forma            {val}            l'Ep.18 e' un processo o una trappola
+    nota             {testo}          niente di meccanico: va detto e basta
 
 `nota` esiste perche' alcune conseguenze sono di regia («designate chi porta lo
-spartito») e non hanno un numero da cambiare: meglio dirle a chi arbitra che
-fingere che non esistano.
+spartito», «la Vedova vi ha segnati») e non hanno un numero da cambiare: meglio
+dirle a chi arbitra che fingere che non esistano.
+
+VENTI BIVI, 77 EFFETTI, e toccano tutti e venti gli episodi.
 """
 
 BIVI = {
@@ -373,6 +395,316 @@ BIVI = {
                     {'ep': 'ep17', 'tipo': 'fonte-segreta', 'chi': 'Riva',
                      'nota': 'Riva, vivo e libero e in debito con voi, è la fonte segreta '
                              'di questa serata.'},
+                ],
+            },
+        ],
+    },
+
+    # ------------------------------------------------------------------- EP.10
+    'ep10': {
+        'titolo': 'Il vedovo e la casa che ricorda',
+        'domanda': 'Consegnare il vedovo, o usare la casa come orecchio?',
+        'opzioni': [
+            {
+                'id': 'consegnare',
+                'titolo': 'Consegnare il vedovo',
+                'testo': 'Giustizia piena: il quartiere vi torna amico. Ma la casa, placata '
+                         'dalla verità detta, tace per sempre.',
+                'effetti': [
+                    {'ep': 'ep11', 'tipo': 'testimone-in-piu',
+                     'nota': 'Il quartiere vi è tornato amico: un testimone in più.'},
+                ],
+            },
+            {
+                'id': 'orecchio',
+                'titolo': 'Usare la casa come orecchio',
+                'testo': 'Le voci vecchie dei muri parlano ancora — ma il processo a Corrado '
+                         'salta per vizio di prova.',
+                'effetti': [
+                    {'ep': ['ep11', 'ep12'], 'tipo': 'incrocio', 'val': 1,
+                     'nota': 'Le voci dei muri valgono un incrocio.'},
+                    {'ep': 'ep11', 'tipo': 'luogo-chiuso', 'luogo': 'La Gendarmeria',
+                     'nota': 'L’avete usata, non consegnata: la Gendarmeria vi chiude una porta '
+                             '— un accesso in meno.'},
+                ],
+            },
+        ],
+    },
+
+    # ------------------------------------------------------------------- EP.11
+    'ep11': {
+        'titolo': 'I topografi',
+        'domanda': 'Pubblicare lo scandalo, o infiltrare la squadra?',
+        'opzioni': [
+            {
+                'id': 'pubblicare',
+                'titolo': 'Pubblicare lo scandalo',
+                'testo': 'I lavori si fermano e la città guarda.',
+                'effetti': [
+                    {'ep': 'ep12', 'tipo': 'mazzo-togli', 'crescendo': True,
+                     'nota': 'I lavori sono fermi: 1 carta crescendo in meno.'},
+                    {'ep': 'ep13', 'tipo': 'incrocio', 'val': -1,
+                     'nota': 'Le scatole vuote hanno bruciato la pista: un filo in meno.'},
+                ],
+            },
+            {
+                'id': 'infiltrare',
+                'titolo': 'Infiltrare la squadra',
+                'testo': 'Un vostro uomo dentro sa dove finisce ciò che i topografi consegnano.',
+                'effetti': [
+                    {'ep': ['ep12', 'ep13'], 'tipo': 'incrocio', 'val': 1,
+                     'nota': 'Il vostro uomo dentro vale un incrocio in più.'},
+                    {'ep': 'ep20', 'tipo': 'canto-iniziale-piu', 'val': 1,
+                     'nota': 'La mappatura si è completata: il rituale parte con 1 segnalino '
+                             'Canto in più.'},
+                ],
+            },
+        ],
+    },
+
+    # ------------------------------------------------------------------- EP.12
+    'ep12': {
+        'titolo': 'La talpa',
+        'domanda': 'Dire a M. della talpa, o tacere anche a lui?',
+        'opzioni': [
+            {
+                'id': 'dire',
+                'titolo': 'Dire a M. della talpa',
+                'testo': 'M. «indaga» e la fiducia interna regge.',
+                'effetti': [
+                    {'ep': 'ep17', 'tipo': 'nota',
+                     'testo': 'I PNG della Società restano uniti: lo scisma è rimandato.'},
+                    {'ep': 'ep18', 'tipo': 'incrocio', 'val': -1,
+                     'nota': 'L’indagine interna di M. ha «ripulito»: un incrocio in meno.'},
+                ],
+            },
+            {
+                'id': 'tacere',
+                'titolo': 'Tacere anche a M.',
+                'testo': 'La Società si incrina, ma conservate il vantaggio.',
+                'effetti': [
+                    {'ep': 'ep17', 'tipo': 'alleato-meno',
+                     'nota': 'Lo scisma costa un PNG in più.'},
+                    {'ep': 'ep18', 'tipo': 'incrocio', 'val': 1,
+                     'nota': 'Avete conservato il vantaggio: un incrocio in più.'},
+                ],
+            },
+        ],
+    },
+
+    # ------------------------------------------------------------------- EP.13
+    'ep13': {
+        'titolo': 'Il Notaio Rasca',
+        'domanda': 'Puntare all’arresto del Notaio, o pedinarlo?',
+        'opzioni': [
+            {
+                'id': 'arresto',
+                'titolo': 'Puntare all’arresto del Notaio',
+                'testo': 'In cella, prima che i soldi di C.B. lo facciano scarcerare, '
+                         'Rasca fa UN nome.',
+                'effetti': [
+                    {'ep': 'ep14', 'tipo': 'sospetto', 'chi': 'il professor Braga',
+                     'nota': 'Rasca ha fatto un nome: si parte con un sospetto già in mano.'},
+                    {'ep': 'ep14', 'tipo': 'incrocio', 'val': -1,
+                     'nota': 'Il fermo chiude la filiera: un incrocio in meno.'},
+                ],
+            },
+            {
+                'id': 'pedinarlo',
+                'titolo': 'Pedinarlo',
+                'testo': 'È lui che vi porta dove vuole: la falsa pista su Braga nasce qui, '
+                         'più credibile.',
+                'effetti': [
+                    {'ep': 'ep14', 'tipo': 'incrocio', 'val': 1,
+                     'nota': 'Il pedinamento vale un incrocio in più.'},
+                    {'ep': 'ep15', 'tipo': 'nota',
+                     'testo': 'La falsa pista su Braga è nata più credibile: costerà di più '
+                              'accorgersene.'},
+                ],
+            },
+        ],
+    },
+
+    # ------------------------------------------------------------------- EP.14
+    'ep14': {
+        'titolo': 'L’inventario di Braga',
+        'domanda': 'Restituire tutto a Braga senza inventario, o inventario giudiziario completo?',
+        'opzioni': [
+            {
+                'id': 'cortesia',
+                'titolo': 'Restituire tutto senza inventario',
+                'testo': 'Cortesia tra gentiluomini: Braga, non umiliato, collaborerà.',
+                'effetti': [
+                    {'ep': 'ep15', 'tipo': 'nota',
+                     'testo': 'Braga, trattato da gentiluomo, collabora.'},
+                    {'ep': 'ep18', 'tipo': 'incrocio', 'val': -1,
+                     'nota': 'Senza verbale il Sigillo non resta agli atti: un incrocio in meno.'},
+                ],
+            },
+            {
+                'id': 'inventario',
+                'titolo': 'Inventario giudiziario completo',
+                'testo': 'Il Sigillo «C.B.» resta agli atti.',
+                'effetti': [
+                    {'ep': 'ep18', 'tipo': 'incrocio', 'val': 1,
+                     'nota': 'Il Sigillo «C.B.» è agli atti: un incrocio in più.'},
+                    {'ep': 'ep15', 'tipo': 'nota',
+                     'testo': 'Braga, esposto al ridicolo, non muoverà un dito per aiutarvi.'},
+                ],
+            },
+        ],
+    },
+
+    # ------------------------------------------------------------------- EP.15
+    'ep15': {
+        'titolo': 'L’arresto di Braga',
+        'domanda': 'Avallare l’arresto di Braga, o dichiarare pubblicamente il dubbio? '
+                   '(solo per chi ha aperto la Contro-busta)',
+        'opzioni': [
+            {
+                'id': 'avallare',
+                'titolo': 'Avallare l’arresto di Braga',
+                'testo': 'La città festeggia. Ma un innocente è in cella, e C.B. ha vinto un giro.',
+                'effetti': [
+                    {'ep': 'ep16', 'tipo': 'testimone-in-piu',
+                     'nota': 'Il caso è chiuso in gloria: un testimone in più.'},
+                    {'ep': 'ep17', 'tipo': 'incrocio', 'val': -1,
+                     'nota': 'C.B. ha vinto un giro: si parte con un incrocio in meno.'},
+                ],
+            },
+            {
+                'id': 'dubbio',
+                'titolo': 'Dichiarare pubblicamente il dubbio',
+                'testo': 'La stampa vi sbrana e la Società si spacca. Ma Braga, protetto, '
+                         'vi manderà dalla cella la chiave per leggere il resto.',
+                'effetti': [
+                    {'ep': ['ep16', 'ep17'], 'tipo': 'testimone-muto',
+                     'nota': 'La stampa vi sbrana: un testimone in meno ovunque.'},
+                    {'ep': 'ep17', 'tipo': 'fonte-segreta', 'chi': 'Braga',
+                     'nota': 'Dalla cella arriva un biglietto: «guardate le penne, non le mani».'},
+                ],
+            },
+        ],
+    },
+
+    # ------------------------------------------------------------------- EP.16
+    'ep16': {
+        'titolo': 'M.',
+        'domanda': 'Affrontare M. in privato, o tacere e cominciare a mentirgli?',
+        'opzioni': [
+            {
+                'id': 'affrontare',
+                'titolo': 'Affrontare M. in privato',
+                'testo': 'La sua spiegazione è elegante, perfetta, e contiene una '
+                         'contraddizione databile.',
+                'effetti': [
+                    {'ep': 'ep18', 'tipo': 'incrocio', 'val': 1,
+                     'nota': 'La contraddizione databile vale un incrocio in più.'},
+                    {'ep': 'ep17', 'tipo': 'mazzo-aggiungi',
+                     'nota': 'Da domani M. vi osserva: le vostre mosse sono anticipate '
+                             '(1 carta in più nel mazzo).'},
+                ],
+            },
+            {
+                'id': 'mentirgli',
+                'titolo': 'Tacere e cominciare a mentirgli',
+                'testo': 'La Società gioca a due tavoli.',
+                'effetti': [
+                    {'ep': 'ep17', 'tipo': 'nota',
+                     'testo': 'Giocando a due tavoli avete margine di manovra.'},
+                    {'ep': 'ep17', 'tipo': 'alleato-meno',
+                     'nota': 'Mentire al maestro logora: un membro interno vi si allontana.'},
+                ],
+            },
+        ],
+    },
+
+    # ------------------------------------------------------------------- EP.17
+    # Questo Bivio non sposta numeri: sceglie che FORMA avra' l'Episodio 18.
+    'ep17': {
+        'titolo': 'Il processo o la trappola',
+        'domanda': 'Processare M. davanti alla Società riunita, o tendergli la trappola '
+                   'della firma?',
+        'opzioni': [
+            {
+                'id': 'processo',
+                'titolo': 'Processare M. davanti alla Società riunita',
+                'testo': 'Deduzione pubblica, tutto o niente.',
+                'effetti': [
+                    {'ep': 'ep18', 'tipo': 'forma', 'val': 'processo',
+                     'nota': 'L’Episodio 18 sarà un processo interno: con pochi incroci M. '
+                             'rovescia il tavolo e si parte in svantaggio; con molti, trionfo.'},
+                ],
+            },
+            {
+                'id': 'trappola',
+                'titolo': 'Tendergli la trappola della firma',
+                'testo': 'Attirare M. a firmare da C.B.: più sicuro, ma M. può fiutare.',
+                'effetti': [
+                    {'ep': 'ep18', 'tipo': 'forma', 'val': 'trappola',
+                     'nota': 'L’Episodio 18 sarà un inganno: un’occasione sola.'},
+                ],
+            },
+        ],
+    },
+
+    # ------------------------------------------------------------------- EP.18
+    'ep18': {
+        'titolo': 'La prova',
+        'domanda': 'Rendere pubblica la prova subito, o tenerla e colpire nell’ombra?',
+        'opzioni': [
+            {
+                'id': 'pubblica',
+                'titolo': 'Rendere pubblica la prova subito',
+                'testo': 'La città sa, M. è latitante e braccato.',
+                'effetti': [
+                    {'ep': 'ep19', 'tipo': 'nota',
+                     'testo': 'L’Atto IV comincia con la Società accusatrice e i PNG amici '
+                              'schierati.'},
+                    {'ep': 'ep20', 'tipo': 'boss-vicino', 'val': 1,
+                     'nota': 'M., all’angolo, accelera il Quarto Movimento: il Dormiente parte '
+                             'più vicino a svegliarsi.'},
+                ],
+            },
+            {
+                'id': 'ombra',
+                'titolo': 'Tenere la prova e colpire nell’ombra',
+                'testo': 'Giocate come lui, di nascosto.',
+                'effetti': [
+                    {'ep': 'ep19', 'tipo': 'nota',
+                     'testo': 'Di nascosto avete margine di manovra.'},
+                    {'ep': 'ep19', 'tipo': 'alleato-meno',
+                     'nota': 'Senza clamore siete più soli: un PNG amico in meno.'},
+                ],
+            },
+        ],
+    },
+
+    # ------------------------------------------------------------------- EP.19
+    'ep19': {
+        'titolo': 'L’Ispettore',
+        'domanda': 'Convincere l’Ispettore con le prove, o entrare da soli?',
+        'opzioni': [
+            {
+                'id': 'ispettore',
+                'titolo': 'Convincere l’Ispettore con le prove',
+                'testo': 'I gendarmi sigillano le uscite della cripta.',
+                'effetti': [
+                    {'ep': 'ep20', 'tipo': 'ritirata-sicura',
+                     'nota': 'I gendarmi sigillano le uscite: gli eroi a terra si recuperano.'},
+                    {'ep': 'ep20', 'tipo': 'round-meno', 'val': 1,
+                     'nota': 'La voce gira e M. sposta l’ora: un round di margine in meno.'},
+                ],
+            },
+            {
+                'id': 'soli',
+                'titolo': 'Entrare da soli',
+                'testo': 'Nessuno sa dove siete.',
+                'effetti': [
+                    {'ep': 'ep20', 'tipo': 'mazzo-togli', 'primo_giro': True,
+                     'nota': 'Sorpresa: 1 carta in meno nel primo giro del mazzo finale.'},
+                    {'ep': 'ep20', 'tipo': 'niente-rialzo',
+                     'nota': 'Senza rete: ogni eroe a terra nel finale resta a terra.'},
                 ],
             },
         ],
