@@ -1227,7 +1227,21 @@ async function esegui(comando) {
   // partita sul Durable Object il tiro non veniva piu' chiesto a nessuno — il
   // motore tirava da se', in silenzio, e a schermo si vedeva solo il danno
   // arrivare dal nulla.
+  // PRIMA SI CHIEDE SE LA MOSSA E' LEGALE, POI I DADI. Cliccando un nemico
+  // dall'altra parte di un muro si apriva l'overlay, si tirava, e solo dopo il
+  // motore diceva «non e' adiacente»: il dado era gia' stato tirato per niente,
+  // e al tavolo un dado tirato non si rimette nel bicchiere.
+  //
+  // Il giudice e' lo stesso motore: `applica()` lavora su una copia e non tocca
+  // nulla, quindi lo si interroga a vuoto. Il rifiuto «i tiri non bastano» non
+  // conta — quello vuol dire proprio che i dadi servono.
   const alTav = alTavolo() && arbitro();
+  if (alTav) {
+    const dati0 = { ep: ctx.ep, comune: ctx.comune, carte: ctx.carte };
+    const prova0 = applica(ctx.partita, { ...comando, tiri: [] }, dati0);
+    const motivo0 = (prova0.rifiuto || {}).motivo || '';
+    if (motivo0 && !/non bastano/i.test(motivo0)) { flash(motivo0); return false; }
+  }
   const tiri = alTav ? [] : null;
   if (alTav) {
     const p = azioni.provaDi(G(), comando);
