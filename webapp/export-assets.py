@@ -6,6 +6,7 @@ ritratti/arte utile (artworks/) ridimensionati a ~720px lato lungo in
 webapp/assets/, stessa struttura di percorso. Idempotente: salta i file
 gia' aggiornati (mtime sorgente <= destinazione).
 """
+import json
 import os
 from PIL import Image
 
@@ -185,6 +186,15 @@ def main():
             tile_id = f.split(' - ')[0].strip()     # «T1 - Nome.png» -> «T1»
             dst = os.path.join(OUT, rel, f'{tile_id}.png')
             if converti(os.path.join(base, f), dst, MAX_PX_TESSERE):
+                fatti += 1
+    # Il Preludio non ha tessere sue: riusa T1/T2/T4 dell'Episodio 1 (scelta di
+    # gen_preludio.py, stampata nel suo Spedizione.pdf). Al tavolo lo dice il
+    # testo; la webapp costruisce /assets/Preludio/board/<id>.png e senza queste
+    # copie mostrava la mini-spedizione con le tessere vuote.
+    with open(os.path.join(ROOT, 'webapp', 'data', 'preludio.json'), encoding='utf-8') as f:
+        for t in json.load(f)['tessere']:
+            dst = os.path.join(OUT, 'Preludio', 'board', t['id'] + '.png')
+            if converti(os.path.join(ROOT, t['art']), dst, MAX_PX_TESSERE):
                 fatti += 1
     art_dir = os.path.join(ROOT, 'artworks')
     for f in os.listdir(art_dir):

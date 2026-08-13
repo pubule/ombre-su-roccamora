@@ -5,9 +5,18 @@
 ## Soggetti — Preludio (--ar 3:4)
 
 Il mini-episodio tutorial "La Prova del Lume" (vedi `src/gen_preludio.py`).
-4 luoghi + 3 oggetti; stesse regole delle altre sezioni (stesso stile, stesso
-`--sref` se lo usi). Salva i file coi nomi esatti indicati: servono a
+4 luoghi + 3 oggetti + Ansaldo; stesse regole delle altre sezioni (stesso stile,
+stesso `--sref` se lo usi). Salva i file coi nomi esatti indicati: servono a
 `generate-batch.js preludio` e a `Luoghi.pdf` del Preludio.
+
+Tessere e miniature nemico il Preludio NON le ha sue: riusa T1/T2/T4 e i token
+di Sgherri e Sicario dell'Episodio 1 (scelta di `src/gen_preludio.py`, stampata
+nel suo `Spedizione.pdf`). L'unica pedina che gli appartiene è Ansaldo.
+
+**Ansaldo** (il custode rapito: pedina scortata, `scortato` in `webapp/data/preludio.json`, come Ruggero in Ep. 1 e Ilario in Ep. 2) → `artworks/Ansaldo.png`
+```
+full bleed dark fantasy painting, portrait of a gaunt old caretaker in his seventies, twenty years of service in his posture, close-cropped white beard, a fresh cut and dried blood at his temple, rope burns on his wrists, threadbare waistcoat over a collarless shirt, an empty watch chain hanging from the pocket, sitting on a straw pallet in a derelict customs office, one candle stub for light, exhausted but lucid, 1889 gaslamp gothic, oil painting, muted teal and crimson palette with gold accents --ar 3:4 --style raw --no frame, border, card, text, letters, watermark
+```
 
 **P1 — Il Palazzo del Lume** → `artworks/Palazzo del Lume.png`
 ```
