@@ -5,7 +5,7 @@
 > gira e il prossimo comando; il *cosa fare* di un lavoro in corso sta nel suo
 > piano.
 
-**Aggiornato:** 13/08/2026 · ramo `main` · in produzione la versione `7087dc29`
+**Aggiornato:** 13/08/2026 · ramo `main` · in produzione la versione `979db892`
 su <https://roccamora.smartcores.org> — **i Bivi di campagna** (venti scelte che
 cambiano davvero le regole degli episodi seguenti), il **Taccuino di Campagna**
 e l'**epilogo per esteso**. Tabella `scelte_campagna` applicata al remoto.
@@ -472,6 +472,15 @@ unisce già i letterali spezzati su più righe, che è esattamente come questi
 testi sono scritti. 21 epiloghi su 21, 20 Frammenti su 21 (quello n. 0 del
 Preludio è scritto dentro il suo epilogo, e il test lo dichiara). L'Ep.20 ha
 anche l'epilogo della **sconfitta**: il Dormiente che si desta è un finale.
+
+**L'epilogo era scritto nero su nero**, la prima volta che e' andato online:
+riusava `.lettera-testo`, che e' inchiostro su *carta* e vive dentro
+`.lettera-panel`. Ora ci sono `.epilogo-testo` (la grafia resta — l'epilogo e'
+una voce che si legge ad alta voce — cambia l'inchiostro) e `.frammento-testo`
+(niente grafia: il Frammento e' un oggetto che si rilegge per venti serate).
+`test-stile` misurava il contrasto da mesi e non aveva visto niente per un
+motivo solo: **non visitava l'epilogo**. Ora lo visita, e col vecchio codice lo
+trova a 1.14:1.
 
 **Il test della proiezione ha morso.** Aggiungere `epilogo` ai dati d'episodio
 li mandava ai telefoni **a partita aperta** — l'epilogo nomina il colpevole, è
