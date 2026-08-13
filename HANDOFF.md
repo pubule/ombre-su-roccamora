@@ -450,6 +450,38 @@ più: `curl` va in timeout mentre il log dice `Ready`. Si vede con
 tutte o si cambia porta. E `wrangler` **non ricarica** gli asset aggiunti dopo
 l'avvio: un file nuovo in `public/js/` dà 404 finché non si riavvia.
 
+### La vista eroe: cosa è stato deciso guardando i mockup
+
+I mockup stanno sotto `/mockups/eroe/` e usano i dati veri dell'Ep.1. Il look non
+era in discussione (`comune.css` replica `app.css`): si sceglieva **cosa sta a
+schermo insieme** su 390 px. Deciso il **13/08/2026**:
+
+- **Direzione 1, «pollice»** — la plancia domina, le azioni in fondo dove il
+  pollice arriva senza cambiare presa, la scheda ridotta a una riga, il tavolo
+  sotto. Scartate: «il mio eroe» (ritratto grande, plancia troppo piccola per
+  seguire la notte) e «schede» (una per volta: mentre guardi «io» la plancia si
+  muove, e il pallino avvisa ma avvisare non è vedere).
+- **Fase Minaccia: la carta a tutta pagina.** Il telefono si ferma insieme al
+  tavolo — mentre chi arbitra legge, tutti guardano la stessa cosa, e la pesca
+  resta un momento di scena invece che una notifica.
+- **Il campo scorre, non rimpicciolisce**: a larghezza doppia dello schermo la
+  cella resta sui 100 px, colpibile col pollice. E si apre **centrato sul proprio
+  eroe**; durante la notte si porta **su quel che è cambiato**, come fa già
+  `centraSuNodo()`.
+- **Il colpo che arriva a te** deve fermare lo schermo: bordo che lampeggia,
+  numero che sale dal proprio segnalino, scheda cerchiata, e salute che scende
+  nello stesso istante (`ctx.viteVista`). Su un tabellone il colpo lo vedono
+  tutti; su un telefono si guarda altrove, e senza segnale si scopre di essere a
+  terra due turni dopo.
+
+**La regola che ha retto tutte le correzioni:** i mockup copiano `app.css` parola
+per parola (`.cella-b`, `.cella-mossa`, `.tok-board`) e prendono la geometria dal
+motore (`griglia.layout()`, `stat.raggEroe()`, tessera **4×4**, riga a video
+`3 - y`). Ogni volta che ho reinterpretato invece di copiare — celle 5×5, caselle
+oro invece che turchesi, tessere impilate invece che affiancate, caselle accese
+durante la notte — il mockup mostrava un layout che non esiste, e si sceglieva su
+una cosa falsa.
+
 ## Quello che resta
 
 1. **Durata sessione Access a 1 month**, sull'applicazione **e sul criterio**
