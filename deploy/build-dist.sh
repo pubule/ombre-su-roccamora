@@ -9,7 +9,9 @@
 # Su Cloudflare Builds serve prima rigenerarli: quelle tre cartelle sono in
 # .gitignore, vedi il comando di build in wrangler.jsonc / dashboard.
 set -e
-cd "$(dirname "${BASH_SOURCE[0]}")"
+# i percorsi qui sotto sono relativi a webapp/: lo script ci entra, da
+# qualunque cartella lo si lanci
+cd "$(dirname "${BASH_SOURCE[0]}")/../webapp"
 
 for d in public data assets ../fonts; do
   [ -d "$d" ] || { echo "manca $d — lancia export-data.py/js, export-assets.py, ./fetch_fonts.sh"; exit 1; }

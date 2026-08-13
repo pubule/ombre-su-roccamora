@@ -6,7 +6,7 @@
 // tavoli del primo — e deve rifiutarli.
 //
 // Uso, in tre terminali:
-//   ./webapp/build-dist.sh
+//   ./deploy/build-dist.sh
 //   npx --no-install wrangler dev --var OSR_DEV_EMAIL:uno@esempio.it --port 8787
 //   npx --no-install wrangler dev --var OSR_DEV_EMAIL:due@esempio.it --port 8788
 //   node webapp/test-api.mjs

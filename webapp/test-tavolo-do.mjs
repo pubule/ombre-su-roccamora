@@ -9,7 +9,7 @@
 //   - chi non siede al tavolo non sa nemmeno che esiste.
 //
 // Uso, in tre terminali:
-//   ./webapp/build-dist.sh
+//   ./deploy/build-dist.sh
 //   npx --no-install wrangler dev --var OSR_DEV_EMAIL:uno@esempio.it --port 8787
 //   npx --no-install wrangler dev --var OSR_DEV_EMAIL:due@esempio.it --port 8788
 //   node webapp/test-tavolo-do.mjs

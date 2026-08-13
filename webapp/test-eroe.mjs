@@ -15,7 +15,7 @@
 //   - l'ARBITRO bussa da qui con `X-Osr-Dev-Email`, e muove via HTTP.
 //
 // Uso, in due terminali:
-//   ./webapp/build-dist.sh
+//   ./deploy/build-dist.sh
 //   npx --no-install wrangler dev --var OSR_DEV_EMAIL:giocatore@esempio.it --port 8787
 //   (altra porta: OSR_BASE=http://127.0.0.1:8791 node webapp/test-eroe.mjs)
 //   node webapp/test-eroe.mjs

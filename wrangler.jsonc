@@ -1,7 +1,7 @@
 {
   // La webapp e' fatta di file statici (webapp/server.js serve solo file), piu'
   // gli endpoint /api/ dei salvataggi per account. La cartella la assembla
-  // webapp/build-dist.sh: i mount /data /assets /fonts stanno fuori da public/.
+  // deploy/build-dist.sh: i mount /data /assets /fonts stanno fuori da public/.
   "name": "ombre-su-roccamora",
   // 2026-08-08 e non il 09: il workerd che wrangler 4.120.0 si porta dietro
   // non conosce ancora date piu' recenti, e `wrangler dev` non parte.
@@ -13,7 +13,7 @@
   // delle lettere. Cosi' la cartella si riassembla comunque, sempre.
   // «bash ...» e non «./...»: su Windows il comando lo lancia cmd.exe, che di
   // uno script sh non sa cosa fare.
-  "build": { "command": "bash ./webapp/build-dist.sh" },
+  "build": { "command": "bash ./deploy/build-dist.sh" },
   "assets": { "directory": "./webapp/dist", "binding": "ASSETS" },
   // L'applicazione Access che sta davanti a questo Worker. ACCESS_AUD e' il suo
   // Application Audience tag: il Worker rifiuta i token emessi per un'ALTRA

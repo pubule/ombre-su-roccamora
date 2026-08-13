@@ -11,7 +11,12 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Roccamora">
   <title>Ombre su Roccamora</title>
-  <link rel="manifest" href="manifest.webmanifest">
+  <!-- `crossorigin="use-credentials"` perche' il sito sta dietro Cloudflare
+       Access: senza, il browser chiede il manifest SENZA cookie, Access lo
+       rimanda al login su un altro dominio, e il redirect cross-origin viene
+       bloccato dal CORS. In console si vede un muro di errori e l'app non e'
+       piu' installabile. Coi cookie la richiesta passa e Access non redirige. -->
+  <link rel="manifest" href="manifest.webmanifest" crossorigin="use-credentials">
   <!-- l'icona in schermata Home: senza questa iOS ci mette uno screenshot -->
   <link rel="apple-touch-icon" href="/assets/icone/apple-touch-icon-180.png">
   <link rel="icon" href="/assets/icone/icona-192.png" type="image/png">

@@ -1,6 +1,6 @@
 // Tavoli, offline e divergenza, contro `wrangler dev` (D1 locale vero).
 // Uso, in tre terminali:
-//   ./webapp/build-dist.sh
+//   ./deploy/build-dist.sh
 //   npx --no-install wrangler dev --var OSR_DEV_EMAIL:uno@esempio.it --port 8787
 //   node webapp/test-account-ui.mjs
 import { chromium } from 'playwright';
