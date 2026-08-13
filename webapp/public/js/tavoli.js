@@ -4,6 +4,7 @@
 import { impostaTavolo, tavoloCorrente, dimenticaTavolo } from './store.js';
 import { conferma } from './chiedi.js';
 import { vistaMembri } from './membri.js';
+import { vistaMioEroe } from './mio-eroe.js';
 
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) =>
   ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -58,6 +59,13 @@ export async function vistaTavoli(app, quandoScelto) {
 
   app.querySelectorAll('.tavolo-voce').forEach((el) => el.addEventListener('click', () => {
     impostaTavolo(el.dataset.id, el.dataset.nome);
+    // CHI GIOCA E NON HA ANCORA UN EROE se lo prende adesso: entrare in una
+    // partita senza sapere chi si e' — o peggio, con una plancia che non
+    // risponde a nessun tocco — e' il modo peggiore di cominciare.
+    const t = stato.tavoli.find((x) => x.id === el.dataset.id);
+    if (t && t.ruolo !== 'arbitro' && !t.eroe) {
+      return vistaMioEroe(app, t.id, t.nome, () => quandoScelto(t.id));
+    }
     quandoScelto(el.dataset.id);
   }));
 

@@ -890,3 +890,7 @@ em, i { font-style: italic; }
   0%, 100% { box-shadow: none; }
   25%, 65% { box-shadow: inset 0 0 0 2px #ff5a5a, 0 0 18px rgba(255,90,90,.5); }
 }
+
+/* un eroe che ha già preso qualcun altro: si vede che c'è, e che non è per te */
+.eroe-tile.preso { opacity: .45; filter: grayscale(.7); cursor: not-allowed; }
+.eroe-tile.preso .eroe-nome i { color: var(--segnale-rivela); font-style: normal; }

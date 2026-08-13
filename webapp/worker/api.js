@@ -71,6 +71,39 @@ export async function api(request, env, email) {
     return jsonRisposta({ membri: r.results });
   }
 
+  // PRENDERSI UN EROE. Il posto e' tuo, e quale eroe giochi lo decidi tu: e' la
+  // cosa che lo schema prevedeva fin dall'inizio («`eroe` NULL finche' non
+  // sceglie») e che mancava — finche' non c'e' stata, sceglieva l'arbitro per
+  // tutti, uno per uno, prima di ogni serata.
+  //
+  // Si scrive SOLO il proprio posto: il tavolo a cui si siede lo decide chi
+  // arbitra, l'eroe lo si prende da soli. E solo fra quelli della compagnia e
+  // solo se libero — l'indice unico su (tavolo, eroe) morde comunque, ma un
+  // rifiuto in chiaro e' meglio di un errore di database.
+  if (p === '/api/mio-eroe' && metodo === 'PUT') {
+    const { tavolo, eroe } = await request.json();
+    const mio = await env.DB.prepare('SELECT 1 FROM membri WHERE tavolo = ? AND email = ?')
+      .bind(tavolo, email).first();
+    if (!mio) return jsonRisposta({ errore: 'non trovato' }, 404);
+    if (eroe) {
+      const t = await env.DB.prepare('SELECT party FROM tavoli WHERE id = ?').bind(tavolo).first();
+      const party = t && t.party ? JSON.parse(t.party) : null;
+      if (!party || !party.length) {
+        return jsonRisposta({ errore: 'chi arbitra non ha ancora scelto la compagnia' }, 409);
+      }
+      if (!party.includes(eroe)) {
+        return jsonRisposta({ errore: 'quell’eroe non è nella compagnia di questo tavolo' }, 400);
+      }
+      const preso = await env.DB.prepare(
+        'SELECT 1 FROM membri WHERE tavolo = ? AND eroe = ? AND email <> ?')
+        .bind(tavolo, eroe, email).first();
+      if (preso) return jsonRisposta({ errore: 'quell’eroe l’ha già preso qualcun altro' }, 409);
+    }
+    await env.DB.prepare('UPDATE membri SET eroe = ? WHERE tavolo = ? AND email = ?')
+      .bind(eroe || null, tavolo, email).run();
+    return jsonRisposta({ ok: true });
+  }
+
   if (p === '/api/membri' && metodo === 'POST') {
     const { tavolo, email: invitato, nome, eroe, ruolo } = await request.json();
     // INVITARE E' DELL'ARBITRO. Un giocatore seduto a un tavolo non puo'
