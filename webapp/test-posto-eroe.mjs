@@ -145,6 +145,38 @@ const ordineVisivo = (page) => page.evaluate(() =>
   await page.close();
 }
 
+// --- LA CARTA MINACCIA: si vede, ma il «continua» non è di chi gioca
+//
+// La pesca è un gesto di chi arbitra (`COMANDI_DI_ARBITRO` nel Durable Object).
+// Sul telefono la carta compare uguale — deciso il 13/08/2026: il telefono si
+// ferma insieme al tavolo — ma senza bottone, perché un «continua» che non fa
+// continuare niente è una bugia.
+{
+  const carta = { title: 'Crescendo — Il Canto Cresce', rules: 'Le voci salgono di un tono.',
+                  file: 'Episodio 1/Minacce/Il Canto Cresce' };
+  for (const [chi, posto, bottoni] of [
+    ['chi arbitra', null, 1],
+    ['chi gioca', { ruolo: 'giocatore', eroe: MIO }, 0],
+  ]) {
+    const { page } = await apri(posto);
+    await page.evaluate(async ({ carta, annunci }) => {
+      const m = await import('/js/digitale.js');
+      // la carta si mostra senza aspettare che si chiuda: sul telefono non si
+      // chiude affatto finché il tavolo non va avanti, ed è il punto
+      m._motore.messaggioCarta('minaccia 1 di 2', carta, annunci);
+    }, { carta, annunci: ['Il Canto sale a 3 su 3.'] });
+    await page.waitForTimeout(400);
+    ok(await page.locator('.carta-grande').count() === 1, `${chi}: la carta si vede`);
+    ok(await page.locator('#ok-msg').count() === bottoni,
+       `${chi}: bottoni «continua» attesi ${bottoni}, visti ${await page.locator('#ok-msg').count()}`);
+    if (!bottoni) {
+      const t = (await page.locator('.pannello, .nota').allInnerTexts()).join(' ');
+      ok(/chi arbitra/i.test(t), 'e il telefono dice chi la sta leggendo');
+    }
+    await page.close();
+  }
+}
+
 await browser.close();
 console.log(ko === 0 ? 'test-posto-eroe: la plancia rispetta il posto' : `${ko} FAIL`);
 process.exit(ko ? 1 : 0);

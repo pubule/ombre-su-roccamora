@@ -290,5 +290,67 @@ const sgherro = (x, y, ferite = 0) => ({ nome: SGH, num: 1, pos: { t: T0, x, y }
   }
 }
 
+// --- LA PESCA DELLA MINACCIA esce come EVENTI, non come schermate
+//
+// Prima stava in digitale.js e si fermava a ogni carta ad aspettare un click:
+// le carte uscivano dal browser di chi arbitra e sugli altri schermi non
+// arrivava niente. Qui si prova che escano dal motore — con la carta INTERA,
+// perche' il telefono di chi gioca ha i dati potati e da un titolo non
+// potrebbe ricostruirsela.
+{
+  const { costruisciMazzo } = await import('./public/motore/regole.js');
+  const rng = { seme: 99, passo: 0 };
+  const s = partita({ mazzo: costruisciMazzo(rng, DATI.carte, DATI.ep, 'ep1'), fase: 'eroi' });
+  const out = applica(s, { tipo: 'fase-minaccia' }, DATI);
+
+  ok(!out.rifiuto, `la pesca passa dal motore (${(out.rifiuto || {}).motivo || ''})`);
+  const carte = out.eventi.filter((e) => e.tipo === 'carta');
+  ok(carte.length > 0, `e produce almeno una carta (viste ${out.eventi.length} eventi)`);
+  ok(carte.every((e) => e.carta && e.carta.title && e.carta.rules),
+     'ogni evento porta la carta INTERA, non solo il titolo');
+  ok(carte.every((e) => /minaccia \d+ di \d+/.test(e.titolo || '')),
+     'col titolo che dice a che punto siamo della pesca');
+  ok(JSON.stringify(out.eventi).length > 0, 'e gli eventi passano da un WebSocket');
+
+  // la fase cambia: era il primo gesto del vecchio faseMinaccia()
+  ok(out.stato.spedizione.fase === 'nemici', 'la fase passa agli eroi -> nemici');
+  ok(out.stato.spedizione.eroiAttivo === null && out.stato.spedizione.eroiFatti.length === 0,
+     'e il giro degli eroi si azzera');
+
+  // il mazzo AVANZA: pescare due volte non dà la stessa carta all'infinito
+  const out2 = applica(out.stato, { tipo: 'fase-minaccia' }, DATI);
+  ok(out2.stato.spedizione.mazzo.indice > out.stato.spedizione.mazzo.indice,
+     'il mazzo avanza a ogni pesca');
+}
+
+// --- A OBIETTIVO FATTO NON SI PESCA PIÙ
+// La pressione del mazzo si ferma appena l'obiettivo è compiuto: resta solo
+// scappare da chi c'è già. Senza, il ritorno sarebbe sotto pressione infinita.
+{
+  const { costruisciMazzo } = await import('./public/motore/regole.js');
+  const rng = { seme: 7, passo: 0 };
+  const s = partita({ mazzo: costruisciMazzo(rng, DATI.carte, DATI.ep, 'ep1'), fase: 'eroi' });
+  // si compie l'obiettivo per davvero: i compiti che l'episodio chiede E i PNG
+  // da scortare liberati. Segnarne solo una metà non basta, ed è giusto così.
+  const compiti = (DATI.ep.compiti || []).length;
+  for (let i = 0; i < compiti; i++) s.spedizione.compiti[i] = true;
+  s.spedizione.scortati = (DATI.ep.scortato || []).map(() => ({ liberato: true, pos: null, mosso: false }));
+  const out = applica(s, { tipo: 'fase-minaccia' }, DATI);
+  ok(out.eventi.filter((e) => e.tipo === 'carta').length === 0,
+     `a obiettivo fatto non si pesca (viste ${out.eventi.length} carte)`);
+
+  // ...e il contrario: con la scorta ANCORA DA LIBERARE si pesca eccome.
+  // Su `scortati` vuoto `every` rispondeva di sì e la pesca si spegneva per
+  // tutta la partita, senza un errore: è il difetto che questo caso tiene fermo.
+  const s2 = partita({ mazzo: costruisciMazzo({ seme: 8, passo: 0 }, DATI.carte, DATI.ep, 'ep1'), fase: 'eroi' });
+  for (let i = 0; i < compiti; i++) s2.spedizione.compiti[i] = true;
+  s2.spedizione.scortati = [];                    // com'è uno stato mai migrato
+  const out2 = applica(s2, { tipo: 'fase-minaccia' }, DATI);
+  if ((DATI.ep.scortato || []).length) {
+    ok(out2.eventi.filter((e) => e.tipo === 'carta').length > 0,
+       'con la scorta ancora da liberare si pesca (scortati non inizializzato non vale «fatto»)');
+  }
+}
+
 console.log(ko === 0 ? 'TUTTO OK (contratto)' : `${ko} FAIL`);
 process.exit(ko ? 1 : 0);

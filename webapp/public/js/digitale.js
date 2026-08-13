@@ -666,11 +666,22 @@ function messaggioCarta(titolo, carta, annunci) {
         ${annunci.map((a) => `<p class="mt"><b>${esc(a)}</b></p>`).join('')}
         <div id="ins-esito"></div>
       </div>
-      ${req ? '<p class="nota mt"><b class="ko-txt">Insidia:</b> risolvete la prova prima di continuare.</p>' : ''}
-      <div class="btn-riga">
+      ${req && arbitro() ? '<p class="nota mt"><b class="ko-txt">Insidia:</b> risolvete la prova prima di continuare.</p>' : ''}
+      ${arbitro() ? `<div class="btn-riga">
         ${req ? '<button class="btn pieno" id="ins-risolvi">🎲 risolvi la prova richiesta</button>' : ''}
         <button class="btn pieno" id="ok-msg"${req ? ' style="display:none"' : ''}>continua</button>
-      </div>`;
+      </div>`
+      // SUL TELEFONO DI CHI GIOCA nessun bottone: la pesca e' di chi arbitra, e
+      // un «continua» che non fa continuare niente sarebbe una bugia. La carta
+      // resta finche' il tavolo non va avanti — deciso il 13/08/2026: il
+      // telefono si ferma insieme al tavolo, e la pesca resta un momento di
+      // scena invece di una notifica.
+      : '<p class="nota mt center">la sta leggendo chi arbitra…</p>'}`;
+    // Niente da agganciare — ma la promessa va tenuta, non abbandonata: se
+    // restasse appesa, la catena di `riproduci()` non finirebbe mai e ogni
+    // carta successiva ne lascerebbe un'altra dietro. Si scioglie quando il
+    // tavolo manda lo stato dopo (vedi `incassa()`).
+    if (!arbitro()) { ctx.chiudiCarta = ok; return; }
     app.querySelector('#ok-msg').onclick = ok;
     const rb = app.querySelector('#ins-risolvi');
     if (rb) rb.onclick = async () => {
@@ -1023,6 +1034,9 @@ async function chiediTiro(prova) {
 // Sostituendoli, quei gestori scriverebbero su un oggetto scartato, e il click
 // andrebbe perso senza un errore.
 async function incassa(stato, eventi) {
+  // il tavolo e' andato avanti: la carta ferma sullo schermo di chi guarda ha
+  // finito il suo compito
+  if (ctx.chiudiCarta) { const chiudi = ctx.chiudiCarta; ctx.chiudiCarta = null; chiudi(); }
   const sped = SP();
   Object.assign(sped, stato.spedizione);
   Object.assign(ctx.partita, stato, { spedizione: sped });
@@ -1114,6 +1128,13 @@ async function riproduci(eventi) {
       flash(ev.tipo === 'abbattuto' ? `${ev.nome.toLowerCase()} è abbattuto!` : 'a terra: ora si può prendere.');
     } else if (ev.tipo === 'rivelata') {
       ctx.layout = null;                       // la mappa cresce: si ridisegna
+    } else if (ev.tipo === 'carta') {
+      // LA CARTA MINACCIA, a tutta pagina. Chi arbitra la chiude col bottone;
+      // sul telefono di chi gioca il bottone non c'e' — la pesca non e' sua — e
+      // la carta resta finche' il tavolo non va avanti. Scelto cosi' il
+      // 13/08/2026: il telefono si ferma insieme al tavolo, e la pesca resta un
+      // momento di scena invece di una notifica.
+      await messaggioCarta(ev.titolo || 'minaccia', ev.carta, ev.annunci || []);
     }
   }
 }
@@ -1247,53 +1268,24 @@ const spawnDaTesto = (testo, tileId) => minaccia.spawnDaTesto(G(), testo, tileId
 const tileAffollata = () => minaccia.tileAffollata(G());
 
 // --------------------------------------------------------- fase minaccia
+// LA PESCA, ora un comando solo.
+//
+// Il corpo di questa funzione — carte da pescare, crescendo, spawn, Canto,
+// orologio, risveglio del boss — sta nel motore (`fase-minaccia` in
+// comandi.js). Qui resta la messa in scena: `esegui()` manda il comando e
+// `riproduci()` mostra le carte che tornano indietro come eventi.
+//
+// Perche' e' stato spostato: fermandosi a ogni carta ad aspettare un click,
+// la pesca non poteva passare da un tavolo. Le carte uscivano dal browser di
+// chi arbitra e sugli altri schermi non arrivava niente.
 async function faseMinaccia() {
-  const sp = SP();
-  // un lancio d'esca lasciato a meta' non deve sopravvivere al turno: la
-  // plancia resterebbe accesa sulle caselle sbagliate nel round dopo
-  sp.escaModo = null;
-  if (sp.fase === 'eroi') { sp.fase = 'nemici'; sp.eroiFatti = []; sp.eroiAttivo = null; sp.azioni = {}; salvaP(); }
-  let n = carteDaPescare(ctx.comune, P().party.length, sp.round, sp.cantoBonus, P().episodio);
-  // OBIETTIVO COMPLETATO: non si pesca piu' Minaccia. La pressione del mazzo
-  // (spawn, insidie, crescendo) si ferma appena l'obiettivo e' fatto: resta
-  // solo scappare da chi c'e' gia'. Toglie il ritorno sotto pressione infinita.
-  if (obiettivoFatto()) {
-    n = 0;
-    faseNemiciAI();
-    return;
-  }
-  if (sp.diversivoPronto) { n = Math.max(0, n - 1); sp.diversivoPronto = false; salvaP(); log('Diversivo di Fanti: 1 carta Minaccia in meno.'); }
-  for (let i = 0; i < n; i++) {
-    const carta = pesca(sp.mazzo, ctx.carte, P().episodio, ctx.ep);
-    const crescendo = carta.title.startsWith('Crescendo'); let annunci = [];
-    if (crescendo) {
-      annunci = cantoDaCarta(ctx.comune, ctx.ep, sp); annunci.push(...destaBossSeSoglia());
-      // la stessa carta che alza il Canto spinge anche l'orologio dell'episodio
-      // («ogni carta crescendo: +1 FUGA», «la casa trema: +1 Demolizione»)
-      if (annunci.length && specOrologio() && specOrologio().da_carta)
-        annunci.push(...avanzaOrologio(specOrologio().da_carta, 'carta crescendo'));
-      // Crescendo: se il boss e' gia' in gioco recupera 1 ferita — ma NON a 2-3 eroi
-      const boss = sp.nemici.find((x) => x.nome === ctx.ep.soluzione.boss);
-      if (boss && /cancellate 1 sua ferita/i.test(carta.rules)) {
-        if (P().party.length >= 4) { if (boss.ferite > 0) { boss.ferite -= 1; annunci.push(`Il boss recupera 1 ferita (${boss.ferite}/${boss.max}).`); } }
-        else annunci.push('A 2–3 eroi il boss non recupera ferite.');
-      }
-    }
-    else {
-      // AL CANTO MASSIMO NON ARRIVANO PIU' RINFORZI: il rituale e' al culmine,
-      // il pericolo e' gia' tutto in campo. Senza questo, il mazzo continuava a
-      // schierare truppa DIETRO il gruppo (a tileAffollata()) all'infinito nel
-      // finale prolungato — 18 nemici dopo il round 14, misurato sull'Ep.1 —
-      // finendo gli eroi a terra sparsi e rendendo il finale ingiocabile.
-      const cantoMax = sp.canto >= tettoCanto(ctx.comune, ctx.ep);
-      const eff = carta.rules.split('{divider}').pop(); const prima = sp.nemici.length;
-      if (!cantoMax) { spawnDaTesto(eff, tileAffollata()); if (sp.nemici.length > prima) annunci.push('Rinforzi sul campo.'); }
-      else annunci.push('Il Canto è al culmine: nessun nuovo rinforzo, ma quelli in campo premono.');
-    }
-    salvaP();
-    await messaggioCarta(`minaccia ${i + 1} di ${n}`, carta, annunci);
-  }
-  faseNemiciAI();
+  // NON si chiama `faseNemiciAI()` qui. Il comando porta la fase a «nemici», e
+  // `esegui()` finisce con `render()`, che con quella fase la notte la fa
+  // partire da solo (vedi la prima riga di `render()`). Chiamandola anche qui,
+  // i nemici agivano DUE VOLTE per round: il test delle regressioni l'ha visto
+  // come un eroe gia' a terra all'inizio dell'animazione, che e' il modo in cui
+  // un doppio turno si manifesta a schermo.
+  await esegui({ tipo: 'fase-minaccia' });
 }
 
 // --------------------------------------------------------- fase nemici (IA)
@@ -1564,6 +1556,7 @@ function epilogo() {
 // export del motore per i test (node): _setup inietta un ctx finto (ep + sp)
 export const _motore = {
   esploraMosse, camminoGlob, adiacGlob, viciniGlob, portaCella, arrediSet, layout, nk, tileDi,
+  messaggioCarta,                 // per provare la carta senza tirarsi dietro una pesca vera
   avanzaCancellazione, avanzaRitmo, avanzaPressione, controllaFiloPerso, avanzaOrologio,
   bonusVoce, celleEsca,
   _setup: (ep, sp, extra) => {

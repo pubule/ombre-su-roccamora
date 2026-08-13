@@ -45,7 +45,15 @@ export function obiettivoFatto(g) {
   // l'uscita segreta O tornare alla meta). NON si richiede l'uscita gia' aperta:
   // era un circolo vizioso — non aprivano l'uscita perche' sotto pressione, e la
   // pressione non si fermava perche' non aprivano l'uscita (Ep.1 bloccato cosi').
-  if (sc.length && !statoScortati(g).every((x) => x.liberato)) return false;
+  //
+  // Si CONTANO i liberati invece di chiedere `every`: su una lista vuota `every`
+  // risponde di sì, e uno stato in cui `scortati` non è ancora stato
+  // inizializzato dichiarerebbe l'obiettivo compiuto al primo round. Finché il
+  // motore girava solo nel browser non capitava — `migraScortati()` popola la
+  // lista all'apertura — ma nel Durable Object arrivano stati che quella
+  // funzione non ha mai toccato, e il difetto sarebbe stato silenzioso: niente
+  // errore, solo il mazzo Minaccia che non pesca più per tutta la partita.
+  if (sc.length && statoScortati(g).filter((x) => x && x.liberato).length < sc.length) return false;
   return true;
 }
 

@@ -22,7 +22,10 @@ import * as azioni from './azioni.js';
 import * as abilita from './abilita.js';
 import * as interazioni from './interazioni.js';
 import * as nemici from './nemici.js';
+import * as minaccia from './minaccia.js';
+import * as obiettivi from './obiettivi.js';
 import { chiudiFaseNemici } from './vittoria.js';
+import { carteDaPescare, pesca, cantoDaCarta, tettoCanto } from './regole.js';
 
 const clona = (x) => JSON.parse(JSON.stringify(x));
 
@@ -56,6 +59,75 @@ const GESTORI = {
   interagisci: (g, c, caso) => interazioni.interagisci(g, caso, c.eroe),
   oggetto: (g, c) => interazioni.usaOggetto(g, c.eroe, c.quale),
   rispondi: (g, c, caso) => azioni.rispondi(g, caso, c.scelta),
+  // LA PESCA DELLA MINACCIA, tutta in un comando.
+  //
+  // Stava in `digitale.js` e si fermava a ogni carta ad aspettare che qualcuno
+  // premesse «continua» (`await messaggioCarta`). Cosi' com'era, la pesca non
+  // poteva passare da un tavolo: le carte uscivano dal browser di chi arbitra e
+  // sugli altri schermi non arrivava niente. Qui le carte diventano EVENTI —
+  // una per carta, in ordine — e la vista le mette in scena a chi guarda.
+  //
+  // Chi puo' mandarlo e' scritto altrove: `COMANDI_DI_ARBITRO` nel Durable
+  // Object. La pesca resta un gesto di chi conduce.
+  'fase-minaccia': (g) => {
+    const sp = g.sp; const eventi = [];
+    // un lancio d'esca lasciato a meta' non deve sopravvivere al turno: la
+    // plancia resterebbe accesa sulle caselle sbagliate nel round dopo
+    sp.escaModo = null;
+    if (sp.fase === 'eroi') { sp.fase = 'nemici'; sp.eroiFatti = []; sp.eroiAttivo = null; sp.azioni = {}; }
+
+    // OBIETTIVO COMPLETATO: non si pesca piu'. La pressione del mazzo (spawn,
+    // insidie, crescendo) si ferma appena l'obiettivo e' fatto: resta solo
+    // scappare da chi c'e' gia'. Toglie il ritorno sotto pressione infinita.
+    if (obiettivi.obiettivoFatto(g)) return { eventi };
+
+    let n = carteDaPescare(g.comune, g.partita.party.length, sp.round, sp.cantoBonus, g.partita.episodio);
+    if (sp.diversivoPronto) {
+      n = Math.max(0, n - 1); sp.diversivoPronto = false;
+      sp.log.push('Diversivo di Fanti: 1 carta Minaccia in meno.');
+    }
+
+    for (let i = 0; i < n; i++) {
+      const carta = pesca(g.partita.rng, sp.mazzo, g.carte, g.partita.episodio, g.ep);
+      if (!carta) break;                     // mazzo vuoto: non e' un errore da far esplodere
+      const crescendo = carta.title.startsWith('Crescendo');
+      const annunci = [];
+      if (crescendo) {
+        annunci.push(...cantoDaCarta(g.comune, g.ep, sp));
+        annunci.push(...minaccia.destaBossSeSoglia(g));
+        // la stessa carta che alza il Canto spinge anche l'orologio dell'episodio
+        const oro = obiettivi.specOrologio(g);
+        if (annunci.length && oro && oro.da_carta) {
+          annunci.push(...obiettivi.avanzaOrologio(g, oro.da_carta, 'carta crescendo'));
+        }
+        // Crescendo: se il boss e' gia' in gioco recupera 1 ferita — ma NON a 2-3 eroi
+        const boss = sp.nemici.find((x) => x.nome === g.ep.soluzione.boss);
+        if (boss && /cancellate 1 sua ferita/i.test(carta.rules)) {
+          if (g.partita.party.length >= 4) {
+            if (boss.ferite > 0) { boss.ferite -= 1; annunci.push(`Il boss recupera 1 ferita (${boss.ferite}/${boss.max}).`); }
+          } else annunci.push('A 2–3 eroi il boss non recupera ferite.');
+        }
+      } else {
+        // AL CANTO MASSIMO NON ARRIVANO PIU' RINFORZI: il rituale e' al culmine,
+        // il pericolo e' gia' tutto in campo. Senza questo il mazzo schierava
+        // truppa dietro il gruppo all'infinito nel finale prolungato — 18 nemici
+        // dopo il round 14, misurato sull'Ep.1 — e il finale diventava ingiocabile.
+        const cantoMax = sp.canto >= tettoCanto(g.comune, g.ep);
+        const eff = carta.rules.split('{divider}').pop();
+        const prima = sp.nemici.length;
+        if (!cantoMax) {
+          minaccia.spawnDaTesto(g, eff, minaccia.tileAffollata(g));
+          if (sp.nemici.length > prima) annunci.push('Rinforzi sul campo.');
+        } else annunci.push('Il Canto è al culmine: nessun nuovo rinforzo, ma quelli in campo premono.');
+      }
+      // La carta viaggia INTERA: il telefono di chi gioca non ha i dati
+      // dell'episodio (la proiezione glieli pota), quindi non potrebbe
+      // ricostruirsela da un titolo.
+      eventi.push({ tipo: 'carta', titolo: `minaccia ${i + 1} di ${n}`, carta, annunci });
+    }
+    return { eventi };
+  },
+
   // La notte, tutta in un comando: piano, risoluzione, coda di fine round e
   // chiusura. Gli eventi sono il copione che la vista anima — e senza vista
   // funziona lo stesso, che e' il punto di questa fase.
