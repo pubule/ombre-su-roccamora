@@ -459,6 +459,24 @@ em, i { font-style: italic; }
   color: #2a2318; margin-top: 12px; }
 .lettera-testo b { color: #6d1c26; font-weight: 400; }
 .lettera-panel .nota { letter-spacing: .08em; color: #5f5849; }
+
+/* --- l'epilogo e il frammento --- */
+/* NON `.lettera-testo`: quella e' inchiostro su carta (#2a2318) e vive dentro
+   `.lettera-panel`. L'epilogo sta sulla cartellina ardesia, e riusandola il
+   testo e' finito nero su nero — invisibile finche' non l'ha visto l'autore.
+   La grafia resta, perche' l'epilogo e' una VOCE che si legge ad alta voce;
+   cambia solo l'inchiostro, che qui deve essere chiaro. */
+.epilogo-testo { font-family: 'Mano', cursive; font-style: normal;
+  font-size: var(--mano-lettera); line-height: 1.5;
+  color: var(--osso); margin-top: 12px; }
+.epilogo-testo b { color: var(--nastro-chiaro); font-weight: 400; }
+/* Il Frammento non e' una voce: e' un OGGETTO, il lembo di carta che si
+   conserva per il finale. Va letto e riletto per venti serate, e la grafia —
+   bella per due righe dette a voce — a quel punto e' solo faticosa. */
+.frammento-testo { font-family: 'OldStd', Georgia, serif; font-size: 16px;
+  line-height: 1.6; color: var(--osso); margin-top: 8px; }
+.frammento-testo i { color: var(--osso); }
+.frammento-testo b { color: var(--nastro-chiaro); }
 /* la coda della lettera: non l'ha scritta M., la dice l'app. Carattere del
    gioco, non la grafia — e un filetto la stacca dal foglio scritto a mano. */
 .nota-arbitro { font-family: 'OldStd', Georgia, serif; font-style: italic;

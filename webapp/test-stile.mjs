@@ -65,7 +65,16 @@ const semina = async (over = {}) => {
           parole: [], oggetti: [], reperti: [], approfondimentiLetti: [], caricheUsate: {},
           secondoFiato: {}, note: 'la chiave non torna', risposte: ['', '', '', ''],
           chiusa: o.fase === 'spedizione' },
-        spedizione: { round: 0, canto: 0, cantoBonus: false, ferite: [], mazzo: null, scarti: [], esito: null },
+        // con `esito` la partita e' finita e si apre l'epilogo; `digitale`
+        // dice che la spedizione e' gia' cominciata, senno' l'app rimanda alla
+        // schermata d'ingresso e l'epilogo non si vedrebbe mai
+        spedizione: o.esito
+          ? { digitale: true, round: 4, canto: 2, cantoBonus: false, esito: o.esito,
+              mazzo: { pool: [], ordine: [], indice: 0, scarti: [] }, scarti: [], ferite: [],
+              fase: 'eroi', log: [], nemici: [], scortati: [], rivelate: ['T1'],
+              eroiPos: {}, vite: {}, azioni: {}, eroiFatti: [], abilita: {},
+              cercate: {}, insidie: {}, storditi: {}, uscitaTentati: [], grate: [] }
+          : { round: 0, canto: 0, cantoBonus: false, ferite: [], mazzo: null, scarti: [], esito: null },
       }));
     });
   }, over);
@@ -180,10 +189,23 @@ await page.locator('#continua').click();
 await page.waitForTimeout(600);
 if (await page.locator('#via').count()) { await page.locator('#via').click(); await page.waitForTimeout(900); }
 await guarda('plancia');
+
+// --- l'epilogo: la schermata che chiude la serata
+// NON c'era, ed e' per questo che il 13/08 l'epilogo e' andato online scritto
+// nero su nero: riusava `.lettera-testo`, che e' inchiostro su CARTA, dentro la
+// cartellina ardesia. Il contrasto lo si misura qui da mesi — semplicemente
+// nessuno aveva mai portato lo strumento fin qui. Ora ci arriva.
+await semina({ fase: 'spedizione', modo: 'digitale', esito: 'vittoria' });
+await page.goto(BASE, { waitUntil: 'networkidle' });
+await page.getByText('Il Coro Sommerso').first().click();
+await page.waitForTimeout(300);
+await page.locator('#continua').click();
+await page.waitForTimeout(900);
+await guarda('epilogo');
 await browser.close();
 
 console.log(`schermate lette: ${schermate.map((s) => s.nome).join(', ')}\n`);
-ok(schermate.length >= 7, `tutte le schermate raggiunte (${schermate.length}: ${schermate.map((s) => s.nome).join(', ')})`);
+ok(schermate.length >= 8, `tutte le schermate raggiunte (${schermate.length}: ${schermate.map((s) => s.nome).join(', ')})`);
 
 // --- 1. conformità: il tema vecchio non deve sopravvivere -------------------
 const superfici = schermate.flatMap((s) => s.superfici.map((x) => ({ ...x, dove: s.nome })));

@@ -163,7 +163,7 @@ function vistaTaccuino(info) {
             ${opz ? `<br><span class="nota">bivio: ${esc(opz.titolo)}</span>`
                   : (esito && ep.bivio ? '<br><span class="nota">bivio non ancora sigillato</span>' : '')}
             ${FRAMMENTO[esito] && ep.frammento
-              ? `<br><span class="nota">${rendi(ep.frammento)}</span>` : ''}</span>
+              ? `<div class="frammento-testo">${rendi(ep.frammento)}</div>` : ''}</span>
           <span class="nota">${FRAMMENTO[esito] || (esito ? '—' : '')}</span>
         </div>`).join('')}
     </div>

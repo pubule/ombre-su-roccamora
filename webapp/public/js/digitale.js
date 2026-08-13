@@ -1824,7 +1824,7 @@ const epilogoTesto = (ep, esito) => {
   // l'Ep.20 e' l'unico che ha anche l'epilogo della sconfitta: il Dormiente
   // che si desta e' un finale, non un fallimento da rileggere in silenzio
   const t = esito === 'sconfitta' ? (e.sconfitta || '') : (e.vittoria || '');
-  return t ? `<div class="lettera-testo mt">${rendi(t)}</div>` : '';
+  return t ? `<div class="epilogo-testo mt">${rendi(t)}</div>` : '';
 };
 
 // Il Frammento si mostra solo a serata VINTA: e' quel che si porta a casa. Una
@@ -1833,7 +1833,7 @@ const epilogoTesto = (ep, esito) => {
 const frammentoTesto = (ep, esito) =>
   (ep.frammento && esito !== 'sconfitta'
     ? `<hr class="divisore"><p class="nota">— il frammento di stanotte, da conservare —</p>
-       <div class="lettera-testo">${rendi(ep.frammento)}</div>` : '');
+       <div class="frammento-testo">${rendi(ep.frammento)}</div>` : '');
 
 function epilogo() {
   const { app, ep } = ctx; const sp = SP();

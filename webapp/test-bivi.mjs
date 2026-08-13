@@ -123,12 +123,19 @@ for (const [k, ep] of Object.entries(dati)) {
   ok(((dati.ep20.epilogo || {}).sconfitta || '').length > 200,
      'l’Ep.20 ha anche l’epilogo della sconfitta: il Dormiente che si desta e’ un finale, non un silenzio');
 
-  // il Frammento del Preludio (n. 0) e' scritto DENTRO il suo epilogo, non in
-  // un paragrafo suo: e' l'unica eccezione, e va detta invece che subita
-  const senzaFr = Object.entries(dati).filter(([k, e]) => k !== 'preludio' && !e.frammento).map(([k]) => k);
+  const senzaFr = Object.entries(dati).filter(([, e]) => !e.frammento).map(([k]) => k);
   ok(senzaFr.length === 0, `ogni episodio ha il suo Frammento (mancano: ${senzaFr.join(', ') || '—'})`);
-  ok(/Frammento di Campagna n. 0/i.test(dati.preludio.epilogo.vittoria),
-     'il Frammento n. 0 sta dentro l’epilogo del Preludio, ed e’ l’unica eccezione');
+  // Il Preludio scrive il n. 0 in coda al suo epilogo, e l'export lo stacca: sul
+  // fascicolo e' la stessa cornice, a schermo no — il Frammento e' un oggetto
+  // che si conserva per venti serate, e si legge in carattere da stampa, non
+  // nella grafia con cui si legge una voce.
+  ok(/Frammento di Campagna n\. 0/i.test(dati.preludio.frammento || ''),
+     'il Frammento n. 0 e’ staccato dall’epilogo del Preludio');
+  ok(!/Frammento di Campagna/i.test(dati.preludio.epilogo.vittoria),
+     'e non e’ rimasto anche dentro l’epilogo, che lo scriverebbe due volte');
+  const monchi = Object.entries(dati)
+    .filter(([, e]) => /<[a-z/]*$/.test(((e.epilogo || {}).vittoria || '').trim())).map(([k]) => k);
+  ok(monchi.length === 0, `nessun epilogo tagliato a meta’ di un tag (${monchi.join(', ')})`);
 }
 
 console.log(ko === 0

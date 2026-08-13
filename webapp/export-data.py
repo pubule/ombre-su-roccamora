@@ -1796,9 +1796,22 @@ for _k, _f in _MOD_EP.items():
     if not os.path.exists(_p):
         continue
     _e = _epiloghi(_p)
+    _fr = _frammento(_p)
+    # IL PRELUDIO scrive il suo Frammento (il n. 0) in coda all'epilogo, non in
+    # un paragrafo suo: sul fascicolo e' la stessa cornice, a schermo no — il
+    # Frammento e' un oggetto che si conserva per venti serate, e va letto in
+    # carattere da stampa, non nella grafia con cui si legge una voce.
+    if _e.get('vittoria') and not _fr and 'Frammento di Campagna' in _e['vittoria']:
+        _i = _e['vittoria'].index('<b>Frammento di Campagna')
+        _fr = _e['vittoria'][_i:].strip()
+        # `.rstrip('<br/>')` NON va: toglie CARATTERI, non il suffisso, e si
+        # mangia il '>' di un '</i>' finale
+        _testa = _e['vittoria'][:_i].rstrip()
+        while _testa.endswith('<br/>'):
+            _testa = _testa[:-5].rstrip()
+        _e['vittoria'] = _testa
     if _e:
         episodi[_k]['epilogo'] = _e
-    _fr = _frammento(_p)
     if _fr:
         episodi[_k]['frammento'] = _fr
 
