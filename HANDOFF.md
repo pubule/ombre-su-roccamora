@@ -473,6 +473,23 @@ testi sono scritti. 21 epiloghi su 21, 20 Frammenti su 21 (quello n. 0 del
 Preludio è scritto dentro il suo epilogo, e il test lo dichiara). L'Ep.20 ha
 anche l'epilogo della **sconfitta**: il Dormiente che si desta è un finale.
 
+**I Frammenti arrivano al finale.** `obiettivi.js` diceva *«la webapp gioca un
+episodio per volta e non ha lo stato di campagna: il valore si dichiara sulla
+partita»* — da ieri non è più vero. `store.frammentiConservati()` li conta dai
+salvataggi (vittoria → intero, parziale → incrinato) e `comincia()` li scrive
+sulla partita, così il ritmo del controcanto dell'Ep.20 dipende dalle serate
+vere. **`serate` distingue «zero» da «non lo sappiamo»**: chi apre l'Ep.20 per
+provarlo, e i banchi di misura che giocano un episodio alla volta, non hanno
+venti serate alle spalle — lì il numero non si scrive e vale il `default` dei
+dati (12). Senza quella distinzione il finale sarebbe diventato ingiocabile in
+prova e la taratura avrebbe misurato un episodio che nessun tavolo incontra.
+
+**Riprendere non richiede di rispondere due volte.** Con una partita salvata la
+schermata dell'episodio non mostra più «come giocate stasera» e «da dove
+cominciate»: sono decisioni già prese, e la seconda risposta non contava niente.
+«Ricomincia da capo» / «rigiocate l'episodio» cancella il salvataggio, e le
+domande tornano.
+
 **L'epilogo era scritto nero su nero**, la prima volta che e' andato online:
 riusava `.lettera-testo`, che e' inchiostro su *carta* e vive dentro
 `.lettera-panel`. Ora ci sono `.epilogo-testo` (la grafia resta — l'epilogo e'

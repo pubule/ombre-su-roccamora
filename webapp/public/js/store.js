@@ -28,6 +28,39 @@ export const impostaTavolo = (id, nome = '') => {
   if (nome) localStorage.setItem(`${CHIAVE_TAVOLO}.nome`, nome);
 };
 
+// -------------------------------------------------------- I FRAMMENTI
+// Un Frammento non e' un dato in piu': e' come e' finita la serata. Vittoria ->
+// Frammento, vittoria PARZIALE -> Frammento incrinato (si conserva, si legge,
+// ma non conta nel finale), sconfitta -> niente. Tenerne un elenco a parte
+// vorrebbe dire due conti della stessa cosa, e due conti divergono.
+//
+// Serve all'Ep.20: quante righe di controcanto si cantano per round dipende da
+// quanti Frammenti INTERI porta il gruppo, e fin qui il numero si dichiarava a
+// mano perche' lo stato di campagna non esisteva.
+export const EPISODI = ['preludio', 'ep1', 'ep2', 'ep3', 'ep4', 'ep5', 'ep6', 'ep7', 'ep8',
+  'ep9', 'ep10', 'ep11', 'ep12', 'ep13', 'ep14', 'ep15', 'ep16', 'ep17', 'ep18', 'ep19', 'ep20'];
+
+// `tranne` esclude l'episodio che sta per cominciare: rigiocando l'Ep.20 dopo
+// averlo vinto, il suo stesso Frammento si conterebbe fra quelli portati giu'.
+export function frammentiConservati(tranne, tavolo = tavoloCorrente()) {
+  let interi = 0; let incrinati = 0; let serate = 0;
+  for (const k of EPISODI) {
+    if (k === tranne) continue;
+    const esito = (carica(k, tavolo) || {}).spedizione?.esito;
+    if (!esito) continue;
+    serate += 1;
+    if (esito === 'vittoria') interi += 1;
+    else if (esito === 'parziale') incrinati += 1;
+  }
+  // `serate` distingue «zero Frammenti» da «non lo sappiamo». Chi apre l'Ep.20
+  // per provarlo — e i banchi di misura, che giocano un episodio alla volta —
+  // non ha venti serate alle spalle: dire 0 lo renderebbe ingiocabile, e la
+  // taratura misurerebbe un finale che nessun tavolo vero incontra. Senza
+  // nessuna serata registrata il numero non si scrive, e vale il default dei
+  // dati (12).
+  return { interi, incrinati, serate };
+}
+
 // ----------------------------------------------------------- I BIVI
 // Le scelte di campagna stanno sul server (`scelte_campagna`), perche' una
 // scelta dell'Ep.8 pesa fino all'Ep.20 e deve sopravvivere al telefono che l'ha

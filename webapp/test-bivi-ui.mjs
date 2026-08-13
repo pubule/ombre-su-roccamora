@@ -140,6 +140,105 @@ const vaiAllEpilogo = async (page) => {
   await page.close();
 }
 
+// --- I FRAMMENTI ARRIVANO AL FINALE
+// L'Ep.20 canta il controcanto a un ritmo che dipende da quanti Frammenti
+// INTERI porta il gruppo. Fin qui il numero si dichiarava a mano perche' lo
+// stato di campagna non c'era; ora si legge dai salvataggi, che sono la
+// verita'. Tre casi, e il terzo e' quello che si dimentica.
+{
+  const page = await browser.newPage({ viewport: { width: 900, height: 1100 } });
+  page.on('pageerror', (e) => errs.push('pageerror: ' + e.message));
+  await page.goto(BASE, { waitUntil: 'networkidle' });
+
+  const semina = (n, parziali) => page.evaluate(async ({ n, parziali }) => {
+    localStorage.clear();
+    const c = await (await fetch('/data/comune.json')).json();
+    const party = c.eroi.slice(0, 3).map((e) => e.nome);
+    const tutti = ['preludio', 'ep1', 'ep2', 'ep3', 'ep4', 'ep5', 'ep6', 'ep7', 'ep8', 'ep9',
+      'ep10', 'ep11', 'ep12', 'ep13', 'ep14', 'ep15', 'ep16', 'ep17', 'ep18', 'ep19'];
+    const serata = (esito, k) => ({
+      v: 1, episodio: k, modo: 'tavolo', party, creata: Date.now(), fase: 'spedizione',
+      indagine: { ora: 24, lettaLettera: true, visitati: [], scoperti: [], sbloccati: [],
+        parole: [], oggetti: [], reperti: [], approfondimentiLetti: [], caricheUsate: {},
+        secondoFiato: {}, note: '', risposte: ['', '', '', ''], chiusa: true },
+      spedizione: { round: 4, canto: 2, esito, fase: 'eroi', log: [], nemici: [], scortati: [],
+        mazzo: { pool: [], ordine: [], indice: 0, scarti: [] },
+        rivelate: ['T1'], eroiPos: {}, vite: {}, azioni: {}, eroiFatti: [], abilita: {} },
+    });
+    tutti.slice(0, n).forEach((k) => localStorage.setItem(`osr.partita.${k}`, JSON.stringify(serata('vittoria', k))));
+    tutti.slice(n, n + parziali).forEach((k) => localStorage.setItem(`osr.partita.${k}`, JSON.stringify(serata('parziale', k))));
+  }, { n, parziali });
+
+  const avviaEp20 = async () => {
+    await page.goto(BASE, { waitUntil: 'networkidle' });
+    await page.waitForTimeout(350);
+    await page.locator('.tessera-episodio[data-ep="ep20"]').click();
+    await page.waitForTimeout(350);
+    await page.locator('.modo[data-modo="digitale"]').click();
+    await page.waitForTimeout(150);
+    await page.locator('#avanti').click();
+    await page.waitForTimeout(450);
+    for (let i = 0; i < 3; i++) {
+      await page.locator('.eroe-tile').nth(i).click({ force: true });
+      await page.waitForTimeout(250);
+      await page.locator('#arruola').click();
+      await page.waitForTimeout(250);
+    }
+    await page.locator('#inizia').click();
+    await page.waitForTimeout(800);
+    return page.evaluate(() => JSON.parse(localStorage.getItem('osr.partita.ep20') || 'null'));
+  };
+
+  await semina(5, 1);
+  let p20 = await avviaEp20();
+  if (!p20 || p20.frammenti !== 5) {
+    fail(`cinque serate vinte e una parziale fanno 5 Frammenti interi (visto ${p20 && p20.frammenti})`);
+  }
+
+  // tutte perdute: ZERO e' un numero, e va detto — non e' «non lo sappiamo»
+  await semina(0, 3);
+  p20 = await avviaEp20();
+  if (!p20 || p20.frammenti !== 0) {
+    fail(`tre serate parziali fanno 0 Frammenti interi (visto ${p20 && p20.frammenti})`);
+  }
+
+  // NESSUNA serata alle spalle: chi apre l'Ep.20 per provarlo, e i banchi di
+  // misura che giocano un episodio alla volta. Scrivere 0 lo renderebbe
+  // ingiocabile e falserebbe la taratura: il numero non si scrive, e vale il
+  // default dei dati.
+  await semina(0, 0);
+  p20 = await avviaEp20();
+  if (!p20 || p20.frammenti != null) {
+    fail(`senza campagna alle spalle il numero non si dichiara (visto ${p20 && p20.frammenti})`);
+  }
+  await page.close();
+}
+
+// --- RIPRENDERE UNA SERATA NON RICHIEDE COME SI GIOCA
+// Come si gioca stasera e da dove si comincia sono decisioni gia' prese: se la
+// partita c'e', ripresentarle e' chiedere due volte la stessa cosa, con la
+// seconda risposta che non conta niente. Ricomincia/rigioca cancella il
+// salvataggio, e allora le domande tornano.
+{
+  const page = await apri();
+  await page.getByText('Il Coro Sommerso').first().click();
+  await page.waitForTimeout(400);
+  const con = await page.locator('#app').innerText();
+  if (/come giocate stasera/i.test(con)) fail('riprendendo una serata chiede ancora come si gioca');
+  if (/da dove cominciate/i.test(con)) fail('riprendendo una serata chiede ancora da dove si comincia');
+  if (!/rivedi l/i.test(con)) fail('e non offre nemmeno di rivedere l’epilogo');
+
+  // un episodio mai giocato le chiede eccome: e' li' che servono
+  await page.goto(BASE, { waitUntil: 'networkidle' });
+  await page.waitForTimeout(300);
+  await page.locator('.tessera-episodio[data-ep="ep7"]').click();
+  await page.waitForTimeout(400);
+  const senza = await page.locator('#app').innerText();
+  if (!/come giocate stasera/i.test(senza)) fail('una partita nuova non chiede più come si gioca');
+  if (!/da dove cominciate/i.test(senza)) fail('una partita nuova non chiede più da dove si comincia');
+  await page.close();
+}
+
 await browser.close();
 console.log(errs.length === 0
   ? 'test-bivi-ui: il Bivio si legge, si sigilla una volta sola, e resta scritto'

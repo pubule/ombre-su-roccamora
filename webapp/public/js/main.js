@@ -2,7 +2,7 @@
 // W-A: navigazione e stato; le viste Indagine/Spedizione arrivano in W-B
 // (motore arbitro) e qui hanno un segnaposto onesto.
 import { dati, nuovaPartita, salva, carica, cancella, tavoloCorrente, nomeTavoloCorrente,
-         sincronizzaScelte, scelteCampagna } from './store.js';
+         sincronizzaScelte, scelteCampagna, frammentiConservati, EPISODI } from './store.js';
 import { biviDi, applicaAllaPartita } from '../motore/bivi.js';
 import { rendi } from './engine.js';   // i Frammenti sono prosa con <i>/<b>
 import { schedaEroe } from './scheda-eroe.js';
@@ -74,8 +74,7 @@ window.addEventListener('error', (e) => {
 
 // ------------------------------------------------------------------- HOME
 async function vistaHome() {
-  const episodi = ['preludio', 'ep1', 'ep2', 'ep3', 'ep4', 'ep5', 'ep6', 'ep7', 'ep8', 'ep9', 'ep10', 'ep11', 'ep12', 'ep13', 'ep14', 'ep15', 'ep16', 'ep17', 'ep18', 'ep19', 'ep20'];
-  const info = await Promise.all(episodi.map((e) => dati(e)));
+  const info = await Promise.all(EPISODI.map((e) => dati(e)));
   h(`
     <header class="home-testata">
       <span class="etichetta">società del lume · archivio dei casi</span>
@@ -145,8 +144,7 @@ function vistaTaccuino(info) {
       && (ep.bivio.opzioni || []).find((o) => o.id === scelta);
     return { ep, esito, opz };
   });
-  const interi = righe.filter((r) => r.esito === 'vittoria').length;
-  const incrinati = righe.filter((r) => r.esito === 'parziale').length;
+  const { interi, incrinati } = frammentiConservati();
   h(`
     <div class="barra"><button class="btn" id="taccuino-indietro">← menu</button>
       <div class="titolo">taccuino di campagna</div><span></span></div>
@@ -212,7 +210,7 @@ async function vistaEpisodio(epId) {
             (salvata.spedizione || {}).esito ? 'rigiocate l’episodio' : 'ricomincia da capo'}</button>
         </div>
       </div><div class="mt"></div>` : ''}
-    <div class="pannello">
+    ${salvata ? '' : `<div class="pannello">
       <h2>come giocate stasera?</h2>
       <div class="modi mt">
         <div class="modo" data-modo="tavolo">
@@ -259,7 +257,7 @@ async function vistaEpisodio(epId) {
         <button class="btn pieno disabilitato" id="avanti">${
           compagniaPronta ? 'si comincia →' : 'scegli gli investigatori →'}</button>
       </div>
-    </div>
+    </div>`}
     ${RIGA_C}
   `);
   document.getElementById('indietro').onclick = vistaHome;
@@ -278,7 +276,7 @@ async function vistaEpisodio(epId) {
     el.classList.add('attivo'); modo = el.dataset.modo;
     // la scelta della plancia ha senso solo al tavolo: a schermo e' implicita
     document.getElementById('scelta-plancia').style.display = modo === 'tavolo' ? '' : 'none';
-    document.getElementById('avanti').classList.remove('disabilitato');
+    avanti.classList.remove('disabilitato');
   }));
   app.querySelectorAll('.plancia').forEach((el) => el.addEventListener('click', () => {
     app.querySelectorAll('.plancia').forEach((m) => m.classList.remove('attivo'));
@@ -288,7 +286,12 @@ async function vistaEpisodio(epId) {
     app.querySelectorAll('.fase').forEach((m) => m.classList.remove('attivo'));
     el.classList.add('attivo'); fase = el.dataset.fase;
   }));
-  document.getElementById('avanti').onclick = () => modo && vistaParty(epId, modo, fase, plancia);
+  // Il pannello di setup non c'e' quando si RIPRENDE una serata: com'e' giocata
+  // e da dove comincia sono decisioni gia' prese, e ripresentarle e' chiedere
+  // due volte la stessa cosa — con la seconda risposta che non conta niente.
+  // Ricomincia/rigioca cancella il salvataggio e la schermata torna a chiederle.
+  const avanti = document.getElementById('avanti');
+  if (avanti) avanti.onclick = () => modo && vistaParty(epId, modo, fase, plancia);
 }
 
 // ------------------------------------------- CONTINUARE UNA PARTITA IN CORSO
@@ -431,6 +434,12 @@ async function comincia(party, epId, modo, fase, plancia) {
   const scelte = await sincronizzaScelte();
   const b = biviDi(await dati(epId), scelte);
   applicaAllaPartita(partita, b, await dati(epId));
+  // I FRAMMENTI DI VENTI SERATE. L'Ep.20 canta il controcanto a un ritmo che
+  // dipende da quanti ne portate giu' interi; fin qui il numero si dichiarava a
+  // mano, perche' lo stato di campagna non c'era. Ora c'e', e il conto si legge
+  // dove sta la verita' — i salvataggi — invece di essere ricordato.
+  const fr = frammentiConservati(epId);
+  if (fr.serate) partita.frammenti = fr.interi;
   salva(partita);
   const dopo = () => {
     // partendo dalla sola spedizione manca l'unica cosa che l'indagine le passa:
