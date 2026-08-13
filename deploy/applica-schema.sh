@@ -23,6 +23,22 @@ DOVE="--local"
 echo "schema -> $DOVE"
 npx --no-install wrangler d1 execute ombre-salvataggi "$DOVE" --file=deploy/schema.sql --yes
 
+# LE MIGRAZIONI, in ordine. Sono ALTER TABLE, e in SQLite una colonna aggiunta
+# due volte e' un errore: qui si tollera SOLO quello — «duplicate column name»
+# significa che la migrazione era gia' passata, ed e' esattamente il caso in cui
+# rilanciare lo script deve essere innocuo. Ogni altro errore resta un errore.
+for m in deploy/migrazioni/*.sql; do
+  [ -e "$m" ] || continue
+  echo "migrazione $(basename "$m")"
+  if ! out=$(npx --no-install wrangler d1 execute ombre-salvataggi "$DOVE" --file="$m" --yes 2>&1); then
+    if echo "$out" | grep -qi "duplicate column name"; then
+      echo "  già applicata"
+    else
+      echo "$out"; exit 1
+    fi
+  fi
+done
+
 # A CHE PUNTO E' il database, detto in chiaro invece che sperato: se una
 # tabella manca, si vede qui e non da un 500 in faccia a chi apre l'app.
 echo

@@ -66,13 +66,13 @@ export async function api(request, env, email) {
     // chi siede a questo tavolo lo vedono tutti quelli che ci siedono: sapere
     // con chi si gioca non e' un segreto
     const r = await env.DB.prepare(
-      'SELECT email, eroe, ruolo, invitato FROM membri WHERE tavolo = ? ORDER BY invitato')
+      'SELECT email, nome, eroe, ruolo, invitato FROM membri WHERE tavolo = ? ORDER BY invitato')
       .bind(tavolo).all();
     return jsonRisposta({ membri: r.results });
   }
 
   if (p === '/api/membri' && metodo === 'POST') {
-    const { tavolo, email: invitato, eroe, ruolo } = await request.json();
+    const { tavolo, email: invitato, nome, eroe, ruolo } = await request.json();
     // INVITARE E' DELL'ARBITRO. Un giocatore seduto a un tavolo non puo'
     // portarci altri: sarebbe un tavolo che si allarga da solo.
     if (!(await arbitroDi(env, email, tavolo))) return jsonRisposta({ errore: 'non trovato' }, 404);
@@ -82,9 +82,11 @@ export async function api(request, env, email) {
     }
     try {
       await env.DB.prepare(
-        `INSERT INTO membri (tavolo, email, eroe, ruolo, invitato) VALUES (?, ?, ?, ?, ?)
-         ON CONFLICT(tavolo, email) DO UPDATE SET eroe = excluded.eroe, ruolo = excluded.ruolo`)
-        .bind(tavolo, invitato, eroe || null, ruolo || 'giocatore', Date.now()).run();
+        `INSERT INTO membri (tavolo, email, nome, eroe, ruolo, invitato) VALUES (?, ?, ?, ?, ?, ?)
+         ON CONFLICT(tavolo, email) DO UPDATE
+           SET nome = excluded.nome, eroe = excluded.eroe, ruolo = excluded.ruolo`)
+        .bind(tavolo, invitato, (nome || '').trim() || null, eroe || null,
+              ruolo || 'giocatore', Date.now()).run();
     } catch (e) {
       // l'indice unico su (tavolo, eroe) morde qui: due giocatori non possono
       // prendere lo stesso eroe, ed e' il database a dirlo, non un controllo

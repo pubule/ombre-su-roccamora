@@ -53,10 +53,12 @@ export async function vistaMembri(app, tavolo, nome, torna) {
         <h2>chi gioca a questo tavolo</h2>
         ${membri.length ? membri.map((m) => `
           <div class="nemico-riga">
-            <span class="nemico-nome">${esc(m.email)}
-              <span class="nota">${m.eroe ? esc(primo(m.eroe)) : 'non ha ancora scelto l’eroe'}${
-                m.ruolo === 'arbitro' ? ' · arbitra' : ''}</span></span>
-            <button class="btn piccolo togli-membro" data-email="${esc(m.email)}">togli</button>
+            <span class="nemico-nome">${esc(m.nome || m.email)}
+              <span class="nota">${m.eroe ? esc(primo(m.eroe)) : 'nessun eroe'}${
+                m.ruolo === 'arbitro' ? ' · arbitra' : ''}${
+                m.nome ? ` · ${esc(m.email)}` : ''}</span></span>
+            <button class="btn piccolo togli-membro" data-email="${esc(m.email)}"
+                    data-nome="${esc(m.nome || '')}">togli</button>
           </div>`).join('')
           : '<p class="nota">Ancora nessuno. Sei solo al tavolo: gli eroi li muovi tutti tu.</p>'}
         ${avviso ? `<p class="nota mt ko-txt">${esc(avviso)}</p>` : ''}
@@ -71,10 +73,13 @@ export async function vistaMembri(app, tavolo, nome, torna) {
       <div class="pannello">
         <h2>invita qualcuno</h2>
         <p class="nota"><b>Non parte nessuna email da qui.</b> Il posto al tavolo resta pronto:
-          lui entra da solo aprendo l’app con questa email — il link mandaglielo tu.
+          lui entra da solo aprendo l’app con quell’email — il link mandaglielo tu.
+          Il <b>nome</b> è come lo chiami giocando; l’email serve solo alla porta.
           L’eroe si può lasciare in sospeso: quelli non presi da nessuno restano a te.</p>
+        <input id="nome-invito" class="campo mt" type="text" maxlength="40"
+               placeholder="come lo chiami al tavolo — «Giulia»" autocomplete="off">
         <input id="email-invito" class="campo mt" type="email" inputmode="email"
-               placeholder="amico@esempio.it" autocomplete="off">
+               placeholder="l’email con cui entrerà — amico@esempio.it" autocomplete="off">
         <select id="eroe-invito" class="campo mt">
           <option value="">— sceglie dopo —</option>
           ${eroi.map((n) => `<option value="${esc(n)}"${presi.has(n) ? ' disabled' : ''}>${
@@ -95,12 +100,13 @@ export async function vistaMembri(app, tavolo, nome, torna) {
 
     document.getElementById('invita').onclick = async () => {
       const email = document.getElementById('email-invito').value.trim();
+      const nome = document.getElementById('nome-invito').value.trim();
       const eroe = document.getElementById('eroe-invito').value || null;
       if (!email) return rendi('Serve l’email con cui entrerà nell’app.');
       try {
         const r = await fetch('/api/membri', {
           method: 'POST', headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ tavolo, email, eroe }),
+          body: JSON.stringify({ tavolo, email, nome, eroe }),
         });
         if (!r.ok) {
           // il rifiuto del server si mostra com'è: dice già la cosa giusta
@@ -114,7 +120,8 @@ export async function vistaMembri(app, tavolo, nome, torna) {
 
     app.querySelectorAll('.togli-membro').forEach((b) => b.onclick = async () => {
       const chi = b.dataset.email;
-      if (!await conferma(`Togliere ${chi} dal tavolo?`, {
+      const come = b.dataset.nome || chi;
+      if (!await conferma(`Togliere ${come} dal tavolo?`, {
         dettaglio: 'Non vedrà più questa campagna. Il suo eroe torna a chi arbitra.',
         si: 'toglietelo', no: 'lasciate stare',
       })) return;

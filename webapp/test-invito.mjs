@@ -55,13 +55,19 @@ ok(errori.length === 0, `la schermata apre senza errori JS: ${errori.slice(0, 2)
 
 // --- SI INVITA, e l'invito compare
 {
+  await page.fill('#nome-invito', 'Giulia');
   await page.fill('#email-invito', AMICO);
   await page.selectOption('#eroe-invito', ELENA);
   await page.click('#invita');
   await page.waitForTimeout(700);
 
   const t = await page.locator('.pannello').first().innerText();
-  ok(t.includes(AMICO), `l'invitato compare nell'elenco (visto «${t.slice(0, 80)}…»)`);
+  // AL TAVOLO CI SI CHIAMA PER NOME: l'email serve alla porta, non alla serata
+  ok(/Giulia/.test(t), `il nome compare nell'elenco (visto «${t.slice(0, 90)}…»)`);
+  ok(t.includes(AMICO), 'e l’email resta, in piccolo, per sapere chi è');
+  const r0 = await (await fetch(`${BASE}/api/membri?tavolo=${idT}`)).json();
+  ok((r0.membri || []).some((m) => m.email === AMICO && m.nome === 'Giulia'),
+     'e il nome è finito nel database, non solo a schermo');
   ok(/elena/i.test(t), 'con l\'eroe che gli è stato dato');
 
   // e c'è davvero, non solo a schermo
@@ -82,12 +88,13 @@ ok(errori.length === 0, `la schermata apre senza errori JS: ${errori.slice(0, 2)
 
 // --- SI PUÒ INVITARE SENZA DARE L'EROE: lo sceglierà dopo
 {
+  await page.fill('#nome-invito', '');
   await page.fill('#email-invito', ALTRO);
   await page.selectOption('#eroe-invito', '');
   await page.click('#invita');
   await page.waitForTimeout(700);
   const t = await page.locator('.pannello').first().innerText();
-  ok(t.includes(ALTRO) && /non ha ancora scelto/i.test(t),
+  ok(t.includes(ALTRO) && /nessun eroe/i.test(t),
      'si invita anche senza eroe, e si vede che manca');
 }
 
