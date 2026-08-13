@@ -52,3 +52,16 @@ CREATE INDEX IF NOT EXISTS idx_membri_email ON membri(email);
 -- l'indice parziale lascia liberi i NULL (chi non ha ancora scelto)
 CREATE UNIQUE INDEX IF NOT EXISTS idx_membri_eroe
   ON membri(tavolo, eroe) WHERE eroe IS NOT NULL;
+
+-- LE SCELTE DEI BIVI, per tavolo. Un Bivio si decide a fine episodio e cambia
+-- le regole di uno o piu' episodi successivi: la scelta appartiene alla
+-- CAMPAGNA, non alla serata in cui e' stata presa. Per questo non sta nel blob
+-- della partita — quello e' per episodio, e una scelta dell'Ep.8 deve poter
+-- pesare fino all'Ep.20.
+CREATE TABLE IF NOT EXISTS scelte_campagna (
+  tavolo   TEXT NOT NULL REFERENCES tavoli(id) ON DELETE CASCADE,
+  bivio    TEXT NOT NULL,
+  opzione  TEXT NOT NULL,
+  quando   INTEGER NOT NULL,
+  PRIMARY KEY (tavolo, bivio)
+);

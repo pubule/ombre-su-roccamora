@@ -161,9 +161,35 @@ export async function api(request, env, email) {
     return jsonRisposta({ id });
   }
 
+  // LE SCELTE DEI BIVI. Appartengono alla campagna, non alla serata: una scelta
+  // dell'Ep.8 pesa fino all'Ep.20, quindi non puo' vivere nel blob di un
+  // episodio. Le legge chiunque sieda al tavolo — sapere che strada ha preso il
+  // gruppo non e' un segreto — e le scrive chi arbitra, perche' e' lui che
+  // sigilla il Frammento a fine serata.
+  if (p === '/api/scelte' && metodo === 'GET') {
+    const tavolo = url.searchParams.get('tavolo');
+    if (!(await mioTavolo(env, email, tavolo))) return jsonRisposta({ errore: 'non trovato' }, 404);
+    const r = await env.DB.prepare(
+      'SELECT bivio, opzione, quando FROM scelte_campagna WHERE tavolo = ? ORDER BY quando')
+      .bind(tavolo).all();
+    return jsonRisposta({ scelte: r.results });
+  }
+
+  if (p === '/api/scelte' && metodo === 'PUT') {
+    const { tavolo, bivio, opzione } = await request.json();
+    if (!(await arbitroDi(env, email, tavolo))) return jsonRisposta({ errore: 'non trovato' }, 404);
+    if (!bivio || !opzione) return jsonRisposta({ errore: 'servono bivio e opzione' }, 400);
+    await env.DB.prepare(
+      `INSERT INTO scelte_campagna (tavolo, bivio, opzione, quando) VALUES (?, ?, ?, ?)
+       ON CONFLICT(tavolo, bivio) DO UPDATE SET opzione = excluded.opzione, quando = excluded.quando`)
+      .bind(tavolo, bivio, opzione, Date.now()).run();
+    return jsonRisposta({ ok: true });
+  }
+
   // IL PARTY DEL TAVOLO — gli eroi di questa campagna, scelti una volta e poi
   // sempre quelli. Cambiarlo e' del solo PROPRIETARIO: e' la composizione della
   // compagnia, non una preferenza di serata.
+  //
   // NB: sta sotto `/api/party` e non `/api/tavolo/party` — tutto quel che
   // comincia per `/api/tavolo/` lo instrada `index.js` verso il Durable Object
   // della partita viva, e questo finirebbe li' invece che qui.
