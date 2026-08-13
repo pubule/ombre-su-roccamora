@@ -138,6 +138,59 @@ const dovEOttone = () => page.evaluate((nm) => {
   ok(r === 403, `il telefono non muove l'eroe di un altro nemmeno dalla console (visto ${r})`);
 }
 
+// --- CHI ARBITRA METTE LA PARTITA SUL TAVOLO SOLO APRENDO LA SPEDIZIONE
+//
+// Senza questo passo il tavolo resta vuoto: i giocatori si collegano a un
+// oggetto che non ha nessuna partita e sui loro schermi non arriva niente — un
+// silenzio, non un errore, che è il modo peggiore di rompersi. Qui NON si
+// chiama `/apri`: si apre la pagina come fa chi arbitra, e si guarda se il
+// tavolo poi ce l'ha.
+{
+  // il tavolo è di GIOCATORE, così il browser (che è OSR_DEV_EMAIL) ne è
+  // l'arbitro senza bisogno di header
+  const idA = crypto.randomUUID();
+  await chiama(GIOCATORE, 'POST', '/api/tavolo', { id: idA, nome: 'Il tavolo che si apre da sé' });
+
+  const vuoto = await chiama(GIOCATORE, 'GET', `/api/tavolo/${idA}/stato`);
+  ok(vuoto.status === 404, `prima di aprire, il tavolo è vuoto (visto ${vuoto.status})`);
+
+  const p2 = await browser.newPage();
+  const err2 = [];
+  p2.on('pageerror', (e) => err2.push(e.message));
+  await p2.goto(BASE, { waitUntil: 'networkidle' });
+  await p2.evaluate(async ({ id, elena, ottone, t0 }) => {
+    const { vistaDigitale } = await import('/js/digitale.js');
+    const partita = {
+      v: 1, episodio: 'ep1', modo: 'digitale', party: [elena, ottone], fase: 'spedizione',
+      indagine: { ora: 20, visitati: [], oggetti: [], caricheUsate: {}, chiusa: true,
+                  approfondimentiLetti: [], risposte: ['', '', '', ''] },
+      vantaggi: { tier: 'preparati' }, rng: { seme: 11, passo: 0 }, aggiornato: 2,
+      spedizione: {
+        round: 1, canto: 0, cantoBonus: false, fase: 'eroi', esito: null, digitale: true,
+        rivelate: [t0], grate: [], nemici: [], log: [], compiti: {}, cercate: {},
+        eroiPos: { [elena]: { t: t0, x: 1, y: 1 }, [ottone]: { t: t0, x: 2, y: 1 } },
+        vite: { [elena]: 6, [ottone]: 7 },
+        azioni: {}, storditi: {}, eroiFatti: [], eroiAttivo: elena,
+        scortati: [], mazzo: null, pendenza: null, insidie: {}, abilita: {},
+      },
+    };
+    document.querySelector('#app').innerHTML = '';
+    await vistaDigitale(document.querySelector('#app'), partita, () => {},
+                        { tavolo: id, ruolo: 'arbitro', eroe: null });
+  }, { id: idA, elena: ELENA, ottone: OTTONE, t0: T0 });
+  await p2.waitForTimeout(1200);
+  ok(err2.length === 0, `la pagina apre senza errori JS: ${err2.slice(0, 2).join(' | ')}`);
+
+  const dopo = await chiama(GIOCATORE, 'GET', `/api/tavolo/${idA}/stato`);
+  ok(dopo.ok, `dopo, il tavolo ha la partita (visto ${dopo.status})`);
+  if (dopo.ok) {
+    const v = await dopo.json();
+    ok(v.stato.episodio === 'ep1' && v.stato.spedizione, 'ed è quella giusta');
+  }
+  await p2.close();
+  await chiama(GIOCATORE, 'DELETE', `/api/tavolo?id=${idA}`);
+}
+
 await browser.close();
 await chiama(ARBITRO, 'DELETE', `/api/tavolo?id=${idT}`);
 console.log(ko === 0 ? 'test-eroe: due dispositivi, una serata sola' : `${ko} FAIL`);
