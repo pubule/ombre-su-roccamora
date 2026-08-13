@@ -668,6 +668,15 @@ Agganciarlo a `pannelloMsg` invece che a mano copre tutti e sette gli esiti
 dell'Approfondimento in una volta; inventario e Taccuino restano scrivania di
 chi arbitra e non si spingono a nessuno.
 
+**Il tavolo non timbra le scritture d'Indagine**, ed è la correzione che ha
+sbloccato l'aiuto profano al tavolo. Scrivendo la richiesta (o l'esito di un
+tiro) il Durable Object metteva `aggiornato` **col clock del server**: la spinta
+successiva di chi arbitra — col clock del suo PC, anche solo qualche secondo
+indietro — veniva rifiutata da `apri` **in silenzio**. Sintomo: il telefono
+manda, il tavolo riceve, e non esegue nessuno. Nell'Indagine l'autore è il
+browser di chi conduce e `aggiornato` è la sua lineage: il Durable Object scrive
+e sparge, ma non timbra. Nella Spedizione resta com'era — lì l'autore è lui.
+
 **Le prove.** `test-indagine-eroe.mjs` (un solo `wrangler dev`): i segreti non
 arrivano né allo schermo né al dispositivo, l'orologio di chi arbitra si muove
 da solo sul telefono, il tiro si apre **solo** su chi ha quell'eroe e l'esito

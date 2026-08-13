@@ -229,8 +229,7 @@ export class Partita extends DurableObject {
       return Response.json({ rifiuto: { motivo: `${r.eroe} non è il tuo eroe.` } }, { status: 403 });
     }
     stato.indagine = { ...(stato.indagine || {}), richiesta: { ...r, da: posto.eroe || null } };
-    stato.aggiornato = Date.now();
-    await this.scrivi(stato);
+    await this.scrivi(stato);   // niente timbro: vedi `provaIndagine`
     this.spargi({ stato, eventi: [] }, await this.dati(stato.episodio, stato.bivi), null);
     return Response.json({ ok: true });
   }
