@@ -60,13 +60,19 @@ export async function vistaMembri(app, tavolo, nome, torna) {
           </div>`).join('')
           : '<p class="nota">Ancora nessuno. Sei solo al tavolo: gli eroi li muovi tutti tu.</p>'}
         ${avviso ? `<p class="nota mt ko-txt">${esc(avviso)}</p>` : ''}
+        ${membri.length ? `<div class="mt"><p class="nota">Da mandare a chi hai aggiunto —
+          nessuno lo fa al posto tuo:</p>
+          <input class="campo" id="link-tavolo" readonly value="${esc(location.origin)}">
+          <div class="btn-riga mt"><button class="btn" id="copia-link">copia il link</button></div>
+        </div>` : ''}
       </div>
 
       <div class="mt"></div>
       <div class="pannello">
         <h2>invita qualcuno</h2>
-        <p class="nota">Gli arriverà il tavolo aprendo l’app con questa email. L’eroe si può
-          lasciare in sospeso: quelli non presi da nessuno restano a te.</p>
+        <p class="nota"><b>Non parte nessuna email da qui.</b> Il posto al tavolo resta pronto:
+          lui entra da solo aprendo l’app con questa email — il link mandaglielo tu.
+          L’eroe si può lasciare in sospeso: quelli non presi da nessuno restano a te.</p>
         <input id="email-invito" class="campo mt" type="email" inputmode="email"
                placeholder="amico@esempio.it" autocomplete="off">
         <select id="eroe-invito" class="campo mt">
@@ -74,10 +80,18 @@ export async function vistaMembri(app, tavolo, nome, torna) {
           ${eroi.map((n) => `<option value="${esc(n)}"${presi.has(n) ? ' disabled' : ''}>${
             esc(n.toLowerCase())}${presi.has(n) ? ' (già preso)' : ''}</option>`).join('')}
         </select>
-        <div class="btn-riga mt"><button class="btn pieno" id="invita">invita</button></div>
+        <div class="btn-riga mt"><button class="btn pieno" id="invita">dagli un posto</button></div>
       </div>`;
 
     document.getElementById('indietro').onclick = torna;
+
+    const copia = document.getElementById('copia-link');
+    if (copia) copia.onclick = async () => {
+      const campo = document.getElementById('link-tavolo');
+      campo.select();
+      try { await navigator.clipboard.writeText(campo.value); copia.textContent = 'copiato'; }
+      catch { copia.textContent = 'copialo a mano'; }   // senza permesso resta selezionato
+    };
 
     document.getElementById('invita').onclick = async () => {
       const email = document.getElementById('email-invito').value.trim();

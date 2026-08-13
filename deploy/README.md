@@ -64,19 +64,52 @@ npx --no-install wrangler d1 execute ombre-salvataggi --remote \
   --command "SELECT id, nome, proprietario FROM tavoli"
 ```
 
-## Access
+## Access — chi può arrivare alla porta
 
-Team `smartcores`, applicazione su `roccamora.smartcores.org`.
+Team `smartcores`. Applicazione **`roccamora`** su `roccamora.smartcores.org`,
+identità **one-time PIN** (il codice via email), `auto_redirect_to_identity`
+attivo.
 
-L'autorizzazione ai tavoli sta **in D1**, non nel criterio di Access: Access
-stabilisce *chi sei* (email verificata via OTP), `membri` stabilisce *a che
-tavolo siedi e con che eroe*. Perciò invitare un giocatore non richiede di
-toccare la dashboard Cloudflare.
+**Due autorizzazioni diverse, e vanno tenute distinte:**
 
-Finché il criterio resta ristretto a una lista di email, però, un invitato che
-non è in quella lista non arriva nemmeno alla porta. Per aprire a chiunque
-verifichi un'email, il criterio va allargato dalla dashboard — è l'ultimo passo
-che manca perché l'invito funzioni davvero da solo.
+| | chi decide | dove si cambia |
+|---|---|---|
+| *puoi arrivare al sito?* | criterio di Access | dashboard Cloudflare |
+| *a che tavolo siedi, con che eroe?* | tabella `membri` | dalla schermata «chi gioca» |
+
+**Invitare qualcuno dall'app NON gli manda nessuna email**: scrive una riga in
+`membri`. L'unica email in gioco è il codice OTP di Access, e parte solo quando
+l'invitato apre il sito e digita il proprio indirizzo — e solo se il criterio lo
+ammette. Un invitato fuori dal criterio non riceve niente e non capisce perché:
+è la porta che lo ferma prima, non l'app.
+
+### Aggiungere l'email di un giocatore
+
+Va fatto **prima** che provi a entrare, altrimenti trova un muro.
+
+1. <https://one.dash.cloudflare.com> → team **smartcores**
+2. **Access → Applications → `roccamora`**
+3. scheda **Policies** → apri il criterio (oggi si chiama **«Mail Fabietto»**)
+4. nel blocco **Include**, selettore **Emails**: aggiungi l'indirizzo del
+   giocatore — uno per riga, o `Add include` per aggiungerne altri
+5. **Save**
+
+In alternativa, per non aggiungerli uno per uno: `Include` → **Emails ending
+in** `@gmail.com`, oppure **Everyone** con `Require` → *one-time PIN*. Quella
+strada lascia entrare chiunque verifichi un'email — ma chi non è in `membri`
+apre l'app e **non vede nulla**: nessun tavolo, nessuna partita. È il modello
+per cui l'autorizzazione sta in D1.
+
+### La sessione dura 24 ore, e al tavolo si sente
+
+Ogni browser richiede il codice ogni giorno: a serata cominciata significa
+fermare tutti per farsi mandare un OTP. Va portata a un mese **in due posti** —
+quella del criterio prevale su quella dell'applicazione, quindi cambiarne uno
+solo non basta:
+
+1. **Access → Applications → `roccamora` → Configuration → Session Duration** →
+   `1 month`
+2. stessa app → **Policies** → il criterio → **Session Duration** → `1 month`
 
 ## Invitare un giocatore
 
