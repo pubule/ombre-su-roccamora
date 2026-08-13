@@ -105,13 +105,26 @@ async function vistaHome() {
   app.querySelectorAll('.tessera-episodio').forEach((el) =>
     el.addEventListener('click', () => vistaEpisodio(el.dataset.ep)));
   document.getElementById('cambia-tavolo')?.addEventListener('click',
-    () => vistaTavoli(app, () => vistaHome()));
+    () => vistaTavoli(app, (id) => entraNelTavolo(id)));
 }
 
 // -------------------------------------------------------------- EPISODIO
 async function vistaEpisodio(epId) {
   const ep = await dati(epId);
   const salvata = carica(epId);
+  // il bottone deve dire quel che fa: con la compagnia gia' sul tavolo la
+  // schermata d'arruolamento non si apre, e prometterla e' una bugia piccola
+  // che si scopre subito
+  let compagniaPronta = false;
+  if (tavoloCorrente()) {
+    try {
+      const r = await fetch('/api/stato');
+      if (r.ok) {
+        const t = ((await r.json()).tavoli || []).find((x) => x.id === tavoloCorrente());
+        compagniaPronta = !!(t && t.party && JSON.parse(t.party).length);
+      }
+    } catch { /* senza rete si arruola a mano, com'era */ }
+  }
   h(`
     <div class="barra">
       <button class="btn" id="indietro">← taverna</button>
@@ -172,7 +185,8 @@ async function vistaEpisodio(epId) {
         </div>
       </div>
       <div class="btn-riga">
-        <button class="btn pieno disabilitato" id="avanti">scegli gli investigatori →</button>
+        <button class="btn pieno disabilitato" id="avanti">${
+          compagniaPronta ? 'si comincia →' : 'scegli gli investigatori →'}</button>
       </div>
     </div>
     ${RIGA_C}
@@ -421,6 +435,59 @@ async function vistaEsitoIndagine(partita) {
   };
 }
 
+// ------------------------------------------- ENTRARE IN UN TAVOLO DA GIOCATORE
+//
+// CHI GIOCA NON SCEGLIE LA SERATA. Quale episodio, al tavolo o a schermo, con
+// le tessere vere o sullo schermo, dall'indagine o dalla sola spedizione: sono
+// decisioni di chi arbitra, e mostrarle su un telefono e' peggio che inutile —
+// ognuno ne sceglierebbe una diversa, e nessuna delle loro conterebbe.
+//
+// Quindi si va DOVE E' L'ARBITRO: si cerca la serata aperta sul tavolo e ci si
+// entra dentro. Se non ce n'e' ancora una, lo si dice e si aspetta — che e'
+// esattamente quel che si fa a un tavolo vero mentre chi conduce prepara.
+async function entraNelTavolo(id) {
+  let stato = null;
+  try {
+    const r = await fetch('/api/stato');
+    if (r.ok) stato = await r.json();
+  } catch { /* senza rete non si puo' sapere: si finisce sugli episodi, com'era */ }
+  const t = stato && (stato.tavoli || []).find((x) => x.id === id);
+  if (!t || t.ruolo === 'arbitro') return vistaHome();      // chi arbitra sceglie, come sempre
+
+  // la serata aperta e' il salvataggio piu' recente del tavolo
+  const suoi = (stato.salvataggi || []).filter((x) => x.tavolo === id);
+  if (!suoi.length) return vistaAttesaArbitro(id, t.nome);
+  const ultimo = suoi.sort((a, b) => b.aggiornato - a.aggiornato)[0];
+
+  let partita = carica(ultimo.episodio);
+  if (!partita || (partita.aggiornato || 0) < ultimo.aggiornato) {
+    try {
+      const r = await fetch(`/api/salvataggio?tavolo=${encodeURIComponent(id)}&episodio=${encodeURIComponent(ultimo.episodio)}`);
+      if (r.ok) { const d = await r.json(); if (d && d.dati) { partita = JSON.parse(d.dati); salva(partita); } }
+    } catch { /* si tiene quel che c'e' in locale */ }
+  }
+  if (!partita) return vistaAttesaArbitro(id, t.nome);
+  return vistaPartita(partita);
+}
+
+// Il tavolo c'e' ma la serata non e' cominciata. Non e' un errore: e' l'attesa
+// che a un tavolo vero si passa guardando chi arbitra sistemare le carte.
+function vistaAttesaArbitro(id, nome) {
+  h(`<div class="barra"><span></span><div class="titolo">${esc(nome || 'il tavolo')}</div><span></span></div>
+     <div class="pannello">
+       <h2>la serata non è ancora cominciata</h2>
+       <p>Chi arbitra deve ancora aprire l’episodio. Appena l’avrà fatto, da qui
+          entrerai direttamente nella partita — non devi scegliere niente.</p>
+       <div class="btn-riga mt">
+         <button class="btn pieno" id="riguarda">guarda di nuovo</button>
+         <button class="btn" id="altro-tavolo">cambia tavolo</button>
+       </div>
+     </div>
+     ${RIGA_C}`);
+  document.getElementById('riguarda').onclick = () => entraNelTavolo(id);
+  document.getElementById('altro-tavolo').onclick = () => vistaTavoli(app, (x) => entraNelTavolo(x));
+}
+
 // ---------------------------------------------------------------- PARTITA
 import { vistaIndagine } from './indagine.js';
 import { vistaSpedizione } from './spedizione.js';
@@ -489,9 +556,15 @@ const errore = (e) => h(`
 // nessuno dei banchi va toccato, e nessuno di essi puo' inciampare in una
 // schermata che non sa cos'e'.
 async function avvio() {
-  if (tavoloCorrente()) return vistaHome();
+  // COL TAVOLO GIA' SCELTO non si va sempre a casa: chi arbitra sceglie la
+  // serata come sempre, chi gioca va DOVE E' L'ARBITRO. Decide `entraNelTavolo`,
+  // che senza server (i banchi di prova, il `server.js` locale) non trova nulla
+  // e finisce comunque su `vistaHome()` — nessun banco si accorge di niente.
+  if (tavoloCorrente()) return entraNelTavolo(tavoloCorrente());
   let conAccount = false;
   try { conAccount = (await fetch('/api/stato')).ok; } catch { /* nessun server */ }
-  return conAccount ? vistaTavoli(app, () => vistaHome().catch(errore)) : vistaHome();
+  return conAccount
+    ? vistaTavoli(app, (id) => entraNelTavolo(id).catch(errore))
+    : vistaHome();
 }
 avvio().catch(errore);

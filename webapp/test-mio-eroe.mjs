@@ -122,6 +122,42 @@ ok(errori.length === 0, `la schermata apre senza errori JS: ${errori.slice(0, 2)
      'ritoccare il proprio eroe lo lascia');
 }
 
+// --- CHI GIOCA NON SCEGLIE LA SERATA
+//
+// Quale episodio, al tavolo o a schermo, dall'indagine o dalla sola spedizione:
+// sono decisioni di chi arbitra. Su un telefono non vanno mostrate — ognuno ne
+// sceglierebbe una diversa, e nessuna delle loro conterebbe. Si va dove è
+// l'arbitro; se la serata non è cominciata, lo si dice e si aspetta.
+{
+  const p2 = await browser.newPage({ viewport: { width: 420, height: 900 } });
+  const e2 = [];
+  p2.on('pageerror', (e) => e2.push(e.message));
+  await p2.goto(BASE, { waitUntil: 'networkidle' });
+  await p2.evaluate((id) => {
+    localStorage.setItem('osr.tavolo', id);
+    localStorage.setItem('osr.tavolo.nome', 'Il tavolo di prova');
+  }, idT);
+  await p2.reload({ waitUntil: 'networkidle' });
+  await p2.waitForTimeout(900);
+
+  // Si entra dall'ingresso VERO: `main.js` all'avvio disegna la schermata dei
+  // tavoli e ci attacca il suo instradamento. Chiamare `vistaTavoli` a mano con
+  // una callback vuota provava soltanto che la callback vuota non fa niente —
+  // e infatti il test passava anche con l'instradamento rimesso com'era.
+  await p2.waitForTimeout(600);
+  const voce = p2.locator(`.tavolo-voce[data-id="${idT}"]`);
+  if (await voce.count()) { await voce.click(); await p2.waitForTimeout(1500); }
+
+  const testo = await p2.locator('#app').innerText();
+  ok(!/come giocate stasera/i.test(testo),
+     'niente scelta della modalità sul telefono');
+  ok(!/da dove cominciate/i.test(testo), 'né da dove si comincia');
+  ok(await p2.locator('.tessera-episodio').count() === 0, 'nemmeno la scelta dell’episodio');
+  ok(/non è ancora cominciata|prenditi|il tuo eroe/i.test(testo),
+     `si finisce dove serve (visto: ${testo.slice(0, 70).replace(/\s+/g, ' ')})`);
+  await p2.close();
+}
+
 ok(errori.length === 0, `nessun errore JS in tutta la sessione: ${errori.slice(0, 2).join(' | ')}`);
 await browser.close();
 await chiama(ARBITRO, 'DELETE', `/api/tavolo?id=${idT}`);

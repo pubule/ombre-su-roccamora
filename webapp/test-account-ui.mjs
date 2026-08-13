@@ -25,12 +25,21 @@ await p1.waitForTimeout(400);
 ok(await p1.getByText(/nuovo tavolo/i).count() > 0, "la prima schermata e' quella dei tavoli");
 ok(await p1.getByText('Il Coro Sommerso').count() === 0, 'gli episodi non si vedono prima di avere un tavolo');
 
-// --- 2. creato il tavolo, si arriva agli episodi
+// --- 2. creato il tavolo, si arriva a COMPORLO
+// La compagnia e chi gioca sono le due cose che servono prima di qualunque
+// episodio: mandare agli episodi e poi far tornare indietro con «cambia tavolo»
+// era un giro a vuoto, ogni volta.
 await p1.getByText(/nuovo tavolo/i).first().click();
 await p1.fill('#nome-tavolo', 'Gruppo del giovedì');
 await p1.click('#crea-tavolo');
-await p1.waitForTimeout(800);
-ok(await p1.getByText('Il Coro Sommerso').count() > 0, 'dopo il tavolo si vede la lista episodi');
+await p1.waitForTimeout(1000);
+ok(await p1.locator('.eroe-tile').count() > 0, 'dopo il tavolo si compone la compagnia');
+ok(await p1.locator('#email-invito').count() === 1, 'e si invita');
+
+// gli episodi arrivano premendo «si comincia», che è una scelta e non un salto
+await p1.click('#avanti');
+await p1.waitForTimeout(900);
+ok(await p1.getByText('Il Coro Sommerso').count() > 0, 'e da lì si arriva agli episodi');
 const idTavolo = await p1.evaluate(() => localStorage.getItem('osr.tavolo'));
 ok(!!idTavolo, 'il tavolo scelto resta sul dispositivo');
 
