@@ -149,7 +149,15 @@ export function nuovaPartita(episodioId, modo, party, fase = 'indagine') {
   };
 }
 
-export function salva(partita) {
+// `timbra: false` — SI TIENE UNA COPIA, non si e' giocato.
+//
+// Il timbro dice «qui e' successo qualcosa, adesso». Metterlo quando si mette
+// da parte uno stato ARRIVATO DA FUORI e' una bugia con una conseguenza
+// precisa: il telefono che scarica una serata la fa diventare la piu' recente
+// del tavolo, e siccome «la serata aperta e' il salvataggio piu' recente» ci
+// tornava a ogni refresh — per sempre, e a prescindere da dove fosse chi
+// arbitra. La copia non e' una mossa: non si timbra, e non si rimanda indietro.
+export function salva(partita, { timbra = true } = {}) {
   const tavolo = tavoloCorrente();
   // SEMPRE PIU' AVANTI DI PRIMA, anche a parita' di millisecondo. Il Durable
   // Object rifiuta uno stato che non sia piu' recente di quello che ha (e' cosi'
@@ -157,9 +165,9 @@ export function salva(partita) {
   // due `salvaP()` nello stesso millisecondo — nell'Indagine capita, una carica
   // spesa e subito l'esito — avrebbero lo stesso timbro, e il secondo sarebbe
   // scartato senza che nessuno se ne accorga.
-  partita.aggiornato = Math.max(Date.now(), (partita.aggiornato || 0) + 1);
+  if (timbra) partita.aggiornato = Math.max(Date.now(), (partita.aggiornato || 0) + 1);
   localStorage.setItem(chiaveDi(tavolo, partita.episodio), JSON.stringify(partita));
-  if (!tavolo) return;                 // banco di prova: non c'e' niente da sincronizzare
+  if (!tavolo || !timbra) return;      // banco di prova, o copia: niente da sincronizzare
   // Accoda e basta: `salva()` NON aspetta la rete. Se qui comparisse un
   // `await`, il tavolo aspetterebbe un router per poter giocare.
   _coda.accoda(`${tavolo}/${partita.episodio}`, {

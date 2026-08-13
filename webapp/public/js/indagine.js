@@ -362,7 +362,7 @@ function collegaAlTavolo() {
       // passa la mano, o resterebbero due canali aperti sullo stesso tavolo.
       if (stato.fase !== 'indagine' || (stato.indagine || {}).chiusa) {
         if (ctx.canale) { ctx.canale.chiudi(); ctx.canale = null; }
-        salva(stato);
+        salva(stato, { timbra: false });
         return ctx.vaiA('spedizione');
       }
       ctx.partita = stato;
@@ -371,7 +371,8 @@ function collegaAlTavolo() {
         if (datiVisti.comune) ctx.comune = datiVisti.comune;
         if (datiVisti.carte) ctx.carte = datiVisti.carte;
       }
-      salva(stato);            // il telefono tiene la sua copia, come sempre
+      // una copia, non una mossa: col timbro il telefono si riappunterebbe qui
+      salva(stato, { timbra: false });
       vistaDiChiGioca();
     },
   });

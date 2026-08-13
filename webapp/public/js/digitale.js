@@ -1180,7 +1180,15 @@ async function incassa(stato, eventi) {
   const sped = SP();
   Object.assign(sped, stato.spedizione);
   Object.assign(ctx.partita, stato, { spedizione: sped });
-  salvaP();
+  // COL TAVOLO VIVO QUESTA E' UNA COPIA, non una mossa: l'autore dello stato e'
+  // il Durable Object, che lo tiene lui e lo manda a D1 ai checkpoint. Timbrarlo
+  // qui vorrebbe dire che ogni telefono che GUARDA fa risultare «piu' recente»
+  // l'episodio che sta guardando — ed e' cosi' che un telefono si ritrovava
+  // dentro l'epilogo del Preludio a ogni refresh, ovunque fosse chi arbitra.
+  //
+  // Senza tavolo si gioca da soli e l'autore e' questo browser: si timbra e si
+  // accoda, com'era.
+  salva(ctx.partita, { timbra: !ctx.tavoloVivo });
   await riproduci(eventi || []);
   if (SP().esito) { epilogo(); return true; }
   return false;

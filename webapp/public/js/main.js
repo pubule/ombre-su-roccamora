@@ -311,7 +311,7 @@ async function continua(epId) {
   if (d.azione === 'scarica') {
     const p = JSON.parse(remoto.dati);
     p.sincronizzato = remoto.aggiornato;
-    salva(p);
+    salva(p, { timbra: false });   // e' la versione del server, non una mossa nostra
     return vistaPartita(p);
   }
   if (d.azione !== 'chiedi') return vistaPartita(locale);
@@ -587,19 +587,41 @@ async function entraNelTavolo(id) {
   const t = stato && (stato.tavoli || []).find((x) => x.id === id);
   if (!t || t.ruolo === 'arbitro') return vistaHome();      // chi arbitra sceglie, come sempre
 
-  // la serata aperta e' il salvataggio piu' recente del tavolo
-  const suoi = (stato.salvataggi || []).filter((x) => x.tavolo === id);
-  if (!suoi.length) return vistaAttesaArbitro(id, t.nome);
-  const ultimo = suoi.sort((a, b) => b.aggiornato - a.aggiornato)[0];
+  // QUAL E' LA SERATA APERTA. Lo decide chi arbitra, e da quando esiste la
+  // partita viva c'e' un posto dove lo dice: il Durable Object. Si chiede li'.
+  //
+  // Prima si prendeva «il salvataggio piu' recente del tavolo», e sembrava
+  // ragionevole finche' l'unico a scrivere era chi conduce. Non lo e' piu': il
+  // telefono, scaricando una serata per guardarla, la salvava — e salvare
+  // timbrava. Bastava aprire una volta il Preludio perche' diventasse per
+  // sempre «il piu' recente», e ogni refresh ci riportava dentro qualunque cosa
+  // stesse facendo chi arbitra. Un errore che si autoalimentava: piu' lo si
+  // guardava, piu' restava.
+  let partita = null;
+  try {
+    const r = await fetch(`/api/tavolo/${encodeURIComponent(id)}/stato`);
+    if (r.ok) partita = (await r.json()).stato || null;
+  } catch { /* niente partita viva: si ripiega sui salvataggi, come prima */ }
 
-  let partita = carica(ultimo.episodio);
-  if (!partita || (partita.aggiornato || 0) < ultimo.aggiornato) {
-    try {
-      const r = await fetch(`/api/salvataggio?tavolo=${encodeURIComponent(id)}&episodio=${encodeURIComponent(ultimo.episodio)}`);
-      if (r.ok) { const d = await r.json(); if (d && d.dati) { partita = JSON.parse(d.dati); salva(partita); } }
-    } catch { /* si tiene quel che c'e' in locale */ }
+  // RIPIEGO: nessuna partita viva (chi arbitra non ha ancora aperto la plancia,
+  // o il tavolo e' stato sfrattato). Si torna al salvataggio piu' recente, che
+  // e' il criterio di prima ed e' sbagliato solo quando c'e' di meglio.
+  if (!partita) {
+    const suoi = (stato.salvataggi || []).filter((x) => x.tavolo === id);
+    if (!suoi.length) return vistaAttesaArbitro(id, t.nome);
+    const ultimo = suoi.sort((a, b) => b.aggiornato - a.aggiornato)[0];
+    partita = carica(ultimo.episodio);
+    if (!partita || (partita.aggiornato || 0) < ultimo.aggiornato) {
+      try {
+        const r = await fetch(`/api/salvataggio?tavolo=${encodeURIComponent(id)}&episodio=${encodeURIComponent(ultimo.episodio)}`);
+        if (r.ok) { const d = await r.json(); if (d && d.dati) partita = JSON.parse(d.dati); }
+      } catch { /* si tiene quel che c'e' in locale */ }
+    }
   }
   if (!partita) return vistaAttesaArbitro(id, t.nome);
+  // `timbra: false`: e' una copia di quel che ha il tavolo, non una mossa. Col
+  // timbro il telefono si riappunterebbe qui alla prossima entrata.
+  salva(partita, { timbra: false });
   return vistaPartita(partita);
 }
 

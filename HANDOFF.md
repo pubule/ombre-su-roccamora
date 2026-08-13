@@ -549,12 +549,32 @@ di quello che ha. Due `salvaP()` nello stesso millisecondo — nell'Indagine
 capita — avevano lo stesso timbro e il secondo veniva **scartato in silenzio**.
 Ora il timbro è strettamente crescente.
 
+**Il refresh portava sempre nello stesso posto.** Dal telefono ogni ricarica
+finiva nell'epilogo del Preludio, ovunque fosse chi arbitra. Due cose che si
+sommavano: «la serata aperta è **il salvataggio più recente**», e il telefono
+che **salvando** una serata per guardarla la faceva diventare la più recente —
+`salva()` timbra `aggiornato`, e il timbro dice «qui è successo qualcosa,
+adesso». Bastava aprire il Preludio una volta perché restasse in cima per
+sempre: un errore che si autoalimentava, più lo si guardava più restava.
+
+Due correzioni, e sono di natura diversa:
+
+- **il criterio**: qual è la serata aperta lo decide chi arbitra, e da quando
+  esiste la partita viva c'è un posto dove lo dice. `entraNelTavolo` chiede al
+  **Durable Object**; il salvataggio più recente resta solo come ripiego per
+  quando non c'è partita viva.
+- **il timbro**: `salva(p, { timbra: false })` per tutto ciò che arriva da
+  fuori — il download, lo stato dal filo, l'`incassa()` col tavolo vivo. Una
+  copia non è una mossa: non si timbra e non si rimanda indietro.
+
 **Le prove.** `test-indagine-eroe.mjs` (un solo `wrangler dev`): i segreti non
 arrivano né allo schermo né al dispositivo, l'orologio di chi arbitra si muove
 da solo sul telefono, il tiro si apre **solo** su chi ha quell'eroe e l'esito
 torna al tavolo. `test-motore-proiezione` ha un caso nuovo — **l'Indagine in
 corso**, che è quella che si gioca davvero. `test-stile` visita ora anche la
-schermata di chi gioca (9 schermate).
+schermata di chi gioca (9 schermate). E il refresh e' provato per davvero:
+si semina un Preludio finito e toccato DOPO, si ricarica la pagina, e si deve
+finire dove sta chi arbitra.
 
 **Tre trappole d'ambiente, e sono costate più del codice.** `wrangler dev` serve
 `dist/`, che è una **copia**: senza `./deploy/build-dist.sh` si prova il codice

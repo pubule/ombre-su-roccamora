@@ -242,6 +242,56 @@ ok(errori.length === 0, `il telefono apre l'Indagine senza errori JS: ${errori.s
   ok(r === 403, `e nemmeno mandandola a mano (visto ${r})`);
 }
 
+// --- 5. IL REFRESH PORTA DOVE STA CHI ARBITRA
+//
+// Il difetto vero, visto al tavolo: dal telefono ogni ricarica finiva
+// nell'epilogo del Preludio, ovunque fosse chi arbitra. Due cose che si
+// sommavano — «la serata aperta e' il salvataggio piu' recente», e il telefono
+// che SALVANDO una serata per guardarla la faceva diventare la piu' recente.
+// Un errore che si autoalimentava: piu' lo si guardava, piu' restava.
+//
+// Si semina esattamente quello: un Preludio finito e toccato DOPO, l'Ep.1
+// aperto sul tavolo, e poi si RICARICA LA PAGINA come farebbe un telefono.
+{
+  const vecchia = {
+    v: 1, episodio: 'preludio', modo: 'digitale', party: [ELENA], fase: 'spedizione',
+    aggiornato: Date.now() + 600_000,      // toccata molto DOPO quella viva
+    indagine: { ora: 24, visitati: [], oggetti: [], approfondimentiLetti: [],
+                caricheUsate: {}, chiusa: true, risposte: ['', '', '', ''] },
+    spedizione: { round: 6, canto: 2, esito: 'vittoria', mazzo: null, digitale: true,
+                  fase: 'eroi', log: [], nemici: [], scortati: [], rivelate: [],
+                  eroiPos: {}, vite: {}, azioni: {}, eroiFatti: [], abilita: {} },
+  };
+  ok((await chiama(GIOCATORE, 'POST', '/api/salvataggio',
+    { tavolo: idT, episodio: 'preludio', aggiornato: vecchia.aggiornato,
+      dati: JSON.stringify(vecchia) })).ok, 'sul tavolo resta un Preludio gia’ finito');
+
+  // ...ed e' il salvataggio piu' recente: e' il caso in cui il vecchio criterio
+  // sbagliava, e senza questo il test non proverebbe niente
+  const recente = await page.evaluate(async () => {
+    const s = await (await fetch('/api/stato')).json();
+    return (s.salvataggi || []).sort((a, b) => b.aggiornato - a.aggiornato)[0]?.episodio;
+  });
+  ok(recente === 'preludio', `ed e' il salvataggio piu' recente del tavolo (visto ${recente})`);
+
+  // sul tavolo pero' c'e' l'Ep.1: e' li' che sta chi arbitra
+  ok((await chiama(ARBITRO, 'POST', `/api/tavolo/${idT}/apri`,
+    { tavolo: idT, stato: serata({ ora: 20 }) })).ok, 'e chi arbitra e’ nell’Ep.1');
+
+  // IL REFRESH, quello vero: si ricarica la pagina col tavolo scelto, ed e'
+  // `avvio()` -> `entraNelTavolo()` a decidere dove si finisce.
+  await page.evaluate((t) => { localStorage.setItem('osr.tavolo', t);
+                               localStorage.setItem('osr.tavolo.nome', 'Indagine a due'); }, idT);
+  await page.reload({ waitUntil: 'networkidle' });
+  await page.waitForTimeout(1800);
+  const testo = await page.locator('#app').innerText();
+  ok(/il coro sommerso/i.test(testo),
+     `ricaricando si finisce dove sta chi arbitra:
+${testo.slice(0, 180)}`);
+  ok(!/prova del lume|l’alba vi trova/i.test(testo),
+     'e non nell’epilogo di una serata chiusa un’altra sera');
+}
+
 await browser.close();
 console.log(ko === 0
   ? 'test-indagine-eroe: l\'Indagine si gioca in due, senza che i segreti passino'
