@@ -814,3 +814,63 @@ em, i { font-style: italic; }
 .tavolo-voce { position: relative; }
 .tavolo-voce .elimina-tavolo { position: absolute; top: .6rem; right: .6rem; opacity: .5; }
 .tavolo-voce .elimina-tavolo:hover { opacity: 1; }
+
+/* =========================================================================
+   LA VISTA EROE — lo stesso schermo, visto da chi gioca UN eroe dal telefono.
+   Direzione «pollice», scelta sui mockup il 13/08/2026 (`/mockups/eroe/`).
+
+   E' LO STESSO HTML DI SEMPRE, riordinato: la plancia sopra, le azioni dove il
+   pollice arriva senza cambiare presa, il resto sotto. Duplicare i pannelli in
+   una vista a parte li avrebbe fatti divergere alla prima modifica — ed e'
+   esattamente la divergenza che il motore unico ha appena finito di togliere
+   fra tavolo e schermo. `display: contents` su `.lato` scioglie i suoi tre
+   pannelli nel flusso, cosi' si possono ordinare uno per uno.
+   ========================================================================= */
+#app.vista-eroe { display: flex; flex-direction: column; }
+#app.vista-eroe .lato { display: contents; }
+#app.vista-eroe > *, #app.vista-eroe .lato > * { order: 50; }   /* default: in fondo */
+#app.vista-eroe .fascia-turno { order: 1; }
+#app.vista-eroe .barra { order: 2; }
+#app.vista-eroe .board-area { order: 3; }
+#app.vista-eroe #p-salute { order: 4; }
+#app.vista-eroe #p-azioni { order: 5; }
+#app.vista-eroe #p-giro { order: 6; }
+/* i separatori vuoti non servono quando l'ordine lo fa il CSS: lasciati li',
+   si accumulerebbero tutti in fondo come una colonna di spazi */
+#app.vista-eroe > .mt { display: none; }
+
+/* LA FASCIA DEL TURNO. Larga e colorata perche' su un telefono tenuto in mano
+   «tocca a me?» va risolto in mezzo secondo. Tre stati, tre colori gia' in uso:
+   rosso = agisci tu, teal = aspetta, notte = agiscono i nemici. */
+.fascia-turno { padding: 9px 12px; text-align: center; font-family: 'FellSC', serif;
+  font-size: 17px; letter-spacing: .04em; border-radius: 6px; margin-bottom: 6px; }
+.fascia-turno.mio { background: linear-gradient(180deg, #8d2433, var(--ceralacca, #571420));
+  color: var(--osso, #f0e6cc); box-shadow: 0 2px 14px rgba(141,36,51,.55); }
+.fascia-turno.attesa { background: rgba(31,95,107,.28); color: #9fc6ce;
+  border: 1px solid rgba(31,95,107,.5); }
+.fascia-turno.notte { background: linear-gradient(180deg, rgba(40,12,16,.97), rgba(20,10,12,.97));
+  color: #ff8a6a; border: 1px solid #7a1f2b; }
+
+/* La plancia si prende lo schermo e le azioni restano grandi: su un telefono
+   un bottone piccolo si sbaglia, e sbagliarlo qui vuol dire perdere un'azione. */
+@media (max-width: 700px) {
+  #app.vista-eroe .board-area { min-height: 52vh; }
+  #app.vista-eroe #p-azioni .btn { min-height: 52px; font-size: 16px; }
+  /* i pannelli di contorno (abilita', oggetti, diario, nemici) restano sotto,
+     raggiungibili scorrendo: servono di rado, e in cima ruberebbero la plancia */
+  #app.vista-eroe .secondario { font-size: 15px; }
+}
+
+/* LA SALUTE, sul telefono: righe compatte invece di un pannello alto mezzo
+   schermo, e la propria in evidenza — e' la prima cosa che si cerca guardando
+   il proprio telefono, e l'ultima che si vuole andare a cercare scorrendo. */
+#app.vista-eroe #p-salute { padding: 8px 10px; }
+#app.vista-eroe #p-salute h2 { display: none; }
+#app.vista-eroe #p-salute .nemico-riga { padding: 3px 0; border-bottom: none; font-size: 15px; }
+#app.vista-eroe #p-salute .nemico-riga:not(.mia) { opacity: .6; font-size: 13px; }
+#app.vista-eroe #p-salute .nemico-riga.mia { border-left: 3px solid var(--segnale-rivela);
+  padding-left: 8px; font-size: 17px; }
+/* la barra: su 390 px il titolo mandava round e canto a capo, e due righe di
+   intestazione sono due righe tolte alla plancia */
+#app.vista-eroe .barra .titolo { display: none; }
+#app.vista-eroe .barra { padding: 4px 0 8px; }

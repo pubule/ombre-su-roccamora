@@ -203,6 +203,8 @@ function migraScortati(sp) {
 
 function setup() {
   const { app, ep } = ctx;
+  // niente fascia del turno qui: la Spedizione non e' ancora cominciata, e
+  // annunciare un turno prima che ci sia un turno confonde e basta
   app.innerHTML = `
     <div class="barra"><button class="btn" id="nav-esci">← menu</button>
       <div class="titolo">${esc(ep.titolo)}</div><span></span></div>
@@ -258,16 +260,41 @@ function iniziaPartita() {
 const celleLibereTile = (tile, start, n, occ) => griglia.celleLibereTile(G(), tile, start, n, occ);
 
 // --------------------------------------------------------------- rendering
+// LA FASCIA DEL TURNO, per chi gioca da un telefono. Su uno schermo tenuto in
+// mano fra una chiacchiera e l'altra, «tocca a me?» e' la domanda da risolvere
+// in mezzo secondo: per questo e' una fascia larga e colorata e non una scritta
+// in un angolo. Chi arbitra non la vede: ha il tabellone davanti e li' muove
+// tutti, quindi gli direbbe una cosa che sa gia'.
+function fasciaTurno() {
+  if (arbitro()) return '';
+  const mio = mioEroe(); const attivo = eroiAttivoNome();
+  if (SP().fase === 'nemici') return '<div class="fascia-turno notte">agisce la notte</div>';
+  if (attivo && attivo === mio) {
+    const fatte = (SP().azioni[mio] || []).length;
+    const restano = Math.max(0, azioniMax(mio) - fatte);
+    return `<div class="fascia-turno mio">tocca a te — ${restano} ${restano === 1 ? 'azione' : 'azioni'}</div>`;
+  }
+  return `<div class="fascia-turno attesa">${attivo
+    ? `sta giocando ${esc(primo(attivo))}…` : 'il tavolo sta giocando…'}</div>`;
+}
+
 function render() {
   const sp = SP();
   // la plancia c'e': si gioca a tabellone, salvo che il ⤢ non l'abbia spento
   ctx.app.classList.toggle('immersivo', immersivo());
+  // IL LAYOUT DA TELEFONO e' lo stesso HTML, riordinato dal CSS: la plancia
+  // sopra, le azioni dove arriva il pollice, il resto sotto. Duplicare i
+  // pannelli in una vista a parte li avrebbe fatti divergere alla prima
+  // modifica — ed e' esattamente la divergenza che questo lavoro ha appena
+  // finito di togliere fra tavolo e schermo.
+  ctx.app.classList.toggle('vista-eroe', !arbitro());
   if (sp.esito) return epilogo();
   if (sp.fase === 'nemici') return faseNemiciAI();
   const { app, ep } = ctx;
   const attivo = eroiAttivoNome();
   const tpk = P().party.every((nm) => (sp.vite[nm] ?? 0) <= 0);
   app.innerHTML = `
+    ${fasciaTurno()}
     <div class="barra"><button class="btn" id="nav-esci">← menu</button>
       <div class="titolo">tutto a schermo</div>
       <span class="sc" style="color:var(--oro-chiaro)">round ${sp.round} · canto ${sp.canto}</span></div>
@@ -287,11 +314,11 @@ function render() {
     <p class="nota secondario" style="text-align:center">Trascina per spostare la mappa · +/− o Ctrl+rotella per lo zoom</p>
     <div class="mt"></div>
     <div class="lato">
-      <div class="pannello giro"><h2>il giro degli eroi</h2>${giroEroiHtml()}</div>
+      <div class="pannello giro" id="p-giro"><h2>il giro degli eroi</h2>${giroEroiHtml()}</div>
       <div class="mt"></div>
-      <div class="pannello"><h2>azioni di ${scortAttivo() != null ? esc((specScort(scortAttivo()).nome || '').toLowerCase()) : (attivo ? esc(primo(attivo)) : '—')}</h2>${azioniHtml()}</div>
+      <div class="pannello" id="p-azioni"><h2>azioni di ${scortAttivo() != null ? esc((specScort(scortAttivo()).nome || '').toLowerCase()) : (attivo ? esc(primo(attivo)) : '—')}</h2>${azioniHtml()}</div>
       <div class="mt"></div>
-      <div class="pannello"><h2>la salute degli eroi</h2>${saluteHtml()}</div>
+      <div class="pannello" id="p-salute"><h2>la salute degli eroi</h2>${saluteHtml()}</div>
     </div>
     <div class="mt"></div>
     <div class="pannello secondario"><h2>le abilità degli eroi</h2>${abilitaHtml()}
@@ -428,7 +455,9 @@ const viteVista = (nm) => (ctx.viteVista ? ctx.viteVista[nm] : SP().vite[nm]);
 function saluteHtml() {
   return P().party.map((nm) => {
     const e = eroe(nm); const max = saluteMax(e); const v = viteVista(nm) ?? max;
-    return `<div class="nemico-riga"><span class="nemico-nome"><button class="lnk-eroe" data-scheda="${esc(nm)}"
+    // `mia` marca la riga di chi guarda: sul telefono la propria salute non e'
+    // una riga come le altre, e' la prima cosa che si cerca
+    return `<div class="nemico-riga${nm === mioEroe() ? ' mia' : ''}" data-eroe="${esc(nm)}"><span class="nemico-nome"><button class="lnk-eroe" data-scheda="${esc(nm)}"
       title="scheda di ${esc(nm.toLowerCase())}">${esc(primo(nm))}</button>${v <= 0 ? ' <b>a terra</b>' : ''}</span>
       <span class="nemico-pips">${Array.from({ length: max }, (_, k) => `<span class="pip-vita ${k < v ? 'piena' : ''}"></span>`).join('')}</span></div>`;
   }).join('');
@@ -1331,6 +1360,7 @@ function giroNemiciHtml(attivoIdx) {
 function vistaNemici(piano) {
   const { app, ep } = ctx; const sp = SP();
   app.innerHTML = `
+    ${fasciaTurno()}
     <div class="barra"><button class="btn" id="nav-esci">← menu</button>
       <div class="titolo">la notte reagisce</div>
       <span class="sc" style="color:var(--oro-chiaro)">round ${sp.round} · canto ${sp.canto}</span></div>

@@ -107,6 +107,44 @@ const conta = (page, sel) => page.locator(sel).count();
   await page.close();
 }
 
+// --- IL LAYOUT DA TELEFONO: lo stesso HTML, in un altro ordine
+//
+// Si misura l'ordine A SCHERMO (le coordinate), non quello del DOM: e' il CSS a
+// ordinare, quindi guardare il DOM proverebbe soltanto che il DOM non e'
+// cambiato — e infatti la prima versione di questo test passava anche col CSS
+// spento.
+const ordineVisivo = (page) => page.evaluate(() =>
+  [...document.querySelectorAll('.fascia-turno,.board-area,#p-salute,#p-azioni,#p-giro')]
+    .map((e) => [e.id || e.className.split(' ')[0], Math.round(e.getBoundingClientRect().top)])
+    .sort((a, b) => a[1] - b[1]).map((x) => x[0]).join(' → '));
+
+{
+  const { page } = await apri({ ruolo: 'giocatore', eroe: MIO });
+  ok((await page.locator('#app').getAttribute('class')).includes('vista-eroe'),
+     'il telefono accende il layout da telefono');
+  const ord = await ordineVisivo(page);
+  ok(ord === 'fascia-turno → board-area → p-salute → p-azioni → p-giro',
+     `plancia in alto e azioni dove arriva il pollice (visto «${ord}»)`);
+  const f = await page.locator('.fascia-turno').innerText();
+  ok(/tocca a te/i.test(f), `e la fascia dice di chi è il turno (visto «${f.trim()}»)`);
+  ok(await page.locator('#p-salute .nemico-riga.mia').count() === 1,
+     'la propria salute è marcata, non è una riga come le altre');
+  await page.close();
+}
+
+// --- L'ARBITRO NON SI TOCCA: stesso schermo di prima, stesso ordine
+{
+  const { page } = await apri(null);
+  ok(!(await page.locator('#app').getAttribute('class')).includes('vista-eroe'),
+     'chi arbitra NON prende il layout da telefono');
+  ok(await page.locator('.fascia-turno').count() === 0,
+     'e nessuna fascia del turno: ha il tabellone davanti e li muove tutti');
+  const ord = await ordineVisivo(page);
+  ok(ord === 'board-area → p-giro → p-azioni → p-salute',
+     `e i pannelli restano nell'ordine di sempre (visto «${ord}»)`);
+  await page.close();
+}
+
 await browser.close();
 console.log(ko === 0 ? 'test-posto-eroe: la plancia rispetta il posto' : `${ko} FAIL`);
 process.exit(ko ? 1 : 0);
