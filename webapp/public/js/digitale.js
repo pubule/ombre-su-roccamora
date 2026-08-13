@@ -1153,7 +1153,21 @@ async function eseguiSulTavolo(comando) {
 }
 
 async function esegui(comando) {
-  if (ctx.posto && ctx.posto.tavolo && ctx.tavoloVivo) return eseguiSulTavolo(comando);
+  // I DADI SI CHIEDONO PRIMA DI DIRAMARE. Al tavolo i dadi sono di legno e il
+  // numero lo dichiara chi gioca: la richiesta vale sia quando il motore gira
+  // qui sia quando gira sul tavolo. Stava dentro il solo ramo locale, e con la
+  // partita sul Durable Object il tiro non veniva piu' chiesto a nessuno — il
+  // motore tirava da se', in silenzio, e a schermo si vedeva solo il danno
+  // arrivare dal nulla.
+  const alTav = alTavolo() && arbitro();
+  const tiri = alTav ? [] : null;
+  if (alTav) {
+    const p = azioni.provaDi(G(), comando);
+    if (p) { const d = await chiediTiro(p); if (!d) return false; tiri.push(d); }
+  }
+  if (ctx.posto && ctx.posto.tavolo && ctx.tavoloVivo) {
+    return eseguiSulTavolo(tiri ? { ...comando, tiri } : comando);
+  }
 
   // CHI GIOCA NON APPLICA MAI IN LOCALE. Il motore qui dentro c'e' per chi
   // arbitra da solo; per chi siede a un tavolo la partita vera sta sul tavolo,
@@ -1165,11 +1179,6 @@ async function esegui(comando) {
     return false;
   }
   const dati = { ep: ctx.ep, comune: ctx.comune, carte: ctx.carte };
-  const tiri = alTavolo() ? [] : null;
-  if (alTavolo()) {
-    const p = azioni.provaDi(G(), comando);
-    if (p) { const d = await chiediTiro(p); if (!d) return false; tiri.push(d); }
-  }
   // il tetto e' una rete, non una regola: nessuna azione chiede piu' di due o
   // tre dadi, e un ciclo senza fondo davanti a un giocatore e' peggio di un no
   for (let giro = 0; giro < 5; giro++) {
