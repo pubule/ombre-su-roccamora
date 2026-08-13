@@ -23,7 +23,7 @@ import { readFileSync } from 'fs';
 //
 // Chi sia chi lo dice l'header `X-Osr-Dev-Email`, che vale solo dove
 // OSR_DEV_EMAIL e' gia' impostata, cioe' solo in `wrangler dev`.
-const BASE = 'http://127.0.0.1:8787';
+const BASE = process.env.OSR_BASE || 'http://127.0.0.1:8787';
 const EMAIL_A = 'uno@esempio.it';
 const EMAIL_G = 'due@esempio.it';
 const ARBITRO = EMAIL_A;

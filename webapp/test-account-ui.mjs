@@ -5,7 +5,7 @@
 //   node webapp/test-account-ui.mjs
 import { chromium } from 'playwright';
 
-const BASE = 'http://127.0.0.1:8787';
+const BASE = process.env.OSR_BASE || 'http://127.0.0.1:8787';
 let ko = 0;
 const ok = (c, m) => { console.log(`   ${c ? 'OK  ' : 'FAIL'} ${m}`); if (!c) ko++; };
 

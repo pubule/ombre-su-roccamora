@@ -12,7 +12,7 @@
 //   node webapp/test-api.mjs
 import fs from 'node:fs';
 
-const BASE = 'http://127.0.0.1:8787';
+const BASE = process.env.OSR_BASE || 'http://127.0.0.1:8787';
 const BASE_ALTRO = 'http://127.0.0.1:8788';
 let ko = 0;
 const ok = (c, m) => { if (!c) { console.error('FAIL:', m); ko++; } };
