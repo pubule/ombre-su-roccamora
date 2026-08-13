@@ -113,16 +113,20 @@ solo non basta:
 
 ## Invitare un giocatore
 
-L'API c'è ed è provata (`webapp/test-membri.mjs`), **l'interfaccia no**: si
-invita a mano.
+Dalla schermata dei tavoli, **«chi gioca»** sul proprio tavolo: si scrive
+l'email con cui entrerà nell'app e gli si dà un eroe. Il bottone c'è solo sui
+tavoli che si arbitra — un giocatore seduto non può portarne altri, e il Worker
+lo impone comunque (`arbitroDi` in `api.js`).
 
-```bash
-curl -X POST https://roccamora.smartcores.org/api/membri \
-  -H 'Content-Type: application/json' \
-  -d '{"tavolo":"<id-del-tavolo>","email":"amico@esempio.it","eroe":"ELENA FOSCO"}'
-```
+L'eroe può restare in sospeso: quelli non presi da nessuno restano a chi
+arbitra. Uno già preso non compare nell'elenco, perché due giocatori non possono
+avere lo stesso eroe allo stesso tavolo — a dirlo è un indice unico nel
+database, non un controllo che qualcuno un giorno dimenticherà.
 
-`eroe` può essere `null`: gli eroi non reclamati restano a chi arbitra.
+**Da lì non parte nessuna email.** Il posto resta pronto e basta: il link
+all'app mandaglielo tu (la schermata lo mostra, con un bottone per copiarlo), e
+lui entra da solo. Perché ci riesca, la sua email deve già essere nel criterio
+di Access — vedi sopra.
 
 ## Provare in locale prima di pubblicare
 
