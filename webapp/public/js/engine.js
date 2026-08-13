@@ -49,7 +49,7 @@ export function dichiaraVoce(ep, comune, nomeVoce) {
   return { ...out, frase: PISTE_FREDDE[interoFino(rngPonte, PISTE_FREDDE.length)] };
 }
 
-export const costruisciMazzo = (carte, ep, epId) => _costruisciMazzo(rngPonte, carte, ep, epId);
+export const costruisciMazzo = (carte, ep, epId, bivi) => _costruisciMazzo(rngPonte, carte, ep, epId, bivi);
 export const pesca = (mazzo, carte, epId, ep) => _pesca(rngPonte, mazzo, carte, epId, ep);
 
 // --- URL degli asset ----------------------------------------------------

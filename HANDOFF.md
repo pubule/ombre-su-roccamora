@@ -397,6 +397,72 @@ fine Fase 1.
    il gioco che si rompe. Il cancello della fase non è «zero stalli» ma «non più
    stalli della baseline».
 
+## I Bivi di campagna: dalla carta al motore
+
+Fino a ieri la campagna era scritta con **i Bivi** — a fine episodio il gruppo
+decide, sigilla sul retro del Frammento, e quella scelta cambia le REGOLE di uno
+o più episodi successivi — e l'app non ne sapeva niente. Chi giocava a schermo
+prendeva una decisione che il gioco dimenticava.
+
+**Venti Bivi, 77 effetti, 102 punti di applicazione.** Non è una catena: è un
+grafo con archi lunghi fino a nove episodi. Il Bivio dell'Ep.8 si applica in
+Ep.9-12 *e* in Ep.13/14/16; quello dell'Ep.11 arriva all'Ep.20; l'Ep.18 raccoglie
+i conti di sei Bivi diversi.
+
+- **`src/bivi.py`** — la fonte, tipizzata. Scelto invece di ritoccare venti
+  generatori (invasivo) o di leggere la prosa a espressioni regolari (fragile).
+  `webapp/export-data.py` la inietta nei JSON in due forme: `bivio` (il proprio,
+  da proporre a fine serata) e **`bivi_qui`** (l'indice inverso — gli effetti che
+  cadono su quell'episodio, da qualunque Bivio arrivino). L'indice si costruisce
+  all'export, una volta, invece di farlo cercare al motore a ogni avvio.
+- **`webapp/public/motore/bivi.js`** — puro. `biviDi(ep, scelte)` raccoglie gli
+  aggiustamenti; `applicaAllaPartita` li mette nello stato iniziale;
+  `episodioColBivio` restituisce **una copia** dell'episodio (i dati di `dati()`
+  sono in cache e condivisi: sporcarli farebbe cadere la scelta di un tavolo
+  addosso alla partita successiva aperta nella stessa scheda).
+- **`scelte_campagna(tavolo, bivio, opzione)`** su D1, non nel blob della
+  partita: quello è per episodio, e una scelta dell'Ep.8 deve pesare sull'Ep.20.
+  `/api/scelte` la legge chiunque sieda al tavolo e la scrive solo chi arbitra.
+  `store.js` ne tiene una copia in localStorage perché **preparare una partita è
+  sincrono** e non può aspettare la rete.
+
+**Due famiglie di effetto, e la differenza è dichiarata.** Quelli che l'app SA
+FARE si applicano da soli: Canto iniziale, soglia del Canto, ore d'Indagine,
+mazzo Minaccia (aggiungere/togliere per nome, per famiglia o «una qualunque»),
+cariche delle abilità, pool nemici, testimoni tolti dagli Approfondimenti,
+Testimonianze che partono rivelate, luoghi aperti o chiusi. Quelli che l'app PUÒ
+SOLO DIRE — «un incrocio in più alla deduzione d'atto», «l'Ep.18 sarà un
+processo», «la Vedova vi ha segnati» — escono come **righe da leggere**, perché
+fingere di applicarli sarebbe peggio che dirli. **Le righe si dicono comunque,
+anche per gli effetti applicati**: una regola che cambia in silenzio è
+indistinguibile da un guasto.
+
+**Dove si vede.** Schermata d'apertura prima della serata (le righe, da leggere
+ad alta voce) → le stesse righe in testa al **diario**, che è l'unico posto che
+guardano anche i telefoni → **il Bivio nell'epilogo**, con le due strade e i loro
+prezzi: si decide insieme, la sigilla chi arbitra (dal telefono si legge e non si
+tocca, come per la carta Minaccia e la notte) → **il Taccuino di Campagna**, dal
+menu: i Frammenti e la scelta scritta sul retro di ognuno.
+
+**I Frammenti non sono un dato nuovo.** Sono come è finita la serata:
+`vittoria` → Frammento, `parziale` → Frammento **incrinato** (si conserva, non
+conta nel finale), `sconfitta` → niente. Tenerne una tabella a parte avrebbe
+voluto dire due conti della stessa cosa, e due conti divergono. Nel farlo è
+saltato fuori che l'epilogo trattava la **vittoria parziale come una sconfitta**
+(«la notte ha vinto»): ora la dice, e dice anche che il Frammento è incrinato.
+
+**Il Durable Object applica i Bivi come il client** (`dati(episodio, bivi)`): la
+Fase Minaccia legge `ep.pool` per sapere quanti Sgherri esistono, e un Bivio quel
+numero lo sposta. Applicarli da una parte sola è il modo in cui questa partita si
+è già rotta tre volte.
+
+**Le prove.** `test-bivi.mjs` (copertura: venti Bivi tradotti, nessun effetto
+perso, gli archi lunghi ci sono ancora), `test-bivi-motore.mjs` (le due strade
+portano davvero in due posti diversi — e senza scelte la partita nasce com'era),
+`test-bivi-ui.mjs` (il Bivio si legge, si sigilla una volta sola, resta scritto,
+e dal telefono non si tocca). Tutti e tre provati **al contrario**, rompendo il
+codice apposta: 5, 5 e 4 rossi.
+
 ## Fase 5: la vista eroe, e il filo collegato
 
 Due dispositivi sulla stessa serata funzionano. Chi entra dal proprio telefono

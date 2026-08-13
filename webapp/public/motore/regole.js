@@ -19,7 +19,7 @@
 //
 // Fonti: regole di produzione esportate in comune.json (tick Canto, soglia,
 // pesca per taglia), chiavi/segreti nei JSON episodio.
-import { mescola } from './rng.js';
+import { mescola, interoFino } from './rng.js';
 
 // --- util -------------------------------------------------------------
 export const norm = (s) => String(s || '').trim().toUpperCase()
@@ -125,7 +125,37 @@ export function tierIndagine(ep, ind, esatte) {
 }
 
 // --- mazzo Minaccia --------------------------------------------------------
-export function costruisciMazzo(rng, carte, ep, epId) {
+// A quali carte punta un effetto di Bivio. Tre forme, tutte gia' nei dati:
+// per nome («le 2 carte Segugi del Coro»), per famiglia («1 crescendo in meno»),
+// o nessuna delle due — «1 carta in piu' nel mazzo», e allora vale qualunque.
+const combacia = (titolo, e) => {
+  if (e.carta) return norm(titolo).includes(norm(e.carta));
+  if (e.crescendo) return norm(titolo).startsWith('CRESCENDO');
+  return true;
+};
+
+// Il mazzo che il Bivio ha cambiato. `dentro` cerca PRIMA fra le carte Bivio
+// tenute da parte — sono li' apposta, disegnate per questa scelta e per
+// nessun'altra — e solo se non bastano duplica una carta gia' nel mazzo, che e'
+// il modo in cui il fascicolo dice «1 carta in piu'».
+function aggiusta(rng, pool, fuoriBivio, effetti) {
+  for (const e of effetti) {
+    for (let k = 0; k < (e.quante || 1); k++) {
+      if (e.verso === 'dentro') {
+        const j = fuoriBivio.findIndex((c) => combacia(c.title, e));
+        if (j >= 0) { pool.push(fuoriBivio.splice(j, 1)[0]); continue; }
+        const cand = pool.filter((c) => combacia(c.title, e));
+        if (cand.length) pool.push(cand[interoFino(rng, cand.length)]);
+      } else {
+        const idx = pool.map((c, i) => (combacia(c.title, e) ? i : -1)).filter((i) => i >= 0);
+        if (idx.length) pool.splice(idx[interoFino(rng, idx.length)], 1);
+      }
+    }
+  }
+  return pool;
+}
+
+export function costruisciMazzo(rng, carte, ep, epId, bivi) {
   let pool = carte.minacce[epId] || [];
   if (epId === 'preludio') {
     const nomi = new Set((ep.mazzo_da_ep1 || []).map(norm));
@@ -133,7 +163,9 @@ export function costruisciMazzo(rng, carte, ep, epId) {
   }
   // le carte Bivio (Segugi del Coro) restano fuori: entrano solo se il
   // Bivio dell'episodio precedente lo dice (W-D, campagna)
+  const fuoriBivio = pool.filter((c) => c.title.startsWith('Bivio'));
   pool = pool.filter((c) => !c.title.startsWith('Bivio'));
+  if (bivi && bivi.mazzo && bivi.mazzo.length) pool = aggiusta(rng, pool, fuoriBivio, bivi.mazzo);
   const ordine = mescola(rng, pool.map((_, i) => i));
   return { pool: pool.map((c) => c.title), ordine, indice: 0, scarti: [] };
 }
@@ -177,7 +209,7 @@ export function fineRound(comune, ep, sped) {
   // del check -> tick sfasato di 1 round in anticipo, tavolo piu' duro.)
   const annunci = [];
   const ogni = cadenzaCanto(comune, ep);
-  const soglia = ep.marea ? ep.marea.soglia : sogliaCanto(comune, ep);
+  const soglia = ep.marea ? ep.marea.soglia : sogliaCanto(comune, ep, sped);
   const nome = ep.marea ? 'Marea' : 'Canto';
   // Tetto ai segnalini: sono un componente FISICO e finito — 8 in scatola, il
   // massimo che un episodio richieda (il risveglio del Dormiente, Ep.20). Il
@@ -212,11 +244,16 @@ export const tettoCanto = (comune, ep) =>
 // Regolamento dice «ogni episodio fissa una soglia», e due Bivi la spostano
 // (Ep.2 -> Ep.3 «a 4 invece di 3», Ep.4 «sale di 1»). L'episodio la dichiara
 // in `soglia_canto`; chi non la dichiara usa il 3 di `comune.regole`.
-export const sogliaCanto = (comune, ep) =>
-  (ep && ep.soglia_canto != null ? ep.soglia_canto : comune.regole.soglia_canto);
+//
+// `sped.soglia` vince su tutto ed e' il posto dove il Bivio scrive: sta nello
+// STATO e non nei dati dell'episodio perche' i dati sono gli stessi per tutti i
+// tavoli, e questa e' la conseguenza di una scelta di QUESTO tavolo.
+export const sogliaCanto = (comune, ep, sped) =>
+  (sped && sped.soglia != null ? sped.soglia
+    : (ep && ep.soglia_canto != null ? ep.soglia_canto : comune.regole.soglia_canto));
 
 export function cantoDaCarta(comune, ep, sped) {
-  const soglia = sogliaCanto(comune, ep);
+  const soglia = sogliaCanto(comune, ep, sped);
   const tetto = tettoCanto(comune, ep);
   if (sped.canto >= tetto) {                                  // segnalini finiti
     return [`Il Canto è già al massimo (${tetto}).`];

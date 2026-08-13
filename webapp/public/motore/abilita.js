@@ -42,6 +42,16 @@ export const CARICHE_SPED = [
 
 export const caricaDi = (nome) => CARICHE_SPED.find((c) => nome.includes(c.key));
 
+// Quante volte l'abilita' si puo' usare IN QUESTA serata. La tabella dice il
+// numero di scatola; un Bivio di campagna lo sposta — «Marani ha un alleato di
+// bronzo: la Litania vale 2 volte invece di 1». Sta qui e non nella tabella
+// perche' la tabella e' la regola per tutti, questo e' il conto di un tavolo.
+export const usiDi = (g, c) => {
+  const b = g && g.partita && g.partita.bivi;
+  const su = b && b.cariche && b.cariche[c.ab];
+  return su != null ? su : c.usi;
+};
+
 // Quel che l'abilita' chiede prima di partire. `null` = non chiede niente.
 // Restituisce anche `vuoto` quando l'abilita' non ha bersagli: e' un rifiuto
 // che il client puo' mostrare senza mandare il comando.
@@ -92,8 +102,9 @@ export function candidati(g, nm) {
 export function usa(g, nm, scelta, cella) {
   const sp = g.sp; const c = caricaDi(nm);
   if (!c || c.usi === null) return rifiuta(`${primo(nm)} non ha un'abilità a cariche.`);
+  const usi = usiDi(g, c);
   const usate = (sp.abilita && sp.abilita[nm]) || 0;
-  if (usate >= c.usi) return rifiuta(`${primo(nm)} ha finito le cariche di ${c.ab.toLowerCase()}.`);
+  if (usate >= usi) return rifiuta(`${primo(nm)} ha finito le cariche di ${c.ab.toLowerCase()}.`);
   if (!azioniRestano(g, nm)) return rifiuta('Nessuna azione rimasta.');
 
   const eventi = [];
@@ -157,6 +168,6 @@ export function usa(g, nm, scelta, cella) {
 
   sp.abilita = sp.abilita || {};
   sp.abilita[nm] = usate + 1;
-  eventi.push({ tipo: 'carica-spesa', chi: nm, ab: c.ab, restano: c.usi - usate - 1 });
+  eventi.push({ tipo: 'carica-spesa', chi: nm, ab: c.ab, restano: usi - usate - 1 });
   return { eventi, azione: 'abilita' };
 }

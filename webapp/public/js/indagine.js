@@ -9,6 +9,7 @@ import { rendi, norm, bussa, dichiaraVoce, vociMappa, luogoVisitabile,
          controBusta, domandeBusta,
          urlArt, cartaLuogo, cartaApprofondimento, cartaOggetto,
          urlCarta as urlCartaSafe } from './engine.js';
+import { episodioColBivio } from '../motore/bivi.js';
 import { schedaEroe, abilitaSchede } from './scheda-eroe.js';
 import { conferma } from './chiedi.js';
 import * as suoni from './suoni.js';
@@ -58,8 +59,13 @@ function caricheEroe(nm) {
 let ctx = null;   // { app, partita, ep, comune, carte, vaiA }
 
 export async function vistaIndagine(app, partita, vaiA) {
-  const [ep, comune, carte] = await Promise.all([
+  const [ep0, comune, carte] = await Promise.all([
     dati(partita.episodio), dati('comune'), dati('carte')]);
+  // L'EPISODIO COME I BIVI L'HANNO LASCIATO: un testimone che ha smesso di
+  // parlare, una porta che il brigadiere apre o chiude. `episodioColBivio` ne
+  // restituisce una copia — i dati di `dati()` sono in cache e condivisi, e
+  // quel che vale per questo tavolo non deve valere per la prossima partita.
+  const ep = episodioColBivio(ep0, partita.bivi);
   ctx = { app, partita, ep, comune, carte, vaiA };
   abilitaSchede((nm) => comune.eroi.find((x) => x.nome === nm));
   if (!partita.indagine.lettaLettera && ep.lettera) return lettera();

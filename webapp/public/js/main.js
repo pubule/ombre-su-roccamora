@@ -1,7 +1,9 @@
 // Shell della webapp: home -> episodio -> modalita' -> party -> partita.
 // W-A: navigazione e stato; le viste Indagine/Spedizione arrivano in W-B
 // (motore arbitro) e qui hanno un segnaposto onesto.
-import { dati, nuovaPartita, salva, carica, cancella, tavoloCorrente, nomeTavoloCorrente } from './store.js';
+import { dati, nuovaPartita, salva, carica, cancella, tavoloCorrente, nomeTavoloCorrente,
+         sincronizzaScelte, scelteCampagna } from './store.js';
+import { biviDi, applicaAllaPartita } from '../motore/bivi.js';
 import { schedaEroe } from './scheda-eroe.js';
 import { vistaTavoli } from './tavoli.js';
 import { decidi, avviaCoda, stato as statoSync } from './sync.js';
@@ -84,6 +86,8 @@ async function vistaHome() {
           <span id="spia">${esc(statoSync())}</span></span>
         <button class="btn piccolo" id="cambia-tavolo">cambia tavolo</button>
       </div>` : ''}
+      <div class="riga-tavolo"><span></span>
+        <button class="btn piccolo" id="taccuino">taccuino di campagna</button></div>
     </header>
     <div class="griglia-episodi">
       ${info.map((ep) => {
@@ -112,6 +116,57 @@ async function vistaHome() {
     el.addEventListener('click', () => vistaEpisodio(el.dataset.ep)));
   document.getElementById('cambia-tavolo')?.addEventListener('click',
     () => vistaTavoli(app, (id) => entraNelTavolo(id)));
+  document.getElementById('taccuino')?.addEventListener('click', () => vistaTaccuino(info));
+}
+
+// ------------------------------------------------- IL TACCUINO DI CAMPAGNA
+// «Si stampa una volta sola e vi accompagna per tutte e venti le serate»: i
+// Frammenti conservati e il Bivio scelto ogni volta. Quanti Frammenti INTATTI
+// avete decide come si vince l'ultimo episodio, e il Regolamento e' esplicito —
+// «non fidatevi della memoria».
+//
+// Niente da salvare: un Frammento non e' un dato in piu', e' come e' finita la
+// serata. Contarlo da una tabella sua vorrebbe dire tenerne due, e due conti
+// della stessa cosa divergono. Qui si legge dai salvataggi, che sono la verita'.
+//
+//   vittoria  -> Frammento
+//   parziale  -> Frammento INCRINATO (si conserva, ma non conta nel finale)
+//   sconfitta -> niente
+const FRAMMENTO = { vittoria: 'frammento', parziale: 'frammento incrinato' };
+
+function vistaTaccuino(info) {
+  const scelte = scelteCampagna();
+  const righe = info.map((ep) => {
+    const s = carica(ep.id);
+    const esito = (s && s.spedizione && s.spedizione.esito) || null;
+    const scelta = scelte[ep.id];
+    const opz = scelta && ep.bivio
+      && (ep.bivio.opzioni || []).find((o) => o.id === scelta);
+    return { ep, esito, opz };
+  });
+  const interi = righe.filter((r) => r.esito === 'vittoria').length;
+  const incrinati = righe.filter((r) => r.esito === 'parziale').length;
+  h(`
+    <div class="barra"><button class="btn" id="taccuino-indietro">← menu</button>
+      <div class="titolo">taccuino di campagna</div><span></span></div>
+    <div class="pannello">
+      <h2>${interi} ${interi === 1 ? 'frammento' : 'frammenti'}${
+        incrinati ? ` · ${incrinati} ${incrinati === 1 ? 'incrinato' : 'incrinati'}` : ''}</h2>
+      <p class="nota">Quanti Frammenti interi avete decide come si vince l’ultimo
+        episodio. Gli incrinati si conservano e si leggono, ma non contano.</p>
+    </div>
+    <div class="pannello mt">
+      ${righe.map(({ ep, esito, opz }) => `
+        <div class="nemico-riga">
+          <span class="nemico-nome">${esc(ep.titolo)}
+            ${opz ? `<br><span class="nota">bivio: ${esc(opz.titolo)}</span>`
+                  : (esito && ep.bivio ? '<br><span class="nota">bivio non ancora sigillato</span>' : '')}</span>
+          <span class="nota">${FRAMMENTO[esito] || (esito ? '—' : '')}</span>
+        </div>`).join('')}
+    </div>
+    ${RIGA_C}
+  `);
+  document.getElementById('taccuino-indietro').onclick = () => vistaHome();
 }
 
 // -------------------------------------------------------------- EPISODIO
@@ -363,14 +418,49 @@ async function vistaParty(epId, modo, fase = 'indagine', plancia = 'fisica') {
 // Comincia la partita. Sta a parte perche' ci si arriva da DUE strade: la
 // schermata di arruolamento, e — quando il tavolo ha gia' la sua compagnia —
 // senza passarci affatto.
-function comincia(party, epId, modo, fase, plancia) {
+async function comincia(party, epId, modo, fase, plancia) {
   const partita = nuovaPartita(epId, modo, party, fase);
   partita.plancia = plancia;     // 'fisica' | 'schermo' (solo al tavolo)
+  // I BIVI DELLE SERATE PASSATE, applicati QUI e una volta sola: sono le regole
+  // di partenza di questo episodio per QUESTO tavolo, e devono stare nello
+  // stato prima che chiunque lo guardi. Riapplicarli a ogni render vorrebbe
+  // dire un Canto che cresce da solo a ogni refresh.
+  const scelte = await sincronizzaScelte();
+  const b = biviDi(await dati(epId), scelte);
+  applicaAllaPartita(partita, b, await dati(epId));
   salva(partita);
-  // partendo dalla sola spedizione manca l'unica cosa che l'indagine le passa:
-  // com'era finita. La si dichiara, invece di darla per persa.
-  if (fase === 'spedizione') return vistaEsitoIndagine(partita);
-  vistaPartita(partita);
+  const dopo = () => {
+    // partendo dalla sola spedizione manca l'unica cosa che l'indagine le passa:
+    // com'era finita. La si dichiara, invece di darla per persa.
+    if (fase === 'spedizione') return vistaEsitoIndagine(partita);
+    vistaPartita(partita);
+  };
+  if (b.righe.length) return schermataBivi(b, dopo);
+  dopo();
+}
+
+// QUEL CHE LE SERATE PASSATE HANNO CAMBIATO, detto prima di cominciare.
+//
+// Una regola che cambia in silenzio e' indistinguibile da un guasto: il tavolo
+// tirerebbe un dado in piu' senza sapere perche', o si troverebbe una porta
+// chiusa e penserebbe a un baco. E ce n'e' una parte che l'app NON puo'
+// applicare — un testimone che non parla piu', un incrocio in piu' alla
+// deduzione d'atto: quella si legge e la si tiene a mente, come al tavolo.
+function schermataBivi(b, dopo) {
+  h(`
+    <div class="pannello lettera-panel">
+      <p class="nota centrato">— quel che avete deciso, da leggere ad alta voce —</p>
+      <div class="lettera-testo">
+        <p>Le serate passate hanno cambiato le regole di questa.</p>
+        <ul>${b.righe.map((r) => `<li>${esc(r)}</li>`).join('')}</ul>
+      </div>
+    </div>
+    <div class="btn-riga">
+      <button class="btn pieno" id="via-bivi">cominciamo →</button>
+    </div>
+    ${RIGA_C}
+  `);
+  document.getElementById('via-bivi').onclick = dopo;
 }
 
 // la scheda dell'eroe sta in scheda-eroe.js: la aprono anche l'indagine e la

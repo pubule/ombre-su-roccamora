@@ -23,6 +23,7 @@
 import { DurableObject } from 'cloudflare:workers';
 import { applica } from '../public/motore/comandi.js';
 import { vista } from '../public/motore/proiezione.js';
+import { episodioColBivio } from '../public/motore/bivi.js';
 
 // Ogni quanto la partita viva scende su D1. Non a ogni comando: un round di
 // spedizione ne fa decine, e il backup non e' la verita' — e' la rete per
@@ -109,7 +110,7 @@ export class Partita extends DurableObject {
   async statoPerChi(posto) {
     const stato = await this.leggi();
     if (!stato) return Response.json({ errore: 'nessuna partita aperta' }, { status: 404 });
-    const dati = await this.dati(stato.episodio);
+    const dati = await this.dati(stato.episodio, stato.bivi);
     return Response.json(vista(stato, dati, posto));
   }
 
@@ -130,7 +131,7 @@ export class Partita extends DurableObject {
       }
     }
 
-    const dati = await this.dati(stato.episodio);
+    const dati = await this.dati(stato.episodio, stato.bivi);
     const out = applica(stato, cmd, dati);
     if (out.rifiuto) return Response.json({ rifiuto: out.rifiuto }, { status: 409 });
 
@@ -170,7 +171,7 @@ export class Partita extends DurableObject {
     server.serializeAttachment(posto);
     const stato = await this.leggi();
     if (stato) {
-      const dati = await this.dati(stato.episodio);
+      const dati = await this.dati(stato.episodio, stato.bivi);
       server.send(JSON.stringify(vista(stato, dati, posto)));
     }
     return new Response(null, { status: 101, webSocket: client });
@@ -199,13 +200,19 @@ export class Partita extends DurableObject {
 
   // I dati dell'episodio, letti UNA volta e tenuti: sono immutabili per tutta
   // la serata, e sono la parte pesante.
-  async dati(episodio) {
+  //
+  // I BIVI SI APPLICANO ANCHE QUI, e non e' un di piu': la Fase Minaccia legge
+  // `ep.pool` per sapere quanti Sgherri esistono, e un Bivio quel numero lo
+  // sposta. Se il client li applicasse e il Durable Object no, i due
+  // giocherebbero due episodi diversi senza dirselo — che e' esattamente il
+  // modo in cui questa partita si e' gia' rotta tre volte.
+  async dati(episodio, bivi) {
     if (!this._dati || this._dati.id !== episodio) {
       const prendi = async (n) => (await this.env.ASSETS.fetch(`https://tavolo/data/${n}.json`)).json();
       const [ep, comune, carte] = await Promise.all([prendi(episodio), prendi('comune'), prendi('carte')]);
       this._dati = { id: episodio, ep, comune, carte };
     }
-    return { ep: this._dati.ep, comune: this._dati.comune, carte: this._dati.carte };
+    return { ep: episodioColBivio(this._dati.ep, bivi), comune: this._dati.comune, carte: this._dati.carte };
   }
 }
 

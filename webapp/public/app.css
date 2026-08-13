@@ -149,6 +149,11 @@ em, i { font-style: italic; }
 .pannello h2 { color: var(--osso); font-size: 19px; margin-bottom: 8px;
   border-bottom: 1px solid #2a2c33; padding-bottom: 6px; }
 .pannello .nota { color: var(--osso-fioco); font-style: italic; font-size: 15px; }
+/* la strada presa, nell'epilogo: si distingue a colpo d'occhio da quella
+   lasciata — al tavolo la scelta si sigilla, e sigillata si deve vedere */
+.pannello.scelto { border-color: var(--nastro); background: #23262e; }
+#riq-bivio ul { margin: 6px 0 0 18px; }
+#riq-bivio li { margin-bottom: 4px; }
 
 /* --- bottoni --- */
 .btn { display: inline-block; font-family: 'FellSC', serif; text-transform: lowercase;

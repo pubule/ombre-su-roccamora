@@ -7,10 +7,12 @@ import { salva, dati } from './store.js';
 import { rendi, norm, costruisciMazzo, carteDaPescare, pesca, fineRound,
          cantoDaCarta, cerca, urlCarta, urlArt, cartaOggetto, cadenzaCanto,
          sogliaCanto } from './engine.js';
+import { episodioColBivio } from '../motore/bivi.js';
 import { tiraProva } from './dadi.js';
 import { abilitaSchede } from './scheda-eroe.js';
 import { controBusta } from './engine.js';
 import { conferma } from './chiedi.js';
+import { bivioHtml, collegaBivio } from './bivio-scelta.js';
 import * as suoni from './suoni.js';
 import * as stat from '../motore/stat.js';
 import * as minaccia from '../motore/minaccia.js';
@@ -21,8 +23,9 @@ const esc = (s) => String(s).replace(/[&<>"]/g, (c) =>
 let ctx = null;   // { app, partita, ep, comune, carte, vaiA }
 
 export async function vistaSpedizione(app, partita, vaiA) {
-  const [ep, comune, carte] = await Promise.all([
+  const [ep0, comune, carte] = await Promise.all([
     dati(partita.episodio), dati('comune'), dati('carte')]);
+  const ep = episodioColBivio(ep0, partita.bivi);
   ctx = { app, partita, ep, comune, carte, vaiA };
   abilitaSchede((nm) => comune.eroi.find((x) => x.nome === nm));
   // lo store crea un segnaposto con mazzo null: il setup vero e' qui
@@ -226,14 +229,18 @@ function setup() {
   dopoBarra();
   app.querySelector('#inizia-spedizione').onclick = () => {
     partita.spedizione = {
-      round: 1, fase: 'eroi', canto: 0, cantoBonus: false, esito: null,
+      // il Canto e la soglia non ripartono da zero: un Bivio di campagna li ha
+      // gia' spostati quando la partita e' nata (main.comincia), e qui la
+      // spedizione si ricostruisce — azzerarli butterebbe via la scelta
+      round: 1, fase: 'eroi', canto: partita.spedizione?.canto || 0,
+      soglia: partita.spedizione?.soglia ?? null, cantoBonus: false, esito: null,
       abilita: {},            // {nomeEroe: cariche spese} per le abilità a usi
       diversivoPronto: false, // Fanti: -1 carta alla prossima Fase Minaccia
       eroiFatti: [],          // nomi eroi che hanno agito nel giro (fase eroi)
       nemiciFatti: [],        // indici nemici attivati nel giro (fase nemici)
       eroiAttivo: null,       // eroe scelto come attivo (override; null = primo non-fatto)
       nemiciAttivo: null,     // nemico scelto come attivo (indice)
-      mazzo: costruisciMazzo(ctx.carte, ep, partita.episodio),
+      mazzo: costruisciMazzo(ctx.carte, ep, partita.episodio, partita.bivi),
       rivelate: [ep.tessere[0].id],
       nemici: [],
       vite: Object.fromEntries(partita.party.map((nm) => {
@@ -1070,10 +1077,14 @@ function epilogo() {
   app.innerHTML = `
     ${barra(ep.titolo)}
     <div class="pannello centrato">
-      <h2>${sp.esito === 'vittoria' ? 'l’alba vi trova in piedi' : 'la notte ha vinto'}</h2>
+      <h2>${sp.esito === 'vittoria' ? 'l’alba vi trova in piedi'
+            : sp.esito === 'parziale' ? 'l’alba vi trova in piedi, a metà'
+            : 'la notte ha vinto'}</h2>
       <p class="mt">${sp.esito === 'vittoria'
         ? `${sp.round} round, ${orologio()} a ${sp.canto}. Leggete l’<b>epilogo</b> nel fascicolo
-           Soluzione — e il <b>Bivio</b>, se l’episodio ne ha uno: la scelta conta per il prossimo.`
+           Soluzione.`
+        : sp.esito === 'parziale'
+        ? `L’obiettivo è compiuto, ma non intero: ${sp.round} round, ${orologio()} a ${sp.canto}. Il Frammento di stanotte è <b>incrinato</b> — si conserva, ma nell’ultimo episodio non conta.`
         : 'Rialzatevi: la Soluzione dice cosa resta di questa notte. Roccamora non dimentica — e nemmeno voi.'}</p>
       ${(() => { const cb = controBusta(ep); return cb ? `
         <hr class="divisore">
@@ -1083,10 +1094,12 @@ function epilogo() {
           <p class="nota">La verità: ${esc(cb.risposta)}</p>
           <p>${esc(cb.esatta)}</p>
         </div>` : ''; })()}
+      ${bivioHtml(ep, ctx.partita.episodio)}
       <div class="btn-riga" style="justify-content:center">
         <button class="btn pieno" id="al-menu">alla taverna</button>
       </div>
     </div>`;
   dopoBarra();
+  collegaBivio(app, ep, ctx.partita.episodio, epilogo);
   app.querySelector('#al-menu').onclick = () => ctx.vaiA('menu');
 }

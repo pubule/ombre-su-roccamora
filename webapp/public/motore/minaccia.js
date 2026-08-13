@@ -84,7 +84,7 @@ export function tessLontana(g) {
 // al raggiungimento della soglia del Canto il boss si desta (tessera rivelata
 // piu' lontana), se non e' gia' in campo o gia' stato abbattuto. Ritorna annunci.
 export function destaBossSeSoglia(g) {
-  const sp = g.sp; const boss = g.ep.soluzione.boss; const soglia = sogliaCanto(g.comune, g.ep);
+  const sp = g.sp; const boss = g.ep.soluzione.boss; const soglia = sogliaCanto(g.comune, g.ep, sp);
   if (!boss || sp.canto < soglia) return [];
   if (sp.bossDestato || sp.nemici.some((x) => x.nome === boss)) return [];
   // Un boss che NON si muove non puo' destarsi «nella stanza piu' lontana»: la

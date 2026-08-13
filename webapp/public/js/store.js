@@ -28,6 +28,52 @@ export const impostaTavolo = (id, nome = '') => {
   if (nome) localStorage.setItem(`${CHIAVE_TAVOLO}.nome`, nome);
 };
 
+// ----------------------------------------------------------- I BIVI
+// Le scelte di campagna stanno sul server (`scelte_campagna`), perche' una
+// scelta dell'Ep.8 pesa fino all'Ep.20 e deve sopravvivere al telefono che l'ha
+// registrata. Qui se ne tiene una COPIA in localStorage per un motivo solo:
+// preparare una partita e' sincrono — `nuovaPartita` non puo' aspettare la
+// rete — e senza copia l'episodio partirebbe con le regole di nessuno.
+//
+// Chi arbitra la aggiorna quando sigilla; tutti gli altri quando entrano al
+// tavolo. Se la rete manca si gioca con l'ultima nota, che e' esattamente cio'
+// che si farebbe col Frammento in mano.
+const CHIAVE_SCELTE = 'osr.scelte.';
+
+export function scelteCampagna(tavolo = tavoloCorrente()) {
+  try { return JSON.parse(localStorage.getItem(CHIAVE_SCELTE + (tavolo || '')) || '{}'); }
+  catch { return {}; }
+}
+
+export const salvaScelte = (s, tavolo = tavoloCorrente()) =>
+  localStorage.setItem(CHIAVE_SCELTE + (tavolo || ''), JSON.stringify(s));
+
+// Rilegge dal server. Torna le scelte comunque: se la rete non c'e', quelle
+// che avevamo — mai un oggetto vuoto, che sarebbe «nessuna scelta presa» e
+// farebbe partire l'episodio con le regole sbagliate senza dirlo a nessuno.
+export async function sincronizzaScelte(tavolo = tavoloCorrente()) {
+  if (!tavolo) return {};
+  try {
+    const r = await fetch(`/api/scelte?tavolo=${encodeURIComponent(tavolo)}`);
+    if (!r.ok) return scelteCampagna(tavolo);
+    const { scelte } = await r.json();
+    const m = Object.fromEntries((scelte || []).map((x) => [x.bivio, x.opzione]));
+    salvaScelte(m, tavolo);
+    return m;
+  } catch { return scelteCampagna(tavolo); }
+}
+
+export async function registraScelta(bivio, opzione, tavolo = tavoloCorrente()) {
+  const m = { ...scelteCampagna(tavolo), [bivio]: opzione };
+  salvaScelte(m, tavolo);          // prima in locale: la serata non aspetta la rete
+  if (!tavolo) return m;
+  try {
+    await fetch('/api/scelte', { method: 'PUT', headers: { 'Content-Type': 'application/json' },
+                                 body: JSON.stringify({ tavolo, bivio, opzione }) });
+  } catch { /* la copia locale basta a giocare; si risincronizza al prossimo ingresso */ }
+  return m;
+}
+
 // `fase`: da dove comincia la serata. Le due meta' dell'episodio sono
 // INDIPENDENTI — si puo' giocare la sola spedizione (l'indagine e' gia' stata
 // fatta un'altra sera, o non la si vuole rifare). In quel caso l'indagine

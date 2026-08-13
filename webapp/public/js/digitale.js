@@ -8,6 +8,7 @@
 // NB: la modalita' TAVOLO (spedizione.js) resta invariata: questo file e' un
 // ramo separato, scelto in vistaPartita (main.js) su partita.modo.
 import { salva, dati } from './store.js';
+import { bivioHtml, collegaBivio } from './bivio-scelta.js';
 import { rendi, norm, costruisciMazzo, carteDaPescare, pesca, fineRound,
          cantoDaCarta, cerca, urlCarta, urlArt, cartaOggetto, tettoCanto,
          sogliaCanto } from './engine.js';
@@ -17,6 +18,7 @@ import * as suoni from './suoni.js';
 import { controBusta } from './engine.js';
 import { conferma } from './chiedi.js';
 import { apriCanale } from './canale.js';
+import { episodioColBivio } from '../motore/bivi.js';
 import * as griglia from '../motore/griglia.js';
 import * as stat from '../motore/stat.js';
 import * as obiettivi from '../motore/obiettivi.js';
@@ -140,8 +142,10 @@ const occupati = (exclKey, soloNemici, senzaScortati) =>
 // fase e' partita. Cambia CHI PUO' TOCCARE COSA — e il motore lo rifiuta
 // comunque, se qualcuno prova.
 export async function vistaDigitale(app, partita, vaiA, posto) {
-  const [ep, comune, carte] = await Promise.all([
+  const [ep0, comune, carte] = await Promise.all([
     dati(partita.episodio), dati('comune'), dati('carte')]);
+  // L'episodio come i Bivi l'hanno lasciato (una copia: `dati()` e' in cache)
+  const ep = episodioColBivio(ep0, partita.bivi);
   ctx = { app, partita, ep, comune, carte, vaiA, layout: null, posto: posto || null,
           canale: null, tavoloVivo: false, rifMiei: new Set() };
   await mettiSulTavolo();
@@ -282,8 +286,14 @@ function iniziaPartita() {
     vite: Object.fromEntries(partita.party.map((nm) => { const e = eroe(nm); return [nm, e ? saluteMax(e) : 6]; })),
     eroiFatti: [], eroiAttivo: null, azioni: {}, cercate: {}, insidie: {},
     abilita: {}, diversivoPronto: false, storditi: {},
-    mazzo: costruisciMazzo(ctx.carte, ep, partita.episodio),
-    log: ['Gli eroi sbarcano alla banchina.'],
+    mazzo: costruisciMazzo(ctx.carte, ep, partita.episodio, partita.bivi),
+    // la soglia del Canto e' dello STATO e non dei dati: un Bivio la sposta, e
+    // qui la spedizione si ricostruisce da capo — senza riportarla, la scelta
+    // sarebbe stata applicata e poi buttata via nel giro di due schermate
+    soglia: partita.spedizione?.soglia ?? null,
+    // le righe dei Bivi entrano nel diario, che e' l'unico posto che TUTTI
+    // guardano: chi arbitra le ha lette all'apertura, chi gioca da telefono no
+    log: [...(partita.bivi?.righe || []), 'Gli eroi sbarcano alla banchina.'],
   };
   salvaP(); render();
 }
@@ -654,6 +664,9 @@ function azioniHtml() {
 // vorrebbe dire due elenchi di cariche che divergono al primo ritocco — che e'
 // esattamente il guaio da cui questa fase e' partita.
 const { CARICHE_SPED, caricaDi } = abilita;
+// gli usi VERI, Bivi compresi: la tabella dice il numero di scatola, un Bivio
+// lo sposta, e i pallini a schermo devono contare quelli veri
+const usiDi = (c) => abilita.usiDi({ partita: P() }, c);
 
 function abilitaHtml() {
   const sp = SP(); const attivo = eroiAttivoNome();
@@ -664,8 +677,9 @@ function abilitaHtml() {
       return `<div class="nemico-riga"><span class="nemico-nome">${esc(breve)} · ${esc(c.ab.toLowerCase())}<br><span class="nota">${esc(c.nota)}</span></span>
         <span class="nota">automatica</span></div>`;
     }
-    const usate = (sp.abilita && sp.abilita[nm]) || 0; const rest = c.usi - usate;
-    const pips = Array.from({ length: c.usi }, (_, k) => `<span class="pip-vita ${k < rest ? 'piena' : ''}"></span>`).join('');
+    const usi = usiDi(c);
+    const usate = (sp.abilita && sp.abilita[nm]) || 0; const rest = usi - usate;
+    const pips = Array.from({ length: usi }, (_, k) => `<span class="pip-vita ${k < rest ? 'piena' : ''}"></span>`).join('');
     const puo = nm === attivo && rest > 0 && azioniRestano(nm) && sp.fase === 'eroi';
     return `<div class="nemico-riga">
       <span class="nemico-nome">${esc(breve)} · ${esc(c.ab.toLowerCase())}<br><span class="nota">${esc(c.nota)}</span></span>
@@ -1802,9 +1816,13 @@ function epilogo() {
   app.innerHTML = `<div class="barra"><button class="btn" id="nav-esci">← menu</button>
       <div class="titolo">${esc(ep.titolo)}</div><span></span></div>
     <div class="pannello centrato">
-      <h2>${sp.esito === 'vittoria' ? 'l’alba vi trova in piedi' : 'la notte ha vinto'}</h2>
+      <h2>${sp.esito === 'vittoria' ? 'l’alba vi trova in piedi'
+            : sp.esito === 'parziale' ? 'l’alba vi trova in piedi, a metà'
+            : 'la notte ha vinto'}</h2>
       <p class="mt">${sp.esito === 'vittoria'
         ? `${specScortati().map((s) => s.nome).join(' e ') || 'Il gruppo'} è al sicuro. ${sp.round} round, canto ${sp.canto}. Leggete l’epilogo nel fascicolo Soluzione.`
+        : sp.esito === 'parziale'
+        ? `L’obiettivo è compiuto, ma non intero: ${sp.round} round, canto ${sp.canto}. Il Frammento di stanotte è <b>incrinato</b> — si conserva, ma nell’ultimo episodio non conta. Leggete l’epilogo nel fascicolo Soluzione.`
         : 'Rialzatevi: la Soluzione dice cosa resta di questa notte.'}</p>
       ${(() => { const cb = controBusta(ep); return cb ? `
         <hr class="divisore">
@@ -1814,9 +1832,11 @@ function epilogo() {
           <p class="nota">La verità: ${esc(cb.risposta)}</p>
           <p>${esc(cb.esatta)}</p>
         </div>` : ''; })()}
+      ${bivioHtml(ctx.ep, ctx.partita.episodio, arbitro())}
       <div class="btn-riga" style="justify-content:center"><button class="btn pieno" id="al-menu">alla taverna</button></div></div>`;
   app.querySelector('#nav-esci').onclick = () => { spegniImmersivo(); ctx.vaiA('menu'); };
   app.querySelector('#al-menu').onclick = () => ctx.vaiA('menu');
+  collegaBivio(app, ctx.ep, ctx.partita.episodio, epilogo);
 }
 
 // export del motore per i test (node): _setup inietta un ctx finto (ep + sp)
