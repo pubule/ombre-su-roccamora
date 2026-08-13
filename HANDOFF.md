@@ -5,7 +5,7 @@
 > gira e il prossimo comando; il *cosa fare* di un lavoro in corso sta nel suo
 > piano.
 
-**Aggiornato:** 13/08/2026 · ramo `main` · in produzione la versione `176ba8d4`
+**Aggiornato:** 13/08/2026 · ramo `main` · in produzione la versione `fc2e93fb`
 su <https://roccamora.smartcores.org> — **i Bivi di campagna** (venti scelte che
 cambiano davvero le regole degli episodi seguenti), il **Taccuino di Campagna**
 e l'**epilogo per esteso**. Tabella `scelte_campagna` applicata al remoto.
