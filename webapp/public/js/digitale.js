@@ -329,7 +329,12 @@ function render() {
   // pagina sul telefono per far muovere i nemici — in LOCALE, perche' al
   // risveglio il filo col tavolo non e' ancora aperto e il motore gira qui.
   // L'arbitro non vedeva niente, e le due partite divergevano in silenzio.
-  if (sp.fase === 'nemici') return arbitro() ? faseNemiciAI() : attesaNotte();
+  // LA NOTTE LA FA AGIRE CHI ARBITRA. Chi guarda NON esce dalla plancia: resta
+  // quella di sempre — stesso markup, stesso layout, stessi token — e la fascia
+  // in cima dice che sta agendo la notte. Una schermata a parte l'avevo scritta,
+  // e disegnava la plancia fuori da tutto il resto: si vedeva una mappa gigante
+  // che usciva dallo schermo con la salute sopra. Il layout non si duplica.
+  if (sp.fase === 'nemici' && arbitro()) return faseNemiciAI();
   const { app, ep } = ctx;
   const attivo = eroiAttivoNome();
   const tpk = P().party.every((nm) => (sp.vite[nm] ?? 0) <= 0);
@@ -701,20 +706,7 @@ async function bersagliInsidia(rules) {
 }
 // La notte sta agendo altrove: qui si guarda. Non e' una schermata vuota per
 // pigrizia — e' l'unica cosa onesta da mostrare a chi non ha nulla da toccare.
-function attesaNotte() {
-  const { app } = ctx;
-  // LA PLANCIA, non un pannello di attesa. La notte si guarda: e' il momento
-  // piu' teso della serata, e su una schermata di testo non succede niente.
-  // Il copione arriva col comando di chi arbitra (`turno-nemici`) e anima
-  // QUESTI token — quindi devono essere gia' a schermo quando arriva.
-  app.innerHTML = `${fasciaTurno()}
-    <div class="barra"><span></span><div class="titolo">la notte</div>
-      <span class="sc" style="color:var(--oro-chiaro)">round ${SP().round}</span></div>
-    <div class="board-area">
-      <div class="board-wrap" id="board-wrap">${boardHtml(true)}</div>
-    </div>
-    <div class="pannello" id="p-salute"><h2>la salute degli eroi</h2>${saluteHtml()}</div>`;
-}
+
 
 // LA CARTA APERTA, disegnata dallo stato. Chi conduce la chiude e passa alla
 // prossima; chi gioca la guarda e basta — la pesca non e' sua, e un «continua»
@@ -951,6 +943,16 @@ function centraSuNodo(node, key, forza) {
 // comunque: senza render lo scroll non si azzera.
 function centraSuAttivo() {
   const sp = SP(); const attivo = eroiAttivoNome(); const iS = scortAttivo();
+  // SUL TELEFONO SI PARTE DA SE'. Con nessun eroe attivo — fra un turno e
+  // l'altro, o mentre agisce la notte — la vista si centrava sulla tessera piu'
+  // affollata: su uno schermo piccolo voleva dire aprirsi su un angolo di mappa
+  // coperta, con la propria pedina fuori campo. Chi guarda un telefono cerca
+  // prima di tutto dov'e' il suo eroe.
+  const mio = mioEroe();
+  if (!arbitro() && mio && sp.eroiPos[mio] && (!attivo || attivo === mio) && iS == null) {
+    const p = sp.eroiPos[mio];
+    return centraSuNodo(p, `${mio}@${nk(p)}`, true);
+  }
   if (iS != null && (statoScortati()[iS] || {}).pos) { const p = sp.scortati[iS].pos; centraSuNodo(p, `S${iS}@${nk(p)}`, true); }
   else if (attivo) { const p = sp.eroiPos[attivo]; centraSuNodo(p, `${attivo}@${nk(p)}`, true); }
   else { const t = tileAffollata(); centraSuNodo({ t, x: 1.5, y: 1.5 }, `_@${t}`, true); }

@@ -906,5 +906,16 @@ em, i { font-style: italic; }
 #app.vista-eroe.immersivo { overflow-y: auto; height: auto; min-height: 100%; }
 /* la plancia si prende poco meno di meta' schermo: quel che avanza basta alla
    scheda e alle azioni, che cosi' si vedono senza scorrere. Sotto, si scorre. */
-#app.vista-eroe .board-area { flex: 0 0 auto; min-height: 34vh; max-height: 42vh; }
+/* ALTEZZA VERA, non solo un massimo: `height:100%` sulla board-wrap dentro non
+   si applica se l'area ha soltanto un `max-height`, e la mappa restava alta
+   quanto se stessa — tagliata dall'overflow, con in vista solo la fascia
+   superiore, cioe' le tessere ancora coperte. */
+#app.vista-eroe .board-area { flex: 0 0 auto; height: 40vh; }
 #app.vista-eroe #p-azioni, #app.vista-eroe #p-salute, #app.vista-eroe #p-giro { flex: none; }
+
+/* LA PLANCIA STA NEL SUO RIQUADRO. Nella vista eroe la board-area ha
+   un'altezza propria (serve a lasciare spazio alle azioni), ma la `board-wrap`
+   dentro restava alta quanto la mappa: il resto usciva e si vedeva spuntare
+   sotto il pannello della salute, come una seconda striscia di mappa. */
+#app.vista-eroe .board-area { overflow: hidden; position: relative; }
+#app.vista-eroe .board-wrap { height: 100%; max-height: 100%; overflow: auto; }
