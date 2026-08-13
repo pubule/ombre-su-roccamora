@@ -22,6 +22,8 @@ const ok = (c, m) => { if (!c) { console.error('FAIL:', m); ko++; } };
 
 const COMUNE = JSON.parse(readFileSync('webapp/data/comune.json', 'utf8'));
 const ELENA = COMUNE.eroi.find((e) => e.nome.includes('ELENA')).nome;
+const OTTONE = COMUNE.eroi.find((e) => e.nome.includes('OTTONE')).nome;
+const FUORI = COMUNE.eroi.find((e) => ![ELENA, OTTONE].includes(e.nome)).nome;
 
 const idT = crypto.randomUUID();
 await fetch(`${BASE}/api/tavolo`, {
@@ -47,9 +49,42 @@ async function apri() {
 await apri();
 ok(errori.length === 0, `la schermata apre senza errori JS: ${errori.slice(0, 2).join(' | ')}`);
 
+// --- LA COMPAGNIA si sceglie una volta, e vincola tutto il resto
+//
+// Prima il party si sceglieva a ogni partita, e assegnare un eroe offriva tutti
+// e undici quelli del Comune: dando a un giocatore un eroe fuori squadra si
+// otteneva un posto muto — il motore rifiuta i suoi comandi e sul telefono non
+// si accende niente, senza errore e senza spiegazione.
+{
+  const vuoto = await page.locator('#eroe-invito option').count();
+  ok(vuoto > 2, `senza compagnia si può scegliere fra tutti gli eroi (viste ${vuoto} voci)`);
+
+  // si compone toccando i ritratti, e si salva
+  await page.click(`.eroe-tile[data-nome="${ELENA}"]`);
+  await page.click(`.eroe-tile[data-nome="${OTTONE}"]`);
+  const conta = (await page.locator('#conta-party').innerText()).trim();
+  // si contano i ritratti accesi, non la scritta: il contatore e' decorazione,
+  // la selezione e' la cosa vera
+  ok((await page.locator('.eroe-tile.scelto').count()) === 2,
+     `due ritratti accesi dopo due tocchi (contatore: ${conta})`);
+  await page.click('#salva-party');
+  await page.waitForTimeout(800);
+
+  const dopo = await page.locator('#eroe-invito option').allInnerTexts();
+  ok(dopo.length === 3, `ora si scelgono solo gli eroi della compagnia (viste ${dopo.length} voci)`);
+  ok(dopo.join(' ').toLowerCase().includes('elena'), 'e sono quelli scelti');
+
+  // il vincolo non è solo a schermo: il server rifiuta un eroe fuori squadra
+  const r = await fetch(`${BASE}/api/membri`, {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ tavolo: idT, email: 'furbo@esempio.it', eroe: FUORI }),
+  });
+  ok(r.status === 400, `un eroe fuori compagnia è rifiutato anche dal server (visto ${r.status})`);
+}
+
 // --- IL TAVOLO VUOTO lo dice, invece di mostrare una lista vuota
 {
-  const t = await page.locator('.pannello').first().innerText();
+  const t = await page.locator('#p-membri').innerText();
   ok(/nessuno/i.test(t), `un tavolo senza invitati lo dice (visto «${t.slice(0, 60)}…»)`);
 }
 
@@ -61,7 +96,7 @@ ok(errori.length === 0, `la schermata apre senza errori JS: ${errori.slice(0, 2)
   await page.click('#invita');
   await page.waitForTimeout(700);
 
-  const t = await page.locator('.pannello').first().innerText();
+  const t = await page.locator('#p-membri').innerText();
   // AL TAVOLO CI SI CHIAMA PER NOME: l'email serve alla porta, non alla serata
   ok(/Giulia/.test(t), `il nome compare nell'elenco (visto «${t.slice(0, 90)}…»)`);
   ok(t.includes(AMICO), 'e l’email resta, in piccolo, per sapere chi è');
@@ -93,7 +128,7 @@ ok(errori.length === 0, `la schermata apre senza errori JS: ${errori.slice(0, 2)
   await page.selectOption('#eroe-invito', '');
   await page.click('#invita');
   await page.waitForTimeout(700);
-  const t = await page.locator('.pannello').first().innerText();
+  const t = await page.locator('#p-membri').innerText();
   ok(t.includes(ALTRO) && /nessun eroe/i.test(t),
      'si invita anche senza eroe, e si vede che manca');
 }
@@ -103,7 +138,7 @@ ok(errori.length === 0, `la schermata apre senza errori JS: ${errori.slice(0, 2)
   await page.fill('#email-invito', 'non-una-email');
   await page.click('#invita');
   await page.waitForTimeout(700);
-  const t = await page.locator('.pannello').first().innerText();
+  const t = await page.locator('#p-membri').innerText();
   ok(/non valida|riprova/i.test(t), `l'email sbagliata lo dice (visto «${t.slice(-70)}»)`);
 }
 
@@ -120,6 +155,17 @@ ok(errori.length === 0, `la schermata apre senza errori JS: ${errori.slice(0, 2)
   const r = await (await fetch(`${BASE}/api/membri?tavolo=${idT}`)).json();
   ok(!(r.membri || []).some((m) => m.email === ALTRO), 'chi è tolto se ne va davvero');
   ok((r.membri || []).some((m) => m.email === AMICO), 'e gli altri restano');
+}
+
+// --- UNA COMPAGNIA DI UNO NON È UNA COMPAGNIA
+// Le regole scalano da 2 a 10: fuori di lì non è una squadra, ed è meglio
+// dirlo qui che scoprirlo a serata cominciata.
+{
+  const r = await fetch(`${BASE}/api/party`, {
+    method: 'PUT', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ tavolo: idT, party: [ELENA] }),
+  });
+  ok(r.status === 400, `una compagnia di un eroe solo è rifiutata (visto ${r.status})`);
 }
 
 ok(errori.length === 0, `nessun errore JS in tutta la sessione: ${errori.slice(0, 2).join(' | ')}`);

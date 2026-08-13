@@ -41,10 +41,10 @@ export async function api(request, env, email) {
     // e quale eroe ho preso: e' cio' che serve alla schermata d'ingresso per
     // sapere se mandarmi alla plancia dell'arbitro o alla vista del mio eroe.
     const tavoli = await env.DB.prepare(
-      `SELECT id, nome, creato, 'arbitro' AS ruolo, NULL AS eroe
+      `SELECT id, nome, creato, party, 'arbitro' AS ruolo, NULL AS eroe
          FROM tavoli WHERE proprietario = ?
        UNION ALL
-       SELECT t.id, t.nome, t.creato, m.ruolo, m.eroe
+       SELECT t.id, t.nome, t.creato, t.party, m.ruolo, m.eroe
          FROM membri m JOIN tavoli t ON t.id = m.tavolo
         WHERE m.email = ? AND t.proprietario <> ?
        ORDER BY creato`).bind(email, email, email).all();
@@ -80,6 +80,18 @@ export async function api(request, env, email) {
     if (ruolo && ruolo !== 'arbitro' && ruolo !== 'giocatore') {
       return jsonRisposta({ errore: 'ruolo sconosciuto' }, 400);
     }
+    // L'EROE DEV'ESSERE DELLA COMPAGNIA. Assegnarne uno fuori squadra dava un
+    // posto muto: il motore rifiuta i suoi comandi con «non e' in questa
+    // squadra» e sul telefono non si accende mai niente — nessun errore,
+    // nessuna spiegazione. Se il tavolo non ha ancora un party non si vincola
+    // nulla: si sta ancora componendo la compagnia.
+    if (eroe) {
+      const t = await env.DB.prepare('SELECT party FROM tavoli WHERE id = ?').bind(tavolo).first();
+      const party = t && t.party ? JSON.parse(t.party) : null;
+      if (party && !party.includes(eroe)) {
+        return jsonRisposta({ errore: 'quell’eroe non è nella compagnia di questo tavolo' }, 400);
+      }
+    }
     try {
       await env.DB.prepare(
         `INSERT INTO membri (tavolo, email, nome, eroe, ruolo, invitato) VALUES (?, ?, ?, ?, ?, ?)
@@ -114,6 +126,34 @@ export async function api(request, env, email) {
     await env.DB.prepare('INSERT INTO tavoli (id, proprietario, nome, creato) VALUES (?, ?, ?, ?)')
       .bind(id, email, String(nome).slice(0, 80), Date.now()).run();
     return jsonRisposta({ id });
+  }
+
+  // IL PARTY DEL TAVOLO — gli eroi di questa campagna, scelti una volta e poi
+  // sempre quelli. Cambiarlo e' del solo PROPRIETARIO: e' la composizione della
+  // compagnia, non una preferenza di serata.
+  // NB: sta sotto `/api/party` e non `/api/tavolo/party` — tutto quel che
+  // comincia per `/api/tavolo/` lo instrada `index.js` verso il Durable Object
+  // della partita viva, e questo finirebbe li' invece che qui.
+  if (p === '/api/party' && metodo === 'PUT') {
+    const { tavolo, party } = await request.json();
+    const mio = (await env.DB.prepare('SELECT 1 FROM tavoli WHERE id = ? AND proprietario = ?')
+      .bind(tavolo, email).first()) != null;
+    if (!mio) return jsonRisposta({ errore: 'non trovato' }, 404);
+    if (!Array.isArray(party)) return jsonRisposta({ errore: 'il party è una lista di eroi' }, 400);
+    // le regole scalano da 2 a 10: fuori da li' non e' una squadra, ed e' meglio
+    // dirlo qui che scoprirlo a serata cominciata
+    if (party.length < 2 || party.length > 10) {
+      return jsonRisposta({ errore: 'la compagnia va da 2 a 10 eroi' }, 400);
+    }
+    // un eroe tolto dal party non puo' restare assegnato a qualcuno: sarebbe un
+    // posto che non gioca, e nessuno capirebbe perche'
+    await env.DB.prepare(
+      `UPDATE membri SET eroe = NULL
+        WHERE tavolo = ? AND eroe IS NOT NULL AND eroe NOT IN (SELECT value FROM json_each(?))`)
+      .bind(tavolo, JSON.stringify(party)).run();
+    await env.DB.prepare('UPDATE tavoli SET party = ? WHERE id = ?')
+      .bind(JSON.stringify(party), tavolo).run();
+    return jsonRisposta({ ok: true });
   }
 
   if (p === '/api/tavolo' && metodo === 'DELETE') {

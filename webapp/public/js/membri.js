@@ -21,6 +21,18 @@ export async function vistaMembri(app, tavolo, nome, torna) {
   const comune = await dati('comune');
   const eroi = comune.eroi.map((e) => e.nome);
 
+  // LA COMPAGNIA DI QUESTO TAVOLO: gli eroi della campagna, scelti una volta e
+  // poi sempre quelli. Prima il party si sceglieva a ogni partita e non c'era
+  // modo di sapere quali eroi fossero assegnabili: si offrivano tutti e undici.
+  async function party() {
+    try {
+      const r = await fetch('/api/stato');
+      if (!r.ok) return null;
+      const t = ((await r.json()).tavoli || []).find((x) => x.id === tavolo);
+      return t && t.party ? JSON.parse(t.party) : [];
+    } catch { return null; }
+  }
+
   async function carica() {
     try {
       const r = await fetch(`/api/membri?tavolo=${encodeURIComponent(tavolo)}`);
@@ -31,6 +43,7 @@ export async function vistaMembri(app, tavolo, nome, torna) {
 
   async function rendi(avviso) {
     const membri = await carica();
+    const squadra = (await party()) || [];
     if (membri === null) {
       app.innerHTML = `<div class="barra"><button class="btn" id="indietro">← tavoli</button>
           <div class="titolo">${esc(nome)}</div><span></span></div>
@@ -50,6 +63,28 @@ export async function vistaMembri(app, tavolo, nome, torna) {
         <div class="titolo">${esc(nome)}</div><span></span></div>
 
       <div class="pannello">
+        <h2>la compagnia</h2>
+        <p class="nota">Gli eroi di questa campagna: si scelgono una volta e restano
+          questi. ${squadra.length
+            ? 'Toccane uno per aggiungerlo o toglierlo.'
+            : 'Da 2 a 10 — finché non li scegli, non puoi dare un eroe a nessuno.'}</p>
+        <div class="griglia-arruolo mt">
+          ${comune.eroi.map((e) => `
+            <div class="eroe-tile${squadra.includes(e.nome) ? ' scelto' : ''}" data-nome="${esc(e.nome)}">
+              <img loading="lazy" src="${encodeURI('/assets/artworks/' + e.art)}" alt="">
+              <div class="eroe-velo"></div>
+              <div class="eroe-nome"><b>${esc(e.nome.toLowerCase())}</b><i>${esc(e.ruolo)}</i></div>
+              <div class="spunta">✓</div>
+            </div>`).join('')}
+        </div>
+        <div class="btn-riga mt">
+          <button class="btn pieno" id="salva-party">salva la compagnia
+            <span class="nota" id="conta-party"> — ${squadra.length}</span></button>
+        </div>
+      </div>
+
+      <div class="mt"></div>
+      <div class="pannello" id="p-membri">
         <h2>chi gioca a questo tavolo</h2>
         ${membri.length ? membri.map((m) => `
           <div class="nemico-riga">
@@ -82,13 +117,38 @@ export async function vistaMembri(app, tavolo, nome, torna) {
                placeholder="l’email con cui entrerà — amico@esempio.it" autocomplete="off">
         <select id="eroe-invito" class="campo mt">
           <option value="">— sceglie dopo —</option>
-          ${eroi.map((n) => `<option value="${esc(n)}"${presi.has(n) ? ' disabled' : ''}>${
-            esc(n.toLowerCase())}${presi.has(n) ? ' (già preso)' : ''}</option>`).join('')}
+          ${(squadra.length ? squadra : eroi).map((n) => `<option value="${esc(n)}"${
+            presi.has(n) ? ' disabled' : ''}>${esc(n.toLowerCase())}${
+            presi.has(n) ? ' (già preso)' : ''}</option>`).join('')}
         </select>
         <div class="btn-riga mt"><button class="btn pieno" id="invita">dagli un posto</button></div>
       </div>`;
 
     document.getElementById('indietro').onclick = torna;
+
+    // La compagnia si compone toccando i ritratti, e si salva a parte: toccare
+    // un eroe non deve far partire una scrittura per ogni tocco.
+    const scelti = new Set(squadra);
+    const conta = document.getElementById('conta-party');
+    app.querySelectorAll('.eroe-tile').forEach((el) => el.onclick = () => {
+      const n = el.dataset.nome;
+      if (scelti.has(n)) scelti.delete(n); else scelti.add(n);
+      el.classList.toggle('scelto', scelti.has(n));
+      conta.textContent = ` — ${scelti.size}`;
+    });
+    document.getElementById('salva-party').onclick = async () => {
+      try {
+        const r = await fetch('/api/party', {
+          method: 'PUT', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ tavolo, party: [...scelti] }),
+        });
+        if (!r.ok) {
+          const d = await r.json().catch(() => ({}));
+          return rendi(d.errore || 'Non riesco a salvare la compagnia.');
+        }
+      } catch { return rendi('Non riesco a salvare la compagnia: manca la rete.'); }
+      rendi();
+    };
 
     const copia = document.getElementById('copia-link');
     if (copia) copia.onclick = async () => {
