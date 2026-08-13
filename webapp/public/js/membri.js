@@ -69,9 +69,8 @@ export async function vistaMembri(app, tavolo, nome, torna, avanti) {
       <div class="pannello">
         <h2>la compagnia</h2>
         <p class="nota">Gli eroi di questa campagna: si scelgono una volta e restano
-          questi. ${squadra.length
-            ? 'Toccane uno per aggiungerlo o toglierlo.'
-            : 'Da 2 a 10 — finché non li scegli, non puoi dare un eroe a nessuno.'}</p>
+          questi. Tocca un ritratto per aggiungerlo o toglierlo — si salva da sé.${
+            squadra.length ? '' : ' Da 2 a 10.'}</p>
         <div class="griglia-arruolo mt">
           ${comune.eroi.map((e) => `
             <div class="eroe-tile${squadra.includes(e.nome) ? ' scelto' : ''}" data-nome="${esc(e.nome)}">
@@ -81,10 +80,7 @@ export async function vistaMembri(app, tavolo, nome, torna, avanti) {
               <div class="spunta">✓</div>
             </div>`).join('')}
         </div>
-        <div class="btn-riga mt">
-          <button class="btn pieno" id="salva-party">salva la compagnia
-            <span class="nota" id="conta-party"> — ${squadra.length}</span></button>
-        </div>
+        <p class="nota mt" id="conta-party"></p>
       </div>
 
       <div class="mt"></div>
@@ -139,13 +135,19 @@ export async function vistaMembri(app, tavolo, nome, torna, avanti) {
     // un eroe non deve far partire una scrittura per ogni tocco.
     const scelti = new Set(squadra);
     const conta = document.getElementById('conta-party');
-    app.querySelectorAll('.eroe-tile').forEach((el) => el.onclick = () => {
-      const n = el.dataset.nome;
-      if (scelti.has(n)) scelti.delete(n); else scelti.add(n);
-      el.classList.toggle('scelto', scelti.has(n));
-      conta.textContent = ` — ${scelti.size}`;
-    });
-    document.getElementById('salva-party').onclick = async () => {
+    // SI SALVA DA SE'. Un bottone «salva la compagnia» accanto a «dagli un
+    // posto» e a «si comincia» faceva tre bottoni sulla stessa schermata, e non
+    // era chiaro quale premere ne' in che ordine. Il tocco sul ritratto e' gia'
+    // la decisione: qui si esegue e si dice com'e' andata.
+    //
+    // Sotto i due eroi non si scrive: le regole scalano da 2 a 10, e il server
+    // rifiuterebbe. Non e' un errore, e' una compagnia non ancora finita.
+    const dillo = (t, male) => {
+      conta.textContent = t;
+      conta.classList.toggle('ko-txt', !!male);
+    };
+    const salva = async () => {
+      if (scelti.size < 2) return dillo(`${scelti.size} scelto: servono almeno due eroi.`);
       try {
         const r = await fetch('/api/party', {
           method: 'PUT', headers: { 'Content-Type': 'application/json' },
@@ -153,11 +155,33 @@ export async function vistaMembri(app, tavolo, nome, torna, avanti) {
         });
         if (!r.ok) {
           const d = await r.json().catch(() => ({}));
-          return rendi(d.errore || 'Non riesco a salvare la compagnia.');
+          return dillo(d.errore || 'Non riesco a salvare la compagnia.', true);
         }
-      } catch { return rendi('Non riesco a salvare la compagnia: manca la rete.'); }
-      rendi();
+      } catch { return dillo('Non riesco a salvare: manca la rete.', true); }
+      dillo(`${scelti.size} eroi — la compagnia è salvata.`);
+      aggiornaMenuEroi();
     };
+
+    // il menu degli eroi assegnabili segue la compagnia, ma senza ridisegnare
+    // tutto: si perderebbe quel che si sta scrivendo nel modulo d'invito
+    function aggiornaMenuEroi() {
+      const sel = document.getElementById('eroe-invito');
+      if (!sel) return;
+      const tenuto = sel.value;
+      sel.innerHTML = '<option value="">— sceglie lui dal telefono —</option>'
+        + [...scelti].map((n) => `<option value="${esc(n)}"${presi.has(n) ? ' disabled' : ''}>${
+          esc(n.toLowerCase())}${presi.has(n) ? ' (già preso)' : ''}</option>`).join('');
+      if ([...sel.options].some((o) => o.value === tenuto)) sel.value = tenuto;
+    }
+
+    app.querySelectorAll('.eroe-tile').forEach((el) => el.onclick = () => {
+      const n = el.dataset.nome;
+      if (scelti.has(n)) scelti.delete(n); else scelti.add(n);
+      el.classList.toggle('scelto', scelti.has(n));
+      salva();
+    });
+    dillo(squadra.length ? `${squadra.length} eroi in compagnia.` : '');
+
 
     const copia = document.getElementById('copia-link');
     if (copia) copia.onclick = async () => {

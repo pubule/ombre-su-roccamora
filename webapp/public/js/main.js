@@ -281,7 +281,11 @@ async function vistaParty(epId, modo, fase = 'indagine', plancia = 'fisica') {
       }
     } catch { /* nessuna rete: si sceglie a mano, com'era */ }
   }
-  if (dalTavolo) dalTavolo.forEach((n) => scelti.add(n));
+  // LA COMPAGNIA DEL TAVOLO SI SCEGLIE UNA VOLTA: se c'e', non si passa nemmeno
+  // di qui. Mostrare la stessa scelta a ogni episodio — gia' fatta, da
+  // riconfermare — e' una domanda a cui si e' gia' risposto, e la seconda volta
+  // sembra che la prima non sia servita.
+  if (dalTavolo) return comincia(dalTavolo, epId, modo, fase, plancia);
   h(`
     <div class="barra">
       <button class="btn" id="indietro">← indietro</button>
@@ -326,15 +330,20 @@ async function vistaParty(epId, modo, fase = 'indagine', plancia = 'fisica') {
       aggiornaBtn();
     });
   }));
-  document.getElementById('inizia').onclick = () => {
-    const partita = nuovaPartita(epId, modo, [...scelti], fase);
-    partita.plancia = plancia;   // 'fisica' | 'schermo' (solo al tavolo)
-    salva(partita);
-    // partendo dalla sola spedizione manca l'unica cosa che l'indagine le
-    // passa: com'era finita. La si dichiara, invece di darla per persa.
-    if (fase === 'spedizione') return vistaEsitoIndagine(partita);
-    vistaPartita(partita);
-  };
+  document.getElementById('inizia').onclick = () => comincia([...scelti], epId, modo, fase, plancia);
+}
+
+// Comincia la partita. Sta a parte perche' ci si arriva da DUE strade: la
+// schermata di arruolamento, e — quando il tavolo ha gia' la sua compagnia —
+// senza passarci affatto.
+function comincia(party, epId, modo, fase, plancia) {
+  const partita = nuovaPartita(epId, modo, party, fase);
+  partita.plancia = plancia;     // 'fisica' | 'schermo' (solo al tavolo)
+  salva(partita);
+  // partendo dalla sola spedizione manca l'unica cosa che l'indagine le passa:
+  // com'era finita. La si dichiara, invece di darla per persa.
+  if (fase === 'spedizione') return vistaEsitoIndagine(partita);
+  vistaPartita(partita);
 }
 
 // la scheda dell'eroe sta in scheda-eroe.js: la aprono anche l'indagine e la

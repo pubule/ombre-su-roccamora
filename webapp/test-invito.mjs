@@ -67,8 +67,8 @@ ok(errori.length === 0, `la schermata apre senza errori JS: ${errori.slice(0, 2)
   // la selezione e' la cosa vera
   ok((await page.locator('.eroe-tile.scelto').count()) === 2,
      `due ritratti accesi dopo due tocchi (contatore: ${conta})`);
-  await page.click('#salva-party');
-  await page.waitForTimeout(800);
+  // niente bottone: la compagnia si salva da sé appena arriva al secondo eroe
+  await page.waitForTimeout(1000);
 
   const dopo = await page.locator('#eroe-invito option').allInnerTexts();
   ok(dopo.length === 3, `ora si scelgono solo gli eroi della compagnia (viste ${dopo.length} voci)`);
@@ -201,6 +201,44 @@ ok(errori.length === 0, `la schermata apre senza errori JS: ${errori.slice(0, 2)
   ok(await p2.evaluate(() => document.querySelector('#app').dataset.episodi) === '1',
      'e quel bottone porta agli episodi');
   await p2.close();
+}
+
+// --- LA COMPAGNIA SI SCEGLIE UNA VOLTA: l'episodio non la richiede
+//
+// Con la compagnia sul tavolo, aprire un episodio portava di nuovo alla
+// schermata d'arruolamento — la stessa scelta, già fatta, da riconfermare. La
+// seconda volta sembra che la prima non sia servita.
+{
+  const idC = crypto.randomUUID();
+  await fetch(`${BASE}/api/tavolo`, {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ id: idC, nome: 'Tavolo con compagnia' }),
+  });
+  await fetch(`${BASE}/api/party`, {
+    method: 'PUT', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ tavolo: idC, party: [ELENA, OTTONE] }),
+  });
+
+  const p3 = await browser.newPage({ viewport: { width: 420, height: 900 } });
+  await p3.goto(BASE, { waitUntil: 'networkidle' });
+  // `osr.tavolo` contiene l'id NUDO, non un JSON; il nome sta a parte
+  await p3.evaluate((id) => {
+    localStorage.setItem('osr.tavolo', id);
+    localStorage.setItem('osr.tavolo.nome', 'Tavolo con compagnia');
+  }, idC);
+  await p3.reload({ waitUntil: 'networkidle' });
+  await p3.waitForTimeout(800);
+  await p3.locator('.tessera-episodio').first().click();
+  await p3.waitForTimeout(600);
+  const modo = p3.locator('[data-modo="digitale"]');
+  if (await modo.count()) { await modo.click(); await p3.waitForTimeout(300); }
+  const av = p3.locator('#avanti');
+  if (await av.count()) { await av.click(); await p3.waitForTimeout(2000); }
+
+  ok(await p3.locator('.griglia-arruolo').count() === 0,
+     'col tavolo che ha già la compagnia, l’episodio non richiede gli eroi');
+  await p3.close();
+  await fetch(`${BASE}/api/tavolo?id=${idC}`, { method: 'DELETE' });
 }
 
 ok(errori.length === 0, `nessun errore JS in tutta la sessione: ${errori.slice(0, 2).join(' | ')}`);
