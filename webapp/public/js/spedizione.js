@@ -833,7 +833,7 @@ function registroHtml() {
         <button class="btn attacca" data-attacca="${i}">⚔ attacca</button>
         <span class="nemico-pips" data-idx="${i}" title="+1 ferita a mano">
           ${Array.from({ length: n.max }, (_, k) =>
-            `<span class="pip-ferita ${k < n.ferite ? 'piena' : ''}"></span>`).join('')}
+            `<span class="pip-ferita ${k < (n.max - n.ferite) ? 'piena' : ''}"></span>`).join('')}
         </span>
       </span>
     </div>`;

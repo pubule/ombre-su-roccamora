@@ -473,7 +473,7 @@ function boardHtml(senzaMosse) {
   }
   sp.nemici.forEach((n, i) => {
     if (!n.pos) return; const st = nemStat(n.nome); const boss = st && st.boss ? ' boss' : '';
-    tok(n.pos, `<span class="tok-board nemico${boss}" data-nemico="${i}" title="${esc(n.nome)} ${n.ferite}/${n.max}">
+    tok(n.pos, `<span class="tok-board nemico${boss}" data-nemico="${i}" title="${esc(n.nome)} ${n.max - n.ferite}/${n.max}">
       ${st && st.art ? `<img src="${urlArt(st.art)}" alt="" loading="lazy">` : ''}</span>`, `N:${i}`);
   });
   statoScortati().forEach((g, i) => {
@@ -513,7 +513,7 @@ function nemiciHtml() {
     const st = nemStat(n.nome);
     return `<div class="nemico-riga"><span class="nemico-nome">${esc(n.nome.toLowerCase())}${n.num > 1 ? ' ' + n.num : ''}
       <span class="nota">${esc(n.pos ? n.pos.t : '?')} · Att +${st.att} · Dif ${st.dif} · Dan ${st.dan}</span></span>
-      <span class="nemico-pips">${Array.from({ length: n.max }, (_, k) => `<span class="pip-ferita ${k < n.ferite ? 'piena' : ''}"></span>`).join('')}</span></div>`;
+      <span class="nemico-pips">${Array.from({ length: n.max }, (_, k) => `<span class="pip-ferita ${k < (n.max - n.ferite) ? 'piena' : ''}"></span>`).join('')}</span></div>`;
   }).join('');
 }
 const primo = stat.primo;

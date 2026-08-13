@@ -484,6 +484,11 @@ em, i { font-style: italic; }
 .nemico-nome { font-family: 'FellSC', serif; font-size: 17px; color: var(--osso); }
 .nemico-nome b { color: var(--ceralacca); }
 .nemico-pips { display: flex; gap: 6px; cursor: pointer; padding: 6px; }
+/* UN PALLINO PIENO E' UN PUNTO VITA. Vale per gli eroi e per i nemici: prima
+   il pieno voleva dire vita da una parte e ferita dall'altra, cioe' la stessa
+   forma con due significati opposti sulla stessa schermata — e per leggere un
+   nemico bisognava ricordarsi di invertire. Il COLORE dice da che parte stai
+   (rosso i nemici, blu gli eroi), il RIEMPIMENTO dice quanto sei in piedi. */
 .pip-ferita { width: 20px; height: 20px; border-radius: 50%;
   border: 2px solid var(--ceralacca); background: transparent; }
 .pip-ferita.piena { background: var(--ceralacca); }
