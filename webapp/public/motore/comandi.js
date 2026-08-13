@@ -123,7 +123,12 @@ const GESTORI = {
         if (fine.riga) g.sp.log.push(fine.riga);
       }
     }
-    return { eventi: [{ tipo: 'turno-nemici', piano: [...piano], annunci: piano.annunci }] };
+    // `[...piano]` e' un ARRAY: le proprieta' appese al piano (`vite0`,
+    // `differito`) non ci salirebbero, e chi anima si ritroverebbe le vite di
+    // partenza vuote — cioe' tutti gia' a terra all'inizio dell'animazione.
+    return { eventi: [{ tipo: 'turno-nemici', piano: [...piano],
+                        vite0: piano.vite0, differito: !!piano.differito,
+                        annunci: piano.annunci }] };
   },
 };
 

@@ -703,12 +703,17 @@ async function bersagliInsidia(rules) {
 // pigrizia — e' l'unica cosa onesta da mostrare a chi non ha nulla da toccare.
 function attesaNotte() {
   const { app } = ctx;
+  // LA PLANCIA, non un pannello di attesa. La notte si guarda: e' il momento
+  // piu' teso della serata, e su una schermata di testo non succede niente.
+  // Il copione arriva col comando di chi arbitra (`turno-nemici`) e anima
+  // QUESTI token — quindi devono essere gia' a schermo quando arriva.
   app.innerHTML = `${fasciaTurno()}
-    <div class="barra"><span></span><div class="titolo">la notte</div><span></span></div>
-    <div class="pannello">
-      <p>I nemici si muovono. Chi arbitra li sta facendo agire — appena finito,
-         la plancia torna e il round riprende.</p>
-    </div>`;
+    <div class="barra"><span></span><div class="titolo">la notte</div>
+      <span class="sc" style="color:var(--oro-chiaro)">round ${SP().round}</span></div>
+    <div class="board-area">
+      <div class="board-wrap" id="board-wrap">${boardHtml(true)}</div>
+    </div>
+    <div class="pannello" id="p-salute"><h2>la salute degli eroi</h2>${saluteHtml()}</div>`;
 }
 
 // LA CARTA APERTA, disegnata dallo stato. Chi conduce la chiude e passa alla
@@ -1225,6 +1230,13 @@ async function riproduci(eventi) {
       flash(ev.tipo === 'abbattuto' ? `${ev.nome.toLowerCase()} è abbattuto!` : 'a terra: ora si può prendere.');
     } else if (ev.tipo === 'rivelata') {
       ctx.layout = null;                       // la mappa cresce: si ridisegna
+    } else if (ev.tipo === 'turno-nemici') {
+      // IL COPIONE DELLA NOTTE, gia' risolto dal motore: qui si mette solo in
+      // scena. Vale per chi arbitra e per chi guarda dal telefono — e' lo
+      // stesso piano, quindi nessuno dei due puo' vedere una notte diversa.
+      const piano = ev.piano.slice();
+      piano.vite0 = ev.vite0; piano.differito = ev.differito; piano.annunci = ev.annunci;
+      await animaNotte(piano);
     } else if (ev.tipo === 'carta') {
       // NIENTE: la carta aperta la disegna `render()` leggendola dallo stato
       // (`sp.carta`). Metterla in scena anche qui la mostrerebbe due volte, e
@@ -1601,7 +1613,29 @@ async function eseguiTurnoNemici(piano) {
 }
 
 // entry: pianifica (logica IA invariata), applica lo stato, poi anima
-function faseNemiciAI() {
+// LA NOTTE PASSA DAL MOTORE, come tutto il resto.
+//
+// Applicava il piano QUI, in locale: il tavolo non ne sapeva niente, i telefoni
+// restavano fermi su «agisce la notte» per sempre, e lo stato di chi arbitra
+// divergeva da quello del tavolo senza che nessuno se ne accorgesse. Il comando
+// `fase-nemici` esisteva nel motore dal primo giorno e non lo usava nessuno.
+//
+// Ora si manda il comando e si ANIMA quel che torna: il piano viaggia negli
+// eventi, quindi lo stesso copione arriva a ogni schermo. Chi guarda vede la
+// notte muoversi come chi conduce, senza che il suo motore tocchi nulla.
+async function faseNemiciAI() {
+  return esegui({ tipo: 'fase-nemici', differito: tavoloTiraNemici() });
+}
+
+// L'animazione della notte, dal piano che il motore ha gia' risolto.
+function animaNotte(piano) {
+  ctx.saltaNemici = false; ctx.ultimaCentrata = null;
+  ctx.viteVista = { ...piano.vite0 };          // board come a inizio fase: nessuno ancora a terra
+  vistaNemici(piano);                          // board a posizioni di partenza
+  return eseguiTurnoNemici(piano);             // animazione (async)
+}
+
+function faseNemiciLocale() {
   const sp = SP();
   const piano = nemici.pianoNemici(G(), CASO, tavoloTiraNemici());
   nemici.fineRoundNemici(G(), piano);
@@ -1611,10 +1645,7 @@ function faseNemiciAI() {
   // risolti — vedi `chiudiFaseNemici`.
   if (!piano.differito) chiudiFaseNemici();
   salvaP();                                    // stato gia' finale: reload -> fase eroi coerente
-  ctx.saltaNemici = false; ctx.ultimaCentrata = null;
-  ctx.viteVista = { ...piano.vite0 };          // board come a inizio fase: nessuno ancora a terra
-  vistaNemici(piano);                          // board a posizioni di partenza
-  return eseguiTurnoNemici(piano);             // animazione (async)
+  return animaNotte(piano);
 }
 
 // --------------------------------------------------------------- utilita'

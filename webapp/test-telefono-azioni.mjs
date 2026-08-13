@@ -114,6 +114,36 @@ if (m) {
   }
 }
 
+// --- LA NOTTE SI GUARDA, E POI SI TORNA AGLI EROI
+//
+// La notte veniva applicata in locale da chi arbitra: il tavolo non ne sapeva
+// niente, e il telefono restava fermo su «agisce la notte» per sempre — anche
+// quando il turno era gia' tornato agli eroi. E chi guardava non vedeva
+// muoversi nulla, perche' il copione non arrivava.
+{
+  // si smaltiscono le carte rimaste, se ce ne sono
+  for (let i = 0; i < 4; i++) {
+    const st = await (await chiama('arbitro@esempio.it', 'GET', `/api/tavolo/${id}/stato`)).json();
+    if (!st.stato.spedizione.carta) break;
+    await chiama('arbitro@esempio.it', 'POST', `/api/tavolo/${id}/comando`, { tipo: 'carta-vista' });
+    await p.waitForTimeout(400);
+  }
+
+  const r = await chiama('arbitro@esempio.it', 'POST', `/api/tavolo/${id}/comando`, { tipo: 'fase-nemici' });
+  ok(r.ok, `la notte parte dal dispositivo di chi arbitra (visto ${r.status})`);
+  const d = await r.json();
+  const ev = (d.eventi || []).find((x) => x.tipo === 'turno-nemici');
+  ok(ev, 'e il copione della notte torna indietro come evento');
+  if (ev) ok(ev.vite0 && Object.keys(ev.vite0).length > 0,
+             'con le vite di partenza, o l’animazione mostrerebbe tutti già a terra');
+
+  // il telefono esce da solo dall'attesa: la fase è tornata agli eroi
+  await p.waitForTimeout(4000);
+  const t = await p.locator('#app').innerText();
+  ok(!/la notte/i.test(t) || /tocca a/i.test(t),
+     `il telefono non resta fermo sulla notte (visto «${t.slice(0, 60).replace(/\s+/g, ' ')}»)`);
+}
+
 ok(err.length === 0, `senza errori JS: ${err.slice(0, 2).join(' | ')}`);
 
 await b.close();
