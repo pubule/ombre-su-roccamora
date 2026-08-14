@@ -55,9 +55,13 @@ const GESTORI = {
   muovi: (g, c, caso) => azioni.muovi(g, caso, c.eroe, c.nodo, c.rivela),
   cerca: (g, c, caso) => azioni.cercare(g, caso, c.eroe),
   rianima: (g, c) => azioni.rianima(g, c.eroe),
-  attacca: (g, c, caso) => azioni.attacca(g, caso, c.eroe, c.bersaglio, false),
+  // `arma` distingue il corpo a corpo dal Revolver. Un comando solo e non due
+  // perche' e' la stessa azione con un'altra gittata e un altro bonus: due
+  // gestori vorrebbero dire due copie del conto delle ferite, del Colpo da
+  // macello e della chiusura dei compiti.
+  attacca: (g, c, caso) => azioni.attacca(g, caso, c.eroe, c.bersaglio, false, c.arma),
   'finisci-eroe': (g, c) => { azioni.finisciEroe(g, c.eroe); return { eventi: [] }; },
-  abilita: (g, c) => abilita.usa(g, c.eroe, c.scelta, c.cella),
+  abilita: (g, c) => abilita.usa(g, c.eroe, c.scelta, c.cella, c.voce),
   interagisci: (g, c, caso) => interazioni.interagisci(g, caso, c.eroe),
   oggetto: (g, c) => interazioni.usaOggetto(g, c.eroe, c.quale),
   rispondi: (g, c, caso) => azioni.rispondi(g, caso, c.scelta),

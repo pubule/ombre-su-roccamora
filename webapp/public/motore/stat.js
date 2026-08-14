@@ -11,9 +11,31 @@
 // Contesto esplicito `g = { ep, comune, sp, partita }`, come in griglia.js.
 
 import { esploraMosse, occupati, adiacGlob } from './griglia.js';
+import { eroeCresciuto, bonusDifesa, ha } from './migliorie.js';
 
 // ------------------------------------------------------------- dati di gioco
-export const eroe = (g, nm) => g.comune.eroi.find((e) => e.nome === nm);
+// L'EROE COM'E' STANOTTE, non come e' stampato sulla carta: le Migliorie delle
+// serate passate (Tempra, Fibra) e le Cicatrici sono gia' dentro. Passa da qui
+// e basta — ogni chiamante di `saluteMax` prende l'oggetto da questa funzione,
+// quindi la Fibra arriva alla Salute massima senza una seconda riga.
+//
+// `eroeCresciuto` restituisce una COPIA quando c'e' qualcosa da cambiare e
+// l'originale quando non c'e': `comune.eroi` e' in cache e condiviso.
+export const eroe = (g, nm) => eroeCresciuto(g, nm, g.comune.eroi.find((e) => e.nome === nm));
+
+// LA DIFESA DI UN EROE, che fin qui era un numero stampato e basta. Esiste
+// perche' SPALLE COPERTE la muove: chi sta accanto a un compagno che la porta
+// para meglio. Due punti in nemici.js leggevano `e.difesa` dritto; ora leggono
+// questa, e sono gli stessi due punti — il bonus non puo' applicarsi a meta'.
+export function difesaDi(g, nm) {
+  const e = eroe(g, nm);
+  if (!e) return 8;
+  const pos = g.sp && g.sp.eroiPos && g.sp.eroiPos[nm];
+  if (!pos) return e.difesa;
+  const vicini = (g.partita.party || []).filter((x) => x !== nm
+    && (g.sp.vite[x] ?? 0) > 0 && g.sp.eroiPos[x] && adiacGlob(g, pos, g.sp.eroiPos[x]));
+  return e.difesa + bonusDifesa(g, nm, vicini);
+}
 
 export const nemStat = (g, nome) => {
   const base = g.comune.nemici.find((n) => n.nome === nome);
@@ -31,7 +53,15 @@ export const nemStat = (g, nome) => {
   return out;
 };
 
-export const movimento = (g, nm) => (nm.includes('NINO') ? 4 : 3);
+// PASSO FELPATO aggiunge 3 caselle per il round in cui si accende. Sta qui e
+// non in raggEroe perche' il movimento e' un numero solo: chi lo legge —
+// l'esplorazione delle caselle, la plancia dell'arbitro, il telefono di chi
+// gioca — deve leggerne uno.
+export const movimento = (g, nm) => {
+  const base = nm.includes('NINO') ? 4 : 3;
+  const p = g.sp && g.sp.passo;
+  return (p && p.chi === nm && p.round === g.sp.round) ? base + 3 : base;
+};
 
 export function fascia(g, taglia) {
   if (taglia === 2 || taglia === 4) return 0;
@@ -151,4 +181,15 @@ export function bonusVoce(g, nm, stat) {
   if (!ancora || (sp.vite[v.da] ?? 0) <= 0) return [];
   if (!sp.eroiPos[nm] || !sp.eroiPos[v.da] || !adiacGlob(g, sp.eroiPos[nm], sp.eroiPos[v.da])) return [];
   return [{ label: `Voce ferma di ${primo(v.da)}`, val: 2 }];
+}
+
+// MANO FERMA: +1 alle prove di NERVI «imposte dalle trappole e dall'ambiente,
+// non ai combattimenti». Sta accanto a bonusVoce perche' e' la stessa specie di
+// bonus e passa dalla stessa porta — `prova()` in azioni.js, che serve insidie
+// d'ingresso, oggetti rischiosi e ricerche. Gli attacchi non passano di li'
+// (si costruiscono la loro soglia in `provaDi`), quindi il «non ai
+// combattimenti» non ha bisogno di essere scritto: e' dove sta la funzione.
+export function bonusMano(g, nm, stat) {
+  if (String(stat).toLowerCase() !== 'nervi' || !ha(g, nm, 'mano')) return [];
+  return [{ label: 'Mano ferma', val: 1 }];
 }

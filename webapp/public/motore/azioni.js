@@ -18,9 +18,10 @@
 // nemico. Quello diventa `stato.pendenza`, che sta NELLO STATO — quindi chi
 // ricarica la pagina se la ritrova, mentre una promise interrotta perdeva il
 // turno.
-import { adiacGlob, tileDi } from './griglia.js';
+import { adiacGlob, tileDi, distGlob } from './griglia.js';
 import { eroe, nemStat, primo, azioneSpesa, azioniRestano, azioniMax,
-         saluteMax, bonusVoce } from './stat.js';
+         saluteMax, bonusVoce, bonusMano } from './stat.js';
+import { ha } from './migliorie.js';
 import { cerca, norm } from './regole.js';
 import { controllaVittoria } from './vittoria.js';
 import { specCompiti, compitiFiniti } from './obiettivi.js';
@@ -81,11 +82,17 @@ export function provaDi(g, comando) {
     const chi = comando.tipo === 'attacca' ? nm : (g.sp.pendenza || {}).a;
     const n = g.sp.nemici[i]; if (!n || !chi) return null;
     const e = eroe(g, chi); const st = nemStat(g, n.nome);
+    // IL REVOLVER non somma il VIGORE: tira 2d6+2 fisso. E' il punto della
+    // miglioria — a chi mena non serve (Ottone con +4 fa meglio a mani nude),
+    // a chi non mena da' una strada che non sia la mischia. Quel che compra
+    // davvero non e' piu' danno: e' colpire senza stare adiacenti.
+    const revolver = comando.arma === 'revolver';
     return {
-      titolo: `${primo(chi)} → ${n.nome.toLowerCase()}`,
+      titolo: `${primo(chi)} ${revolver ? 'spara a' : '→'} ${n.nome.toLowerCase()}`,
       diffLabel: 'Difesa', diff: null, stat: null, chi,
       soglia: n.difMod ?? st.dif,
-      bonus: [{ label: 'VIGORE', val: e.vigore }, { label: 'arma', val: 1 }],
+      bonus: revolver ? [{ label: 'Revolver', val: 2 }]
+                      : [{ label: 'VIGORE', val: e.vigore }, { label: 'arma', val: 1 }],
     };
   }
   if (comando.tipo === 'interagisci') {
@@ -98,6 +105,11 @@ export function provaDi(g, comando) {
     const t = tileDi(g, comando.nodo.t);
     const req = provaRichiesta(t && t.testo);
     if (!req || (g.sp.insidie && g.sp.insidie[comando.nodo.t])) return null;
+    // LANTERNA SCHERMATA: la trappola non si attiva su chi la porta. E resta
+    // ARMATA — `muovi()` segna `sp.insidie` solo quando una prova c'e' stata,
+    // quindi il compagno che entra dopo la trova ancora li'. E' quel che dice
+    // la miglioria: schermata e' la lanterna, non la stanza.
+    if (ha(g, nm, 'lanterna')) return null;
     return prova(g, nm, req.stat, req.diff, [],
                  `${comando.nodo.t} — ${(t.nome || '').toLowerCase()}`);
   }
@@ -110,7 +122,7 @@ function prova(g, nm, stat, diff, bonusExtra, titolo) {
     titolo, stat, diff, diffLabel: diff, chi: nm,
     soglia: g.comune.regole.diff[diff],
     bonus: [{ label: String(stat).toUpperCase(), val: e[stat] || 0 },
-            ...bonusVoce(g, nm, stat), ...bonusExtra],
+            ...bonusVoce(g, nm, stat), ...bonusMano(g, nm, stat), ...bonusExtra],
   };
 }
 
@@ -244,17 +256,33 @@ export function rianima(g, nm) {
 // L'unica azione che puo' lasciare una PENDENZA: il Colpo da macello di Ottone
 // si sceglie dopo aver visto cadere il primo nemico, quindi non e'
 // pre-dichiarabile come le altre.
-export function attacca(g, caso, nm, i, gratis) {
+export function attacca(g, caso, nm, i, gratis, arma) {
   const sp = g.sp; const n = sp.nemici[i];
+  // IL REVOLVER E' UN MODO DI ATTACCARE, non una seconda azione. Spende
+  // «attaccare» come il corpo a corpo, quindi in un turno si spara O si mena:
+  // il Regolamento lo scriveva «una volta per round», che a dieci eroi sono
+  // dieci colpi gratis a round (PROMPT-ESPANSIONE.md prescrive usi contati,
+  // mai «per round», proprio perche' scala male col numero di giocatori).
+  const revolver = arma === 'revolver';
   if (!n) return rifiuta('Quel nemico non è più in campo.');
+  if (revolver && !ha(g, nm, 'revolver')) return rifiuta(`${primo(nm)} non ha il Revolver.`);
   if (!gratis && azioneSpesa(g, nm, 'attaccare')) {
     return rifiuta(`${primo(nm)} ha già attaccato: le 2 azioni sono di tipo diverso.`);
   }
   if (!gratis && !azioniRestano(g, nm)) return rifiuta(`${primo(nm)} non ha più azioni.`);
-  if (!adiacGlob(g, sp.eroiPos[nm], n.pos)) return rifiuta('Nemico non adiacente: avvicinati prima.');
+  if (revolver) {
+    // `distGlob` torna **0** quando un cammino non c'e' — muro, arredo, stanza
+    // non ancora aperta — e 0 non e' «vicinissimo»: e' «non ci arrivi». Senza il
+    // `!d` si sparava attraverso i muri, e il colpo piu' comodo del gioco era
+    // quello impossibile. Stessa guardia dell'Esca e del Flash (`> 0`).
+    const d = distGlob(g, sp.eroiPos[nm], n.pos);
+    if (!d || d > 3) return rifiuta('Fuori tiro: il Revolver arriva a 3 caselle, e serve la linea.');
+  } else if (!adiacGlob(g, sp.eroiPos[nm], n.pos)) {
+    return rifiuta('Nemico non adiacente: avvicinati prima.');
+  }
   if (n.abbattuto) return rifiuta(`${n.nome.toLowerCase()} è già a terra: ora va preso (Interagire).`);
 
-  const p = provaDi(g, { tipo: 'attacca', eroe: nm, bersaglio: i });
+  const p = provaDi(g, { tipo: 'attacca', eroe: nm, bersaglio: i, arma });
   const t = tiraLa(caso, p);
   const dif = p.soglia; const somma = t.somma; const colpito = t.ok;
   const eventi = [{ tipo: 'tiro', causa: 'attacco', chi: nm, bersaglio: i,
@@ -266,7 +294,7 @@ export function attacca(g, caso, nm, i, gratis) {
   }
 
   n.ferite += 1;
-  log(g, `${primo(nm)} colpisce ${n.nome.toLowerCase()} (2d6+VIG ${somma} ≥ Dif ${dif} → ${n.ferite}/${n.max}).`);
+  log(g, `${primo(nm)} colpisce ${n.nome.toLowerCase()} (2d6${revolver ? '+2 revolver' : '+VIG'} ${somma} ≥ Dif ${dif} → ${n.ferite}/${n.max}).`);
   eventi.push({ tipo: 'ferito', bersaglio: i, ferite: n.ferite, max: n.max });
 
   if (n.ferite < n.max) return { eventi, azione: gratis ? null : 'attaccare' };
@@ -291,8 +319,9 @@ export function attacca(g, caso, nm, i, gratis) {
 
   // COLPO DA MACELLO di Ottone: abbattuto un nemico in mischia, il secondo
   // colpo parte subito e non costa l'azione. Una volta per suo turno —
-  // `sp.macello` tiene il round in cui l'ha gia' fatto.
-  if (nm.includes('OTTONE') && sp.macello !== sp.round) {
+  // `sp.macello` tiene il round in cui l'ha gia' fatto. **In mischia**: un
+  // bersaglio caduto a tre caselle non mette il secondo a portata di braccio.
+  if (nm.includes('OTTONE') && !revolver && sp.macello !== sp.round) {
     const vicini = sp.nemici.map((x, j) => ({ x, j }))
       .filter(({ x }) => x.pos && !x.abbattuto && adiacGlob(g, sp.eroiPos[nm], x.pos));
     if (vicini.length === 1) {

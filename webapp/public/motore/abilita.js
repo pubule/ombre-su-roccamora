@@ -21,6 +21,7 @@
 import { adiacGlob, distGlob } from './griglia.js';
 import { eroe, nemStat, primo, saluteMax, azioniRestano } from './stat.js';
 import { celleEsca } from './stat.js';
+import { ha } from './migliorie.js';
 
 const log = (g, t) => { g.sp.log = g.sp.log || []; g.sp.log.push(t); };
 const rifiuta = (motivo) => ({ rifiuto: motivo });
@@ -42,6 +43,25 @@ export const CARICHE_SPED = [
 
 export const caricaDi = (nome) => CARICHE_SPED.find((c) => nome.includes(c.key));
 
+// LE CARICHE CHE VENGONO DALLE MIGLIORIE. Tabella a parte perche' quella sopra
+// e' indicizzata per EROE — l'abilita' stampata sulla sua carta — e queste per
+// VOCE: due eroi diversi possono portare la stessa Borsa, e lo stesso eroe puo'
+// portarne due di specie diversa. Stessa forma, stesso `usa()`.
+export const CARICHE_MIG = [
+  { id: 'garze', ab: 'Borsa di garze', usi: 2, eff: 'garze', costaAzione: true,
+    nota: 'Cura 2 Salute a un eroe adiacente.' },
+  // PASSO FELPATO non costa l'azione: comprare tre caselle di movimento con
+  // l'unica altra azione del turno sarebbe comprarle a prezzo pieno, e la
+  // miglioria non varrebbe la casella. E' un modo di muoversi, non un'azione.
+  { id: 'passo', ab: 'Passo felpato', usi: 1, eff: 'passo', costaAzione: false,
+    nota: 'Muovetevi di 3 caselle in più, una volta per spedizione.' },
+];
+
+export const caricaMig = (id) => CARICHE_MIG.find((c) => c.id === id) || null;
+
+// Quante volte l'eroe ha gia' speso QUELLA voce, stanotte.
+export const usiMig = (g, nm, id) => ((g.sp.migUsi || {})[nm] || {})[id] || 0;
+
 // Quante volte l'abilita' si puo' usare IN QUESTA serata. La tabella dice il
 // numero di scatola; un Bivio di campagna lo sposta — «Marani ha un alleato di
 // bronzo: la Litania vale 2 volte invece di 1». Sta qui e non nella tabella
@@ -55,8 +75,25 @@ export const usiDi = (g, c) => {
 // Quel che l'abilita' chiede prima di partire. `null` = non chiede niente.
 // Restituisce anche `vuoto` quando l'abilita' non ha bersagli: e' un rifiuto
 // che il client puo' mostrare senza mandare il comando.
-export function candidati(g, nm) {
-  const sp = g.sp; const c = caricaDi(nm);
+export function candidati(g, nm, voce) {
+  const sp = g.sp;
+  // LE MIGLIORIE PRIMA: `voce` dice che non si sta usando l'abilita' della
+  // carta ma una casella spuntata in campagna.
+  if (voce) {
+    const cm = caricaMig(voce);
+    if (!cm) return null;
+    if (cm.eff === 'garze') {
+      // «a un eroe adiacente»: se stessi no — e' la differenza con il Pronto
+      // Soccorso di Attilio, che il Regolamento scrive «a sé o a un adiacente».
+      const cand = g.partita.party.filter((x) => x !== nm && (sp.vite[x] ?? 0) > 0
+        && adiacGlob(g, sp.eroiPos[nm], sp.eroiPos[x]));
+      if (!cand.length) return { eff: cm.eff, vuoto: 'Nessun compagno in piedi qui accanto.' };
+      return { eff: cm.eff, titolo: 'garze a chi? (+2 Salute)',
+               opzioni: cand.map((x) => ({ id: x, label: `${primo(x)} (${sp.vite[x]})` })) };
+    }
+    return null;                 // passo: parte senza chiedere niente
+  }
+  const c = caricaDi(nm);
   if (!c || c.usi === null) return null;
 
   if (c.eff === 'cura') {
@@ -99,7 +136,48 @@ export function candidati(g, nm) {
   return null;      // litania, diversivo, voce: partono senza chiedere niente
 }
 
-export function usa(g, nm, scelta, cella) {
+// LE MIGLIORIE A CARICHE, eseguite. Sta accanto a `usa()` e non dentro perche'
+// le due contabilita' sono diverse — `sp.abilita[nm]` e' un intero, l'abilita'
+// dell'eroe e' una sola; le Migliorie sono piu' d'una per eroe e vogliono una
+// mappa. Tutto il resto (il rifiuto in chiaro, gli eventi, la carica spesa)
+// ha la stessa forma, e deve averla: la vista non distingue le due specie.
+function usaMiglioria(g, nm, voce, scelta) {
+  const sp = g.sp; const cm = caricaMig(voce);
+  if (!cm) return rifiuta(`Miglioria sconosciuta: ${voce}.`);
+  if (!ha(g, nm, voce)) return rifiuta(`${primo(nm)} non ha ${cm.ab.toLowerCase()}.`);
+  const usate = usiMig(g, nm, voce);
+  if (usate >= cm.usi) return rifiuta(`${primo(nm)} ha finito ${cm.ab.toLowerCase()}.`);
+  if (cm.costaAzione && !azioniRestano(g, nm)) return rifiuta('Nessuna azione rimasta.');
+
+  const chiede = candidati(g, nm, voce);
+  if (chiede && chiede.vuoto) return rifiuta(chiede.vuoto);
+
+  const eventi = [];
+  if (cm.eff === 'garze') {
+    const chi = scelta;
+    if (!chi || !chiede.opzioni.some((o) => o.id === chi)) return rifiuta('Quell\'eroe non è fra quelli curabili.');
+    const e = eroe(g, chi);
+    sp.vite[chi] = Math.min(saluteMax(g, e), (sp.vite[chi] ?? 0) + 2);
+    log(g, `${primo(nm)} fascia ${primo(chi)} con le garze (+2 → ${sp.vite[chi]}).`);
+    eventi.push({ tipo: 'curato', chi, salute: sp.vite[chi] });
+  } else if (cm.eff === 'passo') {
+    // Vale per il round in corso: chi lo accende e poi non si muove l'ha speso.
+    // Sta nello stato e non in una variabile della vista perche' `raggEroe`
+    // deve accendere le caselle giuste anche sul telefono di chi gioca.
+    sp.passo = { chi: nm, round: sp.round };
+    log(g, `${primo(nm)} allunga il passo: 3 caselle in più, questo round.`);
+    eventi.push({ tipo: 'passo-felpato', chi: nm });
+  }
+
+  sp.migUsi = sp.migUsi || {};
+  sp.migUsi[nm] = sp.migUsi[nm] || {};
+  sp.migUsi[nm][voce] = usate + 1;
+  eventi.push({ tipo: 'carica-spesa', chi: nm, ab: cm.ab, restano: cm.usi - usate - 1 });
+  return { eventi, azione: cm.costaAzione ? 'abilita' : null };
+}
+
+export function usa(g, nm, scelta, cella, voce) {
+  if (voce) return usaMiglioria(g, nm, voce, scelta);
   const sp = g.sp; const c = caricaDi(nm);
   if (!c || c.usi === null) return rifiuta(`${primo(nm)} non ha un'abilità a cariche.`);
   const usi = usiDi(g, c);

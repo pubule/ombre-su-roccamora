@@ -20,6 +20,7 @@
 // Contesto esplicito `g = { ep, comune, sp, partita }`.
 import { adiacGlob, tileDi } from './griglia.js';
 import { eroe, saluteMax, primo, specScortati, statoScortati } from './stat.js';
+import { haIlGruppo } from './migliorie.js';
 import { tettoCanto } from './regole.js';
 
 // ------------------------------------------------------- compiti d'episodio
@@ -263,9 +264,14 @@ export const specRitmo = (g) => specCompiti(g).find((c) => c.ritmo) || null;
 // n'e' NESSUNA — l'Ep.20 aperto per provarlo, i banchi di misura che giocano un
 // episodio alla volta — e allora vale il `default` dei dati: dire 0 li' sarebbe
 // una misura di un finale che nessun tavolo vero incontra.
+// VOCE CHE REGGE, la miglioria di gruppo: chi la porta vale un Frammento in
+// piu' per il ritmo. Si somma qui e non altrove perche' questo e' l'unico punto
+// da cui i Frammenti entrano nel finale — e «una sola casella per l'intero
+// gruppo» e' esattamente `haIlGruppo`, non una somma su chi ce l'ha.
 export const frammentiPortati = (g) => {
   const r = specRitmo(g); const p = g.partita;
-  return p.frammenti != null ? p.frammenti : ((r && r.ritmo.frammenti_default) || 0);
+  const base = p.frammenti != null ? p.frammenti : ((r && r.ritmo.frammenti_default) || 0);
+  return base + (haIlGruppo(g, 'voce') ? 1 : 0);
 };
 
 export function avanzaRitmo(g) {

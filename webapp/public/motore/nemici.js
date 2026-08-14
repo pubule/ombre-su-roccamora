@@ -20,7 +20,7 @@
 //
 // Contesto esplicito `g = { ep, comune, sp, partita }`.
 import { adiacGlob, camminoGlob, celleAdiacLibere, occupati, nk } from './griglia.js';
-import { eroe, nemStat, saluteMax, primo, statoScortati, specScort } from './stat.js';
+import { eroe, nemStat, saluteMax, primo, statoScortati, specScort, difesaDi } from './stat.js';
 import { fineRound } from './regole.js';
 import { specOrologio, avanzaOrologio, avanzaRogo, avanzaCancellazione,
          avanzaRitmo, avanzaPressione, controllaFiloPerso,
@@ -146,16 +146,20 @@ export function pianoNemici(g, caso, differito) {
 
     if (adiacenti.length) {
       const vitt = adiacenti.includes(scelto) ? scelto : adiacenti[caso.scegli(adiacenti.length)];
-      const e = eroe(g, vitt);
+      // La Difesa si CHIEDE, non si legge dalla carta: Spalle coperte la alza a
+      // chi ha un compagno accanto. Si calcola qui, al momento del colpo, ed e'
+      // il numero che finisce nel piano — cosi' il tavolo che tira dopo usa la
+      // stessa soglia che l'app ha mostrato.
+      const dif = difesaDi(g, vitt);
       if (differito) {
         // intenzione senza tiro: `tot`/`colpito` mancano apposta ed e'
         // l'animazione a chiederli al tavolo, dado alla mano
         piano.push({ i, nome: n.nome, pos0, pos1, flash: false,
-                     attacco: { vitt, dan: st.dan, att: st.att, dif: e.difesa } });
+                     attacco: { vitt, dan: st.dan, att: st.att, dif } });
         continue;
       }
       const t = caso.tira2d6();
-      attacco = colpisciEroe(g, n.nome, vitt, st.dan, t.tot + st.att, e.difesa);
+      attacco = colpisciEroe(g, n.nome, vitt, st.dan, t.tot + st.att, dif);
     }
     piano.push({ i, nome: n.nome, pos0, pos1, flash: false, attacco });
   }
