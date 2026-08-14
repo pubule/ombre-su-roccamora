@@ -381,6 +381,9 @@ function collegaAlTavolo() {
         salva(stato, { timbra: false });
         return ctx.vaiA('spedizione');
       }
+      // usciti di lì: si azzera l'arrivo, o tornando NELLO STESSO luogo (un'altra
+      // ora spesa) la facciata non si riaprirebbe e si rientrerebbe in silenzio
+      if ((stato.indagine || {}).luogoAperto == null) ctx.entrato = null;
       ctx.partita = stato;
       if (datiVisti) {
         if (datiVisti.ep) ctx.ep = datiVisti.ep;
@@ -438,6 +441,18 @@ function vistaDiChiGioca() {
   const mio = mioEroe();
   const visitati = (ep.luoghi || []).filter((l) => (ind.visitati || []).includes(l.n));
   const aperto = ind.luogoAperto != null && (ep.luoghi || []).find((x) => x.n === ind.luogoAperto);
+  // L'ARRIVO. Chi arbitra dichiara la destinazione ed entra dritto — l'ora è del
+  // gruppo e la spende lui. Sui telefoni, invece, entrare non era un momento:
+  // cambiava il contenuto della pagina in silenzio, e chi guardava il proprio
+  // schermo si ritrovava dentro senza essersene accorto.
+  //
+  // Ora la facciata si apre a tutto schermo e si entra col dito. E' l'arrivo di
+  // QUESTA persona: non manda niente al tavolo, non aspetta nessuno e non
+  // vincola gli altri — chi legge con calma resta sulla facciata mentre gli
+  // altri sono già dentro. Per questo `entrato` vive nella pagina e non nello
+  // stato: metterlo nella partita farebbe di un gesto personale una mossa del
+  // gruppo, e il tavolo a schermo unico dovrebbe farla per finta.
+  if (aperto && ctx.entrato !== aperto.n) return arrivoAlLuogo(aperto);
 
   const scritte = (ind.risposte || []).filter((r) => String(r || '').trim()).length;
   // IL DONO DEL PROPRIO EROE, se ne ha uno. Sul telefono di chi non ce l'ha la
@@ -547,6 +562,28 @@ function vistaDiChiGioca() {
     if (el.dataset.appr === 'profano') return aiutoProfano(l, el.dataset.tipo, mioEroe());
     return approfondisci(l, el.dataset.tipo, tipiQui, mioEroe());
   }));
+}
+
+// LA FACCIATA, prima di entrare. Arte, nome e indirizzo: quel che si vede dalla
+// strada. Il testo del luogo no — quello si legge ad alta voce DOPO, ed è il
+// momento di chi arbitra.
+function arrivoAlLuogo(l) {
+  const { app } = ctx;
+  const voce = vociMappa(ctx.ep, ctx.comune).find((v) => norm(v.nome) === norm(l.voce_mappa));
+  app.innerHTML = `
+    ${barra('ci siete')}
+    <div class="arrivo">
+      ${bannerLuogo(l)}
+      <div class="pannello">
+        <h2>${esc(l.nome.toLowerCase())}</h2>
+        ${voce && voce.indirizzo ? `<p class="nota"><i>${esc(voce.indirizzo)}</i></p>` : ''}
+        <p class="mt">Il gruppo è arrivato. Entrate quando siete pronti: gli altri
+        non vi aspettano, e voi non aspettate loro.</p>
+      </div>
+      <div class="btn-riga"><button class="btn pieno" id="entrate">entrate</button></div>
+    </div>`;
+  dopoBarra();
+  app.querySelector('#entrate').onclick = () => { ctx.entrato = l.n; vistaDiChiGioca(); };
 }
 
 // GLI APPUNTI, UNO PER EROE.
@@ -1110,12 +1147,17 @@ async function discernimento() {
   const out = await esegui({ tipo: 'discernimento', voce: scelta });
   if (!out) return home();
   const ev = out.eventi.find((e) => e.tipo === 'discernimento');
+  // IL LUOGO SI DICE PER NOME. Questa schermata si apre su OGNI schermo, e chi
+  // non ha premuto il bottone non sa di che strada si parla: «lì si nasconde
+  // ancora qualcosa» è una risposta senza la domanda. Il nome è la domanda.
   pannelloMsg('discernimento', ev && ev.ancora
-    ? `<p><i>Marani chiude gli occhi un istante, poi annuisce: <b>sì</b> — lì si nasconde
-       ancora qualcosa.</i></p><p class="nota mt">La prossima visita a quel luogo non
-       costa l’ora. Per cogliere quel che nasconde, lì, si tira come ovunque.</p>`
-    : `<p><i>Marani scuote il capo, piano: <b>no</b>. Qualunque cosa ci fosse da vedere lì,
-       o l’avete già colta, o non c’è mai stata.</i></p>`, home, { atutti: true });
+    ? `<p><i>Marani chiude gli occhi un istante, poi annuisce: <b>sì</b> — a
+       <b>${esc(String(scelta).toLowerCase())}</b> si nasconde ancora qualcosa.</i></p>
+       <p class="nota mt">La prossima visita a quel luogo non costa l’ora. Per cogliere
+       quel che nasconde, lì, si tira come ovunque.</p>`
+    : `<p><i>Marani scuote il capo, piano: <b>no</b>. Qualunque cosa ci fosse da vedere a
+       <b>${esc(String(scelta).toLowerCase())}</b>, o l’avete già colta, o non c’è mai
+       stata.</i></p>`, home, { atutti: true });
 }
 
 // Fonti riservate di Carla: la PROSSIMA visita non costa l'ora (e non
@@ -1138,10 +1180,12 @@ async function ombraFiuta() {
   const out = await esegui({ tipo: 'ombra', voce: scelta });
   if (!out) return home();
   const quanti = (out.eventi.find((e) => e.tipo === 'ombra') || {}).quanti || 0;
-  pannelloMsg('ombra fiuta', `<p><i>Il furetto sguscia via sui tetti. Torna prima che
-    la candela cali di un dito, e Mora gli legge in faccia il conto:
+  const dove = `<b>${esc(String(scelta).toLowerCase())}</b>`;
+  // come sopra: la strada la deve leggere il tavolo, non solo chi ha premuto
+  pannelloMsg('ombra fiuta', `<p><i>Il furetto sguscia via sui tetti verso ${dove}. Torna
+    prima che la candela cali di un dito, e Mora gli legge in faccia il conto:
     <b>${quanti === 0 ? 'niente' : quanti === 1 ? 'una cosa' : `${quanti} cose`}</b> da
-    cogliere ${quanti ? 'ancora, là' : '— là non c’è più nulla, o non c’è mai stato'}.</i></p>
+    cogliere ${quanti ? `ancora, a ${dove}` : `— a ${dove} non c’è più nulla, o non c’è mai stato`}.</i></p>
     <p class="nota mt">Il numero, mai il tipo: Ombra fiuta, non legge.</p>`, home, { atutti: true });
 }
 

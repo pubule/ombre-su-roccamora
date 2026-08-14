@@ -222,6 +222,25 @@ await page.evaluate(async () => {
                       { ruolo: 'giocatore', eroe: party[0] });
 });
 await guarda('indagine-eroe');
+// L'ARRIVO: la facciata a tutto schermo che si apre sul telefono quando il
+// gruppo entra in un luogo. E' arte a piena larghezza con del testo sopra —
+// esattamente la forma in cui il contrasto se ne va senza che nessuno se ne
+// accorga, ed e' una schermata che nessun altro banco visita.
+await page.evaluate(async () => {
+  const { vistaIndagine } = await import('/js/indagine.js');
+  const c = await (await fetch('/data/comune.json')).json();
+  const ep = await (await fetch('/data/ep1.json')).json();
+  const p = JSON.parse(localStorage.getItem('osr.partita.ep1'));
+  p.party = c.eroi.slice(0, 3).map((e) => e.nome);
+  p.indagine.luogoAperto = ep.luoghi[0].n;
+  p.indagine.visitati = [ep.luoghi[0].n];
+  document.querySelector('#app').innerHTML = '';
+  await vistaIndagine(document.querySelector('#app'), p, () => {},
+                      { ruolo: 'giocatore', eroe: p.party[0] });
+});
+await page.waitForTimeout(400);
+await guarda('arrivo-al-luogo');
+
 // e la lettera come la vede chi gioca: e' carta dentro una vista che carta non
 // e', ed e' esattamente il punto in cui l'epilogo si era rotto
 if (await page.locator('#lettera-eroe').count()) {

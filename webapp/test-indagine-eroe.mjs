@@ -100,12 +100,25 @@ await page.goto(BASE, { waitUntil: 'networkidle' });
 // non protegge da niente che le altre due non coprano gia', ma tiene `ctx.ep`
 // identico a quel che il server manderebbe — cosi' il giorno che questa
 // schermata mostrera' qualcosa in piu', non potra' pescarlo dal blob locale.
-const apriIndagine = (stato) => page.evaluate(async ({ t, elena, s }) => {
+// `chi` = l'eroe di questo posto. Quasi sempre Elena; i controlli sui doni
+// vogliono il telefono di chi quel dono ce l'ha, e senza questo parametro
+// guarderebbero la home di un altro eroe — cioe' non guarderebbero niente.
+const apriIndagine = (stato, chi = ELENA) => page.evaluate(async ({ t, eroe, s }) => {
   const { vistaIndagine } = await import('/js/indagine.js');
   document.querySelector('#app').innerHTML = '';
   await vistaIndagine(document.querySelector('#app'), s, () => {},
-                      { tavolo: t, ruolo: 'giocatore', eroe: elena });
-}, { t: idT, elena: ELENA, s: stato });
+                      { tavolo: t, ruolo: 'giocatore', eroe });
+}, { t: idT, eroe: chi, s: stato });
+
+// L'ARRIVO: dal 14/08 il telefono che trova il gruppo dentro un luogo vede
+// prima la facciata, e si entra col dito (blocco 14). I controlli che vogliono
+// essere DENTRO passano di qui, invece di ripetere il clic cinque volte.
+const entraSeSiE = async () => {
+  if (await page.locator('#entrate').count()) {
+    await page.evaluate(() => document.querySelector('#entrate').click());
+    await page.waitForTimeout(700);
+  }
+};
 
 await apriIndagine(serata());
 await page.waitForTimeout(1200);          // il filo si apre
@@ -224,6 +237,7 @@ ok(errori.length === 0, `il telefono apre l'Indagine senza errori JS: ${errori.s
   await chiama(ARBITRO, 'POST', `/api/tavolo/${idT}/apri`, { tavolo: idT, stato: dentro });
   await apriIndagine(dentro);
   await page.waitForTimeout(1200);
+  await entraSeSiE();
 
   const sel = `[data-appr="approfondisci"][data-tipo="${TIPO}"]`;
   ok((await page.locator(sel).count()) === 1,
@@ -478,6 +492,7 @@ ${testo.slice(0, 180)}`);
 
   await apriIndagine(dentro);
   await page.waitForTimeout(1200);
+  await entraSeSiE();
 
   // IL BOTTONE C'E', ed e' quello della sua abilita'
   const bott = page.locator(`[data-appr="approfondisci"][data-tipo="${TIPO}"]`);
@@ -717,6 +732,95 @@ ${schermo.slice(0, 140).replace(/\s+/g, ' ')}`);
   ok(!dopo, `chiudendola si riparte (carta ${dopo ? 'ancora lì' : 'chiusa'})`);
   ok(!/quel che avete colto/i.test(await page.locator('#app').innerText()),
      'e chi arbitra torna alla sua scrivania');
+}
+
+// --- 14. L'ARRIVO E' DI CHI GUARDA, E NON MUOVE IL TAVOLO
+//
+// Chi arbitra dichiara la destinazione ed entra dritto: l'ora è del gruppo e la
+// spende lui. Sui telefoni entrare non era un momento — cambiava il contenuto
+// della pagina in silenzio, e chi guardava il proprio schermo si ritrovava
+// dentro senza essersene accorto. Ora la facciata si apre a tutto schermo e si
+// entra col dito, ognuno per sé: non è una mossa, quindi il tavolo non si deve
+// muovere di un millimetro.
+{
+  const LUOGO = EP1.luoghi.find((l) => (l.approfondimenti || []).length);
+  const TIPO = LUOGO.approfondimenti[0].tipo;
+  const IDONEO = COMUNE.eroi.find((e) => ((e.cariche || {})[TIPO] || 0) > 0);
+  const dentro = serata({ luogoAperto: LUOGO.n, visitati: [LUOGO.n], ora: 21 });
+  dentro.party = [IDONEO.nome, OTTONE];
+  dentro.creata = 14_000;
+
+  await chiama(ARBITRO, 'PUT', '/api/party', { tavolo: idT, party: dentro.party });
+  await chiama(ARBITRO, 'DELETE', `/api/membri?tavolo=${idT}&email=${encodeURIComponent(GIOCATORE)}`);
+  await chiama(ARBITRO, 'POST', '/api/membri', { tavolo: idT, email: GIOCATORE, eroe: IDONEO.nome });
+  await chiama(ARBITRO, 'POST', `/api/tavolo/${idT}/apri`, { tavolo: idT, stato: dentro });
+  await apriIndagine(dentro);
+  await page.waitForTimeout(1200);
+
+  // LA FACCIATA, non la pagina delle azioni
+  ok((await page.locator('#entrate').count()) === 1, 'il telefono arriva davanti al luogo');
+  const facciata = await page.locator('#app').innerText();
+  ok(facciata.toLowerCase().includes(LUOGO.nome.toLowerCase().slice(0, 12)),
+     `e la facciata dice quale (${facciata.slice(0, 90).replace(/\s+/g, ' ')})`);
+  ok((await page.locator('[data-appr]').count()) === 0,
+     'le azioni non ci sono ancora: prima si entra');
+  ok(!/indizi|leggeteli ad alta voce/i.test(facciata),
+     'e il testo del luogo nemmeno: quello si legge dentro');
+
+  const prima = await (await chiama(ARBITRO, 'GET', `/api/tavolo/${idT}/stato`)).json();
+
+  await page.evaluate(() => document.querySelector('#entrate').click());
+  await page.waitForTimeout(900);
+  ok((await page.locator('[data-appr]').count()) > 0,
+     'entrando compaiono le azioni di chi ha l’eroe');
+
+  // e il tavolo non si è mosso: l'arrivo non è un comando
+  const dopo = await (await chiama(ARBITRO, 'GET', `/api/tavolo/${idT}/stato`)).json();
+  ok(dopo.stato.aggiornato === prima.stato.aggiornato
+     && dopo.stato.indagine.luogoAperto === prima.stato.indagine.luogoAperto,
+     `e il tavolo non si è mosso (timbro ${prima.stato.aggiornato} → ${dopo.stato.aggiornato})`);
+}
+
+// --- 15. IL DONO DAL TELEFONO, E LA STRADA DETTA PER NOME
+//
+// Ombra e Discernimento indicano un luogo LONTANO, e la loro risposta si apre
+// su ogni schermo. Diceva «là si nasconde ancora qualcosa»: chi aveva premuto
+// sapeva di che strada si parlava, gli altri no — una risposta senza la
+// domanda, letta proprio dalla gente che doveva informare.
+//
+// Si guarda quel che finisce NELLO STATO, non quel che disegna la pagina: è la
+// stessa carta che arriva a tutti gli schermi.
+{
+  const MORA = COMUNE.eroi.find((e) => e.nome.includes('FANTI')).nome;
+  const perStrada = serata({ ora: 21 });
+  perStrada.party = [MORA, OTTONE];
+  perStrada.creata = 15_000;
+  delete perStrada.indagine.luogoAperto;
+
+  await chiama(ARBITRO, 'PUT', '/api/party', { tavolo: idT, party: perStrada.party });
+  await chiama(ARBITRO, 'DELETE', `/api/membri?tavolo=${idT}&email=${encodeURIComponent(GIOCATORE)}`);
+  await chiama(ARBITRO, 'POST', '/api/membri', { tavolo: idT, email: GIOCATORE, eroe: MORA });
+  await chiama(ARBITRO, 'POST', `/api/tavolo/${idT}/apri`, { tavolo: idT, stato: perStrada });
+  await apriIndagine(perStrada, MORA);
+  await page.waitForTimeout(1200);
+
+  ok((await page.locator('#dono-eroe').count()) === 1,
+     'chi ha Mora vede il suo dono sulla home, e nessun altro');
+  await page.evaluate(() => document.querySelector('#dono-eroe').click());
+  await page.waitForTimeout(700);
+  const voci = page.locator('.scelta-overlay .scelta-btn:not(.annulla)');
+  ok((await voci.count()) > 1, 'e lo stradario si sceglie dal telefono: le strade non sono un segreto');
+  const strada = (await voci.first().innerText()).trim();
+  await voci.first().click();
+  await page.waitForTimeout(1600);
+
+  const st = await (await chiama(ARBITRO, 'GET', `/api/tavolo/${idT}/stato`)).json();
+  const carta = st.stato.indagine.carta || {};
+  ok(/ombra/i.test(carta.titolo || ''),
+     `la risposta si apre su ogni schermo (${carta.titolo || '—'})`);
+  ok((carta.corpo || '').toLowerCase().includes(strada.toLowerCase()),
+     `e nomina la strada, che è la domanda di quella risposta (cercavo «${strada}»)`);
+  ok(st.stato.indagine.ombraUsata === true, 'e il dono è speso sul tavolo');
 }
 
 await browser.close();

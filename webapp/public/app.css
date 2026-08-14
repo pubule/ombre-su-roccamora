@@ -369,6 +369,12 @@ em, i { font-style: italic; }
   margin-bottom: 14px; }
 .banner-velo { position: absolute; inset: 0;
   background: linear-gradient(180deg, transparent 40%, rgba(11, 11, 13, .9)); }
+/* L'ARRIVO, sul telefono di chi gioca: la facciata prima di entrare. La fascia
+   cresce — è la sola cosa sullo schermo, e deve valere il momento — e il
+   bottone sta dove arriva il pollice, non in fondo a una pagina che scorre. */
+.arrivo { display: flex; flex-direction: column; min-height: 62vh; }
+.arrivo .banner-luogo { height: min(46vh, 380px); }
+.arrivo .btn-riga { margin-top: auto; }
 /* le carte SONO carta: restano com'erano stampate, senza cornici d'oro */
 .carta-grande { display: flex; justify-content: center; }
 .carta-grande img { max-width: min(320px, 78vw); border-radius: 1px;
