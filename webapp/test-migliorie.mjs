@@ -19,6 +19,7 @@ import { provaDi } from './public/motore/azioni.js';
 import { pianoNemici } from './public/motore/nemici.js';
 import { frammentiPortati } from './public/motore/obiettivi.js';
 import { candidati } from './public/motore/abilita.js';
+import { provaDiIndagine } from './public/motore/indagine.js';
 
 let ko = 0;
 const ok = (c, m) => { if (!c) { console.error('FAIL:', m); ko++; } };
@@ -313,6 +314,51 @@ const G = (s, d = DATI) => ({ ep: d.ep, comune: d.comune, carte: d.carte,
   s2.episodio = 'ep20'; s2.frammenti = 6;
   ok(frammentiPortati(G(s2, D20)) === frammentiPortati(G(s1, D20)),
      'due Voci non valgono due Frammenti');
+}
+
+// ---------------------------------------------------------- L'INDAGINE
+// La Tempra vale «sempre», e in Indagine l'ACUME tira davvero: e' la meta'
+// della serata dove un aggancio dimenticato non da' nessun errore — il tiro
+// riesce lo stesso, solo meno spesso.
+{
+  const ind = (mig) => ({
+    v: 1, episodio: 'ep1', party: [ELENA], fase: 'indagine', migliorie: mig, cicatrici: {},
+    indagine: { ora: 18, visitati: [], approfondimentiLetti: [], caricheUsate: {}, chiusa: false },
+  });
+  const gi = (s) => ({ ep: DATI.ep, comune: DATI.comune, carte: DATI.carte,
+                       ind: s.indagine, partita: s });
+  const bon = (s) => provaDiIndagine(gi(s), { tipo: 'approfondisci', eroe: ELENA })
+    .bonus.reduce((a, b) => a + b.val, 0);
+  ok(bon(ind({ [ELENA]: ['tempra:acume'] })) === bon(ind({})) + 1,
+     `la Tempra su ACUME arriva alle prove d'Indagine (${bon(ind({}))} → ${bon(ind({ [ELENA]: ['tempra:acume'] }))})`);
+  ok(bon(ind({ [ELENA]: ['tempra:vigore'] })) === bon(ind({})),
+     'e una Tempra su un\'altra caratteristica no');
+
+  // OCCHIO ESERCITATO: fallendo, la scena NON si chiude. Una volta per Indagine.
+  const luogo = DATI.ep.luoghi.find((l) => (l.approfondimenti || []).length);
+  const TIPO = luogo.approfondimenti[0].tipo;
+  const IDONEO = DATI.comune.eroi.find((e) => ((e.cariche || {})[TIPO] || 0) > 0);
+  const dentro = (mig) => ({
+    v: 1, episodio: 'ep1', party: [IDONEO.nome], fase: 'indagine',
+    migliorie: mig, cicatrici: {}, rng: { seme: 3, passo: 0 },
+    indagine: { ora: 18, visitati: [luogo.n], luogoAperto: luogo.n, scoperti: [], sbloccati: [],
+      parole: [], oggetti: [], reperti: [], approfondimentiLetti: [], caricheUsate: {},
+      note: '', risposte: ['', '', '', ''], chiusa: false },
+  });
+  const fallisci = (s) => applica(s, { tipo: 'approfondisci', tipoApp: TIPO, luogo: luogo.n,
+                                       eroe: IDONEO.nome, tiri: [[1, 1]] }, DATI);
+
+  const senza = fallisci(dentro({}));
+  ok(senza.stato.indagine.scenaChiusa === true, 'senza Occhio, fallendo la scena si chiude');
+
+  const con = fallisci(dentro({ [IDONEO.nome]: ['occhio'] }));
+  ok(!con.stato.indagine.scenaChiusa,
+     'con Occhio esercitato la scena resta aperta: quel che si risparmia e\' l\'ora');
+  ok(con.eventi.some((e) => e.tipo === 'occhio-esercitato'), 'e lo si dice, invece di farlo in silenzio');
+
+  // una volta per Indagine: il secondo fallimento chiude
+  const bis = fallisci(con.stato);
+  ok(bis.stato.indagine.scenaChiusa === true, 'la seconda volta no: e\' una per Indagine');
 }
 
 // -------------------------------------------------- il prezzario e le righe

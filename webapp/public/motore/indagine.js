@@ -21,7 +21,7 @@
 // Un motore che decide le parole non serve a un Durable Object, e in un test si
 // deve poter leggere il fatto senza inciampare in una descrizione.
 import { bussa, dichiaraVoce, luogoVisitabile, idoneiPerTipo, usaCarica, norm } from './regole.js';
-import { eroeCresciuto } from './migliorie.js';
+import { eroeCresciuto, ha } from './migliorie.js';
 
 const rifiuta = (motivo) => ({ rifiuto: motivo });
 
@@ -276,6 +276,19 @@ function approfondisci(g, caso, c) {
   if (!t.ok) {
     // la carica NON si spende: si paga l'ora, non la risorsa. Ma qui e' finita
     // per questa visita — si esce e si rientra per ritentare.
+    //
+    // OCCHIO ESERCITATO, una volta per Indagine: la scena NON si chiude. E' il
+    // vero prezzo di un fallimento — la carica gia' non si spendeva, quindi
+    // «ripetete la prova» comprava un ritiro di qualcosa che non costava
+    // niente. Quel che si perde davvero e' l'ora per uscire e rientrare, ed e'
+    // quella che questa miglioria fa risparmiare.
+    ind.occhioUsato = ind.occhioUsato || {};
+    if (ha(g, c.eroe, 'occhio') && !ind.occhioUsato[c.eroe]) {
+      ind.occhioUsato[c.eroe] = true;
+      daLeggere(g, 'niente, per ora', { esito: 'fallita', chi: c.eroe, luogo: l.n });
+      return { eventi: [...eventi,
+        { tipo: 'occhio-esercitato', luogo: l.n, chi: c.eroe }] };
+    }
     ind.scenaChiusa = true;
     daLeggere(g, 'niente, per ora', { esito: 'fallita', chi: c.eroe, luogo: l.n });
     return { eventi: [...eventi, { tipo: 'scena-chiusa', luogo: l.n, chi: c.eroe }] };
