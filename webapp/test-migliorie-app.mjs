@@ -201,6 +201,81 @@ const bottoni = () => pg.evaluate(() => [...document.querySelectorAll('button')]
      `e l'ACUME segnato dalla cicatrice (${CARTA.acume} − 1 = ${CARTA.acume - 1}, letto ${acu})`);
 }
 
+// ------------------------------------ CHI SPUNTA COSA: telefono contro arbitro
+// La crescita e' una scheda, e la scheda e' di chi la gioca: dal telefono si
+// spuntano le proprie caselle e le altre si leggono. Chi arbitra le spunta
+// tutte, perche' tiene in mano gli eroi che nessuno ha reclamato — e perche'
+// quando si gioca in due davanti a uno schermo solo la mano e' una.
+//
+// Si prova il MODULO dentro la pagina, e non l'epilogo guidato a mano, per una
+// ragione precisa: un giocatore alla serata NON ci arriva dall'archivio. Il suo
+// telefono aspetta che chi arbitra apra l'episodio ed entra dal tavolo vivo,
+// che vuole un `wrangler dev` e un Durable Object — e' il mestiere di
+// `test-eroe.mjs`. La domanda qui e' piu' stretta, «chi puo' toccare quali
+// caselle», e vive tutta in `crescitaHtml`: localStorage ce l'ha, e il posto lo
+// riceve come argomento.
+async function chiPuo(permessi, crescita = {}) {
+  return pg.evaluate(async ({ party, permessi: p, crescita: c }) => {
+    localStorage.clear();
+    localStorage.setItem('osr.crescita.', JSON.stringify(c));
+    // una serata vinta = un punto a testa, o non ci sarebbe niente da offrire
+    localStorage.setItem('osr.partita.ep1', JSON.stringify({
+      v: 1, episodio: 'ep1', party, spedizione: { esito: 'vittoria' },
+    }));
+    const m = await import('/js/crescita-scelta.js');
+    const html = m.crescitaHtml(party, (nm) => p.includes(nm), null);
+    const box = document.createElement('div');
+    box.innerHTML = html;
+    return {
+      riquadro: !!box.querySelector('#riq-crescita'),
+      eroi: [...new Set([...box.querySelectorAll('[data-cresce]')].map((x) => x.dataset.cresce))],
+      testo: box.textContent,
+    };
+  }, { party: [ELENA, OTTONE], permessi, crescita });
+}
+
+{
+  await pg.goto(BASE, { waitUntil: 'domcontentloaded' });
+
+  const tel = await chiPuo([ELENA]);
+  ok(tel.riquadro, 'dal telefono la crescita si vede');
+  ok(JSON.stringify(tel.eroi) === JSON.stringify([ELENA]),
+     `e si spuntano solo le caselle del proprio eroe (${JSON.stringify(tel.eroi)})`);
+  ok(/OTTONE/.test(tel.testo),
+     'ma la compagnia si legge tutta: la crescita degli altri non è un segreto');
+  ok(/Spuntate le vostre/i.test(tel.testo),
+     'e lo dice, invece di lasciar credere che i bottoni manchino per un guasto');
+
+  const arb = await chiPuo([ELENA, OTTONE]);
+  ok(arb.eroi.length === 2, `chi arbitra le spunta tutte (${JSON.stringify(arb.eroi)})`);
+  ok(!/Spuntate le vostre/i.test(arb.testo), 'e a lui quell’avviso non serve');
+
+  const nessuno = await chiPuo([]);
+  ok(nessuno.eroi.length === 0, 'chi non ha posto guarda e basta');
+
+  // I PUNTI SONO A TESTA, non un salvadanaio comune: il Regolamento dice «una
+  // casella A TESTA dopo ogni episodio riuscito». Con un punto per uno, se
+  // ELENA lo spende OTTONE deve avere ancora il suo.
+  const dopo = await chiPuo([ELENA, OTTONE], { [ELENA]: { voci: ['lanterna'], cicatrici: [] } });
+  ok(dopo.eroi.includes(OTTONE), 'speso il punto di un eroe, quello del compagno resta suo');
+  ok(!dopo.eroi.includes(ELENA), 'e chi l’ha speso non ne ha un altro');
+
+  // E CHE LA VISTA GLIELO PASSI DAVVERO. Le prove qui sopra chiamano
+  // `crescitaHtml` con un predicato scritto da loro: se domani l'epilogo tornasse
+  // a passare `() => true`, ognuna resterebbe verde e ogni telefono avrebbe i
+  // poteri di chi arbitra. Distinguere i due casi giocando vorrebbe dire un
+  // tavolo vivo — `wrangler dev` e un Durable Object — perche' senza posto si
+  // arbitra, e con l'arbitro i due argomenti si comportano uguale. Finche'
+  // quella prova non c'e', si guarda la riga: e' un controllo debole, ed e'
+  // dichiarato tale, ma prende esattamente la regressione che nessun altro
+  // prende. Precedente: `test-motore-purezza` legge i sorgenti allo stesso modo.
+  const sorg = fs.readFileSync('webapp/public/js/digitale.js', 'utf8');
+  const chiamata = (sorg.match(/crescitaHtml\([^)]*\)/) || [''])[0];
+  ok(/crescitaHtml\(\s*ctx\.partita\.party\s*,\s*posso\s*,/.test(chiamata),
+     `l’epilogo passa il predicato del posto, non un booleano (${chiamata || 'chiamata non trovata'})`);
+}
+
+
 await b.close();
 console.log(ko === 0 ? 'TUTTO OK (migliorie nell\'app)' : `${ko} FAIL`);
 process.exit(ko ? 1 : 0);

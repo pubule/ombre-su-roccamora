@@ -15,10 +15,15 @@
 //   npx --no-install wrangler dev --var OSR_DEV_EMAIL:uno@esempio.it --port 8787
 //   npx --no-install wrangler dev --var OSR_DEV_EMAIL:due@esempio.it --port 8788
 //   node webapp/test-membri.mjs
-const ARBITRO = 'http://127.0.0.1:8787';       // uno@esempio.it
-const GIOCATORE = 'http://127.0.0.1:8788';     // due@esempio.it
-const EMAIL_A = 'uno@esempio.it';
-const EMAIL_G = 'due@esempio.it';
+// Le porte si possono spostare (`OSR_ARBITRO`, `OSR_GIOCATORE`): su una
+// macchina dove qualcun altro sta gia' tenendo un `wrangler dev` sulla 8787,
+// ucciderglielo per far girare un banco e' il modo piu' rapido di rompere il
+// lavoro di un altro — e piu' `wrangler dev` sulla stessa porta restano in
+// ascolto tutti e non risponde nessuno.
+const ARBITRO = process.env.OSR_ARBITRO || 'http://127.0.0.1:8787';     // uno@esempio.it
+const GIOCATORE = process.env.OSR_GIOCATORE || 'http://127.0.0.1:8788'; // due@esempio.it
+const EMAIL_A = process.env.OSR_EMAIL_A || 'uno@esempio.it';
+const EMAIL_G = process.env.OSR_EMAIL_G || 'due@esempio.it';
 
 let ko = 0;
 const ok = (c, m) => { if (!c) { console.error('FAIL:', m); ko++; } };
@@ -158,6 +163,39 @@ await chiama(ARBITRO, 'POST', '/api/salvataggio',
   ok(r.ok, 'l\'arbitro caccia un membro');
   const l = await chiama(GIOCATORE, 'GET', `/api/salvataggio?tavolo=${idT}&episodio=ep1`);
   ok(l.status === 404, 'e quello non legge piu\' niente');
+}
+
+// --- LA CRESCITA E' DI CHI LA GIOCA. Le caselle delle Migliorie le spunta chi
+//     ha quel posto: la scheda e' sua. Chi arbitra le spunta per chiunque,
+//     perche' tiene in mano gli eroi che nessuno ha reclamato. Un giocatore che
+//     segna la crescita del compagno non deve poterlo fare — e la vista non
+//     basta a impedirlo: il bottone non c'e', ma la richiesta si scrive a mano.
+{
+  await chiama(ARBITRO, 'POST', '/api/membri',
+    { tavolo: idT, email: EMAIL_G, eroe: 'ELENA FOSCO' });
+
+  ok((await chiama(GIOCATORE, 'PUT', '/api/migliorie',
+    { tavolo: idT, eroe: 'ELENA FOSCO', voci: ['fibra'], cicatrici: [] })).ok,
+     'chi gioca segna la crescita del PROPRIO eroe');
+
+  const altrui = await chiama(GIOCATORE, 'PUT', '/api/migliorie',
+    { tavolo: idT, eroe: 'OTTONE “MEZZENA” MASSARI', voci: ['revolver'], cicatrici: [] });
+  ok(!altrui.ok, 'ma non quella di un compagno');
+
+  ok((await chiama(ARBITRO, 'PUT', '/api/migliorie',
+    { tavolo: idT, eroe: 'OTTONE “MEZZENA” MASSARI', voci: ['revolver'], cicatrici: [] })).ok,
+     'chi arbitra le segna per chiunque');
+
+  // e la si legge in due: sapere come è cresciuto un compagno non è un segreto
+  const letto = await (await chiama(GIOCATORE, 'GET', `/api/migliorie?tavolo=${idT}`)).json();
+  ok((letto.migliorie || []).length === 2, 'e chiunque sieda al tavolo la legge tutta');
+  const mia = (letto.migliorie || []).find((x) => x.eroe === 'ELENA FOSCO');
+  ok(mia && mia.voci === 'fibra', 'con dentro quel che è stato spuntato');
+
+  // un estraneo non tocca niente
+  const fuori = await chiama(GIOCATORE, 'PUT', '/api/migliorie',
+    { tavolo: crypto.randomUUID(), eroe: 'ELENA FOSCO', voci: ['fibra'], cicatrici: [] });
+  ok(!fuori.ok, 'e a un tavolo che non è il suo non scrive');
 }
 
 // --- il tavolo cancellato porta via i membri (ON DELETE CASCADE)

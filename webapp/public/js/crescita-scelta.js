@@ -21,23 +21,29 @@ const esc = (s) => String(s).replace(/[&<>"]/g, (c) =>
 const vociDi = (nm) => ((crescitaCampagna()[nm] || {}).voci) || [];
 const cicatriciDi = (nm) => ((crescitaCampagna()[nm] || {}).cicatrici) || [];
 
-// Quanto e' stato speso in tutto: la somma dei prezzi delle caselle spuntate.
-// Il prezzo di una casella dipende da quante ce n'erano gia' di quella voce
-// (e, per la Tempra, su quella caratteristica), quindi si ricontano in ordine.
-export function speso(party) {
+// Quanto ha speso UN EROE: la somma dei prezzi delle sue caselle. Il prezzo di
+// una casella dipende da quante ce n'erano gia' di quella voce (e, per la
+// Tempra, su quella caratteristica), quindi si ricontano in ordine.
+//
+// PER EROE E NON PER GRUPPO. Il Regolamento dice «una casella **a testa** dopo
+// ogni episodio riuscito»: il punto lo guadagna ciascuno, non la compagnia. Un
+// salvadanaio comune darebbe a quattro eroi il budget di uno, e dal telefono
+// due giocatori che spendono insieme si mangerebbero i punti a vicenda.
+export function speso(nm) {
   let tot = 0;
-  for (const nm of party || []) {
-    const conto = {};
-    for (const v of vociDi(nm)) {
-      const { id, stat } = spezza(v);
-      const spec = specDi(id); if (!spec) continue;
-      const k = spec.perStat ? `${id}:${stat}` : id;
-      const n = conto[k] || 0; conto[k] = n + 1;
-      tot += spec.costo[Math.min(n, spec.costo.length - 1)];
-    }
+  const conto = {};
+  for (const v of vociDi(nm)) {
+    const { id, stat } = spezza(v);
+    const spec = specDi(id); if (!spec) continue;
+    const k = spec.perStat ? `${id}:${stat}` : id;
+    const n = conto[k] || 0; conto[k] = n + 1;
+    tot += spec.costo[Math.min(n, spec.costo.length - 1)];
   }
   return tot;
 }
+
+/** I punti che restano a quell'eroe: guadagnati dalla campagna, meno i suoi. */
+export const restanoA = (nm) => puntiCrescita() - speso(nm);
 
 // Le caselle che questo eroe puo' ancora prendere, col prezzo della prossima.
 // «Voce che regge» sparisce dall'elenco se ce l'ha gia' qualcun altro: e' una
@@ -78,35 +84,48 @@ const nomeVoce = (v) => {
 };
 
 /**
- * @param puo   se chi guarda puo' spuntare (arbitro).
+ * @param puo   `(nome) => bool`: chi puo' spuntare le caselle DI QUELL'EROE.
+ *              Chi arbitra tutti, chi gioca il proprio — e' `posso()` della
+ *              vista, la stessa che decide chi muove quale pedina. Un booleano
+ *              solo non basterebbe: la schermata elenca tutta la compagnia, e
+ *              su un telefono una riga sola e' toccabile.
  * @param eroi  `comune.eroi` — serve solo a non offrire Tempre gia' al tetto.
  */
-export function crescitaHtml(party, puo = true, eroi = null) {
+export function crescitaHtml(party, puo = () => true, eroi = null) {
   const guadagnati = puntiCrescita();
-  const restano = guadagnati - speso(party);
   const carta = (nm) => (eroi || []).find((e) => e.nome === nm) || null;
+  const miei = (party || []).filter((nm) => puo(nm));
+  const tutti = miei.length === (party || []).length;
+  // IL PROPRIO EROE PER PRIMO. Su un telefono la compagnia e' una colonna
+  // lunga, e la riga su cui si agisce non deve andarsela a cercare in fondo.
+  // Per chi arbitra non cambia niente: li puo' spuntare tutti, quindi l'ordine
+  // resta quello del party.
+  const ordine = tutti ? (party || [])
+    : [...miei, ...(party || []).filter((nm) => !puo(nm))];
   return `
     <hr class="divisore">
     <div style="text-align:left" id="riq-crescita">
-      <p class="nota">— la crescita: un punto per ogni serata riuscita, si mettono da parte —</p>
-      <p><b>${restano}</b> ${restano === 1 ? 'punto' : 'punti'} da spendere
-         <span class="nota">(${guadagnati} guadagnati in campagna)</span></p>
-      ${(party || []).map((nm) => {
+      <p class="nota">— la crescita: un punto a testa per ogni serata riuscita, si mettono da parte —</p>
+      ${tutti ? '' : `<p class="nota">Spuntate le vostre; le altre le vedete e basta.</p>`}
+      ${ordine.map((nm) => {
         const mie = vociDi(nm); const cic = cicatriciDi(nm);
-        const off = offerte(nm, party, carta(nm)).filter((o) => o.costo <= restano);
+        const restano = restanoA(nm);
+        const suo = puo(nm);
+        const off = suo ? offerte(nm, party, carta(nm)).filter((o) => o.costo <= restano) : [];
         return `
-        <div class="pannello mt">
-          <p><b>${esc(nm)}</b></p>
+        <div class="pannello mt${suo && !tutti ? ' scelto' : ''}">
+          <p><b>${esc(nm)}</b> <span class="nota">— ${restano}
+             ${restano === 1 ? 'punto' : 'punti'} da spendere (${guadagnati} guadagnati)</span></p>
           <p class="nota">${mie.length ? mie.map((v) => esc(nomeVoce(v))).join(' · ')
             : 'nessuna casella spuntata'}${cic.length
             ? ` — cicatrici: ${cic.map((c) => esc(c.toUpperCase())).join(', ')}` : ''}</p>
-          ${puo ? (off.length ? `<div class="btn-riga">${off.map((o) => `
+          ${suo ? (off.length ? `<div class="btn-riga">${off.map((o) => `
             <button class="btn" data-cresce="${esc(nm)}" data-voce="${esc(o.voce)}"
                     title="${esc(o.spec.nota)}">${esc(nomeVoce(o.voce))} · ${o.costo}</button>`).join('')}</div>`
-            : '<p class="nota">Niente che si possa pagare adesso.</p>') : ''}
+            : `<p class="nota">${restano > 0 ? 'Niente che si possa pagare adesso.'
+                                             : 'Nessun punto da spendere.'}</p>`) : ''}
         </div>`;
       }).join('')}
-      ${puo ? '' : '<p class="nota">Le spunta chi arbitra.</p>'}
     </div>`;
 }
 

@@ -1920,7 +1920,7 @@ function epilogo() {
           <p>${esc(cb.esatta)}</p>
         </div>` : ''; })()}
       ${sp.esito === 'sconfitta' ? ''
-        : crescitaHtml(ctx.partita.party, arbitro(), (ctx.comune || {}).eroi)}
+        : crescitaHtml(ctx.partita.party, posso, (ctx.comune || {}).eroi)}
       ${bivioHtml(ctx.ep, ctx.partita.episodio, arbitro())}
       <div class="btn-riga" style="justify-content:center"><button class="btn pieno" id="al-menu">alla taverna</button></div></div>`;
   app.querySelector('#nav-esci').onclick = () => { spegniImmersivo(); ctx.vaiA('menu'); };

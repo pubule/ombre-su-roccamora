@@ -29,6 +29,22 @@ async function arbitroDi(env, email, id) {
     .bind(id, email, id, email).first()) != null;
 }
 
+// LA CRESCITA E' DI CHI LA GIOCA. Le caselle di un eroe le spunta chi ha quel
+// posto — la scheda e' sua, e al tavolo la matita ce l'ha lui — mentre chi
+// arbitra le spunta per chiunque, perche' tiene in mano gli eroi che nessuno
+// ha reclamato e perche' quando si gioca in due davanti a uno schermo solo la
+// mano e' una.
+//
+// E' la stessa forma di `posso()` nella vista (`digitale.js`), e deve esserlo:
+// se il server e il bottone non fossero d'accordo, si vedrebbe un bottone che
+// il server rifiuta — che e' peggio che non vederlo.
+async function puoSegnare(env, email, tavolo, eroe) {
+  if (await arbitroDi(env, email, tavolo)) return true;
+  return (await env.DB.prepare(
+    'SELECT 1 FROM membri WHERE tavolo = ? AND email = ? AND eroe = ?')
+    .bind(tavolo, email, eroe).first()) != null;
+}
+
 const emailValida = (x) => typeof x === 'string' && /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(x) && x.length <= 190;
 
 export async function api(request, env, email) {
@@ -201,8 +217,11 @@ export async function api(request, env, email) {
 
   if (p === '/api/migliorie' && metodo === 'PUT') {
     const { tavolo, eroe, voci, cicatrici } = await request.json();
-    if (!(await arbitroDi(env, email, tavolo))) return jsonRisposta({ errore: 'non trovato' }, 404);
     if (!eroe) return jsonRisposta({ errore: 'serve l’eroe' }, 400);
+    // chi arbitra segna per chiunque; chi gioca solo il proprio eroe
+    if (!(await puoSegnare(env, email, tavolo, eroe))) {
+      return jsonRisposta({ errore: 'non trovato' }, 404);
+    }
     if (!Array.isArray(voci) || !Array.isArray(cicatrici || [])) {
       return jsonRisposta({ errore: 'voci e cicatrici sono liste' }, 400);
     }

@@ -11,9 +11,11 @@ cambiano davvero le regole degli episodi seguenti), il **Taccuino di Campagna**
 e l'**epilogo per esteso**. Tabella `scelte_campagna` applicata al remoto.
 
 **Non ancora in produzione:** le **Migliorie** (sotto). La tabella
-`migliorie_campagna` **non è stata applicata al remoto**: prima del deploy va
-lanciata `deploy/migrazioni/003-migliorie.sql`, o l'epilogo proverà a scrivere
-su una tabella che non c'è.
+`migliorie_campagna` non è al remoto, ma **non c'è niente da ricordarsi**: sta
+in `deploy/schema.sql` e in `deploy/migrazioni/003-migliorie.sql`, e
+`deploy/deploy.sh` chiama `applica-schema.sh --remote` da solo. Vale però
+l'avvertenza di sempre: pubblicando a mano con `wrangler deploy` invece che con
+lo script, il codice va su e il database no — ed è già successo, con `membri`.
 
 ## Le Migliorie: da carta stampata a regola che gira
 
@@ -59,6 +61,21 @@ perfetta**: la scelta resta viva fino all'ultima serata. Senza prezzo, 17
 caselle contro 21 serate facevano una tabella di marcia — lo stesso guasto
 dell'elenco a cinque voci, rimandato di otto serate. I prezzi stanno in un
 posto solo (`COSTI` in `migliorie.js`) e **vanno tarati dopo la Fase B**.
+
+**Chi spunta cosa.** Dal **telefono** si spuntano le caselle del proprio eroe e
+le altre si leggono — la scheda è di chi la gioca, e al tavolo la matita ce l'ha
+lui; il proprio eroe sta **in cima** alla lista, che su un telefono la compagnia
+è una colonna lunga. Chi **arbitra** le spunta tutte, perché tiene in mano gli
+eroi che nessuno ha reclamato e perché quando si gioca in due davanti a uno
+schermo solo la mano è una. È lo stesso `posso(nm)` che decide chi muove quale
+pedina, e il server dice la stessa cosa (`puoSegnare` in `api.js`): se le due
+guardie divergessero si vedrebbe un bottone che il server rifiuta, che è peggio
+che non vederlo.
+
+**I punti sono a testa, non un salvadanaio comune** — «una casella **a testa**
+dopo ogni episodio riuscito». La prima versione li sommava su tutta la
+compagnia: quattro eroi si dividevano il budget di uno, e dal telefono due
+giocatori che spendono insieme si sarebbero mangiati i punti a vicenda.
 
 **Dove stanno.** `migliorie_campagna(tavolo, eroe, voci, cicatrici)` su D1,
 gemella di `scelte_campagna`: una casella spuntata dopo l'Ep.3 pesa fino
