@@ -184,14 +184,6 @@ export class Partita extends DurableObject {
     if (!stato) return Response.json({ errore: 'nessuna partita aperta' }, { status: 404 });
     const cmd = await request.json();
 
-    // IL TIRO D'INDAGINE non passa da `comandi.applica`: l'Indagine non ha un
-    // motore a comandi, e non le serve — agisce una mano sola. Qui arriva una
-    // cosa sola, l'esito di una prova che il tavolo aspettava da un telefono, e
-    // si scrive dove chi arbitra la sta guardando.
-    //
-    // Lo manda SOLO chi ha quell'eroe: e' il tiro del suo personaggio, e un
-    // altro che lo mandasse tirerebbe al posto suo.
-
     // CHI PUO' MUOVERE COSA. Un giocatore comanda il SUO eroe e nessun altro:
     // e' la regola che rende sensato dare a ognuno un dispositivo. L'arbitro
     // muove chiunque — e' lui che tiene in mano gli eroi non reclamati.
@@ -201,8 +193,9 @@ export class Partita extends DurableObject {
     // la pesca e la chiusura; nell'Indagine l'ORA, le porte e la busta — che
     // l'orologio e' la risorsa comune, e quattro dita che la spendono senza
     // parlarne e' il modo piu' rapido di rovinare l'ansia della notte.
-    const diArbitro = stato.fase === 'indagine' && !(stato.indagine || {}).chiusa
-      ? INDAGINE_DI_ARBITRO : COMANDI_DI_ARBITRO;
+    // Anche a busta aperta si e' ancora nell'Indagine: quel che resta —
+    // ribaltare un giudizio — e' del gruppo, e lo manda chi conduce.
+    const diArbitro = stato.fase === 'indagine' ? INDAGINE_DI_ARBITRO : COMANDI_DI_ARBITRO;
     if (posto.ruolo !== 'arbitro') {
       if (cmd.eroe && cmd.eroe !== posto.eroe) {
         return Response.json({ rifiuto: { motivo: `${cmd.eroe} non è il tuo eroe.` } }, { status: 403 });
@@ -216,7 +209,14 @@ export class Partita extends DurableObject {
     const out = applica(stato, cmd, dati);
     if (out.rifiuto) return Response.json({ rifiuto: out.rifiuto }, { status: 409 });
 
-    out.stato.aggiornato = Date.now();
+    // IL TIMBRO NON E' DEL SERVER, durante l'Indagine. `aggiornato` e' la
+    // lineage del salvataggio di chi arbitra: se qui ci mettessimo il clock del
+    // server, la mossa seguente del suo browser — col clock del suo PC, magari
+    // qualche secondo indietro — verrebbe rifiutata da `apri` IN SILENZIO. In
+    // locale i due orologi sono lo stesso e non si vede niente; al tavolo, con
+    // un telefono, era «premo e non accade nulla».
+    const indagineViva = out.stato.fase === 'indagine' && !(out.stato.indagine || {}).chiusa;
+    if (!indagineViva) out.stato.aggiornato = Date.now();
     await this.scrivi(out.stato, { subito: !!out.stato.spedizione.esito });
     this.spargi(out, dati, cmd.rif);
     return Response.json({ ...vista(out.stato, dati, posto), eventi: out.eventi, rif: cmd.rif });

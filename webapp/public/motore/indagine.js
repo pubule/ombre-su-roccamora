@@ -20,7 +20,8 @@
 // («dichiaraVoce dice che la pista e' fredda, la frase la sceglie la vista»).
 // Un motore che decide le parole non serve a un Durable Object, e in un test si
 // deve poter leggere il fatto senza inciampare in una descrizione.
-import { bussa, dichiaraVoce, luogoVisitabile, idoneiPerTipo, usaCarica, norm } from './regole.js';
+import { bussa, dichiaraVoce, luogoVisitabile, idoneiPerTipo, usaCarica, norm,
+         verificaRisposte, tierIndagine } from './regole.js';
 import { eroeCresciuto, ha } from './migliorie.js';
 
 const rifiuta = (motivo) => ({ rifiuto: motivo });
@@ -180,6 +181,15 @@ function notaEroe(g, caso, c) {
 function risposte(g, caso, c) {
   if (!Array.isArray(c.risposte)) return rifiuta('Le risposte sono una lista.');
   g.ind.risposte = c.risposte.map((x) => String(x || ''));
+  return { eventi: [] };
+}
+
+// LA SCHERMATA COMPOSTA DALLA VISTA. Il motore sa COSA il tavolo deve leggere
+// (`daLeggere`), non come si scrive: la prosa e le carte sono mestiere della
+// vista, e chi ha eseguito il comando le manda qui perche' finiscano su ogni
+// schermo. Lo puo' mandare anche un telefono — e' lui che ha appena giocato.
+function carta(g, caso, c) {
+  g.ind.carta = { titolo: String(c.titolo || ''), corpo: String(c.corpo || '') };
   return { eventi: [] };
 }
 
@@ -350,6 +360,183 @@ function aiutoProfano(g, caso, c) {
                                  tipoApp: c.tipoApp, soggetto: a.soggetto, profano: true }] };
 }
 
+// ------------------------------------------------- le abilita' una-tantum
+//
+// Quattro doni, uno per eroe, uno per serata. Sono SUE, e da quando i comandi
+// arrivano dal telefono di chi gioca e' lui a spenderli — non piu' chi arbitra
+// per conto suo. La scelta che chiedono (quale luogo, quale pezzo) viaggia
+// DENTRO il comando: una regola che si ferma a meta' per domandare qualcosa non
+// si puo' spedire su una rete ne' rigiocare.
+
+// Quel che un luogo nasconde ancora. Serve a tre abilita' su quattro, e sta
+// scritto una volta.
+const restaDaCogliere = (ind, l) => (l.approfondimenti || []).filter((a) =>
+  !ind.approfondimentiLetti.some((y) => y.n === l.n && y.tipo === a.tipo && y.soggetto === a.soggetto));
+
+const perVoce = (g, voce) => (g.ep.luoghi || []).find((l) => norm(l.voce_mappa) === norm(voce));
+
+// Una-tantum: chi la porta, e dove sta scritto che l'ha spesa. Il flag di
+// Carbone sta sulla PARTITA e non sull'indagine — e' l'unico, ed e' un dato
+// storto che si porta dietro da quando l'esame valeva anche in spedizione.
+const UNA_TANTUM = {
+  discernimento: { eroe: 'PADRE CELSO MARANI', flag: 'discernimentoUsato' },
+  'fonti-riservate': { eroe: 'CARLA DOSTI', flag: 'fontiRiservateUsate' },
+  ombra: { eroe: 'MORA “SPILLA” FANTI', flag: 'ombraUsata' },
+  'esame-carbone': { eroe: 'FULGENZIO CARBONE', flag: 'carboneUsato', suPartita: true },
+};
+
+// Il controllo comune: c'e' quell'eroe, non l'ha gia' speso, e chi manda il
+// comando e' lui. Chi arbitra manda senza `eroe` e passa: e' la sua scrivania.
+function puoUsare(g, tipo, c = {}) {
+  const u = UNA_TANTUM[tipo];
+  if (!g.partita.party.includes(u.eroe)) return `${u.eroe} non è in questa squadra.`;
+  if (c.eroe && c.eroe !== u.eroe) return `Quel dono è di ${u.eroe}.`;
+  const dove = u.suPartita ? g.partita : g.ind;
+  if (dove[u.flag]) return 'Quel dono è già stato speso stanotte.';
+  return null;
+}
+const segnaSpesa = (g, tipo) => {
+  const u = UNA_TANTUM[tipo];
+  if (u.suPartita) g.partita[u.flag] = true; else g.ind[u.flag] = true;
+};
+
+// DISCERNIMENTO DI MARANI: indica un luogo, e la risposta e' solo si'/no. Se
+// si', quella visita non costa l'ora — cogliere quel che nasconde si tira come
+// ovunque.
+function discernimento(g, caso, c) {
+  const no = puoUsare(g, 'discernimento', c); if (no) return rifiuta(no);
+  const l = perVoce(g, c.voce);
+  if (!l) return rifiuta('Quel luogo non è sulla mappa.');
+  segnaSpesa(g, 'discernimento');
+  const ancora = restaDaCogliere(g.ind, l).length > 0;
+  if (ancora) g.ind.visitaGratis = l.n;
+  return { eventi: [{ tipo: 'discernimento', luogo: l.n, ancora }] };
+}
+
+// FONTI RISERVATE DI CARLA: la PROSSIMA visita non costa l'ora — e non conta
+// come ora avanzata, che il vantaggio premia le ore spese davvero.
+function fontiRiservate(g, caso, c) {
+  const no = puoUsare(g, 'fonti-riservate', c); if (no) return rifiuta(no);
+  segnaSpesa(g, 'fonti-riservate');
+  g.ind.fontiRiservateAttive = true;
+  return { eventi: [{ tipo: 'fonti-riservate' }] };
+}
+
+// OMBRA DI MORA: il furetto in avanscoperta torna col NUMERO di cose che quel
+// luogo nasconde ancora, mai col tipo. Ombra fiuta, non legge.
+function ombra(g, caso, c) {
+  const no = puoUsare(g, 'ombra', c); if (no) return rifiuta(no);
+  const l = perVoce(g, c.voce);
+  if (!l) return rifiuta('Quel luogo non è sulla mappa.');
+  segnaSpesa(g, 'ombra');
+  return { eventi: [{ tipo: 'ombra', luogo: l.n, quanti: restaDaCogliere(g.ind, l).length }] };
+}
+
+// L'ESAME DI CARBONE: Fulgenzio guarda un pezzo che avete in mano. Se quel
+// pezzo ha una voce d'esame la si legge e l'uso si consuma; se non ce l'ha,
+// «non ha segreti per lui» e l'occasione resta — patto gentile, e sta nei dati.
+function esameCarbone(g, caso, c) {
+  const no = puoUsare(g, 'esame-carbone', c); if (no) return rifiuta(no);
+  const inMano = [...(g.ind.oggetti || []),
+                  ...(g.ind.reperti || []).map((r) => String(r).replace(/^Reperto [A-Z] [-—] /, ''))];
+  if (!c.pezzo || !inMano.some((x) => norm(x) === norm(c.pezzo))) {
+    return rifiuta('Quel pezzo non è fra le vostre cose.');
+  }
+  // `esami_carbone` e' una MAPPA nome->testo, e le chiavi non combaciano parola
+  // per parola coi nomi delle carte («CORDA DI VIOLINO» vs «Corda di Violino
+  // d'Argento»): si accoppia per contenimento, come faceva la vista.
+  const esami = g.ep.esami_carbone || {};
+  const chiave = Object.keys(esami).find((k) =>
+    norm(c.pezzo).includes(norm(k)) || norm(k).includes(norm(c.pezzo)));
+  if (!chiave) return { eventi: [{ tipo: 'esame-muto', pezzo: c.pezzo }] };
+  segnaSpesa(g, 'esame-carbone');
+  return { eventi: [{ tipo: 'esame', pezzo: c.pezzo, testo: esami[chiave] }] };
+}
+
+// IL PENDOLO DI SIBILLA (il jolly): se il luogo non ha piu' niente, il dono non
+// si spreca su un buco — legge un Approfondimento QUALSIASI ancora chiuso qui,
+// oppure indica un luogo della citta' che ne nasconde uno, senza dire di che
+// tipo. La scelta di QUALE luogo indicare e' un dado: passa dal `caso`, cosi'
+// la stessa serata si rigioca identica.
+function pendolo(g, caso, c) {
+  const ind = g.ind;
+  const l = luogoDi(g, c.luogo);
+  if (!l) return rifiuta('Quel luogo non esiste in questo episodio.');
+  if (!c.eroe) return rifiuta('Di chi è il pendolo?');
+  const qui = restaDaCogliere(ind, l);
+  if (qui.length) {
+    const a = qui[0];
+    usaCarica(g.partita, c.eroe, a.tipo, true);
+    ind.approfondimentiLetti.push({ n: l.n, tipo: a.tipo, soggetto: a.soggetto });
+    daLeggere(g, `${String(a.tipo).toLowerCase()} — ${String(a.soggetto).toLowerCase()}`,
+              { esito: 'colto', chi: c.eroe, luogo: l.n, tipoApp: a.tipo,
+                soggetto: a.soggetto, pendolo: true });
+    return { eventi: [{ tipo: 'colto', luogo: l.n, chi: c.eroe, tipoApp: a.tipo,
+                        soggetto: a.soggetto, pendolo: true }] };
+  }
+  const altrove = (g.ep.luoghi || []).filter((x) => x.n !== l.n && restaDaCogliere(ind, x).length);
+  if (!altrove.length) return { eventi: [{ tipo: 'pendolo-fermo', luogo: l.n }] };
+  const scelto = altrove[caso.scegli(altrove.length)];
+  usaCarica(g.partita, c.eroe, 'jolly', true);
+  return { eventi: [{ tipo: 'pendolo-indica', da: l.n, luogo: scelto.n,
+                      voce: scelto.voce_mappa }] };
+}
+
+// ------------------------------------------------------------- LA BUSTA
+//
+// Si apre una volta sola e chiude la notte. Da qui in poi l'Indagine e' storia:
+// quel che ne resta e' il VANTAGGIO con cui si entra nella villa, ed e' l'unica
+// cosa che l'Indagine consegna alla Spedizione. Per questo il conto lo fa il
+// motore e non la vista: un vantaggio calcolato sul browser di chi arbitra
+// sarebbe diverso da quello che i telefoni vedono scritto.
+
+// Il peso della notte: tier, dossier, e il Canto con cui si parte. Si richiama
+// identico a ogni correzione, e ricalcolarlo TUTTO ogni volta e' voluto — un
+// conto incrementale qui e' esattamente il posto dove nascondere un errore.
+function pesa(g) {
+  const ind = g.ind;
+  const corr = ind.correzioni || {};
+  const esiti = verificaRisposte(g.ep, ind.risposte).map((e, i) => ({
+    ...e, i, ok: (i in corr) ? corr[i] : e.ok,
+  }));
+  // la CONTRO-BUSTA resta sigillata: non pesa sul tier, o lo Slancio sarebbe
+  // irraggiungibile — chiede tutte le risposte esatte, e quella non e' ancora
+  // conoscibile. Si apre nell'epilogo di spedizione.
+  const inBusta = esiti.filter((e) => !e.dopo_spedizione);
+  const t = tierIndagine(g.ep, ind, inBusta.map((e) => e.ok));
+  g.partita.vantaggi = { tier: t.tier, dossier: t.dossier, risposte: esiti.map((e) => e.ok) };
+  // La penalita' piu' comune («si parte con 1 segnalino Canto in piu'», undici
+  // Domande su venti episodi) ha un campo suo: al tavolo la applica chi arbitra,
+  // qui non la applicherebbe nessuno e mezza posta dell'Indagine sparirebbe.
+  const canto = esiti.reduce((n, e) => n + (e.ok ? 0 : ((e.penalita || {}).canto || 0)), 0);
+  g.partita.spedizione = { ...(g.partita.spedizione || {}), canto };
+  return canto;
+}
+
+function apriBusta(g) {
+  if (g.ind.chiusa) return rifiuta('La busta è già aperta.');
+  g.ind.chiusa = true;
+  g.ind.correzioni = g.ind.correzioni || {};
+  const canto = pesa(g);
+  return { eventi: [{ tipo: 'busta-aperta', tier: g.partita.vantaggi.tier, canto }] };
+}
+
+// L'ULTIMA PAROLA E' DEL GRUPPO. Il giudizio automatico confronta parole, e su
+// risposte scritte a mano sbaglia sempre nello stesso verso: boccia chi ha
+// indovinato ma e' stato sintetico. Al tavolo corregge chi arbitra; qui
+// corregge il gruppo, che la verita' ce l'ha sotto gli occhi.
+function correggi(g, caso, c) {
+  if (!g.ind.chiusa) return rifiuta('La busta non è ancora aperta.');
+  const i = Number(c.i);
+  const esiti = verificaRisposte(g.ep, g.ind.risposte);
+  if (!Number.isInteger(i) || !esiti[i]) return rifiuta('Quella domanda non esiste.');
+  const corr = g.ind.correzioni || (g.ind.correzioni = {});
+  const ora = (i in corr) ? corr[i] : esiti[i].ok;
+  corr[i] = !ora;
+  pesa(g);
+  return { eventi: [{ tipo: 'corretta', i, ok: corr[i] }] };
+}
+
 export const GESTORI_INDAGINE = {
   'lettera-letta': letteraLetta,
   dichiara,
@@ -369,9 +556,17 @@ export const GESTORI_INDAGINE = {
   nota,
   'nota-eroe': notaEroe,
   risposte,
+  carta,
   'carta-vista': cartaVista,
+  'apri-busta': apriBusta,
+  correggi,
   approfondisci,
   'aiuto-profano': aiutoProfano,
+  pendolo,
+  discernimento,
+  'fonti-riservate': fontiRiservate,
+  ombra,
+  'esame-carbone': esameCarbone,
 };
 
 // Chi puo' mandare cosa. Quel che tocca il GRUPPO — l'ora, le porte, le cose
@@ -383,6 +578,7 @@ export const GESTORI_INDAGINE = {
 export const INDAGINE_DI_ARBITRO = new Set([
   'lettera-letta', 'dichiara', 'bussa', 'grimaldello', 'visita', 'lascia-luogo',
   'prendi-oggetto', 'prendi-reperto', 'nota', 'risposte', 'carta-vista',
+  'apri-busta', 'correggi',
 ]);
 
 // I candidati a un tipo di Approfondimento, esportati perche' la vista deve

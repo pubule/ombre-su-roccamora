@@ -325,6 +325,10 @@ for (const sc of SCELTI) {
                 `round ${st3.spedizione.round}, ${ep.marea ? 'marea' : 'canto'} ${st3.spedizione.canto}`);
   } catch (e) {
     ko(`giocata interrotta: ${e.message.split('\n')[0]}`);
+    if (process.env.OSR_DIAG) {
+      console.log('    [diag schermo]', (await page.locator('#app').innerText()).slice(0, 400).replace(/\s+/g, ' '));
+      console.log('    [diag dove]', e.stack.split('\n').slice(0, 5).join(' | '));
+    }
   }
   ok(jsErrors.length === 0, `errori JS: ${jsErrors.slice(0, 3).join(' | ')}`);
   await page.close();

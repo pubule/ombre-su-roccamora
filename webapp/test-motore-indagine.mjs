@@ -267,6 +267,159 @@ const ind = (out) => out.stato.indagine;
      'una volta sola qui, e lo si racconta invece di dire di no');
 }
 
+// --- I QUATTRO DONI: uno per eroe, uno per serata
+//
+// Sono la sola cosa dell'Indagine che si spende UNA volta e non torna. Quel che
+// si prova qui non e' l'effetto — e' che il conto sia onesto: chi non ha
+// l'eroe non lo usa, chi ce l'ha lo usa una volta sola, e da quando i comandi
+// arrivano dai telefoni, il dono di un eroe non lo spende un altro.
+{
+  const conMarani = () => { const p = partita(); p.party = ['PADRE CELSO MARANI', NINO]; return p; };
+  const l = EP.luoghi.find((x) => (x.approfondimenti || []).length);
+
+  const senza = fai(partita(), { tipo: 'discernimento', voce: l.voce_mappa });
+  ok(senza.rifiuto && /non è in questa squadra/i.test(senza.rifiuto.motivo),
+     'un dono senza il suo eroe non si spende');
+
+  const altrui = fai(conMarani(), { tipo: 'discernimento', voce: l.voce_mappa, eroe: NINO });
+  ok(altrui.rifiuto && /è di PADRE CELSO MARANI/.test(altrui.rifiuto.motivo),
+     'e nemmeno lo spende il telefono di un altro eroe');
+
+  const a = fai(conMarani(), { tipo: 'discernimento', voce: l.voce_mappa });
+  ok(!a.rifiuto && a.eventi[0].ancora === true, 'Marani sente quel che il luogo nasconde ancora');
+  ok(ind(a).visitaGratis === l.n, 'e quella visita non costerà l’ora');
+  const b = fai(a.stato, { tipo: 'discernimento', voce: l.voce_mappa });
+  ok(b.rifiuto && /già stato speso/i.test(b.rifiuto.motivo), 'una volta per serata, e basta');
+
+  // il "no" e' informazione quanto il "si'", e non regala la visita
+  const vuoto = EP.luoghi.find((x) => !(x.approfondimenti || []).length);
+  if (vuoto) {
+    const n = fai(conMarani(), { tipo: 'discernimento', voce: vuoto.voce_mappa });
+    ok(n.eventi[0].ancora === false && !ind(n).visitaGratis,
+       'dove non c’è nulla Marani dice no, e l’ora resta da pagare');
+  }
+}
+
+// --- FONTI RISERVATE: la prossima visita, gratis
+{
+  const p = partita(); p.party = ['CARLA DOSTI', NINO];
+  const a = fai(p, { tipo: 'fonti-riservate' });
+  ok(!a.rifiuto && ind(a).fontiRiservateAttive === true, 'Carla arma il vantaggio');
+  // su un luogo aperto, dichiarare E' entrare: la prossima visita e' quella.
+  const v = fai(a.stato, { tipo: 'dichiara', voce: APERTO.voce_mappa });
+  ok(ind(v).ora === ind(a).ora, 'e la visita che segue non costa l’ora');
+  ok(!ind(v).fontiRiservateAttive, 'il vantaggio si consuma');
+  const pieno = fai(partita(), { tipo: 'dichiara', voce: APERTO.voce_mappa });
+  ok(ind(pieno).ora > 18, 'senza Carla, quella stessa visita l’ora la costa');
+}
+
+// --- OMBRA FIUTA: il numero, mai il tipo
+{
+  const p = partita(); p.party = ['MORA “SPILLA” FANTI', NINO];
+  const l = EP.luoghi.find((x) => (x.approfondimenti || []).length);
+  const a = fai(p, { tipo: 'ombra', voce: l.voce_mappa });
+  ok(a.eventi[0].quanti === l.approfondimenti.length, 'il furetto torna col conto giusto');
+  ok(!JSON.stringify(a.eventi).includes(l.approfondimenti[0].soggetto),
+     'e non col soggetto: Ombra fiuta, non legge');
+}
+
+// --- L'ESAME DI CARBONE: muto non si paga
+{
+  const chiave = Object.keys(EP.esami_carbone || {})[0];
+  if (chiave) {
+    const p = partita({ oggetti: [chiave, 'UN COCCIO QUALUNQUE'] });
+    p.party = ['FULGENZIO CARBONE', NINO];
+    const muto = fai(p, { tipo: 'esame-carbone', pezzo: 'UN COCCIO QUALUNQUE' });
+    ok(muto.eventi[0].tipo === 'esame-muto' && !muto.stato.carboneUsato,
+       'un pezzo senza segreti non consuma l’occasione');
+    const a = fai(muto.stato, { tipo: 'esame-carbone', pezzo: chiave });
+    ok(a.eventi[0].testo === EP.esami_carbone[chiave], 'e il pezzo giusto parla');
+    ok(a.stato.carboneUsato === true, 'ora sì che è speso');
+    const b = fai(a.stato, { tipo: 'esame-carbone', pezzo: chiave });
+    ok(b.rifiuto, 'una volta sola');
+    const fuori = fai(p, { tipo: 'esame-carbone', pezzo: 'IL CAMPANILE' });
+    ok(fuori.rifiuto && /non è fra le vostre cose/i.test(fuori.rifiuto.motivo),
+       'e solo su quel che avete in mano');
+  }
+}
+
+// --- IL PENDOLO: non si spreca su un buco
+{
+  const l = EP.luoghi.find((x) => (x.approfondimenti || []).length);
+  const altro = EP.luoghi.find((x) => x.n !== l.n && (x.approfondimenti || []).length);
+  const p = partita({ luogoAperto: l.n, visitati: [l.n] });
+  p.party = ['SIBILLA REVE', NINO];
+  const a = fai(p, { tipo: 'pendolo', luogo: l.n, eroe: 'SIBILLA REVE' });
+  ok(a.eventi[0].tipo === 'colto', 'dove c’è qualcosa, il pendolo lo coglie');
+  ok(ind(a).approfondimentiLetti.length === 1, 'e resta scritto');
+
+  if (altro) {
+    // svuotato il luogo, il dono indica altrove invece di sprecarsi
+    const pieno = partita({ luogoAperto: l.n, visitati: [l.n],
+      approfondimentiLetti: l.approfondimenti.map((x) =>
+        ({ n: l.n, tipo: x.tipo, soggetto: x.soggetto })) });
+    pieno.party = ['SIBILLA REVE', NINO];
+    const b = fai(pieno, { tipo: 'pendolo', luogo: l.n, eroe: 'SIBILLA REVE' });
+    ok(b.eventi[0].tipo === 'pendolo-indica' && b.eventi[0].luogo !== l.n,
+       'e dove non c’è più niente indica un altro luogo');
+    ok(!b.eventi[0].tipoApp, 'senza dire di che tipo');
+    // stesso seme, stessa serata: il luogo indicato non cambia — e semi diversi
+    // indicano luoghi diversi, che è quel che rende il dado un dado e non una
+    // scelta finta che si rigiocherebbe uguale per sempre.
+    const c = fai(pieno, { tipo: 'pendolo', luogo: l.n, eroe: 'SIBILLA REVE' });
+    ok(c.eventi[0].luogo === b.eventi[0].luogo, 'e a parità di seme indica sempre lo stesso');
+    const quanti = EP.luoghi.filter((x) => x.n !== l.n && (x.approfondimenti || []).length).length;
+    if (quanti > 1) {
+      const visti = new Set([1, 2, 3, 4, 5, 6, 7, 8].map((seme) => {
+        const q = JSON.parse(JSON.stringify(pieno)); q.rng = { seme, passo: 0 };
+        return fai(q, { tipo: 'pendolo', luogo: l.n, eroe: 'SIBILLA REVE' }).eventi[0].luogo;
+      }));
+      ok(visti.size > 1, 'ma semi diversi indicano luoghi diversi: è il caso, non una scelta finta');
+    }
+  }
+}
+
+// --- LA BUSTA: si apre una volta, e il conto lo fa il motore
+//
+// E' l'ultima cosa che l'Indagine consegna alla Spedizione, e finche' il conto
+// lo faceva la vista era il conto del browser di chi arbitra: i telefoni
+// leggevano un vantaggio che nessuno aveva calcolato per loro.
+{
+  const dom = (EP.soluzione || {}).domande || [];
+  const giuste = dom.map((d) => String(d.risposta || ''));
+  const p = partita({ risposte: giuste, visitati: EP.luoghi.map((l) => l.n), ora: 20 });
+  const a = fai(p, { tipo: 'apri-busta' });
+  ok(!a.rifiuto && ind(a).chiusa === true, 'la busta si apre e chiude la notte');
+  ok(a.stato.vantaggi && a.stato.vantaggi.tier, `e lascia un vantaggio (${
+    a.stato.vantaggi && a.stato.vantaggi.tier})`);
+  ok(fai(a.stato, { tipo: 'apri-busta' }).rifiuto, 'e non si riapre');
+
+  // sbagliando, il vantaggio cala e la penalita' si applica davvero
+  const male = partita({ risposte: ['no', 'no', 'no', 'no'], ora: 20 });
+  const b = fai(male, { tipo: 'apri-busta' });
+  ok(b.stato.vantaggi.risposte.every((x) => x === false), 'le risposte sbagliate restano sbagliate');
+  // La penalita' piu' comune, «si parte con 1 Canto in piu'», si prova su un
+  // episodio che ce l'ha davvero: sull'Ep.1 il controllo sarebbe vuoto, e un
+  // controllo vuoto e' peggio di nessun controllo.
+  const EP2 = leggi('ep2');
+  const conCanto = (EP2.soluzione.domande || []).some((d) => (d.penalita || {}).canto);
+  ok(conCanto, 'l’Ep.2 ha una Domanda che costa un Canto (se no, questo controllo è vuoto)');
+  const male2 = partita({ risposte: ['no', 'no', 'no', 'no'], ora: 20 });
+  male2.episodio = 'ep2';
+  const b2 = applicaIndagine(male2, { tipo: 'apri-busta' },
+                             { ep: EP2, comune: COMUNE, carte: CARTE });
+  ok(b2.stato.spedizione.canto > 0,
+     `e la penalita’ da Domanda sbagliata parte con la spedizione, non solo stampata (canto ${
+       b2.stato.spedizione.canto})`);
+
+  // l'ultima parola e' del gruppo: correggere ricalcola tutto
+  const c = fai(b.stato, { tipo: 'correggi', i: 0 });
+  ok(c.stato.indagine.correzioni[0] === true, 'il gruppo può ribaltare il giudizio');
+  ok(c.stato.vantaggi.risposte[0] === true, 'e il vantaggio si rifà col nuovo esito');
+  ok(fai(b.stato, { tipo: 'correggi', i: 99 }).rifiuto, 'ma solo su una Domanda che esiste');
+  ok(fai(partita(), { tipo: 'correggi', i: 0 }).rifiuto, 'e solo a busta aperta');
+}
+
 console.log(ko === 0
   ? 'test-motore-indagine: l’ora è una risorsa, e le regole stanno nel motore'
   : `${ko} FAIL`);

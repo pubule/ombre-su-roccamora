@@ -91,7 +91,8 @@ export async function vistaIndagine(app, partita, vaiA, posto) {
     : vista(partita, { ep: epBivi, comune: comune0, carte: carte0 }, posto);
   const { ep, comune, carte } = vistoDa.dati;
   if (ctx && ctx.canale) ctx.canale.chiudi();   // il filo di prima non resta appeso
-  ctx = { app, partita: vistoDa.stato, ep, comune, carte, vaiA, posto: posto || null, canale: null };
+  ctx = { app, partita: vistoDa.stato, ep, comune, carte, vaiA, posto: posto || null,
+          canale: null, tavoloVivo: false };
   // come in Spedizione: la scheda e' quella di stanotte, Tempre e Cicatrici
   // comprese (la Tempra vale «sempre», e l'ACUME qui tira davvero)
   abilitaSchede((nm) => eroeCresciuto({ partita: P() }, nm,
@@ -108,7 +109,8 @@ export async function vistaIndagine(app, partita, vaiA, posto) {
   // Non si aspetta: se il tavolo non risponde si gioca lo stesso, e la spinta
   // riparte al primo `salvaP()`.
   if (arbitro() && posto && posto.tavolo) {
-    mettiSulTavolo(posto, partita).catch(() => { /* si gioca lo stesso */ });
+    mettiSulTavolo(posto, partita).then((vivo) => { ctx.tavoloVivo = vivo; })
+      .catch(() => { /* si gioca lo stesso */ });
   }
   if (!arbitro()) return vistaDiChiGioca();
   // Chi gioca ha una schermata sua: non e' la stessa con meno bottoni, perche'
@@ -337,6 +339,11 @@ function collegaAlTavolo() {
     tavolo: posto.tavolo,
     onVista: (stato, datiVisti, _rif, _eventi, messaggio) => {
       if (!stato) return;
+      // IL FILO E' VIVO, e da qui i comandi vanno al TAVOLO invece che al
+      // motore di questa pagina. Senza questa riga `esegui()` restava sempre
+      // sul ramo locale, e chi gioca leggeva «mi sto ricollegando al tavolo»
+      // premendo bottoni che non facevano niente.
+      ctx.tavoloVivo = true;
       // c'e' qualcuno che conduce, dall'altra parte? Serve a dirlo a chi gioca
       // invece di lasciarlo davanti a un bottone che sembra rotto
       if (messaggio && messaggio.arbitroCollegato !== undefined) {
@@ -377,6 +384,9 @@ function collegaAlTavolo() {
       // che non fa niente, che invece aveva fatto tutto.
       (ctx.schermata || vistaDiChiGioca)();
     },
+    // il filo e' caduto: il motore torna a essere questa pagina, e chi gioca
+    // se lo sente dire invece di premere bottoni che non fanno niente
+    onStato: (collegato) => { if (!collegato) ctx.tavoloVivo = false; },
   });
 }
 
@@ -1023,98 +1033,81 @@ function consegnaApprofondimento(l, a, tipo, prefisso = '') {
     () => schedaLuogo(l), { atutti: true });
 }
 
-function pendolo(l, chi) {
-  const ind = IND();
-  const letto = (n, x) => ind.approfondimentiLetti.some((y) =>
-    y.n === n && y.tipo === x.tipo && y.soggetto === x.soggetto);
-  const quiChiusi = (l.approfondimenti || []).filter((x) => !letto(l.n, x));
-  if (quiChiusi.length) {
-    const a = quiChiusi[0];
-    usaCarica(P(), chi, a.tipo, true);
-    ind.approfondimentiLetti.push({ n: l.n, tipo: a.tipo, soggetto: a.soggetto });
-    salvaP();
-    return consegnaApprofondimento(l, a, a.tipo,
+// IL PENDOLO DI SIBILLA. La regola sta nel motore; qui si racconta.
+async function pendolo(l, chi) {
+  const out = await esegui({ tipo: 'pendolo', luogo: l.n, eroe: chi });
+  if (!out) return schedaLuogo(l);
+  const ev = (t) => out.eventi.find((e) => e.tipo === t);
+  const colto = ev('colto');
+  if (colto) {
+    const a = (l.approfondimenti || []).find((x) => x.soggetto === colto.soggetto);
+    return consegnaApprofondimento(l, a, colto.tipoApp,
       `<p><i>Il pendolo di Sibilla oscilla appena — e si ferma. Qui c’è qualcosa,
        anche se non dove stavate guardando.</i></p>`);
   }
-  const altrove = ctx.ep.luoghi.filter((x) => x.n !== l.n &&
-    (x.approfondimenti || []).some((a2) => !letto(x.n, a2)));
-  if (!altrove.length) {
+  if (ev('pendolo-fermo')) {
     return pannelloMsg('sesto senso', `<p><i>Il pendolo resta immobile, il filo dritto
       come un fuso: in città non è rimasto nulla da cogliere. Il dono, stavolta,
-      non si spende.</i></p>`, () => schedaLuogo(l));
+      non si spende.</i></p>`, () => schedaLuogo(l), { atutti: true });
   }
-  const scelta = altrove[Math.floor(Math.random() * altrove.length)];
-  usaCarica(P(), chi, 'jolly', true);
-  salvaP();
-  pannelloMsg('sesto senso', `<p><i>Il pendolo ruota lento sopra la mappa, poi il filo
-    si tende, deciso: <b>${esc(scelta.voce_mappa)}</b>. Là qualcosa aspetta ancora
-    l’occhio giusto — il pendolo non dice quale.</i></p>
-    <p class="nota mt">Il jolly di Sibilla è speso: l’informazione è questa.</p>`,
-    () => schedaLuogo(l));
+  const dove = ev('pendolo-indica');
+  if (dove) {
+    return pannelloMsg('sesto senso', `<p><i>Il pendolo ruota lento sopra la mappa, poi il filo
+      si tende, deciso: <b>${esc(dove.voce)}</b>. Là qualcosa aspetta ancora
+      l’occhio giusto — il pendolo non dice quale.</i></p>
+      <p class="nota mt">Il jolly di Sibilla è speso: l’informazione è questa.</p>`,
+      () => schedaLuogo(l), { atutti: true });
+  }
+  schedaLuogo(l);
 }
-
 
 // Discernimento di Padre Marani: indica un luogo, la risposta e' solo
 // si'/no ("li' si nasconde ancora qualcosa?"). Se si', quella visita non
 // costa l'ora — il tiro per cogliere l'Approfondimento resta comunque da fare
 // sul posto, come ovunque.
 async function discernimento() {
-  const { ep, comune } = ctx;
-  const ind = IND();
-  const voci = vociMappa(ep, comune);
+  const voci = vociMappa(ctx.ep, ctx.comune);
   const scelta = await scegliDaLista('Marani indica un luogo…',
     voci.map((v) => ({ id: v.nome, label: v.nome })));
   if (!scelta) return home();
-  ind.discernimentoUsato = true;
-  const luogo = ep.luoghi.find((l) => norm(l.voce_mappa) === norm(scelta));
-  const ancora = luogo && (luogo.approfondimenti || []).some((a) =>
-    !ind.approfondimentiLetti.some((y) => y.n === luogo.n && y.tipo === a.tipo && y.soggetto === a.soggetto));
-  if (ancora) ind.visitaGratis = luogo.n;
-  salvaP();
-  pannelloMsg('discernimento', ancora
+  const out = await esegui({ tipo: 'discernimento', voce: scelta });
+  if (!out) return home();
+  const ev = out.eventi.find((e) => e.tipo === 'discernimento');
+  pannelloMsg('discernimento', ev && ev.ancora
     ? `<p><i>Marani chiude gli occhi un istante, poi annuisce: <b>sì</b> — lì si nasconde
        ancora qualcosa.</i></p><p class="nota mt">La prossima visita a quel luogo non
        costa l’ora. Per cogliere quel che nasconde, lì, si tira come ovunque.</p>`
     : `<p><i>Marani scuote il capo, piano: <b>no</b>. Qualunque cosa ci fosse da vedere lì,
-       o l’avete già colta, o non c’è mai stata.</i></p>`, home);
+       o l’avete già colta, o non c’è mai stata.</i></p>`, home, { atutti: true });
 }
 
 // Fonti riservate di Carla: la PROSSIMA visita non costa l'ora (e non
 // conta come ora avanzata a fine indagine)
-function fontiRiservate() {
-  const ind = IND();
-  ind.fontiRiservateUsate = true;
-  ind.fontiRiservateAttive = true;
-  salvaP();
+async function fontiRiservate() {
+  if (!await esegui({ tipo: 'fonti-riservate' })) return home();
   pannelloMsg('fonti riservate', `<p><i>Carla conosce la porta giusta e chi la apre
     senza domande: la <b>prossima visita</b> non costerà l’ora.</i></p>
     <p class="nota mt">Non conta come ora avanzata a fine indagine: il vantaggio
-    premia le ore spese davvero.</p>`, home);
+    premia le ore spese davvero.</p>`, home, { atutti: true });
 }
 
 // Ombra fiuta (Mora): il furetto in avanscoperta su un luogo — torna col
 // NUMERO di Approfondimenti che ancora nasconde, mai il tipo
 async function ombraFiuta() {
-  const { ep, comune } = ctx;
-  const ind = IND();
-  const voci = vociMappa(ep, comune);
+  const voci = vociMappa(ctx.ep, ctx.comune);
   const scelta = await scegliDaLista('dove mandate Ombra?',
     voci.map((v) => ({ id: v.nome, label: v.nome })));
   if (!scelta) return home();
-  ind.ombraUsata = true;
-  salvaP();
-  const luogo = ep.luoghi.find((l) => norm(l.voce_mappa) === norm(scelta));
-  const quanti = luogo ? (luogo.approfondimenti || []).filter((a) =>
-    !ind.approfondimentiLetti.some((y) => y.n === luogo.n && y.tipo === a.tipo && y.soggetto === a.soggetto)).length : 0;
+  const out = await esegui({ tipo: 'ombra', voce: scelta });
+  if (!out) return home();
+  const quanti = (out.eventi.find((e) => e.tipo === 'ombra') || {}).quanti || 0;
   pannelloMsg('ombra fiuta', `<p><i>Il furetto sguscia via sui tetti. Torna prima che
     la candela cali di un dito, e Mora gli legge in faccia il conto:
-    <b>${quanti === 0 ? 'niente' : quanti === 1 ? 'una cosa' : quanti + ' cose'}</b> da
+    <b>${quanti === 0 ? 'niente' : quanti === 1 ? 'una cosa' : `${quanti} cose`}</b> da
     cogliere ${quanti ? 'ancora, là' : '— là non c’è più nulla, o non c’è mai stato'}.</i></p>
-    <p class="nota mt">Il numero, mai il tipo: Ombra fiuta, non legge.</p>`, home);
+    <p class="nota mt">Il numero, mai il tipo: Ombra fiuta, non legge.</p>`, home, { atutti: true });
 }
 
-// ------------------------------------------------------------- taccuino
 function taccuino() {
   const { app, ep } = ctx;
   const ind = IND();
@@ -1149,22 +1142,24 @@ function taccuino() {
       </div>
     </div>`;
   dopoBarra();
-  const leggi = () => {
-    app.querySelectorAll('[data-risposta]').forEach((el) => {
-      ind.risposte[Number(el.dataset.risposta)] = el.value;
-    });
-    ind.note = app.querySelector('#note-taccuino').value;
+  // Tre comandi invece di tre scritture: gli appunti di ciascuno restano
+  // separati perche' su un telefono li scrive il suo eroe, e sovrascriverli
+  // tutti a ogni salvataggio cancellerebbe quel che gli altri stanno battendo.
+  const leggi = async () => {
+    await esegui({ tipo: 'risposte',
+      risposte: [...app.querySelectorAll('[data-risposta]')].map((el) => el.value) });
+    await esegui({ tipo: 'nota', testo: app.querySelector('#note-taccuino').value });
     // chi arbitra tiene in mano gli eroi che nessuno ha reclamato: puo' scrivere
     // gli appunti di chiunque, ed e' lo stesso patto della plancia
-    ind.noteEroe = ind.noteEroe || {};
-    app.querySelectorAll('[data-nota-eroe]').forEach((el) => {
-      ind.noteEroe[el.dataset.notaEroe] = el.value;
-    });
-    salvaP();
+    for (const el of app.querySelectorAll('[data-nota-eroe]')) {
+      if (el.value !== noteDi(el.dataset.notaEroe)) {
+        await esegui({ tipo: 'nota-eroe', eroe: el.dataset.notaEroe, testo: el.value });
+      }
+    }
   };
-  app.querySelector('#salva-risposte').onclick = () => { leggi(); home(); };
+  app.querySelector('#salva-risposte').onclick = async () => { await leggi(); home(); };
   app.querySelector('#apri-busta').onclick = async () => {
-    leggi();
+    await leggi();
     if (!await conferma('Rompete il sigillo?', {
       dettaglio: 'La busta si apre una volta sola: l’indagine si chiude per sempre.',
       si: 'rompete il sigillo', no: 'non ancora', sigillo: 'L',
@@ -1173,36 +1168,19 @@ function taccuino() {
   };
 }
 
-function busta() {
+async function busta() {
   const { app, ep } = ctx;
   const ind = IND();
-  ind.chiusa = true;
-  // Il giudizio automatico confronta parole, e su risposte scritte a mano
-  // sbaglia sempre nello stesso verso: boccia chi ha indovinato ma e' stato
-  // sintetico (16 domande su 81 danno «sbagliata» a una risposta corretta —
-  // «Il professor Cesare Braga» contro una verita' lunga tre righe). Al tavolo
-  // l'ultima parola ce l'ha chi arbitra; qui ce l'ha il gruppo, che la verita'
-  // ce l'ha gia' sotto gli occhi due righe piu' sotto.
-  const corr = ind.correzioni || (ind.correzioni = {});
+  if (!ind.chiusa && !await esegui({ tipo: 'apri-busta' })) return home();
+  // Il conto lo ha gia' fatto il motore aprendo la busta: qui si legge e si
+  // racconta. `correzioni` dice quali giudizi ha ribaltato il gruppo.
+  const corr = ind.correzioni || {};
   const esiti = verificaRisposte(ep, ind.risposte).map((e, i) => ({
     ...e, i, corretto: i in corr, ok: (i in corr) ? corr[i] : e.ok,
   }));
-  // la CONTRO-BUSTA resta sigillata: non si mostra qui e non pesa sul tier,
-  // o lo Slancio sarebbe irraggiungibile (chiede TUTTE le risposte esatte, e
-  // quella non e' ancora conoscibile). Si apre nell'epilogo di spedizione.
   const inBusta = esiti.filter((e) => !e.dopo_spedizione);
   const t = tierIndagine(ep, ind, inBusta.map((e) => e.ok));
-  P().vantaggi = { tier: t.tier, dossier: t.dossier, risposte: esiti.map((e) => e.ok) };
-  // Le penalita' da Domanda sbagliata erano SOLO stampate: `sbagliata` compare
-  // in due punti dell'app, entrambi di sola lettura. Al tavolo le applica chi
-  // arbitra; in digitale l'arbitro e' l'app, e non le applicava nessuno — meta'
-  // della posta dell'Indagine spariva. Qui si applica la piu' comune, «la
-  // spedizione parte con 1 segnalino Canto in piu'» (undici Domande su venti
-  // episodi), che ora ha un campo suo invece di vivere solo nella prosa.
-  // Le altre penalita' restano al testo: sono una diversa per episodio.
-  const cantoIniziale = esiti.reduce((n, e) => n + (e.ok ? 0 : ((e.penalita || {}).canto || 0)), 0);
-  P().spedizione = { ...(P().spedizione || {}), canto: cantoIniziale };
-  salvaP();
+  const cantoIniziale = (P().spedizione || {}).canto || 0;
   app.innerHTML = `
     ${barra('la busta è aperta')}
     <div class="pannello">
@@ -1236,11 +1214,8 @@ function busta() {
     </div>`;
   dopoBarra();
   app.querySelectorAll('[data-correggi]').forEach((b) => {
-    b.onclick = () => {
-      const k = Number(b.dataset.correggi);
-      corr[k] = !esiti.find((e) => e.i === k).ok;
-      salvaP();
-      busta();                       // ricalcola tier e vantaggi col nuovo esito
+    b.onclick = async () => {
+      if (await esegui({ tipo: 'correggi', i: Number(b.dataset.correggi) })) busta();
     };
   });
   app.querySelector('#alla-spedizione').onclick = () => {
@@ -1283,18 +1258,16 @@ async function esameCarbone(dopo) {
   const scelto = await scegliDaLista('cosa porta al banco di Carbone?',
     pezzi.map((n) => ({ id: n, label: n })));
   if (!scelto) return dopo();
-  const esami = ctx.ep.esami_carbone || {};
-  const chiave = Object.keys(esami).find((k) =>
-    norm(scelto).includes(norm(k)) || norm(k).includes(norm(scelto)));
-  if (!chiave) {
+  const out = await esegui({ tipo: 'esame-carbone', pezzo: scelto });
+  if (!out) return dopo();
+  if (out.eventi.some((e) => e.tipo === 'esame-muto')) {
     return pannelloMsg('esame di carbone', `<p><i>Carbone lo rigira due volte, poi lo
       rende con un mezzo inchino: «Buon pezzo. Ma non ha segreti per me.»</i></p>
       <p class="nota mt">L’occasione non si spende: portategli qualcos’altro.</p>`, dopo);
   }
-  P().carboneUsato = true;
-  salvaP();
+  const ev = out.eventi.find((e) => e.tipo === 'esame');
   pannelloMsg(`esame di carbone — ${scelto.toLowerCase()}`,
-    `<p><i>${rendi(esami[chiave])}</i></p>`, dopo);
+    `<p><i>${rendi(ev.testo)}</i></p>`, dopo, { atutti: true });
 }
 
 
@@ -1313,8 +1286,7 @@ async function esameCarbone(dopo) {
 function pannelloMsg(titolo, corpoHtml, dopo, { atutti = false } = {}) {
   const { app } = ctx;
   if (atutti && ctx.posto && ctx.posto.tavolo) {
-    IND().carta = { titolo, corpo: corpoHtml };
-    salvaP();
+    esegui({ tipo: 'carta', titolo, corpo: corpoHtml });
   }
   app.innerHTML = `
     ${barra(titolo)}
@@ -1322,7 +1294,7 @@ function pannelloMsg(titolo, corpoHtml, dopo, { atutti = false } = {}) {
     <div class="btn-riga"><button class="btn pieno" id="ok-msg">continuate</button></div>`;
   dopoBarra();
   app.querySelector('#ok-msg').onclick = () => {
-    if (IND().carta) { IND().carta = null; salvaP(); }
+    if (IND().carta) esegui({ tipo: 'carta-vista' });
     if (dopo) dopo();
   };
 }

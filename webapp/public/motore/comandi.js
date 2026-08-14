@@ -224,13 +224,20 @@ function pescaUna(g) {
 // due `if` in ogni riga. Condivide quel che conta — la copia, i dadi seminati o
 // dichiarati, la forma del rifiuto — perche' quelle tre cose devono comportarsi
 // uguali nelle due meta' della serata.
+const DOPO_LA_BUSTA = new Set(['correggi', 'carta-vista']);
+
 export function applicaIndagine(statoIn, comando, dati) {
   const stato = clona(statoIn);
   const ind = stato.indagine;
   const g = { ep: dati.ep, comune: dati.comune, carte: dati.carte, ind, partita: stato };
   const fallito = (motivo) => ({ stato: statoIn, eventi: [], rifiuto: { motivo } });
 
-  if (ind.chiusa) return fallito('L’indagine è già chiusa.');
+  // A BUSTA APERTA la notte e' finita, ma due cose restano: ribaltare un
+  // giudizio dell'app (l'ultima parola e' del gruppo) e chiudere la schermata
+  // che il tavolo sta leggendo. Tutto il resto e' storia.
+  if (ind.chiusa && !DOPO_LA_BUSTA.has(comando.tipo)) {
+    return fallito('L’indagine è già chiusa.');
+  }
   if (comando.eroe && !stato.party.includes(comando.eroe)) {
     return fallito(`${comando.eroe} non è in questa squadra.`);
   }
@@ -251,7 +258,8 @@ export function applicaIndagine(statoIn, comando, dati) {
 export function applica(statoIn, comando, dati) {
   // la serata ha due meta', e ognuna ha il suo vocabolario: si smista qui, una
   // volta, invece di chiederlo a ogni chiamante
-  if (statoIn.fase === 'indagine' && !(statoIn.indagine || {}).chiusa) {
+  if (statoIn.fase === 'indagine'
+      && (!(statoIn.indagine || {}).chiusa || DOPO_LA_BUSTA.has(comando.tipo))) {
     return applicaIndagine(statoIn, comando, dati);
   }
   const stato = clona(statoIn);
