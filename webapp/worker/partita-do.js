@@ -159,7 +159,23 @@ export class Partita extends DurableObject {
     const stato = await this.leggi();
     if (!stato) return Response.json({ errore: 'nessuna partita aperta' }, { status: 404 });
     const dati = await this.dati(stato.episodio, stato.bivi);
-    return Response.json(vista(stato, dati, posto));
+    return Response.json({ ...vista(stato, dati, posto), arbitroCollegato: this.arbitroCollegato() });
+  }
+
+  // C'E' QUALCUNO CHE CONDUCE, dall'altra parte del filo?
+  //
+  // Nell'Indagine chi arbitra e' il motore: se il suo browser non e' collegato,
+  // le richieste che partono dai telefoni restano nello stato e non le raccoglie
+  // nessuno. Senza questa riga il sintomo e' «premo e non accade niente», che
+  // e' il modo peggiore di rompersi — indistinguibile da un bottone rotto.
+  arbitroCollegato() {
+    for (const ws of this.ctx.getWebSockets()) {
+      try {
+        const p = ws.deserializeAttachment();
+        if (p && p.ruolo === 'arbitro') return true;
+      } catch { /* una sessione morta non conta */ }
+    }
+    return false;
   }
 
   async comando(request, posto) {
@@ -269,10 +285,12 @@ export class Partita extends DurableObject {
   // la sessione perche' la stessa persona puo' avere due schede aperte: l'altra
   // deve aggiornarsi, e con un filtro per email non lo farebbe.
   spargi(out, dati, rif) {
+    const arb = this.arbitroCollegato();
     for (const ws of this.ctx.getWebSockets()) {
       try {
         const posto = ws.deserializeAttachment() || { ruolo: 'giocatore' };
-        ws.send(JSON.stringify({ ...vista(out.stato, dati, posto), eventi: out.eventi, rif }));
+        ws.send(JSON.stringify({ ...vista(out.stato, dati, posto), eventi: out.eventi, rif,
+                                 arbitroCollegato: arb }));
       } catch { /* una sessione morta non ferma le altre */ }
     }
   }

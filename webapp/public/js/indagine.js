@@ -377,8 +377,13 @@ function collegaAlTavolo() {
   const posto = ctx.posto;
   ctx.canale = apriCanale({
     tavolo: posto.tavolo,
-    onVista: (stato, datiVisti) => {
+    onVista: (stato, datiVisti, _rif, _eventi, messaggio) => {
       if (!stato) return;
+      // c'e' qualcuno che conduce, dall'altra parte? Serve a dirlo a chi gioca
+      // invece di lasciarlo davanti a un bottone che sembra rotto
+      if (messaggio && messaggio.arbitroCollegato !== undefined) {
+        ctx.arbitroCollegato = messaggio.arbitroCollegato;
+      }
       // CHI ARBITRA ASCOLTA UNA COSA SOLA: il tiro che aspetta dall'altra parte.
       // Non ridisegna su quel che arriva — la sua schermata la guida lui, e
       // ridisegnarla sotto le dita gli farebbe sparire quel che stava facendo.
@@ -657,9 +662,15 @@ function chiediAlTavolo(richiesta, bottone) {
     // il messaggio dice COSA controllare, non «riprova»: la richiesta la
     // raccoglie il browser di chi conduce, e se e' su un'altra schermata —
     // la lista degli episodi, il menu — nessuno la vede passare
-    torna(((IND().richiesta) || {}).id === id
-      ? 'Il tavolo l’ha ricevuta ma nessuno l’ha raccolta: chi arbitra deve stare sull’episodio.'
-      : 'Il tavolo non risponde. Controllate il collegamento.');
+    if (((IND().richiesta) || {}).id !== id) {
+      return torna('Il tavolo non risponde. Controllate il collegamento.');
+    }
+    // la richiesta e' ancora li': l'ha ricevuta il tavolo e non l'ha raccolta
+    // nessuno. Due casi diversi, e uno si sistema in due secondi.
+    torna(ctx.arbitroCollegato === false
+      ? 'Chi arbitra non e’ collegato al tavolo: deve aprire l’episodio.'
+      : 'Chi arbitra e’ collegato ma non l’ha raccolta: se ha la pagina aperta da '
+        + 'prima di un aggiornamento, deve ricaricarla.');
   }, 8000);
 }
 

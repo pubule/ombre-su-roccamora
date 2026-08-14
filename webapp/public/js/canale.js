@@ -42,7 +42,7 @@ export function apriCanale({ tavolo, onVista, onRifiuto, onStato }) {
       // stato ed eventi arrivano INSIEME e vanno insieme: gli eventi sono il
       // copione di come si e' arrivati a quello stato, e metterli in scena dopo
       // averlo gia' incassato mostrerebbe la conseguenza prima della causa
-      if (m.stato) onVista && onVista(m.stato, m.dati, m.rif, m.eventi || []);
+      if (m.stato) onVista && onVista(m.stato, m.dati, m.rif, m.eventi || [], m);
     };
 
     ws.onclose = () => {
