@@ -152,6 +152,10 @@ em, i { font-style: italic; }
 /* la strada presa, nell'epilogo: si distingue a colpo d'occhio da quella
    lasciata — al tavolo la scelta si sigilla, e sigillata si deve vedere */
 .pannello.scelto { border-color: var(--nastro); background: #23262e; }
+/* un rifiuto va detto, non ingoiato: il motore risponde «non avete piu' le ore»
+   e quella riga deve arrivare a chi ha premuto */
+.flash-indagine { background: var(--ceralacca); color: #fff; padding: 9px 14px;
+  border-radius: 2px; margin-bottom: 10px; font-family: 'OldStd', serif; font-size: 16px; }
 #riq-bivio ul { margin: 6px 0 0 18px; }
 #riq-bivio li { margin-bottom: 4px; }
 

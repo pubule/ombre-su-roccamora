@@ -24,6 +24,7 @@ import { DurableObject } from 'cloudflare:workers';
 import { applica } from '../public/motore/comandi.js';
 import { vista } from '../public/motore/proiezione.js';
 import { episodioColBivio } from '../public/motore/bivi.js';
+import { INDAGINE_DI_ARBITRO } from '../public/motore/indagine.js';
 
 // Ogni quanto la partita viva scende su D1. Non a ogni comando: un round di
 // spedizione ne fa decine, e il backup non e' la verita' — e' la rete per
@@ -190,25 +191,23 @@ export class Partita extends DurableObject {
     //
     // Lo manda SOLO chi ha quell'eroe: e' il tiro del suo personaggio, e un
     // altro che lo mandasse tirerebbe al posto suo.
-    if (cmd.tipo === 'prova-indagine') return this.provaIndagine(stato, cmd, posto);
-
-    // LA MANO ALZATA. Chi gioca chiede di approfondire dal suo telefono;
-    // eseguire lo fa chi arbitra, che nell'Indagine e' il motore. Qui la
-    // richiesta si scrive nello stato e si sparge — non si applica niente.
-    if (cmd.tipo === 'chiedi-indagine') return this.chiediIndagine(stato, cmd, posto);
-
-    // GLI APPUNTI DI UN EROE. Non c'e' niente da arbitrare — sono i suoi — e
-    // quindi non passa da chi conduce: si scrivono qui e arrivano agli altri.
-    if (cmd.tipo === 'nota-eroe') return this.notaEroe(stato, cmd, posto);
 
     // CHI PUO' MUOVERE COSA. Un giocatore comanda il SUO eroe e nessun altro:
     // e' la regola che rende sensato dare a ognuno un dispositivo. L'arbitro
     // muove chiunque — e' lui che tiene in mano gli eroi non reclamati.
+    //
+    // Le due meta' della serata hanno due elenchi, e la ragione e' la stessa:
+    // quel che e' del GRUPPO lo manda chi conduce. In Spedizione sono la notte,
+    // la pesca e la chiusura; nell'Indagine l'ORA, le porte e la busta — che
+    // l'orologio e' la risorsa comune, e quattro dita che la spendono senza
+    // parlarne e' il modo piu' rapido di rovinare l'ansia della notte.
+    const diArbitro = stato.fase === 'indagine' && !(stato.indagine || {}).chiusa
+      ? INDAGINE_DI_ARBITRO : COMANDI_DI_ARBITRO;
     if (posto.ruolo !== 'arbitro') {
       if (cmd.eroe && cmd.eroe !== posto.eroe) {
         return Response.json({ rifiuto: { motivo: `${cmd.eroe} non è il tuo eroe.` } }, { status: 403 });
       }
-      if (COMANDI_DI_ARBITRO.has(cmd.tipo)) {
+      if (diArbitro.has(cmd.tipo)) {
         return Response.json({ rifiuto: { motivo: 'Questo lo fa chi arbitra.' } }, { status: 403 });
       }
     }
@@ -221,58 +220,6 @@ export class Partita extends DurableObject {
     await this.scrivi(out.stato, { subito: !!out.stato.spedizione.esito });
     this.spargi(out, dati, cmd.rif);
     return Response.json({ ...vista(out.stato, dati, posto), eventi: out.eventi, rif: cmd.rif });
-  }
-
-  async provaIndagine(stato, cmd, posto) {
-    const pend = (stato.indagine || {}).pendenza;
-    if (!pend || pend.id !== cmd.id) {
-      // gia' risolta: chi arbitra ha tirato lui, o due tocchi sono partiti
-      // insieme. Non e' un errore da mostrare — e' una corsa persa.
-      return Response.json({ ok: true, tardi: true });
-    }
-    if (posto.ruolo !== 'arbitro' && pend.a !== posto.eroe) {
-      return Response.json({ rifiuto: { motivo: `${pend.a} non è il tuo eroe.` } }, { status: 403 });
-    }
-    stato.indagine.pendenza = { ...pend, esito: cmd.esito };
-    // NON SI TIMBRA. Nell'Indagine l'autore e' il browser di chi arbitra, e
-    // `aggiornato` e' la SUA lineage: mettendoci il clock del server, la spinta
-    // successiva di chi conduce — col clock del suo PC — verrebbe rifiutata da
-    // `apri` se il server e' anche solo qualche secondo avanti. Il risultato,
-    // visto al tavolo: la richiesta arriva, e non la esegue nessuno.
-    //
-    // Qui si scrive e si sparge, e basta: il timbro lo mette chi comanda
-    // davvero. La Spedizione e' l'altro caso — li' l'autore e' il Durable
-    // Object e il timbro e' giustamente suo.
-    await this.scrivi(stato);
-    this.spargi({ stato, eventi: [] }, await this.dati(stato.episodio, stato.bivi), null);
-    return Response.json({ ok: true });
-  }
-
-  async chiediIndagine(stato, cmd, posto) {
-    const r = cmd.richiesta || {};
-    // si chiede COL PROPRIO EROE e con nessun altro: e' la sua abilita', e
-    // spenderla al posto suo e' esattamente cio' che si voleva togliere
-    if (posto.ruolo !== 'arbitro' && r.eroe && r.eroe !== posto.eroe) {
-      return Response.json({ rifiuto: { motivo: `${r.eroe} non è il tuo eroe.` } }, { status: 403 });
-    }
-    stato.indagine = { ...(stato.indagine || {}), richiesta: { ...r, da: posto.eroe || null } };
-    await this.scrivi(stato);   // niente timbro: vedi `provaIndagine`
-    this.spargi({ stato, eventi: [] }, await this.dati(stato.episodio, stato.bivi), null);
-    return Response.json({ ok: true });
-  }
-
-  async notaEroe(stato, cmd, posto) {
-    // si scrive il PROPRIO taccuino. Chi arbitra scrive per chiunque: tiene in
-    // mano gli eroi che nessuno ha reclamato.
-    if (posto.ruolo !== 'arbitro' && cmd.eroe !== posto.eroe) {
-      return Response.json({ rifiuto: { motivo: `${cmd.eroe} non è il tuo eroe.` } }, { status: 403 });
-    }
-    const ind = stato.indagine || {};
-    stato.indagine = { ...ind, noteEroe: { ...(ind.noteEroe || {}), [cmd.eroe]: String(cmd.testo || '') } };
-    // niente timbro: vedi `provaIndagine`
-    await this.scrivi(stato);
-    this.spargi({ stato, eventi: [] }, await this.dati(stato.episodio, stato.bivi), null);
-    return Response.json({ ok: true });
   }
 
   // Manda a ogni sessione la SUA vista. Non si spedisce lo stato intero e poi

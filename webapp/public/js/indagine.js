@@ -10,6 +10,8 @@ import { rendi, norm, bussa, dichiaraVoce, vociMappa, luogoVisitabile,
          urlArt, cartaLuogo, cartaApprofondimento, cartaOggetto,
          urlCarta as urlCartaSafe } from './engine.js';
 import { episodioColBivio } from '../motore/bivi.js';
+import { applica } from '../motore/comandi.js';
+import { provaDiIndagine } from '../motore/indagine.js';
 import { vista, eArbitro } from '../motore/proiezione.js';
 import { mettiSulTavolo } from './tavolo-vivo.js';
 import { apriCanale } from './canale.js';
@@ -149,9 +151,8 @@ function lettera() {
                                                 : `in strada, alle ${IND().ora}:00 →`}</button>
     </div>`;
   dopoBarra();
-  app.querySelector('#in-strada').onclick = () => {
-    IND().lettaLettera = true;
-    salvaP();
+  app.querySelector('#in-strada').onclick = async () => {
+    if (!IND().lettaLettera) await esegui({ tipo: 'lettera-letta' });
     home();
   };
 }
@@ -316,53 +317,6 @@ function home() {
   app.querySelector('#chiudi-indagine').onclick = taccuino;
 }
 
-// QUEL CHE UN TELEFONO HA CHIESTO, eseguito da chi conduce.
-//
-// Il motore dell'Indagine e' questo browser, e resta questo: la richiesta
-// entra nelle STESSE funzioni che chi arbitra usa da sempre — stessa carica,
-// stessa prova, stesso testo. Se le regole vivessero in due posti divergerebbero
-// al primo ritocco, ed e' la divergenza che tutto questo lavoro ha tolto.
-async function eseguiRichiesta(r) {
-  const l = (ctx.ep.luoghi || []).find((x) => x.n === r.luogo);
-  if (!l) return;
-  // la richiesta si toglie dallo stato PRIMA di eseguire: quel che segue
-  // spinge altri stati, e una richiesta rimasta li' verrebbe servita di nuovo
-  IND().richiesta = null;
-  salvaP();
-  const tipiQui = [...new Set((l.approfondimenti || []).map((a) => a.tipo))];
-  if (r.azione === 'profano') return aiutoProfano(l, r.tipoApp, r.eroe || r.da);
-  return approfondisci(l, r.tipoApp, tipiQui, r.eroe || r.da);
-}
-
-// La prova che il tavolo aspetta da questo telefono. L'overlay e' lo stesso di
-// sempre, con tutt'e due le strade aperte: si tocca per far tirare l'app, o si
-// dichiara il totale dei due dadi veri. La scelta e' a OGNI tiro — al tavolo si
-// tirano dadi veri finche' li si ha in mano, e si passa all'app quando sono
-// rotolati sotto la sedia.
-//
-// L'esito torna al tavolo come comando: il Durable Object lo scrive nella
-// pendenza e lo sparge, e chi arbitra riprende da li'.
-async function tiraPerIlTavolo(pend) {
-  ctx.dadiAperti = true;
-  const r = await tiraProva({ ...pend.prova, sceltaOgniVolta: true });
-  ctx.dadiAperti = false;
-  if (!r) return vistaDiChiGioca();     // annullato: il tavolo aspetta ancora
-  if (ctx.canale) ctx.canale.manda({ tipo: 'prova-indagine', id: pend.id, esito: r });
-  // L'ESITO SI SEGNA SUBITO ANCHE QUI. L'autorita' e' il Durable Object, ma la
-  // sua risposta arriva dopo un giro di rete: fino ad allora questa copia
-  // direbbe ancora «c'e' un tiro da fare», e la schermata si riaprirebbe sui
-  // dadi appena tirati — un tiro che si ripete da solo, e il test lo prende.
-  // Non e' un ottimismo: e' che il tiro l'abbiamo fatto noi.
-  //
-  // Si scrive su `IND()` e non sull'oggetto `pend` ricevuto: mentre i dadi
-  // rotolavano puo' essere arrivata una spinta dal filo, e `onVista`
-  // SOSTITUISCE `ctx.partita` — mutare quello di prima vorrebbe dire scrivere
-  // su un oggetto che nessuno guarda piu'. E' la stessa trappola per cui in
-  // `digitale.js` esiste `incassa()`.
-  if (IND().pendenza && IND().pendenza.id === pend.id) IND().pendenza.esito = r;
-  return vistaDiChiGioca();
-}
-
 // IL FILO COL TAVOLO, durante l'Indagine.
 //
 // Chi arbitra e' l'autorita' — nell'Indagine agisce lui solo — e a ogni
@@ -389,21 +343,11 @@ function collegaAlTavolo() {
       // ridisegnarla sotto le dita gli farebbe sparire quel che stava facendo.
       // La spinta che riceve e' anche la propria, quindi si guarda solo
       // l'ESITO, che lo scrive il telefono e nessun altro.
-      if (arbitro()) {
-        const p = (stato.indagine || {}).pendenza;
-        const att = ctx.attesaProva;
-        if (att && p && p.id === att.id && p.esito) att.arrivato(p.esito);
-        // LA MANO ALZATA DA UN TELEFONO. Chi conduce e' il motore: esegue la
-        // richiesta col codice di sempre e ne annuncia l'esito a tutti. Si
-        // segna l'id gia' servito perche' la stessa spinta arriva anche di
-        // rimbalzo, e servirla due volte vorrebbe dire spendere due cariche.
-        const r = (stato.indagine || {}).richiesta;
-        if (r && r.id && r.id !== ctx.ultimaRichiesta && !ctx.attesaProva) {
-          ctx.ultimaRichiesta = r.id;
-          eseguiRichiesta(r);
-        }
-        return;
-      }
+      // CHI ARBITRA NON RIDISEGNA su quel che arriva: la sua schermata la guida
+      // lui, e ridisegnarla sotto le dita gli farebbe sparire quel che stava
+      // facendo. Gli basta tenere lo stato aggiornato — le mosse degli altri le
+      // ha gia' applicate il tavolo.
+      if (arbitro()) { incassa(stato); return; }
       // LA SERATA E' PASSATA ALLA SPEDIZIONE mentre guardavamo: non si ridisegna
       // l'Indagine di una partita che non e' piu' li'. Si chiude il filo e si
       // passa la mano, o resterebbero due canali aperti sullo stesso tavolo.
@@ -413,12 +357,6 @@ function collegaAlTavolo() {
         return ctx.vaiA('spedizione');
       }
       ctx.partita = stato;
-      // L'ATTESA FINISCE QUANDO LA MANO E' STATA SERVITA, non alla prima
-      // spinta: la prima e' l'ECO della richiesta stessa — il tavolo la scrive
-      // e la sparge — e azzerare li' faceva sparire il messaggio lasciando chi
-      // gioca senza piu' nessun segnale. Servita vuol dire che la richiesta non
-      // c'e' piu' nello stato: l'ha raccolta chi conduce.
-      if (!((stato.indagine || {}).richiesta)) ctx.inAttesaDi = null;
       if (datiVisti) {
         if (datiVisti.ep) ctx.ep = datiVisti.ep;
         if (datiVisti.comune) ctx.comune = datiVisti.comune;
@@ -457,17 +395,6 @@ function vistaDiChiGioca() {
   ctx.schermata = vistaDiChiGioca;
   const { app, ep, carte } = ctx;
   const ind = IND();
-  // IL TIRO E' TUO. Se il tavolo aspetta una prova su questo eroe, l'overlay si
-  // apre qui e non altrove: e' l'unica cosa che nell'Indagine non fa chi
-  // conduce. Sta PRIMA di tutto il resto perche' e' l'unica cosa che chiede
-  // qualcosa; il resto e' roba da guardare.
-  const pend = ind.pendenza;
-  if (pend && pend.tipo === 'prova' && !pend.esito && pend.a && pend.a === mioEroe()) {
-    // i dadi sono gia' in mano: un'altra spinta dal tavolo non deve aprire un
-    // secondo overlay sopra il primo, con due tiri per una prova sola
-    if (!ctx.dadiAperti) return tiraPerIlTavolo(pend);
-    return;
-  }
   // LA SCHERMATA CHE IL TAVOLO STA LEGGENDO. Quel che il gruppo ha colto — o
   // non colto — si legge insieme: compare su ogni schermo e la chiude chi
   // conduce, cosi' nessuno va avanti mentre gli altri leggono. Qui non c'e'
@@ -559,12 +486,15 @@ function vistaDiChiGioca() {
       ctx.comune.eroi.find((x) => x.nome === el.dataset.scheda), {})));
   app.querySelector('#lettera-eroe')?.addEventListener('click', letteraDiChiGioca);
   app.querySelector('#taccuino-eroe').onclick = taccuinoDiChiGioca;
+  // LA STESSA FUNZIONE CHE USA CHI ARBITRA. Non una richiesta, non un giro per
+  // il tavolo: e' la sua abilita' e la spende lui, e la regola sta nel motore —
+  // quindi il codice e' uno solo, e non ci sono due strade da tenere allineate.
   app.querySelectorAll('[data-appr]').forEach((el) => el.addEventListener('click', () => {
-    el.disabled = true;
-    const p = app.querySelector('#esito-richiesta');
-    if (p) { p.textContent = 'Il tavolo sta guardando…'; p.style.display = ''; }
-    chiediAlTavolo({ azione: el.dataset.appr, luogo: Number(el.dataset.luogo),
-                     tipoApp: el.dataset.tipo, eroe: mioEroe() }, el);
+    const l = luogoN(Number(el.dataset.luogo));
+    if (!l) return;
+    const tipiQui = [...new Set((l.approfondimenti || []).map((a) => a.tipo))];
+    if (el.dataset.appr === 'profano') return aiutoProfano(l, el.dataset.tipo, mioEroe());
+    return approfondisci(l, el.dataset.tipo, tipiQui, mioEroe());
   }));
 }
 
@@ -632,58 +562,9 @@ function approfondireHtml(l) {
           data-luogo="${l.n}" data-tipo="${esc(aperti[0])}">aiuto profano (1 volta qui)</button>`}
       </div>
       ${miei.length ? '' : '<p class="nota">Qui non c’è niente che parli il vostro linguaggio: resta l’occhio del dilettante.</p>'}
-      <p class="nota" id="esito-richiesta"${ctx.inAttesaDi
-        ? '>Il tavolo sta guardando…' : ' style="display:none">'}</p>
     </div>`;
 }
 
-// La richiesta al tavolo. Il telefono non applica niente: alza la mano, e chi
-// conduce esegue col motore che ha gia' — nessuna regola scritta due volte.
-//
-// E SE NON SUCCEDE NIENTE, LO DICE. Una mano alzata puo' cadere nel vuoto per
-// ragioni che da qui non si vedono: il filo giu', chi arbitra su un'altra
-// schermata, una versione vecchia aperta da prima. Un bottone che resta
-// spento e muto e' indistinguibile da un bottone rotto — e al tavolo si
-// ripreme, o si smette di fidarsi. Qui si aspetta qualche secondo: se il
-// tavolo non si e' mosso, il bottone torna e lo dice.
-function chiediAlTavolo(richiesta, bottone) {
-  const torna = (motivo) => {
-    if (bottone) bottone.disabled = false;
-    const p = ctx.app.querySelector('#esito-richiesta');
-    if (p) { p.textContent = motivo; p.style.display = ''; }
-  };
-  if (!ctx.canale) return torna('Questo telefono non è collegato al tavolo.');
-  const id = `rq${Date.now()}`;
-  ctx.canale.manda({ tipo: 'chiedi-indagine', richiesta: { ...richiesta, id } });
-  ctx.inAttesaDi = id;
-  setTimeout(() => {
-    if (ctx.inAttesaDi !== id) return;         // servita: tutto bene
-    ctx.inAttesaDi = null;
-    // il messaggio dice COSA controllare, non «riprova»: la richiesta la
-    // raccoglie il browser di chi conduce, e se e' su un'altra schermata —
-    // la lista degli episodi, il menu — nessuno la vede passare
-    if (((IND().richiesta) || {}).id !== id) {
-      return torna('Il tavolo non risponde. Controllate il collegamento.');
-    }
-    // la richiesta e' ancora li': l'ha ricevuta il tavolo e non l'ha raccolta
-    // nessuno. Due casi diversi, e uno si sistema in due secondi.
-    torna(ctx.arbitroCollegato === false
-      ? 'Chi arbitra non e’ collegato al tavolo: deve aprire l’episodio.'
-      : 'Chi arbitra e’ collegato ma non l’ha raccolta: se ha la pagina aperta da '
-        + 'prima di un aggiornamento, deve ricaricarla.');
-  }, 8000);
-}
-
-// IL TACCUINO, dal telefono.
-//
-// Tre cose, e in quest'ordine: le DOMANDE (si leggono e basta — le risposte le
-// scrive chi arbitra, che apre la busta una volta sola e per tutti), i PROPRI
-// appunti, e quelli DEGLI ALTRI.
-//
-// Gli appunti di un altro sono la cosa piu' utile che si legge fra una porta e
-// l'altra: «il liutaio esce di notte» l'aveva scritto Mora due ore prima, e al
-// tavolo non se lo ricordava piu' nessuno. Col Taccuino unico in mano a chi
-// conduce quella riga non esisteva.
 function taccuinoDiChiGioca() {
   ctx.schermata = taccuinoDiChiGioca;
   const { app, ep } = ctx;
@@ -723,13 +604,7 @@ function taccuinoDiChiGioca() {
       <button class="btn pieno" id="torna-strada">tornate in strada →</button>
     </div>`;
   dopoBarra();
-  agganciaAppunti((nm, testo) => {
-    // si scrive subito nella propria copia — cosi' la casella non torna vuota
-    // se la spinta tarda — e si manda al tavolo, che lo passa agli altri
-    IND().noteEroe = { ...(IND().noteEroe || {}), [nm]: testo };
-    salva(ctx.partita, { timbra: false });
-    if (ctx.canale) ctx.canale.manda({ tipo: 'nota-eroe', eroe: nm, testo });
-  });
+  agganciaAppunti((nm, testo) => esegui({ tipo: 'nota-eroe', eroe: nm, testo }));
   app.querySelector('#torna-strada').onclick = vistaDiChiGioca;
 }
 
@@ -760,31 +635,118 @@ function letteraDiChiGioca() {
   app.querySelector('#torna-strada').onclick = vistaDiChiGioca;
 }
 
+// ------------------------------------------------------------ IL PUNTO UNICO
+//
+// Ogni mossa dell'Indagine passa di qui, e da qui si dirama: col tavolo vivo il
+// comando ci va e lo stato torna di la'; senza tavolo il motore gira in questo
+// browser e non cambia niente. E' la stessa forma di `digitale.js`, ed e' la
+// ragione per cui l'Indagine e' entrata nel motore: cosi' la partita non dipende
+// piu' da dove guarda una persona.
+//
+// Il ramo locale non e' un ripiego per i banchi di prova: e' come si gioca senza
+// server, e va tenuto vivo.
+async function esegui(comando) {
+  const dati = { ep: ctx.ep, comune: ctx.comune, carte: ctx.carte };
+
+  if (ctx.posto && ctx.posto.tavolo && ctx.tavoloVivo) {
+    try {
+      const r = await fetch(`/api/tavolo/${encodeURIComponent(ctx.posto.tavolo)}/comando`, {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(comando),
+      });
+      const out = await r.json();
+      if (!r.ok || out.rifiuto) { flash((out.rifiuto || {}).motivo || 'Il tavolo ha rifiutato la mossa.'); return null; }
+      incassa(out.stato);
+      return out;
+    } catch {
+      // il filo e' caduto a meta' mossa: non si applica niente qui, perche' uno
+      // stato inventato in locale divergerebbe da quello del tavolo e non ci
+      // sarebbe modo di accorgersene
+      flash('Il tavolo non risponde. La mossa non è stata fatta.');
+      return null;
+    }
+  }
+
+  // CHI GIOCA NON APPLICA MAI IN LOCALE: la partita vera sta sul tavolo, e
+  // applicare qui vorrebbe dire farsi una partita propria che nessun altro vede.
+  if (ctx.posto && ctx.posto.tavolo && !arbitro()) {
+    flash('Un momento: mi sto ricollegando al tavolo.');
+    return null;
+  }
+
+  const out = applica(ctx.partita, comando, dati);
+  if (out.rifiuto) { flash(out.rifiuto.motivo); return null; }
+  incassa(out.stato);
+  salva(ctx.partita);
+  if (ctx.posto && ctx.posto.tavolo) {
+    mettiSulTavolo(ctx.posto, ctx.partita).catch(() => { /* si gioca lo stesso */ });
+  }
+  return out;
+}
+
+// IL TRAVASO. Si travasa DENTRO l'oggetto che c'e', non si sostituisce: i
+// gestori agganciati a schermo tengono un riferimento a `ctx.partita`, e
+// scambiarlo sotto li farebbe scrivere su un oggetto che nessuno guarda piu'.
+// E' la stessa trappola per cui in `digitale.js` esiste `incassa()`.
+function incassa(stato) {
+  if (!stato) return;
+  Object.assign(ctx.partita.indagine, stato.indagine);
+  Object.assign(ctx.partita, stato, { indagine: ctx.partita.indagine });
+}
+
+// Un messaggio che passa: un rifiuto va detto, non ingoiato.
+function flash(testo) {
+  if (!testo) return;
+  const vecchio = ctx.app.querySelector('.flash-indagine');
+  if (vecchio) vecchio.remove();
+  const el = document.createElement('div');
+  el.className = 'flash-indagine';
+  el.textContent = testo;
+  ctx.app.prepend(el);
+  setTimeout(() => el.remove(), 4000);
+}
+
 // -------------------------------------------------------------- dichiara
-function dichiara(nomeVoce) {
-  const { ep, comune } = ctx;
-  const esito = dichiaraVoce(ep, comune, nomeVoce);
-  if (esito.tipo === 'fredda') {
-    return pannelloMsg('pista fredda', `<p><i>${esc(esito.frase)}</i></p>
+// DICHIARARE UNA DESTINAZIONE. La regola sta nel motore — quanto costa, se e'
+// troppo tardi, se la porta e' chiusa: qui si manda il comando e si legge cosa
+// e' successo dagli EVENTI. La prosa resta di qua, che e' il suo posto.
+async function dichiara(nomeVoce) {
+  const out = await esegui({ tipo: 'dichiara', voce: nomeVoce });
+  if (!out) return;                       // rifiutato: il motivo l'ha gia' detto `flash`
+  const ev = (t) => out.eventi.find((e) => e.tipo === t);
+
+  if (ev('pista-fredda')) {
+    // la frase di colore la sceglie la vista: il motore dice solo che e' fredda
+    const esito = dichiaraVoce(ctx.ep, ctx.comune, nomeVoce);
+    return pannelloMsg('pista fredda', `<p><i>${esc(esito.frase || '')}</i></p>
       <p class="nota mt">Nessuna ora spesa.</p>`, home);
   }
-  const l = esito.luogo;
-  const ind = IND();
-  const costo = l.ore || 1;
-  if (IND().ora >= 24) return pannelloMsg('è mezzanotte', '<p>Il tempo è finito: chiudete l’indagine.</p>', home);
-  if (IND().ora + costo > 24) return pannelloMsg('troppo lontano', `<p><i>${esc(l.nome.toLowerCase())} è
-    fuori città: la trasferta vuole ${costo} ore, e non le avete.</i></p>
-    <p class="nota mt">Nessuna ora spesa: con un'ora sola non si dichiara.</p>`, home);
-  if (!luogoVisitabile(l, ind.ora)) {
-    return pannelloMsg(l.nome.toLowerCase(), `<p><i>Troppo tardi: qui hanno chiuso alle ${l.chiude}:00. Il portone resta muto.</i></p>
+  if (ev('mezzanotte')) {
+    return pannelloMsg('è mezzanotte', '<p>Il tempo è finito: chiudete l’indagine.</p>', home);
+  }
+  const lontano = ev('troppo-lontano');
+  if (lontano) {
+    const l = luogoN(lontano.luogo);
+    return pannelloMsg('troppo lontano', `<p><i>${esc(l.nome.toLowerCase())} è
+      fuori città: la trasferta vuole ${lontano.costo} ore, e non le avete.</i></p>
+      <p class="nota mt">Nessuna ora spesa: con un'ora sola non si dichiara.</p>`, home);
+  }
+  const chiuso = ev('gia-chiuso');
+  if (chiuso) {
+    const l = luogoN(chiuso.luogo);
+    return pannelloMsg(l.nome.toLowerCase(), `<p><i>${chiuso.chiude != null
+      ? `Troppo tardi: qui hanno chiuso alle ${chiuso.chiude}:00. Il portone resta muto.`
+      : `Qui non aprono prima delle ${chiuso.apre}:00: la strada è ancora deserta.`}</i></p>
       <p class="nota mt">Nessuna ora spesa: lo sapevate arrivando.</p>`, home);
   }
-  // scoperti = carta girata (anche dopo una bussata sbagliata): NON basta a
-  // entrare. Si rientra senza ripetere la chiave solo se e' gia' stata detta.
-  const sbloccato = (ind.sbloccati || []).includes(l.n);
-  if (!l.aperto && !sbloccato) return bussare(l);
-  visita(l);
+  const chiusa = ev('porta-chiusa');
+  if (chiusa) return bussare(luogoN(chiusa.luogo));
+  const dentro = ev('entrati');
+  if (dentro) return schedaLuogo(luogoN(dentro.luogo));
+  home();
 }
+
+const luogoN = (n) => (ctx.ep.luoghi || []).find((x) => x.n === n);
 
 // Il `requisito` e' prosa d'arbitro, e in 36 serrature su 90 contiene la
 // parola d'ordine alla lettera («…apre solo a chi ha notato la crepa: IL
@@ -827,32 +789,24 @@ function bussare(l) {
     </div>`;
   dopoBarra();
   app.querySelector('#rinuncia').onclick = home;
-  app.querySelector('#grimaldello')?.addEventListener('click', () => {
-    const ind = IND();
-    ind.grimaldelloUsato = true;
-    ind.ora += (l.ore || 1);            // fuori citta' costa 2 ore, non 1
-    if (!ind.scoperti.includes(l.n)) ind.scoperti.push(l.n);
-    salvaP();
+  app.querySelector('#grimaldello')?.addEventListener('click', async () => {
+    const out = await esegui({ tipo: 'grimaldello', luogo: l.n });
+    if (!out) return;
     // bypassa SOLO l'ingresso di questa visita: la chiave resta da scoprire
     pannelloMsg('la serratura cede', `<p><i>Nino ci mette meno di un respiro: la porta
       si apre senza che nessuno abbia detto niente. La parola giusta, però, ancora
-      non la sapete.</i></p>`, () => visita(l, true));
+      non la sapete.</i></p>`, () => schedaLuogo(l));
   });
-  app.querySelector('#prova').onclick = () => {
+  app.querySelector('#prova').onclick = async () => {
     const d = app.querySelector('#dichiarazione').value;
     if (!norm(d)) return;
-    const ind = IND();
-    ind.ora += (l.ore || 1);            // si spendono comunque, giuste o sbagliate
-    const r = bussa(l, d);
-    if (!ind.scoperti.includes(l.n)) ind.scoperti.push(l.n);   // carta girata
-    if (r.entra) {
-      ind.sbloccati = ind.sbloccati || [];
-      if (!ind.sbloccati.includes(l.n)) ind.sbloccati.push(l.n);
-      salvaP();
+    const out = await esegui({ tipo: 'bussa', luogo: l.n, dichiarazione: d });
+    if (!out) return;
+    const r = out.eventi.find((e) => e.tipo === 'bussato');
+    if (r && r.entra) {
       pannelloMsg('la porta si apre', `<p><i>«${esc(d)}»… era la cosa giusta da dire — o da mostrare.</i></p>`,
-        () => visita(l, true));
+        () => schedaLuogo(l));
     } else {
-      salvaP();
       pannelloMsg('niente da fare', `<p><i>Un silenzio lungo. Poi passi che si allontanano
         dall’altra parte. Qualunque cosa serva qui, non è «${esc(d)}».</i></p>
         <p class="nota mt">L’ora è spesa. La carta del luogo resta scoperta: ora ne
@@ -862,126 +816,12 @@ function bussare(l) {
 }
 
 // ----------------------------------------------------------------- visita
-async function visita(l, oraGiaSpesa = false) {
-  const ind = IND();
-  const prima = !ind.visitati.includes(l.n);
-  // visita senza ora: Discernimento (su QUEL luogo) o Fonti riservate di
-  // Carla (sulla prossima visita, qualunque). Non conta come ora avanzata.
-  const gratis = ind.visitaGratis === l.n || ind.fontiRiservateAttive;
-  if (ind.visitaGratis === l.n) delete ind.visitaGratis;
-  if (ind.fontiRiservateAttive) delete ind.fontiRiservateAttive;
-  if (!oraGiaSpesa && !gratis) ind.ora += (l.ore || 1);
-  if (prima) ind.visitati.push(l.n);
-  ind.luogoAperto = l.n;
-  salvaP();
-
-  // Entrando non si tira NIENTE (regola cambiata l'11/08/2026): il dado si
-  // tirava prima ancora di sapere se al gruppo interessava frugare. Ora
-  // «leggere la scena» si tira quando qualcuno chiede un Approfondimento, e
-  // sta in `approfondisci()`. Entrare in un luogo azzera il chiavistello: un
-  // fallimento vale per la visita, e uscire e rientrare (un'ora) fa ritentare.
-  delete ind.scenaChiusa;
-  salvaP();
-  schedaLuogo(l);
-}
-
-// il tiro con la rete del Regolamento: Secondo Fiato, uno per eroe a
-// episodio, condiviso tra Indagine e Spedizione (partita.fiatoUsato)
-async function provaConFiato(prova, nomeEroe) {
-  P().fiatoUsato = P().fiatoUsato || {};
-  let r = await tiraDiChiHaLEroe(prova, nomeEroe);
-  if (r && !r.ok && !P().fiatoUsato[nomeEroe]) {
-    const scelta = await scegliDaLista('prova fallita — ritentate?', [
-      { id: 'fiato', label: `Secondo Fiato di ${nomeEroe.split(' ')[0]} (una volta a episodio)` },
-      { id: 'accetta', label: 'accettate il fallimento' },
-    ]);
-    if (scelta === 'fiato') {
-      P().fiatoUsato[nomeEroe] = true;
-      salvaP();
-      r = await tiraDiChiHaLEroe(prova, nomeEroe);
-    }
-  }
-  return r;
-}
-
-// ------------------------------------------------- I DADI VANNO ALL'EROE
-//
-// Una prova d'Indagine comincia sullo schermo di chi arbitra e FINISCE SU UN
-// ALTRO: la tira chi ha quell'eroe, dal suo telefono, scegliendo a ogni tiro se
-// far tirare l'app o dichiarare due dadi veri. E' la sola cosa che nell'Indagine
-// non fa chi conduce, ed e' quella giusta — il tiro e' del personaggio.
-//
-// La sospensione e' la stessa idea della `pendenza` della Spedizione: lo stato
-// dice che c'e' un tiro da fare e di chi e', e chiunque guardi lo vede. Regge il
-// refresh e la riconnessione, perche' non vive in una catena di promise.
-//
-// DUE RIPIEGHI, e non sono cortesie: senza, la serata si pianta.
-//   - l'eroe NON E' DI NESSUNO (si gioca in tre con cinque eroi): tira chi
-//     arbitra, senza pendenza. E' il caso normale, non l'eccezione.
-//   - il telefono NON RISPONDE (batteria, tasca, filo caduto): chi arbitra ha
-//     sempre un «tiro io» che chiude la pendenza.
-let membriCache = null;
-
-async function chiHaLEroe(nomeEroe) {
-  const t = ctx.posto && ctx.posto.tavolo;
-  if (!t) return null;
-  // chi arbitra non conta: se l'eroe se lo tiene lui, il tiro e' gia' suo
-  const cerca = () => (membriCache || []).find((x) => x.eroe === nomeEroe && x.ruolo !== 'arbitro');
-  const rileggi = async () => {
-    try {
-      const r = await fetch(`/api/membri?tavolo=${encodeURIComponent(t)}`);
-      membriCache = r.ok ? (await r.json()).membri || [] : [];
-    } catch { membriCache = membriCache || []; }
-  };
-  if (!membriCache) await rileggi();
-  // SE NON LO TROVA, RIGUARDA. La lista si leggeva una volta sola per tutta la
-  // serata: chi arriva dopo — o prende il suo eroe a partita aperta, che e' il
-  // caso normale — restava invisibile, e il suo tiro tornava a chi arbitra
-  // senza che nessuno capisse perche'.
-  if (!cerca()) await rileggi();
-  return cerca() || null;
-}
-
-async function tiraDiChiHaLEroe(prova, nomeEroe) {
-  const chi = await chiHaLEroe(nomeEroe);
-  if (!chi) return tiraProva({ ...prova, modo: P().modo, sceltaOgniVolta: true });
-
-  const id = `pv${Date.now()}${Math.floor(Math.random() * 1000)}`;
-  IND().pendenza = { tipo: 'prova', a: nomeEroe, chi: chi.nome || chi.email, prova, id };
-  salvaP();
-  const esito = await attesaDelTiro(id, nomeEroe, chi, prova);
-  IND().pendenza = null;
-  salvaP();
-  return esito;
-}
-
-// La schermata di chi arbitra mentre il tiro e' dall'altra parte. Non e' un
-// caricamento: e' il tavolo che guarda qualcun altro tirare, e va detto chi.
-function attesaDelTiro(id, nomeEroe, chi, prova) {
-  return new Promise((risolvi) => {
-    const nome = chi.nome || nomeEroe.split(' ')[0];
-    // markup a mano e non `pannelloMsg`: qui NON c'e' un «continuate», perche'
-    // non c'e' niente da continuare finche' il tiro non arriva. Un bottone che
-    // non fa niente e' peggio di nessun bottone.
-    ctx.app.innerHTML = `
-      ${barra('tocca a chi ha l’eroe')}
-      <div class="pannello">
-        <p><b>${esc(nomeEroe.toLowerCase())}</b> — ${esc(prova.titolo)}</p>
-        <p class="nota mt">I dadi li tira ${esc(nome)}, dal suo telefono: può farli
-        tirare all’app o dichiarare due dadi veri.</p>
-      </div>
-      <div class="btn-riga"><button class="btn" id="tiro-io">non risponde — tiro io</button></div>`;
-    dopoBarra();
-    ctx.attesaProva = {
-      id,
-      // il tiro e' arrivato dal filo
-      arrivato: (r) => { ctx.attesaProva = null; risolvi(r); },
-    };
-    ctx.app.querySelector('#tiro-io')?.addEventListener('click', async () => {
-      ctx.attesaProva = null;
-      risolvi(await tiraProva({ ...prova, modo: P().modo, sceltaOgniVolta: true }));
-    });
-  });
+// RIENTRARE in un luogo gia' aperto: l'ora si paga di nuovo — e' il viaggio,
+// non la porta. Entrare la prima volta lo fanno `dichiara` e `bussa`, che l'ora
+// l'hanno gia' pagata.
+async function visita(l) {
+  const out = await esegui({ tipo: 'visita', luogo: l.n });
+  if (out) schedaLuogo(l);
 }
 
 function schedaLuogo(l) {
@@ -1028,26 +868,22 @@ function schedaLuogo(l) {
       <button class="btn pieno" id="fine-visita">lasciate il luogo</button>
     </div>`;
   dopoBarra();
-  app.querySelector('#fine-visita').onclick = () => {
-    delete ind.luogoAperto;
-    salvaP();
+  app.querySelector('#fine-visita').onclick = async () => {
+    await esegui({ tipo: 'lascia-luogo' });
     home();
   };
-  app.querySelectorAll('[data-oggetto]').forEach((b) => b.onclick = () => {
+  app.querySelectorAll('[data-oggetto]').forEach((b) => b.onclick = async () => {
     const nome = b.dataset.oggetto;
-    if (!ind.oggetti.includes(nome)) ind.oggetti.push(nome);
-    salvaP();
+    if (!await esegui({ tipo: 'prendi-oggetto', nome })) return;
     const cardO = cartaOggetto(ctx.carte, P().episodio, nome);
     pannelloMsg(nome.toLowerCase(),
       `${cardO ? `<div class="carta-grande"><img src="${urlCartaSafe(cardO.file)}" alt=""></div>` : ''}
        <p class="nota mt">Prendete la carta “${esc(nome)}” dal mazzo Oggetti: da ora è vostra.</p>`,
       () => schedaLuogo(l));
   });
-  app.querySelectorAll('[data-reperto]').forEach((b) => b.onclick = () => {
+  app.querySelectorAll('[data-reperto]').forEach((b) => b.onclick = async () => {
     const nome = b.dataset.reperto;
-    ind.reperti = ind.reperti || [];
-    if (!ind.reperti.includes(nome)) ind.reperti.push(nome);
-    salvaP();
+    if (!await esegui({ tipo: 'prendi-reperto', nome })) return;
     pannelloMsg(nomeReperto(nome).toLowerCase(),
       `<img class="reperto-img" src="${urlReperto(nome)}" alt="">
        <p class="nota mt">Consegnate ai giocatori il reperto stampato “${esc(nomeReperto(nome))}”
@@ -1068,79 +904,121 @@ const urlReperto = (file) =>
 // `giaScelto` — l'eroe l'ha chiesto lui, dal suo telefono, e non c'e' niente da
 // domandare: e' la sua abilita' e ha gia' deciso di spenderla. Senza, si chiede
 // come sempre — al tavolo con un solo schermo quella scelta e' del gruppo.
+// GUARDARE MEGLIO. La regola sta nel motore: qui si sceglie CHI, si chiede il
+// dado, e si manda un comando completo. Il dado si chiede PRIMA di mandare
+// perche' al tavolo un dado tirato non si rimette nel bicchiere.
 async function approfondisci(l, tipo, tipiQui, giaScelto) {
-  const ind = IND();
-  const gia = ind.approfondimentiLetti.some((x) => x.n === l.n && x.tipo === tipo);
   const c = idoneiPerTipo(ctx.comune, P(), tipo);
   if (!c.length) return aiutoProfano(l, tipo, giaScelto);
-  // scelta di chi spende la carica (jolly incluso)
-  // il residuo lo si sapeva gia' (x.proprie) e si buttava via: con due eroi
-  // idonei, sapere chi ne ha ancora due e chi una e' la scelta
-  // Ora la scelta pesa su DUE cose — la carica e l'ACUME di chi tira — quindi
-  // l'etichetta le mostra entrambe: prima si sapeva solo il residuo.
+
   const acume = (nm) => (ctx.comune.eroi.find((e) => e.nome === nm) || {}).acume ?? 0;
+  // La scelta pesa su DUE cose — la carica e l'ACUME di chi tira — quindi
+  // l'etichetta le mostra entrambe.
   const chi = (giaScelto && c.some((x) => x.nome === giaScelto)) ? giaScelto
     : await scegliDaLista('chi prova a guardare meglio?', c.map((x) => ({
-    id: x.nome,
-    label: (x.proprie > 0
-      ? `${x.nome} — ${x.proprie} ${x.proprie === 1 ? 'carica' : 'cariche'}`
-      : `${x.nome} (jolly di Sibilla: ${x.jolly})`) + ` · ACUME ${acume(x.nome)}`,
+      id: x.nome,
+      label: (x.proprie > 0
+        ? `${x.nome} — ${x.proprie} ${x.proprie === 1 ? 'carica' : 'cariche'}`
+        : `${x.nome} (jolly di Sibilla: ${x.jolly})`) + ` · ACUME ${acume(x.nome)}`,
     })));
   if (!chi) return schedaLuogo(l);
-  const scelto = c.find((x) => x.nome === chi);
-  const conJolly = scelto.proprie <= 0;
-
-  const a = l.approfondimenti.find((x) => x.tipo === tipo);
-  if (!a || gia) {
-    // Sesto Senso di Sibilla (jolly): «un Approfondimento QUALSIASI del
-    // luogo; se non ne ha, il pendolo indica un luogo che ne nasconde uno»
-    if (conJolly) return pendolo(l, chi);
-    // per gli altri la carica NON si consuma: l'app e' gentile come un
-    // arbitro vero - "non c'e' nulla per te", il costo vero e' l'ora.
-    return pannelloMsg(tipo.toLowerCase(), `<p><i>${esc(chi.split(' ')[0])} osserva, ascolta,
-      fruga. ${gia ? 'Quello che c’era da cogliere qui, l’avete già colto.' :
-      'Ma qui non c’è nulla che parli il suo linguaggio.'}</i></p>`,
-      () => schedaLuogo(l), { atutti: true });
-  }
-  // «LEGGERE LA SCENA», e qui e' il suo posto (regola cambiata l'11/08/2026):
-  // si tira solo quando il gruppo vuole davvero frugare, e tira chi fruga —
-  // scelto fra gli idonei a questo tipo. Prima si tirava entrando nel luogo,
-  // senza sapere se a qualcuno interessasse.
-  const r = await provaConFiato({
-    titolo: `guardare meglio — ${chi.split(' ')[0].toLowerCase()}`,
-    diffLabel: 'Media', soglia: ctx.comune.regole.diff.Media,
-    bonus: [{ label: 'ACUME', val: acume(chi) }],
-  }, chi);
-  if (!r || !r.ok) {
-    // La carica NON si spende: si paga l'ora, non la risorsa. Ma qui e' finita
-    // per questa visita — si esce e si rientra per ritentare.
-    ind.scenaChiusa = true;
-    salvaP();
-    return pannelloMsg('niente, per ora', `<p><i>${esc(chi.split(' ')[0])} cerca, e non
-      trova la presa. Quello che c’è qui non si lascia prendere adesso.</i></p>
-      <p class="nota mt">La carica resta. Per ritentare bisogna lasciare il luogo e
-      tornarci: un’altra ora.</p>`, () => schedaLuogo(l), { atutti: true });
-  }
-  usaCarica(P(), chi, tipo, conJolly);
-  ind.approfondimentiLetti.push({ n: l.n, tipo, soggetto: a.soggetto });
-  salvaP();
-  consegnaApprofondimento(l, a, tipo);
+  return mandaProva({ tipo: 'approfondisci', tipoApp: tipo, luogo: l.n, eroe: chi }, l);
 }
 
+// L'AIUTO PROFANO: l'occasione UNA di questo luogo, e la tenta chi vuole.
+async function aiutoProfano(l, tipo, giaScelto) {
+  const eroe = (giaScelto && P().party.includes(giaScelto))
+    ? giaScelto
+    : (await scegliEroe('aiuto profano — chi tenta? (ACUME, Difficile)', 'acume') || {}).nome;
+  if (!eroe) return schedaLuogo(l);
+  return mandaProva({ tipo: 'aiuto-profano', tipoApp: tipo, luogo: l.n, eroe }, l);
+}
+
+// IL TIRO, CHIESTO PRIMA DI MANDARE — e col Secondo Fiato, che non e' un
+// comando: e' un tiro in piu' sullo stesso comando, e il motore lo accetta
+// perche' `creaCaso` consuma i tiri dichiarati in ordine.
+async function mandaProva(comando, l) {
+  const p = provaDiIndagine({ comune: ctx.comune }, comando);
+  const d = await chiediDado(p);
+  if (!d) return schedaLuogo(l);
+  let out = await esegui({ ...comando, tiri: [d] });
+  if (!out) return schedaLuogo(l);
+
+  // fallita, e chi ha tirato ha ancora il Secondo Fiato: si puo' ritentare
+  const tiro = out.eventi.find((e) => e.tipo === 'tiro');
+  P().fiatoUsato = P().fiatoUsato || {};
+  if (tiro && !tiro.ok && !P().fiatoUsato[comando.eroe]) {
+    const scelta = await scegliDaLista('prova fallita — ritentate?', [
+      { id: 'fiato', label: `Secondo Fiato di ${comando.eroe.split(' ')[0]} (una volta a episodio)` },
+      { id: 'accetta', label: 'accettate il fallimento' },
+    ]);
+    if (scelta === 'fiato') {
+      const d2 = await chiediDado(p);
+      // `fiato: true` lo dice al MOTORE, che sa cosa significa: rifare quel
+      // tiro, e rialzare il chiavistello appena scattato
+      if (d2) out = (await esegui({ ...comando, tiri: [d2], fiato: true })) || out;
+    }
+  }
+  mostraEsito(out, l);
+}
+
+// Il dado: si tira all'app o si dichiarano due dadi veri, a ogni tiro.
+const chiediDado = async (p) => {
+  const r = await tiraProva({ ...p, sceltaOgniVolta: true });
+  return r ? [r.d1, r.d2] : null;
+};
+
+// La prosa dell'esito: il motore dice il FATTO, la vista lo racconta.
+function mostraEsito(out, l) {
+  const ev = (t) => out.eventi.find((e) => e.tipo === t);
+  const chiudi = () => schedaLuogo(l);
+
+  const colto = ev('colto');
+  if (colto) {
+    const a = (l.approfondimenti || []).find((x) => x.soggetto === colto.soggetto);
+    return consegnaApprofondimento(l, a, colto.tipoApp, colto.profano
+      ? '<p class="nota">Colto da profano, ma colto.</p>' : '');
+  }
+  const niente = ev('niente-per-te');
+  if (niente) {
+    return pannelloMsg(String(niente.tipoApp || 'aiuto profano').toLowerCase(),
+      `<p><i>${esc(String(niente.chi).split(' ')[0])} osserva, ascolta, fruga. ${niente.gia
+        ? 'Quello che c’era da cogliere qui, l’avete già colto.'
+        : 'Ma qui non c’è nulla che parli il suo linguaggio.'}</i></p>`, chiudi, { atutti: true });
+  }
+  if (ev('scena-chiusa')) {
+    return pannelloMsg('niente, per ora', `<p><i>${esc(String(ev('scena-chiusa').chi).split(' ')[0])}
+      cerca, e non trova la presa. Quello che c’è qui non si lascia prendere adesso.</i></p>
+      <p class="nota mt">La carica resta. Per ritentare bisogna lasciare il luogo e
+      tornarci: un’altra ora.</p>`, chiudi, { atutti: true });
+  }
+  if (ev('profano-gia-speso')) {
+    return pannelloMsg('aiuto profano', `<p class="nota">Nessun eroe può più sbloccare
+      una ${esc(String(ev('profano-gia-speso').tipoApp || '').toLowerCase())} — e l’occhio del
+      dilettante, qui, ha già avuto la sua occasione stanotte.</p>`, chiudi, { atutti: true });
+  }
+  if (ev('profano-fallito')) {
+    return pannelloMsg('aiuto profano', `<p><i>${esc(String(ev('profano-fallito').chi).split(' ')[0])}
+      fruga senza metodo, e il luogo se ne accorge. Qualunque cosa ci fosse da cogliere qui,
+      resta sigillata — servirebbe l’occhio giusto.</i></p>`, chiudi, { atutti: true });
+  }
+  if (ev('pendolo')) return pendolo(l, ev('pendolo').chi);
+  chiudi();
+}
+
+// QUEL CHE SI E' COLTO, letto insieme. La carta la scrive il motore
+// (`indagine.carta`), quindi arriva a ogni schermo; qui si compone la pagina,
+// che e' il mestiere della vista.
 function consegnaApprofondimento(l, a, tipo, prefisso = '') {
-  const cardA = cartaApprofondimento(ctx.carte, P().episodio, a.soggetto);
-  pannelloMsg(`${tipo.toLowerCase()} — ${a.soggetto.toLowerCase()}`,
+  const cardA = a && cartaApprofondimento(ctx.carte, P().episodio, a.soggetto);
+  pannelloMsg(`${String(tipo).toLowerCase()} — ${String(a ? a.soggetto : '').toLowerCase()}`,
     `${prefisso}
      ${cardA ? `<div class="carta-grande"><img src="${urlCartaSafe(cardA.file)}" alt=""></div>` : ''}
-     <p class="mt"><i>${rendi(a.testo)}</i></p>
-     <p class="nota mt">Prendete la carta “${esc(a.soggetto)}” dal mazzo Approfondimenti.</p>`,
+     <p class="mt"><i>${rendi(a ? a.testo : '')}</i></p>
+     <p class="nota mt">Prendete la carta “${esc(a ? a.soggetto : '')}” dal mazzo Approfondimenti.</p>`,
     () => schedaLuogo(l), { atutti: true });
 }
 
-// Il pendolo di Sibilla, la parte che il tavolo dimentica: se il luogo non
-// ha (piu') nulla da cogliere, il jolly non va sprecato su un buco - legge
-// un Approfondimento QUALSIASI ancora chiuso qui, oppure indica un luogo
-// della citta' che ne nasconde ancora uno (senza dire di che tipo).
 function pendolo(l, chi) {
   const ind = IND();
   const letto = (n, x) => ind.approfondimentiLetti.some((y) =>
@@ -1172,56 +1050,6 @@ function pendolo(l, chi) {
     () => schedaLuogo(l));
 }
 
-// Aiuto profano: quando NESSUN eroe puo' piu' sbloccare quel tipo (abilita'
-// assente o cariche/jolly esauriti), un eroe qualsiasi tenta da dilettante -
-// ACUME (Difficile), una sola occasione per luogo. Riuscita: l'Approfondimento
-// emerge come sbloccato. Fallita: in questo luogo resta sigillato.
-// (Precedente D&D: prova senza competenza - possibile, ma in salita.)
-async function aiutoProfano(l, tipo, giaScelto) {
-  const ind = IND();
-  ind.profano = ind.profano || {};
-  if (ind.profano[l.n]) {
-    return pannelloMsg('aiuto profano', `<p class="nota">Nessun eroe può più sbloccare
-      una ${esc(tipo)} — e l’occhio del dilettante, qui, ha già avuto la sua
-      occasione stanotte.</p>`, () => schedaLuogo(l), { atutti: true });
-  }
-  const eroe = (giaScelto && P().party.includes(giaScelto))
-    ? ctx.comune.eroi.find((e) => e.nome === giaScelto)
-    : await scegliEroe(`aiuto profano — chi tenta? (ACUME, Difficile)`, 'acume');
-  if (!eroe) return schedaLuogo(l);
-  const r = await provaConFiato({
-    titolo: `aiuto profano — ${eroe.nome.split(' ')[0]}`,
-    diffLabel: 'Difficile', soglia: ctx.comune.regole.diff.Difficile,
-    bonus: [{ label: 'ACUME', val: eroe.acume }],
-  }, eroe.nome);
-  if (!r) return schedaLuogo(l);          // tiro annullato: occasione non spesa
-  ind.profano[l.n] = true;
-  const a = l.approfondimenti.find((x) => x.tipo === tipo);
-  const gia = ind.approfondimentiLetti.some((x) => x.n === l.n && x.tipo === tipo);
-  if (!r.ok) {
-    salvaP();
-    return pannelloMsg('aiuto profano', `<p><i>${esc(eroe.nome.split(' ')[0])} fruga senza
-      metodo, e il luogo se ne accorge. Qualunque cosa ci fosse da cogliere qui,
-      resta sigillata — servirebbe l’occhio giusto.</i></p>`,
-      () => schedaLuogo(l), { atutti: true });
-  }
-  if (!a || gia) {
-    salvaP();
-    return pannelloMsg('aiuto profano', `<p><i>${esc(eroe.nome.split(' ')[0])} osserva, ascolta,
-      fruga — e stavolta con metodo. ${gia ? 'Ma quello che c’era da cogliere qui, l’avete già colto.'
-      : 'Ma questo luogo non ha niente da dire in quel linguaggio.'}</i></p>`,
-      () => schedaLuogo(l), { atutti: true });
-  }
-  ind.approfondimentiLetti.push({ n: l.n, tipo, soggetto: a.soggetto });
-  salvaP();
-  const cardA = cartaApprofondimento(ctx.carte, P().episodio, a.soggetto);
-  pannelloMsg(`${tipo.toLowerCase()} — ${a.soggetto.toLowerCase()}`,
-    `${cardA ? `<div class="carta-grande"><img src="${urlCartaSafe(cardA.file)}" alt=""></div>` : ''}
-     <p class="mt"><i>${rendi(a.testo)}</i></p>
-     <p class="nota mt">Colto da profano, ma colto: prendete la carta “${esc(a.soggetto)}”
-     dal mazzo Approfondimenti.</p>`,
-    () => schedaLuogo(l), { atutti: true });
-}
 
 // Discernimento di Padre Marani: indica un luogo, la risposta e' solo
 // si'/no ("li' si nasconde ancora qualcosa?"). Se si', quella visita non

@@ -27,6 +27,7 @@ import * as obiettivi from './obiettivi.js';
 import { chiudiFaseNemici } from './vittoria.js';
 import * as vittoria from './vittoria.js';
 import { carteDaPescare, pesca, cantoDaCarta, tettoCanto } from './regole.js';
+import { GESTORI_INDAGINE } from './indagine.js';
 
 const clona = (x) => JSON.parse(JSON.stringify(x));
 
@@ -214,7 +215,41 @@ function pescaUna(g) {
   return { eventi };
 }
 
+// L'INDAGINE HA IL SUO GUSCIO, accanto a questo e non dentro: non ha turni da
+// contare ne' un esito che chiude la serata, e infilarla qui avrebbe voluto dire
+// due `if` in ogni riga. Condivide quel che conta — la copia, i dadi seminati o
+// dichiarati, la forma del rifiuto — perche' quelle tre cose devono comportarsi
+// uguali nelle due meta' della serata.
+export function applicaIndagine(statoIn, comando, dati) {
+  const stato = clona(statoIn);
+  const ind = stato.indagine;
+  const g = { ep: dati.ep, comune: dati.comune, carte: dati.carte, ind, partita: stato };
+  const fallito = (motivo) => ({ stato: statoIn, eventi: [], rifiuto: { motivo } });
+
+  if (ind.chiusa) return fallito('L’indagine è già chiusa.');
+  if (comando.eroe && !stato.party.includes(comando.eroe)) {
+    return fallito(`${comando.eroe} non è in questa squadra.`);
+  }
+  const gestore = GESTORI_INDAGINE[comando.tipo];
+  if (!gestore) return fallito(`Comando sconosciuto: ${comando.tipo}.`);
+
+  if (!stato.rng) stato.rng = creaRng(comando.seme ?? 1);
+  const caso = creaCaso(stato.rng, comando.tiri);
+
+  let out;
+  try { out = gestore(g, caso, comando); }
+  catch (e) { return fallito(e.message); }
+  if (!out || out.rifiuto) return fallito((out && out.rifiuto) || 'Azione non consentita.');
+
+  return { stato, eventi: out.eventi || [], rifiuto: null };
+}
+
 export function applica(statoIn, comando, dati) {
+  // la serata ha due meta', e ognuna ha il suo vocabolario: si smista qui, una
+  // volta, invece di chiederlo a ogni chiamante
+  if (statoIn.fase === 'indagine' && !(statoIn.indagine || {}).chiusa) {
+    return applicaIndagine(statoIn, comando, dati);
+  }
   const stato = clona(statoIn);
   const g = {
     ep: dati.ep, comune: dati.comune, carte: dati.carte,

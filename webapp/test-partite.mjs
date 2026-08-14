@@ -194,14 +194,26 @@ for (const sc of SCELTI) {
       ok(doveScheda === '#fine-visita', `${l.voce_mappa}: la scheda luogo non arriva (${doveScheda})`);
       if (doveScheda !== '#fine-visita') break;
 
-      // approfondimenti: prova ogni tipo davvero presente nel luogo
-      const scenaOk = (await stato(page, sc.ep)).indagine['scena_' + l.n];
+      // APPROFONDIMENTI: prova ogni tipo davvero presente nel luogo.
+      //
+      // La condizione guardava `scena_<n>`, una chiave di stato che il gioco non
+      // scrive piu' da tempo: era sempre falsa, e questo pezzo non e' MAI stato
+      // eseguito — 42 giocate che dicevano tutte «0 approfondimenti». Un ramo
+      // vacuo dentro la rete piu' grande che abbiamo, e nessuno se n'e' accorto
+      // perche' il verde c'era lo stesso. Ora guarda quel che il motore scrive
+      // davvero: si tenta finche' il chiavistello non scatta.
+      const scenaOk = !(await stato(page, sc.ep)).indagine.scenaChiusa;
       const tipi = [...new Set((l.approfondimenti || []).map((a) => a.tipo))];
       if (scenaOk) {
         for (const tipo of tipi) {
+          // il bottone puo' non esserci piu': dopo una prova fallita il
+          // chiavistello scatta e gli Approfondimenti spariscono da questa
+          // visita — e' la regola, non un guasto
+          if (!(await page.locator(`[data-tipo="${tipo}"]`).count())) break;
           await page.locator(`[data-tipo="${tipo}"]`).click();
           const doveA = await tiraSeServe(page);
           ok(doveA === '#ok-msg', `approfondire ${tipo}: esito non arriva (${doveA})`);
+          if (doveA !== '#ok-msg') break;
           await page.locator('#ok-msg').click();
           await page.locator('#fine-visita').waitFor();
         }
