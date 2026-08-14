@@ -200,6 +200,12 @@ export class Partita extends DurableObject {
       if (cmd.eroe && cmd.eroe !== posto.eroe) {
         return Response.json({ rifiuto: { motivo: `${cmd.eroe} non è il tuo eroe.` } }, { status: 403 });
       }
+      // CHI MANDA SENZA DIRE CHI E'. Un comando che non porta `eroe` — l'Esame
+      // di Carbone, per dirne uno — dal telefono e' comunque di chi lo manda:
+      // se non lo scrivessimo, un dono di un altro eroe si spenderebbe da
+      // qualunque telefono, e la guardia qui sopra non avrebbe niente da
+      // confrontare. Chi arbitra resta senza `eroe`: tiene in mano tutti.
+      if (!cmd.eroe && posto.eroe) cmd.eroe = posto.eroe;
       if (diArbitro.has(cmd.tipo)) {
         return Response.json({ rifiuto: { motivo: 'Questo lo fa chi arbitra.' } }, { status: 403 });
       }

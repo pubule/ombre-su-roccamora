@@ -425,13 +425,12 @@ function vistaDiChiGioca() {
   const visitati = (ep.luoghi || []).filter((l) => (ind.visitati || []).includes(l.n));
   const aperto = ind.luogoAperto != null && (ep.luoghi || []).find((x) => x.n === ind.luogoAperto);
 
-  const galleria = (files) => (files.length
-    ? `<div class="galleria-carte">${files.map((f) =>
-        `<img loading="lazy" src="${urlCartaSafe(f)}" alt="">`).join('')}</div>` : '');
-  const ogg = (ind.oggetti || []).map((n) => cartaOggetto(carte, epId, n)).filter(Boolean).map((c) => c.file);
-  const app_ = (ind.approfondimentiLetti || []).map((x) =>
-    cartaApprofondimento(carte, epId, x.soggetto)).filter(Boolean).map((c) => c.file);
-  const rep = ind.reperti || [];
+  const scritte = (ind.risposte || []).filter((r) => String(r || '').trim()).length;
+  // IL DONO DEL PROPRIO EROE, se ne ha uno. Sul telefono di chi non ce l'ha la
+  // riga semplicemente non c'e' — come i pallini delle cariche. La spende lui:
+  // dal 14/08 e' un comando del motore, non piu' una cosa che fa chi arbitra
+  // per conto suo.
+  const dono = mio ? UNA_TANTUM.find((u) => u.eroe === mio && u.dove === 'home') : null;
 
   app.innerHTML = `
     ${barra(aperto ? aperto.nome.toLowerCase() : 'per le strade')}
@@ -481,18 +480,18 @@ function vistaDiChiGioca() {
     </div>
     <div class="mt"></div>
     <div class="pannello">
-      <h2>quel che avete in mano</h2>
-      ${ogg.length ? `<p><b>Oggetti</b></p>${galleria(ogg)}` : ''}
-      ${app_.length ? `<p class="mt"><b>Approfondimenti</b></p>${galleria(app_)}` : ''}
-      ${rep.length ? `<p class="mt"><b>Reperti</b></p>${rep.map((r) =>
-        `<img class="reperto-img mt" src="${urlReperto(r)}" alt="">`).join('')}` : ''}
-      ${!ogg.length && !app_.length && !rep.length
-        ? '<p class="nota">Ancora niente.</p>' : ''}
-    </div>
-
-    <div class="btn-riga">
-      <button class="btn pieno" id="taccuino-eroe">il taccuino</button>
-      ${ep.lettera ? '<button class="btn" id="lettera-eroe">rileggete la lettera</button>' : ''}
+      <h2>il vostro taccuino</h2>
+      <div class="in-mano mt">
+        ${rigaVoce('id="mano-eroe"', 'quel che avete in mano',
+                   contaInMano(ind) || 'ancora niente')}
+        ${rigaVoce('id="taccuino-eroe"', 'taccuino e domande',
+                   `${scritte} ${scritte === 1 ? 'risposta scritta' : 'risposte scritte'} su ${
+                     (ep.domande || []).length || 4}`)}
+        ${dono ? rigaVoce(`id="dono-eroe" data-dono="${esc(dono.id)}"`,
+                          esc(dono.label.toLowerCase()),
+                          speso(dono) ? 'già speso stanotte' : 'il vostro, 1 volta per serata') : ''}
+        ${ep.lettera ? rigaVoce('id="lettera-eroe"', 'la lettera d’incarico') : ''}
+      </div>
     </div>`;
   dopoBarra();
   app.querySelectorAll('[data-scheda]').forEach((el) =>
@@ -500,6 +499,30 @@ function vistaDiChiGioca() {
       el.dataset.scheda, ctx.comune.eroi.find((x) => x.nome === el.dataset.scheda)), {})));
   app.querySelector('#lettera-eroe')?.addEventListener('click', letteraDiChiGioca);
   app.querySelector('#taccuino-eroe').onclick = taccuinoDiChiGioca;
+  app.querySelector('#mano-eroe').onclick = () => {
+    // L'ESAME DI CARBONE sta nell'elenco e non fra le righe della home: e' il
+    // solo dono che ha bisogno di un pezzo da guardare, e il pezzo si sceglie
+    // dov'e' l'elenco. Sul telefono compare solo a Fulgenzio.
+    const suo = mio === 'FULGENZIO CARBONE' && !P().carboneUsato
+                && ((ind.oggetti || []).length || (ind.reperti || []).length);
+    const coda = suo
+      ? '<div class="btn-riga"><button class="btn" id="esame-carbone">esame di Carbone (1 volta)</button></div>'
+      : '';
+    const apri = () => {
+      elencoInMano(vistaDiChiGioca, coda);
+      app.querySelector('#esame-carbone')?.addEventListener('click', () => esameCarbone(apri));
+    };
+    ctx.schermata = apri;
+    apri();
+  };
+  // il dono si spende da qui, e il rifiuto lo dice il motore («quel dono è di
+  // X»): la vista non ha una seconda copia della regola da tenere allineata
+  app.querySelector('#dono-eroe')?.addEventListener('click', () => {
+    if (speso(dono)) return;
+    if (dono.id === 'ombra') return ombraFiuta();
+    if (dono.id === 'discernimento') return discernimento();
+    return fontiRiservate();
+  });
   // LA STESSA FUNZIONE CHE USA CHI ARBITRA. Non una richiesta, non un giro per
   // il tavolo: e' la sua abilita' e la spende lui, e la regola sta nel motore —
   // quindi il codice e' uno solo, e non ci sono due strade da tenere allineate.
@@ -1227,49 +1250,119 @@ async function busta() {
 
 // --------------------------------------------------------------- utility UI
 function inventario() {
-  const ind = IND();
-  const epId = P().episodio;
-  const galleria = (files) => files.length
-    ? `<div class="galleria-carte">${files.map((f) =>
-        `<img loading="lazy" src="${urlCartaSafe(f)}" alt="">`).join('')}</div>` : '';
-  const ogg = ind.oggetti.map((n) => cartaOggetto(ctx.carte, epId, n)).filter(Boolean).map((c) => c.file);
-  const app_ = ind.approfondimentiLetti.map((x) =>
-    cartaApprofondimento(ctx.carte, epId, x.soggetto)).filter(Boolean).map((c) => c.file);
-  const rep = ind.reperti || [];
-  const carbone = P().party.includes('FULGENZIO CARBONE') && !P().carboneUsato &&
-                  (ind.oggetti.length || rep.length);
-  pannelloMsg('quel che avete in mano',
-    `${ogg.length ? `<p><b>Oggetti</b></p>${galleria(ogg)}` : ''}
-     ${app_.length ? `<p class="mt"><b>Approfondimenti</b></p>${galleria(app_)}` : ''}
-     ${rep.length ? `<p class="mt"><b>Reperti</b></p>${rep.map((r) =>
-       `<img class="reperto-img mt" src="${urlReperto(r)}" alt="">`).join('')}` : ''}
-     ${!ogg.length && !app_.length && !rep.length ? '<p class="nota">Ancora niente. La notte è giovane.</p>' : ''}
-     ${carbone ? `<div class="btn-riga"><button class="btn" id="esame-carbone">esame di Carbone (1 volta)</button></div>` : ''}`,
-    home);
+  const carbone = P().party.includes('FULGENZIO CARBONE') && !P().carboneUsato
+                  && ((IND().oggetti || []).length || (IND().reperti || []).length);
+  elencoInMano(home, carbone
+    ? `<div class="btn-riga"><button class="btn" id="esame-carbone">esame di Carbone (1 volta)</button></div>`
+    : '');
   ctx.app.querySelector('#esame-carbone')?.addEventListener('click', () => esameCarbone(inventario));
 }
 
-// "E' passato dalla mia bottega": Fulgenzio esamina un Oggetto o un Reperto.
-// Se il pezzo ha una voce d'esame la si legge e l'uso si consuma; se non ce
-// l'ha, "non ha segreti per lui" e l'occasione resta (patto gentile).
-async function esameCarbone(dopo) {
-  const ind = IND();
-  const pezzi = [...ind.oggetti, ...(ind.reperti || []).map((r) => r.replace(/^Reperto [A-Z] - /, ''))];
-  const scelto = await scegliDaLista('cosa porta al banco di Carbone?',
-    pezzi.map((n) => ({ id: n, label: n })));
-  if (!scelto) return dopo();
-  const out = await esegui({ tipo: 'esame-carbone', pezzo: scelto });
-  if (!out) return dopo();
-  if (out.eventi.some((e) => e.tipo === 'esame-muto')) {
-    return pannelloMsg('esame di carbone', `<p><i>Carbone lo rigira due volte, poi lo
-      rende con un mezzo inchino: «Buon pezzo. Ma non ha segreti per me.»</i></p>
-      <p class="nota mt">L’occasione non si spende: portategli qualcos’altro.</p>`, dopo);
+// ------------------------------------------- QUEL CHE AVETE IN MANO, a righe
+//
+// Con le anteprime in pagina l'inventario diventava la parte piu' lunga di
+// tutto: due oggetti e un reperto riempivano uno schermo di telefono, e
+// l'orologio — la cosa che tiene in ansia — finiva fuori dallo scorrimento.
+// Ora e' una riga sola che dice QUANTO contiene; si tocca e si apre l'elenco;
+// si tocca un nome e si apre la carta grande, col pizzico per ingrandire.
+//
+// La riga riusa `.voce`, che e' gia' la riga-registro dello stradario: stesso
+// fondo, stesso bordo, stessa altezza del tocco. Un componente che il tavolo ha
+// gia' imparato vale piu' di uno nuovo che gli somiglia.
+
+// una riga-bottone: titolo, riga piccola sotto, e il chevron
+const rigaVoce = (attr, titolo, sotto = '') => `<button class="voce" ${attr}>
+  <span class="riga-pezzo"><span class="tit"><b>${titolo}</b>${
+    sotto ? `<i class="nota">${sotto}</i>` : ''}</span>
+  <span class="freccia">›</span></span></button>`;
+
+// Il conto per la riga chiusa: «3 oggetti · 1 approfondimento · 3 reperti».
+// Le voci a zero non si scrivono — una riga che elenca zeri e' rumore.
+function contaInMano(ind) {
+  const plurale = (n, uno, molti) => `${n} ${n === 1 ? uno : molti}`;
+  const pezzi = [];
+  if ((ind.oggetti || []).length) pezzi.push(plurale(ind.oggetti.length, 'oggetto', 'oggetti'));
+  if ((ind.approfondimentiLetti || []).length) {
+    pezzi.push(plurale(ind.approfondimentiLetti.length, 'approfondimento', 'approfondimenti'));
   }
-  const ev = out.eventi.find((e) => e.tipo === 'esame');
-  pannelloMsg(`esame di carbone — ${scelto.toLowerCase()}`,
-    `<p><i>${rendi(ev.testo)}</i></p>`, dopo, { atutti: true });
+  if ((ind.reperti || []).length) pezzi.push(plurale(ind.reperti.length, 'reperto', 'reperti'));
+  return pezzi.join(' · ');
 }
 
+// L'ELENCO. `dopo` e' la strada di ritorno: la stessa schermata la aprono chi
+// arbitra (dalla sua home) e chi gioca (dal suo telefono), e tornano in due
+// posti diversi.
+function elencoInMano(dopo, coda = '') {
+  const { app } = ctx;
+  const ind = IND();
+  const epId = P().episodio;
+  const sezione = (titolo, righe) => (righe.length
+    ? `<p class="nota mt">${titolo}</p><div class="in-mano mt">${righe.join('')}</div>` : '');
+
+  // i nomi degli Oggetti nei dati sono in maiuscolo di stampa; qui vanno in
+  // minuscolo come ogni altro titolo dell'app, o la riga urla
+  const oggetti = (ind.oggetti || []).map((nm, i) =>
+    rigaVoce(`data-pezzo="oggetto" data-i="${i}"`, esc(String(nm).toLowerCase())));
+  const appr = (ind.approfondimentiLetti || []).map((x, i) =>
+    rigaVoce(`data-pezzo="appr" data-i="${i}"`, esc(String(x.soggetto)), esc(String(x.tipo))));
+  const reperti = (ind.reperti || []).map((r, i) => {
+    // «Reperto A - Diario di Ruggero»: la lettera va nella riga piccola, che il
+    // nome e' quel che si cerca con l'occhio
+    const m = String(r).match(/^(Reperto [A-Z])\s*[-—]\s*(.+)$/);
+    return rigaVoce(`data-pezzo="reperto" data-i="${i}"`,
+                    esc(m ? m[2] : String(r)), m ? esc(m[1]) : '');
+  });
+
+  app.innerHTML = `
+    ${barra('quel che avete in mano')}
+    <div class="pannello">
+      ${oggetti.length || appr.length || reperti.length
+        ? `${sezione('Oggetti', oggetti)}${sezione('Approfondimenti', appr)}${sezione('Reperti', reperti)}`
+        : '<p class="nota">Ancora niente. La notte è giovane.</p>'}
+      ${coda}
+    </div>
+    <div class="btn-riga"><button class="btn pieno" id="mano-indietro">tornate indietro</button></div>`;
+  dopoBarra();
+  app.querySelector('#mano-indietro').onclick = dopo;
+  app.querySelectorAll('[data-pezzo]').forEach((el) => el.addEventListener('click', () =>
+    pezzoInMano(el.dataset.pezzo, Number(el.dataset.i), () => elencoInMano(dopo, coda), epId)));
+  return app;
+}
+
+// IL PEZZO, grande. La carta si apre come si aprirebbe sul tavolo — e il
+// pizzico per ingrandire c'e' gia' (`zoom.js` guarda `.carta-grande img`).
+function pezzoInMano(genere, i, dietro, epId) {
+  const { app } = ctx;
+  const ind = IND();
+  const grande = (file) => `<div class="carta-grande mt"><img src="${urlCartaSafe(file)}" alt=""></div>`;
+  let titolo = '';
+  let corpo = '<p class="nota">Di questo pezzo non c’è una carta stampata.</p>';
+
+  if (genere === 'oggetto') {
+    const nm = (ind.oggetti || [])[i];
+    titolo = String(nm || '').toLowerCase();
+    const c = cartaOggetto(ctx.carte, epId, nm);
+    corpo = `<p class="nota">Oggetto · in mano al gruppo</p>${c ? grande(c.file) : ''}`;
+  } else if (genere === 'appr') {
+    const x = (ind.approfondimentiLetti || [])[i] || {};
+    titolo = String(x.soggetto || '').toLowerCase();
+    const c = cartaApprofondimento(ctx.carte, epId, x.soggetto);
+    corpo = `<p class="nota">${esc(String(x.tipo || ''))} · già letto</p>${c ? grande(c.file) : ''}`;
+  } else {
+    const r = (ind.reperti || [])[i];
+    const m = String(r).match(/^(Reperto [A-Z])\s*[-—]\s*(.+)$/);
+    titolo = String(m ? m[2] : r || '').toLowerCase();
+    corpo = `<p class="nota">${esc(m ? m[1] : 'Reperto')} · si legge, si passa di mano</p>
+             <img class="reperto-img mt" src="${urlReperto(r)}" alt="">`;
+  }
+
+  app.innerHTML = `
+    ${barra(titolo)}
+    <div class="pannello">${corpo}</div>
+    <div class="btn-riga"><button class="btn pieno" id="pezzo-indietro">tornate all’elenco</button></div>`;
+  dopoBarra();
+  app.querySelector('#pezzo-indietro').onclick = dietro;
+}
 
 // `atutti: true` — LA SCHERMATA SI APRE SU OGNI SCHERMO.
 //

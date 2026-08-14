@@ -2,9 +2,10 @@
 // si avvicina agli occhi; a schermo, alla misura del pannello il testo di
 // regola non si legge — e in galleria men che meno.
 //
-// Semina una partita con un oggetto gia' in mano, apre l'inventario, tocca la
-// miniatura e verifica che l'immagine aperta sia DAVVERO piu' grande (non solo
-// che l'overlay esista), poi che ESC la chiuda.
+// Semina una partita con un oggetto gia' in mano, apre l'inventario, apre la
+// riga di quell'oggetto e verifica che l'immagine aperta col tocco sia DAVVERO
+// piu' grande di quella nel pannello (non solo che l'overlay esista), poi che
+// ESC la chiuda.
 //
 // Uso:  node webapp/server.js   (altrove) ; node webapp/test-zoom.mjs [porta]
 import { chromium } from 'playwright';
@@ -38,18 +39,25 @@ try {
   await page.locator('.tessera-episodio[data-ep="ep1"]').click();
   await page.locator('#continua').click();
   await page.locator('#inventario').click();
+  // DAL 14/08 l'inventario e' un ELENCO DI NOMI: la carta non sta piu' in
+  // pagina come miniatura, si apre toccando la riga. Il pizzico per ingrandire
+  // parte da li' — che e' il posto dove al tavolo si avvicina la carta agli
+  // occhi.
+  await page.locator('[data-pezzo="oggetto"]').first().click();
 
-  const mini = page.locator('.galleria-carte img').first();
+  const mini = page.locator('.carta-grande img').first();
   await mini.waitFor();
   const primaBox = await mini.boundingBox();
-  ok(primaBox.width > 0, `la miniatura c'è (${Math.round(primaBox.width)} px)`);
+  ok(primaBox.width > 0, `la carta nel pannello c'è (${Math.round(primaBox.width)} px)`);
 
   await mini.click();
   const grande = page.locator('.zoom-overlay img');
   await grande.waitFor({ state: 'visible', timeout: 3000 });
   const dopoBox = await grande.boundingBox();
   // il punto non e' che l'overlay esista: e' che si veda PIU' GRANDE
-  ok(dopoBox.height > primaBox.height * 2,
+  // «piu' grande» e non «esiste»: un overlay che apre la stessa misura non
+  // serve a niente, ed e' il modo in cui questo si romperebbe in silenzio
+  ok(dopoBox.height > primaBox.height * 1.4,
     `aperta a tutto schermo: da ${Math.round(primaBox.height)} a ${Math.round(dopoBox.height)} px di altezza`);
 
   await page.keyboard.press('Escape');
@@ -63,7 +71,7 @@ try {
   ok(await page.locator('.zoom-overlay').count() === 0, 'e un tocco qualunque pure');
 
   // la pagina sotto deve restare dov'era: l'overlay non e' una navigazione
-  ok(await page.locator('#inventario, .galleria-carte').count() > 0,
+  ok(await page.locator('.carta-grande img').count() > 0,
     'chiudendo si torna dove si era, senza ricaricare la vista');
 } catch (e) {
   ko(`flusso interrotto: ${e.message.split('\n')[0]}`);

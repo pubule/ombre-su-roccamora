@@ -314,6 +314,18 @@ em, i { font-style: italic; }
 .voce .visitato { float: right; font-family: 'FellSC', serif; font-size: 12px;
   letter-spacing: .1em; color: var(--osso-fioco); font-weight: normal; }
 
+/* QUEL CHE AVETE IN MANO, come righe e non come miniature.
+   Con le anteprime l'inventario diventava la parte piu' lunga della pagina e
+   l'orologio — la cosa che tiene in ansia — finiva fuori dallo scorrimento. La
+   riga e' un nome, e in corsa un nome si legge piu' in fretta di un'immagine da
+   riconoscere; la miniatura si guarda aprendola.
+   A UNA COLONNA sempre: `.stradario` passa a due oltre i 700px, che va bene per
+   nomi di strade, ma qui spezzerebbe i titoli delle carte in tre righe. */
+.in-mano { display: grid; gap: 6px; grid-template-columns: 1fr; }
+.riga-pezzo { display: flex; align-items: center; gap: 10px; width: 100%; }
+.riga-pezzo .tit { flex: 1; text-align: left; }
+.riga-pezzo .freccia { color: var(--osso-fioco); font-size: 18px; }
+
 /* i campi sono l'unico posto dove scrive il gruppo: si scrive a mano, su carta */
 .campo { width: 100%; padding: 10px 13px; font-family: 'Mano', cursive;
   font-size: var(--mano-size); line-height: 1.45;
