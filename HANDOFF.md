@@ -5,7 +5,7 @@
 > gira e il prossimo comando; il *cosa fare* di un lavoro in corso sta nel suo
 > piano.
 
-**Aggiornato:** 13/08/2026 · ramo `main` · in produzione la versione `ba432a4a`
+**Aggiornato:** 13/08/2026 · ramo `main` · in produzione la versione `55ecc1ea`
 su <https://roccamora.smartcores.org> — **i Bivi di campagna** (venti scelte che
 cambiano davvero le regole degli episodi seguenti), il **Taccuino di Campagna**
 e l'**epilogo per esteso**. Tabella `scelte_campagna` applicata al remoto.
@@ -676,6 +676,35 @@ indietro — veniva rifiutata da `apri` **in silenzio**. Sintomo: il telefono
 manda, il tavolo riceve, e non esegue nessuno. Nell'Indagine l'autore è il
 browser di chi conduce e `aggiornato` è la sua lineage: il Durable Object scrive
 e sparge, ma non timbra. Nella Spedizione resta com'era — lì l'autore è lui.
+
+### Il tavolo vivo: quattro difetti di una specie sola
+
+Tutti e quattro nascono dalla stessa cosa — **due orologi e un solo motore** — e
+tutti e quattro si presentavano come «premo e non accade niente».
+
+1. **Il timbro del server contro quello del PC.** Il Durable Object scriveva
+   `aggiornato` col proprio clock: la spinta successiva di chi arbitra, col
+   clock del suo PC, veniva rifiutata da `apri` **in silenzio**. Nell'Indagine
+   l'autore è il browser di chi conduce: il tavolo scrive e sparge, non timbra.
+2. **Due copie identiche = «due versioni di questa partita».** La colonna
+   `aggiornato` su D1 portava l'ora del server, il blob quella del PC:
+   `sync.decidi` confrontava due orologi. Ora la colonna porta il timbro dello
+   stato, e **stesso contenuto non è un conflitto** qualunque cosa dicano i
+   timbri. Sceglierne una a caso poteva mettere arbitro e telefono su due
+   partite diverse.
+3. **Ogni spinta riportava chi gioca alla home.** Aprivi il taccuino e tornavi
+   indietro; premevi un bottone, l'eco tornava, e la pagina si ridisegnava come
+   se non avessi premuto. Ora si ridisegna la schermata dove si è
+   (`ctx.schermata`).
+4. **La mano alzata che cade nel vuoto.** Nell'Indagine chi arbitra è il
+   motore: se non è sull'episodio — o ha la pagina aperta da prima di un
+   aggiornamento — nessuno raccoglie. Il Durable Object ora dichiara
+   `arbitroCollegato`, e il telefono distingue «non è collegato» da «è
+   collegato ma non l'ha raccolta».
+
+**Il limite resta, ed è del modello scelto**: agisce solo chi arbitra, quindi il
+suo browser è l'unico motore. Portare l'Indagine dentro il motore come la
+Spedizione è la cura vera, ed è il lavoro grosso.
 
 **Le prove.** `test-indagine-eroe.mjs` (un solo `wrangler dev`): i segreti non
 arrivano né allo schermo né al dispositivo, l'orologio di chi arbitra si muove
