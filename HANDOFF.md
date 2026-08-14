@@ -666,7 +666,7 @@ scritto: a metà serata no, a serata finita sì, perché lì sono la ricompensa 
 ricompensa è di tutti. Il cancello è l'esito, lo stesso che apre l'epilogo:
 nessun secondo stato da tenere allineato.
 
-## L'Indagine dentro il motore (a metà)
+## L'Indagine dentro il motore
 
 Dopo la notte dei quattro difetti — tutti con lo stesso sintomo, «premo e non
 accade niente», e la stessa radice: **il motore era una finestra aperta su un
@@ -677,17 +677,42 @@ PC** — l'Indagine si sposta nel motore, come la Spedizione. Piano in
 a schermo. Via `spedizione.js` (1131 righe), via `modo` e `plancia`, via la
 domanda «come giocate stasera». La sola scelta è **da dove si comincia**.
 
-**Fatto (tappe 1-2).** `motore/indagine.js` è puro; `applica` smista per fase.
-Sono comandi: dichiarare, bussare, il grimaldello, entrare e uscire, oggetti e
-reperti, la lettera, gli appunti, le risposte, **guardare meglio**, l'**aiuto
-profano**, il **Secondo Fiato**. Il tiro viaggia **dentro il comando**, e con
-questo si è cancellata la macchina della pendenza: `richiesta`, `pendenza`,
-`chiediAlTavolo`, `eseguiRichiesta`, `chiHaLEroe`, `attesaDelTiro`, i due
-comandi del Durable Object e la spia «il tavolo sta guardando».
+**Finita.** `motore/indagine.js` è puro; `applica` smista per fase. Sono
+comandi: dichiarare, bussare, il grimaldello, entrare e uscire, oggetti e
+reperti, la lettera, gli appunti (del gruppo e di ciascuno), le risposte,
+**guardare meglio**, l'**aiuto profano**, il **Secondo Fiato**, le quattro
+**una-tantum** (Discernimento, Fonti riservate, Ombra, Esame di Carbone), il
+**pendolo** di Sibilla, la **busta** e le **correzioni**. Il tiro viaggia
+**dentro il comando**, e con questo si è cancellata la macchina della pendenza:
+`richiesta`, `pendenza`, `chiediAlTavolo`, `eseguiRichiesta`, `chiHaLEroe`,
+`attesaDelTiro`, i due comandi del Durable Object e la spia «il tavolo sta
+guardando». `js/indagine.js` non muta più niente: chiede a `esegui()` e disegna.
 
-**Resta (tappe 3-4)**: le una-tantum (Discernimento, Fonti riservate, Ombra,
-Esame di Carbone) e la chiusura della busta mutano ancora dalla vista. Si gioca
-— passano dal salvataggio come prima — ma non sono comandi.
+**Chi manda cosa.** Del gruppo — l'ora, le porte, gli oggetti, le risposte, la
+busta — chi arbitra (`INDAGINE_DI_ARBITRO`). Del proprio eroe — approfondire,
+la propria una-tantum, i propri appunti — chi lo gioca, e chi arbitra per gli
+eroi che nessuno ha preso. Le una-tantum controllano **due** cose: che quell'eroe
+sia in squadra, e che il comando venga dal suo telefono («quel dono è di X»).
+
+**Il peso della notte lo calcola il motore.** `pesa()` rifà da capo tier,
+dossier, risposte e Canto iniziale a ogni correzione — un conto incrementale
+qui sarebbe il posto perfetto dove nascondere un errore. E a **busta aperta**
+due comandi passano ancora (`DOPO_LA_BUSTA`): `correggi`, perché l'ultima parola
+è del gruppo, e `carta-vista`.
+
+**Due difetti veri trovati montando le tappe 3-4**, e sono il genere che il
+diff non mostra:
+
+1. **Il tavolo timbrava `aggiornato` col clock del server** anche sui comandi
+   d'Indagine. `aggiornato` è la lineage del salvataggio di chi arbitra: la sua
+   mossa successiva, col clock del suo PC, veniva rifiutata da `apri` **in
+   silenzio**. In locale i due orologi sono lo stesso e non si vede niente.
+2. **`ctx.tavoloVivo` non veniva mai alzato in `js/indagine.js`.** La Spedizione
+   lo alza in `digitale.js`; l'Indagine, che quel ramo non l'aveva mai avuto,
+   no. Quindi `esegui()` restava **sempre** sul ramo locale, e chi gioca leggeva
+   «mi sto ricollegando al tavolo» premendo bottoni che non facevano niente —
+   cioè il difetto di partenza, sopravvissuto alla migrazione dentro una
+   variabile mai messa a `true`.
 
 **Due lezioni che valgono oltre questo lavoro.**
 
@@ -695,6 +720,12 @@ Esame di Carbone) e la chiusura della busta mutano ancora dalla vista. Si gioca
 «il dilettante ha già avuto la sua occasione» in un rifiuto rosso. Dichiarare
 era una mossa **legale**: la risposta è «non se ne fa niente, e l'ora resta».
 Sono eventi, e la prosa la compone la vista.
+
+*Il banco che non arriva fin lì.* `test-indagine-eroe` vuole
+`--var OSR_DEV_EMAIL:giocatore@esempio.it`, e `test-partite` vuole
+`node webapp/server.js` sulla **8017**: lanciato contro il `wrangler dev` con
+gli account, si ferma sulla scelta del tavolo e dà **42 giocate rosse** che non
+c'entrano niente col codice.
 
 *Un ramo vacuo dentro la rete più grande.* La condizione degli Approfondimenti
 in `test-partite` guardava `scena_<n>`, una chiave che il gioco non scrive più:
