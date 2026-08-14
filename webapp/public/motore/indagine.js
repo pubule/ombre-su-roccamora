@@ -336,6 +336,17 @@ function aiutoProfano(g, caso, c) {
     return { eventi: [{ tipo: 'profano-gia-speso', luogo: l.n, tipoApp: c.tipoApp }] };
   }
   if (!c.eroe) return rifiuta('Chi tenta?');
+  // IL TIPO LO SCEGLIE IL MOTORE, se non arriva. L'occhio del dilettante non
+  // sa cosa cerca — e la vista non deve saperlo per lui: chiedere alla
+  // schermata di dire «tenta l'Osservazione» significava dirle prima che qui
+  // un'Osservazione c'e'. Si prende il primo tipo non ancora colto in questo
+  // luogo; se non ne resta nessuno, il tiro si fa lo stesso e la risposta e'
+  // «niente», che e' la scena giusta.
+  if (!c.tipoApp) {
+    const resta = (l.approfondimenti || []).find((x) =>
+      !ind.approfondimentiLetti.some((y) => y.n === l.n && y.tipo === x.tipo));
+    c = { ...c, tipoApp: resta ? resta.tipo : 'Osservazione' };
+  }
 
   const p = provaDiIndagine(g, c);
   const t = tiraLa(caso, p);

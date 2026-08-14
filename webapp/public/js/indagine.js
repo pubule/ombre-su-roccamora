@@ -726,22 +726,24 @@ function barraAzioniHtml(aperto) {
   const dono = mio ? UNA_TANTUM.find((u) => u.eroe === mio && u.dove === 'home') : null;
   const azioni = [];
   if (aperto) {
-    // chi puo' cogliere cosa e' `idoneiPerTipo`, la stessa regola del motore
-    // guardata dal proprio posto: qui si chiede a lei, non si riscrive
+    // LA BARRA DICE QUEL CHE POTETE TENTARE, non quel che c'è: i tipi sono i
+    // VOSTRI — quelli per cui avete una carica — e restano gli stessi in ogni
+    // luogo. Filtrarli su quel che il luogo nasconde direbbe al telefono la
+    // risposta prima della domanda, ed è la cosa che l'Indagine non fa.
     const l = aperto;
     const ind = IND();
-    const tipiQui = [...new Set((l.approfondimenti || []).map((a) => a.tipo))];
-    const letto = (t) => ind.approfondimentiLetti.some((x) => x.n === l.n && x.tipo === t);
-    const aperti = tipiQui.filter((t) => !letto(t));
-    const miei = mio ? aperti.filter((t) =>
+    const TIPI = ['Osservazione', 'Testimonianza', 'Referto', 'Presagio'];
+    const miei = mio ? TIPI.filter((t) =>
       idoneiPerTipo(ctx.comune, P(), t).some((x) => x.nome === mio)) : [];
     for (const t of miei) {
       azioni.push(`<button class="btn pieno" data-appr="approfondisci" data-luogo="${l.n}"
         data-tipo="${esc(t)}">${esc(t.toLowerCase())}</button>`);
     }
-    if (aperti.length && !(ind.profano || {})[l.n]) {
+    // l'occasione UNA del luogo: la tenta chi vuole, e non dice di che tipo —
+    // il motore prende il primo che qui non è ancora stato colto
+    if (!(ind.profano || {})[l.n] && !ind.scenaChiusa) {
       azioni.push(`<button class="btn" data-appr="profano" data-luogo="${l.n}"
-        data-tipo="${esc(aperti[0])}">aiuto profano</button>`);
+        data-tipo="">aiuto profano</button>`);
     }
   } else if (dono && !speso(dono)) {
     azioni.push(`<button class="btn pieno" id="dono-eroe">${esc(dono.label.toLowerCase())}</button>`);
@@ -831,31 +833,45 @@ function agganciaAppunti(quando) {
 function scenaLuogoHtml(l) {
   const ind = IND();
   const mio = mioEroe();
-  const tipiQui = [...new Set((l.approfondimenti || []).map((a) => a.tipo))];
-  const letto = (tipo) => ind.approfondimentiLetti.some((x) => x.n === l.n && x.tipo === tipo);
-  const aperti = tipiQui.filter((t) => !letto(t));
+  const TIPI = ['Osservazione', 'Testimonianza', 'Referto', 'Presagio'];
   const puo = (tipo) => idoneiPerTipo(ctx.comune, P(), tipo).some((x) => x.nome === mio);
-  const miei = mio ? aperti.filter(puo) : [];
+  const miei = mio ? TIPI.filter(puo) : [];
   const profanoFatto = !!(ind.profano || {})[l.n];
 
+  // NON SI DICE SE QUI C'E' QUALCOSA. Le frasi «qui non c'è niente da cogliere»
+  // e «avete già colto tutto» erano un oracolo gratis: si scopre provando, ed è
+  // il momento in cui la scoperta vale qualcosa.
   const coda = () => {
     if (ind.scenaChiusa) {
       return `<p class="nota">Qui avete già guardato meglio, e non è venuto fuori niente:
         per questa visita gli Approfondimenti restano nascosti.</p>`;
     }
-    if (!tipiQui.length) return '<p class="nota">Qui non c’è niente da cogliere.</p>';
-    if (!aperti.length) return '<p class="nota">Qui avete già colto tutto quel che c’era.</p>';
     if (miei.length) return '<p class="nota">Quel che cogliete lo legge tutto il tavolo.</p>';
-    return `<p class="nota">Qui non c’è niente che parli il vostro linguaggio${
+    return `<p class="nota">Voi qui non avete occhio${
       profanoFatto ? '' : ': resta l’occhio del dilettante'}.</p>`;
   };
   // «siete il campanile di san teodoro» non e' italiano, e i nomi dei luoghi
   // cominciano tutti con un articolo: il titolo e' il nome, e «siete dentro» sta
   // sopra come etichetta.
+  // QUEL CHE C'E' DA PRENDERE, QUI. A raccoglierlo è chi arbitra — gli oggetti
+  // sono del gruppo, e le carte le passa lui dal mazzo — ma sapere che ci sono
+  // è di tutti: sul telefono non compariva niente, né prima né dopo, e uno
+  // poteva uscire da un luogo senza sapere che ci aveva lasciato una chiave.
+  const preso = (n) => (ind.oggetti || []).includes(n);
+  const presoRep = (r) => (ind.reperti || []).includes(r);
+  const roba = [
+    ...(l.oggetti || []).map((o) => ({ nome: o, fatto: preso(o) })),
+    ...(l.reperti || []).map((r) => ({ nome: nomeReperto(r), fatto: presoRep(r), reperto: true })),
+  ];
   return `<div class="pannello">
     <p class="nota">siete dentro</p>
     <h2>${esc(l.nome.toLowerCase())}</h2>
     ${coda()}
+    ${roba.length ? `<hr class="divisore">
+      <p class="nota">da prendere, qui — le carte le passa chi arbitra</p>
+      ${roba.map((x) => `<p class="mt">${x.fatto ? '✓' : '◆'} ${esc(x.nome.toLowerCase())}${
+        x.reperto ? ' <i class="nota">(reperto)</i>' : ''}${
+        x.fatto ? ' <i class="nota">— è vostra</i>' : ''}</p>`).join('')}` : ''}
   </div>`;
 }
 
@@ -1124,11 +1140,17 @@ function schedaLuogo(l) {
   const ind = IND();
   const tipiQui = [...new Set(l.approfondimenti.map((a) => a.tipo))];
   const letti = ind.approfondimentiLetti.filter((x) => x.n === l.n);
-  // I TIPI CHE QUI NON CI SONO NON SI MOSTRANO. Erano quattro bottoni sempre
-  // uguali, anche per un Presagio che in questo luogo non esiste e per un
-  // Referto che nessuno in squadra sa leggere: il tavolo tirava a indovinare, e
-  // ogni tentativo a vuoto costava una scena. Quel che c'e' e' gia' scritto
-  // negli indizi che si leggono ad alta voce — dirlo qui non regala niente.
+  // NEMMENO CHI ARBITRA SA COSA C'E', ed è una regola del gioco prima che
+  // dell'interfaccia. Per mezza giornata questa schermata ha mostrato solo i
+  // tipi presenti («qui c'è un'Osservazione»): comodo, e sbagliato — chi
+  // conduce leggeva la risposta prima della domanda, e il tavolo la leggeva
+  // sulla sua faccia. Si scopre quando un eroe ci prova, che è il momento in
+  // cui la scoperta vale qualcosa.
+  //
+  // Chiedere un tipo che qui non c'è NON COSTA NIENTE (`niente-per-te` nel
+  // motore: né carica né dado, e l'ora era già spesa entrando), quindi
+  // mostrarli tutti e quattro non regala tentativi: toglie solo la certezza.
+  const TIPI = ['Osservazione', 'Testimonianza', 'Referto', 'Presagio'];
   const chiPuo = (t) => idoneiPerTipo(ctx.comune, P(), t);
   app.innerHTML = `
     ${barra(l.nome.toLowerCase())}
@@ -1145,16 +1167,16 @@ function schedaLuogo(l) {
           ${ind.scenaChiusa ? `<p class="nota">Qui avete già guardato meglio, e non
             è venuto fuori niente: per questa visita gli Approfondimenti restano
             nascosti. Lasciate il luogo e tornateci (1 ora) per ritentare.</p>` : `
-          <p class="nota">${tipiQui.length
-            ? `qui c’è ${tipiQui.map((t) => esc(t.toLowerCase())).join(' e ')}`
-            : 'qui non c’è niente da cogliere'}</p>
+          <p class="nota">Cosa c’è da cogliere qui non lo sa nessuno finché non ci si
+          prova — nemmeno voi. Chiedere il tipo sbagliato non costa nulla: l’ora l’avete
+          già spesa entrando.</p>
           <div class="btn-riga">
-            ${tipiQui.map((t) => {
+            ${TIPI.map((t) => {
               const idonei = chiPuo(t);
               const chi = idonei.length
                 ? idonei.map((x) => breve(x.nome)).join(', ')
                 : 'nessuno in squadra';
-              return `<button class="btn${idonei.length ? ' pieno' : ''}" data-tipo="${esc(t)}"${
+              return `<button class="btn" data-tipo="${esc(t)}"${
                 idonei.length ? '' : ' disabled'}>${esc(t.toLowerCase())} — ${esc(chi)}</button>`;
             }).join('')}
           </div>
@@ -1187,10 +1209,13 @@ function schedaLuogo(l) {
     const nome = b.dataset.oggetto;
     if (!await esegui({ tipo: 'prendi-oggetto', nome })) return;
     const cardO = cartaOggetto(ctx.carte, P().episodio, nome);
+    // SU OGNI SCHERMO. Un oggetto è del GRUPPO — «prendete la carta dal mazzo»
+    // è una cosa che il tavolo guarda insieme — e finora la vedeva solo chi
+    // aveva premuto: sui telefoni non compariva niente, nemmeno dopo.
     pannelloMsg(nome.toLowerCase(),
       `${cardO ? `<div class="carta-grande"><img src="${urlCartaSafe(cardO.file)}" alt=""></div>` : ''}
        <p class="nota mt">Prendete la carta “${esc(nome)}” dal mazzo Oggetti: da ora è vostra.</p>`,
-      () => schedaLuogo(l));
+      () => schedaLuogo(l), { atutti: true });
   });
   app.querySelectorAll('[data-reperto]').forEach((b) => b.onclick = async () => {
     const nome = b.dataset.reperto;
@@ -1199,7 +1224,7 @@ function schedaLuogo(l) {
       `<img class="reperto-img" src="${urlReperto(nome)}" alt="">
        <p class="nota mt">Consegnate ai giocatori il reperto stampato “${esc(nomeReperto(nome))}”
        — o leggetelo da qui, facendolo girare.</p>`,
-      () => schedaLuogo(l));
+      () => schedaLuogo(l), { atutti: true });
   });
   if (!ind.scenaChiusa) {
     app.querySelectorAll('[data-tipo]').forEach((b) =>

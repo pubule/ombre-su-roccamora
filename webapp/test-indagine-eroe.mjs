@@ -994,6 +994,45 @@ ${schermo.slice(0, 140).replace(/\s+/g, ' ')}`);
      'e non offre di arruolarlo: la compagnia è già quella');
 }
 
+// --- 19. QUEL CHE C'E' DA PRENDERE SI VEDE ANCHE DAL TELEFONO
+//
+// Visto al tavolo: dal telefono gli oggetti di un luogo non si vedevano — né
+// prima che qualcuno li prendesse, né dopo. Uno poteva uscire da una stanza
+// senza sapere che ci aveva lasciato una chiave. A raccoglierli resta chi
+// arbitra (sono del gruppo, e le carte le passa lui dal mazzo), ma SAPERE che
+// ci sono è di tutti.
+{
+  const L = (EP1.luoghi || []).find((x) => (x.oggetti || []).length);
+  if (L) {
+    const dentro = serata({ luogoAperto: L.n, visitati: [L.n], ora: 21 });
+    dentro.creata = 19_000;
+    await chiama(ARBITRO, 'PUT', '/api/party', { tavolo: idT, party: [ELENA, OTTONE] });
+    await chiama(ARBITRO, 'DELETE', `/api/membri?tavolo=${idT}&email=${encodeURIComponent(GIOCATORE)}`);
+    await chiama(ARBITRO, 'POST', '/api/membri', { tavolo: idT, email: GIOCATORE, eroe: ELENA });
+    await chiama(ARBITRO, 'POST', `/api/tavolo/${idT}/apri`, { tavolo: idT, stato: dentro });
+    await apriIndagine(dentro, ELENA);
+    await page.waitForTimeout(1200);
+    await entraSeSiE();
+
+    const primo = L.oggetti[0];
+    const schermo = await page.locator('#app').innerText();
+    ok(schermo.toLowerCase().includes(String(primo).toLowerCase()),
+       `il telefono vede cosa c’è da prendere qui (${String(primo)})`);
+    ok(!(await page.locator('[data-oggetto]').count()),
+       'ma non lo raccoglie: gli oggetti sono del gruppo, e le carte le passa chi arbitra');
+
+    // e quando chi arbitra lo prende, la carta si apre su OGNI schermo
+    await chiama(ARBITRO, 'POST', `/api/tavolo/${idT}/comando`,
+      { tipo: 'prendi-oggetto', nome: primo });
+    await chiama(ARBITRO, 'POST', `/api/tavolo/${idT}/comando`,
+      { tipo: 'carta', titolo: String(primo).toLowerCase(),
+        corpo: '<p class="nota">Prendete la carta dal mazzo Oggetti: da ora è vostra.</p>' });
+    await page.waitForTimeout(1400);
+    ok(/dal mazzo oggetti/i.test(await page.locator('#app').innerText()),
+       'e quando lo prende, la carta si apre anche sul telefono');
+  }
+}
+
 await browser.close();
 console.log(ko === 0
   ? 'test-indagine-eroe: l\'Indagine si gioca in due, senza che i segreti passino'

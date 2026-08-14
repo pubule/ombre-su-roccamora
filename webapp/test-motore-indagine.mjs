@@ -471,6 +471,34 @@ const ind = (out) => out.stato.indagine;
      'un rifiuto non lascia righe: non è successo niente');
 }
 
+// --- L'AIUTO PROFANO SCEGLIE DA SE' CHE COSA CERCARE
+//
+// L'occhio del dilettante non sa cosa cerca, e la vista non deve saperlo per
+// lui: chiedere alla schermata di mandare «tenta l'Osservazione» voleva dire
+// dirle prima che qui un'Osservazione c'è. Il tipo lo prende il motore — il
+// primo non ancora colto in questo luogo.
+{
+  const l = EP.luoghi.find((x) => (x.approfondimenti || []).length);
+  const p = partita({ luogoAperto: l.n, visitati: [l.n] });
+  const a = fai(p, { tipo: 'aiuto-profano', luogo: l.n, eroe: p.party[0], tiri: [[6, 6]] });
+  ok(!a.rifiuto, `senza tipo il comando passa lo stesso (${a.rifiuto && a.rifiuto.motivo})`);
+  const colto = a.eventi.find((e) => e.tipo === 'colto');
+  ok(colto && colto.tipoApp === l.approfondimenti[0].tipo,
+     `e il motore sceglie il primo tipo non ancora colto (${colto && colto.tipoApp})`);
+
+  // colto quello, la volta dopo (in un luogo dove ce n'è un altro) tocca al secondo
+  const due = EP.luoghi.find((x) => new Set((x.approfondimenti || []).map((y) => y.tipo)).size > 1);
+  if (due) {
+    const q = partita({ luogoAperto: due.n, visitati: [due.n],
+      approfondimentiLetti: [{ n: due.n, tipo: due.approfondimenti[0].tipo,
+                               soggetto: due.approfondimenti[0].soggetto }] });
+    const b = fai(q, { tipo: 'aiuto-profano', luogo: due.n, eroe: q.party[0], tiri: [[6, 6]] });
+    const c2 = b.eventi.find((e) => e.tipo === 'colto');
+    ok(c2 && c2.tipoApp !== due.approfondimenti[0].tipo,
+       `e salta quel che è già stato colto (${c2 && c2.tipoApp})`);
+  }
+}
+
 console.log(ko === 0
   ? 'test-motore-indagine: l’ora è una risorsa, e le regole stanno nel motore'
   : `${ko} FAIL`);
