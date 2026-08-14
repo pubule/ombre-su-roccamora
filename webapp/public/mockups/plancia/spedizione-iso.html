@@ -1,0 +1,383 @@
+<!doctype html><html lang="it"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Plancia · Dungeon isometrico</title>
+<link rel="stylesheet" href="../comune.css">
+<style>
+/* ================================================================ IL PIANO
+   Isometrica vera: nessuna `perspective`, solo due rotazioni. Il piano porta
+   con se' pavimento, muri, arredi e pedine; quello che deve restare di faccia
+   (sagome, cartellini) si raddrizza con la rotazione inversa (`.dritto`).
+
+   `preserve-3d` fa l'occlusione da sola: muri, casse e sagome sono volumi
+   nello stesso spazio, chi sta davanti copre chi sta dietro. Zero z-index.
+
+   ATTENZIONE: mai una `filter` su un elemento con figli 3D — appiattisce tutto
+   il sottoalbero. Per scurire le texture si usano gradienti sovrapposti. */
+.scena { --tilt: 55deg; --cell: 104px; --alt: 78px;
+  position: relative; overflow: hidden; border: 1px solid var(--oro); border-radius: 12px;
+  background: radial-gradient(ellipse at 50% 26%, #1a1520, #08080b 72%);
+  box-shadow: inset 0 0 90px rgba(0,0,0,.95); touch-action: none; }
+.piano { position: absolute; left: 50%; top: 50%; transform-style: preserve-3d;
+  transform: translate(calc(-50% + var(--px, 0px)), calc(-50% + var(--py, 0px)))
+    scale(var(--zoom, 1)) rotateX(var(--tilt)) rotateZ(45deg);
+  transition: transform .18s linear; }
+
+/* Con rotateZ(45deg) i lati che vanno IN FONDO sono il bordo alto (N) e il
+   bordo sinistro (O); est e sud vengono verso chi guarda. Si alzano solo i
+   due lontani: la stanza ha volume e nessun muro copre le pedine. */
+
+/* ------------------------------------------------------------- pavimento */
+.tessera { position: absolute; transform-style: preserve-3d; }
+.tessera .suolo { position: absolute; inset: 0;
+  background-image: linear-gradient(rgba(26,16,18,.58), rgba(8,7,11,.8)), url('../texture/pavimento.jpg');
+  background-size: var(--cell) var(--cell);
+  /* la stanza si spegne verso i muri: senza, il pavimento e' una piazza */
+  box-shadow: inset 0 0 100px rgba(0,0,0,.8); }
+.tessera.coperta .suolo { background-image: repeating-linear-gradient(45deg, #14101a, #14101a 10px, #100c14 10px, #100c14 20px);
+  opacity: .85; }
+.cella { position: absolute; border: 1px solid rgba(230,195,120,.13); }
+.cella.mossa { background: rgba(31,95,107,.34); border: 1px solid rgba(90,200,215,.75);
+  box-shadow: inset 0 0 22px rgba(31,95,107,.6); animation: pulsa 2.4s ease-in-out infinite; }
+@keyframes pulsa { 50% { opacity: .55; } }
+
+/* ------------------------------------------------------------------ muri
+   Il trucco delle rotazioni: con origine 0 0, `rotateX(90deg)` porta l'asse Y
+   locale del div in alto (z del mondo), e `rotateZ(90deg) rotateX(90deg)` fa
+   lo stesso ruotando prima il muro lungo il bordo sinistro. Cosi' la texture
+   resta DRITTA in entrambi i casi — i corsi dei mattoni orizzontali. */
+.muro { position: absolute; transform-origin: 0 0; }
+.muro-corpo { position: absolute; inset: 0;
+  background-image: linear-gradient(rgba(10,8,14,.42), rgba(6,5,9,.82)), url('../texture/muro.jpg');
+  background-size: var(--cell) var(--cell); background-position: bottom left; }
+/* il vano della porta, ritagliato nel muro: niente stipiti da posizionare */
+.muro-corpo.vano { clip-path: polygon(0 0, 100% 0, 100% 100%, 73% 100%, 73% 30%, 27% 30%, 27% 100%, 0 100%); }
+/* cimasa: senza, il muro legge come un foglio di carta in piedi */
+.cimasa { position: absolute;
+  background-image: linear-gradient(rgba(30,26,34,.35), rgba(10,8,14,.5)), url('../texture/pietra.jpg');
+  background-size: var(--cell) var(--cell); }
+
+.anta { position: absolute; left: 27%; bottom: 0; width: 46%; height: 70%;
+  background-image: linear-gradient(rgba(8,6,10,.35), rgba(4,3,6,.7)), url('../texture/legno.jpg');
+  background-size: cover; border: 2px solid #2a1c12;
+  box-shadow: inset 0 0 18px rgba(0,0,0,.9); }
+.anta::after { content: ''; position: absolute; right: 12%; top: 46%; width: 7%; padding-bottom: 7%;
+  border-radius: 50%; background: #c9a24a; box-shadow: 0 0 6px rgba(216,178,94,.8); }
+/* la grata di T2 verso T5: la regola dice sbarre, e sbarre si vedono */
+.anta.grata { background-image: repeating-linear-gradient(90deg,
+    #3a3a40 0 5px, #14141a 5px 9px, transparent 9px 19px), linear-gradient(rgba(0,0,0,.85), rgba(0,0,0,.95));
+  border-color: #3a3a40; }
+.anta.grata::after { display: none; }
+/* soglia aperta: la luce dell'altra stanza che entra dal varco */
+.soglia { position: absolute; left: 27%; bottom: 0; width: 46%; height: 70%;
+  background: linear-gradient(0deg, rgba(216,178,94,.34), transparent 70%); }
+
+/* ---------------------------------------------------------------- arredi
+   Una scatola = 3 facce (coperchio + le due verso chi guarda). Le altre due
+   non si vedono mai e non si disegnano. */
+.faccia { position: absolute; transform-origin: 0 0;
+  background-size: cover; background-position: center; }
+.faccia.legno { background-image: linear-gradient(rgba(8,6,10,.3), rgba(4,3,6,.62)), url('../texture/legno.jpg'); }
+.faccia.pietra { background-image: linear-gradient(rgba(10,9,14,.35), rgba(5,4,8,.68)), url('../texture/pietra.jpg'); }
+.faccia.stoffa { background-image: linear-gradient(160deg, #4b2a2c, #24151a); }
+.faccia.ferro { background-image: repeating-linear-gradient(90deg,
+    #45454d 0 5px, #101016 5px 10px, rgba(0,0,0,.9) 10px 22px); }
+.faccia.cop { box-shadow: inset 0 0 30px rgba(0,0,0,.45); }
+.faccia.sud { box-shadow: inset 0 0 40px rgba(0,0,0,.6); }
+.faccia.est { box-shadow: inset 0 0 40px rgba(0,0,0,.8); }
+
+/* candele: un billboard, non un volume — un cilindro in CSS costa piu' di
+   quanto renda a questa scala */
+/* origine 0 0 come muri e facce: e' la convenzione che tiene insieme tutto il
+   3D di questa pagina — con `bottom center` la candela finiva fuori stanza */
+.candela { position: absolute; transform-origin: 0 0; }
+.candela .stelo { width: 11px; height: 38px; margin: 0 auto;
+  background: linear-gradient(180deg, #f2e8cf, #8f8161); border-radius: 4px 4px 1px 1px;
+  box-shadow: 0 0 10px rgba(240,180,80,.5); }
+.candela .fiamma { width: 13px; height: 18px; margin: 0 auto -3px;
+  background: radial-gradient(ellipse at 50% 70%, #fff8d8, #f0a020 52%, transparent 72%);
+  animation: pulsa 1.1s ease-in-out infinite; }
+.alone { position: absolute; border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(240,168,60,.26), transparent 66%);
+  animation: pulsa 2.6s ease-in-out infinite; }
+
+/* ------------------------------------------------------- figure e scritte */
+.dritto { transform-origin: bottom center;
+  transform: rotateZ(-45deg) rotateX(calc(-1 * var(--tilt)));
+  transition: transform .18s linear; }
+.posto { position: absolute; width: var(--cell); height: var(--cell); transform-style: preserve-3d; }
+.ombra { position: absolute; left: 12%; top: 46%; width: 76%; height: 46%; border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(0,0,0,.78), transparent 70%); }
+.figura { position: absolute; left: 50%; bottom: 34%; width: 200%;
+  margin-left: -100%; display: flex; justify-content: center; align-items: flex-end; }
+.figura img { height: 158px; width: auto; filter: drop-shadow(0 3px 6px rgba(0,0,0,.9)); }
+.figura.nem img { height: 136px; }
+.figura.boss img { height: 186px; }
+
+.aura { position: absolute; left: 6%; top: 40%; width: 88%; height: 60%; border-radius: 50%; }
+.attivo .aura { background: radial-gradient(ellipse, rgba(216,178,94,.55), transparent 68%);
+  animation: pulsa 2s ease-in-out infinite; }
+.attivo .figura img { filter: drop-shadow(0 0 10px rgba(244,214,138,.85)) drop-shadow(0 3px 6px #000); }
+.nem .aura { background: radial-gradient(ellipse, rgba(122,31,43,.5), transparent 68%); }
+.boss .aura { background: radial-gradient(ellipse, rgba(216,59,59,.6), transparent 66%);
+  animation: pulsa 1.6s ease-in-out infinite; }
+/* a terra: sagoma piccola e reclinata, sempre di faccia. Coricarla davvero nel
+   piano l'ha resa invisibile — nera su un pavimento nero. */
+.giu .figura { bottom: 10%; }
+.giu .figura img { height: 86px; transform: rotate(-58deg) translateY(-14%);
+  filter: grayscale(.95) brightness(.85) drop-shadow(0 0 8px rgba(216,59,59,.9)); }
+.giu .aura { background: radial-gradient(ellipse, rgba(122,31,43,.6), transparent 64%); }
+.giu .etichetta { bottom: calc(100% + 8px); }
+.giu .etichetta > span { color: var(--seppia); }
+
+/* sopra la testa: a mezza altezza il cartellino finisce dentro la figura di
+   chi sta davanti */
+.etichetta { position: absolute; left: 50%; bottom: calc(100% + 66px); white-space: nowrap;
+  margin-left: -50%; width: 200%; text-align: center; }
+.etichetta > span, .tag span { font-family: 'FellSC', serif; font-size: 14px; letter-spacing: .03em;
+  background: rgba(10,8,12,.85); border: 1px solid var(--oro); border-radius: 999px;
+  padding: 1px 9px; color: var(--oro-chiaro); white-space: nowrap; }
+.nem .etichetta > span { border-color: var(--rosso); color: #f0b9b9; }
+/* preserve-3d anche qui: senza, `.tag` appiattisce il figlio e la sigla della
+   tessera resta storta come il piano */
+.tag { position: absolute; left: 10px; top: 10px; transform-style: preserve-3d; }
+.tag .dritto { display: block; }
+
+/* ------------------------------------------------------------- i comandi */
+.leve { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center;
+  padding: 10px 0 12px; font-family: 'FellSC', serif; font-size: 15px; color: var(--seppia); }
+.leve label { display: inline-flex; align-items: center; gap: 8px; }
+.leve input[type=range] { accent-color: var(--oro); width: 120px; }
+.btn.sel { background: linear-gradient(180deg, #8d2433, var(--rosso-scuro)); color: var(--perg); border-color: var(--rosso); }
+.avviso { font-size: 14px; }
+@media (max-width: 700px) { .figura img { height: 150px; } .leve { font-size: 14px; } }
+</style>
+</head><body>
+<div class="wrap">
+  <div class="barra">
+    <a class="btn" href="../index.html" style="min-height:36px;padding:6px 12px">← mockup</a>
+    <span class="titolo" id="tit"></span>
+    <span class="stato" id="stt"></span>
+  </div>
+
+  <div class="leve">
+    <button class="btn sel" id="b-tutte">dungeon intero</button>
+    <button class="btn" id="b-partita">come in partita</button>
+    <label>inclinazione <input type="range" id="tilt" min="30" max="70" value="55"><b id="tilt-v">55°</b></label>
+    <label>muri <input type="range" id="alt" min="0" max="150" value="78"><b id="alt-v">78</b></label>
+    <label>zoom <input type="range" id="zoom" min="35" max="130" value="70"></label>
+  </div>
+
+  <div class="scena" id="scena" style="height:min(74vh,660px)"><div class="piano" id="piano"></div></div>
+
+  <div class="pannello" style="margin-top:14px">
+    <h2>che cosa si sta guardando</h2>
+    <p class="avviso">Il dungeon è <b>costruito</b>, non dipinto: pavimento a texture, muri che si alzano, porte
+    nei varchi, arredi con volume. Pianta, uscite e arredi vengono da <code>ep1.json</code> — gli stessi dati che
+    gioca la webapp — e la disposizione delle stanze la calcola <code>motore/griglia.js</code>. Texture
+    <a href="https://polyhaven.com">Poly Haven</a>, CC0.</p>
+    <p class="avviso">Si alzano solo i <b>due muri lontani</b> di ogni stanza (nord e ovest): è il trucco
+    isometrico classico, la stanza ha volume e nessun muro copre le pedine. La leva <b>muri</b> a zero
+    riporta tutto piatto: è il confronto che dice se il volume serve davvero.</p>
+    <p class="avviso"><b>Da guardare:</b> la porta di T2 verso T5 ha le <i>sbarre</i> (nei dati è una grata);
+    T3 ha quattro candele agli angoli che illuminano il pavimento; T5 è una scalinata; in T6 ci sono l'altare
+    e la CELLA di Ruggero. Si trascina col dito.</p>
+  </div>
+</div>
+
+<script src="../dati.js"></script>
+<script type="module">
+import { layout, portaCella, dirExit } from '/motore/griglia.js';
+
+const { S, esc, clock } = MOCK;
+const ep = await fetch('/data/ep1.json').then((r) => r.json());
+const LAY = layout({ ep });                       // posizioni delle tessere dal grafo delle uscite
+const tileDi = (id) => ep.tessere.find((t) => t.id === id);
+
+document.getElementById('tit').textContent = ep.titolo.toLowerCase();
+document.getElementById('stt').innerHTML = 'round ' + S.round + ' · ' + clock();
+
+const CELL = 104;
+const ritaglio = (art) => '../ritagli/' + encodeURIComponent(art);
+
+// Le due viste: il dungeon intero (per giudicare tutti gli arredi) e lo stato
+// vero a meta' partita, con le stanze ancora coperte.
+const TUTTE = ep.tessere.map((t) => t.id);
+const IN_PARTITA = ['T1', 'T2', 'T3'];
+
+// Pedine: caselle libere (gli arredi veri di ep1.json sono altrove).
+const POS = {
+  elena: { t: 'T2', x: 1, y: 2 }, attilio: { t: 'T2', x: 2, y: 1 },
+  nino: { t: 'T1', x: 1, y: 1 }, ottone: { t: 'T1', x: 2, y: 3 },
+  adepto: { t: 'T2', x: 3, y: 1 }, 'cane dei moli': { t: 'T3', x: 1, y: 1 },
+  'custode della cera': { t: 'T3', x: 2, y: 2 },
+};
+const MOSSE = [{ t: 'T2', x: 2, y: 0 }, { t: 'T2', x: 1, y: 0 },
+  { t: 'T2', x: 3, y: 2 }, { t: 'T2', x: 0, y: 2 }];
+
+// ------------------------------------------------------------ i tre pezzi 3D
+// Tutto poggia su questa convenzione: origine 0 0, e la Y locale del div
+// diventa l'altezza. `su()` alza un piano lungo l'asse X, `giro()` lo alza
+// lungo l'asse Y (ruotandolo prima di 90°).
+const su = (x, y) => `translate(${x}px, ${y}px) rotateX(90deg)`;
+const giro = (x, y) => `translate(${x}px, ${y}px) rotateZ(90deg) rotateX(90deg)`;
+
+// Una scatola: coperchio + faccia sud + faccia est (le due che si vedono).
+const scatola = (l, t, w, d, h, mat, matCop) => `
+  <div class="faccia cop ${matCop || mat}" style="left:${l}px;top:${t}px;width:${w}px;height:${d}px;transform:translateZ(${h}px)"></div>
+  <div class="faccia sud ${mat}" style="left:0;top:0;width:${w}px;height:${h}px;transform:${su(l, t + d)}"></div>
+  <div class="faccia est ${mat}" style="left:0;top:0;width:${d}px;height:${h}px;transform:${giro(l + w, t)}"></div>`;
+
+// Un arredo per tipo: e' questo che toglie l'effetto schiacciato.
+function arredo(tipo, cx, cy) {
+  const l = cx * CELL, t = (3 - cy) * CELL;      // angolo alto-sinistro della casella
+  switch (tipo) {
+    case 'casse':
+      return scatola(l + 8, t + 8, 84, 84, 46, 'legno')
+        + scatola(l + 26, t + 24, 56, 52, 34, 'legno');   // la seconda impilata sopra
+    case 'molo':
+      return `<div class="faccia cop legno" style="left:${l + 2}px;top:${t + 2}px;width:${CELL - 4}px;height:${CELL - 4}px;transform:translateZ(3px)"></div>`;
+    case 'scrivania':
+      return scatola(l + 10, t + 30, 84, 48, 40, 'legno');
+    case 'branda':
+      return scatola(l + 12, t + 20, 80, 62, 24, 'legno', 'stoffa');
+    case 'altare':
+      return scatola(l + 14, t + 18, 76, 68, 56, 'pietra')
+        + `<div class="alone" style="left:${l - 10}px;top:${t - 10}px;width:${CELL + 20}px;height:${CELL + 20}px"></div>`;
+    case 'scala':                                   // tre gradini che salgono verso nord
+      return [0, 1, 2].map((k) => scatola(l + 4, t + 4 + k * 32, CELL - 8, 32, 18 + (2 - k) * 18, 'pietra')).join('');
+    case 'CELLA':
+      return scatola(l + 4, t + 4, CELL - 8, CELL - 8, 96, 'ferro', 'ferro');
+    case 'candele': {
+      const c = [[26, 34], [58, 54], [40, 74]].map(([dx, dy]) => `
+        <div class="candela" style="left:${l + dx}px;top:${t + dy}px;width:13px;height:56px;transform:${su(0, 56)}">
+          <div class="fiamma"></div><div class="stelo"></div></div>`).join('');
+      return `<div class="alone" style="left:${l - 26}px;top:${t - 26}px;width:${CELL + 52}px;height:${CELL + 52}px"></div>${c}`;
+    }
+    default:
+      return scatola(l + 20, t + 20, 60, 60, 34, 'pietra');
+  }
+}
+
+// ---------------------------------------------------------------- il disegno
+let RIVELATE = TUTTE;
+
+function disegna() {
+  const viste = ep.tessere.filter((t) => RIVELATE.includes(t.id));
+  // frontiera: le coperte confinanti con una rivelata, cosi' le porte chiuse
+  // hanno un «di la'» invece di dare sul vuoto
+  const frontiera = new Set();
+  for (const t of viste) for (const raw of Object.values(t.exits || {})) {
+    const d = dirExit(raw); if (!RIVELATE.includes(d)) frontiera.add(d);
+  }
+  const mostrate = [...viste.map((t) => t.id), ...frontiera];
+
+  const xs = mostrate.map((id) => LAY[id][0]), ys = mostrate.map((id) => LAY[id][1]);
+  const minX = Math.min(...xs), maxY = Math.max(...ys);
+  const cols = (Math.max(...xs) - minX + 1) * 4, rows = (maxY - Math.min(...ys) + 1) * 4;
+  const ang = (id) => { const [TX, TY] = LAY[id]; return { l: (TX - minX) * 4 * CELL, t: (maxY - TY) * 4 * CELL }; };
+  const scr = (n) => { const a = ang(n.t); return { l: a.l + n.x * CELL, t: a.t + (3 - n.y) * CELL }; };
+
+  const tessere = mostrate.map((id) => {
+    const tile = tileDi(id); const a = ang(id); const size = 4 * CELL;
+    const box = `left:${a.l}px;top:${a.t}px;width:${size}px;height:${size}px`;
+    const tag = `<div class="tag"><div class="dritto"><span>${id}${RIVELATE.includes(id) ? '' : ' · ?'}</span></div></div>`;
+    if (!RIVELATE.includes(id)) return `<div class="tessera coperta" style="${box}"><div class="suolo"></div>${tag}</div>`;
+
+    let celle = '';
+    for (let r = 0; r < 4; r++) for (let c = 0; c < 4; c++)
+      celle += `<div class="cella" style="left:${c * CELL}px;top:${r * CELL}px;width:${CELL}px;height:${CELL}px"></div>`;
+
+    // muri: solo i due lati lontani. N = bordo alto, O = bordo sinistro.
+    let muri = '';
+    for (const dir of ['N', 'O']) {
+      const raw = (tile.exits || {})[dir];
+      const dest = raw ? dirExit(raw) : null;
+      const pc = raw ? portaCella(tile, dir) : null;
+      // indice del segmento in cui cade la porta: per N e' la x, per O la riga
+      const iPorta = pc ? (dir === 'N' ? pc[0] : 3 - pc[1]) : -1;
+      for (let i = 0; i < 4; i++) {
+        const porta = i === iPorta;
+        // la grata resta grata anche fra due stanze gia' viste: e' un pezzo di
+        // ferro, non nebbia di guerra — si apre con un'azione Interagire
+        const grata = porta && /grata/i.test(raw);
+        const aperta = porta && !grata && RIVELATE.includes(dest);
+        const dentro = porta
+          ? `<div class="muro-corpo vano"></div>${aperta ? '<div class="soglia"></div>'
+              : `<div class="anta${grata ? ' grata' : ''}"></div>`}`
+          : '<div class="muro-corpo"></div>';
+        const t3d = dir === 'N' ? su(i * CELL, 0) : giro(0, i * CELL);
+        muri += `<div class="muro" style="left:0;top:0;width:${CELL}px;height:var(--alt);transform:${t3d}">${dentro}</div>`;
+        muri += dir === 'N'
+          ? `<div class="cimasa" style="left:${i * CELL - 3}px;top:-3px;width:${CELL + 6}px;height:6px;transform:translateZ(var(--alt))"></div>`
+          : `<div class="cimasa" style="left:-3px;top:${i * CELL - 3}px;width:6px;height:${CELL + 6}px;transform:translateZ(var(--alt))"></div>`;
+      }
+    }
+
+    const arr = (tile.arredi || []).map(([gx, gy, tipo]) => arredo(tipo, gx, gy)).join('');
+    return `<div class="tessera" style="${box}"><div class="suolo"></div>${celle}${muri}${arr}${tag}</div>`;
+  }).join('');
+
+  const mosse = MOSSE.filter((m) => RIVELATE.includes(m.t)).map((m) => { const p = scr(m);
+    return `<div class="cella mossa" style="left:${p.l}px;top:${p.t}px;width:${CELL}px;height:${CELL}px"></div>`;
+  }).join('');
+
+  const sagoma = (chi, art, cls, nome) => {
+    const pos = POS[chi]; if (!pos || !RIVELATE.includes(pos.t)) return '';
+    const p = scr(pos);
+    return `<div class="posto ${cls}" style="left:${p.l}px;top:${p.t}px">
+      <div class="aura"></div><div class="ombra"></div>
+      <div class="dritto" style="position:absolute;inset:0">
+        <div class="figura ${cls}"><img src="${ritaglio(art)}" alt="${esc(nome)}" loading="lazy"></div>
+        <div class="etichetta"><span>${esc(nome)}</span></div>
+      </div></div>`;
+  };
+  const figure = [
+    ...S.party.map((e) => sagoma(e.breve, e.art,
+      (e.attivo ? 'attivo ' : '') + (e.breve === 'nino' ? 'giu' : ''),
+      e.attivo ? '★ ' + e.breve : e.breve === 'nino' ? e.breve + ' · a terra' : e.breve)),
+    ...S.nemici.map((n) => sagoma(n.breve, n.art, 'nem' + (n.boss ? ' boss' : ''), n.breve)),
+  ].join('');
+
+  // Centrare l'ingombro TOTALE porta fuori campo il gioco quando c'e' una
+  // tessera coperta grande e vuota: si centra sul baricentro delle rivelate.
+  const cx = viste.reduce((s, t) => s + ang(t.id).l, 0) / viste.length + 2 * CELL;
+  const cy = viste.reduce((s, t) => s + ang(t.id).t, 0) / viste.length + 2 * CELL;
+  const dx = Math.round(cx - cols * CELL / 2), dy = Math.round(cy - rows * CELL / 2);
+
+  document.getElementById('piano').innerHTML =
+    `<div style="position:relative;width:${cols * CELL}px;height:${rows * CELL}px;
+      margin-left:${-dx}px;margin-top:${-dy}px;transform-style:preserve-3d">
+      ${tessere}${mosse}${figure}</div>`;
+}
+disegna();
+
+// ---------------------------------------------------------------- le leve
+const scena = document.getElementById('scena'), piano = document.getElementById('piano');
+const leva = (id, f) => { const el = document.getElementById(id); el.oninput = () => f(el.value); f(el.value); };
+leva('tilt', (v) => { scena.style.setProperty('--tilt', v + 'deg'); document.getElementById('tilt-v').textContent = v + '°'; });
+leva('alt', (v) => { scena.style.setProperty('--alt', v + 'px'); document.getElementById('alt-v').textContent = v; });
+leva('zoom', (v) => piano.style.setProperty('--zoom', v / 100));
+
+const vista = (tutte) => {
+  RIVELATE = tutte ? TUTTE : IN_PARTITA; disegna();
+  document.getElementById('b-tutte').classList.toggle('sel', tutte);
+  document.getElementById('b-partita').classList.toggle('sel', !tutte);
+};
+document.getElementById('b-tutte').onclick = () => vista(true);
+document.getElementById('b-partita').onclick = () => vista(false);
+
+// trascinamento: sul telefono la plancia non ci sta tutta, come nel gioco vero
+let px = 0, py = 0, giu = null;
+scena.addEventListener('pointerdown', (e) => { giu = { x: e.clientX, y: e.clientY, px, py };
+  piano.style.transition = 'none';                 // la transizione fa strisciare il dito
+  scena.setPointerCapture(e.pointerId); });
+scena.addEventListener('pointermove', (e) => {
+  if (!giu) return;
+  px = giu.px + (e.clientX - giu.x); py = giu.py + (e.clientY - giu.y);
+  piano.style.setProperty('--px', px + 'px'); piano.style.setProperty('--py', py + 'px');
+});
+const molla = () => { giu = null; piano.style.transition = ''; };
+scena.addEventListener('pointerup', molla);
+scena.addEventListener('pointercancel', molla);
+</script>
+</body></html>

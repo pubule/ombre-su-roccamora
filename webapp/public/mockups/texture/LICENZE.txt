@@ -1,0 +1,8 @@
+Texture del dungeon isometrico (mockup).
+Fonte: Poly Haven — https://polyhaven.com — licenza CC0.
+Ridimensionate a 512px e ricompresse da scripts/scarica-texture.py
+
+pavimento.jpg  <-  cobblestone_floor_08  (https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/cobblestone_floor_08/cobblestone_floor_08_diff_1k.jpg)
+muro.jpg  <-  castle_brick_02_red  (https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/castle_brick_02_red/castle_brick_02_red_diff_1k.jpg)
+legno.jpg  <-  dark_wooden_planks  (https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/dark_wooden_planks/dark_wooden_planks_diff_1k.jpg)
+pietra.jpg  <-  rough_block_wall  (https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/rough_block_wall/rough_block_wall_diff_1k.jpg)
