@@ -911,6 +911,89 @@ ${schermo.slice(0, 120).replace(/\s+/g, ' ')}`);
      `«si scende» non è di chi gioca (${allestimento.testo.replace(/\s+/g, ' ').slice(0, 90)})`);
 }
 
+// --- 17. LA CARTA ARRIVA IN DUE TEMPI, E IL PRIMO E' VUOTO
+//
+// Visto al tavolo il 15/08: un eroe coglie qualcosa dal telefono, e sullo
+// schermo di chi arbitra compare il titolo giusto sopra un pannello NERO, con
+// «continuate». Il motore scrive «c'è qualcosa da leggere» (`daLeggere`) ma non
+// può comporla — la prosa e le carte sono mestiere della vista, e chi ha
+// giocato le manda un istante dopo. Chi arbitra disegnava il primo tempo e poi
+// non si ridisegnava più: il titolo era lo stesso.
+{
+  const idD = await page.evaluate(async () => {
+    const id = crypto.randomUUID();
+    await fetch('/api/tavolo', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+                                 body: JSON.stringify({ id, nome: 'La carta in due tempi' }) });
+    return id;
+  });
+  const dentro = serata({ ora: 21 });
+  dentro.creata = 17_000;
+  await page.evaluate(async ({ t, st }) => {
+    await fetch(`/api/tavolo/${t}/apri`, { method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ tavolo: t, stato: st }) });
+    const { vistaIndagine } = await import('/js/indagine.js');
+    document.querySelector('#app').innerHTML = '';
+    await vistaIndagine(document.querySelector('#app'), JSON.parse(JSON.stringify(st)), () => {},
+                        { tavolo: t, ruolo: 'arbitro', eroe: null });
+  }, { t: idD, st: dentro });
+  await page.waitForTimeout(1400);
+
+  // PRIMO TEMPO: il motore segna che c'è qualcosa da leggere, senza prosa
+  await page.evaluate(async ({ t, st }) => {
+    const s2 = JSON.parse(JSON.stringify(st));
+    s2.aggiornato = st.aggiornato + 1;
+    s2.indagine.carta = { titolo: 'osservazione — la polvere smossa' };
+    await fetch(`/api/tavolo/${t}/apri`, { method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ tavolo: t, stato: s2 }) });
+  }, { t: idD, st: dentro });
+  await page.waitForTimeout(1300);
+  ok(!(await page.locator('#ok-msg').count()),
+     'la carta senza prosa non si mostra: non c’è ancora niente da leggere');
+
+  // SECONDO TEMPO: la prosa, mandata da chi ha giocato
+  await page.evaluate(async (t) => {
+    await fetch(`/api/tavolo/${t}/comando`, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ tipo: 'carta', titolo: 'osservazione — la polvere smossa',
+                             corpo: '<p>Qualcuno ha spostato la cassa, e da poco.</p>' }),
+    });
+  }, idD);
+  await page.waitForTimeout(1400);
+  const schermo = await page.locator('#app').innerText();
+  ok(/qualcuno ha spostato la cassa/i.test(schermo),
+     `e quando la prosa arriva, chi arbitra la legge:
+${schermo.slice(0, 140).replace(/\s+/g, ' ')}`);
+  ok((await page.locator('#ok-msg').count()) === 1, 'col «continuate» che la chiude');
+}
+
+// --- 18. LA SCHEDA DI UN EROE NON ARRUOLA NESSUNO
+//
+// A serata cominciata la compagnia è quella: la scheda si apre per guardare le
+// abilità, e «arruola eroe» — che è della scelta del party — non c’entra
+// niente. Compariva perché `schedaEroe(e, {})` passa un oggetto vuoto ma VERO,
+// e la scheda lo legge come «stai arruolando».
+{
+  const conMio = serata({ ora: 21 });
+  conMio.creata = 18_000;
+  await chiama(ARBITRO, 'PUT', '/api/party', { tavolo: idT, party: [ELENA, OTTONE] });
+  await chiama(ARBITRO, 'DELETE', `/api/membri?tavolo=${idT}&email=${encodeURIComponent(GIOCATORE)}`);
+  await chiama(ARBITRO, 'POST', '/api/membri', { tavolo: idT, email: GIOCATORE, eroe: ELENA });
+  await chiama(ARBITRO, 'POST', `/api/tavolo/${idT}/apri`, { tavolo: idT, stato: conMio });
+  await apriIndagine(conMio, ELENA);
+  await page.waitForTimeout(1200);
+
+  await page.evaluate(() => document.querySelector('#apri-menu').click());
+  await page.waitForTimeout(400);
+  await page.evaluate(() => document.querySelector('#m-scheda').click());
+  await page.waitForTimeout(500);
+  const scheda = await page.locator('.eroe-dettaglio').innerText().catch(() => '');
+  ok(/elena/i.test(scheda), `la scheda del proprio eroe si apre (${scheda.slice(0, 60).replace(/\s+/g, ' ')})`);
+  ok((await page.locator('#arruola').count()) === 0,
+     'e non offre di arruolarlo: la compagnia è già quella');
+}
+
 await browser.close();
 console.log(ko === 0
   ? 'test-indagine-eroe: l\'Indagine si gioca in due, senza che i segreti passino'

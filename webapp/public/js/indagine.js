@@ -314,8 +314,11 @@ function menu() {
   };
   app.querySelector('#m-luoghi')?.addEventListener('click', () => doveSieteStati(menu));
   app.querySelector('#m-taccuino').onclick = () => (arbitro() ? taccuino() : taccuinoDiChiGioca());
+  // `schedaEroe(e)` e basta: il secondo argomento e' l'ARRUOLAMENTO (lo usa la
+  // scelta della compagnia), e passargli `{}` — un oggetto vuoto ma vero — le
+  // faceva stampare «arruola eroe» in mezzo a una serata gia' cominciata.
   app.querySelector('#m-scheda')?.addEventListener('click', () => schedaEroe(
-    eroeCresciuto({ partita: P() }, mio, ctx.comune.eroi.find((x) => x.nome === mio)), {}));
+    eroeCresciuto({ partita: P() }, mio, ctx.comune.eroi.find((x) => x.nome === mio))));
   app.querySelector('#m-lettera')?.addEventListener('click',
     () => (arbitro() ? lettera() : letteraDiChiGioca()));
   app.querySelector('#m-busta')?.addEventListener('click', () => taccuino());
@@ -371,7 +374,7 @@ function squadra(dietro) {
   dopoBarra();
   app.querySelectorAll('[data-scheda]').forEach((el) => el.addEventListener('click', () =>
     schedaEroe(eroeCresciuto({ partita: P() }, el.dataset.scheda,
-      ctx.comune.eroi.find((x) => x.nome === el.dataset.scheda)), {})));
+      ctx.comune.eroi.find((x) => x.nome === el.dataset.scheda)))));
   app.querySelector('#sq-indietro').onclick = dietro;
 }
 
@@ -597,9 +600,15 @@ function collegaAlTavolo() {
         // fuori si vede come «ho fatto l'azione e poi non posso fare piu'
         // niente». Si ridisegna solo se non la sta gia' mostrando lui, o
         // rifarebbe la pagina sotto le dita a ogni spinta.
+        // LA CARTA ARRIVA IN DUE TEMPI. Il motore dice «c'e' qualcosa da
+        // leggere» (`daLeggere`) ma non puo' comporla: la prosa e le carte
+        // sono mestiere della vista, e chi ha giocato la manda un istante
+        // dopo. Guardando solo il titolo, chi arbitra disegnava la carta VUOTA
+        // del primo tempo e poi non si ridisegnava piu' — stesso titolo — e
+        // restava con un pannello nero e «continuate».
         const c = (stato.indagine || {}).carta;
-        if (c && ctx.cartaInScena !== c.titolo) mostraCartaCondivisa(c);
-        else if (!c && ctx.cartaInScena) { ctx.cartaInScena = null; home(); }
+        if (c && c.corpo && ctx.cartaInScena !== chiaveCarta(c)) mostraCartaCondivisa(c);
+        else if (!c && ctx.cartaInScena) { ctx.cartaInScena = null; scenaArbitro(); }
         return;
       }
       // LA SERATA E' PASSATA ALLA SPEDIZIONE mentre guardavamo: non si ridisegna
@@ -664,7 +673,7 @@ function vistaDiChiGioca() {
   // non colto — si legge insieme: compare su ogni schermo e la chiude chi
   // conduce, cosi' nessuno va avanti mentre gli altri leggono. Qui non c'e'
   // «continuate»: non e' una decisione di chi guarda.
-  if (ind.carta) {
+  if (ind.carta && ind.carta.corpo) {
     app.innerHTML = `
       ${barra(ind.carta.titolo)}
       <div class="pannello">${ind.carta.corpo}</div>
@@ -1774,7 +1783,7 @@ function pannelloMsg(titolo, corpoHtml, dopo, { atutti = false } = {}) {
   // metterlo anche sul telefono darebbe a chi gioca un bottone che il tavolo
   // rifiuta. Chi gioca legge la riga d'attesa, che dice a chi tocca.
   const mio = !condivisa || arbitro();
-  ctx.cartaInScena = condivisa ? titolo : null;
+  ctx.cartaInScena = condivisa ? chiaveCarta({ titolo, corpo: corpoHtml }) : null;
   app.innerHTML = `
     ${barra(titolo)}
     <div class="pannello">${corpoHtml}</div>
@@ -1793,8 +1802,12 @@ function pannelloMsg(titolo, corpoHtml, dopo, { atutti = false } = {}) {
 // scrive chi ha giocato — anche da un telefono — e qui si legge insieme; il
 // «continuate» riporta chi arbitra alla sua scrivania, che e' il posto giusto:
 // quel che si stava facendo l'ha fatto qualcun altro.
+// la carta e' la stessa solo se sono uguali TITOLO E PROSA: il primo tempo
+// porta il titolo da solo, e confondere i due lascia lo schermo vuoto
+const chiaveCarta = (c) => (c ? `${c.titolo} ${(c.corpo || '').length}` : null);
+
 function mostraCartaCondivisa(carta) {
-  ctx.cartaInScena = carta.titolo;
+  ctx.cartaInScena = chiaveCarta(carta);
   ctx.app.innerHTML = `
     ${barra(carta.titolo)}
     <div class="pannello">${carta.corpo || ''}</div>
