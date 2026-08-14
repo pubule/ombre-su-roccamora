@@ -1,0 +1,530 @@
+<!doctype html><html lang="it"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>L'Indagine: cinque impianti a confronto · mockup</title>
+<link rel="stylesheet" href="/app.css">
+<style>
+  body { padding: 18px; }
+  .did { max-width: 920px; margin: 0 auto 22px; }
+  .did h1 { font-size: 28px; }
+  .banco { display: flex; gap: 22px; flex-wrap: wrap; align-items: flex-start;
+           justify-content: center; margin-bottom: 24px; }
+  .col { width: 400px; max-width: 100%; }
+  .col.largo { width: 660px; }
+  .col > h3 { font-family: 'FellSC', serif; text-transform: lowercase; letter-spacing: .08em;
+              color: var(--osso-fioco); font-size: 15px; margin: 0 0 8px; text-align: center; }
+  .col > h3 b { color: var(--osso); font-weight: normal; }
+  .schermo { border: 1px solid var(--bordo-alto); border-radius: 2px; overflow: hidden;
+             background: var(--tavolo); display: flex; flex-direction: column; position: relative; }
+  .schermo.telefono { min-height: 600px; }
+  .schermo .dentro { padding: 10px; flex: 1; }
+  .prima-dopo { color: var(--osso-fioco); font-style: italic; font-size: 15px; margin: 10px 0 0; }
+  .sep { max-width: 920px; margin: 34px auto 18px; border-top: 1px solid var(--bordo); }
+  .cartello { max-width: 920px; margin: 0 auto 16px; }
+  .cartello h2 { font-size: 22px; }
+  .cartello .fonte { color: var(--nastro); font-family: 'FellSC', serif; letter-spacing: .07em;
+                     font-size: 13px; }
+
+  /* --- pezzi comuni ai mockup --- */
+  .bilancio { display: flex; flex-wrap: wrap; gap: 4px 14px; padding: 7px 12px;
+              border: 1px solid var(--bordo); border-radius: 2px; background: var(--ardesia);
+              margin-bottom: 10px; font-family: 'FellSC', serif; font-size: 13px;
+              letter-spacing: .06em; color: var(--osso-fioco); }
+  .bilancio b { color: var(--osso); font-weight: normal; }
+  .cerca { width: 100%; padding: 9px 12px; margin-bottom: 8px; font-family: 'OldStd', serif;
+           font-size: 16px; color: var(--osso); background: #16171b;
+           border: 1px solid var(--bordo); border-radius: 2px; }
+  .cerca::placeholder { color: #6d6a63; font-style: italic; }
+  .in-corso { display: flex; gap: 8px; padding: 8px 12px; border: 1px dashed var(--bordo-alto);
+              border-radius: 2px; background: #14161c; color: var(--osso-fioco);
+              font-style: italic; font-size: 15px; margin-top: 10px; }
+
+  /* --- A · sovrapposizioni: la scena è l'app, gli strumenti sono icone --- */
+  .attrezzi { position: absolute; top: 8px; right: 8px; display: flex; gap: 6px; z-index: 3; }
+  .attrezzo { width: 40px; height: 40px; border: 1px solid var(--bordo-alto); border-radius: 2px;
+              background: rgba(12,12,15,.86); color: var(--osso); font-family: 'FellSC', serif;
+              font-size: 11px; letter-spacing: .04em; cursor: pointer; line-height: 1.1; }
+  .attrezzo .conta { display: block; color: var(--nastro); font-size: 12px; }
+  .velo-strumento { position: absolute; inset: 0; background: rgba(6,6,9,.9); z-index: 4;
+                    padding: 12px; overflow: auto; }
+  .velo-strumento .chiudi { position: absolute; top: 10px; right: 12px; }
+
+  /* --- B · il diario della notte --- */
+  .diario-notte { border-left: 2px solid var(--bordo); padding-left: 12px; margin: 4px 0 0; }
+  .riga-notte { margin-bottom: 12px; position: relative; }
+  .riga-notte::before { content: ''; position: absolute; left: -17px; top: 8px; width: 7px;
+                         height: 7px; border-radius: 50%; background: var(--bordo-alto); }
+  .riga-notte.ora::before { background: var(--nastro); }
+  .riga-notte .quando { font-family: 'FellSC', serif; font-size: 12px; letter-spacing: .08em;
+                         color: var(--osso-fioco); }
+  .riga-notte .cosa { font-family: 'OldStd', serif; font-size: 16px; color: var(--osso); }
+  .riga-notte .cosa i { color: var(--osso-fioco); }
+
+  /* --- C · due colonne (chi arbitra, in orizzontale) --- */
+  .due-colonne { display: grid; grid-template-columns: 1fr 250px; gap: 10px; }
+  .fianco { border-left: 1px solid var(--bordo); padding-left: 10px; }
+  .fianco h4 { font-family: 'FellSC', serif; font-size: 12px; letter-spacing: .08em;
+               color: var(--osso-fioco); text-transform: lowercase; margin: 0 0 6px; }
+  .fianco .voce { font-size: 15px; padding: 8px 10px; }
+  .fianco + .fianco { margin-top: 10px; }
+
+  /* --- D · la barra contestuale --- */
+  .barra-azioni { display: flex; gap: 8px; padding: 10px; border-top: 1px solid var(--bordo);
+                  background: var(--tavolo); align-items: center; }
+  .barra-azioni .btn { flex: 1; }
+  .barra-azioni .altro { flex: 0 0 auto; width: 44px; }
+
+  /* --- confronto finale --- */
+  table.confronto { width: 100%; border-collapse: collapse; font-size: 15px; }
+  table.confronto th, table.confronto td { text-align: left; padding: 8px 10px;
+    border-bottom: 1px solid var(--bordo); vertical-align: top; }
+  table.confronto th { font-family: 'FellSC', serif; font-size: 12px; letter-spacing: .07em;
+    color: var(--osso-fioco); text-transform: lowercase; }
+</style>
+</head><body>
+
+<div class="did pannello">
+  <h1>cinque impianti, non uno</h1>
+  <p class="mt">Le schede sono <i>una</i> risposta, e la più prudente. Qui ci sono le altre
+  quattro che il genere ha davvero provato, ciascuna con il gioco da cui viene, cosa compra e
+  cosa costa. Alla fine una tabella per sceglierle contro i quattro metri che contano:
+  <b>giocabilità, ansia, coinvolgimento, immersione</b>.</p>
+  <p class="nota mt">Tutti col foglio di stile vero, dati veri dell’Ep.1. Si possono anche
+  <b>mescolare</b>: l’impianto di chi arbitra e quello del telefono non devono essere lo stesso —
+  fanno due mestieri diversi.</p>
+</div>
+
+<!-- ══════════════════════════════════════════ A ═════════════════════════ -->
+<hr class="sep">
+<div class="cartello pannello">
+  <h2>A · la scena è l’app, gli strumenti sono sopra</h2>
+  <p class="fonte">Mansions of Madness 2ª · Journeys in Middle-earth · Chronicles of Crime</p>
+  <p class="mt">Nessuna navigazione: lo schermo <b>è</b> il posto in cui siete. Gli strumenti —
+  stradario, squadra, cose, taccuino — sono icone in un angolo, e quando si aprono <b>coprono</b>
+  la scena invece di spostarla. Chiudi, e sei di nuovo dov’eri: non ti sei mai mosso.</p>
+  <p class="nota mt">È il modello più immersivo del genere, ed è anche quello che nasconde di
+  più: se una cosa non è sulla scena, va cercata.</p>
+</div>
+<div class="banco">
+  <div class="col largo">
+    <h3>a1 · <b>chi arbitra</b>, dentro il campanile</h3>
+    <div class="schermo">
+      <div class="attrezzi">
+        <button class="attrezzo">mappa</button>
+        <button class="attrezzo">squadra</button>
+        <button class="attrezzo">cose<span class="conta">5</span></button>
+        <button class="attrezzo">note</button>
+      </div>
+      <div class="dentro" style="padding:0">
+        <div class="banner-luogo" style="background-image:url('/assets/artworks/bell%20tower.png');height:210px;margin:0"><div class="banner-velo"></div></div>
+        <div style="padding:10px">
+          <div class="riga-registro" style="margin-bottom:10px">
+            <span class="ora sc">18</span><span class="ora sc">19</span><span class="ora sc">20</span>
+            <span class="ora sc ora-ora">21</span><span class="ora sc">22</span><span class="ora sc">23</span>
+            <span class="sc resta">3 ore a mezzanotte</span>
+          </div>
+          <div class="pannello">
+            <h2>il campanile di san teodoro</h2>
+            <p class="mt">◆ Colate di cera nera sui gradini — troppo in alto perché vengano
+            dalle candele della chiesa.</p>
+            <p class="mt">◆ Il diario di Ruggero, con l’ultima pagina strappata.</p>
+          </div>
+          <div class="mt"></div>
+          <div class="btn-riga">
+            <button class="btn pieno">Osservazione — Elena ●●</button>
+            <button class="btn" disabled>Referto — nessuno in squadra</button>
+            <button class="btn">prendete “Corda di Violino”</button>
+            <button class="btn">lasciate il luogo</button>
+          </div>
+          <div class="in-corso">Elena sta guardando meglio, dal suo telefono…</div>
+        </div>
+      </div>
+    </div>
+    <p class="prima-dopo">Un solo posto, sempre: la stanza. Gli attrezzi in alto a destra non
+    rubano spazio e non cambiano pagina.</p>
+  </div>
+
+  <div class="col">
+    <h3>a2 · <b>lo stradario</b> aperto sopra la scena</h3>
+    <div class="schermo telefono">
+      <div class="dentro" style="padding:0">
+        <div class="banner-luogo" style="background-image:url('/assets/artworks/bell%20tower.png');height:170px;margin:0;opacity:.35"><div class="banner-velo"></div></div>
+      </div>
+      <div class="velo-strumento">
+        <button class="btn chiudi">×</button>
+        <h2 class="sc" style="margin-bottom:8px">lo stradario</h2>
+        <input class="cerca" placeholder="cerca una via…">
+        <div class="stradario">
+          <button class="voce"><b>Il Vecchio Mulino</b> <i>a monte, oltre la chiusa</i></button>
+          <button class="voce"><b>Il Cimitero delle Barche</b> <i>ansa morta</i></button>
+          <button class="voce"><b>I Moli di Levante</b> <i>riva orientale</i></button>
+          <button class="voce" style="opacity:.45"><b>Il Campanile</b> <i>piazza di San Teodoro</i><span class="visitato">già battuto</span></button>
+        </div>
+        <p class="nota mt">Guardare la mappa non è una mossa: si chiude e si è ancora dentro il
+        campanile.</p>
+      </div>
+    </div>
+    <p class="prima-dopo">Lo strumento <b>copre</b>, non sposta. È la differenza fra consultare e
+    andarsene.</p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════ B ═════════════════════════ -->
+<hr class="sep">
+<div class="cartello pannello">
+  <h2>B · il diario della notte</h2>
+  <p class="fonte">Detective: A Modern Crime Board Game · Sherlock Holmes Consulting Detective · il registro di Gloomhaven</p>
+  <p class="mt">La schermata è <b>quel che è successo</b>, in ordine, e si agisce <b>in fondo</b>
+  al racconto. Ogni ora spesa, ogni porta, ogni indizio colto lascia una riga. Non c’è una
+  «home»: c’è una notte che si allunga.</p>
+  <p class="mt"><b>Cosa compra, e non lo compra nessun altro impianto:</b> i telefoni smettono di
+  chiedere «cos’è successo mentre guardavo il taccuino?», perché è scritto. E a fine serata il
+  diario <i>è</i> il resoconto da rileggere per rispondere alle quattro Domande — che è
+  esattamente il lavoro che il tavolo fa a voce.</p>
+</div>
+<div class="banco">
+  <div class="col largo">
+    <h3>b1 · <b>chi arbitra</b> — si agisce in fondo alla notte</h3>
+    <div class="schermo">
+      <div class="dentro">
+        <div class="riga-registro">
+          <span class="ora sc">18</span><span class="ora sc">19</span><span class="ora sc">20</span>
+          <span class="ora sc ora-ora">21</span><span class="ora sc">22</span><span class="ora sc">23</span>
+          <span class="sc resta">3 ore a mezzanotte</span>
+        </div>
+        <div class="pannello">
+          <div class="diario-notte">
+            <div class="riga-notte"><span class="quando">18 · si comincia</span>
+              <div class="cosa">La lettera di M. arriva alla taverna. <i>Il gruppo si mette in strada.</i></div></div>
+            <div class="riga-notte"><span class="quando">19 · il campanile</span>
+              <div class="cosa">Dichiarato <b>il campanile di san teodoro</b> — la porta era aperta.
+              <i>Colate di cera nera sui gradini; il diario di Ruggero senza l’ultima pagina.</i></div></div>
+            <div class="riga-notte"><span class="quando">19 · Elena</span>
+              <div class="cosa"><b>Osservazione colta</b> — «la cera nera».
+              <i>Non è cera da candela: è cera da sigilli.</i></div></div>
+            <div class="riga-notte"><span class="quando">20 · l’archivio</span>
+              <div class="cosa">Dichiarato <b>l’archivio civico</b> — chiuso: hanno serrato alle 20.
+              <i>Nessun’ora spesa: lo sapevate arrivando.</i></div></div>
+            <div class="riga-notte ora"><span class="quando">21 · siete al mulino</span>
+              <div class="cosa"><i>La ruota è ferma da anni, ma il pavimento è battuto di
+              fresco.</i></div></div>
+          </div>
+        </div>
+        <div class="mt"></div>
+        <div class="btn-riga">
+          <button class="btn pieno">Testimonianza — Carla ●</button>
+          <button class="btn">aiuto profano</button>
+          <button class="btn">prendete “Registro delle Consegne”</button>
+          <button class="btn">lasciate il mulino</button>
+          <button class="btn">lo stradario ▸</button>
+        </div>
+        <div class="in-corso">Carla sta guardando meglio, dal suo telefono…</div>
+      </div>
+    </div>
+    <p class="prima-dopo">Il racconto <b>è</b> l’interfaccia: si scorre indietro per ricordare, si
+    agisce in fondo. Lo stradario resta a un tocco, ma non occupa lo schermo quando non serve.</p>
+  </div>
+
+  <div class="col">
+    <h3>b2 · <b>chi gioca</b> — la stessa notte, potata</h3>
+    <div class="schermo telefono">
+      <div class="dentro">
+        <div class="riga-registro">
+          <span class="ora sc">20</span><span class="ora sc ora-ora">21</span><span class="ora sc">22</span>
+          <span class="sc resta">3 ore</span>
+        </div>
+        <div class="pannello">
+          <div class="diario-notte">
+            <div class="riga-notte"><span class="quando">19 · il campanile</span>
+              <div class="cosa"><i>Cera nera sui gradini. Il diario di Ruggero senza l’ultima
+              pagina.</i></div></div>
+            <div class="riga-notte"><span class="quando">19 · Elena</span>
+              <div class="cosa"><b>ha colto</b> «la cera nera»</div></div>
+            <div class="riga-notte"><span class="quando">20 · l’archivio</span>
+              <div class="cosa">chiuso — <i>nessun’ora spesa</i></div></div>
+            <div class="riga-notte ora"><span class="quando">21 · il mulino</span>
+              <div class="cosa">siete dentro</div></div>
+          </div>
+        </div>
+        <div class="mt"></div>
+        <div class="btn-riga">
+          <button class="btn pieno">ombra in avanscoperta</button>
+        </div>
+      </div>
+      <div class="barra-azioni">
+        <button class="btn">in mano · 4</button>
+        <button class="btn">taccuino</button>
+        <button class="btn altro">⋯</button>
+      </div>
+    </div>
+    <p class="prima-dopo">Chi arriva tardi, o chi ha guardato altrove, <b>si rilegge la notte</b>.
+    Oggi quella domanda si fa a voce e interrompe la scena.</p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════ C ═════════════════════════ -->
+<hr class="sep">
+<div class="cartello pannello">
+  <h2>C · due colonne, e nessun modo</h2>
+  <p class="fonte">Foundry VTT · Roll20 · lo schermo del master, quello di cartone</p>
+  <p class="mt">Su uno schermo largo — il portatile o il tablet in orizzontale che sta in mezzo al
+  tavolo — le schede sono una rinuncia: lo spazio c’è. La scena a sinistra, e a destra una
+  <b>colonna sempre aperta</b> con le tre cose che si consultano di continuo: dove andare, chi
+  può fare cosa, cosa avete in mano. Zero navigazione, zero tocchi.</p>
+  <p class="nota mt">Vale <b>solo</b> per chi arbitra, e solo in orizzontale: sul telefono questa
+  colonna non ci sta, ed è giusto che le due parti divergano.</p>
+</div>
+<div class="banco">
+  <div class="col largo" style="width:820px">
+    <h3>c1 · <b>chi arbitra</b>, in orizzontale</h3>
+    <div class="schermo">
+      <div class="dentro">
+        <div class="riga-registro">
+          <span class="ora sc">18</span><span class="ora sc">19</span><span class="ora sc">20</span>
+          <span class="ora sc ora-ora">21</span><span class="ora sc">22</span><span class="ora sc">23</span>
+          <span class="sc resta">3 ore a mezzanotte</span>
+        </div>
+        <div class="due-colonne">
+          <div>
+            <div class="banner-luogo" style="background-image:url('/assets/artworks/bell%20tower.png');height:150px"><div class="banner-velo"></div></div>
+            <div class="pannello">
+              <h2>il campanile di san teodoro</h2>
+              <p class="mt">◆ Colate di cera nera sui gradini — troppo in alto perché vengano
+              dalle candele della chiesa.</p>
+              <p class="mt">◆ Il diario di Ruggero, con l’ultima pagina strappata.</p>
+              <div class="btn-riga mt">
+                <button class="btn pieno">Osservazione — Elena ●●</button>
+                <button class="btn">prendete “Corda di Violino”</button>
+                <button class="btn">lasciate il luogo</button>
+              </div>
+              <div class="in-corso">Elena sta guardando meglio, dal suo telefono…</div>
+            </div>
+          </div>
+          <div>
+            <div class="fianco">
+              <h4>dove andate</h4>
+              <input class="cerca" placeholder="cerca una via…">
+              <div class="stradario">
+                <button class="voce"><b>Il Vecchio Mulino</b></button>
+                <button class="voce"><b>Il Cimitero delle Barche</b></button>
+                <button class="voce"><b>I Moli di Levante</b></button>
+                <button class="voce" style="opacity:.45"><b>Il Campanile</b><span class="visitato">battuto</span></button>
+              </div>
+            </div>
+            <div class="fianco">
+              <h4>la squadra</h4>
+              <p class="nota"><b>Elena</b> ●● Osservazione · telefono<br>
+              <b>Mora</b> ● Ombra · telefono<br>
+              <b>Nino</b> ○ grimaldello speso</p>
+            </div>
+            <div class="fianco">
+              <h4>in mano · 5</h4>
+              <p class="nota">corda di violino · diapason · acqua benedetta · Reperto A · «la cera nera»</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="prima-dopo">Niente linguette, niente ricordarsi dov’è una cosa: <b>è tutto lì</b>. È
+    il modello del master da quarant’anni, ed è il più veloce da usare — ma il più affollato da
+    guardare, e su uno schermo stretto non esiste.</p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════ D ═════════════════════════ -->
+<hr class="sep">
+<div class="cartello pannello">
+  <h2>D · la barra che cambia con la scena</h2>
+  <p class="fonte">Gloomhaven Helper · Divinity Original Sin (hotbar) · le app dei giochi cooperativi</p>
+  <p class="mt">Nessuna destinazione fissa: in fondo allo schermo c’è <b>quel che potete fare
+  adesso</b>, e cambia con la serata. Per le strade sono due bottoni, dentro un luogo tre, mentre
+  il tavolo legge nessuno. Tutto il resto sta dietro un <b>⋯</b>.</p>
+  <p class="nota mt">È l’impianto più leggero da imparare — non c’è mappa mentale da costruire —
+  e il più fragile: se un bottone non è nella barra, per chi gioca non esiste.</p>
+</div>
+<div class="banco">
+  <div class="col">
+    <h3>d1 · per le strade</h3>
+    <div class="schermo telefono">
+      <div class="dentro">
+        <div class="riga-registro">
+          <span class="ora sc">20</span><span class="ora sc ora-ora">21</span><span class="ora sc">22</span>
+          <span class="sc resta">3 ore</span>
+        </div>
+        <div class="pannello">
+          <h2>siete per le strade</h2>
+          <p class="nota">Si decide insieme dove andare; a dichiararlo è chi arbitra.</p>
+        </div>
+        <div class="mt"></div>
+        <div class="pannello">
+          <p class="nota">l’ultima cosa colta</p>
+          <p class="mt"><b>la cera nera</b> — <i>non è cera da candela: è cera da sigilli, e di
+          quelle nere ne fanno in un posto solo in città.</i></p>
+        </div>
+      </div>
+      <div class="barra-azioni">
+        <button class="btn pieno">ombra</button>
+        <button class="btn">taccuino</button>
+        <button class="btn altro">⋯</button>
+      </div>
+    </div>
+    <p class="prima-dopo">Fuori c’è poco da fare, e la barra lo dice: due bottoni.</p>
+  </div>
+
+  <div class="col">
+    <h3>d2 · dentro un luogo</h3>
+    <div class="schermo telefono">
+      <div class="dentro">
+        <div class="riga-registro">
+          <span class="ora sc">20</span><span class="ora sc ora-ora">21</span><span class="ora sc">22</span>
+          <span class="sc resta">3 ore</span>
+        </div>
+        <div class="banner-luogo" style="background-image:url('/assets/artworks/bell%20tower.png')"><div class="banner-velo"></div></div>
+        <div class="pannello">
+          <h2>siete al campanile</h2>
+          <p class="nota">Quel che cogliete lo legge tutto il tavolo.</p>
+          <div class="in-corso">Elena sta guardando meglio…</div>
+        </div>
+      </div>
+      <div class="barra-azioni">
+        <button class="btn pieno">osservazione</button>
+        <button class="btn">profano</button>
+        <button class="btn altro">⋯</button>
+      </div>
+    </div>
+    <p class="prima-dopo">Dentro, la barra si riempie di quel che <b>quel luogo</b> permette. Il
+    resto — cose, squadra, lettera — sta sotto il <b>⋯</b>.</p>
+  </div>
+
+  <div class="col">
+    <h3>d3 · il ⋯ aperto</h3>
+    <div class="schermo telefono">
+      <div class="dentro">
+        <div class="riga-registro">
+          <span class="ora sc">20</span><span class="ora sc ora-ora">21</span><span class="ora sc">22</span>
+          <span class="sc resta">3 ore</span>
+        </div>
+        <div class="pannello">
+          <div class="in-mano">
+            <button class="voce"><span class="riga-pezzo"><span class="tit"><b>quel che avete in mano</b><br>
+              <i class="nota">3 oggetti · 1 reperto</i></span><span class="freccia">›</span></span></button>
+            <button class="voce"><span class="riga-pezzo"><span class="tit"><b>taccuino e domande</b><br>
+              <i class="nota">1 risposta scritta su 4</i></span><span class="freccia">›</span></span></button>
+            <button class="voce"><span class="riga-pezzo"><span class="tit"><b>la squadra</b><br>
+              <i class="nota">chi sa fare cosa</i></span><span class="freccia">›</span></span></button>
+            <button class="voce"><span class="riga-pezzo"><span class="tit"><b>dove siete stati</b><br>
+              <i class="nota">2 luoghi</i></span><span class="freccia">›</span></span></button>
+            <button class="voce"><span class="riga-pezzo"><span class="tit"><b>la lettera d’incarico</b></span>
+              <span class="freccia">›</span></span></button>
+          </div>
+        </div>
+      </div>
+      <div class="barra-azioni">
+        <button class="btn pieno">chiudete</button>
+      </div>
+    </div>
+    <p class="prima-dopo">Un cassetto solo, e dentro tutto il resto. Zero da imparare, ma quel
+    che ci finisce dentro <b>si usa meno</b>: è la legge di ogni menu «altro».</p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════ E ═════════════════════════ -->
+<hr class="sep">
+<div class="cartello pannello">
+  <h2>E · il fascicolo — la carta, e basta</h2>
+  <p class="fonte">Sherlock Holmes Consulting Detective · 7th Continent · Legacy of Dragonholt · Escape the Dark Castle</p>
+  <p class="mt">L’app non è un’app: è <b>il fascicolo dell’episodio</b>. Una pagina per volta,
+  come il libro a paragrafi numerati, e si avanza dichiarando. Niente linguette, niente barre:
+  una pagina, quel che c’è scritto, e le vie che si aprono da lì.</p>
+  <p class="nota mt">È il più immersivo di tutti e il più lento: quel che non è su questa pagina
+  costa un viaggio. Lo metto perché è la direzione opposta a tutte le altre, e serve a capire
+  <b>quanta</b> interfaccia vogliamo davvero.</p>
+</div>
+<div class="banco">
+  <div class="col largo">
+    <h3>e1 · <b>una pagina per volta</b></h3>
+    <div class="schermo">
+      <div class="dentro">
+        <div class="riga-registro">
+          <span class="ora sc">18</span><span class="ora sc">19</span><span class="ora sc">20</span>
+          <span class="ora sc ora-ora">21</span><span class="ora sc">22</span><span class="ora sc">23</span>
+          <span class="sc resta">3 ore a mezzanotte</span>
+        </div>
+        <div class="pannello lettera-panel">
+          <p class="nota centrato">— il campanile di san teodoro, ore 21 —</p>
+          <div class="lettera-testo">
+            <p>La scala a chiocciola sale nel buio, ottanta gradini consumati al centro dai passi
+            di generazioni di campanari. In cima, la cella campanaria è un disordine congelato:
+            lo sgabello rovesciato, la lanterna ancora appesa al gancio, la cena intatta sotto
+            un panno.</p>
+            <p>Colate di <b>cera nera</b> sui gradini — troppo in alto perché vengano dalle
+            candele della chiesa. Il <b>diario di Ruggero</b>, con l’ultima pagina strappata.</p>
+          </div>
+        </div>
+        <div class="mt"></div>
+        <div class="btn-riga">
+          <button class="btn pieno">guardare meglio — Elena</button>
+          <button class="btn">prendere la corda di violino</button>
+          <button class="btn">scendere in strada</button>
+        </div>
+      </div>
+    </div>
+    <p class="prima-dopo">Tutto è prosa, anche i bottoni. La squadra, le cose e il taccuino sono
+    <b>altre pagine</b> del fascicolo, non pannelli — ci si va, e si torna.</p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════ confronto ═════════════════ -->
+<hr class="sep">
+<div class="did pannello">
+  <h2>i cinque, contro i quattro metri</h2>
+  <table class="confronto">
+    <tr><th>impianto</th><th>compra</th><th>costa</th><th>dove va bene</th></tr>
+    <tr>
+      <td><b>schede</b><br><span class="nota">Roll20 · D&amp;D Beyond</span></td>
+      <td>giocabilità. Ogni cosa ha un posto fisso e ci si arriva sempre in un tocco.</td>
+      <td>immersione: le linguette sono un’app, non una notte. E cinque destinazioni sono già
+      tante.</td>
+      <td>tutt’e due gli schermi. È la scelta prudente.</td>
+    </tr>
+    <tr>
+      <td><b>A · sovrapposizioni</b><br><span class="nota">Mansions of Madness</span></td>
+      <td>immersione e ansia: sullo schermo c’è solo il posto in cui siete.</td>
+      <td>quel che è nascosto si usa meno; serve disciplina per decidere cosa merita un’icona.</td>
+      <td>chi arbitra, che ha una scena da tenere in mezzo al tavolo.</td>
+    </tr>
+    <tr>
+      <td><b>B · il diario</b><br><span class="nota">Detective · Sherlock Holmes</span></td>
+      <td>coinvolgimento, e da solo: chi guardava altrove <b>si rilegge la notte</b> invece di
+      chiedere. A fine serata è il materiale con cui si risponde alle Domande.</td>
+      <td>è il più lavoro: ogni evento deve saper raccontarsi in una riga.</td>
+      <td>tutt’e due, e si può <b>aggiungere</b> a qualunque altro impianto come una scheda in
+      più.</td>
+    </tr>
+    <tr>
+      <td><b>C · due colonne</b><br><span class="nota">Foundry · lo schermo del master</span></td>
+      <td>giocabilità pura per chi conduce: zero navigazione, tutto sotto gli occhi.</td>
+      <td>affollamento; e sotto i 900 px non esiste.</td>
+      <td>solo chi arbitra, e solo in orizzontale.</td>
+    </tr>
+    <tr>
+      <td><b>D · barra contestuale</b><br><span class="nota">Gloomhaven Helper</span></td>
+      <td>niente da imparare: c’è quel che si può fare, adesso.</td>
+      <td>fragile — il <b>⋯</b> è dove le cose vanno a morire.</td>
+      <td>il telefono, dove le azioni vere sono due o tre per volta.</td>
+    </tr>
+    <tr>
+      <td><b>E · il fascicolo</b><br><span class="nota">Sherlock Holmes CD · 7th Continent</span></td>
+      <td>immersione assoluta: è il libro, non un’app.</td>
+      <td>lentezza, e la peggiore: consultare costa un viaggio.</td>
+      <td>nessuno intero — ma la sua <i>voce</i> vale per le schermate che si leggono insieme.</td>
+    </tr>
+  </table>
+  <p class="mt"><b>Se dovessi scegliere io</b>, e non è una scelta sola: <b>C</b> per chi arbitra
+  quando lo schermo è largo, che degrada a <b>schede</b> quando è stretto — la colonna di fianco
+  diventa tre linguette, e la scena resta dov’è. Per il telefono, <b>D</b>: le azioni vere in
+  fondo, il resto in un cassetto. E <b>B</b> — il diario — come <i>strato</i> sopra tutti e due,
+  perché è l’unico che risolve una cosa che nessun altro tocca: <i>cos’è successo mentre non
+  guardavo</i>.</p>
+</div>
+
+</body></html>
