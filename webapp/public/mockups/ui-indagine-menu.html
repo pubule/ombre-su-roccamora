@@ -1,0 +1,363 @@
+<!doctype html><html lang="it"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>L'Indagine: il menu di gioco · mockup</title>
+<link rel="stylesheet" href="/app.css">
+<style>
+  body { padding: 18px; }
+  .did { max-width: 940px; margin: 0 auto 22px; }
+  .did h1 { font-size: 28px; }
+  .banco { display: flex; gap: 22px; flex-wrap: wrap; align-items: flex-start;
+           justify-content: center; margin-bottom: 24px; }
+  .col { width: 400px; max-width: 100%; }
+  .col.medio { width: 560px; }
+  .col.largo { width: 820px; }
+  .col > h3 { font-family: 'FellSC', serif; text-transform: lowercase; letter-spacing: .08em;
+              color: var(--osso-fioco); font-size: 15px; margin: 0 0 8px; text-align: center; }
+  .col > h3 b { color: var(--osso); font-weight: normal; }
+  .schermo { border: 1px solid var(--bordo-alto); border-radius: 2px; overflow: hidden;
+             background: var(--tavolo); display: flex; flex-direction: column; position: relative; }
+  .schermo.telefono { min-height: 620px; }
+  .schermo .dentro { padding: 10px; flex: 1; }
+  .prima-dopo { color: var(--osso-fioco); font-style: italic; font-size: 15px; margin: 10px 0 0; }
+  .sep { max-width: 940px; margin: 32px auto 18px; border-top: 1px solid var(--bordo); }
+
+  /* ═══ IL MENU. Una voce per riga, il conto a destra: si legge da lontano e si
+     tocca senza mirare. Le voci sono raggruppate per MESTIERE, non per tipo —
+     quel che è del gruppo, quel che è di chi conduce. */
+  .menu-titolo { font-family: 'FellSC', serif; font-size: 12px; letter-spacing: .09em;
+                 color: var(--osso-fioco); text-transform: lowercase; margin: 14px 0 6px; }
+  .menu-voce { display: flex; align-items: center; gap: 12px; width: 100%; text-align: left;
+               padding: 13px 14px; margin-bottom: 6px; cursor: pointer; color: var(--osso);
+               background: var(--ardesia-alta); border: 1px solid var(--bordo);
+               border-left: 2px solid #2a2c33; border-radius: 2px;
+               font-family: 'OldStd', serif; font-size: 17px; }
+  .menu-voce:hover { border-left-color: var(--nastro); }
+  .menu-voce .tit { flex: 1; }
+  .menu-voce .tit i { display: block; font-size: 14px; color: var(--osso-fioco); }
+  .menu-voce .conto { font-family: 'FellSC', serif; font-size: 13px; letter-spacing: .06em;
+                      color: var(--osso-fioco); white-space: nowrap; }
+  .menu-voce .conto b { color: var(--osso); font-weight: normal; }
+  .menu-voce.segnata { border-left-color: var(--nastro); }
+  .menu-voce.segnata .conto b { color: var(--nastro); }
+
+  /* la maniglia del menu, in linea con l'orologio */
+  .riga-capo { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .riga-capo .riga-registro { flex: 1; margin: 0; }
+  .btn-menu { flex: 0 0 auto; padding: 8px 14px; }
+  .btn-menu .segno { display: inline-block; width: 7px; height: 7px; border-radius: 50%;
+                     background: var(--nastro); margin-left: 6px; vertical-align: 1px; }
+
+  .ultimo-fatto { display: flex; align-items: baseline; gap: 8px; padding: 6px 12px;
+                  border: 1px solid var(--bordo); border-left: 2px solid var(--nastro);
+                  border-radius: 2px; background: var(--ardesia); margin-bottom: 10px; }
+  .ultimo-fatto .quando { font-family: 'FellSC', serif; font-size: 11px; letter-spacing: .07em;
+                          color: var(--osso-fioco); white-space: nowrap; }
+  .ultimo-fatto .cosa { font-family: 'OldStd', serif; font-size: 15px; color: var(--osso); flex: 1; }
+  .ultimo-fatto .cosa i { color: var(--osso-fioco); }
+
+  .barra-azioni { display: flex; gap: 8px; padding: 10px; border-top: 1px solid var(--bordo);
+                  background: var(--tavolo); align-items: center; }
+  .barra-azioni .btn { flex: 1; }
+  .barra-azioni .btn.stretto { flex: 0 0 auto; }
+  .in-corso { display: flex; gap: 8px; padding: 8px 12px; border: 1px dashed var(--bordo-alto);
+              border-radius: 2px; background: #14161c; color: var(--osso-fioco);
+              font-style: italic; font-size: 15px; margin-top: 8px; }
+  .notte { border-left: 2px solid var(--bordo); padding-left: 12px; }
+  .voce-notte { margin-bottom: 11px; position: relative; }
+  .voce-notte::before { content: ''; position: absolute; left: -17px; top: 6px; width: 7px;
+                        height: 7px; border-radius: 50%; background: var(--bordo-alto); }
+  .voce-notte.ultima::before { background: var(--nastro); box-shadow: 0 0 0 3px rgba(158,27,47,.2); }
+  .voce-notte .quando { font-family: 'FellSC', serif; font-size: 11px; letter-spacing: .07em;
+                        color: var(--osso-fioco); display: block; }
+  .voce-notte .cosa { font-family: 'OldStd', serif; font-size: 15px; color: var(--osso); line-height: 1.4; }
+  .voce-notte .cosa i { color: var(--osso-fioco); }
+  table.confronto { width: 100%; border-collapse: collapse; font-size: 15px; }
+  table.confronto th, table.confronto td { text-align: left; padding: 8px 10px;
+    border-bottom: 1px solid var(--bordo); vertical-align: top; }
+  table.confronto th { font-family: 'FellSC', serif; font-size: 12px; letter-spacing: .07em;
+    color: var(--osso-fioco); text-transform: lowercase; }
+</style>
+</head><body>
+
+<div class="did pannello">
+  <h1>il menu di gioco</h1>
+  <p class="mt"><b>Perché non l’avevo proposto</b>, e avevo torto: davo per scontato che al
+  tavolo <i>nascondere</i> significhi <i>non usare</i> — che è vero per una funzione che nessuno
+  cerca, ma non per una che tutti sanno di avere. E il precedente qui è enorme, ed è il più
+  imparato di tutti.</p>
+  <p class="mt"><b>Il precedente:</b> ogni GDR da quarant’anni ha <b>un tasto solo</b> che apre
+  tutto — Final Fantasy, Baldur’s Gate, Persona, Skyrim: inventario, squadra, diario, mappa
+  stanno lì dentro, e nessuno si è mai lamentato di non trovarli. Fuori dallo schermo di gioco
+  resta <b>solo la scena</b>. È l’opposto esatto della colonna sempre aperta: quella mostra tutto
+  e affolla, questo mostra niente e fa fare un tocco.</p>
+  <p class="nota mt">Sotto: lo stesso menu per tutt’e due gli schermi — <b>una pagina sola da
+  imparare</b>, che è il vantaggio che nessun altro impianto ha — e in fondo il confronto con la
+  colonna e con le linguette.</p>
+</div>
+
+<!-- ═════════════════════════════════ ARBITRO ═══════════════════════════ -->
+<div class="did"><h2 class="sc">chi arbitra · la scena piena, e un tasto</h2></div>
+<div class="banco">
+  <div class="col largo">
+    <h3>1 · <b>dentro un luogo</b> — lo schermo è la stanza, tutto</h3>
+    <div class="schermo">
+      <div class="dentro">
+        <div class="riga-capo">
+          <div class="riga-registro">
+            <span class="ora sc">18</span><span class="ora sc">19</span><span class="ora sc">20</span>
+            <span class="ora sc ora-ora">21</span><span class="ora sc">22</span><span class="ora sc">23</span>
+            <span class="sc resta">3 ore a mezzanotte</span>
+          </div>
+          <button class="btn btn-menu">menu <span class="segno"></span></button>
+        </div>
+        <div class="ultimo-fatto">
+          <span class="quando">poco fa · 19</span>
+          <span class="cosa"><b>Elena</b> ha colto «la cera nera».
+            <i>Non è cera da candela: è cera da sigilli.</i></span>
+        </div>
+        <div class="banner-luogo" style="background-image:url('/assets/artworks/bell%20tower.png');height:190px"><div class="banner-velo"></div></div>
+        <div class="pannello">
+          <h2>il campanile di san teodoro</h2>
+          <p class="nota">indizi — leggeteli ad alta voce</p>
+          <p class="mt">◆ Colate di cera nera sui gradini — troppo in alto perché vengano dalle
+          candele della chiesa.</p>
+          <p class="mt">◆ Il diario di Ruggero, con l’ultima pagina strappata.</p>
+          <p class="mt">◆ Sul legno della balaustra, unghiate profonde intorno a una scritta.</p>
+          <hr class="divisore">
+          <p class="nota">qui c’è un’Osservazione e un Referto</p>
+          <div class="btn-riga mt">
+            <button class="btn pieno">Osservazione — Elena ●●</button>
+            <button class="btn" disabled>Referto — nessuno in squadra</button>
+            <button class="btn">prendete “Corda di Violino”</button>
+            <button class="btn">lasciate il luogo</button>
+          </div>
+          <div class="in-corso">Elena sta guardando meglio, dal suo telefono…</div>
+        </div>
+      </div>
+    </div>
+    <p class="prima-dopo">Nessuna colonna, nessuna linguetta: <b>tutta la larghezza è la
+    scena</b>, e gli indizi da leggere ad alta voce sono grandi come devono. Il pallino sul tasto
+    <b>menu</b> dice che nella notte è arrivata una riga nuova.</p>
+  </div>
+</div>
+
+<div class="banco">
+  <div class="col medio">
+    <h3>2 · <b>il menu</b>, aperto</h3>
+    <div class="schermo">
+      <div class="dentro">
+        <div class="riga-capo">
+          <div class="riga-registro">
+            <span class="ora sc">18</span><span class="ora sc">19</span><span class="ora sc">20</span>
+            <span class="ora sc ora-ora">21</span><span class="ora sc">22</span><span class="ora sc">23</span>
+            <span class="sc resta">3 ore</span>
+          </div>
+          <button class="btn btn-menu pieno">chiudi</button>
+        </div>
+
+        <div class="menu-titolo">la città</div>
+        <button class="menu-voce"><span class="tit">lo stradario<i>dichiarate dove andate</i></span>
+          <span class="conto"><b>17</b> vie · 2 battute</span></button>
+
+        <div class="menu-titolo">il gruppo</div>
+        <button class="menu-voce"><span class="tit">la squadra<i>cariche, doni, chi è al telefono</i></span>
+          <span class="conto"><b>3</b> eroi · 2 al telefono</span></button>
+        <button class="menu-voce"><span class="tit">quel che avete in mano</span>
+          <span class="conto"><b>5</b> pezzi</span></button>
+        <button class="menu-voce segnata"><span class="tit">la notte<i>quel che è successo, dall’inizio</i></span>
+          <span class="conto"><b>2 nuove</b></span></button>
+
+        <div class="menu-titolo">di chi conduce</div>
+        <button class="menu-voce"><span class="tit">taccuino e domande</span>
+          <span class="conto"><b>1</b> di 4 scritte</span></button>
+        <button class="menu-voce"><span class="tit">la lettera d’incarico</span></button>
+        <button class="menu-voce"><span class="tit">la busta<i>si apre una volta sola, e per tutti</i></span>
+          <span class="conto">sigillata</span></button>
+      </div>
+    </div>
+    <p class="prima-dopo">Sette voci, raggruppate <b>per mestiere</b> e non per tipo: la città, il
+    gruppo, quel che tiene chi conduce. Ogni riga porta il suo conto — quante vie restano, quanti
+    pezzi, quante risposte — così <b>il menu si legge senza aprirlo</b>, ed è quello che gli
+    toglie il difetto di nascondere.</p>
+  </div>
+
+  <div class="col medio">
+    <h3>3 · <b>una voce aperta</b>: la notte</h3>
+    <div class="schermo">
+      <div class="dentro">
+        <div class="riga-capo">
+          <div class="riga-registro">
+            <span class="ora sc">18</span><span class="ora sc">19</span><span class="ora sc">20</span>
+            <span class="ora sc ora-ora">21</span><span class="ora sc">22</span><span class="ora sc">23</span>
+            <span class="sc resta">3 ore</span>
+          </div>
+          <button class="btn btn-menu">‹ menu</button>
+        </div>
+        <div class="notte">
+          <div class="voce-notte ultima"><span class="quando">19 · Elena</span>
+            <div class="cosa"><b>Osservazione colta</b> — «la cera nera». <i>Non è cera da
+            candela: è cera da sigilli.</i></div></div>
+          <div class="voce-notte"><span class="quando">19 · il campanile</span>
+            <div class="cosa">Entrati — la porta era aperta. <i>Cera nera sui gradini; il diario
+            di Ruggero senza l’ultima pagina.</i></div></div>
+          <div class="voce-notte"><span class="quando">20 · l’archivio civico</span>
+            <div class="cosa">Chiuso: hanno serrato alle 20. <i>Nessun’ora spesa.</i></div></div>
+          <div class="voce-notte"><span class="quando">20 · Mora</span>
+            <div class="cosa"><b>Ombra</b> al Vecchio Mulino — <i>due cose da cogliere.</i></div></div>
+          <div class="voce-notte"><span class="quando">18 · si comincia</span>
+            <div class="cosa">La lettera di M. arriva alla taverna.</div></div>
+        </div>
+        <div class="btn-riga mt">
+          <button class="btn pieno">tornate alla stanza</button>
+        </div>
+      </div>
+    </div>
+    <p class="prima-dopo">Ogni voce del menu si apre <b>a tutta pagina</b>: nessuna colonna
+    stretta in cui i titoli vanno a capo tre volte — che è il difetto che la colonna di fianco ha
+    davvero, e si vede nell’altro mockup.</p>
+  </div>
+</div>
+
+<hr class="sep">
+
+<!-- ═════════════════════════════════ TELEFONO ══════════════════════════ -->
+<div class="did"><h2 class="sc">il telefono · lo stesso menu, la stessa testa</h2>
+  <p class="nota">Qui il menu vale doppio: è <b>una pagina sola da imparare</b> per tutt’e due
+  gli schermi, e sul telefono lascia tutto il posto alla scena e alla barra delle azioni.</p></div>
+<div class="banco">
+
+  <div class="col">
+    <h3>4 · <b>dentro un luogo</b></h3>
+    <div class="schermo telefono">
+      <div class="dentro">
+        <div class="riga-capo">
+          <div class="riga-registro">
+            <span class="ora sc">20</span><span class="ora sc ora-ora">21</span><span class="ora sc">22</span>
+            <span class="sc resta">3 ore</span>
+          </div>
+          <button class="btn btn-menu">menu <span class="segno"></span></button>
+        </div>
+        <div class="ultimo-fatto">
+          <span class="cosa"><b>Elena</b> ha colto «la cera nera»</span>
+        </div>
+        <div class="banner-luogo" style="background-image:url('/assets/artworks/bell%20tower.png')"><div class="banner-velo"></div></div>
+        <div class="pannello">
+          <h2>siete al campanile</h2>
+          <p class="nota">Quel che cogliete lo legge tutto il tavolo.</p>
+          <div class="in-corso">Elena sta guardando meglio…</div>
+        </div>
+      </div>
+      <div class="barra-azioni">
+        <button class="btn pieno">osservazione</button>
+        <button class="btn">aiuto profano</button>
+      </div>
+    </div>
+    <p class="prima-dopo">La barra in fondo tiene <b>solo le azioni</b> — quel che si fa. Il
+    menu tiene <b>solo le cose da guardare</b>. Nessuna voce sta in tutt’e due i posti, ed è la
+    regola che rende inutile chiedersi dov’è una cosa.</p>
+  </div>
+
+  <div class="col">
+    <h3>5 · <b>il menu</b>, sul telefono</h3>
+    <div class="schermo telefono">
+      <div class="dentro">
+        <div class="riga-capo">
+          <div class="riga-registro">
+            <span class="ora sc">20</span><span class="ora sc ora-ora">21</span><span class="ora sc">22</span>
+            <span class="sc resta">3 ore</span>
+          </div>
+          <button class="btn btn-menu pieno">chiudi</button>
+        </div>
+        <div class="menu-titolo">il gruppo</div>
+        <button class="menu-voce segnata"><span class="tit">la notte<i>quel che è successo</i></span>
+          <span class="conto"><b>2 nuove</b></span></button>
+        <button class="menu-voce"><span class="tit">quel che avete in mano</span>
+          <span class="conto"><b>4</b> pezzi</span></button>
+        <button class="menu-voce"><span class="tit">la squadra<i>chi sa fare cosa</i></span>
+          <span class="conto"><b>3</b> eroi</span></button>
+        <button class="menu-voce"><span class="tit">dove siete stati</span>
+          <span class="conto"><b>2</b> luoghi</span></button>
+
+        <div class="menu-titolo">il vostro</div>
+        <button class="menu-voce"><span class="tit">taccuino e domande<i>le vostre note, e quelle degli altri</i></span>
+          <span class="conto"><b>1</b> di 4</span></button>
+        <button class="menu-voce"><span class="tit">mora “spilla” fanti<i>la vostra scheda</i></span>
+          <span class="conto">Ombra <b>1</b></span></button>
+        <button class="menu-voce"><span class="tit">la lettera d’incarico</span></button>
+      </div>
+    </div>
+    <p class="prima-dopo">Stesse righe, stesso ordine, stessi conti — meno quelle che al telefono
+    non esistono (lo stradario, la busta). <b>Chi impara uno schermo ha imparato l’altro</b>: è
+    il vantaggio che né la colonna né le linguette possono dare, perché lì i due schermi
+    divergono per forza.</p>
+  </div>
+
+  <div class="col">
+    <h3>6 · <b>per le strade</b></h3>
+    <div class="schermo telefono">
+      <div class="dentro">
+        <div class="riga-capo">
+          <div class="riga-registro">
+            <span class="ora sc">20</span><span class="ora sc ora-ora">21</span><span class="ora sc">22</span>
+            <span class="sc resta">3 ore</span>
+          </div>
+          <button class="btn btn-menu">menu</button>
+        </div>
+        <div class="ultimo-fatto">
+          <span class="cosa"><b>l’archivio</b> — chiuso, nessun’ora spesa</span>
+        </div>
+        <div class="pannello">
+          <h2>siete per le strade</h2>
+          <p class="nota">Si decide insieme dove andare; a dichiararlo è chi arbitra. Appena
+          entrate, qui compare quel che potete fare voi.</p>
+        </div>
+      </div>
+      <div class="barra-azioni">
+        <button class="btn pieno">ombra in avanscoperta</button>
+      </div>
+    </div>
+    <p class="prima-dopo">Fuori: una riga che dice cos’è appena successo, una che dice cosa sta
+    succedendo, un’azione. Tre cose sullo schermo, e il resto a un tocco.</p>
+  </div>
+</div>
+
+<div class="did pannello" style="margin-top:20px">
+  <h2>menu, colonna o linguette</h2>
+  <table class="confronto">
+    <tr><th></th><th>menu di gioco</th><th>colonna di fianco (C)</th><th>linguette</th></tr>
+    <tr><td><b>la scena</b></td>
+      <td>tutta la pagina, sempre</td>
+      <td>due terzi</td>
+      <td>tutta, ma sotto una barra</td></tr>
+    <tr><td><b>tocchi per consultare</b></td>
+      <td>due (menu, voce)</td>
+      <td><b>zero</b> — è già lì</td>
+      <td>uno</td></tr>
+    <tr><td><b>quante voci regge</b></td>
+      <td><b>quante ne servono</b>, e crescono</td>
+      <td>tre o quattro, poi affolla</td>
+      <td>cinque, poi si spezzano</td></tr>
+    <tr><td><b>i due schermi</b></td>
+      <td><b>stessa pagina</b>, meno le voci che non esistono</td>
+      <td>divergono per forza</td>
+      <td>divergono per forza</td></tr>
+    <tr><td><b>si vede senza aprire</b></td>
+      <td>solo i conti sulle righe</td>
+      <td><b>tutto</b></td>
+      <td>i conti sulle linguette</td></tr>
+    <tr><td><b>schermo stretto</b></td>
+      <td><b>identico</b></td>
+      <td>non esiste</td>
+      <td>si accorcia</td></tr>
+  </table>
+  <p class="mt"><b>Il conto vero</b> è fra due cose sole: la colonna fa <b>vedere</b> senza
+  toccare, il menu fa <b>toccare</b> per vedere. Al tavolo, quel che chi arbitra guarda di
+  continuo è <b>lo stradario</b> (ogni destinazione) e nient’altro: la squadra la guarda quando
+  qualcuno deve tirare, le cose quando si raccoglie, il taccuino a fine ora.</p>
+  <p class="mt"><b>Quindi il terzo impianto, che è il più onesto:</b> <i>lo stradario resta di
+  fianco</i> — è l’unico che merita di stare sempre aperto — e <b>tutto il resto va nel
+  menu</b>. Niente linguette, niente cinque destinazioni: una colonna con una cosa sola, e un
+  tasto per il resto. Se ti convince, lo disegno.</p>
+</div>
+
+</body></html>
