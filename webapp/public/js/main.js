@@ -172,8 +172,8 @@ function vistaTaccuino(info) {
 
 // -------------------------------------------------------------- EPISODIO
 async function vistaEpisodio(epId) {
-  // CHI GIOCA NON PASSA DI QUI. Come si gioca stasera, con che plancia, da dove
-  // si comincia e se ricominciare da capo sono decisioni di chi conduce: dal
+  // CHI GIOCA NON PASSA DI QUI. Da dove si comincia e se ricominciare da capo
+  // sono decisioni di chi conduce: dal
   // telefono si torna dentro la serata, che e' l'unico posto dove chi gioca ha
   // qualcosa da fare. Ci si arrivava premendo «menu» e rientrando.
   if (await sonoGiocatore()) return entraNelTavolo(tavoloCorrente());
@@ -202,7 +202,7 @@ async function vistaEpisodio(epId) {
       <div class="pannello">
         <h2>${(salvata.spedizione || {}).esito ? 'serata conclusa' : 'partita in corso'}</h2>
         <p>Party: ${salvata.party.map((n) => esc(n.split(' ')[0])).join(', ')} ·
-           fase: ${salvata.fase} · modalità: ${salvata.modo}</p>
+           da: ${salvata.fase}</p>
         <div class="btn-riga">
           <button class="btn pieno" id="continua">${
             (salvata.spedizione || {}).esito ? 'rivedi l’epilogo' : 'continua'}</button>
@@ -211,36 +211,7 @@ async function vistaEpisodio(epId) {
         </div>
       </div><div class="mt"></div>` : ''}
     ${salvata ? '' : `<div class="pannello">
-      <h2>come giocate stasera?</h2>
-      <div class="modi mt">
-        <div class="modo" data-modo="tavolo">
-          <h3>al tavolo</h3>
-          <p>Siete intorno a un tavolo, coi <b>dadi veri</b>. L’app fa da <b>arbitro</b>:
-          custodisce i segreti, tira gli orologi, pesca le Minacce, verifica le chiavi —
-          e nessuno al tavolo sa niente in anticipo.</p>
-        </div>
-        <div class="modo" data-modo="digitale">
-          <h3>tutto a schermo</h3>
-          <p>Niente componenti fisici: il board, i token e i dadi vivono qui.
-          Muovete gli eroi a caselle, la notte reagisce da sola.</p>
-        </div>
-      </div>
-      <div id="scelta-plancia" style="display:none">
-        <h2 class="mt">e la plancia della spedizione?</h2>
-        <div class="modi mt">
-          <div class="plancia attivo" data-plancia="fisica">
-            <h3>tessere e miniature vere</h3>
-            <p>Le avete stampate: la mappa sta sul tavolo, l’app tiene i conti.</p>
-          </div>
-          <div class="plancia" data-plancia="schermo">
-            <h3>plancia a schermo</h3>
-            <p>Non le avete stampate: la mappa e le pedine vivono qui, un dispositivo
-            al centro del tavolo. I <b>dadi restano vostri</b> e il testo delle tessere
-            lo legge chi arbitra dal fascicolo.</p>
-          </div>
-        </div>
-      </div>
-      <h2 class="mt">da dove cominciate?</h2>
+      <h2>da dove cominciate?</h2>
       <div class="modi mt">
         <div class="fase attivo" data-fase="indagine">
           <h3>l’episodio intero</h3>
@@ -268,20 +239,7 @@ async function vistaEpisodio(epId) {
       si: 'cancellate la partita', no: 'lasciate stare',
     })) { cancella(epId); vistaEpisodio(epId); }
   });
-  let modo = null;
   let fase = 'indagine';
-  let plancia = 'fisica';
-  app.querySelectorAll('.modo').forEach((el) => el.addEventListener('click', () => {
-    app.querySelectorAll('.modo').forEach((m) => m.classList.remove('attivo'));
-    el.classList.add('attivo'); modo = el.dataset.modo;
-    // la scelta della plancia ha senso solo al tavolo: a schermo e' implicita
-    document.getElementById('scelta-plancia').style.display = modo === 'tavolo' ? '' : 'none';
-    avanti.classList.remove('disabilitato');
-  }));
-  app.querySelectorAll('.plancia').forEach((el) => el.addEventListener('click', () => {
-    app.querySelectorAll('.plancia').forEach((m) => m.classList.remove('attivo'));
-    el.classList.add('attivo'); plancia = el.dataset.plancia;
-  }));
   app.querySelectorAll('.fase').forEach((el) => el.addEventListener('click', () => {
     app.querySelectorAll('.fase').forEach((m) => m.classList.remove('attivo'));
     el.classList.add('attivo'); fase = el.dataset.fase;
@@ -291,7 +249,10 @@ async function vistaEpisodio(epId) {
   // due volte la stessa cosa — con la seconda risposta che non conta niente.
   // Ricomincia/rigioca cancella il salvataggio e la schermata torna a chiederle.
   const avanti = document.getElementById('avanti');
-  if (avanti) avanti.onclick = () => modo && vistaParty(epId, modo, fase, plancia);
+  if (avanti) {
+    avanti.classList.remove('disabilitato');   // non c'e' piu' niente da scegliere prima
+    avanti.onclick = () => vistaParty(epId, fase);
+  }
 }
 
 // ------------------------------------------- CONTINUARE UNA PARTITA IN CORSO
@@ -347,7 +308,7 @@ async function continua(epId) {
 }
 
 // ------------------------------------------------------------------ PARTY
-async function vistaParty(epId, modo, fase = 'indagine', plancia = 'fisica') {
+async function vistaParty(epId, fase = 'indagine') {
   const comune = await dati('comune');
   const scelti = new Set();
 
@@ -373,7 +334,7 @@ async function vistaParty(epId, modo, fase = 'indagine', plancia = 'fisica') {
   // di qui. Mostrare la stessa scelta a ogni episodio — gia' fatta, da
   // riconfermare — e' una domanda a cui si e' gia' risposto, e la seconda volta
   // sembra che la prima non sia servita.
-  if (dalTavolo) return comincia(dalTavolo, epId, modo, fase, plancia);
+  if (dalTavolo) return comincia(dalTavolo, epId, fase);
   h(`
     <div class="barra">
       <button class="btn" id="indietro">← indietro</button>
@@ -418,15 +379,14 @@ async function vistaParty(epId, modo, fase = 'indagine', plancia = 'fisica') {
       aggiornaBtn();
     });
   }));
-  document.getElementById('inizia').onclick = () => comincia([...scelti], epId, modo, fase, plancia);
+  document.getElementById('inizia').onclick = () => comincia([...scelti], epId, fase);
 }
 
 // Comincia la partita. Sta a parte perche' ci si arriva da DUE strade: la
 // schermata di arruolamento, e — quando il tavolo ha gia' la sua compagnia —
 // senza passarci affatto.
-async function comincia(party, epId, modo, fase, plancia) {
-  const partita = nuovaPartita(epId, modo, party, fase);
-  partita.plancia = plancia;     // 'fisica' | 'schermo' (solo al tavolo)
+async function comincia(party, epId, fase) {
+  const partita = nuovaPartita(epId, party, fase);
   // I BIVI DELLE SERATE PASSATE, applicati QUI e una volta sola: sono le regole
   // di partenza di questo episodio per QUESTO tavolo, e devono stare nello
   // stato prima che chiunque lo guardi. Riapplicarli a ogni render vorrebbe
@@ -645,7 +605,6 @@ function vistaAttesaArbitro(id, nome) {
 
 // ---------------------------------------------------------------- PARTITA
 import { vistaIndagine } from './indagine.js';
-import { vistaSpedizione } from './spedizione.js';
 import { vistaDigitale } from './digitale.js';
 
 // IL POSTO A CUI SI SIEDE. Lo dice /api/stato insieme ai tavoli: chi ha creato
@@ -685,13 +644,14 @@ async function postoDiQuestoTavolo() {
 }
 
 async function vistaPartita(partita) {
-  // Ramo spedizione. La plancia a schermo (digitale.js) serve DUE casi: la
-  // modalita' digitale, e il tavolo di chi non ha stampato tessere e miniature
-  // — li' pero' i dadi restano fisici e il testo delle tessere lo legge chi
-  // arbitra (vedi `alTavolo()` in digitale.js). Il tavolo con la plancia vera
-  // resta su spedizione.js, invariato.
-  const aSchermo = partita.modo === 'digitale' || partita.plancia === 'schermo';
-  const sped = aSchermo ? vistaDigitale : vistaSpedizione;
+  // UNA SOLA STRADA PER LA SPEDIZIONE: la plancia a schermo.
+  //
+  // C'erano tre combinazioni — tavolo con tessere vere, tavolo con plancia a
+  // schermo, tutto a schermo — e due viste che facevano quasi la stessa cosa in
+  // due modi. Ogni regola nuova andava scritta due volte, e ogni difetto andava
+  // cercato in due posti. Resta il tavolo: si gioca insieme, la plancia sta
+  // sullo schermo in mezzo, i dadi si tirano veri o dall'app a ogni tiro.
+  const sped = vistaDigitale;
   const posto = await postoDiQuestoTavolo();
   // La serata puo' essere andata avanti ALTROVE mentre questa vista era aperta:
   // chi arbitra chiude l'Indagine dal suo schermo e il telefono deve passare

@@ -5,7 +5,7 @@
 // selezione del party (dove c'e' anche il bottone «arruola»), la home
 // d'indagine e i pannelli salute della spedizione (dove il party e' gia'
 // deciso e il bottone non deve esserci). Prima stava solo in main.js, e
-// indagine.js/spedizione.js non potevano importarla senza una dipendenza
+// indagine.js/digitale.js non potevano importarla senza una dipendenza
 // circolare — main.js importa loro.
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) =>
   ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));

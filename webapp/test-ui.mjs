@@ -41,10 +41,9 @@ try {
   await page.goto(BASE, { waitUntil: 'networkidle' });
   ok(await page.locator('.tessera-episodio').count() === 21, '21 episodi in taverna');
 
-  // --- episodio -> modalita' tavolo -------------------------------------
-  console.log('episodio 1, modalità tavolo');
+  // --- episodio -> si comincia ------------------------------------------
+  console.log('episodio 1');
   await page.locator('.tessera-episodio[data-ep="ep1"]').click();
-  await page.locator('.modo[data-modo="tavolo"]').click();
   await page.locator('#avanti').click();
 
   // --- party: tile -> scheda personaggio -> arruola ------------------------

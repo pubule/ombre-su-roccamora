@@ -9,9 +9,9 @@
 // Si puo' cambiare idea finche' l'episodio bersaglio non e' cominciato: il
 // server riscrive invece di accumulare, e la gomma esiste anche sul Frammento.
 //
-// Sta qui e non dentro una delle due viste perche' l'epilogo e' due schermate —
-// quella al tavolo (spedizione.js) e quella in digitale (digitale.js) — e una
-// scelta di campagna scritta due volte diverge al primo ritocco.
+// Sta qui e non dentro la vista perche' la scelta di campagna la mostra
+// l'epilogo, e una regola scritta due volte diverge al primo ritocco. (Fino al
+// 14/08/2026 le schermate d'epilogo erano davvero due, una per modalita'.)
 import { scelteCampagna, registraScelta } from './store.js';
 import { conferma } from './chiedi.js';
 

@@ -3,7 +3,7 @@
 // cio' che appartiene allo SCHERMO e che in un Durable Object non servirebbe a
 // nessuno — l'html-lite dei dati, le frasi delle piste fredde, i percorsi dei
 // jpg — piu' un re-export di tutto il resto, cosi' `indagine.js`,
-// `spedizione.js` e `digitale.js` continuano a importare da qui senza cambiare
+// `digitale.js` continua a importare da qui senza cambiare
 // una riga.
 //
 // Le tre funzioni che tiravano a caso (dichiaraVoce, costruisciMazzo, pesca)

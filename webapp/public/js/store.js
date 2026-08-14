@@ -112,12 +112,16 @@ export async function registraScelta(bivio, opzione, tavolo = tavoloCorrente()) 
 // fatta un'altra sera, o non la si vuole rifare). In quel caso l'indagine
 // nasce gia' chiusa e l'esito che avrebbe prodotto (`vantaggi`) lo si dichiara
 // a mano: e' l'unica cosa che l'indagine passa davvero alla spedizione.
-export function nuovaPartita(episodioId, modo, party, fase = 'indagine') {
+// UNA SOLA MODALITA': al tavolo, con la plancia a schermo. Le altre due —
+// tessere e miniature vere, e tutto a schermo — sono state tolte il 14/08/2026:
+// erano due viste che facevano quasi la stessa cosa, e ogni regola nuova andava
+// scritta due volte. Resta una scelta sola, `fase`: l'episodio intero o la sola
+// spedizione.
+export function nuovaPartita(episodioId, party, fase = 'indagine') {
   const soloSpedizione = fase === 'spedizione';
   return {
     v: 1,
     episodio: episodioId,
-    modo,                      // 'tavolo' | 'digitale'
     party,                     // [nomi eroi]
     creata: Date.now(),
     fase: soloSpedizione ? 'spedizione' : 'indagine',

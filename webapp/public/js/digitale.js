@@ -5,8 +5,11 @@
 // «avanzata di gruppo». Pathfinding multi-tessera; IA nemici portata dal
 // simulatore (bersaglio casuale, si avvicina col BFS, colpisce se adiacente).
 //
-// NB: la modalita' TAVOLO (spedizione.js) resta invariata: questo file e' un
-// ramo separato, scelto in vistaPartita (main.js) su partita.modo.
+// E' LA SOLA VISTA DELLA SPEDIZIONE. Fino al 14/08/2026 ce n'erano due — questa
+// e `spedizione.js`, per chi aveva stampato tessere e miniature — piu' tre
+// combinazioni di modalita': ogni regola nuova andava scritta due volte, e ogni
+// difetto cercato in due posti. Ne resta una: al tavolo, con la plancia a
+// schermo e i dadi che si tirano veri o dall'app, a ogni tiro.
 import { salva, dati } from './store.js';
 import { bivioHtml, collegaBivio } from './bivio-scelta.js';
 import { rendi, norm, costruisciMazzo, carteDaPescare, pesca, fineRound,
@@ -48,7 +51,11 @@ const salvaP = () => salva(ctx.partita);
 //   - il TESTO delle tessere non si stampa a schermo: lo legge ad alta voce chi
 //     arbitra, dal fascicolo Spedizione. Se lo mostrasse l'app, i giocatori lo
 //     leggerebbero prima che finisca la frase.
-const alTavolo = () => P().modo === 'tavolo';
+// SI GIOCA SEMPRE AL TAVOLO, e non c'e' piu' una funzione che lo chieda. Le
+// altre due combinazioni — tessere e miniature vere, e tutto a schermo — sono
+// state tolte il 14/08/2026: erano due viste che facevano quasi la stessa cosa,
+// e ogni regola nuova andava scritta due volte, ogni difetto cercato in due
+// posti. Resta una scelta sola, e non e' come si gioca: e' da dove si comincia.
 // IL POSTO. Chi arbitra muove chiunque — e' lui che tiene in mano gli eroi non
 // reclamati. Chi gioca muove il suo, e i comandi del tavolo (la notte, la
 // pesca, la chiusura) non li ha.
@@ -56,7 +63,7 @@ const mioPosto = () => (ctx && ctx.posto) || { ruolo: 'arbitro' };
 const arbitro = () => mioPosto().ruolo === 'arbitro';
 const mioEroe = () => mioPosto().eroe || null;
 const posso = (nm) => arbitro() || nm === mioEroe();
-const modoDadi = () => (alTavolo() ? 'tavolo' : 'digitale');
+const modoDadi = () => 'tavolo';
 // I tiri dei NEMICI si possono delegare all'app anche stando al tavolo: con il
 // campo affollato, tirare a mano per ogni sgherro e' la contabilita' che la
 // modalita' tavolo voleva togliere. L'interruttore vale per la partita, si
@@ -66,7 +73,7 @@ const modoDadi = () => (alTavolo() ? 'tavolo' : 'digitale');
 // ai telefoni farebbe comparire l'overlay dei dadi a tutti, e ognuno tirerebbe
 // per lo stesso nemico. Sul telefono il tiro non si chiede — arriva gia' fatto
 // col resto dello stato.
-const tavoloTiraNemici = () => alTavolo() && !P().nemiciApp && arbitro();
+const tavoloTiraNemici = () => !P().nemiciApp && arbitro();
 const RIPIEGO_NEMICI = { label: 'da qui i nemici li tira l’app' };
 function accendiNemiciApp() { P().nemiciApp = true; salvaP(); }
 
@@ -155,7 +162,7 @@ export async function vistaDigitale(app, partita, vaiA, posto) {
   // al tavolo la plancia si guarda in tanti, da lontano e di sbieco: il glide
   // del token rallenta (vedi `.al-tavolo .tok-slot` in app.css) perche' la
   // notte si deve poter SEGUIRE, non indovinare a cose fatte
-  app.classList.toggle('al-tavolo', alTavolo());
+  app.classList.add('al-tavolo');
   // la preferenza «immersivo» sopravvive a un reload (il tablet che si
   // riaddormenta): si riapplica il LAYOUT, non il fullscreen — quello i browser
   // lo concedono solo su un gesto, e chiederlo qui verrebbe rifiutato
@@ -1260,7 +1267,7 @@ async function esegui(comando) {
   // Il giudice e' lo stesso motore: `applica()` lavora su una copia e non tocca
   // nulla, quindi lo si interroga a vuoto. Il rifiuto «i tiri non bastano» non
   // conta — quello vuol dire proprio che i dadi servono.
-  const alTav = alTavolo() && arbitro();
+  const alTav = arbitro();
   if (alTav) {
     const dati0 = { ep: ctx.ep, comune: ctx.comune, carte: ctx.carte };
     const prova0 = applica(ctx.partita, { ...comando, tiri: [] }, dati0);
@@ -1315,11 +1322,8 @@ async function esegui(comando) {
 async function riproduci(eventi) {
   for (const ev of eventi) {
     if (ev.tipo === 'tiro') {
-      // a schermo il dado ha gia' un risultato: l'overlay lo mette in scena
-      if (!alTavolo()) {
-        await tiraProva({ titolo: ev.titolo || '', diffLabel: ev.diff || ev.diffLabel || '',
-                          soglia: ev.soglia, bonus: ev.bonus, facce: ev.d });
-      }
+      // al tavolo il dado l'ha gia' tirato chi gioca, davanti a tutti: rimetterlo
+      // in scena qui sarebbe mostrarlo due volte
     } else if (ev.tipo === 'cercato') {
       const extra = ev.trovato
         ? `<hr class="divisore"><p class="mt"><b>Trovato:</b> ${esc(ev.trovato.nome.toLowerCase())} — nell'inventario del gruppo.</p>
@@ -1479,8 +1483,7 @@ function oggettiHtml() {
 // Boss: nome intero, cosi' una citazione parziale non lo desta per sbaglio.
 // Lo spawn e' uscito di qui: sta in motore/minaccia.js. Guidato dai dati
 // (`ep.pool` + `soluzione.boss_tile`), cosi' un episodio nuovo funziona senza
-// toccare il codice — ed e' la differenza con spedizione.js, che ha ancora
-// otto nomi scritti a mano e per questo e' rimasto indietro.
+// toccare il codice.
 const destaBossSeSoglia = () => minaccia.destaBossSeSoglia(G());
 const spawnDaTesto = (testo, tileId) => minaccia.spawnDaTesto(G(), testo, tileId);
 const tileAffollata = () => minaccia.tileAffollata(G());
@@ -1536,7 +1539,7 @@ function setTokenPos(dataTok, node, istantaneo) {
 // allungano in proporzione — se restassero corte, l'attesa scadrebbe a token
 // ancora in movimento e il passo successivo lo taglierebbe a meta'.
 const LENTO = 1.6;
-const ritmo = (ms) => pausa(alTavolo() ? Math.round(ms * LENTO) : ms);
+const ritmo = (ms) => pausa(Math.round(ms * LENTO));
 const muoviToken = async (dataTok, node) => { setTokenPos(dataTok, node); await ritmo(650); };
 
 // Il passo di CHI GIOCA. I nemici scivolano lenti apposta — al tavolo serve
@@ -1581,8 +1584,8 @@ function vistaNemici(piano) {
       <div class="zoom-ctrl"><button class="zoom-btn" data-zoom="-">−</button><button class="zoom-btn" data-zoom="0">⤢</button><button class="zoom-btn" data-zoom="+">+</button></div>
     </div>
     <div class="lato">
-      <div class="btn-riga"><button class="btn" id="salta-nemici">salta l’azione della notte →</button>${
-        alTavolo() ? `<button class="btn" id="tog-nemici-app">dadi dei nemici: <b>${P().nemiciApp ? 'l’app' : 'vostri'}</b></button>` : ''}</div>
+      <div class="btn-riga"><button class="btn" id="salta-nemici">salta l’azione della notte →</button>
+        <button class="btn" id="tog-nemici-app">dadi dei nemici: <b>${P().nemiciApp ? 'l’app' : 'vostri'}</b></button></div>
       <div class="mt"></div>
       <div class="pannello giro"><h2>il giro dei nemici</h2><div id="giro-nem">${giroNemiciHtml(-1)}</div></div>
       <div class="mt"></div>

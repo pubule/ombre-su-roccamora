@@ -144,7 +144,8 @@ for (const sc of SCELTI) {
     await page.evaluate(() => localStorage.clear());
     await page.goto(BASE, { waitUntil: 'networkidle' });
     await page.locator(`.tessera-episodio[data-ep="${sc.ep}"]`).click();
-    await page.locator('.modo[data-modo="tavolo"]').click();
+    // dal 14/08/2026 non si sceglie piu' COME si gioca: si gioca al tavolo con
+    // la plancia a schermo, e la sola scelta e' da dove si comincia
     await page.locator('#avanti').click();
     await page.locator('.eroe-tile').first().waitFor();
     for (const nome of sc.party) {
@@ -264,115 +265,52 @@ for (const sc of SCELTI) {
     ok(/vantaggio d’indagine/i.test(bustaTxt), 'riepilogo vantaggio assente');
     ok(bustaTxt.includes(`${24 - st.indagine.ora} ore avanzate`), 'ore avanzate nel riepilogo non tornano');
 
-    // alla spedizione: setup coi vantaggi, poi si gioca
+    // ---------------------------------------------------- alla spedizione
+    //
+    // LA SPEDIZIONE QUI E' UNA PROVA DI FUMO, e da oggi lo dichiara. Fino al
+    // 14/08/2026 questa meta' guidava `spedizione.js` — la vista per chi aveva
+    // stampato tessere e miniature — che non esiste piu': si gioca solo con la
+    // plancia a schermo. Riscriverla per l'altra vista avrebbe rifatto, su 21
+    // episodi, quel che `test-digitale-ui` e `test-digitale-regressioni` gia'
+    // provano a fondo su uno.
+    //
+    // Quel che resta qui e' cio' che vale UNA VOLTA PER EPISODIO, ed e' guasto
+    // di DATI, non di regole: che la spedizione si apra, che il mazzo Minaccia
+    // dell'episodio non sia vuoto, che la plancia si disegni e che un giro di
+    // round passi senza errori JS. Il resto — attacchi, pips, tick del Canto —
+    // sta dove si prova per bene.
     await page.locator('#alla-spedizione').click();
-    await page.locator('#inizia-spedizione').waitFor();
-    await page.locator('#inizia-spedizione').click();
-    // eventuale pannello d'arrivo (QUANDO RIVELATE della prima tessera)
-    await page.waitForSelector('#fase-minaccia, #ok-msg');
+    await page.waitForSelector('#via, #ok-msg, .board-digitale');
+    if (await page.locator('#via').count()) await page.locator('#via').click();
     if (await page.locator('#ok-msg').count()) await page.locator('#ok-msg').click();
-    await page.locator('#fase-minaccia').waitFor();
+    await page.locator('.board-digitale').waitFor();
+
     const fin = await stato(page, sc.ep);
     ok(fin.fase === 'spedizione' && fin.indagine.chiusa, 'la partita non passa alla fase spedizione');
     ok(fin.spedizione.mazzo.pool.length > 0, 'mazzo Minaccia vuoto in spedizione');
+    ok((await page.locator('.tok-board.eroe').count()) === sc.party.length,
+       `token eroe sulla plancia: ${await page.locator('.tok-board.eroe').count()} invece di ${sc.party.length}`);
 
-    // rivelare la seconda tessera e usare l'oracolo di Cercare
-    const t2 = ep.tessere[1].id;
-    await page.locator(`[data-tessera="${t2}"]`).click();     // rivela
-    await page.locator('#ok-msg').click();
-    await page.locator(`[data-tessera="${t2}"]`).click();     // menu azioni arbitro
-    await page.locator('.scelta-box [data-id="cercare"]').click();
-    await page.locator('.scelta-box [data-id]:not(.annulla)').first().click();  // chi cerca
-    await page.locator('[data-tot="12"]').click();            // prova riuscita di sicuro
-    await page.locator('#dadi-chiudi').waitFor({ state: 'visible' });
-    await page.locator('#dadi-chiudi').click();
-    await page.locator('#ok-msg').waitFor();
-    ok(/cercare/i.test(await page.locator('.barra').innerText()) ||
-       (await page.locator('.pannello').innerText()).length > 20, 'oracolo Cercare muto');
-    await page.locator('#ok-msg').click();
-    ok((await stato(page, sc.ep)).spedizione.cercate[t2] === true, 'Cercare riuscito non segnato');
-    await page.locator(`[data-tessera="${t2}"]`).click();     // interagire
-    await page.locator('.scelta-box [data-id="interagire"]').click();
-    ok((await page.locator('.pannello').innerText()).length > 30, 'Interagire muto');
-    await page.locator('#ok-msg').click();
-
-    // oggetti: registrare un oggetto trovato cercando
-    const oggPrima = (await stato(page, sc.ep)).indagine.oggetti.length;
-    await page.locator('#aggiungi-oggetto').click();
-    if (await page.locator('.scelta-box [data-id]:not(.annulla)').count()) {
-      await page.locator('.scelta-box [data-id]:not(.annulla)').first().click();
-      await page.locator('#fase-minaccia').waitFor();
-      ok((await stato(page, sc.ep)).indagine.oggetti.length === oggPrima + 1,
-         'oggetto trovato non registrato');
-    }
-
-    // esame di Carbone (se Fulgenzio e' nel party e c'e' qualcosa da esaminare)
-    if (await page.locator('#esame-carbone').count()) {
-      await page.locator('#esame-carbone').click();
-      await page.locator('.scelta-box [data-id]:not(.annulla)').first().click();
-      await page.locator('#ok-msg').waitFor();
-      ok((await page.locator('.pannello').innerText()).length > 40, 'esame di Carbone muto');
-      await page.locator('#ok-msg').click();
-      await page.locator('#fase-minaccia').waitFor();
-    }
-
-    // azione Attaccare guidata: eroe, arma, totale 12 = colpito di sicuro
-    // (il registro puo' gia' contenere gli auto-spawn del QUANDO RIVELATE)
-    const nemiciPrima = (await stato(page, sc.ep)).spedizione.nemici.length;
-    await page.locator('[data-spawn]').first().click();
-    if (await page.locator('#ok-msg').count()) await page.locator('#ok-msg').click();  // segnalini finiti
-    const nemiciDopo = (await stato(page, sc.ep)).spedizione.nemici.length;
-    ok(nemiciDopo >= nemiciPrima, 'spawn manuale ha perso nemici');
-    if (!nemiciDopo) await page.locator('[data-spawn]').first().click();
-    await page.locator('[data-attacca]').first().click();
-    await page.locator('.scelta-box [data-id]:not(.annulla)').first().click();   // chi attacca
-    await page.locator('.scelta-box [data-id="si"]').click();                    // armato
-    await page.locator('[data-tot="12"]').click();
-    await page.locator('#dadi-chiudi').waitFor({ state: 'visible' });
-    await page.locator('#dadi-chiudi').click();
-    await page.locator('#ok-msg').waitFor();                                     // colpito/abbattuto
-    await page.locator('#ok-msg').click();
-    const dopoAttacco = (await stato(page, sc.ep)).spedizione.nemici;
-    ok(dopoAttacco.length < nemiciDopo || dopoAttacco.some((x) => x.ferite > 0),
-       'attacco a segno senza ferita registrata');
-
-    // ripulisci il registro coi pip (correzione a mano) fino a vuoto
-    for (let i = 0; i < 40 && (await stato(page, sc.ep)).spedizione.nemici.length; i++) {
-      await page.locator('.nemico-pips[data-idx]').first().click();
-      await page.waitForTimeout(80);
-    }
-    ok((await stato(page, sc.ep)).spedizione.nemici.length === 0, 'registro mai svuotato dai pip');
-
-    // sei round completi: fase minaccia (pesca), fase nemici, fine round (tick)
-    for (let r = 0; r < 6; r++) {
-      await page.locator('#fase-minaccia').click();
-      while (await page.locator('#ok-msg').count()) {         // carte pescate
-        await page.locator('#ok-msg').click();
-        await page.waitForTimeout(120);
-      }
-      await page.locator('#fine-round').waitFor();            // fase nemici
-      await page.locator('#fine-round').click();
-      while (await page.locator('#ok-msg').count()) {         // annunci del tick
-        await page.locator('#ok-msg').click();
-        await page.waitForTimeout(120);
-      }
-      await page.locator('#fase-minaccia').waitFor();
+    // un giro di round, cliccando quel che c'e' — la stessa forma di
+    // `test-digitale-ui`: se qualcosa esplode, lo dicono gli errori JS
+    const cliccaSe = async (sel) => {
+      if (!(await page.locator(sel).count())) return false;
+      await page.locator(sel).first().click({ force: true }).catch(() => {});
+      await page.waitForTimeout(120);
+      return true;
+    };
+    for (let giro = 0; giro < 24; giro += 1) {
+      if (await cliccaSe('#ok-msg')) continue;
+      if (await cliccaSe('#dadi-chiudi')) continue;
+      if (await cliccaSe('#salta-nemici')) { await page.waitForTimeout(400); continue; }
+      if (await cliccaSe('#az-fine')) continue;
+      if (await cliccaSe('#fase-minaccia')) continue;
+      break;
     }
     const st3 = await stato(page, sc.ep);
-    const ogni = ep.marea ? ep.marea.ogni : 4;
-    ok(st3.spedizione.round === 7, `round dopo 6 fasi: ${st3.spedizione.round}`);
-    // minimo: i tick dell'orologio; in piu' le carte Crescendo pescate (non deterministico)
-    const tickMinimi = Math.floor(6 / ogni);
-    ok(st3.spedizione.canto >= tickMinimi && st3.spedizione.canto <= tickMinimi + 6,
-       `${ep.marea ? 'marea' : 'canto'} fuori misura (${st3.spedizione.canto}, tick minimi ${tickMinimi})`);
-
-    // vittoria
-    await page.locator('#vittoria').click();
-    await premiSi(page);                                      // «si', si chiude»
-    await page.getByText('alla taverna').waitFor();
-    ok((await stato(page, sc.ep)).spedizione.esito === 'vittoria', 'esito non salvato');
+    ok(st3.spedizione.round >= 1, `la spedizione non e' partita (round ${st3.spedizione.round})`);
     console.log(`    busta: ${esatte} esatte, ${sbagliate} sbagliate — spedizione: ` +
-                `${st3.spedizione.round - 1} round giocati, ${ep.marea ? 'marea' : 'canto'} ${st3.spedizione.canto}, vittoria`);
+                `round ${st3.spedizione.round}, ${ep.marea ? 'marea' : 'canto'} ${st3.spedizione.canto}`);
   } catch (e) {
     ko(`giocata interrotta: ${e.message.split('\n')[0]}`);
   }

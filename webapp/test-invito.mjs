@@ -230,8 +230,6 @@ ok(errori.length === 0, `la schermata apre senza errori JS: ${errori.slice(0, 2)
   await p3.waitForTimeout(800);
   await p3.locator('.tessera-episodio').first().click();
   await p3.waitForTimeout(600);
-  const modo = p3.locator('[data-modo="digitale"]');
-  if (await modo.count()) { await modo.click(); await p3.waitForTimeout(300); }
   const av = p3.locator('#avanti');
   if (await av.count()) { await av.click(); await p3.waitForTimeout(2000); }
 

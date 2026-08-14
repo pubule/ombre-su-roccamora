@@ -174,8 +174,6 @@ const vaiAllEpilogo = async (page) => {
     await page.waitForTimeout(350);
     await page.locator('.tessera-episodio[data-ep="ep20"]').click();
     await page.waitForTimeout(350);
-    await page.locator('.modo[data-modo="digitale"]').click();
-    await page.waitForTimeout(150);
     await page.locator('#avanti').click();
     await page.waitForTimeout(450);
     for (let i = 0; i < 3; i++) {
@@ -224,7 +222,8 @@ const vaiAllEpilogo = async (page) => {
   await page.getByText('Il Coro Sommerso').first().click();
   await page.waitForTimeout(400);
   const con = await page.locator('#app').innerText();
-  if (/come giocate stasera/i.test(con)) fail('riprendendo una serata chiede ancora come si gioca');
+  // dal 14/08/2026 non si sceglie piu' COME si gioca — si gioca al tavolo con
+  // la plancia a schermo — e resta una domanda sola: da dove si comincia
   if (/da dove cominciate/i.test(con)) fail('riprendendo una serata chiede ancora da dove si comincia');
   if (!/rivedi l/i.test(con)) fail('e non offre nemmeno di rivedere l’epilogo');
 
@@ -234,7 +233,6 @@ const vaiAllEpilogo = async (page) => {
   await page.locator('.tessera-episodio[data-ep="ep7"]').click();
   await page.waitForTimeout(400);
   const senza = await page.locator('#app').innerText();
-  if (!/come giocate stasera/i.test(senza)) fail('una partita nuova non chiede più come si gioca');
   if (!/da dove cominciate/i.test(senza)) fail('una partita nuova non chiede più da dove si comincia');
   await page.close();
 }
