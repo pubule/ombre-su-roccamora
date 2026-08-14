@@ -408,7 +408,12 @@ function collegaAlTavolo() {
         return ctx.vaiA('spedizione');
       }
       ctx.partita = stato;
-      ctx.inAttesaDi = null;      // il tavolo si e' mosso: la mano e' stata vista
+      // L'ATTESA FINISCE QUANDO LA MANO E' STATA SERVITA, non alla prima
+      // spinta: la prima e' l'ECO della richiesta stessa — il tavolo la scrive
+      // e la sparge — e azzerare li' faceva sparire il messaggio lasciando chi
+      // gioca senza piu' nessun segnale. Servita vuol dire che la richiesta non
+      // c'e' piu' nello stato: l'ha raccolta chi conduce.
+      if (!((stato.indagine || {}).richiesta)) ctx.inAttesaDi = null;
       if (datiVisti) {
         if (datiVisti.ep) ctx.ep = datiVisti.ep;
         if (datiVisti.comune) ctx.comune = datiVisti.comune;
@@ -622,7 +627,8 @@ function approfondireHtml(l) {
           data-luogo="${l.n}" data-tipo="${esc(aperti[0])}">aiuto profano (1 volta qui)</button>`}
       </div>
       ${miei.length ? '' : '<p class="nota">Qui non c’è niente che parli il vostro linguaggio: resta l’occhio del dilettante.</p>'}
-      <p class="nota" id="esito-richiesta" style="display:none"></p>
+      <p class="nota" id="esito-richiesta"${ctx.inAttesaDi
+        ? '>Il tavolo sta guardando…' : ' style="display:none">'}</p>
     </div>`;
 }
 
@@ -646,9 +652,14 @@ function chiediAlTavolo(richiesta, bottone) {
   ctx.canale.manda({ tipo: 'chiedi-indagine', richiesta: { ...richiesta, id } });
   ctx.inAttesaDi = id;
   setTimeout(() => {
-    if (ctx.inAttesaDi !== id) return;         // il tavolo si e' mosso: tutto bene
+    if (ctx.inAttesaDi !== id) return;         // servita: tutto bene
     ctx.inAttesaDi = null;
-    torna('Il tavolo non ha risposto. Chi arbitra è sull’episodio? Riprovate.');
+    // il messaggio dice COSA controllare, non «riprova»: la richiesta la
+    // raccoglie il browser di chi conduce, e se e' su un'altra schermata —
+    // la lista degli episodi, il menu — nessuno la vede passare
+    torna(((IND().richiesta) || {}).id === id
+      ? 'Il tavolo l’ha ricevuta ma nessuno l’ha raccolta: chi arbitra deve stare sull’episodio.'
+      : 'Il tavolo non risponde. Controllate il collegamento.');
   }, 8000);
 }
 
@@ -903,15 +914,21 @@ let membriCache = null;
 async function chiHaLEroe(nomeEroe) {
   const t = ctx.posto && ctx.posto.tavolo;
   if (!t) return null;
-  if (!membriCache) {
+  // chi arbitra non conta: se l'eroe se lo tiene lui, il tiro e' gia' suo
+  const cerca = () => (membriCache || []).find((x) => x.eroe === nomeEroe && x.ruolo !== 'arbitro');
+  const rileggi = async () => {
     try {
       const r = await fetch(`/api/membri?tavolo=${encodeURIComponent(t)}`);
       membriCache = r.ok ? (await r.json()).membri || [] : [];
-    } catch { membriCache = []; }
-  }
-  // chi arbitra non conta: se l'eroe se lo tiene lui, il tiro e' gia' suo
-  const m = membriCache.find((x) => x.eroe === nomeEroe && x.ruolo !== 'arbitro');
-  return m || null;
+    } catch { membriCache = membriCache || []; }
+  };
+  if (!membriCache) await rileggi();
+  // SE NON LO TROVA, RIGUARDA. La lista si leggeva una volta sola per tutta la
+  // serata: chi arriva dopo — o prende il suo eroe a partita aperta, che e' il
+  // caso normale — restava invisibile, e il suo tiro tornava a chi arbitra
+  // senza che nessuno capisse perche'.
+  if (!cerca()) await rileggi();
+  return cerca() || null;
 }
 
 async function tiraDiChiHaLEroe(prova, nomeEroe) {
