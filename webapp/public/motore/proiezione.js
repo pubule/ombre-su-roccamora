@@ -33,9 +33,16 @@ export function datiPerPosto(dati, stato, posto) {
     ...dati,
     ep: {
       ...ep,
-      // LA BUSTA NON SI APRE DAL TELEFONO. Nemmeno le domande senza risposta:
-      // il taccuino le stampa gia', e mandarle qui non serve a niente.
+      // LA BUSTA NON SI APRE DAL TELEFONO.
       soluzione: undefined,
+      // ...ma LE DOMANDE si': non sono un segreto — il Taccuino stampato le ha
+      // tutte — e da quando il telefono E' il taccuino, senza di quelle chi
+      // gioca non ha su cosa ragionare. Passano i soli TESTI, in un campo suo:
+      // resuscitare `soluzione` con dentro meno roba renderebbe inutile la
+      // regola «il campo soluzione non passa mai», che e' facile da controllare
+      // proprio perche' non ha eccezioni.
+      domande: (((ep.soluzione || {}).domande) || []).map((d) => ({ q: d.q,
+                                                                    dopo_spedizione: d.dopo_spedizione })),
       // L'EPILOGO, IL FRAMMENTO E IL BIVIO SONO LA SOLUZIONE, in prosa: dicono
       // chi era, cosa c'era sotto e cosa avete trovato sull'altare. Mandarli a
       // meta' partita e' l'esatto contrario del gioco.

@@ -343,7 +343,9 @@ async function eseguiRichiesta(r) {
 // L'esito torna al tavolo come comando: il Durable Object lo scrive nella
 // pendenza e lo sparge, e chi arbitra riprende da li'.
 async function tiraPerIlTavolo(pend) {
+  ctx.dadiAperti = true;
   const r = await tiraProva({ ...pend.prova, sceltaOgniVolta: true });
+  ctx.dadiAperti = false;
   if (!r) return vistaDiChiGioca();     // annullato: il tavolo aspetta ancora
   if (ctx.canale) ctx.canale.manda({ tipo: 'prova-indagine', id: pend.id, esito: r });
   // L'ESITO SI SEGNA SUBITO ANCHE QUI. L'autorita' e' il Durable Object, ma la
@@ -406,6 +408,7 @@ function collegaAlTavolo() {
         return ctx.vaiA('spedizione');
       }
       ctx.partita = stato;
+      ctx.inAttesaDi = null;      // il tavolo si e' mosso: la mano e' stata vista
       if (datiVisti) {
         if (datiVisti.ep) ctx.ep = datiVisti.ep;
         if (datiVisti.comune) ctx.comune = datiVisti.comune;
@@ -413,7 +416,14 @@ function collegaAlTavolo() {
       }
       // una copia, non una mossa: col timbro il telefono si riappunterebbe qui
       salva(stato, { timbra: false });
-      vistaDiChiGioca();
+      // SI RIDISEGNA LA SCHERMATA DOVE SI E', non la principale.
+      //
+      // Prima ogni spinta dal tavolo riportava chi gioca alla home: aprivi il
+      // taccuino o la lettera, arrivava un aggiornamento — e ti ritrovavi al
+      // punto di partenza. Peggio: premevi un bottone, la spinta tornava, e la
+      // pagina si ridisegnava come se non avessi premuto niente. Un bottone
+      // che non fa niente, che invece aveva fatto tutto.
+      (ctx.schermata || vistaDiChiGioca)();
     },
   });
 }
@@ -434,6 +444,7 @@ function collegaAlTavolo() {
 // proiezione lo toglie nel Durable Object, quindi non c'e' niente da aggirare
 // coi devtools — i luoghi non visitati sono nomi sulla mappa e basta.
 function vistaDiChiGioca() {
+  ctx.schermata = vistaDiChiGioca;
   const { app, ep, carte } = ctx;
   const ind = IND();
   // IL TIRO E' TUO. Se il tavolo aspetta una prova su questo eroe, l'overlay si
@@ -442,7 +453,10 @@ function vistaDiChiGioca() {
   // qualcosa; il resto e' roba da guardare.
   const pend = ind.pendenza;
   if (pend && pend.tipo === 'prova' && !pend.esito && pend.a && pend.a === mioEroe()) {
-    return tiraPerIlTavolo(pend);
+    // i dadi sono gia' in mano: un'altra spinta dal tavolo non deve aprire un
+    // secondo overlay sopra il primo, con due tiri per una prova sola
+    if (!ctx.dadiAperti) return tiraPerIlTavolo(pend);
+    return;
   }
   // LA SCHERMATA CHE IL TAVOLO STA LEGGENDO. Quel che il gruppo ha colto — o
   // non colto — si legge insieme: compare su ogni schermo e la chiude chi
@@ -471,12 +485,11 @@ function vistaDiChiGioca() {
   app.innerHTML = `
     ${barra(aperto ? aperto.nome.toLowerCase() : 'per le strade')}
     ${aperto ? bannerLuogo(aperto) : ''}
-    <div class="pannello">
-      <h2>${aperto ? 'siete dentro' : 'siete per le strade'}</h2>
-      <p class="nota">${aperto
-        ? 'Quel che c’è da cogliere qui lo cogliete voi: guardate meglio, sotto.'
-        : 'Si decide insieme dove andare; a dichiararlo e a bussare e’ chi arbitra.'}</p>
-    </div>
+    ${aperto ? approfondireHtml(aperto) : `<div class="pannello">
+      <h2>siete per le strade</h2>
+      <p class="nota">Si decide insieme dove andare; a dichiararlo e a bussare e’ chi
+      arbitra. Appena entrate, qui compare quel che potete fare voi.</p>
+    </div>`}
     ${mio ? `<div class="mt"></div>
     <div class="pannello">
       <h2>il vostro eroe</h2>
@@ -525,24 +538,45 @@ function vistaDiChiGioca() {
       ${!ogg.length && !app_.length && !rep.length
         ? '<p class="nota">Ancora niente.</p>' : ''}
     </div>
-    ${(ind.note || '').trim() ? `<div class="mt"></div>
-    <div class="pannello">
-      <h2>gli appunti del gruppo</h2>
-      <p>${esc(ind.note)}</p>
-    </div>` : ''}
-    ${aperto ? approfondireHtml(aperto) : ''}
-    ${ep.lettera ? `<div class="btn-riga">
-      <button class="btn" id="lettera-eroe">rileggete la lettera</button></div>` : ''}`;
+
+    <div class="btn-riga">
+      <button class="btn pieno" id="taccuino-eroe">il taccuino</button>
+      ${ep.lettera ? '<button class="btn" id="lettera-eroe">rileggete la lettera</button>' : ''}
+    </div>`;
   dopoBarra();
   app.querySelectorAll('[data-scheda]').forEach((el) =>
     el.addEventListener('click', () => schedaEroe(
       ctx.comune.eroi.find((x) => x.nome === el.dataset.scheda), {})));
   app.querySelector('#lettera-eroe')?.addEventListener('click', letteraDiChiGioca);
+  app.querySelector('#taccuino-eroe').onclick = taccuinoDiChiGioca;
   app.querySelectorAll('[data-appr]').forEach((el) => el.addEventListener('click', () => {
     el.disabled = true;
+    const p = app.querySelector('#esito-richiesta');
+    if (p) { p.textContent = 'Il tavolo sta guardando…'; p.style.display = ''; }
     chiediAlTavolo({ azione: el.dataset.appr, luogo: Number(el.dataset.luogo),
-                     tipoApp: el.dataset.tipo, eroe: mioEroe() });
+                     tipoApp: el.dataset.tipo, eroe: mioEroe() }, el);
   }));
+}
+
+// GLI APPUNTI, UNO PER EROE.
+//
+// Il campo unico era del gruppo e lo scriveva chi conduce: al tavolo funziona,
+// perche' il Taccuino e' uno e sta in mezzo. Con un telefono a testa no — quel
+// che tieni a mente e' TUO, e la nota di un altro e' la cosa piu' utile che
+// puoi leggere fra una porta e l'altra («il liutaio esce di notte» l'aveva
+// scritto Mora due ore fa, e nessuno se lo ricordava).
+//
+// Ognuno scrive il proprio e legge quelli degli altri. Gli appunti del gruppo
+// restano: sono la lavagna comune, e li tiene chi arbitra.
+const noteDi = (nm) => ((IND().noteEroe || {})[nm] || '');
+
+// Aggancia le caselle: si scrive solo il proprio, e si manda al tavolo quando
+// si smette di scrivere — non a ogni tasto, che sarebbe una spinta per lettera.
+function agganciaAppunti(quando) {
+  ctx.app.querySelectorAll('[data-nota-eroe]').forEach((el) => {
+    el.addEventListener('change', () => quando(el.dataset.notaEroe, el.value));
+    el.addEventListener('blur', () => quando(el.dataset.notaEroe, el.value));
+  });
 }
 
 // APPROFONDIRE E' DELL'EROE, non di chi arbitra.
@@ -566,13 +600,19 @@ function approfondireHtml(l) {
   // di chi conduce.
   const puo = (tipo) => idoneiPerTipo(ctx.comune, P(), tipo).some((x) => x.nome === mio);
   const aperti = tipiQui.filter((t) => !letto(t));
-  if (!aperti.length) return '';
+  // se non c'e' piu' niente da cogliere la sezione RESTA, e lo dice: adesso e'
+  // la prima cosa sotto il banner, e un vuoto al suo posto sembrerebbe un guasto
+  if (!aperti.length) {
+    return `<div class="pannello">
+      <h2>guardare meglio</h2>
+      <p class="nota">Qui avete già colto tutto quel che c’era.</p>
+    </div>`;
+  }
   const miei = aperti.filter(puo);
   // l'aiuto profano e' l'occasione UNA di questo luogo, e la tenta chi vuole:
   // qui il bottone c'e' su tutti i telefoni presenti
   const profanoFatto = !!(ind.profano || {})[l.n];
-  return `<div class="mt"></div>
-    <div class="pannello">
+  return `<div class="pannello">
       <h2>guardare meglio</h2>
       <p class="nota">Siete dentro. Quel che cogliete lo legge tutto il tavolo.</p>
       <div class="btn-riga">
@@ -582,14 +622,93 @@ function approfondireHtml(l) {
           data-luogo="${l.n}" data-tipo="${esc(aperti[0])}">aiuto profano (1 volta qui)</button>`}
       </div>
       ${miei.length ? '' : '<p class="nota">Qui non c’è niente che parli il vostro linguaggio: resta l’occhio del dilettante.</p>'}
+      <p class="nota" id="esito-richiesta" style="display:none"></p>
     </div>`;
 }
 
 // La richiesta al tavolo. Il telefono non applica niente: alza la mano, e chi
 // conduce esegue col motore che ha gia' — nessuna regola scritta due volte.
-function chiediAlTavolo(richiesta) {
-  if (!ctx.canale) return;
-  ctx.canale.manda({ tipo: 'chiedi-indagine', richiesta: { ...richiesta, id: `rq${Date.now()}` } });
+//
+// E SE NON SUCCEDE NIENTE, LO DICE. Una mano alzata puo' cadere nel vuoto per
+// ragioni che da qui non si vedono: il filo giu', chi arbitra su un'altra
+// schermata, una versione vecchia aperta da prima. Un bottone che resta
+// spento e muto e' indistinguibile da un bottone rotto — e al tavolo si
+// ripreme, o si smette di fidarsi. Qui si aspetta qualche secondo: se il
+// tavolo non si e' mosso, il bottone torna e lo dice.
+function chiediAlTavolo(richiesta, bottone) {
+  const torna = (motivo) => {
+    if (bottone) bottone.disabled = false;
+    const p = ctx.app.querySelector('#esito-richiesta');
+    if (p) { p.textContent = motivo; p.style.display = ''; }
+  };
+  if (!ctx.canale) return torna('Questo telefono non è collegato al tavolo.');
+  const id = `rq${Date.now()}`;
+  ctx.canale.manda({ tipo: 'chiedi-indagine', richiesta: { ...richiesta, id } });
+  ctx.inAttesaDi = id;
+  setTimeout(() => {
+    if (ctx.inAttesaDi !== id) return;         // il tavolo si e' mosso: tutto bene
+    ctx.inAttesaDi = null;
+    torna('Il tavolo non ha risposto. Chi arbitra è sull’episodio? Riprovate.');
+  }, 8000);
+}
+
+// IL TACCUINO, dal telefono.
+//
+// Tre cose, e in quest'ordine: le DOMANDE (si leggono e basta — le risposte le
+// scrive chi arbitra, che apre la busta una volta sola e per tutti), i PROPRI
+// appunti, e quelli DEGLI ALTRI.
+//
+// Gli appunti di un altro sono la cosa piu' utile che si legge fra una porta e
+// l'altra: «il liutaio esce di notte» l'aveva scritto Mora due ore prima, e al
+// tavolo non se lo ricordava piu' nessuno. Col Taccuino unico in mano a chi
+// conduce quella riga non esisteva.
+function taccuinoDiChiGioca() {
+  ctx.schermata = taccuinoDiChiGioca;
+  const { app, ep } = ctx;
+  const ind = IND();
+  const mio = mioEroe();
+  app.innerHTML = `
+    ${barra('il taccuino')}
+    <div class="pannello">
+      <h2>le ${domandeBusta(ep).length} domande</h2>
+      <p class="nota">Le risposte le scrive chi arbitra: la busta si apre una volta sola, e
+      per tutti. Qui si leggono, per ragionarci sopra fra una porta e l’altra.</p>
+      ${domandeBusta(ep).map((d, i) => `
+        <p class="mt"><b>${i + 1}. ${esc(d.q)}</b></p>
+        ${(ind.risposte[i] || '').trim()
+          ? `<p><i>${esc(ind.risposte[i])}</i></p>`
+          : '<p class="nota">— ancora nessuna risposta —</p>'}`).join('')}
+    </div>
+    <div class="mt"></div>
+    <div class="pannello">
+      <h2>i vostri appunti</h2>
+      ${mio ? `<textarea class="campo" data-nota-eroe="${esc(mio)}" rows="5"
+          placeholder="quel che non volete dimenticare…">${esc(noteDi(mio))}</textarea>`
+        : '<p class="nota">Non avete un eroe a questo tavolo.</p>'}
+    </div>
+    <div class="mt"></div>
+    <div class="pannello">
+      <h2>quelli degli altri</h2>
+      ${P().party.filter((nm) => nm !== mio).map((nm) => `
+        <p class="mt"><b>${esc(breve(nm))}</b></p>
+        ${noteDi(nm).trim() ? `<p>${esc(noteDi(nm))}</p>`
+          : '<p class="nota">— non ha ancora scritto niente —</p>'}`).join('')}
+      ${(ind.note || '').trim()
+        ? `<hr class="divisore"><p class="nota">Del gruppo, dal Taccuino di chi arbitra</p>
+           <p>${esc(ind.note)}</p>` : ''}
+    </div>
+    <div class="btn-riga">
+      <button class="btn pieno" id="torna-strada">tornate in strada →</button>
+    </div>`;
+  dopoBarra();
+  agganciaAppunti((nm, testo) => {
+    // si scrive subito nella propria copia — cosi' la casella non torna vuota
+    // se la spinta tarda — e si manda al tavolo, che lo passa agli altri
+    IND().noteEroe = { ...(IND().noteEroe || {}), [nm]: testo };
+    salva(ctx.partita, { timbra: false });
+    if (ctx.canale) ctx.canale.manda({ tipo: 'nota-eroe', eroe: nm, testo });
+  });
+  app.querySelector('#torna-strada').onclick = vistaDiChiGioca;
 }
 
 // LA LETTERA D'INCARICO, dal telefono.
@@ -603,6 +722,7 @@ function chiediAlTavolo(richiesta) {
 // regia — sul telefono direbbe quali porte esistono prima che il gruppo le
 // abbia trovate.
 function letteraDiChiGioca() {
+  ctx.schermata = letteraDiChiGioca;
   const { app, ep } = ctx;
   const { corpo } = spezzaLettera(ep.lettera);
   app.innerHTML = `
@@ -1147,9 +1267,14 @@ function taccuino() {
         <p class="mt"><b>${i + 1}. ${esc(d.q)}</b></p>
         <input class="campo" data-risposta="${i}" value="${esc(ind.risposte[i] || '')}"
                placeholder="la vostra risposta…">`).join('')}
-      <p class="mt"><b>Appunti</b> — nomi, orari, parole che tornano:</p>
-      <textarea class="campo" id="note-taccuino" rows="6"
+      <p class="mt"><b>Appunti del gruppo</b> — nomi, orari, parole che tornano:</p>
+      <textarea class="campo" id="note-taccuino" rows="5"
         placeholder="quel che la notte non deve farvi dimenticare…">${esc(ind.note || '')}</textarea>
+      <hr class="divisore">
+      <p><b>E quelli di ciascuno</b></p>
+      ${P().party.map((nm) => `<p class="mt"><b>${esc(breve(nm))}</b></p>
+        <textarea class="campo" data-nota-eroe="${esc(nm)}" rows="3"
+          placeholder="— non ha ancora scritto niente —">${esc(noteDi(nm))}</textarea>`).join('')}
       <div class="btn-riga">
         <button class="btn" id="salva-risposte">salvate e tornate in strada</button>
       </div>
@@ -1169,6 +1294,12 @@ function taccuino() {
       ind.risposte[Number(el.dataset.risposta)] = el.value;
     });
     ind.note = app.querySelector('#note-taccuino').value;
+    // chi arbitra tiene in mano gli eroi che nessuno ha reclamato: puo' scrivere
+    // gli appunti di chiunque, ed e' lo stesso patto della plancia
+    ind.noteEroe = ind.noteEroe || {};
+    app.querySelectorAll('[data-nota-eroe]').forEach((el) => {
+      ind.noteEroe[el.dataset.notaEroe] = el.value;
+    });
     salvaP();
   };
   app.querySelector('#salva-risposte').onclick = () => { leggi(); home(); };

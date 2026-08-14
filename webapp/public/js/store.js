@@ -133,7 +133,8 @@ export function nuovaPartita(episodioId, modo, party, fase = 'indagine') {
       approfondimentiLetti: [],// [{n, tipo, soggetto}]
       caricheUsate: {},        // {nomeEroe: {tipo: usate}}
       secondoFiato: {},        // {nomeEroe: true se ancora disponibile}
-      note: '',
+      note: '',              // la lavagna del gruppo, la tiene chi arbitra
+      noteEroe: {},          // {nomeEroe: testo} — ognuno tiene i suoi, tutti li leggono
       risposte: ['', '', '', ''],
       chiusa: soloSpedizione,
     },

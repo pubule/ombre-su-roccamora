@@ -28,6 +28,16 @@ export function decidi(locale, remoto) {
   if (localeCambiato && remotoCambiato && locale.aggiornato === remoto.aggiornato) {
     return { azione: 'niente' };
   }
+  // E LO STESSO CONTENUTO NON E' UN CONFLITTO, qualunque cosa dicano i timbri.
+  // I timbri possono divergere per ragioni che non c'entrano con chi ha
+  // giocato — due orologi diversi, un checkpoint del tavolo — e mettere
+  // davanti a due righe IDENTICHE, chiedendo di buttarne una, e' peggio che
+  // inutile: fa perdere fiducia proprio quando la partita e' intatta.
+  if (localeCambiato && remotoCambiato && remoto.dati
+      && JSON.stringify({ ...locale, aggiornato: 0, sincronizzato: 0 })
+         === JSON.stringify({ ...JSON.parse(remoto.dati), aggiornato: 0, sincronizzato: 0 })) {
+    return { azione: 'niente' };
+  }
   if (localeCambiato && remotoCambiato) return { azione: 'chiedi', locale, remoto };
   if (remotoCambiato) return { azione: 'scarica' };
   if (localeCambiato) return { azione: 'manda' };

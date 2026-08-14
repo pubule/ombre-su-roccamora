@@ -67,7 +67,14 @@ export class Partita extends DurableObject {
          ON CONFLICT(tavolo, episodio) DO UPDATE
            SET aggiornato = excluded.aggiornato, dati = excluded.dati
            WHERE excluded.aggiornato > salvataggi.aggiornato`)
-        .bind(tavolo, stato.episodio, Date.now(), JSON.stringify(stato)).run();
+        // IL TIMBRO E' QUELLO DELLO STATO, non l'ora di questo server. La colonna
+        // `aggiornato` viene confrontata da `sync.decidi` con quella della copia
+        // locale, che porta il timbro del browser di chi arbitra: mettendoci
+        // l'ora del server si confrontano DUE OROLOGI, e due copie identiche
+        // risultano «due versioni di questa partita» a un secondo di distanza.
+        // Visto al tavolo, e da li' si sceglieva a caso fra due righe uguali —
+        // finendo, a volte, su una partita diversa da quella del tavolo.
+        .bind(tavolo, stato.episodio, stato.aggiornato || Date.now(), JSON.stringify(stato)).run();
     } catch (e) {
       console.error('checkpoint su D1 fallito (la partita resta nel DO):', e.message);
     }
@@ -174,6 +181,10 @@ export class Partita extends DurableObject {
     // richiesta si scrive nello stato e si sparge — non si applica niente.
     if (cmd.tipo === 'chiedi-indagine') return this.chiediIndagine(stato, cmd, posto);
 
+    // GLI APPUNTI DI UN EROE. Non c'e' niente da arbitrare — sono i suoi — e
+    // quindi non passa da chi conduce: si scrivono qui e arrivano agli altri.
+    if (cmd.tipo === 'nota-eroe') return this.notaEroe(stato, cmd, posto);
+
     // CHI PUO' MUOVERE COSA. Un giocatore comanda il SUO eroe e nessun altro:
     // e' la regola che rende sensato dare a ognuno un dispositivo. L'arbitro
     // muove chiunque — e' lui che tiene in mano gli eroi non reclamati.
@@ -230,6 +241,20 @@ export class Partita extends DurableObject {
     }
     stato.indagine = { ...(stato.indagine || {}), richiesta: { ...r, da: posto.eroe || null } };
     await this.scrivi(stato);   // niente timbro: vedi `provaIndagine`
+    this.spargi({ stato, eventi: [] }, await this.dati(stato.episodio, stato.bivi), null);
+    return Response.json({ ok: true });
+  }
+
+  async notaEroe(stato, cmd, posto) {
+    // si scrive il PROPRIO taccuino. Chi arbitra scrive per chiunque: tiene in
+    // mano gli eroi che nessuno ha reclamato.
+    if (posto.ruolo !== 'arbitro' && cmd.eroe !== posto.eroe) {
+      return Response.json({ rifiuto: { motivo: `${cmd.eroe} non è il tuo eroe.` } }, { status: 403 });
+    }
+    const ind = stato.indagine || {};
+    stato.indagine = { ...ind, noteEroe: { ...(ind.noteEroe || {}), [cmd.eroe]: String(cmd.testo || '') } };
+    // niente timbro: vedi `provaIndagine`
+    await this.scrivi(stato);
     this.spargi({ stato, eventi: [] }, await this.dati(stato.episodio, stato.bivi), null);
     return Response.json({ ok: true });
   }

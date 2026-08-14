@@ -605,6 +605,72 @@ ${schermo.slice(0, 160)}`);
        fine.stato.indagine.richiesta ? 'ancora li’' : 'servita'})`);
 }
 
+// --- 12. IL TACCUINO DAL TELEFONO: le domande si leggono, gli appunti si scrivono
+//
+// Il Taccuino era uno solo e lo teneva chi conduce: al tavolo funziona, perche'
+// sta in mezzo. Con un telefono a testa no — quel che tieni a mente e' TUO, e
+// la nota di un altro e' la cosa piu' utile che leggi fra una porta e l'altra.
+{
+  const conNote = serata({ ora: 21 });
+  conNote.creata = 12_000;
+  conNote.party = [ELENA, OTTONE];
+  conNote.indagine.risposte = ['al magazzino di Dellacqua', '', '', ''];
+  conNote.indagine.noteEroe = { [OTTONE]: 'il liutaio esce di notte' };
+  await chiama(ARBITRO, 'PUT', '/api/party', { tavolo: idT, party: [ELENA, OTTONE] });
+  await chiama(ARBITRO, 'DELETE', `/api/membri?tavolo=${idT}&email=${encodeURIComponent(GIOCATORE)}`);
+  await chiama(ARBITRO, 'POST', '/api/membri', { tavolo: idT, email: GIOCATORE, eroe: ELENA });
+  await chiama(ARBITRO, 'POST', `/api/tavolo/${idT}/apri`, { tavolo: idT, stato: conNote });
+
+  await apriIndagine(conNote);
+  await page.waitForTimeout(900);
+  ok((await page.locator('#taccuino-eroe').count()) === 1, 'dalla home si apre il taccuino');
+  // Il clic si fa DENTRO la pagina: la vista si ridisegna a ogni spinta dal
+  // filo, e il nodo che Playwright ha trovato un istante prima puo' essere gia'
+  // staccato — il clic andrebbe a vuoto senza dire niente. Al tavolo il dito
+  // trova comunque il bottone che c'e' in quel momento.
+  await page.evaluate(() => document.querySelector('#taccuino-eroe').click());
+  await page.waitForTimeout(700);
+  const t = await page.locator('#app').innerText();
+
+  // LE DOMANDE SI LEGGONO. Stanno dentro `soluzione`, che al telefono non
+  // arriva mai: la proiezione ne manda i soli testi in `ep.domande`.
+  ok(/DOVE|CHI |COSA|QUAL/i.test(t), `le Domande si leggono dal telefono:
+${t.slice(0, 140)}`);
+  for (const d of (EP1.soluzione.domande || [])) {
+    ok(!t.includes(String(d.risposta).slice(0, 20)),
+       `ma non la risposta a «${String(d.q).slice(0, 26)}…»`);
+  }
+  // e non si risponde da qui: la busta si apre una volta sola, e per tutti
+  ok((await page.locator('[data-risposta]').count()) === 0,
+     'e dal telefono non si risponde: la busta e’ di chi arbitra');
+
+  // GLI APPUNTI: il proprio si scrive, quelli degli altri si leggono
+  const mie = page.locator(`[data-nota-eroe="${ELENA}"]`);
+  if ((await mie.count()) !== 1) console.error('   [diag]', t.slice(0, 260).replace(/\s+/g, ' '));
+  ok((await mie.count()) === 1, 'i propri appunti si scrivono');
+  ok((await page.locator(`[data-nota-eroe="${OTTONE}"]`).count()) === 0,
+     'quelli di un altro no: sono i suoi');
+  ok(/il liutaio esce di notte/.test(t), '…ma si leggono, ed e’ il punto');
+
+  // scrivendoli, arrivano al tavolo
+  await mie.fill('la cera veniva dalla cattedrale');
+  await mie.blur();
+  await page.waitForTimeout(1200);
+  const st = await (await chiama(ARBITRO, 'GET', `/api/tavolo/${idT}/stato`)).json();
+  ok((st.stato.indagine.noteEroe || {})[ELENA] === 'la cera veniva dalla cattedrale',
+     `e arrivano al tavolo (visto ${JSON.stringify((st.stato.indagine.noteEroe || {})[ELENA])})`);
+
+  // ...e solo i propri: il taccuino di un altro non si scrive da qui
+  const rubato = await page.evaluate(async ({ t: tv, altro }) => {
+    const r = await fetch(`/api/tavolo/${tv}/comando`, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ tipo: 'nota-eroe', eroe: altro, testo: 'non sono io' }),
+    });
+    return r.status;
+  }, { t: idT, altro: OTTONE });
+  ok(rubato === 403, `e non si scrive nel taccuino di un altro (visto ${rubato})`);
+}
+
 await browser.close();
 console.log(ko === 0
   ? 'test-indagine-eroe: l\'Indagine si gioca in due, senza che i segreti passino'

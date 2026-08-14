@@ -286,8 +286,13 @@ export function cerca(ep, partita, tileId) {
 // tier, e mostrata nell'epilogo.
 export const controBusta = (ep) =>
   (ep.soluzione.domande || []).find((d) => d.dopo_spedizione) || null;
+// Le Domande del Taccuino. Stanno dentro `soluzione` — che al telefono NON
+// arriva mai — ma le domande non sono un segreto: il Taccuino stampato le ha
+// gia' tutte, e senza di quelle chi gioca non puo' ragionare. La proiezione ne
+// manda una copia in `ep.domande`, coi soli testi. Qui si prende quella che
+// c'e': chi arbitra ha la busta, chi gioca le domande e basta.
 export const domandeBusta = (ep) =>
-  (ep.soluzione.domande || []).filter((d) => !d.dopo_spedizione);
+  (((ep.soluzione || {}).domande) || ep.domande || []).filter((d) => !d.dopo_spedizione);
 
 // --- verifica risposte (la busta) --------------------------------------------
 export function verificaRisposte(ep, risposte) {

@@ -94,6 +94,15 @@ function partita(ep, over = {}) {
     // restano, sapere QUALI sono giuste e' la busta
     ok(g.stato.indagine.risposteEsatte === undefined,
        `${id}: dal telefono non si sa quali risposte sono giuste`);
+
+    // LE DOMANDE SI', LE RISPOSTE NO. Da quando il telefono e' il Taccuino, chi
+    // gioca deve poter leggere su cosa sta ragionando il gruppo; la busta
+    // resta di chi arbitra.
+    const dom = g.dati.ep.domande || [];
+    ok(dom.length === (ep.soluzione.domande || []).length,
+       `${id}: le Domande arrivano al telefono (${dom.length}/${(ep.soluzione.domande || []).length})`);
+    ok(dom.every((d) => d.q && d.risposta === undefined && d.esatta === undefined),
+       `${id}: ma senza le risposte, che sono la busta`);
     ok(g.stato.indagine.ora === 21 && (g.stato.indagine.visitati || []).length === 1,
        `${id}: l'orologio e le porte gia' battute invece si vedono`);
 
