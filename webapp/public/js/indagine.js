@@ -210,12 +210,29 @@ function barra(titolo, etichetta = 'indagine') {
       <span class="tit-testo">${esc(titolo)}</span>
     </div>
   </div>
-  <div class="riga-registro">${registroOre()}
-    <span class="sc resta">${(() => { const o = 24 - IND().ora;
-      return o ? `${o} ${o === 1 ? 'ora' : 'ore'} a mezzanotte` : 'mezzanotte'; })()}</span>
-    ${suoni.bottoneHtml()}
+  ${orologio()}`;
+}
+
+// L'OROLOGIO NON STA MAI DIETRO UN TOCCO: e' la risorsa che tiene in ansia, e
+// nasconderla la spegne. Accanto, il tasto del menu — dove sta tutto quel che
+// non si guarda di continuo — col pallino quando nella notte c'e' una riga che
+// non avete ancora letto.
+function orologio() {
+  const o = 24 - IND().ora;
+  return `<div class="riga-capo">
+    <div class="riga-registro">${registroOre()}
+      <span class="sc resta">${o ? `${o} ${o === 1 ? 'ora' : 'ore'} a mezzanotte` : 'mezzanotte'}</span>
+      ${suoni.bottoneHtml()}
+    </div>
+    <button class="btn btn-menu" id="apri-menu">menu${
+      nuoveNelRegistro() ? '<span class="segno"></span>' : ''}</button>
   </div>`;
 }
+
+// quante righe sono arrivate da quando questo dispositivo ha guardato il
+// registro. Vive nella pagina e non nello stato: e' quel che ha letto CHI
+// GUARDA questo schermo, e metterlo nella partita farebbe leggere per tutti
+const nuoveNelRegistro = () => Math.max(0, (IND().notte || []).length - (ctx.notteLette || 0));
 
 // Lo stato che decide l'ambiente sonoro: il luogo in cui si sta (se si sta in
 // un luogo) e l'ora. In strada non c'e' ambiente — e sta bene: fra una visita
@@ -228,8 +245,215 @@ function statoSuoni() {
 
 function dopoBarra() {
   ctx.app.querySelector('#nav-esci').onclick = () => ctx.vaiA('menu');
+  ctx.app.querySelector('#apri-menu')?.addEventListener('click', menu);
   suoni.agganciaBottone(ctx.app, statoSuoni);
   suoni.aggiorna(statoSuoni());
+}
+
+// ═══════════════════════════════════ IL MENU ═══════════════════════════════
+//
+// Il precedente e' il piu' imparato di tutti: ogni GDR da quarant'anni ha un
+// tasto solo che apre inventario, squadra, diario e mappa, e fuori resta la
+// scena. Qui le voci sono raggruppate per MESTIERE — il gruppo, chi conduce —
+// e ognuna porta il suo conto: e' quello che toglie al menu il difetto di
+// nascondere, perche' si legge senza aprirlo.
+//
+// LO STRADARIO NON E' QUI: e' l'unica cosa che si guarda a ogni giro, e sta
+// sempre aperta di fianco. La regola dell'altra meta': la barra tiene le
+// AZIONI, il menu le COSE DA GUARDARE, e nessuna voce sta in tutt'e due i
+// posti.
+function menu() {
+  ctx.schermata = menu;
+  const { app, ep } = ctx;
+  const ind = IND();
+  const mio = mioEroe();
+  const nuove = nuoveNelRegistro();
+  const inMano = (ind.oggetti || []).length + (ind.approfondimentiLetti || []).length
+                 + (ind.reperti || []).length;
+  const scritte = (ind.risposte || []).filter((r) => String(r || '').trim()).length;
+  const domande = domandeBusta(ep).length;
+  const visitati = (ind.visitati || []).length;
+
+  const voce = (id, titolo, sotto, conto, segnata) => `
+    <button class="menu-voce${segnata ? ' segnata' : ''}" id="${id}">
+      <span class="tit">${titolo}${sotto ? `<i>${sotto}</i>` : ''}</span>
+      ${conto ? `<span class="conto">${conto}</span>` : ''}
+    </button>`;
+
+  app.innerHTML = `
+    ${barra('menu')}
+    <div class="menu-titolo">il gruppo</div>
+    ${voce('m-notte', 'la notte', 'quel che è successo, dall’inizio',
+           nuove ? `<b>${nuove} nuove</b>` : `${(ind.notte || []).length} righe`, nuove > 0)}
+    ${voce('m-squadra', 'la squadra', 'cariche, doni, chi è al telefono',
+           `<b>${P().party.length}</b> eroi`)}
+    ${voce('m-mano', 'quel che avete in mano', contaInMano(ind), `<b>${inMano}</b> pezzi`)}
+    ${arbitro() ? '' : voce('m-luoghi', 'dove siete stati', 'si riaprono le carte',
+                            `<b>${visitati}</b> luoghi`)}
+    <div class="menu-titolo">${arbitro() ? 'di chi conduce' : 'il vostro'}</div>
+    ${voce('m-taccuino', 'taccuino e domande',
+           arbitro() ? 'le risposte, e gli appunti di tutti' : 'i vostri appunti, e quelli degli altri',
+           `<b>${scritte}</b> di ${domande}`)}
+    ${!arbitro() && mio ? voce('m-scheda', esc(mio.toLowerCase()), 'la vostra scheda') : ''}
+    ${ep.lettera ? voce('m-lettera', 'la lettera d’incarico') : ''}
+    ${arbitro() ? voce('m-busta', 'la busta', 'si apre una volta sola, e per tutti',
+                       ind.chiusa ? 'aperta' : 'sigillata') : ''}
+    ${arbitro() ? '<p class="nota mt">Lo stradario non è qui: è di fianco, sempre.</p>' : ''}
+    <div class="btn-riga">
+      <button class="btn pieno" id="m-chiudi">tornate ${arbitro() ? 'alla serata' : 'alla scena'}</button>
+    </div>`;
+  dopoBarra();
+  const indietro = () => (arbitro() ? scenaArbitro() : vistaDiChiGioca());
+  app.querySelector('#m-chiudi').onclick = indietro;
+  app.querySelector('#m-notte').onclick = () => registroNotte(menu);
+  app.querySelector('#m-squadra').onclick = () => squadra(menu);
+  app.querySelector('#m-mano').onclick = () => {
+    ctx.schermata = () => elencoInMano(menu, codaCarbone());
+    elencoInMano(menu, codaCarbone());
+    agganciaCarbone(() => { ctx.schermata(); });
+  };
+  app.querySelector('#m-luoghi')?.addEventListener('click', () => doveSieteStati(menu));
+  app.querySelector('#m-taccuino').onclick = () => (arbitro() ? taccuino() : taccuinoDiChiGioca());
+  app.querySelector('#m-scheda')?.addEventListener('click', () => schedaEroe(
+    eroeCresciuto({ partita: P() }, mio, ctx.comune.eroi.find((x) => x.nome === mio)), {}));
+  app.querySelector('#m-lettera')?.addEventListener('click',
+    () => (arbitro() ? lettera() : letteraDiChiGioca()));
+  app.querySelector('#m-busta')?.addEventListener('click', () => taccuino());
+}
+
+// IL REGISTRO, a tutta pagina. Aprendolo si segna quel che si e' letto: il
+// pallino sul tasto e' per chi non l'ha guardato, non per tutti.
+function registroNotte(dietro) {
+  ctx.notteLette = (IND().notte || []).length;
+  ctx.schermata = () => registroNotte(dietro);
+  const { app } = ctx;
+  app.innerHTML = `
+    ${barra('la notte')}
+    <div class="pannello">${notteHtml()}</div>
+    <div class="btn-riga"><button class="btn pieno" id="notte-indietro">tornate indietro</button></div>`;
+  dopoBarra();
+  app.querySelector('#notte-indietro').onclick = dietro;
+}
+
+// LA SQUADRA: le cariche di tutti — «chi può leggere un Referto?» si guarda
+// invece di chiederlo — e i doni, che da qui li spende chi li ha.
+function squadra(dietro) {
+  ctx.schermata = () => squadra(dietro);
+  const { app } = ctx;
+  const mio = mioEroe();
+  app.innerHTML = `
+    ${barra('la squadra')}
+    <div class="pannello">
+      <div class="giro-strip stampe">${P().party.map((nm) => {
+        const e = ctx.comune.eroi.find((x) => x.nome === nm);
+        const car = caricheEroe(nm);
+        const pips = car.map((c) => `<span class="pip-carica" title="${esc(c.et)}: ${c.rest} di ${c.tot}">${
+          Array.from({ length: c.tot }, (_, k) =>
+            `<i class="${k < c.rest ? 'piena' : ''}"></i>`).join('')}</span>`).join('');
+        const finito = car.length > 0 && car.every((c) => c.rest <= 0);
+        return `<button class="chip-turno ritratto${finito ? ' fatto' : ''}" data-scheda="${esc(nm)}"
+          title="scheda di ${esc(nm.toLowerCase())}"><span class="rit"><img src="${
+            e && e.art ? urlArt(e.art) : ''}" alt="" loading="lazy"></span>
+          <span class="et">${breve(nm)}${nm === mio ? ' · voi' : ''}</span>
+          ${car.length ? `<span class="cariche">${pips}</span>` : ''}</button>`;
+      }).join('')}</div>
+      ${P().party.map((nm) => {
+        const car = caricheEroe(nm);
+        if (!car.length) return '';
+        const dove = nm === mio ? ' · siete voi'
+          : (ctx.collegati || []).includes(nm) ? ' · al telefono'
+          : (arbitro() ? ' · lo tenete voi' : ' · lo tiene chi arbitra');
+        return `<p class="nota mt"><b>${esc(breve(nm))}</b> — ${car.map((c) =>
+          `${esc(c.et)}: <b>${c.rest}</b> di ${c.tot}`).join(' · ')}${dove}</p>`;
+      }).join('')}
+    </div>
+    <div class="btn-riga"><button class="btn pieno" id="sq-indietro">tornate indietro</button></div>`;
+  dopoBarra();
+  app.querySelectorAll('[data-scheda]').forEach((el) => el.addEventListener('click', () =>
+    schedaEroe(eroeCresciuto({ partita: P() }, el.dataset.scheda,
+      ctx.comune.eroi.find((x) => x.nome === el.dataset.scheda)), {})));
+  app.querySelector('#sq-indietro').onclick = dietro;
+}
+
+// I DONI, una volta per serata. Stanno nella SCENA e non nella squadra: sono
+// azioni, e la squadra e' una cosa da guardare — la stessa regola che sul
+// telefono separa la barra dal menu. Chi arbitra li vede tutti (tiene in mano
+// gli eroi che nessuno ha preso), chi gioca vede il suo e basta.
+const alTelefono = (nome) => (ctx.collegati || []).includes(nome) && nome !== mioEroe();
+
+function doniHtml() {
+  const miei = UNA_TANTUM.filter((u) => u.dove === 'home' && P().party.includes(u.eroe)
+    && (arbitro() || u.eroe === mioEroe()));
+  if (!miei.length) return '';
+  return `<div class="mt"></div><div class="pannello">
+    <h2>i doni, una volta per serata</h2>
+    <div class="btn-riga">
+      ${miei.map((u) => {
+        const attiva = u.flag === 'fontiRiservateUsate' && IND().fontiRiservateAttive;
+        // UN DONO, UN INTERRUTTORE. Se quell'eroe è al telefono di qualcuno, il
+        // dono lo spende lui: il motore rifiuta comunque il secondo colpo, ma
+        // due bottoni per la stessa cosa al tavolo sono una corsa, e la
+        // sensazione è che il gioco ti tolga la tua cosa di mano.
+        const suo = alTelefono(u.eroe);
+        const giu = speso(u) || attiva || suo;
+        const coda = suo ? ` — è di ${breve(u.eroe)}, dal suo telefono`
+          : attiva ? ' — pronta, alla prossima visita'
+          : (speso(u) ? ' — usata' : ' (1 volta)');
+        return `<button class="btn${speso(u) && !attiva ? ' spesa' : ''}" id="${u.id}"${
+          giu ? ' disabled' : ''}>${esc(u.label)}${coda}</button>`;
+      }).join('')}
+    </div>
+  </div>`;
+}
+
+function agganciaDoni() {
+  const { app } = ctx;
+  app.querySelector('#discernimento')?.addEventListener('click', discernimento);
+  app.querySelector('#fonti-riservate')?.addEventListener('click', fontiRiservate);
+  app.querySelector('#ombra')?.addEventListener('click', ombraFiuta);
+}
+
+// L'esame di Carbone sta dentro l'elenco delle cose: e' il solo dono che ha
+// bisogno di un pezzo da guardare, e il pezzo si sceglie dov'e' l'elenco.
+const codaCarbone = () => (P().party.includes('FULGENZIO CARBONE') && !P().carboneUsato
+  && (arbitro() || mioEroe() === 'FULGENZIO CARBONE')
+  && ((IND().oggetti || []).length || (IND().reperti || []).length)
+  ? '<div class="btn-riga"><button class="btn" id="esame-carbone">esame di Carbone (1 volta)</button></div>'
+  : '');
+const agganciaCarbone = (dopo) => ctx.app.querySelector('#esame-carbone')
+  ?.addEventListener('click', () => esameCarbone(dopo));
+
+// DOVE SIETE STATI, per chi gioca: i luoghi visitati arrivano interi dalla
+// proiezione, quindi la loro carta si puo' riaprire — a meta' serata nessuno
+// ricorda cosa c'era al Molo, e la risposta ce l'ha in tasca.
+function doveSieteStati(dietro) {
+  ctx.schermata = () => doveSieteStati(dietro);
+  const { app, ep } = ctx;
+  const visitati = (ep.luoghi || []).filter((l) => (IND().visitati || []).includes(l.n));
+  app.innerHTML = `
+    ${barra('dove siete stati')}
+    <div class="pannello">
+      ${visitati.length ? `<div class="in-mano">${visitati.map((l) => `
+        <button class="voce" data-luogo="${l.n}"><span class="riga-pezzo">
+          <span class="tit"><b>${esc(l.nome.toLowerCase())}</b>${(() => {
+            const colti = (IND().approfondimentiLetti || []).filter((x) => x.n === l.n);
+            return colti.length ? `<i class="nota">${colti.map((x) =>
+              esc(x.soggetto)).join(' · ')}</i>` : '';
+          })()}</span><span class="freccia">›</span></span></button>`).join('')}</div>`
+        : '<p class="nota">Ancora nessuna porta. La notte è giovane.</p>'}
+    </div>
+    <div class="btn-riga"><button class="btn pieno" id="dv-indietro">tornate indietro</button></div>`;
+  dopoBarra();
+  app.querySelector('#dv-indietro').onclick = dietro;
+  app.querySelectorAll('[data-luogo]').forEach((b) => b.addEventListener('click', () => {
+    const l = luogoN(Number(b.dataset.luogo));
+    const c = cartaLuogo(ctx.carte, P().episodio, l.n);
+    pannelloMsg(l.nome.toLowerCase(),
+      `${bannerLuogo(l)}
+       ${l.testo ? `<p><i>${rendi(l.testo)}</i></p>` : ''}
+       ${c ? `<div class="carta-grande mt"><img src="${urlCartaSafe(c.file)}" alt=""></div>` : ''}`,
+      () => doveSieteStati(dietro));
+  }));
 }
 
 // banner con l'arte del luogo (dalle carte renderizzate o dal campo art)
@@ -242,85 +466,86 @@ function bannerLuogo(l) {
 }
 
 // ------------------------------------------------------------------ home
+// ═══════════════════════ LA SERATA, PER CHI ARBITRA ════════════════════════
+//
+// La schermata dice sempre una cosa sola: DOVE SIETE. Dentro un luogo la scena
+// prende la pagina e lo stradario sta di fianco — guardare la mappa non e' una
+// mossa, e prima bisognava lasciare il luogo per rivederlo, cioe' pagare
+// un'altra ora per un ripensamento. Fuori non c'e' scena da guardare, e lo
+// stradario diventa la pagina.
+function scenaArbitro() {
+  const dentro = IND().luogoAperto != null && luogoN(IND().luogoAperto);
+  return dentro ? schedaLuogo(dentro) : home();
+}
+
 function home() {
-  const { app, ep, comune } = ctx;
-  const ind = IND();
-  const voci = vociMappa(ep, comune);
-  const visitati = new Set(ind.visitati);
-  const luoghiPerVoce = {};
-  ep.luoghi.forEach((l) => { luoghiPerVoce[norm(l.voce_mappa)] = l; });
+  ctx.schermata = home;
+  const { app, ep } = ctx;
   app.innerHTML = `
     ${barra(ep.titolo)}
+    ${ultimoFattoHtml()}
     <div class="pannello">
-      <h2>il gruppo sul caso</h2>
-      <div class="giro-strip stampe">${P().party.map((nm) => {
-        const e = ctx.comune.eroi.find((x) => x.nome === nm);
-        // il contatore delle cariche: un pallino per uso, pieno = ancora
-        // disponibile. Stessa lettura dei cerchietti del Taccuino stampato
-        // (deluxe_style.contatori_indagine) e dei pips della Spedizione.
-        const car = caricheEroe(nm);
-        const pips = car.map((c) => `<span class="pip-carica" title="${esc(c.et)}: ${c.rest} di ${c.tot}">${
-          Array.from({ length: c.tot }, (_, k) =>
-            `<i class="${k < c.rest ? 'piena' : ''}"></i>`).join('')}</span>`).join('');
-        const finito = car.length > 0 && car.every((c) => c.rest <= 0);
-        // qui il ritratto e' libero (in spedizione lo stesso clic sceglie chi
-        // agisce), quindi apre la scheda del personaggio
-        return `<button class="chip-turno ritratto${finito ? ' fatto' : ''}" data-scheda="${esc(nm)}"
-          title="scheda di ${esc(nm.toLowerCase())}"><span class="rit"><img src="${e && e.art ? urlArt(e.art) : ''}" alt="" loading="lazy"></span>
-          <span class="et">${breve(nm)}</span>
-          ${car.length ? `<span class="cariche">${pips}</span>` : ''}</button>`;
-      }).join('')}</div>
-      <p class="nota">Sotto ogni ritratto, le sue <b>cariche</b>: un pallino per uso,
-      pieno se è ancora disponibile. Ogni eroe legge un tipo di Approfondimento
-      (Elena le Osservazioni, Serra i Presagi…) — se è nel party, l'app ve lo propone
-      al momento giusto.</p>
+      <h2>siete per le strade</h2>
+      <p class="nota">Dichiarare è impegnarsi: se la pista è fredda non costa nulla,
+      ma se lì c’è qualcosa… l’ora si spende.</p>
     </div>
+    ${doniHtml()}
     <div class="mt"></div>
-    <div class="pannello">
-      <h2>lo stradario di roccamora</h2>
-      <p class="nota">Dichiarate una destinazione: se la pista è fredda non costa nulla,
-      ma se lì c’è qualcosa… l’ora si spende. Dichiarare è impegnarsi.</p>
-      <div class="stradario mt">
-        ${voci.map((v) => {
-          const l = luoghiPerVoce[norm(v.nome)];
-          // SOLO «gia' battuto»: quello il gruppo lo sa gia'. Qualunque altra
-          // etichetta di stato (pista calda, serve una parola) direbbe dove
-          // andare, e l'app e' l'arbitro che custodisce proprio quello.
-          const stato = l && visitati.has(l.n) ? '<span class="visitato">già battuto</span>' : '';
-          return `<button class="voce" data-voce="${esc(v.nome)}">
-            <b>${esc(v.nome)}</b> <i>${esc(v.indirizzo)}</i>${stato}</button>`;
-        }).join('')}
-      </div>
-    </div>
-    <div class="btn-riga">
-      ${ep.lettera ? '<button class="btn" id="rileggi">la lettera</button>' : ''}
-      ${/* Il bottone non sparisce piu' quando la carica e' spesa: resta
-            disabilitato e barrato. Sparendo non si distingueva «gia' usata»
-            da «l'eroe non e' nel party», e quello ERA il contatore mancante. */
-        UNA_TANTUM.filter((u) => u.dove === 'home' && P().party.includes(u.eroe)).map((u) => {
-          // «pronta» non e' «usata»: il bonus di Carla e' armato e scatta alla
-          // prossima visita. Disabilitato si', barrato no — barrarlo direbbe
-          // al tavolo che quella carica non c'e' piu'.
-          const attiva = u.flag === 'fontiRiservateUsate' && ind.fontiRiservateAttive;
-          const giu = speso(u) || attiva;
-          const coda = attiva ? ' — pronta, alla prossima visita'
-            : (speso(u) ? ' — usata' : ' (1 volta)');
-          return `<button class="btn${speso(u) && !attiva ? ' spesa' : ''}" id="${u.id}"${
-            giu ? ' disabled' : ''}>${esc(u.label)}${coda}</button>`;
-        }).join('')}
-      <button class="btn" id="taccuino">taccuino e domande</button>
-      <button class="btn" id="inventario">oggetti e carte (${ind.oggetti.length + ind.approfondimentiLetti.length + (ind.reperti || []).length})</button>
-      <button class="btn pieno" id="chiudi-indagine">chiudete l’indagine</button>
-    </div>`;
+    ${stradarioHtml()}`;
   dopoBarra();
-  app.querySelectorAll('.voce').forEach((el) => el.onclick = () => dichiara(el.dataset.voce));
-  app.querySelector('#rileggi')?.addEventListener('click', lettera);
-  app.querySelector('#discernimento')?.addEventListener('click', discernimento);
-  app.querySelector('#fonti-riservate')?.addEventListener('click', fontiRiservate);
-  app.querySelector('#ombra')?.addEventListener('click', ombraFiuta);
-  app.querySelector('#taccuino').onclick = taccuino;
-  app.querySelector('#inventario').onclick = inventario;
-  app.querySelector('#chiudi-indagine').onclick = taccuino;
+  agganciaStradario();
+  agganciaDoni();
+}
+
+// LO STRADARIO. Un pezzo solo, in due posti: a tutta pagina quando non c'e' una
+// scena, nella colonna quando c'e'. Due schermate diverse divergerebbero al
+// primo ritocco.
+function stradarioHtml() {
+  const { ep, comune } = ctx;
+  const ind = IND();
+  const visitati = new Set(ind.visitati);
+  const luoghiPerVoce = {};
+  (ep.luoghi || []).forEach((l) => { luoghiPerVoce[norm(l.voce_mappa)] = l; });
+  const voci = vociMappa(ep, comune);
+  // le vie gia' battute in fondo e smorzate: il gruppo sa di esserci stato, e
+  // lasciarle in mezzo allunga la scansione di quel che resta
+  const ordinate = [...voci].sort((a, b) => {
+    const va = visitati.has((luoghiPerVoce[norm(a.nome)] || {}).n) ? 1 : 0;
+    const vb = visitati.has((luoghiPerVoce[norm(b.nome)] || {}).n) ? 1 : 0;
+    return va - vb;
+  });
+  return `<div class="pannello">
+    <h2>dove andate?</h2>
+    <input class="cerca" id="cerca-via" placeholder="cerca una via…" autocomplete="off">
+    <div class="stradario mt" id="lo-stradario">
+      ${ordinate.map((v) => {
+        const l = luoghiPerVoce[norm(v.nome)];
+        // SOLO «gia' battuto»: qualunque altra etichetta di stato direbbe dove
+        // andare, e l'app e' l'arbitro che custodisce proprio quello.
+        const battuto = l && visitati.has(l.n);
+        return `<button class="voce${battuto ? ' battuta' : ''}" data-voce="${esc(v.nome)}"
+          data-cerca="${esc(norm(v.nome + ' ' + (v.indirizzo || '')))}">
+          <b>${esc(v.nome)}</b> <i>${esc(v.indirizzo)}</i>${
+            battuto ? '<span class="visitato">già battuto</span>' : ''}</button>`;
+      }).join('')}
+    </div>
+  </div>`;
+}
+
+// Ventidue voci sono piu' di quante se ne scandiscano mentre il tavolo aspetta:
+// si filtra sul posto, senza ridisegnare (ridisegnare svuoterebbe il campo).
+function agganciaStradario() {
+  const { app } = ctx;
+  app.querySelectorAll('.voce[data-voce]').forEach((el) =>
+    el.addEventListener('click', () => dichiara(el.dataset.voce)));
+  const campo = app.querySelector('#cerca-via');
+  if (!campo) return;
+  campo.addEventListener('input', () => {
+    const q = norm(campo.value.trim());
+    app.querySelectorAll('.voce[data-cerca]').forEach((el) => {
+      el.style.display = !q || el.dataset.cerca.includes(q) ? '' : 'none';
+    });
+  });
 }
 
 // IL FILO COL TAVOLO, durante l'Indagine.
@@ -349,6 +574,10 @@ function collegaAlTavolo() {
       if (messaggio && messaggio.arbitroCollegato !== undefined) {
         ctx.arbitroCollegato = messaggio.arbitroCollegato;
       }
+      // CHI C'E' AL TAVOLO. Il tavolo lo dice a ogni spinta: chi arbitra lo usa
+      // per non offrire un secondo interruttore su un dono che ha gia' una
+      // mano, e la squadra per dire chi è al telefono.
+      if (messaggio && Array.isArray(messaggio.collegati)) ctx.collegati = messaggio.collegati;
       // CHI ARBITRA ASCOLTA UNA COSA SOLA: il tiro che aspetta dall'altra parte.
       // Non ridisegna su quel che arriva — la sua schermata la guida lui, e
       // ridisegnarla sotto le dita gli farebbe sparire quel che stava facendo.
@@ -376,7 +605,12 @@ function collegaAlTavolo() {
       // LA SERATA E' PASSATA ALLA SPEDIZIONE mentre guardavamo: non si ridisegna
       // l'Indagine di una partita che non e' piu' li'. Si chiude il filo e si
       // passa la mano, o resterebbero due canali aperti sullo stesso tavolo.
-      if (stato.fase !== 'indagine' || (stato.indagine || {}).chiusa) {
+      // LA BUSTA APERTA NON E' LA FINE: e' la pagina che si legge insieme, e
+      // finche' c'e' quella schermata condivisa si resta qui. Uscire su
+      // `chiusa` buttava i telefoni nell'allestimento della Spedizione proprio
+      // nel momento più alto della serata.
+      const busta = (stato.indagine || {}).chiusa && (stato.indagine || {}).carta;
+      if (!busta && (stato.fase !== 'indagine' || (stato.indagine || {}).chiusa)) {
         if (ctx.canale) { ctx.canale.chiudi(); ctx.canale = null; }
         salva(stato, { timbra: false });
         return ctx.vaiA('spedizione');
@@ -453,101 +687,66 @@ function vistaDiChiGioca() {
   // stato: metterlo nella partita farebbe di un gesto personale una mossa del
   // gruppo, e il tavolo a schermo unico dovrebbe farla per finta.
   if (aperto && ctx.entrato !== aperto.n) return arrivoAlLuogo(aperto);
-
-  const scritte = (ind.risposte || []).filter((r) => String(r || '').trim()).length;
-  // IL DONO DEL PROPRIO EROE, se ne ha uno. Sul telefono di chi non ce l'ha la
-  // riga semplicemente non c'e' — come i pallini delle cariche. La spende lui:
-  // dal 14/08 e' un comando del motore, non piu' una cosa che fa chi arbitra
-  // per conto suo.
-  const dono = mio ? UNA_TANTUM.find((u) => u.eroe === mio && u.dove === 'home') : null;
-
+  // LA SCENA, E LA BARRA. Sul telefono non c'e' colonna: dichiarare e' di chi
+  // arbitra e lo spazio non c'e'. Restano tre cose — cos'e' appena successo,
+  // cosa sta succedendo, cosa potete fare — e il resto sta nel menu.
+  //
+  // La regola dura: LA BARRA TIENE LE AZIONI, IL MENU LE COSE DA GUARDARE.
+  // Nessuna voce sta in tutt'e due i posti, e non c'e' mai da chiedersi dov'e'
+  // una cosa.
   app.innerHTML = `
     ${barra(aperto ? aperto.nome.toLowerCase() : 'per le strade')}
+    ${ultimoFattoHtml()}
     ${aperto ? bannerLuogo(aperto) : ''}
-    ${aperto ? approfondireHtml(aperto) : `<div class="pannello">
+    ${aperto ? scenaLuogoHtml(aperto) : `<div class="pannello">
       <h2>siete per le strade</h2>
       <p class="nota">Si decide insieme dove andare; a dichiararlo e a bussare e’ chi
       arbitra. Appena entrate, qui compare quel che potete fare voi.</p>
     </div>`}
-    ${mio ? `<div class="mt"></div>
-    <div class="pannello">
-      <h2>il vostro eroe</h2>
-      <div class="giro-strip stampe">${(() => {
-        const e = ctx.comune.eroi.find((x) => x.nome === mio);
-        // LE CARICHE, con gli stessi pallini della schermata di chi arbitra e
-        // del Taccuino stampato: un pallino per uso, pieno se e' ancora
-        // disponibile. Sono la risorsa che chi gioca deve poter contare da se'
-        // — «l'ho gia' usata la mia Testimonianza?» e' una domanda sua, e
-        // chiederla ad alta voce a chi conduce e' chiederle di rispondere per
-        // tutti. Il markup e' copiato da `home()` parola per parola: due
-        // versioni degli stessi pallini divergono al primo ritocco.
-        const car = caricheEroe(mio);
-        const pips = car.map((c) => `<span class="pip-carica" title="${esc(c.et)}: ${c.rest} di ${c.tot}">${
-          Array.from({ length: c.tot }, (_, k) =>
-            `<i class="${k < c.rest ? 'piena' : ''}"></i>`).join('')}</span>`).join('');
-        const finito = car.length > 0 && car.every((c) => c.rest <= 0);
-        return `<button class="chip-turno ritratto${finito ? ' fatto' : ''}" data-scheda="${esc(mio)}"
-          title="scheda di ${esc(mio.toLowerCase())}"><span class="rit"><img src="${
-            e && e.art ? urlArt(e.art) : ''}" alt="" loading="lazy"></span>
-          <span class="et">${breve(mio)}</span>
-          ${car.length ? `<span class="cariche">${pips}</span>` : ''}</button>`;
-      })()}</div>
-      ${(() => {
-        const car = caricheEroe(mio);
-        if (!car.length) return '';
-        return `<p class="nota">${car.map((c) =>
-          `${esc(c.et)}: <b>${c.rest}</b> di ${c.tot}`).join(' · ')}</p>`;
-      })()}
-    </div>` : ''}
-    <div class="mt"></div>
-    <div class="pannello">
-      <h2>dove siete stati (${visitati.length})</h2>
-      ${visitati.length
-        ? `<div class="stradario mt">${visitati.map((l) => `<div class="voce">
-            <b>${esc(l.nome.toLowerCase())}</b></div>`).join('')}</div>`
-        : '<p class="nota">Ancora nessuna porta. La notte è giovane.</p>'}
-    </div>
-    <div class="mt"></div>
-    <div class="pannello">
-      <h2>il vostro taccuino</h2>
-      <div class="in-mano mt">
-        ${rigaVoce('id="mano-eroe"', 'quel che avete in mano',
-                   contaInMano(ind) || 'ancora niente')}
-        ${rigaVoce('id="taccuino-eroe"', 'taccuino e domande',
-                   `${scritte} ${scritte === 1 ? 'risposta scritta' : 'risposte scritte'} su ${
-                     (ep.domande || []).length || 4}`)}
-        ${dono ? rigaVoce(`id="dono-eroe" data-dono="${esc(dono.id)}"`,
-                          esc(dono.label.toLowerCase()),
-                          speso(dono) ? 'già speso stanotte' : 'il vostro, 1 volta per serata') : ''}
-        ${ep.lettera ? rigaVoce('id="lettera-eroe"', 'la lettera d’incarico') : ''}
-      </div>
-    </div>`;
+    ${barraAzioniHtml(aperto)}`;
   dopoBarra();
-  app.querySelectorAll('[data-scheda]').forEach((el) =>
-    el.addEventListener('click', () => schedaEroe(eroeCresciuto({ partita: P() },
-      el.dataset.scheda, ctx.comune.eroi.find((x) => x.nome === el.dataset.scheda)), {})));
-  app.querySelector('#lettera-eroe')?.addEventListener('click', letteraDiChiGioca);
-  app.querySelector('#taccuino-eroe').onclick = taccuinoDiChiGioca;
-  app.querySelector('#mano-eroe').onclick = () => {
-    // L'ESAME DI CARBONE sta nell'elenco e non fra le righe della home: e' il
-    // solo dono che ha bisogno di un pezzo da guardare, e il pezzo si sceglie
-    // dov'e' l'elenco. Sul telefono compare solo a Fulgenzio.
-    const suo = mio === 'FULGENZIO CARBONE' && !P().carboneUsato
-                && ((ind.oggetti || []).length || (ind.reperti || []).length);
-    const coda = suo
-      ? '<div class="btn-riga"><button class="btn" id="esame-carbone">esame di Carbone (1 volta)</button></div>'
-      : '';
-    const apri = () => {
-      elencoInMano(vistaDiChiGioca, coda);
-      app.querySelector('#esame-carbone')?.addEventListener('click', () => esameCarbone(apri));
-    };
-    ctx.schermata = apri;
-    apri();
-  };
-  // il dono si spende da qui, e il rifiuto lo dice il motore («quel dono è di
-  // X»): la vista non ha una seconda copia della regola da tenere allineata
+  agganciaAzioni(aperto);
+}
+
+// LA BARRA DELLE AZIONI: quel che si puo' fare ADESSO, dove arriva il pollice.
+// Dentro un luogo sono l'abilita' propria e l'aiuto profano; fuori, il proprio
+// dono. Quando non c'e' niente da fare la barra non c'e' — un bottone che non
+// serve e' peggio di nessun bottone.
+function barraAzioniHtml(aperto) {
+  const mio = mioEroe();
+  const dono = mio ? UNA_TANTUM.find((u) => u.eroe === mio && u.dove === 'home') : null;
+  const azioni = [];
+  if (aperto) {
+    // chi puo' cogliere cosa e' `idoneiPerTipo`, la stessa regola del motore
+    // guardata dal proprio posto: qui si chiede a lei, non si riscrive
+    const l = aperto;
+    const ind = IND();
+    const tipiQui = [...new Set((l.approfondimenti || []).map((a) => a.tipo))];
+    const letto = (t) => ind.approfondimentiLetti.some((x) => x.n === l.n && x.tipo === t);
+    const aperti = tipiQui.filter((t) => !letto(t));
+    const miei = mio ? aperti.filter((t) =>
+      idoneiPerTipo(ctx.comune, P(), t).some((x) => x.nome === mio)) : [];
+    for (const t of miei) {
+      azioni.push(`<button class="btn pieno" data-appr="approfondisci" data-luogo="${l.n}"
+        data-tipo="${esc(t)}">${esc(t.toLowerCase())}</button>`);
+    }
+    if (aperti.length && !(ind.profano || {})[l.n]) {
+      azioni.push(`<button class="btn" data-appr="profano" data-luogo="${l.n}"
+        data-tipo="${esc(aperti[0])}">aiuto profano</button>`);
+    }
+  } else if (dono && !speso(dono)) {
+    azioni.push(`<button class="btn pieno" id="dono-eroe">${esc(dono.label.toLowerCase())}</button>`);
+  }
+  if (!azioni.length) return '';
+  return `<div class="barra-azioni">${azioni.join('')}</div>`;
+}
+
+function agganciaAzioni(aperto) {
+  const { app } = ctx;
   app.querySelector('#dono-eroe')?.addEventListener('click', () => {
-    if (speso(dono)) return;
+    const mio = mioEroe();
+    const dono = UNA_TANTUM.find((u) => u.eroe === mio && u.dove === 'home');
+    if (!dono || speso(dono)) return;
     if (dono.id === 'ombra') return ombraFiuta();
     if (dono.id === 'discernimento') return discernimento();
     return fontiRiservate();
@@ -556,7 +755,7 @@ function vistaDiChiGioca() {
   // il tavolo: e' la sua abilita' e la spende lui, e la regola sta nel motore —
   // quindi il codice e' uno solo, e non ci sono due strade da tenere allineate.
   app.querySelectorAll('[data-appr]').forEach((el) => el.addEventListener('click', () => {
-    const l = luogoN(Number(el.dataset.luogo));
+    const l = luogoN(Number(el.dataset.luogo)) || aperto;
     if (!l) return;
     const tipiQui = [...new Set((l.approfondimenti || []).map((a) => a.tipo))];
     if (el.dataset.appr === 'profano') return aiutoProfano(l, el.dataset.tipo, mioEroe());
@@ -616,41 +815,39 @@ function agganciaAppunti(quando) {
 // Chi arbitra resta il motore: il telefono CHIEDE, e l'esito lo esegue e lo
 // annuncia lui. Non e' un compromesso tecnico — nell'Indagine agisce una mano
 // sola per scelta, e quella mano tiene anche il filo del racconto.
-function approfondireHtml(l) {
+// LA SCENA, sul telefono: dove siete e cosa c'e' da cogliere. I BOTTONI NON
+// SONO QUI — stanno nella barra in fondo, dove arriva il pollice — perche' la
+// regola e' che le azioni stiano in un posto solo. Prima erano a meta' pagina,
+// e su uno schermo di telefono «a meta' pagina» vuol dire sotto il bordo.
+function scenaLuogoHtml(l) {
   const ind = IND();
   const mio = mioEroe();
-  if (!mio) return '';
   const tipiQui = [...new Set((l.approfondimenti || []).map((a) => a.tipo))];
-  if (!tipiQui.length) return '';
   const letto = (tipo) => ind.approfondimentiLetti.some((x) => x.n === l.n && x.tipo === tipo);
-  // idoneo = ha una carica di quel tipo (o il jolly di Sibilla). E' la stessa
-  // regola di `idoneiPerTipo`, guardata dal proprio posto invece che da quello
-  // di chi conduce.
-  const puo = (tipo) => idoneiPerTipo(ctx.comune, P(), tipo).some((x) => x.nome === mio);
   const aperti = tipiQui.filter((t) => !letto(t));
-  // se non c'e' piu' niente da cogliere la sezione RESTA, e lo dice: adesso e'
-  // la prima cosa sotto il banner, e un vuoto al suo posto sembrerebbe un guasto
-  if (!aperti.length) {
-    return `<div class="pannello">
-      <h2>guardare meglio</h2>
-      <p class="nota">Qui avete già colto tutto quel che c’era.</p>
-    </div>`;
-  }
-  const miei = aperti.filter(puo);
-  // l'aiuto profano e' l'occasione UNA di questo luogo, e la tenta chi vuole:
-  // qui il bottone c'e' su tutti i telefoni presenti
+  const puo = (tipo) => idoneiPerTipo(ctx.comune, P(), tipo).some((x) => x.nome === mio);
+  const miei = mio ? aperti.filter(puo) : [];
   const profanoFatto = !!(ind.profano || {})[l.n];
+
+  const coda = () => {
+    if (ind.scenaChiusa) {
+      return `<p class="nota">Qui avete già guardato meglio, e non è venuto fuori niente:
+        per questa visita gli Approfondimenti restano nascosti.</p>`;
+    }
+    if (!tipiQui.length) return '<p class="nota">Qui non c’è niente da cogliere.</p>';
+    if (!aperti.length) return '<p class="nota">Qui avete già colto tutto quel che c’era.</p>';
+    if (miei.length) return '<p class="nota">Quel che cogliete lo legge tutto il tavolo.</p>';
+    return `<p class="nota">Qui non c’è niente che parli il vostro linguaggio${
+      profanoFatto ? '' : ': resta l’occhio del dilettante'}.</p>`;
+  };
+  // «siete il campanile di san teodoro» non e' italiano, e i nomi dei luoghi
+  // cominciano tutti con un articolo: il titolo e' il nome, e «siete dentro» sta
+  // sopra come etichetta.
   return `<div class="pannello">
-      <h2>guardare meglio</h2>
-      <p class="nota">Siete dentro. Quel che cogliete lo legge tutto il tavolo.</p>
-      <div class="btn-riga">
-        ${miei.map((t) => `<button class="btn pieno" data-appr="approfondisci"
-          data-luogo="${l.n}" data-tipo="${esc(t)}">${esc(t.toLowerCase())}</button>`).join('')}
-        ${profanoFatto ? '' : `<button class="btn" data-appr="profano"
-          data-luogo="${l.n}" data-tipo="${esc(aperti[0])}">aiuto profano (1 volta qui)</button>`}
-      </div>
-      ${miei.length ? '' : '<p class="nota">Qui non c’è niente che parli il vostro linguaggio: resta l’occhio del dilettante.</p>'}
-    </div>`;
+    <p class="nota">siete dentro</p>
+    <h2>${esc(l.nome.toLowerCase())}</h2>
+    ${coda()}
+  </div>`;
 }
 
 function taccuinoDiChiGioca() {
@@ -807,17 +1004,17 @@ async function dichiara(nomeVoce) {
     // la frase di colore la sceglie la vista: il motore dice solo che e' fredda
     const esito = dichiaraVoce(ctx.ep, ctx.comune, nomeVoce);
     return pannelloMsg('pista fredda', `<p><i>${esc(esito.frase || '')}</i></p>
-      <p class="nota mt">Nessuna ora spesa.</p>`, home);
+      <p class="nota mt">Nessuna ora spesa.</p>`, scenaArbitro);
   }
   if (ev('mezzanotte')) {
-    return pannelloMsg('è mezzanotte', '<p>Il tempo è finito: chiudete l’indagine.</p>', home);
+    return pannelloMsg('è mezzanotte', '<p>Il tempo è finito: chiudete l’indagine.</p>', scenaArbitro);
   }
   const lontano = ev('troppo-lontano');
   if (lontano) {
     const l = luogoN(lontano.luogo);
     return pannelloMsg('troppo lontano', `<p><i>${esc(l.nome.toLowerCase())} è
       fuori città: la trasferta vuole ${lontano.costo} ore, e non le avete.</i></p>
-      <p class="nota mt">Nessuna ora spesa: con un'ora sola non si dichiara.</p>`, home);
+      <p class="nota mt">Nessuna ora spesa: con un'ora sola non si dichiara.</p>`, scenaArbitro);
   }
   const chiuso = ev('gia-chiuso');
   if (chiuso) {
@@ -825,7 +1022,7 @@ async function dichiara(nomeVoce) {
     return pannelloMsg(l.nome.toLowerCase(), `<p><i>${chiuso.chiude != null
       ? `Troppo tardi: qui hanno chiuso alle ${chiuso.chiude}:00. Il portone resta muto.`
       : `Qui non aprono prima delle ${chiuso.apre}:00: la strada è ancora deserta.`}</i></p>
-      <p class="nota mt">Nessuna ora spesa: lo sapevate arrivando.</p>`, home);
+      <p class="nota mt">Nessuna ora spesa: lo sapevate arrivando.</p>`, scenaArbitro);
   }
   const chiusa = ev('porta-chiusa');
   if (chiusa) return bussare(luogoN(chiusa.luogo));
@@ -913,49 +1110,66 @@ async function visita(l) {
 }
 
 function schedaLuogo(l) {
-  const { app, ep } = ctx;
+  ctx.schermata = () => schedaLuogo(l);
+  const { app } = ctx;
   const ind = IND();
   const tipiQui = [...new Set(l.approfondimenti.map((a) => a.tipo))];
   const letti = ind.approfondimentiLetti.filter((x) => x.n === l.n);
+  // I TIPI CHE QUI NON CI SONO NON SI MOSTRANO. Erano quattro bottoni sempre
+  // uguali, anche per un Presagio che in questo luogo non esiste e per un
+  // Referto che nessuno in squadra sa leggere: il tavolo tirava a indovinare, e
+  // ogni tentativo a vuoto costava una scena. Quel che c'e' e' gia' scritto
+  // negli indizi che si leggono ad alta voce — dirlo qui non regala niente.
+  const chiPuo = (t) => idoneiPerTipo(ctx.comune, P(), t);
   app.innerHTML = `
     ${barra(l.nome.toLowerCase())}
-    ${bannerLuogo(l)}
-    ${l.testo ? `<div class="pannello"><p><i>${rendi(l.testo)}</i></p></div><div class="mt"></div>` : ''}
-    <div class="pannello">
-      <h2>indizi — leggeteli ad alta voce</h2>
-      ${l.indizi.map((i) => `<p class="mt">◆ ${rendi(i)}</p>`).join('')}
-      ${(l.oggetti || []).length || (l.reperti || []).length ? `
-        <hr class="divisore">
-        <p class="nota">carte e reperti da prendere</p>
+    ${ultimoFattoHtml()}
+    <div class="due-colonne">
+      <div>
+        ${bannerLuogo(l)}
+        <div class="pannello">
+          <h2>${esc(l.nome.toLowerCase())}</h2>
+          ${l.testo ? `<p><i>${rendi(l.testo)}</i></p><hr class="divisore">` : ''}
+          <p class="nota">indizi — leggeteli ad alta voce</p>
+          ${l.indizi.map((i) => `<p class="mt">◆ ${rendi(i)}</p>`).join('')}
+          <hr class="divisore">
+          ${ind.scenaChiusa ? `<p class="nota">Qui avete già guardato meglio, e non
+            è venuto fuori niente: per questa visita gli Approfondimenti restano
+            nascosti. Lasciate il luogo e tornateci (1 ora) per ritentare.</p>` : `
+          <p class="nota">${tipiQui.length
+            ? `qui c’è ${tipiQui.map((t) => esc(t.toLowerCase())).join(' e ')}`
+            : 'qui non c’è niente da cogliere'}</p>
+          <div class="btn-riga">
+            ${tipiQui.map((t) => {
+              const idonei = chiPuo(t);
+              const chi = idonei.length
+                ? idonei.map((x) => breve(x.nome)).join(', ')
+                : 'nessuno in squadra';
+              return `<button class="btn${idonei.length ? ' pieno' : ''}" data-tipo="${esc(t)}"${
+                idonei.length ? '' : ' disabled'}>${esc(t.toLowerCase())} — ${esc(chi)}</button>`;
+            }).join('')}
+          </div>
+          ${letti.length ? `<p class="nota mt">Già colti qui: ${letti.map((x) => esc(x.soggetto)).join(' · ')}</p>` : ''}`}
+          ${(l.oggetti || []).length || (l.reperti || []).length ? `
+            <hr class="divisore">
+            <p class="nota">da prendere, qui</p>
+            <div class="btn-riga">
+              ${(l.oggetti || []).map((o) => ind.oggetti.includes(o)
+                ? `<button class="btn disabilitato">${esc(o)} ✓</button>`
+                : `<button class="btn" data-oggetto="${esc(o)}">prendete “${esc(o)}”</button>`).join('')}
+              ${(l.reperti || []).map((r) => (ind.reperti || []).includes(r)
+                ? `<button class="btn disabilitato">${esc(nomeReperto(r))} ✓</button>`
+                : `<button class="btn" data-reperto="${esc(r)}">consegnate “${esc(nomeReperto(r))}”</button>`).join('')}
+            </div>` : ''}
+        </div>
         <div class="btn-riga">
-          ${(l.oggetti || []).map((o) => ind.oggetti.includes(o)
-            ? `<button class="btn disabilitato">${esc(o)} ✓</button>`
-            : `<button class="btn" data-oggetto="${esc(o)}">prendete “${esc(o)}”</button>`).join('')}
-          ${(l.reperti || []).map((r) => (ind.reperti || []).includes(r)
-            ? `<button class="btn disabilitato">${esc(nomeReperto(r))} ✓</button>`
-            : `<button class="btn" data-reperto="${esc(r)}">consegnate “${esc(nomeReperto(r))}”</button>`).join('')}
-        </div>` : ''}
-    </div>
-    <div class="mt"></div>
-    <div class="pannello">
-      <h2>approfondire</h2>
-      ${ind.scenaChiusa ? `<p class="nota">Qui avete già guardato meglio, e non
-        è venuto fuori niente: per questa visita gli Approfondimenti restano
-        nascosti. Lasciate il luogo e tornateci (1 ora) per ritentare.</p>` : `
-      <p class="nota">Ogni tipo lo sblocca l’eroe con l’abilità giusta (Elena le
-      Osservazioni, Attilio o Brera i Referti…). Scegliete il tipo, poi <b>chi prova a
-      guardare meglio</b>: tira ACUME, e solo se riesce spende la sua carica.
-      Fallendo non si spende nulla, ma qui non si tenta più: si esce e si torna.</p>
-      <div class="btn-riga">
-        ${['Osservazione', 'Testimonianza', 'Referto', 'Presagio'].map((t) =>
-          `<button class="btn" data-tipo="${t}">${t}</button>`).join('')}
+          <button class="btn pieno" id="fine-visita">lasciate il luogo</button>
+        </div>
       </div>
-      ${letti.length ? `<p class="nota mt">Già colti qui: ${letti.map((x) => esc(x.soggetto)).join(' · ')}</p>` : ''}`}
-    </div>
-    <div class="btn-riga">
-      <button class="btn pieno" id="fine-visita">lasciate il luogo</button>
+      <div class="fianco">${stradarioHtml()}</div>
     </div>`;
   dopoBarra();
+  agganciaStradario();
   app.querySelector('#fine-visita').onclick = async () => {
     await esegui({ tipo: 'lascia-luogo' });
     home();
@@ -1143,9 +1357,9 @@ async function discernimento() {
   const voci = vociMappa(ctx.ep, ctx.comune);
   const scelta = await scegliDaLista('Marani indica un luogo…',
     voci.map((v) => ({ id: v.nome, label: v.nome })));
-  if (!scelta) return home();
+  if (!scelta) return scenaArbitro();
   const out = await esegui({ tipo: 'discernimento', voce: scelta });
-  if (!out) return home();
+  if (!out) return scenaArbitro();
   const ev = out.eventi.find((e) => e.tipo === 'discernimento');
   // IL LUOGO SI DICE PER NOME. Questa schermata si apre su OGNI schermo, e chi
   // non ha premuto il bottone non sa di che strada si parla: «lì si nasconde
@@ -1157,17 +1371,17 @@ async function discernimento() {
        quel che nasconde, lì, si tira come ovunque.</p>`
     : `<p><i>Marani scuote il capo, piano: <b>no</b>. Qualunque cosa ci fosse da vedere a
        <b>${esc(String(scelta).toLowerCase())}</b>, o l’avete già colta, o non c’è mai
-       stata.</i></p>`, home, { atutti: true });
+       stata.</i></p>`, scenaArbitro, { atutti: true });
 }
 
 // Fonti riservate di Carla: la PROSSIMA visita non costa l'ora (e non
 // conta come ora avanzata a fine indagine)
 async function fontiRiservate() {
-  if (!await esegui({ tipo: 'fonti-riservate' })) return home();
+  if (!await esegui({ tipo: 'fonti-riservate' })) return scenaArbitro();
   pannelloMsg('fonti riservate', `<p><i>Carla conosce la porta giusta e chi la apre
     senza domande: la <b>prossima visita</b> non costerà l’ora.</i></p>
     <p class="nota mt">Non conta come ora avanzata a fine indagine: il vantaggio
-    premia le ore spese davvero.</p>`, home, { atutti: true });
+    premia le ore spese davvero.</p>`, scenaArbitro, { atutti: true });
 }
 
 // Ombra fiuta (Mora): il furetto in avanscoperta su un luogo — torna col
@@ -1176,9 +1390,9 @@ async function ombraFiuta() {
   const voci = vociMappa(ctx.ep, ctx.comune);
   const scelta = await scegliDaLista('dove mandate Ombra?',
     voci.map((v) => ({ id: v.nome, label: v.nome })));
-  if (!scelta) return home();
+  if (!scelta) return scenaArbitro();
   const out = await esegui({ tipo: 'ombra', voce: scelta });
-  if (!out) return home();
+  if (!out) return scenaArbitro();
   const quanti = (out.eventi.find((e) => e.tipo === 'ombra') || {}).quanti || 0;
   const dove = `<b>${esc(String(scelta).toLowerCase())}</b>`;
   // come sopra: la strada la deve leggere il tavolo, non solo chi ha premuto
@@ -1186,7 +1400,7 @@ async function ombraFiuta() {
     prima che la candela cali di un dito, e Mora gli legge in faccia il conto:
     <b>${quanti === 0 ? 'niente' : quanti === 1 ? 'una cosa' : `${quanti} cose`}</b> da
     cogliere ${quanti ? `ancora, a ${dove}` : `— a ${dove} non c’è più nulla, o non c’è mai stato`}.</i></p>
-    <p class="nota mt">Il numero, mai il tipo: Ombra fiuta, non legge.</p>`, home, { atutti: true });
+    <p class="nota mt">Il numero, mai il tipo: Ombra fiuta, non legge.</p>`, scenaArbitro, { atutti: true });
 }
 
 function taccuino() {
@@ -1262,8 +1476,17 @@ async function busta() {
   const inBusta = esiti.filter((e) => !e.dopo_spedizione);
   const t = tierIndagine(ep, ind, inBusta.map((e) => e.ok));
   const cantoIniziale = (P().spedizione || {}).canto || 0;
-  app.innerHTML = `
-    ${barra('la busta è aperta')}
+  // LA BUSTA SI LEGGE INSIEME. È la resa dei conti della serata, e fino a oggi
+  // i telefoni ne uscivano: appena `chiusa` diventava vera il filo li portava
+  // alla Spedizione, dove trovavano l'ALLESTIMENTO di chi arbitra — «si scende
+  // →» — e a uno bastava un tocco per costruirsi una spedizione parallela,
+  // mazzo mescolato compreso.
+  //
+  // Ora la pagina si manda come schermata condivisa, senza i bottoni di
+  // correzione (l'ultima parola resta del gruppo, ma la mano è di chi conduce),
+  // e i telefoni passano alla Spedizione quando chi arbitra CHIUDE — cioè
+  // quando la notte è finita davvero.
+  const pagina = (conCorrezioni) => `
     <div class="pannello">
       <h2>le risposte</h2>
       ${inBusta.map((e, i) => `
@@ -1272,11 +1495,11 @@ async function busta() {
             e.corretto ? ' <span class="nota">(deciso da voi)</span>' : ''}</p>
           <p class="nota">La verità: ${esc(e.risposta)}</p>
           <p>${esc(e.ok ? e.esatta : e.sbagliata)}</p>
-          <button class="btn correggi" data-correggi="${e.i}">${e.ok
-            ? 'no, l’avevamo sbagliata' : 'l’avevamo indovinata'}</button>
+          ${conCorrezioni ? `<button class="btn correggi" data-correggi="${e.i}">${e.ok
+            ? 'no, l’avevamo sbagliata' : 'l’avevamo indovinata'}</button>` : ''}
         </div>`).join('')}
-      <p class="nota mt">Confrontate quello che avete scritto con la verità: se il
-        giudizio dell’app non vi convince, correggetelo — decide il gruppo.</p>
+      ${conCorrezioni ? `<p class="nota mt">Confrontate quello che avete scritto con la verità: se il
+        giudizio dell’app non vi convince, correggetelo — decide il gruppo.</p>` : ''}
       <hr class="divisore">
       <p class="mt"><b>Vantaggio d’indagine:</b> ${t.tier === 'slancio'
         ? 'SLANCIO — 3 azioni a testa nel 1° round di spedizione, e +1 Salute massima a testa.'
@@ -1289,17 +1512,24 @@ async function busta() {
       ${controBusta(ep) ? `<hr class="divisore">
         <p class="nota"><b>Resta una busta sigillata.</b> ${esc(controBusta(ep).q.replace(/^CONTRO-BUSTA — /, ''))}
         Non si apre stanotte: si apre quando tornate dalla villa.</p>` : ''}
-      <div class="btn-riga">
+      ${conCorrezioni ? `<div class="btn-riga">
         <button class="btn pieno" id="alla-spedizione">alla spedizione</button>
-      </div>
+      </div>` : ''}
     </div>`;
+
+  // la stessa pagina su ogni schermo, senza le mani di chi conduce
+  esegui({ tipo: 'carta', titolo: 'la busta è aperta', corpo: pagina(false) });
+  app.innerHTML = `${barra('la busta è aperta')}${pagina(true)}`;
   dopoBarra();
   app.querySelectorAll('[data-correggi]').forEach((b) => {
     b.onclick = async () => {
       if (await esegui({ tipo: 'correggi', i: Number(b.dataset.correggi) })) busta();
     };
   });
-  app.querySelector('#alla-spedizione').onclick = () => {
+  app.querySelector('#alla-spedizione').onclick = async () => {
+    // chiudendo la carta i telefoni escono dalla lettura, e il cambio di fase
+    // li porta di là: la notte finisce quando la chiude chi conduce
+    if (IND().carta) await esegui({ tipo: 'carta-vista' });
     P().fase = 'spedizione';
     salvaP();
     ctx.vaiA('spedizione');
@@ -1307,15 +1537,6 @@ async function busta() {
 }
 
 // --------------------------------------------------------------- utility UI
-function inventario() {
-  const carbone = P().party.includes('FULGENZIO CARBONE') && !P().carboneUsato
-                  && ((IND().oggetti || []).length || (IND().reperti || []).length);
-  elencoInMano(home, carbone
-    ? `<div class="btn-riga"><button class="btn" id="esame-carbone">esame di Carbone (1 volta)</button></div>`
-    : '');
-  ctx.app.querySelector('#esame-carbone')?.addEventListener('click', () => esameCarbone(inventario));
-}
-
 // ------------------------------------------- QUEL CHE AVETE IN MANO, a righe
 //
 // Con le anteprime in pagina l'inventario diventava la parte piu' lunga di
@@ -1422,6 +1643,117 @@ function pezzoInMano(genere, i, dietro, epId) {
   app.querySelector('#pezzo-indietro').onclick = dietro;
 }
 
+// ═══════════════════════════ IL REGISTRO DELLA NOTTE, raccontato
+//
+// Il motore tiene i FATTI con l'ora (`indagine.notte`); la frase la compone
+// qui, che e' il patto di sempre. Due voci per la stessa riga — chi conduce
+// legge «Elena ha colto la cera nera», chi gioca la stessa cosa: il registro e'
+// del gruppo, e quel che il telefono non deve sapere non e' mai finito
+// nell'evento.
+//
+// Una riga che non si sa raccontare NON si stampa: meglio un buco che «evento
+// colto» in mezzo alla prosa.
+
+const nomeLuogo = (n) => { const l = luogoN(n); return l ? l.nome.toLowerCase() : 'quel luogo'; };
+
+function rigaNotte(e) {
+  const chi = e.chi ? esc(String(e.chi).split(' ')[0]) : '';
+  switch (e.tipo) {
+    case 'pista-fredda':
+      return `<b>${esc(e.voce || '')}</b> — pista fredda. <i>Nessun’ora spesa.</i>`;
+    case 'entrati':
+      return `Siete entrati: <b>${esc(nomeLuogo(e.luogo))}</b>.${
+        e.gratis ? ' <i>Senza spendere l’ora.</i>' : ''}`;
+    case 'usciti':
+      return `Avete lasciato <b>${esc(nomeLuogo(e.luogo))}</b>.`;
+    case 'porta-chiusa':
+      return `<b>${esc(nomeLuogo(e.luogo))}</b> — la porta è chiusa.`;
+    case 'bussato':
+      return `Avete bussato a <b>${esc(nomeLuogo(e.luogo))}</b>: «${esc(e.detto || '')}» — ${
+        e.entra ? 'la porta si apre.' : '<i>e non è la parola giusta.</i>'}`;
+    case 'grimaldello':
+      return `Il grimaldello di Nino apre <b>${esc(nomeLuogo(e.luogo))}</b>. <i>Per stavolta.</i>`;
+    case 'gia-chiuso':
+      return `<b>${esc(nomeLuogo(e.luogo))}</b> — ${e.chiude != null
+        ? `hanno chiuso alle ${e.chiude}:00` : `non aprono prima delle ${e.apre}:00`}.
+        <i>Nessun’ora spesa.</i>`;
+    case 'troppo-lontano':
+      return `<b>${esc(nomeLuogo(e.luogo))}</b> è troppo lontano: ${e.costo} ore, e non le avete.`;
+    case 'mezzanotte':
+      return 'È mezzanotte: il tempo è finito.';
+    case 'colto':
+      return `<b>${chi}</b> ha colto ${esc(String(e.tipoApp || '').toLowerCase())} — «${
+        esc(e.soggetto || '')}»${e.pendolo ? ' <i>col pendolo di Sibilla.</i>' : '.'}`;
+    case 'niente-per-te':
+      return `<b>${chi}</b> ha guardato meglio: ${e.gia
+        ? '<i>qui era già stato colto tutto.</i>' : '<i>niente che parli il suo linguaggio.</i>'}`;
+    case 'scena-chiusa':
+      return `<b>${chi}</b> cerca e non trova la presa. <i>Qui non si tenta più: si esce e si torna.</i>`;
+    case 'occhio-esercitato':
+      return `<b>${chi}</b> ha fallito, ma l’<b>Occhio esercitato</b> tiene aperta la scena.`;
+    case 'profano-fallito':
+      return `<b>${chi}</b> ha frugato senza metodo. <i>L’occasione del luogo è spesa.</i>`;
+    case 'profano-gia-speso':
+      return 'L’occhio del dilettante, qui, ha già avuto la sua occasione.';
+    case 'preso':
+      return `Avete preso <b>${esc(String(e.cosa || '').toLowerCase())}</b>${
+        e.reperto ? ' <i>(reperto)</i>' : ''}.`;
+    case 'discernimento':
+      return `<b>Marani</b> su ${esc(nomeLuogo(e.luogo))}: <b>${e.ancora ? 'sì' : 'no'}</b>${
+        e.ancora ? ' — lì si nasconde ancora qualcosa.' : '.'}`;
+    case 'fonti-riservate':
+      return '<b>Carla</b> arma le fonti riservate: la prossima visita non costa l’ora.';
+    case 'ombra':
+      return `<b>Ombra</b> torna da ${esc(nomeLuogo(e.luogo))}: ${e.quanti === 0 ? 'niente'
+        : e.quanti === 1 ? 'una cosa' : `${e.quanti} cose`} da cogliere.`;
+    case 'esame':
+      return `<b>Carbone</b> ha esaminato ${esc(String(e.pezzo || '').toLowerCase())}.`;
+    case 'esame-muto':
+      return `<b>Carbone</b> rigira ${esc(String(e.pezzo || '').toLowerCase())}: <i>nessun segreto.</i>
+        L’occasione non si spende.`;
+    case 'pendolo-indica':
+      return `Il <b>pendolo di Sibilla</b> indica <b>${esc(e.voce || '')}</b>.`;
+    case 'pendolo-fermo':
+      return 'Il <b>pendolo di Sibilla</b> resta immobile: in città non è rimasto nulla da cogliere.';
+    case 'busta-aperta':
+      return `<b>La busta è aperta.</b> Vantaggio: ${esc(e.tier || '')}${
+        e.canto ? ` — si parte con ${e.canto} Canto in più.` : '.'}`;
+    case 'corretta':
+      return `Il gruppo ha ribaltato il giudizio sulla Domanda ${Number(e.i) + 1}: ${
+        e.ok ? 'esatta' : 'sbagliata'}.`;
+    default:
+      return '';
+  }
+}
+
+// il registro, dal piu' recente: a fine serata l'ultima riga e' quella che
+// serve, e scorrere venti righe per arrivarci e' il modo di non leggerlo mai
+function notteHtml(quante = 0) {
+  const righe = [...(IND().notte || [])].reverse()
+    .map((e) => ({ e, testo: rigaNotte(e) })).filter((x) => x.testo);
+  const viste = quante ? righe.slice(0, quante) : righe;
+  if (!viste.length) return '<p class="nota">La notte è appena cominciata.</p>';
+  return `<div class="notte">${viste.map((x, i) => `
+    <div class="voce-notte${i === 0 ? ' ultima' : ''}">
+      <span class="quando">${x.e.ora != null ? `${x.e.ora}:00` : ''}</span>
+      <div class="cosa">${x.testo}</div>
+    </div>`).join('')}</div>`;
+}
+
+// L'ULTIMO FATTO, in una riga. Col registro chiuso dentro una voce di menu,
+// «cos'e' appena successo» si perderebbe — ed e' il difetto che si e' pagato
+// caro: premo, e non capisco se e' successo.
+function ultimoFattoHtml() {
+  const righe = [...(IND().notte || [])].reverse()
+    .map((e) => ({ e, testo: rigaNotte(e) })).filter((x) => x.testo);
+  if (!righe.length) return '';
+  const { e, testo } = righe[0];
+  return `<div class="ultimo-fatto">
+    <span class="quando">${e.ora != null ? `${e.ora}:00` : ''}</span>
+    <span class="cosa">${testo}</span>
+  </div>`;
+}
+
 // `atutti: true` — LA SCHERMATA SI APRE SU OGNI SCHERMO.
 //
 // E' il meccanismo delle schermate da leggere insieme della Spedizione, portato
@@ -1471,7 +1803,12 @@ function mostraCartaCondivisa(carta) {
   ctx.app.querySelector('#ok-msg').onclick = () => {
     ctx.cartaInScena = null;
     esegui({ tipo: 'carta-vista' });
-    home();
+    // SI TORNA DOVE IL GRUPPO E', non alla home. Chiudendo si finiva sullo
+    // stradario anche col gruppo dentro un luogo: chi conduce doveva rientrare
+    // a mano, e la porta per farlo non c'e' — l'unica strada era dichiarare di
+    // nuovo quel luogo, cioe' pagare un'altra ora per un ripensamento.
+    const dentro = IND().luogoAperto != null && luogoN(IND().luogoAperto);
+    return dentro ? schedaLuogo(dentro) : home();
   };
 }
 

@@ -82,7 +82,9 @@ try {
   ok(await page.locator('.voce').count() > 8, 'stradario popolato');
 
   // rileggere la lettera dal bottone, poi tornare in strada
-  await page.locator('#rileggi').click();
+  // la lettera sta nel menu, con tutto quel che non si guarda a ogni giro
+  await page.locator('#apri-menu').click();
+  await page.locator('#m-lettera').click();
   await page.locator('.lettera-testo').waitFor();
   await page.locator('#in-strada').click();
   await page.locator('.voce').first().waitFor();

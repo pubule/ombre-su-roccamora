@@ -106,7 +106,12 @@ await page.goto(BASE, { waitUntil: 'networkidle' });
 const apriIndagine = (stato, chi = ELENA) => page.evaluate(async ({ t, eroe, s }) => {
   const { vistaIndagine } = await import('/js/indagine.js');
   document.querySelector('#app').innerHTML = '';
-  await vistaIndagine(document.querySelector('#app'), s, () => {},
+  // `vaiA` NON e' un buco nero: si segna dove la vista ha mandato il telefono.
+  // Con una funzione vuota, «il telefono e' stato buttato nella Spedizione»
+  // non si vedeva — e il controllo sulla busta sarebbe passato anche col
+  // difetto in piedi.
+  window.__vaiA = null;
+  await vistaIndagine(document.querySelector('#app'), s, (dove) => { window.__vaiA = dove; },
                       { tavolo: t, ruolo: 'giocatore', eroe });
 }, { t: idT, eroe: chi, s: stato });
 
@@ -129,11 +134,9 @@ ok(errori.length === 0, `il telefono apre l'Indagine senza errori JS: ${errori.s
   const testo = await page.locator('#app').innerText();
   const html = await page.evaluate(() => document.querySelector('#app').innerHTML);
 
-  ok(/dove siete stati/i.test(testo), 'il telefono mostra l\'Indagine di chi gioca');
-  ok(new RegExp(VISITATO.nome.slice(0, 14), 'i').test(testo),
-     'e il luogo dove il gruppo E\' entrato si vede');
+  ok(/per le strade/i.test(testo), 'il telefono mostra l\'Indagine di chi gioca');
   ok(!new RegExp(CHIUSO.nome.slice(0, 14), 'i').test(testo),
-     `e quello dove non e' entrato no (${CHIUSO.nome})`);
+     `e il luogo dove il gruppo non e' entrato non si vede (${CHIUSO.nome})`);
 
   // la chiave di una porta non battuta e' la deduzione: dirla e' dire la
   // soluzione un pezzo alla volta
@@ -149,24 +152,45 @@ ok(errori.length === 0, `il telefono apre l'Indagine senza errori JS: ${errori.s
 
   // i comandi di chi conduce non ci sono: non e' la stessa schermata con meno
   // bottoni, e' un'altra schermata
-  for (const sel of ['#taccuino', '#chiudi-indagine', '.voce[data-voce]', '#rileggi']) {
+  for (const sel of ['#cerca-via', '.voce[data-voce]', '#fine-visita', '#m-busta']) {
     ok((await page.locator(sel).count()) === 0, `dal telefono non c'e' ${sel}`);
   }
 
-  // ...ma quel che e' SUO ce l'ha. Le cariche d'Indagine sono la risorsa di chi
-  // gioca: «l'ho gia' usata la mia Testimonianza?» e' una domanda sua, e
-  // doverla fare ad alta voce e' farla rispondere a chi conduce.
-  ok((await page.locator('.pip-carica').count()) > 0,
-     'il telefono conta le cariche d’Indagine del proprio eroe');
+  // ...ma quel che e' SUO ce l'ha, e da qui in poi lo si cerca DOVE STA: dal
+  // 15/08 la scena tiene solo quel che succede adesso, e tutto il resto —
+  // squadra, cose, luoghi battuti, lettera — sta dietro il tasto del menu. È
+  // l'impianto deciso sul mockup, e il banco fa la strada che fa un giocatore.
+  await page.evaluate(() => document.querySelector('#apri-menu').click());
+  await page.waitForTimeout(500);
+  const menu = await page.locator('#app').innerText();
+  ok(/quel che avete in mano/i.test(menu), 'nel menu c’è quel che avete in mano');
+  ok(/dove siete stati/i.test(menu), 'e i luoghi battuti');
 
-  // e la carta di un Approfondimento GIA' LETTO ad alta voce: il gruppo era
-  // nella stanza quando si e' letta, nasconderla non protegge niente
-  ok(/quel che avete in mano/i.test(testo), 'e ha la sezione di quel che avete in mano');
+  // le cariche d'Indagine sono la risorsa di chi gioca: «l'ho gia' usata la mia
+  // Testimonianza?» e' una domanda sua, e doverla fare ad alta voce e' farla
+  // rispondere a chi conduce. Ora si guardano nella squadra, e ci sono quelle
+  // di TUTTI: «chi può leggere un Referto?» smette di essere una domanda.
+  await page.evaluate(() => document.querySelector('#m-squadra').click());
+  await page.waitForTimeout(400);
+  ok((await page.locator('.pip-carica').count()) > 0,
+     'il telefono conta le cariche d’Indagine');
+  await page.evaluate(() => document.querySelector('#sq-indietro').click());
+  await page.waitForTimeout(300);
+
+  // i luoghi battuti si riaprono: a meta' serata nessuno ricorda cosa c'era al
+  // Molo, e la risposta ce l'ha in tasca — la proiezione i luoghi visitati li
+  // manda interi
+  await page.evaluate(() => document.querySelector('#m-luoghi').click());
+  await page.waitForTimeout(400);
+  ok(new RegExp(VISITATO.nome.slice(0, 14), 'i').test(await page.locator('#app').innerText()),
+     'e il luogo dove il gruppo E’ entrato si rilegge');
+  await page.evaluate(() => document.querySelector('#dv-indietro').click());
+  await page.waitForTimeout(300);
 
   // e la lettera d'incarico si rilegge: a meta' serata «cosa ci aveva chiesto
   // M.?» e' la domanda che torna piu' spesso
-  ok((await page.locator('#lettera-eroe').count()) === 1, 'e puo’ rileggere la lettera');
-  await page.locator('#lettera-eroe').click();
+  ok((await page.locator('#m-lettera').count()) === 1, 'e puo’ rileggere la lettera');
+  await page.evaluate(() => document.querySelector('#m-lettera').click());
   await page.waitForTimeout(400);
   const lettera = await page.locator('#app').innerText();
   ok(/lettera d’incarico/i.test(lettera), 'la lettera si apre');
@@ -176,7 +200,7 @@ ok(errori.length === 0, `il telefono apre l'Indagine senza errori JS: ${errori.s
      'senza la coda d’arbitro, che direbbe quali porte esistono');
   await page.locator('#torna-strada').click();
   await page.waitForTimeout(400);
-  ok(/dove siete stati/i.test(await page.locator('#app').innerText()), 'e si torna in strada');
+  ok(/per le strade/i.test(await page.locator('#app').innerText()), 'e si torna in strada');
 }
 
 // --- 1-bis. E NEMMENO IL SERVER LI MANDA
@@ -621,12 +645,14 @@ ${schermo.slice(0, 160)}`);
 
   await apriIndagine(conNote);
   await page.waitForTimeout(900);
-  ok((await page.locator('#taccuino-eroe').count()) === 1, 'dalla home si apre il taccuino');
   // Il clic si fa DENTRO la pagina: la vista si ridisegna a ogni spinta dal
   // filo, e il nodo che Playwright ha trovato un istante prima puo' essere gia'
   // staccato — il clic andrebbe a vuoto senza dire niente. Al tavolo il dito
   // trova comunque il bottone che c'e' in quel momento.
-  await page.evaluate(() => document.querySelector('#taccuino-eroe').click());
+  await page.evaluate(() => document.querySelector('#apri-menu').click());
+  await page.waitForTimeout(500);
+  ok((await page.locator('#m-taccuino').count()) === 1, 'dal menu si apre il taccuino');
+  await page.evaluate(() => document.querySelector('#m-taccuino').click());
   await page.waitForTimeout(700);
   const t = await page.locator('#app').innerText();
 
@@ -821,6 +847,68 @@ ${schermo.slice(0, 140).replace(/\s+/g, ' ')}`);
   ok((carta.corpo || '').toLowerCase().includes(strada.toLowerCase()),
      `e nomina la strada, che è la domanda di quella risposta (cercavo «${strada}»)`);
   ok(st.stato.indagine.ombraUsata === true, 'e il dono è speso sul tavolo');
+}
+
+// --- 16. LA BUSTA SI LEGGE INSIEME, E NESSUN TELEFONO VA NELL'ALLESTIMENTO
+//
+// Il difetto: appena `indagine.chiusa` diventava vera il filo portava i telefoni
+// a `vaiA('spedizione')`, dove `vistaDigitale` — con la spedizione non ancora
+// cominciata — apriva l'ALLESTIMENTO di chi arbitra, «si scende →». Quel
+// bottone chiama `iniziaPartita()`, che costruisce una spedizione intera in
+// locale, mazzo mescolato compreso. Nel momento più alto della serata i
+// telefoni uscivano dalla stanza, e a uno bastava un tocco per farsi una
+// partita parallela.
+//
+// Ora la busta è una schermata condivisa: si legge, e si passa di là quando chi
+// arbitra chiude.
+{
+  const conBusta = serata({ ora: 22 });
+  conBusta.creata = 16_000;
+  conBusta.indagine.chiusa = true;
+  conBusta.indagine.carta = { titolo: 'la busta è aperta',
+                              corpo: '<p>le risposte, e il vantaggio</p>' };
+  conBusta.vantaggi = { tier: 'preparati', dossier: false, risposte: [true, false, false, false] };
+  await chiama(ARBITRO, 'POST', `/api/tavolo/${idT}/apri`, { tavolo: idT, stato: conBusta });
+  await apriIndagine(conBusta);
+  await page.waitForTimeout(1400);
+
+  // la spinta dal filo e' il ramo che conta: e' li' che il telefono veniva
+  // mandato via appena `chiusa` diventava vera
+  await chiama(ARBITRO, 'POST', `/api/tavolo/${idT}/comando`,
+    { tipo: 'carta', titolo: 'la busta è aperta', corpo: '<p>le risposte, e il vantaggio</p>' });
+  await page.waitForTimeout(1400);
+
+  const schermo = await page.locator('#app').innerText();
+  ok(/le risposte, e il vantaggio/i.test(schermo),
+     `il telefono legge la busta insieme al tavolo:
+${schermo.slice(0, 120).replace(/\s+/g, ' ')}`);
+  ok(!(await page.evaluate(() => window.__vaiA)),
+     `e NON è stato mandato via (${await page.evaluate(() => window.__vaiA)})`);
+  ok((await page.locator('#via').count()) === 0,
+     'né è finito nell’allestimento della Spedizione');
+
+  // ...e quando chi arbitra chiude, allora sì: la notte è finita
+  await chiama(ARBITRO, 'POST', `/api/tavolo/${idT}/comando`, { tipo: 'carta-vista' });
+  await page.waitForTimeout(1400);
+  ok((await page.evaluate(() => window.__vaiA)) === 'spedizione',
+     `chiudendo la carta, il telefono passa alla Spedizione (${
+       await page.evaluate(() => window.__vaiA)})`);
+
+  // e nemmeno arrivandoci per la strada lunga: l'allestimento non offre «si
+  // scende» a chi non arbitra, o un tocco costruirebbe una partita parallela
+  const allestimento = await page.evaluate(async () => {
+    const { vistaDigitale } = await import('/js/digitale.js');
+    const p = JSON.parse(localStorage.getItem('osr.partita.ep1'));
+    p.fase = 'spedizione';
+    p.spedizione = { round: 0, canto: 0, mazzo: null, esito: null, digitale: false };
+    document.querySelector('#app').innerHTML = '';
+    await vistaDigitale(document.querySelector('#app'), p, () => {},
+                        { tavolo: null, ruolo: 'giocatore', eroe: null });
+    return { via: document.querySelectorAll('#via').length,
+             testo: document.querySelector('#app').innerText.slice(0, 200) };
+  });
+  ok(allestimento.via === 0,
+     `«si scende» non è di chi gioca (${allestimento.testo.replace(/\s+/g, ' ').slice(0, 90)})`);
 }
 
 await browser.close();

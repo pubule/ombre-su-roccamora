@@ -160,16 +160,30 @@ await page.getByText('Il Coro Sommerso').first().click();
 await guarda('episodio');
 await page.locator('#continua').click();
 await guarda('indagine');
-if (await page.locator('#rileggi').count()) {   // la lettera d'incarico: e' carta
-  await page.locator('#rileggi').click();
+// Dal 15/08 la scena tiene solo quel che succede adesso: la lettera, il
+// taccuino e le cose stanno nel MENU, dietro il tasto accanto all'orologio.
+await page.locator('#apri-menu').click();
+await page.waitForTimeout(250);
+await guarda('menu');
+if (await page.locator('#m-lettera').count()) {   // la lettera d'incarico: e' carta
+  await page.locator('#m-lettera').click();       // dentro una vista che carta non e'
+  await page.waitForTimeout(250);
   await guarda('lettera');
-  await page.locator('#in-strada').click();
-  await page.waitForTimeout(300);
+  await page.locator('#torna-strada, #ok-msg').first().click().catch(() => {});
+  await page.waitForTimeout(250);
+  await page.locator('#apri-menu').click();
+  await page.waitForTimeout(250);
 }
-if (await page.locator('#taccuino').count()) {
-  await page.locator('#taccuino').click();
-  await guarda('taccuino');
+if (await page.locator('#m-notte').count()) {     // il registro della notte
+  await page.locator('#m-notte').click();
+  await page.waitForTimeout(250);
+  await guarda('la-notte');
+  await page.locator('#notte-indietro').click();
+  await page.waitForTimeout(250);
 }
+await page.locator('#m-taccuino').click();
+await page.waitForTimeout(300);
+await guarda('taccuino');
 
 // --- spedizione e plancia: la seconda meta' della serata
 await semina({ fase: 'spedizione', plancia: 'fisica' });

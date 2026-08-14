@@ -237,14 +237,20 @@ function setup() {
       porte a piedi per esplorare le stanze, attaccate i nemici adiacenti. I dadi
       si tirano sullo schermo.</p>
       <p class="mt"><b>Obiettivo:</b> ${esc(ep.obiettivo || '')}</p></div>
-    <div class="btn-riga"><button class="btn pieno" id="via">si scende →</button></div>`;
+    ${arbitro()
+      ? '<div class="btn-riga"><button class="btn pieno" id="via">si scende →</button></div>'
+      : '<p class="nota centrato mt">— si scende quando chi arbitra fa scendere il gruppo —</p>'}`;
   app.querySelector('#nav-esci').onclick = () => { spegniImmersivo(); ctx.vaiA('menu'); };
   // «si scende» e' un gesto vero: qui lo schermo intero si puo' chiedere subito,
   // e la plancia nasce gia' a tabellone invece di aspettare il primo tocco.
-  app.querySelector('#via').onclick = () => {
+  // «SI SCENDE» NON E' DI CHI GIOCA. `iniziaPartita()` costruisce una spedizione
+  // intera in locale — mazzo mescolato compreso — e la salva: da un telefono
+  // sarebbe una partita parallela, e ci si arrivava con un tocco solo perche'
+  // alla busta i telefoni finivano qui.
+  app.querySelector('#via')?.addEventListener('click', () => {
     if (immersivo()) chiediSchermoIntero(true);
     iniziaPartita();
-  };
+  });
 }
 
 function iniziaPartita() {

@@ -51,6 +51,12 @@ async function apri(posto, ritocca) {
                   approfondimentiLetti: [] },
       vantaggi: { tier: 'preparati' },
       spedizione: {
+        // `digitale: true` = la spedizione E' GIA' COMINCIATA. Senza, la vista
+        // apre l'allestimento, e da quando «si scende →» e' di chi arbitra (un
+        // telefono che lo premesse costruirebbe una spedizione parallela) il
+        // giocatore restava fermo li'. Qui si prova la plancia col posto, non
+        // l'allestimento: si semina cominciata.
+        digitale: true,
         round: 2, canto: 0, cantoBonus: false, fase: 'eroi', esito: null,
         rivelate: [t0], grate: [], nemici: [], log: [], compiti: {}, cercate: {},
         eroiPos, vite, azioni: {}, storditi: {}, eroiFatti: [], eroiAttivo: mio,

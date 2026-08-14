@@ -326,6 +326,127 @@ em, i { font-style: italic; }
 .riga-pezzo .tit { flex: 1; text-align: left; }
 .riga-pezzo .freccia { color: var(--osso-fioco); font-size: 18px; }
 
+/* ═══ L'IMPIANTO DELL'INDAGINE ═══════════════════════════════════════════
+   Deciso sul mockup `mockups/ui-indagine-finale.html`, e questi sono i suoi
+   pezzi, presi da li' e non reinterpretati.
+
+   La regola che li tiene insieme: LO STRADARIO E' L'UNICA COSA SEMPRE APERTA —
+   di fianco quando c'e' una scena, a tutta pagina quando non c'e' — perche' e'
+   l'unica che chi arbitra guarda a ogni giro. Tutto il resto sta dietro un
+   tasto, e ogni voce del menu porta il suo conto: cosi' il menu si legge senza
+   aprirlo, che e' l'unica cosa che gli toglie il difetto di nascondere.
+
+   Della barra e del menu: la barra tiene le AZIONI, il menu le COSE DA
+   GUARDARE. Nessuna voce sta in tutt'e due i posti, e non c'e' mai da chiedersi
+   dov'e' una cosa. */
+
+/* la riga in cima: l'orologio non sta mai dietro un tocco, e accanto il tasto
+   del menu — col pallino quando nella notte e' arrivata una riga nuova */
+.riga-capo { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.riga-capo .riga-registro { flex: 1; margin: 0; }
+.btn-menu { flex: 0 0 auto; padding: 8px 14px; }
+.btn-menu .segno { display: inline-block; width: 7px; height: 7px; border-radius: 50%;
+  background: var(--nastro); margin-left: 6px; vertical-align: 1px; }
+
+/* L'ULTIMO FATTO. Una riga sola, e non e' decorazione: chiuso il registro
+   dentro una voce di menu, «cos'e' appena successo» si perderebbe — ed e' il
+   difetto che si e' pagato caro (premo e non capisco se e' successo). */
+.ultimo-fatto { display: flex; align-items: baseline; gap: 8px; padding: 6px 12px;
+  border: 1px solid var(--bordo); border-left: 2px solid var(--nastro);
+  border-radius: 2px; background: var(--ardesia); margin-bottom: 10px; }
+.ultimo-fatto .quando { font-family: 'FellSC', serif; font-size: 11px; letter-spacing: .07em;
+  color: var(--osso-fioco); white-space: nowrap; }
+.ultimo-fatto .cosa { font-family: 'OldStd', serif; font-size: 15px; color: var(--osso); flex: 1; }
+.ultimo-fatto .cosa i { color: var(--osso-fioco); }
+
+/* la scena e la colonna. Sotto i 900px la colonna scende sotto la scena: sul
+   tablet in verticale non c'e' spazio per due, e lo stradario resta comunque
+   la prima cosa dopo quel che sta succedendo. */
+.due-colonne { display: grid; grid-template-columns: 1fr; gap: 14px; align-items: start; }
+@media (min-width: 900px) { .due-colonne { grid-template-columns: 1fr 280px; } }
+.fianco { padding-top: 6px; }
+@media (min-width: 900px) { .fianco { border-left: 1px solid var(--bordo); padding: 0 0 0 12px; } }
+.fianco h4 { font-family: 'FellSC', serif; font-size: 12px; letter-spacing: .08em;
+  color: var(--osso-fioco); text-transform: lowercase; margin: 0 0 6px; }
+.fianco .voce { font-size: 15px; padding: 8px 10px; }
+/* la via gia' battuta resta nell'elenco — il gruppo puo' volerci tornare — ma
+   smorzata e in fondo: in mezzo allunga la scansione di quel che resta */
+.voce.battuta { opacity: .45; }
+@media (min-width: 900px) {
+  .fianco .stradario { grid-template-columns: 1fr; }
+  /* LA COLONNA NON PUO' ESSERE PIU' ALTA DELLA SCENA: ventidue vie a una
+     colonna facevano una pagina che scorreva per lo stradario, non per il
+     luogo. Scorre lei, e resta agganciata mentre la scena scorre. */
+  .fianco { position: sticky; top: 8px; max-height: calc(100dvh - 30px);
+            overflow-y: auto; }
+}
+/* in colonna stretta l'etichetta a filo si incastrava nell'indirizzo
+   («piazza di San Teodorogià battuto»): qui va a capo per conto suo */
+.fianco .voce .visitato { float: none; display: block; }
+
+/* il campo che cerca fra ventidue vie: sopra la mezza dozzina di voci, si cerca
+   invece di scandire — e mentre scandisci il tavolo aspetta */
+.cerca { width: 100%; padding: 9px 12px; margin-bottom: 6px; font-family: 'OldStd', serif;
+  font-size: 16px; color: var(--osso); background: #16171b;
+  border: 1px solid var(--bordo); border-radius: 2px; }
+.cerca::placeholder { color: #6d6a63; font-style: italic; }
+
+/* IL MENU. Voci larghe come righe di registro, raggruppate per mestiere e non
+   per tipo, e il conto a destra di ognuna. */
+.menu-titolo { font-family: 'FellSC', serif; font-size: 12px; letter-spacing: .09em;
+  color: var(--osso-fioco); text-transform: lowercase; margin: 14px 0 6px; }
+.menu-voce { display: flex; align-items: center; gap: 12px; width: 100%; text-align: left;
+  padding: 13px 14px; margin-bottom: 6px; cursor: pointer; color: var(--osso);
+  background: var(--ardesia-alta); border: 1px solid var(--bordo);
+  border-left: 2px solid #2a2c33; border-radius: 2px;
+  font-family: 'OldStd', serif; font-size: 17px; }
+.menu-voce:hover, .menu-voce:focus-visible { border-left-color: var(--nastro); }
+.menu-voce .tit { flex: 1; }
+.menu-voce .tit i { display: block; font-size: 14px; color: var(--osso-fioco); }
+.menu-voce .conto { font-family: 'FellSC', serif; font-size: 13px; letter-spacing: .06em;
+  color: var(--osso-fioco); white-space: nowrap; }
+.menu-voce .conto b { color: var(--osso); font-weight: normal; }
+.menu-voce.segnata { border-left-color: var(--nastro); }
+.menu-voce.segnata .conto b { color: var(--nastro-chiaro); }
+
+/* LA BARRA DELLE AZIONI, sul telefono: quel che si puo' fare ADESSO, dove
+   arriva il pollice. Si svuota quando non c'e' niente da fare, e sparisce
+   quando il tavolo legge insieme. */
+.barra-azioni { display: flex; gap: 8px; padding: 10px; align-items: center;
+  border-top: 1px solid var(--bordo); background: var(--tavolo);
+  position: sticky; bottom: 0; }
+.barra-azioni .btn { flex: 1; }
+.barra-azioni .btn.stretto { flex: 0 0 auto; }
+
+/* «sta agendo»: il buco fra il tocco di un telefono e l'esito su ogni schermo
+   era muto, e un buco muto somiglia a un guasto */
+.in-corso { display: flex; gap: 8px; padding: 8px 12px; border: 1px dashed var(--bordo-alto);
+  border-radius: 2px; background: #14161c; color: var(--osso-fioco);
+  font-style: italic; font-size: 15px; margin-top: 8px; }
+
+/* IL REGISTRO DELLA NOTTE. Il piu' recente in cima: un registro che cresce
+   verso il basso obbliga a scorrere venti righe per arrivare all'ultima, ed e'
+   il modo sicuro di non leggerlo mai. */
+.notte { border-left: 2px solid var(--bordo); padding-left: 14px; }
+.voce-notte { margin-bottom: 12px; position: relative; }
+.voce-notte::before { content: ''; position: absolute; left: -19px; top: 6px; width: 7px;
+  height: 7px; border-radius: 50%; background: var(--bordo-alto); }
+.voce-notte.ultima::before { background: var(--nastro);
+  box-shadow: 0 0 0 3px rgba(75, 107, 138, .22); }
+.voce-notte .quando { font-family: 'FellSC', serif; font-size: 11px; letter-spacing: .07em;
+  color: var(--osso-fioco); display: block; }
+.voce-notte .cosa { font-family: 'OldStd', serif; font-size: 15px; color: var(--osso);
+  line-height: 1.45; }
+.voce-notte .cosa i { color: var(--osso-fioco); }
+
+/* il bilancio della notte: l'orologio dice quanto manca, questo dice cosa avete
+   comprato spendendolo */
+.bilancio { display: flex; flex-wrap: wrap; gap: 4px 14px; padding: 6px 12px;
+  border: 1px solid var(--bordo); border-radius: 2px; background: var(--ardesia);
+  margin-bottom: 10px; font-family: 'FellSC', serif; font-size: 13px;
+  letter-spacing: .06em; color: var(--osso-fioco); }
+.bilancio b { color: var(--osso); font-weight: normal; }
+
 /* i campi sono l'unico posto dove scrive il gruppo: si scrive a mano, su carta */
 .campo { width: 100%; padding: 10px 13px; font-family: 'Mano', cursive;
   font-size: var(--mano-size); line-height: 1.45;

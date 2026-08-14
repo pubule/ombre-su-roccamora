@@ -38,7 +38,9 @@ try {
   await page.goto(BASE, { waitUntil: 'networkidle' });
   await page.locator('.tessera-episodio[data-ep="ep1"]').click();
   await page.locator('#continua').click();
-  await page.locator('#inventario').click();
+  // l'elenco delle cose sta nel menu: la scena tiene solo quel che succede
+  await page.locator('#apri-menu').click();
+  await page.locator('#m-mano').click();
   // DAL 14/08 l'inventario e' un ELENCO DI NOMI: la carta non sta piu' in
   // pagina come miniatura, si apre toccando la riga. Il pizzico per ingrandire
   // parte da li' — che e' il posto dove al tavolo si avvicina la carta agli

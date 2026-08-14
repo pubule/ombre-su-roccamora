@@ -224,7 +224,10 @@ function pescaUna(g) {
 // due `if` in ogni riga. Condivide quel che conta — la copia, i dadi seminati o
 // dichiarati, la forma del rifiuto — perche' quelle tre cose devono comportarsi
 // uguali nelle due meta' della serata.
-const DOPO_LA_BUSTA = new Set(['correggi', 'carta-vista']);
+// A busta aperta passano solo le tre cose che restano: ribaltare un giudizio
+// (l'ultima parola e' del gruppo), METTERE LA BUSTA SU OGNI SCHERMO — e' la
+// resa dei conti, e chi gioca da telefono deve leggerla — e chiuderla.
+const DOPO_LA_BUSTA = new Set(['correggi', 'carta', 'carta-vista']);
 
 export function applicaIndagine(statoIn, comando, dati) {
   const stato = clona(statoIn);
@@ -252,7 +255,32 @@ export function applicaIndagine(statoIn, comando, dati) {
   catch (e) { return fallito(e.message); }
   if (!out || out.rifiuto) return fallito((out && out.rifiuto) || 'Azione non consentita.');
 
-  return { stato, eventi: out.eventi || [], rifiuto: null };
+  const eventi = out.eventi || [];
+  segnaNellaNotte(ind, eventi);
+  return { stato, eventi, rifiuto: null };
+}
+
+// IL REGISTRO DELLA NOTTE.
+//
+// Si tiene l'EVENTO con l'ora in cui e' successo, non la frase: la prosa la
+// compone la vista, come per tutto il resto — il motore dice il fatto. Cosi' la
+// stessa riga si racconta in due modi (per chi conduce e per chi gioca) senza
+// due registri da tenere allineati, e una serata rigiocata col solito seme
+// riscrive la stessa notte.
+//
+// Non ci finisce tutto: `carta` e `carta-vista` sono la messa in scena di quel
+// che e' gia' scritto, e `nota`/`nota-eroe`/`risposte` sono il taccuino, che ha
+// gia' la sua pagina. Il registro racconta quel che il gruppo ha FATTO.
+const FUORI_DAL_REGISTRO = new Set(['carta', 'carta-vista', 'nota', 'nota-eroe',
+                                    'risposte', 'lettera-letta', 'tiro']);
+const TETTO_REGISTRO = 200;   // una serata sta in trenta righe: e' un fermo, non un limite
+
+function segnaNellaNotte(ind, eventi) {
+  const righe = eventi.filter((e) => e && !FUORI_DAL_REGISTRO.has(e.tipo));
+  if (!righe.length) return;
+  ind.notte = ind.notte || [];
+  for (const e of righe) ind.notte.push({ ...e, ora: ind.ora });
+  if (ind.notte.length > TETTO_REGISTRO) ind.notte = ind.notte.slice(-TETTO_REGISTRO);
 }
 
 export function applica(statoIn, comando, dati) {

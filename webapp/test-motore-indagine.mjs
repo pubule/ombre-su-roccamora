@@ -420,6 +420,57 @@ const ind = (out) => out.stato.indagine;
   ok(fai(partita(), { tipo: 'correggi', i: 0 }).rifiuto, 'e solo a busta aperta');
 }
 
+// --- IL REGISTRO DELLA NOTTE: gli eventi con l'ora, non la prosa
+//
+// Serve a tre cose che al tavolo mancavano: la riga «cos'è appena successo», la
+// pagina da rileggere quando qualcuno chiede «cos'era quella cosa del mulino?»,
+// e il materiale con cui a fine serata si risponde alle Domande. Si tiene il
+// FATTO — la frase la compone la vista, come per tutto il resto.
+{
+  const p = partita();
+  const a = fai(p, { tipo: 'dichiara', voce: 'una via che non esiste' });
+  ok((ind(a).notte || []).length === 1, 'anche una pista fredda lascia una riga');
+  ok(ind(a).notte[0].tipo === 'pista-fredda' && ind(a).notte[0].ora === 18,
+     `e la riga porta l’ora in cui è successo (${JSON.stringify(ind(a).notte[0])})`);
+
+  const b = fai(a.stato, { tipo: 'dichiara', voce: APERTO.voce_mappa });
+  ok(ind(b).notte.length === 2 && ind(b).notte[1].tipo === 'entrati',
+     'entrare ne lascia un’altra, in coda');
+  ok(ind(b).notte[1].ora === ind(b).ora,
+     'e l’ora è quella con cui la serata è andata avanti, non quella di prima');
+
+  // il taccuino non è il registro: si scrive di continuo, e riempirlo di righe
+  // «ha scritto una nota» renderebbe illeggibile la notte
+  const c = fai(b.stato, { tipo: 'nota', testo: 'la chiave non torna' });
+  ok(ind(c).notte.length === 2, 'gli appunti non finiscono nel registro');
+  const d = fai(c.stato, { tipo: 'carta', titolo: 'x', corpo: 'y' });
+  ok(ind(d).notte.length === 2, 'e nemmeno la messa in scena di quel che è già scritto');
+
+  // UN TIRO NON E' UNA RIGA. Guardare meglio emette due eventi — il tiro e
+  // quel che se n'è ricavato — e il registro deve tenere il secondo: «Elena ha
+  // tirato 9» è il rumore del meccanismo, «Elena ha colto la cera nera» è la
+  // notte. Senza il filtro, il registro raddoppia e diventa illeggibile.
+  {
+    const l = EP.luoghi.find((x) => (x.approfondimenti || []).length);
+    const tipo = l.approfondimenti[0].tipo;
+    const chi = COMUNE.eroi.find((e) => ((e.cariche || {})[tipo] || 0) > 0);
+    const dentro = partita({ luogoAperto: l.n, visitati: [l.n] });
+    dentro.party = [chi.nome, NINO];
+    const prima = (dentro.indagine.notte || []).length;
+    const g = fai(dentro, { tipo: 'approfondisci', luogo: l.n, tipoApp: tipo,
+                            eroe: chi.nome, tiri: [[6, 6]] });
+    const nuove = ind(g).notte.slice(prima);
+    ok(nuove.length === 1, `guardare meglio lascia UNA riga, non due (${
+      nuove.map((x) => x.tipo).join(', ')})`);
+    ok(nuove[0].tipo === 'colto', 'e la riga è quel che si è colto, non il dado');
+  }
+
+  // un rifiuto non è successo, quindi non si scrive
+  const no = fai(b.stato, { tipo: 'prendi-oggetto', nome: '' });
+  ok(no.rifiuto && (no.stato.indagine.notte || []).length === 2,
+     'un rifiuto non lascia righe: non è successo niente');
+}
+
 console.log(ko === 0
   ? 'test-motore-indagine: l’ora è una risorsa, e le regole stanno nel motore'
   : `${ko} FAIL`);

@@ -208,9 +208,16 @@ for (const sc of SCELTI) {
         for (const tipo of tipi) {
           // il bottone puo' non esserci piu': dopo una prova fallita il
           // chiavistello scatta e gli Approfondimenti spariscono da questa
-          // visita — e' la regola, non un guasto
-          if (!(await page.locator(`[data-tipo="${tipo}"]`).count())) break;
-          await page.locator(`[data-tipo="${tipo}"]`).click();
+          // visita — e' la regola, non un guasto.
+          //
+          // E puo' esserci SPENTO: dal 15/08 la scheda del luogo dice anche CHI
+          // puo' leggere quel tipo, e se nessuno in squadra ce la fa il bottone
+          // resta li' disabilitato invece di sparire — sparendo, il tavolo non
+          // saprebbe che quella cosa esiste e che serve un altro eroe.
+          const b = page.locator(`[data-tipo="${tipo}"]`);
+          if (!(await b.count())) break;
+          if (await b.isDisabled()) continue;
+          await b.click();
           const doveA = await tiraSeServe(page);
           ok(doveA === '#ok-msg', `approfondire ${tipo}: esito non arriva (${doveA})`);
           if (doveA !== '#ok-msg') break;
@@ -251,8 +258,14 @@ for (const sc of SCELTI) {
                 `${st.indagine.oggetti.length} oggetti, ${(st.indagine.reperti || []).length} reperti, ` +
                 `ora ${st.indagine.ora}:00`);
 
-    // taccuino: risposte e busta
-    await page.locator('#chiudi-indagine').click();
+    // taccuino: risposte e busta.
+    //
+    // Dal 15/08 il taccuino sta nel MENU: fuori resta la scena — lo stradario e
+    // il luogo in cui siete — e tutto quel che non si guarda a ogni giro sta
+    // dietro un tasto. Due tocchi invece di uno, ed è la stessa strada che fa
+    // chi arbitra al tavolo.
+    await page.locator('#apri-menu').click();
+    await page.locator('#m-taccuino').click();
     // La CONTRO-BUSTA (Ep.15) non sta nel taccuino: e' una Domanda che il
     // fascicolo apre DOPO la spedizione, quindi a schermo il suo campo non
     // c'e'. Iterare su tutte le domande cercava un `[data-risposta]` che non
@@ -273,6 +286,16 @@ for (const sc of SCELTI) {
     const sbagliate = await page.locator('span.ko-txt').count();
     if (sc.giuste) ok(esatte === domande.length, `risposte giuste bocciate (${esatte}/${domande.length})`);
     else ok(sbagliate === domande.length, `risposte a caso promosse (${sbagliate} bocciate attese ${domande.length})`);
+    // LA BUSTA VA ANCHE SUGLI ALTRI SCHERMI: e' la resa dei conti della serata,
+    // e chi gioca da telefono deve leggerla, non sentirsela riassumere. Si
+    // guarda quel che finisce nello stato — la carta condivisa — perche' e'
+    // quella che arriva a tutti.
+    const cartaBusta = (await stato(page, sc.ep)).indagine.carta;
+    ok(cartaBusta && /busta/i.test(cartaBusta.titolo || ''),
+       `la busta non e' andata sugli altri schermi (${JSON.stringify(cartaBusta)})`);
+    ok(cartaBusta && !/data-correggi/.test(cartaBusta.corpo || ''),
+       'e ci va senza i bottoni di correzione: quella mano è di chi conduce');
+
     const bustaTxt = await page.locator('.pannello').innerText();
     ok(/vantaggio d’indagine/i.test(bustaTxt), 'riepilogo vantaggio assente');
     ok(bustaTxt.includes(`${24 - st.indagine.ora} ore avanzate`), 'ore avanzate nel riepilogo non tornano');

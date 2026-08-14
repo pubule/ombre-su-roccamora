@@ -160,7 +160,9 @@ export class Partita extends DurableObject {
     const stato = await this.leggi();
     if (!stato) return Response.json({ errore: 'nessuna partita aperta' }, { status: 404 });
     const dati = await this.dati(stato.episodio, stato.bivi);
-    return Response.json({ ...vista(stato, dati, posto), arbitroCollegato: this.arbitroCollegato() });
+    return Response.json({ ...vista(stato, dati, posto),
+                           arbitroCollegato: this.arbitroCollegato(),
+                           collegati: this.eroiCollegati() });
   }
 
   // C'E' QUALCUNO CHE CONDUCE, dall'altra parte del filo?
@@ -177,6 +179,23 @@ export class Partita extends DurableObject {
       } catch { /* una sessione morta non conta */ }
     }
     return false;
+  }
+
+  // CHI C'E' AL TAVOLO, e con che eroe. Il dato c'era gia' — sta negli
+  // attachment delle sessioni, e `arbitroCollegato` lo gira da mesi — ma non lo
+  // diceva a nessuno. Serve a due cose che al tavolo si chiedevano a voce: chi
+  // arbitra vede quali eroi sono al telefono (e non offre un secondo
+  // interruttore per un dono che non e' suo da spendere), e chi gioca vede chi
+  // c'e' dall'altra parte.
+  eroiCollegati() {
+    const eroi = new Set();
+    for (const ws of this.ctx.getWebSockets()) {
+      try {
+        const p = ws.deserializeAttachment();
+        if (p && p.eroe) eroi.add(p.eroe);
+      } catch { /* una sessione morta non conta */ }
+    }
+    return [...eroi];
   }
 
   async comando(request, posto) {
@@ -239,11 +258,12 @@ export class Partita extends DurableObject {
   // deve aggiornarsi, e con un filtro per email non lo farebbe.
   spargi(out, dati, rif) {
     const arb = this.arbitroCollegato();
+    const collegati = this.eroiCollegati();
     for (const ws of this.ctx.getWebSockets()) {
       try {
         const posto = ws.deserializeAttachment() || { ruolo: 'giocatore' };
         ws.send(JSON.stringify({ ...vista(out.stato, dati, posto), eventi: out.eventi, rif,
-                                 arbitroCollegato: arb }));
+                                 arbitroCollegato: arb, collegati }));
       } catch { /* una sessione morta non ferma le altre */ }
     }
   }
