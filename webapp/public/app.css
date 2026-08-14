@@ -913,6 +913,46 @@ em, i { font-style: italic; }
 .tok-board.eroe.attivo { border-color: #f4d68a; border-width: 3px;
   box-shadow: 0 0 16px rgba(244,214,138,.85); }
 .tok-board.eroe.giu { filter: grayscale(1) brightness(.5); }
+
+/* IL SANGUE, alla Baldur's Gate: una velatura che sale dal basso col calare
+   della salute. `--f` e' la frazione PERSA (0 = intero, 1 = a terra), e la
+   sfumatura sfuma sopra il livello invece di tagliare netto — una riga netta
+   sembrerebbe una barra, e questa e' una figura ferita.
+   `mix-blend-mode: multiply` la fa sedere SOTTO i lineamenti del ritratto
+   invece che sopra: il volto resta riconoscibile, che e' il punto di avere un
+   ritratto e non un cerchio colorato. */
+.tok-board { position: relative; }
+.tok-board .sangue { position: absolute; inset: 0; pointer-events: none; }
+/* TINGE: `color` prende la tinta di questa velatura e la luminosita' del
+   ritratto sotto — il volto resta leggibile, ma è rosso. È il pezzo che
+   mancava: col solo scurire, sotto la riga si vedeva ancora l'azzurro. */
+.tok-board .sangue.tinge { mix-blend-mode: color;
+  background: linear-gradient(to top,
+    rgba(196, 22, 34, 1) 0%,
+    rgba(196, 22, 34, .96) calc(var(--f) * 100% - 16%),
+    rgba(196, 22, 34, .5) calc(var(--f) * 100% - 4%),
+    transparent calc(var(--f) * 100%)); }
+/* SCURISCE: il peso. Senza, la tinta da sola sembra un filtro allegro. */
+.tok-board .sangue.cupo { mix-blend-mode: multiply;
+  background: linear-gradient(to top,
+    rgba(96, 10, 18, .85) 0%,
+    rgba(120, 16, 24, .6) calc(var(--f) * 100% - 14%),
+    rgba(140, 24, 30, .25) calc(var(--f) * 100% - 3%),
+    transparent calc(var(--f) * 100%)); }
+/* a un terzo di salute il bordo si accende: la velatura, su un token piccolo e
+   guardato da lontano, si legge male; un alone no. Il colore e' quello del
+   sangue per tutti — qui non dice da che parte stai, dice quanto manca. */
+/* LA LINEA DI LIVELLO. Il solo `multiply` incupisce e basta: su un ritratto
+   gia' scuro il rosso diventa nero, e da lontano sembra ombra invece che
+   sangue. La riga sottile al livello — sopra la velatura, senza fusione — e'
+   quel che si legge a colpo d'occhio, ed e' il bordo luminoso che in Baldur's
+   Gate dice quanto ne resta. */
+.tok-board.ferito::after { content: ''; position: absolute; left: 0; right: 0;
+  bottom: calc(var(--f) * 100%); height: 2px; pointer-events: none;
+  background: rgba(232, 92, 92, .95); box-shadow: 0 0 6px rgba(232, 92, 92, .85); }
+.tok-board.grave { box-shadow: 0 0 12px rgba(190, 34, 44, .85), 0 2px 6px rgba(0, 0, 0, .6); }
+.tok-board.eroe.attivo.grave { box-shadow: 0 0 16px rgba(244, 214, 138, .85),
+  0 0 22px rgba(190, 34, 44, .9); }
 .tok-board.nemico { border-color: #7a1f2b; cursor: pointer; }
 .tok-board.nemico.boss { border-color: #d83b3b; border-width: 3px; box-shadow: 0 0 12px rgba(216,59,59,.7); }
 /* L'esca di Carbone non e' un personaggio: e' un oggetto che tira i nemici.

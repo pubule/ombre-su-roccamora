@@ -506,18 +506,52 @@ function boardHtml(senzaMosse) {
       data-t="${v.node.t}" data-x="${v.node.x}" data-y="${v.node.y}"${v.reveal ? ` data-reveal="${v.reveal}"` : ''}></div>`;
   }).join('');
 
+  // IL SANGUE SUL TOKEN. Quanto ne resta si vede sul token stesso, che è dove
+  // guarda chi gioca: una velatura rossa che sale dal basso man mano che la
+  // salute scende — come il ritratto che si riempie in Baldur's Gate. Prima il
+  // conto stava solo nella lista di fianco e nel `title`, e in mezzo a una
+  // mischia di sei token nessuno lo leggeva: si scopriva che un eroe era a un
+  // colpo dalla fine quando cadeva.
+  //
+  // Non aggiunge informazione a nessuno — quel che ognuno può sapere è già
+  // scritto altrove, per i nemici come per gli eroi: la sposta soltanto dove
+  // serve, cioè addosso alla figura.
+  // `--f` si mette sul TOKEN e non sulla velatura: la velatura fonde in
+  // multiply, e tutto quel che le sta dentro fonde con lei — la linea di
+  // livello ci usciva nera. Sul token, la linea puo' stare fuori dalla fusione.
+  const ferita = (v, max) => {
+    const f = Math.max(0, Math.min(1, 1 - (v / (max || 1))));
+    return f > 0 ? ` ferito" style="--f:${f.toFixed(2)}` : '';
+  };
+  // DUE VELATURE, e servono tutt'e due: quella che TINGE (blend `color`: prende
+  // la tinta rossa e lascia le luci del ritratto, quindi il volto resta
+  // riconoscibile ma diventa rosso) e quella che SCURISCE (`multiply`, il peso
+  // del sangue). Col solo multiply, su un ritratto verdazzurro come i nostri,
+  // il rosso diventa fango e sotto la riga si continuava a vedere l'azzurro.
+  const sangue = (v, max) => (v < max
+    ? '<i class="sangue tinge"></i><i class="sangue cupo"></i>' : '');
+  // sotto un terzo di salute il bordo si accende: da lontano, al tavolo, la
+  // velatura si legge male su un token piccolo, un alone no
+  const graveSe = (v, max) => (v > 0 && v / (max || 1) <= 1 / 3 ? ' grave' : '');
+
   // token — `data-tok` sul .tok-slot per indirizzarlo nell'animazione (N:i / E:nome / R)
   const toks = [];
   const tok = (n, inner, dataTok) => { const p = scr(n); toks.push(`<div class="tok-slot" data-tok="${dataTok}" style="left:${p.l}px;top:${p.t}px;width:${cell}px;height:${cell}px">${inner}</div>`); };
   for (const [nm, p] of Object.entries(sp.eroiPos)) {
-    const e = eroe(nm); const giu = (viteVista(nm) ?? 0) <= 0;
-    tok(p, `<span class="tok-board eroe${nm === attivo ? ' attivo' : ''}${giu ? ' giu' : ''}" data-eroe="${esc(nm)}" title="${esc(nm)}">
-      ${e && e.art ? `<img src="${urlArt(e.art)}" alt="" loading="lazy">` : ''}</span>`, `E:${esc(nm)}`);
+    const e = eroe(nm); const max = e ? saluteMax(e) : 6;
+    const v = viteVista(nm) ?? max; const giu = v <= 0;
+    tok(p, `<span class="tok-board eroe${nm === attivo ? ' attivo' : ''}${giu ? ' giu' : ''}${
+      graveSe(v, max)}${ferita(v, max)}" data-eroe="${esc(nm)}" title="${esc(nm)} — ${v}/${max}">
+      ${e && e.art ? `<img src="${urlArt(e.art)}" alt="" loading="lazy">` : ''}${sangue(v, max)}</span>`,
+      `E:${esc(nm)}`);
   }
   sp.nemici.forEach((n, i) => {
     if (!n.pos) return; const st = nemStat(n.nome); const boss = st && st.boss ? ' boss' : '';
-    tok(n.pos, `<span class="tok-board nemico${boss}" data-nemico="${i}" title="${esc(n.nome)} ${n.max - n.ferite}/${n.max}">
-      ${st && st.art ? `<img src="${urlArt(st.art)}" alt="" loading="lazy">` : ''}</span>`, `N:${i}`);
+    const v = n.max - n.ferite;
+    tok(n.pos, `<span class="tok-board nemico${boss}${graveSe(v, n.max)}${ferita(v, n.max)}"
+      data-nemico="${i}" title="${esc(n.nome)} ${v}/${n.max}">
+      ${st && st.art ? `<img src="${urlArt(st.art)}" alt="" loading="lazy">` : ''}${sangue(v, n.max)}</span>`,
+      `N:${i}`);
   });
   statoScortati().forEach((g, i) => {
     if (!g.liberato || !g.pos) return; const s = specScort(i);

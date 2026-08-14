@@ -65,6 +65,41 @@ if (!(await has('#app.immersivo'))) fail('la plancia non parte a schermo pieno')
 const nTok = await page.locator('.tok-board.eroe').count();
 if (nTok < 3) fail(`token eroe attesi 3, trovati ${nTok}`);
 
+// IL SANGUE SUL TOKEN. Quanto ne resta si legge addosso alla figura — la
+// velatura che sale col calare della salute, e la riga di livello — invece che
+// solo nella lista di fianco: in mezzo a una mischia di sei token nessuno
+// leggeva il conto, e si scopriva che un eroe era a un colpo dalla fine quando
+// cadeva. A vita piena il token è pulito: nessuna velatura, nessuna riga.
+{
+  const ferito = await page.evaluate(() => {
+    const t = document.querySelector('.tok-board.eroe');
+    const nome = t?.getAttribute('data-eroe');
+    // gli si toglie metà salute e si ridisegna, come farebbe un colpo
+    const p = JSON.parse(localStorage.getItem('osr.partita.ep1'));
+    return { nome, prima: t?.classList.contains('ferito'), max: p.spedizione.vite[nome] };
+  });
+  if (ferito.prima) fail('a vita piena il token non deve avere sangue addosso');
+  const dopo = await page.evaluate(async ({ nome, max }) => {
+    const { vistaDigitale } = await import('/js/digitale.js');
+    const p = JSON.parse(localStorage.getItem('osr.partita.ep1'));
+    p.spedizione.vite[nome] = 1;                       // in fin di vita
+    document.querySelector('#app').innerHTML = '';
+    await vistaDigitale(document.querySelector('#app'), p, () => {}, null);
+    const t = document.querySelector(`.tok-board[data-eroe="${nome}"]`);
+    return { ferito: !!t && t.classList.contains('ferito'),
+             grave: !!t && t.classList.contains('grave'),
+             f: t ? t.style.getPropertyValue('--f') : '',
+             // TUTT'E DUE le velature: quella che tinge e quella che scurisce.
+             // Col solo scurire, su un ritratto verdazzurro il rosso diventa
+             // fango e sotto la riga si vede ancora l'azzurro — provato.
+             velatura: !!t && !!t.querySelector('.sangue.tinge')
+                       && !!t.querySelector('.sangue.cupo'), max };
+  }, ferito);
+  if (!dopo.ferito || !dopo.velatura) fail('un eroe ferito deve portare il sangue sul token');
+  if (!(Number(dopo.f) > 0.5)) fail(`la velatura deve seguire la salute (--f ${dopo.f}, era ${dopo.max})`);
+  if (!dopo.grave) fail('e sotto un terzo di salute il bordo si accende');
+}
+
 // prova un movimento: clicca una cella raggiungibile se c'e'
 await clickIf('.cella-mossa');
 
