@@ -2,7 +2,8 @@
 // W-A: navigazione e stato; le viste Indagine/Spedizione arrivano in W-B
 // (motore arbitro) e qui hanno un segnaposto onesto.
 import { dati, nuovaPartita, salva, carica, cancella, tavoloCorrente, nomeTavoloCorrente,
-         sincronizzaScelte, scelteCampagna, frammentiConservati, EPISODI } from './store.js';
+         sincronizzaScelte, scelteCampagna, frammentiConservati, EPISODI,
+         sincronizzaCrescita, crescitaPerPartita } from './store.js';
 import { biviDi, applicaAllaPartita } from '../motore/bivi.js';
 import { rendi } from './engine.js';   // i Frammenti sono prosa con <i>/<b>
 import { schedaEroe } from './scheda-eroe.js';
@@ -400,6 +401,14 @@ async function comincia(party, epId, fase) {
   // dove sta la verita' — i salvataggi — invece di essere ricordato.
   const fr = frammentiConservati(epId);
   if (fr.serate) partita.frammenti = fr.interi;
+  // LA CRESCITA DEGLI EROI, dalla stessa parte dei Bivi e per lo stesso motivo:
+  // e' lo stato di campagna di QUESTO tavolo, e deve essere nello stato prima
+  // che chiunque lo guardi. Il motore poi la legge da `partita.migliorie` senza
+  // sapere da dove arriva.
+  await sincronizzaCrescita();
+  const cres = crescitaPerPartita(party);
+  partita.migliorie = cres.migliorie;
+  partita.cicatrici = cres.cicatrici;
   salva(partita);
   const dopo = () => {
     // partendo dalla sola spedizione manca l'unica cosa che l'indagine le passa:

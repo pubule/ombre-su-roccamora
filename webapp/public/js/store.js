@@ -107,6 +107,84 @@ export async function registraScelta(bivio, opzione, tavolo = tavoloCorrente()) 
   return m;
 }
 
+// ------------------------------------------------------- LA CRESCITA
+// Le Migliorie e le Cicatrici stanno accanto ai Bivi, e per la stessa ragione:
+// una casella spuntata dopo l'Ep.3 pesa fino all'Ep.20. Copia locale per lo
+// stesso motivo di sempre — preparare una partita e' sincrono e non aspetta la
+// rete: senza, l'episodio partirebbe con eroi che non sono cresciuti, che e'
+// peggio di non partire.
+//
+// La forma e' quella che il motore vuole gia' pronta:
+//   { 'ELENA FOSCO': { voci: ['fibra','tempra:vigore'], cicatrici: ['acume'] } }
+const CHIAVE_CRESCITA = 'osr.crescita.';
+
+// I PUNTI DI CRESCITA GUADAGNATI, contati dove sta la verita': i salvataggi.
+// Un episodio chiuso con un Frammento vale un punto — e l'Ep.6 due, che il
+// fascicolo lo dichiara premio di fine atto. Non c'e' un contatore da tenere,
+// per la stessa ragione dei Frammenti: due conti della stessa cosa divergono.
+//
+// «Si guadagnano solo la PRIMA volta che un episodio e' superato»: viene
+// gratis, perche' di salvataggi per episodio ce n'e' uno — rigiocarlo
+// sostituisce, non aggiunge.
+export function puntiCrescita(tavolo = tavoloCorrente()) {
+  let punti = 0;
+  for (const k of EPISODI) {
+    const esito = (carica(k, tavolo) || {}).spedizione?.esito;
+    if (esito === 'vittoria' || esito === 'parziale') punti += (k === 'ep6' ? 2 : 1);
+  }
+  return punti;
+}
+
+export function crescitaCampagna(tavolo = tavoloCorrente()) {
+  try { return JSON.parse(localStorage.getItem(CHIAVE_CRESCITA + (tavolo || '')) || '{}'); }
+  catch { return {}; }
+}
+
+export const salvaCrescita = (c, tavolo = tavoloCorrente()) =>
+  localStorage.setItem(CHIAVE_CRESCITA + (tavolo || ''), JSON.stringify(c));
+
+const lista = (s) => String(s || '').split(',').map((x) => x.trim()).filter(Boolean);
+
+export async function sincronizzaCrescita(tavolo = tavoloCorrente()) {
+  if (!tavolo) return crescitaCampagna(tavolo);
+  try {
+    const r = await fetch(`/api/migliorie?tavolo=${encodeURIComponent(tavolo)}`);
+    if (!r.ok) return crescitaCampagna(tavolo);
+    const { migliorie } = await r.json();
+    const m = {};
+    for (const x of migliorie || []) {
+      m[x.eroe] = { voci: lista(x.voci), cicatrici: lista(x.cicatrici) };
+    }
+    salvaCrescita(m, tavolo);
+    return m;
+  } catch { return crescitaCampagna(tavolo); }
+}
+
+export async function registraCrescita(eroe, voci, cicatrici, tavolo = tavoloCorrente()) {
+  const m = { ...crescitaCampagna(tavolo), [eroe]: { voci, cicatrici } };
+  salvaCrescita(m, tavolo);        // prima in locale: la serata non aspetta la rete
+  if (!tavolo) return m;
+  try {
+    await fetch('/api/migliorie', { method: 'PUT', headers: { 'Content-Type': 'application/json' },
+                                    body: JSON.stringify({ tavolo, eroe, voci, cicatrici }) });
+  } catch { /* la copia locale basta a giocare; si risincronizza al prossimo ingresso */ }
+  return m;
+}
+
+// Le due mappe come le vuole la partita: `{eroe: [voci]}` e `{eroe: [cicatrici]}`.
+// Si separano qui e non nel motore perche' il motore non deve sapere da dove
+// arrivano — le riceve gia' nella forma in cui le legge.
+export function crescitaPerPartita(party, tavolo = tavoloCorrente()) {
+  const c = crescitaCampagna(tavolo);
+  const migliorie = {}; const cicatrici = {};
+  for (const nm of party || []) {
+    const x = c[nm]; if (!x) continue;
+    if (x.voci && x.voci.length) migliorie[nm] = x.voci;
+    if (x.cicatrici && x.cicatrici.length) cicatrici[nm] = x.cicatrici;
+  }
+  return { migliorie, cicatrici };
+}
+
 // `fase`: da dove comincia la serata. Le due meta' dell'episodio sono
 // INDIPENDENTI — si puo' giocare la sola spedizione (l'indagine e' gia' stata
 // fatta un'altra sera, o non la si vuole rifare). In quel caso l'indagine

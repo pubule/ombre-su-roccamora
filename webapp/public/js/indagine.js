@@ -12,6 +12,7 @@ import { rendi, norm, bussa, dichiaraVoce, vociMappa, luogoVisitabile,
 import { episodioColBivio } from '../motore/bivi.js';
 import { applica } from '../motore/comandi.js';
 import { provaDiIndagine } from '../motore/indagine.js';
+import { eroeCresciuto } from '../motore/migliorie.js';
 import { vista, eArbitro } from '../motore/proiezione.js';
 import { mettiSulTavolo } from './tavolo-vivo.js';
 import { apriCanale } from './canale.js';
@@ -91,7 +92,10 @@ export async function vistaIndagine(app, partita, vaiA, posto) {
   const { ep, comune, carte } = vistoDa.dati;
   if (ctx && ctx.canale) ctx.canale.chiudi();   // il filo di prima non resta appeso
   ctx = { app, partita: vistoDa.stato, ep, comune, carte, vaiA, posto: posto || null, canale: null };
-  abilitaSchede((nm) => comune.eroi.find((x) => x.nome === nm));
+  // come in Spedizione: la scheda e' quella di stanotte, Tempre e Cicatrici
+  // comprese (la Tempra vale «sempre», e l'ACUME qui tira davvero)
+  abilitaSchede((nm) => eroeCresciuto({ partita: P() }, nm,
+    comune.eroi.find((x) => x.nome === nm)));
   collegaAlTavolo();
   // LA SERATA SI METTE SUL TAVOLO APPENA SI APRE, non alla prima mossa.
   //
@@ -482,8 +486,8 @@ function vistaDiChiGioca() {
     </div>`;
   dopoBarra();
   app.querySelectorAll('[data-scheda]').forEach((el) =>
-    el.addEventListener('click', () => schedaEroe(
-      ctx.comune.eroi.find((x) => x.nome === el.dataset.scheda), {})));
+    el.addEventListener('click', () => schedaEroe(eroeCresciuto({ partita: P() },
+      el.dataset.scheda, ctx.comune.eroi.find((x) => x.nome === el.dataset.scheda)), {})));
   app.querySelector('#lettera-eroe')?.addEventListener('click', letteraDiChiGioca);
   app.querySelector('#taccuino-eroe').onclick = taccuinoDiChiGioca;
   // LA STESSA FUNZIONE CHE USA CHI ARBITRA. Non una richiesta, non un giro per

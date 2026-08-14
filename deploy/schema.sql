@@ -65,3 +65,20 @@ CREATE TABLE IF NOT EXISTS scelte_campagna (
   quando   INTEGER NOT NULL,
   PRIMARY KEY (tavolo, bivio)
 );
+
+-- LA CRESCITA DEGLI EROI, per tavolo. Stessa ragione dei Bivi: una casella
+-- spuntata dopo l'Ep.3 pesa fino all'Ep.20, e il blob della partita e' per
+-- episodio. Una riga per EROE e non per casella: le voci si ripetono (Tempra
+-- ha quattro caselle) e chi le legge le vuole come lista.
+--
+-- I punti guadagnati e spesi non si scrivono: i primi li dicono i salvataggi,
+-- i secondi la somma dei prezzi delle caselle. Due conti della stessa cosa
+-- divergono — vale qui come per i Frammenti.
+CREATE TABLE IF NOT EXISTS migliorie_campagna (
+  tavolo      TEXT NOT NULL REFERENCES tavoli(id) ON DELETE CASCADE,
+  eroe        TEXT NOT NULL,
+  voci        TEXT NOT NULL DEFAULT '',
+  cicatrici   TEXT NOT NULL DEFAULT '',
+  quando      INTEGER NOT NULL,
+  PRIMARY KEY (tavolo, eroe)
+);

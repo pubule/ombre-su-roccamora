@@ -21,6 +21,7 @@
 // Un motore che decide le parole non serve a un Durable Object, e in un test si
 // deve poter leggere il fatto senza inciampare in una descrizione.
 import { bussa, dichiaraVoce, luogoVisitabile, idoneiPerTipo, usaCarica, norm } from './regole.js';
+import { eroeCresciuto } from './migliorie.js';
 
 const rifiuta = (motivo) => ({ rifiuto: motivo });
 
@@ -202,7 +203,13 @@ function cartaVista(g) {
 // di diramare. E' la stessa regola che il motore applica: si legge da un posto
 // solo, e al tavolo un dado tirato non si rimette nel bicchiere.
 export function provaDiIndagine(g, comando) {
-  const acume = (nm) => (g.comune.eroi.find((e) => e.nome === nm) || {}).acume ?? 0;
+  // L'ACUME e' quello di STANOTTE, non quello stampato: la Tempra vale «sempre»,
+  // e «leggere la scena» e' una prova di ACUME. Letto dritto da `comune.eroi`,
+  // un eroe cresciuto tirava in Indagine coi numeri del primo episodio — e
+  // nessuno se ne sarebbe accorto, perche' il tiro riesce lo stesso, solo meno
+  // spesso.
+  const acume = (nm) => (eroeCresciuto(g, nm,
+    g.comune.eroi.find((e) => e.nome === nm)) || {}).acume ?? 0;
   const primo = (nm) => String(nm).split(' ')[0].toLowerCase();
   if (comando.tipo === 'approfondisci') {
     return { titolo: `guardare meglio — ${primo(comando.eroe)}`, diffLabel: 'Media',

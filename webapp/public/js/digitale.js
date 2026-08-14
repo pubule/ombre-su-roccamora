@@ -12,6 +12,7 @@
 // schermo e i dadi che si tirano veri o dall'app, a ogni tiro.
 import { salva, dati } from './store.js';
 import { bivioHtml, collegaBivio } from './bivio-scelta.js';
+import { crescitaHtml, collegaCrescita } from './crescita-scelta.js';
 import { rendi, norm, costruisciMazzo, carteDaPescare, pesca, fineRound,
          cantoDaCarta, cerca, urlCarta, urlArt, cartaOggetto, tettoCanto,
          sogliaCanto } from './engine.js';
@@ -32,6 +33,7 @@ import * as nemici from '../motore/nemici.js';
 import * as azioni from '../motore/azioni.js';
 import { applica } from '../motore/comandi.js';
 import * as abilita from '../motore/abilita.js';
+import * as migliorie from '../motore/migliorie.js';
 import * as interazioni from '../motore/interazioni.js';
 
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) =>
@@ -158,7 +160,10 @@ export async function vistaDigitale(app, partita, vaiA, posto) {
           canale: null, tavoloVivo: false, rifMiei: new Set() };
   ctx.tavoloVivo = await mettiSulTavolo(ctx.posto, ctx.partita);
   collegaAlTavolo();
-  abilitaSchede((nm) => comune.eroi.find((x) => x.nome === nm));
+  // LA SCHEDA MOSTRA L'EROE DI STANOTTE, non la carta stampata: dopo dieci
+  // serate quei numeri sono cambiati, e una scheda che dice ancora quelli di
+  // partenza e' un errore che si scopre litigando su un tiro.
+  abilitaSchede((nm) => stat.eroe(G(), nm));
   // al tavolo la plancia si guarda in tanti, da lontano e di sbieco: il glide
   // del token rallenta (vedi `.al-tavolo .tok-slot` in app.css) perche' la
   // notte si deve poter SEGUIRE, non indovinare a cose fatte
@@ -637,10 +642,37 @@ function azioniHtml() {
       ${inter && azioniRestano(attivo) && !azioneSpesa(attivo, 'interagire') ? `<button class="btn" id="az-interagire">${esc(etichettaInterazione(inter))}</button>` : ''}
       ${giuVicino && azioniRestano(attivo) && !azioneSpesa(attivo, 'rianimare') ? '<button class="btn" id="az-rianimare">Rianimare</button>' : ''}
       ${azioniRestano(attivo) && !azioneSpesa(attivo, 'cercare') ? '<button class="btn" id="az-cercare">Cercare</button>' : ''}
+      ${bersagliRevolver(attivo).length && azioniRestano(attivo) && !azioneSpesa(attivo, 'attaccare')
+        ? '<button class="btn" id="az-sparare">Sparare (3 caselle)</button>' : ''}
       ${azioniRestano(attivo) && (P().indagine.oggetti || []).length ? '<button class="btn" id="az-oggetto">Usa oggetto</button>' : ''}
       ${posso(attivo) ? `<button class="btn pieno" id="az-fine">«${esc(primo(attivo))}» ha finito →</button>`
         : `<p class="nota">Tocca a ${esc(primo(attivo))}. Aspetta il suo turno.</p>`}
     </div>`;
+}
+
+// IL REVOLVER. Non e' una casella da toccare come il corpo a corpo — il
+// bersaglio e' a tre caselle e sulla plancia si confonderebbe col movimento —
+// quindi si sceglie da una lista, come l'Esca sceglie la cella. La gittata la
+// decide il motore (`attacca` rifiuta oltre 3 e senza cammino): qui si offre
+// solo quel che passerebbe, cosi' non si vedono bottoni che verranno rifiutati.
+function bersagliRevolver(nm) {
+  const sp = SP();
+  if (!nm || sp.fase !== 'eroi' || !migliorie.ha({ partita: P() }, nm, 'revolver')) return [];
+  const pos = sp.eroiPos[nm]; if (!pos) return [];
+  return sp.nemici.map((n, i) => ({ n, i })).filter(({ n }) => {
+    if (!n.pos || n.abbattuto) return false;
+    const d = distGlob(pos, n.pos);
+    return d > 0 && d <= 3;
+  });
+}
+
+async function sparare(nm) {
+  const cand = bersagliRevolver(nm);
+  if (!cand.length) { flash('Nessun bersaglio entro tre caselle.'); return; }
+  const scelta = await scegli('Revolver — a chi spari? (2d6+2)',
+    cand.map(({ n, i }) => ({ id: String(i), label: `${n.nome.toLowerCase()} (${n.ferite}/${n.max})` })));
+  if (scelta == null) return;               // chi annulla non spende niente
+  await esegui({ tipo: 'attacca', eroe: nm, bersaglio: Number(scelta), arma: 'revolver' });
 }
 
 // ------------------------------------------- abilità di spedizione (cariche)
@@ -670,7 +702,45 @@ function abilitaHtml() {
       <span class="nemico-comandi"><span class="nemico-pips">${pips}</span>
         ${puo ? `<button class="btn attacca" data-abil="${esc(nm)}">usa</button>` : ''}</span></div>`;
   }).join('');
-  return righe || '<p class="nota">Nessun eroe con abilità a cariche in questo party.</p>';
+  return (righe + miglioriteHtml())
+    || '<p class="nota">Nessun eroe con abilità a cariche in questo party.</p>';
+}
+
+// LE MIGLIORIE A CARICHE, nella stessa striscia delle abilita' e con gli stessi
+// pallini: al tavolo sono la stessa cosa — qualcosa che hai e che finisce — e
+// una seconda lista da un'altra parte vorrebbe dire cercarle in due posti.
+function miglioriteHtml() {
+  const sp = SP(); const attivo = eroiAttivoNome();
+  const out = [];
+  for (const nm of P().party) {
+    for (const cm of abilita.CARICHE_MIG) {
+      if (!migliorie.ha({ partita: P() }, nm, cm.id)) continue;
+      const usate = abilita.usiMig(G(), nm, cm.id); const rest = cm.usi - usate;
+      const pips = Array.from({ length: cm.usi }, (_, k) =>
+        `<span class="pip-vita ${k < rest ? 'piena' : ''}"></span>`).join('');
+      const puo = nm === attivo && rest > 0 && sp.fase === 'eroi'
+        && (!cm.costaAzione || azioniRestano(nm));
+      out.push(`<div class="nemico-riga">
+        <span class="nemico-nome">${esc(primo(nm))} · ${esc(cm.ab.toLowerCase())}<br><span class="nota">${esc(cm.nota)}</span></span>
+        <span class="nemico-comandi"><span class="nemico-pips">${pips}</span>
+          ${puo ? `<button class="btn attacca" data-mig="${esc(nm)}" data-voce="${esc(cm.id)}">usa</button>` : ''}</span></div>`);
+    }
+  }
+  return out.join('');
+}
+
+// Il ponte per le Migliorie a cariche: identico a `usaAbilita`, e con la stessa
+// ragione — si chiede al motore cosa serve, si domanda, si manda un comando
+// gia' completo.
+async function usaMiglioria(nm, voce) {
+  const chiede = abilita.candidati(G(), nm, voce);
+  if (chiede && chiede.vuoto) { flash(chiede.vuoto); return; }
+  let scelta = null;
+  if (chiede && chiede.opzioni) {
+    scelta = await scegli(chiede.titolo, chiede.opzioni);
+    if (scelta == null) return;
+  }
+  await esegui({ tipo: 'abilita', eroe: nm, voce, scelta });
 }
 
 // selezione bersaglio (overlay) — riusa lo stile .scelta-overlay del tavolo
@@ -955,6 +1025,8 @@ function aggancia() {
       ${o && o.effetto ? `<p class="mt">${rendi(o.effetto)}</p>` : ''}${o && o.flavor ? `<p class="nota mt"><i>${rendi(o.flavor)}</i></p>` : ''}`).then(render);
   });
   app.querySelectorAll('[data-abil]').forEach((btn) => btn.onclick = () => usaAbilita(btn.dataset.abil));
+  app.querySelectorAll('[data-mig]').forEach((btn) => btn.onclick = () => usaMiglioria(btn.dataset.mig, btn.dataset.voce));
+  app.querySelector('#az-sparare') && (app.querySelector('#az-sparare').onclick = () => sparare(attivo));
   // (usaAbilita e' un ponte: chiede i candidati al motore, poi manda `abilita`)
   app.querySelector('#az-cercare') && (app.querySelector('#az-cercare').onclick = () => esegui({ tipo: 'cerca', eroe: attivo }));
   app.querySelector('#az-oggetto') && (app.querySelector('#az-oggetto').onclick = () => usaOggetto(attivo));
@@ -1847,11 +1919,18 @@ function epilogo() {
           <p class="nota">La verità: ${esc(cb.risposta)}</p>
           <p>${esc(cb.esatta)}</p>
         </div>` : ''; })()}
+      ${sp.esito === 'sconfitta' ? ''
+        : crescitaHtml(ctx.partita.party, arbitro(), (ctx.comune || {}).eroi)}
       ${bivioHtml(ctx.ep, ctx.partita.episodio, arbitro())}
       <div class="btn-riga" style="justify-content:center"><button class="btn pieno" id="al-menu">alla taverna</button></div></div>`;
   app.querySelector('#nav-esci').onclick = () => { spegniImmersivo(); ctx.vaiA('menu'); };
   app.querySelector('#al-menu').onclick = () => ctx.vaiA('menu');
   collegaBivio(app, ctx.ep, ctx.partita.episodio, epilogo);
+  // La crescita si spunta solo dopo una serata riuscita — «si guadagnano solo
+  // la prima volta che un episodio e' superato» — e il punto lo conta
+  // `puntiCrescita()` dai salvataggi, non questa schermata: cosi' riaprire
+  // l'epilogo non regala niente.
+  collegaCrescita(app, ctx.partita.party, epilogo);
 }
 
 // export del motore per i test (node): _setup inietta un ctx finto (ep + sp)

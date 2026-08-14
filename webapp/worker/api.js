@@ -186,6 +186,39 @@ export async function api(request, env, email) {
     return jsonRisposta({ ok: true });
   }
 
+  // LA CRESCITA DEGLI EROI. Come i Bivi: appartiene alla campagna, la legge
+  // chiunque sieda al tavolo — la scheda di un compagno non e' un segreto, e
+  // anzi al tavolo si guarda — e la scrive chi arbitra, che e' chi tiene il
+  // Taccuino di Campagna.
+  if (p === '/api/migliorie' && metodo === 'GET') {
+    const tavolo = url.searchParams.get('tavolo');
+    if (!(await mioTavolo(env, email, tavolo))) return jsonRisposta({ errore: 'non trovato' }, 404);
+    const r = await env.DB.prepare(
+      'SELECT eroe, voci, cicatrici FROM migliorie_campagna WHERE tavolo = ?')
+      .bind(tavolo).all();
+    return jsonRisposta({ migliorie: r.results });
+  }
+
+  if (p === '/api/migliorie' && metodo === 'PUT') {
+    const { tavolo, eroe, voci, cicatrici } = await request.json();
+    if (!(await arbitroDi(env, email, tavolo))) return jsonRisposta({ errore: 'non trovato' }, 404);
+    if (!eroe) return jsonRisposta({ errore: 'serve l’eroe' }, 400);
+    if (!Array.isArray(voci) || !Array.isArray(cicatrici || [])) {
+      return jsonRisposta({ errore: 'voci e cicatrici sono liste' }, 400);
+    }
+    // Si scrive la LISTA INTERA dell'eroe, non una casella: cosi' togliere una
+    // spunta sbagliata e' la stessa operazione che aggiungerla, e non serve una
+    // DELETE per riga. Il tetto e' un guardrail contro un client rotto, non una
+    // regola di gioco — quella e' il prezzo, e sta nel motore.
+    const pulisci = (a) => (a || []).slice(0, 40).map((x) => String(x).slice(0, 40)).join(',');
+    await env.DB.prepare(
+      `INSERT INTO migliorie_campagna (tavolo, eroe, voci, cicatrici, quando) VALUES (?, ?, ?, ?, ?)
+       ON CONFLICT(tavolo, eroe) DO UPDATE SET voci = excluded.voci,
+         cicatrici = excluded.cicatrici, quando = excluded.quando`)
+      .bind(tavolo, eroe, pulisci(voci), pulisci(cicatrici), Date.now()).run();
+    return jsonRisposta({ ok: true });
+  }
+
   // IL PARTY DEL TAVOLO — gli eroi di questa campagna, scelti una volta e poi
   // sempre quelli. Cambiarlo e' del solo PROPRIETARIO: e' la composizione della
   // compagnia, non una preferenza di serata.
