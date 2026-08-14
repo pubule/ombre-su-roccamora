@@ -1,0 +1,493 @@
+<!doctype html><html lang="it"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>L'Indagine, due schermi e due mestieri · mockup</title>
+<!-- L'APP.CSS VERO, non una copia: un mockup che reinterpreta lo stile fa
+     scegliere su una cosa che non esiste. Qui la fedeltà è garantita per
+     costruzione, perché è lo stesso foglio che gira in gioco. -->
+<link rel="stylesheet" href="/app.css">
+<style>
+  /* SOLO l'impalcatura: i due schermi affiancati e le didascalie. Niente che
+     tocchi i componenti — quelli devono venire da app.css. */
+  body { padding: 18px; }
+  .did { max-width: 880px; margin: 0 auto 24px; }
+  .did h1 { font-size: 28px; }
+  .banco { display: flex; gap: 26px; flex-wrap: wrap; align-items: flex-start;
+           justify-content: center; margin-bottom: 30px; }
+  .col { width: 420px; max-width: 100%; }
+  .col.largo { width: 560px; }
+  .col > h3 { font-family: 'FellSC', serif; text-transform: lowercase; letter-spacing: .08em;
+              color: var(--osso-fioco); font-size: 15px; margin: 0 0 8px; text-align: center; }
+  .col > h3 b { color: var(--osso); font-weight: normal; }
+  .schermo { border: 1px solid var(--bordo-alto); border-radius: 2px; overflow: hidden;
+             background: var(--tavolo); }
+  .schermo .dentro { padding: 10px; }
+  .prima-dopo { color: var(--osso-fioco); font-style: italic; font-size: 15px;
+                margin: 10px auto 0; }
+  .sep { max-width: 880px; margin: 34px auto 22px; border-top: 1px solid var(--bordo); }
+
+  /* --- i pezzi PROPOSTI. Sono cinque, e sono tutti piccoli: se una proposta
+     ha bisogno di mezzo foglio di stile nuovo, la proposta è sbagliata. */
+
+  /* 1. il bilancio della notte: una riga sotto l'orologio */
+  .bilancio { display: flex; flex-wrap: wrap; gap: 4px 14px; padding: 7px 12px;
+              border: 1px solid var(--bordo); border-radius: 2px; background: var(--ardesia);
+              margin-bottom: 12px; font-family: 'FellSC', serif; font-size: 13px;
+              letter-spacing: .06em; color: var(--osso-fioco); }
+  .bilancio b { color: var(--osso); font-weight: normal; }
+
+  /* 2. il campo di ricerca dello stradario */
+  .cerca { width: 100%; padding: 9px 12px; margin-bottom: 8px;
+           font-family: 'OldStd', serif; font-size: 16px; color: var(--osso);
+           background: #16171b; border: 1px solid var(--bordo); border-radius: 2px; }
+  .cerca::placeholder { color: #6d6a63; font-style: italic; }
+
+  /* 3. la voce già battuta, smorzata e in fondo */
+  .voce.battuta { opacity: .45; }
+
+  /* 4. la riga «siete dentro», che chiude lo stradario quando il gruppo è in un luogo */
+  .riga-dove { display: flex; align-items: center; gap: 10px; width: 100%;
+               margin-bottom: 12px; }
+  .riga-dove .dove-tit { flex: 1; font-family: 'FellSC', serif; letter-spacing: .06em;
+                         font-size: 14px; color: var(--osso-fioco); }
+  .riga-dove .dove-tit b { display: block; font-family: 'OldStd', serif; font-size: 17px;
+                           letter-spacing: 0; color: var(--osso); }
+
+  /* 5. la riga della squadra, sul telefono: cariche di tutti, il proprio acceso */
+  .squadra-riga { display: flex; gap: 6px; overflow-x: auto; padding: 8px 10px;
+                  border: 1px solid var(--bordo); border-radius: 2px;
+                  background: var(--ardesia); }
+  .squadra-riga .chi { flex: 0 0 auto; text-align: center; min-width: 66px;
+                       font-family: 'FellSC', serif; font-size: 12px; letter-spacing: .06em;
+                       color: var(--osso-fioco); }
+  .squadra-riga .chi.mio { color: var(--osso); }
+  .squadra-riga .chi.mio .abil { color: var(--nastro); }
+  .squadra-riga .abil { display: block; font-size: 11px; }
+  .squadra-riga .pip-carica { justify-content: center; }
+  .squadra-riga .chi.telefono::after { content: '·telefono'; display: block; font-size: 10px;
+                                       color: var(--nastro); }
+
+  /* 6. la barra dei comandi, fissa in basso sullo schermo di chi arbitra */
+  .comandi { display: flex; gap: 8px; padding: 8px; margin-top: 12px;
+             border-top: 1px solid var(--bordo); background: var(--tavolo); }
+  .comandi .btn { flex: 1; }
+
+  /* la fascia «sta agendo», che oggi non esiste da nessuna parte */
+  .in-corso { display: flex; align-items: center; gap: 8px; padding: 8px 12px;
+              border: 1px dashed var(--bordo-alto); border-radius: 2px;
+              background: #14161c; color: var(--osso-fioco); font-style: italic;
+              font-size: 15px; margin-top: 10px; }
+</style>
+</head><body>
+
+<div class="did pannello">
+  <h1>l’indagine: due schermi, due mestieri</h1>
+  <p class="mt">Da oggi i telefoni non guardano più: comandano. Ma le due schermate non sono mai
+  state ridisegnate dopo — sono cresciute per accumulo, e si vede: chi arbitra ha un muro di
+  ventidue vie con i comandi in fondo che scorrono via, chi gioca ha un ritratto grande e la
+  cosa che deve fare più in basso.</p>
+  <p class="mt"><b>Il precedente.</b> <i>Mansions of Madness</i>, <i>Journeys in Middle-earth</i>,
+  <i>Descent: Legends of the Dark</i>: lo schermo condiviso mostra <b>la scena in corso</b> e
+  nient’altro — mappa, inventario e registro sono <i>modi in cui si entra</i>, non colonne sempre
+  aperte. Lo schermo del master (da D&amp;D fino a Roll20) è una superficie ordinata <b>per
+  frequenza d’uso</b>. E in <i>Chronicles of Crime</i> il dispositivo del giocatore è <b>la sua
+  mano</b>: il suo personaggio e quel che può fare adesso, più il minimo della squadra che serve
+  a coordinarsi.</p>
+  <p class="nota mt">Sotto: <b>oggi</b> e <b>proposto</b>, affiancati, per tutt’e due i ruoli e
+  per tutt’e due i momenti della serata — per le strade e dentro un luogo.</p>
+</div>
+
+<!-- ═══════════════════════════════════ CHI ARBITRA, PER LE STRADE ═══════ -->
+<div class="did"><h2 class="sc">chi arbitra · per le strade</h2></div>
+<div class="banco">
+
+  <div class="col largo">
+    <h3>1 · <b>com’è ora</b></h3>
+    <div class="schermo"><div class="dentro">
+      <div class="riga-registro">
+        <span class="ora sc">18</span><span class="ora sc">19</span><span class="ora sc">20</span>
+        <span class="ora sc ora-ora">21</span><span class="ora sc">22</span><span class="ora sc">23</span>
+        <span class="sc resta">3 ore a mezzanotte</span>
+      </div>
+      <div class="pannello">
+        <h2>il gruppo sul caso</h2>
+        <div class="giro-strip stampe">
+          <button class="chip-turno ritratto"><span class="rit"><img src="/assets/artworks/Elena.png" alt=""></span>
+            <span class="et">elena</span><span class="cariche"><span class="pip-carica"><i class="piena"></i><i class="piena"></i></span></span></button>
+          <button class="chip-turno ritratto"><span class="rit"><img src="/assets/artworks/Mora.png" alt=""></span>
+            <span class="et">mora</span><span class="cariche"><span class="pip-carica"><i class="piena"></i></span></span></button>
+          <button class="chip-turno ritratto"><span class="rit"><img src="/assets/artworks/Nino.png" alt=""></span>
+            <span class="et">nino</span><span class="cariche"><span class="pip-carica"><i></i></span></span></button>
+        </div>
+        <p class="nota">Sotto ogni ritratto, le sue cariche: un pallino per uso, pieno se è
+        ancora disponibile. Ogni eroe legge un tipo di Approfondimento…</p>
+      </div>
+      <div class="mt"></div>
+      <div class="pannello">
+        <h2>lo stradario di roccamora</h2>
+        <p class="nota">Dichiarate una destinazione: se la pista è fredda non costa nulla, ma se
+        lì c’è qualcosa… l’ora si spende.</p>
+        <div class="stradario mt">
+          <button class="voce"><b>Il Campanile di San Teodoro</b> <i>piazza di San Teodoro</i><span class="visitato">già battuto</span></button>
+          <button class="voce"><b>Il Cimitero delle Barche</b> <i>ansa morta del canale grande</i></button>
+          <button class="voce"><b>Il Vecchio Mercato</b> <i>piazza delle Erbe</i></button>
+          <button class="voce"><b>Il Vecchio Mulino</b> <i>a monte, oltre la chiusa</i></button>
+          <button class="voce"><b>I Moli di Levante</b> <i>riva orientale, oltre la dogana nuova</i></button>
+          <button class="voce"><b>L’Ospedale della Carità</b> <i>largo San Rocco 2</i></button>
+          <button class="voce"><b>Le Fonderie</b> <i>vicolo dei Fonditori</i></button>
+        </div>
+        <p class="nota mt">…e altre quindici voci, sotto.</p>
+      </div>
+      <div class="btn-riga">
+        <button class="btn">la lettera</button>
+        <button class="btn">Ombra in avanscoperta (1 volta)</button>
+        <button class="btn">taccuino e domande</button>
+        <button class="btn">oggetti e carte (5)</button>
+        <button class="btn pieno">chiudete l’indagine</button>
+      </div>
+    </div></div>
+    <p class="prima-dopo">Ventidue voci in ordine alfabetico: il tavolo dice «andiamo al
+    mulino» e tu <i>scandisci</i>. I comandi stanno in fondo a una pagina che scorre, e
+    «chiudete l’indagine» apre il taccuino.</p>
+  </div>
+
+  <div class="col largo">
+    <h3>2 · <b>proposto</b></h3>
+    <div class="schermo"><div class="dentro">
+      <div class="riga-registro">
+        <span class="ora sc">18</span><span class="ora sc">19</span><span class="ora sc">20</span>
+        <span class="ora sc ora-ora">21</span><span class="ora sc">22</span><span class="ora sc">23</span>
+        <span class="sc resta">3 ore a mezzanotte</span>
+      </div>
+      <div class="bilancio">
+        <span><b>2</b> luoghi battuti</span><span><b>3</b> indizi colti</span>
+        <span><b>1</b> di 4 risposte</span><span><b>5</b> cose in mano</span>
+      </div>
+      <div class="pannello">
+        <h2>dove andate?</h2>
+        <input class="cerca" placeholder="cerca una via… (mul)">
+        <div class="stradario mt">
+          <button class="voce"><b>Il Vecchio Mulino</b> <i>a monte, oltre la chiusa</i></button>
+          <button class="voce"><b>Il Vecchio Mercato</b> <i>piazza delle Erbe</i></button>
+          <button class="voce"><b>Il Cimitero delle Barche</b> <i>ansa morta del canale grande</i></button>
+          <button class="voce"><b>I Moli di Levante</b> <i>riva orientale, oltre la dogana nuova</i></button>
+          <button class="voce battuta"><b>Il Campanile di San Teodoro</b> <i>piazza di San Teodoro</i><span class="visitato">già battuto</span></button>
+        </div>
+      </div>
+      <div class="mt"></div>
+      <div class="pannello">
+        <h2>la squadra</h2>
+        <div class="giro-strip stampe">
+          <button class="chip-turno ritratto"><span class="rit"><img src="/assets/artworks/Elena.png" alt=""></span>
+            <span class="et">elena</span><span class="cariche"><span class="pip-carica"><i class="piena"></i><i class="piena"></i></span></span></button>
+          <button class="chip-turno ritratto"><span class="rit"><img src="/assets/artworks/Mora.png" alt=""></span>
+            <span class="et">mora</span><span class="cariche"><span class="pip-carica"><i class="piena"></i></span></span></button>
+          <button class="chip-turno ritratto"><span class="rit"><img src="/assets/artworks/Nino.png" alt=""></span>
+            <span class="et">nino</span><span class="cariche"><span class="pip-carica"><i></i></span></span></button>
+        </div>
+        <p class="nota">Elena e Mora sono <b>al telefono</b>: i loro doni li spendono loro.
+        Nino lo tenete voi.</p>
+        <div class="btn-riga">
+          <button class="btn" disabled>Ombra in avanscoperta — è di Mora, dal suo telefono</button>
+        </div>
+      </div>
+      <div class="comandi">
+        <button class="btn">taccuino</button>
+        <button class="btn">oggetti · 5</button>
+        <button class="btn pieno">la busta</button>
+      </div>
+    </div></div>
+    <p class="prima-dopo">Tre parole nel campo e la via è lì. Il <b>bilancio</b> dice cosa avete
+    comprato con le ore spese — l’orologio da solo dice solo quanto manca. I comandi non
+    scorrono più via, e «la busta» dice dove porta. I doni degli eroi che sono al telefono non
+    hanno più un secondo interruttore qui.</p>
+  </div>
+</div>
+
+<hr class="sep">
+
+<!-- ═══════════════════════════════════ CHI ARBITRA, DENTRO UN LUOGO ═════ -->
+<div class="did"><h2 class="sc">chi arbitra · dentro un luogo</h2>
+  <p class="nota">Oggi la scheda del luogo è già una pagina sua, e funziona. Quel che cambia è
+  la <b>via di ritorno</b> e cosa succede quando agisce un telefono.</p></div>
+<div class="banco">
+
+  <div class="col largo">
+    <h3>3 · <b>com’è ora</b></h3>
+    <div class="schermo"><div class="dentro">
+      <div class="barra"><button class="btn">← menu</button>
+        <div class="titolo"><span class="etichetta">Il Coro Sommerso · indagine</span>
+          <span class="tit-testo">il campanile di san teodoro</span></div></div>
+      <div class="banner-luogo" style="background-image:url('/assets/artworks/bell%20tower.png')"><div class="banner-velo"></div></div>
+      <div class="pannello"><p><i>La scala a chiocciola sale nel buio, ottanta gradini consumati
+        al centro dai passi di generazioni di campanari…</i></p></div>
+      <div class="mt"></div>
+      <div class="pannello">
+        <h2>indizi — leggeteli ad alta voce</h2>
+        <p class="mt">◆ Colate di cera nera sui gradini — troppo in alto perché vengano dalle
+        candele della chiesa.</p>
+        <p class="mt">◆ Il diario di Ruggero, con l’ultima pagina strappata.</p>
+        <hr class="divisore">
+        <p class="nota">carte e reperti da prendere</p>
+        <div class="btn-riga"><button class="btn">prendete “Corda di Violino d’Argento”</button></div>
+      </div>
+      <div class="mt"></div>
+      <div class="pannello">
+        <h2>approfondire</h2>
+        <p class="nota">Ogni tipo lo sblocca l’eroe con l’abilità giusta. Scegliete il tipo, poi
+        chi prova a guardare meglio…</p>
+        <div class="btn-riga">
+          <button class="btn">Osservazione</button><button class="btn">Testimonianza</button>
+          <button class="btn">Referto</button><button class="btn">Presagio</button>
+        </div>
+      </div>
+      <div class="btn-riga"><button class="btn pieno">lasciate il luogo</button></div>
+    </div></div>
+    <p class="prima-dopo">Quattro bottoni per quattro tipi, anche quelli che <b>qui non
+    esistono</b> e quelli che <b>nessuno in squadra</b> sa leggere. E quando un telefono coglie
+    qualcosa, tu leggi la carta e premi «continuate» — e ti ritrovi sullo stradario, fuori dal
+    luogo dove il gruppo è ancora.</p>
+  </div>
+
+  <div class="col largo">
+    <h3>4 · <b>proposto</b></h3>
+    <div class="schermo"><div class="dentro">
+      <div class="riga-registro">
+        <span class="ora sc">18</span><span class="ora sc">19</span><span class="ora sc">20</span>
+        <span class="ora sc ora-ora">21</span><span class="ora sc">22</span><span class="ora sc">23</span>
+        <span class="sc resta">3 ore a mezzanotte</span>
+      </div>
+      <button class="voce riga-dove"><span class="dove-tit">siete dentro
+        <b>il campanile di san teodoro</b></span><span class="freccia">uscite ›</span></button>
+      <div class="banner-luogo" style="background-image:url('/assets/artworks/bell%20tower.png')"><div class="banner-velo"></div></div>
+      <div class="pannello">
+        <h2>indizi — leggeteli ad alta voce</h2>
+        <p class="mt">◆ Colate di cera nera sui gradini — troppo in alto perché vengano dalle
+        candele della chiesa.</p>
+        <p class="mt">◆ Il diario di Ruggero, con l’ultima pagina strappata.</p>
+      </div>
+      <div class="mt"></div>
+      <div class="pannello">
+        <h2>approfondire — <span class="nota">qui c’è un’Osservazione e un Referto</span></h2>
+        <div class="btn-riga">
+          <button class="btn pieno">Osservazione — Elena ●●</button>
+          <button class="btn">Referto — nessuno in squadra</button>
+        </div>
+        <div class="in-corso">Elena sta guardando meglio, dal suo telefono…</div>
+      </div>
+      <div class="mt"></div>
+      <div class="pannello">
+        <p class="nota">da prendere, qui</p>
+        <div class="btn-riga"><button class="btn">Corda di Violino d’Argento</button></div>
+      </div>
+      <div class="comandi">
+        <button class="btn">taccuino</button>
+        <button class="btn">oggetti · 5</button>
+        <button class="btn pieno">lasciate il luogo</button>
+      </div>
+    </div></div>
+    <p class="prima-dopo">Lo stradario si chiude in una riga: la pagina dice <b>una cosa
+    sola</b>, dove siete. I tipi che qui non ci sono spariscono, e quelli che ci sono dicono
+    <b>chi</b> può leggerli e con quante cariche. La fascia tratteggiata dice che un telefono sta
+    agendo — oggi non lo sai finché non arriva l’esito. E chiudendo quell’esito si torna
+    <b>qui</b>, non sullo stradario.</p>
+  </div>
+</div>
+
+<hr class="sep">
+
+<!-- ═══════════════════════════════════ CHI GIOCA, PER LE STRADE ═════════ -->
+<div class="did"><h2 class="sc">chi gioca · per le strade</h2></div>
+<div class="banco">
+
+  <div class="col">
+    <h3>5 · <b>com’è ora</b></h3>
+    <div class="schermo"><div class="dentro">
+      <div class="riga-registro">
+        <span class="ora sc">18</span><span class="ora sc">19</span><span class="ora sc">20</span>
+        <span class="ora sc ora-ora">21</span><span class="ora sc">22</span><span class="ora sc">23</span>
+        <span class="sc resta">3 ore</span>
+      </div>
+      <div class="pannello">
+        <h2>siete per le strade</h2>
+        <p class="nota">Si decide insieme dove andare; a dichiararlo e a bussare è chi arbitra.
+        Appena entrate, qui compare quel che potete fare voi.</p>
+      </div>
+      <div class="mt"></div>
+      <div class="pannello">
+        <h2>il vostro eroe</h2>
+        <div class="giro-strip stampe">
+          <button class="chip-turno ritratto"><span class="rit"><img src="/assets/artworks/Mora.png" alt=""></span>
+            <span class="et">mora</span><span class="cariche"><span class="pip-carica"><i class="piena"></i></span></span></button>
+        </div>
+        <p class="nota">Ombra: <b>1</b> di 1</p>
+      </div>
+      <div class="mt"></div>
+      <div class="pannello">
+        <h2>dove siete stati (1)</h2>
+        <div class="stradario mt"><div class="voce"><b>il campanile di san teodoro</b></div></div>
+      </div>
+      <div class="mt"></div>
+      <div class="pannello">
+        <h2>il vostro taccuino</h2>
+        <div class="in-mano mt">
+          <button class="voce"><span class="riga-pezzo"><span class="tit"><b>quel che avete in mano</b><br>
+            <i class="nota">3 oggetti · 1 reperto</i></span><span class="freccia">›</span></span></button>
+          <button class="voce"><span class="riga-pezzo"><span class="tit"><b>taccuino e domande</b><br>
+            <i class="nota">1 risposta scritta su 4</i></span><span class="freccia">›</span></span></button>
+          <button class="voce"><span class="riga-pezzo"><span class="tit"><b>ombra in avanscoperta</b><br>
+            <i class="nota">il vostro, 1 volta per serata</i></span><span class="freccia">›</span></span></button>
+        </div>
+      </div>
+    </div></div>
+    <p class="prima-dopo">Un terzo dello schermo è il vostro ritratto, e la cosa che conta —
+    <b>le cariche</b> — è una riga di testo sotto. Della squadra non sapete niente: «chi può
+    leggere un Referto?» va chiesto ad alta voce. E i luoghi già battuti sono un elenco morto.</p>
+  </div>
+
+  <div class="col">
+    <h3>6 · <b>proposto</b></h3>
+    <div class="schermo"><div class="dentro">
+      <div class="riga-registro">
+        <span class="ora sc">18</span><span class="ora sc">19</span><span class="ora sc">20</span>
+        <span class="ora sc ora-ora">21</span><span class="ora sc">22</span><span class="ora sc">23</span>
+        <span class="sc resta">3 ore</span>
+      </div>
+      <div class="pannello">
+        <h2>siete per le strade</h2>
+        <p class="nota">Si decide insieme dove andare; a dichiararlo è chi arbitra. Appena
+        entrate, qui compare quel che potete fare voi.</p>
+        <div class="btn-riga">
+          <button class="btn pieno">ombra in avanscoperta — 1 volta per serata</button>
+        </div>
+      </div>
+      <div class="mt"></div>
+      <div class="pannello">
+        <h2>il vostro taccuino</h2>
+        <div class="in-mano mt">
+          <button class="voce"><span class="riga-pezzo"><span class="tit"><b>quel che avete in mano</b><br>
+            <i class="nota">3 oggetti · 1 reperto</i></span><span class="freccia">›</span></span></button>
+          <button class="voce"><span class="riga-pezzo"><span class="tit"><b>taccuino e domande</b><br>
+            <i class="nota">1 risposta scritta su 4</i></span><span class="freccia">›</span></span></button>
+          <button class="voce"><span class="riga-pezzo"><span class="tit"><b>dove siete stati</b><br>
+            <i class="nota">1 luogo — si riaprono le carte</i></span><span class="freccia">›</span></span></button>
+          <button class="voce"><span class="riga-pezzo"><span class="tit"><b>la lettera d’incarico</b></span>
+            <span class="freccia">›</span></span></button>
+        </div>
+      </div>
+      <div class="mt"></div>
+      <div class="squadra-riga">
+        <span class="chi mio telefono">mora<span class="pip-carica"><i class="piena"></i></span><span class="abil">Ombra</span></span>
+        <span class="chi telefono">elena<span class="pip-carica"><i class="piena"></i><i class="piena"></i></span><span class="abil">Osservaz.</span></span>
+        <span class="chi">nino<span class="pip-carica"><i></i></span><span class="abil">Grimald.</span></span>
+        <span class="chi">carla<span class="pip-carica"><i class="piena"></i></span><span class="abil">Testimon.</span></span>
+      </div>
+    </div></div>
+    <p class="prima-dopo">Il ritratto grande se ne va: la vostra risorsa sono <b>i pallini</b>, e
+    il vostro dono è un bottone, non una riga da cercare. In fondo la squadra: chi sa fare cosa e
+    chi l’ha già speso, letto e non chiesto. «Dove siete stati» diventa una riga come le altre —
+    e stavolta si apre.</p>
+  </div>
+</div>
+
+<hr class="sep">
+
+<!-- ═══════════════════════════════════ CHI GIOCA, DENTRO UN LUOGO ═══════ -->
+<div class="did"><h2 class="sc">chi gioca · dentro un luogo</h2></div>
+<div class="banco">
+
+  <div class="col">
+    <h3>7 · <b>com’è ora</b></h3>
+    <div class="schermo"><div class="dentro">
+      <div class="riga-registro">
+        <span class="ora sc">20</span><span class="ora sc ora-ora">21</span><span class="ora sc">22</span>
+        <span class="sc resta">3 ore</span>
+      </div>
+      <div class="banner-luogo" style="background-image:url('/assets/artworks/bell%20tower.png')"><div class="banner-velo"></div></div>
+      <div class="pannello">
+        <h2>guardare meglio</h2>
+        <p class="nota">Siete dentro. Quel che cogliete lo legge tutto il tavolo.</p>
+        <div class="btn-riga">
+          <button class="btn">aiuto profano (1 volta qui)</button>
+        </div>
+        <p class="nota">Qui non c’è niente che parli il vostro linguaggio: resta l’occhio del
+        dilettante.</p>
+      </div>
+      <div class="mt"></div>
+      <div class="pannello">
+        <h2>il vostro eroe</h2>
+        <div class="giro-strip stampe">
+          <button class="chip-turno ritratto"><span class="rit"><img src="/assets/artworks/Mora.png" alt=""></span>
+            <span class="et">mora</span><span class="cariche"><span class="pip-carica"><i class="piena"></i></span></span></button>
+        </div>
+      </div>
+      <div class="mt"></div>
+      <div class="pannello"><h2>dove siete stati (1)</h2>
+        <div class="stradario mt"><div class="voce"><b>il campanile di san teodoro</b></div></div></div>
+    </div></div>
+    <p class="prima-dopo">Siete dentro il luogo più importante della serata e la pagina continua
+    con il vostro ritratto e la lista dei posti dove siete stati. Di quel che <b>sta
+    succedendo</b> — Elena che tira, il tavolo che aspetta — non arriva niente.</p>
+  </div>
+
+  <div class="col">
+    <h3>8 · <b>proposto</b></h3>
+    <div class="schermo"><div class="dentro">
+      <div class="riga-registro">
+        <span class="ora sc">20</span><span class="ora sc ora-ora">21</span><span class="ora sc">22</span>
+        <span class="sc resta">3 ore</span>
+      </div>
+      <div class="banner-luogo" style="background-image:url('/assets/artworks/bell%20tower.png')"><div class="banner-velo"></div></div>
+      <div class="pannello">
+        <h2>siete al campanile</h2>
+        <p class="nota">Quel che cogliete lo legge tutto il tavolo.</p>
+        <div class="btn-riga">
+          <button class="btn pieno">osservazione — la vostra</button>
+          <button class="btn">aiuto profano — 1 volta qui</button>
+        </div>
+        <div class="in-corso">Elena sta guardando meglio…</div>
+      </div>
+      <div class="mt"></div>
+      <div class="pannello">
+        <div class="in-mano">
+          <button class="voce"><span class="riga-pezzo"><span class="tit"><b>quel che avete in mano</b><br>
+            <i class="nota">3 oggetti · 1 reperto</i></span><span class="freccia">›</span></span></button>
+          <button class="voce"><span class="riga-pezzo"><span class="tit"><b>taccuino e domande</b></span>
+            <span class="freccia">›</span></span></button>
+        </div>
+      </div>
+      <div class="mt"></div>
+      <div class="squadra-riga">
+        <span class="chi mio telefono">mora<span class="pip-carica"><i class="piena"></i></span><span class="abil">Ombra</span></span>
+        <span class="chi telefono">elena<span class="pip-carica"><i class="piena"></i><i class="piena"></i></span><span class="abil">Osservaz.</span></span>
+        <span class="chi">nino<span class="pip-carica"><i></i></span><span class="abil">Grimald.</span></span>
+        <span class="chi">carla<span class="pip-carica"><i class="piena"></i></span><span class="abil">Testimon.</span></span>
+      </div>
+    </div></div>
+    <p class="prima-dopo">La prima cosa è <b>cosa potete fare adesso</b>, come bottone pieno a
+    portata di pollice. Sotto, solo quel che serve dentro un luogo. E la fascia dice che qualcun
+    altro sta agendo: al tavolo lo senti, sul telefono no — e chi non lo sa preme un bottone che
+    intanto è diventato inutile.</p>
+  </div>
+</div>
+
+<div class="did pannello" style="margin-top:26px">
+  <h2>quattro cose da guardare, e una da decidere</h2>
+  <ul>
+    <li><b>Il bilancio della notte</b> (2 luoghi · 3 indizi · 1 di 4 risposte): l’orologio dice
+      quanto manca, il bilancio dice cosa avete comprato spendendolo. È la cosa che rende l’ora
+      una risorsa <i>sentita</i> e non un contatore.</li>
+    <li><b>La ricerca nello stradario</b>: ventidue voci sono più di quante se ne scandiscano
+      mentre il tavolo aspetta. Se pensi che scorrere l’elenco sia parte del rito — il dito
+      sulla mappa — si toglie, ed è una riga in meno.</li>
+    <li><b>«Sta agendo»</b>: la fascia tratteggiata è l’unica cosa davvero nuova. Oggi fra il
+      «premo» di un telefono e l’esito sullo schermo di tutti c’è un buco di qualche secondo in
+      cui nessuno sa che sta succedendo qualcosa.</li>
+    <li><b>La squadra sul telefono</b>: le cariche di tutti, che oggi si chiedono a voce.</li>
+    <li><b>Da decidere:</b> i tipi di Approfondimento che <i>qui non esistono</i> — oggi sono
+      quattro bottoni sempre uguali. Mostrarne due dice al tavolo qualcosa che l’arbitro non
+      direbbe («qui c’è un Referto»)? O è esattamente l’informazione che rende la scelta una
+      scelta?</li>
+  </ul>
+</div>
+
+</body></html>
