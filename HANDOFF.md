@@ -553,6 +553,41 @@ scritto: a metà serata no, a serata finita sì, perché lì sono la ricompensa 
 ricompensa è di tutti. Il cancello è l'esito, lo stesso che apre l'epilogo:
 nessun secondo stato da tenere allineato.
 
+## L'Indagine dentro il motore (a metà)
+
+Dopo la notte dei quattro difetti — tutti con lo stesso sintomo, «premo e non
+accade niente», e la stessa radice: **il motore era una finestra aperta su un
+PC** — l'Indagine si sposta nel motore, come la Spedizione. Piano in
+`~/.claude/plans/synchronous-hopping-hartmanis.md`.
+
+**Prima, una potatura**: resta **una modalità sola** — al tavolo, con la plancia
+a schermo. Via `spedizione.js` (1131 righe), via `modo` e `plancia`, via la
+domanda «come giocate stasera». La sola scelta è **da dove si comincia**.
+
+**Fatto (tappe 1-2).** `motore/indagine.js` è puro; `applica` smista per fase.
+Sono comandi: dichiarare, bussare, il grimaldello, entrare e uscire, oggetti e
+reperti, la lettera, gli appunti, le risposte, **guardare meglio**, l'**aiuto
+profano**, il **Secondo Fiato**. Il tiro viaggia **dentro il comando**, e con
+questo si è cancellata la macchina della pendenza: `richiesta`, `pendenza`,
+`chiediAlTavolo`, `eseguiRichiesta`, `chiHaLEroe`, `attesaDelTiro`, i due
+comandi del Durable Object e la spia «il tavolo sta guardando».
+
+**Resta (tappe 3-4)**: le una-tantum (Discernimento, Fonti riservate, Ombra,
+Esame di Carbone) e la chiusura della busta mutano ancora dalla vista. Si gioca
+— passano dal salvataggio come prima — ma non sono comandi.
+
+**Due lezioni che valgono oltre questo lavoro.**
+
+*Una scena non è un errore.* Due volte ho trasformato «hanno chiuso alle 20» o
+«il dilettante ha già avuto la sua occasione» in un rifiuto rosso. Dichiarare
+era una mossa **legale**: la risposta è «non se ne fa niente, e l'ora resta».
+Sono eventi, e la prosa la compone la vista.
+
+*Un ramo vacuo dentro la rete più grande.* La condizione degli Approfondimenti
+in `test-partite` guardava `scena_<n>`, una chiave che il gioco non scrive più:
+sempre falsa. **42 giocate che dicevano tutte «0 approfondimenti»**, e il verde
+c'era lo stesso. Sistemata, ha trovato subito tre difetti veri.
+
 ## L'Indagine sui telefoni
 
 La Fase 5 aveva portato **la Spedizione** su più dispositivi; l'Indagine era
