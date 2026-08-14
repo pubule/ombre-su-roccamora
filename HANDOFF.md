@@ -5,10 +5,104 @@
 > gira e il prossimo comando; il *cosa fare* di un lavoro in corso sta nel suo
 > piano.
 
-**Aggiornato:** 13/08/2026 · ramo `main` · in produzione la versione `55ecc1ea`
+**Aggiornato:** 14/08/2026 · ramo `main` · in produzione la versione `55ecc1ea`
 su <https://roccamora.smartcores.org> — **i Bivi di campagna** (venti scelte che
 cambiano davvero le regole degli episodi seguenti), il **Taccuino di Campagna**
 e l'**epilogo per esteso**. Tabella `scelte_campagna` applicata al remoto.
+
+**Non ancora in produzione:** le **Migliorie** (sotto). La tabella
+`migliorie_campagna` **non è stata applicata al remoto**: prima del deploy va
+lanciata `deploy/migrazioni/003-migliorie.sql`, o l'epilogo proverà a scrivere
+su una tabella che non c'è.
+
+## Le Migliorie: da carta stampata a regola che gira
+
+**Fase A chiusa (14/08/2026), commit `73422a0c`, `a78ba3b6`, `7a6f6289`.** Il
+Regolamento prometteva da sempre una crescita permanente per eroe — «dopo ogni
+episodio riuscito, ogni eroe spunta una casella» — e non ne esisteva **una riga
+di codice**: zero occorrenze in `webapp/`, nel motore, nello schema D1, nei
+simulatori. Lo dichiarava il Regolamento stesso: *«Nessun simulatore modella le
+Migliorie: le percentuali di vittoria misurate finora valgono per eroi al primo
+episodio»*.
+
+Piano in `~/.claude/plans/ad-oggi-l-app-e-floofy-matsumoto.md`. **Le Fasi B
+(misurare col pilota) e D (la carta stampata) non sono state fatte.**
+
+**`webapp/public/motore/migliorie.js`** — dodici voci, con la disciplina dei
+Bivi: quel che l'app sa fare si applica da solo, quel che può solo dire esce
+come riga, una voce sconosciuta non passa in silenzio. Nove agganci, tutti
+dentro funzioni che esistevano già: `eroe()` (Tempra, Fibra, Cicatrici — e
+siccome ogni chiamante di `saluteMax` prende l'oggetto da lì, la Fibra arriva
+alla Salute senza una seconda riga), la nuova `difesaDi()` (Spalle coperte),
+`prova()` accanto a `bonusVoce` (Mano ferma), `provaDi` (Lanterna, Revolver),
+`abilita.js` (Borsa di garze, Passo felpato), `frammentiPortati` (Voce che
+regge), `motore/indagine.js` (Occhio esercitato).
+
+**Tre voci compravano regole che non esistono, e sono state riscritte.** *Passo
+felpato* comprava l'immunità agli attacchi di reazione — che non sono nel
+Regolamento (il turno nemici dice solo «se adiacente, attacca») né in
+`nemici.js`: ora è +3 caselle. *Occhio esercitato* comprava il ritiro di una
+prova che già non spende la carica: ora tiene aperta la scena, cioè risparmia
+l'ora. *Il Revolver* era «una volta per round» — a dieci eroi, dieci colpi
+gratis a round, che `PROMPT-ESPANSIONE.md` vieta esplicitamente: ora spende
+l'azione di attacco, quindi in un turno si spara **o** si mena.
+
+**Due restano righe da leggere**, ed è dichiarato: *Taccuino fitto* (la
+RILETTURA non è implementata) e *Fiato lungo* (il Secondo fiato in Spedizione
+non esiste — vedi «Quello che resta»).
+
+**Le Migliorie costano.** Un punto per serata riuscita (l'Ep.6 due), i punti si
+mettono da parte, e le voci hanno un prezzo: Tempra 1/2/3/4 sulla stessa
+caratteristica, Fibra 1/2/3, Revolver e Spalle coperte e Fiato lungo 2, il
+resto 1. Comprare tutto costa **28 punti contro i ~22 di una campagna
+perfetta**: la scelta resta viva fino all'ultima serata. Senza prezzo, 17
+caselle contro 21 serate facevano una tabella di marcia — lo stesso guasto
+dell'elenco a cinque voci, rimandato di otto serate. I prezzi stanno in un
+posto solo (`COSTI` in `migliorie.js`) e **vanno tarati dopo la Fase B**.
+
+**Dove stanno.** `migliorie_campagna(tavolo, eroe, voci, cicatrici)` su D1,
+gemella di `scelte_campagna`: una casella spuntata dopo l'Ep.3 pesa fino
+all'Ep.20, e il blob di salvataggio è per episodio. Migrazione
+`deploy/migrazioni/003-migliorie.sql`, endpoint `/api/migliorie`, copia locale
+in `store.js`, `partita.migliorie` scritta da `comincia()`. **I punti
+guadagnati e spesi non si scrivono**: i primi li dicono i salvataggi, i secondi
+la somma dei prezzi — due conti della stessa cosa divergono, come per i
+Frammenti. Si spuntano nell'epilogo (`crescita-scelta.js`), accanto al Bivio e
+con le sue stesse regole.
+
+**Tre difetti che il diff non conteneva, trovati eseguendo:**
+
+1. **Il Revolver non aveva un bottone.** Il motore accettava `arma: 'revolver'`
+   e nessuna vista lo mandava: la cosa esatta che `AUDIT-CLASSI.md` condanna.
+2. **`schedaEroe` mostrava la carta stampata**, non l'eroe di stanotte. Dopo
+   dieci serate quei numeri sono altri, e ci si accorge dell'errore litigando
+   su un tiro.
+3. **`motore/indagine.js` leggeva l'ACUME da `comune.eroi` dritto**: un eroe
+   cresciuto tirava «leggere la scena» coi numeri del primo episodio. Nessun
+   errore da nessuna parte — il tiro riesce lo stesso, solo meno spesso.
+
+E uno trovato dal sabotaggio: **`distGlob` torna 0 quando un cammino non c'è**,
+e 0 non è «vicinissimo». Senza la guardia, il Revolver sparava attraverso i
+muri — e il colpo più comodo del gioco era quello impossibile.
+
+**Le due barriere, e come sono state provate.**
+`webapp/test-migliorie.mjs` (motore, 18 sabotaggi) e
+`webapp/test-migliorie-app.mjs` (la vista, 6 sabotaggi; vuole il server).
+Ognuno dei 24 fa cadere almeno una sonda. Il sabotaggio ha bocciato due
+versioni del banco: una che guardava se il bottone c'era invece di premerlo
+(un bottone scollegato passava), e una che cercava «garze» in `innerText`
+mentre la striscia delle cariche vive in `.secondario`, che il modo immersivo
+ripiega.
+
+> **Nota per chi misura.** `test-abilita` (2 KO) e `test-digitale-regressioni`
+> (3 falliti) erano **già rossi**: verificato con un A/B su `git worktree` al
+> commit `58a9de0c`, stessi identici falliti prima delle Migliorie.
+
+**Il prossimo passo è la Fase B**, e va fatta a codice fermo (`git status`
+pulito): seminare le Migliorie in `misura-episodio.mjs` come già si semina il
+tier d'Indagine, insegnare al pilota a sparare e a usare la Borsa, e rimisurare
+Ep. 9, 11, 15 e 20 con un gruppo cresciuto. Ricordando che σ ≈ 17 punti per
+episodio: conta la media sui ventuno, non la singola casella.
 
 ## Cos'è successo, in ordine
 
@@ -203,6 +297,8 @@ si misura il codice di prima e si crede di aver verificato qualcosa.
 | `test-motore-proiezione` | **cosa NON arriva al giocatore**, su tutti i 21 episodi: la busta, i luoghi non visitati, le tessere coperte, l'ordine del mazzo. Assert negativi |
 | `test-tavolo-do` | **la partita viva**: il giocatore muove solo il suo eroe, la notte è di chi conduce, a ognuno la sua proiezione. Vuole UN SOLO `wrangler dev` (vedi sotto) |
 | `test-partite` | 42 giocate intere in modalità **tavolo**, dall'ingresso alla vittoria — l'unico che copre `spedizione.js` end-to-end |
+| `test-migliorie` | le dodici Migliorie **agiscono** nel motore, e in Indagine come in Spedizione. 18 sabotaggi, tutti mordono |
+| `test-migliorie-app` | le Migliorie si **vedono e si toccano**: il bottone del Revolver, le cariche, la scheda cresciuta. Vuole il server; 6 sabotaggi |
 | `test-ui`, `test-digitale*`, `test-engine` | il gioco (i banchi di misura del bilanciamento) |
 
 **Gli strumenti di misura** (non sono test: non danno OK/KO, danno numeri):
@@ -870,6 +966,19 @@ una cosa falsa.
 
 ## Quello che resta
 
+0. **Le Migliorie: Fase B e Fase D.** La misura col pilota (a codice fermo) e
+   la carta stampata — la scheda personaggio ha ancora quattro righe vuote
+   invece delle caselle (`gen_deluxe.py:138`), il Taccuino di Campagna non
+   traccia i punti, e i fascicoli di **Ep. 2, 3, 4, 5 e 7 stampano ancora
+   l'elenco vecchio a cinque voci** (`gen_ep2.py:685` e gemelli). Finché la
+   Fase D non è fatta, al tavolo la regola non ha dove essere segnata.
+0-bis. **La Spedizione digitale gioca senza il Secondo fiato.** È stampato
+   sulla scheda (`gen_deluxe.py:119`) e sul Regolamento (`gen_docs.py:153`),
+   vive in `indagine.js` e non esiste in `digitale.js` né nel motore: a schermo
+   quel ritento non l'ha mai avuto nessuno. Non è un problema delle Migliorie —
+   ma **Fiato lungo non si può implementare finché quello non esiste**, ed è il
+   motivo per cui oggi è una riga da leggere. Va misurato che effetto ha prima
+   di accenderlo.
 1. **Durata sessione Access a 1 month**, sull'applicazione **e sul criterio**
    (quella del criterio prevale). È ancora a 24 ore: ogni browser richiede il
    codice ogni giorno. È l'unica cosa che pesa davvero, e si fa in un minuto.
