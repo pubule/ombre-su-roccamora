@@ -654,6 +654,71 @@ ${t.slice(0, 140)}`);
   ok(rubato === 403, `e non si scrive nel taccuino di un altro (visto ${rubato})`);
 }
 
+// --- 13. LA SCHERMATA CONDIVISA ARRIVA ANCHE A CHI ARBITRA
+//
+// Visto al tavolo il 14/08: «il telefono fa l'azione e poi non può fare più
+// niente». Non era bloccato: aspettava. Quel che un eroe coglie si legge
+// insieme, e la schermata la chiude chi conduce — ma durante l'Indagine il suo
+// browser NON ridisegna su quel che arriva dal filo, quindi quella schermata
+// sul suo schermo non compariva mai. Nessuno da chiudere, e il telefono fermo
+// su «si va avanti quando chi arbitra chiude» per sempre.
+//
+// Qui il browser è arbitro del proprio tavolo (l'ha aperto lui), e la carta gli
+// arriva dal filo come gliela manderebbe un telefono.
+{
+  const LUOGO = EP1.luoghi.find((l) => (l.approfondimenti || []).length);
+  const idC = await page.evaluate(async () => {
+    const id = crypto.randomUUID();
+    await fetch('/api/tavolo', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+                                 body: JSON.stringify({ id, nome: 'La carta condivisa' }) });
+    return id;
+  });
+  const dentro = serata({ luogoAperto: LUOGO.n, visitati: [LUOGO.n], ora: 21 });
+  dentro.creata = 13_000;
+
+  await page.evaluate(async ({ t, st }) => {
+    await fetch(`/api/tavolo/${t}/apri`, { method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ tavolo: t, stato: st }) });
+    const { vistaIndagine } = await import('/js/indagine.js');
+    document.querySelector('#app').innerHTML = '';
+    await vistaIndagine(document.querySelector('#app'), JSON.parse(JSON.stringify(st)), () => {},
+                        { tavolo: t, ruolo: 'arbitro', eroe: null });
+  }, { t: idC, st: dentro });
+  await page.waitForTimeout(1500);
+  ok(!/quel che avete colto/i.test(await page.locator('#app').innerText()),
+     'chi arbitra parte dalla sua scrivania');
+
+  // un eroe coglie qualcosa: la carta entra nello stato e il filo la sparge
+  await page.evaluate(async (t) => {
+    await fetch(`/api/tavolo/${t}/comando`, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ tipo: 'carta', titolo: 'osservazione — la prova',
+                             corpo: '<p>Quel che avete colto.</p>' }),
+    });
+  }, idC);
+  await page.waitForTimeout(1500);
+
+  const schermo = await page.locator('#app').innerText();
+  ok(/quel che avete colto/i.test(schermo),
+     `la schermata condivisa compare sullo schermo di chi arbitra:
+${schermo.slice(0, 140).replace(/\s+/g, ' ')}`);
+  ok((await page.locator('#ok-msg').count()) === 1,
+     'e lui ha il «continuate»: è sua la mano che chiude');
+
+  // e chiudendola il tavolo riparte davvero, per tutti
+  // se il bottone non c'e' il difetto e' gia' segnato qui sopra: si va avanti a
+  // dirlo tutto, invece di far cadere il banco con un errore che nasconde il
+  // resto dei controlli
+  await page.evaluate(() => document.querySelector('#ok-msg')?.click());
+  await page.waitForTimeout(1200);
+  const dopo = await page.evaluate(async (t) =>
+    (await (await fetch(`/api/tavolo/${t}/stato`)).json()).stato.indagine.carta, idC);
+  ok(!dopo, `chiudendola si riparte (carta ${dopo ? 'ancora lì' : 'chiusa'})`);
+  ok(!/quel che avete colto/i.test(await page.locator('#app').innerText()),
+     'e chi arbitra torna alla sua scrivania');
+}
+
 await browser.close();
 console.log(ko === 0
   ? 'test-indagine-eroe: l\'Indagine si gioca in due, senza che i segreti passino'

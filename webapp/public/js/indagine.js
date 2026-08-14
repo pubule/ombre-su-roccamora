@@ -358,7 +358,21 @@ function collegaAlTavolo() {
       // lui, e ridisegnarla sotto le dita gli farebbe sparire quel che stava
       // facendo. Gli basta tenere lo stato aggiornato — le mosse degli altri le
       // ha gia' applicate il tavolo.
-      if (arbitro()) { incassa(stato); return; }
+      if (arbitro()) {
+        incassa(stato);
+        // UNA ECCEZIONE, ed e' quella che teneva fermo il tavolo: la SCHERMATA
+        // DA LEGGERE INSIEME. La alza anche un telefono — quando quell'eroe usa
+        // la sua abilita' — e la chiude chi conduce. Se il suo schermo non la
+        // mostrasse, non ci sarebbe nessuno a chiuderla: il telefono resterebbe
+        // fermo su «si va avanti quando chi arbitra chiude» per sempre, e da
+        // fuori si vede come «ho fatto l'azione e poi non posso fare piu'
+        // niente». Si ridisegna solo se non la sta gia' mostrando lui, o
+        // rifarebbe la pagina sotto le dita a ogni spinta.
+        const c = (stato.indagine || {}).carta;
+        if (c && ctx.cartaInScena !== c.titolo) mostraCartaCondivisa(c);
+        else if (!c && ctx.cartaInScena) { ctx.cartaInScena = null; home(); }
+        return;
+      }
       // LA SERATA E' PASSATA ALLA SPEDIZIONE mentre guardavamo: non si ridisegna
       // l'Indagine di una partita che non e' piu' li'. Si chiude il filo e si
       // passa la mano, o resterebbero due canali aperti sullo stesso tavolo.
@@ -1378,17 +1392,42 @@ function pezzoInMano(genere, i, dietro, epId) {
 // tavolo deve vedere, invece di spedire tutto.
 function pannelloMsg(titolo, corpoHtml, dopo, { atutti = false } = {}) {
   const { app } = ctx;
-  if (atutti && ctx.posto && ctx.posto.tavolo) {
-    esegui({ tipo: 'carta', titolo, corpo: corpoHtml });
-  }
+  const condivisa = atutti && ctx.posto && ctx.posto.tavolo;
+  if (condivisa) esegui({ tipo: 'carta', titolo, corpo: corpoHtml });
+  // «continuate» e' di chi conduce: la schermata condivisa la chiude lui, e
+  // metterlo anche sul telefono darebbe a chi gioca un bottone che il tavolo
+  // rifiuta. Chi gioca legge la riga d'attesa, che dice a chi tocca.
+  const mio = !condivisa || arbitro();
+  ctx.cartaInScena = condivisa ? titolo : null;
   app.innerHTML = `
     ${barra(titolo)}
     <div class="pannello">${corpoHtml}</div>
-    <div class="btn-riga"><button class="btn pieno" id="ok-msg">continuate</button></div>`;
+    ${mio
+      ? '<div class="btn-riga"><button class="btn pieno" id="ok-msg">continuate</button></div>'
+      : '<p class="nota centrato mt">— si va avanti quando chi arbitra chiude —</p>'}`;
   dopoBarra();
-  app.querySelector('#ok-msg').onclick = () => {
+  app.querySelector('#ok-msg')?.addEventListener('click', () => {
+    ctx.cartaInScena = null;
     if (IND().carta) esegui({ tipo: 'carta-vista' });
     if (dopo) dopo();
+  });
+}
+
+// LA SCHERMATA CHE IL TAVOLO STA LEGGENDO, sullo schermo di chi conduce. La
+// scrive chi ha giocato — anche da un telefono — e qui si legge insieme; il
+// «continuate» riporta chi arbitra alla sua scrivania, che e' il posto giusto:
+// quel che si stava facendo l'ha fatto qualcun altro.
+function mostraCartaCondivisa(carta) {
+  ctx.cartaInScena = carta.titolo;
+  ctx.app.innerHTML = `
+    ${barra(carta.titolo)}
+    <div class="pannello">${carta.corpo || ''}</div>
+    <div class="btn-riga"><button class="btn pieno" id="ok-msg">continuate</button></div>`;
+  dopoBarra();
+  ctx.app.querySelector('#ok-msg').onclick = () => {
+    ctx.cartaInScena = null;
+    esegui({ tipo: 'carta-vista' });
+    home();
   };
 }
 
