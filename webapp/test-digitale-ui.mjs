@@ -55,6 +55,23 @@ await page.waitForTimeout(150);
 // classe NON deve esserci, o su un telefono le righe di sotto sparirebbero.
 if (await has('#app.immersivo')) fail('la schermata d’ingresso e’ immersiva (non scorre)');
 await clickIf('#via');                       // -> board
+
+// LA STANZA CHE SI APRE MOSTRA L'ARTE, non la tessera. Prima compariva il
+// pezzo di tabellone reso — griglia, uscite, «verso T2», i quadretti degli
+// arredi — cioè quel che si sta già guardando due centimetri più in là: si
+// entra in un posto, non in una casella.
+{
+  const carta = await page.evaluate(() => {
+    const img = document.querySelector('.carta-grande.stanza img');
+    return img ? img.getAttribute('src') : null;
+  });
+  if (!carta) fail('la stanza d’ingresso deve aprirsi con la sua arte');
+  if (carta) {
+    if (!/\/artworks\//.test(carta)) fail(`la stanza deve aprirsi sull'arte, non sulla tessera (${carta})`);
+    if (/\/board\//.test(carta)) fail(`e la tessera resa non ci va (${carta})`);
+  }
+}
+
 // la stanza d'ingresso si legge come tutte le altre: chi arbitra la chiude
 await clickIf('#ok-msg');
 await page.waitForTimeout(200);

@@ -877,6 +877,15 @@ async function bersagliInsidia(rules) {
 // LA CARTA APERTA, disegnata dallo stato. Chi conduce la chiude e passa alla
 // prossima; chi gioca la guarda e basta — la pesca non e' sua, e un «continua»
 // che non fa continuare niente sarebbe una bugia.
+// l'arte di sfondo della tessera, che nei dati sta accanto alla tessera
+// (`arte`, esportata da `export-data.py` dalle mappe TILE_ART dei generatori)
+function arteStanza(tessera) {
+  if (!tessera) return '';
+  const t = tileDi(tessera);
+  const a = t && t.arte ? urlArt(t.arte) : null;
+  return a ? `<div class="carta-grande stanza"><img src="${a}" alt=""></div>` : '';
+}
+
 function schermataCarta(aperta) {
   const { app } = ctx;
   app.classList.remove('immersivo');
@@ -886,11 +895,16 @@ function schermataCarta(aperta) {
         // una carta Minaccia: l'immagine E' la carta, testo compreso
         ? `<div class="carta-grande"><img src="${urlCarta(aperta.carta.file)}" alt=""></div>
            <p class="mt">${rendi(aperta.carta.rules)}</p>`
-        // una stanza che si apre: l'arte se c'e', e il testo sempre. L'arte di
-        // molte tessere non e' ancora stata generata, e un'immagine rotta e'
-        // peggio di nessuna immagine: se manca sparisce da sola (vedi il
-        // gestore `error` in main.js) e resta il testo, che c'e' sempre.
-        : `${aperta.tessera ? `<div class="carta-grande stanza"><img src="${urlBoard(aperta.tessera)}" alt=""></div>` : ''}
+        // UNA STANZA CHE SI APRE: l'ARTE, non la tessera. Quel che compariva era
+        // la tessera resa — griglia, uscite, etichette «verso T2», i quadretti
+        // degli arredi — cioè il pezzo di tabellone che si sta già guardando
+        // due centimetri più in là. Qui serve il quadro: è il momento in cui
+        // si entra in una stanza, e si entra in un posto, non in una casella.
+        //
+        // Se l'arte manca (non tutte sono state generate) resta il testo, che
+        // c'è sempre: un'immagine rotta è peggio di nessuna immagine, e il
+        // gestore `error` di main.js la fa sparire da sola.
+        : `${arteStanza(aperta.tessera)}
            <p class="mt">${rendi(aperta.testo || '')}</p>`}
       ${(aperta.annunci || []).map((a) => `<p class="mt"><b>${esc(a)}</b></p>`).join('')}
     </div>
