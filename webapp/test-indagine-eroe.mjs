@@ -1053,6 +1053,51 @@ ${schermo.slice(0, 140).replace(/\s+/g, ' ')}`);
   }
 }
 
+// --- 20. «SI SCENDE» ARRIVA AL TAVOLO
+//
+// Visto al tavolo: chi arbitra fa scendere il gruppo e i telefoni restano
+// sull'allestimento, «tutto a schermo», per sempre. Non era la loro pagina a
+// essere ferma: era il tavolo a non saperlo. Cominciare la spedizione non passa
+// da un comando — costruisce la partita, mazzo mescolato compreso, e la salva —
+// e il salvataggio non usciva da quel browser.
+{
+  const idE = await page.evaluate(async () => {
+    const id = crypto.randomUUID();
+    await fetch('/api/tavolo', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+                                 body: JSON.stringify({ id, nome: 'Si scende' }) });
+    return id;
+  });
+  const primaDiScendere = {
+    v: 1, episodio: 'ep1', party: [ELENA, OTTONE], fase: 'spedizione',
+    creata: 20_000, aggiornato: 1_000, vantaggi: { tier: 'preparati' },
+    indagine: { ora: 24, lettaLettera: true, visitati: [], scoperti: [], sbloccati: [],
+                parole: [], oggetti: [], reperti: [], approfondimentiLetti: [],
+                caricheUsate: {}, secondoFiato: {}, note: '', noteEroe: {},
+                risposte: ['', '', '', ''], chiusa: true },
+    spedizione: { round: 0, canto: 0, mazzo: null, esito: null },
+  };
+  const dopo = await page.evaluate(async ({ t, st }) => {
+    await fetch(`/api/tavolo/${t}/apri`, { method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ tavolo: t, stato: st }) });
+    const { vistaDigitale } = await import('/js/digitale.js');
+    document.querySelector('#app').innerHTML = '';
+    await vistaDigitale(document.querySelector('#app'), JSON.parse(JSON.stringify(st)), () => {},
+                        { tavolo: t, ruolo: 'arbitro', eroe: null });
+    const via = document.querySelector('#via');
+    if (!via) return { via: false };
+    via.click();
+    await new Promise((r) => setTimeout(r, 1200));
+    const s2 = await (await fetch(`/api/tavolo/${t}/stato`)).json();
+    return { via: true, digitale: !!(s2.stato.spedizione || {}).digitale,
+             round: (s2.stato.spedizione || {}).round };
+  }, { t: idE, st: primaDiScendere });
+
+  ok(dopo.via, 'chi arbitra ha il bottone «si scende»');
+  ok(dopo.digitale, `e facendolo scendere il TAVOLO lo sa (${JSON.stringify(dopo)})`);
+  ok(dopo.round >= 1, 'con la spedizione cominciata, non l’allestimento');
+}
+
 await browser.close();
 console.log(ko === 0
   ? 'test-indagine-eroe: l\'Indagine si gioca in due, senza che i segreti passino'

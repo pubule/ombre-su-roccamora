@@ -42,7 +42,19 @@ const esc = (s) => String(s).replace(/[&<>"]/g, (c) =>
 let ctx = null;   // { app, partita, ep, comune, carte, vaiA, layout }
 const P = () => ctx.partita;
 const SP = () => ctx.partita.spedizione;
-const salvaP = () => salva(ctx.partita);
+// SALVARE E' ANCHE DIRLO AL TAVOLO. Quel che chi arbitra cambia FUORI dai
+// comandi — e ne resta una cosa sola, cominciare la spedizione — il Durable
+// Object non lo sa: i comandi passano da `esegui`, questo no, perche' costruire
+// la spedizione (mazzo mescolato compreso) non e' una mossa, e' l'apertura
+// della partita. Senza questa riga i telefoni restavano fermi sull'allestimento
+// finche' qualcuno non ricaricava, e la loro pagina diceva il vero: il tavolo
+// era ancora indietro. E' la stessa cosa che fa l'Indagine aprendosi.
+const salvaP = () => {
+  salva(ctx.partita);
+  if (arbitro() && ctx.posto && ctx.posto.tavolo) {
+    mettiSulTavolo(ctx.posto, ctx.partita).catch(() => { /* si gioca lo stesso */ });
+  }
+};
 
 // LA PLANCIA A SCHERMO AL TAVOLO. Questa vista nasce per la modalita' digitale
 // (tutto a schermo, l'app tira i dadi), ma serve anche a chi gioca AL TAVOLO
