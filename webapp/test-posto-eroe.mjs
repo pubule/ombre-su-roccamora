@@ -116,6 +116,60 @@ const conta = (page, sel) => page.locator(sel).count();
   await page.close();
 }
 
+// --- L'IPAD CON DUE EROI: il turno arriva a tutt'e due
+//
+// Due amici, un iPad solo. Qui non c'è un interruttore — in Spedizione il TURNO
+// dice già chi agisce — quindi il posto dev'essere «acceso» quando tocca a
+// QUALUNQUE dei suoi, e spento quando tocca a un altro. È la differenza fra un
+// dispositivo che gioca due eroi e uno che ne gioca uno e guarda l'altro.
+{
+  const DUE = [MIO, ALTRUI];
+  // il nome come lo stampa l'app: salta il titolo (DOTT./PADRE), o «Attilio» e
+  // «Serra» sarebbero tutt'e due «dott.»
+  const breve = (n) => { const t = String(n).split(' ');
+    return ((t[0] === 'DOTT.' || t[0] === 'PADRE') ? (t[1] || t[0]) : t[0]).toLowerCase(); };
+  // tocca al PRIMO dei due
+  {
+    const { page, errori } = await apri({ ruolo: 'giocatore', eroe: MIO, eroi: DUE });
+    ok(errori.length === 0, `l'iPad apre senza errori JS: ${errori.slice(0, 2).join(' | ')}`);
+    ok(await conta(page, '.cella-mossa') > 0,
+       'col turno del primo dei due, le caselle si accendono');
+    ok(await conta(page, '#az-fine') === 1, 'e il turno si può chiudere');
+    const fascia = (await page.locator('.fascia-turno').allInnerTexts()).join(' ');
+    ok(await conta(page, '.fascia-turno.mio') === 1,
+       `la fascia è quella di chi gioca, non quella d'attesa («${fascia.trim()}»)`);
+    ok(fascia.toLowerCase().includes(breve(MIO)),
+       `e DICE QUALE dei due: senza il nome, si muove quella sbagliata («${fascia.trim()}»)`);
+    await page.close();
+  }
+  // ...e al SECONDO, sullo stesso identico posto
+  {
+    const { page, errori } = await apri({ ruolo: 'giocatore', eroe: MIO, eroi: DUE },
+      (p) => { p.spedizione.eroiAttivo = p.party[1]; });
+    ok(errori.length === 0, `apre senza errori JS: ${errori.slice(0, 2).join(' | ')}`);
+    ok(await conta(page, '.cella-mossa') > 0,
+       'col turno del SECONDO dei due, le caselle si accendono lo stesso');
+    ok(await conta(page, '#az-fine') === 1, 'e anche il suo turno si può chiudere');
+    const fascia = (await page.locator('.fascia-turno').allInnerTexts()).join(' ');
+    ok(await conta(page, '.fascia-turno.mio') === 1,
+       `anche per il secondo la fascia è «tocca a te», non l'attesa («${fascia.trim()}»)`);
+    ok(fascia.toLowerCase().includes(breve(ALTRUI)),
+       `e dice l'altro nome («${fascia.trim()}»)`);
+    await page.close();
+  }
+  // ...ma un eroe che non è di questo posto resta di chi ce l'ha
+  {
+    const TERZO = PARTY[2];
+    const { page } = await apri({ ruolo: 'giocatore', eroe: MIO, eroi: DUE },
+      (p) => { p.spedizione.eroiAttivo = p.party[2]; });
+    ok(await conta(page, '.cella-mossa') === 0,
+       `col turno di un terzo eroe (${breve(TERZO)}) nessuna casella si accende`);
+    ok(await conta(page, '#az-fine') === 0, 'né si chiude il turno di un altro');
+    ok(await conta(page, '.fascia-turno.mio') === 0, 'e la fascia dice di aspettare');
+    await page.close();
+  }
+}
+
 // --- IL LAYOUT DA TELEFONO: lo stesso HTML, in un altro ordine
 //
 // Si misura l'ordine A SCHERMO (le coordinate), non quello del DOM: e' il CSS a
