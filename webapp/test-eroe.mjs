@@ -78,7 +78,7 @@ await page.evaluate(async ({ idT: t, elena }) => {
   const v = await r.json();
   document.querySelector('#app').innerHTML = '';
   await vistaDigitale(document.querySelector('#app'), v.stato, () => {},
-                      { tavolo: t, ruolo: 'giocatore', eroe: elena });
+                      { tavolo: t, ruolo: 'giocatore', eroe: elena, eroi: elena ? [elena] : [] });
 }, { idT, elena: ELENA });
 for (const sel of ['#continua', '#via']) {
   const b = page.locator(sel);

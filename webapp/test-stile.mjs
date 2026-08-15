@@ -233,7 +233,7 @@ await page.evaluate(async () => {
   p.indagine.oggetti = [];
   document.querySelector('#app').innerHTML = '';
   await vistaIndagine(document.querySelector('#app'), p, () => {},
-                      { ruolo: 'giocatore', eroe: party[0] });
+                      { ruolo: 'giocatore', eroe: party[0], eroi: party[0] ? [party[0]] : [] });
 });
 await guarda('indagine-eroe');
 // L'ARRIVO: la facciata a tutto schermo che si apre sul telefono quando il
@@ -250,7 +250,7 @@ await page.evaluate(async () => {
   p.indagine.visitati = [ep.luoghi[0].n];
   document.querySelector('#app').innerHTML = '';
   await vistaIndagine(document.querySelector('#app'), p, () => {},
-                      { ruolo: 'giocatore', eroe: p.party[0] });
+                      { ruolo: 'giocatore', eroe: p.party[0], eroi: p.party[0] ? [p.party[0]] : [] });
 });
 await page.waitForTimeout(400);
 await guarda('arrivo-al-luogo');

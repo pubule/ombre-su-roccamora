@@ -112,7 +112,7 @@ const apriIndagine = (stato, chi = ELENA) => page.evaluate(async ({ t, eroe, s }
   // difetto in piedi.
   window.__vaiA = null;
   await vistaIndagine(document.querySelector('#app'), s, (dove) => { window.__vaiA = dove; },
-                      { tavolo: t, ruolo: 'giocatore', eroe });
+                      { tavolo: t, ruolo: 'giocatore', eroe, eroi: eroe ? [eroe] : [] });
 }, { t: idT, eroe: chi, s: stato });
 
 // L'ARRIVO: dal 14/08 il telefono che trova il gruppo dentro un luogo vede
@@ -923,7 +923,7 @@ ${schermo.slice(0, 120).replace(/\s+/g, ' ')}`);
     p.spedizione = { round: 0, canto: 0, mazzo: null, esito: null, digitale: false };
     document.querySelector('#app').innerHTML = '';
     await vistaDigitale(document.querySelector('#app'), p, () => {},
-                        { tavolo: null, ruolo: 'giocatore', eroe: null });
+                        { tavolo: null, ruolo: 'giocatore', eroe: null, eroi: null ? [null] : [] });
     return { via: document.querySelectorAll('#via').length,
              testo: document.querySelector('#app').innerText.slice(0, 200) };
   });
@@ -1096,6 +1096,118 @@ ${schermo.slice(0, 140).replace(/\s+/g, ' ')}`);
   ok(dopo.via, 'chi arbitra ha il bottone «si scende»');
   ok(dopo.digitale, `e facendolo scendere il TAVOLO lo sa (${JSON.stringify(dopo)})`);
   ok(dopo.round >= 1, 'con la spedizione cominciata, non l’allestimento');
+}
+
+// --- 21. UN DISPOSITIVO, DUE EROI
+//
+// Due amici con un iPad solo giocano i loro due eroi da lì. Il posto tiene un
+// INSIEME, e la guardia del tavolo passa dall'uguaglianza all'appartenenza: qui
+// un buco non è un difetto, è un giocatore che muove l'eroe di un altro.
+{
+  const TERZO = COMUNE.eroi.find((e) => ![ELENA, OTTONE].includes(e.nome)).nome;
+  const insieme = serata({ ora: 21 });
+  insieme.creata = 21_000;
+  insieme.party = [ELENA, OTTONE, TERZO];
+  await chiama(ARBITRO, 'PUT', '/api/party', { tavolo: idT, party: insieme.party });
+  await chiama(ARBITRO, 'DELETE', `/api/membri?tavolo=${idT}&email=${encodeURIComponent(GIOCATORE)}`);
+  await chiama(ARBITRO, 'POST', '/api/membri', { tavolo: idT, email: GIOCATORE, eroe: ELENA });
+
+  // il dispositivo se ne prende un secondo, da solo
+  const preso = await page.evaluate(async ({ t, eroi }) => {
+    const r = await fetch('/api/mio-eroe', { method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ tavolo: t, eroi }) });
+    return { stato: r.status, corpo: await r.json().catch(() => ({})) };
+  }, { t: idT, eroi: [ELENA, OTTONE] });
+  ok(preso.stato === 200, `un posto può prendersi due eroi (${JSON.stringify(preso)})`);
+
+  const m = await (await chiama(ARBITRO, 'GET', `/api/membri?tavolo=${idT}`)).json();
+  const mio = (m.membri || []).find((x) => x.email === GIOCATORE) || {};
+  ok((mio.eroi || []).length === 2, `e il tavolo li vede tutti e due (${JSON.stringify(mio.eroi)})`);
+
+  // ...e li comanda tutti e due
+  await chiama(ARBITRO, 'POST', `/api/tavolo/${idT}/apri`, { tavolo: idT, stato: insieme });
+  for (const chi of [ELENA, OTTONE]) {
+    const r = await page.evaluate(async ({ t, eroe }) => {
+      const res = await fetch(`/api/tavolo/${t}/comando`, {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ tipo: 'nota-eroe', eroe, testo: 'la cera' }),
+      });
+      return res.status;
+    }, { t: idT, eroe: chi });
+    ok(r === 200, `e comanda ${chi.split(' ')[0]}, che è suo (visto ${r})`);
+  }
+
+  // il terzo no, e lo dice
+  const rubato = await page.evaluate(async ({ t, eroe }) => {
+    const res = await fetch(`/api/tavolo/${t}/comando`, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ tipo: 'nota-eroe', eroe, testo: 'non sono io' }),
+    });
+    return { stato: res.status, corpo: await res.json().catch(() => ({})) };
+  }, { t: idT, eroe: TERZO });
+  ok(rubato.stato === 403, `ma non un eroe che non è suo (visto ${rubato.stato})`);
+  ok(/non è un tuo eroe/i.test(((rubato.corpo || {}).rifiuto || {}).motivo || ''),
+     `e il rifiuto lo dice (${((rubato.corpo || {}).rifiuto || {}).motivo})`);
+
+  // UN COMANDO SENZA NOME, con due eroi in mano, è ambiguo: attribuirlo al
+  // primo della lista vorrebbe dire spendere la carica di uno per la mossa
+  // dell'altro, e in silenzio.
+  const muto = await page.evaluate(async (t) => {
+    const res = await fetch(`/api/tavolo/${t}/comando`, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ tipo: 'esame-carbone', pezzo: 'qualunque' }),
+    });
+    return { stato: res.status, corpo: await res.json().catch(() => ({})) };
+  }, idT);
+  ok(muto.stato === 400, `un comando senza eroe, con due in mano, è rifiutato (visto ${muto.stato})`);
+  ok(/dite quale gioca/i.test(((muto.corpo || {}).rifiuto || {}).motivo || ''),
+     'e chiede quale dei due sta giocando');
+
+  // e lo stesso eroe non può essere di due posti: lo dice il database
+  const altro = 'secondo@esempio.it';
+  await chiama(ARBITRO, 'POST', '/api/membri', { tavolo: idT, email: altro });
+  const conteso = await chiama(ARBITRO, 'POST', '/api/membri',
+    { tavolo: idT, email: altro, eroe: ELENA });
+  ok(!conteso.ok, `un eroe ha un posto solo (visto ${conteso.status})`);
+  await chiama(ARBITRO, 'DELETE', `/api/membri?tavolo=${idT}&email=${encodeURIComponent(altro)}`);
+}
+
+// --- 22. L'INTERRUTTORE: su questo schermo si gioca un eroe per volta
+{
+  const due = serata({ ora: 21 });
+  due.creata = 22_000;
+  due.party = [ELENA, OTTONE];
+  await chiama(ARBITRO, 'PUT', '/api/party', { tavolo: idT, party: due.party });
+  await chiama(ARBITRO, 'POST', `/api/tavolo/${idT}/apri`, { tavolo: idT, stato: due });
+  await page.evaluate(async ({ t, s: st, eroi }) => {
+    const { vistaIndagine } = await import('/js/indagine.js');
+    document.querySelector('#app').innerHTML = '';
+    await vistaIndagine(document.querySelector('#app'), JSON.parse(JSON.stringify(st)), () => {},
+                        { tavolo: t, ruolo: 'giocatore', eroe: eroi[0], eroi });
+  }, { t: idT, s: due, eroi: [ELENA, OTTONE] });
+  await page.waitForTimeout(1200);
+
+  await page.evaluate(() => document.querySelector('#apri-menu').click());
+  await page.waitForTimeout(400);
+  ok((await page.locator('#m-cambia').count()) === 1,
+     'con due eroi in mano compare «giocate come…»');
+  await page.evaluate(() => document.querySelector('#m-cambia').click());
+  await page.waitForTimeout(400);
+  const scelte = await page.locator('[data-in-mano]').count();
+  ok(scelte === 2, `e si sceglie fra i propri due (${scelte})`);
+
+  // si passa al secondo, e il taccuino diventa il SUO
+  await page.evaluate((nm) => document.querySelector(`[data-in-mano="${nm}"]`).click(), OTTONE);
+  await page.waitForTimeout(600);
+  await page.evaluate(() => document.querySelector('#apri-menu').click());
+  await page.waitForTimeout(400);
+  await page.evaluate(() => document.querySelector('#m-taccuino').click());
+  await page.waitForTimeout(600);
+  const mieI = await page.locator(`[data-nota-eroe="${OTTONE}"]`).count();
+  const altrui = await page.locator(`[data-nota-eroe="${ELENA}"]`).count();
+  ok(mieI === 1 && altrui === 0,
+     `cambiando eroe, gli appunti sono i suoi (${OTTONE.split(' ')[0]}: ${mieI}, altri: ${altrui})`);
 }
 
 await browser.close();

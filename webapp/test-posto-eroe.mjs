@@ -92,7 +92,7 @@ const conta = (page, sel) => page.locator(sel).count();
 
 // --- IL GIOCATORE, quando tocca a LUI
 {
-  const { page, errori } = await apri({ ruolo: 'giocatore', eroe: MIO });
+  const { page, errori } = await apri({ ruolo: 'giocatore', eroe: MIO, eroi: MIO ? [MIO] : [] });
   ok(errori.length === 0, `il giocatore apre senza errori JS: ${errori.slice(0, 2).join(' | ')}`);
   ok(await conta(page, '.tok-board') > 0, 'la plancia c\'è: è la stessa, non una copia');
   ok(await conta(page, '.cella-mossa') > 0, 'nel suo turno le caselle si accendono');
@@ -104,7 +104,7 @@ const conta = (page, sel) => page.locator(sel).count();
 
 // --- IL GIOCATORE, quando tocca a UN ALTRO
 {
-  const { page, errori } = await apri({ ruolo: 'giocatore', eroe: ALTRUI });
+  const { page, errori } = await apri({ ruolo: 'giocatore', eroe: ALTRUI, eroi: ALTRUI ? [ALTRUI] : [] });
   ok(errori.length === 0, `apre senza errori JS: ${errori.slice(0, 2).join(' | ')}`);
   ok(await conta(page, '.tok-board') > 0, 'la plancia si vede lo stesso: si guarda il tavolo');
   ok(await conta(page, '.cella-mossa') === 0,
@@ -128,7 +128,7 @@ const ordineVisivo = (page) => page.evaluate(() =>
     .sort((a, b) => a[1] - b[1]).map((x) => x[0]).join(' → '));
 
 {
-  const { page } = await apri({ ruolo: 'giocatore', eroe: MIO });
+  const { page } = await apri({ ruolo: 'giocatore', eroe: MIO, eroi: MIO ? [MIO] : [] });
   ok((await page.locator('#app').getAttribute('class')).includes('vista-eroe'),
      'il telefono accende il layout da telefono');
   const ord = await ordineVisivo(page);
@@ -165,7 +165,7 @@ const ordineVisivo = (page) => page.evaluate(() =>
                   file: 'Episodio 1/Minacce/Il Canto Cresce' };
   for (const [chi, posto, bottoni] of [
     ['chi arbitra', null, 1],
-    ['chi gioca', { ruolo: 'giocatore', eroe: MIO }, 0],
+    ['chi gioca', { ruolo: 'giocatore', eroe: MIO, eroi: MIO ? [MIO] : [] }, 0],
   ]) {
     const { page } = await apri(posto);
     await page.evaluate(async ({ carta, annunci }) => {
@@ -194,7 +194,7 @@ const ordineVisivo = (page) => page.evaluate(() =>
 // li'; su un telefono si guarda altrove, e senza qualcosa che fermi lo schermo
 // si scopre di essere a terra due turni dopo.
 {
-  const { page } = await apri({ ruolo: 'giocatore', eroe: MIO });
+  const { page } = await apri({ ruolo: 'giocatore', eroe: MIO, eroi: MIO ? [MIO] : [] });
   const allarme = () => page.evaluate(() => document.querySelector('#app').classList.contains('colpo-mio'));
 
   ok(!(await allarme()), 'a riposo nessun allarme');
@@ -233,7 +233,7 @@ const ordineVisivo = (page) => page.evaluate(() =>
 {
   for (const [chi, posto, bottoni] of [
     ['chi arbitra', null, 1],
-    ['chi gioca', { ruolo: 'giocatore', eroe: MIO }, 0],
+    ['chi gioca', { ruolo: 'giocatore', eroe: MIO, eroi: MIO ? [MIO] : [] }, 0],
   ]) {
     const { page } = await apri(posto);
     await page.evaluate(() => {
@@ -260,7 +260,7 @@ const ordineVisivo = (page) => page.evaluate(() =>
 // montare una scorta liberata qui vorrebbe dire replicare mezzo episodio, e il
 // controllo diventerebbe più fragile di quel che prova.
 {
-  const { page } = await apri({ ruolo: 'giocatore', eroe: MIO });
+  const { page } = await apri({ ruolo: 'giocatore', eroe: MIO, eroi: MIO ? [MIO] : [] });
   ok(await page.locator('[data-scortato-chip]').count() === 0,
      'sul telefono nessun chip del PNG scortato');
   ok(await page.locator('[data-scortato]').count() === 0,

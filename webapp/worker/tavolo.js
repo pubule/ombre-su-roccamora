@@ -16,15 +16,23 @@
 const nonTrovato = () => Response.json({ errore: 'non trovato' }, { status: 404 });
 
 // Il posto di questa email a questo tavolo. `null` = non ci siede.
+//
+// UN POSTO, PIU' EROI. Dal 15/08/2026 un dispositivo puo' giocarne piu' d'uno —
+// due amici con un iPad solo — quindi il posto porta un INSIEME. Chi arbitra
+// resta senza: li tiene tutti per definizione, e una lista non direbbe niente
+// di piu' del suo ruolo.
 async function postoDi(env, email, id) {
   const proprietario = await env.DB.prepare(
     'SELECT 1 FROM tavoli WHERE id = ? AND proprietario = ?').bind(id, email).first();
-  if (proprietario) return { ruolo: 'arbitro', eroe: null, email };
+  if (proprietario) return { ruolo: 'arbitro', eroi: [], email };
 
   const m = await env.DB.prepare(
-    'SELECT ruolo, eroe FROM membri WHERE tavolo = ? AND email = ?').bind(id, email).first();
+    'SELECT ruolo FROM membri WHERE tavolo = ? AND email = ?').bind(id, email).first();
   if (!m) return null;
-  return { ruolo: m.ruolo === 'arbitro' ? 'arbitro' : 'giocatore', eroe: m.eroe || null, email };
+  const r = await env.DB.prepare(
+    'SELECT eroe FROM eroi_posto WHERE tavolo = ? AND email = ? ORDER BY eroe').bind(id, email).all();
+  return { ruolo: m.ruolo === 'arbitro' ? 'arbitro' : 'giocatore',
+           eroi: (r.results || []).map((x) => x.eroe), email };
 }
 
 export async function tavolo(request, env, email) {
@@ -47,7 +55,10 @@ export async function tavolo(request, env, email) {
 
   const avanti = new Request(`https://tavolo/${cosa}`, request);
   avanti.headers.set('X-Osr-Ruolo', posto.ruolo);
-  avanti.headers.set('X-Osr-Eroe', posto.eroe || '');
+  // in JSON perche' ora sono piu' d'uno. I nomi hanno le virgolette curve
+  // («NINO “GRIMALDELLO” CAUTO») e passavano gia' in un header prima d'oggi:
+  // cambia la forma, non quel che ci sta dentro.
+  avanti.headers.set('X-Osr-Eroi', JSON.stringify(posto.eroi || []));
   avanti.headers.set('X-Osr-Email', posto.email);
   return stub.fetch(avanti);
 }

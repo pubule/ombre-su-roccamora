@@ -101,7 +101,10 @@ ok((await chiama(ARBITRO, 'POST', '/api/membri', { tavolo: idT, email: EMAIL_G, 
   ok(!JSON.stringify(g).includes(risposta),
      'e nemmeno la risposta alla prima Domanda, per nessuna strada');
 
-  ok(g.stato.posto && g.stato.posto.eroe === ELENA, 'il giocatore sa a che posto siede');
+  // il posto porta un INSIEME di eroi dal 15/08: un dispositivo può giocarne più
+  // d'uno (un iPad, due amici), e la vista ci mette sopra l'interruttore
+  ok(g.stato.posto && (g.stato.posto.eroi || []).includes(ELENA),
+     `il giocatore sa a che posto siede (${JSON.stringify(g.stato.posto)})`);
   ok(a.stato.posto === undefined || a.stato.posto.ruolo === 'arbitro', 'e l\'arbitro pure');
 }
 
@@ -115,7 +118,7 @@ ok((await chiama(ARBITRO, 'POST', '/api/membri', { tavolo: idT, email: EMAIL_G, 
     { tipo: 'muovi', eroe: OTTONE, nodo: { t: T0, x: 2, y: 2 } });
   ok(altrui.status === 403, `ma non Ottone, che non è suo (visto ${altrui.status})`);
   const detto = await altrui.json();
-  ok(/non è il tuo eroe/i.test((detto.rifiuto || {}).motivo || ''),
+  ok(/non è un tuo eroe/i.test((detto.rifiuto || {}).motivo || ''),
      `e il rifiuto lo dice (visto «${(detto.rifiuto || {}).motivo}»)`);
 
   // l'arbitro invece muove chiunque: gli eroi non reclamati sono suoi

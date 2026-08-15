@@ -1,3 +1,12 @@
+// GLI EROI DEL POSTO, dall'header: JSON, e se e' malformato il posto resta
+// senza eroi — cioe' non comanda niente, che e' il modo giusto di sbagliare
+// quando si parla di autorizzazione.
+function leggiEroi(grezzo) {
+  if (!grezzo) return [];
+  try { const v = JSON.parse(grezzo); return Array.isArray(v) ? v.filter(Boolean) : []; }
+  catch { return []; }
+}
+
 // LA PARTITA VIVA: un Durable Object per tavolo.
 //
 // Fin qui il motore girava nel browser di chi arbitra, e i salvataggi su D1
@@ -89,7 +98,7 @@ export class Partita extends DurableObject {
     // scrive negli header dopo averlo letto da `membri`
     const posto = {
       ruolo: request.headers.get('X-Osr-Ruolo') === 'arbitro' ? 'arbitro' : 'giocatore',
-      eroe: request.headers.get('X-Osr-Eroe') || null,
+      eroi: leggiEroi(request.headers.get('X-Osr-Eroi')),
       email: request.headers.get('X-Osr-Email') || null,
     };
 
@@ -192,7 +201,7 @@ export class Partita extends DurableObject {
     for (const ws of this.ctx.getWebSockets()) {
       try {
         const p = ws.deserializeAttachment();
-        if (p && p.eroe) eroi.add(p.eroe);
+        for (const e of (p && p.eroi) || []) eroi.add(e);
       } catch { /* una sessione morta non conta */ }
     }
     return [...eroi];
@@ -216,15 +225,25 @@ export class Partita extends DurableObject {
     // ribaltare un giudizio — e' del gruppo, e lo manda chi conduce.
     const diArbitro = stato.fase === 'indagine' ? INDAGINE_DI_ARBITRO : COMANDI_DI_ARBITRO;
     if (posto.ruolo !== 'arbitro') {
-      if (cmd.eroe && cmd.eroe !== posto.eroe) {
-        return Response.json({ rifiuto: { motivo: `${cmd.eroe} non è il tuo eroe.` } }, { status: 403 });
+      const miei = posto.eroi || [];
+      if (cmd.eroe && !miei.includes(cmd.eroe)) {
+        return Response.json({ rifiuto: { motivo: `${cmd.eroe} non è un tuo eroe.` } }, { status: 403 });
       }
       // CHI MANDA SENZA DIRE CHI E'. Un comando che non porta `eroe` — l'Esame
       // di Carbone, per dirne uno — dal telefono e' comunque di chi lo manda:
       // se non lo scrivessimo, un dono di un altro eroe si spenderebbe da
       // qualunque telefono, e la guardia qui sopra non avrebbe niente da
       // confrontare. Chi arbitra resta senza `eroe`: tiene in mano tutti.
-      if (!cmd.eroe && posto.eroe) cmd.eroe = posto.eroe;
+      //
+      // Ma solo con UN eroe solo. Da quando un posto puo' averne due (un iPad,
+      // due amici), un comando senza nome e' ambiguo: attribuirlo al primo
+      // della lista vorrebbe dire spendere la carica di uno per la mossa
+      // dell'altro, e in silenzio. Si rifiuta in chiaro.
+      if (!cmd.eroe && miei.length === 1) [cmd.eroe] = miei;
+      else if (!cmd.eroe && miei.length > 1) {
+        return Response.json({ rifiuto: { motivo: 'Con più eroi, dite quale gioca.' } },
+                             { status: 400 });
+      }
       if (diArbitro.has(cmd.tipo)) {
         return Response.json({ rifiuto: { motivo: 'Questo lo fa chi arbitra.' } }, { status: 403 });
       }
@@ -294,7 +313,7 @@ export class Partita extends DurableObject {
     const finto = new Request('https://tavolo/comando', {
       method: 'POST',
       headers: {
-        'X-Osr-Ruolo': posto.ruolo, 'X-Osr-Eroe': posto.eroe || '',
+        'X-Osr-Ruolo': posto.ruolo, 'X-Osr-Eroi': JSON.stringify(posto.eroi || []),
         'X-Osr-Email': posto.email || '',
       },
       body: JSON.stringify(cmd),

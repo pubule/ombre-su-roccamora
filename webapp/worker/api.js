@@ -41,7 +41,7 @@ async function arbitroDi(env, email, id) {
 async function puoSegnare(env, email, tavolo, eroe) {
   if (await arbitroDi(env, email, tavolo)) return true;
   return (await env.DB.prepare(
-    'SELECT 1 FROM membri WHERE tavolo = ? AND email = ? AND eroe = ?')
+    'SELECT 1 FROM eroi_posto WHERE tavolo = ? AND email = ? AND eroe = ?')
     .bind(tavolo, email, eroe).first()) != null;
 }
 
@@ -60,7 +60,9 @@ export async function api(request, env, email) {
       `SELECT id, nome, creato, party, 'arbitro' AS ruolo, NULL AS eroe
          FROM tavoli WHERE proprietario = ?
        UNION ALL
-       SELECT t.id, t.nome, t.creato, t.party, m.ruolo, m.eroe
+       SELECT t.id, t.nome, t.creato, t.party, m.ruolo,
+              (SELECT group_concat(e.eroe, char(10)) FROM eroi_posto e
+                WHERE e.tavolo = t.id AND e.email = m.email) AS eroe
          FROM membri m JOIN tavoli t ON t.id = m.tavolo
         WHERE m.email = ? AND t.proprietario <> ?
        ORDER BY creato`).bind(email, email, email).all();
@@ -72,7 +74,15 @@ export async function api(request, env, email) {
           SELECT id FROM tavoli WHERE proprietario = ?
           UNION SELECT tavolo FROM membri WHERE email = ?)`)
       .bind(email, email).all();
-    return jsonRisposta({ email, tavoli: tavoli.results, salvataggi: salvataggi.results });
+    // `eroi` e' la lista (un posto puo' averne piu' d'uno: un iPad, due amici);
+    // `eroe` resta il primo, perche' e' quel che guardano le pagine che non
+    // sanno ancora dei due — una serata non si interrompe per un aggiornamento
+    const conEroi = (tavoli.results || []).map((t) => {
+      // `group_concat` li unisce con un a capo: nei nomi degli eroi non c'è
+      const eroi = t.eroe ? String(t.eroe).split('\n').filter(Boolean) : [];
+      return { ...t, eroi, eroe: eroi[0] || null };
+    });
+    return jsonRisposta({ email, tavoli: conEroi, salvataggi: salvataggi.results });
   }
 
   // --------------------------------------------------------------- membri
@@ -81,10 +91,19 @@ export async function api(request, env, email) {
     if (!(await mioTavolo(env, email, tavolo))) return jsonRisposta({ errore: 'non trovato' }, 404);
     // chi siede a questo tavolo lo vedono tutti quelli che ci siedono: sapere
     // con chi si gioca non e' un segreto
-    const r = await env.DB.prepare(
-      'SELECT email, nome, eroe, ruolo, invitato FROM membri WHERE tavolo = ? ORDER BY invitato')
-      .bind(tavolo).all();
-    return jsonRisposta({ membri: r.results });
+    const [r, e] = await Promise.all([
+      env.DB.prepare(
+        'SELECT email, nome, ruolo, invitato FROM membri WHERE tavolo = ? ORDER BY invitato')
+        .bind(tavolo).all(),
+      env.DB.prepare('SELECT email, eroe FROM eroi_posto WHERE tavolo = ? ORDER BY eroe')
+        .bind(tavolo).all(),
+    ]);
+    // UN POSTO PUO' AVERNE PIU' D'UNO (un iPad, due amici): `eroi` e' la lista,
+    // e `eroe` resta il primo per quel che non e' ancora stato riscritto.
+    const suoi = {};
+    for (const x of e.results || []) (suoi[x.email] = suoi[x.email] || []).push(x.eroe);
+    return jsonRisposta({ membri: (r.results || []).map((m) => ({
+      ...m, eroi: suoi[m.email] || [], eroe: (suoi[m.email] || [])[0] || null })) });
   }
 
   // PRENDERSI UN EROE. Il posto e' tuo, e quale eroe giochi lo decidi tu: e' la
@@ -97,26 +116,48 @@ export async function api(request, env, email) {
   // solo se libero — l'indice unico su (tavolo, eroe) morde comunque, ma un
   // rifiuto in chiaro e' meglio di un errore di database.
   if (p === '/api/mio-eroe' && metodo === 'PUT') {
-    const { tavolo, eroe } = await request.json();
+    const corpo = await request.json();
+    const { tavolo } = corpo;
+    // `eroi` e' la forma di oggi; `eroe` singolo resta accettato perche' e' quel
+    // che manda una pagina aperta prima dell'aggiornamento — e una serata non
+    // si interrompe per un ricaricamento.
+    const voluti = [...new Set((Array.isArray(corpo.eroi) ? corpo.eroi
+      : (corpo.eroe ? [corpo.eroe] : [])).filter(Boolean))];
     const mio = await env.DB.prepare('SELECT 1 FROM membri WHERE tavolo = ? AND email = ?')
       .bind(tavolo, email).first();
     if (!mio) return jsonRisposta({ errore: 'non trovato' }, 404);
-    if (eroe) {
+    if (voluti.length) {
       const t = await env.DB.prepare('SELECT party FROM tavoli WHERE id = ?').bind(tavolo).first();
       const party = t && t.party ? JSON.parse(t.party) : null;
       if (!party || !party.length) {
         return jsonRisposta({ errore: 'chi arbitra non ha ancora scelto la compagnia' }, 409);
       }
-      if (!party.includes(eroe)) {
-        return jsonRisposta({ errore: 'quell’eroe non è nella compagnia di questo tavolo' }, 400);
+      for (const eroe of voluti) {
+        if (!party.includes(eroe)) {
+          return jsonRisposta({ errore: 'quell’eroe non è nella compagnia di questo tavolo' }, 400);
+        }
+        const preso = await env.DB.prepare(
+          'SELECT 1 FROM eroi_posto WHERE tavolo = ? AND eroe = ? AND email <> ?')
+          .bind(tavolo, eroe, email).first();
+        if (preso) return jsonRisposta({ errore: 'quell’eroe l’ha già preso qualcun altro' }, 409);
       }
-      const preso = await env.DB.prepare(
-        'SELECT 1 FROM membri WHERE tavolo = ? AND eroe = ? AND email <> ?')
-        .bind(tavolo, eroe, email).first();
-      if (preso) return jsonRisposta({ errore: 'quell’eroe l’ha già preso qualcun altro' }, 409);
     }
-    await env.DB.prepare('UPDATE membri SET eroe = ? WHERE tavolo = ? AND email = ?')
-      .bind(eroe || null, tavolo, email).run();
+    // si riscrive il proprio posto in un colpo: prima si lascia quel che si
+    // aveva, poi si prende quel che si vuole. In mezzo il posto e' senza eroi,
+    // ed e' lo stato giusto in cui restare se qualcosa va storto — un posto
+    // senza eroi non comanda niente.
+    const scritture = [env.DB.prepare('DELETE FROM eroi_posto WHERE tavolo = ? AND email = ?')
+      .bind(tavolo, email)];
+    for (const eroe of voluti) {
+      scritture.push(env.DB.prepare(
+        'INSERT OR IGNORE INTO eroi_posto (tavolo, email, eroe) VALUES (?, ?, ?)')
+        .bind(tavolo, email, eroe));
+    }
+    try { await env.DB.batch(scritture); } catch {
+      // la chiave primaria (tavolo, eroe) morde qui: un eroe ha un posto solo,
+      // e a dirlo e' il database — non un controllo che qualcuno dimentichera'
+      return jsonRisposta({ errore: 'quell’eroe è già di qualcun altro a questo tavolo' }, 409);
+    }
     return jsonRisposta({ ok: true });
   }
 
@@ -142,12 +183,20 @@ export async function api(request, env, email) {
       }
     }
     try {
-      await env.DB.prepare(
+      const scritture = [env.DB.prepare(
         `INSERT INTO membri (tavolo, email, nome, eroe, ruolo, invitato) VALUES (?, ?, ?, ?, ?, ?)
          ON CONFLICT(tavolo, email) DO UPDATE
            SET nome = excluded.nome, eroe = excluded.eroe, ruolo = excluded.ruolo`)
         .bind(tavolo, invitato, (nome || '').trim() || null, eroe || null,
-              ruolo || 'giocatore', Date.now()).run();
+              ruolo || 'giocatore', Date.now())];
+      // l'eroe assegnato all'invito e' il PRIMO del posto: gli altri se li
+      // prende il dispositivo dalla sua schermata
+      if (eroe) {
+        scritture.push(env.DB.prepare(
+          'INSERT OR IGNORE INTO eroi_posto (tavolo, email, eroe) VALUES (?, ?, ?)')
+          .bind(tavolo, invitato, eroe));
+      }
+      await env.DB.batch(scritture);
     } catch (e) {
       // l'indice unico su (tavolo, eroe) morde qui: due giocatori non possono
       // prendere lo stesso eroe, ed e' il database a dirlo, non un controllo
@@ -164,8 +213,13 @@ export async function api(request, env, email) {
     const suo = chi === email;
     if (!suo && !(await arbitroDi(env, email, tavolo))) return jsonRisposta({ errore: 'non trovato' }, 404);
     if (suo && !(await mioTavolo(env, email, tavolo))) return jsonRisposta({ errore: 'non trovato' }, 404);
-    await env.DB.prepare('DELETE FROM membri WHERE tavolo = ? AND email = ?')
-      .bind(tavolo, chi).run();
+    // e con lui se ne vanno i suoi eroi: la chiave esterna e' sul TAVOLO, non
+    // sul membro, quindi qui si toglie a mano — un eroe che restasse legato a
+    // un posto che non c'e' piu' non lo potrebbe prendere piu' nessuno
+    await env.DB.batch([
+      env.DB.prepare('DELETE FROM eroi_posto WHERE tavolo = ? AND email = ?').bind(tavolo, chi),
+      env.DB.prepare('DELETE FROM membri WHERE tavolo = ? AND email = ?').bind(tavolo, chi),
+    ]);
     return jsonRisposta({ ok: true });
   }
 
@@ -258,10 +312,16 @@ export async function api(request, env, email) {
     }
     // un eroe tolto dal party non puo' restare assegnato a qualcuno: sarebbe un
     // posto che non gioca, e nessuno capirebbe perche'
-    await env.DB.prepare(
-      `UPDATE membri SET eroe = NULL
-        WHERE tavolo = ? AND eroe IS NOT NULL AND eroe NOT IN (SELECT value FROM json_each(?))`)
-      .bind(tavolo, JSON.stringify(party)).run();
+    await env.DB.batch([
+      env.DB.prepare(
+        `DELETE FROM eroi_posto
+          WHERE tavolo = ? AND eroe NOT IN (SELECT value FROM json_each(?))`)
+        .bind(tavolo, JSON.stringify(party)),
+      env.DB.prepare(
+        `UPDATE membri SET eroe = NULL
+          WHERE tavolo = ? AND eroe IS NOT NULL AND eroe NOT IN (SELECT value FROM json_each(?))`)
+        .bind(tavolo, JSON.stringify(party)),
+    ]);
     await env.DB.prepare('UPDATE tavoli SET party = ? WHERE id = ?')
       .bind(JSON.stringify(party), tavolo).run();
     return jsonRisposta({ ok: true });

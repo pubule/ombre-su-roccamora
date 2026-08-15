@@ -637,7 +637,10 @@ async function postoDiQuestoTavolo() {
     // Anche chi arbitra ha un posto, e serve: e' collegandosi che vede
     // comparire le mosse fatte dai telefoni. Senza, resterebbe l'unico al
     // tavolo a non sapere cos'e' successo.
-    return { tavolo: id, ruolo: t.ruolo === 'arbitro' ? 'arbitro' : 'giocatore', eroe: t.eroe || null };
+    // `eroi` e' la lista: un posto puo' averne piu' d'uno (un iPad, due amici),
+    // e la vista dell'Indagine ci mette sopra l'interruttore
+    return { tavolo: id, ruolo: t.ruolo === 'arbitro' ? 'arbitro' : 'giocatore',
+             eroi: t.eroi || (t.eroe ? [t.eroe] : []), eroe: t.eroe || null };
   } catch {
     // SENZA RISPOSTA si usa l'ultimo ruolo conosciuto. Il ripiego «nessun
     // posto» vuol dire «si arbitra», ed e' giusto sul PC di chi gioca da solo:

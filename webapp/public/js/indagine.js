@@ -166,7 +166,20 @@ function lettera() {
 // Chi conduce la serata. Senza posto si arbitra da soli, ed e' il caso di
 // sempre: nessun server, un solo schermo, i banchi di misura.
 const arbitro = () => eArbitro(ctx.posto);
-const mioEroe = () => (ctx.posto && ctx.posto.eroe) || null;
+// UN POSTO PUO' AVERE PIU' EROI (un iPad, due amici). Qui non c'e' un turno che
+// dica chi agisce — le azioni sono di chi le ha — quindi il dispositivo dichiara
+// quale sta giocando, e lo dice una volta sola: da li' in poi cariche, dono,
+// appunti e bottoni sono i suoi, perche' tutto passa da `mioEroe()`.
+//
+// La scelta vive nella PAGINA (`ctx.eroeInMano`), come l'arrivo al luogo: e' di
+// chi guarda questo schermo, non della partita — un altro dispositivo che
+// tenesse gli stessi eroi sceglierebbe per conto suo.
+const mieiEroi = () => (ctx.posto && ctx.posto.eroi) || [];
+const mioEroe = () => {
+  const miei = mieiEroi();
+  if (ctx.eroeInMano && miei.includes(ctx.eroeInMano)) return ctx.eroeInMano;
+  return miei[0] || null;
+};
 
 const P = () => ctx.partita;
 const IND = () => ctx.partita.indagine;
@@ -302,6 +315,8 @@ function menu() {
            arbitro() ? 'le risposte, e gli appunti di tutti' : 'i vostri appunti, e quelli degli altri',
            `<b>${scritte}</b> di ${domande}`)}
     ${!arbitro() && mio ? voce('m-scheda', esc(mio.toLowerCase()), 'la vostra scheda') : ''}
+    ${mieiEroi().length > 1
+      ? voce('m-cambia', 'giocate come…', 'su questo schermo', esc(breve(mio))) : ''}
     ${ep.lettera ? voce('m-lettera', 'la lettera d’incarico') : ''}
     ${arbitro() ? voce('m-busta', 'la busta', 'si apre una volta sola, e per tutti',
                        ind.chiusa ? 'aperta' : 'sigillata') : ''}
@@ -326,6 +341,7 @@ function menu() {
   // faceva stampare «arruola eroe» in mezzo a una serata gia' cominciata.
   app.querySelector('#m-scheda')?.addEventListener('click', () => schedaEroe(
     eroeCresciuto({ partita: P() }, mio, ctx.comune.eroi.find((x) => x.nome === mio))));
+  app.querySelector('#m-cambia')?.addEventListener('click', () => cambiaEroe(menu));
   app.querySelector('#m-lettera')?.addEventListener('click',
     () => (arbitro() ? lettera() : letteraDiChiGioca()));
   app.querySelector('#m-busta')?.addEventListener('click', () => taccuino());
@@ -343,6 +359,32 @@ function registroNotte(dietro) {
     <div class="btn-riga"><button class="btn pieno" id="notte-indietro">tornate indietro</button></div>`;
   dopoBarra();
   app.querySelector('#notte-indietro').onclick = dietro;
+}
+
+// L'INTERRUTTORE, per chi tiene piu' di un eroe su un dispositivo solo. Non
+// manda niente al tavolo: cambia chi sta giocando SU QUESTO SCHERMO, e da li' in
+// poi tutto quel che e' suo — cariche, dono, appunti — segue.
+function cambiaEroe(dietro) {
+  ctx.schermata = () => cambiaEroe(dietro);
+  const { app } = ctx;
+  const mio = mioEroe();
+  app.innerHTML = `
+    ${barra('giocate come…')}
+    <div class="pannello">
+      <p class="nota">Su questo schermo giocate un eroe per volta. Cambiando, cambiano le
+      sue cariche, il suo dono e i suoi appunti — gli altri schermi non se ne accorgono.</p>
+      <div class="in-mano mt">
+        ${mieiEroi().map((nm) => rigaVoce(`data-in-mano="${esc(nm)}"`,
+          esc(nm.toLowerCase()), nm === mio ? 'state giocando questo' : '')).join('')}
+      </div>
+    </div>
+    <div class="btn-riga"><button class="btn pieno" id="ce-indietro">tornate indietro</button></div>`;
+  dopoBarra();
+  app.querySelector('#ce-indietro').onclick = dietro;
+  app.querySelectorAll('[data-in-mano]').forEach((b) => b.addEventListener('click', () => {
+    ctx.eroeInMano = b.dataset.inMano;
+    vistaDiChiGioca();
+  }));
 }
 
 // LA SQUADRA: le cariche di tutti — «chi può leggere un Referto?» si guarda
@@ -389,7 +431,7 @@ function squadra(dietro) {
 // azioni, e la squadra e' una cosa da guardare — la stessa regola che sul
 // telefono separa la barra dal menu. Chi arbitra li vede tutti (tiene in mano
 // gli eroi che nessuno ha preso), chi gioca vede il suo e basta.
-const alTelefono = (nome) => (ctx.collegati || []).includes(nome) && nome !== mioEroe();
+const alTelefono = (nome) => (ctx.collegati || []).includes(nome) && !mieiEroi().includes(nome);
 
 function doniHtml() {
   const miei = UNA_TANTUM.filter((u) => u.dove === 'home' && P().party.includes(u.eroe)

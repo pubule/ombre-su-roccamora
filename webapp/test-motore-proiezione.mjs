@@ -23,7 +23,7 @@ const EPISODI = readdirSync('webapp/data')
 
 const ELENA = COMUNE.eroi[0].nome;
 const ARBITRO = { ruolo: 'arbitro' };
-const GIOCATORE = { ruolo: 'giocatore', eroe: ELENA };
+const GIOCATORE = { ruolo: 'giocatore', eroe: ELENA, eroi: ELENA ? [ELENA] : [] };
 
 function partita(ep, over = {}) {
   const t0 = ep.tessere[0].id;

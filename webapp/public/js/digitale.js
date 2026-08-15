@@ -75,8 +75,19 @@ const salvaP = () => {
 // pesca, la chiusura) non li ha.
 const mioPosto = () => (ctx && ctx.posto) || { ruolo: 'arbitro' };
 const arbitro = () => mioPosto().ruolo === 'arbitro';
-const mioEroe = () => mioPosto().eroe || null;
-const posso = (nm) => arbitro() || nm === mioEroe();
+// UN POSTO PUO' AVERE PIU' EROI (un iPad, due amici). Qui non serve un
+// interruttore: il TURNO dice gia' chi agisce, e chiedere al dispositivo di
+// dichiarare «adesso gioco Mora» sarebbe un tocco in piu' per dire una cosa che
+// il gioco ha appena detto. `mioEroe()` e' quello di turno se e' fra i miei —
+// serve alla fascia «tocca a te» — e altrimenti il primo, per le schermate che
+// vogliono un nome solo.
+const mieiEroi = () => mioPosto().eroi || [];
+const mioEroe = () => {
+  const miei = mieiEroi();
+  const attivo = SP() ? eroiAttivoNome() : null;
+  return (attivo && miei.includes(attivo)) ? attivo : (miei[0] || null);
+};
+const posso = (nm) => arbitro() || mieiEroi().includes(nm);
 const modoDadi = () => 'tavolo';
 // I tiri dei NEMICI si possono delegare all'app anche stando al tavolo: con il
 // campo affollato, tirare a mano per ogni sgherro e' la contabilita' che la
@@ -315,12 +326,17 @@ const celleLibereTile = (tile, start, n, occ) => griglia.celleLibereTile(G(), ti
 // tutti, quindi gli direbbe una cosa che sa gia'.
 function fasciaTurno() {
   if (arbitro()) return '';
-  const mio = mioEroe(); const attivo = eroiAttivoNome();
+  const attivo = eroiAttivoNome();
   if (SP().fase === 'nemici') return '<div class="fascia-turno notte">agisce la notte</div>';
-  if (attivo && attivo === mio) {
-    const fatte = (SP().azioni[mio] || []).length;
-    const restano = Math.max(0, azioniMax(mio) - fatte);
-    return `<div class="fascia-turno mio">tocca a te — ${restano} ${restano === 1 ? 'azione' : 'azioni'}</div>`;
+  // «tocca a te» vale se l'eroe di turno e' UNO DEI TUOI, e con due eroi dice
+  // anche quale: da un iPad con Elena e Mora, «tocca a te» senza nome
+  // farebbe muovere quella sbagliata.
+  if (attivo && mieiEroi().includes(attivo)) {
+    const fatte = (SP().azioni[attivo] || []).length;
+    const restano = Math.max(0, azioniMax(attivo) - fatte);
+    const chi = mieiEroi().length > 1 ? ` — ${esc(primo(attivo))}` : '';
+    return `<div class="fascia-turno mio">tocca a te${chi} — ${restano} ${
+      restano === 1 ? 'azione' : 'azioni'}</div>`;
   }
   return `<div class="fascia-turno attesa">${attivo
     ? `sta giocando ${esc(primo(attivo))}…` : 'il tavolo sta giocando…'}</div>`;

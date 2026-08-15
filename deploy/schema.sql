@@ -47,11 +47,26 @@ CREATE TABLE IF NOT EXISTS membri (
 );
 -- «quali tavoli posso vedere?» e' la domanda che si fa a ogni apertura
 CREATE INDEX IF NOT EXISTS idx_membri_email ON membri(email);
--- due giocatori non possono prendere lo stesso eroe allo stesso tavolo: e' una
--- regola, e le regole che si possono mettere nel database ci vanno messe —
--- l'indice parziale lascia liberi i NULL (chi non ha ancora scelto)
+-- `membri.eroe` NON SI LEGGE PIU' dal 15/08/2026: gli eroi di un posto stanno in
+-- `eroi_posto` qui sotto, che ne regge piu' d'uno (un iPad, due amici). La
+-- colonna resta per i dati vecchi — toglierla in SQLite e' piu' rischioso che
+-- lasciarla — e con lei l'indice, che non fa male a nessuno.
 CREATE UNIQUE INDEX IF NOT EXISTS idx_membri_eroe
   ON membri(tavolo, eroe) WHERE eroe IS NOT NULL;
+
+-- GLI EROI DI UN POSTO. Un dispositivo puo' giocarne piu' d'uno — due amici con
+-- un iPad solo — ma un eroe ha UN POSTO SOLO, ed e' la meta' della regola che
+-- regge la proiezione: se due posti tenessero lo stesso eroe, «chi puo' vedere
+-- cosa» smetterebbe di avere una risposta. Sta nella chiave primaria, dove non
+-- la dimentica nessuno.
+CREATE TABLE IF NOT EXISTS eroi_posto (
+  tavolo TEXT NOT NULL REFERENCES tavoli(id) ON DELETE CASCADE,
+  email  TEXT NOT NULL,
+  eroe   TEXT NOT NULL,
+  PRIMARY KEY (tavolo, eroe)
+);
+-- «quali eroi ha questo posto?» si chiede a ogni richiesta del tavolo
+CREATE INDEX IF NOT EXISTS idx_eroi_posto ON eroi_posto(tavolo, email);
 
 -- LE SCELTE DEI BIVI, per tavolo. Un Bivio si decide a fine episodio e cambia
 -- le regole di uno o piu' episodi successivi: la scelta appartiene alla
