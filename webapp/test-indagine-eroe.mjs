@@ -1210,6 +1210,59 @@ ${schermo.slice(0, 140).replace(/\s+/g, ' ')}`);
      `cambiando eroe, gli appunti sono i suoi (${OTTONE.split(' ')[0]}: ${mieI}, altri: ${altrui})`);
 }
 
+// --- 23. IL DONO SI PAGA CON LA CARICA DI CHI E' IN MANO
+//
+// Dal telefono i doni partivano SENZA nome — con un eroe solo il tavolo lo
+// riempiva. Con due il tavolo rifiuta, e ha ragione: il primo della lista
+// spenderebbe la carica dell'altro. Qui si guarda che parta il dono giusto,
+// che e' la differenza fra «Carla apre la porta» e «Mora ha perso il furetto».
+{
+  const MORA = COMUNE.eroi.find((e) => e.nome.includes('MORA')).nome;
+  const CARLA = COMUNE.eroi.find((e) => e.nome.includes('CARLA')).nome;
+  const doni = serata({ ora: 21 });
+  doni.creata = 23_000;
+  doni.party = [MORA, CARLA];
+  await chiama(ARBITRO, 'PUT', '/api/party', { tavolo: idT, party: doni.party });
+  await page.evaluate(async ({ t, eroi }) => {
+    await fetch('/api/mio-eroe', { method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ tavolo: t, eroi }) });
+  }, { t: idT, eroi: [MORA, CARLA] });
+  await chiama(ARBITRO, 'POST', `/api/tavolo/${idT}/apri`, { tavolo: idT, stato: doni });
+  await page.evaluate(async ({ t, s: st, eroi }) => {
+    const { vistaIndagine } = await import('/js/indagine.js');
+    document.querySelector('#app').innerHTML = '';
+    await vistaIndagine(document.querySelector('#app'), JSON.parse(JSON.stringify(st)), () => {},
+                        { tavolo: t, ruolo: 'giocatore', eroe: eroi[0], eroi });
+  }, { t: idT, s: doni, eroi: [MORA, CARLA] });
+  await page.waitForTimeout(1500);
+
+  const donoOra = async () => (await page.locator('#dono-eroe').count()
+    ? (await page.locator('#dono-eroe').innerText()).toLowerCase() : '(nessun dono)');
+  ok((await donoOra()).includes('ombra'),
+     `la barra offre il dono di chi e' in mano (${await donoOra()})`);
+
+  // si passa a Carla
+  await page.evaluate(() => document.querySelector('#apri-menu').click());
+  await page.waitForTimeout(400);
+  await page.evaluate(() => document.querySelector('#m-cambia').click());
+  await page.waitForTimeout(400);
+  await page.evaluate((nm) => document.querySelector(`[data-in-mano="${nm}"]`).click(), CARLA);
+  await page.waitForTimeout(800);
+  ok((await donoOra()).includes('fonti'),
+     `cambiando eroe cambia il dono nella barra (${await donoOra()})`);
+
+  // ...e premendolo il tavolo lo accetta e lo segna a CARLA
+  await page.evaluate(() => document.querySelector('#dono-eroe').click());
+  await page.waitForTimeout(1200);
+  const dopo = await (await chiama(ARBITRO, 'GET', `/api/tavolo/${idT}/stato`)).json();
+  const ind23 = (dopo.stato || {}).indagine || {};
+  ok(ind23.fontiRiservateUsate === true,
+     'da un posto con due eroi il dono parte davvero (il tavolo non lo rifiuta)');
+  ok(!ind23.ombraUsata,
+     'e a pagarlo è Carla, non il primo della lista');
+}
+
 await browser.close();
 console.log(ko === 0
   ? 'test-indagine-eroe: l\'Indagine si gioca in due, senza che i segreti passino'

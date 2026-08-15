@@ -1007,6 +1007,14 @@ function letteraDiChiGioca() {
 async function esegui(comando) {
   const dati = { ep: ctx.ep, comune: ctx.comune, carte: ctx.carte };
 
+  // CHI MANDA LO DICE SEMPRE. Il tavolo rifiuta un comando senza nome da un
+  // posto che tiene due eroi, e ha ragione: attribuirlo al primo della lista
+  // spenderebbe la carica di uno per la mossa dell'altro. Il nome pero' qui
+  // c'e' gia' — e' l'eroe scelto su questo schermo — e va scritto sul comando,
+  // o da un iPad con due amici i doni non partono.
+  const io = arbitro() ? null : mioEroe();
+  if (io && !comando.eroe) comando = { ...comando, eroe: io };
+
   if (ctx.posto && ctx.posto.tavolo && ctx.tavoloVivo) {
     try {
       const r = await fetch(`/api/tavolo/${encodeURIComponent(ctx.posto.tavolo)}/comando`, {
