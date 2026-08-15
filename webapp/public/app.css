@@ -342,8 +342,12 @@ em, i { font-style: italic; }
 
 /* la riga in cima: l'orologio non sta mai dietro un tocco, e accanto il tasto
    del menu — col pallino quando nella notte e' arrivata una riga nuova */
-.riga-capo { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.riga-capo { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px; }
 .riga-capo .riga-registro { flex: 1; margin: 0; }
+/* i comandi della cornice — suoni e menu — restano insieme e in alto: la riga
+   dell'orologio, su un telefono, va a capo, e chi ci sta dentro finisce a
+   mezz'aria */
+.comandi-capo { display: flex; align-items: center; gap: 6px; flex: 0 0 auto; }
 .btn-menu { flex: 0 0 auto; padding: 8px 14px; }
 .btn-menu .segno { display: inline-block; width: 7px; height: 7px; border-radius: 50%;
   background: var(--nastro); margin-left: 6px; vertical-align: 1px; }
@@ -968,6 +972,9 @@ em, i { font-style: italic; }
 /* Il tasto dell'ambiente sonoro: sta nella riga del registro, e deve pesare
    MENO di tutto il resto — non e' un'azione di gioco, e' una preferenza. Un
    solo glifo, nessun oro, nessun bordo acceso. */
+/* `margin-left:auto` lo spingeva in fondo alla riga in cui si trovava: dentro
+   `.comandi-capo` non serve piu', ed era quel che lo staccava dal menu */
+.comandi-capo .suoni-btn { margin-left: 0; }
 .suoni-btn { margin-left: auto; padding: 2px 10px; font-size: 15px; line-height: 1.4;
   opacity: .55; min-width: 0; }
 .suoni-btn[aria-pressed="true"] { opacity: 1; }

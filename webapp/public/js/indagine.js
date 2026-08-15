@@ -219,13 +219,20 @@ function barra(titolo, etichetta = 'indagine') {
 // non avete ancora letto.
 function orologio() {
   const o = 24 - IND().ora;
+  // I DUE BOTTONI STANNO INSIEME, a destra. Il tasto dei suoni stava DENTRO la
+  // riga dell'orologio: su uno schermo di telefono quella riga va a capo — le
+  // ore su una riga, «5 ore a mezzanotte» sull'altra — e il tasto finiva a
+  // mezz'aria, disallineato dal menu. Sono tutt'e due comandi della cornice, e
+  // la cornice sta da una parte sola.
   return `<div class="riga-capo">
     <div class="riga-registro">${registroOre()}
       <span class="sc resta">${o ? `${o} ${o === 1 ? 'ora' : 'ore'} a mezzanotte` : 'mezzanotte'}</span>
-      ${suoni.bottoneHtml()}
     </div>
-    <button class="btn btn-menu" id="apri-menu">menu${
-      nuoveNelRegistro() ? '<span class="segno"></span>' : ''}</button>
+    <div class="comandi-capo">
+      ${suoni.bottoneHtml()}
+      <button class="btn btn-menu" id="apri-menu">menu${
+        nuoveNelRegistro() ? '<span class="segno"></span>' : ''}</button>
+    </div>
   </div>`;
 }
 

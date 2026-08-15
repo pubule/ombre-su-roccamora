@@ -129,6 +129,26 @@ await apriIndagine(serata());
 await page.waitForTimeout(1200);          // il filo si apre
 ok(errori.length === 0, `il telefono apre l'Indagine senza errori JS: ${errori.slice(0, 2).join(' | ')}`);
 
+// --- 0. LA CORNICE STA IN RIGA
+//
+// Il tasto dei suoni stava DENTRO la riga dell'orologio: su uno schermo di
+// telefono quella riga va a capo — le ore sopra, «5 ore a mezzanotte» sotto —
+// e il tasto finiva a mezz'aria, disallineato dal menu. Sono tutt'e due
+// comandi della cornice, e ora stanno insieme: si misura, perché «sembra
+// storto» non è una cosa che un banco possa vedere da sé.
+{
+  const c = await page.evaluate(() => {
+    const s = document.querySelector('#suoni')?.getBoundingClientRect();
+    const m = document.querySelector('#apri-menu')?.getBoundingClientRect();
+    if (!s || !m) return null;
+    return { scarto: Math.abs((s.top + s.height / 2) - (m.top + m.height / 2)),
+             suoniDestra: s.right <= m.left + 1 };
+  });
+  ok(c, 'i due comandi della cornice ci sono');
+  ok(c && c.scarto <= 4, `e stanno sulla stessa riga (scarto ${c && Math.round(c.scarto)}px)`);
+  ok(c && c.suoniDestra, 'col tasto dei suoni accanto al menu, non in mezzo all’orologio');
+}
+
 // --- 1. I SEGRETI NON ARRIVANO
 {
   const testo = await page.locator('#app').innerText();
