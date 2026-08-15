@@ -152,6 +152,26 @@ try {
   ok(oraDopo === oraPrima, `riprendere la visita non costa ore (${oraPrima} -> ${oraDopo})`);
   await page.locator('#fine-visita').click();
 
+  // --- USCITI DA UN LUOGO, LA PISTA FREDDA RIPORTA IN STRADA ---------------
+  //
+  // Visto al tavolo: si esce da un luogo, si dichiara una pista fredda, si
+  // preme «continuate» — e invece dello stradario torna la scheda del luogo di
+  // prima. Il motore, uscendo, CANCELLA `luogoAperto`; il travaso nella vista
+  // usava `Object.assign`, che copia le chiavi che ci sono e lascia in piedi
+  // quelle sparite. Il numero restava scritto, e «tornate dove siete» ci
+  // riportava dentro.
+  if (fredda) {
+    await page.locator('.voce').first().waitFor();
+    await page.locator(`.voce[data-voce="${fredda}"]`).click();
+    await page.locator('#ok-msg').waitFor();
+    await page.locator('#ok-msg').click();
+    await page.waitForTimeout(400);
+    const dove = await page.locator('#app').innerText();
+    ok(/dove andate/i.test(dove) && !/indizi/i.test(dove),
+      `dopo una pista fredda si torna in strada, non nel luogo di prima (${
+        dove.slice(0, 80).replace(/\s+/g, ' ')})`);
+  }
+
   // --- bussata sbagliata: la porta NON deve sbloccarsi ----------------------
   console.log('bussata sbagliata alla Cattedrale');
   await page.locator('.voce[data-voce="La Cattedrale"]').click();

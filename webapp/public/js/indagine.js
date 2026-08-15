@@ -1000,7 +1000,25 @@ async function esegui(comando) {
 // E' la stessa trappola per cui in `digitale.js` esiste `incassa()`.
 function incassa(stato) {
   if (!stato) return;
-  Object.assign(ctx.partita.indagine, stato.indagine);
+  // QUEL CHE IL MOTORE CANCELLA VA CANCELLATO ANCHE QUI. `Object.assign` copia
+  // le chiavi che ci sono e lascia in piedi quelle che non ci sono piu': il
+  // motore, uscendo da un luogo, fa `delete ind.luogoAperto` — e nella copia
+  // della vista quel numero restava. Al tavolo si vedeva così: si esce da un
+  // luogo, si dichiara una pista fredda, si preme «continuate» e invece di
+  // tornare in strada si rientra nel luogo di prima, che era ancora scritto.
+  //
+  // Si tolgono prima le chiavi sparite, poi si travasa: DENTRO l'oggetto che
+  // c'è, non sostituendolo — i gestori agganciati a schermo tengono un
+  // riferimento a `ctx.partita`, e scambiarlo sotto li farebbe scrivere su un
+  // oggetto che nessuno guarda più.
+  const scarta = (vecchio, nuovo) => {
+    for (const k of Object.keys(vecchio)) if (!(k in nuovo)) delete vecchio[k];
+  };
+  if (stato.indagine) {
+    scarta(ctx.partita.indagine, stato.indagine);
+    Object.assign(ctx.partita.indagine, stato.indagine);
+  }
+  scarta(ctx.partita, { ...stato, indagine: ctx.partita.indagine });
   Object.assign(ctx.partita, stato, { indagine: ctx.partita.indagine });
 }
 
