@@ -18,17 +18,26 @@
 /* la grafia del gruppo: appunti e risposte, non testo di sistema */
 @font-face { font-family: 'Mano'; src: url('/fonts/LaBelleAurore.ttf'); }
 
+/* LA PELLE È «NOTTE E NEBBIA» (scelta il 16/08/2026, mockup in
+   public/mockups/stile2/). L'idea in una riga: l'immagine è la pagina —
+   l'artwork del luogo occupa lo schermo, e il testo vive sopra su lastre di
+   vetro fumé. I nomi dei token restano quelli di prima perché ognuno vuol dire
+   una cosa sola e mille righe li usano già; cambiano i valori.
+
+   La regola che tiene in piedi la direzione: NESSUN TESTO SULL'IMMAGINE NUDA.
+   Sempre su una lastra o sopra una velatura — il contrasto su una fotografia
+   non si misura col solo colore, e quel che non si misura si legge male. */
 :root {
-  --tavolo: #0b0b0d;       /* il piano della scrivania */
-  --ardesia: #17181c;      /* la cartellina */
-  --ardesia-alta: #202228; /* voci, campi, chip */
-  --bordo: #24262c;
-  --bordo-alto: #33363e;
-  --osso: #dedbd4;         /* il testo */
-  --osso-fioco: #8d8b86;   /* le note */
-  --ceralacca: #a3253a;    /* il sigillo, le ferite, il pericolo */
-  --nastro: #4b6b8a;       /* il nastro blu della macchina da scrivere */
-  --nastro-chiaro: #cfe0ee;
+  --tavolo: #0c0e11;                  /* il buio attorno */
+  --ardesia: rgba(18, 21, 26, .82);   /* la lastra di vetro */
+  --ardesia-alta: rgba(30, 35, 42, .86); /* voci, campi, chip: il vetro alzato */
+  --bordo: rgba(255, 255, 255, .10);
+  --bordo-alto: rgba(255, 255, 255, .18);
+  --osso: #edeef0;         /* il testo — non bianco: niente vibrazione */
+  --osso-fioco: #b3b8c0;   /* le note; più chiaro di prima perché qui sta su immagine */
+  --ceralacca: #d9606d;    /* il sangue e il pericolo, desaturato per lo schermo */
+  --nastro: #e8c27a;       /* IL LUME: la luce di lanterna, solo dove si agisce */
+  --nastro-chiaro: #f4dcae;
 
   /* CARTA VERA — si usano solo dove nella finzione c'e' un foglio. Se
      compaiono altrove il fascicolo e' rotto, e lo dice test-stile.mjs. */
@@ -145,9 +154,12 @@ em, i { font-style: italic; }
 
 /* --- la cartellina --- */
 .pannello { background: var(--ardesia); color: var(--osso);
-  border: 1px solid var(--bordo); border-radius: 2px; padding: 16px; box-shadow: none; }
-.pannello h2 { color: var(--osso); font-size: 19px; margin-bottom: 8px;
-  border-bottom: 1px solid #2a2c33; padding-bottom: 6px; }
+  border: 1px solid var(--bordo); border-radius: 10px; padding: 14px;
+  backdrop-filter: blur(10px); box-shadow: none; }
+/* i titoli sono di lume e non hanno più il filetto sotto: la lastra si stacca
+   già da sola dal fondo, e una riga in più era una riga di rumore */
+.pannello h2 { color: var(--nastro); font-size: 20px; margin-bottom: 8px;
+  border-bottom: 0; padding-bottom: 0; }
 .pannello .nota { color: var(--osso-fioco); font-style: italic; font-size: 15px; }
 /* la strada presa, nell'epilogo: si distingue a colpo d'occhio da quella
    lasciata — al tavolo la scelta si sigilla, e sigillata si deve vedere */
@@ -160,13 +172,15 @@ em, i { font-style: italic; }
 #riq-bivio li { margin-bottom: 4px; }
 
 /* --- bottoni --- */
-.btn { display: inline-block; font-family: 'FellSC', serif; text-transform: lowercase;
-  letter-spacing: .06em; font-size: 16px; padding: 11px 18px; border-radius: 2px;
-  border: 1px solid var(--bordo-alto); background: var(--ardesia-alta);
-  color: var(--osso); cursor: pointer; user-select: none; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  font-family: 'FellSC', serif; text-transform: lowercase;
+  letter-spacing: .05em; font-size: 16px; padding: 11px 18px; border-radius: 999px;
+  border: 1px solid var(--bordo); background: var(--ardesia-alta);
+  color: var(--osso); cursor: pointer; user-select: none;
+  backdrop-filter: blur(6px); white-space: nowrap; min-height: 44px; }
 .btn:hover, .btn:focus-visible { border-color: var(--nastro); }
 .btn:active { transform: scale(.98); }
-.btn.pieno { background: var(--ceralacca); border-color: #c03249; color: #fff; }
+.btn.pieno { background: var(--nastro); border-color: var(--nastro); color: #1a1408; }
 .btn.disabilitato { opacity: .35; pointer-events: none; }
 .btn-riga { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
 
@@ -304,11 +318,12 @@ em, i { font-style: italic; }
 .stradario { display: grid; gap: 6px; grid-template-columns: 1fr; }
 @media (min-width: 700px) { .stradario { grid-template-columns: 1fr 1fr; } }
 /* voci di registro, non schede: la linguetta a sinistra dice lo stato */
-.voce { text-align: left; font-family: 'OldStd', serif; font-size: 17px; padding: 11px 12px;
-  border: 1px solid var(--bordo); border-left: 2px solid #2a2c33; border-radius: 2px;
-  background: var(--ardesia-alta); color: var(--osso); cursor: pointer; }
-.voce:hover, .voce:focus-visible { border-left-color: var(--nastro); }
-.voce:active { background: #23252c; }
+.voce { text-align: left; font-family: 'OldStd', serif; font-size: 17px; padding: 10px 12px;
+  border: 1px solid var(--bordo); border-radius: 10px;
+  background: var(--ardesia-alta); color: var(--osso); cursor: pointer;
+  backdrop-filter: blur(6px); }
+.voce:hover, .voce:focus-visible { border-color: var(--nastro); }
+.voce:active { background: rgba(40, 46, 55, .9); }
 .voce b { display: block; font-weight: 400; }
 .voce i { color: var(--osso-fioco); font-size: 14px; }
 .voce .visitato { float: right; font-family: 'FellSC', serif; font-size: 12px;
@@ -397,13 +412,14 @@ em, i { font-style: italic; }
 
 /* IL MENU. Voci larghe come righe di registro, raggruppate per mestiere e non
    per tipo, e il conto a destra di ognuna. */
-.menu-titolo { font-family: 'FellSC', serif; font-size: 12px; letter-spacing: .09em;
-  color: var(--osso-fioco); text-transform: lowercase; margin: 14px 0 6px; }
+.menu-titolo { font-family: 'FellSC', serif; font-size: 13px; letter-spacing: .14em;
+  color: var(--nastro); text-transform: uppercase; margin: 14px 0 6px; }
 .menu-voce { display: flex; align-items: center; gap: 12px; width: 100%; text-align: left;
-  padding: 13px 14px; margin-bottom: 6px; cursor: pointer; color: var(--osso);
+  padding: 11px 14px; margin-bottom: 8px; cursor: pointer; color: var(--osso);
   background: var(--ardesia-alta); border: 1px solid var(--bordo);
-  border-left: 2px solid #2a2c33; border-radius: 2px;
-  font-family: 'OldStd', serif; font-size: 17px; }
+  border-left: 3px solid transparent; border-radius: 12px;
+  font-family: 'FellSC', serif; font-size: 17px; letter-spacing: .04em; }
+.menu-voce .tit i { font-family: 'OldStd', serif; letter-spacing: 0; font-style: italic; }
 .menu-voce:hover, .menu-voce:focus-visible { border-left-color: var(--nastro); }
 .menu-voce .tit { flex: 1; }
 .menu-voce .tit i { display: block; font-size: 14px; color: var(--osso-fioco); }

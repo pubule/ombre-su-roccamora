@@ -1,5 +1,67 @@
 # Handoff — dove siamo
 
+## IN CORSO (16/08/2026) — la pelle nuova: «notte e nebbia»
+
+**Dove sta tutto.** I mockup sono in repo: `webapp/public/mockups/stile2/`
+(`index.html` li presenta tutti). Si guardano con `node webapp/server.js` e poi
+**<http://192.168.178.221:8017/mockups/stile2/>** — dal telefono, non dal PC.
+
+**Le decisioni prese, tutte il 16/08/2026:**
+
+1. Fra tre direzioni (A gabinetto d'ottone · B referto clinico · C notte e
+   nebbia) è scelta **C**: l'artwork occupa lo schermo, il testo vive su lastre
+   di vetro fumé. Regola che la tiene in piedi: **nessun testo sull'immagine
+   nuda**.
+2. I bottoni stanno in una **griglia a colonne uguali** (`.azioni`), icona sopra
+   la parola: la larghezza la decide la griglia, non l'etichetta. Colonne da
+   128px (152 per quelli di servizio): sotto, «testimonianza» sbordava.
+3. Il **menu** sta in un capo appiccicato in alto, con l'ora/il canto a sinistra
+   e il bollino quando c'è del nuovo; dentro va tutto quel che non è «adesso».
+4. Le **tessere** si disegnano col **modo 2**: la stanza è il pezzo — l'arte
+   della tessera fa da pavimento, il reticolo è un filo sopra, la nebbia copre
+   quel che non è rivelato. Il modo 3 (reticolo solo dove serve) resta scritto,
+   da provare al tavolo.
+5. Il porto nell'app si fa **a pezzi, dall'Indagine**, e il risultato deve
+   essere **identico ai mockup** (richiesta esplicita: niente scorciatoie).
+
+**Fatto finora nell'app** (`webapp/public/app.css`): i token di `:root` sono la
+palette di «notte e nebbia» (i nomi restano — `--tavolo`, `--ardesia`, `--osso`,
+`--nastro` = il lume — perché mille righe li usano già), e sono passati alla
+pelle nuova `.pannello` (lastra di vetro, raggio 10, sfocatura), `.btn`
+(pillola; il pieno è di lume con la scritta scura), `.voce`, `.menu-voce`,
+`.menu-titolo`. La home gira senza errori JS.
+
+**Il prossimo passo, in ordine:**
+
+1. **`webapp/test-stile.mjs` va riscritto sulla direzione nuova.** Oggi difende
+   le regole del «fascicolo» e fallisce di conseguenza: *«nessun bordo d'oro
+   fuori dalla mappa»* (19) e *«nessun angolo tondo oltre 3px»* (44). Non è il
+   codice a essere sbagliato — è il banco che custodisce una direzione che è
+   stata cambiata per decisione. Restano valide: la regola della carta vera e il
+   contrasto (311 testi misurati, 0 sotto soglia).
+2. Le componenti nuove in `app.css`, copiate dai mockup: `.capo` (sticky, ora +
+   menu col bollino), `.scena` (artwork a piena larghezza con la doppia
+   velatura), `.azioni` (griglia 128px, righe da 68px), `.foglio` (il menu che
+   sale dal basso), `.lumi`, `.turno`, e per la Spedizione `.mappa`/`.stanza`
+   con la nebbia.
+3. Le viste dell'Indagine (`webapp/public/js/indagine.js`) riscritte sulle
+   stesse classi dei mockup — prima quella di chi arbitra (stradario di fianco),
+   poi il telefono.
+4. Poi la Spedizione (`digitale.js`, `boardHtml()`): lì si tocca **codice di
+   gioco**, non solo stile.
+
+**Come si verifica che sia identico:** i mockup e l'app si aprono affiancati
+sullo stesso schermo (390px e 1024px), e si confrontano le misure — colori,
+raggi, corpi, altezze delle celle — non le impressioni. Le pagine dei mockup
+sono già state passate al setaccio: contrasto ≥4.5:1, bersagli ≥44px, griglie
+con tutti i bottoni della stessa larghezza.
+
+**Da non dimenticare:** `test-ui`, `test-zoom`, `test-partite` (42 giocate) e i
+banchi del tavolo vanno rifatti **a codice fermo** prima di ogni commit; e la
+regola della carta vera (`--carta*` solo dove nella finzione c'è un foglio) non
+si tocca: è l'unica cosa che nella pelle nuova resta com'era.
+
+
 > A cosa serve: se la sessione muore, questo file basta a riprendere senza
 > ricostruire niente. Si aggiorna a ogni commit. Qui c'è **dove siamo**, cosa
 > gira e il prossimo comando; il *cosa fare* di un lavoro in corso sta nel suo
