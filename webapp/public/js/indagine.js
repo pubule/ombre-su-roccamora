@@ -817,20 +817,28 @@ function barraAzioniHtml(aperto) {
     const miei = mio ? TIPI.filter((t) =>
       idoneiPerTipo(ctx.comune, P(), t).some((x) => x.nome === mio)) : [];
     for (const t of miei) {
-      azioni.push(`<button class="btn pieno" data-appr="approfondisci" data-luogo="${l.n}"
-        data-tipo="${esc(t)}">${esc(t.toLowerCase())}</button>`);
+      azioni.push(`<button class="btn ${t === miei[0] ? 'pieno' : ''}" data-appr="approfondisci"
+        data-luogo="${l.n}" data-tipo="${esc(t)}">
+        <svg class="ic" aria-hidden="true"><use href="#i-${ICONA_TIPO[t]}"></use></svg>
+        ${esc(t.toLowerCase())}</button>`);
     }
     // l'occasione UNA del luogo: la tenta chi vuole, e non dice di che tipo —
     // il motore prende il primo che qui non è ancora stato colto
     if (!(ind.profano || {})[l.n] && !ind.scenaChiusa) {
-      azioni.push(`<button class="btn" data-appr="profano" data-luogo="${l.n}"
-        data-tipo="">aiuto profano</button>`);
+      azioni.push(`<button class="btn" data-appr="profano" data-luogo="${l.n}" data-tipo="">
+        <svg class="ic" aria-hidden="true"><use href="#i-candela"></use></svg>
+        aiuto profano</button>`);
     }
   } else if (dono && !speso(dono)) {
-    azioni.push(`<button class="btn pieno" id="dono-eroe">${esc(dono.label.toLowerCase())}</button>`);
+    azioni.push(`<button class="btn pieno" id="dono-eroe">
+      <svg class="ic" aria-hidden="true"><use href="#i-lanterna"></use></svg>
+      ${esc(dono.label.toLowerCase())}</button>`);
   }
   if (!azioni.length) return '';
-  return `<div class="barra-azioni">${azioni.join('')}</div>`;
+  // GRIGLIA, non fila: la larghezza la decide la colonna e non la parola, così
+  // il pollice trova il bottone dov'era anche cambiando luogo. Al buio è
+  // l'unica cosa che conta.
+  return `<div class="barra-azioni griglia">${azioni.join('')}</div>`;
 }
 
 function agganciaAzioni(aperto) {
@@ -944,9 +952,9 @@ function scenaLuogoHtml(l) {
     ...(l.oggetti || []).map((o) => ({ nome: o, fatto: preso(o) })),
     ...(l.reperti || []).map((r) => ({ nome: nomeReperto(r), fatto: presoRep(r), reperto: true })),
   ];
+  // «siete dentro» e il nome del luogo li dice gia' la scena, sopra: ripeterli
+  // qui faceva leggere due volte la stessa riga prima di arrivare al punto
   return `<div class="pannello">
-    <p class="nota">siete dentro</p>
-    <h2>${esc(l.nome.toLowerCase())}</h2>
     ${coda()}
     ${roba.length ? `<hr class="divisore">
       <p class="nota">da prendere, qui — le carte le passa chi arbitra</p>

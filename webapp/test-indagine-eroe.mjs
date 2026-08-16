@@ -383,6 +383,11 @@ ok(errori.length === 0, `il telefono apre l'Indagine senza errori JS: ${errori.s
                                localStorage.setItem('osr.tavolo.nome', 'Indagine a due'); }, idT);
   await page.reload({ waitUntil: 'networkidle' });
   await page.waitForTimeout(1800);
+  // il titolo dell'episodio non sta piu' in cima alla scena — dal 16/08/2026 in
+  // cima ci sono solo l'ora e il menu, e il titolo lo dice il menu quando lo si
+  // apre. Si guarda li', che e' dove adesso l'app scrive «dove siete».
+  await page.locator('#apri-menu').click().catch(() => {});
+  await page.waitForTimeout(400);
   const testo = await page.locator('#app').innerText();
   ok(/il coro sommerso/i.test(testo),
      `ricaricando si finisce dove sta chi arbitra:
