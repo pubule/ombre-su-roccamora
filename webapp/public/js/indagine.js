@@ -1337,6 +1337,21 @@ function schedaLuogo(l) {
           <p class="nota">indizi — leggeteli ad alta voce</p>
           ${l.indizi.map((i) => `<p class="mt">◆ ${rendi(i)}</p>`).join('')}
           <hr class="divisore">
+          <!-- PRIMA QUEL CHE C'E' DA PRENDERE. Al tavolo si entra, si
+               raccoglie quel che e' in vista, e poi si guarda meglio: con la
+               roba in fondo, dopo i quattro tipi, sul telefono finiva sotto
+               la piega e ci si arrivava per ultimo. -->
+          ${(l.oggetti || []).length || (l.reperti || []).length ? `
+            <p class="nota">da prendere, qui</p>
+            <div class="btn-riga">
+              ${(l.oggetti || []).map((o) => ind.oggetti.includes(o)
+                ? `<button class="btn disabilitato">${esc(o)} ✓</button>`
+                : `<button class="btn" data-oggetto="${esc(o)}">prendete “${esc(o)}”</button>`).join('')}
+              ${(l.reperti || []).map((r) => (ind.reperti || []).includes(r)
+                ? `<button class="btn disabilitato">${esc(nomeReperto(r))} ✓</button>`
+                : `<button class="btn" data-reperto="${esc(r)}">consegnate “${esc(nomeReperto(r))}”</button>`).join('')}
+            </div>
+            <hr class="divisore">` : ''}
           ${ind.scenaChiusa ? `<p class="nota">Qui avete già guardato meglio, e non
             è venuto fuori niente: per questa visita gli Approfondimenti restano
             nascosti. Lasciate il luogo e tornateci (1 ora) per ritentare.</p>` : `
@@ -1356,17 +1371,6 @@ function schedaLuogo(l) {
             }).join('')}
           </div>
           ${letti.length ? `<p class="nota mt">Già colti qui: ${letti.map((x) => esc(x.soggetto)).join(' · ')}</p>` : ''}`}
-          ${(l.oggetti || []).length || (l.reperti || []).length ? `
-            <hr class="divisore">
-            <p class="nota">da prendere, qui</p>
-            <div class="btn-riga">
-              ${(l.oggetti || []).map((o) => ind.oggetti.includes(o)
-                ? `<button class="btn disabilitato">${esc(o)} ✓</button>`
-                : `<button class="btn" data-oggetto="${esc(o)}">prendete “${esc(o)}”</button>`).join('')}
-              ${(l.reperti || []).map((r) => (ind.reperti || []).includes(r)
-                ? `<button class="btn disabilitato">${esc(nomeReperto(r))} ✓</button>`
-                : `<button class="btn" data-reperto="${esc(r)}">consegnate “${esc(nomeReperto(r))}”</button>`).join('')}
-            </div>` : ''}
         </div>
         <div class="btn-riga">
           <button class="btn pieno" id="fine-visita">lasciate il luogo</button>

@@ -140,11 +140,30 @@ try {
   // Regola cambiata l'11/08/2026: entrando non si tira niente. Il dado esce
   // solo se il gruppo chiede un Approfondimento, e lo tira chi fruga.
   console.log('visita luogo aperto (nessun tiro entrando)');
-  await page.locator('.voce[data-voce="Taverna del Ponte Rotto"]').click();
+  await page.locator('.voce[data-voce="Vicolo dei Fonditori"]').click();
   await page.locator('.scena').waitFor();
   ok(await page.locator('.dadi-overlay').count() === 0, 'entrando NON si tira nessun dado');
   ok(await page.locator('.scelta-box').count() === 0, 'e non si sceglie nessun eroe');
   ok(await page.getByText('indizi', { exact: false }).count() > 0, 'scheda luogo con indizi');
+
+  // PRIMA QUEL CHE C'È DA PRENDERE, POI GLI APPROFONDIMENTI: al tavolo si
+  // entra, si raccoglie quel che è in vista, e poi si guarda meglio. Con la
+  // roba in fondo, sul telefono finiva sotto la piega.
+  {
+    // il luogo va scelto fra quelli che HANNO qualcosa da prendere: la Taverna
+    // non ne ha, e il controllo passerebbe senza misurare niente
+    const dove = await page.evaluate(() => {
+      const roba = [...document.querySelectorAll('.pannello .nota')]
+        .find((n) => /da prendere/i.test(n.textContent));
+      const tipi = document.querySelector('.tipi');
+      return { roba: roba ? roba.getBoundingClientRect().top : null,
+        tipi: tipi ? tipi.getBoundingClientRect().top : null };
+    });
+    ok(dove.roba != null && dove.tipi != null,
+       `il luogo di prova ha roba da prendere e Approfondimenti (${JSON.stringify(dove)})`);
+    ok(dove.roba < dove.tipi,
+       `«da prendere, qui» sta sopra gli Approfondimenti (${Math.round(dove.roba)} contro ${Math.round(dove.tipi)})`);
+  }
 
   // --- l'Approfondimento: si tira li', e fallendo la carica resta ----------
   const cariche = () => page.evaluate(() =>
