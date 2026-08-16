@@ -126,6 +126,12 @@ const RACCOGLI = (esenti) => {
     return { colore: getComputedStyle(document.body).backgroundColor };
   };
   const out = { testi: [], superfici: [], bersagli: [], nudi: [] };
+  // tutte le superfici che portano una fotografia: servono a capire cosa sta
+  // SOTTO un testo, anche quando non e' un suo antenato
+  const IMMAGINI = [...document.querySelectorAll('body *')]
+    .filter((x) => /url\(/.test(getComputedStyle(x).backgroundImage))
+    .map((x) => ({ el: x, r: x.getBoundingClientRect() }))
+    .filter((x) => x.r.width > 40 && x.r.height > 40);
   for (const el of document.querySelectorAll('body *')) {
     const r = el.getBoundingClientRect();
     const st = getComputedStyle(el);
@@ -171,13 +177,26 @@ const RACCOGLI = (esenti) => {
     // direzione. Sopra una fotografia il contrasto non si misura dal colore,
     // quindi si pretende che fra il testo e l'immagine ci sia qualcosa — una
     // lastra traslucida, oppure la velatura che la scena si porta nel ::after.
-    if (f.immagine && !esente) {
+    // L'IMMAGINE PUO' STARE SOTTO SENZA ESSERE UN ANTENATO: nei manifesti degli
+    // episodi l'arte e' un FRATELLO in posizione assoluta, e il titolo ci sta
+    // sopra. Guardando solo la catena degli antenati non la si vedeva — il
+    // controllo passava anche togliendo la sfumatura, cioe' proprio nel caso
+    // che deve prendere. Qui si guarda la geometria: quale immagine sta sotto
+    // questo testo, e cosa c'e' in mezzo.
+    const r2 = el.getBoundingClientRect();
+    const sopraImmagine = f.immagine || IMMAGINI.some((im) =>
+      !im.el.contains(el) && im.r.left <= r2.left + 1 && im.r.right >= r2.right - 1
+      && im.r.top <= r2.top + 1 && im.r.bottom >= r2.bottom - 1);
+    if (sopraImmagine && !esente) {
       let velo = false;
       for (let n = el; n && n !== document.body; n = n.parentElement) {
         const s2 = getComputedStyle(n);
         const m = s2.backgroundColor.match(/[\d.]+/g);
         if (m && m.length === 4 && Number(m[3]) > .25) { velo = true; break; }
         if (m && m.length < 4 && s2.backgroundColor !== 'rgba(0, 0, 0, 0)') { velo = true; break; }
+        // una sfumatura sopra l'immagine E' una velatura: e' cosi' che i
+        // manifesti tengono leggibile il titolo
+        if (/gradient/.test(s2.backgroundImage || '')) { velo = true; break; }
         const dopo = getComputedStyle(n, '::after');
         if (dopo && /gradient|rgba?\(/.test(dopo.backgroundImage || '')
             && dopo.content !== 'none') { velo = true; break; }

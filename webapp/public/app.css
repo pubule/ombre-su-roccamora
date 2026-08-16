@@ -123,7 +123,9 @@ em, i { font-style: italic; }
 @keyframes pulse { 50% { transform: scale(.94); } }
 
 /* --- home: lo schedario --- */
-.home-testata { margin: 3vh 0 18px; padding-bottom: 14px; border-bottom: 1px solid var(--bordo); }
+/* la testata non porta piu' il titolo — quello sta nella scena, sopra l'arte —
+   e tiene solo il nome del tavolo e i tre bottoni */
+.home-testata { margin: 0 0 12px; text-align: center; }
 .home-testata h1 { font-size: clamp(28px, 6.5vw, 44px); }
 .home-testata .sotto { color: var(--osso-fioco); font-style: italic; margin-top: 4px; font-size: 14px; }
 .home-testata .filetto { display: none; }   /* il filetto e' il bordo della testata */
@@ -133,26 +135,30 @@ em, i { font-style: italic; }
 .griglia-episodi { display: grid; gap: 10px; grid-template-columns: 1fr;
   padding: 0; margin-bottom: 10px; overflow: visible; }
 @media (min-width: 560px) { .griglia-episodi { grid-template-columns: 1fr 1fr; } }
-.tessera-episodio { position: relative; display: flex; align-items: stretch; cursor: pointer;
-  background: var(--ardesia); border: 1px solid var(--bordo);
-  border-left: 6px solid var(--nastro); border-radius: 2px; overflow: hidden;
-  min-height: 96px; flex: none; max-width: none;
+/* OGNI EPISODIO E' UN MANIFESTO (mockup `nebbia2-home.html`): l'illustrazione
+   grande, il titolo in basso sopra una sfumatura, lo stato come pastiglia in
+   alto a destra. Prima era una riga d'archivio con la miniatura a lato: diceva
+   le stesse cose, ma l'arte — che al tavolo e' meta' dell'atmosfera — restava
+   un francobollo. */
+.tessera-episodio { position: relative; display: block; cursor: pointer; width: 100%;
+  height: 168px; border: 1px solid var(--bordo); border-radius: 12px; overflow: hidden;
+  padding: 0; text-align: left;
   transition: border-color .15s ease, transform .12s ease; }
-.tessera-episodio:hover, .tessera-episodio:focus-visible { border-left-color: var(--nastro-chiaro); }
+.tessera-episodio:hover, .tessera-episodio:focus-visible { border-color: var(--nastro); }
 .tessera-episodio:active { transform: scale(.995); }
-/* l'arte esce dall'assoluto e diventa la miniatura d'archivio a sinistra */
-.tessera-episodio .arte { position: static; flex: 0 0 92px; background-size: cover;
-  background-position: center 25%; filter: brightness(.82); opacity: 1; }
-.tessera-episodio .velo-tessera { display: none; }
-.tessera-episodio .testi { position: relative; padding: 11px 13px; }
-.tessera-episodio h2 { color: var(--osso); font-size: 19px; border: 0; padding: 0; }
-.tessera-episodio .sotto { color: var(--osso-fioco); font-style: italic; font-size: 13px; opacity: 1; }
-/* «partita in corso» non e' un bollino tondo appiccicato in un angolo: e' lo
-   stato del fascicolo, e tinge la costa */
-.tessera-episodio .stato { position: static; display: block; margin-top: 5px;
-  font-family: 'FellSC', serif; font-size: 11px; letter-spacing: .16em;
-  color: #dd7383; background: none; border: 0; border-radius: 0; padding: 0; }
-.tessera-episodio:has(.stato) { border-left-color: var(--ceralacca); }
+.tessera-episodio .arte { position: absolute; inset: 0; background-size: cover;
+  background-position: center; filter: brightness(.66) saturate(.85); }
+/* il testo non sta MAI sull'immagine nuda: sotto c'e' la sfumatura */
+.tessera-episodio .testi { position: absolute; inset: auto 0 0 0; padding: 12px 14px;
+  background: linear-gradient(180deg, rgba(12,14,17,0), rgba(12,14,17,.92)); }
+.tessera-episodio h2 { color: var(--osso); font-size: 24px; border: 0; padding: 0;
+  margin: 0; }
+.tessera-episodio .sotto { display: block; color: var(--osso-fioco); font-style: italic;
+  font-size: 14px; opacity: 1; }
+.tessera-episodio .stato { position: absolute; top: 10px; right: 10px;
+  font-family: 'FellSC', serif; font-size: 12px; letter-spacing: .08em;
+  padding: 5px 10px; border-radius: 999px; color: var(--osso);
+  background: var(--ardesia); border: 1px solid var(--bordo); backdrop-filter: blur(6px); }
 
 /* LE COLONNE SI STRINGONO. Un elemento di griglia ha `min-width: auto` e non
    scende sotto il suo contenuto: dentro un luogo, il paragrafo del narratore

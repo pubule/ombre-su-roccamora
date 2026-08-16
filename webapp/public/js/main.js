@@ -83,11 +83,20 @@ window.addEventListener('error', (e) => {
 async function vistaHome() {
   const info = await Promise.all(EPISODI.map((e) => dati(e)));
   h(`
-    <header class="home-testata">
-      <span class="etichetta">società del lume · archivio dei casi</span>
-      <h1>ombre su roccamora</h1>
-      <div class="sotto">roccamora, 1889 — ventun casi, uno per sera</div>
-      <div class="filetto"></div>
+    <!-- LA SCENA D'APERTURA: l'arte del Palazzo del Lume fa da copertina
+         all'archivio, e il titolo ci sta sopra — mai sull'immagine nuda, che
+         sotto c'e' la velatura della scena. -->
+    <div class="scena bassa">
+      <div class="sfondo" style="background-image:url('/assets/artworks/Palazzo%20del%20Lume.png')"></div>
+      <div class="dentro">
+        <span class="occhiello">società del lume · archivio dei casi</span>
+        <h1>ombre su roccamora</h1>
+        <p class="nota" style="margin:2px 0 0">roccamora, 1889 — ventun casi, uno per sera</p>
+      </div>
+    </div>
+    <!-- il nome del tavolo e i tre bottoni stanno su una lastra, come nel
+         mockup: sotto la scena, e staccati dall'elenco dei casi -->
+    <header class="home-testata pannello">
       ${tavoloCorrente() ? `<div class="riga-tavolo">
         <span class="spia">${esc(nomeTavoloCorrente() || 'tavolo senza nome')} ·
           <span id="spia">${esc(statoSync())}</span></span>
@@ -96,9 +105,12 @@ async function vistaHome() {
            erano due righe con uno spaziatore vuoto, e ognuno cadeva dove
            capitava. La riga va a capo da se' quando lo schermo e' stretto. -->
       <div class="bottoni">
-        ${tavoloCorrente() ? '<button class="btn piccolo" id="cambia-tavolo">cambia tavolo</button>' : ''}
-        <button class="btn piccolo" id="rubrica">rubrica</button>
-        <button class="btn piccolo" id="taccuino">taccuino di campagna</button>
+        ${tavoloCorrente() ? `<button class="btn piccolo" id="cambia-tavolo">
+          <svg class="ic" aria-hidden="true"><use href="#i-conchiglia"></use></svg>cambia tavolo</button>` : ''}
+        <button class="btn piccolo" id="rubrica">
+          <svg class="ic" aria-hidden="true"><use href="#i-penna"></use></svg>rubrica</button>
+        <button class="btn piccolo" id="taccuino">
+          <svg class="ic" aria-hidden="true"><use href="#i-referto"></use></svg>taccuino di campagna</button>
       </div>
     </header>
     <div class="griglia-episodi">
@@ -107,17 +119,16 @@ async function vistaHome() {
         return `
         <div class="tessera-episodio" data-ep="${ep.id}">
           <div class="arte" style="background-image:url('${COPERTINE[ep.id]}')"></div>
-          <div class="velo-tessera"></div>
+          ${salvata ? `<div class="stato${(salvata.spedizione || {}).esito ? ' finita' : ''}">${
+            // una serata conclusa resta salvata — serve alla campagna — ma non
+            // e' «in corso»: si torna alla taverna e la si ritrova li', come se
+            // non fosse finita niente
+            (salvata.spedizione || {}).esito === 'vittoria' ? 'vinta'
+            : (salvata.spedizione || {}).esito ? 'perduta'
+            : 'in corso'}</div>` : ''}
           <div class="testi">
             <h2>${esc(ep.titolo)}</h2>
             <div class="sotto">${esc(ep.sottotitolo)}</div>
-            ${salvata ? `<div class="stato${(salvata.spedizione || {}).esito ? ' finita' : ''}">${
-              // una serata conclusa resta salvata — serve alla campagna — ma non
-              // e' «in corso»: si torna alla taverna e la si ritrova li', come se
-              // non fosse finita niente
-              (salvata.spedizione || {}).esito === 'vittoria' ? 'serata vinta'
-              : (salvata.spedizione || {}).esito ? 'serata perduta'
-              : 'partita in corso'}</div>` : ''}
           </div>
         </div>`;
       }).join('')}

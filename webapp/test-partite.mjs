@@ -348,10 +348,18 @@ for (const sc of SCELTI) {
                 `round ${st3.spedizione.round}, ${ep.marea ? 'marea' : 'canto'} ${st3.spedizione.canto}`);
   } catch (e) {
     ko(`giocata interrotta: ${e.message.split('\n')[0]}`);
-    if (process.env.OSR_DIAG) {
-      console.log('    [diag schermo]', (await page.locator('#app').innerText()).slice(0, 400).replace(/\s+/g, ' '));
-      console.log('    [diag dove]', e.stack.split('\n').slice(0, 5).join(' | '));
-    }
+    // LA DIAGNOSTICA E' SEMPRE ACCESA, e non dietro una variabile d'ambiente.
+    // Questa caduta si presenta in una corsa su due, ogni volta in una giocata
+    // diversa, e non si e' mai fatta cogliere quando la diagnostica era accesa
+    // apposta: sperare che ricapiti al momento giusto e' il modo di non
+    // capirla mai. Stampa solo quando qualcosa cade, quindi non costa niente.
+    console.log('    [dove]', e.stack.split('\n').slice(1, 4).join(' | ').trim());
+    try {
+      console.log('    [schermo]', (await page.locator('#app').innerText()).slice(0, 300).replace(/\s+/g, ' '));
+      console.log('    [sopra]', await page.evaluate(() =>
+        [...document.querySelectorAll('.velo, .foglio, .scelta-overlay, .dadi-overlay')]
+          .map((x) => x.className).join(', ') || 'niente'));
+    } catch (e2) { console.log('    [schermo] illeggibile:', String(e2).slice(0, 80)); }
   }
   ok(jsErrors.length === 0, `errori JS: ${jsErrors.slice(0, 3).join(' | ')}`);
   await page.close();
