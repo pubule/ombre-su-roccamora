@@ -58,6 +58,26 @@ if (!collegata) {
   ok((el.corpo.persone || []).some((x) => x.email === GIULIA), 'e la persona c\'è');
   ok((el.corpo.persone || []).every((x) => x.porta === null),
      'nessun semaforo acceso: uno spento confonde più di nessuno');
+
+  // ...MA LA SCHERMATA DEVE DIRLO. Chi non tiene le chiavi scrive una persona,
+  // legge «è in rubrica», la invita — e quella non riceve mai il codice: è il
+  // difetto per cui la rubrica esiste, solo spostato di una schermata.
+  const browser = await chromium.launch();
+  const page = await browser.newPage({ viewport: { width: 420, height: 900 } });
+  await page.goto(BASE, { waitUntil: 'networkidle' });
+  await page.evaluate(async () => {
+    const { vistaRubrica } = await import('/js/rubrica.js');
+    document.querySelector('#app').innerHTML = '';
+    await vistaRubrica(document.querySelector('#app'), () => {});
+  });
+  await page.waitForTimeout(900);
+  ok(await page.locator('#non-portiere').count() === 1,
+     'chi non tiene le chiavi legge che la porta non la apre lui');
+  ok(await page.locator('.apri-porta').count() === 0
+     && await page.locator('#apri-tutte').count() === 0,
+     'e non trova bottoni della porta, che non potrebbero riuscire');
+  await browser.close();
+
   await chiama(PORTIERE, 'DELETE', `/api/rubrica?email=${encodeURIComponent(GIULIA)}`);
   await stub.chiudi();
   console.log(ko === 0 ? 'test-rubrica (porta spenta): niente parte, e si gioca come prima'
@@ -237,11 +257,89 @@ page.on('pageerror', (e) => errori.push(e.message));
      'e il bottone sparisce, perché non c\'è più niente da rimediare');
 }
 
+// --- 12. LE PERSONE DEGLI ALTRI
+//
+// La rubrica è per account: se un altro arbitra un tavolo suo e ci invita due
+// persone, quelle stanno nella SUA rubrica. Senza vederle, chi tiene le chiavi
+// dovrebbe tornare sulla dashboard di Cloudflare per farle entrare — cioè il
+// passaggio che la rubrica doveva togliere, riapparso un metro più in là.
+const SUA = `sara-${Date.now()}@esempio.it`;
+{
+  stub.azzera();
+  await chiama(ALTRO, 'POST', '/api/rubrica', { email: SUA, nome: 'Sara' });
+  ok(stub.scritture().length === 0, 'chi non è portiere non apre niente scrivendola');
+
+  const mia = await json(await chiama(PORTIERE, 'GET', '/api/rubrica'));
+  const gruppo = (mia.corpo.altrui || []).find((g) => g.proprietario === ALTRO);
+  ok(!!gruppo, 'chi tiene le chiavi vede la rubrica dell\'altro arbitro');
+  const sara = gruppo && gruppo.persone.find((x) => x.email === SUA);
+  ok(!!sara, 'con dentro la persona che ha scritto');
+  ok(sara && sara.nome === 'Sara' && sara.porta === 'fuori',
+     `col suo nome e la porta chiusa (${sara && sara.nome}, ${sara && sara.porta})`);
+  ok(!(mia.corpo.persone || []).some((x) => x.email === SUA),
+     'e non mescolata alle proprie: la rubrica resta di chi la tiene');
+
+  const sua = await json(await chiama(ALTRO, 'GET', '/api/rubrica'));
+  ok(sua.corpo.altrui === undefined,
+     'chi non tiene le chiavi non legge la rubrica di nessun altro');
+}
+
+// --- 13. E LA PORTA SI APRE ANCHE A LORO
+{
+  stub.azzera();
+  const r = await json(await chiama(PORTIERE, 'POST', '/api/porta', { email: SUA }));
+  ok(r.stato === 200 && r.corpo.porta === 'aperta',
+     `il portiere apre a una persona di un altro (${r.stato}, «${r.corpo.porta}»)`);
+  ok(stub.emails().includes(SUA), 'e l\'indirizzo entra nel criterio');
+
+  // IL DIFETTO DEL CONFRONTO SU UNA RUBRICA SOLA: appena aperta, quella persona
+  // risulterebbe «estranea» — un elenco che si riempie da solo di gente giusta.
+  const dopo = await json(await chiama(PORTIERE, 'GET', '/api/rubrica'));
+  ok(!(dopo.corpo.estranei || []).includes(SUA),
+     'e non finisce fra gli estranei: sta in una rubrica, solo non nella mia');
+}
+
+// --- 14. LA SCHERMATA: si aprono da lì, e non si riordina la roba altrui
+{
+  await page.evaluate(async () => {
+    const { vistaRubrica } = await import('/js/rubrica.js');
+    document.querySelector('#app').innerHTML = '';
+    await vistaRubrica(document.querySelector('#app'), () => {});
+  });
+  await page.waitForTimeout(900);
+  ok(await page.locator('#rubriche-altrui').count() === 1,
+     'la schermata ha il pannello delle rubriche altrui');
+  const testo = await page.locator('#rubriche-altrui').innerText();
+  ok(testo.includes(ALTRO), 'che dice di chi è ogni elenco');
+  ok(testo.includes('Sara'), 'e ci mette dentro le sue persone');
+  ok(await page.locator(`#rubriche-altrui .togli-persona`).count() === 0,
+     'senza «togli»: il portiere apre porte, non riordina elenchi altrui');
+
+  // una sua persona ancora chiusa, e il bottone che la apre
+  const ALTRA = `luca-${Date.now()}@esempio.it`;
+  await chiama(ALTRO, 'POST', '/api/rubrica', { email: ALTRA, nome: 'Luca' });
+  await page.evaluate(async () => {
+    const { vistaRubrica } = await import('/js/rubrica.js');
+    document.querySelector('#app').innerHTML = '';
+    await vistaRubrica(document.querySelector('#app'), () => {});
+  });
+  await page.waitForTimeout(900);
+  ok(await page.locator(`#rubriche-altrui .apri-porta[data-email="${ALTRA}"]`).count() === 1,
+     'col bottone dove la porta è chiusa');
+  await page.locator(`#rubriche-altrui .apri-porta[data-email="${ALTRA}"]`).click();
+  await page.waitForTimeout(1000);
+  ok(stub.emails().includes(ALTRA), 'premendolo la porta si apre davvero');
+  ok(await page.locator(`.apri-porta[data-email="${ALTRA}"]`).count() === 0,
+     'e il bottone sparisce, perché non c\'è più niente da rimediare');
+  await chiama(ALTRO, 'DELETE', `/api/rubrica?email=${encodeURIComponent(ALTRA)}`);
+}
+
 await browser.close();
 await chiama(PORTIERE, 'DELETE', `/api/tavolo?id=${idT}`);
 for (const x of [GIULIA, CARLO]) {
   await chiama(PORTIERE, 'DELETE', `/api/rubrica?email=${encodeURIComponent(x)}`);
 }
+await chiama(ALTRO, 'DELETE', `/api/rubrica?email=${encodeURIComponent(SUA)}`);
 await stub.chiudi();
 
 console.log(ko === 0

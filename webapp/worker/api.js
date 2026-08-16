@@ -185,41 +185,58 @@ export async function api(request, env, email) {
   // dentro anche la PORTA, che era l'unico passaggio rimasto sulla dashboard —
   // e quindi l'unico che si dimenticava.
   if (p === '/api/rubrica' && metodo === 'GET') {
+    const sePortiere = portiere(env, email);
     const [r, seduti, porta] = await Promise.all([
-      env.DB.prepare(
-        'SELECT email, nome, creata FROM persone WHERE proprietario = ? ORDER BY nome, email')
-        .bind(email).all(),
-      // a quanti dei MIEI tavoli siede: serve a dire «togliendola resta seduta
-      // a due tavoli», invece di far scoprire dopo che era ancora in gioco
-      env.DB.prepare(
-        `SELECT m.email AS email, COUNT(*) AS quanti FROM membri m
-           JOIN tavoli t ON t.id = m.tavolo
-          WHERE t.proprietario = ? GROUP BY m.email`).bind(email).all(),
+      // CHI TIENE LE CHIAVI LE LEGGE TUTTE. Se un altro arbitra un tavolo suo e
+      // ci invita due persone, quelle stanno nella SUA rubrica: senza vederle,
+      // il portiere dovrebbe tornare sulla dashboard di Cloudflare per farle
+      // entrare — cioe' il passaggio che la rubrica doveva togliere, riapparso
+      // un metro piu' in la'. Chi non e' portiere vede solo le proprie.
+      sePortiere
+        ? env.DB.prepare('SELECT proprietario, email, nome FROM persone ORDER BY nome, email').all()
+        : env.DB.prepare(
+          'SELECT proprietario, email, nome FROM persone WHERE proprietario = ? ORDER BY nome, email')
+          .bind(email).all(),
+      // a quanti tavoli siede, ovunque: distingue un amico in attesa di entrare
+      // da un contatto qualunque, e dice «togliendola resta seduta a due tavoli»
+      // invece di farlo scoprire dopo
+      env.DB.prepare('SELECT email, COUNT(*) AS quanti FROM membri GROUP BY email').all(),
       leggiPorta(env),
     ]);
     const quanti = {};
     for (const x of (seduti.results || [])) quanti[x.email] = x.quanti;
     const dentro = new Set(porta.emails || []);
-    const sePortiere = portiere(env, email);
-    const persone = (r.results || []).map((x) => ({
+    const semaforo = sePortiere && porta.configurata && !porta.errore;
+    const voce = (x) => ({
       email: x.email,
       nome: x.nome,
       tavoli: quanti[x.email] || 0,
       // lo stato della porta si dice solo a chi puo' cambiarlo e solo se c'e'
       // qualcosa da dire: un semaforo spento confonde piu' di nessun semaforo
-      porta: (sePortiere && porta.configurata && !porta.errore)
-        ? (dentro.has(String(x.email).toLowerCase()) ? 'dentro' : 'fuori') : null,
-    }));
-    const inRubrica = new Set(persone.map((x) => String(x.email).toLowerCase()));
+      porta: semaforo ? (dentro.has(String(x.email).toLowerCase()) ? 'dentro' : 'fuori') : null,
+    });
+    const righe = r.results || [];
+    const persone = righe.filter((x) => x.proprietario === email).map(voce);
+    // le altrui, raggruppate per chi le tiene: la rubrica resta di chi la
+    // scrive, e il portiere apre porte senza riordinare gli elenchi altrui
+    const per = new Map();
+    for (const x of righe.filter((y) => y.proprietario !== email)) {
+      if (!per.has(x.proprietario)) per.set(x.proprietario, []);
+      per.get(x.proprietario).push(voce(x));
+    }
+    // GLI ESTRANEI SI CONTANO SU TUTTE LE RUBRICHE: aperta la porta alle persone
+    // di un altro, con il confronto sulla sola rubrica propria risulterebbero
+    // «estranee» — un elenco che si riempie da solo di gente giusta.
+    const inRubrica = new Set(righe.map((x) => String(x.email).toLowerCase()));
     return jsonRisposta({
       persone,
+      ...(sePortiere ? { altrui: [...per].map(([proprietario, p2]) => ({ proprietario, persone: p2 })) } : {}),
       portiere: sePortiere,
       configurata: !!porta.configurata && sePortiere,
       errore: sePortiere ? (porta.errore || null) : null,
-      // nel criterio ma non in rubrica: si mostrano e basta — la porta si apre
-      // da sola e si chiude a mano
-      estranei: (sePortiere && porta.configurata && !porta.errore)
-        ? (porta.emails || []).filter((x) => !inRubrica.has(x)) : [],
+      // nel criterio ma in nessuna rubrica: si mostrano e basta — la porta si
+      // apre da sola e si chiude a mano
+      estranei: semaforo ? (porta.emails || []).filter((x) => !inRubrica.has(x)) : [],
     });
   }
 
@@ -246,15 +263,16 @@ export async function api(request, env, email) {
     return jsonRisposta({ ok: true });
   }
 
-  // IL RIMEDIO, per chi era gia' in rubrica quando la porta non c'era. Non
-  // accetta un indirizzo qualunque: accetta uno dei TUOI, ed e' il vincolo che
-  // tiene — dall'app si puo' aprire la porta solo a chi hai gia' in rubrica.
+  // IL RIMEDIO, per chi era rimasto fuori. Non accetta un indirizzo qualunque:
+  // accetta uno che QUALCUNO ha in rubrica — la propria o quella di un altro
+  // arbitro, che e' il caso per cui esiste. E' il vincolo che tiene: dall'app
+  // non si scrive nel criterio un indirizzo che nessuno ha mai scritto.
   if (p === '/api/porta' && metodo === 'POST') {
     if (!portiere(env, email)) return jsonRisposta({ errore: 'non sei tu a tenere le chiavi' }, 403);
     const { email: chi } = await request.json();
     const suo = await env.DB.prepare(
-      'SELECT 1 FROM persone WHERE proprietario = ? AND email = ?').bind(email, chi).first();
-    if (!suo) return jsonRisposta({ errore: 'quella persona non è nella tua rubrica' }, 404);
+      'SELECT 1 FROM persone WHERE email = ?').bind(chi).first();
+    if (!suo) return jsonRisposta({ errore: 'quella persona non è in nessuna rubrica' }, 404);
     const esito = await provaAdAprire(env, email, [chi]);
     return jsonRisposta({ ok: esito !== 'errore', porta: esito }, esito === 'errore' ? 502 : 200);
   }

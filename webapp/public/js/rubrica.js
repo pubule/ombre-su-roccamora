@@ -35,7 +35,12 @@ export async function vistaRubrica(app, torna) {
       return;
     }
 
-    const fuori = d.persone.filter((x) => x.porta === 'fuori');
+    // TUTTE le chiuse, proprie e altrui: il bottone «a chi manca» deve valere
+    // per chiunque stia aspettando, o resterebbe fuori proprio la gente per cui
+    // il portiere vede le rubriche degli altri
+    const altrui = d.altrui || [];
+    const fuori = [...d.persone, ...altrui.flatMap((g) => g.persone)]
+      .filter((x) => x.porta === 'fuori');
     // il semaforo si accende solo se c'è qualcosa da dire: a chi non tiene le
     // chiavi, o senza token configurato, un pallino spento confonde e basta
     const segno = (x) => (x.porta === 'dentro' ? '<span class="ok-txt">✓ può entrare</span>'
@@ -50,6 +55,11 @@ export async function vistaRubrica(app, torna) {
         <h2>le persone con cui giochi</h2>
         <p class="nota">Si scrivono una volta: poi ai tavoli si danno i posti toccando i nomi.
           ${d.portiere ? 'Creando una persona le si apre anche la porta — l’indirizzo entra nel criterio d’accesso, o il codice non le arriverebbe mai.' : ''}</p>
+        ${d.portiere ? '' : `<p class="nota" id="non-portiere"><b>La porta non la apri tu.</b>
+          Le persone che scrivi qui restano tue e si danno ai tavoli, ma per entrare
+          nel sito il loro indirizzo dev’essere ammesso da chi ha configurato l’app:
+          finché non lo è, aprono la pagina, chiedono il codice e non ricevono niente.
+          Chiedilo a chi tiene le chiavi.</p>`}
         ${d.persone.length ? d.persone.map((x) => `
           <div class="nemico-riga">
             <span class="nemico-nome">${esc(x.nome || x.email)}
@@ -82,6 +92,24 @@ export async function vistaRubrica(app, torna) {
         <div class="btn-riga mt"><button class="btn pieno" id="aggiungi">aggiungi</button></div>
       </div>
 
+      ${altrui.length ? `<div class="mt"></div>
+        <div class="pannello" id="rubriche-altrui">
+          <h2>le persone degli altri</h2>
+          <p class="nota">Chi arbitra un tavolo suo tiene la propria rubrica: qui le vedi per
+            poter aprire loro la porta. La rubrica resta sua — tu apri porte, non riordini
+            elenchi.</p>
+          ${altrui.map((g) => `
+            <p class="nota mt"><b>rubrica di ${esc(g.proprietario)}</b></p>
+            ${g.persone.map((x) => `
+              <div class="nemico-riga">
+                <span class="nemico-nome">${esc(x.nome || x.email)}
+                  <span class="nota">${esc(x.email)} · ${dove(x.tavoli)}</span></span>
+                <span class="nota">${segno(x)}</span>
+                ${x.porta === 'fuori' ? `<button class="btn piccolo apri-porta"
+                  data-email="${esc(x.email)}">apri la porta</button>` : ''}
+              </div>`).join('')}`).join('')}
+        </div>` : ''}
+
       ${d.portiere && !d.configurata ? `<div class="mt"></div>
         <div class="pannello"><h2>la porta non è collegata</h2>
           <p class="nota">L’app può scrivere nel criterio d’accesso solo con un token di
@@ -93,7 +121,7 @@ export async function vistaRubrica(app, torna) {
 
       ${(d.estranei || []).length ? `<div class="mt"></div>
         <div class="pannello"><h2>nel criterio, ma non in rubrica</h2>
-          <p class="nota">Indirizzi che possono entrare nel sito e non sono fra le tue persone.
+          <p class="nota">Indirizzi che possono entrare nel sito e non stanno in nessuna rubrica.
             La porta si apre da qui, ma si chiude solo dalla dashboard — così un tocco
             sbagliato non lascia fuori nessuno a metà campagna.</p>
           ${d.estranei.map((x) => `<p class="nota">${esc(x)}</p>`).join('')}
@@ -120,6 +148,13 @@ export async function vistaRubrica(app, torna) {
       if (out.porta === 'aperta') return rendi(`<b>${esc(come)}</b> è in rubrica, e la porta è aperta al suo indirizzo.`);
       if (out.porta === 'gia') return rendi(`<b>${esc(come)}</b> è in rubrica; la porta le era già aperta.`);
       if (out.porta === 'errore') return rendi(`<b>${esc(come)}</b> è in rubrica, <b>ma la porta no</b>: senza, il codice d’accesso non le arriverà. Riprova con «apri la porta».`, true);
+      // «spenta» da qui vuol dire due cose diverse — non tieni le chiavi, o non
+      // sono configurate — e in tutt'e due i casi la persona NON entrerà finché
+      // qualcuno non la ammette. Dirlo solo a metà è come non dirlo.
+      if (out.porta === 'spenta') {
+        return rendi(`<b>${esc(come)}</b> è in rubrica, ma la porta le resta chiusa: ${
+          d.portiere ? 'manca il collegamento a Cloudflare' : 'l’indirizzo va ammesso da chi ha configurato l’app'}.`, true);
+      }
       return rendi(`<b>${esc(come)}</b> è in rubrica.`);
     };
 
