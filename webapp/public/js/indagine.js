@@ -363,7 +363,8 @@ function menu() {
     ${ep.lettera ? voce('m-lettera', 'la lettera d’incarico', '', '', false, 'candela') : ''}
     ${arbitro() ? voce('m-busta', 'la busta', 'si apre una volta sola, e per tutti',
                        ind.chiusa ? 'aperta' : 'sigillata', false, 'sigillo') : ''}
-    ${arbitro() ? '<p class="nota mt">Lo stradario non è qui: è di fianco, sempre.</p>' : ''}
+    ${arbitro() ? voce('m-stradario', 'lo stradario', 'dove si può andare, e cosa è già battuto',
+                       `<b>${vociMappa(ep, ctx.comune).length}</b> vie`, false, 'lente') : ''}
     <div class="menu-titolo">la serata</div>
     ${voce('nav-esci', 'lasciate la serata', 'si torna alla scelta dell’episodio',
            '', false, 'strappo')}
@@ -385,6 +386,7 @@ function menu() {
     agganciaCarbone(() => { ctx.schermata(); });
   });
   q('#m-luoghi')?.addEventListener('click', poi(() => doveSieteStati(menu)));
+  q('#m-stradario')?.addEventListener('click', poi(() => stradarioSchermata()));
   q('#m-taccuino').onclick = poi(() => (arbitro() ? taccuino() : taccuinoDiChiGioca()));
   // `schedaEroe(e)` e basta: il secondo argomento e' l'ARRUOLAMENTO (lo usa la
   // scelta della compagnia), e passargli `{}` — un oggetto vuoto ma vero — le
@@ -620,9 +622,26 @@ function home() {
   agganciaDoni();
 }
 
+// LO STRADARIO APERTO DAL MENU. Lo stesso pezzo della schermata «per le
+// strade», con sopra il capo per tornare indietro: due schermate diverse
+// divergerebbero al primo ritocco, e questa e' la stessa.
+function stradarioSchermata() {
+  ctx.schermata = stradarioSchermata;
+  const { app } = ctx;
+  app.innerHTML = `
+    ${barra('lo stradario')}
+    ${stradarioHtml()}
+    <div class="btn-riga">
+      <button class="btn pieno" id="str-indietro">tornate alla scena</button>
+    </div>`;
+  dopoBarra();
+  agganciaStradario();
+  app.querySelector('#str-indietro').onclick = () => scenaArbitro();
+}
+
 // LO STRADARIO. Un pezzo solo, in due posti: a tutta pagina quando non c'e' una
-// scena, nella colonna quando c'e'. Due schermate diverse divergerebbero al
-// primo ritocco.
+// scena, e dietro la voce del menu quando la scena c'e'. Due schermate diverse
+// divergerebbero al primo ritocco.
 function stradarioHtml() {
   const { ep, comune } = ctx;
   const ind = IND();
@@ -1311,7 +1330,7 @@ function schedaLuogo(l) {
     ${barra('')}
     ${bannerLuogo(l, `il gruppo è dentro · ora ${IND().ora}`, l.nome)}
     ${ultimoFattoHtml()}
-    <div class="due-colonne">
+    <div>
       <div>
         <div class="pannello">
           ${l.testo ? `<p><i>${rendi(l.testo)}</i></p><hr class="divisore">` : ''}
@@ -1353,10 +1372,8 @@ function schedaLuogo(l) {
           <button class="btn pieno" id="fine-visita">lasciate il luogo</button>
         </div>
       </div>
-      <div class="fianco">${stradarioHtml()}</div>
     </div>`;
   dopoBarra();
-  agganciaStradario();
   app.querySelector('#fine-visita').onclick = async () => {
     await esegui({ tipo: 'lascia-luogo' });
     home();
