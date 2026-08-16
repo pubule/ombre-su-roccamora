@@ -73,6 +73,20 @@ il controllo del velo è verde. **Non è ancora spiegato.** Il modo per coglierl
 è `OSR_DIAG=1 node webapp/test-partite.mjs --solo=3` in ciclo finché non cade:
 il banco stampa la schermata e lo stack solo con quella variabile.
 
+**In produzione la versione `ffba45c8`** (17/08/2026): pelle nuova ovunque,
+Indagine portata per intero, home a manifesti. Dopo i mockup sono arrivate tre
+richieste al tavolo, tutte fatte: le **icone sui bottoni** della testata, lo
+**stradario spostato in una voce di menu** (resta in pagina solo su «siete per
+le strade», dove è il punto della schermata), e dentro un luogo **prima «da
+prendere, qui», poi gli Approfondimenti**.
+
+**Due controlli erano vacui e sono stati rifatti**, e vale la pena ricordarlo
+perché è lo stesso errore due volte: quello sull'ordine dentro il luogo girava
+su un luogo senza oggetti (condizione mai entrata, verde a vuoto), e quello sul
+testo sull'immagine nuda non vedeva i manifesti (lì l'immagine è un fratello
+sotto, non un antenato). Adesso il primo pretende che il luogo di prova abbia
+davvero le due sezioni, il secondo guarda la geometria.
+
 **Il prossimo passo, in ordine:**
 
 1. **`webapp/test-stile.mjs` va riscritto sulla direzione nuova.** Oggi difende
