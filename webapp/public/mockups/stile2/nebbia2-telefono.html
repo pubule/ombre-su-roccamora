@@ -1,0 +1,132 @@
+<!doctype html><html lang="it"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Notte e nebbia · indagine, dal telefono</title>
+<link rel="stylesheet" href="base.css"><link rel="stylesheet" href="nebbia.css">
+<link rel="stylesheet" href="nebbia2.css">
+</head><body>
+<div class="wrap">
+  <a class="torna" href="index.html">← le tre direzioni</a>
+
+  <!-- IL CAPO, come da arbitro: ora e menu sempre a portata. Qui però il menu
+       contiene cose vostre — la scheda, i vostri appunti — e non la busta. -->
+  <div class="capo">
+    <span class="ora">
+      <span class="lumi" id="lumi"></span>
+      <span class="quante">3 ore</span>
+    </span>
+    <button class="btn btn-menu" id="apri-menu">
+      <svg class="ic" aria-hidden="true"><use href="#i-lanterna"></use></svg>menu
+      <span class="segno" aria-label="cose nuove nella notte"></span>
+    </button>
+  </div>
+
+  <div class="scena">
+    <div class="sfondo" id="sfondo"></div>
+    <div class="dentro">
+      <span class="occhiello">siete dentro · giocate elena</span>
+      <h1>taverna del ponte rotto</h1>
+    </div>
+  </div>
+
+  <div class="lastra alta">
+    <p class="detto" id="detto"></p>
+    <!-- NON SI DICE SE QUI C'È QUALCOSA: «non c'è niente da cogliere» sarebbe un
+         oracolo gratis. Si scopre provando, ed è lì che la scoperta vale. -->
+    <p class="nota" style="margin:0">Quel che cogliete lo legge tutto il tavolo.</p>
+  </div>
+
+  <div class="lastra">
+    <div class="tra" style="margin-bottom:10px">
+      <h2>cosa tentate</h2>
+      <span class="nota">2 cariche</span>
+    </div>
+    <!-- SOLO I VOSTRI TIPI, più l'occhio del dilettante. Non i quattro: quelli
+         li vede chi arbitra, con scritto chi può tentarli. -->
+    <div class="azioni">
+      <button class="btn pieno"><svg class="ic" aria-hidden="true"><use href="#i-occhio"></use></svg>osservazione</button>
+      <button class="btn"><svg class="ic" aria-hidden="true"><use href="#i-referto"></use></svg>referto</button>
+      <button class="btn"><svg class="ic" aria-hidden="true"><use href="#i-candela"></use></svg>aiuto profano</button>
+    </div>
+  </div>
+
+  <div class="lastra">
+    <h2 style="margin-bottom:8px">da prendere, qui</h2>
+    <div class="roba">
+      <p>◆ una chiave da campanaro</p>
+      <p class="fatto">✓ la pagina strappata <i class="nota">(reperto)</i></p>
+    </div>
+    <p class="nota" style="margin:8px 0 0">A raccoglierlo è chi arbitra — le carte le passa lui
+      dal mazzo — ma sapere che c’è è di tutti.</p>
+  </div>
+
+  <!-- LO STRADARIO NON C'È: dove si va lo dichiara il gruppo a voce, e la mappa
+       è dello schermo grande. Qui restano la scena e le vostre azioni. -->
+  <div class="barra-azioni griglia">
+    <button class="btn"><svg class="ic" aria-hidden="true"><use href="#i-penna"></use></svg>i vostri appunti</button>
+    <button class="btn"><svg class="ic" aria-hidden="true"><use href="#i-occhio"></use></svg>la vostra scheda</button>
+  </div>
+</div>
+
+<div class="velo" id="velo" hidden></div>
+<div class="foglio" id="foglio" hidden>
+  <div class="maniglia"></div>
+  <div class="menu-titolo">il gruppo</div>
+  <button class="menu-voce segnata">
+    <svg class="ic grande" aria-hidden="true"><use href="#i-penna"></use></svg>
+    <span class="tit">la notte<i>quel che è successo, dall’inizio</i></span>
+    <span class="conto"><b>3 nuove</b></span></button>
+  <button class="menu-voce">
+    <svg class="ic grande" aria-hidden="true"><use href="#i-occhio"></use></svg>
+    <span class="tit">la squadra<i>cariche, doni, chi è al telefono</i></span>
+    <span class="conto"><b>4</b> eroi</span></button>
+  <button class="menu-voce">
+    <svg class="ic grande" aria-hidden="true"><use href="#i-chiave"></use></svg>
+    <span class="tit">quel che avete in mano</span>
+    <span class="conto"><b>4</b> pezzi</span></button>
+  <button class="menu-voce">
+    <svg class="ic grande" aria-hidden="true"><use href="#i-lente"></use></svg>
+    <span class="tit">dove siete stati<i>si riaprono le carte</i></span>
+    <span class="conto"><b>2</b> luoghi</span></button>
+
+  <div class="menu-titolo">il vostro</div>
+  <button class="menu-voce">
+    <svg class="ic grande" aria-hidden="true"><use href="#i-referto"></use></svg>
+    <span class="tit">taccuino e domande<i>i vostri appunti, e quelli degli altri</i></span>
+    <span class="conto"><b>1</b> di 4</span></button>
+  <button class="menu-voce">
+    <svg class="ic grande" aria-hidden="true"><use href="#i-occhio"></use></svg>
+    <span class="tit">elena fosco<i>la vostra scheda</i></span></button>
+  <!-- L'IPAD CON DUE AMICI: si gioca un eroe per volta, e questa voce compare
+       solo se il posto ne tiene più d'uno. -->
+  <button class="menu-voce">
+    <svg class="ic grande" aria-hidden="true"><use href="#i-conchiglia"></use></svg>
+    <span class="tit">giocate come…<i>su questo schermo</i></span>
+    <span class="conto">elena</span></button>
+  <button class="menu-voce">
+    <svg class="ic grande" aria-hidden="true"><use href="#i-candela"></use></svg>
+    <span class="tit">la lettera d’incarico</span></button>
+
+  <div class="bottoni" style="margin-top:14px">
+    <button class="btn pieno" id="chiudi-menu">tornate alla scena</button>
+  </div>
+</div>
+
+<script src="../dati.js"></script>
+<script src="pezzi.js"></script>
+<script src="icone.js"></script>
+<script>
+  const { S } = PEZZI;
+  document.getElementById('sfondo').style.backgroundImage =
+    `url('${S.urlArt('Taverna della Chiatta.png')}')`;
+  document.getElementById('detto').textContent = PEZZI.DETTO;
+  document.getElementById('lumi').innerHTML = PEZZI.ORE.map((o) =>
+    `<span class="lume-punto ${o.spesa ? '' : 'acceso'}"></span>`).join('');
+
+  const foglio = document.getElementById('foglio'); const velo = document.getElementById('velo');
+  const apri = (si) => { foglio.hidden = !si; velo.hidden = !si; };
+  document.getElementById('apri-menu').onclick = () => apri(true);
+  document.getElementById('chiudi-menu').onclick = () => apri(false);
+  velo.onclick = () => apri(false);
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') apri(false); });
+</script>
+</body></html>

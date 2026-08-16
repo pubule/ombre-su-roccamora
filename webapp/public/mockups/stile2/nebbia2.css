@@ -156,3 +156,38 @@
 .menu-voce .conto b { color: var(--lume); font-weight: 400; }
 .menu-voce.segnata { border-left-color: var(--lume); }
 .velo { position: fixed; inset: 0; z-index: 15; background: rgba(6, 8, 10, .55); }
+
+
+/* --- LE DUE VISTE DELL'INDAGINE -----------------------------------------
+   Chi arbitra e chi gioca guardano la stessa serata da due parti diverse, e
+   l'interfaccia lo dice: allo schermo grande lo STRADARIO sta di fianco,
+   sempre aperto, perché è lo strumento con cui si conduce; sul telefono non
+   c'è affatto — lì contano la scena e le proprie azioni. */
+/* la pagina di chi arbitra è più larga delle altre: 720px vanno bene per una
+   colonna sul telefono, ma su un portatile buttavano via metà schermo proprio
+   dove serve — la scena da leggere ad alta voce e lo stradario, affiancati */
+.wrap.largo { max-width: 1100px; }
+.due-colonne { display: grid; gap: 12px; }
+@media (min-width: 900px) {
+  .due-colonne { grid-template-columns: minmax(0, 1fr) 320px; align-items: start; }
+  .fianco { position: sticky; top: 78px; max-height: calc(100vh - 96px); overflow: auto; }
+}
+.cerca { width: 100%; font: inherit; color: var(--testo); background: var(--vetro-alto);
+  border: 1px solid var(--bordo); border-radius: 10px; padding: 10px 12px; margin-bottom: 10px;
+  min-height: 44px; }
+.cerca::placeholder { color: var(--fioco); }
+
+/* i quattro tipi, come li vede chi arbitra: il tipo e CHI può tentarlo. Cosa
+   nasconde il luogo non lo sa nemmeno lui — si scopre provando, ed è la regola
+   del gioco prima che dell'interfaccia. */
+.tipi { display: grid; gap: 8px; }
+.tipi .btn { width: 100%; justify-content: flex-start; text-align: left; white-space: normal;
+  min-height: 56px; border-radius: 12px; }
+.tipi .btn .chi { color: var(--fioco); font-family: 'OldStd', Georgia, serif;
+  font-style: italic; letter-spacing: 0; margin-left: auto; padding-left: 10px; }
+.tipi .btn[disabled] { opacity: .45; }
+
+/* la roba da prendere, sul telefono: chi la raccoglie è chi arbitra, ma sapere
+   che c'è è di tutti */
+.roba p { margin: 0 0 6px; }
+.roba .fatto { color: var(--fioco); text-decoration: line-through; }

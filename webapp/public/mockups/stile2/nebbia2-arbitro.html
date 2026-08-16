@@ -1,0 +1,147 @@
+<!doctype html><html lang="it"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Notte e nebbia · indagine, chi arbitra</title>
+<link rel="stylesheet" href="base.css"><link rel="stylesheet" href="nebbia.css">
+<link rel="stylesheet" href="nebbia2.css">
+</head><body>
+<div class="wrap largo">
+  <a class="torna" href="index.html">← le tre direzioni</a>
+
+  <div class="capo">
+    <span class="ora">
+      <span class="lumi" id="lumi"></span>
+      <span class="quante">3 ore</span>
+    </span>
+    <button class="btn btn-menu" id="apri-menu">
+      <svg class="ic" aria-hidden="true"><use href="#i-lanterna"></use></svg>menu
+      <span class="segno" aria-label="cose nuove nella notte"></span>
+    </button>
+  </div>
+
+  <div class="scena" style="min-height:44vh">
+    <div class="sfondo" id="sfondo"></div>
+    <div class="dentro">
+      <span class="occhiello">il gruppo è dentro · ora 21</span>
+      <h1>taverna del ponte rotto</h1>
+    </div>
+  </div>
+
+  <!-- DUE COLONNE sullo schermo grande: a sinistra la scena e i tentativi, a
+       destra lo stradario sempre aperto. È lo strumento con cui si conduce, e
+       cercarlo dentro un menu voleva dire due tocchi a ogni destinazione. -->
+  <div class="due-colonne">
+    <div>
+      <div class="lastra alta">
+        <p class="detto" id="detto"></p>
+        <hr style="border:0;border-top:1px solid var(--bordo);margin:12px 0">
+        <p class="nota">indizi — leggeteli ad alta voce</p>
+        <p class="detto" style="margin:6px 0 0">◆ Il vecchio al banco tiene la mano sopra un
+          foglio piegato, e non la sposta.</p>
+        <p class="detto" style="margin:6px 0 0">◆ Sul tavolo in fondo c’è una borsa da
+          campanaro, con dentro una chiave che non è di qui.</p>
+      </div>
+
+      <div class="lastra">
+        <h2 style="margin-bottom:6px">cosa si può tentare</h2>
+        <p class="nota" style="margin-bottom:10px">Cosa ci sia da cogliere <b>non lo sapete
+          nemmeno voi</b>: si scopre provando. Chiedere il tipo sbagliato non costa niente —
+          l’ora l’avete già spesa entrando.</p>
+        <div class="tipi">
+          <button class="btn"><svg class="ic" aria-hidden="true"><use href="#i-occhio"></use></svg>
+            osservazione <span class="chi">elena, nino</span></button>
+          <button class="btn"><svg class="ic" aria-hidden="true"><use href="#i-orecchio"></use></svg>
+            testimonianza <span class="chi">ottone</span></button>
+          <button class="btn"><svg class="ic" aria-hidden="true"><use href="#i-referto"></use></svg>
+            referto <span class="chi">attilio</span></button>
+          <button class="btn" disabled><svg class="ic" aria-hidden="true"><use href="#i-presagio"></use></svg>
+            presagio <span class="chi">nessuno in squadra</span></button>
+        </div>
+        <div class="bottoni" style="margin-top:10px">
+          <button class="btn"><svg class="ic" aria-hidden="true"><use href="#i-candela"></use></svg>aiuto profano</button>
+        </div>
+      </div>
+
+      <div class="lastra">
+        <h2 style="margin-bottom:8px">da prendere, qui</h2>
+        <div class="roba">
+          <p>◆ una chiave da campanaro</p>
+          <p class="fatto">✓ la pagina strappata <i class="nota">(reperto)</i></p>
+        </div>
+        <p class="nota" style="margin:8px 0 0">Le carte le passate voi, dal mazzo.</p>
+      </div>
+    </div>
+
+    <div class="fianco">
+      <div class="lastra">
+        <h2 style="margin-bottom:8px">stradario</h2>
+        <input class="cerca" type="search" placeholder="cerca una via, un nome…" aria-label="cerca nello stradario">
+        <div id="luoghi"></div>
+        <p class="nota" style="margin:8px 0 0">Dichiarare è impegnarsi: se la pista è fredda non
+          costa niente, se lì c’è qualcosa l’ora si spende.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="barra-azioni griglia">
+    <button class="btn"><svg class="ic" aria-hidden="true"><use href="#i-lente"></use></svg>guardate ancora</button>
+    <button class="btn"><svg class="ic" aria-hidden="true"><use href="#i-strappo"></use></svg>lasciate il luogo</button>
+  </div>
+</div>
+
+<div class="velo" id="velo" hidden></div>
+<div class="foglio" id="foglio" hidden>
+  <div class="maniglia"></div>
+  <div class="menu-titolo">il gruppo</div>
+  <button class="menu-voce segnata">
+    <svg class="ic grande" aria-hidden="true"><use href="#i-penna"></use></svg>
+    <span class="tit">la notte<i>quel che è successo, dall’inizio</i></span>
+    <span class="conto"><b>3 nuove</b></span></button>
+  <button class="menu-voce">
+    <svg class="ic grande" aria-hidden="true"><use href="#i-occhio"></use></svg>
+    <span class="tit">la squadra<i>cariche, doni, chi è al telefono</i></span>
+    <span class="conto"><b>4</b> eroi</span></button>
+  <button class="menu-voce">
+    <svg class="ic grande" aria-hidden="true"><use href="#i-chiave"></use></svg>
+    <span class="tit">quel che avete in mano</span>
+    <span class="conto"><b>4</b> pezzi</span></button>
+
+  <!-- LE VOCI DI CHI CONDUCE: il taccuino con le risposte e la busta. Sul
+       telefono di chi gioca queste due non compaiono affatto. -->
+  <div class="menu-titolo">di chi conduce</div>
+  <button class="menu-voce">
+    <svg class="ic grande" aria-hidden="true"><use href="#i-referto"></use></svg>
+    <span class="tit">taccuino e domande<i>le risposte, e gli appunti di tutti</i></span>
+    <span class="conto"><b>1</b> di 4</span></button>
+  <button class="menu-voce">
+    <svg class="ic grande" aria-hidden="true"><use href="#i-candela"></use></svg>
+    <span class="tit">la lettera d’incarico</span></button>
+  <button class="menu-voce">
+    <svg class="ic grande" aria-hidden="true"><use href="#i-sigillo"></use></svg>
+    <span class="tit">la busta<i>si apre una volta sola, e per tutti</i></span>
+    <span class="conto">sigillata</span></button>
+  <p class="nota" style="margin:10px 2px 0">Lo stradario non è qui: è di fianco, sempre.</p>
+  <div class="bottoni" style="margin-top:14px">
+    <button class="btn pieno" id="chiudi-menu">tornate alla serata</button>
+  </div>
+</div>
+
+<script src="../dati.js"></script>
+<script src="pezzi.js"></script>
+<script src="icone.js"></script>
+<script>
+  const { S } = PEZZI;
+  document.getElementById('sfondo').style.backgroundImage =
+    `url('${S.urlArt('Taverna della Chiatta.png')}')`;
+  document.getElementById('detto').textContent = PEZZI.DETTO;
+  document.getElementById('luoghi').innerHTML = PEZZI.stradario();
+  document.getElementById('lumi').innerHTML = PEZZI.ORE.map((o) =>
+    `<span class="lume-punto ${o.spesa ? '' : 'acceso'}"></span>`).join('');
+
+  const foglio = document.getElementById('foglio'); const velo = document.getElementById('velo');
+  const apri = (si) => { foglio.hidden = !si; velo.hidden = !si; };
+  document.getElementById('apri-menu').onclick = () => apri(true);
+  document.getElementById('chiudi-menu').onclick = () => apri(false);
+  velo.onclick = () => apri(false);
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') apri(false); });
+</script>
+</body></html>
