@@ -1,0 +1,250 @@
+// LA RUBRICA E LA PORTA.
+//
+// Le persone si scrivono una volta sola, e creandole si apre anche la porta —
+// il criterio di Cloudflare Access, che era l'unico passaggio rimasto fuori
+// dall'app e quindi l'unico che si dimenticava: posto pronto al tavolo, porta
+// chiusa, e l'invitato che digita la sua email e non riceve nessun codice.
+//
+// Qui non si chiama Cloudflare: si chiama uno STUB (`test-porta-stub.mjs`), e
+// si guarda COSA il Worker gli manda. È l'unico modo di prendere il difetto
+// vero — un PUT che riscrive l'`include` da zero cancella le regole scritte
+// dalla dashboard, e chi le aveva messe se ne accorge il giorno in cui qualcuno
+// non entra più.
+//
+// Uso (la porta collegata):
+//   ./deploy/build-dist.sh && ./deploy/applica-schema.sh
+//   npx --no-install wrangler dev --var OSR_DEV_EMAIL:portiere@esempio.it \
+//     --var CF_API_BASE:http://127.0.0.1:8791 --var CF_ACCOUNT_ID:prova \
+//     --var ACCESS_POLICY_ID:prova --var PORTIERI:portiere@esempio.it \
+//     --var CF_API_TOKEN:finto --port 8787
+//   node webapp/test-rubrica.mjs
+//
+// E una seconda volta SENZA `--var CF_API_TOKEN` (né PORTIERI): il banco se ne
+// accorge da solo e prova l'altra metà — che senza token non parta niente.
+import { chromium } from 'playwright';
+import { alzaStub } from './test-porta-stub.mjs';
+
+const BASE = process.env.OSR_BASE || 'http://127.0.0.1:8787';
+const PORTIERE = 'portiere@esempio.it';      // = OSR_DEV_EMAIL, e = PORTIERI
+const ALTRO = 'altro@esempio.it';            // ha un account, non ha le chiavi
+
+let ko = 0;
+const ok = (c, m) => { if (!c) { console.error('FAIL:', m); ko++; } };
+
+const chiama = (chi, metodo, percorso, corpo) => fetch(BASE + percorso, {
+  method: metodo,
+  headers: { 'X-Osr-Dev-Email': chi, ...(corpo ? { 'Content-Type': 'application/json' } : {}) },
+  body: corpo ? JSON.stringify(corpo) : undefined,
+});
+const json = async (r) => ({ stato: r.status, corpo: await r.json().catch(() => ({})) });
+
+const stub = await alzaStub(8791);
+const GIULIA = `giulia-${Date.now()}@esempio.it`;
+const CARLO = `carlo-${Date.now()}@esempio.it`;
+
+// la porta è collegata? lo dice il Worker, e da lì dipende cosa si prova
+const primo = await json(await chiama(PORTIERE, 'GET', '/api/rubrica'));
+const collegata = !!primo.corpo.configurata;
+
+if (!collegata) {
+  // --- LA PORTA SPENTA: si gioca come prima, e non parte niente
+  const r = await json(await chiama(PORTIERE, 'POST', '/api/rubrica',
+    { email: GIULIA, nome: 'Giulia' }));
+  ok(r.stato === 200, `senza token la persona si scrive lo stesso (visto ${r.stato})`);
+  ok(r.corpo.porta === 'spenta', `e lo dice: porta «${r.corpo.porta}»`);
+  ok(stub.stato.chiamate.length === 0,
+     `e non parte nessuna chiamata (viste ${stub.stato.chiamate.length})`);
+  const el = await json(await chiama(PORTIERE, 'GET', '/api/rubrica'));
+  ok((el.corpo.persone || []).some((x) => x.email === GIULIA), 'e la persona c\'è');
+  ok((el.corpo.persone || []).every((x) => x.porta === null),
+     'nessun semaforo acceso: uno spento confonde più di nessuno');
+  await chiama(PORTIERE, 'DELETE', `/api/rubrica?email=${encodeURIComponent(GIULIA)}`);
+  await stub.chiudi();
+  console.log(ko === 0 ? 'test-rubrica (porta spenta): niente parte, e si gioca come prima'
+    : `${ko} FAIL`);
+  process.exit(ko ? 1 : 0);
+}
+
+// --- 1. CREARE UNA PERSONA APRE LA PORTA
+{
+  stub.azzera();
+  const r = await json(await chiama(PORTIERE, 'POST', '/api/rubrica',
+    { email: GIULIA, nome: 'Giulia' }));
+  ok(r.stato === 200 && r.corpo.porta === 'aperta',
+     `creando la persona la porta si apre (${r.stato}, «${r.corpo.porta}»)`);
+  ok(stub.scritture().length === 1,
+     `e parte UNA scrittura verso Access (viste ${stub.scritture().length})`);
+  ok(stub.emails().includes(GIULIA), 'e l\'indirizzo è nel criterio');
+  const mandato = stub.scritture()[0].corpo;
+  // IL DIFETTO DA PRENDERE: riscrivere l'elenco da zero. Le voci che non sono
+  // email — un «emails ending in» messo dalla dashboard — devono sopravvivere.
+  ok((mandato.include || []).some((v) => v.email_domain),
+     'il criterio conserva le voci che non sono email');
+  ok((mandato.include || []).some((v) => v.email && v.email.email === 'arbitro@esempio.it'),
+     'e conserva gli indirizzi che c\'erano');
+  ok(mandato.session_duration === '730h',
+     `e la durata della sessione (vista ${mandato.session_duration})`);
+  ok(stub.scritture()[0].autorizzazione === 'Bearer finto',
+     'la chiamata porta il token, o Access la rifiuterebbe');
+}
+
+// --- 2. DUE VOLTE LA STESSA: non si riscrive niente
+{
+  stub.azzera();
+  const r = await json(await chiama(PORTIERE, 'POST', '/api/rubrica',
+    { email: GIULIA, nome: 'Giulia' }));
+  ok(r.corpo.porta === 'gia', `la seconda volta la porta era già aperta («${r.corpo.porta}»)`);
+  ok(stub.scritture().length === 0,
+     `e non si riscrive il criterio (viste ${stub.scritture().length} scritture)`);
+}
+
+// --- 3. SE ACCESS NON RISPONDE, la persona resta scritta
+{
+  stub.azzera();
+  stub.stato.rompi = 500;
+  const r = await json(await chiama(PORTIERE, 'POST', '/api/rubrica',
+    { email: CARLO, nome: 'Carlo' }));
+  ok(r.stato === 200 && r.corpo.porta === 'errore',
+     `la porta fallisce e lo dice (${r.stato}, «${r.corpo.porta}»)`);
+  stub.stato.rompi = 0;
+  const el = await json(await chiama(PORTIERE, 'GET', '/api/rubrica'));
+  ok((el.corpo.persone || []).some((x) => x.email === CARLO),
+     'ma la persona è in rubrica lo stesso: il nome è il dato vero, la porta una comodità');
+  ok((el.corpo.persone || []).find((x) => x.email === CARLO).porta === 'fuori',
+     'e la rubrica dice che la sua porta è chiusa');
+}
+
+// --- 4. IL RIMEDIO: «apri la porta» a chi era rimasto fuori
+{
+  stub.azzera();
+  const r = await json(await chiama(PORTIERE, 'POST', '/api/porta', { email: CARLO }));
+  ok(r.stato === 200 && r.corpo.porta === 'aperta', `il rimedio apre (${r.stato}, «${r.corpo.porta}»)`);
+  ok(stub.emails().includes(CARLO), 'e adesso l\'indirizzo è nel criterio');
+}
+
+// --- 5. LE CHIAVI SONO DI CHI LE HA
+{
+  stub.azzera();
+  const r = await json(await chiama(ALTRO, 'POST', '/api/rubrica',
+    { email: 'estraneo@esempio.it', nome: 'Estraneo' }));
+  ok(r.stato === 200 && r.corpo.porta === 'spenta',
+     `chi non è portiere scrive in rubrica ma non apre («${r.corpo.porta}»)`);
+  ok(stub.scritture().length === 0,
+     `e dal suo account non parte niente (viste ${stub.scritture().length})`);
+  const p = await json(await chiama(ALTRO, 'POST', '/api/porta', { email: 'estraneo@esempio.it' }));
+  ok(p.stato === 403, `e il rimedio gli è rifiutato (visto ${p.stato})`);
+  await chiama(ALTRO, 'DELETE', '/api/rubrica?email=estraneo@esempio.it');
+}
+
+// --- 6. NON SI APRE A UN INDIRIZZO QUALUNQUE
+// È il vincolo che tiene: dall'app la porta si apre solo a chi hai in rubrica.
+{
+  stub.azzera();
+  const r = await json(await chiama(PORTIERE, 'POST', '/api/porta',
+    { email: 'passante@esempio.it' }));
+  ok(r.stato === 404, `un indirizzo fuori dalla propria rubrica è rifiutato (visto ${r.stato})`);
+  ok(stub.scritture().length === 0, 'e non parte nessuna scrittura');
+  ok(!stub.emails().includes('passante@esempio.it'), 'e non entra nel criterio');
+}
+
+// --- 7. LA RUBRICA È DI CHI LA TIENE
+{
+  const mia = await json(await chiama(PORTIERE, 'GET', '/api/rubrica'));
+  const sua = await json(await chiama(ALTRO, 'GET', '/api/rubrica'));
+  ok((mia.corpo.persone || []).some((x) => x.email === GIULIA), 'le mie persone le vedo io');
+  ok(!(sua.corpo.persone || []).some((x) => x.email === GIULIA),
+     'e un altro account non le vede: sarebbe un elenco di indirizzi altrui');
+  ok(sua.corpo.portiere === false, 'e a lui la porta non risulta nemmeno sua');
+}
+
+// --- 8. SI APRE DA SOLA, SI CHIUDE A MANO
+{
+  stub.azzera();
+  await chiama(PORTIERE, 'DELETE', `/api/rubrica?email=${encodeURIComponent(CARLO)}`);
+  const el = await json(await chiama(PORTIERE, 'GET', '/api/rubrica'));
+  ok(!(el.corpo.persone || []).some((x) => x.email === CARLO), 'togliere dalla rubrica toglie');
+  ok(stub.scritture().length === 0,
+     'ma non chiude la porta: un tocco sbagliato non lascia fuori qualcuno a metà campagna');
+  ok((el.corpo.estranei || []).includes(CARLO),
+     'e chi resta nel criterio senza rubrica si vede, in fondo');
+}
+
+// --- 9. IL TAVOLO PESCA DALLA RUBRICA
+const idT = crypto.randomUUID();
+await chiama(PORTIERE, 'POST', '/api/tavolo', { id: idT, nome: 'Il tavolo di prova' });
+
+const browser = await chromium.launch();
+const page = await browser.newPage({ viewport: { width: 420, height: 900 } });
+const errori = [];
+page.on('pageerror', (e) => errori.push(e.message));
+
+{
+  await page.goto(BASE, { waitUntil: 'networkidle' });
+  await page.evaluate(async ({ id }) => {
+    const { vistaMembri } = await import('/js/membri.js');
+    document.querySelector('#app').innerHTML = '';
+    await vistaMembri(document.querySelector('#app'), id, 'Il tavolo di prova', () => {});
+  }, { id: idT });
+  await page.waitForTimeout(900);
+  ok(errori.length === 0, `la schermata apre senza errori JS: ${errori.slice(0, 2).join(' | ')}`);
+
+  const riga = page.locator(`.dai-posto[data-email="${GIULIA}"]`);
+  ok(await riga.count() === 1, 'chi è in rubrica si offre al tavolo, senza riscrivere niente');
+  await riga.click();
+  await page.waitForTimeout(900);
+  const m = await json(await chiama(PORTIERE, 'GET', `/api/membri?tavolo=${idT}`));
+  const dato = (m.corpo.membri || []).find((x) => x.email === GIULIA);
+  ok(!!dato, 'un tocco dà il posto');
+  ok(dato && dato.nome === 'Giulia', `col nome che aveva in rubrica (visto ${dato && dato.nome})`);
+  ok(await page.locator(`.dai-posto[data-email="${GIULIA}"]`).count() === 0,
+     'e sparisce dall\'elenco: offrirla ancora sarebbe un bottone che il server rifiuta');
+}
+
+// --- 10. TOGLIERE DAL TAVOLO non tocca la porta
+{
+  stub.azzera();
+  await chiama(PORTIERE, 'DELETE',
+    `/api/membri?tavolo=${idT}&email=${encodeURIComponent(GIULIA)}`);
+  ok(stub.scritture().length === 0, 'togliere un posto non chiude nessuna porta');
+}
+
+// --- 11. LA SCHERMATA DELLA RUBRICA
+{
+  // una persona che il criterio non ammette: il bottone del rimedio dev'esserci
+  await chiama(PORTIERE, 'POST', '/api/rubrica', { email: CARLO, nome: 'Carlo' });
+  stub.stato.criterio.include = stub.stato.criterio.include
+    .filter((v) => !(v.email && v.email.email === CARLO));
+
+  await page.evaluate(async () => {
+    const { vistaRubrica } = await import('/js/rubrica.js');
+    document.querySelector('#app').innerHTML = '';
+    await vistaRubrica(document.querySelector('#app'), () => {});
+  });
+  await page.waitForTimeout(900);
+  ok(errori.length === 0, `la rubrica apre senza errori JS: ${errori.slice(0, 2).join(' | ')}`);
+  const testo = await page.locator('.pannello').first().innerText();
+  ok(testo.includes('Giulia'), 'la rubrica elenca le persone');
+  ok(/la porta è chiusa/i.test(testo), 'e dice chi non può ancora entrare');
+  ok(await page.locator(`.apri-porta[data-email="${CARLO}"]`).count() === 1,
+     'con il bottone per rimediare, dove serve');
+  ok(await page.locator(`.apri-porta[data-email="${GIULIA}"]`).count() === 0,
+     'e non dove non serve');
+
+  await page.locator(`.apri-porta[data-email="${CARLO}"]`).click();
+  await page.waitForTimeout(900);
+  ok(stub.emails().includes(CARLO), 'premendolo, la porta si apre davvero');
+  ok(await page.locator(`.apri-porta[data-email="${CARLO}"]`).count() === 0,
+     'e il bottone sparisce, perché non c\'è più niente da rimediare');
+}
+
+await browser.close();
+await chiama(PORTIERE, 'DELETE', `/api/tavolo?id=${idT}`);
+for (const x of [GIULIA, CARLO]) {
+  await chiama(PORTIERE, 'DELETE', `/api/rubrica?email=${encodeURIComponent(x)}`);
+}
+await stub.chiudi();
+
+console.log(ko === 0
+  ? 'test-rubrica: le persone si scrivono una volta, e la porta si apre con loro'
+  : `${ko} FAIL`);
+process.exit(ko ? 1 : 0);

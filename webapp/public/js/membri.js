@@ -46,9 +46,21 @@ export async function vistaMembri(app, tavolo, nome, torna, avanti) {
     } catch { return null; }
   }
 
+  // LA RUBRICA: le persone con cui giochi, scritte una volta sola. Qui il tavolo
+  // ci pesca dentro invece di far riscrivere nome ed email a ognuno, a ogni
+  // campagna nuova.
+  async function rubrica() {
+    try {
+      const r = await fetch('/api/rubrica');
+      if (!r.ok) return { persone: [] };
+      return await r.json();
+    } catch { return { persone: [] }; }
+  }
+
   async function rendi(avviso) {
-    const membri = await carica();
-    const squadra = (await party()) || [];
+    const [membri, squadra, rub] = await Promise.all([
+      carica(), party().then((x) => x || []), rubrica(),
+    ]);
     if (membri === null) {
       app.innerHTML = `<div class="barra"><button class="btn" id="indietro">← tavoli</button>
           <div class="titolo">${esc(nome)}</div><span></span></div>
@@ -57,6 +69,11 @@ export async function vistaMembri(app, tavolo, nome, torna, avanti) {
       document.getElementById('indietro').onclick = torna;
       return;
     }
+
+    // chi è in rubrica e non siede già a questo tavolo: offrire chi c'è già
+    // sarebbe un bottone che il server rifiuta
+    const seduti = new Set(membri.map((m) => String(m.email).toLowerCase()));
+    const liberi = (rub.persone || []).filter((x) => !seduti.has(String(x.email).toLowerCase()));
 
     // gli eroi già presi non si possono dare due volte: è una regola, e il
     // database la impone con un indice unico. Qui si toglie solo dall'elenco,
@@ -111,22 +128,40 @@ export async function vistaMembri(app, tavolo, nome, torna, avanti) {
 
       <div class="mt"></div>
       <div class="pannello">
-        <h2>invita qualcuno</h2>
+        <h2>dai un posto a…</h2>
         <p class="nota"><b>Non parte nessuna email da qui.</b> Il posto al tavolo resta pronto:
           lui entra da solo aprendo l’app con quell’email — il link mandaglielo tu.
-          Il <b>nome</b> è come lo chiami giocando; l’email serve solo alla porta.
           L’eroe si può lasciare in sospeso: quelli non presi da nessuno restano a te.</p>
-        <input id="nome-invito" class="campo mt" type="text" maxlength="40"
-               placeholder="come lo chiami al tavolo — «Giulia»" autocomplete="off">
-        <input id="email-invito" class="campo mt" type="email" inputmode="email"
-               placeholder="l’email con cui entrerà — amico@esempio.it" autocomplete="off">
+        ${liberi.length ? liberi.map((x) => `
+          <div class="nemico-riga">
+            <span class="nemico-nome">${esc(x.nome || x.email)}
+              <span class="nota">${esc(x.email)}${
+                x.porta === 'fuori' ? ' · la porta è chiusa' : ''}</span></span>
+            <button class="btn piccolo dai-posto" data-email="${esc(x.email)}"
+                    data-nome="${esc(x.nome || '')}">dagli un posto</button>
+          </div>`).join('')
+        : `<p class="nota">${rub.persone.length
+          ? 'Tutte le persone della tua rubrica siedono già a questo tavolo.'
+          : 'La tua rubrica è vuota: le persone si scrivono una volta sola, dalla <b>rubrica</b> nella schermata dei tavoli — oppure qui sotto.'}</p>`}
+        <p class="nota mt">L’eroe da dare a chi tocchi — si cambia dopo, e può sceglierselo lui:</p>
         <select id="eroe-invito" class="campo mt">
           <option value="">— sceglie dopo —</option>
           ${(squadra.length ? squadra : eroi).map((n) => `<option value="${esc(n)}"${
             presi.has(n) ? ' disabled' : ''}>${esc(n.toLowerCase())}${
             presi.has(n) ? ' (già preso)' : ''}</option>`).join('')}
         </select>
-        <div class="btn-riga mt"><button class="btn pieno" id="invita">dagli un posto</button></div>
+      </div>
+
+      <div class="mt"></div>
+      <div class="pannello">
+        <h2>una persona nuova</h2>
+        <p class="nota">Il <b>nome</b> è come lo chiami giocando; l’<b>email</b> è quella con cui
+          entrerà nell’app. Resta in rubrica: al prossimo tavolo basta toccarlo.</p>
+        <input id="nome-invito" class="campo mt" type="text" maxlength="40"
+               placeholder="come lo chiami al tavolo — «Giulia»" autocomplete="off">
+        <input id="email-invito" class="campo mt" type="email" inputmode="email"
+               placeholder="l’email con cui entrerà — amico@esempio.it" autocomplete="off">
+        <div class="btn-riga mt"><button class="btn pieno" id="invita">in rubrica, e al tavolo</button></div>
       </div>
       ${avanti ? `<div class="mt"></div>
         <div class="btn-riga"><button class="btn pieno" id="avanti">si comincia — scegli l’episodio</button></div>`
@@ -203,24 +238,42 @@ export async function vistaMembri(app, tavolo, nome, torna, avanti) {
       catch { copia.textContent = 'copialo a mano'; }   // senza permesso resta selezionato
     };
 
-    document.getElementById('invita').onclick = async () => {
-      const email = document.getElementById('email-invito').value.trim();
-      const nome = document.getElementById('nome-invito').value.trim();
+    // DARE IL POSTO: una chiamata sola, con nome ed email presi dalla rubrica.
+    // La porta l'ha già aperta la rubrica; il Worker la riapre comunque, per
+    // chi arriva da una pagina rimasta aperta da ieri.
+    const posto = async (chi, come) => {
       const eroe = document.getElementById('eroe-invito').value || null;
-      if (!email) return rendi('Serve l’email con cui entrerà nell’app.');
       try {
         const r = await fetch('/api/membri', {
           method: 'POST', headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ tavolo, email, nome, eroe }),
+          body: JSON.stringify({ tavolo, email: chi, nome: come, eroe }),
         });
-        if (!r.ok) {
-          // il rifiuto del server si mostra com'è: dice già la cosa giusta
-          // («quell'eroe è già di qualcun altro», «email non valida»)
-          const d = await r.json().catch(() => ({}));
-          return rendi(d.errore || 'Non riesco a invitare. Riprova.');
-        }
-      } catch { return rendi('Non riesco a invitare: manca la rete. Riprova.'); }
-      rendi();
+        const d = await r.json().catch(() => ({}));
+        // il rifiuto del server si mostra com'è: dice già la cosa giusta
+        // («quell'eroe è già di qualcun altro», «email non valida»)
+        if (!r.ok) return rendi(d.errore || 'Non riesco a dare il posto. Riprova.');
+        return rendi(d.porta === 'errore'
+          ? `${come || chi} ha un posto, ma la porta no: senza, il codice d’accesso non gli arriverà.`
+          : undefined);
+      } catch { return rendi('Non riesco a dare il posto: manca la rete. Riprova.'); }
+    };
+
+    app.querySelectorAll('.dai-posto').forEach((b) => b.onclick = () =>
+      posto(b.dataset.email, b.dataset.nome));
+
+    document.getElementById('invita').onclick = async () => {
+      const chi = document.getElementById('email-invito').value.trim();
+      const come = document.getElementById('nome-invito').value.trim();
+      if (!chi) return rendi('Serve l’email con cui entrerà nell’app.');
+      // PRIMA IN RUBRICA (che apre la porta), POI AL TAVOLO: così una persona
+      // scritta di fretta resta scritta, e al tavolo dopo basta toccarla
+      try {
+        await fetch('/api/rubrica', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: chi, nome: come }),
+        });
+      } catch { /* la rubrica e' una comodità: il posto si dà lo stesso */ }
+      return posto(chi, come);
     };
 
     app.querySelectorAll('.togli-membro').forEach((b) => b.onclick = async () => {

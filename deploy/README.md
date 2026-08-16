@@ -74,7 +74,7 @@ attivo.
 
 | | chi decide | dove si cambia |
 |---|---|---|
-| *puoi arrivare al sito?* | criterio di Access | dashboard Cloudflare |
+| *puoi arrivare al sito?* | criterio di Access | dalla **rubrica** (o a mano dalla dashboard) |
 | *a che tavolo siedi, con che eroe?* | tabella `membri` | dalla schermata «chi gioca» |
 
 **Invitare qualcuno dall'app NON gli manda nessuna email**: scrive una riga in
@@ -83,15 +83,42 @@ l'invitato apre il sito e digita il proprio indirizzo — e solo se il criterio 
 ammette. Un invitato fuori dal criterio non riceve niente e non capisce perché:
 è la porta che lo ferma prima, non l'app.
 
-### Aggiungere l'email di un giocatore
+Per questo la **rubrica** (dentro l'app) apre anche il criterio quando si crea
+una persona: era l'unico passaggio rimasto sulla dashboard, e quindi l'unico che
+si dimenticava.
 
-Va fatto **prima** che provi a entrare, altrimenti trova un muro.
+### Aggiungere l'email di un giocatore — dalla RUBRICA
+
+Dal 16/08/2026 questo passaggio sta **dentro l'app**: schermata dei tavoli →
+**rubrica** → *aggiungi una persona*. Nome ed email si scrivono una volta sola,
+e l'indirizzo entra nel criterio nello stesso gesto; ai tavoli poi si danno i
+posti toccando i nomi. Chi era già in rubrica quando la porta non c'era si
+sistema col bottone **«apri la porta a chi manca»**.
+
+**Perché funzioni serve un token**, e non sta nel repository:
+
+1. <https://dash.cloudflare.com> → **My Profile → API Tokens → Create Token**
+2. permesso **Account · Access: Apps and Policies · Edit** sull'account giusto
+3. `npx --no-install wrangler secret put CF_API_TOKEN` e incollarlo
+
+Il resto è in `wrangler.jsonc` → `vars`: `CF_ACCOUNT_ID`, `ACCESS_POLICY_ID` (il
+criterio che l'app scrive) e `PORTIERI` — chi può aprire la porta dall'app.
+Vuoto, o senza token, l'app non chiama Cloudflare e la rubrica dice cosa manca.
+
+**L'app aggiunge e basta**: non toglie mai un indirizzo dal criterio — si apre
+da sola, si chiude a mano, così un tocco sbagliato non lascia fuori qualcuno a
+metà campagna. Chi resta nel criterio senza rubrica si vede in fondo alla
+schermata.
+
+### A mano, dalla dashboard
+
+Serve solo per togliere qualcuno, o se il token non è configurato.
 
 1. <https://one.dash.cloudflare.com> → team **smartcores**
 2. **Access → Applications → `roccamora`**
-3. scheda **Policies** → apri il criterio (oggi si chiama **«Mail Fabietto»**)
-4. nel blocco **Include**, selettore **Emails**: aggiungi l'indirizzo del
-   giocatore — uno per riga, o `Add include` per aggiungerne altri
+3. scheda **Policies** → apri il criterio dei giocatori
+4. nel blocco **Include**, selettore **Emails**: aggiungi o togli l'indirizzo —
+   uno per riga, o `Add include` per aggiungerne altri
 5. **Save**
 
 In alternativa, per non aggiungerli uno per uno: `Include` → **Emails ending

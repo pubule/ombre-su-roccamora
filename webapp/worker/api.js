@@ -1,3 +1,5 @@
+import { apriPorta, leggiPorta, portiere } from './porta.js';
+
 // I cinque endpoint dei salvataggi.
 //
 // L'email arriva gia' verificata da index.js e non e' MAI un parametro della
@@ -46,6 +48,20 @@ async function puoSegnare(env, email, tavolo, eroe) {
 }
 
 const emailValida = (x) => typeof x === 'string' && /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(x) && x.length <= 190;
+
+// LA PORTA, quando si puo'. Apre il criterio di Access a degli indirizzi e
+// restituisce una parola sola, che e' quel che la schermata deve dire:
+// «aperta» / «gia» (c'era) / «spenta» (nessun token) / «errore».
+//
+// Chi non e' portiere non fa partire niente: la rubrica si scrive lo stesso, e
+// la porta resta un gesto di chi tiene le chiavi.
+async function provaAdAprire(env, chi, emails) {
+  if (!portiere(env, chi)) return 'spenta';
+  const r = await apriPorta(env, emails);
+  if (r.spenta) return 'spenta';
+  if (r.errore) return 'errore';
+  return r.aggiunti.length ? 'aperta' : 'gia';
+}
 
 export async function api(request, env, email) {
   const url = new URL(request.url);
@@ -161,6 +177,88 @@ export async function api(request, env, email) {
     return jsonRisposta({ ok: true });
   }
 
+  // LA RUBRICA: le persone con cui giochi, in un posto solo.
+  //
+  // E' di chi la tiene (`proprietario`), e non e' legata a un tavolo: le stesse
+  // persone giocano piu' campagne, e riscriverne nome ed email a ogni tavolo
+  // nuovo era il lavoro che l'app faceva rifare. Insieme al nome si porta
+  // dentro anche la PORTA, che era l'unico passaggio rimasto sulla dashboard —
+  // e quindi l'unico che si dimenticava.
+  if (p === '/api/rubrica' && metodo === 'GET') {
+    const [r, seduti, porta] = await Promise.all([
+      env.DB.prepare(
+        'SELECT email, nome, creata FROM persone WHERE proprietario = ? ORDER BY nome, email')
+        .bind(email).all(),
+      // a quanti dei MIEI tavoli siede: serve a dire «togliendola resta seduta
+      // a due tavoli», invece di far scoprire dopo che era ancora in gioco
+      env.DB.prepare(
+        `SELECT m.email AS email, COUNT(*) AS quanti FROM membri m
+           JOIN tavoli t ON t.id = m.tavolo
+          WHERE t.proprietario = ? GROUP BY m.email`).bind(email).all(),
+      leggiPorta(env),
+    ]);
+    const quanti = {};
+    for (const x of (seduti.results || [])) quanti[x.email] = x.quanti;
+    const dentro = new Set(porta.emails || []);
+    const sePortiere = portiere(env, email);
+    const persone = (r.results || []).map((x) => ({
+      email: x.email,
+      nome: x.nome,
+      tavoli: quanti[x.email] || 0,
+      // lo stato della porta si dice solo a chi puo' cambiarlo e solo se c'e'
+      // qualcosa da dire: un semaforo spento confonde piu' di nessun semaforo
+      porta: (sePortiere && porta.configurata && !porta.errore)
+        ? (dentro.has(String(x.email).toLowerCase()) ? 'dentro' : 'fuori') : null,
+    }));
+    const inRubrica = new Set(persone.map((x) => String(x.email).toLowerCase()));
+    return jsonRisposta({
+      persone,
+      portiere: sePortiere,
+      configurata: !!porta.configurata && sePortiere,
+      errore: sePortiere ? (porta.errore || null) : null,
+      // nel criterio ma non in rubrica: si mostrano e basta — la porta si apre
+      // da sola e si chiude a mano
+      estranei: (sePortiere && porta.configurata && !porta.errore)
+        ? (porta.emails || []).filter((x) => !inRubrica.has(x)) : [],
+    });
+  }
+
+  if (p === '/api/rubrica' && metodo === 'POST') {
+    const { email: chi, nome } = await request.json();
+    if (!emailValida(chi)) return jsonRisposta({ errore: 'email non valida' }, 400);
+    await env.DB.prepare(
+      `INSERT INTO persone (proprietario, email, nome, creata) VALUES (?, ?, ?, ?)
+       ON CONFLICT(proprietario, email) DO UPDATE SET nome = excluded.nome`)
+      .bind(email, chi, (nome || '').trim().slice(0, 80) || null, Date.now()).run();
+    // LA PERSONA NON FALLISCE PER COLPA DELLA PORTA: il nome in rubrica e' il
+    // dato vero, la porta e' una comodita'. Se Cloudflare non risponde, la
+    // persona resta scritta e la schermata dice che la porta va aperta a mano.
+    return jsonRisposta({ ok: true, porta: await provaAdAprire(env, email, [chi]) });
+  }
+
+  if (p === '/api/rubrica' && metodo === 'DELETE') {
+    const chi = url.searchParams.get('email');
+    // SOLO DALLA RUBRICA. I posti ai tavoli restano (si tolgono da «chi gioca»)
+    // e la porta resta aperta: si apre da sola, si chiude a mano — un tocco
+    // sbagliato non deve chiudere fuori qualcuno a meta' campagna.
+    await env.DB.prepare('DELETE FROM persone WHERE proprietario = ? AND email = ?')
+      .bind(email, chi).run();
+    return jsonRisposta({ ok: true });
+  }
+
+  // IL RIMEDIO, per chi era gia' in rubrica quando la porta non c'era. Non
+  // accetta un indirizzo qualunque: accetta uno dei TUOI, ed e' il vincolo che
+  // tiene — dall'app si puo' aprire la porta solo a chi hai gia' in rubrica.
+  if (p === '/api/porta' && metodo === 'POST') {
+    if (!portiere(env, email)) return jsonRisposta({ errore: 'non sei tu a tenere le chiavi' }, 403);
+    const { email: chi } = await request.json();
+    const suo = await env.DB.prepare(
+      'SELECT 1 FROM persone WHERE proprietario = ? AND email = ?').bind(email, chi).first();
+    if (!suo) return jsonRisposta({ errore: 'quella persona non è nella tua rubrica' }, 404);
+    const esito = await provaAdAprire(env, email, [chi]);
+    return jsonRisposta({ ok: esito !== 'errore', porta: esito }, esito === 'errore' ? 502 : 200);
+  }
+
   if (p === '/api/membri' && metodo === 'POST') {
     const { tavolo, email: invitato, nome, eroe, ruolo } = await request.json();
     // INVITARE E' DELL'ARBITRO. Un giocatore seduto a un tavolo non puo'
@@ -203,7 +301,11 @@ export async function api(request, env, email) {
       // che qualcuno un giorno dimentichera' di fare
       return jsonRisposta({ errore: 'quell’eroe è già di qualcun altro a questo tavolo' }, 409);
     }
-    return jsonRisposta({ ok: true });
+    // dare un posto vuol dire anche aprire la porta: chi arriva da qui di
+    // solito e' gia' passato dalla rubrica e la porta e' gia' aperta («gia»),
+    // ma un invito scritto a mano — o una pagina rimasta aperta da ieri — non
+    // deve tornare a lasciare qualcuno fuori senza dirlo
+    return jsonRisposta({ ok: true, porta: await provaAdAprire(env, email, [invitato]) });
   }
 
   if (p === '/api/membri' && metodo === 'DELETE') {

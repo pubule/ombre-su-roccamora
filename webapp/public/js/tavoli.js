@@ -4,6 +4,7 @@
 import { impostaTavolo, tavoloCorrente, dimenticaTavolo } from './store.js';
 import { conferma } from './chiedi.js';
 import { vistaMembri } from './membri.js';
+import { vistaRubrica } from './rubrica.js';
 import { vistaMioEroe } from './mio-eroe.js';
 
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) =>
@@ -50,6 +51,7 @@ export async function vistaTavoli(app, quandoScelto) {
       || '<p class="nota mt">Nessun tavolo ancora. Un tavolo è un gruppo che gioca la sua campagna.</p>'}
       <div class="btn-riga mt">
         <button class="btn pieno" id="nuovo-tavolo">nuovo tavolo</button>
+        <button class="btn" id="rubrica">rubrica</button>
       </div>
       <div id="modulo-tavolo" style="display:none" class="mt">
         <input id="nome-tavolo" class="campo" placeholder="Gruppo del giovedì" maxlength="80">
@@ -101,6 +103,12 @@ export async function vistaTavoli(app, quandoScelto) {
     e.stopPropagation();            // il click non deve anche ENTRARE nel tavolo
     vistaMembri(app, el.dataset.id, el.dataset.nome, () => vistaTavoli(app, quandoScelto));
   }));
+
+  // LA RUBRICA sta qui e non dentro un tavolo: le persone non sono di una
+  // campagna — le stesse giocano quella del giovedì e quella dei ragazzi — e
+  // cercarle dentro un tavolo vorrebbe dire sceglierne uno per aggiungerne una.
+  document.getElementById('rubrica').onclick = () =>
+    vistaRubrica(app, () => vistaTavoli(app, quandoScelto));
 
   document.getElementById('nuovo-tavolo').onclick = () => {
     document.getElementById('modulo-tavolo').style.display = '';

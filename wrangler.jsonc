@@ -19,9 +19,25 @@
   // Application Audience tag: il Worker rifiuta i token emessi per un'ALTRA
   // applicazione dello stesso team, che altrimenti sarebbero firme valide.
   // Non sono segreti (stanno nel redirect di login), quindi vars e non secret.
+  // LA PORTA (webapp/worker/porta.js): l'app aggiunge al criterio di Access gli
+  // indirizzi delle persone in rubrica, che era l'unico passaggio rimasto sulla
+  // dashboard — e quindi l'unico che si dimenticava.
+  //
+  // Questi non sono segreti: l'id dell'account sta nell'URL della dashboard,
+  // quello del criterio pure, e i portieri sono indirizzi che l'app gia'
+  // mostra. Il TOKEN invece e' un segreto e non sta qui: si crea a mano (My
+  // Profile -> API Tokens, permesso «Account · Access: Apps and Policies ·
+  // Edit») e si carica con `npx wrangler secret put CF_API_TOKEN`.
+  //
+  // Senza quel segreto niente cambia: nessuna chiamata parte, e la rubrica dice
+  // che la porta non e' collegata invece di offrire un bottone che fallisce.
   "vars": {
     "ACCESS_TEAM": "smartcores",
-    "ACCESS_AUD": "a88f2f39cac5993fe0c75acfec3aece7a19d67d2a97a861a45d84777103e1128"
+    "ACCESS_AUD": "a88f2f39cac5993fe0c75acfec3aece7a19d67d2a97a861a45d84777103e1128",
+    "CF_ACCOUNT_ID": "3f078eb974edf09669ceca41a0264a1f",
+    "ACCESS_POLICY_ID": "34023781-5e10-4008-9363-fa19e15c7215",
+    // chi puo' aprire la porta dall'app; vuoto = funzione spenta
+    "PORTIERI": "pubule@gmail.com"
   },
   // Questo nome e' anche una destinazione dell'applicazione Access (tipo «nome
   // host pubblico»), quindi nasce protetto: Access ci rimanda dopo il login, ed

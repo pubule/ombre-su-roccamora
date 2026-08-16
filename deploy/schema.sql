@@ -97,3 +97,19 @@ CREATE TABLE IF NOT EXISTS migliorie_campagna (
   quando      INTEGER NOT NULL,
   PRIMARY KEY (tavolo, eroe)
 );
+
+-- LA RUBRICA: le persone con cui giochi, in un posto solo.
+--
+-- Non e' legata a un tavolo — le stesse persone giocano piu' campagne — ed e'
+-- di CHI ARBITRA: una rubrica condivisa fra account sarebbe un elenco di
+-- indirizzi altrui. Da qui i tavoli pescano nome ed email invece di farseli
+-- riscrivere, e da qui si apre la porta (il criterio di Cloudflare Access), che
+-- era l'unico passaggio rimasto fuori dall'app — e quindi l'unico che si
+-- dimentica.
+CREATE TABLE IF NOT EXISTS persone (
+  proprietario TEXT NOT NULL,
+  email        TEXT NOT NULL,
+  nome         TEXT,
+  creata       INTEGER NOT NULL,
+  PRIMARY KEY (proprietario, email)
+);
