@@ -414,18 +414,22 @@ em, i { font-style: italic; }
    per tipo, e il conto a destra di ognuna. */
 .menu-titolo { font-family: 'FellSC', serif; font-size: 13px; letter-spacing: .14em;
   color: var(--nastro); text-transform: uppercase; margin: 14px 0 6px; }
+/* le misure sono quelle del mockup: il titolo in maiuscoletto, la spiegazione
+   in corsivo sotto, e il conto a destra — che è quel che fa aprire una voce */
 .menu-voce { display: flex; align-items: center; gap: 12px; width: 100%; text-align: left;
   padding: 11px 14px; margin-bottom: 8px; cursor: pointer; color: var(--osso);
   background: var(--ardesia-alta); border: 1px solid var(--bordo);
-  border-left: 3px solid transparent; border-radius: 12px;
-  font-family: 'FellSC', serif; font-size: 17px; letter-spacing: .04em; }
-.menu-voce .tit i { font-family: 'OldStd', serif; letter-spacing: 0; font-style: italic; }
+  border-left: 3px solid transparent; border-radius: 12px; }
 .menu-voce:hover, .menu-voce:focus-visible { border-left-color: var(--nastro); }
-.menu-voce .tit { flex: 1; }
-.menu-voce .tit i { display: block; font-size: 14px; color: var(--osso-fioco); }
-.menu-voce .conto { font-family: 'FellSC', serif; font-size: 13px; letter-spacing: .06em;
-  color: var(--osso-fioco); white-space: nowrap; }
-.menu-voce .conto b { color: var(--osso); font-weight: normal; }
+.menu-voce .tit { flex: 1; font-family: 'FellSC', serif; font-size: 17px; }
+.menu-voce .tit i { display: block; font-family: 'OldStd', Georgia, serif; font-style: italic;
+  font-size: 14px; color: var(--osso-fioco); letter-spacing: 0; }
+/* niente `white-space: nowrap`: nel mockup non c'è, e il mockup è la specifica.
+   Se al tavolo un conto lungo andasse a capo male, si aggiunge in tutt'e due —
+   non solo qui, o le due cose ricominciano a divergere. */
+.menu-voce .conto { font-family: 'FellSC', serif; font-size: 14px;
+  color: var(--osso-fioco); }
+.menu-voce .conto b { color: var(--nastro); font-weight: 400; }
 .menu-voce.segnata { border-left-color: var(--nastro); }
 .menu-voce.segnata .conto b { color: var(--nastro-chiaro); }
 
@@ -1175,3 +1179,99 @@ em, i { font-style: italic; }
   border-radius: 6px; border: 1px solid var(--bordo-alto, rgba(230,195,120,.45)); }
 /* una serata conclusa non è una partita in corso: il colore lo dice da lontano */
 .tessera-episodio .stato.finita { color: var(--nastro, #6f93b8); }
+
+
+/* ==========================================================================
+   «NOTTE E NEBBIA»: LE COMPONENTI NUOVE
+   Copiate dai mockup (public/mockups/stile2/, base.css + nebbia.css +
+   nebbia2.css), non riscritte a occhio: le misure sono quelle che sono state
+   guardate sul telefono e misurate una a una. Se una regola qui diverge dal
+   mockup, è il mockup ad avere ragione — è lui la specifica.
+   ========================================================================== */
+
+/* IL CAPO: la risorsa che scorre (l'ora nell'Indagine, il canto in Spedizione)
+   e il menu, appiccicati in alto. Sono le due cose che devono restare
+   raggiungibili per tutta la serata mentre il resto scorre — prima il menu era
+   un bottone in mezzo alla pagina, e si perdeva. */
+.capo { position: sticky; top: 0; z-index: 5; display: flex; align-items: center;
+  justify-content: space-between; gap: 10px; margin: 0 -14px 0; padding: 8px 14px 12px;
+  /* quasi opaco: con una velatura leggera le parole della pagina passano sotto
+     i lumi mentre si scorre, e sembra tutto sporco */
+  background: linear-gradient(180deg, rgba(12,14,17,.97) 0%, rgba(12,14,17,.94) 62%,
+    rgba(12,14,17,0) 100%); backdrop-filter: blur(12px); }
+.capo .ora { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.capo .ora .quante { font-family: 'FellSC', serif; font-size: 14px; color: var(--osso-fioco);
+  white-space: nowrap; }
+.capo .lume-punto { width: 11px; height: 11px; }
+
+/* i lumi: le ore che restano si contano a colpo d'occhio, non si leggono */
+.lumi { display: flex; gap: 8px; align-items: center; }
+.lume-punto { width: 14px; height: 14px; border-radius: 50%; border: 1px solid var(--bordo);
+  background: rgba(255,255,255,.06); }
+.lume-punto.acceso { background: var(--nastro); border-color: var(--nastro);
+  box-shadow: 0 0 10px rgba(232,194,122,.55); }
+
+/* LA SCENA: l'artwork del luogo occupa lo schermo, con due velature — una
+   scura in basso perché il testo abbia sempre un fondo, e una generale che
+   tiene giù la luminosità nella stanza al buio. */
+.scena { position: relative; min-height: 62vh; display: flex; align-items: flex-end;
+  padding: 18px 14px; margin: 0 -14px 12px; overflow: hidden; }
+.scena > .sfondo { position: absolute; inset: 0; background-size: cover;
+  background-position: center; filter: brightness(.62) saturate(.85); }
+.scena::after { content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(180deg, rgba(12,14,17,.55) 0%, rgba(12,14,17,.05) 26%,
+    rgba(12,14,17,.86) 64%, var(--tavolo) 96%); }
+.scena .dentro { position: relative; z-index: 1; width: 100%; }
+.scena .occhiello { font-family: 'FellSC', serif; font-size: 13px; letter-spacing: .18em;
+  text-transform: uppercase; color: var(--nastro); }
+.scena h1, .scena h2 { font-size: clamp(30px, 9vw, 48px); line-height: 1.05; }
+.scena.bassa { min-height: 44vh; }
+
+/* LE AZIONI IN GRIGLIA: colonne uguali, icona sopra la parola. La larghezza la
+   decide la griglia, non la lunghezza dell'etichetta — con 98px «testimonianza»
+   sbordava di 17px sul telefono, e a occhio sembrava solo stretta. Righe di
+   altezza fissa: senza, la cella con l'etichetta su due righe cresce di 19px e
+   l'ultima fila risulta più alta. */
+.azioni { display: grid; grid-template-columns: repeat(auto-fit, minmax(128px, 1fr));
+  grid-auto-rows: 68px; gap: 8px; }
+.azioni .btn { width: 100%; height: 100%; flex-direction: column; gap: 3px;
+  white-space: normal; text-align: center; line-height: 1.15; padding: 6px;
+  border-radius: 14px; }
+.azioni .btn .ic { width: 24px; height: 24px; }
+/* i bottoni di servizio: stessa idea, celle da 152 — a 132 «cambia tavolo»
+   restava con 5px d'aria su uno schermo da 360 */
+.bottoni { display: grid; grid-template-columns: repeat(auto-fit, minmax(152px, 1fr));
+  gap: 8px; }
+.bottoni .btn { width: 100%; }
+
+/* la barra in fondo può usare la stessa griglia */
+.barra-azioni.griglia { display: grid; grid-template-columns: repeat(auto-fit, minmax(128px, 1fr));
+  gap: 8px; }
+.barra-azioni.griglia .btn { width: 100%; min-height: 62px; flex-direction: column; gap: 3px;
+  white-space: normal; line-height: 1.15; padding: 8px 6px; border-radius: 14px; }
+
+/* L'ICONA non parla mai da sola: accanto ci va sempre la parola, e non scende
+   sotto i 22px — è il difetto che rimproverano a X-haven Assistant, illeggibile
+   anche su iPad. */
+.ic { width: 22px; height: 22px; flex: none; fill: currentColor; vertical-align: -5px; }
+.ic.grande { width: 28px; height: 28px; }
+
+/* IL FOGLIO DEL MENU: sale dal basso, dove arriva il pollice. Ogni voce porta
+   il suo numero — è il numero che fa aprire una voce, non il nome. */
+.foglio { position: fixed; inset: auto 0 0 0; z-index: 20; max-height: 86vh; overflow: auto;
+  background: rgba(16, 19, 24, .96); backdrop-filter: blur(16px);
+  border-top: 1px solid var(--bordo); border-radius: 18px 18px 0 0; padding: 10px 14px 22px; }
+.foglio .maniglia { width: 42px; height: 4px; border-radius: 2px; background: var(--bordo-alto);
+  margin: 2px auto 12px; }
+.velo { position: fixed; inset: 0; z-index: 15; background: rgba(6, 8, 10, .55); }
+
+/* LA FASCIA DEL TURNO, in Spedizione: chi agisce e quante azioni gli restano è
+   quel che si cerca venti volte a serata. */
+.turno { display: flex; align-items: center; gap: 10px; padding: 10px 14px;
+  border-radius: 999px; background: var(--nastro); color: #1a1408; font-family: 'FellSC', serif;
+  font-size: 17px; margin-bottom: 10px; }
+.turno img { width: 34px; height: 34px; border-radius: 50%; object-fit: cover;
+  box-shadow: 0 0 0 2px rgba(26,20,8,.35); }
+.turno .quante { margin-left: auto; font-variant-numeric: tabular-nums; }
+.turno.notte { background: var(--ardesia-alta); color: var(--osso);
+  border: 1px solid var(--bordo); }

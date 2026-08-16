@@ -31,6 +31,20 @@ pelle nuova `.pannello` (lastra di vetro, raggio 10, sfocatura), `.btn`
 (pillola; il pieno è di lume con la scritta scura), `.voce`, `.menu-voce`,
 `.menu-titolo`. La home gira senza errori JS.
 
+**Fatto anche** (commit `36f0f73c`, poi il passo 2): `test-stile.mjs` riscritto
+sulle regole della direzione nuova — nessun testo sull'immagine nuda, le lastre
+sono di vetro, ogni bersaglio arriva a 44px; restano la carta vera e il
+contrasto. E in `app.css` ci sono le componenti nuove copiate dai mockup:
+`.capo`, `.lumi`/`.lume-punto`, `.scena`, `.azioni`, `.bottoni`, `.foglio`,
+`.velo`, `.ic`, `.turno`.
+
+**Il banco che rende verificabile «identico ai mockup»: `webapp/test-pelle.mjs`.**
+Pianta le stesse componenti nel mockup e nell'app e confronta gli stili
+calcolati, proprietà per proprietà (raggio, tinta, corpo, padding, sfocatura,
+colonne della griglia). Se una regola diverge, **il mockup ha ragione**: è lui
+la specifica. Ha già trovato due derive (il carattere delle voci di menu, un
+`white-space` di troppo) e passa quattro sabotaggi.
+
 **Il prossimo passo, in ordine:**
 
 1. **`webapp/test-stile.mjs` va riscritto sulla direzione nuova.** Oggi difende
