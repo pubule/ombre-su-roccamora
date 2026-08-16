@@ -35,6 +35,11 @@ const breve = (nome) => {
 // dato da leggere: la tabella e' qui, ed e' la stessa che decide sia i
 // bottoni sia i pallini del contatore (prima le due cose erano scritte due
 // volte). `dove` dice in che schermata sta il bottone, `null` = altrove.
+// l'icona di ogni tipo di Approfondimento: la stessa nell'app e nei mockup —
+// occhio, orecchio, referto, presagio. Accanto ci va sempre la parola.
+const ICONA_TIPO = { Osservazione: 'occhio', Testimonianza: 'orecchio',
+  Referto: 'referto', Presagio: 'presagio' };
+
 const UNA_TANTUM = [
   { eroe: 'PADRE CELSO MARANI', flag: 'discernimentoUsato', et: 'Discernimento',
     dove: 'home', id: 'discernimento', label: 'Discernimento di Marani' },
@@ -201,35 +206,43 @@ const salvaP = () => {
   }
 };
 
-// Le ore non stanno in un angolo della barra come un orologio: sono il
-// REGISTRO delle sei ore della notte, e quelle spese si barrano. Si vede in
-// colpo d'occhio quanta notte resta, che e' la cosa che tiene in ansia.
+// Le sei ore della notte come LUMI: restano accesi quelli che mancano a
+// mezzanotte, e si contano a colpo d'occhio invece di leggerli. Prima erano
+// sei tacche col numero, barrate una a una: diceva la stessa cosa in piu'
+// tempo, e al tavolo il tempo di lettura e' tempo tolto al gioco.
 function registroOre() {
   const ora = IND().ora;
-  return `<span class="registro" title="dalle 18 a mezzanotte">${
+  return `<span class="lumi" title="dalle 18 a mezzanotte">${
     Array.from({ length: 6 }, (_, i) => {
       const h = 18 + i;
-      const cl = h < ora ? 'spesa' : h === ora ? 'ora' : '';
-      return `<span class="ora-riga ${cl}">${h}</span>`;
+      return `<span class="lume-punto ${h >= ora ? 'acceso' : ''}"></span>`;
     }).join('')}</span>`;
 }
 
+// LA TESTATA È IL CAPO, e basta. La barra con la freccia e il titolo non c'è
+// più: il titolo lo dice la scena (l'artwork del luogo, col nome sopra), e
+// l'uscita dalla serata è finita nel menu — in cima rubava il posto alle due
+// cose che si guardano ogni minuto, l'ora e il menu.
+//
+// `titolo` resta nella firma perché le schermate secondarie (la porta chiusa,
+// una carta aperta) lo passano ancora: lì non c'è scena, e il nome va detto.
 function barra(titolo, etichetta = 'indagine') {
-  return `
-  <div class="barra">
-    <button class="btn" id="nav-esci">← menu</button>
+  return `${titolo ? `<div class="barra">
     <div class="titolo">
       <span class="etichetta">${esc(ctx.ep.titolo)} · ${esc(etichetta)}</span>
       <span class="tit-testo">${esc(titolo)}</span>
     </div>
-  </div>
+  </div>` : ''}
   ${orologio()}`;
 }
 
-// L'OROLOGIO NON STA MAI DIETRO UN TOCCO: e' la risorsa che tiene in ansia, e
-// nasconderla la spegne. Accanto, il tasto del menu — dove sta tutto quel che
-// non si guarda di continuo — col pallino quando nella notte c'e' una riga che
-// non avete ancora letto.
+// IL CAPO: l'ora e il menu, appiccicati in alto. L'orologio non sta mai dietro
+// un tocco — e' la risorsa che tiene in ansia, e nasconderla la spegne — e il
+// menu, dove sta tutto quel che non si guarda di continuo, ha il bollino quando
+// nella notte c'e' una riga che non avete ancora letto.
+//
+// Restano appiccicati mentre il resto scorre: prima il menu era una riga in
+// mezzo alla pagina e si perdeva, e con lui si perdeva quel che contiene.
 function orologio() {
   const o = 24 - IND().ora;
   // I DUE BOTTONI STANNO INSIEME, a destra. Il tasto dei suoni stava DENTRO la
@@ -237,13 +250,14 @@ function orologio() {
   // ore su una riga, «5 ore a mezzanotte» sull'altra — e il tasto finiva a
   // mezz'aria, disallineato dal menu. Sono tutt'e due comandi della cornice, e
   // la cornice sta da una parte sola.
-  return `<div class="riga-capo">
-    <div class="riga-registro">${registroOre()}
-      <span class="sc resta">${o ? `${o} ${o === 1 ? 'ora' : 'ore'} a mezzanotte` : 'mezzanotte'}</span>
-    </div>
+  return `<div class="capo">
+    <span class="ora riga-registro">${registroOre()}
+      <span class="quante sc resta">${o ? `${o} ${o === 1 ? 'ora' : 'ore'}` : 'mezzanotte'}</span>
+    </span>
     <div class="comandi-capo">
       ${suoni.bottoneHtml()}
-      <button class="btn btn-menu" id="apri-menu">menu${
+      <button class="btn btn-menu" id="apri-menu">
+        <svg class="ic" aria-hidden="true"><use href="#i-lanterna"></use></svg>menu${
         nuoveNelRegistro() ? '<span class="segno"></span>' : ''}</button>
     </div>
   </div>`;
@@ -264,7 +278,10 @@ function statoSuoni() {
 }
 
 function dopoBarra() {
-  ctx.app.querySelector('#nav-esci').onclick = () => ctx.vaiA('menu');
+  // la freccia c'è solo nelle schermate secondarie: nelle tre principali
+  // l'uscita sta nel menu
+  const esci = ctx.app.querySelector('#nav-esci');
+  if (esci) esci.onclick = () => ctx.vaiA('menu');
   ctx.app.querySelector('#apri-menu')?.addEventListener('click', menu);
   suoni.agganciaBottone(ctx.app, statoSuoni);
   suoni.aggiorna(statoSuoni());
@@ -321,6 +338,8 @@ function menu() {
     ${arbitro() ? voce('m-busta', 'la busta', 'si apre una volta sola, e per tutti',
                        ind.chiusa ? 'aperta' : 'sigillata') : ''}
     ${arbitro() ? '<p class="nota mt">Lo stradario non è qui: è di fianco, sempre.</p>' : ''}
+    <div class="menu-titolo">la serata</div>
+    ${voce('nav-esci', 'lasciate la serata', 'si torna alla scelta dell’episodio')}
     <div class="btn-riga">
       <button class="btn pieno" id="m-chiudi">tornate ${arbitro() ? 'alla serata' : 'alla scena'}</button>
     </div>`;
@@ -508,13 +527,25 @@ function doveSieteStati(dietro) {
   }));
 }
 
-// banner con l'arte del luogo (dalle carte renderizzate o dal campo art)
-function bannerLuogo(l) {
+// LA SCENA: l'artwork del luogo occupa lo schermo, e il nome ci sta sopra —
+// «l'immagine è la pagina». Sotto ci sono due velature: una scura in basso
+// perché il testo abbia sempre un fondo, e una generale che tiene giù la
+// luminosità nella stanza al buio.
+//
+// `occhiello` è la riga piccola sopra il titolo («ci siete · ora 21»); senza
+// nome, la scena resta muta e fa solo da copertina — è il caso dell'arrivo,
+// dove il nome lo dice la lastra sotto.
+function bannerLuogo(l, occhiello, nome) {
   const c = cartaLuogo(ctx.carte, P().episodio, l.n);
   const art = urlArt(l.art) || (c ? urlArt(c.art) : null);
   if (!art) return '';
-  return `<div class="banner-luogo" style="background-image:url('${art}')">
-    <div class="banner-velo"></div></div>`;
+  return `<div class="scena${nome ? '' : ' bassa'}">
+    <div class="sfondo" style="background-image:url('${art}')"></div>
+    ${nome ? `<div class="dentro">
+      ${occhiello ? `<span class="occhiello">${esc(occhiello)}</span>` : ''}
+      <h2>${esc(String(nome).toLowerCase())}</h2>
+    </div>` : ''}
+  </div>`;
 }
 
 // ------------------------------------------------------------------ home
@@ -753,9 +784,10 @@ function vistaDiChiGioca() {
   // Nessuna voce sta in tutt'e due i posti, e non c'e' mai da chiedersi dov'e'
   // una cosa.
   app.innerHTML = `
-    ${barra(aperto ? aperto.nome.toLowerCase() : 'per le strade')}
+    ${barra('')}
+    ${aperto ? bannerLuogo(aperto, `siete dentro${mioEroe() ? ` · giocate ${breve(mioEroe())}` : ''}`,
+    aperto.nome) : ''}
     ${ultimoFattoHtml()}
-    ${aperto ? bannerLuogo(aperto) : ''}
     ${aperto ? scenaLuogoHtml(aperto) : `<div class="pannello">
       <h2>siete per le strade</h2>
       <p class="nota">Si decide insieme dove andare; a dichiararlo e a bussare e’ chi
@@ -1228,13 +1260,12 @@ function schedaLuogo(l) {
   const TIPI = ['Osservazione', 'Testimonianza', 'Referto', 'Presagio'];
   const chiPuo = (t) => idoneiPerTipo(ctx.comune, P(), t);
   app.innerHTML = `
-    ${barra(l.nome.toLowerCase())}
+    ${barra('')}
+    ${bannerLuogo(l, `il gruppo è dentro · ora ${IND().ora}`, l.nome)}
     ${ultimoFattoHtml()}
     <div class="due-colonne">
       <div>
-        ${bannerLuogo(l)}
         <div class="pannello">
-          <h2>${esc(l.nome.toLowerCase())}</h2>
           ${l.testo ? `<p><i>${rendi(l.testo)}</i></p><hr class="divisore">` : ''}
           <p class="nota">indizi — leggeteli ad alta voce</p>
           ${l.indizi.map((i) => `<p class="mt">◆ ${rendi(i)}</p>`).join('')}
@@ -1245,14 +1276,16 @@ function schedaLuogo(l) {
           <p class="nota">Cosa c’è da cogliere qui non lo sa nessuno finché non ci si
           prova — nemmeno voi. Chiedere il tipo sbagliato non costa nulla: l’ora l’avete
           già spesa entrando.</p>
-          <div class="btn-riga">
+          <div class="tipi">
             ${TIPI.map((t) => {
               const idonei = chiPuo(t);
               const chi = idonei.length
                 ? idonei.map((x) => breve(x.nome)).join(', ')
                 : 'nessuno in squadra';
               return `<button class="btn" data-tipo="${esc(t)}"${
-                idonei.length ? '' : ' disabled'}>${esc(t.toLowerCase())} — ${esc(chi)}</button>`;
+                idonei.length ? '' : ' disabled'}>
+                <svg class="ic" aria-hidden="true"><use href="#i-${ICONA_TIPO[t]}"></use></svg>
+                ${esc(t.toLowerCase())}<span class="chi">${esc(chi)}</span></button>`;
             }).join('')}
           </div>
           ${letti.length ? `<p class="nota mt">Già colti qui: ${letti.map((x) => esc(x.soggetto)).join(' · ')}</p>` : ''}`}

@@ -247,7 +247,9 @@ ok(errori.length === 0, `il telefono apre l'Indagine senza errori JS: ${errori.s
   const ora = () => page.evaluate(() =>
     document.querySelector('.riga-registro .resta')?.textContent.trim());
   const prima = await ora();
-  ok(prima && /ore a mezzanotte/.test(prima), `l'orologio si vede (${prima})`);
+  // dal 16/08/2026 il capo dice «3 ore» e basta: quante ne restano lo dicono i
+  // lumi accanto, e la frase lunga mandava a capo la riga sul telefono
+  ok(prima && /^\d+ ore?$/.test(prima), `l'orologio si vede (${prima})`);
 
   // chi arbitra spende un'ora e la manda al tavolo, come fa `salvaP()`
   const dopoStato = serata({ ora: 22 });

@@ -120,7 +120,7 @@
    E il menu si porta dentro tutto quel che NON è «adesso»: la scena, le
    azioni e lo stradario restano in pagina, il resto è a un tocco. */
 .capo { position: sticky; top: 0; z-index: 5; display: flex; align-items: center;
-  justify-content: space-between; gap: 10px; margin: 0 -14px 0; padding: 8px 14px 12px;
+  justify-content: space-between; gap: 10px; margin: 0 -16px 0; padding: 8px 16px 12px;
   /* quasi opaco: con una velatura leggera le parole della pagina passavano
      sotto i lumi e sembrava tutto sporco mentre si scorre */
   background: linear-gradient(180deg, rgba(12,14,17,.97) 0%, rgba(12,14,17,.94) 62%,
@@ -168,6 +168,9 @@
    dove serve — la scena da leggere ad alta voce e lo stradario, affiancati */
 .wrap.largo { max-width: 1100px; }
 .due-colonne { display: grid; gap: 12px; }
+/* un elemento di griglia non scende sotto il suo contenuto: senza questo, il
+   paragrafo del narratore allarga la colonna oltre lo schermo */
+.due-colonne > * { min-width: 0; }
 @media (min-width: 900px) {
   .due-colonne { grid-template-columns: minmax(0, 1fr) 320px; align-items: start; }
   .fianco { position: sticky; top: 78px; max-height: calc(100vh - 96px); overflow: auto; }

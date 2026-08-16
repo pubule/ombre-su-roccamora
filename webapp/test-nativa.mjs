@@ -118,6 +118,8 @@ await page.waitForTimeout(500);
 await scorre('il taccuino');
 
 // la scheda di un eroe: si apre in un pannello che scorre per conto suo
+await page.locator('#apri-menu').click();
+await page.waitForTimeout(300);
 await page.locator('#nav-esci').click();
 await page.waitForTimeout(500);
 

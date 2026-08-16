@@ -46,13 +46,13 @@ try {
   // E la rubrica si raggiunge anche da qui — le persone si aggiungono quando ci
   // si ricorda, di solito prima di una serata e non passando dai tavoli.
   {
-    const testi = await page.locator('.riga-bottoni .btn').allInnerTexts();
+    const testi = await page.locator('.bottoni .btn').allInnerTexts();
     ok(testi.some((t) => /rubrica/i.test(t)), `la testata porta alla rubrica (${testi.join(', ')})`);
     ok(testi.some((t) => /taccuino/i.test(t)), 'e al taccuino di campagna');
     // stessa riga, distanziati uguale e centrati come gruppo: «stessa riga» da
     // solo non provava niente — dei bottoni in linea ci stanno comunque, ed e'
     // la spaziatura irregolare che si vedeva sullo schermo stretto
-    const m = await page.locator('.riga-bottoni').evaluate((riga) => {
+    const m = await page.locator('.bottoni').evaluate((riga) => {
       const b = [...riga.querySelectorAll('.btn')].map((x) => x.getBoundingClientRect());
       const c = riga.getBoundingClientRect();
       return {
@@ -141,7 +141,7 @@ try {
   // solo se il gruppo chiede un Approfondimento, e lo tira chi fruga.
   console.log('visita luogo aperto (nessun tiro entrando)');
   await page.locator('.voce[data-voce="Taverna del Ponte Rotto"]').click();
-  await page.locator('.banner-luogo').waitFor();
+  await page.locator('.scena').waitFor();
   ok(await page.locator('.dadi-overlay').count() === 0, 'entrando NON si tira nessun dado');
   ok(await page.locator('.scelta-box').count() === 0, 'e non si sceglie nessun eroe');
   ok(await page.getByText('indizi', { exact: false }).count() > 0, 'scheda luogo con indizi');
@@ -179,6 +179,8 @@ try {
   // uscire al menu a meta' visita e riprendere: si torna DENTRO il luogo,
   // senza pagare un'altra ora
   const oraPrima = (await page.evaluate(() => JSON.parse(localStorage.getItem('osr.partita.ep1')))).indagine.ora;
+  // l'uscita è nel menu: in cima ci stanno l'ora e il menu, e basta
+  await page.locator('#apri-menu').click();
   await page.locator('#nav-esci').click();
   await page.locator('.tessera-episodio[data-ep="ep1"]').click();
   await page.locator('#continua').click();
@@ -226,7 +228,7 @@ try {
     ok(await page.getByText('la porta si apre').count() > 0, 'chiave giusta apre');
     await page.locator('#ok-msg').click();
     // entrando non si tira piu' niente: si e' subito dentro il luogo
-    await page.locator('.banner-luogo').waitFor();
+    await page.locator('.scena').waitFor();
     ok(await page.locator('.dadi-overlay').count() === 0,
       'anche entrando con la chiave giusta non si tira nulla');
     await page.locator('#fine-visita').click();

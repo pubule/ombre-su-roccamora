@@ -152,6 +152,14 @@ em, i { font-style: italic; }
   color: #dd7383; background: none; border: 0; border-radius: 0; padding: 0; }
 .tessera-episodio:has(.stato) { border-left-color: var(--ceralacca); }
 
+/* LE COLONNE SI STRINGONO. Un elemento di griglia ha `min-width: auto` e non
+   scende sotto il suo contenuto: dentro un luogo, il paragrafo del narratore
+   allargava la colonna di 39px oltre lo schermo e le parole finivano tagliate
+   a destra. È il difetto classico delle griglie, e si vede solo col testo vero.
+   Corretto anche nel mockup: se si aggiusta da una parte sola, le due cose
+   ricominciano a divergere. */
+.due-colonne > * { min-width: 0; }
+
 /* --- la cartellina --- */
 .pannello { background: var(--ardesia); color: var(--osso);
   border: 1px solid var(--bordo); border-radius: 10px; padding: 14px;
@@ -177,7 +185,7 @@ em, i { font-style: italic; }
   letter-spacing: .05em; font-size: 16px; padding: 11px 18px; border-radius: 999px;
   border: 1px solid var(--bordo); background: var(--ardesia-alta);
   color: var(--osso); cursor: pointer; user-select: none;
-  backdrop-filter: blur(6px); white-space: nowrap; min-height: 44px; }
+  backdrop-filter: blur(6px); min-height: 44px; max-width: 100%; }
 .btn:hover, .btn:focus-visible { border-color: var(--nastro); }
 .btn:active { transform: scale(.98); }
 .btn.pieno { background: var(--nastro); border-color: var(--nastro); color: #1a1408; }
@@ -1050,12 +1058,9 @@ em, i { font-style: italic; }
    Il campo e' uno solo, ed e' di carta. */
 .riga-tavolo { display: flex; align-items: center; justify-content: center;
   gap: .8rem; margin-top: .5rem; }
-/* i bottoni della testata: una riga sola, centrata, che va a capo da se'. Prima
-   stavano su due righe con uno spaziatore vuoto, e sullo stretto finivano uno
-   di qua e uno di la'. */
-.riga-bottoni { display: flex; flex-wrap: wrap; align-items: center;
-  justify-content: center; gap: .5rem; margin-top: .7rem; }
-.riga-bottoni .btn { margin: 0; }
+/* i bottoni della testata usano la griglia dei mockup (`.bottoni`, colonne da
+   152px): larghezza uguale, e nessuna etichetta spezzata a metà */
+.home-testata .bottoni { margin-top: .7rem; }
 .spia { font-family: 'FellSC', serif; font-size: 12px; letter-spacing: .1em;
   color: var(--osso-fioco); }
 .btn.piccolo { font-size: 12px; padding: 5px 10px; }
@@ -1194,7 +1199,7 @@ em, i { font-style: italic; }
    raggiungibili per tutta la serata mentre il resto scorre — prima il menu era
    un bottone in mezzo alla pagina, e si perdeva. */
 .capo { position: sticky; top: 0; z-index: 5; display: flex; align-items: center;
-  justify-content: space-between; gap: 10px; margin: 0 -14px 0; padding: 8px 14px 12px;
+  justify-content: space-between; gap: 10px; margin: 0 -16px 0; padding: 8px 16px 12px;
   /* quasi opaco: con una velatura leggera le parole della pagina passano sotto
      i lumi mentre si scorre, e sembra tutto sporco */
   background: linear-gradient(180deg, rgba(12,14,17,.97) 0%, rgba(12,14,17,.94) 62%,
@@ -1215,7 +1220,7 @@ em, i { font-style: italic; }
    scura in basso perché il testo abbia sempre un fondo, e una generale che
    tiene giù la luminosità nella stanza al buio. */
 .scena { position: relative; min-height: 62vh; display: flex; align-items: flex-end;
-  padding: 18px 14px; margin: 0 -14px 12px; overflow: hidden; }
+  padding: 18px 16px; margin: 0 -16px 12px; overflow: hidden; }
 .scena > .sfondo { position: absolute; inset: 0; background-size: cover;
   background-position: center; filter: brightness(.62) saturate(.85); }
 .scena::after { content: ''; position: absolute; inset: 0; pointer-events: none;
@@ -1275,3 +1280,17 @@ em, i { font-style: italic; }
 .turno .quante { margin-left: auto; font-variant-numeric: tabular-nums; }
 .turno.notte { background: var(--ardesia-alta); color: var(--osso);
   border: 1px solid var(--bordo); }
+
+
+/* I QUATTRO TIPI, come li vede chi arbitra: il tipo a sinistra e CHI può
+   tentarlo a destra. Ci sono tutti e quattro anche quando qui non c'è niente di
+   quel tipo — chiedere il tipo sbagliato non costa nulla, e mostrarne solo
+   alcuni direbbe a chi conduce cosa nasconde il luogo.
+   Righe intere e non pillole in fila: «testimonianza — elena, nino» in una
+   riga di bottoni sbordava dallo schermo del telefono. */
+.tipi { display: grid; gap: 8px; }
+.tipi .btn { width: 100%; justify-content: flex-start; text-align: left;
+  white-space: normal; min-height: 56px; border-radius: 12px; }
+.tipi .btn .chi { color: var(--osso-fioco); font-family: 'OldStd', Georgia, serif;
+  font-style: italic; letter-spacing: 0; margin-left: auto; padding-left: 10px; }
+.tipi .btn[disabled] { opacity: .45; }

@@ -45,6 +45,20 @@ colonne della griglia). Se una regola diverge, **il mockup ha ragione**: è lui
 la specifica. Ha già trovato due derive (il carattere delle voci di menu, un
 `white-space` di troppo) e passa quattro sabotaggi.
 
+**L'Indagine, fatta finora:** il capo (ora coi lumi + menu con l'icona e il
+bollino) al posto della vecchia riga-registro; la scena a piena larghezza con
+l'artwork e il nome del luogo sopra, al posto del banner alto 172px; via la
+barra con la freccia — l'uscita dalla serata è una voce del menu; i quattro
+tipi di Approfondimento sono righe intere con l'icona e chi può tentarli. Le
+icone stanno in `webapp/public/icone/` e lo sprite lo genera
+`webapp/fai-icone.mjs` (lo stesso dei mockup: due copie divergerebbero).
+
+**Tre difetti veri trovati misurando, non guardando:** la colonna della griglia
+non si stringeva e il paragrafo del narratore usciva di 39px dallo schermo; un
+bottone con l'etichetta lunga usciva di 8px (era il `white-space: nowrap`); la
+scena restava a 2px dai bordi invece che a filo. Corretti **in tutt'e due** —
+app e mockup — perché aggiustare da una parte sola li fa divergere.
+
 **Il prossimo passo, in ordine:**
 
 1. **`webapp/test-stile.mjs` va riscritto sulla direzione nuova.** Oggi difende

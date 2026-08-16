@@ -21,7 +21,9 @@ body {
   min-height: 100vh; -webkit-text-size-adjust: 100%;
   overflow-x: hidden;
 }
-.wrap { max-width: 720px; margin: 0 auto; padding: 14px 14px 72px; }
+/* 16px come `.schermo` dell'app: le due cose vanno confrontate misura per
+   misura, e un padding diverso sposta tutto quel che ci sta dentro */
+.wrap { max-width: 720px; margin: 0 auto; padding: 16px 16px 72px; }
 img { max-width: 100%; display: block; }
 a { text-decoration: none; color: inherit; }
 p { margin: 0 0 10px; }
@@ -33,9 +35,10 @@ p { margin: 0 0 10px; }
   display: inline-flex; align-items: center; gap: 8px;
 }
 .barra-azioni .btn { min-height: 48px; }
-/* l'etichetta non si spezza a metà: «cambia / tavolo» su due righe dentro una
-   pillola sembra un errore. Se non ci sta, il bottone va a capo intero. */
-.btn { white-space: nowrap; }
+/* niente `white-space: nowrap`: un'etichetta lunga («consegnate "Reperto A — la
+   pagina strappata"») uscirebbe dallo schermo. Che «cambia tavolo» non si
+   spezzi a metà lo garantisce la griglia dei bottoni, con le colonne da 152px. */
+.btn { max-width: 100%; }
 /* tre azioni su 390px non ci stanno in fila: la barra va a capo invece di
    spingere fuori schermo la terza — un bottone tagliato è un bottone che non
    c'è. Il minimo per riga tiene la leva premibile senza guardare. */

@@ -28,7 +28,7 @@ h2 { font-size: 20px; color: var(--lume); }
    perché il testo abbia sempre un fondo, e una generale che tiene giù la
    luminosità dell'artwork nella stanza al buio. */
 .scena { position: relative; min-height: 62vh; display: flex; align-items: flex-end;
-  padding: 18px 14px; margin: -14px -14px 12px; overflow: hidden; }
+  padding: 18px 16px; margin: -16px -16px 12px; overflow: hidden; }
 .scena > .sfondo { position: absolute; inset: 0; background-size: cover;
   background-position: center; filter: brightness(.62) saturate(.85); }
 .scena::after { content: ''; position: absolute; inset: 0; pointer-events: none;

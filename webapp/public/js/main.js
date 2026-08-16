@@ -12,6 +12,11 @@ import { vistaRubrica } from './rubrica.js';
 import { decidi, avviaCoda, stato as statoSync } from './sync.js';
 import { conferma } from './chiedi.js';
 import './zoom.js';   // un tocco sulla carta la apre a tutto schermo
+import { piantaIcone } from './icone.js';   // lo sprite: le icone di «notte e nebbia»
+
+// le icone si piantano una volta sola, all'avvio: sono <symbol> inline, quindi
+// non c'e' una richiesta per icona e cambiano colore col testo che le circonda
+piantaIcone();
 
 const app = document.getElementById('app');
 const h = (html) => { app.innerHTML = html; window.scrollTo(0, 0); };
@@ -90,7 +95,7 @@ async function vistaHome() {
       <!-- i bottoni della testata stanno su una riga sola, larghi uguale: prima
            erano due righe con uno spaziatore vuoto, e ognuno cadeva dove
            capitava. La riga va a capo da se' quando lo schermo e' stretto. -->
-      <div class="riga-bottoni">
+      <div class="bottoni">
         ${tavoloCorrente() ? '<button class="btn piccolo" id="cambia-tavolo">cambia tavolo</button>' : ''}
         <button class="btn piccolo" id="rubrica">rubrica</button>
         <button class="btn piccolo" id="taccuino">taccuino di campagna</button>
