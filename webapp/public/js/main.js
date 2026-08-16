@@ -8,6 +8,7 @@ import { biviDi, applicaAllaPartita } from '../motore/bivi.js';
 import { rendi } from './engine.js';   // i Frammenti sono prosa con <i>/<b>
 import { schedaEroe } from './scheda-eroe.js';
 import { vistaTavoli } from './tavoli.js';
+import { vistaRubrica } from './rubrica.js';
 import { decidi, avviaCoda, stato as statoSync } from './sync.js';
 import { conferma } from './chiedi.js';
 import './zoom.js';   // un tocco sulla carta la apre a tutto schermo
@@ -85,10 +86,15 @@ async function vistaHome() {
       ${tavoloCorrente() ? `<div class="riga-tavolo">
         <span class="spia">${esc(nomeTavoloCorrente() || 'tavolo senza nome')} ·
           <span id="spia">${esc(statoSync())}</span></span>
-        <button class="btn piccolo" id="cambia-tavolo">cambia tavolo</button>
       </div>` : ''}
-      <div class="riga-tavolo"><span></span>
-        <button class="btn piccolo" id="taccuino">taccuino di campagna</button></div>
+      <!-- i bottoni della testata stanno su una riga sola, larghi uguale: prima
+           erano due righe con uno spaziatore vuoto, e ognuno cadeva dove
+           capitava. La riga va a capo da se' quando lo schermo e' stretto. -->
+      <div class="riga-bottoni">
+        ${tavoloCorrente() ? '<button class="btn piccolo" id="cambia-tavolo">cambia tavolo</button>' : ''}
+        <button class="btn piccolo" id="rubrica">rubrica</button>
+        <button class="btn piccolo" id="taccuino">taccuino di campagna</button>
+      </div>
     </header>
     <div class="griglia-episodi">
       ${info.map((ep) => {
@@ -118,6 +124,10 @@ async function vistaHome() {
   document.getElementById('cambia-tavolo')?.addEventListener('click',
     () => vistaTavoli(app, (id) => entraNelTavolo(id)));
   document.getElementById('taccuino')?.addEventListener('click', () => vistaTaccuino(info));
+  // la rubrica si raggiunge anche da qui: le persone si aggiungono quando ci si
+  // ricorda di farlo — di solito prima di una serata, non passando dai tavoli
+  document.getElementById('rubrica')?.addEventListener('click',
+    () => vistaRubrica(app, () => vistaHome()));
 }
 
 // ------------------------------------------------- IL TACCUINO DI CAMPAGNA

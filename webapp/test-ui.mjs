@@ -41,6 +41,41 @@ try {
   await page.goto(BASE, { waitUntil: 'networkidle' });
   ok(await page.locator('.tessera-episodio').count() === 21, '21 episodi in taverna');
 
+  // I BOTTONI DELLA TESTATA su una riga sola. Stavano su due, con uno
+  // spaziatore vuoto a fianco: sullo stretto cadevano uno di qua e uno di la'.
+  // E la rubrica si raggiunge anche da qui — le persone si aggiungono quando ci
+  // si ricorda, di solito prima di una serata e non passando dai tavoli.
+  {
+    const testi = await page.locator('.riga-bottoni .btn').allInnerTexts();
+    ok(testi.some((t) => /rubrica/i.test(t)), `la testata porta alla rubrica (${testi.join(', ')})`);
+    ok(testi.some((t) => /taccuino/i.test(t)), 'e al taccuino di campagna');
+    // stessa riga, distanziati uguale e centrati come gruppo: «stessa riga» da
+    // solo non provava niente — dei bottoni in linea ci stanno comunque, ed e'
+    // la spaziatura irregolare che si vedeva sullo schermo stretto
+    const m = await page.locator('.riga-bottoni').evaluate((riga) => {
+      const b = [...riga.querySelectorAll('.btn')].map((x) => x.getBoundingClientRect());
+      const c = riga.getBoundingClientRect();
+      return {
+        righe: new Set(b.map((x) => Math.round(x.top))).size,
+        buchi: b.slice(1).map((x, i) => Math.round(x.left - b[i].right)),
+        sinistra: Math.round(b[0].left - c.left),
+        destra: Math.round(c.right - b[b.length - 1].right),
+      };
+    });
+    ok(m.righe === 1, `e stanno tutti sulla stessa riga (viste ${m.righe})`);
+    ok(m.buchi.every((x) => x >= 6 && x <= 24) && Math.max(...m.buchi) - Math.min(...m.buchi) <= 1,
+       `distanziati uguale, ne appiccicati ne sparpagliati (buchi: ${m.buchi.join(', ')})`);
+    ok(Math.abs(m.sinistra - m.destra) <= 2,
+       `e centrati come gruppo (${m.sinistra} a sinistra, ${m.destra} a destra)`);
+    await page.locator('#rubrica').click();
+    await page.waitForTimeout(400);
+    ok((await page.locator('.barra .titolo').first().innerText()).trim() === 'rubrica',
+       'e il bottone apre davvero la rubrica');
+    await page.goBack({ waitUntil: 'networkidle' }).catch(() => {});
+    await page.goto(BASE, { waitUntil: 'networkidle' });
+    await page.locator('.tessera-episodio').first().waitFor();
+  }
+
   // --- episodio -> si comincia ------------------------------------------
   console.log('episodio 1');
   await page.locator('.tessera-episodio[data-ep="ep1"]').click();

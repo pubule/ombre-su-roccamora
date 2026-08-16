@@ -1030,6 +1030,12 @@ em, i { font-style: italic; }
    Il campo e' uno solo, ed e' di carta. */
 .riga-tavolo { display: flex; align-items: center; justify-content: center;
   gap: .8rem; margin-top: .5rem; }
+/* i bottoni della testata: una riga sola, centrata, che va a capo da se'. Prima
+   stavano su due righe con uno spaziatore vuoto, e sullo stretto finivano uno
+   di qua e uno di la'. */
+.riga-bottoni { display: flex; flex-wrap: wrap; align-items: center;
+  justify-content: center; gap: .5rem; margin-top: .7rem; }
+.riga-bottoni .btn { margin: 0; }
 .spia { font-family: 'FellSC', serif; font-size: 12px; letter-spacing: .1em;
   color: var(--osso-fioco); }
 .btn.piccolo { font-size: 12px; padding: 5px 10px; }
