@@ -84,8 +84,8 @@ ammette. Un invitato fuori dal criterio non riceve niente e non capisce perché:
 è la porta che lo ferma prima, non l'app.
 
 Per questo la **rubrica** (dentro l'app) apre anche il criterio quando si crea
-una persona: era l'unico passaggio rimasto sulla dashboard, e quindi l'unico che
-si dimenticava.
+una persona, e da lì lo si chiude: era l'unico passaggio rimasto sulla
+dashboard, e quindi l'unico che si dimenticava.
 
 ### Aggiungere l'email di un giocatore — dalla RUBRICA
 
@@ -105,14 +105,32 @@ Il resto è in `wrangler.jsonc` → `vars`: `CF_ACCOUNT_ID`, `ACCESS_POLICY_ID` 
 criterio che l'app scrive) e `PORTIERI` — chi può aprire la porta dall'app.
 Vuoto, o senza token, l'app non chiama Cloudflare e la rubrica dice cosa manca.
 
-**L'app aggiunge e basta**: non toglie mai un indirizzo dal criterio — si apre
-da sola, si chiude a mano, così un tocco sbagliato non lascia fuori qualcuno a
-metà campagna. Chi resta nel criterio senza rubrica si vede in fondo alla
-schermata.
+### Chi può fare cosa, dalla rubrica
+
+Lo decide una cosa sola: se la tua email è in `PORTIERI`.
+
+| | chiunque abbia un account | portiere |
+|---|---|---|
+| le **proprie** persone: vederle, aggiungerle, toglierle | sì | sì |
+| vedere `✓ può entrare` / `✗ chiusa` | sì, in sola lettura | sì |
+| **aprire** / **chiudere** la porta | no (403) | sì — proprie, altrui, ed estranei |
+| vedere le **rubriche degli altri** | no | sì, raggruppate per proprietario |
+| togliere da una rubrica **altrui** | no | **no**: apre porte, non riordina elenchi |
+| chiudere la porta **a sé** o a un altro portiere | — | **no** (403) |
+| aprire a un indirizzo che **nessuno** ha in rubrica | no | **no** (404) |
+
+Un portiere **apre e chiude su tutti**. Le due eccezioni stanno nel motore
+(`webapp/worker/porta.js`) e non nel bottone: sé stessi e gli altri portieri —
+chi si chiude fuori da solo se ne accorge il giorno in cui la sessione scade, e
+allora non ha più modo di rientrare.
+
+Aprire e chiudere non toccano né la rubrica né i posti ai tavoli: chi perde la
+porta resta dov'era, solo non entra più nel sito. E le voci del criterio che non
+sono email — un «emails ending in» messo dalla dashboard — sopravvivono sempre.
 
 ### A mano, dalla dashboard
 
-Serve solo per togliere qualcuno, o se il token non è configurato.
+Serve solo se il token non è configurato.
 
 1. <https://one.dash.cloudflare.com> → team **smartcores**
 2. **Access → Applications → `roccamora`**
@@ -150,10 +168,15 @@ arbitra. Uno già preso non compare nell'elenco, perché due giocatori non posso
 avere lo stesso eroe allo stesso tavolo — a dirlo è un indice unico nel
 database, non un controllo che qualcuno un giorno dimenticherà.
 
+Dal 16/08/2026 il modulo con due campi da riscrivere ogni volta è diventato
+**«dai un posto a…»**: l'elenco della rubrica meno chi siede già lì, e un tocco
+dà il posto. Chi non è ancora in rubrica si aggiunge in fondo alla schermata, e
+resta scritto per i tavoli dopo.
+
 **Da lì non parte nessuna email.** Il posto resta pronto e basta: il link
 all'app mandaglielo tu (la schermata lo mostra, con un bottone per copiarlo), e
-lui entra da solo. Perché ci riesca, la sua email deve già essere nel criterio
-di Access — vedi sopra.
+lui entra da solo. Perché ci riesca, la sua email deve essere nel criterio di
+Access — e a questo pensa la rubrica, vedi sopra.
 
 ## Provare in locale prima di pubblicare
 

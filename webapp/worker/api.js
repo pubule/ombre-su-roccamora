@@ -1,4 +1,4 @@
-import { apriPorta, leggiPorta, portiere } from './porta.js';
+import { apriPorta, chiudiPorta, leggiPorta, portiere } from './porta.js';
 
 // I cinque endpoint dei salvataggi.
 //
@@ -206,13 +206,18 @@ export async function api(request, env, email) {
     const quanti = {};
     for (const x of (seduti.results || [])) quanti[x.email] = x.quanti;
     const dentro = new Set(porta.emails || []);
-    const semaforo = sePortiere && porta.configurata && !porta.errore;
+    // IL SEMAFORO LO VEDONO TUTTI. Chi non tiene le chiavi non puo' cambiarlo,
+    // ma deve poter sapere se la persona che sta per invitare entrera' o
+    // trovera' un muro: e' l'informazione per cui la rubrica esiste, e negarla
+    // a chi invita e' come non averla. I comandi restano di chi ha le chiavi.
+    const semaforo = !!porta.configurata && !porta.errore;
+    const suoi = sePortiere && semaforo;   // gli estranei sono roba da portiere
     const voce = (x) => ({
       email: x.email,
       nome: x.nome,
       tavoli: quanti[x.email] || 0,
-      // lo stato della porta si dice solo a chi puo' cambiarlo e solo se c'e'
-      // qualcosa da dire: un semaforo spento confonde piu' di nessun semaforo
+      // senza porta collegata resta `null`: un semaforo spento confonde piu' di
+      // nessun semaforo
       porta: semaforo ? (dentro.has(String(x.email).toLowerCase()) ? 'dentro' : 'fuori') : null,
     });
     const righe = r.results || [];
@@ -232,11 +237,11 @@ export async function api(request, env, email) {
       persone,
       ...(sePortiere ? { altrui: [...per].map(([proprietario, p2]) => ({ proprietario, persone: p2 })) } : {}),
       portiere: sePortiere,
-      configurata: !!porta.configurata && sePortiere,
+      configurata: semaforo,
       errore: sePortiere ? (porta.errore || null) : null,
       // nel criterio ma in nessuna rubrica: si mostrano e basta — la porta si
       // apre da sola e si chiude a mano
-      estranei: semaforo ? (porta.emails || []).filter((x) => !inRubrica.has(x)) : [],
+      estranei: suoi ? (porta.emails || []).filter((x) => !inRubrica.has(x)) : [],
     });
   }
 
@@ -275,6 +280,23 @@ export async function api(request, env, email) {
     if (!suo) return jsonRisposta({ errore: 'quella persona non è in nessuna rubrica' }, 404);
     const esito = await provaAdAprire(env, email, [chi]);
     return jsonRisposta({ ok: esito !== 'errore', porta: esito }, esito === 'errore' ? 502 : 200);
+  }
+
+  // E CHIUDERLA. Vale su chiunque sia nel criterio — le proprie persone, quelle
+  // della rubrica di un altro, e gli indirizzi che nel criterio erano rimasti
+  // senza rubrica: e' l'unico modo di finire il giro senza tornare sulla
+  // dashboard. Non vale su se' stessi ne' su un altro portiere: chiudersi fuori
+  // da soli si scopre il giorno dopo, quando la sessione scade e il muro c'e'.
+  if (p === '/api/porta' && metodo === 'DELETE') {
+    if (!portiere(env, email)) return jsonRisposta({ errore: 'non sei tu a tenere le chiavi' }, 403);
+    const chi = url.searchParams.get('email');
+    const r = await chiudiPorta(env, email, [chi]);
+    if (r.proibito) {
+      return jsonRisposta({ errore: 'chi tiene le chiavi non si chiude fuori da solo' }, 403);
+    }
+    if (r.spenta) return jsonRisposta({ ok: true, porta: 'spenta' });
+    if (r.errore) return jsonRisposta({ errore: 'la porta non risponde', porta: 'errore' }, 502);
+    return jsonRisposta({ ok: true, porta: r.tolti.length ? 'chiusa' : 'gia' });
   }
 
   if (p === '/api/membri' && metodo === 'POST') {

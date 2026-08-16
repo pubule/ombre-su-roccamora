@@ -109,3 +109,41 @@ export async function apriPorta(env, emails) {
     return { errore: String(e.message || e), aggiunti: [], gia: [] };
   }
 }
+
+// E CHIUDERLA. Toglie gli indirizzi dall'elenco — e solo quelli: le voci che
+// non sono email restano dove sono, come nell'aprire.
+//
+// Chi la chiude a se' stesso non se ne accorge subito: la sessione dura un mese,
+// e il muro arriva il giorno in cui ricarica. Per questo `chiudiPorta` non
+// tocca ne' chi chiede ne' un altro portiere — la ringhiera sta qui, dove non
+// la dimentica nessuno, e non solo nel bottone che si potrebbe cambiare.
+export async function chiudiPorta(env, chi, emails) {
+  if (!configurata(env)) return { spenta: true, tolti: [], gia: [] };
+  const voluti = [...new Set((emails || []).filter(Boolean).map((x) => String(x).toLowerCase()))];
+  const intoccabili = new Set([String(chi || '').toLowerCase(),
+    ...String(env.PORTIERI || '').split(',').map((x) => x.trim().toLowerCase()).filter(Boolean)]);
+  const proibito = voluti.find((x) => intoccabili.has(x));
+  if (proibito) return { proibito };
+  if (!voluti.length) return { tolti: [], gia: [] };
+
+  try {
+    const stato = await leggiPorta(env);
+    if (stato.errore || !stato.criterio) throw new Error(stato.errore || 'criterio illeggibile');
+    const dentro = new Set(stato.emails);
+    const tolti = voluti.filter((x) => dentro.has(x));
+    if (!tolti.length) return { tolti: [], gia: voluti };
+    const c = stato.criterio;
+    await chiama(env, 'PUT', {
+      name: c.name,
+      decision: c.decision,
+      include: (c.include || []).filter((v) =>
+        !(v && v.email && voluti.includes(String(v.email.email).toLowerCase()))),
+      exclude: c.exclude || [],
+      require: c.require || [],
+      ...(c.session_duration ? { session_duration: c.session_duration } : {}),
+    });
+    return { tolti, gia: voluti.filter((x) => !dentro.has(x)) };
+  } catch (e) {
+    return { errore: String(e.message || e), tolti: [], gia: [] };
+  }
+}

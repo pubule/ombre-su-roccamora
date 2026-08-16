@@ -45,6 +45,14 @@ export async function vistaRubrica(app, torna) {
     // chiavi, o senza token configurato, un pallino spento confonde e basta
     const segno = (x) => (x.porta === 'dentro' ? '<span class="ok-txt">✓ può entrare</span>'
       : x.porta === 'fuori' ? '<span class="ko-txt">✗ la porta è chiusa</span>' : '');
+    // IL SEMAFORO SI LEGGE, I COMANDI NO: chi non tiene le chiavi deve sapere se
+    // la persona che sta per invitare entrerà o troverà un muro — ma un bottone
+    // che il server rifiuta è peggio che nessun bottone.
+    const comandi = (x) => (!d.portiere ? '' : `
+      ${x.porta === 'fuori' ? `<button class="btn piccolo apri-porta"
+        data-email="${esc(x.email)}">apri la porta</button>` : ''}
+      ${x.porta === 'dentro' ? `<button class="btn piccolo chiudi-porta"
+        data-email="${esc(x.email)}" data-nome="${esc(x.nome || x.email)}">chiudi la porta</button>` : ''}`);
     const dove = (n) => (n ? `siede a ${n} ${n === 1 ? 'tavolo' : 'tavoli'}` : 'a nessun tavolo');
 
     app.innerHTML = `
@@ -56,24 +64,22 @@ export async function vistaRubrica(app, torna) {
         <p class="nota">Si scrivono una volta: poi ai tavoli si danno i posti toccando i nomi.
           ${d.portiere ? 'Creando una persona le si apre anche la porta — l’indirizzo entra nel criterio d’accesso, o il codice non le arriverebbe mai.' : ''}</p>
         ${d.portiere ? '' : `<p class="nota" id="non-portiere"><b>La porta non la apri tu.</b>
-          Le persone che scrivi qui restano tue e si danno ai tavoli, ma per entrare
-          nel sito il loro indirizzo dev’essere ammesso da chi ha configurato l’app:
-          finché non lo è, aprono la pagina, chiedono il codice e non ricevono niente.
-          Chiedilo a chi tiene le chiavi.</p>`}
+          ${d.configurata
+            ? 'Qui vedi chi può entrare nel sito e chi no, ma aprirla o chiuderla è di chi ha configurato l’app: se una delle tue persone è segnata <b>chiusa</b>, aprirà la pagina, chiederà il codice e non riceverà niente — chiedilo a chi tiene le chiavi.'
+            : 'Le persone che scrivi qui restano tue e si danno ai tavoli, ma per entrare nel sito il loro indirizzo dev’essere ammesso da chi ha configurato l’app. Chiedilo a chi tiene le chiavi.'}</p>`}
         ${d.persone.length ? d.persone.map((x) => `
           <div class="nemico-riga">
             <span class="nemico-nome">${esc(x.nome || x.email)}
               <span class="nota">${esc(x.email)} · ${dove(x.tavoli)}</span></span>
             <span class="nota">${segno(x)}</span>
-            ${x.porta === 'fuori' ? `<button class="btn piccolo apri-porta"
-              data-email="${esc(x.email)}">apri la porta</button>` : ''}
+            ${comandi(x)}
             <button class="btn piccolo togli-persona" data-email="${esc(x.email)}"
                     data-nome="${esc(x.nome || x.email)}"
                     data-tavoli="${x.tavoli}">togli</button>
           </div>`).join('')
         : '<p class="nota">Ancora nessuno. La prima persona che aggiungi resta qui per tutti i tavoli.</p>'}
         ${avviso ? `<p class="nota mt${male ? ' ko-txt' : ''}">${avviso}</p>` : ''}
-        ${fuori.length > 1 ? `<div class="btn-riga mt">
+        ${d.portiere && fuori.length > 1 ? `<div class="btn-riga mt">
           <button class="btn" id="apri-tutte">apri la porta a chi manca (${fuori.length})</button>
         </div>` : ''}
       </div>
@@ -105,8 +111,7 @@ export async function vistaRubrica(app, torna) {
                 <span class="nemico-nome">${esc(x.nome || x.email)}
                   <span class="nota">${esc(x.email)} · ${dove(x.tavoli)}</span></span>
                 <span class="nota">${segno(x)}</span>
-                ${x.porta === 'fuori' ? `<button class="btn piccolo apri-porta"
-                  data-email="${esc(x.email)}">apri la porta</button>` : ''}
+                ${comandi(x)}
               </div>`).join('')}`).join('')}
         </div>` : ''}
 
@@ -121,10 +126,15 @@ export async function vistaRubrica(app, torna) {
 
       ${(d.estranei || []).length ? `<div class="mt"></div>
         <div class="pannello"><h2>nel criterio, ma non in rubrica</h2>
-          <p class="nota">Indirizzi che possono entrare nel sito e non stanno in nessuna rubrica.
-            La porta si apre da qui, ma si chiude solo dalla dashboard — così un tocco
-            sbagliato non lascia fuori nessuno a metà campagna.</p>
-          ${d.estranei.map((x) => `<p class="nota">${esc(x)}</p>`).join('')}
+          <p class="nota">Indirizzi che possono entrare nel sito e non stanno in nessuna rubrica:
+            gente che ha smesso di giocare, o una prova rimasta lì.</p>
+          ${d.estranei.map((x) => `
+            <div class="nemico-riga">
+              <span class="nemico-nome">${esc(x)}
+                <span class="nota">in nessuna rubrica</span></span>
+              <button class="btn piccolo chiudi-porta" data-email="${esc(x)}"
+                      data-nome="${esc(x)}">chiudi la porta</button>
+            </div>`).join('')}
         </div>` : ''}`;
 
     document.getElementById('indietro').onclick = torna;
@@ -174,6 +184,25 @@ export async function vistaRubrica(app, torna) {
       return rendi(await apri(chi)
         ? `La porta è aperta a ${esc(chi)}.`
         : `Non riesco ad aprire la porta a ${esc(chi)}.`, false);
+    });
+
+    // CHIUDERE LA PORTA e' l'unica cosa che toglie qualcosa a qualcuno, quindi
+    // si chiede prima e si dice cosa vuol dire: non e' «togli dalla rubrica», e
+    // non toglie i posti ai tavoli — quelli restano, muti.
+    app.querySelectorAll('.chiudi-porta').forEach((el) => el.onclick = async () => {
+      const chi = el.dataset.email;
+      const come = el.dataset.nome || chi;
+      if (!await conferma(`Chiudere la porta a ${come}?`, {
+        dettaglio: 'Non potrà più entrare nel sito: aprirà la pagina, chiederà il codice e '
+          + 'non riceverà niente. I posti che ha ai tavoli restano — si tolgono da «chi gioca».',
+        si: 'chiudete la porta', no: 'lasciate stare',
+      })) return;
+      try {
+        const r = await fetch(`/api/porta?email=${encodeURIComponent(chi)}`, { method: 'DELETE' });
+        const out = await r.json().catch(() => ({}));
+        if (!r.ok) return rendi(esc(out.errore || 'Non riesco a chiudere la porta.'), true);
+      } catch { return rendi('Non riesco a chiudere la porta: manca la rete.', true); }
+      return rendi(`La porta è chiusa a ${esc(come)}.`);
     });
 
     const tutte = document.getElementById('apri-tutte');
