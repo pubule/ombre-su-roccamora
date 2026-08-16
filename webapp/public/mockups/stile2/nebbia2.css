@@ -14,7 +14,11 @@
 
 /* le azioni: colonne uguali, icona sopra e parola sotto, così anche una
    etichetta lunga («testimonianza») non allarga la sua cella */
-.azioni { display: grid; grid-template-columns: repeat(auto-fit, minmax(98px, 1fr));
+/* 128px e non 98: a 98 il telefono metteva TRE colonne da 105px, e in 91px di
+   spazio utile «testimonianza» ne chiede 108 — sbordava, e a occhio sembrava
+   solo «un po' al limite». Con 128 il telefono ne mette due larghe, l'iPad
+   cinque, e la parola respira ovunque. La misura sta in webapp/_aria.mjs. */
+.azioni { display: grid; grid-template-columns: repeat(auto-fit, minmax(128px, 1fr));
   /* righe di altezza FISSA: senza, «aiuto profano» va su due righe e la sua
      cella cresce di 19px — l'ultima fila risulta più alta delle altre, che è
      lo stesso disallineamento di prima spostato in verticale */
@@ -25,13 +29,16 @@
 .azioni .btn .ic { width: 24px; height: 24px; vertical-align: 0; }
 
 /* la barra in fondo usa la stessa griglia: sticky, con la velatura sotto */
-.barra-azioni.griglia { display: grid; grid-template-columns: repeat(auto-fit, minmax(98px, 1fr));
+.barra-azioni.griglia { display: grid; grid-template-columns: repeat(auto-fit, minmax(128px, 1fr));
   gap: 8px; }
 .barra-azioni.griglia .btn { width: 100%; min-height: 62px; flex-direction: column; gap: 3px;
   white-space: normal; line-height: 1.15; padding: 8px 6px; border-radius: 14px; }
 
 /* i bottoni di servizio (testata, pannelli): stessa idea, celle uguali */
-.bottoni { display: grid; grid-template-columns: repeat(auto-fit, minmax(132px, 1fr));
+/* 152 e non 132, per la stessa ragione delle azioni: a 132 su uno schermo da
+   360px «cambia tavolo» restava con 5px d'aria — dentro la cella, ma appiccicata
+   ai bordi. Misurato con webapp/_aria.mjs, non a occhio. */
+.bottoni { display: grid; grid-template-columns: repeat(auto-fit, minmax(152px, 1fr));
   gap: 8px; }
 .bottoni .btn { width: 100%; justify-content: center; }
 
