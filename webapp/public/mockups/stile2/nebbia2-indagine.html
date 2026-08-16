@@ -7,12 +7,25 @@
 <div class="wrap">
   <a class="torna" href="index.html">← le tre direzioni</a>
 
+  <!-- IL CAPO: l'ora e il menu, appiccicati in alto. Sono le due cose che
+       devono restare raggiungibili per tutta la serata mentre il resto scorre.
+       Prima il menu era un bottoncino in mezzo alla pagina, e si perdeva. -->
+  <div class="capo">
+    <span class="ora">
+      <span class="lumi" id="lumi"></span>
+      <span class="quante">3 ore</span>
+    </span>
+    <button class="btn btn-menu" id="apri-menu">
+      <svg class="ic" aria-hidden="true"><use href="#i-lanterna"></use></svg>menu
+      <span class="segno" aria-label="cose nuove nella notte"></span>
+    </button>
+  </div>
+
   <div class="scena">
     <div class="sfondo" id="sfondo"></div>
     <div class="dentro">
       <span class="occhiello">ci siete · ora 21</span>
       <h1>taverna del ponte rotto</h1>
-      <div class="lumi" style="margin-top:10px" id="lumi"></div>
     </div>
   </div>
 
@@ -22,8 +35,8 @@
       sul banco: una chiave da campanaro</p>
   </div>
 
-  <!-- LE AZIONI IN GRIGLIA: colonne uguali, icona sopra la parola. Con tre tipi
-       o con cinque il bottone resta dov'era, e il pollice lo impara. -->
+  <!-- IN PAGINA RESTA SOLO L'ADESSO: cosa si tenta qui, e dove si può andare.
+       Squadra, taccuino, registro della notte, roba in mano: tutto nel menu. -->
   <div class="lastra">
     <div class="tra" style="margin-bottom:10px">
       <h2>cosa tentate</h2>
@@ -39,23 +52,62 @@
   </div>
 
   <div class="lastra">
-    <div class="tra" style="margin-bottom:8px">
-      <h2>chi indaga</h2>
-      <button class="btn">menu</button>
-    </div>
-    <div class="eroi" id="eroi"></div>
-  </div>
-
-  <div class="lastra">
     <h2 style="margin-bottom:8px">stradario</h2>
     <div id="luoghi"></div>
   </div>
 
-  <!-- in fondo restano solo le due cose che chiudono un luogo: uguali di
-       larghezza, così non si preme «lasciate il luogo» per sbaglio -->
   <div class="barra-azioni griglia">
     <button class="btn"><svg class="ic" aria-hidden="true"><use href="#i-lente"></use></svg>guardate ancora</button>
     <button class="btn"><svg class="ic" aria-hidden="true"><use href="#i-strappo"></use></svg>lasciate il luogo</button>
+  </div>
+</div>
+
+<!-- IL FOGLIO DEL MENU: sale dal basso, dove arriva il pollice. Ogni voce porta
+     il suo numero — è il numero che fa aprire una voce, non il nome. -->
+<div class="velo" id="velo" hidden></div>
+<div class="foglio" id="foglio" hidden>
+  <div class="maniglia"></div>
+
+  <div class="menu-titolo">il gruppo</div>
+  <button class="menu-voce segnata">
+    <svg class="ic grande" aria-hidden="true"><use href="#i-penna"></use></svg>
+    <span class="tit">la notte<i>quel che è successo, dall’inizio</i></span>
+    <span class="conto"><b>3 nuove</b></span>
+  </button>
+  <button class="menu-voce">
+    <svg class="ic grande" aria-hidden="true"><use href="#i-occhio"></use></svg>
+    <span class="tit">la squadra<i>cariche, doni, chi è al telefono</i></span>
+    <span class="conto"><b>4</b> eroi</span>
+  </button>
+  <button class="menu-voce">
+    <svg class="ic grande" aria-hidden="true"><use href="#i-chiave"></use></svg>
+    <span class="tit">quel che avete in mano<i>una chiave, due referti, un reperto</i></span>
+    <span class="conto"><b>4</b> pezzi</span>
+  </button>
+  <button class="menu-voce">
+    <svg class="ic grande" aria-hidden="true"><use href="#i-lente"></use></svg>
+    <span class="tit">dove siete stati<i>si riaprono le carte</i></span>
+    <span class="conto"><b>2</b> luoghi</span>
+  </button>
+
+  <div class="menu-titolo">di chi conduce</div>
+  <button class="menu-voce">
+    <svg class="ic grande" aria-hidden="true"><use href="#i-referto"></use></svg>
+    <span class="tit">taccuino e domande<i>le risposte, e gli appunti di tutti</i></span>
+    <span class="conto"><b>1</b> di 4</span>
+  </button>
+  <button class="menu-voce">
+    <svg class="ic grande" aria-hidden="true"><use href="#i-candela"></use></svg>
+    <span class="tit">la lettera d’incarico</span>
+  </button>
+  <button class="menu-voce">
+    <svg class="ic grande" aria-hidden="true"><use href="#i-sigillo"></use></svg>
+    <span class="tit">la busta<i>si apre una volta sola, e per tutti</i></span>
+    <span class="conto">sigillata</span>
+  </button>
+
+  <div class="bottoni" style="margin-top:14px">
+    <button class="btn pieno" id="chiudi-menu">tornate alla scena</button>
   </div>
 </div>
 
@@ -67,10 +119,16 @@
   document.getElementById('sfondo').style.backgroundImage =
     `url('${S.urlArt('Taverna della Chiatta.png')}')`;
   document.getElementById('detto').textContent = PEZZI.DETTO;
-  document.getElementById('eroi').innerHTML = PEZZI.eroiChip();
   document.getElementById('luoghi').innerHTML = PEZZI.stradario();
   document.getElementById('lumi').innerHTML = PEZZI.ORE.map((o) =>
-    `<span class="lume-punto ${o.spesa ? '' : 'acceso'}"></span>`).join('')
-    + '<span class="nota" style="margin-left:6px">tre ore a mezzanotte</span>';
+    `<span class="lume-punto ${o.spesa ? '' : 'acceso'}"></span>`).join('');
+
+  const foglio = document.getElementById('foglio');
+  const velo = document.getElementById('velo');
+  const apri = (si) => { foglio.hidden = !si; velo.hidden = !si; };
+  document.getElementById('apri-menu').onclick = () => apri(true);
+  document.getElementById('chiudi-menu').onclick = () => apri(false);
+  velo.onclick = () => apri(false);
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') apri(false); });
 </script>
 </body></html>

@@ -108,3 +108,51 @@
 .riga-storta .btn { flex: 1 1 44%; justify-content: center; }
 .pila .btn { width: 100%; justify-content: center; margin-bottom: 8px; }
 .pila .btn.pieno { min-height: 62px; font-size: 18px; }
+
+
+/* --- IL MENU, e dove sta ------------------------------------------------
+   Il menu era un bottoncino in mezzo alla pagina, accanto a «chi indaga»: si
+   perdeva, e quel che c'è dentro (la notte, il taccuino, la squadra) si
+   perdeva con lui. Adesso sta in ALTO, appiccicato allo schermo, insieme
+   all'ora — le due cose che devono essere raggiungibili in qualunque momento
+   della serata, mentre tutto il resto scorre sotto.
+
+   E il menu si porta dentro tutto quel che NON è «adesso»: la scena, le
+   azioni e lo stradario restano in pagina, il resto è a un tocco. */
+.capo { position: sticky; top: 0; z-index: 5; display: flex; align-items: center;
+  justify-content: space-between; gap: 10px; margin: 0 -14px 0; padding: 8px 14px 12px;
+  /* quasi opaco: con una velatura leggera le parole della pagina passavano
+     sotto i lumi e sembrava tutto sporco mentre si scorre */
+  background: linear-gradient(180deg, rgba(12,14,17,.97) 0%, rgba(12,14,17,.94) 62%,
+    rgba(12,14,17,0) 100%); backdrop-filter: blur(12px); }
+.capo .ora { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.capo .ora .quante { font-family: 'FellSC', serif; font-size: 14px; color: var(--fioco);
+  white-space: nowrap; }
+/* i lumi nel capo sono più piccoli di quelli della scena: lì contano, qui
+   accompagnano il numero */
+.capo .lume-punto { width: 11px; height: 11px; }
+.btn-menu { position: relative; }
+/* il bollino dice che nella notte è successo qualcosa che non avete ancora
+   letto: senza, il menu è una porta chiusa e nessuno la apre */
+.btn-menu .segno { position: absolute; top: 6px; right: 8px; width: 9px; height: 9px;
+  border-radius: 50%; background: var(--lume); box-shadow: 0 0 8px rgba(232,194,122,.7); }
+
+/* IL FOGLIO DEL MENU: sale dal basso, dove arriva il pollice, e ogni voce dice
+   quanto c'è dentro — un numero è quel che fa aprire una voce, un nome no. */
+.foglio { position: fixed; inset: auto 0 0 0; z-index: 20; max-height: 86vh; overflow: auto;
+  background: rgba(16, 19, 24, .96); backdrop-filter: blur(16px);
+  border-top: 1px solid var(--bordo); border-radius: 18px 18px 0 0; padding: 10px 14px 22px; }
+.foglio .maniglia { width: 42px; height: 4px; border-radius: 2px; background: var(--bordo);
+  margin: 2px auto 12px; }
+.menu-titolo { font-family: 'FellSC', serif; font-size: 13px; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--lume); margin: 14px 0 6px; }
+.menu-voce { display: flex; align-items: center; gap: 12px; width: 100%; text-align: left;
+  background: var(--vetro-alto); border: 1px solid var(--bordo); border-left: 3px solid transparent;
+  border-radius: 12px; color: inherit; padding: 11px 14px; margin-bottom: 8px; }
+.menu-voce .tit { flex: 1; font-family: 'FellSC', serif; font-size: 17px; }
+.menu-voce .tit i { display: block; font-family: 'OldStd', Georgia, serif; font-style: italic;
+  font-size: 14px; color: var(--fioco); letter-spacing: 0; }
+.menu-voce .conto { font-family: 'FellSC', serif; font-size: 14px; color: var(--fioco); }
+.menu-voce .conto b { color: var(--lume); font-weight: 400; }
+.menu-voce.segnata { border-left-color: var(--lume); }
+.velo { position: fixed; inset: 0; z-index: 15; background: rgba(6, 8, 10, .55); }
