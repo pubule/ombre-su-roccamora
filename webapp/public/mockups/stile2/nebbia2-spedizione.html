@@ -1,0 +1,119 @@
+<!doctype html><html lang="it"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Notte e nebbia · spedizione (com’è oggi)</title>
+<link rel="stylesheet" href="base.css"><link rel="stylesheet" href="nebbia.css">
+<link rel="stylesheet" href="nebbia2.css">
+</head><body>
+<div class="wrap">
+  <a class="torna" href="index.html">← le tre direzioni</a>
+
+  <!-- LA SPEDIZIONE RESTA DOV'È. Stessa scaletta di oggi — fascia del turno,
+       barra, obiettivo, plancia con lo zoom, giro degli eroi, azioni, salute,
+       abilità, nemici, oggetti, diario — con addosso le superfici di vetro e il
+       lume al posto dell'oro. Qui non si sposta niente: al tavolo la mano sa
+       già dove sono le cose, e cambiare posto a un bottone costa un turno. -->
+  <div class="fascia">tocca a te — attilio — 2 azioni</div>
+
+  <div class="barra-alta">
+    <button class="btn">← menu</button>
+    <span class="titolo">tutto a schermo</span>
+    <span class="conta">round 3 · canto 2</span>
+    <button class="btn" aria-label="suoni"><svg class="ic" aria-hidden="true"><use href="#i-candela"></use></svg></button>
+  </div>
+
+  <div class="lastra">
+    <p style="margin:0"><b>Obiettivo:</b> liberate Ruggero (Interagire, la cella in T6) e
+      riportatelo in T1, alla banchina.</p>
+  </div>
+
+  <div class="lastra board-area">
+    <div class="plancia"><div class="griglia" id="griglia"></div></div>
+    <div class="zoom-ctrl">
+      <button class="zoom-btn">−</button>
+      <button class="zoom-btn">⤢</button>
+      <button class="zoom-btn">+</button>
+    </div>
+  </div>
+  <p class="nota" style="text-align:center">Trascinate per spostare la mappa · +/− per lo zoom</p>
+
+  <div class="lastra">
+    <h2 style="margin-bottom:8px">il giro degli eroi</h2>
+    <div class="giro" id="giro"></div>
+  </div>
+
+  <div class="lastra">
+    <h2 style="margin-bottom:10px">azioni di attilio</h2>
+    <div class="azioni">
+      <button class="btn pieno"><svg class="ic" aria-hidden="true"><use href="#i-scontro"></use></svg>muovi</button>
+      <button class="btn"><svg class="ic" aria-hidden="true"><use href="#i-scontro"></use></svg>attacca</button>
+      <button class="btn"><svg class="ic" aria-hidden="true"><use href="#i-lente"></use></svg>cerca</button>
+      <button class="btn"><svg class="ic" aria-hidden="true"><use href="#i-chiave"></use></svg>interagisci</button>
+      <button class="btn"><svg class="ic" aria-hidden="true"><use href="#i-referto"></use></svg>oggetto</button>
+      <button class="btn"><svg class="ic" aria-hidden="true"><use href="#i-ora"></use></svg>fine turno</button>
+    </div>
+  </div>
+
+  <div class="lastra">
+    <h2 style="margin-bottom:8px">la salute degli eroi</h2>
+    <div id="salute"></div>
+  </div>
+
+  <div class="lastra">
+    <h2 style="margin-bottom:8px">le abilità degli eroi</h2>
+    <div id="abilita"></div>
+    <p class="nota" style="margin:8px 0 0">«usa» spende una carica, e vale come un’azione
+      dell’eroe attivo.</p>
+  </div>
+
+  <div class="lastra">
+    <h2 style="margin-bottom:8px">nemici in campo</h2>
+    <div id="nemici"></div>
+  </div>
+
+  <div class="lastra diario">
+    <h2 style="margin-bottom:8px">diario</h2>
+    <p><b>attilio</b> muove di 3 e apre la porta della cripta.</p>
+    <p><b>il custode della cera</b> colpisce nino: 2 danni. Nino è a terra.</p>
+    <p><b>elena</b> cerca nella sala delle casse: trova una lampada a olio.</p>
+  </div>
+</div>
+
+<script src="../dati.js"></script>
+<script src="pezzi.js"></script>
+<script src="icone.js"></script>
+<script>
+  const { S, esc, urlArt } = PEZZI;
+  document.getElementById('griglia').innerHTML = PEZZI.plancia();
+
+  document.getElementById('giro').innerHTML = S.party.map((e) => `
+    <div class="chip-turno ${e.attivo ? 'tocca' : ''} ${e.fatto ? 'fatto' : ''}">
+      <img src="${urlArt(e.art)}" alt="" loading="lazy">
+      <span class="sc">${esc(e.breve)}</span>
+    </div>`).join('');
+
+  document.getElementById('salute').innerHTML = S.party.map((e) => {
+    const q = Math.round((e.sal / e.salMax) * 100);
+    return `<div class="salute-riga ${q === 0 ? 'grave' : q < 60 ? 'ferito' : ''}">
+      <img src="${urlArt(e.art)}" alt="" loading="lazy">
+      <span class="chi">${esc(e.breve)}</span>
+      <span class="sbarra"><i style="width:${q}%"></i></span>
+      <span class="num">${e.sal}/${e.salMax}</span>
+    </div>`;
+  }).join('');
+
+  document.getElementById('abilita').innerHTML = S.party.map((e) => `
+    <div class="salute-riga">
+      <span class="chi">${esc(e.ab)}</span>
+      <span class="pips">${Array.from({ length: e.carMax || 0 },
+    (_, i) => `<span class="pip ${i < (e.car || 0) ? 'on' : ''}"></span>`).join('')}</span>
+      <button class="btn" ${e.car ? '' : 'disabled style="opacity:.45"'}>usa</button>
+    </div>`).join('');
+
+  document.getElementById('nemici').innerHTML = S.nemici.map((n) => `
+    <div class="nemico-riga">
+      <img src="${urlArt(n.art)}" alt="" loading="lazy">
+      <span class="chi">${esc(n.breve)}</span>
+      <span class="statmini">att +${n.att} · dif ${n.dif} · dan ${n.dan} · mov ${n.mov}</span>
+    </div>`).join('');
+</script>
+</body></html>

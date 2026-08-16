@@ -1,0 +1,103 @@
+/* C · NOTTE E NEBBIA — seconda passata.
+   Si carica DOPO nebbia.css e corregge una cosa sola, che però si vedeva in
+   ogni schermata: i bottoni.
+
+   IL DIFETTO. Le azioni stavano in una fila flessibile che andava a capo da
+   sola: tre leve su 390px diventavano due larghe e una stretta sotto, e con
+   quattro usciva un mosaico storto. Larghezze diverse a ogni schermata vogliono
+   dire che il pollice non impara mai dove sta il bottone — che al buio è
+   l'unica cosa che conta.
+
+   IL RIMEDIO. Una griglia a colonne uguali: la larghezza la decide la griglia,
+   non la lunghezza della parola. Va a capo per righe intere, e ogni cella ha la
+   stessa altezza. */
+
+/* le azioni: colonne uguali, icona sopra e parola sotto, così anche una
+   etichetta lunga («testimonianza») non allarga la sua cella */
+.azioni { display: grid; grid-template-columns: repeat(auto-fit, minmax(98px, 1fr));
+  /* righe di altezza FISSA: senza, «aiuto profano» va su due righe e la sua
+     cella cresce di 19px — l'ultima fila risulta più alta delle altre, che è
+     lo stesso disallineamento di prima spostato in verticale */
+  grid-auto-rows: 68px; gap: 8px; }
+.azioni .btn { width: 100%; height: 100%; flex-direction: column; gap: 3px;
+  white-space: normal; text-align: center; line-height: 1.15; padding: 6px;
+  border-radius: 14px; }
+.azioni .btn .ic { width: 24px; height: 24px; vertical-align: 0; }
+
+/* la barra in fondo usa la stessa griglia: sticky, con la velatura sotto */
+.barra-azioni.griglia { display: grid; grid-template-columns: repeat(auto-fit, minmax(98px, 1fr));
+  gap: 8px; }
+.barra-azioni.griglia .btn { width: 100%; min-height: 62px; flex-direction: column; gap: 3px;
+  white-space: normal; line-height: 1.15; padding: 8px 6px; border-radius: 14px; }
+
+/* i bottoni di servizio (testata, pannelli): stessa idea, celle uguali */
+.bottoni { display: grid; grid-template-columns: repeat(auto-fit, minmax(132px, 1fr));
+  gap: 8px; }
+.bottoni .btn { width: 100%; justify-content: center; }
+
+/* --- LA SPEDIZIONE COM'È OGGI, riverniciata ------------------------------
+   Struttura identica a quella in uso (fascia del turno, barra, obiettivo,
+   plancia con lo zoom, giro degli eroi, azioni, salute, e i pannelli
+   secondari): cambiano le superfici — vetro invece di ardesia — e il lume al
+   posto dell'oro. Quel che si sa già dov'è, resta dov'è. */
+.barra-alta { display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  background: var(--vetro); backdrop-filter: blur(10px); border: 1px solid var(--bordo);
+  border-radius: 12px; padding: 8px 10px; margin-bottom: 10px; }
+.barra-alta .titolo { font-family: 'FellSC', serif; font-size: 17px; }
+.barra-alta .conta { font-family: 'FellSC', serif; font-size: 14px; color: var(--lume);
+  white-space: nowrap; }
+/* su uno schermo stretto quattro cose in fila si spezzano a metà parola
+   («tutto a / schermo», «round 3 · / canto 2»): il conto del round scende su
+   una riga sua, che è anche il posto dove lo si cerca */
+@media (max-width: 460px) {
+  .barra-alta { flex-wrap: wrap; }
+  .barra-alta .titolo { flex: 1; text-align: center; }
+  .barra-alta .conta { order: 4; flex: 1 1 100%; text-align: center; }
+}
+
+.board-area { position: relative; }
+.zoom-ctrl { position: absolute; right: 10px; bottom: 10px; display: flex; gap: 6px; }
+.zoom-btn { width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center;
+  background: var(--vetro-alto); border: 1px solid var(--bordo); color: var(--testo);
+  backdrop-filter: blur(6px); font-size: 18px; }
+
+/* il giro degli eroi: chi ha già agito si spegne, chi tocca ha il lume */
+.giro { display: flex; gap: 8px; flex-wrap: wrap; }
+.chip-turno { display: flex; align-items: center; gap: 8px; padding: 5px 12px 5px 5px;
+  border-radius: 999px; background: var(--vetro-alto); border: 1px solid var(--bordo); }
+.chip-turno img { width: 34px; height: 34px; border-radius: 50%; object-fit: cover; }
+.chip-turno.fatto { opacity: .45; }
+.chip-turno.tocca { border-color: var(--lume); box-shadow: 0 0 0 1px var(--lume); }
+
+/* la salute: la barra è la sola cosa che al tavolo si guarda di sfuggita */
+.salute-riga { display: flex; align-items: center; gap: 10px; padding: 8px 0;
+  border-top: 1px solid var(--bordo); }
+.salute-riga:first-child { border-top: 0; }
+.salute-riga img { width: 38px; height: 38px; border-radius: 50%; object-fit: cover; }
+.salute-riga .chi { flex: 1; font-family: 'FellSC', serif; font-size: 16px; }
+.sbarra { width: 92px; height: 10px; border-radius: 6px; background: rgba(255,255,255,.08);
+  overflow: hidden; }
+.sbarra i { display: block; height: 100%; background: #7fc9a3; }
+.salute-riga.ferito .sbarra i { background: var(--lume); }
+.salute-riga.grave .sbarra i { background: var(--sangue); }
+.salute-riga .num { font-variant-numeric: tabular-nums; min-width: 42px; text-align: right;
+  color: var(--fioco); }
+
+.nemico-riga { display: flex; align-items: center; gap: 10px; padding: 8px 0;
+  border-top: 1px solid var(--bordo); }
+.nemico-riga:first-child { border-top: 0; }
+.nemico-riga img { width: 38px; height: 38px; border-radius: 50%; object-fit: cover; }
+.nemico-riga .chi { flex: 1; font-family: 'FellSC', serif; font-size: 16px; }
+.statmini { color: var(--fioco); font-size: 14px; font-variant-numeric: tabular-nums; }
+
+.diario p { margin: 0 0 6px; color: var(--fioco); font-size: 15px; }
+.diario p b { color: var(--testo); }
+
+/* la pagina di confronto dei tre modi di impaginare i bottoni */
+.prova { border: 1px dashed var(--bordo); border-radius: 12px; padding: 12px; margin-bottom: 14px; }
+.prova .che { font-family: 'FellSC', serif; color: var(--lume); font-size: 15px; margin-bottom: 8px; }
+.prova .perche { color: var(--fioco); font-size: 14px; margin-top: 8px; }
+.riga-storta { display: flex; gap: 8px; flex-wrap: wrap; }
+.riga-storta .btn { flex: 1 1 44%; justify-content: center; }
+.pila .btn { width: 100%; justify-content: center; margin-bottom: 8px; }
+.pila .btn.pieno { min-height: 62px; font-size: 18px; }
