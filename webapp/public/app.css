@@ -108,9 +108,11 @@ em, i { font-style: italic; }
 .schermo { max-width: 1080px; margin: 0 auto; padding: 20px 16px 40px; }
 
 /* l'etichetta battuta a macchina: dice quale fascicolo hai in mano */
-.etichetta { display: inline-block; font-family: 'FellSC', serif; font-size: 11px;
-  letter-spacing: .22em; text-transform: lowercase; color: #7ba0c4;
-  border: 1px solid #2a3a48; padding: 3px 9px; }
+/* l'etichetta dice quale fascicolo hai in mano: nella pelle nuova è una riga
+   di lume in maiuscoletto, senza cornice — la cornice era del fascicolo */
+.etichetta { display: inline-block; font-family: 'FellSC', serif; font-size: 12px;
+  letter-spacing: .18em; text-transform: uppercase; color: var(--nastro);
+  border: 0; padding: 0; }
 
 /* --- caricamento --- */
 .caricamento { display: flex; flex-direction: column; align-items: center;
@@ -141,7 +143,7 @@ em, i { font-style: italic; }
 /* l'arte esce dall'assoluto e diventa la miniatura d'archivio a sinistra */
 .tessera-episodio .arte { position: static; flex: 0 0 92px; background-size: cover;
   background-position: center 25%; filter: brightness(.82); opacity: 1; }
-.tessera-episodio .velo { display: none; }
+.tessera-episodio .velo-tessera { display: none; }
 .tessera-episodio .testi { position: relative; padding: 11px 13px; }
 .tessera-episodio h2 { color: var(--osso); font-size: 19px; border: 0; padding: 0; }
 .tessera-episodio .sotto { color: var(--osso-fioco); font-style: italic; font-size: 13px; opacity: 1; }
@@ -168,7 +170,9 @@ em, i { font-style: italic; }
    già da sola dal fondo, e una riga in più era una riga di rumore */
 .pannello h2 { color: var(--nastro); font-size: 20px; margin-bottom: 8px;
   border-bottom: 0; padding-bottom: 0; }
-.pannello .nota { color: var(--osso-fioco); font-style: italic; font-size: 15px; }
+/* la nota vale OVUNQUE, non solo dentro un pannello: nel foglio del menu e
+   nella scena ce ne sono, e senza regola tornavano corpo pieno */
+.nota { color: var(--osso-fioco); font-style: italic; font-size: 15px; }
 /* la strada presa, nell'epilogo: si distingue a colpo d'occhio da quella
    lasciata — al tavolo la scelta si sigilla, e sigillata si deve vedere */
 .pannello.scelto { border-color: var(--nastro); background: #23262e; }

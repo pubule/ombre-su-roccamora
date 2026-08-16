@@ -70,6 +70,15 @@ function caricheEroe(nm) {
 let ctx = null;   // { app, partita, ep, comune, carte, vaiA }
 
 export async function vistaIndagine(app, partita, vaiA, posto) {
+  // IL VELO NON RESTA APPESO. Il foglio del menu vive sul `body` per
+  // sopravvivere ai ridisegni che arrivano dal tavolo, e questo vuol dire che
+  // uscendo dall'Indagine col menu aperto - verso la Spedizione, o verso la
+  // scelta dell'episodio - velo e foglio resterebbero sopra una schermata che
+  // non e' piu' la loro: un velo a tutto schermo che si mangia ogni tocco, e
+  // l'app che sembra bloccata. Si chiude entrando, e si chiude uscendo.
+  chiudiFoglio();
+  const vaiAltrove = vaiA;
+  vaiA = (dove) => { chiudiFoglio(); return vaiAltrove(dove); };
   const [ep0, comune0, carte0] = await Promise.all([
     dati(partita.episodio), dati('comune'), dati('carte')]);
   // L'EPISODIO COME I BIVI L'HANNO LASCIATO: un testimone che ha smesso di
@@ -300,8 +309,7 @@ function dopoBarra() {
 // AZIONI, il menu le COSE DA GUARDARE, e nessuna voce sta in tutt'e due i
 // posti.
 function menu() {
-  ctx.schermata = menu;
-  const { app, ep } = ctx;
+  const { ep } = ctx;
   const ind = IND();
   const mio = mioEroe();
   const nuove = nuoveNelRegistro();
@@ -311,60 +319,92 @@ function menu() {
   const domande = domandeBusta(ep).length;
   const visitati = (ind.visitati || []).length;
 
-  const voce = (id, titolo, sotto, conto, segnata) => `
+  // l'ICONA di ogni voce, come nel mockup: sta a sinistra e non parla mai da
+  // sola — accanto c'e' sempre la parola, che e' il difetto che rimproverano
+  // agli aiutanti da tavolo con le icone piccole e mute.
+  const voce = (id, titolo, sotto, conto, segnata, icona) => `
     <button class="menu-voce${segnata ? ' segnata' : ''}" id="${id}">
+      ${icona ? `<svg class="ic grande" aria-hidden="true"><use href="#i-${icona}"></use></svg>` : ''}
       <span class="tit">${titolo}${sotto ? `<i>${sotto}</i>` : ''}</span>
       ${conto ? `<span class="conto">${conto}</span>` : ''}
     </button>`;
 
-  app.innerHTML = `
-    ${barra('menu')}
+  // IL FOGLIO SALE SOPRA LA SCENA. `ctx.schermata` non diventa `menu`: sotto
+  // resta la schermata di prima, che può anche ridisegnarsi mentre il foglio è
+  // aperto — è per questo che il foglio sta appeso al `body`.
+  const foglio = document.createElement('div');
+  foglio.className = 'foglio';
+  foglio.id = 'foglio-menu';
+  const velo = document.createElement('div');
+  velo.className = 'velo';
+  velo.id = 'velo-menu';
+  chiudiFoglio();
+  document.body.append(velo, foglio);
+  foglio.innerHTML = `
+    <div class="maniglia"></div>
+    <p class="etichetta">${esc(ctx.ep.titolo)} · menu</p>
     <div class="menu-titolo">il gruppo</div>
     ${voce('m-notte', 'la notte', 'quel che è successo, dall’inizio',
-           nuove ? `<b>${nuove} nuove</b>` : `${(ind.notte || []).length} righe`, nuove > 0)}
+           nuove ? `<b>${nuove} nuove</b>` : `${(ind.notte || []).length} righe`, nuove > 0, 'penna')}
     ${voce('m-squadra', 'la squadra', 'cariche, doni, chi è al telefono',
-           `<b>${P().party.length}</b> eroi`)}
-    ${voce('m-mano', 'quel che avete in mano', contaInMano(ind), `<b>${inMano}</b> pezzi`)}
+           `<b>${P().party.length}</b> eroi`, false, 'occhio')}
+    ${voce('m-mano', 'quel che avete in mano', contaInMano(ind), `<b>${inMano}</b> pezzi`,
+           false, 'chiave')}
     ${arbitro() ? '' : voce('m-luoghi', 'dove siete stati', 'si riaprono le carte',
-                            `<b>${visitati}</b> luoghi`)}
+                            `<b>${visitati}</b> luoghi`, false, 'lente')}
     <div class="menu-titolo">${arbitro() ? 'di chi conduce' : 'il vostro'}</div>
     ${voce('m-taccuino', 'taccuino e domande',
            arbitro() ? 'le risposte, e gli appunti di tutti' : 'i vostri appunti, e quelli degli altri',
-           `<b>${scritte}</b> di ${domande}`)}
-    ${!arbitro() && mio ? voce('m-scheda', esc(mio.toLowerCase()), 'la vostra scheda') : ''}
+           `<b>${scritte}</b> di ${domande}`, false, 'referto')}
+    ${!arbitro() && mio ? voce('m-scheda', esc(mio.toLowerCase()), 'la vostra scheda',
+                               '', false, 'occhio') : ''}
     ${mieiEroi().length > 1
-      ? voce('m-cambia', 'giocate come…', 'su questo schermo', esc(breve(mio))) : ''}
-    ${ep.lettera ? voce('m-lettera', 'la lettera d’incarico') : ''}
+      ? voce('m-cambia', 'giocate come…', 'su questo schermo', esc(breve(mio)), false, 'conchiglia') : ''}
+    ${ep.lettera ? voce('m-lettera', 'la lettera d’incarico', '', '', false, 'candela') : ''}
     ${arbitro() ? voce('m-busta', 'la busta', 'si apre una volta sola, e per tutti',
-                       ind.chiusa ? 'aperta' : 'sigillata') : ''}
+                       ind.chiusa ? 'aperta' : 'sigillata', false, 'sigillo') : ''}
     ${arbitro() ? '<p class="nota mt">Lo stradario non è qui: è di fianco, sempre.</p>' : ''}
     <div class="menu-titolo">la serata</div>
-    ${voce('nav-esci', 'lasciate la serata', 'si torna alla scelta dell’episodio')}
-    <div class="btn-riga">
+    ${voce('nav-esci', 'lasciate la serata', 'si torna alla scelta dell’episodio',
+           '', false, 'strappo')}
+    <div class="bottoni" style="margin-top:14px">
       <button class="btn pieno" id="m-chiudi">tornate ${arbitro() ? 'alla serata' : 'alla scena'}</button>
     </div>`;
-  dopoBarra();
-  const indietro = () => (arbitro() ? scenaArbitro() : vistaDiChiGioca());
-  app.querySelector('#m-chiudi').onclick = indietro;
-  app.querySelector('#m-notte').onclick = () => registroNotte(menu);
-  app.querySelector('#m-squadra').onclick = () => squadra(menu);
-  app.querySelector('#m-mano').onclick = () => {
+
+  // ogni voce chiude il foglio prima di aprire quel che apre: il foglio è un
+  // passaggio, non un posto dove si resta
+  const q = (sel) => foglio.querySelector(sel);
+  const poi = (fn) => () => { chiudiFoglio(); fn(); };
+  velo.onclick = () => chiudiFoglio();
+  q('#m-chiudi').onclick = () => chiudiFoglio();
+  q('#m-notte').onclick = poi(() => registroNotte(menu));
+  q('#m-squadra').onclick = poi(() => squadra(menu));
+  q('#m-mano').onclick = poi(() => {
     ctx.schermata = () => elencoInMano(menu, codaCarbone());
     elencoInMano(menu, codaCarbone());
     agganciaCarbone(() => { ctx.schermata(); });
-  };
-  app.querySelector('#m-luoghi')?.addEventListener('click', () => doveSieteStati(menu));
-  app.querySelector('#m-taccuino').onclick = () => (arbitro() ? taccuino() : taccuinoDiChiGioca());
+  });
+  q('#m-luoghi')?.addEventListener('click', poi(() => doveSieteStati(menu)));
+  q('#m-taccuino').onclick = poi(() => (arbitro() ? taccuino() : taccuinoDiChiGioca()));
   // `schedaEroe(e)` e basta: il secondo argomento e' l'ARRUOLAMENTO (lo usa la
   // scelta della compagnia), e passargli `{}` — un oggetto vuoto ma vero — le
   // faceva stampare «arruola eroe» in mezzo a una serata gia' cominciata.
-  app.querySelector('#m-scheda')?.addEventListener('click', () => schedaEroe(
-    eroeCresciuto({ partita: P() }, mio, ctx.comune.eroi.find((x) => x.nome === mio))));
-  app.querySelector('#m-cambia')?.addEventListener('click', () => cambiaEroe(menu));
-  app.querySelector('#m-lettera')?.addEventListener('click',
-    () => (arbitro() ? lettera() : letteraDiChiGioca()));
-  app.querySelector('#m-busta')?.addEventListener('click', () => taccuino());
+  q('#m-scheda')?.addEventListener('click', poi(() => schedaEroe(
+    eroeCresciuto({ partita: P() }, mio, ctx.comune.eroi.find((x) => x.nome === mio)))));
+  q('#m-cambia')?.addEventListener('click', poi(() => cambiaEroe(menu)));
+  q('#m-lettera')?.addEventListener('click',
+    poi(() => (arbitro() ? lettera() : letteraDiChiGioca())));
+  q('#m-busta')?.addEventListener('click', poi(() => taccuino()));
+  q('#nav-esci').onclick = poi(() => ctx.vaiA('menu'));
 }
+
+// il foglio si chiude da tre parti: il bottone, il velo, Escape. Un foglio che
+// si chiude solo da un bottone e' un foglio che resta aperto.
+function chiudiFoglio() {
+  document.getElementById('foglio-menu')?.remove();
+  document.getElementById('velo-menu')?.remove();
+}
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') chiudiFoglio(); });
 
 // IL REGISTRO, a tutta pagina. Aprendolo si segna quel che si e' letto: il
 // pallino sul tasto e' per chi non l'ha guardato, non per tutti.

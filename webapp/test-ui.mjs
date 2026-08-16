@@ -182,6 +182,15 @@ try {
   // l'uscita è nel menu: in cima ci stanno l'ora e il menu, e basta
   await page.locator('#apri-menu').click();
   await page.locator('#nav-esci').click();
+  // IL VELO NON RESTA APPESO. Il foglio del menu vive sul `body`: uscendo
+  // dall'Indagine col menu aperto, velo e foglio resterebbero sopra la
+  // schermata nuova — un velo a tutto schermo si mangia ogni tocco, e l'app
+  // sembra bloccata senza dire perché.
+  await page.waitForTimeout(300);
+  const appesi = await page.evaluate(() => [...document.querySelectorAll('.velo, .foglio')]
+    .map((e) => `${e.tagName}.${e.className}#${e.id}`));
+  ok(appesi.length === 0,
+     `uscendo dal menu non resta nessun velo appeso (${appesi.join(', ')})`);
   await page.locator('.tessera-episodio[data-ep="ep1"]').click();
   await page.locator('#continua').click();
   await page.locator('#fine-visita').waitFor();

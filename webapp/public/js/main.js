@@ -107,7 +107,7 @@ async function vistaHome() {
         return `
         <div class="tessera-episodio" data-ep="${ep.id}">
           <div class="arte" style="background-image:url('${COPERTINE[ep.id]}')"></div>
-          <div class="velo"></div>
+          <div class="velo-tessera"></div>
           <div class="testi">
             <h2>${esc(ep.titolo)}</h2>
             <div class="sotto">${esc(ep.sottotitolo)}</div>

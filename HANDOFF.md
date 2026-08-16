@@ -59,6 +59,20 @@ bottone con l'etichetta lunga usciva di 8px (era il `white-space: nowrap`); la
 scena restava a 2px dai bordi invece che a filo. Corretti **in tutt'e due** —
 app e mockup — perché aggiustare da una parte sola li fa divergere.
 
+**L'Indagine è finita** (16/08/2026): capo, scena, azioni in griglia, tipi con
+le icone, e il **menu come foglio** che sale dal basso — appeso al `body`, così
+sopravvive ai ridisegni che arrivano dal tavolo, e chiuso all'uscita, così non
+resta un velo a tutto schermo sopra una schermata che non è più la sua. La
+classe `.velo` voleva dire due cose (la velatura decorativa delle tessere e
+questo velo): la prima si chiama `.velo-tessera`.
+
+**Un rosso intermittente da chiudere**: in `test-partite` una giocata su 42
+cade con `locator.waitFor: Timeout`, in punti diversi a ogni corsa (ep4 in una,
+ep1 in un'altra), circa 2 volte su 16 — ma poi 10 corse di fila senza cadute, e
+il controllo del velo è verde. **Non è ancora spiegato.** Il modo per coglierlo
+è `OSR_DIAG=1 node webapp/test-partite.mjs --solo=3` in ciclo finché non cade:
+il banco stampa la schermata e lo stack solo con quella variabile.
+
 **Il prossimo passo, in ordine:**
 
 1. **`webapp/test-stile.mjs` va riscritto sulla direzione nuova.** Oggi difende

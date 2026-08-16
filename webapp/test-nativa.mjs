@@ -113,7 +113,11 @@ await page.locator('#in-strada').click();
 await page.waitForTimeout(700);
 await scorre('lo stradario');
 
-await page.locator('#taccuino').click();
+// il taccuino non e' piu' un bottone sulla pagina: sta nel menu, da quando la
+// scena tiene solo quel che succede adesso (commit f17444eb)
+await page.locator('#apri-menu').click();
+await page.waitForTimeout(300);
+await page.locator('#m-taccuino').click();
 await page.waitForTimeout(500);
 await scorre('il taccuino');
 

@@ -182,7 +182,7 @@ ok(errori.length === 0, `il telefono apre l'Indagine senza errori JS: ${errori.s
   // l'impianto deciso sul mockup, e il banco fa la strada che fa un giocatore.
   await page.evaluate(() => document.querySelector('#apri-menu').click());
   await page.waitForTimeout(500);
-  const menu = await page.locator('#app').innerText();
+  const menu = await page.locator('.foglio').innerText();
   ok(/quel che avete in mano/i.test(menu), 'nel menu c’è quel che avete in mano');
   ok(/dove siete stati/i.test(menu), 'e i luoghi battuti');
 
@@ -260,6 +260,40 @@ ok(errori.length === 0, `il telefono apre l'Indagine senza errori JS: ${errori.s
   await page.waitForTimeout(1500);
   const dopo = await ora();
   ok(prima !== dopo, `l'orologio si muove da solo sul telefono (prima «${prima}», dopo «${dopo}»)`);
+
+  // IL MENU RESTA APERTO MENTRE IL TAVOLO SI MUOVE. Il foglio vive sul `body`
+  // apposta: se stesse dentro la schermata, un'ora spesa da chi arbitra lo
+  // farebbe sparire in mezzo a una lettura.
+  const apertura = await page.evaluate(() => {
+    try { document.querySelector('#apri-menu').click(); return 'ok'; }
+    catch (e) { return String(e && e.message || e); }
+  });
+  await page.waitForTimeout(400);
+  const dopoApertura = await page.evaluate(() => ({
+    fogli: document.querySelectorAll('.foglio').length,
+    veli: document.querySelectorAll('.velo').length,
+    voci: document.querySelectorAll('.menu-voce').length,
+    testa: document.querySelector('#app')?.innerText.slice(0, 60),
+  }));
+  ok(dopoApertura.fogli === 1,
+     `il menu si apre come foglio (apertura: ${apertura} · ${JSON.stringify(dopoApertura)})`);
+  await chiama(ARBITRO, 'POST', `/api/tavolo/${idT}/apri`,
+    { tavolo: idT, stato: serata({ ora: 23 }) });
+  await page.waitForTimeout(1500);
+  ok(await page.locator('.foglio').count() === 1,
+     'e resta aperto anche se il tavolo ridisegna la schermata sotto');
+
+  // ...MA NON SOPRAVVIVE ALL'USCITA. Se la serata passa alla Spedizione mentre
+  // il menu è aperto, velo e foglio resterebbero sopra una schermata che non è
+  // più la loro: un velo a tutto schermo si mangia ogni tocco, e l'app sembra
+  // bloccata senza dire perché.
+  const inSpedizione = serata({ ora: 24 });
+  inSpedizione.fase = 'spedizione';
+  inSpedizione.indagine.chiusa = true;
+  await chiama(ARBITRO, 'POST', `/api/tavolo/${idT}/apri`, { tavolo: idT, stato: inSpedizione });
+  await page.waitForTimeout(2000);
+  const appesi = await page.evaluate(() => document.querySelectorAll('.velo, .foglio').length);
+  ok(appesi === 0, `passando alla Spedizione non resta nessun velo appeso (${appesi})`);
 }
 
 // --- 3. IL TIRO PARTE DA CHI HA L'EROE, E IL COMANDO SE LO PORTA DIETRO
@@ -388,7 +422,7 @@ ok(errori.length === 0, `il telefono apre l'Indagine senza errori JS: ${errori.s
   // apre. Si guarda li', che e' dove adesso l'app scrive «dove siete».
   await page.locator('#apri-menu').click().catch(() => {});
   await page.waitForTimeout(400);
-  const testo = await page.locator('#app').innerText();
+  const testo = await page.locator('body').innerText();
   ok(/il coro sommerso/i.test(testo),
      `ricaricando si finisce dove sta chi arbitra:
 ${testo.slice(0, 180)}`);
