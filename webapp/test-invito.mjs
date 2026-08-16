@@ -59,9 +59,16 @@ ok(errori.length === 0, `la schermata apre senza errori JS: ${errori.slice(0, 2)
   const vuoto = await page.locator('#eroe-invito option').count();
   ok(vuoto > 2, `senza compagnia si può scegliere fra tutti gli eroi (viste ${vuoto} voci)`);
 
-  // si compone toccando i ritratti, e si salva
+  // si compone toccando i ritratti: il tocco APRE LA SCHEDA, e si arruola da lì
+  // — chi compone la compagnia decide guardando chi è, non il nome sotto la foto
   await page.click(`.eroe-tile[data-nome="${ELENA}"]`);
+  ok((await page.locator('.eroe-dettaglio').count()) === 1,
+     'il ritratto apre la scheda dell’eroe');
+  ok((await page.locator('#arruola').count()) === 1,
+     'e la scheda, qui, offre di arruolarlo');
+  await page.click('#arruola');
   await page.click(`.eroe-tile[data-nome="${OTTONE}"]`);
+  await page.click('#arruola');
   const conta = (await page.locator('#conta-party').innerText()).trim();
   // si contano i ritratti accesi, non la scritta: il contatore e' decorazione,
   // la selezione e' la cosa vera

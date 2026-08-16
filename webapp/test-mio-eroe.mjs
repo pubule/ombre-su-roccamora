@@ -69,6 +69,16 @@ ok(errori.length === 0, `la schermata apre senza errori JS: ${errori.slice(0, 2)
 // --- SI PRENDE UN EROE, e resta preso
 {
   await page.click(`.eroe-tile[data-nome="${ELENA}"]`);
+  // il ritratto apre la SCHEDA: si sceglie il proprio personaggio per una
+  // campagna intera, e sceglierlo dalla faccia è poco
+  ok((await page.locator('.eroe-dettaglio').count()) === 1,
+     'il ritratto apre la scheda dell’eroe');
+  const dett = await page.locator('.eroe-dettaglio').innerText();
+  ok(/acume/i.test(dett) && /abilit/i.test(dett),
+     'e la scheda porta statistiche e abilità, non solo il ritratto');
+  ok((await page.locator('#arruola').count()) === 1,
+     'da qui l’eroe si arruola');
+  await page.click('#arruola');
   await page.waitForTimeout(700);
   const r = await (await chiama(ARBITRO, 'GET', `/api/membri?tavolo=${idT}`)).json();
   const mio = (r.membri || []).find((m) => m.email === GIOCATORE);
@@ -88,6 +98,16 @@ ok(errori.length === 0, `la schermata apre senza errori JS: ${errori.slice(0, 2)
   ok((await preso.getAttribute('class')).includes('preso'), 'l\'eroe altrui si vede occupato');
   const et = await preso.innerText();
   ok(/marco/i.test(et), `e dice di chi è, per nome (visto «${et.replace(/\\n/g, ' ')}»)`);
+
+  // la scheda di un eroe altrui si legge lo stesso — non è un segreto — ma
+  // senza il bottone: offrire un'azione che verrà rifiutata è peggio che non
+  // offrirla
+  await preso.click();
+  ok((await page.locator('.eroe-dettaglio').count()) === 1,
+     'la scheda di un eroe altrui si può leggere');
+  ok((await page.locator('#arruola').count()) === 0,
+     'ma non offre di prenderlo: è di un altro');
+  await page.click('#chiudi-eroe');
 
   const r = await chiama(GIOCATORE, 'PUT', '/api/mio-eroe', { tavolo: idT, eroe: OTTONE });
   ok(r.status === 409, `e il server lo rifiuta lo stesso (visto ${r.status})`);
@@ -116,6 +136,9 @@ ok(errori.length === 0, `la schermata apre senza errori JS: ${errori.slice(0, 2)
 {
   await apri();
   await page.click(`.eroe-tile[data-nome="${ELENA}"]`);
+  const btn = (await page.locator('#arruola').innerText()).toLowerCase();
+  ok(/congeda/.test(btn), `sul proprio eroe il bottone congeda invece di arruolare («${btn}»)`);
+  await page.click('#arruola');
   await page.waitForTimeout(700);
   const r = await (await chiama(ARBITRO, 'GET', `/api/membri?tavolo=${idT}`)).json();
   ok((r.membri || []).find((m) => m.email === GIOCATORE).eroe === null,

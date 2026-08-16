@@ -10,6 +10,7 @@
 // già preso e da chi. Il resto (invitare, comporre la compagnia, togliere) è di
 // chi arbitra e non compare.
 import { dati } from './store.js';
+import { schedaEroe } from './scheda-eroe.js';
 
 const esc = (s) => String(s == null ? '' : s).replace(/[&<>"]/g, (c) =>
   ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -100,10 +101,19 @@ export async function vistaMioEroe(app, tavolo, nomeTavolo, quandoPreso) {
       </div>`;
 
     app.querySelectorAll('.eroe-tile').forEach((el) => el.onclick = async () => {
-      if (el.dataset.altrui) return rendi('Quell’eroe l’ha già preso qualcun altro.');
+      const n = el.dataset.nome;
+      const e = comune.eroi.find((x) => x.nome === n) || { nome: n, art: '', ruolo: '' };
+      // IL RITRATTO APRE LA SCHEDA. Un tocco prendeva l'eroe senza dire chi
+      // fosse: si sceglie il proprio personaggio per una campagna intera, e
+      // sceglierlo dalla faccia e' poco. Quello di un altro si legge lo stesso
+      // — la scheda non e' un segreto — ma senza il bottone, perche' e' suo.
+      if (el.dataset.altrui) {
+        await schedaEroe(e);
+        return;
+      }
       // toccare uno dei propri lo lascia, toccarne un altro lo aggiunge: si
       // manda sempre la lista intera, cosi' il posto e' quel che si vede
-      const n = el.dataset.nome;
+      if (await schedaEroe(e, { giaScelto: miei.includes(n) }) !== 'toggle') return;
       const voluti = miei.includes(n) ? miei.filter((x) => x !== n) : [...miei, n];
       try {
         const r = await fetch('/api/mio-eroe', {

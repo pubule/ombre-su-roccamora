@@ -11,6 +11,7 @@
 // un'azione che verrà rifiutata è peggio che non offrirla.
 import { dati } from './store.js';
 import { conferma } from './chiedi.js';
+import { schedaEroe } from './scheda-eroe.js';
 
 const esc = (s) => String(s == null ? '' : s).replace(/[&<>"]/g, (c) =>
   ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -60,7 +61,10 @@ export async function vistaMembri(app, tavolo, nome, torna, avanti) {
     // gli eroi già presi non si possono dare due volte: è una regola, e il
     // database la impone con un indice unico. Qui si toglie solo dall'elenco,
     // così non si arriva nemmeno a chiederlo
-    const presi = new Set(membri.map((m) => m.eroe).filter(Boolean));
+    // un posto puo' tenerne piu' d'uno (un iPad, due amici): contarne uno solo
+    // rimetterebbe il secondo fra gli assegnabili, e il database lo rifiuterebbe
+    const eroiDi = (m) => m.eroi || (m.eroe ? [m.eroe] : []);
+    const presi = new Set(membri.flatMap(eroiDi));
 
     app.innerHTML = `
       <div class="barra"><button class="btn" id="indietro">← tavoli</button>
@@ -89,7 +93,8 @@ export async function vistaMembri(app, tavolo, nome, torna, avanti) {
         ${membri.length ? membri.map((m) => `
           <div class="nemico-riga">
             <span class="nemico-nome">${esc(m.nome || m.email)}
-              <span class="nota">${m.eroe ? esc(primo(m.eroe)) : 'nessun eroe'}${
+              <span class="nota">${eroiDi(m).length
+                ? esc(eroiDi(m).map(primo).join(' e ')) : 'nessun eroe'}${
                 m.ruolo === 'arbitro' ? ' · arbitra' : ''}${
                 m.nome ? ` · ${esc(m.email)}` : ''}</span></span>
             <button class="btn piccolo togli-membro" data-email="${esc(m.email)}"
@@ -174,8 +179,15 @@ export async function vistaMembri(app, tavolo, nome, torna, avanti) {
       if ([...sel.options].some((o) => o.value === tenuto)) sel.value = tenuto;
     }
 
-    app.querySelectorAll('.eroe-tile').forEach((el) => el.onclick = () => {
+    // IL RITRATTO APRE LA SCHEDA, non arruola di colpo. Chi compone la
+    // compagnia sceglie GUARDANDO chi e' — statistiche, abilita', bio — come
+    // nella selezione del party a schermo unico: e' la stessa decisione, e va
+    // presa con gli stessi dati davanti. Il tocco cieco arruolava un nome.
+    app.querySelectorAll('.eroe-tile').forEach((el) => el.onclick = async () => {
       const n = el.dataset.nome;
+      const e = comune.eroi.find((x) => x.nome === n);
+      if (!e) return;
+      if (await schedaEroe(e, { giaScelto: scelti.has(n) }) !== 'toggle') return;
       if (scelti.has(n)) scelti.delete(n); else scelti.add(n);
       el.classList.toggle('scelto', scelti.has(n));
       salva();
