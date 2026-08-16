@@ -1,0 +1,89 @@
+<!doctype html><html lang="it"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Notte e nebbia · le tessere</title>
+<link rel="stylesheet" href="base.css"><link rel="stylesheet" href="nebbia.css">
+<link rel="stylesheet" href="nebbia2.css">
+<style>
+  /* 1 · COME OGGI: la tessera sta dietro, ma quel che si guarda è il reticolo
+     di caselle scure. La mappa somiglia a una scacchiera. */
+  .oggi { background: #0c0d10; border: 1px solid var(--bordo); border-radius: 10px; padding: 8px; }
+  .oggi .celle { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3px; }
+  .oggi .cel { aspect-ratio: 1; background: #15171b; border-radius: 4px; display: grid;
+    place-items: center; }
+  .oggi .cel.mossa { box-shadow: inset 0 0 0 2px #7fe6db; }
+  .oggi .cel.rivela { box-shadow: inset 0 0 0 2px #d8b25e; }
+
+  /* 3 · IL RETICOLO SPARISCE: le linee si vedono solo dove servono — le
+     caselle dove puoi andare e quelle che rivelano. Il resto è la stanza. */
+  .senza .cel { border-color: transparent; }
+  .senza .cel.mossa { box-shadow: inset 0 0 0 2px #7fe6db;
+    background: rgba(127,230,219,.12); }
+  .senza .cel.rivela { box-shadow: inset 0 0 0 2px #d8b25e;
+    background: rgba(216,178,94,.12); }
+</style>
+</head><body>
+<div class="wrap">
+  <a class="torna" href="index.html">← le tre direzioni</a>
+
+  <h1 style="margin-bottom:6px">le tessere, tre modi</h1>
+  <p class="nota" style="margin-bottom:14px">La stessa stanza — il corridoio delle candele,
+    con Attilio, un adepto e due caselle dove si può andare — disegnata in tre modi. Guardatela
+    sul telefono, al buio, come la guarderete giocando.</p>
+
+  <div class="prova">
+    <div class="che">1 · come oggi — caselle sopra, tessera sotto</div>
+    <div class="oggi"><div class="celle" id="oggi"></div></div>
+    <p class="perche">Quel che si guarda è il reticolo: la mappa somiglia a una scacchiera, e
+      l’illustrazione della tessera — che al tavolo è metà dell’atmosfera — resta una texture
+      dietro le caselle.</p>
+  </div>
+
+  <div class="prova">
+    <div class="che">2 · la stanza è il pezzo — <b>quella della Spedizione</b></div>
+    <div class="mappa"><div class="stanze" id="con"></div></div>
+    <p class="perche">L’arte della tessera fa da pavimento, il reticolo è un filo sopra, e una
+      vignettatura tiene giù i bordi: la stanza illuminata al centro somiglia a una lanterna.
+      Le caselle si contano ancora, che al tavolo servono.</p>
+  </div>
+
+  <div class="prova senza">
+    <div class="che">3 · il reticolo compare solo dove serve</div>
+    <div class="mappa"><div class="stanze" id="senza"></div></div>
+    <p class="perche">Le linee spariscono: restano accese solo le caselle dove puoi andare e
+      quelle che rivelano. È il più immersivo, ma toglie il modo di contare le distanze a
+      occhio — e in Spedizione contare i passi è mezzo gioco. Da provare al tavolo prima di
+      sceglierlo.</p>
+  </div>
+
+  <div class="prova">
+    <div class="che">e la nebbia</div>
+    <div class="mappa"><div class="stanze" id="fog"></div></div>
+    <p class="perche">Una stanza non ancora rivelata non è un buco nero: è una stanza che non si
+      vede. La porta che si può aprire ha il filo d’oro, come le caselle che rivelano.</p>
+  </div>
+</div>
+
+<script src="../dati.js"></script>
+<script src="pezzi.js"></script>
+<script src="pezzi-spedizione.js"></script>
+<script src="icone.js"></script>
+<script>
+  const { S, esc, urlArt } = PEZZI;
+  const DENTRO = { 0: { mossa: 1 }, 5: { eroe: 1 }, 6: { nemico: 0 }, 10: { rivela: 1 } };
+  const stanza = { id: 'T3', nome: 'corridoio delle candele', c: 4, r: 3, dentro: DENTRO };
+
+  // 1 · come oggi: caselle piatte, la tessera non si vede
+  document.getElementById('oggi').innerHTML = Array.from({ length: 12 }, (_, i) => {
+    const d = DENTRO[i] || {};
+    const chi = d.eroe != null ? PLANCIA.gettone(S.party[d.eroe], 'eroe')
+      : d.nemico != null ? PLANCIA.gettone(S.nemici[d.nemico], 'nemico') : '';
+    return `<span class="cel ${d.mossa ? 'mossa' : ''} ${d.rivela ? 'rivela' : ''}">${chi}</span>`;
+  }).join('');
+
+  document.getElementById('con').innerHTML = PLANCIA.stanza(stanza);
+  document.getElementById('senza').innerHTML = PLANCIA.stanza(stanza);
+  document.getElementById('fog').innerHTML =
+    PLANCIA.stanza({ id: 'T5', nome: 'scala al piano interrato', c: 4, r: 3, nebbia: true, porta: true })
+    + PLANCIA.stanza({ id: 'T4', nome: 'ufficio del custode', c: 4, r: 3, nebbia: true });
+</script>
+</body></html>

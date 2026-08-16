@@ -1,89 +1,127 @@
 <!doctype html><html lang="it"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Notte e nebbia · spedizione (com’è oggi)</title>
+<title>Notte e nebbia · spedizione</title>
 <link rel="stylesheet" href="base.css"><link rel="stylesheet" href="nebbia.css">
 <link rel="stylesheet" href="nebbia2.css">
 </head><body>
-<div class="wrap">
+<div class="wrap largo">
   <a class="torna" href="index.html">← le tre direzioni</a>
 
-  <!-- LA SPEDIZIONE RESTA DOV'È. Stessa scaletta di oggi — fascia del turno,
-       barra, obiettivo, plancia con lo zoom, giro degli eroi, azioni, salute,
-       abilità, nemici, oggetti, diario — con addosso le superfici di vetro e il
-       lume al posto dell'oro. Qui non si sposta niente: al tavolo la mano sa
-       già dove sono le cose, e cambiare posto a un bottone costa un turno. -->
-  <div class="fascia">tocca a te — attilio — 2 azioni</div>
-
-  <div class="barra-alta">
-    <button class="btn">← menu</button>
-    <span class="titolo">tutto a schermo</span>
-    <span class="conta">round 3 · canto 2</span>
-    <button class="btn" aria-label="suoni"><svg class="ic" aria-hidden="true"><use href="#i-candela"></use></svg></button>
+  <!-- LO STESSO CAPO DELL'INDAGINE: a sinistra la risorsa che scorre (lì
+       l'ora, qui il canto), a destra il menu con il bollino. Chi passa dalla
+       prima metà della serata alla seconda non deve reimparare niente. -->
+  <div class="capo">
+    <span class="ora">
+      <span class="lumi" id="canto"></span>
+      <span class="quante">round 3</span>
+    </span>
+    <button class="btn btn-menu" id="apri-menu">
+      <svg class="ic" aria-hidden="true"><use href="#i-lanterna"></use></svg>menu
+      <span class="segno" aria-label="cose nuove nel diario"></span>
+    </button>
   </div>
+
+  <div class="turno" id="turno"></div>
 
   <div class="lastra">
-    <p style="margin:0"><b>Obiettivo:</b> liberate Ruggero (Interagire, la cella in T6) e
-      riportatelo in T1, alla banchina.</p>
+    <p class="nota" style="margin:0"><b>Obiettivo:</b> liberate Ruggero — la cella è nella
+      cripta — e riportatelo alla banchina.</p>
   </div>
 
-  <div class="lastra board-area">
-    <div class="plancia"><div class="griglia" id="griglia"></div></div>
+  <!-- LA MAPPA A STANZE: l'arte della tessera è il pavimento, il reticolo sta
+       sopra, e quel che non è stato rivelato è nebbia invece che un buco. -->
+  <div class="lastra board-area" style="padding:10px">
+    <div class="mappa"><div class="stanze" id="stanze"></div></div>
     <div class="zoom-ctrl">
-      <button class="zoom-btn">−</button>
-      <button class="zoom-btn">⤢</button>
-      <button class="zoom-btn">+</button>
+      <button class="zoom-btn" aria-label="rimpicciolisci">−</button>
+      <button class="zoom-btn" aria-label="tutta la mappa">⤢</button>
+      <button class="zoom-btn" aria-label="ingrandisci">+</button>
     </div>
   </div>
   <p class="nota" style="text-align:center">Trascinate per spostare la mappa · +/− per lo zoom</p>
+
+  <!-- LE AZIONI: stessa griglia dell'Indagine, stesse icone. Sotto il pollice,
+       e sempre nello stesso posto. -->
+  <div class="lastra">
+    <div class="tra" style="margin-bottom:10px">
+      <h2>azioni di attilio</h2>
+      <span class="nota">2 rimaste</span>
+    </div>
+    <div class="azioni">
+      <button class="btn pieno"><svg class="ic" aria-hidden="true"><use href="#i-orma"></use></svg>muovi</button>
+      <button class="btn"><svg class="ic" aria-hidden="true"><use href="#i-scontro"></use></svg>attacca</button>
+      <button class="btn"><svg class="ic" aria-hidden="true"><use href="#i-lente"></use></svg>cerca</button>
+      <button class="btn"><svg class="ic" aria-hidden="true"><use href="#i-chiave"></use></svg>interagisci</button>
+      <button class="btn"><svg class="ic" aria-hidden="true"><use href="#i-fiala"></use></svg>oggetto</button>
+      <button class="btn"><svg class="ic" aria-hidden="true"><use href="#i-ora"></use></svg>fine turno</button>
+    </div>
+  </div>
 
   <div class="lastra">
     <h2 style="margin-bottom:8px">il giro degli eroi</h2>
     <div class="giro" id="giro"></div>
   </div>
 
-  <div class="lastra">
-    <h2 style="margin-bottom:10px">azioni di attilio</h2>
-    <div class="azioni">
-      <button class="btn pieno"><svg class="ic" aria-hidden="true"><use href="#i-scontro"></use></svg>muovi</button>
-      <button class="btn"><svg class="ic" aria-hidden="true"><use href="#i-scontro"></use></svg>attacca</button>
-      <button class="btn"><svg class="ic" aria-hidden="true"><use href="#i-lente"></use></svg>cerca</button>
-      <button class="btn"><svg class="ic" aria-hidden="true"><use href="#i-chiave"></use></svg>interagisci</button>
-      <button class="btn"><svg class="ic" aria-hidden="true"><use href="#i-referto"></use></svg>oggetto</button>
-      <button class="btn"><svg class="ic" aria-hidden="true"><use href="#i-ora"></use></svg>fine turno</button>
-    </div>
+  <div class="barra-azioni griglia">
+    <button class="btn"><svg class="ic" aria-hidden="true"><use href="#i-cuore"></use></svg>la salute</button>
+    <button class="btn"><svg class="ic" aria-hidden="true"><use href="#i-scontro"></use></svg>i nemici</button>
   </div>
+</div>
 
-  <div class="lastra">
-    <h2 style="margin-bottom:8px">la salute degli eroi</h2>
-    <div id="salute"></div>
-  </div>
+<!-- NEL MENU quel che non è «adesso»: la salute, le abilità, gli oggetti del
+     gruppo, i nemici in campo, il diario. Come nell'Indagine. -->
+<div class="velo" id="velo" hidden></div>
+<div class="foglio" id="foglio" hidden>
+  <div class="maniglia"></div>
+  <div class="menu-titolo">la squadra</div>
+  <button class="menu-voce">
+    <svg class="ic grande" aria-hidden="true"><use href="#i-cuore"></use></svg>
+    <span class="tit">la salute degli eroi<i>nino è a terra</i></span>
+    <span class="conto"><b>3</b> in piedi</span></button>
+  <button class="menu-voce">
+    <svg class="ic grande" aria-hidden="true"><use href="#i-presagio"></use></svg>
+    <span class="tit">le abilità<i>«usa» spende una carica, e vale un’azione</i></span>
+    <span class="conto"><b>4</b> cariche</span></button>
+  <button class="menu-voce">
+    <svg class="ic grande" aria-hidden="true"><use href="#i-fiala"></use></svg>
+    <span class="tit">oggetti del gruppo</span>
+    <span class="conto"><b>3</b> pezzi</span></button>
 
-  <div class="lastra">
-    <h2 style="margin-bottom:8px">le abilità degli eroi</h2>
-    <div id="abilita"></div>
-    <p class="nota" style="margin:8px 0 0">«usa» spende una carica, e vale come un’azione
-      dell’eroe attivo.</p>
-  </div>
+  <div class="menu-titolo">la notte</div>
+  <button class="menu-voce">
+    <svg class="ic grande" aria-hidden="true"><use href="#i-scontro"></use></svg>
+    <span class="tit">nemici in campo<i>il custode della cera è ancora in piedi</i></span>
+    <span class="conto"><b>3</b></span></button>
+  <button class="menu-voce segnata">
+    <svg class="ic grande" aria-hidden="true"><use href="#i-penna"></use></svg>
+    <span class="tit">diario<i>quel che è successo, round per round</i></span>
+    <span class="conto"><b>4 nuove</b></span></button>
+  <button class="menu-voce">
+    <svg class="ic grande" aria-hidden="true"><use href="#i-candela"></use></svg>
+    <span class="tit">l’obiettivo della serata</span></button>
 
-  <div class="lastra">
-    <h2 style="margin-bottom:8px">nemici in campo</h2>
-    <div id="nemici"></div>
-  </div>
-
-  <div class="lastra diario">
-    <h2 style="margin-bottom:8px">diario</h2>
-    <p><b>attilio</b> muove di 3 e apre la porta della cripta.</p>
-    <p><b>il custode della cera</b> colpisce nino: 2 danni. Nino è a terra.</p>
-    <p><b>elena</b> cerca nella sala delle casse: trova una lampada a olio.</p>
+  <div class="bottoni" style="margin-top:14px">
+    <button class="btn pieno" id="chiudi-menu">tornate alla mappa</button>
   </div>
 </div>
 
 <script src="../dati.js"></script>
 <script src="pezzi.js"></script>
+<script src="pezzi-spedizione.js"></script>
 <script src="icone.js"></script>
 <script>
   const { S, esc, urlArt } = PEZZI;
-  document.getElementById('griglia').innerHTML = PEZZI.plancia();
+  document.getElementById('stanze').innerHTML = PLANCIA.STANZE.map(PLANCIA.stanza).join('');
+
+  // il canto: tre lumi, due accesi. È la stessa lettura dell'ora nell'Indagine
+  document.getElementById('canto').innerHTML = Array.from({ length: 3 }, (_, i) =>
+    `<span class="lume-punto ${i < S.canto ? 'acceso' : ''}"></span>`).join('');
+
+  const chi = S.party.find((e) => e.attivo) || S.party[0];
+  document.getElementById('turno').innerHTML = `
+    <img src="${urlArt(chi.art)}" alt="" loading="lazy">
+    <span>tocca a te — ${esc(chi.breve)}</span>
+    <span class="quante">2 azioni</span>`;
 
   document.getElementById('giro').innerHTML = S.party.map((e) => `
     <div class="chip-turno ${e.attivo ? 'tocca' : ''} ${e.fatto ? 'fatto' : ''}">
@@ -91,29 +129,11 @@
       <span class="sc">${esc(e.breve)}</span>
     </div>`).join('');
 
-  document.getElementById('salute').innerHTML = S.party.map((e) => {
-    const q = Math.round((e.sal / e.salMax) * 100);
-    return `<div class="salute-riga ${q === 0 ? 'grave' : q < 60 ? 'ferito' : ''}">
-      <img src="${urlArt(e.art)}" alt="" loading="lazy">
-      <span class="chi">${esc(e.breve)}</span>
-      <span class="sbarra"><i style="width:${q}%"></i></span>
-      <span class="num">${e.sal}/${e.salMax}</span>
-    </div>`;
-  }).join('');
-
-  document.getElementById('abilita').innerHTML = S.party.map((e) => `
-    <div class="salute-riga">
-      <span class="chi">${esc(e.ab)}</span>
-      <span class="pips">${Array.from({ length: e.carMax || 0 },
-    (_, i) => `<span class="pip ${i < (e.car || 0) ? 'on' : ''}"></span>`).join('')}</span>
-      <button class="btn" ${e.car ? '' : 'disabled style="opacity:.45"'}>usa</button>
-    </div>`).join('');
-
-  document.getElementById('nemici').innerHTML = S.nemici.map((n) => `
-    <div class="nemico-riga">
-      <img src="${urlArt(n.art)}" alt="" loading="lazy">
-      <span class="chi">${esc(n.breve)}</span>
-      <span class="statmini">att +${n.att} · dif ${n.dif} · dan ${n.dan} · mov ${n.mov}</span>
-    </div>`).join('');
+  const foglio = document.getElementById('foglio'); const velo = document.getElementById('velo');
+  const apri = (si) => { foglio.hidden = !si; velo.hidden = !si; };
+  document.getElementById('apri-menu').onclick = () => apri(true);
+  document.getElementById('chiudi-menu').onclick = () => apri(false);
+  velo.onclick = () => apri(false);
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') apri(false); });
 </script>
 </body></html>
