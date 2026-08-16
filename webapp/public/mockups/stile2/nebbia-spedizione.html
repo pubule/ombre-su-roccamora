@@ -1,0 +1,53 @@
+<!doctype html><html lang="it"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Notte e nebbia · spedizione</title>
+<link rel="stylesheet" href="base.css"><link rel="stylesheet" href="nebbia.css">
+</head><body>
+<div class="wrap">
+  <a class="torna" href="index.html">← le tre direzioni</a>
+
+  <!-- L'ARTWORK DELLA TESSERA in cui si sta combattendo fa da fondo: sotto c'è
+       la plancia, che resta l'unica cosa a colori «di servizio». -->
+  <div class="scena" style="min-height:34vh">
+    <div class="sfondo" id="sfondo"></div>
+    <div class="dentro">
+      <span class="occhiello">round 3 · canto 2 di 3</span>
+      <h1>cripta della cera</h1>
+    </div>
+  </div>
+
+  <div class="fascia">
+    <svg class="ic grande" aria-hidden="true"><use href="#i-scontro"></use></svg>
+    tocca a te — attilio — 2 azioni
+  </div>
+
+  <div class="lastra">
+    <div class="plancia"><div class="griglia" id="griglia"></div></div>
+  </div>
+
+  <div class="lastra">
+    <h2 style="margin-bottom:8px">in campo</h2>
+    <div class="eroi" id="eroi"></div>
+    <p class="nota" style="margin:10px 0 0">Il Custode della Cera è ancora in piedi: due ferite
+      su tre. Nino è a terra.</p>
+  </div>
+
+  <div class="barra-azioni">
+    <button class="btn pieno">muovi</button>
+    <button class="btn">attacca</button>
+    <button class="btn"><svg class="ic" aria-hidden="true"><use href="#i-lente"></use></svg>cerca</button>
+    <button class="btn">fine turno</button>
+  </div>
+</div>
+
+<script src="../dati.js"></script>
+<script src="pezzi.js"></script>
+<script src="icone.js"></script>
+<script>
+  const { S } = PEZZI;
+  document.getElementById('sfondo').style.backgroundImage =
+    `url('${S.urlTessera(S.tessere[5])}')`;
+  document.getElementById('griglia').innerHTML = PEZZI.plancia();
+  document.getElementById('eroi').innerHTML = PEZZI.eroiChip();
+</script>
+</body></html>

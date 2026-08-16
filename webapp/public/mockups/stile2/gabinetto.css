@@ -1,0 +1,113 @@
+/* A · IL GABINETTO — ottone, vetro affumicato, strumenti.
+   L'app come attrezzo della Società del Lume: una cassetta di ottone brunito con
+   i vetri scuri. Il metallo compare SOLO dove c'è un'azione o un segnale; se
+   comincia a fare da cornice a tutto, torna a essere carta da parati. */
+:root {
+  --fondo: #141210;         /* carbone caldo, mai nero puro */
+  --piano: #1c1a17;         /* la cassetta */
+  --alza: #242019;          /* i cassetti: la profondità è fatta di strati */
+  --bordo: #2f291f;
+  --ottone: #d7a55a;        /* desaturato apposta: su carbone regge 7:1 */
+  --ottone-cupo: #8a6b39;      /* SOLO filetti e bordi: sul testo non arriva a 4.5:1 */
+  --ottone-tenue: #b99a68;     /* le scritte piccole che devono restare leggibili */
+  --testo: #e6e0d3;
+  --fioco: #a49b8a;         /* 5.5:1 sul fondo: le note restano leggibili */
+  --sangue: #c04453;
+  --vetro: #0f0d0b;
+}
+body {
+  background:
+    radial-gradient(120% 60% at 50% -10%, #1d1a16 0%, var(--fondo) 60%),
+    var(--fondo);
+  color: var(--testo); font-family: 'OldStd', Georgia, serif;
+}
+h1, h2, h3 { font-family: 'FellSC', serif; text-transform: lowercase;
+  letter-spacing: .06em; font-weight: 400; margin: 0; }
+h1 { font-size: clamp(28px, 8vw, 40px); color: var(--ottone); }
+h2 { font-size: 21px; color: var(--ottone); }
+.torna { color: var(--ottone-cupo); border: 1px solid var(--bordo); }
+
+/* la testata è la targhetta incisa sul coperchio */
+.targa { border: 1px solid var(--ottone-cupo); border-left-width: 3px;
+  padding: 12px 14px; margin-bottom: 14px; background: var(--piano); }
+.targa .etichetta { font-family: 'FellSC', serif; font-size: 12px; letter-spacing: .18em;
+  text-transform: uppercase; color: var(--ottone); }
+.targa .sotto { color: var(--fioco); font-style: italic; }
+
+.cassetto { background: var(--piano); border: 1px solid var(--bordo); border-radius: 2px;
+  padding: 14px; margin-bottom: 12px; }
+.cassetto > h2 { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+.nota { color: var(--fioco); font-size: 15px; }
+
+/* IL QUADRANTE DELL'ORA: sei tacche incise, quelle spese si spengono. L'ora è la
+   risorsa vera dell'Indagine, quindi è lo strumento più grande della cassetta. */
+.quadrante { display: flex; gap: 6px; justify-content: center; margin: 4px 0 6px; }
+.tacca { flex: 1; max-width: 62px; height: 46px; border: 1px solid var(--ottone-cupo);
+  border-radius: 2px; display: grid; place-items: center; font-family: 'FellSC', serif;
+  font-size: 17px; color: var(--ottone); background: linear-gradient(#231f19, #1a1713); }
+.tacca.spesa { color: #8f8677; border-color: #3a332a; background: var(--vetro);
+  text-decoration: line-through; }
+.tacca.ora { box-shadow: inset 0 0 0 1px var(--ottone); background: #2b2418; }
+
+/* le voci dello stradario: righe di un registro, con la costola di ottone a
+   sinistra su quella dove il gruppo sta lavorando */
+.voce { width: 100%; text-align: left; background: var(--alza); border: 1px solid var(--bordo);
+  border-left: 3px solid transparent; border-radius: 2px; color: inherit;
+  padding: 9px 12px; margin-bottom: 6px; justify-content: space-between; }
+.voce .nome { font-size: 17px; }
+.voce .indirizzo { display: block; font-size: 13px; color: var(--fioco); font-style: italic; }
+.voce .segno { font-family: 'FellSC', serif; font-size: 13px; color: var(--ottone-tenue); }
+.voce.attivo { border-left-color: var(--ottone); background: #262019; }
+.voce.visitato { opacity: .62; }
+
+.btn { background: var(--alza); border: 1px solid var(--ottone-cupo); border-radius: 2px;
+  color: var(--testo); font-family: 'FellSC', serif; text-transform: lowercase;
+  letter-spacing: .05em; font-size: 16px; padding: 10px 14px; }
+.btn:hover, .btn:focus-visible { border-color: var(--ottone); }
+.btn.pieno { background: linear-gradient(#3a2f1c, #2a2216); border-color: var(--ottone);
+  color: #f2e6cd; }
+
+/* LA FILA DI LEVE: la barra delle azioni è la parte meccanica dello strumento.
+   Sta in basso, dove arriva il pollice, e le leve sono larghe uguali. */
+.barra-azioni { position: sticky; bottom: 0; display: flex; gap: 8px;
+  background: linear-gradient(180deg, rgba(20,18,16,0) 0%, var(--fondo) 22%);
+  padding: 12px 0 6px; margin-top: 10px; }
+.barra-azioni .btn { flex: 1 1 44%; justify-content: center; }
+
+.eroi { display: flex; gap: 8px; flex-wrap: wrap; }
+.eroe { display: flex; align-items: center; gap: 8px; background: var(--alza);
+  border: 1px solid var(--bordo); border-radius: 2px; padding: 6px 10px 6px 6px; }
+.eroe img { width: 40px; height: 40px; border-radius: 2px; object-fit: cover;
+  filter: sepia(.35) saturate(.8); }
+.eroe .n { font-family: 'FellSC', serif; font-size: 15px; }
+.pips { display: inline-flex; gap: 3px; }
+.pip { width: 8px; height: 8px; border: 1px solid var(--ottone-cupo); border-radius: 50%; }
+.pip.on { background: var(--ottone); }
+
+/* gli episodi: cassetti dello schedario, con la costola illustrata */
+.tile { width: 100%; color: inherit; background: var(--piano); border: 1px solid var(--bordo);
+  border-radius: 2px; overflow: hidden; margin-bottom: 10px; align-items: stretch;
+  padding: 0; text-align: left; }
+.tile .arte { width: 108px; flex: none; background-size: cover; background-position: center;
+  filter: sepia(.4) saturate(.75) brightness(.8); border-right: 1px solid var(--bordo); }
+.tile .testi { padding: 11px 12px; }
+.tile h3 { font-size: 20px; color: var(--testo); }
+.tile .sotto { display: block; color: var(--fioco); font-style: italic; font-size: 14px; }
+.tile .stato { font-family: 'FellSC', serif; font-size: 13px; color: var(--ottone);
+  margin-top: 4px; display: inline-flex; align-items: center; gap: 6px; }
+
+/* la plancia: l'unica cosa che NON è di ottone. Turchese, oro e rosso sono
+   segnali imparati al tavolo, e nessuno stile se li riprende per decorare. */
+.plancia { background: var(--vetro); border: 1px solid var(--bordo); padding: 8px;
+  border-radius: 2px; overflow: auto; }
+.griglia { display: grid; grid-template-columns: repeat(6, 1fr); gap: 3px; min-width: 320px; }
+.cella { aspect-ratio: 1; background: #1a1815; border: 1px solid #262119; border-radius: 1px;
+  display: grid; place-items: center; }
+.cella.mossa { box-shadow: inset 0 0 0 2px #7fe6db; }
+.cella.rivela { box-shadow: inset 0 0 0 2px #d8b25e; }
+.cella img { width: 84%; height: 84%; object-fit: cover; border-radius: 50%; }
+.cella.nemico img { box-shadow: 0 0 0 2px var(--sangue); }
+.fascia { display: flex; align-items: center; justify-content: center; gap: 8px;
+  font-family: 'FellSC', serif; padding: 10px; border: 1px solid var(--ottone);
+  background: linear-gradient(#2b2418, #201a12); color: #f2e6cd; border-radius: 2px;
+  margin-bottom: 10px; }

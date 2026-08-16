@@ -1,0 +1,116 @@
+/* B · REFERTO — chiaro, freddo, tutto leggibile.
+   Nessun ornamento: la gerarchia la fanno il corpo e il peso, non le cornici.
+   L'atmosfera qui non la porta l'interfaccia — la portano gli artwork, che ci
+   sono già, e il testo narrativo. È la direzione che fa vincere il tempo: meno
+   tocchi, contatori grandi, stato a colpo d'occhio.
+
+   Sans di sistema per l'INTERFACCIA (numeri tabulari per ore, cariche, ferite);
+   serif solo per il testo che si legge ad alta voce. Quella è l'unica cosa che
+   qui dentro somiglia a carta stampata. */
+:root {
+  --fondo: #101114;
+  --piano: #16181c;
+  --alza: #1e2127;
+  --bordo: #272b33;
+  --bordo-alto: #39404b;
+  --testo: #e7e9ec;         /* non bianco: niente vibrazione */
+  --fioco: #9aa1ac;         /* 6.3:1 sul fondo */
+  --blu: #7fb0e8;           /* l'unico accento, desaturato */
+  --blu-cupo: #2f4a68;
+  --sangue: #e07b86;
+  --ok: #86c9a8;
+  --ui: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+}
+body { background: var(--fondo); color: var(--testo); font-family: var(--ui); }
+h1, h2, h3 { margin: 0; font-weight: 600; letter-spacing: -.01em; text-transform: none; }
+h1 { font-size: clamp(24px, 6.5vw, 32px); }
+h2 { font-size: 15px; text-transform: uppercase; letter-spacing: .12em; color: var(--fioco);
+  font-weight: 600; }
+.torna { color: var(--fioco); border: 1px solid var(--bordo); text-transform: none;
+  font-family: var(--ui); letter-spacing: 0; }
+
+.testata { padding: 4px 0 14px; border-bottom: 1px solid var(--bordo); margin-bottom: 14px; }
+.testata .sotto { color: var(--fioco); font-size: 15px; margin-top: 2px; }
+.etichetta { font-size: 12px; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--blu); }
+
+.blocco { background: var(--piano); border: 1px solid var(--bordo); border-radius: 8px;
+  padding: 14px; margin-bottom: 12px; }
+.blocco > h2 { margin-bottom: 10px; }
+.nota { color: var(--fioco); font-size: 15px; }
+/* la voce del narratore resta di carta: serif, larga, per leggerla ad alta voce */
+.detto { font-family: 'OldStd', Georgia, serif; font-size: 18px; line-height: 1.62; }
+
+/* IL DATO GRANDE. L'ora che resta è il numero più importante della serata:
+   niente ornamenti attorno, e cifre tabulari perché non ballino scendendo. */
+.dato { display: flex; align-items: baseline; gap: 10px; }
+.dato .num { font-size: 44px; font-weight: 700; line-height: 1;
+  font-variant-numeric: tabular-nums; }
+.dato .eti { color: var(--fioco); font-size: 14px; text-transform: uppercase;
+  letter-spacing: .1em; }
+.barra-ore { display: flex; gap: 4px; margin-top: 10px; }
+.barra-ore i { flex: 1; height: 8px; border-radius: 4px; background: var(--alza); }
+.barra-ore i.spesa { background: var(--blu-cupo); }
+.barra-ore i.ora { background: var(--blu); }
+
+.voce { width: 100%; text-align: left; background: var(--alza); border: 1px solid var(--bordo);
+  border-radius: 8px; color: inherit; padding: 10px 12px; margin-bottom: 8px;
+  justify-content: space-between; }
+.voce .nome { font-size: 17px; font-weight: 600; }
+.voce .indirizzo { display: block; font-size: 14px; color: var(--fioco); }
+.voce .segno { font-size: 13px; color: var(--fioco); text-transform: uppercase;
+  letter-spacing: .08em; }
+.voce.attivo { border-color: var(--blu); box-shadow: inset 3px 0 0 var(--blu); }
+.voce.visitato { opacity: .6; }
+
+.btn { background: var(--alza); border: 1px solid var(--bordo-alto); border-radius: 8px;
+  color: var(--testo); font-family: var(--ui); font-size: 16px; padding: 11px 14px; }
+.btn:hover, .btn:focus-visible { border-color: var(--blu); }
+.btn.pieno { background: var(--blu); border-color: var(--blu); color: #0d1520; font-weight: 600; }
+.barra-azioni { position: sticky; bottom: 0; display: flex; gap: 8px;
+  background: linear-gradient(180deg, rgba(16,17,20,0) 0%, var(--fondo) 22%);
+  padding: 12px 0 6px; margin-top: 10px; }
+.barra-azioni .btn { flex: 1 1 44%; justify-content: center; }
+
+/* la squadra come tabella di stato: nome, ferite, cariche, tutto in colonna e
+   allineato — si legge in un colpo, che è quel che serve a metà turno */
+.tab { width: 100%; border-collapse: collapse; }
+.tab th { text-align: left; font-size: 12px; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--fioco); font-weight: 600; padding: 0 8px 6px 0; }
+.tab td { padding: 8px 8px 8px 0; border-top: 1px solid var(--bordo);
+  font-variant-numeric: tabular-nums; }
+.tab .chi { display: flex; align-items: center; gap: 8px; font-weight: 600; }
+.tab img { width: 34px; height: 34px; border-radius: 6px; object-fit: cover; }
+.vita { display: inline-flex; align-items: center; gap: 6px; }
+.vita .sbarra { width: 62px; height: 8px; border-radius: 4px; background: var(--alza);
+  overflow: hidden; }
+.vita .sbarra i { display: block; height: 100%; background: var(--ok); }
+.vita.ferito .sbarra i { background: var(--sangue); }
+.pips { display: inline-flex; gap: 3px; }
+.pip { width: 9px; height: 9px; border-radius: 50%; border: 1px solid var(--bordo-alto); }
+.pip.on { background: var(--blu); border-color: var(--blu); }
+
+.tile { width: 100%; color: inherit; background: var(--piano); border: 1px solid var(--bordo);
+  border-radius: 10px; overflow: hidden; margin-bottom: 10px; align-items: stretch;
+  padding: 0; text-align: left; }
+.tile .arte { width: 104px; flex: none; background-size: cover; background-position: center; }
+.tile .testi { padding: 12px; }
+.tile h3 { font-size: 19px; }
+.tile .sotto { display: block; color: var(--fioco); font-size: 14px; }
+.tile .stato { font-size: 12px; text-transform: uppercase; letter-spacing: .1em;
+  margin-top: 6px; display: inline-flex; align-items: center; gap: 6px; color: var(--blu); }
+.tile .stato.finita { color: var(--fioco); }
+
+.plancia { background: #0c0d10; border: 1px solid var(--bordo); padding: 8px;
+  border-radius: 10px; overflow: auto; }
+.griglia { display: grid; grid-template-columns: repeat(6, 1fr); gap: 3px; min-width: 320px; }
+.cella { aspect-ratio: 1; background: #15171b; border-radius: 4px; display: grid;
+  place-items: center; }
+.cella.mossa { box-shadow: inset 0 0 0 2px #7fe6db; }
+.cella.rivela { box-shadow: inset 0 0 0 2px #d8b25e; }
+.cella img { width: 84%; height: 84%; object-fit: cover; border-radius: 50%; }
+.cella.nemico img { box-shadow: 0 0 0 2px #a3253a; }
+.fascia { display: flex; align-items: center; justify-content: space-between; gap: 8px;
+  padding: 12px 14px; border-radius: 10px; background: var(--blu); color: #0d1520;
+  font-weight: 600; margin-bottom: 10px; }
+.fascia .azioni { font-variant-numeric: tabular-nums; }

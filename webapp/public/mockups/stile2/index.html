@@ -1,0 +1,105 @@
+<!doctype html><html lang="it"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tre stili · Ombre su Roccamora</title>
+<link rel="stylesheet" href="base.css">
+<style>
+  body { background: #0d0e11; color: #e2e0da; font-family: 'OldStd', Georgia, serif; }
+  h1 { font-family: 'FellSC', serif; text-transform: lowercase; font-weight: 400;
+    font-size: clamp(26px, 7vw, 36px); color: #d7a55a; }
+  h2 { font-family: 'FellSC', serif; text-transform: lowercase; font-weight: 400; font-size: 24px; }
+  .testata { text-align: center; padding: 22px 0 6px; }
+  .testata .sotto { color: #9a978f; font-style: italic; }
+  .dir { border: 1px solid #262a31; border-radius: 6px; padding: 16px; margin-top: 16px; }
+  .dir .tesi { font-style: italic; color: #a5a29a; margin: 2px 0 10px; }
+  .campioni { display: flex; gap: 6px; margin: 10px 0; }
+  .campioni span { width: 34px; height: 34px; border-radius: 3px; border: 1px solid #2b2f36; }
+  .link { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+  .link a { font-family: 'FellSC', serif; text-transform: lowercase; letter-spacing: .05em;
+    font-size: 15px; padding: 10px 14px; border: 1px solid #363b44; border-radius: 4px;
+    min-height: 44px; display: inline-flex; align-items: center; }
+  .link a:hover, .link a:focus-visible { border-color: currentColor; }
+  .a { color: #d7a55a; } .b { color: #7fb0e8; } .c { color: #e8c27a; }
+  .coda { border: 1px solid #262a31; border-radius: 6px; padding: 16px; margin-top: 20px;
+    color: #a5a29a; }
+  .coda b { color: #e2e0da; }
+  .coda li { margin-bottom: 6px; }
+</style>
+</head><body>
+<div class="wrap">
+  <div class="testata">
+    <h1>tre stili, tre viste ciascuno</h1>
+    <div class="sotto">mockup statici — nessuna logica, nessun tocco all’app</div>
+  </div>
+
+  <p>Guardateli <b>dal telefono e dall’iPad con cui giocate</b>, e con la luce che avrete
+    davvero in stanza. Tre domande per ciascuno: il testo lungo si legge senza avvicinare gli
+    occhi? il bottone si preme senza guardare? il turno si trova in meno di due secondi?</p>
+
+  <div class="dir a">
+    <h2>A · il gabinetto</h2>
+    <p class="tesi">ottone, vetro affumicato, strumenti — l’app come attrezzo della Società</p>
+    <div class="campioni"><span style="background:#141210"></span><span style="background:#1c1a17"></span>
+      <span style="background:#d7a55a"></span><span style="background:#8a6b39"></span>
+      <span style="background:#e6e0d3"></span></div>
+    <p>Il metallo compare <b>solo dove c’è un’azione</b>: le ore sono tacche incise che si
+      spengono, la barra delle azioni è una fila di leve. Icone incise accanto a ogni parola.
+      È la più «di gioco» e la più a rischio: l’ornamento non deve mangiare spazio al testo.</p>
+    <div class="link">
+      <a href="gabinetto-home.html">archivio</a>
+      <a href="gabinetto-indagine.html">indagine</a>
+      <a href="gabinetto-spedizione.html">spedizione</a>
+    </div>
+  </div>
+
+  <div class="dir b">
+    <h2>B · referto</h2>
+    <p class="tesi">nessun ornamento, tutto leggibile — l’atmosfera la portano gli artwork</p>
+    <div class="campioni"><span style="background:#101114"></span><span style="background:#16181c"></span>
+      <span style="background:#7fb0e8"></span><span style="background:#86c9a8"></span>
+      <span style="background:#e7e9ec"></span></div>
+    <p>Sans di sistema per l’interfaccia con <b>numeri tabulari</b>, serif solo per il testo che
+      si legge ad alta voce. Le ore diventano un numero grande, la squadra una tabella che si
+      legge in un colpo. Vince sul tempo; è la meno atmosferica.</p>
+    <div class="link">
+      <a href="referto-home.html">archivio</a>
+      <a href="referto-indagine.html">indagine</a>
+      <a href="referto-spedizione.html">spedizione</a>
+    </div>
+  </div>
+
+  <div class="dir c">
+    <h2>C · notte e nebbia</h2>
+    <p class="tesi">l’immagine è la pagina — la strada di Mansions of Madness e Descent</p>
+    <div class="campioni"><span style="background:#0c0e11"></span><span style="background:#1e232a"></span>
+      <span style="background:#e8c27a"></span><span style="background:#d9606d"></span>
+      <span style="background:#edeef0"></span></div>
+    <p>L’artwork del luogo occupa lo schermo e il testo vive sopra, su <b>lastre di vetro
+      fumé</b>. Le ore sono lumi che si spengono. La regola che la tiene in piedi: nessun testo
+      sull’immagine nuda — il contrasto su una fotografia non si misura col solo colore.</p>
+    <div class="link">
+      <a href="nebbia-home.html">archivio</a>
+      <a href="nebbia-indagine.html">indagine</a>
+      <a href="nebbia-spedizione.html">spedizione</a>
+    </div>
+  </div>
+
+  <div class="coda">
+    <h2 style="color:#e2e0da">quel che vale per tutte e tre</h2>
+    <ul>
+      <li>fondo mai nero puro, testo mai bianco puro; contrasto ≥4.5:1 sul corpo;</li>
+      <li>corpo ≥17px, e ≥18px sul testo che si legge ad alta voce;</li>
+      <li>bersagli ≥44px, ≥48px nella barra delle azioni: si preme al buio;</li>
+      <li>icone ≥22px e <b>sempre con la parola accanto</b> — il difetto che rimproverano a
+        X-haven Assistant, illeggibile anche su iPad;</li>
+      <li>turchese, oro e rosso della plancia restano i tre segnali imparati al tavolo:
+        nessuno stile se li riprende per decorare.</li>
+    </ul>
+    <p><b>Da guardare a occhio, non misurabile:</b> in <i>notte e nebbia</i> i titoli delle
+      scene e i nomi degli episodi stanno sopra una fotografia. Le lastre di vetro sono lì
+      apposta, ma il giudizio finale è vostro, sul dispositivo vero.</p>
+    <p style="margin:0">Icone di <b>Lorc</b> e <b>Delapouite</b> — <a href="https://game-icons.net"
+      style="text-decoration:underline">game-icons.net</a>, CC BY 3.0. Se una direzione con le
+      icone viene scelta, il credito va nel README prima di pubblicarla.</p>
+  </div>
+</div>
+</body></html>

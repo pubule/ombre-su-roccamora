@@ -1,0 +1,65 @@
+<!doctype html><html lang="it"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Il Gabinetto · indagine</title>
+<link rel="stylesheet" href="base.css"><link rel="stylesheet" href="gabinetto.css">
+</head><body>
+<div class="wrap">
+  <a class="torna" href="index.html">← le tre direzioni</a>
+
+  <div class="targa">
+    <span class="etichetta">fascicolo 1 · indagine</span>
+    <h1>il coro sommerso</h1>
+    <div class="sotto">il caso del campanaro scomparso</div>
+  </div>
+
+  <!-- IL QUADRANTE: l'ora è la risorsa vera della notte, quindi è lo strumento
+       più grande della cassetta e sta in cima, sempre visibile. -->
+  <div class="cassetto">
+    <div class="tra" style="margin-bottom:8px">
+      <h2><svg class="ic" aria-hidden="true"><use href="#i-ora"></use></svg>l'ora della notte</h2>
+      <button class="btn">menu</button>
+    </div>
+    <div class="quadrante" id="quadrante"></div>
+    <p class="nota" style="text-align:center;margin:0">tre ore prima di mezzanotte</p>
+  </div>
+
+  <div class="cassetto">
+    <h2><svg class="ic" aria-hidden="true"><use href="#i-lanterna"></use></svg>ci siete: taverna del ponte rotto</h2>
+    <p class="voce-alta" id="detto"></p>
+    <div class="riga" style="margin-top:6px">
+      <span class="nota"><svg class="ic" aria-hidden="true"><use href="#i-chiave"></use></svg>una chiave da campanaro, sul banco</span>
+    </div>
+  </div>
+
+  <div class="cassetto">
+    <h2>chi indaga</h2>
+    <div class="eroi" id="eroi"></div>
+  </div>
+
+  <div class="cassetto">
+    <h2>stradario</h2>
+    <p class="nota">Dichiarate dove andate: se la pista è fredda non costa niente, ma se lì
+      c’è qualcosa l’ora si spende.</p>
+    <div id="luoghi" style="margin-top:10px"></div>
+  </div>
+
+  <!-- LA FILA DI LEVE: quel che si può tentare adesso, dove arriva il pollice.
+       Ogni leva dice il tipo, e nessuna dice cosa il luogo nasconde. -->
+  <div class="barra-azioni">
+    <button class="btn pieno"><svg class="ic" aria-hidden="true"><use href="#i-occhio"></use></svg>osservazione</button>
+    <button class="btn"><svg class="ic" aria-hidden="true"><use href="#i-orecchio"></use></svg>testimonianza</button>
+    <button class="btn"><svg class="ic" aria-hidden="true"><use href="#i-presagio"></use></svg>presagio</button>
+  </div>
+</div>
+
+<script src="../dati.js"></script>
+<script src="pezzi.js"></script>
+<script src="icone.js"></script>
+<script>
+  document.getElementById('detto').textContent = PEZZI.DETTO;
+  document.getElementById('eroi').innerHTML = PEZZI.eroiChip();
+  document.getElementById('luoghi').innerHTML = PEZZI.stradario();
+  document.getElementById('quadrante').innerHTML = PEZZI.ORE.map((o) =>
+    `<span class="tacca ${o.spesa ? 'spesa' : ''} ${o.ora ? 'ora' : ''}">${o.et}</span>`).join('');
+</script>
+</body></html>

@@ -1,0 +1,49 @@
+<!doctype html><html lang="it"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Il Gabinetto · archivio</title>
+<link rel="stylesheet" href="base.css"><link rel="stylesheet" href="gabinetto.css">
+</head><body>
+<div class="wrap">
+  <a class="torna" href="index.html">← le tre direzioni</a>
+
+  <div class="targa">
+    <span class="etichetta">società del lume · archivio dei casi</span>
+    <h1>ombre su roccamora</h1>
+    <div class="sotto">roccamora, 1889 — ventun casi, uno per sera</div>
+  </div>
+
+  <div class="cassetto">
+    <div class="tra">
+      <span class="nota"><svg class="ic" aria-hidden="true"><use href="#i-sigillo"></use></svg>
+        il gruppo del giovedì · allineato</span>
+    </div>
+    <div class="riga" style="margin-top:10px">
+      <button class="btn">cambia tavolo</button>
+      <button class="btn"><svg class="ic" aria-hidden="true"><use href="#i-penna"></use></svg>rubrica</button>
+      <button class="btn">taccuino di campagna</button>
+    </div>
+  </div>
+
+  <div id="episodi"></div>
+</div>
+
+<script src="../dati.js"></script>
+<script src="../stile/episodi.js"></script>
+<script src="icone.js"></script>
+<script>
+  const A = (p) => '/assets/artworks/' + encodeURI(p);
+  const esc = MOCK.esc;
+  const stato = { 'in corso': ['#i-lanterna', 'partita in corso'], conclusa: ['#i-sigillo', 'serata vinta'] };
+  document.getElementById('episodi').innerHTML = EPISODI.map((e) => {
+    const s = stato[e.stato];
+    return `<button class="tile">
+      <span class="arte" style="background-image:url('${A(e.cover)}')"></span>
+      <span class="testi">
+        <h3>${esc(e.titolo)}</h3>
+        <span class="sotto">${esc(e.sotto)}</span>
+        ${s ? `<span class="stato"><svg class="ic" aria-hidden="true"><use href="${s[0]}"></use></svg>${s[1]}</span>` : ''}
+      </span>
+    </button>`;
+  }).join('');
+</script>
+</body></html>

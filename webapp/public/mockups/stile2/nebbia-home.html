@@ -1,0 +1,50 @@
+<!doctype html><html lang="it"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Notte e nebbia · archivio</title>
+<link rel="stylesheet" href="base.css"><link rel="stylesheet" href="nebbia.css">
+</head><body>
+<div class="wrap">
+  <a class="torna" href="index.html">← le tre direzioni</a>
+
+  <!-- LA SCENA D'APERTURA: l'artwork fa da copertina all'archivio. Il testo sta
+       nella parte bassa, dove la velatura è più densa — mai sull'immagine nuda. -->
+  <div class="scena" style="min-height:46vh">
+    <div class="sfondo" style="background-image:url('/assets/artworks/Palazzo%20del%20Lume.png')"></div>
+    <div class="dentro">
+      <span class="occhiello">società del lume · archivio dei casi</span>
+      <h1>ombre su roccamora</h1>
+      <p class="nota" style="margin:2px 0 0">roccamora, 1889 — ventun casi, uno per sera</p>
+    </div>
+  </div>
+
+  <div class="lastra">
+    <div class="tra">
+      <span class="nota">il gruppo del giovedì · allineato</span>
+      <button class="btn">cambia tavolo</button>
+    </div>
+    <div class="riga" style="margin-top:10px">
+      <button class="btn"><svg class="ic" aria-hidden="true"><use href="#i-penna"></use></svg>rubrica</button>
+      <button class="btn">taccuino</button>
+    </div>
+  </div>
+
+  <div id="episodi"></div>
+</div>
+
+<script src="../dati.js"></script>
+<script src="../stile/episodi.js"></script>
+<script src="icone.js"></script>
+<script>
+  const A = (p) => '/assets/artworks/' + encodeURI(p);
+  const esc = MOCK.esc;
+  document.getElementById('episodi').innerHTML = EPISODI.map((e) => `
+    <button class="tile">
+      <span class="arte" style="background-image:url('${A(e.cover)}')"></span>
+      ${e.stato ? `<span class="stato">${e.stato === 'conclusa' ? 'vinta' : 'in corso'}</span>` : ''}
+      <span class="testi">
+        <h3>${esc(e.titolo)}</h3>
+        <span class="sotto">${esc(e.sotto)}</span>
+      </span>
+    </button>`).join('');
+</script>
+</body></html>

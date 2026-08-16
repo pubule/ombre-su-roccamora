@@ -1,0 +1,51 @@
+<!doctype html><html lang="it"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Referto · archivio</title>
+<link rel="stylesheet" href="base.css"><link rel="stylesheet" href="referto.css">
+</head><body>
+<div class="wrap">
+  <a class="torna" href="index.html">← le tre direzioni</a>
+
+  <div class="testata">
+    <span class="etichetta">archivio dei casi</span>
+    <h1>Ombre su Roccamora</h1>
+    <div class="sotto">Roccamora, 1889 — ventun casi, uno per sera</div>
+  </div>
+
+  <div class="blocco">
+    <div class="tra">
+      <div>
+        <h2>tavolo</h2>
+        <div style="font-weight:600;margin-top:2px">Il gruppo del giovedì</div>
+        <div class="nota">allineato · 4 giocatori</div>
+      </div>
+      <button class="btn">cambia</button>
+    </div>
+    <div class="riga" style="margin-top:12px">
+      <button class="btn"><svg class="ic" aria-hidden="true"><use href="#i-penna"></use></svg>rubrica</button>
+      <button class="btn">taccuino di campagna</button>
+    </div>
+  </div>
+
+  <h2 style="margin:16px 0 8px">i casi</h2>
+  <div id="episodi"></div>
+</div>
+
+<script src="../dati.js"></script>
+<script src="../stile/episodi.js"></script>
+<script src="icone.js"></script>
+<script>
+  const A = (p) => '/assets/artworks/' + encodeURI(p);
+  const esc = MOCK.esc;
+  document.getElementById('episodi').innerHTML = EPISODI.map((e) => `
+    <button class="tile">
+      <span class="arte" style="background-image:url('${A(e.cover)}')"></span>
+      <span class="testi">
+        <h3>${esc(e.titolo)}</h3>
+        <span class="sotto">${esc(e.sotto)}</span>
+        ${e.stato ? `<span class="stato ${e.stato === 'conclusa' ? 'finita' : ''}">${
+          e.stato === 'conclusa' ? 'serata vinta' : 'partita in corso'}</span>` : ''}
+      </span>
+    </button>`).join('');
+</script>
+</body></html>

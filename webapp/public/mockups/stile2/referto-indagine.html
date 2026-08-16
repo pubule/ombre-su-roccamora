@@ -1,0 +1,77 @@
+<!doctype html><html lang="it"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Referto · indagine</title>
+<link rel="stylesheet" href="base.css"><link rel="stylesheet" href="referto.css">
+</head><body>
+<div class="wrap">
+  <a class="torna" href="index.html">← le tre direzioni</a>
+
+  <div class="testata">
+    <span class="etichetta">episodio 1 · indagine</span>
+    <h1>Il Coro Sommerso</h1>
+    <div class="sotto">il caso del campanaro scomparso</div>
+  </div>
+
+  <!-- IL NUMERO PIÙ IMPORTANTE DELLA SERATA, grande e senza ornamenti attorno.
+       Cifre tabulari perché scendendo da 3 a 2 non ballino. -->
+  <div class="blocco">
+    <div class="tra">
+      <div class="dato"><span class="num">3</span>
+        <span class="eti">ore a mezzanotte</span></div>
+      <button class="btn">menu</button>
+    </div>
+    <div class="barra-ore" id="ore"></div>
+  </div>
+
+  <div class="blocco">
+    <h2>ci siete · Taverna del Ponte Rotto</h2>
+    <p class="detto" id="detto"></p>
+    <p class="nota" style="margin:0">Sul banco: una chiave da campanaro.</p>
+  </div>
+
+  <div class="blocco">
+    <h2>la squadra</h2>
+    <table class="tab">
+      <thead><tr><th>chi</th><th>cariche</th><th>salute</th></tr></thead>
+      <tbody id="squadra"></tbody>
+    </table>
+  </div>
+
+  <div class="blocco">
+    <h2>stradario</h2>
+    <p class="nota" style="margin-bottom:10px">Dichiarate dove andate: se la pista è fredda non
+      costa niente, ma se lì c’è qualcosa l’ora si spende.</p>
+    <div id="luoghi"></div>
+  </div>
+
+  <div class="barra-azioni">
+    <button class="btn pieno">osservazione</button>
+    <button class="btn">testimonianza</button>
+    <button class="btn">presagio</button>
+  </div>
+</div>
+
+<script src="../dati.js"></script>
+<script src="pezzi.js"></script>
+<script src="icone.js"></script>
+<script>
+  const { S, esc, urlArt } = PEZZI;
+  document.getElementById('detto').textContent = PEZZI.DETTO;
+  document.getElementById('luoghi').innerHTML = PEZZI.stradario();
+  document.getElementById('ore').innerHTML = PEZZI.ORE.map((o) =>
+    `<i class="${o.spesa ? 'spesa' : ''} ${o.ora ? 'ora' : ''}"></i>`).join('');
+
+  // la squadra come tabella di stato: si legge in un colpo, che è quel che
+  // serve a metà turno — non un ritratto da ammirare
+  document.getElementById('squadra').innerHTML = S.party.map((e) => {
+    const q = Math.round((e.sal / e.salMax) * 100);
+    return `<tr>
+      <td><span class="chi"><img src="${urlArt(e.art)}" alt="" loading="lazy">${esc(e.breve)}</span></td>
+      <td>${e.carMax ? `<span class="pips">${Array.from({ length: e.carMax },
+        (_, i) => `<span class="pip ${i < e.car ? 'on' : ''}"></span>`).join('')}</span>` : '—'}</td>
+      <td><span class="vita ${q < 60 ? 'ferito' : ''}"><span class="sbarra"><i style="width:${q}%"></i></span>
+        ${e.sal}/${e.salMax}</span></td>
+    </tr>`;
+  }).join('');
+</script>
+</body></html>

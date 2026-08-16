@@ -1,0 +1,59 @@
+<!doctype html><html lang="it"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Referto · spedizione</title>
+<link rel="stylesheet" href="base.css"><link rel="stylesheet" href="referto.css">
+</head><body>
+<div class="wrap">
+  <a class="torna" href="index.html">← le tre direzioni</a>
+
+  <div class="fascia">
+    <span>Tocca a te — Attilio</span>
+    <span class="azioni">2 azioni</span>
+  </div>
+
+  <div class="blocco">
+    <div class="tra" style="margin-bottom:10px">
+      <h2>round 3 · canto 2/3</h2>
+      <button class="btn">zoom</button>
+    </div>
+    <div class="plancia"><div class="griglia" id="griglia"></div></div>
+  </div>
+
+  <div class="blocco">
+    <h2>in campo</h2>
+    <table class="tab">
+      <thead><tr><th>chi</th><th>salute</th><th>note</th></tr></thead>
+      <tbody id="campo"></tbody>
+    </table>
+  </div>
+
+  <div class="barra-azioni">
+    <button class="btn pieno">muovi</button>
+    <button class="btn">attacca</button>
+    <button class="btn">cerca</button>
+    <button class="btn">fine turno</button>
+  </div>
+</div>
+
+<script src="../dati.js"></script>
+<script src="pezzi.js"></script>
+<script src="icone.js"></script>
+<script>
+  const { S, esc, urlArt } = PEZZI;
+  document.getElementById('griglia').innerHTML = PEZZI.plancia();
+
+  const riga = (x, max, nota) => {
+    const q = Math.round((x.sal ?? (max - x.fer)) / max * 100);
+    return `<tr>
+      <td><span class="chi"><img src="${urlArt(x.art)}" alt="" loading="lazy">${esc(x.breve)}</span></td>
+      <td><span class="vita ${q < 60 ? 'ferito' : ''}"><span class="sbarra"><i style="width:${q}%"></i></span>
+        ${x.sal ?? (max - x.fer)}/${max}</span></td>
+      <td class="nota">${nota}</td>
+    </tr>`;
+  };
+  document.getElementById('campo').innerHTML =
+    S.party.map((e) => riga(e, e.salMax, e.sal === 0 ? 'a terra' : e.attivo ? 'sta agendo' : ''))
+      .join('')
+    + S.nemici.map((n) => riga(n, n.max, `att +${n.att} · dif ${n.dif} · mov ${n.mov}`)).join('');
+</script>
+</body></html>

@@ -1,0 +1,63 @@
+<!doctype html><html lang="it"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Notte e nebbia · indagine</title>
+<link rel="stylesheet" href="base.css"><link rel="stylesheet" href="nebbia.css">
+</head><body>
+<div class="wrap">
+  <a class="torna" href="index.html">← le tre direzioni</a>
+
+  <!-- IL LUOGO OCCUPA LO SCHERMO. È la parte che porta l'atmosfera; sotto, il
+       testo che si legge ad alta voce sta su una lastra di vetro, sempre. -->
+  <div class="scena">
+    <div class="sfondo" id="sfondo"></div>
+    <div class="dentro">
+      <span class="occhiello">ci siete · ora 21</span>
+      <h1>taverna del ponte rotto</h1>
+      <div class="lumi" style="margin-top:10px" id="lumi"></div>
+    </div>
+  </div>
+
+  <div class="lastra alta">
+    <p class="detto" id="detto"></p>
+    <p class="nota" style="margin:0"><svg class="ic" aria-hidden="true"><use href="#i-chiave"></use></svg>
+      sul banco: una chiave da campanaro</p>
+  </div>
+
+  <div class="lastra">
+    <div class="tra" style="margin-bottom:8px">
+      <h2>chi indaga</h2>
+      <button class="btn">menu</button>
+    </div>
+    <div class="eroi" id="eroi"></div>
+  </div>
+
+  <div class="lastra">
+    <h2 style="margin-bottom:8px">stradario</h2>
+    <div id="luoghi"></div>
+  </div>
+
+  <div class="barra-azioni">
+    <button class="btn pieno"><svg class="ic" aria-hidden="true"><use href="#i-occhio"></use></svg>osservazione</button>
+    <button class="btn"><svg class="ic" aria-hidden="true"><use href="#i-orecchio"></use></svg>testimonianza</button>
+    <button class="btn"><svg class="ic" aria-hidden="true"><use href="#i-presagio"></use></svg>presagio</button>
+  </div>
+</div>
+
+<script src="../dati.js"></script>
+<script src="pezzi.js"></script>
+<script src="icone.js"></script>
+<script>
+  const { S } = PEZZI;
+  // l'ARTWORK, non la carta: la carta ha già la sua cornice e il suo testo
+  // stampato, e sotto il nostro ne uscivano due titoli sovrapposti
+  document.getElementById('sfondo').style.backgroundImage =
+    `url('${S.urlArt('Taverna della Chiatta.png')}')`;
+  document.getElementById('detto').textContent = PEZZI.DETTO;
+  document.getElementById('eroi').innerHTML = PEZZI.eroiChip();
+  document.getElementById('luoghi').innerHTML = PEZZI.stradario();
+  // le ore come lumi accesi: si contano a colpo d'occhio, non si leggono
+  document.getElementById('lumi').innerHTML = PEZZI.ORE.map((o) =>
+    `<span class="lume-punto ${o.spesa ? '' : 'acceso'}"></span>`).join('')
+    + '<span class="nota" style="margin-left:6px">tre ore a mezzanotte</span>';
+</script>
+</body></html>

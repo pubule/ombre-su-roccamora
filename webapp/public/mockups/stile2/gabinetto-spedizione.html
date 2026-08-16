@@ -1,0 +1,47 @@
+<!doctype html><html lang="it"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Il Gabinetto · spedizione</title>
+<link rel="stylesheet" href="base.css"><link rel="stylesheet" href="gabinetto.css">
+</head><body>
+<div class="wrap">
+  <a class="torna" href="index.html">← le tre direzioni</a>
+
+  <!-- IL TURNO PRIMA DI TUTTO: chi agisce e quante azioni gli restano è
+       l'informazione che si cerca venti volte a serata. -->
+  <div class="fascia">
+    <svg class="ic grande" aria-hidden="true"><use href="#i-scontro"></use></svg>
+    tocca a te — attilio — 2 azioni
+  </div>
+
+  <div class="cassetto">
+    <div class="tra">
+      <span class="nota">round 3 · canto 2 di 3</span>
+      <span class="nota"><svg class="ic" aria-hidden="true"><use href="#i-candela"></use></svg>la notte avanza</span>
+    </div>
+    <div class="plancia" style="margin-top:10px">
+      <div class="griglia" id="griglia"></div>
+    </div>
+  </div>
+
+  <div class="cassetto">
+    <h2>la squadra</h2>
+    <div class="eroi" id="eroi"></div>
+    <p class="nota" style="margin-top:8px">Nino è a terra: serve un’azione per rialzarlo.</p>
+  </div>
+
+  <div class="barra-azioni">
+    <button class="btn pieno">muovi</button>
+    <button class="btn">attacca</button>
+    <button class="btn"><svg class="ic" aria-hidden="true"><use href="#i-lente"></use></svg>cerca</button>
+    <button class="btn">fine turno</button>
+  </div>
+</div>
+
+<script src="../dati.js"></script>
+<script src="pezzi.js"></script>
+<script src="icone.js"></script>
+<script>
+  document.getElementById('griglia').innerHTML = PEZZI.plancia();
+  document.getElementById('eroi').innerHTML = PEZZI.eroiChip();
+</script>
+</body></html>

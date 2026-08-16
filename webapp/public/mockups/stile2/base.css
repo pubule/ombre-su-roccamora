@@ -1,0 +1,72 @@
+/* IL PAVIMENTO COMUNE alle tre direzioni.
+   Qui dentro non c'è un colore: solo struttura, misure e le soglie sotto cui
+   nessuna direzione può scendere. Se una regola di questo file decide una
+   tinta, è nel posto sbagliato.
+
+   Le soglie vengono dalle buone pratiche del dark UI (mai nero puro né bianco
+   puro, corpo >=16px, interlinea ~1.5, bersagli grandi, contrasto >=4.5:1) e da
+   quel che si rimprovera agli aiutanti da tavolo veri: icone piccole e mute.
+   Al tavolo si preme al buio e in fretta. */
+
+@font-face { font-family: 'OldStd'; src: url('/fonts/OldStandard-Regular.ttf'); font-weight: 400; font-display: swap; }
+@font-face { font-family: 'OldStd'; src: url('/fonts/OldStandard-Bold.ttf'); font-weight: 700; font-display: swap; }
+@font-face { font-family: 'OldStd'; src: url('/fonts/OldStandard-Italic.ttf'); font-style: italic; font-display: swap; }
+@font-face { font-family: 'FellSC'; src: url('/fonts/IMFellEnglishSC.ttf'); font-display: swap; }
+@font-face { font-family: 'Mano'; src: url('/fonts/LaBelleAurore.ttf'); font-display: swap; }
+
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  font-size: 17px; line-height: 1.55;      /* il corpo non scende sotto 17 */
+  min-height: 100vh; -webkit-text-size-adjust: 100%;
+  overflow-x: hidden;
+}
+.wrap { max-width: 720px; margin: 0 auto; padding: 14px 14px 72px; }
+img { max-width: 100%; display: block; }
+a { text-decoration: none; color: inherit; }
+p { margin: 0 0 10px; }
+
+/* IL BERSAGLIO. 44px è il minimo che si preme senza guardare; nella barra delle
+   azioni si sale a 48, perché lì si preme in mezzo a un turno. */
+.btn, button, .voce, .tile {
+  min-height: 44px; font: inherit; cursor: pointer;
+  display: inline-flex; align-items: center; gap: 8px;
+}
+.barra-azioni .btn { min-height: 48px; }
+/* l'etichetta non si spezza a metà: «cambia / tavolo» su due righe dentro una
+   pillola sembra un errore. Se non ci sta, il bottone va a capo intero. */
+.btn { white-space: nowrap; }
+/* tre azioni su 390px non ci stanno in fila: la barra va a capo invece di
+   spingere fuori schermo la terza — un bottone tagliato è un bottone che non
+   c'è. Il minimo per riga tiene la leva premibile senza guardare. */
+.barra-azioni { flex-wrap: wrap; }
+.barra-azioni .btn { flex: 1 1 44%; }
+
+/* l'icona accanto al testo: senza questo, in una riga non-flex casca sotto la
+   linea di base e sembra staccata dalla parola che dovrebbe accompagnare */
+.ic { vertical-align: -5px; }
+
+/* L'ICONA NON PARLA DA SOLA: accanto ci va sempre la parola, e non scende sotto
+   22px. È il difetto che rimproverano a X-haven Assistant — icone illeggibili
+   anche su iPad. */
+.ic { width: 22px; height: 22px; flex: none; fill: currentColor; }
+.ic.grande { width: 28px; height: 28px; }
+
+/* il testo che si legge AD ALTA VOCE respira di più: sono duecento parole di
+   fila, dette a un tavolo */
+.voce-alta { font-size: 18px; line-height: 1.62; }
+
+.riga { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.tra { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.sc { font-family: 'FellSC', serif; text-transform: lowercase; letter-spacing: .05em; }
+
+/* barra di ritorno all'indice, uguale nelle tre direzioni per non perdersi */
+.torna { display: inline-flex; align-items: center; gap: 6px; font-family: 'FellSC', serif;
+  text-transform: lowercase; font-size: 14px; letter-spacing: .06em; padding: 8px 12px;
+  border-radius: 3px; margin-bottom: 12px; min-height: 44px; opacity: .75; }
+.torna:hover, .torna:focus-visible { opacity: 1; }
+
+:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}
