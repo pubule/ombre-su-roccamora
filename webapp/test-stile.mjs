@@ -1,9 +1,17 @@
-// Il fascicolo, verificato sugli stili CALCOLATI invece che a occhio.
+// «Notte e nebbia», verificata sugli stili CALCOLATI invece che a occhio.
 //
-// Due cose che l'occhio non sa fare. La prima: accorgersi che un pezzo di app
-// e' rimasto al tema vecchio mentre si sistemava il resto — bordi d'oro, angoli
-// tondi da 10px, pergamena. La seconda: misurare il contrasto, che su un tema
-// scuro e' proprio dove si sbaglia, perche' gli occhi si abituano e i numeri no.
+// QUESTO BANCO CUSTODISCE UNA DIREZIONE, e la direzione e' cambiata il
+// 16/08/2026: prima era «il fascicolo» (ardesia, angoli vivi, niente oro fuori
+// dalla mappa), adesso e' «notte e nebbia» — l'artwork occupa lo schermo, il
+// testo vive su lastre di vetro fume', e il lume e' l'accento di chi agisce. Le
+// due regole del fascicolo (niente oro, niente angoli tondi) sono state tolte
+// perche' sono esattamente quel che la scelta cambia; al loro posto ce ne sono
+// tre nuove, e la prima e' quella che tiene in piedi tutto.
+//
+// Le cose che l'occhio non sa fare restano le stesse: accorgersi che un pezzo
+// e' rimasto indietro mentre si sistemava il resto, e misurare il contrasto —
+// che su un tema scuro e' proprio dove si sbaglia, perche' gli occhi si
+// abituano e i numeri no.
 //
 // Uso: node webapp/server.js (altrove) ; node webapp/test-stile.mjs
 import { chromium } from 'playwright';
@@ -12,13 +20,14 @@ const BASE = 'http://localhost:8017';
 let ko = 0;
 const ok = (c, m) => { console.log(`   ${c ? 'OK  ' : 'FAIL'} ${m}`); if (!c) ko++; };
 
-// --- palette del fascicolo (mockups/stile/fascicolo.css) --------------------
+// --- palette di «notte e nebbia» (mockups/stile2/nebbia.css) ---------------
 const T = {
-  tavolo: 'rgb(11, 11, 13)', ardesia: 'rgb(23, 24, 28)', ardesiaAlta: 'rgb(32, 34, 40)',
-  osso: 'rgb(222, 219, 212)', ceralacca: 'rgb(163, 37, 58)', nastro: 'rgb(75, 107, 138)',
+  tavolo: 'rgb(12, 14, 17)', osso: 'rgb(237, 238, 240)', fioco: 'rgb(179, 184, 192)',
+  lume: 'rgb(232, 194, 122)', sangue: 'rgb(217, 96, 109)',
 };
-// il tema vecchio: se uno di questi ricompare fuori dalla mappa, siamo tornati indietro
-const ORO = [[168, 131, 58], [216, 178, 94], [230, 195, 120], [242, 193, 78]];
+// la pergamena resta l'unica cosa che non puo' uscire dalla carta vera: e' la
+// sola regola del fascicolo che la direzione nuova NON cambia, perche' non
+// parla di gusto — parla di cosa al tavolo e' fatto di carta
 const PERGAMENA = [[240, 230, 204], [226, 211, 172], [246, 238, 218], [244, 235, 212]];
 
 // la mappa e' l'eccezione dichiarata: turchese «puoi andare», oro «rivela»,
@@ -116,7 +125,7 @@ const RACCOGLI = (esenti) => {
     }
     return { colore: getComputedStyle(document.body).backgroundColor };
   };
-  const out = { testi: [], superfici: [] };
+  const out = { testi: [], superfici: [], bersagli: [], nudi: [] };
   for (const el of document.querySelectorAll('body *')) {
     const r = el.getBoundingClientRect();
     const st = getComputedStyle(el);
@@ -131,17 +140,55 @@ const RACCOGLI = (esenti) => {
       bordo: st.borderTopColor, raggio: parseFloat(st.borderTopLeftRadius) || 0,
       fondo: st.backgroundColor, sfumatura: st.backgroundImage,
       immagine: /url\(/.test(st.backgroundImage), esente,
+      // le lastre sono di VETRO: traslucide e sfocate dietro. Un pannello
+      // opaco e' un pezzo rimasto alla pelle vecchia.
+      lastra: el.classList.contains('pannello'),
+      sfoca: st.backdropFilter && st.backdropFilter !== 'none',
+      opaco: (() => { const m = st.backgroundColor.match(/[\d.]+/g);
+        return !m || m.length < 4 || Number(m[3]) > .95; })(),
     });
+
+    // i BERSAGLI: al buio si preme senza guardare, e sotto i 44px si sbaglia
+    if (/^(BUTTON|A)$/.test(el.tagName) || el.classList.contains('btn')
+        || el.classList.contains('menu-voce') || el.classList.contains('voce')) {
+      out.bersagli.push({ sel: el.className && typeof el.className === 'string'
+        ? el.className.split(' ')[0] : el.tagName.toLowerCase(),
+      testo: (el.textContent || '').trim().slice(0, 24), alto: Math.round(r.height) });
+    }
 
     // testi: solo chi ha testo proprio
     const proprio = [...el.childNodes].some((n) => n.nodeType === 3 && n.textContent.trim().length > 1);
     if (!proprio) continue;
+    const f = fondoVero(el);
     out.testi.push({
       sel: el.className && typeof el.className === 'string' ? el.className.split(' ')[0] : el.tagName.toLowerCase(),
       testo: el.textContent.trim().slice(0, 40),
       colore: st.color, dim: parseFloat(st.fontSize), grassetto: Number(st.fontWeight) >= 700,
-      fondo: fondoVero(el), esente,
+      fondo: f, esente,
     });
+
+    // NESSUN TESTO SULL'IMMAGINE NUDA: e' la regola che tiene in piedi la
+    // direzione. Sopra una fotografia il contrasto non si misura dal colore,
+    // quindi si pretende che fra il testo e l'immagine ci sia qualcosa — una
+    // lastra traslucida, oppure la velatura che la scena si porta nel ::after.
+    if (f.immagine && !esente) {
+      let velo = false;
+      for (let n = el; n && n !== document.body; n = n.parentElement) {
+        const s2 = getComputedStyle(n);
+        const m = s2.backgroundColor.match(/[\d.]+/g);
+        if (m && m.length === 4 && Number(m[3]) > .25) { velo = true; break; }
+        if (m && m.length < 4 && s2.backgroundColor !== 'rgba(0, 0, 0, 0)') { velo = true; break; }
+        const dopo = getComputedStyle(n, '::after');
+        if (dopo && /gradient|rgba?\(/.test(dopo.backgroundImage || '')
+            && dopo.content !== 'none') { velo = true; break; }
+        if (/url\(/.test(s2.backgroundImage)) break;   // arrivati all'immagine: niente velo
+      }
+      if (!velo) {
+        out.nudi.push({ sel: el.className && typeof el.className === 'string'
+          ? el.className.split(' ')[0] : el.tagName.toLowerCase(),
+        testo: el.textContent.trim().slice(0, 34) });
+      }
+    }
   }
   return out;
 };
@@ -266,12 +313,25 @@ await browser.close();
 console.log(`schermate lette: ${schermate.map((s) => s.nome).join(', ')}\n`);
 ok(schermate.length >= 10, `tutte le schermate raggiunte (${schermate.length}: ${schermate.map((s) => s.nome).join(', ')})`);
 
-// --- 1. conformità: il tema vecchio non deve sopravvivere -------------------
+// --- 1. conformità: la direzione scelta, non quella di prima ---------------
 const superfici = schermate.flatMap((s) => s.superfici.map((x) => ({ ...x, dove: s.nome })));
-const oroRimasto = superfici.filter((x) => !x.esente && vicino(rgb(x.bordo), ORO));
-ok(oroRimasto.length === 0,
-  `nessun bordo d'oro fuori dalla mappa (trovati ${oroRimasto.length}${
-    oroRimasto.length ? ': ' + oroRimasto.slice(0, 4).map((x) => `${x.dove}/${x.sel}`).join(', ') : ''})`);
+
+// LA REGOLA CHE TIENE IN PIEDI LA DIREZIONE. Se salta questa, «notte e nebbia»
+// diventa «testo bianco su fotografia», che e' il modo piu' rapido di rendere
+// illeggibile una schermata bella.
+const nudi = schermate.flatMap((s) => (s.nudi || []).map((x) => ({ ...x, dove: s.nome })));
+ok(nudi.length === 0,
+  `nessun testo sull'immagine nuda (trovati ${nudi.length}${
+    nudi.length ? ': ' + nudi.slice(0, 4).map((x) => `${x.dove}/${x.sel} «${x.testo}»`).join(', ') : ''})`);
+
+// LE LASTRE SONO DI VETRO: traslucide e sfocate. Un pannello opaco è un pezzo
+// rimasto alla pelle vecchia — si vede solo mettendo due schermate a confronto,
+// ed è esattamente il lavoro che l'occhio non fa.
+const lastre = superfici.filter((x) => x.lastra && !x.esente);
+const opache = lastre.filter((x) => x.opaco || !x.sfoca);
+ok(lastre.length > 0 && opache.length === 0,
+  `le lastre sono di vetro (${lastre.length} viste, ${opache.length} opache${
+    opache.length ? ': ' + opache.slice(0, 4).map((x) => `${x.dove}/${x.sel}`).join(', ') : ''})`);
 
 const coloriDi = (s) => (s.match(/rgba?\([^)]+\)/g) || []).map(rgb);
 const pergRimasta = superfici.filter((x) => !x.esente && !x.immagine
@@ -280,10 +340,14 @@ ok(pergRimasta.length === 0,
   `nessuna superficie di pergamena fuori dalla carta vera (trovate ${pergRimasta.length}${
     pergRimasta.length ? ': ' + pergRimasta.slice(0, 4).map((x) => `${x.dove}/${x.sel}`).join(', ') : ''})`);
 
-const tondi = superfici.filter((x) => !x.esente && x.raggio > 3 && x.raggio < 50);
-ok(tondi.length === 0,
-  `nessun angolo tondo oltre i 3px (trovati ${tondi.length}${
-    tondi.length ? ': ' + tondi.slice(0, 4).map((x) => `${x.dove}/${x.sel} ${x.raggio}px`).join(', ') : ''})`);
+// I BERSAGLI: 44px è il minimo che si preme senza guardare. Non è gusto, è la
+// soglia sotto cui al tavolo si sbaglia bottone — e nella pelle nuova i bottoni
+// sono pillole, che a occhio sembrano sempre abbastanza grandi.
+const bersagli = schermate.flatMap((s) => (s.bersagli || []).map((x) => ({ ...x, dove: s.nome })));
+const piccoli = bersagli.filter((x) => x.alto > 0 && x.alto < 44);
+ok(bersagli.length > 0 && piccoli.length === 0,
+  `ogni bersaglio arriva a 44px (${bersagli.length} misurati, ${piccoli.length} sotto${
+    piccoli.length ? ': ' + piccoli.slice(0, 5).map((x) => `${x.dove}/${x.sel} ${x.alto}px «${x.testo}»`).join(', ') : ''})`);
 
 // --- 2. contrasto: la parte che l'occhio sbaglia sui temi scuri -------------
 const testi = schermate.flatMap((s) => s.testi.map((x) => ({ ...x, dove: s.nome })));
