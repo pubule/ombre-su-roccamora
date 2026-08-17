@@ -456,7 +456,11 @@ em, i { font-style: italic; }
    quando il tavolo legge insieme. */
 .barra-azioni { display: flex; gap: 8px; padding: 10px; align-items: center;
   border-top: 1px solid var(--bordo); background: var(--tavolo);
-  position: sticky; bottom: 0; }
+  /* SOPRA LA SCENA: il titolo del luogo ha un indice suo (gli serve per stare
+     sopra la velatura), e senza questo la barra ci finiva sotto — il nome del
+     luogo passava in mezzo ai bottoni. Si vede solo quando la scena arriva
+     fin li', cioè sul telefono, sempre. */
+  position: sticky; bottom: 0; z-index: 6; }
 .barra-azioni .btn { flex: 1; }
 .barra-azioni .btn.stretto { flex: 0 0 auto; }
 

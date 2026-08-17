@@ -59,7 +59,10 @@ h2 { font-size: 20px; color: var(--lume); }
   letter-spacing: .05em; font-size: 16px; padding: 11px 18px; backdrop-filter: blur(6px); }
 .btn:hover, .btn:focus-visible { border-color: var(--lume); }
 .btn.pieno { background: var(--lume); border-color: var(--lume); color: #1a1408; }
-.barra-azioni { position: sticky; bottom: 0; display: flex; gap: 8px; padding: 12px 0 6px;
+/* sopra la scena: il titolo del luogo ha `z-index: 1` e senza un indice suo la
+   barra ci finirebbe sotto, col nome del luogo in mezzo ai bottoni */
+.barra-azioni { position: sticky; bottom: 0; z-index: 6; display: flex; gap: 8px;
+  padding: 12px 0 6px;
   background: linear-gradient(180deg, rgba(12,14,17,0) 0%, var(--fondo) 26%); margin-top: 10px; }
 .barra-azioni .btn { flex: 1 1 44%; justify-content: center; }
 

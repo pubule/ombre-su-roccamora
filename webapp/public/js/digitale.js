@@ -175,6 +175,12 @@ const occupati = (exclKey, soloNemici, senzaScortati) =>
 // fase e' partita. Cambia CHI PUO' TOCCARE COSA — e il motore lo rifiuta
 // comunque, se qualcuno prova.
 export async function vistaDigitale(app, partita, vaiA, posto) {
+  // ENTRANDO SI PARTE DALL'ALTO. Arrivando dall'Indagine la pagina teneva lo
+  // scorrimento di prima e la Spedizione si apriva a meta' — sulla salute
+  // degli eroi, senza aver visto ne' il turno ne' la plancia. Solo qui, non a
+  // ogni disegno: dentro la Spedizione la schermata si ridisegna a ogni mossa,
+  // e riportare in cima ogni volta vorrebbe dire perdere il segno di continuo.
+  window.scrollTo(0, 0);
   const [ep0, comune, carte] = await Promise.all([
     dati(partita.episodio), dati('comune'), dati('carte')]);
   // L'episodio come i Bivi l'hanno lasciato (una copia: `dati()` e' in cache)

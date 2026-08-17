@@ -286,7 +286,18 @@ function statoSuoni() {
   return { fase: 'indagine', ambiente: l ? l.ambiente : null, ora: IND().ora };
 }
 
+// «QUESTO DISEGNO E' UN RIDISEGNO»: lo dice chi ridisegna, e vale per un giro
+// solo. Serve a distinguere «il gruppo ha cambiato pagina» (si torna in cima)
+// da «e' arrivato uno stato dal tavolo» (si resta dove si stava leggendo).
+let ridisegno = false;
+const ridisegna = (fn) => { ridisegno = true; try { fn(); } finally { ridisegno = false; } };
+
 function dopoBarra() {
+  // CAMBIANDO SCHERMATA SI TORNA IN CIMA. Con la scena alta mezzo schermo, chi
+  // apriva una pagina nuova ci atterrava in fondo — sull'ultimo bottone, senza
+  // vedere ne' il titolo ne' il luogo.
+  if (!ridisegno) window.scrollTo(0, 0);
+
   // la freccia c'è solo nelle schermate secondarie: nelle tre principali
   // l'uscita sta nel menu
   const esci = ctx.app.querySelector('#nav-esci');
@@ -383,7 +394,7 @@ function menu() {
   q('#m-mano').onclick = poi(() => {
     ctx.schermata = () => elencoInMano(menu, codaCarbone());
     elencoInMano(menu, codaCarbone());
-    agganciaCarbone(() => { ctx.schermata(); });
+    agganciaCarbone(() => ridisegna(() => ctx.schermata()));
   });
   q('#m-luoghi')?.addEventListener('click', poi(() => doveSieteStati(menu)));
   q('#m-stradario')?.addEventListener('click', poi(() => stradarioSchermata()));
@@ -781,7 +792,7 @@ function collegaAlTavolo() {
       // punto di partenza. Peggio: premevi un bottone, la spinta tornava, e la
       // pagina si ridisegnava come se non avessi premuto niente. Un bottone
       // che non fa niente, che invece aveva fatto tutto.
-      (ctx.schermata || vistaDiChiGioca)();
+      ridisegna(() => (ctx.schermata || vistaDiChiGioca)());
     },
     // il filo e' caduto: il motore torna a essere questa pagina, e chi gioca
     // se lo sente dire invece di premere bottoni che non fanno niente

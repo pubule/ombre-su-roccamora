@@ -261,6 +261,67 @@ ok(errori.length === 0, `il telefono apre l'Indagine senza errori JS: ${errori.s
   const dopo = await ora();
   ok(prima !== dopo, `l'orologio si muove da solo sul telefono (prima «${prima}», dopo «${dopo}»)`);
 
+  // LA BARRA DELLE AZIONI STA SOPRA LA SCENA.
+  //
+  // Il titolo del luogo ha un indice di sovrapposizione suo — gli serve per
+  // stare sopra la velatura della scena — e la barra appiccicata in fondo non
+  // ne aveva: il nome del luogo veniva disegnato IN MEZZO ai bottoni. Si vede
+  // solo quando i due si incrociano, cioè con la barra alta tre righe (un eroe
+  // che legge tre tipi) e poca altezza visibile: un telefono con la barra del
+  // browser aperta. Con la finestra alta non succede mai, ed è per questo che
+  // non l'aveva preso nessun banco.
+  {
+    const eraLarga = page.viewportSize();
+    // 390x664: un telefono con la barra del browser aperta — meno altezza
+    // visibile, e la scena (alta in proporzione) arriva dentro la barra.
+    await page.setViewportSize({ width: 390, height: 664 });
+    // e il telefono dev'essere DENTRO un luogo, o non c'è né scena né barra:
+    // la prima stesura di questo controllo misurava una schermata che non le
+    // aveva, e passava senza guardare niente
+    await chiama(ARBITRO, 'POST', `/api/tavolo/${idT}/apri`,
+      { tavolo: idT, stato: serata({ ora: 21, luogoAperto: VISITATO.n }) });
+    await page.waitForTimeout(1600);
+    if (await page.locator('#entrate').count()) {
+      await page.locator('#entrate').click();
+      await page.waitForTimeout(700);
+    }
+    // SI MISURA LA REGOLA, non una sovrapposizione costruita. I due si
+    // incrociano solo quando la barra è alta tre righe (un eroe che legge tre
+    // tipi) e l'altezza visibile è poca: qui l'eroe del banco ne legge due, e
+    // fabbricare la situazione vorrebbe dire provare una schermata finta.
+    // Quel che conta è che la barra abbia un indice più alto del titolo — è la
+    // riga che mancava, ed è la riga che si può togliere per sbaglio domani.
+    const chi = await page.evaluate(() => {
+      const barra = document.querySelector('.barra-azioni');
+      const dentro = document.querySelector('.scena .dentro');
+      if (!barra || !dentro) return { manca: true };
+      const num = (el) => { const z = getComputedStyle(el).zIndex; return z === 'auto' ? 0 : Number(z); };
+      return { barra: num(barra), titolo: num(dentro),
+        appiccicata: getComputedStyle(barra).position };
+    });
+    ok(!chi.manca, `la scena e la barra ci sono tutt'e due (${JSON.stringify(chi)})`);
+    ok(chi.appiccicata === 'sticky', `la barra è appiccicata in fondo (${chi.appiccicata})`);
+    ok(chi.barra > chi.titolo,
+       `la barra sta davanti al titolo della scena (barra ${chi.barra}, titolo ${chi.titolo})`);
+    await page.setViewportSize(eraLarga);
+    await page.waitForTimeout(300);
+  }
+
+  // IL RIDISEGNO DAL TAVOLO NON MUOVE IL SEGNO. Cambiando schermata si torna in
+  // cima (lo prova test-ui), ma qui la schermata non cambia: si sta leggendo, e
+  // chi arbitra spende un'ora. Riportare in cima sarebbe peggio del male —
+  // significherebbe perdere il punto in cui si stava leggendo, a ogni mossa
+  // degli altri.
+  await page.evaluate(() => { document.body.style.minHeight = '3000px'; window.scrollTo(0, 700); });
+  const segnoPrima = await page.evaluate(() => Math.round(window.scrollY));
+  ok(segnoPrima > 200, `la pagina si può scorrere (${segnoPrima})`);
+  await chiama(ARBITRO, 'POST', `/api/tavolo/${idT}/apri`,
+    { tavolo: idT, stato: serata({ ora: 22 }) });
+  await page.waitForTimeout(1500);
+  const segnoDopo = await page.evaluate(() => Math.round(window.scrollY));
+  ok(Math.abs(segnoDopo - segnoPrima) < 40,
+     `il ridisegno dal tavolo lascia il segno dov'era (da ${segnoPrima} a ${segnoDopo})`);
+
   // IL MENU RESTA APERTO MENTRE IL TAVOLO SI MUOVE. Il foglio vive sul `body`
   // apposta: se stesse dentro la schermata, un'ora spesa da chi arbitra lo
   // farebbe sparire in mezzo a una lettura.

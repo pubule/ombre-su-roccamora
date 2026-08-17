@@ -195,6 +195,24 @@ try {
       'e in questa visita non si tenta piu: bisogna uscire e rientrare');
   }
 
+  // CAMBIANDO SCHERMATA SI ATTERRA IN CIMA. Con la scena alta mezzo schermo,
+  // aprendo una pagina nuova ci si ritrovava in fondo — sull'ultimo bottone,
+  // senza vedere né il titolo né il luogo. Il ridisegno che arriva dal tavolo
+  // invece non deve muovere il segno: quello si prova in test-indagine-eroe.
+  {
+    await page.evaluate(() => window.scrollTo(0, 3000));
+    const prima = await page.evaluate(() => Math.round(window.scrollY));
+    await page.locator('#apri-menu').click();
+    await page.waitForTimeout(250);
+    await page.locator('#m-stradario').click();
+    await page.waitForTimeout(400);
+    const dopo = await page.evaluate(() => Math.round(window.scrollY));
+    ok(prima > 200, `la pagina si può scorrere davvero (${prima})`);
+    ok(dopo === 0, `cambiando schermata si torna in cima (da ${prima} a ${dopo})`);
+    await page.locator('#str-indietro').click();
+    await page.waitForTimeout(400);
+  }
+
   // uscire al menu a meta' visita e riprendere: si torna DENTRO il luogo,
   // senza pagare un'altra ora
   const oraPrima = (await page.evaluate(() => JSON.parse(localStorage.getItem('osr.partita.ep1')))).indagine.ora;
