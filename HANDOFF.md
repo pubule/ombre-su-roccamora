@@ -24,6 +24,60 @@
 5. Il porto nell'app si fa **a pezzi, dall'Indagine**, e il risultato deve
    essere **identico ai mockup** (richiesta esplicita: niente scorciatoie).
 
+### IL TIRO (17/08/2026) — fatto, in app
+
+**Scelto guardando i mockup dal telefono:** dadi d'**osso** con i punti a
+**fiammella** (`webapp/public/mockups/stile2/nebbia2-dadi.html` mette a
+confronto quattro materiali - osso, vetro fume', corno, ottone - e quattro
+segni sulle facce - pallini, fiammelle, cifre, romane), e la messa in scena
+della pagina **`nebbia2-tiro.html`**, che prende cinque cose da Baldur's Gate 3.
+
+**Perche' non icone al posto dei valori.** Nel genere la regola e' netta: chi
+tira e SOMMA tiene facce contabili (Betrayal at House on the Hill, coi suoi
+0/1/2 pallini; i dadi numerati), chi CONFRONTA SIMBOLI mette icone (Mansions of
+Madness 2e, Elder Sign, HeroQuest) e non somma mai. Qui si sommano 2d6 contro
+una soglia: la faccia deve dire quanto vale. Le fiammelle sono icone che si
+contano ancora - l'unico modo di avere le une e l'altra cosa.
+
+**Le cinque cose prese da BG3**, tutte in `dadi.js` + il blocco `.dadi-*` di
+`app.css`:
+
+1. **chi tira ha una faccia** - ritratto, nome e prova nella riga in cima;
+2. **il conto e' un registro** (`.registro-tiro`), una riga per modificatore,
+   col nome della fonte e il valore a destra, e le righe entrano una alla volta;
+3. **la soglia sta a schermo prima, durante e dopo**, e alla fine c'e' scritto
+   il confronto (`7 < 9`);
+4. **la seconda occasione arriva dopo il fallimento**: il Secondo Fiato era una
+   schermata a parte che si apriva a finestra gia' chiusa, ora e' dentro la
+   finestra, acceso, con scritto cosa costa;
+5. **il verdetto si imprime sui dadi**, che sotto si spengono.
+
+**IL TIRO LO VEDONO TUTTI** (richiesta del 17/08). Il dado lo tira chi ha
+quell'eroe, dal suo telefono; fin qui rotolava solo li'. Ora la stessa finestra
+si apre **su ogni schermo del tavolo**, in sola vista (`soloVista: true`): i
+cubi arrivano fermi, il conto e' gia' scritto, e c'e' solo «continua». Non
+serviva stato nuovo: gli eventi del motore il Durable Object li sparge gia' a
+tutte le sessioni (`spargi`), e l'evento `tiro` porta chi, cosa, i due dadi, i
+bonus, la soglia e l'esito. Il contrassegno `rif` sui comandi dell'Indagine
+distingue il proprio tiro - gia' visto rotolare - da quello degli altri.
+
+**Il banco: `webapp/test-tiro-a-tutti.mjs`** (vuole un `wrangler dev` solo).
+Due schermi sullo stesso tavolo: da uno si tira, sull'altro deve comparire la
+finestra in sola vista, e chi ha tirato non deve rivederla. Provato col
+sabotaggio in tutt'e due i versi (spento il replay: 8 rossi; tolto il `rif`: 1
+rosso).
+
+**Due difetti visti solo GUARDANDO il render:** le regole del materiale erano
+legate a `.dadi-overlay` e nella pagina dei mockup i dadi restavano senza
+faccia, invisibili; e `.registro` era gia' il nome della fila delle ore - le
+due regole si sommavano e le righe del conto finivano in fila invece che una
+sotto l'altra (stesso inciampo del velo delle tessere: e' `.registro-tiro`).
+
+**Non toccata la Spedizione**: li' il dado e' fisico e lo si tira davanti a
+tutti (`riproduci()` in `digitale.js` lo dice da mesi), quindi rimetterlo in
+scena sugli altri schermi lo mostrerebbe due volte. Se al tavolo servira'
+anche li', e' un secondo passo.
+
 **Fatto finora nell'app** (`webapp/public/app.css`): i token di `:root` sono la
 palette di «notte e nebbia» (i nomi restano — `--tavolo`, `--ardesia`, `--osso`,
 `--nastro` = il lume — perché mille righe li usano già), e sono passati alla

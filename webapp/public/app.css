@@ -282,55 +282,126 @@ em, i { font-style: italic; }
 .sigillata .che { font-family: 'FellSC', serif; letter-spacing: .12em;
   font-size: 14px; color: var(--osso-fioco); display: block; }
 
-/* --- tiro dadi: i dadi sono d'OSSO, al tavolo li tirate voi --- */
+/* --- IL TIRO, alla maniera di Baldur's Gate 3 -----------------------------
+   I dadi restano d'OSSO (al tavolo sono oggetti veri, e la pergamena in questa
+   direzione vive solo li'), ma i punti diventano FIAMMELLE: un'icona che si
+   conta ancora, che e' l'unico modo di avere icone su un dado che si somma.
+
+   Il resto viene dai mockup (public/mockups/stile2/nebbia2-tiro.html) e da
+   cinque cose che BG3 fa meglio di chiunque altro con una prova: chi tira ha
+   una faccia, il conto e' un registro, la soglia sta a schermo prima-durante-
+   dopo col confronto scritto, la seconda occasione arriva DOPO il fallimento,
+   e il verdetto si imprime sui dadi. */
 .dadi-overlay { position: fixed; inset: 0; z-index: 100; display: flex;
-  flex-direction: column; align-items: center; justify-content: center; gap: 22px;
-  background: rgba(6, 6, 8, .93); opacity: 0; transition: opacity .3s; padding: 24px; }
+  flex-direction: column; align-items: center; gap: 12px; padding: 18px 16px 20px;
+  text-align: center; opacity: 0; transition: opacity .3s; overflow: auto;
+  /* vetro fume', non nero pieno: sotto si intravede la scena del luogo, e il
+     tiro succede DENTRO la serata invece che in una finestra a parte */
+  background: rgba(9, 11, 14, .70); backdrop-filter: blur(14px) saturate(.85); }
 .dadi-overlay.aperto { opacity: 1; }
 .dadi-overlay.esito-ok { animation: flash-esito .6s; }
 .dadi-overlay.esito-ko { animation: scossa .45s; }
-@keyframes flash-esito { 20% { box-shadow: inset 0 0 160px rgba(207, 224, 238, .18); } }
+@keyframes flash-esito { 20% { box-shadow: inset 0 0 160px rgba(232, 194, 122, .16); } }
 @keyframes scossa { 20% { transform: translateX(-8px); } 40% { transform: translateX(7px); }
   60% { transform: translateX(-5px); } 80% { transform: translateX(3px); } }
+@keyframes sale { from { opacity: 0; transform: translateY(10px); } }
 
-.dadi-testata { text-align: center; }
-.dadi-titolo { font-size: clamp(22px, 5vw, 34px); color: var(--osso); }
-.dadi-soglia { color: var(--osso-fioco); font-size: 16px; margin-top: 4px;
-  font-family: 'FellSC', serif; letter-spacing: .1em; }
-.dadi-soglia::before { content: '— '; } .dadi-soglia::after { content: ' —'; }
+/* 1 - CHI TIRA: il ritratto, il nome, la prova - e la soglia (3), che non se ne
+   va mai. Al tavolo la domanda piu' frequente e' <<tocca a me?>>. */
+.chi-tira { display: flex; align-items: center; gap: 12px; text-align: left; width: 100%;
+  max-width: 420px; background: var(--ardesia-alta, rgba(30, 35, 42, .86));
+  border: 1px solid var(--bordo); border-radius: 999px; padding: 6px 16px 6px 6px; }
+.chi-tira img { width: 52px; height: 52px; border-radius: 50%; object-fit: cover; flex: none;
+  box-shadow: 0 0 0 2px rgba(232, 194, 122, .45); }
+.chi-tira .nome { font-family: 'FellSC', serif; font-size: 17px; line-height: 1.15;
+  min-width: 0; }
+.chi-tira .prova { display: block; font-family: 'OldStd', Georgia, serif; font-style: italic;
+  font-size: 14px; color: var(--osso-fioco); }
+.chi-tira .soglia { margin-left: auto; text-align: right; font-family: 'FellSC', serif;
+  font-size: 12px; letter-spacing: .1em; color: var(--osso-fioco); white-space: nowrap; }
+.chi-tira .soglia b { display: block; font-size: 22px; font-weight: 400; color: var(--nastro);
+  font-variant-numeric: tabular-nums; line-height: 1; }
 
-.dadi-coppia { display: flex; gap: 46px; padding: 26px 0; }
-.dado-scena { width: 92px; height: 92px; perspective: 560px; }
+/* i dadi al centro, e sopra di loro il verdetto quando arriva */
+.pozza { position: relative; display: flex; align-items: center; justify-content: center;
+  gap: 34px; padding: 14px 0 10px; min-height: 132px; }
+.dado-scena { position: relative; z-index: 1; width: 84px; height: 84px; perspective: 560px; }
 .dado { position: relative; width: 100%; height: 100%; transform-style: preserve-3d;
   transform: rotateX(-24deg) rotateY(32deg); }
 .dado-faccia { position: absolute; inset: 0; border-radius: 10px;
   background: linear-gradient(150deg, #efe7d2, var(--carta-scura));
   border: 1px solid #c3b48c; box-shadow: inset 0 -4px 10px rgba(120, 100, 60, .35); }
-.pip { position: absolute; width: 15%; height: 15%; border-radius: 50%;
+/* LE FIAMMELLE: lo stesso punto, con la punta in su. Restano sei segni
+   contabili - e' la differenza fra un dado a icone (che non si somma) e un
+   dado a icone che si somma lo stesso. */
+.dado-faccia .pip { position: absolute; width: 13%; height: 19%;
   background: radial-gradient(circle at 35% 30%, #6d1c26, #3f1017);
-  transform: translate(-50%, -50%); }
-.f1 { transform: translateZ(46px); }
-.f6 { transform: rotateY(180deg) translateZ(46px); }
-.f2 { transform: rotateY(90deg) translateZ(46px); }
-.f5 { transform: rotateY(-90deg) translateZ(46px); }
-.f3 { transform: rotateX(90deg) translateZ(46px); }
-.f4 { transform: rotateX(-90deg) translateZ(46px); }
+  transform: translate(-50%, -50%);
+  clip-path: polygon(50% 0%, 82% 42%, 88% 72%, 50% 100%, 12% 72%, 18% 42%); }
+.f1 { transform: translateZ(42px); }
+.f6 { transform: rotateY(180deg) translateZ(42px); }
+.f2 { transform: rotateY(90deg) translateZ(42px); }
+.f5 { transform: rotateY(-90deg) translateZ(42px); }
+.f3 { transform: rotateX(90deg) translateZ(42px); }
+.f4 { transform: rotateX(-90deg) translateZ(42px); }
 
-.dadi-conto { min-height: 34px; display: flex; flex-wrap: wrap; gap: 10px;
-  align-items: center; justify-content: center; font-size: 19px; color: var(--osso); }
-.dadi-conto .pezzo { animation: sale .35s; }
-.dadi-conto .pezzo.tot { color: var(--nastro-chiaro); font-size: 24px; margin-left: 6px; }
-.dadi-conto i { color: var(--osso-fioco); font-size: 15px; }
-@keyframes sale { from { opacity: 0; transform: translateY(10px); } }
+/* 5 - IL VERDETTO SI IMPRIME SUI DADI, che sotto si spengono: l'occhio e' gia'
+   li'. Scritto nudo sopra i cubi finiva a cavallo delle due facce e le
+   fiammelle gli passavano attraverso - la banda scura tiene su la parola. */
+.stampa { position: absolute; inset: -6px -24px; z-index: 2; display: grid; place-items: center;
+  font-family: 'FellSC', serif; font-size: clamp(34px, 10vw, 56px); letter-spacing: .1em;
+  pointer-events: none; }
+.stampa.ok, .stampa.ko { background: radial-gradient(58% 62% at 50% 50%,
+  rgba(9, 11, 14, .88) 30%, rgba(9, 11, 14, 0) 78%); animation: sale .4s; }
+.stampa.ok { color: var(--nastro); text-shadow: 0 0 12px rgba(9, 11, 14, .95),
+  0 0 34px rgba(232, 194, 122, .5); }
+.stampa.ko { color: var(--ceralacca); text-shadow: 0 0 12px rgba(9, 11, 14, .95); }
+.pozza.deciso .dado-scena { filter: brightness(.42) saturate(.5); }
 
-.dadi-verdetto { font-size: clamp(34px, 9vw, 60px); min-height: 1.2em; letter-spacing: .08em; }
-.dadi-verdetto.ok { color: var(--nastro-chiaro); animation: sale .4s; }
-.dadi-verdetto.ko { color: #e0596b; animation: sale .4s; }
+/* 2 - IL CONTO E' UN REGISTRO: una riga per pezzo, il nome a sinistra, il
+   valore a destra, e le righe entrano una alla volta. La catena di pastiglie si
+   leggeva come una formula; un registro si legge come un conto. */
+/* `registro-tiro` e non `registro`: quel nome era gia' della fila delle ore,
+   e le due regole si sommavano - le righe del conto finivano in fila invece
+   che una sotto l'altra. */
+.registro-tiro { width: 100%; max-width: 420px; background: var(--ardesia);
+  border: 1px solid var(--bordo); border-radius: 12px; padding: 0 14px; }
+.registro-tiro:empty { border: 0; padding: 0; }
+.registro-tiro .riga { display: flex; align-items: baseline; gap: 10px; padding: 9px 0;
+  border-top: 1px solid var(--bordo); text-align: left; animation: sale .3s; }
+.registro-tiro .riga:first-child { border-top: 0; }
+.registro-tiro .riga .da { flex: 1; font-family: 'FellSC', serif; font-size: 16px; }
+.registro-tiro .riga .da i { display: block; font-family: 'OldStd', Georgia, serif;
+  font-style: italic; font-size: 13px; color: var(--osso-fioco); letter-spacing: 0; }
+.registro-tiro .riga .val { font-family: 'FellSC', serif; font-size: 20px;
+  font-variant-numeric: tabular-nums; min-width: 46px; text-align: right; }
+.registro-tiro .riga.tot { border-top-color: rgba(232, 194, 122, .5); }
+.registro-tiro .riga.tot .da, .registro-tiro .riga.tot .val { color: var(--nastro); }
+.registro-tiro .riga.tot .val { font-size: 26px; }
+/* 3 - il confronto scritto: perche' e' successo, non solo che e' successo */
+.registro-tiro .riga.confronto .da, .registro-tiro .riga.confronto .val { color: var(--osso-fioco);
+  font-size: 15px; }
+.registro-tiro .riga.confronto.ko .val { color: var(--ceralacca); }
 
-.dadi-lancia { font-size: 20px; padding: 15px 32px; }
-.dadi-chiudi { min-width: 180px; }
-.dadi-annulla { position: absolute; top: 18px; right: 20px; background: none;
-  border: none; color: var(--osso-fioco); font-size: 30px; cursor: pointer; }
+/* 4 - LA SECONDA OCCASIONE, e solo dopo che e' andata male: e' l'Ispirazione di
+   BG3. Il Secondo Fiato era una schermata a parte, che si apriva a finestra del
+   tiro gia' chiusa - si sceglieva di ritentare senza piu' avere sotto gli occhi
+   quel che era andato storto. */
+.seconda { width: 100%; max-width: 420px; border: 1px solid rgba(232, 194, 122, .45);
+  background: rgba(232, 194, 122, .08); border-radius: 12px; padding: 12px; display: grid;
+  gap: 8px; justify-items: center; animation: sale .35s; }
+.seconda .che { font-family: 'FellSC', serif; font-size: 15px; color: var(--nastro); }
+.seconda .quanto { font-size: 14px; color: var(--osso-fioco); }
+
+.dadi-overlay .in-fondo { margin-top: auto; display: grid; gap: 8px; width: 100%;
+  max-width: 420px; justify-items: center; }
+.dadi-overlay .in-fondo .btn { min-width: 190px; justify-content: center; }
+.dadi-lancia { font-size: 19px; padding: 14px 30px; }
+.dadi-chiudi { min-width: 190px; }
+/* l'uscita era una crocetta di 30px in un angolo: sotto il bersaglio minimo, e
+   muta. Qui e' una pillola come le altre, con la parola. */
+.dadi-annulla { color: var(--osso-fioco); }
+
 
 /* --- indagine: stradario, campi, scelte --- */
 .stradario { display: grid; gap: 6px; grid-template-columns: 1fr; }
@@ -683,12 +754,18 @@ em, i { font-style: italic; }
   animation: apparizione .5s ease both; }
 
 /* al tavolo: il totale dei dadi veri si inserisce, non si tira */
-.dadi-tavolo { display: flex; flex-direction: column; align-items: center; gap: 14px; }
-.dadi-istruzione { color: var(--osso); font-size: 18px; }
-.dadi-grid { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center;
-  max-width: 460px; }
-.dadi-grid .btn { min-width: 58px; padding: 12px 0; font-size: 22px; text-align: center; }
-.dadi-ripiego { font-size: 14px; padding: 8px 14px; opacity: .7; }
+.dadi-tavolo { width: 100%; max-width: 420px; display: flex; flex-direction: column;
+  align-items: center; gap: 12px; }
+.dadi-istruzione { color: var(--osso); font-size: 16px; margin: 0; }
+/* LA LARGHEZZA LA DECIDE LA GRIGLIA, non la cifra: la fila flessibile lasciava
+   l'ultima riga con tre tasti larghi il doppio degli altri, ed e' lo stesso
+   difetto che i bottoni dell'Indagine hanno gia' corretto */
+.dadi-grid { display: grid; width: 100%;
+  grid-template-columns: repeat(auto-fit, minmax(56px, 1fr));
+  grid-auto-rows: 52px; gap: 8px; }
+.dadi-grid .btn { width: 100%; height: 100%; justify-content: center; padding: 0;
+  font-size: 22px; font-variant-numeric: tabular-nums; }
+.dadi-ripiego { font-size: 14px; padding: 8px 14px; opacity: .8; }
 
 /* --- spedizione: registro ferite e tessere --- */
 .nemico-riga { display: flex; align-items: center; justify-content: space-between;

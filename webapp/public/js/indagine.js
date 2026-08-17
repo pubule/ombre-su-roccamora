@@ -106,7 +106,7 @@ export async function vistaIndagine(app, partita, vaiA, posto) {
   const { ep, comune, carte } = vistoDa.dati;
   if (ctx && ctx.canale) ctx.canale.chiudi();   // il filo di prima non resta appeso
   ctx = { app, partita: vistoDa.stato, ep, comune, carte, vaiA, posto: posto || null,
-          canale: null, tavoloVivo: false };
+          canale: null, tavoloVivo: false, rifMiei: new Set() };
   // come in Spedizione: la scheda e' quella di stanotte, Tempre e Cicatrici
   // comprese (la Tempra vale «sempre», e l'ACUME qui tira davvero)
   abilitaSchede((nm) => eroeCresciuto({ partita: P() }, nm,
@@ -708,6 +708,42 @@ function agganciaStradario() {
   });
 }
 
+// IL TIRO DI QUALCUN ALTRO, sul proprio schermo. L'evento `tiro` porta gia'
+// tutto quel che serve - chi, cosa, i due dadi, i bonus, la soglia, l'esito -
+// perche' e' lo stesso che il motore usa per decidere: qui non si ridecide
+// niente, si guarda.
+//
+// Uno solo per volta: se ne arrivano due (il tiro e il suo Secondo Fiato,
+// mandati a un respiro di distanza) si mostra il primo, e il secondo arriva
+// quando questo si e' chiuso - due finestre sovrapposte sarebbero due tiri
+// illeggibili invece che due tiri.
+let tiroInScena = false;
+
+function mostraTiroDegliAltri(eventi) {
+  if (tiroInScena) return;
+  const t = (eventi || []).find((e) => e && e.tipo === 'tiro' && Array.isArray(e.d));
+  if (!t) return;
+  tiroInScena = true;
+  tiraProva({
+    titolo: t.titolo || 'prova',
+    diffLabel: t.diff || '',
+    soglia: t.soglia,
+    bonus: t.bonus || [],
+    facce: t.d,
+    eroe: ritrattoDi(t.chi),
+    soloVista: true,
+  }).finally(() => { tiroInScena = false; });
+}
+
+// il ritratto di chi tira, per la riga in cima alla finestra: senza eroe (o
+// senza artwork) la riga resta, e dice la prova - e' la stessa degradazione
+// voluta di tutto il resto quando si gioca senza tavolo
+function ritrattoDi(nome) {
+  if (!nome) return null;
+  const e = (ctx.comune.eroi || []).find((x) => x.nome === nome);
+  return { nome, ritratto: e && e.art ? urlArt(e.art) : null };
+}
+
 // IL FILO COL TAVOLO, durante l'Indagine.
 //
 // Chi arbitra e' l'autorita' — nell'Indagine agisce lui solo — e a ogni
@@ -722,8 +758,19 @@ function collegaAlTavolo() {
   const posto = ctx.posto;
   ctx.canale = apriCanale({
     tavolo: posto.tavolo,
-    onVista: (stato, datiVisti, _rif, _eventi, messaggio) => {
+    onVista: (stato, datiVisti, rif, eventi, messaggio) => {
       if (!stato) return;
+      // IL TIRO LO VEDONO TUTTI. Il dado lo tira chi ha l'eroe, dal suo
+      // telefono; fin qui rotolava solo li', e al tavolo gli altri sentivano
+      // un silenzio e poi l'esito gia' scritto. Ora la stessa finestra si apre
+      // su ogni schermo, in sola vista: i cubi arrivano fermi sul risultato e
+      // il conto e' gia' scritto, perche' e' gia' successo.
+      //
+      // Non a chi l'ha tirato: la sua spinta torna indietro contrassegnata, e
+      // rimetterla in scena gli mostrerebbe i propri dadi due volte.
+      const mio = rif && ctx.rifMiei.has(rif);
+      if (mio) ctx.rifMiei.delete(rif);
+      if (!mio) mostraTiroDegliAltri(eventi);
       // IL FILO E' VIVO, e da qui i comandi vanno al TAVOLO invece che al
       // motore di questa pagina. Senza questa riga `esegui()` restava sempre
       // sul ramo locale, e chi gioca leggeva «mi sto ricollegando al tavolo»
@@ -1121,6 +1168,8 @@ function letteraDiChiGioca() {
 //
 // Il ramo locale non e' un ripiego per i banchi di prova: e' come si gioca senza
 // server, e va tenuto vivo.
+let contatoreRif = 0;
+
 async function esegui(comando) {
   const dati = { ep: ctx.ep, comune: ctx.comune, carte: ctx.carte };
 
@@ -1134,9 +1183,15 @@ async function esegui(comando) {
 
   if (ctx.posto && ctx.posto.tavolo && ctx.tavoloVivo) {
     try {
+      // IL PROPRIO COMANDO SI RICONOSCE AL RITORNO. La spinta del tavolo
+      // arriva anche a chi l'ha mandato: senza un contrassegno, il tiro che si
+      // e' appena visto rotolare tornerebbe indietro e si rimetterebbe in
+      // scena una seconda volta.
+      const rif = `ind-${contatoreRif += 1}`;
+      ctx.rifMiei.add(rif);
       const r = await fetch(`/api/tavolo/${encodeURIComponent(ctx.posto.tavolo)}/comando`, {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(comando),
+        body: JSON.stringify({ ...comando, rif }),
       });
       const out = await r.json();
       if (!r.ok || out.rifiuto) { flash((out.rifiuto || {}).motivo || 'Il tavolo ha rifiutato la mossa.'); return null; }
@@ -1470,33 +1525,41 @@ async function aiutoProfano(l, tipo, giaScelto) {
 // perche' `creaCaso` consuma i tiri dichiarati in ordine.
 async function mandaProva(comando, l) {
   const p = provaDiIndagine({ comune: ctx.comune }, comando);
-  const d = await chiediDado(p);
+  // LA SECONDA OCCASIONE SI OFFRE DENTRO LA FINESTRA, e solo se c'e' davvero:
+  // il Secondo Fiato e' una volta a episodio per eroe, e proporlo a carica
+  // gia' spesa sarebbe un bottone che il motore rifiuta.
+  P().fiatoUsato = P().fiatoUsato || {};
+  const puoFiato = !P().fiatoUsato[comando.eroe];
+  const seconda = puoFiato ? {
+    che: 'c’è ancora una carta da giocare',
+    label: `Secondo Fiato di ${primoNome(comando.eroe)}`,
+    nota: 'rifate il tiro. Una volta a episodio, per eroe.',
+  } : null;
+
+  const d = await chiediDado(p, comando.eroe, seconda);
   if (!d) return tornaAlLuogo(l);
-  let out = await esegui({ ...comando, tiri: [d] });
+  let out = await esegui({ ...comando, tiri: [d.tiri] });
   if (!out) return tornaAlLuogo(l);
 
-  // fallita, e chi ha tirato ha ancora il Secondo Fiato: si puo' ritentare
-  const tiro = out.eventi.find((e) => e.tipo === 'tiro');
-  P().fiatoUsato = P().fiatoUsato || {};
-  if (tiro && !tiro.ok && !P().fiatoUsato[comando.eroe]) {
-    const scelta = await scegliDaLista('prova fallita — ritentate?', [
-      { id: 'fiato', label: `Secondo Fiato di ${comando.eroe.split(' ')[0]} (una volta a episodio)` },
-      { id: 'accetta', label: 'accettate il fallimento' },
-    ]);
-    if (scelta === 'fiato') {
-      const d2 = await chiediDado(p);
-      // `fiato: true` lo dice al MOTORE, che sa cosa significa: rifare quel
-      // tiro, e rialzare il chiavistello appena scattato
-      if (d2) out = (await esegui({ ...comando, tiri: [d2], fiato: true })) || out;
-    }
+  // ha chiesto di ritentare guardando il proprio fallimento: si ritira, e
+  // `fiato: true` lo dice al MOTORE, che sa cosa significa - rifare quel tiro,
+  // e rialzare il chiavistello appena scattato
+  if (d.seconda) {
+    const d2 = await chiediDado(p, comando.eroe, null);
+    if (d2) out = (await esegui({ ...comando, tiri: [d2.tiri], fiato: true })) || out;
   }
   mostraEsito(out, l);
 }
 
+const primoNome = (nm) => String(nm || '').split(' ')[0];
+
 // Il dado: si tira all'app o si dichiarano due dadi veri, a ogni tiro.
-const chiediDado = async (p) => {
-  const r = await tiraProva({ ...p, sceltaOgniVolta: true });
-  return r ? [r.d1, r.d2] : null;
+// `seconda` - se questo tiro puo' avere una seconda occasione, la finestra la
+// offre da se' quando e' andata male, invece di aprire una schermata dopo.
+const chiediDado = async (p, chi, seconda) => {
+  const r = await tiraProva({ ...p, sceltaOgniVolta: true,
+                              eroe: ritrattoDi(chi), secondaOccasione: seconda });
+  return r ? { tiri: [r.d1, r.d2], seconda: !!r.seconda } : null;
 };
 
 // La prosa dell'esito: il motore dice il FATTO, la vista lo racconta.
