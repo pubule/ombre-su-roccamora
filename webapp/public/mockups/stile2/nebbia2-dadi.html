@@ -21,6 +21,15 @@
     <div class="vetrina" id="vetrina"></div>
     <p class="perche">Il materiale vale per tutte e tre le direzioni qui sotto — cambiatelo e
       guardatele di nuovo. L’osso è quel che c’è oggi.</p>
+
+    <div class="che" style="margin-top:14px">che segno hanno le facce</div>
+    <div class="vetrina" id="segni"></div>
+    <p class="perche">Nel genere la regola è netta: chi tira e <b>somma</b> tiene facce contabili
+      (Betrayal at House on the Hill, coi suoi 0/1/2 pallini; i dadi numerati), chi <b>confronta
+      simboli</b> mette icone — Mansions of Madness 2e (bianco / stella / lente), Elder Sign,
+      HeroQuest (teschio e scudo) — e nessuno di quelli somma. Qui si sommano 2d6 contro una
+      soglia, quindi la faccia deve dire <i>quanto vale</i>: un’icona al posto del valore non si
+      può usare. I pallini però possono <i>essere</i> un’icona — le fiammelle si contano uguale.</p>
   </div>
 
   <div class="prova" id="prove"></div>
@@ -46,8 +55,16 @@
   };
   const ROT = { 1: [0, 0], 2: [0, -90], 3: [-90, 0], 4: [90, 0], 5: [0, 90], 6: [0, 180] };
 
+  const ROMANE = { 1: 'I', 2: 'II', 3: 'III', 4: 'IV', 5: 'V', 6: 'VI' };
+
+  // OGNI FACCIA PORTA TUTTI E TRE I SEGNI, e il foglio di stile ne mostra uno:
+  // così il confronto si fa toccando, senza ridisegnare i dadi — e a schermo
+  // resta un segno solo.
   const facciaHtml = (n, classe) => `<div class="dado-faccia ${classe}">
-    ${FACCE[n].map(([x, y]) => `<span class="pip" style="left:${x}%;top:${y}%"></span>`).join('')}
+    <span class="segni">
+      ${FACCE[n].map(([x, y]) => `<span class="pip" style="left:${x}%;top:${y}%"></span>`).join('')}
+    </span>
+    <b class="cifra">${n}</b><b class="romana">${ROMANE[n]}</b>
   </div>`;
 
   const dadoHtml = (val) => {
@@ -169,11 +186,32 @@
     ['d-corno', 'corno', 'quasi nero, punti scavati presi dalla lanterna'],
     ['d-ottone', 'ottone', 'la materia della lanterna: caldo, e il più acceso'],
   ];
-  document.body.className = 'd-osso';
+  // CHE SEGNO HANNO LE FACCE. Il precedente del genere divide netto: chi tira e
+  // SOMMA tiene facce contabili (Betrayal, coi suoi 0/1/2 pallini; i dadi
+  // numerati), chi CONFRONTA SIMBOLI mette icone (Mansions of Madness 2e:
+  // bianco/stella/lente; Elder Sign; HeroQuest: teschio e scudo) — e nessuno di
+  // quelli somma. Qui si somma 2d6 contro una soglia, quindi la faccia deve
+  // dire quanto vale: icone al posto del valore non si possono usare, ma i
+  // pallini possono essere disegnati come un'icona, e restano contabili.
+  const SEGNI = [
+    ['s-pallini', 'pallini', 'quel che c’è oggi: si contano senza leggere'],
+    ['s-lumi', 'fiammelle', 'gli stessi punti, a forma di lume: si contano lo stesso'],
+    ['s-cifre', 'cifre', 'il numero inciso: il più veloce da sommare'],
+    ['s-romane', 'cifre romane', 'i · ii · iii: il più a tema, il più lento da sommare'],
+  ];
+  let materia = 'd-osso', segno = 's-pallini';
+  const vestiti = () => { document.body.className = `${materia} ${segno}`; };
+  vestiti();
+
   const vetrina = () => {
     document.getElementById('vetrina').innerHTML = MATERIE.map(([cls, come, di]) => `
-      <button class="campione ${cls} ${document.body.className === cls ? 'scelto' : ''}"
-              data-materia="${cls}">
+      <button class="campione ${cls} ${segno} ${cls === materia ? 'scelto' : ''}" data-materia="${cls}">
+        ${dadoHtml(5)}
+        <span class="come">${come}</span>
+        <span class="di-che">${di}</span>
+      </button>`).join('');
+    document.getElementById('segni').innerHTML = SEGNI.map(([cls, come, di]) => `
+      <button class="campione ${materia} ${cls} ${cls === segno ? 'scelto' : ''}" data-segno="${cls}">
         ${dadoHtml(5)}
         <span class="come">${come}</span>
         <span class="di-che">${di}</span>
@@ -203,7 +241,9 @@
 
   document.addEventListener('click', (ev) => {
     const mat = ev.target.closest('[data-materia]');
-    if (mat) { document.body.className = mat.dataset.materia; return vetrina(); }
+    if (mat) { materia = mat.dataset.materia; vestiti(); return vetrina(); }
+    const sg = ev.target.closest('[data-segno]');
+    if (sg) { segno = sg.dataset.segno; vestiti(); return vetrina(); }
     const s = ev.target.closest('[data-schermo]');
     if (s) return apri(s.dataset.schermo, 'scelta');
     const vai = ev.target.closest('[data-vai]');
