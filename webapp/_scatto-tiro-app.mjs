@@ -49,5 +49,46 @@ await a.screenshot({ path: 'scatti/app-tiro-2-verdetto.png' });
 await a.locator('#dadi-chiudi').click();
 await g.waitForTimeout(2500);
 await g.screenshot({ path: 'scatti/app-tiro-3-chi-guarda.png' });
+// e la Spedizione: il colpo lo manda chi arbitra, la finestra si apre qui
+{
+  const T0 = EP1.tessere[0].id;
+  const NEMICO = (EP1.nemici && EP1.nemici[0] && EP1.nemici[0].nome)
+    || (COMUNE.nemici && COMUNE.nemici[0] && COMUNE.nemici[0].nome);
+  await chiama(ARBITRO, 'POST', `/api/tavolo/${idT}/apri`, { tavolo: idT, stato: {
+    v: 1, episodio: 'ep1', modo: 'digitale', party: [IDONEO.nome, OTTONE], fase: 'spedizione',
+    indagine: { ora: 24, visitati: [], oggetti: [], caricheUsate: {}, chiusa: true,
+                approfondimentiLetti: [], risposte: ['', '', '', ''] },
+    vantaggi: { tier: 'preparati' }, rng: { seme: 4242, passo: 0 }, aggiornato: 1,
+    spedizione: { round: 2, canto: 0, cantoBonus: false, fase: 'eroi', esito: null, digitale: true,
+      rivelate: [T0], grate: [], log: [], compiti: {}, cercate: {},
+      nemici: [{ nome: NEMICO, pos: { t: T0, x: 2, y: 1 }, ferite: 0, max: 3 }],
+      eroiPos: { [IDONEO.nome]: { t: T0, x: 1, y: 1 }, [OTTONE]: { t: T0, x: 3, y: 1 } },
+      vite: { [IDONEO.nome]: 6, [OTTONE]: 7 }, azioni: {}, storditi: {}, eroiFatti: [],
+      eroiAttivo: IDONEO.nome, scortati: [], mazzo: null, pendenza: null, insidie: {}, abilita: {} },
+  } });
+  const s2 = await b.newPage({ viewport: { width: 390, height: 800 }, deviceScaleFactor: 2 });
+  await s2.goto(BASE, { waitUntil: 'networkidle' });
+  await s2.evaluate(async ({ t, eroe }) => {
+    const { vistaDigitale } = await import('/js/digitale.js');
+    const v = await (await fetch(`/api/tavolo/${t}/stato`)).json();
+    document.querySelector('#app').innerHTML = '';
+    await vistaDigitale(document.querySelector('#app'), v.stato, () => {},
+                        { tavolo: t, ruolo: 'giocatore', eroe, eroi: [eroe] });
+  }, { t: idT, eroe: IDONEO.nome });
+  for (const sel of ['#continua', '#via']) {
+    const x = s2.locator(sel);
+    if (await x.count()) { await x.first().click().catch(() => {}); await s2.waitForTimeout(250); }
+  }
+  await s2.waitForTimeout(1200);
+  await chiama(ARBITRO, 'POST', `/api/tavolo/${idT}/comando`,
+    { tipo: 'attacca', eroe: IDONEO.nome, bersaglio: 0, tiri: [[6, 6]] });
+  await s2.waitForTimeout(2600);
+  await s2.screenshot({ path: 'scatti/app-tiro-4-spedizione.png' });
+  console.log('riga di chi tira:', JSON.stringify(await s2.evaluate(() => {
+    const c = document.querySelector('.chi-tira');
+    return c ? { nome: c.querySelector('.nome')?.textContent.trim(),
+                 prova: c.querySelector('.prova')?.textContent } : null;
+  })));
+}
 await b.close();
 console.log('scatti pronti');

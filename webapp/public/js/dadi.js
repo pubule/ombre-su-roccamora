@@ -60,14 +60,29 @@ const esc = (s) => String(s).replace(/[&<>"]/g, (c) =>
   ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const primo = (nm) => String(nm || '').split(' ')[0].toLowerCase();
 
-// il titolo delle prove porta gia' dentro il nome di chi tira («guardare
-// meglio — elena»): col ritratto accanto sarebbe scritto due volte, e la riga
-// andrebbe a capo proprio dove si legge in fretta
+// IL NOME, UNA VOLTA SOLA. Il titolo delle prove porta gia' dentro chi tira, e
+// col ritratto accanto sarebbe scritto due volte — ma le due meta' della serata
+// lo mettono da parti opposte:
+//
+//   Indagine:    «guardare meglio — elena»        (in coda)
+//   Spedizione:  «elena → adepto incappucciato»   (in testa)
+//
+// Togliendo solo la coda, il titolo della Spedizione spariva INTERO: sotto il
+// nome restava il vuoto, e non si sapeva piu' che tiro fosse. Se dopo il taglio
+// non resta niente si tiene il titolo com'e': una riga muta e' peggio di una
+// ripetizione.
 function soloLaProva(titolo, eroe) {
-  const t = String(titolo || '');
+  const t = String(titolo || '').trim();
   if (!eroe || !eroe.nome) return t;
-  const coda = t.split(/\s+[—–-]\s+/).pop();
-  return primo(coda) === primo(eroe.nome) ? t.slice(0, t.length - coda.length).replace(/\s*[—–-]\s*$/, '') : t;
+  const nome = primo(eroe.nome);
+  const pezzi = t.split(/\s+[—–-]\s+/);
+  let r = t;
+  if (pezzi.length > 1 && primo(pezzi[pezzi.length - 1]) === nome) {
+    r = pezzi.slice(0, -1).join(' — ');
+  } else if (primo(t) === nome) {
+    r = t.slice(nome.length).trim();
+  }
+  return r || t;
 }
 
 // 1 · CHI TIRA, la prova, e la soglia che non se ne va mai (3)

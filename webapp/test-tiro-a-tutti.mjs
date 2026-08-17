@@ -111,11 +111,16 @@ await chiTira.waitForTimeout(1200);
     if (!o) return null;
     return {
       ritratto: !!o.querySelector('.chi-tira img'),
+      prova: (o.querySelector('.chi-tira .prova') || {}).textContent || '',
       soglia: (o.querySelector('.chi-tira .soglia b') || {}).textContent || '',
       tavolo: getComputedStyle(o.querySelector('#dadi-tavolo')).display !== 'none',
     };
   });
   ok(suo && suo.ritratto, 'chi tira ha una faccia: il ritratto sta nella finestra');
+  // e la riga dice CHE TIRO E': togliendo il nome dal titolo per non scriverlo
+  // due volte, si e' gia' portato via il titolo intero una volta
+  ok(suo && suo.prova.trim().length > 0,
+     `e la riga dice che prova e' (vista <<${suo && suo.prova}>>)`);
   ok(suo && /^\d+$/.test(suo.soglia.trim()), `e la soglia e' scritta (vista «${suo && suo.soglia}»)`);
   ok(suo && suo.tavolo, 'e i dadi veri si possono ancora dichiarare');
 }
@@ -165,6 +170,84 @@ await chiTira.waitForTimeout(500);
 {
   const riaperta = await chiTira.locator('.dadi-overlay').count();
   ok(riaperta === 0, `chi ha tirato non si rivede i propri dadi (${riaperta} finestre)`);
+}
+
+// =========================================================================
+// LA SPEDIZIONE: stesso dado, stessa finestra. Cambia solo il conto del
+// successo, e quello sta nel motore.
+//
+// Qui il tiro non lo fa un browser: lo manda chi arbitra, coi dadi dichiarati
+// dentro il comando - la strada vera quando al tavolo si tira coi dadi di
+// legno. Si prova l'altra meta': che la finestra si apra da sola sullo schermo
+// di chi NON ha tirato.
+{
+  const T0 = EP1.tessere[0].id;
+  const NEMICO = (EP1.nemici && EP1.nemici[0] && EP1.nemici[0].nome)
+    || (COMUNE.nemici && COMUNE.nemici[0] && COMUNE.nemici[0].nome);
+  const battaglia = {
+    v: 1, episodio: 'ep1', modo: 'digitale', party: [IDONEO.nome, OTTONE], fase: 'spedizione',
+    indagine: { ora: 24, visitati: [], oggetti: [], caricheUsate: {}, chiusa: true,
+                approfondimentiLetti: [], risposte: ['', '', '', ''] },
+    vantaggi: { tier: 'preparati' }, rng: { seme: 4242, passo: 0 }, aggiornato: 1,
+    spedizione: {
+      round: 2, canto: 0, cantoBonus: false, fase: 'eroi', esito: null, digitale: true,
+      rivelate: [T0], grate: [], log: [], compiti: {}, cercate: {},
+      nemici: [{ nome: NEMICO, pos: { t: T0, x: 2, y: 1 }, ferite: 0, max: 3 }],
+      eroiPos: { [IDONEO.nome]: { t: T0, x: 1, y: 1 }, [OTTONE]: { t: T0, x: 3, y: 1 } },
+      vite: { [IDONEO.nome]: 6, [OTTONE]: 7 },
+      azioni: {}, storditi: {}, eroiFatti: [], eroiAttivo: IDONEO.nome,
+      scortati: [], mazzo: null, pendenza: null, insidie: {}, abilita: {},
+    },
+  };
+  await chiama(ARBITRO, 'POST', `/api/tavolo/${idT}/apri`, { tavolo: idT, stato: battaglia });
+
+  const schermo = await browser.newPage({ viewport: { width: 420, height: 900 } });
+  schermo.on('pageerror', (e) => errori.push(e.message));
+  await schermo.goto(BASE, { waitUntil: 'networkidle' });
+  await schermo.evaluate(async ({ t, eroe }) => {
+    const { vistaDigitale } = await import('/js/digitale.js');
+    const v = await (await fetch(`/api/tavolo/${t}/stato`)).json();
+    document.querySelector('#app').innerHTML = '';
+    await vistaDigitale(document.querySelector('#app'), v.stato, () => {},
+                        { tavolo: t, ruolo: 'giocatore', eroe, eroi: [eroe] });
+  }, { t: idT, eroe: IDONEO.nome });
+  for (const sel of ['#continua', '#via']) {
+    const b = schermo.locator(sel);
+    if (await b.count()) { await b.first().click().catch(() => {}); await schermo.waitForTimeout(250); }
+  }
+  await schermo.waitForTimeout(1200);
+  ok(await schermo.locator('.tok-board').count() > 0, 'lo schermo della Spedizione vede la plancia');
+
+  // il colpo, coi dadi gia' dichiarati
+  const r = await chiama(ARBITRO, 'POST', `/api/tavolo/${idT}/comando`,
+    { tipo: 'attacca', eroe: IDONEO.nome, bersaglio: 0, tiri: [[6, 6]] });
+  ok(r.ok, `il colpo parte dal tavolo (${r.status})`);
+  await schermo.waitForTimeout(2500);
+
+  const visto = await schermo.evaluate(() => {
+    const o = document.querySelector('.dadi-overlay');
+    if (!o) return null;
+    const mostrato = (x) => {
+      const e = o.querySelector(x);
+      return !!e && getComputedStyle(e).display !== 'none';
+    };
+    return {
+      righe: o.querySelectorAll('.registro-tiro .riga').length,
+      verdetto: (o.querySelector('#dadi-verdetto') || {}).textContent || '',
+      ritratto: !!o.querySelector('.chi-tira img'),
+      prova: (o.querySelector('.chi-tira .prova') || {}).textContent || '',
+      lancia: mostrato('#dadi-lancia'),
+      tavolo: mostrato('#dadi-tavolo'),
+    };
+  });
+  ok(visto, 'in Spedizione il tiro di un altro apre la finestra anche qui');
+  ok(visto && visto.prova.trim().length > 0,
+     `e la riga dice che tiro e' (vista <<${visto ? visto.prova : ''}>>)`);
+  ok(visto && visto.righe >= 3, `e il conto e' scritto (${visto ? visto.righe : 0} righe)`);
+  ok(visto && /successo|fallita|totale/.test(visto.verdetto),
+     `e il verdetto e' quello del tavolo (visto <<${visto ? visto.verdetto : ''}>>)`);
+  ok(visto && visto.ritratto, 'e chi tira ha una faccia anche qui');
+  ok(visto && !visto.lancia && !visto.tavolo, 'e da qui non si tira il tiro di un altro');
 }
 
 ok(errori.length === 0, `nessun errore JS in tutta la scena: ${errori.slice(0, 2).join(' | ')}`);

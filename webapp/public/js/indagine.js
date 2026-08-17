@@ -1810,7 +1810,14 @@ async function busta() {
     </div>`;
 
   // la stessa pagina su ogni schermo, senza le mani di chi conduce
-  esegui({ tipo: 'carta', titolo: 'la busta è aperta', corpo: pagina(false) });
+  const cartaBusta = { titolo: 'la busta è aperta', corpo: pagina(false) };
+  esegui({ tipo: 'carta', ...cartaBusta });
+  // «QUESTA CARTA LA STO GIA' MOSTRANDO IO». Senza questa riga la spinta del
+  // tavolo tornava indietro, il filo non riconosceva la carta come propria e
+  // rimpiazzava questa pagina con quella senza mani — cioè senza le correzioni
+  // e senza «alla spedizione»: chi arbitra premeva «continuate» e si ritrovava
+  // nello stradario, a notte finita e senza una strada per scendere.
+  ctx.cartaInScena = chiaveCarta(cartaBusta);
   app.innerHTML = `${barra('la busta è aperta')}${pagina(true)}`;
   dopoBarra();
   app.querySelectorAll('[data-correggi]').forEach((b) => {
@@ -2099,6 +2106,15 @@ function mostraCartaCondivisa(carta) {
   ctx.app.querySelector('#ok-msg').onclick = () => {
     ctx.cartaInScena = null;
     esegui({ tipo: 'carta-vista' });
+    // A BUSTA APERTA LA NOTTE E' FINITA, e l'unica uscita è la Spedizione.
+    // Tornare dov'era il gruppo — dentro un luogo, o allo stradario — è giusto
+    // per una carta letta a metà serata; qui vorrebbe dire rimandare il tavolo
+    // a battere strade che non esistono più.
+    if (IND().chiusa) {
+      P().fase = 'spedizione';
+      salvaP();
+      return ctx.vaiA('spedizione');
+    }
     // SI TORNA DOVE IL GRUPPO E', non alla home. Chiudendo si finiva sullo
     // stradario anche col gruppo dentro un luogo: chi conduce doveva rientrare
     // a mano, e la porta per farlo non c'e' — l'unica strada era dichiarare di

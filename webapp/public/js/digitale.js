@@ -106,9 +106,9 @@ function accendiNemiciApp() { P().nemiciApp = true; salvaP(); }
 // l'interruttore e' acceso. Ritorna { tot, ok } comunque, cosi' chi chiama
 // applica il danno allo stesso modo. L'interruttore puo' accendersi PROPRIO
 // QUI (ripiegoSempre) e vale dal tiro successivo in poi.
-async function tiroNemico(titolo, soglia, att) {
+async function tiroNemico(titolo, soglia, att, chi) {
   if (!tavoloTiraNemici()) { const tot = r1() + r1() + att; return { tot, ok: tot >= soglia }; }
-  const r = await tiraProva({ titolo, diffLabel: 'Difesa', soglia,
+  const r = await tiraProva({ titolo, diffLabel: 'Difesa', soglia, eroe: ritrattoDi(chi),
     bonus: [{ label: 'ATTACCO', val: att }], modo: 'tavolo', ripiegoSempre: RIPIEGO_NEMICI });
   if (r && r.sempre) accendiNemiciApp();
   return { tot: r ? r.tot : 0, ok: !!(r && r.ok) };
@@ -233,7 +233,7 @@ function collegaAlTavolo() {
         if (datiVisti.comune) ctx.comune = datiVisti.comune;
         if (datiVisti.carte) ctx.carte = datiVisti.carte;
       }
-      if (await incassa(stato, eventi)) return;   // la partita e' finita: epilogo
+      if (await incassa(stato, eventi, true)) return;   // la partita e' finita: epilogo
       render();
     },
     onRifiuto: (r) => flash(r.motivo || 'Il tavolo ha rifiutato la mossa.'),
@@ -977,7 +977,7 @@ function messaggioCarta(titolo, carta, annunci) {
       for (const t of targets) {
         const e = eroe(t);
         const r = await tiraProva({ titolo: `${req.stat.toUpperCase()} — ${primo(t)}`, diffLabel: req.diff,
-          soglia: ctx.comune.regole.diff[req.diff],
+          soglia: ctx.comune.regole.diff[req.diff], eroe: ritrattoDi(t),
           bonus: [{ label: req.stat.toUpperCase(), val: e[req.stat] }, ...bonusVoce(t, req.stat)], modo: modoDadi() });
         if (r == null) { rb.disabled = false; return; }
         if (r.ok) esiti.push(`${primo(t)}: prova superata.`);
@@ -1011,7 +1011,7 @@ function messaggioProva(titolo, corpo, provaText, nm) {
     if (pb) pb.onclick = async () => {
       pb.disabled = true; const e = eroe(nm); const sp = SP();
       const r = await tiraProva({ titolo: `${req.stat.toUpperCase()} — ${primo(nm)}`, diffLabel: req.diff,
-        soglia: ctx.comune.regole.diff[req.diff],
+        soglia: ctx.comune.regole.diff[req.diff], eroe: ritrattoDi(nm),
         bonus: [{ label: req.stat.toUpperCase(), val: e[req.stat] }, ...bonusVoce(nm, req.stat)], modo: modoDadi() });
       if (r == null) { pb.disabled = false; return; }
       let out = r.ok ? '<p class="ok-txt mt">Prova superata.</p>' : '<p class="ko-txt mt">Prova fallita.</p>';
@@ -1326,6 +1326,7 @@ async function chiediTiro(prova) {
     diffLabel: prova ? (prova.diffLabel || '') : '',
     soglia: prova ? prova.soglia : null,
     bonus: prova ? prova.bonus : [],
+    eroe: ritrattoDi(prova ? prova.chi : null),
     modo: 'tavolo',
   });
   return r ? [r.d1, r.d2] : null;
@@ -1340,7 +1341,7 @@ async function chiediTiro(prova) {
 // `aggancia()` cattura `const sp = SP()` e li usa nei suoi gestori.
 // Sostituendoli, quei gestori scriverebbero su un oggetto scartato, e il click
 // andrebbe perso senza un errore.
-async function incassa(stato, eventi) {
+async function incassa(stato, eventi, daAltri = false) {
   // il tavolo e' andato avanti: la carta ferma sullo schermo di chi guarda ha
   // finito il suo compito
   if (ctx.chiudiCarta) { const chiudi = ctx.chiudiCarta; ctx.chiudiCarta = null; chiudi(); }
@@ -1356,7 +1357,7 @@ async function incassa(stato, eventi) {
   // Senza tavolo si gioca da soli e l'autore e' questo browser: si timbra e si
   // accoda, com'era.
   salva(ctx.partita, { timbra: !ctx.tavoloVivo });
-  await riproduci(eventi || []);
+  await riproduci(eventi || [], daAltri);
   if (SP().esito) { epilogo(); return true; }
   return false;
 }
@@ -1479,11 +1480,24 @@ async function esegui(comando) {
 // Mettere in scena cio' che il motore ha gia' deciso. Nessun evento cambia lo
 // stato: se qualcosa qui non venisse riprodotto, la partita sarebbe comunque
 // giusta — solo muta.
-async function riproduci(eventi) {
+async function riproduci(eventi, daAltri = false) {
   for (const ev of eventi) {
     if (ev.tipo === 'tiro') {
-      // al tavolo il dado l'ha gia' tirato chi gioca, davanti a tutti: rimetterlo
-      // in scena qui sarebbe mostrarlo due volte
+      // IL TIRO LO VEDONO TUTTI, come nell'Indagine. Quel che rotola sul
+      // tavolo vero lo si guarda in faccia; quel che tira l'app rotolava su
+      // uno schermo solo, e agli altri arrivava un silenzio e poi l'esito
+      // gia' scritto. La finestra e' la stessa, in sola vista: cubi fermi,
+      // conto scritto, e solo «continua».
+      //
+      // Solo quel che ARRIVA DAL TAVOLO: la propria mossa l'ha gia' messa in
+      // scena la finestra di prima, e rifarla mostrerebbe i dadi due volte.
+      if (daAltri && Array.isArray(ev.d)) {
+        await tiraProva({
+          titolo: ev.titolo || (ev.chi ? `tiro di ${primo(ev.chi)}` : 'tiro'),
+          diffLabel: ev.diff || '', soglia: ev.soglia, bonus: ev.bonus || [],
+          facce: ev.d, eroe: ritrattoDi(ev.chi), soloVista: true,
+        });
+      }
     } else if (ev.tipo === 'cercato') {
       const extra = ev.trovato
         ? `<hr class="divisore"><p class="mt"><b>Trovato:</b> ${esc(ev.trovato.nome.toLowerCase())} — nell'inventario del gruppo.</p>
@@ -1682,6 +1696,17 @@ const CASO = {
 };
 const pausa = (ms) => new Promise((r) => setTimeout(r, ms));
 const nemArt = (nome) => { const st = nemStat(nome); return st && st.art ? urlArt(st.art) : ''; };
+// CHI TIRA, per la riga in cima alla finestra del tiro: un eroe o un nemico,
+// che qui sono la stessa domanda («chi sta tirando?») con due risposte. Senza
+// nome - il tiro nudo che il motore chiede e basta - la riga resta e dice la
+// prova, come nell'Indagine quando si gioca senza tavolo.
+const ritrattoDi = (nome) => {
+  if (!nome) return null;
+  const e = eroe(nome);
+  if (e) return { nome, ritratto: e.art ? urlArt(e.art) : null };
+  const n = nemStat(nome);
+  return n ? { nome, ritratto: nemArt(nome) } : { nome, ritratto: null };
+};
 const nemBreve = (nome) => esc(nome.toLowerCase());   // i nemici mostrano il nome intero (primo() darebbe l'articolo)
 // coordinate (px, non zoomate) di un nodo sul board — come lo scr di boardHtml
 function scrGeo(node) {
@@ -1849,7 +1874,7 @@ async function eseguiTurnoNemici(piano) {
     }
     if (s.attacco && s.attacco.tot === undefined) {
       const a = s.attacco;
-      const r = await tiroNemico(`${nemBreve(s.nome)} → ${primo(a.vitt)}`, a.dif, a.att);
+      const r = await tiroNemico(`${nemBreve(s.nome)} → ${primo(a.vitt)}`, a.dif, a.att, s.nome);
       nemici.risolviColpo(G(), s, r.tot);
     }
     if (s.attacco) {
