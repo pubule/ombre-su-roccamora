@@ -78,6 +78,47 @@ tutti (`riproduci()` in `digitale.js` lo dice da mesi), quindi rimetterlo in
 scena sugli altri schermi lo mostrerebbe due volte. Se al tavolo servira'
 anche li', e' un secondo passo.
 
+### QUEL CHE IL TAVOLO HA VISTO (17/08/2026), e come e' chiuso
+
+Quattro difetti segnalati giocando, tutti in produzione col loro banco.
+
+**1. Rotto il sigillo si tornava allo stradario** (`ea98a2d2`). `busta()` manda
+a tutti la propria pagina come schermata condivisa, ma non si segnava di averla
+in scena: la spinta del tavolo tornava indietro e la RIMPIAZZAVA con la
+versione senza «alla spedizione». E quella schermata, chiudendosi, torna sempre
+dov'e' il gruppo — giusto a meta' serata, sbagliato a busta aperta.
+Banco: `test-busta-spedizione.mjs`, che e' anche il primo a guardare lo schermo
+di CHI ARBITRA: un contesto Playwright con `X-Osr-Dev-Email` si autentica come
+lui, WebSocket compreso. Da qui in poi si puo' provare la sua meta' del tavolo.
+
+**2. In Spedizione i dadi sembravano tirati due volte** (`5765f393`). Non era
+il motore: la finestra in sola vista restava aperta finche' non la si chiudeva
+a mano, e li' i tiri si susseguono — al secondo ce n'erano due sovrapposte, con
+due risultati diversi, e sul telefono la vecchia si mangiava i tocchi della
+nuova. Ora resta 4,2 secondi e se ne va da sola, e una nuova prende il posto
+della vecchia invece di coprirla.
+
+**3. Nel Preludio si camminava sugli arredi** (`c43d35f3`). Il Preludio non ha
+tessere sue: STAMPA quelle dell'Episodio 1, e gli arredi glieli dava una
+tabella scritta a mano che diceva altro (T1 addirittura senza ostacoli). Ora
+`PRELUDIO_ARREDI` legge le TILES dell'Ep.1. Il banco `test-arredi.mjs` aveva
+due buchi, ed erano quelli che l'hanno lasciato passare: girava sui soli
+`ep*.json` (il Preludio non si chiama cosi') e non confrontava episodi che
+stampano la STESSA tessera — adesso le immagini le riconosce da sole, per md5.
+
+**4. Il lampo scendendo in Spedizione** (`c19a03b4`). `#app` veniva scritto tre
+volte in sessanta millesimi: il disegno vero, la spinta del filo che si apre e
+quella del `mettiSulTavolo`. Riconoscere le spinte inutili guardando lo STATO
+non regge (lo stato cambia davvero: stanza letta, carta); conta quel che si
+vede, e ora una pagina identica a quella a schermo non si riscrive. Banco:
+`test-lampo.mjs` — 3 riscritture prima, 1 adesso.
+
+**Il metodo che ha retto**, e che conviene tenere: prima un banco che RIPRODUCE
+il difetto (rosso), poi il rimedio, poi il sabotaggio del rimedio per vedere il
+banco tornare rosso. Il difetto del Preludio, in particolare, si e' trovato solo
+perche' il banco copriva un elenco di episodi e il Preludio ne era fuori: un
+episodio non in elenco e' un episodio non misurato.
+
 **Fatto finora nell'app** (`webapp/public/app.css`): i token di `:root` sono la
 palette di «notte e nebbia» (i nomi restano — `--tavolo`, `--ardesia`, `--osso`,
 `--nastro` = il lume — perché mille righe li usano già), e sono passati alla
