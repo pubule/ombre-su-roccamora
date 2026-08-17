@@ -1,0 +1,163 @@
+/* C · NOTTE E NEBBIA — LA FINESTRA DEL TIRO.
+   L'ultimo pezzo dell'Indagine rimasto con l'aria di prima: fondo nero pieno,
+   la fila dei totali che va a capo come capita, il conto in una riga di testo.
+
+   QUEL CHE NON CAMBIA: i dadi sono di CARTA. Al tavolo esistono davvero, e la
+   pergamena in questa direzione vive solo dove c'è un oggetto vero — `.dado` e
+   `.dado-faccia` stanno per questo nell'elenco CARTA_VERA di test-stile.
+
+   QUEL CHE CAMBIA PER TUTTE E TRE: il fondo diventa vetro fumé invece che nero
+   pieno, così sotto si intravede la scena del luogo e il tiro succede DENTRO
+   la serata, non in una finestra a parte. */
+
+/* --- il telaio della prova: un finto telefono, per guardarne tre vicini --- */
+.telai { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 8px; }
+.telaio { position: relative; width: 300px; height: 560px; flex: none;
+  border-radius: 20px; overflow: hidden; border: 1px solid var(--bordo); }
+/* il telaio è 300px per 560, cioè un telefono da 390x727 rimpicciolito: con lo
+   zoom la finestra dentro si dispone come sul telefono vero (stesse colonne,
+   stesse andate a capo) invece di essere una versione stretta con le sue
+   rotture. Senza, il titolo e l'uscita finivano tagliati fuori dal telaio. */
+.telaio .dadi-overlay { zoom: .77; }
+.telaio > .sfondo { position: absolute; inset: 0; background-size: cover;
+  background-position: center; filter: brightness(.55) saturate(.85); }
+/* una traccia della pagina sotto, perché il vetro abbia qualcosa da velare */
+.telaio > .sotto { position: absolute; inset: auto 0 0 0; padding: 14px;
+  background: linear-gradient(180deg, rgba(12,14,17,0), rgba(12,14,17,.92)); }
+.telaio > .sotto h3 { font-size: 26px; }
+.momento { font-family: 'FellSC', serif; font-size: 13px; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--fioco); margin: 0 0 6px; }
+
+/* --- la finestra, comune alle tre direzioni ------------------------------ */
+.dadi-overlay { position: absolute; inset: 0; z-index: 100; display: flex;
+  flex-direction: column; align-items: center; justify-content: center; gap: 16px;
+  padding: 18px; text-align: center;
+  background: rgba(9, 11, 14, .70); backdrop-filter: blur(14px) saturate(.85); }
+.dadi-overlay.schermo { position: fixed; padding-bottom: 84px; }
+/* la striscia per passare da un momento all'altro è del MOCKUP, non della
+   finestra: una fila bassa di pastiglie in fondo, che non copra i bottoni veri */
+.strisc { position: fixed; inset: auto 0 0 0; z-index: 201; display: flex; gap: 6px;
+  justify-content: center; flex-wrap: wrap; padding: 8px 10px calc(8px + env(safe-area-inset-bottom));
+  background: linear-gradient(180deg, rgba(9,11,14,0), rgba(9,11,14,.92) 40%); }
+.strisc .btn { min-height: 36px; font-size: 13px; padding: 6px 12px; }
+
+.dadi-titolo { font-family: 'FellSC', serif; font-size: clamp(22px, 5vw, 32px);
+  line-height: 1.1; color: var(--testo); }
+/* la soglia era una riga di testo fra due trattini: qui è una pastiglia, come
+   ogni altro dato dell'app — si legge in un colpo d'occhio da un metro */
+.dadi-soglia { display: inline-flex; align-items: center; gap: 8px; margin-top: 8px;
+  font-family: 'FellSC', serif; font-size: 14px; letter-spacing: .1em;
+  color: var(--lume); background: var(--vetro-alto); border: 1px solid var(--bordo);
+  border-radius: 999px; padding: 4px 12px; }
+.dadi-soglia b { font-size: 17px; font-weight: 400; font-variant-numeric: tabular-nums; }
+
+/* I DADI DI CARTA: identici a quelli in uso, faccia per faccia. Cambiarli
+   sarebbe cambiare l'oggetto, non la pelle. */
+.dadi-coppia { position: relative; display: flex; gap: 40px; padding: 20px 0; }
+/* i cubi stanno SOPRA la loro ombra: senza un indice, il tondo sfocato del
+   feltro (B) verrebbe disegnato dopo, cioè sopra i dadi */
+.dado-scena { position: relative; z-index: 1; width: 84px; height: 84px; perspective: 560px; }
+.dado { position: relative; width: 100%; height: 100%; transform-style: preserve-3d;
+  transform: rotateX(-24deg) rotateY(32deg); transition: transform .5s ease; }
+.dado-faccia { position: absolute; inset: 0; border-radius: 10px;
+  background: linear-gradient(150deg, #efe7d2, #d9cfb2);
+  border: 1px solid #c3b48c; box-shadow: inset 0 -4px 10px rgba(120, 100, 60, .35); }
+.dado-faccia .pip { position: absolute; width: 15%; height: 15%; border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #6d1c26, #3f1017);
+  border: 0; transform: translate(-50%, -50%); }
+.f1 { transform: translateZ(42px); }
+.f6 { transform: rotateY(180deg) translateZ(42px); }
+.f2 { transform: rotateY(90deg) translateZ(42px); }
+.f5 { transform: rotateY(-90deg) translateZ(42px); }
+.f3 { transform: rotateX(90deg) translateZ(42px); }
+.f4 { transform: rotateX(-90deg) translateZ(42px); }
+
+/* IL CONTO: i bonus erano parole in fila, e a tiro fatto non si capiva dove
+   finiva il dado e dove cominciava il NERVI. Ora ogni pezzo è una pastiglia, e
+   il totale è l'unica accesa. */
+.dadi-conto { display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+  justify-content: center; min-height: 40px; }
+.dadi-conto .pezzo { display: inline-flex; align-items: baseline; gap: 6px;
+  background: var(--vetro-alto); border: 1px solid var(--bordo); border-radius: 999px;
+  padding: 5px 12px; font-family: 'FellSC', serif; font-size: 16px;
+  font-variant-numeric: tabular-nums; }
+.dadi-conto .pezzo i { font-family: 'OldStd', Georgia, serif; font-style: italic;
+  font-size: 14px; color: var(--fioco); letter-spacing: 0; }
+.dadi-conto .pezzo b { font-weight: 400; font-size: 19px; }
+.dadi-conto .pezzo.tot { border-color: var(--lume); color: var(--lume); }
+.dadi-conto .pezzo.tot b { font-size: 23px; }
+
+.dadi-verdetto { font-family: 'FellSC', serif; font-size: clamp(32px, 9vw, 54px);
+  letter-spacing: .08em; line-height: 1; }
+.dadi-verdetto.ok { color: var(--lume); text-shadow: 0 0 26px rgba(232, 194, 122, .45); }
+.dadi-verdetto.ko { color: var(--sangue); }
+.dadi-controsoglia { font-family: 'FellSC', serif; font-size: 15px; color: var(--fioco);
+  font-variant-numeric: tabular-nums; }
+
+/* AL TAVOLO SI DICHIARA IL TOTALE, ed è il gesto che si fa più spesso: undici
+   tasti a colonne uguali, che è la stessa regola dei bottoni dell'Indagine —
+   la larghezza la decide la griglia, non la cifra. */
+.dadi-tavolo { width: 100%; max-width: 420px; display: flex; flex-direction: column;
+  align-items: center; gap: 12px; }
+.dadi-istruzione { color: var(--testo); font-size: 16px; margin: 0; }
+.dadi-grid { display: grid; width: 100%;
+  grid-template-columns: repeat(auto-fit, minmax(56px, 1fr));
+  grid-auto-rows: 52px; gap: 8px; }
+.dadi-grid .btn { width: 100%; height: 100%; justify-content: center; padding: 0;
+  font-size: 22px; font-variant-numeric: tabular-nums; border-radius: 12px; }
+.dadi-ripiego { font-size: 14px; opacity: .8; }
+
+.dadi-lancia { font-size: 19px; padding: 14px 30px; }
+.dadi-chiudi { min-width: 180px; justify-content: center; }
+/* L'USCITA ERA UNA CROCETTA di 30px in un angolo: sotto il bersaglio minimo, e
+   muta. Qui è una pillola come le altre, con la parola. */
+.dadi-annulla { color: var(--fioco); }
+
+/* === A · IL TIRO SUL VETRO =============================================
+   Niente di nuovo: le lastre, le pastiglie e la griglia che l'app ha già,
+   messe qui. È la direzione che non aggiunge un vocabolario. */
+
+/* === B · IL TAVOLO DI FELTRO ===========================================
+   I dadi cadono in una pozza di luce di lanterna: buio ai bordi, caldo al
+   centro, e sotto i cubi l'ombra che dice che sono appoggiati a qualcosa. I
+   totali diventano un tastierino a tasti grandi. */
+.v-b { background:
+  radial-gradient(62% 40% at 50% 40%, rgba(232, 194, 122, .18), rgba(9, 11, 14, 0) 72%),
+  radial-gradient(120% 90% at 50% 45%, rgba(9, 11, 14, .60), rgba(6, 7, 9, .93) 100%); }
+.v-b .dadi-coppia::after { content: ''; position: absolute; z-index: 0;
+  left: 6%; right: 6%; bottom: 12px; height: 26px; border-radius: 50%;
+  background: rgba(0, 0, 0, .55); filter: blur(12px); }
+/* NIENTE ombra sulle FACCE: un'ombra esterna per faccia disegna sei contorni
+   scuri e il cubo si vede smontato, con le facce staccate. L'ombra del feltro
+   è una sola, sotto la coppia. */
+.v-b .dadi-grid { grid-template-columns: repeat(4, 1fr); grid-auto-rows: 58px; }
+.v-b .dadi-grid .btn { font-size: 25px; background: rgba(38, 33, 24, .78);
+  border-color: rgba(232, 194, 122, .22); }
+
+/* === C · IL VERDETTO COME SIGILLO ======================================
+   Come A fino al conto; poi l'esito si imprime come ceralacca sulla carta.
+   Costa un secondo in più prima di poter continuare — che al tavolo è il
+   secondo in cui si guarda in faccia chi ha tirato. */
+/* il disco di ceralacca: bordo un po' irregolare, come la cera che si allarga,
+   e il rilievo del punzone dentro */
+.v-c .dadi-verdetto { position: relative; width: 168px; height: 168px;
+  border-radius: 49% 51% 52% 48% / 51% 48% 52% 49%;
+  display: grid; place-content: center; gap: 2px; font-size: 30px; letter-spacing: .06em;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, .45); }
+.v-c .dadi-verdetto .conto-grande { font-size: 40px; font-variant-numeric: tabular-nums; }
+/* I COLORI RESTANO QUELLI IMPARATI: il lume è quel che è andato bene, il sangue
+   quel che non ha tenuto. Un sigillo rosso anche sulla riuscita diceva il
+   contrario di tutto il resto dell'app. */
+.v-c .dadi-verdetto.ok { color: #241a08;
+  background: radial-gradient(60% 60% at 38% 32%, #f4d79b, #d9a94f 68%, #a97c2c);
+  box-shadow: inset 0 -7px 16px rgba(90, 62, 12, .5), inset 0 5px 12px rgba(255, 255, 255, .35),
+    inset 0 0 0 7px rgba(120, 84, 20, .16), 0 0 36px rgba(232, 194, 122, .40); }
+/* la crepa: il sigillo che non ha tenuto */
+.v-c .dadi-verdetto.ko { color: #f7e0e2;
+  background: radial-gradient(60% 60% at 38% 32%, #a3404c, #6f1f2c 70%, #4d121c);
+  box-shadow: inset 0 -7px 16px rgba(0, 0, 0, .5), inset 0 5px 12px rgba(255, 255, 255, .14),
+    inset 0 0 0 7px rgba(0, 0, 0, .14), 0 10px 26px rgba(0, 0, 0, .55); }
+.v-c .dadi-verdetto.ko::after { content: ''; position: absolute; inset: 0;
+  border-radius: inherit; background:
+    linear-gradient(102deg, transparent 47.4%, rgba(10, 6, 8, .85) 48%,
+      rgba(10, 6, 8, .85) 51%, transparent 51.6%); }

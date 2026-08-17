@@ -1,0 +1,185 @@
+<!doctype html><html lang="it"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Notte e nebbia · il tiro dei dadi</title>
+<link rel="stylesheet" href="base.css"><link rel="stylesheet" href="nebbia.css">
+<link rel="stylesheet" href="nebbia2.css"><link rel="stylesheet" href="nebbia2-dadi.css">
+</head><body>
+<div class="wrap">
+  <a class="torna" href="index.html">← le tre direzioni</a>
+
+  <h1 style="margin-bottom:6px">il tiro, tre modi</h1>
+  <p class="nota" style="margin-bottom:6px">La finestra del tiro è l’ultimo pezzo rimasto con
+    l’aria di prima: fondo nero pieno, la fila dei totali che va a capo come capita, il conto
+    dei bonus in una riga di testo. Qui è nella pelle nuova, in tre direzioni.</p>
+  <p class="nota" style="margin-bottom:14px">Comune a tutte e tre: il fondo diventa vetro fumé
+    e sotto si intravede la scena del luogo — il tiro succede <i>dentro</i> la serata. E i dadi
+    restano di carta: al tavolo sono oggetti veri, e la pergamena in questa direzione vive solo
+    lì. <b>Guardateli sul telefono, al buio.</b></p>
+
+  <div class="prova" id="prove"></div>
+</div>
+
+<script src="../dati.js"></script>
+<script src="pezzi.js"></script>
+<script src="icone.js"></script>
+<script>
+(function () {
+  const { S, esc } = PEZZI;
+  const ARTE = `url('${S.urlArt('Taverna della Chiatta.png')}')`;
+
+  // I DADI SONO QUELLI VERI: facce, punti e orientamenti copiati da
+  // webapp/public/js/dadi.js. Ridisegnarli renderebbe il confronto una bugia.
+  const FACCE = {
+    1: [[50, 50]],
+    2: [[26, 26], [74, 74]],
+    3: [[26, 26], [50, 50], [74, 74]],
+    4: [[26, 26], [74, 26], [26, 74], [74, 74]],
+    5: [[26, 26], [74, 26], [50, 50], [26, 74], [74, 74]],
+    6: [[26, 26], [74, 26], [26, 50], [74, 50], [26, 74], [74, 74]],
+  };
+  const ROT = { 1: [0, 0], 2: [0, -90], 3: [-90, 0], 4: [90, 0], 5: [0, 90], 6: [0, 180] };
+
+  const facciaHtml = (n, classe) => `<div class="dado-faccia ${classe}">
+    ${FACCE[n].map(([x, y]) => `<span class="pip" style="left:${x}%;top:${y}%"></span>`).join('')}
+  </div>`;
+
+  const dadoHtml = (val) => {
+    const posa = val ? `style="transform:rotateX(${ROT[val][0]}deg) rotateY(${ROT[val][1]}deg)"` : '';
+    return `<div class="dado-scena"><div class="dado" ${posa}>
+      ${facciaHtml(1, 'f1')}${facciaHtml(6, 'f6')}${facciaHtml(2, 'f2')}
+      ${facciaHtml(5, 'f5')}${facciaHtml(3, 'f3')}${facciaHtml(4, 'f4')}
+    </div></div>`;
+  };
+
+  // la prova in scena: la stessa di ogni sera d'Indagine, con un bonus solo —
+  // due pastiglie e un totale, che è il caso normale
+  const PROVA = { titolo: 'prova di nervi', diff: 'media', soglia: 9,
+                  bonus: { label: 'NERVI di Elena', val: 2 } };
+
+  const testata = () => `
+    <div class="dadi-testata">
+      <div class="dadi-titolo">${esc(PROVA.titolo)}</div>
+      <div class="dadi-soglia">${esc(PROVA.diff)} · da <b>${PROVA.soglia}</b></div>
+    </div>`;
+
+  const conto = (d1, d2) => {
+    const somma = d1 + d2, tot = somma + PROVA.bonus.val;
+    return `<div class="dadi-conto">
+      <span class="pezzo">2d6 <b>${somma}</b></span>
+      <span class="pezzo">+${PROVA.bonus.val} <i>${esc(PROVA.bonus.label)}</i></span>
+      <span class="pezzo tot">= <b>${tot}</b></span>
+    </div>`;
+  };
+
+  const tastiera = () => `
+    <div class="dadi-tavolo">
+      <p class="dadi-istruzione">avete tirato dadi veri? dite quanto fanno, senza bonus</p>
+      <div class="dadi-grid">
+        ${[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((n) =>
+          `<button class="btn">${n}</button>`).join('')}
+      </div>
+    </div>`;
+
+  // I QUATTRO MOMENTI che `tiraProva` attraversa davvero: la scelta (dadi veri
+  // o l'app), il conto coi bonus, e i due esiti.
+  function finestra(variante, momento) {
+    const ko = momento === 'fallita';
+    const [d1, d2] = ko ? [2, 3] : [4, 4];
+    const tot = d1 + d2 + PROVA.bonus.val;
+    const sigillo = variante === 'c';
+    let corpo = '';
+    if (momento === 'scelta') {
+      corpo = `${dadi()}${tastiera()}
+        <button class="btn pieno dadi-lancia">tocca per tirare</button>
+        <button class="btn dadi-annulla">annullate</button>`;
+    } else if (momento === 'conto') {
+      corpo = `${dadi(d1, d2)}${conto(d1, d2)}`;
+    } else {
+      corpo = `${dadi(d1, d2)}${conto(d1, d2)}
+        ${sigillo
+          ? `<div class="dadi-verdetto ${ko ? 'ko' : 'ok'}">
+               <span>${ko ? 'fallita' : 'successo'}</span></div>
+             <div class="dadi-controsoglia">${tot} contro ${PROVA.soglia}</div>`
+          : `<div class="dadi-verdetto ${ko ? 'ko' : 'ok'}">${ko ? 'fallita' : 'successo'}</div>`}
+        <button class="btn ${ko ? '' : 'pieno'} dadi-chiudi">continua</button>`;
+    }
+    return `<div class="dadi-overlay v-${variante}">${testata()}${corpo}</div>`;
+  }
+
+  const dadi = (d1, d2) => `<div class="dadi-coppia">${dadoHtml(d1)}${dadoHtml(d2)}</div>`;
+
+  const MOMENTI = [
+    ['scelta', 'la scelta'],
+    ['conto', 'il conto'],
+    ['successo', 'il verdetto · riuscita'],
+    ['fallita', 'il verdetto · fallita'],
+  ];
+
+  const DIREZIONI = [
+    ['a', 'A · il tiro sul vetro', `Le lastre, le pastiglie e la griglia a colonne uguali che
+      l’app ha già, messe qui. La soglia diventa una pastiglia invece di una riga fra due
+      trattini; il conto è una catena di pastiglie, e l’unica accesa è il totale; la crocetta
+      d’uscita (30px, muta) diventa una pillola con la parola. Non aggiunge un vocabolario:
+      chi ha imparato l’Indagine sa già leggere questa schermata.`],
+    ['b', 'B · il tavolo di feltro', `I dadi cadono in una pozza di luce di lanterna, con
+      l’ombra sotto che dice che sono appoggiati a qualcosa. I totali diventano un tastierino
+      a quattro colonne con tasti da 58px: è il gesto che si fa più spesso — dichiarare quanto
+      hanno fatto i dadi veri — e qui si preme senza guardare.`],
+    ['c', 'C · il verdetto come sigillo', `Come A fino al conto; poi l’esito si imprime in
+      ceralacca, e quando fallisce il sigillo è incrinato. Sotto, il totale contro la soglia.
+      Costa un secondo in più prima di poter continuare — che al tavolo è il secondo in cui si
+      guarda in faccia chi ha tirato.`],
+  ];
+
+  document.getElementById('prove').innerHTML = DIREZIONI.map(([v, che, perche]) => `
+    <div style="margin-bottom:18px">
+      <div class="che">${che}</div>
+      <div class="telai">
+        ${MOMENTI.map(([m, eti]) => `
+          <div>
+            <p class="momento">${eti}</p>
+            <div class="telaio">
+              <div class="sfondo" style="background-image:${ARTE}"></div>
+              <div class="sotto"><h3>taverna della chiatta</h3></div>
+              ${finestra(v, m)}
+            </div>
+          </div>`).join('')}
+      </div>
+      <p class="perche">${perche}</p>
+      <div class="bottoni" style="margin-top:8px">
+        <button class="btn" data-schermo="${v}">
+          <svg class="ic" aria-hidden="true"><use href="#i-lanterna"></use></svg>
+          provala a schermo intero</button>
+      </div>
+    </div>`).join('');
+
+  // A SCHERMO INTERO, che è l'unico modo di giudicarla: si passa da un momento
+  // all'altro dalla striscia in fondo, senza uscire.
+  let vivo = null;
+  const chiudi = () => { if (vivo) vivo.remove(); vivo = null; };
+  const apri = (v, m) => {
+    chiudi();
+    vivo = document.createElement('div');
+    vivo.style.cssText = 'position:fixed;inset:0;z-index:200;background-size:cover;' +
+      'background-position:center;';
+    vivo.style.backgroundImage = ARTE;
+    vivo.innerHTML = finestra(v, m).replace('dadi-overlay', 'dadi-overlay schermo') + `
+      <div class="strisc">
+        ${MOMENTI.map(([mm, eti]) => `<button class="btn ${mm === m ? 'pieno' : ''}"
+            data-vai="${v}|${mm}">${eti.replace('il verdetto · ', '')}</button>`).join('')}
+        <button class="btn" data-esci="1">esci</button>
+      </div>`;
+    document.body.appendChild(vivo);
+  };
+
+  document.addEventListener('click', (ev) => {
+    const s = ev.target.closest('[data-schermo]');
+    if (s) return apri(s.dataset.schermo, 'scelta');
+    const vai = ev.target.closest('[data-vai]');
+    if (vai) { const [v, m] = vai.dataset.vai.split('|'); return apri(v, m); }
+    if (ev.target.closest('[data-esci]')) chiudi();
+  });
+  document.addEventListener('keydown', (ev) => { if (ev.key === 'Escape') chiudi(); });
+}());
+</script>
+</body></html>
