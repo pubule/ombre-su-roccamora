@@ -13,8 +13,15 @@
     dei bonus in una riga di testo. Qui è nella pelle nuova, in tre direzioni.</p>
   <p class="nota" style="margin-bottom:14px">Comune a tutte e tre: il fondo diventa vetro fumé
     e sotto si intravede la scena del luogo — il tiro succede <i>dentro</i> la serata. E i dadi
-    restano di carta: al tavolo sono oggetti veri, e la pergamena in questa direzione vive solo
-    lì. <b>Guardateli sul telefono, al buio.</b></p>
+    sono l’unico oggetto rimasto d’altra pasta: qui si sceglie anche di che materia sono.
+    <b>Guardateli sul telefono, al buio.</b></p>
+
+  <div class="prova" style="margin-bottom:16px">
+    <div class="che">di che sono fatti i dadi</div>
+    <div class="vetrina" id="vetrina"></div>
+    <p class="perche">Il materiale vale per tutte e tre le direzioni qui sotto — cambiatelo e
+      guardatele di nuovo. L’osso è quel che c’è oggi.</p>
+  </div>
 
   <div class="prova" id="prove"></div>
 </div>
@@ -153,6 +160,26 @@
       </div>
     </div>`).join('');
 
+  // IL MATERIALE DEI DADI sta sul <body>, così cambia insieme a tutte e tre le
+  // finestre e anche a quella a schermo intero: confrontare un materiale in una
+  // direzione e un altro in un'altra non direbbe niente.
+  const MATERIE = [
+    ['d-osso', 'osso', 'quel che c’è oggi: pergamena e punti di sangue'],
+    ['d-vetro', 'vetro fumé', 'la stessa materia delle lastre, punti di lume'],
+    ['d-corno', 'corno', 'quasi nero, punti scavati presi dalla lanterna'],
+    ['d-ottone', 'ottone', 'la materia della lanterna: caldo, e il più acceso'],
+  ];
+  document.body.className = 'd-osso';
+  const vetrina = () => {
+    document.getElementById('vetrina').innerHTML = MATERIE.map(([cls, come, di]) => `
+      <button class="campione ${cls} ${document.body.className === cls ? 'scelto' : ''}"
+              data-materia="${cls}">
+        ${dadoHtml(5)}
+        <span class="come">${come}</span>
+        <span class="di-che">${di}</span>
+      </button>`).join('');
+  };
+
   // A SCHERMO INTERO, che è l'unico modo di giudicarla: si passa da un momento
   // all'altro dalla striscia in fondo, senza uscire.
   let vivo = null;
@@ -172,7 +199,11 @@
     document.body.appendChild(vivo);
   };
 
+  vetrina();
+
   document.addEventListener('click', (ev) => {
+    const mat = ev.target.closest('[data-materia]');
+    if (mat) { document.body.className = mat.dataset.materia; return vetrina(); }
     const s = ev.target.closest('[data-schermo]');
     if (s) return apri(s.dataset.schermo, 'scelta');
     const vai = ev.target.closest('[data-vai]');

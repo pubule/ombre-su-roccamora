@@ -2,13 +2,34 @@
    L'ultimo pezzo dell'Indagine rimasto con l'aria di prima: fondo nero pieno,
    la fila dei totali che va a capo come capita, il conto in una riga di testo.
 
-   QUEL CHE NON CAMBIA: i dadi sono di CARTA. Al tavolo esistono davvero, e la
-   pergamena in questa direzione vive solo dove c'è un oggetto vero — `.dado` e
-   `.dado-faccia` stanno per questo nell'elenco CARTA_VERA di test-stile.
+   ANCHE I DADI si scelgono qui: la forma resta quella (stesso cubo, stesse
+   facce, stessi punti), il materiale no. Osso è quel che c'è oggi ed è l'unico
+   pezzo di pergamena rimasto a schermo — `.dado` sta per questo nell'elenco
+   CARTA_VERA di test-stile, e scegliendo un materiale scuro quell'elenco va
+   corretto insieme al resto.
 
    QUEL CHE CAMBIA PER TUTTE E TRE: il fondo diventa vetro fumé invece che nero
    pieno, così sotto si intravede la scena del luogo e il tiro succede DENTRO
    la serata, non in una finestra a parte. */
+
+/* --- la vetrina dei materiali: i quattro cubi vicini, e l'interruttore che
+       li porta dentro tutte e tre le finestre della pagina ------------------ */
+.vetrina { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 10px; margin: 10px 0 12px; }
+.vetrina .campione { display: grid; justify-items: center; gap: 8px; padding: 14px 8px 10px;
+  border: 1px solid var(--bordo); border-radius: 12px; background: var(--vetro);
+  color: inherit; text-align: center; }
+.vetrina .campione.scelto { border-color: var(--lume); box-shadow: inset 0 0 0 1px var(--lume); }
+.vetrina .campione .come { font-family: 'FellSC', serif; font-size: 15px; }
+.vetrina .campione .di-che { font-size: 13px; color: var(--fioco); line-height: 1.35; }
+/* nella vetrina il cubo è fermo e in posa, non c'è nulla da leggere sopra */
+.vetrina .dado-scena { width: 62px; height: 62px; }
+.vetrina .f1 { transform: translateZ(31px); }
+.vetrina .f6 { transform: rotateY(180deg) translateZ(31px); }
+.vetrina .f2 { transform: rotateY(90deg) translateZ(31px); }
+.vetrina .f5 { transform: rotateY(-90deg) translateZ(31px); }
+.vetrina .f3 { transform: rotateX(90deg) translateZ(31px); }
+.vetrina .f4 { transform: rotateX(-90deg) translateZ(31px); }
 
 /* --- il telaio della prova: un finto telefono, per guardarne tre vicini --- */
 .telai { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 8px; }
@@ -51,20 +72,65 @@
   border-radius: 999px; padding: 4px 12px; }
 .dadi-soglia b { font-size: 17px; font-weight: 400; font-variant-numeric: tabular-nums; }
 
-/* I DADI DI CARTA: identici a quelli in uso, faccia per faccia. Cambiarli
-   sarebbe cambiare l'oggetto, non la pelle. */
+/* I DADI: la forma è quella in uso (stesso cubo, stesse facce, stessi punti),
+   il MATERIALE si sceglie in cima alla pagina. Quelli d'osso sono i dadi di
+   oggi; gli altri tre portano il cubo dentro la pelle nuova — vetro fumé come
+   le lastre, corno con i punti di lanterna, ottone come la lanterna stessa. */
 .dadi-coppia { position: relative; display: flex; gap: 40px; padding: 20px 0; }
 /* i cubi stanno SOPRA la loro ombra: senza un indice, il tondo sfocato del
    feltro (B) verrebbe disegnato dopo, cioè sopra i dadi */
 .dado-scena { position: relative; z-index: 1; width: 84px; height: 84px; perspective: 560px; }
 .dado { position: relative; width: 100%; height: 100%; transform-style: preserve-3d;
   transform: rotateX(-24deg) rotateY(32deg); transition: transform .5s ease; }
-.dado-faccia { position: absolute; inset: 0; border-radius: 10px;
-  background: linear-gradient(150deg, #efe7d2, #d9cfb2);
-  border: 1px solid #c3b48c; box-shadow: inset 0 -4px 10px rgba(120, 100, 60, .35); }
+.dado-faccia { position: absolute; inset: 0; border-radius: 10px; }
 .dado-faccia .pip { position: absolute; width: 15%; height: 15%; border-radius: 50%;
-  background: radial-gradient(circle at 35% 30%, #6d1c26, #3f1017);
   border: 0; transform: translate(-50%, -50%); }
+
+/* OSSO — i dadi di oggi: pergamena e punti di sangue. Sono l'unico posto in
+   cui la carta vive in questa direzione, perché al tavolo il dado è un oggetto
+   vero (`.dado` sta nell'elenco CARTA_VERA di test-stile). */
+.campione.d-osso .dado-faccia,
+body.d-osso .dadi-overlay .dado-faccia { background: linear-gradient(150deg, #efe7d2, #d9cfb2);
+  border: 1px solid #c3b48c; box-shadow: inset 0 -4px 10px rgba(120, 100, 60, .35); }
+.campione.d-osso .dado-faccia .pip,
+body.d-osso .dadi-overlay .dado-faccia .pip { background: radial-gradient(circle at 35% 30%, #6d1c26, #3f1017); }
+
+/* VETRO FUMÉ — lo stesso materiale delle lastre dell'app: il cubo è scuro e
+   translucido, il bordo è il filo di luce che hanno tutti i pannelli, e i punti
+   sono di lume. Il dado smette di essere l'unico oggetto d'altra pasta. */
+/* OPACO, non traslucido: con le facce trasparenti passava il bagliore dei punti
+   della faccia dietro, e in mezzo a un 4 restava acceso un quinto puntino
+   fantasma. Una faccia che si legge sbagliata è il difetto peggiore che un dado
+   possa avere; il vetro qui lo fanno il bordo di luce e il riflesso, non
+   l'essere trasparente per davvero. */
+.campione.d-vetro .dado-faccia,
+body.d-vetro .dadi-overlay .dado-faccia { background: linear-gradient(150deg, #3a424e, #161a20);
+  border: 1px solid rgba(255, 255, 255, .16);
+  box-shadow: inset 0 -6px 14px rgba(0, 0, 0, .45), inset 0 6px 14px rgba(255, 255, 255, .10); }
+.campione.d-vetro .dado-faccia .pip,
+body.d-vetro .dadi-overlay .dado-faccia .pip { background: radial-gradient(circle at 35% 30%, #ffe6ae, var(--lume));
+  box-shadow: 0 0 8px rgba(232, 194, 122, .65); }
+
+/* CORNO — l'oggetto del 1908 che sta nella notte: corno scurito, quasi nero,
+   coi punti scavati e presi dalla lanterna. Il più sobrio dei tre nuovi. */
+.campione.d-corno .dado-faccia,
+body.d-corno .dadi-overlay .dado-faccia { background: linear-gradient(150deg, #2b2a27, #14140f);
+  border: 1px solid rgba(232, 194, 122, .22);
+  box-shadow: inset 0 -5px 12px rgba(0, 0, 0, .6), inset 0 4px 10px rgba(255, 240, 210, .08); }
+.campione.d-corno .dado-faccia .pip,
+body.d-corno .dadi-overlay .dado-faccia .pip { background: radial-gradient(circle at 35% 30%, #f3dcae, #c99a4e);
+  box-shadow: inset 0 -1px 2px rgba(0, 0, 0, .5), 0 0 6px rgba(232, 194, 122, .4); }
+
+/* OTTONE — il dado è fatto della stessa materia della lanterna: metallo caldo
+   coi punti scavati. Il più acceso, e il più rischioso: due lumi in scena
+   (il dado e i bottoni pieni) si contendono l'occhio. */
+.campione.d-ottone .dado-faccia,
+body.d-ottone .dadi-overlay .dado-faccia { background: linear-gradient(150deg, #f0d199 8%, #c79b4d 46%, #8a6425);
+  border: 1px solid #6f4f1d;
+  box-shadow: inset 0 -5px 12px rgba(70, 46, 10, .55), inset 0 5px 12px rgba(255, 245, 220, .35); }
+.campione.d-ottone .dado-faccia .pip,
+body.d-ottone .dadi-overlay .dado-faccia .pip { background: radial-gradient(circle at 35% 30%, #3a2a0c, #161004);
+  box-shadow: inset 0 -1px 2px rgba(255, 230, 180, .25); }
 .f1 { transform: translateZ(42px); }
 .f6 { transform: rotateY(180deg) translateZ(42px); }
 .f2 { transform: rotateY(90deg) translateZ(42px); }
