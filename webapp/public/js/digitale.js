@@ -1449,7 +1449,17 @@ async function esegui(comando) {
     const dati0 = { ep: ctx.ep, comune: ctx.comune, carte: ctx.carte };
     const prova0 = applica(ctx.partita, { ...comando, tiri: [] }, dati0);
     const motivo0 = (prova0.rifiuto || {}).motivo || '';
-    if (motivo0 && !/non bastano/i.test(motivo0)) { flash(motivo0); return false; }
+    // LA PROVA A VUOTO E' UNA CORTESIA, non un giudice. Serve a non far tirare
+    // i dadi per una mossa che verra' rifiutata — ma la gira sul motore di
+    // CASA, e la copia di casa puo' essere potata: chi non arbitra non ha le
+    // carte Minaccia ne' l'ordine del mazzo. Li' il motore inciampa, e per un
+    // giorno intero quell'inciampo ha fermato la fase Minaccia PRIMA di
+    // mandarla: al tavolo non arrivava niente, e a schermo non compariva
+    // nessuna carta — su nessuno schermo.
+    //
+    // Se la prova non sa rispondere, decide il tavolo: ha lo stato intero e i
+    // dati interi, ed e' l'autorita' comunque.
+    if (motivo0 && !prova0.rotto && !/non bastano/i.test(motivo0)) { flash(motivo0); return false; }
   }
   const tiri = alTav ? [] : null;
   if (alTav) {

@@ -252,7 +252,7 @@ export function applicaIndagine(statoIn, comando, dati) {
 
   let out;
   try { out = gestore(g, caso, comando); }
-  catch (e) { return fallito(e.message); }
+  catch (e) { return { ...fallito(e.message), rotto: true }; }
   if (!out || out.rifiuto) return fallito((out && out.rifiuto) || 'Azione non consentita.');
 
   const eventi = out.eventi || [];
@@ -320,7 +320,12 @@ export function applica(statoIn, comando, dati) {
 
   let out;
   try { out = gestore(g, comando, caso); }
-  catch (e) { return fallito(e.message); }
+  // UN INCIAMPO NON E' UNA REGOLA. Fin qui l'errore di un motore che si rompe
+  // usciva come un rifiuto qualunque, indistinguibile da «non e' adiacente»: e
+  // chi chiama lo trattava come un no del gioco. Si marca, cosi' chi riceve
+  // puo' decidere - e la vista, per esempio, non ferma piu' una mossa perche'
+  // la sua copia potata non sa rispondere.
+  catch (e) { return { ...fallito(e.message), rotto: true }; }
   if (!out || out.rifiuto) return fallito((out && out.rifiuto) || 'Azione non consentita.');
 
   // La contabilita' del turno in un posto solo: prima si applica la regola,
