@@ -2,14 +2,18 @@
 // deve essere un arrivo possibile — ne' camminandoci dentro, ne' entrando da
 // una porta (la cella-porta la sceglie `portaCella`, che gli arredi li guarda
 // SPECCHIATI: `3 - gy`).
-import { readFileSync, readdirSync } from 'fs';
+import { readFileSync, readdirSync, existsSync } from 'fs';
+import { createHash } from 'crypto';
 import * as stat from './public/motore/stat.js';
 import { arrediSet, chiave, portaCella, dirExit } from './public/motore/griglia.js';
 
 const COMUNE = JSON.parse(readFileSync('webapp/data/comune.json', 'utf8'));
 const ELENA = COMUNE.eroi.find((e) => e.nome.includes('ELENA')).nome;
-const eps = readdirSync('webapp/data').filter((f) => /^ep\d+\.json$/.test(f))
-  .sort((a, b) => parseInt(a.slice(2), 10) - parseInt(b.slice(2), 10));
+// IL PRELUDIO E' UN EPISODIO: non si chiama `ep0`, e per questo il setaccio non
+// lo guardava. E' li' che il difetto e' arrivato al tavolo.
+const eps = ['preludio.json', ...readdirSync('webapp/data')
+  .filter((f) => /^ep\d+\.json$/.test(f))
+  .sort((a, b) => parseInt(a.slice(2), 10) - parseInt(b.slice(2), 10))];
 
 let guai = 0;
 for (const file of eps) {
@@ -56,6 +60,30 @@ for (const file of eps) {
     }
   }
 }
+// --- LA STESSA TESSERA STAMPATA HA GLI STESSI OSTACOLI ---------------------
+// Un episodio puo' riusare la tessera di un altro: il Preludio stampa T1, T2 e
+// T4 dell'Episodio 1. Se i due dichiarano arredi diversi, uno dei due mente a
+// chi guarda il cartoncino - e chi gioca si fida del disegno.
+{
+  const cartella = (f) => JSON.parse(readFileSync('webapp/data/' + f, 'utf8')).cartella;
+  const impronte = new Map();          // md5 del PNG -> { dove, arredi }
+  for (const file of eps) {
+    const EP = JSON.parse(readFileSync('webapp/data/' + file, 'utf8'));
+    for (const tile of EP.tessere || []) {
+      const png = `webapp/assets/${cartella(file)}/board/${tile.id}.png`;
+      if (!existsSync(png)) continue;
+      const imp = createHash('md5').update(readFileSync(png)).digest('hex');
+      const mio = JSON.stringify((tile.arredi || []).map((a) => [a[0], a[1]]).sort());
+      const gia = impronte.get(imp);
+      if (!gia) { impronte.set(imp, { dove: `${file} ${tile.id}`, arredi: mio }); continue; }
+      if (gia.arredi !== mio) {
+        guai++;
+        console.log(`${file} ${tile.id} stampa la stessa tessera di ${gia.dove}, ma gli arredi no: ${mio} contro ${gia.arredi}`);
+      }
+    }
+  }
+}
+
 if (guai) {
   console.log(`\ntest-arredi: ${guai} punti in cui si finisce sopra un arredo`);
   process.exit(1);

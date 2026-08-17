@@ -857,11 +857,13 @@ PRELUDIO_EXITS = {
     'T2': {'S': 'T1', 'O': 'T4'},
     'T4': {'E': 'T2'},
 }
-# «Casse accatastate... una cassa, in un angolo, e' meno impolverata delle altre»
-PRELUDIO_ARREDI = {
-    'T2': [(1, 2, 'casse'), (3, 1, 'casse')],
-    'T4': [(2, 2, 'casse')],
-}
+# GLI ARREDI LI DETTA LA TESSERA STAMPATA. Il Preludio non ha tessere sue:
+# riusa T1, T2 e T4 dell'Episodio 1 (lo dice la riga di TESSERE_P, che porta il
+# PNG dell'Ep.1, e i file sono gli stessi byte per byte). Qui c'era una tabella
+# scritta a mano, e diceva un'altra cosa - T1 senza ostacoli, T2 e T4 con gli
+# ostacoli spostati: a schermo si passava sopra le casse dipinte e ci si
+# fermava sul pavimento vuoto.
+PRELUDIO_ARREDI = {t['id']: t.get('arredi', []) for t in TILES if 'id' in t}
 
 # --- PNG da scortare -------------------------------------------------------
 # Regolamento: il PNG scortato non e' un eroe (i nemici lo ignorano), si muove
