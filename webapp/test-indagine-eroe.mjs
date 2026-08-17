@@ -420,6 +420,27 @@ ok(errori.length === 0, `il telefono apre l'Indagine senza errori JS: ${errori.s
   ok(await vede('#dadi-lancia'), 'si puo\u2019 far tirare l\u2019app');
   ok(await vede('#dadi-tavolo'), 'oppure dichiarare due dadi veri, nello stesso tiro');
 
+  // USCENDO DAL TIRO SENZA TIRARE si torna alla PROPRIA schermata. Prima si
+  // tornava sempre a `schedaLuogo`, che e' la vista di chi conduce: chi gioca
+  // si ritrovava in mano i quattro tipi con scritto chi puo' tentarli e il
+  // bottone per lasciare il luogo. Non un segreto svelato, ma il mestiere
+  // sbagliato in mano alla persona sbagliata.
+  await page.locator('#dadi-annulla').click();
+  await page.waitForTimeout(900);
+  {
+    const dove = await page.evaluate(() => ({
+      tipi: document.querySelectorAll('.tipi').length,
+      barra: document.querySelectorAll('.barra-azioni').length,
+      lasciate: document.querySelectorAll('#fine-visita').length,
+    }));
+    ok(dove.tipi === 0,
+       `annullando il tiro NON si finisce nella schermata di chi arbitra (${JSON.stringify(dove)})`);
+    ok(dove.lasciate === 0, 'e non si prende in mano il suo bottone per lasciare il luogo');
+    ok(dove.barra === 1, 'si torna alla propria scena, con le proprie azioni');
+  }
+  // e si ricomincia, stavolta tirando davvero
+  await page.evaluate((x) => document.querySelector(x).click(), sel);
+  await page.waitForTimeout(1200);
   await page.locator('#dadi-tavolo [data-tot="12"]').click();
   await page.waitForTimeout(2600);
   // il tiro si legge, poi si continua: e' qui che il comando parte

@@ -136,7 +136,7 @@ export async function vistaIndagine(app, partita, vaiA, posto) {
   // stata spesa, si riprende dentro il luogo - non si ripaga
   const aperto = partita.indagine.luogoAperto;
   const l = aperto != null && ep.luoghi.find((x) => x.n === aperto);
-  if (l) return schedaLuogo(l);
+  if (l) return tornaAlLuogo(l);
   home();
 }
 
@@ -609,6 +609,13 @@ function bannerLuogo(l, occhiello, nome) {
 // mossa, e prima bisognava lasciare il luogo per rivederlo, cioe' pagare
 // un'altra ora per un ripensamento. Fuori non c'e' scena da guardare, e lo
 // stradario diventa la pagina.
+// DOVE SI TORNA dopo un tiro, una carta, un annullamento. Chi arbitra alla
+// scheda del luogo, chi gioca alla sua scena: sono due mestieri diversi, e
+// scrivere il ritorno col nome della schermata invece che col ruolo mandava
+// chi gioca dentro la vista di chi conduce — bastava chiudere la finestra del
+// dado senza tirare.
+const tornaAlLuogo = (l) => (arbitro() ? schedaLuogo(l) : vistaDiChiGioca());
+
 function scenaArbitro() {
   const dentro = IND().luogoAperto != null && luogoN(IND().luogoAperto);
   return dentro ? schedaLuogo(dentro) : home();
@@ -1290,7 +1297,7 @@ function bussare(l) {
     // bypassa SOLO l'ingresso di questa visita: la chiave resta da scoprire
     pannelloMsg('la serratura cede', `<p><i>Nino ci mette meno di un respiro: la porta
       si apre senza che nessuno abbia detto niente. La parola giusta, però, ancora
-      non la sapete.</i></p>`, () => schedaLuogo(l));
+      non la sapete.</i></p>`, () => tornaAlLuogo(l));
   });
   app.querySelector('#prova').onclick = async () => {
     const d = app.querySelector('#dichiarazione').value;
@@ -1300,7 +1307,7 @@ function bussare(l) {
     const r = out.eventi.find((e) => e.tipo === 'bussato');
     if (r && r.entra) {
       pannelloMsg('la porta si apre', `<p><i>«${esc(d)}»… era la cosa giusta da dire — o da mostrare.</i></p>`,
-        () => schedaLuogo(l));
+        () => tornaAlLuogo(l));
     } else {
       pannelloMsg('niente da fare', `<p><i>Un silenzio lungo. Poi passi che si allontanano
         dall’altra parte. Qualunque cosa serva qui, non è «${esc(d)}».</i></p>
@@ -1316,7 +1323,7 @@ function bussare(l) {
 // l'hanno gia' pagata.
 async function visita(l) {
   const out = await esegui({ tipo: 'visita', luogo: l.n });
-  if (out) schedaLuogo(l);
+  if (out) tornaAlLuogo(l);
 }
 
 function schedaLuogo(l) {
@@ -1403,7 +1410,7 @@ function schedaLuogo(l) {
     pannelloMsg(nome.toLowerCase(),
       `${cardO ? `<div class="carta-grande"><img src="${urlCartaSafe(cardO.file)}" alt=""></div>` : ''}
        <p class="nota mt">Prendete la carta “${esc(nome)}” dal mazzo Oggetti: da ora è vostra.</p>`,
-      () => schedaLuogo(l), { atutti: true });
+      () => tornaAlLuogo(l), { atutti: true });
   });
   app.querySelectorAll('[data-reperto]').forEach((b) => b.onclick = async () => {
     const nome = b.dataset.reperto;
@@ -1412,7 +1419,7 @@ function schedaLuogo(l) {
       `<img class="reperto-img" src="${urlReperto(nome)}" alt="">
        <p class="nota mt">Consegnate ai giocatori il reperto stampato “${esc(nomeReperto(nome))}”
        — o leggetelo da qui, facendolo girare.</p>`,
-      () => schedaLuogo(l), { atutti: true });
+      () => tornaAlLuogo(l), { atutti: true });
   });
   if (!ind.scenaChiusa) {
     app.querySelectorAll('[data-tipo]').forEach((b) =>
@@ -1445,7 +1452,7 @@ async function approfondisci(l, tipo, tipiQui, giaScelto) {
         ? `${x.nome} — ${x.proprie} ${x.proprie === 1 ? 'carica' : 'cariche'}`
         : `${x.nome} (jolly di Sibilla: ${x.jolly})`) + ` · ACUME ${acume(x.nome)}`,
     })));
-  if (!chi) return schedaLuogo(l);
+  if (!chi) return tornaAlLuogo(l);
   return mandaProva({ tipo: 'approfondisci', tipoApp: tipo, luogo: l.n, eroe: chi }, l);
 }
 
@@ -1454,7 +1461,7 @@ async function aiutoProfano(l, tipo, giaScelto) {
   const eroe = (giaScelto && P().party.includes(giaScelto))
     ? giaScelto
     : (await scegliEroe('aiuto profano — chi tenta? (ACUME, Difficile)', 'acume') || {}).nome;
-  if (!eroe) return schedaLuogo(l);
+  if (!eroe) return tornaAlLuogo(l);
   return mandaProva({ tipo: 'aiuto-profano', tipoApp: tipo, luogo: l.n, eroe }, l);
 }
 
@@ -1464,9 +1471,9 @@ async function aiutoProfano(l, tipo, giaScelto) {
 async function mandaProva(comando, l) {
   const p = provaDiIndagine({ comune: ctx.comune }, comando);
   const d = await chiediDado(p);
-  if (!d) return schedaLuogo(l);
+  if (!d) return tornaAlLuogo(l);
   let out = await esegui({ ...comando, tiri: [d] });
-  if (!out) return schedaLuogo(l);
+  if (!out) return tornaAlLuogo(l);
 
   // fallita, e chi ha tirato ha ancora il Secondo Fiato: si puo' ritentare
   const tiro = out.eventi.find((e) => e.tipo === 'tiro');
@@ -1495,7 +1502,7 @@ const chiediDado = async (p) => {
 // La prosa dell'esito: il motore dice il FATTO, la vista lo racconta.
 function mostraEsito(out, l) {
   const ev = (t) => out.eventi.find((e) => e.tipo === t);
-  const chiudi = () => schedaLuogo(l);
+  const chiudi = () => tornaAlLuogo(l);
 
   const colto = ev('colto');
   if (colto) {
@@ -1540,13 +1547,13 @@ function consegnaApprofondimento(l, a, tipo, prefisso = '') {
      ${cardA ? `<div class="carta-grande"><img src="${urlCartaSafe(cardA.file)}" alt=""></div>` : ''}
      <p class="mt"><i>${rendi(a ? a.testo : '')}</i></p>
      <p class="nota mt">Prendete la carta “${esc(a ? a.soggetto : '')}” dal mazzo Approfondimenti.</p>`,
-    () => schedaLuogo(l), { atutti: true });
+    () => tornaAlLuogo(l), { atutti: true });
 }
 
 // IL PENDOLO DI SIBILLA. La regola sta nel motore; qui si racconta.
 async function pendolo(l, chi) {
   const out = await esegui({ tipo: 'pendolo', luogo: l.n, eroe: chi });
-  if (!out) return schedaLuogo(l);
+  if (!out) return tornaAlLuogo(l);
   const ev = (t) => out.eventi.find((e) => e.tipo === t);
   const colto = ev('colto');
   if (colto) {
@@ -1558,7 +1565,7 @@ async function pendolo(l, chi) {
   if (ev('pendolo-fermo')) {
     return pannelloMsg('sesto senso', `<p><i>Il pendolo resta immobile, il filo dritto
       come un fuso: in città non è rimasto nulla da cogliere. Il dono, stavolta,
-      non si spende.</i></p>`, () => schedaLuogo(l), { atutti: true });
+      non si spende.</i></p>`, () => tornaAlLuogo(l), { atutti: true });
   }
   const dove = ev('pendolo-indica');
   if (dove) {
@@ -1566,9 +1573,9 @@ async function pendolo(l, chi) {
       si tende, deciso: <b>${esc(dove.voce)}</b>. Là qualcosa aspetta ancora
       l’occhio giusto — il pendolo non dice quale.</i></p>
       <p class="nota mt">Il jolly di Sibilla è speso: l’informazione è questa.</p>`,
-      () => schedaLuogo(l), { atutti: true });
+      () => tornaAlLuogo(l), { atutti: true });
   }
-  schedaLuogo(l);
+  tornaAlLuogo(l);
 }
 
 // Discernimento di Padre Marani: indica un luogo, la risposta e' solo
