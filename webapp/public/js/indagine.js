@@ -713,17 +713,13 @@ function agganciaStradario() {
 // perche' e' lo stesso che il motore usa per decidere: qui non si ridecide
 // niente, si guarda.
 //
-// Uno solo per volta: se ne arrivano due (il tiro e il suo Secondo Fiato,
-// mandati a un respiro di distanza) si mostra il primo, e il secondo arriva
-// quando questo si e' chiuso - due finestre sovrapposte sarebbero due tiri
-// illeggibili invece che due tiri.
-let tiroInScena = false;
-
+// Uno solo a schermo: se ne arriva un altro (il tiro e il suo Secondo Fiato,
+// mandati a un respiro di distanza) prende il posto di questo - se ne occupa
+// `tiraProva`. Saltarlo perche' ce n'era gia' uno vorrebbe dire non farlo
+// vedere affatto.
 function mostraTiroDegliAltri(eventi) {
-  if (tiroInScena) return;
   const t = (eventi || []).find((e) => e && e.tipo === 'tiro' && Array.isArray(e.d));
   if (!t) return;
-  tiroInScena = true;
   tiraProva({
     titolo: t.titolo || 'prova',
     diffLabel: t.diff || '',
@@ -732,7 +728,7 @@ function mostraTiroDegliAltri(eventi) {
     facce: t.d,
     eroe: ritrattoDi(t.chi),
     soloVista: true,
-  }).finally(() => { tiroInScena = false; });
+  });
 }
 
 // il ritratto di chi tira, per la riga in cima alla finestra: senza eroe (o

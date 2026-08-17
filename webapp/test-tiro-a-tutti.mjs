@@ -248,6 +248,23 @@ await chiTira.waitForTimeout(500);
      `e il verdetto e' quello del tavolo (visto <<${visto ? visto.verdetto : ''}>>)`);
   ok(visto && visto.ritratto, 'e chi tira ha una faccia anche qui');
   ok(visto && !visto.lancia && !visto.tavolo, 'e da qui non si tira il tiro di un altro');
+
+  // NON SE NE IMPILANO DUE, ed e' il difetto visto al tavolo: «in Spedizione i
+  // dadi sembrano tirati due volte». La finestra di chi guarda restava li'
+  // finche' non la si chiudeva a mano, e in Spedizione i tiri si susseguono —
+  // al secondo ce n'erano due sovrapposte, con due risultati diversi, e sul
+  // telefono quella vecchia si mangiava i tocchi della nuova.
+  const r2 = await chiama(ARBITRO, 'POST', `/api/tavolo/${idT}/comando`,
+    { tipo: 'attacca', eroe: OTTONE, bersaglio: 0, tiri: [[5, 4]] });
+  ok(r2.ok, `parte anche il secondo colpo (${r2.status})`);
+  await schermo.waitForTimeout(900);
+  const quante = await schermo.evaluate(() => document.querySelectorAll('.dadi-overlay').length);
+  ok(quante === 1, `e a schermo ce n'e' sempre UNA sola (viste ${quante})`);
+
+  // e se ne va da sola: chi guarda non ha niente da chiudere
+  await schermo.waitForTimeout(6000);
+  const rimasta = await schermo.evaluate(() => document.querySelectorAll('.dadi-overlay').length);
+  ok(rimasta === 0, `e dopo un po' si chiude da sola (rimaste ${rimasta})`);
 }
 
 ok(errori.length === 0, `nessun errore JS in tutta la scena: ${errori.slice(0, 2).join(' | ')}`);

@@ -56,6 +56,16 @@ function dadoHtml(id) {
 }
 
 const attesa = (ms) => new Promise((r) => setTimeout(r, ms));
+
+// QUANTO RESTA LA FINESTRA DI CHI GUARDA. Il tempo di leggere il conto e il
+// verdetto, non di piu': chi guarda non deve chiudere niente, e in Spedizione i
+// tiri si susseguono (il giro degli eroi, poi la notte).
+const QUANTO_RESTA = 4200;
+// e ce n'e' UNA SOLA a schermo: se ne arriva un'altra prende il posto di questa,
+// invece di coprirla. Due finestre sovrapposte sono due risultati diversi
+// davanti agli occhi - ed e' cosi' che al tavolo il dado sembrava tirato due
+// volte.
+let vistaAperta = null;
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) =>
   ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const primo = (nm) => String(nm || '').split(' ')[0].toLowerCase();
@@ -164,11 +174,17 @@ export function tiraProva({ titolo, diffLabel = '', soglia, bonus = [], modo, ri
     document.body.appendChild(overlay);
     requestAnimationFrame(() => overlay.classList.add('aperto'));
 
+    let chiuso = false;
     const chiudi = (esito) => {
+      if (chiuso) return;
+      chiuso = true;
+      if (vistaAperta === chiudi) vistaAperta = null;
       overlay.classList.remove('aperto');
       setTimeout(() => overlay.remove(), 350);
       risolvi(esito);
     };
+    // la finestra di prima, se e' ancora li', lascia il posto a questa
+    if (soloVista) { if (vistaAperta) vistaAperta(null); vistaAperta = chiudi; }
     overlay.querySelector('#dadi-annulla').onclick = () => chiudi(null);
 
     // 2 · IL REGISTRO: una riga per pezzo, il nome a sinistra e il valore a
@@ -228,6 +244,9 @@ export function tiraProva({ titolo, diffLabel = '', soglia, bonus = [], modo, ri
       }
       const btn = overlay.querySelector('#dadi-chiudi');
       btn.style.display = '';
+      // CHI GUARDA NON CHIUDE NIENTE: il tiro e' di un altro, e la finestra se
+      // ne va da sola. Il bottone resta per chi ha fretta.
+      if (soloVista) setTimeout(() => fine({}), QUANTO_RESTA);
       // quando c'e' una seconda occasione, «continua» vuol dire «accetto»: il
       // bottone acceso e' quello della carta da giocare, non quello che chiude
       if (secondaOccasione && ok === false) {
