@@ -1,0 +1,189 @@
+<!doctype html><html lang="it"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Notte e nebbia · il tiro, alla BG3</title>
+<link rel="stylesheet" href="base.css"><link rel="stylesheet" href="nebbia.css">
+<link rel="stylesheet" href="nebbia2.css"><link rel="stylesheet" href="nebbia2-dadi.css">
+<link rel="stylesheet" href="nebbia2-tiro.css">
+</head><body class="d-osso s-lumi">
+<div class="wrap">
+  <a class="torna" href="index.html">← le tre direzioni</a>
+
+  <h1 style="margin-bottom:6px">il tiro, alla maniera di BG3</h1>
+  <p class="nota" style="margin-bottom:6px">Dadi scelti: <b>osso</b> e <b>fiammelle</b>. Qui non
+    cambia il dado, cambia come il tiro è messo in scena — prendendo da Baldur’s Gate 3 le
+    cinque cose che quel gioco fa meglio di chiunque altro con una prova di abilità.</p>
+  <p class="nota" style="margin-bottom:14px"><b>Guardatelo sul telefono, al buio.</b> I telai
+    qui sotto sono il tiro momento per momento; il bottone sotto ognuno lo apre a schermo intero.</p>
+
+  <div class="prova" style="margin-bottom:16px">
+    <div class="che">cosa si prende da BG3</div>
+    <ol class="nota" style="margin:8px 0 0; padding-left:20px; line-height:1.7">
+      <li><b>Chi tira ha una faccia.</b> Il ritratto accanto alla prova: al tavolo la domanda
+        più frequente è «tocca a me?», e il ritratto la chiude prima che venga fatta.</li>
+      <li><b>Il conto è un registro, non una riga.</b> Un modificatore per riga, ognuno col suo
+        nome, il totale che corre a destra. La catena di pastiglie si leggeva come una formula;
+        un registro si legge come un conto.</li>
+      <li><b>La soglia sta a schermo prima, durante e dopo</b>, e alla fine c’è scritto il
+        confronto: <i>10 contro 9</i>. Prima restava «successo» senza il perché.</li>
+      <li><b>La seconda occasione arriva dopo il fallimento.</b> BG3 offre l’Ispirazione solo
+        quando la prova è andata male: è lì che la si guarda. Il nostro ripiego compare in quel
+        momento, acceso, e non prima in mezzo alle altre cose.</li>
+      <li><b>Il verdetto si imprime sui dadi</b>, non sotto: l’occhio è già lì, e i dadi si
+        spengono sotto la scritta.</li>
+    </ol>
+  </div>
+
+  <div class="prova" id="prove"></div>
+</div>
+
+<script src="../dati.js"></script>
+<script src="pezzi.js"></script>
+<script src="icone.js"></script>
+<script>
+(function () {
+  const { S, esc } = PEZZI;
+  const ARTE = `url('${S.urlArt('Taverna della Chiatta.png')}')`;
+  const CHI = S.party[0];                       // ELENA FOSCO, l'Investigatrice
+
+  // i dadi sono quelli di dadi.js, faccia per faccia (qui d'osso e a fiammelle)
+  const FACCE = {
+    1: [[50, 50]],
+    2: [[26, 26], [74, 74]],
+    3: [[26, 26], [50, 50], [74, 74]],
+    4: [[26, 26], [74, 26], [26, 74], [74, 74]],
+    5: [[26, 26], [74, 26], [50, 50], [26, 74], [74, 74]],
+    6: [[26, 26], [74, 26], [26, 50], [74, 50], [26, 74], [74, 74]],
+  };
+  const ROT = { 1: [0, 0], 2: [0, -90], 3: [-90, 0], 4: [90, 0], 5: [0, 90], 6: [0, 180] };
+  const facciaHtml = (n, classe) => `<div class="dado-faccia ${classe}"><span class="segni">
+      ${FACCE[n].map(([x, y]) => `<span class="pip" style="left:${x}%;top:${y}%"></span>`).join('')}
+    </span></div>`;
+  const dadoHtml = (val) => `<div class="dado-scena"><div class="dado" ${val
+      ? `style="transform:rotateX(${ROT[val][0]}deg) rotateY(${ROT[val][1]}deg)"` : ''}>
+      ${facciaHtml(1, 'f1')}${facciaHtml(6, 'f6')}${facciaHtml(2, 'f2')}
+      ${facciaHtml(5, 'f5')}${facciaHtml(3, 'f3')}${facciaHtml(4, 'f4')}
+    </div></div>`;
+
+  const PROVA = { prova: 'prova di NERVI', diff: 'media', soglia: 9,
+                  bonus: { da: 'NERVI', di: 'la tempra di Elena', val: 2 } };
+
+  // 1 · CHI TIRA: ritratto, nome, prova — e la soglia, che non se ne va mai (3)
+  const chiTira = () => `
+    <div class="chi-tira">
+      <img src="${S.urlArt(CHI.art)}" alt="">
+      <span class="nome">${esc(CHI.nome.split(' ')[0].toLowerCase())}
+        <span class="prova">${esc(PROVA.prova.toLowerCase())} · ${esc(PROVA.diff)}</span></span>
+      <span class="soglia">da<b>${PROVA.soglia}</b></span>
+    </div>`;
+
+  // 2 · IL REGISTRO: una riga per pezzo, e le righe compaiono una alla volta
+  const registro = (quante, d1, d2) => {
+    const somma = d1 + d2, tot = somma + PROVA.bonus.val, ok = tot >= PROVA.soglia;
+    const righe = [
+      `<div class="riga"><span class="da">2d6<i>i dadi, nudi</i></span>
+        <span class="val">${somma}</span></div>`,
+      `<div class="riga"><span class="da">${esc(PROVA.bonus.da)}<i>${esc(PROVA.bonus.di)}</i></span>
+        <span class="val">+${PROVA.bonus.val}</span></div>`,
+      `<div class="riga tot"><span class="da">in tutto</span><span class="val">${tot}</span></div>`,
+      // 3 · il confronto scritto: perché è successo, non solo che è successo
+      `<div class="riga confronto ${ok ? '' : 'ko'}"><span class="da">contro la soglia</span>
+        <span class="val">${tot} ${ok ? '≥' : '<'} ${PROVA.soglia}</span></div>`,
+    ].slice(0, quante);
+    return `<div class="registro">${righe.join('')}</div>`;
+  };
+
+  const MOMENTI = [
+    ['scelta', 'la scelta'],
+    ['tirato', 'i dadi fermi'],
+    ['conto', 'il conto'],
+    ['riuscita', 'riuscita'],
+    ['fallita', 'fallita, e la seconda occasione'],
+  ];
+
+  function tiro(momento) {
+    const ko = momento === 'fallita';
+    const [d1, d2] = ko ? [2, 3] : [4, 4];
+    const deciso = momento === 'riuscita' || ko;
+    let corpo = '';
+    if (momento === 'scelta') {
+      corpo = `
+        <div class="pozza">${dadoHtml()}${dadoHtml()}</div>
+        <div class="dadi-tavolo">
+          <p class="dadi-istruzione">avete tirato dadi veri? dite quanto fanno, senza bonus</p>
+          <div class="dadi-grid">
+            ${[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((n) =>
+              `<button class="btn">${n}</button>`).join('')}
+          </div>
+        </div>
+        <div class="in-fondo">
+          <button class="btn pieno">tocca per tirare</button>
+          <button class="btn dadi-annulla">annullate</button>
+        </div>`;
+    } else {
+      // 5 · il verdetto si imprime SUI dadi, che sotto si spengono
+      corpo = `
+        <div class="pozza ${deciso ? 'deciso' : ''}">
+          ${dadoHtml(d1)}${dadoHtml(d2)}
+          ${deciso ? `<div class="stampa ${ko ? 'ko' : 'ok'}">${ko ? 'fallita' : 'successo'}</div>` : ''}
+        </div>
+        ${registro(momento === 'tirato' ? 1 : 4, d1, d2)}
+        <div class="in-fondo">
+          ${ko ? `<div class="seconda">
+              <span class="che">c’è ancora una carta da giocare</span>
+              <button class="btn pieno">
+                <svg class="ic" aria-hidden="true"><use href="#i-candela"></use></svg>
+                spendete il Secondo Fiato</button>
+              <span class="quanto">rifate il tiro. Costa una carica, e nella notte ne avete due.</span>
+            </div>` : ''}
+          <button class="btn ${ko ? '' : 'pieno'}">${deciso ? 'continua' : '…'}</button>
+        </div>`;
+    }
+    return `<div class="tiro">${chiTira()}${corpo}</div>`;
+  }
+
+  document.getElementById('prove').innerHTML = `
+    <div class="che">il tiro, momento per momento</div>
+    <div class="telai">
+      ${MOMENTI.map(([m, eti]) => `
+        <div>
+          <p class="momento">${eti}</p>
+          <div class="telaio">
+            <div class="sfondo" style="background-image:${ARTE}"></div>
+            <div class="sotto"><h3>taverna della chiatta</h3></div>
+            ${tiro(m)}
+          </div>
+        </div>`).join('')}
+    </div>
+    <div class="bottoni" style="margin-top:10px">
+      <button class="btn" data-schermo="scelta">
+        <svg class="ic" aria-hidden="true"><use href="#i-lanterna"></use></svg>
+        provalo a schermo intero</button>
+    </div>`;
+
+  let vivo = null;
+  const chiudi = () => { if (vivo) vivo.remove(); vivo = null; };
+  const apri = (m) => {
+    chiudi();
+    vivo = document.createElement('div');
+    vivo.style.cssText = 'position:fixed;inset:0;z-index:200;background-size:cover;background-position:center;';
+    vivo.style.backgroundImage = ARTE;
+    vivo.innerHTML = tiro(m).replace('class="tiro"', 'class="tiro schermo"') + `
+      <div class="strisc">
+        ${MOMENTI.map(([mm, eti]) => `<button class="btn ${mm === m ? 'pieno' : ''}"
+            data-vai="${mm}">${eti.replace(', e la seconda occasione', '')}</button>`).join('')}
+        <button class="btn" data-esci="1">esci</button>
+      </div>`;
+    document.body.appendChild(vivo);
+  };
+
+  document.addEventListener('click', (ev) => {
+    const s = ev.target.closest('[data-schermo]');
+    if (s) return apri(s.dataset.schermo);
+    const vai = ev.target.closest('[data-vai]');
+    if (vai) return apri(vai.dataset.vai);
+    if (ev.target.closest('[data-esci]')) chiudi();
+  });
+  document.addEventListener('keydown', (ev) => { if (ev.key === 'Escape') chiudi(); });
+}());
+</script>
+</body></html>
