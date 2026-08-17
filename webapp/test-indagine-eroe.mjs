@@ -303,6 +303,30 @@ ok(errori.length === 0, `il telefono apre l'Indagine senza errori JS: ${errori.s
     ok(chi.appiccicata === 'sticky', `la barra è appiccicata in fondo (${chi.appiccicata})`);
     ok(chi.barra > chi.titolo,
        `la barra sta davanti al titolo della scena (barra ${chi.barra}, titolo ${chi.titolo})`);
+
+    // IL NOME DEL LUOGO SI LEGGE SENZA SCORRERE. La scena è alta 50dvh — `dvh`
+    // e non `vh`, perché sul telefono `vh` conta lo schermo intero, barra del
+    // browser compresa: con la barra aperta il titolo finiva sotto la piega.
+    const titolo = await page.evaluate(() => {
+      const t = document.querySelector('.scena h2, .scena h1');
+      const barra = document.querySelector('.barra-azioni');
+      if (!t) return { manca: true };
+      const rt = t.getBoundingClientRect();
+      const rb = barra ? barra.getBoundingClientRect() : null;
+      return { basso: Math.round(rt.bottom), finestra: window.innerHeight,
+        barra: rb ? Math.round(rb.top) : null };
+    });
+    ok(!titolo.manca, 'il titolo del luogo si trova');
+    // NON BASTA «ci sta nella finestra»: con l'eroe del banco la barra è di una
+    // riga sola, e anche una scena alta due terzi passerebbe. La regola vera è
+    // che il titolo stia nella PRIMA PARTE della schermata — sotto i due terzi
+    // — così sotto resta posto per la barra anche quando è di tre righe, che è
+    // il caso in cui il nome del luogo finiva in mezzo ai bottoni.
+    const soglia = Math.round(titolo.finestra * 0.68);
+    ok(titolo.basso <= soglia,
+       `il titolo sta nella prima parte della schermata (finisce a ${titolo.basso}, soglia ${soglia})`);
+    ok(titolo.barra == null || titolo.basso <= titolo.barra,
+       `e non finisce dentro la barra delle azioni (${titolo.basso} contro ${titolo.barra})`);
     await page.setViewportSize(eraLarga);
     await page.waitForTimeout(300);
   }

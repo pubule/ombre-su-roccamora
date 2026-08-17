@@ -27,7 +27,12 @@ h2 { font-size: 20px; color: var(--lume); }
 /* LA SCENA: l'immagine a tutto schermo, con due velature — una scura in basso
    perché il testo abbia sempre un fondo, e una generale che tiene giù la
    luminosità dell'artwork nella stanza al buio. */
-.scena { position: relative; min-height: 62vh; display: flex; align-items: flex-end;
+/* 50dvh e non 62vh: sul telefono `vh` conta lo schermo intero, barra del
+   browser compresa, e la scena restava alta uguale mentre lo spazio da vedere
+   si accorciava — il nome del luogo finiva sotto la piega. E 50 invece di 62
+   perché aprendo un luogo il titolo si deve leggere subito, senza scorrere. */
+.scena { position: relative; min-height: 62vh; min-height: 50dvh;
+  display: flex; align-items: flex-end;
   padding: 18px 16px; margin: -16px -16px 12px; overflow: hidden; }
 .scena > .sfondo { position: absolute; inset: 0; background-size: cover;
   background-position: center; filter: brightness(.62) saturate(.85); }

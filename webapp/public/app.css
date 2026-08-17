@@ -1233,7 +1233,15 @@ em, i { font-style: italic; }
 /* LA SCENA: l'artwork del luogo occupa lo schermo, con due velature — una
    scura in basso perché il testo abbia sempre un fondo, e una generale che
    tiene giù la luminosità nella stanza al buio. */
-.scena { position: relative; min-height: 62vh; display: flex; align-items: flex-end;
+/* 50dvh e non 62vh. Due cose in una riga:
+   - `dvh` invece di `vh`: sul telefono `vh` conta lo schermo INTERO, barra del
+     browser compresa, quindi la scena restava alta uguale mentre lo spazio da
+     vedere si accorciava — e il nome del luogo finiva sotto la piega, o dentro
+     la barra delle azioni;
+   - 50 invece di 62: aprendo un luogo il titolo si deve leggere SUBITO, senza
+     scorrere. L'immagine resta la pagina, ma il luogo si chiama. */
+.scena { position: relative; min-height: 62vh; min-height: 50dvh;
+  display: flex; align-items: flex-end;
   padding: 18px 16px; margin: 0 -16px 12px; overflow: hidden; }
 .scena > .sfondo { position: absolute; inset: 0; background-size: cover;
   background-position: center; filter: brightness(.62) saturate(.85); }
@@ -1244,7 +1252,7 @@ em, i { font-style: italic; }
 .scena .occhiello { font-family: 'FellSC', serif; font-size: 13px; letter-spacing: .18em;
   text-transform: uppercase; color: var(--nastro); }
 .scena h1, .scena h2 { font-size: clamp(30px, 9vw, 48px); line-height: 1.05; }
-.scena.bassa { min-height: 44vh; }
+.scena.bassa { min-height: 44vh; min-height: 38dvh; }
 
 /* LE AZIONI IN GRIGLIA: colonne uguali, icona sopra la parola. La larghezza la
    decide la griglia, non la lunghezza dell'etichetta — con 98px «testimonianza»
