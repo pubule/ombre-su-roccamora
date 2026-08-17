@@ -414,7 +414,7 @@ function render() {
   const { app, ep } = ctx;
   const attivo = eroiAttivoNome();
   const tpk = P().party.every((nm) => (sp.vite[nm] ?? 0) <= 0);
-  app.innerHTML = `
+  const html = `
     ${fasciaTurno()}
     <div class="barra"><button class="btn" id="nav-esci">← menu</button>
       <div class="titolo">tutto a schermo</div>
@@ -451,6 +451,14 @@ function render() {
     <div class="mt"></div>
     <div class="pannello secondario"><h2>diario</h2>${logHtml()}</div>
     ${arbitro() ? '<div class="btn-riga secondario"><button class="btn" id="sconfitta">gli eroi cadono</button></div>' : ''}`;
+  // NIENTE LAMPO: una pagina identica a quella gia' a schermo non si riscrive.
+  // Le spinte del tavolo arrivano anche quando quel che si vede non cambia — il
+  // filo che si apre, il `mettiSulTavolo` di chi arbitra, uno stato che cresce
+  // in parti che non si guardano — e riscrivere fa sparire e ricomparire la
+  // pagina: al tavolo si vede come un refresh veloce, tre volte di fila appena
+  // si scende. I gestori restano attaccati, perche' i nodi non si toccano.
+  if (app.innerHTML === html) return;
+  app.innerHTML = html;
   app.querySelector('#nav-esci').onclick = () => { spegniImmersivo(); ctx.vaiA('menu'); };
   const btnSconfitta = app.querySelector('#sconfitta');
   if (btnSconfitta) btnSconfitta.onclick = () => finePartita('sconfitta');
@@ -911,7 +919,7 @@ function arteStanza(tessera) {
 function schermataCarta(aperta) {
   const { app } = ctx;
   app.classList.remove('immersivo');
-  app.innerHTML = `<div class="barra"><span></span><div class="titolo">${esc(aperta.titolo || 'minaccia')}</div><span></span></div>
+  const html = `<div class="barra"><span></span><div class="titolo">${esc(aperta.titolo || 'minaccia')}</div><span></span></div>
     <div class="pannello">
       ${aperta.carta
         // una carta Minaccia: l'immagine E' la carta, testo compreso
@@ -933,6 +941,14 @@ function schermataCarta(aperta) {
     ${arbitro()
       ? '<div class="btn-riga"><button class="btn pieno" id="ok-msg">continua</button></div>'
       : '<p class="nota mt center">la sta leggendo chi arbitra…</p>'}`;
+  // NIENTE LAMPO: la stessa carta non si riscrive. La schermata da leggere
+  // insieme arriva da piu' parti — il disegno di qui, la spinta del tavolo
+  // appena si apre il filo, quella del `mettiSulTavolo` — e ogni riscrittura la
+  // fa sparire e ricomparire: scendendo se ne vedevano tre in sessanta
+  // millesimi, ed e' il «refresh veloce» visto al tavolo. I gestori restano
+  // buoni, perche' i nodi non si toccano.
+  if (app.innerHTML === html) return;
+  app.innerHTML = html;
   const b = app.querySelector('#ok-msg');
   if (b) b.onclick = async () => {
     b.disabled = true;
