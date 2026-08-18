@@ -1,0 +1,182 @@
+<!doctype html><html lang="it"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Notte e nebbia · le tessere, tre librerie a confronto</title>
+<link rel="stylesheet" href="base.css"><link rel="stylesheet" href="nebbia.css">
+<link rel="stylesheet" href="nebbia2.css">
+<style>
+  .tess { position: relative; width: 100%; aspect-ratio: 1; border: 1px solid var(--bordo);
+    border-radius: 6px; overflow: hidden; background-size: cover; background-position: center; }
+  .tess .celle { position: absolute; inset: 0; display: grid;
+    grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(4, 1fr); }
+  .tess .cel { border: 1px solid rgba(230,195,120,.20); }
+  /* TRE COLONNE, SEMPRE. Il confronto vive nell'affiancamento: mandare a capo
+     la terza su telefono vorrebbe dire guardarla da sola, che e' la cosa che
+     questa pagina esiste per evitare. */
+  .terzine { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
+  .terzine + .terzine { margin-top: 16px; }
+  .capo { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px;
+    position: sticky; top: 0; z-index: 2; background: var(--tavolo); padding: 6px 0 4px; }
+  .capo b { font-family: 'FellSC', serif; font-size: 15px; letter-spacing: .06em; }
+  .capo .lic { display: block; font-size: 12px; color: var(--fioco); letter-spacing: 0; }
+  .dove { font-family: 'FellSC', serif; font-size: 14px; color: var(--lume);
+    letter-spacing: .06em; margin: 8px 0 0; }
+  .cosa { font-size: 13px; color: var(--fioco); }
+  .board { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px;
+    padding: 8px; background: #090a0c; border: 1px solid var(--bordo); border-radius: 8px; }
+  .board .tess { border-radius: 0; }
+  .board .tess.nebbia { filter: brightness(.18) saturate(.3) blur(3px); }
+  table.conto { width: 100%; border-collapse: collapse; font-size: 13px; }
+  table.conto td, table.conto th { text-align: left; padding: 4px 6px;
+    border-bottom: 1px solid var(--bordo); vertical-align: top; }
+  table.conto th { font-family: 'FellSC', serif; color: var(--lume); font-weight: 400; }
+  table.conto td.n { text-align: right; color: var(--lume); }
+  .si { color: #7fc9a3; } .no { color: #d99a7a; } .cc0 { color: #9ab3c9; }
+  .avviso { border-left: 3px solid #d99a7a; padding-left: 10px; margin: 10px 0; }
+</style>
+</head><body>
+<div class="wrap">
+  <a class="torna" href="index.html">← le tre direzioni</a>
+
+  <h1 style="margin-bottom:6px">le tessere, tre librerie a confronto</h1>
+  <p class="nota" style="margin-bottom:6px">Le stesse quindici tessere, generate tre volte
+    dallo stesso pennello e con gli stessi dati: cambia solo <b>da dove viene il disegno</b>.
+    Il campione è scelto apposta — una tessera per ognuno dei dieci ambienti, più quelle che
+    portano un arredo che altrove non compare. Se compongono queste, compongono tutte.</p>
+
+  <div class="prova">
+    <div class="che">la scelta è di licenza, prima che di gusto</div>
+    <table class="conto">
+      <tr><th>via</th><th>licenza</th><th>cosa comporta</th></tr>
+      <tr><td><b>FA</b></td><td>CC BY-NC-<b>SA</b></td>
+        <td>ShareAlike: il vincolo <b>si attacca alle tessere</b>. Finché una tessera nasce da
+          qui, una licenza commerciale separata non può coprirla.</td></tr>
+      <tr><td><b>2M</b></td><td>CC BY-NC</td>
+        <td>Attribuzione e nessun uso commerciale, ma <b>niente ShareAlike</b>: è la linea che
+          <code>risorse-vtt/LEGGIMI.md</code> dichiara da sempre.</td></tr>
+      <tr><td><b>2M+FA</b></td><td>CC BY-NC-<b>SA</b></td>
+        <td>Basta <b>un solo pezzo</b> FA a tappare un buco perché il ShareAlike copra la
+          tessera. Sul piano della licenza è identica alla prima colonna.</td></tr>
+    </table>
+    <p class="perche">Quel che 2M non ha non resta vuoto: i pavimenti scoperti ricadono sulle
+      texture <b>Poly Haven CC0</b> già in <code>webapp/texture/</code>, gli arredi scoperti
+      sulle <b>sagome CSS</b> del generatore. Nessuna casella resta libera all'occhio pur
+      essendo bloccata dalle regole — l'inganno del Preludio non si ripete.</p>
+  </div>
+
+  <div class="prova">
+    <div class="che">quel che va detto prima di guardare</div>
+    <p class="perche avviso">Gli asset 2MT sono disegnati a mano e <b>chiari</b> — inchiostro e
+      colore piatto su carta bianca — mentre il gioco è scuro: il generatore ci passa sopra una
+      <b>ritinta</b> (desatura, abbassa la luce, alza il contrasto). Sono tre cifre in
+      <code>pittura-vtt.js</code>, e sono una manopola: se il verso è giusto ma la quantità no,
+      si gira quella.</p>
+    <p class="perche avviso">Il <b>Mercantile Tokens</b> — da cui vengono casse, scrivania,
+      forma, branda e armadio — esiste solo nella versione Roll20 a 72 DPI: 205 px per casella
+      contro i 616 px a cui la tessera viene stampata. Quegli oggetti sono <b>ingranditi tre
+      volte</b> e si vedono morbidi. Gli altri pacchetti hanno la cartella a 300 DPI e stanno
+      giusti.</p>
+  </div>
+
+  <div class="prova">
+    <div class="che">quattro stanze accostate, come giocando</div>
+    <div id="planche"></div>
+    <p class="perche">In alto a destra una stanza non ancora rivelata, con la nebbia dell'app
+      addosso. Il confronto vero è come stanno <b>insieme</b>: una tessera da sola non dice se
+      due muri accostati si leggono come due stanze o come un pavimento continuo.</p>
+  </div>
+
+  <div class="prova">
+    <div class="che">il campione, tessera per tessera</div>
+    <div class="capo"><b>FA<span class="lic">BY-NC-SA</span></b><b>2M<span class="lic">BY-NC</span></b><b>2M+FA<span class="lic">BY-NC-SA</span></b></div>
+    <div id="campione"></div>
+  </div>
+
+  <div class="prova">
+    <div class="che">gli ambienti — che pavimento tocca a chi, e da dove viene</div>
+    <table class="conto" id="ambienti"></table>
+    <p class="perche">Con la sola 2M escono <b>tutte dipinte 52 tessere su 127</b>; le altre
+      hanno almeno un pezzo dal ripiego, che qui vuol dire una texture CC0 o una sagoma — non
+      una casella vuota.</p>
+  </div>
+
+  <div class="prova">
+    <div class="che">gli arredi — quante volte compaiono, e chi li disegna</div>
+    <table class="conto" id="arredi"></table>
+    <p class="perche">Tre pacchetti 2MT del LEGGIMI non sono ancora stati scaricati e
+      coprirebbero quasi tutti gli scoperti: <b>The Furniture Map Assets</b> (altare, stufa,
+      toeletta, e una scrivania e un armadio veri al posto del tavolo e della cassapanca) e
+      <b>Modular Jail Assets</b> (cella, branda). Per il <b>crogiolo</b> — la forgia — non c'è
+      risposta nemmeno lì: quello resta la sagoma disegnata.</p>
+  </div>
+</div>
+
+<script>
+const VIE = ['fa', '2m', 'mix'];
+const celle = '<div class="celle">' + Array.from({ length: 16 }, () => '<div class="cel"></div>').join('') + '</div>';
+const url = (t, v) => `../tessere-vtt/${t.file[v]}`;
+
+// AMBIENTE -> quante tessere nel gioco, e da dove viene il pavimento nella via 2M.
+const AMBIENTI = [
+  ['mattonelle', 30, 'cc0', 'Poly Haven CC0 — 2MT non ha una piastrella ripetibile'],
+  ['lastricato', 23, 'si', '2MT · Basic Building «Flagstone, Tiling»'],
+  ['assi', 22, 'si', '2MT · Basic Building «Floorboards, Tiling»'],
+  ['mattoni', 13, 'cc0', 'Poly Haven CC0'],
+  ['acqua', 10, 'si', '2MT · River & Water «Water Tile 1»'],
+  ['terra', 8, 'cc0', 'Poly Haven CC0'],
+  ['roccia', 7, 'cc0', 'Poly Haven CC0'],
+  ['tetti', 6, 'si', '2MT · Basic Building «Roof, Tiled» — solo il cuore, i bordi sono disegnati'],
+  ['navata', 5, 'cc0', 'Poly Haven CC0'],
+  ['pietra', 3, 'si', '2MT · Dungeon Room Builder «Classic Stone Floor»'],
+];
+
+// ARREDO -> quante volte in tutta la campagna, e chi lo disegna nella via 2M.
+const ARREDI = [
+  ['casse', 104, 'si', '2MT · Mercantile «Crate 1-3» — 3 varianti, 72 DPI'],
+  ['altare', 17, 'no', 'sagoma CSS — nei sei pacchetti non c’è'],
+  ['scrivania', 11, 'si', '2MT · Mercantile «Table, square» — un tavolo, non una scrivania · 72 DPI'],
+  ['molo', 8, 'si', '2MT · River & Water «Wooden pillar» — i pali fanno da bitte · 300 DPI'],
+  ['forma', 7, 'si', '2MT · Mercantile «Pot, open» — 3 varianti, 72 DPI'],
+  ['crogiolo', 6, 'no', 'sagoma CSS — e nessun pacchetto 2MT lo copre'],
+  ['branda', 2, 'si', '2MT · Mercantile «Mat, long» — una stuoia, non un letto · 72 DPI'],
+  ['candele', 2, 'no', 'sagoma CSS, tenuta apposta: 2MT le disegna come puntini, e la sagoma accende la pozza di luce'],
+  ['scorie', 2, 'si', '2MT · Basic Building «Rubble, Stone pile» · 300 DPI'],
+  ['scala', 1, 'si', '2MT · Basic Building «Stairs, Stone» · 300 DPI'],
+  ['cella', 1, 'no', 'sagoma CSS — serve Modular Jail'],
+  ['stufa', 1, 'no', 'sagoma CSS — serve The Furniture Map'],
+  ['armadio', 1, 'si', '2MT · Mercantile «Chest» — una cassapanca, non un armadio · 72 DPI'],
+  ['toeletta', 1, 'no', 'sagoma CSS — serve The Furniture Map'],
+];
+
+const riga = ([nome, n, stato, fonte]) => `<tr><td>${nome}</td><td class="n">${n}</td>
+  <td class="${stato}">${stato === 'si' ? 'dipinto 2MT' : stato === 'cc0' ? 'texture CC0' : 'sagoma'}</td>
+  <td>${fonte}</td></tr>`;
+document.getElementById('ambienti').innerHTML =
+  '<tr><th>ambiente</th><th>tessere</th><th>nella via 2M</th><th>da dove</th></tr>'
+  + AMBIENTI.map(riga).join('');
+document.getElementById('arredi').innerHTML =
+  '<tr><th>arredo</th><th>volte</th><th>nella via 2M</th><th>da dove</th></tr>'
+  + ARREDI.map(riga).join('');
+
+fetch('../tessere-vtt/campione.json').then((r) => r.json()).then((tess) => {
+  document.getElementById('campione').innerHTML = tess.map((t) => `
+    <div class="terzine">
+      ${VIE.map((v) => `<div class="tess" style="background-image:url('${url(t, v)}')">${celle}</div>`).join('')}
+    </div>
+    <p class="dove">${t.ep} · ${t.id} — ${(t.nome || '').toLowerCase()}</p>
+    <p class="cosa">${t.pav}${t.chiavi.length ? ' · ' + t.chiavi.join(', ') : ' · nessun arredo'}</p>`).join('');
+
+  // le quattro stanze: una banchina, una cripta, un salotto e un magazzino —
+  // quattro pavimenti diversi accostati, che e' il caso peggiore
+  const quattro = ['ep1-T6', 'ep16-T6', 'preludio-T1', 'ep2-T3']
+    .map((k) => tess.find((t) => `${t.ep}-${t.id}` === k)).filter(Boolean);
+  // TRE PLANCHE AFFIANCATE SONO TRE FRANCOBOLLI: a 430px di schermo ogni stanza
+  // usciva 58px e non si vedeva niente. Impilate, ognuna e' larga quanto la
+  // pagina — e per la plancia il confronto si fa scorrendo, non guardando.
+  const NOMI = { fa: 'FA · CC BY-NC-SA', '2m': '2M · CC BY-NC', mix: '2M+FA · CC BY-NC-SA' };
+  document.getElementById('planche').innerHTML = VIE.map((v) => `
+    <p class="dove" style="margin-top:14px">${NOMI[v]}</p>
+    <div class="board">${quattro.map((t, i) =>
+      `<div class="tess ${i === 1 ? 'nebbia' : ''}" style="background-image:url('${url(t, v)}')">${celle}</div>`).join('')}</div>`).join('');
+});
+</script>
+</body></html>

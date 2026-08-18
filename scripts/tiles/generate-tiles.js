@@ -21,15 +21,25 @@ const { htmlVtt } = require('./pittura-vtt');
 const ROOT = path.resolve(__dirname, '..', '..');
 const SOLO_MANCANTI = process.argv.includes('--solo-mancanti');
 const VTT = process.argv.includes('--vtt');
+// --solo T3,T5: genera solo quelle tessere. Il campione ne chiede una o due per
+// episodio, e rifare tutte e sei per averne una costa quattro volte il tempo.
+const iSolo = process.argv.indexOf('--solo');
+const SOLO = iSolo >= 0 ? new Set(process.argv[iSolo + 1].split(',')) : null;
 const iOut = process.argv.indexOf('--out');
 const OUT_SCELTA = iOut >= 0 ? process.argv[iOut + 1] : null;
 const argv = process.argv.slice(2)
-  .filter((a, i, tutti) => !a.startsWith('--') && tutti[i - 1] !== '--out');
+  .filter((a, i, tutti) => !a.startsWith('--') && tutti[i - 1] !== '--out'
+                           && tutti[i - 1] !== '--solo');
 // set per episodio: node scripts/tiles/generate-tiles.js [ep1|ep2|...|ep15]
 const SET = (argv[0] || 'ep1').toLowerCase();
 const EP_NUM = /^ep(\d{1,2})$/.exec(SET)?.[1];
-if (!EP_NUM || +EP_NUM < 1 || +EP_NUM > 20) { console.error('set sconosciuto (ep1..ep20)'); process.exit(1); }
-const EP_DIR = `Episodio ${EP_NUM}`;
+// IL PRELUDIO NON E' «ep0». Ha le sue tessere in webapp/data/preludio.json come
+// tutti gli altri, ma il nome non entra nella regex e lo script usciva con «set
+// sconosciuto»: le sue due tessere del campione non si potevano rigenerare.
+if (SET !== 'preludio' && (!EP_NUM || +EP_NUM < 1 || +EP_NUM > 20)) {
+  console.error('set sconosciuto (preludio, ep1..ep20)'); process.exit(1);
+}
+const EP_DIR = SET === 'preludio' ? 'Preludio' : `Episodio ${EP_NUM}`;
 const OUT_DIR = OUT_SCELTA
   ? path.resolve(ROOT, OUT_SCELTA)
   : path.join(ROOT, EP_DIR, 'board');
@@ -162,13 +172,13 @@ const TILES_BY_SET = {
 // (Ep.1 usa artworks/<id>.png) che cambiare vorrebbe dire rigenerare tessere
 // gia' stampate.
 function dallaWebapp(epNum) {
-  const file = path.join(ROOT, 'webapp', 'data', `ep${epNum}.json`);
+  const file = path.join(ROOT, 'webapp', 'data', epNum ? `ep${epNum}.json` : 'preludio.json');
   if (!fs.existsSync(file)) return null;
   const tessere = JSON.parse(fs.readFileSync(file, 'utf8')).tessere || [];
   return tessere.map((t, i) => ({
     id: t.id,
     nome: t.nome,
-    art: `${t.id}-ep${epNum}.png`,
+    art: `${t.id}-ep${epNum || 'preludio'}.png`,
     exits: t.exits || {},
     arredi: t.arredi || [],
     ...(i === 0 ? { start: 'S' } : {}),   // la prima tessera e' l'ingresso
@@ -384,6 +394,7 @@ function html(tile) {
   const page = await browser.newPage({ viewport: { width: S, height: S } });
 
   for (const tile of TILES) {
+    if (SOLO && !SOLO.has(tile.id)) continue;
     const outPath = path.join(OUT_DIR, `${tile.id} - ${tile.nome}.png`);
     if (SOLO_MANCANTI && fs.existsSync(outPath)) {
       console.log("salto (esiste gia') ->", outPath);

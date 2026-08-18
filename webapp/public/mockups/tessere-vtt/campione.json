@@ -9,7 +9,11 @@
    "casse"
   ],
   "dipinta": true,
-  "file": "preludio-T1.jpg"
+  "file": {
+   "fa": "fa-preludio-T1.jpg",
+   "2m": "2m-preludio-T1.jpg",
+   "mix": "mix-preludio-T1.jpg"
+  }
  },
  {
   "ep": "ep2",
@@ -21,7 +25,11 @@
    "crogiolo"
   ],
   "dipinta": true,
-  "file": "ep2-T3.jpg"
+  "file": {
+   "fa": "fa-ep2-T3.jpg",
+   "2m": "2m-ep2-T3.jpg",
+   "mix": "mix-ep2-T3.jpg"
+  }
  },
  {
   "ep": "ep16",
@@ -34,7 +42,11 @@
    "toeletta"
   ],
   "dipinta": true,
-  "file": "ep16-T6.jpg"
+  "file": {
+   "fa": "fa-ep16-T6.jpg",
+   "2m": "2m-ep16-T6.jpg",
+   "mix": "mix-ep16-T6.jpg"
+  }
  },
  {
   "ep": "ep1",
@@ -46,7 +58,11 @@
    "cella"
   ],
   "dipinta": true,
-  "file": "ep1-T6.jpg"
+  "file": {
+   "fa": "fa-ep1-T6.jpg",
+   "2m": "2m-ep1-T6.jpg",
+   "mix": "mix-ep1-T6.jpg"
+  }
  },
  {
   "ep": "ep3",
@@ -58,7 +74,11 @@
    "crogiolo"
   ],
   "dipinta": true,
-  "file": "ep3-T4.jpg"
+  "file": {
+   "fa": "fa-ep3-T4.jpg",
+   "2m": "2m-ep3-T4.jpg",
+   "mix": "mix-ep3-T4.jpg"
+  }
  },
  {
   "ep": "ep15",
@@ -70,7 +90,11 @@
    "altare"
   ],
   "dipinta": true,
-  "file": "ep15-T4.jpg"
+  "file": {
+   "fa": "fa-ep15-T4.jpg",
+   "2m": "2m-ep15-T4.jpg",
+   "mix": "mix-ep15-T4.jpg"
+  }
  },
  {
   "ep": "ep4",
@@ -82,7 +106,11 @@
    "casse"
   ],
   "dipinta": true,
-  "file": "ep4-T5.jpg"
+  "file": {
+   "fa": "fa-ep4-T5.jpg",
+   "2m": "2m-ep4-T5.jpg",
+   "mix": "mix-ep4-T5.jpg"
+  }
  },
  {
   "ep": "ep6",
@@ -94,7 +122,11 @@
    "crogiolo"
   ],
   "dipinta": true,
-  "file": "ep6-T4.jpg"
+  "file": {
+   "fa": "fa-ep6-T4.jpg",
+   "2m": "2m-ep6-T4.jpg",
+   "mix": "mix-ep6-T4.jpg"
+  }
  },
  {
   "ep": "ep5",
@@ -106,7 +138,11 @@
    "altare"
   ],
   "dipinta": true,
-  "file": "ep5-T2.jpg"
+  "file": {
+   "fa": "fa-ep5-T2.jpg",
+   "2m": "2m-ep5-T2.jpg",
+   "mix": "mix-ep5-T2.jpg"
+  }
  },
  {
   "ep": "ep11",
@@ -118,7 +154,11 @@
    "altare"
   ],
   "dipinta": true,
-  "file": "ep11-T4.jpg"
+  "file": {
+   "fa": "fa-ep11-T4.jpg",
+   "2m": "2m-ep11-T4.jpg",
+   "mix": "mix-ep11-T4.jpg"
+  }
  },
  {
   "ep": "preludio",
@@ -130,7 +170,11 @@
    "branda"
   ],
   "dipinta": true,
-  "file": "preludio-T4.jpg"
+  "file": {
+   "fa": "fa-preludio-T4.jpg",
+   "2m": "2m-preludio-T4.jpg",
+   "mix": "mix-preludio-T4.jpg"
+  }
  },
  {
   "ep": "ep1",
@@ -141,7 +185,11 @@
    "candele"
   ],
   "dipinta": true,
-  "file": "ep1-T3.jpg"
+  "file": {
+   "fa": "fa-ep1-T3.jpg",
+   "2m": "2m-ep1-T3.jpg",
+   "mix": "mix-ep1-T3.jpg"
+  }
  },
  {
   "ep": "ep1",
@@ -152,7 +200,11 @@
    "scala"
   ],
   "dipinta": true,
-  "file": "ep1-T5.jpg"
+  "file": {
+   "fa": "fa-ep1-T5.jpg",
+   "2m": "2m-ep1-T5.jpg",
+   "mix": "mix-ep1-T5.jpg"
+  }
  },
  {
   "ep": "ep2",
@@ -164,7 +216,11 @@
    "scorie"
   ],
   "dipinta": true,
-  "file": "ep2-T1.jpg"
+  "file": {
+   "fa": "fa-ep2-T1.jpg",
+   "2m": "2m-ep2-T1.jpg",
+   "mix": "mix-ep2-T1.jpg"
+  }
  },
  {
   "ep": "ep2",
@@ -176,6 +232,10 @@
    "stufa"
   ],
   "dipinta": true,
-  "file": "ep2-T5.jpg"
+  "file": {
+   "fa": "fa-ep2-T5.jpg",
+   "2m": "2m-ep2-T5.jpg",
+   "mix": "mix-ep2-T5.jpg"
+  }
  }
 ]

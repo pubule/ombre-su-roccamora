@@ -36,7 +36,16 @@ const DIR_TEX = path.join(ROOT, 'webapp', 'texture');
 // 2-Minute Tabletop, CC BY-NC), si usa quello: e' il look dei riferimenti.
 // Senza, restano la texture CC0 e la sagoma disegnata qui — cosi' una tessera
 // esce comunque, e nessuna casella resta vuota all'occhio.
-const DIR_VTT = path.join(ROOT, 'webapp', 'vtt');
+// QUALE LIBRERIA, lo dice l'ambiente. `webapp/vtt/` tiene Forgotten Adventures
+// (CC BY-NC-SA: il ShareAlike si attacca alle tessere), `webapp/vtt-2m/` tiene
+// 2-Minute Tabletop (CC BY-NC, niente ShareAlike). Le due devono stare in piedi
+// insieme per confrontarle tessera per tessera, e la scelta si prende guardando.
+//   OSR_VTT=webapp/vtt-2m   la libreria da usare (default: webapp/vtt)
+//   OSR_MISTO=1             quel che 2M non ha lo tappa FA
+//   OSR_MURI=2m|fa|casa     quale kit di muri (default: com'era, cioe' fa)
+const DIR_VTT = path.join(ROOT, process.env.OSR_VTT || path.join('webapp', 'vtt'));
+const DIR_FA = path.join(ROOT, 'webapp', 'vtt');
+const MISTO = process.env.OSR_MISTO === '1';
 
 // IL KIT DI MURI MODULARI (Forgotten Adventures, Modular Dungeons): pezzi di
 // muro dipinti con l'ombra gia' dentro, 200px per casella. Un tratto dritto e'
@@ -51,10 +60,39 @@ const pezzoMuro = (nome) => {
   return fs.existsSync(p) ? pathToFileURL(p).href : null;
 };
 const MURI_MODULARI = fs.existsSync(DIR_MURI);
+
+// IL MURO DIPINTO DI 2-MINUTE TABLETOP: una striscia sola, larga quanto il lato
+// della tessera. Il DungeonRoomBuilder lo disegna col corso scuro in cima (la
+// cima del muro) e i corsi chiari sotto (la faccia), quindi appoggiato a top:0
+// guarda gia' dentro la stanza. Lo porta dentro scripts/importa-vtt.py, che lo
+// ritaglia sull'alfa CON UNA SOGLIA — sotto la pietra c'e' un'ombra sfumata che
+// arriva al bordo della tela, e un getbbox() normale non toglie niente.
+const MURO_2M = path.join(ROOT, 'webapp', 'vtt-2m', 'muri', 'dritto.png');
+// quanto spessa esce la fascia, in caselle. Alla sua proporzione naturale la
+// striscia sarebbe alta 1,07 caselle e si mangerebbe una riga di gioco su
+// quattro: qui si schiaccia, e la pietra schiacciata resta pietra. MANOPOLA —
+// a 0,7 il davanzale chiaro del corso inferiore era largo quanto mezza casella
+// e si leggeva come un ballatoio. Visto sul ritaglio 1:1, non sul mockup.
+const MURO_2M_ALTEZZA = 0.55;
+const QUALI_MURI = process.env.OSR_MURI
+  || (fs.existsSync(MURO_2M) && (process.env.OSR_VTT || '').includes('vtt-2m') ? '2m' : 'fa');
 const dipinto = (tipo, nome) => {
   const p = path.join(DIR_VTT, tipo, `${nome}.png`);
-  return fs.existsSync(p) ? pathToFileURL(p).href : null;
+  if (fs.existsSync(p)) return pathToFileURL(p).href;
+  // il MISTO: quel che la libreria scelta non ha, lo tappa Forgotten Adventures.
+  // Basta un pezzo FA perche' il ShareAlike copra la tessera: e' una scelta di
+  // licenza, e per questo va chiesta a voce alta invece che presa da sola.
+  const f = path.join(DIR_FA, tipo, `${nome}.png`);
+  return MISTO && fs.existsSync(f) ? pathToFileURL(f).href : null;
 };
+
+// LA RITINTA. Gli asset 2MT sono disegnati a mano e CHIARI — inchiostro e colore
+// piatto su carta bianca — e il gioco e' scuro: senza queste tre mosse una cassa
+// esce incollata sopra il pavimento, non appoggiata. FA invece nasce gia' dipinto
+// scuro e non si tocca. Le tre cifre sono una TARATURA da rivedere guardando il
+// render, non un risultato: sono le stesse mosse di webapp/_prova-ritinta.py.
+const RITINTA_2M = 'saturate(.5) brightness(.68) contrast(1.08)';
+const daRitingere = (url) => (url || '').includes('/vtt-2m/');
 
 // LE VARIANTI. Le casse compaiono 172 volte in tutta la campagna: con un
 // disegno solo si ripetono come carta da parati. L'importatore ne porta tre
@@ -330,7 +368,7 @@ function htmlVtt(tile, S, { gruppi, porte, stampa = false }) {
     const dentro = arte
       ? `<div class="og dipinto" style="width:${w * 0.86}px;height:${h * 0.86}px;
            background-image:url('${arte}'); background-size:contain;
-           background-repeat:no-repeat; filter:drop-shadow(0 ${Math.round(c * 0.03)}px
+           background-repeat:no-repeat; filter:${daRitingere(arte) ? RITINTA_2M + ' ' : ''}drop-shadow(0 ${Math.round(c * 0.03)}px
            ${Math.round(c * 0.05)}px rgba(0,0,0,.65))"></div>`
       : disegna
       ? disegna({ c, w, h })
@@ -365,9 +403,9 @@ function htmlVtt(tile, S, { gruppi, porte, stampa = false }) {
   // UN VARCO NON SI DISEGNA SOPRA, SI LASCIA: il muro di quel lato si spezza
   // in due tratti e in mezzo resta la soglia. Un rettangolo trasparente sopra
   // la pietra non toglie la pietra — l'ho provato, e la porta restava murata.
-  const tratti = (dir) => {
-    const buchi = porte.filter((p) => p.dir === dir)
-      .map((p) => [p.idx * c + c * 0.16, p.idx * c + c * 0.84])
+  const tratti = (idxs) => {
+    const buchi = idxs
+      .map((i) => [i * c + c * 0.16, i * c + c * 0.84])
       .sort((a, b) => a[0] - b[0]);
     const pezzi = []; let da = 0;
     for (const [a, b] of buchi) { if (a > da) pezzi.push([da, a]); da = b; }
@@ -376,9 +414,30 @@ function htmlVtt(tile, S, { gruppi, porte, stampa = false }) {
   };
 
   // le caselle di bordo occupate da una porta, per lato
-  const conPorta = (dir) => new Set(porte.filter((p) => p.dir === dir).map((p) => p.idx));
+  const idxPorte = (dir) => porte.filter((p) => p.dir === dir).map((p) => p.idx);
+  const conPorta = (dir) => new Set(idxPorte(dir));
 
-  const muri = MURI_MODULARI
+  const muri = QUALI_MURI === '2m' && fs.existsSync(MURO_2M)
+    // --- la striscia dipinta 2MT: una per lato, spezzata dove c'e' la soglia ---
+    ? (() => {
+      const giro = { N: 0, E: 90, S: 180, O: 270 };
+      // ruotare di 180 e di 270 una scatola quadrata RIBALTA il lato: il tratto
+      // che sul bordo alto sta a sinistra, sul bordo basso finisce a destra. Se
+      // non si specchia l'indice, la soglia si apre dalla parte sbagliata — e
+      // la porta resta murata mentre il muro ha un buco altrove.
+      const specchia = { N: false, E: false, S: true, O: true };
+      const alt = Math.round(c * MURO_2M_ALTEZZA);
+      const url = pathToFileURL(MURO_2M).href;
+      return ['N', 'E', 'S', 'O'].map((dir) => {
+        const idxs = idxPorte(dir).map((i) => (specchia[dir] ? 3 - i : i));
+        const pezzi = tratti(idxs).map(([a, b]) => `<div style="position:absolute;
+          left:${a}px; top:0; width:${b - a}px; height:${alt}px;
+          background-image:url('${url}'); background-size:${S}px ${alt}px;
+          background-position:${-a}px 0; background-repeat:no-repeat"></div>`).join('');
+        return `<div class="lato2m" style="transform:rotate(${giro[dir]}deg)">${pezzi}</div>`;
+      }).join('');
+    })()
+    : MURI_MODULARI
     // --- il kit dipinto: un pezzo per casella, e gli angoli sopra ---
     ? (() => {
       const giro = { N: 0, E: 90, S: 180, O: 270 };
@@ -406,7 +465,7 @@ function htmlVtt(tile, S, { gruppi, porte, stampa = false }) {
       return fuori.join('');
     })()
     // --- il ripiego: la fascia di pietra disegnata qui ---
-    : ['N', 'S', 'E', 'O'].map((dir) => tratti(dir).map(([a, b]) => {
+    : ['N', 'S', 'E', 'O'].map((dir) => tratti(idxPorte(dir)).map(([a, b]) => {
       const l = b - a;
       const q = { N: `left:${a}px; top:0; width:${l}px; height:${sp}px;`,
                   S: `left:${a}px; top:${S - sp}px; width:${l}px; height:${sp}px;`,
@@ -441,7 +500,7 @@ function htmlVtt(tile, S, { gruppi, porte, stampa = false }) {
       ${pavDipinto || acquaDipintaInCasa
         /* un pavimento gia' dipinto ha la sua luce e la sua palette: toccarlo
            col filtro delle foto lo spegnerebbe due volte */
-        ? 'filter:saturate(.9) brightness(1);'
+        ? (daRitingere(pavDipinto) ? `filter:${RITINTA_2M};` : 'filter:saturate(.9) brightness(1);')
         : `filter:saturate(.5) brightness(${(0.86 * tar.luce).toFixed(2)}) contrast(1.06);`} }
     /* la velatura porta la texture nella palette senza spegnerla: il PNG non
        deve arrivare gia' nero, perche' e' l'app a metterci sopra i suoi filtri
@@ -497,6 +556,12 @@ function htmlVtt(tile, S, { gruppi, porte, stampa = false }) {
        non ne cambia l'ingombro */
     .muroBox { position:absolute; }
     .muroBox img { position:absolute; }
+    /* un LATO intero di muro dipinto: la scatola e' quadrata come la tessera,
+       cosi' ruotarla di 90/180/270 porta il bordo alto sugli altri tre lati
+       senza spostare niente. La ritinta e' la stessa degli arredi 2MT. */
+    /* il muro 2MT nasce quasi bianco e il pavimento del gioco e' quasi nero:
+       la ritinta degli arredi non basta, qui serve mezzo passo in piu' */
+    .lato2m { position:absolute; inset:0; filter:saturate(.45) brightness(.55) contrast(1.1); }
 
     .cell { position:absolute; border:2px solid rgba(230,195,120,0.35); }
   </style></head><body>

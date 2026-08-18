@@ -1,5 +1,7 @@
 // QUANTE TESSERE SI RIESCONO A COMPORRE, e con cosa.
 //
+// Uso: node webapp/_copertura-vtt.mjs [webapp/vtt|webapp/vtt-2m] [--misto]
+//
 // Gira su tutte le 127 tessere dei 21 episodi e, per ognuna, dice: che
 // pavimento le tocca, quali arredi ha, e se ognuno di quelli ha davvero un
 // disegno in `webapp/vtt/` — cioe' se la tessera esce dipinta o con le sagome
@@ -9,8 +11,14 @@ import { readFileSync, existsSync, writeFileSync } from 'fs';
 import { pavimentoDi } from '../scripts/tiles/pittura-vtt.js';
 
 const EPISODI = ['preludio', ...Array.from({ length: 20 }, (_, i) => `ep${i + 1}`)];
-const arte = (chiave) => existsSync(`webapp/vtt/arredi/${chiave}.png`);
-const pav = (nome) => existsSync(`webapp/vtt/pavimenti/${nome}.png`);
+const DIR = process.argv[2] && !process.argv[2].startsWith('--') ? process.argv[2] : 'webapp/vtt';
+const MISTO = process.argv.includes('--misto');
+// stessa regola di pittura-vtt.js: se manca nella libreria scelta, e il misto e'
+// acceso, lo tappa Forgotten Adventures
+const c_e = (tipo, nome) => existsSync(`${DIR}/${tipo}/${nome}.png`)
+  || (MISTO && existsSync(`webapp/vtt/${tipo}/${nome}.png`));
+const arte = (chiave) => c_e('arredi', chiave);
+const pav = (nome) => c_e('pavimenti', nome);
 
 const perAmbiente = new Map();
 const perArredo = new Map();
@@ -33,6 +41,7 @@ for (const ep of EPISODI) {
 }
 
 const dipinte = tessere.filter((t) => t.dipinta).length;
+console.log(`libreria: ${DIR}${MISTO ? ' + FA a tappare' : ''}`);
 console.log(`tessere: ${tessere.length} · componibili tutte dipinte: ${dipinte}`);
 console.log('\nambienti:');
 for (const [p, l] of [...perAmbiente].sort((a, b) => b[1].length - a[1].length)) {

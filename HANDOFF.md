@@ -24,6 +24,51 @@
 5. Il porto nell'app si fa **a pezzi, dall'Indagine**, e il risultato deve
    essere **identico ai mockup** (richiesta esplicita: niente scorciatoie).
 
+### LE TESSERE DIPINTE (18/08/2026) — tre librerie, e la scelta è del committente
+
+**Dov'è.** `webapp/public/mockups/stile2/nebbia2-tessere-3vie.html`: le stesse
+**quindici tessere campione** (una per ognuno dei dieci ambienti, più quelle con
+un arredo raro) generate **tre volte** dallo stesso pennello e dagli stessi dati.
+Cambia solo da dove viene il disegno.
+
+**La scelta è di licenza prima che di gusto.** Forgotten Adventures è
+CC BY-NC-**SA** e il ShareAlike si attacca alle tessere; 2-Minute Tabletop è
+CC BY-NC e non lo fa. La terza via — 2M con FA a tappare i buchi — sul piano
+della licenza **è identica alla prima**: basta un pezzo. Finché la scelta non è
+presa, `NOTICE.md` non si tocca.
+
+**Com'è fatto.** Il pennello legge la libreria da `OSR_VTT`, tappa da FA solo se
+`OSR_MISTO=1`, e sceglie i muri con `OSR_MURI=2m|fa|casa`. **Senza variabili si
+comporta esattamente come prima**: verificato generando la stessa tessera col
+codice di prima e con quello di adesso — stesso SHA.
+
+**Con la sola 2M escono tutte dipinte 52 tessere su 127.** Le altre hanno almeno
+un pezzo di ripiego, che non vuol dire vuoto: i pavimenti scoperti prendono le
+texture Poly Haven CC0, gli arredi scoperti le sagome CSS.
+
+**Quattro cose che si sono viste solo GUARDANDO, e che i nomi non dicevano:**
+
+- il *Mercantile Tokens* esiste solo a **72 DPI** (Roll20): 205 px per casella
+  contro i 616 px di stampa. Casse, scrivania, forma, branda e armadio escono
+  ingranditi tre volte e morbidi. Gli altri pacchetti hanno la cartella a 300 DPI;
+- `Tile - 1 (3x3)` del Dungeon Room Builder **non è** una texture ripetibile: è
+  un quadrato con le fughe disegnate a mano ai bordi. `mattonelle` resta CC0;
+- `Wall - Stone - 4x2` del Basic Building è una striscia larga **2,5 caselle su
+  4** con gli estremi irregolari: il muro vero è `Wall - Straight (5x2)` del
+  Dungeon Room Builder, l'unico che arriva ai bordi della sua tela. E il ritaglio
+  va fatto sull'alfa **con una soglia**, perché sotto la pietra c'è un'ombra
+  sfumata che arriva al bordo e `getbbox()` non toglierebbe niente;
+- gli asset 2MT sono **chiari** (inchiostro su carta bianca) e il gioco è scuro:
+  senza la **ritinta** un oggetto esce incollato sopra invece che appoggiato. Le
+  cifre stanno in `pittura-vtt.js` (`RITINTA_2M`, `.lato2m`) e sono manopole —
+  il muro a 0,7 caselle di spessore aveva un davanzale che sembrava un ballatoio,
+  ed è a 0,55.
+
+**Cosa manca per chiudere.** Tre pacchetti 2MT del LEGGIMI non sono ancora
+scaricati (The Furniture Map, Modular Jail, Buildings Pack) e coprirebbero
+altare, stufa, toeletta, cella, branda e i tetti. Il `crogiolo` non lo copre
+nessuno dei tre.
+
 ### IL TIRO (17/08/2026) — fatto, in app
 
 **Scelto guardando i mockup dal telefono:** dadi d'**osso** con i punti a
