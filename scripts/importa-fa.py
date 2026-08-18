@@ -41,6 +41,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASI = [
     os.path.join(ROOT, 'risorse-vtt', 'FA_Assets_Webp'),
     os.path.join(ROOT, 'risorse-vtt', 'Dungeon_Decor_01'),
+    os.path.join(ROOT, 'risorse-vtt', 'Terrain_Textures_Pack_05'),
 ]
 BASE = BASI[0]
 FUORI = os.path.join(ROOT, 'webapp', 'vtt')
@@ -70,18 +71,26 @@ ARREDI = {
 }
 
 # i pavimenti sono TEXTURE piastrellabili: cartelle diverse, e una sola per ruolo
+# I PAVIMENTI VENGONO PRIMA DAL PACCHETTO DI TERRENI: e' fatto per questo —
+# piastrelle grandi, cucitura invisibile, e la stessa mano degli arredi. La
+# libreria grande resta come ripiego.
 PAVIMENTI = {
     'assi':       [['textures/wooden_floors', '.jpg'], ['textures/wood', '.jpg']],
-    'lastricato': [['textures/stone_floors', 'cobblestone_a', '.jpg'], ['textures/stone_floors', '.jpg']],
-    'pietra':     [['textures/stone_square_tiles', '.jpg'], ['textures/stone_floors', 'square', '.jpg']],
-    'mattonelle': [['textures/stone_patterned_tiles', '.jpg'], ['textures/marble', 'tiles', '.jpg']],
+    'lastricato': [['texture_pack_05', 'stone_tiles_a'],
+                   ['textures/stone_floors', 'cobblestone_a', '.jpg']],
+    'pietra':     [['texture_pack_05', 'square_grout'],
+                   ['textures/stone_square_tiles', '.jpg']],
+    'mattonelle': [['texture_pack_05', 'marble_tiles_b'],
+                   ['textures/stone_patterned_tiles', '.jpg']],
     'mattoni':    [['textures/brick', 'brick_floor', '.jpg'], ['textures/brick', '.jpg']],
-    'terra':      [['textures/cultivated_soil', '.jpg'], ['textures', 'dirt', '.jpg']],
-    'acqua':      [['aquatic', 'textures', 'water', '.jpg'], ['textures', 'water', '.jpg']],
+    'terra':      [['texture_pack_05', 'terrain'], ['texture_pack_05', 'forest_floor'],
+                   ['textures/cultivated_soil', '.jpg']],
+    'acqua':      [['texture_pack_05', 'still_water_a'],
+                   ['aquatic', 'textures', 'water', '.jpg']],
     'tetti':      [['textures/roof', 'tile', '.jpg'], ['textures/roof', '.jpg']],
-    'navata':     [['textures/marble', 'white', '.jpg'], ['textures/marble', '.jpg']],
-    'roccia':     [['underdark', 'textures', '.jpg'], ['textures', 'rock', '.jpg'],
-                   ['textures/stone_floors', 'dirt', '.jpg']],
+    'navata':     [['texture_pack_05', 'marble_tiles_a'],
+                   ['textures/marble', 'white', '.jpg']],
+    'roccia':     [['texture_pack_05', 'rock_'], ['underdark', 'textures', '.jpg']],
 }
 
 INGOMBRO = re.compile(r'_(\d+)x(\d+)\.(webp|png|jpg)$', re.I)
