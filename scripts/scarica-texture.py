@@ -49,6 +49,12 @@ TEXTURE_TESSERE = {
     'mattonelle': 'herringbone_parquet',   # uffici, stanzini (spina di pesce)
     'mattoni': 'worn_brick_floor',         # magazzini, fonderie
     'terra': 'dirt_floor',                 # cantine, terrapieni
+    # QUESTI TRE MANCAVANO, e con loro meta' delle tessere del gioco: 66 su 127
+    # cadevano nel ripiego «lastricato» — tetti, guglie, navate, cisterne e
+    # grotte compresi. Contati sui dati, non a occhio.
+    'tetti': 'roof_tiles_14',              # tetti, gronde, guglie, ballatoi
+    'navata': 'marble_01',                 # chiese, navate, sagrati
+    'roccia': 'rocky_terrain_02',          # grotte, cisterne, pozzi, scavi
     # materiali degli arredi
     'legno': 'wood_table_001',
     'ferro': 'metal_plate',

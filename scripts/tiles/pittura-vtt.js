@@ -57,12 +57,20 @@ const tex = (nome) => {
 // L'ORDINE E' UNA REGOLA, non un caso: «Sala delle Casse» e' un magazzino, e
 // se la riga dei salotti venisse prima si ritroverebbe il parquet.
 const PAVIMENTI = [
-  [/molo|banchin|pontile|darsena|imbarcader|chiatta|barc/i, 'assi'],
-  [/cript|catacomb|sacrest|chiesa|cappell|altare|ossari|tomb/i, 'pietra'],
-  [/fonder|forgia|crogiol|officina|magazzin|deposit|quinta|carico|casse|scorie/i, 'mattoni'],
-  [/cortile|giardino|orto|cantina|scavo|galler|cunicol|terrapien/i, 'terra'],
-  [/ufficio|stanzino|studio|archivio|scrittoio|sala|salotto|tinello|camer|abbaino|gronda/i, 'mattonelle'],
+  // ACQUA: canali, pozzi, cisterne. La passerella e i ponti restano di assi —
+  // ci si cammina sopra, e il pavimento e' quello che i piedi toccano.
+  [/passerell|ponte|ponticell|pontile|camminament|ballatoio|loggia|scala|gradin/i, 'assi'],
+  [/canale|acqua|pozzo|cisterna|confluenza|darsena|vasca|chiatt/i, 'acqua'],
+  [/molo|banchin|imbarcader|fondament|riva|barc/i, 'assi'],
+  [/tetto|guglia|gronda|abbaino|campanil|torre|comignol|coppi/i, 'tetti'],
+  [/chiesa|navata|sagrato|cappell|organo|coro|sacrest/i, 'navata'],
+  [/cript|catacomb|ossari|tomb|altare|sepolt/i, 'pietra'],
+  [/grotta|caverna|scavo|galler|cunicol|budello|intercapedine|sottoscala|vano/i, 'roccia'],
+  [/fonder|forgia|crogiol|officina|magazzin|deposit|quinta|carico|casse|scorie|forme|ponteggi|tavole/i, 'mattoni'],
+  [/cortile|giardino|orto|cantina|terrapien|piazzal|mercato|vicolo|calle|salita/i, 'terra'],
+  [/ufficio|stanzino|studio|archivio|scrittoio|sala|salotto|tinello|camer|piano|corridoio|stanza|tettoia|sottoportico|cella/i, 'mattonelle'],
 ];
+
 // OGNI TEXTURE NASCE CON LA SUA LUCE. `dark_wooden_planks` e' quasi nera,
 // `cobblestone_floor_08` ha le pietre minute: una taratura sola per tutte dava
 // un molo nero e una cripta a mosaico. Qui ognuna dichiara quanto schiarirla e
@@ -74,6 +82,10 @@ const TARATURA = {
   mattonelle: { luce: 1.15, scala: 0.9 },
   mattoni:    { luce: 1.05, scala: 1.3 },
   terra:      { luce: 1.1,  scala: 1.6 },
+  acqua:      { luce: 1.0,  scala: 2.2 },
+  tetti:      { luce: 1.0,  scala: 1.2 },
+  navata:     { luce: 0.95, scala: 1.4 },
+  roccia:     { luce: 1.15, scala: 1.8 },
 };
 
 function pavimentoDi(tile) {
@@ -268,6 +280,17 @@ function htmlVtt(tile, S, { gruppi, porte, stampa = false }) {
   const pav = pavimentoDi(tile);
   const tar = TARATURA[pav] || { luce: 1, scala: 1 };
   const pavDipinto = dipinto('pavimenti', pav);
+  // L'ACQUA NON HA UNA TEXTURE. Poly Haven fa superfici, non canali: finche'
+  // non arriva quella dipinta del pacchetto VTT, il canale lo si dipinge qui —
+  // buio verdastro con le spire lente della corrente.
+  const acquaDipintaInCasa = pav === 'acqua' && !pavDipinto;
+  const fondo = acquaDipintaInCasa
+    ? `radial-gradient(60% 42% at 30% 26%, rgba(60,120,120,.30), transparent 70%),
+       radial-gradient(50% 38% at 72% 68%, rgba(40,96,104,.28), transparent 72%),
+       repeating-linear-gradient(102deg, rgba(120,190,190,.055) 0 3px, rgba(8,20,24,0) 3px 22px),
+       repeating-linear-gradient(-8deg, rgba(90,160,170,.05) 0 2px, rgba(8,20,24,0) 2px 31px),
+       linear-gradient(160deg, #0d2226, #061014)`
+    : `url('${pavDipinto || tex(pav)}')`;
 
   const arredi = gruppi.map((g) => {
     const chiave = String(g.label).toLowerCase();
@@ -352,14 +375,14 @@ function htmlVtt(tile, S, { gruppi, porte, stampa = false }) {
        e' mezza casella — a casella intera si legge il ripetersi, a un quarto
        diventa un tessuto. */
     .suolo { position:absolute; inset:0;
-      background-image:url('${pavDipinto || tex(pav)}');
-      background-size:${Math.round(c * tar.scala)}px ${Math.round(c * tar.scala)}px;
+      background-image:${fondo};
+      ${acquaDipintaInCasa ? '' : `background-size:${Math.round(c * tar.scala)}px ${Math.round(c * tar.scala)}px;`}
       /* almeno una piastrella per casella: piu' fitta di cosi' il pavimento
          diventa un tessuto e smette di leggersi come pavimento */
-      ${pavDipinto
+      ${pavDipinto || acquaDipintaInCasa
         /* un pavimento gia' dipinto ha la sua luce e la sua palette: toccarlo
            col filtro delle foto lo spegnerebbe due volte */
-        ? 'filter:saturate(.85) brightness(.94);'
+        ? 'filter:saturate(.9) brightness(1);'
         : `filter:saturate(.5) brightness(${(0.86 * tar.luce).toFixed(2)}) contrast(1.06);`} }
     /* la velatura porta la texture nella palette senza spegnerla: il PNG non
        deve arrivare gia' nero, perche' e' l'app a metterci sopra i suoi filtri
