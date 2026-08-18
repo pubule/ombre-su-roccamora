@@ -1,0 +1,101 @@
+<!doctype html><html lang="it"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Notte e nebbia · le tessere dall'alto</title>
+<link rel="stylesheet" href="base.css"><link rel="stylesheet" href="nebbia.css">
+<link rel="stylesheet" href="nebbia2.css">
+<style>
+  /* le due tessere, alla misura vera dello schermo e ingrandite */
+  .coppia { display: grid; gap: 12px; grid-template-columns: 1fr 1fr; margin-bottom: 8px; }
+  .lato { min-width: 0; }
+  .lato .che { font-family: 'FellSC', serif; font-size: 13px; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--fioco); margin: 0 0 6px; }
+  .lato.nuovo .che { color: var(--lume); }
+  .tess { position: relative; width: 100%; aspect-ratio: 1; border: 1px solid var(--bordo);
+    border-radius: 8px; overflow: hidden; background-size: cover; background-position: center; }
+  /* la griglia che l'app disegna sopra la tessera: qui c'è per giudicare il
+     pavimento con addosso quel che ci finisce davvero */
+  .tess .celle { position: absolute; inset: 0; display: grid;
+    grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(4, 1fr); }
+  .tess .cel { border: 1px solid rgba(230,195,120,.28); }
+  .tess.nuda .cel { border: 0; }
+
+  /* la plancia: quattro stanze accostate, come si vedono giocando */
+  .board { display: grid; grid-template-columns: repeat(2, 208px); gap: 2px;
+    justify-content: center; padding: 14px; background: #090a0c;
+    border: 1px solid var(--bordo); border-radius: 12px; }
+  .board .tess { width: 208px; height: 208px; border-radius: 0; }
+  .board .tess.nebbia { filter: brightness(.18) saturate(.3) blur(3px); }
+
+  .zoom { overflow: auto; border: 1px solid var(--bordo); border-radius: 8px; }
+  .zoom img { width: 1100px; max-width: none; display: block; }
+</style>
+</head><body>
+<div class="wrap">
+  <a class="torna" href="index.html">← le tre direzioni</a>
+
+  <h1 style="margin-bottom:6px">le tessere, dall'alto</h1>
+  <p class="nota" style="margin-bottom:6px">A sinistra quel che c'è oggi: una
+    <b>veduta in prospettiva</b> con l'orizzonte dentro, e gli arredi incollati sopra come
+    figurine incorniciate — in scala e luce diverse dal fondo. A destra la stessa tessera
+    disegnata come la disegna un VTT: <b>pavimento dall'alto</b>, oggetti dall'alto con la
+    loro ombra, pozze di lanterna, buio ai bordi.</p>
+  <p class="nota" style="margin-bottom:14px">Il reticolo che vedete sopra è quello che
+    l'app disegna comunque: nella tessera nuova non è cotto dentro, e le etichette
+    «verso T2» nemmeno — l'app le ridisegna già leggibili. Le materie prime sono texture
+    <b>CC0</b> di Poly Haven (<code>webapp/texture/LICENZE.txt</code>); le sagome degli
+    arredi sono disegnate qui.</p>
+
+  <div class="prova" id="coppie"></div>
+
+  <div class="prova">
+    <div class="che">quattro stanze accostate, come giocando</div>
+    <div class="board" id="board"></div>
+    <p class="perche">Il buio ai bordi serve a questo: senza, quattro tessere accostate
+      diventano un pavimento unico e non si capisce dove finisce una stanza. In alto a
+      destra una stanza non ancora rivelata, con la nebbia dell'app addosso.</p>
+  </div>
+
+  <div class="prova">
+    <div class="che">al vero, 1100px — si scorre</div>
+    <div class="zoom"><img id="grande" alt=""></div>
+    <p class="perche">È la misura con cui la tessera arriva all'app dopo l'export. Sul
+      telefono, con lo zoom della plancia a fondo corsa, si vede più o meno così.</p>
+  </div>
+</div>
+
+<script>
+  const TESSERE = [
+    ['T1', 'la banchina d’ingresso', 'assi del molo · bitta e cima'],
+    ['T2', 'la sala delle casse', 'mattoni · due cataste'],
+    ['T3', 'il corridoio delle candele', 'lastricato · quattro fiamme, quattro pozze di luce'],
+    ['T4', 'l’ufficio del custode', 'spina di pesce · scrivania e branda'],
+    ['T5', 'la scala al piano interrato', 'lastricato · la scala che scende nel buio'],
+    ['T6', 'la cripta della cera', 'pietra · l’altare e la cella'],
+  ];
+  const vecchia = (id) => `/assets/Episodio 1/board/${id}.png`;
+  const nuova = (id) => `../tessere-vtt/${id}.jpg`;
+  const celle = '<div class="celle">' + Array.from({ length: 16 }, () => '<div class="cel"></div>').join('') + '</div>';
+
+  document.getElementById('coppie').innerHTML = TESSERE.map(([id, nome, nota]) => `
+    <div style="margin-bottom:18px">
+      <div class="che">${id} · ${nome}</div>
+      <div class="coppia">
+        <div class="lato">
+          <p class="che">com’è oggi</p>
+          <div class="tess" style="background-image:url('${vecchia(id)}')">${celle}</div>
+        </div>
+        <div class="lato nuovo">
+          <p class="che">dall’alto</p>
+          <div class="tess" style="background-image:url('${nuova(id)}')">${celle}</div>
+        </div>
+      </div>
+      <p class="perche">${nota}</p>
+    </div>`).join('');
+
+  document.getElementById('board').innerHTML = ['T2', 'T4', 'T1', 'T6']
+    .map((id, i) => `<div class="tess ${i === 1 ? 'nebbia' : ''}" style="background-image:url('${nuova(id)}')">${celle}</div>`)
+    .join('');
+
+  document.getElementById('grande').src = nuova('T6');
+</script>
+</body></html>

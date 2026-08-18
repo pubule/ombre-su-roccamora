@@ -1,0 +1,16 @@
+Texture delle tessere di Spedizione (pavimenti e materiali).
+Fonte: Poly Haven — https://polyhaven.com — licenza CC0.
+Ridimensionate a 1024px da scripts/scarica-texture.py
+Le usa scripts/tiles/generate-tiles.js per pavimento e arredi.
+
+assi.jpg  <-  wood_floor_deck  (https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/wood_floor_deck/wood_floor_deck_diff_1k.jpg)
+lastricato.jpg  <-  cobblestone_floor_08  (https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/cobblestone_floor_08/cobblestone_floor_08_diff_1k.jpg)
+pietra.jpg  <-  medieval_blocks_02  (https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/medieval_blocks_02/medieval_blocks_02_diff_1k.jpg)
+mattonelle.jpg  <-  herringbone_parquet  (https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/herringbone_parquet/herringbone_parquet_diff_1k.jpg)
+mattoni.jpg  <-  worn_brick_floor  (https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/worn_brick_floor/worn_brick_floor_diff_1k.jpg)
+terra.jpg  <-  dirt_floor  (https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/dirt_floor/dirt_floor_diff_1k.jpg)
+legno.jpg  <-  wood_table_001  (https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/wood_table_001/wood_table_001_diff_1k.jpg)
+ferro.jpg  <-  metal_plate  (https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/metal_plate/metal_plate_diff_1k.jpg)
+ruggine.jpg  <-  rusty_metal_02  (https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/rusty_metal_02/rusty_metal_02_diff_1k.jpg)
+tela.jpg  <-  leather_white  (https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/leather_white/leather_white_diff_1k.jpg)
+muro.jpg  <-  rough_block_wall  (https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/rough_block_wall/rough_block_wall_diff_1k.jpg)

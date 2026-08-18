@@ -5,23 +5,34 @@
 //
 // Dati (exits/arredi) presi 1:1 da TILES in src/gen_cards.py.
 //
-// Uso: node scripts/tiles/generate-tiles.js [ep1|ep2|...|ep15] [--solo-mancanti]
+// Uso: node scripts/tiles/generate-tiles.js [ep1|ep2|...|ep20] [--solo-mancanti]
+//                                            [--vtt] [--out <cartella>]
 // --solo-mancanti: salta le tessere il cui PNG esiste gia' in <Episodio>/board/.
+// --vtt: la disegna DALL'ALTO (scripts/tiles/pittura-vtt.js) invece che come
+//        veduta in prospettiva. Il pennello vecchio resta finche' non si sceglie.
+// --out: scrive altrove — serve al pilota, che non deve toccare le tessere in uso.
 
 const { chromium } = require('playwright');
 const path = require('path');
 const fs = require('fs');
 const { pathToFileURL } = require('url');
+const { htmlVtt } = require('./pittura-vtt');
 
 const ROOT = path.resolve(__dirname, '..', '..');
-const argv = process.argv.slice(2).filter((a) => a !== '--solo-mancanti');
 const SOLO_MANCANTI = process.argv.includes('--solo-mancanti');
+const VTT = process.argv.includes('--vtt');
+const iOut = process.argv.indexOf('--out');
+const OUT_SCELTA = iOut >= 0 ? process.argv[iOut + 1] : null;
+const argv = process.argv.slice(2)
+  .filter((a, i, tutti) => !a.startsWith('--') && tutti[i - 1] !== '--out');
 // set per episodio: node scripts/tiles/generate-tiles.js [ep1|ep2|...|ep15]
 const SET = (argv[0] || 'ep1').toLowerCase();
 const EP_NUM = /^ep(\d{1,2})$/.exec(SET)?.[1];
 if (!EP_NUM || +EP_NUM < 1 || +EP_NUM > 20) { console.error('set sconosciuto (ep1..ep20)'); process.exit(1); }
 const EP_DIR = `Episodio ${EP_NUM}`;
-const OUT_DIR = path.join(ROOT, EP_DIR, 'board');
+const OUT_DIR = OUT_SCELTA
+  ? path.resolve(ROOT, OUT_SCELTA)
+  : path.join(ROOT, EP_DIR, 'board');
 fs.mkdirSync(OUT_DIR, { recursive: true });
 
 const S = 2464; // 1600 * 200/130, arrotondato a multiplo di 4: tessera 130mm->200mm
@@ -381,13 +392,31 @@ function html(tile) {
     // Senza il suo sfondo la tessera esce come un rettangolo vuoto con sopra la
     // griglia: un PNG che sembra fatto e che --solo-mancanti non rifara' mai
     // piu'. Meglio saltarla e dirlo (stesso patto di generate-batch.js).
-    const artFile = path.join(ROOT, 'artworks', tile.art || `${tile.id}.png`);
-    if (!fs.existsSync(artFile)) {
-      console.log(`salto ${tile.id}: manca artworks/${path.basename(artFile)}`);
-      continue;
+    //
+    // DALL'ALTO non serve: la stanza si costruisce dai DATI (pavimento dal nome,
+    // arredi dalle coordinate) e da texture CC0. E' anche il motivo per cui i
+    // sette episodi senza illustrazione — 7, 8, 9, 16-20 — potrebbero avere le
+    // loro tessere.
+    if (!VTT) {
+      const artFile = path.join(ROOT, 'artworks', tile.art || `${tile.id}.png`);
+      if (!fs.existsSync(artFile)) {
+        console.log(`salto ${tile.id}: manca artworks/${path.basename(artFile)}`);
+        continue;
+      }
     }
     const tmpHtml = path.join(OUT_DIR, `.tmp-${tile.id}.html`);
-    fs.writeFileSync(tmpHtml, html(tile), 'utf8');
+    // la geometria e' la stessa per tutti e due i pennelli: le celle adiacenti
+    // dello stesso arredo si fondono in un oggetto solo, e la porta non cade
+    // mai su un arredo
+    const occupate = new Set(tile.arredi.map(([gx, gy]) => `${gx},${3 - gy}`));
+    const porte = [
+      ...Object.keys(tile.exits).map((dir) => ({ dir, idx: pickDoorIndex(dir, occupate) })),
+      ...(tile.start ? [{ dir: tile.start, idx: 1 }] : []),
+    ];
+    const pagina = VTT
+      ? htmlVtt(tile, S, { gruppi: groupArredi(tile.arredi), porte })
+      : html(tile);
+    fs.writeFileSync(tmpHtml, pagina, 'utf8');
     await page.goto(pathToFileURL(tmpHtml).href, { waitUntil: 'networkidle' });
     await page.evaluate(() => document.fonts.ready);
     await page.waitForTimeout(200);

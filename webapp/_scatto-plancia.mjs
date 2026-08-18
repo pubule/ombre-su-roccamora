@@ -1,0 +1,14 @@
+import { chromium } from 'playwright';
+const b = await chromium.launch();
+const p = await b.newPage({ viewport: { width: 430, height: 900 }, deviceScaleFactor: 2 });
+const guai = [];
+p.on('pageerror', (e) => guai.push(e.message));
+p.on('response', (r) => { if (r.status() >= 400) guai.push(r.status() + ' ' + r.url().slice(-60)); });
+await p.goto('http://127.0.0.1:8017/mockups/stile2/nebbia2-plancia.html', { waitUntil: 'networkidle' });
+await p.waitForTimeout(600);
+console.log(guai.length ? guai.slice(0, 4).join(' | ') : 'nessun errore, nessun 404');
+await p.screenshot({ path: '../scatti/plancia-confronto.png', fullPage: false });
+await p.evaluate(() => document.querySelector('#board').scrollIntoView());
+await p.waitForTimeout(400);
+await p.screenshot({ path: '../scatti/plancia-board.png' });
+await b.close();
