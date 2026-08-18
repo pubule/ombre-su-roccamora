@@ -1,0 +1,199 @@
+[
+ {
+  "ep": "preludio",
+  "titolo": "La Prova del Lume",
+  "sottotitolo": "il preludio — la vostra prova d’ammissione",
+  "tessere": [
+   {
+    "id": "T1",
+    "nome": "La Banchina Della Dogana",
+    "col": 0,
+    "row": 0
+   },
+   {
+    "id": "T2",
+    "nome": "Il Deposito",
+    "col": 0,
+    "row": -1
+   },
+   {
+    "id": "T4",
+    "nome": "Lo Stanzino Del Daziere",
+    "col": -1,
+    "row": -1
+   }
+  ]
+ },
+ {
+  "ep": "ep3",
+  "titolo": "Le voci del pozzo",
+  "sottotitolo": "episodio 3 — il Ladro di Voci",
+  "tessere": [
+   {
+    "id": "T1",
+    "nome": "LA SCALA DEI CHIUSINI",
+    "col": 0,
+    "row": 0
+   },
+   {
+    "id": "T2",
+    "nome": "LA CISTERNA DELLE COLONNE",
+    "col": 0,
+    "row": -1
+   },
+   {
+    "id": "T3",
+    "nome": "LA GALLERIA DELLE ECO",
+    "col": 0,
+    "row": -2
+   },
+   {
+    "id": "T4",
+    "nome": "LA CONFLUENZA",
+    "col": 0,
+    "row": -3
+   },
+   {
+    "id": "T5",
+    "nome": "L’OFFICINA DELLE CANNE",
+    "col": 1,
+    "row": -3
+   },
+   {
+    "id": "T6",
+    "nome": "IL POZZO MAESTRO",
+    "col": 0,
+    "row": -4
+   }
+  ]
+ },
+ {
+  "ep": "ep5",
+  "titolo": "L’organo di ossa",
+  "sottotitolo": "episodio 5 — la cripta dei Battuti",
+  "tessere": [
+   {
+    "id": "T1",
+    "nome": "LA SCALA DEL SAGRATO",
+    "col": 0,
+    "row": 0
+   },
+   {
+    "id": "T2",
+    "nome": "LA NAVATA SEPOLTA",
+    "col": 0,
+    "row": -1
+   },
+   {
+    "id": "T3",
+    "nome": "IL CORRIDOIO DEGLI OSSARI",
+    "col": 0,
+    "row": -2
+   },
+   {
+    "id": "T4",
+    "nome": "LA SALA DEL CAPITOLO",
+    "col": 0,
+    "row": -3
+   },
+   {
+    "id": "T5",
+    "nome": "L’OFFICINA DELLE CANNE D’OSSA",
+    "col": 1,
+    "row": -3
+   },
+   {
+    "id": "T6",
+    "nome": "L’ORGANO MURATO",
+    "col": 0,
+    "row": -4
+   }
+  ]
+ },
+ {
+  "ep": "ep11",
+  "titolo": "Il censimento delle campane",
+  "sottotitolo": "episodio 11 — Atto II: il censimento delle campane, e la via delle guglie",
+  "tessere": [
+   {
+    "id": "T1",
+    "nome": "L’ABBAINO",
+    "col": 0,
+    "row": 0
+   },
+   {
+    "id": "T2",
+    "nome": "IL CAMMINAMENTO OVEST",
+    "col": 0,
+    "row": -1
+   },
+   {
+    "id": "T3",
+    "nome": "LA LOGGIA DELLE CAMPANE",
+    "col": 0,
+    "row": -2
+   },
+   {
+    "id": "T4",
+    "nome": "IL TETTO A SCHIENA D’ASINO",
+    "col": 0,
+    "row": -3
+   },
+   {
+    "id": "T5",
+    "nome": "IL BALLATOIO DELLA TORRE",
+    "col": 0,
+    "row": -4
+   },
+   {
+    "id": "T6",
+    "nome": "LA GUGLIA",
+    "col": 0,
+    "row": -5
+   }
+  ]
+ },
+ {
+  "ep": "ep12",
+  "titolo": "La seconda copia",
+  "sottotitolo": "episodio 12 — Atto II (chiusura): la seconda copia, e l’inseguimento del corriere",
+  "tessere": [
+   {
+    "id": "T1",
+    "nome": "L’ARCHIVIO VIOLATO",
+    "col": 0,
+    "row": 0
+   },
+   {
+    "id": "T2",
+    "nome": "IL PONTE DEI SOSPIRI",
+    "col": 0,
+    "row": -1
+   },
+   {
+    "id": "T3",
+    "nome": "LA FONDAMENTA STRETTA",
+    "col": 0,
+    "row": -2
+   },
+   {
+    "id": "T4",
+    "nome": "IL CANALE DELLA NEBBIA",
+    "col": 0,
+    "row": -3
+   },
+   {
+    "id": "T5",
+    "nome": "IL SOTTOPORTICO",
+    "col": 0,
+    "row": -4
+   },
+   {
+    "id": "T6",
+    "nome": "IL CIMITERO DELLE BARCHE",
+    "col": 0,
+    "row": -5
+   }
+  ]
+ }
+]

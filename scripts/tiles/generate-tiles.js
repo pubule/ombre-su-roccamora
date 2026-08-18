@@ -17,6 +17,11 @@ const path = require('path');
 const fs = require('fs');
 const { pathToFileURL } = require('url');
 const { htmlVtt } = require('./pittura-vtt');
+// LA SAGOMA DELLA STANZA (direzione 2 del mockup «la forma delle tessere»):
+// l'ingombro resta 4x4, il muro segue la pianta. Si accende con OSR_SAGOME=1,
+// cosi' le tessere gia' stampate non cambiano finche' la direzione non e' scelta.
+const { sagomaDi } = require('./sagome');
+const SAGOME = process.env.OSR_SAGOME === '1';
 
 const ROOT = path.resolve(__dirname, '..', '..');
 const SOLO_MANCANTI = process.argv.includes('--solo-mancanti');
@@ -424,8 +429,22 @@ function html(tile) {
       ...Object.keys(tile.exits).map((dir) => ({ dir, idx: pickDoorIndex(dir, occupate) })),
       ...(tile.start ? [{ dir: tile.start, idx: 1 }] : []),
     ];
+    // le caselle-porta come le vede la sagoma: le stesse che `pickDoorIndex` ha
+    // appena scelto, perche' la sagoma si adatta alle porte e mai il contrario
+    const cellePorte = {};
+    for (const { dir, idx } of porte) {
+      cellePorte[dir] = dir === 'N' ? [idx, 0] : dir === 'S' ? [idx, 3]
+        : dir === 'O' ? [0, idx] : [3, idx];
+    }
+    const sagoma = SAGOME
+      ? sagomaDi(tile, cellePorte, [...occupate].map((k) => k.split(',').map(Number)))
+      : null;
+    if (sagoma && sagoma.scartata) {
+      console.log(`  ${tile.id}: sagoma «${sagoma.scartata}» buttata (spezzava la stanza), resta quadrata`);
+    }
     const pagina = VTT
-      ? htmlVtt(tile, S, { gruppi: groupArredi(tile.arredi), porte })
+      ? htmlVtt(tile, S, { gruppi: groupArredi(tile.arredi), porte,
+                           celle: sagoma ? sagoma.celle : null })
       : html(tile);
     fs.writeFileSync(tmpHtml, pagina, 'utf8');
     await page.goto(pathToFileURL(tmpHtml).href, { waitUntil: 'networkidle' });

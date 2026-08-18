@@ -340,8 +340,15 @@ const FUOCHI = { candele: '#e8c27a', crogiolo: '#e8934a', stufa: '#e8934a', alta
 //
 // `gruppi` arriva gia' fuso da `groupArredi()` del generatore: un arredo che
 // occupa piu' celle e' UN oggetto piu' grande, non lo stesso oggetto ripetuto.
-function htmlVtt(tile, S, { gruppi, porte, stampa = false }) {
+function htmlVtt(tile, S, { gruppi, porte, stampa = false, celle = null }) {
   const c = S / 4;
+  // LA SAGOMA (scripts/tiles/sagome.js). `celle` sono le caselle VIVE: quel che
+  // non c'e' dentro non e' pavimento, e il muro ci gira attorno. Senza il campo,
+  // la tessera resta il quadrato pieno di sempre — e' cosi' che il vecchio
+  // comportamento resta intatto senza un ramo apposta.
+  const vive = new Set((celle || Array.from({ length: 16 },
+    (_, i) => [i % 4, (i / 4) | 0])).map(([x, y]) => x + ',' + y));
+  const viva = (x, y) => vive.has(x + ',' + y);
   const pav = pavimentoDi(tile);
   const tar = TARATURA[pav] || { luce: 1, scala: 1 };
   const pavDipinto = dipinto('pavimenti', pav);
@@ -356,6 +363,14 @@ function htmlVtt(tile, S, { gruppi, porte, stampa = false }) {
        repeating-linear-gradient(-8deg, rgba(90,160,170,.05) 0 2px, rgba(8,20,24,0) 2px 31px),
        linear-gradient(160deg, #0d2226, #061014)`
     : `url('${pavDipinto || tex(pav)}')`;
+
+  // LE CASELLE FUORI SAGOMA prendono il fondo del tavolo. Non si ritagliano dal
+  // PNG: una tessera resta un quadrato, e il «fuori» e' dipinto — al tavolo il
+  // cartoncino andrebbe fustellato, a schermo il risultato e' lo stesso.
+  const fuori = Array.from({ length: 16 }, (_, i) => [i % 4, (i / 4) | 0])
+    .filter(([x, y]) => !viva(x, y))
+    .map(([x, y]) => `<div class="fuori" style="left:${x * c}px; top:${y * c}px;
+      width:${c}px; height:${c}px"></div>`).join('');
 
   const arredi = gruppi.map((g) => {
     const chiave = String(g.label).toLowerCase();
@@ -417,7 +432,28 @@ function htmlVtt(tile, S, { gruppi, porte, stampa = false }) {
   const idxPorte = (dir) => porte.filter((p) => p.dir === dir).map((p) => p.idx);
   const conPorta = (dir) => new Set(idxPorte(dir));
 
-  const muri = QUALI_MURI === '2m' && fs.existsSync(MURO_2M)
+  // IL MURO NASCE DOVE LA CASELLA ACCANTO NON ESISTE. Prima si girava sui
+  // quattro lati per indice, che sa fare solo rettangoli; qui si gira sui BORDI
+  // della sagoma, e lo stesso codice regge il quadrato pieno, la stanza a L,
+  // l'abside e il ballatoio col vuoto in mezzo.
+  const VERSO = { N: [0, -1], S: [0, 1], O: [-1, 0], E: [1, 0] };
+  const soglie = new Set(porte.map(({ dir, idx }) =>
+    (dir === 'N' ? `${idx},0` : dir === 'S' ? `${idx},3`
+      : dir === 'O' ? `0,${idx}` : `3,${idx}`) + dir));
+  const bordi = [];
+  for (const [cx, cy] of [...vive].map((k2) => k2.split(',').map(Number))) {
+    for (const [dir, [dx, dy]] of Object.entries(VERSO)) {
+      if (viva(cx + dx, cy + dy)) continue;
+      if (soglie.has(`${cx},${cy}${dir}`)) continue;   // qui c'e' la porta
+      bordi.push([cx, cy, dir]);
+    }
+  }
+
+  // ponytail: la striscia 2M copre un LATO intero e sa fare solo rettangoli.
+  // Con una sagoma cede il posto al kit a pezzi (o al ripiego disegnato), invece
+  // di uscire storta. Se la direzione 2 viene scelta, la striscia va tagliata
+  // per casella come i pezzi del kit — stesso conto, altra immagine.
+  const muri = QUALI_MURI === '2m' && fs.existsSync(MURO_2M) && vive.size === 16
     // --- la striscia dipinta 2MT: una per lato, spezzata dove c'e' la soglia ---
     ? (() => {
       const giro = { N: 0, E: 90, S: 180, O: 270 };
@@ -442,37 +478,39 @@ function htmlVtt(tile, S, { gruppi, porte, stampa = false }) {
     ? (() => {
       const giro = { N: 0, E: 90, S: 180, O: 270 };
       const box = 2 * c;                       // il riquadro quadrato che si ruota
-      const fuori = [];
-      for (const dir of ['N', 'S', 'E', 'O']) {
-        const salta = conPorta(dir);
-        for (let i = 0; i < 4; i++) {
-          if (salta.has(i)) continue;          // qui c'e' la soglia
-          // il kit ha due varianti per il tratto dritto (A e B), non tre
-          const v = ['A', 'B'][(i + dir.charCodeAt(0)) % 2];
-          const arte = pezzoMuro(`Dungeon_Straight_1x2_${v}`) || pezzoMuro('Dungeon_Straight_1x2_A');
-          if (!arte) continue;
-          const pos = { N: [i * c - c / 2, 0], S: [i * c - c / 2, S - box],
-                        E: [S - box, i * c - c / 2], O: [0, i * c - c / 2] }[dir];
-          fuori.push(`<div class="muroBox" style="left:${pos[0]}px; top:${pos[1]}px;
-            width:${box}px; height:${box}px; transform:rotate(${giro[dir]}deg)">
-            <img src="${arte}" style="left:${c / 2}px; top:${-0.8 * c}px; width:${c}px; height:${2 * c}px"></div>`);
-        }
+      const pezzi = [];
+      for (const [cx, cy, dir] of bordi) {
+        // il kit ha due varianti per il tratto dritto (A e B), non tre. La
+        // variante la sceglie l'indice LUNGO IL LATO — cx sui lati orizzontali,
+        // cy su quelli verticali — e non le due coordinate insieme: con quelle
+        // le tessere gia' stampate cambiavano disegno del muro sui lati S, E e
+        // O. Visto confrontando lo SHA del PNG col codice di prima.
+        const lungo = (dir === 'N' || dir === 'S') ? cx : cy;
+        const v = ['A', 'B'][(lungo + dir.charCodeAt(0)) % 2];
+        const arte = pezzoMuro(`Dungeon_Straight_1x2_${v}`) || pezzoMuro('Dungeon_Straight_1x2_A');
+        if (!arte) continue;
+        const pos = { N: [cx * c - c / 2, cy * c],
+                      S: [cx * c - c / 2, (cy + 1) * c - box],
+                      E: [(cx + 1) * c - box, cy * c - c / 2],
+                      O: [cx * c, cy * c - c / 2] }[dir];
+        pezzi.push(`<div class="muroBox" style="left:${pos[0]}px; top:${pos[1]}px;
+          width:${box}px; height:${box}px; transform:rotate(${giro[dir]}deg)">
+          <img src="${arte}" style="left:${c / 2}px; top:${-0.8 * c}px; width:${c}px; height:${2 * c}px"></div>`);
       }
       // NIENTE PEZZI D'ANGOLO: quelli del kit sono 2x2 e allungano le braccia
       // due caselle DENTRO la stanza — a schermo diventava una croce di pietra
       // in mezzo al pavimento. Gli angoli li chiudono i due tratti che si
       // incontrano, che e' come li chiude un muro vero.
-      return fuori.join('');
+      return pezzi.join('');
     })()
-    // --- il ripiego: la fascia di pietra disegnata qui ---
-    : ['N', 'S', 'E', 'O'].map((dir) => tratti(idxPorte(dir)).map(([a, b]) => {
-      const l = b - a;
-      const q = { N: `left:${a}px; top:0; width:${l}px; height:${sp}px;`,
-                  S: `left:${a}px; top:${S - sp}px; width:${l}px; height:${sp}px;`,
-                  E: `left:${S - sp}px; top:${a}px; width:${sp}px; height:${l}px;`,
-                  O: `left:0; top:${a}px; width:${sp}px; height:${l}px;` }[dir];
+    // --- il ripiego: la fascia di pietra disegnata qui, un tratto per bordo ---
+    : bordi.map(([cx, cy, dir]) => {
+      const q = { N: `left:${cx * c}px; top:${cy * c}px; width:${c}px; height:${sp}px;`,
+                  S: `left:${cx * c}px; top:${(cy + 1) * c - sp}px; width:${c}px; height:${sp}px;`,
+                  E: `left:${(cx + 1) * c - sp}px; top:${cy * c}px; width:${sp}px; height:${c}px;`,
+                  O: `left:${cx * c}px; top:${cy * c}px; width:${sp}px; height:${c}px;` }[dir];
       return `<div class="muro" style="${q}"></div>`;
-    }).join('')).join('');
+    }).join('');
 
   // il reticolo e i cartellini stanno nel PNG SOLO per la stampa: a schermo li
   // disegna l'app, e cuocerli qui significa averli due volte
@@ -554,6 +592,10 @@ function htmlVtt(tile, S, { gruppi, porte, stampa = false }) {
                  inset 0 0 ${Math.round(c * 0.1)}px rgba(0,0,0,.6); }
     /* il riquadro che porta un pezzo di muro dipinto: quadrato, cosi' ruotarlo
        non ne cambia l'ingombro */
+    /* la casella FUORI SAGOMA: il fondo del tavolo, non un buco trasparente —
+       cosi' la tessera resta un PNG quadrato e la stampa non cambia mestiere */
+    .fuori { position:absolute; background:#0b0d10;
+      box-shadow:inset 0 0 ${Math.round(c * 0.35)}px rgba(0,0,0,.9); }
     .muroBox { position:absolute; }
     .muroBox img { position:absolute; }
     /* un LATO intero di muro dipinto: la scatola e' quadrata come la tessera,
@@ -571,6 +613,7 @@ function htmlVtt(tile, S, { gruppi, porte, stampa = false }) {
       <div class="macchie"></div>
       <div class="lanterna"></div>
       ${luci}
+      ${fuori}
       ${arredi}
       ${muri}
       <div class="muri"></div>

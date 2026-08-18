@@ -69,6 +69,53 @@ scaricati (The Furniture Map, Modular Jail, Buildings Pack) e coprirebbero
 altare, stufa, toeletta, cella, branda e i tetti. Il `crogiolo` non lo copre
 nessuno dei tre.
 
+### LE STANZE SAGOMATE (18/08/2026) — la direzione 2, montata su cinque episodi
+
+**Dov'è.** `webapp/public/mockups/stile2/nebbia2-spedizioni-sagome.html`: Preludio,
+Ep. 3, 5, 11 e 12 con le plance composte dal grafo delle uscite, e un
+interruttore che scambia sul posto le tessere quadrate di oggi con quelle
+sagomate. Le tessere sono **vere**, generate dal pennello con arredi e pavimenti
+dipinti — non un disegno di come sarebbero.
+
+**Come funziona.** `scripts/tiles/sagome.js` decide il taglio dal **nome della
+stanza**, con la stessa regola con cui il nome dice già il pavimento: ballatoio →
+anello, cisterna → tonda con le colonne, camminamento → fascia larga due caselle,
+navata → abside, banchina → l'angolo sull'acqua, guglia → si stringe. Sui 21
+episodi: 68 tessere prendono una sagoma, 59 restano quadrate. Si accende con
+`OSR_SAGOME=1`; senza, tutto è come prima.
+
+**Due invarianti, e sono il motivo per cui la cosa sta in piedi:**
+
+1. **Le porte non si spostano mai.** `pickDoorIndex` e la sua gemella
+   `portaCella` scelgono la casella della porta senza sapere niente di sagome: se
+   una sagoma togliesse quella casella, il cartoncino e l'app direbbero due cose
+   diverse. La sagoma si adatta alle porte, mai il contrario.
+2. **La stanza resta tutta attaccata.** Se un taglio la spezzerebbe in due, si
+   rinuncia alle sue caselle **una alla volta** (l'elenco è ordinato: prima il
+   profilo, poi i dettagli) finché torna intera. Su 127 tessere succede cinque
+   volte, e mai per più di due caselle. Buttare tutto e tornare al quadrato pieno
+   era lo spreco della prima stesura: la cisterna perdeva anche le pareti tonde
+   per colpa di due colonne che spezzavano l'anello.
+
+**Il collaudo era vacuo, e si è visto solo provandolo.** `node
+scripts/tiles/sagome.js` girava verde anche togliendo la riga che rimette le
+caselle-porta: chiedeva «la casella c'è?», e quando la sagoma murava una porta
+veniva ridotta, quindi la casella c'era comunque. Ora il controllo è sul
+**taglio** (dev'essere adattato, non ridotto) e c'è un tetto sul numero di
+riduzioni. Provato col guasto deliberato: adesso morde.
+
+**L'INVARIANTE DA RICONTROLLARE A OGNI TOCCO DEL PENNELLO.** Senza variabili
+d'ambiente, `node scripts/tiles/generate-tiles.js ep1 --vtt --solo T6 --out
+reg-tmp` deve produrre un PNG con SHA-256 che comincia per **`77fbb56bf88c15dd`**.
+Passando i muri da «quattro lati per indice» a «i bordi della sagoma» la variante
+A/B del kit si era messa a dipendere da `cx+cy` invece che dall'indice lungo il
+lato: le tessere già stampate cambiavano disegno del muro su tre lati su quattro,
+e nessun banco se ne accorgeva. Si vede solo confrontando gli SHA.
+
+**L'artwork è tutto Forgotten Adventures**, muri compresi: è l'unica libreria in
+casa che copre 127 tessere con una mano sola, e la coerenza era la richiesta.
+Resta CC BY-NC-SA — la scelta di licenza è ancora aperta.
+
 ### IL TIRO (17/08/2026) — fatto, in app
 
 **Scelto guardando i mockup dal telefono:** dadi d'**osso** con i punti a

@@ -1,0 +1,138 @@
+<!doctype html><html lang="it"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Notte e nebbia · cinque spedizioni con le stanze sagomate</title>
+<link rel="stylesheet" href="base.css"><link rel="stylesheet" href="nebbia.css">
+<link rel="stylesheet" href="nebbia2.css">
+<style>
+  .scorri { overflow-x: auto; border: 1px solid var(--bordo); border-radius: 10px;
+    background: #07080a; padding: 14px; }
+  .plancia { position: relative; margin: 0 auto; }
+  .tess { position: absolute; background-size: cover; background-position: center; }
+  .tess .celle { position: absolute; inset: 0; display: grid;
+    grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(4, 1fr); }
+  .tess .cel { border-right: 1px solid rgba(230,195,120,.13);
+    border-bottom: 1px solid rgba(230,195,120,.13); }
+  .numero { position: absolute; left: 5px; top: 5px; width: 16px; height: 16px;
+    border-radius: 50%; display: grid; place-items: center; font-family: 'FellSC', serif;
+    font-size: 9.5px; color: var(--lume); background: rgba(6,8,10,.82);
+    border: 1px solid rgba(232,194,122,.38); z-index: 3; }
+  .legenda { display: flex; flex-wrap: wrap; gap: 4px 16px; margin-top: 10px;
+    font-size: 13px; color: var(--fioco); }
+  .legenda span { white-space: nowrap; }
+  .legenda i { font-style: normal; color: var(--lume); font-family: 'FellSC', serif;
+    margin-right: 4px; }
+  .legenda em { font-style: italic; color: #8a9099; }
+
+  /* L'INTERRUTTORE. Il confronto vero è lo STESSO episodio nelle due piante:
+     affiancarle le rimpicciolirebbe, e la differenza sta nel profilo — che si
+     vede solo a tessera grande. Qui si scambia sul posto. */
+  .leva { display: inline-flex; gap: 0; border: 1px solid var(--bordo);
+    border-radius: 999px; overflow: hidden; margin: 0 0 12px; }
+  .leva button { font-family: 'FellSC', serif; font-size: 13px; letter-spacing: .08em;
+    padding: 7px 16px; color: var(--fioco); background: var(--vetro); border: 0;
+    cursor: pointer; }
+  .leva button[aria-pressed="true"] { color: #17140d; background: var(--lume); }
+  h2 .ep { font-family: 'FellSC', serif; font-size: 13px; letter-spacing: .1em;
+    color: var(--fioco); display: block; }
+  .pianta { font-size: 13px; color: var(--fioco); margin-top: 8px; }
+  .pianta b { color: var(--lume); font-family: 'FellSC', serif; font-weight: 400; }
+</style>
+</head><body>
+<div class="wrap">
+  <a class="torna" href="nebbia2-tessere-forma.html">← la forma delle tessere</a>
+
+  <h1 style="margin-bottom:6px">cinque spedizioni, con le stanze sagomate</h1>
+  <p class="nota" style="margin-bottom:6px">La <b>direzione 2</b> montata davvero: tessere
+    vere, generate dal pennello del gioco con gli arredi e i pavimenti dipinti. L'ingombro
+    resta il quadrato 4×4 di sempre — cambia il <b>muro</b>, che segue la pianta invece del
+    rettangolo, e le caselle fuori sagoma diventano il buio del tavolo.</p>
+  <p class="nota" style="margin-bottom:6px">La sagoma la dice il <b>nome della stanza</b>, con
+    la stessa regola con cui il nome dice già il pavimento: «ballatoio» è un anello attorno
+    alla torre, «cisterna» è tonda con le colonne, «camminamento» è una fascia larga due
+    caselle, «navata» ha l'abside. Nessun campo nuovo scritto a mano su 127 tessere.</p>
+  <p class="nota" style="margin-bottom:14px">Le porte <b>non si spostano mai</b>: la sagoma si
+    adatta a quelle che <code>pickDoorIndex</code> ha già scelto, o il cartoncino e l'app
+    direbbero due cose diverse. Se un taglio spezzerebbe la stanza in due, si rinuncia alle
+    sue caselle una alla volta finché torna intera — su 127 tessere è successo cinque volte,
+    e mai per più di due caselle.</p>
+
+  <div class="leva">
+    <button id="b-quad" aria-pressed="false">com'è oggi · quadrate</button>
+    <button id="b-sag" aria-pressed="true">la direzione 2 · sagomate</button>
+  </div>
+
+  <div id="spedizioni"></div>
+
+  <div class="prova">
+    <div class="che">l'artwork, e perché è tutto della stessa mano</div>
+    <p class="perche">Pavimenti e arredi vengono <b>tutti da Forgotten Adventures</b>, e i muri
+      dal suo kit modulare. È l'unica delle due librerie in casa che copre tutte e 127 le
+      tessere — dieci ambienti e quattordici arredi — con una mano sola: mescolarla con
+      2-Minute Tabletop metterebbe l'inchiostro disegnato accanto al dipinto, e le texture
+      fotografiche di Poly Haven accanto a tutti e due. Per la <b>coerenza</b> non c'è gara.</p>
+    <p class="perche">Va detto: FA è <b>CC BY-NC-SA</b>, e il ShareAlike si attacca alle tessere
+      che ne derivano. Queste cinque spedizioni sono una prova di forma, non una scelta di
+      licenza — quella sta ancora aperta in
+      <a href="nebbia2-tessere-3vie.html">le tre librerie a confronto</a>.</p>
+  </div>
+</div>
+
+<script>
+const CELLA = 42;             // una casella a schermo; la tessera e' 4 caselle.
+const T = CELLA * 4;
+let via = 'sag';
+
+// che cosa fa la sagoma, episodio per episodio — la riga che dice dove guardare
+const PIANTE = {
+  preludio: 'La <b>banchina della dogana</b> perde l’angolo che dà sull’acqua: il molo finisce dove finisce la pietra. Lo <b>stanzino del daziere</b> resta pieno, ed è giusto — è uno stanzino.',
+  ep3: 'La <b>cisterna delle colonne</b> è tonda e ha le colonne in mezzo, che sono ostacoli veri e non decorazione. La <b>galleria delle eco</b> è una fascia larga due caselle fra le sue due porte, e il <b>pozzo maestro</b> ha il pozzo: un buco nel pavimento, non un disegno sul pavimento.',
+  ep5: 'La <b>navata sepolta</b> si chiude in abside sul lato opposto all’ingresso — è quel che si guarda entrando. Il <b>corridoio degli ossari</b> è stretto, e la <b>sala del capitolo</b> ha gli angoli smussati.',
+  ep11: 'L’episodio dove la forma pesa di più. Il <b>ballatoio della torre</b> e la <b>loggia delle campane</b> sono anelli: il centro è la torre, e chi ci cammina ha il vuoto da una parte. Il <b>camminamento ovest</b> è largo due caselle, e la <b>guglia</b> si stringe salendo.',
+  ep12: 'Venezia per intero: il <b>ponte dei sospiri</b> e la <b>fondamenta stretta</b> sono passaggi, il <b>sottoportico</b> ha gli angoli tagliati, il <b>cimitero delle barche</b> e il <b>canale della nebbia</b> perdono la riva.',
+};
+
+const celle = '<div class="celle">'
+  + Array.from({ length: 16 }, () => '<div class="cel"></div>').join('') + '</div>';
+
+fetch('../tessere-sagome/spedizioni.json').then((r) => r.json()).then((sped) => {
+  document.getElementById('spedizioni').innerHTML = sped.map((s) => {
+    const c0 = Math.min(...s.tessere.map((t) => t.col));
+    const r0 = Math.min(...s.tessere.map((t) => t.row));
+    const w = Math.max(...s.tessere.map((t) => t.col)) - c0 + 1;
+    const h = Math.max(...s.tessere.map((t) => t.row)) - r0 + 1;
+    const nome = s.ep === 'preludio' ? 'preludio' : 'episodio ' + s.ep.slice(2);
+    return `
+      <h2 style="margin:22px 0 8px"><span class="ep">${nome}</span>${s.titolo}</h2>
+      <div class="prova">
+        <div class="scorri">
+          <div class="plancia" style="width:${w * T}px; height:${h * T}px">
+            ${s.tessere.map((t, i) => `
+              <div class="tess" data-ep="${s.ep}" data-id="${t.id}"
+                style="left:${(t.col - c0) * T}px; top:${(t.row - r0) * T}px;
+                       width:${T}px; height:${T}px">
+                ${celle}<div class="numero">${i + 1}</div>
+              </div>`).join('')}
+          </div>
+        </div>
+        <div class="legenda">${s.tessere.map((t, i) =>
+          `<span><i>${i + 1}</i>${(t.nome || '').toLowerCase()}</span>`).join('')}</div>
+        <p class="pianta">${PIANTE[s.ep] || ''}</p>
+      </div>`;
+  }).join('');
+  dipingi();
+});
+
+// le due vie sono due file diversi con lo stesso nome: si scambia lo sfondo,
+// non si ridisegna la pagina — così il confronto resta nello stesso posto
+function dipingi() {
+  document.querySelectorAll('.tess').forEach((el) => {
+    el.style.backgroundImage =
+      `url('../tessere-sagome/${via}-${el.dataset.ep}-${el.dataset.id}.jpg')`;
+  });
+  document.getElementById('b-sag').setAttribute('aria-pressed', String(via === 'sag'));
+  document.getElementById('b-quad').setAttribute('aria-pressed', String(via === 'quad'));
+}
+document.getElementById('b-sag').onclick = () => { via = 'sag'; dipingi(); };
+document.getElementById('b-quad').onclick = () => { via = 'quad'; dipingi(); };
+</script>
+</body></html>
