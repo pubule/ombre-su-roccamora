@@ -165,6 +165,33 @@ hanno una cucitura, nessuna ne ha più di due.
 diverse non c'è più una scacchiera su cui contare. Vale per il mockup e varrà per
 `layout()` in `griglia.js`.
 
+**DICIANNOVE AMBIENTI, non più dieci** (18/08, quinto giro). Dieci erano secchi
+larghi: «mattoni» teneva insieme la fonderia e il magazzino, «terra» il giardino e
+la cantina, «navata» tutte le chiese. Ora ci sono `assi tavolato lastricato pietra
+mattonelle mosaico navata mattoni metallo lamiera acqua melma terra ghiaia roccia
+erba tappeto paglia tetti`, e sui 21 episodi ne servono **18 su 19**: la
+distribuzione passa da «mattonelle 30, lastricato 23, assi 22» a una coda lunga
+col massimo a 23. Il fuoco sta sul mattone, il ferro sulla lamiera, la merce sul
+tavolato, chi sta seduto sul tappeto, chi entra sul mosaico.
+
+**Tre varianti per ambiente**, come per gli arredi, scelte in modo stabile da un
+hash di id+nome: due stanze dello stesso tipo accostate non hanno più lo stesso
+identico pavimento. E le **macchie** non sono più tre pozze nere uguali per
+tutti: fuliggine in fonderia, ruggine in officina, polvere in navata, verde
+d'acqua nel canale (`SPORCO` in pittura-vtt.js).
+
+Due cose viste sul render: **i colori squillanti non sono varianti** — FA numera
+lo stesso tetto in nero, blu e rosso, e pescandone tre a caso la guglia usciva
+col pavimento azzurro a righe (ora filtrati, ma solo sui pavimenti: sugli arredi
+il colore è l'oggetto); e **i coppi stanno in `.webp`**, non in `.jpg` — la regola
+«i pavimenti sono jpg» vale per le texture di terreno, e chiedendo `.jpg` il
+tetto cadeva sulla lamiera ondulata.
+
+**L'INVARIANTE DELLO SHA È CAMBIATO DI PROPOSITO**: le texture importate non sono
+più le stesse, quindi ep1/T6 senza variabili d'ambiente ora vale
+**`2d80b389bbf79bf0`** e non più `77fbb56bf88c15dd`. Da qui in poi il confronto si
+fa con questo.
+
 **L'artwork è tutto Forgotten Adventures**, muri compresi: è l'unica libreria in
 casa che copre 127 tessere con una mano sola, e la coerenza era la richiesta.
 Resta CC BY-NC-SA — la scelta di licenza è ancora aperta.

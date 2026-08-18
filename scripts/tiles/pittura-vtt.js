@@ -107,6 +107,22 @@ function dipintoVario(chiave, col, row) {
   return tutte[(col * 7 + row * 3) % tutte.length];
 }
 
+// LE VARIANTI DEL PAVIMENTO. Due stanze dello stesso tipo accostate non devono
+// avere lo stesso identico pavimento — e' la carta da parati che gia' si e'
+// evitata per le casse. Se ne importano tre e qui se ne sceglie una IN MODO
+// STABILE dal nome della tessera: la stessa stanza esce sempre uguale, o il
+// cartoncino stampato e lo schermo direbbero due cose.
+function pavimentoVario(chiave, tile) {
+  const tutte = [dipinto('pavimenti', chiave),
+                 dipinto('pavimenti', `${chiave}-2`),
+                 dipinto('pavimenti', `${chiave}-3`)].filter(Boolean);
+  if (!tutte.length) return null;
+  const testo = `${tile.id || ''}${tile.nome || ''}`;
+  let n = 0;
+  for (let i = 0; i < testo.length; i++) n = (n * 31 + testo.charCodeAt(i)) % 9973;
+  return tutte[n % tutte.length];
+}
+
 const tex = (nome) => {
   const p = path.join(DIR_TEX, `${nome}.jpg`);
   if (!fs.existsSync(p)) {
@@ -122,18 +138,39 @@ const tex = (nome) => {
 // L'ORDINE E' UNA REGOLA, non un caso: «Sala delle Casse» e' un magazzino, e
 // se la riga dei salotti venisse prima si ritroverebbe il parquet.
 const PAVIMENTI = [
-  // ACQUA: canali, pozzi, cisterne. La passerella e i ponti restano di assi —
-  // ci si cammina sopra, e il pavimento e' quello che i piedi toccano.
-  [/passerell|ponte|ponticell|pontile|camminament|ballatoio|loggia|scala|gradin/i, 'assi'],
-  [/canale|acqua|pozzo|cisterna|confluenza|darsena|vasca|chiatt/i, 'acqua'],
-  [/molo|banchin|imbarcader|fondament|riva|barc/i, 'assi'],
-  [/tetto|guglia|gronda|abbaino|campanil|torre|comignol|coppi/i, 'tetti'],
-  [/chiesa|navata|sagrato|cappell|organo|coro|sacrest/i, 'navata'],
-  [/cript|catacomb|ossari|tomb|altare|sepolt/i, 'pietra'],
-  [/grotta|caverna|scavo|galler|cunicol|budello|intercapedine|sottoscala|vano/i, 'roccia'],
-  [/fonder|forgia|crogiol|officina|magazzin|deposit|quinta|carico|casse|scorie|forme|ponteggi|tavole/i, 'mattoni'],
-  [/cortile|giardino|orto|cantina|terrapien|piazzal|mercato|vicolo|calle|salita/i, 'terra'],
-  [/ufficio|stanzino|studio|archivio|scrittoio|sala|salotto|tinello|camer|piano|corridoio|stanza|tettoia|sottoportico|cella/i, 'mattonelle'],
+  // ------------------------------------------------------------- L'ACQUA
+  // quel che si CAMMINA sopra l'acqua e' assi: il pavimento e' quello che i
+  // piedi toccano, non quello che c'e' sotto
+  [/passerell|ponte|ponticell|pontile|camminament|ballatoio|loggia|scalinata|scala|gradin/i, 'assi'],
+  [/canale|acqua|pozzo|cistern|confluenza|darsena|vasca|chiatt|roggia|marea|lavatoio/i, 'acqua'],
+  // la melma e' l'acqua che non scorre: fogne, scoli, le vene sotto la citta'
+  [/fogna|melma|scolo|chiusin|cloaca|vene|budello|sentina|palude/i, 'melma'],
+  [/molo|banchin|imbarcader|fondament|riva|barc|approdo|dogana|squero/i, 'assi'],
+  // ------------------------------------------------------------- I TETTI
+  [/tetto|guglia|gronda|abbaino|campanil|torre|comignol|coppi|terrazza|lucernario/i, 'tetti'],
+  [/tettoia|baracc|capannone|rimessa/i, 'lamiera'],
+  // -------------------------------------------------------------- IL SACRO
+  [/chiesa|navata|sagrato|cappell|organo|coro|sacrest|capitolo|abside/i, 'navata'],
+  [/cript|catacomb|ossari|tomb|sepolt|cimitero|reliqui/i, 'pietra'],
+  // --------------------------------------------------------- IL SOTTOSUOLO
+  [/grotta|caverna|scavo|galler|cunicol|intercapedine|sottoscala|pietra viva|discesa/i, 'roccia'],
+  // -------------------------------------------------------------- IL LAVORO
+  // il fuoco sta sul mattone, il ferro sulla lamiera, la merce sul tavolato
+  [/fonder|forgia|crogiol|forni|fucina|carbone|calcara|bronzo/i, 'mattoni'],
+  [/officina|contrappes|argano|staffe|scorie|ferriera|macchinar|canne/i, 'metallo'],
+  [/magazzin|deposit|quinta|carico|stiva|scene|casse/i, 'tavolato'],
+  [/molino|macine|torchio|essiccatoio|stracci|granaio|stalla|fienile|paglia/i, 'paglia'],
+  // ------------------------------------------------------- LA CITTA' APERTA
+  [/giardino|orto|serra|verziere|prato|roseto/i, 'erba'],
+  [/piazzal|mercato|cantiere|ponteggi|sagrato di/i, 'ghiaia'],
+  [/cortile|terrapien|cantina|fossa|vigna/i, 'terra'],
+  [/calle|vicolo|salita|sottoportico|selciato|strada|fondamenta strett|campiello/i, 'lastricato'],
+  // -------------------------------------------------------------- IL CHIUSO
+  // dove si sta seduti c'e' il tappeto, dove si entra il mosaico, dove si
+  // lavora la mattonella
+  [/salone|salotto|biblioteca|studio|cimeli|ritratti|assemblea|lettura|attico|camera di|stanza di/i, 'tappeto'],
+  [/atrio|scalone|anticamera|guardaroba|ingresso|vestibolo|soglia/i, 'mosaico'],
+  [/ufficio|stanzin|archivio|scrittoio|sala|tinello|camer|piano|corridoio|stanza|cella|catalogazione|interrogator/i, 'mattonelle'],
 ];
 
 // OGNI TEXTURE NASCE CON LA SUA LUCE. `dark_wooden_planks` e' quasi nera,
@@ -142,16 +179,41 @@ const PAVIMENTI = [
 // quanto ingrandirne la piastrella (in caselle).
 const TARATURA = {
   assi:       { luce: 1.25, scala: 1.1 },
+  tavolato:   { luce: 1.2,  scala: 1.2 },
   lastricato: { luce: 1.0,  scala: 1.7 },
   pietra:     { luce: 1.05, scala: 1.5 },
   mattonelle: { luce: 1.15, scala: 0.9 },
-  mattoni:    { luce: 1.05, scala: 1.3 },
-  terra:      { luce: 1.1,  scala: 1.6 },
-  acqua:      { luce: 1.0,  scala: 2.2 },
-  tetti:      { luce: 1.0,  scala: 1.2 },
+  mosaico:    { luce: 1.1,  scala: 1.2 },
   navata:     { luce: 0.95, scala: 1.4 },
+  mattoni:    { luce: 1.05, scala: 1.3 },
+  metallo:    { luce: 1.0,  scala: 1.3 },
+  lamiera:    { luce: 1.0,  scala: 1.5 },
+  acqua:      { luce: 1.0,  scala: 2.2 },
+  melma:      { luce: 0.95, scala: 1.9 },
+  terra:      { luce: 1.1,  scala: 1.6 },
+  ghiaia:     { luce: 1.05, scala: 1.4 },
   roccia:     { luce: 1.15, scala: 1.8 },
+  erba:       { luce: 1.0,  scala: 1.6 },
+  tappeto:    { luce: 1.1,  scala: 2.4 },   // un tappeto non si ripete tre volte
+  paglia:     { luce: 1.15, scala: 1.5 },
+  tetti:      { luce: 1.0,  scala: 1.2 },
 };
+
+// LO SPORCO DI OGNI POSTO. Le macchie larghe sul pavimento erano tre pozze nere
+// uguali per tutti: una cripta e una fonderia si sporcano in modo diverso, e la
+// macchia e' meta' di quel che fa sembrare un pavimento un pavimento vissuto.
+const SPORCO = {
+  acqua:   ['rgba(20,60,60,.55)', 'rgba(10,30,36,.5)'],
+  melma:   ['rgba(38,44,20,.6)', 'rgba(20,26,12,.55)'],
+  mattoni: ['rgba(18,10,6,.62)', 'rgba(40,18,6,.35)'],       // fuliggine
+  metallo: ['rgba(46,22,10,.5)', 'rgba(12,14,16,.6)'],       // ruggine
+  navata:  ['rgba(24,24,20,.42)', 'rgba(60,56,44,.28)'],     // polvere
+  pietra:  ['rgba(16,16,18,.55)', 'rgba(36,34,28,.3)'],
+  erba:    ['rgba(16,26,14,.5)', 'rgba(8,16,10,.45)'],
+  tappeto: ['rgba(24,10,10,.45)', 'rgba(10,8,8,.4)'],
+  paglia:  ['rgba(38,30,12,.5)', 'rgba(18,14,6,.45)'],
+};
+const SPORCO_BASE = ['rgba(0,0,0,.55)', 'rgba(10,20,22,.5)'];
 
 function pavimentoDi(tile) {
   const nome = `${tile.nome || ''} ${tile.id || ''}`;
@@ -378,7 +440,8 @@ function htmlVtt(tile, S, { gruppi, porte, stampa = false, celle = null, cornice
   const viva = (x, y) => vive.has(x + ',' + y);
   const pav = pavimentoDi(tile);
   const tar = TARATURA[pav] || { luce: 1, scala: 1 };
-  const pavDipinto = dipinto('pavimenti', pav);
+  const sporco = SPORCO[pav] || SPORCO_BASE;
+  const pavDipinto = pavimentoVario(pav, tile);
   // L'ACQUA NON HA UNA TEXTURE. Poly Haven fa superfici, non canali: finche'
   // non arriva quella dipinta del pacchetto VTT, il canale lo si dipinge qui —
   // buio verdastro con le spire lente della corrente.
@@ -659,9 +722,9 @@ function htmlVtt(tile, S, { gruppi, porte, stampa = false, celle = null, cornice
     /* macchie larghe: senza, un pavimento piastrellato e' carta da parati */
     .macchie { position:absolute; inset:0; opacity:.55;
       background:
-        radial-gradient(38% 30% at 22% 18%, rgba(0,0,0,.55), transparent 70%),
-        radial-gradient(30% 26% at 78% 62%, rgba(0,0,0,.5), transparent 70%),
-        radial-gradient(26% 22% at 55% 88%, rgba(10,20,22,.5), transparent 70%); }
+        radial-gradient(38% 30% at 22% 18%, ${sporco[0]}, transparent 70%),
+        radial-gradient(30% 26% at 78% 62%, ${sporco[0]}, transparent 70%),
+        radial-gradient(26% 22% at 55% 88%, ${sporco[1]}, transparent 70%); }
 
     /* LA STANZA HA I MURI: senza il buio ai bordi, quattro tessere accostate
        sembrano un unico pavimento continuo e non si capisce dove finisce una

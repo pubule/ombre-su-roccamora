@@ -74,23 +74,54 @@ ARREDI = {
 # I PAVIMENTI VENGONO PRIMA DAL PACCHETTO DI TERRENI: e' fatto per questo —
 # piastrelle grandi, cucitura invisibile, e la stessa mano degli arredi. La
 # libreria grande resta come ripiego.
+# DICIOTTO AMBIENTI, non piu' dieci. Dieci erano secchi larghi: «mattoni» teneva
+# insieme la fonderia e il magazzino, «terra» il giardino e la cantina, «navata»
+# tutte le chiese. Roccamora ha piu' posti di cosi', e la libreria FA ha piu'
+# texture di cosi' — quaranta famiglie, dalle assi di catapecchia al marmo, dalla
+# melma di palude alla lamiera ondulata.
+#
+# TRE VARIANTI PER AMBIENTE, come per gli arredi: due stanze dello stesso tipo
+# accostate non devono avere lo stesso identico pavimento. Il generatore ne
+# sceglie una in modo stabile dal nome della tessera, cosi' la stessa stanza esce
+# sempre uguale — schermo e cartoncino devono dire la stessa cosa.
 PAVIMENTI = {
-    'assi':       [['textures/wooden_floors', '.jpg'], ['textures/wood', '.jpg']],
+    # -- il legno: le banchine e i moli sono una cosa, i tavolati poveri un'altra
+    'assi':       [['textures/wooden_floors', 'ashen'], ['textures/wooden_floors', '.jpg']],
+    'tavolato':   [['textures/shack_floors', '.jpg'], ['textures/wooden_floors', 'dark']],
+    # -- la pietra della citta': la calle, la cripta, la stanza, il palazzo
     'lastricato': [['texture_pack_05', 'stone_tiles_a'],
-                   ['textures/stone_floors', 'cobblestone_a', '.jpg']],
+                   ['textures/stone_floors', 'cobblestone', '.jpg'],
+                   ['textures/stone_floors', '.jpg']],
     'pietra':     [['texture_pack_05', 'square_grout'],
                    ['textures/stone_square_tiles', '.jpg']],
     'mattonelle': [['texture_pack_05', 'marble_tiles_b'],
                    ['textures/stone_patterned_tiles', '.jpg']],
+    'mosaico':    [['textures/stone_diagonal_tiles', '.jpg'],
+                   ['textures/stone_hexagonal_tiles', '.jpg']],
+    'navata':     [['textures/marble', '.jpg'], ['texture_pack_05', 'marble_tiles_a']],
+    # -- il lavoro: il forno, l'officina, la passerella di ferro
     'mattoni':    [['textures/brick', 'brick_floor', '.jpg'], ['textures/brick', '.jpg']],
-    'terra':      [['texture_pack_05', 'terrain'], ['texture_pack_05', 'forest_floor'],
-                   ['textures/cultivated_soil', '.jpg']],
+    'metallo':    [['textures/metal', 'metal_floor', '.jpg'], ['textures/metal', '.jpg']],
+    'lamiera':    [['textures/roof', 'corrugated', '.jpg'], ['textures/roof', '.jpg']],
+    # -- l'acqua e quel che ci sta attorno: il canale, la melma, il fango
     'acqua':      [['texture_pack_05', 'still_water_a'],
-                   ['aquatic', 'textures', 'water', '.jpg']],
-    'tetti':      [['textures/roof', 'tile', '.jpg'], ['textures/roof', '.jpg']],
-    'navata':     [['texture_pack_05', 'marble_tiles_a'],
-                   ['textures/marble', 'white', '.jpg']],
-    'roccia':     [['texture_pack_05', 'rock_'], ['underdark', 'textures', '.jpg']],
+                   ['aquatic', 'textures/water', 'calm', '.jpg'],
+                   ['aquatic', 'textures/water', '.jpg']],
+    'melma':      [['textures/marsh', '.jpg'], ['textures/mud', '.jpg']],
+    # -- la terra: il cortile, il piazzale, la grotta
+    'terra':      [['texture_pack_05', 'terrain'], ['textures/dirt', '.jpg']],
+    'ghiaia':     [['textures/gravel', '.jpg'], ['textures/dirt', '.jpg']],
+    'roccia':     [['texture_pack_05', 'rock_'], ['textures/rock', '.jpg']],
+    # -- il verde e il chiuso: il giardino, il salotto, l'essiccatoio
+    'erba':       [['textures/grass', '.jpg'], ['textures/forest', '.jpg']],
+    'tappeto':    [['textures/rug_and_carpets', 'red', '.jpg'],
+                   ['textures/rug_and_carpets', '.jpg']],
+    'paglia':     [['textures/hay', '.jpg'], ['textures/dirt', '.jpg']],
+    # -- i tetti restano quel che erano
+    # I COPPI STANNO IN .webp, non in .jpg — la regola «i pavimenti sono jpg»
+    # vale per le texture di terreno, non per questa: chiedendo .jpg il tetto
+    # cadeva sulla LAMIERA ONDULATA, e l Ep.11 e un campanile, non un capannone.
+    'tetti':      [['textures/roof', 'roof_texture_tile'], ['textures/roof', 'tile']],
 }
 
 INGOMBRO = re.compile(r'_(\d+)x(\d+)\.(webp|png|jpg)$', re.I)
@@ -193,16 +224,24 @@ def main():
             righe.append(f'arredi/{nome}.png  <-  {os.path.relpath(p, ROOT).replace(chr(92), '/')}')
         print(f'  {chiave:11s} {len(scelti)} varianti · ingombro {ingombro(scelti[0])} · {os.path.basename(scelti[0])}')
 
+    # I COLORI SQUILLANTI NON SONO VARIANTI. FA numera lo stesso tetto in nero,
+    # blu e rosso, e lo stesso marmo in verde e oro: pescandone tre a caso la
+    # guglia usciva col pavimento azzurro a righe. Sui PAVIMENTI si tengono solo
+    # le tinte neutre — sugli arredi no, li' il colore e' l'oggetto.
+    tinti = ['_blue', '_red', '_green', '_purple', '_gold', '_silver', '_pink',
+             '_orange', '_yellow', 'bluesilver', 'goldred', 'blackgold']
+    neutri = [q for q in tutti if not any(t in os.path.basename(q).lower() for t in tinti)]
     for chiave, ricette in PAVIMENTI.items():
-        parole, scelti = scegli(tutti, ricette, 1)
+        parole, scelti = scegli(neutri, ricette, VARIANTI)
         if not scelti:
             mancanti.append('pavimento ' + chiave)
             print(f'  pavimento {chiave:11s} NIENTE')
             continue
-        p = scelti[0]
-        w, h = porta(p, os.path.join(FUORI, 'pavimenti', chiave + '.png'), ritaglia=False)
-        righe.append(f'pavimenti/{chiave}.png  <-  {os.path.relpath(p, ROOT).replace(chr(92), '/')}')
-        print(f'  pavimento {chiave:11s} {w}x{h} · {os.path.basename(p)}')
+        for i, p in enumerate(scelti):
+            nome = chiave if i == 0 else f'{chiave}-{i + 1}'
+            w, h = porta(p, os.path.join(FUORI, 'pavimenti', nome + '.png'), ritaglia=False)
+            righe.append(f'pavimenti/{nome}.png  <-  {os.path.relpath(p, ROOT).replace(chr(92), '/')}')
+        print(f'  pavimento {chiave:11s} {len(scelti)} varianti · {os.path.basename(scelti[0])}')
 
     with open(os.path.join(FUORI, 'LICENZE.txt'), 'w', encoding='utf-8') as f:
         f.write('Arredi e pavimenti delle tessere di Spedizione.\n')
