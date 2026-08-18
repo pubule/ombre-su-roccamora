@@ -31,6 +31,17 @@ const { pathToFileURL } = require('url');
 const ROOT = path.resolve(__dirname, '..', '..');
 const DIR_TEX = path.join(ROOT, 'webapp', 'texture');
 
+// GLI ASSET DIPINTI VINCONO SULLE SAGOME. Se `webapp/vtt/` ha l'arredo o il
+// pavimento dipinto (li porta dentro scripts/importa-vtt.py dai pacchetti
+// 2-Minute Tabletop, CC BY-NC), si usa quello: e' il look dei riferimenti.
+// Senza, restano la texture CC0 e la sagoma disegnata qui — cosi' una tessera
+// esce comunque, e nessuna casella resta vuota all'occhio.
+const DIR_VTT = path.join(ROOT, 'webapp', 'vtt');
+const dipinto = (tipo, nome) => {
+  const p = path.join(DIR_VTT, tipo, `${nome}.png`);
+  return fs.existsSync(p) ? pathToFileURL(p).href : null;
+};
+
 const tex = (nome) => {
   const p = path.join(DIR_TEX, `${nome}.jpg`);
   if (!fs.existsSync(p)) {
@@ -256,6 +267,7 @@ function htmlVtt(tile, S, { gruppi, porte, stampa = false }) {
   const c = S / 4;
   const pav = pavimentoDi(tile);
   const tar = TARATURA[pav] || { luce: 1, scala: 1 };
+  const pavDipinto = dipinto('pavimenti', pav);
 
   const arredi = gruppi.map((g) => {
     const chiave = String(g.label).toLowerCase();
@@ -264,12 +276,18 @@ function htmlVtt(tile, S, { gruppi, porte, stampa = false }) {
     // essendo bloccata dalle regole: e' l'inganno del Preludio, e qui non si
     // ripete — si mette almeno un ingombro, e lo si dice in console.
     const w = g.cols * c, h = g.rows * c;
-    const dentro = disegna
+    const arte = dipinto('arredi', chiave);
+    const dentro = arte
+      ? `<div class="og dipinto" style="width:${w * 0.86}px;height:${h * 0.86}px;
+           background-image:url('${arte}'); background-size:contain;
+           background-repeat:no-repeat; filter:drop-shadow(0 ${Math.round(c * 0.03)}px
+           ${Math.round(c * 0.05)}px rgba(0,0,0,.65))"></div>`
+      : disegna
       ? disegna({ c, w, h })
       : `<div class="og" style="width:${w * 0.6}px;height:${h * 0.6}px;border-radius:${c * 0.02}px;
            background-image:linear-gradient(rgba(20,18,16,.5), rgba(8,7,6,.6)), url('${tex('legno')}');
            background-size:auto, ${c * 0.5}px ${c * 0.5}px; box-shadow:${OMBRA}"></div>`;
-    if (!disegna) console.log(`arredo senza sagoma, disegnato come ingombro: ${chiave}`);
+    if (!arte && !disegna) console.log(`arredo senza arte ne' sagoma, disegnato come ingombro: ${chiave}`);
     return `<div class="posto" style="left:${g.col * c}px; top:${g.row * c}px; width:${w}px; height:${h}px;">${dentro}</div>`;
   }).join('');
 
@@ -287,6 +305,33 @@ function htmlVtt(tile, S, { gruppi, porte, stampa = false }) {
     return `<div class="luce" style="left:${x - r}px; top:${y - r}px; width:${r * 2}px; height:${r * 2}px;
       background:radial-gradient(circle, rgba(150,190,200,.16) 0%, rgba(120,160,175,.07) 40%, transparent 70%)"></div>`;
   }).join('');
+
+  // I MURI. Nei riferimenti (le battlemap dipinte) e' la prima cosa che si
+  // vede: una fascia di pietra con SPESSORE attorno alla stanza, e l'ombra che
+  // cade dentro. Senza, un pavimento e' una piastrella; con, e' una stanza.
+  // Le porte sono varchi nel muro, non barre appiccicate sopra: si aprono
+  // esattamente sulla cella che `pickDoorIndex` ha scelto.
+  const sp = Math.round(c * 0.26);          // spessore del muro
+  // UN VARCO NON SI DISEGNA SOPRA, SI LASCIA: il muro di quel lato si spezza
+  // in due tratti e in mezzo resta la soglia. Un rettangolo trasparente sopra
+  // la pietra non toglie la pietra — l'ho provato, e la porta restava murata.
+  const tratti = (dir) => {
+    const buchi = porte.filter((p) => p.dir === dir)
+      .map((p) => [p.idx * c + c * 0.16, p.idx * c + c * 0.84])
+      .sort((a, b) => a[0] - b[0]);
+    const pezzi = []; let da = 0;
+    for (const [a, b] of buchi) { if (a > da) pezzi.push([da, a]); da = b; }
+    if (da < S) pezzi.push([da, S]);
+    return pezzi;
+  };
+  const muri = ['N', 'S', 'E', 'O'].map((dir) => tratti(dir).map(([a, b]) => {
+    const l = b - a;
+    const q = { N: `left:${a}px; top:0; width:${l}px; height:${sp}px;`,
+                S: `left:${a}px; top:${S - sp}px; width:${l}px; height:${sp}px;`,
+                E: `left:${S - sp}px; top:${a}px; width:${sp}px; height:${l}px;`,
+                O: `left:0; top:${a}px; width:${sp}px; height:${l}px;` }[dir];
+    return `<div class="muro" style="${q}"></div>`;
+  }).join('')).join('');
 
   // il reticolo e i cartellini stanno nel PNG SOLO per la stampa: a schermo li
   // disegna l'app, e cuocerli qui significa averli due volte
@@ -307,11 +352,15 @@ function htmlVtt(tile, S, { gruppi, porte, stampa = false }) {
        e' mezza casella — a casella intera si legge il ripetersi, a un quarto
        diventa un tessuto. */
     .suolo { position:absolute; inset:0;
-      background-image:url('${tex(pav)}');
+      background-image:url('${pavDipinto || tex(pav)}');
       background-size:${Math.round(c * tar.scala)}px ${Math.round(c * tar.scala)}px;
       /* almeno una piastrella per casella: piu' fitta di cosi' il pavimento
          diventa un tessuto e smette di leggersi come pavimento */
-      filter:saturate(.5) brightness(${(0.86 * tar.luce).toFixed(2)}) contrast(1.06); }
+      ${pavDipinto
+        /* un pavimento gia' dipinto ha la sua luce e la sua palette: toccarlo
+           col filtro delle foto lo spegnerebbe due volte */
+        ? 'filter:saturate(.85) brightness(.94);'
+        : `filter:saturate(.5) brightness(${(0.86 * tar.luce).toFixed(2)}) contrast(1.06);`} }
     /* la velatura porta la texture nella palette senza spegnerla: il PNG non
        deve arrivare gia' nero, perche' e' l'app a metterci sopra i suoi filtri
        (e in stampa il nero non si recupera) */
@@ -345,6 +394,9 @@ function htmlVtt(tile, S, { gruppi, porte, stampa = false }) {
       /* il legno di Poly Haven e' rossiccio: qui va nella palette, o le casse
          sembrano incollate sopra invece che appoggiate */
       filter:saturate(.4) brightness(1.12); }
+    /* quel che e' gia' dipinto non si ritocca: ha la sua luce */
+    .posto .og.dipinto { background-blend-mode:normal; box-shadow:none; }
+    .posto .og.dipinto::after { content:none; }
     /* un filo di luce sul bordo alto: la lanterna sta in alto a sinistra, e
        senza questo riflesso un oggetto scuro su pavimento scuro e' una macchia */
     .posto .og { box-shadow:${OMBRA}; }
@@ -352,6 +404,13 @@ function htmlVtt(tile, S, { gruppi, porte, stampa = false }) {
       pointer-events:none;
       background:linear-gradient(155deg, rgba(255,238,200,.18), rgba(255,238,200,0) 42%); }
 
+    /* la pietra del muro, e l'ombra che getta dentro la stanza: e' l'ombra a
+       dare lo spessore, non il bordo */
+    .muro { position:absolute; background-image:linear-gradient(rgba(30,34,40,.5), rgba(12,14,18,.7)),
+      url('${tex('muro')}'); background-size:auto, ${Math.round(c * 0.8)}px ${Math.round(c * 0.8)}px;
+      background-blend-mode:multiply; filter:saturate(.35) brightness(.95);
+      box-shadow:0 0 ${Math.round(c * 0.22)}px ${Math.round(c * 0.06)}px rgba(0,0,0,.85),
+                 inset 0 0 ${Math.round(c * 0.1)}px rgba(0,0,0,.6); }
     .cell { position:absolute; border:2px solid rgba(230,195,120,0.35); }
   </style></head><body>
     <div class="stage">
@@ -361,6 +420,7 @@ function htmlVtt(tile, S, { gruppi, porte, stampa = false }) {
       <div class="lanterna"></div>
       ${luci}
       ${arredi}
+      ${muri}
       <div class="muri"></div>
       ${griglia}
     </div>

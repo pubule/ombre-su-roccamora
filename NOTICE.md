@@ -22,6 +22,22 @@ gioco in astratto. Questa licenza non impedisce a terzi di creare un gioco
 diverso ispirato a meccaniche simili, purché non ne copino testi, arte o
 layout.
 
+## Asset delle mappe (2-Minute Tabletop) — non commerciale
+
+Gli arredi e i pavimenti dipinti delle tessere di Spedizione vengono dai
+pacchetti gratuiti di **2-Minute Tabletop** (<https://2minutetabletop.com>),
+distribuiti in **CC BY-NC 4.0**: attribuzione obbligatoria, e **nessun uso
+commerciale** — il vincolo vale anche per le tessere che ne derivano.
+
+Credito da mostrare dove le mappe compaiono: «Mappe realizzate con asset di
+2-Minute Tabletop».
+
+Finche' queste risorse restano nelle tessere, la licenza commerciale separata
+di cui sopra **non puo' coprire le mappe**: per venderle servirebbe rifarle con
+risorse proprie o con asset a licenza commerciale. L'elenco preciso di cosa
+viene da dove sta in `webapp/vtt/LICENZE.txt`, scritto da
+`scripts/importa-vtt.py`.
+
 ## Illustrazioni generate con IA
 
 Alcune illustrazioni in `artworks/` sono generate con strumenti di IA

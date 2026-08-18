@@ -36,3 +36,6 @@ webapp/public/js/_oracolo.js
 webapp/scatti/
 scatti/
 prova-tessere/
+risorse-vtt/*.zip
+risorse-vtt/estratti/
+webapp/vtt/
