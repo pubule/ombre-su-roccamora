@@ -112,6 +112,26 @@ A/B del kit si era messa a dipendere da `cx+cy` invece che dall'indice lungo il
 lato: le tessere già stampate cambiavano disegno del muro su tre lati su quattro,
 e nessun banco se ne accorgeva. Si vede solo confrontando gli SHA.
 
+**IL MURO STA FUORI DALLE CASELLE, e la tessera è cresciuta** (18/08, secondo
+giro). Il pezzo del kit veniva appoggiato *sopra* la prima casella del bordo e ne
+mangiava metà — misurato sull'alfa: la pietra occupava dal 9% al 60% della
+casella. Una pedina posata lì sembrava dentro il muro, e le caselle giocabili
+vere erano meno di sedici. Ora `htmlVtt` prende una `cornice` (in caselle) e la
+tessera vale `4 caselle + 2 cornici`; il muro è una **fascia** ricavata dal pezzo
+del kit, scalata perché la sua pietra sia alta esattamente quanto la cornice e
+ripetuta in orizzontale, con i quadrati d'angolo a chiudere gli spigoli.
+
+Le due manopole stanno in `generate-tiles.js` e arrivano dall'ambiente:
+`OSR_CASELLA` (px per casella, 616 = 50 mm) e `OSR_CORNICE` (spessore del muro in
+caselle). **A valori di default il PNG è identico a prima** — è lo stesso
+invariante dello SHA qui sotto. Le cinque spedizioni sono generate con
+`OSR_CASELLA=740 OSR_CORNICE=0.28`: casella **60 mm**, muro **17 mm**, tessera
+**271 mm** invece di 200. Sta ancora in un A3.
+
+Attenzione a chi disegna il reticolo sopra: con la cornice **non è più tutta
+l'immagine**, è il 6,14% in dentro per lato. Nel mockup è un `inset`; in
+`digitale.js` andrà fatto lo stesso se la direzione viene scelta.
+
 **L'artwork è tutto Forgotten Adventures**, muri compresi: è l'unica libreria in
 casa che copre 127 tessere con una mano sola, e la coerenza era la richiesta.
 Resta CC BY-NC-SA — la scelta di licenza è ancora aperta.

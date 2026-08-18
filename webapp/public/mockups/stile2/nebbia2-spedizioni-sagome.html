@@ -8,7 +8,11 @@
     background: #07080a; padding: 14px; }
   .plancia { position: relative; margin: 0 auto; }
   .tess { position: absolute; background-size: cover; background-position: center; }
-  .tess .celle { position: absolute; inset: 0; display: grid;
+  /* IL RETICOLO STA NEL RIQUADRO GIOCABILE. La tessera e' 4 caselle piu' due
+     cornici di muro (0,28 caselle l'una): 0,28/4,56 = 6,14% per lato. Disegnarlo
+     su tutta l'immagine rimetterebbe le linee sopra la pietra — lo stesso
+     difetto di prima, spostato dal PNG al DOM. */
+  .tess .celle { position: absolute; inset: 6.14%; display: grid;
     grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(4, 1fr); }
   .tess .cel { border-right: 1px solid rgba(230,195,120,.13);
     border-bottom: 1px solid rgba(230,195,120,.13); }
@@ -50,6 +54,14 @@
     la stessa regola con cui il nome dice già il pavimento: «ballatoio» è un anello attorno
     alla torre, «cisterna» è tonda con le colonne, «camminamento» è una fascia larga due
     caselle, «navata» ha l'abside. Nessun campo nuovo scritto a mano su 127 tessere.</p>
+  <p class="nota" style="margin-bottom:6px">Due cose sono cambiate dalla prima
+    stesura, e si vedevano solo posando una pedina. <b>Il muro adesso sta fuori dalle
+    caselle</b>: prima il pezzo del kit veniva appoggiato sopra la prima casella del bordo
+    e ne mangiava metà — misurato, dal 9% al 60% — così una pedina posata lì sembrava
+    dentro la pietra, e le caselle giocabili vere erano meno di sedici. E <b>la casella è
+    passata da 50 a 60 mm</b>, perché sedici caselle piene vogliono anche spazio per
+    muovercisi. La tessera cresce da 200 a <b>271 mm</b>: 4×60 mm di pavimento più 17 mm
+    di muro per lato. Sta ancora in un A3.</p>
   <p class="nota" style="margin-bottom:14px">Le porte <b>non si spostano mai</b>: la sagoma si
     adatta a quelle che <code>pickDoorIndex</code> ha già scelto, o il cartoncino e l'app
     direbbero due cose diverse. Se un taglio spezzerebbe la stanza in due, si rinuncia alle
@@ -78,8 +90,11 @@
 </div>
 
 <script>
-const CELLA = 42;             // una casella a schermo; la tessera e' 4 caselle.
-const T = CELLA * 4;
+// LA TESSERA E' PIU' GRANDE, e a schermo si vede: casella da 50 a 60 mm, e il
+// muro fuori dal reticolo invece che sopra la prima casella. Il riquadro della
+// tessera vale ora 4 caselle piu' due cornici — 4,56 caselle in tutto.
+const CELLA = 46;             // una casella a schermo
+const T = Math.round(CELLA * 4.56);
 let via = 'sag';
 
 // che cosa fa la sagoma, episodio per episodio — la riga che dice dove guardare

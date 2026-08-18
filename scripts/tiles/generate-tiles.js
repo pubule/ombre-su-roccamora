@@ -50,9 +50,21 @@ const OUT_DIR = OUT_SCELTA
   : path.join(ROOT, EP_DIR, 'board');
 fs.mkdirSync(OUT_DIR, { recursive: true });
 
-const S = 2464; // 1600 * 200/130, arrotondato a multiplo di 4: tessera 130mm->200mm
-                // (celle 50mm invece di 32.5mm, minimo richiesto per muovere comodo
-                // i token), stessa densita' di stampa di prima
+// LA TAGLIA DELLA TESSERA, in due manopole invece che in un numero solo.
+//
+//   OSR_CASELLA  quanti pixel vale una casella (616 = 50 mm alla densita' di
+//                stampa di sempre, 12,32 px/mm)
+//   OSR_CORNICE  quanto e' spessa la fascia di muro FUORI dal reticolo, in
+//                caselle (0 = il muro sta sopra le caselle, com'era)
+//
+// A valori di default il conto torna a 2464 px = 200 mm e non cambia un pixel.
+// La 130 -> 200 mm di allora serviva a portare la casella da 32,5 a 50 mm, il
+// minimo per muovere comodo i token; la cornice serve a un'altra cosa ancora —
+// che quei 50 mm siano tutti pavimento e non meta' muro.
+const PX_MM = 12.32;
+const CASELLA = Number(process.env.OSR_CASELLA || 616);
+const CORNICE = Number(process.env.OSR_CORNICE || 0);
+const S = Math.round(CASELLA * (4 + 2 * CORNICE) / 4) * 4;
 
 // Episodio 2 - 1:1 da src/gen_ep2.py TILES_2 (id, nome, exits, arredi);
 // arte di sfondo: artworks/<id>-ep2.png (campo art).
@@ -395,6 +407,10 @@ function html(tile) {
 }
 
 (async () => {
+  if (CORNICE || CASELLA !== 616) {
+    console.log(`tessera ${S}px = ${(S / PX_MM).toFixed(0)}mm · casella `
+      + `${(CASELLA / PX_MM).toFixed(0)}mm · muro ${(CASELLA * CORNICE / PX_MM).toFixed(0)}mm`);
+  }
   const browser = await chromium.launch({ headless: true });
   const page = await browser.newPage({ viewport: { width: S, height: S } });
 
@@ -443,7 +459,7 @@ function html(tile) {
       console.log(`  ${tile.id}: sagoma «${sagoma.scartata}» buttata (spezzava la stanza), resta quadrata`);
     }
     const pagina = VTT
-      ? htmlVtt(tile, S, { gruppi: groupArredi(tile.arredi), porte,
+      ? htmlVtt(tile, S, { gruppi: groupArredi(tile.arredi), porte, cornice: CORNICE,
                            celle: sagoma ? sagoma.celle : null })
       : html(tile);
     fs.writeFileSync(tmpHtml, pagina, 'utf8');

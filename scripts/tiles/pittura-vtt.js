@@ -340,8 +340,22 @@ const FUOCHI = { candele: '#e8c27a', crogiolo: '#e8934a', stufa: '#e8934a', alta
 //
 // `gruppi` arriva gia' fuso da `groupArredi()` del generatore: un arredo che
 // occupa piu' celle e' UN oggetto piu' grande, non lo stesso oggetto ripetuto.
-function htmlVtt(tile, S, { gruppi, porte, stampa = false, celle = null }) {
-  const c = S / 4;
+function htmlVtt(tile, S, { gruppi, porte, stampa = false, celle = null, cornice = 0 }) {
+  // LA CORNICE: il muro sta FUORI dalle caselle giocabili.
+  //
+  // Fino a ieri il pezzo di muro veniva appoggiato SOPRA la prima casella del
+  // bordo e ne mangiava meta' (misurato: la pietra del kit occupa dal 9% al 60%
+  // della casella). Una pedina posata li' sembra dentro il muro, e le caselle
+  // giocabili vere erano meno di sedici. Con `cornice > 0` la tessera si allarga
+  // di una fascia per lato e il reticolo 4x4 resta tutto pavimento.
+  //
+  //   S = 4 caselle + 2 cornici   ->   c = S / (4 + 2 * cornice)
+  //
+  // A cornice 0 il conto torna a S/4 e non cambia un pixel: e' cosi' che le
+  // tessere gia' stampate restano quelle di prima.
+  const c = S / (4 + 2 * cornice);
+  const M = c * cornice;          // lo spessore del muro, fuori dal reticolo
+  const off = M;                  // dove comincia la prima casella
   // LA SAGOMA (scripts/tiles/sagome.js). `celle` sono le caselle VIVE: quel che
   // non c'e' dentro non e' pavimento, e il muro ci gira attorno. Senza il campo,
   // la tessera resta il quadrato pieno di sempre — e' cosi' che il vecchio
@@ -369,7 +383,7 @@ function htmlVtt(tile, S, { gruppi, porte, stampa = false, celle = null }) {
   // cartoncino andrebbe fustellato, a schermo il risultato e' lo stesso.
   const fuori = Array.from({ length: 16 }, (_, i) => [i % 4, (i / 4) | 0])
     .filter(([x, y]) => !viva(x, y))
-    .map(([x, y]) => `<div class="fuori" style="left:${x * c}px; top:${y * c}px;
+    .map(([x, y]) => `<div class="fuori" style="left:${off + x * c}px; top:${off + y * c}px;
       width:${c}px; height:${c}px"></div>`).join('');
 
   const arredi = gruppi.map((g) => {
@@ -391,19 +405,19 @@ function htmlVtt(tile, S, { gruppi, porte, stampa = false, celle = null }) {
            background-image:linear-gradient(rgba(20,18,16,.5), rgba(8,7,6,.6)), url('${tex('legno')}');
            background-size:auto, ${c * 0.5}px ${c * 0.5}px; box-shadow:${OMBRA}"></div>`;
     if (!arte && !disegna) console.log(`arredo senza arte ne' sagoma, disegnato come ingombro: ${chiave}`);
-    return `<div class="posto" style="left:${g.col * c}px; top:${g.row * c}px; width:${w}px; height:${h}px;">${dentro}</div>`;
+    return `<div class="posto" style="left:${off + g.col * c}px; top:${off + g.row * c}px; width:${w}px; height:${h}px;">${dentro}</div>`;
   }).join('');
 
   // le pozze di luce: una per fiamma, piu' fredde sulle porte
   const luci = gruppi.filter((g) => FUOCHI[String(g.label).toLowerCase()]).map((g) => {
     const col = FUOCHI[String(g.label).toLowerCase()];
-    const x = (g.col + g.cols / 2) * c, y = (g.row + g.rows / 2) * c;
+    const x = off + (g.col + g.cols / 2) * c, y = off + (g.row + g.rows / 2) * c;
     const r = c * 1.9;
     return `<div class="luce" style="left:${x - r}px; top:${y - r}px; width:${r * 2}px; height:${r * 2}px;
       background:radial-gradient(circle, ${col}44 0%, ${col}1c 38%, transparent 70%)"></div>`;
   }).join('') + porte.map(({ dir, idx }) => {
-    const x = (dir === 'N' || dir === 'S') ? (idx + 0.5) * c : (dir === 'E' ? S : 0);
-    const y = (dir === 'E' || dir === 'O') ? (idx + 0.5) * c : (dir === 'N' ? 0 : S);
+    const x = (dir === 'N' || dir === 'S') ? off + (idx + 0.5) * c : (dir === 'E' ? S - off : off);
+    const y = (dir === 'E' || dir === 'O') ? off + (idx + 0.5) * c : (dir === 'N' ? off : S - off);
     const r = c * 1.25;
     return `<div class="luce" style="left:${x - r}px; top:${y - r}px; width:${r * 2}px; height:${r * 2}px;
       background:radial-gradient(circle, rgba(150,190,200,.16) 0%, rgba(120,160,175,.07) 40%, transparent 70%)"></div>`;
@@ -473,8 +487,55 @@ function htmlVtt(tile, S, { gruppi, porte, stampa = false, celle = null }) {
         return `<div class="lato2m" style="transform:rotate(${giro[dir]}deg)">${pezzi}</div>`;
       }).join('');
     })()
+    // --- il kit dipinto, MESSO FUORI dal reticolo: una fascia per bordo ---
+    //
+    // Il pezzo del kit e' 200x400 e la sua pietra sta fra il 37,5% e il 70,25%
+    // dell'altezza (misurato sull'alfa, non a occhio: il resto del PNG e' vuoto).
+    // Scalandolo perche' quella fascia sia alta esattamente `M` e ripetendolo in
+    // orizzontale, il muro sta tutto nella cornice — e le sedici caselle restano
+    // sedici caselle. Le pietre vengono piu' piccole del disegno originale, che a
+    // casella grande e' anche piu' giusto: un muro non e' fatto di massi da 60 cm.
+    : MURI_MODULARI && cornice > 0
+    ? (() => {
+      const arte = pezzoMuro('Dungeon_Straight_1x2_A');
+      if (!arte) return '';
+      const DA = 0.375, SPESSO = 0.3275;      // dove sta la pietra, nell'immagine
+      const H = M / SPESSO;                   // quanto va alta tutta l'immagine
+      const L = H / 2;                        // il pezzo e' largo meta' dell'altezza
+      const fascia = (x, y, w, giro) => `<div class="muroFascia" style="left:${x}px;
+        top:${y}px; width:${w}px; height:${M}px; transform:rotate(${giro}deg);
+        background-image:url('${arte}'); background-size:${L}px ${H}px;
+        background-position:0 ${-DA * H}px; background-repeat:repeat-x"></div>`;
+      const fuoriMuri = [];
+      for (const [cx, cy, dir] of bordi) {
+        const x0 = off + cx * c, y0 = off + cy * c;
+        // la fascia nasce orizzontale con la pietra in alto e l'ombra in basso;
+        // ruotandola l'ombra deve sempre cadere DENTRO la stanza
+        if (dir === 'N') fuoriMuri.push(fascia(x0, y0 - M, c, 0));
+        else if (dir === 'S') fuoriMuri.push(fascia(x0, y0 + c, c, 180));
+        // per i lati verticali la fascia resta larga `c` e alta `M`, e si ruota
+        // attorno al proprio centro: e' l'unico modo di non deformarla
+        else if (dir === 'O') fuoriMuri.push(fascia(x0 - M / 2 - c / 2, y0 + c / 2 - M / 2, c, -90));
+        else fuoriMuri.push(fascia(x0 + c - c / 2 + M / 2, y0 + c / 2 - M / 2, c, 90));
+      }
+      // GLI ANGOLI. Due fasce che si incontrano lasciano un buco quadrato di
+      // MxM: senza, il muro ha una tacca in ogni spigolo della sagoma
+      const bordo = new Set(bordi.map(([cx, cy, d]) => `${cx},${cy}${d}`));
+      for (const [cx, cy] of [...vive].map((k2) => k2.split(',').map(Number))) {
+        for (const [a, b, dx, dy] of [['N', 'O', -1, -1], ['N', 'E', 1, -1],
+                                      ['S', 'O', -1, 1], ['S', 'E', 1, 1]]) {
+          if (!bordo.has(`${cx},${cy}${a}`) || !bordo.has(`${cx},${cy}${b}`)) continue;
+          const x = off + cx * c + (dx > 0 ? c : -M);
+          const y = off + cy * c + (dy > 0 ? c : -M);
+          fuoriMuri.push(`<div class="muroFascia" style="left:${x}px; top:${y}px;
+            width:${M}px; height:${M}px; background-image:url('${arte}');
+            background-size:${L}px ${H}px; background-position:0 ${-DA * H}px"></div>`);
+        }
+      }
+      return fuoriMuri.join('');
+    })()
     : MURI_MODULARI
-    // --- il kit dipinto: un pezzo per casella, e gli angoli sopra ---
+    // --- il kit dipinto SOPRA il reticolo: com'era prima della cornice ---
     ? (() => {
       const giro = { N: 0, E: 90, S: 180, O: 270 };
       const box = 2 * c;                       // il riquadro quadrato che si ruota
@@ -505,10 +566,14 @@ function htmlVtt(tile, S, { gruppi, porte, stampa = false, celle = null }) {
     })()
     // --- il ripiego: la fascia di pietra disegnata qui, un tratto per bordo ---
     : bordi.map(([cx, cy, dir]) => {
-      const q = { N: `left:${cx * c}px; top:${cy * c}px; width:${c}px; height:${sp}px;`,
-                  S: `left:${cx * c}px; top:${(cy + 1) * c - sp}px; width:${c}px; height:${sp}px;`,
-                  E: `left:${(cx + 1) * c - sp}px; top:${cy * c}px; width:${sp}px; height:${c}px;`,
-                  O: `left:${cx * c}px; top:${cy * c}px; width:${sp}px; height:${c}px;` }[dir];
+      // con la cornice la fascia sta FUORI dalla casella (spessa M); senza,
+      // resta dentro com'era, e le tessere gia' stampate non si muovono
+      const g = cornice > 0 ? M : sp;
+      const x0 = off + cx * c, y0 = off + cy * c;
+      const q = { N: `left:${x0}px; top:${cornice > 0 ? y0 - g : y0}px; width:${c}px; height:${g}px;`,
+                  S: `left:${x0}px; top:${cornice > 0 ? y0 + c : y0 + c - g}px; width:${c}px; height:${g}px;`,
+                  E: `left:${cornice > 0 ? x0 + c : x0 + c - g}px; top:${y0}px; width:${g}px; height:${c}px;`,
+                  O: `left:${cornice > 0 ? x0 - g : x0}px; top:${y0}px; width:${g}px; height:${c}px;` }[dir];
       return `<div class="muro" style="${q}"></div>`;
     }).join('');
 
@@ -517,14 +582,18 @@ function htmlVtt(tile, S, { gruppi, porte, stampa = false, celle = null }) {
   const griglia = stampa
     ? Array.from({ length: 16 }, (_, i) => {
       const col = i % 4, row = (i / 4) | 0;
-      return `<div class="cell" style="left:${col * c}px; top:${row * c}px; width:${c}px; height:${c}px;"></div>`;
+      return `<div class="cell" style="left:${off + col * c}px; top:${off + row * c}px; width:${c}px; height:${c}px;"></div>`;
     }).join('')
     : '';
 
   return `<!doctype html><html><head><meta charset="utf-8"><style>
     * { margin:0; padding:0; box-sizing:border-box; }
     body { width:${S}px; height:${S}px; background:#0b0d10; }
-    .stage { position:relative; width:${S}px; height:${S}px; overflow:hidden; }
+    .stage { position:relative; width:${S}px; height:${S}px; overflow:hidden;
+      background:#0b0d10; }
+    /* il riquadro giocabile: quattro caselle per quattro, e nient'altro */
+    .dentro { position:absolute; left:${off}px; top:${off}px;
+      width:${4 * c}px; height:${4 * c}px; overflow:hidden; }
 
     /* IL PAVIMENTO. La texture nasce neutra e viene portata in palette qui:
        velatura fredda verso il fondo dell'app, saturazione bassa. La piastrella
@@ -555,7 +624,8 @@ function htmlVtt(tile, S, { gruppi, porte, stampa = false, celle = null }) {
     /* LA STANZA HA I MURI: senza il buio ai bordi, quattro tessere accostate
        sembrano un unico pavimento continuo e non si capisce dove finisce una
        stanza. E' la stessa vignettatura del mockup «la stanza e' il pezzo». */
-    .muri { position:absolute; inset:0; pointer-events:none;
+    .muri { position:absolute; left:${off}px; top:${off}px;
+      width:${4 * c}px; height:${4 * c}px; pointer-events:none;
       box-shadow: inset 0 0 ${Math.round(c * 0.5)}px ${Math.round(c * 0.1)}px rgba(0,0,0,.55),
                   inset 0 0 0 ${Math.round(c * 0.018)}px rgba(0,0,0,.8); }
 
@@ -596,6 +666,11 @@ function htmlVtt(tile, S, { gruppi, porte, stampa = false, celle = null }) {
        cosi' la tessera resta un PNG quadrato e la stampa non cambia mestiere */
     .fuori { position:absolute; background:#0b0d10;
       box-shadow:inset 0 0 ${Math.round(c * 0.35)}px rgba(0,0,0,.9); }
+    /* LA FASCIA DI MURO, fuori dal reticolo. L'ombra la mette il box-shadow e
+       cade DENTRO la stanza: e' l'ombra a dare lo spessore, non il bordo. */
+    .muroFascia { position:absolute; image-rendering:auto;
+      filter:saturate(.42) brightness(.82) contrast(1.05);
+      box-shadow:0 0 ${Math.round(c * 0.16)}px ${Math.round(c * 0.05)}px rgba(0,0,0,.9); }
     .muroBox { position:absolute; }
     .muroBox img { position:absolute; }
     /* un LATO intero di muro dipinto: la scatola e' quadrata come la tessera,
@@ -608,10 +683,15 @@ function htmlVtt(tile, S, { gruppi, porte, stampa = false, celle = null }) {
     .cell { position:absolute; border:2px solid rgba(230,195,120,0.35); }
   </style></head><body>
     <div class="stage">
-      <div class="suolo"></div>
-      <div class="tinta"></div>
-      <div class="macchie"></div>
-      <div class="lanterna"></div>
+      <!-- IL PAVIMENTO STA NEL RETICOLO, non in tutta la tessera: fuori c'e' la
+           cornice, che e' muro e tavolo. A cornice 0 il riquadro coincide con la
+           tessera e non cambia niente. -->
+      <div class="dentro">
+        <div class="suolo"></div>
+        <div class="tinta"></div>
+        <div class="macchie"></div>
+        <div class="lanterna"></div>
+      </div>
       ${luci}
       ${fuori}
       ${arredi}
