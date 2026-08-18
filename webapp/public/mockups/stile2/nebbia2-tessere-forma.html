@@ -1,0 +1,364 @@
+<!doctype html><html lang="it"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Notte e nebbia · la forma delle tessere</title>
+<link rel="stylesheet" href="base.css"><link rel="stylesheet" href="nebbia.css">
+<link rel="stylesheet" href="nebbia2.css">
+<style>
+  /* LA PLANCIA. Le tessere si posano su un reticolo di CASELLE, non di tessere:
+     è quel che serve perché due tagli diversi possano toccarsi. Il fondo è il
+     tavolo al buio, e le tessere ci galleggiano sopra. */
+  .scorri { overflow-x: auto; border: 1px solid var(--bordo); border-radius: 10px;
+    background: #07080a; padding: 16px 14px 22px; }
+  .plancia { position: relative; margin: 0 auto; }
+  .tessera { position: absolute; }
+  /* una CASELLA. Il pavimento è continuo fra le caselle perché ognuna sposta il
+     proprio fondo di quanto è lontana dall'origine: senza, ogni casella
+     ricomincia la trama e la stanza diventa un mosaico. */
+  .cel { position: absolute; width: 24px; height: 24px; }
+  /* il reticolo che l'app disegna comunque sopra la tessera */
+  .cel::after { content: ''; position: absolute; inset: 0;
+    border-right: 1px solid rgba(230,195,120,.12);
+    border-bottom: 1px solid rgba(230,195,120,.12); }
+  /* IL NOME NON STA SOTTO LA TESSERA. Quattro tessere accostate hanno quattro
+     etichette piu' larghe di loro, e si accavallano: sul primo scatto «la sala
+     delle casse» e «il corridoio delle candele» erano una parola sola. Sulla
+     tessera va un numero, e i nomi stanno in legenda. */
+  .numero { position: absolute; width: 15px; height: 15px; border-radius: 50%;
+    display: grid; place-items: center; font-family: 'FellSC', serif; font-size: 9px;
+    color: var(--lume); background: rgba(6,8,10,.85);
+    border: 1px solid rgba(232,194,122,.4); z-index: 6; }
+  .legenda { display: flex; flex-wrap: wrap; gap: 4px 16px; margin-top: 10px;
+    font-size: 13px; color: var(--fioco); }
+  .legenda span { white-space: nowrap; }
+  .legenda i { font-style: normal; color: var(--lume); font-family: 'FellSC', serif;
+    margin-right: 4px; }
+  .coperta { position: absolute; inset: 0; background: rgba(6,8,10,.92);
+    border: 1px solid rgba(255,255,255,.05); display: grid; place-items: center;
+    font-family: 'FellSC', serif; font-size: 10px; letter-spacing: .12em; color: #4d535b; }
+  /* le pedine: l'oro è chi gioca, il rosso è quel che vi cerca */
+  .pedina { position: absolute; width: 17px; height: 17px; border-radius: 50%;
+    margin: 3.5px; display: grid; place-items: center; font-size: 9px;
+    font-family: 'FellSC', serif; color: #17140d; z-index: 5;
+    background: radial-gradient(circle at 38% 32%, #f6dda6, #c9a049 70%, #8a6a2a);
+    box-shadow: 0 2px 6px rgba(0,0,0,.8), 0 0 10px rgba(232,194,122,.45); }
+  .pedina.male { color: #f4dede;
+    background: radial-gradient(circle at 38% 32%, #e08a94, #a3323f 70%, #5d1a22);
+    box-shadow: 0 2px 6px rgba(0,0,0,.8), 0 0 10px rgba(217,96,109,.5); }
+
+  .kpi { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 6px 14px;
+    font-size: 13.5px; margin-top: 10px; }
+  .kpi div { color: var(--fioco); }
+  .kpi b { color: var(--lume); font-family: 'FellSC', serif; font-weight: 400;
+    letter-spacing: .06em; }
+  .costo { font-size: 13px; color: var(--fioco); border-left: 3px solid var(--sangue);
+    padding-left: 10px; margin-top: 10px; }
+  .costo.poco { border-left-color: #7fc9a3; }
+  .costo.medio { border-left-color: var(--lume); }
+  .prec { font-style: italic; color: var(--fioco); font-size: 14px; margin: 2px 0 12px; }
+  table.conto { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+  table.conto td, table.conto th { text-align: left; padding: 4px 6px;
+    border-bottom: 1px solid var(--bordo); }
+  table.conto th { font-family: 'FellSC', serif; color: var(--lume); font-weight: 400; }
+  table.conto td.n, table.conto th.n { text-align: right; color: var(--lume); }
+</style>
+</head><body>
+<div class="wrap">
+  <a class="torna" href="index.html">← le tre direzioni</a>
+
+  <h1 style="margin-bottom:6px">la forma delle tessere</h1>
+  <p class="nota" style="margin-bottom:6px">Oggi le tessere sono <b>127, tutte uguali</b>:
+    quadrati di 4×4 caselle, 200 mm. È il modello di <i>Betrayal at House on the Hill</i> —
+    formato unico, la sorpresa sta nella pesca. Funziona, e costa in immersione: una calle
+    stretta e una cattedrale sommersa occupano lo stesso quadrato, e il posto si distingue
+    <b>solo dalla pittura, mai dalla pianta</b>.</p>
+  <p class="nota" style="margin-bottom:14px">Qui ci sono tre direzioni per cambiarlo, viste
+    come le vedrebbe <b>la plancia dell'app</b>. Le tessere sono disegnate in CSS: quel che
+    deve leggersi è la <b>sagoma</b>, e un fondo tonale la fa vedere meglio di una texture.</p>
+
+  <div class="prova">
+    <div class="che">i dati chiedono già altro — contato sui 21 episodi</div>
+    <table class="conto">
+      <tr><th>quel che dicono i nomi</th><th class="n">tessere</th><th>che pianta hanno oggi</th></tr>
+      <tr><td>passaggi — <i>corridoio, galleria, passerella, calle, sottoportico, scala, ballatoio</i></td>
+        <td class="n">31</td><td>un quadrato 4×4</td></tr>
+      <tr><td>sale grandi — <i>navata, cisterna, magazzino, piazzale, salone</i></td>
+        <td class="n">35</td><td>un quadrato 4×4</td></tr>
+      <tr><td>stanze — tutto il resto</td><td class="n">61</td><td>un quadrato 4×4</td></tr>
+      <tr><th>tessere con UNA o DUE uscite</th><th class="n">119/127</th>
+        <th>quattro lati, sedici caselle</th></tr>
+    </table>
+    <p class="perche">Solo <b>otto tessere su 127</b> hanno tre o quattro uscite. La geometria
+      di oggi spende quattro lati su una mappa che, quasi sempre, è una <b>catena</b>.</p>
+  </div>
+
+  <div class="prova">
+    <div class="che">com'è adesso — cinque quadrati accostati</div>
+    <div class="scorri"><div class="plancia" id="oggi"></div></div>
+    <div class="legenda" id="oggi-leg"></div>
+    <p class="perche">La banchina, il magazzino, il corridoio e la cripta: quattro posti che al
+      tavolo si raccontano diversissimi, e sulla plancia sono <b>quattro quadrati uguali</b>.
+      In alto la stanza non ancora rivelata.</p>
+  </div>
+
+  <h2 style="margin:22px 0 2px">1 · la pianta è il posto</h2>
+  <p class="prec">Precedente: <i>Warhammer Quest</i>, <i>Descent</i>, <i>Imperial Assault</i> —
+    corridoi 2×4, stanze 4×4, sale 4×6. Il taglio del cartoncino <b>è</b> l'informazione: vedi
+    un corridoio prima di leggerne il nome.</p>
+  <div class="prova">
+    <div class="che">tre tagli invece di uno — passaggio 6×2 · stanza 4×4 · sala 6×6</div>
+    <div class="scorri"><div class="plancia" id="tagli"></div></div>
+    <div class="legenda" id="tagli-leg"></div>
+    <p class="perche">Quale taglio tocchi a chi lo dicono già i nomi: 31 passaggi, 35 sale, 61
+      stanze. Il passaggio è largo <b>due caselle</b>: un nemico in mezzo e il gruppo va in fila
+      indiana — il collo di bottiglia esiste perché la stanza è fatta così, non perché una
+      regola lo dice.</p>
+    <div class="kpi">
+      <div><b>ansia</b> il corridoio non si aggira: o passi di lì o torni indietro</div>
+      <div><b>immersione</b> la calle è stretta perché è una calle</div>
+      <div><b>coinvolgimento</b> attraversare la sala 6×6 costa due turni, e si sente</div>
+      <div><b>giocabilità</b> più forme da posare, e la scatola cambia fustella</div>
+    </div>
+    <p class="costo">Costa <b>molto</b>. <code>layout()</code> in
+      <code>webapp/public/motore/griglia.js</code> posiziona le tessere per
+      posizione-in-tessere (<code>DELTA</code> di ±1): con tagli diversi va rifatto in
+      posizione-in-caselle. Cadono anche <code>dentro()</code> (oggi 4×4 fisso),
+      <code>portaCella()</code> e la sua gemella <code>pickDoorIndex</code> in
+      <code>generate-tiles.js</code>, <code>htmlVtt</code> in <code>pittura-vtt.js</code> —
+      4×4 in ogni riga — e la stampa, che in <code>src/gen_board.py</code> dice «200 mm».</p>
+  </div>
+
+  <h2 style="margin:22px 0 2px">2 · la stanza ha la sua sagoma</h2>
+  <p class="prec">Precedente: <i>Gloomhaven</i> e <i>Mansions of Madness</i> 2ed — stanze di
+    profilo irregolare, e gli ostacoli su overlay separati.</p>
+  <div class="prova">
+    <div class="che">l'ingombro resta, il muro segue la pianta</div>
+    <div class="scorri"><div class="plancia" id="sagome"></div></div>
+    <div class="legenda" id="sagome-leg"></div>
+    <p class="perche">La banchina finisce nell'acqua, il sottoportico ha gli angoli tagliati, la
+      navata ha l'abside, la cisterna è tonda e ha le colonne in mezzo. Le caselle fuori dalla
+      sagoma <b>non ci sono</b>: il nero attorno diventa il <i>fuori</i>, e la mappa che cresce
+      ha un profilo invece di un bordo.</p>
+    <div class="kpi">
+      <div><b>ansia</b> meno caselle utili vuol dire meno spazio per schivare</div>
+      <div><b>immersione</b> le colonne della cisterna sono ostacoli veri, non decorazione</div>
+      <div><b>coinvolgimento</b> ogni stanza si legge in un colpo d'occhio e si ricorda</div>
+      <div><b>giocabilità</b> intatta: stessa scatola, stesso formato, stessa posa</div>
+    </div>
+    <p class="costo poco">Costa <b>quasi niente</b>, ed è il punto. Una casella fuori sagoma è
+      una casella bloccata, e il motore sa già farlo: <code>arrediSet()</code> in
+      <code>griglia.js</code> toglie celle dal cammino, <code>viciniGlob()</code> le salta,
+      <code>esploraMosse()</code> ci gira attorno. Serve un campo nuovo nei dati — le celle
+      spente — e la sagoma nel pennello. Il resto è già in piedi.</p>
+  </div>
+
+  <h2 style="margin:22px 0 2px">3 · il taglio dice la quota</h2>
+  <p class="prec">Precedente: <i>Betrayal at House on the Hill</i> (tre piani) e le scale di
+    <i>Descent</i>.</p>
+  <div class="prova">
+    <div class="che">sotto l'acqua · a terra · sui tetti</div>
+    <div class="scorri"><div class="plancia" id="quote"></div></div>
+    <div class="legenda" id="quote-leg"></div>
+    <p class="perche">Roccamora è verticale: dieci tessere d'acqua, sette di roccia, sei di
+      tetti, e in mezzo le cripte e i chiusini. Le tre quote si posano <b>sfalsate e
+      sovrapposte</b>, con l'ombra che cade su quella sotto; scale, chiusini e abbaini sono i
+      punti di passaggio. L'Ep. 11 chiede già «ogni tessera è ESPOSTA»: qui la vertigine si
+      <b>vede</b>.</p>
+    <div class="kpi">
+      <div><b>ansia</b> il vuoto sotto il ballatoio è disegnato, non descritto</div>
+      <div><b>immersione</b> si capisce a occhio che si sta salendo</div>
+      <div><b>coinvolgimento</b> la mappa diventa una sezione della città, non una pianta</div>
+      <div><b>giocabilità</b> il tavolo però resta piatto: lì la quota è un bordo colorato</div>
+    </div>
+    <p class="costo medio">Costa <b>medio</b>, e quasi tutto nella vista: la quota è pittura più
+      ordine di sovrapposizione in <code>digitale.js</code>, e i passaggi fra quote sono uscite
+      normali, che il motore ha già. È l'unica delle tre <b>ortogonale</b> alle altre due: si
+      mette sopra la 1 o la 2.</p>
+  </div>
+
+  <div class="prova">
+    <div class="che">quel che va detto in chiusura</div>
+    <p class="perche">La <b>1</b> e la <b>2</b> si sommano — una sala 6×6 può avere l'abside — e
+      la <b>3</b> sta sopra a entrambe. Se se ne sceglie una sola, è la <b>2</b>: dà quasi tutta
+      l'immersione della 1 al prezzo di un campo nei dati, e non tocca né la fustella né la
+      scatola. Nessuna delle tre però è gratis per quel che è già stampato: un formato nuovo
+      vuol dire <b>ristampare le tessere</b>.</p>
+  </div>
+</div>
+
+<script>
+const C = 24, W = 3;
+
+// I PAVIMENTI. Tinta piatta più una trama sottile: quel che deve leggersi qui è
+// la SAGOMA, e una texture fotografica la coprirebbe.
+const PAV = {
+  assi:       ['#4a3c2c', 'repeating-linear-gradient(90deg, rgba(0,0,0,.34) 0 1px, rgba(255,255,255,.035) 1px 8px)'],
+  lastricato: ['#343a37', 'repeating-linear-gradient(0deg, rgba(0,0,0,.30) 0 1px, transparent 1px 12px), repeating-linear-gradient(90deg, rgba(0,0,0,.30) 0 1px, rgba(255,255,255,.03) 1px 12px)'],
+  pietra:     ['#3b3f44', 'repeating-linear-gradient(0deg, rgba(0,0,0,.32) 0 1px, transparent 1px 16px), repeating-linear-gradient(90deg, rgba(0,0,0,.28) 0 1px, rgba(255,255,255,.025) 1px 24px)'],
+  mattoni:    ['#4b352c', 'repeating-linear-gradient(0deg, rgba(0,0,0,.36) 0 1px, transparent 1px 7px), repeating-linear-gradient(90deg, rgba(0,0,0,.24) 0 1px, rgba(255,255,255,.03) 1px 16px)'],
+  acqua:      ['#15303a', 'repeating-linear-gradient(102deg, rgba(140,205,205,.075) 0 2px, transparent 2px 17px), repeating-linear-gradient(-12deg, rgba(110,180,190,.06) 0 2px, transparent 2px 25px)'],
+  navata:     ['#5c5b4e', 'repeating-linear-gradient(0deg, rgba(0,0,0,.26) 0 1px, transparent 1px 24px), repeating-linear-gradient(90deg, rgba(0,0,0,.26) 0 1px, rgba(255,255,255,.04) 1px 24px)'],
+  tetti:      ['#2f3b46', 'repeating-linear-gradient(0deg, rgba(0,0,0,.40) 0 1px, rgba(255,255,255,.03) 1px 6px)'],
+  roccia:     ['#39332c', 'repeating-linear-gradient(28deg, rgba(0,0,0,.30) 0 2px, rgba(255,255,255,.025) 2px 14px)'],
+};
+const PIETRA = '#8d8a80';                    // il muro visto dall'alto
+const SOGLIA = 'rgba(232,194,122,.85)';      // la porta: un varco caldo nel muro
+
+const LATI = { N: [0, -1], S: [0, 1], O: [-1, 0], E: [1, 0] };
+
+// UNA TESSERA SI DISEGNA CASELLA PER CASELLA, e il muro nasce dove la casella
+// accanto non esiste. È l'unico modo che regge QUALUNQUE sagoma: un anello
+// disegnato attorno al rettangolo saprebbe fare solo rettangoli — e le sagome
+// sono metà di quel che questa pagina deve mostrare.
+function tessera(t) {
+  const celle = t.celle || quadrato(t.cols, t.rows);
+  const dentro = new Set(celle.map(([x, y]) => x + ',' + y));
+  const porte = new Set((t.porte || []).map(([x, y, l]) => x + ',' + y + l));
+  const [tinta, trama] = PAV[t.pav] || PAV.pietra;
+
+  const html = celle.map(([x, y]) => {
+    const ombre = [];
+    for (const lato of ['N', 'S', 'O', 'E']) {
+      const [dx, dy] = LATI[lato];
+      if (dentro.has((x + dx) + ',' + (y + dy))) continue;   // non è un bordo
+      const soglia = porte.has(x + ',' + y + lato);
+      const col = soglia ? SOGLIA : PIETRA;
+      ombre.push(lato === 'N' ? 'inset 0 ' + W + 'px 0 ' + col
+        : lato === 'S' ? 'inset 0 -' + W + 'px 0 ' + col
+        : lato === 'O' ? 'inset ' + W + 'px 0 0 ' + col
+        : 'inset -' + W + 'px 0 0 ' + col);
+      if (soglia) ombre.push('0 0 13px 2px rgba(232,194,122,.32)');
+    }
+    // il buio ai bordi: senza, due tessere accostate diventano un pavimento solo
+    if (ombre.length) ombre.push('inset 0 0 14px rgba(0,0,0,.6)');
+    return '<div class="cel" style="left:' + (x * C) + 'px; top:' + (y * C) + 'px;'
+      + 'background-color:' + tinta + '; background-image:' + trama + ';'
+      + 'background-position:' + (-x * C) + 'px ' + (-y * C) + 'px;'
+      + (ombre.length ? 'box-shadow:' + ombre.join(',') : '') + '"></div>';
+  }).join('');
+
+  const pedine = (t.pedine || []).map(([x, y, segno, male]) =>
+    '<div class="pedina' + (male ? ' male' : '') + '" style="left:' + (x * C)
+    + 'px; top:' + (y * C) + 'px">' + segno + '</div>').join('');
+
+  const larghe = t.cols || Math.max(...celle.map((c) => c[0])) + 1;
+  const alte = t.rows || Math.max(...celle.map((c) => c[1])) + 1;
+  // LA QUOTA: si alza sfalsando il pezzo e allungandone l'ombra sul piano sotto.
+  // [dx, dy, z, luce]
+  const dz = { sotto: [8, 8, 0, 0.55], terra: [0, 0, 1, 1], sopra: [-10, -10, 2, 1.14] }[t.quota || 'terra'];
+  const stile = 'left:' + (t.col * C) + 'px; top:' + (t.row * C) + 'px;'
+    + 'width:' + (larghe * C) + 'px; height:' + (alte * C) + 'px;'
+    + 'transform:translate(' + dz[0] + 'px,' + dz[1] + 'px); z-index:' + dz[2] + ';'
+    + 'filter:brightness(' + dz[3] + ');'
+    + (t.quota === 'sopra' ? 'box-shadow:0 26px 34px rgba(0,0,0,.85);'
+       : t.quota === 'sotto' ? '' : 'box-shadow:0 12px 18px rgba(0,0,0,.7);');
+
+  // il numero si appoggia alla PRIMA casella che esiste: su una sagoma
+  // l'angolo in alto a sinistra puo' benissimo essere fuori dalla stanza
+  const primo = celle[0];
+  const bollo = t.n ? '<div class="numero" style="left:' + (primo[0] * C + 4)
+    + 'px; top:' + (primo[1] * C + 4) + 'px">' + t.n + '</div>' : '';
+  return '<div class="tessera" style="' + stile + '">' + html + pedine + bollo
+    + (t.coperta ? '<div class="coperta">non rivelata</div>' : '') + '</div>';
+}
+
+const quadrato = (c, r) => {
+  const out = [];
+  for (let y = 0; y < r; y++) for (let x = 0; x < c; x++) out.push([x, y]);
+  return out;
+};
+// il quadrato meno le caselle spente: è così che si scrive una sagoma, ed è lo
+// stesso dato che il motore userebbe (una casella spenta = una casella bloccata)
+const meno = (c, r, fuori) => {
+  const via = new Set(fuori.map((p) => p.join(',')));
+  return quadrato(c, r).filter((p) => !via.has(p.join(',')));
+};
+
+function disegna(id, tessere) {
+  const lato = (t, i) => (t.cols || t.rows
+    ? [t.cols, t.rows][i]
+    : Math.max(...t.celle.map((c) => c[i])) + 1);
+  const w = Math.max(...tessere.map((t) => t.col + lato(t, 0)));
+  const h = Math.max(...tessere.map((t) => t.row + lato(t, 1)));
+  tessere.forEach((t, i) => { t.n = i + 1; });
+  const el = document.getElementById(id);
+  el.style.width = (w * C + 12) + 'px';
+  el.style.height = (h * C + 12) + 'px';
+  el.innerHTML = tessere.map(tessera).join('');
+  const leg = document.getElementById(id + '-leg');
+  if (leg) {
+    leg.innerHTML = tessere.map((t) => '<span><i>' + t.n + '</i>'
+      + (t.nome || 'non rivelata') + '</span>').join('');
+  }
+}
+
+// ------------------------------------------------------------- com'è oggi
+disegna('oggi', [
+  { col: 0, row: 4, cols: 4, rows: 4, pav: 'assi', nome: 'la banchina',
+    porte: [[3, 1, 'E']], pedine: [[0, 2, 'C'], [1, 3, 'S']] },
+  { col: 4, row: 4, cols: 4, rows: 4, pav: 'mattoni', nome: 'la sala delle casse',
+    porte: [[0, 1, 'O'], [3, 1, 'E']], pedine: [[2, 2, 'M', true]] },
+  { col: 8, row: 4, cols: 4, rows: 4, pav: 'lastricato', nome: 'il corridoio delle candele',
+    porte: [[0, 1, 'O'], [1, 0, 'N'], [3, 2, 'E']] },
+  { col: 12, row: 4, cols: 4, rows: 4, pav: 'pietra', nome: 'la cripta della cera',
+    porte: [[0, 2, 'O']] },
+  { col: 8, row: 0, cols: 4, rows: 4, pav: 'pietra', coperta: true, porte: [[1, 3, 'S']] },
+]);
+
+// --------------------------------------------- 1 · tre tagli invece di uno
+disegna('tagli', [
+  { col: 0, row: 8, cols: 4, rows: 4, pav: 'assi', nome: 'la banchina · stanza 4×4',
+    porte: [[3, 1, 'E']], pedine: [[0, 2, 'C'], [1, 3, 'S']] },
+  { col: 4, row: 9, cols: 6, rows: 2, pav: 'lastricato',
+    nome: 'la fondamenta stretta · passaggio 6×2',
+    porte: [[0, 0, 'O'], [5, 0, 'E']], pedine: [[2, 0, 'B'], [4, 1, 'M', true]] },
+  { col: 10, row: 6, cols: 6, rows: 6, pav: 'navata', nome: 'la navata sepolta · sala 6×6',
+    porte: [[0, 3, 'O'], [2, 0, 'N'], [5, 1, 'E']] },
+  { col: 12, row: 0, cols: 2, rows: 6, pav: 'pietra',
+    nome: 'la scala dei chiusini · passaggio 2×6', coperta: true, porte: [[0, 5, 'S']] },
+  { col: 16, row: 7, cols: 4, rows: 4, pav: 'mattoni', nome: 'il magazzino',
+    coperta: true, porte: [[0, 0, 'O']] },
+]);
+
+// ------------------------------------------------ 2 · la stanza sagomata
+disegna('sagome', [
+  // la banchina che finisce nell'acqua: l'angolo non c'è, e sotto è canale
+  { col: 0, row: 6, cols: 4, rows: 4, pav: 'assi', nome: 'la banchina',
+    celle: meno(4, 4, [[3, 3], [2, 3], [3, 2]]),
+    porte: [[3, 1, 'E']], pedine: [[0, 2, 'C'], [1, 3, 'S']] },
+  // il sottoportico: quattro angoli tagliati, e si passa in mezzo
+  { col: 4, row: 6, cols: 4, rows: 4, pav: 'lastricato', nome: 'il sottoportico',
+    celle: meno(4, 4, [[0, 0], [3, 0], [0, 3], [3, 3]]),
+    porte: [[0, 1, 'O'], [3, 1, 'E']], pedine: [[2, 2, 'M', true]] },
+  // la navata con l'abside: il pezzo sporge in cima, largo la metà
+  { col: 8, row: 4, cols: 4, rows: 6, pav: 'navata', nome: 'la navata sepolta',
+    celle: [[1, 0], [2, 0]].concat(quadrato(4, 6).filter((p) => p[1] >= 1)),
+    porte: [[0, 3, 'O'], [3, 2, 'E']] },
+  // la cisterna tonda, con due colonne in mezzo che sono ostacoli veri
+  { col: 12, row: 3, cols: 6, rows: 6, pav: 'acqua', nome: 'la cisterna delle colonne',
+    celle: meno(6, 6, [[0, 0], [1, 0], [0, 1], [4, 0], [5, 0], [5, 1],
+      [0, 4], [0, 5], [1, 5], [4, 5], [5, 5], [5, 4], [2, 2], [3, 3]]),
+    porte: [[0, 3, 'O'], [5, 2, 'E']] },
+  { col: 18, row: 5, cols: 4, rows: 4, pav: 'roccia', coperta: true, porte: [[0, 1, 'O']] },
+]);
+
+// ----------------------------------------------------- 3 · le tre quote
+disegna('quote', [
+  // SOTTO: il canale passa SOTTO la fondamenta e spunta di lato. Se le due
+  // tessere si limitassero a toccarsi, «sotto» si leggerebbe solo perche' c'e'
+  // scritto — ed e' quel che succedeva al primo scatto.
+  { col: 0, row: 7, cols: 6, rows: 4, pav: 'acqua', quota: 'sotto',
+    nome: 'sotto · il canale di scolo', porte: [[5, 1, 'E']], pedine: [[1, 2, 'B']] },
+  // TERRA: il piano su cui si gioca quasi sempre
+  { col: 4, row: 6, cols: 4, rows: 4, pav: 'lastricato', nome: 'terra · la fondamenta',
+    porte: [[0, 1, 'O'], [3, 1, 'E'], [2, 0, 'N']], pedine: [[1, 2, 'C'], [2, 3, 'S']] },
+  { col: 8, row: 6, cols: 4, rows: 4, pav: 'mattoni', nome: 'terra · il magazzino',
+    porte: [[0, 1, 'O']], pedine: [[2, 1, 'M', true]] },
+  // SOPRA: il tetto copre le due tessere di terra per due caselle, e ci getta
+  // l'ombra: e' l'ombra a dire che sta piu' in alto, non l'etichetta
+  { col: 6, row: 4, cols: 5, rows: 4, pav: 'tetti', quota: 'sopra',
+    nome: 'sopra · il tetto a schiena d’asino', porte: [[1, 3, 'S']],
+    pedine: [[3, 1, 'M', true]] },
+  { col: 12, row: 6, cols: 4, rows: 4, pav: 'roccia', coperta: true, porte: [[0, 1, 'O']] },
+]);
+</script>
+</body></html>
