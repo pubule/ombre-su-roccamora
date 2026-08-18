@@ -1,0 +1,93 @@
+<!doctype html><html lang="it"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Notte e nebbia · le tessere con Forgotten Adventures</title>
+<link rel="stylesheet" href="base.css"><link rel="stylesheet" href="nebbia.css">
+<link rel="stylesheet" href="nebbia2.css">
+<style>
+  .tess { position: relative; width: 100%; aspect-ratio: 1; border: 1px solid var(--bordo);
+    border-radius: 8px; overflow: hidden; background-size: cover; background-position: center; }
+  .tess .celle { position: absolute; inset: 0; display: grid;
+    grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(4, 1fr); }
+  .tess .cel { border: 1px solid rgba(230,195,120,.24); }
+  .griglia-tess { display: grid; gap: 12px; grid-template-columns: 1fr; }
+  @media (min-width: 700px) { .griglia-tess { grid-template-columns: 1fr 1fr; } }
+  .scheda .dove { font-family: 'FellSC', serif; font-size: 14px; color: var(--lume);
+    letter-spacing: .08em; }
+  .scheda .cosa { font-size: 13px; color: var(--fioco); }
+  .board { display: grid; grid-template-columns: repeat(2, 208px); gap: 2px;
+    justify-content: center; padding: 14px; background: #090a0c;
+    border: 1px solid var(--bordo); border-radius: 12px; }
+  .board .tess { width: 208px; height: 208px; border-radius: 0; }
+  .board .tess.nebbia { filter: brightness(.18) saturate(.3) blur(3px); }
+  table.conto { width: 100%; border-collapse: collapse; font-size: 14px; }
+  table.conto td, table.conto th { text-align: left; padding: 5px 8px;
+    border-bottom: 1px solid var(--bordo); }
+  table.conto th { font-family: 'FellSC', serif; color: var(--lume); font-weight: 400; }
+  .si { color: #7fc9a3; }
+</style>
+</head><body>
+<div class="wrap">
+  <a class="torna" href="index.html">← le tre direzioni</a>
+
+  <h1 style="margin-bottom:6px">le tessere, con Forgotten Adventures</h1>
+  <p class="nota" style="margin-bottom:6px">Il pavimento e gli arredi sono <b>dipinti</b>,
+    presi dalla libreria FA (147.000 pezzi) e messi nella casella che i dati dichiarano.
+    I muri, la luce e la nebbia li mette il generatore.</p>
+  <p class="nota" style="margin-bottom:14px">Il campione qui sotto è scelto apposta:
+    <b>una tessera per ognuno dei dieci ambienti</b> del gioco, più quelle che portano un
+    arredo che altrove non compare (la scala, la cella, la stufa, l’armadio, la toeletta).
+    Se compongono queste, compongono tutte.</p>
+
+  <div class="prova">
+    <div class="che">il conto, su tutte e 127 le tessere dei 21 episodi</div>
+    <table class="conto" id="conto"></table>
+    <p class="perche">Nessuna tessera resta con le sagome di ripiego: i dieci pavimenti e i
+      quattordici arredi hanno tutti un disegno. Le casse — 104 tessere su 127 ne hanno —
+      pescano fra <b>tre varianti</b>, scelte dalla posizione della casella: la stessa
+      tessera esce sempre identica, ma due cataste vicine non sono lo stesso disegno.</p>
+  </div>
+
+  <div class="prova">
+    <div class="che">quattro stanze accostate, come giocando</div>
+    <div class="board" id="board"></div>
+    <p class="perche">In alto a destra una stanza non ancora rivelata, con la nebbia
+      dell’app addosso.</p>
+  </div>
+
+  <div class="prova" id="campione"></div>
+</div>
+
+<script>
+fetch('../tessere-vtt/campione.json').then((r) => r.json()).then((tess) => {
+  const celle = '<div class="celle">' + Array.from({ length: 16 }, () => '<div class="cel"></div>').join('') + '</div>';
+  const url = (t) => `../tessere-vtt/${t.file}`;
+
+  const ambienti = {};
+  tess.forEach((t) => { ambienti[t.pav] = (ambienti[t.pav] || 0) + 1; });
+
+  document.getElementById('conto').innerHTML = `
+    <tr><th>ambiente</th><th>tessere nel gioco</th><th>pavimento dipinto</th></tr>
+    ${[['mattonelle', 30], ['lastricato', 23], ['assi', 22], ['mattoni', 13], ['acqua', 10],
+       ['terra', 8], ['roccia', 7], ['tetti', 6], ['navata', 5], ['pietra', 3]]
+      .map(([a, n]) => `<tr><td>${a}</td><td>${n}</td><td class="si">sì</td></tr>`).join('')}
+    <tr><th>in tutto</th><th>127</th><th class="si">127 componibili</th></tr>`;
+
+  document.getElementById('campione').innerHTML = `
+    <div class="che">il campione: un ambiente per riga</div>
+    <div class="griglia-tess">
+      ${tess.map((t) => `
+        <div class="scheda">
+          <div class="tess" style="background-image:url('${url(t)}')">${celle}</div>
+          <p class="dove">${t.ep} · ${t.id} — ${(t.nome || '').toLowerCase()}</p>
+          <p class="cosa">${t.pav}${t.chiavi.length ? ' · ' + t.chiavi.join(', ') : ''}</p>
+        </div>`).join('')}
+    </div>`;
+
+  const quattro = ['ep1-T6', 'ep16-T6', 'preludio-T1', 'ep2-T3']
+    .map((k) => tess.find((t) => `${t.ep}-${t.id}` === k)).filter(Boolean);
+  document.getElementById('board').innerHTML = quattro
+    .map((t, i) => `<div class="tess ${i === 1 ? 'nebbia' : ''}" style="background-image:url('${url(t)}')">${celle}</div>`)
+    .join('');
+});
+</script>
+</body></html>

@@ -22,21 +22,25 @@ gioco in astratto. Questa licenza non impedisce a terzi di creare un gioco
 diverso ispirato a meccaniche simili, purché non ne copino testi, arte o
 layout.
 
-## Asset delle mappe (2-Minute Tabletop) — non commerciale
+## Asset delle mappe (Forgotten Adventures) — non commerciale, ShareAlike
 
-Gli arredi e i pavimenti dipinti delle tessere di Spedizione vengono dai
-pacchetti gratuiti di **2-Minute Tabletop** (<https://2minutetabletop.com>),
-distribuiti in **CC BY-NC 4.0**: attribuzione obbligatoria, e **nessun uso
-commerciale** — il vincolo vale anche per le tessere che ne derivano.
+Gli arredi e i pavimenti dipinti delle tessere di Spedizione vengono dalla
+libreria gratuita di **Forgotten Adventures**
+(<https://www.forgotten-adventures.net>), distribuita in **CC BY-NC-SA 4.0**:
+attribuzione obbligatoria, **nessun uso commerciale**, e **ShareAlike** — il
+vincolo passa a quel che ne deriva, cioè alle tessere generate.
 
 Credito da mostrare dove le mappe compaiono: «Mappe realizzate con asset di
-2-Minute Tabletop».
+Forgotten Adventures».
 
-Finche' queste risorse restano nelle tessere, la licenza commerciale separata
-di cui sopra **non puo' coprire le mappe**: per venderle servirebbe rifarle con
-risorse proprie o con asset a licenza commerciale. L'elenco preciso di cosa
-viene da dove sta in `webapp/vtt/LICENZE.txt`, scritto da
-`scripts/importa-vtt.py`.
+Finché queste risorse restano nelle tessere, la licenza commerciale separata di
+cui sopra **non può coprire le mappe**: per venderle servirebbe rifarle con
+risorse proprie o con asset a licenza commerciale (FA la vende dai suoi tier
+Patreon). L'elenco preciso di cosa viene da dove sta in
+`webapp/vtt/LICENZE.txt`, scritto da `scripts/importa-fa.py`.
+
+La libreria scaricata (`risorse-vtt/`) **non entra in git**: ridistribuirla non
+è permesso. Entrano solo le tessere che ne derivano.
 
 ## Illustrazioni generate con IA
 

@@ -42,6 +42,19 @@ const dipinto = (tipo, nome) => {
   return fs.existsSync(p) ? pathToFileURL(p).href : null;
 };
 
+// LE VARIANTI. Le casse compaiono 172 volte in tutta la campagna: con un
+// disegno solo si ripetono come carta da parati. L'importatore ne porta tre
+// (`casse`, `casse-2`, `casse-3`) e qui se ne sceglie una IN MODO STABILE dalla
+// posizione della casella: la stessa tessera esce sempre identica — se cambiasse
+// a ogni generazione, il cartoncino stampato e lo schermo direbbero due cose.
+function dipintoVario(chiave, col, row) {
+  const tutte = [dipinto('arredi', chiave),
+                 dipinto('arredi', `${chiave}-2`),
+                 dipinto('arredi', `${chiave}-3`)].filter(Boolean);
+  if (!tutte.length) return null;
+  return tutte[(col * 7 + row * 3) % tutte.length];
+}
+
 const tex = (nome) => {
   const p = path.join(DIR_TEX, `${nome}.jpg`);
   if (!fs.existsSync(p)) {
@@ -299,7 +312,7 @@ function htmlVtt(tile, S, { gruppi, porte, stampa = false }) {
     // essendo bloccata dalle regole: e' l'inganno del Preludio, e qui non si
     // ripete — si mette almeno un ingombro, e lo si dice in console.
     const w = g.cols * c, h = g.rows * c;
-    const arte = dipinto('arredi', chiave);
+    const arte = dipintoVario(chiave, g.col, g.row);
     const dentro = arte
       ? `<div class="og dipinto" style="width:${w * 0.86}px;height:${h * 0.86}px;
            background-image:url('${arte}'); background-size:contain;

@@ -1,0 +1,181 @@
+[
+ {
+  "ep": "preludio",
+  "id": "T1",
+  "nome": "La Banchina Della Dogana",
+  "pav": "assi",
+  "chiavi": [
+   "molo",
+   "casse"
+  ],
+  "dipinta": true,
+  "file": "preludio-T1.jpg"
+ },
+ {
+  "ep": "ep2",
+  "id": "T3",
+  "nome": "IL MAGAZZINO DELLE STAFFE",
+  "pav": "mattoni",
+  "chiavi": [
+   "casse",
+   "crogiolo"
+  ],
+  "dipinta": true,
+  "file": "ep2-T3.jpg"
+ },
+ {
+  "ep": "ep16",
+  "id": "T6",
+  "nome": "LA STANZA DI NINA",
+  "pav": "mattonelle",
+  "chiavi": [
+   "casse",
+   "armadio",
+   "toeletta"
+  ],
+  "dipinta": true,
+  "file": "ep16-T6.jpg"
+ },
+ {
+  "ep": "ep1",
+  "id": "T6",
+  "nome": "CRIPTA DELLA CERA",
+  "pav": "pietra",
+  "chiavi": [
+   "altare",
+   "cella"
+  ],
+  "dipinta": true,
+  "file": "ep1-T6.jpg"
+ },
+ {
+  "ep": "ep3",
+  "id": "T4",
+  "nome": "LA CONFLUENZA",
+  "pav": "acqua",
+  "chiavi": [
+   "forma",
+   "crogiolo"
+  ],
+  "dipinta": true,
+  "file": "ep3-T4.jpg"
+ },
+ {
+  "ep": "ep15",
+  "id": "T4",
+  "nome": "LA GALLERIA DEI CIMELI",
+  "pav": "roccia",
+  "chiavi": [
+   "casse",
+   "altare"
+  ],
+  "dipinta": true,
+  "file": "ep15-T4.jpg"
+ },
+ {
+  "ep": "ep4",
+  "id": "T5",
+  "nome": "LA FOSSA DEL CONTRAPPESO MORTO",
+  "pav": "terra",
+  "chiavi": [
+   "scrivania",
+   "casse"
+  ],
+  "dipinta": true,
+  "file": "ep4-T5.jpg"
+ },
+ {
+  "ep": "ep6",
+  "id": "T4",
+  "nome": "LO SNODO DELLE VENE",
+  "pav": "lastricato",
+  "chiavi": [
+   "forma",
+   "crogiolo"
+  ],
+  "dipinta": true,
+  "file": "ep6-T4.jpg"
+ },
+ {
+  "ep": "ep5",
+  "id": "T2",
+  "nome": "LA NAVATA SEPOLTA",
+  "pav": "navata",
+  "chiavi": [
+   "casse",
+   "altare"
+  ],
+  "dipinta": true,
+  "file": "ep5-T2.jpg"
+ },
+ {
+  "ep": "ep11",
+  "id": "T4",
+  "nome": "IL TETTO A SCHIENA D’ASINO",
+  "pav": "tetti",
+  "chiavi": [
+   "casse",
+   "altare"
+  ],
+  "dipinta": true,
+  "file": "ep11-T4.jpg"
+ },
+ {
+  "ep": "preludio",
+  "id": "T4",
+  "nome": "Lo Stanzino Del Daziere",
+  "pav": "mattonelle",
+  "chiavi": [
+   "scrivania",
+   "branda"
+  ],
+  "dipinta": true,
+  "file": "preludio-T4.jpg"
+ },
+ {
+  "ep": "ep1",
+  "id": "T3",
+  "nome": "CORRIDOIO DELLE CANDELE",
+  "pav": "mattonelle",
+  "chiavi": [
+   "candele"
+  ],
+  "dipinta": true,
+  "file": "ep1-T3.jpg"
+ },
+ {
+  "ep": "ep1",
+  "id": "T5",
+  "nome": "SCALA AL PIANO INTERRATO",
+  "pav": "assi",
+  "chiavi": [
+   "scala"
+  ],
+  "dipinta": true,
+  "file": "ep1-T5.jpg"
+ },
+ {
+  "ep": "ep2",
+  "id": "T1",
+  "nome": "BANCHINA DELLE SCORIE",
+  "pav": "assi",
+  "chiavi": [
+   "molo",
+   "scorie"
+  ],
+  "dipinta": true,
+  "file": "ep2-T1.jpg"
+ },
+ {
+  "ep": "ep2",
+  "id": "T5",
+  "nome": "L’UFFICIO DEL PESATORE",
+  "pav": "mattonelle",
+  "chiavi": [
+   "scrivania",
+   "stufa"
+  ],
+  "dipinta": true,
+  "file": "ep2-T5.jpg"
+ }
+]

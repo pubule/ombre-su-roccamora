@@ -36,6 +36,9 @@ webapp/public/js/_oracolo.js
 webapp/scatti/
 scatti/
 prova-tessere/
-risorse-vtt/*.zip
-risorse-vtt/estratti/
+# LA LIBRERIA SCARICATA NON ENTRA IN GIT: ridistribuirla non e' permesso
+# (Forgotten Adventures, CC BY-NC-SA). Entrano solo le tessere che ne derivano.
+risorse-vtt/*
+!risorse-vtt/LEGGIMI.md
 webapp/vtt/
+prova-fa/
