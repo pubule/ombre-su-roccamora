@@ -121,6 +121,15 @@ tessera vale `4 caselle + 2 cornici`; il muro è una **fascia** ricavata dal pez
 del kit, scalata perché la sua pietra sia alta esattamente quanto la cornice e
 ripetuta in orizzontale, con i quadrati d'angolo a chiudere gli spigoli.
 
+**La cornice è MEZZO muro** (correzione del 18/08, terzo giro). Con un muro
+intero per tessera, fra due stanze accostate ce n'erano DUE, e in mezzo un canale
+scuro spesso mezza casella: al tavolo sembrava che le stanze non si toccassero.
+Ora ogni tessera ne disegna la metà e accostandole le due metà fanno la parete —
+, non 0.28. E **la soglia non è un buco**: nel varco va una
+porta di legno e ferro disegnata nella cornice, mezza per tessera, così il
+battente appartiene alla giuntura e non a una delle due stanze (è come la mette
+in tavola HeroQuest). Tessera **257 mm**, casella 60 mm, muro condiviso 17 mm.
+
 Le due manopole stanno in `generate-tiles.js` e arrivano dall'ambiente:
 `OSR_CASELLA` (px per casella, 616 = 50 mm) e `OSR_CORNICE` (spessore del muro in
 caselle). **A valori di default il PNG è identico a prima** — è lo stesso

@@ -341,6 +341,15 @@ const FUOCHI = { candele: '#e8c27a', crogiolo: '#e8934a', stufa: '#e8934a', alta
 // `gruppi` arriva gia' fuso da `groupArredi()` del generatore: un arredo che
 // occupa piu' celle e' UN oggetto piu' grande, non lo stesso oggetto ripetuto.
 function htmlVtt(tile, S, { gruppi, porte, stampa = false, celle = null, cornice = 0, lato = 4 }) {
+  // LA CORNICE E' MEZZO MURO, non un muro intero.
+  //
+  // Due tessere accostate hanno ciascuna la propria cornice: se ognuna portasse
+  // un muro intero, fra due stanze ce ne sarebbero DUE, e in mezzo un canale
+  // scuro spesso quanto mezza casella. Al tavolo due stanze confinanti dividono
+  // UNA parete. Quindi ogni tessera ne disegna la meta', e accostandole le due
+  // meta' fanno il muro — come i pezzi di un tramezzo, non come due case che si
+  // toccano.
+  //
   // LA CORNICE: il muro sta FUORI dalle caselle giocabili.
   //
   // Fino a ieri il pezzo di muro veniva appoggiato SOPRA la prima casella del
@@ -466,6 +475,35 @@ function htmlVtt(tile, S, { gruppi, porte, stampa = false, celle = null, cornice
       bordi.push([cx, cy, dir]);
     }
   }
+
+  // LA SOGLIA NON E' UN BUCO. Togliere il pezzo di muro lascia un varco, e un
+  // varco fra due tessere si legge come uno spazio vuoto: al tavolo sembra che
+  // le stanze non si tocchino. Qui nel varco ci va una PORTA, disegnata nella
+  // cornice — mezza per tessera, come il muro. Accostando le due tessere le due
+  // metà compongono un battente solo, e la porta appartiene alla giuntura invece
+  // che a una delle due stanze (è così che la mette in tavola HeroQuest: un
+  // pezzo a cavallo del confine, non stampato su nessuna delle due stanze).
+  // senza cornice non c'e' dove metterla: il battente sarebbe alto zero e
+  // resterebbe solo il suo alone, che basta a cambiare il PNG di una tessera
+  // gia' stampata. Visto sullo SHA, non a occhio.
+  const uscio = cornice <= 0 ? '' : porte.map(({ dir, idx }) => {
+    const lungo = (dir === 'N' || dir === 'S');
+    const w = lungo ? c : M, h = lungo ? M : c;
+    const x = dir === 'O' ? off - M : dir === 'E' ? off + L * c : off + idx * c;
+    const y = dir === 'N' ? off - M : dir === 'S' ? off + L * c : off + idx * c;
+    // le assi corrono ATTRAVERSO il varco, non lungo il muro: e' quel che
+    // distingue a colpo d'occhio un battente da un pezzo di parete
+    const assi = `repeating-linear-gradient(${lungo ? 0 : 90}deg,
+      rgba(0,0,0,.55) 0 ${Math.round(c * 0.012)}px,
+      rgba(255,255,255,.05) ${Math.round(c * 0.012)}px ${Math.round(c * 0.09)}px)`;
+    // le due bande di ferro, di traverso alle assi
+    const ferro = `linear-gradient(${lungo ? 90 : 0}deg, transparent 0 18%,
+      rgba(120,124,132,.85) 18% 27%, transparent 27% 73%,
+      rgba(120,124,132,.85) 73% 82%, transparent 82%)`;
+    return `<div class="uscio" style="left:${x}px; top:${y}px; width:${w}px; height:${h}px;
+      background-image:${ferro}, ${assi}, url('${tex('legno')}');
+      background-size:auto, auto, ${Math.round(c * 0.5)}px ${Math.round(c * 0.5)}px"></div>`;
+  }).join('');
 
   // ponytail: la striscia 2M copre un LATO intero e sa fare solo rettangoli.
   // Con una sagoma cede il posto al kit a pezzi (o al ripiego disegnato), invece
@@ -675,6 +713,12 @@ function htmlVtt(tile, S, { gruppi, porte, stampa = false, celle = null, cornice
     .muroFascia { position:absolute; image-rendering:auto;
       filter:saturate(.42) brightness(.82) contrast(1.05);
       box-shadow:0 0 ${Math.round(c * 0.16)}px ${Math.round(c * 0.05)}px rgba(0,0,0,.9); }
+    /* LA PORTA nella cornice: legno e ferro, e un filo di luce calda che passa
+       dalla fessura — e' il segno che di la' c'e' una stanza, non il vuoto */
+    .uscio { position:absolute; background-blend-mode:normal, normal, multiply;
+      filter:saturate(.5) brightness(.8);
+      box-shadow:0 0 ${Math.round(c * 0.14)}px ${Math.round(c * 0.04)}px rgba(232,194,122,.35),
+                 inset 0 0 ${Math.round(c * 0.08)}px rgba(0,0,0,.8); }
     .muroBox { position:absolute; }
     .muroBox img { position:absolute; }
     /* un LATO intero di muro dipinto: la scatola e' quadrata come la tessera,
@@ -699,6 +743,7 @@ function htmlVtt(tile, S, { gruppi, porte, stampa = false, celle = null, cornice
       ${luci}
       ${fuori}
       ${arredi}
+      ${uscio}
       ${muri}
       <div class="muri"></div>
       ${griglia}

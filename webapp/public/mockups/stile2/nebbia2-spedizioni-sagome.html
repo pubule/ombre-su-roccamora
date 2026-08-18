@@ -9,10 +9,10 @@
   .plancia { position: relative; margin: 0 auto; }
   .tess { position: absolute; background-size: cover; background-position: center; }
   /* IL RETICOLO STA NEL RIQUADRO GIOCABILE. La tessera e' 4 caselle piu' due
-     cornici di muro (0,28 caselle l'una): 0,28/4,56 = 6,14% per lato. Disegnarlo
+     mezze cornici di muro (0,14 caselle l'una): 0,14/4,28 = 3,27% per lato. Disegnarlo
      su tutta l'immagine rimetterebbe le linee sopra la pietra — lo stesso
      difetto di prima, spostato dal PNG al DOM. */
-  .tess .celle { position: absolute; inset: 6.14%; display: grid;
+  .tess .celle { position: absolute; inset: 3.27%; display: grid;
     grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(4, 1fr); }
   .tess .cel { border-right: 1px solid rgba(230,195,120,.13);
     border-bottom: 1px solid rgba(230,195,120,.13); }
@@ -94,7 +94,7 @@
 // muro fuori dal reticolo invece che sopra la prima casella. Il riquadro della
 // tessera vale ora 4 caselle piu' due cornici — 4,56 caselle in tutto.
 const CELLA = 46;             // una casella a schermo
-const T = Math.round(CELLA * 4.56);
+const T = Math.round(CELLA * 4.28);
 let via = 'sag';
 
 // che cosa fa la sagoma, episodio per episodio — la riga che dice dove guardare
