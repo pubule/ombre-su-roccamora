@@ -37,6 +37,20 @@ const DIR_TEX = path.join(ROOT, 'webapp', 'texture');
 // Senza, restano la texture CC0 e la sagoma disegnata qui — cosi' una tessera
 // esce comunque, e nessuna casella resta vuota all'occhio.
 const DIR_VTT = path.join(ROOT, 'webapp', 'vtt');
+
+// IL KIT DI MURI MODULARI (Forgotten Adventures, Modular Dungeons): pezzi di
+// muro dipinti con l'ombra gia' dentro, 200px per casella. Un tratto dritto e'
+// largo una casella e alto due — il muro sta nella meta' alta, l'ombra cade
+// nell'altra. Ruotando il pezzo di 90/180/270 il muro va sugli altri tre lati,
+// ed e' per questo che ogni pezzo si mette dentro un riquadro QUADRATO di due
+// caselle: cosi' la rotazione non sposta l'ingombro e i conti restano semplici.
+const DIR_MURI = path.join(ROOT, 'risorse-vtt', 'Modular_Dungeons_Tile_Set',
+                           'Mapmaking', 'Tile_Sets', 'Modular_Dungeons');
+const pezzoMuro = (nome) => {
+  const p = path.join(DIR_MURI, `${nome}.png`);
+  return fs.existsSync(p) ? pathToFileURL(p).href : null;
+};
+const MURI_MODULARI = fs.existsSync(DIR_MURI);
 const dipinto = (tipo, nome) => {
   const p = path.join(DIR_VTT, tipo, `${nome}.png`);
   return fs.existsSync(p) ? pathToFileURL(p).href : null;
@@ -347,7 +361,7 @@ function htmlVtt(tile, S, { gruppi, porte, stampa = false }) {
   // cade dentro. Senza, un pavimento e' una piastrella; con, e' una stanza.
   // Le porte sono varchi nel muro, non barre appiccicate sopra: si aprono
   // esattamente sulla cella che `pickDoorIndex` ha scelto.
-  const sp = Math.round(c * 0.26);          // spessore del muro
+  const sp = Math.round(c * 0.26);          // spessore del muro disegnato in casa
   // UN VARCO NON SI DISEGNA SOPRA, SI LASCIA: il muro di quel lato si spezza
   // in due tratti e in mezzo resta la soglia. Un rettangolo trasparente sopra
   // la pietra non toglie la pietra — l'ho provato, e la porta restava murata.
@@ -360,14 +374,46 @@ function htmlVtt(tile, S, { gruppi, porte, stampa = false }) {
     if (da < S) pezzi.push([da, S]);
     return pezzi;
   };
-  const muri = ['N', 'S', 'E', 'O'].map((dir) => tratti(dir).map(([a, b]) => {
-    const l = b - a;
-    const q = { N: `left:${a}px; top:0; width:${l}px; height:${sp}px;`,
-                S: `left:${a}px; top:${S - sp}px; width:${l}px; height:${sp}px;`,
-                E: `left:${S - sp}px; top:${a}px; width:${sp}px; height:${l}px;`,
-                O: `left:0; top:${a}px; width:${sp}px; height:${l}px;` }[dir];
-    return `<div class="muro" style="${q}"></div>`;
-  }).join('')).join('');
+
+  // le caselle di bordo occupate da una porta, per lato
+  const conPorta = (dir) => new Set(porte.filter((p) => p.dir === dir).map((p) => p.idx));
+
+  const muri = MURI_MODULARI
+    // --- il kit dipinto: un pezzo per casella, e gli angoli sopra ---
+    ? (() => {
+      const giro = { N: 0, E: 90, S: 180, O: 270 };
+      const box = 2 * c;                       // il riquadro quadrato che si ruota
+      const fuori = [];
+      for (const dir of ['N', 'S', 'E', 'O']) {
+        const salta = conPorta(dir);
+        for (let i = 0; i < 4; i++) {
+          if (salta.has(i)) continue;          // qui c'e' la soglia
+          // il kit ha due varianti per il tratto dritto (A e B), non tre
+          const v = ['A', 'B'][(i + dir.charCodeAt(0)) % 2];
+          const arte = pezzoMuro(`Dungeon_Straight_1x2_${v}`) || pezzoMuro('Dungeon_Straight_1x2_A');
+          if (!arte) continue;
+          const pos = { N: [i * c - c / 2, 0], S: [i * c - c / 2, S - box],
+                        E: [S - box, i * c - c / 2], O: [0, i * c - c / 2] }[dir];
+          fuori.push(`<div class="muroBox" style="left:${pos[0]}px; top:${pos[1]}px;
+            width:${box}px; height:${box}px; transform:rotate(${giro[dir]}deg)">
+            <img src="${arte}" style="left:${c / 2}px; top:${-0.8 * c}px; width:${c}px; height:${2 * c}px"></div>`);
+        }
+      }
+      // NIENTE PEZZI D'ANGOLO: quelli del kit sono 2x2 e allungano le braccia
+      // due caselle DENTRO la stanza — a schermo diventava una croce di pietra
+      // in mezzo al pavimento. Gli angoli li chiudono i due tratti che si
+      // incontrano, che e' come li chiude un muro vero.
+      return fuori.join('');
+    })()
+    // --- il ripiego: la fascia di pietra disegnata qui ---
+    : ['N', 'S', 'E', 'O'].map((dir) => tratti(dir).map(([a, b]) => {
+      const l = b - a;
+      const q = { N: `left:${a}px; top:0; width:${l}px; height:${sp}px;`,
+                  S: `left:${a}px; top:${S - sp}px; width:${l}px; height:${sp}px;`,
+                  E: `left:${S - sp}px; top:${a}px; width:${sp}px; height:${l}px;`,
+                  O: `left:0; top:${a}px; width:${sp}px; height:${l}px;` }[dir];
+      return `<div class="muro" style="${q}"></div>`;
+    }).join('')).join('');
 
   // il reticolo e i cartellini stanno nel PNG SOLO per la stampa: a schermo li
   // disegna l'app, e cuocerli qui significa averli due volte
@@ -447,6 +493,11 @@ function htmlVtt(tile, S, { gruppi, porte, stampa = false }) {
       background-blend-mode:multiply; filter:saturate(.35) brightness(.95);
       box-shadow:0 0 ${Math.round(c * 0.22)}px ${Math.round(c * 0.06)}px rgba(0,0,0,.85),
                  inset 0 0 ${Math.round(c * 0.1)}px rgba(0,0,0,.6); }
+    /* il riquadro che porta un pezzo di muro dipinto: quadrato, cosi' ruotarlo
+       non ne cambia l'ingombro */
+    .muroBox { position:absolute; }
+    .muroBox img { position:absolute; }
+
     .cell { position:absolute; border:2px solid rgba(230,195,120,0.35); }
   </style></head><body>
     <div class="stage">

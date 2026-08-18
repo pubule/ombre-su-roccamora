@@ -73,7 +73,25 @@ fetch('../tessere-vtt/campione.json').then((r) => r.json()).then((tess) => {
     <tr><th>in tutto</th><th>127</th><th class="si">127 componibili</th></tr>`;
 
   document.getElementById('campione').innerHTML = `
-    <div class="che">il campione: un ambiente per riga</div>
+    <div class="che">gli stessi ambienti, coi muri del kit modulare</div>
+    <p class="perche" style="margin:6px 0 10px">A sinistra il muro disegnato dal generatore
+      (fascia di pietra + ombra), a destra i pezzi dipinti del <b>Modular Dungeons Tile Set</b>:
+      un tratto per casella, ruotato sui quattro lati, e la soglia dove i dati mettono la porta.
+      Gli angoli 2×2 del kit non si usano — allungano le braccia due caselle dentro la stanza,
+      e a schermo diventava una croce di pietra in mezzo al pavimento.</p>
+    <div class="griglia-tess">
+      ${tess.map((t) => `
+        <div class="scheda">
+          <div class="tess" style="background-image:url('${url(t)}')">${celle}</div>
+          <p class="dove">muro disegnato</p>
+        </div>
+        <div class="scheda">
+          <div class="tess" style="background-image:url('../tessere-vtt/mod-${t.ep}-${t.id}.jpg')">${celle}</div>
+          <p class="dove">muro del kit — ${t.ep} · ${t.id}</p>
+          <p class="cosa">${t.pav}${t.chiavi.length ? ' · ' + t.chiavi.join(', ') : ''}</p>
+        </div>`).join('')}
+    </div>
+    <div class="che" style="margin-top:18px">il campione, uno per ambiente</div>
     <div class="griglia-tess">
       ${tess.map((t) => `
         <div class="scheda">

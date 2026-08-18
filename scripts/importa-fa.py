@@ -34,7 +34,15 @@ import sys
 from PIL import Image
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-BASE = os.path.join(ROOT, 'risorse-vtt', 'FA_Assets_Webp')
+# PIU' PACCHETTI, UN INDICE SOLO. La libreria grande ha quasi tutto, ma i
+# pacchetti a tema hanno il pezzo giusto: `Dungeon_Decor_01` ha le GABBIE (la
+# nostra cella) e i bracieri, che nella libreria grande o non ci sono o sono
+# altro. Le ricette puntano prima al pacchetto giusto, poi alla libreria.
+BASI = [
+    os.path.join(ROOT, 'risorse-vtt', 'FA_Assets_Webp'),
+    os.path.join(ROOT, 'risorse-vtt', 'Dungeon_Decor_01'),
+]
+BASE = BASI[0]
 FUORI = os.path.join(ROOT, 'webapp', 'vtt')
 VARIANTI = 3           # quante ne prende per chiave
 LATO = 1024
@@ -46,12 +54,13 @@ LATO = 1024
 ARREDI = {
     'casse':     [['boxes_and_crates/crates', 'wood'], ['boxes_and_crates', 'crate'], ['crate']],
     'molo':      [['mooring_posts', 'wood'], ['mooring_posts'], ['ships', 'rope']],
-    'candele':   [['lightsources/candles'], ['candelabras'], ['lightsources', 'candle']],
+    'candele':   [['dungeon_decor', 'braziers'], ['lightsources/candles'], ['candelabras']],
     'scrivania': [['tables/desks', 'wood'], ['tables/desks'], ['furniture', 'desk']],
     'branda':    [['bedding/beds', 'wood'], ['bedding/beds'], ['bedrolls']],
     'scala':     [['stairs_and_ladders/stairs_stone'], ['stairs_and_ladders/stairs_wood'], ['stairs']],
-    'altare':    [['furniture/altars', 'stone'], ['furniture/altars'], ['altar']],
-    'cella':     [['building/cells', 'metal'], ['building/cells'], ['cage']],
+    'altare':    [['dungeon_decor', 'altars', 'altar_stone'], ['furniture/altars', 'stone'], ['altar']],
+    'cella':     [['dungeon_decor', 'cages', 'cage_metal'], ['dungeon_decor', 'cages'],
+                 ['building/cells', 'metal'], ['cage']],
     'forma':     [['alchemy', 'cauldron'], ['cauldron'], ['pottery', 'kiln']],
     'scorie':    [['rubble_piles/stone'], ['rubble_piles'], ['rubble']],
     'crogiolo':  [['smithing/forges', 'forge'], ['smithing/forges'], ['forge']],
@@ -86,13 +95,19 @@ VIETATE = ['_lid', 'lid_', 'door_', '_door', 'railing', 'hood', 'broken',
 
 def indice():
     """Gli OGGETTI sono .webp con trasparenza, i PAVIMENTI sono .jpg
-    piastrellabili. Indicizzando i soli webp si pescavano le decalcomanie
-    «Overlay» al posto delle texture, e il pavimento veniva fuori trasparente."""
+    piastrellabili: indicizzando i soli webp si pescavano le decalcomanie
+    «Overlay» al posto delle texture, e il pavimento usciva trasparente.
+
+    Le fonti sono piu' d'una: la libreria grande ha quasi tutto, i pacchetti a
+    tema hanno il pezzo giusto (le GABBIE di Dungeon_Decor per la cella)."""
     fuori = []
-    for radice, _, file in os.walk(BASE):
-        for f in file:
-            if f.lower().endswith(('.webp', '.jpg', '.png')):
-                fuori.append(os.path.join(radice, f).replace('\\', '/'))
+    for base in BASI:
+        if not os.path.isdir(base):
+            continue
+        for radice, _, file in os.walk(base):
+            for f in file:
+                if f.lower().endswith(('.webp', '.jpg', '.png')):
+                    fuori.append(os.path.join(radice, f).replace(chr(92), '/'))
     return fuori
 
 
@@ -150,7 +165,7 @@ def main():
         parole, scelti = scegli(tutti, ricette, 20)
         print(f'{chiave}: ricetta {parole}')
         for p in scelti:
-            print('   ', p[len(BASE) + 1:])
+            print('   ', os.path.relpath(p, ROOT).replace(chr(92), '/'))
         return
 
     os.makedirs(os.path.join(FUORI, 'arredi'), exist_ok=True)
@@ -166,7 +181,7 @@ def main():
         for i, p in enumerate(scelti):
             nome = chiave if i == 0 else f'{chiave}-{i + 1}'
             w, h = porta(p, os.path.join(FUORI, 'arredi', nome + '.png'))
-            righe.append(f'arredi/{nome}.png  <-  {p[len(BASE) + 1:]}')
+            righe.append(f'arredi/{nome}.png  <-  {os.path.relpath(p, ROOT).replace(chr(92), '/')}')
         print(f'  {chiave:11s} {len(scelti)} varianti · ingombro {ingombro(scelti[0])} · {os.path.basename(scelti[0])}')
 
     for chiave, ricette in PAVIMENTI.items():
@@ -177,7 +192,7 @@ def main():
             continue
         p = scelti[0]
         w, h = porta(p, os.path.join(FUORI, 'pavimenti', chiave + '.png'), ritaglia=False)
-        righe.append(f'pavimenti/{chiave}.png  <-  {p[len(BASE) + 1:]}')
+        righe.append(f'pavimenti/{chiave}.png  <-  {os.path.relpath(p, ROOT).replace(chr(92), '/')}')
         print(f'  pavimento {chiave:11s} {w}x{h} · {os.path.basename(p)}')
 
     with open(os.path.join(FUORI, 'LICENZE.txt'), 'w', encoding='utf-8') as f:
