@@ -20,8 +20,9 @@ const { htmlVtt } = require('./pittura-vtt');
 // LA SAGOMA DELLA STANZA (direzione 2 del mockup «la forma delle tessere»):
 // l'ingombro resta 4x4, il muro segue la pianta. Si accende con OSR_SAGOME=1,
 // cosi' le tessere gia' stampate non cambiano finche' la direzione non e' scelta.
-const { sagomaDi } = require('./sagome');
+const { sagomaDi, setLato } = require('./sagome');
 const SAGOME = process.env.OSR_SAGOME === '1';
+let ALLINEATE = new Map();
 
 const ROOT = path.resolve(__dirname, '..', '..');
 const SOLO_MANCANTI = process.argv.includes('--solo-mancanti');
@@ -64,7 +65,18 @@ fs.mkdirSync(OUT_DIR, { recursive: true });
 const PX_MM = 12.32;
 const CASELLA = Number(process.env.OSR_CASELLA || 616);
 const CORNICE = Number(process.env.OSR_CORNICE || 0);
-const S = Math.round(CASELLA * (4 + 2 * CORNICE) / 4) * 4;
+// OSR_LATO: quante caselle per lato. Quattro e' quel che c'e' sempre stato.
+// I DATI PERO' SONO SCRITTI SU UN 4x4 (gli arredi hanno coordinate 0..3), e non
+// si riscrivono 249 arredi per provare una taglia: le coordinate si stirano.
+const LATO = Number(process.env.OSR_LATO || 4);
+const S = Math.round(CASELLA * (LATO + 2 * CORNICE) / 4) * 4;
+// 0..3 -> 0..LATO-1, tenendo gli estremi agli estremi. A LATO 4 e' l'identita';
+// a 5 la colonna di mezzo resta libera, ed e' proprio lo spazio in piu' per
+// girare attorno a un arredo invece di scavalcarlo.
+const stira = (i) => Math.round((i * (LATO - 1)) / 3);
+// la preferenza per la porta: le caselle piu' centrali per prime, sempre
+const PREF_PORTA = Array.from({ length: LATO }, (_, i) => i)
+  .sort((a, b) => Math.abs(a - (LATO - 1) / 2) - Math.abs(b - (LATO - 1) / 2));
 
 // Episodio 2 - 1:1 da src/gen_ep2.py TILES_2 (id, nome, exits, arredi);
 // arte di sfondo: artworks/<id>-ep2.png (campo art).
@@ -228,19 +240,71 @@ const ARREDO_ZOOM = { altare: 1.8 };
 
 // sceglie la cella libera (non occupata da un arredo) piu' centrale lungo
 // il bordo della direzione data, cosi' la porta non si sovrappone mai a un arredo
+function cellaPorta(dir, idx) {
+  const u = LATO - 1;
+  return (dir === 'N') ? `${idx},0` : (dir === 'S') ? `${idx},${u}`
+    : (dir === 'O') ? `0,${idx}` : `${u},${idx}`;
+}
+
 function pickDoorIndex(dir, occupied) {
-  const pref = [1, 2, 0, 3];
-  for (const idx of pref) {
-    const key = (dir === 'N' || dir === 'S') ? `${idx},${dir === 'N' ? 0 : 3}` : `${dir === 'O' ? 0 : 3},${idx}`;
-    if (!occupied.has(key)) return idx;
+  for (const idx of PREF_PORTA) if (!occupied.has(cellaPorta(dir, idx))) return idx;
+  return PREF_PORTA[0];
+}
+
+// LE DUE META' DI UNA PORTA DEVONO COMBACIARE.
+//
+// Finora ogni tessera sceglieva il proprio indice da sola: se la stanza di la'
+// aveva un arredo dove questa apriva il varco, i due varchi finivano su caselle
+// diverse e la soglia dava su un muro. Si vede subito accostandole — due buchi
+// sfalsati con la pietra in mezzo — e nessun banco lo prendeva, perche' il
+// motore fa comunque atterrare chi passa sulla casella d'ingresso.
+//
+// Qui l'indice e' una proprieta' del COLLEGAMENTO, non della tessera: si sceglie
+// una volta sola, il piu' centrale che sia libero DA TUTTE E DUE le parti. Righe
+// e colonne si contano dall'alto e da sinistra in tutte e due le tessere, quindi
+// l'indice e' lo stesso senza specchiature.
+function porteAllineate(tiles) {
+  const occDi = new Map(tiles.map((t) => [t.id, celleOccupate(t)]));
+  const primo = (raw) => String(raw).split(/\s+/)[0];
+  const fuori = new Map();                    // "T1|E" -> idx
+  for (const t of tiles) {
+    for (const [dir, raw] of Object.entries(t.exits || {})) {
+      if (fuori.has(`${t.id}|${dir}`)) continue;
+      const dest = tiles.find((x) => x.id === primo(raw));
+      let back = null;
+      if (dest) {
+        for (const [d2, r2] of Object.entries(dest.exits || {})) {
+          if (primo(r2) === t.id) { back = d2; break; }
+        }
+      }
+      const qui = occDi.get(t.id);
+      const la = dest ? occDi.get(dest.id) : null;
+      let idx = PREF_PORTA.find((i) => !qui.has(cellaPorta(dir, i))
+        && (!la || !back || !la.has(cellaPorta(back, i))));
+      if (idx === undefined) idx = pickDoorIndex(dir, qui);
+      fuori.set(`${t.id}|${dir}`, idx);
+      if (dest && back) fuori.set(`${dest.id}|${back}`, idx);
+    }
   }
-  return 1;
+  return fuori;
 }
 
 // Raggruppa celle adiacenti con lo stesso arredo in un unico rettangolo (4x4
 // grid, connessione N/S/E/O): un arredo che occupa piu' celle (es. la scala
 // 2x2 di T5) va disegnato una sola volta, non ripetuto identico su ogni
 // cella - altrimenti sembrano oggetti diversi invece di uno solo piu' grande.
+// le caselle davvero occupate da un arredo, DOPO lo stiramento: e' su queste
+// che si scelgono le porte e si taglia la sagoma, non sulle coordinate dei dati
+function celleOccupate(tile) {
+  const fuori = new Set();
+  for (const g of groupArredi(tile.arredi || [])) {
+    for (let r = 0; r < g.rows; r++) {
+      for (let c = 0; c < g.cols; c++) fuori.add(`${g.col + c},${g.row + r}`);
+    }
+  }
+  return fuori;
+}
+
 function groupArredi(arredi) {
   const cells = arredi.map(([gx, gy, label]) => ({ col: gx, row: 3 - gy, label }));
   const byKey = new Map(cells.map((c) => [`${c.col},${c.row}`, c]));
@@ -265,7 +329,12 @@ function groupArredi(arredi) {
         }
       }
     }
-    groups.push({ col: minC, row: minR, cols: maxC - minC + 1, rows: maxR - minR + 1, label: start.label });
+    // LO STIRAMENTO SI FA SUL RETTANGOLO, non sulle singole celle: stirando le
+    // celle una per una, la scala 2x2 di T5 si sarebbe spezzata in quattro scale
+    // separate coi buchi in mezzo. Qui si stirano gli ESTREMI, e l'arredo si
+    // allarga insieme alla stanza.
+    const c0 = stira(minC), c1 = stira(maxC), r0 = stira(minR), r1 = stira(maxR);
+    groups.push({ col: c0, row: r0, cols: c1 - c0 + 1, rows: r1 - r0 + 1, label: start.label });
   }
   return groups;
 }
@@ -407,9 +476,18 @@ function html(tile) {
 }
 
 (async () => {
-  if (CORNICE || CASELLA !== 616) {
+  setLato(LATO);
+  ALLINEATE = porteAllineate(TILES);
+  // le porte del collegamento, per chi deve posarci sopra il pezzo-soglia
+  if (process.env.OSR_PORTE_JSON) {
+    const righe = [];
+    ALLINEATE.forEach((v, k) => righe.push({ chiave: k, idx: v }));
+    fs.writeFileSync(process.env.OSR_PORTE_JSON, JSON.stringify(righe, null, 1));
+  }
+  if (CORNICE || CASELLA !== 616 || LATO !== 4) {
     console.log(`tessera ${S}px = ${(S / PX_MM).toFixed(0)}mm · casella `
-      + `${(CASELLA / PX_MM).toFixed(0)}mm · muro ${(CASELLA * CORNICE / PX_MM).toFixed(0)}mm`);
+      + `${(CASELLA / PX_MM).toFixed(0)}mm · muro ${(CASELLA * CORNICE / PX_MM).toFixed(0)}mm`
+      + ` · ${LATO}x${LATO} caselle`);
   }
   const browser = await chromium.launch({ headless: true });
   const page = await browser.newPage({ viewport: { width: S, height: S } });
@@ -440,17 +518,19 @@ function html(tile) {
     // la geometria e' la stessa per tutti e due i pennelli: le celle adiacenti
     // dello stesso arredo si fondono in un oggetto solo, e la porta non cade
     // mai su un arredo
-    const occupate = new Set(tile.arredi.map(([gx, gy]) => `${gx},${3 - gy}`));
+    const occupate = celleOccupate(tile);
     const porte = [
-      ...Object.keys(tile.exits).map((dir) => ({ dir, idx: pickDoorIndex(dir, occupate) })),
-      ...(tile.start ? [{ dir: tile.start, idx: 1 }] : []),
+      ...Object.keys(tile.exits).map((dir) => ({
+        dir, idx: ALLINEATE.has(`${tile.id}|${dir}`)
+          ? ALLINEATE.get(`${tile.id}|${dir}`) : pickDoorIndex(dir, occupate),
+      })),
+      ...(tile.start ? [{ dir: tile.start, idx: PREF_PORTA[0] }] : []),
     ];
     // le caselle-porta come le vede la sagoma: le stesse che `pickDoorIndex` ha
     // appena scelto, perche' la sagoma si adatta alle porte e mai il contrario
     const cellePorte = {};
     for (const { dir, idx } of porte) {
-      cellePorte[dir] = dir === 'N' ? [idx, 0] : dir === 'S' ? [idx, 3]
-        : dir === 'O' ? [0, idx] : [3, idx];
+      cellePorte[dir] = cellaPorta(dir, idx).split(',').map(Number);
     }
     const sagoma = SAGOME
       ? sagomaDi(tile, cellePorte, [...occupate].map((k) => k.split(',').map(Number)))
@@ -460,7 +540,7 @@ function html(tile) {
     }
     const pagina = VTT
       ? htmlVtt(tile, S, { gruppi: groupArredi(tile.arredi), porte, cornice: CORNICE,
-                           celle: sagoma ? sagoma.celle : null })
+                           lato: LATO, celle: sagoma ? sagoma.celle : null })
       : html(tile);
     fs.writeFileSync(tmpHtml, pagina, 'utf8');
     await page.goto(pathToFileURL(tmpHtml).href, { waitUntil: 'networkidle' });

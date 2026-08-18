@@ -340,7 +340,7 @@ const FUOCHI = { candele: '#e8c27a', crogiolo: '#e8934a', stufa: '#e8934a', alta
 //
 // `gruppi` arriva gia' fuso da `groupArredi()` del generatore: un arredo che
 // occupa piu' celle e' UN oggetto piu' grande, non lo stesso oggetto ripetuto.
-function htmlVtt(tile, S, { gruppi, porte, stampa = false, celle = null, cornice = 0 }) {
+function htmlVtt(tile, S, { gruppi, porte, stampa = false, celle = null, cornice = 0, lato = 4 }) {
   // LA CORNICE: il muro sta FUORI dalle caselle giocabili.
   //
   // Fino a ieri il pezzo di muro veniva appoggiato SOPRA la prima casella del
@@ -353,15 +353,19 @@ function htmlVtt(tile, S, { gruppi, porte, stampa = false, celle = null, cornice
   //
   // A cornice 0 il conto torna a S/4 e non cambia un pixel: e' cosi' che le
   // tessere gia' stampate restano quelle di prima.
-  const c = S / (4 + 2 * cornice);
+  // QUANTE CASELLE PER LATO. Quattro e' quel che c'e' sempre stato; con cinque o
+  // sei la stanza ha spazio per girarci attorno a un arredo invece di doverlo
+  // scavalcare. Il conto e' lo stesso, il numero e' una manopola.
+  const L = lato;
+  const c = S / (L + 2 * cornice);
   const M = c * cornice;          // lo spessore del muro, fuori dal reticolo
   const off = M;                  // dove comincia la prima casella
   // LA SAGOMA (scripts/tiles/sagome.js). `celle` sono le caselle VIVE: quel che
   // non c'e' dentro non e' pavimento, e il muro ci gira attorno. Senza il campo,
   // la tessera resta il quadrato pieno di sempre — e' cosi' che il vecchio
   // comportamento resta intatto senza un ramo apposta.
-  const vive = new Set((celle || Array.from({ length: 16 },
-    (_, i) => [i % 4, (i / 4) | 0])).map(([x, y]) => x + ',' + y));
+  const vive = new Set((celle || Array.from({ length: L * L },
+    (_, i) => [i % L, (i / L) | 0])).map(([x, y]) => x + ',' + y));
   const viva = (x, y) => vive.has(x + ',' + y);
   const pav = pavimentoDi(tile);
   const tar = TARATURA[pav] || { luce: 1, scala: 1 };
@@ -381,7 +385,7 @@ function htmlVtt(tile, S, { gruppi, porte, stampa = false, celle = null, cornice
   // LE CASELLE FUORI SAGOMA prendono il fondo del tavolo. Non si ritagliano dal
   // PNG: una tessera resta un quadrato, e il «fuori» e' dipinto — al tavolo il
   // cartoncino andrebbe fustellato, a schermo il risultato e' lo stesso.
-  const fuori = Array.from({ length: 16 }, (_, i) => [i % 4, (i / 4) | 0])
+  const fuori = Array.from({ length: L * L }, (_, i) => [i % L, (i / L) | 0])
     .filter(([x, y]) => !viva(x, y))
     .map(([x, y]) => `<div class="fuori" style="left:${off + x * c}px; top:${off + y * c}px;
       width:${c}px; height:${c}px"></div>`).join('');
@@ -452,8 +456,8 @@ function htmlVtt(tile, S, { gruppi, porte, stampa = false, celle = null, cornice
   // l'abside e il ballatoio col vuoto in mezzo.
   const VERSO = { N: [0, -1], S: [0, 1], O: [-1, 0], E: [1, 0] };
   const soglie = new Set(porte.map(({ dir, idx }) =>
-    (dir === 'N' ? `${idx},0` : dir === 'S' ? `${idx},3`
-      : dir === 'O' ? `0,${idx}` : `3,${idx}`) + dir));
+    (dir === 'N' ? `${idx},0` : dir === 'S' ? `${idx},${L - 1}`
+      : dir === 'O' ? `0,${idx}` : `${L - 1},${idx}`) + dir));
   const bordi = [];
   for (const [cx, cy] of [...vive].map((k2) => k2.split(',').map(Number))) {
     for (const [dir, [dx, dy]] of Object.entries(VERSO)) {
@@ -467,7 +471,7 @@ function htmlVtt(tile, S, { gruppi, porte, stampa = false, celle = null, cornice
   // Con una sagoma cede il posto al kit a pezzi (o al ripiego disegnato), invece
   // di uscire storta. Se la direzione 2 viene scelta, la striscia va tagliata
   // per casella come i pezzi del kit — stesso conto, altra immagine.
-  const muri = QUALI_MURI === '2m' && fs.existsSync(MURO_2M) && vive.size === 16
+  const muri = QUALI_MURI === '2m' && fs.existsSync(MURO_2M) && vive.size === L * L
     // --- la striscia dipinta 2MT: una per lato, spezzata dove c'e' la soglia ---
     ? (() => {
       const giro = { N: 0, E: 90, S: 180, O: 270 };
@@ -479,7 +483,7 @@ function htmlVtt(tile, S, { gruppi, porte, stampa = false, celle = null, cornice
       const alt = Math.round(c * MURO_2M_ALTEZZA);
       const url = pathToFileURL(MURO_2M).href;
       return ['N', 'E', 'S', 'O'].map((dir) => {
-        const idxs = idxPorte(dir).map((i) => (specchia[dir] ? 3 - i : i));
+        const idxs = idxPorte(dir).map((i) => (specchia[dir] ? L - 1 - i : i));
         const pezzi = tratti(idxs).map(([a, b]) => `<div style="position:absolute;
           left:${a}px; top:0; width:${b - a}px; height:${alt}px;
           background-image:url('${url}'); background-size:${S}px ${alt}px;
@@ -580,8 +584,8 @@ function htmlVtt(tile, S, { gruppi, porte, stampa = false, celle = null, cornice
   // il reticolo e i cartellini stanno nel PNG SOLO per la stampa: a schermo li
   // disegna l'app, e cuocerli qui significa averli due volte
   const griglia = stampa
-    ? Array.from({ length: 16 }, (_, i) => {
-      const col = i % 4, row = (i / 4) | 0;
+    ? Array.from({ length: L * L }, (_, i) => {
+      const col = i % L, row = (i / L) | 0;
       return `<div class="cell" style="left:${off + col * c}px; top:${off + row * c}px; width:${c}px; height:${c}px;"></div>`;
     }).join('')
     : '';
@@ -593,7 +597,7 @@ function htmlVtt(tile, S, { gruppi, porte, stampa = false, celle = null, cornice
       background:#0b0d10; }
     /* il riquadro giocabile: quattro caselle per quattro, e nient'altro */
     .dentro { position:absolute; left:${off}px; top:${off}px;
-      width:${4 * c}px; height:${4 * c}px; overflow:hidden; }
+      width:${L * c}px; height:${L * c}px; overflow:hidden; }
 
     /* IL PAVIMENTO. La texture nasce neutra e viene portata in palette qui:
        velatura fredda verso il fondo dell'app, saturazione bassa. La piastrella
@@ -625,7 +629,7 @@ function htmlVtt(tile, S, { gruppi, porte, stampa = false, celle = null, cornice
        sembrano un unico pavimento continuo e non si capisce dove finisce una
        stanza. E' la stessa vignettatura del mockup «la stanza e' il pezzo». */
     .muri { position:absolute; left:${off}px; top:${off}px;
-      width:${4 * c}px; height:${4 * c}px; pointer-events:none;
+      width:${L * c}px; height:${L * c}px; pointer-events:none;
       box-shadow: inset 0 0 ${Math.round(c * 0.5)}px ${Math.round(c * 0.1)}px rgba(0,0,0,.55),
                   inset 0 0 0 ${Math.round(c * 0.018)}px rgba(0,0,0,.8); }
 
@@ -685,7 +689,7 @@ function htmlVtt(tile, S, { gruppi, porte, stampa = false, celle = null, cornice
     <div class="stage">
       <!-- IL PAVIMENTO STA NEL RETICOLO, non in tutta la tessera: fuori c'e' la
            cornice, che e' muro e tavolo. A cornice 0 il riquadro coincide con la
-           tessera e non cambia niente. -->
+           tessera e non cambia niente. Le caselle per lato sono L. -->
       <div class="dentro">
         <div class="suolo"></div>
         <div class="tinta"></div>

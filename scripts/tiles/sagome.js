@@ -20,7 +20,11 @@
 // quel che resta non e' tutto attaccato la sagoma viene BUTTATA e si torna al
 // quadrato pieno. Meglio una stanza quadrata che una stanza spezzata in due.
 
-const LATO = 4;
+// QUANTE CASELLE PER LATO. Quattro e' quel che c'e' sempre stato; i tagli sono
+// scritti in funzione di L, non con lo 0 e il 3 murati dentro, cosi' la stessa
+// pianta vale su una stanza 5x5 o 6x6 senza riscriverla.
+let LATO = 4;
+const setLato = (n) => { LATO = n; };
 
 const tutte = () => {
   const out = [];
@@ -28,7 +32,12 @@ const tutte = () => {
   return out;
 };
 const k = ([c, r]) => `${c},${r}`;
-const ANGOLI = [[0, 0], [3, 0], [0, 3], [3, 3]];
+const U = () => LATO - 1;                       // l'ultima riga/colonna
+// quanto una casella e' lontana dalla fascia centrale — serve a decidere a cosa
+// rinunciare per primo quando un taglio va ridotto
+const distanza = ([c, r], m1, m2) =>
+  Math.max(0, m1 - c, c - m2) + Math.max(0, m1 - r, r - m2);
+const ANGOLI = () => [[0, 0], [U(), 0], [0, U()], [U(), U()]];
 
 // I TAGLI. Ognuno riceve le porte (per direzione) e torna le caselle da
 // SPEGNERE. Coordinate di disegno: colonna 0..3 da sinistra, riga 0..3
@@ -36,40 +45,46 @@ const ANGOLI = [[0, 0], [3, 0], [0, 3], [3, 3]];
 const TAGLI = {
   // l'ottagono: quattro angoli smussati. La stanza smette di essere una scatola
   pieno:  () => [],
-  angoli: () => ANGOLI,
+  angoli: () => ANGOLI(),
 
   // l'abside: il fondo della navata si chiude in tondo. Si smussa il lato
   // OPPOSTO all'ingresso, che e' quello che si guarda entrando
   abside: (porte) => {
     const dentro = new Set(Object.keys(porte));
     const fondo = ['N', 'S', 'E', 'O'].find((d) => !dentro.has(d)) || 'N';
-    return { N: [[0, 0], [3, 0]], S: [[0, 3], [3, 3]],
-             O: [[0, 0], [0, 3]], E: [[3, 0], [3, 3]] }[fondo];
+    return { N: [[0, 0], [U(), 0]], S: [[0, U()], [U(), U()]],
+             O: [[0, 0], [0, U()]], E: [[U(), 0], [U(), U()]] }[fondo];
   },
 
   // la cisterna: tonda, e con le colonne in mezzo. Le colonne sono ostacoli
   // veri — e' l'unica sagoma che toglie caselle DENTRO la stanza
   // le colonne stanno IN FONDO all'elenco apposta: se spezzano l'anello sono le
   // prime a cui si rinuncia, e la cisterna resta almeno tonda
-  tonda: () => ANGOLI.concat([[1, 2], [2, 1]]),
+  tonda: () => ANGOLI().concat([[1, U() - 1], [U() - 1, 1]]),
 
   // il ballatoio gira attorno alla torre: il centro non e' pavimento, e' vuoto.
   // Chi ci cammina ha il vuoto da una parte e la pietra dall'altra
-  anello: () => [[1, 1], [2, 1], [1, 2], [2, 2]],
+  // il vuoto centrale cresce con la stanza: su 4x4 e' 2x2, su 6x6 e' 4x4
+  anello: () => {
+    const out = [];
+    for (let r = 1; r < U(); r++) for (let cc = 1; cc < U(); cc++) out.push([cc, r]);
+    return out;
+  },
 
   // la guglia si stringe salendo: due caselle in cima, quattro alla base
-  guglia: () => ANGOLI.concat([[0, 1], [3, 1]]),
+  guglia: () => ANGOLI().concat([[0, 1], [U(), 1]]),
 
   // il tetto: le falde smussate agli angoli, come le vede chi ci sta sopra
-  tetto: () => ANGOLI.concat([[0, 1], [3, 2]]),
+  tetto: () => ANGOLI().concat([[0, 1], [U(), U() - 1]]),
 
   // la banchina finisce nell'acqua: un angolo di 2x2 non e' pavimento, e' canale.
   // Si sceglie l'angolo piu' lontano dalle porte, o si mangerebbe l'ingresso
   banchina: (porte) => {
     const dentro = new Set(Object.keys(porte));
-    const via = !dentro.has('S') && !dentro.has('E') ? [[2, 3], [3, 3], [3, 2]]
-      : !dentro.has('S') && !dentro.has('O') ? [[0, 3], [1, 3], [0, 2]]
-      : !dentro.has('N') && !dentro.has('E') ? [[3, 0], [2, 0], [3, 1]]
+    const u = U();
+    const via = !dentro.has('S') && !dentro.has('E') ? [[u - 1, u], [u, u], [u, u - 1]]
+      : !dentro.has('S') && !dentro.has('O') ? [[0, u], [1, u], [0, u - 1]]
+      : !dentro.has('N') && !dentro.has('E') ? [[u, 0], [u - 1, 0], [u, 1]]
       : [[0, 0], [1, 0], [0, 1]];
     return via;
   },
@@ -80,12 +95,27 @@ const TAGLI = {
   // porte ad angolo danno una L. E' il collo di bottiglia che esiste perche' la
   // stanza e' fatta cosi', non perche' una regola lo dice.
   passaggio: (porte) => {
-    const via = ANGOLI.slice();
-    const bracci = { N: [[1, 0], [2, 0]], S: [[1, 3], [2, 3]],
-                     O: [[0, 1], [0, 2]], E: [[3, 1], [3, 2]] };
-    for (const [dir, celle] of Object.entries(bracci)) {
-      if (!porte[dir]) via.push(...celle);
+    const u = U();
+    const m1 = ((u - 1) / 2) | 0, m2 = m1 + 1;      // la fascia centrale, larga DUE
+    // LA FASCIA RESTA LARGA DUE ANCHE IN UNA STANZA PIU' GRANDE: e' la larghezza
+    // che fa la fila indiana, e non deve crescere con la stanza. Ogni fascia
+    // arriva al bordo solo dal lato dove c'e' davvero una porta — altrimenti si
+    // ferma al centro, e non resta un braccio che non porta da nessuna parte.
+    const vivo = new Set();
+    const da = (q) => (q ? 0 : m1), a_ = (q) => (q ? u : m2);
+    for (let r = m1; r <= m2; r++) {
+      for (let cc = da(porte.O); cc <= a_(porte.E); cc++) vivo.add(`${cc},${r}`);
     }
+    for (let cc = m1; cc <= m2; cc++) {
+      for (let r = da(porte.N); r <= a_(porte.S); r++) vivo.add(`${cc},${r}`);
+    }
+    const via = [];
+    for (let r = 0; r <= u; r++) {
+      for (let cc = 0; cc <= u; cc++) if (!vivo.has(`${cc},${r}`)) via.push([cc, r]);
+    }
+    // le caselle piu' lontane dalla fascia si tolgono per PRIME, cosi' se il
+    // taglio va ridotto si rinuncia agli angoli e non al cuore del corridoio
+    via.sort((p, q) => distanza(q, m1, m2) - distanza(p, m1, m2));
     return via;
   },
 };
@@ -170,7 +200,7 @@ function sagomaDi(tile, porte, arredi = []) {
   };
 }
 
-module.exports = { sagomaDi, taglioDi, TAGLI, REGOLE };
+module.exports = { sagomaDi, taglioDi, TAGLI, REGOLE, setLato };
 
 // ------------------------------------------------------------- il collaudo
 // Non un banco: la cosa piu' piccola che si rompe se la logica si rompe. Gira
@@ -247,6 +277,20 @@ if (require.main === module) {
       conto[r.taglio] = (conto[r.taglio] || 0) + 1;
     }
   }
+  // LA GENERALIZZAZIONE VA PROVATA, non dichiarata: a lato 6 le stesse piante
+  // devono uscire intere, o «funziona anche su 6x6» e' una frase e basta.
+  setLato(6);
+  for (const nome of ['Il Corridoio delle Candele', 'Il Ballatoio della Torre',
+                      'La Cisterna delle Colonne', 'La Navata Sepolta', 'La Banchina']) {
+    const r = sagomaDi({ nome }, { O: [0, 2], E: [5, 2] });
+    const v = new Set(r.celle.map(k));
+    assert.ok(r.celle.length > 0, nome);
+    assert.strictEqual(raggiunte(v, r.celle[0]).size, v.size, `${nome} spezzata a 6x6`);
+  }
+  const largo = sagomaDi({ nome: 'Il Corridoio' }, { O: [0, 2], E: [5, 2] });
+  assert.strictEqual(largo.celle.length, 12, `il passaggio a 6x6 e' 6x2, non ${largo.celle.length}`);
+  setLato(4);
+
   console.log(`${n} tessere, nessuna spezzata, nessuna porta murata`);
   console.log('tagli:', Object.entries(conto).sort((a, b) => b[1] - a[1])
     .map(([t, c]) => `${t} ${c}`).join(' · '));
