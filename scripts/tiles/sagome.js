@@ -37,7 +37,22 @@ const U = () => LATO - 1;                       // l'ultima riga/colonna
 // rinunciare per primo quando un taglio va ridotto
 const distanza = ([c, r], m1, m2) =>
   Math.max(0, m1 - c, c - m2) + Math.max(0, m1 - r, r - m2);
-const ANGOLI = () => [[0, 0], [U(), 0], [0, U()], [U(), U()]];
+// L'ANGOLO SMUSSATO CRESCE CON LA STANZA. Togliere una casella per angolo su
+// sedici si vede; su trentasei e' una tacca. Qui lo smusso e' un triangolo di
+// lato `LATO - 3`: uno su 4x4 (com'era), due su 5x5, tre su 6x6.
+// UNA CASELLA fino a 5x5, DUE da 6x6 in su. A `LATO - 3` lo smusso mangiava tre
+// caselle per angolo su una 5x5 e ogni stanza usciva a croce: una sala smussata
+// deve restare una sala. Visto sul render, non sul conto.
+const smusso = () => (LATO <= 5 ? 1 : 2);
+const ANGOLI = () => {
+  const n = smusso(); const u = U(); const out = [];
+  for (let i = 0; i < n; i++) {
+    for (let j = 0; j + i < n; j++) {
+      out.push([i, j], [u - i, j], [i, u - j], [u - i, u - j]);
+    }
+  }
+  return [...new Set(out.map(String))].map((k2) => k2.split(',').map(Number));
+};
 
 // I TAGLI. Ognuno riceve le porte (per direzione) e torna le caselle da
 // SPEGNERE. Coordinate di disegno: colonna 0..3 da sinistra, riga 0..3
@@ -60,7 +75,12 @@ const TAGLI = {
   // veri — e' l'unica sagoma che toglie caselle DENTRO la stanza
   // le colonne stanno IN FONDO all'elenco apposta: se spezzano l'anello sono le
   // prime a cui si rinuncia, e la cisterna resta almeno tonda
-  tonda: () => ANGOLI().concat([[1, U() - 1], [U() - 1, 1]]),
+  tonda: () => {
+    const u = U(); const col = [];
+    // una colonna ogni due caselle e mezzo di luce: due su 4x4, quattro su 6x6
+    for (let r = 1; r < u; r += 2) for (let c = 1; c < u; c += 2) col.push([c, r]);
+    return ANGOLI().concat(col);
+  },
 
   // il ballatoio gira attorno alla torre: il centro non e' pavimento, e' vuoto.
   // Chi ci cammina ha il vuoto da una parte e la pietra dall'altra
@@ -173,22 +193,56 @@ function sagomaDi(tile, porte, arredi = []) {
   // sospeso nel vuoto e' un guasto che nessun test vedrebbe — si vede al tavolo
   const intoccabili = new Set([...Object.values(porte), ...arredi].map(k));
 
-  // SI TOGLIE UNA CASELLA ALLA VOLTA, E SI SMETTE QUANDO LA STANZA SI SPEZZA.
-  // Il taglio elenca le caselle in ordine di importanza — prima il profilo (gli
-  // angoli), poi i di piu' (le colonne in mezzo) — quindi rinunciare alle
-  // ultime toglie il dettaglio e salva la pianta. Buttare tutto e tornare al
-  // quadrato pieno era lo spreco di prima: la cisterna perdeva anche le pareti
-  // tonde per colpa di due colonne che spezzavano l'anello.
-  let migliori = null;
-  for (let n = ordinate.length; n >= 0; n--) {
-    const via = new Set(ordinate.slice(0, n).filter((s) => !intoccabili.has(s)));
-    const vive = new Set(tutte().map(k).filter((s) => !via.has(s)));
-    const celle = [...vive].map((s) => s.split(',').map(Number));
-    if (!celle.length) continue;
-    if (raggiunte(vive, celle[0]).size !== vive.size) continue;
-    migliori = { via, celle, rinunciate: ordinate.length - n };
-    break;
+  // SI RICUCE, NON SI RINUNCIA.
+  //
+  // Prima, se il taglio spezzava la stanza, si rinunciava alle sue caselle una
+  // alla volta finche' non tornava intera — e su una stanza grande bastava un
+  // arredo dei dati capitato in un angolo per far cadere tutto il taglio: «la
+  // galleria delle eco» tornava una stanza quadrata perche' aveva una cassa
+  // fuori dalla fascia del corridoio.
+  //
+  // Adesso quel che resta staccato si RIATTACCA: si riaccende il cammino piu'
+  // corto fra il pezzo isolato e il corpo della stanza. La pianta perde qualche
+  // casella dove serve e la tiene dove conta — e un arredo non resta mai su
+  // un'isola.
+  const via = new Set(ordinate.filter((s2) => !intoccabili.has(s2)));
+  const vive = new Set(tutte().map(k).filter((s2) => !via.has(s2)));
+  const celleDi = (v) => [...v].map((s2) => s2.split(',').map(Number));
+  let cuciture = 0;
+  for (let giro = 0; giro < 8; giro++) {
+    const celle0 = celleDi(vive);
+    if (!celle0.length) break;
+    // il corpo della stanza e' il pezzo piu' grande
+    let corpo = null;
+    const visti = new Set();
+    for (const p0 of celle0) {
+      if (visti.has(k(p0))) continue;
+      const gruppo = raggiunte(vive, p0);
+      gruppo.forEach((x) => visti.add(x));
+      if (!corpo || gruppo.size > corpo.size) corpo = gruppo;
+    }
+    if (corpo.size === vive.size) break;
+    // il cammino piu' corto da un pezzo isolato al corpo, attraversando anche
+    // le caselle spente: quelle che tocca si riaccendono
+    const fuori = celle0.filter((p0) => !corpo.has(k(p0)));
+    const coda = fuori.map((p0) => [p0, [p0]]);
+    const visto = new Set(fuori.map(k));
+    let cammino = null;
+    while (coda.length && !cammino) {
+      const [[c, r], strada] = coda.shift();
+      for (const [dc, dr] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
+        const q = [c + dc, r + dr];
+        if (q[0] < 0 || q[1] < 0 || q[0] > U() || q[1] > U() || visto.has(k(q))) continue;
+        visto.add(k(q));
+        if (corpo.has(k(q))) { cammino = strada.concat([q]); break; }
+        coda.push([q, strada.concat([q])]);
+      }
+    }
+    if (!cammino) break;
+    for (const q of cammino) { vive.add(k(q)); via.delete(k(q)); }
+    cuciture++;
   }
+  const migliori = { via, celle: celleDi(vive), rinunciate: cuciture };
   if (!migliori) return { taglio: 'pieno', celle: tutte(), spente: [], scartata: taglio };
   return {
     taglio: migliori.via.size ? taglio : 'pieno',
@@ -196,7 +250,9 @@ function sagomaDi(tile, porte, arredi = []) {
     spente: [...migliori.via].map((s) => s.split(',').map(Number)),
     // `scartata` non e' piu' «buttata via»: e' «e' stata ridotta», e dice di
     // quanto. A zero il taglio e' uscito intero.
-    scartata: migliori.rinunciate ? `${taglio}: ${migliori.rinunciate} caselle rinunciate` : null,
+    // `scartata` non e' «buttata via»: dice quante cuciture sono servite a
+    // tenere la stanza tutta attaccata. A zero il taglio e' uscito intero.
+    scartata: migliori.rinunciate ? `${taglio}: ${migliori.rinunciate} cuciture` : null,
   };
 }
 
@@ -297,7 +353,7 @@ if (require.main === module) {
   // IL TETTO SUL NUMERO E' IL COLLAUDO VERO. Senza, una regressione che fa
   // buttare meta' delle sagome uscirebbe con tutti i banchi verdi: le tessere
   // tornerebbero quadrate una per una, in silenzio.
-  console.log(`sagome ridotte per non spezzare la stanza: ${scartate} — ${buttate.join(', ')}`);
-  assert.ok(scartate <= 12, `troppe sagome ridotte: ${scartate} (il tetto e' 12)`);
+  console.log(`sagome ricucite per restare intere: ${scartate} — ${buttate.join(', ')}`);
+  assert.ok(scartate <= 14, `troppe cuciture: ${scartate} (il tetto e' 14)`);
   assert.ok((conto.pieno || 0) <= 70, `troppe tessere rimaste quadrate: ${conto.pieno}`);
 }

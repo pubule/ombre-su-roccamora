@@ -8,14 +8,16 @@
     background: #07080a; padding: 14px; }
   .plancia { position: relative; margin: 0 auto; }
   .tess { position: absolute; background-size: cover; background-position: center; }
-  /* IL RETICOLO STA NEL RIQUADRO GIOCABILE. La tessera e' 4 caselle piu' due
-     mezze cornici di muro (0,14 caselle l'una): 0,14/4,28 = 3,27% per lato. Disegnarlo
-     su tutta l'immagine rimetterebbe le linee sopra la pietra — lo stesso
-     difetto di prima, spostato dal PNG al DOM. */
-  .tess .celle { position: absolute; inset: 3.27%; display: grid;
-    grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(4, 1fr); }
+  /* IL RETICOLO STA NEL RIQUADRO GIOCABILE, e il suo margine NON e' lo stesso
+     per tutte: la mezza cornice vale sempre 0,16 caselle, ma su una sala 6x6 e'
+     una frazione piu' piccola della tessera che su uno stanzino 4x4. Il margine
+     e le colonne li mette lo script, tessera per tessera. */
+  .tess .celle { position: absolute; display: grid; }
   .tess .cel { border-right: 1px solid rgba(230,195,120,.13);
     border-bottom: 1px solid rgba(230,195,120,.13); }
+  .taglia { position: absolute; right: 5px; top: 5px; font-family: 'FellSC', serif;
+    font-size: 9.5px; color: var(--fioco); background: rgba(6,8,10,.7);
+    padding: 1px 4px; border-radius: 3px; z-index: 3; }
   .numero { position: absolute; left: 5px; top: 5px; width: 16px; height: 16px;
     border-radius: 50%; display: grid; place-items: center; font-family: 'FellSC', serif;
     font-size: 9.5px; color: var(--lume); background: rgba(6,8,10,.82);
@@ -54,6 +56,20 @@
     la stessa regola con cui il nome dice già il pavimento: «ballatoio» è un anello attorno
     alla torre, «cisterna» è tonda con le colonne, «camminamento» è una fascia larga due
     caselle, «navata» ha l'abside. Nessun campo nuovo scritto a mano su 127 tessere.</p>
+  <p class="nota" style="margin-bottom:6px">La stanza non ha più <b>una taglia
+    sola per tutti</b>. Quante caselle abbia lo dice il nome, con la stessa regola con cui
+    dice già il pavimento e la pianta: <b>4×4</b> uno stanzino o un abbaino, <b>5×5</b> una
+    stanza o un corridoio, <b>6×6</b> una navata, una cisterna, un magazzino, un salone.
+    Sulle 127 tessere della campagna fanno 8 piccole, 81 medie e 38 grandi — e le caselle di
+    gioco passano da 2.032 a <b>3.521</b>. La casella resta 46 mm per tutte, così una pedina
+    è comoda uguale in uno stanzino e in una cattedrale: a cambiare è la tessera, che va da
+    199 a 291 mm. Tutte in un A3.</p>
+  <p class="nota" style="margin-bottom:6px">E con lo spazio vanno gli <b>arredi</b>: una sala
+    di trentasei caselle che ne riempie due è un capannone. La stanza si arreda da sola
+    secondo quel che dice di essere — un magazzino accatasta casse, una navata allinea
+    candele e altari, una cripta mette gli altari, un'officina i paioli — e gli oggetti si
+    addossano ai muri, mai sulla soglia né sulla casella davanti. Sono una <b>proposta per i
+    dati</b>: finché non ci entrano, il motore non li conosce e non fermano nessuno.</p>
   <p class="nota" style="margin-bottom:6px">Due cose sono cambiate dalla prima
     stesura, e si vedevano solo posando una pedina. <b>Il muro adesso sta fuori dalle
     caselle</b>: prima il pezzo del kit veniva appoggiato sopra la prima casella del bordo
@@ -90,11 +106,12 @@
 </div>
 
 <script>
-// LA TESSERA E' PIU' GRANDE, e a schermo si vede: casella da 50 a 60 mm, e il
-// muro fuori dal reticolo invece che sopra la prima casella. Il riquadro della
-// tessera vale ora 4 caselle piu' due cornici — 4,56 caselle in tutto.
-const CELLA = 46;             // una casella a schermo
-const T = Math.round(CELLA * 4.28);
+// LA CASELLA E' LA STESSA PER TUTTE LE STANZE — 46 mm — e a cambiare e' QUANTE
+// ne ha ognuna: 4x4 uno stanzino, 5x5 una stanza, 6x6 una sala. Il riquadro
+// della tessera vale L caselle piu' due mezze cornici da 0,16.
+const CELLA = 38;             // una casella a schermo
+const CORNICE = 0.16;
+const lastra = (L) => Math.round(CELLA * (L + 2 * CORNICE));
 let via = 'sag';
 
 // che cosa fa la sagoma, episodio per episodio — la riga che dice dove guardare
@@ -106,27 +123,40 @@ const PIANTE = {
   ep12: 'Venezia per intero: il <b>ponte dei sospiri</b> e la <b>fondamenta stretta</b> sono passaggi, il <b>sottoportico</b> ha gli angoli tagliati, il <b>cimitero delle barche</b> e il <b>canale della nebbia</b> perdono la riva.',
 };
 
-const celle = '<div class="celle">'
-  + Array.from({ length: 16 }, () => '<div class="cel"></div>').join('') + '</div>';
+const reticolo = (L) => {
+  const m = (100 * CORNICE / (L + 2 * CORNICE)).toFixed(3) + '%';
+  return `<div class="celle" style="inset:${m};
+    grid-template-columns:repeat(${L},1fr); grid-template-rows:repeat(${L},1fr)">`
+    + Array.from({ length: L * L }, () => '<div class="cel"></div>').join('') + '</div>';
+};
 
 fetch('../tessere-sagome/spedizioni.json').then((r) => r.json()).then((sped) => {
   document.getElementById('spedizioni').innerHTML = sped.map((s) => {
+    // le posizioni sono in CASELLE: con tessere di taglia diversa non c'e' piu'
+    // una scacchiera di tessere su cui contare
     const c0 = Math.min(...s.tessere.map((t) => t.col));
     const r0 = Math.min(...s.tessere.map((t) => t.row));
-    const w = Math.max(...s.tessere.map((t) => t.col)) - c0 + 1;
-    const h = Math.max(...s.tessere.map((t) => t.row)) - r0 + 1;
+    const w = Math.max(...s.tessere.map((t) => t.col + t.lato)) - c0;
+    const h = Math.max(...s.tessere.map((t) => t.row + t.lato)) - r0;
     const nome = s.ep === 'preludio' ? 'preludio' : 'episodio ' + s.ep.slice(2);
     return `
       <h2 style="margin:22px 0 8px"><span class="ep">${nome}</span>${s.titolo}</h2>
       <div class="prova">
         <div class="scorri">
-          <div class="plancia" style="width:${w * T}px; height:${h * T}px">
-            ${s.tessere.map((t, i) => `
+          <div class="plancia" style="width:${w * CELLA + 20}px; height:${h * CELLA + 20}px">
+            ${s.tessere.map((t, i) => {
+    // la tessera sborda della sua mezza cornice su ogni lato: il muro sta
+    // FUORI dalle caselle, e le caselle sono quelle che contano per la posa
+    const bordo = CELLA * CORNICE;
+    return `
               <div class="tess" data-ep="${s.ep}" data-id="${t.id}"
-                style="left:${(t.col - c0) * T}px; top:${(t.row - r0) * T}px;
-                       width:${T}px; height:${T}px">
-                ${celle}<div class="numero">${i + 1}</div>
-              </div>`).join('')}
+                style="left:${(t.col - c0) * CELLA - bordo + 10}px;
+                       top:${(t.row - r0) * CELLA - bordo + 10}px;
+                       width:${lastra(t.lato)}px; height:${lastra(t.lato)}px">
+                ${reticolo(t.lato)}<div class="numero">${i + 1}</div>
+                <div class="taglia">${t.lato}×${t.lato}</div>
+              </div>`;
+  }).join('')}
           </div>
         </div>
         <div class="legenda">${s.tessere.map((t, i) =>

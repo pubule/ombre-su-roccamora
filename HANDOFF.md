@@ -141,6 +141,30 @@ Attenzione a chi disegna il reticolo sopra: con la cornice **non è più tutta
 l'immagine**, è il 6,14% in dentro per lato. Nel mockup è un `inset`; in
 `digitale.js` andrà fatto lo stesso se la direzione viene scelta.
 
+**LA TAGLIA DELLA STANZA LA DICE IL NOME** (18/08, quarto giro), come già il
+pavimento e la pianta: `scripts/tiles/stanze.js`. 4×4 uno stanzino o un abbaino,
+5×5 una stanza o un corridoio, 6×6 una navata, una cisterna, un magazzino. Sulle
+127 tessere: 8 piccole, 81 medie, 38 grandi — le caselle di gioco passano da
+2.032 a **3.521**. La casella resta 46 mm per tutte (`OSR_CASELLA=568`), a
+cambiare è la tessera: 199 / 245 / 291 mm, tutte in A3. Si accende con
+`OSR_LATO=auto`.
+
+**E la stanza si arreda da sola** (`OSR_ARREDA=1`): una sala di 36 caselle che ne
+riempie due è un capannone. Il corredo lo dice il nome — un magazzino accatasta
+casse, una navata allinea candele e altari — e gli oggetti si addossano ai muri,
+mai sulla soglia né sulla casella davanti. **Sono una proposta per i dati**:
+finché non ci entrano il motore non li conosce e non fermano nessuno.
+
+**Le sagome ora si RICUCIONO invece di essere buttate.** Prima bastava un arredo
+dei dati capitato fuori dalla fascia del corridoio per far cadere tutto il
+taglio: «la galleria delle eco» tornava una stanza quadrata. Adesso il pezzo
+staccato si riattacca riaccendendo il cammino più corto. Cinque tessere su 127
+hanno una cucitura, nessuna ne ha più di due.
+
+**Le posizioni della plancia si contano in CASELLE**, non in tessere: con taglie
+diverse non c'è più una scacchiera su cui contare. Vale per il mockup e varrà per
+`layout()` in `griglia.js`.
+
 **L'artwork è tutto Forgotten Adventures**, muri compresi: è l'unica libreria in
 casa che copre 127 tessere con una mano sola, e la coerenza era la richiesta.
 Resta CC BY-NC-SA — la scelta di licenza è ancora aperta.
