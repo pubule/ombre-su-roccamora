@@ -1,0 +1,32 @@
+[
+ {
+  "ep": "ep12",
+  "id": "T2",
+  "nome": "IL PONTE DEI SOSPIRI"
+ },
+ {
+  "ep": "ep12",
+  "id": "T4",
+  "nome": "IL CANALE DELLA NEBBIA"
+ },
+ {
+  "ep": "ep3",
+  "id": "T2",
+  "nome": "LA CISTERNA DELLE COLONNE"
+ },
+ {
+  "ep": "ep3",
+  "id": "T4",
+  "nome": "LA CONFLUENZA"
+ },
+ {
+  "ep": "ep5",
+  "id": "T2",
+  "nome": "LA NAVATA SEPOLTA"
+ },
+ {
+  "ep": "ep5",
+  "id": "T4",
+  "nome": "LA SALA DEL CAPITOLO"
+ }
+]

@@ -114,7 +114,35 @@ const dipinto = (tipo, nome) => {
 // navata diventava una lastra sola. Qui la texture esce CHIARA e CONTRASTATA, e
 // a portarla nel buio ci pensano i veli sopra — che percio' vanno leggeri.
 const MANO_PAVIMENTO = 'saturate(.38) brightness(.78) contrast(1.46)';
+
+// ------------------------------------------------------------- DUE STILI
+//
+// «nebbia» e' quello del gioco: 1889 gaslamp gothic, buio, teal e cremisi, la
+// pozza di lanterna. Bello a schermo, e giusto per gli artwork delle carte.
+//
+// «waterdeep» e' quello dei giochi da tavolo a tessere — il D&D Adventure System
+// di WizKids, Castle Ravenloft, Dungeon of the Mad Mage. Serve un altro mestiere:
+// la tessera sta su un tavolo, sotto la luce di una stanza, e dev'essere LEGGIBILE
+// prima che atmosferica. Quindi:
+//
+//   - luce PIATTA: niente pozza di lanterna, niente velatura fredda, niente
+//     cremisi. L'ombra drammatica su un cartoncino nasconde le caselle;
+//   - tono MEDIO e non scuro: si legge a mezzo metro, di sera, in quattro;
+//   - il RETICOLO E' STAMPATO nell'arte, non disegnato dall'app: al tavolo non
+//     c'e' nessuna app a disegnarlo;
+//   - il BORDO E' DURO: una fascia scura netta che dice dove finisce il pezzo.
+//
+// I due stili non si scelgono per gusto: dipende da dove si guarda la tessera.
+// Sullo schermo vince nebbia, sul cartoncino vince waterdeep — e la stessa
+// campagna puo' volerli tutti e due.
+const STILE = process.env.OSR_STILE || 'nebbia';
+const TAVOLO = STILE === 'waterdeep';
+// Meno saturo di quanto verrebbe da pensare: le tessere dei giochi a tessere
+// sono grigio-brune, non colorate. A saturate(.62) l'acqua della cisterna usciva
+// turchese da piscina e il marmo della navata bianco da bagno.
+const MANO_TAVOLO = 'saturate(.42) brightness(.96) contrast(1.16)';
 const MANO_ARREDO = 'saturate(.44) brightness(.84) contrast(1.06)';
+const MANO_ARREDO_TAVOLO = 'saturate(.75) brightness(1.05) contrast(1.06)';
 
 const RITINTA_2M = 'saturate(.5) brightness(.68) contrast(1.08)';
 const daRitingere = (url) => (url || '').includes('/vtt-2m/');
@@ -525,8 +553,9 @@ function htmlVtt(tile, S, { gruppi, porte, stampa = false, celle = null, cornice
     const passo = c * tar.scala;
     return [((n % 997) / 997) * passo, (((n * 7) % 991) / 991) * passo];
   })();
-  const mano = MANO_PAVIMENTO.replace('brightness(.78)',
-    `brightness(${(0.78 * (tar.mano || 1)).toFixed(2)})`);
+  const manoBase = TAVOLO ? MANO_TAVOLO : MANO_PAVIMENTO;
+  const mano = manoBase.replace(TAVOLO ? 'brightness(.96)' : 'brightness(.78)',
+    `brightness(${((TAVOLO ? 0.96 : 0.78) * (tar.mano || 1)).toFixed(2)})`);
   const pavDipinto = pavimentoVario(pav, tile);
   // L'ACQUA NON HA UNA TEXTURE. Poly Haven fa superfici, non canali: finche'
   // non arriva quella dipinta del pacchetto VTT, il canale lo si dipinge qui —
@@ -567,7 +596,7 @@ function htmlVtt(tile, S, { gruppi, porte, stampa = false, celle = null, cornice
     const dentro = arte
       ? `<div class="og dipinto" style="width:${w * 0.86}px;height:${h * 0.86}px;
            background-image:url('${arte}'); background-size:contain;
-           background-repeat:no-repeat; filter:${daRitingere(arte) ? RITINTA_2M : MANO_ARREDO} drop-shadow(0 ${Math.round(c * 0.03)}px
+           background-repeat:no-repeat; filter:${daRitingere(arte) ? RITINTA_2M : (TAVOLO ? MANO_ARREDO_TAVOLO : MANO_ARREDO)} drop-shadow(0 ${Math.round(c * 0.03)}px
            ${Math.round(c * 0.05)}px rgba(0,0,0,.65))"></div>`
       : disegna
       ? disegna({ c, w, h })
@@ -837,7 +866,7 @@ function htmlVtt(tile, S, { gruppi, porte, stampa = false, celle = null, cornice
     .tinta { position:absolute; inset:0; mix-blend-mode:multiply; opacity:.74;
       background:linear-gradient(rgba(120,146,152,1), rgba(64,84,96,1)); }
     /* macchie larghe: senza, un pavimento piastrellato e' carta da parati */
-    .macchie { position:absolute; inset:0; opacity:.32;
+    .macchie { position:absolute; inset:0; opacity:${TAVOLO ? '.16' : '.32'};
       background:
         radial-gradient(38% 30% at 22% 18%, ${sporco[0]}, transparent 70%),
         radial-gradient(30% 26% at 78% 62%, ${sporco[0]}, transparent 70%),
@@ -852,7 +881,7 @@ function htmlVtt(tile, S, { gruppi, porte, stampa = false, celle = null, cornice
          Su una stanza da dieci caselle una vignettatura tarata sul 4x4 non
          arrivava nemmeno al centro — qui e' proporzionale al LATO, non alla
          casella. */
-      box-shadow: inset 0 0 ${Math.round(c * L * 0.09)}px ${Math.round(c * L * 0.006)}px rgba(0,0,0,.55),
+      box-shadow: inset 0 0 ${Math.round(c * L * (TAVOLO ? 0.035 : 0.09))}px ${Math.round(c * L * 0.006)}px rgba(0,0,0,${TAVOLO ? '.30' : '.55'}),
                   inset 0 0 0 ${Math.round(c * 0.018)}px rgba(0,0,0,.8); }
 
     /* L'ORO CONSUMATO NELLA PIETRA. Il prompt della tessera del gioco lo dice
@@ -929,7 +958,7 @@ function htmlVtt(tile, S, { gruppi, porte, stampa = false, celle = null, cornice
        che si cammina — la differenza di luce e' la regola letta a occhio: dove e'
        chiaro si va, dove e' cupo no. */
     .fuori { position:absolute; background-color:#0b0d10;
-      filter:saturate(.30) brightness(.44) contrast(1.15);
+      filter:saturate(${TAVOLO ? '.22' : '.30'}) brightness(${TAVOLO ? '.34' : '.44'}) contrast(1.15);
       box-shadow:inset 0 0 ${Math.round(c * 0.35)}px rgba(0,0,0,.75); }
     /* LA SPONDA: il ciglio fra il camminabile e l'acqua. Non e' un muro — e' un
        bordo di legno consumato con l'ombra che cade DI LA', dove non si va. */
@@ -947,6 +976,19 @@ function htmlVtt(tile, S, { gruppi, porte, stampa = false, celle = null, cornice
       filter:saturate(.5) brightness(.8);
       box-shadow:0 0 ${Math.round(c * 0.14)}px ${Math.round(c * 0.04)}px rgba(232,194,122,.35),
                  inset 0 0 ${Math.round(c * 0.08)}px rgba(0,0,0,.8); }
+    /* IL RETICOLO STAMPATO. A schermo lo disegna l'app; sul cartoncino non c'e'
+       nessuna app, e senza reticolo una tessera dipinta e' un quadro. Righe
+       sottili e scure, che non rubano la scena all'arte ma si contano. */
+    .reticolo { position:absolute; inset:0; pointer-events:none;
+      background-image:
+        repeating-linear-gradient(0deg, rgba(24,20,16,.40) 0 ${Math.max(2, Math.round(c * 0.009))}px,
+          transparent ${Math.max(2, Math.round(c * 0.009))}px ${c}px),
+        repeating-linear-gradient(90deg, rgba(24,20,16,.40) 0 ${Math.max(2, Math.round(c * 0.009))}px,
+          transparent ${Math.max(2, Math.round(c * 0.009))}px ${c}px); }
+    /* IL BORDO DURO: dice dove finisce il pezzo. Su un tavolo dove le tessere si
+       accostano e' quel che le tiene distinte a colpo d'occhio. */
+    .taglio { position:absolute; inset:0; pointer-events:none;
+      box-shadow: inset 0 0 0 ${Math.max(2, Math.round(c * 0.05))}px rgba(16,13,10,.92); }
     .muroBox { position:absolute; }
     .muroBox img { position:absolute; }
     /* un LATO intero di muro dipinto: la scatola e' quadrata come la tessera,
@@ -964,12 +1006,13 @@ function htmlVtt(tile, S, { gruppi, porte, stampa = false, celle = null, cornice
            tessera e non cambia niente. Le caselle per lato sono L. -->
       <div class="dentro">
         <div class="suolo"></div>
-        <div class="tinta"></div>
+        ${TAVOLO ? '' : `<div class="tinta"></div>`}
         <div class="macchie"></div>
-        <div class="filigrana"></div>
+        ${TAVOLO ? '' : `<div class="filigrana"></div>
         <div class="crimson"></div>
         <div class="olio"></div>
-        <div class="lanterna"></div>
+        <div class="lanterna"></div>`}
+        ${TAVOLO ? `<div class="reticolo"></div>` : ''}
       </div>
       ${luci}
       ${fuori}
@@ -978,6 +1021,7 @@ function htmlVtt(tile, S, { gruppi, porte, stampa = false, celle = null, cornice
       ${uscio}
       ${muri}
       <div class="muri"></div>
+      ${TAVOLO ? '<div class="taglio"></div>' : ''}
       ${griglia}
     </div>
   </body></html>`;

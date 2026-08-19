@@ -1,0 +1,205 @@
+<!doctype html><html lang="it"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Notte e nebbia · la direzione Waterdeep</title>
+<link rel="stylesheet" href="base.css"><link rel="stylesheet" href="nebbia.css">
+<link rel="stylesheet" href="nebbia2.css">
+<style>
+  .coppia { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .coppia + .coppia { margin-top: 18px; }
+  .lastraT { position: relative; width: 100%; aspect-ratio: 1;
+    background-size: cover; background-position: center;
+    border: 1px solid var(--bordo); border-radius: 4px; }
+  .capo { display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+    position: sticky; top: 0; z-index: 3; background: var(--fondo); padding: 6px 0 4px; }
+  .capo b { font-family: 'FellSC', serif; font-size: 15px; letter-spacing: .06em; }
+  .capo .lic { display: block; font-size: 12px; color: var(--fioco); letter-spacing: 0; }
+  .dove { font-family: 'FellSC', serif; font-size: 13.5px; color: var(--lume);
+    letter-spacing: .06em; margin: 7px 0 0; }
+
+  /* i diagrammi della geometria: disegnati qui, sono schemi e non arte */
+  .schema { background: #0a0b0d; border: 1px solid var(--bordo); border-radius: 10px;
+    padding: 16px; overflow-x: auto; }
+  .lat { position: relative; margin: 0 auto; }
+  .pz { position: absolute; border: 2px solid #8d8a80; border-radius: 2px;
+    background: repeating-linear-gradient(0deg, rgba(255,255,255,.05) 0 1px, transparent 1px 22px),
+      repeating-linear-gradient(90deg, rgba(255,255,255,.05) 0 1px, transparent 1px 22px), #3b3f44;
+    box-shadow: inset 0 0 22px rgba(0,0,0,.55); }
+  .pz span { position: absolute; left: 5px; top: 4px; font-family: 'FellSC', serif;
+    font-size: 10.5px; color: var(--fioco); }
+  .pz.dop { background-color: #46403a; }
+  /* l'aggancio: un varco sempre nello stesso punto del bordo */
+  .agg { position: absolute; background: rgba(232,194,122,.85);
+    box-shadow: 0 0 10px 2px rgba(232,194,122,.35); }
+  /* la freccia che riporta all'ingresso */
+  .frec { position: absolute; width: 0; height: 0; z-index: 4;
+    border-left: 7px solid transparent; border-right: 7px solid transparent;
+    border-bottom: 12px solid rgba(240,232,214,.92);
+    filter: drop-shadow(0 1px 2px rgba(0,0,0,.9)); }
+  .did { font-size: 13px; color: var(--fioco); margin-top: 10px; }
+  .did b { color: var(--lume); font-family: 'FellSC', serif; font-weight: 400; }
+  table.conto { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+  table.conto td, table.conto th { text-align: left; padding: 4px 6px;
+    border-bottom: 1px solid var(--bordo); vertical-align: top; }
+  table.conto th { font-family: 'FellSC', serif; color: var(--lume); font-weight: 400; }
+  .avviso { border-left: 3px solid var(--lume); padding-left: 10px; }
+</style>
+</head><body>
+<div class="wrap">
+  <a class="torna" href="index.html">← le tre direzioni</a>
+
+  <h1 style="margin-bottom:6px">la direzione Waterdeep</h1>
+  <p class="nota" style="margin-bottom:6px">Il termine di paragone è il
+    <b>D&amp;D Adventure System</b> di WizKids — <i>Castle Ravenloft</i>, <i>Wrath of
+    Ashardalon</i>, <i>Waterdeep: Dungeon of the Mad Mage</i>. È la famiglia che assomiglia a
+    Roccamora più di quanto le assomigli D&amp;D: <b>cooperativo senza master, tessere scoperte
+    man mano che si esplora</b>. Quaranta tessere agganciabili più cinque di taglia doppia,
+    divise in due famiglie, e sui bordi una freccia che punta al lato inesplorato.</p>
+  <p class="nota" style="margin-bottom:14px">Qui ci sono le tre cose che quel gioco fa
+    diversamente da noi, e che valgono un cambio di direzione. La prima si vede subito, ed è
+    l'arte.</p>
+
+  <h2 style="margin:20px 0 2px">1 · l'arte è fatta per un tavolo, non per uno schermo</h2>
+  <p class="nota" style="margin:2px 0 12px">Le nostre tessere nascono dal prompt degli artwork
+    del gioco — <i>very dark and atmospheric</i>, teal e cremisi, la pozza di lanterna. Su uno
+    schermo è giusto. Su un cartoncino, in quattro attorno a un tavolo, sotto la luce di una
+    stanza, la stessa immagine <b>nasconde le caselle</b>.</p>
+
+  <div class="prova">
+    <div class="capo">
+      <b>com'è oggi<span class="lic">notte e nebbia · per lo schermo</span></b>
+      <b>direzione Waterdeep<span class="lic">luce piatta · per il cartoncino</span></b>
+    </div>
+    <div id="tessere"></div>
+    <p class="perche">Quattro mosse, e nessuna è di gusto: <b>luce piatta</b> (via la pozza di
+      lanterna, la velatura fredda, il cremisi, la grana d'olio — l'ombra drammatica su un
+      cartoncino copre il gioco); <b>tono medio</b> invece di scuro, perché si legge a mezzo
+      metro di sera; il <b>reticolo stampato</b> dentro l'arte, perché al tavolo non c'è
+      nessuna app a disegnarlo; e un <b>bordo duro</b>, che dice dove finisce il pezzo quando
+      due tessere si toccano.</p>
+    <p class="perche avviso">Non è un rimpiazzo: è un <b>secondo stile</b>. Si accende con
+      <code>OSR_STILE=waterdeep</code> e senza quella variabile il pennello produce il PNG
+      identico a prima — verificato sullo SHA. La stessa campagna può volerli tutti e due:
+      nebbia per l'app, Waterdeep per la scatola.</p>
+  </div>
+
+  <h2 style="margin:26px 0 2px">2 · un modulo e il suo doppio</h2>
+  <p class="nota" style="margin:2px 0 12px">Le nostre taglie sono <b>10 / 12 / 14</b>, e non
+    hanno un modulo comune: è il motivo per cui le posizioni della plancia si contano in
+    caselle e non in tessere. Waterdeep usa <b>una taglia sola più la sua doppia</b>, e così le
+    tessere si incastrano su un reticolo unico — si posano come mattonelle.</p>
+  <div class="prova">
+    <div class="che">a sinistra come stiamo adesso · a destra modulo e doppio</div>
+    <div class="schema"><div class="lat" id="lattice"></div></div>
+    <p class="did">A sinistra tre taglie che non si allineano: fra una stanza e l'altra restano
+      rientranze, e la plancia va calcolata a caselle. A destra <b>una taglia e la sua doppia</b>:
+      qualunque pezzo si posa su qualunque incrocio del reticolo, e le rientranze spariscono.
+      Il prezzo è che <b>una sala non può essere il 40% più grande</b> — o è come le altre, o è
+      il doppio.</p>
+  </div>
+
+  <h2 style="margin:26px 0 2px">3 · gli agganci, e la freccia che riporta a casa</h2>
+  <p class="nota" style="margin:2px 0 12px">Waterdeep ha un <b>varco sempre nello stesso punto</b>
+    di ogni bordo: qualunque tessera combacia con qualunque altra. E una freccia su ogni pezzo
+    punta verso il lato non ancora esplorato — seguendole si torna sempre all'ingresso.</p>
+  <div class="prova">
+    <div class="che">aggancio fisso · la freccia di ritorno</div>
+    <div class="schema"><div class="lat" id="agganci"></div></div>
+    <p class="did">Il varco (in oro) sta al <b>centro di ogni lato</b>, sempre. La freccia
+      bianca punta al lato da cui si è entrati: è arte stampata, non una regola, e non costa
+      niente al tavolo.</p>
+    <p class="perche avviso">Ma qui la lezione è <b>al contrario</b>. Waterdeep standardizza gli
+      agganci <b>perché le tessere si pescano a caso</b>: qualunque pezzo deve combaciare con
+      qualunque altro. Le nostre sono <b>scritte</b> — topologia fissa per episodio — quindi
+      quel vincolo non ce l'abbiamo, e la scelta già fatta (l'indice della porta deciso <b>per
+      collegamento</b>) dà più libertà. Il loro impianto compra rigiocabilità, il nostro compra
+      racconto. La freccia invece si prende e basta.</p>
+  </div>
+
+  <div class="prova">
+    <div class="che">cosa costa, riga per riga</div>
+    <table class="conto">
+      <tr><th>mossa</th><th>costo</th><th>cosa cambia</th></tr>
+      <tr><td>lo stile da tavolo</td><td>fatto</td>
+        <td>una variabile d'ambiente; il default non si muove di un pixel</td></tr>
+      <tr><td>la freccia di ritorno</td><td>basso</td>
+        <td>un triangolo cotto nell'arte, dal grafo delle uscite che già conosciamo</td></tr>
+      <tr><td>modulo e doppio</td><td>medio</td>
+        <td>rifare la scala delle taglie in <code>stanze.js</code> e la posa della plancia; le
+          sagome si riscalano da sole</td></tr>
+      <tr><td>agganci fissi</td><td>—</td>
+        <td><b>da non fare</b>: serve a chi pesca a caso, e ci toglierebbe libertà</td></tr>
+    </table>
+  </div>
+</div>
+
+<script>
+const CEL = 22;   // la casella nei diagrammi
+
+function pezzo(x, y, w, h, nome, doppio) {
+  return `<div class="pz${doppio ? ' dop' : ''}" style="left:${x * CEL}px; top:${y * CEL}px;
+    width:${w * CEL}px; height:${h * CEL}px"><span>${nome}</span></div>`;
+}
+
+// ---- 1. il reticolo: tre taglie contro modulo e doppio ----
+(() => {
+  const el = document.getElementById('lattice');
+  // a sinistra 10/12/14 che non si allineano; a destra 10 e 10x20
+  let h = '';
+  h += pezzo(0, 0, 12, 12, '12×12');
+  h += pezzo(12, 1, 10, 10, '10×10');
+  h += pezzo(0, 12, 14, 14, '14×14');
+  h += pezzo(14, 13, 10, 10, '10×10');
+  const off = 27;
+  h += pezzo(off, 0, 10, 10, '10×10');
+  h += pezzo(off + 10, 0, 10, 10, '10×10');
+  h += pezzo(off, 10, 20, 10, '10×20 · doppia', true);
+  h += pezzo(off, 20, 10, 10, '10×10');
+  h += pezzo(off + 10, 20, 10, 10, '10×10');
+  el.style.width = (off + 20) * CEL + 'px';
+  el.style.height = 30 * CEL + 'px';
+  el.innerHTML = h;
+})();
+
+// ---- 2. agganci fissi e freccia di ritorno ----
+(() => {
+  const el = document.getElementById('agganci');
+  const L = 10, sp = 5;                       // lato e stacco fra i pezzi
+  const posti = [[0, 0, 'ingresso'], [L + sp, 0, ''], [L + sp, L + sp, ''], [0, L + sp, '']];
+  let h = '';
+  for (const [cx, cy, nome] of posti) h += pezzo(cx, cy, L, L, nome);
+  // il varco al centro di ogni lato, su ogni pezzo
+  const largo = 2;
+  for (const [cx, cy] of posti) {
+    const m = (L - largo) / 2;
+    h += `<div class="agg" style="left:${(cx + m) * CEL}px; top:${cy * CEL - 2}px;
+      width:${largo * CEL}px; height:5px"></div>`;
+    h += `<div class="agg" style="left:${(cx + m) * CEL}px; top:${(cy + L) * CEL - 3}px;
+      width:${largo * CEL}px; height:5px"></div>`;
+    h += `<div class="agg" style="left:${cx * CEL - 2}px; top:${(cy + m) * CEL}px;
+      width:5px; height:${largo * CEL}px"></div>`;
+    h += `<div class="agg" style="left:${(cx + L) * CEL - 3}px; top:${(cy + m) * CEL}px;
+      width:5px; height:${largo * CEL}px"></div>`;
+  }
+  // la freccia: su ogni pezzo punta verso l'ingresso (in alto a sinistra)
+  const verso = [null, 180, 135, 90];        // gradi, il primo e' l'ingresso
+  posti.forEach(([cx, cy], i) => {
+    if (verso[i] === null) return;
+    h += `<div class="frec" style="left:${(cx + L / 2) * CEL - 7}px;
+      top:${(cy + L / 2) * CEL - 6}px; transform:rotate(${verso[i]}deg)"></div>`;
+  });
+  el.style.width = (2 * L + sp) * CEL + 'px';
+  el.style.height = (2 * L + sp) * CEL + 'px';
+  el.innerHTML = h;
+})();
+
+// ---- le tessere vere, nei due stili ----
+fetch('../tessere-waterdeep/tessere.json').then((r) => r.json()).then((tess) => {
+  document.getElementById('tessere').innerHTML = tess.map((t) => `
+    <div class="coppia">
+      <div class="lastraT" style="background-image:url('../tessere-waterdeep/nb-${t.ep}-${t.id}.jpg')"></div>
+      <div class="lastraT" style="background-image:url('../tessere-waterdeep/wd-${t.ep}-${t.id}.jpg')"></div>
+    </div>
+    <p class="dove">${t.ep} · ${t.id} — ${(t.nome || '').toLowerCase()}</p>`).join('');
+});
+</script>
+</body></html>
