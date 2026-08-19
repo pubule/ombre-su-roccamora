@@ -91,6 +91,31 @@ const dipinto = (tipo, nome) => {
 // esce incollata sopra il pavimento, non appoggiata. FA invece nasce gia' dipinto
 // scuro e non si tocca. Le tre cifre sono una TARATURA da rivedere guardando il
 // render, non un risultato: sono le stesse mosse di webapp/_prova-ritinta.py.
+// ------------------------------------------------------------------ LA MANO
+//
+// Gli artwork del gioco sono fatti con un prompt che si ripete identico su ogni
+// carta e ogni tessera (PROMPT-MIDJOURNEY.md):
+//
+//   «1889 gaslamp gothic, oil painting, dramatic candlelight,
+//    muted teal and crimson palette with gold accents, very dark and atmospheric»
+//
+// Le texture della libreria VTT non nascono cosi': nascono col loro colore —
+// marmo verde, legno rossiccio, pietra grigia — e messe accanto agli artwork
+// sembrano prese da un altro gioco. Non si possono ridipingere, ma si possono
+// PORTARE NELLA STESSA MANO: si spegne il colore proprio, si vela di teal le
+// ombre, si accende l'oro dove c'e' la fiamma, e si scende molto col nero.
+//
+// FINO A IERI I PAVIMENTI DIPINTI SALTAVANO QUESTO PASSAGGIO — `saturate(.9)
+// brightness(1)`, cioe' quasi niente — «perche' hanno gia' la loro luce». Ce
+// l'hanno, ma e' la luce di un'altra scatola. Le tre cifre qui sotto sono la
+// manopola: girarle sposta tutta la campagna insieme, che e' il punto.
+// IL CONTRASTO E' QUEL CHE FA VEDERE LA PIETRA, non la luminosita'. Abbassando
+// la luce si otteneva una nebbia grigia: la fuga fra due lastre spariva e la
+// navata diventava una lastra sola. Qui la texture esce CHIARA e CONTRASTATA, e
+// a portarla nel buio ci pensano i veli sopra — che percio' vanno leggeri.
+const MANO_PAVIMENTO = 'saturate(.38) brightness(.78) contrast(1.46)';
+const MANO_ARREDO = 'saturate(.44) brightness(.84) contrast(1.06)';
+
 const RITINTA_2M = 'saturate(.5) brightness(.68) contrast(1.08)';
 const daRitingere = (url) => (url || '').includes('/vtt-2m/');
 
@@ -184,6 +209,10 @@ const TARATURA = {
   pietra:     { luce: 1.05, scala: 1.5 },
   mattonelle: { luce: 1.15, scala: 0.9 },
   mosaico:    { luce: 1.1,  scala: 1.2 },
+  // `mano`: quanto SCURIRE questa texture dipinta prima dei veli. Serviva quando
+  // la libreria arrivava esposta a caso — il marmo bianco accanto al marmo nero
+  // sotto lo stesso nome. Da quando `importa-fa.py` porta ogni pavimento alla
+  // stessa luminanza media, nessuna ne ha piu' bisogno: resta la manopola, vuota.
   navata:     { luce: 0.95, scala: 1.4 },
   mattoni:    { luce: 1.05, scala: 1.3 },
   metallo:    { luce: 1.0,  scala: 1.3 },
@@ -441,6 +470,8 @@ function htmlVtt(tile, S, { gruppi, porte, stampa = false, celle = null, cornice
   const pav = pavimentoDi(tile);
   const tar = TARATURA[pav] || { luce: 1, scala: 1 };
   const sporco = SPORCO[pav] || SPORCO_BASE;
+  const mano = MANO_PAVIMENTO.replace('brightness(.78)',
+    `brightness(${(0.78 * (tar.mano || 1)).toFixed(2)})`);
   const pavDipinto = pavimentoVario(pav, tile);
   // L'ACQUA NON HA UNA TEXTURE. Poly Haven fa superfici, non canali: finche'
   // non arriva quella dipinta del pacchetto VTT, il canale lo si dipinge qui —
@@ -473,7 +504,7 @@ function htmlVtt(tile, S, { gruppi, porte, stampa = false, celle = null, cornice
     const dentro = arte
       ? `<div class="og dipinto" style="width:${w * 0.86}px;height:${h * 0.86}px;
            background-image:url('${arte}'); background-size:contain;
-           background-repeat:no-repeat; filter:${daRitingere(arte) ? RITINTA_2M + ' ' : ''}drop-shadow(0 ${Math.round(c * 0.03)}px
+           background-repeat:no-repeat; filter:${daRitingere(arte) ? RITINTA_2M : MANO_ARREDO} drop-shadow(0 ${Math.round(c * 0.03)}px
            ${Math.round(c * 0.05)}px rgba(0,0,0,.65))"></div>`
       : disegna
       ? disegna({ c, w, h })
@@ -712,15 +743,17 @@ function htmlVtt(tile, S, { gruppi, porte, stampa = false, celle = null, cornice
       ${pavDipinto || acquaDipintaInCasa
         /* un pavimento gia' dipinto ha la sua luce e la sua palette: toccarlo
            col filtro delle foto lo spegnerebbe due volte */
-        ? (daRitingere(pavDipinto) ? `filter:${RITINTA_2M};` : 'filter:saturate(.9) brightness(1);')
+        ? `filter:${daRitingere(pavDipinto) ? RITINTA_2M : mano};`
         : `filter:saturate(.5) brightness(${(0.86 * tar.luce).toFixed(2)}) contrast(1.06);`} }
     /* la velatura porta la texture nella palette senza spegnerla: il PNG non
        deve arrivare gia' nero, perche' e' l'app a metterci sopra i suoi filtri
        (e in stampa il nero non si recupera) */
-    .tinta { position:absolute; inset:0; mix-blend-mode:multiply;
+    /* la velatura fredda: a piena forza moltiplicava per mezzo e spegneva la
+       trama insieme al colore. Vela, non spegne. */
+    .tinta { position:absolute; inset:0; mix-blend-mode:multiply; opacity:.74;
       background:linear-gradient(rgba(120,146,152,1), rgba(64,84,96,1)); }
     /* macchie larghe: senza, un pavimento piastrellato e' carta da parati */
-    .macchie { position:absolute; inset:0; opacity:.55;
+    .macchie { position:absolute; inset:0; opacity:.32;
       background:
         radial-gradient(38% 30% at 22% 18%, ${sporco[0]}, transparent 70%),
         radial-gradient(30% 26% at 78% 62%, ${sporco[0]}, transparent 70%),
@@ -731,14 +764,53 @@ function htmlVtt(tile, S, { gruppi, porte, stampa = false, celle = null, cornice
        stanza. E' la stessa vignettatura del mockup «la stanza e' il pezzo». */
     .muri { position:absolute; left:${off}px; top:${off}px;
       width:${L * c}px; height:${L * c}px; pointer-events:none;
-      box-shadow: inset 0 0 ${Math.round(c * 0.5)}px ${Math.round(c * 0.1)}px rgba(0,0,0,.55),
+      /* «very dark and atmospheric»: il buio ai bordi e' la meta' del prompt.
+         Su una stanza da dieci caselle una vignettatura tarata sul 4x4 non
+         arrivava nemmeno al centro — qui e' proporzionale al LATO, non alla
+         casella. */
+      box-shadow: inset 0 0 ${Math.round(c * L * 0.09)}px ${Math.round(c * L * 0.006)}px rgba(0,0,0,.55),
                   inset 0 0 0 ${Math.round(c * 0.018)}px rgba(0,0,0,.8); }
+
+    /* L'ORO CONSUMATO NELLA PIETRA. Il prompt della tessera del gioco lo dice
+       alla lettera — «faint gold filigree markings barely visible worn into the
+       stone» — ed e' il segno che lega una mappa alle carte. Va tenuto SOTTO la
+       soglia del visibile: se si nota, e' decorazione; se non si nota ma si
+       sente, e' atmosfera. */
+    .filigrana { position:absolute; inset:0; pointer-events:none; mix-blend-mode:screen;
+      opacity:.05;
+      /* NON al centro e NON concentrica: due cerchi in mezzo alla stanza fanno un
+         bersaglio, non un pavimento consumato. Qui e' un reticolo largo di righe
+         d'oro, come le fughe di un intarsio mangiato dai passi. */
+      background-image:
+        repeating-linear-gradient(0deg, rgba(232,194,122,.8) 0 ${Math.max(1, Math.round(c * 0.012))}px,
+          transparent ${Math.max(1, Math.round(c * 0.012))}px ${Math.round(c * 3)}px),
+        repeating-linear-gradient(90deg, rgba(232,194,122,.8) 0 ${Math.max(1, Math.round(c * 0.012))}px,
+          transparent ${Math.max(1, Math.round(c * 0.012))}px ${Math.round(c * 3)}px);
+      background-position:${Math.round(c * 1.4)}px ${Math.round(c * 0.8)}px;
+      -webkit-mask-image:radial-gradient(72% 62% at 42% 46%, #000 10%, transparent 78%); }
+    /* IL CREMISI della palette: non si vede come colore, si sente come calore
+       che entra da un lato solo. Senza, la tessera e' teal e basta — meta' di
+       quel che dicono gli artwork. */
+    .crimson { position:absolute; inset:0; pointer-events:none; mix-blend-mode:soft-light;
+      background:radial-gradient(78% 62% at 88% 12%, rgba(150,44,52,.55), transparent 72%); }
+    /* LA GRANA DELL'OLIO. Una texture fotografica e' liscia; una pittura a olio
+       ha la tela sotto. E' quel che tiene insieme una fotografia di pietra e un
+       ritratto dipinto guardandoli sullo stesso tavolo. */
+    .olio { position:absolute; inset:0; pointer-events:none; mix-blend-mode:overlay;
+      opacity:.22;
+      background-image:
+        repeating-linear-gradient(37deg, rgba(255,255,255,.10) 0 1px, rgba(0,0,0,.10) 1px 2px),
+        repeating-linear-gradient(-51deg, rgba(255,255,255,.07) 0 1px, rgba(0,0,0,.07) 1px 3px);
+      background-size:${Math.round(c * 0.05)}px ${Math.round(c * 0.05)}px,
+                      ${Math.round(c * 0.08)}px ${Math.round(c * 0.08)}px; }
 
     .luce { position:absolute; pointer-events:none; mix-blend-mode:screen; }
     /* la luce che entra comunque nella stanza: senza, un ambiente senza fiamme
        e' una superficie uniforme, e uniforme al tavolo vuol dire scacchiera */
     .lanterna { position:absolute; inset:0; pointer-events:none; mix-blend-mode:screen;
-      background:radial-gradient(58% 52% at 46% 40%, rgba(232,194,122,.30), rgba(232,194,122,.08) 55%, transparent 78%); }
+      background:
+        radial-gradient(30% 26% at 42% 36%, rgba(255,196,110,.44), rgba(232,150,74,.12) 55%, transparent 78%),
+        radial-gradient(52% 46% at 66% 70%, rgba(232,194,122,.13), transparent 76%); }
 
     /* un arredo sta DENTRO la sua casella: il posto e' la casella, l'oggetto e'
        centrato li' dentro e non la tocca mai ai bordi */
@@ -801,6 +873,9 @@ function htmlVtt(tile, S, { gruppi, porte, stampa = false, celle = null, cornice
         <div class="suolo"></div>
         <div class="tinta"></div>
         <div class="macchie"></div>
+        <div class="filigrana"></div>
+        <div class="crimson"></div>
+        <div class="olio"></div>
         <div class="lanterna"></div>
       </div>
       ${luci}

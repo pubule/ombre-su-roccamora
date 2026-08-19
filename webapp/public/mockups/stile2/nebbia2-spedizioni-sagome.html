@@ -15,6 +15,7 @@
   .tess .celle { position: absolute; display: grid; }
   .tess .cel { border-right: 1px solid rgba(230,195,120,.13);
     border-bottom: 1px solid rgba(230,195,120,.13); }
+  .avviso { border-left: 3px solid var(--lume); padding-left: 10px; }
   .taglia { position: absolute; right: 5px; top: 5px; font-family: 'FellSC', serif;
     font-size: 9.5px; color: var(--fioco); background: rgba(6,8,10,.7);
     padding: 1px 4px; border-radius: 3px; z-index: 3; }
@@ -109,7 +110,7 @@
 // LA CASELLA E' LA STESSA PER TUTTE LE STANZE — 46 mm — e a cambiare e' QUANTE
 // ne ha ognuna: 4x4 uno stanzino, 5x5 una stanza, 6x6 una sala. Il riquadro
 // della tessera vale L caselle piu' due mezze cornici da 0,16.
-const CELLA = 38;             // una casella a schermo
+const CELLA = 16;             // una casella a schermo (28 mm alla stampa)
 const CORNICE = 0.16;
 const lastra = (L) => Math.round(CELLA * (L + 2 * CORNICE));
 let via = 'sag';

@@ -175,7 +175,34 @@ def scegli(tutti, ricette, quante=VARIANTI):
     return None, []
 
 
-def porta(p, dove, ritaglia=True):
+# TUTTE LE TEXTURE ALLA STESSA ESPOSIZIONE.
+#
+# La libreria non e' esposta in modo uniforme: fra le tre varianti di «navata»
+# una e' marmo bianco e una e' marmo nero, e sulla stessa tessera una stanza
+# usciva al neon e quella accanto in ombra. Nessuna gradazione a valle puo'
+# rimediare, perche' parte da due punti diversi.
+#
+# Qui ogni pavimento viene portato alla stessa luminanza media prima di entrare:
+# da li' in poi la «mano» del gioco (pittura-vtt.js) agisce uguale su tutti, ed
+# e' il primo requisito perche' venti texture di venti cartelle diverse sembrino
+# dipinte dalla stessa persona. Il colore proprio resta — cambia l'esposizione.
+LUMINANZA = 118        # su 255: il grigio medio di una fotografia ben esposta
+
+
+def esponi(img, bersaglio=LUMINANZA):
+    from PIL import ImageEnhance, ImageStat
+    grigio = img.convert('L')
+    media = ImageStat.Stat(grigio).mean[0]
+    if media < 4:
+        return img
+    fattore = max(0.35, min(2.8, bersaglio / media))
+    rgb = ImageEnhance.Brightness(img.convert('RGB')).enhance(fattore)
+    fuori = rgb.convert('RGBA')
+    fuori.putalpha(img.getchannel('A'))
+    return fuori
+
+
+def porta(p, dove, ritaglia=True, esposizione=False):
     img = Image.open(p).convert('RGBA')
     # un PAVIMENTO non si ritaglia: e' una piastrella intera, e il ritaglio del
     # trasparente la sposterebbe di qualche pixel rompendo la ripetizione
@@ -183,6 +210,8 @@ def porta(p, dove, ritaglia=True):
         scatola = img.getbbox()
         if scatola:
             img = img.crop(scatola)
+    if esposizione:
+        img = esponi(img)
     img.thumbnail((LATO, LATO), Image.LANCZOS)
     img.save(dove, optimize=True)
     return img.size
@@ -239,7 +268,8 @@ def main():
             continue
         for i, p in enumerate(scelti):
             nome = chiave if i == 0 else f'{chiave}-{i + 1}'
-            w, h = porta(p, os.path.join(FUORI, 'pavimenti', nome + '.png'), ritaglia=False)
+            w, h = porta(p, os.path.join(FUORI, 'pavimenti', nome + '.png'),
+                         ritaglia=False, esposizione=True)
             righe.append(f'pavimenti/{nome}.png  <-  {os.path.relpath(p, ROOT).replace(chr(92), '/')}')
         print(f'  pavimento {chiave:11s} {len(scelti)} varianti · {os.path.basename(scelti[0])}')
 

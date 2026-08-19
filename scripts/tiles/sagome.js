@@ -43,7 +43,7 @@ const distanza = ([c, r], m1, m2) =>
 // UNA CASELLA fino a 5x5, DUE da 6x6 in su. A `LATO - 3` lo smusso mangiava tre
 // caselle per angolo su una 5x5 e ogni stanza usciva a croce: una sala smussata
 // deve restare una sala. Visto sul render, non sul conto.
-const smusso = () => (LATO <= 5 ? 1 : 2);
+const smusso = () => Math.max(1, Math.round(LATO / 4));
 const ANGOLI = () => {
   const n = smusso(); const u = U(); const out = [];
   for (let i = 0; i < n; i++) {
@@ -77,35 +77,61 @@ const TAGLI = {
   // prime a cui si rinuncia, e la cisterna resta almeno tonda
   tonda: () => {
     const u = U(); const col = [];
-    // una colonna ogni due caselle e mezzo di luce: due su 4x4, quattro su 6x6
-    for (let r = 1; r < u; r += 2) for (let c = 1; c < u; c += 2) col.push([c, r]);
+    // LE COLONNE SI DIRADANO CON LA STANZA. Una ogni due caselle su una 14x14
+    // sarebbero quarantanove colonne: una selva, non una cisterna. Il passo
+    // cresce col lato, cosi' fra una colonna e l'altra ci si passa sempre.
+    const passo = Math.max(2, Math.round(LATO / 3));
+    for (let r = passo; r < u; r += passo) for (let c = passo; c < u; c += passo) col.push([c, r]);
     return ANGOLI().concat(col);
   },
 
   // il ballatoio gira attorno alla torre: il centro non e' pavimento, e' vuoto.
   // Chi ci cammina ha il vuoto da una parte e la pietra dall'altra
   // il vuoto centrale cresce con la stanza: su 4x4 e' 2x2, su 6x6 e' 4x4
+  // il ballatoio gira attorno alla torre: il giro resta largo abbastanza da
+  // camminarci in due, e il vuoto in mezzo cresce con la stanza
   anello: () => {
+    // il giro largo DUE su una stanza da quattro non lascerebbe vuoto niente:
+    // il minimo e' uno, e il vuoto in mezzo deve restare almeno 2x2
+    const largo = Math.min(Math.max(1, Math.round(LATO / 5)), Math.floor((LATO - 2) / 2));
     const out = [];
-    for (let r = 1; r < U(); r++) for (let cc = 1; cc < U(); cc++) out.push([cc, r]);
+    for (let r = largo; r <= U() - largo; r++) {
+      for (let cc = largo; cc <= U() - largo; cc++) out.push([cc, r]);
+    }
     return out;
   },
 
   // la guglia si stringe salendo: due caselle in cima, quattro alla base
-  guglia: () => ANGOLI().concat([[0, 1], [U(), 1]]),
+  // la guglia si stringe salendo: piu' e' alta la stanza, piu' gradini ha
+  guglia: () => {
+    const n = smusso(); const u = U(); const out = ANGOLI();
+    for (let i = 0; i < n; i++) { out.push([i, n + i], [u - i, n + i]); }
+    return out;
+  },
 
   // il tetto: le falde smussate agli angoli, come le vede chi ci sta sopra
-  tetto: () => ANGOLI().concat([[0, 1], [U(), U() - 1]]),
+  tetto: () => {
+    const n = smusso(); const u = U(); const out = ANGOLI();
+    for (let i = 0; i < n; i++) out.push([i, n + i], [u - i, u - n - i]);
+    return out;
+  },
 
   // la banchina finisce nell'acqua: un angolo di 2x2 non e' pavimento, e' canale.
   // Si sceglie l'angolo piu' lontano dalle porte, o si mangerebbe l'ingresso
   banchina: (porte) => {
     const dentro = new Set(Object.keys(porte));
-    const u = U();
-    const via = !dentro.has('S') && !dentro.has('E') ? [[u - 1, u], [u, u], [u, u - 1]]
-      : !dentro.has('S') && !dentro.has('O') ? [[0, u], [1, u], [0, u - 1]]
-      : !dentro.has('N') && !dentro.has('E') ? [[u, 0], [u - 1, 0], [u, 1]]
-      : [[0, 0], [1, 0], [0, 1]];
+    // L'ACQUA SI MANGIA UN QUARTO DELLA BANCHINA, non tre caselle fisse: su una
+    // 14x14 tre caselle in un angolo non si vedevano nemmeno
+    const u = U(); const n = Math.max(2, Math.round(LATO / 3));
+    const angolo = !dentro.has('S') && !dentro.has('E') ? [1, 1]
+      : !dentro.has('S') && !dentro.has('O') ? [0, 1]
+      : !dentro.has('N') && !dentro.has('E') ? [1, 0] : [0, 0];
+    const via = [];
+    for (let i = 0; i < n; i++) {
+      for (let j = 0; j + i < n + 1; j++) {
+        via.push([angolo[0] ? u - i : i, angolo[1] ? u - j : j]);
+      }
+    }
     return via;
   },
 
@@ -116,7 +142,11 @@ const TAGLI = {
   // stanza e' fatta cosi', non perche' una regola lo dice.
   passaggio: (porte) => {
     const u = U();
-    const m1 = ((u - 1) / 2) | 0, m2 = m1 + 1;      // la fascia centrale, larga DUE
+    // LA FASCIA CRESCE UN PO' COL LATO, ma molto meno della stanza: e' la
+    // strettezza che fa il collo di bottiglia, e su una 14x14 due caselle sono
+    // un filo di refe. Due fino a 10, tre oltre.
+    const largo = Math.max(2, Math.round(LATO / 5));
+    const m1 = Math.floor((u - largo + 1) / 2), m2 = m1 + largo - 1;
     // LA FASCIA RESTA LARGA DUE ANCHE IN UNA STANZA PIU' GRANDE: e' la larghezza
     // che fa la fila indiana, e non deve crescere con la stanza. Ogni fascia
     // arriva al bordo solo dal lato dove c'e' davvero una porta — altrimenti si
@@ -345,6 +375,19 @@ if (require.main === module) {
   }
   const largo = sagomaDi({ nome: 'Il Corridoio' }, { O: [0, 2], E: [5, 2] });
   assert.strictEqual(largo.celle.length, 12, `il passaggio a 6x6 e' 6x2, non ${largo.celle.length}`);
+
+  // e a DIECI, che e' il minimo vero delle stanze
+  setLato(10);
+  for (const nome of ['Il Corridoio', 'Il Ballatoio', 'La Cisterna', 'La Navata',
+                      'La Banchina', 'La Guglia', 'Il Tetto', 'Il Sottoportico']) {
+    const r = sagomaDi({ nome }, { O: [0, 5], E: [9, 5] });
+    const v = new Set(r.celle.map(k));
+    assert.ok(r.celle.length >= 20, `${nome} a 10x10 resta ${r.celle.length} caselle`);
+    assert.strictEqual(raggiunte(v, r.celle[0]).size, v.size, `${nome} spezzata a 10x10`);
+  }
+  // il ballatoio deve restare un GIRO percorribile, non un filo
+  const giro = sagomaDi({ nome: 'Il Ballatoio' }, { N: [5, 0], S: [5, 9] });
+  assert.ok(giro.celle.length >= 60, `il ballatoio a 10x10 e' ${giro.celle.length} caselle`);
   setLato(4);
 
   console.log(`${n} tessere, nessuna spezzata, nessuna porta murata`);

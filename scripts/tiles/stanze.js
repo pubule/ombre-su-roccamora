@@ -23,14 +23,24 @@
 // nome della stanza -> quante caselle per lato. L'ORDINE E' UNA REGOLA: «la sala
 // del capitolo» e' una sala prima che una stanza, e «lo stanzino del daziere» e'
 // uno stanzino anche se contiene la parola «stanza».
+// DIECI CASELLE E' IL MINIMO. Sotto, una stanza e' un incrocio: si entra, si
+// vede tutto, si esce. Da dieci in su c'e' dove nascondersi, dove aggirare, dove
+// mettere qualcosa che si scopre solo avvicinandosi — ed e' anche lo spazio che
+// serve per arredare senza tappare il passaggio.
+//
+// QUANTO COSTA IN CARTA, detto subito: la casella e' 28 mm (una base da 25 mm ci
+// sta con un filo di margine) e la tessera vale L caselle piu' due mezzi muri.
+//   10x10 -> 289 mm, dentro un A3
+//   12x12 -> 345 mm, serve un A2 (o due A3 uniti)
+//   14x14 -> 401 mm, A2
 const TAGLIE = [
   // le piccole: uno stanzino non diventa una piazza perche' e' comodo
-  [/stanzin|sottoscala|camerin|abbaino|ripostiglio|cella del|guardiola|garitta|comignol|lucernario/i, 4],
+  [/stanzin|sottoscala|camerin|abbaino|ripostiglio|cella del|guardiola|garitta|comignol|lucernario/i, 10],
   // le grandi: quel che nel racconto e' vasto, in tavola e' vasto
-  [/navata|cistern|salone|piazzal|magazzin|deposito|sala d|sala del|cortile|giardino|mercato|atrio|assemblea|biblioteca|teatro|darsena|cimitero|piano terra|serra|camera del/i, 6],
+  [/navata|cistern|salone|piazzal|magazzin|deposito|sala d|sala del|cortile|giardino|mercato|atrio|assemblea|biblioteca|teatro|darsena|cimitero|piano terra|serra|camera del/i, 14],
   // tutto il resto sta in mezzo
 ];
-const LATO_BASE = 5;
+const LATO_BASE = 12;
 
 function latoDi(tile) {
   const nome = `${tile.nome || ''} ${tile.id || ''}`;
@@ -65,6 +75,11 @@ function corredoDi(tile) {
 // A una ogni sei, una sala 6x6 usciva con quattro oggetti su trentasei caselle e
 // si leggeva ancora come un capannone: visto sul render, non sul conto.
 const QUOTA = 4;
+// GLI ARREDI SI CONTANO SUL PERIMETRO, non sull'area. Le cose stanno addossate
+// ai muri: raddoppiando il lato l'area quadruplica ma i muri raddoppiano, e a
+// contare l'area una stanza 10x10 usciva con venticinque oggetti — un magazzino,
+// non una stanza. Uno ogni tre caselle di muro.
+const PER_MURO = 3;
 
 /**
  * Gli arredi da AGGIUNGERE per riempire una stanza cresciuta.
@@ -82,8 +97,11 @@ const QUOTA = 4;
  * @returns [[col, row, chiave], ...] in coordinate di disegno
  */
 function arrediInPiu(tile, lato, vive, occupate, cellePorte) {
-  const pavimento = vive.size;
-  const quante = Math.max(0, Math.floor(pavimento / QUOTA) - occupate.size);
+  const attaccate = [...vive].map((k) => k.split(',').map(Number))
+    .filter(([c, r]) => [[1, 0], [-1, 0], [0, 1], [0, -1]]
+      .some(([dc, dr]) => !vive.has(`${c + dc},${r + dr}`)));
+  const quante = Math.max(0, Math.min(Math.floor(attaccate.length / PER_MURO),
+                                      Math.floor(vive.size / QUOTA)) - occupate.size);
   if (quante <= 0) return [];
 
   const vietate = new Set([...occupate]);
@@ -104,10 +122,16 @@ function arrediInPiu(tile, lato, vive, occupate, cellePorte) {
     .sort((a, b) => muri(b[0], b[1]) - muri(a[0], a[1])
       || (a[1] - b[1]) || (a[0] - b[0]));
 
+  // SI PRENDE UN POSTO OGNI TOT, non i primi in fila. Prendendo i primi, gli
+  // oggetti uscivano tutti attaccati lungo lo stesso muro — uno scaffale, non
+  // una stanza arredata. Visto sul render di una 12x12, dove i posti sono tanti
+  // e il difetto si vede tutto insieme.
   const lista = corredoDi(tile);
+  const quanti = Math.min(quante, posti.length);
+  const passo = posti.length / quanti;
   const fuori = [];
-  for (let i = 0; i < Math.min(quante, posti.length); i++) {
-    const [c, r] = posti[i];
+  for (let i = 0; i < quanti; i++) {
+    const [c, r] = posti[Math.floor(i * passo)];
     fuori.push([c, r, lista[i % lista.length]]);
   }
   return fuori;
@@ -124,16 +148,21 @@ if (require.main === module) {
     return s;
   };
 
-  assert.strictEqual(latoDi({ nome: 'Lo Stanzino del Daziere' }), 4);
-  assert.strictEqual(latoDi({ nome: 'La Navata Sepolta' }), 6);
-  assert.strictEqual(latoDi({ nome: 'Il Corridoio delle Candele' }), 5);
+  assert.strictEqual(latoDi({ nome: 'Lo Stanzino del Daziere' }), 10);
+  assert.strictEqual(latoDi({ nome: 'La Navata Sepolta' }), 14);
+  assert.strictEqual(latoDi({ nome: 'Il Corridoio delle Candele' }), 12);
+  // e nessuna stanza scende sotto il minimo, comunque si chiami
+  for (const nome of ['Il Pozzo', 'Xyz', 'La Fossa', 'Il Ponte']) {
+    assert.ok(latoDi({ nome }) >= 10, `${nome} sotto le dieci caselle`);
+  }
 
   // una stanza grande si riempie, una piccola quasi no
-  const grande = arrediInPiu({ nome: 'Il Magazzino delle Scene' }, 6,
-                             griglia(6), new Set(['0,0']), [[3, 0]]);
-  assert.ok(grande.length >= 4, `il 6x6 resta vuoto: ${grande.length} arredi`);
-  const piccola = arrediInPiu({ nome: 'Lo Stanzino' }, 4,
-                              griglia(4), new Set(['0,0', '1,1']), [[2, 0]]);
+  const grande = arrediInPiu({ nome: 'Il Magazzino delle Scene' }, 14,
+                             griglia(14), new Set(['0,0']), [[3, 0]]);
+  assert.ok(grande.length >= 8, `il 14x14 resta vuoto: ${grande.length} arredi`);
+  assert.ok(grande.length <= 20, `il 14x14 e' un magazzino: ${grande.length} arredi`);
+  const piccola = arrediInPiu({ nome: 'Lo Stanzino' }, 10,
+                              griglia(10), new Set(['0,0', '1,1']), [[2, 0]]);
   // il confronto vale piu' di un numero fisso: quel che deve reggere e' che una
   // stanza grande si arredi PIU' di una piccola, non che ne prenda esattamente N
   assert.ok(piccola.length < grande.length,
@@ -142,22 +171,22 @@ if (require.main === module) {
   // LA SOGLIA RESTA LIBERA, e anche la casella davanti: un armadio sulla porta
   // e' un varco murato con un mobile
   const porta = [[2, 0]];
-  const con = arrediInPiu({ nome: 'La Sala del Capitolo' }, 6, griglia(6), new Set(), porta);
+  const con = arrediInPiu({ nome: 'La Sala del Capitolo' }, 14, griglia(14), new Set(), porta);
   for (const [c, r] of con) {
     assert.ok(!(c === 2 && r === 0), 'arredo sulla soglia');
     assert.ok(!(c === 2 && r === 1), 'arredo davanti alla soglia');
   }
 
   // NIENTE ARREDI FUORI SAGOMA. Una stanza a L non deve arredarsi nel vuoto.
-  const aL = griglia(6);
-  for (let r = 0; r < 3; r++) for (let c = 3; c < 6; c++) aL.delete(`${c},${r}`);
-  for (const [c, r] of arrediInPiu({ nome: 'Il Magazzino' }, 6, aL, new Set(), [[0, 5]])) {
+  const aL = griglia(12);
+  for (let r = 0; r < 6; r++) for (let c = 6; c < 12; c++) aL.delete(`${c},${r}`);
+  for (const [c, r] of arrediInPiu({ nome: 'Il Magazzino' }, 12, aL, new Set(), [[0, 11]])) {
     assert.ok(aL.has(`${c},${r}`), `arredo nel vuoto a ${c},${r}`);
   }
 
   // e la stessa stanza esce sempre uguale
-  const a1 = JSON.stringify(arrediInPiu({ nome: 'Il Magazzino' }, 6, griglia(6), new Set(), [[2, 0]]));
-  const a2 = JSON.stringify(arrediInPiu({ nome: 'Il Magazzino' }, 6, griglia(6), new Set(), [[2, 0]]));
+  const a1 = JSON.stringify(arrediInPiu({ nome: 'Il Magazzino' }, 12, griglia(12), new Set(), [[2, 0]]));
+  const a2 = JSON.stringify(arrediInPiu({ nome: 'Il Magazzino' }, 12, griglia(12), new Set(), [[2, 0]]));
   assert.strictEqual(a1, a2, 'la stessa tessera esce diversa due volte');
 
   // il conto vero, su tutte le tessere della campagna
@@ -174,4 +203,7 @@ if (require.main === module) {
   console.log(`${n} tessere · ` + Object.entries(conto).sort()
     .map(([L, c]) => `${L}x${L}: ${c}`).join(' · '));
   console.log(`caselle di gioco in tutta la campagna: ${caselle} (erano ${n * 16})`);
+  const mm = (L) => Math.round(28 * (L + 0.32));
+  console.log('in carta: ' + [10, 12, 14].map((L) => `${L}x${L} ${mm(L)}mm`).join(' · ')
+    + '  (casella 28mm, muro condiviso 18mm)');
 }

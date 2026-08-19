@@ -165,6 +165,40 @@ hanno una cucitura, nessuna ne ha più di due.
 diverse non c'è più una scacchiera su cui contare. Vale per il mockup e varrà per
 `layout()` in `griglia.js`.
 
+**DIECI CASELLE E' IL MINIMO** (19/08). Sotto, una stanza e' un incrocio: si
+entra, si vede tutto, si esce. Le taglie sono ora **10 / 12 / 14** (stanzino ·
+stanza · sala) e la casella scende a **28 mm** — una base da 25 mm ci sta con un
+filo di margine. Caselle di gioco sulla campagna: da 2.032 a **19.912**. In
+carta: 10x10 → 289 mm (A3), 12x12 → 345 mm, 14x14 → 401 mm (A2, o due A3 uniti).
+E' il prezzo delle dieci caselle, ed e' una decisione da prendere sapendolo.
+
+I tagli si riscalano col lato — smusso L/4, colonne della cisterna diradate a
+passo L/3, fascia del passaggio L/5, l'acqua che si mangia un angolo di L/3 — o
+su una 14x14 una casella tolta per angolo e' una tacca. E gli arredi si contano
+sul **perimetro**, non sull'area: le cose stanno ai muri, e a contare l'area una
+10x10 usciva con venticinque oggetti. Si prende un posto ogni tot invece dei
+primi in fila, o escono tutti attaccati allo stesso muro — uno scaffale, non una
+stanza arredata.
+
+**LA MANO DEL GIOCO.** Gli artwork sono fatti con un prompt che si ripete
+identico su ogni carta e ogni tessera: «1889 gaslamp gothic, oil painting,
+dramatic candlelight, muted teal and crimson palette with gold accents, very dark
+and atmospheric». Le texture VTT non nascono cosi', e fino a ieri **i pavimenti
+dipinti saltavano la gradazione** — `saturate(.9) brightness(1)`, cioe' quasi
+niente, «perche' hanno gia' la loro luce». Ce l'hanno, ma e' la luce di un'altra
+scatola. Ora passano da `MANO_PAVIMENTO`, e sopra ci sono la velatura teal, il
+cremisi in soft-light, la grana d'olio e la filigrana d'oro consumata — che il
+prompt della tessera del gioco nomina alla lettera.
+
+Due cose imparate tarando: **il contrasto fa vedere la pietra, non la
+luminosita'** (abbassando la luce usciva una nebbia grigia e la fuga fra due
+lastre spariva); e **le texture vanno esposte tutte uguali all'import**
+(`esponi()` in importa-fa.py, luminanza media 118), perche' fra le tre varianti
+di «navata» una era marmo bianco e una marmo nero, e nessuna gradazione a valle
+puo' rimediare a due punti di partenza diversi. Da 20÷200 a 72÷118.
+
+Nuovo riferimento dello SHA per ep1/T6 senza variabili: **6d6fa74e14018d76**.
+
 **DICIANNOVE AMBIENTI, non più dieci** (18/08, quinto giro). Dieci erano secchi
 larghi: «mattoni» teneva insieme la fonderia e il magazzino, «terra» il giardino e
 la cantina, «navata» tutte le chiese. Ora ci sono `assi tavolato lastricato pietra

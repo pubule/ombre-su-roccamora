@@ -66,6 +66,11 @@ fs.mkdirSync(OUT_DIR, { recursive: true });
 // minimo per muovere comodo i token; la cornice serve a un'altra cosa ancora —
 // che quei 50 mm siano tutti pavimento e non meta' muro.
 const PX_MM = 12.32;
+// QUANTI MILLIMETRI VALE UNA CASELLA, dichiarati invece che dedotti dai pixel.
+// Il raster del mockup non e' quello della stampa: una stanza 14x14 alla densita'
+// di stampa e' un PNG da cinque metri di lato in pixel, e per guardare una
+// plancia non serve. `OSR_MM` dice la taglia VERA, `OSR_CASELLA` quella del file.
+const MM_CASELLA = Number(process.env.OSR_MM || 0) || (Number(process.env.OSR_CASELLA || 616) / PX_MM);
 const CASELLA = Number(process.env.OSR_CASELLA || 616);
 const CORNICE = Number(process.env.OSR_CORNICE || 0);
 // OSR_LATO: quante caselle per lato. Quattro e' quel che c'e' sempre stato.
@@ -502,9 +507,9 @@ function html(tile) {
   }
   if (CORNICE || CASELLA !== 616 || LATO_ENV !== '4') {
     const tag = [...new Set(TILES.map((t) => latoPer(t)))].sort()
-      .map((L) => `${L}x${L} ${(lastraDi(L) / PX_MM).toFixed(0)}mm`).join(' · ');
-    console.log(`casella ${(CASELLA / PX_MM).toFixed(0)}mm · muro condiviso `
-      + `${(2 * CASELLA * CORNICE / PX_MM).toFixed(0)}mm · tessere: ${tag}`);
+      .map((L) => `${L}x${L} ${(MM_CASELLA * (L + 2 * CORNICE)).toFixed(0)}mm`).join(' · ');
+    console.log(`casella ${MM_CASELLA.toFixed(0)}mm · muro condiviso `
+      + `${(2 * MM_CASELLA * CORNICE).toFixed(0)}mm · tessere: ${tag}`);
   }
   const browser = await chromium.launch({ headless: true });
   const page = await browser.newPage({ viewport: { width: lastraDi(4), height: lastraDi(4) } });

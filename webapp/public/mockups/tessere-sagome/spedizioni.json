@@ -6,23 +6,23 @@
    {
     "id": "T1",
     "nome": "La Banchina Della Dogana",
-    "lato": 5,
+    "lato": 12,
     "col": 0,
     "row": 0
    },
    {
     "id": "T2",
     "nome": "Il Deposito",
-    "lato": 6,
+    "lato": 14,
     "col": 0,
-    "row": -6
+    "row": -14
    },
    {
     "id": "T4",
     "nome": "Lo Stanzino Del Daziere",
-    "lato": 4,
-    "col": -4,
-    "row": -6
+    "lato": 10,
+    "col": -10,
+    "row": -14
    }
   ]
  },
@@ -33,44 +33,44 @@
    {
     "id": "T1",
     "nome": "LA SCALA DEI CHIUSINI",
-    "lato": 5,
+    "lato": 12,
     "col": 0,
     "row": 0
    },
    {
     "id": "T2",
     "nome": "LA CISTERNA DELLE COLONNE",
-    "lato": 6,
+    "lato": 14,
     "col": 0,
-    "row": -6
+    "row": -14
    },
    {
     "id": "T3",
     "nome": "LA GALLERIA DELLE ECO",
-    "lato": 5,
+    "lato": 12,
     "col": 0,
-    "row": -11
+    "row": -26
    },
    {
     "id": "T4",
     "nome": "LA CONFLUENZA",
-    "lato": 5,
+    "lato": 12,
     "col": 0,
-    "row": -16
+    "row": -38
    },
    {
     "id": "T5",
     "nome": "L’OFFICINA DELLE CANNE",
-    "lato": 5,
-    "col": 5,
-    "row": -16
+    "lato": 12,
+    "col": 12,
+    "row": -38
    },
    {
     "id": "T6",
     "nome": "IL POZZO MAESTRO",
-    "lato": 5,
+    "lato": 12,
     "col": 0,
-    "row": -21
+    "row": -50
    }
   ]
  },
@@ -81,44 +81,44 @@
    {
     "id": "T1",
     "nome": "LA SCALA DEL SAGRATO",
-    "lato": 5,
+    "lato": 12,
     "col": 0,
     "row": 0
    },
    {
     "id": "T2",
     "nome": "LA NAVATA SEPOLTA",
-    "lato": 6,
+    "lato": 14,
     "col": 0,
-    "row": -6
+    "row": -14
    },
    {
     "id": "T3",
     "nome": "IL CORRIDOIO DEGLI OSSARI",
-    "lato": 5,
+    "lato": 12,
     "col": 0,
-    "row": -11
+    "row": -26
    },
    {
     "id": "T4",
     "nome": "LA SALA DEL CAPITOLO",
-    "lato": 6,
+    "lato": 14,
     "col": 0,
-    "row": -17
+    "row": -40
    },
    {
     "id": "T5",
     "nome": "L’OFFICINA DELLE CANNE D’OSSA",
-    "lato": 5,
-    "col": 6,
-    "row": -17
+    "lato": 12,
+    "col": 14,
+    "row": -40
    },
    {
     "id": "T6",
     "nome": "L’ORGANO MURATO",
-    "lato": 5,
+    "lato": 12,
     "col": 0,
-    "row": -22
+    "row": -52
    }
   ]
  },
@@ -129,44 +129,44 @@
    {
     "id": "T1",
     "nome": "L’ABBAINO",
-    "lato": 4,
+    "lato": 10,
     "col": 0,
     "row": 0
    },
    {
     "id": "T2",
     "nome": "IL CAMMINAMENTO OVEST",
-    "lato": 5,
+    "lato": 12,
     "col": 0,
-    "row": -5
+    "row": -12
    },
    {
     "id": "T3",
     "nome": "LA LOGGIA DELLE CAMPANE",
-    "lato": 5,
+    "lato": 12,
     "col": 0,
-    "row": -10
+    "row": -24
    },
    {
     "id": "T4",
     "nome": "IL TETTO A SCHIENA D’ASINO",
-    "lato": 5,
+    "lato": 12,
     "col": 0,
-    "row": -15
+    "row": -36
    },
    {
     "id": "T5",
     "nome": "IL BALLATOIO DELLA TORRE",
-    "lato": 5,
+    "lato": 12,
     "col": 0,
-    "row": -20
+    "row": -48
    },
    {
     "id": "T6",
     "nome": "LA GUGLIA",
-    "lato": 5,
+    "lato": 12,
     "col": 0,
-    "row": -25
+    "row": -60
    }
   ]
  },
@@ -177,44 +177,44 @@
    {
     "id": "T1",
     "nome": "L’ARCHIVIO VIOLATO",
-    "lato": 5,
+    "lato": 12,
     "col": 0,
     "row": 0
    },
    {
     "id": "T2",
     "nome": "IL PONTE DEI SOSPIRI",
-    "lato": 5,
+    "lato": 12,
     "col": 0,
-    "row": -5
+    "row": -12
    },
    {
     "id": "T3",
     "nome": "LA FONDAMENTA STRETTA",
-    "lato": 5,
+    "lato": 12,
     "col": 0,
-    "row": -10
+    "row": -24
    },
    {
     "id": "T4",
     "nome": "IL CANALE DELLA NEBBIA",
-    "lato": 5,
+    "lato": 12,
     "col": 0,
-    "row": -15
+    "row": -36
    },
    {
     "id": "T5",
     "nome": "IL SOTTOPORTICO",
-    "lato": 5,
+    "lato": 12,
     "col": 0,
-    "row": -20
+    "row": -48
    },
    {
     "id": "T6",
     "nome": "IL CIMITERO DELLE BARCHE",
-    "lato": 6,
+    "lato": 14,
     "col": 0,
-    "row": -26
+    "row": -62
    }
   ]
  }
