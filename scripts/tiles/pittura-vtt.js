@@ -162,6 +162,32 @@ const tex = (nome) => {
 // stesso nome che il tavolo sente leggere ad alta voce.
 // L'ORDINE E' UNA REGOLA, non un caso: «Sala delle Casse» e' un magazzino, e
 // se la riga dei salotti venisse prima si ritroverebbe il parquet.
+// CHE COSA C'E' FUORI DALLA STANZA, dentro la stessa tessera.
+//
+// Le caselle fuori sagoma erano nero piatto: come se li' non ci fosse niente. Ma
+// una banchina non finisce nel nulla, finisce NELL'ACQUA; sotto un ballatoio non
+// c'e' il vuoto astratto, c'e' la strada tre piani piu' giu'; un giardino
+// murato ha l'erba anche oltre il vialetto. Sono due ambienti nella stessa
+// tessera — uno percorribile e uno no — ed e' quel che il molo chiede.
+//
+// La regola e' la solita: la dice il nome. Fuori da un molo c'e' acqua, fuori da
+// un tetto c'e' il vuoto, fuori da una galleria c'e' la roccia viva.
+const FUORI_DI = [
+  [/molo|banchin|imbarcader|fondament|riva|barc|approdo|dogana|squero|pontile|passerell|ponte|ponticell|chiatt|darsena|canale|cistern|pozzo|confluenza|lavatoio|roggia|marea|vasca/i, 'acqua'],
+  [/fogna|melma|scolo|chiusin|cloaca|vene|sentina/i, 'melma'],
+  [/giardino|orto|serra|prato|roseto|verziere/i, 'erba'],
+  [/grotta|caverna|galler|cunicol|scavo|intercapedine|pietra viva|discesa|budello/i, 'roccia'],
+  [/cortile|terrapien|piazzal|mercato|calle|vicolo|campiello|sottoportico/i, 'terra'],
+  // tetti, ballatoi, logge, guglie: sotto c'e' il vuoto, e il vuoto resta nero
+  [/tetto|guglia|gronda|abbaino|campanil|torre|comignol|coppi|terrazza|ballatoio|loggia|camminament|lucernario/i, 'vuoto'],
+];
+
+function fuoriDi(tile) {
+  const nome = `${tile.nome || ''} ${tile.id || ''}`;
+  for (const [re, quale] of FUORI_DI) if (re.test(nome)) return quale;
+  return 'vuoto';
+}
+
 const PAVIMENTI = [
   // ------------------------------------------------------------- L'ACQUA
   // quel che si CAMMINA sopra l'acqua e' assi: il pavimento e' quello che i
@@ -514,13 +540,21 @@ function htmlVtt(tile, S, { gruppi, porte, stampa = false, celle = null, cornice
        linear-gradient(160deg, #0d2226, #061014)`
     : `url('${pavDipinto || tex(pav)}')`;
 
-  // LE CASELLE FUORI SAGOMA prendono il fondo del tavolo. Non si ritagliano dal
-  // PNG: una tessera resta un quadrato, e il «fuori» e' dipinto — al tavolo il
-  // cartoncino andrebbe fustellato, a schermo il risultato e' lo stesso.
+  // LE CASELLE FUORI SAGOMA non sono un buco: sono l'altro ambiente della
+  // tessera. Si dipingono con la loro texture — acqua attorno al molo, roccia
+  // attorno alla galleria — e si scuriscono, perche' li' non ci si va: la
+  // differenza di luce e' quel che dice a chi gioca dove puo' mettere la pedina.
+  const fuoriAmb = fuoriDi(tile);
+  const fuoriTex = fuoriAmb === 'vuoto' ? null : pavimentoVario(fuoriAmb, tile);
+  const tarF = TARATURA[fuoriAmb] || { scala: 5 };
   const fuori = Array.from({ length: L * L }, (_, i) => [i % L, (i / L) | 0])
     .filter(([x, y]) => !viva(x, y))
     .map(([x, y]) => `<div class="fuori" style="left:${off + x * c}px; top:${off + y * c}px;
-      width:${c}px; height:${c}px"></div>`).join('');
+      width:${c}px; height:${c}px;
+      ${fuoriTex ? `background-image:url('${fuoriTex}');
+        background-size:${Math.round(c * tarF.scala)}px ${Math.round(c * tarF.scala)}px;
+        background-position:${-Math.round(sfasa[0] + off + x * c)}px ${-Math.round(sfasa[1] + off + y * c)}px;`
+        : ''}"></div>`).join('');
 
   const arredi = gruppi.map((g) => {
     const chiave = String(g.label).toLowerCase();
@@ -590,14 +624,34 @@ function htmlVtt(tile, S, { gruppi, porte, stampa = false, celle = null, cornice
   const soglie = new Set(porte.map(({ dir, idx }) =>
     (dir === 'N' ? `${idx},0` : dir === 'S' ? `${idx},${L - 1}`
       : dir === 'O' ? `0,${idx}` : `${L - 1},${idx}`) + dir));
-  const bordi = [];
+  // UN MURO NON VA FRA IL MOLO E L'ACQUA. Il perimetro della tessera e' muro —
+  // serve anche a far combaciare due tessere accostate — ma il bordo INTERNO,
+  // quello fra la parte percorribile e l'altro ambiente, e' un'altra cosa: la
+  // riva di una banchina e' una sponda di legno, il ciglio di un ballatoio e' un
+  // gradino sul vuoto. Mettere la pietra da dungeon anche li' faceva sembrare il
+  // canale una stanza murata.
+  const dentroGriglia = (x, y) => x >= 0 && y >= 0 && x < L && y < L;
+  const bordi = [];        // il muro vero: solo il perimetro della tessera
+  const sponde = [];       // il ciglio verso l'altro ambiente
   for (const [cx, cy] of [...vive].map((k2) => k2.split(',').map(Number))) {
     for (const [dir, [dx, dy]] of Object.entries(VERSO)) {
       if (viva(cx + dx, cy + dy)) continue;
       if (soglie.has(`${cx},${cy}${dir}`)) continue;   // qui c'e' la porta
-      bordi.push([cx, cy, dir]);
+      const interno = dentroGriglia(cx + dx, cy + dy);
+      if (interno && fuoriAmb !== 'vuoto') sponde.push([cx, cy, dir]);
+      else bordi.push([cx, cy, dir]);
     }
   }
+  // la sponda: una fascia scura e sottile, con l'ombra che cade sull'acqua
+  const spondeHtml = sponde.map(([cx, cy, dir]) => {
+    const sp2 = Math.round(M * 0.55);
+    const x0 = off + cx * c, y0 = off + cy * c;
+    const q = { N: `left:${x0}px; top:${y0 - sp2}px; width:${c}px; height:${sp2}px;`,
+                S: `left:${x0}px; top:${y0 + c}px; width:${c}px; height:${sp2}px;`,
+                E: `left:${x0 + c}px; top:${y0}px; width:${sp2}px; height:${c}px;`,
+                O: `left:${x0 - sp2}px; top:${y0}px; width:${sp2}px; height:${c}px;` }[dir];
+    return `<div class="sponda" style="${q}"></div>`;
+  }).join('');
 
   // LA SOGLIA NON E' UN BUCO. Togliere il pezzo di muro lascia un varco, e un
   // varco fra due tessere si legge come uno spazio vuoto: al tavolo sembra che
@@ -871,8 +925,17 @@ function htmlVtt(tile, S, { gruppi, porte, stampa = false, celle = null, cornice
        non ne cambia l'ingombro */
     /* la casella FUORI SAGOMA: il fondo del tavolo, non un buco trasparente —
        cosi' la tessera resta un PNG quadrato e la stampa non cambia mestiere */
-    .fuori { position:absolute; background:#0b0d10;
-      box-shadow:inset 0 0 ${Math.round(c * 0.35)}px rgba(0,0,0,.9); }
+    /* IL FUORI: l'altro ambiente della tessera. Piu' scuro e piu' spento di quel
+       che si cammina — la differenza di luce e' la regola letta a occhio: dove e'
+       chiaro si va, dove e' cupo no. */
+    .fuori { position:absolute; background-color:#0b0d10;
+      filter:saturate(.30) brightness(.44) contrast(1.15);
+      box-shadow:inset 0 0 ${Math.round(c * 0.35)}px rgba(0,0,0,.75); }
+    /* LA SPONDA: il ciglio fra il camminabile e l'acqua. Non e' un muro — e' un
+       bordo di legno consumato con l'ombra che cade DI LA', dove non si va. */
+    .sponda { position:absolute;
+      background:linear-gradient(rgba(58,46,32,.95), rgba(24,18,12,.95));
+      box-shadow:0 0 ${Math.round(c * 0.10)}px ${Math.round(c * 0.03)}px rgba(0,0,0,.85); }
     /* LA FASCIA DI MURO, fuori dal reticolo. L'ombra la mette il box-shadow e
        cade DENTRO la stanza: e' l'ombra a dare lo spessore, non il bordo. */
     .muroFascia { position:absolute; image-rendering:auto;
@@ -910,6 +973,7 @@ function htmlVtt(tile, S, { gruppi, porte, stampa = false, celle = null, cornice
       </div>
       ${luci}
       ${fuori}
+      ${spondeHtml}
       ${arredi}
       ${uscio}
       ${muri}
