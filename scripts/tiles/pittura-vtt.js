@@ -500,7 +500,7 @@ const FUOCHI = { candele: '#e8c27a', crogiolo: '#e8934a', stufa: '#e8934a', alta
 //
 // `gruppi` arriva gia' fuso da `groupArredi()` del generatore: un arredo che
 // occupa piu' celle e' UN oggetto piu' grande, non lo stesso oggetto ripetuto.
-function htmlVtt(tile, S, { gruppi, porte, stampa = false, celle = null, cornice = 0, lato = 4 }) {
+function htmlVtt(tile, S, { gruppi, porte, stampa = false, celle = null, cornice = 0, lato = 4, bordoAperto = false }) {
   // LA CORNICE E' MEZZO MURO, non un muro intero.
   //
   // Due tessere accostate hanno ciascuna la propria cornice: se ognuna portasse
@@ -574,8 +574,17 @@ function htmlVtt(tile, S, { gruppi, porte, stampa = false, celle = null, cornice
   // attorno alla galleria — e si scuriscono, perche' li' non ci si va: la
   // differenza di luce e' quel che dice a chi gioca dove puo' mettere la pedina.
   const fuoriAmb = fuoriDi(tile);
-  const fuoriTex = fuoriAmb === 'vuoto' ? null : pavimentoVario(fuoriAmb, tile);
+  // in modalita' caverna la massa dev'essere PIATTA: la texture sopravviveva allo
+  // style inline, e blur+contrast su un bruno texturizzato faceva rocce al neon.
+  // Il colore lo mette il velo dopo, quando la forma e' gia' decisa.
+  const fuoriTex = (fuoriAmb === 'vuoto' || bordoAperto) ? null : pavimentoVario(fuoriAmb, tile);
   const tarF = TARATURA[fuoriAmb] || { scala: 5 };
+  // LA ROCCIA NON HA LA FORMA DELLE CASELLE. Disegnata cella per cella esce una
+  // scacchiera di quadretti; nelle tessere di riferimento e' una massa organica
+  // che il reticolo lo ignora. Il rimedio e' vecchio come il CSS: si sfoca il
+  // gruppo e si rialza il contrasto — i quadrati si fondono e i bordi tornano
+  // netti, ma curvi. Il reticolo resta sotto e continua a contarsi.
+  const morbida = bordoAperto;
   const fuori = Array.from({ length: L * L }, (_, i) => [i % L, (i / L) | 0])
     .filter(([x, y]) => !viva(x, y))
     .map(([x, y]) => `<div class="fuori" style="left:${off + x * c}px; top:${off + y * c}px;
@@ -667,6 +676,11 @@ function htmlVtt(tile, S, { gruppi, porte, stampa = false, celle = null, cornice
       if (viva(cx + dx, cy + dy)) continue;
       if (soglie.has(`${cx},${cy}${dir}`)) continue;   // qui c'e' la porta
       const interno = dentroGriglia(cx + dx, cy + dy);
+      // BORDO APERTO: nella direzione a caverna la parete e' la ROCCIA dipinta,
+      // non un muro disegnato, e sul perimetro non ci va niente — dove il
+      // pavimento tocca il bordo deve fondersi con quello della tessera accanto.
+      // Un muro li' rifarebbe la scacchiera di stanze murate.
+      if (!interno && bordoAperto) continue;
       if (interno && fuoriAmb !== 'vuoto') sponde.push([cx, cy, dir]);
       else bordi.push([cx, cy, dir]);
     }
@@ -957,6 +971,20 @@ function htmlVtt(tile, S, { gruppi, porte, stampa = false, celle = null, cornice
     /* IL FUORI: l'altro ambiente della tessera. Piu' scuro e piu' spento di quel
        che si cammina — la differenza di luce e' la regola letta a occhio: dove e'
        chiaro si va, dove e' cupo no. */
+    /* la massa di roccia: sfocare piu' di mezza casella e rialzare il contrasto
+       salda i quadrati in una chiazza sola. Il filo chiaro attorno e' il bordo
+       illuminato della pietra, ed e' quel che la stacca dal pavimento. */
+    .rocce { position:absolute; inset:0; pointer-events:none;
+      filter: blur(${Math.round(c * 0.32)}px) contrast(14)
+              drop-shadow(0 0 ${Math.round(c * 0.05)}px rgba(196,186,166,.55)); }
+    /* NERO NEUTRO, non un nero caldo: contrast() lavora sui tre canali, e su
+       un #15120e (che ha piu' rosso che blu) li divarica invece di scurirli —
+       le rocce uscivano blu e rosse al neon. Il colore glielo da' il velo sopra. */
+    .rocce .fuori { box-shadow:none; filter:none; background:#000; }
+    /* il velo che ridà alla massa il colore della pietra, DOPO che la forma e'
+       stata decisa: qui il contrasto non ci arriva piu' */
+    .rocce-tinta { position:absolute; inset:0; pointer-events:none;
+      mix-blend-mode:multiply; }
     .fuori { position:absolute; background-color:#0b0d10;
       filter:saturate(${TAVOLO ? '.22' : '.30'}) brightness(${TAVOLO ? '.34' : '.44'}) contrast(1.15);
       box-shadow:inset 0 0 ${Math.round(c * 0.35)}px rgba(0,0,0,.75); }
@@ -1015,13 +1043,16 @@ function htmlVtt(tile, S, { gruppi, porte, stampa = false, celle = null, cornice
         ${TAVOLO ? `<div class="reticolo"></div>` : ''}
       </div>
       ${luci}
-      ${fuori}
-      ${spondeHtml}
+      ${morbida ? `<div class="rocce">${fuori}</div>` : fuori}
+      ${morbida ? '' : spondeHtml}
       ${arredi}
       ${uscio}
       ${muri}
       <div class="muri"></div>
-      ${TAVOLO ? '<div class="taglio"></div>' : ''}
+      <!-- il bordo duro serve quando le tessere sono stanze murate; in modalita'
+           caverna il pavimento attraversa la giuntura, e una riga scura li' la
+           rimetterebbe in evidenza proprio dove non deve vedersi -->
+      ${TAVOLO && !bordoAperto ? '<div class="taglio"></div>' : ''}
       ${griglia}
     </div>
   </body></html>`;

@@ -286,7 +286,130 @@ function sagomaDi(tile, porte, arredi = []) {
   };
 }
 
-module.exports = { sagomaDi, taglioDi, TAGLI, REGOLE, setLato };
+// ---------------------------------------------------------------- LA CAVERNA
+//
+// Come si fa un dungeon IRREGOLARE con moduli tutti uguali. Guardando le tessere
+// del D&D Adventure System montate, il meccanismo non e' il profilo del
+// cartoncino ne' un margine attorno: il pavimento ARRIVA AI BORDI e due tessere
+// accostate hanno il pavimento continuo attraverso la giuntura.
+//
+// Quel che rompe la regolarita' sono MASSE DI ROCCIA dentro la tessera —
+// macchie scure addossate ai bordi e agli angoli, disegnate diverse su ogni
+// pezzo. Accostando due tessere, le rocce dell'una si saldano a quelle
+// dell'altra e il pavimento serpeggia in mezzo: la mappa sembra scavata, non
+// piastrellata, pur essendo fatta sempre dello stesso quadrato.
+//
+// E i varchi sono LARGHI: dove due tessere si aprono l'una sull'altra, le due
+// stanze si fondono in un ambiente solo. Non e' una porta — e' che li' la roccia
+// non c'e'.
+//
+// IL RUMORE E' DETERMINISTICO, dal nome della tessera: la stessa stanza esce
+// sempre identica, o il cartoncino stampato e lo schermo direbbero due cose.
+
+// rumore a macchie: le coordinate si arrotondano a gruppi, cosi' viene fuori
+// una chiazza invece che sale e pepe
+function rumore(seme, x, y, grana) {
+  const cx = Math.floor(x / grana), cy = Math.floor(y / grana);
+  let h = seme >>> 0;
+  h = (h ^ (cx * 374761393)) >>> 0;
+  h = (h ^ (cy * 668265263)) >>> 0;
+  h = Math.imul(h ^ (h >>> 13), 1274126177) >>> 0;
+  return ((h ^ (h >>> 16)) >>> 0) / 4294967295;
+}
+
+const semeDi = (testo) => {
+  let n = 0;
+  for (let i = 0; i < testo.length; i++) n = (Math.imul(n, 131) + testo.charCodeAt(i)) >>> 0;
+  return n;
+};
+
+/**
+ * Erode i bordi di una sagoma con masse di roccia.
+ *
+ * @param celle   le caselle vive del taglio (l'isola si applica SOPRA il taglio)
+ * @param porte   { dir: [c,r] } — li' la roccia non ci va: e' il varco
+ * @param lato    caselle per lato
+ * @param nome    da cui si ricava il seme: stessa stanza, stessa roccia
+ * @param varco   quanto e' largo il passaggio attorno a una porta, in caselle
+ */
+function caverna(celle, porte, lato, nome, { varco = 2, forza = 1 } = {}) {
+  const seme = semeDi(nome || '');
+  const u = lato - 1;
+  const vive = new Set(celle.map(k));
+
+  // quanto una casella e' lontana dal bordo: 0 = anello esterno
+  const orlo = (c, r) => Math.min(c, r, u - c, u - r);
+
+  // le caselle che i varchi proteggono: attorno a ogni porta resta pavimento
+  // largo `varco`, o due stanze accostate non si fondono ma si guardano
+  const salve = new Set();
+  for (const [dir, [pc, pr]] of Object.entries(porte)) {
+    for (let d = 0; d < lato; d++) {
+      for (let t = -varco; t <= varco; t++) {
+        const [c, r] = (dir === 'N' || dir === 'S')
+          ? [pc + t, dir === 'N' ? d : u - d]
+          : [dir === 'O' ? d : u - d, pr + t];
+        if (c >= 0 && r >= 0 && c <= u && r <= u) salve.add(k([c, r]));
+      }
+    }
+  }
+
+  // la roccia: piu' probabile sull'orlo, sempre meno andando dentro
+  const soglia = [0.34, 0.66, 0.86];
+  for (const [c, r] of celle) {
+    if (salve.has(k([c, r]))) continue;
+    const d = orlo(c, r);
+    if (d >= soglia.length) continue;
+    const grossa = rumore(seme, c, r, 3);
+    const fine = rumore(seme + 7919, c, r, 1);
+    // piu' peso al rumore FINE di quanto verrebbe da pensare: con la sola
+    // macchia grossa due moduli dello stesso carattere uscivano gemelli, e un
+    // mazzo di gemelli non fa una mappa irregolare
+    const v = grossa * 0.55 + fine * 0.45;
+    if (v > soglia[d] * forza) vive.delete(k([c, r]));
+  }
+
+  // le porte restano sempre pavimento
+  for (const p2 of Object.values(porte)) vive.add(k(p2));
+
+  // e la stanza resta tutta attaccata: la roccia non deve isolare un angolo
+  const dentro = () => [...vive].map((s2) => s2.split(',').map(Number));
+  for (let giro = 0; giro < 10; giro++) {
+    const tutte2 = dentro();
+    if (!tutte2.length) break;
+    let corpo = null; const visti = new Set();
+    for (const p2 of tutte2) {
+      if (visti.has(k(p2))) continue;
+      const g = raggiunte(vive, p2);
+      g.forEach((x) => visti.add(x));
+      if (!corpo || g.size > corpo.size) corpo = g;
+    }
+    if (corpo.size === vive.size) break;
+    // il pezzo staccato: se e' piccolo diventa roccia anche lui, se e' grande
+    // (o ha una porta) si riattacca scavando il cammino piu' corto
+    const staccate = [...vive].filter((x) => !corpo.has(x));
+    const hasPorta = Object.values(porte).some((p2) => staccate.includes(k(p2)));
+    if (staccate.length <= 3 && !hasPorta) { staccate.forEach((x) => vive.delete(x)); continue; }
+    const coda = staccate.map((x) => [x.split(',').map(Number), [x.split(',').map(Number)]]);
+    const visto = new Set(staccate);
+    let cammino = null;
+    while (coda.length && !cammino) {
+      const [[c, r], strada] = coda.shift();
+      for (const [dc, dr] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
+        const q = [c + dc, r + dr];
+        if (q[0] < 0 || q[1] < 0 || q[0] > u || q[1] > u || visto.has(k(q))) continue;
+        visto.add(k(q));
+        if (corpo.has(k(q))) { cammino = strada.concat([q]); break; }
+        coda.push([q, strada.concat([q])]);
+      }
+    }
+    if (!cammino) break;
+    for (const q of cammino) vive.add(k(q));
+  }
+  return dentro();
+}
+
+module.exports = { sagomaDi, taglioDi, caverna, TAGLI, REGOLE, setLato };
 
 // ------------------------------------------------------------- il collaudo
 // Non un banco: la cosa piu' piccola che si rompe se la logica si rompe. Gira
@@ -388,6 +511,31 @@ if (require.main === module) {
   // il ballatoio deve restare un GIRO percorribile, non un filo
   const giro = sagomaDi({ nome: 'Il Ballatoio' }, { N: [5, 0], S: [5, 9] });
   assert.ok(giro.celle.length >= 60, `il ballatoio a 10x10 e' ${giro.celle.length} caselle`);
+  setLato(4);
+
+  // LA CAVERNA: la roccia mangia i bordi, ma non il varco e non la connessione
+  setLato(10);
+  {
+    const porte = { N: [4, 0], E: [9, 4] };
+    const piena = sagomaDi({ nome: 'La Sala' }, porte).celle;
+    const cav = caverna(piena, porte, 10, 'La Sala');
+    const vive = new Set(cav.map(k));
+    assert.ok(cav.length < piena.length, 'la roccia non ha mangiato niente');
+    assert.ok(cav.length > 45, `ha mangiato troppo: restano ${cav.length} caselle su 100`);
+    for (const p2 of Object.values(porte)) assert.ok(vive.has(k(p2)), 'un varco e\' murato');
+    assert.strictEqual(raggiunte(vive, cav[0]).size, vive.size, 'caverna spezzata');
+    // IL PAVIMENTO ARRIVA AI BORDI: e' il punto. Se restasse tutto rientrato,
+    // due tessere accostate non si fonderebbero mai.
+    const suBordo = cav.filter(([c, r]) => c === 0 || r === 0 || c === 9 || r === 9);
+    assert.ok(suBordo.length >= 8,
+      `il pavimento tocca il bordo in ${suBordo.length} caselle: troppo poche per fondersi`);
+    // e la stessa stanza esce sempre uguale
+    assert.strictEqual(JSON.stringify(cav),
+      JSON.stringify(caverna(piena, porte, 10, 'La Sala')), 'la caverna cambia a ogni giro');
+    // stanze diverse, rocce diverse
+    assert.notStrictEqual(JSON.stringify(cav),
+      JSON.stringify(caverna(piena, porte, 10, 'Un Altro Nome')), 'due stanze hanno la stessa roccia');
+  }
   setLato(4);
 
   console.log(`${n} tessere, nessuna spezzata, nessuna porta murata`);

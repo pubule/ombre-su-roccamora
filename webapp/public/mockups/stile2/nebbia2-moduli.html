@@ -1,0 +1,120 @@
+<!doctype html><html lang="it"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Notte e nebbia · un mazzo di moduli, dungeon irregolari</title>
+<link rel="stylesheet" href="base.css"><link rel="stylesheet" href="nebbia.css">
+<link rel="stylesheet" href="nebbia2.css">
+<style>
+  .mazzo { display: grid; grid-template-columns: repeat(auto-fill, minmax(104px, 1fr)); gap: 6px; }
+  .mod { position: relative; aspect-ratio: 1; background-size: cover;
+    border-radius: 3px; overflow: hidden; }
+  .mod b { position: absolute; left: 0; right: 0; bottom: 0; font-family: 'FellSC', serif;
+    font-size: 9px; font-weight: 400; letter-spacing: .04em; color: #e6dcc6;
+    background: linear-gradient(transparent, rgba(6,6,8,.9) 55%); padding: 10px 4px 2px; }
+  .filtro { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 10px; }
+  .filtro button { font-family: 'FellSC', serif; font-size: 12.5px; letter-spacing: .06em;
+    padding: 5px 11px; border-radius: 999px; border: 1px solid var(--bordo);
+    background: var(--vetro); color: var(--fioco); cursor: pointer; }
+  .filtro button[aria-pressed="true"] { background: var(--lume); color: #17140d; }
+  .dung { width: 100%; border-radius: 6px; border: 1px solid var(--bordo); display: block; }
+  .duo { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  @media (max-width: 640px) { .duo { grid-template-columns: 1fr; } }
+  table.conto { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+  table.conto td, table.conto th { text-align: left; padding: 4px 6px;
+    border-bottom: 1px solid var(--bordo); vertical-align: top; }
+  table.conto th { font-family: 'FellSC', serif; color: var(--lume); font-weight: 400; }
+  .avviso { border-left: 3px solid var(--lume); padding-left: 10px; }
+  .rosso { border-left-color: var(--sangue); }
+</style>
+</head><body>
+<div class="wrap">
+  <a class="torna" href="index.html">← le tre direzioni</a>
+
+  <h1 style="margin-bottom:6px">un mazzo di moduli, dungeon irregolari</h1>
+  <p class="nota" style="margin-bottom:6px">Il meccanismo dei giochi a tessere — <i>Castle
+    Ravenloft</i>, <i>Legend of Drizzt</i>, <i>Dungeon of the Mad Mage</i>. Guardando i loro
+    fogli montati si capisce che non è il profilo del cartoncino a fare l'irregolarità, e non è
+    un margine attorno al pezzo. Sono <b>tre cose</b>, e la seconda è quella che conta.</p>
+
+  <div class="prova">
+    <div class="che">le tre regole del meccanismo</div>
+    <table class="conto">
+      <tr><th>1 · ingombro unico</th>
+        <td>Tutte le tessere sono lo stesso quadrato e si accostano su un reticolo. Il profilo a
+          incastro è solo un aiuto meccanico — si può ignorare.</td></tr>
+      <tr><th>2 · il pavimento arriva ai bordi</th>
+        <td>Dove due varchi si incontrano, le due stanze <b>si fondono</b>: non c'è una porta,
+          c'è che lì la roccia non c'è. È questo che fa sembrare la mappa <b>scavata</b> invece
+          che piastrellata — ed è l'opposto di quel che avevo fatto finora, dove ogni tessera
+          era una stanza murata col suo perimetro.</td></tr>
+      <tr><th>3 · la roccia sta dentro il pezzo</th>
+        <td>Masse scure addossate a bordi e angoli, disegnate diverse su ogni tessera.
+          Accostando due pezzi, le rocce dell'uno si saldano a quelle dell'altro e il pavimento
+          serpeggia in mezzo.</td></tr>
+    </table>
+  </div>
+
+  <h2 style="margin:22px 0 8px">il mazzo</h2>
+  <p class="nota" style="margin:0 0 10px">Cinque <b>caratteri</b> (quanto è aperto un pezzo) per
+    cinque <b>forme d'uscita</b> (fondo cieco, passante, angolo, raccordo a T, incrocio), per due
+    varianti di roccia: <b>cinquanta moduli</b> su un ingombro solo. Le tessere sono generate dal
+    pennello del gioco — non sono un disegno di come sarebbero.</p>
+  <div class="prova">
+    <div class="filtro" id="filtro"></div>
+    <div class="mazzo" id="mazzo"></div>
+    <p class="perche">Il pavimento occupa in media <b>64 caselle su 100</b>: il resto è roccia.
+      Ogni modulo è <b>deterministico</b> — stesso nome, stessa pietra, sempre — perché il
+      cartoncino stampato e lo schermo devono dire la stessa cosa.</p>
+  </div>
+
+  <h2 style="margin:26px 0 8px">due dungeon, dallo stesso mazzo</h2>
+  <p class="nota" style="margin:0 0 10px">Nove pezzi ciascuno, pescati dagli stessi cinquanta.
+    Le tessere si toccano: il suolo è continuo attraverso le giunture, e le rocce si saldano.</p>
+  <div class="prova">
+    <div class="duo">
+      <img class="dung" src="../moduli/dungeon-a.jpg" alt="dungeon montato, primo">
+      <img class="dung" src="../moduli/dungeon-b.jpg" alt="dungeon montato, secondo">
+    </div>
+    <p class="perche">Il profilo che ne esce non è un rettangolo e non è una scacchiera: è una
+      pianta scavata. E il modulo sotto è sempre lo stesso quadrato da 10×10.</p>
+  </div>
+
+  <div class="prova">
+    <div class="che">dove non ci siamo ancora</div>
+    <p class="perche avviso">La roccia sta quasi sempre <b>agli angoli</b>, e la mappa si legge
+      come «stanze con gli angoli tagliati» più che come una caverna che serpeggia. Nel
+      riferimento le masse entrano anche in mezzo ai lati e sono più grosse. È una taratura del
+      rumore, non un cambio d'impianto.</p>
+    <p class="perche avviso">Il bordo della roccia è <b>sfocato</b>. Le caselle quadrate si
+      saldano con una sfocatura e un rialzo di contrasto — funziona per la forma, ma il taglio
+      resta morbido dove nel riferimento è netto e frastagliato.</p>
+    <p class="perche avviso rosso">E soprattutto: questo mazzo <b>non è ancora la campagna</b>.
+      Le 127 tessere degli episodi hanno nomi, arredi e uscite scritti nei dati; questi moduli
+      sono pezzi anonimi generati da un carattere. Le due cose si incontrano solo se la
+      Spedizione passa da mappe <b>scritte</b> a mappe <b>pescate</b> — che è una scelta di
+      gioco, non di grafica, e non l'ho presa io.</p>
+  </div>
+</div>
+
+<script>
+fetch('../moduli/moduli.json').then((r) => r.json()).then((mods) => {
+  const caratteri = [...new Set(mods.map((m) => m.carattere))];
+  let scelto = 'tutti';
+  const filtro = document.getElementById('filtro');
+  filtro.innerHTML = ['tutti', ...caratteri]
+    .map((c) => `<button data-c="${c}" aria-pressed="${c === 'tutti'}">${c}</button>`).join('');
+  const dipingi = () => {
+    document.getElementById('mazzo').innerHTML = mods
+      .filter((m) => scelto === 'tutti' || m.carattere === scelto)
+      .map((m) => `<div class="mod" style="background-image:url('../moduli/${m.nome}.jpg')">
+        <b>${m.lati.join('')}</b></div>`).join('');
+    filtro.querySelectorAll('button').forEach((b) =>
+      b.setAttribute('aria-pressed', String(b.dataset.c === scelto)));
+  };
+  filtro.onclick = (e) => {
+    if (!e.target.dataset.c) return;
+    scelto = e.target.dataset.c; dipingi();
+  };
+  dipingi();
+});
+</script>
+</body></html>
