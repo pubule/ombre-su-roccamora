@@ -1034,10 +1034,11 @@ function htmlVtt(tile, S, { gruppi, porte, stampa = false, celle = null, cornice
        profilo. Tre passaggi: un filo chiaro (la cima della pietra illuminata),
        una fascia di pietra, e uno stacco scuro che la separa dal pavimento. */
     .rocce { position:absolute; inset:0; pointer-events:none;
-      filter: blur(${Math.round(c * 0.32)}px) contrast(14)
-              drop-shadow(0 0 ${Math.max(1, Math.round(c * 0.014))}px rgba(196,198,196,.95))
-              drop-shadow(0 0 ${Math.max(2, Math.round(c * 0.032))}px rgba(122,124,122,.9))
-              drop-shadow(0 0 ${Math.max(3, Math.round(c * 0.075))}px rgba(20,20,22,.8)); }
+      filter: url(#pietra)
+              drop-shadow(0 0 ${Math.max(1, Math.round(c * 0.020))}px rgba(206,206,202,1))
+              drop-shadow(0 0 ${Math.max(2, Math.round(c * 0.045))}px rgba(112,112,110,1))
+              drop-shadow(0 0 ${Math.max(2, Math.round(c * 0.065))}px rgba(60,58,56,.95))
+              drop-shadow(0 ${Math.round(c * 0.02)}px ${Math.round(c * 0.09)}px rgba(10,10,12,.75)); }
     /* NERO NEUTRO, non un nero caldo: contrast() lavora sui tre canali, e su
        un #15120e (che ha piu' rosso che blu) li divarica invece di scurirli —
        le rocce uscivano blu e rosse al neon. Il colore glielo da' il velo sopra. */
@@ -1089,6 +1090,24 @@ function htmlVtt(tile, S, { gruppi, porte, stampa = false, celle = null, cornice
 
     .cell { position:absolute; border:2px solid rgba(230,195,120,0.35); }
   </style></head><body>
+    <!-- IL FILTRO CHE FA IL MURO.
+         contrast() del CSS lavora sui canali RGB e NON tocca l'alfa: sfocando
+         una massa nera l'alfa sfuma, e nessun contrasto la ririalza — restava un
+         alone invece di un bordo. Qui la sfocatura si fa in SVG e poi si
+         RIDISEGNA L'ALFA con una matrice: moltiplicata per 22 e traslata di -10,
+         tutto quel che sta sotto meta' sparisce e tutto quel che sta sopra
+         diventa pieno. Il risultato e' la stessa forma organica, ma con un
+         taglio netto — e su un taglio netto le ombre portate fanno un muro. -->
+    <svg width="0" height="0" style="position:absolute">
+      <filter id="pietra" x="-20%" y="-20%" width="140%" height="140%">
+        <feGaussianBlur in="SourceGraphic" stdDeviation="${(c * 0.26).toFixed(1)}" result="sfocata"/>
+        <feColorMatrix in="sfocata" type="matrix" result="dura"
+          values="1 0 0 0 0
+                  0 1 0 0 0
+                  0 0 1 0 0
+                  0 0 0 22 -10"/>
+      </filter>
+    </svg>
     <div class="stage">
       <!-- IL PAVIMENTO STA NEL RETICOLO, non in tutta la tessera: fuori c'e' la
            cornice, che e' muro e tavolo. A cornice 0 il riquadro coincide con la
