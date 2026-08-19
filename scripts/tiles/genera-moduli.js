@@ -10,7 +10,7 @@ const path = require('path');
 const fs = require('fs');
 const { pathToFileURL } = require('url');
 const { htmlVtt } = require('./pittura-vtt');
-const { libreria, cellaPorta } = require('./moduli');
+const { libreria, cellaPorta, decoriDi } = require('./moduli');
 
 const ROOT = path.resolve(__dirname, '..', '..');
 const arg = (n, d) => { const i = process.argv.indexOf(n); return i >= 0 ? process.argv[i + 1] : d; };
@@ -45,6 +45,7 @@ const OUT = path.resolve(ROOT, arg('--out', 'prova-moduli'));
     });
     const pagina = htmlVtt(tile, S, {
       gruppi: [], porte, celle: m.celle, cornice: 0, lato: LATO, bordoAperto: true,
+      decori: decoriDi(m.celle, m.porte, LATO, m.nome),
     });
     const tmp = path.join(OUT, `.tmp-${m.nome}.html`);
     fs.writeFileSync(tmp, pagina, 'utf8');

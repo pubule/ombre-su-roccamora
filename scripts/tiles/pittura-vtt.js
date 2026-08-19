@@ -500,7 +500,7 @@ const FUOCHI = { candele: '#e8c27a', crogiolo: '#e8934a', stufa: '#e8934a', alta
 //
 // `gruppi` arriva gia' fuso da `groupArredi()` del generatore: un arredo che
 // occupa piu' celle e' UN oggetto piu' grande, non lo stesso oggetto ripetuto.
-function htmlVtt(tile, S, { gruppi, porte, stampa = false, celle = null, cornice = 0, lato = 4, bordoAperto = false }) {
+function htmlVtt(tile, S, { gruppi, porte, stampa = false, celle = null, cornice = 0, lato = 4, bordoAperto = false, decori = [] }) {
   // LA CORNICE E' MEZZO MURO, non un muro intero.
   //
   // Due tessere accostate hanno ciascuna la propria cornice: se ognuna portasse
@@ -593,6 +593,55 @@ function htmlVtt(tile, S, { gruppi, porte, stampa = false, celle = null, cornice
         background-size:${Math.round(c * tarF.scala)}px ${Math.round(c * tarF.scala)}px;
         background-position:${-Math.round(sfasa[0] + off + x * c)}px ${-Math.round(sfasa[1] + off + y * c)}px;`
         : ''}"></div>`).join('');
+
+  // I DECORI: dettaglio a terra che NON ostacola. Sono tutti PIATTI apposta —
+  // niente ombre portate, niente volume — perche' una cosa che non blocca non
+  // deve nemmeno sembrare che blocchi: un dubbio al tavolo costa piu' di un
+  // disegno in meno. Chi vede una cassa esita; chi vede una crepa ci cammina.
+  const decoro = (tipo, giro) => {
+    const g = Math.round(giro * 360);
+    if (tipo === 'crepa') {
+      return `<div class="dec" style="width:${c * 0.72}px; height:${Math.max(1, Math.round(c * 0.02))}px;
+        transform:translate(-50%,-50%) rotate(${g}deg);
+        background:linear-gradient(90deg, transparent, rgba(14,12,10,.85) 18%,
+          rgba(14,12,10,.85) 78%, transparent); border-radius:2px"></div>
+        <div class="dec" style="width:${c * 0.3}px; height:${Math.max(1, Math.round(c * 0.016))}px;
+        transform:translate(-6%,-140%) rotate(${g + 34}deg);
+        background:linear-gradient(90deg, transparent, rgba(18,15,12,.5), transparent)"></div>`;
+    }
+    if (tipo === 'pozza') {
+      return `<div class="dec" style="width:${c * 0.92}px; height:${c * 0.66}px;
+        transform:translate(-50%,-50%) rotate(${g}deg); border-radius:50%;
+        background:radial-gradient(ellipse at 44% 40%, rgba(150,176,182,.30),
+          rgba(96,120,128,.34) 58%, transparent 92%);
+        box-shadow:inset 0 ${Math.round(c * 0.02)}px ${Math.round(c * 0.05)}px rgba(210,226,230,.30)"></div>`;
+    }
+    if (tipo === 'muschio') {
+      return `<div class="dec" style="width:${c * 0.98}px; height:${c * 0.78}px;
+        transform:translate(-50%,-50%) rotate(${g}deg);
+        border-radius:52% 48% 40% 60% / 55% 45% 55% 45%;
+        background:radial-gradient(circle at 44% 40%, rgba(88,106,58,.62), rgba(48,62,34,.46) 62%,
+          transparent 92%)"></div>`;
+    }
+    if (tipo === 'sabbia') {
+      return `<div class="dec" style="width:${c * 1.15}px; height:${c * 0.7}px;
+        transform:translate(-50%,-50%) rotate(${g}deg);
+        border-radius:50% 50% 46% 54% / 60% 40% 60% 40%;
+        background:radial-gradient(ellipse at 50% 45%, rgba(214,198,164,.44), transparent 78%)"></div>`;
+    }
+    // detriti: quattro sassetti, mai in fila
+    return [[0.28, 0.32, 0.26], [0.62, 0.26, 0.18], [0.42, 0.64, 0.22], [0.72, 0.68, 0.15]]
+      .map(([dx, dy, r], i) => `<div class="dec" style="width:${c * r}px; height:${c * r * 0.82}px;
+        transform:translate(${(dx - 0.5 + giro * 0.12) * c}px, ${(dy - 0.5 - giro * 0.1) * c}px)
+          rotate(${g + i * 47}deg);
+        border-radius:48% 52% 44% 56% / 56% 44% 56% 44%;
+        background:radial-gradient(circle at 36% 30%, rgba(188,182,166,.95), rgba(64,58,48,.95) 72%);
+        box-shadow:0 ${Math.round(c * 0.012)}px ${Math.round(c * 0.02)}px rgba(10,8,6,.5)"></div>`)
+      .join('');
+  };
+  const decoriHtml = decori.map(([x, y, tipo, giro]) =>
+    `<div class="posto" style="left:${off + x * c}px; top:${off + y * c}px;
+      width:${c}px; height:${c}px">${decoro(tipo, giro)}</div>`).join('');
 
   const arredi = gruppi.map((g) => {
     const chiave = String(g.label).toLowerCase();
@@ -950,6 +999,9 @@ function htmlVtt(tile, S, { gruppi, porte, stampa = false, celle = null, cornice
     /* quel che e' gia' dipinto non si ritocca: ha la sua luce */
     .posto .og.dipinto { background-blend-mode:normal; box-shadow:none; }
     .posto .og.dipinto::after { content:none; }
+    /* un decoro e' PIATTO: sta sul pavimento, non sopra il pavimento */
+    .dec { position:absolute; left:50%; top:50%; transform-origin:50% 50%;
+      pointer-events:none; }
     /* un filo di luce sul bordo alto: la lanterna sta in alto a sinistra, e
        senza questo riflesso un oggetto scuro su pavimento scuro e' una macchia */
     .posto .og { box-shadow:${OMBRA}; }
@@ -974,9 +1026,18 @@ function htmlVtt(tile, S, { gruppi, porte, stampa = false, celle = null, cornice
     /* la massa di roccia: sfocare piu' di mezza casella e rialzare il contrasto
        salda i quadrati in una chiazza sola. Il filo chiaro attorno e' il bordo
        illuminato della pietra, ed e' quel che la stacca dal pavimento. */
+    /* IL MURO DI CONFINE fra il pavimento e il nero.
+       Non si puo' disegnare per lato di casella: la roccia e' una chiazza
+       organica e un bordo a scalini non le starebbe addosso. Si usa invece la
+       catena dei filtri — le ombre portate si disegnano DIETRO la sagoma, quindi
+       attorno a una massa nera diventano un anello che ne segue esattamente il
+       profilo. Tre passaggi: un filo chiaro (la cima della pietra illuminata),
+       una fascia di pietra, e uno stacco scuro che la separa dal pavimento. */
     .rocce { position:absolute; inset:0; pointer-events:none;
       filter: blur(${Math.round(c * 0.32)}px) contrast(14)
-              drop-shadow(0 0 ${Math.round(c * 0.05)}px rgba(196,186,166,.55)); }
+              drop-shadow(0 0 ${Math.max(1, Math.round(c * 0.014))}px rgba(196,198,196,.95))
+              drop-shadow(0 0 ${Math.max(2, Math.round(c * 0.032))}px rgba(122,124,122,.9))
+              drop-shadow(0 0 ${Math.max(3, Math.round(c * 0.075))}px rgba(20,20,22,.8)); }
     /* NERO NEUTRO, non un nero caldo: contrast() lavora sui tre canali, e su
        un #15120e (che ha piu' rosso che blu) li divarica invece di scurirli —
        le rocce uscivano blu e rosse al neon. Il colore glielo da' il velo sopra. */
@@ -1044,6 +1105,7 @@ function htmlVtt(tile, S, { gruppi, porte, stampa = false, celle = null, cornice
       </div>
       ${luci}
       ${morbida ? `<div class="rocce">${fuori}</div>` : fuori}
+      ${decoriHtml}
       ${morbida ? '' : spondeHtml}
       ${arredi}
       ${uscio}

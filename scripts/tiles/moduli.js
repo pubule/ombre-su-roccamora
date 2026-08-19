@@ -145,3 +145,50 @@ if (require.main === module) {
   console.log('per carattere:', Object.entries(per).map(([a2, b2]) => `${a2} ${b2}`).join(' · '));
   console.log(`pavimento medio: ${media} caselle su ${L * L} — il resto e' roccia`);
 }
+
+// --------------------------------------------------------------- I DECORI
+//
+// Dettaglio a terra che NON ostacola il movimento. Il vincolo non e' grafico ma
+// di regole lette a occhio: se una cosa non blocca, non deve nemmeno SEMBRARE
+// che blocchi. Una cassa o un tavolo su una casella libera fanno esitare chi
+// gioca — e un dubbio al tavolo costa piu' di un disegno in meno. Quindi qui
+// stanno solo cose PIATTE: detriti, crepe, pozze, muschio, sabbia.
+//
+// Deterministici come tutto il resto: stesso modulo, stessi detriti, sempre.
+// LA CREPA NON C'E' PIU', e non e' una scelta di gusto: il pavimento di pietra
+// E' GIA' fatto di crepe e venature. Un segno disegnato sopra sparisce dentro la
+// texture per costruzione — visto ingrandendo una tessera al vero, non sul
+// contact sheet. Restano le cose che la texture NON ha.
+const TIPI_DECORO = ['detriti', 'pozza', 'muschio', 'sabbia'];
+
+// a 0,09 uscivano quattro dettagli su sessanta caselle: un pavimento nudo. La
+// densita' giusta si vede sul render, non si calcola.
+function decoriDi(celle, porte, lato, nome, { densita = 0.12 } = {}) {
+  const seme = (() => {
+    let n = 0;
+    const t = `decori-${nome}`;
+    for (let i = 0; i < t.length; i++) n = (Math.imul(n, 131) + t.charCodeAt(i)) >>> 0;
+    return n;
+  })();
+  const caso = (x, y, salto) => {
+    let h = (seme ^ Math.imul(x + 1, 374761393) ^ Math.imul(y + 1, 668265263) ^ salto) >>> 0;
+    h = Math.imul(h ^ (h >>> 13), 1274126177) >>> 0;
+    return ((h ^ (h >>> 16)) >>> 0) / 4294967295;
+  };
+  // le caselle dei varchi restano pulite: li' si guarda per capire dove si passa
+  const varchi = new Set();
+  for (const [c, r] of Object.values(porte)) {
+    for (let d = -1; d <= 1; d++) varchi.add(`${c + d},${r}`), varchi.add(`${c},${r + d}`);
+  }
+  const fuori = [];
+  for (const [c, r] of celle) {
+    if (varchi.has(`${c},${r}`)) continue;
+    if (caso(c, r, 11) > densita) continue;
+    const tipo = TIPI_DECORO[Math.floor(caso(c, r, 29) * TIPI_DECORO.length)];
+    fuori.push([c, r, tipo, caso(c, r, 47)]);
+  }
+  return fuori;
+}
+
+module.exports.decoriDi = decoriDi;
+module.exports.TIPI_DECORO = TIPI_DECORO;
