@@ -202,7 +202,7 @@ def esponi(img, bersaglio=LUMINANZA):
     return fuori
 
 
-def porta(p, dove, ritaglia=True, esposizione=False):
+def porta(p, dove, ritaglia=True, esposizione=False, lato=LATO):
     img = Image.open(p).convert('RGBA')
     # un PAVIMENTO non si ritaglia: e' una piastrella intera, e il ritaglio del
     # trasparente la sposterebbe di qualche pixel rompendo la ripetizione
@@ -212,7 +212,7 @@ def porta(p, dove, ritaglia=True, esposizione=False):
             img = img.crop(scatola)
     if esposizione:
         img = esponi(img)
-    img.thumbnail((LATO, LATO), Image.LANCZOS)
+    img.thumbnail((lato, lato), Image.LANCZOS)
     img.save(dove, optimize=True)
     return img.size
 
@@ -268,8 +268,12 @@ def main():
             continue
         for i, p in enumerate(scelti):
             nome = chiave if i == 0 else f'{chiave}-{i + 1}'
+            # I PAVIMENTI POSSONO ANDARE PIU' GRANDI DEGLI OGGETTI: una
+            # piastrella che copre sei caselle a 345 px l'una chiede duemila
+            # pixel, e il tetto a 1024 li tagliava. Quel che la libreria ha in
+            # piu' (l'acqua e' 3200) qui non si butta.
             w, h = porta(p, os.path.join(FUORI, 'pavimenti', nome + '.png'),
-                         ritaglia=False, esposizione=True)
+                         ritaglia=False, esposizione=True, lato=2048)
             righe.append(f'pavimenti/{nome}.png  <-  {os.path.relpath(p, ROOT).replace(chr(92), '/')}')
         print(f'  pavimento {chiave:11s} {len(scelti)} varianti · {os.path.basename(scelti[0])}')
 

@@ -165,6 +165,25 @@ hanno una cucitura, nessuna ne ha più di due.
 diverse non c'è più una scacchiera su cui contare. Vale per il mockup e varrà per
 `layout()` in `griglia.js`.
 
+**LE TEXTURE SONO LARGHE SEI CASELLE, non una.** `scala` in `TARATURA` stava fra
+0,9 e 2,4: una piastrella per casella o poco piu'. Ma le texture della libreria
+sono disegnate per un reticolo da ~140 px per casella, e una da 1000 px e'
+pensata per coprirne SETTE — stringendola a una si zoomava dentro, la fuga fra
+due lastre diventava larga un dito e su una stanza da dodici caselle il motivo si
+ripeteva dieci volte: carta da parati. Ora sta fra 4 e 9 secondo cosa raffigura
+(le assi corrono lunghe, l'acqua non ha scala di riferimento, un tappeto e' un
+oggetto solo). Si paga in nitidezza — sei caselle a 300 px l'una sono 1800 px
+chiesti a un file da 1000 — ma una texture morbida si legge come pietra, una
+nitida e ripetuta dieci volte si legge come parati. I pavimenti si importano
+percio' fino a 2048 px, non piu' a 1024 come gli oggetti.
+
+E ogni tessera parte da un punto suo della piastrella (`sfasa`, dal nome, quindi
+stabile): senza, due stanze accostate mostravano il ritaglio nello stesso posto e
+la ripetizione saltava da una tessera all'altra. Lo sfasamento copre TUTTA la
+piastrella — a mille pixel fissi, su una da otto caselle, spostava di un decimo.
+
+Nuovo riferimento dello SHA per ep1/T6 senza variabili: **30376ae404400d86**.
+
 **DIECI CASELLE E' IL MINIMO** (19/08). Sotto, una stanza e' un incrocio: si
 entra, si vede tutto, si esce. Le taglie sono ora **10 / 12 / 14** (stanzino ·
 stanza · sala) e la casella scende a **28 mm** — una base da 25 mm ci sta con un
@@ -196,8 +215,6 @@ lastre spariva); e **le texture vanno esposte tutte uguali all'import**
 (`esponi()` in importa-fa.py, luminanza media 118), perche' fra le tre varianti
 di «navata» una era marmo bianco e una marmo nero, e nessuna gradazione a valle
 puo' rimediare a due punti di partenza diversi. Da 20÷200 a 72÷118.
-
-Nuovo riferimento dello SHA per ep1/T6 senza variabili: **6d6fa74e14018d76**.
 
 **DICIANNOVE AMBIENTI, non più dieci** (18/08, quinto giro). Dieci erano secchi
 larghi: «mattoni» teneva insieme la fonderia e il magazzino, «terra» il giardino e

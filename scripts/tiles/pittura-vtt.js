@@ -198,34 +198,49 @@ const PAVIMENTI = [
   [/ufficio|stanzin|archivio|scrittoio|sala|tinello|camer|piano|corridoio|stanza|cella|catalogazione|interrogator/i, 'mattonelle'],
 ];
 
+// `scala` = QUANTE CASELLE COPRE UNA PIASTRELLA DI TEXTURE.
+//
+// Stava fra 0,9 e 2,4, cioe' una piastrella per casella o poco piu'. Ma le
+// texture della libreria sono disegnate per un reticolo da ~140 px per casella:
+// una da 1000 px e' pensata per coprirne SETTE. Stringendola a una si zoomava
+// dentro — la fuga fra due lastre diventava larga un dito, e su una stanza da
+// dodici caselle il motivo si ripeteva dieci volte: carta da parati.
+//
+// Adesso una piastrella copre 4-9 caselle secondo cosa raffigura: le assi
+// corrono lunghe, l'acqua non ha una scala di riferimento e puo' andare larga,
+// un tappeto e' un oggetto solo e non dovrebbe ripetersi affatto. Si paga in
+// nitidezza — 6 caselle a 300 px l'una sono 1800 px chiesti a un file da 1000 —
+// ma una texture un filo morbida si legge come pietra, una nitida e ripetuta
+// dieci volte si legge come parati.
+//
 // OGNI TEXTURE NASCE CON LA SUA LUCE. `dark_wooden_planks` e' quasi nera,
 // `cobblestone_floor_08` ha le pietre minute: una taratura sola per tutte dava
 // un molo nero e una cripta a mosaico. Qui ognuna dichiara quanto schiarirla e
 // quanto ingrandirne la piastrella (in caselle).
 const TARATURA = {
-  assi:       { luce: 1.25, scala: 1.1 },
-  tavolato:   { luce: 1.2,  scala: 1.2 },
-  lastricato: { luce: 1.0,  scala: 1.7 },
-  pietra:     { luce: 1.05, scala: 1.5 },
-  mattonelle: { luce: 1.15, scala: 0.9 },
-  mosaico:    { luce: 1.1,  scala: 1.2 },
+  assi:       { luce: 1.25, scala: 6.5 },
+  tavolato:   { luce: 1.2,  scala: 6.0 },
+  lastricato: { luce: 1.0,  scala: 5.0 },
+  pietra:     { luce: 1.05, scala: 5.0 },
+  mattonelle: { luce: 1.15, scala: 4.0 },
+  mosaico:    { luce: 1.1,  scala: 4.5 },
   // `mano`: quanto SCURIRE questa texture dipinta prima dei veli. Serviva quando
   // la libreria arrivava esposta a caso — il marmo bianco accanto al marmo nero
   // sotto lo stesso nome. Da quando `importa-fa.py` porta ogni pavimento alla
   // stessa luminanza media, nessuna ne ha piu' bisogno: resta la manopola, vuota.
-  navata:     { luce: 0.95, scala: 1.4 },
-  mattoni:    { luce: 1.05, scala: 1.3 },
-  metallo:    { luce: 1.0,  scala: 1.3 },
-  lamiera:    { luce: 1.0,  scala: 1.5 },
-  acqua:      { luce: 1.0,  scala: 2.2 },
-  melma:      { luce: 0.95, scala: 1.9 },
-  terra:      { luce: 1.1,  scala: 1.6 },
-  ghiaia:     { luce: 1.05, scala: 1.4 },
-  roccia:     { luce: 1.15, scala: 1.8 },
-  erba:       { luce: 1.0,  scala: 1.6 },
-  tappeto:    { luce: 1.1,  scala: 2.4 },   // un tappeto non si ripete tre volte
-  paglia:     { luce: 1.15, scala: 1.5 },
-  tetti:      { luce: 1.0,  scala: 1.2 },
+  navata:     { luce: 0.95, scala: 5.5 },
+  mattoni:    { luce: 1.05, scala: 4.5 },
+  metallo:    { luce: 1.0,  scala: 5.0 },
+  lamiera:    { luce: 1.0,  scala: 5.0 },
+  acqua:      { luce: 1.0,  scala: 8.0 },
+  melma:      { luce: 0.95, scala: 7.0 },
+  terra:      { luce: 1.1,  scala: 6.0 },
+  ghiaia:     { luce: 1.05, scala: 5.5 },
+  roccia:     { luce: 1.15, scala: 6.5 },
+  erba:       { luce: 1.0,  scala: 6.0 },
+  tappeto:    { luce: 1.1,  scala: 9.0 },   // un tappeto non si ripete tre volte
+  paglia:     { luce: 1.15, scala: 5.0 },
+  tetti:      { luce: 1.0,  scala: 4.0 },
 };
 
 // LO SPORCO DI OGNI POSTO. Le macchie larghe sul pavimento erano tre pozze nere
@@ -470,6 +485,20 @@ function htmlVtt(tile, S, { gruppi, porte, stampa = false, celle = null, cornice
   const pav = pavimentoDi(tile);
   const tar = TARATURA[pav] || { luce: 1, scala: 1 };
   const sporco = SPORCO[pav] || SPORCO_BASE;
+  // LO SFASAMENTO. Due stanze dello stesso ambiente, anche con varianti diverse,
+  // mostravano il ritaglio nello stesso punto: accostate si vedeva la ripetizione
+  // saltare da una tessera all'altra. Qui ognuna parte da un punto suo, preso dal
+  // nome — stabile, quindi la stessa stanza esce sempre identica.
+  const sfasa = (() => {
+    const testo = `${tile.id || ''}${tile.nome || ''}`;
+    let n = 0;
+    for (let i = 0; i < testo.length; i++) n = (n * 131 + testo.charCodeAt(i)) % 9973;
+    // lo sfasamento deve poter arrivare a TUTTA la piastrella: su una da otto
+    // caselle un salto di mille pixel e' un decimo, e due stanze d'acqua
+    // finivano per mostrare la stessa onda nello stesso posto
+    const passo = c * tar.scala;
+    return [((n % 997) / 997) * passo, (((n * 7) % 991) / 991) * passo];
+  })();
   const mano = MANO_PAVIMENTO.replace('brightness(.78)',
     `brightness(${(0.78 * (tar.mano || 1)).toFixed(2)})`);
   const pavDipinto = pavimentoVario(pav, tile);
@@ -737,7 +766,8 @@ function htmlVtt(tile, S, { gruppi, porte, stampa = false, celle = null, cornice
        diventa un tessuto. */
     .suolo { position:absolute; inset:0;
       background-image:${fondo};
-      ${acquaDipintaInCasa ? '' : `background-size:${Math.round(c * tar.scala)}px ${Math.round(c * tar.scala)}px;`}
+      ${acquaDipintaInCasa ? '' : `background-size:${Math.round(c * tar.scala)}px ${Math.round(c * tar.scala)}px;
+         background-position:${-Math.round(sfasa[0])}px ${-Math.round(sfasa[1])}px;`}
       /* almeno una piastrella per casella: piu' fitta di cosi' il pavimento
          diventa un tessuto e smette di leggersi come pavimento */
       ${pavDipinto || acquaDipintaInCasa
