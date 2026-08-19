@@ -574,6 +574,9 @@ function htmlVtt(tile, S, { gruppi, porte, stampa = false, celle = null, cornice
   // attorno alla galleria — e si scuriscono, perche' li' non ci si va: la
   // differenza di luce e' quel che dice a chi gioca dove puo' mettere la pedina.
   const fuoriAmb = fuoriDi(tile);
+  // la pietra del muro: la stessa libreria dei pavimenti, ma scurita a fondo —
+  // dev'essere chiaramente un'altra materia da quella che si calpesta
+  const rocciaTex = pavimentoVario('roccia', tile);
   // in modalita' caverna la massa dev'essere PIATTA: la texture sopravviveva allo
   // style inline, e blur+contrast su un bruno texturizzato faceva rocce al neon.
   // Il colore lo mette il velo dopo, quando la forma e' gia' decisa.
@@ -585,6 +588,10 @@ function htmlVtt(tile, S, { gruppi, porte, stampa = false, celle = null, cornice
   // gruppo e si rialza il contrasto — i quadrati si fondono e i bordi tornano
   // netti, ma curvi. Il reticolo resta sotto e continua a contarsi.
   const morbida = bordoAperto;
+  const spente = Array.from({ length: L * L }, (_, i) => [i % L, (i / L) | 0])
+    .filter(([x, y]) => !viva(x, y));
+  const spenteRect = spente.map(([x, y]) =>
+    `<rect x="${off + x * c}" y="${off + y * c}" width="${c}" height="${c}" fill="#fff"/>`).join('');
   const fuori = Array.from({ length: L * L }, (_, i) => [i % L, (i / L) | 0])
     .filter(([x, y]) => !viva(x, y))
     .map(([x, y]) => `<div class="fuori" style="left:${off + x * c}px; top:${off + y * c}px;
@@ -1033,12 +1040,30 @@ function htmlVtt(tile, S, { gruppi, porte, stampa = false, celle = null, cornice
        attorno a una massa nera diventano un anello che ne segue esattamente il
        profilo. Tre passaggi: un filo chiaro (la cima della pietra illuminata),
        una fascia di pietra, e uno stacco scuro che la separa dal pavimento. */
+    /* IL MURO DI CONFINE, in due strati.
+       Dentro: la PIETRA VERA, ritagliata dalla maschera — texture e rilievo, non
+       un nero piatto, perche' un confine si legge come materiale e non come
+       riga. Fuori: le ombre portate, che si disegnano dietro la sagoma e quindi
+       diventano un anello che ne segue il profilo — il filo chiaro della cima
+       illuminata, e l'ombra che la parete getta sul pavimento.
+       Le due cose stanno su due div annidati apposta: il filtro del padre lavora
+       sul figlio GIA' ritagliato, altrimenti la maschera si mangerebbe l'ombra. */
     .rocce { position:absolute; inset:0; pointer-events:none;
-      filter: url(#pietra)
-              drop-shadow(0 0 ${Math.max(1, Math.round(c * 0.020))}px rgba(206,206,202,1))
-              drop-shadow(0 0 ${Math.max(2, Math.round(c * 0.045))}px rgba(112,112,110,1))
-              drop-shadow(0 0 ${Math.max(2, Math.round(c * 0.065))}px rgba(60,58,56,.95))
-              drop-shadow(0 ${Math.round(c * 0.02)}px ${Math.round(c * 0.09)}px rgba(10,10,12,.75)); }
+      filter: drop-shadow(0 0 ${Math.max(1, Math.round(c * 0.022))}px rgba(38,30,22,1))
+              drop-shadow(0 0 ${Math.max(2, Math.round(c * 0.05))}px rgba(96,84,66,.95))
+              drop-shadow(0 ${Math.round(c * 0.045)}px ${Math.round(c * 0.16)}px rgba(8,8,10,.85)); }
+    .massa { position:absolute; inset:0;
+      -webkit-mask:url(#sagomaRoccia); mask:url(#sagomaRoccia);
+      background-color:#211d18;
+      background-image:${rocciaTex ? `url('${rocciaTex}')` : 'none'};
+      background-size:${Math.round(c * 1.8)}px ${Math.round(c * 1.8)}px;
+      /* LA PARETE NON E' SCURA. E' l'assunzione che teneva fermo tutto: fatta
+         nera si legge come «niente», e allora il confine deve farlo una riga.
+         Nelle tessere di riferimento la roccia ha piu' o meno la STESSA
+         luminosita' del pavimento e si distingue per materia e colore — bruna e
+         grossolana contro l'azzurro liscio. Cosi' il confine e' una fascia che si
+         vede da sola, e la riga serve solo a incidere lo stacco. */
+      filter:sepia(.42) saturate(.80) brightness(.84) contrast(1.32); }
     /* NERO NEUTRO, non un nero caldo: contrast() lavora sui tre canali, e su
        un #15120e (che ha piu' rosso che blu) li divarica invece di scurirli —
        le rocce uscivano blu e rosse al neon. Il colore glielo da' il velo sopra. */
@@ -1107,6 +1132,18 @@ function htmlVtt(tile, S, { gruppi, porte, stampa = false, celle = null, cornice
                   0 0 1 0 0
                   0 0 0 22 -10"/>
       </filter>
+      <!-- LA STESSA FORMA, MA IN BIANCO, per ritagliarci dentro la pietra vera.
+           Il confine non e' una riga: e' una FASCIA DI MATERIALE, e per averla
+           serve la texture dentro la sagoma, non un filo attorno. Prima non si
+           poteva — «blur + contrast» storpiava i colori — ma la matrice qui
+           tocca SOLO l'alfa: le prime tre righe sono l'identita', quindi il
+           colore passa intatto e la roccia resta roccia. -->
+      <mask id="sagomaRoccia" maskUnits="userSpaceOnUse"
+            x="0" y="0" width="${S}" height="${S}">
+        <g filter="url(#pietra)">
+          ${morbida ? spenteRect : ''}
+        </g>
+      </mask>
     </svg>
     <div class="stage">
       <!-- IL PAVIMENTO STA NEL RETICOLO, non in tutta la tessera: fuori c'e' la
@@ -1123,7 +1160,9 @@ function htmlVtt(tile, S, { gruppi, porte, stampa = false, celle = null, cornice
         ${TAVOLO ? `<div class="reticolo"></div>` : ''}
       </div>
       ${luci}
-      ${morbida ? `<div class="rocce">${fuori}</div>` : fuori}
+      ${morbida
+        ? `<div class="rocce"><div class="massa"></div></div>`
+        : fuori}
       ${decoriHtml}
       ${morbida ? '' : spondeHtml}
       ${arredi}
