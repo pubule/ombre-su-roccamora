@@ -16,13 +16,15 @@
 const { chromium } = require('playwright');
 const { generateOne, cardOutputPath } = require('./lib');
 const { startServer } = require('./serve');
-const { HEROES, NEMICI, MINACCE, LUOGHI, INDIZI, TESTIMONI, REFERTI, OGGETTI, PRELUDIO, EP2, ALL } = require('./cards-data');
+const { HEROES, NEMICI, MINACCE, LUOGHI, INDIZI, TESTIMONI, REFERTI, OGGETTI, PRELUDIO,
+        EP2, EP7, EP8, EP9, EP16, EP17, EP18, EP19, EP20, ALL } = require('./cards-data');
 const fs = require('fs');
 const path = require('path');
 
 const GROUPS = { heroes: HEROES, nemici: NEMICI, minacce: MINACCE, luoghi: LUOGHI,
                  indizi: INDIZI, testimoni: TESTIMONI, referti: REFERTI, oggetti: OGGETTI,
-                 preludio: PRELUDIO, ep2: EP2, all: ALL };
+                 preludio: PRELUDIO, ep2: EP2, ep7: EP7, ep8: EP8, ep9: EP9,
+                 ep16: EP16, ep17: EP17, ep18: EP18, ep19: EP19, ep20: EP20, all: ALL };
 
 (async () => {
   const argv = process.argv.slice(2).filter((a) => a !== '--solo-mancanti');

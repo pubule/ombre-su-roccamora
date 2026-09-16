@@ -361,7 +361,7 @@ function groupArredi(arredi, L) {
   return groups;
 }
 
-function html(tile) {
+function html(tile, S) {
   const cell = S / 4;
   const cellsHtml = [];
   for (let row = 0; row < 4; row++) {
@@ -579,7 +579,7 @@ function html(tile) {
     const pagina = VTT
       ? htmlVtt(tile, lastra, { gruppi, porte, cornice: CORNICE,
                                 lato: L, celle: sagoma ? sagoma.celle : null })
-      : html(tile);
+      : html(tile, lastra);
     // il ritaglio deve seguire la tessera: una sala 6x6 non sta nel riquadro di
     // uno stanzino, e senza questo uscirebbe tagliata senza che nessuno lo dica
     await page.setViewportSize({ width: lastra, height: lastra });
