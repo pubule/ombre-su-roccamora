@@ -259,11 +259,11 @@ Chi canterà al di sotto, non si lamenti di ciò che al di sotto risponde.`;
 
   // --- Episodio 3, Reperto A: registro dei livelli del Lavatoio (L1) ---
   const righeA3 = [
-    ['lunedì', 'primo: al segno', 'secondo: al segno', 'terzo: due dita SOTTO'],
+    ['lunedì', 'primo: al segno', 'secondo: al segno', 'terzo: due dita sotto'],
     ['martedì', 'primo: al segno', 'secondo: al segno', 'terzo: al segno'],
-    ['mercoledì', 'primo: al segno', 'secondo: un dito sopra', 'terzo: tre dita SOTTO'],
+    ['mercoledì', 'primo: al segno', 'secondo: un dito sopra', 'terzo: tre dita sotto'],
     ['giovedì', 'primo: al segno', 'secondo: al segno', 'terzo: al segno'],
-    ['venerdì', 'primo: al segno', 'secondo: al segno', 'terzo: QUATTRO dita sotto'],
+    ['venerdì', 'primo: al segno', 'secondo: al segno', 'terzo: quattro dita sotto'],
   ];
   const repertoA3 = page(`
     <div class="wrap"><div style="zoom:0.84;">
@@ -305,7 +305,7 @@ Chi canterà al di sotto, non si lamenti di ciò che al di sotto risponde.`;
       <div class="serif" style="font-style:italic; font-size:38px; color:#3a2415; mix-blend-mode:multiply; margin-bottom:60px;">Reperto C — pagina ricalcata a matita, dal quaderno dei pozzi di Tobia Manfredi</div>
       <div class="hand" style="font-size:62px; line-height:92px;">
         <p style="margin-bottom:40px;">Il terzo pozzo non gela mai. Non è l’acqua a scaldarlo.</p>
-        <p style="margin-bottom:40px;">Sotto la corte non c’è una canna: c’è una GOLA. Le falde ci passano tutte, come corde sul ponticello.</p>
+        <p style="margin-bottom:40px;">Sotto la corte non c’è una canna: c’è una gola. Le falde ci passano tutte, come corde sul ponticello.</p>
         <p style="margin-bottom:40px;">Se qualcuno la accorda, Roccamora intera fa da cassa. Per questo li hanno murati. Per questo non l’ho detto a nessuno.</p>
       </div>
       <div class="serif" style="font-style:italic; margin-top:100px; font-size:36px; color:#4a4a4e; mix-blend-mode:multiply;">
@@ -362,8 +362,8 @@ Chi canterà al di sotto, non si lamenti di ciò che al di sotto risponde.`;
       <div class="serif" style="font-style:italic; font-size:38px; color:#3a2415; mix-blend-mode:multiply; margin-bottom:60px;">Reperto C — uno dei dodici spartiti anonimi, con le annotazioni della signora Vetri</div>
       <div class="hand" style="font-size:62px; line-height:92px;">
         <p style="margin-bottom:40px;">La leggo una volta e mi resta in testa per giorni. La mia cameriera dice che la canticchio nel sonno.</p>
-        <p style="margin-bottom:40px;">Io nel sonno non canto mai. Non ho MAI cantato nel sonno.</p>
-        <p style="margin-bottom:40px;">E questa non è musica scritta PER me. È musica scritta DA me — che io non ho mai scritto.</p>
+        <p style="margin-bottom:40px;">Io nel sonno non canto mai. Non ho mai cantato nel sonno.</p>
+        <p style="margin-bottom:40px;">E questa non è musica scritta per me. È musica scritta da me — che io non ho mai scritto.</p>
       </div>
       <div class="serif" style="font-style:italic; margin-top:100px; font-size:36px; color:#4a4a4e; mix-blend-mode:multiply;">
         L’inchiostro dei righi, sotto la lente, luccica: polvere di cera nera.
@@ -434,7 +434,7 @@ Chi canterà al di sotto, non si lamenti di ciò che al di sotto risponde.`;
       <div class="serif" style="font-style:italic; font-size:38px; color:#3a2415; mix-blend-mode:multiply; margin-bottom:60px;">Reperto A — dal diario di lavorazione di B. Ferri, liutaio</div>
       <div class="hand" style="font-size:60px; line-height:90px;">
         <p style="margin-bottom:40px;">Il bronzo tiene. La pietra tiene. Le ossa tremano ma terranno: uno strumento imperfetto suonato bene vale uno perfetto suonato male.</p>
-        <p style="margin-bottom:40px;">La solista non serve: DODICI gole in accordo la valgono. Devono valerla.</p>
+        <p style="margin-bottom:40px;">La solista non serve: dodici gole in accordo la valgono. Devono valerla.</p>
         <p style="margin-bottom:40px;">Stanotte, al colmo, provo il tutti. Se la città sapesse, canterebbe con me.</p>
       </div>
       <div class="serif" style="font-style:italic; margin-top:100px; font-size:36px; color:#4a4a4e; mix-blend-mode:multiply;">
@@ -464,7 +464,7 @@ Chi canterà al di sotto, non si lamenti di ciò che al di sotto risponde.`;
     ['coristi, dodici', 'saldati anticipati', 'vestiario compreso'],
     ['rimborso barca', 'porta d’acqua', 'ora di chiamata: 2:30'],
     ['maestranze, ultima notte', 'saldate', 'silenzio compreso'],
-    ['onorario del direttore', 'NULLA', 'il direttore non lavora per denaro'],
+    ['onorario del direttore', 'nulla', 'il direttore non lavora per denaro'],
   ];
   const repertoC6 = page(`
     <div class="wrap"><div style="zoom:0.84;">
@@ -490,8 +490,8 @@ Chi canterà al di sotto, non si lamenti di ciò che al di sotto risponde.`;
     <div class="wrap"><div style="zoom:0.90;">
       <div class="serif" style="font-style:italic; font-size:38px; color:#3a2415; mix-blend-mode:multiply; margin-bottom:60px;">Reperto A — dal taccuino di E. Fava, accordatore</div>
       <div class="hand" style="font-size:58px; line-height:88px;">
-        <p style="margin-bottom:40px;">Il LA del Marchetti cala di un quarto di tono DENTRO il salotto nuovo. Fuori, sul pianerottolo, è giusto. Non è lo strumento. È la stanza.</p>
-        <p style="margin-bottom:40px;">Le note muoiono a tre passi dalla parete di ponente. La parete BEVE.</p>
+        <p style="margin-bottom:40px;">Il La del Marchetti cala di un quarto di tono dentro il salotto nuovo. Fuori, sul pianerottolo, è giusto. Non è lo strumento. È la stanza.</p>
+        <p style="margin-bottom:40px;">Le note muoiono a tre passi dalla parete di ponente. La parete beve.</p>
         <p style="margin-bottom:40px;">Campione preso. Polvere grigia che luccica: non è sabbia. Domani scrivo all’impresa.</p>
       </div>
       <div class="serif" style="font-style:italic; margin-top:100px; font-size:36px; color:#4a4a4e; mix-blend-mode:multiply;">
@@ -521,7 +521,7 @@ Chi canterà al di sotto, non si lamenti di ciò che al di sotto risponde.`;
   const righeC7 = [
     ['calcina speciale, sacchi 40', 'terzo piano', 'ore 3:00 — a mano'],
     ['calcina speciale, sacchi 40', 'terzo piano', 'ore 2:30 — a mano'],
-    ['viveri e candele, cesta 1', 'terzo piano', 'ore 3:00 — il capoturno NON firma'],
+    ['viveri e candele, cesta 1', 'terzo piano', 'ore 3:00 — il capoturno non firma'],
     ['calcina ordinaria, sacchi 12', 'piano terra', 'ore 8:00 — regolare'],
   ];
   const repertoC7 = page(`
@@ -643,7 +643,7 @@ Chi canterà al di sotto, non si lamenti di ciò che al di sotto risponde.`;
     <div class="wrap"><div style="zoom:0.94;">
       <div class="serif" style="font-style:italic; font-size:38px; color:#3a2415; mix-blend-mode:multiply; margin-bottom:80px;">Reperto C — biglietto trovato nel cestino della Locanda del Forestiero</div>
       <div class="hand" style="font-size:66px; line-height:104px;">
-        <p style="margin-bottom:50px;">Che sia PULITO.</p>
+        <p style="margin-bottom:50px;">Che sia pulito.</p>
         <p style="margin-bottom:50px;">Il teste non deve avere un volto sui giornali di domani, solo un’assenza.</p>
         <p style="text-align:right; margin-top:70px;">— M.</p>
       </div>
@@ -717,7 +717,7 @@ Chi canterà al di sotto, non si lamenti di ciò che al di sotto risponde.`;
       <div class="serif" style="font-size:44px; line-height:70px;">
         <p style="margin-bottom:28px;">fontana del chiostro → portico, <b>40 passi</b> — <i>bassa marea</i></p>
         <p style="margin-bottom:28px;">campanile S. Teodoro → tetti, quota — <i>ora d’accordatura</i></p>
-        <p style="margin-bottom:28px; border-top:2px solid #6b5636; padding-top:28px;">Torre Civica → <b>Cattedrale</b>: convergenza. <span class="hand" style="font-size:50px;">è QUI</span></p>
+        <p style="margin-bottom:28px; border-top:2px solid #6b5636; padding-top:28px;">Torre Civica → <b>Cattedrale</b>: convergenza. <span class="hand" style="font-size:50px;">è qui</span></p>
       </div>
       <div class="serif" style="font-style:italic; margin-top:64px; font-size:34px; color:#4a4a4e; mix-blend-mode:multiply;">
         Pagine senza data, prese a caso non chiudono. Datate con la marea e le
@@ -1125,7 +1125,7 @@ Chi canterà al di sotto, non si lamenti di ciò che al di sotto risponde.`;
     <div class="wrap"><div style="zoom:0.90;">
       <div class="serif" style="font-style:italic; font-size:38px; color:#3a2415; mix-blend-mode:multiply; margin-bottom:44px;">Reperto C — manifesto dei ricercati (Taverna della Chiatta)</div>
       <div class="hand" style="font-size:64px; line-height:96px; text-align:center; margin-bottom:32px;">
-        <p>RICERCATI</p>
+        <p>Ricercati</p>
       </div>
       <div class="serif" style="font-size:44px; line-height:70px; border-top:2px solid #6b5636; padding-top:28px;">
         <p style="margin-bottom:24px;">«La Società del Lume, per i crimini di <b>C.B.</b>» Il vostro volto su ogni muro.</p>
