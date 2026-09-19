@@ -94,17 +94,20 @@ export function cartaOggetto(carte, epId, nome) {
 // --- la carta si rivela: dorso per categoria, poi si gira -----------------
 // Al tavolo la si prende sempre a faccia in giu': si vede il dorso (di che
 // mazzo e', Luogo/Oggetto/Testimone...) e solo girandola compare il fronte
-// stampato. `.flip` in app.css tiene la carta sul dorso un paio di secondi
-// prima di girarla; qui si compone solo il markup delle due facce.
+// stampato. Il dorso NON e' un'icona di scorta: e' l'arte vera di ogni
+// mazzo (artworks/Dorso <Nome>.png), la stessa usata nei PDF fronte/retro di
+// generate-print-sheets.js. `.flip` in app.css tiene la carta sul dorso un
+// paio di secondi prima di girarla; qui si compone solo il markup delle due
+// facce.
 const DORSO_CARTA = {
-  luogo: { icona: 'orma', etichetta: 'Luogo' },
-  oggetto: { icona: 'chiave', etichetta: 'Oggetto' },
-  minaccia: { icona: 'strappo', etichetta: 'Minaccia' },
-  indizio: { icona: 'occhio', etichetta: 'Indizio Nascosto' },
-  testimone: { icona: 'orecchio', etichetta: 'Testimone' },
-  referto: { icona: 'referto', etichetta: 'Referto' },
-  nemico: { icona: 'scontro', etichetta: 'Nemico' },
-  eroe: { icona: 'sigillo', etichetta: 'Eroe' },
+  luogo: 'Dorso Luogo.png',
+  oggetto: 'Dorso Oggetto.png',
+  minaccia: 'Dorso Minaccia.png',
+  indizio: 'Dorso Indizio Nascosto.png',
+  testimone: 'Dorso Testimone.png',
+  referto: 'Dorso Referto.png',
+  nemico: 'Dorso Nemico.png',
+  eroe: 'Dorso Eroe.png',
 };
 
 // i tre sotto-tipi di Approfondimento (dati grezzi: Osservazione, Presagio,
@@ -120,10 +123,10 @@ export function categoriaApprofondimento(tipo) {
 export function cartaGrandeHtml(carta, categoria, extraClass = '') {
   if (!carta) return '';
   const cat = DORSO_CARTA[categoria] ? categoria : 'oggetto';
-  const d = DORSO_CARTA[cat];
-  return `<div class="carta-grande flip${extraClass ? ` ${extraClass}` : ''}" data-cat="${cat}">
+  const dorso = urlArt(`artworks/${DORSO_CARTA[cat]}`);
+  return `<div class="carta-grande flip${extraClass ? ` ${extraClass}` : ''}">
     <div class="flip-int">
-      <div class="flip-retro"><svg class="ic" aria-hidden="true"><use href="#i-${d.icona}"></use></svg><span>${d.etichetta}</span></div>
+      <div class="flip-retro"><img src="${dorso}" alt=""></div>
       <div class="flip-fronte"><img src="${urlCarta(carta.file)}" alt=""></div>
     </div>
   </div>`;

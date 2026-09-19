@@ -648,13 +648,11 @@ em, i { font-style: italic; }
 .carta-grande img { animation: rivela-carta .6s cubic-bezier(.2, .7, .3, 1) both; }
 
 /* le carte grandi (Luogo, Approfondimento, Oggetto, Minaccia) si prendono
-   sempre a faccia in giu': si vede il dorso — uno per mazzo, cosi' si
-   riconosce da lontano cosa si sta per pescare — e dopo una pausa si gira sul
-   fronte stampato. `.flip` e' il contenitore 3D; `.flip-retro`/`.flip-fronte`
-   sono le due facce, sovrapposte con `backface-visibility` cosi' non si vede
-   mai il testo speculare dell'altra. Il colore del dorso arriva da
-   `data-cat` (vedi sotto): la carta non stampata non ha ancora perso la sua
-   identita' di mazzo. */
+   sempre a faccia in giu': si vede il dorso — l'arte vera di ogni mazzo
+   (artworks/Dorso <Nome>.png, la stessa dei PDF fronte/retro) — e dopo una
+   pausa si gira sul fronte stampato. `.flip` e' il contenitore 3D;
+   `.flip-retro`/`.flip-fronte` sono le due facce, sovrapposte con
+   `backface-visibility` cosi' non si vede mai l'altra a specchio. */
 .carta-grande.flip { perspective: 1100px; }
 .carta-grande.flip .flip-int {
   position: relative; width: 100%; max-width: min(320px, 78vw); margin: 0 auto;
@@ -664,41 +662,16 @@ em, i { font-style: italic; }
 .carta-grande.flip .flip-retro, .carta-grande.flip .flip-fronte {
   position: absolute; inset: 0; backface-visibility: hidden;
   border-radius: 1px; border: 1px solid #3a3730; overflow: hidden;
+  box-shadow: 0 14px 30px -16px #000;
 }
 .carta-grande.flip .flip-fronte { transform: rotateY(180deg); }
-.carta-grande.flip .flip-fronte img {
+.carta-grande.flip .flip-retro img, .carta-grande.flip .flip-fronte img {
   width: 100%; height: 100%; object-fit: cover; display: block;
 }
 .carta-grande.flip img { animation: none; box-shadow: none; border: 0;
   max-width: none; }
-.carta-grande.flip .flip-int, .carta-grande.flip .flip-retro,
-.carta-grande.flip .flip-fronte { box-shadow: 0 14px 30px -16px #000; }
-.carta-grande.flip .flip-retro {
-  display: flex; flex-direction: column; align-items: center;
-  justify-content: center; gap: 10px;
-  background: linear-gradient(160deg, #1c1f26, #101216);
-}
-.carta-grande.flip .flip-retro::before {
-  content: ''; position: absolute; inset: 9px;
-  border: 1px solid var(--dorso-colore, var(--nastro)); opacity: .4;
-}
-.carta-grande.flip .flip-retro .ic { width: 40px; height: 40px;
-  color: var(--dorso-colore, var(--nastro)); vertical-align: baseline; }
-.carta-grande.flip .flip-retro span {
-  font-family: 'FellSC', serif; text-transform: uppercase; letter-spacing: .1em;
-  font-size: 13px; color: var(--dorso-colore, var(--nastro)); text-align: center;
-  padding: 0 10px; }
 
 @keyframes gira-carta { 0%, 58% { transform: rotateY(0); } 100% { transform: rotateY(180deg); } }
-
-.carta-grande.flip[data-cat="luogo"]     { --dorso-colore: var(--segnale-mossa); }
-.carta-grande.flip[data-cat="oggetto"]   { --dorso-colore: var(--nastro); }
-.carta-grande.flip[data-cat="minaccia"]  { --dorso-colore: var(--segnale-nemico); }
-.carta-grande.flip[data-cat="indizio"]   { --dorso-colore: var(--segnale-rivela); }
-.carta-grande.flip[data-cat="testimone"] { --dorso-colore: var(--osso-fioco); }
-.carta-grande.flip[data-cat="referto"]   { --dorso-colore: var(--ceralacca); }
-.carta-grande.flip[data-cat="nemico"]    { --dorso-colore: var(--segnale-nemico); }
-.carta-grande.flip[data-cat="eroe"]      { --dorso-colore: var(--nastro-chiaro); }
 
 /* l'arte respira: derive lentissime, mai invadenti */
 .banner-luogo { animation: apparizione .5s ease both, respiro-arte 22s ease-in-out infinite alternate; }
