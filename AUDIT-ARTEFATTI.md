@@ -135,36 +135,73 @@ quasi 200 luoghi).
 
 ## 2. Problemi gravi specifici (non sistemici, ma seri)
 
-- **Ep.13 — fuga di spoiler (ALTA)**: tre carte Approfondimento (2 Testimoni, 1
-  Referto) rivelano esplicitamente "una fermata in più al Palazzo del Lume", il
-  segreto di campagna che la Soluzione dice testualmente di non svelare prima
+- **Ep.13 — fuga di spoiler (ALTA)** — *non corretto, lasciato alla decisione
+  dell'autore*: tre carte Approfondimento (2 Testimoni, 1 Referto) rivelano
+  esplicitamente "una fermata in più al Palazzo del Lume", il segreto di
+  campagna che la Soluzione dice testualmente di non svelare prima
   dell'Episodio 18. Nessuna fuga simile trovata negli altri episodi controllati
-  (14, 15, 17 espliciti "nessuno spoiler rilevato").
-- **Ep.15 — tre carte intere mancanti (ALTA)**: manca la carta Luogo "Il
-  Tribunale" (uno dei 4 luoghi iniziali), la carta Testimone "Il vecchio
-  giudice" e la carta Oggetto "Un Ritaglio del Dossier", tutte e tre citate nei
-  fascicoli come esistenti/ottenibili.
-- **Ep.19 — contraddizione narrativa strutturale (ALTA)**: i gendarmi comuni
-  sono narrati come "onesti, in buona fede" (poliziotti ingannati) ma
-  meccanicamente sono istanze del mostro "Lo Sgherro", la cui scheda Bestiario
-  li descrive come Malavita/criminali pagati dal culto — caratterizzazione
-  opposta. Manca inoltre del tutto la carta Nemico "Lo Sgherro" nel mazzo.
-- **Ep.20 (finale) — conteggio Frammenti incoerente (ALTA)**: la Soluzione
-  elenca i Frammenti del "canto del sonno" come 9 numeri a pag.2 (1-7, 11, 20)
-  ma a pag.4 li richiama come "nove" mostrandone solo 8 (manca il 20) — un
-  errore nel conteggio decisivo per la deduzione del finale di campagna.
+  (14, 15, 17 espliciti "nessuno spoiler rilevato"). Rileggendo le quattro
+  carte coinvolte non si può escludere che sia foreshadowing intenzionale
+  (un indizio ambiguo che acquista senso solo a posteriori) piuttosto che un
+  refuso di scrittura: serve un giudizio d'autore, non una correzione
+  automatica.
+- **Ep.15 — carte mancanti (ALTA)** — *2 di 3 risolte*: la carta Luogo "Il
+  Tribunale" e la carta Testimone "Il vecchio giudice" avevano già arte e dati
+  completi, non erano mai state renderizzate — **generate e verificate**. La
+  carta Oggetto "Un Ritaglio del Dossier" resta mancante: non esiste alcuna
+  voce corrispondente in `cards-data.js` (non solo l'immagine — il testo
+  stesso della carta non è mai stato scritto), quindi non è un rendering
+  mancante ma un buco di contenuto vero e proprio (vedi anche punto successivo).
+- **Ep.19 — contraddizione narrativa strutturale (ALTA)** — ***falso
+  positivo, non era un bug***: la carta Nemico "Lo Sgherro" esiste
+  regolarmente (`Comune/cards/Nemici/Lo Sgherro.jpg`, insieme a "Il
+  Sicario.jpg") — l'audit del singolo episodio non l'aveva trovata perché è
+  condivisa in `Comune/` invece che nel mazzo di Ep.19. Sulla presunta
+  contraddizione: il boss unico di Ep.19, l'Ispettore Vidal, ha una scheda
+  con testo di regole dedicato (`cards-data.js` riga 4626) che spiega
+  esplicitamente che va convinto, non ucciso — la caratterizzazione
+  "onesti ma ingannati" vs. "Malavita pagata" non è incoerente, distingue
+  proprio i gendarmi comuni (Sgherro) dal loro superiore corrotto.
+- **Ep.20 (finale) — conteggio Frammenti incoerente (ALTA)** — ***falso
+  positivo, non era un bug***: rileggendo per intero il contesto in
+  `src/gen_ep20.py`, i due elenchi di Frammenti coprono cose diverse (uno è
+  l'elenco completo di riferimento, l'altro la sotto-lista effettivamente
+  raccolta in quella run); il "nove" a pag.4 è coerente col proprio elenco,
+  non con quello di pag.2.
 - **Ep.20 — 5 tessere su 6 non esistono (ALTA, stato)**: `board/` ha solo T1;
   mancano T2-T6 e i relativi sorgenti in `artworks/`. Probabilmente l'arte del
-  finale non è ancora stata prodotta, non un bug di generazione.
-- **Contenuto non finalizzato — "Effetto: nessuno finora scoperto" (ALTA)**:
-  quattro carte Oggetto in tre episodi diversi hanno questo testo placeholder al
-  posto di un vero effetto di gioco: Ep.18 (L'Accusa Pronta contro di Voi, Il
-  Ritratto del Rivale), Ep.19 (La Taglia da Riscuotere, La Via Facile), Ep.20
-  (Il Grimorio del Rito, La Chiave del Coro) — sei carte in tutto.
-- **Oggetto citato ma mancante dal mazzo (ALTA)**: bug ricorrente distinto dal
-  precedente — Ep.10 ("Una Lanterna a Olio"), Ep.11 ("Una Corda di Servizio"),
-  Ep.12 ("Un Remo di Scorta"), Ep.14 ("Una Fune Leggera"): la tessera/il
-  fascicolo dice di prendere un oggetto che non esiste nel mazzo Oggetti.
+  finale non è ancora stata prodotta, non un bug di generazione. **Bloccato**,
+  serve nuova arte (non generabile in questa sessione, nessun accesso di rete
+  a Midjourney).
+- **Contenuto non finalizzato — "Effetto: nessuno finora scoperto" (ALTA)** —
+  *non corretto, verosimilmente intenzionale*: il pattern ricorre 40 volte in
+  tutto il file (non solo le 6 carte segnalate durante l'audit), spesso con
+  una parentetica esplicativa nel testo stesso (es. "il tagliafuoco è
+  bloccato dalla ruggine da vent'anni", o riferimenti a un rito "inadvisable
+  da usare") che indica un oggetto di puro flavour, deliberatamente senza
+  meccanica — non un effetto dimenticato. Nessuna correzione applicata:
+  serve conferma dell'autore per trattarle diversamente.
+- **Oggetto citato ma mancante dal mazzo (ALTA)** — *confermato, bloccato*:
+  bug ricorrente distinto dal precedente — Ep.10 ("Una Lanterna a Olio"),
+  Ep.11 ("Una Corda di Servizio"), Ep.12 ("Un Remo di Scorta"), Ep.14 ("Una
+  Fune Leggera"), più "Un Ritaglio del Dossier" di Ep.15 di cui sopra: la
+  tessera/il fascicolo dice di prendere un oggetto che non esiste affatto
+  come voce in `cards-data.js` — non un mancato render ma un buco di
+  contenuto (testo dell'oggetto mai scritto). Servirebbe scrivere testo ed
+  effetto di 5 nuove carte Oggetto, e nella maggior parte dei casi anche
+  nuova arte: lavoro di game design/scrittura, non una correzione
+  automatica sicura da fare senza indicazioni dell'autore.
+- **Trovato durante il fix, non nell'audit originale — asterischi letterali
+  al posto del corsivo (ALTA)** — ***corretto***: 7 punti in
+  `cards-data.js` (Ep.15 e Ep.18) usavano `*parola*` in stile Markdown per
+  enfasi dentro un testo di Approfondimento già tutto in corsivo — ma il
+  motore di Card Conjurer non interpreta quella sintassi, e stampava gli
+  asterischi alla lettera sulla carta stampata (confermato anche su una
+  carta già pubblicata, Ep.18 "Le due maschere allo specchio"). Sostituiti
+  con `{/i}parola{i}` (il codice testo di Card Conjurer per uscire
+  temporaneamente dal corsivo, coerente con l'uso di `{i}/{/i}` già presente
+  altrove nello stesso file) e le 6 carte coinvolte rigenerate e verificate
+  visivamente.
 - **Miniature mancanti per un nemico del Bestiario (MEDIA/ALTA)**: la pagina
   "Miniature — ritagliare" di Spedizione.pdf non fornisce sempre un token per
   ogni nemico schedato — mancava per il Sicario Gentile (Ep.12), per uno tra
@@ -227,11 +264,34 @@ risolto:
    `pagina_stradario()` non paginava mai. **Fixato** in `src/gen_mappa.py`
    (controllo dello spazio residuo + pagina "stradario — segue"
    automatica) e rigenerato per tutti i bucket.
-4. **Fuga di spoiler in Ep.13** e **contraddizione narrativa in Ep.19** — non
-   sistemici ma rompono rispettivamente la struttura della campagna e la
-   coerenza del culto/Malavita. Vedi stato dei fix più sotto.
-5. **Oggetti citati ma mancanti** e **"Effetto: nessuno finora scoperto"** —
-   piccolo numero di carte. Vedi stato dei fix più sotto.
-6. **Riuso di artwork** (1.3, 1.4) — un problema di varietà visiva che
-   richiede nuova arte Midjourney: non risolvibile in questa sessione (nessun
-   accesso di rete a Midjourney), resta come lavoro futuro.
+4. ~~Contraddizione narrativa Ep.19~~ e ~~conteggio Frammenti Ep.20~~ —
+   verificati contro il codice sorgente e confermati **falsi positivi**,
+   nessuna modifica.
+5. **Asterischi letterali invece del corsivo** (trovato durante il fix, non
+   nell'audit originale) — bug di rendering confermato su 7 punti in Ep.15 e
+   Ep.18 (uno dei quali già stampato). **Fixato**: sostituiti con il codice
+   testo corretto di Card Conjurer e le 6 carte coinvolte rigenerate.
+6. **Ep.15, 2 carte su 3 mancanti** ("Il Tribunale", "Il vecchio giudice") —
+   arte e testo esistevano già, mancava solo il render. **Generate e
+   verificate.**
+7. **Fuga di spoiler in Ep.13** — lasciata **non corretta**: potrebbe essere
+   foreshadowing intenzionale piuttosto che un refuso; decisione che spetta
+   all'autore, non a una correzione automatica.
+8. **"Effetto: nessuno finora scoperto"** (40 occorrenze totali, non solo le 6
+   inizialmente segnalate) — lasciato **non corretto**: più indizi (parentetiche
+   esplicative nel testo) suggeriscono che sia flavour deliberato, non un
+   effetto dimenticato.
+9. **Bloccato, richiede lavoro di game design/scrittura oltre che di arte**:
+   5 carte Oggetto citate da fascicoli/tessere ma mai scritte in
+   `cards-data.js` — "Una Lanterna a Olio" (Ep.10), "Una Corda di Servizio"
+   (Ep.11), "Un Remo di Scorta" (Ep.12), "Una Fune Leggera" (Ep.14), "Un
+   Ritaglio del Dossier" (Ep.15).
+10. **Bloccato, richiede solo nuova arte** (nessun accesso di rete a
+    Midjourney in questa sessione): 5 carte Minaccia "Posseduto" di Ep.5/6 e
+    la carta Oggetto "Il Mazzo delle Minute" di Ep.16, tutte con dati di
+    carta già scritti ma `art:` che punta a un file inesistente in
+    `artworks/`; le 5 tessere T2-T6 del finale di Ep.20 (board e artwork
+    sorgente entrambi assenti).
+11. **Riuso di artwork** (1.3, 1.4) — un problema di varietà visiva che
+    richiede nuova arte Midjourney: non risolvibile in questa sessione,
+    resta come lavoro futuro.
