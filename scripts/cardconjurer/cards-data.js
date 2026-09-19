@@ -3042,7 +3042,7 @@ const LUOGHI13 = [
     testo: 'Lo snodo dei trasporti di terraferma: rimesse, cavalli, il quadro dei noli. Da qui parte, ogni notte, il nolo puntuale della carta di pregio; e qui lavorava il capo-catena, prima che il canale se lo prendesse.',
     approfondimenti: [
       { tipo: 'Testimonianza', soggetto: 'Il capostazione',
-        testo: '«Ve lo dico perché ho paura anch’io: quel nolo puntuale lo intesta sempre lo stesso studio, quello del Notaio Rasca. Carta in regola, bolli a posto, paga prima. E il capo-catena, buon’anima, s’era messo a cronometrare quella carrozza come si cronometra un treno: l’ora di partenza, le soste, il ritorno. Diceva che certe notti fa una fermata in più, al Palazzo del Lume. I vetturini alzano le spalle — comodità del giro, dicono, si è sempre fatta così. Lui però continuava a segnarla.»' },
+        testo: '«Ve lo dico perché ho paura anch’io: quel nolo puntuale lo intesta sempre lo stesso studio, quello del Notaio Rasca. Carta in regola, bolli a posto, paga prima. E il capo-catena, buon’anima, s’era messo a cronometrare quella carrozza come si cronometra un treno: l’ora di partenza, le soste, il ritorno. Diceva che certe notti fa una fermata in più, in un punto che non era sul giro. I vetturini alzano le spalle — comodità del giro, dicono, si è sempre fatta così. Lui però continuava a segnarla.»' },
     ] },
   { n: 2, nome: 'Lo Studio del Notaio', req: 'Disponibile dall’inizio',
     art: 'artworks/Lo Studio del Notaio.png',
@@ -3063,7 +3063,7 @@ const LUOGHI13 = [
     testo: 'Timbra le bolle di transito delle risme dal molino fuori porta. Roba pulita, dazio pagato; troppo pulita. È qui che il capo-catena veniva a confrontare i noli, e qui che aveva copiato l’ultima bolla prima di finire in acqua.',
     approfondimenti: [
       { tipo: 'Testimonianza', soggetto: 'Il doganiere',
-        testo: '«Ve lo metto a verbale perché ormai è morto lui e non io: il capo-catena aveva preso a contare il nolo della carta ora per ora, notte per notte, e sapeva a memoria quando parte e quando torna. Diceva anche che nelle notti giuste la carrozza fa una fermata in più prima di lasciare la città, al Palazzo del Lume. Che cosa ci vada a fare non me l’ha spiegato e io non gliel’ho chiesto; il vetturino giura che di là la strada è più corta. So soltanto che è annegato per quello che aveva contato, non per quello che aveva rubato.»' },
+        testo: '«Ve lo metto a verbale perché ormai è morto lui e non io: il capo-catena aveva preso a contare il nolo della carta ora per ora, notte per notte, e sapeva a memoria quando parte e quando torna. Diceva anche che nelle notti giuste la carrozza fa una fermata in più prima di lasciare la città, in un posto che non le spettava. Che cosa ci vada a fare non me l’ha spiegato e io non gliel’ho chiesto; il vetturino giura che di là la strada è più corta. So soltanto che è annegato per quello che aveva contato, non per quello che aveva rubato.»' },
     ] },
   { n: 5, nome: 'La Casa del Capo-Catena',
     req: 'La casa del morto è sigillata dai gendarmi, e si apre solo a chi sa perché è morto — la parola che tutti dicono a bassa voce, l’annegato che sapeva nuotare.',
@@ -3087,7 +3087,7 @@ const LUOGHI13 = [
     testo: 'Custodisce i registri di ogni nolo autorizzato: è qui che il calcolo del capo-catena trova conferma nero su bianco. Sessant’anni di forniture allo stesso conto intestato «C.B.», e una carrozza che, certe notti, fa una fermata di troppo.',
     approfondimenti: [
       { tipo: 'Referto', soggetto: 'Il registro dei noli',
-        testo: 'Sessant’anni di forniture allo stesso cliente, pagate al centesimo e sempre in orario, intestate a due iniziali: «C.B.». Ma sessant’anni sono più di una vita di acquisti: chi ha aperto quel conto non è chi lo paga stanotte. Un’intestazione che sopravvive a chi la porta è una casella — e il professore collezionista può esserne il nome, non la mano. Il nolo parte con la carrozza che, certe notti, allunga di una fermata fino al Palazzo del Lume. Copiate l’ora di partenza: è la riga che il capo-catena aveva sottolineato.' },
+        testo: 'Sessant’anni di forniture allo stesso cliente, pagate al centesimo e sempre in orario, intestate a due iniziali: «C.B.». Ma sessant’anni sono più di una vita di acquisti: chi ha aperto quel conto non è chi lo paga stanotte. Un’intestazione che sopravvive a chi la porta è una casella — e il professore collezionista può esserne il nome, non la mano. Il nolo parte con la carrozza che, certe notti, allunga di una fermata fuori percorso, verso un indirizzo che il registro non dice. Copiate l’ora di partenza: è la riga che il capo-catena aveva sottolineato.' },
     ] },
   { n: 8, nome: 'Il Deposito delle Risme',
     req: 'Il deposito dove arrivano le risme è chiuso a quest’ora, e apre solo a chi sa da dove vengono: l’opificio fuori le mura che fa la filigrana.',

@@ -135,16 +135,21 @@ quasi 200 luoghi).
 
 ## 2. Problemi gravi specifici (non sistemici, ma seri)
 
-- **Ep.13 — fuga di spoiler (ALTA)** — *non corretto, lasciato alla decisione
-  dell'autore*: tre carte Approfondimento (2 Testimoni, 1 Referto) rivelano
-  esplicitamente "una fermata in più al Palazzo del Lume", il segreto di
-  campagna che la Soluzione dice testualmente di non svelare prima
-  dell'Episodio 18. Nessuna fuga simile trovata negli altri episodi controllati
-  (14, 15, 17 espliciti "nessuno spoiler rilevato"). Rileggendo le quattro
-  carte coinvolte non si può escludere che sia foreshadowing intenzionale
-  (un indizio ambiguo che acquista senso solo a posteriori) piuttosto che un
-  refuso di scrittura: serve un giudizio d'autore, non una correzione
-  automatica.
+- **Ep.13 — fuga di spoiler (ALTA)** — ***corretto***: tre carte Approfondimento
+  (2 Testimoni, 1 Referto) nominavano esplicitamente "una fermata in più al
+  Palazzo del Lume". Confermato *vero* bug, non foreshadowing voluto: il
+  fascicolo sorgente (`src/gen_ep13.py` riga 726-730) marca lo stesso dettaglio
+  come **noto solo a chi arbitra** ("Questo lo sapete voi che arbitrate, non
+  loro [...] la fermata in più resta un appunto non sciolto, e si scioglierà
+  all'Episodio 18. **Non anticipatela.**") — le carte in mano ai giocatori
+  contraddicevano questa istruzione esplicita di design. Attenuato in
+  `cards-data.js`: rimosso il nome "Palazzo del Lume" dalle tre carte (righe
+  3045, 3066, 3090), lasciando il mistero della fermata "fuori percorso, verso
+  un indirizzo che il registro non dice" senza svelare la destinazione; il
+  legame fra le iniziali «C.B.» e Il Palazzo del Lume, cuore del colpo di
+  scena dell'Ep.18, non è più leggibile dalle carte. Le 3 carte coinvolte
+  sono state rigenerate e verificate. Nessuna fuga simile trovata negli altri
+  episodi controllati (14, 15, 17 espliciti "nessuno spoiler rilevato").
 - **Ep.15 — carte mancanti (ALTA)** — *2 di 3 risolte*: la carta Luogo "Il
   Tribunale" e la carta Testimone "Il vecchio giudice" avevano già arte e dati
   completi, non erano mai state renderizzate — **generate e verificate**. La
@@ -274,9 +279,10 @@ risolto:
 6. **Ep.15, 2 carte su 3 mancanti** ("Il Tribunale", "Il vecchio giudice") —
    arte e testo esistevano già, mancava solo il render. **Generate e
    verificate.**
-7. **Fuga di spoiler in Ep.13** — lasciata **non corretta**: potrebbe essere
-   foreshadowing intenzionale piuttosto che un refuso; decisione che spetta
-   all'autore, non a una correzione automatica.
+7. **Fuga di spoiler in Ep.13** — **corretta**: confermato bug (non
+   foreshadowing) contro il testo esplicito di `gen_ep13.py` ("non
+   anticipatela"). Rimosso il nome "Palazzo del Lume" dalle 3 carte
+   coinvolte, il mistero resta ma senza svelare la destinazione.
 8. **"Effetto: nessuno finora scoperto"** (40 occorrenze totali, non solo le 6
    inizialmente segnalate) — lasciato **non corretto**: più indizi (parentetiche
    esplicative nel testo) suggeriscono che sia flavour deliberato, non un
