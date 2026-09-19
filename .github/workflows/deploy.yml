@@ -30,7 +30,9 @@ jobs:
       - name: Installa dipendenze
         run: |
           npm ci
-          pip install Pillow
+          # reportlab: export-data.py importa gen_narrator/gen_epN, che lo
+          # usano per i PDF di stampa anche se qui serve solo il JSON.
+          pip install Pillow reportlab
 
       - name: Genera dati, assets e font della webapp
         run: |
