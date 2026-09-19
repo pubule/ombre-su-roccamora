@@ -4,9 +4,10 @@ name: Deploy
 # .gitignore, vedi deploy/README.md) e lancia ./deploy/deploy.sh, che fa le
 # tre cose nell'ordine giusto: assembla dist, porta il D1 di produzione allo
 # schema, pubblica il Worker.
+#
+# Solo a comando (Actions -> Deploy -> Run workflow), non a ogni push: il
+# deploy resta una decisione, non un effetto collaterale del merge.
 on:
-  push:
-    branches: [main]
   workflow_dispatch: {}
 
 concurrency:
