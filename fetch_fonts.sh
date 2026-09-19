@@ -14,11 +14,17 @@ set -e
 mkdir -p fonts && cd fonts
 base="https://raw.githubusercontent.com/google/fonts/main/ofl"
 
+# Su Windows l'installer python.org non mette 'python3' nel PATH, solo
+# 'python' - a differenza di Linux/Mac dove 'python' spesso e' quello di
+# sistema (py2 o assente). Si prende quello che c'e'.
+PYTHON3=python3
+command -v python3 >/dev/null 2>&1 || PYTHON3=python
+
 # $1 = cartella nel repo (es. oldstandardtt), $2 = style (normal|italic),
 # $3 = weight (400|700), $4 = nome del file locale da scrivere
 scarica() {
   local cartella="$1" style="$2" weight="$3" nome_locale="$4" filename
-  filename=$(curl -sL "$base/$cartella/METADATA.pb" | python3 -c '
+  filename=$(curl -sL "$base/$cartella/METADATA.pb" | "$PYTHON3" -c '
 import re, sys
 style, weight = sys.argv[1], sys.argv[2]
 blocco = ""
