@@ -302,7 +302,7 @@ narrativi restano a una lettura umana e finiscono in `AUDIT-NARRATIVA-APERTA.md`
 
 ## Documenti di progetto
 
-Tutti alla radice, in Markdown. In ordine di quanto servono a chi arriva adesso:
+In Markdown, quasi tutti alla radice. In ordine di quanto servono a chi arriva adesso:
 
 | file | cosa c'è dentro |
 | --- | --- |
@@ -312,10 +312,11 @@ Tutti alla radice, in Markdown. In ordine di quanto servono a chi arriva adesso:
 | `DESIGN-EPISODIO-*.md` | la spec di dettaglio di un singolo episodio |
 | `BILANCIAMENTO.md` | la taratura, episodio per episodio: la memoria del ciclo di misura |
 | `LOOP-REVISIONE.md` | come gira un giro di revisione: audit → correzione → ri-audit |
-| `AUDIT-*.md` | i referti delle revisioni (testi, classi, biografie, letture integrali) |
+| `AUDIT-*.md` | i referti delle revisioni (testi, classi, biografie, letture integrali, artefatti) |
 | `AUDIT-NARRATIVA-APERTA.md` | il registro delle anomalie che solo un giudizio d'autore può chiudere |
 | `DESIGN-*.md`, `PIANO-*.md` | le spec e i piani d'esecuzione della web-app (account e salvataggi, motore puro, vista eroe) |
 | `PROMPT-MIDJOURNEY.md` | i prompt dell'arte comune |
+| `audit-storico/` | i referti di audit datati, superati e mai più aggiornati dopo il loro commit iniziale; il loro contenuto è già assorbito in `AUDIT-NARRATIVA-APERTA.md`, che li cita come fonte |
 
 ## Licenza
 

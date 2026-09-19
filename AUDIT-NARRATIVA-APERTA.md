@@ -15,8 +15,8 @@ Regole del registro:
   fra sei mesi;
 - il loop **aggiunge** voci, non le toglie: la rimozione è un atto umano.
 
-Ultimo aggiornamento: 08/08/2026 · fonti: `AUDIT-20260807.md`, `AUDIT-20260808.md`
-e la tornata di correzioni dell'08/08.
+Ultimo aggiornamento: 08/08/2026 · fonti: `audit-storico/AUDIT-20260807.md`,
+`audit-storico/AUDIT-20260808.md` e la tornata di correzioni dell'08/08.
 
 ---
 
