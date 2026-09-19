@@ -20,11 +20,16 @@ base="https://raw.githubusercontent.com/google/fonts/main/ofl"
 PYTHON3=python3
 command -v python3 >/dev/null 2>&1 || PYTHON3=python
 
+# --max-time 30: senza limite una curl che si impunta (rete lenta, host che
+# non risponde) blocca lo script in silenzio - visto il 19/09/2026 su GitHub
+# Actions, dove un job restava "in corso" per oltre 20 minuti senza errore
+# ne' output.
+#
 # $1 = cartella nel repo (es. oldstandardtt), $2 = style (normal|italic),
 # $3 = weight (400|700), $4 = nome del file locale da scrivere
 scarica() {
   local cartella="$1" style="$2" weight="$3" nome_locale="$4" filename
-  filename=$(curl -sL "$base/$cartella/METADATA.pb" | "$PYTHON3" -c '
+  filename=$(curl -sL --max-time 30 "$base/$cartella/METADATA.pb" | "$PYTHON3" -c '
 import re, sys
 style, weight = sys.argv[1], sys.argv[2]
 blocco = ""
@@ -44,7 +49,7 @@ for riga in sys.stdin:
     echo "fetch_fonts.sh: nessun file $style/$weight in $cartella/METADATA.pb" >&2
     exit 1
   fi
-  curl -sL -o "$nome_locale" "$base/$cartella/$filename"
+  curl -sL --max-time 30 -o "$nome_locale" "$base/$cartella/$filename"
 }
 
 scarica oldstandardtt   normal 400 OldStandard-Regular.ttf
