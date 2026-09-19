@@ -1,0 +1,47 @@
+name: Deploy
+
+# Rigenera dati/assets/font (webapp/data, webapp/assets, fonts/ sono in
+# .gitignore, vedi deploy/README.md) e lancia ./deploy/deploy.sh, che fa le
+# tre cose nell'ordine giusto: assembla dist, porta il D1 di produzione allo
+# schema, pubblica il Worker.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Installa dipendenze
+        run: |
+          npm ci
+          pip install Pillow
+
+      - name: Genera dati, assets e font della webapp
+        run: |
+          python webapp/export-data.py
+          node webapp/export-data.js
+          python webapp/export-assets.py
+          ./fetch_fonts.sh
+
+      - name: Deploy (dist -> schema D1 -> worker)
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          # non e' un segreto: e' lo stesso id gia' in chiaro in wrangler.jsonc
+          CLOUDFLARE_ACCOUNT_ID: 3f078eb974edf09669ceca41a0264a1f
+        run: ./deploy/deploy.sh
