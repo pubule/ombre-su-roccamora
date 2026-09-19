@@ -14,8 +14,8 @@ import { salva, dati } from './store.js';
 import { bivioHtml, collegaBivio } from './bivio-scelta.js';
 import { crescitaHtml, collegaCrescita } from './crescita-scelta.js';
 import { rendi, norm, costruisciMazzo, carteDaPescare, pesca, fineRound,
-         cantoDaCarta, cerca, urlCarta, urlArt, cartaOggetto, tettoCanto,
-         sogliaCanto } from './engine.js';
+         cantoDaCarta, cerca, urlArt, cartaOggetto, tettoCanto,
+         sogliaCanto, cartaGrandeHtml } from './engine.js';
 import { tiraProva } from './dadi.js';
 import { abilitaSchede } from './scheda-eroe.js';
 import * as suoni from './suoni.js';
@@ -923,7 +923,7 @@ function schermataCarta(aperta) {
     <div class="pannello">
       ${aperta.carta
         // una carta Minaccia: l'immagine E' la carta, testo compreso
-        ? `<div class="carta-grande"><img src="${urlCarta(aperta.carta.file)}" alt=""></div>
+        ? `${cartaGrandeHtml(aperta.carta, 'minaccia')}
            <p class="mt">${rendi(aperta.carta.rules)}</p>`
         // UNA STANZA CHE SI APRE: l'ARTE, non la tessera. Quel che compariva era
         // la tessera resa — griglia, uscite, etichette «verso T2», i quadretti
@@ -962,7 +962,7 @@ function messaggioCarta(titolo, carta, annunci) {
     const { app } = ctx; const req = provaRichiesta(carta.rules);
     app.innerHTML = `<div class="barra"><span></span><div class="titolo">${esc(titolo)}</div><span></span></div>
       <div class="pannello">
-        <div class="carta-grande"><img src="${urlCarta(carta.file)}" alt=""></div>
+        ${cartaGrandeHtml(carta, 'minaccia')}
         <p class="mt">${rendi(carta.rules)}</p>
         ${annunci.map((a) => `<p class="mt"><b>${esc(a)}</b></p>`).join('')}
         <div id="ins-esito"></div>
@@ -1125,7 +1125,7 @@ function aggancia() {
     const nm = (P().indagine.oggetti || [])[Number(b.dataset.obj)];
     const o = (ctx.ep.oggetti || []).find((x) => norm(x.nome) === norm(nm));
     const c = cartaOggetto(ctx.carte, P().episodio, nm);
-    messaggio(nm.toLowerCase(), `${c ? `<div class="carta-grande"><img src="${urlCarta(c.file)}" alt=""></div>` : ''}
+    messaggio(nm.toLowerCase(), `${cartaGrandeHtml(c, 'oggetto')}
       ${o && o.effetto ? `<p class="mt">${rendi(o.effetto)}</p>` : ''}${o && o.flavor ? `<p class="nota mt"><i>${rendi(o.flavor)}</i></p>` : ''}`).then(render);
   });
   app.querySelectorAll('[data-abil]').forEach((btn) => btn.onclick = () => usaAbilita(btn.dataset.abil));

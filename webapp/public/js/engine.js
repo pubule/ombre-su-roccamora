@@ -90,3 +90,41 @@ export function cartaOggetto(carte, epId, nome) {
   const s = norm(nome);
   return tutte.find((c) => norm(c.title) === s || norm(c.title).includes(s)) || null;
 }
+
+// --- la carta si rivela: dorso per categoria, poi si gira -----------------
+// Al tavolo la si prende sempre a faccia in giu': si vede il dorso (di che
+// mazzo e', Luogo/Oggetto/Testimone...) e solo girandola compare il fronte
+// stampato. `.flip` in app.css tiene la carta sul dorso un paio di secondi
+// prima di girarla; qui si compone solo il markup delle due facce.
+const DORSO_CARTA = {
+  luogo: { icona: 'orma', etichetta: 'Luogo' },
+  oggetto: { icona: 'chiave', etichetta: 'Oggetto' },
+  minaccia: { icona: 'strappo', etichetta: 'Minaccia' },
+  indizio: { icona: 'occhio', etichetta: 'Indizio Nascosto' },
+  testimone: { icona: 'orecchio', etichetta: 'Testimone' },
+  referto: { icona: 'referto', etichetta: 'Referto' },
+  nemico: { icona: 'scontro', etichetta: 'Nemico' },
+  eroe: { icona: 'sigillo', etichetta: 'Eroe' },
+};
+
+// i tre sotto-tipi di Approfondimento (dati grezzi: Osservazione, Presagio,
+// Testimonianza, Referto) si riducono alle due carte stampate + Indizio
+// Nascosto, che raggruppa Osservazione e Presagio sotto un solo dorso.
+export function categoriaApprofondimento(tipo) {
+  const t = String(tipo || '').toLowerCase();
+  if (t === 'testimonianza') return 'testimone';
+  if (t === 'referto') return 'referto';
+  return 'indizio';
+}
+
+export function cartaGrandeHtml(carta, categoria, extraClass = '') {
+  if (!carta) return '';
+  const cat = DORSO_CARTA[categoria] ? categoria : 'oggetto';
+  const d = DORSO_CARTA[cat];
+  return `<div class="carta-grande flip${extraClass ? ` ${extraClass}` : ''}" data-cat="${cat}">
+    <div class="flip-int">
+      <div class="flip-retro"><svg class="ic" aria-hidden="true"><use href="#i-${d.icona}"></use></svg><span>${d.etichetta}</span></div>
+      <div class="flip-fronte"><img src="${urlCarta(carta.file)}" alt=""></div>
+    </div>
+  </div>`;
+}
