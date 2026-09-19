@@ -66,6 +66,21 @@ export function urlCarta(file) {
   return encodeURI(`/assets/${p}.jpg`).replace(/["<>]/g, '');
 }
 
+// LA CARTA GRANDE. La cartella del `file` dice il tipo, il tipo dice il dorso
+// (`dorso-<tipo>` in app.css): con quello la carta si rivela girandosi nell'aria
+// (carta3d.js). Senza dorso — il Preludio — esce piatta, come prima.
+// Niente `style=` qui dentro: schermataCarta confronta l'html generato con
+// `app.innerHTML`, e il browser riscrive gli attributi style. Le classi no.
+const DORSO = { Luoghi: 'luogo', Oggetti: 'oggetto', Minacce: 'minaccia', Nemici: 'nemico',
+  Indizi: 'indizio', Referti: 'referto', Testimoni: 'testimone', Eroi: 'eroe' };
+export function cartaGrande(file, extra = '') {
+  const d = DORSO[file.split('/').slice(-2, -1)[0]];
+  const img = `<img src="${urlCarta(file)}" alt="">`;
+  const cls = extra ? ` ${extra}` : '';
+  if (!d) return `<div class="carta-grande${cls}">${img}</div>`;
+  return `<div class="carta-grande carta3d${cls}"><div class="c3d">${'<span class="c3d-fetta"></span>'.repeat(6)}${img}<div class="c3d-retro dorso-${d}"></div></div><div class="c3d-ombra"></div></div>`;
+}
+
 // arte grezza (campo art: 'artworks/x.png' oppure solo 'x.png')
 export function urlArt(art) {
   if (!art) return null;

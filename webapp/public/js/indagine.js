@@ -8,7 +8,7 @@ import { rendi, norm, bussa, dichiaraVoce, vociMappa, luogoVisitabile,
          idoneiPerTipo, usaCarica, tierIndagine, verificaRisposte,
          controBusta, domandeBusta,
          urlArt, cartaLuogo, cartaApprofondimento, cartaOggetto,
-         urlCarta as urlCartaSafe } from './engine.js';
+         cartaGrande } from './engine.js';
 import { episodioColBivio } from '../motore/bivi.js';
 import { applica } from '../motore/comandi.js';
 import { provaDiIndagine } from '../motore/indagine.js';
@@ -575,7 +575,7 @@ function doveSieteStati(dietro) {
     pannelloMsg(l.nome.toLowerCase(),
       `${bannerLuogo(l)}
        ${l.testo ? `<p><i>${rendi(l.testo)}</i></p>` : ''}
-       ${c ? `<div class="carta-grande mt"><img src="${urlCartaSafe(c.file)}" alt=""></div>` : ''}`,
+       ${c ? cartaGrande(c.file, 'mt') : ''}`,
       () => doveSieteStati(dietro));
   }));
 }
@@ -1459,7 +1459,7 @@ function schedaLuogo(l) {
     // è una cosa che il tavolo guarda insieme — e finora la vedeva solo chi
     // aveva premuto: sui telefoni non compariva niente, nemmeno dopo.
     pannelloMsg(nome.toLowerCase(),
-      `${cardO ? `<div class="carta-grande"><img src="${urlCartaSafe(cardO.file)}" alt=""></div>` : ''}
+      `${cardO ? cartaGrande(cardO.file) : ''}
        <p class="nota mt">Prendete la carta “${esc(nome)}” dal mazzo Oggetti: da ora è vostra.</p>`,
       () => tornaAlLuogo(l), { atutti: true });
   });
@@ -1603,7 +1603,7 @@ function consegnaApprofondimento(l, a, tipo, prefisso = '') {
   const cardA = a && cartaApprofondimento(ctx.carte, P().episodio, a.soggetto);
   pannelloMsg(`${String(tipo).toLowerCase()} — ${String(a ? a.soggetto : '').toLowerCase()}`,
     `${prefisso}
-     ${cardA ? `<div class="carta-grande"><img src="${urlCartaSafe(cardA.file)}" alt=""></div>` : ''}
+     ${cardA ? cartaGrande(cardA.file) : ''}
      <p class="mt"><i>${rendi(a ? a.testo : '')}</i></p>
      <p class="nota mt">Prendete la carta “${esc(a ? a.soggetto : '')}” dal mazzo Approfondimenti.</p>`,
     () => tornaAlLuogo(l), { atutti: true });
@@ -1908,7 +1908,7 @@ function elencoInMano(dopo, coda = '') {
 function pezzoInMano(genere, i, dietro, epId) {
   const { app } = ctx;
   const ind = IND();
-  const grande = (file) => `<div class="carta-grande mt"><img src="${urlCartaSafe(file)}" alt=""></div>`;
+  const grande = (file) => cartaGrande(file, 'mt');
   let titolo = '';
   let corpo = '<p class="nota">Di questo pezzo non c’è una carta stampata.</p>';
 

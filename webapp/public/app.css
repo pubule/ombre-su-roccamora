@@ -646,6 +646,42 @@ em, i { font-style: italic; }
 /* le carte grandi (Luogo, Approfondimento, Oggetto) si girano come al tavolo */
 .carta-grande img { animation: rivela-carta .6s cubic-bezier(.2, .7, .3, 1) both; }
 
+/* LA CARTA CHE SI GIRA (carta3d.js genera i @keyframes c3d-*). Si alza dal
+   panno, si gira nell'aria e si posa: fronte e dorso veri, spessore di un
+   filo nero, ombra che segue il volo. Vale per le carte con un dorso
+   (`cartaGrande` in engine.js); la stanza e il Preludio restano sulla
+   `rivela-carta` di sopra. A riposo — anche con movimento ridotto — resta la
+   faccia davanti. `--cw` va tenuta uguale al max-width di `.carta-grande img`. */
+.carta3d { --cw: min(320px, 78vw); position: relative; perspective: calc(var(--cw) * 5.2); animation: none; }
+.carta3d .c3d { position: relative; width: var(--cw); aspect-ratio: 514 / 720; transform-style: preserve-3d;
+  animation: c3d-volo 1.15s linear .1s both; }
+.c3d-fetta { position: absolute; inset: 0; background: #000; border-radius: 6px; }
+.c3d-fetta:nth-child(1) { transform: translateZ(-.8px); }
+.c3d-fetta:nth-child(2) { transform: translateZ(-.48px); }
+.c3d-fetta:nth-child(3) { transform: translateZ(-.16px); }
+.c3d-fetta:nth-child(4) { transform: translateZ(.16px); }
+.c3d-fetta:nth-child(5) { transform: translateZ(.48px); }
+.c3d-fetta:nth-child(6) { transform: translateZ(.8px); }
+.carta3d .c3d > img, .c3d-retro { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none;
+  border: 0; border-radius: 6px; box-shadow: none; backface-visibility: hidden; -webkit-backface-visibility: hidden;
+  animation: c3d-luce 1.15s linear .1s both; }
+.carta3d .c3d > img { transform: translateZ(.9px); }
+.c3d-retro { transform: rotateY(180deg) translateZ(.9px); background: #000 center / cover; box-shadow: inset 0 0 0 3px #000; }
+.c3d-ombra { position: absolute; top: 0; left: 50%; width: var(--cw); aspect-ratio: 514 / 720;
+  margin-left: calc(var(--cw) * -.5); background: #000; border-radius: 8px; filter: blur(6px); opacity: .55;
+  transform: translate(0, calc(var(--cw) * .02)); pointer-events: none; animation: c3d-ombra 1.15s linear .1s both; }
+.dorso-luogo { background-image: url(/assets/dorsi/Luogo.jpg); }
+.dorso-oggetto { background-image: url(/assets/dorsi/Oggetto.jpg); }
+.dorso-minaccia { background-image: url(/assets/dorsi/Minaccia.jpg); }
+.dorso-nemico { background-image: url(/assets/dorsi/Nemico.jpg); }
+.dorso-indizio { background-image: url("/assets/dorsi/Indizio Nascosto.jpg"); }
+.dorso-referto { background-image: url(/assets/dorsi/Referto.jpg); }
+.dorso-testimone { background-image: url(/assets/dorsi/Testimone.jpg); }
+.dorso-eroe { background-image: url(/assets/dorsi/Eroe.jpg); }
+@media (prefers-reduced-motion: reduce) {
+  .carta3d .c3d, .carta3d .c3d > img, .c3d-retro, .c3d-ombra { animation: none; }
+}
+
 /* l'arte respira: derive lentissime, mai invadenti */
 .banner-luogo { animation: apparizione .5s ease both, respiro-arte 22s ease-in-out infinite alternate; }
 .tessera-episodio .arte { animation: lento-zoom 28s ease-in-out infinite alternate; }

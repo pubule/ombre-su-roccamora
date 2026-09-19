@@ -202,6 +202,13 @@ def main():
             continue
         if converti(os.path.join(art_dir, f), os.path.join(OUT, 'artworks', f), 900):
             fatti += 1
+    # i dorsi della carta che si gira (carta3d.js): ~30 KB l'uno invece dei ~900
+    # del png in artworks/, che a ogni carta pescata pesa. Il nome perde il
+    # prefisso: «Dorso Luogo.png» -> dorsi/Luogo.jpg.
+    for f in os.listdir(art_dir):
+        if f.startswith('Dorso ') and f.lower().endswith('.png') and not f.startswith('Dorso Tessera'):
+            if converti(os.path.join(art_dir, f), os.path.join(OUT, 'dorsi', f[6:-4] + '.jpg'), 420):
+                fatti += 1
     print(f'OK assets webapp ({fatti} convertiti/aggiornati)')
     icone()
 

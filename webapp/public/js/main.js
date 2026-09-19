@@ -12,6 +12,7 @@ import { vistaRubrica } from './rubrica.js';
 import { decidi, avviaCoda, stato as statoSync } from './sync.js';
 import { conferma } from './chiedi.js';
 import './zoom.js';   // un tocco sulla carta la apre a tutto schermo
+import './carta3d.js';   // la curva del volo con cui le carte grandi si rivelano
 import { piantaIcone } from './icone.js';   // lo sprite: le icone di «notte e nebbia»
 
 // le icone si piantano una volta sola, all'avvio: sono <symbol> inline, quindi
