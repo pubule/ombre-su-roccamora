@@ -291,27 +291,55 @@ def pagina_mappa(c, sottotitolo):
     c.showPage()
 
 
-def pagina_stradario(c, voci):
+# Sotto questa quota non si disegna piu' una voce: lascia spazio alla
+# chiusa ornamentale (la sua riga sta a 34mm, il testo sotto arriva verso
+# 25mm) senza sovrapposizioni - la causa del vecchio bug (lo stradario
+# sconfinava proprio li', mangiandosi le ultime voci di ogni pagina).
+STRADARIO_Y_MIN = 42*mm
+
+
+def _intestazione_stradario(c, continua=False):
     parchment_art(c, W, H)
     rule_border(c, W, H)
     c.setFillColor(RED); c.setFont(F['sc'], 17)
-    c.drawString(MX, H - 22*mm, 'stradario — dove chiedere in città')
+    titolo = 'stradario — segue' if continua else 'stradario — dove chiedere in città'
+    c.drawString(MX, H - 22*mm, titolo)
+    if continua:
+        c.setStrokeColor(SEPIA); c.setLineWidth(0.5)
+        c.line(MX, H - 27*mm, W - MX, H - 27*mm)
+        return H - 37*mm
     c.setFillColor(INK); c.setFont(F['i'], 9.5)
     c.drawString(MX, H - 29*mm, 'Dichiarate una destinazione: se la serata non ha nulla per voi lì, lo saprete')
     c.drawString(MX, H - 34*mm, 'senza spendere l’ora. Se invece qualcosa c’è, la visita parte — e l’ora si spende.')
     c.setStrokeColor(SEPIA); c.setLineWidth(0.5)
     c.line(MX, H - 38*mm, W - MX, H - 38*mm)
-    y = H - 48*mm
+    return H - 48*mm
+
+
+def pagina_stradario(c, voci):
+    import gen_narrator as N
+    y = _intestazione_stradario(c, continua=False)
     # Alfabetico ignorando l'articolo iniziale (come uno stradario vero:
-    # "Il Lavatoio" sta sotto la L, non sotto la I).
+    # "Il Lavatoio" sta sotto la L, non sotto la I). \s+ obbligatorio dopo
+    # l'articolo pieno (non \s*): senza, "Locanda" veniva letto come
+    # l'articolo "Lo" + "canda" e finiva ordinato sotto la C. L'elisione
+    # (l'/l’) resta invece senza spazio, e' la sua forma corretta.
     def chiave(v):
-        return re.sub(r"^(il|lo|la|i|gli|le|l’|l')\s*", '', v[0], flags=re.IGNORECASE).lower()
+        return re.sub(r"^(?:(?:il|lo|la|i|gli|le)\s+|l[’'])", '', v[0], flags=re.IGNORECASE).lower()
+    # PAGINATO: la lista e' incrementale (cresce a ogni episodio, fino a
+    # superare abbondantemente una pagina sola dall'Ep.5 in poi) - quando
+    # la voce successiva non ci sta piu' sopra STRADARIO_Y_MIN si chiude la
+    # pagina con la stessa chiusa ornamentale delle altre e se ne apre
+    # un'altra, invece di continuare a scrivere fuori pagina.
     for nome, indirizzo in sorted(voci, key=chiave):
         p = Paragraph(f'<b>{nome}</b> — <i>{indirizzo}</i>', VOCE_ST)
         pw, ph = p.wrapOn(c, W - 2*MX, 20*mm)
+        if y - ph < STRADARIO_Y_MIN:
+            N.chiusa_pagina(c)
+            c.showPage()
+            y = _intestazione_stradario(c, continua=True)
         p.drawOn(c, MX, y - ph)
         y -= ph + 3.2*mm
-    import gen_narrator as N
     N.chiusa_pagina(c)
     c.showPage()
 

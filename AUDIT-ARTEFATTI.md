@@ -27,7 +27,13 @@ e copre l'artwork, mai controllato sistematicamente prima d'ora.
 
 ## 1. Problemi sistemici (riscontrati nella maggioranza degli episodi)
 
-### 1.1 Tessere di Spedizione troppo scure — ALTA — *tutti i 15 episodi con tessere pubblicate*
+### 1.1 Tessere di Spedizione troppo scure — ~~ALTA~~ NON È UN BUG (confermato dall'autore)
+
+**Correzione post-audit**: la causa tecnica è un velo nero fisso al 75% di
+opacità sopra l'arte (`.dim` in `scripts/tiles/generate-tiles.js`), trovato e
+proposto come fix — ma l'autore ha confermato che è **voluto**, non un difetto
+di generazione. Nessuna modifica applicata. I dati sotto restano come
+documentazione di quanto misurato, non come lista di cose da correggere.
 
 Ogni tessera in `Episodio N/board/*.png` è stata confrontata pixel per pixel con
 il suo originale in `artworks/`. In *ogni* episodio controllato le tessere
@@ -63,7 +69,16 @@ delle tessere (`scripts/tiles/generate-tiles.js`) sta scurendo sistematicamente
 l'arte rispetto alla sorgente in `artworks/`. **Priorità massima**: senza questo
 fix, la plancia fisica di Spedizione è illeggibile in praticamente ogni episodio.
 
-### 1.2 Tabella Ferite del Bestiario non crescente — ALTA — *tutti i 21 bucket senza eccezioni*
+### 1.2 Tabella Ferite del Bestiario non crescente — ~~ALTA~~ NON È UN BUG
+
+**Correzione post-audit**: la causa è `BOSS_DELTA = [-1, 0, 1, 0, 1]` in
+`src/gen_bestiario.py:134`, applicato alle cinque fasce di eroi. Il commento
+sul posto (righe 123-132) documenta che è una scelta di bilanciamento
+deliberata, ritarata il 20260716 sul motore di simulazione e incrociata con
+`CUSTODE_TENSIONE_EXTRA` in `scripts/simulate_playtest.py`: *"+1 a 6 e a
+9-10 (a 7 e 8 no: testato e bocciato in entrambe le ritarature)"*. Il calo
+alla fascia 7-8 eroi è voluto e testato, non un difetto di generazione.
+Nessuna modifica applicata.
 
 In *ogni singolo episodio* controllato (Preludio escluso solo perché non ha un
 boss con questa tabella), la tabella "Ferite per eroi in tavola" di un nemico —
@@ -198,19 +213,25 @@ Gli episodi 7, 8, 9, 16, 17, 18, 19, 20 hanno ricevuto arte nuova molto di
 recente (poco prima di questo audit): dove qualcosa risultava ancora mancante
 è stato segnalato come stato attuale della produzione, non come errore.
 
-## 5. Priorità suggerite
+## 5. Priorità — e cosa è stato fatto dopo l'audit
 
-1. **Tessere troppo scure** (1.1) — rompe la giocabilità fisica in quasi ogni
-   episodio, causa probabilmente comune e singola da correggere nella pipeline.
-2. **Ferite Bestiario non crescenti** (1.2) — bug meccanico vero, presente
-   letteralmente ovunque, probabile causa comune in `gen_bestiario.py`.
-3. **Fuga di spoiler in Ep.13** e **contraddizione narrativa in Ep.19** — non
+Le voci 1.1 e 1.2 (le due in cima a questa lista quando l'audit è stato
+scritto) sono state indagate e **non erano bug**: vedi le correzioni nelle
+rispettive sezioni sopra. Resta un solo problema sistemico da codice, già
+risolto:
+
+1. ~~Tessere troppo scure~~ — confermato voluto dall'autore, nessuna modifica.
+2. ~~Ferite Bestiario non crescenti~~ — confermato bilanciamento deliberato
+   e testato, nessuna modifica.
+3. **Mappa.pdf che si tronca** (1.5) — unico bug di pipeline confermato:
+   `pagina_stradario()` non paginava mai. **Fixato** in `src/gen_mappa.py`
+   (controllo dello spazio residuo + pagina "stradario — segue"
+   automatica) e rigenerato per tutti i bucket.
+4. **Fuga di spoiler in Ep.13** e **contraddizione narrativa in Ep.19** — non
    sistemici ma rompono rispettivamente la struttura della campagna e la
-   coerenza del culto/Malavita.
-4. **Oggetti citati ma mancanti** e **"Effetto: nessuno finora scoperto"** —
-   piccolo numero di carte, facili da individuare e completare.
-5. **Mappa.pdf che si tronca** (1.5) — fastidioso ma aggirabile al tavolo
-   (l'arbitro può leggere lo stradario a voce dal file sorgente); da sistemare
-   con una ripaginazione a più pagine in `gen_mappa.py`.
-6. **Riuso di artwork** (1.3, 1.4) — un problema di varietà visiva, non di
-   funzionalità: priorità più bassa delle voci sopra.
+   coerenza del culto/Malavita. Vedi stato dei fix più sotto.
+5. **Oggetti citati ma mancanti** e **"Effetto: nessuno finora scoperto"** —
+   piccolo numero di carte. Vedi stato dei fix più sotto.
+6. **Riuso di artwork** (1.3, 1.4) — un problema di varietà visiva che
+   richiede nuova arte Midjourney: non risolvibile in questa sessione (nessun
+   accesso di rete a Midjourney), resta come lavoro futuro.
