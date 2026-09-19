@@ -2,6 +2,7 @@ fonts/*.ttf
 __pycache__/
 node_modules/
 .idea/
+.claude/worktrees/
 
 # PDF di stampa derivati (rigenerabili con generate-print-sheets.js +
 # merge-print-all.py, vedi README.md): pesanti, mai la fonte di verita'.

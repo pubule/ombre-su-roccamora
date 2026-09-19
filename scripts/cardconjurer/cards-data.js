@@ -3042,7 +3042,7 @@ const LUOGHI13 = [
     testo: 'Lo snodo dei trasporti di terraferma: rimesse, cavalli, il quadro dei noli. Da qui parte, ogni notte, il nolo puntuale della carta di pregio; e qui lavorava il capo-catena, prima che il canale se lo prendesse.',
     approfondimenti: [
       { tipo: 'Testimonianza', soggetto: 'Il capostazione',
-        testo: '«Ve lo dico perché ho paura anch’io: quel nolo puntuale lo intesta sempre lo stesso studio, quello del Notaio Rasca. Carta in regola, bolli a posto, paga prima. E il capo-catena, buon’anima, s’era messo a cronometrare quella carrozza come si cronometra un treno: l’ora di partenza, le soste, il ritorno. Diceva che certe notti fa una fermata in più, al Palazzo del Lume. I vetturini alzano le spalle — comodità del giro, dicono, si è sempre fatta così. Lui però continuava a segnarla.»' },
+        testo: '«Ve lo dico perché ho paura anch’io: quel nolo puntuale lo intesta sempre lo stesso studio, quello del Notaio Rasca. Carta in regola, bolli a posto, paga prima. E il capo-catena, buon’anima, s’era messo a cronometrare quella carrozza come si cronometra un treno: l’ora di partenza, le soste, il ritorno. Diceva che certe notti fa una fermata in più, in un punto che non era sul giro. I vetturini alzano le spalle — comodità del giro, dicono, si è sempre fatta così. Lui però continuava a segnarla.»' },
     ] },
   { n: 2, nome: 'Lo Studio del Notaio', req: 'Disponibile dall’inizio',
     art: 'artworks/Lo Studio del Notaio.png',
@@ -3063,7 +3063,7 @@ const LUOGHI13 = [
     testo: 'Timbra le bolle di transito delle risme dal molino fuori porta. Roba pulita, dazio pagato; troppo pulita. È qui che il capo-catena veniva a confrontare i noli, e qui che aveva copiato l’ultima bolla prima di finire in acqua.',
     approfondimenti: [
       { tipo: 'Testimonianza', soggetto: 'Il doganiere',
-        testo: '«Ve lo metto a verbale perché ormai è morto lui e non io: il capo-catena aveva preso a contare il nolo della carta ora per ora, notte per notte, e sapeva a memoria quando parte e quando torna. Diceva anche che nelle notti giuste la carrozza fa una fermata in più prima di lasciare la città, al Palazzo del Lume. Che cosa ci vada a fare non me l’ha spiegato e io non gliel’ho chiesto; il vetturino giura che di là la strada è più corta. So soltanto che è annegato per quello che aveva contato, non per quello che aveva rubato.»' },
+        testo: '«Ve lo metto a verbale perché ormai è morto lui e non io: il capo-catena aveva preso a contare il nolo della carta ora per ora, notte per notte, e sapeva a memoria quando parte e quando torna. Diceva anche che nelle notti giuste la carrozza fa una fermata in più prima di lasciare la città, in un posto che non le spettava. Che cosa ci vada a fare non me l’ha spiegato e io non gliel’ho chiesto; il vetturino giura che di là la strada è più corta. So soltanto che è annegato per quello che aveva contato, non per quello che aveva rubato.»' },
     ] },
   { n: 5, nome: 'La Casa del Capo-Catena',
     req: 'La casa del morto è sigillata dai gendarmi, e si apre solo a chi sa perché è morto — la parola che tutti dicono a bassa voce, l’annegato che sapeva nuotare.',
@@ -3087,7 +3087,7 @@ const LUOGHI13 = [
     testo: 'Custodisce i registri di ogni nolo autorizzato: è qui che il calcolo del capo-catena trova conferma nero su bianco. Sessant’anni di forniture allo stesso conto intestato «C.B.», e una carrozza che, certe notti, fa una fermata di troppo.',
     approfondimenti: [
       { tipo: 'Referto', soggetto: 'Il registro dei noli',
-        testo: 'Sessant’anni di forniture allo stesso cliente, pagate al centesimo e sempre in orario, intestate a due iniziali: «C.B.». Ma sessant’anni sono più di una vita di acquisti: chi ha aperto quel conto non è chi lo paga stanotte. Un’intestazione che sopravvive a chi la porta è una casella — e il professore collezionista può esserne il nome, non la mano. Il nolo parte con la carrozza che, certe notti, allunga di una fermata fino al Palazzo del Lume. Copiate l’ora di partenza: è la riga che il capo-catena aveva sottolineato.' },
+        testo: 'Sessant’anni di forniture allo stesso cliente, pagate al centesimo e sempre in orario, intestate a due iniziali: «C.B.». Ma sessant’anni sono più di una vita di acquisti: chi ha aperto quel conto non è chi lo paga stanotte. Un’intestazione che sopravvive a chi la porta è una casella — e il professore collezionista può esserne il nome, non la mano. Il nolo parte con la carrozza che, certe notti, allunga di una fermata fuori percorso, verso un indirizzo che il registro non dice. Copiate l’ora di partenza: è la riga che il capo-catena aveva sottolineato.' },
     ] },
   { n: 8, nome: 'Il Deposito delle Risme',
     req: 'Il deposito dove arrivano le risme è chiuso a quest’ora, e apre solo a chi sa da dove vengono: l’opificio fuori le mura che fa la filigrana.',
@@ -3499,21 +3499,21 @@ const LUOGHI15 = [
     testo: 'Custodisce il plico anonimo: il dossier che combacia in ogni riga. I pagamenti, però, li ha verificati la Gendarmeria stessa, sportello per sportello: quella parte non l’ha regalata nessuno. Il mandato è già battuto a macchina e manca solo la vostra firma.',
     approfondimenti: [
       { tipo: 'Referto', soggetto: 'Il dossier troppo pulito',
-        testo: 'Ogni prova del dossier regge alla verifica: ed è proprio questo il problema. Un caso vero ha crepe, contraddizioni, testimoni che si smentiscono. Questo no: combacia riga per riga, come un teorema scritto all’indietro dalla soluzione. Chi lo ha cucito non ha *raccolto* prove — le ha *disposte*, perché tornassero. La domanda giusta non è se Braga sia colpevole. È chi ha avuto la mano tanto ferma da renderlo perfetto.' },
+        testo: 'Ogni prova del dossier regge alla verifica: ed è proprio questo il problema. Un caso vero ha crepe, contraddizioni, testimoni che si smentiscono. Questo no: combacia riga per riga, come un teorema scritto all’indietro dalla soluzione. Chi lo ha cucito non ha {/i}raccolto{i} prove — le ha {/i}disposte{i}, perché tornassero. La domanda giusta non è se Braga sia colpevole. È chi ha avuto la mano tanto ferma da renderlo perfetto.' },
     ] },
   { n: 2, nome: 'Il Tribunale', req: 'Disponibile dall’inizio',
     art: 'artworks/Il Tribunale.png',
     testo: 'Prepara il processo del secolo: il rivale del presidente inchiodato dal metodo della Società stessa. Agli atti, trent’anni di guerra dichiarata e una seduta di dodici anni fa: «vi smonterò uno per uno, con le vostre stesse carte». È scritto, è datato, e non l’ha fabbricato nessuno la settimana scorsa.',
     approfondimenti: [
       { tipo: 'Testimonianza', soggetto: 'Il vecchio giudice',
-        testo: '«Ve lo dico perché sono troppo vecchio per aver paura: quel dossier non l’ha scritto un nemico di Braga. L’ha scritto un allievo del vostro metodo — uno che sa come la Società legge un uomo dagli inchiostri e dalle abitudini, e ha *disposto* gli inchiostri e le abitudini perché li leggeste così. È un falso fatto con la vostra grammatica. E di gente che conosce la vostra grammatica, a Roccamora, ce n’è pochissima. Contatela.»' },
+        testo: '«Ve lo dico perché sono troppo vecchio per aver paura: quel dossier non l’ha scritto un nemico di Braga. L’ha scritto un allievo del vostro metodo — uno che sa come la Società legge un uomo dagli inchiostri e dalle abitudini, e ha {/i}disposto{i} gli inchiostri e le abitudini perché li leggeste così. È un falso fatto con la vostra grammatica. E di gente che conosce la vostra grammatica, a Roccamora, ce n’è pochissima. Contatela.»' },
     ] },
   { n: 3, nome: 'La Gazzetta di Roccamora', req: 'Disponibile dall’inizio',
     art: 'artworks/Gazzetta di Roccamora.png',
     testo: 'Ha già il titolo — «IL MOSTRO HA UN VOLTO» — ma Ranuzzi fiuta la scena montata. Qui si sa chi, a Roccamora, padroneggia il metodo indiziario: una manciata di nomi, tutti attorno alla confraternita.',
     approfondimenti: [
       { tipo: 'Osservazione', soggetto: 'I pochi che sanno il metodo',
-        testo: 'Il metodo indiziario della Società non è roba da strada: lo padroneggiano in pochi, tutti dentro o attorno alla confraternita. Un falso costruito con quel metodo restringe il campo dei sospetti a una manciata di persone — e nessuna di loro è Braga, che il metodo lo *combatte* da trent’anni. Chi ha scritto il dossier non odia Braga: lo usa. Odia, o teme, qualcos’altro.' },
+        testo: 'Il metodo indiziario della Società non è roba da strada: lo padroneggiano in pochi, tutti dentro o attorno alla confraternita. Un falso costruito con quel metodo restringe il campo dei sospetti a una manciata di persone — e nessuna di loro è Braga, che il metodo lo {/i}combatte{i} da trent’anni. Chi ha scritto il dossier non odia Braga: lo usa. Odia, o teme, qualcos’altro.' },
     ] },
   { n: 4, nome: 'La Stanza del Testimone', req: 'Disponibile dall’inizio',
     art: 'artworks/La Stanza del Testimone.png',
@@ -3544,7 +3544,7 @@ const LUOGHI15 = [
     testo: 'Dove il dossier fisico attende il processo: carta e inchiostro alla lente rivelano settimane, non trent’anni. Un dossier nato già archiviato — coi suoi numeri, le sue buste — come una messinscena che porta la propria catalogazione.',
     approfondimenti: [
       { tipo: 'Referto', soggetto: 'Il dossier nato archiviato',
-        testo: 'Un dossier vero cresce per accumulo: un foglio oggi, un altro tra un mese, inchiostri e carte di epoche diverse. Questo è nato tutto insieme, stessa carta, stesso inchiostro fresco, già impaginato e numerato come una pratica chiusa. Non è la prova di un delitto trentennale: è la *rappresentazione* di un delitto trentennale, prodotta in una settimana da chi sapeva esattamente che aspetto deve avere una prova per essere creduta.' },
+        testo: 'Un dossier vero cresce per accumulo: un foglio oggi, un altro tra un mese, inchiostri e carte di epoche diverse. Questo è nato tutto insieme, stessa carta, stesso inchiostro fresco, già impaginato e numerato come una pratica chiusa. Non è la prova di un delitto trentennale: è la {/i}rappresentazione{i} di un delitto trentennale, prodotta in una settimana da chi sapeva esattamente che aspetto deve avere una prova per essere creduta.' },
     ] },
   { n: 8, nome: 'La Bottega dell’Incisore',
     req: 'La bottega dell’incisore apre a chi ha capito che il dossier che combacia è stato fabbricato, non trovato: qualcuno ha inciso quelle prove.',
@@ -3560,7 +3560,7 @@ const LUOGHI15 = [
     testo: 'Di notte, prima del sigillo: dentro, gli Apparecchiatori posano gli ultimi tocchi del falso e cancellano le tracce del proprio lavoro. È l’unico posto dove la scena è ancora viva — dopo il sigillo, resterà solo la versione ufficiale.',
     approfondimenti: [
       { tipo: 'Presagio', soggetto: 'La scena da smontare',
-        testo: 'Nella villa silenziosa, ogni cosa è al suo posto — ed è proprio questa perfezione a gridare il falso. Gli Apparecchiatori non rubano e non uccidono: *scrivono*, con oggetti invece che con parole, la colpevolezza di un innocente. Salvarne i tell prima che li cancellino, e prima che il sigillo cali, è l’unico modo di riavvolgere la scena e leggere, sotto, la mano che l’ha diretta. Chiunque sia, stanotte è ancora qui, e ha fretta quanto voi.' },
+        testo: 'Nella villa silenziosa, ogni cosa è al suo posto — ed è proprio questa perfezione a gridare il falso. Gli Apparecchiatori non rubano e non uccidono: {/i}scrivono{i}, con oggetti invece che con parole, la colpevolezza di un innocente. Salvarne i tell prima che li cancellino, e prima che il sigillo cali, è l’unico modo di riavvolgere la scena e leggere, sotto, la mano che l’ha diretta. Chiunque sia, stanotte è ancora qui, e ha fretta quanto voi.' },
     ] },
 ].map((L) => ({
   art: L.art,
@@ -4217,7 +4217,7 @@ const LUOGHI18 = [
     testo: 'Dove non siete mai entrati in diciotto mesi: alle pareti, il ritratto del Machiavelli e, di fronte, uno specchio. Le due maschere si guardano. Qui M. era C.B. e C.B. era M., ogni notte, da solo.',
     approfondimenti: [
       { tipo: 'Presagio', soggetto: 'Le due maschere allo specchio',
-        testo: 'Nello studio privato del presidente, il ritratto del Machiavelli e lo specchio si fronteggiano: e ora capite. M. non serviva un padrone né temeva un rivale — M. *era* il rivale, l’altra faccia di sé. Camillo Benso e il suo specchio, il cospiratore e il contabile, le due mani con cui «si fa un’Italia». Si è dato la caccia da sé per anni, muovendo entrambi i lati del tavolo, perché un uomo che si crede la storia non ha bisogno di complici: ha bisogno di un palcoscenico. E il palcoscenico eravate voi.' },
+        testo: 'Nello studio privato del presidente, il ritratto del Machiavelli e lo specchio si fronteggiano: e ora capite. M. non serviva un padrone né temeva un rivale — M. {/i}era{i} il rivale, l’altra faccia di sé. Camillo Benso e il suo specchio, il cospiratore e il contabile, le due mani con cui «si fa un’Italia». Si è dato la caccia da sé per anni, muovendo entrambi i lati del tavolo, perché un uomo che si crede la storia non ha bisogno di complici: ha bisogno di un palcoscenico. E il palcoscenico eravate voi.' },
     ] },
   { n: 6, nome: 'La Carta di Pregio',
     req: 'Il richiamo alla carta di pregio si apre a chi ricollega la firma di C.B. alla penna del presidente: l’inchiostro del presidente sul giglio spezzato.',
