@@ -117,7 +117,12 @@ async function provaUno(page, id, s) {
     } catch (e) { minacce = `errore: ${e.message}`; }
     return {
       vantaggi: partita.vantaggi, round: partita.spedizione.round, canto: partita.spedizione.canto,
-      vite: partita.spedizione.vite, azioni, minacce, annuncio, chiaviSp: Object.keys(partita.spedizione),
+      vite: partita.spedizione.vite, azioni, minacce, annuncio,
+      chiaviSp: Object.keys(partita.spedizione),
+      nemici: (partita.spedizione.nemici || []).map((n) => n.nome + '@' + (n.pos || {}).t),
+      effetti: partita.spedizione.effetti || null, intuizione: partita.spedizione.intuizione,
+      modNemici: partita.spedizione.modNemici || null, saltaNemici: partita.spedizione.saltaNemici || null,
+      promemoria: (partita.spedizione.promemoria || []).length,
       chiaviPartita: Object.keys(partita),
     };
   }, { id, party: PARTY });
@@ -140,6 +145,31 @@ async function provaUno(page, id, s) {
   const azAttese = s.tier === 'slancio' ? 3 : 2;
   ok(PARTY.every((nm) => reale.azioni[nm] === azAttese),
      `azioni nel 1° round: attese ${azAttese} a testa, in gioco ${PARTY.map((nm) => reale.azioni[nm]).join('/')}`);
+
+  // GLI EFFETTI STRUTTURATI DELLE DOMANDE, letti dai dati e confrontati con lo stato in gioco
+  const esito = (d) => (s.giuste ? d.premio : d.penalita) || {};
+  const attesi = inBusta.map(esito);
+  const spawnAtteso = {};
+  for (const x of attesi) for (const [n, q] of Object.entries(x.spawn_t1 || {})) spawnAtteso[n] = (spawnAtteso[n] || 0) + q;
+  const t0 = ep.tessere[0].id;
+  for (const [n, q] of Object.entries(spawnAtteso)) {
+    const visti = reale.nemici.filter((x) => x === `${n}@${t0}`).length;
+    ok(visti === q, `nemici di ${t0} alla partenza: attesi ${q} ${n}, in gioco ${visti}`);
+  }
+  if (!Object.keys(spawnAtteso).length) {
+    ok(!reale.nemici.length, `nessun nemico alla partenza (vista: ${reale.nemici.join(', ') || 'nessuno'})`);
+  }
+  const boss = (ep.soluzione || {}).boss;
+  const saltaAtteso = attesi.map((x) => x.boss_salta).filter(Boolean)[0];
+  if (saltaAtteso) {
+    ok(((reale.saltaNemici || {})[boss] || {})[saltaAtteso] === 1, `${boss}: salta la prima ${saltaAtteso} (Domanda esatta)`);
+  } else ok(!reale.saltaNemici, 'nessun salto del boss');
+  const difAtteso = attesi.reduce((n, x) => n + (x.boss_difesa || 0), 0);
+  ok((((reale.modNemici || {})[boss] || {}).dif || 0) === difAtteso, `${boss}: Difesa ${difAtteso >= 0 ? '+' : ''}${difAtteso} (Domanda esatta)`);
+  ok(reale.intuizione === (s.dossier ? 1 : 0), `gettone Intuizione: atteso ${s.dossier ? 1 : 0}, in gioco ${reale.intuizione}`);
+  ok(reale.promemoria >= 0 && Array.isArray(reale.chiaviSp), 'il promemoria delle Domande sta nello stato');
+  const extraAtteso = attesi.reduce((n, x) => n + (x.minaccia_extra_r1 || 0), 0);
+  ok(((reale.effetti || {}).minaccia_extra_r1 || 0) === extraAtteso, `Minaccia extra nel 1° round: attese ${extraAtteso}`);
 
   // LE COSE PROMESSE CHE LA SPEDIZIONE NON HA: si registrano come lacune, non come errori di calcolo
   const gap = [];
@@ -206,8 +236,9 @@ console.log('\n=== ANOMALIE (la Spedizione fa una cosa diversa dal gioco) ===');
 for (const [ep, a] of anom) console.log(`- ${ep}: ${a}`);
 if (!anom.size) console.log('nessuna');
 
-// LE DOMANDE: ognuna promette un effetto in Spedizione. Solo la penalita' di Canto ha un campo
-// strutturato che il motore legge (`penalita.canto`, motore/indagine.js `pesa`); il resto e' prosa.
+// LE DOMANDE: ognuna promette un effetto in Spedizione. Quelli con un campo strutturato
+// (`premio` / `penalita`, vedi EFFETTI_DOMANDE in export-data.py) li applica il motore
+// (motore/domande.js); il resto e' prosa, e la Spedizione lo ripropone come promemoria.
 const CATEGORIE = [
   ['nessuna Minaccia nel 1° round (esatta)', (d) => /non si pesca nessuna carta Minaccia/i.test(d.esatta)],
   ['nemico extra in T1 alla rivelazione (sbagliata)', (d) => /appar(e|ono)[^.]* in T1/i.test(d.sbagliata) || /Minaccia extra/i.test(d.sbagliata)],
@@ -222,15 +253,18 @@ for (const id of IDS.filter((x) => x !== 'preludio')) {
   d.forEach((q, i) => {
     tot += 1;
     const cantoScritto = /segnalin\w* Canto in pi/i.test(q.sbagliata);
-    if ((q.penalita || {}).canto) strutturate += 1;
+    const strutturata = !!Object.keys(q.premio || {}).length || !!Object.keys(q.penalita || {}).length;
+    if (strutturata) strutturate += 1;
     else if (cantoScritto) mancantiCanto.push(`${id}.${i + 1}`);
+    if (strutturata) return;                      // gia' applicata: non e' una lacuna
     const cat = CATEGORIE.find(([, f]) => f(q));
     if (!cat) { senzaEffetto += 1; return; }
     conta.set(cat[0], (conta.get(cat[0]) || 0) + 1);
   });
 }
 console.log(`\n=== LE ${tot} DOMANDE DI EP.1-20 ===`);
-console.log(`applicate dal motore (penalita.canto strutturata): ${strutturate}`);
+console.log(`con un effetto strutturato che il motore applica (premio o penalita): ${strutturate}`);
+console.log('rimaste in prosa (promemoria in Spedizione, da giocare a mano), per tipo:');
 if (mancantiCanto.length) console.log(`Canto scritto nel testo ma SENZA penalita.canto (il motore non lo applica): ${mancantiCanto.join(', ')}`);
 for (const [k, n] of conta) console.log(`- ${k}: ${n}`);
 console.log(`- senza effetto meccanico riconoscibile (narrativa, seme di campagna): ${senzaEffetto}`);

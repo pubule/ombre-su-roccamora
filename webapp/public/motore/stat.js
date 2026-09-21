@@ -45,11 +45,17 @@ export const nemStat = (g, nome) => {
   // chiave col nome del nemico lo colpisce solo lui. Serve dove un episodio e'
   // troppo letale nel finale ma i nemici non si possono indebolire altrove.
   const mod = g.ep && g.ep.nemici_mod;
-  if (!base || !mod) return base;
-  const delta = mod[nome] || mod.tutti || null;
-  if (!delta) return base;
+  // ...e le DOMANDE D'INDAGINE: un boss stonato da una risposta esatta ha meno
+  // Difesa per tutta la partita (`sp.modNemici`, scritto da motore/domande.js).
+  const daDomande = g.sp && g.sp.modNemici && g.sp.modNemici[nome];
+  if (!base || (!mod && !daDomande)) return base;
+  const delta = mod ? (mod[nome] || mod.tutti || null) : null;
+  if (!delta && !daDomande) return base;
   const out = { ...base };
-  for (const k of ['dan', 'att', 'dif', 'fer']) if (delta[k]) out[k] = Math.max(0, (out[k] || 0) + delta[k]);
+  for (const k of ['dan', 'att', 'dif', 'fer']) {
+    if (delta && delta[k]) out[k] = Math.max(0, (out[k] || 0) + delta[k]);
+    if (daDomande && daDomande[k]) out[k] = Math.max(0, (out[k] || 0) + daDomande[k]);
+  }
   return out;
 };
 

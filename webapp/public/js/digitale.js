@@ -29,6 +29,7 @@ import * as stat from '../motore/stat.js';
 import * as obiettivi from '../motore/obiettivi.js';
 import * as vittoria from '../motore/vittoria.js';
 import * as minaccia from '../motore/minaccia.js';
+import * as domande from '../motore/domande.js';
 import * as nemici from '../motore/nemici.js';
 import * as azioni from '../motore/azioni.js';
 import { applica } from '../motore/comandi.js';
@@ -319,6 +320,10 @@ function iniziaPartita() {
     // guardano: chi arbitra le ha lette all'apertura, chi gioca da telefono no
     log: [...(partita.bivi?.righe || []), 'Gli eroi sbarcano alla banchina.'],
   };
+  // GLI EFFETTI DELLE DOMANDE D'INDAGINE (motore/domande.js): i nemici di T1, il
+  // boss stonato, il gettone Intuizione, il promemoria di quel che resta a mano.
+  // Prima la busta li mostrava e la Spedizione li ignorava.
+  domande.avviaEffetti(G(), t0.id);
   salvaP(); render();
 }
 // n celle libere piu' vicine a start dentro una singola tessera (spawn/ingresso)
@@ -448,6 +453,7 @@ function render() {
     ${sp.nemici.length ? `<div class="mt"></div><div class="pannello secondario"><h2>nemici in campo</h2>${nemiciHtml()}</div>` : ''}
     <div class="mt"></div>
     <div class="pannello secondario"><h2>oggetti del gruppo</h2>${oggettiHtml()}</div>
+    ${domandeHtml()}
     <div class="mt"></div>
     <div class="pannello secondario"><h2>diario</h2>${logHtml()}</div>
     ${arbitro() ? '<div class="btn-riga secondario"><button class="btn" id="sconfitta">gli eroi cadono</button></div>' : ''}`;
@@ -1121,6 +1127,11 @@ function aggancia() {
     const i = sp.eroiFatti.indexOf(nm); if (i >= 0) sp.eroiFatti.splice(i, 1);
     sp.eroiAttivo = nm; salvaP(); render();
   });
+  // L'INTUIZIONE: ripete l'ultimo tiro fallito, una volta (comando `intuizione`)
+  app.querySelector('#intuizione')?.addEventListener('click', () => {
+    const u = P().spedizione.ultimoFallito || {};
+    esegui({ tipo: 'intuizione', eroe: arbitro() ? u.eroe : mioEroe() });
+  });
   app.querySelectorAll('[data-obj]').forEach((b) => b.onclick = () => {
     const nm = (P().indagine.oggetti || [])[Number(b.dataset.obj)];
     const o = (ctx.ep.oggetti || []).find((x) => norm(x.nome) === norm(nm));
@@ -1667,6 +1678,33 @@ const scortaPuoVincere = () => vittoria.scortaPuoVincere(G());
 
 // attaccare, cercare e rianimare sono passate in motore/azioni.js: la vista
 // le chiede col comando e mette in scena gli eventi che tornano.
+
+// LE DOMANDE D'INDAGINE in Spedizione. Il gettone Intuizione (se c'e') sta in un
+// pannello suo, NON `secondario`: nel layout immersivo i secondari spariscono, e
+// il bottone serve proprio nel momento in cui un tiro va male. Il promemoria
+// elenca quel che le Domande promettevano e il motore non applica — prima
+// spariva con la schermata della busta.
+function domandeHtml() {
+  const s = P().spedizione || {};
+  const dossier = !!(P().vantaggi || {}).dossier;
+  const u = s.ultimoFallito;
+  const intuizione = (s.intuizione > 0 && u && u.round === s.round && s.fase === 'eroi') ? `
+    <div class="mt"></div>
+    <div class="pannello" id="p-intuizione"><h2>gettone intuizione</h2>
+      <p>${esc(primo(u.eroe))} ha fallito il tiro. Una volta in tutta la Spedizione si può ripetere: l’azione
+        torna a chi l’ha spesa e conta il nuovo risultato.</p>
+      <div class="btn-riga"><button class="btn pieno" id="intuizione">ripetete il tiro</button></div>
+    </div>` : '';
+  const pr = s.promemoria || [];
+  const elenco = (pr.length || dossier) ? `
+    <div class="mt"></div>
+    <div class="pannello secondario"><h2>le domande d’indagine</h2>
+      ${dossier ? `<p><b>Gettone Intuizione:</b> ${s.intuizione > 0 ? 'ce l’avete — compare qui quando un tiro va male.' : 'già speso.'}</p>` : ''}
+      ${pr.map((x) => `<p><b>${x.n}.</b> ${x.automatico
+        ? '<span class="nota">(già applicato)</span>' : '<span class="nota">(da ricordare a mano)</span>'} ${esc(x.testo)}</p>`).join('')}
+    </div>` : '';
+  return intuizione + elenco;
+}
 
 // pannello «oggetti del gruppo»: nomi tappabili per leggere carta ed effetto
 function oggettiHtml() {

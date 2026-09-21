@@ -10,6 +10,7 @@ import { arrediSet, chiave, tileDi, layout, occupati } from './griglia.js';
 import { nemStat, feriteMaxNem } from './stat.js';
 import { sogliaCanto } from './regole.js';
 import { specCompiti } from './obiettivi.js';
+import { smascherati, nonAppare } from './domande.js';
 
 // Il diario della spedizione. E' stato, non presentazione: chi legge la partita
 // piu' tardi deve ritrovarci cos'e' successo.
@@ -46,6 +47,9 @@ export function spawnUno(g, nome, tileId) {
   const sp = g.sp; const st = nemStat(g, nome); if (!st) return false;
   const boss = st.boss;
   if (boss && sp.bossDestato) return false;   // un boss gia' destato/abbattuto non (ri)compare
+  // «SMASCHERATO»: una Domanda esatta cancella la prima volta che questo nemico
+  // sarebbe piazzato (motore/domande.js)
+  if (!boss && smascherati(g, nome)) return false;
   const inCampo = sp.nemici.filter((x) => x.nome === nome).length;
   const disp = boss ? 1 : (g.ep.pool || {})[nome] || 0;
   if (inCampo >= disp) return false;
@@ -136,6 +140,7 @@ export function spawnDaTesto(g, testo, tileId) {
   }
   for (const [nome, re] of spawnRegex(g)) {
     const m = testo.match(re); if (!m) continue;
+    if (nonAppare(g, nome, tileId)) continue;    // una Domanda esatta lo toglie da questa tessera
     let q = 1; if (m[1]) q = NUM_PAROLA[m[1].toLowerCase()] || Number(m[1]) || 1;
     for (let k = 0; k < q; k++) if (spawnUno(g, nome, tileId)) log(g, `Appare ${nome.toLowerCase()} in ${tileId}.`);
   }

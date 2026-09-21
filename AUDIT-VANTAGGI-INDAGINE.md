@@ -20,6 +20,37 @@ gradino (`audit-vantaggi.mjs`):
 non vacuo: togliendo i bonus di `stat.js` (`bonusTier`, `azioniMax`) fallisce
 su ogni scenario col vantaggio, e ripristinandoli torna verde.
 
+## Stato dopo le correzioni (22/09/2026)
+
+Le quattro lacune e l'anomalia sono chiuse; l'audit esteso (`audit-vantaggi.mjs`,
+ora legge anche nemici a T1, salti del boss, modificatori, Intuizione, traccia)
+torna **senza lacune e senza anomalie** su preludio + ep.1-20.
+
+| trovato | ora |
+|---|---|
+| Intuizione inesistente | `sp.intuizione` = 1 col dossier; comando `intuizione` (restituisce l'azione dell'ultimo tiro fallito di attacco/cercare/compito, una volta, solo a chi ha fallito); pannello in Spedizione |
+| Domanda 1 esatta: nessuna Minaccia nel 1° round | applicata in tutti i 20 episodi (`fase-minaccia` non pesca) |
+| Domanda 1 sbagliata: nemico in T1 / Minaccia extra | applicata all'avvio (`avviaEffetti`) |
+| boss: salta attivazione/attacco, Difesa, «smascherato», tessera senza nemico | applicati (`domande.js`, `nemici.js`, `minaccia.js`, `stat.js`) |
+| ep.3.4 senza prova in T3, ep.10.3 DEMOLIZIONE da 2 | applicati |
+| Ep.9: «Obiettivo compiuto» al round 1 | `obiettivoFatto` non conta chi `parte_libero` |
+| 33 Domande su 80 con effetto a mano (tracce, tessere, tipo di vittoria, narrativa) | restano prosa, ma compaiono nel pannello «le domande d'indagine» in Spedizione, con «già applicato / da ricordare a mano» |
+
+Dove sta: gli effetti sono dati strutturati (`EFFETTI_DOMANDE` in
+`webapp/export-data.py` -> `premio` / `penalita` di ogni Domanda) letti da
+`webapp/public/motore/domande.js`. Senza `vantaggi.risposte` non si applica
+niente: il pilota di misura semina il gradino e non le risposte, cosi' la mappa
+dei win% non si ri-basa in silenzio (`RISPOSTE=sbagliate|giuste` per misurarle).
+
+**Ep.9 rimisurato** (pilota, 4 eroi, N=20, senza risposte): **1 vittoria su 20**
++ 1 stallo, contro 2/20 prima (con molti stalli). Con il mazzo che ora pesca
+davvero le sconfitte sono tutte per eroi caduti nei round 6-10: l'episodio era e
+resta fuori banda (55-75%), stavolta dal lato difficile. Non ritarato: e' una
+decisione di bilanciamento, non un difetto dell'audit.
+
+Non provato: le partite reali con wrangler (Durable Object, telefoni) col nuovo
+comando; il gate e' lo stesso di `attacca` (un giocatore manda solo il suo eroe).
+
 ## Le regole stampate
 
 | gradino | condizione | effetto in Spedizione |
@@ -30,7 +61,7 @@ su ogni scenario col vantaggio, e ripristinandoli torna verde.
 | Dossier completo | 0 ore avanzate | 1 gettone Intuizione: un ri-tiro di un tiro appena fallito, una volta |
 | Ogni Domanda | esatta / sbagliata | un effetto suo (`esatta` / `sbagliata` nei dati d'episodio) |
 
-## Esito
+## Esito (prima delle correzioni)
 
 ### Applicato davvero, in tutti gli episodi — 104 scenari su 104 verdi
 

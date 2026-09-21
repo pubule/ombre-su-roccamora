@@ -47,6 +47,15 @@ const MODO = process.env.MODO === 'tavolo' ? 'tavolo' : 'digitale';
 // Uno schema «meta' giuste» e' stato provato e scartato: alternando le
 // risposte le penalita' cadevano tutte sulle Domande indovinate e sparivano.
 const CANTO0 = Number(process.env.CANTO0) || 0;
+// LE RISPOSTE. Fino al 21/09/2026 il pilota le seminava tutte sbagliate ma nessuno
+// le leggeva; da quando il motore applica gli effetti delle Domande
+// (motore/domande.js: nessuna Minaccia nel 1° round, nemici in T1, boss che salta)
+// seminarle cambia la partita. Il DEFAULT resta «nessuna risposta seminata», cosi'
+// la mappa dei win% non si ri-basa in silenzio: gli effetti delle Domande si
+// misurano ESPLICITAMENTE con RISPOSTE=sbagliate|giuste.
+const N_DOMANDE = ((EP.soluzione || {}).domande || []).length;
+const RISPOSTE = process.env.RISPOSTE === 'sbagliate' ? Array(N_DOMANDE).fill(false)
+  : process.env.RISPOSTE === 'giuste' ? Array(N_DOMANDE).fill(true) : null;
 const TILE_CHIAVE = (SC0 => (SC0 && SC0.chiave ? 'T4' : null))((EP.scortato || [])[0]);
 
 const USCITE = {};
@@ -602,7 +611,7 @@ for (let g = 0; g < N; g++) {
   ).sort(() => Math.random() - 0.5);
   dimParty = party.length;
   await pg.goto(BASE, { waitUntil: 'domcontentloaded' });
-  await pg.evaluate(({ p, k, id, TIER, OGG, MODO, C0 }) => {
+  await pg.evaluate(({ p, k, id, TIER, OGG, MODO, C0, RISPOSTE }) => {
     localStorage.clear();
     localStorage.setItem(k, JSON.stringify({
       v: 1, episodio: id, modo: MODO, plancia: 'schermo', party: p, creata: Date.now(), fase: 'spedizione',
@@ -613,10 +622,10 @@ for (let g = 0; g < N; g++) {
       // dall'Indagine non porta NIENTE: niente +1 Salute, niente slancio,
       // niente oggetti — cioe' il pavimento, non l'episodio. Si sceglie con
       // INDAGINE=slancio|preparati|nessuno (default: preparati, l'esito medio).
-      vantaggi: { tier: TIER, dossier: TIER === 'slancio', risposte: [false, false, false, false] },
+      vantaggi: { tier: TIER, dossier: TIER === 'slancio', ...(RISPOSTE ? { risposte: RISPOSTE } : {}) },
       spedizione: { round: 0, canto: C0, cantoBonus: false, mazzo: null, esito: null },
     }));
-  }, { p: party, k: CHIAVE_SALVATAGGIO, id: EPID, TIER, OGG: EP.oggetti_indagine || [], MODO, C0: CANTO0 });
+  }, { p: party, k: CHIAVE_SALVATAGGIO, id: EPID, TIER, OGG: EP.oggetti_indagine || [], MODO, C0: CANTO0, RISPOSTE });
   // AVVIO VERIFICATO. La catena titolo->continua->via e' tre schermate che si
   // susseguono: se un click parte prima che la successiva sia montata, l'avvio
   // muore in silenzio e la partita resta a round 0 — erano 28 «stalli» su 168
@@ -624,19 +633,21 @@ for (let g = 0; g < N; g++) {
   // e' davvero cominciata (fase eroi con pedine sul tabellone).
   let avviata = false;
   for (let tent = 0; tent < 8 && !avviata; tent++) {
-    if (tent) await pg.evaluate(({ p, k, id, TIER, OGG, MODO, C0 }) => {
+    if (tent) await pg.evaluate(({ p, k, id, TIER, OGG, MODO, C0, RISPOSTE }) => {
       localStorage.setItem(k, JSON.stringify({ v: 1, episodio: id, modo: MODO, plancia: 'schermo', party: p,
         creata: Date.now(), fase: 'spedizione',
         indagine: { ora: 24, lettaLettera: true, visitati: [], scoperti: [], sbloccati: [], parole: [],
           oggetti: OGG, reperti: [], approfondimentiLetti: [], caricheUsate: {}, secondoFiato: {},
           note: '', risposte: ['', '', '', ''], chiusa: true },
-        vantaggi: { tier: TIER, dossier: TIER === 'slancio', risposte: [false, false, false, false] },
+        vantaggi: { tier: TIER, dossier: TIER === 'slancio', ...(RISPOSTE ? { risposte: RISPOSTE } : {}) },
         spedizione: { round: 0, canto: C0, cantoBonus: false, mazzo: null, esito: null } }));
-    }, { p: party, k: CHIAVE_SALVATAGGIO, id: EPID, TIER, OGG: EP.oggetti_indagine || [], MODO, C0: CANTO0 });
+    }, { p: party, k: CHIAVE_SALVATAGGIO, id: EPID, TIER, OGG: EP.oggetti_indagine || [], MODO, C0: CANTO0, RISPOSTE });
     await pg.goto(BASE, { waitUntil: 'domcontentloaded' });
     await finoA(async () => (await pg.getByText(EP.titolo).count()) > 0, 8000);
     await pg.getByText(EP.titolo).first().click().catch(() => {});
-    await clicQuando('#continua');
+    // dal 21/09/2026 il titolo apre la SCHEDA del caso (js/scheda-caso.js): «riprendete la
+    // serata» porta dentro la partita seminata, senza piu' passare da «continua»
+    await clicQuando('#apri-caso');
     await clicQuando('#via');
     await sciogli();
     avviata = await finoA(async () => { const x = await sp(); return x && (x.round >= 1 || x.esito); }, 8000);

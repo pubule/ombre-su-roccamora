@@ -26,6 +26,7 @@ import { cerca, norm } from './regole.js';
 import { controllaVittoria } from './vittoria.js';
 import { specCompiti, compitiFiniti } from './obiettivi.js';
 import { spawnDaTesto } from './minaccia.js';
+import * as domande from './domande.js';
 import { provaInterazione } from './interazioni.js';
 
 const log = (g, t) => { g.sp.log = g.sp.log || []; g.sp.log.push(t); };
@@ -105,6 +106,7 @@ export function provaDi(g, comando) {
     const t = tileDi(g, comando.nodo.t);
     const req = provaRichiesta(t && t.testo);
     if (!req || (g.sp.insidie && g.sp.insidie[comando.nodo.t])) return null;
+    if (domande.senzaProva(g, comando.nodo.t)) return null;    // una Domanda esatta la toglie (ep.3)
     // LANTERNA SCHERMATA: la trappola non si attiva su chi la porta. E resta
     // ARMATA — `muovi()` segna `sp.insidie` solo quando una prova c'e' stata,
     // quindi il compagno che entra dopo la trova ancora li'. E' quel che dice

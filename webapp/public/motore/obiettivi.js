@@ -39,8 +39,16 @@ export const compitiFiniti = (g) => specCompiti(g).every((c) => compitoFatte(g, 
 //   compiti:       tutti finiti
 // Un episodio senza ne' scorta ne' compiti (raro) non ha «relief»: torna false.
 export function obiettivoFatto(g) {
-  const sc = specScortati(g); const co = specCompiti(g);
+  const co = specCompiti(g);
+  // I PNG CHE PARTONO LIBERI non sono un obiettivo da compiere: nessuno li ha
+  // liberati. Nell'Ep.9 il teste esce dalla sacrestia col gruppo (`parte_libero`), e
+  // contarlo «liberato» dichiarava l'obiettivo compiuto al round 1 — il mazzo
+  // Minaccia non pescava MAI (audit 21/09/2026). Il loro obiettivo e' portarli alla
+  // meta, e quello lo dice la vittoria, non il rilassamento del mazzo.
+  const sc = specScortati(g).map((s, i) => [s, i]).filter(([s]) => !s.parte_libero).map(([, i]) => i);
+  const soloLiberi = specScortati(g).length > 0 && !sc.length;
   if (!sc.length && !co.length) return false;
+  if (soloLiberi && !co.length) return false;
   if (co.length && !compitiFiniti(g)) return false;
   // PNG liberato = obiettivo sostanziale: da qui e' solo estrazione (aprire
   // l'uscita segreta O tornare alla meta). NON si richiede l'uscita gia' aperta:
@@ -54,7 +62,7 @@ export function obiettivoFatto(g) {
   // lista all'apertura — ma nel Durable Object arrivano stati che quella
   // funzione non ha mai toccato, e il difetto sarebbe stato silenzioso: niente
   // errore, solo il mazzo Minaccia che non pesca più per tutta la partita.
-  if (sc.length && statoScortati(g).filter((x) => x && x.liberato).length < sc.length) return false;
+  if (sc.length && sc.filter((i) => (statoScortati(g)[i] || {}).liberato).length < sc.length) return false;
   return true;
 }
 

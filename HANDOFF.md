@@ -1,5 +1,30 @@
 # Handoff — dove siamo
 
+## FATTO (22/09/2026) — i vantaggi d'Indagine arrivano in Spedizione (audit + correzioni)
+
+Report: `AUDIT-VANTAGGI-INDAGINE.md`. Banco: `node webapp/audit-vantaggi.mjs [porta]
+[--solo=ep3,ep7]` (server statico su, ~3 min; spezzare in 3 shard paralleli).
+
+- `webapp/public/motore/domande.js` (nuovo): applica gli effetti delle Domande. I dati
+  sono `premio`/`penalita` di ogni Domanda, generati da `EFFETTI_DOMANDE` in
+  `webapp/export-data.py` (chiavi: nessuna_minaccia_r1, minaccia_extra_r1, canto,
+  spawn_t1, senza_spawn, smascherato, boss_salta, boss_difesa, senza_prova,
+  traccia_iniziale). Aggancio: `avviaEffetti()` da `iniziaPartita` (digitale.js) —
+  scrive `sp.effetti`, `sp.intuizione`, `sp.promemoria`, `sp.modNemici`, `sp.saltaNemici`.
+- Senza `partita.vantaggi.risposte` non si applica niente (il pilota non le semina:
+  baseline dei win% intatta; `RISPOSTE=sbagliate|giuste` per misurarle).
+- Gettone Intuizione: comando `intuizione` (comandi.js), `sp.ultimoFallito` scritto dopo
+  ogni comando, pannello `#p-intuizione` in digitale.js. Test: `test-motore-domande.mjs`.
+- Ep.9: `obiettivoFatto` non conta chi `parte_libero`. Pilota N=20: 1 vittoria (era 2):
+  fuori banda dal lato difficile, NON ritarato — decisione aperta.
+- 33 Domande su 80 restano a mano (tracce, tessere, tipo di vittoria, narrativa): stanno
+  nel pannello «le domande d'indagine» in Spedizione.
+- Non provato: Durable Object/telefoni col comando `intuizione` (suite wrangler non
+  rilanciate: test-telefono-azioni, test-tavolo-do).
+- Suite UI gia' rosse prima (verificato su HEAD): test-abilita, test-digitale-regressioni
+  (uscita segreta), test-engine (jpg minaccia ep.5/6), test-testi (virgolette, sigle).
+  test-partite e' instabile (ep1 «.reperto-img hidden» a intermittenza, anche su HEAD).
+
 ## FATTO (21/09/2026) — account, tavoli, scelta dell'episodio, correzioni
 
 Tutto su `origin/main` e in produzione (ultimo deploy: commit `fa93a23cf`).
