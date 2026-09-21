@@ -1,0 +1,143 @@
+<!doctype html><html lang="it"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Nebbia · colori · mockup</title>
+<link rel="stylesheet" href="../app.css">
+<style>
+/* Come nell'app (js/nebbia.js): la nebbia e' un div fisso dietro, l'app sopra. */
+#vanta-bg { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+.schermo { position: relative; z-index: 1; padding-bottom: 150px; transition: opacity .25s ease; }
+body.solo-nebbia .schermo { opacity: 0; pointer-events: none; }
+
+/* LA BARRA DEI COLORI: fissa in basso, sopra la nebbia e sopra la pagina, cosi' si
+   cambia palette senza perdere di vista l'effetto */
+.barra-colori { position: fixed; left: 0; right: 0; bottom: 0; z-index: 10;
+  padding: 10px 12px calc(10px + env(safe-area-inset-bottom));
+  background: rgba(12, 14, 17, .92); border-top: 1px solid var(--bordo-alto); backdrop-filter: blur(8px); }
+.chips { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: thin; }
+.chip { flex: 0 0 auto; display: flex; align-items: center; gap: 8px; padding: 6px 12px 6px 8px;
+  min-height: 40px; font-size: 13px; }
+.chip .sw { display: flex; }
+.chip .sw i { width: 11px; height: 22px; border: 1px solid var(--bordo-alto); margin-right: -1px; }
+.chip .sw i:first-child { border-radius: 4px 0 0 4px; } .chip .sw i:last-child { border-radius: 0 4px 4px 0; margin-right: 0; }
+.chip.attiva { border-color: var(--nastro); box-shadow: 0 0 0 1px var(--nastro) inset; }
+.chip.artwork b::after { content: ' ★'; color: var(--nastro); }
+.chip b { font-family: 'FellSC', serif; font-weight: normal; letter-spacing: .05em; white-space: nowrap; }
+.descrizione { margin: 6px 2px 4px; font-size: 13px; line-height: 1.35; color: var(--osso); min-height: 2.7em; }
+.descrizione .hex { font: 11px/1 monospace; color: var(--osso-fioco); }
+.riga-tools { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; }
+.riga-tools label { color: var(--osso-fioco); font-size: 13px; display: flex; gap: 6px; align-items: center; }
+
+/* la palette estratta dalle artwork: i colori piu' presenti di 14 copertine */
+.estratta { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 10px; }
+.estratta i { width: 30px; height: 30px; border-radius: 6px; border: 1px solid var(--bordo); }
+</style></head><body>
+<div id="vanta-bg"></div>
+
+<div class="schermo">
+  <header class="home-testata">
+    <h1>ombre su roccamora</h1>
+    <div class="sotto">mockup · i colori della nebbia</div>
+  </header>
+
+  <div class="pannello">
+    <h2>la palette delle artwork</h2>
+    <p class="nota">I colori più presenti in 14 copertine, dal più scuro: dominano teal e verdi d'acqua,
+      la brace arancio-ruggine è l'unico accento caldo, e i grigi-oliva fanno da fondo.
+      Le proposte con ★ ne partono. Cambia dal pannello in basso.</p>
+    <div class="estratta" id="estratta"></div>
+  </div>
+
+  <div class="pannello mt">
+    <h2>scegliete il caso</h2>
+    <p class="nota">La nebbia si vede negli spazi fra le lastre e ai bordi: deve dare aria, non colore.
+      Per vederla da sola, spunta «solo la nebbia».</p>
+    <div class="griglia-arruolo mt">
+      <div class="eroe-tile stampa-caso scelto"><span class="nastrino">n. 1</span>
+        <img src="/assets/artworks/copertina%20spedizione.png" alt=""><div class="eroe-velo"></div>
+        <div class="eroe-nome"><b>il coro sommerso</b><i>episodio 1 · vinta</i></div><div class="spunta">✓</div></div>
+      <div class="eroe-tile stampa-caso"><span class="nastrino">n. 2</span>
+        <img src="/assets/artworks/copertina%20episodio%202.png" alt=""><div class="eroe-velo"></div>
+        <div class="eroe-nome"><b>la voce del bronzo</b><i class="corso">episodio 2 · in corso</i></div><div class="spunta">✓</div></div>
+      <div class="eroe-tile stampa-caso"><span class="nastrino">n. 4</span>
+        <img src="/assets/artworks/Il%20buio%20di%20quinta.png" alt=""><div class="eroe-velo"></div>
+        <div class="eroe-nome"><b>il teatro dell’eco</b><i>episodio 4</i></div><div class="spunta">✓</div></div>
+      <div class="eroe-tile stampa-caso"><span class="nastrino">n. 5</span>
+        <img src="/assets/artworks/nervous%20priest%20in%20a%20candlelit%20sacristy.png" alt=""><div class="eroe-velo"></div>
+        <div class="eroe-nome"><b>l’organo di ossa</b><i>episodio 5</i></div><div class="spunta">✓</div></div>
+    </div>
+    <div class="btn-riga mt"><button class="btn pieno">si comincia</button><button class="btn">rubrica</button></div>
+  </div>
+</div>
+
+<div class="barra-colori">
+  <div class="chips" id="chips"></div>
+  <p class="descrizione" id="descrizione"></p>
+  <div class="riga-tools">
+    <label><input type="checkbox" id="solo"> solo la nebbia</label>
+    <label><input type="checkbox" id="ferma"> ferma la deriva</label>
+  </div>
+</div>
+
+<script src="../js/vendor/three.min.js"></script>
+<script src="../js/vendor/vanta.fog.min.js"></script>
+<script>
+// Ogni proposta: i quattro colori di Vanta.FOG. `base` e' il fondo piatto; `basso`, `medio` e `alto`
+// sono i tre toni che la nebbia mescola (basso = le valli, alto = le creste illuminate).
+const PALETTE = [
+  { id: 'attuale', nome: 'attuale', artwork: false,
+    nota: 'Verde-oliva e ambra spenti: quella in produzione. Sul fondo scuro fa un marroncino un po\' fangoso.',
+    base: 0x0c0e11, basso: 0x0c0e11, medio: 0x142220, alto: 0x4a3a24 },
+  { id: 'teal-brace', nome: 'teal e brace', artwork: true,
+    nota: 'Le due tinte delle artwork insieme: acqua teal scura nelle valli, un filo di brace ruggine sulle creste.',
+    base: 0x0c0e11, basso: 0x06191a, medio: 0x1a4a4d, alto: 0x5c3421 },
+  { id: 'acqua', nome: 'acqua dei canali', artwork: true,
+    nota: 'Solo il teal delle copertine (ep. 1-3, 14): fredda, omogenea, nessun accento caldo.',
+    base: 0x0c0e11, basso: 0x051617, medio: 0x0f3335, alto: 0x2f6266 },
+  { id: 'lanterna', nome: 'gas di lanterna', artwork: false,
+    nota: 'Ambra calda e fumosa: il lume che filtra dalla bruma. Più calda dell\'attuale, meno marrone.',
+    base: 0x0e0c0a, basso: 0x0f0d0a, medio: 0x2a1d10, alto: 0x7a4a1c },
+  { id: 'cremisi', nome: 'cremisi', artwork: false,
+    nota: 'Rosso scuro dei tendaggi del Palazzo del Lume e della ceralacca: teso, quasi da pericolo.',
+    base: 0x0e0a0b, basso: 0x0e0a0b, medio: 0x2a1216, alto: 0x6b2431 },
+  { id: 'cenere', nome: 'cenere', artwork: false,
+    nota: 'Grigio freddo quasi neutro: la più discreta, lascia parlare solo le artwork.',
+    base: 0x0c0e11, basso: 0x0c0e11, medio: 0x181b20, alto: 0x3a4048 },
+];
+const hex = (n) => '#' + n.toString(16).padStart(6, '0');
+const ridotto = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const opz = (p) => ({ baseColor: p.base, lowlightColor: p.basso, midtoneColor: p.medio, highlightColor: p.alto });
+const iniziale = PALETTE.find((p) => p.id === location.hash.slice(1)) || PALETTE[1];
+
+const fx = VANTA.FOG({
+  el: '#vanta-bg', mouseControls: false, touchControls: false, gyroControls: false,
+  minHeight: 200, minWidth: 200, scale: 2, scaleMobile: 2, blurFactor: 0.35, zoom: 1,
+  speed: ridotto ? 0 : 0.8, ...opz(iniziale),
+});
+
+const chips = document.getElementById('chips');
+const descr = document.getElementById('descrizione');
+const scegli = (p) => {
+  fx.setOptions(opz(p));
+  chips.querySelectorAll('.chip').forEach((x) => x.classList.toggle('attiva', x.dataset.id === p.id));
+  descr.innerHTML = `${p.nota} <span class="hex">${[p.basso, p.medio, p.alto].map(hex).join(' · ')}</span>`;
+  history.replaceState(null, '', '#' + p.id);
+};
+chips.innerHTML = PALETTE.map((p) => `
+  <button class="btn chip${p.artwork ? ' artwork' : ''}" data-id="${p.id}">
+    <span class="sw">${[p.base, p.basso, p.medio, p.alto].map((c) => `<i style="background:${hex(c)}"></i>`).join('')}</span>
+    <b>${p.nome}</b>
+  </button>`).join('');
+chips.addEventListener('click', (e) => {
+  const b = e.target.closest('.chip'); if (b) scegli(PALETTE.find((x) => x.id === b.dataset.id));
+});
+scegli(iniziale);
+document.getElementById('ferma').onchange = (e) => fx.setOptions({ speed: e.target.checked ? 0 : 0.8 });
+document.getElementById('solo').onchange = (e) => document.body.classList.toggle('solo-nebbia', e.target.checked);
+
+// la palette delle artwork, dal piu' scuro al piu' chiaro (estratta da 14 copertine)
+const ARTWORK = ['#031914', '#081a18', '#0c2424', '#0f3638', '#132a2a', '#172824', '#1b3d3e', '#224244',
+  '#255152', '#345c5f', '#292824', '#333428', '#4a4736', '#472616', '#532917', '#7e3a21'];
+document.getElementById('estratta').innerHTML =
+  ARTWORK.map((c) => `<i style="background:${c}" title="${c}"></i>`).join('');
+</script>
+</body></html>

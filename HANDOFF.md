@@ -70,7 +70,9 @@ solo branch, `main`, e nessun worktree extra.
 Vanta.FOG (three.js) dietro a tutte le schermate: `webapp/public/js/nebbia.js`,
 un `<div id="vanta-bg">` fisso in `index.html`, e in `app.css` `#vanta-bg` a
 z-index 0 con `.schermo` a z-index 1 (l'app sta sempre sopra). Palette e
-tentativi scartati: `mockups/nebbia.html`.
+tentativi scartati: `mockups/nebbia.html`. Palette attuale «teal e brace»
+(21/09/2026, scelta fra sei in `mockups/nebbia-colori.html`, che resta per
+riprovarle): base `#0c0e11`, valli `#06191a`, medio `#1a4a4d`, creste `#5c3421`.
 
 - **Librerie vendorizzate, mai da CDN**: `./fetch_vendor.sh` le scarica in
   `webapp/public/js/vendor/` (gitignored) e blocca l'hash sha384. Stanno fra i
