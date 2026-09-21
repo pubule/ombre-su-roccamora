@@ -390,14 +390,25 @@ function menu() {
   const poi = (fn) => () => { chiudiFoglio(); fn(); };
   velo.onclick = () => chiudiFoglio();
   q('#m-chiudi').onclick = () => chiudiFoglio();
-  q('#m-notte').onclick = poi(() => registroNotte(menu));
-  q('#m-squadra').onclick = poi(() => squadra(menu));
+  // «TORNATE INDIETRO» dalle pagine del menu riapre il menu — ma la pagina da
+  // cui lo si era aperto va rimessa SOTTO. Le pagine del menu (la notte, la
+  // squadra, quel che avete in mano…) si disegnano al posto della scena, e senza
+  // questo, chiudendo il foglio riaperto, si restava su quella pagina invece di
+  // tornare alla serata.
+  const origine = ctx.schermata;
+  const scorsa = window.scrollY;
+  const indietro = () => {
+    if (origine) { ridisegna(() => origine()); window.scrollTo(0, scorsa); }
+    menu();
+  };
+  q('#m-notte').onclick = poi(() => registroNotte(indietro));
+  q('#m-squadra').onclick = poi(() => squadra(indietro));
   q('#m-mano').onclick = poi(() => {
-    ctx.schermata = () => elencoInMano(menu, codaCarbone());
-    elencoInMano(menu, codaCarbone());
+    ctx.schermata = () => elencoInMano(indietro, codaCarbone());
+    elencoInMano(indietro, codaCarbone());
     agganciaCarbone(() => ridisegna(() => ctx.schermata()));
   });
-  q('#m-luoghi')?.addEventListener('click', poi(() => doveSieteStati(menu)));
+  q('#m-luoghi')?.addEventListener('click', poi(() => doveSieteStati(indietro)));
   q('#m-stradario')?.addEventListener('click', poi(() => stradarioSchermata()));
   q('#m-taccuino').onclick = poi(() => (arbitro() ? taccuino() : taccuinoDiChiGioca()));
   // `schedaEroe(e)` e basta: il secondo argomento e' l'ARRUOLAMENTO (lo usa la
@@ -405,7 +416,7 @@ function menu() {
   // faceva stampare «arruola eroe» in mezzo a una serata gia' cominciata.
   q('#m-scheda')?.addEventListener('click', poi(() => schedaEroe(
     eroeCresciuto({ partita: P() }, mio, ctx.comune.eroi.find((x) => x.nome === mio)))));
-  q('#m-cambia')?.addEventListener('click', poi(() => cambiaEroe(menu)));
+  q('#m-cambia')?.addEventListener('click', poi(() => cambiaEroe(indietro)));
   q('#m-lettera')?.addEventListener('click',
     poi(() => (arbitro() ? lettera() : letteraDiChiGioca())));
   q('#m-busta')?.addEventListener('click', poi(() => taccuino()));

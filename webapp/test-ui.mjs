@@ -230,6 +230,28 @@ try {
   await page.locator('.scelta-overlay button').click();
   ok(await page.locator('.scelta-overlay').count() === 0, 'e l\'avviso si chiude');
 
+  // «TORNATE INDIETRO» dalle pagine del menu riapre il menu, e chiudendolo si e'
+  // sulla pagina DA CUI lo si era aperto — non su quella del menu che si era
+  // appena lasciata (quel che avete in mano, la notte, la squadra)
+  for (const [voce, indietro] of [['#m-mano', '#mano-indietro'], ['#m-notte', '#notte-indietro'],
+                                  ['#m-squadra', '#sq-indietro']]) {
+    // senza il tasto del menu: aprire la notte la segna letta, e il pallino sparisce
+    const pagina = () => page.evaluate(() => {
+      const c = document.getElementById('app').cloneNode(true);
+      c.querySelector('#apri-menu')?.remove();
+      return c.innerHTML;
+    });
+    const prima = await pagina();
+    await page.locator('#apri-menu').click();
+    await page.locator(voce).click();
+    ok(await page.locator(indietro).count() === 1, `${voce}: la pagina del menu si apre`);
+    await page.locator(indietro).click();
+    ok(await page.locator('#foglio-menu').count() === 1, `${voce}: «tornate indietro» riapre il menu`);
+    await page.locator('#m-chiudi').click();
+    ok(await page.locator(indietro).count() === 0, `${voce}: chiudendo il menu non si resta sulla sua pagina`);
+    ok(await pagina() === prima, `${voce}: si torna alla pagina da cui si era aperto il menu`);
+  }
+
   // l'uscita è nel menu: in cima ci stanno l'ora e il menu, e basta
   await page.locator('#apri-menu').click();
   await page.locator('#nav-esci').click();
