@@ -34,6 +34,7 @@ export async function vistaTavoli(app, quandoScelto) {
     <header class="home-testata">
       <h1>ombre su roccamora</h1>
       <div class="sotto">${esc(stato.email || 'senza rete')}</div>
+      ${stato.email ? `<div class="bottoni"><a class="btn piccolo" style="text-decoration:none" href="/cdn-cgi/access/logout">esci</a></div>` : ''}
       <div class="filetto"></div>
     </header>
     <div class="pannello">
