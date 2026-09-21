@@ -1,5 +1,70 @@
 # Handoff — dove siamo
 
+## FATTO (21/09/2026) — account, tavoli, scelta dell'episodio, correzioni
+
+Tutto su `origin/main` e in produzione (ultimo deploy: commit `fa93a23cf`).
+
+**Account e tavoli**
+- **Logout:** «esci» nella pagina dei tavoli, un link a `/cdn-cgi/access/logout`
+  (lo serve l'edge di Access: nessun codice nel Worker).
+- **Tavoli orfani** (il server non li conosce: cancellati altrove o di un altro
+  account): `entraNelTavolo` scorda la scelta e va all'elenco, dove compaiono in
+  «sul dispositivo, ma non nel tuo account» con «butta dal dispositivo»
+  (`store.tavoliLocali`, `dimenticaTavolo`). `sync.svuota()` non si ferma piu' su
+  un 404: la voce resta in coda, non blocca le altre.
+- **Un tavolo si salva completo:** «salva il tavolo» (`membri.js`) chiede la
+  compagnia (2-10 eroi, salvata sul server) e almeno un invitato; se manca
+  qualcosa un popup dell'app (`chiedi.avvisa`) lo dice. Uscire da un tavolo non
+  completo lo scarta (DELETE); rientrandoci il creatore torna alla creazione; in
+  elenco si legge «da completare».
+- **Ognuno sceglie il proprio eroe, creatore compreso:** niente menu dell'eroe
+  all'invito. `PUT /api/mio-eroe` accetta anche il creatore; `/api/stato` porta
+  `creatore`, `invitati` ed `eroi` del creatore; `/api/membri` porta
+  `proprietario` ed `eroiProprietario` (il creatore NON e' fra i `membri`).
+  Chi non ha un eroe vede solo la scelta dell'eroe (`entraNelTavolo`), con
+  «cambia tavolo» sempre a portata. In gioco chi arbitra resta chi conduce:
+  `postoDiQuestoTavolo` gli da' `eroi` vuoto, come prima — se si vuole che il
+  creatore giochi davvero il suo eroe e' un lavoro a parte sulle viste.
+- **Copyright** solo nella voce «info» del menu di gioco (Indagine), non piu' in
+  fondo alle schermate.
+
+**Scelta dell'episodio (mockup C)** — `js/scheda-caso.js`: ogni caso e' una
+stampa (`.eroe-tile` + nastrino col numero, sigillo per le vinte); toccarla apre
+la scheda del caso e solo da li' si comincia («si comincia» / «riprendete la
+serata» che va dentro senza ripassare da «continua» / «rigiocate il caso»).
+Vittoria parziale = «vinta a meta'». I banchi di prova che aprono un episodio
+passano ora da `#apri-caso`. Le vecchie regole `.tessera-episodio` restano in
+`app.css` solo perche' il mockup `mockups/episodi/oggi.html` le usa; i mockup A
+e B (per atti) sono in `mockups/episodi/`, non portati.
+
+**Correzioni**
+- La patina sulle carte: `.c3d-ombra` stava DOPO `.c3d` nel markup e dipingeva
+  sopra la carta (z-index auto: vince l'ordine nel DOM). Ora e' il primo figlio;
+  `test-carta3d` controlla l'ordine.
+- «tornate indietro» dalle pagine del menu di gioco riporta alla pagina da cui
+  si era aperto il menu (`indagine.js`, `origine` ricordata in `menu()`).
+
+**Deploy — come si fa oggi.** Solo Worker: `deploy.sh` si ferma sull'import D1
+(`Authentication error 10000`, il token OAuth di wrangler; rimedio: `wrangler
+login`), e lo schema non cambia da agosto. Si pubblica da un export pulito di
+`origin/main` (NON dal working tree: c'e' lavoro non committato), con `data`,
+`assets`, `fonts/*.ttf` e `js/vendor` copiati o collegati, poi `build-dist.sh` e
+`npx --no-install wrangler deploy`. La CI parte solo a comando. Il repo ha un
+solo branch, `main`, e nessun worktree extra.
+
+**Ancora aperto**
+- Falliscono gia' su `origin/main`, non toccati: `test-abilita` (2 KO),
+  `test-digitale-regressioni` (3), `test-partite` ep1 ed ep2 (`.reperto-img`
+  nascosto; `test-partite` intero dura oltre nove minuti).
+- La nebbia non e' provata su un iPad vero (vedi sotto).
+- Nel working tree c'e' il lavoro NON committato sulle carte del Preludio:
+  `scripts/cardconjurer/*`, `Preludio/cards/*` (sotto-cartelle per tipo) e
+  `test-carta3d.mjs` (dorsi del Preludio).
+- Banchi con `wrangler`: `test-account-ui` (identita' `uno@esempio.it`),
+  `test-invito` (`arbitro@esempio.it`), `test-mio-eroe` (`giocatore@esempio.it`),
+  `test-membri` (due server, 8787 uno e 8788 due, avviati uno alla volta: due
+  `wrangler dev` insieme si pestano il `build-dist`). Prima `build-dist.sh`.
+
 ## FATTO (21/09/2026) — la nebbia di sfondo
 
 Vanta.FOG (three.js) dietro a tutte le schermate: `webapp/public/js/nebbia.js`,
