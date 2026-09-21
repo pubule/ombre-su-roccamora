@@ -3,7 +3,7 @@
 // (motore arbitro) e qui hanno un segnaposto onesto.
 import { dati, nuovaPartita, salva, carica, cancella, tavoloCorrente, nomeTavoloCorrente,
          sincronizzaScelte, scelteCampagna, frammentiConservati, EPISODI,
-         sincronizzaCrescita, crescitaPerPartita } from './store.js';
+         sincronizzaCrescita, crescitaPerPartita, lasciaTavolo } from './store.js';
 import { biviDi, applicaAllaPartita } from '../motore/bivi.js';
 import { rendi } from './engine.js';   // i Frammenti sono prosa con <i>/<b>
 import { schedaEroe } from './scheda-eroe.js';
@@ -581,6 +581,10 @@ async function entraNelTavolo(id) {
     if (r.ok) stato = await r.json();
   } catch { /* senza rete non si puo' sapere: si finisce sugli episodi, com'era */ }
   const t = stato && (stato.tavoli || []).find((x) => x.id === id);
+  // Il server ha risposto e quel tavolo non c'e': cancellato altrove, o di un
+  // altro account. Si scorda la scelta (le partite no) e si va all'elenco, dove
+  // il tavolo compare fra gli orfani. Senza risposta (offline) si va alla home.
+  if (stato && !t) { lasciaTavolo(); return vistaTavoli(app, (x) => entraNelTavolo(x)); }
   if (!t || t.ruolo === 'arbitro') return vistaHome();      // chi arbitra sceglie, come sempre
 
   // QUAL E' LA SERATA APERTA. Lo decide chi arbitra, e da quando esiste la

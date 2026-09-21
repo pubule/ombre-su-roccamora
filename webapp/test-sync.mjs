@@ -30,11 +30,13 @@ if (!c.locale || !c.remoto) { console.error('FAIL: chiedi deve restituire le due
 const { _coda } = await import('./public/js/sync.js');
 
 const finto = {};
-globalThis.localStorage = {
+// un Proxy su `finto`: come il vero localStorage, `Object.keys` ne elenca le voci
+const metodi = {
   getItem: (k) => finto[k] ?? null,
   setItem: (k, v) => { finto[k] = String(v); },
   removeItem: (k) => { delete finto[k]; },
 };
+globalThis.localStorage = new Proxy(finto, { get: (t, p) => metodi[p] ?? t[p] });
 
 _coda.accoda('t/ep1', { tavolo: 't', episodio: 'ep1', aggiornato: 1, dati: '{}' });
 _coda.accoda('t/ep2', { tavolo: 't', episodio: 'ep2', aggiornato: 2, dati: '{}' });
@@ -65,6 +67,48 @@ ok('niente', { aggiornato: 30, sincronizzato: 10 }, { aggiornato: 30 },
    'stesso istante: e’ lo stesso stato, non un conflitto');
 ok('chiedi', { aggiornato: 30, sincronizzato: 10 }, { aggiornato: 25 },
    'istanti diversi: il conflitto resta un conflitto');
+
+// UN TAVOLO ORFANO NON BLOCCA LA CODA. Il server risponde 404 per un tavolo
+// che non conosce e quella scrittura non passera' mai: se `svuota` si fermasse
+// li', tutto quel che sta dopo — anche di tavoli veri — non partirebbe piu'.
+const { svuota } = await import('./public/js/sync.js');
+_coda.togli('t/ep2');
+_coda.accoda('orfano/ep1', { tavolo: 'orfano', episodio: 'ep1', aggiornato: 1, dati: '{}' });
+_coda.accoda('vero/ep1', { tavolo: 'vero', episodio: 'ep1', aggiornato: 1, dati: '{}' });
+const spedite = [];
+globalThis.fetch = async (_u, o) => {
+  const t = JSON.parse(o.body).tavolo;
+  spedite.push(t);
+  return t === 'orfano' ? { ok: false, status: 404 } : { ok: true, status: 200 };
+};
+await svuota();
+if (!spedite.includes('vero')) { console.error('FAIL: un tavolo orfano ha bloccato la coda'); ko++; }
+const restano = _coda.leggi().map((x) => x.chiave);
+if (restano.length !== 1 || restano[0] !== 'orfano/ep1') {
+  console.error("FAIL: l'orfano deve restare in coda (puo' essere di un altro account), restano", restano); ko++;
+}
+
+// I TAVOLI CHE IL DISPOSITIVO CONOSCE: partite, coda, scelta corrente. Le
+// partite senza tavolo (`osr.partita.ep1`, dei banchi di prova) non sono un tavolo.
+const { tavoliLocali, dimenticaTavolo } = await import('./public/js/store.js');
+for (const k of Object.keys(finto)) delete finto[k];
+finto['osr.partita.aaaa.preludio'] = '{}';
+finto['osr.partita.aaaa.ep1'] = '{}';
+finto['osr.partita.ep1'] = '{}';
+finto['osr.tavolo'] = 'bbbb';
+finto['osr.ruolo.aaaa'] = 'arbitro';
+_coda.accoda('cccc/ep2', { tavolo: 'cccc', episodio: 'ep2', aggiornato: 1, dati: '{}' });
+const visti = Object.fromEntries(tavoliLocali().map((x) => [x.id, x]));
+if (Object.keys(visti).sort().join() !== 'aaaa,bbbb,cccc') {
+  console.error('FAIL: tavoliLocali vede', Object.keys(visti)); ko++;
+}
+if (visti.aaaa?.partite !== 2 || visti.cccc?.inCoda !== 1) {
+  console.error('FAIL: conteggi sbagliati', visti); ko++;
+}
+dimenticaTavolo('aaaa');
+if (finto['osr.partita.aaaa.preludio'] || finto['osr.ruolo.aaaa'] || !finto['osr.partita.ep1']) {
+  console.error('FAIL: dimenticaTavolo ha tolto troppo o troppo poco'); ko++;
+}
 
 console.log(ko ? `${ko} FALLITI` : 'test-sync: tutto a posto');
 process.exit(ko ? 1 : 0);

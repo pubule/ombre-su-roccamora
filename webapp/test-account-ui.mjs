@@ -160,6 +160,35 @@ ok(finale.tavoli.some((t) => t.id === idTavolo), 'gli altri tavoli restano');
 ok(await p3.evaluate((id) => !Object.keys(localStorage).some((k) => k.includes(id)), daButtare.id),
   'del tavolo eliminato non resta traccia sul dispositivo');
 
+// --- 9. un tavolo che il server non conosce (cancellato altrove, o di un altro
+// account) non manda alla home degli episodi: si torna ai tavoli, dove compare
+// fra gli orfani, e si butta solo quando lo decide chi gioca
+const orfano = '99999999-aaaa-bbbb-cccc-000000000000';
+await p3.evaluate((o) => {
+  localStorage.setItem('osr.tavolo', o);
+  localStorage.setItem(`osr.partita.${o}.preludio`, '{"v":1}');
+  localStorage.setItem('osr.dasincronizzare', JSON.stringify([
+    { chiave: `${o}/preludio`, corpo: { tavolo: o, episodio: 'preludio', aggiornato: 1, dati: '{}' } }]));
+}, orfano);
+await p3.reload({ waitUntil: 'networkidle' });
+await p3.waitForTimeout(800);
+ok(await p3.getByText('Il Coro Sommerso').count() === 0,
+  'con un tavolo sconosciuto al server non si finisce sugli episodi');
+ok(await p3.locator('#nuovo-tavolo').count() === 1, 'si finisce sull\'elenco dei tavoli');
+ok(await p3.evaluate(() => localStorage.getItem('osr.tavolo')) === null,
+  'la scelta del tavolo sconosciuto viene scordata');
+ok(await p3.locator(`.elimina-orfano[data-id="${orfano}"]`).count() === 1,
+  'il tavolo sconosciuto compare fra gli orfani');
+ok(await p3.locator('.elimina-orfano').count() === 1, 'e i tavoli veri non sono orfani');
+ok(await p3.evaluate((o) => !!localStorage.getItem(`osr.partita.${o}.preludio`), orfano),
+  'le sue partite restano sul dispositivo finche\' non si butta');
+await p3.locator(`.elimina-orfano[data-id="${orfano}"]`).click();
+await p3.waitForTimeout(600);
+ok(await p3.locator('.elimina-orfano').count() === 0, 'buttato, sparisce dall\'elenco');
+ok(await p3.evaluate((o) => !Object.keys(localStorage).some((k) => k.includes(o))
+    && !(localStorage.getItem('osr.dasincronizzare') || '').includes(o), orfano),
+  'dell\'orfano non resta traccia, nemmeno in coda');
+
 await browser.close();
 console.log(ko ? `\n${ko} FALLITI` : '\ntest-account-ui: tutto a posto');
 process.exit(ko ? 1 : 0);
