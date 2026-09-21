@@ -15,6 +15,33 @@ const nativa = () => {
   try { return /\[native code\]/.test(String(window.confirm)); } catch { return true; }
 };
 
+const esc = (s) => String(s).replace(/[&<>"]/g, (c) =>
+  ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+// UN AVVISO: una cosa da sapere, un bottone solo. Ha la faccia di `conferma`,
+// ma non aspetta una risposta — quindi niente scorciatoia per i banchi di prova
+// che sostituiscono `window.confirm`: non li puo' bloccare, e chi gioca lo vede
+// sempre. Si usa al posto di una riga di nota in fondo alla pagina, che si
+// perde: quando un bottone non puo' fare quel che si chiede, lo si dice cosi'.
+export function avvisa(titolo, { dettaglio = '', ok = 'ho capito' } = {}) {
+  return new Promise((risolvi) => {
+    const ov = document.createElement('div');
+    ov.className = 'scelta-overlay';
+    ov.innerHTML = `<div class="scelta-box chiesta" role="alertdialog" aria-modal="true">
+      <h3 class="sc">${esc(titolo)}</h3>
+      ${dettaglio ? `<p class="nota centrato">${esc(dettaglio)}</p>` : ''}
+      <button class="btn pieno scelta-btn">${esc(ok)}</button>
+    </div>`;
+    document.body.appendChild(ov);
+    const chiudi = () => { ov.remove(); document.removeEventListener('keydown', tasto); risolvi(); };
+    const tasto = (e) => { if (e.key === 'Escape' || e.key === 'Enter') chiudi(); };
+    document.addEventListener('keydown', tasto);
+    ov.querySelector('button').addEventListener('click', chiudi);
+    ov.addEventListener('click', (e) => { if (e.target === ov) chiudi(); });
+    ov.querySelector('button').focus();
+  });
+}
+
 export function conferma(domanda, opzioni = {}) {
   const { si = 'sì', no = 'non ancora', dettaglio = '', sigillo = '' } = opzioni;
 
@@ -23,8 +50,6 @@ export function conferma(domanda, opzioni = {}) {
   return new Promise((risolvi) => {
     const ov = document.createElement('div');
     ov.className = 'scelta-overlay';
-    const esc = (s) => String(s).replace(/[&<>"]/g, (c) =>
-      ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
     ov.innerHTML = `<div class="scelta-box chiesta${sigillo ? ' sigillata' : ''}">
       ${sigillo ? `<div class="sigillo" aria-hidden="true">${esc(sigillo)}</div>` : ''}
       <h3 class="sc">${esc(domanda)}</h3>

@@ -202,7 +202,8 @@ ok(errori.length === 0, `la schermata apre senza errori JS: ${errori.slice(0, 2)
   ok(!(await p2.evaluate(() => document.querySelector('#app').dataset.episodi)),
      'e NON si è passati per gli episodi');
   ok(await p2.locator('#avanti').count() === 1, "con il bottone per salvare quando si e' pronti");
-  ok(await p2.locator('#avanti').isDisabled(), "ma spento finche' non ci sono compagnia e invitati");
+  ok(await p2.locator('#avanti').getAttribute('aria-disabled') === 'true',
+     "ma spento finche' non ci sono compagnia e invitati");
 
   // completato il tavolo: compagnia (via API, la scheda e' un modale) e un invitato
   await p2.evaluate(async ([a, b]) => {
@@ -212,7 +213,8 @@ ok(errori.length === 0, `la schermata apre senza errori JS: ${errori.slice(0, 2)
   await p2.fill('#email-invito', 'compagno@esempio.it');
   await p2.click('#invita');
   await p2.waitForTimeout(900);
-  ok(await p2.locator('#avanti').isEnabled(), 'con compagnia e un invitato si accende');
+  ok(await p2.locator('#avanti').getAttribute('aria-disabled') === 'false',
+     'con compagnia e un invitato si accende');
 
   await p2.click('#avanti');
   await p2.waitForTimeout(400);

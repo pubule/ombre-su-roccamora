@@ -42,9 +42,15 @@ ok(await p1.locator('#eroe-invito').count() === 0,
 // UN TAVOLO SI SALVA COMPLETO: senza compagnia e senza invitati «salva il
 // tavolo» resta spento, e dice cosa manca
 const idTavolo = await p1.evaluate(() => localStorage.getItem('osr.tavolo'));
-ok(await p1.locator('#avanti').isDisabled(), 'senza compagnia e senza invitati non si salva');
-ok(/compagnia/.test(await p1.locator('#manca-tavolo').innerText())
-   && /invitata/.test(await p1.locator('#manca-tavolo').innerText()), 'e si dice cosa manca');
+ok(await p1.locator('#avanti').getAttribute('aria-disabled') === 'true',
+  "senza compagnia e senza invitati «salva il tavolo» e' spento");
+// `aria-disabled`: per Playwright non e' cliccabile, per chi gioca si
+await p1.click('#avanti', { force: true });
+const avviso = await p1.locator('.scelta-overlay').innerText();
+ok(/compagnia, da 2 a 10 eroi/.test(avviso) && /invitata/.test(avviso),
+  `premuto, un avviso dell'app dice cosa manca (visto «${avviso.replace(/\s+/g, ' ').slice(0, 90)}»)`);
+await p1.locator('.scelta-overlay button').click();
+ok(await p1.locator('.scelta-overlay').count() === 0, 'e si chiude');
 
 // la compagnia: si salva col tocco sui ritratti, qui via API (la scheda e' un modale)
 await p1.evaluate(async (t) => {
@@ -55,7 +61,8 @@ await p1.fill('#nome-invito', 'Ospite');
 await p1.fill('#email-invito', 'ospite-uno@esempio.it');
 await p1.click('#invita');
 await p1.waitForTimeout(900);
-ok(await p1.locator('#avanti').isEnabled(), 'con la compagnia e un invitato si salva');
+ok(await p1.locator('#avanti').getAttribute('aria-disabled') === 'false',
+   'con la compagnia e un invitato si salva');
 
 // salvato il tavolo, il CREATORE sceglie il suo eroe come tutti: finche' non lo
 // fa vede solo quello, e gli episodi non ci sono
@@ -301,11 +308,35 @@ await p3.goto(BASE, { waitUntil: 'networkidle' });
 await p3.evaluate((t) => localStorage.setItem('osr.tavolo', t), idVuoto);   // senza compagnia
 await p3.reload({ waitUntil: 'networkidle' });
 await p3.waitForTimeout(800);
-ok(await p3.locator('#avanti').count() === 1 && await p3.locator('#avanti').isDisabled(),
+ok(await p3.locator('#avanti').count() === 1
+   && await p3.locator('#avanti').getAttribute('aria-disabled') === 'true',
   'un tavolo suo senza compagnia non si apre: si torna a completarlo');
-ok(/compagnia/.test(await p3.locator('#manca-tavolo').innerText())
-   && !/invitata/.test(await p3.locator('#manca-tavolo').innerText()),
-  'e dice che manca solo la compagnia (l\'invitato c\'e\')');
+await p3.click('#avanti', { force: true });
+const avviso2 = await p3.locator('.scelta-overlay').innerText();
+ok(/compagnia, da 2 a 10 eroi/.test(avviso2) && !/invitata/.test(avviso2),
+  "e dice che manca solo la compagnia (l'invitato c'e')");
+await p3.locator('.scelta-overlay button').click();
+
+// --- 12. USCIRE DA UN TAVOLO NON SALVATO LO SCARTA: il tavolo esiste sul server
+// dal momento in cui lo si crea, e uscire a meta' lo lasciava nell'elenco
+await p3.goto(BASE, { waitUntil: 'networkidle' });
+await p3.evaluate(() => { localStorage.removeItem('osr.tavolo'); });
+await p3.reload({ waitUntil: 'networkidle' });
+const primaDiBozza = (await (await api(ARB, 'GET', '/api/stato')).json()).tavoli.length;
+await p3.click('#nuovo-tavolo');
+await p3.fill('#nome-tavolo', 'Tavolo lasciato a meta');
+await p3.click('#crea-tavolo');
+await p3.waitForTimeout(900);
+ok((await (await api(ARB, 'GET', '/api/stato')).json()).tavoli.length === primaDiBozza + 1,
+  'appena creato il tavolo esiste sul server');
+await p3.click('#indietro');            // confirm sostituito: risponde «si»
+await p3.waitForTimeout(900);
+const dopoBozza = (await (await api(ARB, 'GET', '/api/stato')).json()).tavoli;
+ok(dopoBozza.length === primaDiBozza && !dopoBozza.some((t) => t.nome === 'Tavolo lasciato a meta'),
+  'uscendo senza salvare il tavolo viene scartato');
+ok(await p3.locator('#nuovo-tavolo').count() === 1, "e si torna all'elenco dei tavoli");
+ok(await p3.evaluate(() => localStorage.getItem('osr.tavolo')) === null,
+  'senza lasciare il tavolo scartato come scelta corrente');
 
 await browser.close();
 console.log(ko ? `\n${ko} FALLITI` : '\ntest-account-ui: tutto a posto');

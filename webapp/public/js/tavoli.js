@@ -27,6 +27,11 @@ export async function vistaTavoli(app, quandoScelto) {
   const noti = new Set(stato.tavoli.map((t) => t.id));
   const orfani = offline ? [] : tavoliLocali().filter((o) => !noti.has(o.id));
 
+  // un tavolo mio senza compagnia (2-10 eroi) o senza invitati non e' stato
+  // salvato: entrandoci si torna a completarlo (vedi `entraNelTavolo`)
+  const incompleto = (t) => t.creatore
+    && ((t.party ? JSON.parse(t.party) : []).length < 2 || !t.invitati);
+
   const quante = (id) => stato.salvataggi.filter((s) => s.tavolo === id).length;
   const ultima = (id) => {
     const suoi = stato.salvataggi.filter((s) => s.tavolo === id);
@@ -48,7 +53,7 @@ export async function vistaTavoli(app, quandoScelto) {
         <div class="modo tavolo-voce${t.id === tavoloCorrente() ? ' attivo' : ''}"
              data-id="${esc(t.id)}" data-nome="${esc(t.nome)}">
           <h3>${esc(t.nome)}</h3>
-          <p>${ultima(t.id)}</p>
+          <p>${incompleto(t) ? 'da completare — non ancora salvato' : ultima(t.id)}</p>
           ${t.ruolo === 'arbitro' ? `<button class="btn piccolo membri-tavolo" data-id="${esc(t.id)}"
                   data-nome="${esc(t.nome)}">chi gioca</button>` : ''}
           <button class="btn piccolo elimina-tavolo" data-id="${esc(t.id)}"

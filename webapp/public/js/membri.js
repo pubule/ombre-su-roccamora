@@ -9,8 +9,8 @@
 // sarebbe un tavolo che si allarga da solo. Il Worker lo impone comunque
 // (`arbitroDi` in api.js); qui il bottone non compare proprio, perché offrire
 // un'azione che verrà rifiutata è peggio che non offrirla.
-import { dati } from './store.js';
-import { conferma } from './chiedi.js';
+import { dati, dimenticaTavolo } from './store.js';
+import { conferma, avvisa } from './chiedi.js';
 import { schedaEroe } from './scheda-eroe.js';
 
 const esc = (s) => String(s == null ? '' : s).replace(/[&<>"]/g, (c) =>
@@ -165,28 +165,52 @@ export async function vistaMembri(app, tavolo, nome, torna, avanti) {
         <div class="btn-riga mt"><button class="btn pieno" id="invita">in rubrica, e al tavolo</button></div>
       </div>
       ${avanti ? `<div class="mt"></div>
-        <p class="nota" id="manca-tavolo"></p>
-        <div class="btn-riga"><button class="btn pieno" id="avanti" disabled>salva il tavolo</button></div>`
+        <div class="btn-riga"><button class="btn pieno" id="avanti" aria-disabled="true">salva il tavolo</button></div>`
       : ''}`;
 
-    document.getElementById('indietro').onclick = torna;
     const btnAvanti = document.getElementById('avanti');
-    if (btnAvanti) btnAvanti.onclick = () => avanti();
     // UN TAVOLO SI SALVA COMPLETO: la compagnia (da 2 a 10 eroi, e SALVATA sul
     // server, non solo toccata) e almeno una persona invitata. Senza, il bottone
-    // resta spento e dice cosa manca — un tavolo a meta' finiva nell'elenco e
-    // dentro c'era una serata da cominciare senza nessuno con cui giocarla.
+    // sembra spento ma si puo' premere, e un avviso dice cosa manca: una riga di
+    // nota in fondo alla pagina non la vedeva nessuno, e il tavolo restava li'.
     let partySalvato = squadra.length >= 2;
+    const cosaManca = () => {
+      const manca = [];
+      if (!partySalvato) manca.push('la compagnia, da 2 a 10 eroi');
+      if (!altri.length) manca.push('almeno una persona invitata');
+      return manca;
+    };
     const aggiornaAvanti = () => {
       if (!btnAvanti) return;
-      const manca = [];
-      if (!partySalvato) manca.push('la compagnia (da 2 a 10 eroi)');
-      if (!altri.length) manca.push('almeno una persona invitata');
-      btnAvanti.disabled = manca.length > 0;
-      document.getElementById('manca-tavolo').textContent = manca.length
-        ? `Per salvare il tavolo manca: ${manca.join(' e ')}.` : '';
+      const spento = cosaManca().length > 0;
+      btnAvanti.setAttribute('aria-disabled', String(spento));
+      btnAvanti.style.opacity = spento ? '.45' : '';
     };
     aggiornaAvanti();
+    if (btnAvanti) btnAvanti.onclick = () => {
+      const manca = cosaManca();
+      if (!manca.length) return avanti();
+      avvisa('Il tavolo non è ancora completo', {
+        dettaglio: `Per salvarlo servono ${manca.join(' e ')}.` });
+    };
+
+    // USCIRE DA UN TAVOLO NON SALVATO LO SCARTA. Il tavolo esiste sul server dal
+    // momento in cui si crea — inviti e compagnia hanno bisogno di un id — quindi
+    // uscire senza salvarlo lo lasciava nell'elenco a meta'. Un tavolo completo
+    // invece resta: e' salvabile, e l'unica cosa che manca e' il bottone.
+    document.getElementById('indietro').onclick = async () => {
+      if (!avanti || !cosaManca().length) return torna();
+      if (!await conferma('Uscire senza salvare?', {
+        dettaglio: 'Il tavolo non è completo: se esci, viene scartato.',
+        si: 'scarta il tavolo', no: 'continua a completarlo',
+      })) return;
+      try {
+        const r = await fetch(`/api/tavolo?id=${encodeURIComponent(tavolo)}`, { method: 'DELETE' });
+        if (!r.ok) throw new Error(r.status);
+      } catch { return rendi('Non riesco a scartare il tavolo: manca la rete. Riprova.'); }
+      dimenticaTavolo(tavolo);
+      torna();
+    };
 
     // La compagnia si compone toccando i ritratti, e si salva a parte: toccare
     // un eroe non deve far partire una scrittura per ogni tocco.
