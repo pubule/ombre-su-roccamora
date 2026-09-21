@@ -42,7 +42,8 @@ export async function vistaMembri(app, tavolo, nome, torna, avanti) {
     try {
       const r = await fetch(`/api/membri?tavolo=${encodeURIComponent(tavolo)}`);
       if (!r.ok) return null;
-      return (await r.json()).membri || [];
+      const j = await r.json();
+      return { membri: j.membri || [], proprietario: j.proprietario || null };
     } catch { return null; }
   }
 
@@ -58,10 +59,10 @@ export async function vistaMembri(app, tavolo, nome, torna, avanti) {
   }
 
   async function rendi(avviso) {
-    const [membri, squadra, rub] = await Promise.all([
+    const [letti, squadra, rub] = await Promise.all([
       carica(), party().then((x) => x || []), rubrica(),
     ]);
-    if (membri === null) {
+    if (letti === null) {
       app.innerHTML = `<div class="barra"><button class="btn" id="indietro">← tavoli</button>
           <div class="titolo">${esc(nome)}</div><span></span></div>
         <div class="pannello"><p class="nota">Non riesco a leggere chi siede al tavolo:
@@ -70,9 +71,15 @@ export async function vistaMembri(app, tavolo, nome, torna, avanti) {
       return;
     }
 
+    const { membri, proprietario } = letti;
+    // chi ha creato il tavolo e' sempre l'arbitro e non e' fra i `membri`: sta
+    // sopra, fisso, senza «togli» — non si toglie nessuno da un tavolo suo
+    const altri = membri.filter((m) => m.email !== proprietario);
+
     // chi è in rubrica e non siede già a questo tavolo: offrire chi c'è già
     // sarebbe un bottone che il server rifiuta
-    const seduti = new Set(membri.map((m) => String(m.email).toLowerCase()));
+    const seduti = new Set([...membri.map((m) => m.email), proprietario]
+      .filter(Boolean).map((x) => String(x).toLowerCase()));
     const liberi = (rub.persone || []).filter((x) => !seduti.has(String(x.email).toLowerCase()));
 
     // gli eroi già presi non si possono dare due volte: è una regola, e il
@@ -107,7 +114,11 @@ export async function vistaMembri(app, tavolo, nome, torna, avanti) {
       <div class="mt"></div>
       <div class="pannello" id="p-membri">
         <h2>chi gioca a questo tavolo</h2>
-        ${membri.length ? membri.map((m) => `
+        ${proprietario ? `<div class="nemico-riga">
+          <span class="nemico-nome">${esc(proprietario)}
+            <span class="nota">arbitra · ha creato il tavolo</span></span>
+        </div>` : ''}
+        ${altri.length ? altri.map((m) => `
           <div class="nemico-riga">
             <span class="nemico-nome">${esc(m.nome || m.email)}
               <span class="nota">${eroiDi(m).length
@@ -117,9 +128,9 @@ export async function vistaMembri(app, tavolo, nome, torna, avanti) {
             <button class="btn piccolo togli-membro" data-email="${esc(m.email)}"
                     data-nome="${esc(m.nome || '')}">togli</button>
           </div>`).join('')
-          : '<p class="nota">Ancora nessuno. Sei solo al tavolo: gli eroi li muovi tutti tu.</p>'}
+          : '<p class="nota">Ancora nessun altro. Sei solo al tavolo: gli eroi li muovi tutti tu.</p>'}
         ${avviso ? `<p class="nota mt ko-txt">${esc(avviso)}</p>` : ''}
-        ${membri.length ? `<div class="mt"><p class="nota">Da mandare a chi hai aggiunto —
+        ${altri.length ? `<div class="mt"><p class="nota">Da mandare a chi hai aggiunto —
           nessuno lo fa al posto tuo:</p>
           <input class="campo" id="link-tavolo" readonly value="${esc(location.origin)}">
           <div class="btn-riga mt"><button class="btn" id="copia-link">copia il link</button></div>

@@ -107,19 +107,26 @@ export async function api(request, env, email) {
     if (!(await mioTavolo(env, email, tavolo))) return jsonRisposta({ errore: 'non trovato' }, 404);
     // chi siede a questo tavolo lo vedono tutti quelli che ci siedono: sapere
     // con chi si gioca non e' un segreto
-    const [r, e] = await Promise.all([
+    const [r, e, t] = await Promise.all([
       env.DB.prepare(
         'SELECT email, nome, ruolo, invitato FROM membri WHERE tavolo = ? ORDER BY invitato')
         .bind(tavolo).all(),
       env.DB.prepare('SELECT email, eroe FROM eroi_posto WHERE tavolo = ? ORDER BY eroe')
         .bind(tavolo).all(),
+      env.DB.prepare('SELECT proprietario FROM tavoli WHERE id = ?').bind(tavolo).first(),
     ]);
     // UN POSTO PUO' AVERNE PIU' D'UNO (un iPad, due amici): `eroi` e' la lista,
     // e `eroe` resta il primo per quel che non e' ancora stato riscritto.
     const suoi = {};
     for (const x of e.results || []) (suoi[x.email] = suoi[x.email] || []).push(x.eroe);
-    return jsonRisposta({ membri: (r.results || []).map((m) => ({
-      ...m, eroi: suoi[m.email] || [], eroe: (suoi[m.email] || [])[0] || null })) });
+    // CHI HA CREATO IL TAVOLO e' l'arbitro per sempre, ma non ha una riga in
+    // `membri` (sta in `tavoli.proprietario`): senza dirlo qui, l'elenco lo
+    // ometteva e un tavolo con un solo invitato sembrava dell'invitato. Sta in
+    // un campo a parte e non fra i `membri`, perche' non si toglie e non prende
+    // un posto: chi conta le righe non deve trovarsene una in piu'.
+    return jsonRisposta({ proprietario: t ? t.proprietario : null,
+      membri: (r.results || []).map((m) => ({
+        ...m, eroi: suoi[m.email] || [], eroe: (suoi[m.email] || [])[0] || null })) });
   }
 
   // PRENDERSI UN EROE. Il posto e' tuo, e quale eroe giochi lo decidi tu: e' la

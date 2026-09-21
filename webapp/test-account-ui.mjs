@@ -189,6 +189,53 @@ ok(await p3.evaluate((o) => !Object.keys(localStorage).some((k) => k.includes(o)
     && !(localStorage.getItem('osr.dasincronizzare') || '').includes(o), orfano),
   'dell\'orfano non resta traccia, nemmeno in coda');
 
+// --- 10. CHI HA CREATO IL TAVOLO e' l'arbitro sempre, anche senza eroe; e un
+// invitato senza eroe vede SOLO la scelta dell'eroe, anche con il tavolo gia'
+// ricordato (l'app apre da li' senza passare dall'elenco)
+const ARB = 'uno@esempio.it', OSPITE = 'ospite@esempio.it';
+const api = (email, metodo, percorso, corpo) => fetch(BASE + percorso, {
+  method: metodo, headers: { 'Content-Type': 'application/json', 'X-Osr-Dev-Email': email },
+  body: corpo ? JSON.stringify(corpo) : undefined });
+const idOspite = crypto.randomUUID();
+await api(ARB, 'POST', '/api/tavolo', { id: idOspite, nome: 'Con ospite' });
+await api(ARB, 'PUT', '/api/party', { tavolo: idOspite, party: ['NINO GRIMALDELLO CAUTO', 'CARLA DOSTI'] });
+await api(ARB, 'POST', '/api/membri', { tavolo: idOspite, email: OSPITE });   // senza eroe
+
+const elenco = await (await api(ARB, 'GET', `/api/membri?tavolo=${idOspite}`)).json();
+ok(elenco.proprietario === ARB, 'il tavolo dice chi l\'ha creato');
+ok(elenco.membri.length === 1 && elenco.membri[0].email === OSPITE,
+  'ma il creatore non e\' fra i membri: non prende un posto e non si toglie');
+
+await p3.goto(BASE, { waitUntil: 'networkidle' });
+await p3.evaluate(() => { localStorage.removeItem('osr.tavolo'); });
+await p3.reload({ waitUntil: 'networkidle' });
+await p3.locator(`.membri-tavolo[data-id="${idOspite}"]`).click();
+await p3.waitForTimeout(800);
+ok(await p3.getByText(/ha creato il tavolo/i).count() === 1,
+  'nell\'elenco di chi gioca il creatore compare, come arbitro');
+ok(await p3.locator('.togli-membro').count() === 1, 'e solo l\'invitato si puo\' togliere');
+
+const ctxO = await browser.newContext({ viewport: { width: 390, height: 844 },
+  extraHTTPHeaders: { 'X-Osr-Dev-Email': OSPITE } });
+const po = await ctxO.newPage();
+po.on('pageerror', (e) => { console.log('   !! pageerror:', e.message); ko++; });
+await po.goto(BASE, { waitUntil: 'networkidle' });
+await po.evaluate((t) => localStorage.setItem('osr.tavolo', t), idOspite);   // tavolo gia' ricordato
+await po.reload({ waitUntil: 'networkidle' });
+await po.waitForTimeout(800);
+ok(await po.locator('.griglia-arruolo .eroe-tile').count() === 2,
+  'l\'invitato senza eroe vede solo la scelta dell\'eroe');
+ok(await po.getByText(new RegExp(`Tavolo di.*${ARB}`)).count() > 0, 'e sa chi arbitra');
+ok(await po.locator('#entra').count() === 0, 'e non c\'e\' modo di andare oltre');
+ok(await po.getByText(/la serata non è ancora cominciata/i).count() === 0,
+  'non arriva alla schermata d\'attesa senza aver scelto');
+
+await api(OSPITE, 'PUT', '/api/mio-eroe', { tavolo: idOspite, eroi: ['CARLA DOSTI'] });
+await po.reload({ waitUntil: 'networkidle' });
+await po.waitForTimeout(800);
+ok(await po.getByText(/la serata non è ancora cominciata/i).count() > 0,
+  'preso l\'eroe, il tavolo si apre');
+
 await browser.close();
 console.log(ko ? `\n${ko} FALLITI` : '\ntest-account-ui: tutto a posto');
 process.exit(ko ? 1 : 0);

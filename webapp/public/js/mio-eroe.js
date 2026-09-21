@@ -32,6 +32,7 @@ export async function vistaMioEroe(app, tavolo, nomeTavolo, quandoPreso) {
         io: s.email,
         party: t && t.party ? JSON.parse(t.party) : [],
         membri: m.membri || [],
+        arbitra: m.proprietario || null,
       };
     } catch { return null; }
   }
@@ -62,7 +63,7 @@ export async function vistaMioEroe(app, tavolo, nomeTavolo, quandoPreso) {
     if (!d.party.length) {
       app.innerHTML = `<div class="barra"><span></span><div class="titolo">${esc(nomeTavolo)}</div><span></span></div>
         <div class="pannello"><h2>ancora niente da scegliere</h2>
-          <p>Chi arbitra non ha ancora composto la compagnia. Appena l’avrà fatto,
+          <p>${d.arbitra ? `<b>${esc(d.arbitra)}</b>, che arbitra,` : 'Chi arbitra'} non ha ancora composto la compagnia. Appena l’avrà fatto,
              qui troverai gli eroi liberi.</p>
           <div class="btn-riga mt"><button class="btn" id="riprova">guarda di nuovo</button></div>
         </div>`;
@@ -74,7 +75,7 @@ export async function vistaMioEroe(app, tavolo, nomeTavolo, quandoPreso) {
       <div class="barra"><span></span><div class="titolo">${esc(nomeTavolo)}</div><span></span></div>
       <div class="pannello">
         <h2>${miei.length ? (miei.length > 1 ? 'i tuoi eroi' : 'il tuo eroe') : 'prenditi un eroe'}</h2>
-        <p class="nota">${miei.length
+        <p class="nota">${d.arbitra ? `Tavolo di <b>${esc(d.arbitra)}</b>, che arbitra. ` : ''}${miei.length
           ? `Giochi <b>${miei.map((n) => esc(primo(n).toLowerCase())).join('</b> e <b>')}</b>.
              Tocca un altro ritratto per aggiungerlo, o il tuo per lasciarlo — finché la
              serata non comincia.`

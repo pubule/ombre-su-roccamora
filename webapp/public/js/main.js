@@ -9,6 +9,7 @@ import { rendi } from './engine.js';   // i Frammenti sono prosa con <i>/<b>
 import { schedaEroe } from './scheda-eroe.js';
 import { vistaTavoli } from './tavoli.js';
 import { vistaRubrica } from './rubrica.js';
+import { vistaMioEroe } from './mio-eroe.js';
 import { decidi, avviaCoda, stato as statoSync } from './sync.js';
 import { conferma } from './chiedi.js';
 import './zoom.js';   // un tocco sulla carta la apre a tutto schermo
@@ -586,6 +587,13 @@ async function entraNelTavolo(id) {
   // il tavolo compare fra gli orfani. Senza risposta (offline) si va alla home.
   if (stato && !t) { lasciaTavolo(); return vistaTavoli(app, (x) => entraNelTavolo(x)); }
   if (!t || t.ruolo === 'arbitro') return vistaHome();      // chi arbitra sceglie, come sempre
+
+  // UN INVITATO SENZA EROE vede solo la scelta dell'eroe, e solo dopo va oltre.
+  // Il controllo sta qui e non nell'elenco dei tavoli: con la scelta del tavolo
+  // gia' ricordata l'app apre da qui, senza passare dall'elenco, e chi non aveva
+  // ancora un eroe finiva in una serata da guardare con un posto che non muove
+  // niente.
+  if (!(t.eroi || []).length) return vistaMioEroe(app, id, t.nome, () => entraNelTavolo(id));
 
   // QUAL E' LA SERATA APERTA. Lo decide chi arbitra, e da quando esiste la
   // partita viva c'e' un posto dove lo dice: il Durable Object. Si chiede li'.
