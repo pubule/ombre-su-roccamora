@@ -13,8 +13,8 @@ set -e
 # qualunque cartella lo si lanci
 cd "$(dirname "${BASH_SOURCE[0]}")/../webapp"
 
-for d in public data assets ../fonts; do
-  [ -d "$d" ] || { echo "manca $d — lancia export-data.py/js, export-assets.py, ./fetch_fonts.sh"; exit 1; }
+for d in public data assets ../fonts public/js/vendor; do
+  [ -d "$d" ] || { echo "manca $d — lancia export-data.py/js, export-assets.py, ./fetch_fonts.sh, ./fetch_vendor.sh"; exit 1; }
 done
 
 # Si svuota il CONTENUTO, non si cancella la cartella. La differenza conta

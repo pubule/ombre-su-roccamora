@@ -105,7 +105,13 @@ h1 { color: var(--osso); }
 h2 { color: var(--osso); }
 em, i { font-style: italic; }
 
-.schermo { max-width: 1080px; margin: 0 auto; padding: 20px 16px 40px; }
+/* la nebbia (js/nebbia.js) e' un div fisso, fratello di #app, PRIMA nel
+   DOM: a parita' di z-index vince l'ordine nel DOM (il difetto gia' visto
+   sulla carta che si gira, .c3d-ombra) — qui si evita dando a .schermo uno
+   z-index esplicito, cosi' l'app resta sempre sopra qualunque cosa nebbia
+   ci metta dietro. */
+#vanta-bg { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+.schermo { position: relative; z-index: 1; max-width: 1080px; margin: 0 auto; padding: 20px 16px 40px; }
 
 /* l'etichetta battuta a macchina: dice quale fascicolo hai in mano */
 /* l'etichetta dice quale fascicolo hai in mano: nella pelle nuova è una riga

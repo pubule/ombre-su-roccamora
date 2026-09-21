@@ -15,6 +15,8 @@ Episodio 1/pdf/Carte-e-Tessere.pdf
 webapp/assets/
 webapp/data/
 webapp/dist/
+# librerie di terzi (nebbia di sfondo): vedi fetch_vendor.sh
+webapp/public/js/vendor/
 
 # log di playtest: rigenerabili a comando, non vanno versionati
 logs/playtest/

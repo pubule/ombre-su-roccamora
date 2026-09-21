@@ -1,5 +1,26 @@
 # Handoff — dove siamo
 
+## FATTO (21/09/2026) — la nebbia di sfondo
+
+Vanta.FOG (three.js) dietro a tutte le schermate: `webapp/public/js/nebbia.js`,
+un `<div id="vanta-bg">` fisso in `index.html`, e in `app.css` `#vanta-bg` a
+z-index 0 con `.schermo` a z-index 1 (l'app sta sempre sopra). Palette e
+tentativi scartati: `mockups/nebbia.html`.
+
+- **Librerie vendorizzate, mai da CDN**: `./fetch_vendor.sh` le scarica in
+  `webapp/public/js/vendor/` (gitignored) e blocca l'hash sha384. Stanno fra i
+  prerequisiti di `build-dist.sh` e del workflow di deploy, come i font: in un
+  worktree pulito vanno copiate/scaricate prima di `build-dist.sh`.
+- **Non rompe mai l'app**: senza le librerie `VANTA` non e' definito e
+  `nebbia.js` non fa niente.
+- **Costo** (si gioca per ore su un iPad): `scale: 2` (un quarto dei pixel su
+  retina), e nel modo immersivo (`#app.immersivo`, la plancia) la nebbia si
+  SPEGNE e riparte uscendone. `prefers-reduced-motion` la ferma.
+- **Provata** con `node webapp/test-nebbia.mjs` (server: `node webapp/server.js`).
+  NON provata su un iPad vero: batteria e temperatura dopo una serata intera
+  sono da guardare; se pesa, il primo rimedio e' spegnerla anche fuori dal
+  modo immersivo, e il secondo un interruttore nel menu.
+
 ## IN CORSO (16/08/2026) — la pelle nuova: «notte e nebbia»
 
 **Dove sta tutto.** I mockup sono in repo: `webapp/public/mockups/stile2/`

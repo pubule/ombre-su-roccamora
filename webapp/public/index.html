@@ -50,12 +50,17 @@
   <link rel="stylesheet" href="app.css">
 </head>
 <body>
+  <div id="vanta-bg"></div>
   <div id="app" class="schermo">
     <div class="caricamento">
       <div class="sigillo-pulse"></div>
       <p>Roccamora si sveglia…</p>
     </div>
   </div>
+  <!-- vendorizzati (fetch_vendor.sh), mai da CDN: vedi js/nebbia.js -->
+  <script defer src="js/vendor/three.min.js"></script>
+  <script defer src="js/vendor/vanta.fog.min.js"></script>
+  <script defer src="js/nebbia.js"></script>
   <script type="module" src="js/main.js"></script>
 </body>
 </html>
