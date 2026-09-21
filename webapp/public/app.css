@@ -449,7 +449,8 @@ em, i { font-style: italic; }
    dov'e' una cosa. */
 
 /* la riga in cima: l'orologio non sta mai dietro un tocco, e accanto il tasto
-   del menu — col pallino quando nella notte e' arrivata una riga nuova */
+   del menu. Niente pallino sul tasto: dava l'illusione di una notifica — le
+   righe nuove della notte si leggono dentro il menu, sulla voce «la notte» */
 .riga-capo { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px; }
 .riga-capo .riga-registro { flex: 1; margin: 0; }
 /* i comandi della cornice — suoni e menu — restano insieme e in alto: la riga
@@ -457,8 +458,6 @@ em, i { font-style: italic; }
    mezz'aria */
 .comandi-capo { display: flex; align-items: center; gap: 6px; flex: 0 0 auto; }
 .btn-menu { flex: 0 0 auto; padding: 8px 14px; }
-.btn-menu .segno { display: inline-block; width: 7px; height: 7px; border-radius: 50%;
-  background: var(--nastro); margin-left: 6px; vertical-align: 1px; }
 
 /* L'ULTIMO FATTO. Una riga sola, e non e' decorazione: chiuso il registro
    dentro una voce di menu, «cos'e' appena successo» si perderebbe — ed e' il

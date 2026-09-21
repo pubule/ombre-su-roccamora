@@ -266,8 +266,7 @@ function orologio() {
     <div class="comandi-capo">
       ${suoni.bottoneHtml()}
       <button class="btn btn-menu" id="apri-menu">
-        <svg class="ic" aria-hidden="true"><use href="#i-lanterna"></use></svg>menu${
-        nuoveNelRegistro() ? '<span class="segno"></span>' : ''}</button>
+        <svg class="ic" aria-hidden="true"><use href="#i-lanterna"></use></svg>menu</button>
     </div>
   </div>`;
 }
@@ -436,8 +435,8 @@ function chiudiFoglio() {
 }
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape') chiudiFoglio(); });
 
-// IL REGISTRO, a tutta pagina. Aprendolo si segna quel che si e' letto: il
-// pallino sul tasto e' per chi non l'ha guardato, non per tutti.
+// IL REGISTRO, a tutta pagina. Aprendolo si segna quel che si e' letto: le
+// «nuove» sulla voce del menu sono per chi non l'ha guardato, non per tutti.
 function registroNotte(dietro) {
   ctx.notteLette = (IND().notte || []).length;
   ctx.schermata = () => registroNotte(dietro);

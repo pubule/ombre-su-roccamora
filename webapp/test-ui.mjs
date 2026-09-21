@@ -235,12 +235,7 @@ try {
   // appena lasciata (quel che avete in mano, la notte, la squadra)
   for (const [voce, indietro] of [['#m-mano', '#mano-indietro'], ['#m-notte', '#notte-indietro'],
                                   ['#m-squadra', '#sq-indietro']]) {
-    // senza il tasto del menu: aprire la notte la segna letta, e il pallino sparisce
-    const pagina = () => page.evaluate(() => {
-      const c = document.getElementById('app').cloneNode(true);
-      c.querySelector('#apri-menu')?.remove();
-      return c.innerHTML;
-    });
+    const pagina = () => page.locator('#app').innerHTML();
     const prima = await pagina();
     await page.locator('#apri-menu').click();
     await page.locator(voce).click();
@@ -328,6 +323,19 @@ try {
      'e la stampa dice «in corso»');
   await page.locator('#chiudi-caso').click();
   ok(await page.locator('.scelta-overlay').count() === 0, 'la scheda si chiude senza far partire niente');
+
+  // IL TASTO DEL MENU NON HA PALLINO: dava l'illusione di una notifica. Qui la
+  // partita e' appena stata ricaricata, quindi TUTTE le righe della notte sono
+  // «nuove» (mai aperto il registro): e' il caso in cui il pallino si accendeva.
+  // Le righe nuove si leggono dentro il menu, sulla voce «la notte».
+  await page.locator('.stampa-caso[data-ep="ep1"]').click();
+  await page.locator('#apri-caso').click();
+  await page.locator('#apri-menu').waitFor();
+  ok(await page.locator('#apri-menu .segno').count() === 0, 'il tasto del menu non ha nessun pallino');
+  await page.locator('#apri-menu').click();
+  ok(/nuove/.test(await page.locator('#m-notte').innerText()),
+     'le righe nuove della notte si leggono sulla voce «la notte» del menu');
+  await page.locator('#m-chiudi').click();
 } catch (e) {
   ko(`flusso interrotto: ${e.message.split('\n')[0]}`);
 }
