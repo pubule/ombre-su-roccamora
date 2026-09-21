@@ -17,7 +17,7 @@ import { vista, eArbitro } from '../motore/proiezione.js';
 import { mettiSulTavolo } from './tavolo-vivo.js';
 import { apriCanale } from './canale.js';
 import { schedaEroe, abilitaSchede } from './scheda-eroe.js';
-import { conferma } from './chiedi.js';
+import { conferma, avvisa } from './chiedi.js';
 import * as suoni from './suoni.js';
 
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) =>
@@ -377,6 +377,7 @@ function menu() {
     ${arbitro() ? voce('m-stradario', 'lo stradario', 'dove si può andare, e cosa è già battuto',
                        `<b>${vociMappa(ep, ctx.comune).length}</b> vie`, false, 'lente') : ''}
     <div class="menu-titolo">la serata</div>
+    ${voce('m-info', 'info', 'chi l’ha fatto, e a che condizioni', '', false, 'lanterna')}
     ${voce('nav-esci', 'lasciate la serata', 'si torna alla scelta dell’episodio',
            '', false, 'strappo')}
     <div class="bottoni" style="margin-top:14px">
@@ -409,7 +410,12 @@ function menu() {
     poi(() => (arbitro() ? lettera() : letteraDiChiGioca())));
   q('#m-busta')?.addEventListener('click', poi(() => taccuino()));
   q('#nav-esci').onclick = poi(() => ctx.vaiA('menu'));
+  q('#m-info').onclick = poi(() => avvisa('Ombre su Roccamora', { dettaglio: COPYRIGHT, ok: 'chiudi' }));
 }
+
+// L'UNICO POSTO dove compare il copyright: la voce «info» del menu di gioco.
+// Stava in fondo a ogni schermata, e a ogni schermata rubava una riga.
+const COPYRIGHT = '© 2026 Fabio Stocco — «Ombre su Roccamora» · uso non commerciale (PolyForm NC 1.0.0)';
 
 // il foglio si chiude da tre parti: il bottone, il velo, Escape. Un foglio che
 // si chiude solo da un bottone e' un foglio che resta aperto.

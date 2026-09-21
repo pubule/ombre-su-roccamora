@@ -246,8 +246,6 @@ em, i { font-style: italic; }
 
 .centrato { text-align: center; }
 .mt { margin-top: 14px; }
-.copyright { text-align: center; color: var(--osso-fioco); font-size: 11px;
-  font-style: italic; margin-top: 34px; opacity: .8; }
 
 /* la barra: etichetta battuta a macchina sopra il titolo, come la costa di un
    fascicolo, e sotto il registro delle ore */

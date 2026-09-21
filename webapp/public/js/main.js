@@ -72,9 +72,6 @@ const COPERTINE = {
   ep20: '/assets/artworks/derelict warehouses over black still water.png',
 };
 
-const RIGA_C = `<p class="copyright">© 2026 Fabio Stocco — «Ombre su Roccamora» ·
-  uso non commerciale (PolyForm NC 1.0.0)</p>`;
-
 // Arte non ancora generata (Fase D di un episodio nuovo): un'immagine rotta
 // sparisce invece di mostrare l'icona rotta del browser — i testi di gioco
 // ci sono comunque, la carta è solo l'illustrazione.
@@ -136,7 +133,6 @@ async function vistaHome() {
         </div>`;
       }).join('')}
     </div>
-    ${RIGA_C}
   `);
   app.querySelectorAll('.tessera-episodio').forEach((el) =>
     el.addEventListener('click', () => vistaEpisodio(el.dataset.ep)));
@@ -195,7 +191,6 @@ function vistaTaccuino(info) {
           <span class="nota">${FRAMMENTO[esito] || (esito ? '—' : '')}</span>
         </div>`).join('')}
     </div>
-    ${RIGA_C}
   `);
   document.getElementById('taccuino-indietro').onclick = () => vistaHome();
 }
@@ -259,7 +254,6 @@ async function vistaEpisodio(epId) {
           compagniaPronta ? 'si comincia →' : 'scegli gli investigatori →'}</button>
       </div>
     </div>`}
-    ${RIGA_C}
   `);
   document.getElementById('indietro').onclick = vistaHome;
   document.getElementById('continua')?.addEventListener('click', () => continua(epId));
@@ -329,7 +323,6 @@ async function continua(epId) {
           <p>${riga(r, remoto.aggiornato)}</p></div>
       </div>
     </div>
-    ${RIGA_C}
   `);
   document.getElementById('indietro').onclick = () => vistaEpisodio(epId);
   const tieni = (p) => { p.sincronizzato = 0; salva(p); vistaPartita(p); };
@@ -390,7 +383,6 @@ async function vistaParty(epId, fase = 'indagine') {
         <button class="btn pieno disabilitato" id="inizia">si comincia</button>
       </div>
     </div>
-    ${RIGA_C}
   `);
   document.getElementById('indietro').onclick = () => vistaEpisodio(epId);
   const aggiornaBtn = () => {
@@ -468,7 +460,6 @@ function schermataBivi(b, dopo) {
     <div class="btn-riga">
       <button class="btn pieno" id="via-bivi">cominciamo →</button>
     </div>
-    ${RIGA_C}
   `);
   document.getElementById('via-bivi').onclick = dopo;
 }
@@ -523,7 +514,6 @@ async function vistaEsitoIndagine(partita) {
         <button class="btn pieno" id="vai">si scende →</button>
       </div>
     </div>
-    ${RIGA_C}
   `);
   document.getElementById('indietro').onclick = () => vistaEpisodio(partita.episodio);
   app.querySelectorAll('.tier').forEach((el) => el.addEventListener('click', () => {
@@ -662,8 +652,7 @@ function vistaAttesaArbitro(id, nome) {
          <button class="btn pieno" id="riguarda">guarda di nuovo</button>
          <button class="btn" id="altro-tavolo">cambia tavolo</button>
        </div>
-     </div>
-     ${RIGA_C}`);
+     </div>`);
   document.getElementById('riguarda').onclick = () => entraNelTavolo(id);
   document.getElementById('altro-tavolo').onclick = () => vistaTavoli(app, (x) => entraNelTavolo(x));
 }

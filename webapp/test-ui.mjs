@@ -216,6 +216,19 @@ try {
   // uscire al menu a meta' visita e riprendere: si torna DENTRO il luogo,
   // senza pagare un'altra ora
   const oraPrima = (await page.evaluate(() => JSON.parse(localStorage.getItem('osr.partita.ep1')))).indagine.ora;
+  // IL COPYRIGHT sta in un posto solo: la voce «info» del menu di gioco. Non e'
+  // piu' in fondo a ogni schermata, dove rubava una riga a tutte.
+  ok(await page.locator('.copyright').count() === 0, 'nessun copyright in fondo alla schermata');
+  await page.locator('#apri-menu').click();
+  ok(await page.locator('#m-info').count() === 1, 'il menu di gioco ha la voce «info»');
+  await page.locator('#m-info').click();
+  await page.waitForTimeout(250);
+  const info = await page.locator('.scelta-overlay').innerText();
+  ok(/Fabio Stocco/.test(info) && /PolyForm/.test(info), `e apre un avviso dell'app col copyright («${info.replace(/\s+/g, ' ').slice(0, 70)}…»)`);
+  ok(await page.locator('#foglio-menu').count() === 0, 'dopo aver toccato la voce il foglio si chiude');
+  await page.locator('.scelta-overlay button').click();
+  ok(await page.locator('.scelta-overlay').count() === 0, 'e l\'avviso si chiude');
+
   // l'uscita è nel menu: in cima ci stanno l'ora e il menu, e basta
   await page.locator('#apri-menu').click();
   await page.locator('#nav-esci').click();
