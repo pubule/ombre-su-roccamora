@@ -64,6 +64,8 @@ async function apri({ ruolo = 'arbitro' } = {}) {
 const vaiAllEpilogo = async (page) => {
   await page.getByText('Il Coro Sommerso').first().click();
   await page.waitForTimeout(200);
+  await page.locator('#apri-caso').click();   // la stampa apre la scheda: da li' si comincia
+  await page.waitForTimeout(200);
   if (await page.locator('#continua').count()) {
     await page.locator('#continua').first().click({ force: true }).catch(() => {});
     await page.waitForTimeout(400);
@@ -172,7 +174,8 @@ const vaiAllEpilogo = async (page) => {
   const avviaEp20 = async () => {
     await page.goto(BASE, { waitUntil: 'networkidle' });
     await page.waitForTimeout(350);
-    await page.locator('.tessera-episodio[data-ep="ep20"]').click();
+    await page.locator('.stampa-caso[data-ep="ep20"]').click();
+    await page.locator('#apri-caso').click();   // la stampa apre la scheda: da li' si comincia
     await page.waitForTimeout(350);
     await page.locator('#avanti').click();
     await page.waitForTimeout(450);
@@ -221,6 +224,8 @@ const vaiAllEpilogo = async (page) => {
   const page = await apri();
   await page.getByText('Il Coro Sommerso').first().click();
   await page.waitForTimeout(400);
+  await page.locator('#apri-caso').click();   // la stampa apre la scheda: da li' si comincia
+  await page.waitForTimeout(400);
   const con = await page.locator('#app').innerText();
   // dal 14/08/2026 non si sceglie piu' COME si gioca — si gioca al tavolo con
   // la plancia a schermo — e resta una domanda sola: da dove si comincia
@@ -230,7 +235,8 @@ const vaiAllEpilogo = async (page) => {
   // un episodio mai giocato le chiede eccome: e' li' che servono
   await page.goto(BASE, { waitUntil: 'networkidle' });
   await page.waitForTimeout(300);
-  await page.locator('.tessera-episodio[data-ep="ep7"]').click();
+  await page.locator('.stampa-caso[data-ep="ep7"]').click();
+  await page.locator('#apri-caso').click();   // la stampa apre la scheda: da li' si comincia
   await page.waitForTimeout(400);
   const senza = await page.locator('#app').innerText();
   if (!/da dove cominciate/i.test(senza)) fail('una partita nuova non chiede più da dove si comincia');

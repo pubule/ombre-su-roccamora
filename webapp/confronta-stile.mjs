@@ -36,8 +36,8 @@ await p.evaluate(() => {
 });
 await scatta(B, 'webapp/_app-home.png');
 await p.getByText('Il Coro Sommerso').first().click();
-await p.waitForTimeout(400); await p.screenshot({ path: 'webapp/_app-episodio.png', fullPage: true });
-await p.locator('#continua').click();
+await p.waitForTimeout(400); await p.screenshot({ path: 'webapp/_app-episodio.png', fullPage: true });   // la scheda del caso
+await p.locator('#apri-caso').click();
 await p.waitForTimeout(700); await p.screenshot({ path: 'webapp/_app-indagine.png', fullPage: true });
 await p.locator('#taccuino').click();
 await p.waitForTimeout(500); await p.screenshot({ path: 'webapp/_app-taccuino.png', fullPage: true });

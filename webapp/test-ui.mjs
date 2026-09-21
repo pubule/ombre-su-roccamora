@@ -39,7 +39,7 @@ try {
   await page.goto(BASE, { waitUntil: 'networkidle' });
   await page.evaluate(() => localStorage.clear());
   await page.goto(BASE, { waitUntil: 'networkidle' });
-  ok(await page.locator('.tessera-episodio').count() === 21, '21 episodi in taverna');
+  ok(await page.locator('.stampa-caso').count() === 21, '21 episodi in taverna');
 
   // I BOTTONI DELLA TESTATA su una riga sola. Stavano su due, con uno
   // spaziatore vuoto a fianco: sullo stretto cadevano uno di qua e uno di la'.
@@ -73,12 +73,13 @@ try {
        'e il bottone apre davvero la rubrica');
     await page.goBack({ waitUntil: 'networkidle' }).catch(() => {});
     await page.goto(BASE, { waitUntil: 'networkidle' });
-    await page.locator('.tessera-episodio').first().waitFor();
+    await page.locator('.stampa-caso').first().waitFor();
   }
 
   // --- episodio -> si comincia ------------------------------------------
   console.log('episodio 1');
-  await page.locator('.tessera-episodio[data-ep="ep1"]').click();
+  await page.locator('.stampa-caso[data-ep="ep1"]').click();
+  await page.locator('#apri-caso').click();   // la stampa apre la scheda: da li' si comincia
   await page.locator('#avanti').click();
 
   // --- party: tile -> scheda personaggio -> arruola ------------------------
@@ -241,8 +242,9 @@ try {
     .map((e) => `${e.tagName}.${e.className}#${e.id}`));
   ok(appesi.length === 0,
      `uscendo dal menu non resta nessun velo appeso (${appesi.join(', ')})`);
-  await page.locator('.tessera-episodio[data-ep="ep1"]').click();
-  await page.locator('#continua').click();
+  await page.locator('.stampa-caso[data-ep="ep1"]').click();
+  // «riprendete la serata» porta dentro la partita, senza ripassare dalla schermata «continua»
+  await page.locator('#apri-caso').click();   // la stampa apre la scheda: da li' si comincia
   await page.locator('#fine-visita').waitFor();
   const oraDopo = (await page.evaluate(() => JSON.parse(localStorage.getItem('osr.partita.ep1')))).indagine.ora;
   ok(oraDopo === oraPrima, `riprendere la visita non costa ore (${oraPrima} -> ${oraDopo})`);
@@ -296,8 +298,14 @@ try {
   // --- riprendere la partita salvata ------------------------------------------
   console.log('salvataggio');
   await page.goto(BASE, { waitUntil: 'networkidle' });
-  await page.locator('.tessera-episodio[data-ep="ep1"]').click();
-  ok(await page.getByText('partita in corso').count() > 0, 'partita salvata riappare');
+  await page.locator('.stampa-caso[data-ep="ep1"]').click();
+  const schedaAperta = await page.locator('.scelta-overlay').innerText();
+  ok(/serata è aperta/.test(schedaAperta) && /riprendete la serata/i.test(schedaAperta),
+     'partita salvata riappare: la scheda dice che una serata è aperta e offre di riprenderla');
+  ok(await page.locator('.stampa-caso[data-ep="ep1"] .eroe-nome i').innerText().then((t) => /in corso/.test(t)),
+     'e la stampa dice «in corso»');
+  await page.locator('#chiudi-caso').click();
+  ok(await page.locator('.scelta-overlay').count() === 0, 'la scheda si chiude senza far partire niente');
 } catch (e) {
   ko(`flusso interrotto: ${e.message.split('\n')[0]}`);
 }

@@ -39,7 +39,12 @@ const MAPPA = ['.cella-b', '.cella-mossa', '.tessera-b', '.tess-tag', '.porta-lb
 // ragione di finzione, la direzione si sta sciogliendo.
 const CARTA_VERA = ['.carta', '.lettera-panel', '.reperto-img', '.carta-grande',
   '.galleria-carte', '.dado', '.dado-faccia', '.stampe',
-  '.campo'];   // i campi: e' li' che scrive il gruppo, e si scrive su carta
+  '.campo',    // i campi: e' li' che scrive il gruppo, e si scrive su carta
+  // le STAMPE degli eroi e dei casi (`.eroe-tile`, col suo nastrino): una fotografia
+  // tenuta su un cartoncino, come la scheda di un personaggio. Erano gia' cosi' nella
+  // scelta dell'eroe — che questo giro delle schermate non tocca — e la scelta
+  // dell'episodio ci si e' allineata di proposito (js/scheda-caso.js)
+  '.eroe-tile', '.nastrino'];
 const ESENTI = [...MAPPA, ...CARTA_VERA];
 
 const rgb = (s) => (s.match(/\d+/g) || []).slice(0, 3).map(Number);
@@ -223,8 +228,8 @@ await semina();
 await page.goto(BASE, { waitUntil: 'networkidle' });
 await guarda('home');
 await page.getByText('Il Coro Sommerso').first().click();
-await guarda('episodio');
-await page.locator('#continua').click();
+await guarda('scheda del caso');
+await page.locator('#apri-caso').click();     // «riprendete la serata»: porta dentro
 await guarda('indagine');
 // Dal 15/08 la scena tiene solo quel che succede adesso: la lettera, il
 // taccuino e le cose stanno nel MENU, dietro il tasto accanto all'orologio.
@@ -256,7 +261,7 @@ await semina({ fase: 'spedizione', plancia: 'fisica' });
 await page.goto(BASE, { waitUntil: 'networkidle' });
 await page.getByText('Il Coro Sommerso').first().click();
 await page.waitForTimeout(300);
-await page.locator('#continua').click();
+await page.locator('#apri-caso').click();
 await page.waitForTimeout(600);
 if (await page.locator('#via').count()) { await page.locator('#via').click(); await page.waitForTimeout(600); }
 await guarda('spedizione');
@@ -265,7 +270,7 @@ await semina({ fase: 'spedizione', plancia: 'schermo', modo: 'digitale' });
 await page.goto(BASE, { waitUntil: 'networkidle' });
 await page.getByText('Il Coro Sommerso').first().click();
 await page.waitForTimeout(300);
-await page.locator('#continua').click();
+await page.locator('#apri-caso').click();
 await page.waitForTimeout(600);
 if (await page.locator('#via').count()) { await page.locator('#via').click(); await page.waitForTimeout(900); }
 await guarda('plancia');
@@ -279,6 +284,7 @@ await semina({ fase: 'spedizione', modo: 'digitale', esito: 'vittoria' });
 await page.goto(BASE, { waitUntil: 'networkidle' });
 await page.getByText('Il Coro Sommerso').first().click();
 await page.waitForTimeout(300);
+await page.locator('#apri-caso').click();      // serata conclusa: «rigiocate il caso» apre la schermata con «rivedi l'epilogo»
 await page.locator('#continua').click();
 await page.waitForTimeout(900);
 await guarda('epilogo');

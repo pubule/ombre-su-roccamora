@@ -143,7 +143,8 @@ for (const sc of SCELTI) {
     await page.goto(BASE, { waitUntil: 'networkidle' });
     await page.evaluate(() => localStorage.clear());
     await page.goto(BASE, { waitUntil: 'networkidle' });
-    await page.locator(`.tessera-episodio[data-ep="${sc.ep}"]`).click();
+    await page.locator(`.stampa-caso[data-ep="${sc.ep}"]`).click();
+    await page.locator('#apri-caso').click();   // la stampa apre la scheda: da li' si comincia
     // dal 14/08/2026 non si sceglie piu' COME si gioca: si gioca al tavolo con
     // la plancia a schermo, e la sola scelta e' da dove si comincia
     await page.locator('#avanti').click();

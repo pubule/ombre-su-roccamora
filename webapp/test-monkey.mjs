@@ -37,7 +37,7 @@ async function seed(page, kind) {
 }
 
 const SEL = ['button', '[data-tessera]', '[data-vita]', '[data-abil-usa]', '[data-abil-undo]',
-  '[data-canto]', '[data-turno-eroe]', '[data-turno-nemico]', '.tessera-episodio', '.voce',
+  '[data-canto]', '[data-turno-eroe]', '[data-turno-nemico]', '.stampa-caso', '.voce',
   '.eroe-tile', '.scelta-btn', '.chip-turno', '[id]', 'img', 'a', 'textarea', 'input',
   'summary', 'details', '.pip-vita', '.nemico-pips'].join(', ');
 
@@ -105,16 +105,18 @@ for (let run = 0; run < RUNS; run++) {
   const dopoReload = await page.evaluate(() => {
     const a = document.querySelector('#app');
     return { testo: a ? a.innerText.trim().length : 0,
-      azionabili: a ? a.querySelectorAll('button,[data-tessera],[data-abil-usa],[data-turno-eroe],.tessera-episodio,.voce,.scelta-btn,[id]').length : 0 };
+      azionabili: a ? a.querySelectorAll('button,[data-tessera],[data-abil-usa],[data-turno-eroe],.stampa-caso,.voce,.scelta-btn,[id]').length : 0 };
   }).catch(() => ({ testo: 0, azionabili: 0 }));
   if (dopoReload.testo < 3) errs.push('RECUPERO: dopo il reload lo schermo e\' VUOTO (non recuperabile)');
   else if (dopoReload.azionabili === 0) errs.push('RECUPERO: dopo il reload NESSUN elemento azionabile (softlock)');
   // se esiste una partita valida, deve potersi RIPRENDERE: home -> ep1 -> continua
   if (saveValido) {
     try {
-      const tile = page.locator('.tessera-episodio[data-ep="ep1"]');
+      const tile = page.locator('.stampa-caso[data-ep="ep1"]');
       if (await tile.count()) {
         await tile.click({ timeout: 1000 });
+        await page.waitForTimeout(200);
+        await page.locator('#apri-caso').click({ timeout: 1000 });   // la scheda del caso
         await page.waitForTimeout(200);
         const cont = page.locator('#continua');
         if (await cont.count()) {

@@ -148,7 +148,7 @@ await p2.reload({ waitUntil: 'networkidle' });
 await p2.waitForTimeout(500);
 await p2.getByText('Il Coro Sommerso').first().click();
 await p2.waitForTimeout(400);
-await p2.locator('#continua').click();
+await p2.locator('#apri-caso').click();      // «riprendete la serata»: porta dentro, e li' si decide il conflitto
 await p2.waitForTimeout(1200);
 ok(await p2.getByText(/due versioni di questa partita/i).count() > 0,
   "con due versioni divergenti l'app chiede invece di sovrascrivere");
@@ -324,7 +324,8 @@ await p3.evaluate(() => { localStorage.removeItem('osr.tavolo'); });
 await p3.reload({ waitUntil: 'networkidle' });
 const primaDiBozza = (await (await api(ARB, 'GET', '/api/stato')).json()).tavoli.length;
 await p3.click('#nuovo-tavolo');
-await p3.fill('#nome-tavolo', 'Tavolo lasciato a meta');
+const nomeBozza = `Tavolo lasciato a meta ${Date.now()}`;   // il D1 locale conserva le prove precedenti
+await p3.fill('#nome-tavolo', nomeBozza);
 await p3.click('#crea-tavolo');
 await p3.waitForTimeout(900);
 ok((await (await api(ARB, 'GET', '/api/stato')).json()).tavoli.length === primaDiBozza + 1,
@@ -332,7 +333,7 @@ ok((await (await api(ARB, 'GET', '/api/stato')).json()).tavoli.length === primaD
 await p3.click('#indietro');            // confirm sostituito: risponde «si»
 await p3.waitForTimeout(900);
 const dopoBozza = (await (await api(ARB, 'GET', '/api/stato')).json()).tavoli;
-ok(dopoBozza.length === primaDiBozza && !dopoBozza.some((t) => t.nome === 'Tavolo lasciato a meta'),
+ok(dopoBozza.length === primaDiBozza && !dopoBozza.some((t) => t.nome === nomeBozza),
   'uscendo senza salvare il tavolo viene scartato');
 ok(await p3.locator('#nuovo-tavolo').count() === 1, "e si torna all'elenco dei tavoli");
 ok(await p3.evaluate(() => localStorage.getItem('osr.tavolo')) === null,

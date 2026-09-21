@@ -49,6 +49,8 @@ await page.waitForTimeout(200);
 const ep = page.getByText('Il Coro Sommerso').first();
 if (await ep.count()) { await ep.click(); } else fail('tessera episodio non trovata');
 await page.waitForTimeout(200);
+await page.locator('#apri-caso').click();   // la stampa apre la scheda: da li' si comincia
+await page.waitForTimeout(200);
 await clickIf('#continua');                 // -> setup digitale
 await page.waitForTimeout(150);
 // La schermata d'ingresso e' testo, e il layout immersivo non scorre: qui la
@@ -176,7 +178,8 @@ await page.goto(BASE, { waitUntil: 'networkidle' });
 await page.waitForTimeout(150);
 const ep2 = page.getByText('Il Coro Sommerso').first();
 if (await ep2.count()) { await ep2.click(); await page.waitForTimeout(150); }
-if (!(await has('#continua'))) fail('dopo reload: nessuna partita da continuare');
+if (!/serata è aperta/.test(await page.locator('.scelta-overlay').innerText().catch(() => '')))
+  fail('dopo reload: la scheda non dice che una serata è aperta');
 
 await browser.close();
 console.log(errs.length ? `PROBLEMI (${errs.length}):\n` + errs.join('\n') : 'SMOKE OK: board, token, round automatici, reload recuperabile.');

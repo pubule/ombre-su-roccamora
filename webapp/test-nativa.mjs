@@ -105,7 +105,9 @@ await scorre('home (21 episodi)');
 
 await page.getByText('Il Coro Sommerso').first().click();
 await page.waitForTimeout(350);
-await page.locator('#continua').click();
+await page.locator('#apri-caso').click();   // la stampa apre la scheda: da li' si comincia
+await page.waitForTimeout(350);
+if (await page.locator('#continua').count()) await page.locator('#continua').click();   // serata conclusa: «rivedi l'epilogo»
 await page.waitForTimeout(800);
 await scorre('la lettera d\'incarico');
 

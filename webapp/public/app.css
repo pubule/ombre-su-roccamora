@@ -723,13 +723,24 @@ em, i { font-style: italic; }
 .eroe-nome b { display: block; font-family: 'FellSC', serif; font-weight: normal;
   color: var(--carta-ink); font-size: 12.5px; line-height: 1.2; text-shadow: none;
   hyphens: auto; }
-.eroe-nome i { color: #6b6353; font-size: 11px; }
+.eroe-nome i { color: #5c5445; font-size: 11px; }
 .eroe-tile .spunta { position: absolute; top: -7px; right: -7px; width: 24px; height: 24px;
   border-radius: 50%; color: transparent; display: none; border: 0;
   background: radial-gradient(circle at 38% 32%, #c8384c, var(--ceralacca) 60%, #6d1522);
   box-shadow: 0 3px 7px -2px #000; }
 .eroe-tile.scelto { transform: rotate(0deg) translateY(-3px); box-shadow: 0 14px 22px -12px #000; }
 .eroe-tile.scelto .spunta { display: flex; }
+
+/* --- la scelta dell'episodio: la stessa stampa dell'eroe (js/scheda-caso.js) --- */
+/* l'arte e' un paesaggio ritagliato in verticale: si tiene il centro, non la testa */
+.stampa-caso img { object-position: center; }
+.eroe-nome i.corso { color: #85590f; }
+.eroe-nome i.perduta { color: #9a2a3a; }
+/* il nastrino: un'etichetta di carta incollata sull'angolo, col numero */
+.nastrino { position: absolute; top: 12px; left: -7px; z-index: 2;
+  font-family: 'FellSC', serif; font-size: 11px; letter-spacing: .08em; text-transform: lowercase;
+  color: var(--carta-ink); background: var(--carta-scura);
+  padding: 2px 9px 2px 11px; box-shadow: 0 2px 5px -2px #000; transform: rotate(-3deg); }
 
 .eroe-dettaglio { max-width: 560px; }
 .eroe-testata { display: flex; gap: 14px; align-items: center; }

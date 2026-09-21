@@ -11,6 +11,7 @@ import { vistaTavoli } from './tavoli.js';
 import { vistaRubrica } from './rubrica.js';
 import { vistaMioEroe } from './mio-eroe.js';
 import { vistaMembri } from './membri.js';
+import { infoCaso, stampaCaso, schedaCaso } from './scheda-caso.js';
 import { decidi, avviaCoda, stato as statoSync } from './sync.js';
 import { conferma } from './chiedi.js';
 import './zoom.js';   // un tocco sulla carta la apre a tutto schermo
@@ -82,6 +83,8 @@ window.addEventListener('error', (e) => {
 // ------------------------------------------------------------------- HOME
 async function vistaHome() {
   const info = await Promise.all(EPISODI.map((e) => dati(e)));
+  // una stampa per ogni caso (scheda-caso.js): la stessa lingua della scelta dell'eroe
+  const casi = info.map((ep) => infoCaso(ep, carica(ep.id), COPERTINE[ep.id]));
   h(`
     <!-- LA SCENA D'APERTURA: l'arte del Palazzo del Lume fa da copertina
          all'archivio, e il titolo ci sta sopra — mai sull'immagine nuda, che
@@ -113,29 +116,22 @@ async function vistaHome() {
           <svg class="ic" aria-hidden="true"><use href="#i-referto"></use></svg>taccuino di campagna</button>
       </div>
     </header>
-    <div class="griglia-episodi">
-      ${info.map((ep) => {
-        const salvata = carica(ep.id);
-        return `
-        <div class="tessera-episodio" data-ep="${ep.id}">
-          <div class="arte" style="background-image:url('${COPERTINE[ep.id]}')"></div>
-          ${salvata ? `<div class="stato${(salvata.spedizione || {}).esito ? ' finita' : ''}">${
-            // una serata conclusa resta salvata — serve alla campagna — ma non
-            // e' «in corso»: si torna alla taverna e la si ritrova li', come se
-            // non fosse finita niente
-            (salvata.spedizione || {}).esito === 'vittoria' ? 'vinta'
-            : (salvata.spedizione || {}).esito ? 'perduta'
-            : 'in corso'}</div>` : ''}
-          <div class="testi">
-            <h2>${esc(ep.titolo)}</h2>
-            <div class="sotto">${esc(ep.sottotitolo)}</div>
-          </div>
-        </div>`;
-      }).join('')}
+    <div class="pannello">
+      <h2>scegliete il caso</h2>
+      <p class="nota">Toccate una stampa per leggerne la scheda: da lì si comincia.</p>
+      <div class="griglia-arruolo mt">${casi.map(stampaCaso).join('')}</div>
     </div>
   `);
-  app.querySelectorAll('.tessera-episodio').forEach((el) =>
-    el.addEventListener('click', () => vistaEpisodio(el.dataset.ep)));
+  // IL TOCCO APRE LA SCHEDA, e solo da li' si comincia: con ventun tessere quasi
+  // uguali un tocco sbagliato non deve far partire niente
+  app.querySelectorAll('.stampa-caso').forEach((el) => el.addEventListener('click', async () => {
+    const c = casi.find((x) => x.id === el.dataset.ep);
+    if (await schedaCaso(c) !== 'apri') return;
+    // riprendere una serata aperta non ripassa dalla scelta di come cominciare:
+    // e' gia' stata fatta
+    if (c.stato === 'corso' && !(await sonoGiocatore())) return continua(c.id);
+    vistaEpisodio(c.id);
+  }));
   document.getElementById('cambia-tavolo')?.addEventListener('click',
     () => vistaTavoli(app, (id) => entraNelTavolo(id)));
   document.getElementById('taccuino')?.addEventListener('click', () => vistaTaccuino(info));

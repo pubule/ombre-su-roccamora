@@ -258,7 +258,8 @@ ok(errori.length === 0, `la schermata apre senza errori JS: ${errori.slice(0, 2)
   }, idC);
   await p3.reload({ waitUntil: 'networkidle' });
   await p3.waitForTimeout(800);
-  await p3.locator('.tessera-episodio').first().click();
+  await p3.locator('.stampa-caso').first().click();
+  await p3.locator('#apri-caso').click();   // la stampa apre la scheda: da li' si comincia
   await p3.waitForTimeout(600);
   const av = p3.locator('#avanti');
   if (await av.count()) { await av.click(); await p3.waitForTimeout(2000); }
