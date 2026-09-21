@@ -73,15 +73,20 @@ export async function api(request, env, email) {
     // e quale eroe ho preso: e' cio' che serve alla schermata d'ingresso per
     // sapere se mandarmi alla plancia dell'arbitro o alla vista del mio eroe.
     const tavoli = await env.DB.prepare(
-      `SELECT id, nome, creato, party, 'arbitro' AS ruolo, NULL AS eroe
+      `SELECT id, nome, creato, party, 'arbitro' AS ruolo,
+              (SELECT group_concat(e.eroe, char(10)) FROM eroi_posto e
+                WHERE e.tavolo = tavoli.id AND e.email = ?) AS eroe,
+              1 AS creatore,
+              (SELECT count(*) FROM membri m WHERE m.tavolo = tavoli.id) AS invitati
          FROM tavoli WHERE proprietario = ?
        UNION ALL
        SELECT t.id, t.nome, t.creato, t.party, m.ruolo,
               (SELECT group_concat(e.eroe, char(10)) FROM eroi_posto e
-                WHERE e.tavolo = t.id AND e.email = m.email) AS eroe
+                WHERE e.tavolo = t.id AND e.email = m.email) AS eroe,
+              0 AS creatore, NULL AS invitati
          FROM membri m JOIN tavoli t ON t.id = m.tavolo
         WHERE m.email = ? AND t.proprietario <> ?
-       ORDER BY creato`).bind(email, email, email).all();
+       ORDER BY creato`).bind(email, email, email, email).all();
     // senza `dati`: questa risposta serve a decidere cosa scaricare, non a
     // trascinarsi dietro tutte le partite a ogni apertura
     const salvataggi = await env.DB.prepare(
@@ -124,7 +129,8 @@ export async function api(request, env, email) {
     // ometteva e un tavolo con un solo invitato sembrava dell'invitato. Sta in
     // un campo a parte e non fra i `membri`, perche' non si toglie e non prende
     // un posto: chi conta le righe non deve trovarsene una in piu'.
-    return jsonRisposta({ proprietario: t ? t.proprietario : null,
+    const eroiProprietario = t ? suoi[t.proprietario] || [] : [];
+    return jsonRisposta({ proprietario: t ? t.proprietario : null, eroiProprietario,
       membri: (r.results || []).map((m) => ({
         ...m, eroi: suoi[m.email] || [], eroe: (suoi[m.email] || [])[0] || null })) });
   }
@@ -146,9 +152,9 @@ export async function api(request, env, email) {
     // si interrompe per un ricaricamento.
     const voluti = [...new Set((Array.isArray(corpo.eroi) ? corpo.eroi
       : (corpo.eroe ? [corpo.eroe] : [])).filter(Boolean))];
-    const mio = await env.DB.prepare('SELECT 1 FROM membri WHERE tavolo = ? AND email = ?')
-      .bind(tavolo, email).first();
-    if (!mio) return jsonRisposta({ errore: 'non trovato' }, 404);
+    // ANCHE CHI HA CREATO IL TAVOLO prende il suo eroe, come tutti: non ha una
+    // riga in `membri`, ma e' del tavolo — `mioTavolo` li conta tutti e due
+    if (!(await mioTavolo(env, email, tavolo))) return jsonRisposta({ errore: 'non trovato' }, 404);
     if (voluti.length) {
       const t = await env.DB.prepare('SELECT party FROM tavoli WHERE id = ?').bind(tavolo).first();
       const party = t && t.party ? JSON.parse(t.party) : null;

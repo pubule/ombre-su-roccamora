@@ -17,8 +17,15 @@ const esc = (s) => String(s == null ? '' : s).replace(/[&<>"]/g, (c) =>
 
 const primo = (s) => String(s).split(' ')[0];
 
-export async function vistaMioEroe(app, tavolo, nomeTavolo, quandoPreso) {
+export async function vistaMioEroe(app, tavolo, nomeTavolo, quandoPreso, cambiaTavolo) {
   const comune = await dati('comune');
+  // «cambia tavolo» sempre a portata: da qui non si va oltre senza un eroe, e
+  // se il tavolo non e' pronto (o non e' quello giusto) non si resta chiusi dentro
+  const altroTavolo = cambiaTavolo ? '<button class="btn" id="altro-tavolo">cambia tavolo</button>' : '';
+  const leghiAltro = () => {
+    const b = document.getElementById('altro-tavolo');
+    if (b) b.onclick = cambiaTavolo;
+  };
 
   async function stato() {
     try {
@@ -33,6 +40,10 @@ export async function vistaMioEroe(app, tavolo, nomeTavolo, quandoPreso) {
         party: t && t.party ? JSON.parse(t.party) : [],
         membri: m.membri || [],
         arbitra: m.proprietario || null,
+        eroiArbitra: m.eroiProprietario || [],
+        // i miei eroi li dice lo stato, che vale per tutti — anche per chi ha
+        // creato il tavolo e non ha una riga fra i membri
+        miei: (t && t.eroi) || [],
       };
     } catch { return null; }
   }
@@ -42,32 +53,34 @@ export async function vistaMioEroe(app, tavolo, nomeTavolo, quandoPreso) {
     if (!d) {
       app.innerHTML = `<div class="barra"><span></span><div class="titolo">${esc(nomeTavolo)}</div><span></span></div>
         <div class="pannello"><p class="nota">Non riesco a leggere il tavolo: manca la rete.</p>
-        <div class="btn-riga mt"><button class="btn" id="riprova">riprova</button></div></div>`;
+        <div class="btn-riga mt"><button class="btn" id="riprova">riprova</button>${altroTavolo}</div></div>`;
       document.getElementById('riprova').onclick = () => rendi();
+      leghiAltro();
       return;
     }
 
-    const mio = d.membri.find((m) => m.email === d.io) || {};
     // PIU' D'UNO SI PUO'. Due amici con un iPad solo giocano i loro due eroi da
     // qui: si toccano due ritratti invece di uno, e sullo schermo di gioco si
     // passa dall'uno all'altro. La regola che resta e' l'altra meta': un eroe
     // ha un posto solo, e a dirlo e' il database.
-    const miei = mio.eroi || (mio.eroe ? [mio.eroe] : []);
+    const miei = d.miei;
     // chi ha preso cosa: serve a dire «di Giulia» invece di un generico
     // «occupato» — al tavolo si gioca con delle persone, non con degli slot
     const di = {};
     for (const m of d.membri) {
       for (const e of (m.eroi || (m.eroe ? [m.eroe] : []))) di[e] = m.nome || m.email;
     }
+    for (const e of d.eroiArbitra) di[e] = d.arbitra;
 
     if (!d.party.length) {
       app.innerHTML = `<div class="barra"><span></span><div class="titolo">${esc(nomeTavolo)}</div><span></span></div>
         <div class="pannello"><h2>ancora niente da scegliere</h2>
           <p>${d.arbitra ? `<b>${esc(d.arbitra)}</b>, che arbitra,` : 'Chi arbitra'} non ha ancora composto la compagnia. Appena l’avrà fatto,
              qui troverai gli eroi liberi.</p>
-          <div class="btn-riga mt"><button class="btn" id="riprova">guarda di nuovo</button></div>
+          <div class="btn-riga mt"><button class="btn" id="riprova">guarda di nuovo</button>${altroTavolo}</div>
         </div>`;
       document.getElementById('riprova').onclick = () => rendi();
+      leghiAltro();
       return;
     }
 
@@ -97,8 +110,8 @@ export async function vistaMioEroe(app, tavolo, nomeTavolo, quandoPreso) {
   }).join('')}
         </div>
         ${avviso ? `<p class="nota mt ko-txt">${esc(avviso)}</p>` : ''}
-        ${miei.length ? `<div class="btn-riga mt">
-          <button class="btn pieno" id="entra">si comincia</button></div>` : ''}
+        <div class="btn-riga mt">
+          ${miei.length ? '<button class="btn pieno" id="entra">si comincia</button>' : ''}${altroTavolo}</div>
       </div>`;
 
     app.querySelectorAll('.eroe-tile').forEach((el) => el.onclick = async () => {
@@ -131,6 +144,7 @@ export async function vistaMioEroe(app, tavolo, nomeTavolo, quandoPreso) {
 
     const entra = document.getElementById('entra');
     if (entra) entra.onclick = () => quandoPreso();
+    leghiAltro();
   }
 
   await rendi();

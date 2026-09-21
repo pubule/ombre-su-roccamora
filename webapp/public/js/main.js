@@ -10,6 +10,7 @@ import { schedaEroe } from './scheda-eroe.js';
 import { vistaTavoli } from './tavoli.js';
 import { vistaRubrica } from './rubrica.js';
 import { vistaMioEroe } from './mio-eroe.js';
+import { vistaMembri } from './membri.js';
 import { decidi, avviaCoda, stato as statoSync } from './sync.js';
 import { conferma } from './chiedi.js';
 import './zoom.js';   // un tocco sulla carta la apre a tutto schermo
@@ -586,14 +587,30 @@ async function entraNelTavolo(id) {
   // altro account. Si scorda la scelta (le partite no) e si va all'elenco, dove
   // il tavolo compare fra gli orfani. Senza risposta (offline) si va alla home.
   if (stato && !t) { lasciaTavolo(); return vistaTavoli(app, (x) => entraNelTavolo(x)); }
-  if (!t || t.ruolo === 'arbitro') return vistaHome();      // chi arbitra sceglie, come sempre
+  if (!t) return vistaHome();      // senza risposta si arbitra come sempre
+  const altroTavolo = () => vistaTavoli(app, (x) => entraNelTavolo(x));
 
-  // UN INVITATO SENZA EROE vede solo la scelta dell'eroe, e solo dopo va oltre.
-  // Il controllo sta qui e non nell'elenco dei tavoli: con la scelta del tavolo
-  // gia' ricordata l'app apre da qui, senza passare dall'elenco, e chi non aveva
-  // ancora un eroe finiva in una serata da guardare con un posto che non muove
-  // niente.
-  if (!(t.eroi || []).length) return vistaMioEroe(app, id, t.nome, () => entraNelTavolo(id));
+  // UN TAVOLO SI SALVA COMPLETO. Chi l'ha creato non ci entra finche' non ha la
+  // compagnia (da 2 a 10 eroi) e almeno una persona invitata: la schermata dove
+  // le sceglie e' la stessa della creazione, e «salva il tavolo» si accende solo
+  // a quel punto. Un tavolo lasciato a meta' finiva nell'elenco, e dentro c'era
+  // una serata senza nessuno con cui giocarla.
+  if (t.creatore) {
+    const compagnia = t.party ? JSON.parse(t.party) : [];
+    if (compagnia.length < 2 || !t.invitati) {
+      return vistaMembri(app, id, t.nome, altroTavolo, () => entraNelTavolo(id));
+    }
+  }
+
+  // OGNUNO SCEGLIE IL PROPRIO EROE, compreso chi ha creato il tavolo. Finche'
+  // non l'ha fatto vede solo la scelta dell'eroe, e solo dopo va oltre — gli
+  // episodi per chi arbitra, la serata per chi gioca. Il controllo sta qui e non
+  // nell'elenco dei tavoli: con la scelta del tavolo gia' ricordata l'app apre
+  // da qui, senza passare dall'elenco.
+  if (!(t.eroi || []).length) {
+    return vistaMioEroe(app, id, t.nome, () => entraNelTavolo(id), altroTavolo);
+  }
+  if (t.ruolo === 'arbitro') return vistaHome();      // chi arbitra sceglie, come sempre
 
   // QUAL E' LA SERATA APERTA. Lo decide chi arbitra, e da quando esiste la
   // partita viva c'e' un posto dove lo dice: il Durable Object. Si chiede li'.
@@ -678,8 +695,12 @@ async function postoDiQuestoTavolo() {
     // tavolo a non sapere cos'e' successo.
     // `eroi` e' la lista: un posto puo' averne piu' d'uno (un iPad, due amici),
     // e la vista dell'Indagine ci mette sopra l'interruttore
-    return { tavolo: id, ruolo: t.ruolo === 'arbitro' ? 'arbitro' : 'giocatore',
-             eroi: t.eroi || (t.eroe ? [t.eroe] : []), eroe: t.eroe || null };
+    // Chi arbitra ha scelto anche lui un eroe, ma nella serata resta chi conduce
+    // e tiene in mano gli eroi che nessuno ha preso: `eroi` vuoto, come sempre.
+    const arbitra = t.ruolo === 'arbitro';
+    return { tavolo: id, ruolo: arbitra ? 'arbitro' : 'giocatore',
+             eroi: arbitra ? [] : (t.eroi || (t.eroe ? [t.eroe] : [])),
+             eroe: arbitra ? null : (t.eroe || null) };
   } catch {
     // SENZA RISPOSTA si usa l'ultimo ruolo conosciuto. Il ripiego «nessun
     // posto» vuol dire «si arbitra», ed e' giusto sul PC di chi gioca da solo:

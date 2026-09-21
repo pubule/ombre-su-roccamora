@@ -36,11 +36,42 @@ await p1.waitForTimeout(1000);
 ok(await p1.locator('.eroe-tile').count() > 0, 'dopo il tavolo si compone la compagnia');
 ok(await p1.locator('#email-invito').count() === 1, 'e si invita');
 
-// gli episodi arrivano premendo «si comincia», che è una scelta e non un salto
+ok(await p1.locator('#eroe-invito').count() === 0,
+  'non si assegna un eroe a chi si invita: se lo sceglie ognuno per conto suo');
+
+// UN TAVOLO SI SALVA COMPLETO: senza compagnia e senza invitati «salva il
+// tavolo» resta spento, e dice cosa manca
+const idTavolo = await p1.evaluate(() => localStorage.getItem('osr.tavolo'));
+ok(await p1.locator('#avanti').isDisabled(), 'senza compagnia e senza invitati non si salva');
+ok(/compagnia/.test(await p1.locator('#manca-tavolo').innerText())
+   && /invitata/.test(await p1.locator('#manca-tavolo').innerText()), 'e si dice cosa manca');
+
+// la compagnia: si salva col tocco sui ritratti, qui via API (la scheda e' un modale)
+await p1.evaluate(async (t) => {
+  await fetch('/api/party', { method: 'PUT', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ tavolo: t, party: ['NINO GRIMALDELLO CAUTO', 'CARLA DOSTI'] }) });
+}, idTavolo);
+await p1.fill('#nome-invito', 'Ospite');
+await p1.fill('#email-invito', 'ospite-uno@esempio.it');
+await p1.click('#invita');
+await p1.waitForTimeout(900);
+ok(await p1.locator('#avanti').isEnabled(), 'con la compagnia e un invitato si salva');
+
+// salvato il tavolo, il CREATORE sceglie il suo eroe come tutti: finche' non lo
+// fa vede solo quello, e gli episodi non ci sono
 await p1.click('#avanti');
 await p1.waitForTimeout(900);
-ok(await p1.getByText('Il Coro Sommerso').count() > 0, 'e da lì si arriva agli episodi');
-const idTavolo = await p1.evaluate(() => localStorage.getItem('osr.tavolo'));
+ok(await p1.locator('.griglia-arruolo .eroe-tile').count() === 2,
+  'il creatore vede la scelta del proprio eroe');
+ok(await p1.getByText('Il Coro Sommerso').count() === 0 && await p1.locator('#entra').count() === 0,
+  'e gli episodi ancora no');
+await p1.evaluate(async (t) => {
+  await fetch('/api/mio-eroe', { method: 'PUT', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ tavolo: t, eroi: ['NINO GRIMALDELLO CAUTO'] }) });
+}, idTavolo);
+await p1.reload({ waitUntil: 'networkidle' });
+await p1.waitForTimeout(900);
+ok(await p1.getByText('Il Coro Sommerso').count() > 0, 'preso l\'eroe, si arriva agli episodi');
 ok(!!idTavolo, 'il tavolo scelto resta sul dispositivo');
 
 // --- 3. una partita giocata qui arriva al server
@@ -229,12 +260,52 @@ ok(await po.getByText(new RegExp(`Tavolo di.*${ARB}`)).count() > 0, 'e sa chi ar
 ok(await po.locator('#entra').count() === 0, 'e non c\'e\' modo di andare oltre');
 ok(await po.getByText(/la serata non è ancora cominciata/i).count() === 0,
   'non arriva alla schermata d\'attesa senza aver scelto');
+// da li' si puo' sempre cambiare tavolo: la scelta non e' un vicolo cieco
+await po.locator('#altro-tavolo').click();
+await po.waitForTimeout(600);
+ok(await po.locator('#nuovo-tavolo').count() === 1 && await po.locator('.griglia-arruolo').count() === 0,
+  'con «cambia tavolo» si torna all\'elenco dei tavoli');
+// ...e anche quando il tavolo non e' pronto: senza compagnia non c'e' niente da
+// scegliere, ma non si resta chiusi dentro
+const idVuoto = crypto.randomUUID();
+await api(ARB, 'POST', '/api/tavolo', { id: idVuoto, nome: 'Senza compagnia' });
+await api(ARB, 'POST', '/api/membri', { tavolo: idVuoto, email: OSPITE });
+await po.evaluate((t) => localStorage.setItem('osr.tavolo', t), idVuoto);
+await po.reload({ waitUntil: 'networkidle' });
+await po.waitForTimeout(800);
+ok(await po.getByText(/ancora niente da scegliere/i).count() > 0, 'senza compagnia non c\'e\' niente da scegliere');
+ok(await po.locator('#altro-tavolo').count() === 1, 'ma c\'e\' «cambia tavolo»');
+await po.evaluate((t) => localStorage.setItem('osr.tavolo', t), idOspite);
 
 await api(OSPITE, 'PUT', '/api/mio-eroe', { tavolo: idOspite, eroi: ['CARLA DOSTI'] });
 await po.reload({ waitUntil: 'networkidle' });
 await po.waitForTimeout(800);
 ok(await po.getByText(/la serata non è ancora cominciata/i).count() > 0,
   'preso l\'eroe, il tavolo si apre');
+
+// --- 11. il creatore ha un posto come gli altri: prende il suo eroe, e gli
+// altri vedono che e' preso. E un tavolo suo lasciato a meta' non si apre: ci si
+// rientra dalla stessa schermata, che dice cosa manca
+const presoDaCreatore = await api(ARB, 'PUT', '/api/mio-eroe', { tavolo: idOspite, eroi: ['NINO GRIMALDELLO CAUTO'] });
+ok(presoDaCreatore.ok, 'il creatore puo\' prendersi un eroe');
+const dopoPreso = await (await api(ARB, 'GET', `/api/membri?tavolo=${idOspite}`)).json();
+ok(dopoPreso.eroiProprietario.join() === 'NINO GRIMALDELLO CAUTO', 'e il tavolo lo dice');
+const rifiutato = await api(OSPITE, 'PUT', '/api/mio-eroe', { tavolo: idOspite, eroi: ['NINO GRIMALDELLO CAUTO'] });
+ok(rifiutato.status === 409, `e l'invitato non puo' prendere lo stesso (visto ${rifiutato.status})`);
+const statoCreatore = await (await api(ARB, 'GET', '/api/stato')).json();
+const suo = statoCreatore.tavoli.find((x) => x.id === idOspite);
+ok(suo && suo.creatore === 1 && suo.invitati === 1 && suo.eroi.length === 1,
+  'lo stato dice che e\' suo, quanti invitati ha e che eroe ha');
+
+await p3.goto(BASE, { waitUntil: 'networkidle' });
+await p3.evaluate((t) => localStorage.setItem('osr.tavolo', t), idVuoto);   // senza compagnia
+await p3.reload({ waitUntil: 'networkidle' });
+await p3.waitForTimeout(800);
+ok(await p3.locator('#avanti').count() === 1 && await p3.locator('#avanti').isDisabled(),
+  'un tavolo suo senza compagnia non si apre: si torna a completarlo');
+ok(/compagnia/.test(await p3.locator('#manca-tavolo').innerText())
+   && !/invitata/.test(await p3.locator('#manca-tavolo').innerText()),
+  'e dice che manca solo la compagnia (l\'invitato c\'e\')');
 
 await browser.close();
 console.log(ko ? `\n${ko} FALLITI` : '\ntest-account-ui: tutto a posto');

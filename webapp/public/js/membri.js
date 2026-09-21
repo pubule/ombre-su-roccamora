@@ -24,7 +24,6 @@ const primo = (nome) => String(nome).split(' ')[0].toLowerCase();
 // tavolo, e mandarlo prima agli episodi era un giro a vuoto.
 export async function vistaMembri(app, tavolo, nome, torna, avanti) {
   const comune = await dati('comune');
-  const eroi = comune.eroi.map((e) => e.nome);
 
   // LA COMPAGNIA DI QUESTO TAVOLO: gli eroi della campagna, scelti una volta e
   // poi sempre quelli. Prima il party si sceglieva a ogni partita e non c'era
@@ -43,7 +42,8 @@ export async function vistaMembri(app, tavolo, nome, torna, avanti) {
       const r = await fetch(`/api/membri?tavolo=${encodeURIComponent(tavolo)}`);
       if (!r.ok) return null;
       const j = await r.json();
-      return { membri: j.membri || [], proprietario: j.proprietario || null };
+      return { membri: j.membri || [], proprietario: j.proprietario || null,
+               eroiProprietario: j.eroiProprietario || [] };
     } catch { return null; }
   }
 
@@ -71,7 +71,7 @@ export async function vistaMembri(app, tavolo, nome, torna, avanti) {
       return;
     }
 
-    const { membri, proprietario } = letti;
+    const { membri, proprietario, eroiProprietario } = letti;
     // chi ha creato il tavolo e' sempre l'arbitro e non e' fra i `membri`: sta
     // sopra, fisso, senza «togli» — non si toglie nessuno da un tavolo suo
     const altri = membri.filter((m) => m.email !== proprietario);
@@ -82,13 +82,8 @@ export async function vistaMembri(app, tavolo, nome, torna, avanti) {
       .filter(Boolean).map((x) => String(x).toLowerCase()));
     const liberi = (rub.persone || []).filter((x) => !seduti.has(String(x.email).toLowerCase()));
 
-    // gli eroi già presi non si possono dare due volte: è una regola, e il
-    // database la impone con un indice unico. Qui si toglie solo dall'elenco,
-    // così non si arriva nemmeno a chiederlo
-    // un posto puo' tenerne piu' d'uno (un iPad, due amici): contarne uno solo
-    // rimetterebbe il secondo fra gli assegnabili, e il database lo rifiuterebbe
+    // un posto puo' tenerne piu' d'uno (un iPad, due amici)
     const eroiDi = (m) => m.eroi || (m.eroe ? [m.eroe] : []);
-    const presi = new Set(membri.flatMap(eroiDi));
 
     app.innerHTML = `
       <div class="barra"><button class="btn" id="indietro">← tavoli</button>
@@ -116,7 +111,9 @@ export async function vistaMembri(app, tavolo, nome, torna, avanti) {
         <h2>chi gioca a questo tavolo</h2>
         ${proprietario ? `<div class="nemico-riga">
           <span class="nemico-nome">${esc(proprietario)}
-            <span class="nota">arbitra · ha creato il tavolo</span></span>
+            <span class="nota">${eroiProprietario.length
+              ? esc(eroiProprietario.map(primo).join(' e ')) : 'nessun eroe'} · arbitra ·
+              ha creato il tavolo</span></span>
         </div>` : ''}
         ${altri.length ? altri.map((m) => `
           <div class="nemico-riga">
@@ -128,7 +125,7 @@ export async function vistaMembri(app, tavolo, nome, torna, avanti) {
             <button class="btn piccolo togli-membro" data-email="${esc(m.email)}"
                     data-nome="${esc(m.nome || '')}">togli</button>
           </div>`).join('')
-          : '<p class="nota">Ancora nessun altro. Sei solo al tavolo: gli eroi li muovi tutti tu.</p>'}
+          : '<p class="nota">Ancora nessun invitato: il tavolo si salva con almeno una persona.</p>'}
         ${avviso ? `<p class="nota mt ko-txt">${esc(avviso)}</p>` : ''}
         ${altri.length ? `<div class="mt"><p class="nota">Da mandare a chi hai aggiunto —
           nessuno lo fa al posto tuo:</p>
@@ -142,7 +139,7 @@ export async function vistaMembri(app, tavolo, nome, torna, avanti) {
         <h2>dai un posto a…</h2>
         <p class="nota"><b>Non parte nessuna email da qui.</b> Il posto al tavolo resta pronto:
           lui entra da solo aprendo l’app con quell’email — il link mandaglielo tu.
-          L’eroe si può lasciare in sospeso: quelli non presi da nessuno restano a te.</p>
+          L’eroe se lo sceglie ognuno per conto suo, quando entra.</p>
         ${liberi.length ? liberi.map((x) => `
           <div class="nemico-riga">
             <span class="nemico-nome">${esc(x.nome || x.email)}
@@ -154,13 +151,6 @@ export async function vistaMembri(app, tavolo, nome, torna, avanti) {
         : `<p class="nota">${rub.persone.length
           ? 'Tutte le persone della tua rubrica siedono già a questo tavolo.'
           : 'La tua rubrica è vuota: le persone si scrivono una volta sola, dalla <b>rubrica</b> nella schermata dei tavoli — oppure qui sotto.'}</p>`}
-        <p class="nota mt">L’eroe da dare a chi tocchi — si cambia dopo, e può sceglierselo lui:</p>
-        <select id="eroe-invito" class="campo mt">
-          <option value="">— sceglie dopo —</option>
-          ${(squadra.length ? squadra : eroi).map((n) => `<option value="${esc(n)}"${
-            presi.has(n) ? ' disabled' : ''}>${esc(n.toLowerCase())}${
-            presi.has(n) ? ' (già preso)' : ''}</option>`).join('')}
-        </select>
       </div>
 
       <div class="mt"></div>
@@ -175,12 +165,28 @@ export async function vistaMembri(app, tavolo, nome, torna, avanti) {
         <div class="btn-riga mt"><button class="btn pieno" id="invita">in rubrica, e al tavolo</button></div>
       </div>
       ${avanti ? `<div class="mt"></div>
-        <div class="btn-riga"><button class="btn pieno" id="avanti">si comincia — scegli l’episodio</button></div>`
+        <p class="nota" id="manca-tavolo"></p>
+        <div class="btn-riga"><button class="btn pieno" id="avanti" disabled>salva il tavolo</button></div>`
       : ''}`;
 
     document.getElementById('indietro').onclick = torna;
     const btnAvanti = document.getElementById('avanti');
     if (btnAvanti) btnAvanti.onclick = () => avanti();
+    // UN TAVOLO SI SALVA COMPLETO: la compagnia (da 2 a 10 eroi, e SALVATA sul
+    // server, non solo toccata) e almeno una persona invitata. Senza, il bottone
+    // resta spento e dice cosa manca — un tavolo a meta' finiva nell'elenco e
+    // dentro c'era una serata da cominciare senza nessuno con cui giocarla.
+    let partySalvato = squadra.length >= 2;
+    const aggiornaAvanti = () => {
+      if (!btnAvanti) return;
+      const manca = [];
+      if (!partySalvato) manca.push('la compagnia (da 2 a 10 eroi)');
+      if (!altri.length) manca.push('almeno una persona invitata');
+      btnAvanti.disabled = manca.length > 0;
+      document.getElementById('manca-tavolo').textContent = manca.length
+        ? `Per salvare il tavolo manca: ${manca.join(' e ')}.` : '';
+    };
+    aggiornaAvanti();
 
     // La compagnia si compone toccando i ritratti, e si salva a parte: toccare
     // un eroe non deve far partire una scrittura per ogni tocco.
@@ -198,6 +204,10 @@ export async function vistaMembri(app, tavolo, nome, torna, avanti) {
       conta.classList.toggle('ko-txt', !!male);
     };
     const salva = async () => {
+      // la compagnia conta come salvata solo a salvataggio riuscito: tra un tocco
+      // e la risposta (o se la risposta e' un errore) «salva il tavolo» e' spento
+      partySalvato = false;
+      aggiornaAvanti();
       if (scelti.size < 2) return dillo(`${scelti.size} scelto: servono almeno due eroi.`);
       try {
         const r = await fetch('/api/party', {
@@ -210,20 +220,9 @@ export async function vistaMembri(app, tavolo, nome, torna, avanti) {
         }
       } catch { return dillo('Non riesco a salvare: manca la rete.', true); }
       dillo(`${scelti.size} eroi — la compagnia è salvata.`);
-      aggiornaMenuEroi();
+      partySalvato = true;
+      aggiornaAvanti();
     };
-
-    // il menu degli eroi assegnabili segue la compagnia, ma senza ridisegnare
-    // tutto: si perderebbe quel che si sta scrivendo nel modulo d'invito
-    function aggiornaMenuEroi() {
-      const sel = document.getElementById('eroe-invito');
-      if (!sel) return;
-      const tenuto = sel.value;
-      sel.innerHTML = '<option value="">— sceglie lui dal telefono —</option>'
-        + [...scelti].map((n) => `<option value="${esc(n)}"${presi.has(n) ? ' disabled' : ''}>${
-          esc(n.toLowerCase())}${presi.has(n) ? ' (già preso)' : ''}</option>`).join('');
-      if ([...sel.options].some((o) => o.value === tenuto)) sel.value = tenuto;
-    }
 
     // IL RITRATTO APRE LA SCHEDA, non arruola di colpo. Chi compone la
     // compagnia sceglie GUARDANDO chi e' — statistiche, abilita', bio — come
@@ -253,11 +252,10 @@ export async function vistaMembri(app, tavolo, nome, torna, avanti) {
     // La porta l'ha già aperta la rubrica; il Worker la riapre comunque, per
     // chi arriva da una pagina rimasta aperta da ieri.
     const posto = async (chi, come) => {
-      const eroe = document.getElementById('eroe-invito').value || null;
       try {
         const r = await fetch('/api/membri', {
           method: 'POST', headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ tavolo, email: chi, nome: come, eroe }),
+          body: JSON.stringify({ tavolo, email: chi, nome: come }),
         });
         const d = await r.json().catch(() => ({}));
         // il rifiuto del server si mostra com'è: dice già la cosa giusta
