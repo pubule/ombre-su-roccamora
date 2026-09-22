@@ -701,7 +701,7 @@ em, i { font-style: italic; }
   .barra, .home-testata, .pannello, .banner-luogo, .griglia-episodi, .carta-grande,
   .galleria-carte, .stradario .voce, .galleria-carte img, .griglia-eroi .carta-eroe,
   .carta-grande img, .tessera-episodio .arte, .scelta-overlay, .scelta-box,
-  .tok-board.esca { animation: none; }
+  .tok-board.esca, .scena > .sfondo { animation: none; }
 }
 
 /* --- arruolamento: ritratti veri + scheda personaggio --- */
@@ -1376,7 +1376,13 @@ em, i { font-style: italic; }
   display: flex; align-items: flex-end; border-radius: 10px; border: 1px solid var(--bordo);
   padding: 18px 16px; margin: 0 0 12px; overflow: hidden; }
 .scena > .sfondo { position: absolute; inset: 0; background-size: cover;
-  background-position: center; filter: brightness(.62) saturate(.85); }
+  background-position: center top; filter: brightness(.62) saturate(.85);
+  animation: pan-scena 26s ease-in-out infinite alternate; }
+/* L'ARTWORK PANORAMA, non ferma: `background-size:cover` ritaglia — un'arte
+   verticale nella scatola bassa della card mostra solo una fetta, e ferma
+   sembra tagliata a meta'. Un pan lentissimo, dall'alto al basso, la scorre
+   tutta nel tempo invece di sceglierne un pezzo solo per sempre. */
+@keyframes pan-scena { from { background-position: center top; } to { background-position: center bottom; } }
 .scena::after { content: ''; position: absolute; inset: 0; pointer-events: none;
   background: linear-gradient(180deg, rgba(12,14,17,.55) 0%, rgba(12,14,17,.05) 26%,
     rgba(12,14,17,.86) 64%, var(--tavolo) 96%); }
