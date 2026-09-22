@@ -101,6 +101,35 @@ const canvas = (page) => page.locator('#vanta-bg canvas').count();
   await page.context().close();
 }
 
+// --- 5. nascosta, non gira nemmeno il suo loop (non solo il disegno)
+//
+// `isOnScreen()` (dentro vanta.fog.min.js) salta solo il RENDER: il suo
+// `animationLoop()` richiama `requestAnimationFrame` comunque, per sempre —
+// nascondere e basta (test 4) lasciava quel loop vivo per tutta la partita,
+// a contendere il thread principale con le animazioni vere. Si spia
+// `cancelAnimationFrame`/`requestAnimationFrame` AL MOMENTO del cambio classe
+// (non contando i fotogrammi nel tempo: in un browser headless senza finestra
+// visibile il rAF vero e' throttled quasi a zero, e contare per 400ms non
+// direbbe niente — qui invece si guarda la CHIAMATA, sincrona nell'osservatore).
+{
+  const { page } = await nuova({}, (p) => p.addInitScript(() => {
+    window.__raf = 0; window.__caf = 0;
+    const raf = window.requestAnimationFrame, caf = window.cancelAnimationFrame;
+    window.requestAnimationFrame = (fn) => { window.__raf += 1; return raf(fn); };
+    window.cancelAnimationFrame = (id) => { window.__caf += 1; return caf(id); };
+  }));
+  await page.waitForTimeout(300);
+  const conta = () => page.evaluate(() => { const r = { raf: window.__raf, caf: window.__caf }; window.__raf = 0; window.__caf = 0; return r; });
+  await conta();   // scarta il rumore d'avvio (costruzione + primo giro)
+  await page.evaluate(() => document.getElementById('app').classList.add('immersivo'));
+  const nascosto = await conta();
+  ok(nascosto.caf >= 1, `nascondendo, il loop si ferma davvero (cancelAnimationFrame chiamato ${nascosto.caf}x)`);
+  await page.evaluate(() => document.getElementById('app').classList.remove('immersivo'));
+  const acceso = await conta();
+  ok(acceso.raf >= 1, `e riparte uscendo dal modo immersivo (requestAnimationFrame chiamato ${acceso.raf}x)`);
+  await page.context().close();
+}
+
 // --- 5. senza le librerie (dev locale senza build, mirror caduto) l'app parte lo stesso
 {
   const { page, errori } = await nuova({}, (p) => p.route('**/js/vendor/*.js', (r) => r.abort()));

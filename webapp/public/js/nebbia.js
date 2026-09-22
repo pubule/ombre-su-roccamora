@@ -27,6 +27,15 @@
 // il contesto (`CONTEXT_LOST_WEBGL` in console). `isOnScreen()` (dentro
 // vanta.fog.min.js) gia' salta update/render quando l'elemento non si vede:
 // nascondere costa zero disegno, senza pagare la ricostruzione.
+//
+// MA NASCONDERE NON BASTA: il suo `animationLoop()` richiama SEMPRE
+// `requestAnimationFrame`, anche a schermo spento — `isOnScreen()` salta solo
+// il render, non la richiamata. `destroy()` (di prima) faceva anche
+// `cancelAnimationFrame`: nascondendo e basta, quel loop restava vivo per
+// tutta la sessione, anche dentro la Spedizione dove la nebbia non torna mai
+// visibile — un fotogramma in piu' per tutta la partita, a contendere il
+// thread principale con le animazioni vere (dadi, token, carte). Qui si
+// ferma/riparte quel loop a mano, senza pagare ne' l'uno ne' l'altro difetto.
 if (typeof VANTA !== 'undefined') {
   const fx = VANTA.FOG({
     el: '#vanta-bg', mouseControls: false, touchControls: false, gyroControls: false,
@@ -37,7 +46,12 @@ if (typeof VANTA !== 'undefined') {
   const app = document.getElementById('app');
   const bg = document.getElementById('vanta-bg');
   const immersivo = () => !!app && app.classList.contains('immersivo');
-  const aggiorna = () => { if (bg) bg.style.display = immersivo() ? 'none' : ''; };
+  let vivo = true;
+  const aggiorna = () => {
+    if (bg) bg.style.display = immersivo() ? 'none' : '';
+    if (immersivo() && vivo) { vivo = false; cancelAnimationFrame(fx.req); }
+    else if (!immersivo() && !vivo) { vivo = true; if (typeof fx.animationLoop === 'function') fx.animationLoop(); }
+  };
   aggiorna();
   if (app) {
     new MutationObserver(aggiorna).observe(app, { attributes: true, attributeFilter: ['class'] });
