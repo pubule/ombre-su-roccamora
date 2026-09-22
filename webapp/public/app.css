@@ -1367,9 +1367,14 @@ em, i { font-style: italic; }
      la barra delle azioni;
    - 50 invece di 62: aprendo un luogo il titolo si deve leggere SUBITO, senza
      scorrere. L'immagine resta la pagina, ma il luogo si chiama. */
+/* OGNI SCENA E' UNA LASTRA, come tutto il resto (`.pannello`): bordo, angoli,
+   niente margine negativo a sanguinare da un lato all'altro. Deciso il
+   22/09/2026 — prima solo la home (`.in-card`), le altre scene (l'arrivo a un
+   luogo, l'apertura di un episodio) sanguinavano ancora: la stessa
+   incoerenza, un posto alla volta. Ora e' la regola, non l'eccezione. */
 .scena { position: relative; min-height: 62vh; min-height: 50dvh;
-  display: flex; align-items: flex-end;
-  padding: 18px 16px; margin: 0 -16px 12px; overflow: hidden; }
+  display: flex; align-items: flex-end; border-radius: 10px; border: 1px solid var(--bordo);
+  padding: 18px 16px; margin: 0 0 12px; overflow: hidden; }
 .scena > .sfondo { position: absolute; inset: 0; background-size: cover;
   background-position: center; filter: brightness(.62) saturate(.85); }
 .scena::after { content: ''; position: absolute; inset: 0; pointer-events: none;
@@ -1380,11 +1385,6 @@ em, i { font-style: italic; }
   text-transform: uppercase; color: var(--nastro); }
 .scena h1, .scena h2 { font-size: clamp(30px, 9vw, 48px); line-height: 1.05; }
 .scena.bassa { min-height: 44vh; min-height: 38dvh; }
-/* SOLO LA HOME (`.in-card`): l'artwork dei luoghi resta a piena pagina — «l'immagine
-   è la pagina», il manifesto d'ogni episodio — ma l'archivio dei casi è già tutto
-   lastre (tavolo, casi): qui l'artwork ne diventa una anche lei, coi bordi come le
-   altre, invece di sanguinare da un margine all'altro. */
-.scena.in-card { margin: 0 0 12px; border-radius: 10px; border: 1px solid var(--bordo); }
 
 /* LE AZIONI IN GRIGLIA: colonne uguali, icona sopra la parola. La larghezza la
    decide la griglia, non la lunghezza dell'etichetta — con 98px «testimonianza»

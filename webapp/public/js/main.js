@@ -90,8 +90,9 @@ async function vistaHome() {
          all'archivio, e il titolo ci sta sopra — mai sull'immagine nuda, che
          sotto c'e' la velatura della scena. Il testo sta su una lastra
          (classe pannello, sfocata sul fondo) come le sezioni sotto: era
-         l'unico blocco della home senza. -->
-    <div class="scena bassa in-card">
+         l'unico blocco della home senza. La scena stessa e' una lastra —
+         regola di .scena in app.css, non piu' un modificatore solo qui. -->
+    <div class="scena bassa">
       <div class="sfondo" style="background-image:url('/assets/artworks/Palazzo%20del%20Lume.png')"></div>
       <div class="dentro pannello">
         <span class="occhiello">società del lume · archivio dei casi</span>
