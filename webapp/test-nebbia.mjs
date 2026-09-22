@@ -83,15 +83,21 @@ const canvas = (page) => page.locator('#vanta-bg canvas').count();
   await page.context().close();
 }
 
-// --- 4. nel modo immersivo (la plancia) la nebbia si spegne, e torna dopo
+// --- 4. nel modo immersivo (la plancia) la nebbia si nasconde, senza ricrearla
+// (fino al 22/09/2026 qui si distruggeva e si ricreava il contesto WebGL ad
+// ogni cambio: 36-230ms bloccanti ogni carta pescata — misurato)
 {
   const { page } = await nuova();
   await page.evaluate(() => document.getElementById('app').classList.add('immersivo'));
   await page.waitForTimeout(300);
-  ok(await canvas(page) === 0, 'in modo immersivo la nebbia e\' spenta (niente canvas, niente GPU)');
+  ok(await canvas(page) === 1, 'in modo immersivo il canvas resta (nascosto, non ricreato)');
+  ok(await page.locator('#vanta-bg').evaluate((e) => getComputedStyle(e).display) === 'none',
+     'ma e\' display:none: niente disegno (isOnScreen la salta)');
   await page.evaluate(() => document.getElementById('app').classList.remove('immersivo'));
   await page.waitForTimeout(500);
-  ok(await canvas(page) === 1, 'e torna uscendone');
+  ok(await canvas(page) === 1, 'e torna uscendone, senza un secondo canvas');
+  ok(await page.locator('#vanta-bg').evaluate((e) => getComputedStyle(e).display) !== 'none',
+     'di nuovo visibile');
   await page.context().close();
 }
 

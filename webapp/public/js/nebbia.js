@@ -16,22 +16,30 @@
 //  - `scale: 2` — Vanta disegna a devicePixelRatio/scale: su un display retina
 //    e' un quarto dei pixel, e una nebbia sfocata non ha dettaglio da perdere.
 //  - nel modo immersivo (la plancia a schermo intero, `#app.immersivo`) la
-//    nebbia si SPEGNE del tutto — dietro la plancia non si vede — e riparte
-//    quando si torna a una schermata normale.
+//    nebbia si NASCONDE (`display:none`) — dietro la plancia non si vede.
+//
+// UNA SOLA ISTANZA, mai distrutta. `#app.immersivo` si toglie e rimette molte
+// volte per round (ogni carta pescata, ogni tessera rivelata: schermataCarta()
+// in digitale.js), non solo quando si apre il menu. Fino al 22/09/2026 qui si
+// chiamava `fx.destroy()` e poi `VANTA.FOG()` da capo ad ogni cambio: un
+// contesto WebGL nuovo, shader ricompilati — misurato 36ms bloccanti a colpo
+// (GPU discreta), fino a 230ms su GPU debole, e il driver perdeva/ripristinava
+// il contesto (`CONTEXT_LOST_WEBGL` in console). `isOnScreen()` (dentro
+// vanta.fog.min.js) gia' salta update/render quando l'elemento non si vede:
+// nascondere costa zero disegno, senza pagare la ricostruzione.
 if (typeof VANTA !== 'undefined') {
-  const accendi = () => VANTA.FOG({
+  const fx = VANTA.FOG({
     el: '#vanta-bg', mouseControls: false, touchControls: false, gyroControls: false,
     minHeight: 200, minWidth: 200, scale: 2, scaleMobile: 2,
     baseColor: 0x0c0e11, lowlightColor: 0x06191a, midtoneColor: 0x1a4a4d, highlightColor: 0x5c3421,
     blurFactor: 0.35, speed: matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 0.8, zoom: 1,
   });
   const app = document.getElementById('app');
+  const bg = document.getElementById('vanta-bg');
   const immersivo = () => !!app && app.classList.contains('immersivo');
-  let fx = immersivo() ? null : accendi();
+  const aggiorna = () => { if (bg) bg.style.display = immersivo() ? 'none' : ''; };
+  aggiorna();
   if (app) {
-    new MutationObserver(() => {
-      if (immersivo() && fx) { fx.destroy(); fx = null; }
-      else if (!immersivo() && !fx) fx = accendi();
-    }).observe(app, { attributes: true, attributeFilter: ['class'] });
+    new MutationObserver(aggiorna).observe(app, { attributes: true, attributeFilter: ['class'] });
   }
 }
