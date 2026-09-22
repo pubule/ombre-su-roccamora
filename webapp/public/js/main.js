@@ -88,10 +88,12 @@ async function vistaHome() {
   h(`
     <!-- LA SCENA D'APERTURA: l'arte del Palazzo del Lume fa da copertina
          all'archivio, e il titolo ci sta sopra — mai sull'immagine nuda, che
-         sotto c'e' la velatura della scena. -->
+         sotto c'e' la velatura della scena. Il testo sta su una lastra
+         (classe pannello, sfocata sul fondo) come le sezioni sotto: era
+         l'unico blocco della home senza. -->
     <div class="scena bassa">
       <div class="sfondo" style="background-image:url('/assets/artworks/Palazzo%20del%20Lume.png')"></div>
-      <div class="dentro">
+      <div class="dentro pannello">
         <span class="occhiello">società del lume · archivio dei casi</span>
         <h1>ombre su roccamora</h1>
         <p class="nota" style="margin:2px 0 0">roccamora, 1889 — ventun casi, uno per sera</p>
