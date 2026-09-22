@@ -235,6 +235,16 @@ function collegaAlTavolo() {
         if (datiVisti.carte) ctx.carte = datiVisti.carte;
       }
       if (await incassa(stato, eventi, true)) return;   // la partita e' finita: epilogo
+      // SE UN TIRO ALTRUI STA ANCORA A SCHERMO (`.dadi-overlay`, da una
+      // spinta precedente non ancora chiusa da chi guarda) si aspetta:
+      // `render()` scriverebbe la schermata nuova SOTTO l'overlay dei dadi —
+      // invisibile finche' quello resta aperto, ma pronta di scatto appena si
+      // chiude, senza il tempo di leggerla. Stessa attesa del verso opposto
+      // (il tiro che aspetta la carta, in riproduci()): chi guarda finisce
+      // sempre quel che ha davanti prima che arrivi il prossimo.
+      for (let attesa = 0; document.querySelector('.dadi-overlay.aperto') && attesa < 20; attesa += 1) {
+        await pausa(300);
+      }
       render();
     },
     onRifiuto: (r) => flash(r.motivo || 'Il tavolo ha rifiutato la mossa.'),

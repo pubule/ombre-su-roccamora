@@ -116,8 +116,86 @@ await tel.waitForTimeout(1500);
   ok(st.overlayVisibile, `chiusa la carta, il tiro dell'altro arriva (${JSON.stringify(st)})`);
 }
 
+// --- 5. IL VERSO OPPOSTO: il tiro di un altro e' GIA' a schermo (non ancora
+// chiuso da chi guarda) quando arriva una carta — la carta deve aspettare
+// lei, non spuntare sotto l'overlay pronta di scatto appena quello si chiude.
+{
+  const stato2 = JSON.parse(JSON.stringify(stato));
+  stato2.spedizione.nemici = [{ nome: SGH, num: 1, pos: { t: T0, x: 2, y: 1 }, ferite: 0, max: 2 }];
+  stato2.spedizione.carta = null;
+  {
+    const { costruisciMazzo } = await import('./public/motore/regole.js');
+    stato2.spedizione.mazzo = costruisciMazzo({ seme: 5150, passo: 0 }, CARTE, EP, 'ep1', null);
+  }
+  const idT2 = crypto.randomUUID();
+  await chiama(ARBITRO, 'POST', '/api/tavolo', { id: idT2, nome: 'dadi vs carta (verso opposto)' });
+  await chiama(ARBITRO, 'PUT', '/api/party', { tavolo: idT2, party });
+  await chiama(ARBITRO, 'POST', '/api/membri', { tavolo: idT2, email: GIOCATORE, eroe: party[0] });
+  await chiama(ARBITRO, 'POST', `/api/tavolo/${idT2}/apri`, { tavolo: idT2, stato: stato2 });
+
+  const arb2ctx = await b.newContext({ viewport: { width: 900, height: 1000 },
+    extraHTTPHeaders: { 'X-Osr-Dev-Email': ARBITRO } });
+  const arb2 = await arb2ctx.newPage();
+  arb2.on('pageerror', (e) => console.log('[errore arbitro 2]', e.message));
+  await arb2.goto(BASE, { waitUntil: 'networkidle' });
+  await arb2.evaluate(async ({ t }) => {
+    const { vistaDigitale } = await import('/js/digitale.js');
+    const v = await (await fetch(`/api/tavolo/${t}/stato`)).json();
+    document.querySelector('#app').innerHTML = '';
+    await vistaDigitale(document.querySelector('#app'), v.stato, () => {},
+                        { tavolo: t, ruolo: 'arbitro', eroe: null, eroi: [] });
+  }, { t: idT2 });
+  await arb2.waitForTimeout(1000);
+
+  const tel2 = await b.newPage({ viewport: { width: 420, height: 900 } });
+  tel2.on('pageerror', (e) => console.log('[errore telefono 2]', e.message));
+  await tel2.goto(BASE, { waitUntil: 'networkidle' });
+  await tel2.evaluate(async ({ t, e }) => {
+    const { vistaDigitale } = await import('/js/digitale.js');
+    const v = await (await fetch(`/api/tavolo/${t}/stato`)).json();
+    document.querySelector('#app').innerHTML = '';
+    await vistaDigitale(document.querySelector('#app'), v.stato, () => {},
+                        { tavolo: t, ruolo: 'giocatore', eroe: e, eroi: [e] });
+  }, { t: idT2, e: party[0] });
+  await tel2.waitForTimeout(1200);
+
+  const leggiTel2 = () => tel2.evaluate(() => {
+    const o = document.querySelector('.dadi-overlay');
+    return {
+      carta: document.querySelectorAll('.carta-grande').length,
+      overlayVisibile: !!o && getComputedStyle(o).display !== 'none' && o.classList.contains('aperto'),
+    };
+  });
+
+  // il SECONDO eroe attacca per primo: il telefono (che ha il primo) vede
+  // il tiro di un altro, e non lo chiude
+  const rTiro2 = await chiama(ARBITRO, 'POST', `/api/tavolo/${idT2}/comando`, {
+    tipo: 'attacca', eroe: party[1], bersaglio: 0, tiri: [[6, 6]],
+  });
+  ok(rTiro2.ok, `[verso opposto] l'attacco parte (${rTiro2.status})`);
+  await tel2.waitForTimeout(700);
+  ok((await leggiTel2()).overlayVisibile, '[verso opposto] il telefono vede il tiro dell\'altro, aperto');
+
+  // ORA arriva la carta, col tiro ancora a schermo sul telefono
+  await arb2.evaluate(() => document.querySelector('#fase-minaccia').click());
+  await tel2.waitForTimeout(700);
+  {
+    const st = await leggiTel2();
+    ok(st.overlayVisibile, `[verso opposto] il tiro resta a schermo (${JSON.stringify(st)})`);
+    ok(st.carta === 0, `[verso opposto] la carta NON e' ancora arrivata (${JSON.stringify(st)})`);
+  }
+
+  // chi guarda chiude il tiro: SOLO ORA deve arrivare la carta
+  await tel2.evaluate(() => document.querySelector('#dadi-chiudi')?.click());
+  await tel2.waitForTimeout(1200);
+  {
+    const st = await leggiTel2();
+    ok(st.carta === 1, `[verso opposto] chiuso il tiro, la carta arriva (${JSON.stringify(st)})`);
+  }
+}
+
 await b.close();
 console.log(ko === 0
-  ? '\ntest-dadi-vs-carta: il tiro di un altro aspetta che la carta sia chiusa'
+  ? '\ntest-dadi-vs-carta: dadi e carta si aspettano a vicenda, mai uno sopra l\'altro'
   : `\n${ko} FALLITI`);
 process.exit(ko ? 1 : 0);
