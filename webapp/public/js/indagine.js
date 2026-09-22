@@ -106,7 +106,11 @@ export async function vistaIndagine(app, partita, vaiA, posto) {
   const { ep, comune, carte } = vistoDa.dati;
   if (ctx && ctx.canale) ctx.canale.chiudi();   // il filo di prima non resta appeso
   ctx = { app, partita: vistoDa.stato, ep, comune, carte, vaiA, posto: posto || null,
-          canale: null, tavoloVivo: false, rifMiei: new Set() };
+          canale: null, tavoloVivo: false, rifMiei: new Set(),
+          // GIA' SAPUTO «qui non c'è nulla» (o «già colto»): la prima volta si
+          // tira per scoprirlo — dopo, rifare il rituale dei dadi non
+          // scoprirebbe niente di nuovo, sarebbe lo stesso tiro a vuoto.
+          saputoVuoto: new Set() };
   // come in Spedizione: la scheda e' quella di stanotte, Tempre e Cicatrici
   // comprese (la Tempra vale «sempre», e l'ACUME qui tira davvero)
   abilitaSchede((nm) => eroeCresciuto({ partita: P() }, nm,
@@ -949,7 +953,14 @@ function barraAzioniHtml(aperto) {
     // risposta prima della domanda, ed è la cosa che l'Indagine non fa.
     const l = aperto;
     const ind = IND();
-    const TIPI = ['Osservazione', 'Testimonianza', 'Referto', 'Presagio'];
+    // SCENA CHIUSA: un tiro e' gia' andato male qui stanotte, e il motore
+    // rifiuta qualunque approfondisci finche' non si esce e si rientra
+    // (`ind.scenaChiusa`, motore/indagine.js). Il testo qui sotto lo dice gia'
+    // («per questa visita gli Approfondimenti restano nascosti»); i bottoni no
+    // — restavano cliccabili, e ogni tocco faceva tirare i dadi per farsi
+    // rifiutare daccapo, all'infinito. Stessa guardia che gia' ha «aiuto
+    // profano» due righe sotto.
+    const TIPI = ind.scenaChiusa ? [] : ['Osservazione', 'Testimonianza', 'Referto', 'Presagio'];
     const miei = mio ? TIPI.filter((t) =>
       idoneiPerTipo(ctx.comune, P(), t).some((x) => x.nome === mio)) : [];
     for (const t of miei) {
@@ -1208,6 +1219,20 @@ async function esegui(comando) {
       const out = await r.json();
       if (!r.ok || out.rifiuto) { flash((out.rifiuto || {}).motivo || 'Il tavolo ha rifiutato la mossa.'); return null; }
       incassa(out.stato);
+      // LA CARTA APPENA COLTA. La risposta del tavolo porta gia' `dati`
+      // (`vista()`, worker/partita-do.js) potati per QUESTO posto — con
+      // l'Approfondimento che si e' appena colto incluso, perche' il motore lo
+      // ha gia' scritto in `approfondimentiLetti` prima di potare. Senza
+      // questa riga si aspettava la spinta del canale (`onVista`, piu' sotto)
+      // per vedere lo stesso aggiornamento: arrivava un istante dopo che
+      // `mostraEsito` aveva gia' disegnato il pannello — niente immagine, solo
+      // il testo col bottone «prendetela», su OGNI prima cattura dal proprio
+      // telefono (Approfondimenti, aiuto profano compreso).
+      if (out.dati) {
+        if (out.dati.ep) ctx.ep = out.dati.ep;
+        if (out.dati.comune) ctx.comune = out.dati.comune;
+        if (out.dati.carte) ctx.carte = out.dati.carte;
+      }
       return out;
     } catch {
       // il filo e' caduto a meta' mossa: non si applica niente qui, perche' uno
@@ -1536,6 +1561,15 @@ async function aiutoProfano(l, tipo, giaScelto) {
 // comando: e' un tiro in piu' sullo stesso comando, e il motore lo accetta
 // perche' `creaCaso` consuma i tiri dichiarati in ordine.
 async function mandaProva(comando, l) {
+  // GIA' SAPUTO in questa visita («niente-per-te», vedi mostraEsito): niente
+  // rituale dei dadi, si va dritti alla stessa risposta. Il motore lo
+  // ignorerebbe comunque — quel ramo non tira nemmeno lui (motore/indagine.js,
+  // `if (!a || gia)`) — qui si risparmia anche il tocco e l'animazione.
+  const chiave = `${comando.luogo}|${comando.tipoApp}`;
+  if (ctx.saputoVuoto.has(chiave)) {
+    const out = await esegui({ ...comando, tiri: [[1, 1]] });
+    return out ? mostraEsito(out, l) : tornaAlLuogo(l);
+  }
   const p = provaDiIndagine({ comune: ctx.comune }, comando);
   // LA SECONDA OCCASIONE SI OFFRE DENTRO LA FINESTRA, e solo se c'e' davvero:
   // il Secondo Fiato e' una volta a episodio per eroe, e proporlo a carica
@@ -1587,6 +1621,7 @@ function mostraEsito(out, l) {
   }
   const niente = ev('niente-per-te');
   if (niente) {
+    ctx.saputoVuoto.add(`${niente.luogo}|${niente.tipoApp}`);
     return pannelloMsg(String(niente.tipoApp || 'aiuto profano').toLowerCase(),
       `<p><i>${esc(String(niente.chi).split(' ')[0])} osserva, ascolta, fruga. ${niente.gia
         ? 'Quello che c’era da cogliere qui, l’avete già colto.'
