@@ -4,6 +4,7 @@
 //   npx --no-install wrangler dev --var OSR_DEV_EMAIL:uno@esempio.it --port 8787
 //   node webapp/test-account-ui.mjs
 import { chromium } from 'playwright';
+import { readFileSync } from 'fs';
 
 const BASE = process.env.OSR_BASE || 'http://127.0.0.1:8787';
 let ko = 0;
@@ -338,6 +339,57 @@ ok(dopoBozza.length === primaDiBozza && !dopoBozza.some((t) => t.nome === nomeBo
 ok(await p3.locator('#nuovo-tavolo').count() === 1, "e si torna all'elenco dei tavoli");
 ok(await p3.evaluate(() => localStorage.getItem('osr.tavolo')) === null,
   'senza lasciare il tavolo scartato come scelta corrente');
+
+// --- 13. IL REFRESH DI CHI ARBITRA RIPRENDE LA SERATA VIVA, non gli episodi
+//
+// Fino al 22/09/2026 chi arbitra, al refresh, saltava SEMPRE alla scelta degli
+// episodi — senza mai guardare il Durable Object. Se il suo salvataggio locale
+// non c'era (dispositivo diverso, storage svuotato), «riprendi» finiva per
+// aprire una partita NUOVA: la guardia di `apri` protegge dalle versioni piu'
+// vecchie della STESSA serata, ma una serata nuova non e' una versione vecchia
+// — la sovrascriveva. Un giocatore dentro un luogo si vedeva cambiare la
+// partita sotto i piedi.
+{
+  const EP1 = JSON.parse(readFileSync('webapp/data/ep1.json', 'utf8'));
+  const LUOGO = EP1.luoghi[0];
+  const idRipresa = crypto.randomUUID();
+  await api(ARB, 'POST', '/api/tavolo', { id: idRipresa, nome: 'Ripresa dal vivo' });
+  await api(ARB, 'PUT', '/api/party', { tavolo: idRipresa, party: ['NINO GRIMALDELLO CAUTO', 'CARLA DOSTI'] });
+  await api(ARB, 'POST', '/api/membri', { tavolo: idRipresa, email: OSPITE });
+  await api(ARB, 'PUT', '/api/mio-eroe', { tavolo: idRipresa, eroi: ['NINO GRIMALDELLO CAUTO'] });
+
+  // LA SERATA VIVA: si apre direttamente sul Durable Object, come farebbe la
+  // plancia di chi arbitra a partita in corso — un giocatore e' dentro un luogo.
+  const viva = {
+    v: 1, episodio: 'ep1', modo: 'tavolo', party: ['NINO GRIMALDELLO CAUTO', 'CARLA DOSTI'],
+    creata: Date.now(), aggiornato: Date.now(), fase: 'indagine',
+    indagine: { ora: 21, lettaLettera: true, visitati: [LUOGO.n], scoperti: [], sbloccati: [],
+      parole: [], oggetti: [], reperti: [], approfondimentiLetti: [], caricheUsate: {},
+      secondoFiato: {}, note: '', risposte: ['', '', '', ''], chiusa: false, luogoAperto: LUOGO.n },
+    spedizione: { round: 0, canto: 0, cantoBonus: false, mazzo: null, scarti: [], esito: null },
+  };
+  await api(ARB, 'POST', `/api/tavolo/${idRipresa}/apri`, { tavolo: idRipresa, stato: viva });
+
+  // IL REFRESH: un browser che questa serata non l'ha MAI salvata in locale —
+  // il caso peggiore (un altro dispositivo, o lo storage appena svuotato).
+  const p4 = await nuovaScheda();
+  await p4.goto(BASE, { waitUntil: 'networkidle' });
+  await p4.evaluate((t) => { localStorage.clear(); localStorage.setItem('osr.tavolo', t); }, idRipresa);
+  await p4.reload({ waitUntil: 'networkidle' });
+  await p4.waitForTimeout(1200);
+
+  const schermo = await p4.locator('#app').innerText();
+  ok(!/scegliete il caso/i.test(schermo),
+     `non finisce sulla scelta degli episodi (visto «${schermo.replace(/\s+/g, ' ').slice(0, 90)}»)`);
+  ok(schermo.toLowerCase().includes(LUOGO.nome.toLowerCase().slice(0, 12)),
+     `ma dentro il luogo dov'era rimasta la serata viva (${LUOGO.nome})`);
+
+  // e la serata viva NON e' stata toccata: il giocatore non si e' visto
+  // cambiare la partita sotto i piedi
+  const dopoRifresh = await (await api(ARB, 'GET', `/api/tavolo/${idRipresa}/stato`)).json();
+  ok((dopoRifresh.stato || {}).indagine?.luogoAperto === LUOGO.n,
+     'la serata viva resta quella: nessuna partita nuova l\'ha sovrascritta');
+}
 
 await browser.close();
 console.log(ko ? `\n${ko} FALLITI` : '\ntest-account-ui: tutto a posto');

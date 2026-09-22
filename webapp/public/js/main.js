@@ -598,10 +598,9 @@ async function entraNelTavolo(id) {
   if (!(t.eroi || []).length) {
     return vistaMioEroe(app, id, t.nome, () => entraNelTavolo(id), altroTavolo);
   }
-  if (t.ruolo === 'arbitro') return vistaHome();      // chi arbitra sceglie, come sempre
-
   // QUAL E' LA SERATA APERTA. Lo decide chi arbitra, e da quando esiste la
-  // partita viva c'e' un posto dove lo dice: il Durable Object. Si chiede li'.
+  // partita viva c'e' un posto dove lo dice: il Durable Object. Si chiede li'
+  // — PRIMA di tutto, anche per chi arbitra.
   //
   // Prima si prendeva «il salvataggio piu' recente del tavolo», e sembrava
   // ragionevole finche' l'unico a scrivere era chi conduce. Non lo e' piu': il
@@ -616,9 +615,24 @@ async function entraNelTavolo(id) {
     if (r.ok) partita = (await r.json()).stato || null;
   } catch { /* niente partita viva: si ripiega sui salvataggi, come prima */ }
 
-  // RIPIEGO: nessuna partita viva (chi arbitra non ha ancora aperto la plancia,
-  // o il tavolo e' stato sfrattato). Si torna al salvataggio piu' recente, che
-  // e' il criterio di prima ed e' sbagliato solo quando c'e' di meglio.
+  // CHI ARBITRA, senza una serata viva da riprendere, sceglie come sempre.
+  //
+  // FINO AL 22/09/2026 chi arbitra saltava DRITTO qui, senza mai guardare il
+  // tavolo: un refresh lo mandava sempre alla scelta degli episodi, e da li'
+  // «riprendi» leggeva il PROPRIO salvataggio locale — mai il Durable Object.
+  // Se quel salvataggio non c'era o non combaciava (un altro dispositivo, lo
+  // storage svuotato), il tocco su una tessera apriva una partita NUOVA, con
+  // un `creata` diverso: la guardia di `apri` (partita-do.js) protegge dalle
+  // versioni piu' vecchie della STESSA serata, ma una serata diversa non e' una
+  // versione vecchia — e' un'altra serata, e la sovrascrive. I telefoni dei
+  // giocatori, magari con uno dentro un luogo, ricevevano da sotto i piedi lo
+  // stato di una partita che non avevano mai visto.
+  if (!partita && t.ruolo === 'arbitro') return vistaHome();
+
+  // RIPIEGO PER CHI GIOCA: nessuna partita viva (chi arbitra non ha ancora
+  // aperto la plancia, o il tavolo e' stato sfrattato). Si torna al
+  // salvataggio piu' recente, che e' il criterio di prima ed e' sbagliato solo
+  // quando c'e' di meglio.
   if (!partita) {
     const suoi = (stato.salvataggi || []).filter((x) => x.tavolo === id);
     if (!suoi.length) return vistaAttesaArbitro(id, t.nome);
