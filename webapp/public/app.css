@@ -1380,6 +1380,11 @@ em, i { font-style: italic; }
   text-transform: uppercase; color: var(--nastro); }
 .scena h1, .scena h2 { font-size: clamp(30px, 9vw, 48px); line-height: 1.05; }
 .scena.bassa { min-height: 44vh; min-height: 38dvh; }
+/* SOLO LA HOME (`.in-card`): l'artwork dei luoghi resta a piena pagina — «l'immagine
+   è la pagina», il manifesto d'ogni episodio — ma l'archivio dei casi è già tutto
+   lastre (tavolo, casi): qui l'artwork ne diventa una anche lei, coi bordi come le
+   altre, invece di sanguinare da un margine all'altro. */
+.scena.in-card { margin: 0 0 12px; border-radius: 10px; border: 1px solid var(--bordo); }
 
 /* LE AZIONI IN GRIGLIA: colonne uguali, icona sopra la parola. La larghezza la
    decide la griglia, non la lunghezza dell'etichetta — con 98px «testimonianza»
