@@ -751,6 +751,8 @@ function mostraTiroDegliAltri(eventi) {
   });
 }
 
+const pausa = (ms) => new Promise((r) => setTimeout(r, ms));
+
 // il ritratto di chi tira, per la riga in cima alla finestra: senza eroe (o
 // senza artwork) la riga resta, e dice la prova - e' la stessa degradazione
 // voluta di tutto il resto quando si gioca senza tavolo
@@ -774,7 +776,7 @@ function collegaAlTavolo() {
   const posto = ctx.posto;
   ctx.canale = apriCanale({
     tavolo: posto.tavolo,
-    onVista: (stato, datiVisti, rif, eventi, messaggio) => {
+    onVista: async (stato, datiVisti, rif, eventi, messaggio) => {
       if (!stato) return;
       // IL TIRO LO VEDONO TUTTI. Il dado lo tira chi ha l'eroe, dal suo
       // telefono; fin qui rotolava solo li', e al tavolo gli altri sentivano
@@ -786,6 +788,28 @@ function collegaAlTavolo() {
       // rimetterla in scena gli mostrerebbe i propri dadi due volte.
       const mio = rif && ctx.rifMiei.has(rif);
       if (mio) ctx.rifMiei.delete(rif);
+      // C'E' DAVVERO UN TIRO da mostrare in questa spinta? La maggior parte
+      // delle spinte non ne porta uno (una carta, un dono, un semplice giro
+      // di stato) — aspettare qui ANCHE per quelle avrebbe introdotto un
+      // `await` reale dove prima non c'era, aprendo all'event loop una
+      // finestra per interfogliare la spinta SUCCESSIVA prima che questa
+      // finisse. Si guarda `eventi`, non lo stato.
+      const cTiro = (eventi || []).some((e) => e && e.tipo === 'tiro' && Array.isArray(e.d));
+      if (!mio && cTiro) {
+        // SE UNA CARTA CONDIVISA ERA GIA' APERTA — da PRIMA di questa spinta,
+        // `ctx.partita` (non ancora toccato qui: lo si fa piu' sotto) — si
+        // aspetta che si chiuda, prima di aprirci sopra il tiro di un altro
+        // eroe. Stessa attesa della Spedizione (digitale.js), verso «il tiro
+        // aspetta la carta»: chi legge finisce di leggere prima che arrivi
+        // il prossimo.
+        //
+        // NON `stato` (questa spinta): un Approfondimento colto porta il
+        // tiro E la sua carta nella STESSA spinta — controllare `stato`
+        // avrebbe aspettato che la carta di QUESTO STESSO tiro sparisse da
+        // sola, cosa che ovviamente non succede mai (e' la sua), bloccando
+        // ogni cattura per 6 secondi buoni.
+        for (let attesa = 0; ((ctx.partita || {}).indagine || {}).carta && attesa < 20; attesa += 1) await pausa(300);
+      }
       if (!mio) mostraTiroDegliAltri(eventi);
       // IL FILO E' VIVO, e da qui i comandi vanno al TAVOLO invece che al
       // motore di questa pagina. Senza questa riga `esegui()` restava sempre
@@ -827,8 +851,15 @@ function collegaAlTavolo() {
         // del primo tempo e poi non si ridisegnava piu' — stesso titolo — e
         // restava con un pannello nero e «continuate».
         const c = (stato.indagine || {}).carta;
-        if (c && c.corpo && ctx.cartaInScena !== chiaveCarta(c)) mostraCartaCondivisa(c);
-        else if (!c && ctx.cartaInScena) { ctx.cartaInScena = null; scenaArbitro(); }
+        // stessa attesa di sotto: se il tiro di un altro eroe e' ancora a
+        // schermo (`mostraTiroDegliAltri`, qui sopra, vale anche per chi
+        // arbitra), la carta non gli si scrive sotto pronta di scatto
+        if (c && c.corpo && ctx.cartaInScena !== chiaveCarta(c)) {
+          for (let attesa = 0; document.querySelector('.dadi-overlay.aperto') && attesa < 20; attesa += 1) {
+            await pausa(300);
+          }
+          mostraCartaCondivisa(c);
+        } else if (!c && ctx.cartaInScena) { ctx.cartaInScena = null; scenaArbitro(); }
         return;
       }
       // LA SERATA E' PASSATA ALLA SPEDIZIONE mentre guardavamo: non si ridisegna
@@ -862,6 +893,16 @@ function collegaAlTavolo() {
       // punto di partenza. Peggio: premevi un bottone, la spinta tornava, e la
       // pagina si ridisegnava come se non avessi premuto niente. Un bottone
       // che non fa niente, che invece aveva fatto tutto.
+      //
+      // SE UN TIRO ALTRUI STA ANCORA A SCHERMO (`.dadi-overlay`, da questa
+      // stessa spinta o da una precedente non ancora chiusa) si aspetta: il
+      // verso opposto di sopra. Senza questo una carta appena colta (o
+      // qualunque altra schermata) si scriveva SOTTO l'overlay dei dadi —
+      // invisibile finche' quello resta aperto, pronta di scatto appena si
+      // chiude, senza il tempo di leggerla.
+      for (let attesa = 0; document.querySelector('.dadi-overlay.aperto') && attesa < 20; attesa += 1) {
+        await pausa(300);
+      }
       ridisegna(() => (ctx.schermata || vistaDiChiGioca)());
     },
     // il filo e' caduto: il motore torna a essere questa pagina, e chi gioca
