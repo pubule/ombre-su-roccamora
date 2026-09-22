@@ -1528,7 +1528,15 @@ async function riproduci(eventi, daAltri = false) {
       //
       // Solo quel che ARRIVA DAL TAVOLO: la propria mossa l'ha gia' messa in
       // scena la finestra di prima, e rifarla mostrerebbe i dadi due volte.
+      //
+      // SE UNA CARTA E' ANCORA APERTA sul tavolo (`sp.carta`, `.dadi-overlay`
+      // e' `position:fixed; z-index:100`: copre tutto quel che c'e' a schermo,
+      // carta compresa) si aspetta che chi arbitra la chiuda. Senza questa
+      // attesa il tiro di un altro eroe — o del round che avanza — arrivava a
+      // coprire una carta che chi guarda non aveva ancora finito di leggere:
+      // non un difetto di rete, un ordine di arrivo che nessuno controllava.
       if (daAltri && Array.isArray(ev.d)) {
+        for (let attesa = 0; SP().carta && attesa < 20; attesa += 1) await pausa(300);
         await tiraProva({
           titolo: ev.titolo || (ev.chi ? `tiro di ${primo(ev.chi)}` : 'tiro'),
           diffLabel: ev.diff || '', soglia: ev.soglia, bonus: ev.bonus || [],
