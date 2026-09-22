@@ -1311,9 +1311,15 @@ async function dichiara(nomeVoce) {
 
   if (ev('pista-fredda')) {
     // la frase di colore la sceglie la vista: il motore dice solo che e' fredda
+    //
+    // `atutti: true` — E' UN LUOGO VERO, sia pure a vuoto: il gruppo ci si e'
+    // mosso insieme, come per un Approfondimento o un «niente, per ora».
+    // Senza questo flag restava sulla sola scrivania di chi arbitra — i
+    // telefoni non lo vedevano mai, ne' allora ne' al refresh (`atutti` e' lo
+    // stesso interruttore di `pannelloMsg`, mai acceso qui).
     const esito = dichiaraVoce(ctx.ep, ctx.comune, nomeVoce);
     return pannelloMsg('pista fredda', `<p><i>${esc(esito.frase || '')}</i></p>
-      <p class="nota mt">Nessuna ora spesa.</p>`, scenaArbitro);
+      <p class="nota mt">Nessuna ora spesa.</p>`, scenaArbitro, { atutti: true });
   }
   if (ev('mezzanotte')) {
     return pannelloMsg('è mezzanotte', '<p>Il tempo è finito: chiudete l’indagine.</p>', scenaArbitro);
