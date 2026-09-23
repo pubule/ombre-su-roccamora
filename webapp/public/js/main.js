@@ -130,9 +130,14 @@ async function vistaHome() {
   app.querySelectorAll('.stampa-caso').forEach((el) => el.addEventListener('click', async () => {
     const c = casi.find((x) => x.id === el.dataset.ep);
     if (await schedaCaso(c) !== 'apri') return;
-    // riprendere una serata aperta non ripassa dalla scelta di come cominciare:
-    // e' gia' stata fatta
-    if (c.stato === 'corso' && !(await sonoGiocatore())) return continua(c.id);
+    // NON si salta a `continua()`: e' l'unica strada che porta a vistaEpisodio,
+    // dove sta "ricomincia da capo" — l'unico posto in cui chi arbitra puo'
+    // cancellare una serata aperta e ripartire. Un salto diretto (come qui
+    // c'era prima) la rende irraggiungibile per un episodio "in corso": si
+    // rivede solo con vistaHome -> la scheda -> daccapo, in un giro senza
+    // uscita. vistaEpisodio non ripropone la scelta di come cominciare quando
+    // un salvataggio gia' c'e' (vedi il ternario piu' sotto): niente costa in
+    // piu' se non un tocco su "continua".
     vistaEpisodio(c.id);
   }));
   document.getElementById('cambia-tavolo')?.addEventListener('click',
