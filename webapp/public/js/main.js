@@ -262,8 +262,18 @@ async function vistaEpisodio(epId) {
   document.getElementById('indietro').onclick = vistaHome;
   document.getElementById('continua')?.addEventListener('click', () => continua(epId));
   document.getElementById('ricomincia')?.addEventListener('click', async () => {
+    // Il Bivio di QUESTO episodio, se gia' sigillato: rigiocando si puo'
+    // sigillarne uno diverso, e la scelta e' UNA sola per tavolo (scelte_campagna) —
+    // vale da subito per tutta la campagna, comprese le serate gia' giocate dopo
+    // questa. Non e' un errore che il codice possa prevenire (la scelta e' di chi
+    // arbitra), ma va detto prima di cancellare, non scoperto dopo.
+    const scelta = scelteCampagna()[epId];
+    const opz = scelta && ep.bivio && (ep.bivio.opzioni || []).find((o) => o.id === scelta);
+    const avviso = opz
+      ? ` Attenzione: il Bivio di questo episodio e' gia' sigillato su «${opz.titolo}». Rigiocandolo e sigillandone uno diverso, la scelta cambia per tutta la campagna — comprese le serate gia' giocate dopo questa.`
+      : '';
     if (await conferma('Ricominciare da capo?', {
-      dettaglio: 'La partita in corso di questo episodio si cancella. Non si torna indietro.',
+      dettaglio: `La partita in corso di questo episodio si cancella. Non si torna indietro.${avviso}`,
       si: 'cancellate la partita', no: 'lasciate stare',
     })) { cancella(epId); vistaEpisodio(epId); }
   });
