@@ -1,11 +1,10 @@
 // Prima schermata: si sceglie il tavolo, poi si entra negli episodi.
 // Un tavolo e' un gruppo di persone che gioca la sua campagna: le partite di
 // due gruppi non si incrociano mai, nemmeno sullo stesso episodio.
-import { impostaTavolo, tavoloCorrente, dimenticaTavolo } from './store.js';
+import { impostaTavolo, tavoloCorrente, dimenticaTavolo, tavoliLocali } from './store.js';
 import { conferma } from './chiedi.js';
 import { vistaMembri } from './membri.js';
 import { vistaRubrica } from './rubrica.js';
-import { vistaMioEroe } from './mio-eroe.js';
 
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) =>
   ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -22,6 +21,17 @@ export async function vistaTavoli(app, quandoScelto) {
 
   if (offline && tavoloCorrente()) return quandoScelto(tavoloCorrente());
 
+  // GLI ORFANI: tavoli di cui il dispositivo ha una traccia e il server no. Solo
+  // se il server ha risposto: offline `stato.tavoli` e' vuoto per forza, e ogni
+  // tavolo sembrerebbe orfano.
+  const noti = new Set(stato.tavoli.map((t) => t.id));
+  const orfani = offline ? [] : tavoliLocali().filter((o) => !noti.has(o.id));
+
+  // un tavolo mio senza compagnia (2-10 eroi) o senza invitati non e' stato
+  // salvato: entrandoci si torna a completarlo (vedi `entraNelTavolo`)
+  const incompleto = (t) => t.creatore
+    && ((t.party ? JSON.parse(t.party) : []).length < 2 || !t.invitati);
+
   const quante = (id) => stato.salvataggi.filter((s) => s.tavolo === id).length;
   const ultima = (id) => {
     const suoi = stato.salvataggi.filter((s) => s.tavolo === id);
@@ -34,6 +44,7 @@ export async function vistaTavoli(app, quandoScelto) {
     <header class="home-testata">
       <h1>ombre su roccamora</h1>
       <div class="sotto">${esc(stato.email || 'senza rete')}</div>
+      ${stato.email ? `<div class="bottoni"><a class="btn piccolo" style="text-decoration:none" href="/cdn-cgi/access/logout">esci</a></div>` : ''}
       <div class="filetto"></div>
     </header>
     <div class="pannello">
@@ -42,7 +53,7 @@ export async function vistaTavoli(app, quandoScelto) {
         <div class="modo tavolo-voce${t.id === tavoloCorrente() ? ' attivo' : ''}"
              data-id="${esc(t.id)}" data-nome="${esc(t.nome)}">
           <h3>${esc(t.nome)}</h3>
-          <p>${ultima(t.id)}</p>
+          <p>${incompleto(t) ? 'da completare — non ancora salvato' : ultima(t.id)}</p>
           ${t.ruolo === 'arbitro' ? `<button class="btn piccolo membri-tavolo" data-id="${esc(t.id)}"
                   data-nome="${esc(t.nome)}">chi gioca</button>` : ''}
           <button class="btn piccolo elimina-tavolo" data-id="${esc(t.id)}"
@@ -57,17 +68,23 @@ export async function vistaTavoli(app, quandoScelto) {
         <input id="nome-tavolo" class="campo" placeholder="Gruppo del giovedì" maxlength="80">
         <div class="btn-riga mt"><button class="btn pieno" id="crea-tavolo">crea</button></div>
       </div>
+      ${orfani.length ? `<h2 class="mt">sul dispositivo, ma non nel tuo account</h2>
+        <p class="nota">Il server non li conosce: cancellati da un altro dispositivo, o
+          di un altro account su questo browser. Restano qui finché non li butti.</p>
+        ${orfani.map((o) => `
+          <div class="modo">
+            <h3>tavolo ${esc(o.id.slice(0, 8))}…</h3>
+            <p>${o.partite} ${o.partite === 1 ? 'partita' : 'partite'} sul dispositivo${
+              o.inCoda ? ` · ${o.inCoda} ${o.inCoda === 1 ? 'scrittura' : 'scritture'} mai arrivate al server` : ''}</p>
+            <button class="btn piccolo elimina-orfano" data-id="${esc(o.id)}"
+                    data-in-coda="${o.inCoda}">butta dal dispositivo</button>
+          </div>`).join('')}` : ''}
     </div>`;
 
   app.querySelectorAll('.tavolo-voce').forEach((el) => el.addEventListener('click', () => {
     impostaTavolo(el.dataset.id, el.dataset.nome);
-    // CHI GIOCA E NON HA ANCORA UN EROE se lo prende adesso: entrare in una
-    // partita senza sapere chi si e' — o peggio, con una plancia che non
-    // risponde a nessun tocco — e' il modo peggiore di cominciare.
-    const t = stato.tavoli.find((x) => x.id === el.dataset.id);
-    if (t && t.ruolo !== 'arbitro' && !t.eroe) {
-      return vistaMioEroe(app, t.id, t.nome, () => quandoScelto(t.id));
-    }
+    // CHI GIOCA E NON HA ANCORA UN EROE se lo prende prima di entrare: lo decide
+    // `entraNelTavolo`, che e' anche la strada di chi ha il tavolo gia' ricordato
     quandoScelto(el.dataset.id);
   }));
 
@@ -94,6 +111,19 @@ export async function vistaTavoli(app, quandoScelto) {
       return;
     }
     dimenticaTavolo(id);            // senza questo risorgerebbe alla prima sincronizzazione
+    vistaTavoli(app, quandoScelto);
+  }));
+  // Solo locale: il server non ha niente da cancellare. Se c'e' roba in coda la
+  // domanda lo dice — potrebbe essere di un altro account, che la perde.
+  app.querySelectorAll('.elimina-orfano').forEach((el) => el.addEventListener('click', async () => {
+    const inCoda = Number(el.dataset.inCoda);
+    if (!await conferma('Buttare questo tavolo dal dispositivo?', {
+      dettaglio: inCoda
+        ? `Ha ${inCoda} ${inCoda === 1 ? 'scrittura' : 'scritture'} mai arrivate al server: se il tavolo è di un altro account, le perde.`
+        : 'Il server non ne ha traccia: resta solo la copia su questo dispositivo.',
+      si: 'buttate', no: 'lasciate stare',
+    })) return;
+    dimenticaTavolo(el.dataset.id);
     vistaTavoli(app, quandoScelto);
   }));
   // «chi gioca» sta solo sui tavoli che arbitro: invitare e' dell'arbitro, e il

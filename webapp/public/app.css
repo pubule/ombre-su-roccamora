@@ -105,7 +105,13 @@ h1 { color: var(--osso); }
 h2 { color: var(--osso); }
 em, i { font-style: italic; }
 
-.schermo { max-width: 1080px; margin: 0 auto; padding: 20px 16px 40px; }
+/* la nebbia (js/nebbia.js) e' un div fisso, fratello di #app, PRIMA nel
+   DOM: a parita' di z-index vince l'ordine nel DOM (il difetto gia' visto
+   sulla carta che si gira, .c3d-ombra) — qui si evita dando a .schermo uno
+   z-index esplicito, cosi' l'app resta sempre sopra qualunque cosa nebbia
+   ci metta dietro. */
+#vanta-bg { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+.schermo { position: relative; z-index: 1; max-width: 1080px; margin: 0 auto; padding: 20px 16px 40px; }
 
 /* l'etichetta battuta a macchina: dice quale fascicolo hai in mano */
 /* l'etichetta dice quale fascicolo hai in mano: nella pelle nuova è una riga
@@ -240,8 +246,6 @@ em, i { font-style: italic; }
 
 .centrato { text-align: center; }
 .mt { margin-top: 14px; }
-.copyright { text-align: center; color: var(--osso-fioco); font-size: 11px;
-  font-style: italic; margin-top: 34px; opacity: .8; }
 
 /* la barra: etichetta battuta a macchina sopra il titolo, come la costa di un
    fascicolo, e sotto il registro delle ore */
@@ -445,7 +449,8 @@ em, i { font-style: italic; }
    dov'e' una cosa. */
 
 /* la riga in cima: l'orologio non sta mai dietro un tocco, e accanto il tasto
-   del menu — col pallino quando nella notte e' arrivata una riga nuova */
+   del menu. Niente pallino sul tasto: dava l'illusione di una notifica — le
+   righe nuove della notte si leggono dentro il menu, sulla voce «la notte» */
 .riga-capo { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px; }
 .riga-capo .riga-registro { flex: 1; margin: 0; }
 /* i comandi della cornice — suoni e menu — restano insieme e in alto: la riga
@@ -453,8 +458,6 @@ em, i { font-style: italic; }
    mezz'aria */
 .comandi-capo { display: flex; align-items: center; gap: 6px; flex: 0 0 auto; }
 .btn-menu { flex: 0 0 auto; padding: 8px 14px; }
-.btn-menu .segno { display: inline-block; width: 7px; height: 7px; border-radius: 50%;
-  background: var(--nastro); margin-left: 6px; vertical-align: 1px; }
 
 /* L'ULTIMO FATTO. Una riga sola, e non e' decorazione: chiuso il registro
    dentro una voce di menu, «cos'e' appena successo» si perderebbe — ed e' il
@@ -698,7 +701,7 @@ em, i { font-style: italic; }
   .barra, .home-testata, .pannello, .banner-luogo, .griglia-episodi, .carta-grande,
   .galleria-carte, .stradario .voce, .galleria-carte img, .griglia-eroi .carta-eroe,
   .carta-grande img, .tessera-episodio .arte, .scelta-overlay, .scelta-box,
-  .tok-board.esca { animation: none; }
+  .tok-board.esca, .scena > .sfondo { animation: none; }
 }
 
 /* --- arruolamento: ritratti veri + scheda personaggio --- */
@@ -719,13 +722,24 @@ em, i { font-style: italic; }
 .eroe-nome b { display: block; font-family: 'FellSC', serif; font-weight: normal;
   color: var(--carta-ink); font-size: 12.5px; line-height: 1.2; text-shadow: none;
   hyphens: auto; }
-.eroe-nome i { color: #6b6353; font-size: 11px; }
+.eroe-nome i { color: #5c5445; font-size: 11px; }
 .eroe-tile .spunta { position: absolute; top: -7px; right: -7px; width: 24px; height: 24px;
   border-radius: 50%; color: transparent; display: none; border: 0;
   background: radial-gradient(circle at 38% 32%, #c8384c, var(--ceralacca) 60%, #6d1522);
   box-shadow: 0 3px 7px -2px #000; }
 .eroe-tile.scelto { transform: rotate(0deg) translateY(-3px); box-shadow: 0 14px 22px -12px #000; }
 .eroe-tile.scelto .spunta { display: flex; }
+
+/* --- la scelta dell'episodio: la stessa stampa dell'eroe (js/scheda-caso.js) --- */
+/* l'arte e' un paesaggio ritagliato in verticale: si tiene il centro, non la testa */
+.stampa-caso img { object-position: center; }
+.eroe-nome i.corso { color: #85590f; }
+.eroe-nome i.perduta { color: #9a2a3a; }
+/* il nastrino: un'etichetta di carta incollata sull'angolo, col numero */
+.nastrino { position: absolute; top: 12px; left: -7px; z-index: 2;
+  font-family: 'FellSC', serif; font-size: 11px; letter-spacing: .08em; text-transform: lowercase;
+  color: var(--carta-ink); background: var(--carta-scura);
+  padding: 2px 9px 2px 11px; box-shadow: 0 2px 5px -2px #000; transform: rotate(-3deg); }
 
 .eroe-dettaglio { max-width: 560px; }
 .eroe-testata { display: flex; gap: 14px; align-items: center; }
@@ -1353,11 +1367,22 @@ em, i { font-style: italic; }
      la barra delle azioni;
    - 50 invece di 62: aprendo un luogo il titolo si deve leggere SUBITO, senza
      scorrere. L'immagine resta la pagina, ma il luogo si chiama. */
+/* OGNI SCENA E' UNA LASTRA, come tutto il resto (`.pannello`): bordo, angoli,
+   niente margine negativo a sanguinare da un lato all'altro. Deciso il
+   22/09/2026 — prima solo la home (`.in-card`), le altre scene (l'arrivo a un
+   luogo, l'apertura di un episodio) sanguinavano ancora: la stessa
+   incoerenza, un posto alla volta. Ora e' la regola, non l'eccezione. */
 .scena { position: relative; min-height: 62vh; min-height: 50dvh;
-  display: flex; align-items: flex-end;
-  padding: 18px 16px; margin: 0 -16px 12px; overflow: hidden; }
+  display: flex; align-items: flex-end; border-radius: 10px; border: 1px solid var(--bordo);
+  padding: 18px 16px; margin: 0 0 12px; overflow: hidden; }
 .scena > .sfondo { position: absolute; inset: 0; background-size: cover;
-  background-position: center; filter: brightness(.62) saturate(.85); }
+  background-position: center top; filter: brightness(.62) saturate(.85);
+  animation: pan-scena 26s ease-in-out infinite alternate; }
+/* L'ARTWORK PANORAMA, non ferma: `background-size:cover` ritaglia — un'arte
+   verticale nella scatola bassa della card mostra solo una fetta, e ferma
+   sembra tagliata a meta'. Un pan lentissimo, dall'alto al basso, la scorre
+   tutta nel tempo invece di sceglierne un pezzo solo per sempre. */
+@keyframes pan-scena { from { background-position: center top; } to { background-position: center bottom; } }
 .scena::after { content: ''; position: absolute; inset: 0; pointer-events: none;
   background: linear-gradient(180deg, rgba(12,14,17,.55) 0%, rgba(12,14,17,.05) 26%,
     rgba(12,14,17,.86) 64%, var(--tavolo) 96%); }

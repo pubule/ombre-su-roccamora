@@ -39,7 +39,9 @@ await page.evaluate(() => {
 await page.goto(BASE, { waitUntil: 'networkidle' });
 await page.getByText('Il Coro Sommerso').first().click();
 await page.waitForTimeout(300);
-await page.locator('#continua').click();
+await page.locator('#apri-caso').click();   // la stampa apre la scheda: da li' si comincia
+await page.waitForTimeout(300);
+if (await page.locator('#continua').count()) await page.locator('#continua').click();   // serata conclusa: «rivedi l'epilogo»
 await page.waitForTimeout(700);
 await page.locator('#apri-menu').click();
 await page.locator('#m-taccuino').click();

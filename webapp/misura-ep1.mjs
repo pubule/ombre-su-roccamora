@@ -221,7 +221,8 @@ for (let g = 0; g < N; g++) {
   }, party);
   await pg.goto(BASE, { waitUntil: 'domcontentloaded' }); await pg.waitForTimeout(200);
   await pg.getByText('Il Coro Sommerso').first().click(); await pg.waitForTimeout(200);
-  await clicDom('#continua'); await pg.waitForTimeout(200);
+  await clicDom('#apri-caso'); await pg.waitForTimeout(200);   // la stampa apre la scheda
+  await clicDom('#continua'); await pg.waitForTimeout(200);    // (c'e' solo se la serata e' conclusa)
   await clicDom('#via'); await pg.waitForTimeout(300); await sciogli();
 
   let vittoriaAl = null, liberatoAl = null, apertaAl = null;

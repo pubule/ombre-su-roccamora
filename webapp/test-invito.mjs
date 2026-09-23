@@ -56,8 +56,8 @@ ok(errori.length === 0, `la schermata apre senza errori JS: ${errori.slice(0, 2)
 // otteneva un posto muto — il motore rifiuta i suoi comandi e sul telefono non
 // si accende niente, senza errore e senza spiegazione.
 {
-  const vuoto = await page.locator('#eroe-invito option').count();
-  ok(vuoto > 2, `senza compagnia si può scegliere fra tutti gli eroi (viste ${vuoto} voci)`);
+  // l'eroe non si assegna da qui: se lo sceglie ognuno per conto suo, quando entra
+  ok(await page.locator('#eroe-invito').count() === 0, "non c'e' il menu per dare un eroe a chi si invita");
 
   // si compone toccando i ritratti: il tocco APRE LA SCHEDA, e si arruola da lì
   // — chi compone la compagnia decide guardando chi è, non il nome sotto la foto
@@ -77,10 +77,6 @@ ok(errori.length === 0, `la schermata apre senza errori JS: ${errori.slice(0, 2)
   // niente bottone: la compagnia si salva da sé appena arriva al secondo eroe
   await page.waitForTimeout(1000);
 
-  const dopo = await page.locator('#eroe-invito option').allInnerTexts();
-  ok(dopo.length === 3, `ora si scelgono solo gli eroi della compagnia (viste ${dopo.length} voci)`);
-  ok(dopo.join(' ').toLowerCase().includes('elena'), 'e sono quelli scelti');
-
   // il vincolo non è solo a schermo: il server rifiuta un eroe fuori squadra
   const r = await fetch(`${BASE}/api/membri`, {
     method: 'POST', headers: { 'Content-Type': 'application/json' },
@@ -92,14 +88,13 @@ ok(errori.length === 0, `la schermata apre senza errori JS: ${errori.slice(0, 2)
 // --- IL TAVOLO VUOTO lo dice, invece di mostrare una lista vuota
 {
   const t = await page.locator('#p-membri').innerText();
-  ok(/nessuno/i.test(t), `un tavolo senza invitati lo dice (visto «${t.slice(0, 60)}…»)`);
+  ok(/nessun invitato/i.test(t), `un tavolo senza invitati lo dice (visto «${t.slice(0, 60)}…»)`);
 }
 
 // --- SI INVITA, e l'invito compare
 {
   await page.fill('#nome-invito', 'Giulia');
   await page.fill('#email-invito', AMICO);
-  await page.selectOption('#eroe-invito', ELENA);
   await page.click('#invita');
   await page.waitForTimeout(700);
 
@@ -110,34 +105,39 @@ ok(errori.length === 0, `la schermata apre senza errori JS: ${errori.slice(0, 2)
   const r0 = await (await fetch(`${BASE}/api/membri?tavolo=${idT}`)).json();
   ok((r0.membri || []).some((m) => m.email === AMICO && m.nome === 'Giulia'),
      'e il nome è finito nel database, non solo a schermo');
-  ok(/elena/i.test(t), 'con l\'eroe che gli è stato dato');
+  ok(/nessun eroe/i.test(t), 'senza eroe: lo sceglie lui quando entra');
 
   // e c'è davvero, non solo a schermo
   const r = await (await fetch(`${BASE}/api/membri?tavolo=${idT}`)).json();
-  ok((r.membri || []).some((m) => m.email === AMICO && m.eroe === ELENA),
-     'e il tavolo se lo ricorda');
+  ok((r.membri || []).some((m) => m.email === AMICO && !m.eroe),
+     'e il tavolo se lo ricorda, senza eroe');
 }
 
-// --- LO STESSO EROE NON SI DÀ DUE VOLTE
-// È una regola, e la impone il database con un indice unico. La schermata la
-// anticipa togliendo l'eroe dall'elenco, così non si arriva nemmeno a chiederlo.
-{
-  const opz = await page.locator('#eroe-invito option', { hasText: /elena/i }).first();
-  ok(await opz.isDisabled(), 'l\'eroe già preso non si può più scegliere');
-  const testo = await opz.innerText();
-  ok(/già preso/i.test(testo), `e l'elenco dice perché (visto «${testo}»)`);
-}
-
-// --- SI PUÒ INVITARE SENZA DARE L'EROE: lo sceglierà dopo
+// --- SI INVITA UNA SECONDA PERSONA, sempre senza eroe
 {
   await page.fill('#nome-invito', '');
   await page.fill('#email-invito', ALTRO);
-  await page.selectOption('#eroe-invito', '');
   await page.click('#invita');
   await page.waitForTimeout(700);
   const t = await page.locator('#p-membri').innerText();
   ok(t.includes(ALTRO) && /nessun eroe/i.test(t),
      'si invita anche senza eroe, e si vede che manca');
+}
+
+// --- LO STESSO EROE NON SI DA' DUE VOLTE
+// E' una regola, e la impone il database con un indice unico: ognuno prende il
+// suo eroe dal proprio dispositivo, e il secondo che chiede lo stesso si sente
+// dire di no.
+{
+  const come = (email, eroi) => fetch(`${BASE}/api/mio-eroe`, {
+    method: 'PUT', headers: { 'Content-Type': 'application/json', 'X-Osr-Dev-Email': email },
+    body: JSON.stringify({ tavolo: idT, eroi }),
+  });
+  ok((await come(AMICO, [ELENA])).ok, 'un invitato prende il suo eroe');
+  const secondo = await come(ALTRO, [ELENA]);
+  ok(secondo.status === 409, `e un altro non puo' prendere lo stesso (visto ${secondo.status})`);
+  ok((await come(ALTRO, [OTTONE])).ok, "ma puo' prenderne un altro");
+  await come(AMICO, []); await come(ALTRO, []);   // si rimette com'era
 }
 
 // --- UN'EMAIL SBAGLIATA non passa in silenzio
@@ -201,12 +201,25 @@ ok(errori.length === 0, `la schermata apre senza errori JS: ${errori.slice(0, 2)
   ok(await p2.locator('#email-invito').count() === 1, 'e a invitare');
   ok(!(await p2.evaluate(() => document.querySelector('#app').dataset.episodi)),
      'e NON si è passati per gli episodi');
-  ok(await p2.locator('#avanti').count() === 1, 'con il bottone per proseguire quando si è pronti');
+  ok(await p2.locator('#avanti').count() === 1, "con il bottone per salvare quando si e' pronti");
+  ok(await p2.locator('#avanti').getAttribute('aria-disabled') === 'true',
+     "ma spento finche' non ci sono compagnia e invitati");
+
+  // completato il tavolo: compagnia (via API, la scheda e' un modale) e un invitato
+  await p2.evaluate(async ([a, b]) => {
+    await fetch('/api/party', { method: 'PUT', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ tavolo: localStorage.getItem('osr.tavolo') || '', party: [a, b] }) });
+  }, [ELENA, OTTONE]);
+  await p2.fill('#email-invito', 'compagno@esempio.it');
+  await p2.click('#invita');
+  await p2.waitForTimeout(900);
+  ok(await p2.locator('#avanti').getAttribute('aria-disabled') === 'false',
+     'con compagnia e un invitato si accende');
 
   await p2.click('#avanti');
   await p2.waitForTimeout(400);
   ok(await p2.evaluate(() => document.querySelector('#app').dataset.episodi) === '1',
-     'e quel bottone porta agli episodi');
+     'e quel bottone porta avanti');
   await p2.close();
 }
 
@@ -226,6 +239,16 @@ ok(errori.length === 0, `la schermata apre senza errori JS: ${errori.slice(0, 2)
     body: JSON.stringify({ tavolo: idC, party: [ELENA, OTTONE] }),
   });
 
+  // il tavolo e' completo: un invitato, e il creatore ha preso il suo eroe
+  await fetch(`${BASE}/api/membri`, {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ tavolo: idC, email: 'compagno@esempio.it' }),
+  });
+  await fetch(`${BASE}/api/mio-eroe`, {
+    method: 'PUT', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ tavolo: idC, eroi: [ELENA] }),
+  });
+
   const p3 = await browser.newPage({ viewport: { width: 420, height: 900 } });
   await p3.goto(BASE, { waitUntil: 'networkidle' });
   // `osr.tavolo` contiene l'id NUDO, non un JSON; il nome sta a parte
@@ -235,7 +258,8 @@ ok(errori.length === 0, `la schermata apre senza errori JS: ${errori.slice(0, 2)
   }, idC);
   await p3.reload({ waitUntil: 'networkidle' });
   await p3.waitForTimeout(800);
-  await p3.locator('.tessera-episodio').first().click();
+  await p3.locator('.stampa-caso').first().click();
+  await p3.locator('#apri-caso').click();   // la stampa apre la scheda: da li' si comincia
   await p3.waitForTimeout(600);
   const av = p3.locator('#avanti');
   if (await av.count()) { await av.click(); await p3.waitForTimeout(2000); }

@@ -175,7 +175,7 @@ ok(errori.length === 0, `la schermata apre senza errori JS: ${errori.slice(0, 2)
   ok(!/come giocate stasera/i.test(testo),
      'niente scelta della modalità sul telefono');
   ok(!/da dove cominciate/i.test(testo), 'né da dove si comincia');
-  ok(await p2.locator('.tessera-episodio').count() === 0, 'nemmeno la scelta dell’episodio');
+  ok(await p2.locator('.stampa-caso').count() === 0, 'nemmeno la scelta dell’episodio');
   ok(/non è ancora cominciata|prenditi|il tuo eroe/i.test(testo),
      `si finisce dove serve (visto: ${testo.slice(0, 70).replace(/\s+/g, ' ')})`);
 
@@ -184,8 +184,12 @@ ok(errori.length === 0, `la schermata apre senza errori JS: ${errori.slice(0, 2)
   // comincia, e perfino «ricomincia da capo».
   await p2.goto(BASE, { waitUntil: 'networkidle' });
   await p2.waitForTimeout(1000);
-  const tessera = p2.locator('.tessera-episodio').first();
-  if (await tessera.count()) { await tessera.click(); await p2.waitForTimeout(1200); }
+  const tessera = p2.locator('.stampa-caso').first();
+  if (await tessera.count()) {
+    await tessera.click();
+    if (await p2.locator('#apri-caso').count()) await p2.locator('#apri-caso').click();
+    await p2.waitForTimeout(1200);
+  }
   const t2 = await p2.locator('#app').innerText();
   ok(!/come giocate stasera/i.test(t2), 'rientrando in un episodio: niente scelta della modalità');
   ok(!/ricomincia da capo/i.test(t2), 'né «ricomincia da capo», che è di chi conduce');

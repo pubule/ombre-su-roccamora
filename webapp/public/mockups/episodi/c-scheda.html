@@ -1,0 +1,59 @@
+<!doctype html><html lang="it"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Scelta episodio · C scheda del caso · mockup</title>
+<link rel="stylesheet" href="../../app.css">
+<link rel="stylesheet" href="episodi.css">
+</head><body>
+<div id="app" class="schermo">
+<p class="mockup-nota"><b>C · scheda del caso</b> — il gesto è quello degli eroi: si tocca la
+  stampa, si apre una <i>scheda</i> (lo stesso foglio di <code>schedaEroe</code>), e solo da lì si
+  comincia. Il numero sta su un nastrino di carta incollato sulla stampa. Niente parte per un tocco
+  sbagliato, che con ventun tessere quasi uguali è il rischio vero. <b>Toccate una stampa.</b>
+  <a href="./">Tutti i mockup</a></p>
+<div id="quadro"></div>
+</div>
+<script src="dati.js"></script>
+<script src="episodi.js"></script>
+<script>
+quadro.innerHTML = barra() + `
+  <div class="pannello">
+    <h2>scegliete il caso</h2>
+    <p class="nota">Toccate una stampa per leggerne la scheda: da lì si comincia.</p>
+    <div class="griglia-arruolo mt">${EPISODI.map((e) => stampa(e, { nastrino: true })).join('')}</div>
+  </div>`;
+
+const COME = {
+  vinta: 'Vinta: il Frammento è conservato nel taccuino di campagna.',
+  corso: 'Una serata è aperta: si riprende da dove eravate.',
+  perduta: 'Perduta: nessun Frammento. Il caso si può rigiocare.',
+  '': 'Non ancora giocato.',
+};
+
+function scheda(e) {
+  const st = STATI[e.id] || '';
+  const ov = document.createElement('div');
+  ov.className = 'scelta-overlay';
+  ov.innerHTML = `
+    <div class="scelta-box eroe-dettaglio">
+      <div class="eroe-testata">
+        <img src="${urlArte(e.art)}" alt="">
+        <div><h3>${esc(e.titolo.toLowerCase())}</h3>
+          <p class="eroe-ruolo">${numero(e)} — ${NOME_ATTO[e.atto]}</p></div>
+      </div>
+      <div class="eroe-sezione"><h4>il caso</h4>
+        <p class="eroe-blocco"><i>${esc(e.sotto)}</i></p></div>
+      <div class="eroe-sezione"><h4>com'è andata</h4>
+        <p class="eroe-blocco">${COME[st]}</p></div>
+      <button class="btn pieno" id="apri">${st === 'corso' ? 'riprendete la serata'
+        : st ? 'rigiocate il caso' : 'si comincia'}</button>
+      <button class="btn scelta-btn annulla" id="chiudi">chiudete la scheda</button>
+    </div>`;
+  document.body.appendChild(ov);
+  ov.querySelector('#chiudi').onclick = () => ov.remove();
+  ov.querySelector('#apri').onclick = () => ov.remove();     // mockup: qui partirebbe la serata
+  ov.addEventListener('click', (ev) => { if (ev.target === ov) ov.remove(); });
+}
+document.querySelectorAll('.eroe-tile').forEach((el) => el.addEventListener('click', () =>
+  scheda(EPISODI.find((e) => e.id === el.dataset.id))));
+</script>
+</body></html>

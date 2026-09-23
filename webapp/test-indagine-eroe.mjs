@@ -1410,6 +1410,46 @@ ${schermo.slice(0, 140).replace(/\s+/g, ' ')}`);
      'e a pagarlo è Carla, non il primo della lista');
 }
 
+// --- 24. LA CARTA APPENA COLTA HA LA SUA IMMAGINE, non solo il testo
+//
+// La risposta del comando (`/api/tavolo/.../comando`) porta gia' `dati`
+// potati per QUESTO posto, con l'Approfondimento appena colto incluso — il
+// motore lo scrive in `approfondimentiLetti` PRIMA che il tavolo poti. Senza
+// aggiornare `ctx.carte` da quella risposta, `mostraEsito` cercava la carta
+// nei dati VECCHI (da prima del colpo) e non la trovava: solo testo e il
+// bottone «prendetela», su ogni prima cattura dal proprio telefono.
+{
+  const LUOGO = EP1.luoghi.find((l) => (l.approfondimenti || []).length);
+  const TIPO = LUOGO.approfondimenti[0].tipo;
+  const IDONEO = COMUNE.eroi.find((e) => ((e.cariche || {})[TIPO] || 0) > 0);
+  const dentro = serata({ luogoAperto: LUOGO.n, visitati: [LUOGO.n], ora: 21 });
+  dentro.party = [IDONEO.nome, OTTONE];
+  dentro.creata = 24_000;
+
+  await chiama(ARBITRO, 'PUT', '/api/party', { tavolo: idT, party: dentro.party });
+  await chiama(ARBITRO, 'DELETE', `/api/membri?tavolo=${idT}&email=${encodeURIComponent(GIOCATORE)}`);
+  await chiama(ARBITRO, 'POST', '/api/membri', { tavolo: idT, email: GIOCATORE, eroe: IDONEO.nome });
+  await chiama(ARBITRO, 'POST', `/api/tavolo/${idT}/apri`, { tavolo: idT, stato: dentro });
+  await apriIndagine(dentro);
+  await page.waitForTimeout(1200);
+  await entraSeSiE();
+
+  const sel = `[data-appr="approfondisci"][data-tipo="${TIPO}"]`;
+  await page.evaluate((x) => document.querySelector(x).click(), sel);
+  await page.waitForTimeout(1200);
+  // il totale piu' alto: coglie di sicuro, ed e' il ramo che consegna la carta
+  await page.locator('#dadi-tavolo [data-tot="12"]').click();
+  await page.waitForTimeout(2600);
+  await page.locator('#dadi-chiudi').click();
+  await page.waitForTimeout(900);
+
+  const testo = await page.locator('#app').innerText();
+  ok(new RegExp(LUOGO.approfondimenti[0].soggetto.slice(0, 10), 'i').test(testo),
+     `l'esito compare (cercato «${LUOGO.approfondimenti[0].soggetto.slice(0, 10)}»): ${testo.slice(0, 120)}`);
+  ok((await page.locator('.carta-grande img').count()) > 0,
+     'e porta con sé l’immagine della carta, non solo il testo');
+}
+
 await browser.close();
 console.log(ko === 0
   ? 'test-indagine-eroe: l\'Indagine si gioca in due, senza che i segreti passino'

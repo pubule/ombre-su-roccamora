@@ -4,6 +4,7 @@
 //   npx --no-install wrangler dev --var OSR_DEV_EMAIL:uno@esempio.it --port 8787
 //   node webapp/test-account-ui.mjs
 import { chromium } from 'playwright';
+import { readFileSync } from 'fs';
 
 const BASE = process.env.OSR_BASE || 'http://127.0.0.1:8787';
 let ko = 0;
@@ -36,11 +37,49 @@ await p1.waitForTimeout(1000);
 ok(await p1.locator('.eroe-tile').count() > 0, 'dopo il tavolo si compone la compagnia');
 ok(await p1.locator('#email-invito').count() === 1, 'e si invita');
 
-// gli episodi arrivano premendo «si comincia», che è una scelta e non un salto
+ok(await p1.locator('#eroe-invito').count() === 0,
+  'non si assegna un eroe a chi si invita: se lo sceglie ognuno per conto suo');
+
+// UN TAVOLO SI SALVA COMPLETO: senza compagnia e senza invitati «salva il
+// tavolo» resta spento, e dice cosa manca
+const idTavolo = await p1.evaluate(() => localStorage.getItem('osr.tavolo'));
+ok(await p1.locator('#avanti').getAttribute('aria-disabled') === 'true',
+  "senza compagnia e senza invitati «salva il tavolo» e' spento");
+// `aria-disabled`: per Playwright non e' cliccabile, per chi gioca si
+await p1.click('#avanti', { force: true });
+const avviso = await p1.locator('.scelta-overlay').innerText();
+ok(/compagnia, da 2 a 10 eroi/.test(avviso) && /invitata/.test(avviso),
+  `premuto, un avviso dell'app dice cosa manca (visto «${avviso.replace(/\s+/g, ' ').slice(0, 90)}»)`);
+await p1.locator('.scelta-overlay button').click();
+ok(await p1.locator('.scelta-overlay').count() === 0, 'e si chiude');
+
+// la compagnia: si salva col tocco sui ritratti, qui via API (la scheda e' un modale)
+await p1.evaluate(async (t) => {
+  await fetch('/api/party', { method: 'PUT', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ tavolo: t, party: ['NINO GRIMALDELLO CAUTO', 'CARLA DOSTI'] }) });
+}, idTavolo);
+await p1.fill('#nome-invito', 'Ospite');
+await p1.fill('#email-invito', 'ospite-uno@esempio.it');
+await p1.click('#invita');
+await p1.waitForTimeout(900);
+ok(await p1.locator('#avanti').getAttribute('aria-disabled') === 'false',
+   'con la compagnia e un invitato si salva');
+
+// salvato il tavolo, il CREATORE sceglie il suo eroe come tutti: finche' non lo
+// fa vede solo quello, e gli episodi non ci sono
 await p1.click('#avanti');
 await p1.waitForTimeout(900);
-ok(await p1.getByText('Il Coro Sommerso').count() > 0, 'e da lì si arriva agli episodi');
-const idTavolo = await p1.evaluate(() => localStorage.getItem('osr.tavolo'));
+ok(await p1.locator('.griglia-arruolo .eroe-tile').count() === 2,
+  'il creatore vede la scelta del proprio eroe');
+ok(await p1.getByText('Il Coro Sommerso').count() === 0 && await p1.locator('#entra').count() === 0,
+  'e gli episodi ancora no');
+await p1.evaluate(async (t) => {
+  await fetch('/api/mio-eroe', { method: 'PUT', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ tavolo: t, eroi: ['NINO GRIMALDELLO CAUTO'] }) });
+}, idTavolo);
+await p1.reload({ waitUntil: 'networkidle' });
+await p1.waitForTimeout(900);
+ok(await p1.getByText('Il Coro Sommerso').count() > 0, 'preso l\'eroe, si arriva agli episodi');
 ok(!!idTavolo, 'il tavolo scelto resta sul dispositivo');
 
 // --- 3. una partita giocata qui arriva al server
@@ -110,7 +149,7 @@ await p2.reload({ waitUntil: 'networkidle' });
 await p2.waitForTimeout(500);
 await p2.getByText('Il Coro Sommerso').first().click();
 await p2.waitForTimeout(400);
-await p2.locator('#continua').click();
+await p2.locator('#apri-caso').click();      // «riprendete la serata»: porta dentro, e li' si decide il conflitto
 await p2.waitForTimeout(1200);
 ok(await p2.getByText(/due versioni di questa partita/i).count() > 0,
   "con due versioni divergenti l'app chiede invece di sovrascrivere");
@@ -159,6 +198,198 @@ ok(!finale.salvataggi.some((s) => s.tavolo === daButtare.id),
 ok(finale.tavoli.some((t) => t.id === idTavolo), 'gli altri tavoli restano');
 ok(await p3.evaluate((id) => !Object.keys(localStorage).some((k) => k.includes(id)), daButtare.id),
   'del tavolo eliminato non resta traccia sul dispositivo');
+
+// --- 9. un tavolo che il server non conosce (cancellato altrove, o di un altro
+// account) non manda alla home degli episodi: si torna ai tavoli, dove compare
+// fra gli orfani, e si butta solo quando lo decide chi gioca
+const orfano = '99999999-aaaa-bbbb-cccc-000000000000';
+await p3.evaluate((o) => {
+  localStorage.setItem('osr.tavolo', o);
+  localStorage.setItem(`osr.partita.${o}.preludio`, '{"v":1}');
+  localStorage.setItem('osr.dasincronizzare', JSON.stringify([
+    { chiave: `${o}/preludio`, corpo: { tavolo: o, episodio: 'preludio', aggiornato: 1, dati: '{}' } }]));
+}, orfano);
+await p3.reload({ waitUntil: 'networkidle' });
+await p3.waitForTimeout(800);
+ok(await p3.getByText('Il Coro Sommerso').count() === 0,
+  'con un tavolo sconosciuto al server non si finisce sugli episodi');
+ok(await p3.locator('#nuovo-tavolo').count() === 1, 'si finisce sull\'elenco dei tavoli');
+ok(await p3.evaluate(() => localStorage.getItem('osr.tavolo')) === null,
+  'la scelta del tavolo sconosciuto viene scordata');
+ok(await p3.locator(`.elimina-orfano[data-id="${orfano}"]`).count() === 1,
+  'il tavolo sconosciuto compare fra gli orfani');
+ok(await p3.locator('.elimina-orfano').count() === 1, 'e i tavoli veri non sono orfani');
+ok(await p3.evaluate((o) => !!localStorage.getItem(`osr.partita.${o}.preludio`), orfano),
+  'le sue partite restano sul dispositivo finche\' non si butta');
+await p3.locator(`.elimina-orfano[data-id="${orfano}"]`).click();
+await p3.waitForTimeout(600);
+ok(await p3.locator('.elimina-orfano').count() === 0, 'buttato, sparisce dall\'elenco');
+ok(await p3.evaluate((o) => !Object.keys(localStorage).some((k) => k.includes(o))
+    && !(localStorage.getItem('osr.dasincronizzare') || '').includes(o), orfano),
+  'dell\'orfano non resta traccia, nemmeno in coda');
+
+// --- 10. CHI HA CREATO IL TAVOLO e' l'arbitro sempre, anche senza eroe; e un
+// invitato senza eroe vede SOLO la scelta dell'eroe, anche con il tavolo gia'
+// ricordato (l'app apre da li' senza passare dall'elenco)
+const ARB = 'uno@esempio.it', OSPITE = 'ospite@esempio.it';
+const api = (email, metodo, percorso, corpo) => fetch(BASE + percorso, {
+  method: metodo, headers: { 'Content-Type': 'application/json', 'X-Osr-Dev-Email': email },
+  body: corpo ? JSON.stringify(corpo) : undefined });
+const idOspite = crypto.randomUUID();
+await api(ARB, 'POST', '/api/tavolo', { id: idOspite, nome: 'Con ospite' });
+await api(ARB, 'PUT', '/api/party', { tavolo: idOspite, party: ['NINO GRIMALDELLO CAUTO', 'CARLA DOSTI'] });
+await api(ARB, 'POST', '/api/membri', { tavolo: idOspite, email: OSPITE });   // senza eroe
+
+const elenco = await (await api(ARB, 'GET', `/api/membri?tavolo=${idOspite}`)).json();
+ok(elenco.proprietario === ARB, 'il tavolo dice chi l\'ha creato');
+ok(elenco.membri.length === 1 && elenco.membri[0].email === OSPITE,
+  'ma il creatore non e\' fra i membri: non prende un posto e non si toglie');
+
+await p3.goto(BASE, { waitUntil: 'networkidle' });
+await p3.evaluate(() => { localStorage.removeItem('osr.tavolo'); });
+await p3.reload({ waitUntil: 'networkidle' });
+await p3.locator(`.membri-tavolo[data-id="${idOspite}"]`).click();
+await p3.waitForTimeout(800);
+ok(await p3.getByText(/ha creato il tavolo/i).count() === 1,
+  'nell\'elenco di chi gioca il creatore compare, come arbitro');
+ok(await p3.locator('.togli-membro').count() === 1, 'e solo l\'invitato si puo\' togliere');
+
+const ctxO = await browser.newContext({ viewport: { width: 390, height: 844 },
+  extraHTTPHeaders: { 'X-Osr-Dev-Email': OSPITE } });
+const po = await ctxO.newPage();
+po.on('pageerror', (e) => { console.log('   !! pageerror:', e.message); ko++; });
+await po.goto(BASE, { waitUntil: 'networkidle' });
+await po.evaluate((t) => localStorage.setItem('osr.tavolo', t), idOspite);   // tavolo gia' ricordato
+await po.reload({ waitUntil: 'networkidle' });
+await po.waitForTimeout(800);
+ok(await po.locator('.griglia-arruolo .eroe-tile').count() === 2,
+  'l\'invitato senza eroe vede solo la scelta dell\'eroe');
+ok(await po.getByText(new RegExp(`Tavolo di.*${ARB}`)).count() > 0, 'e sa chi arbitra');
+ok(await po.locator('#entra').count() === 0, 'e non c\'e\' modo di andare oltre');
+ok(await po.getByText(/la serata non è ancora cominciata/i).count() === 0,
+  'non arriva alla schermata d\'attesa senza aver scelto');
+// da li' si puo' sempre cambiare tavolo: la scelta non e' un vicolo cieco
+await po.locator('#altro-tavolo').click();
+await po.waitForTimeout(600);
+ok(await po.locator('#nuovo-tavolo').count() === 1 && await po.locator('.griglia-arruolo').count() === 0,
+  'con «cambia tavolo» si torna all\'elenco dei tavoli');
+// ...e anche quando il tavolo non e' pronto: senza compagnia non c'e' niente da
+// scegliere, ma non si resta chiusi dentro
+const idVuoto = crypto.randomUUID();
+await api(ARB, 'POST', '/api/tavolo', { id: idVuoto, nome: 'Senza compagnia' });
+await api(ARB, 'POST', '/api/membri', { tavolo: idVuoto, email: OSPITE });
+await po.evaluate((t) => localStorage.setItem('osr.tavolo', t), idVuoto);
+await po.reload({ waitUntil: 'networkidle' });
+await po.waitForTimeout(800);
+ok(await po.getByText(/ancora niente da scegliere/i).count() > 0, 'senza compagnia non c\'e\' niente da scegliere');
+ok(await po.locator('#altro-tavolo').count() === 1, 'ma c\'e\' «cambia tavolo»');
+await po.evaluate((t) => localStorage.setItem('osr.tavolo', t), idOspite);
+
+await api(OSPITE, 'PUT', '/api/mio-eroe', { tavolo: idOspite, eroi: ['CARLA DOSTI'] });
+await po.reload({ waitUntil: 'networkidle' });
+await po.waitForTimeout(800);
+ok(await po.getByText(/la serata non è ancora cominciata/i).count() > 0,
+  'preso l\'eroe, il tavolo si apre');
+
+// --- 11. il creatore ha un posto come gli altri: prende il suo eroe, e gli
+// altri vedono che e' preso. E un tavolo suo lasciato a meta' non si apre: ci si
+// rientra dalla stessa schermata, che dice cosa manca
+const presoDaCreatore = await api(ARB, 'PUT', '/api/mio-eroe', { tavolo: idOspite, eroi: ['NINO GRIMALDELLO CAUTO'] });
+ok(presoDaCreatore.ok, 'il creatore puo\' prendersi un eroe');
+const dopoPreso = await (await api(ARB, 'GET', `/api/membri?tavolo=${idOspite}`)).json();
+ok(dopoPreso.eroiProprietario.join() === 'NINO GRIMALDELLO CAUTO', 'e il tavolo lo dice');
+const rifiutato = await api(OSPITE, 'PUT', '/api/mio-eroe', { tavolo: idOspite, eroi: ['NINO GRIMALDELLO CAUTO'] });
+ok(rifiutato.status === 409, `e l'invitato non puo' prendere lo stesso (visto ${rifiutato.status})`);
+const statoCreatore = await (await api(ARB, 'GET', '/api/stato')).json();
+const suo = statoCreatore.tavoli.find((x) => x.id === idOspite);
+ok(suo && suo.creatore === 1 && suo.invitati === 1 && suo.eroi.length === 1,
+  'lo stato dice che e\' suo, quanti invitati ha e che eroe ha');
+
+await p3.goto(BASE, { waitUntil: 'networkidle' });
+await p3.evaluate((t) => localStorage.setItem('osr.tavolo', t), idVuoto);   // senza compagnia
+await p3.reload({ waitUntil: 'networkidle' });
+await p3.waitForTimeout(800);
+ok(await p3.locator('#avanti').count() === 1
+   && await p3.locator('#avanti').getAttribute('aria-disabled') === 'true',
+  'un tavolo suo senza compagnia non si apre: si torna a completarlo');
+await p3.click('#avanti', { force: true });
+const avviso2 = await p3.locator('.scelta-overlay').innerText();
+ok(/compagnia, da 2 a 10 eroi/.test(avviso2) && !/invitata/.test(avviso2),
+  "e dice che manca solo la compagnia (l'invitato c'e')");
+await p3.locator('.scelta-overlay button').click();
+
+// --- 12. USCIRE DA UN TAVOLO NON SALVATO LO SCARTA: il tavolo esiste sul server
+// dal momento in cui lo si crea, e uscire a meta' lo lasciava nell'elenco
+await p3.goto(BASE, { waitUntil: 'networkidle' });
+await p3.evaluate(() => { localStorage.removeItem('osr.tavolo'); });
+await p3.reload({ waitUntil: 'networkidle' });
+const primaDiBozza = (await (await api(ARB, 'GET', '/api/stato')).json()).tavoli.length;
+await p3.click('#nuovo-tavolo');
+const nomeBozza = `Tavolo lasciato a meta ${Date.now()}`;   // il D1 locale conserva le prove precedenti
+await p3.fill('#nome-tavolo', nomeBozza);
+await p3.click('#crea-tavolo');
+await p3.waitForTimeout(900);
+ok((await (await api(ARB, 'GET', '/api/stato')).json()).tavoli.length === primaDiBozza + 1,
+  'appena creato il tavolo esiste sul server');
+await p3.click('#indietro');            // confirm sostituito: risponde «si»
+await p3.waitForTimeout(900);
+const dopoBozza = (await (await api(ARB, 'GET', '/api/stato')).json()).tavoli;
+ok(dopoBozza.length === primaDiBozza && !dopoBozza.some((t) => t.nome === nomeBozza),
+  'uscendo senza salvare il tavolo viene scartato');
+ok(await p3.locator('#nuovo-tavolo').count() === 1, "e si torna all'elenco dei tavoli");
+ok(await p3.evaluate(() => localStorage.getItem('osr.tavolo')) === null,
+  'senza lasciare il tavolo scartato come scelta corrente');
+
+// --- 13. IL REFRESH DI CHI ARBITRA RIPRENDE LA SERATA VIVA, non gli episodi
+//
+// Fino al 22/09/2026 chi arbitra, al refresh, saltava SEMPRE alla scelta degli
+// episodi — senza mai guardare il Durable Object. Se il suo salvataggio locale
+// non c'era (dispositivo diverso, storage svuotato), «riprendi» finiva per
+// aprire una partita NUOVA: la guardia di `apri` protegge dalle versioni piu'
+// vecchie della STESSA serata, ma una serata nuova non e' una versione vecchia
+// — la sovrascriveva. Un giocatore dentro un luogo si vedeva cambiare la
+// partita sotto i piedi.
+{
+  const EP1 = JSON.parse(readFileSync('webapp/data/ep1.json', 'utf8'));
+  const LUOGO = EP1.luoghi[0];
+  const idRipresa = crypto.randomUUID();
+  await api(ARB, 'POST', '/api/tavolo', { id: idRipresa, nome: 'Ripresa dal vivo' });
+  await api(ARB, 'PUT', '/api/party', { tavolo: idRipresa, party: ['NINO GRIMALDELLO CAUTO', 'CARLA DOSTI'] });
+  await api(ARB, 'POST', '/api/membri', { tavolo: idRipresa, email: OSPITE });
+  await api(ARB, 'PUT', '/api/mio-eroe', { tavolo: idRipresa, eroi: ['NINO GRIMALDELLO CAUTO'] });
+
+  // LA SERATA VIVA: si apre direttamente sul Durable Object, come farebbe la
+  // plancia di chi arbitra a partita in corso — un giocatore e' dentro un luogo.
+  const viva = {
+    v: 1, episodio: 'ep1', modo: 'tavolo', party: ['NINO GRIMALDELLO CAUTO', 'CARLA DOSTI'],
+    creata: Date.now(), aggiornato: Date.now(), fase: 'indagine',
+    indagine: { ora: 21, lettaLettera: true, visitati: [LUOGO.n], scoperti: [], sbloccati: [],
+      parole: [], oggetti: [], reperti: [], approfondimentiLetti: [], caricheUsate: {},
+      secondoFiato: {}, note: '', risposte: ['', '', '', ''], chiusa: false, luogoAperto: LUOGO.n },
+    spedizione: { round: 0, canto: 0, cantoBonus: false, mazzo: null, scarti: [], esito: null },
+  };
+  await api(ARB, 'POST', `/api/tavolo/${idRipresa}/apri`, { tavolo: idRipresa, stato: viva });
+
+  // IL REFRESH: un browser che questa serata non l'ha MAI salvata in locale —
+  // il caso peggiore (un altro dispositivo, o lo storage appena svuotato).
+  const p4 = await nuovaScheda();
+  await p4.goto(BASE, { waitUntil: 'networkidle' });
+  await p4.evaluate((t) => { localStorage.clear(); localStorage.setItem('osr.tavolo', t); }, idRipresa);
+  await p4.reload({ waitUntil: 'networkidle' });
+  await p4.waitForTimeout(1200);
+
+  const schermo = await p4.locator('#app').innerText();
+  ok(!/scegliete il caso/i.test(schermo),
+     `non finisce sulla scelta degli episodi (visto «${schermo.replace(/\s+/g, ' ').slice(0, 90)}»)`);
+  ok(schermo.toLowerCase().includes(LUOGO.nome.toLowerCase().slice(0, 12)),
+     `ma dentro il luogo dov'era rimasta la serata viva (${LUOGO.nome})`);
+
+  // e la serata viva NON e' stata toccata: il giocatore non si e' visto
+  // cambiare la partita sotto i piedi
+  const dopoRifresh = await (await api(ARB, 'GET', `/api/tavolo/${idRipresa}/stato`)).json();
+  ok((dopoRifresh.stato || {}).indagine?.luogoAperto === LUOGO.n,
+     'la serata viva resta quella: nessuna partita nuova l\'ha sovrascritta');
+}
 
 await browser.close();
 console.log(ko ? `\n${ko} FALLITI` : '\ntest-account-ui: tutto a posto');

@@ -1,7 +1,8 @@
 name: Deploy
 
-# Rigenera dati/assets/font (webapp/data, webapp/assets, fonts/ sono in
-# .gitignore, vedi deploy/README.md) e lancia ./deploy/deploy.sh, che fa le
+# Rigenera dati/assets/font/vendor (webapp/data, webapp/assets, fonts/,
+# webapp/public/js/vendor/ sono in .gitignore, vedi deploy/README.md) e
+# lancia ./deploy/deploy.sh, che fa le
 # tre cose nell'ordine giusto: assembla dist, porta il D1 di produzione allo
 # schema, pubblica il Worker.
 #
@@ -41,6 +42,7 @@ jobs:
           node webapp/export-data.js
           python webapp/export-assets.py
           ./fetch_fonts.sh
+          ./fetch_vendor.sh
 
       - name: Deploy (dist -> schema D1 -> worker)
         env:

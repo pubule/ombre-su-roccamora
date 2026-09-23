@@ -848,6 +848,68 @@ SOLUZIONI = dict(
     ),
 )
 
+# --- GLI EFFETTI DELLE DOMANDE, in forma che il motore legge -----------------
+# Ogni Domanda promette un effetto in Spedizione (`esatta` / `sbagliata`, in
+# prosa, per il fascicolo stampato). Finora solo `penalita.canto` era anche un
+# dato: il resto la busta lo mostrava a chi arbitra e poi spariva (audit
+# 21/09/2026, AUDIT-VANTAGGI-INDAGINE.md). Qui si dichiarano gli effetti che il
+# motore sa applicare — `motore/domande.js` — e tutto il resto resta prosa, che
+# la Spedizione ripropone come promemoria (`ep.soluzione.domande[].esatta`).
+#
+# `premio`    vale se la Domanda e' ESATTA, `penalita` se e' sbagliata.
+#   nessuna_minaccia_r1   nel 1° round non si pesca nessuna carta Minaccia
+#   minaccia_extra_r1     n carte Minaccia in piu' nel 1° round
+#   canto                 n segnalini Canto di partenza                (gia' c'era)
+#   spawn_t1              {NOME_POOL: n} appaiono in T1 alla partenza
+#   senza_spawn           {TESSERA: [NOME_POOL]} quel nemico NON appare li'
+#   smascherato           [NOME_POOL] la prima volta che sarebbero piazzati, no
+#   boss_salta            'attivazione' | 'attacco': il boss salta la prima
+#   boss_difesa           delta alla Difesa del boss per tutta la partita
+#   senza_prova           [TESSERA] l'insidia d'ingresso di quella tessera non scatta
+#   traccia_iniziale      n: l'orologio d'episodio (`ep.orologio`) parte da n
+#
+# Sono le sole cose applicate in automatico; l'esito «sbagliata» di una Domanda
+# che non ha un campo qui NON e' un no-effetto: e' un effetto in prosa.
+EFFETTI_DOMANDE = {}
+for _n in range(1, 21):                       # la Domanda 1 di ogni episodio
+    EFFETTI_DOMANDE[(f'ep{_n}', 1)] = dict(premio=dict(nessuna_minaccia_r1=True))
+_SGH = {'LO SGHERRO': 1}
+for _ep, _spawn in [('ep4', {'LA CLAQUE': 1}), ('ep5', {'IL CONFRATELLO': 1}),
+                    *[(f'ep{_n}', _SGH) for _n in (7, 8, 9, 10, 11, 12, 13, 14, 15, 17, 18, 19)]]:
+    EFFETTI_DOMANDE[(_ep, 1)]['penalita'] = dict(spawn_t1=_spawn)
+EFFETTI_DOMANDE[('ep1', 1)]['penalita'] = dict(minaccia_extra_r1=1)
+# il Canto (ep.2/3/6/20 alla Domanda 1) resta dov'e': e' gia' `penalita.canto`
+EFFETTI_DOMANDE.update({
+    ('ep2', 3): dict(penalita=dict(spawn_t1={'LO SGHERRO': 2})),   # «i 2 Sgherri di T1 appaiono»
+    ('ep3', 4): dict(premio=dict(senza_prova=['T3'])),             # «nella Galleria delle Eco nessuna prova»
+    ('ep10', 3): dict(penalita=dict(traccia_iniziale=2)),          # «la DEMOLIZIONE parte da 2»
+    ('ep3', 3): dict(penalita=dict(spawn_t1={'LA VOCE CAVA': 1})),
+    ('ep4', 2): dict(premio=dict(senza_spawn={'T6': ['LA CLAQUE']})),
+    ('ep1', 2): dict(premio=dict(smascherato=['ADEPTO INCAPPUCCIATO'])),
+    ('ep2', 2): dict(premio=dict(smascherato=['LO SGHERRO', 'IL SICARIO'])),
+    # il boss stonato: Difesa 8→5 e salta la prossima attivazione
+    ('ep2', 4): dict(premio=dict(boss_difesa=-3, boss_salta='attivazione')),
+    ('ep4', 4): dict(premio=dict(boss_difesa=-3, boss_salta='attivazione')),
+    ('ep5', 4): dict(premio=dict(boss_difesa=-3, boss_salta='attivazione')),
+    # «gridate il suo nome»: il boss salta la PRIMA attivazione
+    ('ep3', 2): dict(premio=dict(boss_salta='attivazione')),
+    ('ep6', 2): dict(premio=dict(boss_salta='attivazione')),
+    ('ep7', 2): dict(premio=dict(boss_salta='attivazione')),
+    ('ep9', 2): dict(premio=dict(boss_salta='attivazione')),
+    # ...o un attacco
+    ('ep13', 2): dict(premio=dict(boss_salta='attacco')),
+    ('ep14', 2): dict(premio=dict(boss_salta='attacco')),
+    ('ep15', 3): dict(premio=dict(boss_salta='attacco')),
+    ('ep16', 2): dict(premio=dict(boss_salta='attacco')),
+    ('ep17', 3): dict(premio=dict(boss_salta='attacco')),
+    ('ep18', 3): dict(premio=dict(boss_salta='attacco')),
+})
+for (_ep, _k), _eff in EFFETTI_DOMANDE.items():
+    _d = SOLUZIONI[_ep]['domande'][_k - 1]
+    for _campo in ('premio', 'penalita'):
+        if _campo in _eff:
+            _d.setdefault(_campo, {}).update(_eff[_campo])
+
 # Il Preludio, letto dal suo stesso fascicolo Spedizione:
 #   T1 la banchina — «la porta verso il deposito (N)»
 #   T2 il deposito — «le porte E e N sono murate: contano solo S (banchina) e O (stanzino)»

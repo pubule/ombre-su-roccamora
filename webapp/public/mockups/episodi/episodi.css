@@ -1,0 +1,44 @@
+/* Solo cio' che i mockup della scelta dell'episodio AGGIUNGONO a app.css: il
+   resto (.griglia-arruolo, .eroe-tile, .spunta, .scelta-overlay, .eroe-dettaglio…)
+   e' proprio quello della scelta dell'eroe, riusato cosi' com'e'. */
+
+/* la nota del mockup, fuori dalla cornice dell'app */
+.mockup-nota { margin: 0 0 14px; padding: 10px 14px; border: 1px dashed var(--bordo-alto);
+  border-radius: 10px; color: var(--osso-fioco); font-size: 14px; }
+.mockup-nota b { color: var(--nastro); font-family: 'FellSC', serif; font-weight: normal;
+  letter-spacing: .08em; }
+.mockup-nota a { color: var(--nastro); }
+
+/* una stampa d'episodio: la stessa carta dell'eroe, ma l'arte e' un paesaggio
+   ritagliato in verticale — si tiene il centro, non la testa */
+.stampa-caso img { object-position: center; }
+.eroe-nome i.corso { color: #85590f; }
+.eroe-nome i.perduta { color: #9a2a3a; }
+
+/* il nastrino: un'etichetta di carta incollata sull'angolo, col numero */
+.nastrino { position: absolute; top: 12px; left: -7px; z-index: 2;
+  font-family: 'FellSC', serif; font-size: 11px; letter-spacing: .08em; text-transform: lowercase;
+  color: var(--carta-ink); background: var(--carta-scura);
+  padding: 2px 9px 2px 11px; box-shadow: 0 2px 5px -2px #000; transform: rotate(-3deg); }
+
+/* --- B: per atti --- */
+.atto { margin-top: 24px; }
+.atto:first-of-type { margin-top: 16px; }
+.atto-testa { display: flex; align-items: baseline; justify-content: space-between; gap: 10px;
+  border-bottom: 1px solid var(--bordo); padding-bottom: 6px; }
+.atto-nome { font-family: 'FellSC', serif; font-size: 15px; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--nastro); }
+.atto-conta { color: var(--osso-fioco); font-size: 13px; font-style: italic; white-space: nowrap; }
+
+/* la stampa larga: il caso da cui si riprende, a tutta riga */
+.eroe-tile.stampa-larga { grid-column: 1 / -1; transform: rotate(-.4deg); padding: 6px 6px 9px; }
+.stampa-larga img { aspect-ratio: 16 / 9; }
+.stampa-larga .eroe-nome b { font-size: 19px; }
+.stampa-larga .eroe-nome i { font-size: 13px; }
+.stampa-larga .riprendi { display: flex; justify-content: center; padding-top: 9px; }
+.occhiello-caso { font-family: 'FellSC', serif; font-size: 12px; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--nastro); margin: 0 0 4px; }
+
+/* --- index dei mockup --- */
+.elenco-mockup { display: grid; gap: 12px; margin-top: 14px; }
+.elenco-mockup .pannello h2 { margin-top: 0; }

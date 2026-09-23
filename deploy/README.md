@@ -25,9 +25,10 @@ Fa tre cose **in quest'ordine**, e l'ordine è la sostanza:
 2. `applica-schema.sh --remote` — porta il database di produzione allo schema;
 3. `wrangler deploy` — pubblica il Worker.
 
-Presuppone che `export-data.py`/`export-data.js`, `export-assets.py` e
-`./fetch_fonts.sh` siano già girati: `webapp/data` e `webapp/assets` sono in
-`.gitignore` e non stanno nel repo.
+Presuppone che `export-data.py`/`export-data.js`, `export-assets.py`,
+`./fetch_fonts.sh` e `./fetch_vendor.sh` siano già girati: `webapp/data`,
+`webapp/assets` e `webapp/public/js/vendor` sono in `.gitignore` e non
+stanno nel repo.
 
 ## La lezione che ha creato questa cartella
 

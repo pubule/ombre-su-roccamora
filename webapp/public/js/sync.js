@@ -82,6 +82,11 @@ export async function svuota() {
       // altrove e non e' piu' la nostra. La coda NON si tocca: nessuna
       // scrittura si perde, si ricarica e riparte.
       if (r.status === 403 || r.redirected) { ultimoStato = 'sessione scaduta'; return; }
+      // 404 = il server non conosce quel tavolo (cancellato altrove, o di un
+      // altro account su questo browser): non passera' mai, ma non deve
+      // bloccare quelle dopo. Resta in coda — puo' essere di un altro account —
+      // e lo si vede in «tavoli sul dispositivo», da dove lo si butta.
+      if (r.status === 404) continue;
       if (!r.ok) { ultimoStato = 'da mandare'; return; }
       togli(chiave);
     } catch { ultimoStato = 'da mandare'; return; }

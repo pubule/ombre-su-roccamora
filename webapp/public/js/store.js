@@ -272,10 +272,33 @@ export function dimenticaTavolo(id) {
   for (const { chiave } of _coda.leggi()) {
     if (chiave.startsWith(`${id}/`)) _coda.togli(chiave);
   }
-  if (tavoloCorrente() === id) {
-    localStorage.removeItem(CHIAVE_TAVOLO);
-    localStorage.removeItem(`${CHIAVE_TAVOLO}.nome`);
+  localStorage.removeItem(`osr.ruolo.${id}`);
+  if (tavoloCorrente() === id) lasciaTavolo();
+}
+
+// Scorda SOLO la scelta del tavolo, non le sue partite: serve quando il server
+// non lo riconosce piu' e quel che c'e' sul dispositivo va deciso da chi gioca.
+export function lasciaTavolo() {
+  localStorage.removeItem(CHIAVE_TAVOLO);
+  localStorage.removeItem(`${CHIAVE_TAVOLO}.nome`);
+}
+
+// I tavoli di cui il DISPOSITIVO ha una traccia — partite, scritture in coda, o
+// la scelta corrente. Confrontati con quelli che dice il server, i mancanti
+// sono gli orfani. Una partita e' `osr.partita.<tavolo>.<episodio>`: gli
+// episodi non hanno punti, il tavolo e' tutto quel che sta prima dell'ultimo.
+export function tavoliLocali() {
+  const t = new Map();
+  const voce = (id) => t.get(id) || t.set(id, { id, partite: 0, inCoda: 0 }).get(id);
+  for (const k of Object.keys(localStorage)) {
+    if (!k.startsWith(PREFISSO)) continue;
+    const resto = k.slice(PREFISSO.length);
+    const i = resto.lastIndexOf('.');
+    if (i > 0) voce(resto.slice(0, i)).partite++;   // `osr.partita.epN` senza tavolo: dei banchi
   }
+  for (const { chiave } of _coda.leggi()) voce(chiave.split('/')[0]).inCoda++;
+  if (tavoloCorrente()) voce(tavoloCorrente());
+  return [...t.values()];
 }
 
 export function carica(episodioId, tavolo = tavoloCorrente()) {

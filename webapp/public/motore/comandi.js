@@ -23,6 +23,7 @@ import * as abilita from './abilita.js';
 import * as interazioni from './interazioni.js';
 import * as nemici from './nemici.js';
 import * as minaccia from './minaccia.js';
+import * as domande from './domande.js';
 import * as obiettivi from './obiettivi.js';
 import { chiudiFaseNemici } from './vittoria.js';
 import * as vittoria from './vittoria.js';
@@ -61,6 +62,30 @@ const GESTORI = {
   // macello e della chiusura dei compiti.
   attacca: (g, c, caso) => azioni.attacca(g, caso, c.eroe, c.bersaglio, false, c.arma),
   'finisci-eroe': (g, c) => { azioni.finisciEroe(g, c.eroe); return { eventi: [] }; },
+  // IL GETTONE INTUIZIONE (dossier completo: 0 ore avanzate a fine Indagine): una
+  // volta in Spedizione, subito dopo un tiro fallito, si ripete. Il tiro fallito
+  // lo ha gia' consumato — il dado e' tirato, l'azione e' segnata — quindi
+  // ripeterlo vuol dire restituire l'azione a chi l'ha spesa: il nuovo tiro e'
+  // un'azione nuova, e conta quello. Vale per i tiri senza altro effetto
+  // (attacco mancato, cercare invano, compito fallito): `ultimoFallito` li
+  // ricorda, e lo cancella qualunque altro comando.
+  intuizione: (g, c) => {
+    const sp = g.sp; const u = sp.ultimoFallito;
+    if (!(sp.intuizione > 0)) return { rifiuto: 'Non avete il gettone Intuizione (o l’avete già speso).' };
+    if (!u || u.round !== sp.round || sp.fase !== 'eroi') {
+      return { rifiuto: 'L’Intuizione si usa subito dopo un tiro fallito: adesso non ce n’è uno da ripetere.' };
+    }
+    // dal telefono `eroe` e' quello di chi manda: il tiro ripetuto dev'essere il suo
+    if (c.eroe && c.eroe !== u.eroe) return { rifiuto: `Il tiro fallito è di ${u.eroe.split(' ')[0].toLowerCase()}: tocca a lui.` };
+    const fatte = sp.azioni[u.eroe] || [];
+    const k = fatte.lastIndexOf(u.azione);
+    if (k >= 0) fatte.splice(k, 1);
+    sp.eroiFatti = (sp.eroiFatti || []).filter((x) => x !== u.eroe);
+    sp.eroiAttivo = u.eroe;
+    sp.intuizione -= 1; sp.ultimoFallito = null;
+    sp.log.push(`Intuizione: ${u.eroe.split(' ')[0].toLowerCase()} ripete il tiro appena fallito.`);
+    return { eventi: [{ tipo: 'intuizione', eroe: u.eroe, azione: u.azione }] };
+  },
   abilita: (g, c) => abilita.usa(g, c.eroe, c.scelta, c.cella, c.voce),
   interagisci: (g, c, caso) => interazioni.interagisci(g, caso, c.eroe),
   oggetto: (g, c) => interazioni.usaOggetto(g, c.eroe, c.quale),
@@ -124,6 +149,17 @@ const GESTORI = {
     }
 
     let n = carteDaPescare(g.comune, g.partita.party.length, sp.round, sp.cantoBonus, g.partita.episodio);
+    // LE DOMANDE D'INDAGINE toccano il 1° round: esatta = nessuna carta Minaccia,
+    // sbagliata (ep.1) = una in piu'. Si dice, come per l'obiettivo compiuto: un
+    // mazzo che non pesca senza spiegarlo sembra un errore.
+    const nDomande = domande.minacceRound(g, n);
+    if (n > 0 && nDomande === 0) {
+      const riga = 'Sapete dove scendere: nel 1° round non si pesca nessuna carta Minaccia.';
+      if (sp.log[sp.log.length - 1] !== riga) sp.log.push(riga);
+      sp.minacceDaPescare = 0; sp.minacceTotali = 0;
+      return { eventi: [{ tipo: 'annuncio', testo: riga }] };
+    }
+    n = nDomande;
     if (sp.diversivoPronto) {
       n = Math.max(0, n - 1); sp.diversivoPronto = false;
       sp.log.push('Diversivo di Fanti: 1 carta Minaccia in meno.');
@@ -341,6 +377,16 @@ export function applica(statoIn, comando, dati) {
     } else if (fine.finito) {
       eventi.push({ tipo: 'eroe-finito', chi: comando.eroe });
     }
+  }
+
+  // L'ULTIMO TIRO FALLITO che l'Intuizione puo' ripetere: un tiro solo, di un tipo
+  // senza altre conseguenze, e nessun comando in mezzo.
+  if (comando.tipo !== 'intuizione') {
+    const tiri = eventi.filter((e) => e.tipo === 'tiro');
+    const rimediabile = out.azione && tiri.length === 1 && tiri[0].ok === false
+      && ['attacco', 'cercare', 'compito'].includes(tiri[0].causa) && !stato.spedizione.esito;
+    stato.spedizione.ultimoFallito = rimediabile
+      ? { eroe: comando.eroe, azione: out.azione, round: stato.spedizione.round } : null;
   }
 
   stato.spedizione.pendenza = out.pendenza || null;

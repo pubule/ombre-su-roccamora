@@ -39,7 +39,7 @@ try {
   await page.goto(BASE, { waitUntil: 'networkidle' });
   await page.evaluate(() => localStorage.clear());
   await page.goto(BASE, { waitUntil: 'networkidle' });
-  ok(await page.locator('.tessera-episodio').count() === 21, '21 episodi in taverna');
+  ok(await page.locator('.stampa-caso').count() === 21, '21 episodi in taverna');
 
   // I BOTTONI DELLA TESTATA su una riga sola. Stavano su due, con uno
   // spaziatore vuoto a fianco: sullo stretto cadevano uno di qua e uno di la'.
@@ -73,12 +73,13 @@ try {
        'e il bottone apre davvero la rubrica');
     await page.goBack({ waitUntil: 'networkidle' }).catch(() => {});
     await page.goto(BASE, { waitUntil: 'networkidle' });
-    await page.locator('.tessera-episodio').first().waitFor();
+    await page.locator('.stampa-caso').first().waitFor();
   }
 
   // --- episodio -> si comincia ------------------------------------------
   console.log('episodio 1');
-  await page.locator('.tessera-episodio[data-ep="ep1"]').click();
+  await page.locator('.stampa-caso[data-ep="ep1"]').click();
+  await page.locator('#apri-caso').click();   // la stampa apre la scheda: da li' si comincia
   await page.locator('#avanti').click();
 
   // --- party: tile -> scheda personaggio -> arruola ------------------------
@@ -216,6 +217,36 @@ try {
   // uscire al menu a meta' visita e riprendere: si torna DENTRO il luogo,
   // senza pagare un'altra ora
   const oraPrima = (await page.evaluate(() => JSON.parse(localStorage.getItem('osr.partita.ep1')))).indagine.ora;
+  // IL COPYRIGHT sta in un posto solo: la voce «info» del menu di gioco. Non e'
+  // piu' in fondo a ogni schermata, dove rubava una riga a tutte.
+  ok(await page.locator('.copyright').count() === 0, 'nessun copyright in fondo alla schermata');
+  await page.locator('#apri-menu').click();
+  ok(await page.locator('#m-info').count() === 1, 'il menu di gioco ha la voce «info»');
+  await page.locator('#m-info').click();
+  await page.waitForTimeout(250);
+  const info = await page.locator('.scelta-overlay').innerText();
+  ok(/Fabio Stocco/.test(info) && /PolyForm/.test(info), `e apre un avviso dell'app col copyright («${info.replace(/\s+/g, ' ').slice(0, 70)}…»)`);
+  ok(await page.locator('#foglio-menu').count() === 0, 'dopo aver toccato la voce il foglio si chiude');
+  await page.locator('.scelta-overlay button').click();
+  ok(await page.locator('.scelta-overlay').count() === 0, 'e l\'avviso si chiude');
+
+  // «TORNATE INDIETRO» dalle pagine del menu riapre il menu, e chiudendolo si e'
+  // sulla pagina DA CUI lo si era aperto — non su quella del menu che si era
+  // appena lasciata (quel che avete in mano, la notte, la squadra)
+  for (const [voce, indietro] of [['#m-mano', '#mano-indietro'], ['#m-notte', '#notte-indietro'],
+                                  ['#m-squadra', '#sq-indietro']]) {
+    const pagina = () => page.locator('#app').innerHTML();
+    const prima = await pagina();
+    await page.locator('#apri-menu').click();
+    await page.locator(voce).click();
+    ok(await page.locator(indietro).count() === 1, `${voce}: la pagina del menu si apre`);
+    await page.locator(indietro).click();
+    ok(await page.locator('#foglio-menu').count() === 1, `${voce}: «tornate indietro» riapre il menu`);
+    await page.locator('#m-chiudi').click();
+    ok(await page.locator(indietro).count() === 0, `${voce}: chiudendo il menu non si resta sulla sua pagina`);
+    ok(await pagina() === prima, `${voce}: si torna alla pagina da cui si era aperto il menu`);
+  }
+
   // l'uscita è nel menu: in cima ci stanno l'ora e il menu, e basta
   await page.locator('#apri-menu').click();
   await page.locator('#nav-esci').click();
@@ -228,8 +259,9 @@ try {
     .map((e) => `${e.tagName}.${e.className}#${e.id}`));
   ok(appesi.length === 0,
      `uscendo dal menu non resta nessun velo appeso (${appesi.join(', ')})`);
-  await page.locator('.tessera-episodio[data-ep="ep1"]').click();
-  await page.locator('#continua').click();
+  await page.locator('.stampa-caso[data-ep="ep1"]').click();
+  // «riprendete la serata» porta dentro la partita, senza ripassare dalla schermata «continua»
+  await page.locator('#apri-caso').click();   // la stampa apre la scheda: da li' si comincia
   await page.locator('#fine-visita').waitFor();
   const oraDopo = (await page.evaluate(() => JSON.parse(localStorage.getItem('osr.partita.ep1')))).indagine.ora;
   ok(oraDopo === oraPrima, `riprendere la visita non costa ore (${oraPrima} -> ${oraDopo})`);
@@ -283,8 +315,27 @@ try {
   // --- riprendere la partita salvata ------------------------------------------
   console.log('salvataggio');
   await page.goto(BASE, { waitUntil: 'networkidle' });
-  await page.locator('.tessera-episodio[data-ep="ep1"]').click();
-  ok(await page.getByText('partita in corso').count() > 0, 'partita salvata riappare');
+  await page.locator('.stampa-caso[data-ep="ep1"]').click();
+  const schedaAperta = await page.locator('.scelta-overlay').innerText();
+  ok(/serata è aperta/.test(schedaAperta) && /riprendete la serata/i.test(schedaAperta),
+     'partita salvata riappare: la scheda dice che una serata è aperta e offre di riprenderla');
+  ok(await page.locator('.stampa-caso[data-ep="ep1"] .eroe-nome i').innerText().then((t) => /in corso/.test(t)),
+     'e la stampa dice «in corso»');
+  await page.locator('#chiudi-caso').click();
+  ok(await page.locator('.scelta-overlay').count() === 0, 'la scheda si chiude senza far partire niente');
+
+  // IL TASTO DEL MENU NON HA PALLINO: dava l'illusione di una notifica. Qui la
+  // partita e' appena stata ricaricata, quindi TUTTE le righe della notte sono
+  // «nuove» (mai aperto il registro): e' il caso in cui il pallino si accendeva.
+  // Le righe nuove si leggono dentro il menu, sulla voce «la notte».
+  await page.locator('.stampa-caso[data-ep="ep1"]').click();
+  await page.locator('#apri-caso').click();
+  await page.locator('#apri-menu').waitFor();
+  ok(await page.locator('#apri-menu .segno').count() === 0, 'il tasto del menu non ha nessun pallino');
+  await page.locator('#apri-menu').click();
+  ok(/nuove/.test(await page.locator('#m-notte').innerText()),
+     'le righe nuove della notte si leggono sulla voce «la notte» del menu');
+  await page.locator('#m-chiudi').click();
 } catch (e) {
   ko(`flusso interrotto: ${e.message.split('\n')[0]}`);
 }

@@ -16,6 +16,10 @@ for (const [cartella, dorso] of Object.entries(TIPI)) {
   const h = cartaGrande(`Episodio 3/${cartella}/Una carta`, 'mt');
   ok(h.includes(`c3d-retro dorso-${dorso}"`) && h.includes('carta-grande carta3d mt'), `${cartella} -> dorso-${dorso}`);
   ok(!h.includes('style='), `${cartella}: niente style= nel markup`);
+  // L'OMBRA VA PRIMA DELLA CARTA. Sono entrambe positioned con z-index auto, e a
+  // parita' vince l'ordine nel DOM: dopo, l'ombra nera sfocata (opacity .55)
+  // dipinge SOPRA la carta e la oscura tutta come una patina.
+  ok(h.indexOf('c3d-ombra') < h.indexOf('class="c3d"'), `${cartella}: l'ombra sta prima della carta nel markup`);
 }
 ok(cartaGrande('Eroi/Elena Fosco').includes('dorso-eroe'), 'una carta comune (senza episodio) trova il dorso');
 const piatta = cartaGrande('Preludio/La lettera');

@@ -29,6 +29,7 @@ import * as stat from '../motore/stat.js';
 import * as obiettivi from '../motore/obiettivi.js';
 import * as vittoria from '../motore/vittoria.js';
 import * as minaccia from '../motore/minaccia.js';
+import * as domande from '../motore/domande.js';
 import * as nemici from '../motore/nemici.js';
 import * as azioni from '../motore/azioni.js';
 import { applica } from '../motore/comandi.js';
@@ -234,6 +235,16 @@ function collegaAlTavolo() {
         if (datiVisti.carte) ctx.carte = datiVisti.carte;
       }
       if (await incassa(stato, eventi, true)) return;   // la partita e' finita: epilogo
+      // SE UN TIRO ALTRUI STA ANCORA A SCHERMO (`.dadi-overlay`, da una
+      // spinta precedente non ancora chiusa da chi guarda) si aspetta:
+      // `render()` scriverebbe la schermata nuova SOTTO l'overlay dei dadi —
+      // invisibile finche' quello resta aperto, ma pronta di scatto appena si
+      // chiude, senza il tempo di leggerla. Stessa attesa del verso opposto
+      // (il tiro che aspetta la carta, in riproduci()): chi guarda finisce
+      // sempre quel che ha davanti prima che arrivi il prossimo.
+      for (let attesa = 0; document.querySelector('.dadi-overlay.aperto') && attesa < 20; attesa += 1) {
+        await pausa(300);
+      }
       render();
     },
     onRifiuto: (r) => flash(r.motivo || 'Il tavolo ha rifiutato la mossa.'),
@@ -319,6 +330,10 @@ function iniziaPartita() {
     // guardano: chi arbitra le ha lette all'apertura, chi gioca da telefono no
     log: [...(partita.bivi?.righe || []), 'Gli eroi sbarcano alla banchina.'],
   };
+  // GLI EFFETTI DELLE DOMANDE D'INDAGINE (motore/domande.js): i nemici di T1, il
+  // boss stonato, il gettone Intuizione, il promemoria di quel che resta a mano.
+  // Prima la busta li mostrava e la Spedizione li ignorava.
+  domande.avviaEffetti(G(), t0.id);
   salvaP(); render();
 }
 // n celle libere piu' vicine a start dentro una singola tessera (spawn/ingresso)
@@ -448,6 +463,7 @@ function render() {
     ${sp.nemici.length ? `<div class="mt"></div><div class="pannello secondario"><h2>nemici in campo</h2>${nemiciHtml()}</div>` : ''}
     <div class="mt"></div>
     <div class="pannello secondario"><h2>oggetti del gruppo</h2>${oggettiHtml()}</div>
+    ${domandeHtml()}
     <div class="mt"></div>
     <div class="pannello secondario"><h2>diario</h2>${logHtml()}</div>
     ${arbitro() ? '<div class="btn-riga secondario"><button class="btn" id="sconfitta">gli eroi cadono</button></div>' : ''}`;
@@ -1121,6 +1137,11 @@ function aggancia() {
     const i = sp.eroiFatti.indexOf(nm); if (i >= 0) sp.eroiFatti.splice(i, 1);
     sp.eroiAttivo = nm; salvaP(); render();
   });
+  // L'INTUIZIONE: ripete l'ultimo tiro fallito, una volta (comando `intuizione`)
+  app.querySelector('#intuizione')?.addEventListener('click', () => {
+    const u = P().spedizione.ultimoFallito || {};
+    esegui({ tipo: 'intuizione', eroe: arbitro() ? u.eroe : mioEroe() });
+  });
   app.querySelectorAll('[data-obj]').forEach((b) => b.onclick = () => {
     const nm = (P().indagine.oggetti || [])[Number(b.dataset.obj)];
     const o = (ctx.ep.oggetti || []).find((x) => norm(x.nome) === norm(nm));
@@ -1517,7 +1538,15 @@ async function riproduci(eventi, daAltri = false) {
       //
       // Solo quel che ARRIVA DAL TAVOLO: la propria mossa l'ha gia' messa in
       // scena la finestra di prima, e rifarla mostrerebbe i dadi due volte.
+      //
+      // SE UNA CARTA E' ANCORA APERTA sul tavolo (`sp.carta`, `.dadi-overlay`
+      // e' `position:fixed; z-index:100`: copre tutto quel che c'e' a schermo,
+      // carta compresa) si aspetta che chi arbitra la chiuda. Senza questa
+      // attesa il tiro di un altro eroe — o del round che avanza — arrivava a
+      // coprire una carta che chi guarda non aveva ancora finito di leggere:
+      // non un difetto di rete, un ordine di arrivo che nessuno controllava.
       if (daAltri && Array.isArray(ev.d)) {
+        for (let attesa = 0; SP().carta && attesa < 20; attesa += 1) await pausa(300);
         await tiraProva({
           titolo: ev.titolo || (ev.chi ? `tiro di ${primo(ev.chi)}` : 'tiro'),
           diffLabel: ev.diff || '', soglia: ev.soglia, bonus: ev.bonus || [],
@@ -1667,6 +1696,33 @@ const scortaPuoVincere = () => vittoria.scortaPuoVincere(G());
 
 // attaccare, cercare e rianimare sono passate in motore/azioni.js: la vista
 // le chiede col comando e mette in scena gli eventi che tornano.
+
+// LE DOMANDE D'INDAGINE in Spedizione. Il gettone Intuizione (se c'e') sta in un
+// pannello suo, NON `secondario`: nel layout immersivo i secondari spariscono, e
+// il bottone serve proprio nel momento in cui un tiro va male. Il promemoria
+// elenca quel che le Domande promettevano e il motore non applica — prima
+// spariva con la schermata della busta.
+function domandeHtml() {
+  const s = P().spedizione || {};
+  const dossier = !!(P().vantaggi || {}).dossier;
+  const u = s.ultimoFallito;
+  const intuizione = (s.intuizione > 0 && u && u.round === s.round && s.fase === 'eroi') ? `
+    <div class="mt"></div>
+    <div class="pannello" id="p-intuizione"><h2>gettone intuizione</h2>
+      <p>${esc(primo(u.eroe))} ha fallito il tiro. Una volta in tutta la Spedizione si può ripetere: l’azione
+        torna a chi l’ha spesa e conta il nuovo risultato.</p>
+      <div class="btn-riga"><button class="btn pieno" id="intuizione">ripetete il tiro</button></div>
+    </div>` : '';
+  const pr = s.promemoria || [];
+  const elenco = (pr.length || dossier) ? `
+    <div class="mt"></div>
+    <div class="pannello secondario"><h2>le domande d’indagine</h2>
+      ${dossier ? `<p><b>Gettone Intuizione:</b> ${s.intuizione > 0 ? 'ce l’avete — compare qui quando un tiro va male.' : 'già speso.'}</p>` : ''}
+      ${pr.map((x) => `<p><b>${x.n}.</b> ${x.automatico
+        ? '<span class="nota">(già applicato)</span>' : '<span class="nota">(da ricordare a mano)</span>'} ${esc(x.testo)}</p>`).join('')}
+    </div>` : '';
+  return intuizione + elenco;
+}
 
 // pannello «oggetti del gruppo»: nomi tappabili per leggere carta ed effetto
 function oggettiHtml() {

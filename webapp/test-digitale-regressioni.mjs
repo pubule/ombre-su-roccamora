@@ -21,6 +21,8 @@ const entra = async () => {
   await page.waitForTimeout(200);
   await page.getByText('Il Coro Sommerso').first().click();
   await page.waitForTimeout(250);
+  await page.locator('#apri-caso').click();   // la stampa apre la scheda: da li' si comincia
+  await page.waitForTimeout(250);
   if (await page.locator('#continua').count()) { await page.locator('#continua').click(); await page.waitForTimeout(200); }
   if (await page.locator('#via').count()) { await page.locator('#via').click(); await page.waitForTimeout(350); }
   // la stanza d'ingresso si legge come tutte le altre: chi arbitra la chiude

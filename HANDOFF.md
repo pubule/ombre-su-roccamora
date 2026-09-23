@@ -1,5 +1,118 @@
 # Handoff — dove siamo
 
+## FATTO (22/09/2026) — i vantaggi d'Indagine arrivano in Spedizione (audit + correzioni)
+
+Report: `AUDIT-VANTAGGI-INDAGINE.md`. Banco: `node webapp/audit-vantaggi.mjs [porta]
+[--solo=ep3,ep7]` (server statico su, ~3 min; spezzare in 3 shard paralleli).
+
+- `webapp/public/motore/domande.js` (nuovo): applica gli effetti delle Domande. I dati
+  sono `premio`/`penalita` di ogni Domanda, generati da `EFFETTI_DOMANDE` in
+  `webapp/export-data.py` (chiavi: nessuna_minaccia_r1, minaccia_extra_r1, canto,
+  spawn_t1, senza_spawn, smascherato, boss_salta, boss_difesa, senza_prova,
+  traccia_iniziale). Aggancio: `avviaEffetti()` da `iniziaPartita` (digitale.js) —
+  scrive `sp.effetti`, `sp.intuizione`, `sp.promemoria`, `sp.modNemici`, `sp.saltaNemici`.
+- Senza `partita.vantaggi.risposte` non si applica niente (il pilota non le semina:
+  baseline dei win% intatta; `RISPOSTE=sbagliate|giuste` per misurarle).
+- Gettone Intuizione: comando `intuizione` (comandi.js), `sp.ultimoFallito` scritto dopo
+  ogni comando, pannello `#p-intuizione` in digitale.js. Test: `test-motore-domande.mjs`.
+- Ep.9: `obiettivoFatto` non conta chi `parte_libero`. Pilota N=20: 1 vittoria (era 2):
+  fuori banda dal lato difficile, NON ritarato — decisione aperta.
+- 33 Domande su 80 restano a mano (tracce, tessere, tipo di vittoria, narrativa): stanno
+  nel pannello «le domande d'indagine» in Spedizione.
+- Non provato: Durable Object/telefoni col comando `intuizione` (suite wrangler non
+  rilanciate: test-telefono-azioni, test-tavolo-do).
+- Suite UI gia' rosse prima (verificato su HEAD): test-abilita, test-digitale-regressioni
+  (uscita segreta), test-engine (jpg minaccia ep.5/6), test-testi (virgolette, sigle).
+  test-partite e' instabile (ep1 «.reperto-img hidden» a intermittenza, anche su HEAD).
+
+## FATTO (21/09/2026) — account, tavoli, scelta dell'episodio, correzioni
+
+Tutto su `origin/main` e in produzione (ultimo deploy: commit `fa93a23cf`).
+
+**Account e tavoli**
+- **Logout:** «esci» nella pagina dei tavoli, un link a `/cdn-cgi/access/logout`
+  (lo serve l'edge di Access: nessun codice nel Worker).
+- **Tavoli orfani** (il server non li conosce: cancellati altrove o di un altro
+  account): `entraNelTavolo` scorda la scelta e va all'elenco, dove compaiono in
+  «sul dispositivo, ma non nel tuo account» con «butta dal dispositivo»
+  (`store.tavoliLocali`, `dimenticaTavolo`). `sync.svuota()` non si ferma piu' su
+  un 404: la voce resta in coda, non blocca le altre.
+- **Un tavolo si salva completo:** «salva il tavolo» (`membri.js`) chiede la
+  compagnia (2-10 eroi, salvata sul server) e almeno un invitato; se manca
+  qualcosa un popup dell'app (`chiedi.avvisa`) lo dice. Uscire da un tavolo non
+  completo lo scarta (DELETE); rientrandoci il creatore torna alla creazione; in
+  elenco si legge «da completare».
+- **Ognuno sceglie il proprio eroe, creatore compreso:** niente menu dell'eroe
+  all'invito. `PUT /api/mio-eroe` accetta anche il creatore; `/api/stato` porta
+  `creatore`, `invitati` ed `eroi` del creatore; `/api/membri` porta
+  `proprietario` ed `eroiProprietario` (il creatore NON e' fra i `membri`).
+  Chi non ha un eroe vede solo la scelta dell'eroe (`entraNelTavolo`), con
+  «cambia tavolo» sempre a portata. In gioco chi arbitra resta chi conduce:
+  `postoDiQuestoTavolo` gli da' `eroi` vuoto, come prima — se si vuole che il
+  creatore giochi davvero il suo eroe e' un lavoro a parte sulle viste.
+- **Copyright** solo nella voce «info» del menu di gioco (Indagine), non piu' in
+  fondo alle schermate.
+
+**Scelta dell'episodio (mockup C)** — `js/scheda-caso.js`: ogni caso e' una
+stampa (`.eroe-tile` + nastrino col numero, sigillo per le vinte); toccarla apre
+la scheda del caso e solo da li' si comincia («si comincia» / «riprendete la
+serata» che va dentro senza ripassare da «continua» / «rigiocate il caso»).
+Vittoria parziale = «vinta a meta'». I banchi di prova che aprono un episodio
+passano ora da `#apri-caso`. Le vecchie regole `.tessera-episodio` restano in
+`app.css` solo perche' il mockup `mockups/episodi/oggi.html` le usa; i mockup A
+e B (per atti) sono in `mockups/episodi/`, non portati.
+
+**Correzioni**
+- La patina sulle carte: `.c3d-ombra` stava DOPO `.c3d` nel markup e dipingeva
+  sopra la carta (z-index auto: vince l'ordine nel DOM). Ora e' il primo figlio;
+  `test-carta3d` controlla l'ordine.
+- «tornate indietro» dalle pagine del menu di gioco riporta alla pagina da cui
+  si era aperto il menu (`indagine.js`, `origine` ricordata in `menu()`).
+
+**Deploy — come si fa oggi.** Solo Worker: `deploy.sh` si ferma sull'import D1
+(`Authentication error 10000`, il token OAuth di wrangler; rimedio: `wrangler
+login`), e lo schema non cambia da agosto. Si pubblica da un export pulito di
+`origin/main` (NON dal working tree: c'e' lavoro non committato), con `data`,
+`assets`, `fonts/*.ttf` e `js/vendor` copiati o collegati, poi `build-dist.sh` e
+`npx --no-install wrangler deploy`. La CI parte solo a comando. Il repo ha un
+solo branch, `main`, e nessun worktree extra.
+
+**Ancora aperto**
+- Falliscono gia' su `origin/main`, non toccati: `test-abilita` (2 KO),
+  `test-digitale-regressioni` (3), `test-partite` ep1 ed ep2 (`.reperto-img`
+  nascosto; `test-partite` intero dura oltre nove minuti).
+- La nebbia non e' provata su un iPad vero (vedi sotto).
+- Nel working tree c'e' il lavoro NON committato sulle carte del Preludio:
+  `scripts/cardconjurer/*`, `Preludio/cards/*` (sotto-cartelle per tipo) e
+  `test-carta3d.mjs` (dorsi del Preludio).
+- Banchi con `wrangler`: `test-account-ui` (identita' `uno@esempio.it`),
+  `test-invito` (`arbitro@esempio.it`), `test-mio-eroe` (`giocatore@esempio.it`),
+  `test-membri` (due server, 8787 uno e 8788 due, avviati uno alla volta: due
+  `wrangler dev` insieme si pestano il `build-dist`). Prima `build-dist.sh`.
+
+## FATTO (21/09/2026) — la nebbia di sfondo
+
+Vanta.FOG (three.js) dietro a tutte le schermate: `webapp/public/js/nebbia.js`,
+un `<div id="vanta-bg">` fisso in `index.html`, e in `app.css` `#vanta-bg` a
+z-index 0 con `.schermo` a z-index 1 (l'app sta sempre sopra). Palette e
+tentativi scartati: `mockups/nebbia.html`. Palette attuale «teal e brace»
+(21/09/2026, scelta fra sei in `mockups/nebbia-colori.html`, che resta per
+riprovarle): base `#0c0e11`, valli `#06191a`, medio `#1a4a4d`, creste `#5c3421`.
+
+- **Librerie vendorizzate, mai da CDN**: `./fetch_vendor.sh` le scarica in
+  `webapp/public/js/vendor/` (gitignored) e blocca l'hash sha384. Stanno fra i
+  prerequisiti di `build-dist.sh` e del workflow di deploy, come i font: in un
+  worktree pulito vanno copiate/scaricate prima di `build-dist.sh`.
+- **Non rompe mai l'app**: senza le librerie `VANTA` non e' definito e
+  `nebbia.js` non fa niente.
+- **Costo** (si gioca per ore su un iPad): `scale: 2` (un quarto dei pixel su
+  retina), e nel modo immersivo (`#app.immersivo`, la plancia) la nebbia si
+  SPEGNE e riparte uscendone. `prefers-reduced-motion` la ferma.
+- **Provata** con `node webapp/test-nebbia.mjs` (server: `node webapp/server.js`).
+  NON provata su un iPad vero: batteria e temperatura dopo una serata intera
+  sono da guardare; se pesa, il primo rimedio e' spegnerla anche fuori dal
+  modo immersivo, e il secondo un interruttore nel menu.
+
 ## IN CORSO (16/08/2026) — la pelle nuova: «notte e nebbia»
 
 **Dove sta tutto.** I mockup sono in repo: `webapp/public/mockups/stile2/`

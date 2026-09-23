@@ -1,0 +1,42 @@
+<!doctype html><html lang="it"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Scelta episodio · com'è ora · mockup</title>
+<link rel="stylesheet" href="../../app.css">
+<link rel="stylesheet" href="episodi.css">
+</head><body>
+<div id="app" class="schermo">
+<p class="mockup-nota"><b>com'è ora</b> — la schermata attuale, per il confronto: una scena
+  d'apertura, una lastra di bottoni e ventun <i>manifesti</i> orizzontali (arte a tutta larghezza,
+  titolo sopra una sfumatura). <a href="./">Tutti i mockup</a></p>
+<div id="quadro"></div>
+</div>
+<script src="dati.js"></script>
+<script src="episodi.js"></script>
+<script>
+quadro.innerHTML = `
+  <div class="scena bassa">
+    <div class="sfondo" style="background-image:url('/assets/artworks/Palazzo%20del%20Lume.png')"></div>
+    <div class="dentro">
+      <span class="occhiello">società del lume · archivio dei casi</span>
+      <h1>ombre su roccamora</h1>
+      <p class="nota" style="margin:2px 0 0">roccamora, 1889 — ventun casi, uno per sera</p>
+    </div>
+  </div>
+  <header class="home-testata pannello">
+    <div class="riga-tavolo"><span class="spia">Il tavolo di prova · allineato</span></div>
+    <div class="bottoni">
+      <button class="btn piccolo">cambia tavolo</button>
+      <button class="btn piccolo">rubrica</button>
+      <button class="btn piccolo">taccuino di campagna</button>
+    </div>
+  </header>
+  <div class="griglia-episodi">
+    ${EPISODI.map((e) => `
+      <div class="tessera-episodio">
+        <div class="arte" style="background-image:url('${urlArte(e.art)}')"></div>
+        ${STATI[e.id] ? `<div class="stato${STATI[e.id] === 'vinta' ? ' finita' : ''}">${parolaStato[STATI[e.id]]}</div>` : ''}
+        <div class="testi"><h2>${esc(e.titolo)}</h2><div class="sotto">${numero(e)} — ${esc(e.sotto)}</div></div>
+      </div>`).join('')}
+  </div>`;
+</script>
+</body></html>

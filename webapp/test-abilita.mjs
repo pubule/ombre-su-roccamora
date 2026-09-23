@@ -65,8 +65,9 @@ async function semina(sp) {
     }));
   }, { k: CHIAVE, p: PARTY, s: sp });
   await page.goto(BASE, { waitUntil: 'networkidle' });
-  await page.locator('.tessera-episodio[data-ep="ep1"]').click();
-  // la partita salvata passa dalla schermata «riprendi»
+  await page.locator('.stampa-caso[data-ep="ep1"]').click();
+  await page.locator('#apri-caso').click();   // la stampa apre la scheda: da li' si comincia
+  // la partita salvata si riprende dalla scheda; se resta la schermata «riprendi» (giocatore) si prosegue
   if (await page.locator('#continua').count()) await page.locator('#continua').click();
   // la stanza d'ingresso si legge come tutte le altre: chi arbitra la chiude
   await page.waitForTimeout(250);

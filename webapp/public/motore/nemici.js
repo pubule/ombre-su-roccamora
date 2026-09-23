@@ -26,6 +26,7 @@ import { specOrologio, avanzaOrologio, avanzaRogo, avanzaCancellazione,
          avanzaRitmo, avanzaPressione, controllaFiloPerso,
          specCompiti, compitiFiniti } from './obiettivi.js';
 import { destaBossSeSoglia } from './minaccia.js';
+import { saltaBoss } from './domande.js';
 import { distGlob } from './griglia.js';
 
 const log = (g, t) => { g.sp.log = g.sp.log || []; g.sp.log.push(t); };
@@ -81,6 +82,15 @@ export function pianoNemici(g, caso, differito) {
       continue;
     }
 
+    // LA PRIMA ATTIVAZIONE SALTATA. Una Domanda esatta («gridate il suo nome»,
+    // «lo stonate») fa esitare il boss: salta tutta la sua prossima attivazione,
+    // come l'accecato — non si muove e non colpisce (motore/domande.js).
+    if (saltaBoss(g, n.nome, 'attivazione')) {
+      log(g, `${n.nome.toLowerCase()} esita: salta la sua prima attivazione.`);
+      piano.push({ i, nome: n.nome, pos0, pos1: pos0, flash: true, attacco: null });
+      continue;
+    }
+
     const bersagli = vivi(); if (!bersagli.length) break;
 
     // ESCA PREZIOSA: chi e' entro 2 caselle dal monile ci va, e per questa
@@ -128,6 +138,13 @@ export function pianoNemici(g, caso, differito) {
     const iPng = statoScortati(g).findIndex((png, k) => png.liberato && png.pos && png.vite > 0
       && specScort(g, k).salute && adiacGlob(g, n.pos, png.pos));
     const adiacenti = bersagli.filter((nm) => adiacGlob(g, n.pos, sp.eroiPos[nm]));
+
+    // ...O IL SUO PRIMO ATTACCO: si muove come sempre, ma il colpo non parte.
+    if ((iPng >= 0 || adiacenti.length) && saltaBoss(g, n.nome, 'attacco')) {
+      log(g, `${n.nome.toLowerCase()} perde il colpo: salta il suo primo attacco.`);
+      piano.push({ i, nome: n.nome, pos0, pos1, flash: false, attacco: null });
+      continue;
+    }
 
     if (iPng >= 0 && (!adiacenti.length || caso.scegli(2) === 0)) {
       const sc = specScort(g, iPng);

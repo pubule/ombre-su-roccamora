@@ -1,0 +1,39 @@
+<!doctype html><html lang="it"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Scelta episodio · B per atti · mockup</title>
+<link rel="stylesheet" href="../../app.css">
+<link rel="stylesheet" href="episodi.css">
+</head><body>
+<div id="app" class="schermo">
+<p class="mockup-nota"><b>B · per atti</b> — le stesse stampe, ma ordinate come la campagna: in
+  cima la serata aperta (una stampa larga col bottone d'oro, l'unica cosa accesa), poi un capitolo
+  per ogni atto con quante serate ne avete vinte. Su telefono si scorre per atti invece di cercare
+  il proprio posto in ventuno tessere uguali. <a href="./">Tutti i mockup</a></p>
+<div id="quadro"></div>
+</div>
+<script src="dati.js"></script>
+<script src="episodi.js"></script>
+<script>
+const inCorso = EPISODI.find((e) => STATI[e.id] === 'corso');
+const perAtto = [0, 1, 2, 3, 4].map((a) => EPISODI.filter((e) => e.atto === a));
+quadro.innerHTML = barra() + `
+  <div class="pannello">
+    <h2>scegliete il caso</h2>
+    <p class="nota">Ventun casi in quattro atti. Riprendete da dove eravate, o tornate su un caso già giocato.</p>
+
+    <div class="griglia-arruolo mt">
+      <div style="grid-column:1/-1"><p class="occhiello-caso">la serata aperta</p></div>
+      ${stampa(inCorso, { larga: true, riprendi: true })}
+    </div>
+
+    ${perAtto.map((lista, a) => `
+      <section class="atto">
+        <div class="atto-testa">
+          <span class="atto-nome">${NOME_ATTO[a]}</span>
+          <span class="atto-conta">${lista.filter((e) => STATI[e.id] === 'vinta').length} di ${lista.length} vinti</span>
+        </div>
+        <div class="griglia-arruolo mt">${lista.map((e) => stampa(e)).join('')}</div>
+      </section>`).join('')}
+  </div>`;
+</script>
+</body></html>

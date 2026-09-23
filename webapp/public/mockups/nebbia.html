@@ -1,0 +1,71 @@
+<!doctype html><html lang="it"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Nebbia di sfondo · mockup</title>
+<link rel="stylesheet" href="../app.css">
+<style>
+/* Solo Vanta.FOG (three.js): l'unico dei due motori provati che si vede
+   muovere davvero — il canvas fatto in casa aveva una deriva troppo lenta
+   per notarla in una sessione di prova (periodi di 4-9 minuti), qui non
+   c'e' piu'.
+
+   PALETTE: due tentativi scartati prima di questo.
+     1) un blu (0x4b6b8a) preso da una rgba() sparsa in app.css (l'accento
+        di voce-notte.ultima) — non un vero token, sembrava "un blu a caso".
+     2) i quattro token reali (tavolo/ardesia/ardesia-alta/osso-fioco) presi
+        COSI' COME SONO — provenienza giusta, ma osso-fioco e' un grigio
+        chiaro fatto per il TESTO: da highlight del fog inondava lo schermo
+        di luce, e Roccamora smetteva di essere notturna.
+   Qui: toni scurissimi vicini a tavolo/ardesia, con un filo di verde-oliva
+   e ambra spento — il gas delle lanterne di canale filtrato dalla nebbia,
+   l'atmosfera del fascicolo, non un colore a caso ne' un token preso a
+   peso. blurFactor basso (0.35, non 0.75): meno mescolato, piu' buio fra
+   le volute — l'oro del bottone resta l'unica cosa davvero accesa, come
+   da regola "il lume solo dove si agisce". */
+#vanta-bg { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+.schermo { position: relative; z-index: 1; }
+.barra-mockup { display: flex; align-items: center; justify-content: center; gap: 16px; margin-bottom: 6px; }
+.barra-mockup label { color: var(--osso-fioco); font-size: 14px; }
+</style></head><body>
+<div id="vanta-bg"></div>
+
+<div class="schermo">
+  <p class="nota barra-mockup"><label><input type="checkbox" id="ferma"> ferma la deriva</label></p>
+
+  <header class="home-testata">
+    <h1>ombre su roccamora</h1>
+    <div class="sotto">pubule@gmail.com</div>
+    <div class="filetto"></div>
+  </header>
+  <div class="pannello">
+    <h2>chi gioca stasera?</h2>
+    <div class="modo tavolo-voce">
+      <h3>test</h3>
+      <p>1 partita · ultima serata: 19/09/2026</p>
+      <button class="btn piccolo">chi gioca</button>
+      <button class="btn piccolo">elimina</button>
+    </div>
+    <div class="btn-riga mt">
+      <button class="btn pieno">nuovo tavolo</button>
+      <button class="btn">rubrica</button>
+    </div>
+  </div>
+
+  <p class="nota mt">Portata nell'app: <code>js/nebbia.js</code> con le librerie in
+  <code>webapp/public/js/vendor/</code> (<code>fetch_vendor.sh</code>, come i font) — mai da CDN in
+  produzione. Questo mockup le prende dal CDN solo per provare la palette.</p>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"
+  integrity="sha384-CI3ELBVUz9XQO+97x6nwMDPosPR5XvsxW2ua7N1Xeygeh1IxtgqtCkGfQY9WWdHu" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/vanta@0.5.24/dist/vanta.fog.min.js"
+  integrity="sha384-6pWFXNNSqb0oVNIZRz63YH5+lolGdFdCh23nHfD7SI3PIW69QAVOvVl/0pkWLG62" crossorigin="anonymous"></script>
+<script>
+const fx = VANTA.FOG({
+  el: '#vanta-bg', mouseControls: false, touchControls: false, gyroControls: false,
+  minHeight: 200, minWidth: 200,
+  baseColor: 0x0c0e11, lowlightColor: 0x0c0e11, midtoneColor: 0x142220, highlightColor: 0x4a3a24,
+  blurFactor: 0.35, speed: matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 0.8, zoom: 1,
+});
+document.getElementById('ferma').onchange = (e) => fx.setOptions({ speed: e.target.checked ? 0 : 0.8 });
+</script>
+</body></html>

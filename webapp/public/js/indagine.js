@@ -17,7 +17,7 @@ import { vista, eArbitro } from '../motore/proiezione.js';
 import { mettiSulTavolo } from './tavolo-vivo.js';
 import { apriCanale } from './canale.js';
 import { schedaEroe, abilitaSchede } from './scheda-eroe.js';
-import { conferma } from './chiedi.js';
+import { conferma, avvisa } from './chiedi.js';
 import * as suoni from './suoni.js';
 
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) =>
@@ -106,7 +106,11 @@ export async function vistaIndagine(app, partita, vaiA, posto) {
   const { ep, comune, carte } = vistoDa.dati;
   if (ctx && ctx.canale) ctx.canale.chiudi();   // il filo di prima non resta appeso
   ctx = { app, partita: vistoDa.stato, ep, comune, carte, vaiA, posto: posto || null,
-          canale: null, tavoloVivo: false, rifMiei: new Set() };
+          canale: null, tavoloVivo: false, rifMiei: new Set(),
+          // GIA' SAPUTO «qui non c'è nulla» (o «già colto»): la prima volta si
+          // tira per scoprirlo — dopo, rifare il rituale dei dadi non
+          // scoprirebbe niente di nuovo, sarebbe lo stesso tiro a vuoto.
+          saputoVuoto: new Set() };
   // come in Spedizione: la scheda e' quella di stanotte, Tempre e Cicatrici
   // comprese (la Tempra vale «sempre», e l'ACUME qui tira davvero)
   abilitaSchede((nm) => eroeCresciuto({ partita: P() }, nm,
@@ -266,8 +270,7 @@ function orologio() {
     <div class="comandi-capo">
       ${suoni.bottoneHtml()}
       <button class="btn btn-menu" id="apri-menu">
-        <svg class="ic" aria-hidden="true"><use href="#i-lanterna"></use></svg>menu${
-        nuoveNelRegistro() ? '<span class="segno"></span>' : ''}</button>
+        <svg class="ic" aria-hidden="true"><use href="#i-lanterna"></use></svg>menu</button>
     </div>
   </div>`;
 }
@@ -377,6 +380,7 @@ function menu() {
     ${arbitro() ? voce('m-stradario', 'lo stradario', 'dove si può andare, e cosa è già battuto',
                        `<b>${vociMappa(ep, ctx.comune).length}</b> vie`, false, 'lente') : ''}
     <div class="menu-titolo">la serata</div>
+    ${voce('m-info', 'info', 'chi l’ha fatto, e a che condizioni', '', false, 'lanterna')}
     ${voce('nav-esci', 'lasciate la serata', 'si torna alla scelta dell’episodio',
            '', false, 'strappo')}
     <div class="bottoni" style="margin-top:14px">
@@ -389,14 +393,25 @@ function menu() {
   const poi = (fn) => () => { chiudiFoglio(); fn(); };
   velo.onclick = () => chiudiFoglio();
   q('#m-chiudi').onclick = () => chiudiFoglio();
-  q('#m-notte').onclick = poi(() => registroNotte(menu));
-  q('#m-squadra').onclick = poi(() => squadra(menu));
+  // «TORNATE INDIETRO» dalle pagine del menu riapre il menu — ma la pagina da
+  // cui lo si era aperto va rimessa SOTTO. Le pagine del menu (la notte, la
+  // squadra, quel che avete in mano…) si disegnano al posto della scena, e senza
+  // questo, chiudendo il foglio riaperto, si restava su quella pagina invece di
+  // tornare alla serata.
+  const origine = ctx.schermata;
+  const scorsa = window.scrollY;
+  const indietro = () => {
+    if (origine) { ridisegna(() => origine()); window.scrollTo(0, scorsa); }
+    menu();
+  };
+  q('#m-notte').onclick = poi(() => registroNotte(indietro));
+  q('#m-squadra').onclick = poi(() => squadra(indietro));
   q('#m-mano').onclick = poi(() => {
-    ctx.schermata = () => elencoInMano(menu, codaCarbone());
-    elencoInMano(menu, codaCarbone());
+    ctx.schermata = () => elencoInMano(indietro, codaCarbone());
+    elencoInMano(indietro, codaCarbone());
     agganciaCarbone(() => ridisegna(() => ctx.schermata()));
   });
-  q('#m-luoghi')?.addEventListener('click', poi(() => doveSieteStati(menu)));
+  q('#m-luoghi')?.addEventListener('click', poi(() => doveSieteStati(indietro)));
   q('#m-stradario')?.addEventListener('click', poi(() => stradarioSchermata()));
   q('#m-taccuino').onclick = poi(() => (arbitro() ? taccuino() : taccuinoDiChiGioca()));
   // `schedaEroe(e)` e basta: il secondo argomento e' l'ARRUOLAMENTO (lo usa la
@@ -404,12 +419,17 @@ function menu() {
   // faceva stampare «arruola eroe» in mezzo a una serata gia' cominciata.
   q('#m-scheda')?.addEventListener('click', poi(() => schedaEroe(
     eroeCresciuto({ partita: P() }, mio, ctx.comune.eroi.find((x) => x.nome === mio)))));
-  q('#m-cambia')?.addEventListener('click', poi(() => cambiaEroe(menu)));
+  q('#m-cambia')?.addEventListener('click', poi(() => cambiaEroe(indietro)));
   q('#m-lettera')?.addEventListener('click',
     poi(() => (arbitro() ? lettera() : letteraDiChiGioca())));
   q('#m-busta')?.addEventListener('click', poi(() => taccuino()));
   q('#nav-esci').onclick = poi(() => ctx.vaiA('menu'));
+  q('#m-info').onclick = poi(() => avvisa('Ombre su Roccamora', { dettaglio: COPYRIGHT, ok: 'chiudi' }));
 }
+
+// L'UNICO POSTO dove compare il copyright: la voce «info» del menu di gioco.
+// Stava in fondo a ogni schermata, e a ogni schermata rubava una riga.
+const COPYRIGHT = '© 2026 Fabio Stocco — «Ombre su Roccamora» · uso non commerciale (PolyForm NC 1.0.0)';
 
 // il foglio si chiude da tre parti: il bottone, il velo, Escape. Un foglio che
 // si chiude solo da un bottone e' un foglio che resta aperto.
@@ -419,8 +439,8 @@ function chiudiFoglio() {
 }
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape') chiudiFoglio(); });
 
-// IL REGISTRO, a tutta pagina. Aprendolo si segna quel che si e' letto: il
-// pallino sul tasto e' per chi non l'ha guardato, non per tutti.
+// IL REGISTRO, a tutta pagina. Aprendolo si segna quel che si e' letto: le
+// «nuove» sulla voce del menu sono per chi non l'ha guardato, non per tutti.
 function registroNotte(dietro) {
   ctx.notteLette = (IND().notte || []).length;
   ctx.schermata = () => registroNotte(dietro);
@@ -731,6 +751,8 @@ function mostraTiroDegliAltri(eventi) {
   });
 }
 
+const pausa = (ms) => new Promise((r) => setTimeout(r, ms));
+
 // il ritratto di chi tira, per la riga in cima alla finestra: senza eroe (o
 // senza artwork) la riga resta, e dice la prova - e' la stessa degradazione
 // voluta di tutto il resto quando si gioca senza tavolo
@@ -754,7 +776,7 @@ function collegaAlTavolo() {
   const posto = ctx.posto;
   ctx.canale = apriCanale({
     tavolo: posto.tavolo,
-    onVista: (stato, datiVisti, rif, eventi, messaggio) => {
+    onVista: async (stato, datiVisti, rif, eventi, messaggio) => {
       if (!stato) return;
       // IL TIRO LO VEDONO TUTTI. Il dado lo tira chi ha l'eroe, dal suo
       // telefono; fin qui rotolava solo li', e al tavolo gli altri sentivano
@@ -766,6 +788,28 @@ function collegaAlTavolo() {
       // rimetterla in scena gli mostrerebbe i propri dadi due volte.
       const mio = rif && ctx.rifMiei.has(rif);
       if (mio) ctx.rifMiei.delete(rif);
+      // C'E' DAVVERO UN TIRO da mostrare in questa spinta? La maggior parte
+      // delle spinte non ne porta uno (una carta, un dono, un semplice giro
+      // di stato) — aspettare qui ANCHE per quelle avrebbe introdotto un
+      // `await` reale dove prima non c'era, aprendo all'event loop una
+      // finestra per interfogliare la spinta SUCCESSIVA prima che questa
+      // finisse. Si guarda `eventi`, non lo stato.
+      const cTiro = (eventi || []).some((e) => e && e.tipo === 'tiro' && Array.isArray(e.d));
+      if (!mio && cTiro) {
+        // SE UNA CARTA CONDIVISA ERA GIA' APERTA — da PRIMA di questa spinta,
+        // `ctx.partita` (non ancora toccato qui: lo si fa piu' sotto) — si
+        // aspetta che si chiuda, prima di aprirci sopra il tiro di un altro
+        // eroe. Stessa attesa della Spedizione (digitale.js), verso «il tiro
+        // aspetta la carta»: chi legge finisce di leggere prima che arrivi
+        // il prossimo.
+        //
+        // NON `stato` (questa spinta): un Approfondimento colto porta il
+        // tiro E la sua carta nella STESSA spinta — controllare `stato`
+        // avrebbe aspettato che la carta di QUESTO STESSO tiro sparisse da
+        // sola, cosa che ovviamente non succede mai (e' la sua), bloccando
+        // ogni cattura per 6 secondi buoni.
+        for (let attesa = 0; ((ctx.partita || {}).indagine || {}).carta && attesa < 20; attesa += 1) await pausa(300);
+      }
       if (!mio) mostraTiroDegliAltri(eventi);
       // IL FILO E' VIVO, e da qui i comandi vanno al TAVOLO invece che al
       // motore di questa pagina. Senza questa riga `esegui()` restava sempre
@@ -807,8 +851,15 @@ function collegaAlTavolo() {
         // del primo tempo e poi non si ridisegnava piu' — stesso titolo — e
         // restava con un pannello nero e «continuate».
         const c = (stato.indagine || {}).carta;
-        if (c && c.corpo && ctx.cartaInScena !== chiaveCarta(c)) mostraCartaCondivisa(c);
-        else if (!c && ctx.cartaInScena) { ctx.cartaInScena = null; scenaArbitro(); }
+        // stessa attesa di sotto: se il tiro di un altro eroe e' ancora a
+        // schermo (`mostraTiroDegliAltri`, qui sopra, vale anche per chi
+        // arbitra), la carta non gli si scrive sotto pronta di scatto
+        if (c && c.corpo && ctx.cartaInScena !== chiaveCarta(c)) {
+          for (let attesa = 0; document.querySelector('.dadi-overlay.aperto') && attesa < 20; attesa += 1) {
+            await pausa(300);
+          }
+          mostraCartaCondivisa(c);
+        } else if (!c && ctx.cartaInScena) { ctx.cartaInScena = null; scenaArbitro(); }
         return;
       }
       // LA SERATA E' PASSATA ALLA SPEDIZIONE mentre guardavamo: non si ridisegna
@@ -842,6 +893,16 @@ function collegaAlTavolo() {
       // punto di partenza. Peggio: premevi un bottone, la spinta tornava, e la
       // pagina si ridisegnava come se non avessi premuto niente. Un bottone
       // che non fa niente, che invece aveva fatto tutto.
+      //
+      // SE UN TIRO ALTRUI STA ANCORA A SCHERMO (`.dadi-overlay`, da questa
+      // stessa spinta o da una precedente non ancora chiusa) si aspetta: il
+      // verso opposto di sopra. Senza questo una carta appena colta (o
+      // qualunque altra schermata) si scriveva SOTTO l'overlay dei dadi —
+      // invisibile finche' quello resta aperto, pronta di scatto appena si
+      // chiude, senza il tempo di leggerla.
+      for (let attesa = 0; document.querySelector('.dadi-overlay.aperto') && attesa < 20; attesa += 1) {
+        await pausa(300);
+      }
       ridisegna(() => (ctx.schermata || vistaDiChiGioca)());
     },
     // il filo e' caduto: il motore torna a essere questa pagina, e chi gioca
@@ -933,7 +994,14 @@ function barraAzioniHtml(aperto) {
     // risposta prima della domanda, ed è la cosa che l'Indagine non fa.
     const l = aperto;
     const ind = IND();
-    const TIPI = ['Osservazione', 'Testimonianza', 'Referto', 'Presagio'];
+    // SCENA CHIUSA: un tiro e' gia' andato male qui stanotte, e il motore
+    // rifiuta qualunque approfondisci finche' non si esce e si rientra
+    // (`ind.scenaChiusa`, motore/indagine.js). Il testo qui sotto lo dice gia'
+    // («per questa visita gli Approfondimenti restano nascosti»); i bottoni no
+    // — restavano cliccabili, e ogni tocco faceva tirare i dadi per farsi
+    // rifiutare daccapo, all'infinito. Stessa guardia che gia' ha «aiuto
+    // profano» due righe sotto.
+    const TIPI = ind.scenaChiusa ? [] : ['Osservazione', 'Testimonianza', 'Referto', 'Presagio'];
     const miei = mio ? TIPI.filter((t) =>
       idoneiPerTipo(ctx.comune, P(), t).some((x) => x.nome === mio)) : [];
     for (const t of miei) {
@@ -1192,6 +1260,20 @@ async function esegui(comando) {
       const out = await r.json();
       if (!r.ok || out.rifiuto) { flash((out.rifiuto || {}).motivo || 'Il tavolo ha rifiutato la mossa.'); return null; }
       incassa(out.stato);
+      // LA CARTA APPENA COLTA. La risposta del tavolo porta gia' `dati`
+      // (`vista()`, worker/partita-do.js) potati per QUESTO posto — con
+      // l'Approfondimento che si e' appena colto incluso, perche' il motore lo
+      // ha gia' scritto in `approfondimentiLetti` prima di potare. Senza
+      // questa riga si aspettava la spinta del canale (`onVista`, piu' sotto)
+      // per vedere lo stesso aggiornamento: arrivava un istante dopo che
+      // `mostraEsito` aveva gia' disegnato il pannello — niente immagine, solo
+      // il testo col bottone «prendetela», su OGNI prima cattura dal proprio
+      // telefono (Approfondimenti, aiuto profano compreso).
+      if (out.dati) {
+        if (out.dati.ep) ctx.ep = out.dati.ep;
+        if (out.dati.comune) ctx.comune = out.dati.comune;
+        if (out.dati.carte) ctx.carte = out.dati.carte;
+      }
       return out;
     } catch {
       // il filo e' caduto a meta' mossa: non si applica niente qui, perche' uno
@@ -1270,9 +1352,15 @@ async function dichiara(nomeVoce) {
 
   if (ev('pista-fredda')) {
     // la frase di colore la sceglie la vista: il motore dice solo che e' fredda
+    //
+    // `atutti: true` — E' UN LUOGO VERO, sia pure a vuoto: il gruppo ci si e'
+    // mosso insieme, come per un Approfondimento o un «niente, per ora».
+    // Senza questo flag restava sulla sola scrivania di chi arbitra — i
+    // telefoni non lo vedevano mai, ne' allora ne' al refresh (`atutti` e' lo
+    // stesso interruttore di `pannelloMsg`, mai acceso qui).
     const esito = dichiaraVoce(ctx.ep, ctx.comune, nomeVoce);
     return pannelloMsg('pista fredda', `<p><i>${esc(esito.frase || '')}</i></p>
-      <p class="nota mt">Nessuna ora spesa.</p>`, scenaArbitro);
+      <p class="nota mt">Nessuna ora spesa.</p>`, scenaArbitro, { atutti: true });
   }
   if (ev('mezzanotte')) {
     return pannelloMsg('è mezzanotte', '<p>Il tempo è finito: chiudete l’indagine.</p>', scenaArbitro);
@@ -1520,6 +1608,15 @@ async function aiutoProfano(l, tipo, giaScelto) {
 // comando: e' un tiro in piu' sullo stesso comando, e il motore lo accetta
 // perche' `creaCaso` consuma i tiri dichiarati in ordine.
 async function mandaProva(comando, l) {
+  // GIA' SAPUTO in questa visita («niente-per-te», vedi mostraEsito): niente
+  // rituale dei dadi, si va dritti alla stessa risposta. Il motore lo
+  // ignorerebbe comunque — quel ramo non tira nemmeno lui (motore/indagine.js,
+  // `if (!a || gia)`) — qui si risparmia anche il tocco e l'animazione.
+  const chiave = `${comando.luogo}|${comando.tipoApp}`;
+  if (ctx.saputoVuoto.has(chiave)) {
+    const out = await esegui({ ...comando, tiri: [[1, 1]] });
+    return out ? mostraEsito(out, l) : tornaAlLuogo(l);
+  }
   const p = provaDiIndagine({ comune: ctx.comune }, comando);
   // LA SECONDA OCCASIONE SI OFFRE DENTRO LA FINESTRA, e solo se c'e' davvero:
   // il Secondo Fiato e' una volta a episodio per eroe, e proporlo a carica
@@ -1571,6 +1668,7 @@ function mostraEsito(out, l) {
   }
   const niente = ev('niente-per-te');
   if (niente) {
+    ctx.saputoVuoto.add(`${niente.luogo}|${niente.tipoApp}`);
     return pannelloMsg(String(niente.tipoApp || 'aiuto profano').toLowerCase(),
       `<p><i>${esc(String(niente.chi).split(' ')[0])} osserva, ascolta, fruga. ${niente.gia
         ? 'Quello che c’era da cogliere qui, l’avete già colto.'

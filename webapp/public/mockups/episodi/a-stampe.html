@@ -1,0 +1,26 @@
+<!doctype html><html lang="it"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Scelta episodio · A stampe · mockup</title>
+<link rel="stylesheet" href="../../app.css">
+<link rel="stylesheet" href="episodi.css">
+</head><body>
+<div id="app" class="schermo">
+<p class="mockup-nota"><b>A · stampe</b> — la scelta dell'episodio <i>è</i> la scelta dell'eroe:
+  stesso markup (<code>.eroe-tile</code>), stessa carta, stessa griglia a due colonne su telefono,
+  stesso sigillo di ceralacca (serata vinta). Il nome sta sotto la stampa, in inchiostro, come per
+  gli eroi. Cambia solo il ritaglio: un paesaggio tenuto per il centro.
+  <a href="./">Tutti i mockup</a></p>
+<div id="quadro"></div>
+</div>
+<script src="dati.js"></script>
+<script src="episodi.js"></script>
+<script>
+quadro.innerHTML = barra() + `
+  <div class="pannello">
+    <h2>scegliete il caso</h2>
+    <p class="nota">Una stampa per ogni caso, uno per sera. Il sigillo dice quelli che avete vinto.
+      Toccatene una per aprirla.</p>
+    <div class="griglia-arruolo mt">${EPISODI.map((e) => stampa(e)).join('')}</div>
+  </div>`;
+</script>
+</body></html>

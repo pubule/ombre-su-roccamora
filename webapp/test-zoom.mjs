@@ -36,8 +36,8 @@ try {
     });
   });
   await page.goto(BASE, { waitUntil: 'networkidle' });
-  await page.locator('.tessera-episodio[data-ep="ep1"]').click();
-  await page.locator('#continua').click();
+  await page.locator('.stampa-caso[data-ep="ep1"]').click();
+  await page.locator('#apri-caso').click();   // la stampa apre la scheda: da li' si comincia
   // l'elenco delle cose sta nel menu: la scena tiene solo quel che succede
   await page.locator('#apri-menu').click();
   await page.locator('#m-mano').click();

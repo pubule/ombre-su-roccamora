@@ -3,12 +3,15 @@
 // (motore arbitro) e qui hanno un segnaposto onesto.
 import { dati, nuovaPartita, salva, carica, cancella, tavoloCorrente, nomeTavoloCorrente,
          sincronizzaScelte, scelteCampagna, frammentiConservati, EPISODI,
-         sincronizzaCrescita, crescitaPerPartita } from './store.js';
+         sincronizzaCrescita, crescitaPerPartita, lasciaTavolo } from './store.js';
 import { biviDi, applicaAllaPartita } from '../motore/bivi.js';
 import { rendi } from './engine.js';   // i Frammenti sono prosa con <i>/<b>
 import { schedaEroe } from './scheda-eroe.js';
 import { vistaTavoli } from './tavoli.js';
 import { vistaRubrica } from './rubrica.js';
+import { vistaMioEroe } from './mio-eroe.js';
+import { vistaMembri } from './membri.js';
+import { infoCaso, stampaCaso, schedaCaso } from './scheda-caso.js';
 import { decidi, avviaCoda, stato as statoSync } from './sync.js';
 import { conferma } from './chiedi.js';
 import './zoom.js';   // un tocco sulla carta la apre a tutto schermo
@@ -70,9 +73,6 @@ const COPERTINE = {
   ep20: '/assets/artworks/derelict warehouses over black still water.png',
 };
 
-const RIGA_C = `<p class="copyright">© 2026 Fabio Stocco — «Ombre su Roccamora» ·
-  uso non commerciale (PolyForm NC 1.0.0)</p>`;
-
 // Arte non ancora generata (Fase D di un episodio nuovo): un'immagine rotta
 // sparisce invece di mostrare l'icona rotta del browser — i testi di gioco
 // ci sono comunque, la carta è solo l'illustrazione.
@@ -83,13 +83,18 @@ window.addEventListener('error', (e) => {
 // ------------------------------------------------------------------- HOME
 async function vistaHome() {
   const info = await Promise.all(EPISODI.map((e) => dati(e)));
+  // una stampa per ogni caso (scheda-caso.js): la stessa lingua della scelta dell'eroe
+  const casi = info.map((ep) => infoCaso(ep, carica(ep.id), COPERTINE[ep.id]));
   h(`
     <!-- LA SCENA D'APERTURA: l'arte del Palazzo del Lume fa da copertina
          all'archivio, e il titolo ci sta sopra — mai sull'immagine nuda, che
-         sotto c'e' la velatura della scena. -->
+         sotto c'e' la velatura della scena. Il testo sta su una lastra
+         (classe pannello, sfocata sul fondo) come le sezioni sotto: era
+         l'unico blocco della home senza. La scena stessa e' una lastra —
+         regola di .scena in app.css, non piu' un modificatore solo qui. -->
     <div class="scena bassa">
       <div class="sfondo" style="background-image:url('/assets/artworks/Palazzo%20del%20Lume.png')"></div>
-      <div class="dentro">
+      <div class="dentro pannello">
         <span class="occhiello">società del lume · archivio dei casi</span>
         <h1>ombre su roccamora</h1>
         <p class="nota" style="margin:2px 0 0">roccamora, 1889 — ventun casi, uno per sera</p>
@@ -114,30 +119,22 @@ async function vistaHome() {
           <svg class="ic" aria-hidden="true"><use href="#i-referto"></use></svg>taccuino di campagna</button>
       </div>
     </header>
-    <div class="griglia-episodi">
-      ${info.map((ep) => {
-        const salvata = carica(ep.id);
-        return `
-        <div class="tessera-episodio" data-ep="${ep.id}">
-          <div class="arte" style="background-image:url('${COPERTINE[ep.id]}')"></div>
-          ${salvata ? `<div class="stato${(salvata.spedizione || {}).esito ? ' finita' : ''}">${
-            // una serata conclusa resta salvata — serve alla campagna — ma non
-            // e' «in corso»: si torna alla taverna e la si ritrova li', come se
-            // non fosse finita niente
-            (salvata.spedizione || {}).esito === 'vittoria' ? 'vinta'
-            : (salvata.spedizione || {}).esito ? 'perduta'
-            : 'in corso'}</div>` : ''}
-          <div class="testi">
-            <h2>${esc(ep.titolo)}</h2>
-            <div class="sotto">${esc(ep.sottotitolo)}</div>
-          </div>
-        </div>`;
-      }).join('')}
+    <div class="pannello">
+      <h2>scegliete il caso</h2>
+      <p class="nota">Toccate una stampa per leggerne la scheda: da lì si comincia.</p>
+      <div class="griglia-arruolo mt">${casi.map(stampaCaso).join('')}</div>
     </div>
-    ${RIGA_C}
   `);
-  app.querySelectorAll('.tessera-episodio').forEach((el) =>
-    el.addEventListener('click', () => vistaEpisodio(el.dataset.ep)));
+  // IL TOCCO APRE LA SCHEDA, e solo da li' si comincia: con ventun tessere quasi
+  // uguali un tocco sbagliato non deve far partire niente
+  app.querySelectorAll('.stampa-caso').forEach((el) => el.addEventListener('click', async () => {
+    const c = casi.find((x) => x.id === el.dataset.ep);
+    if (await schedaCaso(c) !== 'apri') return;
+    // riprendere una serata aperta non ripassa dalla scelta di come cominciare:
+    // e' gia' stata fatta
+    if (c.stato === 'corso' && !(await sonoGiocatore())) return continua(c.id);
+    vistaEpisodio(c.id);
+  }));
   document.getElementById('cambia-tavolo')?.addEventListener('click',
     () => vistaTavoli(app, (id) => entraNelTavolo(id)));
   document.getElementById('taccuino')?.addEventListener('click', () => vistaTaccuino(info));
@@ -193,7 +190,6 @@ function vistaTaccuino(info) {
           <span class="nota">${FRAMMENTO[esito] || (esito ? '—' : '')}</span>
         </div>`).join('')}
     </div>
-    ${RIGA_C}
   `);
   document.getElementById('taccuino-indietro').onclick = () => vistaHome();
 }
@@ -257,7 +253,6 @@ async function vistaEpisodio(epId) {
           compagniaPronta ? 'si comincia →' : 'scegli gli investigatori →'}</button>
       </div>
     </div>`}
-    ${RIGA_C}
   `);
   document.getElementById('indietro').onclick = vistaHome;
   document.getElementById('continua')?.addEventListener('click', () => continua(epId));
@@ -337,7 +332,6 @@ async function continua(epId) {
           <p>${riga(r, remoto.aggiornato)}</p></div>
       </div>
     </div>
-    ${RIGA_C}
   `);
   document.getElementById('indietro').onclick = () => vistaEpisodio(epId);
   const tieni = (p) => { p.sincronizzato = 0; salva(p); vistaPartita(p); };
@@ -398,7 +392,6 @@ async function vistaParty(epId, fase = 'indagine') {
         <button class="btn pieno disabilitato" id="inizia">si comincia</button>
       </div>
     </div>
-    ${RIGA_C}
   `);
   document.getElementById('indietro').onclick = () => vistaEpisodio(epId);
   const aggiornaBtn = () => {
@@ -476,7 +469,6 @@ function schermataBivi(b, dopo) {
     <div class="btn-riga">
       <button class="btn pieno" id="via-bivi">cominciamo →</button>
     </div>
-    ${RIGA_C}
   `);
   document.getElementById('via-bivi').onclick = dopo;
 }
@@ -531,7 +523,6 @@ async function vistaEsitoIndagine(partita) {
         <button class="btn pieno" id="vai">si scende →</button>
       </div>
     </div>
-    ${RIGA_C}
   `);
   document.getElementById('indietro').onclick = () => vistaEpisodio(partita.episodio);
   app.querySelectorAll('.tier').forEach((el) => el.addEventListener('click', () => {
@@ -591,10 +582,36 @@ async function entraNelTavolo(id) {
     if (r.ok) stato = await r.json();
   } catch { /* senza rete non si puo' sapere: si finisce sugli episodi, com'era */ }
   const t = stato && (stato.tavoli || []).find((x) => x.id === id);
-  if (!t || t.ruolo === 'arbitro') return vistaHome();      // chi arbitra sceglie, come sempre
+  // Il server ha risposto e quel tavolo non c'e': cancellato altrove, o di un
+  // altro account. Si scorda la scelta (le partite no) e si va all'elenco, dove
+  // il tavolo compare fra gli orfani. Senza risposta (offline) si va alla home.
+  if (stato && !t) { lasciaTavolo(); return vistaTavoli(app, (x) => entraNelTavolo(x)); }
+  if (!t) return vistaHome();      // senza risposta si arbitra come sempre
+  const altroTavolo = () => vistaTavoli(app, (x) => entraNelTavolo(x));
 
+  // UN TAVOLO SI SALVA COMPLETO. Chi l'ha creato non ci entra finche' non ha la
+  // compagnia (da 2 a 10 eroi) e almeno una persona invitata: la schermata dove
+  // le sceglie e' la stessa della creazione, e «salva il tavolo» si accende solo
+  // a quel punto. Un tavolo lasciato a meta' finiva nell'elenco, e dentro c'era
+  // una serata senza nessuno con cui giocarla.
+  if (t.creatore) {
+    const compagnia = t.party ? JSON.parse(t.party) : [];
+    if (compagnia.length < 2 || !t.invitati) {
+      return vistaMembri(app, id, t.nome, altroTavolo, () => entraNelTavolo(id));
+    }
+  }
+
+  // OGNUNO SCEGLIE IL PROPRIO EROE, compreso chi ha creato il tavolo. Finche'
+  // non l'ha fatto vede solo la scelta dell'eroe, e solo dopo va oltre — gli
+  // episodi per chi arbitra, la serata per chi gioca. Il controllo sta qui e non
+  // nell'elenco dei tavoli: con la scelta del tavolo gia' ricordata l'app apre
+  // da qui, senza passare dall'elenco.
+  if (!(t.eroi || []).length) {
+    return vistaMioEroe(app, id, t.nome, () => entraNelTavolo(id), altroTavolo);
+  }
   // QUAL E' LA SERATA APERTA. Lo decide chi arbitra, e da quando esiste la
-  // partita viva c'e' un posto dove lo dice: il Durable Object. Si chiede li'.
+  // partita viva c'e' un posto dove lo dice: il Durable Object. Si chiede li'
+  // — PRIMA di tutto, anche per chi arbitra.
   //
   // Prima si prendeva «il salvataggio piu' recente del tavolo», e sembrava
   // ragionevole finche' l'unico a scrivere era chi conduce. Non lo e' piu': il
@@ -609,9 +626,24 @@ async function entraNelTavolo(id) {
     if (r.ok) partita = (await r.json()).stato || null;
   } catch { /* niente partita viva: si ripiega sui salvataggi, come prima */ }
 
-  // RIPIEGO: nessuna partita viva (chi arbitra non ha ancora aperto la plancia,
-  // o il tavolo e' stato sfrattato). Si torna al salvataggio piu' recente, che
-  // e' il criterio di prima ed e' sbagliato solo quando c'e' di meglio.
+  // CHI ARBITRA, senza una serata viva da riprendere, sceglie come sempre.
+  //
+  // FINO AL 22/09/2026 chi arbitra saltava DRITTO qui, senza mai guardare il
+  // tavolo: un refresh lo mandava sempre alla scelta degli episodi, e da li'
+  // «riprendi» leggeva il PROPRIO salvataggio locale — mai il Durable Object.
+  // Se quel salvataggio non c'era o non combaciava (un altro dispositivo, lo
+  // storage svuotato), il tocco su una tessera apriva una partita NUOVA, con
+  // un `creata` diverso: la guardia di `apri` (partita-do.js) protegge dalle
+  // versioni piu' vecchie della STESSA serata, ma una serata diversa non e' una
+  // versione vecchia — e' un'altra serata, e la sovrascrive. I telefoni dei
+  // giocatori, magari con uno dentro un luogo, ricevevano da sotto i piedi lo
+  // stato di una partita che non avevano mai visto.
+  if (!partita && t.ruolo === 'arbitro') return vistaHome();
+
+  // RIPIEGO PER CHI GIOCA: nessuna partita viva (chi arbitra non ha ancora
+  // aperto la plancia, o il tavolo e' stato sfrattato). Si torna al
+  // salvataggio piu' recente, che e' il criterio di prima ed e' sbagliato solo
+  // quando c'e' di meglio.
   if (!partita) {
     const suoi = (stato.salvataggi || []).filter((x) => x.tavolo === id);
     if (!suoi.length) return vistaAttesaArbitro(id, t.nome);
@@ -643,8 +675,7 @@ function vistaAttesaArbitro(id, nome) {
          <button class="btn pieno" id="riguarda">guarda di nuovo</button>
          <button class="btn" id="altro-tavolo">cambia tavolo</button>
        </div>
-     </div>
-     ${RIGA_C}`);
+     </div>`);
   document.getElementById('riguarda').onclick = () => entraNelTavolo(id);
   document.getElementById('altro-tavolo').onclick = () => vistaTavoli(app, (x) => entraNelTavolo(x));
 }
@@ -676,8 +707,12 @@ async function postoDiQuestoTavolo() {
     // tavolo a non sapere cos'e' successo.
     // `eroi` e' la lista: un posto puo' averne piu' d'uno (un iPad, due amici),
     // e la vista dell'Indagine ci mette sopra l'interruttore
-    return { tavolo: id, ruolo: t.ruolo === 'arbitro' ? 'arbitro' : 'giocatore',
-             eroi: t.eroi || (t.eroe ? [t.eroe] : []), eroe: t.eroe || null };
+    // Chi arbitra ha scelto anche lui un eroe, ma nella serata resta chi conduce
+    // e tiene in mano gli eroi che nessuno ha preso: `eroi` vuoto, come sempre.
+    const arbitra = t.ruolo === 'arbitro';
+    return { tavolo: id, ruolo: arbitra ? 'arbitro' : 'giocatore',
+             eroi: arbitra ? [] : (t.eroi || (t.eroe ? [t.eroe] : [])),
+             eroe: arbitra ? null : (t.eroe || null) };
   } catch {
     // SENZA RISPOSTA si usa l'ultimo ruolo conosciuto. Il ripiego «nessun
     // posto» vuol dire «si arbitra», ed e' giusto sul PC di chi gioca da solo:
