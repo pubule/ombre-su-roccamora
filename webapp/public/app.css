@@ -1339,12 +1339,9 @@ em, i { font-style: italic; }
    e il menu, appiccicati in alto. Sono le due cose che devono restare
    raggiungibili per tutta la serata mentre il resto scorre — prima il menu era
    un bottone in mezzo alla pagina, e si perdeva. */
-.capo { position: sticky; top: 0; z-index: 5; display: flex; align-items: center;
-  justify-content: space-between; gap: 10px; margin: 0 -16px 0; padding: 8px 16px 12px;
-  /* quasi opaco: con una velatura leggera le parole della pagina passano sotto
-     i lumi mentre si scorre, e sembra tutto sporco */
-  background: linear-gradient(180deg, rgba(12,14,17,.97) 0%, rgba(12,14,17,.94) 62%,
-    rgba(12,14,17,0) 100%); backdrop-filter: blur(12px); }
+.capo { position: sticky; top: 8px; z-index: 5; display: flex; align-items: center;
+  justify-content: space-between; gap: 10px; margin: 8px 0 12px; padding: 10px 14px;
+  background: var(--ardesia); border: 1px solid var(--bordo); border-radius: 10px; }
 .capo .ora { display: flex; align-items: center; gap: 8px; min-width: 0; }
 .capo .ora .quante { font-family: 'FellSC', serif; font-size: 14px; color: var(--osso-fioco);
   white-space: nowrap; }
