@@ -541,7 +541,7 @@ def spedizione():
                   '«il conto dei bivi»: Braga (Bivio 15), il decano lucido (esito 17), Ranuzzi '
                   '(Bivio 18), i vecchi testimoni del Coro (Bivio 3), il debito antico (Bivio 10). '
                   'Ogni alleato = <b>+1</b> (una carta '
-                  'evento-favore in più nel mazzo, o una spawn scartata); ogni PNG che vi volta le '
+                  'evento-favore in più nel mazzo, o una spawn scartata); ogni alleato che vi volta le '
                   'spalle = un aiuto in meno. Servono <b>≥ 3 alleati</b> perché '
                   'l’Ispettore sia <b>convincibile</b>.', BODY),
         Paragraph('• <b>L’ISPETTORE NON SI UCCIDE.</b> Alla Sala di Lettura (T5), Vidal (boss) fa '
@@ -635,14 +635,14 @@ def soluzione():
         '<b>Stampate questo fascicolo senza leggerlo e sigillatelo in una busta.</b> Apritelo '
         'solo dopo aver risposto per iscritto alle 4 Domande.',
         '<b>APERTURA — il Bivio dell’Episodio 18</b> (applicare PRIMA della lettera): se avete scelto '
-        '<b>RENDERE PUBBLICA LA PROVA SUBITO</b> — la città sa, M. è latitante, e i PNG amici sono '
+        '<b>RENDERE PUBBLICA LA PROVA SUBITO</b> — la città sa, M. è latitante, e gli alleati sono '
         'schierati: è la voce <b>n. 3 del CONTO DEI BIVI</b> — il cronista Ranuzzi — nell’elenco '
         'chiuso della pagina seguente, e vale <b>+1 alleato</b>. Contatela una volta sola: è '
         'quella, non una in più. Il '
         'prezzo non si paga qui — M. all’angolo accelera il Quarto Movimento, e l’Episodio 20 parte '
         'col Dormiente più vicino a svegliarsi: segnatelo ora sul Taccuino di Campagna perché non ve '
         'ne dimentichiate. Se avete scelto <b>TENERE LA PROVA E COLPIRE NELL’OMBRA</b> — senza '
-        'clamore quella voce nel conto non ce l’avete, e il PNG amico in meno ha un nome: Ranuzzi, '
+        'clamore quella voce nel conto non ce l’avete, e l’alleato in meno ha un nome: Ranuzzi, '
         'che senza la prova pubblica non ha niente da stampare e resta solo (lo dice lui stesso alla '
         'Gazzetta). <b>Rimuovete la Testimonianza «Il cronista Ranuzzi» (Luogo 3) dal mazzo '
         'Approfondimenti.</b> In cambio avete il margine di manovra di chi si muove come M., di '
@@ -653,7 +653,7 @@ def soluzione():
         'in tavola, e la mappa dei sigilli di Fossa). Chi ha sigillato la busta senza decidere ha '
         'lasciato uscire la prova: primo ramo.',
         '<b>Il caso.</b> Braccati, la sede sigillata. L’indagine è la vostra campagna: ogni luogo è '
-        'un PNG del passato che apre o chiude secondo i Bivi. Obiettivo: rimettere insieme i pezzi '
+        'un volto del passato che apre o chiude secondo i Bivi. Obiettivo: rimettere insieme i pezzi '
         'per l’ultima discesa e riprendere il Fascicolo del 1741.',
         '<b>La verità.</b> M. ha comprato ciò che resta del Coro (impiegati, non credenti): gli '
         'manca una voce che creda per il Quarto Movimento, e la cerca stanotte. L’Ispettore Vidal '
@@ -661,7 +661,7 @@ def soluzione():
         'gli alleati, prendere il Fascicolo e CONVINCERE Vidal.',
     ])
     pagina('il conto dei bivi — l’elenco chiuso', [
-        '<b>Cinque PNG del passato possono schierarsi stanotte, e solo questi cinque.</b> '
+        '<b>Cinque volti del passato possono schierarsi stanotte, e solo questi cinque.</b> '
         'Spuntateli sul Taccuino di Campagna prima di cominciare; '
         'se un nome non è qui sotto, non è un alleato e non entra nel conto.',
         '<b>1 · Il professor Braga</b> (Luogo 5) — Bivio dell’Ep. 15, ramo <i>«Dichiarare '
@@ -680,7 +680,7 @@ def soluzione():
         'come orecchio, dietro quella porta c’è solo la tentazione della taglia.',
         '<b>LA SOGLIA RESTA 3</b>, e adesso è un numero verificabile: 3 su 5 sul ramo della prova '
         'pubblica, 3 su 4 sul ramo dell’ombra (Ranuzzi fuori dal conto). Ogni alleato vale <b>+1</b> '
-        '(un evento-favore in più nel mazzo, oppure una spawn scartata); ogni PNG che vi volta le '
+        '(un evento-favore in più nel mazzo, oppure una spawn scartata); ogni alleato che vi volta le '
         'spalle è un aiuto in meno. Il conto decide se l’Ispettore è convincibile (serve <b>conto '
         '≥ 3</b>) e quanto è morbido il mazzo. I luoghi che vi sono dovuti — l’oste della '
         'Chiatta (L1), Fossa (L2), il gendarme amico (L4) — vi aiutano comunque, ma <b>non</b> si '
@@ -693,7 +693,7 @@ def soluzione():
         'la mappa dei sigilli di Fossa L2: serve più di una conferma). <i>Esatta:</i> entrate senza '
         'allarme — nel 1° round della spedizione non si pesca nessuna carta Minaccia. '
         '<i>Sbagliata:</i> forzate l’ingresso — 1 gendarme appare in T1.',
-        '<b>2. CHI vi apre ancora la porta?</b> I PNG del passato, secondo i Bivi (l’oste L1 + Fossa '
+        '<b>2. CHI vi apre ancora la porta?</b> I volti del passato, secondo i Bivi (l’oste L1 + Fossa '
         'L2 + Ranuzzi L3). <i>Esatta:</i> avete chiaro il vostro conto di alleati — sapete su chi '
         'contare per convincere l’Ispettore. <i>Sbagliata:</i> nessun effetto meccanico, ma andate '
         'alla cieca sul conto.',
@@ -742,9 +742,9 @@ def soluzione():
         'del decano in mano, il fiato corto della lotta ancora nel petto. Poi abbassa la pistola. '
         '“Mi hanno usato come usano tutti,” dice piano. “Come hanno usato voi per diciotto mesi.” '
         'Fuori, i suoi uomini aspettano un ordine che non arriva. Vi lascia passare col Fascicolo '
-        'del 1741 sotto il braccio, e mentre uscite nella notte vi dice l’ultima cosa: "Le maree di '
+        'del 1741 sotto il braccio, e mentre uscite nella notte vi dice l’ultima cosa: “Le maree di '
         'sizigia sono tornate. Se scendete stanotte, scendo con voi — o almeno tengo aperte le '
-        'uscite." Non siete più soli.»',
+        'uscite.” Non siete più soli.»',
         # La premessa («il Quarto Movimento ha bisogno di un coro che creda») era
         # sparita nella riscrittura che ha aggiunto il contrasto con Ferri: e' la
         # ragione per cui nel finale conta salvare la voce che crede, e senza di

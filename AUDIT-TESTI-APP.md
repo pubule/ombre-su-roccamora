@@ -1,5 +1,54 @@
 # Audit dei testi dell'app
 
+> **STATO: applicato il 24/09/2026.** Tutte le voci sono chiuse; le tre che
+> chiedevano una decisione (§1) sono state decise così:
+>
+> - **T-01** — il Bivio **non** si blocca: bloccarlo impedirebbe anche di
+>   rigiocare un episodio sigillando un'altra strada, e la scelta resta di chi
+>   arbitra. È il testo che ora dice la verità (`bivio-scelta.js`): la nuova
+>   scelta vale per ogni episodio che comincia da quel momento. Corretto anche
+>   l'avviso di `main.js` sul rigiocare, che diceva «comprese le serate già
+>   giocate»: i Bivi si applicano in `comincia`, quindi le serate giocate
+>   restano com'erano.
+> - **T-02** — ha ragione **la carta stampata**: la regola «non conta come ora
+>   avanzata (né come luogo in più)» è scritta sulle carte di Carla e di Marani
+>   e due volte nel Regolamento. Il motore ora tiene il conto delle visite
+>   regalate (`entra` → `oreRegalate`, `luoghiRegalati`) e `tierIndagine` le
+>   toglie. Nuovo controllo in `test-motore-indagine.mjs`, provato non vacuo
+>   (col vecchio calcolo: 6 ore contro 5, 1 luogo contro 0).
+> - **T-03** — la mia analisi era sbagliata: i dadi della Spedizione sono
+>   **fisici** (`digitale.js: modoDadi = 'tavolo'`, l'app chiede il totale),
+>   quindi il ritento di «Fiato lungo» si fa a mano prima di dare il totale e
+>   la Miglioria **funziona**. Il difetto era solo la nota di sviluppo: ora il
+>   testo dice come si usa.
+>
+> Nel correggere sono emerse altre voci della stessa famiglia, chiuse insieme:
+> «PNG» anche nei testi della busta (Ep.7, 9, 12, 13, 16-20: ~25 frasi, lette
+> al tavolo dopo aver aperto la Soluzione), due virgolette dritte nell'epilogo
+> dell'Ep.19, «Portalo» (Nina, Ep.16) e «Tocca a **il PNG**» (il nome di
+> ripiego dello scortato). «Spawn» invece resta: è il nome di un tipo di carta
+> nel lessico del gioco, usato in oltre 15 punti.
+>
+> **T-11, la voce:** il gioco e le schermate di chi gioca parlano al «voi»
+> (anche «Toccate», «Trascinate», «guardate di nuovo», «entrerete»); le
+> schermate di servizio di chi arbitra (tavoli, rubrica, compagnia) al «tu»,
+> **bottoni compresi** («elimina il tavolo», «chiudi la porta», «togli dal
+> tavolo», «lascia stare»). Così sparivano anche «toglietelo»/«toglietela», che
+> costringevano a scegliere un genere.
+>
+> **Un mio errore del 23/09, trovato eseguendo i test d'interfaccia:** per
+> ridare «ricomincia da capo» a una serata in corso avevo tolto la scorciatoia
+> «riprendete la serata → dritti dentro la partita». Era una scelta di design
+> protetta da `test-ui` e `test-account-ui`, che da allora erano rossi. Ora la
+> scorciatoia è tornata, e «ricominciate da capo» sta **nella scheda del caso**
+> accanto a «riprendete la serata» (solo per chi arbitra, e con lo stesso
+> avviso sul Bivio). `test-ui` controlla che ci sia.
+>
+> **La barriera:** `webapp/test-testi-app.mjs` controlla i sorgenti dell'app
+> (solo le stringhe: commenti e codice esclusi) per accenti con l'apostrofo,
+> «PNG» e apostrofi dritti. Provata non vacua sui sorgenti di prima: 22
+> difetti trovati. `test-testi.mjs` è di nuovo verde.
+
 **24/09/2026.** `AUDIT-TESTI.md` (11/08) ha riletto le carte, cioè i testi in
 `webapp/data/*.json`. Da allora nell'app sono nati molti testi che non passano
 di lì: le schermate dei tavoli, della rubrica e della compagnia, la scheda del

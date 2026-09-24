@@ -875,7 +875,7 @@ def aiuto():
 
     e.append(P('PROVE', 'h2'))
     e.append(RP('<b>2d6 + caratteristica</b> (ACUME / VIGORE / NERVI) ≥ difficoltà.'))
-    e.append(RP('<b>Facile 7 • Media 9 • Difficile 11.</b> Ogni eroe: 1 solo ritento a episodio (Secondo Fiato).'))
+    e.append(RP('<b>Facile 7 • Media 9 • Difficile 11.</b> Ogni eroe: 1 solo ritento a episodio (Secondo fiato).'))
 
     e.append(P('INDAGINE — 6 ore, ogni visita costa 1 ora (anche tornare)', 'h2'))
     e.append(RL('<b>Destinazione</b> — indicate una carta scoperta o dichiarate una voce dello '

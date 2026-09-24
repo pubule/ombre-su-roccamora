@@ -866,7 +866,7 @@ def soluzione():
         '<i>«L’ultima riga non si legge: si compone. E si compone solo con gli altri diciannove '
         'davanti. Poi la città dorme.»</i> Nove erano il canto del sonno con '
         'lei (Frammenti 1-7 e 11: M. li voleva), undici la sua firma (8, 9, 10, 12-19: non l’ha mai '
-        'saputo). <b>Migliorie finali.</b> Il <b>commiato dei PNG</b> è quello qui sopra: leggete '
+        'saputo). <b>Migliorie finali.</b> Il <b>commiato dei personaggi</b> è quello qui sopra: leggete '
         'solo le righe che i vostri Bivi vi hanno guadagnato. '
         '<b>NIENTE Bivio: è la fine.</b> L’ultima riga del Taccuino resta <b>bianca</b>.',
         '<b>IL FINALE APERTO — leggere solo dopo la vittoria, all’alba.</b> «Mentre le campane '

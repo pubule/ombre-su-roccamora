@@ -155,7 +155,7 @@ ok(errori.length === 0, `la schermata apre senza errori JS: ${errori.slice(0, 2)
   await page.click(`.togli-membro[data-email="${ALTRO}"]`);
   await page.waitForTimeout(300);
   // la conferma è la finestra dell'app, non quella del browser
-  const si = page.locator('button', { hasText: /toglietelo/i });
+  const si = page.locator('button', { hasText: /togli dal tavolo/i });
   if (await si.count()) await si.first().click();
   await page.waitForTimeout(700);
 

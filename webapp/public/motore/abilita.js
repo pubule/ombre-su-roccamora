@@ -32,7 +32,7 @@ const rifiuta = (motivo) => ({ rifiuto: motivo });
 export const CARICHE_SPED = [
   { key: 'ATTILIO', ab: 'Pronto Soccorso', usi: 3, eff: 'cura', nota: 'Cura 2 Salute a sé o a un eroe adiacente.' },
   { key: 'SIBILLA', ab: 'Sesto Senso', usi: 3, eff: 'scruta', nota: 'Guarda le prossime 2 carte Minaccia e mettine una in fondo al mazzo.' },
-  { key: 'SERRA', ab: 'Voce ferma', usi: 3, eff: 'voce', nota: 'Fino al tuo prossimo turno gli eroi adiacenti tirano NERVI con +2.' },
+  { key: 'SERRA', ab: 'Voce ferma', usi: 3, eff: 'voce', nota: 'Fino al suo prossimo turno gli eroi adiacenti tirano NERVI con +2.' },
   { key: 'CARLA', ab: 'Flash!', usi: 2, eff: 'flash', nota: 'Un nemico entro 2 caselle salta la sua prossima attivazione.' },
   { key: 'CARBONE', ab: 'Esca preziosa', usi: 2, eff: 'esca', nota: 'I nemici entro 2 caselle dall’esca vanno verso di essa nel loro turno.' },
   { key: 'FANTI', ab: 'Diversivo', usi: 2, eff: 'diversivo', nota: 'La prossima Fase Minaccia pesca 1 carta in meno.' },
@@ -113,7 +113,7 @@ export function candidati(g, nm, voce) {
     const truppa = sp.nemici.map((n, i) => ({ n, i }))
       .filter(({ n }) => /malavita|cultista|cane/i.test(nemStat(g, n.nome).tipo || ''));
     if (!truppa.length) return { eff: c.eff, vuoto: 'Nessun nemico di truppa in campo.' };
-    return { eff: c.eff, titolo: 'Malacarne: chi allontani?',
+    return { eff: c.eff, titolo: 'Malacarne: chi allontanate?',
              opzioni: truppa.map(({ n, i }) => ({ id: String(i), label: `${n.nome.toLowerCase()} (${n.pos ? n.pos.t : '?'})` })) };
   }
   if (c.eff === 'scruta') {
@@ -124,14 +124,14 @@ export function candidati(g, nm, voce) {
     const opzioni = [{ id: '0', label: `↓ in fondo: ${t0}` }];
     if (t1) opzioni.push({ id: '1', label: `↓ in fondo: ${t1}` });
     opzioni.push({ id: 'skip', label: 'lascia l’ordine com’è' });
-    return { eff: c.eff, titolo: 'Sesto Senso — quale mandi in fondo?', opzioni };
+    return { eff: c.eff, titolo: 'Sesto Senso — quale mandate in fondo?', opzioni };
   }
   if (c.eff === 'esca') {
     const celle = celleEsca(g, nm);
     if (!Object.keys(celle).length) return { eff: c.eff, vuoto: 'Nessuna casella libera entro 3.' };
     // le caselle non si scelgono da una lista ma toccando la plancia: il client
     // le accende, e manda `cella`
-    return { eff: c.eff, celle, tocca: 'Tocca la casella dove lanciare l’esca (entro 3).' };
+    return { eff: c.eff, celle, tocca: 'Toccate la casella dove lanciare l’esca (entro 3).' };
   }
   return null;      // litania, diversivo, voce: partono senza chiedere niente
 }
@@ -155,7 +155,7 @@ function usaMiglioria(g, nm, voce, scelta) {
   const eventi = [];
   if (cm.eff === 'garze') {
     const chi = scelta;
-    if (!chi || !chiede.opzioni.some((o) => o.id === chi)) return rifiuta('Quell\'eroe non è fra quelli curabili.');
+    if (!chi || !chiede.opzioni.some((o) => o.id === chi)) return rifiuta('Quell’eroe non è fra quelli curabili.');
     const e = eroe(g, chi);
     sp.vite[chi] = Math.min(saluteMax(g, e), (sp.vite[chi] ?? 0) + 2);
     log(g, `${primo(nm)} fascia ${primo(chi)} con le garze (+2 → ${sp.vite[chi]}).`);
@@ -179,7 +179,7 @@ function usaMiglioria(g, nm, voce, scelta) {
 export function usa(g, nm, scelta, cella, voce) {
   if (voce) return usaMiglioria(g, nm, voce, scelta);
   const sp = g.sp; const c = caricaDi(nm);
-  if (!c || c.usi === null) return rifiuta(`${primo(nm)} non ha un'abilità a cariche.`);
+  if (!c || c.usi === null) return rifiuta(`${primo(nm)} non ha un’abilità a cariche.`);
   const usi = usiDi(g, c);
   const usate = (sp.abilita && sp.abilita[nm]) || 0;
   if (usate >= usi) return rifiuta(`${primo(nm)} ha finito le cariche di ${c.ab.toLowerCase()}.`);
@@ -202,7 +202,7 @@ export function usa(g, nm, scelta, cella, voce) {
     log(g, `${primo(nm)} tiene la voce ferma: gli eroi adiacenti tirano NERVI con +2 fino al suo prossimo turno.`);
   } else if (c.eff === 'cura') {
     const chi = scelta;
-    if (!chi || !chiede.opzioni.some((o) => o.id === chi)) return rifiuta('Quell\'eroe non è fra quelli curabili.');
+    if (!chi || !chiede.opzioni.some((o) => o.id === chi)) return rifiuta('Quell’eroe non è fra quelli curabili.');
     const e = eroe(g, chi);
     sp.vite[chi] = Math.min(saluteMax(g, e), (sp.vite[chi] ?? 0) + 2);
     log(g, `${primo(nm)} cura ${primo(chi)} (+2 → ${sp.vite[chi]}).`);

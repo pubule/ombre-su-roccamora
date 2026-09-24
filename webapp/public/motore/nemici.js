@@ -54,7 +54,7 @@ function colpisciPng(g, nomeNemico, iPng, dan, tot, dif) {
     log(g, `${nomeNemico.toLowerCase()} colpisce ${sc.nome} (${tot}, −${dan}: ${png.vite}/${sc.salute}).`);
     if (png.vite <= 0) {
       sp.esito = 'sconfitta';
-      sp.log.push(`${sc.nome} è caduto: la spedizione è fallita.`);
+      sp.log.push(`${sc.nome} non si rialza: la spedizione è fallita.`);
     }
   } else {
     log(g, `${nomeNemico.toLowerCase()} manca ${sc.nome} (${tot}).`);

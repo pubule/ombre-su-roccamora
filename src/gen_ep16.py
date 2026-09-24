@@ -743,8 +743,8 @@ def soluzione():
         'contraddizione databile (un incrocio in più per l’Ep. 18), ma da domani M. vi osserva: '
         'nell’Ep. 17 le vostre mosse sono anticipate (1 carta in più nel mazzo).<br/>'
         '<b>Tacere e cominciare a mentirgli.</b> La Società gioca a due tavoli (margine di manovra '
-        'nell’Ep. 17), ma mentire al maestro logora: un membro interno vi si allontana (un PNG '
-        'amico in meno).<br/>'
+        'nell’Ep. 17), ma mentire al maestro logora: un membro interno vi si allontana (un '
+        'alleato in meno).<br/>'
         'Scrivete la scelta sul retro del Frammento n. 16.',
         '<b>AGGANCIO.</b> La sera stessa, il decano Ferrante — il vecchio dell’archivio, quello dei '
         'mazzi legati con la fettuccia — vi ferma sotto un lampione, la '

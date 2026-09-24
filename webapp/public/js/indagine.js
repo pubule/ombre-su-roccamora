@@ -1370,7 +1370,7 @@ async function dichiara(nomeVoce) {
     const l = luogoN(lontano.luogo);
     return pannelloMsg('troppo lontano', `<p><i>${esc(l.nome.toLowerCase())} è
       fuori città: la trasferta vuole ${lontano.costo} ore, e non le avete.</i></p>
-      <p class="nota mt">Nessuna ora spesa: con un'ora sola non si dichiara.</p>`, scenaArbitro);
+      <p class="nota mt">Nessuna ora spesa: con un’ora sola non si dichiara.</p>`, scenaArbitro);
   }
   const chiuso = ev('gia-chiuso');
   if (chiuso) {
@@ -1625,7 +1625,7 @@ async function mandaProva(comando, l) {
   const puoFiato = !P().fiatoUsato[comando.eroe];
   const seconda = puoFiato ? {
     che: 'c’è ancora una carta da giocare',
-    label: `Secondo Fiato di ${primoNome(comando.eroe)}`,
+    label: `Secondo fiato di ${primoNome(comando.eroe)}`,
     nota: 'rifate il tiro. Una volta a episodio, per eroe.',
   } : null;
 
@@ -1766,8 +1766,9 @@ async function fontiRiservate() {
   if (!await esegui({ tipo: 'fonti-riservate' })) return scenaArbitro();
   pannelloMsg('fonti riservate', `<p><i>Carla conosce la porta giusta e chi la apre
     senza domande: la <b>prossima visita</b> non costerà l’ora.</i></p>
-    <p class="nota mt">Non conta come ora avanzata a fine indagine: il vantaggio
-    premia le ore spese davvero.</p>`, scenaArbitro, { atutti: true });
+    <p class="nota mt">L’ora risparmiata non conta come ora avanzata a fine
+    indagine, né quel luogo come luogo in più: il vantaggio premia le ore che
+    risparmiate da soli.</p>`, scenaArbitro, { atutti: true });
 }
 
 // Ombra fiuta (Mora): il furetto in avanscoperta su un luogo — torna col

@@ -76,7 +76,7 @@ const GESTORI = {
       return { rifiuto: 'L’Intuizione si usa subito dopo un tiro fallito: adesso non ce n’è uno da ripetere.' };
     }
     // dal telefono `eroe` e' quello di chi manda: il tiro ripetuto dev'essere il suo
-    if (c.eroe && c.eroe !== u.eroe) return { rifiuto: `Il tiro fallito è di ${u.eroe.split(' ')[0].toLowerCase()}: tocca a lui.` };
+    if (c.eroe && c.eroe !== u.eroe) return { rifiuto: `Il tiro fallito è di ${u.eroe.split(' ')[0].toLowerCase()}: può ripeterlo solo chi l’ha tirato.` };
     const fatte = sp.azioni[u.eroe] || [];
     const k = fatte.lastIndexOf(u.azione);
     if (k >= 0) fatte.splice(k, 1);
@@ -97,7 +97,7 @@ const GESTORI = {
   // difetto che aveva la notte.
   'muovi-scortato': (g, c) => {
     const png = (g.sp.scortati || [])[c.png];
-    if (!png || !png.liberato) return { rifiuto: 'Quel PNG non è ancora libero.' };
+    if (!png || !png.liberato) return { rifiuto: 'Quella persona non è ancora libera.' };
     const out = vittoria.esitoScorta(g, c.png, c.nodo);
     (out.righe || []).forEach((r) => g.sp.log.push(r));
     if (out.esito) {
@@ -340,7 +340,7 @@ export function applica(statoIn, comando, dati) {
   // nascosti nelle catene di promise.
   const pend = stato.spedizione.pendenza;
   if (pend && comando.tipo !== 'rispondi') {
-    return fallito(`C'è una scelta in sospeso: ${pend.testo || pend.tipo}.`);
+    return fallito(`C’è una scelta in sospeso: ${pend.testo || pend.tipo}.`);
   }
   if (pend && comando.a && comando.a !== pend.a) {
     return fallito(`La scelta in sospeso è di ${pend.a}.`);

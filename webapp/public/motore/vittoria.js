@@ -67,7 +67,7 @@ export function esitoScorta(g, i, node) {
                righe: [...righe, s.vittoria || `${s.nome} è fuori: siete salvi.`] };
     }
     righe.push(sp.scortati.every((x) => x.uscito)
-      ? `${s.nome} e' al sicuro, ma il lavoro non e' finito: ${specCompiti(g)[0].etichetta.toLowerCase()}.`
+      ? `${s.nome} è al sicuro, ma il lavoro non è finito: ${specCompiti(g)[0].etichetta.toLowerCase()}.`
       : `${s.nome} sparisce nel passaggio: manca ancora qualcuno.`);
     return { righe };
   }

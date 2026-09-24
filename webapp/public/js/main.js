@@ -129,15 +129,19 @@ async function vistaHome() {
   // uguali un tocco sbagliato non deve far partire niente
   app.querySelectorAll('.stampa-caso').forEach((el) => el.addEventListener('click', async () => {
     const c = casi.find((x) => x.id === el.dataset.ep);
-    if (await schedaCaso(c) !== 'apri') return;
-    // NON si salta a `continua()`: e' l'unica strada che porta a vistaEpisodio,
-    // dove sta "ricomincia da capo" — l'unico posto in cui chi arbitra puo'
-    // cancellare una serata aperta e ripartire. Un salto diretto (come qui
-    // c'era prima) la rende irraggiungibile per un episodio "in corso": si
-    // rivede solo con vistaHome -> la scheda -> daccapo, in un giro senza
-    // uscita. vistaEpisodio non ripropone la scelta di come cominciare quando
-    // un salvataggio gia' c'e' (vedi il ternario piu' sotto): niente costa in
-    // piu' se non un tocco su "continua".
+    const giocatore = await sonoGiocatore();
+    // «ricominciate da capo» sta nella scheda stessa, accanto a «riprendete la
+    // serata»: riprenderla porta dritti dentro (qui sotto), e la schermata con
+    // «ricomincia da capo» non si vedrebbe mai. Solo per chi arbitra.
+    const scelta = await schedaCaso(c, { ricomincia: c.stato === 'corso' && !giocatore });
+    if (scelta === 'ricomincia') {
+      if (await chiediRicomincia(c.id, await dati(c.id))) { cancella(c.id); vistaEpisodio(c.id); }
+      return;
+    }
+    if (scelta !== 'apri') return;
+    // riprendere una serata aperta non ripassa dalla scelta di come cominciare:
+    // e' gia' stata fatta
+    if (c.stato === 'corso' && !giocatore) return continua(c.id);
     vistaEpisodio(c.id);
   }));
   document.getElementById('cambia-tavolo')?.addEventListener('click',
@@ -200,6 +204,25 @@ function vistaTaccuino(info) {
 }
 
 // -------------------------------------------------------------- EPISODIO
+// RICOMINCIARE DA CAPO: la domanda, uguale dalla scheda del caso e dalla
+// schermata dell'episodio. Il Bivio di QUESTO episodio, se gia' sigillato:
+// rigiocando se ne puo' sigillare uno diverso, e la scelta e' UNA sola per
+// tavolo (scelte_campagna). I Bivi si applicano quando un episodio comincia
+// (`comincia`), quindi la nuova scelta vale da li' in poi e le serate gia'
+// giocate restano com'erano. La scelta e' di chi arbitra, ma va detta prima di
+// cancellare, non scoperta dopo.
+async function chiediRicomincia(epId, ep) {
+  const scelta = scelteCampagna()[epId];
+  const opz = scelta && ep.bivio && (ep.bivio.opzioni || []).find((o) => o.id === scelta);
+  const avviso = opz
+    ? ` Attenzione: il Bivio di questo episodio è già sigillato su «${opz.titolo}». Rigiocandolo e sigillandone uno diverso, la nuova scelta varrà per ogni episodio che comincerete da lì in poi, mentre le serate già giocate dopo questa restano giocate con la vecchia.`
+    : '';
+  return conferma('Ricominciare da capo?', {
+    dettaglio: `La partita in corso di questo episodio si cancella. Non si torna indietro.${avviso}`,
+    si: 'cancellate la partita', no: 'lasciate stare',
+  });
+}
+
 async function vistaEpisodio(epId) {
   // CHI GIOCA NON PASSA DI QUI. Da dove si comincia e se ricominciare da capo
   // sono decisioni di chi conduce: dal
@@ -255,27 +278,14 @@ async function vistaEpisodio(epId) {
       </div>
       <div class="btn-riga">
         <button class="btn pieno disabilitato" id="avanti">${
-          compagniaPronta ? 'si comincia →' : 'scegli gli investigatori →'}</button>
+          compagniaPronta ? 'si comincia →' : 'scegliete gli investigatori →'}</button>
       </div>
     </div>`}
   `);
   document.getElementById('indietro').onclick = vistaHome;
   document.getElementById('continua')?.addEventListener('click', () => continua(epId));
   document.getElementById('ricomincia')?.addEventListener('click', async () => {
-    // Il Bivio di QUESTO episodio, se gia' sigillato: rigiocando si puo'
-    // sigillarne uno diverso, e la scelta e' UNA sola per tavolo (scelte_campagna) —
-    // vale da subito per tutta la campagna, comprese le serate gia' giocate dopo
-    // questa. Non e' un errore che il codice possa prevenire (la scelta e' di chi
-    // arbitra), ma va detto prima di cancellare, non scoperto dopo.
-    const scelta = scelteCampagna()[epId];
-    const opz = scelta && ep.bivio && (ep.bivio.opzioni || []).find((o) => o.id === scelta);
-    const avviso = opz
-      ? ` Attenzione: il Bivio di questo episodio è già sigillato su «${opz.titolo}». Rigiocandolo e sigillandone uno diverso, la scelta cambia per tutta la campagna — comprese le serate già giocate dopo questa.`
-      : '';
-    if (await conferma('Ricominciare da capo?', {
-      dettaglio: `La partita in corso di questo episodio si cancella. Non si torna indietro.${avviso}`,
-      si: 'cancellate la partita', no: 'lasciate stare',
-    })) { cancella(epId); vistaEpisodio(epId); }
+    if (await chiediRicomincia(epId, ep)) { cancella(epId); vistaEpisodio(epId); }
   });
   let fase = 'indagine';
   app.querySelectorAll('.fase').forEach((el) => el.addEventListener('click', () => {
@@ -522,7 +532,7 @@ async function vistaEsitoIndagine(partita) {
         </div>`).join('')}
       <div class="btn-riga mt">
         <button class="btn dom-tog" id="tog-dossier">✗</button>
-        <span class="dom-testo">Gettone Intuizione (aveste speso tutte e sei le ore)</span>
+        <span class="dom-testo">Gettone Intuizione (avevate speso tutte e sei le ore)</span>
       </div>
       <div class="btn-riga mt">
         <button class="btn pieno" id="vai">si scende →</button>
@@ -675,9 +685,9 @@ function vistaAttesaArbitro(id, nome) {
      <div class="pannello">
        <h2>la serata non è ancora cominciata</h2>
        <p>Chi arbitra deve ancora aprire l’episodio. Appena l’avrà fatto, da qui
-          entrerai direttamente nella partita — non devi scegliere niente.</p>
+          entrerete direttamente nella partita — non dovete scegliere niente.</p>
        <div class="btn-riga mt">
-         <button class="btn pieno" id="riguarda">guarda di nuovo</button>
+         <button class="btn pieno" id="riguarda">guardate di nuovo</button>
          <button class="btn" id="altro-tavolo">cambia tavolo</button>
        </div>
      </div>`);

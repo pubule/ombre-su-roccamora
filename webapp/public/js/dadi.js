@@ -166,7 +166,7 @@ export function tiraProva({ titolo, diffLabel = '', soglia, bonus = [], modo, ri
       <div class="in-fondo">
         <div class="seconda" id="dadi-seconda" style="display:none"></div>
         <button class="btn pieno dadi-lancia" id="dadi-lancia"
-                ${virtuale ? '' : 'style="display:none"'}>tocca per tirare</button>
+                ${virtuale ? '' : 'style="display:none"'}>toccate per tirare</button>
         <button class="btn pieno dadi-chiudi" id="dadi-chiudi" style="display:none">continua</button>
         <button class="btn dadi-annulla" id="dadi-annulla"
                 ${soloVista ? 'style="display:none"' : ''}>annullate</button>

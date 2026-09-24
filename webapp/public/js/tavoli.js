@@ -98,7 +98,7 @@ export async function vistaTavoli(app, quandoScelto) {
       ? `Se ne vanno anche le sue ${quante} ${quante === 1 ? 'partita' : 'partite'}. Non si torna indietro.`
       : 'Non ha partite salvate.';
     if (!await conferma(`Eliminare «${nome}»?`, {
-      dettaglio: avviso, si: 'eliminate il tavolo', no: 'lasciate stare',
+      dettaglio: avviso, si: 'elimina il tavolo', no: 'lascia stare',
     })) return;
     try {
       const r = await fetch(`/api/tavolo?id=${encodeURIComponent(id)}`, { method: 'DELETE' });
@@ -121,7 +121,7 @@ export async function vistaTavoli(app, quandoScelto) {
       dettaglio: inCoda
         ? `Ha ${inCoda} ${inCoda === 1 ? 'scrittura' : 'scritture'} mai arrivate al server: se il tavolo è di un altro account, le perde.`
         : 'Il server non ne ha traccia: resta solo la copia su questo dispositivo.',
-      si: 'buttate', no: 'lasciate stare',
+      si: 'butta', no: 'lascia stare',
     })) return;
     dimenticaTavolo(el.dataset.id);
     vistaTavoli(app, quandoScelto);

@@ -223,7 +223,7 @@ for (const [id, nome, q] of [['ep4', 'LA CLAQUE', 1], ['ep5', 'IL CONFRATELLO', 
   const speso = (out.stato.spedizione.azioni[eroe] || []).length;
   ok(speso === 1, "il tiro fallito ha consumato un'azione");
   const altro = applica(out.stato, { tipo: 'intuizione', eroe: EROI[1] }, DATI);
-  ok(altro.rifiuto && /tocca a lui/.test(altro.rifiuto.motivo), 'un altro eroe non spende il ri-tiro di chi ha fallito');
+  ok(altro.rifiuto && /solo chi l’ha tirato/.test(altro.rifiuto.motivo), 'un altro eroe non spende il ri-tiro di chi ha fallito');
   const dopo = applica(out.stato, { tipo: 'intuizione', eroe }, DATI);
   ok(!dopo.rifiuto, `Intuizione accettata (${dopo.rifiuto && dopo.rifiuto.motivo})`);
   ok((dopo.stato.spedizione.azioni[eroe] || []).length === 0, "l'azione è restituita");

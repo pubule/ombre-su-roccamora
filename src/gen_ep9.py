@@ -530,7 +530,7 @@ def spedizione():
                   'T1 e deve arrivare viva alla barca in T6. Riva ha <b>3 Salute</b>, '
                   'Movimento 3, non combatte e non agisce: tenetelo in mezzo. Se Riva cade, '
                   'la scorta è fallita. <b>Deroga dichiarata</b> (leggetela prima del primo '
-                  'colpo): il Regolamento vuole che i nemici <i>ignorino</i> il PNG '
+                  'colpo): il Regolamento vuole che i nemici <i>ignorino</i> il personaggio '
                   'scortato. Qui no, ed è il punto dell’episodio: Riva è il bersaglio, ha '
                   'Salute propria e cade come un uomo. Vale quanto è scritto in questo '
                   'fascicolo. Le pagine seguenti sono le note per tessera.', BODY)])
@@ -711,7 +711,7 @@ def soluzione():
         'adiacente può Proteggerlo (azione di reazione, una volta per round: intercetta un '
         'attacco a Riva e lo subisce).',
         '<b>Deroga dichiarata</b> — annunciatela al tavolo prima che il primo nemico '
-        'attacchi. Il Regolamento dice che i nemici ignorano il PNG scortato: qui no, ed è '
+        'attacchi. Il Regolamento dice che i nemici ignorano il personaggio scortato: qui no, ed è '
         'voluto, perché è tutto l’episodio. Riva è il bersaglio, ha Salute propria e cade '
         'come un uomo. Quello che è scritto qui vince su quella riga.',
         '<b>La regola della scorta:</b> nella Fase Nemici, ogni aggressore che può '
@@ -737,7 +737,7 @@ def soluzione():
         '<b>IL BIVIO — decidete insieme, poi sigillate.</b><br/>'
         '<b>Far deporre il teste.</b> All’alba Riva depone: la verità resta a verbale — un '
         'incrocio in più alla deduzione d’atto dell’Episodio 18. Ma Riva va protetto per '
-        'sempre (programma testimoni): un PNG-alleato in meno per il resto della '
+        'sempre (programma testimoni): un alleato in meno per il resto della '
         'campagna.<br/>'
         '<b>Nasconderlo e perdere la causa.</b> Senza il teste in aula, la sentenza-beffa '
         '(«setta di truffatori») scredita la Società: negli Episodi 10-12 un Testimone in '

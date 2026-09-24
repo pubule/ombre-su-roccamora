@@ -60,10 +60,11 @@ export function stampaCaso(c) {
   </div>`;
 }
 
-// LA SCHEDA. Risolve 'apri' quando si preme il bottone, null se si chiude. Il
+// LA SCHEDA. Risolve 'apri' quando si preme il bottone, 'ricomincia' se si
+// sceglie di ricominciare una serata aperta (solo con `ricomincia`), null se si chiude. Il
 // bottone dice quel che fa: riprendere una serata aperta, rigiocare una
 // conclusa, cominciare una nuova.
-export function schedaCaso(c) {
+export function schedaCaso(c, { ricomincia = false } = {}) {
   return new Promise((risolvi) => {
     const ov = document.createElement('div');
     ov.className = 'scelta-overlay';
@@ -83,6 +84,7 @@ export function schedaCaso(c) {
         <button class="btn pieno" id="apri-caso">${
           c.stato === 'corso' ? 'riprendete la serata'
           : c.stato ? 'rigiocate il caso' : 'si comincia'}</button>
+        ${ricomincia ? '<button class="btn scelta-btn" id="ricomincia-caso">ricominciate da capo</button>' : ''}
         <button class="btn scelta-btn annulla" id="chiudi-caso">chiudete la scheda</button>
       </div>`;
     document.body.appendChild(ov);
@@ -91,6 +93,8 @@ export function schedaCaso(c) {
     document.addEventListener('keydown', tasto);
     ov.querySelector('#apri-caso').onclick = () => chiudi('apri');
     ov.querySelector('#chiudi-caso').onclick = () => chiudi(null);
+    const r = ov.querySelector('#ricomincia-caso');
+    if (r) r.onclick = () => chiudi('ricomincia');
     ov.addEventListener('click', (e) => { if (e.target === ov) chiudi(null); });
   });
 }

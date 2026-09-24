@@ -419,7 +419,7 @@ TILES_7 = [
                'Silenzio — 2 Sgherri, più 1 ogni 4 eroi.',
          arbitro='Liberare Fava: Interagire, nessuna prova; si muove col gruppo (Movimento '
                  '5 — appena liberato CORRE per la vita, non agisce). <b>Deroga '
-                 'dichiarata:</b> il Regolamento assegna 3 caselle al PNG scortato; qui sono '
+                 'dichiarata:</b> il Regolamento assegna 3 caselle al personaggio scortato; qui sono '
                  '5, ed è voluto — un uomo appena sciolto dalla corda corre per la vita. '
                  'Il Capocantiere NON parla mai durante lo scontro: nel '
                  'silenzio che ha costruito, non serve. «Smascherato» (Domanda 2 esatta): '
