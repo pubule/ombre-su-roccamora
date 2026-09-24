@@ -248,7 +248,13 @@ function collegaAlTavolo() {
       render();
     },
     onRifiuto: (r) => flash(r.motivo || 'Il tavolo ha rifiutato la mossa.'),
-    onStato: (collegato) => { if (!collegato) ctx.tavoloVivo = false; },
+    onStato: (collegato) => {
+      if (!collegato) ctx.tavoloVivo = false;
+      spiaRete(collegato ? null : 'vi state ricollegando al tavolo…');
+    },
+    // il filo non torna piu': non e' il telefono in tasca, e' l'accesso
+    // scaduto. Ritentare per sempre non serve — meglio dirlo e far ricaricare
+    onScaduta: () => spiaRete('sessione scaduta — toccate per ricaricare', { scaduta: true }),
   });
 }
 
@@ -275,7 +281,7 @@ function setup() {
     <div class="pannello"><h2>tutto a schermo</h2>
       <p>Tutta la spedizione è qui: muovete gli eroi a caselle, attraversate le
       porte a piedi per esplorare le stanze, attaccate i nemici adiacenti. I dadi
-      si tirano sullo schermo.</p>
+      sono i vostri: l’app vi chiede il totale — e se non li avete, li tira lei.</p>
       <p class="mt"><b>Obiettivo:</b> ${esc(ep.obiettivo || '')}</p></div>
     ${arbitro()
       ? '<div class="btn-riga"><button class="btn pieno" id="via">si scende →</button></div>'
@@ -2034,6 +2040,20 @@ function flash(t) {
   const d = document.createElement('div'); d.className = 'flash-msg'; d.textContent = t;
   document.body.appendChild(d); requestAnimationFrame(() => d.classList.add('on'));
   setTimeout(() => { d.classList.remove('on'); setTimeout(() => d.remove(), 300); }, 1600);
+}
+// LA SPIA DI COLLEGAMENTO: tace quando va tutto bene, si fa vedere solo
+// quando il filo cade o la sessione e' scaduta davvero — vedi canale.js.
+function spiaRete(testo, { scaduta } = {}) {
+  let el = document.querySelector('.spia-rete');
+  if (!testo) { if (el) el.remove(); return; }
+  if (!el) {
+    el = document.createElement('div');
+    el.className = 'spia-rete';
+    document.body.appendChild(el);
+  }
+  el.textContent = testo;
+  el.classList.toggle('scaduta', !!scaduta);
+  el.onclick = scaduta ? () => location.reload() : null;
 }
 // UNA SCHERMATA DA LEGGERE INSIEME. L'esito di una ricerca, la conseguenza di
 // una prova: cose che al tavolo si leggono ad alta voce una volta sola.
