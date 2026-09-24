@@ -270,7 +270,7 @@ async function vistaEpisodio(epId) {
     const scelta = scelteCampagna()[epId];
     const opz = scelta && ep.bivio && (ep.bivio.opzioni || []).find((o) => o.id === scelta);
     const avviso = opz
-      ? ` Attenzione: il Bivio di questo episodio e' gia' sigillato su «${opz.titolo}». Rigiocandolo e sigillandone uno diverso, la scelta cambia per tutta la campagna — comprese le serate gia' giocate dopo questa.`
+      ? ` Attenzione: il Bivio di questo episodio è già sigillato su «${opz.titolo}». Rigiocandolo e sigillandone uno diverso, la scelta cambia per tutta la campagna — comprese le serate già giocate dopo questa.`
       : '';
     if (await conferma('Ricominciare da capo?', {
       dettaglio: `La partita in corso di questo episodio si cancella. Non si torna indietro.${avviso}`,
