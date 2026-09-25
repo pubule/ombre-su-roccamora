@@ -8,6 +8,7 @@ gia' aggiornati (mtime sorgente <= destinazione).
 """
 import json
 import os
+import shutil
 from PIL import Image
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -209,6 +210,22 @@ def main():
         if f.startswith('Dorso ') and f.lower().endswith('.png') and not f.startswith('Dorso Tessera'):
             if converti(os.path.join(art_dir, f), os.path.join(OUT, 'dorsi', f[6:-4] + '.jpg'), 420):
                 fatti += 1
+    # LA PLANCIA DIGITALE compone le stanze coi pezzi di Forgotten Adventures
+    # (js/plancia/). webapp/vtt/ non e' in git e non va in dist: in produzione
+    # arrivano solo per questa strada. PNG con alfa, nessuna riconversione.
+    vtt = os.path.join(os.path.dirname(OUT), 'vtt')
+    for base, _, files in os.walk(vtt):
+        for f in files:
+            if not f.endswith('.png'):
+                continue
+            dst = os.path.join(OUT, 'vtt', os.path.relpath(os.path.join(base, f), vtt))
+            os.makedirs(os.path.dirname(dst), exist_ok=True)
+            shutil.copyfile(os.path.join(base, f), dst)
+            fatti += 1
+    licenze = os.path.join(vtt, 'LICENZE.txt')
+    if os.path.isfile(licenze):
+        os.makedirs(os.path.join(OUT, 'vtt'), exist_ok=True)
+        shutil.copyfile(licenze, os.path.join(OUT, 'vtt', 'LICENZE.txt'))
     print(f'OK assets webapp ({fatti} convertiti/aggiornati)')
     icone()
 

@@ -21,6 +21,10 @@ webapp/public/js/vendor/
 # log di playtest: rigenerabili a comando, non vanno versionati
 logs/playtest/
 
+# provini di importa-fa-lanterne.py --provino: fogli di scelta a occhio,
+# scartati dopo la scelta, mai la fonte di verita'
+logs/provini/
+
 # midjourney-artwork.mjs: sessione del browser e le 3 varianti scartate
 .midjourney-profilo/
 .wrangler/

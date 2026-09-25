@@ -24,6 +24,20 @@ Il generatore require() il modulo ES-compatibile (Node CJS-ESM interop).
 - Esecuzione: un subagente per task; per il Task 8 (scenografia di 20 episodi) uno per
   episodio. Dopo un limite d'uso: questo file + `git log`, poi il task successivo.
 
+**Task 2 FATTO (25/09/2026)**: `scripts/importa-fa-lanterne.py` scrive muri/porte/decori
+in `webapp/vtt/` (non piu' nel mockup); `webapp/export-assets.py` li porta in
+`webapp/assets/vtt/` (URL `/assets/vtt/{muri,porte,decori}/*.png`, verificato 200 a
+server acceso). Catalogo `webapp/vtt/decori/CATALOGO.json` (derivato, non in git, come
+tutto `webapp/vtt/`): **85 pezzi**, tutte le 12 famiglie della tabella di
+`docs/scenografia.md` con almeno 6 (acqua e' la piu' stretta, esattamente 6). Un pezzo
+sostituito guardando il PNG: `tife-marce` puntava a `Cattail_Brown_A1` (disegno vero su
+22x22px dentro una tela 200x200 — quasi un punto, invisibile a scala di gioco), ora
+`Cattail_Brown_A12` (un ciuffo vero, 128x120px). **Non fatto, fuori scope**: lo Step 5
+del piano (`FA()` → `/assets/vtt/`, cancellare `tessere-alt/fa/`) — `FA()` non vive in
+`1-lanterne.html` (25 righe, nessun riferimento) ma in `lanterne.js` riga 10, condiviso
+con `5-spedizione.html`; toccarlo e' fuori dalla lista file del Task 2. `tessere-alt/fa/`
+resta per ora (cancellarlo romperebbe il mockup finche' `FA()` non e' ripuntato).
+
 ## FATTO (22/09/2026) — i vantaggi d'Indagine arrivano in Spedizione (audit + correzioni)
 
 Report: `AUDIT-VANTAGGI-INDAGINE.md`. Banco: `node webapp/audit-vantaggi.mjs [porta]
