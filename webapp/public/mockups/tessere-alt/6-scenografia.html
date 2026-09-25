@@ -74,7 +74,16 @@ canvas.buio { z-index: 8; pointer-events: none; } canvas.calore { z-index: 7; po
 import { layout, portaCella } from '/motore/griglia.js';
 const P = window.POSTO, $ = (id) => document.getElementById(id);
 const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-const FA = (n) => `fa/${n}.png`;
+// URL di produzione (export-assets.py copia webapp/vtt/ qui, catalogo per
+// sottocartella): pav-* -> pavimenti/, muri/porte fisse, il resto arredi/
+// se e' uno dei mobili scelti dal generatore, altrimenti decori/.
+const FA = (n) => {
+  if (n.startsWith('pav-')) return `/assets/vtt/pavimenti/${n.slice(4)}.png`;
+  if (n === 'muro-a' || n === 'muro-b' || n === 'pilastro' || n === 'scale') return `/assets/vtt/muri/${n}.png`;
+  if (n === 'porta' || n === 'porta-2' || n === 'grata') return `/assets/vtt/porte/${n}.png`;
+  if (/^(casse|candele|molo|altare|cella|scrivania|branda)(-[23])?$/.test(n)) return `/assets/vtt/arredi/${n}.png`;
+  return `/assets/vtt/decori/${n}.png`;
+};
 const CELL = 72, Q = 4;
 const PAV = { assi: 'pav-assi', tavolato: 'pav-tavolato', mattonelle: 'pav-mattonelle', pietra: 'pav-pietra', tetti: 'pav-tetti', navata: 'pav-navata' };
 const ARREDI = ['casse', 'candele', 'molo', 'altare', 'cella', 'scrivania', 'branda'];
