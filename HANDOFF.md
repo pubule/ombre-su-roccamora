@@ -1,5 +1,23 @@
 # Handoff — dove siamo
 
+## IN CORSO (25/09/2026) — la Spedizione nuova: plancia a lanterne + HUD a tre colonne
+
+Decisa col committente, **non ancora iniziata** nel codice vero. Tutto sta nel piano
+`docs/superpowers/plans/2026-09-24-plancia-lanterne.md` (10 task; si riprende dal primo
+non spuntato) e nella guida `docs/scenografia.md` (vincolante per le stanze).
+
+- Specifica visiva: `webapp/public/mockups/tessere-alt/5-spedizione.html` (HUD B a tre
+  colonne) e `6-scenografia.html` (prova della guida: Ep.1 e i tetti dell'Ep.11, fuori
+  dell'episodio su tutti i 21). Server: `node webapp/server.js`, porta 8017.
+- I pezzi FA dei mockup (`tessere-alt/fa/`, 46 MB) NON sono in git: si rigenerano con
+  `python scripts/importa-fa-lanterne.py` (dopo `python scripts/importa-fa.py`).
+- Gia' fatti (fuori dal piano): «pietra» di importa-fa.py era uno strato di sole fughe
+  (ora Stone_Tiles, con un controllo che rifiuta i pavimenti trasparenti); ballatoio →
+  pietra; campo `pavimento` sulla tessera (Ep.11 T1 abbaino = assi); export di
+  `pavimento`/`esposta`.
+- Esecuzione: un subagente per task; per il Task 8 (scenografia di 20 episodi) uno per
+  episodio. Dopo un limite d'uso: questo file + `git log`, poi il task successivo.
+
 ## FATTO (22/09/2026) — i vantaggi d'Indagine arrivano in Spedizione (audit + correzioni)
 
 Report: `AUDIT-VANTAGGI-INDAGINE.md`. Banco: `node webapp/audit-vantaggi.mjs [porta]
