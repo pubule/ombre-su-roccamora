@@ -76,8 +76,8 @@ export async function vistaMioEroe(app, tavolo, nomeTavolo, quandoPreso, cambiaT
       app.innerHTML = `<div class="barra"><span></span><div class="titolo">${esc(nomeTavolo)}</div><span></span></div>
         <div class="pannello"><h2>ancora niente da scegliere</h2>
           <p>${d.arbitra ? `<b>${esc(d.arbitra)}</b>, che arbitra,` : 'Chi arbitra'} non ha ancora composto la compagnia. Appena l’avrà fatto,
-             qui troverai gli eroi liberi.</p>
-          <div class="btn-riga mt"><button class="btn" id="riprova">guarda di nuovo</button>${altroTavolo}</div>
+             qui troverete gli eroi liberi.</p>
+          <div class="btn-riga mt"><button class="btn" id="riprova">guardate di nuovo</button>${altroTavolo}</div>
         </div>`;
       document.getElementById('riprova').onclick = () => rendi();
       leghiAltro();

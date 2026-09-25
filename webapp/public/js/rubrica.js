@@ -195,7 +195,7 @@ export async function vistaRubrica(app, torna) {
       if (!await conferma(`Chiudere la porta a ${come}?`, {
         dettaglio: 'Non potrà più entrare nel sito: aprirà la pagina, chiederà il codice e '
           + 'non riceverà niente. I posti che ha ai tavoli restano — si tolgono da «chi gioca».',
-        si: 'chiudete la porta', no: 'lasciate stare',
+        si: 'chiudi la porta', no: 'lascia stare',
       })) return;
       try {
         const r = await fetch(`/api/porta?email=${encodeURIComponent(chi)}`, { method: 'DELETE' });
@@ -222,7 +222,7 @@ export async function vistaRubrica(app, torna) {
       if (!await conferma(`Togliere ${come} dalla rubrica?`, {
         dettaglio: `${n ? `Resta seduta a ${n} ${n === 1 ? 'tavolo' : 'tavoli'}, e la` : 'La'
           } porta le resta aperta: si chiude dalla dashboard di Cloudflare.`,
-        si: 'toglietela', no: 'lasciate stare',
+        si: 'togli dalla rubrica', no: 'lascia stare',
       })) return;
       try {
         await fetch(`/api/rubrica?email=${encodeURIComponent(chi)}`, { method: 'DELETE' });

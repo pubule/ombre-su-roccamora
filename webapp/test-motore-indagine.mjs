@@ -13,6 +13,7 @@
 import { readFileSync } from 'fs';
 import { applica, applicaIndagine } from './public/motore/comandi.js';
 import { INDAGINE_DI_ARBITRO } from './public/motore/indagine.js';
+import { tierIndagine } from './public/motore/regole.js';
 
 let ko = 0;
 const ok = (c, m) => { if (!c) { console.error('FAIL:', m); ko++; } };
@@ -311,6 +312,16 @@ const ind = (out) => out.stato.indagine;
   ok(!ind(v).fontiRiservateAttive, 'il vantaggio si consuma');
   const pieno = fai(partita(), { tipo: 'dichiara', voce: APERTO.voce_mappa });
   ok(ind(pieno).ora > 18, 'senza Carla, quella stessa visita l’ora la costa');
+
+  // Il Regolamento: la visita regalata «non conta come ora avanzata né come
+  // luogo in più». Stessa notte vista due volte — pagando e con Carla — deve
+  // dare lo stesso vantaggio.
+  const conCarla = tierIndagine(EP, ind(v), []);
+  const pagando = tierIndagine(EP, ind(pieno), []);
+  ok(conCarla.oreAvanzate === pagando.oreAvanzate,
+     `l’ora di Carla non conta come avanzata (${conCarla.oreAvanzate} vs ${pagando.oreAvanzate})`);
+  ok(conCarla.luoghi === pagando.luoghi - 1,
+     `né il suo luogo come luogo in più (${conCarla.luoghi} vs ${pagando.luoghi - 1})`);
 }
 
 // --- OMBRA FIUTA: il numero, mai il tipo

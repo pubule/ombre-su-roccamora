@@ -110,12 +110,11 @@ export function usaCarica(partita, nome, tipo, conJolly) {
 // andare: TUTTE le risposte esatte E le ore avanzate — chiudere l'indagine
 // subito a caso non paga (Regolamento, "Il vantaggio d'Indagine").
 export function tierIndagine(ep, ind, esatte) {
-  // Le visite gratuite (Carla, Marani) non toccano l'orologio: le ore
-  // avanzate sono semplicemente quelle non barrate sul Taccuino. La frase
-  // del Regolamento "non conta come ora avanzata" dice solo che la visita
-  // gratis non ne AGGIUNGE una - niente sconti punitivi qui.
-  const oreAvanzate = 24 - ind.ora;
-  const luoghi = ind.visitati.length;
+  // Le visite regalate (Carla, Marani) non toccano l'orologio ma non contano
+  // come ore avanzate, e quella di Carla nemmeno come luogo in piu': lo dice
+  // il Regolamento e lo dicono le due carte eroe. Le conta `entra`.
+  const oreAvanzate = Math.max(0, 24 - ind.ora - (ind.oreRegalate || 0));
+  const luoghi = ind.visitati.length - (ind.luoghiRegalati || 0);
   const v = ep.vantaggio || { slancio_ore: 3, preparati_ore: 1, preparati_luoghi: 99 };
   const tutte = Array.isArray(esatte) && esatte.length > 0 && esatte.every(Boolean);
   let tier = 'nessuno';

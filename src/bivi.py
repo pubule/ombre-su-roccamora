@@ -380,7 +380,7 @@ BIVI = {
                              'deduzione d’atto.'},
                     {'ep': ['ep10', 'ep11', 'ep12', 'ep13', 'ep14', 'ep15', 'ep16', 'ep17',
                             'ep18', 'ep19', 'ep20'], 'tipo': 'alleato-meno',
-                     'nota': 'Riva va protetto per sempre (programma testimoni): un PNG-alleato '
+                     'nota': 'Riva va protetto per sempre (programma testimoni): un alleato '
                              'in meno per il resto della campagna.'},
                 ],
             },
@@ -473,7 +473,7 @@ BIVI = {
                 'testo': 'M. «indaga» e la fiducia interna regge.',
                 'effetti': [
                     {'ep': 'ep17', 'tipo': 'nota',
-                     'testo': 'I PNG della Società restano uniti: lo scisma è rimandato.'},
+                     'testo': 'I membri della Società restano uniti: lo scisma è rimandato.'},
                     {'ep': 'ep18', 'tipo': 'incrocio', 'val': -1,
                      'nota': 'L’indagine interna di M. ha «ripulito»: un incrocio in meno.'},
                 ],
@@ -484,7 +484,7 @@ BIVI = {
                 'testo': 'La Società si incrina, ma conservate il vantaggio.',
                 'effetti': [
                     {'ep': 'ep17', 'tipo': 'alleato-meno',
-                     'nota': 'Lo scisma costa un PNG in più.'},
+                     'nota': 'Lo scisma costa un alleato in più.'},
                     {'ep': 'ep18', 'tipo': 'incrocio', 'val': 1,
                      'nota': 'Avete conservato il vantaggio: un incrocio in più.'},
                 ],
@@ -659,7 +659,7 @@ BIVI = {
                 'testo': 'La città sa, M. è latitante e braccato.',
                 'effetti': [
                     {'ep': 'ep19', 'tipo': 'nota',
-                     'testo': 'L’Atto IV comincia con la Società accusatrice e i PNG amici '
+                     'testo': 'L’Atto IV comincia con la Società accusatrice e gli alleati '
                               'schierati.'},
                     {'ep': 'ep20', 'tipo': 'boss-vicino', 'val': 1,
                      'nota': 'M., all’angolo, accelera il Quarto Movimento: il Dormiente parte '
@@ -674,7 +674,7 @@ BIVI = {
                     {'ep': 'ep19', 'tipo': 'nota',
                      'testo': 'Di nascosto avete margine di manovra.'},
                     {'ep': 'ep19', 'tipo': 'alleato-meno',
-                     'nota': 'Senza clamore siete più soli: un PNG amico in meno.'},
+                     'nota': 'Senza clamore siete più soli: un alleato in meno.'},
                 ],
             },
         ],

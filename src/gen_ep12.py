@@ -722,10 +722,10 @@ def soluzione():
         '<b>FRAMMENTO DI CAMPAGNA N. 12:</b> <i>«Chi ha copiato non ha forzato nulla. Le porte '
         'gli sono state aperte. Contate le chiavi della vostra casa.»</i> Conservatelo.',
         '<b>IL BIVIO — decidete insieme, poi sigillate.</b><br/>'
-        '<b>Dire a M. della talpa.</b> M. «indaga» e la fiducia interna regge (i PNG della '
+        '<b>Dire a M. della talpa.</b> M. «indaga» e la fiducia interna regge (i membri della '
         'Società restano uniti nell’Atto III), ma la sua indagine interna «ripulisce»: un incrocio '
         'in meno nell’Episodio 18.<br/>'
-        '<b>Tacere anche a M.</b> La Società si incrina (lo scisma dell’Episodio 17 costa un PNG '
+        '<b>Tacere anche a M.</b> La Società si incrina (lo scisma dell’Episodio 17 costa un alleato '
         'in più), ma conservate il vantaggio: un incrocio in più nell’Episodio 18.<br/>'
         'Scrivete la scelta sul retro del Frammento n. 12.',
         '<b>CHIUSURA DELL’ATTO II.</b> La città, dopo il rituale sventato, risuona di nuovo; e '

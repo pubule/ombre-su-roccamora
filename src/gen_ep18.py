@@ -807,14 +807,14 @@ def soluzione():
         'Conservatelo: è la chiave dell’Atto IV.',
         '<b>IL BIVIO — l’ultimo dell’atto; decidete insieme, poi sigillate.</b><br/>'
         '<b>Rendere pubblica la prova subito.</b> La città sa, M. è latitante e braccato (l’Atto IV '
-        'comincia con la Società accusatrice e i PNG amici schierati), ma M., all’angolo, accelera '
+        'comincia con la Società accusatrice e gli alleati schierati), ma M., all’angolo, accelera '
         'il Quarto Movimento (l’Ep. 20 parte col Dormiente più vicino a svegliarsi).<br/>'
         '<b>Tenere la prova e colpire nell’ombra.</b> Giocate come lui, di nascosto (margine di '
-        'manovra nell’Ep. 19), ma senza il clamore siete più soli (un PNG amico in meno).<br/>'
+        'manovra nell’Ep. 19), ma senza il clamore siete più soli (un alleato in meno).<br/>'
         'Scrivete la scelta sul retro del Frammento n. 18.',
         '<b>AGGANCIO — ATTO IV.</b> All’alba, un manifesto in ogni piazza. Ma non è la faccia di M.: '
         'è la vostra. «RICERCATI: la Società del Lume, per i crimini di C.B.» M. ha rovesciato il '
-        'tavolo per intero. L’Atto IV comincia con voi braccati, senza sede, coi PNG amici di '
+        'tavolo per intero. L’Atto IV comincia con voi braccati, senza sede, con gli alleati di '
         'diciotto episodi come unica rete.',
         '<b>CHECKPOINT D’ATTO:</b> qui si chiude l’Atto III. Prima di aprire l’Atto IV (Ep. 19-20, '
         '«Il Quarto Movimento»), fermatevi: rileggete i vostri Frammenti 1-18, contate gli incroci, '

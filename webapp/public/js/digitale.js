@@ -248,7 +248,13 @@ function collegaAlTavolo() {
       render();
     },
     onRifiuto: (r) => flash(r.motivo || 'Il tavolo ha rifiutato la mossa.'),
-    onStato: (collegato) => { if (!collegato) ctx.tavoloVivo = false; },
+    onStato: (collegato) => {
+      if (!collegato) ctx.tavoloVivo = false;
+      spiaRete(collegato ? null : 'vi state ricollegando al tavolo…');
+    },
+    // il filo non torna piu': non e' il telefono in tasca, e' l'accesso
+    // scaduto. Ritentare per sempre non serve — meglio dirlo e far ricaricare
+    onScaduta: () => spiaRete('sessione scaduta — toccate per ricaricare', { scaduta: true }),
   });
 }
 
@@ -273,9 +279,9 @@ function setup() {
     <div class="barra"><button class="btn" id="nav-esci">← menu</button>
       <div class="titolo">${esc(ep.titolo)}</div><span></span></div>
     <div class="pannello"><h2>tutto a schermo</h2>
-      <p>Tutto il sotterraneo è qui: muovete gli eroi a caselle, attraversate le
+      <p>Tutta la spedizione è qui: muovete gli eroi a caselle, attraversate le
       porte a piedi per esplorare le stanze, attaccate i nemici adiacenti. I dadi
-      si tirano sullo schermo.</p>
+      sono i vostri: l’app vi chiede il totale — e se non li avete, li tira lei.</p>
       <p class="mt"><b>Obiettivo:</b> ${esc(ep.obiettivo || '')}</p></div>
     ${arbitro()
       ? '<div class="btn-riga"><button class="btn pieno" id="via">si scende →</button></div>'
@@ -448,7 +454,7 @@ function render() {
         <button class="zoom-btn" data-zoom="+">+</button>
       </div>
     </div>
-    <p class="nota secondario" style="text-align:center">Trascina per spostare la mappa · +/− o Ctrl+rotella per lo zoom</p>
+    <p class="nota secondario" style="text-align:center">Trascinate per spostare la mappa · +/− o Ctrl+rotella per lo zoom</p>
     <div class="mt"></div>
     <div class="lato">
       <div class="pannello giro" id="p-giro"><h2>il giro degli eroi</h2>${giroEroiHtml()}</div>
@@ -689,10 +695,10 @@ function azioniHtml() {
   const sp = SP();
   const iS = scortAttivo();
   if (iS != null) {
-    const s = specScort(iS); const mov = s.mov || 3; const nome = s.nome || 'il PNG';
+    const s = specScort(iS); const mov = s.mov || 3; const nome = s.nome || 'chi scortate';
     const n = Object.keys(raggScortato(iS)).length;
     return `<p class="nota">Tocca a <b>${esc(nome)}</b> — si muove con voi (Mov ${mov}), <b>non compie azioni</b>.</p>
-      <p class="nota mt">${n ? `▸ Tocca una <b class="verde">casella verde</b> per muovere ${esc(nome)} (fino a ${mov} caselle). Portalo in <b>${esc(s.meta || '')}</b> per vincere.` : `▸ ${esc(nome)} non ha caselle libere raggiungibili (nemici o arredi intorno).`}</p>
+      <p class="nota mt">${n ? `▸ Toccate una <b class="verde">casella verde</b> per muovere ${esc(nome)} (fino a ${mov} caselle). Portate ${esc(nome)} in <b>${esc(s.meta || '')}</b> per vincere.` : `▸ ${esc(nome)} non ha caselle libere raggiungibili (nemici o arredi intorno).`}</p>
       ${arbitro()
         ? `<div class="btn-riga mt"><button class="btn pieno" id="rug-fine">${esc(nome)} ha finito →</button></div>`
         : `<p class="nota mt">Lo conduce chi arbitra: ${esc(nome)} non è l’eroe di nessuno.</p>`}`;
@@ -729,13 +735,13 @@ function azioniHtml() {
   const rigaMossa = mosseSpese
     ? `▸ <b>${esc(primo(attivo))}</b> ha già usato il movimento (1 per turno): ora può attaccare, cercare o passare.`
     : nMosse
-      ? `▸ Tocca una <b class="verde">casella verde</b> per muovere ${esc(primo(attivo))} (fino a ${movimento(attivo)} caselle; le porte si attraversano a piedi, le caselle <b class="oro">dorate</b> rivelano una stanza nuova).`
-      : `▸ Nessuna casella raggiungibile: ${esc(primo(attivo))} è <b>bloccato</b> (nemici o arredi tutt'intorno). Può attaccare un nemico adiacente, cercare o passare.`;
+      ? `▸ Toccate una <b class="verde">casella verde</b> per muovere ${esc(primo(attivo))} (fino a ${movimento(attivo)} caselle; le porte si attraversano a piedi, le caselle <b class="oro">dorate</b> rivelano una stanza nuova).`
+      : `▸ Nessuna casella raggiungibile: ${esc(primo(attivo))} <b>non ha dove andare</b> (nemici o arredi tutt’intorno). Può attaccare un nemico adiacente, cercare o passare.`;
   return `
     <p class="nota">Tocca a <b>${esc(primo(attivo))}</b> — ${fatte.length}/${azioniMax(attivo)} azioni${fatte.length ? ' (' + fatte.map((t) => tipiAzione[t]).join(', ') + ')' : ''}${stordito(attivo) ? ' <b class="ko-txt">· stordito (1 azione)</b>' : ''}.</p>
     <p class="nota mt">${rigaMossa}<br>
-    ▸ Tocca un <b>nemico adiacente</b> per attaccarlo.<br>
-    ▸ Tocca un'altra <b>pedina</b> sul board per farla agire.</p>
+    ▸ Toccate un <b>nemico adiacente</b> per attaccarlo.<br>
+    ▸ Toccate un’altra <b>pedina</b> sulla mappa per farla agire.</p>
     <div class="btn-riga mt">
       ${inter && azioniRestano(attivo) && !azioneSpesa(attivo, 'interagire') ? `<button class="btn" id="az-interagire">${esc(etichettaInterazione(inter))}</button>` : ''}
       ${giuVicino && azioniRestano(attivo) && !azioneSpesa(attivo, 'rianimare') ? '<button class="btn" id="az-rianimare">Rianimare</button>' : ''}
@@ -767,7 +773,7 @@ function bersagliRevolver(nm) {
 async function sparare(nm) {
   const cand = bersagliRevolver(nm);
   if (!cand.length) { flash('Nessun bersaglio entro tre caselle.'); return; }
-  const scelta = await scegli('Revolver — a chi spari? (2d6+2)',
+  const scelta = await scegli('Revolver — a chi sparate? (2d6+2)',
     cand.map(({ n, i }) => ({ id: String(i), label: `${n.nome.toLowerCase()} (${n.ferite}/${n.max})` })));
   if (scelta == null) return;               // chi annulla non spende niente
   await esegui({ tipo: 'attacca', eroe: nm, bersaglio: Number(scelta), arma: 'revolver' });
@@ -900,9 +906,9 @@ function applicaConseguenza(nm, testo) {
   const sp = SP(); const e = eroe(nm); const out = [];
   if (/danno/i.test(testo)) { sp.vite[nm] = Math.max(0, (sp.vite[nm] ?? saluteMax(e)) - 1); out.push(`${primo(nm)} subisce 1 danno.`); }
   if (/(1 sola azione|perdete 1 azione|perde 1 azione|azione al prossimo turno)/i.test(testo)) {
-    sp.storditi = sp.storditi || {}; sp.storditi[nm] = sp.round + 1; out.push(`${primo(nm)} è stordito: 1 sola azione al prossimo turno.`);
+    sp.storditi = sp.storditi || {}; sp.storditi[nm] = sp.round + 1; out.push(`stordimento per ${primo(nm)}: 1 sola azione al prossimo turno.`);
   }
-  if (!out.length) out.push(`${primo(nm)}: applica la conseguenza descritta.`);
+  if (!out.length) out.push(`${primo(nm)}: applicate la conseguenza descritta.`);
   return out;
 }
 // eroe piu' avanzato = sulla tessera rivelata piu' lontana da T1 (origine layout)
@@ -985,7 +991,7 @@ function messaggioCarta(titolo, carta, annunci) {
       </div>
       ${req && arbitro() ? '<p class="nota mt"><b class="ko-txt">Insidia:</b> risolvete la prova prima di continuare.</p>' : ''}
       ${arbitro() ? `<div class="btn-riga">
-        ${req ? '<button class="btn pieno" id="ins-risolvi">🎲 risolvi la prova richiesta</button>' : ''}
+        ${req ? '<button class="btn pieno" id="ins-risolvi">🎲 risolvete la prova richiesta</button>' : ''}
         <button class="btn pieno" id="ok-msg"${req ? ' style="display:none"' : ''}>continua</button>
       </div>`
       // SUL TELEFONO DI CHI GIOCA nessun bottone: la pesca e' di chi arbitra, e
@@ -1031,7 +1037,7 @@ function messaggioProva(titolo, corpo, provaText, nm) {
     app.innerHTML = `<div class="barra"><span></span><div class="titolo">${esc(titolo)}</div><span></span></div>
       <div class="pannello">${corpo}<div id="prova-esito"></div></div>
       ${arbitro() ? `<div class="btn-riga">
-        ${req && nm ? `<button class="btn" id="msg-prova">🎲 tira la prova (${req.stat.toUpperCase()} ${req.diff})</button>` : ''}
+        ${req && nm ? `<button class="btn" id="msg-prova">🎲 tirate la prova (${req.stat.toUpperCase()} ${req.diff})</button>` : ''}
         <button class="btn pieno" id="ok-msg">continua</button>
       </div>`
       // stessa regola della schermata di lettura: il «continua» e il dado sono
@@ -1063,9 +1069,9 @@ const nomeScortato = () => interazioni.nomeScortato(G());
 
 function etichettaInterazione(d) {
   if (!d) return '';
-  if (d.tipo === 'grata') return `Apri la grata → ${d.verso}`;
+  if (d.tipo === 'grata') return `Aprite la grata → ${d.verso}`;
   if (d.tipo === 'scortato') return specScort(d.i).etichetta || `Libera ${specScort(d.i).nome} (Interagire)`;
-  if (d.tipo === 'uscita') return `Sposta ${String(d.arredo[2]).toLowerCase()} — l'uscita che indica ${nomeScortato()} (Interagire)`;
+  if (d.tipo === 'uscita') return `Spostate ${String(d.arredo[2]).toLowerCase()} — l’uscita che indica ${nomeScortato()} (Interagire)`;
   if (d.tipo === 'compito') {
     const c = d.c;
     if (d.bloccato === 'fuori-posto') return `${c.etichetta} — non qui: si fa in ${c.fuoriPosto}`;
@@ -1079,7 +1085,7 @@ function etichettaInterazione(d) {
 async function usaOggetto(nm) {
   const inv = P().indagine.oggetti || [];
   if (!inv.length) { flash('Inventario del gruppo vuoto.'); return; }
-  const scelto = await scegli('usa quale oggetto?', inv.map((o) => ({ id: o, label: o.toLowerCase() })));
+  const scelto = await scegli('quale oggetto usate?', inv.map((o) => ({ id: o, label: o.toLowerCase() })));
   if (!scelto) return;
   await esegui({ tipo: 'oggetto', eroe: nm, quale: scelto });
 }
@@ -1555,7 +1561,7 @@ async function riproduci(eventi, daAltri = false) {
       }
     } else if (ev.tipo === 'cercato') {
       const extra = ev.trovato
-        ? `<hr class="divisore"><p class="mt"><b>Trovato:</b> ${esc(ev.trovato.nome.toLowerCase())} — nell'inventario del gruppo.</p>
+        ? `<hr class="divisore"><p class="mt"><b>Trovato:</b> ${esc(ev.trovato.nome.toLowerCase())} — nell’inventario del gruppo.</p>
            ${ev.trovato.effetto ? `<p class="nota mt">${rendi(ev.trovato.effetto)}</p>` : ''}`
         : '';
       await messaggio(`${ev.tessera} — cercare`, `<p><i>${rendi(ev.esito)}</i></p>${extra}`);
@@ -2034,6 +2040,20 @@ function flash(t) {
   const d = document.createElement('div'); d.className = 'flash-msg'; d.textContent = t;
   document.body.appendChild(d); requestAnimationFrame(() => d.classList.add('on'));
   setTimeout(() => { d.classList.remove('on'); setTimeout(() => d.remove(), 300); }, 1600);
+}
+// LA SPIA DI COLLEGAMENTO: tace quando va tutto bene, si fa vedere solo
+// quando il filo cade o la sessione e' scaduta davvero — vedi canale.js.
+function spiaRete(testo, { scaduta } = {}) {
+  let el = document.querySelector('.spia-rete');
+  if (!testo) { if (el) el.remove(); return; }
+  if (!el) {
+    el = document.createElement('div');
+    el.className = 'spia-rete';
+    document.body.appendChild(el);
+  }
+  el.textContent = testo;
+  el.classList.toggle('scaduta', !!scaduta);
+  el.onclick = scaduta ? () => location.reload() : null;
 }
 // UNA SCHERMATA DA LEGGERE INSIEME. L'esito di una ricerca, la conseguenza di
 // una prova: cose che al tavolo si leggono ad alta voce una volta sola.

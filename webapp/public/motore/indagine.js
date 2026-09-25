@@ -124,12 +124,20 @@ function entra(g, l, { paga }) {
   // visita senza ora: il Discernimento di Marani (su QUEL luogo) o le Fonti
   // riservate di Carla (sulla prossima, qualunque). Non conta come ora avanzata.
   const gratis = ind.visitaGratis === l.n || !!ind.fontiRiservateAttive;
+  const daCarla = !!ind.fontiRiservateAttive;
   if (ind.visitaGratis === l.n) delete ind.visitaGratis;
   if (ind.fontiRiservateAttive) delete ind.fontiRiservateAttive;
   if (paga && !gratis) ind.ora += costoOre(l);
 
   const prima = !ind.visitati.includes(l.n);
   if (prima) ind.visitati.push(l.n);
+  // Il Regolamento: la visita regalata «non conta come ora avanzata» (Carla e
+  // Marani) «né come luogo in più» (Carla). L'orologio non la vede, il
+  // vantaggio sì: se ne tiene il conto per toglierla in `tierIndagine`.
+  if (paga && gratis) {
+    ind.oreRegalate = (ind.oreRegalate || 0) + costoOre(l);
+    if (daCarla && prima) ind.luoghiRegalati = (ind.luoghiRegalati || 0) + 1;
+  }
   ind.luogoAperto = l.n;
   // entrare azzera il chiavistello: un fallimento vale per la visita, e uscire
   // e rientrare (un'altra ora) fa ritentare
@@ -425,7 +433,7 @@ function discernimento(g, caso, c) {
 }
 
 // FONTI RISERVATE DI CARLA: la PROSSIMA visita non costa l'ora — e non conta
-// come ora avanzata, che il vantaggio premia le ore spese davvero.
+// come ora avanzata ne' come luogo in piu' (vedi `entra`).
 function fontiRiservate(g, caso, c) {
   const no = puoUsare(g, 'fonti-riservate', c); if (no) return rifiuta(no);
   segnaSpesa(g, 'fonti-riservate');

@@ -728,8 +728,8 @@ def soluzione():
     pagina('epilogo, frammento e bivio', [
         '<b>EPILOGO — da leggere a voce alta se il Primo Gatto tratta.</b> «Lo Spillo si siede sul '
         'comignolo come su un trono, i piedi nel vuoto, e ride piano. “Il lavoro era strano,” dice. '
-        '"Di solito ci pagano per portar via. Stavolta metà oro era per <i>lasciare</i>: roba che '
-        'non era sua, del professore, da mettere giù con cura dove i gendarmi l’avrebbero trovata." '
+        '“Di solito ci pagano per portar via. Stavolta metà oro era per <i>lasciare</i>: roba che '
+        'non era sua, del professore, da mettere giù con cura dove i gendarmi l’avrebbero trovata.” '
         'Non sa chi paga: oro vecchio, un intermediario mai visto, la carta di pregio delle '
         'ricevute. Ma adesso lo sapete voi: qualcuno non vuole derubare Braga. Qualcuno lo vuole '
         '<b>colpevole</b>. E per arredargli addosso una vita di crimini, bisogna conoscerlo da una '

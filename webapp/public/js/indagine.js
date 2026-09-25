@@ -907,7 +907,13 @@ function collegaAlTavolo() {
     },
     // il filo e' caduto: il motore torna a essere questa pagina, e chi gioca
     // se lo sente dire invece di premere bottoni che non fanno niente
-    onStato: (collegato) => { if (!collegato) ctx.tavoloVivo = false; },
+    onStato: (collegato) => {
+      if (!collegato) ctx.tavoloVivo = false;
+      spiaRete(collegato ? null : 'vi state ricollegando al tavolo…');
+    },
+    // il filo non torna piu': non e' il telefono in tasca, e' l'accesso
+    // scaduto. Ritentare per sempre non serve — meglio dirlo e far ricaricare
+    onScaduta: () => spiaRete('sessione scaduta — toccate per ricaricare', { scaduta: true }),
   });
 }
 
@@ -1329,6 +1335,24 @@ function incassa(stato) {
   Object.assign(ctx.partita, stato, { indagine: ctx.partita.indagine });
 }
 
+// LA SPIA DI COLLEGAMENTO vive fuori da `ctx.app`, attaccata a `document.body`:
+// un ridisegno della vista (anche solo aprire il taccuino, coi suoi
+// `<textarea>` in corso di scrittura) non deve poterla far sparire ne'
+// portarsela dietro. Tace quando va tutto bene — solo quando il filo cade,
+// o la sessione e' scaduta davvero, si fa vedere.
+function spiaRete(testo, { scaduta } = {}) {
+  let el = document.querySelector('.spia-rete');
+  if (!testo) { if (el) el.remove(); return; }
+  if (!el) {
+    el = document.createElement('div');
+    el.className = 'spia-rete';
+    document.body.appendChild(el);
+  }
+  el.textContent = testo;
+  el.classList.toggle('scaduta', !!scaduta);
+  el.onclick = scaduta ? () => location.reload() : null;
+}
+
 // Un messaggio che passa: un rifiuto va detto, non ingoiato.
 function flash(testo) {
   if (!testo) return;
@@ -1370,7 +1394,7 @@ async function dichiara(nomeVoce) {
     const l = luogoN(lontano.luogo);
     return pannelloMsg('troppo lontano', `<p><i>${esc(l.nome.toLowerCase())} è
       fuori città: la trasferta vuole ${lontano.costo} ore, e non le avete.</i></p>
-      <p class="nota mt">Nessuna ora spesa: con un'ora sola non si dichiara.</p>`, scenaArbitro);
+      <p class="nota mt">Nessuna ora spesa: con un’ora sola non si dichiara.</p>`, scenaArbitro);
   }
   const chiuso = ev('gia-chiuso');
   if (chiuso) {
@@ -1625,7 +1649,7 @@ async function mandaProva(comando, l) {
   const puoFiato = !P().fiatoUsato[comando.eroe];
   const seconda = puoFiato ? {
     che: 'c’è ancora una carta da giocare',
-    label: `Secondo Fiato di ${primoNome(comando.eroe)}`,
+    label: `Secondo fiato di ${primoNome(comando.eroe)}`,
     nota: 'rifate il tiro. Una volta a episodio, per eroe.',
   } : null;
 
@@ -1766,8 +1790,9 @@ async function fontiRiservate() {
   if (!await esegui({ tipo: 'fonti-riservate' })) return scenaArbitro();
   pannelloMsg('fonti riservate', `<p><i>Carla conosce la porta giusta e chi la apre
     senza domande: la <b>prossima visita</b> non costerà l’ora.</i></p>
-    <p class="nota mt">Non conta come ora avanzata a fine indagine: il vantaggio
-    premia le ore spese davvero.</p>`, scenaArbitro, { atutti: true });
+    <p class="nota mt">L’ora risparmiata non conta come ora avanzata a fine
+    indagine, né quel luogo come luogo in più: il vantaggio premia le ore che
+    risparmiate da soli.</p>`, scenaArbitro, { atutti: true });
 }
 
 // Ombra fiuta (Mora): il furetto in avanscoperta su un luogo — torna col
@@ -1810,7 +1835,7 @@ function taccuino() {
         <textarea class="campo" data-nota-eroe="${esc(nm)}" rows="3"
           placeholder="— non ha ancora scritto niente —">${esc(noteDi(nm))}</textarea>`).join('')}
       <div class="btn-riga">
-        <button class="btn" id="salva-risposte">salvate e tornate in strada</button>
+        <button class="btn pieno" id="salva-risposte">salvate e tornate in strada</button>
       </div>
     </div>
     <div class="mt"></div>
@@ -1819,7 +1844,7 @@ function taccuino() {
       <span class="che">la soluzione · sigillata fino alla fine</span>
       <p class="nota mt">Rompere il sigillo chiude l’indagine per sempre.</p>
       <div class="btn-riga" style="justify-content:center">
-        <button class="btn pieno" id="apri-busta">rompete il sigillo</button>
+        <button class="btn" id="apri-busta">rompete il sigillo</button>
       </div>
     </div>`;
   dopoBarra();
@@ -1841,8 +1866,16 @@ function taccuino() {
   app.querySelector('#salva-risposte').onclick = async () => { await leggi(); home(); };
   app.querySelector('#apri-busta').onclick = async () => {
     await leggi();
+    // Le risposte vuote non bloccano — si puo' aprire la busta anche a caso,
+    // ed e' una scelta legittima — ma chi sta per farlo senza accorgersene
+    // deve almeno sentirselo dire prima, non scoprirlo a sigillo rotto.
+    const vuote = [...app.querySelectorAll('[data-risposta]')]
+      .map((el, i) => (el.value.trim() ? null : i + 1)).filter((n) => n != null);
+    const avviso = vuote.length
+      ? ` ${vuote.length === 1 ? `La domanda ${vuote[0]} non ha` : `Le domande ${vuote.join(', ')} non hanno`} risposta.`
+      : '';
     if (!await conferma('Rompete il sigillo?', {
-      dettaglio: 'La busta si apre una volta sola: l’indagine si chiude per sempre.',
+      dettaglio: `La busta si apre una volta sola: l’indagine si chiude per sempre.${avviso}`,
       si: 'rompete il sigillo', no: 'non ancora', sigillo: 'L',
     })) return;
     busta();

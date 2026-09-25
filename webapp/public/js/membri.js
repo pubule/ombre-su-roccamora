@@ -138,7 +138,7 @@ export async function vistaMembri(app, tavolo, nome, torna, avanti) {
       <div class="pannello">
         <h2>dai un posto a…</h2>
         <p class="nota"><b>Non parte nessuna email da qui.</b> Il posto al tavolo resta pronto:
-          lui entra da solo aprendo l’app con quell’email — il link mandaglielo tu.
+          si entra da soli aprendo l’app con quell’email — il link glielo mandi tu.
           L’eroe se lo sceglie ognuno per conto suo, quando entra.</p>
         ${liberi.length ? liberi.map((x) => `
           <div class="nemico-riga">
@@ -156,10 +156,10 @@ export async function vistaMembri(app, tavolo, nome, torna, avanti) {
       <div class="mt"></div>
       <div class="pannello">
         <h2>una persona nuova</h2>
-        <p class="nota">Il <b>nome</b> è come lo chiami giocando; l’<b>email</b> è quella con cui
+        <p class="nota">Il <b>nome</b> è come la chiami giocando; l’<b>email</b> è quella con cui
           entrerà nell’app. Resta in rubrica: al prossimo tavolo basta toccarlo.</p>
         <input id="nome-invito" class="campo mt" type="text" maxlength="40"
-               placeholder="come lo chiami al tavolo — «Giulia»" autocomplete="off">
+               placeholder="come la chiami al tavolo — «Giulia»" autocomplete="off">
         <input id="email-invito" class="campo mt" type="email" inputmode="email"
                placeholder="l’email con cui entrerà — amico@esempio.it" autocomplete="off">
         <div class="btn-riga mt"><button class="btn pieno" id="invita">in rubrica, e al tavolo</button></div>
@@ -286,7 +286,7 @@ export async function vistaMembri(app, tavolo, nome, torna, avanti) {
         // («quell'eroe è già di qualcun altro», «email non valida»)
         if (!r.ok) return rendi(d.errore || 'Non riesco a dare il posto. Riprova.');
         return rendi(d.porta === 'errore'
-          ? `${come || chi} ha un posto, ma la porta no: senza, il codice d’accesso non gli arriverà.`
+          ? `${come || chi} ha un posto, ma la porta no: senza, il codice d’accesso non le arriverà.`
           : undefined);
       } catch { return rendi('Non riesco a dare il posto: manca la rete. Riprova.'); }
     };
@@ -314,7 +314,7 @@ export async function vistaMembri(app, tavolo, nome, torna, avanti) {
       const come = b.dataset.nome || chi;
       if (!await conferma(`Togliere ${come} dal tavolo?`, {
         dettaglio: 'Non vedrà più questa campagna. Il suo eroe torna a chi arbitra.',
-        si: 'toglietelo', no: 'lasciate stare',
+        si: 'togli dal tavolo', no: 'lascia stare',
       })) return;
       try {
         await fetch(`/api/membri?tavolo=${encodeURIComponent(tavolo)}&email=${encodeURIComponent(chi)}`,

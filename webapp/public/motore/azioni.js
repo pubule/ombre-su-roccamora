@@ -50,9 +50,9 @@ export function applicaConseguenza(g, nm, testo) {
   if (/(1 sola azione|perdete 1 azione|perde 1 azione|azione al prossimo turno)/i.test(testo)) {
     sp.storditi = sp.storditi || {};
     sp.storditi[nm] = sp.round + 1;
-    out.push(`${primo(nm)} è stordito: 1 sola azione al prossimo turno.`);
+    out.push(`stordimento per ${primo(nm)}: 1 sola azione al prossimo turno.`);
   }
-  if (!out.length) out.push(`${primo(nm)}: applica la conseguenza descritta.`);
+  if (!out.length) out.push(`${primo(nm)}: applicate la conseguenza descritta.`);
   return out;
 }
 
@@ -280,7 +280,7 @@ export function attacca(g, caso, nm, i, gratis, arma) {
     const d = distGlob(g, sp.eroiPos[nm], n.pos);
     if (!d || d > 3) return rifiuta('Fuori tiro: il Revolver arriva a 3 caselle, e serve la linea.');
   } else if (!adiacGlob(g, sp.eroiPos[nm], n.pos)) {
-    return rifiuta('Nemico non adiacente: avvicinati prima.');
+    return rifiuta('Nemico non adiacente: avvicinatevi prima.');
   }
   if (n.abbattuto) return rifiuta(`${n.nome.toLowerCase()} è già a terra: ora va preso (Interagire).`);
 
@@ -350,7 +350,7 @@ export function attacca(g, caso, nm, i, gratis, arma) {
 // che servira' a tutte: la domanda sta nello stato, la risposta la scioglie.
 export function rispondi(g, caso, scelta) {
   const sp = g.sp; const p = sp.pendenza;
-  if (!p) return rifiuta('Non c\'è nessuna scelta in sospeso.');
+  if (!p) return rifiuta('Non c’è nessuna scelta in sospeso.');
   if (p.tipo === 'macello') {
     sp.pendenza = null;
     // il colpo si consuma solo se parte: chi rinuncia lo tiene

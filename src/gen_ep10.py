@@ -660,7 +660,7 @@ def soluzione():
         '<b>APERTURA — il Bivio dell’Episodio 9</b> (applicare PRIMA della lettera): se avete '
         'scelto <b>FAR DEPORRE IL TESTE</b> — la deposizione di Riva è a verbale e non si tocca: '
         'nessun effetto in questo episodio, l’incrocio in più si spende alla deduzione d’atto '
-        'dell’Episodio 18. Ricordate solo di segnare sul Taccuino il PNG-alleato perso: Riva è '
+        'dell’Episodio 18. Ricordate solo di segnare sul Taccuino l’alleato perso: Riva è '
         'in protezione e per la campagna non c’è più. Se lo avete <b>NASCOSTO, PERDENDO LA '
         'CAUSA</b> — la sentenza-beffa ha bollato la Società come «setta di truffatori», e chi '
         'porta una divisa non parla più con voi fuori dai denti: rimuovete la Testimonianza '

@@ -43,8 +43,8 @@ export async function vistaTavoli(app, quandoScelto) {
   app.innerHTML = `
     <header class="home-testata">
       <h1>ombre su roccamora</h1>
-      <div class="sotto">${esc(stato.email || 'senza rete')}</div>
-      ${stato.email ? `<div class="bottoni"><a class="btn piccolo" style="text-decoration:none" href="/cdn-cgi/access/logout">esci</a></div>` : ''}
+      <div class="sotto">${esc(stato.email || 'senza rete')}${stato.email
+        ? ` · <a href="/cdn-cgi/access/logout" style="color:inherit">esci</a>` : ''}</div>
       <div class="filetto"></div>
     </header>
     <div class="pannello">
@@ -56,8 +56,8 @@ export async function vistaTavoli(app, quandoScelto) {
           <p>${incompleto(t) ? 'da completare — non ancora salvato' : ultima(t.id)}</p>
           ${t.ruolo === 'arbitro' ? `<button class="btn piccolo membri-tavolo" data-id="${esc(t.id)}"
                   data-nome="${esc(t.nome)}">chi gioca</button>` : ''}
-          <button class="btn piccolo elimina-tavolo" data-id="${esc(t.id)}"
-                  data-nome="${esc(t.nome)}" data-partite="${quante(t.id)}">elimina</button>
+          ${t.creatore ? `<button class="btn piccolo elimina-tavolo" data-id="${esc(t.id)}"
+                  data-nome="${esc(t.nome)}" data-partite="${quante(t.id)}">elimina</button>` : ''}
         </div>`).join('')
       || '<p class="nota mt">Nessun tavolo ancora. Un tavolo è un gruppo che gioca la sua campagna.</p>'}
       <div class="btn-riga mt">
@@ -98,15 +98,27 @@ export async function vistaTavoli(app, quandoScelto) {
       ? `Se ne vanno anche le sue ${quante} ${quante === 1 ? 'partita' : 'partite'}. Non si torna indietro.`
       : 'Non ha partite salvate.';
     if (!await conferma(`Eliminare «${nome}»?`, {
-      dettaglio: avviso, si: 'eliminate il tavolo', no: 'lasciate stare',
+      dettaglio: avviso, si: 'elimina il tavolo', no: 'lascia stare',
     })) return;
+    let risposta;
     try {
-      const r = await fetch(`/api/tavolo?id=${encodeURIComponent(id)}`, { method: 'DELETE' });
-      if (!r.ok) throw new Error(r.status);
+      risposta = await fetch(`/api/tavolo?id=${encodeURIComponent(id)}`, { method: 'DELETE' });
     } catch {
       const p = document.createElement('p');
       p.className = 'nota mt';
       p.textContent = 'Non riesco a eliminare il tavolo: manca la rete. Riprova.';
+      el.closest('.pannello').append(p);
+      return;
+    }
+    if (!risposta.ok) {
+      // Il server risponde qui, ma dice no (404: non e' piu' tuo, o e' gia'
+      // sparito da un altro dispositivo). Non e' la rete che manca — dirlo
+      // manderebbe a ripetere un'azione che non puo' riuscire.
+      const p = document.createElement('p');
+      p.className = 'nota mt';
+      p.textContent = risposta.status === 404
+        ? 'Questo tavolo non risulta più tuo: qualcun altro lo ha già tolto, o non è più il tuo account.'
+        : `Il server ha rifiutato (${risposta.status}). Riprova.`;
       el.closest('.pannello').append(p);
       return;
     }
@@ -121,7 +133,7 @@ export async function vistaTavoli(app, quandoScelto) {
       dettaglio: inCoda
         ? `Ha ${inCoda} ${inCoda === 1 ? 'scrittura' : 'scritture'} mai arrivate al server: se il tavolo è di un altro account, le perde.`
         : 'Il server non ne ha traccia: resta solo la copia su questo dispositivo.',
-      si: 'buttate', no: 'lasciate stare',
+      si: 'butta', no: 'lascia stare',
     })) return;
     dimenticaTavolo(el.dataset.id);
     vistaTavoli(app, quandoScelto);

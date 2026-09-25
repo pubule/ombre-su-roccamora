@@ -47,7 +47,7 @@ export function collegaBivio(app, ep, episodioId, ridisegna) {
     el.onclick = async () => {
       const o = ep.bivio.opzioni.find((x) => x.id === el.dataset.bivio);
       if (!await conferma(`«${o.titolo}»?`, {
-        dettaglio: 'Cambia le regole degli episodi che verranno. Si può ancora cambiare idea, finché la prossima serata non comincia.',
+        dettaglio: 'Cambia le regole degli episodi che verranno. Si può cambiare idea anche più avanti: la nuova scelta vale per ogni episodio che comincia da quel momento.',
         si: 'sì, si sigilla', no: 'ancora no',
       })) return;
       await registraScelta(episodioId, o.id);

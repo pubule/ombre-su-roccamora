@@ -260,6 +260,10 @@ try {
   ok(appesi.length === 0,
      `uscendo dal menu non resta nessun velo appeso (${appesi.join(', ')})`);
   await page.locator('.stampa-caso[data-ep="ep1"]').click();
+  // una serata aperta si puo' anche cancellare da qui: riprenderla porta dritti
+  // dentro, e senza questo bottone «ricomincia da capo» non si vedrebbe mai
+  ok(await page.locator('#ricomincia-caso').count() === 1,
+     'la scheda di una serata in corso offre «ricominciate da capo»');
   // «riprendete la serata» porta dentro la partita, senza ripassare dalla schermata «continua»
   await page.locator('#apri-caso').click();   // la stampa apre la scheda: da li' si comincia
   await page.locator('#fine-visita').waitFor();

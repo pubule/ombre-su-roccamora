@@ -146,7 +146,7 @@ export function liberaScortato(g, nm, i) {
     sp.scortati[k].liberato = true;
     const cella = libere[n] || [pos.x, pos.y];
     sp.scortati[k].pos = { t: pos.t, x: cella[0], y: cella[1] };
-    log(g, `${x.nome} è libero! Riportatelo in ${x.meta}.`);
+    log(g, `Via libera: portate ${x.nome} in ${x.meta}.`);
     eventi.push({ tipo: 'liberato', nome: x.nome, meta: x.meta });
   });
   return eventi;
@@ -155,7 +155,7 @@ export function liberaScortato(g, nm, i) {
 export function interagisci(g, caso, nm) {
   const sp = g.sp;
   const disp = interazioneDisponibile(g, nm);
-  if (!disp) return rifiuta('Qui non c\'è niente con cui interagire.');
+  if (!disp) return rifiuta('Qui non c’è niente con cui interagire.');
   if (!azioniRestano(g, nm)) return rifiuta('Nessuna azione rimasta.');
   const eventi = [];
 
@@ -239,7 +239,7 @@ export function interagisci(g, caso, nm) {
     if (!giusto) {
       // arredo sbagliato: l'azione e' spesa, e quell'arredo non si ritenta piu'
       sp.uscitaTentati = (sp.uscitaTentati || []).concat(chiave([a[0], a[1]]));
-      log(g, `Sotto ${String(a[2].toLowerCase())} non c'è nulla: solo pietra.`);
+      log(g, `Sotto ${String(a[2].toLowerCase())} non c’è nulla: solo pietra.`);
       return { eventi, azione: 'interagire' };
     }
     sp.uscita = { aperta: true, tile: u.tile, cella: [u.arredo[0], u.arredo[1]] };
@@ -263,7 +263,7 @@ export function interagisci(g, caso, nm) {
     }
     return { eventi: [...eventi, ...liberaScortato(g, nm, i)], azione: 'interagire' };
   }
-  return rifiuta('Qui non c\'è niente con cui interagire.');
+  return rifiuta('Qui non c’è niente con cui interagire.');
 }
 
 // ------------------------------------------------------------- usare un oggetto
@@ -274,7 +274,7 @@ export function usaOggetto(g, nm, quale) {
   const sp = g.sp; const inv = g.partita.indagine.oggetti || [];
   if (!inv.length) return rifiuta('Inventario del gruppo vuoto.');
   if (!quale) return rifiuta('Nessun oggetto scelto.');
-  if (!inv.includes(quale)) return rifiuta('Quell\'oggetto non è nell\'inventario del gruppo.');
+  if (!inv.includes(quale)) return rifiuta('Quell’oggetto non è nell’inventario del gruppo.');
   if (!azioniRestano(g, nm)) return rifiuta('Nessuna azione rimasta.');
   const pos = sp.eroiPos[nm];
 

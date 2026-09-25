@@ -442,7 +442,7 @@ const CAPO = 'capo@esempio.it';          // secondo portiere: si prova che non l
   page.once('dialog', (d) => d.accept());
   await page.locator(`.chiudi-porta[data-email="${GIULIA}"]`).click();
   await page.waitForTimeout(300);
-  const si = page.locator('button', { hasText: /chiudete la porta/i });
+  const si = page.locator('button', { hasText: /chiudi la porta/i });
   ok(await si.count() === 1, 'si chiede conferma prima: è l\'unico gesto che toglie qualcosa');
   await si.first().click();
   await page.waitForTimeout(1000);

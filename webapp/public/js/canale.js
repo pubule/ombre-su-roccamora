@@ -16,13 +16,31 @@
 //     voce, e il tavolo aspetta che compaia.
 //   - DIRE COM'E' MESSO. `onStato(collegato)` serve a mostrarlo: un'app che
 //     tace mentre e' scollegata fa credere che il gioco sia rotto.
-export function apriCanale({ tavolo, onVista, onRifiuto, onStato }) {
+export function apriCanale({ tavolo, onVista, onRifiuto, onStato, onScaduta }) {
   let ws = null;
   let chiuso = false;
   let tentativi = 0;
+  let sondando = false;
   const coda = [];
 
   const dillo = (collegato) => { try { onStato && onStato(collegato); } catch { /* la vista non ferma il filo */ } };
+
+  // Dopo qualche tentativo di ricollegarsi andato a vuoto, il sospetto e' che
+  // non sia il telefono che entra in tasca ma l'accesso Cloudflare scaduto —
+  // e in quel caso ritentare in eterno non porta a niente. Una sonda sola:
+  // stesso segno di `sync.js` (redirect al login = sessione andata).
+  async function sessioneScaduta() {
+    if (sondando) return false;
+    sondando = true;
+    try {
+      const r = await fetch('/api/stato');
+      return r.status === 403 || r.redirected;
+    } catch {
+      return false;
+    } finally {
+      sondando = false;
+    }
+  }
 
   function collega() {
     if (chiuso) return;
@@ -53,6 +71,11 @@ export function apriCanale({ tavolo, onVista, onRifiuto, onStato }) {
       // aspettarne dieci
       const attesa = Math.min(1000 * 2 ** tentativi, 15000);
       tentativi += 1;
+      if (tentativi === 3) {
+        sessioneScaduta().then((scaduta) => {
+          if (scaduta) { chiuso = true; try { onScaduta && onScaduta(); } catch { /* niente da fare */ } }
+        });
+      }
       setTimeout(collega, attesa);
     };
 
