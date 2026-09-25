@@ -7,7 +7,16 @@
 (function () {
   const M = MONDO;
   const cell = 80;
-  const FA = (n) => `fa/${n}.png`;
+  // URL di produzione (export-assets.py copia webapp/vtt/ qui, catalogo per
+  // sottocartella): pav-* -> pavimenti/, muri/porte fisse, il resto arredi/
+  // se e' uno dei mobili scelti dal generatore, altrimenti decori/.
+  const FA = (n) => {
+    if (n.startsWith('pav-')) return `/assets/vtt/pavimenti/${n.slice(4)}.png`;
+    if (n === 'muro-a' || n === 'muro-b' || n === 'pilastro' || n === 'scale') return `/assets/vtt/muri/${n}.png`;
+    if (n === 'porta' || n === 'porta-2' || n === 'grata') return `/assets/vtt/porte/${n}.png`;
+    if (/^(casse|candele|molo|altare|cella|scrivania|branda)(-[23])?$/.test(n)) return `/assets/vtt/arredi/${n}.png`;
+    return `/assets/vtt/decori/${n}.png`;
+  };
   const PAVIMENTO = { T1: 'pav-assi', T2: 'pav-tavolato', T3: 'pav-navata', T4: 'pav-mattonelle', T5: 'pav-pietra', T6: 'pav-pietra-2' };
   // FUORI dalla banchina c'e' l'acqua: la stessa regola del generatore (FUORI_DI)
   const ACQUA = [[0, 3], [2, 3]];
