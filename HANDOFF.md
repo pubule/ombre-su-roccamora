@@ -2,9 +2,15 @@
 
 ## IN CORSO (25/09/2026) — la Spedizione nuova: plancia a lanterne + HUD a tre colonne
 
-Decisa col committente, **non ancora iniziata** nel codice vero. Tutto sta nel piano
+Decisa col committente. Tutto sta nel piano
 `docs/superpowers/plans/2026-09-24-plancia-lanterne.md` (10 task; si riprende dal primo
 non spuntato) e nella guida `docs/scenografia.md` (vincolante per le stanze).
+
+**Task 1 FATTO (25/09/2026)**: estratta la regola del pavimento in `webapp/public/motore/ambiente.js`
+(`PAVIMENTI`, `FUORI_DI`, `pavimentoDi()`, `fuoriDi()`, `alAperto()`, `fuoriDichiarato()`).
+Una sola fonte per le tessere stampate (pittura-vtt.js) e la plancia digitale.
+Test: `node webapp/test-ambiente.mjs` (127 tessere OK).
+Il generatore require() il modulo ES-compatibile (Node CJS-ESM interop).
 
 - Specifica visiva: `webapp/public/mockups/tessere-alt/5-spedizione.html` (HUD B a tre
   colonne) e `6-scenografia.html` (prova della guida: Ep.1 e i tetti dell'Ep.11, fuori

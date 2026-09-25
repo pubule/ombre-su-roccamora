@@ -1,0 +1,510 @@
+{
+ "ep1.json:T1": {
+  "pav": "assi",
+  "fuori": "acqua"
+ },
+ "ep1.json:T2": {
+  "pav": "tavolato",
+  "fuori": "vuoto"
+ },
+ "ep1.json:T3": {
+  "pav": "mattonelle",
+  "fuori": "vuoto"
+ },
+ "ep1.json:T4": {
+  "pav": "mattonelle",
+  "fuori": "vuoto"
+ },
+ "ep1.json:T5": {
+  "pav": "assi",
+  "fuori": "vuoto"
+ },
+ "ep1.json:T6": {
+  "pav": "pietra",
+  "fuori": "vuoto"
+ },
+ "ep10.json:T1": {
+  "pav": "mosaico",
+  "fuori": "vuoto"
+ },
+ "ep10.json:T2": {
+  "pav": "assi",
+  "fuori": "vuoto"
+ },
+ "ep10.json:T3": {
+  "pav": "mattonelle",
+  "fuori": "vuoto"
+ },
+ "ep10.json:T4": {
+  "pav": "mattonelle",
+  "fuori": "vuoto"
+ },
+ "ep10.json:T5": {
+  "pav": "assi",
+  "fuori": "vuoto"
+ },
+ "ep10.json:T6": {
+  "pav": "roccia",
+  "fuori": "roccia"
+ },
+ "ep11.json:T1": {
+  "pav": "assi",
+  "fuori": "vuoto"
+ },
+ "ep11.json:T2": {
+  "pav": "assi",
+  "fuori": "vuoto"
+ },
+ "ep11.json:T3": {
+  "pav": "assi",
+  "fuori": "vuoto"
+ },
+ "ep11.json:T4": {
+  "pav": "tetti",
+  "fuori": "vuoto"
+ },
+ "ep11.json:T5": {
+  "pav": "pietra",
+  "fuori": "vuoto"
+ },
+ "ep11.json:T6": {
+  "pav": "tetti",
+  "fuori": "vuoto"
+ },
+ "ep12.json:T1": {
+  "pav": "mattonelle",
+  "fuori": "vuoto"
+ },
+ "ep12.json:T2": {
+  "pav": "assi",
+  "fuori": "acqua"
+ },
+ "ep12.json:T3": {
+  "pav": "assi",
+  "fuori": "acqua"
+ },
+ "ep12.json:T4": {
+  "pav": "acqua",
+  "fuori": "acqua"
+ },
+ "ep12.json:T5": {
+  "pav": "lastricato",
+  "fuori": "terra"
+ },
+ "ep12.json:T6": {
+  "pav": "assi",
+  "fuori": "acqua"
+ },
+ "ep13.json:T1": {
+  "pav": "paglia",
+  "fuori": "terra"
+ },
+ "ep13.json:T2": {
+  "pav": "acqua",
+  "fuori": "acqua"
+ },
+ "ep13.json:T3": {
+  "pav": "paglia",
+  "fuori": "vuoto"
+ },
+ "ep13.json:T4": {
+  "pav": "tavolato",
+  "fuori": "vuoto"
+ },
+ "ep13.json:T5": {
+  "pav": "paglia",
+  "fuori": "vuoto"
+ },
+ "ep13.json:T6": {
+  "pav": "paglia",
+  "fuori": "vuoto"
+ },
+ "ep14.json:T1": {
+  "pav": "tetti",
+  "fuori": "vuoto"
+ },
+ "ep14.json:T2": {
+  "pav": "tetti",
+  "fuori": "vuoto"
+ },
+ "ep14.json:T3": {
+  "pav": "tetti",
+  "fuori": "vuoto"
+ },
+ "ep14.json:T4": {
+  "pav": "tetti",
+  "fuori": "vuoto"
+ },
+ "ep14.json:T5": {
+  "pav": "tetti",
+  "fuori": "vuoto"
+ },
+ "ep14.json:T6": {
+  "pav": "tappeto",
+  "fuori": "vuoto"
+ },
+ "ep15.json:T1": {
+  "pav": "lastricato",
+  "fuori": "vuoto"
+ },
+ "ep15.json:T2": {
+  "pav": "mosaico",
+  "fuori": "vuoto"
+ },
+ "ep15.json:T3": {
+  "pav": "tappeto",
+  "fuori": "vuoto"
+ },
+ "ep15.json:T4": {
+  "pav": "roccia",
+  "fuori": "roccia"
+ },
+ "ep15.json:T5": {
+  "pav": "lastricato",
+  "fuori": "vuoto"
+ },
+ "ep15.json:T6": {
+  "pav": "tappeto",
+  "fuori": "vuoto"
+ },
+ "ep16.json:T1": {
+  "pav": "erba",
+  "fuori": "erba"
+ },
+ "ep16.json:T2": {
+  "pav": "erba",
+  "fuori": "erba"
+ },
+ "ep16.json:T3": {
+  "pav": "erba",
+  "fuori": "erba"
+ },
+ "ep16.json:T4": {
+  "pav": "tappeto",
+  "fuori": "vuoto"
+ },
+ "ep16.json:T5": {
+  "pav": "assi",
+  "fuori": "acqua"
+ },
+ "ep16.json:T6": {
+  "pav": "tappeto",
+  "fuori": "vuoto"
+ },
+ "ep17.json:T1": {
+  "pav": "lastricato",
+  "fuori": "vuoto"
+ },
+ "ep17.json:T2": {
+  "pav": "terra",
+  "fuori": "terra"
+ },
+ "ep17.json:T3": {
+  "pav": "lastricato",
+  "fuori": "vuoto"
+ },
+ "ep17.json:T4": {
+  "pav": "mattonelle",
+  "fuori": "vuoto"
+ },
+ "ep17.json:T5": {
+  "pav": "mattonelle",
+  "fuori": "vuoto"
+ },
+ "ep17.json:T6": {
+  "pav": "tappeto",
+  "fuori": "vuoto"
+ },
+ "ep18.json:T1": {
+  "pav": "tappeto",
+  "fuori": "vuoto"
+ },
+ "ep18.json:T2": {
+  "pav": "tappeto",
+  "fuori": "vuoto"
+ },
+ "ep18.json:T3": {
+  "pav": "tappeto",
+  "fuori": "vuoto"
+ },
+ "ep18.json:T4": {
+  "pav": "assi",
+  "fuori": "acqua"
+ },
+ "ep18.json:T5": {
+  "pav": "assi",
+  "fuori": "vuoto"
+ },
+ "ep18.json:T6": {
+  "pav": "lastricato",
+  "fuori": "vuoto"
+ },
+ "ep19.json:T1": {
+  "pav": "mosaico",
+  "fuori": "vuoto"
+ },
+ "ep19.json:T2": {
+  "pav": "mosaico",
+  "fuori": "vuoto"
+ },
+ "ep19.json:T3": {
+  "pav": "mattonelle",
+  "fuori": "vuoto"
+ },
+ "ep19.json:T4": {
+  "pav": "mattonelle",
+  "fuori": "vuoto"
+ },
+ "ep19.json:T5": {
+  "pav": "tappeto",
+  "fuori": "vuoto"
+ },
+ "ep19.json:T6": {
+  "pav": "tavolato",
+  "fuori": "vuoto"
+ },
+ "ep2.json:T1": {
+  "pav": "assi",
+  "fuori": "acqua"
+ },
+ "ep2.json:T2": {
+  "pav": "ghiaia",
+  "fuori": "terra"
+ },
+ "ep2.json:T3": {
+  "pav": "metallo",
+  "fuori": "vuoto"
+ },
+ "ep2.json:T4": {
+  "pav": "assi",
+  "fuori": "acqua"
+ },
+ "ep2.json:T5": {
+  "pav": "mattonelle",
+  "fuori": "vuoto"
+ },
+ "ep2.json:T6": {
+  "pav": "mattoni",
+  "fuori": "vuoto"
+ },
+ "ep20.json:T1": {
+  "pav": "pietra",
+  "fuori": "roccia"
+ },
+ "ep20.json:T2": {
+  "pav": "lastricato",
+  "fuori": "vuoto"
+ },
+ "ep20.json:T3": {
+  "pav": "roccia",
+  "fuori": "roccia"
+ },
+ "ep20.json:T4": {
+  "pav": "navata",
+  "fuori": "vuoto"
+ },
+ "ep20.json:T5": {
+  "pav": "mosaico",
+  "fuori": "vuoto"
+ },
+ "ep20.json:T6": {
+  "pav": "mattonelle",
+  "fuori": "vuoto"
+ },
+ "ep3.json:T1": {
+  "pav": "assi",
+  "fuori": "melma"
+ },
+ "ep3.json:T2": {
+  "pav": "acqua",
+  "fuori": "acqua"
+ },
+ "ep3.json:T3": {
+  "pav": "roccia",
+  "fuori": "roccia"
+ },
+ "ep3.json:T4": {
+  "pav": "acqua",
+  "fuori": "acqua"
+ },
+ "ep3.json:T5": {
+  "pav": "metallo",
+  "fuori": "vuoto"
+ },
+ "ep3.json:T6": {
+  "pav": "acqua",
+  "fuori": "acqua"
+ },
+ "ep4.json:T1": {
+  "pav": "tavolato",
+  "fuori": "vuoto"
+ },
+ "ep4.json:T2": {
+  "pav": "tavolato",
+  "fuori": "vuoto"
+ },
+ "ep4.json:T3": {
+  "pav": "metallo",
+  "fuori": "vuoto"
+ },
+ "ep4.json:T4": {
+  "pav": "mattonelle",
+  "fuori": "vuoto"
+ },
+ "ep4.json:T5": {
+  "pav": "metallo",
+  "fuori": "erba"
+ },
+ "ep4.json:T6": {
+  "pav": "lastricato",
+  "fuori": "vuoto"
+ },
+ "ep5.json:T1": {
+  "pav": "assi",
+  "fuori": "vuoto"
+ },
+ "ep5.json:T2": {
+  "pav": "navata",
+  "fuori": "vuoto"
+ },
+ "ep5.json:T3": {
+  "pav": "pietra",
+  "fuori": "vuoto"
+ },
+ "ep5.json:T4": {
+  "pav": "navata",
+  "fuori": "vuoto"
+ },
+ "ep5.json:T5": {
+  "pav": "metallo",
+  "fuori": "vuoto"
+ },
+ "ep5.json:T6": {
+  "pav": "navata",
+  "fuori": "vuoto"
+ },
+ "ep6.json:T1": {
+  "pav": "acqua",
+  "fuori": "vuoto"
+ },
+ "ep6.json:T2": {
+  "pav": "acqua",
+  "fuori": "acqua"
+ },
+ "ep6.json:T3": {
+  "pav": "acqua",
+  "fuori": "vuoto"
+ },
+ "ep6.json:T4": {
+  "pav": "melma",
+  "fuori": "melma"
+ },
+ "ep6.json:T5": {
+  "pav": "acqua",
+  "fuori": "vuoto"
+ },
+ "ep6.json:T6": {
+  "pav": "acqua",
+  "fuori": "vuoto"
+ },
+ "ep6.json:T7": {
+  "pav": "navata",
+  "fuori": "vuoto"
+ },
+ "ep6.json:T8": {
+  "pav": "mattonelle",
+  "fuori": "vuoto"
+ },
+ "ep7.json:T1": {
+  "pav": "lastricato",
+  "fuori": "vuoto"
+ },
+ "ep7.json:T2": {
+  "pav": "mattonelle",
+  "fuori": "vuoto"
+ },
+ "ep7.json:T3P": {
+  "pav": "assi",
+  "fuori": "acqua"
+ },
+ "ep7.json:T4P": {
+  "pav": "lastricato",
+  "fuori": "vuoto"
+ },
+ "ep7.json:T3I": {
+  "pav": "roccia",
+  "fuori": "roccia"
+ },
+ "ep7.json:T4I": {
+  "pav": "metallo",
+  "fuori": "vuoto"
+ },
+ "ep7.json:T5I": {
+  "pav": "assi",
+  "fuori": "vuoto"
+ },
+ "ep7.json:T6": {
+  "pav": "roccia",
+  "fuori": "roccia"
+ },
+ "ep8.json:T1": {
+  "pav": "assi",
+  "fuori": "acqua"
+ },
+ "ep8.json:T2": {
+  "pav": "acqua",
+  "fuori": "acqua"
+ },
+ "ep8.json:T3": {
+  "pav": "mattoni",
+  "fuori": "vuoto"
+ },
+ "ep8.json:T4": {
+  "pav": "mattoni",
+  "fuori": "vuoto"
+ },
+ "ep8.json:T5": {
+  "pav": "mattonelle",
+  "fuori": "vuoto"
+ },
+ "ep8.json:T6": {
+  "pav": "acqua",
+  "fuori": "vuoto"
+ },
+ "ep9.json:T1": {
+  "pav": "navata",
+  "fuori": "vuoto"
+ },
+ "ep9.json:T2": {
+  "pav": "lastricato",
+  "fuori": "terra"
+ },
+ "ep9.json:T3": {
+  "pav": "assi",
+  "fuori": "acqua"
+ },
+ "ep9.json:T4": {
+  "pav": "ghiaia",
+  "fuori": "terra"
+ },
+ "ep9.json:T5": {
+  "pav": "lastricato",
+  "fuori": "vuoto"
+ },
+ "ep9.json:T6": {
+  "pav": "assi",
+  "fuori": "acqua"
+ },
+ "preludio.json:T1": {
+  "pav": "assi",
+  "fuori": "acqua"
+ },
+ "preludio.json:T2": {
+  "pav": "tavolato",
+  "fuori": "vuoto"
+ },
+ "preludio.json:T4": {
+  "pav": "mattonelle",
+  "fuori": "vuoto"
+ }
+}
