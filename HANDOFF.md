@@ -38,6 +38,21 @@ del piano (`FA()` → `/assets/vtt/`, cancellare `tessere-alt/fa/`) — `FA()` n
 con `5-spedizione.html`; toccarlo e' fuori dalla lista file del Task 2. `tessere-alt/fa/`
 resta per ora (cancellarlo romperebbe il mockup finche' `FA()` non e' ripuntato).
 
+**Task 3 FATTO (25/09/2026)**: composizione della stanza. `webapp/public/js/plancia/ambiente-fa.js`
+(decori di ripiego per famiglia di pavimento con seme stabile, `arredoFa`/`arredoDelPosto`,
+`torceDi`) e `stanza.js` (`stanzaHtml`, portato dal mockup `lanterne.js` con le porte dove
+le mette `portaCella`, non a indice fisso). `decoriDi(ep, tile)`: se `tile.scena` esiste
+(scenografia scritta, Task 7/8) vince quella, altrimenti la regola di ripiego — la strada
+c'e', il contenuto lo scrivono i task dopo. `export-data.py` fonde `src/scenografia/<id>.json`
+in ogni tessera prima del dump, se il file esiste (verificato: senza, export bit-identico a
+prima; con un fisso di prova, `scena` compare solo sulla tessera giusta; `sys.exit` se la
+scenografia nomina una stanza che l'episodio non ha). Test: `test-stanza.mjs` (127 tessere +
+3 casi Review Focus: porta con arredo davanti, scale sparse, altari in verticale), tutti e tre
+i sabotaggi del piano mordono (porta a indice fisso, `libere()` senza porte, seme con
+`Math.random`); `test-scenografia.mjs` (0 scenografie oggi, sabotaggio con `ep1.json` finto
+verificato a mano e cancellato). `src/scenografia/` non esiste ancora (vuota per davvero,
+la popolano i Task 7-8).
+
 ## FATTO (22/09/2026) — i vantaggi d'Indagine arrivano in Spedizione (audit + correzioni)
 
 Report: `AUDIT-VANTAGGI-INDAGINE.md`. Banco: `node webapp/audit-vantaggi.mjs [porta]

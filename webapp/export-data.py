@@ -1784,10 +1784,31 @@ def senza_reportlab(v):
     return v
 
 
+# LA SCENOGRAFIA SCRITTA (docs/scenografia.md): i decori di ogni stanza,
+# composti a mano leggendo il testo. Sta in src/ perche' e' sorgente, non
+# un derivato: webapp/data/ si rigenera, questa no.
+SCENA = os.path.join(ROOT, 'src', 'scenografia')
+
+
+def con_scenografia(obj):
+    p = os.path.join(SCENA, f"{obj.get('id')}.json")
+    if not os.path.exists(p):
+        return obj
+    with open(p, encoding='utf-8') as f:
+        sc = json.load(f)
+    ignote = set(sc) - {t['id'] for t in obj.get('tessere', [])}
+    if ignote:
+        sys.exit(f"scenografia {obj.get('id')}: stanze che l'episodio non ha: {sorted(ignote)}")
+    for t in obj.get('tessere', []):
+        if t['id'] in sc:
+            t['scena'] = sc[t['id']]
+    return obj
+
+
 def dump(name, obj):
     p = os.path.join(OUT, name)
     with open(p, 'w', encoding='utf-8') as f:
-        json.dump(senza_reportlab(obj), f, ensure_ascii=False, indent=1, sort_keys=True)
+        json.dump(con_scenografia(senza_reportlab(obj)), f, ensure_ascii=False, indent=1, sort_keys=True)
     print('ok ->', p)
 
 
