@@ -1,0 +1,44 @@
+{
+  "T1": {
+    "decori": [
+      { "pezzo": "botola",    "x": 2.5,  "y": 2.5,  "lato": 0.9,  "rot": 0 },
+      { "pezzo": "cero",      "x": 1.55, "y": 2.35, "lato": 0.3,  "rot": 0, "luce": "cera" },
+      { "pezzo": "sacco",     "x": 0.45, "y": 3.45, "lato": 0.6,  "rot": 20 },
+      { "pezzo": "ragnatela", "x": 3.62, "y": 0.38, "lato": 0.8,  "rot": -90 }
+    ],
+    "perche": "Ultimo riparo prima dei tetti: il punto focale e' la botola da cui si esce, col cero mozzo accanto — l'unica luce, piccola, che il vento dalle fessure fa tremare. Le casse (arredi) dicono che era un deposito; un sacco dimenticato, e una ragnatela nell'angolo dove il vento non arriva."
+  },
+  "T2": {
+    "decori": [
+      { "pezzo": "ali-di-pietra", "x": 0.25, "y": 1.5, "lato": 1.0, "rot": 90 }
+    ],
+    "perche": "Il testo dice che quassu' non resta niente che non sia inchiodato: niente oggetti. Solo i comignoli (arredi) e, sul bordo verso il vuoto, un paio d'ali di pietra: architettura, l'unica cosa che il vento non si porta via. Nessuna luce: il vuoto e il buio sono la scena."
+  },
+  "T3": {
+    "decori": [
+      { "pezzo": "campana-grande-2", "x": 3.2,  "y": 3.2,  "lato": 1.1,  "rot": 200 },
+      { "pezzo": "detriti-bronzo",   "x": 2.4,  "y": 2.6,  "lato": 0.6,  "rot": 40 },
+      { "pezzo": "nido",             "x": 0.5,  "y": 3.5,  "lato": 0.6,  "rot": 0 },
+      { "pezzo": "ragnatela",        "x": 3.62, "y": 0.38, "lato": 0.8,  "rot": -90 },
+      { "pezzo": "calcinacci",       "x": 2.6,  "y": 0.45, "lato": 0.45, "rot": 10 }
+    ],
+    "perche": "La cella campanaria: le due casse dei dati diventano i bronzi enormi appesi. Il punto focale e' una campana caduta e spaccata a terra, coi frammenti di bronzo intorno — i rintocchi che assordano vengono da qualcosa che si e' gia' rotto. Nidi di piccioni e una ragnatela nella nicchia dove il vento non arriva. Riparata ma buia: nessun fuoco nel testo. La corda del campanaro si trova cercando: non si mette in scena."
+  },
+  "T4": {
+    "decori": [
+      { "pezzo": "calcinacci",   "x": 3.3, "y": 2.4, "lato": 0.5,  "rot": 60 },
+      { "pezzo": "calcinacci-2", "x": 0.5, "y": 2.6, "lato": 0.45, "rot": -30 }
+    ],
+    "perche": "Tetto ripido col vento forte: quasi niente resta. Il comignolo e la statua incappucciata sul colmo (arredi) sono le sole cose ferme, e la statua — una figura del coro con la lanterna, di pietra — e' il punto focale: guarda chi passa. Due tegole smosse ai margini dicono che la grondaia cede. Il treppiede del geometra si trova cercando."
+  },
+  "T5": {
+    "decori": [
+      { "pezzo": "ali-di-pietra", "x": 3.75, "y": 2.5, "lato": 1.0, "rot": -90 }
+    ],
+    "perche": "Il testo e' netto: su questo anello di pietra non si posa nulla. Nessun oggetto; solo un paio d'ali di pietra sul parapetto verso la citta', che sotto si vede tutta (il fondo della plancia e' la citta' con le sue finestre accese). Il vuoto fa la scena."
+  },
+  "T6": {
+    "decori": [],
+    "perche": "La cima: il testo dice che il vento strappa di mano qualunque cosa. Niente decori: solo la statua della Morte (arredo) sulla guglia, e il vuoto intorno. E' la stanza piu' spoglia dell'episodio, ed e' giusto cosi': la resa dei conti si fa tra due persone e il vento."
+  }
+}

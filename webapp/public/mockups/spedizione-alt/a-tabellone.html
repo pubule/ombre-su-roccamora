@@ -1,0 +1,145 @@
+<!doctype html><html lang="it"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Spedizione A · il tabellone</title>
+<link rel="stylesheet" href="comune.css">
+<style>
+/* A — IL TABELLONE (Dark Quest, HeroQuest digitale).
+   La mappa e' la pagina, tutto il resto galleggia ai bordi: in alto il capo
+   (canto e round) e la fila dell'iniziativa, in basso la carta dell'eroe di
+   turno e la barra delle azioni a icone. Niente colonne da scorrere: quel che
+   serve per giocare sta tutto nello schermo. */
+.a { position: fixed; inset: 0; display: grid; grid-template-rows: auto 1fr auto; }
+.a .plancia { grid-row: 2; grid-column: 1; min-height: 0; }
+.a .su, .a .giu { grid-column: 1; z-index: 5; padding: 10px 14px; display: flex; gap: 10px; pointer-events: none; }
+.a .su > *, .a .giu > * { pointer-events: auto; }
+.a .su { grid-row: 1; align-items: flex-start; justify-content: space-between;
+  background: linear-gradient(#0c0e11ee, #0c0e1100); }
+.a .giu { grid-row: 3; align-items: flex-end; background: linear-gradient(#0c0e1100, #0c0e11f2 40%); }
+
+.capo { display: flex; align-items: center; gap: 12px; padding: 8px 12px; }
+.capo .canto { display: flex; gap: 3px; align-items: flex-end; }
+.capo .quante { font-size: 14px; color: var(--osso-fioco); white-space: nowrap; }
+.capo .quante b { color: #f19aa3; font-weight: normal; }
+.capo .ic { width: 18px; height: 18px; color: #e0707a; }
+.comandi { display: flex; gap: 6px; }
+
+/* L'INIZIATIVA: chi agisce e in che ordine, eroi e notte sulla stessa fila */
+.fila { display: flex; align-items: center; gap: 6px; padding: 6px 10px; }
+.fila .r { position: relative; width: 44px; height: 44px; border-radius: 50%; overflow: hidden; border: 2px solid var(--nastro); transition: all .2s; }
+.fila .r img { width: 100%; height: 100%; object-fit: cover; }
+.fila .r.nem { border-color: var(--segnale-nemico); }
+.fila .r.on { width: 56px; height: 56px; box-shadow: 0 0 14px rgba(232,194,122,.8); }
+.fila .r.nem.on { box-shadow: 0 0 14px rgba(200,50,63,.9); }
+.fila .r.fatto, .fila .r.giu { filter: grayscale(1) brightness(.5); }
+.fila .sep { font-size: 11px; color: #e0707a; padding: 0 4px; writing-mode: vertical-rl; transform: rotate(180deg); }
+
+/* la carta dell'eroe di turno, in basso a sinistra (Darkest Dungeon) */
+.carta-eroe { display: flex; gap: 12px; padding: 10px 14px 10px 10px; align-items: center; min-width: 290px; }
+.carta-eroe .rit { width: 76px; height: 76px; border-radius: 8px; overflow: hidden; border: 2px solid var(--nastro); flex: none; }
+.carta-eroe .rit img { width: 100%; height: 100%; object-fit: cover; }
+.carta-eroe .nome { font-size: 20px; color: var(--nastro-chiaro); }
+.carta-eroe .ruolo { font-size: 13px; color: var(--osso-fioco); font-style: italic; margin-bottom: 4px; }
+.carta-eroe .riga { display: flex; align-items: center; gap: 4px; font-size: 12px; color: var(--osso-fioco); }
+.carta-eroe .riga span { width: 54px; }
+
+/* la barra delle azioni: icone grandi, il nome sotto, lo stato in una parola */
+.barra { display: flex; gap: 4px; padding: 6px; margin: 0 auto; }
+.az { display: flex; flex-direction: column; align-items: center; gap: 2px; width: 84px; padding: 8px 4px 6px; border-radius: 8px;
+  border: 1px solid transparent; }
+.az .ic { width: 28px; height: 28px; }
+.az .n { font: 13px 'FellSC', serif; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
+.az .s { font-size: 11px; color: var(--osso-fioco); font-style: italic; white-space: nowrap; }
+.az:not(:disabled):hover { background: var(--ardesia-alta); border-color: var(--bordo-alto); }
+.az.sel { background: rgba(232,194,122,.14); border-color: var(--nastro); color: var(--nastro-chiaro); }
+.az.fatto .s { color: #b5e6c9; }
+.az:disabled { opacity: .32; cursor: default; }
+.fine { padding: 18px 22px; font-size: 16px; border-radius: 12px; align-self: stretch; }
+.fine.spinge { animation: spinge 1.4s infinite; }
+@keyframes spinge { 50% { box-shadow: 0 0 0 6px rgba(232,194,122,.25); } }
+
+.suggerisce { position: absolute; left: 50%; bottom: 128px; transform: translateX(-50%); z-index: 6; padding: 7px 16px;
+  font-size: 15px; font-style: italic; white-space: nowrap; pointer-events: none; }
+.fatto-ultimo { position: absolute; left: 14px; top: 76px; z-index: 6; max-width: 360px; padding: 8px 12px; font-size: 14px;
+  border-left: 2px solid var(--nastro); transition: opacity .4s; }
+
+/* LA NOTTE: quando agisce, lo schermo lo dice tutto — velo rosso ai bordi */
+.a::after { content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 4; transition: box-shadow .5s;
+  box-shadow: inset 0 0 0 0 transparent; }
+.a.notte::after { box-shadow: inset 0 0 140px 20px rgba(140, 20, 35, .55); }
+
+@media (max-width: 720px) {
+  .a .su { flex-wrap: wrap; padding: 8px; }
+  .capo { flex: 1; }
+  .fila { order: 3; width: 100%; justify-content: center; }
+  .fila .r { width: 36px; height: 36px; } .fila .r.on { width: 44px; height: 44px; }
+  .a .giu { flex-direction: column; align-items: stretch; padding: 8px; gap: 6px; }
+  .carta-eroe { min-width: 0; padding: 6px 10px 6px 6px; }
+  .carta-eroe .rit { width: 52px; height: 52px; }
+  .carta-eroe .nome { font-size: 17px; }
+  .barra { width: 100%; justify-content: space-between; }
+  .az { width: auto; flex: 1; padding: 6px 2px; } .az .s { display: none; }
+  .fine { padding: 12px; }
+  .suggerisce { bottom: auto; top: 178px; font-size: 13px; white-space: normal; width: max-content; max-width: 92%; text-align: center; }
+  .fatto-ultimo { display: none; }
+}
+</style></head><body>
+<div class="a" id="a">
+  <div id="pl"></div>
+  <div class="su">
+    <div class="capo lastra" id="capo"></div>
+    <div class="fila lastra" id="fila"></div>
+    <div class="comandi">
+      <button class="btn" aria-label="suoni"><svg class="ic" viewBox="0 0 24 24"><path d="M9 18V6l10-2v12"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="16" r="2"/></svg></button>
+      <button class="btn"><svg class="ic" viewBox="0 0 24 24"><path d="M9 3h6M8 6h8l-1 3H9zM7 9h10v9a3 3 0 0 1-3 3h-4a3 3 0 0 1-3-3z"/></svg>menu</button>
+    </div>
+  </div>
+  <div class="giu">
+    <div class="carta-eroe lastra" id="eroe" ></div>
+    <div class="barra lastra" id="barra"></div>
+    <button class="btn pieno fine" id="fine">ha finito →</button>
+  </div>
+  <div class="suggerisce lastra" id="sug"></div>
+  <div class="fatto-ultimo lastra" id="ultimo"></div>
+</div>
+<a class="torna" href="index.html">← le alternative</a>
+<script src="comune.js"></script>
+<script>
+const { S, art, esc, plancia, ascolta, agg, azioni, premi, suggerimento, pips, campane, icona, att, restano, nemiciVivi } = SPED;
+plancia(document.getElementById('pl'), { margine: 40 });
+const $ = (id) => document.getElementById(id);
+function hud() {
+  $('a').classList.toggle('notte', S.fase === 'nemici');
+  $('capo').innerHTML = `${icona('campana')}<span class="canto">${campane()}</span>
+    <span class="quante sc">canto <b>${S.canto}</b>/${S.cantoMax} · round ${S.round}</span>`;
+  $('fila').innerHTML = S.eroi.map((e, i) => `<button class="r${S.fase === 'eroi' && i === S.attivo ? ' on' : ''}${e.finito && e.hp > 0 ? ' fatto' : ''}${e.hp <= 0 ? ' giu' : ''}"
+      data-eroe="${e.id}" title="${esc(e.nome)}"><img src="${art(e.art)}" alt=""></button>`).join('') +
+    `<span class="sep sc">la notte</span>` +
+    nemiciVivi().map((n) => `<span class="r nem${S.agisce === n.id ? ' on' : ''}" title="${esc(n.nome)}"><img src="${art(n.art)}" alt=""></span>`).join('');
+  const e = att();
+  $('eroe').innerHTML = `<div class="rit"><img src="${art(e.art)}" alt=""></div><div>
+    <div class="nome sc">${esc(e.nome)}</div><div class="ruolo">${esc(e.ruolo)}</div>
+    <div class="riga"><span>salute</span>${pips(e.hp, e.max, 'vita')}</div>
+    <div class="riga"><span>azioni</span>${pips(restano(e), 2, 'az')}</div>
+    <div class="riga"><span>cariche</span>${pips(e.car, e.carMax, 'car')}</div></div>`;
+  $('barra').innerHTML = azioni().map((z) => `<button class="az${S.modo === z.id ? ' sel' : ''}${z.fatto ? ' fatto' : ''}" data-az="${z.id}" ${z.ok ? '' : 'disabled'}>
+    ${icona(z.id)}<span class="n">${esc(z.nome)}</span><span class="s">${z.fatto ? 'fatto' : esc(z.nota)}</span></button>`).join('');
+  $('fine').disabled = S.fase !== 'eroi';
+  $('fine').textContent = S.eroi.filter((x) => !x.finito && x.hp > 0).length <= 1 ? 'la notte reagisce →' : `${e.nome} ha finito →`;
+  $('fine').classList.toggle('spinge', S.fase === 'eroi' && restano(e) <= 0);
+  // sul telefono non c'e' posto per due righe: l'ultimo fatto prende il posto
+  // del suggerimento per qualche secondo, poi torna il suggerimento
+  const fresco = S.ultimo && Date.now() - S.ultimo.t < 2500 && matchMedia('(max-width: 720px)').matches;
+  $('sug').innerHTML = fresco ? `<span class="tono-${S.ultimo.tono}">${esc(S.ultimo.testo)}</span>` : esc(suggerimento());
+  if (fresco) { clearTimeout(hud.t); hud.t = setTimeout(hud, 2600); }
+  const u = S.ultimo;
+  $('ultimo').innerHTML = u ? `<span class="tono-${u.tono}">${esc(u.testo)}</span>` : '';
+  $('ultimo').style.opacity = u ? 1 : 0;
+}
+document.addEventListener('click', (ev) => {
+  const b = ev.target.closest('[data-az]'); if (b) return premi(b.dataset.az);
+  const r = ev.target.closest('[data-eroe]'); if (r) return SPED.seleziona(r.dataset.eroe);
+  if (ev.target.closest('#fine')) premi('fine');
+});
+ascolta.push(hud); hud();
+</script>
+</body></html>

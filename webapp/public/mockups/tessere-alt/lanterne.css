@@ -1,0 +1,57 @@
+/* LA PLANCIA A LANTERNE — la usano 1-lanterne.html e 5-spedizione.html.
+   Stanze composte coi pezzi di Forgotten Adventures, buio su canvas, luci che
+   tremano. Asset CC BY-NC-SA 4.0 — «Mappe realizzate con asset di Forgotten
+   Adventures». */
+.plancia-l { position: relative; overflow: hidden; min-height: 0; touch-action: none; background: #050608; }
+.plancia-l .mondo { position: absolute; left: 0; top: 0; transform-origin: 0 0; transition: transform .9s cubic-bezier(.3,.7,.2,1); }
+.plancia-l .mondo > * { position: absolute; left: 0; top: 0; }
+.stanza { position: absolute; }
+.stanza.lampo { animation: lampo 1.4s ease-out; }
+@keyframes lampo { 0% { filter: brightness(2.4) saturate(.6); } 100% { filter: none; } }
+.fessura { position: absolute; pointer-events: none; border-radius: 50%; filter: blur(3px);
+  background: radial-gradient(closest-side, rgba(255, 196, 110, .9), rgba(255, 150, 60, .35) 50%, transparent);
+  animation: respiro 2.6s ease-in-out infinite; }
+.fessura.forte { background: radial-gradient(closest-side, rgba(255, 170, 70, 1), rgba(255, 120, 40, .5) 55%, transparent); }
+@keyframes respiro { 50% { opacity: .55; } }
+/* le caselle: quadrati, turchese per muovere, oro per svelare, rosso per colpire */
+.cella { position: absolute; z-index: 6; display: grid; place-items: center; }
+.cella::after { content: ''; width: 72%; height: 72%; border-radius: 8px; border: 3px solid rgba(127, 230, 219, .7);
+  box-shadow: 0 0 12px rgba(127,230,219,.5), inset 0 0 10px rgba(127,230,219,.35); transition: transform .15s, background .15s; }
+.cella:hover::after { transform: scale(1.1); background: rgba(127,230,219,.18); }
+.cella.rivela::after { border-color: var(--segnale-rivela); box-shadow: 0 0 16px rgba(216,178,94,.75), inset 0 0 10px rgba(216,178,94,.4); }
+.cella.colpo::after { width: 92%; height: 92%; border-color: #e0505f; box-shadow: 0 0 16px rgba(224,80,95,.8), inset 0 0 12px rgba(224,80,95,.45);
+  animation: mira 1.1s ease-in-out infinite; }
+@keyframes mira { 50% { transform: scale(1.06); } }
+.tok { position: absolute; left: 0; top: 0; z-index: 5; will-change: transform; border-radius: 50%; border: 2px solid var(--nastro);
+  box-shadow: 0 4px 10px rgba(0,0,0,.8); }
+.tok img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; display: block; }
+.tok.on { box-shadow: 0 0 0 3px var(--nastro), 0 0 18px rgba(232,194,122,.8); }
+.tok.nemico { border-color: var(--segnale-nemico); }
+.tok.nemico.boss { border-width: 3px; }
+.tok.agisce { box-shadow: 0 0 0 3px var(--segnale-nemico), 0 0 22px rgba(200,50,63,.9); }
+.tok.indicato { box-shadow: 0 0 0 4px #fff3cf, 0 0 24px rgba(255,243,207,.8); }
+.tok.giu img { filter: grayscale(1) brightness(.45); }
+.tok.colpito { animation: scossa .45s; }
+@keyframes scossa { 20% { filter: brightness(2.2) sepia(1) hue-rotate(-40deg) saturate(5); } 40% { margin-left: -4px; } 60% { margin-left: 4px; } }
+.tok .pv { position: absolute; right: -4%; bottom: -4%; min-width: 38%; padding: 0 4px; border-radius: 99px; background: #15171b;
+  border: 1px solid rgba(255,255,255,.25); font: 700 calc(var(--cell) * .2)/1.35 'OldStd', serif; text-align: center; color: var(--osso); }
+.tok .pv.grave { background: var(--ceralacca); color: #fff; border-color: transparent; }
+/* il buio e il calore: due canvas a UN QUARTO della risoluzione, allargati dal
+   CSS. Sono sfumature: ingrandite non perdono niente e costano un sedicesimo
+   dei pixel. La maschera SVG faceva scattare il telefono. */
+canvas.buio { z-index: 4; pointer-events: none; }
+canvas.calore { z-index: 2; pointer-events: none; opacity: .32; }
+.plancia-l::after { content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 15;
+  background: radial-gradient(ellipse at 50% 50%, transparent 45%, rgba(3, 5, 8, .75) 100%); }
+.l-stanze { will-change: transform; }
+.pav { position: absolute; background-size: calc(var(--cell) * 4); filter: brightness(.46) saturate(.4) sepia(.25) hue-rotate(-8deg); }
+.pav.acqua { overflow: hidden; filter: none; }
+.pav.acqua .onda { position: absolute; left: 0; top: 0; width: 200%; height: 200%; background-size: calc(var(--cell) * 4);
+  filter: brightness(.45) saturate(.6) hue-rotate(-10deg); will-change: transform; animation: onda 14s linear infinite; }
+@keyframes onda { to { transform: translate(-50%, -25%); } }
+.pezzo-fa { position: absolute; pointer-events: none; background-size: contain; background-repeat: no-repeat; background-position: center; }
+.pezzo-fa.ombra { filter: drop-shadow(3px 5px 4px rgba(0,0,0,.75)); }
+.pezzo-fa.decoro { opacity: .9; }
+.pezzo-fa.fiamma { filter: drop-shadow(0 0 8px rgba(255, 170, 70, .9)); }
+.nome-stanza { position: absolute; z-index: 7; pointer-events: none; font: 13px 'FellSC', serif; color: var(--nastro-chiaro);
+  text-shadow: 0 1px 4px #000, 0 0 10px #000; opacity: .75; }

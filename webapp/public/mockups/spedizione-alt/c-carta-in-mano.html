@@ -1,0 +1,122 @@
+<!doctype html><html lang="it"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Spedizione C · la carta in mano</title>
+<link rel="stylesheet" href="comune.css">
+<style>
+/* C — LA CARTA IN MANO (Darkest Dungeon, Into the Breach, pensato dal telefono).
+   Sotto il pollice c'e' LA CARTA DELL'EROE: e' di carta perche' al tavolo la
+   carta eroe esiste davvero (la regola della pergamena). Sei tasti grandi, uno
+   per azione. Il canto non e' un numero: e' la nebbia che si stringe attorno
+   alla mappa, piu' sale piu' chiude. */
+.c { position: fixed; inset: 0; display: grid; grid-template-columns: 1fr 400px; }
+.scena { position: relative; min-height: 0; display: grid; }
+.c .plancia { grid-area: 1 / 1; min-height: 0; }
+.velo-canto { grid-area: 1 / 1; pointer-events: none; z-index: 5; transition: box-shadow 1.2s;
+  box-shadow: inset 0 0 calc(var(--k) * 220px) calc(var(--k) * 60px) rgba(40, 8, 14, calc(.35 + var(--k) * .55)); }
+.campane { position: absolute; z-index: 6; top: 10px; left: 10px; display: flex; gap: 8px; align-items: center; padding: 6px 12px; }
+.campane .ic { color: #e0707a; }
+.campane b { font: 22px 'FellSC', serif; color: #f19aa3; font-weight: normal; }
+.campane small { color: var(--osso-fioco); font-size: 13px; }
+.menu { position: absolute; z-index: 6; top: 10px; right: 10px; display: flex; gap: 6px; }
+.voce { position: absolute; z-index: 6; left: 50%; bottom: 12px; transform: translateX(-50%); max-width: 92%;
+  padding: 7px 14px; font-size: 14px; text-align: center; }
+
+.mano { display: flex; flex-direction: column; gap: 10px; padding: 12px; background: #0a0b0e; border-left: 1px solid var(--bordo); overflow-y: auto; }
+/* gli altri eroi: ritratti con l'anello della salute, si tocca per passare */
+.altri { display: flex; gap: 10px; justify-content: center; }
+.altri button { position: relative; width: 58px; height: 58px; border-radius: 50%; padding: 4px;
+  background: conic-gradient(var(--ceralacca) calc(var(--v) * 1turn), rgba(255,255,255,.08) 0); }
+.altri img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 2px solid #0a0b0e; }
+.altri button.on { outline: 2px solid var(--nastro); outline-offset: 3px; }
+.altri button.fatto img, .altri button.giu img { filter: grayscale(1) brightness(.5); }
+.altri button .n { position: absolute; left: 50%; bottom: -16px; transform: translateX(-50%); font: 11px 'FellSC', serif; color: var(--osso-fioco); }
+
+.carta { position: relative; margin-top: 10px; background: var(--carta); color: var(--carta-ink); border-radius: 12px; padding: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.6), inset 0 0 0 1px rgba(0,0,0,.12), inset 0 0 40px rgba(120, 90, 40, .25);
+  transition: transform .25s; }
+.carta.gira { transform: rotateY(90deg); }
+.carta .testa { display: flex; gap: 12px; align-items: center; }
+.carta .rit { width: 92px; height: 92px; border-radius: 8px; overflow: hidden; border: 2px solid #5a4a2e; flex: none; }
+.carta .rit img { width: 100%; height: 100%; object-fit: cover; }
+.carta .nome { font: 26px 'FellSC', serif; line-height: 1; }
+.carta .ruolo { font-style: italic; color: #6b5a3c; margin: 2px 0 8px; }
+.carta .vita { display: flex; gap: 3px; }
+.carta .vita .ic { width: 20px; height: 20px; stroke: #8e2632; }
+.carta .vita .ic.pieno { fill: #b83240; }
+.carta .az-conto { margin-top: 6px; font-size: 14px; }
+.carta .az-conto b { font-size: 18px; }
+.carta hr { border: 0; border-top: 1px solid rgba(43,36,24,.25); margin: 10px 0; }
+.tasti { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+.tasto { display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 12px 4px; border-radius: 10px;
+  background: #d3c59f; border: 1px solid rgba(43,36,24,.3); color: var(--carta-ink); min-height: 76px; }
+.tasto .ic { width: 30px; height: 30px; }
+.tasto .n { font: 14px 'FellSC', serif; line-height: 1.1; text-align: center; }
+.tasto .s { font-size: 11px; font-style: italic; color: #6b5a3c; }
+.tasto.sel { background: #2b2418; color: var(--nastro-chiaro); } .tasto.sel .s { color: var(--nastro); }
+.tasto:disabled { opacity: .35; }
+.tasto.fine { background: #2b2418; color: var(--nastro); }
+.tasto.fine.spinge { animation: spinge 1.3s infinite; }
+@keyframes spinge { 50% { box-shadow: 0 0 0 5px rgba(232,194,122,.35); } }
+.accaduto { font-size: 14px; padding: 8px 12px; border-left: 2px solid var(--nastro); }
+
+@media (max-width: 820px) {
+  .c { grid-template-columns: 1fr; grid-template-rows: 1fr auto; }
+  .mano { border-left: 0; border-top: 1px solid var(--bordo); padding: 8px 10px 26px; gap: 6px; max-height: 60vh; }
+  .altri button { width: 44px; height: 44px; padding: 3px; } .altri button .n { display: none; }
+  .carta { margin-top: 2px; padding: 10px; }
+  .carta .rit { width: 62px; height: 62px; } .carta .nome { font-size: 22px; } .carta .ruolo { margin-bottom: 4px; }
+  .carta hr { margin: 8px 0; }
+  .tasto { min-height: 60px; padding: 8px 2px; } .tasto .ic { width: 24px; height: 24px; } .tasto .s { display: none; }
+  .accaduto { display: none; }
+  .campane { top: 6px; left: 6px; } .menu { top: 6px; right: 6px; }
+}
+</style></head><body>
+<div class="c">
+  <div class="scena">
+    <div id="pl"></div>
+    <div class="velo-canto" id="velo"></div>
+    <div class="campane lastra" id="campane"></div>
+    <div class="menu"><button class="btn" aria-label="suoni"><svg class="ic" viewBox="0 0 24 24"><path d="M9 18V6l10-2v12"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="16" r="2"/></svg></button>
+      <button class="btn"><svg class="ic" viewBox="0 0 24 24"><path d="M9 3h6M8 6h8l-1 3H9zM7 9h10v9a3 3 0 0 1-3 3h-4a3 3 0 0 1-3-3z"/></svg>menu</button></div>
+    <div class="voce lastra" id="voce"></div>
+  </div>
+  <div class="mano">
+    <div class="altri" id="altri"></div>
+    <div class="carta" id="carta"></div>
+    <div class="accaduto lastra" id="accaduto"></div>
+  </div>
+</div>
+<a class="torna" href="index.html">← le alternative</a>
+<script src="comune.js"></script>
+<script>
+const { S, art, esc, plancia, ascolta, azioni, premi, suggerimento, icona, att, restano } = SPED;
+plancia(document.getElementById('pl'), { mosseSempre: true, margine: 24 });
+const $ = (id) => document.getElementById(id);
+let ultimoEroe = null;
+function hud() {
+  $('velo').style.setProperty('--k', (S.canto / S.cantoMax).toFixed(2));
+  $('campane').innerHTML = `${icona('campana')}<b>${S.canto}</b><small>/${S.cantoMax} · round ${S.round}</small>`;
+  $('voce').innerHTML = S.fase === 'nemici' && S.ultimo ? `<span class="tono-${S.ultimo.tono}">${esc(S.ultimo.testo)}</span>` : esc(suggerimento());
+  $('altri').innerHTML = S.eroi.map((x, i) => `<button class="${S.fase === 'eroi' && i === S.attivo ? 'on' : ''}${x.finito && x.hp > 0 ? ' fatto' : ''}${x.hp <= 0 ? ' giu' : ''}"
+    data-eroe="${x.id}" style="--v:${(x.hp / x.max).toFixed(2)}" title="${esc(x.nome)} ${x.hp}/${x.max}"><img src="${art(x.art)}" alt=""><span class="n">${esc(x.nome)}</span></button>`).join('');
+  const e = att();
+  const cuori = Array.from({ length: e.max }, (_, i) => `<svg class="ic${i < e.hp ? ' pieno' : ''}" viewBox="0 0 24 24"><path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 10c0 5.5-7 10-7 10z"/></svg>`).join('');
+  const ultimo = S.eroi.filter((y) => !y.finito && y.hp > 0).length <= 1;
+  $('carta').innerHTML = `<div class="testa"><div class="rit"><img src="${art(e.art)}" alt=""></div><div>
+      <div class="nome">${esc(e.nome)}</div><div class="ruolo">${esc(e.ruolo)}</div>
+      <div class="vita">${cuori}</div>
+      <div class="az-conto">azioni: <b>${restano(e)}</b> di 2 · ${esc(e.ab.toLowerCase())} ${e.car}/${e.carMax}</div></div></div>
+    <hr><div class="tasti">${azioni().map((z) => `<button class="tasto${S.modo === z.id ? ' sel' : ''}" data-az="${z.id}" ${z.ok ? '' : 'disabled'}>
+      ${icona(z.id)}<span class="n">${esc(z.nome)}</span><span class="s">${z.fatto ? 'fatto' : esc(z.nota)}</span></button>`).join('')}
+      <button class="tasto fine${restano(e) <= 0 ? ' spinge' : ''}" data-az="fine" ${S.fase === 'eroi' ? '' : 'disabled'}>${icona('fine')}<span class="n">${ultimo ? 'la notte' : 'ha finito'}</span><span class="s">${ultimo ? 'reagisce' : 'passa'}</span></button></div>`;
+  if (ultimoEroe && ultimoEroe !== e.id) { $('carta').classList.add('gira'); setTimeout(() => $('carta').classList.remove('gira'), 130); }
+  ultimoEroe = e.id;
+  $('accaduto').innerHTML = S.ultimo ? `<span class="tono-${S.ultimo.tono}">${esc(S.ultimo.testo)}</span>` : 'La scala scende nel buio. Il canto, sotto, non smette.';
+}
+document.addEventListener('click', (ev) => {
+  const b = ev.target.closest('[data-az]'); if (b) return premi(b.dataset.az);
+  const r = ev.target.closest('.altri [data-eroe]'); if (r) SPED.seleziona(r.dataset.eroe);
+});
+ascolta.push(hud); hud();
+</script>
+</body></html>

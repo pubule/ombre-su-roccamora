@@ -1,0 +1,88 @@
+/* I pezzi che i tre mockup hanno in comune: gettoni, plancia, lastre, bottoni.
+   Stessi token dell'app (app.css), cosi' quel che si sceglie qui si porta di
+   la' senza tradurre. */
+@font-face { font-family: 'OldStd'; src: url('/fonts/OldStandard-Regular.ttf'); }
+@font-face { font-family: 'OldStd'; src: url('/fonts/OldStandard-Bold.ttf'); font-weight: bold; }
+@font-face { font-family: 'OldStd'; src: url('/fonts/OldStandard-Italic.ttf'); font-style: italic; }
+@font-face { font-family: 'FellSC'; src: url('/fonts/IMFellEnglishSC.ttf'); }
+
+:root {
+  --tavolo: #0c0e11; --ardesia: rgba(18, 21, 26, .82); --ardesia-alta: rgba(30, 35, 42, .86);
+  --bordo: rgba(255, 255, 255, .10); --bordo-alto: rgba(255, 255, 255, .18);
+  --osso: #edeef0; --osso-fioco: #b3b8c0; --ceralacca: #d9606d; --nastro: #e8c27a; --nastro-chiaro: #f4dcae;
+  --carta: #e8dfc6; --carta-scura: #dbcfae; --carta-ink: #2b2418;
+  --segnale-mossa: #7fe6db; --segnale-rivela: #d8b25e; --segnale-nemico: #c8323f;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+body { background: radial-gradient(90% 55% at 50% -10%, #16171b 0%, var(--tavolo) 70%), var(--tavolo);
+  color: var(--osso); font-family: 'OldStd', Georgia, serif; font-size: 16px; overflow: hidden; }
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+.sc { font-family: 'FellSC', serif; letter-spacing: .04em; }
+.lastra { background: var(--ardesia); border: 1px solid var(--bordo); border-radius: 10px; backdrop-filter: blur(10px); }
+.ic { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 9px 16px;
+  border-radius: 999px; background: var(--ardesia-alta); border: 1px solid var(--bordo-alto);
+  font-family: 'FellSC', serif; font-size: 15px; }
+.btn.pieno { background: var(--nastro); color: #1d1710; border-color: var(--nastro); }
+.btn:disabled { opacity: .35; cursor: default; }
+.torna { position: fixed; z-index: 50; left: 0; top: 50%; transform: translateY(-50%); writing-mode: vertical-rl; border-radius: 0 6px 6px 0; padding: 10px 3px !important; font: 12px 'FellSC', serif;
+  color: var(--osso-fioco); background: rgba(0,0,0,.55); padding: 3px 10px; border-radius: 99px; text-decoration: none; }
+
+/* ------------------------------------------------------------ la plancia */
+.plancia { position: relative; overflow: hidden; touch-action: manipulation; }
+.plancia .mondo { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); }
+.plancia .mondo > * { position: absolute; inset: 0; }
+.strato-intenti { pointer-events: none; overflow: visible; z-index: 3; }
+.strato-tok { z-index: 2; pointer-events: none; }
+.strato-celle { z-index: 4; pointer-events: none; }
+.stanza { position: absolute; background-size: cover; background-position: center;
+  outline: 1px solid rgba(216, 178, 94, .28); }
+.stanza .nome-stanza { position: absolute; left: 6px; bottom: 5px; font-size: 11px; color: var(--nastro-chiaro);
+  background: rgba(0,0,0,.6); padding: 1px 6px; border-radius: 3px; }
+.stanza.nebbia { background: repeating-linear-gradient(135deg, #111318 0 10px, #0d0f13 10px 20px); }
+.stanza.nebbia .velo { position: absolute; inset: 0; display: grid; place-items: center;
+  background: radial-gradient(circle, rgba(120,130,145,.18), transparent 70%); color: var(--osso-fioco); font-size: 13px; }
+.cella { position: absolute; left: 0; top: 0; pointer-events: auto; display: grid; place-items: center;
+  background: rgba(127, 230, 219, .16); border: 1px solid rgba(127, 230, 219, .5); }
+.cella::after { content: ''; width: 26%; height: 26%; border-radius: 50%; background: var(--segnale-mossa);
+  box-shadow: 0 0 10px var(--segnale-mossa); opacity: .85; }
+.cella.rivela { background: rgba(216, 178, 94, .22); border-color: var(--segnale-rivela); }
+.cella.rivela::after { background: var(--segnale-rivela); box-shadow: 0 0 12px var(--segnale-rivela); }
+.cella:hover { background: rgba(127, 230, 219, .3); }
+
+.tok { position: absolute; left: 0; top: 0; pointer-events: auto;
+  transition: transform .22s ease, filter .2s; }
+.tok img, .tok .sangue { position: absolute; inset: 8%; width: 84%; height: 84%; border-radius: 50%; object-fit: cover; }
+.tok img { border: 2px solid var(--nastro); background: #111; }
+.tok.nemico img { border-color: var(--segnale-nemico); }
+.tok.boss img { border-width: 3px; box-shadow: 0 0 16px rgba(200, 50, 63, .7); }
+.tok .sangue { background: linear-gradient(to top, rgba(150, 10, 25, .75) calc(var(--f) * 100%), transparent 0);
+  mix-blend-mode: multiply; pointer-events: none; }
+.tok .pv { position: absolute; right: 2%; bottom: 2%; min-width: 34%; padding: 0 3px; border-radius: 99px;
+  background: #15171b; border: 1px solid var(--bordo-alto); font: 700 calc(var(--cell) * .2)/1.35 'OldStd', serif; text-align: center; }
+.tok.grave .pv { background: var(--ceralacca); color: #fff; border-color: transparent; }
+.tok.eroe.attivo img { box-shadow: 0 0 0 3px var(--nastro), 0 0 22px rgba(232, 194, 122, .8); }
+.tok.fatto { filter: saturate(.3) brightness(.7); }
+.tok.giu { filter: grayscale(1) brightness(.45); }
+.tok.bersaglio img { animation: mira 1s infinite; }
+.tok.agisce img { box-shadow: 0 0 0 3px var(--segnale-nemico), 0 0 24px rgba(200, 50, 63, .9); }
+.tok.colpito { animation: scossa .45s; }
+@keyframes mira { 50% { box-shadow: 0 0 0 5px rgba(200, 50, 63, .9), 0 0 20px rgba(200, 50, 63, .8); } }
+@keyframes scossa { 20% { filter: brightness(2) sepia(1) hue-rotate(-40deg) saturate(5); } 40% { margin-left: -4px; } 60% { margin-left: 4px; } }
+
+.freccia { fill: none; stroke: #e0505f; stroke-width: 3; stroke-dasharray: 7 6; opacity: .85; animation: formiche 1s linear infinite; }
+.freccia.corta { opacity: .45; }
+@keyframes formiche { to { stroke-dashoffset: -26; } }
+.minaccia circle { fill: #a3253a; stroke: #fff; stroke-width: 1.5; }
+.minaccia text { fill: #fff; font: 700 13px 'OldStd', serif; text-anchor: middle; }
+
+/* ------------------------------------------------------------ pezzi */
+.pip { display: inline-block; width: 10px; height: 10px; border-radius: 50%; border: 1px solid var(--bordo-alto); background: rgba(255,255,255,.05); }
+.pip.p-vita.pieno { background: var(--ceralacca); border-color: var(--ceralacca); }
+.pip.p-az.pieno { background: var(--nastro); border-color: var(--nastro); box-shadow: 0 0 6px rgba(232,194,122,.6); }
+.pip.p-car.pieno { background: #8fb7ff; border-color: #8fb7ff; }
+.campana { display: inline-block; width: 9px; height: 14px; border-radius: 5px 5px 2px 2px; background: rgba(255,255,255,.08); border: 1px solid var(--bordo); }
+.campana.suona { background: #b8454f; border-color: #e0707a; box-shadow: 0 0 6px rgba(217, 96, 109, .55); }
+.campana.soglia { outline: 1px solid var(--nastro); outline-offset: 1px; }
+.tono-male { color: #f19aa3; } .tono-bene { color: #b5e6c9; }

@@ -1,0 +1,70 @@
+<!doctype html><html lang="it"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Spedizione · tre alternative</title>
+<link rel="stylesheet" href="comune.css">
+<style>
+body { overflow: auto; }
+.w { max-width: 1100px; margin: 0 auto; padding: 24px 16px 60px; }
+h1 { font: 30px 'FellSC', serif; color: var(--nastro-chiaro); }
+.sub { color: var(--osso-fioco); font-style: italic; margin: 4px 0 20px; }
+.oggi { display: grid; grid-template-columns: 320px 1fr; gap: 16px; padding: 14px; margin-bottom: 18px; align-items: start; }
+.oggi img { width: 100%; border-radius: 6px; border: 1px solid var(--bordo); }
+h2 { font: 20px 'FellSC', serif; color: var(--nastro); margin-bottom: 6px; }
+ul { padding-left: 18px; font-size: 15px; } li { margin: 3px 0; }
+.alt { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.alt a { display: flex; flex-direction: column; gap: 8px; padding: 14px; color: inherit; text-decoration: none; transition: border-color .2s; }
+.alt a:hover { border-color: var(--nastro); }
+.lettera { font: 44px 'FellSC', serif; color: var(--nastro); line-height: 1; }
+.ispira { font-size: 13px; color: var(--osso-fioco); font-style: italic; }
+.kpi { font-size: 13px; border-top: 1px solid var(--bordo); padding-top: 8px; margin-top: auto; }
+.kpi b { color: var(--nastro-chiaro); font-weight: normal; font-family: 'FellSC', serif; }
+.kpi .meno { color: #f19aa3; }
+.nota { margin-top: 18px; font-size: 14px; color: var(--osso-fioco); font-style: italic; }
+@media (max-width: 820px) { .oggi, .alt { grid-template-columns: 1fr; } }
+</style></head><body><div class="w">
+<h1>La Spedizione, tre strade</h1>
+<p class="sub">Mockup giocabili: stessa partita finta dell'Episodio 1, con arte e tessere vere. Muovete, attaccate, cercate, passate il turno: la notte reagisce davvero.</p>
+
+<div class="oggi lastra">
+  <img src="oggi.png" alt="la Spedizione com'è oggi">
+  <div><h2>Com'è oggi</h2><ul>
+    <li>In cima la barra vecchia («tutto a schermo»): non è il capo a card dell'Indagine, e il canto è solo una parola.</li>
+    <li>La mappa sta in un riquadro con tanto vuoto intorno; le tessere coperte occupano metà dello spazio.</li>
+    <li>La colonna destra scorre: la salute degli eroi è sotto la piega, proprio quella che serve per l'ansia.</li>
+    <li>Le azioni sono un muro di istruzioni (tre righe di «▸ tocca…») e pochi bottoni.</li>
+    <li>Quel che farà la notte si scopre solo dopo: nessun segnale prima del turno dei nemici.</li>
+  </ul></div>
+</div>
+
+<div class="alt">
+  <a class="lastra" href="a-tabellone.html">
+    <span class="lettera">A</span><h2>Il tabellone</h2>
+    <span class="ispira">Dark Quest, HeroQuest digitale, Darkest Dungeon</span>
+    <ul><li>La mappa è la pagina; tutto il resto galleggia ai bordi.</li>
+      <li>In alto il capo (canto a campane) e la fila dell'iniziativa: eroi e notte nello stesso ordine.</li>
+      <li>In basso la carta dell'eroe di turno e la barra delle azioni a icone; «Muovi» e «Attacca» accendono la mappa.</li>
+      <li>Una riga sola di suggerimento al posto delle istruzioni.</li></ul>
+    <div class="kpi"><b>immersione</b> e <b>giocabilità</b> alte: tutto a schermo, niente scroll.
+      <span class="meno">Salute degli altri eroi solo sui gettoni.</span></div>
+  </a>
+  <a class="lastra" href="b-tre-colonne.html">
+    <span class="lettera">B</span><h2>Tre colonne</h2>
+    <span class="ispira">Gloomhaven digitale, Mansions of Madness, Into the Breach</span>
+    <ul><li>A sinistra tutti gli eroi, sempre: salute, azioni, cariche. Le azioni stanno dentro la carta di chi è di turno.</li>
+      <li>A destra la notte: il canto come una torre con le soglie, il mazzo che cala.</li>
+      <li>Ogni nemico dice cosa farà: «→ Sibilla, −1».</li></ul>
+    <div class="kpi"><b>ansia</b> al massimo: la minaccia si vede arrivare.
+      <span class="meno">Mappa più stretta; su telefono diventa a schede.</span></div>
+  </a>
+  <a class="lastra" href="c-carta-in-mano.html">
+    <span class="lettera">C</span><h2>La carta in mano</h2>
+    <span class="ispira">Darkest Dungeon, Into the Breach, le app compagne da telefono</span>
+    <ul><li>Sotto il pollice la carta dell'eroe, di carta come quella del tavolo, con sei tasti grandi.</li>
+      <li>Gli altri eroi sono ritratti con l'anello della salute: un tocco e la carta gira.</li>
+      <li>Il canto è la nebbia rossa che stringe la mappa, più sale più chiude. Frecce della notte sulla mappa.</li></ul>
+    <div class="kpi"><b>coinvolgimento</b>: ognuno ha la sua carta in mano, anche dal telefono.
+      <span class="meno">Su tablet la carta ruba una colonna alla mappa.</span></div>
+  </a>
+</div>
+<p class="nota">I pezzi si mescolano: il capo a campane di A è quello dell'Indagine. Provateli anche col telefono: ognuno ha la sua versione stretta.</p>
+</div></body></html>

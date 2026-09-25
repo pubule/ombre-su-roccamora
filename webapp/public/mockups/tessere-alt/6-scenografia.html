@@ -1,0 +1,292 @@
+<!doctype html><html lang="it"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Scenografia · prova della guida</title>
+<link rel="stylesheet" href="mondo.css">
+<style>
+/* LA PROVA DELLA GUIDA (docs/scenografia.md). Un episodio intero, tutte le
+   stanze aperte, composte dai DATI VERI (arredi, uscite, porte di portaCella)
+   e dalla scenografia scritta a mano in scena/<ep>.json seguendo la guida.
+   «Luce piena» per giudicare la composizione; «come in partita» col buio vero,
+   e la lanterna del gruppo che si porta toccando una stanza. */
+body { overflow: hidden; }
+.pag { position: fixed; inset: 0; display: grid; grid-template-columns: 1fr 360px; }
+.vista { position: relative; overflow: auto; background: #030405; }
+.board { position: relative; margin: 30px auto; --cell: 72px; }
+.board > * { position: absolute; }
+.citta { inset: 0; }
+.stanza { position: absolute; cursor: pointer; }
+.stanza.sel { outline: 2px solid rgba(232,194,122,.7); outline-offset: 3px; }
+.pav { position: absolute; inset: 0; background-size: calc(var(--cell) * 4); filter: brightness(.46) saturate(.4) sepia(.25) hue-rotate(-8deg); }
+.acqua { position: absolute; overflow: hidden; }
+.acqua .onda { position: absolute; left: 0; top: 0; width: 200%; height: 200%; background-size: calc(var(--cell) * 4);
+  filter: brightness(.45) saturate(.6) hue-rotate(-10deg); will-change: transform; animation: onda 14s linear infinite; }
+@keyframes onda { to { transform: translate(-50%, -25%); } }
+/* SUI TETTI: niente muri; la stanza sta sospesa sul vuoto, col bordo della
+   gronda scuro e un'ombra lunga sotto — l'altezza si deve sentire */
+.stanza.aperto { box-shadow: 0 0 0 2px rgba(0,0,0,.7), 0 26px 60px 10px rgba(0,0,0,.95); }
+.stanza.aperto .pav { box-shadow: inset 0 0 calc(var(--cell) * .5) rgba(0,0,0,.85); }
+/* IL VENTO sulle tessere ESPOSTE: strie che passano, piu' forti dove il testo
+   dice FORTE. Transform soltanto: niente ridisegni */
+.vento { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 6; }
+.vento i { position: absolute; left: -100%; width: 300%; height: 100%;
+  background: repeating-linear-gradient(172deg, transparent 0 22px, rgba(200,215,230,.07) 22px 24px, transparent 24px 61px);
+  will-change: transform; animation: soffia 3.2s linear infinite; }
+.vento.forte i { background: repeating-linear-gradient(168deg, transparent 0 16px, rgba(210,225,240,.12) 16px 19px, transparent 19px 44px); animation-duration: 1.7s; }
+@keyframes soffia { to { transform: translateX(33.33%); } }
+.pezzo { position: absolute; pointer-events: none; background-size: contain; background-repeat: no-repeat; background-position: center; }
+.pezzo.ombra { filter: drop-shadow(3px 5px 4px rgba(0,0,0,.75)); }
+.pezzo.fiamma { filter: drop-shadow(0 0 8px rgba(255,170,70,.9)); }
+.pezzo.porta { filter: brightness(1.35) drop-shadow(0 0 3px #000); }
+canvas.buio { z-index: 8; pointer-events: none; } canvas.calore { z-index: 7; pointer-events: none; opacity: .32; }
+.lanterna { position: absolute; z-index: 9; width: 30px; height: 30px; margin: -15px 0 0 -15px; border-radius: 50%; pointer-events: none;
+  background: radial-gradient(circle, #fff3cf 0 25%, #e8c27a 45%, transparent 70%); transition: left .6s, top .6s; }
+.etichetta { position: absolute; z-index: 10; font: 12px 'FellSC', serif; color: var(--nastro-chiaro); text-shadow: 0 1px 4px #000, 0 0 10px #000; pointer-events: none; }
+/* il pannello */
+.lato { overflow-y: auto; background: #0b0d10; border-left: 1px solid var(--bordo); padding: 14px; display: flex; flex-direction: column; gap: 12px; }
+.lato h1 { font: 20px 'FellSC', serif; color: var(--nastro-chiaro); }
+.tab { display: flex; gap: 4px; } .tab button { flex: 1; padding: 8px; border-radius: 8px; border: 1px solid var(--bordo); font: 14px 'FellSC', serif; background: var(--ardesia); }
+.tab button.on { border-color: var(--nastro); color: var(--nastro-chiaro); }
+.scheda { padding: 10px 12px; border-radius: 10px; background: var(--ardesia); border: 1px solid var(--bordo); font-size: 14px; line-height: 1.45; }
+.scheda h2 { font: 17px 'FellSC', serif; color: var(--nastro-chiaro); margin-bottom: 6px; }
+.scheda .t { font-style: italic; color: var(--osso-fioco); font-size: 13px; margin-bottom: 8px; }
+.scheda .p { border-left: 2px solid var(--nastro); padding-left: 8px; }
+.scheda .conti { margin-top: 8px; font: 12px 'FellSC', serif; color: var(--osso-fioco); }
+.nota { font-size: 12px; color: var(--osso-fioco); font-style: italic; }
+@media (max-width: 800px) { .pag { grid-template-columns: 1fr; grid-template-rows: 58vh 1fr; } .lato { border-left: 0; border-top: 1px solid var(--bordo); } }
+</style></head><body>
+<div class="pag">
+  <div class="vista" id="vista"><div class="board" id="board"></div></div>
+  <div class="lato">
+    <h1>Prova della guida di scenografia</h1>
+    <div class="tab" id="ep"><button data-ep="ep1">Ep.1 · Il coro sommerso</button><button data-ep="ep11">Ep.11 · I tetti</button></div>
+    <select id="altro" style="padding:8px;border-radius:8px;background:var(--ardesia);color:var(--osso);border:1px solid var(--bordo);font:14px 'OldStd',serif">
+      <option value="">— un altro episodio (senza scenografia: solo pavimenti, arredi, muri e fuori) —</option>
+      <option value="preludio">Preludio</option>
+    </select>
+    <div class="tab" id="modo"><button data-m="piena">luce piena</button><button data-m="partita">come in partita</button></div>
+    <div id="info"></div>
+    <p class="nota">Tocca una stanza: leggi accanto il suo testo e il perche' della composizione; «come in partita» ci porta la lanterna del gruppo. Asset Forgotten Adventures (CC BY-NC-SA 4.0).</p>
+    <a class="nota" href="index.html">← le altre idee</a>
+  </div>
+</div>
+<script src="regole-posto.js"></script>
+<script type="module">
+import { layout, portaCella } from '/motore/griglia.js';
+const P = window.POSTO, $ = (id) => document.getElementById(id);
+const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const FA = (n) => `fa/${n}.png`;
+const CELL = 72, Q = 4;
+const PAV = { assi: 'pav-assi', tavolato: 'pav-tavolato', mattonelle: 'pav-mattonelle', pietra: 'pav-pietra', tetti: 'pav-tetti', navata: 'pav-navata' };
+const ARREDI = ['casse', 'candele', 'molo', 'altare', 'cella', 'scrivania', 'branda'];
+const ROT = { S: 0, N: 180, O: 90, E: -90 };
+const RAGGIO = { candela: 1.3, torcia: 1.9, cera: .95, lanterna: 2.8 };
+const TINTE = { lanterna: [255, 179, 92], torcia: [255, 170, 80], cera: [255, 207, 122], candela: [255, 207, 122] };
+let stato = { ep: 'ep1', modo: 'piena', sel: null };
+
+// L'ARREDO DEL POSTO: i dati dicono «casse» anche su un tetto. Il pezzo lo
+// sceglie il posto — sui tetti esposti un comignolo, nella loggia una campana,
+// sulla guglia la statua della Morte, e l'«altare» sul colmo una figura del coro.
+function arredoDelPosto(t, nome, c, r) {
+  // `esposta` dai dati (Ep.11); dove non c'e', lo dice il testo
+  const esposta = t.esposta ?? /ESPOSTA/.test(t.testo);
+  if (/campan/i.test(t.nome)) return { src: nome === 'altare' ? 'campana-grande-2' : 'campana-grande', lato: 1.3 };
+  if (/guglia/i.test(t.nome)) return { src: 'statua-morte', lato: 1.35 };
+  if (esposta) return nome === 'altare' ? { src: 'statua-incappucciata', lato: 1.35 } : { src: (c + r) % 2 ? 'comignolo-2' : 'comignolo', lato: .9 };
+  const k = ARREDI.find((x) => new RegExp(x, 'i').test(nome)); if (!k) return null;
+  const v = (c * 7 + r * 13) % 3;
+  return { src: k + (v ? '-' + (v + 1) : ''), lato: .88, fuoco: k === 'candele' };
+}
+
+function stanzaHtml(t, sc, rivelata) {
+  const aperto = P.alAperto(t); let h = ''; const luci = [];
+  const px = (v) => v * CELL;
+  h += `<div class="pav" style="background-image:url('${FA('pav-' + P.pavimentoDi(t))}')"></div>`;
+  // decori scritti a mano (docs/scenografia.md)
+  for (const d of (sc && sc.decori) || []) {
+    if (d.luce) luci.push({ x: d.x, y: d.y, tipo: d.luce });
+    h += `<div class="pezzo ${d.luce ? 'fiamma' : 'ombra'}" style="left:${px(d.x - d.lato / 2)}px;top:${px(d.y - d.lato / 2)}px;width:${px(d.lato)}px;height:${px(d.lato)}px;transform:rotate(${d.rot}deg);background-image:url('${FA(d.pezzo)}')"></div>`;
+  }
+  // arredi: la scalinata 2x2 se le quattro scale fanno un quadrato; il resto dal posto
+  const arr = {}; for (const [x, y, n] of t.arredi || []) arr[`${x},${3 - y}`] = n;
+  const fatti = new Set();
+  const scale = Object.keys(arr).filter((k) => /scala/i.test(arr[k])).map((k) => k.split(',').map(Number));
+  if (scale.length === 4) {
+    const c0 = Math.min(...scale.map((s) => s[0])), r0 = Math.min(...scale.map((s) => s[1]));
+    if (scale.every(([c, r]) => c - c0 <= 1 && r - r0 <= 1)) {
+      scale.forEach(([c, r]) => fatti.add(`${c},${r}`));
+      h += `<div class="pezzo ombra" style="left:${px(c0)}px;top:${px(r0)}px;width:${px(2)}px;height:${px(2)}px;background-image:url('${FA('scale')}')"></div>`;
+    }
+  }
+  for (const [k, nome] of Object.entries(arr)) {
+    if (fatti.has(k)) continue; const [c, r] = k.split(',').map(Number);
+    const largo = arr[`${c + 1},${r}`] === nome && !fatti.has(`${c + 1},${r}`) && !P.alAperto(t);
+    fatti.add(k); if (largo) fatti.add(`${c + 1},${r}`);
+    const a = arredoDelPosto(t, nome, c, r); if (!a) continue;
+    if (a.fuoco) luci.push({ x: c + (largo ? 1 : .5), y: r + .5, tipo: 'candela' });
+    const w = largo ? 2 - .12 : a.lato, hh = largo ? .88 : a.lato;
+    const cx = c + (largo ? 1 : .5), cy = r + .5;
+    h += `<div class="pezzo ${a.fuoco ? 'fiamma' : 'ombra'}" style="left:${px(cx - w / 2)}px;top:${px(cy - hh / 2)}px;width:${px(w)}px;height:${px(hh)}px;background-image:url('${FA(a.src)}')"></div>`;
+  }
+  // muri e porte: solo al chiuso. Sui tetti il vuoto e' il muro.
+  if (!aperto) {
+    const porte = {};
+    for (const [dir, raw] of Object.entries(t.exits || {})) { const [gx, gy] = portaCella(t, dir); porte[`${dir}:${gx},${3 - gy}`] = { verso: (raw.match(/\S+/) || [''])[0], grata: /grata/i.test(raw) }; }
+    for (const lato of ['N', 'S', 'E', 'O']) for (let i = 0; i < 4; i++) {
+      const cella = { N: [i, 0], S: [i, 3], E: [3, i], O: [0, i] }[lato];
+      const [cx, cy] = { N: [i + .5, 0], S: [i + .5, 4], E: [4, i + .5], O: [0, i + .5] }[lato];
+      const p = porte[`${lato}:${cella.join(',')}`];
+      if (p) {
+        // la porta verso una stanza gia' aperta e' il passaggio libero nel muro;
+        // il battente si disegna solo chiuso, verso il buio (ruotato «aperto»
+        // attraversava la stanza come un'asse, e dove le porte aperte erano
+        // tante la mappa sembrava piena di bastoni)
+        if (!rivelata(p.verso))
+          h += `<div class="pezzo porta" style="left:${px(cx - .5)}px;top:${px(cy - .5)}px;width:${px(1)}px;height:${px(1)}px;transform:rotate(${ROT[lato]}deg) scale(1.45);background-image:url('${FA(p.grata ? 'grata' : 'porta')}')"></div>`;
+        continue;
+      }
+      h += `<div class="pezzo" style="left:${px(cx - .5)}px;top:${px(cy - 1)}px;width:${px(1)}px;height:${px(2)}px;transform:rotate(${ROT[lato]}deg);background-image:url('${FA(i % 2 ? 'muro-b' : 'muro-a')}')"></div>`;
+    }
+    for (const [ax, ay] of [[0, 0], [4, 0], [0, 4], [4, 4]])
+      h += `<div class="pezzo" style="left:${px(ax - .32)}px;top:${px(ay - .32)}px;width:${px(.64)}px;height:${px(.64)}px;background-image:url('${FA('pilastro')}')"></div>`;
+  }
+  if (t.esposta ?? /ESPOSTA|piu. esposto/i.test(t.testo)) h += `<div class="vento${/FORTE|urla/.test(t.testo) ? ' forte' : ''}"><i></i></div>`;
+  return { html: h, luci };
+}
+
+// LA CITTA' SOTTO: il fondo dei tetti. Finestre accese lontane e nebbia, fatte
+// una volta sola su un canvas: fermo, costa niente
+function citta(W, H, seme) {
+  const cv = document.createElement('canvas'); cv.width = W; cv.height = H; cv.className = 'citta';
+  const g = cv.getContext('2d'); let s = seme; const rnd = () => ((s = (s * 16807) % 2147483647) / 2147483647);
+  // una CITTA' vista dall'alto, non un cielo: i puntini sparsi a caso si
+  // leggevano come stelle. Qui: canali scuri coi riflessi, vie coi lampioni
+  // in fila, isolati coi tetti e poche finestre accese a grappoli
+  g.fillStyle = '#05070a'; g.fillRect(0, 0, W, H);
+  // isolati: tetti appena piu' chiari del nero, in blocchi storti
+  for (let i = 0; i < W * H / 9000; i++) {
+    const x = rnd() * W, y = rnd() * H, w = 18 + rnd() * 50, h = 14 + rnd() * 40;
+    g.fillStyle = `rgba(${20 + rnd() * 12},${22 + rnd() * 10},${26 + rnd() * 10},.9)`;
+    g.save(); g.translate(x, y); g.rotate((rnd() - .5) * .5); g.fillRect(-w / 2, -h / 2, w, h); g.restore();
+  }
+  // canali: nastri verde-acqua scuro che serpeggiano, coi riflessi dei lampioni
+  for (let k = 0; k < 3; k++) {
+    g.strokeStyle = 'rgba(18,48,56,.85)'; g.lineWidth = 10 + rnd() * 10; g.beginPath();
+    let x = rnd() * W, y = -20; g.moveTo(x, y);
+    while (y < H + 20) { x += (rnd() - .5) * 140; y += 60 + rnd() * 60; g.lineTo(x, y); }
+    g.stroke();
+  }
+  // vie: linee sottili, e lampioni in fila lungo ognuna
+  for (let k = 0; k < 14; k++) {
+    const x0 = rnd() * W, y0 = rnd() * H, a = rnd() * Math.PI, len = 150 + rnd() * 400;
+    g.strokeStyle = 'rgba(40,36,30,.7)'; g.lineWidth = 2; g.beginPath();
+    g.moveTo(x0, y0); g.lineTo(x0 + Math.cos(a) * len, y0 + Math.sin(a) * len); g.stroke();
+    for (let d = 0; d < len; d += 22 + rnd() * 16) {
+      const lx = x0 + Math.cos(a) * d, ly = y0 + Math.sin(a) * d;
+      const gr = g.createRadialGradient(lx, ly, 0, lx, ly, 7);
+      gr.addColorStop(0, 'rgba(255,196,110,.55)'); gr.addColorStop(1, 'rgba(255,160,70,0)');
+      g.fillStyle = gr; g.fillRect(lx - 7, ly - 7, 14, 14);
+    }
+  }
+  // finestre accese: poche, a grappoli, come case dove qualcuno e' ancora sveglio
+  for (let k = 0; k < W * H / 60000; k++) {
+    const cx = rnd() * W, cy = rnd() * H, n = 2 + Math.floor(rnd() * 6);
+    for (let i = 0; i < n; i++) { g.fillStyle = `rgba(232,180,100,${.25 + rnd() * .45})`; g.fillRect(cx + (rnd() - .5) * 26, cy + (rnd() - .5) * 18, 2, 3); }
+  }
+  const n = g.createLinearGradient(0, 0, W, H); n.addColorStop(0, 'rgba(14,21,25,.55)'); n.addColorStop(.5, 'rgba(14,21,25,.15)'); n.addColorStop(1, 'rgba(14,21,25,.6)');
+  g.fillStyle = n; g.fillRect(0, 0, W, H);
+  return cv;
+}
+
+let luci = [], stanzeRett = [], lanterna = null, raf = 0;
+async function carica() {
+  cancelAnimationFrame(raf);
+  const [ep, sc] = await Promise.all([fetch(`/data/${stato.ep}.json`).then((r) => r.json()), fetch(`scena/${stato.ep}.json`).then((r) => (r.ok ? r.json() : {})).catch(() => ({}))]);
+  const pos = layout({ ep });
+  const ids = ep.tessere.map((t) => t.id);
+  const xs = ids.map((i) => pos[i][0]), ys = ids.map((i) => pos[i][1]);
+  const minX = Math.min(...xs) - 1, maxX = Math.max(...xs) + 1, minY = Math.min(...ys) - 1, maxY = Math.max(...ys) + 1;
+  const W = (maxX - minX + 1) * 4 * CELL, H = (maxY - minY + 1) * 4 * CELL;
+  const b = $('board'); b.innerHTML = ''; b.style.width = W + 'px'; b.style.height = H + 'px';
+  const tetti = ep.tessere.some((t) => P.alAperto(t));
+  if (tetti) b.appendChild(citta(W, H, 7));
+  const occupato = new Set(ids.map((i) => pos[i].join(',')));
+  luci = []; stanzeRett = [];
+  // IL FUORI E' DELL'EPISODIO, non della stanza: ogni riquadro vuoto attorno
+  // alla mappa (il rettangolo che la contiene piu' una tessera di margine)
+  // prende il fuori della STANZA PIU' VICINA che ne dichiara uno. Se nessuna
+  // lo dichiara, resta buio. Nell'Ep.1 l'unica e' la banchina: l'acqua
+  // circonda tutto il complesso, non solo i lati della banchina.
+  const emittenti = ep.tessere.map((t) => ({ t, f: P.fuoriDichiarato(t) })).filter((x) => x.f);
+  for (let X = minX; X <= maxX; X++) for (let Y = minY; Y <= maxY; Y++) {
+    if (occupato.has(`${X},${Y}`) || !emittenti.length) continue;
+    let best = null;
+    for (const e of emittenti) {
+      const d = Math.max(Math.abs(pos[e.t.id][0] - X), Math.abs(pos[e.t.id][1] - Y));
+      if (!best || d < best.d) best = { d, f: e.f };
+    }
+    if (best.f === 'tetti') continue;                 // sotto i tetti c'e' la citta' (il canvas di fondo)
+    const L = (X - minX) * 4 * CELL, T = (maxY - Y) * 4 * CELL;
+    const scorre = best.f === 'acqua' || best.f === 'melma';
+    b.insertAdjacentHTML('beforeend', `<div class="acqua" style="left:${L}px;top:${T}px;width:${4 * CELL}px;height:${4 * CELL}px">${scorre
+      ? `<div class="onda" style="background-image:url('${FA('pav-' + best.f)}')"></div>`
+      : `<div class="pav" style="background-image:url('${FA('pav-' + best.f)}');filter:brightness(.32) saturate(.4)"></div>`}</div>`);
+    stanzeRett.push([L, T]);
+  }
+  for (const t of ep.tessere) {
+    const L = (pos[t.id][0] - minX) * 4 * CELL, T = (maxY - pos[t.id][1]) * 4 * CELL;
+    const { html, luci: l } = stanzaHtml(t, sc[t.id], () => true);
+    b.insertAdjacentHTML('beforeend', `<div class="stanza${P.alAperto(t) ? ' aperto' : ''}" data-t="${t.id}" style="left:${L}px;top:${T}px;width:${4 * CELL}px;height:${4 * CELL}px">${html}</div>
+      <span class="etichetta" style="left:${L + 8}px;top:${T + 6}px">${esc(t.id)} · ${esc(t.nome.toLowerCase())}</span>`);
+    l.forEach((x) => luci.push({ x: L + x.x * CELL, y: T + x.y * CELL, tipo: x.tipo }));
+    stanzeRett.push([L, T]);
+  }
+  // il buio copre stanze e acqua; il vuoto dei tetti no: la citta' sotto si vede sempre
+  const buio = document.createElement('canvas'), calore = document.createElement('canvas');
+  buio.className = 'buio'; calore.className = 'calore';
+  for (const c of [buio, calore]) { c.width = Math.ceil(W / Q); c.height = Math.ceil(H / Q); c.style.cssText = `left:0;top:0;width:${W}px;height:${H}px`; b.appendChild(c); }
+  lanterna = document.createElement('div'); lanterna.className = 'lanterna'; b.appendChild(lanterna);
+  const primo = ep.tessere[0].id; seleziona(ep, sc, stato.sel && sc[stato.sel] ? stato.sel : primo, pos, minX, maxY);
+  b.onclick = (e) => { const s = e.target.closest('.stanza'); if (s) seleziona(ep, sc, s.dataset.t, pos, minX, maxY); };
+  const gB = buio.getContext('2d'), gC = calore.getContext('2d');
+  const ciclo = (now) => {
+    const piena = stato.modo === 'piena';
+    buio.style.display = calore.style.display = lanterna.style.display = piena ? 'none' : '';
+    if (!piena) {
+      gB.clearRect(0, 0, buio.width, buio.height); gB.globalCompositeOperation = 'source-over'; gB.fillStyle = 'rgba(2,3,4,.95)';
+      for (const [L, T] of stanzeRett) gB.fillRect(L / Q, T / Q, 4 * CELL / Q, 4 * CELL / Q);
+      gB.globalCompositeOperation = 'destination-out';
+      gC.globalCompositeOperation = 'source-over'; gC.clearRect(0, 0, calore.width, calore.height); gC.globalCompositeOperation = 'lighter';
+      const tutte = [...luci, { x: parseFloat(lanterna.style.left), y: parseFloat(lanterna.style.top), tipo: 'lanterna' }];
+      tutte.forEach((s, i) => {
+        const r = CELL * RAGGIO[s.tipo] * (1 + Math.sin(now / 90 + i * 7) * .025 + Math.sin(now / 37 + i * 3) * .02) / Q, cx = s.x / Q, cy = s.y / Q;
+        const g = gB.createRadialGradient(cx, cy, 0, cx, cy, r); g.addColorStop(0, 'rgba(0,0,0,1)'); g.addColorStop(.4, 'rgba(0,0,0,.95)'); g.addColorStop(1, 'rgba(0,0,0,0)');
+        gB.fillStyle = g; gB.fillRect(cx - r, cy - r, 2 * r, 2 * r);
+        const [R, G, B] = TINTE[s.tipo]; const c = gC.createRadialGradient(cx, cy, 0, cx, cy, r * .9);
+        c.addColorStop(0, `rgba(${R},${G},${B},.9)`); c.addColorStop(1, `rgba(${R},${G - 60},${B - 60},0)`); gC.fillStyle = c; gC.fillRect(cx - r, cy - r, 2 * r, 2 * r);
+      });
+    }
+    raf = requestAnimationFrame(ciclo);
+  };
+  raf = requestAnimationFrame(ciclo);
+}
+function seleziona(ep, sc, id, pos, minX, maxY) {
+  stato.sel = id; const t = ep.tessere.find((x) => x.id === id), s = sc[id] || { decori: [], perche: '(nessuna scenografia scritta)' };
+  document.querySelectorAll('.stanza').forEach((e) => e.classList.toggle('sel', e.dataset.t === id));
+  const L = (pos[id][0] - minX) * 4 * CELL, T = (maxY - pos[id][1]) * 4 * CELL;
+  lanterna.style.left = L + 2 * CELL + 'px'; lanterna.style.top = T + 2 * CELL + 'px';
+  const luciN = s.decori.filter((d) => d.luce).length;
+  $('info').innerHTML = `<div class="scheda"><h2>${esc(t.id)} · ${esc(t.nome.toLowerCase())}</h2>
+    <div class="t">${esc(t.testo)}</div><div class="p">${esc(s.perche)}</div>
+    <div class="conti">pavimento: ${esc(P.pavimentoDi(t))} · ${P.alAperto(t) ? 'sui tetti, niente muri' : 'al chiuso'} · ${s.decori.length} decori · ${luciN} luci fra i decori</div></div>`;
+}
+document.addEventListener('click', (e) => {
+  const a = e.target.closest('[data-ep]'); if (a) { stato.ep = a.dataset.ep; stato.sel = null; aggiornaTab(); carica(); return; }
+  const m = e.target.closest('[data-m]'); if (m) { stato.modo = m.dataset.m; aggiornaTab(); }
+});
+for (let n = 2; n <= 20; n++) if (n !== 11) $('altro').insertAdjacentHTML('beforeend', `<option value="ep${n}">Episodio ${n}</option>`);
+$('altro').onchange = (e) => { if (e.target.value) { stato.ep = e.target.value; stato.sel = null; aggiornaTab(); carica(); } };
+const aggiornaTab = () => { document.querySelectorAll('[data-ep]').forEach((b) => b.classList.toggle('on', b.dataset.ep === stato.ep)); document.querySelectorAll('[data-m]').forEach((b) => b.classList.toggle('on', b.dataset.m === stato.modo)); };
+const q = new URLSearchParams(location.search); if (q.get('ep')) stato.ep = q.get('ep'); if (q.get('modo')) stato.modo = q.get('modo');
+aggiornaTab(); carica();
+</script>
+</body></html>

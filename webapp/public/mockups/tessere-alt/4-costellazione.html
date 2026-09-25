@@ -1,0 +1,146 @@
+<!doctype html><html lang="it"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tessere 4 · costellazione</title>
+<link rel="stylesheet" href="mondo.css">
+<style>
+/* 4 — COSTELLAZIONE (la mappa di Slay the Spire, le stanze-carta di Mansions
+   of Madness, le lavagne investigative).
+   Le stanze non si toccano: sono CARTE appese, col loro dipinto, e i fili
+   d'oro sono le porte. La stanza dove sta l'eroe di turno si apre e diventa
+   tessera, col reticolo per muovere; le altre restano quadri, con i ritratti
+   di chi c'e' dentro. Una porta verso l'ignoto e' una carta coperta: il filo
+   c'e' gia', quel che sta dall'altra parte no. Si gioca stanza per stanza,
+   come si racconta. */
+.scena { background: radial-gradient(ellipse at 50% 40%, #151a22 0%, #0a0c10 70%); }
+.scena::before { content: ''; position: absolute; inset: 0; pointer-events: none; opacity: .5;
+  background-image: radial-gradient(1px 1px at 20% 30%, #fff8, transparent), radial-gradient(1px 1px at 70% 60%, #fff6, transparent),
+    radial-gradient(1.5px 1.5px at 40% 80%, #fff5, transparent), radial-gradient(1px 1px at 85% 20%, #fff7, transparent),
+    radial-gradient(1px 1px at 10% 70%, #fff5, transparent); background-size: 340px 340px; }
+.mondo { position: absolute; left: 0; top: 0; transform-origin: 0 0; transition: transform .9s cubic-bezier(.3,.7,.2,1); }
+.mondo > * { position: absolute; left: 0; top: 0; }
+svg.fili { overflow: visible; pointer-events: none; }
+.filo { fill: none; stroke: #d8b25e; stroke-width: 3; filter: drop-shadow(0 0 6px rgba(216,178,94,.6)); }
+.filo.ignoto { stroke: rgba(216,178,94,.4); stroke-dasharray: 3 10; filter: none; }
+.filo.nuovo { stroke-dasharray: 800; animation: tende 1.2s ease-out both; }
+@keyframes tende { from { stroke-dashoffset: 800; } to { stroke-dashoffset: 0; } }
+.carta { position: absolute; border-radius: 10px; transition: all .8s cubic-bezier(.3,.7,.2,1); perspective: 1200px; }
+.carta .gira { position: absolute; inset: 0; transform-style: preserve-3d; transition: transform .9s; }
+.carta.coperta .gira { transform: rotateY(180deg); }
+.carta .fronte, .carta .retro { position: absolute; inset: 0; border-radius: 10px; overflow: hidden; backface-visibility: hidden;
+  border: 2px solid #8a6d3b; box-shadow: 0 18px 40px rgba(0,0,0,.7), 0 0 0 5px #120f0b, 0 0 0 6px #5a4a2e; background: #0d0e11; }
+.carta .retro { transform: rotateY(180deg); display: grid; place-items: center;
+  background: radial-gradient(circle, #2a2130 0 30%, #14111a 70%), #14111a; }
+.carta .retro span { font: 52px 'FellSC', serif; color: #8a6d3b; }
+.carta .quadro { position: absolute; inset: 0; background-size: cover; background-position: center; transition: opacity .6s; }
+.carta .tavola { position: absolute; inset: 0; background-size: cover; opacity: 0; transition: opacity .6s; }
+.carta.fuoco .quadro { opacity: 0; } .carta.fuoco .tavola { opacity: 1; }
+.carta .nome { position: absolute; left: 0; right: 0; bottom: 0; padding: 18px 10px 8px; text-align: center;
+  font: 17px 'FellSC', serif; color: var(--nastro-chiaro); background: linear-gradient(transparent, rgba(0,0,0,.9)); transition: opacity .4s; }
+.carta.fuoco .nome { opacity: 0; }
+.carta .dentro { position: absolute; left: 8px; top: 8px; display: flex; gap: 4px; transition: opacity .4s; }
+.carta.fuoco .dentro { opacity: 0; }
+.carta .dentro img { width: 34px; height: 34px; border-radius: 50%; object-fit: cover; border: 2px solid var(--nastro); }
+.carta .dentro img.nem { border-color: var(--segnale-nemico); }
+.carta .entra { position: absolute; inset: 0; display: grid; place-items: center; z-index: 5;
+  font: 18px 'FellSC', serif; color: #1d1710; opacity: 0; pointer-events: none; transition: opacity .3s; }
+.carta .entra b { background: var(--nastro); padding: 8px 16px; border-radius: 99px; box-shadow: 0 0 30px rgba(232,194,122,.8); font-weight: normal; }
+.carta.aperta-a .entra { opacity: 1; pointer-events: auto; animation: chiama 1.6s infinite; }
+@keyframes chiama { 50% { transform: scale(1.04); } }
+.carta.fuoco { z-index: 3; }
+.carta .gioco { position: absolute; inset: 0; opacity: 0; pointer-events: none; transition: opacity .5s .3s; }
+.carta.fuoco .gioco { opacity: 1; pointer-events: auto; }
+.gioco .cella { position: absolute; display: grid; place-items: center; }
+.gioco .cella::after { content: ''; width: 28%; height: 28%; border-radius: 50%; background: var(--segnale-mossa); box-shadow: 0 0 12px var(--segnale-mossa); }
+.gioco .cella.rivela::after { background: var(--segnale-rivela); box-shadow: 0 0 14px var(--segnale-rivela); }
+.gioco .tok { position: absolute; border-radius: 50%; overflow: hidden; border: 2px solid var(--nastro); transition: left .4s, top .4s; }
+.gioco .tok img { width: 100%; height: 100%; object-fit: cover; }
+.gioco .tok.nem { border-color: var(--segnale-nemico); pointer-events: none; }
+.gioco .tok.on { box-shadow: 0 0 0 3px var(--nastro), 0 0 16px rgba(232,194,122,.8); }
+</style></head><body>
+<div class="pagina">
+  <div class="scena" id="scena"><a class="titolo-mock" href="index.html">← 4 · costellazione</a><div class="mondo" id="mondo"></div></div>
+  <div id="hud"></div>
+</div>
+<script src="mondo.js"></script>
+<script>
+const M = MONDO, $ = (id) => document.getElementById(id);
+const SP = 440, GRANDE = 420, PICCOLA = 210;
+M.pronto.then(() => {
+  M.hud($('hud'));
+  const mondo = $('mondo');
+  mondo.innerHTML = '<svg class="fili" id="fili"></svg><div id="l-carte"></div>';
+  const carte = {}; const fatti = new Set();
+  const centro = (s) => [s.X * SP + SP / 2, s.Y * SP + SP / 2];
+
+  function inquadra() {
+    const sc = $('scena'); const W = sc.clientWidth, H = sc.clientHeight;
+    const rs = M.stretto() ? M.rivelate() : [...M.rivelate(), ...M.frontiera()];
+    const xs = rs.map((s) => centro(s)[0]), ys = rs.map((s) => centro(s)[1]);
+    const x0 = Math.min(...xs) - SP / 2, x1 = Math.max(...xs) + SP / 2, y0 = Math.min(...ys) - SP / 2, y1 = Math.max(...ys) + SP / 2;
+    const k = Math.min(W / (x1 - x0), H / (y1 - y0));
+    mondo.style.transform = `translate(${(W - (x1 - x0) * k) / 2 - x0 * k}px, ${(H - (y1 - y0) * k) / 2 - y0 * k}px) scale(${k})`;
+  }
+
+  function disegna() {
+    const fuoco = M.stanzaDi(M.att().c, M.att().r);
+    const ragg = Object.values(M.raggiungibili());
+    const mostrate = [...M.rivelate(), ...M.frontiera()];
+    for (const s of mostrate) {
+      if (!carte[s.id]) {
+        const el = document.createElement('div'); el.className = 'carta coperta'; el.dataset.s = s.id;
+        el.innerHTML = `<div class="gira"><div class="fronte"><div class="quadro" style="background-image:url('${s.arte}')"></div>
+          <div class="tavola" style="background-image:url('${s.tessera}')"></div><div class="gioco"></div>
+          <div class="dentro"></div><div class="nome">${M.esc(s.nome)}</div></div>
+          <div class="retro"><span>?</span></div></div><div class="entra"><b>entrate →</b></div>`;
+        $('l-carte').appendChild(el); carte[s.id] = el;
+        const [cx, cy] = centro(s); Object.assign(el.style, { left: cx - PICCOLA / 2 + 'px', top: cy - PICCOLA / 2 + 'px', width: PICCOLA + 'px', height: PICCOLA + 'px' });
+      }
+      const el = carte[s.id]; const f = s === fuoco; const lato = f ? GRANDE : PICCOLA;
+      const [cx, cy] = centro(s);
+      Object.assign(el.style, { left: cx - lato / 2 + 'px', top: cy - lato / 2 + 'px', width: lato + 'px', height: lato + 'px' });
+      if (s.rivelata && el.classList.contains('coperta')) setTimeout(() => el.classList.remove('coperta'), 350);
+      el.classList.toggle('fuoco', f);
+      // «entrate»: da fuori si entra in una stanza vicina con un tocco solo
+      el.classList.toggle('aperta-a', !f && ragg.some((v) => M.stanzaDi(v.c, v.r) === s));
+      // chi c'e' dentro, per le carte piccole
+      const qui = [...M.eroi.filter((e) => M.stanzaDi(e.c, e.r) === s), ...M.nemici.filter((n) => s.rivelata && M.stanzaDi(n.c, n.r) === s)];
+      el.querySelector('.dentro').innerHTML = qui.map((x) => `<img class="${x.eroe ? '' : 'nem'}" src="${x.art}" alt="">`).join('');
+      if (f) {
+        const c = GRANDE / 4; const L = (x) => (x - s.X * 4) * c, T = (y) => (y - s.Y * 4) * c;
+        el.querySelector('.gioco').innerHTML =
+          ragg.filter((v) => M.stanzaDi(v.c, v.r) === s).map((v) => `<button class="cella" data-c="${v.c}" data-r="${v.r}" style="left:${L(v.c)}px;top:${T(v.r)}px;width:${c}px;height:${c}px"></button>`).join('') +
+          qui.map((x) => `<button class="tok${x.eroe ? '' : ' nem'}${x === M.att() ? ' on' : ''}" data-id="${x.id}" style="left:${L(x.c) + c * .1}px;top:${T(x.r) + c * .1}px;width:${c * .8}px;height:${c * .8}px"><img src="${x.art}" alt=""></button>`).join('');
+      } else el.querySelector('.gioco').innerHTML = '';
+    }
+    // i fili: da porta a porta, curvi come spago teso male
+    let fili = '';
+    const visti = new Set();
+    for (const s of M.rivelate()) for (const p of Object.values(s.porte)) {
+      const t = M.stanze[p.verso]; if (!t || !mostrate.includes(t)) continue;
+      const id = [s.id, t.id].sort().join('-'); if (visti.has(id)) continue; visti.add(id);
+      const [ax, ay] = centro(s), [bx, by] = centro(t);
+      const mx = (ax + bx) / 2 + (by - ay) * .08, my = (ay + by) / 2 + (ax - bx) * .08 + 30;
+      const nuovo = t.rivelata && !fatti.has(id); if (t.rivelata) fatti.add(id);
+      fili += `<path class="filo${t.rivelata ? '' : ' ignoto'}${nuovo ? ' nuovo' : ''}" d="M${ax} ${ay} Q${mx} ${my} ${bx} ${by}"/>`;
+    }
+    $('fili').setAttribute('width', 3 * SP); $('fili').setAttribute('height', 4 * SP);
+    $('fili').innerHTML = fili;
+    inquadra();
+  }
+
+  mondo.addEventListener('click', (ev) => {
+    const c = ev.target.closest('.cella'); if (c) return M.muovi(+c.dataset.c, +c.dataset.r);
+    const t = ev.target.closest('.tok[data-id]'); if (t) return M.seleziona(t.dataset.id);
+    const k = ev.target.closest('.carta.aperta-a');
+    if (k) {
+      // la casella piu' vicina di quella stanza, tra quelle raggiungibili
+      const s = M.stanze[k.dataset.s];
+      const v = Object.values(M.raggiungibili()).filter((x) => M.stanzaDi(x.c, x.r) === s).sort((a, b) => (a.passi || 0) - (b.passi || 0))[0];
+      if (v) M.muovi(v.c, v.r);
+    }
+  });
+  M.on(disegna); new ResizeObserver(inquadra).observe($('scena'));
+  disegna();
+});
+</script>
+</body></html>

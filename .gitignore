@@ -56,3 +56,8 @@ scatti/contatti-2m.png
 prova-sagome/
 prova-quadre/
 prova-moduli/
+
+# I PEZZI FORGOTTEN ADVENTURES DEI MOCKUP delle tessere (46 MB): come
+# webapp/vtt/, la libreria non entra in git. Li rigenera
+# `python scripts/importa-fa-lanterne.py` (legge risorse-vtt/ e webapp/vtt/).
+webapp/public/mockups/tessere-alt/fa/

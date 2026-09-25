@@ -11,13 +11,13 @@ webapp/public/mockups/plancia/spedizione-iso.html. Se la direzione viene scelta,
 i ritagli si spostano in artworks/ritagli/ con una riga in SORGENTI di
 export-assets.py (che l'alfa dei PNG la conserva gia').
 
-Uso: python scripts/ritaglia-personaggi.py [--rifai]
+Uso: python scripts/ritaglia-personaggi.py [--rifai] [--sagome]
 Serve: pip install rembg onnxruntime
 """
 import os
 import sys
 
-from PIL import Image
+from PIL import Image, ImageFilter
 
 try:
     from rembg import new_session, remove
@@ -25,13 +25,18 @@ except ImportError:
     sys.exit('manca rembg — lancia:  pip install rembg onnxruntime')
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-OUT = os.path.join(ROOT, 'webapp', 'public', 'mockups', 'ritagli')
+# --sagome: bordo netto e contorno di cartoncino, per le pedine del plastico
+# (webapp/public/mockups/tessere-alt/2-plastico.html)
+SAGOME = '--sagome' in sys.argv
+OUT = os.path.join(ROOT, 'webapp', 'public', 'mockups', 'ritagli-sagome' if SAGOME else 'ritagli')
 LATO = 512          # lato lungo del PNG ritagliato
 SFUMA = 0.12        # frazione bassa della figura che sfuma nel nulla
+SOGLIA = 150        # alfa sotto cui e' nebbia rimasta attaccata, non figura
+CORNICE = 7         # px di cartoncino attorno alla figura, come una fustella
 
-# I 7 soggetti del mockup (gli stessi di webapp/public/mockups/dati.js).
+# I soggetti del mockup (gli stessi di webapp/public/mockups/dati.js).
 SOGGETTI = [
-    'Elena.png', 'Attilio.png', 'Nino.png', 'Ottone.png',
+    'Elena.png', 'Attilio.png', 'Nino.png', 'Ottone.png', 'Sibilla.png',
     'Adepto Incappucciato.png', 'Cani dei Moli.png',
     'Il Custode della Cera (boss).png',
 ]
@@ -59,6 +64,45 @@ def sfuma_in_basso(img, frazione=SFUMA):
     return img
 
 
+def fustella(img):
+    """La figura come esce da una fustella: alfa tutto-o-niente e un bordo di
+    cartoncino attorno.
+
+    rembg lascia attaccata la nebbia dei dipinti a mezza trasparenza: su un
+    fantasma va bene, su una sagoma di cartone no — il cartone c'e' o non c'e'.
+    Sotto SOGLIA si butta, poi apertura (Min poi Max) per togliere i puntini
+    isolati. Il contorno e' l'alfa allargata di CORNICE px, riempita di crema.
+    """
+    import numpy as np
+    from scipy import ndimage
+    m = np.array(img.getchannel('A')) > SOGLIA
+    m = ndimage.binary_opening(m, iterations=1)
+    # solo il pezzo piu' grande: rembg lascia isole (una mano di un passante,
+    # un lembo di nebbia) che sul cartone diventerebbero ritagli volanti
+    lab, n = ndimage.label(m)
+    if n > 1:
+        m = lab == (np.argmax(ndimage.sum(m, lab, range(1, n + 1))) + 1)
+    m = ndimage.binary_fill_holes(m)
+    a = Image.fromarray((m * 255).astype('uint8'))
+    bbox = a.getbbox()
+    pad = CORNICE + 2
+    fig = img.crop(bbox); a = a.crop(bbox)
+    W, H = fig.width + 2 * pad, fig.height + pad        # sotto niente bordo: poggia sulla basetta
+    tela = Image.new('RGBA', (W, H), (0, 0, 0, 0))
+    bordo = Image.new('L', (W, H), 0); bordo.paste(a, (pad, pad))
+    # allargare con un disco e non con un quadrato, poi sfocare e ri-sogliare:
+    # il contorno viene tondo come un taglio di fustella, non a gradini
+    raggio = np.hypot(*np.mgrid[-CORNICE:CORNICE + 1, -CORNICE:CORNICE + 1]) <= CORNICE
+    b = ndimage.binary_dilation(np.array(bordo) > 0, structure=raggio)
+    b = ndimage.gaussian_filter(b.astype(float), 2.2) > .5
+    bordo = Image.fromarray((b * 255).astype('uint8')).filter(ImageFilter.GaussianBlur(.7))
+    a = a.filter(ImageFilter.GaussianBlur(.6))           # bordo della figura antialias
+    tela.paste(Image.new('RGBA', (W, H), (236, 226, 200, 255)), (0, 0), bordo)
+    fig.putalpha(a)
+    tela.alpha_composite(fig, (pad, pad))
+    return tela.crop((0, 0, W, pad + a.height))       # taglio dritto in basso
+
+
 def ritaglia(nome, sessione, rifai):
     src = os.path.join(ROOT, 'artworks', nome)
     dst = os.path.join(OUT, nome)
@@ -74,7 +118,7 @@ def ritaglia(nome, sessione, rifai):
         return False
     img = img.crop(bbox)
     img.thumbnail((LATO, LATO), Image.LANCZOS)   # prima rimpicciolisce: la
-    img = sfuma_in_basso(img)                    # sfumatura e' un ciclo per pixel
+    img = fustella(img) if SAGOME else sfuma_in_basso(img)   # sfumatura e' un ciclo per pixel
     img.save(dst, optimize=True)
     print(f'  {nome} -> {img.width}x{img.height}')
     return True

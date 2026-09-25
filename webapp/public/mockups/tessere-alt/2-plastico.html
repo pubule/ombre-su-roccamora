@@ -1,0 +1,231 @@
+<!doctype html><html lang="it"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tessere 2 · il plastico</title>
+<link rel="stylesheet" href="mondo.css">
+<style>
+/* 2 — IL PLASTICO (HeroQuest sul tavolo, Dark Quest).
+   Le tessere sono cartone: hanno uno spessore, stanno su un tavolo di legno,
+   e la camera le guarda di sbieco come si guarda il tavolo da seduti. Gli eroi
+   sono sagome fustellate sulla loro basetta, e saltellano di casella in casella.
+   La stanza non ancora aperta e' una tessera coperta, a faccia in giu': quando
+   la si apre si gira e cala al suo posto. La camera si gira col dito. */
+.scena { perspective: 1500px; perspective-origin: 50% 30%;
+  background: radial-gradient(ellipse at 50% 40%, #2a1d12 0%, #140d08 60%, #07050a 100%); }
+.tavolo { position: absolute; left: 50%; top: 44%; transform-style: preserve-3d; transform-origin: 0 0;
+  transition: transform 1s cubic-bezier(.3,.7,.2,1); }
+.tavolo > *, .tavolo > * > * { position: absolute; transform-style: preserve-3d; }
+.legno { left: -3000px; top: -3000px; width: 7000px; height: 7000px; transform: translateZ(-1px);
+  background:
+    radial-gradient(ellipse 1200px 900px at 3500px 3500px, transparent 0%, rgba(0,0,0,.75) 100%),
+    repeating-linear-gradient(90deg, rgba(0,0,0,.18) 0 2px, transparent 2px 190px),
+    repeating-linear-gradient(90deg, #4a3220 0 7px, #553a26 7px 13px, #452e1d 13px 22px, #50361f 22px 31px);
+  pointer-events: none; }
+.tessera { transform-style: preserve-3d; }
+.tessera .faccia { position: absolute; inset: 0; background-size: cover; transform: translateZ(8px); backface-visibility: hidden;
+  box-shadow: inset 0 0 0 2px rgba(0,0,0,.5); }
+.tessera .dorso { position: absolute; inset: 0; transform: rotateY(180deg) translateZ(8px); backface-visibility: hidden;
+  background: radial-gradient(circle at 50% 50%, #3b2b19 0 18%, transparent 19%),
+    repeating-linear-gradient(45deg, #2a2019 0 14px, #231a13 14px 28px);
+  display: grid; place-items: center; box-shadow: inset 0 0 0 6px #1a130d, inset 0 0 0 8px #6b5332; }
+.tessera .dorso span { font: 22px 'FellSC', serif; color: #b89660; text-align: center; line-height: 1.3; }
+.tessera .lato { position: absolute; background: linear-gradient(#6a5236, #3a2a18); }
+.tessera .lato.s { left: 0; bottom: 0; width: 100%; height: 8px; transform-origin: 50% 100%; transform: rotateX(-90deg); }
+.tessera .lato.n { left: 0; top: 0; width: 100%; height: 8px; transform-origin: 50% 0; transform: rotateX(90deg); }
+.tessera .lato.e { right: 0; top: 0; width: 8px; height: 100%; transform-origin: 100% 50%; transform: rotateY(90deg); }
+.tessera .lato.o { left: 0; top: 0; width: 8px; height: 100%; transform-origin: 0 50%; transform: rotateY(-90deg); }
+.tessera .ruota { position: absolute; inset: 0; transform-style: preserve-3d; transition: transform 1.1s cubic-bezier(.5,0,.2,1); }
+.tessera.coperta .ruota { transform: rotateY(180deg); }
+.tessera.cala { animation: cala 1.1s cubic-bezier(.3,.8,.3,1); }
+@keyframes cala { 0% { transform: translateZ(260px); } 60% { transform: translateZ(40px); } 100% { transform: translateZ(0); } }
+.ombra-tessera { background: rgba(0,0,0,.55); filter: blur(10px); transform: translateZ(0); }
+.cella { transform: translateZ(9px); display: grid; place-items: center; }
+.cella::after { content: ''; width: 70%; height: 70%; border-radius: 8px; border: 3px solid rgba(127, 230, 219, .75);
+  box-shadow: 0 0 14px rgba(127,230,219,.6), inset 0 0 12px rgba(127,230,219,.4); transition: transform .15s; }
+.cella:hover::after { transform: scale(1.12); background: rgba(127,230,219,.2); }
+.cella.rivela::after { border-color: var(--segnale-rivela); box-shadow: 0 0 18px rgba(216,178,94,.8); }
+/* LE PEDINE: SAGOME FUSTELLATE, come quelle dei giochi in scatola. La
+   figura e' il dipinto vero ritagliato sulla sua forma (rembg, con un bordo di
+   cartoncino: scripts/ritaglia-personaggi.py --sagome), in piedi su una basetta
+   di plastica. Lo spessore segue la sagoma: sedici copie scurite dietro
+   la figura, e dal fianco si vede il bordo del cartone. */
+.pezzo { width: 0; height: 0; transform-style: preserve-3d; cursor: pointer; }
+.pezzo .corpo { position: absolute; left: 0; top: 0; transform-style: preserve-3d; }
+.pezzo.salta .corpo { animation: salto .17s ease-out; }
+@keyframes salto { 50% { transform: translateZ(30px); } }
+.disco { position: absolute; border-radius: 50%; }
+.ombra { position: absolute; border-radius: 50%; pointer-events: none; transform: translateZ(.5px);
+  background: radial-gradient(closest-side, rgba(0,0,0,.7), rgba(0,0,0,.35) 60%, transparent); }
+.anello { position: absolute; border-radius: 50%; pointer-events: none; transform: translateZ(1px);
+  border: 3px solid #fff3cf; box-shadow: 0 0 20px 6px rgba(232,194,122,.75), inset 0 0 12px rgba(232,194,122,.6); animation: pulsa 1.6s ease-in-out infinite; }
+@keyframes pulsa { 50% { opacity: .45; } }
+.cartello { position: absolute; width: 0; pointer-events: none; transform-origin: 50% 100%; transform-style: preserve-3d;
+  transform: translateZ(var(--z)) rotateZ(calc(var(--rz) * -1deg + 25deg)) rotateX(calc((-90 + (90 - var(--tilt)) * .15) * 1deg)); }
+.figura { position: absolute; left: 0; bottom: 0; height: 100%; transform: translateX(-50%); transform-style: preserve-3d; }
+.figura img { height: 100%; display: block; filter: brightness(1.35) saturate(1.1) drop-shadow(0 0 1px rgba(0,0,0,.6)); }
+.figura img.strato { position: absolute; left: 0; top: 0; filter: brightness(.3) sepia(1) saturate(.6); }
+/* GLI ARREDI HANNO CORPO. Sono gli sprite dall'alto di Forgotten Adventures
+   (webapp/vtt/arredi, importati da scripts/importa-fa.py) ESTRUSI: la stessa
+   immagine impilata ogni 3px, piu' scura in basso. Una cassa diventa un cubo di
+   assi, il braciere un cilindro, la gabbia un muro di sbarre — ognuno prende la
+   sua forma, senza modellare niente. Stanno dentro la tessera, e quando la
+   stanza si apre calano e si girano con lei.
+   Asset CC BY-NC-SA 4.0 — «Mappe realizzate con asset di Forgotten Adventures». */
+.mobile { position: absolute; transform-style: preserve-3d; transform: translateZ(8px); pointer-events: none; }
+.mobile img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+.mobile img.ombra-fa { filter: brightness(0) blur(5px); opacity: .7; transform: translate(6px, 8px) translateZ(.5px); }
+.mobile.luce img.cima { filter: drop-shadow(0 0 10px rgba(255, 170, 70, .95)) brightness(1.15); }
+.comandi-cam { position: absolute; z-index: 20; right: 12px; top: 10px; display: flex; gap: 6px; }
+.comandi-cam button { width: 42px; height: 42px; border-radius: 50%; background: rgba(0,0,0,.6); border: 1px solid var(--bordo-alto);
+  font-size: 20px; color: var(--nastro-chiaro); }
+.targa { position: absolute; transform: translateZ(9px); font: 15px 'FellSC', serif; color: #f4dcae; pointer-events: none;
+  background: rgba(20, 14, 8, .82); padding: 2px 8px; border-radius: 3px; border: 1px solid #6b5332; white-space: nowrap; }
+</style></head><body>
+<div class="pagina">
+  <div class="scena" id="scena">
+    <a class="titolo-mock" href="index.html">← 2 · il plastico</a>
+    <div class="comandi-cam"><button data-cam="-1" title="gira">⟲</button><button data-cam="alto" title="dall'alto / di sbieco">◰</button><button data-cam="1" title="gira">⟳</button></div>
+    <div class="tavolo" id="tavolo"></div>
+  </div>
+  <div id="hud"></div>
+</div>
+<script src="mondo.js"></script>
+<script>
+const M = MONDO, $ = (id) => document.getElementById(id);
+const cell = 110;
+const cam = { rz: -18, tilt: 52, k: 1 };
+const sag = {};
+M.pronto.then(() => {
+  M.hud($('hud'));
+  const tav = $('tavolo');
+  tav.innerHTML = '<div class="legno"></div><div id="l-t"></div><div id="l-c"></div><div id="l-s"></div>';
+  const girate = new Set(M.rivelate().map((s) => s.id));
+
+  function inquadra() {
+    const rs = M.stretto() ? M.rivelate() : [...M.rivelate(), ...M.frontiera()];
+    const x0 = Math.min(...rs.map((s) => s.X)), x1 = Math.max(...rs.map((s) => s.X)) + 1;
+    const y0 = Math.min(...rs.map((s) => s.Y)), y1 = Math.max(...rs.map((s) => s.Y)) + 1;
+    const cx = (x0 + x1) / 2 * 4 * cell, cy = (y0 + y1) / 2 * 4 * cell;
+    const sc = $('scena'); const span = Math.max((x1 - x0) * 4 * cell / sc.clientWidth, (y1 - y0) * 4 * cell * .7 / sc.clientHeight);
+    cam.k = Math.min(1, .7 / span);
+    tav.style.transform = `scale(${cam.k}) rotateX(${cam.tilt}deg) rotateZ(${cam.rz}deg) translate(${-cx}px, ${-cy}px)`;
+    tav.style.setProperty('--rz', cam.rz); tav.style.setProperty('--tilt', cam.tilt);
+  }
+  function posa(s) { s.el.style.cssText = `left:${(s.x + .5) * cell}px;top:${(s.y + .5) * cell}px;transform:translateZ(8px)`; }
+
+  // --------------------------------------------------------------- le pedine
+  // la basetta: plastica scura, con l'orlo del colore dell'eroe per
+  // riconoscerlo anche da dietro, quando della sagoma si vede il cartone
+  const TINTA = { elena: [355, 62, 46], attilio: [212, 55, 44], sibilla: [145, 42, 38], nino: [38, 70, 46] };
+  const hsl = ([h, s, l], k = 1) => `hsl(${h} ${s}% ${Math.min(92, l * k)}%)`;
+  function basetta(R, H, t) {
+    const n = Math.ceil(H / 1.5); let out = '';
+    for (let i = 0; i <= n; i++) {
+      const z = i / n, c = z > .45 && z < .8 ? t : [220, 10, 12], k = .6 + .5 * z;
+      out += `<i class="disco" style="width:${2 * R}px;height:${2 * R}px;left:${-R}px;top:${-R}px;transform:translateZ(${z * H}px);background:radial-gradient(circle at 36% 30%, ${hsl(c, k * 1.8)}, ${hsl(c, k)} 55%, ${hsl(c, k * .4)})"></i>`;
+    }
+    return out;
+  }
+  const ritaglio = (x) => '../ritagli-sagome/' + x.art.split('/').pop();
+  function pezzoHtml(x) {
+    const g = x.boss ? 1.3 : 1, t = TINTA[x.id] || [355, 55, 30];
+    const R = cell * .24 * g, H = cell * 1.45 * g;
+    const ombra = `<i class="ombra" style="width:${cell * .9 * g}px;height:${cell * .9 * g}px;left:${-cell * .45 * g}px;top:${-cell * .45 * g}px"></i>`;
+    const anello = x.eroe ? `<i class="anello" style="width:${cell * .86}px;height:${cell * .86}px;left:${-cell * .43}px;top:${-cell * .43}px"></i>` : '';
+    const strati = Array.from({ length: 16 }, (_, i) => 16 - i).map((i) => `<img class="strato" src="${ritaglio(x)}" alt="" style="transform:translateZ(${-i}px)">`).join('');
+    return `${ombra}${anello}<div class="corpo">${basetta(R, 7, t)}
+      <div class="cartello" style="--z:7px;height:${H}px;top:${-H}px"><div class="figura">${strati}<img src="${ritaglio(x)}" alt=""></div></div></div>`;
+  }
+
+  // quanto e' alto un arredo, in celle: si riconosce dal nome nei dati
+  const ALTEZZA = [[/cella/i, .95], [/casse/i, .6], [/altare/i, .42], [/scrivania/i, .34], [/candele/i, .45],
+    [/branda/i, .2], [/scala/i, .16], [/molo/i, .3]];
+  const SPRITE = ['casse', 'candele', 'molo', 'scala', 'altare', 'cella', 'scrivania', 'branda'];
+  function arrediHtml(s) {
+    const fatti = new Set(); let out = '';
+    for (const [k, nome] of Object.entries(s.arredi)) {
+      if (fatti.has(k)) continue;
+      const [c, r] = k.split(',').map(Number);
+      // due caselle affiancate dello stesso arredo sono un pezzo solo (l'altare 2x1)
+      const largo = s.arredi[`${c + 1},${r}`] === nome && !fatti.has(`${c + 1},${r}`);
+      fatti.add(k); if (largo) fatti.add(`${c + 1},${r}`);
+      const chiave = SPRITE.find((x) => new RegExp(x, 'i').test(nome)); if (!chiave) continue;
+      // la variante la sceglie la casella: stessa tessera, stesso disegno, sempre
+      const v = (c * 7 + r * 13) % 3; const src = `fa/${chiave}${v ? '-' + (v + 1) : ''}.png`;
+      const lx = c - s.X * 4, ly = r - s.Y * 4, pad = cell * .05;
+      const h = cell * ((ALTEZZA.find(([re]) => re.test(nome)) || [0, .3])[1]);
+      const n = Math.max(2, Math.round(h / 3)); let strati = `<img class="ombra-fa" src="${src}" alt="">`;
+      for (let i = 0; i <= n; i++) {
+        const z = i / n;
+        strati += `<img class="${i === n ? 'cima' : ''}" src="${src}" alt="" style="transform:translateZ(${z * h}px);${i === n ? '' : `filter:brightness(${(.28 + .5 * z * z).toFixed(2)})`}">`;
+      }
+      out += `<div class="mobile${chiave === 'candele' ? ' luce' : ''}" style="left:${lx * cell + pad}px;top:${ly * cell + pad}px;width:${(largo ? 2 : 1) * cell - 2 * pad}px;height:${cell - 2 * pad}px">${strati}</div>`;
+    }
+    return out;
+  }
+
+  function disegna() {
+    const tessere = [...M.rivelate(), ...M.frontiera()];
+    $('l-t').innerHTML = tessere.map((s) => {
+      const nuova = s.rivelata && !girate.has(s.id);
+      return `<div class="ombra-tessera" style="left:${s.X * 4 * cell + 14}px;top:${s.Y * 4 * cell + 18}px;width:${4 * cell}px;height:${4 * cell}px"></div>
+      <div class="tessera${s.rivelata && !nuova ? '' : ' coperta'}${nuova ? ' cala' : ''}" data-s="${s.id}" style="left:${s.X * 4 * cell}px;top:${s.Y * 4 * cell}px;width:${4 * cell}px;height:${4 * cell}px">
+        <div class="ruota"><div class="faccia" style="background-image:url('${s.tessera}')"></div>${arrediHtml(s)}
+          <div class="dorso"><span>${s.id}<br><small>ombre su roccamora</small></span></div>
+          <i class="lato s"></i><i class="lato n"></i><i class="lato e"></i><i class="lato o"></i></div></div>
+      ${s.rivelata ? `<div class="targa" style="left:${s.X * 4 * cell + 10}px;top:${s.Y * 4 * cell + 10}px">${M.esc(s.nome)}</div>` : ''}`;
+    }).join('');
+    // la stanza nuova: cala coperta, poi si gira
+    for (const s of M.rivelate()) if (!girate.has(s.id)) {
+      girate.add(s.id);
+      setTimeout(() => { const t = tav.querySelector(`.tessera[data-s="${s.id}"]`); if (t) t.classList.remove('coperta'); }, 700);
+    }
+    const ragg = M.raggiungibili();
+    $('l-c').innerHTML = Object.values(ragg).map((v) => `<button class="cella${v.rivela ? ' rivela' : ''}" data-c="${v.c}" data-r="${v.r}"
+      style="left:${v.c * cell}px;top:${v.r * cell}px;width:${cell}px;height:${cell}px"></button>`).join('');
+    for (const x of [...M.eroi, ...M.nemici]) {
+      if (!sag[x.id]) {
+        const el = document.createElement('div'); el.innerHTML = pezzoHtml(x);
+        el.dataset.id = x.id; $('l-s').append(el);
+        sag[x.id] = { el, x: x.c, y: x.r, ref: x };
+        posa(sag[x.id]);
+      }
+      const s = sag[x.id];
+      s.el.className = `pezzo${x.eroe ? '' : ' nemico'}`;
+      const an = s.el.querySelector('.anello'); if (an) an.style.display = x === M.att() ? '' : 'none';
+      if (s.x !== x.c || s.y !== x.r) cammina(s, x);
+    }
+    inquadra();
+  }
+  // di casella in casella, un saltello per passo — come si muove una
+  // miniatura vera, e si vede la strada che ha fatto
+  async function cammina(s, x) {
+    const i = M.eroi.indexOf(x);
+    const passi = i >= 0 ? M.traccia[i].slice(-40) : [[x.c, x.r]];
+    let da = passi.findLastIndex(([c, r]) => c === s.x && r === s.y);
+    const strada = da >= 0 ? passi.slice(da + 1) : [[x.c, x.r]];
+    for (const [c, r] of strada) {
+      s.x = c; s.y = r; posa(s);
+      s.el.classList.remove('salta'); void s.el.offsetWidth; s.el.classList.add('salta');
+      await new Promise((ok) => setTimeout(ok, 170));
+    }
+  }
+
+  tav.addEventListener('click', (ev) => {
+    const c = ev.target.closest('.cella'); if (c) return M.muovi(+c.dataset.c, +c.dataset.r);
+    const t = ev.target.closest('.pezzo'); if (t) M.seleziona(t.dataset.id);
+  });
+  document.querySelector('.comandi-cam').addEventListener('click', (ev) => {
+    const b = ev.target.closest('[data-cam]'); if (!b) return;
+    if (b.dataset.cam === 'alto') cam.tilt = cam.tilt > 30 ? 12 : 52; else cam.rz += 45 * +b.dataset.cam;
+    inquadra();
+  });
+  // trascinare in orizzontale gira il tavolo
+  let trasc = null;
+  $('scena').addEventListener('pointerdown', (e) => { if (!e.target.closest('button, .pezzo')) trasc = { x: e.clientX, rz: cam.rz }; });
+  addEventListener('pointermove', (e) => { if (!trasc) return; cam.rz = trasc.rz + (e.clientX - trasc.x) * .3; tav.style.transition = 'none'; inquadra(); });
+  addEventListener('pointerup', () => { trasc = null; tav.style.transition = ''; });
+  M.on(disegna); new ResizeObserver(inquadra).observe($('scena'));
+  disegna();
+});
+</script>
+</body></html>

@@ -1,0 +1,150 @@
+<!doctype html><html lang="it"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tessere 3 · il taccuino</title>
+<link rel="stylesheet" href="mondo.css">
+<style>
+/* 3 — IL TACCUINO DEL CARTOGRAFO (le mappe disegnate a mano di Legend of
+   Grimrock, Etrian Odyssey; il quaderno a quadretti di chi faceva i dungeon
+   su carta).
+   La mappa non c'e': la disegna il gruppo mentre esplora. Una stanza appena
+   aperta compare a INCHIOSTRO — lo schizzo ricavato dalla tessera vera — e poi
+   si colora ad acquerello. Ogni eroe lascia la sua traccia a matita colorata,
+   e sulle stanze ci sono le note a mano. E' carta perche' al tavolo il
+   Taccuino di Campagna esiste davvero. */
+.scena { background: #2a2118; }
+.foglio { position: absolute; inset: 10px; border-radius: 4px; overflow: hidden;
+  background:
+    radial-gradient(ellipse at 20% 15%, rgba(160, 110, 50, .14), transparent 45%),
+    radial-gradient(ellipse at 85% 80%, rgba(120, 80, 40, .18), transparent 50%),
+    linear-gradient(rgba(70, 110, 150, .16) 1px, transparent 1px) 0 0 / 22px 22px,
+    linear-gradient(90deg, rgba(70, 110, 150, .16) 1px, transparent 1px) 0 0 / 22px 22px,
+    #efe6cf;
+  box-shadow: 0 10px 40px rgba(0,0,0,.7), inset 0 0 80px rgba(120, 85, 40, .35); }
+.foglio::before { content: ''; position: absolute; top: 0; bottom: 0; left: 46px; width: 2px; background: rgba(190, 60, 60, .35); }
+.mondo { position: absolute; left: 0; top: 0; transform-origin: 0 0; transition: transform 1s cubic-bezier(.3,.7,.2,1); }
+.mondo > * { position: absolute; left: 0; top: 0; }
+.mondo > * > * { position: absolute; }
+.schizzo, .acquerello { background-size: cover; }
+.schizzo { filter: url(#inchiostro); mix-blend-mode: multiply; }
+.schizzo.traccia { animation: traccia 1.6s steps(24) both; }
+@keyframes traccia { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+.acquerello { mix-blend-mode: multiply; filter: brightness(3.4) contrast(.75) saturate(1.5) sepia(.15); opacity: .42;
+  -webkit-mask: radial-gradient(circle at var(--mx) var(--my), #000 55%, transparent 72%); mask: radial-gradient(circle at var(--mx) var(--my), #000 55%, transparent 72%);
+  -webkit-mask-size: 260% 260%; mask-size: 260% 260%; -webkit-mask-position: center; mask-position: center; }
+.acquerello.bagna { animation: bagna 2.6s ease-out 1.4s both; }
+@keyframes bagna { from { -webkit-mask-size: 0% 0%; mask-size: 0% 0%; opacity: 0; } to { -webkit-mask-size: 260% 260%; mask-size: 260% 260%; opacity: .42; } }
+.bozza { border: 2px dashed rgba(60, 50, 40, .55); border-radius: 6px; display: grid; place-items: center;
+  font: 30px 'Mano', cursive; color: rgba(60, 50, 40, .6); transform: rotate(-.6deg); }
+.nota { font: 22px/1.1 'Mano', cursive; color: #3a2a1a; pointer-events: none; width: 250px; }
+.nota.dentro { background: rgba(239, 230, 207, .92); padding: 6px 10px; box-shadow: 2px 3px 0 rgba(60,40,20,.25); width: 230px; }
+.nota b { display: block; font: 30px 'Mano', cursive; color: #1e2a44; }
+.cella { display: grid; place-items: center; z-index: 5; }
+.cella::after { content: ''; width: 46%; height: 46%; border-radius: 50%; border: 2px solid rgba(40, 70, 120, .7); transform: rotate(-12deg) scaleX(1.1);
+  transition: transform .15s; }
+.cella:hover::after { background: rgba(40, 70, 120, .15); transform: scale(1.2); }
+.cella.rivela::after { border-color: #a0671d; border-width: 3px; border-style: dashed; }
+.pedina { z-index: 6; display: grid; place-items: center; border-radius: 50%; transition: left .5s, top .5s;
+  font: 30px 'Mano', cursive; color: #fff; box-shadow: 0 2px 0 rgba(0,0,0,.25); cursor: pointer; }
+.pedina.on { outline: 3px solid #1e2a44; outline-offset: 4px; }
+.nemico { z-index: 4; pointer-events: none; display: grid; place-items: center; }
+.nemico svg { width: 70%; height: 70%; }
+.nemico span { position: absolute; top: 88%; font: 20px 'Mano', cursive; color: #8e1f24; white-space: nowrap; }
+svg.tracce { z-index: 3; pointer-events: none; overflow: visible; }
+.tracce path { fill: none; stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 2 9; opacity: .8; filter: url(#matita); }
+.bussola { position: absolute; z-index: 8; right: 26px; top: 20px; width: 70px; height: 70px; opacity: .55; }
+</style></head><body>
+<svg width="0" height="0" style="position:absolute">
+  <!-- lo schizzo: la tessera diventa tratto d'inchiostro. Contrasto, poi i
+       bordi (laplaciano), poi al contrario: righe scure su trasparente -->
+  <filter id="inchiostro" color-interpolation-filters="sRGB">
+    <feColorMatrix type="saturate" values="0"/>
+    <feComponentTransfer><feFuncR type="linear" slope="3.2" intercept="-.05"/><feFuncG type="linear" slope="3.2" intercept="-.05"/><feFuncB type="linear" slope="3.2" intercept="-.05"/></feComponentTransfer>
+    <feConvolveMatrix order="3" kernelMatrix="-1 -1 -1 -1 8 -1 -1 -1 -1" preserveAlpha="true"/>
+    <feComponentTransfer><feFuncR type="linear" slope="-3" intercept="1"/><feFuncG type="linear" slope="-3" intercept=".96"/><feFuncB type="linear" slope="-3" intercept=".9"/></feComponentTransfer>
+  </filter>
+  <filter id="matita"><feTurbulence baseFrequency=".9" numOctaves="1" seed="3"/><feDisplacementMap in="SourceGraphic" scale="4"/></filter>
+</svg>
+<div class="pagina">
+  <div class="scena" id="scena"><div class="foglio" id="foglio"><div class="mondo" id="mondo"></div>
+    <svg class="bussola" viewBox="0 0 100 100"><g fill="none" stroke="#3a2a1a" stroke-width="2"><circle cx="50" cy="50" r="30"/><path d="M50 8 58 50 50 92 42 50Z"/></g><text x="50" y="8" font-family="Mano" font-size="18" text-anchor="middle" fill="#3a2a1a">N</text></svg>
+  </div><a class="titolo-mock" href="index.html">← 3 · il taccuino</a></div>
+  <div id="hud"></div>
+</div>
+<script src="mondo.js"></script>
+<script>
+const M = MONDO, $ = (id) => document.getElementById(id);
+const cell = 90;
+const MATITA = { elena: '#b8323c', attilio: '#2f5d9e', sibilla: '#3e8a55', nino: '#b07a1c' };
+// le note a mano: la prima frase del testo della stanza, accorciata come la
+// scriverebbe chi prende appunti di corsa
+const appunto = (t) => { const f = t.split(/[.;:]/)[0]; return f.length > 60 ? f.slice(0, 58).replace(/\s\S*$/, '') + '…' : f; };
+M.pronto.then(() => {
+  M.hud($('hud'));
+  const mondo = $('mondo');
+  mondo.innerHTML = '<div id="l-carta"></div><svg class="tracce" id="tracce"></svg><div id="l-sopra"></div><div id="l-celle"></div>';
+  const disegnate = new Set(M.rivelate().map((s) => s.id));
+  const ingresso = {};  // da dove si e' entrati: l'acquerello si allarga da li'
+
+  function inquadra() {
+    const f = $('foglio'); const W = f.clientWidth, H = f.clientHeight;
+    const rs = M.stretto() ? M.rivelate() : [...M.rivelate(), ...M.frontiera()];
+    const x0 = Math.min(...rs.map((s) => s.X)), x1 = Math.max(...rs.map((s) => s.X)) + 1;
+    const y0 = Math.min(...rs.map((s) => s.Y)), y1 = Math.max(...rs.map((s) => s.Y)) + 1;
+    const k = Math.min(W / ((x1 - x0) * 4 * cell), H / ((y1 - y0) * 4 * cell)) * .86;
+    const ox = (W - (x1 - x0) * 4 * cell * k) / 2 - x0 * 4 * cell * k, oy = (H - (y1 - y0) * 4 * cell * k) / 2 - y0 * 4 * cell * k;
+    mondo.style.transform = `translate(${ox}px, ${oy}px) scale(${k})`;
+  }
+  function disegna() {
+    mondo.style.width = M.COLS * cell + 'px'; mondo.style.height = M.ROWS * cell + 'px';
+    const S = 4 * cell;
+    let carta = '';
+    for (const s of M.rivelate()) {
+      const nuova = !disegnate.has(s.id);
+      const ing = ingresso[s.id] || ['50%', '50%'];
+      carta += `<div class="acquerello${nuova ? ' bagna' : ''}" style="left:${s.X * S}px;top:${s.Y * S}px;width:${S}px;height:${S}px;background-image:url('${s.tessera}');--mx:${ing[0]};--my:${ing[1]}"></div>
+        <div class="schizzo${nuova ? ' traccia' : ''}" style="left:${s.X * S}px;top:${s.Y * S}px;width:${S}px;height:${S}px;background-image:url('${s.tessera}')"></div>`;
+    }
+    for (const s of M.frontiera()) carta += `<div class="bozza" style="left:${s.X * S + 10}px;top:${s.Y * S + 10}px;width:${S - 20}px;height:${S - 20}px">?</div>`;
+    $('l-carta').innerHTML = carta;
+    for (const s of M.rivelate()) disegnate.add(s.id);
+    // le note: nome e appunto, fuori dalla stanza quando c'e' spazio
+    // la nota va dove c'e' carta libera: a destra, a sinistra, o su un
+    // cartiglio dentro la stanza quando e' circondata
+    const occupata = (X, Y) => Object.values(M.stanze).some((t) => t.X === X && t.Y === Y && (t.rivelata || M.frontiera().includes(t)));
+    $('l-sopra').innerHTML = M.rivelate().map((s, i) => {
+      let x, y = s.Y * S + 14 + (i % 2) * 20, cls = '';
+      if (!occupata(s.X + 1, s.Y)) x = (s.X + 1) * S + 18;
+      else if (!occupata(s.X - 1, s.Y)) x = s.X * S - 268;
+      else { x = s.X * S + 12; y = s.Y * S + S - 118; cls = ' dentro'; }
+      return `<div class="nota${cls}" style="left:${x}px;top:${y}px;transform:rotate(${(i % 3 - 1) * 2.5}deg)"><b>${M.esc(s.nome)}</b>${M.esc(appunto(s.testo))}</div>`;
+    }).join('') +
+      M.nemici.map((n) => `<div class="nemico" style="left:${n.c * cell}px;top:${n.r * cell}px;width:${cell}px;height:${cell}px">
+        <svg viewBox="0 0 40 40"><path d="M8 9 32 31M31 8 9 33" stroke="#8e1f24" stroke-width="4" stroke-linecap="round" fill="none"/></svg>
+        <span>${M.esc(n.nome.split(' ')[0].toLowerCase())}</span></div>`).join('') +
+      M.eroi.map((e) => `<button class="pedina${e === M.att() ? ' on' : ''}" data-id="${e.id}" style="left:${e.c * cell + cell * .18}px;top:${e.r * cell + cell * .18}px;width:${cell * .64}px;height:${cell * .64}px;background:${MATITA[e.id]}">${e.nome[0]}</button>`).join('');
+    const ragg = M.raggiungibili();
+    $('l-celle').innerHTML = Object.values(ragg).map((v) => `<button class="cella${v.rivela ? ' rivela' : ''}" data-c="${v.c}" data-r="${v.r}"
+      style="left:${v.c * cell}px;top:${v.r * cell}px;width:${cell}px;height:${cell}px"></button>`).join('');
+    // le tracce a matita: dove e' passato ognuno, dall'inizio
+    const t = $('tracce'); t.setAttribute('width', M.COLS * cell); t.setAttribute('height', M.ROWS * cell);
+    t.innerHTML = M.eroi.map((e, i) => {
+      const pts = M.traccia[i]; if (pts.length < 2) return '';
+      const j = (i - 1.5) * 5;  // quattro tracce sulla stessa porta non si coprono
+      return `<path stroke="${MATITA[e.id]}" d="${pts.map(([c, r], k) => `${k ? 'L' : 'M'}${(c + .5) * cell + j} ${(r + .5) * cell + j}`).join(' ')}"/>`;
+    }).join('');
+    inquadra();
+  }
+  mondo.addEventListener('click', (ev) => {
+    const c = ev.target.closest('.cella');
+    if (c) {
+      const s = M.stanzaDi(+c.dataset.c, +c.dataset.r);
+      if (s && !s.rivelata) ingresso[s.id] = [((+c.dataset.c - s.X * 4 + .5) / 4 * 100) + '%', ((+c.dataset.r - s.Y * 4 + .5) / 4 * 100) + '%'];
+      return M.muovi(+c.dataset.c, +c.dataset.r);
+    }
+    const p = ev.target.closest('.pedina'); if (p) M.seleziona(p.dataset.id);
+  });
+  M.on(disegna); new ResizeObserver(inquadra).observe($('foglio'));
+  disegna();
+});
+</script>
+</body></html>

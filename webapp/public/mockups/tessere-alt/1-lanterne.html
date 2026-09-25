@@ -1,0 +1,25 @@
+<!doctype html><html lang="it"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tessere 1 · lanterne</title>
+<link rel="stylesheet" href="mondo.css">
+<link rel="stylesheet" href="lanterne.css">
+<!-- 1 — LANTERNE (Darkest Dungeon, la torcia che si consuma).
+     E' buio: si vede solo dove arriva la luce. Ogni eroe porta una lanterna,
+     le torce e le candele nere fanno luce da sole, il canto che sale accorcia
+     le lanterne. Un nemico compare quando si svela la sua stanza, e da li' si
+     vede sempre. La plancia sta in lanterne.js, e la usa anche la Spedizione
+     completa (5-spedizione.html). -->
+</head><body>
+<div class="pagina">
+  <div class="scena" id="scena"><a class="titolo-mock" href="index.html">← 1 · lanterne</a></div>
+  <div id="hud"></div>
+</div>
+<script src="mondo.js"></script>
+<script src="lanterne.js"></script>
+<script>
+MONDO.pronto.then(() => {
+  MONDO.hud(document.getElementById('hud'));
+  LANTERNE.monta(document.getElementById('scena'));
+});
+</script>
+</body></html>
