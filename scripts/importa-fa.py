@@ -92,7 +92,12 @@ PAVIMENTI = {
     'lastricato': [['texture_pack_05', 'stone_tiles_a'],
                    ['textures/stone_floors', 'cobblestone', '.jpg'],
                    ['textures/stone_floors', '.jpg']],
-    'pietra':     [['texture_pack_05', 'square_grout'],
+    # NON square_grout: e' uno strato di sole FUGHE su fondo trasparente, da
+    # mettere sopra un altro pavimento. Scelto per «pietra», faceva cripte nere
+    # a quadretti e ballatoi da cui si vedeva la citta' sotto (prova del
+    # 25/09/2026). Pietra consumata e crepata, come vuole una cripta.
+    'pietra':     [['texture_pack_05', 'stone_tiles_b'],
+                   ['texture_pack_05', 'stone_tiles_n'],
                    ['textures/stone_square_tiles', '.jpg']],
     'mattonelle': [['texture_pack_05', 'marble_tiles_b'],
                    ['textures/stone_patterned_tiles', '.jpg']],
@@ -272,8 +277,15 @@ def main():
             # piastrella che copre sei caselle a 345 px l'una chiede duemila
             # pixel, e il tetto a 1024 li tagliava. Quel che la libreria ha in
             # piu' (l'acqua e' 3200) qui non si butta.
-            w, h = porta(p, os.path.join(FUORI, 'pavimenti', nome + '.png'),
-                         ritaglia=False, esposizione=True, lato=2048)
+            dst = os.path.join(FUORI, 'pavimenti', nome + '.png')
+            w, h = porta(p, dst, ritaglia=False, esposizione=True, lato=2048)
+            # UN PAVIMENTO NON HA BUCHI: se un quarto dei pixel e' trasparente,
+            # la ricetta ha pescato uno strato (fughe, crepe, overlay), non un
+            # pavimento — com'e' successo a «pietra» con square_grout
+            alfa = Image.open(dst).convert('RGBA').getchannel('A')
+            trasp = sum(alfa.histogram()[:128]) / (alfa.width * alfa.height)
+            if trasp > .25:
+                sys.exit(f"pavimento {nome}: {trasp:.0%} trasparente - {os.path.basename(p)} e' uno strato, non un pavimento")
             righe.append(f'pavimenti/{nome}.png  <-  {os.path.relpath(p, ROOT).replace(chr(92), '/')}')
         print(f'  pavimento {chiave:11s} {len(scelti)} varianti · {os.path.basename(scelti[0])}')
 
