@@ -220,7 +220,10 @@ const PAVIMENTI = [
   // ------------------------------------------------------------- L'ACQUA
   // quel che si CAMMINA sopra l'acqua e' assi: il pavimento e' quello che i
   // piedi toccano, non quello che c'e' sotto
-  [/passerell|ponte|ponticell|pontile|camminament|ballatoio|loggia|scalinata|scala|gradin/i, 'assi'],
+  // il ballatoio della torre e' un anello di PIETRA levigata dal vento (Ep.11):
+  // le assi sono delle passerelle e dei camminamenti, non delle torri
+  [/ballatoio/i, 'pietra'],
+  [/passerell|ponte|ponticell|pontile|camminament|loggia|scalinata|scala|gradin/i, 'assi'],
   [/canale|acqua|pozzo|cistern|confluenza|darsena|vasca|chiatt|roggia|marea|lavatoio/i, 'acqua'],
   // la melma e' l'acqua che non scorre: fogne, scoli, le vene sotto la citta'
   [/fogna|melma|scolo|chiusin|cloaca|vene|budello|sentina|palude/i, 'melma'],
@@ -314,6 +317,10 @@ const SPORCO = {
 const SPORCO_BASE = ['rgba(0,0,0,.55)', 'rgba(10,20,22,.5)'];
 
 function pavimentoDi(tile) {
+  // UNA STANZA CHE IL NOME NON BASTA A DIRE: «L'abbaino» dell'Ep.11 e' un
+  // riparo al chiuso, quello dell'Ep.14 sporge sul tetto. Il campo `pavimento`
+  // della tessera (src/gen_ep*.py) vince sulla regola, per stampa e schermo.
+  if (tile.pavimento) return tile.pavimento;
   const nome = `${tile.nome || ''} ${tile.id || ''}`;
   for (const [re, quale] of PAVIMENTI) if (re.test(nome)) return quale;
   return 'lastricato';
