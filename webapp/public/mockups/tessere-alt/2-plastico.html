@@ -150,7 +150,7 @@ M.pronto.then(() => {
       fatti.add(k); if (largo) fatti.add(`${c + 1},${r}`);
       const chiave = SPRITE.find((x) => new RegExp(x, 'i').test(nome)); if (!chiave) continue;
       // la variante la sceglie la casella: stessa tessera, stesso disegno, sempre
-      const v = (c * 7 + r * 13) % 3; const src = `fa/${chiave}${v ? '-' + (v + 1) : ''}.png`;
+      const v = (c * 7 + r * 13) % 3; const src = `/assets/vtt/arredi/${chiave}${v ? '-' + (v + 1) : ''}.png`;
       const lx = c - s.X * 4, ly = r - s.Y * 4, pad = cell * .05;
       const h = cell * ((ALTEZZA.find(([re]) => re.test(nome)) || [0, .3])[1]);
       const n = Math.max(2, Math.round(h / 3)); let strati = `<img class="ombra-fa" src="${src}" alt="">`;
