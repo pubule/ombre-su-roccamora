@@ -29,6 +29,12 @@ export function fuoriDi(tile) {
   return 'vuoto';
 }
 
+// IL PAVIMENTO LO DICE IL NOME DELLA STANZA. I dati non hanno un campo
+// «ambiente» e non glielo si aggiunge per una scelta di pittura: il nome della
+// tessera ce l'ha gia' dentro — «banchina», «deposito», «cripta» — ed e' lo
+// stesso nome che il tavolo sente leggere ad alta voce.
+// L'ORDINE E' UNA REGOLA, non un caso: «Sala delle Casse» e' un magazzino, e
+// se la riga dei salotti venisse prima si ritroverebbe il parquet.
 export const PAVIMENTI = [
   // ------------------------------------------------------------- L'ACQUA
   // quel che si CAMMINA sopra l'acqua e' assi: il pavimento e' quello che i
