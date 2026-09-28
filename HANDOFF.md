@@ -231,6 +231,25 @@ scenografie`.
 **Prossimo**: Task 8 del piano (`docs/superpowers/plans/2026-09-24-plancia-lanterne.md`) — la
 scenografia degli altri 20 episodi, un subagente a episodio, ognuno giudicato contro Ep.1.
 
+**Task 8 — preludio FATTO (28/09/2026)**: `src/scenografia/preludio.json`, le tre tessere
+della "Prova del Lume" (T1 banchina della dogana, T2 il deposito, T4 lo stanzino del
+daziere — non sequenziali, l'episodio non ha T3/T5/T6). Composte da zero leggendo
+`testo`/`exits`/`arredi` di `webapp/data/preludio.json` contro il catalogo esistente (nessun
+pezzo mancante, `scripts/importa-fa-lanterne.py` non toccato). T1 e T4 hanno arredi/uscite
+quasi identici a T1/T4 dell'Ep.1 (stessa banchina-molo-casse, stesso schema scrivania-branda),
+quindi la composizione li rispecchia da vicino di proposito — corda/barile/pozza/torce doppie
+per la banchina che qui e' anche il punto di vittoria (riportare Ansaldo alla barca);
+sgabello-rovesciato + calamaio rovesciato per l'interruzione sulla scrivania del daziere,
+catene vicino alla branda per dire come Ansaldo e' stato tenuto (senza mostrare il PNG
+scortato, che e' arredo/token di motore, non decoro). T2 (deposito, "la dogana e' un guscio")
+resta buio come il Sala-delle-Casse dell'Ep.1: nessuna luce fissa. Zero sangue nelle tre
+stanze: nessun testo lo giustifica. Verificato guardando le tre foto (`node
+webapp/mappa-plancia-fa.mjs --ep preludio`) affiancate a quelle dell'Ep.1 — nessuna
+correzione necessaria al primo giro. Test: `python webapp/export-data.py && node
+webapp/test-scenografia.mjs && node webapp/test-stanza.mjs` → tutti `OK`.
+
+**Prossimo**: Task 8, `ep2` — stesso procedimento, giudicato contro Ep.1 e preludio.
+
 ## FATTO (22/09/2026) — i vantaggi d'Indagine arrivano in Spedizione (audit + correzioni)
 
 Report: `AUDIT-VANTAGGI-INDAGINE.md`. Banco: `node webapp/audit-vantaggi.mjs [porta]
