@@ -63,14 +63,34 @@ async function parte1() {
   await clickIf('#ok-msg');   // la stanza d'ingresso si legge come tutte le altre
   await page.waitForTimeout(200);
 
-  const c = await page.evaluate(() => ({
-    stanze: document.querySelectorAll('.stanza-fa').length,
-    pngVecchi: [...document.querySelectorAll('.tessera-b')].filter((e) => /\/board\//.test(e.style.backgroundImage)).length,
-    buio: !!document.querySelector('.board-digitale canvas.buio'),
-    nemiciSuCoperte: [...document.querySelectorAll('.tok-board.nemico')].length,
-    quadrati: document.querySelector('.cella-mossa') ? getComputedStyle(document.querySelector('.cella-mossa'), '::after').borderRadius : null,
-    credito: /Forgotten Adventures/.test(document.body.innerText),
-  }));
+  const c = await page.evaluate(() => {
+    // fitZoom() (digitale.js) mette lo zoom CSS della board sotto/sopra 1 per
+    // adattarla allo schermo: e Chromium arrotonda lo spessore del bordo del
+    // ::after sul px fisico scalato (non il border-radius, che resta quello
+    // scritto), perdendo precisione se si tenta di risalire al valore
+    // dichiarato dividendo per lo zoom. Si azzera lo zoom SOLO per la misura,
+    // cosi' il bordo si legge in px CSS reali come lo sono width/height/radius.
+    const board = document.querySelector('.board-digitale');
+    const zoomOrig = board ? board.style.zoom : null;
+    if (board) board.style.zoom = '1';
+    const cellaMossa = document.querySelector('.cella-mossa');
+    const dopo = cellaMossa ? getComputedStyle(cellaMossa, '::after') : null;
+    const risultato = {
+      stanze: document.querySelectorAll('.stanza-fa').length,
+      pngVecchi: [...document.querySelectorAll('.tessera-b')].filter((e) => /\/board\//.test(e.style.backgroundImage)).length,
+      buio: !!document.querySelector('.board-digitale canvas.buio'),
+      nemiciSuCoperte: [...document.querySelectorAll('.tok-board.nemico')].length,
+      quadrati: dopo ? dopo.borderRadius : null,
+      bordo: dopo ? dopo.borderTopWidth : null,
+      // width/height del ::after arrivano gia' risolti in px (percentuali
+      // sull'altezza/larghezza della .cella-mossa): il 72% dei Global
+      // Constraints si verifica cosi', non leggendo lo stile percentuale.
+      percento: dopo && cellaMossa.offsetWidth ? Math.round((parseFloat(dopo.width) / cellaMossa.offsetWidth) * 100) : null,
+      credito: /Forgotten Adventures/.test(document.body.innerText),
+    };
+    if (board) board.style.zoom = zoomOrig;
+    return risultato;
+  });
   if (c.stanze < 1) fail('nessuna stanza composta');
   if (c.pngVecchi) fail('tessere dipinte ancora in uso');
   if (!c.buio) fail('manca il buio');
@@ -86,6 +106,8 @@ async function parte1() {
   // garanzia non sta nel rendering, sta nel motore, a monte del disegno.
   if (c.nemiciSuCoperte) fail('nemici visibili prima che la loro stanza sia svelata');
   if (c.quadrati !== '8px') fail(`le caselle non sono quadrati (border-radius ${c.quadrati})`);
+  if (c.bordo !== '3px') fail(`il bordo della casella non e' 3px (${c.bordo})`);
+  if (c.percento !== null && (c.percento < 68 || c.percento > 76)) fail(`la casella non e' al 72% della cella (${c.percento}%)`);
   if (!c.credito) fail('manca il credito di Forgotten Adventures');
 
   // uscire dalla spedizione: il ciclo della luce si ferma (Task 4 + Step 4)
