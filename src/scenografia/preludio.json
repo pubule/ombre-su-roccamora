@@ -12,14 +12,14 @@
  },
  "T2": {
   "decori": [
-   { "pezzo": "sacco",     "x": 0.6,  "y": 0.5,  "lato": 0.7,  "rot": 20 },
-   { "pezzo": "sacco",     "x": 1.4,  "y": 0.6,  "lato": 0.65, "rot": -15 },
-   { "pezzo": "corda",     "x": 2.6,  "y": 0.55, "lato": 0.6,  "rot": 70 },
-   { "pezzo": "barile",    "x": 3.4,  "y": 1.4,  "lato": 0.75, "rot": 0 },
-   { "pezzo": "straccio",  "x": 3.6,  "y": 2.4,  "lato": 0.3,  "rot": 95 },
-   { "pezzo": "ragnatela", "x": 3.65, "y": 3.6,  "lato": 0.8,  "rot": 180 }
+   { "pezzo": "sacco",     "x": 1.75, "y": 1.35, "lato": 0.7,  "rot": 20 },
+   { "pezzo": "corda",     "x": 2.55, "y": 2.35, "lato": 0.6,  "rot": -30 },
+   { "pezzo": "straccio",  "x": 2.75, "y": 0.5,  "lato": 0.3,  "rot": 80 },
+   { "pezzo": "ragnatela", "x": 0.4,  "y": 2.4,  "lato": 0.8,  "rot": 45 },
+   { "pezzo": "barile",    "x": 0.55, "y": 0.5,  "lato": 0.75, "rot": 0 },
+   { "pezzo": "sacco",     "x": 3.55, "y": 3.4,  "lato": 0.65, "rot": -25 }
   ],
-  "perche": "'La dogana e' un guscio': un deposito quasi vuoto, casse accatastate (arredi) e nient'altro di prezioso. Sacchi e una corda si accumulano nell'angolo lontano dalle porte, un barile e uno straccio contro il muro della seconda pila, una ragnatela nell'angolo opposto — nessuno viene qui da anni, tranne i due Sgherri che vi si sono appostati aspettando. Nessuna luce fissa: un deposito cieco, buio finche' non arrivano le lanterne degli eroi."
+  "perche": "Il testo dice 'una cassa, in un angolo, e' meno impolverata delle altre' — e' il punto focale, la stessa cassa che uno sgherro ha maneggiato di recente. La cassa a (2,1) prende un sacco appoggiato di lato, uno straccio sopra (usato per spolverarla o coprirla) e una corda mollata ai suoi piedi: tre oggetti stretti attorno a lei, non simmetrici. La seconda cassa, a (1,2), resta quasi nuda — solo una ragnatela contro il suo fianco, la polvere di anni che nessuno ha smosso. Barile e un secondo sacco lontano da entrambe dicono 'la dogana e' un guscio' senza competere con la cassa: l'occhio cade sulla prima, non sulla seconda. Nessuna luce fissa: un deposito cieco, buio finche' non arrivano le lanterne degli eroi."
  },
  "T4": {
   "decori": [
