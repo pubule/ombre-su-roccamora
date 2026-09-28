@@ -171,6 +171,29 @@ il giocatore: e' la larghezza a deciderle, non `!arbitro()`), verificato verde;
 `test-telefono-azioni.mjs` (selettore aggiornato a `#col-eroi .ce.on .tasti`, non ri-eseguito:
 vuole `wrangler dev` con `OSR_DEV_EMAIL` e un tavolo vero, fuori dal giro di misura di oggi).
 
+**Fix round 1 (28/09/2026, dopo la revisione)**: `test-telefono-azioni.mjs` girato per davvero
+(`build-dist.sh` + `wrangler dev --var OSR_DEV_EMAIL:giocatore@esempio.it --port 8787`, come
+lasciato scritto sopra) — e' andato in crash. `mazzoRestano()` (nuova del Task 6) leggeva solo
+la forma di `SP().mazzo` da arbitro (`{ordine, indice}`); su un tavolo vero un GIOCATORE la
+riceve gia' potata da `motore/proiezione.js:142` a `{restano, rimescolato}` — l'ordine del
+mazzo e' il segreto del round dopo, e non deve lasciare lo schermo di chi arbitra. `m.ordine.length`
+su `undefined` lanciava dentro il template di `render()`, prima di scrivere `app.innerHTML`:
+schermata d'errore generica per OGNI giocatore, sempre, appena in Spedizione — non un caso
+limite, il percorso di default di `vista-eroe`. Non lo prendeva `test-hud-spedizione.mjs` perche'
+semina `vistaDigitale()` in locale senza un tavolo vero, quindi vedeva sempre la forma intera
+anche per un posto giocatore: aggiunto un caso che semina la forma potata, cosi' la suite sulla
+8017 non ha piu' bisogno di un `wrangler dev` per una regressione di questa famiglia. Corretta
+`mazzoRestano()` a riconoscere entrambe le forme. Un secondo difetto, stessa causa (HUD nuovo,
+lezione vecchia non riapplicata): con la carta corretta, la griglia a tre colonne chiudeva
+`#col-eroi` a `1fr` con lo scroll solo interno — per chi arbitra va bene, ma per chi gioca da
+telefono la pagina intera deve poter scorrere fino ai tasti, la stessa regola gia' scritta per
+il vecchio `.vista-eroe` e non riportata sulla struttura nuova. Corretto con
+`#app.vista-eroe.immersivo:has(#col-eroi)` scoped (non tocca l'arbitro ne' il desktop).
+`test-telefono-azioni.mjs` verde due volte contro `wrangler dev`; resto dello Step 6 (porta
+8017) rilanciato, identico al giro precedente. Non toccato (pre-esistente, stessa famiglia di
+difetto, fuori dal mandato di questo giro): `motore/abilita.js:120-123,225-230` (il Sesto Senso
+di Sibilla) legge `m.ordine`/`m.indice` con la stessa assunzione di forma unica.
+
 **Prossimo**: Task 7+ del piano (`docs/superpowers/plans/2026-09-24-plancia-lanterne.md`).
 
 ## FATTO (22/09/2026) — i vantaggi d'Indagine arrivano in Spedizione (audit + correzioni)
