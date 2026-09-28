@@ -248,7 +248,43 @@ webapp/mappa-plancia-fa.mjs --ep preludio`) affiancate a quelle dell'Ep.1 — ne
 correzione necessaria al primo giro. Test: `python webapp/export-data.py && node
 webapp/test-scenografia.mjs && node webapp/test-stanza.mjs` → tutti `OK`.
 
-**Prossimo**: Task 8, `ep2` — stesso procedimento, giudicato contro Ep.1 e preludio.
+**Task 8 — ep2 FATTO (29/09/2026)**: `src/scenografia/ep2.json` (La voce del bronzo),
+T1-T6 composte da zero leggendo `testo`/`cerca`/`cerca_vuoto`/`hook`/`arredi` di
+`webapp/data/ep2.json` contro il catalogo esistente (nessun pezzo mancante,
+`scripts/importa-fa-lanterne.py` non toccato). T1 (Banchina delle Scorie) riusa lo
+schema-molo dell'Ep.1 ma capovolto nel mood: non e' un arrivo sicuro (e' l'ambush
+dell'Isola delle Scorie), quindi zero luci fisse e un'`ancora` arrugginita come punto
+focale ("qualcosa di piu' antico") al posto delle torce. T6 (Sala dei Forni, il boss)
+mostra le campanelle grezze della rastrelliera (`campana` x2, coi "due posti vuoti" del
+testo) senza favorire visivamente il crogiolo sull'uscita segreta rispetto alle due
+forme-decoy: decori distribuiti equidistanti dai tre mobili.
+
+**Due difetti trovati SOLO guardando le foto, non nel JSON:**
+1. **`fumo` e' illeggibile su questo motore**: il PNG ha alpha reale (verificato con
+   PIL, non e' un'immagine piatta), ma e' fumo SCURO su pavimenti gia' scuri (ghiaia,
+   mattoni, mattonelle) — anche ingrandito restava un'ombra indistinguibile dalla
+   texture. Sostituito ovunque con la famiglia `carbone`/`carbone-2`/`carbone-mucchio`
+   (braci nere, sagoma netta): visibile subito in T6 (mucchio grande), leggibile da
+   vicino in T2/T5 (piccolo, voluto — "terra ancora calda" non e' un fuoco vivo).
+2. **Il token-eroe della foto (`cellaCentrale` di `mappa-plancia-fa.mjs`) copre sempre
+   la stessa cella "centrale"** di ogni tessera rivelata (dati (1,1) se libera, altrimenti
+   il prossimo candidato) — un decoro messo li' e' semplicemente invisibile nella foto di
+   verifica. Presa in T3 (la `pozza` focale finiva sotto il ritratto) e in T1 (due pezzi
+   finivano dietro il gruppo di partenza in basso a sinistra): spostati, ora tutti visibili.
+
+**Lezione da portare avanti**: dopo OGNI modifica al JSON, `python webapp/export-data.py`
+PRIMA di rilanciare `mappa-plancia-fa.mjs` — l'ho dimenticato una volta a meta' sessione
+e ho passato un giro intero a guardare foto che in realta' erano ancora la versione
+precedente (stessa`fumo`, stesse coordinate): tre render "senza cambiamenti" che in
+realta' non avevano mai visto il nuovo JSON. Vale il principio "misura a codice fermo"
+al contrario: qui era il DATO fermo, non il codice.
+
+Verificato guardando tutte e sei le foto (`node webapp/mappa-plancia-fa.mjs --ep ep2`)
+affiancate a quelle dell'Ep.1, due giri di correzione (sopra) prima di committare. Test:
+`python webapp/export-data.py && node webapp/test-scenografia.mjs && node
+webapp/test-stanza.mjs` → tutti `OK`.
+
+**Prossimo**: Task 8, `ep3` — stesso procedimento, giudicato contro Ep.1 e preludio.
 
 ## FATTO (22/09/2026) — i vantaggi d'Indagine arrivano in Spedizione (audit + correzioni)
 
