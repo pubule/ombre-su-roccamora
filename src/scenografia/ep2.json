@@ -12,13 +12,14 @@
  },
  "T2": {
   "decori": [
-   { "pezzo": "carbone",      "x": 0.6, "y": 2.6, "lato": 0.5,  "rot": 0 },
+   { "pezzo": "carbone",      "x": 0.75,"y": 2.75,"lato": 1.0,  "rot": 0 },
+   { "pezzo": "carbone-2",    "x": 0.3, "y": 2.25,"lato": 0.5,  "rot": 20 },
    { "pezzo": "calcinacci",   "x": 2.6, "y": 0.4, "lato": 0.6,  "rot": 55 },
    { "pezzo": "calcinacci-2", "x": 3.5, "y": 3.4, "lato": 0.6,  "rot": -35 },
    { "pezzo": "sacco",        "x": 0.4, "y": 0.4, "lato": 0.7,  "rot": 15 },
    { "pezzo": "secchio",      "x": 0.4, "y": 1.4, "lato": 0.4,  "rot": -10 }
   ],
-  "perche": "Le forme di campana sono l'arredo, interrate come fosse aperte: quella 'usata da poco' (terra ancora calda) ha ancora un pugno di braci scure ai bordi - il punto focale, l'unico segno che qui e' successo qualcosa stanotte. Ai bordi del piazzale, lontano dai casseri, cumuli di terra smossa dallo scavo (calcinacci) e un sacco di sabbia da formatura, un secchio dimenticato vicino all'ingresso. Il badile si trova cercando, non e' in scena. Nessuna luce fissa: e' un piazzale all'aperto, di notte, non un cantiere presidiato."
+  "perche": "Le forme di campana sono l'arredo, interrate come fosse aperte: quella 'usata da poco' (terra ancora calda) ha un mucchietto di braci scure sparse al bordo, due pezzi vicini a formare un grumo scuro ben visibile sulla ghiaia - il punto focale, l'unico segno che qui e' successo qualcosa stanotte. Nessuna fiamma: e' calore residuo, non un fuoco vivo (il testo dice solo 'calda'). Ai bordi del piazzale, lontano dai casseri, cumuli di terra smossa dallo scavo (calcinacci) e un sacco di sabbia da formatura, un secchio dimenticato vicino all'ingresso. Il badile si trova cercando, non e' in scena. Nessuna luce fissa: e' un piazzale all'aperto, di notte, non un cantiere presidiato."
  },
  "T3": {
   "decori": [
@@ -34,7 +35,7 @@
  "T4": {
   "decori": [
    { "pezzo": "pozza",        "x": 1.7, "y": 1.6, "lato": 0.55, "rot": 15 },
-   { "pezzo": "corda",        "x": 1.4, "y": 2.6, "lato": 0.6,  "rot": -20 },
+   { "pezzo": "corda",        "x": 2.4, "y": 2.6, "lato": 0.6,  "rot": -20 },
    { "pezzo": "straccio",     "x": 2.4, "y": 1.6, "lato": 0.3,  "rot": 100 },
    { "pezzo": "calcinacci",   "x": 0.4, "y": 0.4, "lato": 0.5,  "rot": 40 },
    { "pezzo": "calcinacci-2", "x": 3.5, "y": 3.4, "lato": 0.5,  "rot": -25 }
