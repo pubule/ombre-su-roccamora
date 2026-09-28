@@ -1,0 +1,65 @@
+{
+ "T1": {
+  "decori": [
+   { "pezzo": "torcia",    "x": 2.0,  "y": 0.4,  "lato": 0.8,  "rot": 0,   "luce": "torcia" },
+   { "pezzo": "corda",     "x": 0.55, "y": 1.35, "lato": 0.65, "rot": 20 },
+   { "pezzo": "secchio",   "x": 1.25, "y": 1.45, "lato": 0.4,  "rot": -15 },
+   { "pezzo": "calcinacci","x": 2.55, "y": 3.6,  "lato": 0.6,  "rot": 50 },
+   { "pezzo": "ragnatela", "x": 3.65, "y": 0.35, "lato": 0.8,  "rot": 200 }
+  ],
+  "perche": "E' la tessera dove si torna a vincere (si riporta Tobia qui, alla scala): come il T1 dell'Ep.1 e' l'unico posto della Spedizione davvero illuminato, una sola torcia lasciata da chi ha gia' cercato qui prima di voi - il punto focale, fiamma calda contro il legno buio delle assi. Il cerca_vuoto dice esattamente cosa c'e' sotto la scala - secchi sfondati e la corda di qualcun altro - quindi corda e secchio stanno li', vicino al molo (bitta). Calcinacci e ragnatela contro il muro delle scorie dicono che qui non passa quasi nessuno."
+ },
+ "T2": {
+  "decori": [
+   { "pezzo": "gabbia",       "x": 1.0,  "y": 1.9,  "lato": 1.5,  "rot": 15 },
+   { "pezzo": "calcinacci-2", "x": 3.5,  "y": 0.4,  "lato": 0.55, "rot": -25 },
+   { "pezzo": "ragnatela",    "x": 0.4,  "y": 3.6,  "lato": 0.8,  "rot": 170 },
+   { "pezzo": "ragnatela-2",  "x": 3.6,  "y": 3.55, "lato": 0.75, "rot": 200 },
+   { "pezzo": "tife-marce",   "x": 3.5,  "y": 1.6,  "lato": 0.5,  "rot": -15 },
+   { "pezzo": "secchio",      "x": 0.35, "y": 0.4,  "lato": 0.4,  "rot": -30 }
+  ],
+  "perche": "Il testo non nomina un oggetto preciso qui - solo colonne, acqua alta un palmo e 'piedi che non sono i vostri' - quindi il punto focale e' dedotto dal posto, in ferro pesante come chiede il principio 'verticale e ferro': una gabbia arrugginita, vuota, mezza nell'acqua - il grigliato scuro contro l'acqua chiara si vede subito, e lega visivamente questa sala alla prigionia di Tobia in T6. Calcinacci alla base delle colonne, ragnatele nei due angoli piu' lontani dalle porte, un ciuffo di tife tra le colonne e un secchio abbandonato dicono che nessuno tiene piu' pulita questa sala. Nessuna luce fissa: la lanterna che si cerca qui (oggetto cerca) resta fuori scena, appesa al suo gancio d'altri tempi - non la mostro, si trova cercando."
+ },
+ "T3": {
+  "decori": [
+   { "pezzo": "ossa",         "x": 2.15, "y": 1.75, "lato": 1.4,  "rot": 15 },
+   { "pezzo": "calcinacci",   "x": 0.5,  "y": 0.5,  "lato": 0.55, "rot": 45 },
+   { "pezzo": "catene",       "x": 3.5,  "y": 0.5,  "lato": 0.85, "rot": -70 },
+   { "pezzo": "ragnatela",    "x": 0.35, "y": 3.65, "lato": 0.8,  "rot": 180 },
+   { "pezzo": "ragnatela-2",  "x": 3.65, "y": 3.6,  "lato": 0.75, "rot": 160 }
+  ],
+  "perche": "Il testo non descrive oggetti (l'orrore qui e' tutto nell'eco che risponde), quindi il principio 1 si applica al posto: una galleria stretta fra i piloni del molo (arredo). Il punto focale sono ossa vecchie a fianco del passaggio - bianche contro la roccia scura, si vedono subito - un resto di chi non e' tornato, mai un morto fresco. Una catena arrugginita incastrata nella roccia all'altro lato lega visivamente questa tessera a T2/T4 (lo stesso sistema che ha calato qualcuno). Ragnatele nei due angoli lontani dal passaggio centrale, che resta libero: chi entra deve leggere subito da dove si passa."
+ },
+ "T4": {
+  "decori": [
+   { "pezzo": "corda",        "x": 1.75, "y": 1.55, "lato": 1.1,  "rot": -5 },
+   { "pezzo": "catene",       "x": 2.35, "y": 0.6,  "lato": 0.75, "rot": 100 },
+   { "pezzo": "calcinacci-2", "x": 3.5,  "y": 3.55, "lato": 0.5,  "rot": -25 },
+   { "pezzo": "ragnatela",    "x": 0.35, "y": 2.55, "lato": 0.8,  "rot": 150 },
+   { "pezzo": "tife-marce",   "x": 3.4,  "y": 2.45, "lato": 0.5,  "rot": 60 }
+  ],
+  "perche": "Il testo lo dice esplicito: 'dall'alto pende una corda nuova, unta di sego - e la corda LAVORA'. E' l'unico oggetto nominato e deve essere il punto focale: grande, quasi verticale, al centro della sala rotonda dove tre gole si incontrano (la corda e' anche da dove cala l'Adepto alla rivelazione). Una catena vicino, piu' corta, suggerisce il meccanismo di calata. Calcinacci di una gola crollata, ragnatele alte lontano dall'acqua che gira, un ciuffo di tife dove il vortice rallenta contro il muro. Nessuna luce: qui l'imboscata arriva dal buio."
+ },
+ "T5": {
+  "decori": [
+   { "pezzo": "organo",       "x": 1.55, "y": 2.35, "lato": 1.05, "rot": 0 },
+   { "pezzo": "organo",       "x": 2.6,  "y": 1.55, "lato": 1.0,  "rot": 15 },
+   { "pezzo": "cero",         "x": 0.55, "y": 0.5,  "lato": 0.35, "rot": 10 },
+   { "pezzo": "calcinacci-2", "x": 3.4,  "y": 1.5,  "lato": 0.5,  "rot": -35 },
+   { "pezzo": "ragnatela",    "x": 0.4,  "y": 3.6,  "lato": 0.75, "rot": 170 },
+   { "pezzo": "straccio",     "x": 2.4,  "y": 3.5,  "lato": 0.3,  "rot": 60 }
+  ],
+  "perche": "Il testo dice 'in fila, sigillate a cera, le canne di piombo': due gruppi di canne d'organo (oro contro il pavimento di metallo scuro dell'officina) sono il punto focale, a formare le rastrelliere - senza mostrare la scatolina col Campanello di Piero ne' la canna senza sigillo col suo nome: quelle sono nel campo `cerca`, si trovano cercando, non stanno in scena. Un cero spento (nessuna luce fissa: la cera che sigilla si e' fatta qui, ma a freddo, non e' un altare) accanto a calcinacci e uno straccio da lavoro contro le pareti. Ragnatele nell'angolo piu' lontano dalla porta: e' una cella chiusa da tempo."
+ },
+ "T6": {
+  "decori": [
+   { "pezzo": "corda",       "x": 1.85, "y": 0.85, "lato": 1.1,  "rot": 0 },
+   { "pezzo": "campana",     "x": 0.55, "y": 1.55, "lato": 0.7,  "rot": -15 },
+   { "pezzo": "campana",     "x": 3.45, "y": 1.6,  "lato": 0.65, "rot": 20 },
+   { "pezzo": "calcinacci",  "x": 0.4,  "y": 3.6,  "lato": 0.55, "rot": 45 },
+   { "pezzo": "ragnatela",   "x": 3.65, "y": 3.6,  "lato": 0.8,  "rot": 180 },
+   { "pezzo": "ragnatela-2", "x": 3.6,  "y": 0.45, "lato": 0.75, "rot": 150 }
+  ],
+  "perche": "Il pozzo 'sale a perdita d'occhio': il punto focale e' la corda della carrucola che scende dall'alto verso il centro, pallida contro il buio del pozzo - a lei e' appeso Tobia. Ai lati, come dice il testo ('come metronomi'), le due campanelle di bronzo grezzo, ma non simmetriche: misura e rotazione diverse, cosi' non sembrano generate. Calcinacci caduti dal pozzo antico e ragnatele nei due angoli piu' lontani dalla corda. Niente candele di cera: il testo non le nomina qui, e la scena appartiene all'Accordatore, non al culto. La FORMA DA COLATA (arredo, il segreto sotto cui si esce) resta libera: nessun decoro sopra."
+ }
+}

@@ -286,6 +286,47 @@ webapp/test-stanza.mjs` → tutti `OK`.
 
 **Prossimo**: Task 8, `ep3` — stesso procedimento, giudicato contro Ep.1 e preludio.
 
+**Task 8 — ep3 FATTO (29/09/2026)**: `src/scenografia/ep3.json` (Le voci del pozzo),
+T1-T6 composte da zero leggendo `testo`/`cerca`/`cerca_vuoto`/`hook`/`arredi` di
+`webapp/data/ep3.json` contro il catalogo esistente (nessun pezzo mancante,
+`scripts/importa-fa-lanterne.py` non toccato). Episodio tutto sotterraneo (pozzi
+murati, cisterne, gallerie): scelta deliberata di **zero luci fisse** in cinque
+tessere su sei (solo T1 ne ha una) — il testo non nomina mai fuoco quaggiu', e il
+buio uniforme e' coerente col genere (caccia furtiva in un covo, non un rifugio).
+
+**Due giri di correzione guardando le foto** (non nel JSON, la stessa lezione di
+preludio/ep2 — un punto focale tecnicamente presente ma dark-on-dark/troppo
+sottile per il colpo d'occhio):
+1. **T1**: la `pozza` prevista come focale rendeva un'ombra chiara indistinta
+   sulle assi, illeggibile. Sostituita con **una sola torcia accesa** — come il
+   T1 dell'Ep.1 e' l'unico posto davvero illuminato della Spedizione (qui: dove
+   si torna a vincere con Tobia), e la fiamma calda contro il legno buio si
+   vede subito.
+2. **T2**: il punto focale scelto (`catene`) rendeva come un piccolo scarabocchio
+   sottile, quasi invisibile sull'acqua. Sostituito con una **gabbia** arrugginita
+   (controllato il PNG sorgente prima di usarla): il grigliato scuro e pesante
+   ("verticale e ferro") contro l'acqua chiara si vede a colpo d'occhio e lega
+   visivamente la sala alla prigionia di Tobia in T6.
+3. **T5**: il secondo pezzo `organo` (canne di piombo in rastrelliera) ruotato a
+   85° collassava in una sottile barretta verticale illeggibile — la sagoma reale
+   del pezzo (controllata sul PNG sorgente: una base di legno con 5 fori tondi,
+   vista dall'alto) non regge rotazioni estreme. Riportato a 15°, entrambe le
+   copie ingrandite leggermente.
+
+**Da non mostrare in scena, verificato tessera per tessera**: la lanterna da
+minatore (T2, campo `cerca`), la scatolina col Campanello di Piero e la canna
+senza sigillo col nome PIERO (T5, entrambe dentro il campo `cerca`, non `testo` —
+le rastrelliere generiche di canne SI mostrano, quelle due no).
+
+Verificato guardando tutte e sei le foto (`node webapp/mappa-plancia-fa.mjs --ep
+ep3`) affiancate a quelle dell'Ep.1, un giro di correzione (sopra) prima di
+committare — `export-data.py` rilanciato PRIMA di ogni rigenerazione foto, come
+da lezione dell'ep2. Test: `python webapp/export-data.py && node
+webapp/test-scenografia.mjs && node webapp/test-stanza.mjs` → tutti `OK`.
+
+**Prossimo**: Task 8, `ep4` — stesso procedimento, giudicato contro Ep.1, preludio
+ed ep2/ep3.
+
 ## FATTO (22/09/2026) — i vantaggi d'Indagine arrivano in Spedizione (audit + correzioni)
 
 Report: `AUDIT-VANTAGGI-INDAGINE.md`. Banco: `node webapp/audit-vantaggi.mjs [porta]
