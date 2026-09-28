@@ -68,6 +68,47 @@ e' ancora buio'; `el.isConnected` tolto insieme a `L.ferma()` nel test → 'cicl
 non si ferma'; ripristinati, test torna verde. Non toccato: `digitale.js` (Task 5, ci
 collega questo modulo) e i mockup (solo lettura).
 
+**Task 5 FATTO (28/09/2026)**: l'innesto nella Spedizione vera. `boardHtml()` (`digitale.js`)
+disegna le tessere rivelate con `stanzaHtml()` (`.stanza-fa`, non piu' `.tessera-b` col PNG
+dipinto); le coperte restano segnaposto scuro. `agganciaMappa()` accende `creaLuce()` sulla
+`.board-digitale` (un solo oggetto, tenuto finche' e' appeso allo stesso nodo — quasi mai fra
+un render e l'altro, sempre dentro lo stesso) e passa le sorgenti fisse (torce/candele dai
+decori, ricalcolate da `stanzaHtml().luci`) piu' le lanterne degli eroi lette dal
+`.tok-slot[data-tok^="E:"]` in pagina — cosi' la luce segue anche `scivolaEroe()` senza essere
+avvisata. **Step 4a (fuori dell'episodio)**: la plancia si allarga di una tessera di margine
+(`ctx._geo`), e ogni riquadro vuoto prende il fuori (acqua/melma scorrono, erba/roccia/terra
+ferme e scure) della stanza RIVELATA piu' vicina (Chebyshev su `layout()`) che lo dichiara con
+`fuoriDichiarato()` — porto del ciclo «IL FUORI E' DELL'EPISODIO» di `6-scenografia.html`.
+**Step 4b (i tetti)**: nuovo `webapp/public/js/plancia/citta.js` (`citta(W,H,seme)`, porto
+fedele), appeso come primo figlio di `.board-digitale` (sotto tutto) quando almeno una tessera
+e' `alAperto()`; ridisegnato solo quando la misura cambia, non a ogni fotogramma. Vento
+(`.vento`/`.forte`, CSS-only) sulle tessere ESPOSTE. CSS: `.stanza-fa`/`.pav-fa`/`.pezzo-fa`
+(+ombra/decoro/fiamma/porta-fa)/`.fuori-fa`/`.onda-fa` coi filtri dei Global Constraints
+(`mockups/tessere-alt/lanterne.css`); `canvas.buio{z-index:4}`, `canvas.calore{z-index:2}`;
+`.tok-slot`/`.cella-mossa` a `z-index:5` (sopra il buio, o si spegnerebbero anche loro);
+`.cella-mossa::after` quadrato (`border-radius:8px`, non piu' `50%`); vignetta su
+`.board-area::after`; `.credito-fa` sotto la plancia. Rimossi `urlBoard`, le etichette
+`.porta-lbl` (ora la porta si vede) e i quadretti `.cella-b`/arredo (dentro `stanza.js`).
+Test: `webapp/test-plancia-fa.mjs` (Playwright) — stanze composte, niente PNG dipinti, buio
+presente, caselle quadrate, credito FA, la luce si ferma uscendo (`?prova` → `window.__luceViva`);
+Ep.1 tutto svelato → il margine e' tutto acqua anche lontano da T1; Ep.5 → zero riquadri di
+fuori; Ep.11 → `canvas.citta` presente. Sabotaggi (Step 7) mordono/non mordono come atteso:
+(1) rimesso lo sfondo PNG sulle rivelate → 'tessere dipinte ancora in uso'; (2) fatte disegnare
+anche le coperte come stanze vere → il test NON fallisce, e apposta: nessun nemico compare
+perche' l'ENGINE (non il rendering) crea i nemici solo a `sp.rivelate.push` avvenuto
+(`azioni.js:184`, `spawnDaTesto` chiamato subito dopo, stesso blocco) — commentato nel test.
+Girati insieme (server 8017): `test-plancia-fa`, `test-digitale-ui`, `test-arredi`, `test-stile`
+puliti; `test-partite` ha KO pre-esistenti e indipendenti da questo task (timeout su
+`.reperto-img` in fase Indagine, 9-10 KO sui primi 15 scenari) — confermato con `git stash` sul
+codice non toccato: stessi KO, stesso pattern, prima del Task 5.
+**Concern non toccato (Task 4, fuori perimetro)**: nel mockup il buio copre SOLO stanze/acqua
+(`stanzeRett`), lasciando sempre visibile il vuoto sotto i tetti; `creaLuce()` di Task 4 invece
+riempie di nero l'INTERO rettangolo della plancia ad ogni fotogramma (nessuna maschera per
+stanza) — sui tetti il vuoto si scurisce quanto le stanze, la citta' si vede solo vicino a una
+fonte di luce. Per allinearlo al mockup, `luce.js` dovrebbe ricevere la geometria delle stanze;
+e' del Task 4, non toccato qui.
+**Prossimo**: Task 6+ del piano (`docs/superpowers/plans/2026-09-24-plancia-lanterne.md`).
+
 ## FATTO (22/09/2026) — i vantaggi d'Indagine arrivano in Spedizione (audit + correzioni)
 
 Report: `AUDIT-VANTAGGI-INDAGINE.md`. Banco: `node webapp/audit-vantaggi.mjs [porta]

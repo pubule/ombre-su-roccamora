@@ -36,11 +36,35 @@ import { applica } from '../motore/comandi.js';
 import * as abilita from '../motore/abilita.js';
 import * as migliorie from '../motore/migliorie.js';
 import * as interazioni from '../motore/interazioni.js';
+// LA PLANCIA COI PEZZI FA (Task 5, 25/09/2026): le stanze rivelate non sono
+// piu' un PNG dipinto, sono composte da questi tre moduli — stanza.js le
+// disegna (Task 3), luce.js le fa vivere al buio (Task 4), citta.js e' il
+// fondo dei tetti (Step 4b, porto di mockups/tessere-alt/6-scenografia.html).
+import { stanzaHtml } from './plancia/stanza.js';
+import { creaLuce } from './plancia/luce.js';
+import { citta } from './plancia/citta.js';
+import { fuoriDichiarato, alAperto } from '../motore/ambiente.js';
 
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) =>
   ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
 let ctx = null;   // { app, partita, ep, comune, carte, vaiA, layout }
+// LA LUCE VIVE CON LA PLANCIA (Task 4 + Step 4): un solo oggetto per partita,
+// ridimensionato a ogni disegno invece di ricreato — vedi agganciaMappa().
+let luce = null;
+// LA CITTA' SOTTO I TETTI (Step 4b): il canvas costa disegnarlo, non
+// riattaccarlo — si tiene lo stesso finche' l'episodio e la misura non
+// cambiano (la board si allarga mano a mano che si rivela).
+let cittaCache = null;
+// `?prova` nell'URL espone la luce ai test Playwright (test-plancia-fa.mjs):
+// serve a verificare che il ciclo si fermi uscendo dalla Spedizione. Guardato
+// dietro `typeof window` perche' questo modulo si importa anche in Node nudo
+// (misura-cammino-ep20.mjs, test-digitale.mjs, via `_motore`), dove
+// `window`/`location` non esistono.
+if (typeof window !== 'undefined' && typeof location !== 'undefined'
+    && new URLSearchParams(location.search).has('prova')) {
+  window.__luceViva = () => !!(luce && luce.vivo());
+}
 const P = () => ctx.partita;
 const SP = () => ctx.partita.spedizione;
 // SALVARE E' ANCHE DIRLO AL TAVOLO. Quel che chi arbitra cambia FUORI dai
@@ -115,10 +139,9 @@ async function tiroNemico(titolo, soglia, att, chi) {
   return { tot: r ? r.tot : 0, ok: !!(r && r.ok) };
 }
 
-// board PNG: export-assets.py copia le tessere stampate in webapp/assets con il
-// nome normalizzato «<TileId>.png» (a monte i file sono «T1 - Nome Tessera.png»,
-// e il nome non coincide con quello del JSON — maiuscoletto, apostrofi diversi).
-const urlBoard = (tileId) => `/assets/${encodeURI(ctx.ep.cartella)}/board/${tileId}.png`;
+// URL di produzione dei pezzi FA (export-assets.py copia webapp/vtt/ qui,
+// catalogo per sottocartella — stessa regola di stanza.js e ambiente-fa.js).
+const V = (p) => `/assets/vtt/${p}.png`;
 
 // ---------------------------------------------------------- motore a griglia
 // La geometria e' uscita di qui: sta in motore/griglia.js, pura e isomorfa,
@@ -454,6 +477,7 @@ function render() {
         <button class="zoom-btn" data-zoom="+">+</button>
       </div>
     </div>
+    <p class="credito-fa">Mappe realizzate con asset di Forgotten Adventures</p>
     <p class="nota secondario" style="text-align:center">Trascinate per spostare la mappa · +/− o Ctrl+rotella per lo zoom</p>
     <div class="mt"></div>
     <div class="lato">
@@ -512,6 +536,12 @@ function boardHtml(senzaMosse) {
   const mostrate = [...rev, ...frontiera];
   let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
   for (const id of mostrate) { const [x, y] = lay[id]; minX = Math.min(minX, x); maxX = Math.max(maxX, x); minY = Math.min(minY, y); maxY = Math.max(maxY, y); }
+  // IL FUORI E' DELL'EPISODIO (Step 4a, deciso col committente il 25/09/2026,
+  // docs/scenografia.md): la plancia si allarga di UNA TESSERA DI MARGINE
+  // attorno al rettangolo delle stanze mostrate — porto di 6-scenografia.html
+  // (`carica()`, righe 216 e 223-243) — cosi' il margine ha dove disegnare il
+  // fuori (acqua, tetti...) invece di finire clippato ai bordi del board.
+  minX -= 1; maxX += 1; minY -= 1; maxY += 1;
   const cols = (maxX - minX + 1) * 4, rows = (maxY - minY + 1) * 4;
   const cell = 104;  // tessere grandi (come la board singola); si naviga con pan + zoom
   // `minX/maxY/cell` per centrare la finestra sulla tessera piu' affollata;
@@ -531,37 +561,56 @@ function boardHtml(senzaMosse) {
     : attivo ? (posso(attivo) ? raggEroe(attivo) : {})
     : (scortAttivo() != null && arbitro() ? raggScortato(scortAttivo()) : {});
 
-  // blocchi tessera: rivelate (sfondo + griglia) e frontiera (coperte, scure)
+  // blocchi tessera: rivelate (composte dai pezzi FA, Task 3) e frontiera
+  // (coperte, segnaposto scuro). Il `.tess-tag` con l'id resta sulle coperte;
+  // le «verso T2» disegnate in DOM sono andate via (Step 3): ora c'e' la porta.
   const tiles = mostrate.map((id) => {
     const [TX, TY] = lay[id]; const left = (TX - minX) * 4 * cell, top = (maxY - TY) * 4 * cell, size = 4 * cell;
     if (!rev.includes(id)) {
       return `<div class="tessera-b coperta" style="left:${left}px;top:${top}px;width:${size}px;height:${size}px">
         <div class="tess-tag">${id} · ?</div></div>`;
     }
-    const tile = tileDi(id); const arr = arrediSet(tile);
-    let cells = '';
-    for (let r = 0; r < 4; r++) for (let c = 0; c < 4; c++) {
-      const gx = c, gy = 3 - r; const a = arr.has(chiave([gx, gy]));
-      cells += `<div class="cella-b${a ? ' arredo' : ''}" style="left:${c * cell}px;top:${r * cell}px;width:${cell}px;height:${cell}px"></div>`;
-    }
-    const bg = urlBoard(id);
-    return `<div class="tessera-b" style="left:${left}px;top:${top}px;width:${size}px;height:${size}px;${bg ? `background-image:url('${bg}')` : ''}">
-      ${cells}<div class="tess-tag">${id}</div></div>`;
+    const tile = tileDi(id);
+    const { html } = stanzaHtml(ctx.ep, tile, { cell, rivelata: (v) => rev.includes(v) });
+    // IL VENTO (Step 4b) sulle tessere ESPOSTE: strie che passano, piu' forti
+    // se il testo dice FORTE — porto di 6-scenografia.html (`.vento`/`.forte`,
+    // CSS-only: transform, niente ridisegni). `tile.esposta` (Ep.11) vince,
+    // altrimenti lo dice il testo, come sull'arredo del posto (ambiente-fa.js).
+    const esposta = tile.esposta ?? /ESPOSTA/.test(tile.testo || '');
+    const vento = esposta
+      ? `<div class="vento${/FORTE|urla/i.test(tile.testo || '') ? ' forte' : ''}"><i></i></div>` : '';
+    return `<div class="stanza-fa" data-t="${id}" style="left:${left}px;top:${top}px;width:${size}px;height:${size}px;--cell:${cell}px">${html}${vento}</div>`;
   }).join('');
 
-  // etichette DOM leggibili su porte e ingresso (il testo stampato nel PNG e'
-  // troppo piccolo a schermo; queste scalano con la tessera). pointer-events:none.
-  const fs = Math.round(cell * 0.16);
-  const etichette = rev.map((id) => {
-    const tile = tileDi(id); const out = [];
-    for (const [dir, raw] of Object.entries(tile.exits || {})) {
-      const dc = portaCella(tile, dir); const p = scr({ t: id, x: dc[0], y: dc[1] });
-      const grata = /grata/i.test(raw);
-      out.push(`<div class="porta-lbl" style="left:${p.l + cell / 2}px;top:${p.t + cell / 2}px;font-size:${fs}px">verso ${dirExit(raw)}${grata ? ' ⛓' : ''}</div>`);
+  // IL FUORI DELL'EPISODIO (Step 4a): ogni riquadro vuoto del margine prende
+  // il fuori della STANZA SVELATA piu' vicina (distanza di Chebyshev sulle
+  // coordinate di layout(), a parita' la prima nell'ordine dell'episodio) che
+  // lo dichiara con fuoriDichiarato(). Solo le stanze GIA' RIVELATE fanno da
+  // sorgente: una coperta non ha ancora "detto" cosa c'e' fuori. 'tetti' e
+  // nessuna dichiarazione restano vuoti — sotto ci sta la citta' (Step 4b) o
+  // il buio e basta. Il buio (Task 4) copre anche l'acqua/erba/eccetera qui
+  // sotto: vedi la nota sulla citta' in agganciaMappa().
+  const occupato = new Set(mostrate.map((id) => lay[id].join(',')));
+  const ordineEp = new Map(ctx.ep.tessere.map((t, i) => [t.id, i]));
+  const emittenti = rev.map((id) => tileDi(id)).map((t) => ({ t, f: fuoriDichiarato(t) }))
+    .filter((x) => x.f).sort((a, b) => (ordineEp.get(a.t.id) ?? 0) - (ordineEp.get(b.t.id) ?? 0));
+  let fuoriHtml = '';
+  if (emittenti.length) {
+    for (let X = minX; X <= maxX; X++) for (let Y = minY; Y <= maxY; Y++) {
+      if (occupato.has(`${X},${Y}`)) continue;
+      let best = null;
+      for (const e of emittenti) {
+        const [ex, ey] = lay[e.t.id]; const d = Math.max(Math.abs(ex - X), Math.abs(ey - Y));
+        if (!best || d < best.d) best = { d, f: e.f };
+      }
+      if (best.f === 'tetti') continue;                 // sotto i tetti c'e' la citta' (Step 4b)
+      const L = (X - minX) * 4 * cell, T = (maxY - Y) * 4 * cell;
+      const scorre = best.f === 'acqua' || best.f === 'melma';
+      fuoriHtml += `<div class="fuori-fa" style="left:${L}px;top:${T}px;width:${4 * cell}px;height:${4 * cell}px">${scorre
+        ? `<div class="onda-fa" style="background-image:url('${V('pavimenti/' + best.f)}')"></div>`
+        : `<div class="pav-fa" style="background-image:url('${V('pavimenti/' + best.f)}');filter:brightness(.32) saturate(.4)"></div>`}</div>`;
     }
-    if (tile.start) { const dc = portaCella(tile, tile.start); const p = scr({ t: id, x: dc[0], y: dc[1] }); out.push(`<div class="porta-lbl ingresso" style="left:${p.l + cell / 2}px;top:${p.t + cell / 2}px;font-size:${fs}px">ingresso</div>`); }
-    return out.join('');
-  }).join('');
+  }
 
   // celle raggiungibili (cliccabili) sopra le tessere
   const raggHtml = Object.values(ragg).map((v) => {
@@ -625,7 +674,7 @@ function boardHtml(senzaMosse) {
   if (sp.esca) tok(sp.esca, '<span class="tok-board esca" title="l’esca di Carbone">◆</span>', 'ESCA');
 
   return `<div class="board-digitale" style="width:${cols * cell}px;height:${rows * cell}px;zoom:${SP().zoom || 1}">
-    ${tiles}${etichette}${raggHtml}${toks.join('')}</div>`;
+    ${tiles}${fuoriHtml}${raggHtml}${toks.join('')}</div>`;
 }
 
 function logHtml() {
@@ -1306,10 +1355,70 @@ function spegniImmersivo() {
   if (inSchermoIntero()) chiediSchermoIntero(false);
 }
 
+// seme stabile per la citta' (Step 4b): la stessa ogni volta che si ridisegna
+// lo stesso episodio, o la citta' "salterebbe" ad ogni mossa (mulberry-hash,
+// come `caso()` in ambiente-fa.js — qui basta un solo numero, non un rnd())
+const semeCitta = (ep) => {
+  let h = 2166136261; const s = String(ep.id || ep.titolo || '');
+  for (const c of s) h = Math.imul(h ^ c.charCodeAt(0), 16777619);
+  return (h >>> 0) || 1;
+};
+
 function agganciaMappa() {
   const { app } = ctx; const sp = SP(); const wrap = app.querySelector('#board-wrap'); if (!wrap) return;
   // primo ingresso senza uno zoom salvato: si parte adattati, non a 1
   if (sp.zoom == null) applicaZoom(fitZoom());
+  // LA LUCE VIVE CON LA PLANCIA (Step 4, Task 4): un solo oggetto per partita,
+  // ridimensionato a ogni disegno. `.board-digitale` e' un nodo NUOVO quasi a
+  // ogni render (app.innerHTML cambia a ogni mossa): si tiene lo stesso
+  // oggetto luce solo se e' ancora appeso allo stesso nodo, altrimenti se ne
+  // fa uno nuovo — perde l'inseguimento morbido fra un render e l'altro, ma
+  // non fra un fotogramma e l'altro dentro lo stesso render, che e' cio' che
+  // conta (nessuno anima mentre `render()` ricostruisce il DOM).
+  const bd = app.querySelector('.board-digitale');
+  if (bd) {
+    luce = luce && luce.el === bd ? luce : Object.assign(creaLuce(bd, { cell: ctx._geo.cell }), { el: bd });
+    luce.dimensiona(ctx._geo.w, ctx._geo.h);
+    // LA CITTA' SOTTO I TETTI (Step 4b, porto di 6-scenografia.html): un
+    // canvas fermo, ridisegnato solo quando la misura cambia (la board si
+    // allarga mano a mano che si rivela) — mai a ogni fotogramma, quello lo fa
+    // solo il buio. Solo se l'episodio ha almeno una tessera alAperto.
+    if (ctx.ep.tessere.some(alAperto)) {
+      const w = ctx._geo.w, h = ctx._geo.h;
+      if (!cittaCache || cittaCache.w !== w || cittaCache.h !== h || cittaCache.ep !== ctx.ep.id) {
+        cittaCache = { w, h, ep: ctx.ep.id, cv: citta(w, h, semeCitta(ctx.ep)) };
+      }
+      // CONCERN (non toccato: luce.js e' territorio del Task 4): nel mockup il
+      // buio riempie di nero SOLO i rettangoli di stanze/acqua (`stanzeRett`),
+      // lasciando sempre visibile il vuoto sotto i tetti — e' la citta' che fa
+      // sentire l'altezza. `creaLuce()` di Task 4 invece riempie di nero
+      // l'INTERO rettangolo della plancia ad ogni fotogramma (vedi
+      // `fotogramma()` in luce.js: `gB.fillRect(0,0,w,h)` senza maschera per
+      // stanza), quindi qui il vuoto sotto i tetti viene scurito quanto le
+      // stanze — la citta' resta visibile solo finche' non arriva una fonte di
+      // luce vicina. E' una divergenza reale dal mockup, segnalata nel report
+      // del Task 5: correggerla vorrebbe dire dare a luce.js la geometria
+      // delle stanze (mascherare il buio sui soli rettangoli occupati), ed e'
+      // fuori dal perimetro di questo task.
+      bd.prepend(cittaCache.cv);
+    }
+    // torce, candele, bracieri: calcolate una volta per disegno, in pixel
+    // della plancia; le lanterne leggono la posizione dal token in pagina
+    // (`.tok-slot[data-tok^="E:"]`), cosi' la luce segue anche l'animazione
+    // del passo (`scivolaEroe`) senza che nessuno la avvisi.
+    const { minX, maxY, cell } = ctx._geo; const lay = layout(); const rev = sp.rivelate;
+    const fisse = rev.flatMap((id) => {
+      const [TX, TY] = lay[id]; const ox = (TX - minX) * 4 * cell, oy = (maxY - TY) * 4 * cell;
+      return stanzaHtml(ctx.ep, tileDi(id), { cell, rivelata: (v) => rev.includes(v) }).luci
+        .map((l, i) => ({ id: `${id}-${i}`, x: ox + l.x * cell, y: oy + l.y * cell, tipo: l.tipo }));
+    });
+    luce.imposta(() => [
+      ...fisse,
+      ...[...bd.querySelectorAll('.tok-slot[data-tok^="E:"]')].map((s) => ({ id: s.dataset.tok,
+        x: s.offsetLeft + ctx._geo.cell / 2, y: s.offsetTop + ctx._geo.cell / 2, tipo: 'lanterna' })),
+    ], { canto: sp.canto });
+    luce.avvia();
+  }
   // Lo schermo intero i browser lo concedono solo su un gesto, e entrando non
   // ce n'e' uno (vedi vistaDigitale: li' si applica solo il layout). Il primo
   // tocco sulla mappa e' il gesto piu' vicino, e nel primo turno arriva sempre.
