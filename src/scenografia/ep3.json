@@ -42,7 +42,7 @@
  },
  "T5": {
   "decori": [
-   { "pezzo": "organo",       "x": 1.55, "y": 2.35, "lato": 1.05, "rot": 0 },
+   { "pezzo": "organo",       "x": 0.6,  "y": 2.6,  "lato": 1.05, "rot": 0 },
    { "pezzo": "organo",       "x": 2.6,  "y": 1.55, "lato": 1.0,  "rot": 15 },
    { "pezzo": "cero",         "x": 0.55, "y": 0.5,  "lato": 0.35, "rot": 10 },
    { "pezzo": "calcinacci-2", "x": 3.4,  "y": 1.5,  "lato": 0.5,  "rot": -35 },
