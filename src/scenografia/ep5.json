@@ -1,0 +1,67 @@
+{
+ "T1": {
+  "decori": [
+   { "pezzo": "cero",         "x": 0.75, "y": 1.1,  "lato": 0.6,  "rot": 0 },
+   { "pezzo": "calcinacci",   "x": 2.5,  "y": 3.3,  "lato": 0.9,  "rot": 15 },
+   { "pezzo": "ragnatela",    "x": 3.55, "y": 0.45, "lato": 0.8,  "rot": 90 },
+   { "pezzo": "calcinacci-2", "x": 0.4,  "y": 2.6,  "lato": 0.6,  "rot": 250 },
+   { "pezzo": "ragnatela-2",  "x": 3.4,  "y": 2.55, "lato": 0.7,  "rot": 200 }
+  ],
+  "perche": "Il punto focale e' l'arredo 'candele' vicino alla porta (il gioco lo disegna gia' acceso, un candelabro a ruota): sono proprio le candele di 'duecento anni di sai' e 'secoli di cera colata' del testo/cerca_vuoto, e la sola luce calda in una tessera che il testo vuole buia ('il buio ha una temperatura sua'). Un cero pallido spento (non nero: il nero si perdeva sul legno scuro, verificato in foto) segna la cera tracimata alla sua base. Niente altra luce fissa: a differenza di T1 in Ep.1/Ep.3/Ep.4 (torcia = 'siete salvi'), qui il principio 3 vince — il testo non nomina fuoco altrove e insiste sul buio coi denti, anche se e' la tessera di vittoria. Calcinacci e ragnatele in periferia per la scala mai spolverata in due secoli; il sandalo pietrificato del cerca_vuoto non ha un pezzo nel catalogo, non forzato."
+ },
+ "T2": {
+  "decori": [
+   { "pezzo": "busto",         "x": 3.3,  "y": 2.6,  "lato": 0.9,  "rot": 200 },
+   { "pezzo": "panca-marcia",  "x": 0.6,  "y": 0.5,  "lato": 1.5,  "rot": 0 },
+   { "pezzo": "panca-marcia",  "x": 0.6,  "y": 3.5,  "lato": 1.5,  "rot": 5 },
+   { "pezzo": "ragnatela",     "x": 3.6,  "y": 0.45, "lato": 0.8,  "rot": 90 },
+   { "pezzo": "ragnatela-2",   "x": 3.55, "y": 3.5,  "lato": 0.8,  "rot": 180 }
+  ],
+  "perche": "'Banchi marci in fila' (testo) non esistevano nel catalogo: aggiunta 'panca-marcia' (Bench_Wood_Ashen, guardata prima di importarla) a scripts/importa-fa-lanterne.py, due copie lungo la parete sinistra per dare l'idea della fila. Il punto focale e' un busto marmoreo caduto vicino all'altare spogliato (arredo, in periferia contro il muro destro, non al centro dove cade il token dell'eroe — spostato li' dopo averlo visto sparire sotto il token nella prima foto): marmo chiaro contro il pavimento scuro, dice 'spogliato' meglio di un altare vuoto e basta. La lanterna d'ottone col vetro rubino si trova cercando DIETRO l'altare: non e' in scena. Nessuna luce fissa: il testo non ne nomina, ed e' la navata sepolta, non il coro che canta — quello e' T3."
+ },
+ "T3": {
+  "decori": [
+   { "pezzo": "ossa",          "x": 2.6,  "y": 2.5,  "lato": 1.1,  "rot": 25 },
+   { "pezzo": "teschio",       "x": 1.5,  "y": 1.35, "lato": 1.05, "rot": 0 },
+   { "pezzo": "ragnatela",     "x": 3.6,  "y": 0.45, "lato": 0.8,  "rot": 90 },
+   { "pezzo": "ragnatela-2",   "x": 0.45, "y": 3.55, "lato": 0.8,  "rot": 180 },
+   { "pezzo": "calcinacci",    "x": 3.55, "y": 3.55, "lato": 0.6,  "rot": 210 },
+   { "pezzo": "calcinacci-2",  "x": 2.15, "y": 0.45, "lato": 0.55, "rot": 60 }
+  ],
+  "perche": "'Le ossa del corridoio non interessano al Coro: sono il pubblico, non lo strumento' (cerca_vuoto) — le nicchie sono le casse dell'arredo, un mucchio d'ossa contro il muro (ingrandito: e' il punto focale, verificato in foto che si vede a colpo d'occhio contro la pietra scura) le rinforza. Un teschio SPENTO (nessun campo luce, ingrandito a 1.05 dopo la prima foto: il pezzo del catalogo ha poco disegno reale dentro il riquadro e usciva un puntino) a meta' corridoio, l'unica forma rotonda e pallida fra le pile — coerente con 'le ossa nei muri rispondono al canto, una per una'. Il testo e' tutto suono (la salmodia che si sente coi denti), mai luce: zero luci fisse, come T1 e T2. Calcinacci e ragnatele per un corridoio che nessuno pulisce."
+ },
+ "T4": {
+  "decori": [
+   { "pezzo": "fogli",         "x": 1.25, "y": 2.2,  "lato": 0.42, "rot": 10,  "sopra": true },
+   { "pezzo": "libro-aperto",  "x": 1.7,  "y": 2.5,  "lato": 0.5,  "rot": -15, "sopra": true },
+   { "pezzo": "candelabro-2",  "x": 1.35, "y": 2.75, "lato": 0.55, "rot": 0,   "sopra": true, "luce": "cera" },
+   { "pezzo": "ragnatela",     "x": 3.6,  "y": 0.45, "lato": 0.8,  "rot": 90 },
+   { "pezzo": "busto",         "x": 0.5,  "y": 0.5,  "lato": 0.55, "rot": 15 },
+   { "pezzo": "ragnatela-2",   "x": 0.45, "y": 3.55, "lato": 0.8,  "rot": 180 }
+  ],
+  "perche": "'Sul tavolo di pietra — nuovi, ordinati, ALTRUI — i registri di cantiere' (le maiuscole sono del testo): il punto focale sono le carte sopra la scrivania (sopra:true) — fogli, un libro aperto — con un candelabro acceso (sostituito al cero della prima stesura: il cero si perdeva, il candelabro ha un disegno piu' pieno e si vede) a dire che qualcuno ci lavora ancora ('1 Confratello di guardia appare tra i sedili' alla rivelazione: la stanza e' sorvegliata, non abbandonata). E' l'unica luce fissa dell'episodio finora, e segna lo stacco: da qui in poi qualcuno lavora davvero. Un busto marmoreo caduto nell'angolo opposto per lo stallo del priore mai piu' onorato, ragnatele per il resto della sala. I registri di lavoro senza nomi (cerca_vuoto) sono gia' in scena come contesto."
+ },
+ "T5": {
+  "decori": [
+   { "pezzo": "organo",        "x": 2.5,  "y": 0.5,  "lato": 1.1,  "rot": 15 },
+   { "pezzo": "ossa",          "x": 0.5,  "y": 2.5,  "lato": 1.0,  "rot": 340 },
+   { "pezzo": "candelabro-2",  "x": 1.35, "y": 0.75, "lato": 0.55, "rot": 0,   "sopra": true, "luce": "cera" },
+   { "pezzo": "secchio",       "x": 3.4,  "y": 2.3,  "lato": 0.45, "rot": 80 },
+   { "pezzo": "ragnatela",     "x": 0.45, "y": 0.45, "lato": 0.8,  "rot": 90 },
+   { "pezzo": "calcinacci-2",  "x": 2.15, "y": 3.55, "lato": 0.6,  "rot": 210 }
+  ],
+  "perche": "Il punto focale e' l'arredo 'crogiolo' (il fornello dove 'la colla d'ossa bolle piano', gia' reso caldo e vivo dal gioco): intorno, 'in rastrelliera le canne finite — femori innestati, incerati, LUCIDI' (maiuscole del testo) e' la rastrelliera di canne (organo, ingrandita) contro la parete di fondo. 'Le casse dell'ossario ancora piene, in attesa di diventare musica' e' testo, non cerca: una cassa d'ossa contro il muro opposto lo mostra. Un candelabro sul banco (sopra:true, sostituito al cero: si vedeva a stento) e' l'unica altra luce — un'officina attiva ha bisogno di vederci. Un secchio vicino al crogiolo per l'acqua/colla, ragnatele e calcinacci negli angoli che il lavoro non tocca. Lo scalpello da liutaio si trova cercando: non e' in scena."
+ },
+ "T6": {
+  "decori": [
+   { "pezzo": "organo",         "x": 1.0,  "y": 0.5,  "lato": 1.3, "rot": 10 },
+   { "pezzo": "candele-nere-3", "x": 1.5,  "y": 1.5,  "lato": 1.0, "rot": 0,   "luce": "cera" },
+   { "pezzo": "candele-nere-2", "x": 3.3,  "y": 1.5,  "lato": 0.9, "rot": 90,  "luce": "cera" },
+   { "pezzo": "ossa",           "x": 0.5,  "y": 2.9,  "lato": 1.0, "rot": 340 },
+   { "pezzo": "teschio",        "x": 3.5,  "y": 0.5,  "lato": 0.9, "rot": 0,   "luce": "cera" },
+   { "pezzo": "ragnatela",      "x": 3.6,  "y": 3.55, "lato": 0.85,"rot": 180 },
+   { "pezzo": "calcinacci",     "x": 0.45, "y": 0.45, "lato": 0.6, "rot": 200 }
+  ],
+  "perche": "'Canne d'ossa montate a file, mantici nuovi... un'impalcatura da cattedrale': il punto focale e' la rastrelliera dell'organo (stesso pezzo di T5, piu' grande, 1.3 — qui e' finito e minaccioso, non piu' in lavorazione) contro la parete di fondo. Davanti all'altare (arredo, il 'saio che canta senza fermarsi'), due gruppi di candele nere che lo affiancano — spostati dalla prima stesura, che li metteva esattamente dove cade il token dell'eroe e spariva dalla foto — come nella cripta della cera dell'Ep.1: e' l'unica stanza dell'episodio con luce vera, la resa del canto che qui e' anche fuoco. Un mucchio d'ossa ai piedi dell'organo (terza e ultima comparsa nell'episodio) dice di che cosa e' fatto lo strumento. Un teschio-candela nell'angolo opposto (ingrandito, come in T3: il pezzo del catalogo disegna poco dentro il riquadro), calcinacci dalla breccia 'abbattuta a meta'' del muro del Quarantuno. Le tre canne da sfregiare sono un meccanismo di gioco, non decoro: non ridisegnate qui."
+ }
+}

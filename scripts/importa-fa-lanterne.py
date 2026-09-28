@@ -235,6 +235,8 @@ PEZZI = {
                                 {'ambienti': ['chiese', 'gotico'], 'lato': 0.7, 'luce': 'cera', 'sopra': True}),
     'decori/organo.png': (FA, f'{CS}/Decor/Musical_Instruments/Keys/Organ_Pipes_Wood_Dark_Metal_Gold_A_1x1.webp',
                           {'ambienti': ['chiese'], 'lato': 0.8, 'luce': None, 'sopra': False}),
+    'decori/panca-marcia.png': (FA, f'{CS}/Furniture/Seating/Benches/Bench_Wood_Ashen_A1_2x1.webp',
+                                {'ambienti': ['chiese'], 'lato': 1.5, 'luce': None, 'sopra': False}),
     'decori/filo-spinato.png': (FA, f'{CS}/Decor/Restraints_and_Torture/Barbwire/Barbwire_Metal_Rusty_A1_1x1.webp',
                                 {'ambienti': ['gotico', 'cripte'], 'lato': 0.6, 'luce': None, 'sopra': False}),
     # -- tetti, guglie, ballatoi, logge

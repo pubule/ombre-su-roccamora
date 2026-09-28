@@ -392,6 +392,73 @@ webapp/test-scenografia.mjs && node webapp/test-stanza.mjs` → tutti `OK`.
 **Prossimo**: Task 8, `ep5` — stesso procedimento, giudicato contro Ep.1,
 preludio ed ep2/ep3/ep4.
 
+**Task 8 — ep5 FATTO (29/09/2026)**: `src/scenografia/ep5.json` (L'organo di
+ossa), T1-T6 composte da zero leggendo `testo`/`cerca`/`cerca_vuoto`/`hook`/
+`arredi` di `webapp/data/ep5.json` contro il catalogo esistente. Un pezzo
+mancante: 'banchi marci in fila' (T2, la navata sepolta) non aveva un pezzo
+— cercato in `risorse-vtt/FA_Assets_Webp/.../Furniture/Seating/Benches`,
+guardato il PNG (`Bench_Wood_Ashen_A1_2x1`, tavola di legno chiaro/marcio,
+sagoma pulita), aggiunto `panca-marcia` a `scripts/importa-fa-lanterne.py`,
+rilanciato l'importer (93 pezzi ora) ed `export-assets.py` (altrimenti 404
+sulla prima foto — lezione «wrangler serve una copia» vale anche qui, un
+asset nuovo va esportato prima di fotografare).
+
+Episodio tutto chiesa-cripta dei Battuti: **buio deliberato in T1/T2/T3**
+(nessuna luce fissa — il testo non nomina mai fuoco li', solo salmodia e
+freddo), **una sola luce da T4 in poi** (il candelabro sulla scrivania: da
+li' qualcuno lavora ancora ai registri), **due luci in T5** (il crogiolo e'
+gia' un arredo caldo, piu' un candelabro sul banco) e **tre in T6**, il boss,
+l'unica stanza davvero illuminata — una gradazione di luce voluta, dal buio
+totale della discesa al fuoco del rito.
+
+**Scoperta guardando le prime foto (non nel JSON) — la stessa lezione di ogni
+episodio precedente, ma con una causa nuova**: diversi pezzi del catalogo
+hanno il disegno vero dentro un riquadro quasi tutto trasparente (verificato
+con `PIL.Image.getbbox()`): `teschio` 26%x35%, `candela-nera`/`cero` 22%x18%,
+`calcinacci` 40%x35% — a un `lato` normale escono puntini, non oggetti. Il
+`candela-nera` (NERO) sul pavimento di legno SCURO di T1 era proprio
+invisibile: sostituito con `cero` (cera chiara, contrasto vero). In T4/T5 il
+`cero` sulla scrivania spariva: sostituito con `candelabro-2` (52%x52% di
+riempimento, fiamma e metallo visibili). `teschio` (T3/T6) ingrandito
+(0.6→0.9-1.05) per compensare. Riga utile per chi arreda dopo: prima di
+scegliere un pezzo per un punto focale, `python -c "from PIL import Image;
+print(Image.open('webapp/vtt/decori/X.png').getbbox())"` dice se il disegno
+riempie davvero il riquadro o no.
+
+**Il token dell'eroe (lezione ep2/ep3/ep4, confermata ancora) ha nascosto
+due pezzi al primo giro**: il busto di T2 (messo al centro) e le due candele
+nere di T6 (una proprio sotto il token) — invisibili nella prima foto,
+spostati in periferia (T2: busto contro il muro vicino all'altare; T6: le
+due candele spostate a fiancheggiare l'altare su file 1, lontano dal centro
+dove il token cade quasi sempre in queste sei stanze).
+
+**Un arredo forte come punto focale, non solo un decoro**: T1 (la scala) e
+T5 (l'officina) hanno un arredo che il gioco disegna gia' acceso/caldo
+(rispettivamente `candele` e `crogiolo`) — esattamente lo stesso principio
+del T6 dell'Ep.1 (l'altare-arredo con le candele costruite intorno): li' il
+punto focale e' l'arredo, i decori ci si costruiscono intorno invece di
+competere con un secondo oggetto debole.
+
+**Controllato il token su tutte e sei le tessere** (T1 coi tre token
+dell'entrata inclusi: i due agli angoli (0,3)/(1,3) e quello centrale) —
+nessuna occlusione residua dopo le correzioni sopra, verificato guardando le
+foto rigenerate, non a occhio sulle coordinate.
+
+**Non mostrato in scena, per il campo `cerca`**: la lanterna d'altare
+(T2), lo scalpello da liutaio (T5). Il sandalo pietrificato di T1
+(`cerca_vuoto`) non ha un pezzo nel catalogo: non forzato, una stanza con un
+decoro in meno. Le tre canne da sfregiare di T6 sono un meccanismo di gioco
+(contrassegnate sulla tessera): non ridisegnate come decoro.
+
+Verificato guardando tutte e sei le foto due volte (`node
+webapp/mappa-plancia-fa.mjs --ep ep5`, `export-data.py` rilanciato prima di
+ogni rigenerazione) affiancate a quelle dell'Ep.1, un giro di correzione
+(sopra) prima di committare. Test: `python webapp/export-data.py && node
+webapp/test-scenografia.mjs && node webapp/test-stanza.mjs` → tutti `OK`.
+
+**Prossimo**: Task 8, `ep6` — stesso procedimento, giudicato contro Ep.1,
+preludio ed ep2/ep3/ep4/ep5.
+
 ## FATTO (22/09/2026) — i vantaggi d'Indagine arrivano in Spedizione (audit + correzioni)
 
 Report: `AUDIT-VANTAGGI-INDAGINE.md`. Banco: `node webapp/audit-vantaggi.mjs [porta]
