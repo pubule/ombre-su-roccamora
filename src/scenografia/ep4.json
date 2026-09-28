@@ -1,0 +1,62 @@
+{
+ "T1": {
+  "decori": [
+   { "pezzo": "torcia",     "x": 0.5,  "y": 1.3,  "lato": 0.8,  "rot": 90,  "luce": "torcia" },
+   { "pezzo": "corda",      "x": 3.4,  "y": 2.3,  "lato": 0.6,  "rot": -20 },
+   { "pezzo": "ragnatela",  "x": 3.6,  "y": 0.4,  "lato": 0.8,  "rot": 90 },
+   { "pezzo": "calcinacci", "x": 0.4,  "y": 3.55, "lato": 0.55, "rot": 200 },
+   { "pezzo": "straccio",   "x": 2.3,  "y": 0.35, "lato": 0.3,  "rot": 100 }
+  ],
+  "perche": "Il testo non nomina fuoco, ma la Quinta di Carico e' anche il punto di ritorno (qui si vince riportando Gaspare e Rocco): una sola torcia vicino alla cassa d'ingresso, come il molo dell'Ep.1 e la banchina dell'Ep.3, e' il faro del 'siete salvi'. Una cima vicino all'altra cassa risponde a 'cime arrotolate' del cerca_vuoto; calcinacci e uno straccio dicono la polvere di gesso e segatura; una ragnatela in alto per il backstage mai pulito."
+ },
+ "T2": {
+  "decori": [
+   { "pezzo": "topiaria-secca", "x": 0.5,  "y": 0.5,  "lato": 1.3,  "rot": 15 },
+   { "pezzo": "baule",          "x": 3.4,  "y": 3.5,  "lato": 0.7,  "rot": -15 },
+   { "pezzo": "sacco",          "x": 3.5,  "y": 0.55, "lato": 0.65, "rot": 20 },
+   { "pezzo": "ragnatela",      "x": 0.4,  "y": 3.6,  "lato": 0.8,  "rot": 180 },
+   { "pezzo": "calcinacci",     "x": 0.3,  "y": 1.9,  "lato": 0.5,  "rot": 200 }
+  ],
+  "perche": "Il testo dice 'boschi finti' fra i fondali arrotolati: il catalogo non ha una tela dipinta, ma un prop vero di bosco - una topiaria secca, spoglia - le da' corpo nell'angolo, ed e' l'unica cosa nella stanza con una sagoma diversa da tutto il resto: punto focale ('il buio ha la forma delle cose dipinte'). Un baule di costumi e un sacco ai due angoli opposti, ragnatele e calcinacci per il deposito mai spolverato. La lanterna cieca del trovarobe si trova cercando: non e' in scena. Nessuna luce fissa, come la Sala delle Casse dell'Ep.1: e' un magazzino cieco."
+ },
+ "T3": {
+  "decori": [
+   { "pezzo": "corda",     "x": 2.5,  "y": 1.5,  "lato": 1.3,  "rot": 10 },
+   { "pezzo": "corda",     "x": 2.9,  "y": 1.9,  "lato": 0.7,  "rot": 30 },
+   { "pezzo": "sacco",     "x": 2.3,  "y": 3.5,  "lato": 0.6,  "rot": 15 },
+   { "pezzo": "sacco",     "x": 0.4,  "y": 3.5,  "lato": 0.55, "rot": -10 },
+   { "pezzo": "ragnatela", "x": 3.6,  "y": 0.4,  "lato": 0.8,  "rot": 90 }
+  ],
+  "perche": "I sacchi di sabbia 'in fila come impiccati pazienti' sono gia' le pareti di casse (arredo); due sacchi veri li rinforzano in basso, asimmetrici. Il punto focale e' il grosso nodo di funi che 'salgono nel buio', appeso ben dentro lo spazio libero fra le due pareti - grande apposta per vincere il colpo d'occhio contro le casse simmetriche ai lati. Una sola ragnatela nell'angolo opposto rompe la simmetria fra le due pareti. Nessuna luce fissa: 'meglio non stare sotto a niente' e' un testo che vuole il buio, non un faro."
+ },
+ "T4": {
+  "decori": [
+   { "pezzo": "specchio-rotto",   "x": 0.5,  "y": 1.5,  "lato": 0.75, "rot": 10 },
+   { "pezzo": "specchio-rotto-2", "x": 0.5,  "y": 2.5,  "lato": 0.7,  "rot": -20 },
+   { "pezzo": "candela-nera",     "x": 0.85, "y": 1.15, "lato": 0.3,  "rot": 0 },
+   { "pezzo": "ragnatela",        "x": 3.6,  "y": 3.6,  "lato": 0.8,  "rot": 180 },
+   { "pezzo": "straccio",         "x": 3.3,  "y": 0.4,  "lato": 0.3,  "rot": 60 }
+  ],
+  "perche": "Gli 'specchi coperti da lenzuoli' del testo diventano due specchi rotti lungo la parete sinistra: il catalogo non ha un telo su uno specchio, ma la rottura dice lo stesso abbandono, ed e' l'unica superficie chiara della stanza contro le mattonelle scure - punto focale. Un moccolo di cera nera spento (nessun campo luce) accanto al primo specchio dice che qui ci si truccava a lume di candela, ora fredda. Una ragnatela nell'angolo lontano e uno straccio completano il corridoio. La maschera dorata si trova cercando dietro uno specchio: non e' in scena. Nessuna luce fissa: qui arriva IL SUGGERITORE, e il buio e' la sua eco."
+ },
+ "T5": {
+  "decori": [
+   { "pezzo": "catene",     "x": 3.3,  "y": 1.5,  "lato": 1.3,  "rot": -90 },
+   { "pezzo": "calcinacci", "x": 1.4,  "y": 3.5,  "lato": 0.5,  "rot": 200 },
+   { "pezzo": "straccio",   "x": 0.4,  "y": 0.4,  "lato": 0.35, "rot": 15 },
+   { "pezzo": "pacco",      "x": 0.65, "y": 0.75, "lato": 0.4,  "rot": -10 },
+   { "pezzo": "ragnatela",  "x": 3.6,  "y": 0.4,  "lato": 0.8,  "rot": 90 }
+  ],
+  "perche": "'Coperte ripiegate, una cesta di cibo quasi intatta' (cerca_vuoto) diventano uno straccio ripiegato e un pacco in un angolo: un piccolo accampamento appena abbandonato, l'abbandono piu' che la strage. Il punto focale e' la catena grossa sulla parete: e' il contrappeso morto che 'pende sopra di loro... cosi' li calano e li tirano su', ingrandita apposta perche' si veda al volo, e il rosso ruggine risalta sul metallo scuro del pavimento. Calcinacci e una ragnatela per il legno vecchio della fossa. Nessuna luce fissa: si arriva dal corridoio buio, e la fossa non ha mai avuto una sua luce."
+ },
+ "T6": {
+  "decori": [
+   { "pezzo": "spartiti",        "x": 3.4, "y": 2.6, "lato": 0.7, "rot": -10 },
+   { "pezzo": "cero",            "x": 3.1, "y": 3.3, "lato": 0.35,"rot": 0,  "luce": "cera" },
+   { "pezzo": "trave-spezzata",  "x": 0.5, "y": 0.5, "lato": 1.0, "rot": 95 },
+   { "pezzo": "catene",          "x": 0.5, "y": 2.6, "lato": 0.6, "rot": 30 },
+   { "pezzo": "ragnatela",       "x": 0.4, "y": 3.6, "lato": 0.8, "rot": 180 }
+  ],
+  "perche": "'Lastre di cera incise in fila su una rastrelliera' (testo, non cerca: si mostra) diventano un leggio di spartiti - il pezzo del catalogo piu' vicino a un supporto con file di cose incise, e lega la stanza allo spartito-che-canta di tutto l'episodio - illuminato da un solo cero caldo lasciato acceso da chi lavora ancora alle lastre: punto focale. Una trave spezzata e una catena richiamano il fasciame e il sartiame della 'nave capovolta' del testo; una ragnatela chiude l'angolo piu' lontano. Nessun'altra luce: e' l'ultima stanza prima del sipario."
+ }
+}

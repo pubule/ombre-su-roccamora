@@ -327,6 +327,71 @@ webapp/test-scenografia.mjs && node webapp/test-stanza.mjs` → tutti `OK`.
 **Prossimo**: Task 8, `ep4` — stesso procedimento, giudicato contro Ep.1, preludio
 ed ep2/ep3.
 
+**Task 8 — ep4 FATTO (29/09/2026)**: `src/scenografia/ep4.json` (Il teatro
+dell'eco), T1-T6 composte da zero leggendo `testo`/`cerca`/`cerca_vuoto`/`hook`/
+`arredi` di `webapp/data/ep4.json` contro il catalogo esistente (nessun pezzo
+mancante, `scripts/importa-fa-lanterne.py` non toccato — cercato in
+`risorse-vtt/FA_Assets_Webp` un pezzo per i "fondali arrotolati"/"cielo
+stellato" di T2 e per gli "specchi coperti da lenzuoli" di T4, ma niente di
+buono: la libreria non ha tele arrotolate ne' specchi coperti, solo cornici
+viste di taglio — illeggibili dall'alto — e specchi "rotti". Deciso di NON
+forzare un pezzo sbagliato: T2 usa una topiaria secca vera come prop di
+"bosco finto" (deduzione dal posto, principio 1), T4 usa specchi rotti al
+posto di specchi coperti — la rottura dice lo stesso abbandono).
+
+Episodio tutto backstage/sottopalco: **zero luci fisse in quattro tessere su
+sei**. Le due eccezioni hanno un perche' preciso: T1 (la Quinta di Carico) e'
+anche il punto di ritorno/vittoria — una sola torcia, come il molo dell'Ep.1
+e la banchina dell'Ep.3, fa da faro del "siete salvi"; T6 (la Conchiglia) ha
+un cero acceso vicino al leggio di spartiti, lasciato da chi lavora ancora
+alle lastre di cera prima del sipario.
+
+**Un errore di sistema di coordinate, prima di render**: avevo capito
+`portaCella` come diretta cella-porta in spazio-decoro. Non e' cosi' —
+`test-scenografia.mjs` applica un SECONDO flip `3-y` all'output di
+`portaCella` per ottenere la cella in spazio-decoro (la porta N di T1
+risultava (1,3) dal mio calcolo, ma la cella vera in spazio-decoro e' (1,0)
+— confermato dal test che ha bocciato uno straccio li' sopra al primo giro).
+Derivata la formula corretta leggendo `test-scenografia.mjs` riga per riga:
+porta N=(idx,0), S=(idx,3), E=(3,idx), O=(0,idx) in spazio-decoro — la stessa
+intuizione naturale (N=riga0=alto) a cui ero arrivata a occhio, solo con
+un passaggio in piu' che avevo saltato. Corretto lo straccio di T1, test
+verde.
+
+**Due giri di correzione guardando le foto** (non nel JSON — la stessa
+lezione di preludio/ep2/ep3, un punto focale tecnicamente presente ma troppo
+debole per il colpo d'occhio):
+1. **T3** (Sala dei Contrappesi): il gruppo di corde ("funi che salgono nel
+   buio") stava in alto, piccolo, e perdeva subito contro le quattro casse
+   grandi e simmetriche ai lati. Ingrandito (corda principale lato 0.95→1.3)
+   e spostato ben dentro lo spazio libero centrale, lontano dalla cella dove
+   cade il token-eroe della foto — ora e' la prima cosa che si vede.
+2. **T5** (Fossa del Contrappeso Morto): la catena sulla parete destra era
+   troppo sottile contro il pavimento metallo scuro. Ingrandita (lato
+   1.1→1.3) e riposizionata per restare dentro i bordi della stanza.
+
+**Controllato il token-eroe della foto su tutte e sei le tessere** (lezione
+ep3: puo' nascondere un pezzo): per ognuna ho calcolato a mano le celle
+libere "centrali" candidate (le quattro equidistanti dal centro reale della
+griglia) e tenuto ogni decoro fuori da quelle celle, poi verificato a occhio
+sulle foto — nessuna occlusione, il token cade sempre lontano dai pezzi
+scelti (T3: cella (1,2), tutti i decori altrove).
+
+**Non mostrato in scena, per il campo `cerca`**: la lanterna cieca del
+trovarobe (T2) e la maschera dorata dietro lo specchio (T4) — entrambe si
+trovano cercando, non sono decoro. La maschera dorata non compare in nessuna
+tessera di questo episodio per questo motivo (e' anche l'oggetto di un
+luogo d'Indagine, fuori scope di questo task).
+
+Verificato guardando tutte e sei le foto (`node webapp/mappa-plancia-fa.mjs
+--ep ep4`) affiancate a quelle dell'Ep.1, due giri di correzione (sopra)
+prima di committare — `export-data.py` rilanciato prima di ogni
+rigenerazione foto. Test: `python webapp/export-data.py && node
+webapp/test-scenografia.mjs && node webapp/test-stanza.mjs` → tutti `OK`.
+
+**Prossimo**: Task 8, `ep5` — stesso procedimento, giudicato contro Ep.1,
+preludio ed ep2/ep3/ep4.
+
 ## FATTO (22/09/2026) — i vantaggi d'Indagine arrivano in Spedizione (audit + correzioni)
 
 Report: `AUDIT-VANTAGGI-INDAGINE.md`. Banco: `node webapp/audit-vantaggi.mjs [porta]
