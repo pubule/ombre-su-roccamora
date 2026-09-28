@@ -53,6 +53,21 @@ i sabotaggi del piano mordono (porta a indice fisso, `libere()` senza porte, sem
 verificato a mano e cancellato). `src/scenografia/` non esiste ancora (vuota per davvero,
 la popolano i Task 7-8).
 
+**Task 4 FATTO (28/09/2026)**: il buio della plancia. `webapp/public/js/plancia/luce.js`
+(`creaLuce(el, {cell}) → {dimensiona, imposta, avvia, ferma, vivo}`), portato pari pari dal
+ciclo del mockup `lanterne.js` (due canvas a un quarto risoluzione — `buio` che si buca con
+`destination-out`, `calore` sommato con `lighter` — allargati dal CSS, non da una maschera
+SVG che scattava sul telefono). `imposta(sorgenti, {canto})` prende una funzione richiamata
+a ogni fotogramma, non un array fisso: e' cosi' che segue gettoni e canto che cambiano senza
+ricreare l'oggetto. Il ciclo si ferma da solo se `el` esce dal DOM (`el.isConnected`) e
+`ferma()` chiama `cancelAnimationFrame` in modo sincrono, nessun fotogramma residuo dopo.
+Test: `webapp/test-luce.mjs` (Playwright, server su 8017): una lanterna a (200,200) su una
+plancia 800x800, alfa del canvas buio ~0 sotto la luce e 255 lontano, `vivo()`/`ferma()`
+verificati. Sabotaggi mordono entrambi: fillRect del buco commentato → 'sotto la lanterna
+e' ancora buio'; `el.isConnected` tolto insieme a `L.ferma()` nel test → 'ciclo non parte o
+non si ferma'; ripristinati, test torna verde. Non toccato: `digitale.js` (Task 5, ci
+collega questo modulo) e i mockup (solo lettura).
+
 ## FATTO (22/09/2026) — i vantaggi d'Indagine arrivano in Spedizione (audit + correzioni)
 
 Report: `AUDIT-VANTAGGI-INDAGINE.md`. Banco: `node webapp/audit-vantaggi.mjs [porta]
