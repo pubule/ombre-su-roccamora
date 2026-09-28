@@ -11,19 +11,24 @@ export function creaLuce(el, { cell = 104 } = {}) {
   const calore = document.createElement('canvas'); calore.className = 'calore';
   el.append(calore, buio);
   const gB = buio.getContext('2d'), gC = calore.getContext('2d');
-  let sorgenti = () => [], canto = 0, raf = 0;
+  let sorgenti = () => [], canto = 0, raf = 0, t0 = 0;
   const pos = {};                                   // id -> {x,y}: la luce insegue la sorgente
   function dimensiona(W, H) {
     for (const c of [buio, calore]) { c.width = Math.ceil(W / Q); c.height = Math.ceil(H / Q); c.style.width = W + 'px'; c.style.height = H + 'px'; }
   }
   function fotogramma(now) {
+    // smorzamento sul tempo vero trascorso (mockup lanterne.js:179-182), non sui
+    // fotogrammi: su un telefono che ne perde qualcuno la luce insegue comunque
+    // alla stessa velocita' reale invece di scattare o strisciare
+    const dt = Math.min(50, now - t0) / 1000; t0 = now;
+    const k = Math.min(1, dt * 7);
     const w = buio.width, h = buio.height, base = cell * (2.8 - canto * .11);
     gB.globalCompositeOperation = 'source-over'; gB.fillStyle = 'rgba(2,3,4,.95)'; gB.fillRect(0, 0, w, h);
     gB.globalCompositeOperation = 'destination-out';
     gC.globalCompositeOperation = 'source-over'; gC.clearRect(0, 0, w, h); gC.globalCompositeOperation = 'lighter';
     for (const s of sorgenti()) {
       const p = pos[s.id] || (pos[s.id] = { x: s.x, y: s.y });
-      p.x += (s.x - p.x) * .2; p.y += (s.y - p.y) * .2;
+      p.x += (s.x - p.x) * k; p.y += (s.y - p.y) * k;
       const fl = 1 + Math.sin(now / 90 + s.id.length * 7) * .025 + Math.sin(now / 37 + s.x) * .02;
       const r = (RAGGIO[s.tipo] ? cell * RAGGIO[s.tipo] : base) * fl / Q, cx = p.x / Q, cy = p.y / Q;
       const g = gB.createRadialGradient(cx, cy, 0, cx, cy, r);
@@ -40,7 +45,7 @@ export function creaLuce(el, { cell = 104 } = {}) {
   return {
     dimensiona,
     imposta(f, o = {}) { sorgenti = f; if (o.canto != null) canto = o.canto; },
-    avvia() { if (!raf) raf = requestAnimationFrame(fotogramma); },
+    avvia() { if (!raf) { t0 = performance.now(); raf = requestAnimationFrame(fotogramma); } },
     ferma() { cancelAnimationFrame(raf); raf = 0; },
     vivo: () => !!raf,
   };
