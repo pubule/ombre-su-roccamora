@@ -113,7 +113,65 @@ i tetti (deve restare 0, sabotato e confermato: passando `null` senza condizione
 `test-luce`, `test-plancia-fa`, `test-digitale-ui`, `test-arredi`, `test-stile` puliti.
 `test-partite` non ri-controllato: il fix non tocca nulla vicino a cio' che esercita (Indagine),
 i KO restano quelli pre-esistenti gia' confermati con `git stash`.
-**Prossimo**: Task 6+ del piano (`docs/superpowers/plans/2026-09-24-plancia-lanterne.md`).
+**Task 6 FATTO (28/09/2026)**: l'HUD a tre colonne. Porto di
+`mockups/tessere-alt/5-spedizione.html` — `render()` in `digitale.js` non scrive piu' la
+`.barra`+`.board-area`+`.lato` «tutto a schermo»: a sinistra `#col-eroi` (una `capoHtml()` in
+alto, poi `cartaEroe(nm)` per eroe — quella di turno si apre su attributi, arma (`armaDi()`,
+letta dall'`equip`), l'abilita' **solo «In spedizione»** da `caricaDi()`/`abilRigaDi()` — mai
+da `e.abil`, che porta anche il testo d'indagine — le migliorie (`miglioriteHtml(nm)`, ora con
+un filtro per eroe), i tasti di `azioniHtml()` riusati cosi' come sono, e l'ultimo tiro
+riassunto (`ctx.ultimiTiri`, popolato in `riproduci()` a ogni evento `tiro`, view-only, non si
+salva)), al centro la plancia di Task 5 invariata, a destra `#col-notte` (`notteHtml()`: torre
+del canto, i nemici con Att/Dif/Dan/Mov e **cosa faranno** — `intenzioni()`, Step 3 del piano,
+`pianoNemici` su una COPIA — l'obiettivo intero coi PNG scortati, gli oggetti, le domande,
+il diario in `.sez-diario`). Sul telefono (`<900px`, qualunque ruolo — non piu' solo
+`!arbitro()`) le tre colonne diventano schede eroi/la notte/diario, CSS puro
+(`:has(#col-eroi)`, `vistaScheda()`). Test: `webapp/test-hud-spedizione.mjs`.
+
+**Il brief del piano aveva un bug nel suo stesso Step 3**: `intenzioni()` come scritto passava
+`() => 0.5` al posto di un `caso` — ma `pianoNemici` chiama `caso.scegli(n)`, non `caso(n)`, e
+quella riga lancia `TypeError: caso.scegli is not a function` appena c'e' piu' di un bersaglio
+possibile (verificato eseguendolo: crash riprodotto e poi tolto). Corretto passando il `CASO`
+gia' in uso per la notte vera (`Math.random` dentro `.scegli`) — per un'anteprima non serve
+deterministico, e `tira2d6` non lo chiama nessuno con `differito=true`.
+
+**Un difetto vero, trovato SOLO eseguendo** (non nel diff): la carta eroe porta `data-eroe`
+sulla carta INTERA, non piu' solo sul token — e un tasto dentro (`data-abil`, «cerca», «fine»)
+fa risalire il click, per bolla, al gestore generico `[data-eroe]`, che tra le sue righe fa
+`sp.escaModo = null` («via d'uscita: chi ci ripensa tocca un eroe»). Risultato: cliccare «usa»
+sull'Esca di Carbone l'accendeva e la spegneva nello stesso tocco — `test-abilita.mjs` e' andato
+da 14/14 a 5/14 sulla sezione esca. Il gestore ora esce subito se il click arriva da un
+`button` (`ev.target.closest('button')`), una riga sola, buona anche per `[data-nemico]` se un
+domani porta bottoni dentro.
+
+**Compatibilita' coi piloti**: `misura-ep1.mjs`/`misura-episodio.mjs` selezionano il turno con
+`[data-turno="nome"]` (`turnoEroe()`) — la vecchia chip di `giroEroiHtml()`, tolta insieme alla
+striscia dei turni (le carte eroe la sostituiscono). La carta porta ora `data-turno` ACCANTO a
+`data-eroe`, stesso elemento: i piloti non cambiano una riga. `test-abilita.mjs` lo esercita
+gia' (la sua `notte()` clicca `[data-turno]`) ed e' rimasto verde.
+
+**Girati** (server 8017, uno-a-uno e a coppie — sei playwright insieme mandano questa macchina
+in timeout di navigazione, non e' un difetto del codice: risolto a coppie/da soli, sempre
+verdi): `test-hud-spedizione`, `test-plancia-fa`, `test-digitale-ui`, `test-abilita`,
+`test-stile` puliti; `test-abilita` ha 2 KO pre-esistenti («colpo da macello di Ottone»,
+confermati identici con `git stash`); `test-migliorie-app` fallisce identico a `git stash`
+(bug pre-esistente, non toccato). `test-mio-eroe` (wrangler dev, porta 8787) pulito.
+Sabotaggi (Step 7) mordono/ripristinano tutti e tre: (1) tolta la riga CSS che nasconde il
+diario nella scheda «la notte» → il test lo vede subito (`diario:1`, atteso 0); (2) rimesso
+`e.abil` (che porta «In indagine») nel blocco abilita' → `abilSenzaIndagine` cade; (3)
+`intenzioni()` su `g` invece della copia → serviva un nemico che LOGGA a ogni giro per
+accorgersene (un accecato si consuma alla prima lettura, un secondo `render()` non lo
+ritrova piu' acceso): il seme usa un'esca di Carbone che un nemico segue a ogni pianificazione,
+e li' il diario cresce ogni volta — SP().log passa da 3 a 5 righe in un giro solo, sabotato.
+
+Aggiornati anche (selettori vecchi `#p-giro`/`#p-azioni`/`#p-salute`, spariti con l'HUD):
+`test-posto-eroe.mjs` (le due verifiche sull'ordine dei pannelli diventavano, con la griglia
+nuova, verifiche sulla presenza delle schede sotto i 900px — per QUALUNQUE ruolo, non piu' solo
+il giocatore: e' la larghezza a deciderle, non `!arbitro()`), verificato verde;
+`test-telefono-azioni.mjs` (selettore aggiornato a `#col-eroi .ce.on .tasti`, non ri-eseguito:
+vuole `wrangler dev` con `OSR_DEV_EMAIL` e un tavolo vero, fuori dal giro di misura di oggi).
+
+**Prossimo**: Task 7+ del piano (`docs/superpowers/plans/2026-09-24-plancia-lanterne.md`).
 
 ## FATTO (22/09/2026) — i vantaggi d'Indagine arrivano in Spedizione (audit + correzioni)
 

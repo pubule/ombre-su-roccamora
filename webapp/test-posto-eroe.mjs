@@ -110,9 +110,12 @@ const conta = (page, sel) => page.locator(sel).count();
   ok(await conta(page, '.cella-mossa') === 0,
      'ma NESSUNA casella accesa: non è il suo turno, e illuminare il cammino di un altro confonde');
   ok(await conta(page, '#az-fine') === 0, 'né il bottone per chiudere il turno altrui');
-  const testo = await page.locator('.pannello').allInnerTexts();
-  ok(testo.join(' ').toLowerCase().includes('aspetta'),
-     'e lo dice, invece di mostrare un pannello vuoto');
+  // il testo «Aspetta il suo turno» e' oggi dentro i tasti della PROPRIA
+  // carta aperta (`#col-eroi .ce.on .tasti`, Task 6), non piu' in un
+  // `.pannello` a parte — `azioniHtml()` lo scrive lo stesso, solo altrove
+  const testo = await page.locator('#col-eroi').innerText();
+  ok(testo.toLowerCase().includes('aspetta'),
+     'e lo dice, invece di mostrare una carta vuota');
   await page.close();
 }
 
@@ -170,41 +173,35 @@ const conta = (page, sel) => page.locator(sel).count();
   }
 }
 
-// --- IL LAYOUT DA TELEFONO: lo stesso HTML, in un altro ordine
-//
-// Si misura l'ordine A SCHERMO (le coordinate), non quello del DOM: e' il CSS a
-// ordinare, quindi guardare il DOM proverebbe soltanto che il DOM non e'
-// cambiato — e infatti la prima versione di questo test passava anche col CSS
-// spento.
-const ordineVisivo = (page) => page.evaluate(() =>
-  [...document.querySelectorAll('.fascia-turno,.board-area,#p-salute,#p-azioni,#p-giro')]
-    .map((e) => [e.id || e.className.split(' ')[0], Math.round(e.getBoundingClientRect().top)])
-    .sort((a, b) => a[1] - b[1]).map((x) => x[0]).join(' → '));
-
+// --- IL LAYOUT DA TELEFONO (Task 6, HUD a tre colonne): la vecchia riga
+// riordinata da CSS (`#p-salute`/`#p-azioni`/`#p-giro`, un `order:` per
+// pannello) e' sparita insieme ai pannelli che riordinava — l'eroe di turno
+// e' oggi una carta (`.ce`) dentro `#col-eroi`, e sotto i 900px le tre
+// colonne diventano SCHEDE (`.schede`). La differenza da prima: e' la
+// LARGHEZZA a deciderlo, non il ruolo — un arbitro con la finestra stretta
+// vede le stesse schede di un giocatore (`vistaScheda()` in digitale.js).
 {
   const { page } = await apri({ ruolo: 'giocatore', eroe: MIO, eroi: MIO ? [MIO] : [] });
   ok((await page.locator('#app').getAttribute('class')).includes('vista-eroe'),
      'il telefono accende il layout da telefono');
-  const ord = await ordineVisivo(page);
-  ok(ord === 'fascia-turno → board-area → p-salute → p-azioni → p-giro',
-     `plancia in alto e azioni dove arriva il pollice (visto «${ord}»)`);
   const f = await page.locator('.fascia-turno').innerText();
   ok(/tocca a te/i.test(f), `e la fascia dice di chi è il turno (visto «${f.trim()}»)`);
-  ok(await page.locator('#p-salute .nemico-riga.mia').count() === 1,
-     'la propria salute è marcata, non è una riga come le altre');
+  ok(await page.locator('.schede button').count() === 3, 'sotto i 900px ci sono le tre schede (eroi/la notte/diario)');
+  const onEroe = await page.evaluate(() => document.querySelector('#col-eroi .ce.on')?.dataset.eroe);
+  ok(onEroe === MIO, `la carta aperta è la mia, non una riga come le altre (vista «${onEroe}»)`);
   await page.close();
 }
 
-// --- L'ARBITRO NON SI TOCCA: stesso schermo di prima, stesso ordine
+// --- L'ARBITRO: stesso schermo, le stesse schede — ma senza la fascia del
+// turno, che resta solo di chi gioca
 {
   const { page } = await apri(null);
   ok(!(await page.locator('#app').getAttribute('class')).includes('vista-eroe'),
      'chi arbitra NON prende il layout da telefono');
   ok(await page.locator('.fascia-turno').count() === 0,
      'e nessuna fascia del turno: ha il tabellone davanti e li muove tutti');
-  const ord = await ordineVisivo(page);
-  ok(ord === 'board-area → p-giro → p-azioni → p-salute',
-     `e i pannelli restano nell'ordine di sempre (visto «${ord}»)`);
+  ok(await page.locator('.schede button').count() === 3,
+     'ma sotto i 900px vede le stesse schede: è la larghezza a deciderle, non il ruolo (Task 6)');
   await page.close();
 }
 

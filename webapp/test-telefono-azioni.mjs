@@ -57,14 +57,18 @@ ok(cl.includes('vista-eroe'), `il telefono ha il layout da telefono (visto «${c
 ok((await p.locator('.fascia-turno').innerText()).match(/tocca a te/i),
    'ed è il suo turno, quindi le azioni servono davvero');
 
+// il pannello «azioni» di prima (`#p-azioni`) e' sparito con l'HUD a tre
+// colonne (Task 6, 28/09/2026): i tasti sono oggi dentro la carta aperta
+// dell'eroe di turno (`#col-eroi .ce.on .tasti`) — sul telefono e' la scheda
+// «eroi», aperta di default.
 const m = await p.evaluate(() => {
-  const e = document.querySelector('#p-azioni');
+  const e = document.querySelector('#col-eroi .ce.on .tasti');
   if (!e) return null;
   const b = e.getBoundingClientRect();
   return { top: Math.round(b.top), fondo: Math.round(b.bottom),
            viewport: innerHeight, scroll: document.documentElement.scrollHeight };
 });
-ok(m, 'il pannello delle azioni esiste');
+ok(m, 'i tasti dell’eroe di turno esistono');
 if (m) {
   // RAGGIUNGIBILE: o sta dentro lo schermo, o la pagina scorre abbastanza da
   // arrivarci. Prima non valeva nessuna delle due.

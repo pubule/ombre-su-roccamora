@@ -1084,6 +1084,154 @@ canvas.calore { z-index: 2; pointer-events: none; opacity: .32; }
 /* la variante `.attivo` va riscritta: `.chip-turno.ritratto.attivo .rit` vale
    62px con la stessa specificita', e il chip di turno finirebbe PIU' PICCOLO */
 .immersivo .chip-turno.ritratto.attivo .rit { width: 76px; height: 76px; }
+
+/* =========================================================================
+   L'HUD A TRE COLONNE (Task 6, 28/09/2026) — porto di
+   mockups/tessere-alt/5-spedizione.html («struttura B, piu' completa»,
+   scelta dal committente il 25/09/2026). A sinistra gli eroi, al centro la
+   plancia di sempre (Task 5, invariata), a destra la notte.
+
+   `:has(#col-eroi)` tiene questa griglia SOLO sulla schermata che disegna le
+   tre colonne (`render()`): le altre che restano `.immersivo` — la notte
+   animata (`vistaNemici()`), la carta che si legge — non hanno `#col-eroi` e
+   continuano nella riga sopra (flex-column, `.barra`+`.board-area`+`.lato`),
+   intatta. Senza questo aggancio le due schermate avrebbero dovuto dividersi
+   una classe sola, e una sarebbe finita rotta dall'altra. */
+#app.immersivo:has(#col-eroi) {
+  display: grid; grid-template-columns: 320px 1fr 310px; grid-template-rows: auto 1fr;
+  gap: 8px; padding: 8px; overflow: hidden;
+}
+#app.immersivo:has(#col-eroi) .fascia-turno,
+#app.immersivo:has(#col-eroi) .capo { grid-column: 1 / -1; }
+#app.immersivo:has(#col-eroi) #col-eroi { grid-column: 1; grid-row: 2; }
+#app.immersivo:has(#col-eroi) .centro.board-area {
+  grid-column: 2; grid-row: 2; display: flex; flex-direction: column; gap: 4px; min-height: 0;
+}
+#app.immersivo:has(#col-eroi) #col-notte { grid-column: 3; grid-row: 2; }
+#app.immersivo:has(#col-eroi) .schede { display: none; }   /* solo sotto i 900px */
+/* la plancia riempie la sua cella di griglia (non piu' 68vh fissi): la
+   colonna centrale gia' e' alta quanto le altre due, `board-wrap` deve solo
+   seguirla */
+#app.immersivo:has(#col-eroi) #board-wrap { height: 100%; max-height: none; }
+
+/* il capo: sostituisce la `.barra` «tutto a schermo» */
+.capo { display: flex; align-items: center; gap: 14px; padding: 8px 12px; min-width: 0; }
+.capo .ep { font: 15px 'FellSC', serif; color: var(--nastro-chiaro); white-space: nowrap; }
+.capo .fase { padding: 3px 10px; border-radius: 99px; font: 13px 'FellSC', serif; background: rgba(232,194,122,.14); color: var(--nastro-chiaro); white-space: nowrap; }
+.capo .fase.notte { background: rgba(200,50,63,.2); color: #f19aa3; }
+.capo .campane { display: flex; gap: 3px; align-items: flex-end; }
+.capo .campane i { width: 9px; height: 15px; border-radius: 5px 5px 2px 2px; background: rgba(255,255,255,.08); border: 1px solid var(--bordo); }
+.capo .campane i.suona { background: #b8454f; border-color: #e0707a; box-shadow: 0 0 6px rgba(217,96,109,.55); }
+.capo .campane i.soglia { outline: 1px solid var(--nastro); outline-offset: 1px; }
+.capo .quanto { font: 13px 'FellSC', serif; color: var(--osso-fioco); white-space: nowrap; }
+.capo .quanto b { color: #f19aa3; font-weight: normal; font-size: 16px; }
+.capo .ob { flex: 1; min-width: 0; font-size: 13px; color: var(--osso-fioco); font-style: italic;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.capo .bt { padding: 7px 14px; border-radius: 99px; background: rgba(30,35,42,.86); border: 1px solid var(--bordo-alto);
+  font: 14px 'FellSC', serif; color: var(--osso); }
+
+/* le colonne: ognuna scorre per conto suo */
+.col { min-height: 0; min-width: 0; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; scrollbar-width: thin; }
+.col h3 { font: 13px 'FellSC', serif; letter-spacing: .08em; color: var(--osso-fioco); margin: 4px 4px 0; }
+.col.notte h3 { color: #e0707a; }
+
+/* LA CARTA DI UN EROE: chiusa mostra ritratto/salute/azioni/cariche; quella
+   di turno (`.on`) si apre sugli attributi, l'abilita', i tasti, l'ultimo tiro. */
+.ce { padding: 8px 10px; display: grid; grid-template-columns: 46px 1fr; gap: 3px 10px; cursor: pointer;
+  transition: border-color .2s, background .2s; }
+.ce .rit { grid-row: span 2; width: 46px; height: 46px; border-radius: 50%; overflow: hidden; border: 2px solid var(--nastro); align-self: center; }
+.ce .rit img { width: 100%; height: 100%; object-fit: cover; }
+.ce .riga1 { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+.ce .nome { font: 16px 'FellSC', serif; }
+.ce .tag { font: italic 12px 'OldStd', serif; color: var(--osso-fioco); white-space: nowrap; }
+.ce .tag.male { color: #f19aa3; }
+.ce .riga2 { display: flex; align-items: center; gap: 10px; font-size: 12px; color: var(--osso-fioco); }
+.pips { display: inline-flex; gap: 2px; }
+.pips i { width: 9px; height: 9px; border-radius: 50%; border: 1px solid var(--bordo-alto); background: rgba(255,255,255,.05); }
+.pips.vita i.pieno { background: var(--ceralacca); border-color: var(--ceralacca); }
+.pips.az i.pieno { background: var(--nastro); border-color: var(--nastro); }
+.pips.car i.pieno { background: #8fb7ff; border-color: #8fb7ff; }
+.ce .numero { font: 700 13px 'OldStd', serif; color: var(--osso); }
+.ce .numero.grave { color: #f19aa3; }
+.ce.fatto { opacity: .55; } .ce.giu { opacity: .45; } .ce.giu .rit { filter: grayscale(1); }
+.ce.grave .rit { border-color: var(--ceralacca); box-shadow: 0 0 10px rgba(217,96,109,.7); }
+.ce.on { border-color: var(--nastro); background: rgba(38, 33, 24, .92); box-shadow: 0 0 18px rgba(232,194,122,.16); cursor: default; }
+.ce.on .rit { width: 62px; height: 62px; }
+.ce.on { grid-template-columns: 62px 1fr; }
+.ce .dett { grid-column: 1 / -1; display: none; flex-direction: column; gap: 8px; margin-top: 6px; }
+.ce.on .dett { display: flex; }
+.attr { display: flex; flex-wrap: wrap; gap: 4px; }
+.attr span { padding: 2px 7px; border-radius: 4px; background: rgba(255,255,255,.05); border: 1px solid var(--bordo); font: 12px 'FellSC', serif; color: var(--osso-fioco); }
+.attr span b { color: var(--osso); font: 700 13px 'OldStd', serif; margin-left: 3px; }
+.abil { padding: 7px 9px; border-radius: 6px; background: rgba(143,183,255,.07); border: 1px solid rgba(143,183,255,.2); font-size: 13px; }
+/* i tasti sono `azioniHtml()`, riusata cosi' com'e' (testo contestuale +
+   bottoni reali: Cercare, Sparare, Rianimare, Interagire, secondo cosa serve)
+   — il mockup mostra sei `.tasto` fissi (Muovi/Attacca sempre disabilitati),
+   ma quella griglia presuppone un set di azioni fisso che il motore vero non
+   ha (Revolver, Rianimare...): riscriverla vorrebbe dire duplicare la logica
+   che azioniHtml() gia' calcola. Qui resta un contenitore semplice. */
+.tasti { display: flex; flex-direction: column; gap: 6px; }
+.tiro { padding: 8px 10px; border-radius: 6px; background: rgba(0,0,0,.35); border-left: 3px solid var(--osso-fioco); font-size: 13px; }
+.tiro.buono { border-left-color: #6fc79a; } .tiro.cattivo { border-left-color: var(--ceralacca); }
+.tiro .cosa { font: 12px 'FellSC', serif; color: var(--osso-fioco); }
+.tiro .conto { display: flex; align-items: center; gap: 5px; flex-wrap: wrap; margin: 4px 0; }
+.tiro .dado { width: 24px; height: 24px; border-radius: 5px; background: var(--carta); color: var(--carta-ink); display: grid; place-items: center; font: 700 15px 'OldStd', serif; }
+.tiro .esito { font: 15px 'FellSC', serif; }
+.tiro.buono .esito { color: #9fe0bd; } .tiro.cattivo .esito { color: #f19aa3; }
+.guida { font-size: 12px; font-style: italic; color: var(--osso-fioco); }
+
+/* LA NOTTE: torre del canto, nemici con Att/Dif/Dan/Mov e cosa faranno,
+   l'obiettivo coi PNG scortati, gli oggetti, il diario */
+.torre { padding: 10px 12px; }
+.torre .testa { display: flex; justify-content: space-between; align-items: baseline; }
+.torre .num { font: 30px 'FellSC', serif; color: #f19aa3; line-height: 1; }
+.torre .num small { font-size: 14px; color: var(--osso-fioco); }
+.torre .scala { display: flex; flex-direction: column-reverse; gap: 3px; margin: 8px 0 6px; }
+.torre .gr { display: flex; align-items: center; gap: 10px; height: 12px; }
+.torre .gr i { width: 44px; height: 11px; border-radius: 3px; background: rgba(255,255,255,.06); border: 1px solid var(--bordo); flex: none; }
+.torre .gr i.suona { background: linear-gradient(90deg, #8e2632, #d9606d); border-color: #e0707a; }
+.torre .gr.soglia i { outline: 1px solid var(--nastro); outline-offset: 1px; }
+.torre .mazzo { font-size: 13px; color: var(--osso-fioco); }
+.nem { padding: 8px 10px; display: grid; grid-template-columns: 40px 1fr; gap: 2px 9px; }
+.nem .rit { grid-row: span 3; width: 40px; height: 40px; border-radius: 50%; overflow: hidden; border: 2px solid var(--segnale-nemico); align-self: start; }
+.nem .rit img { width: 100%; height: 100%; object-fit: cover; }
+.nem .n { display: flex; justify-content: space-between; font: 14px 'FellSC', serif; }
+.nem .num4 { display: flex; gap: 4px; flex-wrap: wrap; }
+.nem .num4 span { font: 11px 'FellSC', serif; color: var(--osso-fioco); padding: 1px 5px; border-radius: 3px; background: rgba(255,255,255,.05); }
+.nem .num4 span b { color: var(--osso); font: 700 12px 'OldStd', serif; }
+.nem .int { font-size: 12px; color: #f19aa3; font-style: italic; }
+.nem .int.lontano { color: var(--osso-fioco); }
+.vuoto { padding: 10px 12px; font-size: 13px; color: var(--osso-fioco); font-style: italic; }
+.scheda { padding: 10px 12px; font-size: 13px; line-height: 1.4; }
+.png { display: flex; gap: 10px; align-items: center; margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--bordo); }
+.png img { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; border: 2px solid #8fb7ff; filter: grayscale(.4); }
+.col.notte .diario { padding: 10px 12px; border-radius: 10px; background: var(--ardesia); border: 1px solid var(--bordo); }
+
+/* TELEFONO: capo, plancia, schede, UNA colonna alla volta (Step 1/5). «la
+   notte» non porta il diario, «diario» porta solo il diario — il difetto
+   visto nel mockup il 25/09/2026 e corretto li'. */
+.schede { display: none; }
+@media (max-width: 900px) {
+  #app.immersivo:has(#col-eroi) {
+    grid-template-columns: minmax(0, 1fr); grid-template-rows: auto 46vh auto 1fr; padding: 5px; gap: 5px;
+  }
+  #app.immersivo:has(#col-eroi) .capo { gap: 8px; padding: 6px 8px; }
+  #app.immersivo:has(#col-eroi) .capo .ob,
+  #app.immersivo:has(#col-eroi) .capo .quanto span,
+  #app.immersivo:has(#col-eroi) .capo .campane { display: none; }
+  #app.immersivo:has(#col-eroi) .capo .ep { flex: 1; overflow: hidden; text-overflow: ellipsis; }
+  #app.immersivo:has(#col-eroi) .centro.board-area { grid-column: 1; grid-row: 2; }
+  #app.immersivo:has(#col-eroi) .schede { grid-column: 1; grid-row: 3; display: flex; gap: 4px; }
+  #app.immersivo:has(#col-eroi) #col-eroi,
+  #app.immersivo:has(#col-eroi) #col-notte { grid-column: 1; grid-row: 4; display: none; }
+  #app.immersivo:has(#col-eroi) #col-eroi.vis,
+  #app.immersivo:has(#col-eroi) #col-notte.vis { display: flex; }
+  .schede button { flex: 1; padding: 8px; border-radius: 8px; font: 14px 'FellSC', serif; background: var(--ardesia); border: 1px solid var(--bordo); color: var(--osso); }
+  .schede button.on { border-color: var(--nastro); color: var(--nastro-chiaro); }
+  #col-notte[data-vista="notte"] > .sez-diario { display: none; }
+  #col-notte[data-vista="diario"] > :not(.sez-diario) { display: none; }
+}
+
 .tessera-b { position: absolute; background-size: cover; background-position: center;
   border: 2px solid rgba(230,195,120,.55); box-sizing: border-box; }
 .tessera-b.coperta { background: repeating-linear-gradient(45deg, #14101a, #14101a 10px, #100c14 10px, #100c14 20px);
@@ -1289,9 +1437,6 @@ canvas.calore { z-index: 2; pointer-events: none; opacity: .32; }
 #app.vista-eroe .fascia-turno { order: 1; }
 #app.vista-eroe .barra { order: 2; }
 #app.vista-eroe .board-area { order: 3; }
-#app.vista-eroe #p-salute { order: 4; }
-#app.vista-eroe #p-azioni { order: 5; }
-#app.vista-eroe #p-giro { order: 6; }
 /* i separatori vuoti non servono quando l'ordine lo fa il CSS: lasciati li',
    si accumulerebbero tutti in fondo come una colonna di spazi */
 #app.vista-eroe > .mt { display: none; }
@@ -1312,37 +1457,35 @@ canvas.calore { z-index: 2; pointer-events: none; opacity: .32; }
    un bottone piccolo si sbaglia, e sbagliarlo qui vuol dire perdere un'azione. */
 @media (max-width: 700px) {
   #app.vista-eroe .board-area { min-height: 52vh; }
-  #app.vista-eroe #p-azioni .btn { min-height: 52px; font-size: 16px; }
+  /* il pannello «azioni» di prima (`#p-azioni`) e' oggi i tasti nella carta
+     dell'eroe di turno (Task 6) */
+  #app.vista-eroe .ce.on .tasti .btn { min-height: 52px; font-size: 16px; }
   /* i pannelli di contorno (abilita', oggetti, diario, nemici) restano sotto,
      raggiungibili scorrendo: servono di rado, e in cima ruberebbero la plancia */
   #app.vista-eroe .secondario { font-size: 15px; }
 }
 
-/* LA SALUTE, sul telefono: righe compatte invece di un pannello alto mezzo
-   schermo, e la propria in evidenza — e' la prima cosa che si cerca guardando
-   il proprio telefono, e l'ultima che si vuole andare a cercare scorrendo. */
-#app.vista-eroe #p-salute { padding: 8px 10px; }
-#app.vista-eroe #p-salute h2 { display: none; }
-#app.vista-eroe #p-salute .nemico-riga { padding: 3px 0; border-bottom: none; font-size: 15px; }
-#app.vista-eroe #p-salute .nemico-riga:not(.mia) { opacity: .6; font-size: 13px; }
-#app.vista-eroe #p-salute .nemico-riga.mia { border-left: 3px solid var(--segnale-rivela);
-  padding-left: 8px; font-size: 17px; }
 /* la barra: su 390 px il titolo mandava round e canto a capo, e due righe di
-   intestazione sono due righe tolte alla plancia */
+   intestazione sono due righe tolte alla plancia — vale per le schermate che
+   la usano ancora (la carta che si legge, un messaggio): la Spedizione ha il
+   `capo` (Task 6), che tronca l'obiettivo da solo. */
 #app.vista-eroe .barra .titolo { display: none; }
 #app.vista-eroe .barra { padding: 4px 0 8px; }
 
 /* IL COLPO CHE ARRIVA A TE (vista eroe). Il numero che sale dal segnalino e lo
    scossone del token ci sono gia' per tutti: qui si aggiunge quel che serve a
    uno schermo tenuto in mano, cioe' fermare chi sta guardando altrove. Dura
-   1,5s e poi sparisce — un allarme che resta smette di essere un allarme. */
+   1,5s e poi sparisce — un allarme che resta smette di essere un allarme.
+   Prima l'eroe di chi guarda aveva una riga propria in `#p-salute`
+   (`.nemico-riga.mia`); con l'HUD a tre colonne (Task 6) e' la carta aperta —
+   sul telefono di chi gioca e' sempre la sua (Step 5 del piano). */
 #app.colpo-mio .fascia-turno { animation: colpo-allarme 1.5s ease-in-out; }
 @keyframes colpo-allarme {
   0%, 100% { box-shadow: none; }
   20%, 60% { background: linear-gradient(180deg, #b02b3c, #7a1f2b); color: #fff;
              box-shadow: 0 0 26px 6px rgba(216,59,59,.85); }
 }
-#app.colpo-mio #p-salute .nemico-riga.mia { animation: colpo-scheda 1.5s ease-in-out; }
+#app.colpo-mio .ce.on { animation: colpo-scheda 1.5s ease-in-out; }
 @keyframes colpo-scheda {
   0%, 100% { box-shadow: none; }
   25%, 65% { box-shadow: inset 0 0 0 2px #ff5a5a, 0 0 18px rgba(255,90,90,.5); }
@@ -1351,31 +1494,6 @@ canvas.calore { z-index: 2; pointer-events: none; opacity: .32; }
 /* un eroe che ha già preso qualcun altro: si vede che c'è, e che non è per te */
 .eroe-tile.preso { opacity: .45; filter: grayscale(.7); cursor: not-allowed; }
 .eroe-tile.preso .eroe-nome i { color: var(--segnale-rivela); font-style: normal; }
-
-/* LE AZIONI DEVONO STARE NELLO SCHERMO.
-   L'immersivo non scorre — `overflow: hidden`, ed è giusto per un tablet fermo
-   al centro del tavolo: la plancia riempie e non si tocca. Su un telefono in
-   mano quella regola tagliava via il pannello delle azioni: era nel DOM, era
-   «visibile», e cominciava 700 px sotto l'inizio di uno schermo che finiva
-   prima — irraggiungibile, perché la pagina non scorreva.
-   Nella vista eroe si scorre, e la plancia lascia spazio invece di prendersi
-   tutto: le azioni sono la ragione per cui quello schermo esiste. */
-#app.vista-eroe.immersivo { overflow-y: auto; height: auto; min-height: 100%; }
-/* la plancia si prende poco meno di meta' schermo: quel che avanza basta alla
-   scheda e alle azioni, che cosi' si vedono senza scorrere. Sotto, si scorre. */
-/* ALTEZZA VERA, non solo un massimo: `height:100%` sulla board-wrap dentro non
-   si applica se l'area ha soltanto un `max-height`, e la mappa restava alta
-   quanto se stessa — tagliata dall'overflow, con in vista solo la fascia
-   superiore, cioe' le tessere ancora coperte. */
-#app.vista-eroe .board-area { flex: 0 0 auto; height: 40vh; }
-#app.vista-eroe #p-azioni, #app.vista-eroe #p-salute, #app.vista-eroe #p-giro { flex: none; }
-
-/* LA PLANCIA STA NEL SUO RIQUADRO. Nella vista eroe la board-area ha
-   un'altezza propria (serve a lasciare spazio alle azioni), ma la `board-wrap`
-   dentro restava alta quanto la mappa: il resto usciva e si vedeva spuntare
-   sotto il pannello della salute, come una seconda striscia di mappa. */
-#app.vista-eroe .board-area { overflow: hidden; position: relative; }
-#app.vista-eroe .board-wrap { height: 100%; max-height: 100%; overflow: auto; }
 
 /* la stanza che si apre: l'arte della tessera è quadrata, non una carta */
 /* l'arte della tessera e' quadrata e larga: senza un tetto in percentuale

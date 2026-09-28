@@ -182,6 +182,24 @@ const specScort = (i) => stat.specScort(G(), i);
 const statoScortati = () => stat.statoScortati(G());
 const scortAttivo = () => stat.scortAttivo(G());
 
+// L'ARMA DALL'EQUIP (HUD a tre colonne, Task 6): i dati non hanno un campo
+// strutturato «arma» — `equip` e' un elenco scritto in prosa — ma OGNI eroe lo
+// apre con lo stesso stampo, «Nome (arma, +1), ...» (verificato sui 11 di
+// comune.json), lo stesso +1 fisso che `provaDi` gia' usa per il corpo a
+// corpo (motore/azioni.js:96, bonus «arma»). Si legge da li' invece di
+// duplicare il numero.
+function armaDi(e) {
+  const m = String((e && e.equip) || '').match(/^([^(]+)\(arma,\s*\+(\d+)\)/);
+  return m ? { nome: m[1].trim(), bonus: Number(m[2]) } : { nome: 'arma', bonus: 1 };
+}
+// carte rimaste nel mazzo Minaccia: `sp.mazzo` e' {ordine, indice}, non un
+// array (vedi motore/proiezione.js, stessa formula)
+const mazzoRestano = () => { const m = SP().mazzo; return m ? Math.max(0, m.ordine.length - m.indice) : 0; };
+// la Difesa vera di un eroe (Spalle coperte la alza a chi ha un compagno
+// adiacente): gia' calcolata in motore/stat.js per i nemici, mai esposta alla
+// vista prima d'ora — la carta eroe (Task 6) la mostra.
+const difesaDi = (nm) => stat.difesaDi(G(), nm);
+
 // nodi occupati (eroi + nemici + PNG scortati), tranne exclKey. `soloNemici`:
 // escludi gli eroi (cammino eroi: gli alleati si attraversano). `senzaScortati`:
 // escludi i PNG scortati — nei set di CAMMINO (eroi e nemici li attraversano: si
@@ -210,7 +228,12 @@ export async function vistaDigitale(app, partita, vaiA, posto) {
   // L'episodio come i Bivi l'hanno lasciato (una copia: `dati()` e' in cache)
   const ep = episodioColBivio(ep0, partita.bivi);
   ctx = { app, partita, ep, comune, carte, vaiA, layout: null, posto: posto || null,
-          canale: null, tavoloVivo: false, rifMiei: new Set() };
+          canale: null, tavoloVivo: false, rifMiei: new Set(),
+          // L'HUD A TRE COLONNE (Task 6, 28/09/2026): quale scheda e' aperta sul
+          // telefono («eroi»/«notte»/«diario») e l'ultimo tiro di ogni eroe, per
+          // la riga riassuntiva nella sua carta — SOLO vista, non stato di
+          // partita: non si salva, non passa dal tavolo, si azzera riaprendo.
+          scheda: 'eroi', ultimiTiri: {} };
   ctx.tavoloVivo = await mettiSulTavolo(ctx.posto, ctx.partita);
   collegaAlTavolo();
   // LA SCHEDA MOSTRA L'EROE DI STANOTTE, non la carta stampata: dopo dieci
@@ -455,48 +478,26 @@ function render() {
   // e disegnava la plancia fuori da tutto il resto: si vedeva una mappa gigante
   // che usciva dallo schermo con la salute sopra. Il layout non si duplica.
   if (sp.fase === 'nemici' && arbitro()) return faseNemiciAI();
-  const { app, ep } = ctx;
-  const attivo = eroiAttivoNome();
-  const tpk = P().party.every((nm) => (sp.vite[nm] ?? 0) <= 0);
+  const { app } = ctx;
   const html = `
     ${fasciaTurno()}
-    <div class="barra"><button class="btn" id="nav-esci">← menu</button>
-      <div class="titolo">tutto a schermo</div>
-      <span class="sc" style="color:var(--oro-chiaro)">round ${sp.round} · canto ${sp.canto}</span>
-      ${suoni.bottoneHtml()}</div>
-    <div class="pannello secondario"><p><b>Obiettivo:</b> ${esc(ep.obiettivo || '')}
-      ${statoScortati().map((g, i) => (g.liberato && SP().esito == null
-        ? ` <span class="ok-txt">— ${esc(specScort(i).nome)} vi segue: riportatelo in ${esc(specScort(i).meta || '')}.</span>` : '')).join('')}</p>
-      ${tpk ? '<p class="ko-txt">Tutti gli eroi sono a terra: la notte vince.</p>' : ''}</div>
-    <div class="mt"></div>
-    <div class="board-area">
+    ${capoHtml()}
+    <div class="col eroi" id="col-eroi">${colEroiHtml()}</div>
+    <div class="centro board-area">
       <div class="board-wrap" id="board-wrap">${boardHtml()}</div>
       <div class="zoom-ctrl">
         <button class="zoom-btn" data-zoom="-">−</button>
         <button class="zoom-btn" data-zoom="0">⤢</button>
         <button class="zoom-btn" data-zoom="+">+</button>
       </div>
+      <p class="credito-fa">Mappe realizzate con asset di Forgotten Adventures</p>
     </div>
-    <p class="credito-fa">Mappe realizzate con asset di Forgotten Adventures</p>
-    <p class="nota secondario" style="text-align:center">Trascinate per spostare la mappa · +/− o Ctrl+rotella per lo zoom</p>
-    <div class="mt"></div>
-    <div class="lato">
-      <div class="pannello giro" id="p-giro"><h2>il giro degli eroi</h2>${giroEroiHtml()}</div>
-      <div class="mt"></div>
-      <div class="pannello" id="p-azioni"><h2>azioni di ${scortAttivo() != null ? esc((specScort(scortAttivo()).nome || '').toLowerCase()) : (attivo ? esc(primo(attivo)) : '—')}</h2>${azioniHtml()}</div>
-      <div class="mt"></div>
-      <div class="pannello" id="p-salute"><h2>la salute degli eroi</h2>${saluteHtml()}</div>
+    <div class="schede" id="schede">
+      <button data-s="eroi" class="${ctx.scheda === 'eroi' ? 'on' : ''}">eroi</button>
+      <button data-s="notte" class="${ctx.scheda === 'notte' ? 'on' : ''}">la notte</button>
+      <button data-s="diario" class="${ctx.scheda === 'diario' ? 'on' : ''}">diario</button>
     </div>
-    <div class="mt"></div>
-    <div class="pannello secondario"><h2>le abilità degli eroi</h2>${abilitaHtml()}
-      <p class="nota mt">«usa» spende una carica (vale come un’azione dell’eroe attivo).</p></div>
-    ${sp.nemici.length ? `<div class="mt"></div><div class="pannello secondario"><h2>nemici in campo</h2>${nemiciHtml()}</div>` : ''}
-    <div class="mt"></div>
-    <div class="pannello secondario"><h2>oggetti del gruppo</h2>${oggettiHtml()}</div>
-    ${domandeHtml()}
-    <div class="mt"></div>
-    <div class="pannello secondario"><h2>diario</h2>${logHtml()}</div>
-    ${arbitro() ? '<div class="btn-riga secondario"><button class="btn" id="sconfitta">gli eroi cadono</button></div>' : ''}`;
+    <div class="col notte" id="col-notte">${notteHtml()}</div>`;
   // NIENTE LAMPO: una pagina identica a quella gia' a schermo non si riscrive.
   // Le spinte del tavolo arrivano anche quando quel che si vede non cambia — il
   // filo che si apre, il `mettiSulTavolo` di chi arbitra, uno stato che cresce
@@ -509,7 +510,148 @@ function render() {
   const btnSconfitta = app.querySelector('#sconfitta');
   if (btnSconfitta) btnSconfitta.onclick = () => finePartita('sconfitta');
   aggancia();
+  vistaScheda();
 }
+
+// ---------------------------------------------------------- L'HUD A TRE COLONNE
+// Porto di `mockups/tessere-alt/5-spedizione.html` (struttura B, scelta dal
+// committente il 25/09/2026): a sinistra gli eroi (uno per carta, quello
+// aperto mostra i tasti), al centro la plancia di sempre (Task 5), a destra
+// la notte. I dati restano quelli di `…Html()` gia' in questo file — qui
+// cambia solo dove finiscono.
+
+// il capo: episodio, fase, canto a campane, mazzo, obiettivo troncato, suoni, menu
+function capoHtml() {
+  const sp = SP(); const notte = sp.fase === 'nemici';
+  const soglia = sogliaCanto(ctx.comune, ctx.ep, sp); const tetto = tettoCanto(ctx.comune, ctx.ep);
+  const campane = Array.from({ length: tetto }, (_, i) =>
+    `<i class="${i < sp.canto ? 'suona' : ''}${i + 1 === soglia ? ' soglia' : ''}"></i>`).join('');
+  return `<div class="capo lastra">
+    <span class="ep">${esc(ctx.ep.titolo)}</span>
+    <span class="fase${notte ? ' notte' : ''}">${notte ? 'agisce la notte' : `round ${sp.round} · gli eroi`}</span>
+    <span class="campane">${campane}</span>
+    <span class="quanto">canto <b>${sp.canto}</b>/${tetto}<span> · mazzo ${mazzoRestano()}</span></span>
+    <span class="ob"><b>Obiettivo</b> — ${esc(ctx.ep.obiettivo || '')}</span>
+    ${suoni.bottoneHtml()}
+    <button class="bt" id="nav-esci">menu</button></div>`;
+}
+
+// la colonna «eroi»: la chip del PNG scortato (se c'e' un turno suo da offrire),
+// una carta per eroe, e — solo quando NESSUNA carta e' aperta (il turno e' del
+// PNG scortato, o tutti hanno gia' agito) — i tasti di `azioniHtml()` restano
+// visibili lo stesso, in una lastra a parte: sono comandi veri (fase minaccia,
+// «muovi il PNG»), non si possono perdere solo perche' nessun eroe e' di turno.
+function colEroiHtml() {
+  const eroeAperto = arbitro() ? (SP().fase === 'eroi' ? eroiAttivoNome() : null) : mioEroe();
+  const extra = (arbitro() && !eroeAperto)
+    ? `<div class="lastra"><div class="tasti">${azioniHtml()}</div></div>` : '';
+  return scortatiChipHtml() + extra + P().party.map((nm) => cartaEroe(nm, eroeAperto)).join('');
+}
+
+// la carta di un eroe (porto di `cartaEroe` del mockup): chiusa mostra
+// ritratto/salute/azioni/cariche, quella aperta (`eroeAperto`) si apre sugli
+// attributi, l'arma, l'abilita' SOLO IN SPEDIZIONE (da `caricaDi`, che non
+// porta mai il testo d'indagine — l'unica fonte che l'ha gia' tagliato), le
+// migliorie, i tasti di `azioniHtml()` e l'ultimo tiro.
+function cartaEroe(nm, eroeAperto) {
+  const e = eroe(nm); const sp = SP();
+  const max = saluteMax(e); const v = viteVista(nm) ?? max;
+  const giu = v <= 0; const grave = !giu && v / max <= 1 / 3;
+  const finito = (sp.eroiFatti || []).includes(nm);
+  const on = nm === eroeAperto;
+  const tag = giu ? '<span class="tag male">a terra</span>'
+    : finito ? '<span class="tag">ha agito</span>'
+    : on ? '<span class="tag">di turno</span>'
+    : `<span class="tag">${esc((e && e.ruolo) || '')}</span>`;
+  const carica = caricaDi(nm);
+  const fatte = azioniOf(nm).length; const restaAz = Math.max(0, azioniMax(nm) - fatte);
+  const restaCar = carica && carica.usi !== null ? carica.usi - ((sp.abilita && sp.abilita[nm]) || 0) : 0;
+  let dett = '';
+  if (on) {
+    const arma = armaDi(e);
+    const abilBlock = carica ? `<div class="abil">${abilRigaDi(nm)}</div>` : '';
+    const migBlock = miglioriteHtml(nm);
+    const t = ctx.ultimiTiri[nm];
+    const tiroBlock = t
+      ? `<div class="tiro ${t.ok ? 'buono' : 'cattivo'}"><div class="cosa">${esc(t.titolo || '')}</div>
+          <div class="conto">${(t.d || []).map((d) => `<span class="dado">${d}</span>`).join('+')}${(t.bonus || [])
+            .map((b) => ` + <span>${esc(b.label)} ${b.val >= 0 ? '+' : ''}${b.val}</span>`).join('')}
+            = <b>${t.somma}</b>${t.soglia != null ? ` contro ${t.soglia}` : ''} · <span class="esito">${t.ok ? 'successo' : 'fallito'}</span></div></div>`
+      : '<p class="guida">Muovi e attacchi si fanno sulla mappa: toccate una casella per muovere, un nemico adiacente per colpirlo.</p>';
+    dett = `<div class="dett">
+      <div class="attr"><span>Acume<b>${e.acume}</b></span><span>Vigore<b>${e.vigore}</b></span>
+        <span>Nervi<b>${e.nervi}</b></span><span>Difesa<b>${difesaDi(nm)}</b></span>
+        <span>${esc(arma.nome.toLowerCase())}<b>+${arma.bonus}</b></span></div>
+      ${abilBlock}
+      <div class="tasti">${azioniHtml()}</div>
+      ${migBlock}
+      ${tiroBlock}
+    </div>`;
+  }
+  // `data-turno` accanto a `data-eroe`: i piloti di misura (misura-ep1.mjs,
+  // misura-episodio.mjs) selezionano il turno di un eroe cliccando
+  // `[data-turno="nome"]` — prima era la chip di `giroEroiHtml()`, ora e' la
+  // carta stessa. Stesso elemento, due nomi: cambiare selettore in due file
+  // di misura per una card che gia' fa la stessa cosa non serviva.
+  return `<div class="ce lastra${on ? ' on' : ''}${finito && !giu ? ' fatto' : ''}${giu ? ' giu' : ''}${grave ? ' grave' : ''}" data-eroe="${esc(nm)}" data-turno="${esc(nm)}">
+    <div class="rit"><img src="${e && e.art ? urlArt(e.art) : ''}" alt=""></div>
+    <div class="riga1"><span class="nome">${esc(on ? nm.toLowerCase() : primo(nm))}</span>${tag}</div>
+    <div class="riga2">${pips(v, max, 'vita')}<span class="numero${grave ? ' grave' : ''}">${v}/${max}</span>
+      ${pips(restaAz, azioniMax(nm), 'az')}${carica && carica.usi !== null ? pips(restaCar, carica.usi, 'car') : ''}</div>
+    ${dett}</div>`;
+}
+
+// la colonna «notte»: torre del canto, mazzo, nemici con Att/Dif/Dan/Mov e cosa
+// faranno, l'obiettivo intero coi PNG scortati, gli oggetti del gruppo, le
+// domande d'indagine, il diario — quest'ultimo in una sezione a parte
+// (`.sez-diario`) perche' sul telefono e' l'unica scheda che lo mostra.
+function notteHtml() {
+  const sp = SP(); const tetto = tettoCanto(ctx.comune, ctx.ep);
+  const soglia = sogliaCanto(ctx.comune, ctx.ep, sp);
+  const soglie = new Set([soglia, tetto]);
+  const scala = Array.from({ length: tetto }, (_, i) =>
+    `<div class="gr${soglie.has(i + 1) ? ' soglia' : ''}"><i class="${i < sp.canto ? 'suona' : ''}"></i><span></span></div>`).join('');
+  const torre = `<div class="lastra torre"><div class="testa"><h3 style="margin:0">il canto</h3>
+      <div class="num">${sp.canto}<small>/${tetto}</small></div></div>
+    <div class="scala">${scala}</div>
+    <div class="mazzo">mazzo della minaccia: <b>${mazzoRestano()}</b> carte · la notte ne pesca una a ogni round</div></div>`;
+
+  const nemHtml = sp.nemici.some((n) => n.pos) ? nemiciHtml()
+    : '<div class="lastra vuoto">Nessun nemico in vista. Quel che sta nelle stanze chiuse non si conta finché non si apre la porta.</div>';
+
+  const scortatiHtml = statoScortati().map((g, i) => {
+    if (!g.liberato || SP().esito != null) return '';
+    const s = specScort(i);
+    return `<div class="png"><img src="${s.art ? urlArt(s.art) : ''}" alt=""><div><b>${esc(s.nome || '')}</b><br>
+      vi segue: riportatelo in ${esc(s.meta || '')}.${s.prova ? `<br><span class="guida">Interagire: prova di ${esc(s.prova.attr || '')} ${esc(s.prova.diff || '')}${
+        s.prova.bonus && s.prova.bonus.length ? `; aiuta ${esc(s.prova.bonus.join(', '))}` : ''}.</span>` : ''}</div></div>`;
+  }).join('');
+  const tpk = P().party.every((nm) => (sp.vite[nm] ?? 0) <= 0);
+  const obiettivo = `<h3>l’obiettivo</h3><div class="lastra scheda">${esc(ctx.ep.obiettivo || '')}${scortatiHtml}
+    ${tpk ? '<p class="ko-txt mt">Tutti gli eroi sono a terra: la notte vince.</p>' : ''}
+    ${arbitro() ? '<div class="btn-riga mt"><button class="btn" id="sconfitta">gli eroi cadono</button></div>' : ''}</div>`;
+
+  return `${torre}<h3>i nemici in campo</h3>${nemHtml}
+    ${obiettivo}
+    <h3>gli oggetti del gruppo</h3><div class="lastra scheda">${oggettiHtml()}</div>
+    ${domandeHtml()}
+    <div class="sez-diario"><h3>il diario</h3>${logHtml()}</div>`;
+}
+
+// sul telefono le colonne diventano schede (eroi/notte/diario): la visibilita'
+// la decide la LARGHEZZA, non chi guarda — un arbitro con la finestra stretta
+// vede le stesse schede di un giocatore. `ctx.scheda` sopravvive ai render
+// (non e' stato di partita), quindi riaprire una scheda non perde il posto.
+function vistaScheda() {
+  if (!ctx) return;
+  const colEroi = document.getElementById('col-eroi'); const colNotte = document.getElementById('col-notte');
+  if (!colEroi || !colNotte) return;
+  const stretto = matchMedia('(max-width: 900px)').matches;
+  colEroi.classList.toggle('vis', !stretto || ctx.scheda === 'eroi');
+  colNotte.classList.toggle('vis', !stretto || ctx.scheda !== 'eroi');
+  colNotte.dataset.vista = stretto ? ctx.scheda : '';
+}
+addEventListener('resize', vistaScheda);
 
 // celle di arrivo raggiungibili dall'eroe (alleati attraversabili, ci si ferma
 // solo su celle libere; le porte verso stanze coperte sono bersagli reveal).
@@ -695,6 +837,11 @@ function logHtml() {
 // vedrebbero i nemici accanirsi su un corpo. `ctx.viteVista` e' la fotografia a
 // inizio fase, aggiornata colpo per colpo mentre l'animazione scorre.
 const viteVista = (nm) => (ctx.viteVista ? ctx.viteVista[nm] : SP().vite[nm]);
+// ANCORA USATA da `vistaNemici()` (la notte animata, fuori dallo scope di
+// questo lavoro — l'HUD a tre colonne e' solo `render()`): la carta eroe
+// (Task 6) legge la salute per conto suo, da `eroe()`/`viteVista()`/
+// `saluteMax()`, e non passa piu' da qui — ma qui resta, per chi la chiama
+// ancora.
 function saluteHtml() {
   return P().party.map((nm) => {
     const e = eroe(nm); const max = saluteMax(e); const v = viteVista(nm) ?? max;
@@ -705,36 +852,77 @@ function saluteHtml() {
       <span class="nemico-pips">${Array.from({ length: max }, (_, k) => `<span class="pip-vita ${k < v ? 'piena' : ''}"></span>`).join('')}</span></div>`;
   }).join('');
 }
-function nemiciHtml() {
-  const sp = SP();
-  return sp.nemici.map((n) => {
-    const st = nemStat(n.nome);
-    return `<div class="nemico-riga"><span class="nemico-nome">${esc(n.nome.toLowerCase())}${n.num > 1 ? ' ' + n.num : ''}
-      <span class="nota">${esc(n.pos ? n.pos.t : '?')} · Att +${st.att} · Dif ${st.dif} · Dan ${st.dan}</span></span>
-      <span class="nemico-pips">${Array.from({ length: n.max }, (_, k) => `<span class="pip-ferita ${k < (n.max - n.ferite) ? 'piena' : ''}"></span>`).join('')}</span></div>`;
-  }).join('');
-}
 const primo = stat.primo;
 const eroiAttivoNome = () => stat.eroiAttivoNome(G());
-function giroEroiHtml() {
-  const sp = SP(); const fatti = sp.eroiFatti || []; const attivo = eroiAttivoNome();
-  const chips = P().party.map((nm) => {
-    const e = eroe(nm); const done = fatti.includes(nm); const giu = (sp.vite[nm] ?? 0) <= 0;
-    // `eroe`: la striscia dei turni la usano anche i nemici, con le stesse
-    // classi — senza questo il CSS non puo' dare all'eroe di turno un colore
-    // diverso da quello del nemico di turno (vedi `.chip-turno.ritratto.eroe`)
-    return `<button class="chip-turno ritratto eroe${nm === attivo ? ' attivo' : ''}${done || giu ? ' fatto' : ''}" data-turno="${esc(nm)}">
-      <span class="rit"><img src="${e && e.art ? urlArt(e.art) : ''}" alt=""></span><span class="et">${done ? '✓ ' : ''}${esc(primo(nm))}</span></button>`;
-  });
-  // chip dei PNG scortati: unità mosse dal giocatore (Mov 3, non agiscono)
-  statoScortati().forEach((g, i) => {
-    // il PNG lo conduce chi arbitra: sul telefono il suo chip non compare
-    // affatto, o si preme un turno che non si puo' giocare
-    if (!g.liberato || !arbitro()) return; const s = specScort(i);
-    chips.push(`<button class="chip-turno ritratto scortato${scortAttivo() === i ? ' attivo' : ''}${g.mosso ? ' fatto' : ''}" data-scortato-chip="${i}">
-      <span class="rit"><img src="${s.art ? urlArt(s.art) : ''}" alt=""></span><span class="et">${g.mosso ? '✓ ' : ''}${esc((s.nome || '').toLowerCase())}</span></button>`);
-  });
-  return `<div class="giro-strip">${chips.join('')}</div>`;
+// pallini pieno/vuoto, come nel mockup (`5-spedizione.html`, `pips()`): usati
+// dalla carta eroe e dalla torre del canto.
+const pips = (n, max, cls) => `<span class="pips ${cls}">${Array.from({ length: max },
+  (_, k) => `<i class="${k < n ? 'pieno' : ''}"></i>`).join('')}</span>`;
+
+// «COSA FARA' LA NOTTE» (Task 6, Step 3): il piano vero di `pianoNemici`
+// scrive nel diario e consuma gli accecamenti mentre pianifica — un'anteprima
+// non deve toccare niente, quindi gira su una COPIA. Il piano del lavoro
+// (docs) passava un `caso` nudo (`() => 0.5`): `pianoNemici` chiama pero'
+// `caso.scegli(n)`, non `caso(n)`, e su un nemico con piu' di un bersaglio
+// possibile quella riga lancia un TypeError — si vede solo ESEGUENDOLA con un
+// nemico e due eroi vivi (Step 7 di questo piano lo impone, ed e' cosi' che
+// si e' trovato). Qui si passa il CASO vero (Math.random dentro `.scegli`,
+// piu' sotto): per un'anteprima non serve deterministico, e `tira2d6` non lo
+// chiama nessuno con `differito=true`.
+function intenzioni() {
+  const g = G(); const copia = { ...g, sp: structuredClone(g.sp), partita: structuredClone(g.partita) };
+  const piano = nemici.pianoNemici(copia, CASO, true);
+  return Object.fromEntries(piano.map((p) => [p.i, p]));   // p.pos1 = dove arriva, p.attacco = chi colpisce (o null)
+}
+// l'eroe vivo piu' vicino a una posizione: per dire «si avvicina a chi» quando
+// il nemico si muove senza trovare nessuno adiacente (pianoNemici non porta il
+// bersaglio inseguito in quel ramo, solo dove arriva)
+function bersaglioPiuVicino(pos) {
+  const sp = SP(); let migliore = null, dMin = Infinity;
+  for (const nm of P().party) {
+    if ((sp.vite[nm] ?? 0) <= 0 || !sp.eroiPos[nm]) continue;
+    const d = distGlob(pos, sp.eroiPos[nm]);
+    if (d && d < dMin) { dMin = d; migliore = nm; }
+  }
+  return migliore;
+}
+function nemiciHtml() {
+  const sp = SP(); const notte = sp.fase === 'nemici';
+  const piano = notte ? {} : intenzioni();
+  return sp.nemici.map((n, i) => ({ n, i })).filter(({ n }) => n.pos).map(({ n, i }) => {
+    const st = nemStat(n.nome); const v = n.max - n.ferite;
+    const tile = tileDi(n.pos.t);
+    const p = piano[i];
+    let lontano = false, intento;
+    if (notte) intento = 'agisce stanotte';
+    else if (!p) intento = 'non trova nessuno';
+    else if (p.flash) intento = 'salta il turno';
+    else if (p.attacco) intento = `al suo turno → ${esc(primo(p.attacco.vitt))}: 2d6+${p.attacco.att} contro Difesa ${p.attacco.dif}, −${p.attacco.dan}`;
+    else {
+      const vicino = bersaglioPiuVicino(p.pos1);
+      lontano = true;
+      intento = vicino ? `si avvicina a ${esc(primo(vicino))}` : 'non trova nessuno';
+    }
+    return `<div class="nem lastra" data-nemico="${i}"><div class="rit"><img src="${nemArt(n.nome)}" alt=""></div>
+      <div class="n"><span>${esc(n.nome.toLowerCase())}${n.num > 1 ? ' ' + n.num : ''}</span>${pips(v, n.max, 'vita')}</div>
+      <div class="num4"><span>Att<b>+${st.att}</b></span><span>Dif<b>${st.dif}</b></span><span>Dan<b>${st.dan}</b></span>
+        <span>Mov<b>${st.mov}</b></span><span>${esc(tile ? (tile.nome || '').toLowerCase() : '')}</span></div>
+      <div class="int${lontano ? ' lontano' : ''}">${intento}</div></div>`;
+  }).join('');
+}
+// le chip del PNG scortato, per scegliere il suo turno anche a meta' round
+// (non solo da «tutti hanno finito» in azioniHtml): stesso posto di sempre —
+// era nella striscia dei turni (`giroEroiHtml`), che qui e' sostituita dalle
+// carte eroe e non serve piu' per gli eroi, ma il PNG non ha una carta sua.
+function scortatiChipHtml() {
+  if (!arbitro()) return '';                 // il PNG non e' l'eroe di nessuno
+  const chips = statoScortati().map((g, i) => {
+    if (!g.liberato) return '';
+    const s = specScort(i);
+    return `<button class="chip-turno ritratto scortato${scortAttivo() === i ? ' attivo' : ''}${g.mosso ? ' fatto' : ''}" data-scortato-chip="${i}">
+      <span class="rit"><img src="${s.art ? urlArt(s.art) : ''}" alt=""></span><span class="et">${g.mosso ? '✓ ' : ''}${esc((s.nome || '').toLowerCase())}</span></button>`;
+  }).filter(Boolean).join('');
+  return chips ? `<div class="giro-strip">${chips}</div>` : '';
 }
 // celle raggiungibili da un PNG scortato (Mov 3): passa per eroi/porte, blocca
 // sui nemici, non rivela tessere, non si ferma su celle occupate
@@ -845,46 +1033,49 @@ const { CARICHE_SPED, caricaDi } = abilita;
 // lo sposta, e i pallini a schermo devono contare quelli veri
 const usiDi = (c) => abilita.usiDi({ partita: P() }, c);
 
-function abilitaHtml() {
+// LA RIGA DELL'ABILITA' A CARICHE DI UN EROE SOLO (Task 6: prima erano tutte
+// insieme in un pannello a parte, `abilitaHtml()`; ora ognuna vive dentro la
+// carta di quell'eroe, e la carta ha gia' un eroe solo da mostrare). Stessa
+// logica di prima, non riscritta: nessun eroe con carica → stringa vuota, e
+// chi chiama decide se nascondere il blocco.
+function abilRigaDi(nm) {
   const sp = SP(); const attivo = eroiAttivoNome();
-  const righe = P().party.map((nm) => {
-    const c = caricaDi(nm); if (!c) return '';
-    const breve = primo(nm);
-    if (c.usi === null) {
-      return `<div class="nemico-riga"><span class="nemico-nome">${esc(breve)} · ${esc(c.ab.toLowerCase())}<br><span class="nota">${esc(c.nota)}</span></span>
-        <span class="nota">automatica</span></div>`;
-    }
-    const usi = usiDi(c);
-    const usate = (sp.abilita && sp.abilita[nm]) || 0; const rest = usi - usate;
-    const pips = Array.from({ length: usi }, (_, k) => `<span class="pip-vita ${k < rest ? 'piena' : ''}"></span>`).join('');
-    const puo = nm === attivo && rest > 0 && azioniRestano(nm) && sp.fase === 'eroi';
-    return `<div class="nemico-riga">
-      <span class="nemico-nome">${esc(breve)} · ${esc(c.ab.toLowerCase())}<br><span class="nota">${esc(c.nota)}</span></span>
-      <span class="nemico-comandi"><span class="nemico-pips">${pips}</span>
-        ${puo ? `<button class="btn attacca" data-abil="${esc(nm)}">usa</button>` : ''}</span></div>`;
-  }).join('');
-  return (righe + miglioriteHtml())
-    || '<p class="nota">Nessun eroe con abilità a cariche in questo party.</p>';
+  const c = caricaDi(nm); if (!c) return '';
+  const breve = primo(nm);
+  if (c.usi === null) {
+    return `<div class="nemico-riga"><span class="nemico-nome">${esc(breve)} · ${esc(c.ab.toLowerCase())}<br><span class="nota">${esc(c.nota)}</span></span>
+      <span class="nota">automatica</span></div>`;
+  }
+  const usi = usiDi(c);
+  const usate = (sp.abilita && sp.abilita[nm]) || 0; const rest = usi - usate;
+  const dots = Array.from({ length: usi }, (_, k) => `<span class="pip-vita ${k < rest ? 'piena' : ''}"></span>`).join('');
+  const puo = nm === attivo && rest > 0 && azioniRestano(nm) && sp.fase === 'eroi';
+  return `<div class="nemico-riga">
+    <span class="nemico-nome">${esc(breve)} · ${esc(c.ab.toLowerCase())}<br><span class="nota">${esc(c.nota)}</span></span>
+    <span class="nemico-comandi"><span class="nemico-pips">${dots}</span>
+      ${puo ? `<button class="btn attacca" data-abil="${esc(nm)}">usa</button>` : ''}</span></div>`;
 }
 
 // LE MIGLIORIE A CARICHE, nella stessa striscia delle abilita' e con gli stessi
-// pallini: al tavolo sono la stessa cosa — qualcosa che hai e che finisce — e
-// una seconda lista da un'altra parte vorrebbe dire cercarle in due posti.
-function miglioriteHtml() {
+// pallini: al tavolo sono la stessa cosa — qualcosa che hai e che finisce.
+// `nm` (Task 6): solo le sue, per la carta di un eroe; omesso, tutto il party
+// (nessun chiamante lo fa piu' oggi — le migliorie di ognuno stanno nella sua
+// carta — ma la firma resta compatibile, non c'e' motivo di stringerla).
+function miglioriteHtml(nm) {
   const sp = SP(); const attivo = eroiAttivoNome();
   const out = [];
-  for (const nm of P().party) {
+  for (const chi of (nm ? [nm] : P().party)) {
     for (const cm of abilita.CARICHE_MIG) {
-      if (!migliorie.ha({ partita: P() }, nm, cm.id)) continue;
-      const usate = abilita.usiMig(G(), nm, cm.id); const rest = cm.usi - usate;
-      const pips = Array.from({ length: cm.usi }, (_, k) =>
+      if (!migliorie.ha({ partita: P() }, chi, cm.id)) continue;
+      const usate = abilita.usiMig(G(), chi, cm.id); const rest = cm.usi - usate;
+      const dots = Array.from({ length: cm.usi }, (_, k) =>
         `<span class="pip-vita ${k < rest ? 'piena' : ''}"></span>`).join('');
-      const puo = nm === attivo && rest > 0 && sp.fase === 'eroi'
-        && (!cm.costaAzione || azioniRestano(nm));
+      const puo = chi === attivo && rest > 0 && sp.fase === 'eroi'
+        && (!cm.costaAzione || azioniRestano(chi));
       out.push(`<div class="nemico-riga">
-        <span class="nemico-nome">${esc(primo(nm))} · ${esc(cm.ab.toLowerCase())}<br><span class="nota">${esc(cm.nota)}</span></span>
-        <span class="nemico-comandi"><span class="nemico-pips">${pips}</span>
-          ${puo ? `<button class="btn attacca" data-mig="${esc(nm)}" data-voce="${esc(cm.id)}">usa</button>` : ''}</span></div>`);
+        <span class="nemico-nome">${esc(primo(chi))} · ${esc(cm.ab.toLowerCase())}<br><span class="nota">${esc(cm.nota)}</span></span>
+        <span class="nemico-comandi"><span class="nemico-pips">${dots}</span>
+          ${puo ? `<button class="btn attacca" data-mig="${esc(chi)}" data-voce="${esc(cm.id)}">usa</button>` : ''}</span></div>`);
     }
   }
   return out.join('');
@@ -1174,7 +1365,16 @@ function aggancia() {
     } finally { scivolando = false; }
   });
   app.querySelectorAll('[data-nemico]').forEach((el) => el.onclick = () => { if (attivo) esegui({ tipo: 'attacca', eroe: attivo, bersaglio: Number(el.dataset.nemico) }); });
-  app.querySelectorAll('[data-eroe]').forEach((el) => el.onclick = () => {
+  app.querySelectorAll('[data-eroe]').forEach((el) => el.onclick = (ev) => {
+    // LA CARTA EROE (Task 6) porta `data-eroe` sulla carta INTERA — ritratto,
+    // salute, e i tasti dentro — non piu' solo sul token della plancia o su
+    // una riga senza bottoni. Un tocco su «usa» (l'abilita', una miglioria,
+    // «cerca», «fine»...) risale fino a qui per bolla dell'evento, e
+    // selezionare-il-turno resetterebbe `escaModo` PROPRIO mentre lo si sta
+    // accendendo (Carbone che lancia l'Esca: il bottone e il tocco sulla
+    // carta sono la STESSA carta). Un tocco su un bottone e' gia' gestito dal
+    // suo bottone: qui si esce.
+    if (ev.target.closest('button')) return;
     const nm = el.dataset.eroe; if ((sp.vite[nm] ?? 0) <= 0) return;
     sp.scortAttivo = null;
     sp.escaModo = null;              // via d'uscita: chi ci ripensa tocca un eroe
@@ -1195,10 +1395,12 @@ function aggancia() {
   app.querySelectorAll('[data-scortato]').forEach((el) => selScort(el, 'scortato'));
   app.querySelectorAll('[data-scortato-chip]').forEach((el) => selScort(el, 'scortatoChip'));
   app.querySelector('#rug-fine') && (app.querySelector('#rug-fine').onclick = () => { sp.scortAttivo = null; salvaP(); render(); });
-  app.querySelectorAll('[data-turno]').forEach((b) => b.onclick = () => {
-    const nm = b.dataset.turno; if ((sp.vite[nm] ?? 0) <= 0) return;
-    const i = sp.eroiFatti.indexOf(nm); if (i >= 0) sp.eroiFatti.splice(i, 1);
-    sp.eroiAttivo = nm; salvaP(); render();
+  // le schede del telefono (eroi/la notte/diario): cambiano solo la vista, non
+  // lo stato di partita — nessun `salvaP()`, nessun `render()`
+  app.querySelectorAll('.schede button').forEach((b) => b.onclick = () => {
+    ctx.scheda = b.dataset.s;
+    app.querySelectorAll('.schede button').forEach((x) => x.classList.toggle('on', x === b));
+    vistaScheda();
   });
   // L'INTUIZIONE: ripete l'ultimo tiro fallito, una volta (comando `intuizione`)
   app.querySelector('#intuizione')?.addEventListener('click', () => {
@@ -1647,6 +1849,13 @@ async function esegui(comando) {
 async function riproduci(eventi, daAltri = false) {
   for (const ev of eventi) {
     if (ev.tipo === 'tiro') {
+      // L'ULTIMO TIRO DI OGNI EROE (Task 6): la carta eroe ne riassume uno in
+      // riga, sotto i tasti. Non e' stato di partita — non si salva, non passa
+      // dal tavolo — e' solo quel che l'evento gia' porta, tenuto da parte
+      // finche' non arriva il prossimo. Vale anche i tiri di CHI GUARDA (non
+      // solo `daAltri`): sul proprio schermo la finestra dei dadi li ha gia'
+      // mostrati, ma la carta li riassume dopo che si e' chiusa.
+      if (ev.chi) ctx.ultimiTiri[ev.chi] = ev;
       // IL TIRO LO VEDONO TUTTI, come nell'Indagine. Quel che rotola sul
       // tavolo vero lo si guarda in faccia; quel che tira l'app rotolava su
       // uno schermo solo, e agli altri arrivava un silenzio e poi l'esito
@@ -2265,6 +2474,7 @@ export const _motore = {
   messaggioCarta,                 // per provare la carta senza tirarsi dietro una pesca vera
   messaggio,                      // e la schermata da leggere insieme
   evidenziaColpito,               // per provare il colpo senza aspettare che un nemico colpisca
+  render,                         // per provare che un secondo giro di HUD (Task 6) non tocchi lo stato
   avanzaCancellazione, avanzaRitmo, avanzaPressione, controllaFiloPerso, avanzaOrologio,
   bonusVoce, celleEsca,
   _setup: (ep, sp, extra) => {
