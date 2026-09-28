@@ -194,7 +194,42 @@ il vecchio `.vista-eroe` e non riportata sulla struttura nuova. Corretto con
 difetto, fuori dal mandato di questo giro): `motore/abilita.js:120-123,225-230` (il Sesto Senso
 di Sibilla) legge `m.ordine`/`m.indice` con la stessa assunzione di forma unica.
 
-**Prossimo**: Task 7+ del piano (`docs/superpowers/plans/2026-09-24-plancia-lanterne.md`).
+**Task 7 FATTO (28/09/2026)**: la scenografia dell'Episodio 1 — il metro per le altre 20.
+`src/scenografia/ep1.json`: T1/T3/T6 copiati verbatim dagli esempi della guida
+(`docs/scenografia.md`); T2 (Sala delle casse), T4 (Ufficio del Custode) e T5 (Scala al
+piano interrato) composti da zero leggendo `testo`/`cerca`/`cerca_vuoto` di `ep1.json` e il
+catalogo (`webapp/vtt/decori/CATALOGO.json`, 85 pezzi). Trovato durante la composizione,
+utile per chi scrive gli altri 20: `webapp/public/mockups/tessere-alt/scena/ep1.json`
+esiste gia' e ha una versione approvata di TUTTE le sei stanze (non solo T1/T3/T6 che la
+guida cita) — non l'ho copiata (il brief chiedeva di comporre T2/T4/T5 da sola sugli spunti
+del task), ma il primo giro (senza punto focale in T2/T4/T5) reggeva la macchina
+(`test-scenografia.mjs` verde) e guardando le foto era piu' debole di quel riferimento:
+rivisto un giro, T2 ha preso un `nido` (risponde a «qualcosa, tra le pile, scricchiola» del
+testo senza dirlo), T4 uno `sgabello-rovesciato` davanti alla scrivania (il «qualcosa e'
+appena successo» del mood — non solo un calamaio rovesciato, un mobile ribaltato si legge
+molto meglio in foto), T5 uno spartito caduto ai piedi della scala (punto focale) piu' una
+candela nera SPENTA (nessun campo `luce`: dice che chi e' sceso portava la propria luce).
+**Step 1**: `webapp/mappa-plancia-fa.mjs` (Playwright) — semina una spedizione con TUTTE le
+tessere rivelate (come `test-plancia-fa.mjs` Parte 2) e un eroe alla volta al centro di ogni
+stanza (cella libera piu' vicina al centro, mai su un arredo), zoom della `.board-digitale`
+azzerato a 1 e `deviceScaleFactor` calcolato apposta (800/416) cosi' la foto e' 800x800 senza
+sfocare i pezzi (supercampionatura vera, non uno zoom CSS che stira il raster). Trovato
+guardando le prime foto: **il riquadro turchese delle caselle raggiungibili copriva mezza
+stanza** (l'eroe seminato aveva 0/2 azioni, quindi era "attivo" e tutte le sue caselle di
+movimento si accendevano) — corretto seminando `eroiFatti: party, eroiAttivo: null`
+(nessun eroe attivo = nessuna casella accesa, la lanterna resta comunque accesa perche' la
+legge dal token in pagina, non dalla fase). `--tutte` fotografa l'ingresso di ogni episodio
+e compone `logs/plancia-fa/foglio.jpg` (una pagina HTML con le foto in base64, fotografata a
+sua volta — niente libreria di composizione immagini in piu', playwright c'e' gia'). Le foto
+restano in `logs/plancia-fa/` (aggiunto a `.gitignore`), mai committate.
+**Verificato guardando**, non solo leggendo il JSON: `node webapp/mappa-plancia-fa.mjs --ep
+ep1` (0 errori, 0 404 su `/assets/vtt/`), le sei foto aperte una per una col controllo della
+guida, confrontate col mockup di riferimento — un giro di correzione (sopra) prima di
+committare. Test: `python webapp/export-data.py && node webapp/test-scenografia.mjs` → `OK 1
+scenografie`.
+
+**Prossimo**: Task 8 del piano (`docs/superpowers/plans/2026-09-24-plancia-lanterne.md`) — la
+scenografia degli altri 20 episodi, un subagente a episodio, ognuno giudicato contro Ep.1.
 
 ## FATTO (22/09/2026) — i vantaggi d'Indagine arrivano in Spedizione (audit + correzioni)
 

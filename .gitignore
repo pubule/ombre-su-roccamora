@@ -25,6 +25,10 @@ logs/playtest/
 # scartati dopo la scelta, mai la fonte di verita'
 logs/provini/
 
+# foto delle stanze di mappa-plancia-fa.mjs (Task 7): si rigenerano a
+# comando, servono a guardare, non a versionare
+logs/plancia-fa/
+
 # midjourney-artwork.mjs: sessione del browser e le 3 varianti scartate
 .midjourney-profilo/
 .wrangler/

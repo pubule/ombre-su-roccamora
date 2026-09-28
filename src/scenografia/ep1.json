@@ -1,0 +1,73 @@
+{
+ "T1": {
+  "decori": [
+   { "pezzo": "corda",     "x": 0.55, "y": 1.35, "lato": 0.7,  "rot": 20 },
+   { "pezzo": "barile",    "x": 3.45, "y": 1.3,  "lato": 0.75, "rot": 0 },
+   { "pezzo": "pozza",     "x": 2.4,  "y": 2.55, "lato": 1.1,  "rot": 30 },
+   { "pezzo": "ragnatela", "x": 3.62, "y": 3.62, "lato": 0.8,  "rot": 180 },
+   { "pezzo": "torcia",    "x": 0.22, "y": 2.5,  "lato": 0.8,  "rot": 90,  "luce": "torcia" },
+   { "pezzo": "torcia",    "x": 3.78, "y": 2.5,  "lato": 0.8,  "rot": -90, "luce": "torcia" }
+  ],
+  "perche": "Banchina di lavoro sull'acqua nera: la corda sta vicino alla bitta (arredo molo), un barile contro il muro delle casse, una pozza dove l'acqua entra. Due torce ai lati dell'ingresso: e' da qui che si parte, e deve essere l'unico posto davvero illuminato."
+ },
+ "T2": {
+  "decori": [
+   { "pezzo": "sacco",     "x": 0.6,  "y": 2.55, "lato": 0.7,  "rot": 20 },
+   { "pezzo": "sacco",     "x": 1.35, "y": 1.6,  "lato": 0.65, "rot": -15 },
+   { "pezzo": "corda",     "x": 2.55, "y": 2.5,  "lato": 0.6,  "rot": 60 },
+   { "pezzo": "barile",    "x": 2.4,  "y": 0.5,  "lato": 0.75, "rot": 0 },
+   { "pezzo": "nido",      "x": 0.5,  "y": 3.5,  "lato": 0.6,  "rot": 200 },
+   { "pezzo": "straccio",  "x": 3.6,  "y": 2.4,  "lato": 0.3,  "rot": 95 },
+   { "pezzo": "ragnatela", "x": 3.65, "y": 3.6,  "lato": 0.8,  "rot": 180 }
+  ],
+  "perche": "Casse marchiate a fuoco accatastate fino al soffitto: sacchi e una corda si accumulano contro le due pile (le casse sono arredo), un barile contro l'altra, uno straccio impigliato al muro. Il punto focale e' il nido infilato accanto ai sacchi, in basso: risponde da solo a 'qualcosa, tra le pile, scricchiola' senza bisogno di dirlo nel testo del ricordo. L'angolo opposto resta vuoto e buio. Il piede di porco si trova cercando, non e' in scena. Nessuna luce fissa: e' un deposito cieco, non un posto che qualcuno illuminerebbe."
+ },
+ "T3": {
+  "decori": [
+   { "pezzo": "candele-nere",   "x": 1.5,  "y": 0.45, "lato": 0.8, "rot": 0,   "luce": "cera" },
+   { "pezzo": "candele-nere-2", "x": 2.5,  "y": 0.5,  "lato": 0.8, "rot": 90,  "luce": "cera" },
+   { "pezzo": "candele-nere-3", "x": 1.5,  "y": 3.5,  "lato": 0.8, "rot": 180, "luce": "cera" },
+   { "pezzo": "sangue",         "x": 2.1,  "y": 2.2,  "lato": 0.6, "rot": 0 },
+   { "pezzo": "teschio",        "x": 3.5,  "y": 2.5,  "lato": 0.6, "rot": 0,   "luce": "cera" }
+  ],
+  "perche": "Il testo e' tutto luce di candela: i gruppi di candele nere corrono lungo i due muri lunghi (i bracieri negli angoli sono arredi dei dati), cosi' e' l'unica stanza dell'episodio piena di luce — e la luce inquieta. Il punto focale e' il 'riflesso che non e' cera': una macchia piccola al centro, che si capisce solo guardando, e un teschio-candela in fondo."
+ },
+ "T4": {
+  "decori": [
+   { "pezzo": "fogli",               "x": 1.25, "y": 0.3,  "lato": 0.3,  "rot": 10,  "sopra": true },
+   { "pezzo": "libro-aperto",        "x": 1.7,  "y": 0.55, "lato": 0.4,  "rot": -15, "sopra": true },
+   { "pezzo": "tazza",               "x": 1.4,  "y": 0.8,  "lato": 0.3,  "rot": 5,   "sopra": true },
+   { "pezzo": "cero",                "x": 1.75, "y": 0.25, "lato": 0.4,  "rot": 0,   "sopra": true, "luce": "cera" },
+   { "pezzo": "sgabello-rovesciato", "x": 1.55, "y": 1.15, "lato": 0.7,  "rot": 110 },
+   { "pezzo": "calamaio-rovesciato", "x": 2.25, "y": 1.3,  "lato": 0.3,  "rot": 160 },
+   { "pezzo": "calamaio-rovesciato", "x": 0.4,  "y": 1.35, "lato": 0.25, "rot": -30 },
+   { "pezzo": "straccio",            "x": 2.4,  "y": 3.6,  "lato": 0.3,  "rot": 80 }
+  ],
+  "perche": "Il testo mette tutto sulla scrivania: carte e un libro annotato sopra (sopra:true), la tazza ancora tiepida — il custode e' appena uscito — e il lume, l'unica luce fissa. Lo sgabello rovesciato davanti alla scrivania e' il punto focale del 'qualcosa e' appena successo': non ci si e' alzati, ci si e' alzati di scatto. Il calamaio e' caduto a terra ai due lati: il catalogo non ha un vasetto, e l'inchiostro rovesciato ne fa le veci per 'tra i vasetti' del testo. Uno straccio vicino al pagliericcio (arredo) ricorda il sego. Il filo teso e la chiave restano fuori scena: si trovano cercando."
+ },
+ "T5": {
+  "decori": [
+   { "pezzo": "ragnatela-2",  "x": 0.3,  "y": 0.3,  "lato": 0.75, "rot": 0 },
+   { "pezzo": "calcinacci",   "x": 0.35, "y": 2.35, "lato": 0.6,  "rot": 55 },
+   { "pezzo": "pozza",        "x": 0.5,  "y": 3.6,  "lato": 0.85, "rot": 25 },
+   { "pezzo": "ragnatela",    "x": 3.65, "y": 0.55, "lato": 0.8,  "rot": 180 },
+   { "pezzo": "calcinacci-2", "x": 3.6,  "y": 1.7,  "lato": 0.6,  "rot": -35 },
+   { "pezzo": "pozza",        "x": 3.4,  "y": 3.15, "lato": 0.7,  "rot": -15 },
+   { "pezzo": "spartiti",     "x": 2.4,  "y": 3.3,  "lato": 0.45, "rot": 70 },
+   { "pezzo": "candela-nera", "x": 0.5,  "y": 1.35, "lato": 0.3,  "rot": 0 }
+  ],
+  "perche": "La scalinata e' l'arredo, al centro: ai lati, come chiede il testo dei 'gradini viscidi', pozze d'umidita' e calcinacci contro i muri, e ragnatele alte negli angoli. Il punto focale e' un foglio di spartito caduto ai piedi dei gradini: il canto ha lasciato una traccia prima ancora di farsi sentire. Una candela nera spenta (nessun campo luce: e' fredda) dice che qualcuno e' sceso di qui portando la propria luce, non la trovava gia' accesa. Nessun'altra luce fra i decori: si scende nel buio che canta, solo le lanterne degli eroi rischiarano i gradini."
+ },
+ "T6": {
+  "decori": [
+   { "pezzo": "ossa",           "x": 0.95, "y": 2.95, "lato": 1.4, "rot": 20 },
+   { "pezzo": "catene",         "x": 3.7,  "y": 2.5,  "lato": 0.8, "rot": -90 },
+   { "pezzo": "sangue",         "x": 2.0,  "y": 2.9,  "lato": 0.9, "rot": 40 },
+   { "pezzo": "teschio",        "x": 0.5,  "y": 0.5,  "lato": 0.6, "rot": 0,   "luce": "cera" },
+   { "pezzo": "candele-nere-3", "x": 1.5,  "y": 2.4,  "lato": 0.7, "rot": 0,   "luce": "cera" },
+   { "pezzo": "candele-nere",   "x": 2.5,  "y": 2.4,  "lato": 0.7, "rot": 0,   "luce": "cera" },
+   { "pezzo": "ragnatela",      "x": 3.62, "y": 3.62, "lato": 0.9, "rot": 180 }
+  ],
+  "perche": "Il punto focale e' l'altare (arredo): due gruppi di candele nere davanti, il sangue e le ossa ai suoi piedi. Le catene al muro vicino alla cella di Ruggero dicono chi ci e' stato legato. Un teschio-candela nell'angolo opposto e' l'unica altra luce."
+ }
+}
