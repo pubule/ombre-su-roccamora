@@ -187,6 +187,30 @@ async function apri(viewport, posto, ritocca) {
   await page.close();
 }
 
+// ============================================================ FIX ROUND 1 — il mazzo potato di chi gioca
+// `SP().mazzo` ha DUE forme, non una: da arbitro e' l'ordine vero
+// ({ordine, indice, pool} — motore/regole.js), ma su un tavolo vero un
+// giocatore lo riceve gia' POTATO da motore/proiezione.js:142 a
+// {restano, rimescolato} — l'ordine e' il segreto del round dopo, e non deve
+// lasciare lo schermo di chi arbitra. `mazzoRestano()` (digitale.js) assumeva
+// solo la prima forma: `m.ordine.length` lanciava su `undefined`, DENTRO il
+// template di `render()`, prima ancora di scrivere `app.innerHTML` — schermo
+// d'errore generico per OGNI giocatore, ogni volta. Non lo prendeva
+// test-hud-spedizione.mjs perche' seminava sempre la forma intera anche per
+// il posto giocatore (niente tavolo vero, `collegaAlTavolo()` non parte) — lo
+// ha trovato solo test-telefono-azioni.mjs, contro un `wrangler dev` vero.
+// Qui si semina la forma potata per davvero, cosi' la suite se ne accorge
+// anche senza un tavolo.
+{
+  const mazzoPotato = (p) => { p.spedizione.mazzo = { restano: 5, rimescolato: 0 }; };
+  const { page, errori } = await apri({ width: 1400, height: 860 },
+    { ruolo: 'giocatore', eroe: ELENA, eroi: [ELENA] }, mazzoPotato);
+  ok(errori.length === 0, `il giocatore apre senza errori col mazzo potato: ${errori.slice(0, 3).join(' | ')}`);
+  const testo = await page.evaluate(() => document.querySelector('.capo .quanto')?.textContent || '');
+  if (!/mazzo 5/.test(testo)) fail(`il capo non legge «restano» del mazzo potato (visto «${testo.trim()}»)`);
+  await page.close();
+}
+
 console.log(ko === 0 ? 'test-hud-spedizione: OK' : `${ko} FAIL`);
 await browser.close();
 process.exit(ko ? 1 : 0);

@@ -192,9 +192,21 @@ function armaDi(e) {
   const m = String((e && e.equip) || '').match(/^([^(]+)\(arma,\s*\+(\d+)\)/);
   return m ? { nome: m[1].trim(), bonus: Number(m[2]) } : { nome: 'arma', bonus: 1 };
 }
-// carte rimaste nel mazzo Minaccia: `sp.mazzo` e' {ordine, indice}, non un
-// array (vedi motore/proiezione.js, stessa formula)
-const mazzoRestano = () => { const m = SP().mazzo; return m ? Math.max(0, m.ordine.length - m.indice) : 0; };
+// carte rimaste nel mazzo Minaccia. Due forme: da arbitro `sp.mazzo` e'
+// {ordine, indice, pool} (l'ordine vero, motore/regole.js); su un telefono di
+// chi gioca arriva gia' POTATO — l'ordine e' la soluzione, e non deve
+// lasciare lo schermo di chi arbitra — a {restano, rimescolato}
+// (motore/proiezione.js:142, stessa formula qui sotto per il primo caso).
+// Senza questo controllo la Spedizione di un giocatore non renderizzava
+// affatto: `m.ordine` e' `undefined` sulla forma potata, e leggerne
+// `.length` dentro il template di `render()` lanciava prima ancora di
+// scrivere `app.innerHTML` — schermata d'errore generica per OGNI giocatore,
+// SEMPRE, trovato eseguendo test-telefono-azioni.mjs contro un tavolo vero.
+const mazzoRestano = () => {
+  const m = SP().mazzo;
+  if (!m) return 0;
+  return m.ordine ? Math.max(0, m.ordine.length - m.indice) : (m.restano ?? 0);
+};
 // la Difesa vera di un eroe (Spalle coperte la alza a chi ha un compagno
 // adiacente): gia' calcolata in motore/stat.js per i nemici, mai esposta alla
 // vista prima d'ora — la carta eroe (Task 6) la mostra.

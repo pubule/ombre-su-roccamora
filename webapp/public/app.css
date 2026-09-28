@@ -1232,6 +1232,23 @@ canvas.calore { z-index: 2; pointer-events: none; opacity: .32; }
   #col-notte[data-vista="diario"] > :not(.sez-diario) { display: none; }
 }
 
+/* FIX ROUND 1 (trovato con test-telefono-azioni.mjs contro un `wrangler dev`
+   vero — non lo copre nessuna suite sulla porta 8017, che apre `vistaDigitale`
+   in locale e non passa mai da un tavolo). L'immersivo non scorre —
+   `overflow: hidden`, giusto per un tablet fermo che non deve muoversi — ma
+   per CHI GIOCA da telefono i tasti finivano oltre il fondo di una colonna
+   chiusa a `1fr` con lo scroll SOLO al suo interno: la pagina restava alta
+   quanto lo schermo (640px) e i tasti a 736px erano irraggiungibili. E'
+   la STESSA lezione gia' imparata una volta per la vecchia `.lato` (vedi la
+   sezione «vista eroe», sotto): la si riapplica qui alla griglia nuova invece
+   di lasciarla scritta solo per un markup che non c'e' piu'. */
+#app.vista-eroe.immersivo:has(#col-eroi) { overflow: visible; height: auto; min-height: 100%; }
+@media (max-width: 900px) {
+  #app.vista-eroe.immersivo:has(#col-eroi) { grid-template-rows: auto 46vh auto auto; }
+  #app.vista-eroe.immersivo:has(#col-eroi) #col-eroi,
+  #app.vista-eroe.immersivo:has(#col-eroi) #col-notte { overflow-y: visible; }
+}
+
 .tessera-b { position: absolute; background-size: cover; background-position: center;
   border: 2px solid rgba(230,195,120,.55); box-sizing: border-box; }
 .tessera-b.coperta { background: repeating-linear-gradient(45deg, #14101a, #14101a 10px, #100c14 10px, #100c14 20px);
