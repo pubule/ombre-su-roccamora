@@ -12,9 +12,15 @@ export function creaLuce(el, { cell = 104 } = {}) {
   el.append(calore, buio);
   const gB = buio.getContext('2d'), gC = calore.getContext('2d');
   let sorgenti = () => [], canto = 0, raf = 0, t0 = 0;
+  let regioni = null;                                // null = tutto il canvas (comportamento di sempre)
   const pos = {};                                   // id -> {x,y}: la luce insegue la sorgente
-  function dimensiona(W, H) {
+  // terzo argomento opzionale (Step 4b, mockup 6-scenografia.html:265): un
+  // elenco di rettangoli {x,y,w,h} (stesso spazio pixel di tutto il resto) da
+  // scurire invece dell'intero canvas — sotto i tetti la citta' deve restare
+  // visibile. Omesso/null = tutto il canvas, esattamente come prima.
+  function dimensiona(W, H, r) {
     for (const c of [buio, calore]) { c.width = Math.ceil(W / Q); c.height = Math.ceil(H / Q); c.style.width = W + 'px'; c.style.height = H + 'px'; }
+    regioni = r && r.length ? r : null;
   }
   function fotogramma(now) {
     // smorzamento sul tempo vero trascorso (mockup lanterne.js:179-182), non sui
@@ -23,7 +29,9 @@ export function creaLuce(el, { cell = 104 } = {}) {
     const dt = Math.min(50, now - t0) / 1000; t0 = now;
     const k = Math.min(1, dt * 7);
     const w = buio.width, h = buio.height, base = cell * (2.8 - canto * .11);
-    gB.globalCompositeOperation = 'source-over'; gB.fillStyle = 'rgba(2,3,4,.95)'; gB.fillRect(0, 0, w, h);
+    gB.globalCompositeOperation = 'source-over'; gB.fillStyle = 'rgba(2,3,4,.95)';
+    if (regioni) { for (const r of regioni) gB.fillRect(r.x / Q, r.y / Q, r.w / Q, r.h / Q); }
+    else gB.fillRect(0, 0, w, h);
     gB.globalCompositeOperation = 'destination-out';
     gC.globalCompositeOperation = 'source-over'; gC.clearRect(0, 0, w, h); gC.globalCompositeOperation = 'lighter';
     for (const s of sorgenti()) {

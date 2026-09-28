@@ -101,12 +101,18 @@ Girati insieme (server 8017): `test-plancia-fa`, `test-digitale-ui`, `test-arred
 puliti; `test-partite` ha KO pre-esistenti e indipendenti da questo task (timeout su
 `.reperto-img` in fase Indagine, 9-10 KO sui primi 15 scenari) — confermato con `git stash` sul
 codice non toccato: stessi KO, stesso pattern, prima del Task 5.
-**Concern non toccato (Task 4, fuori perimetro)**: nel mockup il buio copre SOLO stanze/acqua
-(`stanzeRett`), lasciando sempre visibile il vuoto sotto i tetti; `creaLuce()` di Task 4 invece
-riempie di nero l'INTERO rettangolo della plancia ad ogni fotogramma (nessuna maschera per
-stanza) — sui tetti il vuoto si scurisce quanto le stanze, la citta' si vede solo vicino a una
-fonte di luce. Per allinearlo al mockup, `luce.js` dovrebbe ricevere la geometria delle stanze;
-e' del Task 4, non toccato qui.
+**Fix (stesso giorno, dopo la review)**: il concern sopra e' risolto. `luce.js` (`dimensiona`)
+accetta ora un terzo argomento opzionale `regioni` (array di `{x,y,w,h}`); omesso/null scurisce
+tutto il canvas come sempre (default invariato, `test-luce.mjs` intatto). `digitale.js`
+(`boardHtml()`) costruisce `ctx._geo.regioniBuio` riusando la stessa geometria dello Step 4a
+(ogni tessera mostrata + ogni riquadro di fuori/acqua non-tetti); `agganciaMappa()` la passa a
+`luce.dimensiona()` solo se l'episodio ha tetti, altrimenti niente (comportamento di sempre).
+`test-plancia-fa.mjs` (parte4) legge il canale alfa di `canvas.buio` su un punto del vuoto sotto
+i tetti (deve restare 0, sabotato e confermato: passando `null` senza condizione l'alfa saliva a
+255) e su un angolo di stanza rivelata (deve restare scuro). Girati di nuovo (server 8017):
+`test-luce`, `test-plancia-fa`, `test-digitale-ui`, `test-arredi`, `test-stile` puliti.
+`test-partite` non ri-controllato: il fix non tocca nulla vicino a cio' che esercita (Indagine),
+i KO restano quelli pre-esistenti gia' confermati con `git stash`.
 **Prossimo**: Task 6+ del piano (`docs/superpowers/plans/2026-09-24-plancia-lanterne.md`).
 
 ## FATTO (22/09/2026) — i vantaggi d'Indagine arrivano in Spedizione (audit + correzioni)

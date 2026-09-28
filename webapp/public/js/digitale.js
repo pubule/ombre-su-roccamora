@@ -548,6 +548,12 @@ function boardHtml(senzaMosse) {
   // `w/h` sono l'ingombro del piano in pixel a zoom 1, e servono a `fitZoom()`
   // per calcolare quanto ingrandire perche' la plancia entri nello spazio.
   ctx._geo = { minX, maxY, cell, w: cols * cell, h: rows * cell };
+  // rettangoli da scurire (Step 4b, fix): ogni tessera mostrata (rivelata o
+  // frontiera coperta) piu' ogni riquadro di fuori/acqua NON tetti — il vuoto
+  // sotto i tetti resta fuori da questa lista, cosi' luce.js lo lascia intatto
+  // e la citta' sotto si vede sempre. Riempita qui sotto, letta da agganciaMappa().
+  const regioniBuio = [];
+  ctx._geo.regioniBuio = regioniBuio;
   const scr = (n) => { const [TX, TY] = lay[n.t]; return { l: ((TX - minX) * 4 + n.x) * cell, t: ((maxY - TY) * 4 + (3 - n.y)) * cell }; };
   const attivo = eroiAttivoNome();
 
@@ -566,6 +572,7 @@ function boardHtml(senzaMosse) {
   // le «verso T2» disegnate in DOM sono andate via (Step 3): ora c'e' la porta.
   const tiles = mostrate.map((id) => {
     const [TX, TY] = lay[id]; const left = (TX - minX) * 4 * cell, top = (maxY - TY) * 4 * cell, size = 4 * cell;
+    regioniBuio.push({ x: left, y: top, w: size, h: size });
     if (!rev.includes(id)) {
       return `<div class="tessera-b coperta" style="left:${left}px;top:${top}px;width:${size}px;height:${size}px">
         <div class="tess-tag">${id} · ?</div></div>`;
@@ -605,6 +612,7 @@ function boardHtml(senzaMosse) {
       }
       if (best.f === 'tetti') continue;                 // sotto i tetti c'e' la citta' (Step 4b)
       const L = (X - minX) * 4 * cell, T = (maxY - Y) * 4 * cell;
+      regioniBuio.push({ x: L, y: T, w: 4 * cell, h: 4 * cell });
       const scorre = best.f === 'acqua' || best.f === 'melma';
       fuoriHtml += `<div class="fuori-fa" style="left:${L}px;top:${T}px;width:${4 * cell}px;height:${4 * cell}px">${scorre
         ? `<div class="onda-fa" style="background-image:url('${V('pavimenti/' + best.f)}')"></div>`
@@ -1378,28 +1386,22 @@ function agganciaMappa() {
   const bd = app.querySelector('.board-digitale');
   if (bd) {
     luce = luce && luce.el === bd ? luce : Object.assign(creaLuce(bd, { cell: ctx._geo.cell }), { el: bd });
-    luce.dimensiona(ctx._geo.w, ctx._geo.h);
     // LA CITTA' SOTTO I TETTI (Step 4b, porto di 6-scenografia.html): un
     // canvas fermo, ridisegnato solo quando la misura cambia (la board si
     // allarga mano a mano che si rivela) — mai a ogni fotogramma, quello lo fa
     // solo il buio. Solo se l'episodio ha almeno una tessera alAperto.
-    if (ctx.ep.tessere.some(alAperto)) {
+    const tetti = ctx.ep.tessere.some(alAperto);
+    // FIX (Step 4b): sotto i tetti il buio scurisce SOLO stanze+acqua
+    // (`ctx._geo.regioniBuio`, costruito in boardHtml() riusando la stessa
+    // geometria dello Step 4a), mai il vuoto — la citta' sotto resta sempre
+    // visibile, com'e' nel mockup (`6-scenografia.html`, `stanzeRett`). Senza
+    // tetti si passa niente: tutto il canvas si scurisce come sempre.
+    luce.dimensiona(ctx._geo.w, ctx._geo.h, tetti ? ctx._geo.regioniBuio : null);
+    if (tetti) {
       const w = ctx._geo.w, h = ctx._geo.h;
       if (!cittaCache || cittaCache.w !== w || cittaCache.h !== h || cittaCache.ep !== ctx.ep.id) {
         cittaCache = { w, h, ep: ctx.ep.id, cv: citta(w, h, semeCitta(ctx.ep)) };
       }
-      // CONCERN (non toccato: luce.js e' territorio del Task 4): nel mockup il
-      // buio riempie di nero SOLO i rettangoli di stanze/acqua (`stanzeRett`),
-      // lasciando sempre visibile il vuoto sotto i tetti — e' la citta' che fa
-      // sentire l'altezza. `creaLuce()` di Task 4 invece riempie di nero
-      // l'INTERO rettangolo della plancia ad ogni fotogramma (vedi
-      // `fotogramma()` in luce.js: `gB.fillRect(0,0,w,h)` senza maschera per
-      // stanza), quindi qui il vuoto sotto i tetti viene scurito quanto le
-      // stanze — la citta' resta visibile solo finche' non arriva una fonte di
-      // luce vicina. E' una divergenza reale dal mockup, segnalata nel report
-      // del Task 5: correggerla vorrebbe dire dare a luce.js la geometria
-      // delle stanze (mascherare il buio sui soli rettangoli occupati), ed e'
-      // fuori dal perimetro di questo task.
       bd.prepend(cittaCache.cv);
     }
     // torce, candele, bracieri: calcolate una volta per disegno, in pixel

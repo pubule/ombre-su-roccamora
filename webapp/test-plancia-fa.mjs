@@ -235,6 +235,33 @@ async function parte4() {
   await ep.click(); await page.waitForTimeout(200);
   await page.locator('#apri-caso').click(); await page.waitForTimeout(300);
   if (!(await page.locator('canvas.citta').count())) fail('(ep.11, tetti) manca la citta\' sotto la plancia');
+
+  // FIX (Step 4b, regioni del buio): il vuoto sotto i tetti NON va scurito —
+  // la citta' sotto deve restare visibile — mentre dentro una stanza il buio
+  // c'e' ancora. Si cerca un punto della plancia fuori da ogni .stanza-fa/
+  // .tessera-b/.fuori-fa (il vuoto) e si legge il canale alfa del canvas.buio
+  // li' (deve restare 0, mai riempito) e in un angolo di una stanza rivelata
+  // lontano dalle luci (deve restare scuro, come sempre).
+  await page.waitForTimeout(200);
+  const check = await page.evaluate(() => {
+    const board = document.querySelector('.board-digitale');
+    if (!board) return null;
+    const rett = [...document.querySelectorAll('.stanza-fa, .tessera-b, .fuori-fa')].map((e) => ({
+      l: parseFloat(e.style.left), t: parseFloat(e.style.top), w: parseFloat(e.style.width), h: parseFloat(e.style.height),
+    }));
+    const W = board.offsetWidth, H = board.offsetHeight;
+    const dentro = (x, y) => rett.some((r) => x >= r.l && x < r.l + r.w && y >= r.t && y < r.t + r.h);
+    let vuoto = null;
+    for (let y = 0; y < H && !vuoto; y += 20) for (let x = 0; x < W && !vuoto; x += 20) { if (!dentro(x, y)) vuoto = { x, y }; }
+    const cv = document.querySelector('canvas.buio'); const g = cv.getContext('2d');
+    const alfa = (x, y) => g.getImageData(Math.floor(x / 4), Math.floor(y / 4), 1, 1).data[3];
+    const s0 = document.querySelector('.stanza-fa');
+    const dentroPt = s0 ? { x: parseFloat(s0.style.left) + 8, y: parseFloat(s0.style.top) + 8 } : null;
+    return { vuoto, vuotoAlfa: vuoto ? alfa(vuoto.x, vuoto.y) : null, dentroAlfa: dentroPt ? alfa(dentroPt.x, dentroPt.y) : null };
+  });
+  if (!check || check.vuoto == null) fail('(ep.11, tetti) nessun punto di vuoto trovato per il controllo del buio a regioni');
+  else if (check.vuotoAlfa > 40) fail(`(ep.11, tetti) il vuoto sotto i tetti e' scurito (alfa ${check.vuotoAlfa}): la citta' dovrebbe restare visibile`);
+  if (check && check.dentroAlfa != null && check.dentroAlfa < 200) fail(`(ep.11, tetti) l'angolo della stanza non e' piu' scuro (alfa ${check.dentroAlfa})`);
   await page.close();
 }
 
