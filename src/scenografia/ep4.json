@@ -4,10 +4,10 @@
    { "pezzo": "torcia",     "x": 0.5,  "y": 1.3,  "lato": 0.8,  "rot": 90,  "luce": "torcia" },
    { "pezzo": "corda",      "x": 3.4,  "y": 2.3,  "lato": 0.6,  "rot": -20 },
    { "pezzo": "ragnatela",  "x": 3.6,  "y": 0.4,  "lato": 0.8,  "rot": 90 },
-   { "pezzo": "calcinacci", "x": 0.4,  "y": 3.55, "lato": 0.55, "rot": 200 },
+   { "pezzo": "calcinacci", "x": 2.3,  "y": 3.55, "lato": 0.55, "rot": 200 },
    { "pezzo": "straccio",   "x": 2.3,  "y": 0.35, "lato": 0.3,  "rot": 100 }
   ],
-  "perche": "Il testo non nomina fuoco, ma la Quinta di Carico e' anche il punto di ritorno (qui si vince riportando Gaspare e Rocco): una sola torcia vicino alla cassa d'ingresso, come il molo dell'Ep.1 e la banchina dell'Ep.3, e' il faro del 'siete salvi'. Una cima vicino all'altra cassa risponde a 'cime arrotolate' del cerca_vuoto; calcinacci e uno straccio dicono la polvere di gesso e segatura; una ragnatela in alto per il backstage mai pulito."
+  "perche": "Il testo non nomina fuoco, ma la Quinta di Carico e' anche il punto di ritorno (qui si vince riportando Gaspare e Rocco): una sola torcia vicino alla cassa d'ingresso, come il molo dell'Ep.1 e la banchina dell'Ep.3, e' il faro del 'siete salvi'. Una cima vicino all'altra cassa risponde a 'cime arrotolate' del cerca_vuoto; calcinacci (spostati a destra, fuori dalle due celle d'ingresso del party) e uno straccio dicono la polvere di gesso e segatura; una ragnatela in alto per il backstage mai pulito."
  },
  "T2": {
   "decori": [
@@ -51,12 +51,12 @@
  },
  "T6": {
   "decori": [
-   { "pezzo": "spartiti",        "x": 3.4, "y": 2.6, "lato": 0.7, "rot": -10 },
-   { "pezzo": "cero",            "x": 3.1, "y": 3.3, "lato": 0.35,"rot": 0,  "luce": "cera" },
+   { "pezzo": "spartiti",        "x": 2.5, "y": 2.5, "lato": 1.15,"rot": -8 },
+   { "pezzo": "cero",            "x": 2.15,"y": 2.9, "lato": 0.5, "rot": 0,  "luce": "cera" },
    { "pezzo": "trave-spezzata",  "x": 0.5, "y": 0.5, "lato": 1.0, "rot": 95 },
    { "pezzo": "catene",          "x": 0.5, "y": 2.6, "lato": 0.6, "rot": 30 },
    { "pezzo": "ragnatela",       "x": 0.4, "y": 3.6, "lato": 0.8, "rot": 180 }
   ],
-  "perche": "'Lastre di cera incise in fila su una rastrelliera' (testo, non cerca: si mostra) diventano un leggio di spartiti - il pezzo del catalogo piu' vicino a un supporto con file di cose incise, e lega la stanza allo spartito-che-canta di tutto l'episodio - illuminato da un solo cero caldo lasciato acceso da chi lavora ancora alle lastre: punto focale. Una trave spezzata e una catena richiamano il fasciame e il sartiame della 'nave capovolta' del testo; una ragnatela chiude l'angolo piu' lontano. Nessun'altra luce: e' l'ultima stanza prima del sipario."
+  "perche": "'Lastre di cera incise in fila su una rastrelliera' (testo, non cerca: si mostra) diventano un leggio di spartiti - il pezzo del catalogo piu' vicino a un supporto con file di cose incise, e lega la stanza allo spartito-che-canta di tutto l'episodio - illuminato da un solo cero caldo lasciato acceso da chi lavora ancora alle lastre: punto focale. Ingranditi e spostati sul pavimento aperto (non piu' contro il bordo destro) dopo il primo giro: contro la pietra nuda dovevano vincere il colpo d'occhio da soli. Una trave spezzata e una catena richiamano il fasciame e il sartiame della 'nave capovolta' del testo; una ragnatela chiude l'angolo piu' lontano. Nessun'altra luce: e' l'ultima stanza prima del sipario."
  }
 }
