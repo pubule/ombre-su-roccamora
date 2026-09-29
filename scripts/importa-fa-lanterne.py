@@ -312,6 +312,42 @@ PEZZI = {
                                {'ambienti': ['tetti'], 'lato': 0.75, 'luce': None, 'sopra': False}),
     'decori/panni-stesi-2.png': (FA, f'{CS}/Clutter/Clothing/Hanging/Clothing_Cloth_Tan_B2_1x1.webp',
                                  {'ambienti': ['tetti'], 'lato': 0.7, 'luce': None, 'sopra': False}),
+    # -- Ep.16 (Un caso qualunque): la villa sul lago dello Sposo — il primo
+    # episodio con un giardino all'italiana e un salone da ballo veri, non solo
+    # gotico/industriale. Provini guardati prima di importarli (--provino).
+    # 'armadio' e 'toeletta' correggono un buco: quei due nomi di arredo sono
+    # gia' in ARREDO_KEYS/ambiente-fa.js (webapp/public/js/plancia/ambiente-fa.js)
+    # ma non avevano mai un pezzo vero dietro (nessun episodio li aveva usati
+    # finora) — 'armadio-anta', gia' in catalogo, e' solo il taglio di
+    # un'anta vista di lato: una fessura illeggibile se usata come mobile
+    # intero (principio 1 della guida). Questi due sono il mobile vero, visto
+    # dall'alto, per lo scenografia.arredi override di T6.
+    'decori/statua-giardino.png': (FA, f'{CS}/Structures/Statues/Statue_Marble_White_Pitcher_Woman_2x2.webp',
+                                   {'ambienti': ['giardini'], 'lato': 1.6, 'luce': None, 'sopra': False}),
+    'decori/panca-giardino.png': (FA, f'{CS}/Furniture/Seating/Benches/Bench_Wood_Dark_Metal_Brass_E1_2x1.webp',
+                                  {'ambienti': ['giardini'], 'lato': 1.3, 'luce': None, 'sopra': False}),
+    'decori/rose-bianche.png': (FA, f'{CS}/Decor/Pottery/Potted_Plants/Potted_Plant_Roses_White_A1_1x1.webp',
+                                {'ambienti': ['giardini'], 'lato': 1.0, 'luce': None, 'sopra': False}),
+    'decori/succulente.png': (FA, f'{CS}/Decor/Pottery/Potted_Plants/Potted_Plant_Succulents_A1_1x1.webp',
+                              {'ambienti': ['giardini'], 'lato': 0.55, 'luce': None, 'sopra': False}),
+    'decori/tavolo-banchetto.png': (FA, f'{CS}/Furniture/Tables/Round_Tables/Table_Round_Wood_Walnut_A1_2x2.webp',
+                                    {'ambienti': ['case'], 'lato': 1.6, 'luce': None, 'sopra': False}),
+    'decori/barca.png': (FA, f'{CS}/Vehicles/Boats/Rowboat_Wood_Dark_A1_1x3.webp',
+                         {'ambienti': ['acqua'], 'lato': 1.8, 'luce': None, 'sopra': False}),
+    'decori/armadio.png': (FA, f'{CS}/Furniture/Cupboards_and_Wardrobes/Cupboard_Wood_Dark_A1_2x1.webp',
+                           {'ambienti': ['case'], 'lato': 1.4, 'luce': None, 'sopra': False}),
+    'decori/toeletta.png': (FA, f'{CS}/Furniture/Tables/Desks/Fancy/Vanity_Mirror/Vanity_Mirror_Wood_Ashen_A1_1x1.webp',
+                            {'ambienti': ['case'], 'lato': 0.6, 'luce': None, 'sopra': False}),
+    # T6 (La Stanza di Nina): «lenzuola nuove... un vestito appeso che nessuno
+    # ha mai indossato» — il punto focale della stanza finale, la scena
+    # allestita per «le nozze». Letto chiaro/pulito (non i piumoni scuri
+    # spiegazzati delle altre varianti: qui la stanza deve sembrare intatta,
+    # non vissuta). Vestito appeso: canvas quasi tutto vuoto attorno
+    # all'icona (fill 60x20%), lato grande apposta (principio 3 della guida).
+    'decori/letto-nozze.png': (FA, f'{CS}/Furniture/Bedding/Arranged_Bedding/Arranged_Bed_Wood_Light_A34_2x2.webp',
+                               {'ambienti': ['case'], 'lato': 1.9, 'luce': None, 'sopra': False}),
+    'decori/vestito-appeso.png': (FA, f'{CS}/Decor/Clothing_Rails_and_Hangers/Hanging_Clothes/Hanging_Dress_Cloth_White_Wood_Ashen_A1_1x1.webp',
+                                  {'ambienti': ['case'], 'lato': 1.4, 'luce': None, 'sopra': False}),
 }
 
 

@@ -1182,6 +1182,82 @@ webapp/test-stanza.mjs` → tutti `OK`.
 **Prossimo**: Task 8, `ep16` — stesso procedimento, giudicato contro Ep.1,
 preludio ed ep2-ep15.
 
+**Task 8 — ep16 FATTO (29/09/2026)**: `src/scenografia/ep16.json` (Un caso
+qualunque — la villa sul lago dello Sposo, T1 Il Cancello del Giardino → T6
+La Stanza di Nina), composte da zero leggendo `testo`/`cerca`/`cerca_vuoto`/
+`hook`/`arredi` di `webapp/data/ep16.json` contro il catalogo esistente.
+Primo episodio con un giardino all'italiana e un salone da ballo veri (non
+gotico/industriale): **dieci pezzi mancanti**, cercati in
+`risorse-vtt/FA_Assets_Webp` e guardati i provini prima di importarli,
+aggiunti a `PEZZI` in `scripts/importa-fa-lanterne.py` (122 pezzi ora) —
+`statua-giardino` (la ninfa con l'anfora, T2), `panca-giardino`,
+`rose-bianche`/`succulente` (il fiore-firma dello Sposo e le piante grasse
+della serra, T2/T3), `tavolo-banchetto` (il banchetto del T4, riusato anche
+come arredo forzato sull'`altare` dei dati), `barca` (l'imbarcadero, T5),
+`armadio`/`toeletta` (T6) e `letto-nozze`/`vestito-appeso` (la stanza
+finale). `armadio` e `toeletta` correggono un buco pre-esistente (v. «Quello
+che resta» §5 sotto): quei due nomi sono gia' in `ARREDO_KEYS`/
+`ambiente-fa.js` da prima di questo episodio ma nessuno li aveva mai usati,
+e l'unico pezzo di catalogo dietro il nome vicino (`armadio-anta`) e' solo
+il ritaglio di un'anta vista di lato — una fessura illeggibile se usata
+come mobile intero (principio 1): ora hanno il mobile vero, visto dall'alto.
+
+**Arredo del posto riscritto in quattro stanze**, tutte con `"arredi":
+{...}` per cella e motivato nel `perche'`: T2 (una `casse` diventa la panca
+sotto il pergolato — il *contesto* della bottiglia di vino del `cerca`, non
+l'oggetto), T4 (l'`altare` dei dati non ha senso in un salone da ballo:
+diventa il primo tavolo del banchetto, con candelabro e cartellini dei
+posti `sopra`; una `casse` diventa un baule di lini), T6 (`armadio` e
+`toeletta` hanno finalmente il mobile vero; la `casse` accanto al letto
+diventa un baule — proprio i "bauli delle mogli" che lo Sposo fa portare,
+citati nel testo d'uscita di Nina — e nasconde senza dirlo il passaggio
+segreto verso T5).
+
+**Tre giri di correzione guardando le foto, non nel JSON** (la stessa
+lezione di ogni episodio precedente, con una causa un po' diversa questa
+volta): i muri/pilastri d'angolo si disegnano DOPO i decori nell'HTML della
+stanza (`stanza.js`), quindi un pezzo grande piazzato vicino a un bordo
+finisce sotto la pietra, non sopra — non una questione di angoli soli, ma
+di quanto un pezzo grande sporge oltre la banda di un muro. La statua di T2
+(lato 1.6) a y=0.5-0.6 spariva a meta' sotto il muro nord; spostata al
+centro della stanza (lato ridotto a 1.2, y=1.5) e' tornata intera. Stessa
+causa, pezzi piu' piccoli, danno piu' lieve: rose-bianche e succulente di
+T2/T3 spostate qualche decimo piu' dentro la stanza. Un secondo problema,
+diverso: il secondo tavolo di T4 (decoro libero) cadeva a ridosso del baule
+(arredo forzato sulla cella accanto), i due sprite si fondevano in un
+groviglio — spostato lontano e rimpicciolito (lato 1.6→1.0).
+
+**Controllato il token dell'eroe su tutte e sei le tessere** (T1 coi tre
+token dell'entrata inclusi): nessuna occlusione residua dopo le correzioni
+sopra, verificato sulle foto rigenerate.
+
+**Nessun ottavo caso di collisione di sottostringa nel nome** (lezione 8
+della guida, sette gia' trovati ep9-ep15): controllate a mano tutte e sei le
+righe di `PAVIMENTI`/`FUORI_DI` (`webapp/public/motore/ambiente.js`) contro
+i sei nomi delle tessere — "IL CANCELLO DEL GIARDINO"/"IL GIARDINO" →
+`giardino` (riga 15, erba), "LA SERRA" → `serra` (stessa riga, erba, nessuna
+riga precedente la intercetta), "IL SALONE" → `salone` (riga 19, tappeto),
+"L'IMBARCADERO" → `imbarcader` (riga 5, assi/acqua), "LA STANZA DI NINA" →
+`stanza di` (riga 19, tappeto) — ognuna vince alla riga giusta, coerente col
+testo e con la foto. Nessuna correzione necessaria.
+
+**Non mostrato in scena, per il campo `cerca`**: la bottiglia di vino sotto
+il pergolato (T2 — resta solo la panca, il contesto). L'Indirizzo della
+Villa e il Fascicolo delle Vittime (campo `hook`, non `cerca`) sono oggetti
+di *altri* luoghi (Registro degli Affitti, Casa dell'Ex Fidanzata in
+Indagine): non compaiono mai come decoro qui, per costruzione.
+
+Verificato guardando tutte e sei le foto due volte (`node
+webapp/mappa-plancia-fa.mjs --ep ep16`, `export-data.py` e
+`export-assets.py` rilanciati dopo i dieci pezzi nuovi, poi `export-data.py`
+prima di ogni rigenerazione) affiancate a quelle dell'Ep.1, tre giri di
+correzione (sopra) prima di committare. Test: `python webapp/export-data.py
+&& node webapp/test-scenografia.mjs && node webapp/test-stanza.mjs` → tutti
+`OK`.
+
+**Prossimo**: Task 8, `ep17` — stesso procedimento, giudicato contro Ep.1,
+preludio ed ep2-ep16.
+
 ## FATTO (22/09/2026) — i vantaggi d'Indagine arrivano in Spedizione (audit + correzioni)
 
 Report: `AUDIT-VANTAGGI-INDAGINE.md`. Banco: `node webapp/audit-vantaggi.mjs [porta]

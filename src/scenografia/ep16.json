@@ -1,0 +1,60 @@
+{
+ "T1": {
+  "decori": [
+   { "pezzo": "torcia", "x": 2.5, "y": 0.35, "lato": 0.8, "rot": 90, "luce": "torcia" }
+  ],
+  "arredi": { "0,0": "topiaria-secca", "3,3": "topiaria-secca-2" },
+  "perche": "Il cancello del giardino: 'siepi tosate a squadra' diventano le due siepi geometriche ai lati del passaggio (le 'casse' dei dati, riscritte per il posto). Una sola torcia presso il varco e' l'unico punto illuminato: la villa vuole sembrare accogliente per un finto matrimonio, quindi qui, per una volta, la luce non e' rifugio ma inganno. Tessera aperta (giardino): budget 0-5, e il vuoto va bene — 'solo ghiaia e il profumo delle rose bianche', niente altro da mettere in scena."
+ },
+ "T2": {
+  "decori": [
+   { "pezzo": "statua-giardino", "x": 1.6, "y": 1.5, "lato": 1.2, "rot": 15 },
+   { "pezzo": "rose-bianche", "x": 0.6, "y": 1.0, "lato": 1.0, "rot": -10 },
+   { "pezzo": "rose-bianche", "x": 3.3, "y": 3.2, "lato": 1.0, "rot": 200 },
+   { "pezzo": "edera", "x": 0.6, "y": 3.0, "lato": 0.8, "rot": 60 }
+  ],
+  "arredi": { "1,2": "panca-giardino" },
+  "perche": "Testo: 'il giardino all'italiana: aiuole, statue, un pergolato'. La statua (una ninfa con l'anfora, marmo chiaro) e' il punto focale, in un angolo libero lontano dal token. Le due aiuole di rose bianche fiancheggiano il vialetto. Una delle 'casse' diventa la panca sotto il pergolato: e' il contesto della bottiglia di vino del campo `cerca` (principio 6-bis) — la bottiglia stessa non e' in scena. Edera su un lato per dare un minimo di verticale al muretto. Nessuna luce: fuori, buio freddo, la festa resta dentro la villa."
+ },
+ "T3": {
+  "decori": [
+   { "pezzo": "rose-bianche", "x": 0.5, "y": 1.4, "lato": 1.0, "rot": 5 },
+   { "pezzo": "rose-bianche", "x": 2.4, "y": 1.3, "lato": 1.0, "rot": -20 },
+   { "pezzo": "succulente", "x": 2.9, "y": 0.6, "lato": 0.55, "rot": 0 },
+   { "pezzo": "secchio", "x": 0.6, "y": 3.1, "lato": 0.4, "rot": 30 }
+  ],
+  "perche": "Cerca_vuoto: 'rose bianche a decine, tagliate e in secchi d'acqua... piante grasse'. Due gruppi di rose bianche (lo stesso fiore del fioraio e della villa: e' la firma dello Sposo) sono il punto focale — qui e' dove crescono davvero. Una pianta grassa per il resto della serra, un secchio vicino alla porta per i fiori tagliati (il contesto, non il contenuto). Vetri appannati e umidita' restano nell'arte di sfondo; nessuna luce fra i decori, una serra non ha motivo di fuoco."
+ },
+ "T4": {
+  "decori": [
+   { "pezzo": "candelabro", "x": 2.3, "y": 3.3, "lato": 0.7, "rot": 0, "luce": "cera", "sopra": true },
+   { "pezzo": "fogli", "x": 2.7, "y": 3.6, "lato": 0.3, "rot": 15, "sopra": true },
+   { "pezzo": "candelabro-2", "x": 3.3, "y": 1.0, "lato": 0.7, "rot": 0, "luce": "cera" },
+   { "pezzo": "tavolo-banchetto", "x": 0.6, "y": 2.4, "lato": 1.0, "rot": 20 },
+   { "pezzo": "libri", "x": 0.6, "y": 1.0, "lato": 0.5, "rot": -30 }
+  ],
+  "arredi": { "2,3": "tavolo-banchetto", "1,1": "baule" },
+  "perche": "L'arredo 'altare' dei dati non ha senso in un salone da ballo: qui diventa il primo dei 'tavoli imbanditi per un banchetto' del cerca_vuoto, con un candelabro e i 'cartellini dei posti' (fogli) sopra — sono una superficie vera (SUPERFICI riconosce 'altare'). Un secondo tavolo (stesso pezzo) copre il plurale 'tavoli'; un registro di libri accanto suggerisce il libro degli invitati. Il secondo candelabro, libero, dice 'illuminato a festa' senza sforare le 4 luci. La 'cassa' diventa un baule di lini per il banchetto: niente crate industriali in un salone. Nessun sangue: qui non e' ancora successo niente, solo lo Sposo che capisce di essere stato scoperto."
+ },
+ "T5": {
+  "decori": [
+   { "pezzo": "barca", "x": 0.55, "y": 2.0, "lato": 1.8, "rot": -6 },
+   { "pezzo": "corda", "x": 0.4, "y": 0.5, "lato": 0.6, "rot": 20 },
+   { "pezzo": "corda", "x": 0.4, "y": 3.5, "lato": 0.6, "rot": -25 },
+   { "pezzo": "barile", "x": 3.3, "y": 0.5, "lato": 0.75, "rot": 0 },
+   { "pezzo": "lanterna-cieca", "x": 3.3, "y": 3.5, "lato": 0.6, "rot": 0 }
+  ],
+  "perche": "Cerca_vuoto, letto quasi parola per parola: 'una barca che dondola contro i respingenti di corda... un bidone di petrolio e una lampada spenta: nient'altro'. La barca (lato grande apposta: l'asset e' 1x3, altrimenti sparirebbe — principio 3) e' il punto focale, legata lungo un fianco della banchina; due corde ai suoi lati sono i respingenti. Il barile fa da bidone di petrolio (il catalogo non ha un fusto metallico). La lanterna-cieca e' presa apposta senza campo `luce`: e' la lampada SPENTA del testo, non una fonte accesa — la stanza resta al buio, solo le lanterne degli eroi. Nessun altro oggetto: e' un imbarcadero di fuga, non un magazzino."
+ },
+ "T6": {
+  "decori": [
+   { "pezzo": "letto-nozze", "x": 1.4, "y": 1.05, "lato": 1.9, "rot": 0 },
+   { "pezzo": "vestito-appeso", "x": 3.3, "y": 0.6, "lato": 1.4, "rot": 10 },
+   { "pezzo": "candelabro", "x": 2.3, "y": 0.3, "lato": 0.7, "rot": 0, "luce": "cera", "sopra": true },
+   { "pezzo": "candelabro-2", "x": 0.6, "y": 2.0, "lato": 0.7, "rot": 200, "luce": "cera" },
+   { "pezzo": "rose-bianche", "x": 0.6, "y": 3.4, "lato": 1.0, "rot": -15 }
+  ],
+  "arredi": { "3,1": "armadio", "2,0": "toeletta", "0,1": "baule" },
+  "perche": "Cerca_vuoto: 'lenzuola nuove, candele accese, un vestito appeso che nessuno ha mai indossato. Niente, qui, e' davvero di qualcuno'. Il letto (rifatto, coperta ordinata e cuscini pari, non le lenzuola nere spiegazzate delle altre varianti del catalogo: la stanza deve sembrare intatta, non vissuta) e' il punto focale, contro la parete lontano dalla porta. Il vestito appeso sta vicino all'armadio. Un candelabro sulla toeletta e uno libero sono le 'candele accese' del testo (2 luci, entro il limite di 4). Le rose bianche chiudono il motivo floreale dell'episodio anche qui, ultima stanza. I dati chiamano 'armadio' e 'toeletta' due arredi che finora nessun episodio aveva mai usato (nessun pezzo vero dietro quei nomi, solo un ritaglio d'anta illeggibile): qui hanno il mobile intero, visto dall'alto. La 'cassa' accanto al letto diventa un baule — proprio i 'bauli delle mogli' che lo Sposo fa portare, di cui parla l'uscita di Nina — e nasconde il passaggio segreto verso l'imbarcadero senza che nulla lo segnali in scena. Nessun sangue: la stanza e' una messinscena, non un luogo di violenza."
+ }
+}
