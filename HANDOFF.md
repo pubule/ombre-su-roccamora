@@ -834,6 +834,70 @@ webapp/test-scenografia.mjs && node webapp/test-stanza.mjs` → tutti `OK`.
 **Prossimo**: Task 8, `ep11` — stesso procedimento, giudicato contro Ep.1,
 preludio ed ep2/ep3/ep4/ep5/ep6/ep7/ep8/ep9/ep10.
 
+**Task 8 — ep11 FATTO (29/09/2026)**: `src/scenografia/ep11.json` (Il censimento
+delle campane), T1-T6 composte da zero leggendo `testo`/`cerca`/`cerca_vuoto`/
+`hook`/`arredi` di `webapp/data/ep11.json` contro il catalogo esistente (nessun
+pezzo mancante, `scripts/importa-fa-lanterne.py` non toccato). Episodio unico
+nel piano: la scalata della Torre Civica, sei tessere che `alAperto()`
+classifica **tutte e sei come tetti** (nomi: abbaino, camminamento, loggia,
+tetto a schiena d'asino, ballatoio, guglia — ognuno matcha la stessa riga
+`FUORI_DI`/`PAVIMENTI`), quindi tutte a budget 0-5 e senza muri/porte
+disegnati, coerente col brief ("non combattere una classificazione da tetti
+genuina"). Letto anche il riferimento informale pre-piano
+`webapp/public/mockups/tessere-alt/scena/ep11.json` (citato dalla stessa
+`docs/scenografia.md` come "prova della guida" insieme all'Ep.1): usato per
+orientarsi, non copiato — verificati da zero contro `CATALOGO.json` tutti i
+pezzi che suggeriva (`botola`, `ali-di-pietra`, `campana-grande-2`,
+`detriti-bronzo`, `nido`, `calcinacci`/`calcinacci-2`), tutti esistenti con i
+flag giusti, ma budget e composizione rifatti stanza per stanza dal testo
+attuale (es. T5 "Il Ballatoio" qui e' 1 solo decoro d'architettura contro i 2
+del riferimento informale, seguendo alla lettera "su questo anello di pietra
+non si posa nulla e non resta nulla").
+
+**Gli arredi "casse"/"altare" fanno gia' il lavoro del punto focale su 4
+tessere su 6**, per la regola del posto (`arredoDelPosto`, non scenografia):
+in T3 "LA LOGGIA DELLE CAMPANE" (sottostringa "campan" nel nome) le due casse
+diventano due bronzi enormi; in T4 "IL TETTO A SCHIENA D'ASINO" (ESPOSTA) casse
+e altare diventano un comignolo e una statua incappucciata sul colmo; in T6
+"LA GUGLIA" l'unica cassa diventa la statua della Morte. Scenografia scritta
+di conseguenza leggera: 0-4 decori a tessera (T6 zero, per testo — "il vento
+strappa di mano qualunque cosa non sia stretta forte"), mai piu' di 1 luce
+(un cero mozzo in T1, l'unica di tutto l'episodio: il resto resta al buio o
+sferzato dal vento, coerente col mood).
+
+**Controllato guardando tutte e sei le foto** (`node webapp/mappa-plancia-fa.mjs
+--ep ep11`, `export-data.py` rilanciato prima), affiancate a quelle dell'Ep.1:
+i due dischi di bronzo di T3 e i comignoli di T4/T5 sono resi correttamente
+distinti (verificati i PNG sorgente uno per uno: `campana-grande` e
+`comignolo` sono asset diversi, non lo stesso disco riusato); la statua
+incappucciata (T4) e la statua della Morte (T6) leggono chiaramente come
+figure incappucciate anche ritagliate a bordo tessera. Token controllato su
+tutte e sei: T1 (prima tessera, tre token — il centrale a `cellaCentrale`
+dati (1,1) = schermo (1,2), i due d'ingresso a schermo (0,3)/(1,3)) e le
+altre cinque a un token, nessun decoro sulla cella del token ne' su
+arredi/porte (calcolato a mano, poi confermato dal test e dalla foto).
+
+**Nessun problema di classificazione per sottostringa** (lezione Ep.8 sulla
+"Tettoia delle Chiatte"): le sei tessere sono genuinamente tetti/belfry, e
+`alAperto()` concorda su tutte e sei senza ambiguita' — nessun caso da
+segnalare come nell'Ep.8. Unica annotazione, non un difetto: T1 "L'ABBAINO"
+ha `pavimento='assi'` esplicito (citato da `docs/scenografia.md` come
+l'esempio del campo che "vince sulla regola") ma quel campo tocca solo il
+pavimento, non `alAperto()` — quindi anche T1 risulta senza muri disegnati,
+nonostante il testo la chiami "ultimo riparo" con "il vento che fischia dalle
+fessure" (implicitamente un vano ancora chiuso). Guardata la foto: il
+risultato non e' rotto (nessuna incoerenza fra due controlli come l'Ep.8),
+solo un'interpretazione — l'abbaino come soglia gia' aperta sui tetti,
+plausibile quanto un ultimo vano chiuso. Non toccato `ambiente.js` per
+questo: e' una scelta di lettura, non un bug a doppio controllo in
+disaccordo.
+
+Test: `python webapp/export-data.py && node webapp/test-scenografia.mjs &&
+node webapp/test-stanza.mjs` → tutti `OK`.
+
+**Prossimo**: Task 8, `ep12` — stesso procedimento, giudicato contro Ep.1,
+preludio ed ep2/ep3/ep4/ep5/ep6/ep7/ep8/ep9/ep10/ep11.
+
 ## FATTO (22/09/2026) — i vantaggi d'Indagine arrivano in Spedizione (audit + correzioni)
 
 Report: `AUDIT-VANTAGGI-INDAGINE.md`. Banco: `node webapp/audit-vantaggi.mjs [porta]

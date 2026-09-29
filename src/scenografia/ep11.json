@@ -1,0 +1,43 @@
+{
+  "T1": {
+    "decori": [
+      { "pezzo": "botola",     "x": 2.4,  "y": 0.55, "lato": 0.9, "rot": 0 },
+      { "pezzo": "cero",       "x": 0.5,  "y": 1.35, "lato": 0.3, "rot": 15,  "luce": "cera" },
+      { "pezzo": "calcinacci", "x": 3.35, "y": 1.4,  "lato": 0.5, "rot": 50 },
+      { "pezzo": "ragnatela",  "x": 1.4,  "y": 1.4,  "lato": 0.7, "rot": -90 }
+    ],
+    "perche": "Il testo nomina solo la botola e il cero: la botola segna l'uscita verso i tetti (vicino al lato nord, senza stare sulla cella-porta), il cero mozzo e' l'unica luce, piccola, come dicono 'un cero' e 'cero mozzo' nel cerca_vuoto. Calcinacci e una ragnatela dicono le fessure da cui fischia il vento in questo ultimo riparo prima del vuoto. Le due casse (arredi) restano casse: qui sotto la torre era un deposito."
+  },
+  "T2": {
+    "decori": [
+      { "pezzo": "ali-di-pietra", "x": 0.3, "y": 2.3, "lato": 1.0, "rot": 90 }
+    ],
+    "perche": "Il testo e' assoluto: 'quassu' non resta appoggiato niente che non sia inchiodato'. Zero oggetti sciolti: solo un frammento di ali di pietra sul cornicione ovest, architettura inchiodata che il vento non porta via, com'e' il colmo del camminamento verso il vuoto. I due comignoli (arredi, regola ESPOSTA) sono l'unico altro elemento; buio, nessuna luce fissa regge il vento."
+  },
+  "T3": {
+    "decori": [
+      { "pezzo": "nido",       "x": 0.5, "y": 0.5,  "lato": 0.6, "rot": 0 },
+      { "pezzo": "ragnatela",  "x": 3.6, "y": 3.55, "lato": 0.8, "rot": 180 },
+      { "pezzo": "calcinacci", "x": 2.4, "y": 1.3,  "lato": 0.5, "rot": 65 }
+    ],
+    "perche": "I due bronzi enormi sono gia' gli arredi (regola 'campan' nel nome della tessera): non serve un altro punto focale, sono loro. Un nido fra le travi e calcinacci vecchi dicono l'abbandono della cella campanaria, una ragnatela nell'angolo che il rintocco non raggiunge. Riparata dal vento, ma il testo non nomina fuoco: resta buia, solo le lanterne degli eroi."
+  },
+  "T4": {
+    "decori": [
+      { "pezzo": "calcinacci",   "x": 3.4, "y": 2.2,  "lato": 0.5,  "rot": 35 },
+      { "pezzo": "calcinacci-2", "x": 0.4, "y": 1.6,  "lato": 0.5,  "rot": -40 },
+      { "pezzo": "nido",         "x": 2.6, "y": 0.45, "lato": 0.55, "rot": 10 }
+    ],
+    "perche": "Il punto focale e' gia' dato dagli arredi: il comignolo e la statua incappucciata sul colmo (regola ESPOSTA). Ai bordi delle due falde, dove la trappola dice che la grondaia marcia cede, calcinacci sciolti; un nido tra le tegole alte dice che qui, di giorno, non sale piu' nessuno. Vento FORTE: nessuna luce fissa regge."
+  },
+  "T5": {
+    "decori": [
+      { "pezzo": "ali-di-pietra", "x": 3.7, "y": 1.4, "lato": 1.0, "rot": -90 }
+    ],
+    "perche": "Il testo nega tutto due volte: 'su questo anello di pietra non si posa nulla e non resta nulla'. Un solo frammento di ali di pietra sul parapetto: architettura 'inchiodata', non un oggetto che si posa. I due comignoli (arredi, regola ESPOSTA) restano l'unico altro elemento; sotto, la citta' vista dall'alto fa la scena, non un decoro."
+  },
+  "T6": {
+    "decori": [],
+    "perche": "'Il vento strappa di mano qualunque cosa non sia stretta forte': quassu' non resta niente. Zero decori: la statua della Morte (arredo, regola guglia) e' l'unico elemento, il punto piu' alto ed esposto di Roccamora, dove si gioca la resa dei conti fra due persone e il vento."
+  }
+}
