@@ -275,6 +275,21 @@ PEZZI = {
                             {'ambienti': ['fonderie'], 'lato': 0.5, 'luce': None, 'sopra': True}),
     'decori/fornello-freddo.png': (FA, f'{CS}/Furniture/Cooking_Appliances/Stove_Rusty_C_1x1.webp',
                                    {'ambienti': ['fonderie', 'case'], 'lato': 0.7, 'luce': None, 'sopra': False}),
+    # -- Ep.12 (La seconda copia): l'inseguimento nei canali, ponti coperti e
+    # il cimitero delle barche — provini guardati prima di importarli
+    # (--provino). 'lanterna-cieca' e' apposta senza luce: e' la lanterna
+    # SPENTA appesa alla prua del barcaiolo (Cimitero delle Barche), mai
+    # accesa in scena.
+    'decori/rete.png': (FA, f'{CS}/Workplace_Equipment/Fishing/Fishing_Nets/Fishing_Net_01_Fish_01_A1_2x2.webp',
+                        {'ambienti': ['acqua'], 'lato': 1.3, 'luce': None, 'sopra': False}),
+    'decori/sigillo-cera.png': (FA, f'{CS}/Clutter/Writing_Implements/Sigils_and_Stamps/Wax_Sigil_Red_A_1x1.webp',
+                                {'ambienti': ['archivi'], 'lato': 0.35, 'luce': None, 'sopra': False}),
+    'decori/barca-rovesciata.png': (FA, f'{CS}/Vehicles/Boats/Broken/Rowboat_Upsidedown_Broken_Wood_Dark_A1_2x2.webp',
+                                    {'ambienti': ['acqua'], 'lato': 1.6, 'luce': None, 'sopra': False}),
+    'decori/lanterna-cieca.png': (FA, f'{CS}/Lightsources/Lanterns/Lantern_Metal_Rusty_A1_1x1.webp',
+                                  {'ambienti': ['acqua', 'gotico'], 'lato': 0.6, 'luce': None, 'sopra': False}),
+    'decori/bitta-cima.png': (FA, f'{CS}/Vehicles/Ships/Mooring_Posts/Mooring_Post_Metal_Rusty_Rope_Ashen_A2_1x1.webp',
+                              {'ambienti': ['acqua'], 'lato': 0.6, 'luce': None, 'sopra': False}),
 }
 
 

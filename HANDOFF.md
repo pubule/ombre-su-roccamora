@@ -898,6 +898,95 @@ node webapp/test-stanza.mjs` → tutti `OK`.
 **Prossimo**: Task 8, `ep12` — stesso procedimento, giudicato contro Ep.1,
 preludio ed ep2/ep3/ep4/ep5/ep6/ep7/ep8/ep9/ep10/ep11.
 
+**Task 8 — ep12 FATTO (29/09/2026)**: `src/scenografia/ep12.json` (La seconda
+copia — l'inseguimento del corriere Tullio Vela nei canali), T1-T6 composte
+da zero leggendo `testo`/`cerca`/`cerca_vuoto`/`hook`/`arredi` di
+`webapp/data/ep12.json` contro il catalogo esistente. Episodio molto diverso
+dagli undici precedenti: quasi tutto all'aperto sui canali (un ponte
+coperto, una calle stretta, il canale in nebbia, un secondo ponte, il
+cimitero delle barche), non stanze chiuse di un edificio — solo T1 (l'archivio
+violato) e' un vero interno.
+
+**Cinque pezzi mancanti, tutti cercati in `risorse-vtt/FA_Assets_Webp` e
+guardati i provini prima di importarli**, aggiunti a `PEZZI` in
+`scripts/importa-fa-lanterne.py` (107 pezzi ora): `rete` (una rete da pesca
+piena — `Fishing_Net_01_Fish_01_A1_2x2`, per il `cerca_vuoto` di T3 che dice
+letteralmente "Reti, secchi, l'odore di alga" e per la trappola "reti stese"
+dell'arbitro), `barca-rovesciata` (uno scafo capovolto e rotto —
+`Rowboat_Upsidedown_Broken_Wood_Dark_A1_2x2`, trovato nella cartella
+`Vehicles/Boats/Broken` — il punto focale di T6, "le chiatte rovesciate...
+costole all'aria"), `lanterna-cieca` (`Lantern_Metal_Rusty_A1`, per "una
+lanterna cieca... spenta" al gancio del barcaiolo — nessun campo luce,
+coerente col testo), `bitta-cima` (un palo di ormeggio con la cima legata —
+`Mooring_Post_Metal_Rusty_Rope_Ashen_A2`, per "le cime lasciate agli anelli
+si tendono e si allentano") e `sigillo-cera` (`Wax_Sigil_Red_A`, per i
+"sigilli a terra... come gusci vuoti" di T1 — bbox piccolo di proposito,
+lezione ep1 T3: un dettaglio che si nota solo guardando, non il punto
+focale).
+
+**Episodio interamente senza luci fisse**: nessuna delle sei tessere nomina
+un fuoco vero (le uniche lanterne del testo sono "cieca" o "sorda", mai
+accesa in scena) — coerente con un'infiltrazione/inseguimento notturno,
+stessa scelta gia' fatta per Ep.7 e gran parte di Ep.9.
+
+**T1 (L'Archivio Violato) e' l'unica stanza "ordinata" della campagna finora**:
+il testo insiste che i sigilli sono intatti e "nemmeno un foglio caduto" —
+zero decadimento, zero carte sparse, l'inquietudine sta proprio nell'ordine
+che rimane dopo un furto. Corretto un primo tentativo (`orologio-fermo`):
+al render e' solo un anello sottile su sfondo quasi trasparente, illeggibile
+(lezione 1/4) — sostituito con un `baule` chiuso, sagoma solida.
+
+**T6 (Il Cimitero delle Barche) e' la tessera piu' ricca**: la chiatta
+rovesciata al centro passa il colpo d'occhio subito (silhouette scura e
+frastagliata su tavolato chiaro); `lanterna-cieca` ingrandita da lato 0.6 a
+1.0 dopo la prima foto (bbox reale 28% del riquadro, stessa lezione del
+teschio di Ep.5) per restare leggibile come dettaglio secondario.
+
+**T5 (Il Sottoportico): la trave-forca usata come punto focale usciva dal
+bordo della stanza** al primo giro (lato 1.6 ruotato a 90 su un centro
+troppo vicino al muro destro, meta' del pezzo tagliata fuori) — spostata
+verso il centro e accorciata (lato 1.4), ora intera in foto. T2 e T5
+condividono lo stesso schema di arredi (due casse in diagonale, un ponte
+coperto identico nei dati): differenziate nel decoro (T2: catene verticali,
+punto focale unico; T5: trave-forca, catene piu' piccole come richiamo, non
+il fuoco della stanza) per non sembrare lo stesso posto (principio 8).
+
+**Un tetto di riuso sforato, preso dal test non dall'occhio**: `corda`
+finiva in 4 stanze (T2/T4/T5/T6) contro il massimo di 3 — tolta da T4 e
+sostituita con `calcinacci-2` (che restava comunque a 3 stanze in tutto:
+T2/T4/T5).
+
+**Un possibile difetto di classificazione, NON toccato, documentato per il
+Task 9**: T3 ("La Fondamenta Stretta") ha il proprio testo che dice
+esplicitamente "l'acqua a filo del **selciato**" (pavimento lastricato), ma
+in `webapp/public/motore/ambiente.js` la lista `PAVIMENTI` fa scattare la
+riga `/molo|banchin|imbarcader|**fondament**|riva|barc|.../` (→ 'assi',
+legno) PRIMA di arrivare alla riga piu' sotto che elenca esplicitamente
+`fondamenta strett` (→ 'lastricato') — quella seconda riga e' di fatto
+irraggiungibile per qualunque nome contenga "fondamenta", perche' la prima
+occorrenza vince sempre. Non e' la stessa specie del bug di Ep.8 (li' due
+funzioni diverse, `alAperto()` e `fuoriDichiarato()`, rispondevano diverso
+alla stessa domanda): qui e' un'unica lista ordinata con una voce successiva
+che non puo' mai scattare — piu' vicino, per effetto, ai casi di Ep.9
+(Sacrestia) ed Ep.10 (Sottoscala): un mismatch fra testo e resa, non un
+autocontraddizione del codice. Verificato in foto: T3 rende davvero con
+pavimento 'assi' (legno), non 'lastricato'. La composizione (rete, secchi,
+tife, pozza) non dipende dal materiale del pavimento e regge comunque.
+Fuori mandato di questo episodio: non toccato `ambiente.js`.
+
+Verificato guardando tutte e sei le foto, tre giri di correzione (sopra,
+piu' il tetto di riuso preso dal test) prima di committare (`node
+webapp/mappa-plancia-fa.mjs --ep ep12`, `export-data.py` rilanciato prima di
+ogni rigenerazione, `export-assets.py` rilanciato dopo i cinque pezzi
+nuovi). Controllato il token dell'eroe su tutte e sei le tessere (T1 coi tre
+token dell'entrata inclusi) calcolando a mano le celle libere candidate
+(`cellaCentrale`/`portaCella`) prima di comporre: nessuna occlusione vista
+in foto. Test: `python webapp/export-data.py && node
+webapp/test-scenografia.mjs && node webapp/test-stanza.mjs` → tutti `OK`.
+
+**Prossimo**: Task 8, `ep13` — stesso procedimento, giudicato contro Ep.1,
+preludio ed ep2-ep11.
+
 ## FATTO (22/09/2026) — i vantaggi d'Indagine arrivano in Spedizione (audit + correzioni)
 
 Report: `AUDIT-VANTAGGI-INDAGINE.md`. Banco: `node webapp/audit-vantaggi.mjs [porta]

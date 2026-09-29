@@ -1,0 +1,70 @@
+{
+ "T1": {
+  "decori": [
+   { "pezzo": "busto",         "x": 3.4, "y": 0.55, "lato": 0.6,  "rot": 10 },
+   { "pezzo": "sigillo-cera",  "x": 2.3, "y": 0.5,  "lato": 0.32, "rot": 0 },
+   { "pezzo": "sigillo-cera",  "x": 2.6, "y": 0.85, "lato": 0.3,  "rot": 40 },
+   { "pezzo": "libri",         "x": 0.5, "y": 1.5,  "lato": 0.5,  "rot": -10 },
+   { "pezzo": "mappamondo",    "x": 3.5, "y": 1.6,  "lato": 0.6,  "rot": 0 },
+   { "pezzo": "baule",         "x": 0.55,"y": 2.5,  "lato": 0.85, "rot": 5 },
+   { "pezzo": "sfera-armillare","x": 2.5,"y": 3.4,  "lato": 1.1,  "rot": 15 }
+  ],
+  "perche": "Il testo insiste sull'ordine ('scaffali svuotati CON ORDINE, nemmeno un foglio caduto'): niente decadimento, niente carte sparse — l'inquietudine e' che la stanza sia troppo in ordine per essere stata scassinata. I due sigilli di ceralacca a terra (piccoli, si notano solo guardando bene, come il riflesso dell'Ep.1 T3) sono 'i gusci vuoti' del testo. Busto, mappamondo, sfera armillare e un baule chiuso arredano l'archivio della Societa' senza inventare nulla che il posto non avrebbe gia' (tolto un primo tentativo con 'orologio-fermo': al render e' solo un anello sottile quasi trasparente, illeggibile — lezione 1/4, sostituito). Niente fogli sciolti: il testo dice esplicitamente che non ce n'e' nemmeno uno caduto."
+ },
+ "T2": {
+  "decori": [
+   { "pezzo": "catene",       "x": 0.5,  "y": 1.5,  "lato": 1.0,  "rot": -90 },
+   { "pezzo": "calcinacci",   "x": 3.5,  "y": 0.5,  "lato": 0.6,  "rot": 25 },
+   { "pezzo": "calcinacci-2", "x": 0.4,  "y": 3.4,  "lato": 0.55, "rot": 60 },
+   { "pezzo": "ragnatela",    "x": 3.65, "y": 3.62, "lato": 0.8,  "rot": 180 },
+   { "pezzo": "pozza",        "x": 3.4,  "y": 1.6,  "lato": 0.9,  "rot": 15 },
+   { "pezzo": "corda",        "x": 0.5,  "y": 0.5,  "lato": 0.6,  "rot": 45 }
+  ],
+  "perche": "Il testo e' un 'imbuto di pietra' senza altro dettaglio: dedotto dal posto (un ponte coperto sul canale, verticale e ferro come vuole il mood gotico). Le catene appese alla parete sono il punto focale, sagoma verticale netta contro la pietra. Calcinacci e ragnatele dicono l'eta' del ponte, una pozza l'umidita' che sale dal canale sotto, una corda vicina alla riva. Nessuna luce fissa: e' un'imboscata notturna, il buio e' la tensione della tessera (arbitro: la scorta vi aspetta qui)."
+ },
+ "T3": {
+  "decori": [
+   { "pezzo": "rete",        "x": 2.3, "y": 1.5, "lato": 1.3,  "rot": 15 },
+   { "pezzo": "secchio",     "x": 0.5, "y": 0.5, "lato": 0.45, "rot": 0 },
+   { "pezzo": "secchio",     "x": 0.75,"y": 0.8, "lato": 0.4,  "rot": 30 },
+   { "pezzo": "tife-marce",  "x": 3.5, "y": 0.6, "lato": 0.55, "rot": 10 },
+   { "pezzo": "tife-marce",  "x": 3.6, "y": 3.5, "lato": 0.5,  "rot": -20 },
+   { "pezzo": "pozza",       "x": 0.4, "y": 3.5, "lato": 0.9,  "rot": 20 }
+  ],
+  "perche": "Il cerca_vuoto lo dice parola per parola: 'Reti, secchi, l'odore di alga.' La rete stesa (l'ostacolo dell'arbitro, 'reti stese') e' il punto focale al centro della calle; i secchi da pesca sono un gruppo vicino all'ingresso, le tife marce rendono l'odore di alga ai due lati, una pozza dove 'l'acqua e' a filo del selciato'. Nessuna luce: e' una tessera di corsa, non di sosta."
+ },
+ "T4": {
+  "decori": [
+   { "pezzo": "ancora",           "x": 0.5, "y": 0.5, "lato": 1.1, "rot": 20 },
+   { "pezzo": "barca-rovesciata", "x": 3.5, "y": 0.6, "lato": 1.0, "rot": 200 },
+   { "pezzo": "tife-marce",       "x": 3.5, "y": 3.5, "lato": 0.55,"rot": -15 },
+   { "pezzo": "pozza",            "x": 0.4, "y": 2.4, "lato": 1.0, "rot": 10 },
+   { "pezzo": "calcinacci-2",     "x": 3.5, "y": 1.6, "lato": 0.5, "rot": 70 },
+   { "pezzo": "cero",             "x": 2.5, "y": 3.5, "lato": 0.35,"rot": 0, "sopra": true }
+  ],
+  "perche": "Il testo e' quasi tutto vuoto ('Bianco ovunque... la nebbia e' amica di chi fugge'): pochi oggetti, dedotti dal posto (un'ansa di canale che si allarga verso il Cimitero delle Barche) invece che inventati. Un'ancora e una prua di chiatta rovesciata si intravedono ai bordi, appena, prima del vero cimitero in T6 — anticipano la tessera finale senza copiarla. L'arredo 'altare' qui e' un piccolo capitello votivo sul canale (comune a Roccamora): un cero spento sopra (permesso perche' l'altare e' una superficie, regola 7) e' l'unico tocco di devozione, spento come tutta la tessera — nessuna luce fissa, la nebbia e' buio."
+ },
+ "T5": {
+  "decori": [
+   { "pezzo": "forca",           "x": 2.8,  "y": 0.55,"lato": 1.4,  "rot": 90 },
+   { "pezzo": "calcinacci-2",    "x": 0.4,  "y": 0.5, "lato": 0.55, "rot": 50 },
+   { "pezzo": "ragnatela",       "x": 3.65, "y": 3.6, "lato": 0.85, "rot": 180 },
+   { "pezzo": "vetri-infranti",  "x": 0.45, "y": 3.4, "lato": 0.5,  "rot": 25 },
+   { "pezzo": "corda",           "x": 0.5,  "y": 1.6, "lato": 0.6,  "rot": 100 },
+   { "pezzo": "catene",          "x": 3.4,  "y": 2.4, "lato": 0.9,  "rot": -90 }
+  ],
+  "perche": "L'ultima strettoia prima dell'approdo, dove il Sicario Gentile fa muro: una trave a forca sopra l'arco (verticale e ferro, il mood gotico che segna la minaccia) e' il punto focale, diverso dalle catene dell'imbuto di T2 per non far sembrare i due ponti coperti lo stesso posto (principio 8). Calcinacci, ragnatela e vetri infranti (una colluttazione recente, non sangue) dicono che qui si e' gia' combattuto o si combattera'; una seconda catena, piu' piccola, alla parete opposta lega visivamente questa tessera alla prigionia dei canali. Nessuna luce: ultimo tratto al buio prima dell'approdo."
+ },
+ "T6": {
+  "decori": [
+   { "pezzo": "barca-rovesciata", "x": 2.6,  "y": 1.4,  "lato": 1.6,  "rot": 200 },
+   { "pezzo": "lanterna-cieca",   "x": 0.5,  "y": 3.5,  "lato": 1.0,  "rot": 0 },
+   { "pezzo": "bitta-cima",       "x": 3.5,  "y": 0.5,  "lato": 0.6,  "rot": -90 },
+   { "pezzo": "corda",            "x": 3.3,  "y": 1.3,  "lato": 0.55, "rot": 110 },
+   { "pezzo": "calcinacci",       "x": 0.5,  "y": 0.5,  "lato": 0.55, "rot": 30 },
+   { "pezzo": "ragnatela",        "x": 3.65, "y": 3.62, "lato": 0.85, "rot": 180 },
+   { "pezzo": "tife-marce",       "x": 1.5,  "y": 0.5,  "lato": 0.5,  "rot": 0 }
+  ],
+  "perche": "Il testo e' il piu' ricco dell'episodio e la scena lo segue da vicino: una chiatta rovesciata, 'costole all'aria', e' il punto focale al centro — l'immagine che il testo ripete di piu'. La lanterna cieca del barcaiolo e' SPENTA come dice il testo ('spenta, pende una lanterna cieca'): nessun campo luce. Una bitta con la cima ancora legata rende 'le cime lasciate agli anelli si tendono e si allentano da sole'; un'altra corda sciolta accanto. Calcinacci e ragnatele nell'angolo opposto dicono l'abbandono dell'ansa morta, le tife marce l'acqua ferma. Nessuna luce fissa: e' il buio dello scambio nella nebbia, solo le lanterne degli eroi."
+ }
+}
