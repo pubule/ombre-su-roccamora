@@ -1,0 +1,87 @@
+{
+ "T1": {
+  "decori": [
+   { "pezzo": "torcia",              "x": 3.6, "y": 1.4, "lato": 0.8,  "rot": -90, "luce": "torcia" },
+   { "pezzo": "sgabello-rovesciato", "x": 3.4, "y": 2.5, "lato": 0.8,  "rot": 100 },
+   { "pezzo": "sacco-chiaro",        "x": 0.4, "y": 1.3, "lato": 0.65, "rot": 10 },
+   { "pezzo": "sacco-chiaro",        "x": 0.45, "y": 2.3, "lato": 0.6, "rot": -15 },
+   { "pezzo": "corda",               "x": 2.3, "y": 0.4, "lato": 0.6,  "rot": 35 },
+   { "pezzo": "calcinacci-2",        "x": 2.4, "y": 3.4, "lato": 0.6,  "rot": 200 },
+   { "pezzo": "ragnatela",           "x": 3.5, "y": 0.4, "lato": 0.75, "rot": 90 }
+  ],
+  "perche": "QUANDO RIVELATE QUESTA TESSERA si applicano gli esiti delle Domande 4 e 1: e' l'ingresso e il punto di ritorno, non un rifugio. Dal cerca_vuoto: 'una garitta con la stufa ancora tiepida e una sedia scostata in fretta' — il fuoco della stanza e' proprio questo, il posto del guardiano appena lasciato: una torcia (l'unica luce fissa dell'episodio, per un motivo preciso: e' il posto di un uomo che se n'e' appena andato, non un lume per chi arriva) accanto allo sgabello rovesciato, sagoma dura e riconoscibile a colpo d'occhio. Sacchi di calce (sacco-chiaro, il pallido contro il lastricato scuro) contro il muro sinistro, una corda vicino alle casse, calcinacci sotto l'altro muro, una ragnatela in alto lontano dai tre eroi che entrano qui."
+ },
+ "T2": {
+  "decori": [
+   { "pezzo": "pozza",         "x": 3.3, "y": 2.3, "lato": 1.2,  "rot": 20 },
+   { "pezzo": "sacco-chiaro",  "x": 0.5, "y": 0.5, "lato": 0.7,  "rot": 0 },
+   { "pezzo": "sacco-chiaro",  "x": 1.3, "y": 0.4, "lato": 0.6,  "rot": -20 },
+   { "pezzo": "corda",         "x": 2.4, "y": 0.5, "lato": 0.55, "rot": 40 },
+   { "pezzo": "corda",         "x": 0.4, "y": 2.3, "lato": 0.6,  "rot": -15 },
+   { "pezzo": "calcinacci",    "x": 3.4, "y": 0.5, "lato": 0.6,  "rot": 210 },
+   { "pezzo": "straccio",      "x": 2.5, "y": 3.5, "lato": 0.3,  "rot": 80 }
+  ],
+  "perche": "'Una selva di puntelli: calcinaie aperte come pozze... archi di mattone fresco'. La pozza (la calcinaia) e' il punto focale, contro il muro destro, grande e scura: il pericolo del cantiere di notte, non solo un pozzo d'acqua. Sacchi di calce a coppia in un angolo, due corde legate ai puntelli su lati opposti, calcinacci dell'arco fresco, uno straccio impigliato. Il badile del capoturno resta fuori scena: e' quel che si trova cercando (campo cerca), non un decoro. Nessuna luce: e' un piano terra di lavoro fermo a meta', non un posto illuminato per chi passa di notte."
+ },
+ "T3P": {
+  "decori": [
+   { "pezzo": "trave-spezzata", "x": 3.0, "y": 0.7, "lato": 1.7, "rot": -55 },
+   { "pezzo": "corda",          "x": 0.5, "y": 0.4, "lato": 0.6, "rot": 30 },
+   { "pezzo": "corda",          "x": 0.35, "y": 1.3, "lato": 0.55, "rot": -40 },
+   { "pezzo": "calcinacci",     "x": 2.4, "y": 0.4, "lato": 0.55, "rot": 55 },
+   { "pezzo": "ragnatela",      "x": 3.6, "y": 3.6, "lato": 0.8, "rot": 180 }
+  ],
+  "perche": "'Il ponteggio sale nel buio: tavole che ballano, corde che cantano al vento' — e ogni ingresso qui costa una prova NERVI. La trave spezzata, a sbalzo in un angolo, e' il fuoco della tavola: la sagoma dura e obliqua di un sostegno rotto sopra il vuoto, diversa da qualunque altra cosa nella stanza. Due corde tese ai montanti (arredo casse) cantano al vento come dice il testo. Calcinacci caduti dal muro che si sta scalando, una ragnatela nell'angolo riparato. Stanza quasi vuota apposta: e' un ponteggio esposto al vento, non un magazzino — nessuna luce fissa, solo le lanterne degli eroi nel buio che sale."
+ },
+ "T4P": {
+  "decori": [
+   { "pezzo": "telo-strappato",    "x": 2.0, "y": 1.5, "lato": 1.7, "rot": 8 },
+   { "pezzo": "secchio",           "x": 0.4, "y": 0.4, "lato": 0.4, "rot": 0 },
+   { "pezzo": "calcinacci-2",      "x": 0.35, "y": 1.3, "lato": 0.55, "rot": -25 },
+   { "pezzo": "trave-spezzata-2",  "x": 3.5, "y": 2.4, "lato": 1.1, "rot": 100 },
+   { "pezzo": "ragnatela",         "x": 3.6, "y": 0.4, "lato": 0.75, "rot": 200 }
+  ],
+  "perche": "'Il telo strappato schiaffeggia l'aria, la contrada e' un pozzo nero la' sotto': il telo strappato (telo-strappato, tela chiara con lo strappo visto attraverso — cercato in libreria e visto prima di importarlo: la tenda nera del catalogo spariva contro il pavimento scuro, principio 1, sagoma dura e chiara serve qui) e' il fuoco della tavola, quasi al centro dove il castello di assi sporge sul vuoto. Dal cerca_vuoto: un secchio di chiodi in un angolo, tavole spezzate (trave-spezzata-2, variante diversa da T3P: due ponteggi devono sembrare due posti) verso il lato del varco a Est, calcinacci del muro fresco appena sfondato dall'intercapedine. Una ragnatela nell'angolo piu' riparato dal vento. Nessuna luce fissa: il testo dice che quassu' gira una lanterna SCHERMATA — quella del Sicario che arriva alla rivelazione, non un lume fisso della stanza."
+ },
+ "T3I": {
+  "decori": [
+   { "pezzo": "pozza",     "x": 3.3, "y": 1.3, "lato": 0.9,  "rot": -15 },
+   { "pezzo": "secchio",   "x": 2.4, "y": 0.4, "lato": 0.4,  "rot": 0 },
+   { "pezzo": "secchio",   "x": 0.4, "y": 3.4, "lato": 0.35, "rot": 20 },
+   { "pezzo": "straccio",  "x": 3.6, "y": 3.5, "lato": 0.3,  "rot": 70 },
+   { "pezzo": "ragnatela", "x": 0.4, "y": 0.35, "lato": 0.75, "rot": 90 }
+  ],
+  "perche": "'Voi siete DENTRO il muro: un cunicolo di mattone fresco... la vostra lanterna e' un tuono di luce in un mondo senza suono'. Una pozza d'umido contro il muro e' il fuoco della tavola: l'unica cosa che luccica in un budello di mattone asciutto, dove l'intonaco fresco suda. Due secchi da muratore lasciati agli estremi del cunicolo, uno straccio, una ragnatela nell'angolo lontano dal varco. Il gesso 'F. — III — vivo' resta fuori scena: e' quel che si trova cercando. Nessuna luce fissa: il testo lo dice esplicitamente, qui la luce e' solo quella portata dagli eroi."
+ },
+ "T4I": {
+  "decori": [
+   { "pezzo": "carrucola", "x": 3.4, "y": 1.3, "lato": 1.4,  "rot": 0 },
+   { "pezzo": "secchio",   "x": 3.5, "y": 2.4, "lato": 0.4,  "rot": -10 },
+   { "pezzo": "secchio",   "x": 0.4, "y": 0.4, "lato": 0.35, "rot": 25 },
+   { "pezzo": "catene",    "x": 0.4, "y": 3.4, "lato": 0.8,  "rot": 90 },
+   { "pezzo": "ragnatela", "x": 2.4, "y": 3.6, "lato": 0.75, "rot": 180 }
+  ],
+  "perche": "'Una carrucola, secchi che salgono e scendono': la carrucola (nuovo pezzo, cercato in libreria e visto prima di importarlo — un argano a corda, non c'era nulla di simile nel catalogo) e' il fuoco della tavola, montata sulla parete del vano, sagoma meccanica verticale che nessun altro pezzo della stanza imita. Un secchio appena sotto la carrucola, un secondo lasciato a terra: sono il CONTESTO del montacarichi, non il suo contenuto — pane, cera e biglietto restano quel che si trova cercando, non decoro. Catene alla parete per i vecchi ferramenti della canna morta. Una ragnatela nell'angolo cieco. Nessuna luce: 'IL SILENZIO SEPARA' e il buio con lei."
+ },
+ "T5I": {
+  "decori": [
+   { "pezzo": "calcinacci-2", "x": 0.75, "y": 0.7,  "lato": 1.0,  "rot": 210 },
+   { "pezzo": "candela-nera", "x": 3.4,  "y": 0.4,  "lato": 0.3,  "rot": 0 },
+   { "pezzo": "straccio",     "x": 2.4,  "y": 0.4,  "lato": 0.3,  "rot": 80 },
+   { "pezzo": "straccio",     "x": 3.6,  "y": 3.5,  "lato": 0.3,  "rot": -30 },
+   { "pezzo": "ragnatela",    "x": 0.35, "y": 3.6,  "lato": 0.75, "rot": 90 }
+  ],
+  "perche": "Il cerca_vuoto e' esplicito: 'la tromba delle scale e' nuda: nessuna nicchia, nessun ripostiglio' — la stanza con meno da mostrare dell'episodio, appena sopra il minimo. Il fuoco della tavola e' proprio la 'polvere di calce che non conserva impronte' del cerca_vuoto: un cumulo di calcinacci chiari, ingrandito perche' si veda a colpo d'occhio contro le assi scure (la prima prova, una candela nera piccola come unico centro, spariva nella foto — lezione 3, pezzo scuro su pavimento scuro). La candela nera resta, ma SPENTA (nessun campo luce, come Ep.6 T5: e' fredda) — un dettaglio minore, non il fuoco: chi e' sceso di qui portava la propria luce. Due stracci di feltro strappati dai gradini, una ragnatela in alto. Nessuna luce fissa: si sale nel buio che canta, solo le lanterne degli eroi rischiarano i gradini."
+ },
+ "T6": {
+  "decori": [
+   { "pezzo": "catene",         "x": 3.5, "y": 0.5,  "lato": 1.0,  "rot": -100 },
+   { "pezzo": "sacco",          "x": 0.4, "y": 0.4, "lato": 0.7,  "rot": 10 },
+   { "pezzo": "sacco",          "x": 1.3, "y": 0.35, "lato": 0.65, "rot": -15 },
+   { "pezzo": "detriti-bronzo", "x": 3.4, "y": 2.4, "lato": 0.7,  "rot": -20 },
+   { "pezzo": "calcinacci",     "x": 0.4, "y": 3.4,  "lato": 0.6,  "rot": 200 },
+   { "pezzo": "ragnatela",      "x": 2.4, "y": 3.6,  "lato": 0.75, "rot": 180 }
+  ],
+  "perche": "'La stanza che non esiste... legato a una sedia tra i sacchi di scorie, ERNESTO FAVA'. Le catene alla parete, ingrandite (la prima prova le aveva piccole: spariva la sagoma contro la pietra, lezione 1) sono il fuoco della tavola — dicono chi ci e' stato legato prima di lui, sagoma dura e verticale che nessun'altra cosa nella stanza imita. Due sacchi scuri — non i sacchi chiari della calce delle altre stanze: qui sono le scorie, 'messi a far da mobili' — in un angolo. I detriti di bronzo (le scorie del Quarantuno, il motivo di tutta la campagna) sparsi accanto, materia che ha reso sordo il quartiere. Calcinacci del muro fresco, una ragnatela nell'angolo cieco della stanza che nessuno viene a pulire. Il Capocantiere 'non parla mai durante lo scontro, nel silenzio che ha costruito': nessuna luce fissa, il buio e' l'ultima difesa del culto del silenzio."
+ }
+}

@@ -521,6 +521,60 @@ webapp/test-scenografia.mjs && node webapp/test-stanza.mjs` → tutti `OK`.
 **Prossimo**: Task 8, `ep7` — stesso procedimento, giudicato contro Ep.1,
 preludio ed ep2/ep3/ep4/ep5/ep6.
 
+**Task 8 — ep7 FATTO (29/09/2026)**: `src/scenografia/ep7.json` (Il quartiere
+sordo — apertura dell'Atto II), 8 tessere non sequenziali: T1, T2, T3P, T4P
+(la via dei Ponteggi di Ponente), T3I, T4I, T5I (la via delle Intercapedini di
+Levante), T6 — trattate come 8 stanze distinte, il ramo P/I e' solo
+narrativo. Due pezzi mancanti nel catalogo, cercati in `risorse-vtt/FA_Assets_Webp`
+e guardati i provini prima di importarli, aggiunti a `PEZZI` in
+`scripts/importa-fa-lanterne.py` (99 pezzi ora): `carrucola` (un argano a
+corda, `Winch_Rope_Wood_Ashen_Metal_Rusty_B1`) per il montacarichi dei viveri
+di T4I ("una carrucola, secchi che salgono e scendono"), e `sacco-chiaro`
+(`Sack_Cloth_White_A`) per i sacchi di calce — pallidi, diversi apposta dal
+`sacco` scuro gia' nel catalogo, usato invece per le scorie di bronzo di T6.
+
+**Episodio deliberatamente senza luci fisse, tranne una.** Il testo non
+nomina mai fuoco o candele: e' un'infiltrazione notturna in un cantiere
+sordo ("silenzio SBAGLIATO", "IL SILENZIO SEPARA"), non una cripta gotica —
+le sei stanze dell'Ep.6 avevano candele quasi ovunque, qui la scelta opposta
+e' altrettanto voluta. L'unica eccezione e' T1 (ingresso e punto di ritorno
+per vincere): una torcia accanto allo sgabello rovesciato, il posto del
+guardiano appena lasciato — non un lume per chi arriva di soppiatto, ma il
+posto di chi se n'e' appena andato (`cerca_vuoto`: "una garitta con la stufa
+ancora tiepida e una sedia scostata in fretta").
+
+**Due pezzi sparivano in foto, corretti guardando il render (non il JSON)**:
+T4P usava `tenda-strappata` (la tenda nera del catalogo) per "il telo
+strappato" — nero su pavimento scuro, invisibile nella foto, stessa lezione
+di Ep.6 T3/campana-grande. Cercato un telo chiaro nella libreria:
+`Tarp_Awning_Cloth_Beige_Ruined_A1_2x2` (beige, con uno strappo visibile),
+aggiunto come `telo-strappato`, sagoma che ora si vede a colpo d'occhio.
+T5I usava una `candela-nera` piccola come unico fuoco della tavola — nera su
+assi scure, quasi invisibile: sostituito il ruolo di focal point con
+`calcinacci-2` ingrandito (la "polvere di calce che non conserva impronte"
+del `cerca_vuoto`), la candela resta ma piccola e spenta, dettaglio minore
+non piu' il fuoco. T6 aveva `detriti-bronzo` (piccolo, grigio, debole) come
+focal point: spostato sulle `catene` alla parete, ingrandite, sagoma verticale
+netta che lega al tema della prigionia di Fava; i detriti di bronzo restano
+in scena come richiamo tematico secondario (le scorie del Quarantuno, il
+motivo di tutta la campagna).
+
+**Non mostrato in scena, per il campo `cerca`**: il badile del capoturno
+(T2), la fune di servizio con gancio (T3P), il gesso "F. — III — vivo"
+(T3I), il contenuto dei secchi del montacarichi — pane, cera, biglietto
+(T4I): in scena restano solo i secchi (il contesto del montacarichi), non
+cio' che ci sta dentro, stessa regola gia' applicata alla scrivania
+dell'Ep.1 T4.
+
+Verificato guardando tutte e otto le foto, due giri (`node
+webapp/mappa-plancia-fa.mjs --ep ep7`, `export-data.py` rilanciato prima di
+ogni rigenerazione) affiancate a quelle dell'Ep.1, correzioni sopra prima di
+committare. Test: `python webapp/export-data.py && node
+webapp/test-scenografia.mjs && node webapp/test-stanza.mjs` → tutti `OK`.
+
+**Prossimo**: Task 8, `ep8` — stesso procedimento, giudicato contro Ep.1,
+preludio ed ep2/ep3/ep4/ep5/ep6/ep7.
+
 ## FATTO (22/09/2026) — i vantaggi d'Indagine arrivano in Spedizione (audit + correzioni)
 
 Report: `AUDIT-VANTAGGI-INDAGINE.md`. Banco: `node webapp/audit-vantaggi.mjs [porta]

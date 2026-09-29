@@ -252,6 +252,14 @@ PEZZI = {
                             {'ambienti': ['gotico', 'chiese'], 'lato': 1.0, 'luce': None, 'sopra': False}),
     'decori/scarpe.png': (FA, f'{CS}/Clutter/Clothing/Footwear/Boots_Leather_Black_A1_1x1.webp',
                           {'ambienti': ['chiese', 'case'], 'lato': 0.5, 'luce': None, 'sopra': False}),
+    # -- Ep.7 (Il quartiere sordo): il cantiere di notte, il montacarichi delle
+    # canne morte — provini guardati prima di importarli (--provino)
+    'decori/carrucola.png': (FA, f'{CS}/Structures/Mechanical_Parts/Winches/Winch_Rope_Wood_Ashen_Metal_Rusty_B1_2x2.webp',
+                             {'ambienti': ['magazzini'], 'lato': 1.4, 'luce': None, 'sopra': False}),
+    'decori/sacco-chiaro.png': (FA, f'{CS}/Decor/Storage/Sacks/Cloth/Sack_Cloth_White_A_1x1.webp',
+                                {'ambienti': ['magazzini'], 'lato': 0.7, 'luce': None, 'sopra': False}),
+    'decori/telo-strappato.png': (FA, f'{CS}/Structures/Shelters/Awnings/Awning_Cloths/Ruined/Tarp_Awning_Cloth_Beige_Ruined_A1_2x2.webp',
+                                  {'ambienti': ['tetti', 'magazzini'], 'lato': 1.6, 'luce': None, 'sopra': False}),
 }
 
 
