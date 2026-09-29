@@ -1415,8 +1415,94 @@ di ogni rigenerazione) affiancate a quelle dell'Ep.1, un giro di correzione
 (sopra) prima di committare. Test: `python webapp/export-data.py && node
 webapp/test-scenografia.mjs && node webapp/test-stanza.mjs` → tutti `OK`.
 
-**Prossimo**: Task 8, `ep19` — stesso procedimento, giudicato contro Ep.1,
-preludio ed ep2-ep18.
+**Task 8 — ep19 FATTO (29/09/2026)**: `src/scenografia/ep19.json` (La
+Società braccata — irruzione nell'Archivio Civico sequestrato: ingresso
+sigillato, atrio dei gendarmi, sale di catalogazione, corridoio dei
+sigilli, sala di lettura, deposito reperti), T1-T6 composte da zero
+leggendo `testo`/`cerca`/`cerca_vuoto`/`hook`/`arredi` di
+`webapp/data/ep19.json` contro il catalogo esistente. Nessun pezzo
+mancante, `scripts/importa-fa-lanterne.py` non toccato.
+
+Scelta di fondo: l'episodio resta BUIO ovunque tranne T2. Il
+`cerca_vuoto` di T1 dice esplicitamente "sale buie" (plurale) e quello di
+T5 "lampade verdi spente": letto come descrizione dell'intero Archivio
+sequestrato di notte, non di una stanza sola. Un'unica torcia accesa (T2,
+l'atrio della guardia onesta in servizio) contro il buio di tutte le
+altre cinque: la sola luce fissa di tutto l'episodio, coerente col
+principio 3 ("il buio e' ansia, un KPI del gioco") e un forte contrasto
+con la guardia illuminata.
+
+L'arredo dato "altare" di T4 (screen 2,3) non e' stato forzato: rende
+`arredi/altare.png`, una lastra di pietra grigia neutra senza
+iconografia religiosa — letta come banco/piano su cui appoggiare un
+registro (`libro-aperto-2` con `sopra:true`), non un vero altare fuori
+posto. Nessuna correzione necessaria.
+
+**Due difetti trovati SOLO guardando le foto, corretti prima di
+committare**:
+1. **`ragnatela` illeggibile su pavimenti chiari.** Il pezzo (fili
+   grigio-chiari sottili, non neri) sparisce su `mosaico`/`mattonelle`/
+   `tappeto` (tutti grigio-tan chiari); confrontato con l'angolo
+   equivalente dell'Ep.1 T1 (tavolato scuro) si vede che anche li' e'
+   appena percettibile — e' un pezzo intrinsecamente sottile, non un
+   difetto nuovo. Rimossa da T1/T2/T5 (dove il pavimento e' chiaro) e
+   sostituita con `calcinacci-2`/`vetri-infranti` (silhouette piu' dura,
+   contorno nero marcato, leggibili a colpo d'occhio); mantenuta solo in
+   T6 (`tavolato`, legno scuro) coerente col precedente Ep.1.
+2. **`sigillo-cera` troppo piccolo per fare da punto focale.** Al `lato`
+   di catalogo (0.35) il blob di ceralacca e' minuscolo e quasi invisibile
+   anche su pavimento grigio. Ingrandito a 0.45-0.55 dove doveva reggere
+   da solo (T1 "sigillo debole" del hook, T4 ritmo dei sigilli lungo il
+   corridoio, T6 "sigillo fresco" del testo); in T1 il vero punto focale
+   e' stato spostato sul `baule` (piu' grande, silhouette netta, gia'
+   ben leggibile senza modifiche) e il sigillo retrocesso a dettaglio
+   secondario.
+
+**Nessuna collisione di sottostringa trovata** in `PAVIMENTI`/`FUORI_DI`
+per i sei nomi di T1-T6 (controllato con `portaCella`/`pavimentoDi`/
+`fuoriDichiarato` da riga di comando prima di scrivere le coordinate):
+"L'INGRESSO SIGILLATO"→mosaico, "L'ATRIO DEI GENDARMI"→mosaico, "LE SALE
+DI CATALOGAZIONE"→mattonelle, "IL CORRIDOIO DEI SIGILLI"→mattonelle, "LA
+SALA DI LETTURA"→tappeto (intenzionale, "lettura" e' nel gruppo
+salone/studio), "IL DEPOSITO REPERTI"→tavolato — tutte corrette al primo
+match, nessuna riga precedente nella lista intercetta per errore. Nessuna
+delle sei dichiara un `fuoriDichiarato()`: l'intero episodio e' al chiuso
+(nessun raggio d'effetto sul margine mappa, comportamento gia' previsto
+dalla guida per un "episodio tutto al chiuso" — non e' il nono caso
+delle otto collisioni note).
+
+**Controllato il token su tutte e sei le tessere** (T1 coi tre token
+d'ingresso inclusi: l'eroe attivo al centro screen (1,2) e i due
+d'ingresso screen (0,3)/(1,3); le altre cinque un solo token: T2 (2,2),
+T3 (1,2), T4 (1,2), T5 (2,2), T6 (1,2)). Trovate due occlusioni reali
+dopo la prima generazione foto (non visibili leggendo solo il JSON): in
+T1 un `calcinacci` cadeva sotto il token d'ingresso screen (0,3); in T2
+`fogli`+`tazza` cadevano dentro/dietro il token attivo screen (2,2).
+Entrambi spostati fuori dal raggio dei token, poi riverificato con le
+foto rigenerate.
+
+**Riuso tracciato a mano (ricontato sul JSON finale, non a memoria)**:
+`pacco` (T1,T3,T6 = 3, al limite), `sigillo-cera` (T1,T4,T6 = 3, al
+limite), `libri` (T1,T3,T6 = 3, al limite), `calcinacci` (T1,T5,T6 = 3,
+al limite), `fogli` (T2,T3,T4 = 3, al limite), `calcinacci-2` (T1,T2),
+`busto` (T3,T5), `libro-aperto-2` (T3,T4), `corda` (T2,T6) — tutti entro
+il limite di 3 stanze; `ragnatela` esente, usata solo in T6.
+
+**Non mostrato in scena, per il campo `cerca`/testo dell'obiettivo**: il
+lasciapassare notturno di T2 (resta lo spunto di scrivania/registro, non
+l'oggetto); il Fascicolo del 1741 di T6 (obiettivo interagibile, non un
+campo `cerca` — messo in scena solo per contesto: un sigillo fresco
+accanto alla cassa, senza disegnare il fascicolo stesso).
+
+Verificato guardando tutte e sei le foto due volte (`node
+webapp/mappa-plancia-fa.mjs --ep ep19`, `export-data.py` rilanciato prima
+di ogni rigenerazione, server `node webapp/server.js` su 8017) affiancate
+a quelle dell'Ep.1, un giro di correzione (sopra) prima di committare.
+Test: `python webapp/export-data.py && node webapp/test-scenografia.mjs
+&& node webapp/test-stanza.mjs` → tutti `OK`.
+
+**Prossimo**: Task 8, `ep20` — stesso procedimento, giudicato contro Ep.1,
+preludio ed ep2-ep19.
 
 ## FATTO (22/09/2026) — i vantaggi d'Indagine arrivano in Spedizione (audit + correzioni)
 

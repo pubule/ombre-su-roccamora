@@ -1,0 +1,71 @@
+{
+ "T1": {
+  "decori": [
+   { "pezzo": "calcinacci-2", "x": 3.5,  "y": 0.5,  "lato": 0.6,  "rot": 20 },
+   { "pezzo": "calcinacci",   "x": 2.5,  "y": 3.5,  "lato": 0.6,  "rot": 55 },
+   { "pezzo": "baule",        "x": 3.35, "y": 1.45, "lato": 0.8,  "rot": -10 },
+   { "pezzo": "pacco",        "x": 3.55, "y": 2.15, "lato": 0.4,  "rot": 15 },
+   { "pezzo": "pacco",        "x": 3.15, "y": 2.05, "lato": 0.35, "rot": 200 },
+   { "pezzo": "sigillo-cera", "x": 0.55, "y": 1.55, "lato": 0.55, "rot": 0 },
+   { "pezzo": "libri",        "x": 0.65, "y": 2.5,  "lato": 0.5,  "rot": -20 }
+  ],
+  "perche": "Cerca_vuoto: 'sale buie piene della vostra stessa roba sequestrata: fascicoli, cimeli... tutto chiuso, tutto numerato'. Il punto focale e' il baule, un cimelio riconoscibile in mezzo a roba anonima: contro il muro destro, vicino alla cassa d'angolo, con due pacchi sequestrati; fascicoli (libri) contro quello sinistro. Il sigillo di ceralacca ingrandito vicino al baule e' il 'sigillo debole' del hook: l'unico punto per cui si entra senza allarme. Calcinacci nei due angoli liberi (spostati fuori dalla zona dei tre token d'ingresso) dicono che qui non passa nessuno da mesi — niente ragnatela: sul pavimento a mosaico grigio il filo chiaro della tela non si vedrebbe. Nessuna luce fissa: la stanza e' buia come dice il testo, solo le lanterne degli eroi."
+ },
+ "T2": {
+  "decori": [
+   { "pezzo": "torcia",       "x": 3.78, "y": 1.5,  "lato": 0.8,  "rot": -90, "luce": "torcia" },
+   { "pezzo": "fogli",        "x": 2.7,  "y": 0.5,  "lato": 0.3,  "rot": 15 },
+   { "pezzo": "tazza",        "x": 2.95, "y": 0.75, "lato": 0.3,  "rot": -10 },
+   { "pezzo": "corda",        "x": 0.5,  "y": 1.85, "lato": 0.6,  "rot": 40 },
+   { "pezzo": "sacco",        "x": 0.45, "y": 2.6,  "lato": 0.65, "rot": -25 },
+   { "pezzo": "straccio",     "x": 0.75, "y": 3.5,  "lato": 0.4,  "rot": 70 },
+   { "pezzo": "calcinacci-2", "x": 3.5,  "y": 3.5,  "lato": 0.6,  "rot": 30 }
+  ],
+  "perche": "Guardia notturna onesta, in servizio: l'unica torcia accesa di tutto l'episodio sta qui, sul muro est, vicino all'ingresso — contrasto col buio del resto dell'Archivio. Fogli e una tazza vicino a dove i gendarmi tengono il registro (il lasciapassare del cerca resta fuori scena: si trova solo cercando, non si mette in vista), spostati fuori dalla cella del token attivo perche' non restino coperti. Corda e sacco contro le casse sequestrate a sinistra, uno straccio dimenticato vicino a loro, calcinacci nell'angolo opposto (non ragnatela: sul mosaico grigio la tela non si legge): la ronda e' onesta ma il posto non e' tenuto benissimo."
+ },
+ "T3": {
+  "decori": [
+   { "pezzo": "busto",              "x": 2.5,  "y": 0.45, "lato": 0.6,  "rot": 15 },
+   { "pezzo": "libri",              "x": 3.5,  "y": 0.5,  "lato": 0.5,  "rot": -20 },
+   { "pezzo": "libro-aperto",       "x": 3.55, "y": 2.2,  "lato": 0.4,  "rot": 10 },
+   { "pezzo": "fogli",              "x": 0.4,  "y": 0.4,  "lato": 0.3,  "rot": 5 },
+   { "pezzo": "libro-aperto-2",     "x": 0.4,  "y": 1.3,  "lato": 0.4,  "rot": -15 },
+   { "pezzo": "carta-assorbente",   "x": 0.55, "y": 3.4,  "lato": 0.3,  "rot": 60 },
+   { "pezzo": "pacco",              "x": 2.3,  "y": 3.5,  "lato": 0.4,  "rot": -10 }
+  ],
+  "perche": "Il cerca_vuoto e' tutto faldoni: pile di dossier nei due angoli liberi (le casse sono le pile gia' sigillate dai gendarmi), un catalogo aperto sotto ciascuna (libro-aperto, libro-aperto-2). Il punto focale e' il busto spezzato in cima a una pila: 'la vostra storia, messa in ordine da mani estranee' del testo. Fogli sparsi e carta assorbente sono 'il lavoro a un terzo' lasciato sui tavoli; un pacco (faldone ancora da aprire) vicino all'uscita sud. Nessuna luce: la sala e' buia, i gendarmi catalogano di giorno, non ora."
+ },
+ "T4": {
+  "decori": [
+   { "pezzo": "sigillo-cera",   "x": 0.35, "y": 0.55, "lato": 0.45, "rot": 0 },
+   { "pezzo": "sigillo-cera",   "x": 0.35, "y": 1.9,  "lato": 0.45, "rot": 15 },
+   { "pezzo": "sigillo-cera",   "x": 0.35, "y": 3.15, "lato": 0.45, "rot": -10 },
+   { "pezzo": "libro-aperto-2", "x": 2.2, "y": 3.3, "lato": 0.4, "rot": -10, "sopra": true },
+   { "pezzo": "fogli",          "x": 2.7, "y": 2.6, "lato": 0.3, "rot": 20 }
+  ],
+  "perche": "Il cerca_vuoto e' tutto sigilli: 'ceralacca fresca su ognuna, non un solo sigillo gia' rotto, non una porta accostata' — un corridoio troppo ordinato, sigillato ieri e non da secoli. Tre bolli di ceralacca lungo il muro ovest segnano il ritmo delle 'decine' di depositi sigillati. Sulla lastra di pietra (l'arredo 'altare' reso qui come banco) il registro dei sigilli resta aperto (sopra:true) e un foglio dell'inventario e' caduto accanto: il lavoro di chi ha sigillato tutto, meticoloso. Niente ragnatele ne' calcinacci: qui non c'e' polvere, e' stato fatto ieri. Nessuna luce fissa: buio come il resto dell'Archivio."
+ },
+ "T5": {
+  "decori": [
+   { "pezzo": "mappamondo",     "x": 3.4,  "y": 0.5,  "lato": 0.6, "rot": 0 },
+   { "pezzo": "sfera-armillare","x": 3.0,  "y": 1.1,  "lato": 1.0, "rot": 15 },
+   { "pezzo": "orologio-fermo", "x": 0.5,  "y": 0.5,  "lato": 1.2, "rot": 0 },
+   { "pezzo": "busto",          "x": 0.55, "y": 1.85, "lato": 0.6, "rot": -15 },
+   { "pezzo": "calcinacci",     "x": 0.4,  "y": 3.5,  "lato": 0.6, "rot": 45 },
+   { "pezzo": "vetri-infranti", "x": 3.55, "y": 3.55, "lato": 0.5, "rot": 25 }
+  ],
+  "perche": "Il cerca_vuoto dice sala sgomberata, 'non rimasto un foglio di brutta', sedie rimesse a posto: niente carta o disordine in scena, solo l'arredamento fisso di una grande sala di lettura — mappamondo e sfera armillare nell'angolo di studio, un orologio fermo e un busto spezzato sul lato opposto. Calcinacci in un angolo e vetri infranti nell'altro (una vetrata vecchia, non una ragnatela: sul tappeto scuro la tela non si legge) dicono che e' vecchia, anche se tenuta in ordine. Le 'lampade verdi spente' del testo sono il motivo per cui qui non c'e' nessuna luce fissa: e' la stanza dello scontro con Vidal, e resta buia — solo le lanterne degli eroi, per la tensione del confronto."
+ },
+ "T6": {
+  "decori": [
+   { "pezzo": "sigillo-cera", "x": 0.85, "y": 2.3,  "lato": 0.55, "rot": 5 },
+   { "pezzo": "pacco",        "x": 3.4,  "y": 0.5,  "lato": 0.4,  "rot": 0 },
+   { "pezzo": "pacco",        "x": 3.55, "y": 1.3,  "lato": 0.35, "rot": 25 },
+   { "pezzo": "libri",        "x": 2.6,  "y": 0.45, "lato": 0.5,  "rot": -10 },
+   { "pezzo": "corda",        "x": 1.4,  "y": 0.5,  "lato": 0.5,  "rot": 60 },
+   { "pezzo": "calcinacci",   "x": 3.5,  "y": 3.5,  "lato": 0.6,  "rot": 30 },
+   { "pezzo": "ragnatela",    "x": 0.38, "y": 3.62, "lato": 0.8,  "rot": 180 }
+  ],
+  "perche": "Il cerca_vuoto e' scaffali di reperti in file numerate, cartellini, spago, ceralacca — 'tutto cio' che appartiene ai casi di qualcun altro'. Pacchi e un mucchio di faldoni nell'angolo destro sono quelle file vecchie e anonime; una corda lega un altro fascio in fondo. Il punto focale e' il sigillo di ceralacca fresco accanto alla cassa vicino alla porta: 'sotto sigillo fresco' del testo, l'unico segno recente fra scaffali dimenticati — il Fascicolo del 1741 resta implicito, non disegnato (si interagisce, non e' un campo cerca). Calcinacci e ragnatela negli angoli liberi dicono che il resto del deposito non lo apre nessuno da tempo. Nessuna luce: ultimo angolo buio dell'Archivio."
+ }
+}
