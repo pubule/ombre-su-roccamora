@@ -23,13 +23,13 @@
  },
  "T3": {
   "decori": [
-   { "pezzo": "mantello",    "x": 2.4,  "y": 1.5,  "lato": 1.15, "rot": 8 },
+   { "pezzo": "mantello",    "x": 2.1,  "y": 1.6,  "lato": 1.85, "rot": 0 },
    { "pezzo": "scarpe",      "x": 0.45, "y": 1.5,  "lato": 0.7,  "rot": 15 },
    { "pezzo": "busto",       "x": 3.4,  "y": 2.45, "lato": 0.7,  "rot": 340 },
    { "pezzo": "ragnatela",   "x": 0.35, "y": 0.35, "lato": 1.1,  "rot": 0 },
    { "pezzo": "ragnatela-2", "x": 3.65, "y": 0.35, "lato": 1.1,  "rot": 200 }
   ],
-  "perche": "Il corridoio non ha oggetti nel suo testo, solo voci e nomi di chi ci ha abitato: la scenografia prende dal mood della guida 'un cappotto appeso in una stanza vuota' — un mantello a meta' corridoio e' il punto focale, la traccia di un inquilino che non c'e' piu'. Un paio di scarpe abbandonate vicino a un'altra porta e' un'altra traccia dello stesso tipo (non e' la valigia di Ada: quella resta in T4, dove si trova cercando). Un busto caduto in nicchia, ragnatele grandi ai due estremi, ingrandite per leggersi contro la pietra chiara. Nessuna luce fissa: la paura sta nelle voci, non negli oggetti."
+  "perche": "Il corridoio non ha oggetti nel suo testo, solo voci e nomi di chi ci ha abitato: la scenografia prende dal mood della guida 'un cappotto appeso in una stanza vuota' — un mantello a meta' corridoio e' il punto focale, la traccia di un inquilino che non c'e' piu'. Ingrandito a lato 1.85 e raddrizzato (rot 0): il pezzo e' un'immagine alta 200x400 (1:2) dentro un riquadro quadrato a 'contain', quindi a lato uguale occupa meta' della larghezza di un pezzo quadrato come il busto — sotto quella soglia leggeva debole sul pavimento chiaro (trovato guardando la foto, corretto qui). Un paio di scarpe abbandonate vicino a un'altra porta e' un'altra traccia dello stesso tipo (non e' la valigia di Ada: quella resta in T4, dove si trova cercando). Un busto caduto in nicchia, ragnatele grandi ai due estremi, ingrandite per leggersi contro la pietra chiara. Nessuna luce fissa: la paura sta nelle voci, non negli oggetti."
  },
  "T4": {
   "decori": [
