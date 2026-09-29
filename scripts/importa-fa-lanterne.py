@@ -348,6 +348,13 @@ PEZZI = {
                                {'ambienti': ['case'], 'lato': 1.9, 'luce': None, 'sopra': False}),
     'decori/vestito-appeso.png': (FA, f'{CS}/Decor/Clothing_Rails_and_Hangers/Hanging_Clothes/Hanging_Dress_Cloth_White_Wood_Ashen_A1_1x1.webp',
                                   {'ambienti': ['case'], 'lato': 1.4, 'luce': None, 'sopra': False}),
+    # -- Ep.20 (Il Quarto Movimento): l'antecamera del coro a pagamento — il
+    # cerca_vuoto nomina "leggii da orchestra... borracce d'acqua per la gola",
+    # provini guardati prima di importarli (--provino).
+    'decori/leggio.png': (FA, f'{CS}/Decor/Musical_Instruments/Sheet_Stands/Music_Stand_Wood_Dark_A1_1x1.webp',
+                          {'ambienti': ['chiese'], 'lato': 0.7, 'luce': None, 'sopra': False}),
+    'decori/borraccia.png': (FA, f'{CS}/Clutter/Adventuring_Gear/Liquid_Containers/Waterskin_A_Dark_1x1.webp',
+                             {'ambienti': ['magazzini', 'ovunque'], 'lato': 0.4, 'luce': None, 'sopra': True}),
 }
 
 

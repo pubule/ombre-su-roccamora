@@ -1504,6 +1504,112 @@ Test: `python webapp/export-data.py && node webapp/test-scenografia.mjs
 **Prossimo**: Task 8, `ep20` — stesso procedimento, giudicato contro Ep.1,
 preludio ed ep2-ep19.
 
+**Task 8 — ep20 FATTO, ULTIMO EPISODIO (29/09/2026)**: `src/scenografia/ep20.json`
+(Il Quarto Movimento — il finale: la discesa oltre la Cattedrale, T1 La
+Discesa/La Cripta, T2 Le Tre Acque, T3 La Pietra Viva, T4 Il Coro a
+Pagamento, T5 La Soglia della Camera, T6 La Camera del Dormiente), T1-T6
+composte da zero leggendo `testo`/`cerca`/`cerca_vuoto`/`hook`/`arredi`
+di `webapp/data/ep20.json` contro il catalogo. Due pezzi mancanti
+aggiunti a `PEZZI` in `scripts/importa-fa-lanterne.py` (provini guardati
+prima di importarli): `decori/leggio.png` (Music_Stand_Wood_Dark_A1, per
+i "leggii da orchestra" del cerca_vuoto di T4) e `decori/borraccia.png`
+(Waterskin_A_Dark, per le "borracce d'acqua per la gola" dello stesso
+cerca_vuoto).
+
+Scelta di fondo: **zero luci fisse in tutto l'episodio**. Il testo di
+ogni tessera della discesa insiste sul buio ("scendete nel buio", "la
+luce esce e non torna", canto del dio che filtra nel nero) — coerente col
+principio 3 ("il buio e' ansia, un KPI del gioco") e un contrasto voluto
+con l'illuminazione delle altre 19 scenografie: la campagna chiude nel
+buio piu' totale che abbia mai avuto.
+
+**Un difetto di pezzo trovato SOLO guardando le foto, diagnosticato con
+`PIL.getbbox()` e corretto prima di committare**: `ragnatela`/
+`ragnatela-2`, anche ingranditi a `lato` 1.2-1.4 e riposizionati lontano
+da muri/token, restavano invisibili nelle foto generate (T1/T2/T3/T5).
+`getbbox()` sull'alpha del PNG mostra perche': la trama vera di
+`ragnatela` occupa solo il 20% destro del riquadro quadrato (118-198 di
+200px), quella di `ragnatela-2` il 34%×53% in alto a sinistra — il resto
+e' trasparente, e a differenza di `calcinacci`/`candele-nere` (contenuto
+centrato, 35-70% del riquadro) lo spostamento del centro per compensare
+l'offset non bastava a renderle leggibili nel rendering reale. Sostituite
+ovunque con `candele-nere`/`candele-nere-2`/`candele-nere-3` SPENTE
+(nessun campo `luce`): stesso ruolo di dettaglio di decadimento
+marginale, ma pezzo con contenuto centrato e verificato visibile in foto,
+e coerente con la materia "cera" del gioco (docs/scenografia.md). Le
+`candele-nere*` sono esenti dal limite di riuso (come le ragnatele), cosi'
+non hanno eroso il budget di `calcinacci`/`calcinacci-2`/`pozza`, gia' al
+limite di 3 stanze ciascuno.
+
+**T5 (La Soglia della Camera) e T6 (La Camera del Dormiente) sotto il
+budget "naturale" del testo, alzati al minimo macchina (5) con contenuto
+onesto, non riempitivo**: il `cerca_vuoto` di T5 e' un ordine esplicito
+("nessuna nicchia, nessun arredo: da qui in avanti la roccia e' nuda") e
+quello di T6 chiude ogni possibilita' ("solo pietra, acqua e buio... non
+si prende con le mani") — letti alla lettera darebbero zero decori, ma
+`test-scenografia.mjs` impone 5-12 per le stanze chiuse (l'eccezione a
+zero, principio 6, e' scritta per l'aperto/tetti, non per un corridoio
+chiuso). Risolto tenendo tutto il contenuto ai margini estremi (angoli,
+lontano dalla colonna centrale fra le porte) per T5 — mozziconi di
+candela spenti e gruppi di candele nere spente, la traccia di chi e'
+sceso portando la propria luce — e con acqua/pietra antica ripetute ma
+non allineate per T6, dove il centro resta eccezionalmente occupato
+(l'unica stanza dell'episodio dove il punto focale sta in mezzo, per
+scelta esplicita motivata nel `perche'`).
+
+**Controllato il token su tutte e sei le tessere** (T1 coi tre token
+d'ingresso: l'eroe attivo al centro e i due d'ingresso in basso a
+sinistra; le altre cinque un solo token). Trovata un'occlusione reale
+dopo la prima generazione foto: in T1 la `ragnatela` (angolo in basso a
+sinistra) cadeva sotto uno dei due token d'ingresso — spostata
+nell'angolo alto opposto (poi sostituita con `candele-nere`, sopra).
+
+**Riuso tracciato a mano sul JSON finale, non a memoria (lezione 7)**:
+`pozza` (T1,T2,T6 = 3, al limite), `calcinacci` (T1,T2,T3 = 3, al
+limite), `calcinacci-2` (T1,T3,T6 = 3, al limite); `candele-nere`/
+`candele-nere-2`/`candele-nere-3`/`candela-nera` esenti (famiglia
+candele); `leggio`/`spartiti`/`borraccia`/`straccio` solo in T4. Nessun
+pezzo oltre il limite.
+
+**Possibile nono caso di collisione di sottostringa in
+`PAVIMENTI`/`FUORI_DI`, trovato ma NON corretto (parcheggiato per la
+Task 9, come da mandato per questo episodio)**: tre delle sei tessere
+prendono un pavimento che il loro stesso testo contraddice. "IL CORO A
+PAGAMENTO" matcha `coro` nella riga chiesa/navata (`PAVIMENTI` riga 8) →
+pavimento `navata`, ma il testo descrive un'antecamera sotterranea di
+lavoranti pagati, non una chiesa consacrata. "LA SOGLIA DELLA CAMERA"
+matcha `soglia` nella riga atrio/vestibolo → pavimento `mosaico`, ma il
+`cerca_vuoto` della stessa tessera dice letteralmente "la roccia e' nuda"
+(visibile in foto: un pavimento a losanghe chiaro, non la pietra grezza
+del testo). "LA CAMERA DEL DORMIENTE" matcha `camer` nella riga
+ufficio/stanza generica → pavimento `mattonelle`, contro un testo che
+descrive solo pietra bagnata e acqua. **Controllato `fuoriDichiarato()`
+su tutte e sei**: solo T1 ("discesa") e T3 ("pietra viva") dichiarano un
+fuori, entrambi `roccia` — concordi fra loro, quindi il margine
+dell'intera mappa dell'episodio resta coerente (roccia), NON e' l'ottavo
+caso (Ep.18) dove una singola tessera dominava il fuori di tutto
+l'episodio con un valore sbagliato. Il difetto qui e' solo nel
+pavimento (texture sotto i piedi), non nel margine mappa. Visivamente il
+danno e' lieve (texture di pietra/marmo comunque plausibile per un
+sotterraneo, non un pavimento assurdo come legno o erba), ma le tre
+tessere non hanno la texture di roccia grezza che il testo chiede.
+
+Verificato guardando tutte e sei le foto piu' volte (`node
+webapp/mappa-plancia-fa.mjs --ep ep20`, `export-data.py` e
+`export-assets.py` rilanciati prima di ogni rigenerazione dopo l'aggiunta
+dei due pezzi nuovi, server `node webapp/server.js` su 8017) affiancate a
+quelle dell'Ep.1, piu' giri di correzione (sopra, in particolare il
+riposizionamento delle ragnatele) prima di committare. Test: `python
+webapp/export-data.py && node webapp/test-scenografia.mjs && node
+webapp/test-stanza.mjs` → tutti `OK`.
+
+**TASK 8 COMPLETA**: tutti e 20 gli episodi hanno la scenografia
+(preludio, ep2-ep20 da questa Task, piu' l'Ep.1 dalla Task 7) —
+21 spedizioni in tutto con `src/scenografia/*.json` scritto e
+verificato. **Prossimo**: Task 9, "guardare tutte le 21 spedizioni" (la
+passata dedicata su tutta la campagna, gia' citata nei mandati di ep14 e
+ep18 per i difetti parcheggiati) — non un altro episodio.
+
 ## FATTO (22/09/2026) — i vantaggi d'Indagine arrivano in Spedizione (audit + correzioni)
 
 Report: `AUDIT-VANTAGGI-INDAGINE.md`. Banco: `node webapp/audit-vantaggi.mjs [porta]

@@ -1,0 +1,63 @@
+{
+ "T1": {
+  "decori": [
+   { "pezzo": "pozza",        "x": 0.5,  "y": 1.6,  "lato": 1.0,  "rot": 15 },
+   { "pezzo": "pozza",        "x": 2.5,  "y": 0.5,  "lato": 0.8,  "rot": -10 },
+   { "pezzo": "calcinacci",   "x": 3.5,  "y": 1.4,  "lato": 0.65, "rot": 30 },
+   { "pezzo": "calcinacci-2", "x": 3.5,  "y": 2.4,  "lato": 0.6,  "rot": -20 },
+   { "pezzo": "candele-nere", "x": 3.3,  "y": 0.6,  "lato": 0.9,  "rot": 90 }
+  ],
+  "perche": "Il testo e' 'l'acqua nera che sale gradino dopo gradino' e il cerca_vuoto e' un divieto esplicito: 'sulla pietra bagnata non regge niente: quel che si posa, scivola via'. Nessuna luce fissa in tutta la stanza — solo le lanterne degli eroi, gia' dal primo passo della discesa finale. Il punto focale e' la pozza contro il muro sinistro, la piu' grande: l'acqua che sale, esattamente come dice il testo. Una seconda pozza piu' piccola in basso segna lo stesso fenomeno che avanza. I calcinacci contro il muro destro sono la pietra che si sgretola sotto la marea; un gruppo di candele nere SPENTE (nessun campo luce), nell'angolo alto lontano dall'ingresso — qui arrivano tre eroi, non uno (la tessera d'entrata) — dice che qualcuno scende sempre di qui con la propria cera, mai trovandone gia' accesa. Avevo provato una ragnatela nello stesso angolo: verificata col provino, la sua trama vera occupa solo un quinto del riquadro (getbbox, lezione 1) e in foto spariva anche ingrandita — sostituita con un pezzo che si legge davvero."
+ },
+ "T2": {
+  "decori": [
+   { "pezzo": "pozza",        "x": 0.5,  "y": 0.6,  "lato": 0.9,  "rot": 10 },
+   { "pezzo": "pozza",        "x": 3.3,  "y": 2.6,  "lato": 1.0,  "rot": -25 },
+   { "pezzo": "pozza",        "x": 0.6,  "y": 2.4,  "lato": 0.85, "rot": 35 },
+   { "pezzo": "calcinacci",   "x": 3.5,  "y": 0.55, "lato": 0.65, "rot": 200 },
+   { "pezzo": "candele-nere-2", "x": 3.3, "y": 3.4, "lato": 0.9,  "rot": 180 }
+  ],
+  "perche": "'Il punto dove tre correnti si incontrano nel buio: dolce, salata, morta' — e il cerca_vuoto e' netto: 'qui non galleggia niente e non resta niente'. Tre pozze non allineate, in tre angoli diversi (non un gruppo: tre correnti separate che non si mescolano) sono la composizione; il punto focale e' la piu' grande, quella salata contro il muro destro, su cui l'occhio cade per primo. Calcinacci ai margini sono l'erosione di un secolo di marea; un gruppo di candele nere spente nell'angolo opposto (non oggetti che 'galleggiano': cera fredda, fissa) dice che anche qui e' passato chi scende con la propria luce. Nessuna luce: e' un budello di marea, non un posto per fermarsi. La colonna centrale fra le due porte (N/S) resta sgombra."
+ },
+ "T3": {
+  "decori": [
+   { "pezzo": "calcinacci",     "x": 2.4,  "y": 0.5,  "lato": 0.6,  "rot": 25 },
+   { "pezzo": "calcinacci-2",   "x": 2.5,  "y": 3.5,  "lato": 0.55, "rot": -40 },
+   { "pezzo": "calcinacci",     "x": 0.5,  "y": 1.6,  "lato": 0.6,  "rot": -15 },
+   { "pezzo": "candele-nere-3", "x": 3.3,  "y": 3.4,  "lato": 0.9,  "rot": 180 },
+   { "pezzo": "candele-nere",   "x": 0.6,  "y": 0.6,  "lato": 0.85, "rot": 90 }
+  ],
+  "perche": "'Il cuore della gola: la pietra stessa sembra viva, pulsa piano al respiro del dio' — l'ultimo diaframma della discesa, un corridoio di roccia nuda. Punto focale: il cumulo di calcinacci vicino alla porta nord, verso il Coro a Pagamento — la roccia viva che si sgretola da sola, dove il testo dice che il canto del Dormiente comincia a filtrare. Altri calcinacci e due gruppi di candele nere spente (niente campo luce: cera fredda, lasciata da chi e' sceso prima) completano una galleria scarna e buia: 'prova NERVI o azione persa' alla rivelazione non ha bisogno d'altro che del buio per essere vera. La colonna centrale (x=1, fra le due porte) resta libera — si legge subito da dove si passa. Il frammento d'eco che si trova cercando resta fuori scena."
+ },
+ "T4": {
+  "decori": [
+   { "pezzo": "leggio",     "x": 0.5, "y": 0.6, "lato": 0.8,  "rot": 10 },
+   { "pezzo": "leggio",     "x": 3.3, "y": 0.6, "lato": 0.8,  "rot": -15 },
+   { "pezzo": "spartiti",   "x": 0.7, "y": 1.3, "lato": 0.55, "rot": 25 },
+   { "pezzo": "spartiti",   "x": 3.1, "y": 1.3, "lato": 0.5,  "rot": -20 },
+   { "pezzo": "borraccia",  "x": 2.6, "y": 1.3, "lato": 0.5,  "rot": 0 },
+   { "pezzo": "straccio",   "x": 3.5, "y": 2.4, "lato": 0.45, "rot": 70 }
+  ],
+  "perche": "Il cerca_vuoto elenca la scena e non concede altro: 'Leggii da orchestra, spartiti fermati con le mollette, borracce d'acqua per la gola. Attrezzatura da lavoro, e nient'altro' — un coro comprato, non devoto, che prova lo spartito senza crederci. Due leggii (pezzo nuovo, cercato in libreria — Music_Stand_Wood_Dark, provino guardato prima di importarlo) ai due lati, ciascuno con uno spartito vicino; una borraccia (nuovo pezzo, Waterskin) e uno straccio da lavoro completano l'attrezzatura mercenaria. Punto focale: il leggio a sinistra, il piu' vicino alla porta sud da cui arrivano gli eroi — come se il coro si fosse appena voltato verso il rumore dei loro passi. Nessuna candela sull'altare (arredo dei dati): il testo dice 'e nient'altro', e un coro che canta senza crederci non accende ceri per un dio a cui non prega davvero. La cella di passaggio fra le due porte resta sgombra."
+ },
+ "T5": {
+  "decori": [
+   { "pezzo": "candele-nere-2", "x": 0.7,  "y": 0.6, "lato": 0.9,  "rot": 15 },
+   { "pezzo": "candele-nere",   "x": 3.3,  "y": 0.6, "lato": 0.85, "rot": -20 },
+   { "pezzo": "candela-nera",   "x": 0.45, "y": 1.4, "lato": 0.55, "rot": 0 },
+   { "pezzo": "candele-nere-3", "x": 3.3,  "y": 3.4, "lato": 0.9,  "rot": 200 },
+   { "pezzo": "candela-nera",   "x": 3.5,  "y": 2.6, "lato": 0.55, "rot": 15 }
+  ],
+  "perche": "Il cerca_vuoto e' un ordine, non una descrizione: 'Sulla soglia la pietra e' liscia come se fosse stata calpestata per secoli. Nessuna nicchia, nessun arredo: da qui in avanti la roccia e' nuda.' Il punto focale e' l'assenza stessa al centro: la pietra levigata e vuota sotto i piedi resta libera da parete a parete, sulla colonna fra le due porte e attorno ai due arredi. Quel poco che c'e' vive tutto ai margini, dove nessun piede passa: gruppi di candele nere spente (esenti dal limite di riuso) e due mozziconi di candela nera solitari, tutti senza campo luce — sono fredde — segno di chi e' sceso di qui portando la propria cera, come in Ep.1 T5, mai trovandone gia' accesa. Nessun oggetto vero, nessuna nicchia: solo la traccia di chi e' passato prima di voi."
+ },
+ "T6": {
+  "decori": [
+   { "pezzo": "pozza",        "x": 2.2, "y": 1.6, "lato": 1.2,  "rot": 15 },
+   { "pezzo": "pozza",        "x": 0.6, "y": 0.5, "lato": 0.65, "rot": -20 },
+   { "pezzo": "pozza",        "x": 3.4, "y": 0.6, "lato": 0.6,  "rot": 25 },
+   { "pezzo": "calcinacci-2", "x": 3.5, "y": 3.4, "lato": 0.65, "rot": 40 },
+   { "pezzo": "calcinacci-2", "x": 0.5, "y": 3.5, "lato": 0.6,  "rot": -35 }
+  ],
+  "perche": "Il cerca_vuoto chiude ogni possibilita': 'Non c'e' niente da raccogliere qui: solo pietra, acqua e buio... quel che conta, in questa camera, non si prende con le mani.' Punto focale: la grande pozza al centro della stanza, l'acqua nera che respira insieme al Dormiente — eco della pozza di T1, la stessa acqua arrivata alla sorgente. Qui, per eccezione, il centro non resta libero: il centro E' la scena. Due pozze piu' piccole vicino alle pareti dicono che l'acqua non sale da un solo punto, e due cumuli di calcinacci negli angoli opposti sono la pietra antica che si sfalda. Nessuna luce fissa in tutto l'episodio — dalla Cripta fino a qui, la discesa resta la piu' buia della campagna, com'e' giusto per il finale."
+ }
+}
