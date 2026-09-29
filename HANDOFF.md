@@ -631,6 +631,56 @@ quattro pezzi nuovi) affiancate a quelle dell'Ep.1, correzioni sopra prima
 di committare. Test: `python webapp/export-data.py && node
 webapp/test-scenografia.mjs && node webapp/test-stanza.mjs` → tutti `OK`.
 
+**Task 8 — ep8, fix round 1 (29/09/2026, dopo la review)**: la review formale
+di ep8 ha trovato un difetto vero nel motore condiviso, non nel JSON — letto
+`webapp/public/motore/ambiente.js` per confermarlo prima di toccarlo, non
+fidandosi solo del report. `alAperto()` testava la riga dei tetti ISOLATA
+(`TETTI.test(...)`), mentre `fuoriDichiarato()`, definita subito sotto nello
+stesso file, cammina l'elenco ORDINATO di `FUORI_DI` prima di arrivare alla
+riga dei tetti — due funzioni adiacenti, stessa domanda, risposte diverse.
+"La Tettoia delle Chiatte" (ep8 T2) contiene "tetto" dentro "tettoia", ma
+contiene anche "chiatt" (prima riga di `FUORI_DI`, → 'acqua'): `alAperto()`
+la marcava tetto (niente muri, niente porte, budget decori 0-5), mentre la
+sua stessa `fuoriDichiarato()` diceva gia' 'acqua'. Corretto riordinando le
+due funzioni e facendo `alAperto = (tile) => fuoriDichiarato(tile) ===
+'tetti'` — la stessa logica, una sola fonte. Non toccati `fuoriDi()`,
+`pavimentoDi()`, `PAVIMENTI` (fuori mandato, e gia' corretti: `PAVIMENTI` ha
+gia' una riga apposta `tettoia|baracc|capannone|rimessa` → 'lamiera' per il
+pavimento, la stessa protezione che mancava qui).
+
+**Verificato prima di considerarlo sicuro**: uno script Node a parte ha
+ricalcolato `alAperto` vecchio-vs-nuovo su tutte le 127 tessere del
+campionato — **un solo cambiamento in tutta la campagna**, esattamente
+ep8:T2 (`true`→`false`). Nessun'altra tessera si muove. Ep.14 ("Fuga sui
+tetti", il caso vero da non rompere) riverificato tessera per tessera contro
+`ambiente.js` fixato: T1 Gronda, T2 Comignolo, T3 Terrazza dei Panni, T4
+Abbaino, T5 Lucernario restano `alAperto=true` (nessuna di queste contiene
+una parola di una riga precedente di `FUORI_DI`); T6 Attico del Corso era
+gia' `false` PRIMA del fix (non contiene nessuna parola della riga tetti:
+comportamento pre-esistente, fuori mandato, non toccato). `webapp/test-ambiente.mjs`
+non pinnava `alAperto` su tutte le 127 (solo Ep.11 tutto vero, Ep.1 T2/T6
+falso — nessuno dei due tocco dal fix): aggiunta un'asserzione dedicata
+(`alAperto(ep8:T2)===false`, `fuoriDichiarato(ep8:T2)==='acqua'`) con
+commento che rimanda a questo fix, cosi' una regressione futura la becca da
+sola.
+
+**Poi, nel mio ambito**: T2 ora prende muri/porte veri e il budget 5-12
+delle stanze chiuse (non piu' 0-5). Verificato con un controllo DOM diretto
+(non solo a occhio sulla foto, che a bassa risoluzione confondeva le pietre
+scure dei muri con la trama scura dell'acqua): 14 `[data-muro]` dentro
+`.stanza-fa[data-t="T2"]` (16 lati meno i 2 varchi di porta N/S verso T1/T3,
+gia' rivelate — nessuno sprite di porta disegnato li', per design:
+"la porta verso una stanza gia' aperta e' il passaggio libero"). Ripristinati
+i due decori tagliati per il budget sbagliato (`sacco` e `straccio`, di
+nuovo 7 decori) e riscritto il `perche'` per descrivere la stanza com'e'
+davvero: coperta, chiusa, non un tetto. Punto focale confermato ancora
+leggibile nella foto rigenerata (la cerata strappata chiara contro il
+pavimento/muri scuri).
+
+Rilanciato tutto: `python webapp/export-data.py && node
+webapp/test-scenografia.mjs && node webapp/test-stanza.mjs && node
+webapp/test-ambiente.mjs` → tutti `OK`. Foto di ep8 rigenerate.
+
 **Prossimo**: Task 8, `ep9` — stesso procedimento, giudicato contro Ep.1,
 preludio ed ep2/ep3/ep4/ep5/ep6/ep7/ep8.
 

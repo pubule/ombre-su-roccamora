@@ -14,11 +14,13 @@
   "decori": [
    { "pezzo": "telo-strappato", "x": 0.55, "y": 1.5,  "lato": 1.2, "rot": 90 },
    { "pezzo": "sacco",          "x": 3.35, "y": 0.5,  "lato": 0.7, "rot": -10 },
+   { "pezzo": "sacco",          "x": 3.3,  "y": 3.4,  "lato": 0.65,"rot": 20 },
    { "pezzo": "corda",          "x": 0.45, "y": 3.35, "lato": 0.6, "rot": 50 },
    { "pezzo": "nido",           "x": 3.55, "y": 1.65, "lato": 0.55,"rot": 170 },
-   { "pezzo": "ragnatela",      "x": 0.35, "y": 0.35, "lato": 0.8, "rot": 0 }
+   { "pezzo": "ragnatela",      "x": 0.35, "y": 0.35, "lato": 0.8, "rot": 0 },
+   { "pezzo": "straccio",       "x": 2.6,  "y": 0.3,  "lato": 0.3, "rot": 100 }
   ],
-  "perche": "Il nome 'tettoia' la rende un tetto per il motore (niente muri, niente porte disegnate: una semplice pensilina sull'acqua, coerente col testo 'chiatte in secca'): decoro all'aperto, 0-5. Una cerata strappata contro il muro ovest copre 'qualcosa' senza mostrare il gancio che si trova cercando. Un sacco e una corda contro le pile di casse da pesce (arredo), un nido tra le travi dice che qui non lavora piu' nessuno tutti i giorni, ragnatela nell'angolo. Nessuna luce: un deposito cieco, non un posto che qualcuno illuminerebbe di notte."
+  "perche": "Coperta ('reti stese che fanno pareti', due uscite vere verso T1/T3): una stanza chiusa come le altre, non un tetto — 'tettoia' conteneva 'tetto' per l'engine, corretto a monte in ambiente.js (alAperto ora usa lo stesso ordine di fuoriDichiarato, dove 'chiatt' vince prima). Una cerata strappata contro il muro ovest copre 'qualcosa' senza mostrare il gancio che si trova cercando. Sacchi e corda si accumulano contro le pile di casse da pesce (arredo), un nido tra le travi dice che qui non lavora piu' nessuno tutti i giorni, straccio impigliato al muro, ragnatela nell'angolo lontano dalla porta. Nessuna luce: un deposito cieco, non un posto che qualcuno illuminerebbe di notte."
  },
  "T3": {
   "arredi": { "0,2": "carbone-mucchio", "3,2": "carbone-mucchio", "0,1": "carbone-mucchio" },

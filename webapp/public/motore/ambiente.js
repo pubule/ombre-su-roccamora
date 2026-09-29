@@ -90,7 +90,6 @@ export function pavimentoDi(tile) {
 // riga dei tetti. Vista nella prova del 25/09: coi muri legati a fuoriDi,
 // la sala delle casse e la cripta uscivano senza muri.
 const TETTI = FUORI_DI[FUORI_DI.length - 1][0];
-export const alAperto = (tile) => TETTI.test(`${tile.nome || ''} ${tile.id || ''}`);
 // il fuori che la stanza DICHIARA (senza il 'vuoto' di default): serve al
 // fuori dell'episodio (Task 5, Step 4b); null se la stanza non dice niente
 export function fuoriDichiarato(tile) {
@@ -98,3 +97,8 @@ export function fuoriDichiarato(tile) {
   for (const [re, q] of FUORI_DI.slice(0, -1)) if (re.test(n)) return q;
   return TETTI.test(n) ? 'tetti' : null;
 }
+// SUI TETTI davvero: come fuoriDichiarato, non la riga dei tetti isolata —
+// «la Tettoia delle Chiatte» conteneva «tetto» ma e' «chiatt» (acqua) a
+// vincere per prima nell'elenco ordinato (fix Task 8/ep8, 29/09/2026: i
+// due controlli erano scritti diversi e in disaccordo su questa stanza).
+export const alAperto = (tile) => fuoriDichiarato(tile) === 'tetti';

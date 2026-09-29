@@ -31,5 +31,14 @@ for (const id of ['T2', 'T6']) {
   if (alAperto(t) !== false) no(`alAperto(ep1:${id}) atteso false, ottenuto ${alAperto(t)}`);
 }
 
+// Fix Task 8/ep8 (29/09/2026): alAperto() testava la riga dei tetti isolata,
+// ignorando che «tettoia» contiene «tetto» ma «chiatt» (acqua) vince prima
+// nell'elenco ordinato — stessa logica di fuoriDichiarato(), ora condivisa.
+// «La Tettoia delle Chiatte» e' coperta, con due uscite vere: non e' un tetto.
+const ep8 = JSON.parse(readFileSync('webapp/data/ep8.json', 'utf8')).tessere;
+const ep8t2 = tile(ep8, 'T2');
+if (alAperto(ep8t2) !== false) no(`alAperto(ep8:T2 «La Tettoia delle Chiatte») atteso false, ottenuto ${alAperto(ep8t2)}`);
+if (fuoriDichiarato(ep8t2) !== 'acqua') no(`fuoriDichiarato(ep8:T2) atteso 'acqua', ottenuto ${fuoriDichiarato(ep8t2)}`);
+
 console.log(guai ? `FAIL ${guai}` : `OK ${n} tessere, pavimento e fuori invariati`);
 process.exit(guai ? 1 : 0);
