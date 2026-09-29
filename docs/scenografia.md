@@ -139,7 +139,7 @@ finestre accese a grappoli — e fa passare il vento sulle tessere esposte
    alla bitta), e rotazioni diverse (mai tutte a 0°). Una stanza simmetrica
    sembra generata.
 
-6. **Quanti pezzi.** Stanze chiuse: **5-9 decori** oltre agli arredi dei dati.
+6. **Quanti pezzi.** Stanze chiuse: **5-12 decori** oltre agli arredi dei dati.
    Stanze all'aperto (tetti, giardini, cortili): **0-5** — l'aperto e' vuoto.
    **Zero e' una scelta giusta** quando il testo lo dice: sui tetti dell'Ep.11
    «quassu' non resta appoggiato niente che non sia inchiodato», «su questo
