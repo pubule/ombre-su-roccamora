@@ -1258,6 +1258,81 @@ correzione (sopra) prima di committare. Test: `python webapp/export-data.py
 **Prossimo**: Task 8, `ep17` — stesso procedimento, giudicato contro Ep.1,
 preludio ed ep2-ep16.
 
+**Task 8 — ep17 FATTO (29/09/2026)**: `src/scenografia/ep17.json` (Lo scisma
+— la villa-prigione del Notaio fuori porta, T1 Il Cancello di Campagna → T6
+Lo Studio del Notaio), composte da zero leggendo `testo`/`cerca`/
+`cerca_vuoto`/`hook`/`arredi` di `webapp/data/ep17.json` contro il catalogo
+esistente. Nessun pezzo mancante: cercata esplicitamente una "carrozza
+chiusa del Notaio" (nominata nel testo di T2) in
+`risorse-vtt/FA_Assets_Webp/!Core_Settlements/Vehicles/Carts_and_Wagons` —
+solo carretti/carri agricoli aperti a due-quattro assi (vista dall'alto,
+niente di chiuso), nessuna carrozza credibile: non forzata, `scripts/importa-fa-lanterne.py`
+non toccato, il cortile (T2) racconta la rimessa con un telo strappato sul
+suo contenuto invece che con la carrozza stessa.
+
+**Un arredo dei dati riscritto per posto**: T4 (Sala degli Interrogatori) ha
+un `altare` generico fra gli arredi — un residuo del vocabolario dati
+condiviso, senza senso in una villa secolare — corretto con
+`"arredi": {"2,3": "tavolo-banchetto"}` al "tavolo" che il testo nomina, col
+cero acceso appoggiato sopra (`"sopra": true`, la `SUPERFICI` del test
+guarda ancora il nome dato `altare`, non il pezzo scelto) a fare da "lampada
+accesa" del `cerca_vuoto`.
+
+**Episodio deliberatamente quasi tutto buio**: cinque tessere su sei senza
+alcuna luce fissa (infiltrazione notturna in una villa-prigione fuori porta,
+nessun fuoco acceso ad aspettare gli eroi), una sola luce nell'intero
+episodio — il cero di T4. Stesso schema gia' scelto per Ep.7 (il quartiere
+sordo) e Ep.9 (la fuga), coerente col genere qui: un raid furtivo, non un
+rito.
+
+**Tre correzioni trovate SOLO guardando le foto (non nel JSON)**, tutte con
+`PIL.Image.getbbox()` per confermare prima di tagliare — lezione Ep.5 (il
+disegno vero puo' riempire una minima parte del riquadro) riapplicata:
+1. **T4**: una candela nera spenta come accento d'angolo riempiva solo
+   22%x18% del riquadro e, senza fiamma, era del tutto invisibile — la
+   stessa combinazione (nero, spento, disegno minuscolo) gia' vista in
+   Ep.5 T1. Tolta prima di committare, non dopo.
+2. **T6**: un sigillo di ceralacca (la firma del Notaio) riempiva solo
+   7%x8% — un puntino, non una virgola. Tolto.
+3. **T1**: la catena del cancello (punto focale) e' passata da lato 0.9 a
+   1.05 per stare piu' salda nel colpo d'occhio, dopo un primo giro in cui
+   sembrava competere debolmente con l'edera sulle pareti.
+
+**Controllato il token dell'eroe su tutte e sei le tessere** (T1 coi tre
+token dell'entrata inclusi: i due angoli e il centrale) calcolando a mano
+`cellaCentrale()` (`webapp/mappa-plancia-fa.mjs`) contro le coordinate-schermo
+di ogni decoro prima di comporre, non solo a occhio dopo: nessuna
+occlusione in nessuna delle sei foto.
+
+**Nessun ottavo caso di collisione di sottostringa nel nome** (lezione 8
+della guida, sette gia' trovati ep9-ep15): controllati a mano tutti i sei
+nomi delle tessere contro `PAVIMENTI`/`FUORI_DI`
+(`webapp/public/motore/ambiente.js`) — "IL CANCELLO DI CAMPAGNA" non incrocia
+nessuna riga (default `lastricato`, corretto per un viale di campagna), "IL
+CORTILE" → `cortile` (riga dedicata, `terra`), "LE CUCINE" non incrocia
+nessuna riga (default `lastricato`, ragionevole per una cucina di villa),
+"LA SALA DEGLI INTERROGATORI" → `sala`/`interrogator` (riga dedicata,
+`mattonelle`, non intercettata prima da `salone`: quella riga cerca
+"salone" non "sala"), "LA CELLA DEL DECANO" → `cella` (stessa riga,
+`mattonelle`), "LO STUDIO DEL NOTAIO" → `studio` (riga dedicata, `tappeto`).
+Ognuna vince alla riga giusta o cade nel default corretto: nessuna
+correzione necessaria.
+
+**Non mostrato in scena, per il campo `cerca`**: la lanterna cieca della
+rimessa (T2 — resta il pozzo, il contesto). Le Chiavi della Villa-Prigione e
+il Salvacondotto (campo `hook`, non `cerca`) sono oggetti di *altri* luoghi
+(il Rifugio del Notaio, la Dogana Vecchia, in Indagine): non compaiono mai
+come decoro qui.
+
+Verificato guardando tutte e sei le foto due volte (`node
+webapp/mappa-plancia-fa.mjs --ep ep17`, `export-data.py` rilanciato prima di
+ogni rigenerazione) affiancate a quelle dell'Ep.1, un giro di correzione
+(sopra) prima di committare. Test: `python webapp/export-data.py && node
+webapp/test-scenografia.mjs && node webapp/test-stanza.mjs` → tutti `OK`.
+
+**Prossimo**: Task 8, `ep18` — stesso procedimento, giudicato contro Ep.1,
+preludio ed ep2-ep17.
+
 ## FATTO (22/09/2026) — i vantaggi d'Indagine arrivano in Spedizione (audit + correzioni)
 
 Report: `AUDIT-VANTAGGI-INDAGINE.md`. Banco: `node webapp/audit-vantaggi.mjs [porta]

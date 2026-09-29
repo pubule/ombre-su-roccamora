@@ -1,0 +1,69 @@
+{
+ "T1": {
+  "decori": [
+   { "pezzo": "catene",          "x": 0.55, "y": 1.7,  "lato": 1.05, "rot": -90 },
+   { "pezzo": "edera",           "x": 3.6,  "y": 0.6,  "lato": 0.8,  "rot": 0 },
+   { "pezzo": "edera",           "x": 2.5,  "y": 0.55, "lato": 0.7,  "rot": 200 },
+   { "pezzo": "erbacce-secche",  "x": 0.5,  "y": 2.6,  "lato": 0.6,  "rot": 100 },
+   { "pezzo": "calcinacci",      "x": 2.6,  "y": 2.7,  "lato": 0.6,  "rot": 45 },
+   { "pezzo": "calcinacci-2",    "x": 1.7,  "y": 1.5,  "lato": 0.55, "rot": -20 },
+   { "pezzo": "ragnatela",       "x": 3.65, "y": 1.4,  "lato": 0.8,  "rot": 180 }
+  ],
+  "perche": "Il testo e' un muro di cinta, un viale buio, la campagna intorno: l'edera si arrampica sulle pietre del muro (due chiazze, angoli diversi), erbacce secche invadono il selciato. Il punto focale e' una catena appesa aperta a un pilastro del cancello, il lucchetto agganciato a un capo solo - il dettaglio che l'Aula del Cifrario/la villa-prigione (L9, luogo d'Indagine) da' dello stesso cancello: 'la catena pende dal suo anello, aperta'. Calcinacci sparsi rendono la ghiaia smossa dai solchi del carro pesante (cerca_vuoto) senza un pezzo di ghiaia dedicato nel catalogo. Nessuna luce fissa: e' un'infiltrazione notturna in campagna, non un ingresso presidiato - lo SBARRAMENTO e' un meccanismo di gioco (la Guardia), non un fuoco acceso ad aspettare."
+ },
+ "T2": {
+  "decori": [
+   { "pezzo": "pozzo-coperto",   "x": 0.6,  "y": 0.6,  "lato": 1.3,  "rot": 0 },
+   { "pezzo": "corda",           "x": 0.9,  "y": 1.4,  "lato": 0.6,  "rot": 40 },
+   { "pezzo": "telo-strappato",  "x": 3.3,  "y": 0.6,  "lato": 1.3,  "rot": 10 },
+   { "pezzo": "calcinacci-2",    "x": 2.6,  "y": 3.4,  "lato": 0.55, "rot": -30 },
+   { "pezzo": "ragnatela",       "x": 3.65, "y": 3.5,  "lato": 0.8,  "rot": 180 }
+  ],
+  "perche": "Il testo nomina tre cose: 'un pozzo, una rimessa, la carrozza chiusa del Notaio'. Il pozzo e' il punto focale (pozzo-coperto, un pozzo murato fa piu' paura di uno aperto), con una corda arrotolata li' accanto per attingere. La carrozza chiusa NON e' in scena: cercata in risorse-vtt/FA_Assets_Webp (Vehicles/Carts_and_Wagons), la libreria ha solo carretti agricoli aperti a due assi (vista dall'alto, tavole e ruote), nessuna carrozza chiusa credibile - meglio ometterla che forzare un carretto al posto di una carrozza. La rimessa resta nel telo strappato che ne copre il contenuto, beige contro le pietre scure. Calcinacci e una ragnatela alta dicono l'abbandono del cortile sorvegliato. Budget aperto (0-5, come Ep.16 T1 il cancello del giardino): il cortile ha muri veri ma il test lo tratta come spazio semi-aperto. Nessuna luce fissa: la Guardia pattuglia nel buio, non intorno a un fuoco."
+ },
+ "T3": {
+  "decori": [
+   { "pezzo": "tavolo-banchetto","x": 2.5,  "y": 1.6,  "lato": 1.3,  "rot": 0 },
+   { "pezzo": "tazza",           "x": 2.85, "y": 1.25, "lato": 0.3,  "rot": 10 },
+   { "pezzo": "secchio",         "x": 0.5,  "y": 0.5,  "lato": 0.4,  "rot": -15 },
+   { "pezzo": "straccio",        "x": 3.6,  "y": 2.6,  "lato": 0.3,  "rot": 70 },
+   { "pezzo": "baule",           "x": 0.55, "y": 3.4,  "lato": 0.7,  "rot": 15 },
+   { "pezzo": "ragnatela",       "x": 3.65, "y": 0.4,  "lato": 0.8,  "rot": 180 }
+  ],
+  "perche": "Il cerca_vuoto descrive una cucina che 'finge normalita'': pentole fredde, un tavolo strofinato di fresco, la dispensa chiusa a chiave, 'non lascia in giro nemmeno un coltello'. Il tavolo strofinato e' il tavolo-banchetto ridotto (decoro, non l'arredo dei dati), con una tazza fredda lasciata a meta' - l'unico segno di vita. La dispensa chiusa a chiave e' il baule nell'angolo. Un secchio contro il muro e uno straccio a terra sono le sole imperfezioni tollerate in una stanza troppo in ordine per essere vera; una ragnatela in alto, l'unico angolo che nessuno ha pensato a pulire, tradisce quanto la messa in scena sia recente. Nessuna luce fissa: la cucina e' fredda, il fuoco spento da tempo, coerente con 'pentole fredde'."
+ },
+ "T4": {
+  "arredi": { "2,3": "tavolo-banchetto" },
+  "decori": [
+   { "pezzo": "sgabello-rovesciato","x": 2.4,  "y": 2.6,  "lato": 0.75, "rot": 110 },
+   { "pezzo": "cero",               "x": 2.3,  "y": 3.3,  "lato": 0.35, "rot": 0,  "luce": "cera", "sopra": true },
+   { "pezzo": "vetri-infranti",     "x": 3.3,  "y": 1.6,  "lato": 0.5,  "rot": 30 },
+   { "pezzo": "straccio",           "x": 0.4,  "y": 1.4,  "lato": 0.3,  "rot": 95 },
+   { "pezzo": "ragnatela",          "x": 3.65, "y": 0.4,  "lato": 0.8,  "rot": 180 },
+   { "pezzo": "calcinacci",         "x": 0.5,  "y": 2.6,  "lato": 0.55, "rot": 40 }
+  ],
+  "perche": "L'arredo dei dati sulla cella (2,3, in coordinate schermo) e' un generico 'altare': in una sala d'interrogatorio secolare non ha senso, cosi' 'arredi' lo forza a tavolo-banchetto - il 'tavolo' che il testo nomina, con il cero acceso appoggiato sopra ('sopra':true, la SUPERFICI del test guarda ancora il nome dato 'altare') a fare da 'lampada accesa' (il catalogo non ha una lampada a petrolio: il cero, con la sua luce, e' l'unica fonte disponibile e legge bene anche col disegno minuscolo, perche' e' il bagliore a farsi notare, non lo sprite). Il cerca_vuoto dice che le carte sono gia' sparite: nessun foglio in scena, solo lo sgabello rovesciato davanti al tavolo (il 'qualcosa e' appena successo' del trasferimento in fretta) e vetri infranti poco distante - il bicchiere che ha lasciato il cerchio d'acqua sul piano, caduto e rotto nella fretta. Una candela nera spenta era stata provata in un angolo ma tolta dopo la foto: col PIL.getbbox() il suo disegno riempie solo 22%x18% del riquadro, e senza fiamma (spenta, di proposito) restava invisibile — lezione gia' aperta dall'Ep.5 T1, qui applicata prima di committare invece che dopo. Uno straccio e i calcinacci restano; la ragnatela nell'angolo alto dice che la villa non e' tenuta bene oltre le stanze di rappresentanza. Una sola luce fra i decori, come vuole il principio 3."
+ },
+ "T5": {
+  "decori": [
+   { "pezzo": "catene",       "x": 0.5,  "y": 1.6,  "lato": 0.9,  "rot": -90 },
+   { "pezzo": "secchio",      "x": 3.55, "y": 0.5,  "lato": 0.4,  "rot": 10 },
+   { "pezzo": "straccio",     "x": 0.4,  "y": 2.6,  "lato": 0.3,  "rot": 80 },
+   { "pezzo": "ragnatela",    "x": 3.65, "y": 3.5,  "lato": 0.8,  "rot": 180 },
+   { "pezzo": "calcinacci",   "x": 3.5,  "y": 2.6,  "lato": 0.5,  "rot": -25 },
+   { "pezzo": "calcinacci-2", "x": 0.5,  "y": 0.5,  "lato": 0.5,  "rot": 35 }
+  ],
+  "perche": "Il cerca_vuoto elenca 'una branda, un secchio, una finestrella alta come una feritoia. Sull'intonaco, i graffi di chi ha contato i giorni'. Il catalogo non ha un pezzo di graffi sull'intonaco ne' una branda credibile (solo il letto-nozze, troppo fine per una cella): il secchio, citato nel testo, resta l'unico mobilio esplicito. Il punto focale sono le catene al muro - non le nomina il testo di questa tessera, ma dicono 'chi e' stato tenuto qui' esattamente come le catene vicino alla branda di Ansaldo nel Preludio T4, stesso schema gia' approvato in questo stesso progetto per una cella di prigionia. Uno straccio raggomitolato fa da giaciglio povero, calcinacci sgretolati dall'intonaco (il testo lo nomina) segnano due angoli, una ragnatela alta dice quanti giorni sono passati. Nessuna luce fissa: e' la cella del decano prigioniero, non un rifugio - buio totale finche' non arrivano le lanterne degli eroi."
+ },
+ "T6": {
+  "decori": [
+   { "pezzo": "pacco",                "x": 2.3,  "y": 1.6,  "lato": 0.45, "rot": 15 },
+   { "pezzo": "libri",                "x": 2.6,  "y": 0.5,  "lato": 0.5,  "rot": -10 },
+   { "pezzo": "fogli",                "x": 1.7,  "y": 0.4,  "lato": 0.3,  "rot": 20 },
+   { "pezzo": "calamaio-rovesciato",  "x": 3.3,  "y": 0.5,  "lato": 0.3,  "rot": -30 },
+   { "pezzo": "carbone",              "x": 0.6,  "y": 3.5,  "lato": 0.5,  "rot": 0 },
+   { "pezzo": "carbone-2",            "x": 0.9,  "y": 3.3,  "lato": 0.35, "rot": 25 }
+  ],
+  "perche": "Il cerca_vuoto e' preciso: 'cassetti tirati fuori e rovesciati, cartelle legate con lo spago pronte a partire, il camino ancora caldo. Quel che restava e' gia' cenere o e' gia' in valigia.' Il punto focale e' il pacco legato con lo spago, l'unica cosa ordinata in una stanza altrimenti saccheggiata di fretta: libri rovesciati e fogli sparsi dai cassetti aperti, un calamaio rovesciato nella fretta (accento minore, stesso lato ridotto gia' usato per lo stesso pezzo in Ep.1 T4). Un sigillo di ceralacca era stato provato come firma del Notaio a terra, ma il suo disegno riempie solo 7%x8% del riquadro (PIL.getbbox()): tolto prima di committare, non una virgola ma un puntino invisibile. Il camino ancora caldo (non un fuoco vivo: come il piazzale dell'Ep.2 T2, calore residuo) e' reso da un piccolo mucchio di braci scure in un angolo, senza fiamma - le carte bruciate se le e' gia' portate via la cenere. Nessuna luce fissa fra i decori: e' la stanza del Notaio prima dello scontro con la Guardia, buia finche' gli eroi non ci entrano con le lanterne."
+ }
+}
