@@ -1,0 +1,66 @@
+{
+ "T1": {
+  "decori": [
+   { "pezzo": "pozzo-coperto", "x": 2.6,  "y": 1.3,  "lato": 1.3,  "rot": 15 },
+   { "pezzo": "corda",         "x": 3.35, "y": 1.85, "lato": 0.6,  "rot": 50 },
+   { "pezzo": "calcinacci",    "x": 0.5,  "y": 1.55, "lato": 0.6,  "rot": 30 },
+   { "pezzo": "calcinacci-2",  "x": 2.45, "y": 3.5,  "lato": 0.55, "rot": -20 },
+   { "pezzo": "ragnatela",     "x": 3.65, "y": 0.35, "lato": 0.8,  "rot": 180 },
+   { "pezzo": "edera",         "x": 2.9,  "y": 0.4,  "lato": 0.95, "rot": 10 }
+  ],
+  "perche": "Il testo dice 'un cortile buio... il silenzio di chi trattiene il fiato', e il cerca_vuoto nomina un pozzo: il pozzo coperto e' il punto focale, sagoma ottagonale scura che spicca sul pavimento (la tessera si chiama 'sacrestia' per la porticina da cui si esce, ma la scena e' il cortile oltre quella porta). Una corda arrotolata accanto al pozzo (per attingere), calcinacci ai piedi dei due muri liberi, ragnatela nell'angolo libero (l'altro lo tiene gia' una cassa), un tralcio d'edera sul muro nord, spostato lontano dai token d'ingresso dove la luce ambrata lo spegneva al primo giro — decadimento di un cortile che nessuno cura. La carriola del cerca_vuoto non ha un pezzo a catalogo: nessuna forzatura. Nessuna luce fissa: il testo lo dice esplicitamente buio, ed e' da qui che comincia la fuga silenziosa."
+ },
+ "T2": {
+  "decori": [
+   { "pezzo": "tinozza-fonderia", "x": 0.55, "y": 0.5,  "lato": 0.85, "rot": 0 },
+   { "pezzo": "tinozza-fonderia", "x": 3.35, "y": 1.35, "lato": 0.8,  "rot": 200 },
+   { "pezzo": "corda",            "x": 2.3,  "y": 0.4,  "lato": 0.9,  "rot": 15 },
+   { "pezzo": "straccio",         "x": 0.4,  "y": 1.5,  "lato": 0.3,  "rot": 100 },
+   { "pezzo": "calcinacci",       "x": 3.4,  "y": 2.35, "lato": 0.6,  "rot": -30 },
+   { "pezzo": "ragnatela",        "x": 3.65, "y": 0.35, "lato": 0.8,  "rot": 180 }
+  ],
+  "perche": "Il testo nomina 'vasche di guado': il guado e' il colorante blu dei tintori, e la tinozza del catalogo ha proprio l'acqua tinta d'azzurro — due vasche diventano il punto focale, una vicino alle casse (dove il cerca nasconde 'dietro una vasca' la pertica, mai mostrata: si mette in scena il contesto, non l'oggetto). Una corda tesa in alto per i 'panni stesi che gocciolano', uno straccio che sgocciola vicino alla prima vasca, calcinacci e ragnatela negli angoli liberi. Nessuna luce: il testo dice 'gocciolano nel buio' — l'agguato (1 Sgherro su ogni uscita) arriva da un vicolo davvero cieco."
+ },
+ "T3": {
+  "decori": [
+   { "pezzo": "catene",       "x": 3.55, "y": 1.4,  "lato": 0.85, "rot": -90 },
+   { "pezzo": "catene",       "x": 0.5,  "y": 2.35, "lato": 1.15, "rot": 90 },
+   { "pezzo": "pozza",        "x": 2.5,  "y": 3.4,  "lato": 1.0,  "rot": 20 },
+   { "pezzo": "calcinacci-2", "x": 3.3,  "y": 0.4,  "lato": 0.5,  "rot": -25 },
+   { "pezzo": "ragnatela",    "x": 3.65, "y": 3.6,  "lato": 0.8,  "rot": 180 }
+  ],
+  "perche": "Il testo e il cerca_vuoto ripetono le catene: due grappoli di catene arrugginite lungo i due muri lunghi ('le grandi catene... ai lati'; 'ruggine a scaglie sulle catene'). Una pozza dove l'acqua nera filtra dalle assi ('il ponte esposto sull'acqua nera'). Un cumulo di ruggine (calcinacci-2) in un angolo, una ragnatela nell'angolo opposto: il ponte e' vecchio, 'lo chiudevano un tempo'. L'arredo 'altare' dei dati resta la lastra di pietra generica a meta' del ponte, dove il testo mette l'uomo coi guanti appoggiato al parapetto: e' una lastra grigia neutra (verificata sul PNG), non un altare ecclesiastico riconoscibile, quindi nessuna correzione forzata. Nessuna luce fissa: e' un agguato all'aperto, di notte, non un posto che qualcuno illuminerebbe per chi ci passa di soppiatto — periferia piena, centro libero per il combattimento col Sicario."
+ },
+ "T4": {
+  "decori": [
+   { "pezzo": "telo-strappato", "x": 3.4,  "y": 1.4,  "lato": 1.4,  "rot": 100 },
+   { "pezzo": "pacco",          "x": 0.5,  "y": 0.5,  "lato": 0.4,  "rot": 10 },
+   { "pezzo": "sacco",          "x": 0.55, "y": 1.3,  "lato": 0.65, "rot": -15 },
+   { "pezzo": "straccio",       "x": 2.4,  "y": 1.35, "lato": 0.3,  "rot": 80 },
+   { "pezzo": "vetri-infranti", "x": 1.4,  "y": 1.6,  "lato": 0.5,  "rot": 25 },
+   { "pezzo": "calcinacci-2",   "x": 3.4,  "y": 0.45, "lato": 0.55, "rot": -30 },
+   { "pezzo": "ragnatela",      "x": 0.35, "y": 3.65, "lato": 0.8,  "rot": 0 }
+  ],
+  "perche": "Il testo dice 'teli abbassati, sagome di manichini e ceste che nel buio sembrano gente': un telo strappato chiaro (contrasto netto sulla ghiaia scura) drappeggiato accanto a un banco e' il punto focale, la sagoma giusta per ingannare l'occhio. Un pacco e un sacco di merce abbandonata contro due banchi, uno straccio impigliato e vetri infranti nell'angolo cieco centrale (il 'labirinto di angoli ciechi' del testo), calcinacci e ragnatela nei due angoli liberi. La lanterna cieca del cerca resta fuori scena: sta 'sotto un banco', non in vista. Nessuna luce fissa: il mercato di notte resta buio, come dice il testo."
+ },
+ "T5": {
+  "decori": [
+   { "pezzo": "pozza",           "x": 0.5,  "y": 3.5,  "lato": 0.9,  "rot": 25 },
+   { "pezzo": "pozza",           "x": 3.4,  "y": 0.5,  "lato": 0.75, "rot": -15 },
+   { "pezzo": "calcinacci",      "x": 3.55, "y": 1.7,  "lato": 0.6,  "rot": -35 },
+   { "pezzo": "vetri-infranti",  "x": 0.45, "y": 2.4,  "lato": 0.5,  "rot": 15 },
+   { "pezzo": "ragnatela",       "x": 3.65, "y": 3.6,  "lato": 0.8,  "rot": 180 }
+  ],
+  "perche": "Il testo insiste sul vuoto ('fra i due muri non c'e' una porta, una nicchia, un davanzale: niente') e sui gradini viscidi: due pozze d'acqua scivolosa ai lati della scalinata (arredo), calcinacci ai piedi di un muro libero, vetri infranti che raccontano il lampione spento senza doverlo disegnare (nessun pezzo di lampione a catalogo: si evoca coi suoi cocci, non si forza un pezzo sbagliato), una ragnatela nell'angolo lontano. Nessuna luce fissa: il testo e la regola d'arbitro lo dicono esplicito ('lampione spento', prove NERVI Difficili senza lanterna) — qui si sale al buio vero."
+ },
+ "T6": {
+  "decori": [
+   { "pezzo": "corda",           "x": 1.1,  "y": 0.5,  "lato": 0.85, "rot": 20 },
+   { "pezzo": "pozza",           "x": 2.5,  "y": 2.5,  "lato": 1.0,  "rot": 25 },
+   { "pezzo": "torcia",          "x": 3.78, "y": 1.5,  "lato": 0.8,  "rot": -90, "luce": "torcia" },
+   { "pezzo": "ragnatela",       "x": 3.65, "y": 3.6,  "lato": 0.8,  "rot": 180 },
+   { "pezzo": "vetri-infranti",  "x": 0.45, "y": 3.4,  "lato": 0.5,  "rot": 40 }
+  ],
+  "perche": "Testo e cerca_vuoto nominano solo un rotolo di gomena (corda) e l'acqua che sciaborda contro il legno (pozza): 'l'approdo e' stato ripulito di tutto quello che poteva dire chi ci passa' giustifica una scena minima, il piano basso del range. La lanterna schermata del battello e' l'unica luce fissa dell'episodio: specchio del molo d'ingresso dell'Ep.1, deve essere l'unico posto davvero illuminato dopo cinque tessere al buio — qui la fuga vince. Vetri infranti e ragnatela negli angoli liberi, il minimo decadimento di un molo clandestino tenuto pulito apposta."
+ }
+}

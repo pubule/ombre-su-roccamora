@@ -684,6 +684,80 @@ webapp/test-ambiente.mjs` → tutti `OK`. Foto di ep8 rigenerate.
 **Prossimo**: Task 8, `ep9` — stesso procedimento, giudicato contro Ep.1,
 preludio ed ep2/ep3/ep4/ep5/ep6/ep7/ep8.
 
+**Task 8 — ep9 FATTO (29/09/2026)**: `src/scenografia/ep9.json` (Il processo —
+scorta di Anselmo Riva), T1-T6 composte da zero leggendo
+`testo`/`cerca`/`cerca_vuoto`/`hook`/`arredi` di `webapp/data/ep9.json` contro
+il catalogo esistente (nessun pezzo mancante, `scripts/importa-fa-lanterne.py`
+non toccato). Episodio di fuga/scorta, non d'indagine: **buio in T1-T5, un'unica
+luce in T6** (la lanterna schermata del battello, il testo la nomina — echeggia
+il molo d'ingresso dell'Ep.1, l'unico posto davvero illuminato dopo cinque
+tessere al buio).
+
+**Un riuso creativo, non un pezzo mancante**: T2 (Vicolo dei Tintori) chiede
+"vasche di guado" — il guado e' il colorante blu dei tintori, e `tinozza-fonderia`
+(pensata per le fonderie) ha gia' l'acqua tinta d'azzurro: usata due volte come
+le vasche, contrasto netto sul lastricato scuro, senza aggiungere un pezzo nuovo
+al catalogo.
+
+**Due correzioni trovate SOLO guardando le foto (non nel JSON)**:
+1. T1 (edera sul muro nord): al primo giro spariva vicino ai token d'ingresso —
+   non l'arredo-occlusione gia' nota (lezione ep2-ep8), ma il bagliore ambrato
+   che il motore disegna intorno ai token, che ne spegneva il verde. Spostata
+   lontano dalla zona token, ora visibile.
+2. T3 (Ponte delle Catene, la stanza del boss): le due `catene` ai lati — lezione
+   gia' nota da Ep.3 (questo pezzo rende "come un piccolo scarabocchio" se troppo
+   piccolo) — una era ben visibile, l'altra quasi invisibile sul legno scuro.
+   Ingrandita (lato 0.8→1.15) e spostata leggermente: ora le due sponde si
+   leggono allo stesso modo ("le grandi catene... ai lati" del testo).
+
+**Un arredo generico lasciato com'e', dopo verifica sul PNG**: T3 ha un'unica
+cella "altare" dei dati a meta' ponte (dove il testo mette il Sicario Gentile
+"appoggiato al parapetto"). Guardato `webapp/vtt/arredi/altare.png`: e' una
+lastra di pietra grigia neutra, senza croci ne' candelieri scolpiti — non legge
+come un altare ecclesiastico fuori posto, quindi nessuna correzione forzata
+(la tabella della guida non impone override fuori da campan/guglia/ESPOSTA).
+
+**Non mostrato in scena, per il campo `cerca`**: la pertica da tintore dietro
+una vasca (T2 — la vasca stessa, il contesto, resta in scena), la lanterna
+cieca sotto un banco (T4). La "carriola" del `cerca_vuoto` di T1 non ha un
+pezzo a catalogo: nessuna forzatura, una stanza con un decoro in meno.
+
+**Il token dell'eroe controllato su tutte e sei le tessere** (T1 coi tre token
+d'ingresso inclusi: i due angoli (0,3)/(1,3) decor e il centrale (1,2)) —
+calcolate a mano le celle libere con `portaCella`/il flip `3-y`, poi
+riverificato guardando le foto rigenerate: nessuna occlusione residua dopo le
+due correzioni sopra.
+
+**Un vincolo di riuso preso al secondo giro dal test, non dall'occhio**:
+`calcinacci` e `calcinacci-2` finivano ciascuno in 4 stanze (avevo dimenticato
+che T3 li usava entrambi, oltre a T1/T2/T4/T5/T6) — tolto un uso di ciascuno
+(T3 perde `calcinacci`, T5 perde `calcinacci-2`), tornati a 3 stanze ciascuno.
+
+**Nessun problema di classificazione per sottostringa nel nome** (lezione
+Ep.8/ep8 sulla "Tettoia delle Chiatte"): controllati tutti e sei i nomi contro
+`ambiente.js` — "Il Ponte delle Catene" contiene "ponte" ma la riga `FUORI_DI`
+lo assegna ad 'acqua' PRIMA della riga dei tetti (stesso ordine gia' corretto
+per ep8), quindi resta una stanza chiusa con pavimento 'assi', non un tetto:
+budget 5-12 corretto, non 0-5. Nessun'altra tessera contiene tetto/guglia/
+torre/terrazza/loggia. Unica cosa degna di nota, non un bug di motore: T1 si
+chiama "LA SACRESTIA (USCITA DI SERVIZIO)" (→ pavimento 'navata' per la
+sottostringa "sacrest") ma il testo descrive la scena come un "cortile buio"
+con un pozzo — il nome e' scelto per il punto di passaggio (la porticina), non
+per lo spazio inquadrato. Non e' una collisione di sottostringa accidentale
+(il nome contiene davvero "sacrestia" a ragion veduta, non per caso come
+"tetto" dentro "tettoia"): verificato il pavimento 'navata' renderizzato
+(marmo scuro) — passabile per un cortile di notte, non palesemente sbagliato —
+quindi non segnalato come difetto di motore, solo annotato qui per chi
+componesse la prossima tessera con lo stesso schema nome/scena disallineati.
+
+Verificato guardando tutte e sei le foto, tre giri di correzione (sopra,
+`export-data.py` rilanciato prima di ogni rigenerazione) affiancate a quelle
+dell'Ep.1. Test: `python webapp/export-data.py && node
+webapp/test-scenografia.mjs && node webapp/test-stanza.mjs` → tutti `OK`.
+
+**Prossimo**: Task 8, `ep10` — stesso procedimento, giudicato contro Ep.1,
+preludio ed ep2/ep3/ep4/ep5/ep6/ep7/ep8/ep9.
+
 ## FATTO (22/09/2026) — i vantaggi d'Indagine arrivano in Spedizione (audit + correzioni)
 
 Report: `AUDIT-VANTAGGI-INDAGINE.md`. Banco: `node webapp/audit-vantaggi.mjs [porta]
