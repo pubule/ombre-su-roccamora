@@ -575,6 +575,65 @@ webapp/test-scenografia.mjs && node webapp/test-stanza.mjs` → tutti `OK`.
 **Prossimo**: Task 8, `ep8` — stesso procedimento, giudicato contro Ep.1,
 preludio ed ep2/ep3/ep4/ep5/ep6/ep7.
 
+**Task 8 — ep8 FATTO (29/09/2026)**: `src/scenografia/ep8.json` (L'oro
+vecchio — l'ansa morta), T1-T6 composte da zero leggendo
+`testo`/`cerca`/`cerca_vuoto`/`hook`/`arredi` di `webapp/data/ep8.json`
+contro il catalogo esistente. Quattro pezzi mancanti, cercati in
+`risorse-vtt/FA_Assets_Webp` e guardati i provini prima di importarli,
+aggiunti a `PEZZI` in `scripts/importa-fa-lanterne.py` (102 pezzi ora):
+`crogiolo` (`Crucible_Large_Metal_Sut_Molten_A1`, il crogiolo colmo acceso
+di T4), `lingotto` (`Ingot_Gold_A2`, un lingotto appena colato), `bilancia`
+(`Scales_Metal_Brass_A1`, il bilancino da pesatore) e `fornello-freddo`
+(`Stove_Rusty_C`, la stufa spenta di T5 — nome scelto apposta SENZA la
+sottostringa "stufa": quella accenderebbe da sola la regola dell'arredo del
+posto se mai riusata come override).
+
+**Due correzioni d'arredo per posto (docs/scenografia.md, tabella «arredo
+del posto»), non nel decoro**: T3 (Il Magazzino del Carbone) ha tre celle
+"casse" dei dati che il testo ripete essere sacchi di carbone fino alle
+travi — corrette a `carbone-mucchio` con `"arredi": {...}` per tessera. T4
+(La Sala del Crogiolo) ha un'unica cella "casse" che il testo vuole sia il
+crogiolo acceso "che non si spegne mai" — corretta a `crogiolo`: il nome
+del pezzo fa scattare da solo `fuoco = /candele|crogiolo|stufa/` in
+`ambiente-fa.js`, quindi l'unica luce fissa della stanza arriva
+dall'arredo, zero luci aggiunte nei decori (stessa lezione di Ep.5
+T5/Ep.6 T3-T4).
+
+**Una sorpresa del nome-tessera, presa dal test e non dall'occhio**: T2 (La
+Tettoia delle Chiatte) contiene la sottostringa "tetto" dentro "tettoia" —
+`alAperto()` (`webapp/public/motore/ambiente.js`) la classifica quindi come
+un tetto: niente muri ne' porte disegnate, budget decori 0-5 invece di
+5-12. `test-scenografia.mjs` l'ha bocciata al primo giro (7 decori,
+"aperto: 0-5"); tagliata a 5 e riletta come quel che e' in effetti nel
+testo — una semplice pensilina aperta sull'acqua, non una stanza chiusa.
+Coerente col pavimento 'acqua' che la stessa riga di regex le assegna
+(sostantivo "chiatte" prima della riga "tettoia" nell'elenco ordinato).
+
+**Il token dell'eroe ha nascosto due decori al primo giro** (stessa lezione
+di ogni episodio precedente): la `pozza` di T1 e la `bilancia` di T4
+cadevano proprio sulla cella dove il fotografo mette il token centrale —
+spostate, verificato sulle foto rigenerate (non a occhio sulle coordinate).
+T1 ha in piu' i due token dell'entrata (angoli (0,3)/(1,3)): nessun decoro
+li' fin dal primo giro.
+
+**Non mostrato in scena, per il campo `cerca`**: il gancio da carico sotto
+la cerata (T2 — la cerata stessa, il "contesto", resta in scena), il libro
+dei corrieri (T5 — sulla scrivania restano registri generici). Le quattro
+casse d'oro dell'obiettivo non sono mai decoro: tre sono gia' l'arredo
+"casse" del posto (T2/T3/T5), una a T4 e' testualmente "aperta" e li'
+basta il crogiolo/lingotto/bilancia gia' in scena — nessuna cassa
+disegnata extra in nessuna tessera.
+
+Verificato guardando tutte e sei le foto, due giri (`node
+webapp/mappa-plancia-fa.mjs --ep ep8`, `export-data.py` rilanciato prima di
+ogni rigenerazione, `export-assets.py` rilanciato dopo l'aggiunta dei
+quattro pezzi nuovi) affiancate a quelle dell'Ep.1, correzioni sopra prima
+di committare. Test: `python webapp/export-data.py && node
+webapp/test-scenografia.mjs && node webapp/test-stanza.mjs` → tutti `OK`.
+
+**Prossimo**: Task 8, `ep9` — stesso procedimento, giudicato contro Ep.1,
+preludio ed ep2/ep3/ep4/ep5/ep6/ep7/ep8.
+
 ## FATTO (22/09/2026) — i vantaggi d'Indagine arrivano in Spedizione (audit + correzioni)
 
 Report: `AUDIT-VANTAGGI-INDAGINE.md`. Banco: `node webapp/audit-vantaggi.mjs [porta]

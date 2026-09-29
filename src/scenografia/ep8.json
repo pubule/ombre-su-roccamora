@@ -1,0 +1,67 @@
+{
+ "T1": {
+  "decori": [
+   { "pezzo": "ancora",      "x": 3.55, "y": 1.6,  "lato": 1.3,  "rot": -15 },
+   { "pezzo": "corda",       "x": 0.4,  "y": 1.3,  "lato": 0.7,  "rot": 15 },
+   { "pezzo": "calcinacci",  "x": 2.35, "y": 3.4,  "lato": 0.6,  "rot": 40 },
+   { "pezzo": "calcinacci-2","x": 2.3,  "y": 0.35, "lato": 0.6,  "rot": -20 },
+   { "pezzo": "ragnatela",   "x": 3.65, "y": 0.35, "lato": 0.8,  "rot": 180 },
+   { "pezzo": "pozza",       "x": 2.6,  "y": 3.15, "lato": 0.9,  "rot": 25 }
+  ],
+  "perche": "Il testo parla di scafi svuotati e bitte arrugginite: un'ancora arrugginita, silhouette dura contro le assi chiare, e' il punto focale di un molo dove non resta niente da rubare. Cordame marcio contro il muro ovest, calcinacci ai piedi dei muri (decadimento), ragnatela nell'angolo alto libero dalle casse. Una pozza dove l'acqua nera entra dalle assi consumate. Nessuna luce fissa: le sentinelle vi contano al buio, e il bagliore del crogiolo si vede solo 'in fondo' — non qui."
+ },
+ "T2": {
+  "decori": [
+   { "pezzo": "telo-strappato", "x": 0.55, "y": 1.5,  "lato": 1.2, "rot": 90 },
+   { "pezzo": "sacco",          "x": 3.35, "y": 0.5,  "lato": 0.7, "rot": -10 },
+   { "pezzo": "corda",          "x": 0.45, "y": 3.35, "lato": 0.6, "rot": 50 },
+   { "pezzo": "nido",           "x": 3.55, "y": 1.65, "lato": 0.55,"rot": 170 },
+   { "pezzo": "ragnatela",      "x": 0.35, "y": 0.35, "lato": 0.8, "rot": 0 }
+  ],
+  "perche": "Il nome 'tettoia' la rende un tetto per il motore (niente muri, niente porte disegnate: una semplice pensilina sull'acqua, coerente col testo 'chiatte in secca'): decoro all'aperto, 0-5. Una cerata strappata contro il muro ovest copre 'qualcosa' senza mostrare il gancio che si trova cercando. Un sacco e una corda contro le pile di casse da pesce (arredo), un nido tra le travi dice che qui non lavora piu' nessuno tutti i giorni, ragnatela nell'angolo. Nessuna luce: un deposito cieco, non un posto che qualcuno illuminerebbe di notte."
+ },
+ "T3": {
+  "arredi": { "0,2": "carbone-mucchio", "3,2": "carbone-mucchio", "0,1": "carbone-mucchio" },
+  "decori": [
+   { "pezzo": "sacco",     "x": 2.3, "y": 0.5,  "lato": 0.7, "rot": -10 },
+   { "pezzo": "sacco",     "x": 2.6, "y": 3.4,  "lato": 0.65,"rot": 20 },
+   { "pezzo": "carbone",   "x": 1.3, "y": 1.3,  "lato": 0.5, "rot": 0 },
+   { "pezzo": "carbone-2", "x": 2.6, "y": 1.7,  "lato": 0.5, "rot": 25 },
+   { "pezzo": "ragnatela", "x": 3.65,"y": 0.35, "lato": 0.8, "rot": 180 }
+  ],
+  "perche": "Le tre pile 'casse' dei dati sono in realta' sacchi di carbone fino alle travi (il testo lo ripete tre volte): la scenografia corregge l'arredo del posto a 'carbone-mucchio', com'e' previsto quando la regola generica sbaglia. Sacchi sciolti e scaglie di carbone sparse attorno alle pile, una ragnatela nell'angolo libero. La cassa sotto la terza pila si trova cercando: non e' in scena. Nessuna luce: 'la polvere beve la luce delle lanterne', dice il testo — resta buio."
+ },
+ "T4": {
+  "arredi": { "2,1": "crogiolo" },
+  "decori": [
+   { "pezzo": "cappa-fonderia", "x": 2.7,  "y": 0.45, "lato": 1.4,  "rot": 0 },
+   { "pezzo": "lingotto",       "x": 2.5,  "y": 2.25, "lato": 0.35, "rot": 15 },
+   { "pezzo": "bilancia",       "x": 2.3,  "y": 3.25, "lato": 0.5,  "rot": -5 },
+   { "pezzo": "tinozza-fonderia","x": 0.5, "y": 1.5,  "lato": 0.8,  "rot": 0 },
+   { "pezzo": "carbone",        "x": 0.4,  "y": 3.4,  "lato": 0.5,  "rot": 10 },
+   { "pezzo": "straccio",       "x": 3.5,  "y": 3.3,  "lato": 0.3,  "rot": 60 }
+  ],
+  "perche": "L'unica casella 'casse' dei dati diventa il crogiolo acceso (arredo corretto per posto, come nella tabella della guida): il nome del pezzo fa scattare da solo la fiamma calda dell'engine, l'unico fuoco della stanza. Una cappa di fonderia sopra, sul muro nord, gli da' verticale. Un lingotto appena colato davanti al crogiolo e il bilancino da pesatore sul 'banco' — la terza cassa d'oro, gia' aperta, non serve altro decoro perche' il testo dice che qui e' 'tutto in ordine e tutto in uso, niente lasciato in giro'. Una tinozza di raffreddamento contro il muro ovest, un piccolo deposito di carbone e uno straccio: gli unici oggetti di lavoro, niente di piu'."
+ },
+ "T5": {
+  "decori": [
+   { "pezzo": "libri",           "x": 1.4,  "y": 0.35, "lato": 0.5, "rot": 10,  "sopra": true },
+   { "pezzo": "fogli",           "x": 1.7,  "y": 0.3,  "lato": 0.3, "rot": -15, "sopra": true },
+   { "pezzo": "fornello-freddo", "x": 3.4,  "y": 1.4,  "lato": 0.7, "rot": -10 },
+   { "pezzo": "secchio",         "x": 3.6,  "y": 2.4,  "lato": 0.4, "rot": 0 },
+   { "pezzo": "ragnatela",       "x": 0.35, "y": 3.65, "lato": 0.8, "rot": 0 },
+   { "pezzo": "straccio",        "x": 2.6,  "y": 3.5,  "lato": 0.3, "rot": 40 }
+  ],
+  "perche": "La scrivania (arredo) porta i registri di colata 'rilegati come messali' e fogli sciolti (sopra:true): il libro dei corrieri che si trova cercando resta fuori scena. Una stufa spenta contro il muro est — il testo la dice fredda, quindi nessuna fiamma — con un secchio per la cenere accanto. Ragnatela nell'angolo lontano dalla porta, uno straccio dimenticato. Nessuna luce fissa: l'ufficio del pesatore, di notte, e' buio quanto il resto del deposito."
+ },
+ "T6": {
+  "decori": [
+   { "pezzo": "corda",      "x": 2.6, "y": 0.4,  "lato": 0.9, "rot": 100 },
+   { "pezzo": "pozza",      "x": 1.4, "y": 1.6,  "lato": 1.0, "rot": 15 },
+   { "pezzo": "ragnatela",  "x": 3.65,"y": 0.35, "lato": 0.8, "rot": 180 },
+   { "pezzo": "ancora",     "x": 3.5, "y": 2.5,  "lato": 1.3, "rot": 15 },
+   { "pezzo": "calcinacci", "x": 0.4, "y": 3.4,  "lato": 0.6, "rot": 30 }
+  ],
+  "perche": "L'uscita sul fiume fa da eco al molo d'apertura (T1): le gomene tese della chiatta del giovedi' corrono lungo il muro nord, una pozza d'acqua nera dove il fiume sale dalle assi, una seconda ancora — diversa posa, stesso pezzo del T1, sotto il tetto dei 3 usi per episodio — segna che qui si esce per acqua. Ragnatela nell'angolo lontano dalla porta, calcinacci ai piedi del muro. Il testo dice 'sulla pietra non e' rimasto nulla': nessuna luce fissa, si esce nel buio con quel che si e' preso."
+ }
+}

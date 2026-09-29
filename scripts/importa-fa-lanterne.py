@@ -260,6 +260,21 @@ PEZZI = {
                                 {'ambienti': ['magazzini'], 'lato': 0.7, 'luce': None, 'sopra': False}),
     'decori/telo-strappato.png': (FA, f'{CS}/Structures/Shelters/Awnings/Awning_Cloths/Ruined/Tarp_Awning_Cloth_Beige_Ruined_A1_2x2.webp',
                                   {'ambienti': ['tetti', 'magazzini'], 'lato': 1.6, 'luce': None, 'sopra': False}),
+    # -- Ep.8 (L'oro vecchio): la sala del crogiolo e l'ufficio del pesatore —
+    # provini guardati prima di importarli (--provino). Il nome 'crogiolo' e'
+    # apposta: e' quello che ambiente-fa.js riconosce come fuoco acceso quando
+    # sostituisce un arredo "casse" (docs/scenografia.md, tabella arredo del
+    # posto) — niente campo luce da impostare a mano. 'fornello-freddo' invece
+    # evita apposta la sottostringa 'stufa' nel nome: e' spento, e quella
+    # sottostringa accenderebbe la stessa regola.
+    'decori/crogiolo.png': (FA, f'{CS}/Workplace_Equipment/Smithing/Smelting/Crucibles/Crucible_Large_Metal_Sut_Molten_A1_2x2.webp',
+                            {'ambienti': ['fonderie'], 'lato': 1.5, 'luce': 'cera', 'sopra': False}),
+    'decori/lingotto.png': (FA, f'{CS}/Clutter/Treasure/Ingots/Ingot_Gold_A2_1x1.webp',
+                            {'ambienti': ['fonderie'], 'lato': 0.35, 'luce': None, 'sopra': True}),
+    'decori/bilancia.png': (FA, f'{CS}/Clutter/Misc/Mercantile/Scales_Metal_Brass_A1_1x1.webp',
+                            {'ambienti': ['fonderie'], 'lato': 0.5, 'luce': None, 'sopra': True}),
+    'decori/fornello-freddo.png': (FA, f'{CS}/Furniture/Cooking_Appliances/Stove_Rusty_C_1x1.webp',
+                                   {'ambienti': ['fonderie', 'case'], 'lato': 0.7, 'luce': None, 'sopra': False}),
 }
 
 
