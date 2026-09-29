@@ -1125,6 +1125,63 @@ webapp/test-stanza.mjs` → tutti `OK`.
 **Prossimo**: Task 8, `ep15` — stesso procedimento, giudicato contro Ep.1,
 preludio ed ep2-ep14.
 
+**Task 8 — ep15 FATTO (29/09/2026)**: `src/scenografia/ep15.json` (Lo
+smascheramento — la Villa-Museo di Braga, T1 Il Cancello → T6 Lo Studio
+Segreto), composte da zero leggendo `testo`/`cerca`/`cerca_vuoto`/`hook`/
+`arredi` di `webapp/data/ep15.json` contro il catalogo esistente (nessun
+pezzo mancante, nessuna modifica a `scripts/importa-fa-lanterne.py`). Tema
+ricorrente dell'episodio: una villa messa in scena troppo perfetta da chi
+la incastra (gli Apparecchiatori) — T2 (Atrio) e T4 (Galleria dei Cimeli) e
+T6 (Studio Segreto) evitano di proposito ragnatele/polvere, perche' e'
+proprio l'assenza di decadimento a essere il segno del falso.
+
+**Arredo del posto corretto due volte**: T2 e T6 avrebbero reso le "casse"
+dei dati come casse di magazzino — fuori posto in un atrio signorile e in
+uno studio "in ordine da fotografia". Corrette con `"arredi": {...}` a
+`baule` (un baule da viaggio nell'atrio, il baule degli attrezzi di scena
+del regista in T6). T1/T3/T4/T5 restano casse letterali di proposito
+(motivate nel `perche'` di ognuna: scatole d'archivio, materiale di
+retroguardia degli Apparecchiatori sulle scale, ecc.).
+
+**Occlusione trovata guardando la prima foto di T1, corretta**: tre decori
+(catene, calcinacci, lanterna-cieca), piazzati inizialmente lungo il muro
+sud, finivano dietro i due token "d'ingresso" del party (T1, come prima
+tessera dell'episodio, ne porta tre: l'eroe attivo al centro piu' i due
+d'ingresso in basso a sinistra) — invisibili nella foto pur essendo nel
+JSON. Spostati sulla meta' destra della stanza, fuori dall'ingombro dei due
+token fissi; rigenerata la foto, tutti e sei i decori ora leggibili.
+Nello stesso giro, `libri` di T2 spostato verso il centro: il pilastro
+d'angolo lo tagliava a meta'.
+
+**Trovato guardando i dati, non un difetto da correggere qui — settima
+occorrenza dello stesso schema (lezione 8 della guida, gia' aperta
+ep9-ep14)**: `pavimentoDi()` (`webapp/public/motore/ambiente.js`, riga
+della lista `PAVIMENTI` con `/grotta|caverna|scavo|galler|cunicol|
+intercapedine|sottoscala|pietra viva|discesa/i` → `roccia`) classifica "LA
+GALLERIA DEI CIMELI" (T4) come pavimento `roccia` — la sottostringa
+"galler" di "galleria" intercetta prima di arrivare, poche righe piu' giu',
+alla riga che elenca esplicitamente "cimeli" → `tappeto`. Il testo descrive
+esplicitamente vetrine, cartellini scritti a macchina, vetro lucido senza
+un'impronta: un salone da museo, non una galleria sotterranea — confermato
+guardando la foto, che mostra pavimento di roccia screpolata sotto una
+collezione di cimeli. Provabilmente sbagliato (non solo "poco plausibile"),
+stesso tipo di collisione delle sei precedenti. **Non corretto** (fuori
+mandato per questo episodio): la scenografia di T4 e' composta ignorando
+la roccia resa a schermo, con decori pensati per una sala di collezionismo
+vera.
+
+Verificato guardando tutte e sei le foto (con quella di Ep.1 accanto), un
+giro di correzione (l'occlusione di T1, il taglio d'angolo di T2) prima di
+committare (`node webapp/mappa-plancia-fa.mjs --ep ep15`, `export-data.py`
+rilanciato prima di ogni rigenerazione). Controllato il token dell'eroe su
+tutte e sei le tessere (T1 coi tre token dell'entrata inclusi): nessun'altra
+occlusione, nessun decoro su porte o arredi. Test: `python
+webapp/export-data.py && node webapp/test-scenografia.mjs && node
+webapp/test-stanza.mjs` → tutti `OK`.
+
+**Prossimo**: Task 8, `ep16` — stesso procedimento, giudicato contro Ep.1,
+preludio ed ep2-ep15.
+
 ## FATTO (22/09/2026) — i vantaggi d'Indagine arrivano in Spedizione (audit + correzioni)
 
 Report: `AUDIT-VANTAGGI-INDAGINE.md`. Banco: `node webapp/audit-vantaggi.mjs [porta]

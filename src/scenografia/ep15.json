@@ -1,0 +1,69 @@
+{
+ "T1": {
+  "decori": [
+   { "pezzo": "catene",         "x": 2.5,  "y": 3.65, "lato": 0.8,  "rot": 0 },
+   { "pezzo": "edera",          "x": 0.3,  "y": 1.4,  "lato": 0.9,  "rot": 0 },
+   { "pezzo": "edera",          "x": 3.7,  "y": 1.6,  "lato": 0.9,  "rot": 180 },
+   { "pezzo": "calcinacci",     "x": 0.4,  "y": 2.6,  "lato": 0.6,  "rot": 40 },
+   { "pezzo": "topiaria-secca", "x": 3.3,  "y": 0.6,  "lato": 1.3,  "rot": -10 },
+   { "pezzo": "lanterna-cieca", "x": 3.15, "y": 2.6,  "lato": 0.6,  "rot": 90 }
+  ],
+  "perche": "Il cancello, di notte, col cordone che si forma: il cerca_vuoto nomina esplicitamente 'catene nuove' sul cancello, e sono il punto su cui l'occhio cade, spostate verso destra per non finire coperte dai due eroi d'ingresso (T1 ha tre token: l'eroe attivo al centro e i due d'ingresso in basso a sinistra — i decori restano fuori da quella meta' della stanza). L'edera segue il muro di cinta su entrambi i lati (due ciuffi, non uno: 'il muro corre per tutto l'isolato' in L9). Un calcinaccio a meta' del muro ovest dice che la pietra e' vecchia anche se il viale e' curato; la siepe di bosso 'pareggiata a squadra' diventa una topiaria secca nell'angolo. Una lanterna cieca spenta, sul lato est, e' quella lasciata a terra da un gendarme di ronda, non accesa: le vere luci mobili — le lanterne dei gendarmi che pattugliano — non sono decoro fisso. Nessuna luce fissa in scena: fuori, prima di entrare, resta il buio della notte."
+ },
+ "T2": {
+  "arredi": { "1,2": "baule", "2,1": "baule" },
+  "decori": [
+   { "pezzo": "mappamondo",     "x": 3.5, "y": 0.5, "lato": 0.65, "rot": -10 },
+   { "pezzo": "orologio-fermo", "x": 0.4, "y": 1.5, "lato": 1.15, "rot": 0 },
+   { "pezzo": "libri",          "x": 3.3, "y": 3.2, "lato": 0.6,  "rot": 15 },
+   { "pezzo": "cero",           "x": 3.6, "y": 1.8, "lato": 0.35, "rot": 0,  "luce": "cera" },
+   { "pezzo": "sfera-armillare","x": 0.5, "y": 3.5, "lato": 1.0,  "rot": 10 }
+  ],
+  "perche": "'Tutto in ordine perfetto, ogni cimelio al suo posto' e' la chiave della stanza: un mappamondo, un orologio fermo, una pila di libri e una sfera armillare sono i cimeli del professore, disposti con cura innaturale sul perimetro. Le due 'casse' dei dati diventano bauli (la regola generica le renderebbe casse da magazzino, fuori posto in un atrio di casa): due bauli da viaggio, arredo credibile in un ingresso signorile. Un solo cero acceso — l'unica luce fissa — dice che qualcuno e' appena passato a sistemare l'ultimo dettaglio. Niente ragnatele, niente polvere: e' proprio l'assenza di decadimento a essere sbagliata, come vuole il testo. Il tell fresco (l'inchiostro non ancora asciutto) resta fuori scena: si trova cercando."
+ },
+ "T3": {
+  "decori": [
+   { "pezzo": "libro-aperto",        "x": 0.4,  "y": 0.4,  "lato": 0.4,  "rot": -10 },
+   { "pezzo": "fogli",               "x": 0.75, "y": 0.6,  "lato": 0.3,  "rot": 15 },
+   { "pezzo": "calamaio-rovesciato", "x": 0.55, "y": 0.85, "lato": 0.3,  "rot": -30 },
+   { "pezzo": "libri",               "x": 3.5,  "y": 3.4,  "lato": 0.55, "rot": 15 },
+   { "pezzo": "sgabello-rovesciato", "x": 2.5,  "y": 3.3,  "lato": 0.7,  "rot": 100 },
+   { "pezzo": "teschio",             "x": 3.6,  "y": 0.4,  "lato": 0.55, "rot": 0,  "luce": "cera" },
+   { "pezzo": "ragnatela",           "x": 0.3,  "y": 3.65, "lato": 0.8,  "rot": 90 }
+  ],
+  "perche": "Il cassetto 'lasciato aperto ad arte' e le carte 'disposte con cura' diventano un piccolo gruppo — un libro aperto, un foglio e un calamaio rovesciato — vicino alla porta nord: non sul cassetto stesso, che non esiste come arredo, ma come segno di un lavoro fatto in fretta. Uno sgabello rovesciato, il classico 'qualcosa e' appena successo', sta al centro-sud. Una pila di libri nell'angolo opposto e un teschio-candela (l'unica luce, un cimelio macabro da criminologo) completano lo studio del professore. Una ragnatela nell'angolo lontano dalla porta. Il ritaglio di carta identico al dossier, nascosto sotto il tappeto, resta fuori scena: si trova cercando."
+ },
+ "T4": {
+  "decori": [
+   { "pezzo": "libro-aperto-2", "x": 2.3, "y": 3.3, "lato": 0.4,  "rot": 10,  "sopra": true },
+   { "pezzo": "cero",           "x": 2.7, "y": 3.6, "lato": 0.3,  "rot": 0,   "sopra": true, "luce": "cera" },
+   { "pezzo": "libri",          "x": 3.6, "y": 0.5, "lato": 0.55, "rot": -15 },
+   { "pezzo": "mappamondo",     "x": 0.4, "y": 3.6, "lato": 0.65, "rot": 10 },
+   { "pezzo": "pacco",          "x": 3.5, "y": 1.6, "lato": 0.4,  "rot": 20 },
+   { "pezzo": "sigillo-cera",   "x": 3.55,"y": 2.6, "lato": 0.35, "rot": -20 }
+  ],
+  "perche": "'Vetrine allineate, cartellini scritti a macchina, tutto gia' catalogato e lucidato': l'arredo 'altare' dei dati fa da piedistallo al cimelio piu' prezioso della galleria — un libro rilegato e un cero acceso sopra (sopra:true, unica luce fissa della sala). Intorno, sul perimetro, il resto della collezione: libri, un mappamondo, un pacco non ancora scartato (l'ironia di un archivio 'perfetto' con un pezzo ancora intonso) e un sigillo di cera in mostra. Niente ragnatele: come nell'atrio, e' la pulizia innaturale a essere il segno del falso. NOTA PER TASK 9 (collisione di sottostringa, non corretta qui): il nome 'LA GALLERIA DEI CIMELI' contiene 'galleria', e in webapp/public/motore/ambiente.js la riga PAVIMENTI `[/grotta|caverna|scavo|galler|cunicol|intercapedine|sottoscala|pietra viva|discesa/i, 'roccia']` intercetta 'galler' prima di arrivare alla riga successiva che elenca esplicitamente 'cimeli' -> 'tappeto'. La stanza e' descritta (vetrine, cartellini, vetro lucido) come un salone da museo, non come una galleria sotterranea: pavimento 'roccia' e' provabilmente sbagliato, stesso tipo di collisione gia' visto in sei episodi precedenti (Ep.9-14). Non toccato qui, per lo stesso motivo degli altri sei: si tratta nella passata dedicata (Task 9)."
+ },
+ "T5": {
+  "decori": [
+   { "pezzo": "calcinacci",   "x": 0.4,  "y": 0.5, "lato": 0.55, "rot": 25 },
+   { "pezzo": "calcinacci-2", "x": 3.6,  "y": 3.4, "lato": 0.55, "rot": -30 },
+   { "pezzo": "catene",       "x": 0.3,  "y": 2.5, "lato": 0.75, "rot": 90 },
+   { "pezzo": "ragnatela",    "x": 3.65, "y": 0.4, "lato": 0.8,  "rot": 180 },
+   { "pezzo": "ragnatela-2",  "x": 0.35, "y": 3.6, "lato": 0.75, "rot": 0 }
+  ],
+  "perche": "'Scalini consumati... nessuno lascia niente su una scala che serve ad andarsene': niente oggetti personali, solo l'architettura che invecchia da sola — calcinacci ai piedi dei due lati, una vecchia catena murata al posto del 'corrimano di ferro freddo' del testo, e ragnatele alte nella tromba delle scale (i soli pezzi esenti dal limite di riuso). Nessuna luce fissa: si scende nel buio, come si scende in una via di fuga."
+ },
+ "T6": {
+  "arredi": { "0,1": "baule" },
+  "decori": [
+   { "pezzo": "carta-assorbente", "x": 1.6, "y": 0.4, "lato": 0.35, "rot": 10 },
+   { "pezzo": "sigillo-cera",     "x": 2.0, "y": 0.65,"lato": 0.35, "rot": -15 },
+   { "pezzo": "libro-aperto-2",   "x": 2.4, "y": 0.4, "lato": 0.4,  "rot": 15 },
+   { "pezzo": "orologio-fermo",   "x": 3.6, "y": 2.0, "lato": 1.1,  "rot": 0 },
+   { "pezzo": "teschio",          "x": 0.5, "y": 3.5, "lato": 0.55, "rot": 0,  "luce": "cera" },
+   { "pezzo": "candelabro",       "x": 3.5, "y": 3.5, "lato": 0.75, "rot": 15, "luce": "cera" }
+  ],
+  "perche": "'Ordine da fotografia: nessun cassetto aperto, nessun foglio storto, la carta assorbente pulita' — lo studio del regista e' la stanza piu' immacolata della villa. La carta assorbente, un sigillo di cera e un libro aperto sono l'ultimo dettaglio che il Capo Apparecchiatore sta posando quando arrivate: un piccolo gruppo a nord, non sopra un arredo (non c'e' una scrivania nei dati). La 'cassa' diventa un baule (la regola generica la renderebbe una cassa da magazzino, fuori posto in uno studio): il baule degli attrezzi di scena del regista. Un orologio fermo — richiamo al sigillo che si avvicina — e un teschio-candela guardano da lontano; un candelabro nell'angolo opposto bilancia le due uniche luci fisse. Niente ragnatele, come nelle altre stanze 'troppo perfette' della villa."
+ }
+}
