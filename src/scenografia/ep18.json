@@ -1,0 +1,72 @@
+{
+ "T1": {
+  "arredi": { "0,0": "armadio", "3,3": "baule" },
+  "decori": [
+   { "pezzo": "libri",        "x": 2.55, "y": 1.55, "lato": 0.55, "rot": 15 },
+   { "pezzo": "libri",        "x": 1.5,  "y": 1.7,  "lato": 0.5,  "rot": -20 },
+   { "pezzo": "candelabro",   "x": 2.4,  "y": 0.5,  "lato": 0.7,  "rot": 0,   "luce": "cera" },
+   { "pezzo": "candelabro-2", "x": 3.3,  "y": 1.6,  "lato": 0.7,  "rot": 180, "luce": "cera" },
+   { "pezzo": "mantello",     "x": 0.55, "y": 1.55, "lato": 0.9,  "rot": -10 },
+   { "pezzo": "mantello",     "x": 3.5,  "y": 2.4,  "lato": 0.85, "rot": 15 },
+   { "pezzo": "fogli",        "x": 2.15, "y": 3.35, "lato": 0.3,  "rot": 25 }
+  ],
+  "perche": "Il testo mette diciotto mesi di carte in pile sul tavolo di feltro verde: due pile di `libri` (i fascicoli legati) ne fanno le veci, sparse non allineate. Le due 'casse' dei dati diventano un armadio (documenti) e un baule (i verbali vecchi) contro le pareti, non crate industriali in una sala di società. I 'cappotti dei confratelli che asciugano in fondo' sono due mantelli neri appesi. Due candelabri simmetrici sono le 'lampade a gas' del testo (la prima si spegnera' come evento di gioco, non qui: la base resta accesa). Un foglio caduto vicino all'angolo e' un ordine del giorno scivolato. Il sigillo di ceralacca spezzato del testo non e' in scena: il pezzo del catalogo (`sigillo-cera`) riempie solo il 7%x8% del riquadro (lezione Ep.17), un puntino illeggibile. T1 ha tre token (l'eroe attivo al centro (1,2) e i due d'ingresso (0,3)/(1,3)): nessun decoro in quell'angolo basso-sinistra."
+ },
+ "T2": {
+  "arredi": { "1,2": "busto", "2,1": "candelabro-2" },
+  "decori": [
+   { "pezzo": "candela-nera",   "x": 0.5, "y": 0.5, "lato": 0.4,  "rot": 0 },
+   { "pezzo": "candela-nera",   "x": 3.5, "y": 3.5, "lato": 0.4,  "rot": 90 },
+   { "pezzo": "ragnatela",      "x": 3.65,"y": 0.35,"lato": 0.8,  "rot": 180 },
+   { "pezzo": "mantello",       "x": 0.5, "y": 3.4, "lato": 0.9,  "rot": -15 },
+   { "pezzo": "libri",          "x": 0.45,"y": 2.1, "lato": 0.5,  "rot": 10 },
+   { "pezzo": "specchio-rotto", "x": 3.4, "y": 1.7, "lato": 0.9,  "rot": 10 }
+  ],
+  "perche": "'I ritratti dei presidenti vi guardano dal buio': una delle due 'casse' diventa un busto marmoreo CADUTO/rotto (il catalogo lo ha gia' cosi') al posto di un piedistallo vuoto — il 'gancio spoglio', l'undicesimo posto senza nome, reso fisico invece che solo raccontato. L'altra diventa un candelabro a stelo, FORZATO senza campo luce (il nome non contiene 'candele', quindi non si accende da solo): e' una delle lampade gia' spente, non quella che si spegnera' ora. Due candele nere spente agli angoli ribadiscono lo stesso 'le luci si spengono una a una'. Un mantello dimenticato su un gancio, una pila di libri-verbali contro il muro, uno specchio rotto (caduto dalla parete, un altro segno di 'qualcosa e' andato storto' in questa casa che si rivolta contro gli eroi). PROVATO PRIMA un orologio-fermo li', ma tolto dopo la foto: sul pavimento 'tappeto' di questa stanza il quadrante chiaro (85%x85% di riempimento reale, non e' un problema di bbox) restava comunque illeggibile — stesso tono caldo-grigio del tappeto sotto, un caso da manuale di 'colore troppo vicino al pavimento' (principio guida, non lezione bbox): sostituito con lo specchio rotto, tono freddo/blu che salta molto di piu' sul tappeto caldo. Ragnatela nell'angolo lontano dal busto, mai spolverato. Zero luci fisse: e' il corridoio che si spegne, resta solo la lanterna degli eroi. Nessuna cassaforte ne' vano dietro le cornici (il testo lo esclude esplicitamente): nessun oggetto lo suggerisce."
+ },
+ "T3": {
+  "arredi": { "0,2": "armadio", "3,1": "armadio" },
+  "decori": [
+   { "pezzo": "libri",          "x": 2.5, "y": 0.5,  "lato": 0.55, "rot": 10 },
+   { "pezzo": "libri",          "x": 2.6, "y": 3.4,  "lato": 0.5,  "rot": -15 },
+   { "pezzo": "sfera-armillare","x": 3.4, "y": 2.4,  "lato": 1.0,  "rot": 15 },
+   { "pezzo": "candelabro",     "x": 0.5, "y": 1.3,  "lato": 0.7,  "rot": 0,   "luce": "cera" },
+   { "pezzo": "ragnatela",      "x": 3.65,"y": 3.65, "lato": 0.8,  "rot": 180 },
+   { "pezzo": "libro-aperto",   "x": 0.6, "y": 3.3,  "lato": 0.4,  "rot": 20 }
+  ],
+  "perche": "La biblioteca della Società: le due 'casse' diventano due scaffali/armadi gemelli (uno dei due, non segnalato in scena, e' quello che ruota sul passaggio segreto — il testo dice che gli eroi non lo sapevano, quindi nulla lo deve tradire). Pile di libri sul perimetro, una sfera armillare (curiosita' da studio, 'verticale e ferro') e un candelabro come unica luce fissa — qualcuno legge ancora qui. Un libro aperto vicino alla porta sud suggerisce le 'riletture delle vecchie lettere' che la Domanda 4 chiede di fare. Ragnatela nell'angolo opposto al candelabro. La lanterna cieca del `cerca` (in un cassetto) non e' in scena."
+ },
+ "T4": {
+  "arredi": { "1,1": "arredi/scrivania", "2,3": "toeletta" },
+  "decori": [
+   { "pezzo": "candelabro",       "x": 2.5, "y": 3.5, "lato": 0.6, "rot": 0,   "luce": "cera", "sopra": true },
+   { "pezzo": "sgabello-rovesciato","x": 0.6,"y": 1.4, "lato": 0.7, "rot": 110 },
+   { "pezzo": "mappamondo",       "x": 3.4, "y": 0.5, "lato": 0.65,"rot": -10 },
+   { "pezzo": "orologio-fermo",   "x": 0.5, "y": 3.4, "lato": 1.1, "rot": 0 },
+   { "pezzo": "busto",            "x": 3.3, "y": 1.6, "lato": 0.6, "rot": 200 }
+  ],
+  "perche": "Lo studio dove M. e' entrambe le maschere. Le due 'casse' dei dati diventano lo 'scrittoio' vero (arredo/scrivania, lo stesso pezzo dell'Ep.1 T4) e la 'toeletta' (il grande specchio che si fronteggia col ritratto, gia' buon pezzo per Ep.16 T6). Sopra la toeletta, l'UNICA luce fissa ('la lampada sta fra il ritratto e lo specchio'): un candelabro, sopra:true (il nome raw dell'arredo e' 'altare', una superficie). Il piano della scrivania resta VUOTO — il testo lo dice due volte ('sgombra', 'nemmeno un pennino fuori posto') — nessun decoro sulla sua cella, ne' 'sopra' (il test lo impedirebbe comunque: il nome raw li' e' 'casse', non una superficie). Lo sgabello rovesciato, vicino alla scrivania ma non sopra, e' il 'qualcosa e' appena successo': M. sparito di scatto nel muro. Un mappamondo e un busto (caduto nello stesso istante) dicono l'ambizione di chi si crede 'l'Italia intera'; un orologio fermo anticipa in scena l'indizio del protocollo/timbro della soluzione. Cinque decori soltanto: e' la stanza piu' fredda e spoglia dell'episodio, voluta cosi'. OTTAVO CASO DI COLLISIONE PER SOTTOSTRINGA (trovato guardando la foto, NON corretto qui, stesso schema delle sette gia' note Ep.9-15): il nome 'LO STUDIO PRIVATO DI M.' contiene 'PRIVATO', e 'PRIVATO' contiene 'riva' — in webapp/public/motore/ambiente.js:49 la riga PAVIMENTI `molo|banchin|imbarcader|fondament|riva|barc|approdo|dogana|squero` -> 'assi' intercetta la stanza PRIMA di arrivare alla riga :72 (`...studio...` -> 'tappeto') che la classificherebbe giusta: lo studio del presidente rende quindi come un molo/pontile di legno, non un salotto con tappeto (confermato nella foto: pavimento a tavole scure, non il tappeto operato visto in T1/T2/T3). PIU' GRAVE del solito: la stessa riga esiste identica in FUORI_DI (ambiente.js:17), quindi `fuoriDichiarato(T4)` restituisce 'acqua' — verificato da script (`fuoriDichiarato` su tutte e sei le tessere): T4 e' l'UNICA tessera dell'episodio a dichiarare un fuori, quindi l'intero margine della mappa di Ep.18 (nessun'altra stanza e' acqua/giardino/tetto) rischia di riempirsi d'acqua attorno a un Palazzo tutto al chiuso. Severita' stimata: media-alta — solo cosmetico (nessuna tessera, exit o combattimento e' coinvolto), ma con un raggio piu' ampio delle collisioni precedenti (l'intera mappa dell'episodio, non una stanza sola). Non toccato: ne' ambiente.js ne' gen_ep18.py sono nella lista file di questo task; da correggere nella passata dedicata (Task 9)."
+ },
+ "T5": {
+  "arredi": { "1,2": "arredi/scala", "2,1": "arredi/scala" },
+  "decori": [
+   { "pezzo": "calcinacci",   "x": 0.4,  "y": 0.5, "lato": 0.55, "rot": 25 },
+   { "pezzo": "calcinacci-2", "x": 3.6,  "y": 3.4, "lato": 0.55, "rot": -30 },
+   { "pezzo": "ragnatela",    "x": 3.65, "y": 0.4, "lato": 0.8,  "rot": 180 },
+   { "pezzo": "ragnatela-2",  "x": 0.35, "y": 3.6, "lato": 0.75, "rot": 0 },
+   { "pezzo": "vetri-infranti-2", "x": 0.5, "y": 2.4, "lato": 0.45, "rot": 45 }
+  ],
+  "perche": "'Su una scalinata non si nasconde niente e non si dimentica niente': le due 'casse' dei dati diventano i gradini veri (arredi/scala, stesso pezzo del Custode dell'Ep.1), non due crate a meta' rampa. Nessun oggetto personale — solo l'architettura che invecchia da sola: calcinacci ai piedi dei due lati, ragnatele alte nella tromba (esenti dal limite di riuso), un piccolo mucchio di vetri infranti (una lampada caduta nella fuga, coerente col resto dell'episodio che si spegne). PROVATA PRIMA una candela nera spenta al suo posto, tolta dopo la foto: nera, spenta, su legno gia' scuro ('assi') era invisibile — lo stesso difetto gia' noto dall'Ep.5 (candela nera su legno scuro). Nessuna luce fissa: si sale/scende nel buio, i gendarmi da un lato, il maggiordomo dall'altro — l'ultimo diaframma prima dell'uscita. NOTA (non un difetto di motore, solo osservazione locale): il nome 'LA SCALINATA' fa scattare la riga PAVIMENTI `scalinata|scala|gradin` -> 'assi' (assi di legno) anche se il testo dice 'marmo': stessa resa gia' usata per OGNI scala del gioco (Ep.1 T5, Ep.15 T5 compresi), verificato a foto che il risultato resta comunque leggibile — non segnalato come bug (vedi invece T4 per un vero difetto di motore trovato in questo episodio)."
+ },
+ "T6": {
+  "arredi": { "0,1": "armadio" },
+  "decori": [
+   { "pezzo": "mantello",   "x": 0.5, "y": 2.4, "lato": 0.85, "rot": -10 },
+   { "pezzo": "mantello",   "x": 1.4, "y": 0.5, "lato": 0.8,  "rot": 15 },
+   { "pezzo": "calcinacci", "x": 3.5, "y": 0.5, "lato": 0.55, "rot": 30 },
+   { "pezzo": "ragnatela",  "x": 3.65,"y": 3.6, "lato": 0.8,  "rot": 180 },
+   { "pezzo": "straccio",   "x": 3.4, "y": 2.3, "lato": 0.3,  "rot": 60 }
+  ],
+  "perche": "'Sull'attaccapanni, cappotti che nessuno e' tornato a riprendere': la 'cassa' dei dati diventa un armadio-guardaroba vicino alla porta, con due mantelli neri abbandonati accanto (il plurale del testo). Un calcinaccio alla soglia (l'aria fredda che entra da sotto), uno straccio dimenticato vicino all'uscita di servizio, una ragnatela nell'angolo lontano dal via vai. Nessuna luce fissa: un atrio freddo, di notte, all'ultimo respiro prima della strada — coerente con l'orologio 'Arresto' che incombe. Zero sangue: qui non e' successo nulla di violento, solo una fuga."
+ }
+}

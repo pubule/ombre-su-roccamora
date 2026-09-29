@@ -1333,6 +1333,91 @@ webapp/test-scenografia.mjs && node webapp/test-stanza.mjs` → tutti `OK`.
 **Prossimo**: Task 8, `ep18` — stesso procedimento, giudicato contro Ep.1,
 preludio ed ep2-ep17.
 
+**Task 8 — ep18 FATTO (29/09/2026)**: `src/scenografia/ep18.json` (La mano
+sola — l'ultima assemblea al Palazzo del Lume: sala dell'assemblea,
+corridoio dei ritratti, biblioteca, studio privato di M., scalinata,
+uscita), T1-T6 composte da zero leggendo `testo`/`cerca`/`cerca_vuoto`/
+`hook`/`arredi` di `webapp/data/ep18.json` contro il catalogo esistente.
+Nessun pezzo mancante, `scripts/importa-fa-lanterne.py` non toccato.
+
+Le 'casse' generiche dei dati riscritte per posto in quasi ogni stanza
+(docs/scenografia.md): T1 armadio+baule (documenti/verbali contro le
+pareti dell'aula), T2 busto marmoreo caduto (il "gancio spoglio"/
+piedistallo vuoto reso fisico) + candelabro-2 forzato SENZA campo luce
+(una delle lampade gia' spente), T3 due armadio come scaffali gemelli
+(uno, non segnalato, e' quello che ruota sul passaggio segreto), T4
+arredi/scrivania + toeletta (lo specchio che si fronteggia col ritratto,
+con un candelabro sopra:true, unica luce della stanza — "la lampada sta
+fra il ritratto e lo specchio"), T5 due arredi/scala (i gradini veri), T6
+armadio-guardaroba coi mantelli abbandonati accanto ("cappotti che
+nessuno e' tornato a riprendere"). La scrivania di T4 resta VOLUTAMENTE
+VUOTA (il testo lo dice due volte): nessun decoro sulla sua cella, ne'
+'sopra' (il test lo impedirebbe comunque: il nome raw li' e' 'casse', non
+una superficie).
+
+Gradazione di luce sull'episodio: T1/T3/T4 con 1-2 luci fisse (l'assemblea
+ancora viva, chi legge in biblioteca, l'unica lampada dello studio), T2/T5/
+T6 completamente al buio ("le luci si spengono una a una", coerente con lo
+schema fuga gia' usato in Ep.7/Ep.9/Ep.17).
+
+**Due correzioni trovate SOLO guardando le foto (non nel JSON)**:
+1. T2: un `orologio-fermo` (bbox reale 85%x85%, non uno sprite sparso)
+   restava comunque illeggibile — stesso tono caldo-grigio del pavimento
+   'tappeto' sotto, il "colore troppo vicino al pavimento" della guida.
+   Sostituito con `specchio-rotto` (tono freddo/blu, molto piu' leggibile).
+2. T5: una `candela-nera` spenta risultava invisibile sul pavimento 'assi'
+   (legno scuro) — lo stesso difetto gia' noto dall'Ep.5 (candela nera su
+   legno scuro). Sostituita con `vetri-infranti-2`.
+
+**OTTAVO caso di collisione per sottostringa nel nome, trovato guardando
+la foto e NON corretto qui** (stesso schema dei sette gia' noti, Ep.9-15,
+l'ultima nota esplicita in `src/scenografia/ep15.json:45`): la tessera T4
+si chiama "LO STUDIO PRIVATO DI M.", e "PRIVATO" contiene la sottostringa
+"riva". In `webapp/public/motore/ambiente.js:49` (PAVIMENTI) la riga
+`molo|banchin|imbarcader|fondament|riva|barc|approdo|dogana|squero` ->
+'assi' intercetta la stanza PRIMA della riga :72 (`...studio...` ->
+'tappeto') che la classificherebbe giusta: lo studio del presidente rende
+con tavole di legno scuro (confermato in foto, diverso dal tappeto di
+T1/T2/T3), non un salotto. **Piu' grave del solito**: la stessa riga
+esiste identica in FUORI_DI (ambiente.js:17), quindi `fuoriDichiarato(T4)`
+restituisce 'acqua' — verificato da riga di comando (`pavimentoDi`/
+`fuoriDichiarato` chiamate direttamente su tutte e sei le tessere): T4 e'
+l'UNICA tessera dell'intero episodio a dichiarare un fuori (le altre
+cinque danno `null`), quindi l'intero margine della mappa di Ep.18 rischia
+di riempirsi d'acqua attorno a un Palazzo tutto al chiuso — un raggio
+d'effetto piu' ampio delle sette collisioni precedenti (quasi tutte
+confinate a una stanza sola). Severita' stimata: media-alta (puramente
+cosmetico, nessuna exit/meccanica coinvolta, test-suite verde — ma il
+raggio e' l'intera mappa, non una stanza). Non toccato: ne' `ambiente.js`
+ne' `gen_ep18.py` sono nella lista file di questo task. Documentato anche
+nel campo `perche'` di T4 in `src/scenografia/ep18.json` e nel report
+`.superpowers/sdd/2026-09-24-plancia-lanterne/task-8-ep18-report.md`, per
+la passata dedicata (Task 9).
+
+**Controllato il token su tutte e sei le tessere** (T1 coi tre token
+d'ingresso inclusi: l'eroe attivo al centro screen (1,2) e i due
+d'ingresso screen (0,3)/(1,3), calcolati a mano da `cellaCentrale()`/dati
+arredi PRIMA di scrivere le coordinate; le altre cinque tessere hanno un
+solo token: T2 (2,2), T3 (1,2), T4 (1,2), T5 (2,2), T6 (1,2)) — nessuna
+occlusione dopo le due correzioni sopra.
+
+**Riuso tracciato a mano**: `libri` (T1,T2,T3 = 3, al limite), `candelabro`
+(T1,T3,T4 = 3, al limite), `mantello` (T1,T6), `candela-nera` (T2,T5),
+`orologio-fermo` (T2,T4), `calcinacci` (T5,T6) — tutti entro il limite di 3
+stanze; ragnatele esenti, usate liberamente in T2/T3/T5/T6.
+
+**Non mostrato in scena, per il campo `cerca`**: la lanterna cieca della
+biblioteca (T3, in un cassetto — resta lo scaffale, il contesto).
+
+Verificato guardando tutte e sei le foto due volte (`node
+webapp/mappa-plancia-fa.mjs --ep ep18`, `export-data.py` rilanciato prima
+di ogni rigenerazione) affiancate a quelle dell'Ep.1, un giro di correzione
+(sopra) prima di committare. Test: `python webapp/export-data.py && node
+webapp/test-scenografia.mjs && node webapp/test-stanza.mjs` → tutti `OK`.
+
+**Prossimo**: Task 8, `ep19` — stesso procedimento, giudicato contro Ep.1,
+preludio ed ep2-ep18.
+
 ## FATTO (22/09/2026) — i vantaggi d'Indagine arrivano in Spedizione (audit + correzioni)
 
 Report: `AUDIT-VANTAGGI-INDAGINE.md`. Banco: `node webapp/audit-vantaggi.mjs [porta]
