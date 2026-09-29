@@ -456,8 +456,70 @@ ogni rigenerazione) affiancate a quelle dell'Ep.1, un giro di correzione
 (sopra) prima di committare. Test: `python webapp/export-data.py && node
 webapp/test-scenografia.mjs && node webapp/test-stanza.mjs` → tutti `OK`.
 
-**Prossimo**: Task 8, `ep6` — stesso procedimento, giudicato contro Ep.1,
-preludio ed ep2/ep3/ep4/ep5.
+**Task 8 — ep6 FATTO (29/09/2026)**: `src/scenografia/ep6.json` (Il Terzo
+Movimento — finale dell'Atto I, 8 tessere invece delle solite 6), T1-T8
+composte da zero leggendo `testo`/`cerca`/`cerca_vuoto`/`hook`/`arredi` di
+`webapp/data/ep6.json` contro il catalogo esistente. Due pezzi mancanti: T7
+(l'anticamera del coro) chiede "dodici mantelli appesi" e "dodici paia di
+scarpe buone allineate" — cercato in `risorse-vtt/FA_Assets_Webp`, guardati i
+PNG (`Cloak_Cloth_Black_A1_1x2`, un mantello nero incappucciato che lega
+subito al pool ADEPTO INCAPPUCCIATO; `Boots_Leather_Black_A1_1x1`), aggiunti
+`mantello`/`scarpe` a `scripts/importa-fa-lanterne.py` (95 pezzi ora),
+rilanciato l'importer ed `export-assets.py`.
+
+Le tre sale-vestibolo (T3 Bronzo, T5 Pietra, T6 Ossa) condividono lo schema
+arredi crogiolo/forma: T3 e T4 hanno il crogiolo come arredo, che il motore
+accende gia' da solo (`fuoco = /candele|crogiolo|stufa/`), quindi **zero luci
+decoro aggiunte li'** — stessa lezione di Ep.5 T5/T6. Gradazione di luce
+sull'episodio: T1/T2/T5 buio totale (il testo insiste sul buio o sulla
+marea), T3/T4 il bagliore automatico del crogiolo, T6/T7/T8 candele vere via
+via piu' fitte verso il rito finale.
+
+**Un focal point sbagliato, trovato SOLO in foto**: T3 usava `campana-grande`
+(la campana vista da SOPRA, un disco piatto grigio) come punto focale della
+"campana APPESA, il battaglio gia' in tiro" — in foto era un secondo disco
+indistinguibile dai due arredi rotondi (crogiolo/forma) gia' in stanza,
+falliva il colpo d'occhio. Guardato il PNG sorgente di `campana-grande-2`
+(stessa campana, vista di lato/tre-quarti): sagoma a campana netta,
+riconoscibile subito, spostata lontano dagli arredi rotondi. T5 aveva tre
+oggetti "sopra" il leggio (arredo `scrivania`, qui reskin narrativo — il
+tavolo di calcolo di chi ha accordato la gola): fogli/calamaio/libro
+sparivano del tutto in foto (bbox minuscola contro l'arte del leggio) — tolti
+invece di forzarli, lo sgabello rovesciato resta da solo il fuoco della
+stanza. T6 (`organo`) e T7 (`scarpe`) ingranditi dopo la prima foto per lo
+stesso motivo (lezione 3 gia' nota da Ep.5: pezzi con poco disegno reale nel
+riquadro).
+
+**Il cuneo maestro di T5 non ha un pezzo**: cercato "wedge"/"peg"/"chisel" in
+`risorse-vtt/FA_Assets_Webp`, niente di credibile (solo spicchi di patata e
+utensili da cucina). Non forzato — il meccanismo di gioco (l'azione
+dell'arbitro) resta senza decoro dedicato, come le canne da sfregiare
+dell'Ep.5 T6.
+
+**Il token dell'eroe controllato su tutte e otto le tessere** (T1 coi tre
+token dell'entrata inclusi: i due angoli (0,3)/(1,3) e il centrale (1,2)) —
+calcolate a mano le celle libere candidate per ogni tessera prima di comporre
+(script Node su `cellaCentrale`/`portaCella`), poi riverificato a occhio
+sulle foto: nessuna occlusione. Un errore di conteggio corretto dal test, non
+dall'occhio: `calcinacci` finiva in 4 stanze (T1/T2/T4/T5, il tetto e' 3) —
+T2 spostato su `calcinacci-2`; e due corde di T2 cadevano sulla cella
+dell'arredo `molo` invece che accanto.
+
+**Non mostrato in scena, per il campo `cerca`**: la mazzetta di piombo da
+campanaro (T3), il contratto del corista nel mantello (T7). T8 (la Camera
+delle Tre Acque, il boss) e' voluta la stanza con meno decori dell'episodio
+(5, il minimo): il `cerca_vuoto` dice esplicitamente "pietra nuda... niente
+lasciato indietro" — niente ragnatele ne' calcinacci li', solo l'apparato del
+rito in corso (candele, spartiti).
+
+Verificato guardando tutte e otto le foto due volte (`node
+webapp/mappa-plancia-fa.mjs --ep ep6`, `export-data.py` rilanciato prima di
+ogni rigenerazione) affiancate a quelle dell'Ep.1, un giro di correzione
+(sopra) prima di committare. Test: `python webapp/export-data.py && node
+webapp/test-scenografia.mjs && node webapp/test-stanza.mjs` → tutti `OK`.
+
+**Prossimo**: Task 8, `ep7` — stesso procedimento, giudicato contro Ep.1,
+preludio ed ep2/ep3/ep4/ep5/ep6.
 
 ## FATTO (22/09/2026) — i vantaggi d'Indagine arrivano in Spedizione (audit + correzioni)
 

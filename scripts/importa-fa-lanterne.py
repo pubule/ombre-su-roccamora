@@ -246,6 +246,12 @@ PEZZI = {
                                     {'ambienti': ['tetti'], 'lato': 1.2, 'luce': None, 'sopra': False}),
     'decori/forca.png': (FA, f'{CS}/Structures/Beams_and_Supports/Beams/Beam_Gallow_Wood_Dark_Metal_Gray_A1_1x2.webp',
                          {'ambienti': ['tetti', 'gotico'], 'lato': 1.8, 'luce': None, 'sopra': False}),
+    # -- Ep.6 (Il Terzo Movimento): l'anticamera del coro, dodici mantelli e
+    # dodici paia di scarpe allineate — provino guardato prima di importarli
+    'decori/mantello.png': (FA, f'{CS}/Clutter/Clothing/Jackets_and_Cloaks/Cloak_Cloth_Black_A1_1x2.webp',
+                            {'ambienti': ['gotico', 'chiese'], 'lato': 1.0, 'luce': None, 'sopra': False}),
+    'decori/scarpe.png': (FA, f'{CS}/Clutter/Clothing/Footwear/Boots_Leather_Black_A1_1x1.webp',
+                          {'ambienti': ['chiese', 'case'], 'lato': 0.5, 'luce': None, 'sopra': False}),
 }
 
 

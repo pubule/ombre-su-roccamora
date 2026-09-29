@@ -1,0 +1,90 @@
+{
+ "T1": {
+  "decori": [
+   { "pezzo": "corda",          "x": 0.5, "y": 1.3,  "lato": 0.7,  "rot": 20 },
+   { "pezzo": "calcinacci",     "x": 3.4, "y": 0.4,  "lato": 0.6,  "rot": 40 },
+   { "pezzo": "calcinacci-2",   "x": 3.5, "y": 1.3,  "lato": 0.55, "rot": -25 },
+   { "pezzo": "pozza",          "x": 2.5, "y": 3.4,  "lato": 1.0,  "rot": 15 },
+   { "pezzo": "detriti-bronzo", "x": 2.9, "y": 3.1,  "lato": 0.5,  "rot": -30 },
+   { "pezzo": "ragnatela",      "x": 2.4, "y": 0.35, "lato": 0.75, "rot": 90 }
+  ],
+  "perche": "Il testo insiste sul buio ('il buio vi prende in consegna'): nessuna luce fissa, come Ep.5 T1 — e' il punto di ritorno per vincere, non un posto sicuro. La corda sta vicino al molo (l'anello d'ormeggio). I calcinacci accanto alle casse sono i conci numerati tolti con cura dall'arco murato (questo luogo e' 'L'Imbocco delle Tre Acque'). La pozza coi trucioli di bronzo, in periferia, e' esattamente cio' che dice il cerca_vuoto — 'cera nera e trucioli di bronzo, sul fondo, sotto un dito d'acqua' — testo sempre visibile, non un cerca. Una ragnatela nell'angolo alto, lontano dai tre eroi che entrano qui."
+ },
+ "T2": {
+  "decori": [
+   { "pezzo": "corda",        "x": 0.5,  "y": 3.3,  "lato": 0.6,  "rot": -20 },
+   { "pezzo": "corda",        "x": 3.5,  "y": 2.3,  "lato": 0.55, "rot": 35 },
+   { "pezzo": "pozza",        "x": 2.0,  "y": 2.0,  "lato": 1.2,  "rot": 10 },
+   { "pezzo": "calcinacci-2", "x": 2.0,  "y": 3.5,  "lato": 0.6,  "rot": 200 },
+   { "pezzo": "ragnatela",  "x": 3.6,  "y": 0.4,  "lato": 0.75, "rot": 90 },
+   { "pezzo": "secchio",    "x": 2.2,  "y": 0.35, "lato": 0.4,  "rot": -10 }
+  ],
+  "perche": "'I muri portano i segni dell'acqua alta' e stanotte 'l'acqua SALE' (dal 6° round la marea punisce chi resta): una pozza scura al centro, in ingrossamento, e' il punto focale del pericolo. Le due corde legano le imbarcazioni ai due moli (arredi). Calcinacci per i muri erosi da un secolo di marea, un secchio dimenticato da chi controlla i livelli (la Chiusa Grande e' vicina), una ragnatela nella sola parte alta verso Il Bronzo. Nessuna luce fissa: e' un budello di marea, non un posto per fermarsi."
+ },
+ "T3": {
+  "decori": [
+   { "pezzo": "campana-grande-2", "x": 2.7, "y": 3.0, "lato": 1.7, "rot": 0 },
+   { "pezzo": "catene",         "x": 3.5, "y": 1.5, "lato": 0.7, "rot": 90 },
+   { "pezzo": "detriti-bronzo", "x": 0.5, "y": 1.4, "lato": 0.55, "rot": 25 },
+   { "pezzo": "carbone",        "x": 0.4, "y": 2.6, "lato": 0.5, "rot": 0 },
+   { "pezzo": "baule",          "x": 3.4, "y": 0.4, "lato": 0.7, "rot": -15 },
+   { "pezzo": "ragnatela",      "x": 3.6, "y": 3.6, "lato": 0.8, "rot": 180 }
+  ],
+  "perche": "Il testo nomina la campana ('APPESA... la gemella di San Teodoro, rifusa di nascosto, il battaglio gia' in tiro'): e' il punto focale. Prima prova (campana-grande, il pezzo visto dall'alto) era un disco piatto che spariva contro il pavimento e si confondeva con crogiolo/forma (arredi, anch'essi rotondi) — corretta in foto con campana-grande-2, la stessa campana vista di lato: sagoma dura e riconoscibile a colpo d'occhio, spostata in basso per non sovrapporsi ai due arredi rotondi. Le catene di rigging accanto, spostate sul lato libero. Detriti di bronzo vicino al crogiolo (arredo) sono gli scarti della rifusione clandestina; un braciere di carbone spento accanto alla forma (arredo); un baule d'attrezzi del cantiere ('fra le casse del cantiere') in un angolo — la mazzetta di piombo che si trova cercando resta fuori scena. Nessuna luce fissa aggiunta: il crogiolo (arredo) gia' fa da braciere acceso, per regola del motore."
+ },
+ "T4": {
+  "decori": [
+   { "pezzo": "pozza",          "x": 1.5, "y": 1.5, "lato": 0.7,  "rot": 0 },
+   { "pezzo": "pozza",          "x": 2.6, "y": 0.6,  "lato": 0.55, "rot": 40 },
+   { "pezzo": "pozza",          "x": 2.5, "y": 3.4,  "lato": 0.6,  "rot": -20 },
+   { "pezzo": "calcinacci",     "x": 0.4, "y": 0.4,  "lato": 0.6,  "rot": 210 },
+   { "pezzo": "ragnatela",      "x": 3.6, "y": 3.6,  "lato": 0.8,  "rot": 180 },
+   { "pezzo": "detriti-bronzo", "x": 3.4, "y": 2.6,  "lato": 0.5,  "rot": -15 }
+  ],
+  "perche": "'I canali scoperti e tre colori d'acqua... in TRE direzioni sbagliate': tre pozze separate e non allineate segnano dove le vene dolce/salmastra/morta si sfiorano senza mescolarsi, sparse verso le tre uscite (Bronzo a sud, Pietra a est, Ossa a nord). Calcinacci per la rotonda di pietra viva mai restaurata, resti di bronzo vicino al crogiolo (arredo, il lavoro clandestino di T3 arriva fin qui), una ragnatela nell'angolo che nessuno attraversa. Nessuna luce aggiunta: il crogiolo dell'arredo gia' illumina per regola — e' un crocevia che 'vi sente', non va reso piu' accogliente di cosi'."
+ },
+ "T5": {
+  "decori": [
+   { "pezzo": "sgabello-rovesciato", "x": 1.5, "y": 1.3,  "lato": 0.85, "rot": 110 },
+   { "pezzo": "calcinacci",          "x": 2.4, "y": 3.3,  "lato": 0.6,  "rot": 55 },
+   { "pezzo": "calcinacci-2",        "x": 2.9, "y": 3.55, "lato": 0.55, "rot": -30 },
+   { "pezzo": "ragnatela",           "x": 0.4, "y": 0.35, "lato": 0.75, "rot": 90 },
+   { "pezzo": "straccio",            "x": 3.3, "y": 2.5,  "lato": 0.3,  "rot": 70 }
+  ],
+  "perche": "Il testo non nomina una scrivania, ma i dati la mettono qui (arredo di gioco): il pezzo si vede in foto come un leggio/podio dal profilo netto — diventa il tavolo di chi ha accordato la gola. Prima prova: fogli e calamaio 'sopra' il leggio — spariti nella foto (bbox del pezzo troppo piccola contro l'arte del leggio, lezione 3), tolti invece di forzare. Lo sgabello rovesciato davanti al leggio (ingrandito, e' l'unico segno di lavoro interrotto: chi ci lavorava non si e' alzato, si e' alzato di scatto — l'abbandono, come Ep.1 T4) resta il fuoco della stanza. Il cuneo maestro e la fenditura restano fuori scena — nessun pezzo del catalogo li rende senza forzare (lezione 5: meglio un decoro in meno che uno a caso); calcinacci e uno straccio da cantiere segnano dove la roccia ha ceduto. Una ragnatela nell'angolo lontano dal leggio. Nessuna luce: la gola resta buia, solo l'eco di 'mezzi toni sbagliati'."
+ },
+ "T6": {
+  "decori": [
+   { "pezzo": "organo",         "x": 2.4, "y": 0.55, "lato": 1.8, "rot": 10 },
+   { "pezzo": "candele-nere-3", "x": 1.5, "y": 1.3, "lato": 0.7,  "rot": 0,  "luce": "cera" },
+   { "pezzo": "candele-nere",   "x": 3.4, "y": 1.3, "lato": 0.7,  "rot": 90, "luce": "cera" },
+   { "pezzo": "ossa",           "x": 0.9, "y": 2.9, "lato": 1.3,  "rot": 20 },
+   { "pezzo": "teschio",        "x": 3.5, "y": 3.4, "lato": 0.75, "rot": 0,  "luce": "cera" },
+   { "pezzo": "ragnatela",      "x": 0.4, "y": 0.4, "lato": 0.75, "rot": 200 },
+   { "pezzo": "catene",         "x": 0.4, "y": 1.3, "lato": 0.7,  "rot": 90 }
+  ],
+  "perche": "'Meta' canne d'ossa, meta' tubi di stagno — un ibrido febbrile che respira gia'': la rastrelliera dell'organo (stesso pezzo di Ep.5, qui unica comparsa) e' il punto focale contro la parete di fondo, con due gruppi di candele nere che affiancano l'altare (arredo) come nella cripta di Ep.1 T6. Un mucchio d'ossa ai piedi dice di che cosa e' fatto lo strumento; catene alla parete per il mantice ('la vena salmastra gli fa da mantice'). Un teschio-candela nell'angolo opposto, ingrandito (lezione: il pezzo del catalogo disegna poco dentro il riquadro). Il somiere da strappare (l'azione dell'arbitro, prova NERVI) e' un meccanismo di gioco, non ridisegnato."
+ },
+ "T7": {
+  "decori": [
+   { "pezzo": "mantello",     "x": 0.5, "y": 0.9,  "lato": 1.0,  "rot": 0 },
+   { "pezzo": "mantello",     "x": 0.9, "y": 0.85, "lato": 0.9,  "rot": 15 },
+   { "pezzo": "cero",         "x": 1.9, "y": 2.25, "lato": 0.4,  "rot": 0,   "sopra": true, "luce": "cera" },
+   { "pezzo": "spartiti",     "x": 0.5, "y": 2.4,  "lato": 0.7, "rot": 20 },
+   { "pezzo": "scarpe",       "x": 3.3, "y": 2.2,  "lato": 0.7, "rot": -10 },
+   { "pezzo": "scarpe",       "x": 3.55, "y": 2.55, "lato": 0.65, "rot": 25 },
+   { "pezzo": "panca-marcia", "x": 0.7, "y": 3.3,  "lato": 1.5,  "rot": 5 }
+  ],
+  "perche": "'Dodici mantelli appesi... dodici paia di scarpe buone allineate... sul tavolo, gli spartiti': due mantelli neri incappucciati (nuovo pezzo, cercato in libreria e visto prima di importarlo — il coro veste da adepto) vicino all'ingresso, due paia di stivali sul lato destro (ingranditi dopo la prima foto: il pezzo riempie poco il riquadro, lezione 3), uno spartito lasciato accanto alla scrivania (il pezzo non regge 'sopra': si posa a fianco, non sul tavolo) e un cero acceso sulla scrivania (sopra:true) — l'unica luce, perche' qui il coro si e' vestito da poco e qualcuno ci vedeva ancora. Una panca lunga per i 'dodici scranni'. Il contratto del corista che si trova cercando resta fuori scena: solo i mantelli, generici, sono in vista."
+ },
+ "T8": {
+  "decori": [
+   { "pezzo": "candele-nere-2", "x": 1.3, "y": 1.3, "lato": 0.8,  "rot": 90,  "luce": "cera" },
+   { "pezzo": "candele-nere-3", "x": 3.4, "y": 1.3, "lato": 0.8,  "rot": -90, "luce": "cera" },
+   { "pezzo": "spartiti",       "x": 0.6, "y": 2.6, "lato": 0.55, "rot": 20 },
+   { "pezzo": "spartiti",       "x": 2.9, "y": 2.7, "lato": 0.5,  "rot": -15 },
+   { "pezzo": "teschio",        "x": 0.5, "y": 3.4, "lato": 0.75, "rot": 0,   "luce": "cera" }
+  ],
+  "perche": "'La pietra intorno e' nuda: nessuna nicchia, niente che qualcuno abbia lasciato indietro' — la camera del rito e' spoglia apposta, non in decadimento: niente ragnatele ne' calcinacci, solo l'apparato del rito in corso. Due gruppi di candele nere affiancano l'altare (arredo, dove le tre vene si torcono senza mescolarsi), come una cripta in festa nera; gli spartiti del coro dei dodici, aperti, sparsi ai lati di dove cantano (eco di T7); un teschio-candela nell'angolo, terza luce. E' la stanza con meno decori dell'episodio: la spoglia esattezza e' il punto, non un difetto."
+ }
+}
