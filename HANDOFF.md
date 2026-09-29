@@ -758,6 +758,82 @@ webapp/test-scenografia.mjs && node webapp/test-stanza.mjs` → tutti `OK`.
 **Prossimo**: Task 8, `ep10` — stesso procedimento, giudicato contro Ep.1,
 preludio ed ep2/ep3/ep4/ep5/ep6/ep7/ep8/ep9.
 
+**Task 8 — ep10 FATTO (29/09/2026)**: `src/scenografia/ep10.json` (La casa che
+ricorda), T1-T6 composte da zero leggendo `testo`/`cerca`/`cerca_vuoto`/`hook`/
+`arredi` di `webapp/data/ep10.json` contro il catalogo esistente (nessun pezzo
+mancante, `scripts/importa-fa-lanterne.py` non toccato). Casa unica su sei
+tessere (ingresso, scala, corridoio, camera, sottoscala, intercapedine):
+**buio in T2-T4** (la salita nel buio verso la voce nel muro), **un lume solo
+in T1** (il cero che i Neri non sono tornati a spegnere) e **una torcia
+pratica in T5/T6** (dove il Muratore lavora davvero, cosi' la mischia e la
+corsa finale si vedono).
+
+**Un pezzo del catalogo che rende inutilizzabile, scoperto solo guardando la
+foto**: `tenda-strappata` (T4, "tenda strappata" contro la parete che detta)
+usciva come una riga sottile a zig-zag, illeggibile — controllato il sorgente
+(`Curtain_Large_Cloth_Black_A_3x1.webp`, 600×200px, bbox reale 416×38px): e'
+un asset pensato per una mantovana larga 3 caselle, non per un decoro 1x1;
+schiacciato a `lato` singolo diventa quasi invisibile. Sostituito con
+`mantello` (gia' provato altrove nell'episodio), nessun'altra modifica al
+catalogo.
+
+**Due giri di misura del "colpo d'occhio" (principio 1), non uno**: il primo
+giro (`lato` 0.3-0.8 come gli esempi della guida) produceva foto quasi vuote
+su questo episodio — sedia rovesciata, tazza, straccio, ragnatele e
+calcinacci sparivano quasi del tutto contro il mosaico chiaro di T1 e la
+pietra chiara di T2/T3/T5/T6 (diverso dal legno scuro dell'Ep.1, dove gli
+stessi pezzi alla stessa scala leggono bene). Corretto ingrandendo i pezzi
+deboli (0.55-1.15 invece di 0.3-0.8) e appoggiando il fuoco scenico su pezzi
+a silhouette dura gia' provati altrove (`specchio-rotto`/`specchio-rotto-2`,
+`busto`, `ossa`) invece che su pezzi sottili (`sgabello-rovesciato` resta,
+ma ingrandito e con luce vicina). Rigenerate tutte e sei le foto dopo la
+correzione.
+
+**Ragnatele quasi invisibili agli angoli, non un difetto di motore**:
+`ragnatela`/`ragnatela-2` risultano praticamente assenti a occhio in quasi
+tutti gli angoli di questo episodio, anche dopo l'ingrandimento. Controllato
+il sorgente (`Cobweb_Black_A1/A2.webp`): e' un tratto grigio chiaro sottile
+su fondo quasi bianco, con l'inchiostro sbilanciato in un angolo del proprio
+riquadro — contro le pietre chiare screpolate di T2/T3/T5/T6 (diverse dal
+legno scuro dell'Ep.1) si confonde con le crepe del pavimento gia' disegnate.
+Un pezzo vicino alla stessa posizione (`calcinacci`, contenuto piu' centrato
+nel riquadro) resta visibile, seppure debole: non e' quindi un'occlusione di
+motore (muri/pilastri d'angolo), solo un pezzo per natura delicato — coerente
+con l'esenzione dal tetto di riuso che la guida gia' gli concede. Lasciato
+com'e', accettato come dettaglio atmosferico minore: nessuna stanza vi si
+appoggia come punto focale.
+
+**Il token dell'eroe controllato su tutte e sei le tessere** (T1 coi tre
+token d'ingresso inclusi: i due angoli (0,3)/(1,3) decor e il centrale
+(1,2) — variabile tessera per tessera, calcolato a mano da `cellaCentrale()`
+sulle coordinate RAW degli arredi, non quelle decor): nessun decoro cade
+sulla cella del token attivo ne' su quelle d'ingresso, verificato sia a
+calcolo sia guardando le sei foto rigenerate.
+
+**Nessun problema di classificazione per sottostringa che rompa muri o porte**
+(lezione Ep.8 sulla "Tettoia delle Chiatte"): controllati tutti e sei i nomi
+contro `ambiente.js`. Un caso di sottostringa reale ma innocuo, solo sul
+pavimento (come "La Sacrestia" dell'ep9): T5 "IL SOTTOSCALA" contiene "scala"
+(→ riga `assi`, che vince PRIMA della riga dedicata "sottoscala" → `roccia`,
+piu' in basso nell'elenco `PAVIMENTI`). Verificato che non tocchi muri/porte
+(quelli dipendono solo da `exits`/`arredi`, mai dal pavimento) e che il
+risultato — assi di legno per un vano sotto una scala interna — resti
+plausibile quanto la roccia viva prevista, forse di piu' in un contesto
+domestico: non segnalato come difetto di motore, solo annotato per chi
+componesse "IL SOTTOSCALA" o simili altrove. T1 "L'INGRESSO (IL TINELLO)"
+prende invece pavimento 'mosaico' per la sottostringa "ingresso" (riga
+dedicata, PRIMA della riga "tinello"→'mattonelle'): non e' una collisione,
+e' la regola giusta che vince — un ingresso a mosaico e' piu' calzante di un
+tinello a mattonelle per la prima stanza della casa.
+
+Verificato guardando tutte e sei le foto, due giri di correzione (sopra,
+`export-data.py` rilanciato prima di ogni rigenerazione) affiancate a quelle
+dell'Ep.1. Test: `python webapp/export-data.py && node
+webapp/test-scenografia.mjs && node webapp/test-stanza.mjs` → tutti `OK`.
+
+**Prossimo**: Task 8, `ep11` — stesso procedimento, giudicato contro Ep.1,
+preludio ed ep2/ep3/ep4/ep5/ep6/ep7/ep8/ep9/ep10.
+
 ## FATTO (22/09/2026) — i vantaggi d'Indagine arrivano in Spedizione (audit + correzioni)
 
 Report: `AUDIT-VANTAGGI-INDAGINE.md`. Banco: `node webapp/audit-vantaggi.mjs [porta]

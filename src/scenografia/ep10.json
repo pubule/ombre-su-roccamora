@@ -1,0 +1,68 @@
+{
+ "T1": {
+  "decori": [
+   { "pezzo": "sgabello-rovesciato", "x": 2.4,  "y": 1.45, "lato": 1.15, "rot": 100 },
+   { "pezzo": "mantello",            "x": 0.5,  "y": 1.5,  "lato": 1.0,  "rot": 5 },
+   { "pezzo": "specchio-rotto",      "x": 3.3,  "y": 2.4,  "lato": 0.75, "rot": -10 },
+   { "pezzo": "straccio",            "x": 1.9,  "y": 1.75, "lato": 0.55, "rot": 260 },
+   { "pezzo": "cero",                "x": 3.2,  "y": 1.4,  "lato": 0.5,  "rot": 0,   "luce": "cera" },
+   { "pezzo": "ragnatela",           "x": 3.6,  "y": 0.35, "lato": 1.1,  "rot": 0 }
+  ],
+  "perche": "Il testo dice 'la fuga si vede nelle sedie rovesciate': lo sgabello rovesciato, ingrandito per leggersi sul mosaico chiaro dell'ingresso, e' il punto focale, col cero ancora acceso (il lume che nessuno e' tornato a spegnere) a dargli l'unica luce della stanza — e uno straccio caduto accanto, resto della cena fredda. Un mantello appeso vicino alla porta fa da attaccapanni d'ingresso (il 'cappotto in una stanza vuota' della guida). Uno specchio incrinato sull'altra parete e una ragnatela grande nell'angolo, dove il mosaico si fa piu' scuro, chiudono la stanza."
+ },
+ "T2": {
+  "decori": [
+   { "pezzo": "specchio-rotto", "x": 1.4,  "y": 1.35, "lato": 0.85, "rot": -15 },
+   { "pezzo": "trave-spezzata", "x": 3.35, "y": 1.4,  "lato": 1.0,  "rot": 20 },
+   { "pezzo": "calcinacci",     "x": 0.4,  "y": 0.4,  "lato": 0.85, "rot": 50 },
+   { "pezzo": "ragnatela",      "x": 3.65, "y": 0.35, "lato": 1.1,  "rot": 0 },
+   { "pezzo": "ragnatela-2",    "x": 0.35, "y": 3.65, "lato": 1.1,  "rot": 200 },
+   { "pezzo": "busto",          "x": 3.4,  "y": 2.4,  "lato": 0.7,  "rot": 330 }
+  ],
+  "perche": "Il cerca_vuoto dice che sui pianerottoli 'non resta nulla' (la casa e' sgomberata da mesi): niente oggetti lasciati, solo decadimento e architettura. Il punto focale e' uno specchio rotto sul pianerottolo — non restituisce piu' un riflesso vero, e rima col nome 'la scala che ripete'. La trave spezzata segna il gradino marcio della trappola. Calcinacci caduti dal muro, un busto rovesciato in una nicchia, ragnatele grandi ai due estremi della tromba (principio verticale), ingrandite per leggersi contro la pietra chiara. Nessuna luce fissa: e' una tromba buia, solo le lanterne degli eroi."
+ },
+ "T3": {
+  "decori": [
+   { "pezzo": "mantello",    "x": 2.4,  "y": 1.5,  "lato": 1.15, "rot": 8 },
+   { "pezzo": "scarpe",      "x": 0.45, "y": 1.5,  "lato": 0.7,  "rot": 15 },
+   { "pezzo": "busto",       "x": 3.4,  "y": 2.45, "lato": 0.7,  "rot": 340 },
+   { "pezzo": "ragnatela",   "x": 0.35, "y": 0.35, "lato": 1.1,  "rot": 0 },
+   { "pezzo": "ragnatela-2", "x": 3.65, "y": 0.35, "lato": 1.1,  "rot": 200 }
+  ],
+  "perche": "Il corridoio non ha oggetti nel suo testo, solo voci e nomi di chi ci ha abitato: la scenografia prende dal mood della guida 'un cappotto appeso in una stanza vuota' — un mantello a meta' corridoio e' il punto focale, la traccia di un inquilino che non c'e' piu'. Un paio di scarpe abbandonate vicino a un'altra porta e' un'altra traccia dello stesso tipo (non e' la valigia di Ada: quella resta in T4, dove si trova cercando). Un busto caduto in nicchia, ragnatele grandi ai due estremi, ingrandite per leggersi contro la pietra chiara. Nessuna luce fissa: la paura sta nelle voci, non negli oggetti."
+ },
+ "T4": {
+  "decori": [
+   { "pezzo": "specchio-rotto-2", "x": 3.35, "y": 1.4,  "lato": 0.85, "rot": -10 },
+   { "pezzo": "mantello",         "x": 3.4,  "y": 2.4,  "lato": 1.1,  "rot": 0 },
+   { "pezzo": "calcinacci",       "x": 0.4,  "y": 1.4,  "lato": 0.85, "rot": 25 },
+   { "pezzo": "busto",            "x": 0.45, "y": 2.4,  "lato": 0.7,  "rot": 330 },
+   { "pezzo": "straccio",         "x": 2.3,  "y": 1.5,  "lato": 0.55, "rot": 200 },
+   { "pezzo": "ragnatela",        "x": 0.35, "y": 0.35, "lato": 1.1,  "rot": 0 }
+  ],
+  "perche": "Il testo mette la voce sulla 'parete cieca verso la corte — quella che detta': uno specchio rotto su quella parete (est) e' il punto focale, il riflesso spezzato che rima col delitto ripetuto parola per parola; un mantello appeso accanto chiude il gruppo sulla stessa parete (la tenda a valenza del catalogo rendeva solo una riga sottile, illeggibile: sostituita col mantello, gia' provato in T1/T3). Calcinacci vicino alla trave indebolita raccontano il soffitto della trappola che cede. Un busto caduto e uno straccio del letto disfatto dicono che 'qualcosa e' appena successo' — il Vedovo, entrato di nascosto. La valigia con le scarpe di Ada (cerca, sotto il letto) resta fuori scena. Nessuna luce fissa: si sale sempre piu' nel buio."
+ },
+ "T5": {
+  "decori": [
+   { "pezzo": "sacco",         "x": 0.4,  "y": 1.4,  "lato": 0.7,  "rot": 15 },
+   { "pezzo": "sacco-chiaro",  "x": 0.45, "y": 2.3,  "lato": 0.65, "rot": 340 },
+   { "pezzo": "secchio",       "x": 3.5,  "y": 1.35, "lato": 0.5,  "rot": 0 },
+   { "pezzo": "calcinacci-2",  "x": 3.4,  "y": 2.45, "lato": 0.85, "rot": 70 },
+   { "pezzo": "ragnatela",     "x": 0.35, "y": 0.35, "lato": 1.1,  "rot": 0 },
+   { "pezzo": "torcia",        "x": 2.5,  "y": 3.35, "lato": 0.8,  "rot": 90,  "luce": "torcia" }
+  ],
+  "perche": "Il cerca_vuoto elenca gia' la scenografia: 'sacchi di calce, secchi, calcinacci umidi ammucchiati contro la parete'. Sacchi e secchio formano il gruppo focale contro un muro, calcinacci umidi contro l'altro, ingranditi per leggersi contro le assi chiare. Una ragnatela grande nell'angolo mai pulito. Una torcia sola, pratica, dove i garzoni del Muratore lavorano davvero: l'unico punto illuminato di un tratto altrimenti buio, cosi' la mischia che segue (2 Sgherri alla rivelazione) si vede bene. Centro libero per il combattimento."
+ },
+ "T6": {
+  "decori": [
+   { "pezzo": "ossa",          "x": 2.4,  "y": 1.5,  "lato": 1.3,  "rot": 15 },
+   { "pezzo": "calcinacci",    "x": 1.4,  "y": 1.4,  "lato": 0.85, "rot": 340 },
+   { "pezzo": "calcinacci-2",  "x": 3.4,  "y": 1.45, "lato": 0.85, "rot": 50 },
+   { "pezzo": "sangue",        "x": 2.5,  "y": 2.3,  "lato": 0.5,  "rot": 200 },
+   { "pezzo": "torcia",        "x": 2.5,  "y": 0.4,  "lato": 0.8,  "rot": 270, "luce": "torcia" },
+   { "pezzo": "ragnatela",     "x": 3.65, "y": 3.65, "lato": 1.15, "rot": 180 },
+   { "pezzo": "candela-nera",  "x": 3.3,  "y": 2.6,  "lato": 0.55, "rot": 0,   "luce": "cera" }
+  ],
+  "perche": "Il punto focale e' 'il pallore di cio' che resta di Ada' dietro l'intonaco scrostato: le ossa (mai un cadavere fresco, come una cripta) al centro della parete che il Muratore sta demolendo, con due mucchi di calcinacci freschi ai lati — l'intonaco che cade sotto la mazza, ingranditi per leggersi contro la roccia. Una vecchia macchia di sangue, piccola, ricorda il delitto di dieci anni fa: qui la traccia e' giustificata dal testo. La torcia del Muratore e la candela nera fanno il 'chiarore della lanterna che non arriva agli angoli' del cerca_vuoto: luce sulla parete, buio nell'angolo lontano — dove resta l'unica ragnatela, grande, mai toccata."
+ }
+}
