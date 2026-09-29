@@ -290,6 +290,17 @@ PEZZI = {
                                   {'ambienti': ['acqua', 'gotico'], 'lato': 0.6, 'luce': None, 'sopra': False}),
     'decori/bitta-cima.png': (FA, f'{CS}/Vehicles/Ships/Mooring_Posts/Mooring_Post_Metal_Rusty_Rope_Ashen_A2_1x1.webp',
                               {'ambienti': ['acqua'], 'lato': 0.6, 'luce': None, 'sopra': False}),
+    # -- Ep.13 (Carta di pregio): il molino fuori citta', T3/T5/T6 — provini
+    # guardati prima di importarli (--provino). Nessun pezzo del catalogo
+    # rendeva una macina, un telaio da essiccatoio o un torchio da stampa: la
+    # sala delle macine, l'essiccatoio e la sala del torchio sono i nomi stessi
+    # delle tessere, servivano pezzi veri e non casse generiche.
+    'decori/macina.png': (FA, f'{CS}/Workplace_Equipment/Farming/Grain_Milling/Grain_Mill_Stone_Earthy_Wood_Ashen_A1_2x3.webp',
+                          {'ambienti': ['magazzini'], 'lato': 2.2, 'luce': None, 'sopra': False}),
+    'decori/telaio-carta.png': (FA, f'{CS}/Workplace_Equipment/Fishing/Drying_Racks/Drying_Rack_Wood_Dark_Empty_A1_2x2.webp',
+                                {'ambienti': ['archivi'], 'lato': 1.6, 'luce': None, 'sopra': False}),
+    'decori/torchio.png': (FA, f'{CS}/Workplace_Equipment/Book_Making/Printing_Press_Wood_Dark_A_3x3.webp',
+                           {'ambienti': ['archivi', 'magazzini'], 'lato': 2.0, 'luce': None, 'sopra': False}),
 }
 
 

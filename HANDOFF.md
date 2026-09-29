@@ -987,6 +987,71 @@ webapp/test-scenografia.mjs && node webapp/test-stanza.mjs` → tutti `OK`.
 **Prossimo**: Task 8, `ep13` — stesso procedimento, giudicato contro Ep.1,
 preludio ed ep2-ep11.
 
+**Task 8 — ep13 FATTO (29/09/2026)**: `src/scenografia/ep13.json` (Carta di
+pregio — l'assalto notturno al Molino delle Carte fuori le mura), T1-T6
+composte da zero leggendo `testo`/`cerca`/`cerca_vuoto`/`hook`/`arredi` di
+`webapp/data/ep13.json` contro il catalogo esistente. Episodio industriale,
+non gotico-religioso: il tema e' la fabbrica della carta, non la cripta.
+
+**Tre pezzi mancanti, per i tre nomi stessi delle tessere**: nessun pezzo del
+catalogo rendeva una macina, un telaio da essiccatoio o un torchio da stampa
+— "casse" generiche avrebbero appiattito il cuore visivo di T3/T5/T6.
+Cercati in `risorse-vtt/FA_Assets_Webp`, guardati prima di importarli
+(bbox controllato con PIL), aggiunti a `PEZZI` in
+`scripts/importa-fa-lanterne.py` (110 pezzi ora): `macina`
+(`Grain_Mill_Stone_Earthy_Wood_Ashen_A1_2x3`, lato 2.2 — asset 2:3 non
+quadrato, ingrandito per pesare come un pezzo quadrato alla stessa `lato`,
+lezione 3) per T3 (punto focale, "la grande ruota e le macine, in moto");
+`telaio-carta` (`Drying_Rack_Wood_Dark_Empty_A1_2x2`, un telaio da
+essiccazione a rete — trovato nella cartella pesca perche' la libreria non
+ha una categoria carta/cartiera, ma la forma e' quella giusta) per T5,
+usato due volte per il "labirinto di telai coi fogli appesi"; `torchio`
+(`Printing_Press_Wood_Dark_A_3x3`, un vero torchio da stampa) per T6, punto
+focale della tessera-titolo dell'episodio. Tutti e tre resi come decoro
+(non come override di `arredi`, che nella stanza.js sarebbero schiacciati a
+~1 casella): in campo si vedono grandi e leggibili, confermato in foto.
+
+**Nessuna luce fissa in nessuna delle sei tessere**: molino fuori citta',
+di notte, mai un fuoco che il testo nomini — T4/T5/T6 hanno anche un motivo
+di sicurezza (polvere infiammabile, carta, stracci pronti al rogo): un
+lume fisso lì avrebbe anticipato l'incendio scriptato. Unica eccezione: una
+torcia sola in T1, al cancello, dove le guardie controllano il
+Lasciapassare.
+
+**Un quinto caso di collisione di sottostringa nel nome, NON toccato,
+documentato per il Task 9**: T1 ("IL CORTILE DEL MOLINO") e' un cortile
+aperto — per nome dovrebbe prendere `terra` dalla riga
+`/cortile|terrapien|.../` di `PAVIMENTI` in `webapp/public/motore/ambiente.js`
+— ma la riga `/molino|macine|torchio|essiccatoio|stracci|.../` (→ 'paglia')
+sta PRIMA nell'elenco e scatta per prima sulla sottostringa "molino" dentro
+"CORTILE DEL MOLINO", quindi la tessera rende con pavimento 'paglia'
+(paglia/terra battuta) invece di 'terra'. Stessa famiglia dei casi di Ep.9
+(Sacrestia), Ep.10 (Sottoscala), Ep.11 (Abbaino) ed Ep.12 (Fondamenta): un
+nome di tessera contiene per intero il nome del luogo che la ospita, e la
+regex piu' generica vince perche' viene prima nell'elenco. Verificato in
+foto: T1 rende davvero su un pavimento paglia-terra, non su terra battuta
+pura — visivamente non stona (un cortile di stalla/carrozze puo' avere
+paglia a terra), ma e' un effetto del bug, non una scelta. Fuori mandato di
+questo episodio: non toccato `ambiente.js`.
+
+**Un tetto di riuso preso al primo giro, non dopo il test**: `straccio`
+avrebbe toccato 4 stanze (T3/T4/T5/T6) contro il massimo di 3 — tolto da T5
+e sostituito con `pacco` (un fascio di fogli gia' pronti, coerente col
+testo del deposito), che resta comunque a sole 2 stanze (T4/T5).
+
+Verificato guardando tutte e sei le foto, un giro di correzione (il tetto
+di riuso sopra) prima di committare (`node webapp/mappa-plancia-fa.mjs --ep
+ep13`, `export-data.py` rilanciato prima di ogni rigenerazione,
+`export-assets.py` rilanciato dopo i tre pezzi nuovi). Controllato il token
+dell'eroe su tutte e sei le tessere (T1 coi tre token dell'entrata inclusi)
+calcolando a mano le celle libere candidate (`cellaCentrale`/`portaCella`)
+prima di comporre: nessuna occlusione vista in foto. Test: `python
+webapp/export-data.py && node webapp/test-scenografia.mjs && node
+webapp/test-stanza.mjs` → tutti `OK`.
+
+**Prossimo**: Task 8, `ep14` — stesso procedimento, giudicato contro Ep.1,
+preludio ed ep2-ep13.
+
 ## FATTO (22/09/2026) — i vantaggi d'Indagine arrivano in Spedizione (audit + correzioni)
 
 Report: `AUDIT-VANTAGGI-INDAGINE.md`. Banco: `node webapp/audit-vantaggi.mjs [porta]

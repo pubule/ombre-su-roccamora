@@ -1,0 +1,65 @@
+{
+ "T1": {
+  "decori": [
+   { "pezzo": "torcia",  "x": 3.4,  "y": 0.4,  "lato": 0.8,  "rot": 0,   "luce": "torcia" },
+   { "pezzo": "corda",   "x": 0.6,  "y": 1.3,  "lato": 0.7,  "rot": 20 },
+   { "pezzo": "secchio", "x": 0.35, "y": 1.75, "lato": 0.4,  "rot": -15 },
+   { "pezzo": "barile",  "x": 3.3,  "y": 1.6,  "lato": 0.75, "rot": -10 }
+  ],
+  "perche": "Cortile guardato di notte: la carrozza e gli uomini di guardia restano fuori scena (token/PNG), ma la torcia accanto al cancello — dove si controlla il Lasciapassare — e' l'unica luce concessa a un varco cosi' sorvegliato. Una corda e un secchio si accumulano contro la prima pila di casse, bardature lasciate a portata di mano per i cavalli, un barile contro l'altra: per il resto tutto e' in ordine, come dice il testo ('niente lasciato in vista'). Stanza aperta (cortile): pochi pezzi, come vuole il principio 6."
+ },
+ "T2": {
+  "decori": [
+   { "pezzo": "pozza",       "x": 0.5,  "y": 1.3,  "lato": 1.0, "rot": 20 },
+   { "pezzo": "pozza",       "x": 3.4,  "y": 2.6,  "lato": 0.9, "rot": -15 },
+   { "pezzo": "corda",       "x": 0.4,  "y": 3.5,  "lato": 0.6, "rot": 50 },
+   { "pezzo": "bitta-cima",  "x": 3.6,  "y": 0.4,  "lato": 0.6, "rot": 0 },
+   { "pezzo": "calcinacci",  "x": 0.35, "y": 0.35, "lato": 0.6, "rot": 70 }
+  ],
+  "perche": "La roggia e' il pericolo, non un magazzino: due pozze segnano dove l'acqua nera scavalca le assi scivolose, una corda marcia impigliata a un piolo e una vecchia bitta arrugginita dicono che questo canale serviva gia' un attracco prima del molino. Calcinacci in un angolo, dove la pietra vecchia si sgretola sopra la corrente. Nessuna luce fissa: solo le lanterne degli eroi sopra l'acqua nera, e il buio e' parte del pericolo d'ambiente."
+ },
+ "T3": {
+  "decori": [
+   { "pezzo": "macina",       "x": 2.3,  "y": 2.2, "lato": 2.2, "rot": 0 },
+   { "pezzo": "calcinacci",   "x": 0.5,  "y": 0.5, "lato": 0.6, "rot": 30 },
+   { "pezzo": "ragnatela",    "x": 3.6,  "y": 0.5, "lato": 0.8, "rot": 180 },
+   { "pezzo": "straccio",     "x": 2.6,  "y": 3.6, "lato": 0.3, "rot": 60 },
+   { "pezzo": "carrucola",    "x": 0.5,  "y": 1.4, "lato": 1.2, "rot": -10 },
+   { "pezzo": "calcinacci-2", "x": 3.5,  "y": 3.4, "lato": 0.5, "rot": -40 },
+   { "pezzo": "straccio",     "x": 2.3,  "y": 0.6, "lato": 0.3, "rot": 100 }
+  ],
+  "perche": "Il testo mette in scena 'la grande ruota e le macine, in moto': una macina di pietra vera (nuova nel catalogo — nessun pezzo esistente rendeva una macina) domina il centro-destra della stanza, lontano dalla linea nord-sud fra le due porte. Calcinacci e una ragnatela negli angoli alti — la polvere che gli ingranaggi sollevano — stracci di pasta impigliati vicino alle pile di casse, una carrucola arrugginita accanto all'altra. Nessuna luce fissa: e' un frastuono al buio, non un posto illuminato — le macine mordono chi si distrae."
+ },
+ "T4": {
+  "decori": [
+   { "pezzo": "sacco",        "x": 0.5, "y": 0.5, "lato": 0.7,  "rot": 15 },
+   { "pezzo": "sacco",        "x": 0.3, "y": 2.4, "lato": 0.65, "rot": -20 },
+   { "pezzo": "sacco-chiaro", "x": 3.4, "y": 0.6, "lato": 0.7,  "rot": 10 },
+   { "pezzo": "straccio",     "x": 3.6, "y": 1.6, "lato": 0.3,  "rot": 70 },
+   { "pezzo": "straccio",     "x": 2.6, "y": 1.4, "lato": 0.3,  "rot": -30 },
+   { "pezzo": "pacco",        "x": 0.6, "y": 3.5, "lato": 0.4,  "rot": 40 },
+   { "pezzo": "baule",        "x": 3.4, "y": 3.5, "lato": 0.7,  "rot": -15 }
+  ],
+  "perche": "Montagne di stracci fino al soffitto: sacchi scuri e chiari si accumulano contro le due pile di balle (le casse e l'altare sono arredo dei dati), stracci sciolti impigliati vicino ai bordi, un pacco e un baule dimenticati agli angoli. Nessuna fiamma tra i decori: la polvere infiammabile che il testo nomina vieta ogni luce fissa qui, anche prima che il Notaio dia l'ordine del rogo."
+ },
+ "T5": {
+  "decori": [
+   { "pezzo": "telaio-carta", "x": 0.5,  "y": 0.5, "lato": 1.6, "rot": 0 },
+   { "pezzo": "telaio-carta", "x": 3.3,  "y": 2.5, "lato": 1.5, "rot": 20 },
+   { "pezzo": "pozza",        "x": 3.5,  "y": 3.5, "lato": 0.7, "rot": -20 },
+   { "pezzo": "pacco",        "x": 0.6,  "y": 2.4, "lato": 0.4, "rot": 50 },
+   { "pezzo": "ragnatela-2",  "x": 3.65, "y": 0.35,"lato": 0.7, "rot": 180 }
+  ],
+  "perche": "'Un labirinto di telai coi fogli appesi ad asciugare': due telai da essiccatoio veri (nuovi nel catalogo), vuoti e fradici di colla, spezzano la stanza in corridoi stretti come dice il testo. Una pozza di colla sotto l'ultimo telaio, un pacco di fogli gia' pronti contro le casse, una ragnatela alta nell'angolo lontano. Nessuna luce: e' il primo posto che il rogo raggiunge (round 7 della Soluzione), e finche' non brucia resta buio e umido."
+ },
+ "T6": {
+  "decori": [
+   { "pezzo": "torchio",     "x": 2.3, "y": 1.4, "lato": 2.0,  "rot": 0 },
+   { "pezzo": "straccio",    "x": 0.5, "y": 3.5, "lato": 0.35, "rot": 20 },
+   { "pezzo": "straccio",    "x": 3.6, "y": 3.5, "lato": 0.3,  "rot": -25 },
+   { "pezzo": "sacco",       "x": 3.5, "y": 0.5, "lato": 0.7,  "rot": 10 },
+   { "pezzo": "calcinacci",  "x": 0.4, "y": 0.4, "lato": 0.5,  "rot": 60 }
+  ],
+  "perche": "Il torchio da stampa e' il punto focale — il pezzo vero (nuovo nel catalogo), non delle casse generiche, perche' e' il nome della tessera e il cuore della prova. Attorno, gli stracci pronti al rogo che il testo nomina ('attorniata di stracci pronti al rogo') e un sacco vicino al torchio, come cita cerca_vuoto ('stracci accatastati e barattoli d'inchiostro'). Calcinacci vecchi in un angolo. Nessuna luce fissa: solo le lanterne degli eroi, finche' il fuoco che gia' corre non trova gli stracci."
+ }
+}
