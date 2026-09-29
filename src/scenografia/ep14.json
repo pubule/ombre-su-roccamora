@@ -1,0 +1,54 @@
+{
+ "T1": {
+  "arredi": { "0,0": "comignolo", "3,3": "comignolo-2" },
+  "decori": [],
+  "perche": "Il testo insiste due volte sul vuoto: 'coppi nuovi, malta fresca, nemmeno un nido' — una gronda rifatta di recente, dove non si e' ancora accumulato niente. Le due 'casse' dei dati diventano comignoli (la regola generica le renderebbe casse di legno, che su un tetto appena rifatto non stanno in piedi da sole): sono l'unica architettura, inchiodata, che il vento non porta via. Zero decori, come i tetti dell'Ep.11 quando il testo lo dice esplicitamente: qui il vuoto e' la prima cosa che la Spedizione vede, ed e' voluto."
+ },
+ "T2": {
+  "arredi": { "1,2": "comignolo", "2,1": "comignolo-2" },
+  "decori": [
+   { "pezzo": "pozza", "x": 3.3, "y": 1.4, "lato": 0.9, "rot": 15 }
+  ],
+  "perche": "Il nome stesso e' il comignolo: le due 'casse' dei dati diventano il comignolo annerito che il testo mette al centro del passaggio esposto (regola dell'arredo del posto corretta per questa stanza, come il crogiolo dell'Ep.8). Il cerca_vuoto nomina solo 'acqua vecchia e foglie marce' nella grondaia: una pozza sola, contro il muro, lontano dalla linea porta-porta. Il vento che tira lascia poco altro: niente si posa qui."
+ },
+ "T3": {
+  "decori": [
+   { "pezzo": "panni-stesi",   "x": 0.9, "y": 1.3, "lato": 0.75, "rot": -10 },
+   { "pezzo": "panni-stesi-2", "x": 2.6, "y": 0.7, "lato": 0.7,  "rot": 8 },
+   { "pezzo": "panni-stesi",   "x": 3.3, "y": 2.6, "lato": 0.75, "rot": 15 },
+   { "pezzo": "corda",         "x": 1.5, "y": 1.15,"lato": 0.55, "rot": 95 },
+   { "pezzo": "straccio",      "x": 2.4, "y": 3.4, "lato": 0.3,  "rot": 60 }
+  ],
+  "perche": "Il punto focale e' il testo stesso: 'lenzuola stese ad asciugare, ombre che si muovono tra i panni'. Tre panni gonfiati dal vento (non allineati, colori diversi: bianco e crudo), quello che i Gatti minori usano come copertura secondo l'arbitro. Una corda vicino al primo panno suggerisce la linea del bucato. Uno straccio caduto a terra, lontano dai panni, dice che qualcuno ci e' passato in fretta durante lo scontro. Le due 'casse' dei dati restano casse: bauli da bucato su una terrazza ancora in uso, non un'architettura morta come gronda e comignolo. La fune che si trova cercando resta fuori scena."
+ },
+ "T4": {
+  "arredi": { "1,1": "trave-spezzata", "2,3": "vetri-infranti" },
+  "decori": [
+   { "pezzo": "nido",           "x": 3.4, "y": 0.5, "lato": 0.6, "rot": 15 },
+   { "pezzo": "vetri-infranti-2","x": 0.4, "y": 2.4, "lato": 0.5, "rot": -20 }
+  ],
+  "perche": "L'arredo 'altare' dei dati non puo' restare un altare in un abbaino: il cerca_vuoto dice 'vetri rotti da tempo' sul davanzale, quindi diventa una scheggiatura di vetro (regola dell'arredo del posto corretta per questa stanza). La 'cassa' diventa una trave spezzata, la struttura sporgente del telaio. Il 'guano' che il testo nomina spiega da solo il nido tra le tegole, in alto, lontano dalle porte; una seconda scheggia di vetro completa il davanzale senza affollarlo. Soffitta buia oltre l'abbaino: nessuna luce fissa, il testo non ne accende nessuna."
+ },
+ "T5": {
+  "arredi": { "1,2": "trave-spezzata", "2,1": "trave-spezzata-2" },
+  "decori": [
+   { "pezzo": "vetri-infranti", "x": 0.5, "y": 0.5, "lato": 0.5, "rot": 30 },
+   { "pezzo": "calcinacci",     "x": 3.4, "y": 0.6, "lato": 0.6, "rot": 60 },
+   { "pezzo": "calcinacci-2",   "x": 0.5, "y": 3.4, "lato": 0.6, "rot": -25 }
+  ],
+  "perche": "'Vetro e piombo sotto i piedi': le due 'casse' diventano travi spezzate del telaio (la regola generica le renderebbe casse di legno, fuori posto su un lucernario), e i frammenti di vetro sul pavimento vengono dritti dal cerca_vuoto. Calcinacci ai due angoli lontani dicono lo sporco di decenni che salda il telaio. E' l'ultimo diaframma prima dell'Attico: nessuna luce fissa, la trappola si vede solo con le lanterne degli eroi."
+ },
+ "T6": {
+  "decori": [
+   { "pezzo": "corda",          "x": 0.6, "y": 2.5, "lato": 0.7,  "rot": 25 },
+   { "pezzo": "sacco",          "x": 1.3, "y": 0.5, "lato": 0.7,  "rot": -10 },
+   { "pezzo": "sacco-chiaro",   "x": 2.2, "y": 0.55,"lato": 0.65, "rot": 15 },
+   { "pezzo": "baule",          "x": 3.5, "y": 1.4, "lato": 0.7,  "rot": 0 },
+   { "pezzo": "pacco",          "x": 3.4, "y": 2.4, "lato": 0.4,  "rot": 40 },
+   { "pezzo": "lanterna-cieca", "x": 0.35,"y": 3.4, "lato": 0.6,  "rot": 90 },
+   { "pezzo": "sigillo-cera",   "x": 1.2, "y": 1.5, "lato": 0.55, "rot": 0 },
+   { "pezzo": "ragnatela",      "x": 3.65,"y": 3.62,"lato": 0.8,  "rot": 180 }
+  ],
+  "perche": "Il testo descrive la stanza pezzo per pezzo: le casse imballate (arredo dei dati, lasciato com'e' — e' esattamente cio' che dice il testo, refurtiva accatastata) sono gia' il punto focale, la sola macchia satura contro il pavimento neutro. Accanto, sulla paglia, 'un dischetto di ceralacca rossa con due lettere in rilievo': non e' nel campo cerca (qui null — e' descritto in chiaro nel testo, non va cercato), quindi sta in scena come dettaglio da guardare da vicino, non come punto focale a se'. Corde arrotolate, sacchi e un baule in piu' dicono 'roba d'altri, tutta quanta'; un piccolo pacco tra la refurtiva. Il lanternino e' 'schermato, girato verso il muro perche' dalla strada non si veda': luce assente di proposito, non accesa in scena, come la lanterna cieca del barcaiolo dell'Ep.12. Una ragnatela nell'angolo lontano dalla porta. Il covo dei Gatti resta buio e nascosto anche qui in cima, dove la tensione dell'aggancio e' massima."
+ }
+}

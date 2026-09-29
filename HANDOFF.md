@@ -1049,8 +1049,81 @@ prima di comporre: nessuna occlusione vista in foto. Test: `python
 webapp/export-data.py && node webapp/test-scenografia.mjs && node
 webapp/test-stanza.mjs` → tutti `OK`.
 
-**Prossimo**: Task 8, `ep14` — stesso procedimento, giudicato contro Ep.1,
-preludio ed ep2-ep13.
+**Task 8 — ep14 FATTO (29/09/2026)**: `src/scenografia/ep14.json` (Il rivale —
+la scalata sui tetti del Corso), T1-T6 composte da zero leggendo
+`testo`/`cerca`/`cerca_vuoto`/`hook`/`arredi` di `webapp/data/ep14.json`
+contro il catalogo esistente. Due pezzi mancanti per T3 (Terrazza dei
+Panni, "lenzuola stese ad asciugare"): il primo tentativo (banner di
+stoffa strappati, `Wall_Hangings/Flags_and_Banners`) sembrava giusto sul
+provino isolato ma aveva un bbox quasi tutto trasparente (contenuto reale
+~26% dell'altezza della sua stessa tela 3:1) — nella casella quadrata
+diventava un filo grigio illeggibile, stessa lezione bbox di Ep.5/Ep.9.
+Sostituiti con panni da bucato rigonfi dal vento
+(`Clutter/Clothing/Hanging`, pose "B", bbox ~50% pieno): `panni-stesi`
+(`Clothing_Cloth_White_B1`) e `panni-stesi-2` (`Clothing_Cloth_Tan_B2`),
+aggiunti a `PEZZI` in `scripts/importa-fa-lanterne.py` (112 pezzi ora),
+importer + `export-assets.py` rilanciati.
+
+**Confermata la classificazione attesa** (il motivo per cui questo set di
+tessere era gia' citato come riferimento nelle review di ep8/ep9/ep11):
+T1 Gronda, T2 Comignolo, T3 Terrazza dei Panni, T4 Abbaino, T5 Lucernario
+sono genuinamente `alAperto()===true` (tetti aperti, niente muri); T6
+Attico del Corso e' `alAperto()===false` (stanza chiusa in cima alla
+scalata) — split verificato di nuovo con `test-scenografia.mjs`/
+`test-stanza.mjs`, nessuna sorpresa.
+
+**L'arredo del posto corretto per casella, cinque volte**: le "casse"/
+"altare" generiche dei dati su T1/T2/T4/T5 sarebbero rimaste casse di
+legno o un altare di pietra — fuori posto su una gronda appena rifatta,
+un tetto che porta il nome del comignolo, un abbaino con vetri rotti, un
+lucernario di vetro e piombo (nessuna di queste tessere e' marcata
+ESPOSTA nei dati, quindi la regola automatica campan/guglia/ESPOSTA non
+scatta da sola). Corrette per tessera con `"arredi": {...}`: T1/T2 →
+`comignolo`/`comignolo-2` (il nome stesso della tessera, in T2); T4 →
+`trave-spezzata` + `vetri-infranti` (il `cerca_vuoto` nomina "vetri rotti
+da tempo" sul davanzale); T5 → `trave-spezzata`/`trave-spezzata-2` (il
+telaio del lucernario). T3 e T6 restano casse letterali di proposito: una
+terrazza da bucato ancora in uso e un covo di refurtiva, non
+un'architettura morta.
+
+**Un pezzo troppo piccolo per il suo stesso ruolo, trovato guardando la
+foto**: `sigillo-cera` (il sigillo "C.B." di T6, l'oggetto-prova
+dell'episodio) ha bbox 7-8% della sua tela — al `lato` di catalogo (0.35)
+spariva in un puntino di pochi pixel contro il pavimento decorato di T6.
+Nessun pezzo del catalogo rende meglio un dischetto di ceralacca piccolo:
+tenuto lo stesso pezzo ma con `lato` raddoppiato (0.35→0.55) e il ruolo di
+"punto focale" spostato onestamente sulle casse (arredo, gia' la macchia
+satura della stanza) — il sigillo resta un dettaglio da guardare da
+vicino, coerente col fatto che non e' un `cerca` (e' descritto in chiaro
+nel testo).
+
+**Trovato guardando i dati, non un difetto da correggere qui — sesta
+occorrenza dello stesso schema (lezione 8 della guida, gia' aperta
+ep9-ep13)**: `pavimentoDi()` (`webapp/public/motore/ambiente.js`)
+classifica "L'ATTICO DEL CORSO" (T6) come pavimento `tappeto` (la riga
+`salone|salotto|...|attico|...` matcha la sottostringa "attico"), non
+`tavolato`/`tetti` — nonostante il testo descriva esplicitamente "un
+pianerottolo di TAVOLE sotto il cielo aperto", un covo di ladri sui tetti,
+non un salotto con moquette. Nessuna riga precedente della lista intercetta
+"attico" prima che arrivi li'. **Non corretto** (fuori mandato per questo
+episodio, come le cinque collisioni precedenti — parcheggiato per il Task
+9, la passata dedicata su tutta la campagna): la scenografia di T6 e'
+composta ignorando il tappeto reso a schermo, con decori pensati per un
+solaio di legno vero.
+
+Verificato guardando tutte e sei le foto, due giri di correzione (sopra:
+il banner illeggibile di T3, il sigillo minuscolo di T6) prima di
+committare (`node webapp/mappa-plancia-fa.mjs --ep ep14`, `export-data.py`
+rilanciato prima di ogni rigenerazione, `export-assets.py` rilanciato dopo
+i due pezzi nuovi) affiancate a Ep.1 ed Ep.11 (il precedente genuino di
+tetti aperti). Controllato il token dell'eroe su tutte e sei le tessere
+(T1 coi tre token dell'entrata inclusi) calcolando a mano le celle libere
+prima di comporre: nessuna occlusione vista in foto. Test: `python
+webapp/export-data.py && node webapp/test-scenografia.mjs && node
+webapp/test-stanza.mjs` → tutti `OK`.
+
+**Prossimo**: Task 8, `ep15` — stesso procedimento, giudicato contro Ep.1,
+preludio ed ep2-ep14.
 
 ## FATTO (22/09/2026) — i vantaggi d'Indagine arrivano in Spedizione (audit + correzioni)
 

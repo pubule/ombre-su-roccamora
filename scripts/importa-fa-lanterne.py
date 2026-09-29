@@ -301,6 +301,17 @@ PEZZI = {
                                 {'ambienti': ['archivi'], 'lato': 1.6, 'luce': None, 'sopra': False}),
     'decori/torchio.png': (FA, f'{CS}/Workplace_Equipment/Book_Making/Printing_Press_Wood_Dark_A_3x3.webp',
                            {'ambienti': ['archivi', 'magazzini'], 'lato': 2.0, 'luce': None, 'sopra': False}),
+    # -- Ep.14 (Il rivale): la Terrazza dei Panni, i tetti del Corso — provino
+    # guardato prima di importarli (--provino). I banner di stoffa strappati
+    # (Wall_Hangings/Flags_and_Banners) erano quasi tutti bordo trasparente —
+    # una volta nella casella quadrata restavano un filo, illeggibili al volo
+    # (principio 1/4 della guida). Il panno da bucato appeso e rigonfio dal
+    # vento (Clutter/Clothing/Hanging, i pose 'B') riempie la casella per
+    # davvero ed e' la sagoma giusta per un lenzuolo steso.
+    'decori/panni-stesi.png': (FA, f'{CS}/Clutter/Clothing/Hanging/Clothing_Cloth_White_B1_1x1.webp',
+                               {'ambienti': ['tetti'], 'lato': 0.75, 'luce': None, 'sopra': False}),
+    'decori/panni-stesi-2.png': (FA, f'{CS}/Clutter/Clothing/Hanging/Clothing_Cloth_Tan_B2_1x1.webp',
+                                 {'ambienti': ['tetti'], 'lato': 0.7, 'luce': None, 'sopra': False}),
 }
 
 
