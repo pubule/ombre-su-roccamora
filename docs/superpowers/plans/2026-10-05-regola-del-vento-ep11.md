@@ -106,19 +106,19 @@ funzionano gia' (commit «ESPOSTA»), ma sono un'altra cosa (Insidie, difficolta
 - [x] 1.3 Sabotaggio: rimuovi il tetto, il filtro «vivi», il controllo `ventoAttivo`: ognuno deve far diventare rosso almeno un'asserzione. Ripristina.
 - [x] 1.4 `test-motore-purezza.mjs` verde. Commit `feat: regola del vento Ep.11 — modificatori puri`. Registro.
 
-## Task 2 — Il contatore dei Crescendo e la coda a inizio round
+## Task 2 (FATTO) — Il contatore dei Crescendo e la coda a inizio round
 
 **Files:** `webapp/public/motore/comandi.js` (ramo crescendo di `pescaUna`, ~riga 270), `webapp/public/motore/nemici.js` (`fineRoundNemici`, dopo `sp.fase = 'eroi'` ~265), `vento.js`, `test-vento.mjs`.
 
 **Interfaces — Produces:** `sp.vento` (numero), `sp.provaVento = {round, chi:[nomi]}` | assente; `vento.apriProveVento(g)` → annunci.
 
-- [ ] 2.1 Test ROSSO: (a) pescando «Crescendo — Il Primo Refolo» (mazzo precaricato come in `test-con-oggetto.mjs`: `sp.mazzo = {pool:[titolo], ordine:[0], indice:0}`) `sp.vento` passa da 0 a 1; due carte → 2; una carta Crescendo di un altro episodio non lo tocca;
+- [x] 2.1 Test ROSSO: (a) pescando «Crescendo — Il Primo Refolo» (mazzo precaricato come in `test-con-oggetto.mjs`: `sp.mazzo = {pool:[titolo], ordine:[0], indice:0}`) `sp.vento` passa da 0 a 1; due carte → 2; una carta Crescendo di un altro episodio non lo tocca;
       (b) la regex e' sul TESTO («alzate di 1 la difficolta' delle prove di vento»), non sul titolo;
       (c) a fine round (`fase-nemici` → `fineRoundNemici`) con un eroe su T2 e uno su T3: `sp.provaVento.chi` = [eroe su T2], round = nuovo round; con nessuno esposto `sp.provaVento` assente; con eroe a terra su T2: escluso.
-- [ ] 2.2 Implementa: nel ramo crescendo, `if (/alzate di 1 la difficolt.. delle prove di vento/i.test(testo)) sp.vento = (sp.vento||0) + 1;` (nel sorgente il carattere dopo «difficolt» e' `à`: usare `\S` o `.` nella regex, NON scrivere la lettera accentata in un'espressione che passa da Bash; usare Edit). In `fineRoundNemici`, dopo aver messo `sp.fase='eroi'`: `ann.push(...vento.apriProveVento(g))`.
+- [x] 2.2 Implementa: nel ramo crescendo, `if (/alzate di 1 la difficolt.. delle prove di vento/i.test(testo)) sp.vento = (sp.vento||0) + 1;` (nel sorgente il carattere dopo «difficolt» e' `à`: usare `\S` o `.` nella regex, NON scrivere la lettera accentata in un'espressione che passa da Bash; usare Edit). In `fineRoundNemici`, dopo aver messo `sp.fase='eroi'`: `ann.push(...vento.apriProveVento(g))`.
       Le carte annullate da oggetto («Con X: nessun effetto») NON incrementano (il ramo `annullata` e' gia' separato: verificare che l'incremento stia nel ramo non annullato).
-- [ ] 2.3 Sabotaggio dei tre punti (contatore, apertura coda, filtro vivi). Ripristina.
-- [ ] 2.4 Regressione: `test-con-oggetto`, `test-danno`, `test-favore`, `test-ostacolo`, `test-motore-comandi`, `test-motore-interazioni`, `test-motore-purezza`. Commit. Registro.
+- [x] 2.3 Sabotaggio dei tre punti (contatore, apertura coda, filtro vivi). Ripristina.
+- [x] 2.4 Regressione: `test-con-oggetto`, `test-danno`, `test-favore`, `test-ostacolo`, `test-motore-comandi`, `test-motore-interazioni`, `test-motore-purezza`. Commit. Registro.
 
 ## Task 3 — Il comando `prova-vento` e il blocco delle azioni
 
@@ -172,3 +172,4 @@ funzionano gia' (commit «ESPOSTA»), ma sono un'altra cosa (Insidie, difficolta
 |---|---|---|---|
 | 2026-10-05 | Piano scritto | (questo commit) | nessun codice ancora |
 | 2026-10-05 | Task 1 | (vedi git log: «regola del vento Ep.11 — modificatori puri») | `vento.js` + `test-vento.mjs` (sabotaggi: tetto, vivi, T1-rivelata, esposta, buio, bonus D3: tutti rossi). Rulings: (a) «Vento al massimo» sta in **T6** (la guglia), non T5: riconosciuto dal testo (`FORTE` T4, `vento al massimo` T6); (b) `ventoAttivo` = ripiego `tessere.some(t=>t.esposta)` (solo Ep.11 le ha) + T1 rivelata, niente campo dato nuovo; (c) D3: nuovo campo `bonus_vento` in `EFFETTI_DOMANDE[('ep11',3)]` (export-data.py) letto da `domande.effettiAttivi`. |
+| 2026-10-05 | Task 2 | (git log: «contatore dei Crescendo e coda a inizio round») | `contaCrescendo` nel ramo crescendo non annullato (comandi.js), `apriProveVento` dopo `sp.fase='eroi'` (nemici.js); sabotaggi rossi. Regressioni verdi. |

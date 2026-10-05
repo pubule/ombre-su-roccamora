@@ -37,3 +37,16 @@ export function eroiInProva(g) {
     return (v === undefined || v > 0) && pos && esposta(g, pos.t);
   });
 }
+
+// Il Crescendo che «alza di 1 la difficoltà delle prove di vento, per sempre» (si sommano).
+export function contaCrescendo(g, testo) {
+  if (/alzate di 1 la difficolt. delle prove di vento/i.test(testo)) g.sp.vento = (g.sp.vento || 0) + 1;
+}
+
+// All'inizio della fase Eroi: chi sta su tessera ESPOSTA deve prima la prova.
+export function apriProveVento(g) {
+  const chi = eroiInProva(g);
+  if (!chi.length) { delete g.sp.provaVento; return []; }
+  g.sp.provaVento = { round: g.sp.round, chi };
+  return [`Vento: ${chi.join(', ')} ${chi.length > 1 ? 'devono' : 'deve'} provare NERVI prima di agire.`];
+}

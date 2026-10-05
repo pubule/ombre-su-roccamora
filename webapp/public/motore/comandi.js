@@ -26,6 +26,7 @@ import * as interazioni from './interazioni.js';
 import * as nemici from './nemici.js';
 import * as minaccia from './minaccia.js';
 import * as domande from './domande.js';
+import { contaCrescendo } from './vento.js';
 import * as obiettivi from './obiettivi.js';
 import { chiudiFaseNemici } from './vittoria.js';
 import * as vittoria from './vittoria.js';
@@ -269,6 +270,7 @@ function pescaUna(g) {
       } else if (crescendo) {
         annunci.push(...cantoDaCarta(g.comune, g.ep, sp));
         annunci.push(...minaccia.destaBossSeSoglia(g));
+        contaCrescendo(g, carta.rules.split('{divider}').pop());
         annunci.push(...colpiDaTesto(g, carta.rules.split('{divider}').pop()));
         // la stessa carta che alza il Canto spinge anche l'orologio dell'episodio
         const oro = obiettivi.specOrologio(g);

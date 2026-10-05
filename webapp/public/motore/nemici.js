@@ -27,6 +27,7 @@ import { specOrologio, avanzaOrologio, avanzaRogo, avanzaCancellazione,
          specCompiti, compitiFiniti } from './obiettivi.js';
 import { destaBossSeSoglia } from './minaccia.js';
 import { saltaBoss } from './domande.js';
+import { apriProveVento } from './vento.js';
 import { distGlob } from './griglia.js';
 
 const log = (g, t) => { g.sp.log = g.sp.log || []; g.sp.log.push(t); };
@@ -263,6 +264,7 @@ export function fineRoundNemici(g, piano) {
 
   sp.esca = null;                  // il monile ha fatto il suo giro: si raccoglie
   sp.fase = 'eroi'; sp.eroiFatti = []; sp.eroiAttivo = null; sp.azioni = {};
+  ann.push(...apriProveVento(g));  // regola del vento (Ep.11)
   statoScortati(g).forEach((png) => { png.mosso = false; });   // possono muoversi nel nuovo turno eroi
   sp.scortAttivo = null;
   if (piano) piano.annunci.push(...ann);
