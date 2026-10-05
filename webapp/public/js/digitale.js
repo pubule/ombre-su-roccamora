@@ -478,7 +478,7 @@ function render() {
       }
     }
   }
-  if (sp.carta) return schermataCarta(sp.carta);
+  if (sp.carta && sp.carta.tessera !== ctx.lettaPrima) return schermataCarta(sp.carta);
   // LA NOTTE LA FA AGIRE CHI ARBITRA, e nessun altro. `render()` la faceva
   // partire a chiunque disegnasse con la fase a «nemici»: bastava ricaricare la
   // pagina sul telefono per far muovere i nemici — in LOCALE, perche' al
@@ -1202,7 +1202,7 @@ function arteStanza(tessera) {
   return a ? `<div class="carta-grande stanza"><img src="${a}" alt=""></div>` : '';
 }
 
-function schermataCarta(aperta) {
+function schermataCarta(aperta, alOk = null) {
   const { app } = ctx;
   app.classList.remove('immersivo');
   const html = `<div class="barra"><span></span><div class="titolo">${esc(aperta.titolo || 'minaccia')}</div><span></span></div>
@@ -1238,7 +1238,7 @@ function schermataCarta(aperta) {
   const b = app.querySelector('#ok-msg');
   if (b) b.onclick = async () => {
     b.disabled = true;
-    await esegui({ tipo: 'carta-vista' });
+    if (alOk) alOk(); else await esegui({ tipo: 'carta-vista' });
   };
 }
 
@@ -1787,6 +1787,18 @@ async function eseguiSulTavolo(comando) {
 }
 
 async function esegui(comando) {
+  const ok = await eseguiMossa(comando);
+  const l = ctx.lettaPrima;
+  if (l) {
+    ctx.lettaPrima = null;
+    const c = SP().carta;
+    if (!ok && !c) render();
+    else if (c && c.tessera === l) await eseguiMossa({ tipo: 'carta-vista' });
+  }
+  return ok;
+}
+
+async function eseguiMossa(comando) {
   // I DADI SI CHIEDONO PRIMA DI DIRAMARE. Al tavolo i dadi sono di legno e il
   // numero lo dichiara chi gioca: la richiesta vale sia quando il motore gira
   // qui sia quando gira sul tavolo. Stava dentro il solo ramo locale, e con la
@@ -1821,7 +1833,23 @@ async function esegui(comando) {
   const tiri = alTav ? [] : null;
   if (alTav) {
     const p = azioni.provaDi(G(), comando);
-    if (p) { const d = await chiediTiro(p); if (!d) return false; tiri.push(d); }
+    if (p) {
+      // LA STANZA SI LEGGE PRIMA DEL TIRO. Il dado d'ingresso si chiede prima di
+      // mandare la mossa, ma la descrizione della tessera nasce con la mossa:
+      // senza questo si tirava per una stanza mai vista, e il testo che spiega
+      // la prova arrivava a dado gia' caduto. La si mostra qui, e la mossa poi
+      // non la riapre (`lettaPrima`: render() la salta, e si chiude da sola).
+      const nuova = comando.tipo === 'muovi' && comando.rivela
+        && !SP().rivelate.includes(comando.rivela) ? tileDi(comando.rivela) : null;
+      if (nuova && nuova.testo) {
+        await new Promise((ok) => schermataCarta({ titolo: `${nuova.id} · ${(nuova.nome || '').toLowerCase()}`,
+          tessera: nuova.id, testo: nuova.testo, annunci: [] }, ok));
+        ctx.lettaPrima = nuova.id;
+      }
+      const d = await chiediTiro(p);
+      if (!d) { ctx.lettaPrima = null; render(); return false; }
+      tiri.push(d);
+    }
   }
   if (ctx.posto && ctx.posto.tavolo && ctx.tavoloVivo) {
     return eseguiSulTavolo(tiri ? { ...comando, tiri } : comando);
