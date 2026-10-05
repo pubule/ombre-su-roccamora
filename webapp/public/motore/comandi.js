@@ -19,6 +19,7 @@
 //   3. gli eventi sono serializzabili: passeranno da un WebSocket.
 import { creaRng, tira2d6 as tiraSeme, interoFino } from './rng.js';
 import * as azioni from './azioni.js';
+import { primo } from './stat.js';
 import * as abilita from './abilita.js';
 import * as interazioni from './interazioni.js';
 import * as nemici from './nemici.js';
@@ -238,6 +239,15 @@ function pescaUna(g) {
         if (ost) {
           sp.ostacoli = { ...(sp.ostacoli && sp.ostacoli.round === sp.round + 1 ? sp.ostacoli : {}), ...ost, round: sp.round + 1 };
           annunci.push('Effetto dal prossimo round, nella fase Eroi.');
+        }
+        const danno = minaccia.dannoDaTesto(eff);
+        if (danno) {
+          const vivi = g.partita.party.filter((nm) => (sp.vite[nm] ?? 0) > 0);
+          if (vivi.length) {
+            const nm = danno === 'avanzato' ? vittoria.eroePiuAvanzato(g, vivi) : vivi[interoFino(g.partita.rng, vivi.length)];
+            annunci.push(...azioni.applicaConseguenza(g, nm, 'danno'));
+            if (sp.vite[nm] <= 0) annunci.push(`${primo(nm)} è a terra.`);
+          }
         }
         const prima = sp.nemici.length;
         if (!cantoMax) {

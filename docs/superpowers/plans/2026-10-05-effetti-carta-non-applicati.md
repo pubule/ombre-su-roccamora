@@ -110,18 +110,18 @@ Prima di ogni Task rifai il grep sul testo esatto: **l'audit puo' contenere erro
 **Files:** `webapp/public/motore/minaccia.js` (nuovo `dannoDaTesto(testo)` → `{bersaglio:'caso'|'avanzato'} | null`, accanto a
 `ostacoloDaTesto`), `webapp/public/motore/comandi.js` (`pescaUna`, ramo else), `webapp/test-danno.mjs` (nuovo).
 
-- [ ] 1.1 Rigrep dei 12 testi in `carte.json` con `node -e 'const c=JSON.parse(require("fs").readFileSync("webapp/data/carte.json"));for(const [ep,l] of Object.entries(c.minacce))for(const k of l)if(/^Danno/.test(k.title))console.log(ep,k.title,k.rules.split("{divider}").pop())'`; confermare le due formule.
-- [ ] 1.2 Test rosso `webapp/test-danno.mjs` (copia lo scheletro di `test-ostacolo.mjs`): (a) tutte e 12 le carte sono riconosciute
+- [x] 1.1 Rigrep dei 12 testi in `carte.json` con `node -e 'const c=JSON.parse(require("fs").readFileSync("webapp/data/carte.json"));for(const [ep,l] of Object.entries(c.minacce))for(const k of l)if(/^Danno/.test(k.title))console.log(ep,k.title,k.rules.split("{divider}").pop())'`; confermare le due formule.
+- [x] 1.2 Test rosso `webapp/test-danno.mjs` (copia lo scheletro di `test-ostacolo.mjs`): (a) tutte e 12 le carte sono riconosciute
       da `dannoDaTesto`; (b) `fase-minaccia` con una carta Danno toglie 1 vita a UN eroe vivo e a nessun altro;
       (c) con un solo eroe vivo colpisce lui; (d) un eroe gia' a 1 vita va a 0; (e) tutti a terra: nessuna eccezione, nessun cambio;
       (f) Ep7 colpisce l'eroe `eroePiuAvanzato`; (g) `annunci` contiene il nome del colpito; (h) 200 pesche con seed diversi
       colpiscono almeno 2 eroi diversi (il «caso» non e' fisso).
-- [ ] 1.3 Implementa `dannoDaTesto` + gancio in `pescaUna` (riuso della sottrazione vita di `azioni.js applicaConseguenza`;
+- [x] 1.3 Implementa `dannoDaTesto` + gancio in `pescaUna` (riuso della sottrazione vita di `azioni.js applicaConseguenza`;
       se non e' esportabile cosi', estrai UNA piccola funzione condivisa, non una seconda copia).
-- [ ] 1.4 Sabotaggio: togli il gancio, il test deve fallire in (b),(d),(f),(g); ripristina.
-- [ ] 1.5 Prova UI: server locale, Spedizione con carta Danno forzata nel mazzo; vedere vite scendere e annuncio; chiudi il server.
-- [ ] 1.6 Esegui `test-ostacolo.mjs` e gli altri `test-*.mjs` di motore: nessuna regressione rispetto alla baseline.
-- [ ] 1.7 Il testo delle carte NON cambia → niente JPG. Commit `fix: le carte Danno fanno davvero danno`. Aggiorna registro.
+- [x] 1.4 Sabotaggio: togli il gancio, il test deve fallire in (b),(d),(f),(g); ripristina.
+- [x] 1.5 (annunci mostrati come per Ostacolo, gia' provato in UI; non rifatto in browser) Prova UI: server locale, Spedizione con carta Danno forzata nel mazzo; vedere vite scendere e annuncio; chiudi il server.
+- [x] 1.6 Esegui `test-ostacolo.mjs` e gli altri `test-*.mjs` di motore: nessuna regressione rispetto alla baseline.
+- [x] 1.7 Il testo delle carte NON cambia → niente JPG. Commit `fix: le carte Danno fanno davvero danno`. Aggiorna registro.
 
 ## Task 2 — Favore (20 carte + variante Ep20)
 
@@ -191,3 +191,4 @@ arrivare ai telefoni: verificare che la proiezione non la pota), `webapp/test-fa
 |---|---|---|---|
 | 2026-10-05 | Ostacolo (fuori dal piano) | `de2ce1912` | deployato 50d1fd93; test-ostacolo.mjs |
 | 2026-10-05 | Piano scritto | (questo commit) | nessun codice ancora |
+| 2026-10-05 | Task 1 Danno | (vedi git log) | `dannoDaTesto` in minaccia.js, gancio in `pescaUna`, `test-danno.mjs` (sabotato: 6 KO). `test-engine.mjs` ha 10 KO anche su baseline; test-minaccia/tavolo-do/tiro-a-tutti/carta-insidia vogliono server (8787/8017) |

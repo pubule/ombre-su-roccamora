@@ -157,6 +157,15 @@ export function tileAffollata(g) {
 
 // Il testo di una carta Ostacolo -> l'effetto sul Movimento del round dopo
 // (vedi `ostacolo` in stat.js), o null se la carta non ne ha uno.
+// carta Danno: «Un eroe a caso (...) subisce 1 danno» / «L'eroe piu' avanzato subisce 1 danno»
+export function dannoDaTesto(testo) {
+  const t = String(testo || '').trim();
+  if (!/subisce 1 danno/i.test(t)) return null;
+  if (/^un eroe a caso/i.test(t)) return 'caso';
+  if (/^l.eroe pi(ù|u'?) avanzato/i.test(t)) return 'avanzato';
+  return null;
+}
+
 export function ostacoloDaTesto(testo) {
   const out = {};
   if (/muoversi costa il doppio/i.test(testo)) out.doppio = true;
