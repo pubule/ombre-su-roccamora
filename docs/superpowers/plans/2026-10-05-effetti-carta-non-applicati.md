@@ -152,18 +152,18 @@ Prima di ogni Task rifai il grep sul testo esatto: **l'audit puo' contenere erro
 ~271/315 per capire se va nel registro/undo), `digitale.js` (`schermataCarta`), `proiezione.js` (la carta con `favore` deve
 arrivare ai telefoni: verificare che la proiezione non la pota), `webapp/test-favore.mjs`.
 
-- [ ] 2.1 Rigrep testi Favore; leggi `muovi`, `esploraMosse` (reveal), `proiezione.js` per il campo `carta`.
-- [ ] 2.2 Test rosso `test-favore.mjs`: (a) 19 carte riconosciute da `favoreDaTesto`; (b) `candidatiFavore` dà le coperte adiacenti agli eroi
+- [x] 2.1 Rigrep testi Favore; leggi `muovi`, `esploraMosse` (reveal), `proiezione.js` per il campo `carta`.
+- [x] 2.2 Test rosso `test-favore.mjs`: (a) 19 carte riconosciute da `favoreDaTesto`; (b) `candidatiFavore` dà le coperte adiacenti agli eroi
       e solo quelle (stato seminato con 2 eroi in tessere diverse); (c) `fase-minaccia` con Favore → `sp.carta.favore.candidati` non vuoto;
       (d) comando `favore {tessera}` valido rivela la tessera (entra in `rivelate`, evento `rivelata`, testo della tessera disponibile);
       (e) tessera NON fra i candidati → rifiuto, stato invariato; (f) zero candidati → annuncio, nessuna eccezione;
       (g) `spawnDaTesto` scatta se la tessera ha «quando rivelate»; (h) i candidati arrivano nella proiezione di un telefono.
-- [ ] 2.3 Estrai `rivelaTessera` da `muovi` (test esistenti di movimento restano verdi), implementa `favoreDaTesto`, `candidatiFavore`, gancio, comando.
-- [ ] 2.4 UI in `schermataCarta`: se `aperta.carta.favore` e c'e' scelta aperta, mostra i candidati (nome tessera leggibile) per chi conduce, nascondi
+- [x] 2.3 Estrai `rivelaTessera` da `muovi` (test esistenti di movimento restano verdi), implementa `favoreDaTesto`, `candidatiFavore`, gancio, comando.
+- [x] 2.4 UI in `schermataCarta`: se `aperta.carta.favore` e c'e' scelta aperta, mostra i candidati (nome tessera leggibile) per chi conduce, nascondi
       `#ok-msg` finche' non si sceglie (come per le prove), chi gioca vede «i giocatori scelgono». Verifica con Playwright su porta 8017.
-- [ ] 2.5 Sabotaggio del gancio e di `candidatiFavore` (devono rompere (b),(c),(d)); ripristina.
-- [ ] 2.6 Ep20: `controcanto` +1 riga con condizione Mappa Acustica, test dedicato; oppure ruling registrato se il dato manca.
-- [ ] 2.7 Test completi di motore + UI senza regressioni rispetto alla baseline. Commit `fix: le carte Favore rivelano davvero una tessera`. Registro.
+- [x] 2.5 Sabotaggio del gancio e di `candidatiFavore` (devono rompere (b),(c),(d)); ripristina.
+- [x] 2.6 Ep20: `controcanto` +1 riga con condizione Mappa Acustica, test dedicato; oppure ruling registrato se il dato manca.
+- [x] 2.7 Test completi di motore + UI senza regressioni rispetto alla baseline. Commit `fix: le carte Favore rivelano davvero una tessera`. Registro.
 
 ## Task 3 — «Con [oggetto]» e bonus passivi degli oggetti
 
@@ -192,3 +192,4 @@ arrivare ai telefoni: verificare che la proiezione non la pota), `webapp/test-fa
 | 2026-10-05 | Ostacolo (fuori dal piano) | `de2ce1912` | deployato 50d1fd93; test-ostacolo.mjs |
 | 2026-10-05 | Piano scritto | (questo commit) | nessun codice ancora |
 | 2026-10-05 | Task 1 Danno | (vedi git log) | `dannoDaTesto` in minaccia.js, gancio in `pescaUna`, `test-danno.mjs` (sabotato: 6 KO). `test-engine.mjs` ha 10 KO anche su baseline; test-minaccia/tavolo-do/tiro-a-tutti/carta-insidia vogliono server (8787/8017) |
+| 2026-10-05 | Task 2 Favore | (vedi git log) | `rivelaTessera` estratta da `muovi`, `candidatiFavore`, comando `favore` (solo arbitro), UI `.fav-scelta`, Ep20 `controcantoExtra`; `test-favore.mjs` (sabotato: 2 KO) e `test-favore-ui.mjs` (Playwright, 8017) |

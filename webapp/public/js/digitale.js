@@ -1208,6 +1208,8 @@ function schermataCarta(aperta, alOk = null) {
   // PRIMA di poter continuare (quando la carta e' passata a questa schermata
   // dallo stato, il bottone del tiro e' rimasto dietro: non si tirava piu').
   const req = aperta.carta && arbitro() ? provaRichiesta(aperta.carta.rules) : null;
+  const fav = aperta.favore;
+  const DIR = { N: 'nord', S: 'sud', E: 'est', O: 'ovest' };
   app.classList.remove('immersivo');
   const html = `<div class="barra"><span></span><div class="titolo">${esc(aperta.titolo || 'minaccia')}</div><span></span></div>
     <div class="pannello">
@@ -1229,7 +1231,11 @@ function schermataCarta(aperta, alOk = null) {
       ${(aperta.annunci || []).map((a) => `<p class="mt"><b>${esc(a)}</b></p>`).join('')}
       <div id="ins-esito"></div>
     </div>
-    ${arbitro()
+    ${fav ? (arbitro()
+      ? `<p class="nota mt">Scegliete quale porta si apre:</p>
+         <div class="btn-riga">${fav.candidati.map((c) => `<button class="btn pieno fav-scelta" data-t="${esc(c.dest)}">${esc((tileDi(c.da) || {}).nome || c.da)} · porta a ${DIR[c.dir] || c.dir}</button>`).join('')}</div>`
+      : '<p class="nota mt center">i giocatori scelgono quale porta aprire…</p>')
+    : arbitro()
       ? `${req ? '<p class="nota mt"><b class="ko-txt">Insidia:</b> risolvete la prova prima di continuare.</p>' : ''}
          <div class="btn-riga">
            ${req ? '<button class="btn pieno" id="ins-risolvi">🎲 risolvete la prova richiesta</button>' : ''}
@@ -1249,6 +1255,10 @@ function schermataCarta(aperta, alOk = null) {
     b.disabled = true;
     if (alOk) alOk(); else await esegui({ tipo: 'carta-vista' });
   };
+  app.querySelectorAll('.fav-scelta').forEach((f) => { f.onclick = async () => {
+    app.querySelectorAll('.fav-scelta').forEach((x) => { x.disabled = true; });
+    await esegui({ tipo: 'favore', tessera: f.dataset.t });
+  }; });
   const rb = app.querySelector('#ins-risolvi');
   if (rb) rb.onclick = async () => {
     rb.disabled = true;

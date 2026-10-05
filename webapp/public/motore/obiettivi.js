@@ -304,6 +304,20 @@ export function avanzaRitmo(g) {
   return ann;
 }
 
+// Righe in piu' dal Favore dell'Ep.20 («la citta' canta con voi»): valgono solo
+// col `con_oggetto` del ritmo (la Mappa Acustica) e dopo l'ingresso in camera.
+export function controcantoExtra(g, righe) {
+  const c = specRitmo(g); const sp = g.sp;
+  if (!c || sp.esito) return [];
+  const r = c.ritmo;
+  if (r.tile && !sp.rivelate.includes(r.tile)) return ['Il controcanto non è ancora cominciato: la campana suona a vuoto.'];
+  const oggetto = r.oggetto && ((g.partita.indagine || {}).oggetti || []).some((o) => new RegExp(r.oggetto, 'i').test(o));
+  if (!oggetto) return [`Senza la ${r.oggetto} la campana non dice nulla: il controcanto non avanza.`];
+  const st = statoCompiti(g);
+  st[c.id] = Math.min(c.quante, (st[c.id] || 0) + righe);
+  return [`La città canta con voi: +${righe} ${righe === 1 ? 'riga' : 'righe'}, controcanto ${st[c.id]}/${c.quante}.`];
+}
+
 // ------------------------------------------------ la pressione della camera (Ep.20)
 // L'altra meta' del finale stampato. Nella camera il Dormiente si desta a ogni
 // round, e il rito accelera il risveglio finche' HA UNA VOCE: M. in piedi con

@@ -6,7 +6,7 @@
 // per questo e' rimasto indietro.
 //
 // Contesto esplicito `g = { ep, comune, sp, partita }`.
-import { arrediSet, chiave, tileDi, layout, occupati } from './griglia.js';
+import { arrediSet, chiave, tileDi, layout, occupati, dirExit } from './griglia.js';
 import { nemStat, feriteMaxNem } from './stat.js';
 import { sogliaCanto } from './regole.js';
 import { specCompiti } from './obiettivi.js';
@@ -157,6 +157,25 @@ export function tileAffollata(g) {
 
 // Il testo di una carta Ostacolo -> l'effetto sul Movimento del round dopo
 // (vedi `ostacolo` in stat.js), o null se la carta non ne ha uno.
+// carta Favore: «Rivelate una tessera coperta adiacente a quella di un eroe»
+export const favoreDaTesto = (testo) => /rivelate una tessera coperta adiacente/i.test(String(testo || ''));
+
+// le porte che portano a una tessera ancora coperta, dalle tessere dove sta
+// almeno un eroe vivo: [{da, dir, dest}] — la scelta e' dei giocatori
+export function candidatiFavore(g) {
+  const sp = g.sp; const visti = new Set(); const out = [];
+  for (const nm of g.partita.party) {
+    if ((sp.vite[nm] ?? 0) <= 0 || !sp.eroiPos[nm]) continue;
+    const da = sp.eroiPos[nm].t;
+    for (const [dir, raw] of Object.entries(tileDi(g, da).exits || {})) {
+      const dest = dirExit(raw);
+      if (!tileDi(g, dest) || sp.rivelate.includes(dest) || visti.has(dest)) continue;
+      visti.add(dest); out.push({ da, dir, dest });
+    }
+  }
+  return out;
+}
+
 // carta Danno: «Un eroe a caso (...) subisce 1 danno» / «L'eroe piu' avanzato subisce 1 danno»
 export function dannoDaTesto(testo) {
   const t = String(testo || '').trim();

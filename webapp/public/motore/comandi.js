@@ -171,8 +171,22 @@ const GESTORI = {
     return pescaUna(g);
   },
 
+  // IL FAVORE: i giocatori scelgono quale tessera coperta si apre (la carta
+  // Favore lascia i candidati in `sp.carta.favore`). La tessera aperta si
+  // legge come ogni stanza che si apre: prende il posto della carta.
+  favore: (g, c) => {
+    const sp = g.sp; const f = sp.carta && sp.carta.favore;
+    if (!f) return { rifiuto: 'Non c’è nessun favore da usare.' };
+    if (!f.candidati.some((x) => x.dest === c.tessera)) return { rifiuto: 'Quella tessera non si può aprire con questo favore.' };
+    const prima = sp.carta;
+    const eventi = azioni.rivelaTessera(g, c.tessera, 'Un favore apre la via');
+    if (sp.carta === prima) { prima.favore = null; prima.annunci.push(`Si apre ${c.tessera}.`); }
+    return { eventi };
+  },
+
   // La carta successiva: la manda chi conduce dopo aver letto quella aperta.
   'carta-vista': (g) => {
+    if (g.sp.carta && g.sp.carta.favore) return { rifiuto: 'Scegliete prima quale tessera aprire con il favore.' };
     g.sp.carta = null;
     return pescaUna(g);
   },
@@ -212,7 +226,7 @@ function pescaUna(g) {
       const carta = pesca(g.partita.rng, sp.mazzo, g.carte, g.partita.episodio, g.ep);
       if (!carta) { sp.minacceDaPescare = 0; return { eventi }; }
       const crescendo = carta.title.startsWith('Crescendo');
-      const annunci = [];
+      const annunci = []; let favore = null;
       if (crescendo) {
         annunci.push(...cantoDaCarta(g.comune, g.ep, sp));
         annunci.push(...minaccia.destaBossSeSoglia(g));
@@ -249,6 +263,13 @@ function pescaUna(g) {
             if (sp.vite[nm] <= 0) annunci.push(`${primo(nm)} è a terra.`);
           }
         }
+        if (minaccia.favoreDaTesto(eff)) {
+          const candidati = minaccia.candidatiFavore(g);
+          if (candidati.length) favore = { candidati };
+          else annunci.push('Nessuna tessera coperta è adiacente a un eroe: il favore non porta a nulla.');
+        }
+        const extra = eff.match(/controcanto avanza di (\d+) rig(?:a|he) in più/i);
+        if (extra) annunci.push(...obiettivi.controcantoExtra(g, Number(extra[1])));
         const prima = sp.nemici.length;
         if (!cantoMax) {
           minaccia.spawnDaTesto(g, eff, minaccia.tileAffollata(g));
@@ -262,7 +283,7 @@ function pescaUna(g) {
       // gli schermi e ritrovabile da chi ricarica. Viaggia INTERA perche' il
       // telefono ha i dati potati dalla proiezione e da un titolo non potrebbe
       // ricostruirsela.
-      const aperta = { titolo: `minaccia ${i + 1} di ${n}`, carta, annunci };
+      const aperta = { titolo: `minaccia ${i + 1} di ${n}`, carta, annunci, ...(favore ? { favore } : {}) };
       sp.carta = aperta;
       sp.minacceDaPescare = restano - 1;
       eventi.push({ tipo: 'carta', ...aperta });

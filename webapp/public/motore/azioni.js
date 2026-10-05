@@ -162,26 +162,34 @@ export function finisciEroe(g, nm) {
   sp.eroiAttivo = null;
 }
 
+// APRIRE UNA TESSERA coperta: lo fa chi ci entra (muovi) e la carta Favore.
+// `chi` e' il soggetto della riga di registro («Anna apre la via»).
+export function rivelaTessera(g, revealId, chi) {
+  const sp = g.sp; const eventi = [];
+  sp.rivelate.push(revealId);
+  const dest = tileDi(g, revealId);
+  log(g, `${chi} verso ${revealId}: ${dest.nome.toLowerCase()}.`);
+  eventi.push({ tipo: 'rivelata', tessera: revealId });
+  // LA STANZA SI LEGGE QUANDO SI APRE. Il testo della tessera e' scritto per
+  // essere detto ad alta voce entrando, ed e' quel che trasforma una casella
+  // in un luogo: finiva solo nel fascicolo di chi arbitra, e a schermo non lo
+  // vedeva nessuno. Sta nello stato come la carta Minaccia — cosi' la leggono
+  // tutti gli schermi, e chi ricarica la ritrova.
+  if (dest.testo) {
+    sp.carta = { titolo: `${dest.id} · ${(dest.nome || '').toLowerCase()}`,
+                 tessera: dest.id, testo: dest.testo, annunci: [] };
+  }
+  if (/quando rivelate/i.test(dest.testo || '')) spawnDaTesto(g, dest.testo, revealId);
+  return eventi;
+}
+
 // ------------------------------------------------------------------ muovere
 export function muovi(g, caso, nm, node, revealId) {
   const sp = g.sp;
   const eventi = [];
   sp.eroiPos[nm] = node;
   if (revealId && !sp.rivelate.includes(revealId)) {
-    sp.rivelate.push(revealId);
-    const dest = tileDi(g, revealId);
-    log(g, `${primo(nm)} apre la via verso ${revealId}: ${dest.nome.toLowerCase()}.`);
-    eventi.push({ tipo: 'rivelata', tessera: revealId });
-    // LA STANZA SI LEGGE QUANDO SI APRE. Il testo della tessera e' scritto per
-    // essere detto ad alta voce entrando, ed e' quel che trasforma una casella
-    // in un luogo: finiva solo nel fascicolo di chi arbitra, e a schermo non lo
-    // vedeva nessuno. Sta nello stato come la carta Minaccia — cosi' la leggono
-    // tutti gli schermi, e chi ricarica la ritrova.
-    if (dest.testo) {
-      sp.carta = { titolo: `${dest.id} · ${(dest.nome || '').toLowerCase()}`,
-                   tessera: dest.id, testo: dest.testo, annunci: [] };
-    }
-    if (/quando rivelate/i.test(dest.testo || '')) spawnDaTesto(g, dest.testo, revealId);
+    eventi.push(...rivelaTessera(g, revealId, `${primo(nm)} apre la via`));
   } else {
     log(g, `${primo(nm)} si sposta in ${node.t}.`);
   }
