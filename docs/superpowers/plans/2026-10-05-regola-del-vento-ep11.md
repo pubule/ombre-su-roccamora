@@ -148,19 +148,19 @@ funzionano gia' (commit «ESPOSTA»), ma sono un'altra cosa (Insidie, difficolta
 - [x] 4.4 Ep.11: verificare la Raffica sul Caposquadra (vedi sezione «Il testo stampato»): se `controllaFiloPerso`/crescendo non coprono «a 1 Ferita su ESPOSTA + pesca Raffica = cade», aggiungerlo con test; altrimenti annotare «gia' coperto» nel registro.
 - [x] 4.5 Commit. Registro.
 
-## Task 5 — Il pilota non deve piantarsi, e si misura
+## Task 5 (FATTO) — Il pilota non deve piantarsi, e si misura
 
 **Files:** `webapp/mappa-pilota.mjs` (e il pilota Playwright che pilota davvero la UI: cercare dove risolve `#ins-risolvi` / le prove), eventuali simulatori in `src/` che chiamano `applica`.
 
-- [ ] 5.1 `grep -n "ins-risolvi\|fase-minaccia\|carta-vista" webapp/*.mjs`: individua OGNI loop-bot che avanza il round. Insegna a ognuno a risolvere la coda (`prova-vento` per ogni nome in `sp.provaVento.chi`) prima di far agire gli eroi. Senza questo l'Ep.11 si pianta (Review Focus 1).
-- [ ] 5.2 **Misura a codice fermo** (memoria «Misura a codice fermo»: `git status` pulito prima), baseline = valore Ep.11 in `docs/` o HANDOFF «Mappa pilota» (win% con 4 eroi, N=20, banda sana 55-75%); poi dopo la regola. Lancia le partite **in parallelo**. Registra le due misure nel registro e in HANDOFF.
-- [ ] 5.3 Se fuori banda: NON ritarare (ruling 10). Riporta all'utente con i numeri e le leve candidate (base Media/Facile, tetto, danno da vertigine) e lascia il codice com'e'.
-- [ ] 5.4 Chiudi i server di prova.
+- [x] 5.1 `grep -n "ins-risolvi\|fase-minaccia\|carta-vista" webapp/*.mjs`: individua OGNI loop-bot che avanza il round. Insegna a ognuno a risolvere la coda (`prova-vento` per ogni nome in `sp.provaVento.chi`) prima di far agire gli eroi. Senza questo l'Ep.11 si pianta (Review Focus 1).
+- [x] 5.2 **Misura a codice fermo** (memoria «Misura a codice fermo»: `git status` pulito prima), baseline = valore Ep.11 in `docs/` o HANDOFF «Mappa pilota» (win% con 4 eroi, N=20, banda sana 55-75%); poi dopo la regola. Lancia le partite **in parallelo**. Registra le due misure nel registro e in HANDOFF.
+- [x] 5.3 Se fuori banda: NON ritarare (ruling 10). Riporta all'utente con i numeri e le leve candidate (base Media/Facile, tetto, danno da vertigine) e lascia il codice com'e'.
+- [x] 5.4 Chiudi i server di prova.
 
 ## Task 6 — Chiusura
 
-- [ ] 6.1 Aggiorna `AUDIT-TESTI.md` §2.2 (la nota sui Crescendo «non e' detto se si sommano» → «si sommano, lo dice la carta; vedi piano del vento») e la riga «residuo» del §4.
-- [ ] 6.2 `HANDOFF.md` in cima: cosa e' fatto, le due misure, i rulings.
+- [x] 6.1 Aggiorna `AUDIT-TESTI.md` §2.2 (la nota sui Crescendo «non e' detto se si sommano» → «si sommano, lo dice la carta; vedi piano del vento») e la riga «residuo» del §4.
+- [x] 6.2 `HANDOFF.md` in cima: cosa e' fatto, le due misure, i rulings.
 - [ ] 6.3 Push `main` e deploy (`node webapp/export-data.js && python webapp/export-assets.py && bash deploy/deploy.sh`); verifica; chiudi i server.
 - [ ] 6.4 Report all'utente in 2 righe: cosa fa ora l'Ep.11, i numeri prima/dopo, e i rulings piu' discutibili (base Facile + tetto Difficile; danno da vertigine letterale a 1 Ferita).
 
@@ -175,3 +175,4 @@ funzionano gia' (commit «ESPOSTA»), ma sono un'altra cosa (Insidie, difficolta
 | 2026-10-05 | Task 2 | (git log: «contatore dei Crescendo e coda a inizio round») | `contaCrescendo` nel ramo crescendo non annullato (comandi.js), `apriProveVento` dopo `sp.fase='eroi'` (nemici.js); sabotaggi rossi. Regressioni verdi. |
 | 2026-10-05 | Task 3 | (git log: «comando prova-vento e blocco delle azioni») | `azioni.provaVento` + ramo `prova-vento` in `provaDi` (serve anche al tavolo), guardia unica in `applica` con lista `PASSANO_COL_VENTO` (default-deny), `prova-vento` in `COMANDI_DI_ARBITRO`. La proiezione spalma `...sp`: `provaVento` arriva ai telefoni senza codice. Comando: `{tipo:'prova-vento', eroe, tiri?}`. Etichetta bonus buio = «Buio». Sabotaggi tutti rossi (anche `vite===1`). |
 | 2026-10-05 | Task 4 | (git log: «pannello delle prove») | Pannello `ventoHtml` in `azioniHtml` (coda → riga per eroe con difficolta' e modificatori, tasto «tira» solo a chi arbitra, azioni nascoste finche' la coda c'e'). **Bug trovato dal test UI**: `incassa()` travasa lo stato con `Object.assign`, che non toglie le chiavi cancellate dal motore → `delete sp.provaVento` lasciava la coda in vista per sempre; ora si scrive `{round, chi: []}` (sabotaggio rosso). 4.4: la Raffica NON era coperta (la clausola «Caposquadra a 1 Ferita su ESPOSTA, CADE» era prosa): `vento.caduteInRaffica` (comandi.js, ramo Crescendo) toglie dal campo il bersaglio e `controllaFiloPerso` scrive il filo perso; 4 test, sabotaggi rossi. Screenshot 390×844 guardati (coda, dadi, conseguenza). `test-vento-ui.mjs` richiede `node webapp/server.js`. |
+| 2026-10-05 | Task 5 | (git log: «il pilota di misura …») | `misura-episodio.mjs`: `proveVento()` dopo `attendiFaseEroi`. Scoperto che il pilota non sapeva scegliere la porta delle carte Favore (stallo in fase nemici, anche SENZA vento: provato con `ventoAttivo=false`): aggiunto `.fav-scelta` (prima porta). Misura Ep11 N=20 (4×5 in parallelo, git pulito, server 8017): **senza vento 60% (6 piene+6 parziali), con vento 35% (1 piena+6 parziali)**, round medi 16.3→18.5. Sotto banda 55-75: non ritarato. Simulatori Python non toccati. |

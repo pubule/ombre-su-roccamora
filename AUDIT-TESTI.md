@@ -171,8 +171,10 @@ La parola persa è **corrente**, che è anche il titolo della carta.
   (*Il Dormiente si Muove*). Stesso effetto, durata dichiarata solo a volte.
 - **ep11 · i tre *Crescendo* del vento** — «alzate di 1 la difficoltà delle prove
   di vento, **per sempre**», su tre carte identiche più *La Raffica sulla Guglia*
-  che ne aggiunge un'altra. Non è detto se si sommano. Con tre pescate la
-  difficoltà arriverebbe a +3, e nessuna carta lo conferma né lo esclude.
+  che ne aggiunge un'altra. Il motore li SOMMA (un gradino della scala Facile →
+  Media → Difficile per Crescendo, tetto Difficile): «per sempre» e «i Crescendo
+  si sommano» lo dicono la carta della Raffica e la prima. Piano:
+  `docs/superpowers/plans/2026-10-05-regola-del-vento-ep11.md`.
 
 ---
 
@@ -406,4 +408,5 @@ NUOVO va letto ad alta voce: è l'unico strumento che funziona.
 ## 4. Effetti delle carte Minaccia letti dal motore (05/10/2026)
 
 Audit di tutte le carte Minaccia: gli effetti stampati ora sono applicati (Ostacolo, Danno, Favore, «Con [oggetto]», Canto su Bivio/Insidie, scatto/tell/controcanto, colpi dei nemici, FUGA +1, ESPOSTA).
-Residuo noto: regola del vento Ep11, morale Ep17, «non può aiutare», Ep15 Reagente, Ep16 Fascicolo, Ep18 Maggiordomo. Dettaglio nel piano `docs/superpowers/plans/2026-10-05-effetti-carta-non-applicati.md`.
+Regola del vento Ep11: FATTA (05/10/2026, prove NERVI a inizio round sulle tessere ESPOSTE, Crescendo che si sommano, buio, Lanterna, Corda, Taccuino, D3, Raffica sul Caposquadra).
+Residuo noto: morale Ep17, «non può aiutare», Ep15 Reagente, Ep16 Fascicolo, Ep18 Maggiordomo. Dettaglio nel piano `docs/superpowers/plans/2026-10-05-effetti-carta-non-applicati.md`.

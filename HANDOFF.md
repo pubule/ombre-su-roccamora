@@ -1,10 +1,11 @@
 # Handoff — dove siamo
 
-## FATTO (05/10/2026): effetti delle carte Minaccia applicati dal motore
+## FATTO (05/10/2026): effetti delle carte Minaccia applicati dal motore + REGOLA DEL VENTO Ep11
 
-Piano: `docs/superpowers/plans/2026-10-05-effetti-carta-non-applicati.md` (tutto spuntato; rulings e residuo in fondo).
-Fatti: Ostacolo, Danno, Favore, «Con [oggetto]», conseguenze (scatto, tell, canto), colpi Guardia/Ispettore/Lama, FUGA +1, ESPOSTA.
-**Residuo grosso: la REGOLA DEL VENTO dell'Ep11 non esiste nel motore.** Piano riavviabile pronto: `docs/superpowers/plans/2026-10-05-regola-del-vento-ep11.md` (Task 1-6, nessuno iniziato).
+Piani: `docs/superpowers/plans/2026-10-05-effetti-carta-non-applicati.md` e `docs/superpowers/plans/2026-10-05-regola-del-vento-ep11.md` (tutto spuntato, rulings e registro in fondo).
+Vento Ep11: a inizio round chi sta su tessera ESPOSTA prova NERVI (base Facile, +1 gradino per Crescendo, +1 T4, +1 T6, tetto Difficile; buio −1 salvo Lanterna da Guglia; +1 Taccuino, +1 D3 esatta); chi fallisce perde lo scatto, e a 1 Ferita subisce 1 danno (salvo Corda del Campanaro). Le azioni restano bloccate finche' la coda `sp.provaVento` non e' vuota; le prove le tira chi arbitra. La Raffica fa cadere il Caposquadra all'ultima Ferita sull'esposto (filo perso).
+**Misura Ep11 (pilota Playwright, 4 eroi, N=20, codice fermo, 05/10/2026): prima 60% (6 piene + 6 parziali), dopo 35% (1 piena + 6 parziali), round medi 16 → 18.5.** Sotto la banda 55-75: NON ritarato, decide il tavolo (memoria «il tavolo giudica»). Il pilota ha imparato anche le carte Favore (prima restava in stallo a 'Scegliete quale porta si apre'): TUTTA la mappa pilota precedente per gli episodi con Favore e' da rifare.
+Rulings piu' discutibili: base Facile + tetto Difficile; danno da vertigine letterale a 1 Ferita; «Vento al massimo» e' in T6, non T5. Simulatori Python non aggiornati (solo prefiltro).
 
 ## Plancia lanterne: Task 1-9 FATTI e rivisti (05/10/2026); restano solo prove umane
 
