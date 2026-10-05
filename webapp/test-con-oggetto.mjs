@@ -136,5 +136,31 @@ ok(rif && /non può registrare tell/.test(rif.motivo || rif), 'disorientato: Int
 sD.spedizione.round = 5;
 ok(!provaDoc(sD).rifiuto, 'e il round ancora dopo torna a documentare');
 
+// ---- colpi senza prova: Lama Educata (Ep9), Guardia (Ep17), Ispettore (Ep19), FUGA +1 (Ep12)
+const vita = (st, nm) => st.spedizione.vite[nm];
+const lama = 'Insidia — La Lama Educata';
+const conRiva = (liberato, x) => {
+  const st = nuova(9, lama, []); const t = ep(9).tessere[0].id;
+  st.spedizione.scortati = [{ liberato, pos: { t, x, y: 3 } }];
+  return st;
+};
+let sL = conRiva(true, 3);                                  // Riva in (3,3): adiacente solo a chi sta in (3,2)/(2,3)/..
+sL.spedizione.eroiPos[party[1]] = { t: ep(9).tessere[0].id, x: 3, y: 2 };
+o = pesca(9, sL);
+ok(vita(o.stato, party[1]) === vita(sL, party[1]) - 1 && [0, 2, 3].every((i) => vita(o.stato, party[i]) === vita(sL, party[i])), 'Ep9 Lama Educata: perde 1 vita solo l’eroe adiacente a Riva');
+o = pesca(9, conRiva(false, 3));
+ok(party.every((n) => vita(o.stato, n) === COMUNE.eroi.find((x) => x.nome === n).salute), 'Ep9 Lama: Riva non ancora libero, nessun danno');
+const nemicoIn = (st, nome, n) => { st.spedizione.nemici = [{ nome, pos: { t: ep(n).tessere[0].id, x: 0, y: 3 }, ferite: 0 }]; return st; };
+let sG = nuova(17, 'Insidia — Lo Sguardo della Guardia', []); sG.spedizione.vite[party[2]] = 2;
+o = pesca(17, nemicoIn(sG, 'La Guardia', 17));
+ok(vita(o.stato, party[2]) === 1 && o.stato.spedizione.carta.annunci.some((a) => /Guardia colpisce/.test(a)), 'Ep17 Guardia in campo: colpisce l’eroe con meno Salute');
+o = pesca(17, nuova(17, 'Insidia — Lo Sguardo della Guardia', []));
+ok(party.every((n) => vita(o.stato, n) === COMUNE.eroi.find((x) => x.nome === n).salute), 'Ep17 senza Guardia in campo: nessun effetto');
+let sI = nemicoIn(nuova(19, 'Insidia — Il Fiuto dell’Ispettore', []), 'L’Ispettore Vidal', 19);
+o = pesca(19, sI);
+ok(party.filter((n) => vita(o.stato, n) < vita(sI, n)).length === 1, 'Ep19 Ispettore in campo: colpisce un solo eroe');
+o = pesca(12, nuova(12, 'Insidia — Lo Scambio di Barca', []));
+ok((o.stato.spedizione.traccia || 0) === 1, 'Ep12 «FUGA +1»: la traccia sale');
+
 console.log(ko ? `\n${ko} KO` : '\nTutto verde.');
 process.exit(ko ? 1 : 0);

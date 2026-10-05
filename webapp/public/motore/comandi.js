@@ -20,6 +20,7 @@
 import { creaRng, tira2d6 as tiraSeme, interoFino } from './rng.js';
 import * as azioni from './azioni.js';
 import { primo } from './stat.js';
+import { adiacGlob } from './griglia.js';
 import * as abilita from './abilita.js';
 import * as interazioni from './interazioni.js';
 import * as nemici from './nemici.js';
@@ -28,7 +29,7 @@ import * as domande from './domande.js';
 import * as obiettivi from './obiettivi.js';
 import { chiudiFaseNemici } from './vittoria.js';
 import * as vittoria from './vittoria.js';
-import { carteDaPescare, pesca, cantoDaCarta, tettoCanto } from './regole.js';
+import { carteDaPescare, pesca, cantoDaCarta, tettoCanto, norm } from './regole.js';
 import { GESTORI_INDAGINE } from './indagine.js';
 
 const clona = (x) => JSON.parse(JSON.stringify(x));
@@ -215,6 +216,39 @@ const GESTORI = {
 
 // PESCA UNA CARTA e la lascia aperta in `sp.carta`, se ne restano da pescare.
 // Quando non ne restano piu', `sp.carta` resta nullo e la fase puo' proseguire.
+// Insidie che colpiscono qualcuno senza prova: «L'eroe adiacente a Riva subisce
+// 1 danno» (Ep.9), «La Guardia/L'Ispettore, se in campo, colpisce subito l'eroe
+// con meno Salute / piu' avanzato» (Ep.17, 19). Il colpo del nemico vale 1 danno,
+// come ogni altro danno di carta; senza il nemico (o Riva) in scena, nessun effetto.
+function colpiDaTesto(g, eff) {
+  const sp = g.sp; const out = [];
+  const vivi = g.partita.party.filter((nm) => (sp.vite[nm] ?? 0) > 0);
+  const colpisci = (nm) => {
+    out.push(...azioni.applicaConseguenza(g, nm, 'danno'));
+    if (sp.vite[nm] <= 0) out.push(`${primo(nm)} è a terra.`);
+  };
+  const lama = eff.match(/eroe adiacente a (\S+)[^.]*subisce 1 danno/i);
+  if (lama) {
+    const png = (sp.scortati || []).find((s, i) => s.liberato && s.pos
+      && norm(String(g.ep.scortato && g.ep.scortato[i] ? g.ep.scortato[i].nome : '')).includes(norm(lama[1])));
+    const vicini = png ? vivi.filter((nm) => adiacGlob(g, sp.eroiPos[nm], png.pos)) : [];
+    if (vicini.length) colpisci(vicini[interoFino(g.partita.rng, vicini.length)]);
+    else out.push(`Nessun eroe è adiacente a ${lama[1]}: nessun effetto.`);
+  }
+  const colpo = eff.match(/(?:La|Il|L[’'])\s*(\w+)[^.]*?colpisce subito l[’']eroe (con meno Salute|più avanzato)/i);
+  if (colpo) {
+    const quello = sp.nemici.find((n) => n.pos && norm(n.nome).includes(norm(colpo[1])));
+    if (quello && vivi.length) {
+      const chi = /avanzato/i.test(colpo[2])
+        ? vittoria.eroePiuAvanzato(g, vivi)
+        : vivi.reduce((a, b) => (sp.vite[b] < sp.vite[a] ? b : a));
+      out.push(`${quello.nome} colpisce ${primo(chi)}.`);
+      colpisci(chi);
+    } else out.push(`${colpo[1]} non è in campo: nessun effetto.`);
+  }
+  return out;
+}
+
 function pescaUna(g) {
   const sp = g.sp; const eventi = [];
   const restano = sp.minacceDaPescare || 0;
@@ -235,6 +269,7 @@ function pescaUna(g) {
       } else if (crescendo) {
         annunci.push(...cantoDaCarta(g.comune, g.ep, sp));
         annunci.push(...minaccia.destaBossSeSoglia(g));
+        annunci.push(...colpiDaTesto(g, carta.rules.split('{divider}').pop()));
         // la stessa carta che alza il Canto spinge anche l'orologio dell'episodio
         const oro = obiettivi.specOrologio(g);
         if (annunci.length && oro && oro.da_carta) {
@@ -291,6 +326,10 @@ function pescaUna(g) {
           if (senza && !senza.applica) annunci.push(`Con «${senza.nome}»: nessun effetto.`);
           else if (nm) annunci.push(...azioni.applicaConseguenza(g, nm, 'perde il movimento extra'));
         }
+        const oro = obiettivi.specOrologio(g);
+        const spinta = oro && eff.match(new RegExp(`${oro.nome}\\s*\\+(\\d+)`, 'i'));
+        if (spinta) annunci.push(...obiettivi.avanzaOrologio(g, Number(spinta[1]), 'carta'));
+        annunci.push(...colpiDaTesto(g, eff));
         prova = minaccia.provaConOggetti(g, eff);
         if (prova) annunci.push(prova.nota);
         const prima = sp.nemici.length;
