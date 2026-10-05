@@ -1802,7 +1802,10 @@ def con_scenografia(obj):
         sys.exit(f"scenografia {obj.get('id')}: stanze che l'episodio non ha: {sorted(ignote)}")
     for t in obj.get('tessere', []):
         if t['id'] in sc:
-            t['scena'] = sc[t['id']]
+            # solo cio' che il disegno legge: `perche` e' una nota d'autore (e quella
+            # dell'ep18 T4 anticipa la soluzione) — proiezione.js passa le tessere
+            # rivelate ai telefoni, quindi non deve uscire da qui.
+            t['scena'] = {k: v for k, v in sc[t['id']].items() if k in ('decori', 'arredi')}
     return obj
 
 

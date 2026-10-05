@@ -224,16 +224,18 @@ async function parte3() {
 // --------------------------------------------------------------------------
 // PARTE 4 (Step 4b): Ep.11 (i tetti) — almeno una tessera alAperto: sotto la
 // plancia va la citta', un canvas fermo.
-async function parte4() {
+async function parte4(tetto) {
   const page = await browser.newPage({ viewport: { width: 390, height: 844 } });
   await page.addInitScript(() => { window.confirm = () => true; window.alert = () => {}; });
   await page.goto(BASE, { waitUntil: 'networkidle' });
-  await page.evaluate(() => {
+  await page.evaluate((tetto) => {
     localStorage.clear();
     return fetch('/data/comune.json').then((r) => r.json()).then((c) => fetch('/data/ep11.json')
       .then((r) => r.json()).then((ep) => {
         const party = c.eroi.slice(0, 3).map((e) => e.nome);
         const t0 = ep.tessere[0].id;
+        // T1 non e' aperta; T2 e' un tetto: con `tetto` e' gia' rivelata
+        const rivelate = tetto ? [t0, ep.tessere[1].id] : [t0];
         localStorage.setItem('osr.partita.ep11', JSON.stringify({
           v: 1, episodio: 'ep11', modo: 'digitale', party, creata: Date.now(), fase: 'spedizione',
           indagine: { ora: 24, lettaLettera: true, visitati: [], scoperti: [], sbloccati: [], parole: [],
@@ -241,14 +243,14 @@ async function parte4() {
             note: '', risposte: ['', '', '', ''], chiusa: true },
           spedizione: {
             digitale: true, round: 1, fase: 'eroi', canto: 0, cantoBonus: false, esito: null,
-            rivelate: [t0], stanzeLette: [t0], grate: [], log: [], nemici: [], scortati: [],
+            rivelate, stanzeLette: [t0], grate: [], log: [], nemici: [], scortati: [],
             eroiPos: Object.fromEntries(party.map((nm) => [nm, { t: t0, x: 1, y: 1 }])),
             vite: Object.fromEntries(party.map((nm) => [nm, 6])), azioni: {}, eroiFatti: [],
             abilita: {}, cercate: {}, insidie: {}, storditi: {}, uscitaTentati: [], mazzo: null,
           },
         }));
       }));
-  });
+  }, tetto);
   await page.goto(BASE, { waitUntil: 'networkidle' });
   await page.waitForTimeout(150);
   const ep = page.locator('.stampa-caso[data-ep="ep11"]');
@@ -256,7 +258,14 @@ async function parte4() {
   if (!trovata) { fail('(ep.11) tessera episodio non trovata in home'); await page.close(); return; }
   await ep.click(); await page.waitForTimeout(200);
   await page.locator('#apri-caso').click(); await page.waitForTimeout(300);
-  if (!(await page.locator('canvas.citta').count())) fail('(ep.11, tetti) manca la citta\' sotto la plancia');
+  // la citta' c'e' solo quando un tetto e' RIVELATO: la sola esistenza di
+  // tessere alAperto nell'episodio non basta (T1, l'abbaino, e' al chiuso)
+  const citta = await page.locator('canvas.citta').count();
+  if (!tetto) {
+    if (citta) fail('(ep.11, solo T1) la citta\' compare prima che un tetto sia rivelato');
+    await page.close(); return;
+  }
+  if (!citta) fail('(ep.11, tetti) manca la citta\' sotto la plancia');
 
   // FIX (Step 4b, regioni del buio): il vuoto sotto i tetti NON va scurito —
   // la citta' sotto deve restare visibile — mentre dentro una stanza il buio
@@ -290,7 +299,8 @@ async function parte4() {
 await parte1();
 await parte2();
 await parte3();
-await parte4();
+await parte4(false);
+await parte4(true);
 await browser.close();
 
 console.log(ko ? `\n${ko} FALLITI` : '\ntest-plancia-fa: tutto a posto (stanze coi pezzi FA, fuori dell\'episodio, citta\' sotto i tetti, luce che si ferma uscendo)');

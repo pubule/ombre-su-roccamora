@@ -187,6 +187,40 @@ async function apri(viewport, posto, ritocca) {
   await page.close();
 }
 
+// ============================================================ REVISIONE FINALE — l'anteprima della notte e' STABILE
+// Il bersaglio di un nemico con piu' eroi accanto si tira a caso, e la notte
+// vera tira per conto suo: l'anteprima non puo' nominarne uno (cambiava a ogni
+// render()). Con due candidati dice «uno di voi», con uno solo lo nomina.
+{
+  const testoNemico = (page) => page.evaluate(async () => {
+    const m = await import('/js/digitale.js');
+    const out = [];
+    for (let k = 0; k < 20; k++) { m._motore.render(); out.push(document.querySelector('.nem .int')?.textContent.trim()); }
+    return out;
+  });
+  const due = (p) => {   // ELENA e ATTILIO ai due lati del nemico, SIBILLA lontana
+    const sp = p.spedizione; const t = sp.rivelate[0];
+    sp.eroiPos[p.party[0]] = { t, x: 0, y: 1 }; sp.eroiPos[p.party[1]] = { t, x: 2, y: 1 };
+    sp.eroiPos[p.party[2]] = { t, x: 3, y: 3 };
+    sp.esca = null; sp.nemici = [{ nome: 'ADEPTO INCAPPUCCIATO', num: 1, ferite: 0, max: 1, pos: { t, x: 1, y: 1 } }];
+  };
+  const uno = (p) => {   // come `due`, ma ATTILIO e' lontano
+    const sp = p.spedizione; const t = sp.rivelate[0];
+    sp.eroiPos[p.party[0]] = { t, x: 0, y: 1 }; sp.eroiPos[p.party[1]] = { t, x: 3, y: 1 };
+    sp.eroiPos[p.party[2]] = { t, x: 3, y: 3 };
+    sp.esca = null; sp.nemici = [{ nome: 'ADEPTO INCAPPUCCIATO', num: 1, ferite: 0, max: 1, pos: { t, x: 1, y: 1 } }];
+  };
+  const { page: p2 } = await apri({ width: 1400, height: 860 }, null, due);
+  const t2 = await testoNemico(p2);
+  ok(new Set(t2).size === 1, `anteprima instabile fra un render e l'altro: ${[...new Set(t2)].join(' | ')}`);
+  ok(/uno di voi/.test(t2[0] || '') && !/→/.test(t2[0] || ''), `due candidati: attesa «uno di voi», vista «${t2[0]}»`);
+  await p2.close();
+  const { page: p1 } = await apri({ width: 1400, height: 860 }, null, uno);
+  const t1 = await testoNemico(p1);
+  ok(new Set(t1).size === 1 && /→ Elena/i.test(t1[0] || ''), `un solo candidato: atteso il nome di Elena, visto «${t1[0]}»`);
+  await p1.close();
+}
+
 // ============================================================ FIX ROUND 1 — il mazzo potato di chi gioca
 // `SP().mazzo` ha DUE forme, non una: da arbitro e' l'ordine vero
 // ({ordine, indice, pool} — motore/regole.js), ma su un tavolo vero un

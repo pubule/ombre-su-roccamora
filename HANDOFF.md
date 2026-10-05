@@ -1,5 +1,19 @@
 # Handoff — dove siamo
 
+## Revisione finale plancia lanterne (24/09 sera) — tre correzioni
+
+- **Anteprima della notte stabile**: `intenzioni()` (digitale.js) usa un caso fisso
+  (`CASO_ANTEPRIMA`), e `pianoNemici` porta `attacco.candidati` (campo additivo: gli eroi
+  adiacenti). Con piu' candidati la carta dice «colpira' uno di voi» (senza Difesa, che
+  dipende dal bersaglio), con uno solo lo nomina. La notte vera resta a Math.random.
+  Non modificato: se un PNG vulnerabile e' adiacente il caso fisso lo sceglie sempre
+  nell'anteprima (era 50%).
+- **`perche` non esce**: `con_scenografia` (export-data.py) esporta solo `decori`/`arredi`;
+  test-scenografia.mjs controlla che nei dati esportati non ci sia `perche`.
+- **Citta' sotto i tetti solo se un tetto e' rivelato** (`sp.rivelate`, non l'episodio
+  intero): test-plancia-fa parte4 prova Ep.11 con la sola T1 (niente citta') e con T1+T2.
+- Provati col sabotaggio (CASO casuale + UI che nomina; citta' sull'episodio intero).
+
 ## IN CORSO (25/09/2026) — la Spedizione nuova: plancia a lanterne + HUD a tre colonne
 
 Decisa col committente. Tutto sta nel piano

@@ -12,6 +12,7 @@ const dir = 'src/scenografia'; const files = existsSync(dir) ? readdirSync(dir).
 for (const f of files) {
   const epId = f.replace('.json', ''); const sc = JSON.parse(readFileSync(`${dir}/${f}`, 'utf8'));
   const ep = JSON.parse(readFileSync(`webapp/data/${epId}.json`, 'utf8'));
+  for (const t of ep.tessere) if (t.scena && 'perche' in t.scena) no(`${epId}:${t.id} il perche' d'autore e' uscito nei dati esportati`);
   const usi = {};
   for (const [id, scena] of Object.entries(sc)) {
     const t = ep.tessere.find((x) => x.id === id); if (!t) { no(`${f}: ${id} non esiste`); continue; }

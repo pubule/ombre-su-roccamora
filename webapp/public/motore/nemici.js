@@ -172,7 +172,7 @@ export function pianoNemici(g, caso, differito) {
         // intenzione senza tiro: `tot`/`colpito` mancano apposta ed e'
         // l'animazione a chiederli al tavolo, dado alla mano
         piano.push({ i, nome: n.nome, pos0, pos1, flash: false,
-                     attacco: { vitt, dan: st.dan, att: st.att, dif } });
+                     attacco: { vitt, dan: st.dan, att: st.att, dif, candidati: adiacenti } });
         continue;
       }
       const t = caso.tira2d6();

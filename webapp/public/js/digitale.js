@@ -878,12 +878,15 @@ const pips = (n, max, cls) => `<span class="pips ${cls}">${Array.from({ length: 
 // `caso.scegli(n)`, non `caso(n)`, e su un nemico con piu' di un bersaglio
 // possibile quella riga lancia un TypeError — si vede solo ESEGUENDOLA con un
 // nemico e due eroi vivi (Step 7 di questo piano lo impone, ed e' cosi' che
-// si e' trovato). Qui si passa il CASO vero (Math.random dentro `.scegli`,
-// piu' sotto): per un'anteprima non serve deterministico, e `tira2d6` non lo
-// chiama nessuno con `differito=true`.
+// si e' trovato). Il caso e' FISSO (`scegli` = sempre il primo): con Math.random
+// il bersaglio cambiava a ogni render() — e comunque la notte vera tira per
+// conto suo, quindi un nome scelto qui era una promessa falsa. L'anteprima
+// dice solo l'insieme: `attacco.candidati` (piu' d'uno = «uno di voi»; uno
+// solo = quel nome). `tira2d6` non lo chiama nessuno con `differito=true`.
+const CASO_ANTEPRIMA = { scegli: () => 0, tira2d6: () => ({ d: [3, 4], tot: 7 }) };
 function intenzioni() {
   const g = G(); const copia = { ...g, sp: structuredClone(g.sp), partita: structuredClone(g.partita) };
-  const piano = nemici.pianoNemici(copia, CASO, true);
+  const piano = nemici.pianoNemici(copia, CASO_ANTEPRIMA, true);
   return Object.fromEntries(piano.map((p) => [p.i, p]));   // p.pos1 = dove arriva, p.attacco = chi colpisce (o null)
 }
 // l'eroe vivo piu' vicino a una posizione: per dire «si avvicina a chi» quando
@@ -909,6 +912,7 @@ function nemiciHtml() {
     if (notte) intento = 'agisce stanotte';
     else if (!p) intento = 'non trova nessuno';
     else if (p.flash) intento = 'salta il turno';
+    else if (p.attacco && p.attacco.candidati.length > 1) intento = `al suo turno colpirà uno di voi: 2d6+${p.attacco.att}, −${p.attacco.dan}`;
     else if (p.attacco) intento = `al suo turno → ${esc(primo(p.attacco.vitt))}: 2d6+${p.attacco.att} contro Difesa ${p.attacco.dif}, −${p.attacco.dan}`;
     else {
       const vicino = bersaglioPiuVicino(p.pos1);
@@ -1603,8 +1607,9 @@ function agganciaMappa() {
     // LA CITTA' SOTTO I TETTI (Step 4b, porto di 6-scenografia.html): un
     // canvas fermo, ridisegnato solo quando la misura cambia (la board si
     // allarga mano a mano che si rivela) — mai a ogni fotogramma, quello lo fa
-    // solo il buio. Solo se l'episodio ha almeno una tessera alAperto.
-    const tetti = ctx.ep.tessere.some(alAperto);
+    // solo il buio. Solo se almeno una tessera alAperto e' GIA' RIVELATA:
+    // sull'episodio intero la citta' compariva prima di vedere un tetto.
+    const tetti = sp.rivelate.some((id) => alAperto(tileDi(id)));
     // FIX (Step 4b): sotto i tetti il buio scurisce SOLO stanze+acqua
     // (`ctx._geo.regioniBuio`, costruito in boardHtml() riusando la stessa
     // geometria dello Step 4a), mai il vuoto — la citta' sotto resta sempre
