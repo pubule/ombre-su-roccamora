@@ -996,7 +996,7 @@ function azioniHtml() {
   const rigaMossa = mosseSpese
     ? `▸ <b>${esc(primo(attivo))}</b> ha già usato il movimento (1 per turno): ora può attaccare, cercare o passare.`
     : nMosse
-      ? `▸ Toccate una <b class="verde">casella verde</b> per muovere ${esc(primo(attivo))} (fino a ${movimento(attivo)} caselle; le porte si attraversano a piedi, le caselle <b class="oro">dorate</b> rivelano una stanza nuova).`
+      ? `▸ Toccate una <b class="verde">casella verde</b> per muovere ${esc(primo(attivo))} (fino a ${movimento(attivo)} caselle; le porte si attraversano a piedi, le caselle <b class="oro">dorate</b> rivelano una stanza nuova).${stat.ostacolo(G()).doppio ? ' <b class="ko-txt">Ostacolo: sulla sua tessera ogni passo costa 2.</b>' : ''}${stat.ostacolo(G()).meno1 ? ' <b class="ko-txt">Ostacolo: −1 al Movimento.</b>' : ''}`
       : `▸ Nessuna casella raggiungibile: ${esc(primo(attivo))} <b>non ha dove andare</b> (nemici o arredi tutt’intorno). Può attaccare un nemico adiacente, cercare o passare.`;
   return `
     <p class="nota">Tocca a <b>${esc(primo(attivo))}</b> — ${fatte.length}/${azioniMax(attivo)} azioni${fatte.length ? ' (' + fatte.map((t) => tipiAzione[t]).join(', ') + ')' : ''}${stordito(attivo) ? ' <b class="ko-txt">· stordito (1 azione)</b>' : ''}.</p>

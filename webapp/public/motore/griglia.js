@@ -103,7 +103,12 @@ export function viciniGlob(g, n, allowReveal) {
 // BFS a budget: mappa nodeKey -> { node, dist, reveal, prev }. `blocco` = celle
 // muro (nemici/PNG scortati); gli alleati NON bloccano il passaggio ma si passano i
 // loro nodi (l'arrivo libero si filtra dopo). I bersagli reveal sono terminali.
-export function esploraMosse(g, start, budget, blocco) {
+//
+// `costo(da, a)` (facoltativo) da' il prezzo di un passo, 1 se manca: con un
+// prezzo diverso da 1 (Ostacolo: il doppio) la BFS non basta e si passa a
+// Dijkstra; `dist` diventa il costo speso, che e' quel che il budget conta.
+export function esploraMosse(g, start, budget, blocco, costo) {
+  if (costo) return esploraPesata(g, start, budget, blocco, costo);
   const info = { [nk(start)]: { node: start, dist: 0 } }; let q = [start];
   while (q.length) {
     const nx = [];
@@ -117,6 +122,27 @@ export function esploraMosse(g, start, budget, blocco) {
       }
     }
     q = nx;
+  }
+  return info;
+}
+
+function esploraPesata(g, start, budget, blocco, costo) {
+  const info = { [nk(start)]: { node: start, dist: 0 } };
+  const aperti = [start]; const chiusi = new Set();
+  while (aperti.length) {
+    let m = 0;
+    for (let i = 1; i < aperti.length; i++) if (info[nk(aperti[i])].dist < info[nk(aperti[m])].dist) m = i;
+    const n = aperti.splice(m, 1)[0]; const kn = nk(n);
+    if (chiusi.has(kn)) continue;
+    chiusi.add(kn);
+    const d = info[kn].dist;
+    for (const nb of viciniGlob(g, n, true)) {
+      const k = nk(nb.node); if (blocco.has(k)) continue;
+      const nd = d + costo(n, nb.node);
+      if (nd > budget || (info[k] && info[k].dist <= nd)) continue;
+      info[k] = { node: nb.node, dist: nd, reveal: nb.reveal, prev: kn };
+      if (!nb.reveal) aperti.push(nb.node);
+    }
   }
   return info;
 }

@@ -154,3 +154,12 @@ export function tileAffollata(g) {
   for (const [t, n] of Object.entries(conta)) if (n > bestN) { bestN = n; best = t; }
   return best;
 }
+
+// Il testo di una carta Ostacolo -> l'effetto sul Movimento del round dopo
+// (vedi `ostacolo` in stat.js), o null se la carta non ne ha uno.
+export function ostacoloDaTesto(testo) {
+  const out = {};
+  if (/muoversi costa il doppio/i.test(testo)) out.doppio = true;
+  if (/-1 al Movimento/i.test(testo)) out.meno1 = true;
+  return Object.keys(out).length ? out : null;
+}

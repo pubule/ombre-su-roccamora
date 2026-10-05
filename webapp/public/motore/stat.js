@@ -64,9 +64,27 @@ export const nemStat = (g, nome) => {
 // l'esplorazione delle caselle, la plancia dell'arbitro, il telefono di chi
 // gioca — deve leggerne uno.
 export const movimento = (g, nm) => {
-  const base = nm.includes('NINO') ? 4 : 3;
+  let m = nm.includes('NINO') ? 4 : 3;
   const p = g.sp && g.sp.passo;
-  return (p && p.chi === nm && p.round === g.sp.round) ? base + 3 : base;
+  if (p && p.chi === nm && p.round === g.sp.round) m += 3;
+  if (ostacolo(g).meno1) m = Math.max(1, m - 1);
+  return m;
+};
+
+// OSTACOLO. Le carte Minaccia si pescano dopo la fase Eroi: «fino a fine
+// round» scadeva prima che qualcuno si muovesse. La carta ora vale per il
+// ROUND DOPO (`sp.ostacoli.round`), cioe' per la prossima fase Eroi.
+//   doppio: sulla tessera dove l'eroe attivo inizia il movimento ogni passo
+//           costa 2 (anche quello che la lascia);
+//   meno1:  -1 al Movimento di tutti (minimo 1).
+export const ostacolo = (g) => {
+  const o = g.sp && g.sp.ostacoli;
+  return (o && o.round === g.sp.round) ? o : {};
+};
+export const costoPasso = (g, nm) => {
+  if (!ostacolo(g).doppio) return null;
+  const t = g.sp.eroiPos[nm].t;
+  return (da) => (da.t === t ? 2 : 1);
 };
 
 export function fascia(g, taglia) {
@@ -142,7 +160,7 @@ export function raggEroe(g, nm) {
   const sp = g.sp;
   if (sp.fase !== 'eroi' || azioneSpesa(g, nm, 'muovere') || !azioniRestano(g, nm)) return {};
   const start = sp.eroiPos[nm];
-  const info = esploraMosse(g, start, movimento(g, nm), occupati(g, `E:${nm}`, true, true));  // solo nemici murano (alleati e PNG scortati attraversabili)
+  const info = esploraMosse(g, start, movimento(g, nm), occupati(g, `E:${nm}`, true, true), costoPasso(g, nm));  // solo nemici murano (alleati e PNG scortati attraversabili)
   const tuttiOcc = occupati(g, `E:${nm}`, false);
   const out = {};
   for (const [k, v] of Object.entries(info)) { if (v.dist === 0 || tuttiOcc.has(k)) continue; out[k] = v; }

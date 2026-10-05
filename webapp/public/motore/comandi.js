@@ -234,6 +234,11 @@ function pescaUna(g) {
         // dopo il round 14, misurato sull'Ep.1 — e il finale diventava ingiocabile.
         const cantoMax = sp.canto >= tettoCanto(g.comune, g.ep);
         const eff = carta.rules.split('{divider}').pop();
+        const ost = minaccia.ostacoloDaTesto(eff);
+        if (ost) {
+          sp.ostacoli = { ...(sp.ostacoli && sp.ostacoli.round === sp.round + 1 ? sp.ostacoli : {}), ...ost, round: sp.round + 1 };
+          annunci.push('Effetto dal prossimo round, nella fase Eroi.');
+        }
         const prima = sp.nemici.length;
         if (!cantoMax) {
           minaccia.spawnDaTesto(g, eff, minaccia.tileAffollata(g));

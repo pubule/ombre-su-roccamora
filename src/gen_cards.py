@@ -445,8 +445,8 @@ MINACCE = (
      ('IL CANTO CRESCE', 'Aggiungete 1 segnalino Canto. Al terzo: il Custode della Cera si desta e da quel momento ogni Fase Minaccia pesca 1 carta in più (vedi Soluzione). Se è già in gioco: cancellate 1 sua ferita dal Registro e si attiva subito.', 'crescendo', False)] +
     [('PRESAGIO', 'Un brivido corre lungo la schiena. Non accade nulla… per ora.', 'quiete', False)] +
     [('ECO AMICA', 'Ruggero è vivo. Rivelate una tessera coperta adiacente a una già rivelata.', 'favore', False)] +
-    [('CERA CHE COLA', 'Fino a fine round, sulla tessera dell’eroe attivo muoversi costa il doppio.', 'ostacolo', False)] +
-    [('CORRENTE GELIDA', 'Fino all’inizio del vostro prossimo turno ogni eroe ha -1 al Movimento (minimo 1).', 'ostacolo', False)] +
+    [('CERA CHE COLA', 'Nel prossimo round, sulla tessera dell’eroe attivo muoversi costa il doppio.', 'ostacolo', False)] +
+    [('CORRENTE GELIDA', 'Nel prossimo round ogni eroe ha -1 al Movimento (minimo 1).', 'ostacolo', False)] +
     [('SUSSURRI', 'L’eroe con meno NERVI (a pari merito: sceglie il gruppo) prova NERVI (Media): se fallisce subisce 1 danno dal terrore.', 'insidia', False)]
 )
 
