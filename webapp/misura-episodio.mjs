@@ -313,6 +313,16 @@ const sciogli = async () => {
     if (premuto === 'attesa' && !(await finoA(async () => !(await vis('.dadi-overlay')), 800))) return;
   }
 };
+// IL VENTO (Ep.11): a inizio round chi sta su tessera ESPOSTA tira NERVI prima di agire,
+// e finche' la coda c'e' le azioni non ci sono. Chi arbitra tira per tutti, uno alla volta.
+async function proveVento() {
+  for (let k = 0; k < 12; k++) {
+    const s = await sp();
+    if (s.esito || !((s.provaVento || {}).chi || []).length) return;
+    if (await cnt('[data-vento]')) { await clicDom('[data-vento]'); await sciogli(); }
+    else await finoA(async () => (await cnt('[data-vento]')) > 0, 400);
+  }
+}
 // la fase nemici è animata e la sua schermata non ha la striscia eroi
 async function attendiFaseEroi(maxMs = 60000) {
   const t0 = Date.now();
@@ -659,6 +669,7 @@ for (let g = 0; g < N; g++) {
   const tappe = {}; let allIngresso = null;   // fotografia all'ingresso in T6
   for (let r = 0; r < 80; r++) {
     if (!(await attendiFaseEroi())) { ko('fase eroi mai arrivata (timeout)'); break; }
+    await proveVento();
     const s = await sp(); if (s.esito) break;
     const inPiedi = Object.values(s.vite).filter((v) => v > 0).length;
     piccoTerra = Math.max(piccoTerra, party.length - inPiedi);   // proxy ansia: eroi a terra nel momento peggiore
