@@ -130,6 +130,24 @@ const canvas = (page) => page.locator('#vanta-bg canvas').count();
   await page.context().close();
 }
 
+// --- 4b. la finestra cambia MENTRE la nebbia e' nascosta (si ruota il telefono, si ritira
+// la barra di Safari): Vanta misura il div alto 0 e si ferma a 200x200, e al ritorno la
+// nebbia copre solo la cima della pagina (visto sul telefono, 05/10/2026)
+{
+  const { page } = await nuova();
+  await page.evaluate(() => document.getElementById('app').classList.add('immersivo'));
+  await page.waitForTimeout(300);
+  await page.setViewportSize({ width: 390, height: 700 });
+  await page.waitForTimeout(300);
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.waitForTimeout(300);
+  await page.evaluate(() => document.getElementById('app').classList.remove('immersivo'));
+  await page.waitForTimeout(500);
+  const c = await page.locator('#vanta-bg canvas').evaluate((e) => { const r = e.getBoundingClientRect(); return [Math.round(r.width), Math.round(r.height)]; });
+  ok(c[0] === 390 && c[1] === 844, `uscendo dal modo immersivo la nebbia copre tutta la finestra (${c})`);
+  await page.context().close();
+}
+
 // --- 5. senza le librerie (dev locale senza build, mirror caduto) l'app parte lo stesso
 {
   const { page, errori } = await nuova({}, (p) => p.route('**/js/vendor/*.js', (r) => r.abort()));

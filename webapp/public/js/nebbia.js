@@ -51,6 +51,10 @@ if (typeof VANTA !== 'undefined') {
     if (bg) bg.style.display = immersivo() ? 'none' : '';
     if (immersivo() && vivo) { vivo = false; cancelAnimationFrame(fx.req); }
     else if (!immersivo() && !vivo) { vivo = true; if (typeof fx.animationLoop === 'function') fx.animationLoop(); }
+    // Vanta misura il div solo all'avvio e a `resize`: se la finestra cambia mentre e'
+    // display:none (ruota il telefono, si ritira la barra di Safari) lo trova alto 0 e
+    // si ferma al minimo, 200x200 — al ritorno la nebbia copre solo la cima della pagina.
+    if (!immersivo() && typeof fx.resize === 'function') fx.resize();
   };
   aggiorna();
   if (app) {
