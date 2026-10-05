@@ -83,7 +83,7 @@ funzionano gia' (commit «ESPOSTA»), ma sono un'altra cosa (Insidie, difficolta
 
 ---
 
-## Task 1 — Il dato: `regola_vento` dell'episodio e i modificatori puri
+## Task 1 (FATTO) — Il dato: `regola_vento` dell'episodio e i modificatori puri
 
 **Files:** `webapp/public/motore/ambiente.js` oppure nuovo `webapp/public/motore/vento.js` (preferire il nuovo file: piccolo, puro),
 `webapp/public/motore/regole.js` solo se serve; test `webapp/test-vento.mjs` (nuovo).
@@ -99,12 +99,12 @@ funzionano gia' (commit «ESPOSTA»), ma sono un'altra cosa (Insidie, difficolta
 - `eroiInProva(g)`: nomi degli eroi vivi (`sp.vite[nm] > 0`, `undefined` = pieni) su tessera esposta (usa `griglia.tileDi(g, id)` e il flag `esposta`,
   come `bersagliInsidia` in `digitale.js` ~1176: `t.esposta ?? /ESPOSTA/.test(t.testo||'')`), se `ventoAttivo`.
 
-- [ ] 1.1 Scrivi `test-vento.mjs` ROSSO: stato Ep.11 con party di 4 (modello: `webapp/test-con-oggetto.mjs`, helper `nuova`/`gDi`), T1 rivelata, un eroe su T2 e uno su T3:
+- [x] 1.1 Scrivi `test-vento.mjs` ROSSO: stato Ep.11 con party di 4 (modello: `webapp/test-con-oggetto.mjs`, helper `nuova`/`gDi`), T1 rivelata, un eroe su T2 e uno su T3:
       `eroiInProva` = solo quello su T2; con `sp.vento = 1` e eroe su T4 → `diff 'Difficile'`; `sp.vento = 5` → ancora `Difficile` (tetto);
       `buioMalus` = −1 senza lanterna, 0 con «La Lanterna da Guglia» in `partita.indagine.oggetti`; `bonusVento` = +1 col Taccuino; eroe a 0 vita escluso; Ep.1 (qualunque altro): `ventoAttivo` false e `eroiInProva` = [].
-- [ ] 1.2 Implementa `vento.js` + il campo dato. Verde.
-- [ ] 1.3 Sabotaggio: rimuovi il tetto, il filtro «vivi», il controllo `ventoAttivo`: ognuno deve far diventare rosso almeno un'asserzione. Ripristina.
-- [ ] 1.4 `test-motore-purezza.mjs` verde. Commit `feat: regola del vento Ep.11 — modificatori puri`. Registro.
+- [x] 1.2 Implementa `vento.js` + il campo dato. Verde.
+- [x] 1.3 Sabotaggio: rimuovi il tetto, il filtro «vivi», il controllo `ventoAttivo`: ognuno deve far diventare rosso almeno un'asserzione. Ripristina.
+- [x] 1.4 `test-motore-purezza.mjs` verde. Commit `feat: regola del vento Ep.11 — modificatori puri`. Registro.
 
 ## Task 2 — Il contatore dei Crescendo e la coda a inizio round
 
@@ -171,3 +171,4 @@ funzionano gia' (commit «ESPOSTA»), ma sono un'altra cosa (Insidie, difficolta
 | Data | Task | Commit | Note |
 |---|---|---|---|
 | 2026-10-05 | Piano scritto | (questo commit) | nessun codice ancora |
+| 2026-10-05 | Task 1 | (vedi git log: «regola del vento Ep.11 — modificatori puri») | `vento.js` + `test-vento.mjs` (sabotaggi: tetto, vivi, T1-rivelata, esposta, buio, bonus D3: tutti rossi). Rulings: (a) «Vento al massimo» sta in **T6** (la guglia), non T5: riconosciuto dal testo (`FORTE` T4, `vento al massimo` T6); (b) `ventoAttivo` = ripiego `tessere.some(t=>t.esposta)` (solo Ep.11 le ha) + T1 rivelata, niente campo dato nuovo; (c) D3: nuovo campo `bonus_vento` in `EFFETTI_DOMANDE[('ep11',3)]` (export-data.py) letto da `domande.effettiAttivi`. |

@@ -36,7 +36,7 @@ function esiti(g) {
 export function effettiAttivi(g) {
   const e = { spawn_t1: {}, senza_spawn: {}, smascherato: [], boss_salta: null,
               boss_difesa: 0, nessuna_minaccia_r1: false, minaccia_extra_r1: 0,
-              senza_prova: [], traccia_iniziale: 0 };
+              senza_prova: [], traccia_iniziale: 0, bonus_vento: 0 };
   for (const { d, esatta } of esiti(g)) {
     const x = (esatta ? d.premio : d.penalita) || {};
     if (x.nessuna_minaccia_r1) e.nessuna_minaccia_r1 = true;
@@ -48,6 +48,7 @@ export function effettiAttivi(g) {
     e.boss_difesa += x.boss_difesa || 0;
     e.senza_prova.push(...(x.senza_prova || []));
     e.traccia_iniziale += x.traccia_iniziale || 0;
+    e.bonus_vento += x.bonus_vento || 0;
   }
   return e;
 }

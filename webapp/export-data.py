@@ -875,6 +875,7 @@ SOLUZIONI = dict(
 #   boss_difesa           delta alla Difesa del boss per tutta la partita
 #   senza_prova           [TESSERA] l'insidia d'ingresso di quella tessera non scatta
 #   traccia_iniziale      n: l'orologio d'episodio (`ep.orologio`) parte da n
+#   bonus_vento           n: +n alle prove NERVI del vento (Ep.11, motore/vento.js)
 #
 # Sono le sole cose applicate in automatico; l'esito «sbagliata» di una Domanda
 # che non ha un campo qui NON e' un no-effetto: e' un effetto in prosa.
@@ -890,6 +891,7 @@ EFFETTI_DOMANDE[('ep1', 1)]['penalita'] = dict(minaccia_extra_r1=1)
 EFFETTI_DOMANDE.update({
     ('ep2', 3): dict(penalita=dict(spawn_t1={'LO SGHERRO': 2})),   # «i 2 Sgherri di T1 appaiono»
     ('ep3', 4): dict(premio=dict(senza_prova=['T3'])),             # «nella Galleria delle Eco nessuna prova»
+    ('ep11', 3): dict(premio=dict(bonus_vento=1)),                # «+1 a tutte le prove NERVI del vento»
     ('ep10', 3): dict(penalita=dict(traccia_iniziale=2)),          # «la DEMOLIZIONE parte da 2»
     ('ep3', 3): dict(penalita=dict(spawn_t1={'LA VOCE CAVA': 1})),
     ('ep4', 2): dict(premio=dict(senza_spawn={'T6': ['LA CLAQUE']})),
