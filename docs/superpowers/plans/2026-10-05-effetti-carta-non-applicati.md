@@ -167,21 +167,21 @@ arrivare ai telefoni: verificare che la proiezione non la pota), `webapp/test-fa
 
 ## Task 3 — «Con [oggetto]» e bonus passivi degli oggetti
 
-- [ ] 3.1 Grep nelle carte e negli oggetti (`webapp/data/` oggetti, `abilita.js`, `interazioni.js`) di tutte le occorrenze «Con <oggetto>…»,
+- [x] 3.1 Grep nelle carte e negli oggetti (`webapp/data/` oggetti, `abilita.js`, `interazioni.js`) di tutte le occorrenze «Con <oggetto>…»,
       «se un eroe ha…» e dei bonus passivi: tabella (testo, dove viene letto oggi, letto si'/no). Fare questa tabella PRIMA di scrivere codice.
-- [ ] 3.2 Per ogni voce non letta: ruling di design (precedente di genere, KPI) + test rosso + implementazione + sabotaggio, un commit per famiglia coerente.
+- [x] 3.2 Per ogni voce non letta: ruling di design (precedente di genere, KPI) + test rosso + implementazione + sabotaggio, un commit per famiglia coerente.
 
 ## Task 4 — Divieti e perdite di azione
 
-- [ ] 4.1 Tabella: «perde il movimento extra» (regola da definire con l'utente: chiedere UNA volta cosa significa), «non puo' aiutare», «non puo'
+- [x] 4.1 Tabella: «perde il movimento extra» (regola da definire con l'utente: chiedere UNA volta cosa significa), «non puo' aiutare», «non puo'
       documentare», «perde il turno» (rispetto a `sp.storditi`), morale, difficolta' del vento, ESPOSTA, narrazioni nemico, FUGA in Insidia.
-- [ ] 4.2 Per ciascuno: leggi dove il testo viene mostrato, verifica se il motore lo applica; applica con test non vacuo come sopra.
+- [x] 4.2 Per ciascuno: leggi dove il testo viene mostrato, verifica se il motore lo applica; applica con test non vacuo come sopra.
 
 ## Task 5 — Chiusura
 
-- [ ] 5.1 Rifare l'audit con grep: nessun tipo di carta con effetto ignorato, oppure elenco residuo motivato nel registro.
-- [ ] 5.2 `AUDIT-TESTI.md`: aggiungere una riga «effetti carta» con lo stato; HANDOFF.md aggiornato.
-- [ ] 5.3 Deploy (comandi sopra), verifica su roccamora.smartcores.org, chiudi server locali. Report all'utente (2 righe).
+- [x] 5.1 Rifare l'audit con grep: nessun tipo di carta con effetto ignorato, oppure elenco residuo motivato nel registro.
+- [x] 5.2 `AUDIT-TESTI.md`: aggiungere una riga «effetti carta» con lo stato; HANDOFF.md aggiornato.
+- [x] 5.3 Deploy (comandi sopra), verifica su roccamora.smartcores.org, chiudi server locali. Report all'utente (2 righe).
 
 ---
 
@@ -193,3 +193,22 @@ arrivare ai telefoni: verificare che la proiezione non la pota), `webapp/test-fa
 | 2026-10-05 | Piano scritto | (questo commit) | nessun codice ancora |
 | 2026-10-05 | Task 1 Danno | (vedi git log) | `dannoDaTesto` in minaccia.js, gancio in `pescaUna`, `test-danno.mjs` (sabotato: 6 KO). `test-engine.mjs` ha 10 KO anche su baseline; test-minaccia/tavolo-do/tiro-a-tutti/carta-insidia vogliono server (8787/8017) |
 | 2026-10-05 | Task 2 Favore | (vedi git log) | `rivelaTessera` estratta da `muovi`, `candidatiFavore`, comando `favore` (solo arbitro), UI `.fav-scelta`, Ep20 `controcantoExtra`; `test-favore.mjs` (sabotato: 2 KO) e `test-favore-ui.mjs` (Playwright, 8017) |
+| 2026-10-05 | Task 3+4 «Con [oggetto]» e conseguenze | `fcd2cf386` | `minaccia.condizioni/provaConOggetti/annullataDaOggetto/eroeACaso`; `test-con-oggetto.mjs` + `test-con-oggetto-ui.mjs`. Scoperto: «Aggiungete 1 segnalino Canto» era ignorato su Bivio (Ep3-6) e Insidie (Ep15, 19) |
+| 2026-10-05 | Colpi: Lama Educata, Guardia, Ispettore, FUGA +1 | `a93252381` | `colpiDaTesto` (anche nel ramo Canto); FUGA +1 via `avanzaOrologio` |
+| 2026-10-05 | ESPOSTA (Ep11) | vedi git log | `bersagliInsidia` filtra «su tessera ESPOSTA»; prima tiravano tutti |
+
+### Rulings (Task 3-5)
+
+- «perde il movimento extra» = -1 Movimento (min 1) nella prossima fase Eroi.
+- Effetto su «eroe attivo» senza prova = un eroe vivo a caso.
+- «perde il turno» = stordimento (1 azione), piu' mite del testo stampato.
+- «non puo' documentare» = Interagire su compito di documentazione rifiutato al round dopo; «non puo' cantare» = -1 riga di controcanto questo round.
+- «FUGA +1» da carta passa dal freno di `avanzaOrologio`; Guardia/Ispettore «colpisce subito» = 1 danno automatico, nessun effetto se il nemico non e' in campo.
+- Ep9 Lama = un eroe vivo adiacente alla Riva liberata subisce 1 danno (a caso fra gli adiacenti).
+
+### Residuo parcheggiato (non applicato dal motore)
+
+- **Ep11 REGOLA DEL VENTO**: «a inizio turno, ogni eroe su tessera ESPOSTA prova NERVI o perde lo scatto» + difficolta' del vento (+1 dai Crescendo, -1 buio, +1 T4): nessuna di queste prove esiste nel motore. E' una regola d'episodio, non una carta: serve un piano a parte.
+- Morale (-1 morale in Ep17): nessuna meccanica di morale nel gioco.
+- «non puo' aiutare»: nessun controparte digitale (nessuna azione Aiutare).
+- Ep15 Reagente (primo tell qui gia' cancellato), Ep16 Fascicolo (narrativo), Ep18 Maggiordomo (spawn adiacente all'eroe con meno Salute).

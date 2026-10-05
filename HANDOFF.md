@@ -1,9 +1,10 @@
 # Handoff — dove siamo
 
-## IN CORSO: effetti delle carte Minaccia non applicati (05/10/2026)
+## FATTO (05/10/2026): effetti delle carte Minaccia applicati dal motore
 
-Piano riavviabile da zero: `docs/superpowers/plans/2026-10-05-effetti-carta-non-applicati.md`
-(caselle spuntate = fatto; registro in fondo). Ostacolo FATTO e deployato. Prossimo: Task 1 Danno, Task 2 Favore.
+Piano: `docs/superpowers/plans/2026-10-05-effetti-carta-non-applicati.md` (tutto spuntato; rulings e residuo in fondo).
+Fatti: Ostacolo, Danno, Favore, «Con [oggetto]», conseguenze (scatto, tell, canto), colpi Guardia/Ispettore/Lama, FUGA +1, ESPOSTA.
+**Residuo grosso: la REGOLA DEL VENTO dell'Ep11 non esiste nel motore** (prove NERVI a inizio turno sulle ESPOSTE) — serve un piano.
 
 ## Plancia lanterne: Task 1-9 FATTI e rivisti (05/10/2026); restano solo prove umane
 

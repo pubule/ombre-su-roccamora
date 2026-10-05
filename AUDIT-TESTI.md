@@ -402,3 +402,8 @@ condotti» non lo trova nessun programma: manca un sostantivo, e la frase è
 grammaticalmente perfetta. Le 78.000 parole di prosa degli Ep. 2-20 le ho
 lette riga per riga per questo, e ne sono uscite due sole cose. Ma ogni testo
 NUOVO va letto ad alta voce: è l'unico strumento che funziona.
+
+## 4. Effetti delle carte Minaccia letti dal motore (05/10/2026)
+
+Audit di tutte le carte Minaccia: gli effetti stampati ora sono applicati (Ostacolo, Danno, Favore, «Con [oggetto]», Canto su Bivio/Insidie, scatto/tell/controcanto, colpi dei nemici, FUGA +1, ESPOSTA).
+Residuo noto: regola del vento Ep11, morale Ep17, «non può aiutare», Ep15 Reagente, Ep16 Fascicolo, Ep18 Maggiordomo. Dettaglio nel piano `docs/superpowers/plans/2026-10-05-effetti-carta-non-applicati.md`.
