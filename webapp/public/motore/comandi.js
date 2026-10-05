@@ -225,9 +225,14 @@ function pescaUna(g) {
       const n = totale;
       const carta = pesca(g.partita.rng, sp.mazzo, g.carte, g.partita.episodio, g.ep);
       if (!carta) { sp.minacceDaPescare = 0; return { eventi }; }
-      const crescendo = carta.title.startsWith('Crescendo');
-      const annunci = []; let favore = null;
-      if (crescendo) {
+      // «Aggiungete 1 segnalino Canto» vale per qualunque carta che lo dica, non solo per
+      // i Crescendo: i Bivio (Ep.3-6) e alcune Insidie (Ep.15, 19) lo scrivevano e restava lettera morta
+      const crescendo = carta.title.startsWith('Crescendo') || /Aggiungete 1 segnalino Canto/i.test(carta.rules.split('{divider}').pop());
+      const annunci = []; let favore = null; let prova = null;
+      const annullata = crescendo && minaccia.annullataDaOggetto(g, carta.rules.split('{divider}').pop());
+      if (annullata) {
+        annunci.push(`Con «${annullata}»: nessun effetto.`);
+      } else if (crescendo) {
         annunci.push(...cantoDaCarta(g.comune, g.ep, sp));
         annunci.push(...minaccia.destaBossSeSoglia(g));
         // la stessa carta che alza il Canto spinge anche l'orologio dell'episodio
@@ -270,6 +275,24 @@ function pescaUna(g) {
         }
         const extra = eff.match(/controcanto avanza di (\d+) rig(?:a|he) in più/i);
         if (extra) annunci.push(...obiettivi.controcantoExtra(g, Number(extra[1])));
+        const meno = eff.match(/controcanto avanza di (\d+) rig(?:a|he) in meno/i);
+        if (meno) {
+          const a = minaccia.annullataDaOggetto(g, eff);
+          annunci.push(...(a ? [`Con «${a}»: nessun effetto.`] : obiettivi.controcantoMeno(g, Number(meno[1]))));
+        }
+        const tell = eff.match(/cancellano (\d+) tell in più/i);
+        if (tell) {
+          const a = minaccia.annullataDaOggetto(g, eff);
+          annunci.push(...(a ? [`Con «${a}»: nessun tell perso extra.`] : obiettivi.cancellazioneExtra(g, Number(tell[1]))));
+        }
+        if (/perde il movimento extra/i.test(eff) && !azioni.provaRichiesta(eff)) {
+          const senza = minaccia.condizioni(g, eff).find((x) => x.senza);
+          const nm = minaccia.eroeACaso(g);
+          if (senza && !senza.applica) annunci.push(`Con «${senza.nome}»: nessun effetto.`);
+          else if (nm) annunci.push(...azioni.applicaConseguenza(g, nm, 'perde il movimento extra'));
+        }
+        prova = minaccia.provaConOggetti(g, eff);
+        if (prova) annunci.push(prova.nota);
         const prima = sp.nemici.length;
         if (!cantoMax) {
           minaccia.spawnDaTesto(g, eff, minaccia.tileAffollata(g));
@@ -283,7 +306,7 @@ function pescaUna(g) {
       // gli schermi e ritrovabile da chi ricarica. Viaggia INTERA perche' il
       // telefono ha i dati potati dalla proiezione e da un titolo non potrebbe
       // ricostruirsela.
-      const aperta = { titolo: `minaccia ${i + 1} di ${n}`, carta, annunci, ...(favore ? { favore } : {}) };
+      const aperta = { titolo: `minaccia ${i + 1} di ${n}`, carta, annunci, ...(favore ? { favore } : {}), ...(prova ? { prova: prova.nessuna ? 'nessuna' : prova.diff } : {}) };
       sp.carta = aperta;
       sp.minacceDaPescare = restano - 1;
       eventi.push({ tipo: 'carta', ...aperta });

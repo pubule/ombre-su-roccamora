@@ -8,9 +8,10 @@
 // Contesto esplicito `g = { ep, comune, sp, partita }`.
 import { arrediSet, chiave, tileDi, layout, occupati, dirExit } from './griglia.js';
 import { nemStat, feriteMaxNem } from './stat.js';
-import { sogliaCanto } from './regole.js';
+import { sogliaCanto, norm } from './regole.js';
 import { specCompiti } from './obiettivi.js';
 import { smascherati, nonAppare } from './domande.js';
+import { interoFino } from './rng.js';
 
 // Il diario della spedizione. E' stato, non presentazione: chi legge la partita
 // piu' tardi deve ritrovarci cos'e' successo.
@@ -190,4 +191,43 @@ export function ostacoloDaTesto(testo) {
   if (/muoversi costa il doppio/i.test(testo)) out.doppio = true;
   if (/-1 al Movimento/i.test(testo)) out.meno1 = true;
   return Object.keys(out).length ? out : null;
+}
+
+// «Con la Corda del Campanaro: nessuna prova», «Col Reagente: …», «Senza la
+// Mappa Acustica: …»: la carta condiziona l'effetto a un oggetto che il gruppo
+// ha (o non ha) preso. `applica` dice se la clausola vale ADESSO. Un nome corto
+// («Con la Mappa:») si allunga sul piu' lungo che lo estende nello stesso testo.
+export function condizioni(g, testo) {
+  const inv = ((g.partita.indagine || {}).oggetti || []).map(norm);
+  const righe = [...String(testo || '').matchAll(/(?:^|[.!?]\s+|\n)(Con|Col|Senza)\s+(?:la |il |lo |l[’']|le |i |gli )?([^:.()]+?):\s*([^.]*)/g)];
+  const nomi = righe.map((m) => m[2].trim());
+  return righe.map((m, i) => {
+    const nome = nomi.filter((x) => norm(x).startsWith(norm(nomi[i]))).sort((a, b) => b.length - a.length)[0];
+    const ha = inv.some((o) => o.includes(norm(nome)));
+    const senza = /^senza$/i.test(m[1]);
+    return { senza, nome, effetto: m[3].trim(), applica: senza ? !ha : ha };
+  });
+}
+
+// la prova della carta cambia con l'oggetto: «nessuna prova» o «a Facile»
+export function provaConOggetti(g, testo) {
+  for (const c of condizioni(g, testo)) {
+    if (c.senza || !c.applica) continue;
+    if (/nessuna prova/i.test(c.effetto)) return { nessuna: true, nota: `Con «${c.nome}»: nessuna prova.` };
+    const f = c.effetto.match(/a (Facile|Media|Difficile)/i);
+    if (f) { const diff = f[1][0].toUpperCase() + f[1].slice(1).toLowerCase(); return { diff, nota: `Con «${c.nome}»: la prova è ${diff}.` }; }
+  }
+  return null;
+}
+
+// «Con X: nessun effetto» -> il nome dell'oggetto che annulla la carta, se ce l'hanno
+export const annullataDaOggetto = (g, testo) => {
+  const c = condizioni(g, testo).find((x) => !x.senza && x.applica && /^nessun (?:tell|effetto)/i.test(x.effetto));
+  return c ? c.nome : null;
+};
+
+// un eroe a caso tra i vivi (l'«eroe attivo» di una carta pescata a fase Eroi finita)
+export function eroeACaso(g) {
+  const vivi = g.partita.party.filter((nm) => (g.sp.vite[nm] ?? 0) > 0);
+  return vivi.length ? vivi[interoFino(g.partita.rng, vivi.length)] : null;
 }

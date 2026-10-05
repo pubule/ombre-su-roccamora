@@ -167,6 +167,10 @@ export function interagisci(g, caso, nm) {
 
   if (disp.tipo === 'compito') {
     const c = disp.c;
+    const vinc = sp.vincoli && sp.vincoli[nm];
+    if (vinc && vinc.round === sp.round && vinc.senzaTell && /docu/i.test(c.etichetta || '')) {
+      return rifiuta(`${primo(nm)} è disorientato: questo round non può registrare tell.`);
+    }
     // i due blocchi NON spendono l'azione: e' una regola, non un errore
     if (disp.bloccato === 'fuori-posto') {
       return rifiuta(`${c.nemico.toLowerCase()} non si lascia agganciare qui: vi aspetta in ${c.fuoriPosto}.`);

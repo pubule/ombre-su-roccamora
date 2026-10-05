@@ -24,7 +24,7 @@ import { eroe, nemStat, primo, azioneSpesa, azioniRestano, azioniMax,
 import { ha } from './migliorie.js';
 import { cerca, norm } from './regole.js';
 import { controllaVittoria } from './vittoria.js';
-import { specCompiti, compitiFiniti } from './obiettivi.js';
+import { specCompiti, compitiFiniti, ritmoMeno } from './obiettivi.js';
 import { spawnDaTesto } from './minaccia.js';
 import * as domande from './domande.js';
 import { provaInterazione } from './interazioni.js';
@@ -47,7 +47,12 @@ export function applicaConseguenza(g, nm, testo) {
     sp.vite[nm] = Math.max(0, (sp.vite[nm] ?? saluteMax(g, e)) - 1);
     out.push(`${primo(nm)} subisce 1 danno.`);
   }
-  if (/(1 sola azione|perdete 1 azione|perde 1 azione|azione al prossimo turno)/i.test(testo)) {
+  // gli effetti a tempo scadono nel prossimo round di Eroi: le carte si pescano a fase Eroi finita
+  const vincolo = () => { const v = (sp.vincoli = sp.vincoli || {}); if (!v[nm] || v[nm].round !== sp.round + 1) v[nm] = { round: sp.round + 1 }; return v[nm]; };
+  if (/perde il movimento extra/i.test(testo)) { vincolo().scatto = true; out.push(`${primo(nm)} perde lo scatto: -1 al Movimento nel prossimo round.`); }
+  if (/non può docu\w+/i.test(testo)) { vincolo().senzaTell = true; out.push(`${primo(nm)} è disorientato: nel prossimo round non può registrare tell.`); }
+  if (/non può cantare/i.test(testo)) { ritmoMeno(g, 1); out.push(`${primo(nm)} non canta: il controcanto di questo round perde 1 riga.`); }
+  if (/(1 sola azione|perdete 1 azione|perde 1 azione|azione al prossimo turno|perde il turno)/i.test(testo)) {
     sp.storditi = sp.storditi || {};
     sp.storditi[nm] = sp.round + 1;
     out.push(`stordimento per ${primo(nm)}: 1 sola azione al prossimo turno.`);

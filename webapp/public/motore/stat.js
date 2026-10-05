@@ -68,6 +68,8 @@ export const movimento = (g, nm) => {
   const p = g.sp && g.sp.passo;
   if (p && p.chi === nm && p.round === g.sp.round) m += 3;
   if (ostacolo(g).meno1) m = Math.max(1, m - 1);
+  const v = g.sp && g.sp.vincoli && g.sp.vincoli[nm];
+  if (v && v.round === g.sp.round && v.scatto) m = Math.max(1, m - 1);
   return m;
 };
 

@@ -1166,15 +1166,7 @@ function provaRichiesta(text) {
 }
 // applica la conseguenza di una prova fallita in base al testo (danno e/o
 // stordimento); ritorna le righe da mostrare. Il salvataggio lo fa il chiamante.
-function applicaConseguenza(nm, testo) {
-  const sp = SP(); const e = eroe(nm); const out = [];
-  if (/danno/i.test(testo)) { sp.vite[nm] = Math.max(0, (sp.vite[nm] ?? saluteMax(e)) - 1); out.push(`${primo(nm)} subisce 1 danno.`); }
-  if (/(1 sola azione|perdete 1 azione|perde 1 azione|azione al prossimo turno)/i.test(testo)) {
-    sp.storditi = sp.storditi || {}; sp.storditi[nm] = sp.round + 1; out.push(`stordimento per ${primo(nm)}: 1 sola azione al prossimo turno.`);
-  }
-  if (!out.length) out.push(`${primo(nm)}: applicate la conseguenza descritta.`);
-  return out;
-}
+const applicaConseguenza = (nm, testo) => azioni.applicaConseguenza(G(), nm, String(testo).split('{divider}').pop());
 // eroe piu' avanzato = sulla tessera rivelata piu' lontana da T1 (origine layout)
 const eroePiuAvanzato = (vivi) => vittoria.eroePiuAvanzato(G(), vivi);
 // chi subisce l'insidia di una carta Minaccia, dal testo
@@ -1207,7 +1199,9 @@ function schermataCarta(aperta, alOk = null) {
   // L'INSIDIA DELLA CARTA: se il testo chiede una prova, chi arbitra la risolve
   // PRIMA di poter continuare (quando la carta e' passata a questa schermata
   // dallo stato, il bottone del tiro e' rimasto dietro: non si tirava piu').
-  const req = aperta.carta && arbitro() ? provaRichiesta(aperta.carta.rules) : null;
+  // «Con [oggetto]» puo' togliere la prova o abbassarne la difficolta' (aperta.prova)
+  const base = aperta.carta && arbitro() ? provaRichiesta(aperta.carta.rules) : null;
+  const req = !base || aperta.prova === 'nessuna' ? null : (aperta.prova ? { ...base, diff: aperta.prova } : base);
   const fav = aperta.favore;
   const DIR = { N: 'nord', S: 'sud', E: 'est', O: 'ovest' };
   app.classList.remove('immersivo');

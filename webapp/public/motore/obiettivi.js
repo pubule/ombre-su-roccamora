@@ -232,6 +232,7 @@ export const specCancellazione = (g) => g.ep.cancellazione || null;
 
 export function avanzaCancellazione(g) {
   const k = specCancellazione(g); const sp = g.sp;
+  const extra = (sp.cancExtra && sp.cancExtra.n) || 0; delete sp.cancExtra;
   if (!k || sp.esito) return [];
   if (k.da_tessera && !sp.rivelate.includes(k.da_tessera)) return [];
   // finche' il Capo e' in piedi: il compito che lo prende non e' ancora chiuso
@@ -241,7 +242,7 @@ export function avanzaCancellazione(g) {
   }
   const st = statoCompiti(g); const avuti = st[k.compito] || 0;
   if (avuti <= 0) return k.esaurito ? [k.esaurito] : [];
-  const quanti = Math.min(k.per_round || 1, avuti);
+  const quanti = Math.min((k.per_round || 1) + extra, avuti);
   st[k.compito] = avuti - quanti;
   const spec = specCompiti(g).find((x) => x.id === k.compito);
   return [`${k.testo} (${st[k.compito]}/${spec ? spec.quante : '?'})`];
@@ -284,6 +285,7 @@ export const frammentiPortati = (g) => {
 
 export function avanzaRitmo(g) {
   const c = specRitmo(g); const sp = g.sp;
+  const meno = sp.ritmoMeno || 0; delete sp.ritmoMeno;
   if (!c || sp.esito) return [];
   const r = c.ritmo;
   if (r.tile && !sp.rivelate.includes(r.tile)) return [];      // non si canta prima della camera
@@ -294,7 +296,7 @@ export function avanzaRitmo(g) {
   const grezzo = (r.base || 1)
     + (r.per_frammenti ? Math.floor(frammentiPortati(g) / r.per_frammenti) : 0)
     + (oggetto ? (r.con_oggetto || 0) : 0)
-    - coro;
+    - coro - meno;
   const righe = Math.max(r.minimo != null ? r.minimo : 1, grezzo);
   const st = statoCompiti(g);
   st[c.id] = Math.min(c.quante, (st[c.id] || 0) + righe);
@@ -302,6 +304,24 @@ export function avanzaRitmo(g) {
     + `${coro ? ` (il coro ne toglie ${coro})` : ''}: ${st[c.id]}/${c.quante}.`];
   if (st[c.id] >= c.quante && c.fatto) ann.push(c.fatto);
   return ann;
+}
+
+// Righe tolte al controcanto di QUESTO round (l'eco, un eroe che non canta): le
+// legge e le azzera il ritmo di fine round.
+export const ritmoMeno = (g, n) => { g.sp.ritmoMeno = (g.sp.ritmoMeno || 0) + n; };
+
+export function controcantoMeno(g, righe) {
+  const c = specRitmo(g); if (!c || g.sp.esito) return [];
+  if (c.ritmo.tile && !g.sp.rivelate.includes(c.ritmo.tile)) return ['Non siete ancora nella camera: l’eco non vi tocca.'];
+  ritmoMeno(g, righe);
+  return [`L’eco disturba: il controcanto di questo round avanza di ${righe} ${righe === 1 ? 'riga' : 'righe'} in meno.`];
+}
+
+// «Gli Apparecchiatori cancellano N tell in piu'» (Ep.15): si somma al tick di fine round.
+export function cancellazioneExtra(g, n) {
+  if (!specCancellazione(g)) return [];
+  g.sp.cancExtra = { n: ((g.sp.cancExtra && g.sp.cancExtra.n) || 0) + n };
+  return [`Gli Apparecchiatori cancelleranno ${n} tell in più a fine round.`];
 }
 
 // Righe in piu' dal Favore dell'Ep.20 («la citta' canta con voi»): valgono solo
