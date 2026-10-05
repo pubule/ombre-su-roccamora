@@ -1,5 +1,23 @@
 # Handoff — dove siamo
 
+## Plancia lanterne: Task 1-9 FATTI e rivisti (05/10/2026); restano solo prove umane
+
+Tutte le 21 spedizioni hanno scenografia scritta a mano; revisione finale (opus) fatta, tre
+correzioni applicate (ac9e35b69), nessun blocco. Commit locali su main, NON ancora pushati.
+
+**Da guardare al tavolo / sul telefono (Task 10, serve gente e dispositivi veri):**
+- Step 1: `node webapp/server.js`, dal telefono `http://<IP PC>:8017/`, Spedizione Ep.1 ed Ep.11
+  (tetti), vista eroe e arbitro. Il passo dell'eroe e il tremolio delle luci non devono scattare.
+  Sospetti in ordine: `drop-shadow` di `.pezzo-fa.ombra`/`.fiamma` (app.css ~974), poi la
+  lettura di `offsetLeft` a ogni frame in digitale.js ~1631 (layout forzato), poi `stanzaHtml`
+  chiamata due volte per render. Luci fisse oggi: max 4 per tessera (tetto del piano: 8).
+- Step 2: un episodio intero al tavolo: leggibilita' al buio di caselle e nemici; il buio aiuta
+  l'ansia o nasconde troppo?
+- Step 3: deploy solo dopo l'ok del committente: `python webapp/export-assets.py`,
+  `bash deploy/deploy.sh`, poi `roccamora.smartcores.org` e una Spedizione (i PNG di
+  `/assets/vtt/` devono dare 200; verificato in locale: 6618 URL, nessuno mancante).
+- Residui noti: mockups/tessere-alt/regole-posto.js ha le vecchie regex riva/fondament.
+
 ## Revisione finale plancia lanterne (24/09 sera) — tre correzioni
 
 - **Anteprima della notte stabile**: `intenzioni()` (digitale.js) usa un caso fisso
