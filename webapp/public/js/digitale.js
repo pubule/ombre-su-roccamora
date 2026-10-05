@@ -1173,10 +1173,13 @@ const eroePiuAvanzato = (vivi) => vittoria.eroePiuAvanzato(G(), vivi);
 async function bersagliInsidia(rules) {
   const vivi = P().party.filter((nm) => (SP().vite[nm] ?? 0) > 0);
   if (!vivi.length) return [];
-  if (/ogni eroe/i.test(rules)) return vivi;
-  if (/pi(ù|u') avanzat/i.test(rules)) return [eroePiuAvanzato(vivi)];
+  // «su tessera ESPOSTA» (Ep.11): chi sta al riparo non rischia nulla
+  const esposto = (nm) => { const t = tileDi(SP().eroiPos[nm].t); return t && (t.esposta ?? /ESPOSTA/.test(t.testo || '')); };
+  const filtro = /su tessera ESPOSTA/i.test(rules) ? esposto : () => true;
+  if (/ogni eroe/i.test(rules)) return vivi.filter(filtro);
+  if (/pi(ù|u') avanzat/i.test(rules)) return [eroePiuAvanzato(vivi)].filter(filtro);
   const chi = await scegli('Quale eroe affronta l’insidia?', vivi.map((nm) => ({ id: nm, label: primo(nm) })));
-  return chi ? [chi] : [];
+  return chi ? [chi] : null;
 }
 // La notte sta agendo altrove: qui si guarda. Non e' una schermata vuota per
 // pigrizia — e' l'unica cosa onesta da mostrare a chi non ha nulla da toccare.
@@ -1257,8 +1260,8 @@ function schermataCarta(aperta, alOk = null) {
   if (rb) rb.onclick = async () => {
     rb.disabled = true;
     const targets = await bersagliInsidia(aperta.carta.rules);
-    if (!targets.length) { rb.disabled = false; return; }
-    const esiti = [];
+    if (!targets) { rb.disabled = false; return; }
+    const esiti = targets.length ? [] : ['Nessun eroe su tessera ESPOSTA: nessun effetto.'];
     for (const t of targets) {
       const e = eroe(t);
       const r = await tiraProva({ titolo: `${req.stat.toUpperCase()} — ${primo(t)}`, diffLabel: req.diff,
@@ -1307,8 +1310,8 @@ function messaggioCarta(titolo, carta, annunci) {
     if (rb) rb.onclick = async () => {
       rb.disabled = true;
       const targets = await bersagliInsidia(carta.rules);
-      if (!targets.length) { rb.disabled = false; return; }
-      const esiti = [];
+      if (!targets) { rb.disabled = false; return; }
+      const esiti = targets.length ? [] : ['Nessun eroe su tessera ESPOSTA: nessun effetto.'];
       for (const t of targets) {
         const e = eroe(t);
         const r = await tiraProva({ titolo: `${req.stat.toUpperCase()} — ${primo(t)}`, diffLabel: req.diff,

@@ -15,21 +15,21 @@ const ok = (c, m) => { if (!c) ko++; console.log(`   ${c ? 'OK  ' : 'FAIL'} ${m}
 const browser = await chromium.launch();
 const errori = [];
 
-async function apri(ep, c, prova) {
+async function apri(ep, c, prova, tessere = ['T1', 'T1']) {
   const page = await browser.newPage({ viewport: { width: 390, height: 844 } });
   page.on('pageerror', (e) => errori.push(e.message));
   await page.goto(BASE, { waitUntil: 'networkidle' });
-  await page.evaluate(async ({ party, c, prova, ep }) => {
+  await page.evaluate(async ({ party, c, prova, ep, tessere }) => {
     const { vistaDigitale } = await import('/js/digitale.js');
     const eroiPos = {}; const vite = {};
-    party.forEach((n, i) => { eroiPos[n] = { t: 'T1', x: i, y: 1 }; vite[n] = 6; });
+    party.forEach((n, i) => { eroiPos[n] = { t: tessere[i], x: i, y: 1 }; vite[n] = 6; });
     const partita = {
       v: 1, episodio: ep, modo: 'digitale', party, fase: 'spedizione',
       indagine: { ora: 24, visitati: [], oggetti: [], caricheUsate: {}, chiusa: true, approfondimentiLetti: [] },
       vantaggi: { tier: 'preparati' },
       spedizione: {
         digitale: true, round: 1, canto: 1, cantoBonus: false, fase: 'minaccia', esito: null,
-        rivelate: ['T1'], stanzeLette: ['T1'], grate: [], compiti: {}, cercate: {}, log: [],
+        rivelate: ['T1', 'T2'], stanzeLette: ['T1'], grate: [], compiti: {}, cercate: {}, log: [],
         eroiPos, vite, azioni: {}, storditi: {}, eroiFatti: [], eroiAttivo: null,
         scortati: [], mazzo: { ordine: [0], indice: 1 }, pendenza: null, insidie: {}, abilita: {}, nemici: [],
         minacceDaPescare: 0,
@@ -38,7 +38,7 @@ async function apri(ep, c, prova) {
     };
     document.querySelector('#app').innerHTML = '';
     await vistaDigitale(document.querySelector('#app'), partita, () => {}, null);
-  }, { party: PARTY, c, prova, ep });
+  }, { party: PARTY, c, prova, ep, tessere });
   await page.waitForTimeout(400);
   return page;
 }
@@ -57,6 +57,20 @@ await page.click('#ins-risolvi');
 await page.waitForTimeout(600);
 const label = await page.locator('.prova').first().innerText();
 ok(/facile/i.test(label) && !/media/i.test(label), `Acqua con la Mappa: il tiro è a Facile (${label.replace(/s+/g, ' ')})`);
+await page.close();
+
+// «Ogni eroe su tessera ESPOSTA» (Ep.11): chi sta al riparo (T1) non tira, chi e' esposto (T2) si
+const V = carta('ep11', 'Insidia — Il Vuoto Sotto i Piedi');
+page = await apri('ep11', V, null, ['T1', 'T1']);
+await page.click('#ins-risolvi');
+await page.waitForTimeout(500);
+ok(await page.locator('.prova').count() === 0 && await page.locator('#ok-msg').isVisible() && /nessun eroe su tessera esposta/i.test(await page.locator('#ins-esito').innerText()), 'Vuoto sotto i Piedi, nessuno esposto: nessun tiro, si prosegue');
+await page.close();
+page = await apri('ep11', V, null, ['T1', 'T2']);
+await page.click('#ins-risolvi');
+await page.waitForTimeout(500);
+const corpo = (await page.locator('body').innerText()).toLowerCase();
+ok(await page.locator('.prova').count() === 1 && corpo.includes(PARTY[1].split(' ')[0].toLowerCase()) && !corpo.includes(PARTY[0].split(' ')[0].toLowerCase()), 'Vuoto sotto i Piedi, uno solo esposto: tira solo lui');
 await page.close();
 
 ok(errori.length === 0, `nessun errore JS: ${errori.slice(0, 3).join(' | ')}`);
