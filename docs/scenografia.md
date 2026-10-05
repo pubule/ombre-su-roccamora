@@ -71,6 +71,13 @@ tessera nei dati sorgente (`src/gen_ep*.py`) porta il campo `pavimento`, che
 vince sulla regola (esempio: Ep.11 T1, `pavimento='assi'`). Vale per stampa e
 schermo insieme; non si mette nella scenografia.
 
+Lo stesso vale per i **muri**: «abbaino» matcha la regola dei tetti (niente
+muri, niente porte), ma l'abbaino dell'Ep.11 e' una stanza chiusa. Il campo
+`aperto` della tessera (`aperto=False` in `gen_ep11.py` T1, fatto passare da
+`export-data.py`) vince su `alAperto()`. Riguarda solo la plancia digitale. Una
+stanza resa chiusa cosi' va ripensata come chiusa: serve il suo budget di
+5-12 decori (Task 9 ne ha aggiunti due all'abbaino).
+
 **L'arredo del posto.** I dati usano pochi nomi per gli ostacoli, e li usano
 dappertutto: sui tetti dell'Ep.11 gli ostacoli si chiamano «casse» e perfino
 «altare». Il gioco non cambia (bloccano il passo lo stesso), ma il **pezzo**

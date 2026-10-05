@@ -377,6 +377,7 @@ TILES_14 = [
                      'sotto non si vede niente.',
          arredi=[(1, 1, 'casse'), (2, 2, 'casse')]),
     dict(id='T6', nome='L’ATTICO DEL CORSO', exits={'S': 'T5'},
+         pavimento='tavolato',   # tavole dell'attico (Task 9): il nome non basta, la regola dava 'tetti'
          testo='L’attico dei Gatti, la refurtiva accatastata e imballata, il cielo aperto sulla '
                'cresta. IL PRIMO GATTO è qui, tra voi e la verità. QUANDO RIVELATE QUESTA TESSERA: '
                'lo si aggancia e lo si fa parlare — prima che scavalchi la cresta e sparisca.',

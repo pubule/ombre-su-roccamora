@@ -14,7 +14,12 @@
 // La regola e' la solita: la dice il nome. Fuori da un molo c'e' acqua, fuori da
 // un tetto c'e' il vuoto, fuori da una galleria c'e' la roccia viva.
 export const FUORI_DI = [
-  [/molo|banchin|imbarcader|fondament|riva|barc|approdo|dogana|squero|pontile|passerell|ponte|ponticell|chiatt|darsena|canale|cistern|pozzo|confluenza|lavatoio|roggia|marea|vasca/i, 'acqua'],
+  // \b su «riva»: «LO STUDIO PRIVATO DI M.» (Ep.18) contiene «riva» dentro
+  // «pRIVAto», e senza confine di parola vinceva lui — l'unica stanza
+  // dell'episodio a dichiarare un fuori, cosi' tutto il margine della mappa
+  // (Task 5, Step 4a) diventava acqua intorno a un palazzo tutto al chiuso
+  // (fix Task 9, 29/09/2026).
+  [/molo|banchin|imbarcader|fondament|\briva\b|barc|approdo|dogana|squero|pontile|passerell|ponte|ponticell|chiatt|darsena|canale|cistern|pozzo|confluenza|lavatoio|roggia|marea|vasca/i, 'acqua'],
   [/fogna|melma|scolo|chiusin|cloaca|vene|sentina/i, 'melma'],
   [/giardino|orto|serra|prato|roseto|verziere/i, 'erba'],
   [/grotta|caverna|galler|cunicol|scavo|intercapedine|pietra viva|discesa|budello/i, 'roccia'],
@@ -46,7 +51,11 @@ export const PAVIMENTI = [
   [/canale|acqua|pozzo|cistern|confluenza|darsena|vasca|chiatt|roggia|marea|lavatoio/i, 'acqua'],
   // la melma e' l'acqua che non scorre: fogne, scoli, le vene sotto la citta'
   [/fogna|melma|scolo|chiusin|cloaca|vene|budello|sentina|palude/i, 'melma'],
-  [/molo|banchin|imbarcader|fondament|riva|barc|approdo|dogana|squero/i, 'assi'],
+  // «fondament» e' un prefisso stretto di «fondamenta stretta»: senza
+  // l'eccezione, la riga dedicata piu' sotto (fondamenta strett -> lastricato)
+  // non puo' mai vincere. Stesso \b su «riva» del blocco FUORI_DI qui sopra,
+  // stessa ragione (fix Task 9, 29/09/2026, Ep.12 T3 e Ep.18 T4).
+  [/molo|banchin|imbarcader|fondament(?!a strett)|\briva\b|barc|approdo|dogana|squero/i, 'assi'],
   // ------------------------------------------------------------- I TETTI
   [/tetto|guglia|gronda|abbaino|campanil|torre|comignol|coppi|terrazza|lucernario/i, 'tetti'],
   [/tettoia|baracc|capannone|rimessa/i, 'lamiera'],
@@ -101,4 +110,14 @@ export function fuoriDichiarato(tile) {
 // «la Tettoia delle Chiatte» conteneva «tetto» ma e' «chiatt» (acqua) a
 // vincere per prima nell'elenco ordinato (fix Task 8/ep8, 29/09/2026: i
 // due controlli erano scritti diversi e in disaccordo su questa stanza).
-export const alAperto = (tile) => fuoriDichiarato(tile) === 'tetti';
+// UNA STANZA CHE IL NOME NON BASTA A DIRE, DI NUOVO: «L'abbaino» dell'Ep.11
+// (T1) e' citato da questo stesso file e da docs/scenografia.md come
+// l'esempio di riparo CHIUSO, contrapposto a quello dell'Ep.14 che sporge
+// davvero sul tetto — ma «abbaino» matcha comunque la riga dei tetti, e fino
+// a Task 9 non esisteva un modo per dirlo: il campo `pavimento` sistema solo
+// il materiale sotto i piedi, non i muri. Il campo `aperto` della tessera
+// (src/gen_ep*.py) vince come `pavimento`, stesso principio, ma sui muri:
+// `aperto=False` forza una stanza chiusa anche se il nome dice tetti;
+// `aperto=True` (non serve oggi) forzerebbe il contrario. Riguarda solo la
+// plancia digitale (alAperto) — la tessera stampata non salta mai i muri.
+export const alAperto = (tile) => (tile.aperto != null ? tile.aperto : fuoriDichiarato(tile) === 'tetti');

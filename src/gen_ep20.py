@@ -349,6 +349,7 @@ TILES_20 = [
                      'quel che si posa, scivola via.',
          arredi=[(0, 3, 'casse'), (3, 0, 'casse')]),
     dict(id='T2', nome='LE TRE ACQUE', exits={'S': 'T1', 'N': 'T3'},
+         pavimento='acqua',   # tre correnti nella camera bassa (Task 9): il nome non basta
          testo='Il punto dove tre correnti si incontrano nel buio: dolce, salata, morta. QUANDO '
                'RIVELATE QUESTA TESSERA: pericolo d’ambiente — la corrente fredda, l’eco che mente. '
                'La Mappa Acustica dice quale acqua seguire.',
@@ -382,6 +383,7 @@ TILES_20 = [
                      'd’acqua per la gola. Attrezzatura da lavoro, e nient’altro.',
          arredi=[(1, 2, 'casse'), (2, 0, 'altare')]),
     dict(id='T5', nome='LA SOGLIA DELLA CAMERA', exits={'S': 'T4', 'N': 'T6'},
+         pavimento='roccia',   # «la roccia e' nuda» (Task 9): il nome non basta
          testo='La soglia della camera del Dormiente: qui il coro fa l’ultima resistenza, e la '
                'signora Vetri è vicina. QUANDO RIVELATE QUESTA TESSERA: se non l’avete già salvata, è '
                'ora — oltre questa soglia, M. la costringerà a cantare.',
@@ -393,6 +395,7 @@ TILES_20 = [
                      'roccia è nuda.',
          arredi=[(1, 1, 'casse'), (2, 2, 'casse')]),
     dict(id='T6', nome='LA CAMERA DEL DORMIENTE', exits={'S': 'T5'},
+         pavimento='roccia',   # camera senza pareti, roccia nuda (Task 9)
          testo='La camera, oltre ogni mappa: il Dormiente respira nel buio, M. canta il quarto rigo, '
                'e voi opponete il controcanto. QUANDO RIVELATE QUESTA TESSERA: comincia la FASE '
                'FINALE — completate il controcanto prima che il Dormiente si svegli.',

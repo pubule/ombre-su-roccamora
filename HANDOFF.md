@@ -1610,6 +1610,46 @@ verificato. **Prossimo**: Task 9, "guardare tutte le 21 spedizioni" (la
 passata dedicata su tutta la campagna, gia' citata nei mandati di ep14 e
 ep18 per i difetti parcheggiati) — non un altro episodio.
 
+## FATTO (05/10/2026) — Task 9: guardare tutte le 21 spedizioni (fix del provino)
+
+Fotografate tutte e 21 le spedizioni (`node webapp/mappa-plancia-fa.mjs --tutte`,
+poi `--ep` sulle stanze toccate; server `node webapp/server.js` su 8017): zero
+404, zero errori, 21 cartelle, `logs/plancia-fa/foglio.jpg`. Trovati 13 sospetti
+(pavimenti, un tetto): 8 corretti, 5 lasciati (decisione sotto).
+
+- **Codice** (`webapp/public/motore/ambiente.js`, regressione in
+  `webapp/test-ambiente.mjs`): `riva` -> `riva` in FUORI_DI e PAVIMENTI («Lo
+  Studio PRIVATO» di ep18 T4 matchava «riva»: pavimento di assi e, peggio,
+  `fuoriDichiarato` 'acqua' => il margine dell'INTERO ep18 era un'onda; ora null,
+  pavimento tappeto). `fondament(?!a strett)` (ep12 T3 «Fondamenta stretta» =
+  selciato, `lastricato`). Attenzione: il lookahead che il reviewer proponeva,
+  `(?! strett)`, NON funziona (dopo «fondament» c'e' «a», non lo spazio).
+  `alAperto` onora il campo `tile.aperto` (come `pavimento`, ma per i muri).
+- **Dati**: `aperto=False` in `gen_ep11.py` T1 (l'abbaino e' un riparo chiuso,
+  prima usciva senza muri ne' porta); `export-data.py` ora passa `aperto`;
+  `pavimento` aggiunto in ep14 T6 (tavolato), ep15 T4 (tappeto), ep20 T2 (acqua),
+  T5 e T6 (roccia). Regex NON allargata per «Tre Acque»: avrebbe reso acqua anche
+  ep6 T8 «La camera delle tre acque» (pietra nuda nel testo).
+- **Scenografia**: ep11 T1 da 4 a 6 decori (chiusa => budget 5-12): trave
+  spezzata e secchio. `docs/scenografia.md` documenta `aperto`.
+- **Lasciati** (plausibili): ep9 T1 navata, ep10 T5 assi, ep13 T1 paglia, ep20 T4
+  navata (coro + altare), ep6 T8 mosaico. Nota: ep20 T2 ha 3 pozze su pavimento
+  d'acqua (ridondanti, innocue): ritoccabili in ep20.json.
+- **Raggio d'azione**: confronto prima/dopo su tutte le 127 tessere
+  (pavimentoDi, fuoriDi, alAperto, fuoriDichiarato): cambiano esattamente 8
+  tessere (ep11 T1 aperto, ep12 T3, ep14 T6, ep15 T4, ep18 T4, ep20 T2/T5/T6),
+  tutte volute; pin di `test-ambiente.atteso.json` aggiornati. Asserzioni nuove
+  sabotate una a una (codice vecchio, alAperto senza override, regex senza
+  lookahead, riva senza , export senza `aperto`): tutte falliscono, poi
+  ripristinate.
+- Test: `python webapp/export-data.py && node webapp/test-scenografia.mjs && node
+  webapp/test-stanza.mjs && node webapp/test-ambiente.mjs` -> tutti OK.
+  Dettaglio: `.superpowers/sdd/2026-09-24-plancia-lanterne/task-9-report.md`.
+- `mappa-plancia-fa.mjs --ep` lanciato 6 volte IN PARALLELO ha dato «tessera
+  episodio non trovata in home»: lanciarlo in sequenza.
+
+**TASK 9 COMPLETA**; piano plancia-lanterne finito.
+
 ## FATTO (22/09/2026) — i vantaggi d'Indagine arrivano in Spedizione (audit + correzioni)
 
 Report: `AUDIT-VANTAGGI-INDAGINE.md`. Banco: `node webapp/audit-vantaggi.mjs [porta]

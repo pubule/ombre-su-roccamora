@@ -4,9 +4,11 @@
       { "pezzo": "botola",     "x": 2.4,  "y": 0.55, "lato": 0.9, "rot": 0 },
       { "pezzo": "cero",       "x": 0.5,  "y": 1.35, "lato": 0.3, "rot": 15,  "luce": "cera" },
       { "pezzo": "calcinacci", "x": 3.35, "y": 1.4,  "lato": 0.5, "rot": 50 },
-      { "pezzo": "ragnatela",  "x": 1.4,  "y": 1.4,  "lato": 0.7, "rot": -90 }
+      { "pezzo": "ragnatela",  "x": 1.4,  "y": 1.4,  "lato": 0.7, "rot": -90 },
+      { "pezzo": "trave-spezzata", "x": 2.45, "y": 2.4, "lato": 0.8, "rot": -20 },
+      { "pezzo": "secchio",    "x": 0.6,  "y": 2.5,  "lato": 0.4, "rot": 30 }
     ],
-    "perche": "Il testo nomina solo la botola e il cero: la botola segna l'uscita verso i tetti (vicino al lato nord, senza stare sulla cella-porta), il cero mozzo e' l'unica luce, piccola, come dicono 'un cero' e 'cero mozzo' nel cerca_vuoto. Calcinacci e una ragnatela dicono le fessure da cui fischia il vento in questo ultimo riparo prima del vuoto. Le due casse (arredi) restano casse: qui sotto la torre era un deposito."
+    "perche": "Il testo nomina solo la botola e il cero: la botola segna l'uscita verso i tetti (vicino al lato nord, senza stare sulla cella-porta), il cero mozzo e' l'unica luce, piccola, come dicono 'un cero' e 'cero mozzo' nel cerca_vuoto. Calcinacci e una ragnatela dicono le fessure da cui fischia il vento in questo ultimo riparo prima del vuoto. Le due casse (arredi) restano casse: qui sotto la torre era un deposito. Trave spezzata e secchio (aggiunti in Task 9, quando la stanza e' diventata CHIUSA, con muri e porta: la regola dei tetti la lasciava aperta e vuota) sono il deposito di un sottotetto cadente, fuori da cella-porta e casse e lontano dall'ingresso degli eroi."
   },
   "T2": {
     "decori": [

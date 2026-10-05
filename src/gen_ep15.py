@@ -363,6 +363,7 @@ TILES_15 = [
                'il foglio è uno solo (documentabile).',
          arredi=[(0, 1, 'casse'), (3, 2, 'casse')]),
     dict(id='T4', nome='LA GALLERIA DEI CIMELI', exits={'S': 'T3', 'N': 'T5'},
+         pavimento='tappeto',   # passatoia di una galleria di casa (Task 9): il nome non basta
          testo='La galleria delle lastre fonografiche e dei cimeli di Braga. QUANDO RIVELATE '
                'QUESTA TESSERA: appaiono gli APPARECCHIATORI, in coppia, e cominciano a CANCELLARE '
                'i tell — da questo round, ogni round ne spariscono.',

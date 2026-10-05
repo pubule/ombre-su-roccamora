@@ -343,6 +343,7 @@ LUOGHI_11 = [
 TILES_11 = [
     dict(id='T1', nome='L’ABBAINO', exits={'N': 'T2'}, start='S', esposta=False,
          pavimento='assi',   # riparo al chiuso: assi di soffitta, non tegole (il nome non basta)
+         aperto=False,   # idem per i muri (Task 9): «abbaino» matcha i tetti, ma qui e' una stanza CHIUSA con muri e porta
          testo='L’abbaino della Torre, ultimo riparo prima dei tetti: una botola, un cero, il '
                'vento che fischia dalle fessure. QUANDO RIVELATE QUESTA TESSERA: applicate '
                'l’esito delle Domande 3 e 4 (vedi Soluzione); comincia la salita. Da qui in su '

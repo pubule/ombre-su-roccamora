@@ -342,9 +342,10 @@ def tessera_json(T, arte=None):
         exits=T.get('exits'), arredi=T.get('arredi'),
     )
     # per la plancia: `pavimento` vince sulla regola del nome (una stanza che
-    # il nome non basta a dire), `esposta` e' la regola del vento dell'Ep.11.
+    # il nome non basta a dire), `aperto` idem per i muri (Ep.11 T1, Task 9),
+    # `esposta` e' la regola del vento dell'Ep.11.
     # Solo dove ci sono: le altre tessere non cambiano di un byte.
-    for k in ('pavimento', 'esposta'):
+    for k in ('pavimento', 'aperto', 'esposta'):
         if T.get(k) is not None:
             d[k] = T[k]
     return d

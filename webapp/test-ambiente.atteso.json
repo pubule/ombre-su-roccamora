@@ -80,7 +80,7 @@
   "fuori": "acqua"
  },
  "ep12.json:T3": {
-  "pav": "assi",
+  "pav": "lastricato",
   "fuori": "acqua"
  },
  "ep12.json:T4": {
@@ -140,7 +140,7 @@
   "fuori": "vuoto"
  },
  "ep14.json:T6": {
-  "pav": "tappeto",
+  "pav": "tavolato",
   "fuori": "vuoto"
  },
  "ep15.json:T1": {
@@ -156,7 +156,7 @@
   "fuori": "vuoto"
  },
  "ep15.json:T4": {
-  "pav": "roccia",
+  "pav": "tappeto",
   "fuori": "roccia"
  },
  "ep15.json:T5": {
@@ -228,8 +228,8 @@
   "fuori": "vuoto"
  },
  "ep18.json:T4": {
-  "pav": "assi",
-  "fuori": "acqua"
+  "pav": "tappeto",
+  "fuori": "vuoto"
  },
  "ep18.json:T5": {
   "pav": "assi",
@@ -292,7 +292,7 @@
   "fuori": "roccia"
  },
  "ep20.json:T2": {
-  "pav": "lastricato",
+  "pav": "acqua",
   "fuori": "vuoto"
  },
  "ep20.json:T3": {
@@ -304,11 +304,11 @@
   "fuori": "vuoto"
  },
  "ep20.json:T5": {
-  "pav": "mosaico",
+  "pav": "roccia",
   "fuori": "vuoto"
  },
  "ep20.json:T6": {
-  "pav": "mattonelle",
+  "pav": "roccia",
   "fuori": "vuoto"
  },
  "ep3.json:T1": {
