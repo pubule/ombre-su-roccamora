@@ -2,6 +2,7 @@
 import { readFileSync } from 'fs';
 import { applica } from './public/motore/comandi.js';
 import { fineRoundNemici } from './public/motore/nemici.js';
+import { statoPerPosto } from './public/motore/proiezione.js';
 import { ventoAttivo, gradiniVento, buioMalus, bonusVento, eroiInProva } from './public/motore/vento.js';
 
 let ko = 0;
@@ -89,6 +90,58 @@ sp = fine(['T1', 'T2', 'T3', 'T3'], { vite: [6, 0, 6, 6] });
 ok(sp.provaVento === undefined, 'eroe a terra su T2: nessuna coda');
 sp = fine(['T1', 'T1', 'T1', 'T1']);
 ok(sp.provaVento === undefined, 'round 1 al riparo: coda vuota');
+
+// ---- Task 3: il comando prova-vento e il blocco delle azioni
+const conCoda = (o = {}, chi = [party[1]], pos = ['T1', 'T2', 'T3', 'T3']) => {
+  const g0 = nuova(11, pos, o); g0.sp.provaVento = { round: 3, chi }; return g0.partita;
+};
+const manda = (st, c) => applica(st, c, { ep: ep(11), comune: COMUNE, carte: CARTE });
+const evTiro = (o) => (o.eventi || []).find((e) => e.tipo === 'tiro' && e.causa === 'vento');
+const A = party[1];
+let o = manda(conCoda(), { tipo: 'prova-vento', eroe: A, tiri: [[6, 6]] });
+ok(!o.rifiuto && evTiro(o).ok === true && evTiro(o).soglia === 7, 'riuscita: nessuna conseguenza, soglia 7 a vento 0');
+ok(o.stato.spedizione.provaVento === undefined, 'coda svuotata: provaVento sparisce');
+ok(!(o.stato.spedizione.vincoli || {})[A], 'riuscita: nessuno scatto perso');
+o = manda(conCoda(), { tipo: 'prova-vento', eroe: A, tiri: [[1, 1]] });
+let v = (o.stato.spedizione.vincoli || {})[A];
+ok(evTiro(o).ok === false && v && v.scatto === true && v.round === 4, 'fallita: perde lo scatto nel round dopo');
+ok(o.stato.spedizione.vite[A] === undefined || o.stato.spedizione.vite[A] === COMUNE.eroi.find((x) => x.nome === A).salute, 'fallita a Salute piena: nessun danno');
+o = manda(conCoda({ vite: [6, 1, 6, 6] }), { tipo: 'prova-vento', eroe: A, tiri: [[1, 1]] });
+ok(o.stato.spedizione.vite[A] === 0, 'fallita a 1 Ferita: 1 danno da vertigine, a terra');
+o = manda(conCoda({ vite: [6, 2, 6, 6] }), { tipo: 'prova-vento', eroe: A, tiri: [[1, 1]] });
+ok(o.stato.spedizione.vite[A] === 2, 'fallita a 2 Ferite: nessun danno (solo a 1)');
+o = manda(conCoda({ vite: [6, 1, 6, 6], oggetti: ['La Corda del Campanaro'] }), { tipo: 'prova-vento', eroe: A, tiri: [[1, 1]] });
+v = (o.stato.spedizione.vincoli || {})[A];
+ok(o.stato.spedizione.vite[A] === 1 && v && v.scatto === true, 'con la Corda del Campanaro: niente danno, ma lo scatto si perde');
+const bonusDi = (oo) => Object.fromEntries(evTiro(oo).bonus.map((x) => [x.label, x.val]));
+o = manda(conCoda({ oggetti: ['Il Taccuino Ordinato'] }), { tipo: 'prova-vento', eroe: A, tiri: [[3, 3]] });
+ok(bonusDi(o)['Il Taccuino Ordinato'] === 1, 'il bonus del Taccuino si vede nell\'evento');
+o = manda(conCoda(), { tipo: 'prova-vento', eroe: A, tiri: [[3, 3]] });
+ok(bonusDi(o).Buio === -1, 'il buio -1 compare sull\'esposta');
+o = manda(conCoda({ oggetti: ['La Lanterna da Guglia'] }), { tipo: 'prova-vento', eroe: A, tiri: [[3, 3]] });
+ok(bonusDi(o).Buio === undefined, 'con la Lanterna da Guglia il buio sparisce');
+const soglia = (vento) => evTiro(manda(conCoda({ vento }), { tipo: 'prova-vento', eroe: A, tiri: [[3, 3]] })).soglia;
+ok(soglia(0) === 7 && soglia(1) === 9 && soglia(2) === 11 && soglia(4) === 11, 'soglia 7/9/11 a vento 0/1/2, tetto 11');
+o = manda(conCoda(), { tipo: 'prova-vento', eroe: party[0], tiri: [[6, 6]] });
+ok(o.rifiuto && /vento/i.test(o.rifiuto.motivo), 'un eroe non in coda: rifiuto');
+const bloccati = [{ tipo: 'cerca', eroe: party[0] }, { tipo: 'finisci-eroe', eroe: party[0] }, { tipo: 'fase-minaccia' },
+                  { tipo: 'muovi', eroe: party[0], nodo: { t: 'T1', x: 1, y: 1 } }, { tipo: 'attacca', eroe: party[0], bersaglio: 0 },
+                  { tipo: 'interagisci', eroe: party[0] }];
+for (const c of bloccati) {
+  o = manda(conCoda(), c);
+  ok(o.rifiuto && /prima le prove del vento/i.test(o.rifiuto.motivo), `con la coda aperta «${c.tipo}» e' rifiutato`);
+}
+o = manda(conCoda(), { tipo: 'carta-vista' });
+ok(!(o.rifiuto && /prima le prove del vento/i.test(o.rifiuto.motivo)), 'carta-vista non e\' bloccata');
+const st0 = conCoda(); st0.spedizione.provaVento = undefined; delete st0.spedizione.provaVento;
+o = manda(st0, { tipo: 'cerca', eroe: party[0], tiri: [[6, 6]] });
+ok(!(o.rifiuto && /prima le prove del vento/i.test(o.rifiuto.motivo)), 'a coda vuota le azioni ripartono');
+const dopoCoda = conCoda({}, [A, party[3]], ['T1', 'T2', 'T3', 'T2']);
+o = manda(dopoCoda, { tipo: 'prova-vento', eroe: A, tiri: [[6, 6]] });
+ok(o.stato.spedizione.provaVento && JSON.stringify(o.stato.spedizione.provaVento.chi) === JSON.stringify([party[3]]), 'con due in coda, ne esce uno solo per volta');
+const proi = statoPerPosto(conCoda(), { ruolo: 'giocatore', eroi: [party[0]] });
+ok(proi.spedizione.provaVento && proi.spedizione.provaVento.chi[0] === A, 'il telefono vede la coda (sa perche\' e\' fermo)');
+ok(readFileSync('webapp/worker/partita-do.js', 'utf8').match(/COMANDI_DI_ARBITRO = new Set\([^)]*'prova-vento'/), 'prova-vento e\' un comando di chi arbitra');
 
 console.log(ko ? `\n${ko} FALLITI` : '\nTutto verde.');
 process.exit(ko ? 1 : 0);

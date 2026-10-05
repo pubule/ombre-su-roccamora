@@ -186,6 +186,9 @@ const GESTORI = {
     return { eventi };
   },
 
+  // LA PROVA DEL VENTO (Ep.11): una per eroe in coda, la tira chi conduce.
+  'prova-vento': (g, c, caso) => azioni.provaVento(g, caso, c.eroe),
+
   // La carta successiva: la manda chi conduce dopo aver letto quella aperta.
   'carta-vista': (g) => {
     if (g.sp.carta && g.sp.carta.favore) return { rifiuto: 'Scegliete prima quale tessera aprire con il favore.' };
@@ -419,6 +422,8 @@ function segnaNellaNotte(ind, eventi) {
   if (ind.notte.length > TETTO_REGISTRO) ind.notte = ind.notte.slice(-TETTO_REGISTRO);
 }
 
+const PASSANO_COL_VENTO = new Set(['prova-vento', 'rispondi', 'carta-vista', 'favore']);
+
 export function applica(statoIn, comando, dati) {
   // la serata ha due meta', e ognuna ha il suo vocabolario: si smista qui, una
   // volta, invece di chiederlo a ogni chiamante
@@ -447,6 +452,12 @@ export function applica(statoIn, comando, dati) {
   }
   if (comando.eroe && !stato.party.includes(comando.eroe)) {
     return fallito(`${comando.eroe} non è in questa squadra.`);
+  }
+  // LE PROVE DEL VENTO vengono prima di ogni azione: finche' la coda e' aperta si
+  // rifiuta tutto tranne le prove stesse e la scena delle carte.
+  if (stato.spedizione.fase === 'eroi' && ((stato.spedizione.provaVento || {}).chi || []).length
+      && !PASSANO_COL_VENTO.has(comando.tipo)) {
+    return fallito('Prima le prove del vento: chi sta su una tessera ESPOSTA deve provare NERVI.');
   }
   const gestore = GESTORI[comando.tipo];
   if (!gestore) return fallito(`Comando sconosciuto: ${comando.tipo}.`);

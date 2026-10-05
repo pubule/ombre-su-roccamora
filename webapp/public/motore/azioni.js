@@ -28,6 +28,7 @@ import { specCompiti, compitiFiniti, ritmoMeno } from './obiettivi.js';
 import { spawnDaTesto } from './minaccia.js';
 import * as domande from './domande.js';
 import { provaInterazione } from './interazioni.js';
+import { gradiniVento, buioMalus, bonusVento, haOggetto } from './vento.js';
 
 const log = (g, t) => { g.sp.log = g.sp.log || []; g.sp.log.push(t); };
 const rifiuta = (motivo) => ({ rifiuto: motivo });
@@ -100,6 +101,12 @@ export function provaDi(g, comando) {
       bonus: revolver ? [{ label: 'Revolver', val: 2 }]
                       : [{ label: 'VIGORE', val: e.vigore }, { label: 'arma', val: 1 }],
     };
+  }
+  if (comando.tipo === 'prova-vento') {
+    const t = g.sp.eroiPos[nm].t;
+    const buio = buioMalus(g, t);
+    return prova(g, nm, 'nervi', gradiniVento(g, t).diff, [...bonusVento(g), ...(buio ? [{ label: 'Buio', val: buio }] : [])],
+                 `vento — ${primo(nm)}`);
   }
   if (comando.tipo === 'interagisci') {
     // la delega a interazioni.js: quale prova serva dipende da COSA c'e' da
@@ -215,6 +222,27 @@ export function muovi(g, caso, nm, node, revealId) {
     }
   }
   return { eventi, azione: 'muovere' };
+}
+
+// LA PROVA DEL VENTO (Ep.11): fallita, si perde lo scatto; a 1 Ferita anche 1 danno
+// da vertigine — salvo la Corda del Campanaro, che assicura dalla caduta ma non dalla prova.
+export function provaVento(g, caso, nm) {
+  const sp = g.sp;
+  const q = sp.provaVento;
+  if (!q || !q.chi.includes(nm)) return rifiuta(`${primo(nm)} non ha nessuna prova del vento da tirare.`);
+  const p = provaDi(g, { tipo: 'prova-vento', eroe: nm });
+  const t = tiraLa(caso, p);
+  const eventi = [{ tipo: 'tiro', causa: 'vento', chi: nm, titolo: p.titolo, ...t }];
+  q.chi = q.chi.filter((x) => x !== nm);
+  if (!q.chi.length) delete sp.provaVento;
+  if (!t.ok) {
+    const vertigine = sp.vite[nm] === 1 && !haOggetto(g, 'Corda del Campanaro');
+    const righe = applicaConseguenza(g, nm, vertigine ? 'perde il movimento extra e subisce 1 danno' : 'perde il movimento extra');
+    if (vertigine) righe.push(`${primo(nm)} è a terra.`);
+    righe.forEach((r) => log(g, r));
+    eventi.push({ tipo: 'conseguenza', righe });
+  } else log(g, `${primo(nm)} tiene il passo contro il vento.`);
+  return { eventi };
 }
 
 // ------------------------------------------------------------------ cercare

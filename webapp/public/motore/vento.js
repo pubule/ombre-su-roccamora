@@ -18,7 +18,7 @@ export function gradiniVento(g, id) {
   return { gradini, diff: SCALA[Math.min(gradini, SCALA.length - 1)] };
 }
 
-const haOggetto = (g, nome) => ((g.partita.indagine || {}).oggetti || []).some((o) => norm(o).includes(norm(nome)));
+export const haOggetto = (g, nome) => ((g.partita.indagine || {}).oggetti || []).some((o) => norm(o).includes(norm(nome)));
 
 export const buioMalus = (g, id) => (esposta(g, id) && !haOggetto(g, 'Lanterna da Guglia') ? -1 : 0);
 

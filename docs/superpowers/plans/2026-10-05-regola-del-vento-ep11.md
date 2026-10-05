@@ -120,23 +120,23 @@ funzionano gia' (commit «ESPOSTA»), ma sono un'altra cosa (Insidie, difficolta
 - [x] 2.3 Sabotaggio dei tre punti (contatore, apertura coda, filtro vivi). Ripristina.
 - [x] 2.4 Regressione: `test-con-oggetto`, `test-danno`, `test-favore`, `test-ostacolo`, `test-motore-comandi`, `test-motore-interazioni`, `test-motore-purezza`. Commit. Registro.
 
-## Task 3 — Il comando `prova-vento` e il blocco delle azioni
+## Task 3 (FATTO) — Il comando `prova-vento` e il blocco delle azioni
 
 **Files:** `webapp/public/motore/comandi.js` (tabella comandi + il punto in cui `applica` smista), `azioni.js` (riuso di `prova()`/`tiraLa`, ~126-145; esportare se serve), `webapp/public/motore/proiezione.js` (cosa vede un telefono), `test-vento.mjs`.
 
 **Interfaces — Consumes:** `vento.eroiInProva/gradiniVento/buioMalus/bonusVento`, `azioni.applicaConseguenza`, `prova()` (soglia da `comune.regole.diff[diff]`, bonus `[{label,val}]`).
 **Produces:** comando `{tipo:'prova-vento', nm, tiri?}` → eventi `{tipo:'tiro', causa:'vento', ...}` e, se fallita, `{tipo:'conseguenza', righe}`; toglie `nm` da `sp.provaVento.chi` e cancella `sp.provaVento` quando vuota.
 
-- [ ] 3.1 Leggi come `favore` e `carta-vista` sono dichiarati e smistati (`grep -n "'favore'" comandi.js`) e come `comando.tiri` (dadi di legno del tavolo) entra in `tiraLa`: la prova del vento DEVE accettare `tiri` (modalita' tavolo) esattamente come le altre.
-- [ ] 3.2 Test ROSSO: (a) con coda [A] e A su T2, `prova-vento` con `tiri` forzati che sommano molto → successo: nessuna conseguenza, coda svuotata; con tiri minimi → fallimento: `sp.vincoli[A].scatto === true` e `round === sp.round+1`;
+- [x] 3.1 Leggi come `favore` e `carta-vista` sono dichiarati e smistati (`grep -n "'favore'" comandi.js`) e come `comando.tiri` (dadi di legno del tavolo) entra in `tiraLa`: la prova del vento DEVE accettare `tiri` (modalita' tavolo) esattamente come le altre.
+- [x] 3.2 Test ROSSO: (a) con coda [A] e A su T2, `prova-vento` con `tiri` forzati che sommano molto → successo: nessuna conseguenza, coda svuotata; con tiri minimi → fallimento: `sp.vincoli[A].scatto === true` e `round === sp.round+1`;
       (b) fallimento con `sp.vite[A] === 1` → vita 0 (+ annuncio «a terra»); con *La Corda del Campanaro* in inventario → vita resta 1 ma lo scatto si perde;
       (c) il bonus del Taccuino si vede in `bonus` dell'evento; il buio −1 compare e sparisce con la Lanterna da Guglia; la soglia dell'evento e' 7 a `sp.vento=0`, 9 a 1, 11 a 2;
       (d) un `nm` non in coda → rifiuto; qualunque comando-azione dell'eroe (`muovi`, `attacca`, `interagisci`, `fase-minaccia`…: elencali dal codice) con coda non vuota → rifiuto con testo «prima le prove del vento», e a coda vuota riparte normale;
       (e) la proiezione per un telefono (`proiezione.js`) porta `provaVento` (altrimenti il giocatore non sa perche' e' bloccato);
       (f) solo l'arbitro puo' mandarla (come `favore`).
-- [ ] 3.3 Implementa. Il blocco va nel punto UNICO che smista i comandi (non per-comando): una guardia in `applica` con una lista esplicita dei comandi sempre ammessi (`prova-vento`, `carta-vista`, comandi di sistema/stato).
-- [ ] 3.4 Sabotaggio: togli la guardia, togli la conseguenza, togli il bonus Taccuino, togli l'esenzione Corda: ognuno rosso. Ripristina.
-- [ ] 3.5 Regressione completa del set + `test-engine` (stessi KO baseline). Commit. Registro.
+- [x] 3.3 Implementa. Il blocco va nel punto UNICO che smista i comandi (non per-comando): una guardia in `applica` con una lista esplicita dei comandi sempre ammessi (`prova-vento`, `carta-vista`, comandi di sistema/stato).
+- [x] 3.4 Sabotaggio: togli la guardia, togli la conseguenza, togli il bonus Taccuino, togli l'esenzione Corda: ognuno rosso. Ripristina.
+- [x] 3.5 Regressione completa del set + `test-engine` (stessi KO baseline). Commit. Registro.
 
 ## Task 4 — La UI: il tiro del vento e il blocco visibile
 
@@ -173,3 +173,4 @@ funzionano gia' (commit «ESPOSTA»), ma sono un'altra cosa (Insidie, difficolta
 | 2026-10-05 | Piano scritto | (questo commit) | nessun codice ancora |
 | 2026-10-05 | Task 1 | (vedi git log: «regola del vento Ep.11 — modificatori puri») | `vento.js` + `test-vento.mjs` (sabotaggi: tetto, vivi, T1-rivelata, esposta, buio, bonus D3: tutti rossi). Rulings: (a) «Vento al massimo» sta in **T6** (la guglia), non T5: riconosciuto dal testo (`FORTE` T4, `vento al massimo` T6); (b) `ventoAttivo` = ripiego `tessere.some(t=>t.esposta)` (solo Ep.11 le ha) + T1 rivelata, niente campo dato nuovo; (c) D3: nuovo campo `bonus_vento` in `EFFETTI_DOMANDE[('ep11',3)]` (export-data.py) letto da `domande.effettiAttivi`. |
 | 2026-10-05 | Task 2 | (git log: «contatore dei Crescendo e coda a inizio round») | `contaCrescendo` nel ramo crescendo non annullato (comandi.js), `apriProveVento` dopo `sp.fase='eroi'` (nemici.js); sabotaggi rossi. Regressioni verdi. |
+| 2026-10-05 | Task 3 | (git log: «comando prova-vento e blocco delle azioni») | `azioni.provaVento` + ramo `prova-vento` in `provaDi` (serve anche al tavolo), guardia unica in `applica` con lista `PASSANO_COL_VENTO` (default-deny), `prova-vento` in `COMANDI_DI_ARBITRO`. La proiezione spalma `...sp`: `provaVento` arriva ai telefoni senza codice. Comando: `{tipo:'prova-vento', eroe, tiri?}`. Etichetta bonus buio = «Buio». Sabotaggi tutti rossi (anche `vite===1`). |
