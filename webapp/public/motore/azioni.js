@@ -234,7 +234,8 @@ export function provaVento(g, caso, nm) {
   const t = tiraLa(caso, p);
   const eventi = [{ tipo: 'tiro', causa: 'vento', chi: nm, titolo: p.titolo, ...t }];
   q.chi = q.chi.filter((x) => x !== nm);
-  if (!q.chi.length) delete sp.provaVento;
+  // coda vuota, non cancellata: la vista travasa lo stato con Object.assign, che non toglie le chiavi sparite
+  if (!q.chi.length) sp.provaVento = { round: q.round, chi: [] };
   if (!t.ok) {
     const vertigine = sp.vite[nm] === 1 && !haOggetto(g, 'Corda del Campanaro');
     const righe = applicaConseguenza(g, nm, vertigine ? 'perde il movimento extra e subisce 1 danno' : 'perde il movimento extra');

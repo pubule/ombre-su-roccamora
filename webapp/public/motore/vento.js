@@ -46,7 +46,23 @@ export function contaCrescendo(g, testo) {
 // All'inizio della fase Eroi: chi sta su tessera ESPOSTA deve prima la prova.
 export function apriProveVento(g) {
   const chi = eroiInProva(g);
-  if (!chi.length) { delete g.sp.provaVento; return []; }
+  if (!chi.length) { g.sp.provaVento = { round: g.sp.round, chi: [] }; return []; }
   g.sp.provaVento = { round: g.sp.round, chi };
   return [`Vento: ${chi.join(', ')} ${chi.length > 1 ? 'devono' : 'deve'} provare NERVI prima di agire.`];
+}
+
+// La Raffica: «se il Caposquadra è a 1 Ferita su tessera ESPOSTA, CADE (filo perso)». Il bersaglio da
+// prendere vivo che sta sull'esposto all'ultima Ferita esce dal campo; il filo perso lo scrive controllaFiloPerso.
+export function caduteInRaffica(g, testo) {
+  if (!/a 1 Ferita su tessera ESPOSTA, CADE/i.test(testo)) return [];
+  const sp = g.sp; const cadute = [];
+  for (const c of g.ep.compiti || []) {
+    if (!c.perso_se_abbattuto || !c.nemico) continue;
+    const i = sp.nemici.findIndex((n) => n.nome === c.nemico && n.pos && n.max - n.ferite === 1 && esposta(g, n.pos.t));
+    if (i < 0) continue;
+    sp.nemici.splice(i, 1);
+    sp.bersagliVisti = { ...(sp.bersagliVisti || {}), [c.id]: true };
+    cadute.push(`${c.nemico.toLowerCase()} cade nel vuoto.`);
+  }
+  return cadute;
 }

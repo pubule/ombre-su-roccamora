@@ -952,8 +952,25 @@ const stordito = (nm) => stat.stordito(G(), nm);
 const azioniMax = (nm) => stat.azioniMax(G(), nm);
 const azioniRestano = (nm) => stat.azioniRestano(G(), nm);
 
+// LE PROVE DEL VENTO (Ep.11): prima di ogni azione, chi sta su una tessera ESPOSTA prova NERVI.
+// La coda sta nello stato (`sp.provaVento`): chi ricarica o guarda da un telefono la ritrova.
+function ventoHtml() {
+  const chi = (SP().provaVento || {}).chi || [];
+  if (!chi.length) return '';
+  const riga = (nm) => {
+    const p = azioni.provaDi(G(), { tipo: 'prova-vento', eroe: nm });
+    const bonus = p.bonus.map((b) => `${b.label} ${b.val > 0 ? '+' : '−'}${Math.abs(b.val)}`).join(', ');
+    return `<div class="btn-riga mt"><span><b>${esc(nm)}</b> — NERVI ${esc(p.diff)}: ${p.soglia}+ con 2d6 (${bonus})</span>${arbitro()
+      ? `<button class="btn pieno" data-vento="${esc(nm)}">tira →</button>` : ''}</div>`;
+  };
+  return `<p class="nota"><b class="ko-txt">Il vento sale.</b> Chi sta su una tessera ESPOSTA prova NERVI prima di agire: se la manca perde lo scatto (e a 1 Ferita subisce 1 danno).</p>
+    ${chi.map(riga).join('')}
+    ${arbitro() ? '' : '<p class="nota mt">Le prove le tira chi arbitra.</p>'}`;
+}
+
 function azioniHtml() {
   const sp = SP();
+  if ((sp.provaVento || {}).chi && sp.provaVento.chi.length) return ventoHtml();
   const iS = scortAttivo();
   if (iS != null) {
     const s = specScort(iS); const mov = s.mov || 3; const nome = s.nome || 'chi scortate';
@@ -1476,6 +1493,7 @@ function aggancia() {
   app.querySelector('#az-rianimare') && (app.querySelector('#az-rianimare').onclick = () => esegui({ tipo: 'rianima', eroe: attivo }));
   app.querySelector('#az-fine') && (app.querySelector('#az-fine').onclick = () => esegui({ tipo: 'finisci-eroe', eroe: attivo }));
   app.querySelector('#fase-minaccia') && (app.querySelector('#fase-minaccia').onclick = faseMinaccia);
+  app.querySelectorAll('[data-vento]').forEach((b) => b.onclick = () => esegui({ tipo: 'prova-vento', eroe: b.dataset.vento }));
   agganciaMappa();
   centraSuAttivo();
   annunciaTurno();

@@ -6,6 +6,7 @@ import { statoPerPosto } from './public/motore/proiezione.js';
 import { ventoAttivo, gradiniVento, buioMalus, bonusVento, eroiInProva } from './public/motore/vento.js';
 
 let ko = 0;
+const coda = (sp) => (sp.provaVento || {}).chi || [];
 const ok = (c, m) => { if (!c) { console.error('FAIL:', m); ko++; } else console.log('  ok', m); };
 
 const COMUNE = JSON.parse(readFileSync('webapp/data/comune.json', 'utf8'));
@@ -77,6 +78,19 @@ ok(pesca(11, 'Crescendo — La Raffica sulla Guglia').vento === 1, 'anche la Raf
 ok(!pesca(11, 'Danno — Una Tegola in Testa').vento, 'una carta non-vento non lo tocca');
 ok(!pesca(2, 'Insidia — Cenere negli Occhi').vento, 'Ep2 («prove di vento» a parole) non lo tocca');
 
+// ---- la Raffica fa cadere il Caposquadra all'ultima Ferita sull'esposto
+const raff = (tessera, ferite, titolo = 'Crescendo — La Raffica sulla Guglia') => {
+  const g0 = nuova(11, T1, { mazzo: titolo });
+  g0.sp.rivelate = ['T1', 'T6']; g0.sp.round = 3;
+  g0.sp.nemici = [{ nome: 'IL CAPOSQUADRA', num: 1, ferite, max: 4, pos: { t: tessera, x: 2, y: 2 } }];
+  return applica(g0.partita, { tipo: 'fase-minaccia' }, { ep: g0.ep, comune: COMUNE, carte: CARTE }).stato.spedizione;
+};
+const spR = raff('T6', 3);
+ok(spR.esito === 'parziale' && spR.nemici.length === 0, 'Raffica, Caposquadra a 1 Ferita sull esposto: cade, filo perso');
+ok(!raff('T3', 3).esito && raff('T3', 3).nemici.length === 1, 'al riparo (T3): non cade');
+ok(!raff('T6', 2).esito, 'a 2 Ferite sull esposto: non cade');
+ok(!raff('T6', 3, 'Crescendo — Il Primo Refolo').esito, 'un Crescendo senza la clausola della Raffica: non cade');
+
 // ---- Task 2: la coda a inizio round
 const fine = (pos, o = {}) => {
   const g = nuova(11, pos, o); g.sp.round = 2; g.sp.fase = 'nemici';
@@ -85,11 +99,11 @@ const fine = (pos, o = {}) => {
 let sp = fine(['T1', 'T2', 'T3', 'T3']);
 ok(sp.round === 3 && sp.fase === 'eroi' && sp.provaVento && sp.provaVento.round === 3 && JSON.stringify(sp.provaVento.chi) === JSON.stringify([party[1]]), "a fine round: in coda solo chi sta su T2, round nuovo");
 sp = fine(['T1', 'T3', 'T3', 'T1']);
-ok(sp.provaVento === undefined, 'nessuno esposto: nessuna coda');
+ok(!coda(sp).length, 'nessuno esposto: nessuna coda');
 sp = fine(['T1', 'T2', 'T3', 'T3'], { vite: [6, 0, 6, 6] });
-ok(sp.provaVento === undefined, 'eroe a terra su T2: nessuna coda');
+ok(!coda(sp).length, 'eroe a terra su T2: nessuna coda');
 sp = fine(['T1', 'T1', 'T1', 'T1']);
-ok(sp.provaVento === undefined, 'round 1 al riparo: coda vuota');
+ok(!coda(sp).length, 'round 1 al riparo: coda vuota');
 
 // ---- Task 3: il comando prova-vento e il blocco delle azioni
 const conCoda = (o = {}, chi = [party[1]], pos = ['T1', 'T2', 'T3', 'T3']) => {
@@ -100,7 +114,7 @@ const evTiro = (o) => (o.eventi || []).find((e) => e.tipo === 'tiro' && e.causa 
 const A = party[1];
 let o = manda(conCoda(), { tipo: 'prova-vento', eroe: A, tiri: [[6, 6]] });
 ok(!o.rifiuto && evTiro(o).ok === true && evTiro(o).soglia === 7, 'riuscita: nessuna conseguenza, soglia 7 a vento 0');
-ok(o.stato.spedizione.provaVento === undefined, 'coda svuotata: provaVento sparisce');
+ok(!coda(o.stato.spedizione).length, 'coda svuotata');
 ok(!(o.stato.spedizione.vincoli || {})[A], 'riuscita: nessuno scatto perso');
 o = manda(conCoda(), { tipo: 'prova-vento', eroe: A, tiri: [[1, 1]] });
 let v = (o.stato.spedizione.vincoli || {})[A];
