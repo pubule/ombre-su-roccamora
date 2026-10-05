@@ -4,7 +4,7 @@
 
 Piano: `docs/superpowers/plans/2026-10-05-effetti-carta-non-applicati.md` (tutto spuntato; rulings e residuo in fondo).
 Fatti: Ostacolo, Danno, Favore, «Con [oggetto]», conseguenze (scatto, tell, canto), colpi Guardia/Ispettore/Lama, FUGA +1, ESPOSTA.
-**Residuo grosso: la REGOLA DEL VENTO dell'Ep11 non esiste nel motore** (prove NERVI a inizio turno sulle ESPOSTE) — serve un piano.
+**Residuo grosso: la REGOLA DEL VENTO dell'Ep11 non esiste nel motore.** Piano riavviabile pronto: `docs/superpowers/plans/2026-10-05-regola-del-vento-ep11.md` (Task 1-6, nessuno iniziato).
 
 ## Plancia lanterne: Task 1-9 FATTI e rivisti (05/10/2026); restano solo prove umane
 
