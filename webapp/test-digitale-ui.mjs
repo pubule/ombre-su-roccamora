@@ -125,7 +125,9 @@ await clickIf('.cella-mossa');
 // risolve un tiro di dado nell'overlay (una sola scena dadi)
 const tira = async () => {
   if (!(await has('.dadi-overlay'))) return false;
-  await clickIf('#dadi-lancia'); await page.waitForTimeout(2400);
+  // al tavolo i dadi sono veri: si dichiara il totale (7) invece di toccare il lancio
+  if (await page.locator('.dadi-overlay [data-tot="7"]').first().isVisible().catch(() => false)) { await clickIf('.dadi-overlay [data-tot="7"]'); await page.waitForTimeout(1200); }
+  else { await clickIf('#dadi-lancia'); await page.waitForTimeout(2400); }
   await clickIf('#dadi-chiudi'); await page.waitForTimeout(500);
   return true;
 };

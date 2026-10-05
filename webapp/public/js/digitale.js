@@ -478,7 +478,7 @@ function render() {
       }
     }
   }
-  if (sp.carta && sp.carta.tessera !== ctx.lettaPrima) return schermataCarta(sp.carta);
+  if (sp.carta && !(ctx.lettaPrima && sp.carta.tessera === ctx.lettaPrima)) return schermataCarta(sp.carta);
   // LA NOTTE LA FA AGIRE CHI ARBITRA, e nessun altro. `render()` la faceva
   // partire a chiunque disegnasse con la fase a «nemici»: bastava ricaricare la
   // pagina sul telefono per far muovere i nemici — in LOCALE, perche' al
@@ -1204,6 +1204,10 @@ function arteStanza(tessera) {
 
 function schermataCarta(aperta, alOk = null) {
   const { app } = ctx;
+  // L'INSIDIA DELLA CARTA: se il testo chiede una prova, chi arbitra la risolve
+  // PRIMA di poter continuare (quando la carta e' passata a questa schermata
+  // dallo stato, il bottone del tiro e' rimasto dietro: non si tirava piu').
+  const req = aperta.carta && arbitro() ? provaRichiesta(aperta.carta.rules) : null;
   app.classList.remove('immersivo');
   const html = `<div class="barra"><span></span><div class="titolo">${esc(aperta.titolo || 'minaccia')}</div><span></span></div>
     <div class="pannello">
@@ -1223,9 +1227,14 @@ function schermataCarta(aperta, alOk = null) {
         : `${arteStanza(aperta.tessera)}
            <p class="mt">${rendi(aperta.testo || '')}</p>`}
       ${(aperta.annunci || []).map((a) => `<p class="mt"><b>${esc(a)}</b></p>`).join('')}
+      <div id="ins-esito"></div>
     </div>
     ${arbitro()
-      ? '<div class="btn-riga"><button class="btn pieno" id="ok-msg">continua</button></div>'
+      ? `${req ? '<p class="nota mt"><b class="ko-txt">Insidia:</b> risolvete la prova prima di continuare.</p>' : ''}
+         <div class="btn-riga">
+           ${req ? '<button class="btn pieno" id="ins-risolvi">🎲 risolvete la prova richiesta</button>' : ''}
+           <button class="btn pieno" id="ok-msg"${req ? ' style="display:none"' : ''}>continua</button>
+         </div>`
       : '<p class="nota mt center">la sta leggendo chi arbitra…</p>'}`;
   // NIENTE LAMPO: la stessa carta non si riscrive. La schermata da leggere
   // insieme arriva da piu' parti — il disegno di qui, la spinta del tavolo
@@ -1239,6 +1248,26 @@ function schermataCarta(aperta, alOk = null) {
   if (b) b.onclick = async () => {
     b.disabled = true;
     if (alOk) alOk(); else await esegui({ tipo: 'carta-vista' });
+  };
+  const rb = app.querySelector('#ins-risolvi');
+  if (rb) rb.onclick = async () => {
+    rb.disabled = true;
+    const targets = await bersagliInsidia(aperta.carta.rules);
+    if (!targets.length) { rb.disabled = false; return; }
+    const esiti = [];
+    for (const t of targets) {
+      const e = eroe(t);
+      const r = await tiraProva({ titolo: `${req.stat.toUpperCase()} — ${primo(t)}`, diffLabel: req.diff,
+        soglia: ctx.comune.regole.diff[req.diff], eroe: ritrattoDi(t),
+        bonus: [{ label: req.stat.toUpperCase(), val: e[req.stat] }, ...bonusVoce(t, req.stat)], modo: modoDadi() });
+      if (r == null) { rb.disabled = false; return; }
+      if (r.ok) esiti.push(`${primo(t)}: prova superata.`);
+      else esiti.push(...applicaConseguenza(t, aperta.carta.rules));
+    }
+    salvaP();
+    app.querySelector('#ins-esito').innerHTML = esiti.map((x) => `<p class="nota mt">${esc(x)}</p>`).join('');
+    rb.style.display = 'none';
+    app.querySelector('#ok-msg').style.display = '';
   };
 }
 
