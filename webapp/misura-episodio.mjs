@@ -303,7 +303,8 @@ const sciogli = async () => {
         const b = document.querySelector(`.dadi-overlay [data-tot="${somma}"]`);
         if (b) { b.click(); return '#dadi-tavolo'; }
       }
-      for (const sel of ['#dadi-lancia', '#dadi-chiudi', '#ins-risolvi:not([disabled])', '#ok-msg']) {
+      // .fav-scelta: la carta Favore chiede quale porta aprire; il pilota prende la prima
+      for (const sel of ['#dadi-lancia', '#dadi-chiudi', '#ins-risolvi:not([disabled])', '.fav-scelta:not([disabled])', '#ok-msg']) {
         const e = document.querySelector(sel);
         if (visibile(e)) { e.click(); return sel; }
       }
@@ -668,7 +669,7 @@ for (let g = 0; g < N; g++) {
   let ultimoProgresso = 0, firmaProg = '';
   const tappe = {}; let allIngresso = null;   // fotografia all'ingresso in T6
   for (let r = 0; r < 80; r++) {
-    if (!(await attendiFaseEroi())) { ko('fase eroi mai arrivata (timeout)'); break; }
+    if (!(await attendiFaseEroi())) { if (process.env.DIAG) { const x = await sp(); console.log('STALLO', x.fase, JSON.stringify(x.provaVento), JSON.stringify(x.pendenza), x.carta && x.carta.title, (await pg.evaluate(() => document.body.innerText)).slice(0, 700).replace(/\n/g, ' | ')); } ko('fase eroi mai arrivata (timeout)'); break; }
     await proveVento();
     const s = await sp(); if (s.esito) break;
     const inPiedi = Object.values(s.vite).filter((v) => v > 0).length;
