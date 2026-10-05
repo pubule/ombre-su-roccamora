@@ -585,7 +585,7 @@ function cartaEroe(nm, eroeAperto) {
     const migBlock = miglioriteHtml(nm);
     const t = ctx.ultimiTiri[nm];
     const tiroBlock = t
-      ? `<div class="tiro ${t.ok ? 'buono' : 'cattivo'}"><div class="cosa">${esc(t.titolo || '')}</div>
+      ? `<div class="tiro-ultimo ${t.ok ? 'buono' : 'cattivo'}"><div class="cosa">${esc(t.titolo || '')}</div>
           <div class="conto">${(t.d || []).map((d) => `<span class="dado">${d}</span>`).join('+')}${(t.bonus || [])
             .map((b) => ` + <span>${esc(b.label)} ${b.val >= 0 ? '+' : ''}${b.val}</span>`).join('')}
             = <b>${t.somma}</b>${t.soglia != null ? ` contro ${t.soglia}` : ''} · <span class="esito">${t.ok ? 'successo' : 'fallito'}</span></div></div>`

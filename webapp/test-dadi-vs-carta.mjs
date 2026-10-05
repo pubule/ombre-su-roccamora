@@ -114,6 +114,11 @@ await tel.waitForTimeout(1500);
 {
   const st = await leggiTel();
   ok(st.overlayVisibile, `chiusa la carta, il tiro dell'altro arriva (${JSON.stringify(st)})`);
+  // i dadi sono cubi di 84px: la regola `.tiro .dado` della HUD (il tiro in carta eroe)
+  // una volta li ha ridotti a 24px, e le sei facce a 42px dal centro si sono sparpagliate
+  const larghezze = await tel.evaluate(() => [...document.querySelectorAll('.dadi-overlay .dado-scena .dado')]
+    .map((d) => Math.round(d.getBoundingClientRect().width)));
+  ok(larghezze.length === 2 && larghezze.every((w) => w >= 80), `i due dadi sono cubi interi (${larghezze})`);
 }
 
 // --- 5. IL VERSO OPPOSTO: il tiro di un altro e' GIA' a schermo (non ancora

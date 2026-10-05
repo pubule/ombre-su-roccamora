@@ -1171,13 +1171,13 @@ canvas.calore { z-index: 2; pointer-events: none; opacity: .32; }
    ha (Revolver, Rianimare...): riscriverla vorrebbe dire duplicare la logica
    che azioniHtml() gia' calcola. Qui resta un contenitore semplice. */
 .tasti { display: flex; flex-direction: column; gap: 6px; }
-.tiro { padding: 8px 10px; border-radius: 6px; background: rgba(0,0,0,.35); border-left: 3px solid var(--osso-fioco); font-size: 13px; }
-.tiro.buono { border-left-color: #6fc79a; } .tiro.cattivo { border-left-color: var(--ceralacca); }
-.tiro .cosa { font: 12px 'FellSC', serif; color: var(--osso-fioco); }
-.tiro .conto { display: flex; align-items: center; gap: 5px; flex-wrap: wrap; margin: 4px 0; }
-.tiro .dado { width: 24px; height: 24px; border-radius: 5px; background: var(--carta); color: var(--carta-ink); display: grid; place-items: center; font: 700 15px 'OldStd', serif; }
-.tiro .esito { font: 15px 'FellSC', serif; }
-.tiro.buono .esito { color: #9fe0bd; } .tiro.cattivo .esito { color: #f19aa3; }
+.tiro-ultimo { padding: 8px 10px; border-radius: 6px; background: rgba(0,0,0,.35); border-left: 3px solid var(--osso-fioco); font-size: 13px; }
+.tiro-ultimo.buono { border-left-color: #6fc79a; } .tiro-ultimo.cattivo { border-left-color: var(--ceralacca); }
+.tiro-ultimo .cosa { font: 12px 'FellSC', serif; color: var(--osso-fioco); }
+.tiro-ultimo .conto { display: flex; align-items: center; gap: 5px; flex-wrap: wrap; margin: 4px 0; }
+.tiro-ultimo .dado { width: 24px; height: 24px; border-radius: 5px; background: var(--carta); color: var(--carta-ink); display: grid; place-items: center; font: 700 15px 'OldStd', serif; }
+.tiro-ultimo .esito { font: 15px 'FellSC', serif; }
+.tiro-ultimo.buono .esito { color: #9fe0bd; } .tiro-ultimo.cattivo .esito { color: #f19aa3; }
 .guida { font-size: 12px; font-style: italic; color: var(--osso-fioco); }
 
 /* LA NOTTE: torre del canto, nemici con Att/Dif/Dan/Mov e cosa faranno,
