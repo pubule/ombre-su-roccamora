@@ -1,5 +1,10 @@
 # Handoff — dove siamo
 
+## IN CORSO: effetti delle carte Minaccia non applicati (05/10/2026)
+
+Piano riavviabile da zero: `docs/superpowers/plans/2026-10-05-effetti-carta-non-applicati.md`
+(caselle spuntate = fatto; registro in fondo). Ostacolo FATTO e deployato. Prossimo: Task 1 Danno, Task 2 Favore.
+
 ## Plancia lanterne: Task 1-9 FATTI e rivisti (05/10/2026); restano solo prove umane
 
 Tutte le 21 spedizioni hanno scenografia scritta a mano; revisione finale (opus) fatta, tre
