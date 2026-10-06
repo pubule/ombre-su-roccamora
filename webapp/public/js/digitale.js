@@ -1271,6 +1271,14 @@ function schermataCarta(aperta, alOk = null) {
   // buoni, perche' i nodi non si toccano.
   if (app.innerHTML === html) return;
   app.innerHTML = html;
+  // il testo non compare prima dell'immagine: se l'arte non e' ancora in cache
+  // il pannello resta invisibile finche' e' decodificata (o per 1,5 s al massimo)
+  const lente = [...app.querySelectorAll('.pannello img')].filter((i) => !i.complete);
+  if (lente.length) {
+    const pan = app.querySelector('.pannello'); pan.style.opacity = '0';
+    Promise.race([Promise.all(lente.map((i) => i.decode().catch(() => {}))), new Promise((r) => setTimeout(r, 1500))])
+      .then(() => { pan.style.opacity = ''; });
+  }
   const b = app.querySelector('#ok-msg');
   if (b) b.onclick = async () => {
     b.disabled = true;
