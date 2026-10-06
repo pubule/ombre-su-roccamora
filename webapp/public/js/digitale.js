@@ -720,7 +720,8 @@ function boardHtml(senzaMosse) {
   const regioniBuio = [];
   ctx._geo.regioniBuio = regioniBuio;
   const scr = (n) => { const [TX, TY] = lay[n.t]; return { l: ((TX - minX) * 4 + n.x) * cell, t: ((maxY - TY) * 4 + (3 - n.y)) * cell }; };
-  const notteInCorso = sp.fase === 'nemici';
+  // la plancia della notte (`senzaMosse`) mostra lo stato gia' del round dopo: nessun eroe e' «di turno»
+  const notteInCorso = senzaMosse || sp.fase === 'nemici';
   const attivo = notteInCorso ? null : eroiAttivoNome();
 
   // Mentre agisce la notte NON si accende niente: le caselle turchesi
