@@ -20,12 +20,12 @@
  * @param stato   la partita da mettere sul tavolo
  * @returns true se il tavolo l'ha presa; false = si gioca da soli, com'era
  */
-export async function mettiSulTavolo(posto, stato) {
+export async function mettiSulTavolo(posto, stato, { forza = false } = {}) {
   if (!posto || !posto.tavolo || posto.ruolo !== 'arbitro') return false;
   try {
     const r = await fetch(`/api/tavolo/${encodeURIComponent(posto.tavolo)}/apri`, {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ tavolo: posto.tavolo, stato }),
+      body: JSON.stringify({ tavolo: posto.tavolo, stato, forza }),
     });
     return r.ok;
   } catch {

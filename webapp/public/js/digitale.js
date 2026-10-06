@@ -402,7 +402,7 @@ function setup() {
   });
 }
 
-function iniziaPartita() {
+async function iniziaPartita() {
   const { ep, partita } = ctx;
   const t0 = ep.tessere[0];
   const entrata = portaCella(t0, t0.start || 'S');
@@ -443,7 +443,11 @@ function iniziaPartita() {
   // boss stonato, il gettone Intuizione, il promemoria di quel che resta a mano.
   // Prima la busta li mostrava e la Spedizione li ignorava.
   domande.avviaEffetti(G(), t0.id);
-  salvaP(); render();
+  // L'INIZIO DELLA SPEDIZIONE si impone al tavolo (`forza`): e' un nuovo inizio voluto da chi arbitra, e un
+  // `apri` scartato per via dei timbri lascerebbe il tavolo su una Spedizione di prima.
+  salva(ctx.partita);
+  if (arbitro() && ctx.posto && ctx.posto.tavolo) await mettiSulTavolo(ctx.posto, ctx.partita, { forza: true }).catch(() => {});
+  render();
 }
 // n celle libere piu' vicine a start dentro una singola tessera (spawn/ingresso)
 const celleLibereTile = (tile, start, n, occ) => griglia.celleLibereTile(G(), tile, start, n, occ);
@@ -1351,7 +1355,20 @@ function schermataCarta(aperta, alOk = null) {
   const b = app.querySelector('#ok-msg');
   if (b) b.onclick = async () => {
     b.disabled = true;
-    if (alOk) alOk(); else await esegui({ tipo: 'carta-vista' });
+    if (alOk) alOk();
+    else {
+      const fatto = await esegui({ tipo: 'carta-vista' });
+      // IL TAVOLO HA RIFIUTATO (o non risponde) e la carta e' ancora li': il suo stato non e' quello di
+      // chi arbitra. Chi arbitra e' l'autore: chiude la carta qui, rimanda il suo stato al tavolo SENZA
+      // confronto di timbri e prosegue. Senza questo «continua» non faceva niente, e restava solo la tessera.
+      if (!fatto && b.isConnected && arbitro() && SP().carta) {
+        SP().carta = null; salva(ctx.partita);
+        if (ctx.posto && ctx.posto.tavolo) await mettiSulTavolo(ctx.posto, ctx.partita, { forza: true }).catch(() => {});
+        flash(`Il tavolo non era allineato${ctx.ultimoMotivo ? ' (' + ctx.ultimoMotivo + ')' : ''}: l'ho riallineato.`);
+        render();
+        return;
+      }
+    }
     // rifiutato o filo caduto: la schermata e' ancora questa e il tasto deve tornare premibile
     if (b.isConnected) b.disabled = false;
   };
@@ -1905,8 +1922,11 @@ async function eseguiSulTavolo(comando) {
         comando = { ...comando, tiri: [...comando.tiri, d] };
         continue;
       }
-      flash(motivo || 'Il tavolo ha rifiutato la mossa.'); return false;
+      ctx.ultimoMotivo = motivo; flash(motivo || 'Il tavolo ha rifiutato la mossa.'); return false;
     }
+    // il tavolo risponde con una Spedizione piu' INDIETRO di quella di chi arbitra (il suo era rimasto
+    // al segnaposto): non si applica — butterebbe via la partita — e conta come mossa non riuscita
+    if (arbitro() && spintaVecchia(out.stato)) { ctx.ultimoMotivo = 'il tavolo era rimasto indietro'; return false; }
     if (await incassa(out.stato, out.eventi)) return true;
     if (out.stato.pendenza) { await sciogliPendenza(out.stato.pendenza); return true; }
     render();

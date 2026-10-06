@@ -128,7 +128,7 @@ export class Partita extends DurableObject {
     if (posto && posto.ruolo !== 'arbitro') {
       return Response.json({ rifiuto: { motivo: 'La serata la apre chi arbitra.' } }, { status: 403 });
     }
-    const { stato, tavolo } = await request.json();
+    const { stato, tavolo, forza } = await request.json();
     await this.ctx.storage.put('tavolo', tavolo);
     const esistente = await this.leggi();
     // NON SI SOVRASCRIVE UNA PARTITA IN CORSO CON UNA PIU' VECCHIA: chi si
@@ -155,7 +155,10 @@ export class Partita extends DurableObject {
     const stessaPartita = esistente
       && esistente.episodio === stato.episodio
       && (esistente.creata || 0) === (stato.creata || 0);
-    if (stessaPartita && (esistente.aggiornato || 0) >= (stato.aggiornato || 0)) {
+    // `forza`: chi arbitra e' l'autore dello stato e dice «questo e' quello giusto» (l'inizio della
+    // Spedizione, un tavolo rimasto indietro): non si confrontano i timbri, che possono venire da due
+    // orologi diversi e lasciare il tavolo su una versione che nessuno ha piu'.
+    if (!forza && stessaPartita && (esistente.aggiornato || 0) >= (stato.aggiornato || 0)) {
       return Response.json({ ok: true, ripresa: true });
     }
     await this.scrivi(stato, { subito: true });
