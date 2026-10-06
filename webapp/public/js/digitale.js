@@ -268,7 +268,14 @@ export async function vistaDigitale(app, partita, vaiA, posto) {
           // la riga riassuntiva nella sua carta — SOLO vista, non stato di
           // partita: non si salva, non passa dal tavolo, si azzera riaprendo.
           scheda: 'eroi', ultimiTiri: {} };
-  ctx.tavoloVivo = await mettiSulTavolo(ctx.posto, ctx.partita);
+  // QUI SI E' IN SPEDIZIONE. Se la partita dice ancora «indagine» (un'eco in ritardo l'aveva riportata
+  // li') la si rimette a posto, e chi arbitra lo impone al tavolo: col tavolo su «indagine» ogni
+  // «continua» andava all'Indagine e la carta della tessera non si chiudeva mai.
+  let fasePerduta = false;
+  if (partita.fase !== 'spedizione' && partita.indagine && partita.indagine.chiusa) {
+    partita.fase = 'spedizione'; salva(partita); fasePerduta = true;
+  }
+  ctx.tavoloVivo = await mettiSulTavolo(ctx.posto, ctx.partita, { forza: fasePerduta });
   // L'USCITA DALLE SCHERMATE DA LEGGERE: la carta di una stanza, un messaggio, una prova hanno il
   // tasto «menu» in alto. Un gestore solo, delegato, registrato una volta per elemento.
   if (!app.__usciteLette) {
@@ -1874,7 +1881,8 @@ async function incassa(stato, eventi, daAltri = false) {
   if (ctx.chiudiCarta) { const chiudi = ctx.chiudiCarta; ctx.chiudiCarta = null; chiudi(); }
   const sped = SP();
   Object.assign(sped, stato.spedizione);
-  Object.assign(ctx.partita, stato, { spedizione: sped });
+  // la fase non torna mai da «spedizione» a «indagine»: e' quel che bloccava la serata alla prima tessera
+  Object.assign(ctx.partita, stato, { spedizione: sped }, ctx.partita.fase === 'spedizione' ? { fase: 'spedizione' } : {});
   // COL TAVOLO VIVO QUESTA E' UNA COPIA, non una mossa: l'autore dello stato e'
   // il Durable Object, che lo tiene lui e lo manda a D1 ai checkpoint. Timbrarlo
   // qui vorrebbe dire che ogni telefono che GUARDA fa risultare «piu' recente»

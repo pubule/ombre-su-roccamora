@@ -430,7 +430,11 @@ const PASSANO_COL_VENTO = new Set(['prova-vento', 'rispondi', 'carta-vista', 'fa
 export function applica(statoIn, comando, dati) {
   // la serata ha due meta', e ognuna ha il suo vocabolario: si smista qui, una
   // volta, invece di chiederlo a ogni chiamante
-  if (statoIn.fase === 'indagine'
+  // UNA SPEDIZIONE GIA' COMINCIATA E' SPEDIZIONE, qualunque cosa dica `fase`. Un'eco in ritardo poteva
+  // riportare `fase` a «indagine» con la plancia gia' aperta: allora «continua» finiva all'Indagine
+  // (che chiude la SUA carta), la carta della tessera restava li' e la serata si fermava.
+  const spedizioneIniziata = !!(statoIn.spedizione && statoIn.spedizione.digitale);
+  if (statoIn.fase === 'indagine' && !spedizioneIniziata
       && (!(statoIn.indagine || {}).chiusa || DOPO_LA_BUSTA.has(comando.tipo))) {
     return applicaIndagine(statoIn, comando, dati);
   }
