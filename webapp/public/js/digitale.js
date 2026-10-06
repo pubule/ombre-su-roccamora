@@ -1611,11 +1611,10 @@ function applicaZoom(z) {
 // dello schermo, non della partita — e soprattutto i piloti seminano
 // `osr.partita.epN` da fixture, quindi un flag li' dentro renderebbe invisibili
 // abilita', oggetti e resa, falsando in silenzio le misure di bilanciamento.
-// Acceso di default: la Spedizione E' il tabellone, e chi entra qui vuole la
-// mappa, non le cornici. Si spegne dal ⤢, e allora la scelta resta scritta —
-// per questo il confronto e' con '0' e non con '1': l'assenza vale «acceso».
-const CHIAVE_IMMERSIVO = 'osr.immersivo';
-const immersivo = () => { try { return localStorage.getItem(CHIAVE_IMMERSIVO) !== '0'; } catch { return true; } };
+// Il layout a tre colonne e' SEMPRE acceso: l'altro (impilato) non e' piu'
+// mantenuto e su telefono sfora in larghezza. Il ⤢ non lo spegne: chiede o
+// lascia lo schermo intero del browser, e basta.
+const immersivo = () => true;
 
 // IL FULLSCREEN VA CHIESTO SU `document.documentElement`, MAI SU `#app`:
 // `.turno-banner` e `.dadi-overlay` sono appesi a `document.body`, e con un
@@ -1630,11 +1629,8 @@ function chiediSchermoIntero(on) {
 }
 const inSchermoIntero = () => !!(document.fullscreenElement || document.webkitFullscreenElement);
 
-function impostaImmersivo(on) {
-  // prima il layout, poi il fullscreen: dove l'API non c'e' il guadagno resta
-  try { localStorage.setItem(CHIAVE_IMMERSIVO, on ? '1' : '0'); } catch { /* modalita' privata */ }
-  ctx.app.classList.toggle('immersivo', on);
-  chiediSchermoIntero(on);
+function commutaSchermoIntero() {
+  chiediSchermoIntero(!inSchermoIntero());
   applicaZoom(fitZoom()); centraSuAttivo();
 }
 
@@ -1705,16 +1701,9 @@ function agganciaMappa() {
     ], { canto: sp.canto });
     luce.avvia();
   }
-  // Lo schermo intero i browser lo concedono solo su un gesto, e entrando non
-  // ce n'e' uno (vedi vistaDigitale: li' si applica solo il layout). Il primo
-  // tocco sulla mappa e' il gesto piu' vicino, e nel primo turno arriva sempre.
-  // Il wrap e' un nodo nuovo a ogni render, quindi `once` non si accumula.
-  if (immersivo() && !inSchermoIntero()) {
-    wrap.addEventListener('pointerdown', () => chiediSchermoIntero(true), { once: true });
-  }
   app.querySelectorAll('[data-zoom]').forEach((b) => b.onclick = () => {
     const d = b.dataset.zoom;
-    if (d === '0') return impostaImmersivo(!immersivo());   // ⤢ = schermo intero
+    if (d === '0') return commutaSchermoIntero();   // ⤢ = schermo intero
     applicaZoom(clampZoom((sp.zoom || 1) * (d === '+' ? 1.25 : 0.8)));
   });
   wrap.addEventListener('wheel', (e) => {
@@ -1725,10 +1714,7 @@ function agganciaMappa() {
   // toggle deve restare sincronizzato, altrimenti il bottone mente. Assegnazione
   // a proprieta' e non addEventListener: `agganciaMappa` gira a ogni render e
   // accumulerebbe un listener per turno.
-  const suCambioSchermo = () => {
-    if (!inSchermoIntero() && immersivo()) { impostaImmersivo(false); return; }
-    if (immersivo()) { applicaZoom(fitZoom()); centraSuAttivo(); }
-  };
+  const suCambioSchermo = () => { applicaZoom(fitZoom()); centraSuAttivo(); };
   document.onfullscreenchange = suCambioSchermo;
   document.onwebkitfullscreenchange = suCambioSchermo;
   // pan: trascina con il tasto sinistro o col dito
