@@ -29,7 +29,7 @@ export function stradarioMappaHtml(voci) {
     const [x, y] = coordDi(v.nome);
     return `<button class="str-pin${v.battuta ? ' battuta' : ''}${v.inizio ? ' inizio' : ''}" data-voce="${esc(v.nome)}"
       style="left:${x}%;top:${y}%" aria-label="${esc(v.nome)}${v.battuta ? ' — già battuto' : ''}${v.inizio ? ' — disponibile dall’inizio' : ''}">
-      <span class="testa"></span></button>`;
+      <svg class="ic testa" aria-hidden="true"><use href="#i-lanterna"></use></svg></button>`;
   }).join('');
   const elenco = voci.map((v) => `<button class="voce${v.battuta ? ' battuta' : ''}${v.inizio ? ' inizio' : ''}" data-voce="${esc(v.nome)}"
       data-cerca="${esc(norm(v.nome + ' ' + (v.indirizzo || '')))}">
@@ -68,9 +68,9 @@ export function stradarioMappaHtml(voci) {
           </div>
         </div>
         <div class="str-legenda">
-          <span><i class="sp"></i>una via</span>
-          <span><i class="pa"></i>disponibile dall’inizio</span>
-          <span><i class="ac"></i>già battuto</span>
+          <span><svg class="ic sp" aria-hidden="true"><use href="#i-lanterna"></use></svg>una via</span>
+          <span><svg class="ic pa" aria-hidden="true"><use href="#i-lanterna"></use></svg>disponibile dall’inizio</span>
+          <span><svg class="ic ac" aria-hidden="true"><use href="#i-lanterna"></use></svg>già battuto</span>
         </div>
         <button class="btn str-piega" id="str-piega"><svg class="ic" aria-hidden="true"><use href="#i-lente"></use></svg><span>l’elenco delle vie</span></button>
       </div>

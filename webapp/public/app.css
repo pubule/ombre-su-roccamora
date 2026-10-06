@@ -1677,31 +1677,28 @@ canvas.calore { z-index: 2; pointer-events: none; opacity: .32; }
   flex-direction: column; gap: 6px; }
 .str-zoom .zoom-btn { width: 44px; height: 44px; font-size: 22px; border-radius: 10px; }
 
-/* i lumini: spenti dove non siete stati, accesi dove si', e la vostra lanterna sulla via scelta */
+/* I LUMINI SONO LANTERNE: la stessa icona del bottone menu. Spenta e smorzata dove non siete stati,
+   accesa d'ambra col suo alone dove si', d'azzurro lunare se e' disponibile dall'inizio, e la vostra
+   lanterna — piu' grande e che respira — sulla via scelta. Il colore e' `currentColor` dell'icona. */
 .str-pin { position: absolute; z-index: 2; transform: translate(-50%, -50%);
   width: 44px; height: 44px; min-height: 44px; padding: 0; border: 0; background: none;
   display: grid; place-items: center; cursor: pointer; }
-.str-pin .testa { width: 14px; height: 14px; border-radius: 50%; background: #2a2f37;
-  box-shadow: 0 0 0 1.5px rgba(232,194,122,.55), 0 0 6px rgba(0,0,0,.8);
-  transition: transform .15s ease, box-shadow .15s ease; }
-.str-pin:hover .testa, .str-pin:focus-visible .testa { transform: scale(1.25); }
-.str-pin.battuta .testa { width: 16px; height: 16px;
-  background: radial-gradient(circle, #fff3d6 0%, var(--nastro) 45%, #9c6a1f 100%);
-  box-shadow: 0 0 10px 3px rgba(232,194,122,.55); }
-.str-pin.scelto .testa { width: 18px; height: 18px;
-  background: radial-gradient(circle, #fffaf0 0%, var(--nastro) 50%, #9c6a1f 100%);
-  box-shadow: 0 0 0 2px rgba(12,14,17,.85), 0 0 26px 10px rgba(232,194,122,.55);
+.str-pin .testa { width: 28px; height: 28px; color: #8d96a3;
+  filter: drop-shadow(0 0 2px rgba(0,0,0,.95)) drop-shadow(0 1px 3px rgba(0,0,0,.8));
+  transition: transform .15s ease, color .2s ease, filter .2s ease; }
+.str-pin:hover .testa, .str-pin:focus-visible .testa { transform: scale(1.15); color: #b9c1cc; }
+.str-pin.battuta .testa { color: var(--nastro);
+  filter: drop-shadow(0 0 4px rgba(232,194,122,.95)) drop-shadow(0 0 12px rgba(232,194,122,.55)); }
+.str-pin.inizio .testa { color: #a9dcef;
+  filter: drop-shadow(0 0 4px rgba(150,215,240,.95)) drop-shadow(0 0 12px rgba(150,215,240,.55)); }
+.str-pin.scelto .testa { width: 34px; height: 34px; color: #fff3d6; transform: none;
+  filter: drop-shadow(0 0 6px rgba(255,214,140,1)) drop-shadow(0 0 22px rgba(232,194,122,.8));
   animation: str-respira 2.4s ease-in-out infinite; }
-/* DISPONIBILE DALL'INIZIO (la lettera lo dice): un rombo di luce lunare, di forma e colore diversi
-   dal cerchio «una via» e dalla fiamma «gia' battuto» — non si affida al solo colore. */
-.str-pin.inizio .testa { width: 15px; height: 15px; border-radius: 3px; transform: rotate(45deg);
-  background: radial-gradient(circle, #f2fbff 0%, #a9dcef 55%, #3d7d96 100%);
-  box-shadow: 0 0 0 2px rgba(12,14,17,.85), 0 0 0 3.5px rgba(150,215,240,.7), 0 0 14px 4px rgba(150,215,240,.45); }
-.str-pin.inizio:hover .testa, .str-pin.inizio:focus-visible .testa { transform: rotate(45deg) scale(1.25); }
-.str-pin.inizio.scelto .testa { transform: rotate(45deg) scale(1.35); }
+.str-pin.inizio.scelto .testa { color: #f2fbff;
+  filter: drop-shadow(0 0 6px rgba(170,225,245,1)) drop-shadow(0 0 22px rgba(150,215,240,.8)); }
 .str-pin.spento { opacity: .18; pointer-events: none; }
 @keyframes str-respira { 50% { opacity: .82; } }
-.str-cartiglio { position: absolute; z-index: 3; transform: translate(-50%, calc(-100% - 22px));
+.str-cartiglio { position: absolute; z-index: 3; transform: translate(-50%, calc(-100% - 28px));
   pointer-events: none; white-space: nowrap; max-width: 70vw; overflow: hidden;
   text-overflow: ellipsis; font-family: 'FellSC', serif; font-size: 15px; letter-spacing: .04em;
   padding: 5px 12px; border-radius: 999px; background: rgba(12,14,17,.9);
@@ -1731,18 +1728,17 @@ canvas.calore { z-index: 2; pointer-events: none; opacity: .32; }
 @media (prefers-reduced-motion: reduce) {
   .str-luna .alone, .str-luna .fascio { animation: none; }
 }
-.str-cartiglio.sotto { transform: translate(-50%, 22px); }
+.str-cartiglio.sotto { transform: translate(-50%, 28px); }
 .str-cartiglio[hidden] { display: none; }
 
 .str-legenda { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 10px; color: var(--osso-fioco);
   font-size: 14px; }
 .str-legenda span { display: inline-flex; align-items: center; gap: 8px; }
-.str-legenda i { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
-.str-legenda .sp { background: #2a2f37; box-shadow: 0 0 0 1.5px rgba(232,194,122,.55); }
-.str-legenda .pa { width: 11px; height: 11px; border-radius: 2px; transform: rotate(45deg);
-  background: radial-gradient(circle, #f2fbff 0%, #a9dcef 55%, #3d7d96 100%);
-  box-shadow: 0 0 0 1.5px rgba(150,215,240,.7), 0 0 8px 2px rgba(150,215,240,.45); }
-.str-legenda .ac { background: var(--nastro); box-shadow: 0 0 8px 2px rgba(232,194,122,.55); }
+.str-legenda .ic { width: 20px; height: 20px; }
+.str-legenda .sp { color: #8d96a3; }
+.str-legenda .pa { color: #a9dcef; filter: drop-shadow(0 0 5px rgba(150,215,240,.7)); }
+.str-legenda .ac { color: var(--nastro); filter: drop-shadow(0 0 5px rgba(232,194,122,.7)); }
+
 
 /* la dichiarazione: la lastra in fondo, sempre a portata di pollice */
 .str-dichiara { position: sticky; bottom: 0; z-index: 6; margin: 10px -16px 0; padding: 12px 16px 14px;

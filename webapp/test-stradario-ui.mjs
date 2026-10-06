@@ -37,6 +37,9 @@ let { pg, errori } = await apri(1440, 900);
 const pins = await pg.locator('.str-pin').count();
 const voci = await pg.locator('.voce[data-voce]').count();
 ok(pins > 8 && pins === voci, `un lumino per ogni via con posizione (${pins} lumini, ${voci} vie nell elenco)`);
+// ogni via e' la lanterna del bottone menu, non un pallino; e la legenda usa la stessa icona
+ok(await pg.locator('.str-pin svg use[href="#i-lanterna"]').count() === pins, 'ogni lumino e l icona della lanterna del menu');
+ok(await pg.locator('.str-legenda svg use[href="#i-lanterna"]').count() === 3, 'la legenda mostra le tre lanterne (una via, dall inizio, battuto)');
 ok(await pg.locator('.str-pin.battuta').count() === 2, 'le due vie battute sono accese');
 ok(await pg.locator('.str-fianco').isVisible(), 'sullo schermo largo l elenco sta di fianco');
 // i luoghi disponibili dall'inizio (la lettera li elenca) hanno un segno tutto loro, e la legenda lo dice
