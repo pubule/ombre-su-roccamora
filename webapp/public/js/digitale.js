@@ -124,8 +124,30 @@ const modoDadi = () => 'tavolo';
 // per lo stesso nemico. Sul telefono il tiro non si chiede — arriva gia' fatto
 // col resto dello stato.
 const tavoloTiraNemici = () => !P().nemiciApp && arbitro();
-const RIPIEGO_NEMICI = { label: 'da qui i nemici li tira l’app' };
+const RIPIEGO_NEMICI = { label: 'da qui i dadi della notte li tira l’app' };
 function accendiNemiciApp() { P().nemiciApp = true; salvaP(); }
+
+// L'interruttore «dadi della notte»: i tiri dei nemici e le prove d'insidia delle carte Minaccia
+// (uno per eroe). Acceso, li tira l'app senza chiedere niente; i dadi degli eroi restano vostri.
+const togNotteHtml = () => `<button class="btn" id="tog-nemici-app">dadi della notte: <b>${P().nemiciApp ? 'l’app' : 'vostri'}</b></button>`;
+function agganciaTogNotte(app) {
+  app.querySelector('#tog-nemici-app')?.addEventListener('click', (ev) => {
+    P().nemiciApp = !P().nemiciApp; salvaP();
+    ev.currentTarget.innerHTML = `dadi della notte: <b>${P().nemiciApp ? 'l’app' : 'vostri'}</b>`;
+  });
+}
+
+// La prova d'insidia di una carta Minaccia, per un eroe: l'app la tira da sola se l'interruttore
+// e' acceso, altrimenti la chiede al tavolo (con il ripiego «da qui li tira l'app»).
+async function tiroInsidia({ titolo, diffLabel, soglia, eroe: chi, bonus }) {
+  if (P().nemiciApp) {
+    const tot = r1() + r1() + bonus.reduce((a, b) => a + b.val, 0);
+    return { tot, ok: tot >= soglia };
+  }
+  const r = await tiraProva({ titolo, diffLabel, soglia, eroe: chi, bonus, modo: modoDadi(), ripiegoSempre: RIPIEGO_NEMICI });
+  if (r && r.sempre) accendiNemiciApp();
+  return r;
+}
 
 // Un tiro d'attacco del nemico: lo chiede al tavolo, oppure lo tira l'app se
 // l'interruttore e' acceso. Ritorna { tot, ok } comunque, cosi' chi chiama
@@ -1281,7 +1303,7 @@ function schermataCarta(aperta, alOk = null) {
          <div class="btn-riga">
            ${req ? '<button class="btn pieno" id="ins-risolvi">🎲 risolvete la prova richiesta</button>' : ''}
            <button class="btn pieno" id="ok-msg"${req ? ' style="display:none"' : ''}>continua</button>
-         </div>`
+         </div>${req ? `<div class="btn-riga mt">${togNotteHtml()}</div>` : ''}`
       : '<p class="nota mt center">la sta leggendo chi arbitra…</p>'}`;
   // NIENTE LAMPO: la stessa carta non si riscrive. La schermata da leggere
   // insieme arriva da piu' parti — il disegno di qui, la spinta del tavolo
@@ -1301,6 +1323,7 @@ function schermataCarta(aperta, alOk = null) {
     app.querySelectorAll('.fav-scelta').forEach((x) => { x.disabled = true; });
     await esegui({ tipo: 'favore', tessera: f.dataset.t });
   }; });
+  agganciaTogNotte(app);
   const rb = app.querySelector('#ins-risolvi');
   if (rb) rb.onclick = async () => {
     rb.disabled = true;
@@ -1309,9 +1332,9 @@ function schermataCarta(aperta, alOk = null) {
     const esiti = targets.length ? [] : ['Nessun eroe su tessera ESPOSTA: nessun effetto.'];
     for (const t of targets) {
       const e = eroe(t);
-      const r = await tiraProva({ titolo: `${req.stat.toUpperCase()} — ${primo(t)}`, diffLabel: req.diff,
+      const r = await tiroInsidia({ titolo: `${req.stat.toUpperCase()} — ${primo(t)}`, diffLabel: req.diff,
         soglia: ctx.comune.regole.diff[req.diff], eroe: ritrattoDi(t),
-        bonus: [{ label: req.stat.toUpperCase(), val: e[req.stat] }, ...bonusVoce(t, req.stat)], modo: modoDadi() });
+        bonus: [{ label: req.stat.toUpperCase(), val: e[req.stat] }, ...bonusVoce(t, req.stat)] });
       if (r == null) { rb.disabled = false; return; }
       if (r.ok) esiti.push(`${primo(t)}: prova superata.`);
       else esiti.push(...applicaConseguenza(t, aperta.carta.rules));
@@ -1339,7 +1362,7 @@ function messaggioCarta(titolo, carta, annunci) {
       ${arbitro() ? `<div class="btn-riga">
         ${req ? '<button class="btn pieno" id="ins-risolvi">🎲 risolvete la prova richiesta</button>' : ''}
         <button class="btn pieno" id="ok-msg"${req ? ' style="display:none"' : ''}>continua</button>
-      </div>`
+      </div>${req ? `<div class="btn-riga mt">${togNotteHtml()}</div>` : ''}`
       // SUL TELEFONO DI CHI GIOCA nessun bottone: la pesca e' di chi arbitra, e
       // un «continua» che non fa continuare niente sarebbe una bugia. La carta
       // resta finche' il tavolo non va avanti — deciso il 13/08/2026: il
@@ -1353,6 +1376,7 @@ function messaggioCarta(titolo, carta, annunci) {
     // tavolo manda lo stato dopo (vedi `incassa()`).
     if (!arbitro()) { ctx.chiudiCarta = ok; return; }
     app.querySelector('#ok-msg').onclick = ok;
+    agganciaTogNotte(app);
     const rb = app.querySelector('#ins-risolvi');
     if (rb) rb.onclick = async () => {
       rb.disabled = true;
@@ -1361,9 +1385,9 @@ function messaggioCarta(titolo, carta, annunci) {
       const esiti = targets.length ? [] : ['Nessun eroe su tessera ESPOSTA: nessun effetto.'];
       for (const t of targets) {
         const e = eroe(t);
-        const r = await tiraProva({ titolo: `${req.stat.toUpperCase()} — ${primo(t)}`, diffLabel: req.diff,
+        const r = await tiroInsidia({ titolo: `${req.stat.toUpperCase()} — ${primo(t)}`, diffLabel: req.diff,
           soglia: ctx.comune.regole.diff[req.diff], eroe: ritrattoDi(t),
-          bonus: [{ label: req.stat.toUpperCase(), val: e[req.stat] }, ...bonusVoce(t, req.stat)], modo: modoDadi() });
+          bonus: [{ label: req.stat.toUpperCase(), val: e[req.stat] }, ...bonusVoce(t, req.stat)] });
         if (r == null) { rb.disabled = false; return; }
         if (r.ok) esiti.push(`${primo(t)}: prova superata.`);
         else esiti.push(...applicaConseguenza(t, carta.rules));
@@ -2301,7 +2325,7 @@ function vistaNemici(piano) {
     </div>
     <div class="lato">
       <div class="btn-riga"><button class="btn" id="salta-nemici">salta l’azione della notte →</button>
-        <button class="btn" id="tog-nemici-app">dadi dei nemici: <b>${P().nemiciApp ? 'l’app' : 'vostri'}</b></button></div>
+        ${togNotteHtml()}</div>
       <div class="mt"></div>
       <div class="pannello giro"><h2>il giro dei nemici</h2><div id="giro-nem">${giroNemiciHtml(-1)}</div></div>
       <div class="mt"></div>
@@ -2312,10 +2336,7 @@ function vistaNemici(piano) {
   app.querySelector('#nav-esci').onclick = () => { spegniImmersivo(); ctx.vaiA('menu'); };
   app.querySelector('#salta-nemici').onclick = () => { ctx.saltaNemici = true; };
   // si spegne (e si riaccende) anche a partita in corso: vale dal tiro dopo
-  app.querySelector('#tog-nemici-app')?.addEventListener('click', (ev) => {
-    P().nemiciApp = !P().nemiciApp; salvaP();
-    ev.currentTarget.innerHTML = `dadi dei nemici: <b>${P().nemiciApp ? 'l’app' : 'vostri'}</b>`;
-  });
+  agganciaTogNotte(app);
   agganciaMappa();
   // porta subito (prima del paint) i token che si muovono alla posizione di PARTENZA:
   // lo stato e' gia' finale (pos1), ma l'animazione parte da pos0
