@@ -517,7 +517,14 @@ function render() {
   // pagina: al tavolo si vede come un refresh veloce, tre volte di fila appena
   // si scende. I gestori restano attaccati, perche' i nodi non si toccano.
   if (app.innerHTML === html) return;
+  // la plancia si ricostruisce a ogni mossa e il suo scroll ripartirebbe da 0:
+  // si rimette dov'era, cosi' la camera parte dalla vista di prima e non
+  // attraversa mezza mappa ancora da dipingere
+  const vecchio = app.querySelector('#board-wrap');
+  const scroll = vecchio ? { l: vecchio.scrollLeft, t: vecchio.scrollTop } : null;
   app.innerHTML = html;
+  const nuovo = app.querySelector('#board-wrap');
+  if (scroll && nuovo) { nuovo.scrollLeft = scroll.l; nuovo.scrollTop = scroll.t; }
   app.querySelector('#nav-esci').onclick = () => { spegniImmersivo(); ctx.vaiA('menu'); };
   const btnSconfitta = app.querySelector('#sconfitta');
   if (btnSconfitta) btnSconfitta.onclick = () => finePartita('sconfitta');
@@ -1527,8 +1534,12 @@ function centraSuNodo(node, key, forza) {
   const z = SP().zoom || 1; const [TX, TY] = layout()[node.t] || [g.minX, g.maxY];
   const cx = ((TX - g.minX) * 4 + node.x + 0.5) * g.cell * z;
   const cy = ((g.maxY - TY) * 4 + (3 - node.y) + 0.5) * g.cell * z;
-  wrap.scrollTo({ left: Math.max(0, cx - wrap.clientWidth / 2), top: Math.max(0, cy - wrap.clientHeight / 2), behavior: 'smooth' });
+  const left = Math.max(0, cx - wrap.clientWidth / 2); const top = Math.max(0, cy - wrap.clientHeight / 2);
   ctx.ultimaCentrata = key;
+  // gia' in vista, a meno di mezza casella: niente scroll, niente scatto
+  const tol = g.cell * z / 2;
+  if (Math.abs(wrap.scrollLeft - left) < tol && Math.abs(wrap.scrollTop - top) < tol) return;
+  wrap.scrollTo({ left, top, behavior: 'smooth' });
 }
 // centra sull'eroe attivo (o sulla tessera piu' affollata in fase nemici).
 // `forza`: ogni render() ricostruisce il board e azzera lo scroll, quindi va
