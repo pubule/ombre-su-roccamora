@@ -83,3 +83,31 @@ if (typeof VANTA !== 'undefined') {
     new MutationObserver(aggiorna).observe(app, { attributes: true, attributeFilter: ['class'] });
   }
 }
+
+// DIAGNOSI DELLA NEBBIA (solo con ?diag nell'indirizzo): una riga fissa in basso che dice se la nebbia
+// di sfondo avanza, a che dimensione, se il contesto WebGL e' vivo, e se le animazioni CSS della mappa
+// girano. Serve a capire da uno screenshot perche' su un dispositivo la nebbia sembra ferma.
+if (/[?&]diag\b/.test(location.search)) {
+  const riga = document.createElement('pre');
+  riga.style.cssText = 'position:fixed;left:0;right:0;bottom:0;z-index:9999;margin:0;padding:6px 8px;'
+    + 'background:rgba(0,0,0,.85);color:#9f9;font:11px/1.35 monospace;white-space:pre-wrap;pointer-events:none';
+  document.body.appendChild(riga);
+  let ultimo = null; let frame = 0; let prima = performance.now(); let fps = 0;
+  const conta = () => { frame += 1; requestAnimationFrame(conta); };
+  requestAnimationFrame(conta);
+  setInterval(() => {
+    const ora = performance.now(); fps = Math.round((frame * 1000) / (ora - prima)); frame = 0; prima = ora;
+    const f = typeof window.nebbiaFx === 'function' ? window.nebbiaFx() : null;
+    const gl = f && f.renderer && f.renderer.getContext && f.renderer.getContext();
+    const c = document.querySelector('#vanta-bg canvas');
+    const anim = document.getAnimations ? document.getAnimations() : [];
+    const luna = anim.find((a) => a.effect && a.effect.target && a.effect.target.closest && a.effect.target.closest('.str-luna'));
+    const t = f ? Math.round(f.t) : null;
+    const avanza = ultimo === null ? '?' : (t !== ultimo ? 'SI' : 'NO');
+    ultimo = t;
+    riga.textContent = `vanta:${f ? 'ok' : 'assente'} t=${t} avanza=${avanza} speed=${f && f.options.speed}\n`
+      + `canvas:${c ? c.width + 'x' + c.height : '-'} css:${c ? Math.round(c.getBoundingClientRect().height) : '-'} vp:${innerWidth}x${innerHeight} dpr:${devicePixelRatio}\n`
+      + `gl perso:${gl && gl.isContextLost ? gl.isContextLost() : '?'} fps:${fps} ridotto:${matchMedia('(prefers-reduced-motion: reduce)').matches}\n`
+      + `anim css:${anim.length} luna:${luna ? luna.playState + ' @' + Math.round(luna.currentTime) + 'ms' : 'nessuna'}`;
+  }, 700);
+}
