@@ -1,5 +1,13 @@
 # Handoff — dove siamo
 
+## MAPPA PILOTA rifatta (06/10/2026): codice fermo, N=20, 4 eroi, 3 episodi in parallelo
+
+Con 6 in parallelo le corse risultavano non valide (Ep.1, 6, 15) e Ep.9 faceva 0%: era il carico, non il gioco. Con 3 in parallelo tutte valide tranne Ep.15.
+Preludio 0, Ep.1 40, Ep.2 75, Ep.3 80, Ep.4 25, Ep.5 35, Ep.6 20, Ep.7 35, Ep.8 65, Ep.9 5, Ep.10 20, Ep.11 40, Ep.12 55, Ep.13 90, Ep.14 50, Ep.15 0 (non valida), Ep.16 95, Ep.17 100, Ep.18 85, Ep.19 40, Ep.20 25.
+In banda 55-75 solo Ep.2 (75), Ep.8 (65), Ep.12 (55). Non ritarato niente: i riferimenti del 20260724 sono vecchi (prima degli effetti delle carte Minaccia, che ora valgono davvero) e N=20 oscilla molto.
+Ep.4 e Ep.15 erano gia' rotti prima dei fix recenti (commit abaec01f4, N=8: Ep.4 0%, Ep.15 13%, Ep.19 50%): non e' una regressione di oggi.
+Ep.15, visto in una partita con DIAG: il pilota documenta 4 tell, poi punta T6 (meta del Capo), rivela T3/T4, parte la cancellazione di un tell per round, e il Capo («dopo: tell») resta bloccato; gli eroi restano fermi in T2 mentre gli sgherri li colpiscono. E' una questione di progetto della corsa (documentare oltre il minimo prima di avanzare?), non un bug evidente: da decidere col tavolo, non da ritarare a occhio.
+
 ## FATTO (05/10/2026): effetti delle carte Minaccia applicati dal motore + REGOLA DEL VENTO Ep11
 
 Piani: `docs/superpowers/plans/2026-10-05-effetti-carta-non-applicati.md` e `docs/superpowers/plans/2026-10-05-regola-del-vento-ep11.md` (tutto spuntato, rulings e registro in fondo).
