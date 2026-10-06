@@ -129,8 +129,16 @@ export function urlCarta(file) {
 // `app.innerHTML`, e il browser riscrive gli attributi style. Le classi no.
 const DORSO = { Luoghi: 'luogo', Oggetti: 'oggetto', Minacce: 'minaccia', Nemici: 'nemico',
   Indizi: 'indizio', Referti: 'referto', Testimoni: 'testimone', Eroi: 'eroe' };
+// Il Preludio non ha cartelle-tipo: il tipo sta nel nome del file.
+const DORSO_PRELUDIO = [[/^P\d /, 'luogo'], [/^Indizio /, 'indizio'], [/^Testimone /, 'testimone'],
+  [/^Referto /, 'referto'], [/^[^/]*$/, 'oggetto']];
+function dorsoDi(file) {
+  const [cartella, nome] = [file.split('/').slice(-2, -1)[0], file.split('/').pop()];
+  if (cartella === 'Preludio') return DORSO_PRELUDIO.find(([re]) => re.test(nome))[1];
+  return DORSO[cartella];
+}
 export function cartaGrande(file, extra = '') {
-  const d = DORSO[file.split('/').slice(-2, -1)[0]];
+  const d = dorsoDi(file);
   const img = `<img src="${urlCarta(file)}" alt="">`;
   const cls = extra ? ` ${extra}` : '';
   if (!d) return `<div class="carta-grande${cls}">${img}</div>`;

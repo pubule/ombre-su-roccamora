@@ -22,8 +22,14 @@ for (const [cartella, dorso] of Object.entries(TIPI)) {
   ok(h.indexOf('c3d-ombra') < h.indexOf('class="c3d"'), `${cartella}: l'ombra sta prima della carta nel markup`);
 }
 ok(cartaGrande('Eroi/Elena Fosco').includes('dorso-eroe'), 'una carta comune (senza episodio) trova il dorso');
-const piatta = cartaGrande('Preludio/La lettera');
-ok(!piatta.includes('c3d') && piatta.includes('<img'), 'senza dorso (Preludio) esce piatta, come prima');
+// il Preludio non ha cartelle-tipo: il tipo si legge dal nome del file
+for (const [file, dorso] of [['P2 - La Taverna della Chiatta', 'luogo'], ['Indizio - La polvere smossa a meta', 'indizio'],
+  ['Testimone - Il barcaiolo della Chiatta', 'testimone'], ['Referto - L’orologio impegnato', 'referto'],
+  ['La Pipa di Ansaldo', 'oggetto']]) {
+  ok(cartaGrande(`Preludio/${file}`).includes(`c3d-retro dorso-${dorso}"`), `Preludio: ${file} -> dorso-${dorso}`);
+}
+const piatta = cartaGrande('Altro/La lettera');
+ok(!piatta.includes('c3d') && piatta.includes('<img'), 'senza dorso riconosciuto esce piatta, come prima');
 
 const css = fs.readFileSync(new URL('./public/app.css', import.meta.url), 'utf8');
 for (const dorso of Object.values(TIPI)) {
