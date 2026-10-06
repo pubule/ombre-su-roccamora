@@ -1228,6 +1228,19 @@ function arteStanza(tessera) {
   return a ? `<div class="carta-grande stanza"><img src="${a}" alt=""></div>` : '';
 }
 
+// Il testo non compare prima dell'immagine: se l'arte non e' ancora in cache il pannello resta
+// invisibile, col sigillo che pulsa, finche' e' decodificata (al massimo 6 s).
+function conLoader() {
+  const lente = [...ctx.app.querySelectorAll('.pannello img')].filter((i) => !i.complete);
+  if (!lente.length) return;
+  const pan = ctx.app.querySelector('.pannello'); pan.style.opacity = '0';
+  const ld = document.createElement('div'); ld.className = 'caricamento sopra';
+  ld.innerHTML = '<div class="sigillo-pulse"></div><span>carico…</span>';
+  document.body.appendChild(ld);
+  Promise.race([Promise.all(lente.map((i) => i.decode().catch(() => {}))), new Promise((r) => setTimeout(r, 6000))])
+    .then(() => { pan.style.opacity = ''; ld.remove(); });
+}
+
 function schermataCarta(aperta, alOk = null) {
   const { app } = ctx;
   // L'INSIDIA DELLA CARTA: se il testo chiede una prova, chi arbitra la risolve
@@ -1278,14 +1291,7 @@ function schermataCarta(aperta, alOk = null) {
   // buoni, perche' i nodi non si toccano.
   if (app.innerHTML === html) return;
   app.innerHTML = html;
-  // il testo non compare prima dell'immagine: se l'arte non e' ancora in cache
-  // il pannello resta invisibile finche' e' decodificata (o per 1,5 s al massimo)
-  const lente = [...app.querySelectorAll('.pannello img')].filter((i) => !i.complete);
-  if (lente.length) {
-    const pan = app.querySelector('.pannello'); pan.style.opacity = '0';
-    Promise.race([Promise.all(lente.map((i) => i.decode().catch(() => {}))), new Promise((r) => setTimeout(r, 1500))])
-      .then(() => { pan.style.opacity = ''; });
-  }
+  conLoader();
   const b = app.querySelector('#ok-msg');
   if (b) b.onclick = async () => {
     b.disabled = true;
@@ -1321,6 +1327,7 @@ function schermataCarta(aperta, alOk = null) {
 function messaggioCarta(titolo, carta, annunci) {
   return new Promise((ok) => {
     const { app } = ctx; const req = provaRichiesta(carta.rules);
+    app.classList.remove('immersivo');   // e' testo da leggere: deve scorrere fino a «continua»
     app.innerHTML = `<div class="barra"><span></span><div class="titolo">${esc(titolo)}</div><span></span></div>
       <div class="pannello">
         ${cartaGrande(carta.file)}
@@ -1339,6 +1346,7 @@ function messaggioCarta(titolo, carta, annunci) {
       // telefono si ferma insieme al tavolo, e la pesca resta un momento di
       // scena invece di una notifica.
       : '<p class="nota mt center">la sta leggendo chi arbitra…</p>'}`;
+    conLoader();
     // Niente da agganciare — ma la promessa va tenuta, non abbandonata: se
     // restasse appesa, la catena di `riproduci()` non finirebbe mai e ogni
     // carta successiva ne lascerebbe un'altra dietro. Si scioglie quando il
@@ -2507,11 +2515,13 @@ function spiaRete(testo, { scaduta } = {}) {
 function messaggio(titolo, corpo) {
   return new Promise((ok) => {
     const { app } = ctx;
+    app.classList.remove('immersivo');   // e' testo da leggere: deve scorrere fino a «continua»
     app.innerHTML = `<div class="barra"><span></span><div class="titolo">${esc(titolo)}</div><span></span></div>
       <div class="pannello">${corpo}</div>
       ${arbitro()
         ? '<div class="btn-riga"><button class="btn pieno" id="ok-msg">continua</button></div>'
         : '<p class="nota mt center">la sta leggendo chi arbitra…</p>'}`;
+    conLoader();
     if (!arbitro()) { ctx.chiudiCarta = ok; return; }
     app.querySelector('#ok-msg').onclick = ok;
   });

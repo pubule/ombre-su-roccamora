@@ -32,6 +32,7 @@ await page.click('#dadi-chiudi');
 await page.waitForSelector('#ok-msg', { timeout: 5000 });
 ok(/Trovato/.test(await page.evaluate(() => document.body.innerText)), 'il messaggio dice cosa e stato trovato');
 ok(await page.locator('.carta-grande img').count() > 0, 'sopra il testo c e la carta dell oggetto');
+ok(await page.evaluate(() => getComputedStyle(document.querySelector('#app')).overflow !== 'hidden' && !document.querySelector('#app').classList.contains('immersivo')), 'la schermata del messaggio scorre (si arriva a continua)');
 ok(errori.length === 0, `nessun errore JS: ${errori.slice(0, 3).join(' | ')}`);
 await browser.close();
 console.log(ko ? `${ko} KO` : 'Tutto verde');
