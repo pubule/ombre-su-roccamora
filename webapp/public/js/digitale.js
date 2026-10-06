@@ -446,6 +446,9 @@ function statoSuoni() {
 }
 
 function render() {
+  // mentre la notte si anima sul telefono di chi guarda, lo stato e' gia' quello del round dopo:
+  // un ridisegno qui mostrerebbe gli eroi di turno e le caselle verdi sopra i nemici che colpiscono
+  if (ctx.inNotte && !arbitro()) return;
   const sp = SP();
   // la plancia c'e': si gioca a tabellone, salvo che il ⤢ non l'abbia spento
   ctx.app.classList.toggle('immersivo', immersivo());
@@ -561,7 +564,8 @@ function capoHtml() {
 // visibili lo stesso, in una lastra a parte: sono comandi veri (fase minaccia,
 // «muovi il PNG»), non si possono perdere solo perche' nessun eroe e' di turno.
 function colEroiHtml() {
-  const eroeAperto = arbitro() ? (SP().fase === 'eroi' ? eroiAttivoNome() : null) : mioEroe();
+  const eroeAperto = SP().fase === 'nemici' ? null
+    : arbitro() ? eroiAttivoNome() : mioEroe();
   const extra = (arbitro() && !eroeAperto)
     ? `<div class="lastra"><div class="tasti">${azioniHtml()}</div></div>` : '';
   return scortatiChipHtml() + extra + P().party.map((nm) => cartaEroe(nm, eroeAperto)).join('');
@@ -716,14 +720,15 @@ function boardHtml(senzaMosse) {
   const regioniBuio = [];
   ctx._geo.regioniBuio = regioniBuio;
   const scr = (n) => { const [TX, TY] = lay[n.t]; return { l: ((TX - minX) * 4 + n.x) * cell, t: ((maxY - TY) * 4 + (3 - n.y)) * cell }; };
-  const attivo = eroiAttivoNome();
+  const notteInCorso = sp.fase === 'nemici';
+  const attivo = notteInCorso ? null : eroiAttivoNome();
 
   // Mentre agisce la notte NON si accende niente: le caselle turchesi
   // dell'eroe attivo restavano accese durante il turno dei nemici, e sembrava
   // di poter giocare mentre invece si aspetta.
   // Le caselle si accendono solo per chi le puo' davvero toccare: sul telefono
   // di chi gioca Elena non ha senso illuminare il cammino di Ottone.
-  const ragg = senzaMosse ? {}
+  const ragg = (senzaMosse || notteInCorso) ? {}
     : sp.escaModo ? (posso(sp.escaModo) ? celleEsca(sp.escaModo) : {})
     : attivo ? (posso(attivo) ? raggEroe(attivo) : {})
     : (scortAttivo() != null && arbitro() ? raggScortato(scortAttivo()) : {});
@@ -837,7 +842,7 @@ function boardHtml(senzaMosse) {
   });
   statoScortati().forEach((g, i) => {
     if (!g.liberato || !g.pos) return; const s = specScort(i);
-    tok(g.pos, `<span class="tok-board scortato${scortAttivo() === i ? ' attivo' : ''}" data-scortato="${i}" title="${esc(s.nome || '')}">
+    tok(g.pos, `<span class="tok-board scortato${!notteInCorso && scortAttivo() === i ? ' attivo' : ''}" data-scortato="${i}" title="${esc(s.nome || '')}">
       ${s.art ? `<img src="${urlArt(s.art)}" alt="">` : ''}</span>`, `S:${i}`);
   });
   if (sp.esca) tok(sp.esca, '<span class="tok-board esca" title="l’esca di Carbone">◆</span>', 'ESCA');
@@ -977,6 +982,7 @@ function ventoHtml() {
 
 function azioniHtml() {
   const sp = SP();
+  if (sp.fase === 'nemici') return '<p class="nota">Agisce la notte: aspettate che i nemici finiscano.</p>';
   if ((sp.provaVento || {}).chi && sp.provaVento.chi.length) return ventoHtml();
   const iS = scortAttivo();
   if (iS != null) {
@@ -2442,11 +2448,14 @@ async function faseNemiciAI() {
 }
 
 // L'animazione della notte, dal piano che il motore ha gia' risolto.
-function animaNotte(piano) {
+async function animaNotte(piano) {
   ctx.saltaNemici = false; ctx.ultimaCentrata = null;
   ctx.viteVista = { ...piano.vite0 };          // board come a inizio fase: nessuno ancora a terra
-  vistaNemici(piano);                          // board a posizioni di partenza
-  return eseguiTurnoNemici(piano);             // animazione (async)
+  ctx.inNotte = true;
+  try {
+    vistaNemici(piano);                        // board a posizioni di partenza
+    return await eseguiTurnoNemici(piano);     // animazione (async)
+  } finally { ctx.inNotte = false; }
 }
 
 function faseNemiciLocale() {
@@ -2588,6 +2597,7 @@ export const _motore = {
   messaggio,                      // e la schermata da leggere insieme
   evidenziaColpito,               // per provare il colpo senza aspettare che un nemico colpisca
   render,                         // per provare che un secondo giro di HUD (Task 6) non tocchi lo stato
+  impostaNotte: (v) => { ctx.inNotte = v; },   // per provare che durante la notte il telefono non si ridisegna
   avanzaCancellazione, avanzaRitmo, avanzaPressione, controllaFiloPerso, avanzaOrologio,
   bonusVoce, celleEsca,
   _setup: (ep, sp, extra) => {
