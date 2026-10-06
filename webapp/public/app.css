@@ -1703,29 +1703,26 @@ canvas.calore { z-index: 2; pointer-events: none; opacity: .32; }
    veli di nebbia chiara che scorrono piano. Sta SOPRA il buio e sotto i lumini, mescolata in
    `screen`: schiarisce la nebbia senza coprire la mappa. Solo transform e opacita' (la GPU),
    e ferma per chi ha chiesto meno movimento. */
-.str-luna { position: absolute; inset: 0; z-index: 1; pointer-events: none; overflow: hidden;
-  mix-blend-mode: screen; }
+.str-luna { position: absolute; inset: 0; z-index: 1; pointer-events: none; overflow: hidden; }
 .str-luna i { position: absolute; display: block; will-change: transform, opacity; }
 .str-luna .alone { left: -30%; top: -22%; width: 95%; height: 70%;
-  background: radial-gradient(closest-side, rgba(205,225,255,.42), rgba(130,165,225,.17) 52%, rgba(0,0,0,0) 100%);
+  background: radial-gradient(closest-side, rgba(205,225,255,.3), rgba(130,165,225,.12) 52%, rgba(0,0,0,0) 100%);
   animation: str-luna-respira 9s ease-in-out infinite; }
 .str-luna .fascio { left: -10%; top: -5%; width: 70%; height: 120%;
-  background: linear-gradient(112deg, rgba(0,0,0,0) 38%, rgba(190,215,255,.11) 50%, rgba(0,0,0,0) 62%);
+  background: linear-gradient(112deg, rgba(0,0,0,0) 38%, rgba(190,215,255,.08) 50%, rgba(0,0,0,0) 62%);
   transform: rotate(-8deg); animation: str-luna-fascio 14s ease-in-out infinite; }
-.str-luna .velo { left: -60%; width: 130%; height: 24%;
-  background: radial-gradient(closest-side, rgba(175,205,240,.22), rgba(0,0,0,0));
-  filter: blur(8px); animation: str-luna-velo 26s linear infinite; }
-.str-luna .velo.v1 { top: 26%; }
-.str-luna .velo.v2 { top: 60%; animation-duration: 34s; animation-delay: -16s; opacity: .8; }
+/* i veli li muove animaVeli() in stradario-mappa.js: nessuna animazione CSS, nessun mix-blend-mode */
+.str-luna .velo { left: -30%; width: 130%; height: 30%;
+  background: radial-gradient(closest-side, rgba(175,205,240,.26), rgba(0,0,0,0)); }
+.str-luna .velo.v1 { top: 22%; }
+.str-luna .velo.v2 { top: 52%; }
+.str-luna .velo.v3 { top: 76%; height: 22%; opacity: .8; }
 @keyframes str-luna-respira { 50% { opacity: .72; transform: scale(1.06); } }
 @keyframes str-luna-fascio { 50% { opacity: .55; transform: rotate(-8deg) translateX(6%); } }
-@keyframes str-luna-velo { from { transform: translateX(0); } to { transform: translateX(62%); } }
-/* con «riduci movimento» l'alone e il fascio stanno fermi, ma i veli scorrono lenti: nebbia immobile
-   sembra una mappa rotta */
+/* con «riduci movimento» l'alone e il fascio stanno fermi, ma i veli scorrono lenti (animaVeli):
+   nebbia immobile sembra una mappa rotta */
 @media (prefers-reduced-motion: reduce) {
   .str-luna .alone, .str-luna .fascio { animation: none; }
-  .str-luna .velo.v1 { animation-duration: 90s; }
-  .str-luna .velo.v2 { animation-duration: 120s; }
 }
 .str-cartiglio.sotto { transform: translate(-50%, 22px); }
 .str-cartiglio[hidden] { display: none; }

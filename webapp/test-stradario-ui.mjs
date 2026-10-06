@@ -47,6 +47,11 @@ ok(await pg.evaluate(() => {
   const a = getComputedStyle(l.querySelector('.alone'));
   return getComputedStyle(l).pointerEvents === 'none' && a.animationName !== 'none';
 }), 'la luna tra la nebbia c e, non intercetta i tocchi e respira');
+// i veli di nebbia scorrono davvero: la posizione cambia da un istante all'altro
+const x0 = await pg.evaluate(() => document.querySelector('.str-luna .velo.v1').style.transform);
+await pg.waitForTimeout(1200);
+const x1 = await pg.evaluate(() => document.querySelector('.str-luna .velo.v1').style.transform);
+ok(x0 !== '' && x0 !== x1, `i veli di nebbia si muovono (${x0} -> ${x1})`);
 await pg.locator('.str-pin:not(.battuta)').first().click({ force: true });
 ok(await pg.locator('.str-pin.scelto').count() === 1, 'toccato un lumino diventa la lanterna');
 ok(await pg.locator('#str-cartiglio').isVisible(), 'il cartiglio col nome compare sulla mappa');

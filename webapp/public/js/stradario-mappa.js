@@ -56,7 +56,7 @@ export function stradarioMappaHtml(voci) {
                 </defs>
                 <rect class="buio" width="100" height="133.6" mask="url(#str-maschera)"/>
               </svg>
-              <div class="str-luna" aria-hidden="true"><i class="alone"></i><i class="fascio"></i><i class="velo v1"></i><i class="velo v2"></i></div>
+              <div class="str-luna" aria-hidden="true"><i class="alone"></i><i class="fascio"></i><i class="velo v1"></i><i class="velo v2"></i><i class="velo v3"></i></div>
               ${lumini}
               <div class="str-cartiglio" id="str-cartiglio" hidden></div>
             </div>
@@ -83,9 +83,31 @@ export function stradarioMappaHtml(voci) {
   </div>`;
 }
 
+// I VELI DI NEBBIA CHIARA scorrono da JavaScript (un fotogramma alla volta, solo transform) e non da
+// animazioni CSS: sul telefono le animazioni dentro uno strato con mix-blend-mode risultavano «in
+// corso» ma non si ridisegnavano, e la nebbia sembrava ferma.
+function animaVeli(mappa) {
+  const veli = [...mappa.querySelectorAll('.str-luna .velo')];
+  if (!veli.length) return;
+  const lento = matchMedia('(prefers-reduced-motion: reduce)').matches ? 4 : 1;
+  const periodi = [20000, 28000, 15000].map((p) => p * lento);
+  const t0 = performance.now();
+  const passo = (ora) => {
+    if (!mappa.isConnected) return;
+    veli.forEach((v, i) => {
+      const f = (((ora - t0) / periodi[i]) + i * 0.37) % 1;
+      const x = (i % 2 ? 1 - f : f) * 100 - 20;
+      v.style.transform = `translate3d(${x}%,0,0)`;
+    });
+    requestAnimationFrame(passo);
+  };
+  requestAnimationFrame(passo);
+}
+
 export function agganciaStradarioMappa(radice, voci, { onDichiara }) {
   const q = (s) => radice.querySelector(s);
   const mappa = q('#str-mappa'); if (!mappa) return;
+  animaVeli(mappa);
   const cart = q('#str-cartiglio'); const luce = q('#str-luce');
   const perNome = new Map(voci.map((v) => [v.nome, v]));
   let scelta = null; let z = 0;
