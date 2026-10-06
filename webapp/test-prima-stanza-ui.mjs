@@ -22,11 +22,16 @@ await pg.evaluate(async ({ party }) => {
       scortati: [], mazzo: { ordine: [0, 1, 2, 3], indice: 0 }, pendenza: null, insidie: {}, abilita: {}, nemici: [], provaVento: { round: 1, chi: [] } } };
   window.__partita = partita;
   document.querySelector('#app').innerHTML = '';
-  await vistaDigitale(document.querySelector('#app'), partita, () => {}, null);
+  window.__vai = null;
+  await vistaDigitale(document.querySelector('#app'), partita, (d) => { window.__vai = d; }, null);
 }, { party: [A, B] });
 
 await pg.waitForSelector('#ok-msg');
 ok(true, 'la prima stanza si apre con la sua carta');
+// la schermata da leggere ha il suo menu: se «continua» non risponde, non si resta chiusi dentro
+ok(await pg.locator('#carta-esci').count() === 1, 'la carta della stanza ha il tasto «menu»');
+await pg.click('#carta-esci');
+ok(await pg.evaluate(() => window.__vai) === 'menu', 'e il menu riporta alla home');
 await pg.click('#ok-msg');
 await pg.waitForSelector('.board-digitale');
 ok(await pg.locator('#ok-msg').count() === 0, 'dopo «continua» c e la plancia');

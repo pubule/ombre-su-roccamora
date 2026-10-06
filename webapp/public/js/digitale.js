@@ -269,6 +269,15 @@ export async function vistaDigitale(app, partita, vaiA, posto) {
           // partita: non si salva, non passa dal tavolo, si azzera riaprendo.
           scheda: 'eroi', ultimiTiri: {} };
   ctx.tavoloVivo = await mettiSulTavolo(ctx.posto, ctx.partita);
+  // L'USCITA DALLE SCHERMATE DA LEGGERE: la carta di una stanza, un messaggio, una prova hanno il
+  // tasto «menu» in alto. Un gestore solo, delegato, registrato una volta per elemento.
+  if (!app.__usciteLette) {
+    app.__usciteLette = true;
+    app.addEventListener('click', (e) => {
+      if (!e.target.closest('#carta-esci')) return;
+      spegniImmersivo(); ctx.vaiA('menu');
+    });
+  }
   collegaAlTavolo();
   // LA SCHEDA MOSTRA L'EROE DI STANOTTE, non la carta stampata: dopo dieci
   // serate quei numeri sono cambiati, e una scheda che dice ancora quelli di
@@ -1299,7 +1308,7 @@ function schermataCarta(aperta, alOk = null) {
   const fav = aperta.favore;
   const DIR = { N: 'nord', S: 'sud', E: 'est', O: 'ovest' };
   app.classList.remove('immersivo');
-  const html = `<div class="barra"><span></span><div class="titolo">${esc(aperta.titolo || 'minaccia')}</div><span></span></div>
+  const html = `<div class="barra"><button class="btn" id="carta-esci">← menu</button><div class="titolo">${esc(aperta.titolo || 'minaccia')}</div><span></span></div>
     <div class="pannello">
       ${aperta.carta
         // una carta Minaccia: l'immagine E' la carta, testo compreso
@@ -1379,7 +1388,7 @@ function messaggioCarta(titolo, carta, annunci) {
   return new Promise((ok) => {
     const { app } = ctx; const req = provaRichiesta(carta.rules);
     app.classList.remove('immersivo');   // e' testo da leggere: deve scorrere fino a «continua»
-    app.innerHTML = `<div class="barra"><span></span><div class="titolo">${esc(titolo)}</div><span></span></div>
+    app.innerHTML = `<div class="barra"><button class="btn" id="carta-esci">← menu</button><div class="titolo">${esc(titolo)}</div><span></span></div>
       <div class="pannello">
         ${cartaGrande(carta.file)}
         <p class="mt">${rendi(carta.rules)}</p>
@@ -1433,7 +1442,7 @@ function messaggioCarta(titolo, carta, annunci) {
 function messaggioProva(titolo, corpo, provaText, nm) {
   return new Promise((ok) => {
     const req = provaRichiesta(provaText); const { app } = ctx;
-    app.innerHTML = `<div class="barra"><span></span><div class="titolo">${esc(titolo)}</div><span></span></div>
+    app.innerHTML = `<div class="barra"><button class="btn" id="carta-esci">← menu</button><div class="titolo">${esc(titolo)}</div><span></span></div>
       <div class="pannello">${corpo}<div id="prova-esito"></div></div>
       ${arbitro() ? `<div class="btn-riga">
         ${req && nm ? `<button class="btn" id="msg-prova">🎲 tirate la prova (${req.stat.toUpperCase()} ${req.diff})</button>` : ''}
@@ -2565,7 +2574,7 @@ function messaggio(titolo, corpo) {
   return new Promise((ok) => {
     const { app } = ctx;
     app.classList.remove('immersivo');   // e' testo da leggere: deve scorrere fino a «continua»
-    app.innerHTML = `<div class="barra"><span></span><div class="titolo">${esc(titolo)}</div><span></span></div>
+    app.innerHTML = `<div class="barra"><button class="btn" id="carta-esci">← menu</button><div class="titolo">${esc(titolo)}</div><span></span></div>
       <div class="pannello">${corpo}</div>
       ${arbitro()
         ? '<div class="btn-riga"><button class="btn pieno" id="ok-msg">continua</button></div>'
