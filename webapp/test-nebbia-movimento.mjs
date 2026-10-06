@@ -22,7 +22,7 @@ async function nebbia(reducedMotion) {
 }
 const normale = await nebbia('no-preference');
 ok(normale.avanza, 'la nebbia di sfondo avanza nel tempo');
-ok(normale.speed >= 2, `a movimento normale scorre abbastanza da vedersi (velocita ${normale.speed})`);
+ok(normale.speed >= 1 && normale.speed <= 1.5, `a movimento normale scorre calma ma si vede (velocita ${normale.speed})`);
 const ridotta = await nebbia('reduce');
 ok(ridotta.avanza && ridotta.speed > 0 && ridotta.speed < normale.speed, `con «riduci movimento» scorre piu piano ma non e ferma (velocita ${ridotta.speed})`);
 await browser.close();
