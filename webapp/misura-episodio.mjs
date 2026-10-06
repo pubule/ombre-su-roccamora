@@ -428,7 +428,7 @@ async function turnoEroe(nm, mt, party) {
     const lib = (t) => !fatte.includes(t) && !tentate.has(t);
     const prima = JSON.stringify(fatte);
     let tipo = null;
-    if (lib('interagire') && await vis('#az-interagire')) { tipo = 'interagire'; await clicDom('#az-interagire'); await sciogli(); }
+    if (lib('interagire') && await vis('#az-interagire') && !/cassa di ossa/i.test(await pg.locator('#az-interagire').innerText())) { tipo = 'interagire'; await clicDom('#az-interagire'); await sciogli(); }
     else if (lib('cercare') && TILE_CHIAVE && pos.t === TILE_CHIAVE && !s.cercate?.[TILE_CHIAVE] && await vis('#az-cercare')) { tipo = 'cercare'; await clicDom('#az-cercare'); await sciogli(); }
     else if (lib('rianimare') && (s.vite[nm] ?? 0) >= 3 && await vis('#az-rianimare')) { tipo = 'rianimare'; await clicDom('#az-rianimare'); await sciogli(); }
     // «Usa oggetto» resta l'azione meno esercitata: fino al 27/07 il pilota

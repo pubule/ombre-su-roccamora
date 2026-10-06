@@ -1403,6 +1403,7 @@ function etichettaInterazione(d) {
   if (!d) return '';
   if (d.tipo === 'grata') return `Aprite la grata → ${d.verso}`;
   if (d.tipo === 'scortato') return specScort(d.i).etichetta || `Libera ${specScort(d.i).nome} (Interagire)`;
+  if (d.tipo === 'secondario') return `${d.s.etichetta} (${d.fatte}/${d.s.quante})`;
   if (d.tipo === 'porta') return `Forzate il lucchetto della banchina — ${d.pf.attr.toUpperCase()} ${d.pf.diff} (Interagire)`;
   if (d.tipo === 'uscita') return `Spostate ${String(d.arredo[2]).toLowerCase()} — l’uscita che indica ${nomeScortato()} (Interagire)`;
   if (d.tipo === 'compito') {
@@ -2537,6 +2538,10 @@ const frammentoTesto = (ep, esito) =>
     ? `<hr class="divisore"><p class="nota">— il frammento di stanotte, da conservare —</p>
        <div class="frammento-testo">${rendi(ep.frammento)}</div>` : '');
 
+// gli obiettivi secondari fatti (le casse di Ep.5): contano nell'epilogo e nel Bivio che segue
+const secondariHtml = (ep, sp) => (sp.esito === 'sconfitta' ? '' : (ep.secondari || []).map((s) =>
+  `<p class="mt"><b>${esc(s.riepilogo || s.etichetta)}:</b> ${(sp.secondari || {})[s.id] || 0} su ${s.quante} — annotatele sul Frammento.</p>`).join(''));
+
 function epilogo() {
   const { app, ep } = ctx; const sp = SP();
   app.classList.remove('immersivo');   // e' testo, e va letto tutto: deve scorrere
@@ -2552,6 +2557,7 @@ function epilogo() {
         ? `L’obiettivo è compiuto, ma non intero: ${sp.round} round, canto ${sp.canto}. Il Frammento di stanotte è <b>incrinato</b> — si conserva, ma nell’ultimo episodio non conta.`
         : 'Rialzatevi: ecco cosa resta di questa notte.'}</p>
       ${epilogoTesto(ep, sp.esito)}
+      ${secondariHtml(ep, sp)}
       ${frammentoTesto(ep, sp.esito)}
       ${(() => { const cb = controBusta(ep); return cb ? `
         <hr class="divisore">

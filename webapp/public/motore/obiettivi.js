@@ -66,6 +66,14 @@ export function obiettivoFatto(g) {
   return true;
 }
 
+// GLI OBIETTIVI SECONDARI (le casse di Ep.5): si fanno con Interagire e contano nell'epilogo e nel
+// Bivio, ma NON sono `compiti` — non chiudono la partita, non la sbarrano, non fermano il mazzo.
+export const specSecondari = (g) => (g.ep.secondari || []);
+export const secondarioFatte = (g, id) => ((g.sp.secondari || {})[id]) || 0;
+export function secondarioDisponibile(g, pos) {
+  return specSecondari(g).find((s) => s.tile === pos.t && secondarioFatte(g, s.id) < s.quante) || null;
+}
+
 // il compito a portata dell'eroe: giusta tessera, quante ne restano, e — se il
 // dato nomina un arredo — esserne adiacenti
 export function compitoDisponibile(g, pos) {

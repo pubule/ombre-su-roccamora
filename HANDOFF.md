@@ -1,5 +1,13 @@
 # Handoff — dove siamo
 
+## EFFETTI DELLE DOMANDE resi giocabili (06/10/2026): lucchetto Ep.1, casse Ep.5
+
+Prima erano solo promemoria per chi arbitra. Ora il motore li esegue (test: `test-lucchetto.mjs`, `test-casse.mjs`, e le UI `test-lucchetto-ui.mjs`, `test-casse-ui.mjs`).
+- **Ep.1 D3 sbagliata**: su T1 Interagire forza il lucchetto (ACUME Difficile, piede di porco +1); un fallimento = +1 carta alla prossima Minaccia (`sp.minacciaPunita`); finche' regge la scorta non vince (`scortaPuoVincere`). Dopo che cede serve un passo di Ruggero per chiudere la vittoria.
+- **Ep.5 casse di ossa** (`ep.secondari`, NON `compiti`: non chiudono ne' sbloccano nulla): T5, 4 casse, una per Interagire; D2 esatta = 2 gia' in salvo; D3 sbagliata = prima ACUME Media, fallita = azione spesa e cassa non conta. L'epilogo dice «Casse di ossa in salvo: n su 4». **RULING da confermare**: il fascicolo non dice quante casse siano; ho messo 4. **Il Bivio «Le ossa salvate» NON dipende dal numero** (con 0 casse e' comunque offerto).
+- Il pilota non semina le risposte (il lucchetto non esiste per lui) e salta il tasto delle casse. Ep.5 pilota N=8: valida, 25% (rumore rispetto al 35% della mappa).
+- Ancora solo promemoria: Ep.10 D4, Ep.11 D2/D4, Ep.12 D2/D4, Ep.13 D3/D4, Ep.16 D3, Ep.3 D4 sbagliata.
+
 ## MAPPA PILOTA rifatta (06/10/2026): codice fermo, N=20, 4 eroi, 3 episodi in parallelo
 
 Con 6 in parallelo le corse risultavano non valide (Ep.1, 6, 15) e Ep.9 faceva 0%: era il carico, non il gioco. Con 3 in parallelo tutte valide tranne Ep.15.

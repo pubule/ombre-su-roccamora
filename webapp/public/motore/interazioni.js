@@ -21,11 +21,13 @@ import { adiacGlob, tileDi, portaCella, dirExit, grataChiusa, chiave,
 import { eroe, primo, specScort, specScortati, statoScortati, azioniRestano } from './stat.js';
 import { norm } from './regole.js';
 import { portaChiusa } from './domande.js';
+import { secondarioDisponibile, secondarioFatte } from './obiettivi.js';
 import { specCompiti, compitoDisponibile, compitoFatte, statoCompiti,
          specRogo, rogoBrucia, haProtezioneRogo } from './obiettivi.js';
 
 const log = (g, t) => { g.sp.log = g.sp.log || []; g.sp.log.push(t); };
 const rifiuta = (motivo) => ({ rifiuto: motivo });
+const sp0 = (g) => g.sp;
 
 export const specUscita = (g) => (specScortati(g)[0] || {}).uscita || null;
 export const nomeScortato = (g) => (specScortati(g)[0] || {}).nome || 'il prigioniero';
@@ -86,6 +88,8 @@ export function interazioneDisponibile(g, nm) {
   if (c && c.fuoriPosto) return { tipo: 'compito', c, bloccato: 'fuori-posto' };
   if (c && c.bloccato) return { tipo: 'compito', c, bloccato: 'in-forze' };
   if (c) return { tipo: 'compito', c, fatte: compitoFatte(g, c.id) };
+  const sec = secondarioDisponibile(g, pos);
+  if (sec) return { tipo: 'secondario', s: sec, fatte: secondarioFatte(g, sec.id) };
   return null;
 }
 
@@ -102,6 +106,13 @@ export function provaInterazione(g, nm) {
     return { titolo: `${pr.attr.toUpperCase()} — ${primo(nm)}`, stat: pr.attr, diff: pr.diff,
              diffLabel: pr.diff, chi: nm, soglia: g.comune.regole.diff[pr.diff],
              bonus: [{ label: pr.attr.toUpperCase(), val: e[pr.attr] || 0 }] };
+  }
+  if (disp.tipo === 'secondario') {
+    const pr = (sp0(g).effetti || {}).prova_secondari;
+    const p = pr && pr[disp.s.id];
+    if (!p) return null;
+    return { titolo: `${p.attr.toUpperCase()} — ${primo(nm)}`, stat: p.attr, diff: p.diff, diffLabel: p.diff, chi: nm,
+             soglia: g.comune.regole.diff[p.diff], bonus: [{ label: p.attr.toUpperCase(), val: e[p.attr] || 0 }] };
   }
   if (disp.tipo === 'porta') {
     const pf = disp.pf; const diff = pf.diff;
@@ -241,6 +252,25 @@ export function interagisci(g, caso, nm) {
     log(g, `${primo(nm)}: ${c.etichetta.toLowerCase()} (${st[c.id]}/${c.quante}).`);
     if (st[c.id] >= c.quante && c.fatto) log(g, c.fatto);
     eventi.push({ tipo: 'compito-avanzato', id: c.id, fatte: st[c.id], quante: c.quante });
+    return { eventi, azione: 'interagire' };
+  }
+
+  if (disp.tipo === 'secondario') {
+    const s = disp.s;
+    const pr = provaInterazione(g, nm);
+    if (pr) {
+      const t = tiraLa(caso, pr);
+      eventi.push({ tipo: 'tiro', causa: 'secondario', ...t });
+      if (!t.ok) {
+        log(g, `${primo(nm)} sceglie la cassa sbagliata: non conta.`);
+        return { eventi, azione: 'interagire' };
+      }
+    }
+    sp.secondari = sp.secondari || {};
+    sp.secondari[s.id] = secondarioFatte(g, s.id) + 1;
+    log(g, `${primo(nm)}: ${s.etichetta.toLowerCase()} (${sp.secondari[s.id]}/${s.quante}).`);
+    if (sp.secondari[s.id] >= s.quante && s.fatto) log(g, s.fatto);
+    eventi.push({ tipo: 'secondario-avanzato', id: s.id, fatte: sp.secondari[s.id], quante: s.quante });
     return { eventi, azione: 'interagire' };
   }
 

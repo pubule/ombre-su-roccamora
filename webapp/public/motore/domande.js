@@ -36,7 +36,8 @@ function esiti(g) {
 export function effettiAttivi(g) {
   const e = { spawn_t1: {}, senza_spawn: {}, smascherato: [], boss_salta: null,
               boss_difesa: 0, nessuna_minaccia_r1: false, minaccia_extra_r1: 0,
-              senza_prova: [], traccia_iniziale: 0, bonus_vento: 0, porta_forzata: null };
+              senza_prova: [], traccia_iniziale: 0, bonus_vento: 0, porta_forzata: null,
+              secondari_iniziali: {}, prova_secondari: {} };
   for (const { d, esatta } of esiti(g)) {
     const x = (esatta ? d.premio : d.penalita) || {};
     if (x.nessuna_minaccia_r1) e.nessuna_minaccia_r1 = true;
@@ -50,6 +51,8 @@ export function effettiAttivi(g) {
     e.traccia_iniziale += x.traccia_iniziale || 0;
     e.bonus_vento += x.bonus_vento || 0;
     if (x.porta_forzata) e.porta_forzata = x.porta_forzata;
+    for (const [id, n] of Object.entries(x.secondari_iniziali || {})) e.secondari_iniziali[id] = (e.secondari_iniziali[id] || 0) + n;
+    Object.assign(e.prova_secondari, x.prova_secondari || {});
   }
   return e;
 }
@@ -63,8 +66,13 @@ export function avviaEffetti(g, primaTessera) {
   sp.effetti = {
     nessuna_minaccia_r1: e.nessuna_minaccia_r1, minaccia_extra_r1: e.minaccia_extra_r1,
     senza_spawn: e.senza_spawn, smascherato: [...e.smascherato], senza_prova: e.senza_prova,
-    porta_forzata: e.porta_forzata,
+    porta_forzata: e.porta_forzata, prova_secondari: e.prova_secondari,
   };
+  // gli obiettivi secondari che una Domanda esatta ha gia' avviato (le casse di Ep.5)
+  for (const [id, n] of Object.entries(e.secondari_iniziali)) {
+    const spec = (g.ep.secondari || []).find((s) => s.id === id);
+    if (spec) { sp.secondari = sp.secondari || {}; sp.secondari[id] = Math.min(n, spec.quante); }
+  }
   // «la DEMOLIZIONE parte da 2»: la traccia dell'episodio (motore/obiettivi.js) non
   // parte da zero. Solo dove l'episodio ha un orologio.
   if (e.traccia_iniziale && g.ep.orologio) {

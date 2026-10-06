@@ -896,6 +896,8 @@ EFFETTI_DOMANDE.update({
     ('ep3', 3): dict(penalita=dict(spawn_t1={'LA VOCE CAVA': 1})),
     ('ep4', 2): dict(premio=dict(senza_spawn={'T6': ['LA CLAQUE']})),
     ('ep1', 2): dict(premio=dict(smascherato=['ADEPTO INCAPPUCCIATO'])),
+    ('ep5', 2): dict(premio=dict(secondari_iniziali={'casse': 2})),   # «in T5 due casse sono gia' in salvo»
+    ('ep5', 3): dict(penalita=dict(prova_secondari={'casse': dict(attr='acume', diff='Media')})),
     # «va forzata: ACUME Difficile; ogni fallimento = 1 carta Minaccia» (il piede di porco dà +1)
     ('ep1', 3): dict(penalita=dict(porta_forzata=dict(tile='T1', attr='acume', diff='Difficile', bonus=['piede di porco']))),
     ('ep2', 2): dict(premio=dict(smascherato=['LO SGHERRO', 'IL SICARIO'])),
@@ -1163,6 +1165,13 @@ episodi = dict(
         compiti=[dict(id='canne', tile='T6', quante=3,
                       etichetta='Sfregia una canna montata',
                       fatto='Le tre canne sono sfregiate: l’organo non canterà.')],
+        # LE CASSE DI OSSA (T5): obiettivo SECONDARIO, una ad azione. Non chiudono ne' bloccano la
+        # vittoria (restano le canne), ma contano nell'epilogo e nel Bivio. Quante siano il
+        # fascicolo non lo dice: 4, una a testa a quattro eroi.
+        secondari=[dict(id='casse', tile='T5', quante=4,
+                        etichetta='Mettete in salvo una cassa di ossa',
+                        riepilogo='Casse di ossa in salvo',
+                        fatto='Tutte le casse di ossa sono in salvo.')],
         vittoria=dict(tessera='T1',
                       testo='Le canne sono sfregiate e siete risaliti: l’organo di ossa è muto.'),
         esami_carbone=ESAMI_CARBONE_5,
