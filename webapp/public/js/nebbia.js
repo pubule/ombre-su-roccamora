@@ -37,12 +37,13 @@
 // thread principale con le animazioni vere (dadi, token, carte). Qui si
 // ferma/riparte quel loop a mano, senza pagare ne' l'uno ne' l'altro difetto.
 if (typeof VANTA !== 'undefined') {
-  const fx = VANTA.FOG({
+  const opzioni = {
     el: '#vanta-bg', mouseControls: false, touchControls: false, gyroControls: false,
     minHeight: 200, minWidth: 200, scale: 2, scaleMobile: 2,
     baseColor: 0x0c0e11, lowlightColor: 0x06191a, midtoneColor: 0x1a4a4d, highlightColor: 0x5c3421,
     blurFactor: 0.35, speed: matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 0.8, zoom: 1,
-  });
+  };
+  let fx = VANTA.FOG(opzioni);
   const app = document.getElementById('app');
   const bg = document.getElementById('vanta-bg');
   const immersivo = () => !!app && app.classList.contains('immersivo');
@@ -57,6 +58,24 @@ if (typeof VANTA !== 'undefined') {
     if (!immersivo() && typeof fx.resize === 'function') fx.resize();
   };
   aggiorna();
+  // LO SFONDO SI RIMISURA DA SOLO. Vanta misura il div all'avvio e a `resize`, e se in quel
+  // momento e' nascosto (o la finestra cambia sotto una barra di Safari che si ritira) trova 0 e si
+  // ferma al minimo, 200px: la nebbia copre solo la cima della pagina. Osservare il div stesso copre
+  // tutti i casi — ruotare il telefono, tornare da un'altra app, uscire dal layout immersivo.
+  // Se iOS ha tolto il contesto WebGL (app in secondo piano) la nebbia resta ferma: se ne rifa' una.
+  const rimisura = () => {
+    if (!bg || immersivo()) return;
+    const gl = fx.renderer && fx.renderer.getContext && fx.renderer.getContext();
+    if (gl && gl.isContextLost && gl.isContextLost()) {
+      try { fx.destroy(); } catch { /* gia' andato */ }
+      fx = VANTA.FOG(opzioni); vivo = true;
+      return;
+    }
+    if (typeof fx.resize === 'function') fx.resize();
+  };
+  if (bg && typeof ResizeObserver !== 'undefined') new ResizeObserver(rimisura).observe(bg);
+  addEventListener('pageshow', rimisura);
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) rimisura(); });
   if (app) {
     new MutationObserver(aggiorna).observe(app, { attributes: true, attributeFilter: ['class'] });
   }
