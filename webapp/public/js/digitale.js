@@ -493,9 +493,14 @@ function render() {
   if (!sp.carta && arbitro() && sp.fase === 'eroi') {
     const t0 = sp.rivelate && sp.rivelate[0];
     sp.stanzeLette = sp.stanzeLette || [];
-    if (t0 && !sp.stanzeLette.includes(t0)) {
+    // …e si ricorda ANCHE qui, in questa sessione: lo stato che torna dal tavolo puo' non avere la
+    // stanza fra le lette (la spinta non era arrivata), e senza questo la carta della prima stanza
+    // rispuntava a ogni «continua», senza uscita.
+    ctx.stanzeMostrate = ctx.stanzeMostrate || new Set();
+    if (t0 && !sp.stanzeLette.includes(t0) && !ctx.stanzeMostrate.has(t0)) {
       const tile = tileDi(t0);
       sp.stanzeLette.push(t0);
+      ctx.stanzeMostrate.add(t0);
       if (tile && tile.testo) {
         sp.carta = { titolo: `${tile.id} · ${(tile.nome || '').toLowerCase()}`,
                      tessera: tile.id, testo: tile.testo, annunci: [] };
@@ -1321,6 +1326,8 @@ function schermataCarta(aperta, alOk = null) {
   if (b) b.onclick = async () => {
     b.disabled = true;
     if (alOk) alOk(); else await esegui({ tipo: 'carta-vista' });
+    // rifiutato o filo caduto: la schermata e' ancora questa e il tasto deve tornare premibile
+    if (b.isConnected) b.disabled = false;
   };
   app.querySelectorAll('.fav-scelta').forEach((f) => { f.onclick = async () => {
     app.querySelectorAll('.fav-scelta').forEach((x) => { x.disabled = true; });
