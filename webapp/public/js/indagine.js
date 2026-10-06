@@ -688,18 +688,20 @@ function stradarioHtml() {
   const luoghiPerVoce = {};
   (ep.luoghi || []).forEach((l) => { luoghiPerVoce[norm(l.voce_mappa)] = l; });
   const voci = vociMappa(ep, comune);
-  // le vie gia' battute in fondo e smorzate: il gruppo sa di esserci stato, e
-  // lasciarle in mezzo allunga la scansione di quel che resta
-  const ordinate = [...voci].sort((a, b) => {
-    const va = visitati.has((luoghiPerVoce[norm(a.nome)] || {}).n) ? 1 : 0;
-    const vb = visitati.has((luoghiPerVoce[norm(b.nome)] || {}).n) ? 1 : 0;
-    return va - vb;
-  });
+  // i luoghi DISPONIBILI DALL'INIZIO (la lettera li elenca) per primi; le vie gia' battute in fondo
+  // e smorzate: il gruppo sa di esserci stato, e lasciarle in mezzo allunga la scansione di quel che resta
+  const peso = (v) => {
+    const l = luoghiPerVoce[norm(v.nome)];
+    if (l && visitati.has(l.n)) return 2;
+    return l && l.aperto ? 0 : 1;
+  };
+  const ordinate = [...voci].sort((a, b) => peso(a) - peso(b));
   // SOLO «gia' battuto»: qualunque altra etichetta di stato direbbe dove andare, e l'app e'
   // l'arbitro che custodisce proprio quello.
   ctx.vociStradario = ordinate.map((v) => {
     const l = luoghiPerVoce[norm(v.nome)];
-    return { nome: v.nome, indirizzo: v.indirizzo, battuta: !!(l && visitati.has(l.n)) };
+    const battuta = !!(l && visitati.has(l.n));
+    return { nome: v.nome, indirizzo: v.indirizzo, battuta, inizio: !battuta && !!(l && l.aperto) };
   });
   return stradarioMappaHtml(ctx.vociStradario);
 }

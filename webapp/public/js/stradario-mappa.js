@@ -27,15 +27,16 @@ export function stradarioMappaHtml(voci) {
   }).join('');
   const lumini = conPos.map((v) => {
     const [x, y] = coordDi(v.nome);
-    return `<button class="str-pin${v.battuta ? ' battuta' : ''}" data-voce="${esc(v.nome)}"
-      style="left:${x}%;top:${y}%" aria-label="${esc(v.nome)}${v.battuta ? ' — già battuto' : ''}">
+    return `<button class="str-pin${v.battuta ? ' battuta' : ''}${v.inizio ? ' inizio' : ''}" data-voce="${esc(v.nome)}"
+      style="left:${x}%;top:${y}%" aria-label="${esc(v.nome)}${v.battuta ? ' — già battuto' : ''}${v.inizio ? ' — disponibile dall’inizio' : ''}">
       <span class="testa"></span></button>`;
   }).join('');
-  const elenco = voci.map((v) => `<button class="voce${v.battuta ? ' battuta' : ''}" data-voce="${esc(v.nome)}"
+  const elenco = voci.map((v) => `<button class="voce${v.battuta ? ' battuta' : ''}${v.inizio ? ' inizio' : ''}" data-voce="${esc(v.nome)}"
       data-cerca="${esc(norm(v.nome + ' ' + (v.indirizzo || '')))}">
       <span><span class="nome">${esc(v.nome)}</span>
         <span class="indirizzo">${esc(v.indirizzo || '')}</span></span>
-      ${v.battuta ? '<span class="segno"><span class="timbro">già battuto</span></span>' : ''}
+      ${v.battuta ? '<span class="segno"><span class="timbro">già battuto</span></span>'
+        : v.inizio ? '<span class="segno"><span class="timbro inizio">dall’inizio</span></span>' : ''}
     </button>`).join('');
   return `<div class="str">
     <div class="str-intesta"><h2>dove andate?</h2><span class="nota">portate la lanterna su una via</span></div>
@@ -68,6 +69,7 @@ export function stradarioMappaHtml(voci) {
         </div>
         <div class="str-legenda">
           <span><i class="sp"></i>una via</span>
+          <span><i class="pa"></i>disponibile dall’inizio</span>
           <span><i class="ac"></i>già battuto</span>
         </div>
         <button class="btn str-piega" id="str-piega"><svg class="ic" aria-hidden="true"><use href="#i-lente"></use></svg><span>l’elenco delle vie</span></button>
@@ -141,7 +143,8 @@ export function agganciaStradarioMappa(radice, voci, { onDichiara }) {
     q('#str-dichiara').innerHTML = `
       <div><div class="dove">${esc(v.nome)}</div>
         <div class="indirizzo">${esc(v.indirizzo || '')}</div>
-        ${v.battuta ? '<div class="battuto-tag">già battuto — tornarci costa un’altra ora</div>' : ''}</div>
+        ${v.battuta ? '<div class="battuto-tag">già battuto — tornarci costa un’altra ora</div>' : ''}
+        ${v.inizio ? '<div class="inizio-tag">disponibile dall’inizio</div>' : ''}</div>
       <button class="btn pieno" id="str-andate"><svg class="ic" aria-hidden="true"><use href="#i-orma"></use></svg>andate qui</button>`;
     q('#str-andate').onclick = () => onDichiara(nome);
     if (scorri && p) {

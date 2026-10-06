@@ -39,6 +39,13 @@ const voci = await pg.locator('.voce[data-voce]').count();
 ok(pins > 8 && pins === voci, `un lumino per ogni via con posizione (${pins} lumini, ${voci} vie nell elenco)`);
 ok(await pg.locator('.str-pin.battuta').count() === 2, 'le due vie battute sono accese');
 ok(await pg.locator('.str-fianco').isVisible(), 'sullo schermo largo l elenco sta di fianco');
+// i luoghi disponibili dall'inizio (la lettera li elenca) hanno un segno tutto loro, e la legenda lo dice
+const apertiNonBattuti = EP.luoghi.filter((l) => l.aperto && ![3, 4].includes(l.n)).length;
+ok(await pg.locator('.str-pin.inizio').count() === apertiNonBattuti && apertiNonBattuti > 0, `i luoghi disponibili dall inizio hanno il rombo (${apertiNonBattuti})`);
+ok(await pg.locator('.str-pin.inizio.battuta').count() === 0, 'un luogo di partenza gia battuto torna «battuto», non «dall inizio»');
+ok(/dall.inizio/i.test(await pg.locator('.str-legenda').innerText()), 'la legenda spiega il rombo');
+ok(await pg.locator('.str-elenco .voce').first().evaluate((e) => e.classList.contains('inizio')), 'nell elenco i luoghi di partenza stanno in cima');
+ok(await pg.locator('.str-elenco .voce.inizio .timbro.inizio').count() === apertiNonBattuti, 'e portano il timbro «dall inizio»');
 ok(/la citt. . al buio/i.test(await pg.locator('#str-dichiara').innerText()), 'prima di scegliere la lastra dice «la citta e al buio»');
 
 // la luna tra la nebbia: uno strato di luce che non intercetta i tocchi e si muove piano

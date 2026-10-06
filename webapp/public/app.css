@@ -1692,6 +1692,13 @@ canvas.calore { z-index: 2; pointer-events: none; opacity: .32; }
   background: radial-gradient(circle, #fffaf0 0%, var(--nastro) 50%, #9c6a1f 100%);
   box-shadow: 0 0 0 2px rgba(12,14,17,.85), 0 0 26px 10px rgba(232,194,122,.55);
   animation: str-respira 2.4s ease-in-out infinite; }
+/* DISPONIBILE DALL'INIZIO (la lettera lo dice): un rombo di luce lunare, di forma e colore diversi
+   dal cerchio «una via» e dalla fiamma «gia' battuto» — non si affida al solo colore. */
+.str-pin.inizio .testa { width: 15px; height: 15px; border-radius: 3px; transform: rotate(45deg);
+  background: radial-gradient(circle, #f2fbff 0%, #a9dcef 55%, #3d7d96 100%);
+  box-shadow: 0 0 0 2px rgba(12,14,17,.85), 0 0 0 3.5px rgba(150,215,240,.7), 0 0 14px 4px rgba(150,215,240,.45); }
+.str-pin.inizio:hover .testa, .str-pin.inizio:focus-visible .testa { transform: rotate(45deg) scale(1.25); }
+.str-pin.inizio.scelto .testa { transform: rotate(45deg) scale(1.35); }
 .str-pin.spento { opacity: .18; pointer-events: none; }
 @keyframes str-respira { 50% { opacity: .82; } }
 .str-cartiglio { position: absolute; z-index: 3; transform: translate(-50%, calc(-100% - 22px));
@@ -1732,6 +1739,9 @@ canvas.calore { z-index: 2; pointer-events: none; opacity: .32; }
 .str-legenda span { display: inline-flex; align-items: center; gap: 8px; }
 .str-legenda i { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
 .str-legenda .sp { background: #2a2f37; box-shadow: 0 0 0 1.5px rgba(232,194,122,.55); }
+.str-legenda .pa { width: 11px; height: 11px; border-radius: 2px; transform: rotate(45deg);
+  background: radial-gradient(circle, #f2fbff 0%, #a9dcef 55%, #3d7d96 100%);
+  box-shadow: 0 0 0 1.5px rgba(150,215,240,.7), 0 0 8px 2px rgba(150,215,240,.45); }
 .str-legenda .ac { background: var(--nastro); box-shadow: 0 0 8px 2px rgba(232,194,122,.55); }
 
 /* la dichiarazione: la lastra in fondo, sempre a portata di pollice */
@@ -1743,6 +1753,8 @@ canvas.calore { z-index: 2; pointer-events: none; opacity: .32; }
 .str-lastra .indirizzo { color: var(--osso-fioco); font-style: italic; font-size: 15px; }
 .str-lastra .vuoto { color: var(--osso-fioco); font-style: italic; }
 .str-lastra .btn.pieno { justify-content: center; min-height: 52px; font-size: 18px; }
+.str-lastra .inizio-tag { font-family: 'FellSC', serif; font-size: 13px; color: #a9dcef;
+  letter-spacing: .08em; }
 .str-lastra .battuto-tag { font-family: 'FellSC', serif; font-size: 13px; color: #f0a3ab;
   letter-spacing: .08em; }
 
@@ -1753,6 +1765,8 @@ canvas.calore { z-index: 2; pointer-events: none; opacity: .32; }
 .str-elenco .voce .indirizzo { display: block; color: var(--osso-fioco); font-style: italic; font-size: 14px; }
 .str-elenco .voce.scelta { border-color: var(--nastro); box-shadow: inset 0 0 0 1px var(--nastro); }
 .str-elenco .voce.battuta { opacity: .5; }
+.str-elenco .voce.inizio { border-left: 3px solid #a9dcef; }
+.timbro.inizio { color: #a9dcef; border-color: rgba(169,220,239,.5); transform: rotate(-3deg); }
 .str-elenco .voce .segno { white-space: nowrap; }
 .timbro { font-family: 'FellSC', serif; font-size: 12px; letter-spacing: .08em; color: #f0a3ab;
   border: 1px solid rgba(240,163,171,.45); border-radius: 3px; padding: 1px 6px;
