@@ -86,11 +86,17 @@ export function stradarioMappaHtml(voci) {
 // I VELI DI NEBBIA CHIARA scorrono da JavaScript (un fotogramma alla volta, solo transform) e non da
 // animazioni CSS: sul telefono le animazioni dentro uno strato con mix-blend-mode risultavano «in
 // corso» ma non si ridisegnavano, e la nebbia sembrava ferma.
+// Quanto si vede un velo a meta' (0..1) del suo percorso: nullo ai due capi, pieno al centro. Alla fine
+// del giro il velo non sparisce di colpo per ricomparire dall'altra parte: si dissolve piano e rinasce
+// piano, e nel punto in cui salta e' gia' invisibile.
+export const opacitaVelo = (f) => Math.pow(Math.sin(Math.PI * Math.min(1, Math.max(0, f))), 1.6);
+
 function animaVeli(mappa) {
   const veli = [...mappa.querySelectorAll('.str-luna .velo')];
   if (!veli.length) return;
   const lento = matchMedia('(prefers-reduced-motion: reduce)').matches ? 4 : 1;
   const periodi = [20000, 28000, 15000].map((p) => p * lento);
+  const base = [1, 1, 0.8];
   const t0 = performance.now();
   const passo = (ora) => {
     if (!mappa.isConnected) return;
@@ -98,6 +104,7 @@ function animaVeli(mappa) {
       const f = (((ora - t0) / periodi[i]) + i * 0.37) % 1;
       const x = (i % 2 ? 1 - f : f) * 100 - 20;
       v.style.transform = `translate3d(${x}%,0,0)`;
+      v.style.opacity = (base[i] * opacitaVelo(f)).toFixed(3);
     });
     requestAnimationFrame(passo);
   };

@@ -1716,7 +1716,7 @@ canvas.calore { z-index: 2; pointer-events: none; opacity: .32; }
   background: radial-gradient(closest-side, rgba(175,205,240,.26), rgba(0,0,0,0)); }
 .str-luna .velo.v1 { top: 22%; }
 .str-luna .velo.v2 { top: 52%; }
-.str-luna .velo.v3 { top: 76%; height: 22%; opacity: .8; }
+.str-luna .velo.v3 { top: 76%; height: 22%; }
 @keyframes str-luna-respira { 50% { opacity: .72; transform: scale(1.06); } }
 @keyframes str-luna-fascio { 50% { opacity: .55; transform: rotate(-8deg) translateX(6%); } }
 /* con «riduci movimento» l'alone e il fascio stanno fermi, ma i veli scorrono lenti (animaVeli):
