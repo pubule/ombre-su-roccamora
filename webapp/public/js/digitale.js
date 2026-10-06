@@ -2540,7 +2540,7 @@ const frammentoTesto = (ep, esito) =>
 
 // gli obiettivi secondari fatti (le casse di Ep.5): contano nell'epilogo e nel Bivio che segue
 const secondariHtml = (ep, sp) => (sp.esito === 'sconfitta' ? '' : (ep.secondari || []).map((s) =>
-  `<p class="mt"><b>${esc(s.riepilogo || s.etichetta)}:</b> ${(sp.secondari || {})[s.id] || 0} su ${s.quante} — annotatele sul Frammento.</p>`).join(''));
+  `<p class="mt"><b>${esc(s.riepilogo || s.etichetta)}:</b> ${Number((sp.secondari || {})[s.id]) || 0} su ${Number(s.quante)} — annotatele sul Frammento.</p>`).join(''));
 
 function epilogo() {
   const { app, ep } = ctx; const sp = SP();
