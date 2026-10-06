@@ -1988,7 +1988,9 @@ async function riproduci(eventi, daAltri = false) {
         ? `<hr class="divisore"><p class="mt"><b>Trovato:</b> ${esc(ev.trovato.nome.toLowerCase())} — nell’inventario del gruppo.</p>
            ${ev.trovato.effetto ? `<p class="nota mt">${rendi(ev.trovato.effetto)}</p>` : ''}`
         : '';
-      await messaggio(`${ev.tessera} — cercare`, `<p><i>${rendi(ev.esito)}</i></p>${extra}`);
+      // l'oggetto trovato si mostra come carta, come dall'inventario
+      const cOgg = ev.trovato ? cartaOggetto(ctx.carte, P().episodio, ev.trovato.nome) : null;
+      await messaggio(`${ev.tessera} — cercare`, `${cOgg ? cartaGrande(cOgg.file) : ''}<p><i>${rendi(ev.esito)}</i></p>${extra}`);
     } else if (ev.tipo === 'conseguenza') {
       await messaggio('la prova è fallita', ev.righe.map((r) => `<p>${esc(r)}</p>`).join(''));
     } else if (ev.tipo === 'abbattuto' || ev.tipo === 'a-terra') {
