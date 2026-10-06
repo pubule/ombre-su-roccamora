@@ -298,6 +298,15 @@ export async function vistaDigitale(app, partita, vaiA, posto) {
 // motore resta qui e non cambia niente: e' la stessa app di prima. E' una
 // degradazione voluta, non una svista: meglio una partita da soli che una
 // plancia che non risponde ai tocchi.
+// Lo stato in arrivo dal tavolo e' piu' indietro di quello che chi arbitra ha gia'?
+function spintaVecchia(stato) {
+  const loc = ctx.partita; const sp = SP(); const nuova = (stato && stato.spedizione) || {};
+  if (stato && stato.fase === 'indagine' && loc.fase === 'spedizione') return true;
+  if (sp && sp.digitale && !nuova.digitale) return true;
+  if (sp && sp.digitale && nuova.digitale && (nuova.round || 0) < (sp.round || 0)) return true;
+  return false;
+}
+
 function collegaAlTavolo() {
   if (!ctx.posto || !ctx.posto.tavolo || typeof WebSocket === 'undefined') return;
   ctx.canale = apriCanale({
@@ -307,6 +316,11 @@ function collegaAlTavolo() {
       // messi in scena rispondendo, e rifarlo tirerebbe i dadi due volte
       if (rif && ctx.rifMiei.has(rif)) { ctx.rifMiei.delete(rif); return; }
       ctx.tavoloVivo = true;
+      // L'ECO IN RITARDO. Chi arbitra e' l'AUTORE dello stato: una spinta del tavolo piu' INDIETRO di
+      // quel che ha gia' — lo snapshot che arriva all'apertura del filo, l'eco di un `apri` vecchio —
+      // non va applicata, o butta via la Spedizione appena cominciata (round 0, mazzo vuoto) e il
+      // salvataggio che ne segue la scrive cosi' anche sul tavolo: schermate strane e nessuna uscita.
+      if (arbitro() && spintaVecchia(stato)) return;
       // i dati arrivano POTATI PER IL POSTO: chi gioca un eroe non ha mai
       // avuto la soluzione, e non deve prendersela da `/data/epN.json`
       if (datiVisti) {
@@ -472,6 +486,9 @@ function render() {
   // un ridisegno qui mostrerebbe gli eroi di turno e le caselle verdi sopra i nemici che colpiscono
   if (ctx.inNotte && !arbitro()) return;
   const sp = SP();
+  // la spedizione non e' ancora cominciata (round 0, nessuna plancia): una spinta in arrivo non deve
+  // disegnare l'HUD su uno stato vuoto — era l'errore «Cannot read properties of undefined»
+  if (!sp || !sp.rivelate) return setup();
   // la plancia c'e': si gioca a tabellone, salvo che il ⤢ non l'abbia spento
   ctx.app.classList.toggle('immersivo', immersivo());
   // IL LAYOUT DA TELEFONO e' lo stesso HTML, riordinato dal CSS: la plancia
