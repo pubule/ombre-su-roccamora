@@ -1403,6 +1403,7 @@ function etichettaInterazione(d) {
   if (!d) return '';
   if (d.tipo === 'grata') return `Aprite la grata → ${d.verso}`;
   if (d.tipo === 'scortato') return specScort(d.i).etichetta || `Libera ${specScort(d.i).nome} (Interagire)`;
+  if (d.tipo === 'porta') return `Forzate il lucchetto della banchina — ${d.pf.attr.toUpperCase()} ${d.pf.diff} (Interagire)`;
   if (d.tipo === 'uscita') return `Spostate ${String(d.arredo[2]).toLowerCase()} — l’uscita che indica ${nomeScortato()} (Interagire)`;
   if (d.tipo === 'compito') {
     const c = d.c;

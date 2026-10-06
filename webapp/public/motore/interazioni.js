@@ -20,6 +20,7 @@ import { adiacGlob, tileDi, portaCella, dirExit, grataChiusa, chiave,
          celleLibereTile, occupati } from './griglia.js';
 import { eroe, primo, specScort, specScortati, statoScortati, azioniRestano } from './stat.js';
 import { norm } from './regole.js';
+import { portaChiusa } from './domande.js';
 import { specCompiti, compitoDisponibile, compitoFatte, statoCompiti,
          specRogo, rogoBrucia, haProtezioneRogo } from './obiettivi.js';
 
@@ -75,6 +76,9 @@ export function interazioneDisponibile(g, nm) {
   if (a) return { tipo: 'uscita', arredo: a };
   // compito d'episodio: le canne da sfregiare, i movimenti da spegnere, le
   // casse da sequestrare — l'obiettivo vero di quindici episodi su ventuno
+  // il lucchetto della banchina (Ep.1, Domanda 3 sbagliata)
+  const pf = portaChiusa(g);
+  if (pf && pf.tile === pos.t) return { tipo: 'porta', pf };
   const c = compitoDisponibile(g, pos);
   // il compito bloccato si MOSTRA lo stesso, con la ragione: un bottone che
   // sparisce senza spiegazioni e' il modo migliore per far credere che il
@@ -98,6 +102,15 @@ export function provaInterazione(g, nm) {
     return { titolo: `${pr.attr.toUpperCase()} — ${primo(nm)}`, stat: pr.attr, diff: pr.diff,
              diffLabel: pr.diff, chi: nm, soglia: g.comune.regole.diff[pr.diff],
              bonus: [{ label: pr.attr.toUpperCase(), val: e[pr.attr] || 0 }] };
+  }
+  if (disp.tipo === 'porta') {
+    const pf = disp.pf; const diff = pf.diff;
+    const bonus = [{ label: pf.attr.toUpperCase(), val: e[pf.attr] || 0 }];
+    for (const b of pf.bonus || []) {
+      if (inv.some((o) => new RegExp(b, 'i').test(o))) bonus.push({ label: b, val: 1 });
+    }
+    return { titolo: `forzare il lucchetto — ${primo(nm)}`, stat: pf.attr, diff, diffLabel: diff, chi: nm,
+             soglia: g.comune.regole.diff[diff], bonus };
   }
   if (disp.tipo === 'uscita') {
     const u = specUscita(g); const a = disp.arredo; const diff = u.diff || 'Media';
@@ -228,6 +241,20 @@ export function interagisci(g, caso, nm) {
     log(g, `${primo(nm)}: ${c.etichetta.toLowerCase()} (${st[c.id]}/${c.quante}).`);
     if (st[c.id] >= c.quante && c.fatto) log(g, c.fatto);
     eventi.push({ tipo: 'compito-avanzato', id: c.id, fatte: st[c.id], quante: c.quante });
+    return { eventi, azione: 'interagire' };
+  }
+
+  if (disp.tipo === 'porta') {
+    const t = tiraLa(caso, provaInterazione(g, nm));
+    eventi.push({ tipo: 'tiro', causa: 'lucchetto', ...t });
+    if (!t.ok) {
+      sp.minacciaPunita = (sp.minacciaPunita || 0) + 1;
+      log(g, `${primo(nm)} non riesce a forzare il lucchetto: la prossima Minaccia pesca 1 carta in più.`);
+      return { eventi, azione: 'interagire' };
+    }
+    sp.portaForzata = true;
+    log(g, `${primo(nm)} forza il lucchetto: la porta della banchina è libera.`);
+    eventi.push({ tipo: 'porta-forzata' });
     return { eventi, azione: 'interagire' };
   }
 

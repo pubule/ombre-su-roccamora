@@ -11,6 +11,7 @@
 import { specCompiti, compitiFiniti, specRogo } from './obiettivi.js';
 import { specScort, primo } from './stat.js';
 import { layout } from './griglia.js';
+import { portaChiusa } from './domande.js';
 
 // «QUI L'USCITA NON BASTA» (Ep.4, T5): dove l'episodio ha ANCHE dei compiti, la
 // scorta portata in salvo non chiude da sola. Il fascicolo lo dice due volte —
@@ -21,6 +22,7 @@ import { layout } from './griglia.js';
 // non esisteva nei dati. Inerte negli altri episodi-scorta, che di compiti non
 // ne hanno.
 export function scortaPuoVincere(g) {
+  if (portaChiusa(g)) return false;
   return !specCompiti(g).length || compitiFiniti(g);
 }
 

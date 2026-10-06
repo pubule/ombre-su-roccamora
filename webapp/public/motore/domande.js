@@ -36,7 +36,7 @@ function esiti(g) {
 export function effettiAttivi(g) {
   const e = { spawn_t1: {}, senza_spawn: {}, smascherato: [], boss_salta: null,
               boss_difesa: 0, nessuna_minaccia_r1: false, minaccia_extra_r1: 0,
-              senza_prova: [], traccia_iniziale: 0, bonus_vento: 0 };
+              senza_prova: [], traccia_iniziale: 0, bonus_vento: 0, porta_forzata: null };
   for (const { d, esatta } of esiti(g)) {
     const x = (esatta ? d.premio : d.penalita) || {};
     if (x.nessuna_minaccia_r1) e.nessuna_minaccia_r1 = true;
@@ -49,6 +49,7 @@ export function effettiAttivi(g) {
     e.senza_prova.push(...(x.senza_prova || []));
     e.traccia_iniziale += x.traccia_iniziale || 0;
     e.bonus_vento += x.bonus_vento || 0;
+    if (x.porta_forzata) e.porta_forzata = x.porta_forzata;
   }
   return e;
 }
@@ -62,6 +63,7 @@ export function avviaEffetti(g, primaTessera) {
   sp.effetti = {
     nessuna_minaccia_r1: e.nessuna_minaccia_r1, minaccia_extra_r1: e.minaccia_extra_r1,
     senza_spawn: e.senza_spawn, smascherato: [...e.smascherato], senza_prova: e.senza_prova,
+    porta_forzata: e.porta_forzata,
   };
   // «la DEMOLIZIONE parte da 2»: la traccia dell'episodio (motore/obiettivi.js) non
   // parte da zero. Solo dove l'episodio ha un orologio.
@@ -110,6 +112,13 @@ export function smascherati(g, nome) {
 // L'insidia d'ingresso che una Domanda esatta toglie da una tessera.
 export function senzaProva(g, tileId) {
   return (((g.sp.effetti || {}).senza_prova) || []).includes(tileId);
+}
+
+// IL LUCCHETTO (Ep.1, Domanda 3 sbagliata): la porta va forzata con una prova prima che
+// la scorta possa uscire. Dà la regola finché la porta regge, altrimenti null.
+export function portaChiusa(g) {
+  const pf = (g.sp.effetti || {}).porta_forzata;
+  return pf && !g.sp.portaForzata ? pf : null;
 }
 
 // I nemici che una Domanda esatta toglie da una tessera.

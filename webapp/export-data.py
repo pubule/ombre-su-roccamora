@@ -896,6 +896,8 @@ EFFETTI_DOMANDE.update({
     ('ep3', 3): dict(penalita=dict(spawn_t1={'LA VOCE CAVA': 1})),
     ('ep4', 2): dict(premio=dict(senza_spawn={'T6': ['LA CLAQUE']})),
     ('ep1', 2): dict(premio=dict(smascherato=['ADEPTO INCAPPUCCIATO'])),
+    # «va forzata: ACUME Difficile; ogni fallimento = 1 carta Minaccia» (il piede di porco dà +1)
+    ('ep1', 3): dict(penalita=dict(porta_forzata=dict(tile='T1', attr='acume', diff='Difficile', bonus=['piede di porco']))),
     ('ep2', 2): dict(premio=dict(smascherato=['LO SGHERRO', 'IL SICARIO'])),
     # il boss stonato: Difesa 8→5 e salta la prossima attivazione
     ('ep2', 4): dict(premio=dict(boss_difesa=-3, boss_salta='attivazione')),

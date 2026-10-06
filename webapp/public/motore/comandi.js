@@ -162,7 +162,8 @@ const GESTORI = {
       sp.minacceDaPescare = 0; sp.minacceTotali = 0;
       return { eventi: [{ tipo: 'annuncio', testo: riga }] };
     }
-    n = nDomande;
+    n = nDomande + (sp.minacciaPunita || 0);
+    sp.minacciaPunita = 0;
     if (sp.diversivoPronto) {
       n = Math.max(0, n - 1); sp.diversivoPronto = false;
       sp.log.push('Diversivo di Fanti: 1 carta Minaccia in meno.');
