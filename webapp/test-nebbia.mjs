@@ -75,11 +75,12 @@ const canvas = (page) => page.locator('#vanta-bg canvas').count();
   await page.context().close();
 }
 
-// --- 3. chi non vuole animazioni non le ha
+// --- 3. chi chiede meno movimento ha la nebbia piu' lenta. NON ferma: Vanta legge `speed || 1`, quindi 0
+// valeva 1 (la nebbia si muoveva comunque) e a nebbia immobile l'app sembra rotta.
 {
   const { page } = await nuova({ reducedMotion: 'reduce' });
   const v = await page.evaluate(() => VANTA.current && VANTA.current.options.speed);
-  ok(v === 0, `con prefers-reduced-motion la nebbia sta ferma (speed ${v})`);
+  ok(v > 0 && v < 1, `con prefers-reduced-motion la nebbia scorre piano, non ferma (speed ${v})`);
   await page.context().close();
 }
 
