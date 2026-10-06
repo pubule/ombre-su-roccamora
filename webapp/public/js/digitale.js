@@ -2518,6 +2518,12 @@ async function eseguiTurnoNemici(piano) {
     if (tokel) tokel.classList.remove('attivo-nem');
   }
   if (ctx.saltaNemici) { for (const s of piano) setTokenPos(`N:${s.i}`, s.pos1, true); }
+  // LA NOTTE FINISCE QUANDO SI E' VISTA FINIRE. Dopo l'ultimo nemico restavano a schermo il suo banner
+  // («colpisce», «manca») e il numero del danno, e intanto la plancia tornava agli eroi: si poteva gia'
+  // muovere mentre la notte stava ancora parlando. Si aspetta che spariscano (al massimo 2,5 s).
+  if (!ctx.saltaNemici) {
+    for (let atteso = 0; atteso < 2500 && document.querySelector('.turno-banner.nemico, .dmg-pop'); atteso += 100) await pausa(100);
+  }
   piano.annunci.forEach((a) => log(a));
   ctx.viteVista = null;          // da qui in poi si mostra lo stato reale
   ctx.saltaNemici = false; ctx.ultimaCentrata = null;
