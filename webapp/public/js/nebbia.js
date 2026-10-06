@@ -78,6 +78,24 @@ if (typeof VANTA !== 'undefined') {
     if (typeof fx.resize === 'function') fx.resize();
   };
   if (bg && typeof ResizeObserver !== 'undefined') new ResizeObserver(rimisura).observe(bg);
+  // Safari su iPhone cambia l'altezza visibile mentre si scorre (la barra si ritira) e il `resize`
+  // arriva tardi o non arriva: si ricontrolla anche allo scorrimento e al viewport visivo, solo se la
+  // proporzione del buffer di disegno non e' piu' quella del contenitore.
+  let attesa = null;
+  const controlla = () => {
+    if (attesa || !bg || immersivo()) return;
+    attesa = setTimeout(() => {
+      attesa = null;
+      const c = bg.querySelector('canvas');
+      if (!c || !bg.clientHeight || !c.height) return;
+      const proporzioneBuffer = c.width / c.height; const proporzioneDiv = bg.clientWidth / bg.clientHeight;
+      if (Math.abs(proporzioneBuffer - proporzioneDiv) / proporzioneDiv > 0.05) rimisura();
+    }, 250);
+  };
+  addEventListener('scroll', controlla, { passive: true });
+  addEventListener('resize', controlla);
+  addEventListener('orientationchange', controlla);
+  if (window.visualViewport) visualViewport.addEventListener('resize', controlla);
   addEventListener('pageshow', rimisura);
   document.addEventListener('visibilitychange', () => { if (!document.hidden) rimisura(); });
   if (app) {

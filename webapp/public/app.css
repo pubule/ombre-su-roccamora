@@ -110,7 +110,14 @@ em, i { font-style: italic; }
    sulla carta che si gira, .c3d-ombra) — qui si evita dando a .schermo uno
    z-index esplicito, cosi' l'app resta sempre sopra qualunque cosa nebbia
    ci metta dietro. */
-#vanta-bg { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+#vanta-bg { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+/* IL CANVAS COPRE SEMPRE TUTTO LO SFONDO, comunque lo misuri Vanta. three.js gli scrive in linea
+   larghezza e altezza in pixel: se la misura e' vecchia (la barra di Safari si ritira, il div era
+   nascosto, la finestra e' cambiata) il canvas restava alto 200-250px e copriva solo la cima della
+   pagina. Con !important l'elemento si adatta al contenitore e, al massimo, la nebbia — gia' sfocata
+   — risulta un po' stirata finche' non viene rimisurata. */
+#vanta-bg canvas { position: absolute; left: 0; top: 0; width: 100% !important; height: 100% !important;
+  display: block; }
 .schermo { position: relative; z-index: 1; max-width: 1080px; margin: 0 auto; padding: 20px 16px 40px; }
 
 /* l'etichetta battuta a macchina: dice quale fascicolo hai in mano */
