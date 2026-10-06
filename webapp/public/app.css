@@ -1720,7 +1720,13 @@ canvas.calore { z-index: 2; pointer-events: none; opacity: .32; }
 @keyframes str-luna-respira { 50% { opacity: .72; transform: scale(1.06); } }
 @keyframes str-luna-fascio { 50% { opacity: .55; transform: rotate(-8deg) translateX(6%); } }
 @keyframes str-luna-velo { from { transform: translateX(0); } to { transform: translateX(62%); } }
-@media (prefers-reduced-motion: reduce) { .str-luna i { animation: none; } }
+/* con «riduci movimento» l'alone e il fascio stanno fermi, ma i veli scorrono lenti: nebbia immobile
+   sembra una mappa rotta */
+@media (prefers-reduced-motion: reduce) {
+  .str-luna .alone, .str-luna .fascio { animation: none; }
+  .str-luna .velo.v1 { animation-duration: 90s; }
+  .str-luna .velo.v2 { animation-duration: 120s; }
+}
 .str-cartiglio.sotto { transform: translate(-50%, 22px); }
 .str-cartiglio[hidden] { display: none; }
 

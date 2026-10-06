@@ -41,9 +41,12 @@ if (typeof VANTA !== 'undefined') {
     el: '#vanta-bg', mouseControls: false, touchControls: false, gyroControls: false,
     minHeight: 200, minWidth: 200, scale: 2, scaleMobile: 2,
     baseColor: 0x0c0e11, lowlightColor: 0x06191a, midtoneColor: 0x1a4a4d, highlightColor: 0x5c3421,
-    blurFactor: 0.35, speed: matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 0.8, zoom: 1,
+    // `speed` moltiplica il tempo (Vanta legge `speed || 1`, quindi 0 NON ferma: vale 1). A 0.8 la
+    // nebbia scorreva cosi' piano che sul telefono sembrava ferma; con «riduci movimento» resta lenta.
+    blurFactor: 0.35, speed: matchMedia('(prefers-reduced-motion: reduce)').matches ? 0.6 : 2.4, zoom: 1,
   };
   let fx = VANTA.FOG(opzioni);
+  window.nebbiaFx = () => fx;      // per i banchi di prova: velocita' e tempo della nebbia viva
   const app = document.getElementById('app');
   const bg = document.getElementById('vanta-bg');
   const immersivo = () => !!app && app.classList.contains('immersivo');
