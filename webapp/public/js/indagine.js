@@ -9,6 +9,7 @@ import { rendi, norm, bussa, dichiaraVoce, vociMappa, luogoVisitabile,
          controBusta, domandeBusta,
          urlArt, cartaLuogo, cartaApprofondimento, cartaOggetto,
          cartaGrande } from './engine.js';
+import { stradarioMappaHtml, agganciaStradarioMappa } from './stradario-mappa.js';
 import { episodioColBivio } from '../motore/bivi.js';
 import { applica } from '../motore/comandi.js';
 import { provaDiIndagine } from '../motore/indagine.js';
@@ -694,38 +695,19 @@ function stradarioHtml() {
     const vb = visitati.has((luoghiPerVoce[norm(b.nome)] || {}).n) ? 1 : 0;
     return va - vb;
   });
-  return `<div class="pannello">
-    <h2>dove andate?</h2>
-    <input class="cerca" id="cerca-via" placeholder="cerca una via…" autocomplete="off">
-    <div class="stradario mt" id="lo-stradario">
-      ${ordinate.map((v) => {
-        const l = luoghiPerVoce[norm(v.nome)];
-        // SOLO «gia' battuto»: qualunque altra etichetta di stato direbbe dove
-        // andare, e l'app e' l'arbitro che custodisce proprio quello.
-        const battuto = l && visitati.has(l.n);
-        return `<button class="voce${battuto ? ' battuta' : ''}" data-voce="${esc(v.nome)}"
-          data-cerca="${esc(norm(v.nome + ' ' + (v.indirizzo || '')))}">
-          <b>${esc(v.nome)}</b> <i>${esc(v.indirizzo)}</i>${
-            battuto ? '<span class="visitato">già battuto</span>' : ''}</button>`;
-      }).join('')}
-    </div>
-  </div>`;
+  // SOLO «gia' battuto»: qualunque altra etichetta di stato direbbe dove andare, e l'app e'
+  // l'arbitro che custodisce proprio quello.
+  ctx.vociStradario = ordinate.map((v) => {
+    const l = luoghiPerVoce[norm(v.nome)];
+    return { nome: v.nome, indirizzo: v.indirizzo, battuta: !!(l && visitati.has(l.n)) };
+  });
+  return stradarioMappaHtml(ctx.vociStradario);
 }
 
 // Ventidue voci sono piu' di quante se ne scandiscano mentre il tavolo aspetta:
 // si filtra sul posto, senza ridisegnare (ridisegnare svuoterebbe il campo).
 function agganciaStradario() {
-  const { app } = ctx;
-  app.querySelectorAll('.voce[data-voce]').forEach((el) =>
-    el.addEventListener('click', () => dichiara(el.dataset.voce)));
-  const campo = app.querySelector('#cerca-via');
-  if (!campo) return;
-  campo.addEventListener('input', () => {
-    const q = norm(campo.value.trim());
-    app.querySelectorAll('.voce[data-cerca]').forEach((el) => {
-      el.style.display = !q || el.dataset.cerca.includes(q) ? '' : 'none';
-    });
-  });
+  agganciaStradarioMappa(ctx.app, ctx.vociStradario || [], { onDichiara: dichiara });
 }
 
 // IL TIRO DI QUALCUN ALTRO, sul proprio schermo. L'evento `tiro` porta gia'

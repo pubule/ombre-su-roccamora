@@ -1649,3 +1649,99 @@ canvas.calore { z-index: 2; pointer-events: none; opacity: .32; }
 .tipi .btn .chi { color: var(--osso-fioco); font-family: 'OldStd', Georgia, serif;
   font-style: italic; letter-spacing: 0; margin-left: auto; padding-left: 10px; }
 .tipi .btn[disabled] { opacity: .45; }
+
+/* ═══ LO STRADARIO SULLA MAPPA — «la lanterna nella nebbia» ═══════════════
+   Porto di mockups/stradario/c-lanterna.html (+ stradario.css). La città è al buio: dove il gruppo
+   è già passato la nebbia si è aperta, la via scelta la illumina la lanterna. Nessun testo
+   sull'immagine nuda (i nomi stanno su una lastra), bersagli da 44px, UN SOLO stato: «già battuto». */
+.str-intesta { display: flex; align-items: baseline; justify-content: space-between; gap: 10px;
+  flex-wrap: wrap; margin-bottom: 6px; }
+.str-intesta h2 { margin: 0; }
+.str-intesta .nota { margin: 0; }
+.str-telaio { position: relative; border-radius: 14px; overflow: hidden;
+  border: 1px solid var(--bordo); background: #07080a;
+  box-shadow: 0 18px 40px rgba(0,0,0,.55), inset 0 0 0 1px rgba(255,255,255,.03); }
+.str-scorre { overflow: auto; max-height: 72vh; max-height: 72dvh;
+  overscroll-behavior: contain; scrollbar-width: thin; }
+.str-mappa { position: relative; width: 100%; aspect-ratio: 1904 / 2544;
+  background-size: 100% 100%; transition: width .25s ease; }
+.str-mappa > .str-arte { position: absolute; inset: 0; background: inherit; background-size: 100% 100%;
+  filter: brightness(.95) saturate(1); }
+.str-mappa::after { content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(120% 85% at 50% 45%, rgba(0,0,0,0) 45%, rgba(5,6,8,.65) 100%); }
+.str-nebbia { position: absolute; inset: 0; z-index: 1; width: 100%; height: 100%; pointer-events: none; }
+.str-nebbia .buio { fill: #06080b; opacity: .78; }
+#str-luce { transition: cx .35s ease, cy .35s ease, r .35s ease; }
+/* in alto a sinistra: sta sulla rosa dei venti, dove non c'e' una via */
+.str-zoom { position: absolute; left: 10px; top: 10px; z-index: 4; display: flex;
+  flex-direction: column; gap: 6px; }
+.str-zoom .zoom-btn { width: 44px; height: 44px; font-size: 22px; border-radius: 10px; }
+
+/* i lumini: spenti dove non siete stati, accesi dove si', e la vostra lanterna sulla via scelta */
+.str-pin { position: absolute; z-index: 2; transform: translate(-50%, -50%);
+  width: 44px; height: 44px; min-height: 44px; padding: 0; border: 0; background: none;
+  display: grid; place-items: center; cursor: pointer; }
+.str-pin .testa { width: 14px; height: 14px; border-radius: 50%; background: #2a2f37;
+  box-shadow: 0 0 0 1.5px rgba(232,194,122,.55), 0 0 6px rgba(0,0,0,.8);
+  transition: transform .15s ease, box-shadow .15s ease; }
+.str-pin:hover .testa, .str-pin:focus-visible .testa { transform: scale(1.25); }
+.str-pin.battuta .testa { width: 16px; height: 16px;
+  background: radial-gradient(circle, #fff3d6 0%, var(--nastro) 45%, #9c6a1f 100%);
+  box-shadow: 0 0 10px 3px rgba(232,194,122,.55); }
+.str-pin.scelto .testa { width: 18px; height: 18px;
+  background: radial-gradient(circle, #fffaf0 0%, var(--nastro) 50%, #9c6a1f 100%);
+  box-shadow: 0 0 0 2px rgba(12,14,17,.85), 0 0 26px 10px rgba(232,194,122,.55);
+  animation: str-respira 2.4s ease-in-out infinite; }
+.str-pin.spento { opacity: .18; pointer-events: none; }
+@keyframes str-respira { 50% { opacity: .82; } }
+.str-cartiglio { position: absolute; z-index: 3; transform: translate(-50%, calc(-100% - 22px));
+  pointer-events: none; white-space: nowrap; max-width: 70vw; overflow: hidden;
+  text-overflow: ellipsis; font-family: 'FellSC', serif; font-size: 15px; letter-spacing: .04em;
+  padding: 5px 12px; border-radius: 999px; background: rgba(12,14,17,.9);
+  border: 1px solid var(--nastro); color: var(--osso); backdrop-filter: blur(6px); }
+.str-cartiglio[hidden] { display: none; }
+
+.str-legenda { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 10px; color: var(--osso-fioco);
+  font-size: 14px; }
+.str-legenda span { display: inline-flex; align-items: center; gap: 8px; }
+.str-legenda i { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+.str-legenda .sp { background: #2a2f37; box-shadow: 0 0 0 1.5px rgba(232,194,122,.55); }
+.str-legenda .ac { background: var(--nastro); box-shadow: 0 0 8px 2px rgba(232,194,122,.55); }
+
+/* la dichiarazione: la lastra in fondo, sempre a portata di pollice */
+.str-dichiara { position: sticky; bottom: 0; z-index: 6; margin: 10px -16px 0; padding: 12px 16px 14px;
+  background: linear-gradient(180deg, rgba(12,14,17,0) 0%, rgba(12,14,17,.96) 22%); }
+.str-lastra { display: grid; gap: 10px; border: 1px solid var(--nastro); border-radius: 14px;
+  padding: 12px 14px; background: var(--ardesia); backdrop-filter: blur(6px); }
+.str-lastra .dove { font-family: 'FellSC', serif; font-size: 20px; line-height: 1.15; }
+.str-lastra .indirizzo { color: var(--osso-fioco); font-style: italic; font-size: 15px; }
+.str-lastra .vuoto { color: var(--osso-fioco); font-style: italic; }
+.str-lastra .btn.pieno { justify-content: center; min-height: 52px; font-size: 18px; }
+.str-lastra .battuto-tag { font-family: 'FellSC', serif; font-size: 13px; color: #f0a3ab;
+  letter-spacing: .08em; }
+
+/* l'elenco a fianco: le vie battute in fondo e smorzate */
+.str-elenco { display: grid; gap: 6px; grid-template-columns: 1fr; }
+.str-elenco .voce { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.str-elenco .voce .nome { display: block; }
+.str-elenco .voce .indirizzo { display: block; color: var(--osso-fioco); font-style: italic; font-size: 14px; }
+.str-elenco .voce.scelta { border-color: var(--nastro); box-shadow: inset 0 0 0 1px var(--nastro); }
+.str-elenco .voce.battuta { opacity: .5; }
+.str-elenco .voce .segno { white-space: nowrap; }
+.timbro { font-family: 'FellSC', serif; font-size: 12px; letter-spacing: .08em; color: #f0a3ab;
+  border: 1px solid rgba(240,163,171,.45); border-radius: 3px; padding: 1px 6px;
+  transform: rotate(-4deg); display: inline-block; }
+
+.str-colonne { display: grid; gap: 14px; }
+.str-colonne > * { min-width: 0; }
+@media (min-width: 900px) {
+  .str-colonne { grid-template-columns: minmax(0, 1fr) 340px; align-items: start; }
+  .str-colonne .str-fianco { position: sticky; top: 74px; max-height: calc(100vh - 92px); overflow: auto; }
+  .str-scorre { max-height: calc(100vh - 150px); }
+}
+.str-piega { display: none; }
+@media (max-width: 899px) {
+  /* sul telefono l'elenco e' un ripiego: si apre se la mappa non basta */
+  .str-piega { display: flex; width: 100%; justify-content: center; margin-top: 10px; }
+  .str-fianco.chiuso { display: none; }
+}

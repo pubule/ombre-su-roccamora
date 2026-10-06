@@ -169,6 +169,7 @@ for (const sc of SCELTI) {
       // chiusura per orario: dichiarata comunque, deve costare zero
       if (l.chiude != null && st.indagine.ora >= l.chiude) {
         await page.locator(`.voce[data-voce="${l.voce_mappa}"]`).click();
+        await page.click('#str-andate');
         await page.locator('#ok-msg').waitFor();
         const testo = await page.locator('.pannello').innerText();
         ok(/troppo tardi/i.test(testo), `${l.voce_mappa}: manca il "troppo tardi" oltre l'orario`);
@@ -178,6 +179,7 @@ for (const sc of SCELTI) {
         continue;
       }
       await page.locator(`.voce[data-voce="${l.voce_mappa}"]`).click();
+      await page.click('#str-andate');
       let dove = await schermata(page);
       if (dove === '#dichiarazione') {
         ok(!l.aperto, `${l.voce_mappa}: chiede la chiave ma è un luogo aperto`);

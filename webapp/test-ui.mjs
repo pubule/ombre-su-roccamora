@@ -133,6 +133,7 @@ try {
   }, (await (await fetch(`${BASE}/data/ep1.json`)).json()).luoghi.map((l) => l.voce_mappa.trim().toUpperCase()));
   if (fredda) {
     await page.locator(`.voce[data-voce="${fredda}"]`).click();
+    await page.click('#str-andate');
     ok(await page.getByText('pista fredda').count() > 0, `pista fredda su "${fredda}"`);
     await page.locator('#ok-msg').click();
   }
@@ -142,6 +143,7 @@ try {
   // solo se il gruppo chiede un Approfondimento, e lo tira chi fruga.
   console.log('visita luogo aperto (nessun tiro entrando)');
   await page.locator('.voce[data-voce="Vicolo dei Fonditori"]').click();
+  await page.click('#str-andate');
   await page.locator('.scena').waitFor();
   ok(await page.locator('.dadi-overlay').count() === 0, 'entrando NON si tira nessun dado');
   ok(await page.locator('.scelta-box').count() === 0, 'e non si sceglie nessun eroe');
@@ -282,6 +284,7 @@ try {
   if (fredda) {
     await page.locator('.voce').first().waitFor();
     await page.locator(`.voce[data-voce="${fredda}"]`).click();
+    await page.click('#str-andate');
     await page.locator('#ok-msg').waitFor();
     await page.locator('#ok-msg').click();
     await page.waitForTimeout(400);
@@ -294,11 +297,13 @@ try {
   // --- bussata sbagliata: la porta NON deve sbloccarsi ----------------------
   console.log('bussata sbagliata alla Cattedrale');
   await page.locator('.voce[data-voce="La Cattedrale"]').click();
+  await page.click('#str-andate');
   await page.locator('#dichiarazione').fill('parola a caso');
   await page.locator('#prova').click();
   ok(await page.getByText('niente da fare').count() > 0, 'porta resta chiusa');
   await page.locator('#ok-msg').click();
   await page.locator('.voce[data-voce="La Cattedrale"]').click();
+  await page.click('#str-andate');
   const ancoraChiusa = await page.locator('#dichiarazione').count() === 1;
   ok(ancoraChiusa, 'seconda visita richiede ANCORA la chiave (bug bussata sbagliata)');
 

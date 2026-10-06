@@ -201,7 +201,9 @@ def main():
     for f in os.listdir(art_dir):
         if not f.lower().endswith(('.jpg', '.png')):
             continue
-        if converti(os.path.join(art_dir, f), os.path.join(OUT, 'artworks', f), 900):
+        # la mappa dello stradario si ingrandisce fino al 230%: a 900px sul telefono sarebbe sgranata
+        mx = 1500 if f == 'Mappa di campagna di Roccamora.jpg' else 900
+        if converti(os.path.join(art_dir, f), os.path.join(OUT, 'artworks', f), mx):
             fatti += 1
     # i dorsi della carta che si gira (carta3d.js): ~30 KB l'uno invece dei ~900
     # del png in artworks/, che a ogni carta pescata pesa. Il nome perde il
