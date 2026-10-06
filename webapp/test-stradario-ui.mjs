@@ -41,6 +41,12 @@ ok(await pg.locator('.str-pin.battuta').count() === 2, 'le due vie battute sono 
 ok(await pg.locator('.str-fianco').isVisible(), 'sullo schermo largo l elenco sta di fianco');
 ok(/la citt. . al buio/i.test(await pg.locator('#str-dichiara').innerText()), 'prima di scegliere la lastra dice «la citta e al buio»');
 
+// la luna tra la nebbia: uno strato di luce che non intercetta i tocchi e si muove piano
+ok(await pg.evaluate(() => {
+  const l = document.querySelector('.str-luna'); if (!l) return false;
+  const a = getComputedStyle(l.querySelector('.alone'));
+  return getComputedStyle(l).pointerEvents === 'none' && a.animationName !== 'none';
+}), 'la luna tra la nebbia c e, non intercetta i tocchi e respira');
 await pg.locator('.str-pin:not(.battuta)').first().click({ force: true });
 ok(await pg.locator('.str-pin.scelto').count() === 1, 'toccato un lumino diventa la lanterna');
 ok(await pg.locator('#str-cartiglio').isVisible(), 'il cartiglio col nome compare sulla mappa');

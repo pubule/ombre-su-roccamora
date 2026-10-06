@@ -56,6 +56,7 @@ export function stradarioMappaHtml(voci) {
                 </defs>
                 <rect class="buio" width="100" height="133.6" mask="url(#str-maschera)"/>
               </svg>
+              <div class="str-luna" aria-hidden="true"><i class="alone"></i><i class="fascio"></i><i class="velo v1"></i><i class="velo v2"></i></div>
               ${lumini}
               <div class="str-cartiglio" id="str-cartiglio" hidden></div>
             </div>

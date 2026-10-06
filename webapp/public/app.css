@@ -1699,6 +1699,28 @@ canvas.calore { z-index: 2; pointer-events: none; opacity: .32; }
   text-overflow: ellipsis; font-family: 'FellSC', serif; font-size: 15px; letter-spacing: .04em;
   padding: 5px 12px; border-radius: 999px; background: rgba(12,14,17,.9);
   border: 1px solid var(--nastro); color: var(--osso); backdrop-filter: blur(6px); }
+/* LA LUNA TRA LA NEBBIA: una luce fredda che respira in alto a sinistra, un fascio obliquo, e due
+   veli di nebbia chiara che scorrono piano. Sta SOPRA il buio e sotto i lumini, mescolata in
+   `screen`: schiarisce la nebbia senza coprire la mappa. Solo transform e opacita' (la GPU),
+   e ferma per chi ha chiesto meno movimento. */
+.str-luna { position: absolute; inset: 0; z-index: 1; pointer-events: none; overflow: hidden;
+  mix-blend-mode: screen; }
+.str-luna i { position: absolute; display: block; will-change: transform, opacity; }
+.str-luna .alone { left: -30%; top: -22%; width: 95%; height: 70%;
+  background: radial-gradient(closest-side, rgba(205,225,255,.5), rgba(130,165,225,.2) 52%, rgba(0,0,0,0) 100%);
+  animation: str-luna-respira 9s ease-in-out infinite; }
+.str-luna .fascio { left: -10%; top: -5%; width: 70%; height: 120%;
+  background: linear-gradient(112deg, rgba(0,0,0,0) 38%, rgba(190,215,255,.13) 50%, rgba(0,0,0,0) 62%);
+  transform: rotate(-8deg); animation: str-luna-fascio 14s ease-in-out infinite; }
+.str-luna .velo { left: -60%; width: 130%; height: 24%;
+  background: radial-gradient(closest-side, rgba(175,205,240,.26), rgba(0,0,0,0));
+  filter: blur(8px); animation: str-luna-velo 46s linear infinite; }
+.str-luna .velo.v1 { top: 26%; }
+.str-luna .velo.v2 { top: 60%; animation-duration: 62s; animation-delay: -28s; opacity: .8; }
+@keyframes str-luna-respira { 50% { opacity: .72; transform: scale(1.06); } }
+@keyframes str-luna-fascio { 50% { opacity: .55; transform: rotate(-8deg) translateX(6%); } }
+@keyframes str-luna-velo { from { transform: translateX(0); } to { transform: translateX(62%); } }
+@media (prefers-reduced-motion: reduce) { .str-luna i { animation: none; } }
 .str-cartiglio.sotto { transform: translate(-50%, 22px); }
 .str-cartiglio[hidden] { display: none; }
 
