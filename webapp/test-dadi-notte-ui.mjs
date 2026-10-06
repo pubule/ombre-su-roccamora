@@ -50,6 +50,16 @@ await page.click('#ins-risolvi');
 await page.waitForSelector('#ok-msg', { state: 'visible', timeout: 5000 });
 ok(await page.locator('.dadi-overlay').count() === 0, 'nessuna finestra dei dadi: tira l app');
 ok(await page.locator('#ins-esito p').count() >= 3, `un esito per eroe (${await page.locator('#ins-esito p').count()})`);
+// un ridisegno DOPO le prove (la spinta del tavolo) non deve riportare la carta al bottone:
+// era il giro senza uscita — si tirava di nuovo per ogni eroe, all'infinito
+await page.evaluate(async () => { (await import('/js/digitale.js'))._motore.render(); });
+await page.waitForTimeout(300);
+ok(await page.evaluate(() => {
+  const r = document.querySelector('#ins-risolvi');
+  const okb = document.querySelector('#ok-msg');
+  return (!r || getComputedStyle(r).display === 'none') && okb && getComputedStyle(okb).display !== 'none'
+    && document.querySelectorAll('#ins-esito p').length >= 3;
+}), 'dopo un ridisegno la carta resta risolta: niente bottone «risolvete», c e continua e gli esiti');
 await page.close();
 
 // preferenza gia' accesa nella partita: stesso risultato senza toccare niente

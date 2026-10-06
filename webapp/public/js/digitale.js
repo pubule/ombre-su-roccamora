@@ -1270,7 +1270,10 @@ function schermataCarta(aperta, alOk = null) {
   // dallo stato, il bottone del tiro e' rimasto dietro: non si tirava piu').
   // «Con [oggetto]» puo' togliere la prova o abbassarne la difficolta' (aperta.prova)
   const base = aperta.carta && arbitro() ? provaRichiesta(aperta.carta.rules) : null;
-  const req = !base || aperta.prova === 'nessuna' ? null : (aperta.prova ? { ...base, diff: aperta.prova } : base);
+  // la prova gia' risolta (`aperta.esiti`) non si richiede di nuovo: un ridisegno qui (la spinta del
+  // tavolo, un altro schermo) riportava la carta al bottone «risolvete» e la prova si ripeteva all'infinito
+  const risolta = Array.isArray(aperta.esiti);
+  const req = !base || risolta || aperta.prova === 'nessuna' ? null : (aperta.prova ? { ...base, diff: aperta.prova } : base);
   const fav = aperta.favore;
   const DIR = { N: 'nord', S: 'sud', E: 'est', O: 'ovest' };
   app.classList.remove('immersivo');
@@ -1292,7 +1295,7 @@ function schermataCarta(aperta, alOk = null) {
         : `${arteStanza(aperta.tessera)}
            <p class="mt">${rendi(aperta.testo || '')}</p>`}
       ${(aperta.annunci || []).map((a) => `<p class="mt"><b>${esc(a)}</b></p>`).join('')}
-      <div id="ins-esito"></div>
+      <div id="ins-esito">${risolta ? aperta.esiti.map((x) => `<p class="nota mt">${esc(x)}</p>`).join('') : ''}</div>
     </div>
     ${fav ? (arbitro()
       ? `<p class="nota mt">Scegliete quale porta si apre:</p>
@@ -1339,6 +1342,7 @@ function schermataCarta(aperta, alOk = null) {
       if (r.ok) esiti.push(`${primo(t)}: prova superata.`);
       else esiti.push(...applicaConseguenza(t, aperta.carta.rules));
     }
+    aperta.esiti = esiti;
     salvaP();
     app.querySelector('#ins-esito').innerHTML = esiti.map((x) => `<p class="nota mt">${esc(x)}</p>`).join('');
     rb.style.display = 'none';
