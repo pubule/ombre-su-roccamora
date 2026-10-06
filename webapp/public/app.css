@@ -1699,6 +1699,7 @@ canvas.calore { z-index: 2; pointer-events: none; opacity: .32; }
   text-overflow: ellipsis; font-family: 'FellSC', serif; font-size: 15px; letter-spacing: .04em;
   padding: 5px 12px; border-radius: 999px; background: rgba(12,14,17,.9);
   border: 1px solid var(--nastro); color: var(--osso); backdrop-filter: blur(6px); }
+.str-cartiglio.sotto { transform: translate(-50%, 22px); }
 .str-cartiglio[hidden] { display: none; }
 
 .str-legenda { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 10px; color: var(--osso-fioco);

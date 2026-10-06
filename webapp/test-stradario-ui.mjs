@@ -14,7 +14,7 @@ let ko = 0;
 const ok = (c, m) => { if (!c) { console.error('FAIL:', m); ko++; } console.log(`   ${c ? 'OK  ' : 'FAIL'} ${m}`); };
 
 const browser = await chromium.launch();
-async function apri(w, h) {
+async function apri(w, h, id = 'ep1', titolo = EP.titolo) {
   const pg = await browser.newPage({ viewport: { width: w, height: h } });
   const errori = [];
   pg.on('pageerror', (e) => errori.push(e.message));
@@ -24,9 +24,9 @@ async function apri(w, h) {
     localStorage.setItem(`osr.partita.${id}`, JSON.stringify({ v: 1, episodio: id, modo: 'digitale', plancia: 'schermo', party: p, creata: Date.now(), fase: 'indagine',
       indagine: { ora: 21, lettaLettera: true, visitati: [3, 4], scoperti: [], sbloccati: [], parole: [], oggetti: [], reperti: [], approfondimentiLetti: [], caricheUsate: {}, secondoFiato: {}, note: '', risposte: ['', '', '', ''], chiusa: false },
       vantaggi: { tier: 'preparati' }, spedizione: { round: 0, canto: 0, cantoBonus: false, mazzo: null, esito: null } }));
-  }, { p: party, id: 'ep1' });
+  }, { p: party, id });
   await pg.goto('http://localhost:8017', { waitUntil: 'domcontentloaded' });
-  await pg.getByText(EP.titolo).first().click();
+  await pg.getByText(titolo).first().click();
   await pg.waitForSelector('#apri-caso'); await pg.click('#apri-caso');
   await pg.waitForSelector('#str-mappa');
   return { pg, errori };
@@ -71,6 +71,23 @@ ok(await pg.locator('.str-fianco').isVisible(), 'il tasto «l elenco delle vie»
 const sfora = await pg.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
 ok(sfora <= 0, `niente sforamento in larghezza (${sfora}px)`);
 ok(errori.length === 0, `nessun errore JS: ${errori.slice(0, 3).join(' | ')}`);
+await pg.close();
+
+// ---- il cartiglio non esce mai dalla mappa, per nessuna via (Ep.2 ha la Corte della Faenza, a sinistra)
+const EP2 = JSON.parse(readFileSync('webapp/data/ep2.json', 'utf8'));
+({ pg, errori } = await apri(390, 844, 'ep2', EP2.titolo));
+const nomi = await pg.locator('.str-pin').evaluateAll((els) => els.map((e) => e.dataset.voce));
+const fuori = [];
+for (const nome of nomi) {
+  await pg.locator(`.str-pin[data-voce="${nome}"]`).click({ force: true });
+  const r = await pg.evaluate(() => {
+    const c = document.querySelector('#str-cartiglio').getBoundingClientRect();
+    const m = document.querySelector('#str-mappa').getBoundingClientRect();
+    return { l: c.left - m.left, r: m.right - c.right, t: c.top - m.top };
+  });
+  if (r.l < -1 || r.r < -1 || r.t < -1) fuori.push(`${nome} (${Math.round(r.l)}, ${Math.round(r.r)}, ${Math.round(r.t)})`);
+}
+ok(nomi.length > 20 && fuori.length === 0, `nessun cartiglio tagliato su ${nomi.length} vie${fuori.length ? ': ' + fuori.slice(0, 4).join('; ') : ''}`);
 await browser.close();
 console.log(ko ? `${ko} KO` : 'Tutto verde');
 process.exit(ko ? 1 : 0);

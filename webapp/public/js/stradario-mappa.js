@@ -98,7 +98,14 @@ export function agganciaStradarioMappa(radice, voci, { onDichiara }) {
       el.classList.toggle(el.classList.contains('str-pin') ? 'scelto' : 'scelta', el.dataset.voce === nome));
     const p = coordDi(nome);
     if (p) {
-      cart.hidden = false; cart.style.left = p[0] + '%'; cart.style.top = p[1] + '%'; cart.textContent = v.nome;
+      cart.hidden = false; cart.textContent = v.nome;
+      // il cartiglio sta sopra il lumino ma non deve uscire dalla mappa: lo si tiene dentro ai bordi,
+      // e sotto il lumino se in alto non c'e' posto
+      const W = mappa.offsetWidth; const w = cart.offsetWidth; const h = cart.offsetHeight;
+      const x = Math.min(Math.max((p[0] / 100) * W, w / 2 + 6), W - w / 2 - 6);
+      const sotto = (p[1] / 100) * mappa.offsetHeight < h + 34;
+      cart.style.left = x + 'px'; cart.style.top = p[1] + '%';
+      cart.classList.toggle('sotto', sotto);
       luce.setAttribute('cx', p[0]); luce.setAttribute('cy', p[1] * Y);
     } else { cart.hidden = true; luce.setAttribute('cx', -50); luce.setAttribute('cy', -50); }
     q('#str-dichiara').innerHTML = `
