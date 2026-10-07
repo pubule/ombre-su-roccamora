@@ -1,0 +1,252 @@
+<!doctype html><html lang="it"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Attacco dei nemici · scena</title>
+<style>
+  @font-face { font-family: 'FellSC'; src: url('/fonts/IMFellEnglishSC.ttf'); }
+  @font-face { font-family: 'OldStd'; src: url('/fonts/OldStandard-Regular.ttf'); }
+  :root { --tavolo: #0c0e11; --pannello: #14171c; --filo: #2a2f37; --osso: #edeef0; --fioco: #b3b8c0;
+    --lume: #e8c27a; --cera: #d9606d; --sangue: #a3253a; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; }
+  body { background: var(--tavolo); color: var(--osso); font-family: 'OldStd', Georgia, serif; overflow: hidden; }
+  .sc { font-family: 'FellSC', Georgia, serif; letter-spacing: .05em; }
+
+  /* ── la schermata del gioco, semplificata ─────────────────────────── */
+  .app { height: 100dvh; display: grid; grid-template-rows: 44px 1fr; }
+  header { display: flex; align-items: center; justify-content: space-between; padding: 0 10px;
+    border-bottom: 1px solid var(--filo); font-size: 12px; }
+  header .menu { border: 1px solid var(--filo); border-radius: 20px; padding: 5px 10px; font-size: 10px; }
+  .corpo { display: grid; grid-template-columns: 1fr 330px; min-height: 0; }
+  .colonna { position: relative; min-height: 0; display: grid; grid-template-rows: auto 1fr; overflow: hidden;
+    background: #0a1014 url('/assets/vtt/pavimenti/acqua.png') 0 0 / 220px; }
+  .colonna::before { content: ''; position: absolute; inset: 0; background: rgba(6,7,9,.82); }
+  .mappa { position: relative; min-height: 0; display: grid; place-items: center; padding: 10px; }
+  .plancia { position: relative; width: min(100%, 520px, calc(100dvh - 140px)); aspect-ratio: 1;
+    background: url('/assets/vtt/pavimenti/assi-2.png') 0 0 / 20% 20%; border-radius: 4px; }
+  .plancia::after { content: ''; position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(circle at 55% 60%, transparent 0 30%, rgba(2,3,4,.92) 62%); }
+  .tok { position: absolute; width: 17%; aspect-ratio: 1; border-radius: 50%; background-size: cover; background-position: center 20%;
+    transform: translate(-50%, -50%); transition: left .5s ease, top .5s ease, box-shadow .3s, filter .3s; z-index: 2;
+    box-shadow: 0 0 0 2px #1d6b77; }
+  .tok.nem { box-shadow: 0 0 0 2px #6d1522; }
+  .tok.agisce { box-shadow: 0 0 0 3px #ff5a4a, 0 0 22px rgba(255,80,60,.8); z-index: 3; }
+  .tok.bersaglio { box-shadow: 0 0 0 3px var(--lume), 0 0 22px rgba(232,194,122,.8); z-index: 3; }
+  .tok.colpito { animation: scossa .35s; filter: brightness(1.6) saturate(.4) sepia(1) hue-rotate(-40deg); }
+  @keyframes scossa { 25% { translate: -4px 0; } 75% { translate: 4px 0; } }
+  .lato { background: var(--pannello); border-left: 1px solid var(--filo); padding: 12px; overflow: auto; display: flex; flex-direction: column; gap: 12px; }
+  .riquadro { border: 1px solid var(--filo); border-radius: 6px; padding: 10px; }
+  .riquadro h3 { font-family: 'FellSC', serif; font-weight: normal; font-size: 12px; color: var(--lume); letter-spacing: .08em; margin-bottom: 8px; }
+  .giro { display: flex; gap: 6px; flex-wrap: wrap; }
+  .giro i { width: 38px; height: 38px; border-radius: 50%; background-size: cover; background-position: center 20%; opacity: .5; box-shadow: 0 0 0 1px #6d1522; }
+  .giro i.ora { opacity: 1; box-shadow: 0 0 0 2px #ff5a4a, 0 0 12px rgba(255,80,60,.6); }
+  .giro i.fatto { opacity: .25; filter: grayscale(1); }
+  #salute > div { display: flex; justify-content: space-between; align-items: center; padding: 5px 0; border-bottom: 1px solid var(--filo); font-size: 12px; }
+  .pips { display: inline-flex; gap: 3px; }
+  .pips b { width: 10px; height: 10px; border-radius: 50%; background: var(--lume); }
+  .pips b.vuoto { background: none; box-shadow: inset 0 0 0 1.5px var(--lume); }
+  .pips b.perde { animation: perde 1s forwards; }
+  @keyframes perde { 0% { background: #ff5a4a; transform: scale(1.6); } 100% { background: none; box-shadow: inset 0 0 0 1.5px var(--lume); transform: scale(1); } }
+
+  /* Telefono e iPad verticale: plancia sopra, pannello sotto (come nella webapp) */
+  @media (max-width: 899px) {
+    .corpo { grid-template-columns: 1fr; grid-template-rows: 1fr auto; }
+    .lato { border-left: 0; border-top: 1px solid var(--filo); max-height: 34dvh; }
+    .plancia { width: min(100%, 560px, calc(66dvh - 120px)); }
+  }
+
+  /* ── pezzi comuni ai tre banner ───────────────────────────────────── */
+  .rit { flex: none; width: var(--r, 56px); aspect-ratio: 1; border-radius: 50%; background-size: cover; background-position: center 20%; position: relative; }
+  .rit.nem { box-shadow: 0 0 0 2px #d83b3b, 0 0 16px rgba(216,59,59,.55); }
+  .rit.eroe { box-shadow: 0 0 0 2px var(--lume), 0 0 14px rgba(232,194,122,.45); }
+  .rit.eroe.colpito { animation: scossa .35s; }
+  .rit.eroe.colpito::after { content: ''; position: absolute; inset: 0; border-radius: 50%; background: rgba(216,59,59,.45); animation: svanisci 1s forwards; }
+  .rit.vuoto { background: none; box-shadow: inset 0 0 0 1.5px rgba(232,194,122,.35); }
+  @keyframes svanisci { to { opacity: 0; } }
+  .nome { font-family: 'FellSC', serif; font-size: 15px; line-height: 1.1; text-transform: lowercase; }
+  .nome.nem { color: #ff8a6a; }
+  .nome small { display: block; font-size: 10px; color: var(--fioco); letter-spacing: .1em; text-transform: uppercase; }
+  .dadi { display: inline-flex; gap: 4px; align-items: center; }
+  .dadi i { width: 22px; height: 22px; border-radius: 4px; background: #efe6d4; color: #1a1a1a; font-style: normal; font-weight: bold;
+    display: grid; place-items: center; font-size: 13px; font-family: Georgia, serif; }
+  .dadi.rotola i { animation: rotola .12s infinite; }
+  @keyframes rotola { 50% { transform: rotate(18deg) scale(.9); } }
+  .verdetto { font-family: 'FellSC', serif; font-size: 13px; color: var(--fioco); white-space: nowrap; }
+  .verdetto b { color: var(--osso); }
+  .danno { font-family: 'FellSC', serif; font-size: 22px; color: #ff5a4a; text-shadow: 0 0 10px rgba(255,60,40,.7); }
+  .manca { font-family: 'FellSC', serif; font-size: 16px; color: var(--fioco); font-style: italic; }
+  .freccia { color: #d83b3b; font-size: 18px; }
+
+  /* ── A · IL DUELLO: una striscia fissa in cima alla plancia ─────────── */
+  .A .duello { position: relative; z-index: 5; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 10px;
+    padding: 8px 12px; min-height: 76px;
+    background: linear-gradient(90deg, rgba(40,12,16,.97), rgba(18,14,16,.97) 50%, rgba(28,22,14,.97));
+    border-bottom: 1px solid #5a1f26; box-shadow: 0 6px 18px rgba(0,0,0,.5); }
+  .A .duello .chi { display: flex; align-items: center; gap: 10px; min-width: 0; }
+  .A .duello .chi.destra { flex-direction: row-reverse; text-align: right; }
+  .A .duello .centro { display: flex; flex-direction: column; align-items: center; gap: 3px; min-width: 110px; }
+  .A .duello.quieto { background: rgba(14,16,20,.92); border-bottom-color: var(--filo); }
+  @media (max-width: 520px) {
+    .A .duello { --r: 44px; gap: 6px; padding: 6px 8px; min-height: 64px; }
+    .A .duello .nome { font-size: 13px; }
+    .A .duello .centro { min-width: 84px; }
+    .A .duello .verdetto { font-size: 11px; }
+  }
+
+  /* ── B · IL SIGILLO: una barra in basso, nella zona del pollice ──────── */
+  .B .sigillo { position: absolute; z-index: 5; left: 50%; bottom: calc(12px + env(safe-area-inset-bottom)); transform: translateX(-50%);
+    width: min(calc(100% - 24px), 560px); display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 10px;
+    padding: 8px; border-radius: 48px; --r: 60px;
+    background: linear-gradient(180deg, rgba(40,12,16,.96), rgba(16,10,12,.96)); border: 1px solid #6d1522;
+    box-shadow: 0 10px 30px rgba(0,0,0,.6); transition: opacity .3s, transform .3s; }
+  .B .sigillo.quieto { opacity: 0; transform: translate(-50%, 20px); pointer-events: none; }
+  .B .sigillo .mezzo { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 4px; }
+  .B .sigillo .riga { display: flex; align-items: center; gap: 8px; justify-content: center; }
+  .B .sigillo .barra { height: 5px; width: 100%; max-width: 220px; border-radius: 3px; background: rgba(255,255,255,.08); overflow: hidden; }
+  .B .sigillo .barra i { display: block; height: 100%; background: linear-gradient(90deg, #a3253a, var(--lume)); transition: width .8s ease; }
+  @media (max-width: 520px) { .B .sigillo { --r: 48px; gap: 6px; } .B .sigillo .nome { font-size: 13px; } }
+  /* il pannello sotto la plancia (telefono) non deve finire coperto: il sigillo sta dentro la colonna della plancia */
+
+  /* ── C · LA CRONACA: nel pannello laterale su PC, foglio in basso su telefono ── */
+  .C .cronaca { border: 1px solid #6d1522; border-radius: 8px; background: linear-gradient(180deg, rgba(40,12,16,.95), rgba(20,12,14,.95)); padding: 10px; }
+  .C .cronaca h3 { color: #ff8a6a; }
+  .C .scontro { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 8px; --r: 54px; }
+  .C .scontro .mezzo { display: flex; flex-direction: column; align-items: center; gap: 4px; text-align: center; }
+  .C .riga { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; justify-content: center; }
+  .C .storia { margin-top: 8px; display: flex; flex-direction: column; gap: 3px; max-height: 92px; overflow: auto; }
+  .C .storia p { font-size: 12px; color: var(--fioco); display: flex; gap: 6px; align-items: center; animation: entra .4s; }
+  .C .storia p i { width: 18px; height: 18px; border-radius: 50%; background-size: cover; background-position: center 20%; flex: none; }
+  .C .storia p b { color: #ff8a6a; font-weight: normal; }
+  @keyframes entra { from { opacity: 0; transform: translateY(-4px); } }
+  @media (max-width: 899px) {
+    /* sul telefono il pannello e' sotto: la cronaca diventa la prima cosa del pannello, sempre in vista */
+    .C .lato { max-height: 40dvh; }
+    .C .cronaca { position: sticky; top: -12px; z-index: 2; margin: -12px -12px 0; border-radius: 0; border-width: 0 0 1px; }
+    .C .storia { max-height: 40px; }
+  }
+</style></head><body>
+<div class="app" id="app">
+  <header><span class="menu sc">← menu</span><span class="sc" id="titolo">la notte reagisce</span><span class="sc">round 6 · canto 2</span></header>
+  <div class="corpo">
+    <div class="colonna">
+      <div id="slot-alto"></div>
+      <div class="mappa"><div class="plancia" id="plancia"></div></div>
+      <div id="slot-basso"></div>
+    </div>
+    <aside class="lato" id="lato">
+      <div id="slot-lato"></div>
+      <div class="riquadro"><h3>il giro dei nemici</h3><div class="giro" id="giro"></div></div>
+      <div class="riquadro salute"><h3>la salute degli eroi</h3><div id="salute"></div></div>
+    </aside>
+  </div>
+</div>
+<script>
+const V = (new URLSearchParams(location.search).get('v') || 'A').toUpperCase();
+document.body.classList.add(V);
+const art = (n) => `url("/assets/artworks/${encodeURI(n)}.png")`;
+const EROI = [
+  { id: 'elena', nome: 'Elena', art: 'Elena', vite: 6, max: 7, x: 2, y: 2 },
+  { id: 'attilio', nome: 'Attilio', art: 'Attilio', vite: 4, max: 8, x: 3, y: 2 },
+  { id: 'sibilla', nome: 'Sibilla', art: 'Sibilla', vite: 6, max: 7, x: 2, y: 3 },
+  { id: 'nino', nome: 'Nino', art: 'Nino', vite: 6, max: 8, x: 3, y: 3 },
+];
+const NEMICI = [
+  { id: 'n1', nome: 'Lo Sgherro', art: 'Lo Sgherro', x: 0, y: 1, va: [1, 2], su: 'elena', dadi: [5, 4], att: 1, dif: 7, dan: 1 },
+  { id: 'n2', nome: 'Il Sicario', art: 'Il Sicario', x: 4, y: 0, va: [4, 1], su: 'attilio', dadi: [2, 3], att: 2, dif: 8, dan: 2 },
+  { id: 'n3', nome: 'Lo Sgherro', art: 'Lo Sgherro', x: 0, y: 4, va: [1, 3], su: 'sibilla', dadi: [6, 3], att: 1, dif: 7, dan: 1 },
+  { id: 'n4', nome: 'Lo Sgherro', art: 'Lo Sgherro', x: 4, y: 4, va: [4, 3], su: 'nino', dadi: [1, 2], att: 1, dif: 6, dan: 1 },
+];
+const $ = (s) => document.querySelector(s);
+const pausa = (ms) => new Promise((r) => setTimeout(r, ms));
+const cella = (x, y) => ({ left: (x + .5) * 20 + '%', top: (y + .5) * 20 + '%' });
+
+// la plancia
+const tok = {};
+for (const p of [...EROI, ...NEMICI]) {
+  const d = document.createElement('div'); d.className = 'tok' + (p.su ? ' nem' : '');
+  d.style.backgroundImage = art(p.art); Object.assign(d.style, cella(p.x, p.y));
+  $('#plancia').append(d); tok[p.id] = d;
+}
+$('#giro').innerHTML = NEMICI.map((n) => `<i data-n="${n.id}" style='background-image:${art(n.art)}'></i>`).join('');
+const pips = (e, perse = 0) => `<span class="pips">${Array.from({ length: e.max }, (_, i) =>
+  `<b class="${i >= e.vite + perse ? 'vuoto' : i >= e.vite ? 'perde' : ''}"></b>`).join('')}</span>`;
+const salute = (chi, perse) => $('#salute').innerHTML = EROI.map((e) =>
+  `<div><span class="sc">${e.nome.toLowerCase()}</span>${pips(e, e.id === chi ? perse : 0)}</div>`).join('');
+salute();
+
+// il banner: UN solo elemento, sempre nello stesso posto, che cambia contenuto
+const slot = { A: '#slot-alto', B: '#slot-basso', C: '#slot-lato' }[V];
+const box = document.createElement('div');
+box.className = { A: 'duello', B: 'sigillo', C: 'cronaca' }[V];
+$(slot).append(box);
+const storia = [];
+
+function disegna({ n, e, fase, tot, perse }) {
+  const nem = `<span class="rit nem" style='background-image:${art(n.art)}'></span>`;
+  const ero = e ? `<span class="rit eroe ${fase === 'colpito' ? 'colpito' : ''}" style='background-image:${art(e.art)}'></span>` : `<span class="rit vuoto"></span>`;
+  const dadi = fase === 'tira'
+    ? `<span class="dadi rotola"><i>?</i><i>?</i></span>`
+    : (fase === 'colpito' || fase === 'mancato') ? `<span class="dadi"><i>${n.dadi[0]}</i><i>${n.dadi[1]}</i></span>` : '';
+  const conto = (fase === 'colpito' || fase === 'mancato') ? `<span class="verdetto">${n.dadi[0]}+${n.dadi[1]}+${n.att} = <b>${tot}</b> ${tot >= n.dif ? '≥' : '<'} dif ${n.dif}</span>` : '';
+  const esito = fase === 'colpito' ? `<span class="danno">−${n.dan}</span>` : fase === 'mancato' ? `<span class="manca">manca</span>` : '';
+  const mezzo = fase === 'agisce' ? `<span class="verdetto">agisce</span><span class="freccia">→</span>`
+    : fase === 'muove' ? `<span class="verdetto">si avvicina</span><span class="freccia">→</span>` : `${dadi}${conto}${esito}`;
+  const nomeN = `<span class="nome nem"><small>nemico</small>${n.nome}</span>`;
+  const nomeE = e ? `<span class="nome"><small>bersaglio</small>${e.nome}</span>` : `<span class="nome"><small>bersaglio</small>…</span>`;
+
+  if (V === 'A') {
+    box.classList.remove('quieto');
+    box.innerHTML = `<div class="chi">${nem}${nomeN}</div><div class="centro">${mezzo}</div>
+      <div class="chi destra">${ero}<span>${nomeE}${e ? '<br>' + pips(e, fase === 'colpito' ? perse : 0) : ''}</span></div>`;
+  } else if (V === 'B') {
+    box.classList.remove('quieto');
+    const quota = e ? Math.round(e.vite / e.max * 100) : 100;
+    box.innerHTML = `${nem}<div class="mezzo"><div class="riga">${nomeN}<span class="freccia">⟶</span>${nomeE}</div>
+      <div class="riga">${mezzo}</div>${e ? `<div class="barra"><i style="width:${fase === 'colpito' ? Math.round((e.vite + perse) / e.max * 100) : quota}%"></i></div>` : ''}</div>${ero}`;
+    if (fase === 'colpito') requestAnimationFrame(() => requestAnimationFrame(() => { const b = box.querySelector('.barra i'); if (b) b.style.width = quota + '%'; }));
+  } else {
+    box.innerHTML = `<h3 class="sc">la notte colpisce</h3><div class="scontro">${nem}<div class="mezzo">
+      <div class="riga">${nomeN.replace('<small>nemico</small>', '')} <span class="freccia">→</span> ${e ? `<span class="nome">${e.nome}</span>` : '…'}</div>
+      ${mezzo}</div>${ero}</div><div class="storia">${storia.map((s) => `<p>${s}</p>`).join('')}</div>`;
+  }
+}
+function quiete(testo) {
+  if (V === 'A') { box.classList.add('quieto'); box.innerHTML = `<div></div><div class="centro"><span class="verdetto">${testo}</span></div><div></div>`; }
+  else if (V === 'B') box.classList.add('quieto');
+  else box.innerHTML = `<h3 class="sc">la notte colpisce</h3><p class="verdetto">${testo}</p><div class="storia">${storia.map((s) => `<p>${s}</p>`).join('')}</div>`;
+}
+
+async function notte() {
+  for (const e of EROI) { e.vite = e.id === 'attilio' ? 4 : 6; }
+  NEMICI.forEach((n) => Object.assign(tok[n.id].style, cella(n.x, n.y)));
+  document.querySelectorAll('.giro i').forEach((i) => i.className = '');
+  salute(); storia.length = 0;
+  quiete('la notte si muove…'); $('#titolo').textContent = 'la notte reagisce';
+  await pausa(1200);
+  for (const n of NEMICI) {
+    const e = EROI.find((x) => x.id === n.su);
+    document.querySelector(`.giro i[data-n="${n.id}"]`).className = 'ora';
+    tok[n.id].classList.add('agisce');
+    disegna({ n, e: null, fase: 'agisce' }); await pausa(900);
+    tok[e.id].classList.add('bersaglio');
+    disegna({ n, e, fase: 'muove' }); Object.assign(tok[n.id].style, cella(...n.va)); await pausa(900);
+    disegna({ n, e, fase: 'tira' }); await pausa(800);
+    const tot = n.dadi[0] + n.dadi[1] + n.att;
+    if (tot >= n.dif) {
+      e.vite -= n.dan; tok[e.id].classList.add('colpito'); salute(e.id, n.dan);
+      disegna({ n, e, fase: 'colpito', tot, perse: n.dan });
+      storia.unshift(`<i style='background-image:${art(n.art)}'></i><b>${n.nome.toLowerCase()}</b> colpisce ${e.nome} −${n.dan}`);
+    } else {
+      disegna({ n, e, fase: 'mancato', tot });
+      storia.unshift(`<i style='background-image:${art(n.art)}'></i><b>${n.nome.toLowerCase()}</b> manca ${e.nome}`);
+    }
+    await pausa(1700);
+    tok[n.id].classList.remove('agisce'); tok[e.id].classList.remove('bersaglio', 'colpito');
+    document.querySelector(`.giro i[data-n="${n.id}"]`).className = 'fatto';
+  }
+  quiete('tocca agli eroi'); $('#titolo').textContent = 'tocca agli eroi';
+  await pausa(2200);
+  notte();
+}
+notte();
+</script>
+</body></html>

@@ -1,0 +1,55 @@
+<!doctype html><html lang="it"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Attacco dei nemici · mockup</title>
+<style>
+  @font-face { font-family: 'FellSC'; src: url('/fonts/IMFellEnglishSC.ttf'); }
+  :root { --tavolo: #0c0e11; --osso: #edeef0; --fioco: #b3b8c0; --lume: #e8c27a; --filo: #2a2f37; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--tavolo); color: var(--osso); font-family: Georgia, serif; padding: 20px 16px 40px; }
+  h1 { font-family: 'FellSC', serif; font-weight: normal; letter-spacing: .06em; font-size: 24px; }
+  .sotto { color: var(--fioco); font-style: italic; margin: 6px 0 16px; max-width: 80ch; }
+  .tab { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
+  .tab button { font: inherit; font-family: 'FellSC', serif; letter-spacing: .05em; background: none; color: var(--fioco);
+    border: 1px solid var(--filo); border-radius: 20px; padding: 7px 14px; cursor: pointer; }
+  .tab button.on { color: var(--tavolo); background: var(--lume); border-color: var(--lume); }
+  .descr { color: var(--fioco); font-size: 15px; margin-bottom: 18px; max-width: 80ch; min-height: 3em; }
+  .descr b { color: var(--osso); font-weight: normal; }
+  .apri { color: var(--lume); }
+  .schermi { display: flex; gap: 22px; align-items: flex-start; flex-wrap: wrap; }
+  figure { display: flex; flex-direction: column; gap: 6px; }
+  figcaption { font-family: 'FellSC', serif; color: var(--fioco); font-size: 13px; letter-spacing: .06em; }
+  .cornice { position: relative; overflow: hidden; border: 1px solid #333a44; border-radius: 14px; background: #000; }
+  .cornice iframe { position: absolute; left: 0; top: 0; border: 0; transform-origin: 0 0; }
+</style></head><body>
+<h1>L'attacco dei nemici</h1>
+<p class="sotto">Un solo riquadro, sempre nello stesso punto, che racconta tutta la notte: chi agisce, chi colpisce, il tiro, il danno.
+Non compare e sparisce a ogni messaggio: cambia contenuto. La notte gira da sola, in loop.</p>
+<div class="tab" id="tab">
+  <button data-v="A" class="on">A · il duello</button>
+  <button data-v="B">B · il sigillo</button>
+  <button data-v="C">C · la cronaca</button>
+</div>
+<p class="descr" id="descr"></p>
+<div class="schermi" id="schermi"></div>
+<script>
+const DESCR = {
+  A: '<b>Una striscia fissa in cima alla plancia</b>, a tutta larghezza: nemico a sinistra, eroe a destra con le sue vite, il tiro al centro. Ha la sua riga, quindi non copre mai la plancia. Durante il turno degli eroi resta lì, spenta, e può dire «tocca a Elena»: un posto solo per tutti gli annunci.',
+  B: '<b>Una barra in basso, sopra la plancia</b>, nella zona del pollice: faccia a faccia come in un picchiaduro, con la barra della salute dell\'eroe che cala. Compare solo di notte. Sul telefono copre il fondo della plancia, ma la camera centra sempre il nemico.',
+  C: '<b>Dentro il pannello della notte</b>: su PC e iPad orizzontale sta sopra «il giro dei nemici», e sotto tiene la cronaca degli attacchi già fatti. Su telefono e iPad verticale è la prima cosa del pannello sotto la plancia, sempre in vista. La plancia resta libera del tutto.',
+};
+const SCHERMI = [
+  { nome: 'iPhone · 390×844', w: 390, h: 844, s: .62 },
+  { nome: 'iPad · 820×1180', w: 820, h: 1180, s: .44 },
+  { nome: 'PC · 1440×810', w: 1440, h: 810, s: .5 },
+];
+function mostra(v) {
+  document.querySelectorAll('#tab button').forEach((b) => b.classList.toggle('on', b.dataset.v === v));
+  document.getElementById('descr').innerHTML = DESCR[v] + ` <a class="apri" href="scena.html?v=${v}" target="_blank">apri a schermo intero ↗</a>`;
+  document.getElementById('schermi').innerHTML = SCHERMI.map((d) => `<figure><figcaption>${d.nome}</figcaption>
+    <div class="cornice" style="width:${d.w * d.s}px;height:${d.h * d.s}px"><iframe src="scena.html?v=${v}"
+    style="width:${d.w}px;height:${d.h}px;transform:scale(${d.s})"></iframe></div></figure>`).join('');
+}
+document.querySelectorAll('#tab button').forEach((b) => b.onclick = () => mostra(b.dataset.v));
+mostra('A');
+</script>
+</body></html>
