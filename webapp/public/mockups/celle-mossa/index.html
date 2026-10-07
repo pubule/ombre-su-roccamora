@@ -1,0 +1,162 @@
+<!doctype html><html lang="it"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Caselle di movimento · mockup</title>
+<style>
+  @font-face { font-family: 'FellSC'; src: url('/fonts/IMFellEnglishSC.ttf'); }
+  :root { --tavolo: #0c0e11; --osso: #edeef0; --fioco: #b3b8c0; --lume: #e8c27a; --oro: #f4d68a; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--tavolo); color: var(--osso); font-family: Georgia, serif; padding: 20px 16px 40px; }
+  h1 { font-family: 'FellSC', serif; font-weight: normal; letter-spacing: .06em; font-size: 24px; }
+  .sotto { color: var(--fioco); font-style: italic; margin: 6px 0 18px; max-width: 80ch; }
+  .griglia { display: grid; gap: 26px; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+  .voce h2 { font-family: 'FellSC', serif; font-weight: normal; font-size: 19px; letter-spacing: .05em; color: var(--lume); }
+  .voce p { color: var(--fioco); font-size: 14px; margin: 4px 0 10px; font-style: italic; min-height: 3.8em; }
+
+  /* la plancia: 6x6 caselle di lastricato, al buio, una lanterna sull'eroe */
+  .plancia { position: relative; width: 100%; aspect-ratio: 1; border-radius: 4px; overflow: hidden; touch-action: manipulation;
+    background: url('/assets/vtt/pavimenti/lastricato.png') 0 0 / 150% 150%; }
+  .plancia::before { content: ''; position: absolute; inset: 0; background: rgba(0,0,0,.25); }
+  .buio { position: absolute; inset: 0; pointer-events: none; z-index: 4; transition: background .4s;
+    background: radial-gradient(circle at var(--lx) var(--ly), rgba(255,180,90,.12) 0, rgba(0,0,0,0) 22%, rgba(3,4,6,.9) 52%); }
+  .muro { position: absolute; background: #1b1a18 url('/assets/vtt/pavimenti/lastricato-2.png') 0 0 / 300%; filter: brightness(.35);
+    box-shadow: inset 0 0 0 2px rgba(0,0,0,.6); z-index: 2; }
+  .tok { position: absolute; width: 13%; aspect-ratio: 1; border-radius: 50%; transform: translate(-50%, -50%); z-index: 6;
+    background-size: cover; background-position: center 20%; transition: left .35s ease, top .35s ease; }
+  .eroe { background-image: url('/assets/artworks/Elena.png'); box-shadow: 0 0 0 3px var(--oro), 0 0 18px rgba(244,214,138,.6); }
+  .nem { background-image: url('/assets/artworks/Lo Sgherro.png'); box-shadow: 0 0 0 2px #d83b3b; }
+  .cella { position: absolute; width: 16.667%; height: 16.667%; z-index: 5; cursor: pointer; }
+  .cella > * { pointer-events: none; }
+  .passo { position: absolute; width: 3.2%; aspect-ratio: 1; border-radius: 50%; transform: translate(-50%, -50%); z-index: 7; pointer-events: none;
+    background: var(--oro); box-shadow: 0 0 8px var(--oro); opacity: .85; }
+  .nota { color: var(--fioco); font-size: 13px; margin-top: 18px; max-width: 80ch; }
+
+  /* A · LUME: pozze di luce calda sul pavimento, niente bordi */
+  .A .cella::before { content: ''; position: absolute; inset: 8%; border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,196,110,.62) 0, rgba(255,170,80,.26) 45%, transparent 70%);
+    animation: trema 3.2s ease-in-out infinite; animation-delay: calc(var(--i) * -.37s); }
+  .A .cella:hover::before { background: radial-gradient(circle, rgba(255,214,140,.75) 0, rgba(255,180,90,.3) 50%, transparent 72%); }
+  .A .cella.rivela::before { background: radial-gradient(circle, rgba(244,214,138,.65) 0, rgba(216,178,94,.25) 50%, transparent 72%); }
+  .A .cella.rivela::after { content: '✦'; position: absolute; inset: 0; display: grid; place-items: center; color: var(--oro);
+    font-size: clamp(14px, 3.4vw, 22px); text-shadow: 0 0 10px var(--oro); }
+  @keyframes trema { 50% { opacity: .72; transform: scale(.94); } }
+
+  /* B · GESSO: un cerchio tracciato a mano col gesso, come sul selciato */
+  .B .cella svg { position: absolute; inset: 12%; width: 76%; height: 76%; overflow: visible; }
+  .B .cella svg .giro { fill: none; stroke: rgba(236,232,220,.62); stroke-width: 3.2; stroke-linecap: round; filter: url(#gesso); }
+  .B .cella svg .croce { fill: none; stroke: rgba(236,232,220,.9); stroke-width: 3.6; stroke-linecap: round; filter: url(#gesso); opacity: 0; }
+  .B .cella:hover svg .giro { stroke: rgba(255,250,236,.95); }
+  .B .cella:hover svg .croce { opacity: 1; }
+  .B .cella.rivela svg .giro { stroke: rgba(244,214,138,.85); }
+  .B .cella.rivela svg .freccia { fill: none; stroke: rgba(244,214,138,.9); stroke-width: 3.4; stroke-linecap: round; stroke-linejoin: round; filter: url(#gesso); }
+
+  /* C · IL CONFINE: un filo d'oro attorno a tutta l'area raggiungibile, dentro appena un calore */
+  .C .cella { background: rgba(232,194,122,.07); }
+  .C .cella:hover { background: rgba(232,194,122,.22); box-shadow: inset 0 0 0 1px rgba(244,214,138,.55); }
+  .C .bordo { position: absolute; z-index: 5; pointer-events: none; background: var(--oro); box-shadow: 0 0 6px rgba(244,214,138,.8); opacity: .8; }
+  .C .cella.rivela { background: rgba(232,194,122,.16); }
+  .C .cella.rivela::after { content: ''; position: absolute; left: 50%; top: 50%; width: 26%; aspect-ratio: 1; transform: translate(-50%, -50%) rotate(45deg);
+    border: 2px solid var(--oro); box-shadow: 0 0 10px var(--oro); animation: pulsa 1.8s ease-in-out infinite; }
+  @keyframes pulsa { 50% { opacity: .4; } }
+
+  /* D · LE ORME: impronte di stivale verso dove si va, piu' tenui quanto piu' lontane */
+  .D .cella svg { position: absolute; inset: 22%; width: 56%; height: 56%; transform: rotate(var(--rot)); opacity: calc(1 - var(--d) * .18); }
+  .D .cella svg path { fill: rgba(232,194,122,.55); }
+  .D .cella:hover svg path { fill: rgba(255,226,160,.95); }
+  .D .cella.rivela svg path { fill: rgba(244,214,138,.9); }
+  .D .cella.rivela::after { content: ''; position: absolute; inset: 10%; border-radius: 50%; box-shadow: 0 0 16px 2px rgba(244,214,138,.55) inset; }
+</style></head><body>
+<svg width="0" height="0" style="position:absolute"><filter id="gesso"><feTurbulence type="fractalNoise" baseFrequency="1.4" numOctaves="2" result="r"/>
+  <feDisplacementMap in="SourceGraphic" in2="r" scale="2.4"/></filter></svg>
+<h1>Le caselle dove si può andare</h1>
+<p class="sotto">Quattro modi di segnare le caselle raggiungibili al posto dei quadrati azzurri. Elena muove fino a 3 caselle.
+Passate sopra una casella (o toccatela): compare il percorso. Toccatela di nuovo e Elena ci va. La casella col segno d'oro apre una stanza nuova.</p>
+<div class="griglia">
+  <div class="voce A"><h2>A · il lume</h2><p>Pozze di luce calda sul pavimento, che tremano come una candela. Niente bordi: è la lanterna che vi dice fin dove arrivate.</p><div class="plancia"></div></div>
+  <div class="voce B"><h2>B · il gesso</h2><p>Un cerchio tracciato col gesso sul selciato, una croce dove puntate. Il segno dell'investigatore, fatto a mano.</p><div class="plancia"></div></div>
+  <div class="voce C"><h2>C · il confine</h2><p>Un solo filo d'oro attorno a tutta l'area raggiungibile, dentro appena un calore. Pulito: si legge la forma, non le caselle.</p><div class="plancia"></div></div>
+  <div class="voce D"><h2>D · le orme</h2><p>Un'impronta di stivale per casella, girata verso dove andate, più tenue quanto più è lontana. Racconta il passo.</p><div class="plancia"></div></div>
+</div>
+<p class="nota">In tutte: il percorso a puntini d'oro compare al passaggio del mouse, e sul telefono al primo tocco (il secondo conferma). Le caselle verso una stanza nuova restano d'oro, come oggi.</p>
+<script>
+const N = 6, MOV = 3;
+const MURI = [[4, 1], [4, 2], [1, 4]];              // arredi che bloccano
+const NEMICO = [5, 4];
+const PORTA = [2, 0];                                 // oltre: stanza nuova (casella «rivela»)
+const k = (x, y) => x + ',' + y;
+const bloccata = (x, y) => x < 0 || y < 0 || x >= N || y >= N || MURI.some(([a, b]) => a === x && b === y) || (NEMICO[0] === x && NEMICO[1] === y);
+const pct = (v) => (v + .5) * 100 / N + '%';
+const ORMA = '<svg viewBox="0 0 40 40"><path d="M13 22c-3 0-5-4-5-9s2-9 5-9 5 4 5 9-2 9-5 9zm0 3c2 0 4 1 4 4s-2 5-4 5-4-2-4-5 2-4 4-4z"/><path d="M27 16c-3 0-5-4-5-8s2-7 5-7 5 3 5 7-2 8-5 8zm0 3c2 0 4 1 4 4s-2 5-4 5-4-2-4-5 2-4 4-4z" opacity=".75"/></svg>';
+const GESSO = '<svg viewBox="0 0 40 40"><path class="giro" d="M20 4c9 0 16 7 16 16s-7 16-16 15.5S4 29 4.5 20 11 3.5 21 4.5"/><path class="croce" d="M13 13l14 14M27 13L13 27"/></svg>';
+const GESSO_R = '<svg viewBox="0 0 40 40"><path class="giro" d="M20 4c9 0 16 7 16 16s-7 16-16 15.5S4 29 4.5 20 11 3.5 21 4.5"/><path class="freccia" d="M20 29V11M13 18l7-7 7 7"/></svg>';
+
+document.querySelectorAll('.voce').forEach((voce) => {
+  const V = voce.classList[1]; const p = voce.querySelector('.plancia');
+  let eroe = [1, 2]; let scelta = null;
+  function bfs() {
+    const dist = { [k(...eroe)]: 0 }, da = {}, coda = [eroe];
+    while (coda.length) {
+      const [x, y] = coda.shift(); const d = dist[k(x, y)];
+      if (d === MOV) continue;
+      for (const [dx, dy] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
+        const nx = x + dx, ny = y + dy;
+        if (bloccata(nx, ny) || dist[k(nx, ny)] != null) continue;
+        dist[k(nx, ny)] = d + 1; da[k(nx, ny)] = [x, y]; coda.push([nx, ny]);
+      }
+    }
+    return { dist, da };
+  }
+  function disegna() {
+    const { dist, da } = bfs(); scelta = null;
+    let h = MURI.map(([x, y]) => `<div class="muro" style="left:${x * 100 / N}%;top:${y * 100 / N}%;width:${100 / N}%;height:${100 / N}%"></div>`).join('');
+    let i = 0;
+    for (const key in dist) {
+      if (!dist[key]) continue;
+      const [x, y] = key.split(',').map(Number); const riv = x === PORTA[0] && y === PORTA[1];
+      const [px, py] = da[key]; const rot = Math.atan2(y - py, x - px) * 180 / Math.PI + 90;
+      const dentro = V === 'B' ? (riv ? GESSO_R : GESSO) : V === 'D' ? ORMA : '';
+      h += `<div class="cella${riv ? ' rivela' : ''}" data-k="${key}" style="left:${x * 100 / N}%;top:${y * 100 / N}%;--i:${i++};--rot:${rot}deg;--d:${dist[key] - 1}">${dentro}</div>`;
+    }
+    if (V === 'C') {          // il confine: un lato per ogni bordo fra raggiungibile e non
+      const dentro = (x, y) => dist[k(x, y)] != null;
+      for (const key in dist) {
+        const [x, y] = key.split(',').map(Number); const s = 100 / N, t = .6;
+        if (!dentro(x, y - 1)) h += `<i class="bordo" style="left:${x * s}%;top:${y * s}%;width:${s}%;height:${t}%"></i>`;
+        if (!dentro(x, y + 1)) h += `<i class="bordo" style="left:${x * s}%;top:${(y + 1) * s - t}%;width:${s}%;height:${t}%"></i>`;
+        if (!dentro(x - 1, y)) h += `<i class="bordo" style="left:${x * s}%;top:${y * s}%;width:${t}%;height:${s}%"></i>`;
+        if (!dentro(x + 1, y)) h += `<i class="bordo" style="left:${(x + 1) * s - t}%;top:${y * s}%;width:${t}%;height:${s}%"></i>`;
+      }
+    }
+    h += `<div class="tok nem" style="left:${pct(NEMICO[0])};top:${pct(NEMICO[1])}"></div>`;
+    h += `<div class="tok eroe" style="left:${pct(eroe[0])};top:${pct(eroe[1])}"></div><div class="buio"></div>`;
+    p.innerHTML = h;
+    p.style.setProperty('--lx', pct(eroe[0])); p.style.setProperty('--ly', pct(eroe[1]));
+    const percorso = (key) => {
+      p.querySelectorAll('.passo').forEach((n) => n.remove());
+      if (!key) return;
+      let c = key.split(',').map(Number);
+      while (da[k(...c)]) {
+        const [x, y] = c; const [px, py] = da[k(x, y)];
+        for (const f of [.5, 0]) {
+          const d = document.createElement('i'); d.className = 'passo';
+          d.style.left = (px + (x - px) * (f + .25) + .5) * 100 / N + '%'; d.style.top = (py + (y - py) * (f + .25) + .5) * 100 / N + '%';
+          p.append(d);
+        }
+        c = [px, py];
+      }
+    };
+    p.querySelectorAll('.cella').forEach((c) => {
+      c.onmouseenter = () => percorso(c.dataset.k);
+      c.onmouseleave = () => percorso(null);
+      c.onclick = (e) => {
+        // telefono: primo tocco mostra il percorso, il secondo conferma
+        if (e.pointerType !== 'mouse' && scelta !== c.dataset.k) { scelta = c.dataset.k; percorso(scelta); return; }
+        eroe = c.dataset.k.split(',').map(Number);
+        p.querySelector('.eroe').style.left = pct(eroe[0]); p.querySelector('.eroe').style.top = pct(eroe[1]);
+        setTimeout(disegna, 380);
+      };
+    });
+  }
+  disegna();
+});
+</script>
+</body></html>
