@@ -6,6 +6,10 @@ const Q = 4;
 const RAGGIO = { torcia: 1.9, candela: 1.3, cera: .95 };        // in caselle
 const TINTE = { lanterna: [255, 179, 92], torcia: [255, 170, 80], cera: [255, 207, 122], candela: [255, 207, 122] };
 
+// Il raggio di una sorgente, in pixel della plancia: lo stesso che disegna il buio, cosi' chi chiede
+// «questo nemico e' alla luce?» (digitale.js) usa la stessa misura che si vede a schermo.
+export const raggioLuce = (tipo, cell, canto = 0) => (RAGGIO[tipo] ? cell * RAGGIO[tipo] : cell * (2.8 - canto * .11));
+
 export function creaLuce(el, { cell = 104 } = {}) {
   const buio = document.createElement('canvas'); buio.className = 'buio';
   const calore = document.createElement('canvas'); calore.className = 'calore';
@@ -28,7 +32,7 @@ export function creaLuce(el, { cell = 104 } = {}) {
     // alla stessa velocita' reale invece di scattare o strisciare
     const dt = Math.min(50, now - t0) / 1000; t0 = now;
     const k = Math.min(1, dt * 7);
-    const w = buio.width, h = buio.height, base = cell * (2.8 - canto * .11);
+    const w = buio.width, h = buio.height;
     gB.globalCompositeOperation = 'source-over'; gB.fillStyle = 'rgba(2,3,4,.95)';
     if (regioni) { for (const r of regioni) gB.fillRect(r.x / Q, r.y / Q, r.w / Q, r.h / Q); }
     else gB.fillRect(0, 0, w, h);
@@ -38,7 +42,7 @@ export function creaLuce(el, { cell = 104 } = {}) {
       const p = pos[s.id] || (pos[s.id] = { x: s.x, y: s.y });
       p.x += (s.x - p.x) * k; p.y += (s.y - p.y) * k;
       const fl = 1 + Math.sin(now / 90 + s.id.length * 7) * .025 + Math.sin(now / 37 + s.x) * .02;
-      const r = (RAGGIO[s.tipo] ? cell * RAGGIO[s.tipo] : base) * fl / Q, cx = p.x / Q, cy = p.y / Q;
+      const r = raggioLuce(s.tipo, cell, canto) * fl / Q, cx = p.x / Q, cy = p.y / Q;
       const g = gB.createRadialGradient(cx, cy, 0, cx, cy, r);
       g.addColorStop(0, 'rgba(0,0,0,1)'); g.addColorStop(.4, 'rgba(0,0,0,.95)'); g.addColorStop(1, 'rgba(0,0,0,0)');
       gB.fillStyle = g; gB.fillRect(cx - r, cy - r, 2 * r, 2 * r);

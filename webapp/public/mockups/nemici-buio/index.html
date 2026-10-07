@@ -1,0 +1,95 @@
+<!doctype html><html lang="it"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nemici nel buio · mockup</title>
+<style>
+  :root { --tavolo: #0c0e11; --osso: #edeef0; --fioco: #b3b8c0; --lume: #e8c27a; --sangue: #a3253a; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--tavolo); color: var(--osso); font-family: Georgia, serif; padding: 20px 16px 40px; }
+  h1 { font-weight: normal; letter-spacing: .06em; font-size: 22px; }
+  .sotto { color: var(--fioco); font-style: italic; margin: 6px 0 18px; max-width: 70ch; }
+  .griglia { display: grid; gap: 22px; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+  .voce h2 { font-weight: normal; font-size: 18px; letter-spacing: .05em; color: var(--lume); }
+  .voce p { color: var(--fioco); font-size: 14px; margin: 4px 0 10px; font-style: italic; min-height: 3.6em; }
+
+  /* la plancia: 4x4 caselle di assi, al buio */
+  .plancia { position: relative; width: 100%; aspect-ratio: 1; border-radius: 6px; overflow: hidden;
+    background: url('/assets/vtt/pavimenti/assi.png') 0 0 / 25% 25%; cursor: none; touch-action: none; }
+  .buio { position: absolute; inset: 0; pointer-events: none; z-index: 1;
+    background: radial-gradient(circle at var(--lx) var(--ly), rgba(255,180,90,.10) 0, rgba(0,0,0,0) 14%, rgba(5,6,8,.93) 30%); }
+  .tok { position: absolute; width: 22%; aspect-ratio: 1; border-radius: 50%; transform: translate(-50%, -50%);
+    background-size: cover; background-position: center 20%; transition: filter .35s, opacity .35s, box-shadow .35s; }
+  .eroe { background-image: url('/assets/artworks/Nino.png'); box-shadow: 0 0 0 3px var(--lume), 0 0 24px rgba(232,194,122,.5); z-index: 3; }
+  .nem { background-image: url('/assets/artworks/Il Sicario.png'); box-shadow: 0 0 0 3px #6d1522; z-index: 2; }
+  .nem .eti { position: absolute; left: 50%; top: 104%; transform: translateX(-50%); white-space: nowrap; font-size: 11px;
+    letter-spacing: .08em; text-transform: uppercase; color: #f0a3ab; background: rgba(12,14,17,.85); padding: 1px 6px; border-radius: 3px;
+    opacity: 0; transition: opacity .35s; }
+  .nem.visto .eti { opacity: 1; }
+  .nem.visto { filter: none !important; }
+  .nem::before, .nem::after { content: ''; position: absolute; transition: opacity .35s; }
+
+  /* A · SAGOMA: un'ombra piena col filo rosso e due occhi */
+  .A .nem:not(.visto) { background-image: none; background: radial-gradient(circle at 50% 40%, #1a1d22, #050608 70%);
+    box-shadow: 0 0 0 2px rgba(163,37,58,.7), 0 0 18px rgba(163,37,58,.35); }
+  .A .nem:not(.visto)::before { left: 32%; top: 38%; width: 36%; height: 10%;
+    background: radial-gradient(circle at 15% 50%, #ff5a4a 0 18%, transparent 30%), radial-gradient(circle at 85% 50%, #ff5a4a 0 18%, transparent 30%);
+    filter: drop-shadow(0 0 4px #ff3b2f); animation: batti 4s infinite; }
+
+  /* B · RITRATTO SPENTO: si intuisce chi e', ma e' grigio e annegato nel buio */
+  .B .nem:not(.visto) { filter: grayscale(1) brightness(.28) contrast(1.2); box-shadow: 0 0 0 2px rgba(163,37,58,.55); }
+
+  /* C · BRACI: solo gli occhi e un respiro rosso. Il resto e' buio */
+  .C .nem:not(.visto) { background: none; box-shadow: none; }
+  .C .nem:not(.visto)::after { inset: 0; border-radius: 50%; background: radial-gradient(circle, rgba(163,37,58,.35), transparent 65%);
+    animation: respira 2.6s ease-in-out infinite; }
+  .C .nem:not(.visto)::before { left: 34%; top: 40%; width: 32%; height: 9%;
+    background: radial-gradient(circle at 15% 50%, #ffb25a 0 18%, transparent 30%), radial-gradient(circle at 85% 50%, #ffb25a 0 18%, transparent 30%);
+    filter: drop-shadow(0 0 5px #ff7a2f); animation: batti 5s infinite; }
+
+  /* D · IL SEGNO: nessuna pedina, un segno sul pavimento che pulsa — «c'e' qualcosa li'» */
+  .D .nem:not(.visto) { background: none; box-shadow: none; }
+  .D .nem:not(.visto)::before { inset: 18%; border-radius: 50%; border: 2px dashed rgba(240,90,80,.75);
+    animation: gira 9s linear infinite; }
+  .D .nem:not(.visto)::after { left: 50%; top: 50%; transform: translate(-50%,-50%); content: '?'; font-size: 26px;
+    color: rgba(255,120,100,.9); text-shadow: 0 0 8px #ff3b2f; font-family: Georgia, serif; }
+  .nem.visto::before, .nem.visto::after { opacity: 0; }
+
+  @keyframes batti { 0%, 92%, 100% { opacity: 1; } 95% { opacity: 0; } }
+  @keyframes respira { 50% { opacity: .45; transform: scale(1.12); } }
+  @keyframes gira { to { transform: rotate(360deg); } }
+  .nota { color: var(--fioco); font-size: 13px; margin-top: 8px; }
+</style></head><body>
+<h1>Nemici nel buio</h1>
+<p class="sotto">Quattro modi di disegnare un nemico in una stanza aperta ma fuori dalla luce. Muovete il mouse (o il dito)
+sulla plancia: è la lanterna di Nino. Quando il nemico entra nella luce torna la pedina piena col nome.</p>
+<div class="griglia">
+  <div class="voce A"><h2>A · la sagoma</h2><p>Un'ombra piena col filo rosso e due occhi che ogni tanto sbattono. Si sa che c'è e dov'è, non chi è.</p>
+    <div class="plancia"><div class="tok eroe"></div><div class="tok nem"><span class="eti">il sicario</span></div><div class="buio"></div></div></div>
+  <div class="voce B"><h2>B · il ritratto spento</h2><p>Lo stesso ritratto, grigio e annegato nel buio. Si intuisce chi è: più leggibile, meno paura.</p>
+    <div class="plancia"><div class="tok eroe"></div><div class="tok nem"><span class="eti">il sicario</span></div><div class="buio"></div></div></div>
+  <div class="voce C"><h2>C · le braci</h2><p>Solo due occhi e un respiro rosso. Niente pedina: il buio guarda voi.</p>
+    <div class="plancia"><div class="tok eroe"></div><div class="tok nem"><span class="eti">il sicario</span></div><div class="buio"></div></div></div>
+  <div class="voce D"><h2>D · il segno</h2><p>Nessuna pedina, un segno sul pavimento che gira: «lì c'è qualcosa». Il più astratto.</p>
+    <div class="plancia"><div class="tok eroe"></div><div class="tok nem"><span class="eti">il sicario</span></div><div class="buio"></div></div></div>
+</div>
+<p class="nota">In tutte e quattro il pannello «la notte» continua a dire chi è e cosa farà: qui cambia solo la plancia.</p>
+<script>
+  const RAGGIO = 0.30;   // la luce della lanterna, in frazione della plancia
+  document.querySelectorAll('.plancia').forEach((p) => {
+    const eroe = p.querySelector('.eroe'); const nem = p.querySelector('.nem');
+    const pos = { x: 0.32, y: 0.62 }; const posNem = { x: 0.8, y: 0.22 };
+    const metti = () => {
+      eroe.style.left = pos.x * 100 + '%'; eroe.style.top = pos.y * 100 + '%';
+      nem.style.left = posNem.x * 100 + '%'; nem.style.top = posNem.y * 100 + '%';
+      p.style.setProperty('--lx', pos.x * 100 + '%'); p.style.setProperty('--ly', pos.y * 100 + '%');
+      nem.classList.toggle('visto', Math.hypot(pos.x - posNem.x, pos.y - posNem.y) < RAGGIO);
+    };
+    p.addEventListener('pointermove', (e) => {
+      const r = p.getBoundingClientRect();
+      pos.x = Math.min(.9, Math.max(.1, (e.clientX - r.left) / r.width));
+      pos.y = Math.min(.9, Math.max(.1, (e.clientY - r.top) / r.height));
+      metti();
+    });
+    metti();
+  });
+</script>
+</body></html>

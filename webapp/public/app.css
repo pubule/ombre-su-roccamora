@@ -1358,6 +1358,27 @@ canvas.calore { z-index: 2; pointer-events: none; opacity: .32; }
   0 0 22px rgba(190, 34, 44, .9); }
 .tok-board.nemico { border-color: #7a1f2b; cursor: pointer; }
 .tok-board.nemico.boss { border-color: #d83b3b; border-width: 3px; box-shadow: 0 0 12px rgba(216,59,59,.7); }
+/* I NEMICI NEL BUIO (mockup nemici-buio, variante C «le braci»): fuori dalla luce di lanterne e torce
+   del nemico restano due occhi obliqui che bruciano e un respiro rosso. Si sa che c'e' e dov'e', non
+   chi e': lo dice il pannello «la notte». Entrando nella luce torna la pedina piena. */
+.tok-board .occhi { display: none; }
+.tok-board.nemico.nel-buio { background: none; border-color: transparent; box-shadow: none; }
+.tok-board.nemico.nel-buio > img, .tok-board.nemico.nel-buio .sangue { opacity: 0; }
+.tok-board.nemico.nel-buio.ferito::after { display: none; }
+.tok-board.nemico.nel-buio .occhi { display: block; position: absolute; inset: 0; pointer-events: none;
+  filter: drop-shadow(0 0 3px #ff2a10) drop-shadow(0 0 10px rgba(255, 30, 0, .75));
+  transform-origin: 50% 42%; animation: occhi-batti 6s infinite; }
+.tok-board.nemico.nel-buio .occhi::before { content: ''; position: absolute; inset: 14%; border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 40, 20, .3), rgba(0, 0, 0, 0) 65%);
+  animation: occhi-respira 2.8s ease-in-out infinite; }
+.occhi b { position: absolute; top: 36%; width: 28%; height: 13%;
+  background: radial-gradient(ellipse at 55% 55%, #fffbe6 0 10%, #ffd27a 18%, #ff3b1c 42%, #9a0a04 72%); }
+/* l'angolo interno basso, quello esterno alto: lo sguardo di chi vi ha gia' scelti */
+.occhi b:first-child { left: 20%; clip-path: polygon(0% 0%, 100% 48%, 88% 100%, 6% 62%); }
+.occhi b:last-child { right: 20%; clip-path: polygon(0% 48%, 100% 0%, 94% 62%, 12% 100%); }
+@keyframes occhi-batti { 0%, 90%, 100% { transform: scaleY(1); } 93% { transform: scaleY(.08); } 96% { transform: scaleY(1); } }
+@keyframes occhi-respira { 50% { opacity: .35; transform: scale(1.12); } }
+@media (prefers-reduced-motion: reduce) { .tok-board.nemico.nel-buio .occhi, .tok-board.nemico.nel-buio .occhi::before { animation: none; } }
 /* L'esca di Carbone non e' un personaggio: e' un oggetto che tira i nemici.
    Bordo rosso come loro — sulla plancia il rosso dice «di qui viene il
    pericolo», e l'esca dice esattamente dove andra' — ma piccola e senza faccia,

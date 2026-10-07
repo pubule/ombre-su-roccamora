@@ -41,7 +41,7 @@ import * as interazioni from '../motore/interazioni.js';
 // disegna (Task 3), luce.js le fa vivere al buio (Task 4), citta.js e' il
 // fondo dei tetti (Step 4b, porto di mockups/tessere-alt/6-scenografia.html).
 import { stanzaHtml } from './plancia/stanza.js';
-import { creaLuce } from './plancia/luce.js';
+import { creaLuce, raggioLuce } from './plancia/luce.js';
 import { citta } from './plancia/citta.js';
 import { fuoriDichiarato, alAperto } from '../motore/ambiente.js';
 
@@ -904,7 +904,7 @@ function boardHtml(senzaMosse) {
     const v = n.max - n.ferite;
     tok(n.pos, `<span class="tok-board nemico${boss}${graveSe(v, n.max)}${ferita(v, n.max)}"
       data-nemico="${i}" title="${esc(n.nome)} ${v}/${n.max}">
-      ${st && st.art ? `<img src="${urlArt(st.art)}" alt="" loading="lazy">` : ''}${sangue(v, n.max)}</span>`,
+      ${st && st.art ? `<img src="${urlArt(st.art)}" alt="" loading="lazy">` : ''}${sangue(v, n.max)}<i class="occhi"><b></b><b></b></i></span>`,
       `N:${i}`);
   });
   statoScortati().forEach((g, i) => {
@@ -1820,12 +1820,28 @@ function agganciaMappa() {
       return stanzaHtml(ctx.ep, tileDi(id), { cell, rivelata: (v) => rev.includes(v) }).luci
         .map((l, i) => ({ id: `${id}-${i}`, x: ox + l.x * cell, y: oy + l.y * cell, tipo: l.tipo }));
     });
-    luce.imposta(() => [
+    const sorgentiLuce = () => [
       ...fisse,
       ...[...bd.querySelectorAll('.tok-slot[data-tok^="E:"]')].map((s) => ({ id: s.dataset.tok,
         x: s.offsetLeft + ctx._geo.cell / 2, y: s.offsetTop + ctx._geo.cell / 2, tipo: 'lanterna' })),
-    ], { canto: sp.canto });
+    ];
+    luce.imposta(sorgentiLuce, { canto: sp.canto });
     luce.avvia();
+    // I NEMICI NEL BUIO: fuori dalla luce di lanterne e torce un nemico e' solo due occhi che bruciano
+    // (`.nel-buio`); entrando nella luce torna la pedina piena. Si ricontrolla di continuo (poco: 5 volte
+    // al secondo, contro due-tre sorgenti) perche' la notte sposta i nemici e il passo sposta le lanterne.
+    clearInterval(ctx.buioNemici);
+    const guardaNemici = () => {
+      if (!bd.isConnected) { clearInterval(ctx.buioNemici); return; }
+      const fonti = sorgentiLuce(); const c = ctx._geo.cell; const canto = SP().canto || 0;
+      bd.querySelectorAll('.tok-slot[data-tok^="N:"]').forEach((s) => {
+        const x = s.offsetLeft + c / 2; const y = s.offsetTop + c / 2;
+        const visto = fonti.some((f) => Math.hypot(f.x - x, f.y - y) < raggioLuce(f.tipo, c, canto) * 0.75);
+        s.querySelector('.tok-board')?.classList.toggle('nel-buio', !visto);
+      });
+    };
+    guardaNemici();
+    ctx.buioNemici = setInterval(guardaNemici, 200);
   }
   app.querySelectorAll('[data-zoom]').forEach((b) => b.onclick = () => {
     const d = b.dataset.zoom;
