@@ -1725,30 +1725,28 @@ function fitZoom() {
   return Math.min(MAX_FIT, clampZoom(Math.min((wrap.clientWidth - 4) / g.w, (wrap.clientHeight - 4) / g.h)));
 }
 
+// IL FUORI OLTRE LA PLANCIA. Quando la finestra ha proporzioni diverse dalle stanze, attorno alla
+// plancia resta il contenitore. Prima ci stava l'acqua (o l'erba, il selciato) scurita: ma per quanto
+// scura, al bordo della plancia si vedeva la cucitura fra il buio vero e l'acqua sotto un velo
+// (segnalato al tavolo, 07/10/2026). Ora fuori c'e' lo stesso nero che il buio lascia sulla plancia,
+// piatto: la plancia non ha bordi. Coi tetti (la citta' sotto) e senza un fuori resta il fondo di sempre.
+const NERO_BUIO = 'rgb(2, 2, 4)';
+function fondoFuori(wrap) {
+  if (wrap) wrap.style.background = ctx._geo && ctx._geo.fuoriFondo ? NERO_BUIO : '';
+}
+
 // Applica lo zoom SENZA passare da render(). Non e' un'ottimizzazione: durante
 // la fase nemici `render()` rilancia `faseNemiciAI()` (vedi :350), che non e'
 // idempotente — ricostruisce il piano, rimuove le pedine e riapplica i danni.
 // Prima di questo, toccare +/− mentre la notte si muoveva faceva giocare ai
 // nemici un secondo turno. Qui si scrive solo lo stile, e il pan resta dov'era.
-// IL FUORI OLTRE LA PLANCIA. La plancia ha una tessera di margine, ma quando la finestra ha
-// proporzioni diverse dalle stanze restavano strisce nere sopra, sotto o di lato. Il contenitore
-// prende lo stesso fuori (l'acqua del Preludio, l'erba, il selciato), scurito come quello del margine
-// e alla stessa scala, scuro quanto il buio che copre la plancia: niente vuoti. Coi tetti (la citta' sotto) e senza un fuori resta il nero.
-function fondoFuori(wrap, z) {
-  const f = ctx._geo && ctx._geo.fuoriFondo;
-  if (!wrap) return;
-  if (!f) { wrap.style.background = ''; return; }
-  const lato = Math.round(4 * ctx._geo.cell * (z || 1));
-  wrap.style.background = `linear-gradient(rgba(2,3,4,.98), rgba(2,3,4,.98)), url('${V('pavimenti/' + f)}') 0 0 / ${lato}px ${lato}px repeat, #0a0a0c`;
-}
-
 function applicaZoom(z) {
   const sp = SP(); const app = ctx.app;
   const wrap = app.querySelector('#board-wrap'); const board = app.querySelector('.board-digitale');
   const r = z / (sp.zoom || 1);
   sp.zoom = z; salvaP();
   if (board) board.style.zoom = z;
-  fondoFuori(wrap, z);
+  fondoFuori(wrap);
   // lo scroll si riscala attorno al centro visibile: lo zoom a bottoni resta
   // ancorato a quello che si sta guardando, non al vertice alto-sinistra
   if (wrap && isFinite(r) && r > 0) {
@@ -1811,7 +1809,7 @@ function agganciaMappa() {
   const { app } = ctx; const sp = SP(); const wrap = app.querySelector('#board-wrap'); if (!wrap) return;
   // primo ingresso senza uno zoom salvato: si parte adattati, non a 1
   if (sp.zoom == null) applicaZoom(fitZoom());
-  else fondoFuori(wrap, sp.zoom);
+  else fondoFuori(wrap);
   // LA LUCE VIVE CON LA PLANCIA (Step 4, Task 4): un solo oggetto per partita,
   // ridimensionato a ogni disegno. `.board-digitale` e' un nodo NUOVO quasi a
   // ogni render (app.innerHTML cambia a ogni mossa): si tiene lo stesso

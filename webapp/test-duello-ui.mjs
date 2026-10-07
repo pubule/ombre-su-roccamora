@@ -46,7 +46,7 @@ async function prova(nome, width, height) {
   });
   const giorno = await misura();
   ok(giorno.d && giorno.w && giorno.d.bottom <= giorno.w.top + 1, `${nome}: di giorno la striscia sta sopra la plancia, non sopra le stanze`);
-  ok(/rgba\(2, 3, 4, 0\.98\)/.test(giorno.fondo), `${nome}: il fuori oltre la plancia e' buio quanto il buio`);
+  ok(giorno.fondo === 'none', `${nome}: il fuori oltre la plancia e' nero pieno, senza l'acqua sotto`);
 
   await pg.click('#fase-minaccia');
   const notte = [];
