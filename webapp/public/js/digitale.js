@@ -1995,9 +1995,12 @@ async function eseguiMossa(comando) {
     // dati interi, ed e' l'autorita' comunque.
     if (motivo0 && !prova0.rotto && !/non bastano/i.test(motivo0)) { flash(motivo0); return false; }
   }
-  const tiri = alTav ? [] : null;
+  // I DADI DICHIARATI solo per le mosse che ne chiedono uno a chi gioca (`provaDi`). Una lista vuota
+  // dice al motore «li tirate voi»: mandata anche alla notte, con «dadi della notte: l'app», il motore
+  // non tirava da se' e chiedeva un dado per ogni attacco — le finestre dei dadi subito dopo la Minaccia.
+  const p = alTav ? azioni.provaDi(G(), comando) : null;
+  const tiri = p ? [] : null;
   if (alTav) {
-    const p = azioni.provaDi(G(), comando);
     if (p) {
       // LA STANZA SI LEGGE PRIMA DEL TIRO. Il dado d'ingresso si chiede prima di
       // mandare la mossa, ma la descrizione della tessera nasce con la mossa:
