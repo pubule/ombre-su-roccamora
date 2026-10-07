@@ -19,7 +19,7 @@
 // che rende una serata rigiocabile senza cambiare una riga di regole.
 //
 // Contesto esplicito `g = { ep, comune, sp, partita }`.
-import { adiacGlob, camminoGlob, celleAdiacLibere, occupati, nk } from './griglia.js';
+import { adiacGlob, camminoGlob, celleAdiacLibere, occupati, nk, esploraMosse } from './griglia.js';
 import { eroe, nemStat, saluteMax, primo, statoScortati, specScort, difesaDi } from './stat.js';
 import { fineRound } from './regole.js';
 import { specOrologio, avanzaOrologio, avanzaRogo, avanzaCancellazione,
@@ -65,6 +65,25 @@ function colpisciPng(g, nomeNemico, iPng, dan, tot, dif) {
 // Il piano del turno. `differito` = al tavolo i dadi li tira il tavolo durante
 // l'animazione, quindi il piano porta solo l'INTENZIONE e i colpi restano da
 // risolvere (ci pensa `risolviResto`).
+// NESSUNA CASELLA ACCANTO A UN EROE E' RAGGIUNGIBILE: un eroe fermo sulla porta, le caselle attorno
+// agli altri prese da altri nemici. Prima il nemico restava fermo per round interi (Ep.1, uno sgherro
+// chiuso in T6 dal 07/10/2026), mentre la regola dice che si avvicina all'eroe piu' vicino. Va verso la
+// casella raggiungibile piu' vicina a piedi a un eroe, solo se e' piu' vicina di dove sta gia'.
+function avvicinamento(g, da, mete, blocco, bloccoArrivo) {
+  const info = esploraMosse(g, da, 99, blocco);
+  const vicinanza = (n) => Math.min(...mete.map((m) => distGlob(g, n, m) || Infinity));
+  let meglio = null, dMeglio = vicinanza(da);
+  for (const [k, v] of Object.entries(info)) {
+    if (v.reveal || !v.dist || bloccoArrivo.has(k)) continue;
+    const d = vicinanza(v.node);
+    if (d < dMeglio || (d === dMeglio && meglio && v.dist < info[meglio].dist)) { dMeglio = d; meglio = k; }
+  }
+  if (!meglio) return null;
+  const path = [];
+  for (let c = meglio; c && info[c].dist; c = info[c].prev) path.unshift(info[c].node);
+  return path;
+}
+
 export function pianoNemici(g, caso, differito) {
   const sp = g.sp;
   const vivi = () => g.partita.party.filter((nm) => (sp.vite[nm] ?? 0) > 0);
@@ -123,6 +142,7 @@ export function pianoNemici(g, caso, differito) {
         const p = camminoGlob(g, n.pos, cel, blocco);
         if (p.length && p.length < bestLen) { bestLen = p.length; best = p; }
       }
+      if (!best) best = avvicinamento(g, n.pos, bersagli.map((nm) => sp.eroiPos[nm]), blocco, bloccoArrivo);
       if (best) {
         let k = Math.min(st.mov, best.length) - 1;
         while (k >= 0 && bloccoArrivo.has(nk(best[k]))) k -= 1;   // arretra fino a una casella libera
