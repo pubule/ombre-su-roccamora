@@ -51,6 +51,8 @@ for (let giro = 0; giro < 800 && !(campioni.length >= 6 && finita); giro++) {
   // le carte che chiedono qualcosa prima di «continua»: una prova d'insidia, la porta di un Favore
   if (await pg.locator('#ins-risolvi').isVisible().catch(() => false)) await pg.click('#ins-risolvi').catch(() => {});
   if (await pg.locator('.fav-scelta').count()) await pg.locator('.fav-scelta').first().click().catch(() => {});
+  // «quale eroe affronta l'insidia?» (una carta che colpisce un eroe solo): senza risposta il test restava appeso
+  if (await pg.locator('.scelta-btn[data-id]:not([data-id=""])').count()) await pg.locator('.scelta-btn[data-id]:not([data-id=""])').first().click().catch(() => {});
   const msg = pg.locator('#ok-msg');
   if (await msg.count() && await msg.isVisible()) await msg.click().catch(() => {});
   if (await pg.locator('.dadi-overlay [data-tot="7"]').count()) await pg.click('.dadi-overlay [data-tot="7"]').catch(() => {});

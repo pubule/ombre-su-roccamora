@@ -1285,6 +1285,29 @@ async function bersagliInsidia(rules) {
   const chi = await scegli('Quale eroe affronta l’insidia?', vivi.map((nm) => ({ id: nm, label: primo(nm) })));
   return chi ? [chi] : null;
 }
+// LA PROVA D'INSIDIA, TIRATA E RACCONTATA. Con «dadi della notte: l'app» il tiro lo fa l'app senza
+// finestra dei dadi, e sotto la carta restava solo una riga grigia («elena: prova superata.») con
+// l'avviso «risolvete la prova» ancora acceso: sembrava che la carta fosse tornata e il tiro non ci fosse
+// stato (visto al tavolo, 07/10/2026, due insidie di fila). Ora ogni riga dice chi, cosa, il tiro e
+// la soglia, e va anche nel diario. null = annullato a meta'.
+async function risolviInsidia(carta, req) {
+  const targets = await bersagliInsidia(carta.rules);
+  if (!targets) return null;
+  const soglia = ctx.comune.regole.diff[req.diff];
+  const esiti = targets.length ? [] : ['Nessun eroe su tessera ESPOSTA: nessun effetto.'];
+  for (const t of targets) {
+    const e = eroe(t);
+    const r = await tiroInsidia({ titolo: `${req.stat.toUpperCase()} — ${primo(t)}`, diffLabel: req.diff, soglia, eroe: ritrattoDi(t),
+      bonus: [{ label: req.stat.toUpperCase(), val: e[req.stat] }, ...bonusVoce(t, req.stat)] });
+    if (r == null) return null;
+    esiti.push(`${primo(t)} prova ${req.stat.toUpperCase()} (${req.diff}): 🎲 ${r.tot} contro ${soglia}, ${r.ok ? 'superata' : 'fallita'}.`);
+    if (!r.ok) esiti.push(...applicaConseguenza(t, carta.rules));
+  }
+  const nome = String(carta.title || carta.titolo || 'Insidia').replace(/^Insidia — /, '');
+  SP().log.push(...esiti.map((x) => `${nome}: ${x}`));
+  return esiti;
+}
+const esitiInsidiaHtml = (esiti) => esiti.map((x) => `<p class="esito-ins ${/superata/.test(x) ? 'ok-txt' : /fallita|danno|stordimento/.test(x) ? 'ko-txt' : ''}">${esc(x)}</p>`).join('');
 // La notte sta agendo altrove: qui si guarda. Non e' una schermata vuota per
 // pigrizia — e' l'unica cosa onesta da mostrare a chi non ha nulla da toccare.
 
@@ -1346,14 +1369,14 @@ function schermataCarta(aperta, alOk = null) {
         : `${arteStanza(aperta.tessera)}
            <p class="mt">${rendi(aperta.testo || '')}</p>`}
       ${(aperta.annunci || []).map((a) => `<p class="mt"><b>${esc(a)}</b></p>`).join('')}
-      <div id="ins-esito">${risolta ? aperta.esiti.map((x) => `<p class="nota mt">${esc(x)}</p>`).join('') : ''}</div>
+      <div id="ins-esito">${risolta ? esitiInsidiaHtml(aperta.esiti) : ''}</div>
     </div>
     ${fav ? (arbitro()
       ? `<p class="nota mt">Scegliete quale porta si apre:</p>
          <div class="btn-riga">${fav.candidati.map((c) => `<button class="btn pieno fav-scelta" data-t="${esc(c.dest)}">${esc((tileDi(c.da) || {}).nome || c.da)} · porta a ${DIR[c.dir] || c.dir}</button>`).join('')}</div>`
       : '<p class="nota mt center">i giocatori scelgono quale porta aprire…</p>')
     : arbitro()
-      ? `${req ? '<p class="nota mt"><b class="ko-txt">Insidia:</b> risolvete la prova prima di continuare.</p>' : ''}
+      ? `${req ? '<p class="nota mt" id="ins-nota"><b class="ko-txt">Insidia:</b> risolvete la prova prima di continuare.</p>' : ''}
          <div class="btn-riga">
            ${req ? '<button class="btn pieno" id="ins-risolvi">🎲 risolvete la prova richiesta</button>' : ''}
            <button class="btn pieno" id="ok-msg"${req ? ' style="display:none"' : ''}>continua</button>
@@ -1396,21 +1419,12 @@ function schermataCarta(aperta, alOk = null) {
   const rb = app.querySelector('#ins-risolvi');
   if (rb) rb.onclick = async () => {
     rb.disabled = true;
-    const targets = await bersagliInsidia(aperta.carta.rules);
-    if (!targets) { rb.disabled = false; return; }
-    const esiti = targets.length ? [] : ['Nessun eroe su tessera ESPOSTA: nessun effetto.'];
-    for (const t of targets) {
-      const e = eroe(t);
-      const r = await tiroInsidia({ titolo: `${req.stat.toUpperCase()} — ${primo(t)}`, diffLabel: req.diff,
-        soglia: ctx.comune.regole.diff[req.diff], eroe: ritrattoDi(t),
-        bonus: [{ label: req.stat.toUpperCase(), val: e[req.stat] }, ...bonusVoce(t, req.stat)] });
-      if (r == null) { rb.disabled = false; return; }
-      if (r.ok) esiti.push(`${primo(t)}: prova superata.`);
-      else esiti.push(...applicaConseguenza(t, aperta.carta.rules));
-    }
+    const esiti = await risolviInsidia(aperta.carta, req);
+    if (!esiti) { rb.disabled = false; return; }
     aperta.esiti = esiti;
     salvaP();
-    app.querySelector('#ins-esito').innerHTML = esiti.map((x) => `<p class="nota mt">${esc(x)}</p>`).join('');
+    app.querySelector('#ins-esito').innerHTML = esitiInsidiaHtml(esiti);
+    app.querySelector('#ins-nota')?.remove();
     rb.style.display = 'none';
     app.querySelector('#ok-msg').style.display = '';
   };
@@ -1428,7 +1442,7 @@ function messaggioCarta(titolo, carta, annunci) {
         ${annunci.map((a) => `<p class="mt"><b>${esc(a)}</b></p>`).join('')}
         <div id="ins-esito"></div>
       </div>
-      ${req && arbitro() ? '<p class="nota mt"><b class="ko-txt">Insidia:</b> risolvete la prova prima di continuare.</p>' : ''}
+      ${req && arbitro() ? '<p class="nota mt" id="ins-nota"><b class="ko-txt">Insidia:</b> risolvete la prova prima di continuare.</p>' : ''}
       ${arbitro() ? `<div class="btn-riga">
         ${req ? '<button class="btn pieno" id="ins-risolvi">🎲 risolvete la prova richiesta</button>' : ''}
         <button class="btn pieno" id="ok-msg"${req ? ' style="display:none"' : ''}>continua</button>
@@ -1450,20 +1464,11 @@ function messaggioCarta(titolo, carta, annunci) {
     const rb = app.querySelector('#ins-risolvi');
     if (rb) rb.onclick = async () => {
       rb.disabled = true;
-      const targets = await bersagliInsidia(carta.rules);
-      if (!targets) { rb.disabled = false; return; }
-      const esiti = targets.length ? [] : ['Nessun eroe su tessera ESPOSTA: nessun effetto.'];
-      for (const t of targets) {
-        const e = eroe(t);
-        const r = await tiroInsidia({ titolo: `${req.stat.toUpperCase()} — ${primo(t)}`, diffLabel: req.diff,
-          soglia: ctx.comune.regole.diff[req.diff], eroe: ritrattoDi(t),
-          bonus: [{ label: req.stat.toUpperCase(), val: e[req.stat] }, ...bonusVoce(t, req.stat)] });
-        if (r == null) { rb.disabled = false; return; }
-        if (r.ok) esiti.push(`${primo(t)}: prova superata.`);
-        else esiti.push(...applicaConseguenza(t, carta.rules));
-      }
+      const esiti = await risolviInsidia(carta, req);
+      if (!esiti) { rb.disabled = false; return; }
       salvaP();
-      app.querySelector('#ins-esito').innerHTML = esiti.map((x) => `<p class="nota mt">${esc(x)}</p>`).join('');
+      app.querySelector('#ins-esito').innerHTML = esitiInsidiaHtml(esiti);
+      app.querySelector('#ins-nota')?.remove();
       rb.style.display = 'none';
       app.querySelector('#ok-msg').style.display = '';   // sblocca «continua» solo dopo la prova
     };

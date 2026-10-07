@@ -1843,3 +1843,6 @@ canvas.calore { z-index: 2; pointer-events: none; opacity: .32; }
   .dv, .manca-d { font-size: 12px; } .danno-d { font-size: 15px; }
   .duello .tb-roll { font-size: 10px; margin: 0; }
 }
+
+/* l'esito di una prova d'insidia: si legge, non e' una nota a margine */
+.esito-ins { margin: 8px 0 0; font-size: 17px; padding: 6px 10px; border-left: 3px solid currentColor; background: rgba(0,0,0,.25); }
